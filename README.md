@@ -1,5 +1,7 @@
 # Command & Conquer Generals: Zero Hour — macOS, iOS & iPadOS
 
+<img width="500" height="281" alt="IMG_3457_500" src="https://github.com/user-attachments/assets/aeaf6692-36e6-40c8-b9f8-8066d014ec4b" />
+
 **Zero Hour running natively on Apple Silicon Macs, iPhone, and iPad** — campaign,
 skirmish, and Generals Challenge, with touch controls built for RTS (tap-select,
 drag-box, long-press deselect, two-finger scroll, pinch zoom). No emulation: this
