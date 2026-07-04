@@ -37,7 +37,7 @@ export VULKAN_SDK=$HOME/VulkanSDK/<version>/macOS   # add to your shell profile
 Clone, build, get assets, play:
 
 ```sh
-git clone https://github.com/ammaarreshi/GeneralsX-apple.git GeneralsX
+git clone https://github.com/ammaarreshi/Generals-Mac-iOS-iPad.git GeneralsX
 cd GeneralsX
 ./scripts/build/macos/build-macos-zh.sh     # checks deps, configures, builds
 ./scripts/build/macos/deploy-macos-zh.sh    # creates ~/GeneralsX/GeneralsZH + run.sh
