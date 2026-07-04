@@ -53,11 +53,315 @@
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
+#if defined(__APPLE__)
+#include <TargetConditionals.h>
+#endif
 
 // Extern globals for input devices (set by GameClient)
 extern Mouse *TheMouse;
 extern Keyboard *TheKeyboard;
 extern GameWindowManager *TheWindowManager;
+
+#if defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE
+#include <atomic>
+
+// ---------------------------------------------------------------------------
+// iOS app lifecycle
+//
+// iOS suspends the process when the app leaves the foreground. Any GPU work
+// submitted around suspension stalls on drawable acquisition (MoltenVK waits
+// out a timeout per present), which surfaces as multi-second input hangs right
+// after resuming. SDL warns that lifecycle events can arrive outside the
+// normal poll cycle, so they are captured in an event watcher that fires
+// immediately on the delivering thread; the engine update loop checks the
+// flag and skips simulation + rendering while backgrounded.
+// ---------------------------------------------------------------------------
+// Two independent reasons to halt the render/sim loop on iOS:
+//  - BACKGROUNDED (home / switched away): the process is about to be suspended.
+//  - INACTIVE (multitasking switcher open, Control Center, a notification
+//    banner): iOS snapshots the window and owns the CAMetalLayer drawable during
+//    this window — and crucially, opening the app switcher fires resign-active
+//    WITHOUT a full background transition.
+// Acquiring a Metal drawable during EITHER state fights iOS for the layer; across
+// repeated suspend/switcher cycles MoltenVK is driven into an unrecoverable
+// surface state and the app crashes (the reported "crashes after backgrounding /
+// multitasking a few times"). Pause whenever either is set.
+static std::atomic<bool> s_appBackgrounded{false};
+static std::atomic<bool> s_appInactive{false};
+
+static inline bool iosShouldPauseRendering()
+{
+	return s_appBackgrounded.load() || s_appInactive.load();
+}
+
+static bool SDLCALL iosLifecycleWatcher(void *userdata, SDL_Event *event)
+{
+	switch (event->type) {
+		case SDL_EVENT_WILL_ENTER_BACKGROUND:
+		case SDL_EVENT_DID_ENTER_BACKGROUND:
+			s_appBackgrounded.store(true);
+			break;
+		case SDL_EVENT_DID_ENTER_FOREGROUND:
+			s_appBackgrounded.store(false);
+			break;
+		// Resign/become active. On iOS, SDL maps applicationWillResignActive ->
+		// window focus lost and applicationDidBecomeActive -> window focus gained.
+		// Stay paused until fully active again (focus regained), which arrives
+		// after DID_ENTER_FOREGROUND.
+		case SDL_EVENT_WINDOW_FOCUS_LOST:
+			s_appInactive.store(true);
+			break;
+		case SDL_EVENT_WINDOW_FOCUS_GAINED:
+			s_appInactive.store(false);
+			break;
+		default:
+			break;
+	}
+	return true;
+}
+
+// ---------------------------------------------------------------------------
+// iOS touch -> mouse gesture translation
+//
+// SDL's automatic touch-mouse synthesis is disabled on iOS (SDL3Main.cpp sets
+// SDL_HINT_TOUCH_MOUSE_EVENTS=0); every mouse event the game sees on iOS is
+// synthesized here, through the same SDL3Mouse::addSDLEvent path real mice use.
+//
+// Gestures (matching the game's stock control scheme, which is LMB-centric):
+//   1 finger tap/drag     -> left button click / drag (select, command, drag-box)
+//   1 finger long-press   -> right button click (deselect), if finger stays put
+//   2 finger drag         -> right-button drag at the centroid (camera scroll)
+//   2 finger pinch        -> mouse wheel (camera zoom)
+// ---------------------------------------------------------------------------
+namespace {
+
+struct TouchState {
+	enum Phase {
+		IDLE,        // no fingers tracked
+		PENDING,     // finger1 down, gesture identity not yet known, nothing sent
+		DRAGGING,    // finger1 drag in progress, LMB held
+		LONGPRESSED, // long-press fired (RMB click sent), swallow until lift
+		PAN          // two-finger camera pan, RMB held
+	};
+
+	Phase phase = IDLE;
+	SDL_FingerID finger1 = 0;
+	SDL_FingerID finger2 = 0;
+	float downX = 0.0f, downY = 0.0f;   // finger1 down position (window points)
+	float lastX = 0.0f, lastY = 0.0f;   // finger1 latest position
+	float panX = 0.0f, panY = 0.0f;     // pan centroid
+	float pinchDist = 0.0f;             // finger distance at last wheel step
+	Uint64 downTicks = 0;
+	float f1x = 0.0f, f1y = 0.0f, f2x = 0.0f, f2y = 0.0f; // normalized per finger
+};
+
+TouchState s_touch;
+
+const Uint64 LONG_PRESS_MS = 600;
+const float PINCH_STEP_RATIO = 0.06f;  // 6% distance change per wheel tick
+const float TAP_DEAD_ZONE_PX = 8.0f;   // jitter below this keeps a tap a tap
+
+void sendSyntheticMouse(SDL3Mouse *mouse, SDL_Window *window, Uint32 type,
+                        float x, float y, Uint8 button = 0, float wheelY = 0.0f)
+{
+	// The windowID must be valid: SDL3Mouse::scaleMouseCoordinates() looks the
+	// window up by id to map window points into the game's internal resolution,
+	// and silently skips scaling when the lookup fails.
+	const SDL_WindowID windowID = SDL_GetWindowID(window);
+
+	SDL_Event ev;
+	SDL_zero(ev);
+	ev.type = type;
+	switch (type) {
+		case SDL_EVENT_MOUSE_MOTION:
+			ev.motion.windowID = windowID;
+			ev.motion.x = x;
+			ev.motion.y = y;
+			break;
+		case SDL_EVENT_MOUSE_BUTTON_DOWN:
+		case SDL_EVENT_MOUSE_BUTTON_UP:
+			ev.button.windowID = windowID;
+			ev.button.button = button;
+			ev.button.down = (type == SDL_EVENT_MOUSE_BUTTON_DOWN);
+			ev.button.clicks = 1;
+			ev.button.x = x;
+			ev.button.y = y;
+			break;
+		case SDL_EVENT_MOUSE_WHEEL:
+			ev.wheel.windowID = windowID;
+			ev.wheel.x = 0.0f;
+			ev.wheel.y = wheelY;
+			ev.wheel.mouse_x = x;
+			ev.wheel.mouse_y = y;
+			break;
+	}
+	mouse->addSDLEvent(&ev);
+}
+
+void beginPan(SDL3Mouse *mouse, SDL_Window *window, int winW, int winH)
+{
+	s_touch.panX = (s_touch.f1x + s_touch.f2x) * 0.5f * (float)winW;
+	s_touch.panY = (s_touch.f1y + s_touch.f2y) * 0.5f * (float)winH;
+	const float dx = (s_touch.f1x - s_touch.f2x) * (float)winW;
+	const float dy = (s_touch.f1y - s_touch.f2y) * (float)winH;
+	s_touch.pinchDist = SDL_sqrtf(dx * dx + dy * dy);
+	sendSyntheticMouse(mouse, window, SDL_EVENT_MOUSE_MOTION, s_touch.panX, s_touch.panY);
+	sendSyntheticMouse(mouse, window, SDL_EVENT_MOUSE_BUTTON_DOWN,
+	                   s_touch.panX, s_touch.panY, SDL_BUTTON_RIGHT);
+	s_touch.phase = TouchState::PAN;
+}
+
+void handleTouchEvent(SDL3Mouse *mouse, SDL_Window *window, const SDL_Event &event)
+{
+	int winW = 0, winH = 0;
+	SDL_GetWindowSize(window, &winW, &winH);
+	const float px = event.tfinger.x * (float)winW;
+	const float py = event.tfinger.y * (float)winH;
+
+	switch (event.type) {
+	case SDL_EVENT_FINGER_DOWN:
+		if (s_touch.phase == TouchState::IDLE) {
+			// Defer all BUTTON output: a finger landing could become a tap, a
+			// drag-box, a long-press, or the first finger of a camera pan. A
+			// premature LMB down+up is a real click to the game (e.g. it sets a
+			// rally point when a production building is selected).
+			s_touch.finger1 = event.tfinger.fingerID;
+			s_touch.phase = TouchState::PENDING;
+			s_touch.downX = s_touch.lastX = px;
+			s_touch.downY = s_touch.lastY = py;
+			s_touch.f1x = event.tfinger.x;
+			s_touch.f1y = event.tfinger.y;
+			s_touch.downTicks = SDL_GetTicks();
+			// Move the cursor to the touch point NOW (motion clicks nothing, so the
+			// deferred-tap protection is intact). This lets the GUI process hover
+			// over the next frame(s) before the tap commits — hover-driven widgets
+			// (e.g. the Generals Challenge general buttons, which are checkboxes
+			// that ignore a click unless WIN_STATE_HILITED was set by a prior
+			// mouse-enter) then accept the click. Real mice hover before clicking;
+			// without this, a synthetic tap teleports + clicks in one instant and
+			// the widget is never hilited, so only the default/first item responds.
+			sendSyntheticMouse(mouse, window, SDL_EVENT_MOUSE_MOTION, px, py);
+		}
+		else if (s_touch.phase == TouchState::PENDING) {
+			// Second finger before the first committed to anything: pure pan,
+			// no left-click ever happened.
+			s_touch.finger2 = event.tfinger.fingerID;
+			s_touch.f2x = event.tfinger.x;
+			s_touch.f2y = event.tfinger.y;
+			beginPan(mouse, window, winW, winH);
+		}
+		else if (s_touch.phase == TouchState::DRAGGING) {
+			// Second finger during a live drag: finish the drag-box, then pan.
+			s_touch.finger2 = event.tfinger.fingerID;
+			s_touch.f2x = event.tfinger.x;
+			s_touch.f2y = event.tfinger.y;
+			sendSyntheticMouse(mouse, window, SDL_EVENT_MOUSE_BUTTON_UP,
+			                   s_touch.lastX, s_touch.lastY, SDL_BUTTON_LEFT);
+			beginPan(mouse, window, winW, winH);
+		}
+		// LONGPRESSED / PAN with extra fingers: ignored
+		break;
+
+	case SDL_EVENT_FINGER_MOTION:
+		if (event.tfinger.fingerID == s_touch.finger1) {
+			s_touch.f1x = event.tfinger.x;
+			s_touch.f1y = event.tfinger.y;
+			s_touch.lastX = px;
+			s_touch.lastY = py;
+		} else if (s_touch.phase == TouchState::PAN && event.tfinger.fingerID == s_touch.finger2) {
+			s_touch.f2x = event.tfinger.x;
+			s_touch.f2y = event.tfinger.y;
+		} else {
+			break;
+		}
+
+		if (s_touch.phase == TouchState::PENDING && event.tfinger.fingerID == s_touch.finger1) {
+			const float moved = SDL_fabsf(px - s_touch.downX) + SDL_fabsf(py - s_touch.downY);
+			if (moved >= TAP_DEAD_ZONE_PX) {
+				// Commit to a drag: anchor the LMB at the original touch point so
+				// drag-boxes start where the finger first landed.
+				sendSyntheticMouse(mouse, window, SDL_EVENT_MOUSE_MOTION, s_touch.downX, s_touch.downY);
+				sendSyntheticMouse(mouse, window, SDL_EVENT_MOUSE_BUTTON_DOWN,
+				                   s_touch.downX, s_touch.downY, SDL_BUTTON_LEFT);
+				sendSyntheticMouse(mouse, window, SDL_EVENT_MOUSE_MOTION, px, py);
+				s_touch.phase = TouchState::DRAGGING;
+			}
+		}
+		else if (s_touch.phase == TouchState::DRAGGING && event.tfinger.fingerID == s_touch.finger1) {
+			sendSyntheticMouse(mouse, window, SDL_EVENT_MOUSE_MOTION, px, py);
+		}
+		else if (s_touch.phase == TouchState::PAN) {
+			const float cx = (s_touch.f1x + s_touch.f2x) * 0.5f * (float)winW;
+			const float cy = (s_touch.f1y + s_touch.f2y) * 0.5f * (float)winH;
+			sendSyntheticMouse(mouse, window, SDL_EVENT_MOUSE_MOTION, cx, cy);
+			s_touch.panX = cx;
+			s_touch.panY = cy;
+
+			const float dx = (s_touch.f1x - s_touch.f2x) * (float)winW;
+			const float dy = (s_touch.f1y - s_touch.f2y) * (float)winH;
+			const float dist = SDL_sqrtf(dx * dx + dy * dy);
+			if (s_touch.pinchDist > 1.0f) {
+				const float ratio = dist / s_touch.pinchDist;
+				if (ratio > 1.0f + PINCH_STEP_RATIO) {
+					sendSyntheticMouse(mouse, window, SDL_EVENT_MOUSE_WHEEL, cx, cy, 0, 1.0f);
+					s_touch.pinchDist = dist;
+				} else if (ratio < 1.0f - PINCH_STEP_RATIO) {
+					sendSyntheticMouse(mouse, window, SDL_EVENT_MOUSE_WHEEL, cx, cy, 0, -1.0f);
+					s_touch.pinchDist = dist;
+				}
+			}
+		}
+		break;
+
+	case SDL_EVENT_FINGER_UP:
+	case SDL_EVENT_FINGER_CANCELED:
+		if (event.tfinger.fingerID != s_touch.finger1 &&
+		    !(s_touch.phase == TouchState::PAN && event.tfinger.fingerID == s_touch.finger2)) {
+			break;
+		}
+		switch (s_touch.phase) {
+			case TouchState::PENDING:
+				// Clean tap: deliver the full click at the exact press position.
+				sendSyntheticMouse(mouse, window, SDL_EVENT_MOUSE_MOTION, s_touch.downX, s_touch.downY);
+				sendSyntheticMouse(mouse, window, SDL_EVENT_MOUSE_BUTTON_DOWN,
+				                   s_touch.downX, s_touch.downY, SDL_BUTTON_LEFT);
+				sendSyntheticMouse(mouse, window, SDL_EVENT_MOUSE_BUTTON_UP,
+				                   s_touch.downX, s_touch.downY, SDL_BUTTON_LEFT);
+				break;
+			case TouchState::DRAGGING:
+				sendSyntheticMouse(mouse, window, SDL_EVENT_MOUSE_BUTTON_UP, px, py, SDL_BUTTON_LEFT);
+				break;
+			case TouchState::PAN:
+				sendSyntheticMouse(mouse, window, SDL_EVENT_MOUSE_BUTTON_UP,
+				                   s_touch.panX, s_touch.panY, SDL_BUTTON_RIGHT);
+				break;
+			default:
+				break;
+		}
+		s_touch.phase = TouchState::IDLE;
+		break;
+	}
+}
+
+// Called once per engine frame (not just per touch event): a perfectly
+// stationary finger produces no SDL events, so the long-press timer must be
+// polled from the frame loop or it would never fire.
+void updateTouchLongPress(SDL3Mouse *mouse, SDL_Window *window)
+{
+	if (s_touch.phase == TouchState::PENDING &&
+	    (SDL_GetTicks() - s_touch.downTicks) >= LONG_PRESS_MS) {
+		// No LMB was sent yet (deferred), so this is a pure right-click.
+		sendSyntheticMouse(mouse, window, SDL_EVENT_MOUSE_MOTION, s_touch.downX, s_touch.downY);
+		sendSyntheticMouse(mouse, window, SDL_EVENT_MOUSE_BUTTON_DOWN,
+		                   s_touch.downX, s_touch.downY, SDL_BUTTON_RIGHT);
+		sendSyntheticMouse(mouse, window, SDL_EVENT_MOUSE_BUTTON_UP,
+		                   s_touch.downX, s_touch.downY, SDL_BUTTON_RIGHT);
+		s_touch.phase = TouchState::LONGPRESSED;
+	}
+}
+
+} // anonymous namespace
+#endif // TARGET_OS_IPHONE
 
 namespace {
 
@@ -184,6 +488,12 @@ void SDL3GameEngine::init(void)
 	m_IsInitialized = true;
 	m_IsActive = true;
 
+#if defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE
+	// Lifecycle events can fire outside the poll cycle on iOS; catch them
+	// immediately so rendering halts before the process is suspended.
+	SDL_AddEventWatch(iosLifecycleWatcher, nullptr);
+#endif
+
 	fprintf(stderr, "INFO: SDL3GameEngine using pre-initialized window\n");
 
 	// Call parent init to initialize game subsystems
@@ -210,6 +520,16 @@ void SDL3GameEngine::reset(void)
 void SDL3GameEngine::update(void)
 {
 	pollSDL3Events();
+#if defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE
+	// Pause sim + render while backgrounded OR inactive (see iosLifecycleWatcher).
+	// Acquiring a Metal drawable in these windows fights iOS for the layer and,
+	// across repeated suspend/switcher cycles, crashes MoltenVK. Keep polling so
+	// we still catch the resume events; just don't touch the GPU.
+	if (iosShouldPauseRendering()) {
+		SDL_Delay(50);
+		return;
+	}
+#endif
 	GameEngine::update();
 }
 
@@ -291,6 +611,25 @@ void SDL3GameEngine::pollSDL3Events(void)
 				}
 				break;
 
+#if defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE
+			// App suspension/resume: mirror the desktop focus handling so audio
+			// and mouse state pause cleanly (the render gate lives in update()).
+			case SDL_EVENT_DID_ENTER_BACKGROUND:
+				m_IsActive = false;
+				if (TheMouse) {
+					TheMouse->loseFocus();
+				}
+				break;
+
+			case SDL_EVENT_DID_ENTER_FOREGROUND:
+				m_IsActive = true;
+				if (TheMouse) {
+					TheMouse->regainFocus();
+					TheMouse->refreshCursorCapture();
+				}
+				break;
+#endif
+
 			case SDL_EVENT_WINDOW_MOUSE_ENTER:
 				if (TheMouse) {
 					TheMouse->onCursorMovedInside();
@@ -323,6 +662,14 @@ void SDL3GameEngine::pollSDL3Events(void)
 			case SDL_EVENT_MOUSE_BUTTON_DOWN:
 			case SDL_EVENT_MOUSE_BUTTON_UP:
 			case SDL_EVENT_MOUSE_WHEEL:
+#if defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE
+				// Belt-and-braces: drop SDL's own touch-synthesized mouse events.
+				// The gesture translator owns all touch->mouse conversion; double
+				// delivery would produce phantom second clicks.
+				if (event.motion.which == SDL_TOUCH_MOUSEID) {
+					break;
+				}
+#endif
 				// Fighter19 pattern: direct addSDLEvent() call with raw SDL_Event
 				// GeneralsX @refactor felipebraz 16/02/2026 Simplified event routing
 				if (TheMouse) {
@@ -332,6 +679,20 @@ void SDL3GameEngine::pollSDL3Events(void)
 					}
 				}
 				break;
+
+#if defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE
+			case SDL_EVENT_FINGER_DOWN:
+			case SDL_EVENT_FINGER_MOTION:
+			case SDL_EVENT_FINGER_UP:
+			case SDL_EVENT_FINGER_CANCELED:
+				if (TheMouse && m_SDLWindow) {
+					SDL3Mouse* mouse = dynamic_cast<SDL3Mouse*>(TheMouse);
+					if (mouse) {
+						handleTouchEvent(mouse, m_SDLWindow, event);
+					}
+				}
+				break;
+#endif
 
 			case SDL_EVENT_WINDOW_RESIZED:
 				handleWindowEvent(event.window);
@@ -344,6 +705,16 @@ void SDL3GameEngine::pollSDL3Events(void)
 
 		updateTextInputState();
 	}
+
+#if defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE
+	// Poll the long-press timer every frame; a stationary finger emits no events.
+	if (TheMouse && m_SDLWindow) {
+		SDL3Mouse* touchMouse = dynamic_cast<SDL3Mouse*>(TheMouse);
+		if (touchMouse) {
+			updateTouchLongPress(touchMouse, m_SDLWindow);
+		}
+	}
+#endif
 }
 
 // GeneralsX @bugfix felipebraz 01/04/2026 Enable SDL text input only while an entry gadget owns focus.

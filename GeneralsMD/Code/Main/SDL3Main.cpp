@@ -31,6 +31,18 @@
 // SYSTEM INCLUDES
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_vulkan.h>
+#if defined(__APPLE__)
+#include <TargetConditionals.h>
+#endif
+#if defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE
+// On iOS, SDL renames main() to SDL_main and provides its own UIApplicationMain
+// bootstrap; the app lifecycle (suspend/resume, window) is owned by SDL.
+#include <SDL3/SDL_main.h>
+#include <cerrno>
+#include <sys/stat.h>
+#include <filesystem>
+#include <string>
+#endif
 #include <cstdlib>
 #include <cctype>
 #include <cstring>
@@ -241,6 +253,112 @@ int main(int argc, char* argv[])
 	__argc = argc;
 	__argv = argv;
 
+#if defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE
+	// Diagnostic capture: an icon-launched app's stderr goes nowhere we can read,
+	// so mirror it to a file in Library/Caches (purgeable, not user-visible). This
+	// lets us pull a full engine log after an on-device session — essential for
+	// debugging mode-specific issues (e.g. Generals Challenge radar/scripts) that
+	// only the user can reproduce. Pull with: devicectl ... copy from
+	// Library/Caches/generals-stderr.log. Remove once the relevant bugs are fixed.
+	{
+		const char *diagHome = getenv("HOME");
+		if (diagHome != nullptr) {
+			char diagPath[1024];
+			snprintf(diagPath, sizeof(diagPath), "%s/Library/Caches/generals-stderr.log", diagHome);
+			freopen(diagPath, "w", stderr);
+			setvbuf(stderr, nullptr, _IOLBF, 0);  // line-buffered so a crash still flushes recent lines
+		}
+	}
+
+	// The engine resolves all game data relative to the working directory.
+	// Preferred layout: assets ship read-only INSIDE the signed app bundle
+	// (<bundle>/GameData), the iOS-sanctioned home for app resources — the
+	// install is then fully self-contained. Dev builds packaged without
+	// assets fall back to the Documents folder (Files-app accessible).
+	// User data (saves, Options.ini) always lives in Library/Application
+	// Support via the engine's user-data path; never in the bundle.
+	{
+		const char *home = getenv("HOME");
+
+		// <bundle>/GameData, derived from the executable path (argv[0])
+		char bundleData[1024] = {0};
+		if (argc > 0 && argv[0] != nullptr) {
+			const char *slash = strrchr(argv[0], '/');
+			if (slash != nullptr) {
+				const size_t dirLen = (size_t)(slash - argv[0]);
+				if (dirLen < sizeof(bundleData) - 16) {
+					memcpy(bundleData, argv[0], dirLen);
+					snprintf(bundleData + dirLen, sizeof(bundleData) - dirLen, "/GameData");
+				}
+			}
+		}
+
+		bool usingBundleData = false;
+		if (bundleData[0] != '\0' && access(bundleData, R_OK) == 0) {
+			if (chdir(bundleData) == 0) {
+				usingBundleData = true;
+				fprintf(stderr, "INFO: iOS working directory (bundle): %s\n", bundleData);
+			}
+		}
+		if (!usingBundleData && home != nullptr) {
+			char docs[1024];
+			snprintf(docs, sizeof(docs), "%s/Documents", home);
+			if (chdir(docs) != 0) {
+				fprintf(stderr, "WARNING: chdir(%s) failed: %s\n", docs, strerror(errno));
+			} else {
+				fprintf(stderr, "INFO: iOS working directory (Documents): %s\n", docs);
+			}
+		}
+
+		if (home != nullptr) {
+			// Keep DXVK's shader cache in Library/Caches: purgeable under
+			// storage pressure, excluded from iCloud backup, invisible in the
+			// Files app. Must be set before the d3d8 dylib loads.
+			char cacheDir[1024];
+			snprintf(cacheDir, sizeof(cacheDir), "%s/Library/Caches", home);
+			mkdir(cacheDir, 0755);
+			setenv("DXVK_STATE_CACHE_PATH", cacheDir, 0);
+
+			if (usingBundleData) {
+				// Seed default settings on first run (full detail instead of the
+				// 2003 auto-detect, which drops unknown GPUs to Low).
+				char userDataDir[1024], optionsPath[1024];
+				snprintf(userDataDir, sizeof(userDataDir),
+				         "%s/Library/Application Support/GeneralsX/GeneralsZH", home);
+				snprintf(optionsPath, sizeof(optionsPath), "%s/Options.ini", userDataDir);
+				if (access(optionsPath, F_OK) != 0 && access("DefaultOptions.ini", R_OK) == 0) {
+					std::error_code fsError;
+					std::filesystem::create_directories(userDataDir, fsError);
+					std::filesystem::copy_file("DefaultOptions.ini", optionsPath, fsError);
+					if (!fsError) {
+						fprintf(stderr, "INFO: Seeded default Options.ini\n");
+					}
+				}
+
+				// One-time tidy-up: remove asset copies from Documents now that
+				// the bundle carries them. Only known asset names are touched;
+				// anything user-placed stays.
+				char docs[1024];
+				snprintf(docs, sizeof(docs), "%s/Documents", home);
+				std::error_code fsError;
+				for (const auto &entry : std::filesystem::directory_iterator(docs, fsError)) {
+					const std::string name = entry.path().filename().string();
+					const bool isShippedAsset =
+						(name.size() > 4 && name.compare(name.size() - 4, 4, ".big") == 0) ||
+						name == "Data" || name == "Window" || name == "ZH_Generals" ||
+						name == "Maps" || name == "fonts" || name == "_CommonRedist" ||
+						name == "dxvk.conf" || name == "GeneralsXZH.dxvk-cache" ||
+						name == "GeneralsXZH_d3d9.log";
+					if (isShippedAsset) {
+						std::error_code removeError;
+						std::filesystem::remove_all(entry.path(), removeError);
+					}
+				}
+			}
+		}
+	}
+#endif
+
 	fprintf(stderr, "=================================================\n");
 	fprintf(stderr, " Command & Conquer Generals: Zero Hour (Linux)\n");
 	fprintf(stderr, " SDL3 + DXVK Build\n");
@@ -279,6 +397,12 @@ int main(int argc, char* argv[])
 		// This prevents LLVM SIGSEGV crash during Vulkan driver enumeration
 		// Must be done here, not in SDL3GameEngine::init() which is too late
 		fprintf(stderr, "INFO: Initializing SDL3 video subsystem...\n");
+#if defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE
+		// All mouse events are synthesized by the gesture translator in
+		// SDL3GameEngine.cpp; SDL's automatic touch->mouse synthesis would
+		// double-deliver finger 1 and fight the two-finger pan logic.
+		SDL_SetHint(SDL_HINT_TOUCH_MOUSE_EVENTS, "0");
+#endif
 		if (!SDL_InitSubSystem(SDL_INIT_VIDEO | SDL_INIT_AUDIO)) {
 			fprintf(stderr, "FATAL: Failed to initialize SDL3: %s\n", SDL_GetError());
 			return 1;
@@ -303,6 +427,12 @@ int main(int argc, char* argv[])
 		// Create SDL3 window with Vulkan support
 		fprintf(stderr, "INFO: Creating SDL3 Vulkan window...\n");
 		Uint32 windowFlags = SDL_WINDOW_VULKAN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_HIDDEN;  // Start hidden, show after D3D init
+#if defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE
+		// Request a native-resolution Metal drawable (e.g. 2868x1320 instead of the
+		// 956x440 point size). Without this the swapchain renders at point size and
+		// the display upscales 3x, visibly blurring textures and terrain.
+		windowFlags |= SDL_WINDOW_HIGH_PIXEL_DENSITY;
+#endif
 		TheSDL3Window = SDL_CreateWindow(
 			"Command & Conquer Generals: Zero Hour",
 			1024, 768,  // Default resolution
@@ -318,6 +448,56 @@ int main(int argc, char* argv[])
 		// Store window handle globally (cast SDL_Window* to HWND for compatibility)
 		ApplicationHWnd = (HWND)TheSDL3Window;
 		fprintf(stderr, "INFO: SDL3 window created successfully\n");
+
+#if defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE
+		// Match the game's internal resolution to the phone screen's aspect ratio.
+		// Without this the engine runs its 4:3 default inside the 19.5:9 display:
+		// pillarboxed picture and a skewed window->game coordinate mapping. Height
+		// stays at the engine's 600px design baseline (UI layouts assume >= 600);
+		// width follows the real aspect. Injected as -xres/-yres argv entries so
+		// the normal command-line path applies them (user-passed flags still win
+		// because the parser lets later arguments override earlier ones... ours go
+		// last, so only add them if the user didn't pass explicit -xres/-yres).
+		{
+			bool userSetRes = false;
+			for (int i = 1; i < __argc; ++i) {
+				if (strcmp(__argv[i], "-xres") == 0 || strcmp(__argv[i], "-yres") == 0) {
+					userSetRes = true;
+					break;
+				}
+			}
+			// Use the pixel size of the high-density drawable: the game renders
+			// 1:1 into the native-resolution swapchain, and fonts/UI rescale via
+			// the engine's resolution-aware font scaling (GlobalLanguage).
+			int winW = 0, winH = 0;
+			SDL_GetWindowSizeInPixels(TheSDL3Window, &winW, &winH);
+			if (!userSetRes && winW > 0 && winH > 0 && winW > winH) {
+				static char xresVal[16], yresVal[16];
+				static char xresFlag[] = "-xres";
+				static char yresFlag[] = "-yres";
+				const int yres = winH;
+				int xres = winW;
+				xres &= ~1;  // keep it even
+				snprintf(xresVal, sizeof(xresVal), "%d", xres);
+				snprintf(yresVal, sizeof(yresVal), "%d", yres);
+
+				static char* newArgv[64];
+				int n = 0;
+				for (int i = 0; i < __argc && n < 59; ++i) {
+					newArgv[n++] = __argv[i];
+				}
+				newArgv[n++] = xresFlag;
+				newArgv[n++] = xresVal;
+				newArgv[n++] = yresFlag;
+				newArgv[n++] = yresVal;
+				newArgv[n] = nullptr;
+				__argv = newArgv;
+				__argc = n;
+				fprintf(stderr, "INFO: iOS internal resolution set to %sx%s (window %dx%d)\n",
+				        xresVal, yresVal, winW, winH);
+			}
+		}
+#endif
 		}
 
 		// Call cross-platform game entry point
