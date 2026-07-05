@@ -9,9 +9,12 @@ is the real 2003 engine compiled for ARM64, rendering DirectX 8 →
 [DXVK](https://github.com/doitsujin/dxvk) → Vulkan →
 [MoltenVK](https://github.com/KhronosGroup/MoltenVK) → Metal.
 
-Built on EA's GPL v3 source release via [fbraz3/GeneralsX](https://github.com/fbraz3/GeneralsX)
-(which did the heavy lifting of the macOS/Linux port — this fork adds the iOS/iPadOS
-port and a set of engine fixes). The original GeneralsX README lives on the `upstream-main` branch.
+Built on EA's GPL v3 source release, standing on a chain of community work —
+[TheSuperHackers](https://github.com/TheSuperHackers/GeneralsGameCode),
+[Fighter19's original Unix port](https://github.com/Fighter19/CnC_Generals_Zero_Hour), and
+[fbraz3/GeneralsX](https://github.com/fbraz3/GeneralsX) — this fork adds the iOS/iPadOS
+port and a set of engine fixes. See [Lineage & credits](#lineage--credits) for who built
+what. The original GeneralsX README lives on the `upstream-main` branch.
 
 **No game assets are included or distributed.** You need your own copy
 ([Steam](https://store.steampowered.com/app/2732960/), ~$5 on sale).
@@ -85,13 +88,29 @@ iteration.
 - Backgrounding mid-game can occasionally crash on iOS — the lifecycle pause covers
   the common paths; a rare race remains. Save often.
 
-## License & credits
+## Lineage & credits
 
-Engine code **GPL v3** (EA's source release → GeneralsX → this fork). Game assets:
-not included, not licensed here. Credits: Westwood/EA Pacific (the game), EA (the
-source release), fbraz3/GeneralsX (the base port),
-TheSuperHackers/GeneralsGameCode (community mainline), DXVK, MoltenVK, SDL,
-OpenAL Soft, FFmpeg, Liberation Fonts.
+This port is the newest link in a long chain, and the earlier links did foundational
+work that this repo inherits everywhere:
+
+- **Westwood / EA Pacific** — the game; **EA** — the GPL v3 source release
+- **[TheSuperHackers/GeneralsGameCode](https://github.com/TheSuperHackers/GeneralsGameCode)** —
+  the community mainline: build modernization, VC6→modern toolchain, and much of the
+  cross-platform groundwork, including the FFmpeg video backend authored by
+  **[feliwir](https://github.com/feliwir)** (of [OpenSAGE](https://github.com/OpenSAGE/OpenSAGE)),
+  who also authored the OpenAL audio device work this port's audio stack builds on
+- **[Fighter19/CnC_Generals_Zero_Hour](https://github.com/Fighter19/CnC_Generals_Zero_Hour)** —
+  the original Unix/64-bit port: SDL3 platform management, C++17
+  filesystem/threading, Freetype/Fontconfig text rendering, and the DXVK approach
+  this renderer path descends from
+- **[fbraz3/GeneralsX](https://github.com/fbraz3/GeneralsX)** — the macOS/Linux port
+  this fork builds on directly, integrating and extending the above
+- **This fork** — the iOS/iPadOS port (arm64-ios cross-build, DXVK-on-iOS, touch
+  controls, app lifecycle, packaging) and engine fixes, offered upstream
+- **DXVK, MoltenVK, SDL, OpenAL Soft, FFmpeg, Liberation Fonts** — the load-bearing walls
+
+Engine code **GPL v3** (EA's source release → the chain above → this fork). Game
+assets: not included, not licensed here.
 
 This port was built as a human+AI collaboration: engineering by
 [Claude Code](https://claude.com/claude-code) (Anthropic's Claude, Fable model),
