@@ -34,9 +34,18 @@
 #if defined(__APPLE__)
 #include <TargetConditionals.h>
 #endif
-#if defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE
+// GeneralsX @build Android port 06/07/2026 Shared guard for the touch-first
+// mobile platforms (matches SDL3GameEngine.cpp). Both need SDL's entry-point
+// wrapper, both synthesize mouse events from touch, both pick the internal
+// resolution from the real display size.
+#if (defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE) || defined(__ANDROID__)
+#define SAGE_MOBILE_PLATFORM 1
+#endif
+#if defined(SAGE_MOBILE_PLATFORM)
 // On iOS, SDL renames main() to SDL_main and provides its own UIApplicationMain
 // bootstrap; the app lifecycle (suspend/resume, window) is owned by SDL.
+// On Android the same include renames main() to SDL_main, which the SDLActivity
+// Java shell (android/) invokes inside the app process after loading libmain.so.
 #include <SDL3/SDL_main.h>
 #include <cerrno>
 #include <sys/stat.h>
@@ -118,6 +127,7 @@ extern Int GameMain();
  *
  * GeneralsX @bugfix BenderAI 06/03/2026
  */
+#if !defined(__ANDROID__)
 static void FilterSoftwareVulkanICDs()
 {
 	if (getenv("VK_DRIVER_FILES") || getenv("VK_ICD_FILENAMES")) {
@@ -172,6 +182,7 @@ static void FilterSoftwareVulkanICDs()
 		fprintf(stderr, "WARNING: If startup crashes in libvulkan_lvp.so, set VK_DRIVER_FILES manually\n");
 	}
 }
+#endif // !__ANDROID__
 
 /**
  * FilterPipeWireOpenAL
@@ -198,7 +209,10 @@ static void FilterSoftwareVulkanICDs()
 static void FilterPipeWireOpenAL()
 {
 	// GeneralsX @bugfix Copilot 24/03/2026 PipeWire/OpenAL workaround is Linux-only; keep macOS CoreAudio backend selection untouched.
-	#if defined(__linux__)
+	// GeneralsX @build Android port 06/07/2026 Android defines __linux__ too, but has neither
+	// PipeWire nor PulseAudio — forcing ALSOFT_DRIVERS=pulse,alsa here would silently mute the
+	// device (openal-soft must pick its OpenSL/AAudio backends). Desktop Linux only.
+	#if defined(__linux__) && !defined(__ANDROID__)
 	// Crash: alcOpenDevice() hits 'movaps %xmm1,0x26260(%rbx)' — SSE movaps requires
 	// 16-byte alignment; a misaligned ALCdevice struct faults regardless of backend.
 	// Disabling CPU extensions forces openal-soft to use scalar code that has no
@@ -428,6 +442,96 @@ int main(int argc, char* argv[])
 	}
 #endif
 
+#if defined(__ANDROID__)
+	// GeneralsX @build Android port 06/07/2026 Android process environment.
+	//
+	// An Android app starts with cwd "/" and no HOME. The engine resolves game
+	// data relative to the working directory and user data via $HOME (XDG), so
+	// both are pointed into the app's own storage before anything else runs:
+	//
+	//   game data  -> <external files dir>            (user drops the .big files
+	//                  /storage/emulated/0/Android/data/<pkg>/files — reachable
+	//                  over USB/MTP and adb; the Java shell extracts bundled
+	//                  fonts/, dxvk.conf and DefaultOptions.ini there on launch)
+	//   user data  -> <internal files dir>/.local/share/GeneralsX/GeneralsZH
+	//                  (via HOME; survives reinstalls of external storage wipes,
+	//                  never user-visible, holds Options.ini + saves + maps cache)
+	//   DXVK cache -> <cache dir> (purgeable by the OS under storage pressure)
+	{
+		// Quiet DXVK's per-call d3d8 warnings at the source (same rationale as
+		// iOS: hundreds of MB per long session). dxvk.conf sets logLevel=none
+		// too; the env covers modules that read it before the config loads.
+		setenv("DXVK_LOG_LEVEL", "none", 0);
+
+		const char *internalPath = SDL_GetAndroidInternalStoragePath();
+		const char *externalPath = SDL_GetAndroidExternalStoragePath();
+		const char *cachePath    = SDL_GetAndroidCachePath();
+
+		if (internalPath != nullptr) {
+			// HOME drives the engine's user-data dir (GlobalData.cpp XDG branch)
+			// and registry.ini location (registryini.cpp). Internal storage: it
+			// must survive the user reshuffling game assets in external storage.
+			setenv("HOME", internalPath, 1);
+		}
+		if (cachePath != nullptr) {
+			// DXVK shader cache: regenerable, belongs in the OS-purgeable dir.
+			// Must be set before the d3d8 .so loads.
+			setenv("DXVK_STATE_CACHE_PATH", cachePath, 0);
+		}
+
+		// Mirror stderr into a file the user can pull without adb root: Android
+		// sends native stderr to /dev/null (only SDL_Log reaches logcat), and an
+		// engine this chatty is undebuggable blind. Keep the previous session's
+		// log — a session that ends in a low-memory kill leaves no crash report,
+		// so the prior log is often the only evidence.
+		if (externalPath != nullptr) {
+			char logPath[1024], prevPath[1024];
+			snprintf(logPath, sizeof(logPath), "%s/generals-stderr.log", externalPath);
+			snprintf(prevPath, sizeof(prevPath), "%s/generals-stderr-prev.log", externalPath);
+			rename(logPath, prevPath);
+			if (freopen(logPath, "w", stderr) != nullptr) {
+				setvbuf(stderr, nullptr, _IOLBF, 0);  // line-buffered: a crash still flushes recent lines
+			}
+		}
+
+		// Game data: prefer <external>/GameData when the user created it,
+		// otherwise the external files dir itself is the game root.
+		bool didChdir = false;
+		if (externalPath != nullptr) {
+			char gameData[1024];
+			snprintf(gameData, sizeof(gameData), "%s/GameData", externalPath);
+			if (access(gameData, R_OK) == 0 && chdir(gameData) == 0) {
+				didChdir = true;
+				fprintf(stderr, "INFO: Android working directory (GameData): %s\n", gameData);
+			} else if (chdir(externalPath) == 0) {
+				didChdir = true;
+				fprintf(stderr, "INFO: Android working directory (external files): %s\n", externalPath);
+			}
+		}
+		if (!didChdir) {
+			fprintf(stderr, "WARNING: could not enter game data directory (external storage unavailable?)\n");
+		}
+
+		// Seed default settings on first run (full detail instead of the 2003
+		// GPU auto-detect, which drops unknown GPUs — "Adreno 830" included —
+		// to Low LOD with quarter-res textures).
+		if (internalPath != nullptr && access("DefaultOptions.ini", R_OK) == 0) {
+			char userDataDir[1024], optionsPath[1024];
+			snprintf(userDataDir, sizeof(userDataDir),
+			         "%s/.local/share/GeneralsX/GeneralsZH", internalPath);
+			snprintf(optionsPath, sizeof(optionsPath), "%s/Options.ini", userDataDir);
+			if (access(optionsPath, F_OK) != 0) {
+				std::error_code fsError;
+				std::filesystem::create_directories(userDataDir, fsError);
+				std::filesystem::copy_file("DefaultOptions.ini", optionsPath, fsError);
+				if (!fsError) {
+					fprintf(stderr, "INFO: Seeded default Options.ini\n");
+				}
+			}
+		}
+	}
+#endif
+
 	fprintf(stderr, "=================================================\n");
 	fprintf(stderr, " Command & Conquer Generals: Zero Hour (Linux)\n");
 	fprintf(stderr, " SDL3 + DXVK Build\n");
@@ -466,11 +570,17 @@ int main(int argc, char* argv[])
 		// This prevents LLVM SIGSEGV crash during Vulkan driver enumeration
 		// Must be done here, not in SDL3GameEngine::init() which is too late
 		fprintf(stderr, "INFO: Initializing SDL3 video subsystem...\n");
-#if defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE
+#if defined(SAGE_MOBILE_PLATFORM)
 		// All mouse events are synthesized by the gesture translator in
 		// SDL3GameEngine.cpp; SDL's automatic touch->mouse synthesis would
 		// double-deliver finger 1 and fight the two-finger pan logic.
 		SDL_SetHint(SDL_HINT_TOUCH_MOUSE_EVENTS, "0");
+#endif
+#if defined(__ANDROID__)
+		// Keep running (paused by our own lifecycle gate) instead of blocking
+		// inside SDL when the app loses focus; the render gate in
+		// SDL3GameEngine::update() owns the pause so state stays consistent.
+		SDL_SetHint(SDL_HINT_ANDROID_BLOCK_ON_PAUSE, "0");
 #endif
 		if (!SDL_InitSubSystem(SDL_INIT_VIDEO | SDL_INIT_AUDIO)) {
 			fprintf(stderr, "FATAL: Failed to initialize SDL3: %s\n", SDL_GetError());
@@ -483,7 +593,11 @@ int main(int argc, char* argv[])
 		// GeneralsX @bugfix BenderAI 06/03/2026 - Exclude LLVMpipe Vulkan ICD before loading Vulkan.
 		// libvulkan_lvp.so crashes during static initialization with LLVM 20.x when the Vulkan
 		// loader enumerates all ICDs. Restrict to hardware ICDs first.
+#if !defined(__ANDROID__)
+		// Desktop-Mesa workaround; Android has no ICD JSON directories — the
+		// system Vulkan loader picks the vendor driver (Adreno/Mali) itself.
 		FilterSoftwareVulkanICDs();
+#endif
 		FilterPipeWireOpenAL();
 
 		// Load Vulkan library for DXVK DirectX8→Vulkan translation
@@ -496,11 +610,16 @@ int main(int argc, char* argv[])
 		// Create SDL3 window with Vulkan support
 		fprintf(stderr, "INFO: Creating SDL3 Vulkan window...\n");
 		Uint32 windowFlags = SDL_WINDOW_VULKAN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_HIDDEN;  // Start hidden, show after D3D init
-#if defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE
-		// Request a native-resolution Metal drawable (e.g. 2868x1320 instead of the
+#if defined(SAGE_MOBILE_PLATFORM)
+		// Request a native-resolution drawable (e.g. 2868x1320 instead of the
 		// 956x440 point size). Without this the swapchain renders at point size and
 		// the display upscales 3x, visibly blurring textures and terrain.
 		windowFlags |= SDL_WINDOW_HIGH_PIXEL_DENSITY;
+#endif
+#if defined(__ANDROID__)
+		// Fullscreen on Android == immersive mode: hides the status and
+		// navigation bars so the RTS UI owns the whole panel.
+		windowFlags |= SDL_WINDOW_FULLSCREEN;
 #endif
 		TheSDL3Window = SDL_CreateWindow(
 			"Command & Conquer Generals: Zero Hour",
@@ -518,7 +637,7 @@ int main(int argc, char* argv[])
 		ApplicationHWnd = (HWND)TheSDL3Window;
 		fprintf(stderr, "INFO: SDL3 window created successfully\n");
 
-#if defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE
+#if defined(SAGE_MOBILE_PLATFORM)
 		// Match the game's internal resolution to the phone screen's aspect ratio.
 		// Without this the engine runs its 4:3 default inside the 19.5:9 display:
 		// pillarboxed picture and a skewed window->game coordinate mapping. Height
@@ -562,7 +681,7 @@ int main(int argc, char* argv[])
 				newArgv[n] = nullptr;
 				__argv = newArgv;
 				__argc = n;
-				fprintf(stderr, "INFO: iOS internal resolution set to %sx%s (window %dx%d)\n",
+				fprintf(stderr, "INFO: mobile internal resolution set to %sx%s (window %dx%d)\n",
 				        xresVal, yresVal, winW, winH);
 			}
 		}

@@ -1646,7 +1646,7 @@ FontCharsClass::Update_Current_Buffer (int char_width)
 
 #if defined(SAGE_USE_FREETYPE) && !defined(_WIN32)
 
-#if defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE
+#if (defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE) || defined(__ANDROID__)
 
 #include <cctype>
 #include <cstdio>
@@ -1654,11 +1654,12 @@ FontCharsClass::Update_Current_Buffer (int char_width)
 
 ////////////////////////////////////////////////////////////////////////////////////
 //
-//	Locate_Font_FontConfig (iOS)
+//	Locate_Font_FontConfig (iOS/Android)
 //
-// iOS has no fontconfig and no user-accessible system font files. Fonts are
-// resolved from a "fonts" directory below the current working directory (the
-// app's Documents folder, where game data also lives). The requested face name
+// iOS and Android have no fontconfig and no user-accessible system font files
+// (Android ships fonts in /system/fonts but offers no name-resolution API to
+// native code). Fonts are resolved from a "fonts" directory below the current
+// working directory (the app's game-data folder). The requested face name
 // is normalized (lowercase, spaces stripped) and tried as <name>.ttf/.otf/.ttc;
 // arial.ttf serves as the universal fallback since the game UI is Arial-based.
 ////////////////////////////////////////////////////////////////////////////////////
@@ -1694,7 +1695,7 @@ FontCharsClass::Locate_Font_FontConfig (const char *font_name)
 	return nullptr;
 }
 
-#else // !TARGET_OS_IPHONE
+#else // !(TARGET_OS_IPHONE || __ANDROID__)
 
 ////////////////////////////////////////////////////////////////////////////////////
 //
@@ -1754,7 +1755,7 @@ FontCharsClass::Locate_Font_FontConfig (const char *font_name)
 	return font_path;
 }
 
-#endif // !TARGET_OS_IPHONE
+#endif // !(TARGET_OS_IPHONE || __ANDROID__)
 
 
 ////////////////////////////////////////////////////////////////////////////////////
