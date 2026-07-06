@@ -48,9 +48,18 @@ for tool in cmake ninja meson pkg-config git; do
         fail=1
     fi
 done
+if ! command -v glslangValidator >/dev/null 2>&1 && ! command -v glslang >/dev/null 2>&1; then
+    echo "ERROR: glslangValidator not found (DXVK compiles its GLSL shaders with it)."
+    echo "       apt install glslang-tools / brew install glslang"
+    fail=1
+fi
 if [[ ! -e "${PROJECT_ROOT}/references/fbraz3-dxvk/.git" ]]; then
     echo "ERROR: DXVK fork submodule missing. Run:"
     echo "       git -C ${PROJECT_ROOT} submodule update --init references/fbraz3-dxvk"
+    fail=1
+elif [[ ! -f "${PROJECT_ROOT}/references/fbraz3-dxvk/include/spirv/include/spirv/unified1/spirv.hpp" ]]; then
+    echo "ERROR: DXVK's nested submodules missing (SPIRV-Headers/Vulkan-Headers). Run:"
+    echo "       git -C ${PROJECT_ROOT}/references/fbraz3-dxvk submodule update --init --depth 1"
     fail=1
 fi
 [[ $fail -eq 0 ]] || exit 1

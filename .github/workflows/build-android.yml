@@ -79,7 +79,12 @@ jobs:
 
       - name: Checkout DXVK fork submodule
         run: |
+          set -euo pipefail
           git submodule update --init --depth 1 references/fbraz3-dxvk
+          # DXVK's OWN submodules (SPIRV-Headers, Vulkan-Headers,
+          # libdisplay-info) — meson dies with "Missing SPIRV-Headers" without
+          # them; the superproject init above is not recursive.
+          git -C references/fbraz3-dxvk submodule update --init --depth 1
           # Pinned commit the superproject's tree points at (reads the gitlink,
           # not the submodule's own shallow history) — used below as a cache key
           # component so a re-pin of the submodule busts the DXVK build cache.
@@ -143,16 +148,19 @@ jobs:
         with:
           gradle-version: ${{ env.GRADLE_VERSION }}
 
-      - name: Install build tools (meson, ninja, pkg-config)
+      - name: Install build tools (meson, ninja, pkg-config, glslang)
         run: |
           # apt's meson, not pip: ubuntu-latest (24.04) marks the system Python
           # as externally-managed (PEP 668), so a plain `pip install`, even
           # with --user, refuses to run outside a venv.
+          # glslang-tools: DXVK compiles its GLSL blit/present shaders to
+          # SPIR-V at build time with glslangValidator (host tool).
           sudo apt-get update -qq
           sudo apt-get install -y -qq --no-install-recommends \
-            ninja-build meson pkg-config
+            ninja-build meson pkg-config glslang-tools
           meson --version
           ninja --version
+          glslangValidator --version | head -1
 
       - name: Restore vcpkg cache
         id: cache-vcpkg

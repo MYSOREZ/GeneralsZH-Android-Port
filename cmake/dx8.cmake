@@ -275,6 +275,20 @@ elseif(ANDROID)
   set(DXVK_SOURCE_DIR "${DXVK_LOCAL_FORK_DIR}")
   message(STATUS "DXVK Android build: using local fork source at ${DXVK_SOURCE_DIR}")
 
+  # DXVK's own nested submodules must be present: SPIRV-Headers and
+  # Vulkan-Headers (meson aborts with "Missing SPIRV-Headers" otherwise; on
+  # macOS the Vulkan SDK papered over this, Android has no such fallback).
+  if(NOT EXISTS "${DXVK_LOCAL_FORK_DIR}/include/spirv/include/spirv/unified1/spirv.hpp")
+    message(FATAL_ERROR "DXVK Android build: nested submodules missing. Run: git -C ${DXVK_LOCAL_FORK_DIR} submodule update --init --depth 1")
+  endif()
+
+  # glslangValidator compiles DXVK's GLSL blit/present shaders to SPIR-V at
+  # build time (host tool; apt install glslang-tools / brew install glslang).
+  find_program(GLSLANG_EXECUTABLE NAMES glslangValidator glslang)
+  if(NOT GLSLANG_EXECUTABLE)
+    message(FATAL_ERROR "DXVK Android build requires glslangValidator (apt install glslang-tools / brew install glslang)")
+  endif()
+
   # Apply the Android + iOS patch set idempotently (skip when the working tree
   # already carries a patch, fail the configure when apply fails, so an
   # unpatched DXVK can never ship silently):
@@ -329,15 +343,19 @@ elseif(ANDROID)
   endif()
   message(STATUS "Building DXVK ${DXVK_VERSION} for Android arm64-v8a (API ${ANDROID_API}) with Meson (${MESON_EXECUTABLE})")
 
-  configure_file(${CMAKE_SOURCE_DIR}/cmake/meson-arm64-android-cross.ini.in
-                 ${CMAKE_BINARY_DIR}/meson-arm64-android-cross.ini @ONLY)
-  set(DXVK_MESON_MACHINE_ARGS --cross-file ${CMAKE_BINARY_DIR}/meson-arm64-android-cross.ini)
-
   # Generate a pkg-config file for the in-tree (FetchContent) SDL3 so meson's
   # dependency('SDL3') resolves to it — the exact same silent-SDL2-fallback trap
-  # as on macOS applies (see above).
+  # as on macOS applies (see above). DXVK_SDL3_PC_DIR must be set BEFORE the
+  # cross file is configured below: the template embeds it as the host
+  # machine's pkg_config_libdir (env vars only reach the build machine in a
+  # meson cross build).
   set(DXVK_SDL3_PC_DIR "${CMAKE_BINARY_DIR}/sdl3-pkgconfig")
-  file(WRITE "${DXVK_SDL3_PC_DIR}/sdl3.pc"
+  # The file is written under BOTH casings: meson asks pkg-config for 'SDL3',
+  # and pkg-config maps that to SDL3.pc on a case-sensitive filesystem — a
+  # lowercase-only sdl3.pc worked on macOS (case-insensitive) and silently
+  # broke the SDL3 lookup on Linux.
+  foreach(DXVK_SDL3_PC_NAME sdl3.pc SDL3.pc)
+    file(WRITE "${DXVK_SDL3_PC_DIR}/${DXVK_SDL3_PC_NAME}"
 "prefix=${CMAKE_BINARY_DIR}/_deps
 libdir=\${prefix}/sdl3-build
 includedir=\${prefix}/sdl3-src/include
@@ -348,8 +366,14 @@ Version: 3.4.2
 Libs: -L\${libdir} -lSDL3
 Cflags: -I\${includedir}
 ")
-  # Cross builds must not leak host libs: expose ONLY the generated sdl3.pc.
+  endforeach()
+  # Belt-and-braces for the build machine side; the host machine reads the
+  # pkg_config_libdir property from the cross file.
   set(DXVK_PKG_CONFIG_ENV "PKG_CONFIG_LIBDIR=${DXVK_SDL3_PC_DIR}")
+
+  configure_file(${CMAKE_SOURCE_DIR}/cmake/meson-arm64-android-cross.ini.in
+                 ${CMAKE_BINARY_DIR}/meson-arm64-android-cross.ini @ONLY)
+  set(DXVK_MESON_MACHINE_ARGS --cross-file ${CMAKE_BINARY_DIR}/meson-arm64-android-cross.ini)
 
   ExternalProject_Add(dxvk_android_build
     SOURCE_DIR        ${DXVK_SOURCE_DIR}
