@@ -288,8 +288,10 @@ jobs:
           missing=0
           for lib in ${NEEDED}; do
             case "${lib}" in
-              libc.so|libm.so|libdl.so|liblog.so|libandroid.so|libGLESv*|libEGL.so|libvulkan.so|libOpenSLES.so|libaaudio.so)
-                continue ;;  # system libs the OS itself provides on every device
+              libc.so|libm.so|libdl.so|liblog.so|libandroid.so|libGLESv*|libEGL.so|libvulkan.so|libOpenSLES.so|libaaudio.so|libmediandk.so|libcamera2ndk.so|libjnigraphics.so|libnativewindow.so|libsync.so|libz.so)
+                continue ;;  # system libs every device provides via the NDK stable ABI (run
+                             # #11 caught libmediandk.so, pulled in by FFmpeg's MediaCodec
+                             # backend, missing from this allowlist — see docs/port/ANDROID_PORT.md)
             esac
             if [ ! -f "${WORKDIR}/lib/arm64-v8a/${lib}" ]; then
               echo "::error::libmain.so needs '${lib}' at runtime but it is not packaged in the APK"

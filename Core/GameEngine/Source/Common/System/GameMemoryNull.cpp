@@ -114,8 +114,12 @@ void initMemoryManager()
 {
 	if (TheMemoryPoolFactory == nullptr && TheDynamicMemoryAllocator == nullptr)
 	{
-		TheMemoryPoolFactory = new (malloc(sizeof MemoryPoolFactory)) MemoryPoolFactory;
-		TheDynamicMemoryAllocator = new (malloc(sizeof DynamicMemoryAllocator)) DynamicMemoryAllocator;
+		// GeneralsX @bugfix Android port 07/07/2026 `sizeof <type>` without parens is a GCC
+		// extension (silently accepted by every compiler this file had been built with so
+		// far); Clang in strict C++20 mode rejects it outright. This file only compiles when
+		// RTS_GAMEMEMORY_ENABLE=OFF, previously exercised only by ASAN builds.
+		TheMemoryPoolFactory = new (malloc(sizeof(MemoryPoolFactory))) MemoryPoolFactory;
+		TheDynamicMemoryAllocator = new (malloc(sizeof(DynamicMemoryAllocator))) DynamicMemoryAllocator;
 
 		DEBUG_INIT(DEBUG_FLAGS_DEFAULT);
 		DEBUG_LOG(("*** Initialized the Null Memory Manager"));
