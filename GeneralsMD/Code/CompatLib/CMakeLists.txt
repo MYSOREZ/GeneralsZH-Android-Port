@@ -74,8 +74,14 @@ else()
     if(NOT dxvk_SOURCE_DIR)
         message(FATAL_ERROR "DXVK not fetched! Ensure SAGE_USE_DX8=OFF and cmake/dx8.cmake was included")
     endif()
-    if(APPLE)
-        # macOS: DXVK built from git source -- Wine-style include/native layout
+    # GeneralsX @bugfix Android port 07/07/2026 The layout split is
+    # source-build vs prebuilt-tarball, not macOS vs everything-else: Android
+    # builds DXVK from the same git source as macOS (include/native layout);
+    # only desktop Linux consumes the steamrt tarball (flat include/dxvk/).
+    # Run #6 failed 164 compiles with "windows_base.h not found" because
+    # Android fell into the tarball branch.
+    if(APPLE OR ANDROID)
+        # DXVK built from git source -- Wine-style include/native layout
         target_include_directories(d3d8lib INTERFACE
             ${dxvk_SOURCE_DIR}/include/native
             ${dxvk_SOURCE_DIR}/include/native/windows
@@ -90,9 +96,10 @@ else()
     endif()
     # GeneralsX @bugfix BenderAI 25/02/2026 On macOS, DXVK dylibs live in the Meson build dir
     # (_deps/dxvk-build-macos/src/d3d*/), not in ${dxvk_SOURCE_DIR}/lib — that path does not exist.
-    # Linux prebuilt DXVK native package does have a lib/ dir, so the guard is macOS-only.
+    # Linux prebuilt DXVK native package does have a lib/ dir, so the guard is source-build-only
+    # (macOS and Android both build from source; see above).
     # Passing a non-existent -L path produces: ld: warning: search path '.../dxvk-src/lib' not found
-    if(NOT APPLE)
+    if(NOT APPLE AND NOT ANDROID)
         target_link_directories(d3d8lib INTERFACE
             ${dxvk_SOURCE_DIR}/lib
         )
