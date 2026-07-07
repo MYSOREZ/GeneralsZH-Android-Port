@@ -219,7 +219,10 @@ jobs:
         run: |
           set -o pipefail
           mkdir -p logs
-          cmake --build build/${{ env.PRESET }} --target z_generals dxvk_d3d8_install 2>&1 | tee logs/build_android.log
+          # ninja -k 0: keep going past failures so ONE run surfaces every
+          # cross-compile error in the 1.6M-LOC engine instead of one per
+          # round-trip; the exit code still fails the step when anything broke.
+          cmake --build build/${{ env.PRESET }} --target z_generals dxvk_d3d8_install -- -k 0 2>&1 | tee logs/build_android.log
 
       - name: Verify artifacts
         run: |

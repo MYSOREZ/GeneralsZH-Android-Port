@@ -335,8 +335,19 @@ elseif(ANDROID)
   endif()
   list(GET DXVK_NDK_TOOLCHAIN_BINS 0 ANDROID_TOOLCHAIN_BIN)
 
-  # API level: the NDK toolchain publishes it as CMAKE_SYSTEM_VERSION (numeric).
-  if(CMAKE_SYSTEM_VERSION MATCHES "^[0-9]+$")
+  # API level, in order of trustworthiness. GeneralsX @bugfix Android CI
+  # 07/07/2026: when vcpkg chainloads the NDK toolchain, CMAKE_SYSTEM_VERSION
+  # can end up as the literal "1" (vcpkg's generic Android system stanza) —
+  # which produced a nonexistent aarch64-linux-android1-clang in the cross
+  # file. Prefer the NDK toolchain's own numeric ANDROID_PLATFORM_LEVEL, then
+  # the ANDROID_PLATFORM cache var ("android-28") the preset sets, and only
+  # then a sanity-checked CMAKE_SYSTEM_VERSION (real API levels start at 21
+  # for arm64).
+  if(ANDROID_PLATFORM_LEVEL MATCHES "^[0-9]+$")
+    set(ANDROID_API "${ANDROID_PLATFORM_LEVEL}")
+  elseif(ANDROID_PLATFORM MATCHES "([0-9]+)$")
+    set(ANDROID_API "${CMAKE_MATCH_1}")
+  elseif(CMAKE_SYSTEM_VERSION MATCHES "^[0-9]+$" AND CMAKE_SYSTEM_VERSION GREATER_EQUAL 21)
     set(ANDROID_API "${CMAKE_SYSTEM_VERSION}")
   else()
     set(ANDROID_API "28")
