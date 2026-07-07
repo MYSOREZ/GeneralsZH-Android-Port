@@ -63,27 +63,34 @@ for rel in "${REQUIRED_LIBS[@]}"; do
     cp "${src}" "${JNILIBS}/"
 done
 
-# Optional libs: present in default configs, but their absence is survivable
-# or config-dependent — warn, don't die. (SDL3_image/openal are DT_NEEDED by
-# libmain.so in default configs, so a missing copy WILL fail at load: treat a
-# warning here as an error unless you know your config changed.)
-declare -a OPTIONAL_LIB_GLOBS=(
-    "_deps/sdl3_image-build/libSDL3_image.so"
-    "_deps/openal_soft-build/libopenal.so"
-    "_deps/gamespy-build/libgamespy.so"
+# SDL3_image, openal, and gamespy are all DT_NEEDED by libmain.so — a runtime
+# `dlopen` dependency, not an optional feature — so a missing one is a hard
+# packaging failure, not a warning to ship past (a real device confirmed this
+# the hard way: "libgamespy.so not found" at launch from a build that had only
+# warned and shipped anyway). Each entry lists every path the corresponding
+# FetchContent project is known to place its output at; gamespy's is the
+# gotcha: GamespySDK's own CMakeLists.txt does
+# `set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})`, and
+# CMAKE_BINARY_DIR names the OUTERMOST project's build dir even from inside a
+# FetchContent'd subproject — so libgamespy.so lands at ${BUILD_DIR} directly,
+# not under _deps/gamespy-build/ like every other FetchContent output here.
+declare -a RUNTIME_LIB_CANDIDATES=(
+    "libSDL3_image.so:_deps/sdl3_image-build/libSDL3_image.so"
+    "libopenal.so:_deps/openal_soft-build/libopenal.so"
+    "libgamespy.so:libgamespy.so"
 )
-for rel in "${OPTIONAL_LIB_GLOBS[@]}"; do
-    src="$(ls ${BUILD_DIR}/${rel} 2>/dev/null | head -1 || true)"
-    if [[ -n "${src}" && -f "${src}" ]]; then
-        cp "${src}" "${JNILIBS}/"
-    else
-        found="$(find "${BUILD_DIR}/_deps" -maxdepth 4 -name "$(basename "${rel}")" 2>/dev/null | head -1)"
-        if [[ -n "${found}" ]]; then
-            cp "${found}" "${JNILIBS}/"
-        else
-            echo "WARNING: $(basename "${rel}") not found under ${BUILD_DIR} — APK may fail to load."
-        fi
+for entry in "${RUNTIME_LIB_CANDIDATES[@]}"; do
+    name="${entry%%:*}"
+    primary_rel="${entry#*:}"
+    src="${BUILD_DIR}/${primary_rel}"
+    if [[ ! -f "${src}" ]]; then
+        src="$(find "${BUILD_DIR}" -maxdepth 6 -name "${name}" 2>/dev/null | head -1)"
     fi
+    if [[ -z "${src}" || ! -f "${src}" ]]; then
+        echo "ERROR: ${name} not found anywhere under ${BUILD_DIR} — libmain.so needs it at dlopen time and the APK will crash on launch without it."
+        exit 1
+    fi
+    cp "${src}" "${JNILIBS}/"
 done
 
 # libc++_shared.so from the NDK (ANDROID_STL=c++_shared)

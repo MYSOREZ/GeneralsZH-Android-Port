@@ -268,6 +268,41 @@ jobs:
           cp "$APK" "${{ steps.artifact.outputs.apk_name }}"
           echo "path=${{ steps.artifact.outputs.apk_name }}" >> "$GITHUB_OUTPUT"
 
+      # GeneralsX @bugfix Android CI 07/07/2026 A real device caught what CI
+      # missed: run #10's APK was missing libgamespy.so (a genuine DT_NEEDED
+      # of libmain.so, not an optional lib) and crashed at dlopen on launch —
+      # package-android-zh.sh only warned, and nothing checked the actual APK
+      # contents against what libmain.so declares it needs. Do that here:
+      # every non-system DT_NEEDED of libmain.so must be a real file inside
+      # the APK's lib/arm64-v8a/, or the build is not actually shippable.
+      - name: Verify APK contains every library libmain.so needs
+        run: |
+          set -euo pipefail
+          READELF="$(ls "${ANDROID_NDK_HOME}"/toolchains/llvm/prebuilt/*/bin/llvm-readelf | head -1)"
+          APK="${{ steps.locate.outputs.path }}"
+          WORKDIR="$(mktemp -d)"
+          unzip -q "${APK}" 'lib/arm64-v8a/*' -d "${WORKDIR}"
+          echo "Packaged libraries:"
+          ls "${WORKDIR}/lib/arm64-v8a/"
+          NEEDED="$("${READELF}" -d "${WORKDIR}/lib/arm64-v8a/libmain.so" | grep NEEDED | sed -E 's/.*\[(.*)\]/\1/')"
+          missing=0
+          for lib in ${NEEDED}; do
+            case "${lib}" in
+              libc.so|libm.so|libdl.so|liblog.so|libandroid.so|libGLESv*|libEGL.so|libvulkan.so|libOpenSLES.so|libaaudio.so)
+                continue ;;  # system libs the OS itself provides on every device
+            esac
+            if [ ! -f "${WORKDIR}/lib/arm64-v8a/${lib}" ]; then
+              echo "::error::libmain.so needs '${lib}' at runtime but it is not packaged in the APK"
+              missing=1
+            fi
+          done
+          rm -rf "${WORKDIR}"
+          if [ "${missing}" -ne 0 ]; then
+            echo "::error::APK is missing required native libraries — it would crash with dlopen failed on any real device."
+            exit 1
+          fi
+          echo "OK: every DT_NEEDED of libmain.so is present in the APK."
+
       - name: Upload APK artifact
         uses: actions/upload-artifact@v7
         with:
