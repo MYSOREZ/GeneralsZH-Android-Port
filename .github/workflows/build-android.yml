@@ -212,7 +212,17 @@ jobs:
         uses: actions/cache/restore@v5
         with:
           path: build/${{ env.PRESET }}/_deps/dxvk-build-android
-          key: dxvk-android-${{ runner.os }}-${{ env.DXVK_REF }}-${{ hashFiles('Patches/dxvk-android.patch', 'Patches/dxvk-ios.patch', 'cmake/dx8.cmake', 'cmake/meson-arm64-android-cross.ini.in') }}
+          # github.repository is part of the key (not just DXVK_REF/patch hashes):
+          # meson's cached _deps/dxvk-build-android bakes the absolute checkout
+          # path (/home/runner/work/<repo>/<repo>/...) into its private build
+          # state via --reconfigure. Run #22 restored a cache built under this
+          # repo's old name (Generals-Mac-iOS-iPad) and meson died with
+          # FileNotFoundError on the now-nonexistent cross-file path -- neither
+          # DXVK_REF nor the hashed files changed across the rename, so the
+          # stale cache kept being "valid" and kept breaking every run.
+          # Tying the key to the repo name means a future rename invalidates
+          # this cache instead of silently corrupting it again.
+          key: dxvk-android-${{ runner.os }}-${{ github.repository }}-${{ env.DXVK_REF }}-${{ hashFiles('Patches/dxvk-android.patch', 'Patches/dxvk-ios.patch', 'cmake/dx8.cmake', 'cmake/meson-arm64-android-cross.ini.in') }}
 
       - name: Bootstrap vcpkg
         run: |
@@ -392,7 +402,17 @@ jobs:
         uses: actions/cache/save@v5
         with:
           path: build/${{ env.PRESET }}/_deps/dxvk-build-android
-          key: dxvk-android-${{ runner.os }}-${{ env.DXVK_REF }}-${{ hashFiles('Patches/dxvk-android.patch', 'Patches/dxvk-ios.patch', 'cmake/dx8.cmake', 'cmake/meson-arm64-android-cross.ini.in') }}
+          # github.repository is part of the key (not just DXVK_REF/patch hashes):
+          # meson's cached _deps/dxvk-build-android bakes the absolute checkout
+          # path (/home/runner/work/<repo>/<repo>/...) into its private build
+          # state via --reconfigure. Run #22 restored a cache built under this
+          # repo's old name (Generals-Mac-iOS-iPad) and meson died with
+          # FileNotFoundError on the now-nonexistent cross-file path -- neither
+          # DXVK_REF nor the hashed files changed across the rename, so the
+          # stale cache kept being "valid" and kept breaking every run.
+          # Tying the key to the repo name means a future rename invalidates
+          # this cache instead of silently corrupting it again.
+          key: dxvk-android-${{ runner.os }}-${{ github.repository }}-${{ env.DXVK_REF }}-${{ hashFiles('Patches/dxvk-android.patch', 'Patches/dxvk-ios.patch', 'cmake/dx8.cmake', 'cmake/meson-arm64-android-cross.ini.in') }}
 
       # Always re-save under this run's unique key (the restore-keys prefix
       # match above means later runs pick up the freshest available cache);
