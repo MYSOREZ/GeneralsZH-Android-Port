@@ -1393,9 +1393,16 @@ GameWindow *GameWindowManager::winCreate( GameWindow *parent,
 			window);
 		fprintf(stderr, "%s\n", log_buffer);
 
+		// TheSuperHackers @bugfix Route the default window font through the
+		// same resolution-based adjustFontSize() scaling that HeaderTemplate
+		// fonts and in-game captions already use. Without this, most menu
+		// button/label text (anything not using an explicit HeaderTemplate
+		// font) stayed at its unscaled point size while everything else
+		// scaled up for the display, so plain UI text looked tiny and
+		// inconsistent on high-resolution phone screens.
 		window->winSetFont( winFindFont(
 			TheGlobalLanguageData->m_defaultWindowFont.name,
-			TheGlobalLanguageData->m_defaultWindowFont.size,
+			TheGlobalLanguageData->adjustFontSize(TheGlobalLanguageData->m_defaultWindowFont.size),
 			TheGlobalLanguageData->m_defaultWindowFont.bold) );
 	}
 	else
@@ -1403,7 +1410,8 @@ GameWindow *GameWindowManager::winCreate( GameWindow *parent,
 		char log_buffer[512];
 		sprintf(log_buffer, "[GX-ISSUE144] WinCreate default font fallback Times New Roman size=14 bold=0 window=%p", window);
 		fprintf(stderr, "%s\n", log_buffer);
-		window->winSetFont( winFindFont( "Times New Roman", 14, FALSE ) );
+		const Int fallbackSize = TheGlobalLanguageData ? TheGlobalLanguageData->adjustFontSize(14) : 14;
+		window->winSetFont( winFindFont( "Times New Roman", fallbackSize, FALSE ) );
 	}
 
 	return window;
@@ -2876,9 +2884,12 @@ void GameWindowManager::assignDefaultGadgetLook( GameWindow *gadget,
 				gadget);
 			fprintf(stderr, "%s\n", log_buffer);
 
+			// TheSuperHackers @bugfix Same adjustFontSize() fix as winCreate's
+			// default-font path above -- gadget captions (button/checkbox/
+			// listbox text etc.) were the same unscaled outlier.
 			gadget->winSetFont( winFindFont(
 				TheGlobalLanguageData->m_defaultWindowFont.name,
-				TheGlobalLanguageData->m_defaultWindowFont.size,
+				TheGlobalLanguageData->adjustFontSize(TheGlobalLanguageData->m_defaultWindowFont.size),
 				TheGlobalLanguageData->m_defaultWindowFont.bold) );
 		}
 		else
@@ -2886,7 +2897,8 @@ void GameWindowManager::assignDefaultGadgetLook( GameWindow *gadget,
 			char log_buffer[512];
 			sprintf(log_buffer, "[GX-ISSUE144] assignDefaultGadgetLook fallback font Times New Roman size=14 bold=0 gadget=%p", gadget);
 			fprintf(stderr, "%s\n", log_buffer);
-			gadget->winSetFont( winFindFont( "Times New Roman", 14, FALSE ) );
+			const Int fallbackSize = TheGlobalLanguageData ? TheGlobalLanguageData->adjustFontSize(14) : 14;
+			gadget->winSetFont( winFindFont( "Times New Roman", fallbackSize, FALSE ) );
 		}
 	}
 

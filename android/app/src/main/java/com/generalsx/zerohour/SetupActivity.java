@@ -51,6 +51,16 @@ public class SetupActivity extends Activity {
     static final String PREFS_NAME = "generalszh_setup";
     static final String PREF_GAME_PATH = "game_path";
 
+    // TheSuperHackers @bugfix Android port 07/07/2026 SharedPreferences and
+    // getFilesDir() both live under /data/data/<pkg>/ and are wiped the
+    // moment the app is uninstalled -- which is exactly what a sideloaded
+    // APK update often requires if the installer treats it as a fresh
+    // install rather than an in-place update. Mirror the chosen path into a
+    // small marker file on shared external storage (survives uninstall,
+    // since it's outside the app's private/package-scoped directories) so a
+    // fresh install can recover it automatically instead of re-prompting.
+    private static final String EXTERNAL_MARKER_NAME = ".generalszh_gamepath.txt";
+
     // Marker files SDL3Main.cpp / GeneralsZHActivity check for on launch —
     // must match GameEngine/CMake's GeneralsMD/Code/Main/SDL3Main.cpp exactly.
     private static final String[] REQUIRED_GAME_FILES = { "INIZH.big", "INI.big" };
@@ -59,8 +69,15 @@ public class SetupActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // TheSuperHackers @bugfix Android port 07/07/2026 See the matching
+        // comment in GeneralsZHActivity.onCreate(): reinforce the manifest's
+        // screenOrientation="landscape" in code so Setup -> Launch never
+        // starts a rotation the game's window-size probe could still catch
+        // mid-flight.
+        setRequestedOrientation(android.content.pm.ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
         super.onCreate(savedInstanceState);
-        setTitle("GeneralsZH Setup");
+        setTitle("GeneralsZH Settings");
         buildUi();
     }
 
@@ -145,8 +162,53 @@ public class SetupActivity extends Activity {
     }
 
     private String getSavedGamePath() {
-        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        return prefs.getString(PREF_GAME_PATH, null);
+        return getSavedGamePath(this);
+    }
+
+    // Public + static so GeneralsZHActivity uses the exact same recovery
+    // logic instead of its own copy that only ever checked SharedPreferences.
+    static String getSavedGamePath(android.content.Context ctx) {
+        SharedPreferences prefs = ctx.getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        String path = prefs.getString(PREF_GAME_PATH, null);
+        if (path != null) {
+            return path;
+        }
+
+        // Not in this install's private prefs (fresh install after an
+        // uninstall, most likely) -- check the external marker left by a
+        // previous install and self-heal by restoring it into prefs.
+        String recovered = readExternalMarker();
+        if (recovered != null && isValidGameFolder(new File(recovered))) {
+            prefs.edit().putString(PREF_GAME_PATH, recovered).apply();
+            File nativeMarker = new File(ctx.getFilesDir(), "gamedata_path.txt");
+            try (java.io.FileWriter w = new java.io.FileWriter(nativeMarker, false)) {
+                w.write(recovered);
+                w.write("\n");
+            } catch (java.io.IOException e) {
+                // Not fatal: native code just won't see the recovered path
+                // until the user re-saves it once via Setup.
+            }
+            return recovered;
+        }
+        return null;
+    }
+
+    private static File externalMarkerFile() {
+        File root = Environment.getExternalStorageDirectory();
+        return root != null ? new File(root, EXTERNAL_MARKER_NAME) : null;
+    }
+
+    private static String readExternalMarker() {
+        File marker = externalMarkerFile();
+        if (marker == null || !marker.isFile()) {
+            return null;
+        }
+        try (java.io.BufferedReader r = new java.io.BufferedReader(new java.io.FileReader(marker))) {
+            String line = r.readLine();
+            return (line != null && !line.isEmpty()) ? line.trim() : null;
+        } catch (java.io.IOException e) {
+            return null;
+        }
     }
 
     static boolean isValidGameFolder(File dir) {
@@ -206,6 +268,17 @@ public class SetupActivity extends Activity {
             w.write("\n");
         } catch (java.io.IOException e) {
             Toast.makeText(this, "Could not save folder marker: " + e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+        File externalMarker = externalMarkerFile();
+        if (externalMarker != null) {
+            try (java.io.FileWriter w = new java.io.FileWriter(externalMarker, false)) {
+                w.write(path);
+                w.write("\n");
+            } catch (java.io.IOException e) {
+                // Not fatal: uninstall-survival just won't work for this
+                // install; the private-prefs/marker-file path above still
+                // covers normal in-place updates.
+            }
         }
         File bundledRoot = getExternalFilesDir(null);
         if (bundledRoot != null) {
@@ -267,6 +340,10 @@ public class SetupActivity extends Activity {
     private void onClearGameFolder() {
         getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit().remove(PREF_GAME_PATH).apply();
         new File(getFilesDir(), "gamedata_path.txt").delete();
+        File externalMarker = externalMarkerFile();
+        if (externalMarker != null) {
+            externalMarker.delete();
+        }
         refreshStatus();
         Toast.makeText(this, "Cleared. The game will fall back to its default folder convention.", Toast.LENGTH_SHORT).show();
     }

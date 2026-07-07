@@ -32,7 +32,6 @@
 package com.generalsx.zerohour;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -63,6 +62,15 @@ public class GeneralsZHActivity extends SDLActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // TheSuperHackers @bugfix Android port 07/07/2026 Belt-and-suspenders
+        // on top of the manifest's screenOrientation="landscape": a real
+        // device log still showed Resolve_Present_BackBuffer_Size catching a
+        // portrait-sized window during the Setup -> Launch transition, so the
+        // manifest lock alone isn't settling fast enough on every device/OEM
+        // skin. Setting it again here in code takes effect before this
+        // Activity's window is even measured, closing the gap further.
+        setRequestedOrientation(android.content.pm.ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
         extractBundledRuntime();
 
         String gamePath = getSavedGamePath();
@@ -97,8 +105,7 @@ public class GeneralsZHActivity extends SDLActivity {
     }
 
     private String getSavedGamePath() {
-        SharedPreferences prefs = getSharedPreferences(SetupActivity.PREFS_NAME, MODE_PRIVATE);
-        return prefs.getString(SetupActivity.PREF_GAME_PATH, null);
+        return SetupActivity.getSavedGamePath(this);
     }
 
     // Legacy convention from before the in-app Setup flow existed (an adb

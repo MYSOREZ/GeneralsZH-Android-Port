@@ -68,7 +68,8 @@
         <activity
             android:name=".SetupActivity"
             android:exported="true"
-            android:label="GeneralsZH Setup"
+            android:label="GeneralsZH Settings"
+            android:icon="@mipmap/ic_launcher_setup"
             android:screenOrientation="landscape"
             android:configChanges="orientation|screenSize|keyboardHidden">
             <intent-filter>
