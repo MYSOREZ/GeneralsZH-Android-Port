@@ -146,7 +146,7 @@ static bool SDLCALL mobileLifecycleWatcher(void *userdata, SDL_Event *event)
 //   1 finger double-tap      -> left double-click (select all of that unit's
 //                                type on screen, via the engine's existing
 //                                MSG_MOUSE_LEFT_DOUBLE_CLICK handling)
-//   1 finger drag            -> left-button drag (drag-box / rubber-band select)
+//   1 finger press-and-HOLD, then drag -> left-button drag (drag-box / select)
 //   1 finger long-press      -> right button click (deselect), if finger stays put
 //   2 fingers, one held still + the other dragging mostly vertically -> zoom
 //   2 fingers moving together -> right-button drag at the centroid (camera scroll)
@@ -157,9 +157,20 @@ static bool SDLCALL mobileLifecycleWatcher(void *userdata, SDL_Event *event)
 // since real fingers essentially never move in perfect lockstep -- reported
 // as "even a pinch both zooms and moves the camera". Two-finger gestures now
 // defer (TWO_PENDING, mirroring the existing single-finger PENDING deferral)
-// until per-finger displacement makes the intent unambiguous, then commit
-// ONCE to pan/zoom/tap for the rest of that touch (no re-classifying
-// mid-gesture, which would otherwise flicker between modes).
+// until per-finger displacement makes the intent unambiguous (a much larger
+// commit distance + a RATIO between the two fingers' displacement, not an
+// absolute cap -- see TWO_FINGER_COMMIT_PX/ZOOM_RATIO_MAX), then commit ONCE
+// to pan/zoom/tap for the rest of that touch (no re-classifying mid-gesture,
+// which would otherwise flicker between modes).
+//
+// GeneralsX @bugfix Android port 08/07/2026 A single finger moving past the
+// dead zone used to commit to a drag-box instantly ("I just swipe and it
+// already selects"); it now requires the finger to stay down for
+// DRAG_ARM_DELAY_MS before movement can start a drag, matching the requested
+// press-and-hold-then-drag. The synthetic mouse cursor is also recentered on
+// every full release, since a lingering position near a screen edge would
+// otherwise trip the engine's own edge-scroll and scroll the camera forever
+// after the finger lifted.
 // ---------------------------------------------------------------------------
 namespace {
 
@@ -200,6 +211,18 @@ TouchState s_touch;
 const Uint64 LONG_PRESS_MS = 600;
 const float TAP_DEAD_ZONE_PX = 8.0f;   // jitter below this keeps a tap a tap
 
+// GeneralsX @bugfix Android port 08/07/2026 Any finger movement past the dead
+// zone used to commit to a drag-box immediately -- reported as "it already
+// selects, I just swipe and it starts selecting" when the user wanted to
+// press-and-HOLD first, then drag, the same way the long-press-for-RMB
+// already requires a pause. Movement during this arming window no longer
+// commits to anything (the reference point tracks the finger instead, so a
+// fast flick doesn't silently bank distance toward the drag threshold);
+// only after it elapses can a drag begin. Short enough not to make an
+// ordinary tap-to-select feel delayed, well under LONG_PRESS_MS so holding
+// straight through still reaches the right-click.
+const Uint64 DRAG_ARM_DELAY_MS = 180;
+
 // Double-tap: select all of the clicked unit's type on screen, matching the
 // PC's double-click. 350ms/40px roughly matches Android's own
 // ViewConfiguration.getDoubleTapTimeout() plus slack for finger imprecision
@@ -207,10 +230,24 @@ const float TAP_DEAD_ZONE_PX = 8.0f;   // jitter below this keeps a tap a tap
 const Uint64 DOUBLE_TAP_MS = 350;
 const float DOUBLE_TAP_DIST_PX = 40.0f;
 
-// Two-finger gesture classification (pan vs. zoom vs. right-click-tap).
-const float TWO_FINGER_COMMIT_PX = 10.0f; // either finger must move at least this far before we decide anything
-const float ZOOM_ANCHOR_MAX_PX = 18.0f;   // the "anchor" finger may drift up to this much and still count as held
-const float ZOOM_MOVER_MIN_PX = 18.0f;    // the moving finger must travel at least this far to commit to zoom
+// GeneralsX @bugfix Android port 08/07/2026 Two-finger pan vs. zoom
+// classification was deciding from a mere 10px of movement on whichever
+// finger happened to move first, and called anything "zoom" once one
+// finger's displacement was under a small ABSOLUTE threshold (18px). Real
+// fingers essentially never move in perfect lockstep even during a deliberate
+// two-hand pan, so ordinary pan attempts kept misfiring as zoom, while a
+// genuinely "held still" finger drifts more than 18px from natural hand
+// tremor while the other hand is dragging -- so genuine zoom attempts often
+// fell through to pan instead. Fixed two ways: (1) wait for the more-active
+// finger to move a much more meaningful distance before deciding anything at
+// all (jitter noise dominates under ~10px; real intent is usually clear by
+// ~30px), and (2) classify by the RATIO between the two fingers' displacement
+// rather than an absolute cap on the "anchor" -- a deliberate hold-one-drag-
+// the-other gesture keeps that ratio close to 0 even after 30+px of the mover
+// moving, while a real two-hand pan keeps both fingers' displacement
+// comparable (ratio close to 1) throughout.
+const float TWO_FINGER_COMMIT_PX = 30.0f; // the MORE-active finger must move at least this far before we decide anything
+const float ZOOM_RATIO_MAX = 0.28f;       // less-active/more-active displacement ratio must be below this to count as "anchored"
 const float ZOOM_VERTICAL_BIAS = 1.5f;    // mover's |dy| must exceed |dx| by this factor to count as "vertical"
 const float ZOOM_PX_PER_TICK = 40.0f;     // vertical pixels of mover movement per zoom step (wheel tick)
 
@@ -321,15 +358,26 @@ void handleTouchEvent(SDL3Mouse *mouse, SDL_Window *window, const SDL_Event &eve
 		}
 
 		if (s_touch.phase == TouchState::PENDING && event.tfinger.fingerID == s_touch.finger1) {
-			const float moved = SDL_fabsf(px - s_touch.downX) + SDL_fabsf(py - s_touch.downY);
-			if (moved >= TAP_DEAD_ZONE_PX) {
-				// Commit to a drag: anchor the LMB at the original touch point so
-				// drag-boxes start where the finger first landed.
-				sendSyntheticMouse(mouse, window, SDL_EVENT_MOUSE_MOTION, s_touch.downX, s_touch.downY);
-				sendSyntheticMouse(mouse, window, SDL_EVENT_MOUSE_BUTTON_DOWN,
-				                   s_touch.downX, s_touch.downY, SDL_BUTTON_LEFT);
-				sendSyntheticMouse(mouse, window, SDL_EVENT_MOUSE_MOTION, px, py);
-				s_touch.phase = TouchState::DRAGGING;
+			if (SDL_GetTicks() - s_touch.downTicks < DRAG_ARM_DELAY_MS) {
+				// Still arming: keep the reference point pinned to wherever the
+				// finger currently is, so a fast swipe during this window can't
+				// bank distance toward the drag threshold. Only a finger that's
+				// still down and moves AFTER this window elapses can start a
+				// drag-box -- exactly the press-and-hold-then-drag the user asked
+				// for (a plain tap still resolves normally regardless of hold time).
+				s_touch.downX = px;
+				s_touch.downY = py;
+			} else {
+				const float moved = SDL_fabsf(px - s_touch.downX) + SDL_fabsf(py - s_touch.downY);
+				if (moved >= TAP_DEAD_ZONE_PX) {
+					// Commit to a drag: anchor the LMB at the point the finger was
+					// at when arming finished, so drag-boxes start there.
+					sendSyntheticMouse(mouse, window, SDL_EVENT_MOUSE_MOTION, s_touch.downX, s_touch.downY);
+					sendSyntheticMouse(mouse, window, SDL_EVENT_MOUSE_BUTTON_DOWN,
+					                   s_touch.downX, s_touch.downY, SDL_BUTTON_LEFT);
+					sendSyntheticMouse(mouse, window, SDL_EVENT_MOUSE_MOTION, px, py);
+					s_touch.phase = TouchState::DRAGGING;
+				}
 			}
 		}
 		else if (s_touch.phase == TouchState::DRAGGING && event.tfinger.fingerID == s_touch.finger1) {
@@ -342,8 +390,11 @@ void handleTouchEvent(SDL3Mouse *mouse, SDL_Window *window, const SDL_Event &eve
 			const float d2x = f2px - s_touch.twoAnchor2X, d2y = f2py - s_touch.twoAnchor2Y;
 			const float delta1 = SDL_sqrtf(d1x * d1x + d1y * d1y);
 			const float delta2 = SDL_sqrtf(d2x * d2x + d2y * d2y);
+			const float moverDeltaCandidate = (delta1 > delta2) ? delta1 : delta2;
 
-			if (delta1 >= TWO_FINGER_COMMIT_PX || delta2 >= TWO_FINGER_COMMIT_PX) {
+			// Wait for the MORE-active finger to clear real movement (not just
+			// jitter) before deciding anything -- see TWO_FINGER_COMMIT_PX comment.
+			if (moverDeltaCandidate >= TWO_FINGER_COMMIT_PX) {
 				// One-time gesture-type decision, kept for the rest of this
 				// touch (no re-classifying mid-gesture).
 				const bool finger1IsAnchor = delta1 <= delta2;
@@ -351,9 +402,15 @@ void handleTouchEvent(SDL3Mouse *mouse, SDL_Window *window, const SDL_Event &eve
 				const float moverDelta = finger1IsAnchor ? delta2 : delta1;
 				const float moverDX = finger1IsAnchor ? d2x : d1x;
 				const float moverDY = finger1IsAnchor ? d2y : d1y;
+				// Ratio, not an absolute cap: a real two-hand pan keeps both
+				// fingers' displacement comparable (ratio near 1) no matter how
+				// far it's gone, while a deliberate hold-one-drag-the-other
+				// gesture keeps the anchor's share small (ratio near 0)
+				// regardless of how vigorously the other hand moves.
+				const float ratio = anchorDelta / moverDelta;
 				const bool mostlyVertical = SDL_fabsf(moverDY) > SDL_fabsf(moverDX) * ZOOM_VERTICAL_BIAS;
 
-				if (anchorDelta <= ZOOM_ANCHOR_MAX_PX && moverDelta >= ZOOM_MOVER_MIN_PX && mostlyVertical) {
+				if (ratio <= ZOOM_RATIO_MAX && mostlyVertical) {
 					s_touch.zoomFinger1IsMover = !finger1IsAnchor;
 					s_touch.zoomTickBaselineY = s_touch.zoomFinger1IsMover ? f1py : f2py;
 					s_touch.phase = TouchState::ZOOM;
@@ -457,6 +514,16 @@ void handleTouchEvent(SDL3Mouse *mouse, SDL_Window *window, const SDL_Event &eve
 			default:
 				break;
 		}
+
+		// GeneralsX @bugfix Android port 08/07/2026 The engine's own edge-scroll
+		// (mouse near a viewport edge keeps scrolling the camera every frame)
+		// checks wherever the synthetic cursor was last placed. A real mouse
+		// naturally isn't left sitting at the edge; a touch is -- lifting a
+		// finger near the screen border otherwise left the camera scrolling in
+		// that direction forever, since nothing ever told the game the "mouse"
+		// moved away. Recenter it on every full release.
+		sendSyntheticMouse(mouse, window, SDL_EVENT_MOUSE_MOTION, (float)winW * 0.5f, (float)winH * 0.5f);
+
 		s_touch.phase = TouchState::IDLE;
 		break;
 	}
