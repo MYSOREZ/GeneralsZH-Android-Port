@@ -1,7 +1,13 @@
 name: Build Android
 
 permissions:
-  contents: read
+  # GeneralsX @feature Android port 09/07/2026 contents:write is needed for the
+  # optional "create a GitHub Release" step below (softprops/action-gh-release
+  # needs to create a tag + release + upload an asset). Safe to declare at the
+  # workflow level: pull_request (not pull_request_target) from a fork always
+  # gets a read-only token from GitHub regardless of this block, and push/
+  # workflow_dispatch on this repo both require write access to trigger anyway.
+  contents: write
   pull-requests: read
 
 on:
@@ -52,6 +58,10 @@ on:
         type: string
         description: "Override versionCode (must be higher than any build already installed on your device). Leave blank to use the committed default."
         default: ""
+      create_release:
+        type: boolean
+        description: "Also publish a GitHub Release for this build (tag = v<version_name>). Requires version_name above to be set."
+        default: false
 
 jobs:
   build-android:
@@ -368,6 +378,31 @@ jobs:
           name: ${{ steps.artifact.outputs.apk_name }}
           path: ${{ steps.locate.outputs.path }}
           retention-days: 30
+
+      # GeneralsX @feature Android port 09/07/2026 Actions artifacts expire
+      # (30 days) and require a GitHub login to download -- not a real "here,
+      # everyone download this" link. Manual dispatch with create_release=true
+      # publishes an actual GitHub Release with the APK attached instead,
+      # tagged from version_name (set alongside it above) so the release name
+      # always matches what's baked into the APK's own versionName.
+      - name: Create GitHub Release
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.create_release }}
+        run: |
+          set -euo pipefail
+          if [ -z "${{ inputs.version_name }}" ]; then
+            echo "::error::create_release requires version_name to be set (used as the release tag)."
+            exit 1
+          fi
+
+      - name: Publish GitHub Release
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.create_release }}
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ inputs.version_name }}
+          name: v${{ inputs.version_name }}
+          files: ${{ steps.locate.outputs.path }}
+          generate_release_notes: true
+          make_latest: true
 
       - name: Collect dependency build logs for diagnosis
         if: always()
