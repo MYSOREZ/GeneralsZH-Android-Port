@@ -271,6 +271,7 @@ public:
 		MSG_META_BEGIN_CAMERA_ZOOM_OUT,
 		MSG_META_END_CAMERA_ZOOM_OUT,
 		MSG_META_CAMERA_RESET,
+    MSG_META_TOGGLE_CAMERA_TRACKING_DRAWABLE,
 		MSG_META_TOGGLE_FAST_FORWARD_REPLAY,				///< Toggle the fast forward feature
 		MSG_META_TOGGLE_PAUSE,											///< TheSuperHackers @feature Toggle game pause
 		MSG_META_TOGGLE_PAUSE_ALT,									///< TheSuperHackers @feature Toggle game pause (alternative mapping)
@@ -433,6 +434,7 @@ public:
 		MSG_ADD_WAYPOINT_HINT,											///< (location) If clicked, a waypoint will be added for currently selected units.
 		//Context command hints
 		MSG_HIJACK_HINT,								///< if clicked, selected unit(s) will attempt to take over vehicle.
+		MSG_SABOTAGE_HINT,
 		MSG_FIREBOMB_HINT,								///< throw a molotov cocktail
 		MSG_CONVERT_TO_CARBOMB_HINT,								///< if clicked, selected unit(s) will attempt to convert clicked object into a carbomb.
 		MSG_CAPTUREBUILDING_HINT,

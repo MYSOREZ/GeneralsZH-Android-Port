@@ -1921,6 +1921,25 @@ UnsignedInt OpenALAudioManager::getNum3DSamples(void) const
 }
 
 //-------------------------------------------------------------------------------------------------
+// GeneralsX @bugfix Android port 10/07/2026 New pure virtuals from the
+// TheSuperHackers upstream sync (getNumAvailable2DSamples/3DSamples on
+// AudioManager, GameAudio.h) -- "available" = configured capacity minus
+// slots currently in m_playingSounds/m_playing3DSounds, matching Miles'
+// own getNumAvailable*Samples() (m_availableSamples.size()).
+UnsignedInt OpenALAudioManager::getNumAvailable2DSamples(void) const
+{
+	UnsignedInt playing = (UnsignedInt)m_playingSounds.size();
+	return (playing < m_num2DSamples) ? (m_num2DSamples - playing) : 0;
+}
+
+//-------------------------------------------------------------------------------------------------
+UnsignedInt OpenALAudioManager::getNumAvailable3DSamples(void) const
+{
+	UnsignedInt playing = (UnsignedInt)m_playing3DSounds.size();
+	return (playing < m_num3DSamples) ? (m_num3DSamples - playing) : 0;
+}
+
+//-------------------------------------------------------------------------------------------------
 UnsignedInt OpenALAudioManager::getNumStreams(void) const
 {
 	return m_numStreams;
