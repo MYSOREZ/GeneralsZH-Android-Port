@@ -33,7 +33,7 @@
 
     <!-- GeneralsX @bugfix Android port 10/07/2026 the sign-in flow backgrounds
          this app for the whole browser round-trip (open playgenerals.online,
-         pick Steam/Discord/GameReplays, come back) -- on some OEM battery
+         pick Steam/Discord/GameReplays, come back) — on some OEM battery
          managers the poll timer got throttled hard enough that CheckLogin
          never got a chance to run, so a login that visibly succeeded on the
          website never actually completed in the app. Requesting exemption
