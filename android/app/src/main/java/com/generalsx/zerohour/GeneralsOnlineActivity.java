@@ -23,20 +23,16 @@
 // Zero Hour multiplayer -- see docs/port/... for how this was chosen over
 // Revora/CnC-Online (which retired Generals/ZH support and redirects here).
 //
-// Auth is a device-code flow, NOT an embedded browser/OAuth redirect: the
-// user opens playgenerals.online in ANY browser (their phone, another
-// device, doesn't matter), logs in there via Steam/Discord/GameReplays, and
-// types the short code that site shows them into this screen. We poll
-// CheckLogin with that code until the site confirms it. This is verified
-// against the live API (POST https://api.playgenerals.online/env/prod/
-// contract/1/CheckLogin, body {"code":"...","client_id":"custom_third_party_client"})
-// -- custom_third_party_client is a first-class client identity in their
-// own KnownClients enum, no prior registration needed to authenticate.
-//
-// The exe-CRC version check (VersionCheckController) some of their code
-// paths still ask about is a self-serve "your exe is out of date, get this
-// patcher" nag for their OWN Windows binary -- nothing on the login or
-// matchmaking path actually requires it to match, so we never call it here.
+// GeneralsX @bugfix Android port 10/07/2026 First cut of this screen made
+// the user manually copy a code FROM the browser INTO the app -- wrong.
+// The real client (github.com/GeneralsOnlineDevelopmentTeam/GameClient,
+// OnlineServices_Auth.cpp: NGMP_OnlineServices_AuthInterface::BeginLogin)
+// generates the code itself, embeds it directly in the URL it opens
+// (playgenerals.online/login/?gamecode=<code>), and polls CheckLogin with
+// that same code -- the user never sees or types the code at all, only
+// picks Steam/Discord/GameReplays on the site and comes back. Ported that
+// exact flow here, including the refresh_token cache so repeat logins skip
+// the browser entirely (LoginWithToken).
 
 package com.generalsx.zerohour;
 
@@ -47,7 +43,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -65,11 +60,12 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.security.SecureRandom;
 
 public class GeneralsOnlineActivity extends Activity {
 
     private static final String API_BASE = "https://api.playgenerals.online/env/prod/contract/1/";
-    private static final String WEBSITE_URL = "https://playgenerals.online/";
+    private static final String LOGIN_URL_FMT = "https://www.playgenerals.online/login/?gamecode=%s";
     private static final String CLIENT_ID = "custom_third_party_client";
 
     private static final String PREFS_NAME = "generalsonline_session";
@@ -83,18 +79,24 @@ public class GeneralsOnlineActivity extends Activity {
     // same plain-marker-file convention as gamedata_path.txt.
     private static final String SESSION_MARKER_NAME = "generalsonline_session.txt";
 
-    private static final int POLL_INTERVAL_MS = 3000;
-    private static final int POLL_MAX_ATTEMPTS = 40; // ~2 minutes
+    // Matches the reference client's own 1s poll cadence
+    // (OnlineServices_Auth.cpp::Tick, timeBetweenChecks = 1000).
+    private static final int POLL_INTERVAL_MS = 1000;
+    private static final int POLL_MAX_ATTEMPTS = 180; // ~3 minutes
+
+    private static final String CODE_CHARSET =
+        "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    private static final int CODE_LENGTH = 32;
 
     private final Handler handler = new Handler(Looper.getMainLooper());
+    private final SecureRandom random = new SecureRandom();
 
     private TextView statusText;
-    private EditText codeInput;
     private MaterialButton signInButton;
     private MaterialButton signOutButton;
 
     private int pollAttempt = 0;
-    private boolean polling = false;
+    private boolean busy = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,6 +105,7 @@ public class GeneralsOnlineActivity extends Activity {
         setTitle("GeneralsOnline Account");
         buildUi();
         refreshStatus();
+        maybeSilentReauth();
     }
 
     private void buildUi() {
@@ -135,25 +138,14 @@ public class GeneralsOnlineActivity extends Activity {
         signOutButton = addButton(statusCard, "Sign Out", this::onSignOut);
 
         LinearLayout stepsCard = startCard(root, "Sign in");
-        TextView step1 = new TextView(this);
-        step1.setText(
-            "1. Open playgenerals.online in a browser -- on this phone or any other "
-            + "device -- and log in with Steam, Discord, or GameReplays.\n"
-            + "2. The site shows you a short login code.\n"
-            + "3. Type that code below and tap \"Verify Code\"."
+        TextView help = new TextView(this);
+        help.setText(
+            "Tap Sign In -- a browser opens to playgenerals.online, already carrying a "
+            + "one-time code for this device. Pick Steam, Discord, or GameReplays there, "
+            + "then just come back to this app; it finishes on its own."
         );
-        stepsCard.addView(step1);
-
-        addButton(stepsCard, "Open playgenerals.online", this::onOpenWebsite);
-
-        codeInput = new EditText(this);
-        codeInput.setHint("Login code");
-        codeInput.setSingleLine(true);
-        codeInput.setInputType(android.text.InputType.TYPE_CLASS_TEXT
-            | android.text.InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS);
-        stepsCard.addView(codeInput);
-
-        signInButton = addButton(stepsCard, "Verify Code", this::onVerifyCode);
+        stepsCard.addView(help);
+        signInButton = addButton(stepsCard, "Sign In", this::onSignIn);
     }
 
     private LinearLayout startCard(LinearLayout root, String header) {
@@ -194,79 +186,116 @@ public class GeneralsOnlineActivity extends Activity {
         return b;
     }
 
-    private void onOpenWebsite() {
-        try {
-            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(WEBSITE_URL)));
-        } catch (Exception e) {
-            Toast.makeText(this, "No browser available: " + e.getMessage(), Toast.LENGTH_LONG).show();
+    private String generateGameCode() {
+        StringBuilder sb = new StringBuilder(CODE_LENGTH);
+        for (int i = 0; i < CODE_LENGTH; ++i) {
+            sb.append(CODE_CHARSET.charAt(random.nextInt(CODE_CHARSET.length())));
         }
+        return sb.toString();
     }
 
-    private void onVerifyCode() {
-        String code = codeInput.getText().toString().trim();
-        if (code.isEmpty()) {
-            Toast.makeText(this, "Enter the code from playgenerals.online first", Toast.LENGTH_SHORT).show();
+    // If we already have a refresh_token from a previous sign-in, try to
+    // silently re-authenticate instead of making the user go through the
+    // browser again -- mirrors BeginLogin()'s GetCredentials()/LoginWithToken
+    // branch in the reference client.
+    private void maybeSilentReauth() {
+        String refreshToken = getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
+            .getString(PREF_REFRESH_TOKEN, null);
+        if (refreshToken == null || refreshToken.isEmpty() || busy) {
             return;
         }
-        if (polling) {
+        busy = true;
+        signInButton.setEnabled(false);
+        statusText.setText("Signing in...");
+        new Thread(() -> {
+            AuthResult result = callLoginWithToken(refreshToken);
+            handler.post(() -> {
+                busy = false;
+                signInButton.setEnabled(true);
+                if (result != null && result.state == 1) {
+                    saveSession(result);
+                    refreshStatus();
+                } else {
+                    // Refresh token expired/invalid -- fall back to a fresh
+                    // browser sign-in next time the user taps Sign In.
+                    clearSession();
+                    refreshStatus();
+                }
+            });
+        }).start();
+    }
+
+    private void onSignIn() {
+        if (busy) {
             return;
         }
-        polling = true;
+        busy = true;
         pollAttempt = 0;
         signInButton.setEnabled(false);
-        statusText.setText("Checking...");
-        pollOnce(code);
+
+        String code = generateGameCode();
+        String url = String.format(LOGIN_URL_FMT, code);
+        try {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+        } catch (Exception e) {
+            busy = false;
+            signInButton.setEnabled(true);
+            Toast.makeText(this, "No browser available: " + e.getMessage(), Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        statusText.setText("Continue in your browser -- come back here once you've signed in.");
+        handler.postDelayed(() -> pollOnce(code), POLL_INTERVAL_MS);
     }
 
     private void pollOnce(String code) {
         new Thread(() -> {
-            CheckLoginResult result = callCheckLogin(code);
+            AuthResult result = callCheckLogin(code);
             handler.post(() -> handlePollResult(code, result));
         }).start();
     }
 
-    private void handlePollResult(String code, CheckLoginResult result) {
+    private void handlePollResult(String code, AuthResult result) {
         if (result == null) {
-            polling = false;
+            busy = false;
             signInButton.setEnabled(true);
             statusText.setText("Network error -- check your connection and try again.");
             return;
         }
 
         switch (result.state) {
-            case 1: // LoginSuccess
-                polling = false;
+            case 1: // SUCCEEDED
+                busy = false;
                 signInButton.setEnabled(true);
                 saveSession(result);
                 refreshStatus();
                 Toast.makeText(this, "Signed in as " + result.displayName, Toast.LENGTH_LONG).show();
                 break;
-            case 2: // LoginFailed
-                polling = false;
+            case 2: // FAILED
+                busy = false;
                 signInButton.setEnabled(true);
-                statusText.setText("That code was rejected or expired -- get a new one from playgenerals.online.");
+                statusText.setText("Sign-in failed or was cancelled -- tap Sign In to try again.");
                 break;
-            case 0: // Waiting
+            case 0: // WAITING_USER_ACTION
+            case -1: // CODE_INVALID (not registered yet server-side -- keep polling, it's a timing thing)
                 ++pollAttempt;
                 if (pollAttempt >= POLL_MAX_ATTEMPTS) {
-                    polling = false;
+                    busy = false;
                     signInButton.setEnabled(true);
-                    statusText.setText("Timed out waiting for confirmation -- try again.");
+                    statusText.setText("Timed out waiting -- tap Sign In to try again.");
                 } else {
-                    statusText.setText("Waiting for you to confirm on playgenerals.online... ("
-                        + pollAttempt + "/" + POLL_MAX_ATTEMPTS + ")");
                     handler.postDelayed(() -> pollOnce(code), POLL_INTERVAL_MS);
                 }
                 break;
-            default: // None (bad/unknown code) or anything else
-                polling = false;
+            default:
+                busy = false;
                 signInButton.setEnabled(true);
-                statusText.setText("Unrecognized code -- double check it and try again.");
+                statusText.setText("Unexpected response -- tap Sign In to try again.");
                 break;
         }
     }
 
-    private static class CheckLoginResult {
+    private static class AuthResult {
         int state = -1;
         String sessionToken = "";
         String refreshToken = "";
@@ -276,20 +305,46 @@ public class GeneralsOnlineActivity extends Activity {
     }
 
     // Runs on a background thread.
-    private CheckLoginResult callCheckLogin(String code) {
+    private AuthResult callCheckLogin(String code) {
+        JSONObject body = new JSONObject();
+        try {
+            body.put("code", code);
+            body.put("client_id", CLIENT_ID);
+            body.put("reserved_0", "");
+            body.put("reserved_1", "");
+            body.put("reserved_2", "");
+        } catch (Exception e) {
+            return null;
+        }
+        return postJson("CheckLogin", body, null);
+    }
+
+    // Runs on a background thread.
+    private AuthResult callLoginWithToken(String refreshToken) {
+        JSONObject body = new JSONObject();
+        try {
+            body.put("reserved_0", "");
+            body.put("reserved_1", "");
+            body.put("reserved_2", "");
+        } catch (Exception e) {
+            return null;
+        }
+        return postJson("LoginWithToken", body, refreshToken);
+    }
+
+    private AuthResult postJson(String endpoint, JSONObject body, String bearerToken) {
         HttpURLConnection conn = null;
         try {
-            URL url = new URL(API_BASE + "CheckLogin");
+            URL url = new URL(API_BASE + endpoint);
             conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Content-Type", "application/json");
+            if (bearerToken != null) {
+                conn.setRequestProperty("Authorization", "Bearer " + bearerToken);
+            }
             conn.setConnectTimeout(10000);
             conn.setReadTimeout(10000);
             conn.setDoOutput(true);
-
-            JSONObject body = new JSONObject();
-            body.put("code", code);
-            body.put("client_id", CLIENT_ID);
 
             try (OutputStream os = conn.getOutputStream()) {
                 os.write(body.toString().getBytes(StandardCharsets.UTF_8));
@@ -300,10 +355,9 @@ public class GeneralsOnlineActivity extends Activity {
             if (in == null) {
                 return null;
             }
-            String responseBody = readAll(in);
-            JSONObject json = new JSONObject(responseBody);
+            JSONObject json = new JSONObject(readAll(in));
 
-            CheckLoginResult result = new CheckLoginResult();
+            AuthResult result = new AuthResult();
             result.state = json.optInt("result", -1);
             result.sessionToken = json.optString("session_token", "");
             result.refreshToken = json.optString("refresh_token", "");
@@ -330,7 +384,7 @@ public class GeneralsOnlineActivity extends Activity {
         return buf.toString("UTF-8");
     }
 
-    private void saveSession(CheckLoginResult result) {
+    private void saveSession(AuthResult result) {
         getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit()
             .putString(PREF_SESSION_TOKEN, result.sessionToken)
             .putString(PREF_REFRESH_TOKEN, result.refreshToken)
@@ -360,6 +414,10 @@ public class GeneralsOnlineActivity extends Activity {
     }
 
     private void onSignOut() {
+        // TODO: also DELETE /User/{user_id} server-side like the reference
+        // client's LogoutOfMyAccount(), once we're sure "sign out" here
+        // should mean "forget this device" rather than just "clear local
+        // session" -- left local-only for now since that's the safer default.
         clearSession();
         refreshStatus();
         Toast.makeText(this, "Signed out.", Toast.LENGTH_SHORT).show();
