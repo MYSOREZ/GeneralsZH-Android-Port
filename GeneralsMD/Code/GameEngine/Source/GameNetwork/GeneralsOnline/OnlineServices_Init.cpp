@@ -33,6 +33,15 @@ extern "C"
 
 NGMP_OnlineServicesManager* NGMP_OnlineServicesManager::m_pOnlineServicesManager = nullptr;
 
+// GeneralsX @bugfix Android port 11/07/2026 upstream defines these two
+// plain globals in NetworkMesh.cpp, part of the P2P match-transport layer
+// (NetworkMesh/NetworkBitstream/NetworkPacket/NextGenTransport) that's
+// deliberately not ported here (see the comment in
+// GeneralsMD/Code/GameEngine/CMakeLists.txt) -- WOLLobbyMenu.cpp's relay
+// force-toggle still references them via extern, so they need a definition
+// somewhere even without the rest of that subsystem.
+bool g_bForceRelay = false;
+UnsignedInt m_exeCRCOriginal = 0;
 
 std::thread::id NGMP_OnlineServicesManager::g_MainThreadID;
 std::mutex NGMP_OnlineServicesManager::m_ScreenshotMutex;
@@ -40,6 +49,51 @@ std::vector<std::string> NGMP_OnlineServicesManager::m_vecGuardedSSData;
 
 
 bool NGMP_OnlineServicesManager::g_bAdvancedNetworkStats;
+
+// GeneralsX @bugfix Android port 11/07/2026 see the declaration in
+// OnlineServices_Init.h -- defined here, after NGMP_interfaces.h has fully
+// expanded, so the interface classes below are complete types.
+NGMP_OnlineServicesManager::~NGMP_OnlineServicesManager()
+{
+	if (m_pAuthInterface != nullptr)
+	{
+		delete m_pAuthInterface;
+		m_pAuthInterface = nullptr;
+	}
+
+	if (m_pStatsInterface != nullptr)
+	{
+		delete m_pStatsInterface;
+		m_pStatsInterface = nullptr;
+	}
+
+	if (m_pLobbyInterface != nullptr)
+	{
+		delete m_pLobbyInterface;
+		m_pLobbyInterface = nullptr;
+	}
+
+	if (m_pRoomInterface != nullptr)
+	{
+		delete m_pRoomInterface;
+		m_pRoomInterface = nullptr;
+	}
+
+	if (m_pSocialInterface != nullptr)
+	{
+		delete m_pSocialInterface;
+		m_pSocialInterface = nullptr;
+	}
+
+	if (m_pHTTPManager != nullptr)
+	{
+		delete m_pHTTPManager;
+		m_pHTTPManager = nullptr;
+	}
+
+	// Reset shared_ptr, which will delete WebSocket only when all references are released
+	m_pWebSocket.reset();
+}
 
 NetworkMesh* NGMP_OnlineServicesManager::GetNetworkMesh()
 {

@@ -405,47 +405,19 @@ public:
 
 	void GetAndParseServiceConfig(std::function<void(void)> cbOnDone);
 
-	~NGMP_OnlineServicesManager()
-	{
-		if (m_pAuthInterface != nullptr)
-		{
-			delete m_pAuthInterface;
-			m_pAuthInterface = nullptr;
-		}
-
-		if (m_pStatsInterface != nullptr)
-		{
-			delete m_pStatsInterface;
-			m_pStatsInterface = nullptr;
-		}
-
-		if (m_pLobbyInterface != nullptr)
-		{
-			delete m_pLobbyInterface;
-			m_pLobbyInterface = nullptr;
-		}
-
-		if (m_pRoomInterface != nullptr)
-		{
-			delete m_pRoomInterface;
-			m_pRoomInterface = nullptr;
-		}
-
-		if (m_pSocialInterface != nullptr)
-		{
-			delete m_pSocialInterface;
-			m_pSocialInterface = nullptr;
-		}
-
-		if (m_pHTTPManager != nullptr)
-		{
-			delete m_pHTTPManager;
-			m_pHTTPManager = nullptr;
-		}
-
-		// Reset shared_ptr, which will delete WebSocket only when all references are released
-		m_pWebSocket.reset();
-	}
+	// GeneralsX @bugfix Android port 11/07/2026 defined out-of-line in
+	// OnlineServices_Init.cpp instead of inline here -- NGMP_interfaces.h
+	// includes this header BEFORE OnlineServices_Auth.h/LobbyInterface.h/
+	// RoomsInterface.h, so an inline body here would delete through those
+	// classes' forward declarations (still incomplete at this point) in
+	// every translation unit, silently deferring their implicit
+	// destructors' definition to link time -- and since no other TU ever
+	// destroys these types where they're complete, the linker fails with
+	// "undefined symbol: NGMP_OnlineServices_*Interface::~...()". Defining
+	// the body in the .cpp (after NGMP_interfaces.h has been fully expanded)
+	// lets the compiler see the complete types and inline their implicit
+	// destructors directly, with no external symbol required.
+	~NGMP_OnlineServicesManager();
 
 	void StartVersionCheck(std::function<void(bool bSuccess, bool bNeedsUpdate)> fnCallback);
 
