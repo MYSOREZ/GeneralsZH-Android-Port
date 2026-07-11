@@ -1594,12 +1594,15 @@ WindowMsgHandledType GameSpyPlayerInfoOverlaySystem( GameWindow *window, Unsigne
 		
 		case GWM_CREATE:
 			{
-				
+				fprintf(stderr, "DEBUG-UI: GameSpyPlayerInfoOverlaySystem GWM_CREATE\n");
+				fflush(stderr);
 				break;
 			}
 
 		case GWM_DESTROY:
 			{
+				fprintf(stderr, "DEBUG-UI: GameSpyPlayerInfoOverlaySystem GWM_DESTROY\n");
+				fflush(stderr);
 				break;
 			}
 
@@ -1615,6 +1618,8 @@ WindowMsgHandledType GameSpyPlayerInfoOverlaySystem( GameWindow *window, Unsigne
 			{
 				GameWindow *control = (GameWindow *)mData1;
 				Int controlID = control->winGetWindowId();
+				fprintf(stderr, "DEBUG-UI: GameSpyPlayerInfoOverlaySystem GBM_SELECTED control='%s'\n", KEYNAME(controlID).str());
+				fflush(stderr);
 
 				if (controlID == buttonCloseID)
 				{

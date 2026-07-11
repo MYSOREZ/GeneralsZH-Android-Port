@@ -1370,6 +1370,9 @@ WindowMsgHandledType MainMenuSystem( GameWindow *window, UnsignedInt msg,
 
 			GameWindow *control = (GameWindow *)mData1;
 			Int controlID = control->winGetWindowId();
+			fprintf(stderr, "DEBUG-UI: MainMenuSystem GBM_SELECTED control='%s' buttonPushed=%d\n",
+				KEYNAME(controlID).str(), (int)buttonPushed);
+			fflush(stderr);
 
 			if(buttonPushed)
 				break;

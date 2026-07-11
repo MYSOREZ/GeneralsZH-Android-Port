@@ -904,12 +904,15 @@ WindowMsgHandledType WOLWelcomeMenuSystem( GameWindow *window, UnsignedInt msg,
 
 		case GWM_CREATE:
 			{
-
+				fprintf(stderr, "DEBUG-UI: WOLWelcomeMenuSystem GWM_CREATE\n");
+				fflush(stderr);
 				break;
 			}
 
 		case GWM_DESTROY:
 			{
+				fprintf(stderr, "DEBUG-UI: WOLWelcomeMenuSystem GWM_DESTROY\n");
+				fflush(stderr);
 				break;
 			}
 
@@ -925,6 +928,12 @@ WindowMsgHandledType WOLWelcomeMenuSystem( GameWindow *window, UnsignedInt msg,
 		case GBM_SELECTED:
 			{
 			// TODO_NGMP: Support exiting online again
+				{
+					GameWindow *controlForLog = (GameWindow *)mData1;
+					fprintf(stderr, "DEBUG-UI: WOLWelcomeMenuSystem GBM_SELECTED control='%s' buttonPushed=%d\n",
+						KEYNAME(controlForLog->winGetWindowId()).str(), (int)buttonPushed);
+					fflush(stderr);
+				}
 				if (buttonPushed)
 					break;
 

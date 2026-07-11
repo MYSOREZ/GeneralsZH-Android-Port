@@ -499,13 +499,16 @@ WindowMsgHandledType PopupHostGameSystem( GameWindow *window, UnsignedInt msg, W
 		// --------------------------------------------------------------------------------------------
 		case GWM_CREATE:
 		{
-
+			fprintf(stderr, "DEBUG-UI: PopupHostGameSystem GWM_CREATE\n");
+			fflush(stderr);
 			break;
 
 		}
     //---------------------------------------------------------------------------------------------
 		case GWM_DESTROY:
 		{
+			fprintf(stderr, "DEBUG-UI: PopupHostGameSystem GWM_DESTROY\n");
+			fflush(stderr);
 			parentPopup = nullptr;
 
 			break;
@@ -583,6 +586,8 @@ WindowMsgHandledType PopupHostGameSystem( GameWindow *window, UnsignedInt msg, W
 		{
 			GameWindow *control = (GameWindow *)mData1;
 			Int controlID = control->winGetWindowId();
+			fprintf(stderr, "DEBUG-UI: PopupHostGameSystem GBM_SELECTED control='%s'\n", KEYNAME(controlID).str());
+			fflush(stderr);
 
       if( controlID == buttonCancelID )
 			{

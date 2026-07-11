@@ -262,6 +262,8 @@ WindowLayout *WOLMapSelectLayout = NULL;
 
 void PopBackToLobby()
 {
+	fprintf(stderr, "DEBUG-UI: PopBackToLobby() enter -- parentWOLGameSetup=%p TheNGMPGame=%p\n", (void*)parentWOLGameSetup, (void*)TheNGMPGame);
+	fflush(stderr);
 	// delete TheNAT, its no good for us anymore.
 	if (TheNAT != nullptr)
 	{
@@ -283,12 +285,25 @@ void PopBackToLobby()
 		pLobbyInterface->LeaveCurrentLobby();
 	}
 
+	// GeneralsX @bugfix Android port 11/07/2026 log explicitly whether this
+	// guard is what's silently swallowing the Back press -- if
+	// parentWOLGameSetup is ever null here (e.g. torn down some other way
+	// before Back was pressed), TheShell->pop() below is skipped entirely
+	// and Back does nothing, same failure shape as WOLLobbyMenu.cpp's
+	// s_tryingToHostOrJoin bug.
 	if (parentWOLGameSetup)
 	{
 		nextScreen = "Menus/WOLCustomLobby.wnd";
+		fprintf(stderr, "DEBUG-UI: PopBackToLobby() popping shell to WOLCustomLobby.wnd\n");
+		fflush(stderr);
 		TheShell->pop();
 
 
+	}
+	else
+	{
+		fprintf(stderr, "DEBUG-UI: PopBackToLobby() bail -- parentWOLGameSetup is null, Back does nothing this press\n");
+		fflush(stderr);
 	}
 }
 
@@ -3830,12 +3845,16 @@ WindowMsgHandledType WOLGameSetupMenuSystem( GameWindow *window, UnsignedInt msg
 		//-------------------------------------------------------------------------------------------------
 		case GWM_CREATE:
 			{
+				fprintf(stderr, "DEBUG-UI: WOLGameSetupMenuSystem GWM_CREATE\n");
+				fflush(stderr);
 				buttonCommunicatorID = NAMEKEY("GameSpyGameOptionsMenu.wnd:ButtonCommunicator");
 				break;
 			}
 		//-------------------------------------------------------------------------------------------------
 		case GWM_DESTROY:
 			{
+				fprintf(stderr, "DEBUG-UI: WOLGameSetupMenuSystem GWM_DESTROY\n");
+				fflush(stderr);
 				if (windowMap)
 					windowMap->winSetUserData(NULL);
 
@@ -3965,6 +3984,12 @@ WindowMsgHandledType WOLGameSetupMenuSystem( GameWindow *window, UnsignedInt msg
 		//-------------------------------------------------------------------------------------------------
 		case GBM_SELECTED:
 			{
+				{
+					GameWindow *controlForLog = (GameWindow *)mData1;
+					fprintf(stderr, "DEBUG-UI: WOLGameSetupMenuSystem GBM_SELECTED control='%s' buttonPushed=%d\n",
+						KEYNAME(controlForLog->winGetWindowId()).str(), (int)buttonPushed);
+					fflush(stderr);
+				}
 				if (buttonPushed)
 					break;
 

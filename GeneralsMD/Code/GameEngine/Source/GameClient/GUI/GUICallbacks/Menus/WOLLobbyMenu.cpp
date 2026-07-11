@@ -309,6 +309,12 @@ Bool handleLobbySlashCommands(UnicodeString uText)
 static Bool s_tryingToHostOrJoin = FALSE;
 void SetLobbyAttemptHostJoin(Bool start)
 {
+	// GeneralsX @bugfix Android port 11/07/2026 verbose on purpose -- this
+	// flag being stuck TRUE is what makes the Back button (ExitState()) go
+	// silently dead, and that's been hard to pin down from device logs
+	// without seeing every place this flag actually changes.
+	fprintf(stderr, "DEBUG-UI: SetLobbyAttemptHostJoin(%d) (was %d)\n", (int)start, (int)s_tryingToHostOrJoin);
+	fflush(stderr);
 	s_tryingToHostOrJoin = start;
 }
 
@@ -1188,7 +1194,27 @@ void PopulateLobbyPlayerListbox()
 
 void NGMP_WOLLobbyMenu_CreateLobbyCallback(bool bSuccess)
 {
-	// TODO_NGMP: Handle error case
+	// GeneralsX @bugfix Android port 11/07/2026 unlike
+	// NGMP_WOLLobbyMenu_JoinLobbyCallback (which resets this at its very top,
+	// success or fail), this callback never reset s_tryingToHostOrJoin --
+	// left it stuck TRUE for the rest of the process after ANY host attempt
+	// (this callback fires for both success and failure). ExitState() (the
+	// Back button handler) bails immediately whenever this flag is true, so
+	// hosting a single game -- even successfully -- permanently broke Back
+	// for the rest of the session, on every future visit to this screen.
+	// Confirmed via read-through; matches the long-reported "Back does
+	// nothing" behavior. Also handle the failure case properly instead of
+	// always navigating away as if it succeeded (the old // TODO_NGMP
+	// comment here).
+	fprintf(stderr, "DEBUG-UI: NGMP_WOLLobbyMenu_CreateLobbyCallback bSuccess=%d (clearing s_tryingToHostOrJoin)\n", (int)bSuccess);
+	fflush(stderr);
+	SetLobbyAttemptHostJoin(FALSE);
+
+	if (!bSuccess)
+	{
+		GSMessageBoxOk(TheGameText->fetch("GUI:Error"), TheGameText->fetch("GUI:JoinFailedDefault"));
+		return;
+	}
 
 	buttonPushed = true;
 	nextScreen = "Menus/GameSpyGameOptionsMenu.wnd";
@@ -1750,8 +1776,14 @@ void refreshPlayerList( Bool forceRefresh )
 
 void ExitState()
 {
+	fprintf(stderr, "DEBUG-UI: ExitState() enter -- s_tryingToHostOrJoin=%d buttonPushed=%d\n", (int)s_tryingToHostOrJoin, (int)buttonPushed);
+	fflush(stderr);
 	if (s_tryingToHostOrJoin)
+	{
+		fprintf(stderr, "DEBUG-UI: ExitState() bail -- s_tryingToHostOrJoin is TRUE, Back does nothing this press\n");
+		fflush(stderr);
 		return;
+	}
 
 	// Leave any group room, then pop off the screen
 	auto pOnlineServicesManager = NGMP_OnlineServicesManager::GetInstance();
@@ -1775,7 +1807,9 @@ void ExitState()
 	{
 		nextScreen = "Menus/WOLWelcomeMenu.wnd";
 	}
-	
+
+	fprintf(stderr, "DEBUG-UI: ExitState() popping shell, nextScreen=%s\n", nextScreen ? nextScreen : "(null)");
+	fflush(stderr);
 	TheShell->pop();
 }
 
@@ -2361,6 +2395,8 @@ WindowMsgHandledType WOLLobbyMenuSystem( GameWindow *window, UnsignedInt msg,
 		//---------------------------------------------------------------------------------------------
 		case GWM_CREATE:
 			{
+				fprintf(stderr, "DEBUG-UI: WOLLobbyMenuSystem GWM_CREATE\n");
+				fflush(stderr);
 				buttonGameListTypeToggleID = NAMEKEY("WOLCustomLobby.wnd:ButtonGameListToggle");
 //				sliderChatAdjustID = NAMEKEY("WOLCustomLobby.wnd:SliderChatAdjust");
 
@@ -2370,6 +2406,8 @@ WindowMsgHandledType WOLLobbyMenuSystem( GameWindow *window, UnsignedInt msg,
 		//---------------------------------------------------------------------------------------------
 		case GWM_DESTROY:
 			{
+				fprintf(stderr, "DEBUG-UI: WOLLobbyMenuSystem GWM_DESTROY\n");
+				fflush(stderr);
 				break;
 			}
 
@@ -2388,6 +2426,8 @@ WindowMsgHandledType WOLLobbyMenuSystem( GameWindow *window, UnsignedInt msg,
 			{
 				GameWindow *control = (GameWindow *)mData1;
 				Int controlID = control->winGetWindowId();
+				fprintf(stderr, "DEBUG-UI: WOLLobbyMenuSystem GLM_SELECTED control='%s'\n", KEYNAME(controlID).str());
+				fflush(stderr);
 				if ( controlID == GetGameListBoxID() )
 				{
 					int rowSelected = mData2;
@@ -2430,6 +2470,20 @@ WindowMsgHandledType WOLLobbyMenuSystem( GameWindow *window, UnsignedInt msg,
 		//---------------------------------------------------------------------------------------------
 		case GBM_SELECTED:
 			{
+				// GeneralsX @bugfix Android port 11/07/2026 log every button
+				// press in this screen (Custom Match) BEFORE the buttonPushed
+				// early-out, specifically so a stuck buttonPushed flag (which
+				// would silently eat every click, same failure shape as the
+				// s_tryingToHostOrJoin bug fixed nearby) shows up in the log
+				// as "press seen, buttonPushed=1, ignored" instead of nothing
+				// at all.
+				{
+					GameWindow *controlForLog = (GameWindow *)mData1;
+					fprintf(stderr, "DEBUG-UI: WOLLobbyMenuSystem GBM_SELECTED control='%s' buttonPushed=%d\n",
+						KEYNAME(controlForLog->winGetWindowId()).str(), (int)buttonPushed);
+					fflush(stderr);
+				}
+
 				if (buttonPushed)
 					break;
 
