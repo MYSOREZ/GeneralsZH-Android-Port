@@ -2602,6 +2602,16 @@ Int GadgetListBoxGetListLength( GameWindow *listbox )
 //=============================================================================
 Int GadgetListBoxGetMaxSelectedLength( GameWindow *listbox )
 {
+	// GeneralsX @bugfix Android port 11/07/2026 unlike every other
+	// GadgetListBoxXxx() accessor in this file, this one dereferenced
+	// `listbox` with no null check -- a caller whose window was torn down
+	// (e.g. the user backing out of a screen while an async callback that
+	// captured the listbox is still in flight) would crash here instead of
+	// getting the same safe "listbox doesn't exist" no-op the other
+	// accessors give.
+	if (!listbox)
+		return 0;
+
 	ListboxData *listboxData = (ListboxData *)listbox->winGetUserData();
 	if (listboxData)
 		return listboxData->multiSelect ? listboxData->listLength : 1;
