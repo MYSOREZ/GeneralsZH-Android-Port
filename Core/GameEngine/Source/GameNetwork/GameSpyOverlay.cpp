@@ -208,10 +208,10 @@ void GameSpyOpenOverlay( GSOverlayType overlay )
 {
 	if (overlay == GSOVERLAY_BUDDY)
 	{
-		if (!TheGameSpyBuddyMessageQueue->isConnected())
+		if (!TheGameSpyBuddyMessageQueue || !TheGameSpyBuddyMessageQueue->isConnected())
 		{
 			// not connected - is it because we were disconnected?
-			if (TheGameSpyBuddyMessageQueue->getLocalProfileID())
+			if (TheGameSpyBuddyMessageQueue && TheGameSpyBuddyMessageQueue->getLocalProfileID())
 			{
 				// used to be connected
 				GSMessageBoxYesNo(TheGameText->fetch("GUI:GPErrorTitle"), TheGameText->fetch("GUI:GPDisconnected"), buddyTryReconnect, nullptr);
