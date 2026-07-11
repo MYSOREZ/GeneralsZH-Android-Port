@@ -15,6 +15,8 @@ struct PlaylistEntry
 	std::string Name = std::string();
 	int MinPlayers = -1;
 	int DesiredPlayers = -1;
+	// GeneralsX @bugfix Android port 07/11/2026 - ported from upstream GeneralsOnline, used by WOLQuickMatchMenu.cpp
+	int MinSelectedMaps = 0;
 	bool AllowTeams = false;
 	int TeamSize = -1;
 	bool AllowArmySelection = false;

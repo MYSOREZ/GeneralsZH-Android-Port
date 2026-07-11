@@ -763,7 +763,8 @@ void NGMP_OnlineServices_LobbyInterface::ApplyLocalUserPropertiesToCurrentNetwor
 	}
 }
 
-void NGMP_OnlineServices_LobbyInterface::UpdateRoomDataCache(std::function<void(void)> fnCallback)
+// GeneralsX @bugfix Android port 07/11/2026 - sync with upstream: callback now reports success/failure
+void NGMP_OnlineServices_LobbyInterface::UpdateRoomDataCache(std::function<void(bool)> fnCallback)
 {
 	// refresh lobby
 	if (m_CurrentLobby.lobbyID != -1 && TheNGMPGame != nullptr)
@@ -787,7 +788,7 @@ void NGMP_OnlineServices_LobbyInterface::UpdateRoomDataCache(std::function<void(
 							// TODO_NGMP: We still want to do this, but we need to send back that it failed and back out, proceeding to lobby crashes because mesh wasn't created
 							if (fnCallback != nullptr)
 							{
-								//fnCallback();
+								//fnCallback(false);
 							}
 
 							LeaveCurrentLobby();
@@ -998,7 +999,7 @@ void NGMP_OnlineServices_LobbyInterface::UpdateRoomDataCache(std::function<void(
 
 						if (fnCallback != nullptr)
 						{
-							fnCallback();
+							fnCallback(true);
 						}
 					}
 					catch (...)
@@ -1006,7 +1007,7 @@ void NGMP_OnlineServices_LobbyInterface::UpdateRoomDataCache(std::function<void(
 						// TODO_NGMP: We still want to do this, but we need to send back that it failed and back out, proceeding to lobby crashes because mesh wasn't created
 						if (fnCallback != nullptr)
 						{
-							//fnCallback();
+							//fnCallback(false);
 						}
 					}
 				}
@@ -1015,7 +1016,7 @@ void NGMP_OnlineServices_LobbyInterface::UpdateRoomDataCache(std::function<void(
 					// TODO_NGMP: We still want to do this, but we need to send back that it failed and back out, proceeding to lobby crashes because mesh wasn't created
 					if (fnCallback != nullptr)
 					{
-						//fnCallback();
+						//fnCallback(false);
 					}
 				}
 		});
@@ -1162,7 +1163,7 @@ void NGMP_OnlineServices_LobbyInterface::JoinLobby(LobbyEntry lobbyInfo, std::st
 							});
 
 						// get latest lobby info immediately
-						UpdateRoomDataCache([=]()
+						UpdateRoomDataCache([=](bool bSuccess)
 							{
 
 							});
@@ -1430,7 +1431,7 @@ void NGMP_OnlineServices_LobbyInterface::OnJoinedOrCreatedLobby(bool bAlreadyUpd
 	// must be done in a callback, this is an async function
 	if (!bAlreadyUpdatedDetails)
 	{
-		UpdateRoomDataCache([=]()
+		UpdateRoomDataCache([=](bool bSuccess)
 			{
 				fnCallback();
 			});

@@ -28,6 +28,8 @@ void NGMP_OnlineServices_MatchmakingInterface::RetrievePlaylists(std::function<v
 					playlistEntryIter["Name"].get_to(playlistEntry.Name);
 					playlistEntryIter["MinPlayers"].get_to(playlistEntry.MinPlayers);
 					playlistEntryIter["DesiredPlayers"].get_to(playlistEntry.DesiredPlayers);
+					// GeneralsX @bugfix Android port 07/11/2026 - ported from upstream GeneralsOnline, used by WOLQuickMatchMenu.cpp
+					playlistEntryIter["MinSelectedMaps"].get_to(playlistEntry.MinSelectedMaps);
 					playlistEntryIter["AllowTeams"].get_to(playlistEntry.AllowTeams);
 					playlistEntryIter["TeamSize"].get_to(playlistEntry.TeamSize);
 					playlistEntryIter["AllowArmySelection"].get_to(playlistEntry.AllowArmySelection);

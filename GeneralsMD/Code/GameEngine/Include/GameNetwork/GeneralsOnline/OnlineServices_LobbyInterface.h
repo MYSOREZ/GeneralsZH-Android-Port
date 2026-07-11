@@ -325,7 +325,8 @@ public:
 
 	bool IsHost();
 
-	void UpdateRoomDataCache(std::function<void(void)> fnCallback = nullptr);
+	// GeneralsX @bugfix Android port 07/11/2026 - sync with upstream: callback now reports success/failure, needed by WOLQuickMatchMenu.cpp/WOLGameSetupMenu.cpp callers
+	void UpdateRoomDataCache(std::function<void(bool)> fnCallback = nullptr);
 
 	std::function<void(LobbyMemberEntry)> m_cbPlayerDoesntHaveMap = nullptr;
 	void RegisterForPlayerDoesntHaveMapCallback(std::function<void(LobbyMemberEntry)> cb)

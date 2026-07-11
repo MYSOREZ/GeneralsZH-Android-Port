@@ -722,7 +722,8 @@ void createGame()
 	req.stagingRoomCreation.ladPort = 0;
 	if (ladderSelectPos >= 0)
 	{
-		ladderID = (Int)GadgetComboBoxGetItemData(comboBoxLadderName, ladderSelectPos);
+		// GeneralsX @bugfix Android port 07/11/2026 - Cast via uintptr_t for 64-bit
+		ladderID = static_cast<Int>(reinterpret_cast<uintptr_t>(GadgetComboBoxGetItemData(comboBoxLadderName, ladderSelectPos)));
 		if (ladderID != 0)
 		{
 			// actual ladder

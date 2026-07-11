@@ -284,7 +284,8 @@ void UpdateStartButton()
 	Int index;
 	Int selected;
 	GadgetComboBoxGetSelectedPos( comboBoxLadder, &selected );
-	index = (Int)GadgetComboBoxGetItemData( comboBoxLadder, selected );
+	// GeneralsX @bugfix Android port 07/11/2026 - Cast via uintptr_t for 64-bit
+	index = static_cast<Int>(reinterpret_cast<uintptr_t>(GadgetComboBoxGetItemData( comboBoxLadder, selected )));
 	const LadderInfo *li = TheLadderList->findLadderByIndex( index );
 	if (li)
 	{
@@ -543,7 +544,8 @@ static const LadderInfo * getLadderInfo()
 	Int index;
 	Int selected;
 	GadgetComboBoxGetSelectedPos( comboBoxLadder, &selected );
-	index = (Int)GadgetComboBoxGetItemData( comboBoxLadder, selected );
+	// GeneralsX @bugfix Android port 07/11/2026 - Cast via uintptr_t for 64-bit
+	index = static_cast<Int>(reinterpret_cast<uintptr_t>(GadgetComboBoxGetItemData( comboBoxLadder, selected )));
 	const LadderInfo *li = TheLadderList->findLadderByIndex( index );
 	return li;
 }
@@ -692,7 +694,8 @@ static void populateQuickMatchMapSelectListbox( QuickMatchPreferences& pref )
 	Int index;
 	Int selected;
 	GadgetComboBoxGetSelectedPos( comboBoxLadder, &selected );
-	index = (Int)GadgetComboBoxGetItemData( comboBoxLadder, selected );
+	// GeneralsX @bugfix Android port 07/11/2026 - Cast via uintptr_t for 64-bit
+	index = static_cast<Int>(reinterpret_cast<uintptr_t>(GadgetComboBoxGetItemData( comboBoxLadder, selected )));
 	const LadderInfo *li = TheLadderList->findLadderByIndex( index );
 	//listboxMapSelect->winEnable( li == nullptr || li->randomMaps == FALSE );
 
@@ -805,7 +808,8 @@ static void saveQuickMatchOptions()
 	Int index;
 	Int selected;
 	GadgetComboBoxGetSelectedPos( comboBoxLadder, &selected );
-	index = (Int)GadgetComboBoxGetItemData( comboBoxLadder, selected );
+	// GeneralsX @bugfix Android port 07/11/2026 - Cast via uintptr_t for 64-bit
+	index = static_cast<Int>(reinterpret_cast<uintptr_t>(GadgetComboBoxGetItemData( comboBoxLadder, selected )));
 	const LadderInfo *li = TheLadderList->findLadderByIndex( index );
 	Int numPlayers = 0;
 
@@ -863,7 +867,8 @@ static void saveQuickMatchOptions()
 
 	Int item;
 	GadgetComboBoxGetSelectedPos(comboBoxSide, &selected);
-	item = (Int)GadgetComboBoxGetItemData(comboBoxSide, selected);
+	// GeneralsX @bugfix Android port 07/11/2026 - Cast via uintptr_t for 64-bit
+	item = static_cast<Int>(reinterpret_cast<uintptr_t>(GadgetComboBoxGetItemData(comboBoxSide, selected)));
 	pref.setSide(max(0, item));
 	GadgetComboBoxGetSelectedPos(comboBoxColor, &selected);
 	pref.setColor(max(0, selected));
@@ -1287,6 +1292,11 @@ void WOLQuickMatchMenuInit( WindowLayout *layout, void *userData )
 					});
 
 				// connection events (for debug really)
+				// GeneralsX @bugfix Android port 07/11/2026 - NetworkMesh/NextGenTransport (Steam GameNetworkingSockets P2P mesh) is not
+				// ported to this Android fork yet; this block is debug-only connection-state UI logging (see #if _DEBUG below, and the
+				// upstream comment noting it's not even meaningfully enabled during quickmatch), so it is skipped rather than pulling in
+				// the whole mesh-networking subsystem for a non-functional debug feature.
+#if defined(GENERALS_ONLINE_NETWORKMESH)
 				NetworkMesh* pMesh = NGMP_OnlineServicesManager::GetNetworkMesh();
 				if (pMesh != nullptr)
 				{
@@ -1354,6 +1364,7 @@ void WOLQuickMatchMenuInit( WindowLayout *layout, void *userData )
 #endif
 						});
 				}
+#endif // GENERALS_ONLINE_NETWORKMESH
 
 			});
 	}
@@ -2107,7 +2118,8 @@ WindowMsgHandledType WOLQuickMatchMenuSystem( GameWindow *window, UnsignedInt ms
 					if (pos >= 0)
 					{
 						QuickMatchPreferences pref;
-						Int ladderID = (Int)GadgetComboBoxGetItemData(control, pos);
+						// GeneralsX @bugfix Android port 07/11/2026 - Cast via uintptr_t for 64-bit
+						Int ladderID = static_cast<Int>(reinterpret_cast<uintptr_t>(GadgetComboBoxGetItemData(control, pos)));
 						if (ladderID == 0)
 						{
 							// no ladder selected - enable buttons
@@ -2356,7 +2368,8 @@ WindowMsgHandledType WOLQuickMatchMenuSystem( GameWindow *window, UnsignedInt ms
 
 					Int ladderIndex, index, selected;
 					GadgetComboBoxGetSelectedPos( comboBoxLadder, &selected );
-					ladderIndex = (Int)GadgetComboBoxGetItemData( comboBoxLadder, selected );
+					// GeneralsX @bugfix Android port 07/11/2026 - Cast via uintptr_t for 64-bit
+					ladderIndex = static_cast<Int>(reinterpret_cast<uintptr_t>(GadgetComboBoxGetItemData( comboBoxLadder, selected )));
 					const LadderInfo *ladderInfo = nullptr;
 					if (ladderIndex < 0)
 					{
@@ -2377,7 +2390,8 @@ WindowMsgHandledType WOLQuickMatchMenuSystem( GameWindow *window, UnsignedInt ms
 					index = -1;
 					GadgetComboBoxGetSelectedPos( comboBoxSide, &selected );
 					if (selected >= 0)
-						index = (Int)GadgetComboBoxGetItemData( comboBoxSide, selected );
+						// GeneralsX @bugfix Android port 07/11/2026 - Cast via uintptr_t for 64-bit
+						index = static_cast<Int>(reinterpret_cast<uintptr_t>(GadgetComboBoxGetItemData( comboBoxSide, selected )));
 					req.QM.side = index;
 					if (ladderInfo && ladderInfo->randomFactions)
 					{
@@ -2416,7 +2430,8 @@ WindowMsgHandledType WOLQuickMatchMenuSystem( GameWindow *window, UnsignedInt ms
 						{
 							Int numberComboBoxEntries = GadgetComboBoxGetLength(comboBoxSide);
 							Int randomPick = GameClientRandomValue(0, numberComboBoxEntries - 1);
-							index = (Int)GadgetComboBoxGetItemData( comboBoxSide, randomPick );
+							// GeneralsX @bugfix Android port 07/11/2026 - Cast via uintptr_t for 64-bit
+							index = static_cast<Int>(reinterpret_cast<uintptr_t>(GadgetComboBoxGetItemData( comboBoxSide, randomPick )));
 							req.QM.side = index;
 
 							randomTries++;
@@ -2426,7 +2441,8 @@ WindowMsgHandledType WOLQuickMatchMenuSystem( GameWindow *window, UnsignedInt ms
 					index = -1;
 					GadgetComboBoxGetSelectedPos( comboBoxColor, &selected );
 					if (selected >= 0)
-						index = (Int)GadgetComboBoxGetItemData( comboBoxColor, selected );
+						// GeneralsX @bugfix Android port 07/11/2026 - Cast via uintptr_t for 64-bit
+						index = static_cast<Int>(reinterpret_cast<uintptr_t>(GadgetComboBoxGetItemData( comboBoxColor, selected )));
 					req.QM.color = index;
 
 					OptionPreferences natPref;
@@ -2564,5 +2580,5 @@ WindowMsgHandledType WOLQuickMatchMenuSystem( GameWindow *window, UnsignedInt ms
 
 	return MSG_HANDLED;
 }
-
+
 
