@@ -1296,7 +1296,7 @@ void WOLQuickMatchMenuInit( WindowLayout *layout, void *userData )
 				// ported to this Android fork yet; this block is debug-only connection-state UI logging (see #if _DEBUG below, and the
 				// upstream comment noting it's not even meaningfully enabled during quickmatch), so it is skipped rather than pulling in
 				// the whole mesh-networking subsystem for a non-functional debug feature.
-#if defined(GENERALS_ONLINE_NETWORKMESH)
+#if defined(GENERALS_ONLINE_ENABLE_P2P_TRANSPORT)
 				NetworkMesh* pMesh = NGMP_OnlineServicesManager::GetNetworkMesh();
 				if (pMesh != nullptr)
 				{
@@ -1364,7 +1364,7 @@ void WOLQuickMatchMenuInit( WindowLayout *layout, void *userData )
 #endif
 						});
 				}
-#endif // GENERALS_ONLINE_NETWORKMESH
+#endif // GENERALS_ONLINE_ENABLE_P2P_TRANSPORT
 
 			});
 	}

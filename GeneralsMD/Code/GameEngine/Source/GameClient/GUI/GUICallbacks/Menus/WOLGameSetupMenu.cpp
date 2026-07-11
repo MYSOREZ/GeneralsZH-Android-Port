@@ -514,6 +514,9 @@ static void playerTooltip(GameWindow *window,
 
 	LobbyMemberEntry member = pLobbyInterface->GetRoomMemberFromID(slot->m_userID);
 
+	// GeneralsX @bugfix Android port 07/11/2026 - NetworkMesh/NextGenTransport (Steam GameNetworkingSockets P2P mesh) is not ported to
+	// this Android fork yet; skip the per-connection stats query and fall through to the "Connecting..." display below.
+#if defined(GENERALS_ONLINE_ENABLE_P2P_TRANSPORT)
 	if (localPlayerID != slot->m_userID)
 	{
 		if (NGMP_OnlineServicesManager::GetNetworkMesh() != nullptr)
@@ -539,6 +542,7 @@ static void playerTooltip(GameWindow *window,
 			}
 		}
 	}
+#endif // GENERALS_ONLINE_ENABLE_P2P_TRANSPORT
 
 	if (localPlayerID == slot->m_userID)
 	{
@@ -954,6 +958,10 @@ static void StartPressed()
 	if (pLobbyInterface == nullptr || !myGame || pAuthInterface == nullptr)
 		return;
 
+	// GeneralsX @bugfix Android port 07/11/2026 - NetworkMesh/NextGenTransport (Steam GameNetworkingSockets P2P mesh) is not ported to
+	// this Android fork yet, so we can't pre-check per-player mesh connections before starting; skip straight to the normal
+	// accept/ready-state gate below instead of blocking on mesh connectivity we have no way to query.
+#if defined(GENERALS_ONLINE_ENABLE_P2P_TRANSPORT)
 	NetworkMesh* pMesh = NGMP_OnlineServicesManager::GetNetworkMesh();
 	int numHumanPlayers = 0;
 	for(LobbyMemberEntry & member : pLobbyInterface->GetCurrentLobby().members)
@@ -969,7 +977,7 @@ static void StartPressed()
 		UnicodeString text(L"The following players are still connecting, please try again soon:");
 		GadgetListBoxAddEntryText(listboxGameSetupChat, text, GameMakeColor(255, 0, 0, 255), -1, -1);
 
-		
+
 		int64_t myUserID = pAuthInterface->GetUserID();
 		auto vecLobbyMembers = pLobbyInterface->GetCurrentLobby().members;
 		auto allConnections = pMesh->GetAllConnections();
@@ -985,7 +993,7 @@ static void StartPressed()
 					// we have a connection for this lobby member
 					bFoundLobbyMemberForConnection = true;
 				}
-				
+
 				if (!bFoundLobbyMemberForConnection)
 				{
 					UnicodeString strDisplayName(from_utf8(lobbyMember.display_name).c_str());
@@ -993,9 +1001,10 @@ static void StartPressed()
 				}
 			}
 		}
-		
+
 		return;
 	}
+#endif // GENERALS_ONLINE_ENABLE_P2P_TRANSPORT
 
 	// see if everyone's accepted and count the number of players in the game
 	UnicodeString mapDisplayName;
@@ -1359,7 +1368,11 @@ static void WOLRefreshConnectionIndicators(void)
     if (pLobbyInterface == nullptr || game == nullptr || !game->isInGame())
         return;
 
+    // GeneralsX @bugfix Android port 07/11/2026 - NetworkMesh/NextGenTransport (Steam GameNetworkingSockets P2P mesh) is not ported to
+    // this Android fork yet; the per-slot lookup below is guarded out, so every slot falls through to the "not connected" ping icon.
+#if defined(GENERALS_ONLINE_ENABLE_P2P_TRANSPORT)
     NetworkMesh* pMesh = NGMP_OnlineServicesManager::GetNetworkMesh();
+#endif
     static const Image* heroImage = TheMappedImageCollection->findImageByName("HeroReticle");
 
     for (Int i = 0; i < MAX_SLOTS; ++i)
@@ -1386,6 +1399,7 @@ static void WOLRefreshConnectionIndicators(void)
         bool bIsConnected = false;
         int connectionScore = -1;
 
+#if defined(GENERALS_ONLINE_ENABLE_P2P_TRANSPORT)
         if (pMesh != nullptr)
         {
             PlayerConnection* pConnection = pMesh->GetConnectionForUser(slot->m_userID);
@@ -1395,6 +1409,7 @@ static void WOLRefreshConnectionIndicators(void)
                 connectionScore = pConnection->ComputeConnectionScore();
             }
         }
+#endif // GENERALS_ONLINE_ENABLE_P2P_TRANSPORT
 
         if (!bIsConnected || connectionScore < 0)
         {
@@ -1774,6 +1789,9 @@ void WOLGameSetupMenuInit( WindowLayout *layout, void *userData )
 		});
 
 	// connection events (for debug really)
+	// GeneralsX @bugfix Android port 07/11/2026 - NetworkMesh/NextGenTransport (Steam GameNetworkingSockets P2P mesh) is not ported to
+	// this Android fork yet; this whole block is debug/informational connection-state chat logging, so it's skipped.
+#if defined(GENERALS_ONLINE_ENABLE_P2P_TRANSPORT)
 	NetworkMesh* pMesh = NGMP_OnlineServicesManager::GetNetworkMesh();
 	if (pMesh != nullptr)
 	{
@@ -1837,6 +1855,7 @@ void WOLGameSetupMenuInit( WindowLayout *layout, void *userData )
 				WOLDisplaySlotList();
 			});
 	}
+#endif // GENERALS_ONLINE_ENABLE_P2P_TRANSPORT
 
 	// player doesnt have map events
 	pLobbyInterface->RegisterForPlayerDoesntHaveMapCallback([](LobbyMemberEntry lobbyMember)
@@ -2267,11 +2286,15 @@ void WOLGameSetupMenuShutdown( WindowLayout *layout, void *userData )
 		pLobbyInterface->DeregisterForGameStartPacket();
 	}
 	
+	// GeneralsX @bugfix Android port 07/11/2026 - NetworkMesh/NextGenTransport is not ported to this Android fork yet (see the matching
+	// RegisterForConnectionEvents guard in WOLGameSetupMenuInit above); nothing to deregister here.
+#if defined(GENERALS_ONLINE_ENABLE_P2P_TRANSPORT)
 	NetworkMesh* pMesh = NGMP_OnlineServicesManager::GetNetworkMesh();
 	if (pMesh != nullptr)
 	{
 		pMesh->DeregisterForConnectionEvents();
 	}
+#endif // GENERALS_ONLINE_ENABLE_P2P_TRANSPORT
 
 	//TheGameSpyInfo->unregisterTextWindow(listboxGameSetupChat);
 
@@ -3617,6 +3640,9 @@ Bool handleGameSetupSlashCommands(UnicodeString uText)
 	}
 	else if (token == "steam" || token == "advnet")
 	{
+		// GeneralsX @bugfix Android port 07/11/2026 - NetworkMesh/NextGenTransport (Steam GameNetworkingSockets P2P mesh) is not ported to
+		// this Android fork yet; this is a debug-only stats-dump slash command, so it's a no-op here instead.
+#if defined(GENERALS_ONLINE_ENABLE_P2P_TRANSPORT)
 		NetworkLog(ELogVerbosity::LOG_RELEASE, "[ADV NET STATS] Writing advanced networking stats:");
 
 		std::map<int64_t, PlayerConnection>& connections = NGMP_OnlineServicesManager::GetNetworkMesh()->GetAllConnections();
@@ -3628,6 +3654,9 @@ Bool handleGameSetupSlashCommands(UnicodeString uText)
 		}
 		NetworkLog(ELogVerbosity::LOG_RELEASE, "[ADV NET STATS] Advanced networking stats dumped");
 		GadgetListBoxAddEntryText(listboxGameSetupChat, UnicodeString(L"Advanced networking debug stats have been written to log file."), GameSpyColor[GSCOLOR_DEFAULT], -1, -1);
+#else
+		GadgetListBoxAddEntryText(listboxGameSetupChat, UnicodeString(L"Advanced networking debug stats are not available on this build."), GameSpyColor[GSCOLOR_DEFAULT], -1, -1);
+#endif // GENERALS_ONLINE_ENABLE_P2P_TRANSPORT
 
 		return TRUE;
 	}
