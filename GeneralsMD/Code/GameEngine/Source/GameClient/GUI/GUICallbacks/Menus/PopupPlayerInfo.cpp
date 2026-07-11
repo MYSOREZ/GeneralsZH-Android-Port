@@ -1447,34 +1447,47 @@ void GameSpyPlayerInfoOverlayInit( WindowLayout *layout, void *userData )
 	raiseMessageBox = true;
 	PopulatePlayerInfoWindows("PopupPlayerInfo.wnd");
 
+	// GeneralsX @bugfix Android port 11/07/2026 buttonSetLocale/buttonDeleteAccount/
+	// checkBoxAsianFont/checkBoxNonAsianFont come from winGetWindowFromId() a few
+	// lines up with no null check -- a real-device log showed this popup crashing
+	// (SIGSEGV, fault_addr=0x0) immediately after PopulatePlayerInfoWindows()
+	// returned, with nothing else logged in between, which lines up exactly with
+	// an unchecked null deref here. Guard each one instead of assuming the .wnd
+	// layout always has all four controls.
 	// we're on the myinfo screen
 	if(lookAtPlayerID == pAuthInterface->GetUserID())
 	{
 		//buttonbuttonOptions->winHide(FALSE);
-		buttonSetLocale->winHide(TRUE);
-		buttonDeleteAccount->winHide(FALSE);
-		buttonDeleteAccount->winSetText(UnicodeString(L"LOGOUT"));
-		checkBoxAsianFont->winHide(TRUE);
-		checkBoxNonAsianFont->winHide(TRUE);
+		if (buttonSetLocale) buttonSetLocale->winHide(TRUE);
+		if (buttonDeleteAccount)
+		{
+			buttonDeleteAccount->winHide(FALSE);
+			buttonDeleteAccount->winSetText(UnicodeString(L"LOGOUT"));
+		}
+		if (checkBoxAsianFont) checkBoxAsianFont->winHide(TRUE);
+		if (checkBoxNonAsianFont) checkBoxNonAsianFont->winHide(TRUE);
 	}
 	else
 	{
 		//buttonbuttonOptions->winHide(TRUE);
-		buttonSetLocale->winHide(TRUE);
-		buttonDeleteAccount->winHide(TRUE);
-		checkBoxAsianFont->winHide(TRUE);
-		checkBoxNonAsianFont->winHide(TRUE);
+		if (buttonSetLocale) buttonSetLocale->winHide(TRUE);
+		if (buttonDeleteAccount) buttonDeleteAccount->winHide(TRUE);
+		if (checkBoxAsianFont) checkBoxAsianFont->winHide(TRUE);
+		if (checkBoxNonAsianFont) checkBoxNonAsianFont->winHide(TRUE);
 	}
 
 #if defined(GENERALS_ONLINE)
 	// TODO_NGMP: re-enable social
-	buttonBuddies->winHide(true);
+	if (buttonBuddies) buttonBuddies->winHide(true);
 #endif
 
 	// set the asian check boxes
+	// GeneralsX @bugfix Android port 11/07/2026 GadgetCheckBoxSetChecked()
+	// dereferences its GameWindow* with no null check of its own -- guard
+	// here too (see comment above on the winHide() calls).
 	CustomMatchPreferences pref;
-	GadgetCheckBoxSetChecked(checkBoxAsianFont,!pref.getDisallowAsianText());
-	GadgetCheckBoxSetChecked(checkBoxNonAsianFont,!pref.getDisallowNonAsianText());
+	if (checkBoxAsianFont) GadgetCheckBoxSetChecked(checkBoxAsianFont,!pref.getDisallowAsianText());
+	if (checkBoxNonAsianFont) GadgetCheckBoxSetChecked(checkBoxNonAsianFont,!pref.getDisallowNonAsianText());
 
 	OSVERSIONINFO	osvi;
 	osvi.dwOSVersionInfoSize=sizeof(OSVERSIONINFO);
