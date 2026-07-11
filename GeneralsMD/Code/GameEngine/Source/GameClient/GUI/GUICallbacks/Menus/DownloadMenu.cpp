@@ -59,6 +59,7 @@
 
 #include "GameNetwork/DownloadManager.h"
 #include "GameNetwork/GameSpy/MainMenuUtils.h"
+#include "GameNetwork/GeneralsOnline/NextGenMP_defines.h"
 
 // PRIVATE DATA ///////////////////////////////////////////////////////////////////////////////////
 static NameKeyType buttonCancelID = NAMEKEY_INVALID;
@@ -190,7 +191,11 @@ HRESULT DownloadManagerMunkee::OnProgressUpdate( Int bytesread, Int totalsize, I
 
 	if (progressBarMunkee)
 	{
+#if !defined(GENERALS_ONLINE)
 		Int percent = bytesread * 100 / totalsize;
+#else
+		Int percent = 100.f*((float)bytesread/(float)totalsize);
+#endif
 		GadgetProgressBarSetProgress( progressBarMunkee, percent );
 	}
 
@@ -201,6 +206,7 @@ HRESULT DownloadManagerMunkee::OnProgressUpdate( Int bytesread, Int totalsize, I
 		GadgetStaticTextSetText(staticTextSize, sizeString);
 	}
 	timeLeft = timeleft;
+#if !defined(GENERALS_ONLINE)
 	if (staticTextTime && GadgetStaticTextGetText(staticTextTime).isEmpty()) // only update immediately the first time
 	{
 		lastUpdate = time(nullptr);
@@ -221,6 +227,7 @@ HRESULT DownloadManagerMunkee::OnProgressUpdate( Int bytesread, Int totalsize, I
 		}
 		GadgetStaticTextSetText(staticTextTime, timeString);
 	}
+#endif
 	return ret;
 }
 
@@ -300,6 +307,7 @@ void DownloadMenuUpdate( WindowLayout *layout, void *userData )
 
 		lastUpdate = now;
 
+#if !defined(GENERALS_ONLINE)
 		UnicodeString timeString;
 		if (timeLeft)
 		{
@@ -316,6 +324,7 @@ void DownloadMenuUpdate( WindowLayout *layout, void *userData )
 			timeString = TheGameText->fetch("GUI:DownloadUnknownTime");
 		}
 		GadgetStaticTextSetText(staticTextTime, timeString);
+#endif
 	}
 
 }

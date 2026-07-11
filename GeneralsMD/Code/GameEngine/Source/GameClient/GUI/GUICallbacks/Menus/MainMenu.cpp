@@ -72,6 +72,7 @@
 
 #include "GameNetwork/DownloadManager.h"
 #include "GameNetwork/GameSpy/MainMenuUtils.h"
+#include "GameNetwork/GeneralsOnline/OnlineServices_Init.h"
 
 #include "GameClient/InGameUI.h"
 
@@ -228,6 +229,8 @@ extern Bool dispChanged;
 void diffReverseSide();
 void HandleCanceledDownload( Bool resetDropDown )
 {
+	NGMP_OnlineServicesManager::GetInstance()->CancelUpdate();
+
 	buttonPushed = FALSE;
 	if (resetDropDown)
 	{

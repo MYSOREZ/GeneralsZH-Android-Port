@@ -73,6 +73,7 @@
 #include "GameLogic/ScriptEngine.h"
 #include "WWDownload/Registry.h"
 #include "GameClient/MessageBox.h"
+#include "GameNetwork/GeneralsOnline/OnlineServices_Init.h"
 
 #include "ww3d.h"
 #include "texturefilter.h"
@@ -569,6 +570,7 @@ static void saveOptions()
 		(*pref)["AntiAliasing"] = prefString;
   }
 
+#if !defined(GENERALS_ONLINE_DISABLE_TEXTURE_FILTERING_AND_AA)
 	//-------------------------------------------------------------------------------------------------
 	// texture filter mode
 	val = pref->getTextureFilterMode();
@@ -594,6 +596,7 @@ static void saveOptions()
 		prefString.format("%d", val);
 		(*pref)["AnisotropyLevel"] = prefString;
 	}
+#endif
 
 	//-------------------------------------------------------------------------------------------------
 	// mouse mode
@@ -1414,7 +1417,7 @@ void OptionsMenuInit( WindowLayout *layout, void *userData )
 	GameWindow *parent = TheWindowManager->winGetWindowFromId( nullptr, parentID );
 	TheWindowManager->winSetFocus( parent );
 
-	if( (TheGameLogic->isInGame() && TheGameLogic->getGameMode() != GAME_SHELL) || TheGameSpyInfo )
+	if( (TheGameLogic->isInGame() && TheGameLogic->getGameMode() != GAME_SHELL) || NGMP_OnlineServicesManager::GetInstance() != nullptr )
 	{
 		// disable controls that you can't change the options for in game
 		comboBoxLANIP->winEnable(FALSE);

@@ -45,6 +45,8 @@
 #include "GameLogic/GameLogic.h"
 #include "GameNetwork/GameInfo.h"
 #include "GameNetwork/NetworkInterface.h"
+#include "GameNetwork/GeneralsOnline/NGMPGame.h"
+extern NGMPGame* TheNGMPGame;
 
 static GameWindow *chatWindow = nullptr;
 static GameWindow *chatTextEntry = nullptr;
@@ -199,7 +201,11 @@ void ToggleInGameChat( Bool immediate )
 	if (TheGameLogic->isInReplayGame())
 		return;
 
+#if defined(GENERALS_ONLINE)
+	if (TheNGMPGame == nullptr)
+#else
 	if (!TheGameInfo->isMultiPlayer() && TheGlobalData->m_netMinPlayers)
+#endif
 		return;
 
 	if (chatWindow)
