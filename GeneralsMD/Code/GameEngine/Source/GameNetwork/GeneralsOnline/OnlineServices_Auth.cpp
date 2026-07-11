@@ -2,6 +2,7 @@
 
 #include "GameNetwork/GeneralsOnline/HTTP/HTTPManager.h"
 #include "GameNetwork/GeneralsOnline/HTTP/HTTPRequest.h"
+#include "GameNetwork/GeneralsOnline/PluginInterfaces.h"
 #include "GameNetwork/GeneralsOnline/json.hpp"
 #include <algorithm>
 #include <chrono>
@@ -394,6 +395,11 @@ void NGMP_OnlineServices_AuthInterface::OnLoginComplete(ELoginResult loginResult
 {
 	if (loginResult == ELoginResult::Success)
 	{
+		// GeneralsX @bugfix Android port 11/07/2026 - Match upstream: notify the anticheat
+		// plugin interface of login. This is a no-op on the non-Windows stub (no real plugin
+		// is ever loaded on Android), kept for parity in case the server tracks this signal.
+		AnticheatPlugInterface::Authenticate();
+
 		NGMP_OnlineServicesManager::GetInstance()->OnLogin(loginResult, szWSAddr, [=]() // wait for WS to connect
 			{
                 // move on to network capabilities section

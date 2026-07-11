@@ -1181,6 +1181,12 @@ void NGMP_OnlineServices_LobbyInterface::JoinLobby(LobbyEntry lobbyInfo, std::st
 					{
 						NetworkLog(ELogVerbosity::LOG_RELEASE, "[NGMP] Failed to join lobby: Lobby is full");
 					}
+					// GeneralsX @bugfix Android port 11/07/2026 - Match upstream: give this specific
+					// rejection its own log line instead of falling through as an unexplained failure.
+					else if (statusCode == 417)
+					{
+						NetworkLog(ELogVerbosity::LOG_RELEASE, "[NGMP] Failed to join lobby: Anticheat mismatch");
+					}
 
 
 					if (JoinResult != EJoinLobbyResult::JoinLobbyResult_Success)
@@ -1427,6 +1433,12 @@ void NGMP_OnlineServices_LobbyInterface::CreateLobby(UnicodeString strLobbyName,
 
 void NGMP_OnlineServices_LobbyInterface::OnJoinedOrCreatedLobby(bool bAlreadyUpdatedDetails, std::function<void(void)> fnCallback)
 {
+	// GeneralsX @bugfix Android port 11/07/2026 - Match upstream: notify the anticheat plugin
+	// interface that a lobby session began. No-op on the non-Windows stub, kept for parity.
+	NetworkLog(ELogVerbosity::LOG_RELEASE, "[AC] Begin Session 0");
+	AnticheatPlugInterface::BeginSession();
+	NetworkLog(ELogVerbosity::LOG_RELEASE, "[AC] Begin Session End");
+
 	// join the network mesh too
 	// GeneralsX @bugfix Android port 10/07/2026 P2P transport (NetworkMesh)
 	// deferred, see NGMP_include.h -- leave m_pLobbyMesh null in this build.
