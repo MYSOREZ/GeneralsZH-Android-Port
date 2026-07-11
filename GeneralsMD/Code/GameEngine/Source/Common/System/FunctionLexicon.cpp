@@ -149,11 +149,6 @@ static FunctionLexicon::TableEntry gameWinSystemTable[] =
 	{ NAMEKEY_INVALID, "ScoreScreenSystem",                  (void*)ScoreScreenSystem },
 	{ NAMEKEY_INVALID, "DownloadMenuSystem",                 (void*)DownloadMenuSystem },
 	{ NAMEKEY_INVALID, "ExtrasMenuSystem",                   (void*)ExtrasMenuSystem },
-	{ NAMEKEY_INVALID, "GeneralsOnlineHomeSystem",           (void*)GeneralsOnlineHomeSystem },
-	{ NAMEKEY_INVALID, "GeneralsOnlineQuickMatchSystem",     (void*)GeneralsOnlineQuickMatchSystem },
-	{ NAMEKEY_INVALID, "GeneralsOnlineCustomMatchSystem",    (void*)GeneralsOnlineCustomMatchSystem },
-	{ NAMEKEY_INVALID, "GeneralsOnlinePersonaSystem",        (void*)GeneralsOnlinePersonaSystem },
-	{ NAMEKEY_INVALID, "GeneralsOnlineCommunicatorSystem",   (void*)GeneralsOnlineCommunicatorSystem },
 
 	{ NAMEKEY_INVALID, nullptr,                              nullptr }
 
@@ -226,11 +221,6 @@ static FunctionLexicon::TableEntry gameWinInputTable[] =
 
 	{ NAMEKEY_INVALID, "DownloadMenuInput",                 (void*)DownloadMenuInput },
 	{ NAMEKEY_INVALID, "ExtrasMenuInput",                   (void*)ExtrasMenuInput },
-	{ NAMEKEY_INVALID, "GeneralsOnlineHomeInput",           (void*)GeneralsOnlineHomeInput },
-	{ NAMEKEY_INVALID, "GeneralsOnlineQuickMatchInput",     (void*)GeneralsOnlineQuickMatchInput },
-	{ NAMEKEY_INVALID, "GeneralsOnlineCustomMatchInput",    (void*)GeneralsOnlineCustomMatchInput },
-	{ NAMEKEY_INVALID, "GeneralsOnlinePersonaInput",        (void*)GeneralsOnlinePersonaInput },
-	{ NAMEKEY_INVALID, "GeneralsOnlineCommunicatorInput",   (void*)GeneralsOnlineCommunicatorInput },
 
 	{ NAMEKEY_INVALID, "IMECandidateWindowInput",           (void*)IMECandidateWindowInput },
 	{ NAMEKEY_INVALID, nullptr,                             nullptr }
@@ -294,11 +284,6 @@ static FunctionLexicon::TableEntry winLayoutInitTable[] =
 	{ NAMEKEY_INVALID, "ScoreScreenInit",               (void*)ScoreScreenInit },
 	{ NAMEKEY_INVALID, "DownloadMenuInit",              (void*)DownloadMenuInit },
 	{ NAMEKEY_INVALID, "ExtrasMenuInit",                (void*)ExtrasMenuInit },
-	{ NAMEKEY_INVALID, "GeneralsOnlineHomeInit",        (void*)GeneralsOnlineHomeInit },
-	{ NAMEKEY_INVALID, "GeneralsOnlineQuickMatchInit",  (void*)GeneralsOnlineQuickMatchInit },
-	{ NAMEKEY_INVALID, "GeneralsOnlineCustomMatchInit", (void*)GeneralsOnlineCustomMatchInit },
-	{ NAMEKEY_INVALID, "GeneralsOnlinePersonaInit",     (void*)GeneralsOnlinePersonaInit },
-	{ NAMEKEY_INVALID, "GeneralsOnlineCommunicatorInit",(void*)GeneralsOnlineCommunicatorInit },
 	{ NAMEKEY_INVALID, "DifficultySelectInit",          (void*)DifficultySelectInit },
 	{ NAMEKEY_INVALID, "PopupReplayInit",               (void*)PopupReplayInit },
 
@@ -343,11 +328,6 @@ static FunctionLexicon::TableEntry winLayoutUpdateTable[] =
 	{ NAMEKEY_INVALID, "ScoreScreenUpdate",               (void*)ScoreScreenUpdate },
 	{ NAMEKEY_INVALID, "DownloadMenuUpdate",              (void*)DownloadMenuUpdate },
 	{ NAMEKEY_INVALID, "ExtrasMenuUpdate",                (void*)ExtrasMenuUpdate },
-	{ NAMEKEY_INVALID, "GeneralsOnlineHomeUpdate",        (void*)GeneralsOnlineHomeUpdate },
-	{ NAMEKEY_INVALID, "GeneralsOnlineQuickMatchUpdate",  (void*)GeneralsOnlineQuickMatchUpdate },
-	{ NAMEKEY_INVALID, "GeneralsOnlineCustomMatchUpdate", (void*)GeneralsOnlineCustomMatchUpdate },
-	{ NAMEKEY_INVALID, "GeneralsOnlinePersonaUpdate",     (void*)GeneralsOnlinePersonaUpdate },
-	{ NAMEKEY_INVALID, "GeneralsOnlineCommunicatorUpdate",(void*)GeneralsOnlineCommunicatorUpdate },
 	{ NAMEKEY_INVALID, "PopupReplayUpdate",               (void*)PopupReplayUpdate },
 	{ NAMEKEY_INVALID, nullptr,                           nullptr }
 
@@ -390,11 +370,6 @@ static FunctionLexicon::TableEntry winLayoutShutdownTable[] =
 	{ NAMEKEY_INVALID, "ScoreScreenShutdown",               (void*)ScoreScreenShutdown },
 	{ NAMEKEY_INVALID, "DownloadMenuShutdown",              (void*)DownloadMenuShutdown },
 	{ NAMEKEY_INVALID, "ExtrasMenuShutdown",                (void*)ExtrasMenuShutdown },
-	{ NAMEKEY_INVALID, "GeneralsOnlineHomeShutdown",        (void*)GeneralsOnlineHomeShutdown },
-	{ NAMEKEY_INVALID, "GeneralsOnlineQuickMatchShutdown",  (void*)GeneralsOnlineQuickMatchShutdown },
-	{ NAMEKEY_INVALID, "GeneralsOnlineCustomMatchShutdown", (void*)GeneralsOnlineCustomMatchShutdown },
-	{ NAMEKEY_INVALID, "GeneralsOnlinePersonaShutdown",     (void*)GeneralsOnlinePersonaShutdown },
-	{ NAMEKEY_INVALID, "GeneralsOnlineCommunicatorShutdown",(void*)GeneralsOnlineCommunicatorShutdown },
 	{ NAMEKEY_INVALID, "PopupReplayShutdown",               (void*)PopupReplayShutdown },
 	{ NAMEKEY_INVALID, nullptr,                             nullptr }
 

@@ -1,12 +1,10 @@
-// GeneralsX @feature Android port 10/07/2026 A couple of globals that the
-// ported GeneralsOnline interfaces (OnlineServices_LobbyInterface.cpp,
-// NGMP_Helpers.cpp) expect to find defined elsewhere -- in upstream
-// SuperHackers_GO they live in the desktop WOL-lobby menu source
-// (WOLGameSetupMenu.cpp), which this port deliberately does not carry over
-// (it's a full rewrite of the legacy .wnd-based multiplayer UI, out of scope
-// for this first pass; our own lobby screen, once built, will replace it).
-// This file is NOT ported from upstream -- it's our own minimal stand-in so
-// the rest of the module links.
+// GeneralsX @feature Android port 11/07/2026 This file is NOT ported from
+// upstream -- it's our own glue reading the Android launcher's session
+// marker file and kicking off GeneralsOnline login. TheNGMPGame and
+// OnKickedFromLobby() used to be stubbed here (upstream defines them in
+// WOLGameSetupMenu.cpp, which this port originally skipped); now that the
+// real WOLGameSetupMenu.cpp/WOLWelcomeMenu.cpp/etc. are ported too, those
+// stubs were deleted to avoid duplicate-symbol link errors.
 
 #include "GameNetwork/GeneralsOnline/NGMP_interfaces.h"
 #include "GameNetwork/GeneralsOnline/GeneralsOnline_AndroidGlue.h"
@@ -21,22 +19,6 @@
 #include <cstdio>
 #include <cstring>
 #endif
-
-NGMPGame* TheNGMPGame = nullptr;
-
-void OnKickedFromLobby()
-{
-	if (TheNGMPGame != nullptr)
-	{
-		TheNGMPGame->reset();
-	}
-
-	NetworkLog(ELogVerbosity::LOG_RELEASE, "[GeneralsOnline] Kicked from lobby");
-
-	// TODO_GO_ANDROID: once a lobby-browser screen exists, this should also
-	// navigate the player back out of it (mirrors upstream's nextScreen +
-	// TheShell->pop() in WOLGameSetupMenu.cpp's OnKickedFromLobby()).
-}
 
 #if defined(__ANDROID__)
 namespace
@@ -138,11 +120,13 @@ bool TryStartGeneralsOnline()
 
 	NGMP_OnlineServicesManager::GetInstance()->OnLogin(ELoginResult::Success, session.wsUri.c_str(), []()
 		{
-			// GeneralsX @feature Android port 10/07/2026 real lobby hub screen
-			// (GeneralsOnlineHome.wnd) now exists -- replaces the old
-			// "Connected... lobby browsing isn't wired up yet" message box.
+			// GeneralsX @feature Android port 11/07/2026 the real upstream
+			// WOLWelcomeMenu (ported from GeneralsOnlineDevelopmentTeam/
+			// GameClient) replaces our earlier hand-rolled GeneralsOnlineHome
+			// screen -- same entry point upstream's own MainMenu -> Online
+			// button flow uses.
 			ClearGSMessageBoxes();
-			TheShell->push("Menus/GeneralsOnlineHome.wnd");
+			TheShell->push("Menus/WOLWelcomeMenu.wnd");
 		});
 
 	return true;

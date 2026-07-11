@@ -2741,8 +2741,28 @@ GameWindow *GameWindowManager::winCreateFromScript( AsciiString filenameString,
 	else
 		strlcpy(filepath, filename, ARRAY_SIZE(filepath));
 
+	// GeneralsX @feature Android port 11/07/2026 ported from upstream
+	// (GeneralsOnlineDevelopmentTeam/GameClient) -- GeneralsOnline's own
+	// .wnd screens live under a GeneralsOnlineGameData\ prefix, checked
+	// before the normal Window\ location so they can be dropped in
+	// alongside the base game's own .big-archived layouts without ever
+	// colliding with those names.
+#if defined(GENERALS_ONLINE)
+	char gofilepath[_MAX_PATH] = "GeneralsOnlineGameData\\";
+	if (strchr(filename, '\\') == nullptr)
+		snprintf(gofilepath, ARRAY_SIZE(gofilepath), "GeneralsOnlineGameData\\%s", filename);
+	else
+		strlcpy(gofilepath, filename, ARRAY_SIZE(gofilepath));
+
+	inFile = TheFileSystem->openFile(gofilepath, File::READ);
+	if (inFile == nullptr)
+	{
+		inFile = TheFileSystem->openFile(filepath, File::READ);
+	}
+#else
   // Open the input file
 	inFile = TheFileSystem->openFile(filepath, File::READ);
+#endif
 	if (inFile == nullptr)
 	{
 		DEBUG_LOG(( "WinCreateFromScript: Cannot access file '%s'.", filename ));

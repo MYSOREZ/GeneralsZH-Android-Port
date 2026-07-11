@@ -32,6 +32,9 @@
 #include "PreRTS.h"	// This must go first in EVERY cpp file in the GameEngine
 
 #include "Common/STLTypedefs.h"
+#include "GameNetwork/GeneralsOnline/NGMP_types.h"
+
+void NGMP_WOLLoginMenu_LoginCallback(ELoginResult loginResult);
 
 #include "Common/file.h"
 #include "Common/FileSystem.h"
@@ -68,6 +71,7 @@
 #include "GameNetwork/GameSpyOverlay.h"
 
 #include "GameNetwork/WOLBrowser/WebBrowser.h"
+#include "GameNetwork/GeneralsOnline/NGMP_interfaces.h"
 
 
 #ifdef ALLOW_NON_PROFILED_LOGIN
@@ -79,7 +83,7 @@ static Bool useWebBrowserForTOS = FALSE;
 
 static Bool isShuttingDown = false;
 static Bool buttonPushed = false;
-static const char *nextScreen = nullptr;
+static const char *nextScreen = NULL;
 
 static const UnsignedInt loginTimeoutInMS = 10000;
 static UnsignedInt loginAttemptTime = 0;
@@ -308,7 +312,7 @@ AsciiStringList GameSpyLoginPreferences::getEmails()
 	return theList;
 }
 
-static GameSpyLoginPreferences *loginPref = nullptr;
+static GameSpyLoginPreferences *loginPref = NULL;
 
 static void startPings()
 {
@@ -339,30 +343,30 @@ static void shutdownComplete( WindowLayout *layout )
 	layout->hide( TRUE );
 
 	// our shutdown is complete
-	TheShell->shutdownComplete( layout, (nextScreen != nullptr) );
+	TheShell->shutdownComplete( layout, (nextScreen != NULL) );
 
-	if (nextScreen != nullptr)
+	if (nextScreen != NULL)
 	{
 		if (loginPref)
 		{
 			loginPref->write();
 			delete loginPref;
-			loginPref = nullptr;
+			loginPref = NULL;
 		}
 		TheShell->push(nextScreen);
 	}
 	else
 	{
-		DEBUG_ASSERTCRASH(loginPref != nullptr, ("loginPref == nullptr"));
+		DEBUG_ASSERTCRASH(loginPref != NULL, ("loginPref == NULL"));
 		if (loginPref)
 		{
 			loginPref->write();
 			delete loginPref;
-			loginPref = nullptr;
+			loginPref = NULL;
 		}
 	}
 
-	nextScreen = nullptr;
+	nextScreen = NULL;
 
 }
 
@@ -389,24 +393,24 @@ static NameKeyType textEntryDayID =				NAMEKEY_INVALID;	// profile
 static NameKeyType textEntryYearID =				NAMEKEY_INVALID;	// profile
 
 // Window Pointers ------------------------------------------------------------------------
-static GameWindow *parentWOLLogin =						nullptr;
-static GameWindow *buttonBack =								nullptr;
-static GameWindow *buttonLogin =							nullptr;
-static GameWindow *buttonCreateAccount =			nullptr;
-static GameWindow *buttonUseAccount =					nullptr;
-static GameWindow *buttonDontUseAccount =			nullptr;
-static GameWindow *buttonTOS						=			nullptr;
-static GameWindow *parentTOS						=			nullptr;
-static GameWindow *buttonTOSOK					=			nullptr;
-static GameWindow *listboxTOS						=			nullptr;
-static GameWindow *comboBoxEmail =						nullptr;
-static GameWindow *comboBoxLoginName =				nullptr;
-static GameWindow *textEntryLoginName =				nullptr;
-static GameWindow *textEntryPassword =				nullptr;
-static GameWindow *checkBoxRememberPassword =	nullptr;
-static GameWindow *textEntryMonth =				nullptr;
-static GameWindow *textEntryDay =				nullptr;
-static GameWindow *textEntryYear =				nullptr;
+static GameWindow *parentWOLLogin =						NULL;
+static GameWindow *buttonBack =								NULL;
+static GameWindow *buttonLogin =							NULL;
+static GameWindow *buttonCreateAccount =			NULL;
+static GameWindow *buttonUseAccount =					NULL;
+static GameWindow *buttonDontUseAccount =			NULL;
+static GameWindow *buttonTOS						=			NULL;
+static GameWindow *parentTOS						=			NULL;
+static GameWindow *buttonTOSOK					=			NULL;
+static GameWindow *listboxTOS						=			NULL;
+static GameWindow *comboBoxEmail =						NULL;
+static GameWindow *comboBoxLoginName =				NULL;
+static GameWindow *textEntryLoginName =				NULL;
+static GameWindow *textEntryPassword =				NULL;
+static GameWindow *checkBoxRememberPassword =	NULL;
+static GameWindow *textEntryMonth =				NULL;
+static GameWindow *textEntryDay =				NULL;
+static GameWindow *textEntryYear =				NULL;
 
 void EnableLoginControls( Bool state )
 {
@@ -444,19 +448,36 @@ void EnableLoginControls( Bool state )
 //-------------------------------------------------------------------------------------------------
 void WOLLoginMenuInit( WindowLayout *layout, void *userData )
 {
-	nextScreen = nullptr;
+	nextScreen = NULL;
 	buttonPushed = false;
 	isShuttingDown = false;
 	loginAttemptTime = 0;
 
+	// NGMP
+	ClearGSMessageBoxes();
+	GSMessageBoxNoButtons(UnicodeString(L"Logging In"), UnicodeString(L"Please wait..."), true);
+
+	// NGMP: Register for login callback
+	NGMP_OnlineServices_AuthInterface* pAuthInterface = NGMP_OnlineServicesManager::GetInterface<NGMP_OnlineServices_AuthInterface>();
+	if (pAuthInterface == nullptr)
+	{
+		return;
+	}
+
+	// Now we can begin login
+	pAuthInterface->RegisterForLoginCallback(NGMP_WOLLoginMenu_LoginCallback);
+	pAuthInterface->BeginLogin();
+
+
+	/*
 	if (!loginPref)
 	{
 		loginPref = NEW GameSpyLoginPreferences;
 	}
 
 	// if the ESRB warning is blank (other country) hide the box
-	GameWindow *esrbTitle = TheWindowManager->winGetWindowFromId( nullptr, NAMEKEY("GameSpyLoginProfile.wnd:StaticTextESRBTop") );
-	GameWindow *esrbParent = TheWindowManager->winGetWindowFromId( nullptr, NAMEKEY("GameSpyLoginProfile.wnd:ParentESRB") );
+	GameWindow *esrbTitle = TheWindowManager->winGetWindowFromId( NULL, NAMEKEY("GameSpyLoginProfile.wnd:StaticTextESRBTop") );
+	GameWindow *esrbParent = TheWindowManager->winGetWindowFromId( NULL, NAMEKEY("GameSpyLoginProfile.wnd:ParentESRB") );
 	if (esrbTitle && esrbParent)
 	{
 		if ( GadgetStaticTextGetText( esrbTitle ).getLength() < 2 )
@@ -465,6 +486,7 @@ void WOLLoginMenuInit( WindowLayout *layout, void *userData )
 		}
 	}
 
+	
 	parentWOLLoginID =						TheNameKeyGenerator->nameToKey( "GameSpyLoginProfile.wnd:WOLLoginMenuParent" );
 	buttonBackID =								TheNameKeyGenerator->nameToKey( "GameSpyLoginProfile.wnd:ButtonBack" );
 	buttonLoginID =								TheNameKeyGenerator->nameToKey( "GameSpyLoginProfile.wnd:ButtonLogin" );
@@ -484,242 +506,30 @@ void WOLLoginMenuInit( WindowLayout *layout, void *userData )
 	textEntryDayID =					TheNameKeyGenerator->nameToKey( "GameSpyLoginProfile.wnd:TextEntryDay" );
 	textEntryYearID =					TheNameKeyGenerator->nameToKey( "GameSpyLoginProfile.wnd:TextEntryYear" );
 
-	parentWOLLogin =							TheWindowManager->winGetWindowFromId( nullptr,  parentWOLLoginID );
-	buttonBack =									TheWindowManager->winGetWindowFromId( nullptr,  buttonBackID);
-	buttonLogin =									TheWindowManager->winGetWindowFromId( nullptr,  buttonLoginID);
-	buttonCreateAccount =					TheWindowManager->winGetWindowFromId( nullptr,  buttonCreateAccountID);
-	buttonUseAccount =						TheWindowManager->winGetWindowFromId( nullptr,  buttonUseAccountID);
-	buttonDontUseAccount =				TheWindowManager->winGetWindowFromId( nullptr,  buttonDontUseAccountID);
-	buttonTOS =										TheWindowManager->winGetWindowFromId( nullptr,  buttonTOSID);
-	parentTOS =										TheWindowManager->winGetWindowFromId( nullptr,  parentTOSID);
-	buttonTOSOK =									TheWindowManager->winGetWindowFromId( nullptr,  buttonTOSOKID);
-	listboxTOS =									TheWindowManager->winGetWindowFromId( nullptr,  listboxTOSID);
-	comboBoxEmail =								TheWindowManager->winGetWindowFromId( nullptr,  comboBoxEmailID);
-	comboBoxLoginName =						TheWindowManager->winGetWindowFromId( nullptr,  comboBoxLoginNameID);
-	textEntryLoginName =					TheWindowManager->winGetWindowFromId( nullptr,  textEntryLoginNameID);
-	textEntryPassword =						TheWindowManager->winGetWindowFromId( nullptr,  textEntryPasswordID);
-	checkBoxRememberPassword =		TheWindowManager->winGetWindowFromId( nullptr,  checkBoxRememberPasswordID);
-	textEntryMonth =					TheWindowManager->winGetWindowFromId( nullptr,  textEntryMonthID);
-	textEntryDay =					TheWindowManager->winGetWindowFromId( nullptr,  textEntryDayID);
-	textEntryYear =					TheWindowManager->winGetWindowFromId( nullptr,  textEntryYearID);
-
-	GadgetTextEntrySetText(textEntryMonth, UnicodeString::TheEmptyString);
-
-	GadgetTextEntrySetText(textEntryDay, UnicodeString::TheEmptyString);
-
-	GadgetTextEntrySetText(textEntryYear, UnicodeString::TheEmptyString);
-
-
-
-	GameWindowList tabList;
-	tabList.push_front(comboBoxEmail);
-	tabList.push_back(comboBoxLoginName);
-	tabList.push_back(textEntryPassword);
-	tabList.push_back(textEntryMonth);
-	tabList.push_back(textEntryDay);
-	tabList.push_back(textEntryYear);
-	tabList.push_back(checkBoxRememberPassword);
-	tabList.push_back(buttonLogin);
-	tabList.push_back(buttonCreateAccount);
-	tabList.push_back(buttonTOS);
-	tabList.push_back(buttonBack);
-	TheWindowManager->clearTabList();
-	TheWindowManager->registerTabList(tabList);
-	TheWindowManager->winSetFocus( comboBoxEmail );
-	// short form or long form?
-#ifdef ALLOW_NON_PROFILED_LOGIN
-	if (parentWOLLogin)
-	{
-		GameSpyUseProfiles = true;
-#endif // ALLOW_NON_PROFILED_LOGIN
-
-		DEBUG_ASSERTCRASH(buttonBack,						("buttonBack missing!"));
-		DEBUG_ASSERTCRASH(buttonLogin,					("buttonLogin missing!"));
-		DEBUG_ASSERTCRASH(buttonCreateAccount,	("buttonCreateAccount missing!"));
-		//DEBUG_ASSERTCRASH(buttonDontUseAccount,	("buttonDontUseAccount missing!"));
-		DEBUG_ASSERTCRASH(comboBoxEmail,				("comboBoxEmail missing!"));
-		DEBUG_ASSERTCRASH(comboBoxLoginName,		("comboBoxLoginName missing!"));
-		DEBUG_ASSERTCRASH(textEntryPassword,		("textEntryPassword missing!"));
-
-		//TheShell->registerWithAnimateManager(parentWOLLogin, WIN_ANIMATION_SLIDE_TOP, TRUE);
-		/**/
-//		TheShell->registerWithAnimateManager(buttonTOS, WIN_ANIMATION_SLIDE_BOTTOM, TRUE);
-		//TheShell->registerWithAnimateManager(buttonCreateAccount, WIN_ANIMATION_SLIDE_LEFT, TRUE);
-		//TheShell->registerWithAnimateManager(buttonDontUseAccount, WIN_ANIMATION_SLIDE_LEFT, TRUE);
-//		TheShell->registerWithAnimateManager(buttonBack, WIN_ANIMATION_SLIDE_BOTTOM, TRUE);
-		/**/
-#ifdef ALLOW_NON_PROFILED_LOGIN
-	}
-	else
-	{
-		GameSpyUseProfiles = false;
-
-		parentWOLLoginID =						TheNameKeyGenerator->nameToKey( "GameSpyLoginQuick.wnd:WOLLoginMenuParent" );
-		buttonBackID =								TheNameKeyGenerator->nameToKey( "GameSpyLoginQuick.wnd:ButtonBack" );
-		buttonLoginID =								TheNameKeyGenerator->nameToKey( "GameSpyLoginQuick.wnd:ButtonLogin" );
-		buttonCreateAccountID =				TheNameKeyGenerator->nameToKey( "GameSpyLoginQuick.wnd:ButtonCreateAccount" );
-		buttonUseAccountID =					TheNameKeyGenerator->nameToKey( "GameSpyLoginQuick.wnd:ButtonUseAccount" );
-		buttonDontUseAccountID =			TheNameKeyGenerator->nameToKey( "GameSpyLoginQuick.wnd:ButtonDontUseAccount" );
-		buttonTOSID							=			TheNameKeyGenerator->nameToKey( "GameSpyLoginQuick.wnd:ButtonTOS" );
-		parentTOSID							=			TheNameKeyGenerator->nameToKey( "GameSpyLoginQuick.wnd:ParentTOS" );
-		buttonTOSOKID						=			TheNameKeyGenerator->nameToKey( "GameSpyLoginQuick.wnd:ButtonTOSOK" );
-		listboxTOSID						=			TheNameKeyGenerator->nameToKey( "GameSpyLoginQuick.wnd:ListboxTOS" );
-		comboBoxEmailID =							TheNameKeyGenerator->nameToKey( "GameSpyLoginQuick.wnd:ComboBoxEmail" );
-		textEntryLoginNameID =				TheNameKeyGenerator->nameToKey( "GameSpyLoginQuick.wnd:TextEntryLoginName" );
-		textEntryPasswordID =					TheNameKeyGenerator->nameToKey( "GameSpyLoginQuick.wnd:TextEntryPassword" );
-		checkBoxRememberPasswordID =	TheNameKeyGenerator->nameToKey( "GameSpyLoginQuick.wnd:CheckBoxRememberPassword" );
-
-		parentWOLLogin =							TheWindowManager->winGetWindowFromId( nullptr,  parentWOLLoginID );
-		buttonBack =									TheWindowManager->winGetWindowFromId( nullptr,  buttonBackID);
-		buttonLogin =									TheWindowManager->winGetWindowFromId( nullptr,  buttonLoginID);
-		buttonCreateAccount =					TheWindowManager->winGetWindowFromId( nullptr,  buttonCreateAccountID);
-		buttonUseAccount =						TheWindowManager->winGetWindowFromId( nullptr,  buttonUseAccountID);
-		buttonDontUseAccount =				TheWindowManager->winGetWindowFromId( nullptr,  buttonDontUseAccountID);
-		comboBoxEmail =								TheWindowManager->winGetWindowFromId( nullptr,  comboBoxEmailID);
-		buttonTOS =										TheWindowManager->winGetWindowFromId( nullptr,  buttonTOSID);
-		parentTOS =										TheWindowManager->winGetWindowFromId( nullptr,  parentTOSID);
-		buttonTOSOK =									TheWindowManager->winGetWindowFromId( nullptr,  buttonTOSOKID);
-		listboxTOS =									TheWindowManager->winGetWindowFromId( nullptr,  listboxTOSID);
-		textEntryLoginName =					TheWindowManager->winGetWindowFromId( nullptr,  textEntryLoginNameID);
-		textEntryPassword =						TheWindowManager->winGetWindowFromId( nullptr,  textEntryPasswordID);
-		checkBoxRememberPassword =		TheWindowManager->winGetWindowFromId( nullptr,  checkBoxRememberPasswordID);
-
-		DEBUG_ASSERTCRASH(buttonBack,						("buttonBack missing!"));
-		DEBUG_ASSERTCRASH(buttonLogin,					("buttonLogin missing!"));
-		DEBUG_ASSERTCRASH(buttonCreateAccount,	("buttonCreateAccount missing!"));
-		DEBUG_ASSERTCRASH(buttonUseAccount,			("buttonUseAccount missing!"));
-		DEBUG_ASSERTCRASH(textEntryLoginName,		("textEntryLoginName missing!"));
-		TheWindowManager->winSetFocus( textEntryLoginName );
-		//TheShell->registerWithAnimateManager(parentWOLLogin, WIN_ANIMATION_SLIDE_TOP, TRUE);
-
-//		TheShell->registerWithAnimateManager(buttonTOS, WIN_ANIMATION_SLIDE_LEFT, TRUE);
-//		TheShell->registerWithAnimateManager(buttonCreateAccount, WIN_ANIMATION_SLIDE_LEFT, TRUE);
-//		TheShell->registerWithAnimateManager(buttonUseAccount, WIN_ANIMATION_SLIDE_LEFT, TRUE);
-//		TheShell->registerWithAnimateManager(buttonBack, WIN_ANIMATION_SLIDE_RIGHT, TRUE);
-
-	}
-#endif // ALLOW_NON_PROFILED_LOGIN
-
-
-#ifdef ALLOW_NON_PROFILED_LOGIN
-	if (GameSpyUseProfiles)
-	{
-#endif // ALLOW_NON_PROFILED_LOGIN
-		// Read login names from registry...
-		GadgetComboBoxReset(comboBoxEmail);
-		GadgetTextEntrySetText(textEntryPassword, UnicodeString::TheEmptyString);
-
-		// look for cached nicks to add
-		AsciiString lastName;
-		AsciiString lastEmail;
-		Bool markCheckBox = FALSE;
-		UserPreferences::const_iterator it = loginPref->find("lastName");
-		if (it != loginPref->end())
-		{
-			lastName = it->second;
-		}
-		it = loginPref->find("lastEmail");
-		if (it != loginPref->end())
-		{
-			lastEmail = it->second;
-		}
-
-		// fill in list of Emails, and select the most recent
-		AsciiStringList cachedEmails = loginPref->getEmails();
-		AsciiStringListIterator eIt = cachedEmails.begin();
-		Int selectedPos = -1;
-		while (eIt != cachedEmails.end())
-		{
-			UnicodeString uniEmail;
-			uniEmail.translate(*eIt);
-			Int pos = GadgetComboBoxAddEntry(comboBoxEmail, uniEmail, GameSpyColor[GSCOLOR_DEFAULT]);
-			if (*eIt == lastEmail)
-				selectedPos = pos;
-
-			++eIt;
-		}
-		if (selectedPos >= 0)
-		{
-			GadgetComboBoxSetSelectedPos(comboBoxEmail, selectedPos);
-
-			// fill in the password for the selected email
-			UnicodeString pass;
-			pass.translate(loginPref->getPasswordForEmail(lastEmail));
-			GadgetTextEntrySetText(textEntryPassword, pass);
-
-			AsciiString month,day,year;
-			loginPref->getDateForEmail(lastEmail, month, day, year);
-			pass.translate(month);
-			GadgetTextEntrySetText(textEntryMonth, pass);
-			pass.translate(day);
-			GadgetTextEntrySetText(textEntryDay, pass);
-			pass.translate(year);
-			GadgetTextEntrySetText(textEntryYear, pass);
-
-			markCheckBox = TRUE;
-		}
-
-		// fill in list of nicks for selected email, selecting the most recent
-		GadgetComboBoxReset(comboBoxLoginName);
-		AsciiStringList cachedNicks = loginPref->getNicksForEmail(lastEmail);
-		AsciiStringListIterator nIt = cachedNicks.begin();
-		selectedPos = -1;
-		while (nIt != cachedNicks.end())
-		{
-			UnicodeString uniNick;
-			uniNick.translate(*nIt);
-			Int pos = GadgetComboBoxAddEntry(comboBoxLoginName, uniNick, GameSpyColor[GSCOLOR_DEFAULT]);
-			if (*nIt == lastName)
-				selectedPos = pos;
-
-			++nIt;
-		}
-		if (selectedPos >= 0)
-		{
-			GadgetComboBoxSetSelectedPos(comboBoxLoginName, selectedPos);
-			markCheckBox = TRUE;
-		}
-		// always start with not storing information
-		if( markCheckBox)
-			GadgetCheckBoxSetChecked(checkBoxRememberPassword, TRUE);
-		else
-			GadgetCheckBoxSetChecked(checkBoxRememberPassword, FALSE);
-#ifdef ALLOW_NON_PROFILED_LOGIN
-	}
-	else
-	{
-		// Read login names from registry...
-		GadgetComboBoxReset(comboBoxLoginName);
-		UnicodeString nick;
-
-		UserPreferences::const_iterator it = loginPref->find("lastName");
-		if (it != loginPref->end())
-		{
-			nick.translate(it->second);
-		}
-		else
-		{
-			// GeneralsX @bugfix Android port 10/07/2026 GetUserName() (Windows
-			// advapi32) has no portable equivalent wired up -- this whole
-			// ALLOW_NON_PROFILED_LOGIN branch is legacy GameSpy WOL login UI,
-			// unreachable once the Online button is wired to GeneralsOnline;
-			// leaving nick blank here (same as GetUserName failing) is fine.
-#if defined(_WIN32)
-			char userBuf[32] = "";
-			unsigned long bufSize = 32;
-			GetUserName(userBuf, &bufSize);
-			nick.translate(userBuf);
-#endif
-		}
-
-		GadgetTextEntrySetText(textEntryLoginName, nick);
-	}
-#endif // ALLOW_NON_PROFILED_LOGIN
+	parentWOLLogin =							TheWindowManager->winGetWindowFromId( NULL,  parentWOLLoginID );
+	buttonBack =									TheWindowManager->winGetWindowFromId( NULL,  buttonBackID);
+	buttonLogin =									TheWindowManager->winGetWindowFromId( NULL,  buttonLoginID);
+	buttonCreateAccount =					TheWindowManager->winGetWindowFromId( NULL,  buttonCreateAccountID);
+	buttonUseAccount =						TheWindowManager->winGetWindowFromId( NULL,  buttonUseAccountID);
+	buttonDontUseAccount =				TheWindowManager->winGetWindowFromId( NULL,  buttonDontUseAccountID);
+	buttonTOS =										TheWindowManager->winGetWindowFromId( NULL,  buttonTOSID);
+	parentTOS =										TheWindowManager->winGetWindowFromId( NULL,  parentTOSID);
+	buttonTOSOK =									TheWindowManager->winGetWindowFromId( NULL,  buttonTOSOKID);
+	listboxTOS =									TheWindowManager->winGetWindowFromId( NULL,  listboxTOSID);
+	comboBoxEmail =								TheWindowManager->winGetWindowFromId( NULL,  comboBoxEmailID);
+	comboBoxLoginName =						TheWindowManager->winGetWindowFromId( NULL,  comboBoxLoginNameID);
+	textEntryLoginName =					TheWindowManager->winGetWindowFromId( NULL,  textEntryLoginNameID);
+	textEntryPassword =						TheWindowManager->winGetWindowFromId( NULL,  textEntryPasswordID);
+	checkBoxRememberPassword =		TheWindowManager->winGetWindowFromId( NULL,  checkBoxRememberPasswordID);
+	textEntryMonth =					TheWindowManager->winGetWindowFromId( NULL,  textEntryMonthID);
+	textEntryDay =					TheWindowManager->winGetWindowFromId( NULL,  textEntryDayID);
+	textEntryYear =					TheWindowManager->winGetWindowFromId( NULL,  textEntryYearID);
+	*/
 
 	EnableLoginControls(TRUE);
 
 	// Show Menu
-	layout->hide( FALSE );
+	layout->hide( TRUE );
 
 	// Set Keyboard to Main Parent
 
@@ -741,12 +551,19 @@ void WOLLoginMenuInit( WindowLayout *layout, void *userData )
 static Bool loggedInOK = false;
 void WOLLoginMenuShutdown( WindowLayout *layout, void *userData )
 {
+	NGMP_OnlineServices_AuthInterface* pAuthInterface = NGMP_OnlineServicesManager::GetInterface<NGMP_OnlineServices_AuthInterface>();
+	if (pAuthInterface != nullptr)
+	{
+		pAuthInterface->DeregisterForLoginCallback();
+	}
+
+
 	isShuttingDown = true;
 	loggedInOK = false;
 	TheWindowManager->clearTabList();
 	if (webBrowserActive)
 	{
-		if (TheWebBrowser != nullptr)
+		if (TheWebBrowser != NULL)
 		{
 			TheWebBrowser->closeBrowserWindow(listboxTOS);
 		}
@@ -772,6 +589,19 @@ void WOLLoginMenuShutdown( WindowLayout *layout, void *userData )
 // this is used to check if we've got all the pings
 static void checkLogin()
 {
+	if (loggedInOK)
+	{
+		buttonPushed = true;
+		loggedInOK = false; // don't try this again
+
+		loginAttemptTime = 0;
+
+		SignalUIInteraction(SHELL_SCRIPT_HOOK_GENERALS_ONLINE_LOGIN);
+		nextScreen = "Menus/WOLWelcomeMenu.wnd";
+		TheShell->pop();
+	}
+
+	/*
 	if (loggedInOK && ThePinger && !ThePinger->arePingsInProgress())
 	{
 		// save off our ping string, and end those threads
@@ -779,7 +609,7 @@ static void checkLogin()
 		DEBUG_LOG(("Ping string is %s", pingStr.str()));
 		TheGameSpyInfo->setPingString(pingStr);
 		//delete ThePinger;
-		//ThePinger = nullptr;
+		//ThePinger = NULL;
 
 		buttonPushed = true;
 		loggedInOK = false; // don't try this again
@@ -806,7 +636,41 @@ static void checkLogin()
 //		newResp.player = localPSStats;
 //		TheGameSpyPSMessageQueue->addResponse(newResp);
 	}
+	*/
 }
+
+void NGMP_WOLLoginMenu_LoginCallback(ELoginResult loginResult)
+{
+	if (!buttonPushed)
+	{
+		// TODO_NGMP: Handle failure properly
+		if (loginResult == ELoginResult::Success)
+		{
+			ClearGSMessageBoxes();
+			loggedInOK = true;
+
+			checkLogin();
+		}
+		else
+		{
+			if (loginResult == ELoginResult::Failed)
+			{
+                GSMessageBoxOk(UnicodeString(L"Logging In"), UnicodeString(L"Login failed."), []()
+                    {
+                        TheShell->pop();
+                    });
+			}
+            else if (loginResult == ELoginResult::UserCancelled)
+            {
+                // User requested, nothing to do here
+            }
+
+			
+		}
+
+	}
+}
+
 
 //-------------------------------------------------------------------------------------------------
 /** WOL Login Menu update method */
@@ -818,6 +682,7 @@ void WOLLoginMenuUpdate( WindowLayout * layout, void *userData)
 	if(isShuttingDown && TheShell->isAnimFinished() && TheTransitionHandler->isFinished())
 		shutdownComplete(layout);
 
+	/*
 	if (TheShell->isAnimFinished() && !buttonPushed && TheGameSpyPeerMessageQueue)
 	{
 		PingResponse pingResp;
@@ -885,6 +750,7 @@ void WOLLoginMenuUpdate( WindowLayout * layout, void *userData)
 
 		checkLogin();
 	}
+	
 
 	if (TheGameSpyInfo && !buttonPushed && loginAttemptTime && (loginAttemptTime + loginTimeoutInMS < timeGetTime()))
 	{
@@ -905,6 +771,8 @@ void WOLLoginMenuUpdate( WindowLayout * layout, void *userData)
 		TearDownGameSpy();
 		SetUpGameSpy( motd.str(), config.str() );
 	}
+	*/
+	// TODO_NGMP: Add login timeout again
 
 }
 
@@ -969,7 +837,7 @@ static Bool isNickOkay(UnicodeString nick)
 		return FALSE;
 
 	WideChar newChar = nick.getCharAt(len-1);
-	if (wcschr(legalIRCChars, newChar) == nullptr)
+	if (wcschr(legalIRCChars, newChar) == NULL)
 		return FALSE;
 
 	return TRUE;
@@ -993,7 +861,7 @@ static Bool isAgeOkay(AsciiString &month, AsciiString &day, AsciiString year)
 	#define DATE_BUFFER_SIZE 256
 	char dateBuffer[ DATE_BUFFER_SIZE ];
 	GetDateFormat( LOCALE_SYSTEM_DEFAULT,
-								 0, nullptr,
+								 0, NULL,
 								 "yyyy",
 								 dateBuffer, DATE_BUFFER_SIZE );
 	Int sysVal = atoi(dateBuffer);
@@ -1004,7 +872,7 @@ static Bool isAgeOkay(AsciiString &month, AsciiString &day, AsciiString year)
 		return FALSE;
 
 	GetDateFormat( LOCALE_SYSTEM_DEFAULT,
-								 0, nullptr,
+								 0, NULL,
 								 "MM",
 								 dateBuffer, DATE_BUFFER_SIZE );
 	sysVal = atoi(dateBuffer);
@@ -1015,7 +883,7 @@ static Bool isAgeOkay(AsciiString &month, AsciiString &day, AsciiString year)
 		return FALSE;
 //	month.format("%02.2d",userVal);
 	GetDateFormat( LOCALE_SYSTEM_DEFAULT,
-								 0, nullptr,
+								 0, NULL,
 								 "dd",
 								 dateBuffer, DATE_BUFFER_SIZE );
 	sysVal = atoi(dateBuffer);
@@ -1440,7 +1308,7 @@ WindowMsgHandledType WOLLoginMenuSystem( GameWindow *window, UnsignedInt msg,
 				{
 					parentTOS->winHide(FALSE);
 					useWebBrowserForTOS = FALSE;//loginPref->getBool("UseTOSBrowser", TRUE);
-					if (useWebBrowserForTOS && (TheWebBrowser != nullptr))
+					if (useWebBrowserForTOS && (TheWebBrowser != NULL))
 					{
 						TheWebBrowser->createBrowserWindow("TermsOfService", listboxTOS);
 						webBrowserActive = TRUE;
@@ -1477,10 +1345,10 @@ WindowMsgHandledType WOLLoginMenuSystem( GameWindow *window, UnsignedInt msg,
 							}
 
 							delete[] fileBuf;
-							fileBuf = nullptr;
+							fileBuf = NULL;
 
 							theFile->close();
-							theFile = nullptr;
+							theFile = NULL;
 						}
 					}
 					EnableLoginControls( FALSE );
@@ -1492,9 +1360,9 @@ WindowMsgHandledType WOLLoginMenuSystem( GameWindow *window, UnsignedInt msg,
 					EnableLoginControls( TRUE );
 
 					parentTOS->winHide(TRUE);
-					if (useWebBrowserForTOS && (TheWebBrowser != nullptr))
+					if (useWebBrowserForTOS && (TheWebBrowser != NULL))
 					{
-						if (listboxTOS != nullptr)
+						if (listboxTOS != NULL)
 						{
 							TheWebBrowser->closeBrowserWindow(listboxTOS);
 						}

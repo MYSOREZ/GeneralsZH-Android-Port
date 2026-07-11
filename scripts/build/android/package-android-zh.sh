@@ -208,20 +208,14 @@ UseShadowVolumes = yes
 EOF
 fi
 
-# GeneralsOnline lobby screens (.wnd loose files) — the game only ever ships
-# .big archives via the user's own copied game data (see the header comment),
-# so these get the same copy-if-missing treatment as DefaultOptions.ini above.
-# GeneralsX @bugfix Android port 11/07/2026 destination is Window/Menus/, NOT
-# Data/Window/Menus/ -- confirmed via a real device crash log + reading
-# GameWindowManagerScript.cpp::winCreateFromScript(), which opens .wnd files
-# via TheFileSystem->openFile("Window\\<name>", ...) with no "Data\\" prefix
-# ever added (StdLocalFileSystem::openFile() resolves that relative to the
-# game's CWD verbatim). The source .wnd files stay under
-# GeneralsMD/Data/Window/Menus/ in-repo (mirrors GeneralsX's own
-# Data/Window/Menus/ authoring convention, e.g. GeneralsZH/Data/Window/Menus/
-# ExtrasMenu.wnd) -- only the staged/deployed path differs.
-mkdir -p "${ASSETS}/Window/Menus"
-cp "${PROJECT_ROOT}/GeneralsMD/Data/Window/Menus/"GeneralsOnline*.wnd "${ASSETS}/Window/Menus/"
+# GeneralsX @note Android port 11/07/2026 the GeneralsOnline lobby screens
+# (WOLWelcomeMenu.wnd, WOLCustomLobby.wnd, WOLQuickMatchMenu.wnd,
+# PopupPlayerInfo.wnd, WOLBuddyOverlay.wnd, OptionsMenu.wnd) are NOT custom
+# assets we ship -- the real GeneralsOnline client reuses these unmodified,
+# original Zero Hour .wnd files exactly as they already ship inside the base
+# game's own .big archives (the user's copied game data). Only the C++
+# callback/backend logic needed porting (see GUICallbacks/Menus/WOL*.cpp);
+# there is nothing to stage here.
 
 echo "==> Staged APK assets:"
 find "${ASSETS}" -type f | sed "s|${ASSETS}/|    |"

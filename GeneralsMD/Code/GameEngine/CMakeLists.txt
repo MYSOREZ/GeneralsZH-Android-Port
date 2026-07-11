@@ -744,11 +744,6 @@ set(GAMEENGINE_SRC
     Source/GameClient/GUI/GUICallbacks/Menus/EstablishConnectionsWindow.cpp
     Source/GameClient/GUI/GUICallbacks/Menus/ExtrasMenu.cpp
     Source/GameClient/GUI/GUICallbacks/Menus/GameInfoWindow.cpp
-    Source/GameClient/GUI/GUICallbacks/Menus/GeneralsOnlineHome.cpp
-    Source/GameClient/GUI/GUICallbacks/Menus/GeneralsOnlineQuickMatch.cpp
-    Source/GameClient/GUI/GUICallbacks/Menus/GeneralsOnlineCustomMatch.cpp
-    Source/GameClient/GUI/GUICallbacks/Menus/GeneralsOnlinePersona.cpp
-    Source/GameClient/GUI/GUICallbacks/Menus/GeneralsOnlineCommunicator.cpp
     Source/GameClient/GUI/GUICallbacks/Menus/KeyboardOptionsMenu.cpp
     Source/GameClient/GUI/GUICallbacks/Menus/LanGameOptionsMenu.cpp
     Source/GameClient/GUI/GUICallbacks/Menus/LanLobbyMenu.cpp

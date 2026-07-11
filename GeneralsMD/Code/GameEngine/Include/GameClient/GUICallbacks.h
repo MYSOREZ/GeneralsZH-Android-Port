@@ -170,37 +170,6 @@ extern void ExtrasMenuShutdown( WindowLayout *layout, void *userData );
 extern WindowMsgHandledType ExtrasMenuSystem( GameWindow *window, UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2 );
 extern WindowMsgHandledType ExtrasMenuInput( GameWindow *window, UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2 );
 
-// GeneralsOnline lobby screens (Android port, 10/07/2026) --------------------------------------------------
-extern void GeneralsOnlineHomeInit( WindowLayout *layout, void *userData );
-extern void GeneralsOnlineHomeUpdate( WindowLayout *layout, void *userData );
-extern void GeneralsOnlineHomeShutdown( WindowLayout *layout, void *userData );
-extern WindowMsgHandledType GeneralsOnlineHomeSystem( GameWindow *window, UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2 );
-extern WindowMsgHandledType GeneralsOnlineHomeInput( GameWindow *window, UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2 );
-
-extern void GeneralsOnlineQuickMatchInit( WindowLayout *layout, void *userData );
-extern void GeneralsOnlineQuickMatchUpdate( WindowLayout *layout, void *userData );
-extern void GeneralsOnlineQuickMatchShutdown( WindowLayout *layout, void *userData );
-extern WindowMsgHandledType GeneralsOnlineQuickMatchSystem( GameWindow *window, UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2 );
-extern WindowMsgHandledType GeneralsOnlineQuickMatchInput( GameWindow *window, UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2 );
-
-extern void GeneralsOnlineCustomMatchInit( WindowLayout *layout, void *userData );
-extern void GeneralsOnlineCustomMatchUpdate( WindowLayout *layout, void *userData );
-extern void GeneralsOnlineCustomMatchShutdown( WindowLayout *layout, void *userData );
-extern WindowMsgHandledType GeneralsOnlineCustomMatchSystem( GameWindow *window, UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2 );
-extern WindowMsgHandledType GeneralsOnlineCustomMatchInput( GameWindow *window, UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2 );
-
-extern void GeneralsOnlinePersonaInit( WindowLayout *layout, void *userData );
-extern void GeneralsOnlinePersonaUpdate( WindowLayout *layout, void *userData );
-extern void GeneralsOnlinePersonaShutdown( WindowLayout *layout, void *userData );
-extern WindowMsgHandledType GeneralsOnlinePersonaSystem( GameWindow *window, UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2 );
-extern WindowMsgHandledType GeneralsOnlinePersonaInput( GameWindow *window, UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2 );
-
-extern void GeneralsOnlineCommunicatorInit( WindowLayout *layout, void *userData );
-extern void GeneralsOnlineCommunicatorUpdate( WindowLayout *layout, void *userData );
-extern void GeneralsOnlineCommunicatorShutdown( WindowLayout *layout, void *userData );
-extern WindowMsgHandledType GeneralsOnlineCommunicatorSystem( GameWindow *window, UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2 );
-extern WindowMsgHandledType GeneralsOnlineCommunicatorInput( GameWindow *window, UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2 );
-
 // Popup host Game Internet -----------------------------------------------------------------------------------
 extern void DifficultySelectInit( WindowLayout *layout, void *userData );
 extern WindowMsgHandledType DifficultySelectSystem( GameWindow *window, UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2 );

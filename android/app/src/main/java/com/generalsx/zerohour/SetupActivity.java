@@ -783,21 +783,10 @@ public class SetupActivity extends Activity {
         copyFileIfMissing(new File(bundledRoot, "dxvk.conf"), new File(gameFolderPath, "dxvk.conf"));
         copyFileIfMissing(new File(bundledRoot, "DefaultOptions.ini"), new File(gameFolderPath, "DefaultOptions.ini"));
         copyDirIfMissing(new File(bundledRoot, "fonts"), new File(gameFolderPath, "fonts"));
-        // GeneralsX @feature Android port 10/07/2026 GeneralsOnline lobby
-        // .wnd screens (Window/Menus/*.wnd, staged by package-android-zh.sh)
-        // are loose-file overrides the engine reads relative to CWD, same as
-        // fonts/ above -- nested under Window/, so the flat copyDirIfMissing
-        // doesn't reach them; walk the whole subtree instead. Per-file
-        // existence checks mean this naturally picks up newly-added screens
-        // on an already-configured install without touching anything the
-        // user may have customized.
-        // GeneralsX @bugfix Android port 11/07/2026 destination is
-        // Window/Menus, NOT Data/Window/Menus -- confirmed via a real device
-        // crash log (winCreateLayout returned 0x0 for a real .wnd file that
-        // *was* present, just at the wrong path) plus reading
-        // GameWindowManagerScript.cpp: TheFileSystem->openFile() is called
-        // with "Window\\<name>", never "Data\\Window\\<name>".
-        copyDirTreeIfMissing(new File(bundledRoot, "Window/Menus"), new File(gameFolderPath, "Window/Menus"));
+        // GeneralsX @note Android port 11/07/2026 no GeneralsOnline lobby
+        // .wnd screens are staged here anymore -- the real client reuses the
+        // original, unmodified Zero Hour .wnd files already inside the
+        // user's own copied game .big archives, so there is nothing to copy.
     }
 
     private static void copyFileIfMissing(File bundled, File dest) {
@@ -829,31 +818,6 @@ public class SetupActivity extends Activity {
         }
         for (File child : children) {
             copyFileIfMissing(child, new File(destDir, child.getName()));
-        }
-    }
-
-    // Like copyDirIfMissing, but recurses into subdirectories and checks
-    // file-by-file (not just "does destDir exist") -- needed for trees where
-    // new leaf files can be added later on top of an install that already
-    // has the directory itself.
-    private static void copyDirTreeIfMissing(File bundledDir, File destDir) {
-        if (!bundledDir.isDirectory()) {
-            return;
-        }
-        if (!destDir.exists() && !destDir.mkdirs()) {
-            return;
-        }
-        File[] children = bundledDir.listFiles();
-        if (children == null) {
-            return;
-        }
-        for (File child : children) {
-            File dest = new File(destDir, child.getName());
-            if (child.isDirectory()) {
-                copyDirTreeIfMissing(child, dest);
-            } else {
-                copyFileIfMissing(child, dest);
-            }
         }
     }
 
