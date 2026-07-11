@@ -208,10 +208,11 @@ void GameSpyOpenOverlay( GSOverlayType overlay )
 {
 	if (overlay == GSOVERLAY_BUDDY)
 	{
-		if (!TheGameSpyBuddyMessageQueue || !TheGameSpyBuddyMessageQueue->isConnected())
+#if !defined(GENERALS_ONLINE)
+		if (!TheGameSpyBuddyMessageQueue->isConnected())
 		{
 			// not connected - is it because we were disconnected?
-			if (TheGameSpyBuddyMessageQueue && TheGameSpyBuddyMessageQueue->getLocalProfileID())
+			if (TheGameSpyBuddyMessageQueue->getLocalProfileID())
 			{
 				// used to be connected
 				GSMessageBoxYesNo(TheGameText->fetch("GUI:GPErrorTitle"), TheGameText->fetch("GUI:GPDisconnected"), buddyTryReconnect, nullptr);
@@ -223,6 +224,7 @@ void GameSpyOpenOverlay( GSOverlayType overlay )
 			}
 			return;
 		}
+#endif
 		AudioEventRTS buttonClick("GUICommunicatorOpen");
 
 		if( TheAudio )
