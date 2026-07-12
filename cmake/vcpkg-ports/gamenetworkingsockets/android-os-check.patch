@@ -1,3 +1,4 @@
+diff -ruN a/CMakeLists.txt b/CMakeLists.txt
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
 @@ -159,6 +159,10 @@
@@ -11,3 +12,16 @@
  	elseif(CMAKE_SYSTEM_NAME MATCHES Windows)
  		target_compile_definitions(${TGT} PUBLIC _WINDOWS)
  		if(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
+diff -ruN a/src/CMakeLists.txt b/src/CMakeLists.txt
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -333,6 +333,9 @@
+ 
+ 	elseif(CMAKE_SYSTEM_NAME MATCHES OpenBSD)
+ 
++	elseif(CMAKE_SYSTEM_NAME MATCHES Android)
++		# GeneralsX @build Android port 12/07/2026 same as the Linux branch:
++		# nothing platform-specific to link
+ 	elseif(CMAKE_SYSTEM_NAME MATCHES Windows)
+ 		if(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
+ 			get_target_property(TARGET_TYPE ${GNS_TARGET} TYPE)
