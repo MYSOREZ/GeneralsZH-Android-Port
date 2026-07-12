@@ -704,6 +704,24 @@ WindowMsgHandledType GameWindowManager::winSendSystemMsg( GameWindow *window,
 	if( msg != GWM_DESTROY && BitIsSet( window->m_status, WIN_STATUS_DESTROYED ) )
 		return MSG_IGNORED;
 
+	// GeneralsX @bugfix Android port 12/07/2026 - a device crash resolved
+	// (via addr2line against the exact build's libmain.so) to a call through
+	// window->m_input with PC==0, i.e. a genuinely null callback, even though
+	// GameWindow's constructor unconditionally sets it via
+	// winSetInputFunc(TheWindowManager->getDefaultInput()), which itself can
+	// never return null (GameWinDefaultInput is a plain extern function, not
+	// a resettable variable). That only leaves a GameWindow whose memory was
+	// already freed back to its MemoryPoolObject pool and not yet
+	// reallocated -- a stale pointer still reachable from the window tree
+	// (hit-tested by findWindowUnderMouse) racing a destroy that didn't fully
+	// unlink it first. Root cause needs a live debugger session to pin down;
+	// this guard stops the crash in the meantime.
+	if( window->m_system == nullptr )
+	{
+		DEBUG_LOG(( "winSendSystemMsg: window %p has null m_system (stale/freed window?), ignoring msg %d", window, msg ));
+		return MSG_IGNORED;
+	}
+
 	return window->m_system( window, msg, mData1, mData2 );
 
 }
@@ -722,6 +740,15 @@ WindowMsgHandledType GameWindowManager::winSendInputMsg( GameWindow *window,
 
 	if( msg != GWM_DESTROY && BitIsSet( window->m_status, WIN_STATUS_DESTROYED ) )
 		return MSG_IGNORED;
+
+	// GeneralsX @bugfix Android port 12/07/2026 - see the matching guard in
+	// winSendSystemMsg() above for why this can legitimately be null on a
+	// live device (stale pointer to a freed, pooled GameWindow).
+	if( window->m_input == nullptr )
+	{
+		DEBUG_LOG(( "winSendInputMsg: window %p has null m_input (stale/freed window?), ignoring msg %d", window, msg ));
+		return MSG_IGNORED;
+	}
 
 	return window->m_input( window, msg, mData1, mData2 );
 
