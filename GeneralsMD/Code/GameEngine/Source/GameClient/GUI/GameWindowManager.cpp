@@ -1455,18 +1455,13 @@ GameWindow *GameWindowManager::winCreate( GameWindow *parent,
 		window->winSetInstanceData( instData );
 
 	// set default font
-	// GeneralsX @tweak GitHubCopilot 27/05/2026 Trace window default font resolution to diagnose localized font propagation.
+	// GeneralsX @cleanup Android port 12/07/2026 the per-window [GX-ISSUE144]
+	// font-trace lines were removed: they fired for every window created
+	// (hundreds per menu screen) and dominated device logs, pushing real
+	// diagnostics out of the log viewer's truncation window. The font issue
+	// they traced is resolved.
 	if (TheGlobalLanguageData && TheGlobalLanguageData->m_defaultWindowFont.name.isNotEmpty())
 	{
-		char log_buffer[512];
-		sprintf(log_buffer,
-			"[GX-ISSUE144] WinCreate default font localized name=%s size=%d bold=%d window=%p",
-			TheGlobalLanguageData->m_defaultWindowFont.name.str(),
-			TheGlobalLanguageData->m_defaultWindowFont.size,
-			TheGlobalLanguageData->m_defaultWindowFont.bold,
-			window);
-		fprintf(stderr, "%s\n", log_buffer);
-
 		// TheSuperHackers @bugfix Route the default window font through the
 		// same resolution-based adjustFontSize() scaling that HeaderTemplate
 		// fonts and in-game captions already use. Without this, most menu
@@ -1481,9 +1476,6 @@ GameWindow *GameWindowManager::winCreate( GameWindow *parent,
 	}
 	else
 	{
-		char log_buffer[512];
-		sprintf(log_buffer, "[GX-ISSUE144] WinCreate default font fallback Times New Roman size=14 bold=0 window=%p", window);
-		fprintf(stderr, "%s\n", log_buffer);
 		const Int fallbackSize = TheGlobalLanguageData ? TheGlobalLanguageData->adjustFontSize(14) : 14;
 		window->winSetFont( winFindFont( "Times New Roman", fallbackSize, FALSE ) );
 	}
@@ -2947,17 +2939,10 @@ void GameWindowManager::assignDefaultGadgetLook( GameWindow *gadget,
 		gadget->winSetFont( defaultFont );
 	else
 	{
+		// GeneralsX @cleanup Android port 12/07/2026 per-gadget [GX-ISSUE144]
+		// trace lines removed, see winCreate's default-font path above.
 		if (TheGlobalLanguageData && TheGlobalLanguageData->m_defaultWindowFont.name.isNotEmpty())
 		{
-			char log_buffer[512];
-			sprintf(log_buffer,
-				"[GX-ISSUE144] assignDefaultGadgetLook localized font name=%s size=%d bold=%d gadget=%p",
-				TheGlobalLanguageData->m_defaultWindowFont.name.str(),
-				TheGlobalLanguageData->m_defaultWindowFont.size,
-				TheGlobalLanguageData->m_defaultWindowFont.bold,
-				gadget);
-			fprintf(stderr, "%s\n", log_buffer);
-
 			// TheSuperHackers @bugfix Same adjustFontSize() fix as winCreate's
 			// default-font path above -- gadget captions (button/checkbox/
 			// listbox text etc.) were the same unscaled outlier.
@@ -2968,9 +2953,6 @@ void GameWindowManager::assignDefaultGadgetLook( GameWindow *gadget,
 		}
 		else
 		{
-			char log_buffer[512];
-			sprintf(log_buffer, "[GX-ISSUE144] assignDefaultGadgetLook fallback font Times New Roman size=14 bold=0 gadget=%p", gadget);
-			fprintf(stderr, "%s\n", log_buffer);
 			const Int fallbackSize = TheGlobalLanguageData ? TheGlobalLanguageData->adjustFontSize(14) : 14;
 			gadget->winSetFont( winFindFont( "Times New Roman", fallbackSize, FALSE ) );
 		}

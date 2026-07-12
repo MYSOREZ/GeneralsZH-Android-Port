@@ -114,32 +114,26 @@ static_assert(ARRAY_SIZE(TheDrawableIconNames) == MAX_ICONS + 1, "Incorrect arra
 // GeneralsX @bugfix FelipeBraz 03/06/2026 Preferred known Unicode-supporting fonts (Arial Unicode MS) over configured DrawableCaptionFont
 // to ensure Cyrillic and other non-Latin characters render correctly via DXVK on macOS.
 // GeneralsX @test FelipeBraz 03/06/2026 TEST: Hardcode Arial Unicode MS to verify 3D rendering
+// GeneralsX @cleanup Android port 12/07/2026 The per-call [GX-ISSUE144]
+// trace lines were removed: this function runs for every Drawable
+// construction, and its two log lines dominated device logs (hundreds of
+// repeats per menu screen), pushing actual diagnostics out of the log
+// viewer's truncation window. The font issue they traced is resolved.
 static GameFont *ResolveDrawableCaptionFont()
 {
-	char log_buffer[512];
 	GameFont *font = nullptr;
 
 	if (TheFontLibrary == nullptr || TheInGameUI == nullptr)
-	{
-		sprintf(log_buffer, "[GX-ISSUE144] Drawable ResolveCaptionFont missing TheFontLibrary=%p TheInGameUI=%p", TheFontLibrary, TheInGameUI);
-		fprintf(stderr, "%s\n", log_buffer);
 		return nullptr;
-	}
 
 	const Int basePointSize = TheInGameUI->getDrawableCaptionPointSize();
 	const Int pointSize = TheGlobalLanguageData ? TheGlobalLanguageData->adjustFontSize(basePointSize) : basePointSize;
 	const Bool bold = TheInGameUI->isDrawableCaptionBold();
 
-	// TEST: hardcode Arial Unicode MS
 	font = TheFontLibrary->getFont("Arial Unicode MS", pointSize, bold);
-	sprintf(log_buffer, "[GX-ISSUE144] TEST ResolveCaptionFont Arial Unicode MS %s pointSize=%d bold=%d",
-		font ? "HIT" : "MISS", pointSize, bold);
-	fprintf(stderr, "%s\n", log_buffer);
 	if (font) return font;
 
 	font = TheFontLibrary->getFont("Arial", pointSize, bold);
-	sprintf(log_buffer, "[GX-ISSUE144] TEST ResolveCaptionFont Arial %s pointSize=%d bold=%d",
-		font ? "HIT" : "MISS", pointSize, bold);
 	return font;
 }
 
@@ -396,15 +390,9 @@ Drawable::Drawable( const ThingTemplate *thingTemplate, DrawableStatusBits statu
 	m_constructDisplayString = TheDisplayStringManager->newDisplayString();
 	if (m_constructDisplayString)
 	{
-		GameFont *ctorFont = ResolveDrawableCaptionFont();
-		m_constructDisplayString->setFont(ctorFont);
-		{
-			char _lb[256];
-			sprintf(_lb, "[GX-ISSUE144] Drawable ctor constructDS font=%s size=%d",
-				ctorFont ? ctorFont->nameString.str() : "NULL",
-				ctorFont ? ctorFont->pointSize : -1);
-			fprintf(stderr, "%s\n", _lb);
-		}
+		// GeneralsX @cleanup Android port 12/07/2026 per-Drawable trace line
+		// removed, see ResolveDrawableCaptionFont() above.
+		m_constructDisplayString->setFont(ResolveDrawableCaptionFont());
 	}
 
 	m_ambientSound = nullptr;
