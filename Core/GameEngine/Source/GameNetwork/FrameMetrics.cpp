@@ -138,3 +138,16 @@ Real FrameMetrics::getAverageLatency() {
 Int FrameMetrics::getMinimumCushion() {
 	return m_minimumCushion;
 }
+
+#if defined(GENERALS_ONLINE)
+// GeneralsX @feature Android port 12/07/2026 ported from go_client (see
+// NetworkInterface::SeedLatencyData). GENERALS_ONLINE_HIGH_FPS_LIMIT comes in
+// through ConnectionManager.h -> NextGenMP_defines.h, but include it directly
+// so this file doesn't depend on include order.
+#include "GameNetwork/GeneralsOnline/NextGenMP_defines.h"
+void FrameMetrics::SeedLatencyData(int latency)
+{
+	m_averageFps = GENERALS_ONLINE_HIGH_FPS_LIMIT;
+	m_averageLatency = latency / 1000.f;
+}
+#endif

@@ -43,20 +43,28 @@ class Transport //: public MemoryPoolObject
 public:
 
 	Transport();
-	~Transport();
+	// GeneralsX @feature Android port 12/07/2026 virtualized so GeneralsOnline's
+	// NextGenTransport (GameNetworkingSockets-backed P2P mesh, ported from
+	// GeneralsOnlineDevelopmentTeam/GameClient) can subclass this. Upstream
+	// split Transport into an abstract base + a "UDPTransport" legacy impl;
+	// keeping this class concrete instead means LAN and every other existing
+	// caller keeps working untouched, while ConnectionManager can substitute
+	// the mesh transport for internet games. The dtor must be virtual because
+	// ConnectionManager deletes through a Transport*.
+	virtual ~Transport();
 
-	Bool init( AsciiString ip, UnsignedShort port );
-	Bool init( UnsignedInt ip, UnsignedShort port );
-	void reset();
-	Bool update();									///< Call this once a GameEngine tick, regardless of whether the frame advances.
+	virtual Bool init( AsciiString ip, UnsignedShort port );
+	virtual Bool init( UnsignedInt ip, UnsignedShort port );
+	virtual void reset();
+	virtual Bool update();									///< Call this once a GameEngine tick, regardless of whether the frame advances.
 
-	Bool doRecv();		///< call this to service the receive packets
-	Bool doSend();		///< call this to service the send queue.
+	virtual Bool doRecv();		///< call this to service the receive packets
+	virtual Bool doSend();		///< call this to service the send queue.
 
-	Bool queueSend(UnsignedInt addr, UnsignedShort port, const UnsignedByte *buf, Int len /*,
+	virtual Bool queueSend(UnsignedInt addr, UnsignedShort port, const UnsignedByte *buf, Int len /*,
 		NetMessageFlags flags, Int id */);				///< Queue a packet for sending to the specified address and port.  This will be sent on the next update() call.
 
-	Bool allowBroadcasts(Bool val) { if (!m_udpsock) return false; return (m_udpsock->AllowBroadcasts(val))?true:false; }
+	virtual Bool allowBroadcasts(Bool val) { if (!m_udpsock) return false; return (m_udpsock->AllowBroadcasts(val))?true:false; }
 
 	// Latency insertion and packet loss
 	void setLatency( Bool val ) { m_useLatency = val; }
@@ -82,6 +90,10 @@ private:
 	Bool m_winsockInit;
 	UDP *m_udpsock;
 
+// GeneralsX @feature Android port 12/07/2026 protected (was private) so
+// NextGenTransport reuses the stats bookkeeping and packet classification --
+// mirrors where upstream's abstract base keeps these.
+protected:
 	// Latency insertion and packet loss
 	Bool m_useLatency;
 	Bool m_usePacketLoss;

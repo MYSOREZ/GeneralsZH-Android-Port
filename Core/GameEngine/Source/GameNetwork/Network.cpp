@@ -161,6 +161,11 @@ public:
 	virtual Int getAverageFPS() override { return m_conMgr->getAverageFPS(); }
 	virtual Int getSlotAverageFPS(Int slot) override;
 
+#if defined(GENERALS_ONLINE)
+	virtual void SeedLatencyData(int highestLatency) override;
+	virtual ConnectionManager* GetConnectionManager() override { return m_conMgr; }
+#endif
+
 	virtual void attachTransport(Transport *transport) override;
 	virtual void initTransport() override;
 
@@ -367,6 +372,17 @@ void Network::init()
 	m_networkOn = TRUE;
 #endif
 }
+
+#if defined(GENERALS_ONLINE)
+// GeneralsX @feature Android port 12/07/2026 ported from go_client (see
+// NetworkInterface::SeedLatencyData).
+void Network::SeedLatencyData(int highestLatency)
+{
+	DEBUG_LOG(("[PRESEED] Seeding with highest latency %d", highestLatency));
+
+	m_conMgr->SeedLatencyData(highestLatency);
+}
+#endif
 
 void Network::setSawCRCMismatch()
 {

@@ -55,6 +55,17 @@
 #include "GameClient/InGameUI.h"
 #include "TARGA.h"
 
+// GeneralsX @feature Android port 12/07/2026 GeneralsOnline P2P match
+// transport (ported from GeneralsOnlineDevelopmentTeam/GameClient). These
+// headers live in GeneralsMD's include tree, which is on the include path
+// because Core sources compile directly into each game's engine target --
+// the guard keeps targets without the GeneralsOnline module clean.
+#if defined(GENERALS_ONLINE_ENABLE_P2P_TRANSPORT)
+#include "GameNetwork/GeneralsOnline/NextGenTransport.h"
+#include "GameNetwork/GeneralsOnline/NetworkMesh.h"
+#include "GameNetwork/GeneralsOnline/NGMP_interfaces.h"
+#endif
+
 static Bool hasValidTransferFileExtension(const AsciiString& filePath)
 {
 	static const char* const validExtensions[] = {
@@ -1597,7 +1608,21 @@ void ConnectionManager::initTransport() {
 	DEBUG_LOG(("ConnectionManager::initTransport - Initializing Transport"));
 
 	delete m_transport;
+#if defined(GENERALS_ONLINE_ENABLE_P2P_TRANSPORT)
+	// GeneralsX @feature Android port 12/07/2026 internet games ride the
+	// GameNetworkingSockets mesh; LAN keeps the legacy UDP transport
+	// (upstream go_client does the same TheLAN split).
+	if (TheLAN == nullptr)
+	{
+		m_transport = new NextGenTransport;
+	}
+	else
+	{
+		m_transport = new Transport;
+	}
+#else
 	m_transport = new Transport;
+#endif
 	m_transport->reset();
 	m_transport->init(m_localAddr, m_localPort);
 }

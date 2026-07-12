@@ -45,6 +45,12 @@ public:
 	Int getAverageFPS();
 	Int getMinimumCushion();
 
+#if defined(GENERALS_ONLINE)
+	// GeneralsX @feature Android port 12/07/2026 ported from go_client (see
+	// NetworkInterface::SeedLatencyData).
+	void SeedLatencyData(int latency);
+#endif
+
 protected:
 	// These are used for keeping track of parameters to the run ahead equation.
 	// frames per second history variables.

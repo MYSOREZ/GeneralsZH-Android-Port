@@ -1131,7 +1131,15 @@ set(GAMEENGINE_SRC
     Include/GameNetwork/GeneralsOnline/NGMP_include.h
     Include/GameNetwork/GeneralsOnline/NGMP_interfaces.h
     Include/GameNetwork/GeneralsOnline/NGMP_types.h
+    # GeneralsX @feature Android port 12/07/2026 P2P match transport
+    # (previously deferred, see NGMP_include.h): NetworkMesh + NextGenTransport
+    # on Valve GameNetworkingSockets, ported from the same go_int snapshot
+    # (32ae5135) as the rest of the module.
+    Include/GameNetwork/GeneralsOnline/NetworkBitstream.h
+    Include/GameNetwork/GeneralsOnline/NetworkMesh.h
+    Include/GameNetwork/GeneralsOnline/NetworkPacket.h
     Include/GameNetwork/GeneralsOnline/NextGenMP_defines.h
+    Include/GameNetwork/GeneralsOnline/NextGenTransport.h
     Include/GameNetwork/GeneralsOnline/OnlineServices_Auth.h
     Include/GameNetwork/GeneralsOnline/OnlineServices_Init.h
     Include/GameNetwork/GeneralsOnline/OnlineServices_LobbyInterface.h
@@ -1146,6 +1154,9 @@ set(GAMEENGINE_SRC
     Source/GameNetwork/GeneralsOnline/HTTP/HTTPRequest.cpp
     Source/GameNetwork/GeneralsOnline/NGMPGame.cpp
     Source/GameNetwork/GeneralsOnline/NGMP_Helpers.cpp
+    Source/GameNetwork/GeneralsOnline/NetworkBitstream.cpp
+    Source/GameNetwork/GeneralsOnline/NetworkMesh.cpp
+    Source/GameNetwork/GeneralsOnline/NextGenTransport.cpp
     Source/GameNetwork/GeneralsOnline/OnlineServices_Auth.cpp
     Source/GameNetwork/GeneralsOnline/OnlineServices_Init.cpp
     Source/GameNetwork/GeneralsOnline/OnlineServices_LobbyInterface.cpp
@@ -1268,3 +1279,11 @@ target_precompile_headers(z_gameengine PRIVATE
 # resolve to the wrong branch depending on each file's own #include order (e.g. SetLookAtPlayer's
 # declaration in PersistentStorageDefs.h picking the non-GeneralsOnline AsciiString overload).
 add_compile_definitions(GENERALS_ONLINE)
+
+# GeneralsX @feature Android port 12/07/2026 activates the P2P match-transport
+# call sites that were ported behind this guard while the NetworkMesh/
+# NextGenTransport layer itself was still deferred. With the layer now ported
+# (GameNetworkingSockets 1.6.0 + native ICE), internet matches get a real
+# transport instead of the legacy UDP one binding to a garbage IP and hanging
+# the match-start handshake forever.
+add_compile_definitions(GENERALS_ONLINE_ENABLE_P2P_TRANSPORT)

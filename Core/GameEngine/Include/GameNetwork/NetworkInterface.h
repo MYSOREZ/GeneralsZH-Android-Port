@@ -101,6 +101,16 @@ public:
 	virtual Int getAverageFPS() = 0;
 	virtual Int getSlotAverageFPS(Int slot) = 0;
 
+#if defined(GENERALS_ONLINE)
+	// GeneralsX @feature Android port 12/07/2026 GeneralsOnline mesh transport
+	// (ported from go_client): pre-seed run-ahead metrics from the P2P mesh's
+	// measured latency so the first frames of a match don't run on defaults,
+	// and let NetworkMesh reach the connection manager to drop a peer whose
+	// GNS connection died.
+	virtual void SeedLatencyData(int highestLatency) = 0;
+	virtual ConnectionManager* GetConnectionManager() = 0;
+#endif
+
 	virtual void attachTransport(Transport *transport) = 0;
 	virtual void initTransport() = 0;
 	virtual Bool sawCRCMismatch() = 0;

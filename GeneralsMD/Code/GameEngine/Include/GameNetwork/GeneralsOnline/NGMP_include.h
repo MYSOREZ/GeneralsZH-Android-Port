@@ -74,17 +74,16 @@ static std::unordered_map<int, std::string> g_mapServiceIndexToPlayerTemplateStr
 #include <functional>
 
 #include "GameNetwork/GeneralsOnline/NextGenMP_defines.h"
+// GeneralsX @feature Android port 12/07/2026 P2P match-transport layer,
+// previously deferred: now ported from the same go_int snapshot (32ae5135)
+// the rest of this module came from, on top of vcpkg's GameNetworkingSockets
+// 1.6.0 (native ICE client) instead of upstream's Windows-only prebuilt
+// Vendor/ValveNetworkingSockets binaries.
+#include "GameNetwork/GeneralsOnline/NetworkPacket.h"
+#include "GameNetwork/GeneralsOnline/NetworkBitstream.h"
 #include "GameNetwork/GeneralsOnline/NGMP_types.h"
 #include "GameNetwork/GeneralsOnline/NGMPGame.h"
 
-// GeneralsX @bugfix Android port 10/07/2026 NetworkPacket.h/NetworkBitstream.h/
-// NextGenTransport.h are the P2P match-transport layer, built on Valve
-// GameNetworkingSockets (Vendor/ValveNetworkingSockets, Windows-only prebuilt
-// binaries in upstream GO, plus <ws2ipdef.h>/WinSock types baked into the
-// headers themselves). Deferred to a later milestone -- this first pass only
-// needs auth + a lobby-browsing WebSocket connection, neither of which touch
-// this layer. A forward declaration is enough for the pointer-only uses in
-// OnlineServices_LobbyInterface.h/OnlineServices_Init.h.
 class NetworkMesh;
 
 #if defined(GENERALS_ONLINE_BRANCH_JMARSHALL)
