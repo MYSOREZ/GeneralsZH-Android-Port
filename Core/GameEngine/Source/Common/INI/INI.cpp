@@ -438,6 +438,14 @@ UnsignedInt INI::load( AsciiString filename, INILoadType loadType, Xfer *pXfer )
 					static_assert(ARRAY_SIZE(m_curBlockStart) >= ARRAY_SIZE(m_buffer), "Incorrect array size");
 					strcpy(m_curBlockStart, m_buffer);
 					#endif
+					// GeneralsX @bugfix Android port 12/07/2026 - Log every block as it starts,
+					// unconditionally (not just on error). If parsing ever dies without throwing
+					// a C++ exception at all (e.g. a raw SIGSEGV inside a block parser), this is
+					// the only trace of which block was in progress -- the exception handlers
+					// below can't report what was never thrown.
+					fprintf(stderr, "DEBUG-INI: block start token='%s' line=%u file='%s'\n",
+						token, m_lineNum, m_filename.str());
+					fflush(stderr);
 					try {
 						(*parse)( this );
 
@@ -1625,6 +1633,14 @@ void INI::initFromINIMulti( void *what, const MultiIniFieldParse& parseTableList
 					INIFieldParseProc parse = findFieldParse(parseTableList.getNthFieldParse(ptIdx), field, offset, userData);
 					if (parse)
 					{
+						// GeneralsX @bugfix Android port 12/07/2026 - Log every field as it
+						// starts, unconditionally. Pairs with the block-start log above (which
+						// names the enclosing block): if something dies without ever throwing
+						// a C++ exception (a raw crash deep in a field parser), this is the
+						// last thing that will have been written, naming the exact field/line.
+						fprintf(stderr, "DEBUG-INI: field start field='%s' line=%d file='%s'\n",
+							field, INI::getLineNum(), INI::getFilename().str());
+						fflush(stderr);
 						// parse this block and check for parse errors
 						try {
 
