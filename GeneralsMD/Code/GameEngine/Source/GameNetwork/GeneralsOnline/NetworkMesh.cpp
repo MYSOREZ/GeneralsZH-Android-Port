@@ -14,6 +14,8 @@
 #include "GameNetwork/GeneralsOnline/OnlineServices_Init.h"
 #include <steam/isteamnetworkingutils.h>
 #include <steam/steamnetworkingcustomsignaling.h>
+#include <cmath>
+#include <algorithm>
 
 bool g_bForceRelay = false;
 UnsignedInt m_exeCRCOriginal = 0;
@@ -1206,4 +1208,93 @@ float PlayerConnection::GetConnectionQuality()
 	}
 
 	return -1;
+}
+
+// GeneralsX @feature Android port 12/07/2026 - Ported from go_client/main
+// (this NetworkMesh is from the older go_int 32ae5135 snapshot, which lacks
+// these two; WOLGameSetupMenu.cpp -- ported separately, from newer upstream
+// -- already calls both). GetJitter only touches m_vecLatencyHistory, which
+// this class already has; ComputeConnectionScore only calls the three
+// getters above, so it works unmodified against our GNS-real-time-status-
+// backed GetConnectionQuality() instead of go_client/main's
+// m_vecQualityHistory-averaging one.
+int PlayerConnection::GetJitter()
+{
+	int sumDelta = 0;
+	int count = 0;
+	int prev = -1;
+	for (int sample : m_vecLatencyHistory)
+	{
+		if (sample >= 0)
+		{
+			if (prev >= 0)
+			{
+				sumDelta += std::abs(sample - prev);
+				++count;
+			}
+			prev = sample;
+		}
+		else
+		{
+			prev = -1; // gap in valid data
+		}
+	}
+
+	if (count < 10)
+		return -1;
+
+	return sumDelta / count;
+}
+
+int PlayerConnection::ComputeConnectionScore()
+{
+	const int latency = GetLatency();
+	const int jitter = GetJitter();
+	const float quality = GetConnectionQuality();   // packet delivery ratio [0..1]
+
+	// Stability-first weighting
+	static constexpr float k_subScoreFloor = 0.01f;
+	static constexpr float k_latencyWeight = 0.22f;
+	static constexpr float k_jitterWeight = 0.38f;
+	static constexpr float k_reliabilityWeight = 0.40f;
+
+	float weightedLogSum = 0.0f;
+	float activeWeightSum = 0.0f;
+
+	if (latency >= 0)
+	{
+		// 10ms and below are treated as full score. Above that, roughly:
+		// 400ms -> composite 75, 800ms -> composite 50 when other metrics are perfect.
+		int effectiveLatency = (std::max)(latency - 10, 0);
+		float latFactor = std::clamp(1.0f - static_cast<float>(effectiveLatency) / 1590.0f, 0.0f, 1.0f);
+		float latencyScore = (std::max)(std::powf(latFactor, 4.545f), k_subScoreFloor);
+		weightedLogSum += k_latencyWeight * std::logf(latencyScore);
+		activeWeightSum += k_latencyWeight;
+	}
+
+	if (jitter >= 0)
+	{
+		// 50ms -> composite 75, 100ms -> composite 50 when other metrics are perfect.
+		float jitFactor = std::clamp(1.0f - static_cast<float>(jitter) / 200.0f, 0.0f, 1.0f);
+		float jitterScore = (std::max)(std::powf(jitFactor, 2.632f), k_subScoreFloor);
+		weightedLogSum += k_jitterWeight * std::logf(jitterScore);
+		activeWeightSum += k_jitterWeight;
+	}
+
+	if (quality >= 0.0f)
+	{
+		// 90% -> composite 75, 80% -> composite 50 when other metrics are perfect.
+		float relFactor = std::clamp(2.5f * quality - 1.5f, 0.0f, 1.0f);
+		float reliabilityScore = (std::max)(std::powf(relFactor, 2.5f), k_subScoreFloor);
+		weightedLogSum += k_reliabilityWeight * std::logf(reliabilityScore);
+		activeWeightSum += k_reliabilityWeight;
+	}
+
+	if (activeWeightSum <= 0.0f)
+	{
+		return -1;
+	}
+
+	float composite = std::expf(weightedLogSum / activeWeightSum);
+	return static_cast<int>(std::round(composite * 100.0f));
 }

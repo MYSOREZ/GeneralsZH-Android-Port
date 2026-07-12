@@ -97,8 +97,17 @@ typedef float FLOAT;
 // Removed duplicate definitions to avoid conflicts
 // typedef int64_t _int64;   // REMOVED - use bittype.h
 // typedef uint64_t _uint64; // REMOVED - use bittype.h
-typedef int64_t int64;
-typedef uint64_t uint64;
+// GeneralsX @bugfix Android port 12/07/2026 - long long (not int64_t) to match
+// Valve GameNetworkingSockets' own steamtypes.h non-Windows typedefs exactly.
+// On LP64 platforms (Android/Linux arm64) int64_t is `long`, but steamtypes.h
+// unconditionally does `typedef long long int64;` with no #ifndef guard --
+// different underlying type, same name, hard redefinition error. long long
+// is 64-bit everywhere we target, so this is a spelling change only. (Mirrors
+// the identical fix in GeneralsMD/Code/CompatLib/Include/types_compat.h --
+// this file is the ZH build's *other* CompatLib on the include path, kept in
+// sync historically as a near-duplicate.)
+typedef long long int64;
+typedef unsigned long long uint64;
 
 typedef int32_t *LPARAM;
 typedef size_t WPARAM;

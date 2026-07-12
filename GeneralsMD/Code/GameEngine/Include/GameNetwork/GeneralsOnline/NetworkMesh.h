@@ -86,7 +86,9 @@ public:
 	int m_SignallingAttempts = 0;
 	
 	int GetLatency();
+	int GetJitter();
 	float GetConnectionQuality();
+	int ComputeConnectionScore();
 
 	HSteamNetConnection m_hSteamConnection = k_HSteamNetConnection_Invalid;
 };
