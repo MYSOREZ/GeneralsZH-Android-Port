@@ -107,4 +107,24 @@
     <string name="logviewer_toast_share_failed">Не вдалося підготувати файл логу для надсилання: %1$s</string>
     <string name="logviewer_read_failed">(не вдалося прочитати %1$s: %2$s)</string>
     <string name="logviewer_truncated_notice">...(обрізано, показано кінець файлу)...\n</string>
+
+    <!-- GeneralsOnlineActivity -->
+    <string name="online_window_title">Обліковий запис GeneralsOnline</string>
+    <string name="online_subtitle">Увійдіть для онлайн-мультиплеєра (playgenerals.online)</string>
+    <string name="online_button_sign_out">Вийти</string>
+    <string name="online_card_sign_in">Вхід</string>
+    <string name="online_signin_help">Натисніть «Увійти». Під час першого натискання може з’явитися запит виключити застосунок з оптимізації батареї — дозвольте це, потім поверніться і знову натисніть «Увійти». Після цього відкриється браузер на playgenerals.online, який вже міститиме одноразовий код для цього пристрою. Оберіть там Steam, Discord або GameReplays, а потім просто поверніться до застосунку — вхід завершиться сам.</string>
+    <string name="online_button_sign_in">Увійти</string>
+    <string name="online_status_signing_in">Виконується вхід...</string>
+    <string name="online_status_battery_opt">Дозвольте GeneralsZH працювати у фоновому режимі на наступному екрані, потім поверніться і знову натисніть «Увійти» — інакше Android може перервати перевірку входу, поки ви перебуваєте в браузері.</string>
+    <string name="online_toast_no_browser">Немає доступного браузера: %1$s</string>
+    <string name="online_status_continue_browser">Продовжте в браузері — поверніться сюди після входу.</string>
+    <string name="online_status_network_error">Помилка мережі — перевірте з’єднання і спробуйте ще раз.</string>
+    <string name="online_toast_signed_in_as">Вхід виконано як %1$s</string>
+    <string name="online_status_signin_failed">Вхід не вдався або був скасований — натисніть «Увійти», щоб спробувати знову.</string>
+    <string name="online_status_timed_out">Час очікування вичерпано — натисніть «Увійти», щоб спробувати знову.</string>
+    <string name="online_status_unexpected">Неочікувана відповідь — натисніть «Увійти», щоб спробувати знову.</string>
+    <string name="online_toast_signed_out">Вихід виконано.</string>
+    <string name="online_status_signed_in_as">Вхід виконано як %1$s.</string>
+    <string name="online_status_not_signed_in">Вхід не виконано.</string>
 </resources>

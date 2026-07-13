@@ -107,4 +107,24 @@
     <string name="logviewer_toast_share_failed">No se pudo preparar el archivo de registro para compartir: %1$s</string>
     <string name="logviewer_read_failed">(no se pudo leer %1$s: %2$s)</string>
     <string name="logviewer_truncated_notice">...(truncado, mostrando el final)...\n</string>
+
+    <!-- GeneralsOnlineActivity -->
+    <string name="online_window_title">Cuenta de GeneralsOnline</string>
+    <string name="online_subtitle">Inicia sesión para el multijugador en línea (playgenerals.online)</string>
+    <string name="online_button_sign_out">Cerrar sesión</string>
+    <string name="online_card_sign_in">Iniciar sesión</string>
+    <string name="online_signin_help">Toca Iniciar sesión. La primera vez puede pedirte que excluyas esta app de la optimización de batería — permítelo, luego vuelve y toca Iniciar sesión otra vez. Se abrirá un navegador en playgenerals.online, ya con un código de un solo uso para este dispositivo. Elige ahí Steam, Discord o GameReplays y simplemente vuelve a esta app; el proceso termina solo.</string>
+    <string name="online_button_sign_in">Iniciar sesión</string>
+    <string name="online_status_signing_in">Iniciando sesión...</string>
+    <string name="online_status_battery_opt">Permite que GeneralsZH se ejecute en segundo plano en la siguiente pantalla, luego vuelve y toca Iniciar sesión otra vez — de lo contrario Android podría detener la verificación de inicio de sesión mientras estás en el navegador.</string>
+    <string name="online_toast_no_browser">No hay ningún navegador disponible: %1$s</string>
+    <string name="online_status_continue_browser">Continúa en tu navegador — vuelve aquí una vez que hayas iniciado sesión.</string>
+    <string name="online_status_network_error">Error de red — comprueba tu conexión e inténtalo de nuevo.</string>
+    <string name="online_toast_signed_in_as">Sesión iniciada como %1$s</string>
+    <string name="online_status_signin_failed">El inicio de sesión falló o se canceló — toca Iniciar sesión para volver a intentarlo.</string>
+    <string name="online_status_timed_out">Se agotó el tiempo de espera — toca Iniciar sesión para volver a intentarlo.</string>
+    <string name="online_status_unexpected">Respuesta inesperada — toca Iniciar sesión para volver a intentarlo.</string>
+    <string name="online_toast_signed_out">Sesión cerrada.</string>
+    <string name="online_status_signed_in_as">Sesión iniciada como %1$s.</string>
+    <string name="online_status_not_signed_in">Sesión no iniciada.</string>
 </resources>

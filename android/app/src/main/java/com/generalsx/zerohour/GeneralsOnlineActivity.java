@@ -98,10 +98,15 @@ public class GeneralsOnlineActivity extends Activity {
     private boolean busy = false;
 
     @Override
+    protected void attachBaseContext(android.content.Context newBase) {
+        super.attachBaseContext(LocaleHelper.wrap(newBase));
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         setRequestedOrientation(android.content.pm.ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         super.onCreate(savedInstanceState);
-        setTitle("GeneralsOnline Account");
+        setTitle(R.string.online_window_title);
         buildUi();
         refreshStatus();
         maybeSilentReauth();
@@ -118,14 +123,14 @@ public class GeneralsOnlineActivity extends Activity {
         InsetUtil.applySafeInsets(scroll);
 
         TextView title = new TextView(this);
-        title.setText("GeneralsOnline Account");
+        title.setText(R.string.online_window_title);
         title.setTextSize(22);
         title.setTypeface(title.getTypeface(), android.graphics.Typeface.BOLD);
         title.setPadding(dp(4), dp(8), dp(4), dp(4));
         root.addView(title);
 
         TextView subtitle = new TextView(this);
-        subtitle.setText("Sign in for online multiplayer (playgenerals.online)");
+        subtitle.setText(R.string.online_subtitle);
         subtitle.setTextSize(14);
         subtitle.setAlpha(0.7f);
         subtitle.setPadding(dp(4), 0, dp(4), dp(16));
@@ -135,19 +140,13 @@ public class GeneralsOnlineActivity extends Activity {
         statusText = new TextView(this);
         statusText.setTextIsSelectable(true);
         statusCard.addView(statusText);
-        signOutButton = addButton(statusCard, "Sign Out", this::onSignOut);
+        signOutButton = addButton(statusCard, getString(R.string.online_button_sign_out), this::onSignOut);
 
-        LinearLayout stepsCard = startCard(root, "Sign in");
+        LinearLayout stepsCard = startCard(root, getString(R.string.online_card_sign_in));
         TextView help = new TextView(this);
-        help.setText(
-            "Tap Sign In. The first tap may ask to exempt this app from battery "
-            + "optimization -- allow it, then come back and tap Sign In again. "
-            + "A browser then opens to playgenerals.online, already carrying a "
-            + "one-time code for this device. Pick Steam, Discord, or GameReplays there, "
-            + "then just come back to this app; it finishes on its own."
-        );
+        help.setText(R.string.online_signin_help);
         stepsCard.addView(help);
-        signInButton = addButton(stepsCard, "Sign In", this::onSignIn);
+        signInButton = addButton(stepsCard, getString(R.string.online_button_sign_in), this::onSignIn);
     }
 
     private LinearLayout startCard(LinearLayout root, String header) {
@@ -208,7 +207,7 @@ public class GeneralsOnlineActivity extends Activity {
         }
         busy = true;
         signInButton.setEnabled(false);
-        statusText.setText("Signing in...");
+        statusText.setText(R.string.online_status_signing_in);
         new Thread(() -> {
             GeneralsOnlineSession.AuthResult result = callLoginWithToken(refreshToken);
             handler.post(() -> {
@@ -248,9 +247,7 @@ public class GeneralsOnlineActivity extends Activity {
             // proceed anyway rather than blocking the user entirely.
             return true;
         }
-        statusText.setText("Allow GeneralsZH to run in the background on the next screen, "
-            + "then come back and tap Sign In again -- otherwise Android may kill the "
-            + "sign-in check while you're in the browser.");
+        statusText.setText(R.string.online_status_battery_opt);
         return false;
     }
 
@@ -272,11 +269,11 @@ public class GeneralsOnlineActivity extends Activity {
         } catch (Exception e) {
             busy = false;
             signInButton.setEnabled(true);
-            Toast.makeText(this, "No browser available: " + e.getMessage(), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.online_toast_no_browser, e.getMessage()), Toast.LENGTH_LONG).show();
             return;
         }
 
-        statusText.setText("Continue in your browser -- come back here once you've signed in.");
+        statusText.setText(R.string.online_status_continue_browser);
         handler.postDelayed(() -> pollOnce(code), POLL_INTERVAL_MS);
     }
 
@@ -291,7 +288,7 @@ public class GeneralsOnlineActivity extends Activity {
         if (result == null) {
             busy = false;
             signInButton.setEnabled(true);
-            statusText.setText("Network error -- check your connection and try again.");
+            statusText.setText(R.string.online_status_network_error);
             return;
         }
 
@@ -301,12 +298,12 @@ public class GeneralsOnlineActivity extends Activity {
                 signInButton.setEnabled(true);
                 saveSession(result);
                 refreshStatus();
-                Toast.makeText(this, "Signed in as " + result.displayName, Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getString(R.string.online_toast_signed_in_as, result.displayName), Toast.LENGTH_LONG).show();
                 break;
             case 2: // FAILED
                 busy = false;
                 signInButton.setEnabled(true);
-                statusText.setText("Sign-in failed or was cancelled -- tap Sign In to try again.");
+                statusText.setText(R.string.online_status_signin_failed);
                 break;
             case 0: // WAITING_USER_ACTION
             case -1: // CODE_INVALID (not registered yet server-side -- keep polling, it's a timing thing)
@@ -314,7 +311,7 @@ public class GeneralsOnlineActivity extends Activity {
                 if (pollAttempt >= POLL_MAX_ATTEMPTS) {
                     busy = false;
                     signInButton.setEnabled(true);
-                    statusText.setText("Timed out waiting -- tap Sign In to try again.");
+                    statusText.setText(R.string.online_status_timed_out);
                 } else {
                     handler.postDelayed(() -> pollOnce(code), POLL_INTERVAL_MS);
                 }
@@ -322,7 +319,7 @@ public class GeneralsOnlineActivity extends Activity {
             default:
                 busy = false;
                 signInButton.setEnabled(true);
-                statusText.setText("Unexpected response -- tap Sign In to try again.");
+                statusText.setText(R.string.online_status_unexpected);
                 break;
         }
     }
@@ -362,7 +359,7 @@ public class GeneralsOnlineActivity extends Activity {
         // session" -- left local-only for now since that's the safer default.
         clearSession();
         refreshStatus();
-        Toast.makeText(this, "Signed out.", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, R.string.online_toast_signed_out, Toast.LENGTH_SHORT).show();
     }
 
     private void refreshStatus() {
@@ -371,10 +368,10 @@ public class GeneralsOnlineActivity extends Activity {
         String sessionToken = prefs.getString(PREF_SESSION_TOKEN, null);
 
         if (displayName != null && sessionToken != null && !sessionToken.isEmpty()) {
-            statusText.setText("Signed in as " + displayName + ".");
+            statusText.setText(getString(R.string.online_status_signed_in_as, displayName));
             signOutButton.setEnabled(true);
         } else {
-            statusText.setText("Not signed in.");
+            statusText.setText(R.string.online_status_not_signed_in);
             signOutButton.setEnabled(false);
         }
     }

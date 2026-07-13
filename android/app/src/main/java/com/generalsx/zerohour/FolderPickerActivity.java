@@ -96,12 +96,12 @@ public class FolderPickerActivity extends Activity {
         Button useButton = new Button(this);
         useButton.setText(R.string.folderpicker_button_use);
         useButton.setOnClickListener(v -> finishWithSelection());
-        buttonRow.addView(useButton, new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f));
+        buttonRow.addView(useButton, new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1f));
 
         Button cancelButton = new Button(this);
         cancelButton.setText(R.string.common_cancel);
         cancelButton.setOnClickListener(v -> { setResult(RESULT_CANCELED); finish(); });
-        buttonRow.addView(cancelButton, new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f));
+        buttonRow.addView(cancelButton, new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1f));
 
         root.addView(buttonRow);
         setContentView(root);

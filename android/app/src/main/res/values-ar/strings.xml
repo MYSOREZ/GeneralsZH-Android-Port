@@ -107,4 +107,24 @@
     <string name="logviewer_toast_share_failed">تعذر تجهيز ملف السجل للمشاركة: %1$s</string>
     <string name="logviewer_read_failed">(تعذرت قراءة %1$s: %2$s)</string>
     <string name="logviewer_truncated_notice">...(تم الاقتصاص، ويُعرض الجزء الأخير)...\n</string>
+
+    <!-- GeneralsOnlineActivity -->
+    <string name="online_window_title">حساب GeneralsOnline</string>
+    <string name="online_subtitle">سجّل الدخول للعب الجماعي عبر الإنترنت (playgenerals.online)</string>
+    <string name="online_button_sign_out">تسجيل الخروج</string>
+    <string name="online_card_sign_in">تسجيل الدخول</string>
+    <string name="online_signin_help">اضغط على "تسجيل الدخول". قد تطلب منك الضغطة الأولى استثناء هذا التطبيق من تحسين البطارية — اسمح بذلك، ثم عد واضغط على "تسجيل الدخول" مرة أخرى. سيفتح بعد ذلك متصفح على playgenerals.online يحمل بالفعل رمزًا لمرة واحدة لهذا الجهاز. اختر هناك Steam أو Discord أو GameReplays، ثم عد فقط إلى هذا التطبيق؛ ستنتهي العملية من تلقاء نفسها.</string>
+    <string name="online_button_sign_in">تسجيل الدخول</string>
+    <string name="online_status_signing_in">جارٍ تسجيل الدخول...</string>
+    <string name="online_status_battery_opt">اسمح لتطبيق GeneralsZH بالعمل في الخلفية في الشاشة التالية، ثم عد واضغط على "تسجيل الدخول" مرة أخرى — وإلا فقد يوقف أندرويد عملية التحقق من تسجيل الدخول أثناء وجودك في المتصفح.</string>
+    <string name="online_toast_no_browser">لا يوجد متصفح متاح: %1$s</string>
+    <string name="online_status_continue_browser">تابع في متصفحك — عد إلى هنا بمجرد تسجيل الدخول.</string>
+    <string name="online_status_network_error">خطأ في الشبكة — تحقق من اتصالك وحاول مرة أخرى.</string>
+    <string name="online_toast_signed_in_as">تم تسجيل الدخول باسم %1$s</string>
+    <string name="online_status_signin_failed">فشل تسجيل الدخول أو تم إلغاؤه — اضغط على "تسجيل الدخول" للمحاولة مرة أخرى.</string>
+    <string name="online_status_timed_out">انتهت مهلة الانتظار — اضغط على "تسجيل الدخول" للمحاولة مرة أخرى.</string>
+    <string name="online_status_unexpected">استجابة غير متوقعة — اضغط على "تسجيل الدخول" للمحاولة مرة أخرى.</string>
+    <string name="online_toast_signed_out">تم تسجيل الخروج.</string>
+    <string name="online_status_signed_in_as">تم تسجيل الدخول باسم %1$s.</string>
+    <string name="online_status_not_signed_in">لم يتم تسجيل الدخول.</string>
 </resources>

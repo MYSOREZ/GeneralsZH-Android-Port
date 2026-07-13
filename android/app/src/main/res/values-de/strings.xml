@@ -107,4 +107,24 @@
     <string name="logviewer_toast_share_failed">Log-Datei konnte nicht zum Teilen vorbereitet werden: %1$s</string>
     <string name="logviewer_read_failed">(konnte %1$s nicht lesen: %2$s)</string>
     <string name="logviewer_truncated_notice">...(gekürzt, zeigt das Ende der Datei)...\n</string>
+
+    <!-- GeneralsOnlineActivity -->
+    <string name="online_window_title">GeneralsOnline-Konto</string>
+    <string name="online_subtitle">Anmelden für Online-Mehrspieler (playgenerals.online)</string>
+    <string name="online_button_sign_out">Abmelden</string>
+    <string name="online_card_sign_in">Anmelden</string>
+    <string name="online_signin_help">Tippe auf Anmelden. Beim ersten Tippen wirst du eventuell gefragt, diese App von der Akku-Optimierung auszunehmen — erlaube dies, komm dann zurück und tippe erneut auf Anmelden. Danach öffnet sich ein Browser mit playgenerals.online, der bereits einen Einmalcode für dieses Gerät enthält. Wähle dort Steam, Discord oder GameReplays und komm einfach zu dieser App zurück; der Vorgang schließt sich von selbst ab.</string>
+    <string name="online_button_sign_in">Anmelden</string>
+    <string name="online_status_signing_in">Anmeldung läuft...</string>
+    <string name="online_status_battery_opt">Erlaube GeneralsZH auf dem nächsten Bildschirm, im Hintergrund zu laufen, komm dann zurück und tippe erneut auf Anmelden — sonst könnte Android die Anmeldeprüfung beenden, während du im Browser bist.</string>
+    <string name="online_toast_no_browser">Kein Browser verfügbar: %1$s</string>
+    <string name="online_status_continue_browser">Fahre in deinem Browser fort — komm hierher zurück, sobald du angemeldet bist.</string>
+    <string name="online_status_network_error">Netzwerkfehler — überprüfe deine Verbindung und versuche es erneut.</string>
+    <string name="online_toast_signed_in_as">Angemeldet als %1$s</string>
+    <string name="online_status_signin_failed">Anmeldung fehlgeschlagen oder abgebrochen — tippe auf Anmelden, um es erneut zu versuchen.</string>
+    <string name="online_status_timed_out">Zeitüberschreitung beim Warten — tippe auf Anmelden, um es erneut zu versuchen.</string>
+    <string name="online_status_unexpected">Unerwartete Antwort — tippe auf Anmelden, um es erneut zu versuchen.</string>
+    <string name="online_toast_signed_out">Abgemeldet.</string>
+    <string name="online_status_signed_in_as">Angemeldet als %1$s.</string>
+    <string name="online_status_not_signed_in">Nicht angemeldet.</string>
 </resources>

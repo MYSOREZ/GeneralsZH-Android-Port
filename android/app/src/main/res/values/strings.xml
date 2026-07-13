@@ -107,4 +107,24 @@
     <string name="logviewer_toast_share_failed">Could not prepare log file to share: %1$s</string>
     <string name="logviewer_read_failed">(could not read %1$s: %2$s)</string>
     <string name="logviewer_truncated_notice">...(truncated, showing the tail)...\n</string>
+
+    <!-- GeneralsOnlineActivity -->
+    <string name="online_window_title">GeneralsOnline Account</string>
+    <string name="online_subtitle">Sign in for online multiplayer (playgenerals.online)</string>
+    <string name="online_button_sign_out">Sign Out</string>
+    <string name="online_card_sign_in">Sign in</string>
+    <string name="online_signin_help">Tap Sign In. The first tap may ask to exempt this app from battery optimization -- allow it, then come back and tap Sign In again. A browser then opens to playgenerals.online, already carrying a one-time code for this device. Pick Steam, Discord, or GameReplays there, then just come back to this app; it finishes on its own.</string>
+    <string name="online_button_sign_in">Sign In</string>
+    <string name="online_status_signing_in">Signing in...</string>
+    <string name="online_status_battery_opt">Allow GeneralsZH to run in the background on the next screen, then come back and tap Sign In again -- otherwise Android may kill the sign-in check while you\'re in the browser.</string>
+    <string name="online_toast_no_browser">No browser available: %1$s</string>
+    <string name="online_status_continue_browser">Continue in your browser -- come back here once you\'ve signed in.</string>
+    <string name="online_status_network_error">Network error -- check your connection and try again.</string>
+    <string name="online_toast_signed_in_as">Signed in as %1$s</string>
+    <string name="online_status_signin_failed">Sign-in failed or was cancelled -- tap Sign In to try again.</string>
+    <string name="online_status_timed_out">Timed out waiting -- tap Sign In to try again.</string>
+    <string name="online_status_unexpected">Unexpected response -- tap Sign In to try again.</string>
+    <string name="online_toast_signed_out">Signed out.</string>
+    <string name="online_status_signed_in_as">Signed in as %1$s.</string>
+    <string name="online_status_not_signed_in">Not signed in.</string>
 </resources>

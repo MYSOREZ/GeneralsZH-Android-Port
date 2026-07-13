@@ -107,4 +107,24 @@
     <string name="logviewer_toast_share_failed">Ne uspělo prigotoviti datoteku loga za dělenje: %1$s</string>
     <string name="logviewer_read_failed">(ne uspělo pročitati %1$s: %2$s)</string>
     <string name="logviewer_truncated_notice">...(skraćeno, pokazan jest konec)...\n</string>
+
+    <!-- GeneralsOnlineActivity -->
+    <string name="online_window_title">Konto GeneralsOnline</string>
+    <string name="online_subtitle">Prijavi sę za onlajn multiigru (playgenerals.online)</string>
+    <string name="online_button_sign_out">Odjaviti sę</string>
+    <string name="online_card_sign_in">Prijava</string>
+    <string name="online_signin_help">Klikni Prijaviti sę. Prvy klik može prositi izbaviti tu aplikaciju od optimizacije bateriji — dopusti to, potom vrni sę i znova klikni Prijaviti sę. Potom sę otvorja brauzer na playgenerals.online, već nosivši jednorazovy kod za tu děvicu. Izberi tam Steam, Discord ili GameReplays, potom prosto vrni sę v tu aplikaciju — prijava sę zaveršaje sama.</string>
+    <string name="online_button_sign_in">Prijaviti sę</string>
+    <string name="online_status_signing_in">Prijavjuje sę...</string>
+    <string name="online_status_battery_opt">Dopusti GeneralsZH rabotiti na zadnem planě na sledujućem ekranu, potom vrni sę i znova klikni Prijaviti sę — inako Android može prekinuti prověrku prijavy, dokel ty sut v brauzeru.</string>
+    <string name="online_toast_no_browser">Ne jest dostupny brauzer: %1$s</string>
+    <string name="online_status_continue_browser">Prodolži v svojem brauzeru — vrni sę sjuda, kogda sę prijaviš.</string>
+    <string name="online_status_network_error">Grěška sětje — prověri svoje spojenje i pokušaj znova.</string>
+    <string name="online_toast_signed_in_as">Prijavjeny kako %1$s</string>
+    <string name="online_status_signin_failed">Prijava ne uspěla ili byla otkazana — klikni Prijaviti sę, aby pokušati znova.</string>
+    <string name="online_status_timed_out">Vrěmja čekanja izčrpano — klikni Prijaviti sę, aby pokušati znova.</string>
+    <string name="online_status_unexpected">Neočekivany otvět — klikni Prijaviti sę, aby pokušati znova.</string>
+    <string name="online_toast_signed_out">Odjavjeny.</string>
+    <string name="online_status_signed_in_as">Prijavjeny kako %1$s.</string>
+    <string name="online_status_not_signed_in">Ne prijavjeny.</string>
 </resources>

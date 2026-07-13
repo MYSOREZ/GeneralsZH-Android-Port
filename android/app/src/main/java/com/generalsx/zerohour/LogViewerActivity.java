@@ -91,10 +91,16 @@ public class LogViewerActivity extends Activity {
         buttonRow.setOrientation(LinearLayout.HORIZONTAL);
         buttonRow.setPadding(dp(8), dp(8), dp(8), dp(8));
 
+        // GeneralsX @bugfix Android port 13/07/2026 WRAP_CONTENT height let
+        // each button size to its own text independently -- fine in English,
+        // but a translation that wraps to two lines (e.g. Ukrainian
+        // "Очистити логи") made that one button taller than its siblings,
+        // breaking the row's bottom edge. MATCH_PARENT makes every button in
+        // the row stretch to the tallest sibling's height instead.
         Button clearButton = new Button(this);
         clearButton.setText(R.string.logviewer_button_clear);
         clearButton.setOnClickListener(v -> confirmClearLogs());
-        buttonRow.addView(clearButton, new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f));
+        buttonRow.addView(clearButton, new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1f));
 
         Button copyButton = new Button(this);
         copyButton.setText(R.string.logviewer_button_copy);
@@ -103,12 +109,12 @@ public class LogViewerActivity extends Activity {
             cm.setPrimaryClip(ClipData.newPlainText(getString(R.string.logviewer_share_subject), combinedLog));
             Toast.makeText(this, R.string.logviewer_toast_copied, Toast.LENGTH_SHORT).show();
         });
-        buttonRow.addView(copyButton, new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f));
+        buttonRow.addView(copyButton, new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1f));
 
         Button shareButton = new Button(this);
         shareButton.setText(R.string.logviewer_button_share);
         shareButton.setOnClickListener(v -> shareLogAsFile());
-        buttonRow.addView(shareButton, new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f));
+        buttonRow.addView(shareButton, new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1f));
 
         root.addView(buttonRow);
 

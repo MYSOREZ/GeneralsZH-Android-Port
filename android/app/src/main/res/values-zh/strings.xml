@@ -107,4 +107,24 @@
     <string name="logviewer_toast_share_failed">无法准备要分享的日志文件：%1$s</string>
     <string name="logviewer_read_failed">（无法读取 %1$s：%2$s）</string>
     <string name="logviewer_truncated_notice">...（已截断，显示末尾部分）...\n</string>
+
+    <!-- GeneralsOnlineActivity -->
+    <string name="online_window_title">GeneralsOnline 账号</string>
+    <string name="online_subtitle">登录以使用在线多人游戏（playgenerals.online）</string>
+    <string name="online_button_sign_out">退出登录</string>
+    <string name="online_card_sign_in">登录</string>
+    <string name="online_signin_help">点击"登录"。第一次点击时可能会要求将此应用从电池优化中排除——请允许该请求，然后返回并再次点击"登录"。之后会打开一个浏览器，跳转到 playgenerals.online，并已附带此设备的一次性代码。在网页上选择 Steam、Discord 或 GameReplays，然后返回本应用即可；登录过程会自动完成。</string>
+    <string name="online_button_sign_in">登录</string>
+    <string name="online_status_signing_in">正在登录……</string>
+    <string name="online_status_battery_opt">请在下一个界面中允许 GeneralsZH 在后台运行，然后返回并再次点击"登录"——否则 Android 可能会在你使用浏览器期间中止登录检查。</string>
+    <string name="online_toast_no_browser">没有可用的浏览器：%1$s</string>
+    <string name="online_status_continue_browser">请在浏览器中继续操作——登录完成后返回此处。</string>
+    <string name="online_status_network_error">网络错误——请检查连接后重试。</string>
+    <string name="online_toast_signed_in_as">已登录为 %1$s</string>
+    <string name="online_status_signin_failed">登录失败或已取消——点击"登录"重试。</string>
+    <string name="online_status_timed_out">等待超时——点击"登录"重试。</string>
+    <string name="online_status_unexpected">收到意外响应——点击"登录"重试。</string>
+    <string name="online_toast_signed_out">已退出登录。</string>
+    <string name="online_status_signed_in_as">已登录为 %1$s。</string>
+    <string name="online_status_not_signed_in">未登录。</string>
 </resources>

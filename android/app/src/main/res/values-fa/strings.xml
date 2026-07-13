@@ -107,4 +107,24 @@
     <string name="logviewer_toast_share_failed">آماده‌سازی فایل گزارش برای اشتراک‌گذاری ممکن نشد: %1$s</string>
     <string name="logviewer_read_failed">(خواندن %1$s ممکن نشد: %2$s)</string>
     <string name="logviewer_truncated_notice">...(کوتاه شده، پایان فایل نمایش داده می‌شود)...\n</string>
+
+    <!-- GeneralsOnlineActivity -->
+    <string name="online_window_title">حساب GeneralsOnline</string>
+    <string name="online_subtitle">برای بازی چندنفره آنلاین وارد شوید (playgenerals.online)</string>
+    <string name="online_button_sign_out">خروج از حساب</string>
+    <string name="online_card_sign_in">ورود</string>
+    <string name="online_signin_help">روی «ورود» ضربه بزنید. ممکن است در اولین ضربه از شما خواسته شود این برنامه را از بهینه‌سازی باتری مستثنی کنید — آن را اجازه دهید، سپس بازگردید و دوباره روی «ورود» ضربه بزنید. سپس مرورگری باز می‌شود که به playgenerals.online می‌رود و از قبل حاوی یک کد یک‌بارمصرف برای این دستگاه است. در آنجا Steam، Discord یا GameReplays را انتخاب کنید و سپس فقط به این برنامه بازگردید؛ فرآیند به‌طور خودکار کامل می‌شود.</string>
+    <string name="online_button_sign_in">ورود</string>
+    <string name="online_status_signing_in">در حال ورود...</string>
+    <string name="online_status_battery_opt">در صفحه بعدی اجازه دهید GeneralsZH در پس‌زمینه اجرا شود، سپس بازگردید و دوباره روی «ورود» ضربه بزنید — در غیر این صورت ممکن است اندروید بررسی ورود را در حالی که در مرورگر هستید متوقف کند.</string>
+    <string name="online_toast_no_browser">هیچ مرورگری در دسترس نیست: %1$s</string>
+    <string name="online_status_continue_browser">در مرورگر خود ادامه دهید — پس از ورود به اینجا بازگردید.</string>
+    <string name="online_status_network_error">خطای شبکه — اتصال خود را بررسی کرده و دوباره تلاش کنید.</string>
+    <string name="online_toast_signed_in_as">واردشده به‌عنوان %1$s</string>
+    <string name="online_status_signin_failed">ورود ناموفق بود یا لغو شد — برای تلاش دوباره روی «ورود» ضربه بزنید.</string>
+    <string name="online_status_timed_out">زمان انتظار به پایان رسید — برای تلاش دوباره روی «ورود» ضربه بزنید.</string>
+    <string name="online_status_unexpected">پاسخ غیرمنتظره — برای تلاش دوباره روی «ورود» ضربه بزنید.</string>
+    <string name="online_toast_signed_out">از حساب خارج شدید.</string>
+    <string name="online_status_signed_in_as">واردشده به‌عنوان %1$s.</string>
+    <string name="online_status_not_signed_in">وارد نشده‌اید.</string>
 </resources>

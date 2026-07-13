@@ -107,4 +107,24 @@
     <string name="logviewer_toast_share_failed">Не удалось подготовить файл лога для отправки: %1$s</string>
     <string name="logviewer_read_failed">(не удалось прочитать %1$s: %2$s)</string>
     <string name="logviewer_truncated_notice">...(обрезано, показан конец файла)...\n</string>
+
+    <!-- GeneralsOnlineActivity -->
+    <string name="online_window_title">Аккаунт GeneralsOnline</string>
+    <string name="online_subtitle">Войдите для онлайн-мультиплеера (playgenerals.online)</string>
+    <string name="online_button_sign_out">Выйти</string>
+    <string name="online_card_sign_in">Вход</string>
+    <string name="online_signin_help">Нажмите «Войти». При первом нажатии может появиться запрос исключить приложение из оптимизации батареи — разрешите это, затем вернитесь и снова нажмите «Войти». После этого откроется браузер на playgenerals.online уже с одноразовым кодом для этого устройства. Выберите там Steam, Discord или GameReplays, затем просто вернитесь в приложение — вход завершится сам.</string>
+    <string name="online_button_sign_in">Войти</string>
+    <string name="online_status_signing_in">Выполняется вход...</string>
+    <string name="online_status_battery_opt">Разрешите GeneralsZH работать в фоне на следующем экране, затем вернитесь и снова нажмите «Войти» — иначе Android может прервать проверку входа, пока вы находитесь в браузере.</string>
+    <string name="online_toast_no_browser">Нет доступного браузера: %1$s</string>
+    <string name="online_status_continue_browser">Продолжите в браузере — вернитесь сюда после входа.</string>
+    <string name="online_status_network_error">Ошибка сети — проверьте соединение и попробуйте снова.</string>
+    <string name="online_toast_signed_in_as">Вход выполнен как %1$s</string>
+    <string name="online_status_signin_failed">Вход не удался или был отменён — нажмите «Войти», чтобы попробовать снова.</string>
+    <string name="online_status_timed_out">Истекло время ожидания — нажмите «Войти», чтобы попробовать снова.</string>
+    <string name="online_status_unexpected">Неожиданный ответ — нажмите «Войти», чтобы попробовать снова.</string>
+    <string name="online_toast_signed_out">Выход выполнен.</string>
+    <string name="online_status_signed_in_as">Вход выполнен как %1$s.</string>
+    <string name="online_status_not_signed_in">Вход не выполнен.</string>
 </resources>
