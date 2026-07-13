@@ -1,7 +1,7 @@
 ---
 name: sync-thesuperhackers-upstream
-description: Sync the repository with TheSuperHackers upstream by creating a dated sync branch, merging thesuperhackers/main, resolving conflicts carefully, then committing and pushing the result
-argument-hint: Optional extra sync focus areas or constraints (for example: "prioritize audio-related conflicts" or "document every build-system conflict")
+description: "Sync the repository with TheSuperHackers upstream by creating a dated sync branch, merging thesuperhackers/main, resolving conflicts carefully, then committing and pushing the result"
+argument-hint: 'Optional extra sync focus areas or constraints (for example: "prioritize audio-related conflicts" or "document every build-system conflict")'
 agent: Bender
 ---
 
