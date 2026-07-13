@@ -94,8 +94,16 @@ static void parseOCLUpgradePair( INI* ini, void * /*instance*/, void *store, con
 	{
 		INI::parseScience(ini, nullptr, &up.m_science, nullptr);
 	}
-	catch (ErrorCode)
+	catch (...)
 	{
+		// GeneralsX @bugfix Android port 13/07/2026 follow-up - build 153/154
+		// still hit this exact crash with a `catch (ErrorCode)` here: the
+		// science-not-found path throws INI_INVALID_DATA, which INI.h defines
+		// in its own anonymous `enum { ... = ERROR_BAD_INI, ... }` block, NOT
+		// inside `enum ErrorCode` (Common/Errors.h) -- so despite sharing a
+		// numeric value with ERROR_BAD_INI, it is a distinct C++ type that a
+		// `catch (ErrorCode)` can never match. That anonymous enum has no
+		// nameable type, so catch-all is the only way to actually catch it.
 		DEBUG_CRASH(("UpgradeOCL science not found -- skipping this upgrade tier, not aborting the file load"));
 		fprintf(stderr, "WARNING: UpgradeOCL science not recognized -- upgrade tier skipped\n");
 		fflush(stderr);
