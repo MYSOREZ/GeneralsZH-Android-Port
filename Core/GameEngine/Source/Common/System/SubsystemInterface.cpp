@@ -26,6 +26,7 @@
 // ----------------------------------------------------------------------------
 #include "PreRTS.h"	// This must go first in EVERY cpp file in the GameEngine
 
+#include "Common/MemoryDiagnostics.h"
 #include "Common/SubsystemInterface.h"
 #include "Common/Xfer.h"
 
@@ -164,6 +165,7 @@ void SubsystemInterfaceList::initSubsystem(SubsystemInterface* sys, const char* 
 	// GeneralsX @feature BenderAI 20/02/2026 Debug traces for hang investigation
 	fprintf(stderr, "[SUBSYS] initSubsystem('%s') START\n", name.str());
 	fflush(stderr);
+	LogMemoryUsageRSS(name.str());
 
 	sys->setName(name);
 	

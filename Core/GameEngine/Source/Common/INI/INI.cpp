@@ -33,6 +33,7 @@
 
 #include "Common/INI.h"
 #include "Common/INIException.h"
+#include "Common/MemoryDiagnostics.h"
 
 #include "Common/DamageFX.h"
 #include "Common/file.h"
@@ -255,7 +256,8 @@ UnsignedInt INI::loadDirectory( AsciiString dirName, INILoadType loadType, Xfer 
 	// GeneralsX @feature BenderAI 20/02/2026 Debug hang investigation
 	fprintf(stderr, "[INI] loadDirectory('%s') START\n", dirName.str());
 	fflush(stderr);
-	
+	LogMemoryUsageRSS(dirName.str());
+
 	UnsignedInt filesRead = 0;
 
 	// sanity
@@ -269,6 +271,15 @@ UnsignedInt INI::loadDirectory( AsciiString dirName, INILoadType loadType, Xfer 
 	FilenameList filenameList;
 	dirName.concat('\\');
 	TheFileSystem->getFileListInDirectory(dirName, "*.ini", filenameList, subdirs);
+	// GeneralsX @feature Android port 13/07/2026 GitHub issue #5: a real
+	// low-RAM device died silently (no exception, no crash.log) somewhere
+	// between loadDirectory's START line and the first per-file load() line
+	// -- i.e. plausibly right here, inside the directory scan itself. See
+	// Common/MemoryDiagnostics.h for why this can only ever be a trend, not
+	// a catchable failure.
+	fprintf(stderr, "[INI] loadDirectory('%s') - found %u files\n", dirName.str(), (unsigned)filenameList.size());
+	fflush(stderr);
+	LogMemoryUsageRSS(dirName.str());
 	// Load the INI files in the dir now, in a sorted order.  This keeps things the same between machines
 	// in a network game.
 	FilenameList::const_iterator it = filenameList.begin();
