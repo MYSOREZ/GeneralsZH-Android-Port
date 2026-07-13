@@ -1286,4 +1286,18 @@ add_compile_definitions(GENERALS_ONLINE)
 # (GameNetworkingSockets 1.6.0 + native ICE), internet matches get a real
 # transport instead of the legacy UDP one binding to a garbage IP and hanging
 # the match-start handshake forever.
-add_compile_definitions(GENERALS_ONLINE_ENABLE_P2P_TRANSPORT)
+#
+# GeneralsX @bugfix Android port 13/07/2026 - this was defined unconditionally
+# (all platforms), but the GameNetworkingSockets library it requires (see
+# find_package(GameNetworkingSockets ...) above) is only ever linked under
+# if(ANDROID) -- GNS was only ever vcpkg-wired for Android (see task list:
+# "Investigate GNS for arm64-android"). That mismatch went unnoticed because
+# this workflow's path-filter had skipped the mac/linux desktop build jobs on
+# every commit since P2P transport was turned on; the first commit since then
+# to touch Core/ or GeneralsMD/Code/Main/ actually ran them and hit "fatal
+# error: 'steam/steamnetworkingsockets.h' file not found" on macOS. Match the
+# same if(ANDROID) guard as the library link until GNS is wired for desktop
+# too.
+if(ANDROID)
+    add_compile_definitions(GENERALS_ONLINE_ENABLE_P2P_TRANSPORT)
+endif()
