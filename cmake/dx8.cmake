@@ -289,14 +289,19 @@ elseif(ANDROID)
     message(FATAL_ERROR "DXVK Android build requires glslangValidator (apt install glslang-tools / brew install glslang)")
   endif()
 
-  # Apply the Android + iOS patch set idempotently (skip when the working tree
-  # already carries a patch, fail the configure when apply fails, so an
-  # unpatched DXVK can never ship silently):
+  # Apply the Android + iOS + Vulkan 1.1 patch set idempotently (skip when the
+  # working tree already carries a patch, fail the configure when apply
+  # fails, so an unpatched DXVK can never ship silently):
   #  - dxvk-android.patch: unversioned .so names (APK/jniLibs cannot carry the
   #    versioned-name + symlink layout meson emits for desktop Unix)
   #  - dxvk-ios.patch: SDL3 WSI pixel-size fix (platform-neutral, wanted on
   #    Android high-density displays; its Apple loader entries are compiled out)
-  foreach(DXVK_PATCH_NAME dxvk-android.patch dxvk-ios.patch)
+  #  - dxvk-vulkan11-adaptive.patch: lowers the hard Vulkan floor from 1.3 to
+  #    1.1, falling back to the pre-1.3 KHR/EXT extensions on adapters that
+  #    only report Vulkan 1.1/1.2 (Mali, Unisoc, PowerVR) while leaving >=1.3
+  #    adapters (including Adreno via Turnip driver injection) unaffected —
+  #    see issue #5 ("DxvkAdapter: Failed to create device" on Unisoc)
+  foreach(DXVK_PATCH_NAME dxvk-android.patch dxvk-ios.patch dxvk-vulkan11-adaptive.patch)
     execute_process(
       COMMAND git -C "${DXVK_LOCAL_FORK_DIR}" apply --reverse --check "${CMAKE_SOURCE_DIR}/Patches/${DXVK_PATCH_NAME}"
       RESULT_VARIABLE DXVK_PATCH_ALREADY_APPLIED
