@@ -79,8 +79,37 @@ static void parseOCLUpgradePair( INI* ini, void * /*instance*/, void *store, con
 {
 	OCLSpecialPowerModuleData::Upgrades up;
 
-	INI::parseScience(ini, nullptr, &up.m_science, nullptr);
-	INI::parseObjectCreationList(ini, nullptr, &up.m_ocl, nullptr);
+	// GeneralsX @bugfix Android port 13/07/2026 - A real-device log (GitHub
+	// issue #2, stock/patched retail data) showed INI::parseScience() throw
+	// for airforcegeneral.ini's UpgradeOCL entry ("[LINE: 2480] Error reading
+	// field 'UpgradeOCL'"), which -- because INI.cpp's per-block catch
+	// re-throws -- takes down the entire file load and with it the whole
+	// game, over one unrecognized science name gating one upgrade tier of
+	// one special power. Same pattern as the SET_PANIC locomotor fix in
+	// AIUpdate.cpp: skip the bad entry instead of aborting the load. A
+	// missing upgrade tier just means that tier's OCL never becomes
+	// selectable, same as if UpgradeOCL had never been specified for it.
+	Bool scienceValid = true;
+	try
+	{
+		INI::parseScience(ini, nullptr, &up.m_science, nullptr);
+	}
+	catch (ErrorCode)
+	{
+		DEBUG_CRASH(("UpgradeOCL science not found -- skipping this upgrade tier, not aborting the file load"));
+		fprintf(stderr, "WARNING: UpgradeOCL science not recognized -- upgrade tier skipped\n");
+		fflush(stderr);
+		scienceValid = false;
+	}
+
+	// Always consume the OCL token that follows, whether or not the science
+	// lookup above succeeded, so the parser cursor stays in sync with the
+	// rest of the file.
+	const ObjectCreationList* discardedOcl = nullptr;
+	INI::parseObjectCreationList(ini, nullptr, scienceValid ? &up.m_ocl : &discardedOcl, nullptr);
+
+	if (!scienceValid)
+		return;
 
 	std::vector<OCLSpecialPowerModuleData::Upgrades>* s = (std::vector<OCLSpecialPowerModuleData::Upgrades>*)store;
 	s->push_back(up);
