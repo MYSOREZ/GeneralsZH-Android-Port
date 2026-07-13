@@ -108,6 +108,32 @@ static const char *findRecentlyDestroyedWindowName( GameWindow *window )
 	return nullptr;
 }
 
+// GeneralsX @bugfix Android port 12/07/2026 - see the declaration comment in
+// GameWindowManager.h for why this exists.
+void GameWindowManager::purgeModalStackEntry( GameWindow *window )
+{
+	ModalWindow *cur = m_modalHead;
+	ModalWindow *prev = nullptr;
+
+	while (cur != nullptr)
+	{
+		ModalWindow *next = cur->next;
+		if (cur->window == window)
+		{
+			if (prev != nullptr)
+				prev->next = next;
+			else
+				m_modalHead = next;
+			deleteInstance(cur);
+		}
+		else
+		{
+			prev = cur;
+		}
+		cur = next;
+	}
+}
+
 //-------------------------------------------------------------------------------------------------
 /** Process windows waiting to be destroyed */
 //-------------------------------------------------------------------------------------------------
@@ -139,8 +165,7 @@ void GameWindowManager::processDestroyList()
 		if( m_keyboardFocus == doDestroy )
 			winSetFocus( nullptr );
 
-		if( (m_modalHead != nullptr) && (doDestroy == m_modalHead->window) )
-			winUnsetModal( m_modalHead->window );
+		purgeModalStackEntry( doDestroy );
 
 		if( m_currMouseRgn == doDestroy )
 			m_currMouseRgn = nullptr;
@@ -1515,8 +1540,7 @@ Int GameWindowManager::winDestroy( GameWindow *window )
 	if( m_keyboardFocus == window )
 		winSetFocus( nullptr );
 
-	if( (m_modalHead != nullptr) && (window == m_modalHead->window) )
-		winUnsetModal( m_modalHead->window );
+	purgeModalStackEntry( window );
 
 	if( m_currMouseRgn == window )
 		m_currMouseRgn = nullptr;

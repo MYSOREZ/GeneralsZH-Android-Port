@@ -336,6 +336,24 @@ protected:
 
 	void processDestroyList();  ///< process windows waiting to be killed
 
+	// GeneralsX @bugfix Android port 12/07/2026 - winUnsetModal() only pops an
+	// exact match at the HEAD of the modal stack (by design -- see its own
+	// comment: "If this window is not the top of the modal stack an error
+	// will occur"). That means the two existing destroy-time modal checks
+	// (which only ever compared against m_modalHead->window) silently did
+	// nothing for a window buried lower in the stack -- e.g. PopupHostGame.wnd
+	// going modal, then a GSMessageBoxOk() going modal on top of it, then
+	// PopupHostGame's window being destroyed while it's no longer at the
+	// head. The resulting dangling ModalWindow::window entry gets prioritized
+	// for ALL future mouse routing once it resurfaces to the head (see
+	// winProcessMouseEvent's "if (m_modalHead) window =
+	// m_modalHead->window->winPointInChild(...)"), which is exactly the
+	// symptom a device log showed: every single frame's mouse-position
+	// message dispatched to one specific already-destroyed window regardless
+	// of actual cursor position. This walks the whole stack and splices out
+	// every entry for `window`, not just the head.
+	void purgeModalStackEntry( GameWindow *window );
+
 	Int drawWindow( GameWindow *window );  ///< draw this window
 
 	void dumpWindow( GameWindow *window );  ///< for debugging
