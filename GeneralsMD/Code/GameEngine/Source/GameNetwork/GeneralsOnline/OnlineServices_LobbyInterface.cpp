@@ -1077,6 +1077,18 @@ void NGMP_OnlineServices_LobbyInterface::JoinLobby(LobbyEntry lobbyInfo, std::st
 					// reset trying to join
 					ResetLobbyTryingToJoin();
 
+					// GeneralsX @bugfix Android port 13/07/2026 - Log the raw server response
+					// unconditionally, before any status-code branching, so a rejected join
+					// always leaves behind the actual reason instead of forcing us to guess
+					// from whichever generic EJoinLobbyResult the switch below happens to map it to.
+					// Also log the host's exe_crc/ini_crc (already known client-side from the lobby
+					// list response) against our own, so a CRC mismatch is visible directly instead
+					// of inferred from an HTTP status code.
+					NetworkLog(ELogVerbosity::LOG_RELEASE, "[NGMP] JoinLobby response: lobbyID=%d statusCode=%d bSuccess=%d body=%s",
+						lobbyInfo.lobbyID, statusCode, (int)bSuccess, strBody.c_str());
+					NetworkLog(ELogVerbosity::LOG_RELEASE, "[NGMP] JoinLobby CRC check: host exe_crc=%u ini_crc=%u, local exe_crc=%u ini_crc=%u",
+						lobbyInfo.exe_crc, lobbyInfo.ini_crc, TheGlobalData->m_exeCRC, TheGlobalData->m_iniCRC);
+
 					// TODO_NGMP: Dont do extra get here, just return it in the put...
 					EJoinLobbyResult JoinResult = EJoinLobbyResult::JoinLobbyResult_JoinFailed;
 
@@ -1184,9 +1196,14 @@ void NGMP_OnlineServices_LobbyInterface::JoinLobby(LobbyEntry lobbyInfo, std::st
 					}
 					// GeneralsX @bugfix Android port 11/07/2026 - Match upstream: give this specific
 					// rejection its own log line instead of falling through as an unexplained failure.
+					// GeneralsX @bugfix Android port 13/07/2026 - This previously only logged; JoinResult
+					// stayed at the generic JoinLobbyResult_JoinFailed default, so the player always saw
+					// the generic "different version" fallback text instead of the real anticheat/CRC
+					// mismatch reason. Actually map the result so the UI shows what happened.
 					else if (statusCode == 417)
 					{
 						NetworkLog(ELogVerbosity::LOG_RELEASE, "[NGMP] Failed to join lobby: Anticheat mismatch");
+						JoinResult = EJoinLobbyResult::JoinLobbyResult_AnticheatMismatch;
 					}
 
 
