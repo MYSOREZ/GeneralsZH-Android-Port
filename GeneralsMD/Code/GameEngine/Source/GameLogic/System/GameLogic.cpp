@@ -117,6 +117,10 @@
 #include "GameNetwork/LANAPICallbacks.h"
 #include "GameNetwork/NetworkInterface.h"
 #include "GameNetwork/GameSpy/PersistentStorageThread.h"
+#if defined(GENERALS_ONLINE)
+#include "GameNetwork/GeneralsOnline/NGMPGame.h"
+extern NGMPGame* TheNGMPGame;
+#endif
 
 #include <rts/profile.h>
 
@@ -1271,7 +1275,21 @@ void GameLogic::tryStartNewGame( Bool loadingSaveGame )
 		else
 		{
 			DEBUG_LOG(("Starting gamespy game"));
+			// GeneralsX @bugfix Android port 13/07/2026 - a real device crash
+			// (fault_addr=0x0 inside GameSpyLoadScreen::init(), dereferencing
+			// its `game` parameter -- this same TheGameInfo) traced back here:
+			// TheGameSpyGame is always null on this GeneralsOnline-based fork
+			// (never assigned anywhere for an internet game), so every internet
+			// match unconditionally set TheGameInfo to null. It happened to
+			// survive as far as it did only because most downstream users of
+			// TheGameInfo null-check it first; GameSpyLoadScreen::init() does
+			// not. TheNGMPGame (same GameInfo base class) is the actual live
+			// game object for an internet match on this fork.
+#if defined(GENERALS_ONLINE)
+			TheGameInfo = TheNGMPGame ? static_cast<GameInfo*>(TheNGMPGame) : TheGameSpyGame;
+#else
 			TheGameInfo = TheGameSpyGame;	/// @todo: MDC add back in after demo
+#endif
 		}
 	}
 	else
