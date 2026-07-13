@@ -34,6 +34,7 @@ ANDROID_DIR="${PROJECT_ROOT}/android"
 JNILIBS="${ANDROID_DIR}/app/src/main/jniLibs/arm64-v8a"
 JAVA_SDL="${ANDROID_DIR}/app/src/main/java-sdl"
 ASSETS="${ANDROID_DIR}/app/src/main/assets/gamedata"
+DEFAULT_DRIVER_ASSETS="${ANDROID_DIR}/app/src/main/assets/default_driver"
 STAGING="${GX_ANDROID_STAGING:-${HOME}/GeneralsX/android-staging}"
 
 # --- 1. native libraries -----------------------------------------------------
@@ -208,6 +209,21 @@ UseShadowVolumes = yes
 EOF
 fi
 
+# Default Vulkan driver (Mesa Turnip, K11MCH1/AdrenoToolsDrivers) -- fallback
+# for Adreno phones whose stock driver reports less than Vulkan 1.3 (DXVK
+# 2.6's floor). SetupActivity.applyRecommendedDriverIfNeeded() only uses this
+# when the device actually needs it AND the user hasn't manually imported
+# their own driver; a no-op everywhere else, including all non-Adreno GPUs.
+# Lives in its own top-level assets/ folder (not gamedata/): it's extracted
+# to app-private internal storage, not the user's external game-data folder.
+if [[ ! -f "${STAGING}/default_driver/meta.json" ]]; then
+    echo "==> Default Vulkan driver not staged yet; fetching Turnip"
+    GX_DEFAULT_DRIVER="${STAGING}/default_driver" "${PROJECT_ROOT}/scripts/build/android/fetch-turnip.sh"
+fi
+rm -rf "${DEFAULT_DRIVER_ASSETS}"
+mkdir -p "${DEFAULT_DRIVER_ASSETS}"
+cp -R "${STAGING}/default_driver/." "${DEFAULT_DRIVER_ASSETS}/"
+
 # GeneralsX @note Android port 11/07/2026 the GeneralsOnline lobby screens
 # (WOLWelcomeMenu.wnd, WOLCustomLobby.wnd, WOLQuickMatchMenu.wnd,
 # PopupPlayerInfo.wnd, WOLBuddyOverlay.wnd, OptionsMenu.wnd) are NOT custom
@@ -219,6 +235,7 @@ fi
 
 echo "==> Staged APK assets:"
 find "${ASSETS}" -type f | sed "s|${ASSETS}/|    |"
+find "${DEFAULT_DRIVER_ASSETS}" -type f | sed "s|${DEFAULT_DRIVER_ASSETS}/|    default_driver/|"
 
 # --- 4. gradle ---------------------------------------------------------------
 cd "${ANDROID_DIR}"

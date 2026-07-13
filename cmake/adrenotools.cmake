@@ -15,9 +15,14 @@
 # while DXVK 2.6 needs 1.3 -- exactly the ceiling AndroidManifest.xml's
 # uses-feature currently documents.
 #
-# Nothing here is used unless a user actually imports a driver via the Setup
-# app's "Custom Vulkan Driver" section (SetupActivity.java) -- by default
-# custom_driver.cfg doesn't exist and TryLoadCustomVulkanDriver() is a no-op.
+# custom_driver.cfg is populated one of two ways: the user imports a driver
+# via the Setup app's "Custom Vulkan Driver" section, or -- as of 13/07/2026 --
+# SetupActivity.applyRecommendedDriverIfNeeded() auto-populates it with a
+# bundled Turnip build (scripts/build/android/fetch-turnip.sh) on Adreno
+# phones whose stock driver reports less than Vulkan 1.3. Either way this
+# file is absent and TryLoadCustomVulkanDriver() is a no-op on phones that
+# don't need it (non-Adreno GPUs, or Adreno with a stock driver that
+# already handles 1.3).
 if(ANDROID)
     set(GEN_INSTALL_TARGET OFF CACHE BOOL "" FORCE)
     FetchContent_Declare(

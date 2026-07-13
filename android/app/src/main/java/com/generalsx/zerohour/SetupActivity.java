@@ -31,6 +31,9 @@ package com.generalsx.zerohour;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.FeatureInfo;
+import android.content.pm.PackageManager;
+import android.content.res.AssetManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -163,6 +166,7 @@ public class SetupActivity extends Activity {
         addButton(actionsCard, "Clear Game Folder Setting", this::onClearGameFolder);
 
         buildUiScaleSection(root);
+        applyRecommendedDriverIfNeeded();
         buildCustomDriverSection(root);
         buildGeneralsOnlineSection(root);
 
@@ -284,6 +288,17 @@ public class SetupActivity extends Activity {
     // matching every other app that uses this technique.
     private static final String CUSTOM_DRIVER_DIR_NAME = "custom_driver";
     private static final String CUSTOM_DRIVER_CFG_NAME = "custom_driver.cfg";
+    // GeneralsX @feature Android port 13/07/2026 Marks that custom_driver.cfg
+    // was populated by applyRecommendedDriverIfNeeded() rather than by the
+    // user importing their own .zip -- lets the status text and the
+    // "reset" button distinguish "we picked this for you" from "you chose
+    // this", without changing anything on the native loading side (both
+    // cases are the same custom_driver.cfg/custom_driver/ that
+    // TryLoadCustomVulkanDriver() in SDL3Main.cpp already reads).
+    private static final String CUSTOM_DRIVER_AUTO_MARKER_NAME = "custom_driver.auto";
+    // Bundled fallback driver (staged by scripts/build/android/fetch-turnip.sh
+    // into this asset folder at build time) -- see applyRecommendedDriverIfNeeded().
+    private static final String DEFAULT_DRIVER_ASSET_DIR = "default_driver";
     private static final int REQUEST_IMPORT_DRIVER = 1002;
 
     private TextView customDriverStatusView;
@@ -297,21 +312,23 @@ public class SetupActivity extends Activity {
         content.addView(customDriverStatusView);
 
         addButton(content, "Import Driver (.zip)", this::onImportCustomDriver);
-        addButton(content, "Clear Custom Driver", this::onClearCustomDriver);
+        addButton(content, "Reset to Recommended", this::onClearCustomDriver);
 
         TextView help = new TextView(this);
         help.setAlpha(0.8f);
         help.setText(
-            "Loads a user-supplied Vulkan driver (e.g. a Mesa Turnip build) instead "
-            + "of your phone's built-in one, the same technique Winlator and AetherSX2 "
-            + "use. This can let some Qualcomm Adreno phones run the game even if "
-            + "their stock driver only reports Vulkan 1.1/1.2 (DXVK needs 1.3).\n\n"
+            "Loads a Vulkan driver (a Mesa Turnip build) instead of your phone's "
+            + "built-in one, the same technique Winlator and AetherSX2 use. This can "
+            + "let some Qualcomm Adreno phones run the game even if their stock "
+            + "driver only reports Vulkan 1.1/1.2 (DXVK needs 1.3). On a qualifying "
+            + "Adreno phone this is applied automatically -- \"Reset to Recommended\" "
+            + "restores that automatic choice after you've imported something else.\n\n"
             + "This does NOT help Mali, PowerVR, or other non-Adreno GPUs -- those "
             + "are unaffected by this option, there is no equivalent for them.\n\n"
-            + "Download a Turnip driver .zip built for adrenotools/Winlator-style apps "
-            + "(for example from K11MCH1/AdrenoToolsDrivers or The412Banner/"
-            + "Banners-Turnip on GitHub) and import it here. Takes effect next launch, "
-            + "not live."
+            + "\"Import Driver\" lets you override the automatic choice with your own "
+            + "adrenotools-format driver .zip (for example from K11MCH1/"
+            + "AdrenoToolsDrivers or The412Banner/Banners-Turnip on GitHub). Takes "
+            + "effect next launch, not live."
         );
         content.addView(help);
     }
@@ -319,10 +336,127 @@ public class SetupActivity extends Activity {
     private String customDriverStatusText() {
         File cfg = new File(getFilesDir(), CUSTOM_DRIVER_CFG_NAME);
         if (!cfg.isFile()) {
-            return "No custom driver imported -- using your phone's built-in Vulkan driver.";
+            return "No custom driver active -- using your phone's built-in Vulkan driver.";
         }
         String driverName = readFirstLine(cfg);
-        return "Active custom driver: " + (driverName != null ? driverName : "(unknown)");
+        boolean isAuto = new File(getFilesDir(), CUSTOM_DRIVER_AUTO_MARKER_NAME).isFile();
+        String label = isAuto ? "Recommended driver (auto-selected for this device): "
+                               : "Custom driver (manually imported): ";
+        return label + (driverName != null ? driverName : "(unknown)");
+    }
+
+    // GeneralsX @feature Android port 13/07/2026 Auto-applies the bundled
+    // Turnip driver on Adreno phones whose stock driver reports less than
+    // Vulkan 1.3, without touching anything if the user already imported
+    // their own driver or the phone doesn't need help. Called on every
+    // Setup launch (cheap no-op once satisfied) and again from
+    // onClearCustomDriver() so "reset" actually restores the recommended
+    // state instead of just going blank.
+    private void applyRecommendedDriverIfNeeded() {
+        try {
+            if (new File(getFilesDir(), CUSTOM_DRIVER_CFG_NAME).isFile()) {
+                return;  // already configured (auto or user) -- leave it alone
+            }
+            if (deviceReportsVulkan13()) {
+                return;  // stock driver already handles what DXVK needs
+            }
+            File destDir = new File(getFilesDir(), CUSTOM_DRIVER_DIR_NAME);
+            deleteRecursive(destDir);
+            if (!copyDriverAssetTree(DEFAULT_DRIVER_ASSET_DIR, destDir)) {
+                return;  // no bundled driver in this build -- nothing to apply
+            }
+            File metaFile = new File(destDir, "meta.json");
+            if (!metaFile.isFile()) {
+                deleteRecursive(destDir);
+                return;
+            }
+            String libraryName;
+            try {
+                org.json.JSONObject meta = new org.json.JSONObject(readWholeFile(metaFile));
+                libraryName = meta.optString("libraryName", "");
+            } catch (Exception e) {
+                libraryName = "";
+            }
+            if (libraryName.isEmpty() || !new File(destDir, libraryName).isFile()) {
+                deleteRecursive(destDir);
+                return;
+            }
+            File cfg = new File(getFilesDir(), CUSTOM_DRIVER_CFG_NAME);
+            try (java.io.FileWriter w = new java.io.FileWriter(cfg, false)) {
+                w.write(libraryName);
+                w.write("\n");
+            }
+            new File(getFilesDir(), CUSTOM_DRIVER_AUTO_MARKER_NAME).createNewFile();
+        } catch (Exception e) {
+            // Never let driver auto-selection take Setup down with it --
+            // worst case the phone's stock driver loads, same as before
+            // this feature existed.
+        }
+    }
+
+    // FEATURE_VULKAN_HARDWARE_VERSION's reported "version" is a Vulkan
+    // version int using the same VK_MAKE_API_VERSION encoding as the C API;
+    // VK_API_VERSION_1_3 is (1<<22)|(3<<12) = 0x00403000. No feature entry
+    // at all (some devices/emulators) is treated as "can't confirm 1.3" so
+    // the recommended driver still gets a chance to help.
+    private boolean deviceReportsVulkan13() {
+        PackageManager pm = getPackageManager();
+        FeatureInfo[] features = pm.getSystemAvailableFeatures();
+        if (features == null) {
+            return false;
+        }
+        for (FeatureInfo fi : features) {
+            if (fi.name != null && fi.name.equals(PackageManager.FEATURE_VULKAN_HARDWARE_VERSION)) {
+                return fi.version >= 0x00403000;
+            }
+        }
+        return false;
+    }
+
+    // Recursively copies an assets/ subtree (raw files, not a zip) into
+    // destDir. Returns false if the source asset folder doesn't exist/is
+    // empty -- lets callers tell "not bundled in this build" apart from a
+    // real I/O failure without throwing.
+    private boolean copyDriverAssetTree(String assetDir, File destDir) {
+        AssetManager assets = getAssets();
+        String[] children;
+        try {
+            children = assets.list(assetDir);
+        } catch (java.io.IOException e) {
+            return false;
+        }
+        if (children == null || children.length == 0) {
+            return false;
+        }
+        if (!destDir.mkdirs() && !destDir.isDirectory()) {
+            return false;
+        }
+        for (String child : children) {
+            String childAssetPath = assetDir + "/" + child;
+            File childDest = new File(destDir, child);
+            try {
+                String[] grandchildren = assets.list(childAssetPath);
+                if (grandchildren != null && grandchildren.length > 0) {
+                    if (!copyDriverAssetTree(childAssetPath, childDest)) {
+                        return false;
+                    }
+                    continue;
+                }
+            } catch (java.io.IOException e) {
+                return false;
+            }
+            try (java.io.InputStream in = assets.open(childAssetPath);
+                 java.io.FileOutputStream out = new java.io.FileOutputStream(childDest)) {
+                byte[] buf = new byte[65536];
+                int n;
+                while ((n = in.read(buf)) > 0) {
+                    out.write(buf, 0, n);
+                }
+            } catch (java.io.IOException e) {
+                return false;
+            }
+        }
+        return true;
     }
 
     private void refreshCustomDriverStatus() {
@@ -346,9 +480,15 @@ public class SetupActivity extends Activity {
 
     private void onClearCustomDriver() {
         new File(getFilesDir(), CUSTOM_DRIVER_CFG_NAME).delete();
+        new File(getFilesDir(), CUSTOM_DRIVER_AUTO_MARKER_NAME).delete();
         deleteRecursive(new File(getFilesDir(), CUSTOM_DRIVER_DIR_NAME));
+        applyRecommendedDriverIfNeeded();
         refreshCustomDriverStatus();
-        Toast.makeText(this, "Custom driver cleared. The phone's built-in Vulkan driver will be used again.", Toast.LENGTH_SHORT).show();
+        boolean autoApplied = new File(getFilesDir(), CUSTOM_DRIVER_AUTO_MARKER_NAME).isFile();
+        Toast.makeText(this, autoApplied
+            ? "Reset done. The recommended driver for this device was reapplied."
+            : "Reset done. Your phone's built-in Vulkan driver will be used.",
+            Toast.LENGTH_SHORT).show();
     }
 
     // customDriverDir passed to adrenotools_open_libvulkan() MUST NOT be on
@@ -440,6 +580,9 @@ public class SetupActivity extends Activity {
             Toast.makeText(this, "Could not save driver config: " + e.getMessage(), Toast.LENGTH_LONG).show();
             return;
         }
+        // This is an explicit user choice, not the auto-selected default --
+        // see applyRecommendedDriverIfNeeded() / CUSTOM_DRIVER_AUTO_MARKER_NAME.
+        new File(getFilesDir(), CUSTOM_DRIVER_AUTO_MARKER_NAME).delete();
 
         refreshCustomDriverStatus();
         Toast.makeText(this, "Driver imported: " + libraryName + ". Takes effect next launch.", Toast.LENGTH_LONG).show();

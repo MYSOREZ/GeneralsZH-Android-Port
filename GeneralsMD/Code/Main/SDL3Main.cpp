@@ -258,9 +258,12 @@ static void FilterPipeWireOpenAL()
  *
  * The Setup app (SetupActivity.java) writes <internalPath>/custom_driver.cfg
  * (one line: the driver .so's soname) and unpacks the driver itself into
- * <internalPath>/custom_driver/ when the user imports one via its "Custom
- * Vulkan Driver" section; both are absent by default, in which case this is
- * a no-op and the stock vendor driver loads exactly as before.
+ * <internalPath>/custom_driver/ -- either because the user imported one via
+ * its "Custom Vulkan Driver" section, or because
+ * applyRecommendedDriverIfNeeded() auto-selected the bundled Turnip build
+ * for an Adreno phone whose stock driver reports less than Vulkan 1.3. Both
+ * files are absent when neither applies, in which case this is a no-op and
+ * the stock vendor driver loads exactly as before.
  *
  * Adreno-only: Turnip has no Mali backend, so this cannot help phones whose
  * GPU is Mali (see the Mali-G76 case documented further down this file) --

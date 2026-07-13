@@ -7,3 +7,4 @@ local.properties
 app/src/main/jniLibs/
 app/src/main/java-sdl/
 app/src/main/assets/gamedata/
+app/src/main/assets/default_driver/

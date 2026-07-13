@@ -59,9 +59,12 @@ android {
             // shell always matches the exact SDL version the game linked.
             java.srcDirs += 'src/main/java-sdl'
             jniLibs.srcDirs = ['src/main/jniLibs']
-            // Small runtime files bundled into the APK and extracted to the
-            // external files dir on first launch: fonts/, dxvk.conf,
-            // DefaultOptions.ini (staged by the packaging script).
+            // Small runtime files bundled into the APK, staged by the packaging
+            // script: assets/gamedata/ (fonts/, dxvk.conf, DefaultOptions.ini)
+            // is extracted to the external files dir on first launch;
+            // assets/default_driver/ (fallback Turnip build, see
+            // SetupActivity.applyRecommendedDriverIfNeeded()) is extracted to
+            // app-private internal storage only on Adreno phones that need it.
             assets.srcDirs = ['src/main/assets']
         }
     }
