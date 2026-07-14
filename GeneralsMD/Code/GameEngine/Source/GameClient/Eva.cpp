@@ -167,8 +167,20 @@ void INI::parseEvaEvent( INI* ini )
 
 	EvaCheckInfo *check = TheEva->newEvaCheckInfo( name );
 	if (!check) {
-		// could be null because it already exists.
-		return;
+		// GeneralsX @bugfix Android port 13/07/2026 - A real-device log
+		// (GitHub issue #2) showed the parser desync a few blocks later in
+		// this same file with an unrelated, generic "exception caught
+		// (unrecognized type)" -- traced back to here: returning without
+		// parsing this block's fields left the cursor sitting right after
+		// the block name instead of past its closing End token, throwing
+		// off every subsequent block/field the outer loop tried to read.
+		// "Already exists" (including two unrecognized Eva message names
+		// both mapping to the same EVA_Invalid sentinel, see
+		// Eva::nameToMessage) is common enough in real data that this
+		// can't just be skipped -- parse into a throwaway instance instead,
+		// so the cursor still advances correctly even though the result
+		// gets discarded.
+		check = newInstance(EvaCheckInfo);
 	}
 
 	// parse the ini definition
