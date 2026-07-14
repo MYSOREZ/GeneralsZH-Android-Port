@@ -1,75 +1,63 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id 'kotlin-kapt'
 }
 
 android {
+    namespace 'com.generals.zh'
     compileSdk 34
-    
+
     defaultConfig {
         applicationId "com.generals.zh"
-        minSdk 26
+        minSdk 28
         targetSdk 34
         versionCode 1
         versionName "1.0"
-        
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-    
+
     buildTypes {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
-    
+
     kotlinOptions {
         jvmTarget = '17'
     }
-    
+
     buildFeatures {
         viewBinding true
-        compose true
-    }
-    
-    composeOptions {
-        kotlinCompilerExtensionVersion '1.5.11'
     }
 }
 
 dependencies {
-    // Material 3 - الإصدار الأحدث
-    implementation 'com.google.android.material:material:1.11.0'
+    // Material 3
+    implementation 'com.google.android.material:material:1.12.0'
     
-    // Jetpack Compose - Material 3
-    implementation platform('androidx.compose:compose-bom:2024.01.00')
-    implementation 'androidx.compose.material3:material3:1.2.0'
-    implementation 'androidx.compose.ui:ui'
-    implementation 'androidx.compose.ui:ui-graphics'
-    implementation 'androidx.compose.ui:ui-tooling-preview'
-    implementation 'androidx.compose.foundation:foundation'
-    
-    // Android Core
-    implementation 'androidx.core:core:1.12.0'
-    implementation 'androidx.appcompat:appcompat:1.6.1'
+    // Jetpack
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'androidx.core:core:1.13.1'
+    implementation 'androidx.activity:activity-ktx:1.9.0'
+    implementation 'androidx.fragment:fragment-ktx:1.7.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.recyclerview:recyclerview:1.3.2'
     
     // Lifecycle
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.7.0'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.8.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.1'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.8.1'
     
-    // Activity
-    implementation 'androidx.activity:activity-ktx:1.8.1'
-    implementation 'androidx.activity:activity-compose:1.8.1'
-    
-    // Fragment
-    implementation 'androidx.fragment:fragment-ktx:1.6.2'
+    // Compose (optional for modern UI)
+    implementation 'androidx.compose.ui:ui:1.6.7'
+    implementation 'androidx.compose.material3:material3:1.2.1'
     
     // Testing
     testImplementation 'junit:junit:4.13.2'

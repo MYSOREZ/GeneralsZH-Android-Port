@@ -67,17 +67,4 @@
         <item name="android:textColor">@color/md_theme_dark_primary</item>
         <item name="android:textSize">14sp</item>
     </style>
-
-    <!-- Text Styles -->
-    <style name="TextAppearance.GeneralsZH.DisplayLarge" parent="TextAppearance.Material3.DisplayLarge">
-        <item name="android:textColor">@color/md_theme_dark_on_background</item>
-    </style>
-
-    <style name="TextAppearance.GeneralsZH.TitleLarge" parent="TextAppearance.Material3.TitleLarge">
-        <item name="android:textColor">@color/md_theme_dark_on_surface</item>
-    </style>
-
-    <style name="TextAppearance.GeneralsZH.BodyLarge" parent="TextAppearance.Material3.BodyLarge">
-        <item name="android:textColor">@color/md_theme_dark_on_surface</item>
-    </style>
 </resources>
