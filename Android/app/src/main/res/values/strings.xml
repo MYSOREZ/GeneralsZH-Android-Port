@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Generals: Zero Hour</string>
+    <string name="app_title">Command &amp; Conquer Generals: Zero Hour</string>
+    <string name="play">PLAY</string>
+    <string name="settings">SETTINGS</string>
+    <string name="about">ABOUT</string>
+    <string name="exit">EXIT</string>
+    <string name="pause">PAUSE</string>
+    <string name="resume">RESUME</string>
+    
+    <!-- Settings -->
+    <string name="audio_settings">Audio Settings</string>
+    <string name="graphics_settings">Graphics Settings</string>
+    <string name="gameplay_settings">Gameplay Settings</string>
+    <string name="master_volume">Master Volume</string>
+    <string name="music">Music</string>
+    <string name="sfx">Sound Effects</string>
+    <string name="quality">Graphics Quality</string>
+    <string name="vsync">V-Sync</string>
+    <string name="resolution">Resolution</string>
+    
+    <!-- Game -->
+    <string name="campaign">Campaign</string>
+    <string name="skirmish">Skirmish</string>
+    <string name="multiplayer">Multiplayer</string>
+    <string name="replay">Replay</string>
+</resources>
