@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/window_background"
+    android:gravity="center">
+
+    <!-- Background Gradient Overlay -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/overlay_dark_75"
+        android:layout_position="relative" />
+
+    <!-- Main Content -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="24dp">
+
+        <!-- Title -->
+        <TextView
+            android:id="@+id/title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Command &amp; Conquer\nGenerals: Zero Hour"
+            android:textSize="36sp"
+            android:textStyle="bold"
+            android:textColor="@color/accent_cyan"
+            android:gravity="center"
+            android:layout_marginBottom="48dp"
+            android:shadowColor="@color/accent_cyan"
+            android:shadowDx="2"
+            android:shadowDy="2"
+            android:shadowRadius="4" />
+
+        <!-- Subtitle -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="RTS Experience Redefined"
+            android:textSize="18sp"
+            android:textColor="@color/accent_purple"
+            android:gravity="center"
+            android:layout_marginBottom="64dp" />
+
+        <!-- Play Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_play"
+            style="@style/Widget.GeneralsZH.Button.Filled"
+            android:layout_width="280dp"
+            android:layout_height="56dp"
+            android:text="PLAY"
+            android:textSize="18sp"
+            android:layout_marginBottom="16dp"
+            app:cornerRadius="14dp"
+            app:backgroundTint="@color/accent_cyan" />
+
+        <!-- Settings Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_settings"
+            style="@style/Widget.GeneralsZH.Button.Outlined"
+            android:layout_width="280dp"
+            android:layout_height="56dp"
+            android:text="SETTINGS"
+            android:textSize="16sp"
+            android:layout_marginBottom="16dp"
+            app:cornerRadius="14dp"
+            app:strokeColor="@color/accent_orange"
+            app:strokeWidth="2dp" />
+
+        <!-- About Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_about"
+            style="@style/Widget.GeneralsZH.Button.Text"
+            android:layout_width="280dp"
+            android:layout_height="56dp"
+            android:text="ABOUT"
+            android:textSize="16sp"
+            app:cornerRadius="14dp" />
+
+    </LinearLayout>
+
+</LinearLayout>
