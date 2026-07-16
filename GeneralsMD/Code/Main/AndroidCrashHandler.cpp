@@ -321,11 +321,21 @@ void installAndroidCrashHandler() {
 	// i.e. during the rest of dlopen's constructors or very early SDL_main,
 	// still before the regular stderr log redirect is set up.
 	time_t now = time(nullptr);
-	char stamp[128];
-	int len = snprintf(stamp, sizeof(stamp), "\n=== libmain.so loaded, crash handler installed (t=%ld) ===\n", (long)now);
+	char stamp[256];
+	// GeneralsX @feature Android port 16/07/2026 Stamp the exact build (compile
+	// date/time) into both crash.log and stderr at load. Reporters can't tell
+	// which APK a given log came from otherwise (issue #2, requested by a tester)
+	// -- and that ambiguity made it impossible to trust whether a diagnostic
+	// change was actually in the tested binary. __DATE__/__TIME__ uniquely
+	// identify each CI build.
+	int len = snprintf(stamp, sizeof(stamp),
+		"\n=== libmain.so loaded, crash handler installed (t=%ld) [build compiled %s %s] ===\n",
+		(long)now, __DATE__, __TIME__);
 	if (len > 0) {
 		appendCrashLog(stamp, (size_t)len < sizeof(stamp) ? (size_t)len : sizeof(stamp) - 1);
 	}
+	fprintf(stderr, "[GX-BUILD] libmain.so compiled %s %s\n", __DATE__, __TIME__);
+	fflush(stderr);
 }
 
 } // namespace

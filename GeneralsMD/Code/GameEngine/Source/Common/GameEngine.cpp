@@ -1176,6 +1176,20 @@ void GameEngine::execute()
 						fprintf(stderr, "[GX-RELEASECRASH] GameEngine::update threw XferStatus=%d\n", (int)xs);
 						fflush(stderr);
 					}
+					// GeneralsX @bugfix Android port 16/07/2026 Also cover bare
+					// primitive throws (some engine paths throw a literal int, and
+					// a stray C-string throw is possible) so those don't masquerade
+					// as "unrecognized" too (issue #2).
+					catch (int n)
+					{
+						fprintf(stderr, "[GX-RELEASECRASH] GameEngine::update threw int=%d\n", n);
+						fflush(stderr);
+					}
+					catch (const char* s)
+					{
+						fprintf(stderr, "[GX-RELEASECRASH] GameEngine::update threw const char*='%s'\n", s ? s : "<null>");
+						fflush(stderr);
+					}
 					catch (const std::exception& se)
 					{
 						fprintf(stderr, "[GX-RELEASECRASH] GameEngine::update threw std::exception what='%s'\n", se.what());
