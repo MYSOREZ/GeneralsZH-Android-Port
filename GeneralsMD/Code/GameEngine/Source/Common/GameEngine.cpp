@@ -1145,6 +1145,23 @@ void GameEngine::execute()
 						fprintf(stderr, "[GX-RELEASECRASH] GameEngine::update threw ErrorCode=%d\n", (int)ec);
 						fflush(stderr);
 					}
+					// GeneralsX @bugfix Android port 16/07/2026 The two families that
+					// escape here as "unrecognized" are the anonymous INI_* enum
+					// (INI_INVALID_DATA etc., all == ERROR_BAD_INI) and the named
+					// SaveCode enum (SC_INVALID_DATA etc.). Catch both by their real
+					// types so the log says which family threw -- INI-style data
+					// validation vs save/map load -- to pin down the culprit path
+					// during shell/menu load (issue #2).
+					catch (SaveCode sc)
+					{
+						fprintf(stderr, "[GX-RELEASECRASH] GameEngine::update threw SaveCode=%d\n", (int)sc);
+						fflush(stderr);
+					}
+					catch (decltype(INI_INVALID_DATA) ie)
+					{
+						fprintf(stderr, "[GX-RELEASECRASH] GameEngine::update threw INI-family anonymous enum=%d\n", (int)ie);
+						fflush(stderr);
+					}
 					catch (const std::exception& se)
 					{
 						fprintf(stderr, "[GX-RELEASECRASH] GameEngine::update threw std::exception what='%s'\n", se.what());
