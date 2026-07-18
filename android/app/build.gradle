@@ -96,6 +96,21 @@ android {
             // a real, browsable directory. Costs a bit of APK size (no .so
             // compression) in exchange for that directory existing.
             useLegacyPackaging true
+
+            // GeneralsX @bugfix Android port 18/07/2026 Do NOT let AGP's
+            // stripReleaseDebugSymbols strip the DXVK libraries. Stripped
+            // libdxvk_d3d8/d3d9.so crash mid-render with corrupted Vulkan
+            // dispatch (SIGSEGV / stray dxvk::DxvkError escaping into the
+            // engine's update loop as an "unrecognized exception" -> the
+            // "Technical Difficulties" box the moment the 3D shell map scene
+            // flushes its first frames). Root-caused and fix verified by the
+            // sibling GeneralsX Android fork (tarek369/GeneralsZH-Android,
+            // commit 23f73d1) on the same OnePlus Pad 2 hardware one of our
+            // issue #2 reporters uses: backtrace lands in the DX8 draw path
+            // (DX8Wrapper::Draw -> SortingRendererClass::Flush_Sorting_Pool ->
+            // RTS3DScene::Flush -> libdxvk_d3d9.so, fault addr 0x2000000001)
+            // only when the libs are stripped; keeping symbols fixes it.
+            keepDebugSymbols += ['**/libdxvk_d3d8.so', '**/libdxvk_d3d9.so']
         }
     }
 }

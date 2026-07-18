@@ -28,10 +28,10 @@
 # Apply with: git -C references/fbraz3-dxvk apply ../../Patches/dxvk-vulkan11-adaptive.patch
 # Applied after dxvk-android.patch and dxvk-ios.patch.
 diff --git a/meson.build b/meson.build
-index 26afed4..a1bce20 100644
+index 91e9871..578a246 100644
 --- a/meson.build
 +++ b/meson.build
-@@ -185,7 +185,9 @@ def_spec_ext = '.def'
+@@ -192,7 +192,9 @@ def_spec_ext = '.def'
  glsl_compiler = find_program('glslang', 'glslangValidator')
  glsl_args = [
    '--quiet',
@@ -43,10 +43,28 @@ index 26afed4..a1bce20 100644
    '--depfile', '@DEPFILE@',
    '@INPUT@',
 diff --git a/src/dxvk/dxvk_adapter.cpp b/src/dxvk/dxvk_adapter.cpp
-index 981b000..36fe963 100644
+index 981b000..ee1c17b 100644
 --- a/src/dxvk/dxvk_adapter.cpp
 +++ b/src/dxvk/dxvk_adapter.cpp
-@@ -514,7 +514,7 @@ namespace dxvk {
+@@ -331,8 +331,16 @@ namespace dxvk {
+     if (!m_deviceExtensions.enableExtensions(
+           devExtensionList.size(),
+           devExtensionList.data(),
+-          &extensionsEnabled))
++          &extensionsEnabled)) {
++      // GeneralsX @bugfix Android port 18/07/2026 Name the adapter and its
++      // Vulkan version at error level so a device log shows which GPU/driver
++      // failed and (together with the per-extension error above) why.
++      Logger::err(str::format("DxvkAdapter: required extension(s) missing on ",
++        m_deviceInfo.core.properties.deviceName, " (Vulkan ",
++        VK_API_VERSION_MAJOR(m_deviceInfo.core.properties.apiVersion), ".",
++        VK_API_VERSION_MINOR(m_deviceInfo.core.properties.apiVersion), ")"));
+       throw DxvkError("DxvkAdapter: Failed to create device");
++    }
+     
+     // Enable additional extensions if necessary
+     extensionsEnabled.merge(m_extraExtensions);
+@@ -514,7 +522,7 @@ namespace dxvk {
        m_deviceFeatures.nvRawAccessChains.shaderRawAccessChains;
  
      // Create pNext chain for additional device features
@@ -55,7 +73,28 @@ index 981b000..36fe963 100644
  
      // macOS/MoltenVK: when VK_KHR_portability_subset is enabled, the Vulkan spec requires
      // VkPhysicalDevicePortabilitySubsetFeaturesKHR in VkDeviceCreateInfo.pNext set to
-@@ -736,7 +736,7 @@ namespace dxvk {
+@@ -596,9 +604,18 @@ namespace dxvk {
+       vr = m_vki->vkCreateDevice(m_handle, &info, nullptr, &device);
+     }
+ 
+-    if (vr != VK_SUCCESS)
++    if (vr != VK_SUCCESS) {
++      // GeneralsX @bugfix Android port 18/07/2026 Log the VkResult and the
++      // adapter identity: vkCreateDevice failing with FEATURE_NOT_PRESENT vs
++      // EXTENSION_NOT_PRESENT vs anything else points at completely different
++      // gaps on 1.1/1.2-era mobile drivers (issue #9, Mali G57).
++      Logger::err(str::format("DxvkAdapter: vkCreateDevice failed with VkResult ", vr, " on ",
++        m_deviceInfo.core.properties.deviceName, " (Vulkan ",
++        VK_API_VERSION_MAJOR(m_deviceInfo.core.properties.apiVersion), ".",
++        VK_API_VERSION_MINOR(m_deviceInfo.core.properties.apiVersion), ")"));
+       throw DxvkError("DxvkAdapter: Failed to create device");
+-    
++    }
++
+     Rc<vk::DeviceFn> vkd = new vk::DeviceFn(m_vki, true, device);
+ 
+     DxvkDeviceQueueSet queues = { };
+@@ -736,7 +753,7 @@ namespace dxvk {
        }
      }
  
@@ -64,7 +103,7 @@ index 981b000..36fe963 100644
  
      // Log feature support info an extension list
      Logger::info(str::format("Device properties:"
-@@ -839,14 +839,24 @@ namespace dxvk {
+@@ -839,14 +856,24 @@ namespace dxvk {
      // Query info now so that we have basic device properties available
      m_vki->vkGetPhysicalDeviceProperties2(m_handle, &m_deviceInfo.core);
  
@@ -93,7 +132,7 @@ index 981b000..36fe963 100644
  
      if (m_deviceExtensions.supports(VK_EXT_CONSERVATIVE_RASTERIZATION_EXTENSION_NAME)) {
        m_deviceInfo.extConservativeRasterization.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_CONSERVATIVE_RASTERIZATION_PROPERTIES_EXT;
-@@ -915,11 +925,55 @@ namespace dxvk {
+@@ -915,11 +942,55 @@ namespace dxvk {
      m_deviceFeatures.vk11.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_1_FEATURES;
      m_deviceFeatures.vk11.pNext = std::exchange(m_deviceFeatures.core.pNext, &m_deviceFeatures.vk11);
  
@@ -118,9 +157,7 @@ index 981b000..36fe963 100644
 +      m_deviceFeatures.vk13.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_3_FEATURES;
 +      m_deviceFeatures.vk13.pNext = std::exchange(m_deviceFeatures.core.pNext, &m_deviceFeatures.vk13);
 +    }
- 
--    m_deviceFeatures.vk13.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_3_FEATURES;
--    m_deviceFeatures.vk13.pNext = std::exchange(m_deviceFeatures.core.pNext, &m_deviceFeatures.vk13);
++
 +    if (!hasVk12 && m_deviceExtensions.supports(VK_EXT_HOST_QUERY_RESET_EXTENSION_NAME)) {
 +      m_deviceFeatures.extHostQueryReset.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_HOST_QUERY_RESET_FEATURES_EXT;
 +      m_deviceFeatures.extHostQueryReset.pNext = std::exchange(m_deviceFeatures.core.pNext, &m_deviceFeatures.extHostQueryReset);
@@ -145,7 +182,9 @@ index 981b000..36fe963 100644
 +      m_deviceFeatures.khrMaintenance4.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_4_FEATURES_KHR;
 +      m_deviceFeatures.khrMaintenance4.pNext = std::exchange(m_deviceFeatures.core.pNext, &m_deviceFeatures.khrMaintenance4);
 +    }
-+
+ 
+-    m_deviceFeatures.vk13.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_3_FEATURES;
+-    m_deviceFeatures.vk13.pNext = std::exchange(m_deviceFeatures.core.pNext, &m_deviceFeatures.vk13);
 +    if (!hasVk13 && m_deviceExtensions.supports(VK_KHR_SYNCHRONIZATION_2_EXTENSION_NAME)) {
 +      m_deviceFeatures.khrSynchronization2.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SYNCHRONIZATION_2_FEATURES_KHR;
 +      m_deviceFeatures.khrSynchronization2.pNext = std::exchange(m_deviceFeatures.core.pNext, &m_deviceFeatures.khrSynchronization2);
@@ -153,7 +192,7 @@ index 981b000..36fe963 100644
  
      if (m_deviceExtensions.supports(VK_AMD_SHADER_FRAGMENT_MASK_EXTENSION_NAME))
        m_deviceFeatures.amdShaderFragmentMask = VK_TRUE;
-@@ -1065,6 +1119,23 @@ namespace dxvk {
+@@ -1065,6 +1136,23 @@ namespace dxvk {
        m_deviceFeatures.nvxImageViewHandle = VK_TRUE;
  
      m_vki->vkGetPhysicalDeviceFeatures2(m_handle, &m_deviceFeatures.core);
@@ -177,7 +216,7 @@ index 981b000..36fe963 100644
    }
  
  
-@@ -1139,18 +1210,68 @@ namespace dxvk {
+@@ -1139,18 +1227,68 @@ namespace dxvk {
    void DxvkAdapter::initFeatureChain(
            DxvkDeviceFeatures&   enabledFeatures,
      const DxvkDeviceExtensions& devExtensions,
@@ -200,7 +239,9 @@ index 981b000..36fe963 100644
 +    // receives a request that matches what was actually queried as enabled.
 +    const bool hasVk12 = apiVersion >= VK_API_VERSION_1_2;
 +    const bool hasVk13 = apiVersion >= VK_API_VERSION_1_3;
-+
+ 
+-    enabledFeatures.vk13.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_3_FEATURES;
+-    enabledFeatures.vk13.pNext = std::exchange(enabledFeatures.core.pNext, &enabledFeatures.vk13);
 +    if (hasVk12) {
 +      enabledFeatures.vk12.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_2_FEATURES;
 +      enabledFeatures.vk12.pNext = std::exchange(enabledFeatures.core.pNext, &enabledFeatures.vk12);
@@ -222,9 +263,7 @@ index 981b000..36fe963 100644
 +      enabledFeatures.khrTimelineSemaphore.timelineSemaphore = enabledFeatures.vk12.timelineSemaphore;
 +      enabledFeatures.khrTimelineSemaphore.pNext = std::exchange(enabledFeatures.core.pNext, &enabledFeatures.khrTimelineSemaphore);
 +    }
- 
--    enabledFeatures.vk13.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_3_FEATURES;
--    enabledFeatures.vk13.pNext = std::exchange(enabledFeatures.core.pNext, &enabledFeatures.vk13);
++
 +    if (!hasVk12 && devExtensions.khrVulkanMemoryModel) {
 +      enabledFeatures.khrVulkanMemoryModel.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_MEMORY_MODEL_FEATURES_KHR;
 +      enabledFeatures.khrVulkanMemoryModel.vulkanMemoryModel = enabledFeatures.vk12.vulkanMemoryModel;
@@ -311,6 +350,23 @@ index 9ab82ee..e9741b3 100644
      VkPhysicalDeviceDescriptorPoolOverallocationFeaturesNV    nvDescriptorPoolOverallocation;
      VkBool32                                                  nvLowLatency2;
      VkPhysicalDeviceRawAccessChainsFeaturesNV                 nvRawAccessChains;
+diff --git a/src/dxvk/dxvk_extensions.cpp b/src/dxvk/dxvk_extensions.cpp
+index 4e3c559..70e058e 100644
+--- a/src/dxvk/dxvk_extensions.cpp
++++ b/src/dxvk/dxvk_extensions.cpp
+@@ -70,7 +70,11 @@ namespace dxvk {
+ 
+         ext->enable(revision);
+       } else if (ext->mode() == DxvkExtMode::Required) {
+-        Logger::info(str::format("Required Vulkan extension ", ext->name(), " not supported"));
++        // GeneralsX @bugfix Android port 18/07/2026 err, not info: on Android
++        // only error-level lines reach the on-device stderr log, and this line
++        // is the one that says WHY "Failed to create device" happened (e.g. a
++        // Mali driver missing VK_EXT_robustness2). Info-level buried it.
++        Logger::err(str::format("Required Vulkan extension ", ext->name(), " not supported"));
+         allRequiredEnabled = false;
+         continue;
+       }
 diff --git a/src/dxvk/dxvk_extensions.h b/src/dxvk/dxvk_extensions.h
 index aa002a7..435b2be 100644
 --- a/src/dxvk/dxvk_extensions.h
