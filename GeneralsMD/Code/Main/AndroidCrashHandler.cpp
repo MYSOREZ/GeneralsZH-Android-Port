@@ -340,4 +340,116 @@ void installAndroidCrashHandler() {
 
 } // namespace
 
+// GeneralsX @bugfix Android port 18/07/2026 Interpose __cxa_throw to log the
+// call stack of every C++ throw. Issue #2's crash is an exception reaching
+// GameEngine::update()'s catch(...) whose typeinfo demangles to '$_0' --
+// Clang's name for an ANONYMOUS type. The engine's INI status codes
+// (INI_INVALID_DATA et al., Common/INI.h) are exactly that: an unnamed enum,
+// so its typeinfo has internal linkage and a per-translation-unit identity,
+// which is why every typed catch clause we added (including
+// catch(decltype(INI_INVALID_DATA))) failed to match a throw coming from a
+// different .cpp file -- the Itanium ABI compares typeinfo identity, and each
+// TU has its own for an unnamed type. There are 134 `throw INI_INVALID_DATA;`
+// sites, so instead of instrumenting them all, log the throw itself: since
+// libmain.so is the root of its dlopen group and links libc++_shared, this
+// definition preempts libc++abi's for every throw made by engine code (and
+// the bundled libs in our group), records the unwind stack with dladdr
+// symbol names (the engine builds with default visibility, so .dynsym keeps
+// real function names even in the stripped APK), then forwards to the real
+// __cxa_throw from libc++_shared so exception semantics stay untouched.
+// Capped so a throw-happy code path cannot flood the log.
+
+#if defined(__ANDROID__)
+
+#include <cxxabi.h>
+#include <dlfcn.h>
+#include <unwind.h>
+#include <typeinfo>
+#include <stdlib.h>
+
+namespace {
+
+struct GxUnwindState {
+	void** current;
+	void** end;
+};
+
+_Unwind_Reason_Code gxUnwindCallback(struct _Unwind_Context* context, void* arg) {
+	GxUnwindState* state = static_cast<GxUnwindState*>(arg);
+	uintptr_t pc = _Unwind_GetIP(context);
+	if (pc) {
+		if (state->current == state->end)
+			return _URC_END_OF_STACK;
+		*state->current++ = reinterpret_cast<void*>(pc);
+	}
+	return _URC_NO_REASON;
+}
+
+} // namespace
+
+extern "C" void __cxa_throw(void* thrown_exception, std::type_info* tinfo, void (*dest)(void*)) {
+	using CxaThrowFn = void (*)(void*, std::type_info*, void (*)(void*));
+	static CxaThrowFn realCxaThrow =
+		reinterpret_cast<CxaThrowFn>(dlsym(RTLD_NEXT, "__cxa_throw"));
+
+	static int logged = 0;
+	if (logged < 64) {
+		++logged;
+		const char* mangled = tinfo ? tinfo->name() : "<null>";
+		int status = 0;
+		char* demangled = abi::__cxa_demangle(mangled, nullptr, nullptr, &status);
+		// The first 4 bytes cover every enum/int payload the engine throws
+		// (e.g. INI_* == ERROR_BAD_INI); garbage for class-type payloads but
+		// harmless to print.
+		unsigned payload = 0;
+		if (thrown_exception)
+			memcpy(&payload, thrown_exception, sizeof(payload));
+		fprintf(stderr, "[GX-THROW] type='%s' (mangled='%s') first4bytes=0x%08x\n",
+			demangled ? demangled : mangled, mangled, payload);
+		if (demangled)
+			free(demangled);
+
+		void* frames[24];
+		GxUnwindState state{ frames, frames + 24 };
+		_Unwind_Backtrace(gxUnwindCallback, &state);
+		int frameCount = (int)(state.current - frames);
+		for (int i = 0; i < frameCount; ++i) {
+			Dl_info info;
+			const char* lib = "?";
+			const char* sym = nullptr;
+			uintptr_t off = reinterpret_cast<uintptr_t>(frames[i]);
+			if (dladdr(frames[i], &info)) {
+				if (info.dli_fname) {
+					const char* slash = strrchr(info.dli_fname, '/');
+					lib = slash ? slash + 1 : info.dli_fname;
+				}
+				if (info.dli_fbase)
+					off = reinterpret_cast<uintptr_t>(frames[i]) - reinterpret_cast<uintptr_t>(info.dli_fbase);
+				sym = info.dli_sname;
+			}
+			char* symDemangled = nullptr;
+			if (sym) {
+				int symStatus = 0;
+				symDemangled = abi::__cxa_demangle(sym, nullptr, nullptr, &symStatus);
+			}
+			fprintf(stderr, "[GX-THROW]   #%02d %s+0x%zx %s\n",
+				i, lib, (size_t)off, symDemangled ? symDemangled : (sym ? sym : ""));
+			if (symDemangled)
+				free(symDemangled);
+		}
+		fflush(stderr);
+	}
+
+	if (realCxaThrow)
+		realCxaThrow(thrown_exception, tinfo, dest);
+
+	// Only reachable if dlsym failed entirely -- there is no way to continue
+	// a throw without the runtime, so make the failure loud instead of UB.
+	fprintf(stderr, "[GX-THROW] FATAL: real __cxa_throw not found via RTLD_NEXT\n");
+	fflush(stderr);
+	abort();
+}
+
+#endif // __ANDROID__
+
 #endif // __ANDROID__
