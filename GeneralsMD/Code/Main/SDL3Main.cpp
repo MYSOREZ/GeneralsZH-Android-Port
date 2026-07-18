@@ -615,10 +615,43 @@ int main(int argc, char* argv[])
 		const char *cachePath    = SDL_GetAndroidCachePath();
 
 		if (internalPath != nullptr) {
-			// HOME drives the engine's user-data dir (GlobalData.cpp XDG branch)
-			// and registry.ini location (registryini.cpp). Internal storage: it
-			// must survive the user reshuffling game assets in external storage.
+			// HOME drives registry.ini's location (registryini.cpp) -- a small
+			// settings blob, not user content -- and, prior to 18/07/2026, the
+			// engine's whole user-data dir (GlobalData.cpp XDG branch: saves,
+			// Options.ini, AND custom maps). Internal storage was chosen so it
+			// survives the user reshuffling/wiping the external GameData
+			// folder. That's fine for registry.ini, but it silently made
+			// custom maps impossible to add on Android: on the reference
+			// platform (Windows) user-data lives in Documents, which is both
+			// durable AND reachable with a plain file manager -- Android has
+			// no folder with both properties, so something had to give.
+			// GENERALSX_USERDATA_DIR (below) now carries the actual
+			// user-data dir on a reachable path instead; HOME keeps pointing
+			// at internal storage for registry.ini only.
 			setenv("HOME", internalPath, 1);
+
+			// GeneralsX @feature Android port 18/07/2026 issue #9 follow-up:
+			// give the engine's user-data dir (GlobalData.cpp,
+			// BuildUserDataPathFromRegistry) a plain, top-level, always-visible
+			// home instead of the internal-storage path HOME points at above.
+			// This is where custom maps (Maps/), save games, and Options.ini
+			// now live -- the direct Android analog of
+			// "Documents\Command and Conquer Generals Zero Hour Data" on
+			// Windows, which is exactly why players have been unable to add
+			// custom maps at all until now (issue #9 comments). Needs
+			// MANAGE_EXTERNAL_STORAGE (already requested and granted via
+			// SetupActivity for the GameData folder picker) to write outside
+			// the app's own sandboxed directories. Multi-user-safe the same
+			// way AndroidCrashHandler.cpp derives its path: Android's shared
+			// storage mount is always /storage/emulated/<userId>, and
+			// per-user UIDs are always userId*100000 + appId.
+			int userId = (int)(getuid() / 100000);
+			char userDataDir[300];
+			int len = snprintf(userDataDir, sizeof(userDataDir),
+				"/storage/emulated/%d/GeneralsZH Data", userId);
+			if (len > 0 && (size_t)len < sizeof(userDataDir)) {
+				setenv("GENERALSX_USERDATA_DIR", userDataDir, 1);
+			}
 		}
 		if (cachePath != nullptr) {
 			// DXVK shader cache: regenerable, belongs in the OS-purgeable dir.

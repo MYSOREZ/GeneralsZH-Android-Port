@@ -1448,6 +1448,29 @@ AsciiString GlobalData::BuildUserDataPathFromRegistry()
 
 	userDataDir = myDocumentsDirectory;
 
+#elif defined(__ANDROID__)
+	// GeneralsX @feature Android port 18/07/2026 issue #9 follow-up: Android
+	// has no folder that is both durable and reachable with a plain file
+	// manager (unlike Windows' Documents), so SDL3Main.cpp's Android launch
+	// path picks one deliberately and hands it down via
+	// GENERALSX_USERDATA_DIR: a plain, top-level, always-visible directory
+	// (needs MANAGE_EXTERNAL_STORAGE, already granted) that is the direct
+	// analog of "Documents\Command and Conquer Generals Zero Hour Data" --
+	// this is where players now need to drop custom maps (Maps/<name>/) for
+	// them to show up, the same way they would on PC. $HOME is intentionally
+	// NOT used here (it points at internal, unreachable storage for
+	// registry.ini instead) -- see the comment in SDL3Main.cpp.
+	{
+		const char* androidUserDataDir = getenv("GENERALSX_USERDATA_DIR");
+		if (androidUserDataDir) {
+			std::filesystem::path path = std::filesystem::path(androidUserDataDir) / "";
+			std::filesystem::create_directories(path);
+			userDataDir = path.string().c_str();
+		} else {
+			userDataDir = "./";
+		}
+	}
+
 #elif defined(__APPLE__)
 	// GeneralsX @feature Bender 01/04/2026 macOS user data directory
 	// Uses ~/Library/Application Support as standard macOS location for Zero Hour
