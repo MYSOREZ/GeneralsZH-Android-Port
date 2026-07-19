@@ -9,6 +9,11 @@ permissions:
   # workflow_dispatch on this repo both require write access to trigger anyway.
   contents: write
   pull-requests: read
+  # GeneralsX @bugfix Android CI 18/07/2026 needed by the "Delete old
+  # artifacts" cleanup step below (DELETE .../actions/artifacts/{id}) --
+  # without this, that call 403s since an explicit permissions: block (this
+  # one) drops every unlisted scope to none rather than defaulting to read.
+  actions: write
 
 on:
   push:
@@ -400,7 +405,13 @@ jobs:
         with:
           name: ${{ steps.artifact.outputs.apk_name }}
           path: ${{ steps.locate.outputs.path }}
-          retention-days: 30
+          # GeneralsX @bugfix Android CI 18/07/2026 was 30: the free plan's
+          # Actions storage quota is 0.5 GB total and each APK is ~110 MB, so
+          # a single busy day of testing (this project pushes several builds
+          # an hour while chasing device-specific bugs) filled it to 90% on
+          # its own even with the "Delete old artifacts" cleanup step below.
+          # 7 days is still ample time for a tester to grab a build.
+          retention-days: 7
 
       # GeneralsX @feature Android port 09/07/2026 Actions artifacts expire
       # (30 days) and require a GitHub login to download -- not a real "here,
@@ -448,8 +459,33 @@ jobs:
         with:
           name: android-build-logs-${{ github.run_number }}
           path: logs/
-          retention-days: 14
+          retention-days: 7
           if-no-files-found: ignore
+
+      # GeneralsX @feature Android CI 18/07/2026 Actions storage is a shared
+      # 0.5 GB account-wide quota (free plan), not per-repo or per-branch --
+      # a day of iterating on device-specific bugs (several APK builds/hour,
+      # ~110 MB each) fills it well before the retention-days above ever
+      # kick in on their own. Delete every artifact from an EARLIER run of
+      # this same workflow on this same branch as soon as this run's own
+      # artifacts are safely uploaded, keeping only the build that matters
+      # (the one just produced) instead of accumulating one per push.
+      # gh/GITHUB_TOKEN are preinstalled/preauthenticated on every
+      # GitHub-hosted runner; `actions: write` above is what authorizes the
+      # delete call itself. Best-effort: a delete failing (already expired,
+      # already deleted by a concurrent run) must not fail the build.
+      - name: Delete old artifacts from this branch
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh api "repos/${{ github.repository }}/actions/artifacts" --paginate \
+            --jq '.artifacts[] | select(.workflow_run.head_branch == "${{ github.ref_name }}") | select(.workflow_run.id != ${{ github.run_id }}) | .id' \
+          | while read -r artifact_id; do
+              echo "Deleting old artifact ${artifact_id} (branch ${{ github.ref_name }}, superseded by run ${{ github.run_id }})"
+              gh api -X DELETE "repos/${{ github.repository }}/actions/artifacts/${artifact_id}" || true
+            done
 
       # Save caches even when the job failed (see the restore steps above for
       # why plain actions/cache can't do this). Guard each save so a run that
