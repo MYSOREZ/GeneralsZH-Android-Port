@@ -466,25 +466,41 @@ jobs:
       # 0.5 GB account-wide quota (free plan), not per-repo or per-branch --
       # a day of iterating on device-specific bugs (several APK builds/hour,
       # ~110 MB each) fills it well before the retention-days above ever
-      # kick in on their own. Delete every artifact from an EARLIER run of
-      # this same workflow on this same branch as soon as this run's own
-      # artifacts are safely uploaded, keeping only the build that matters
-      # (the one just produced) instead of accumulating one per push.
-      # gh/GITHUB_TOKEN are preinstalled/preauthenticated on every
-      # GitHub-hosted runner; `actions: write` above is what authorizes the
-      # delete call itself. Best-effort: a delete failing (already expired,
-      # already deleted by a concurrent run) must not fail the build.
-      - name: Delete old artifacts from this branch
+      # kick in on their own. First pass scoped cleanup only to same-branch
+      # artifacts and left main/other branches' old builds untouched, which
+      # turned out to be most of the remaining quota (main alone had ~30
+      # same-day runs with live artifacts). Sweep the WHOLE repository now:
+      # for every branch this workflow has ever run on, keep only its most
+      # recent run's artifacts and delete every other run's, regardless of
+      # which branch triggered the current run. gh/GITHUB_TOKEN are
+      # preinstalled/preauthenticated on every GitHub-hosted runner;
+      # `actions: write` above is what authorizes the delete call itself.
+      # Best-effort throughout: a delete failing (already expired, already
+      # deleted by a concurrent run) must not fail the build.
+      - name: Delete superseded artifacts across all branches
         if: always()
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
+          declare -A latest_run
+
+          while IFS=$'\t' read -r branch run_id; do
+            [ -z "${branch}" ] && continue
+            if [ -z "${latest_run[$branch]:-}" ] || [ "${run_id}" -gt "${latest_run[$branch]}" ]; then
+              latest_run[$branch]="${run_id}"
+            fi
+          done < <(gh api "repos/${{ github.repository }}/actions/artifacts" --paginate \
+            --jq '.artifacts[] | [(.workflow_run.head_branch // ""), .workflow_run.id] | @tsv')
+
           gh api "repos/${{ github.repository }}/actions/artifacts" --paginate \
-            --jq '.artifacts[] | select(.workflow_run.head_branch == "${{ github.ref_name }}") | select(.workflow_run.id != ${{ github.run_id }}) | .id' \
-          | while read -r artifact_id; do
-              echo "Deleting old artifact ${artifact_id} (branch ${{ github.ref_name }}, superseded by run ${{ github.run_id }})"
-              gh api -X DELETE "repos/${{ github.repository }}/actions/artifacts/${artifact_id}" || true
+            --jq '.artifacts[] | [(.workflow_run.head_branch // ""), .workflow_run.id, .id] | @tsv' \
+          | while IFS=$'\t' read -r branch run_id artifact_id; do
+              [ -z "${branch}" ] && continue
+              if [ "${run_id}" != "${latest_run[$branch]:-}" ]; then
+                echo "Deleting old artifact ${artifact_id} (branch ${branch}, run ${run_id}, latest for that branch is ${latest_run[$branch]})"
+                gh api -X DELETE "repos/${{ github.repository }}/actions/artifacts/${artifact_id}" || true
+              fi
             done
 
       # Save caches even when the job failed (see the restore steps above for
