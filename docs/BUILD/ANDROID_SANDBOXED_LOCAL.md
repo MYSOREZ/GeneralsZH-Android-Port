@@ -176,3 +176,59 @@ the central directory gets updated to point at the new, smaller entry) --
 the on-disk `.apk` didn't shrink at all until `android/app/build` was
 removed and packaging re-run from a clean slate. If a rebuild's output
 size looks wrong, that's the first thing to check.
+
+## Distributing the APK: don't use Git LFS on this fork
+
+Test builds live in `apk/*.apk`, committed as **plain git blobs**, not Git
+LFS. GitHub's regular per-file commit limit is 100MB; stripping (above)
+keeps debug builds around 39MB, comfortably under that, so LFS should never
+be necessary here. Two reasons to actively avoid it if a future build ever
+does creep past 100MB:
+
+1. **LFS uploads are disabled on this fork.** `git lfs push` fails outright
+   with `@<owner> can not upload new objects to public fork
+   <owner>/<repo>` -- a GitHub-side restriction, not something this
+   sandbox's proxy is blocking. Confirmed by trying it directly.
+2. **A half-undone LFS experiment silently corrupts the next commit.**
+   Sequence that caused this once: `git lfs track` + `git add` + commit
+   (creates an LFS-pointer blob, correctly) -> push fails -> `git reset
+   --soft HEAD~1` to undo the commit -> delete `.gitattributes`, `git lfs
+   uninstall`, replace the working-tree file with new content, `git add`
+   again -> commit -> push. The second commit's blob was *still* an LFS
+   pointer (just a smaller one, matching the new file's size), even though
+   `git check-attr filter` on that path reported `unspecified` and no LFS
+   filter config was left anywhere (`.git/info/attributes`, global
+   gitattributes, global/local git config all clean). `git reset --soft`
+   only moves `HEAD`; it leaves the **index** exactly as the undone commit
+   left it, still holding an LFS-clean-filtered pointer entry for that
+   path. Apparently that stale index state, not live attribute lookup, is
+   what `git add` extended from — the smudge/clean machinery had already
+   done its job once and a filter-less `git add` afterward didn't
+   necessarily re-run it. If a real fix is only under ~40MB anyway, sanity
+   check that the *committed blob* isn't secretly a pointer:
+
+   ```bash
+   git cat-file -p HEAD:apk/<file>.apk | head -c 40
+   # real APK: starts with "PK" (zip signature)
+   # LFS pointer: starts with "version https://git-lfs..."
+   ```
+
+   The reliable fix, which sidesteps any lingering filter/index state
+   entirely, is writing the blob directly and pointing the index at it by
+   hand instead of trusting `git add`:
+
+   ```bash
+   BLOB=$(git hash-object -w --no-filters apk/<file>.apk)
+   git update-index --add --cacheinfo 100644,"$BLOB",apk/<file>.apk
+   git commit -m "..."
+   ```
+
+   `--no-filters` guarantees the object written to the store is the exact
+   working-tree bytes, no matter what `.gitattributes`/git-lfs state
+   might otherwise be lurking. Verify with the `cat-file -p | head -c 40`
+   check above before pushing.
+
+If a build ever *does* need to exceed 100MB and stripping/shrinking isn't
+an option, use a **GitHub Release** attached to a tag (2GB/file limit,
+doesn't touch git history or trip the LFS restriction) rather than
+retrying LFS on this fork.
