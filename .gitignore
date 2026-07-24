@@ -96,3 +96,7 @@ logs_*.zip
 # iOS shell-app build products (XcodeGen regenerates the project from ios/project.yml)
 ios/build/
 ios/GeneralsXZH.xcodeproj/
+
+# Android packaging staging dir (scripts/build/android/package-android-zh.sh):
+# fetched fonts + default Turnip driver, re-derivable, not source.
+android-staging/
