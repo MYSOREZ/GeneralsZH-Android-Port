@@ -42,19 +42,6 @@
          show that system prompt. -->
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
 
-    <!-- GeneralsX @bugfix Android port 30/07/2026 gwpAsanMode="always": a
-         persistent Mali-G76 SIGSEGV (fault_addr=0x0) keeps landing inside
-         DxvkBarrierTracker::insertNode at a spot that shifts between
-         otherwise-identical builds, and manual Logger::err diagnostics
-         placed right before the faulting line never fire even once,
-         suggesting corrupted control flow rather than a normal crash inside
-         that function's logic. GWP-ASan guards a sample of heap allocations
-         with page guards and reports the actual use-after-free/overflow
-         site (allocation and free stack traces) instead of just where
-         execution eventually faults. "always" forces near-100% sampling for
-         this app specifically instead of production's low default rate.
-         Requires API 29+; harmless no-op on the API 28 floor this app
-         supports. Diagnostic only, drop once the crash is root-caused. -->
     <application
         android:label="@string/app_name"
         android:icon="@mipmap/ic_launcher"
@@ -63,8 +50,7 @@
         android:appCategory="game"
         android:hardwareAccelerated="true"
         android:supportsRtl="true"
-        android:requestLegacyExternalStorage="false"
-        android:gwpAsanMode="always">
+        android:requestLegacyExternalStorage="false">
 
         <activity
             android:name=".GeneralsZHActivity"

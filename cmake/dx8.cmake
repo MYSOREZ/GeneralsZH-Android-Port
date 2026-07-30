@@ -332,14 +332,21 @@ elseif(ANDROID)
   # never actually enabled them despite the feature bits being reported as
   # supported -- root cause of the Mali-G76 (Redmi Note 8 Pro) timeline
   # semaphore VUID crash found after the robustness2-optional fix.
-  # dxvk-mali-g76-barrier-diagnostic.patch: diagnostic-only logging in
-  # DxvkBarrierTracker::insertNode (dxvk_barrier.cpp:199) -- addr2line with
-  # real debug info pinned a still-unexplained Mali-G76 SIGSEGV to the
-  # m_nodes[rootIndex] access there, in code that's bounds-safe by
-  # construction, meaning something elsewhere corrupted this object or its
-  # index. Logs `this`/m_nodes.data()/size()/rootIndex right before the
-  # access so the next crash log tells us which. Remove once root-caused.
-  foreach(DXVK_PATCH_NAME dxvk-android.patch dxvk-ios.patch dxvk-vulkan11-adaptive.patch dxvk-resource-refcount-memory-order.patch dxvk-mali-clip-distance.patch dxvk-mali-g76-robustness2-optional.patch dxvk-android-missing-fallback-extensions.patch dxvk-mali-g76-barrier-diagnostic.patch)
+  # dxvk-mali-g76-legacy-barrier-fallback.patch: root cause of the Mali-G76
+  # SIGSEGV, confirmed via a real Android tombstone (root access): the driver
+  # has no VK_KHR_synchronization2 at all (apiVersion 1.1, extension absent),
+  # so vkCmdPipelineBarrier2/vkCmdSetEvent2/vkQueueSubmit2 (and their KHR
+  # aliases) all resolved to nullptr, and DxvkBarrierBatch::flush's
+  # unconditional call crashed with a null-pointer-call SIGSEGV on the
+  # dxvk-cs thread -- not a bug in DxvkBarrierTracker (that address was a
+  # bystander symbol from our own crash handler's PC==0 blind spot, since
+  # fixed separately in AndroidCrashHandler.cpp). This adds a legacy
+  # vkCmdPipelineBarrier/vkCmdSetEvent/vkQueueSubmit fallback (with a
+  # VkPipelineStageFlags2/VkAccessFlags2 -> legacy 32-bit conversion) for
+  # when synchronization2 isn't available, the same thing every
+  # mobile-shipping game engine (including this exact device's copy of Call
+  # of Duty Mobile) already does instead of depending on it.
+  foreach(DXVK_PATCH_NAME dxvk-android.patch dxvk-ios.patch dxvk-vulkan11-adaptive.patch dxvk-resource-refcount-memory-order.patch dxvk-mali-clip-distance.patch dxvk-mali-g76-robustness2-optional.patch dxvk-android-missing-fallback-extensions.patch dxvk-mali-g76-legacy-barrier-fallback.patch)
     execute_process(
       COMMAND git -C "${DXVK_LOCAL_FORK_DIR}" apply --reverse --check "${CMAKE_SOURCE_DIR}/Patches/${DXVK_PATCH_NAME}"
       RESULT_VARIABLE DXVK_PATCH_ALREADY_APPLIED
@@ -435,13 +442,7 @@ Cflags: -I\${includedir}
     DOWNLOAD_COMMAND  ""
     UPDATE_COMMAND    ""
     PATCH_COMMAND     ""
-    # GeneralsX @bugfix Android port 30/07/2026 debugoptimized (not release)
-    # temporarily, to get real DWARF line info for a persistent Mali-G76
-    # SIGSEGV in DxvkBarrierTracker::insertNode/CS-thread startup that
-    # addr2line can't localize under plain release (no -g at all, so every
-    # frame resolves to ":0" even though the unstripped .so still has function
-    # symbols). Revert to release once this is root-caused.
-    CONFIGURE_COMMAND ${CMAKE_COMMAND} -E env "${DXVK_PKG_CONFIG_ENV}" ${MESON_EXECUTABLE} setup ${DXVK_BUILD_DIR} ${DXVK_SOURCE_DIR} ${DXVK_MESON_MACHINE_ARGS} -Ddxvk_native_wsi=sdl3 --buildtype=debugoptimized --reconfigure
+    CONFIGURE_COMMAND ${CMAKE_COMMAND} -E env "${DXVK_PKG_CONFIG_ENV}" ${MESON_EXECUTABLE} setup ${DXVK_BUILD_DIR} ${DXVK_SOURCE_DIR} ${DXVK_MESON_MACHINE_ARGS} -Ddxvk_native_wsi=sdl3 --buildtype=release --reconfigure
     BUILD_COMMAND     ${NINJA_EXECUTABLE} -C ${DXVK_BUILD_DIR} src/d3d9/libdxvk_d3d9.so src/d3d8/libdxvk_d3d8.so
     BUILD_BYPRODUCTS  ${DXVK_D3D9_LIB} ${DXVK_D3D8_LIB}
     INSTALL_COMMAND   ""
