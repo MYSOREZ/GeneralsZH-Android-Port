@@ -364,7 +364,13 @@ elseif(ANDROID)
   # 8-bit BGRA format already used for A8R8G8B8/X8R8G8B8 instead -- used
   # pervasively (fonts, radar, shroud, thumbnails, water's white
   # placeholder), none of which notice the extra memory.
-  foreach(DXVK_PATCH_NAME dxvk-android.patch dxvk-ios.patch dxvk-vulkan11-adaptive.patch dxvk-resource-refcount-memory-order.patch dxvk-mali-clip-distance.patch dxvk-mali-g76-robustness2-optional.patch dxvk-android-missing-fallback-extensions.patch dxvk-mali-g76-legacy-barrier-fallback.patch dxvk-mali-g76-semaphore-fn-fallback.patch dxvk-mali-g76-4444-format.patch)
+  # dxvk-mali-g76-copy-commands2.patch: VK_KHR_copy_commands2 (needed for
+  # vkCmdCopyBufferToImage2/vkCmdCopyImage2/vkCmdBlitImage2/etc., all
+  # already wired with a KHR fallback in vulkan_loader.h) was never
+  # registered in getExtensionList, same missing-registration bug as the
+  # earlier six-extension fix, just found one crash later: SIGSEGV in
+  # DxvkContext::copyImageBufferData on Mali-G76, confirmed via tombstone.
+  foreach(DXVK_PATCH_NAME dxvk-android.patch dxvk-ios.patch dxvk-vulkan11-adaptive.patch dxvk-resource-refcount-memory-order.patch dxvk-mali-clip-distance.patch dxvk-mali-g76-robustness2-optional.patch dxvk-android-missing-fallback-extensions.patch dxvk-mali-g76-legacy-barrier-fallback.patch dxvk-mali-g76-semaphore-fn-fallback.patch dxvk-mali-g76-4444-format.patch dxvk-mali-g76-copy-commands2.patch)
     execute_process(
       COMMAND git -C "${DXVK_LOCAL_FORK_DIR}" apply --reverse --check "${CMAKE_SOURCE_DIR}/Patches/${DXVK_PATCH_NAME}"
       RESULT_VARIABLE DXVK_PATCH_ALREADY_APPLIED
