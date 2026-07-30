@@ -1,85 +1,49 @@
-diff --git a/src/d3d9/d3d9_device.cpp b/src/d3d9/d3d9_device.cpp
-index c98275f..8a10e4a 100644
---- a/src/d3d9/d3d9_device.cpp
-+++ b/src/d3d9/d3d9_device.cpp
-@@ -4584,6 +4584,11 @@ namespace dxvk {
+diff --git a/src/d3d9/d3d9_format.cpp b/src/d3d9/d3d9_format.cpp
+index a3af186..bb65872 100644
+--- a/src/d3d9/d3d9_format.cpp
++++ b/src/d3d9/d3d9_format.cpp
+@@ -38,9 +38,23 @@ namespace dxvk {
+         VK_FORMAT_UNDEFINED,
+         VK_IMAGE_ASPECT_COLOR_BIT };
  
-     enabled.extNonSeamlessCubeMap.nonSeamlessCubeMap = supported.extNonSeamlessCubeMap.nonSeamlessCubeMap;
++      // GeneralsX @bugfix Android port 30/07/2026 VK_FORMAT_A4R4G4B4_UNORM_PACK16
++      // is core-only since Vulkan 1.3 (VK_EXT_4444_formats backports it to
++      // older versions). Registering that extension wasn't enough on
++      // Mali-G76 (Vulkan 1.1) -- vkGetPhysicalDeviceImageFormatProperties2
++      // still reported the format as unusable for actual image creation
++      // even with the extension present, so CreateTexture kept silently
++      // failing (confirmed via a real Android tombstone: SIGSEGV in
++      // WaterRenderObjClass::init, which locks a surface DXVK never
++      // actually created). Mapping to the same 8-bit BGRA format already
++      // used for A8R8G8B8 sidesteps the whole "does this specific driver's
++      // 4444-format support actually work" question -- it's universally
++      // supported, and the handful of low-res UI/placeholder textures that
++      // use this D3D9 format (fonts, radar, shroud, thumbnails) don't
++      // notice the extra memory.
+       case D3D9Format::A4R4G4B4: return {
+-        VK_FORMAT_A4R4G4B4_UNORM_PACK16,
+-        VK_FORMAT_UNDEFINED,
++        VK_FORMAT_B8G8R8A8_UNORM,
++        VK_FORMAT_B8G8R8A8_SRGB,
+         VK_IMAGE_ASPECT_COLOR_BIT };
  
-+    // GeneralsX @bugfix Android port 30/07/2026 See DxvkDeviceExtensions::extFormat4444
-+    // (dxvk_extensions.h) for why this is needed on Mali-G76.
-+    enabled.extFormat4444.formatA4R4G4B4 = supported.extFormat4444.formatA4R4G4B4;
-+    enabled.extFormat4444.formatA4B4G4R4 = supported.extFormat4444.formatA4B4G4R4;
-+
-     enabled.extDepthBiasControl.depthBiasControl = supported.extDepthBiasControl.depthBiasControl;
-     enabled.extDepthBiasControl.depthBiasExact = supported.extDepthBiasControl.depthBiasExact;
-     if (supported.extDepthBiasControl.floatRepresentation)
-diff --git a/src/dxvk/dxvk_adapter.cpp b/src/dxvk/dxvk_adapter.cpp
-index 3a04fe7..a170a88 100644
---- a/src/dxvk/dxvk_adapter.cpp
-+++ b/src/dxvk/dxvk_adapter.cpp
-@@ -1089,6 +1089,11 @@ namespace dxvk {
-       m_deviceFeatures.extFragmentShaderInterlock.pNext = std::exchange(m_deviceFeatures.core.pNext, &m_deviceFeatures.extFragmentShaderInterlock);
-     }
+       case D3D9Format::R3G3B2: return {}; // Unsupported
+@@ -54,10 +68,15 @@ namespace dxvk {
  
-+    if (m_deviceExtensions.supports(VK_EXT_4444_FORMATS_EXTENSION_NAME)) {
-+      m_deviceFeatures.extFormat4444.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_4444_FORMATS_FEATURES_EXT;
-+      m_deviceFeatures.extFormat4444.pNext = std::exchange(m_deviceFeatures.core.pNext, &m_deviceFeatures.extFormat4444);
-+    }
-+
-     if (m_deviceExtensions.supports(VK_EXT_FULL_SCREEN_EXCLUSIVE_EXTENSION_NAME))
-       m_deviceFeatures.extFullScreenExclusive = VK_TRUE;
+       case D3D9Format::A8R3G3B2: return {}; // Unsupported
  
-@@ -1251,6 +1256,7 @@ namespace dxvk {
-       &devExtensions.extDepthClipEnable,
-       &devExtensions.extDepthBiasControl,
-       &devExtensions.extExtendedDynamicState3,
-+      &devExtensions.extFormat4444,
-       &devExtensions.extFragmentShaderInterlock,
-       &devExtensions.extFullScreenExclusive,
-       &devExtensions.extGraphicsPipelineLibrary,
-@@ -1406,6 +1412,11 @@ namespace dxvk {
-       enabledFeatures.extFragmentShaderInterlock.pNext = std::exchange(enabledFeatures.core.pNext, &enabledFeatures.extFragmentShaderInterlock);
-     }
++      // GeneralsX @bugfix Android port 30/07/2026 Same fix as A4R4G4B4 above,
++      // same reason (Mali-G76 can't actually create VK_FORMAT_A4R4G4B4_UNORM_PACK16
++      // images). Alpha forced to 1 via swizzle, same pattern as X8R8G8B8.
+       case D3D9Format::X4R4G4B4: return {
+-        VK_FORMAT_A4R4G4B4_UNORM_PACK16,
+-        VK_FORMAT_UNDEFINED,
+-        VK_IMAGE_ASPECT_COLOR_BIT };
++        VK_FORMAT_B8G8R8A8_UNORM,
++        VK_FORMAT_B8G8R8A8_SRGB,
++        VK_IMAGE_ASPECT_COLOR_BIT,
++        { VK_COMPONENT_SWIZZLE_R, VK_COMPONENT_SWIZZLE_G,
++          VK_COMPONENT_SWIZZLE_B, VK_COMPONENT_SWIZZLE_ONE }};
  
-+    if (devExtensions.extFormat4444) {
-+      enabledFeatures.extFormat4444.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_4444_FORMATS_FEATURES_EXT;
-+      enabledFeatures.extFormat4444.pNext = std::exchange(enabledFeatures.core.pNext, &enabledFeatures.extFormat4444);
-+    }
-+
-     if (devExtensions.extFullScreenExclusive && insExtensions.khrGetSurfaceCapabilities2)
-       enabledFeatures.extFullScreenExclusive = VK_TRUE;
- 
-diff --git a/src/dxvk/dxvk_device_info.h b/src/dxvk/dxvk_device_info.h
-index e9741b3..3b2ea8b 100644
---- a/src/dxvk/dxvk_device_info.h
-+++ b/src/dxvk/dxvk_device_info.h
-@@ -52,6 +52,7 @@ namespace dxvk {
-     VkPhysicalDeviceDepthClipEnableFeaturesEXT                extDepthClipEnable;
-     VkPhysicalDeviceDepthBiasControlFeaturesEXT               extDepthBiasControl;
-     VkPhysicalDeviceExtendedDynamicState3FeaturesEXT          extExtendedDynamicState3;
-+    VkPhysicalDevice4444FormatsFeaturesEXT                    extFormat4444;
-     VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT        extFragmentShaderInterlock;
-     VkBool32                                                  extFullScreenExclusive;
-     VkPhysicalDeviceGraphicsPipelineLibraryFeaturesEXT        extGraphicsPipelineLibrary;
-diff --git a/src/dxvk/dxvk_extensions.h b/src/dxvk/dxvk_extensions.h
-index b7ba732..ec05e1a 100644
---- a/src/dxvk/dxvk_extensions.h
-+++ b/src/dxvk/dxvk_extensions.h
-@@ -302,6 +302,16 @@ namespace dxvk {
-     DxvkExt extDepthClipEnable                = { VK_EXT_DEPTH_CLIP_ENABLE_EXTENSION_NAME,                  DxvkExtMode::Optional };
-     DxvkExt extDepthBiasControl               = { VK_EXT_DEPTH_BIAS_CONTROL_EXTENSION_NAME,                 DxvkExtMode::Optional };
-     DxvkExt extExtendedDynamicState3          = { VK_EXT_EXTENDED_DYNAMIC_STATE_3_EXTENSION_NAME,           DxvkExtMode::Optional };
-+    // GeneralsX @bugfix Android port 30/07/2026 VK_FORMAT_A4R4G4B4_UNORM_PACK16
-+    // (used for D3DFMT_A4R4G4B4, a format the engine leans on pervasively --
-+    // fonts, radar, shroud/fog-of-war, texture thumbnails, and a 1x1 "white"
-+    // placeholder texture used by water rendering) is core-only starting
-+    // Vulkan 1.3; on this Mali-G76 (Vulkan 1.1) it was never a valid format
-+    // at all without this extension, which DXVK never registered. Texture
-+    // creation for it silently failed, and the engine's own callers don't
-+    // null-check before locking the resulting (absent) surface -- SIGSEGV
-+    // in WaterRenderObjClass::init confirmed via a real Android tombstone.
-+    DxvkExt extFormat4444                     = { VK_EXT_4444_FORMATS_EXTENSION_NAME,                       DxvkExtMode::Optional };
-     DxvkExt extFullScreenExclusive            = { VK_EXT_FULL_SCREEN_EXCLUSIVE_EXTENSION_NAME,              DxvkExtMode::Optional };
-     DxvkExt extFragmentShaderInterlock        = { VK_EXT_FRAGMENT_SHADER_INTERLOCK_EXTENSION_NAME,          DxvkExtMode::Optional };
-     DxvkExt extGraphicsPipelineLibrary        = { VK_EXT_GRAPHICS_PIPELINE_LIBRARY_EXTENSION_NAME,          DxvkExtMode::Optional };
+       case D3D9Format::A2B10G10R10: return {
+         VK_FORMAT_A2B10G10R10_UNORM_PACK32, // The A2 is out of place here. This should be investigated.
