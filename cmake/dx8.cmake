@@ -428,7 +428,13 @@ Cflags: -I\${includedir}
     DOWNLOAD_COMMAND  ""
     UPDATE_COMMAND    ""
     PATCH_COMMAND     ""
-    CONFIGURE_COMMAND ${CMAKE_COMMAND} -E env "${DXVK_PKG_CONFIG_ENV}" ${MESON_EXECUTABLE} setup ${DXVK_BUILD_DIR} ${DXVK_SOURCE_DIR} ${DXVK_MESON_MACHINE_ARGS} -Ddxvk_native_wsi=sdl3 --buildtype=release --reconfigure
+    # GeneralsX @bugfix Android port 30/07/2026 debugoptimized (not release)
+    # temporarily, to get real DWARF line info for a persistent Mali-G76
+    # SIGSEGV in DxvkBarrierTracker::insertNode/CS-thread startup that
+    # addr2line can't localize under plain release (no -g at all, so every
+    # frame resolves to ":0" even though the unstripped .so still has function
+    # symbols). Revert to release once this is root-caused.
+    CONFIGURE_COMMAND ${CMAKE_COMMAND} -E env "${DXVK_PKG_CONFIG_ENV}" ${MESON_EXECUTABLE} setup ${DXVK_BUILD_DIR} ${DXVK_SOURCE_DIR} ${DXVK_MESON_MACHINE_ARGS} -Ddxvk_native_wsi=sdl3 --buildtype=debugoptimized --reconfigure
     BUILD_COMMAND     ${NINJA_EXECUTABLE} -C ${DXVK_BUILD_DIR} src/d3d9/libdxvk_d3d9.so src/d3d8/libdxvk_d3d8.so
     BUILD_BYPRODUCTS  ${DXVK_D3D9_LIB} ${DXVK_D3D8_LIB}
     INSTALL_COMMAND   ""
