@@ -415,9 +415,30 @@ Cflags: -I\${includedir}
     PATCH_COMMAND     ""
     CONFIGURE_COMMAND ${CMAKE_COMMAND} -E env "${DXVK_PKG_CONFIG_ENV}" ${MESON_EXECUTABLE} setup ${DXVK_BUILD_DIR} ${DXVK_SOURCE_DIR} ${DXVK_MESON_MACHINE_ARGS} -Ddxvk_native_wsi=sdl3 --buildtype=release --reconfigure
     BUILD_COMMAND     ${NINJA_EXECUTABLE} -C ${DXVK_BUILD_DIR} src/d3d9/libdxvk_d3d9.so src/d3d8/libdxvk_d3d8.so
+    BUILD_BYPRODUCTS  ${DXVK_D3D9_LIB} ${DXVK_D3D8_LIB}
     INSTALL_COMMAND   ""
     UPDATE_DISCONNECTED TRUE
+    BUILD_ALWAYS      TRUE
   )
+  # GeneralsX @bugfix Android port 30/07/2026 Two compounding staleness bugs
+  # found the hard way -- libdxvk_d3d9.so in this environment was last
+  # actually built 23/07, and every DXVK source patch applied since
+  # (including two meant to fix real device crashes, today) silently never
+  # made it into a single shipped APK despite every build reporting success:
+  #   1. Without BUILD_ALWAYS, ExternalProject_Add only ever runs
+  #      BUILD_COMMAND once and then trusts a stamp file forever, regardless
+  #      of source changes. Ninja's own incremental build inside
+  #      DXVK_BUILD_DIR is a no-op in well under a second when nothing
+  #      changed, so forcing this step to always run costs nothing and makes
+  #      ninja -- not a CMake stamp file -- the actual source of truth.
+  #   2. Even with (1) fixed, the add_custom_command below that copies the
+  #      built .so out of DXVK_BUILD_DIR only depended on the
+  #      dxvk_android_build *target* (an ordering-only dependency), not on
+  #      the .so *file* -- so Ninja never saw a reason to re-run the copy
+  #      when the file's content changed underneath it, and kept shipping
+  #      the stale copy. BUILD_BYPRODUCTS is what tells Ninja these paths
+  #      are real files this target produces, so downstream DEPENDS on the
+  #      file (not just the target) actually tracks freshness.
   # meson links the DXVK libs against the in-tree libSDL3.so (from the generated
   # sdl3.pc); make sure it exists before the ExternalProject's build step runs.
   if(TARGET SDL3-shared)
@@ -433,7 +454,7 @@ Cflags: -I\${includedir}
               ${DXVK_D3D9_LIB} "${CMAKE_BINARY_DIR}/libdxvk_d3d9.so"
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
               ${DXVK_D3D8_LIB} "${CMAKE_BINARY_DIR}/libdxvk_d3d8.so"
-    DEPENDS dxvk_android_build
+    DEPENDS dxvk_android_build ${DXVK_D3D9_LIB} ${DXVK_D3D8_LIB}
     COMMENT "Installing libdxvk_d3d8 + libdxvk_d3d9 to build directory"
   )
   add_custom_target(dxvk_d3d8_install ALL
