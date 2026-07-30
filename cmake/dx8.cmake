@@ -403,7 +403,17 @@ elseif(ANDROID)
   # vkCreateSwapchainKHR failed and left the swapchain null, crashing the
   # next time the render loop touched it. Now picks OPAQUE when supported,
   # otherwise the first bit the surface actually reports.
-  foreach(DXVK_PATCH_NAME dxvk-android.patch dxvk-ios.patch dxvk-vulkan11-adaptive.patch dxvk-resource-refcount-memory-order.patch dxvk-mali-clip-distance.patch dxvk-mali-g76-robustness2-optional.patch dxvk-android-missing-fallback-extensions.patch dxvk-mali-g76-legacy-barrier-fallback.patch dxvk-mali-g76-semaphore-fn-fallback.patch dxvk-mali-g76-4444-format.patch dxvk-mali-g76-copy-commands2.patch dxvk-mali-g76-legacy-copy-fallback.patch dxvk-mali-g76-legacy-render-pass.patch dxvk-mali-g76-composite-alpha.patch)
+  # dxvk-mali-g76-vertex-buffer-stride-fallback.patch: vkCmdBindVertexBuffers2
+  # (Vulkan 1.3 core / VK_EXT_extended_dynamic_state) was called
+  # unconditionally in DxvkContext::updateVertexBufferBindings, null on
+  # Mali-G76 (Vulkan 1.1 only) -- tombstone-confirmed SIGSEGV on the very
+  # first indexed draw call. Legacy vkCmdBindVertexBuffers has no per-draw
+  # stride parameter, so updateVertexBufferBindings also now only selects
+  # dynamic per-draw strides when the "2" function is actually available;
+  # otherwise the real stride is baked into the pipeline's
+  # VkVertexInputBindingDescription as usual, avoiding a stride-0 fallback
+  # (silent broken rendering) once the crash itself is fixed.
+  foreach(DXVK_PATCH_NAME dxvk-android.patch dxvk-ios.patch dxvk-vulkan11-adaptive.patch dxvk-resource-refcount-memory-order.patch dxvk-mali-clip-distance.patch dxvk-mali-g76-robustness2-optional.patch dxvk-android-missing-fallback-extensions.patch dxvk-mali-g76-legacy-barrier-fallback.patch dxvk-mali-g76-semaphore-fn-fallback.patch dxvk-mali-g76-4444-format.patch dxvk-mali-g76-copy-commands2.patch dxvk-mali-g76-legacy-copy-fallback.patch dxvk-mali-g76-legacy-render-pass.patch dxvk-mali-g76-composite-alpha.patch dxvk-mali-g76-vertex-buffer-stride-fallback.patch)
     execute_process(
       COMMAND git -C "${DXVK_LOCAL_FORK_DIR}" apply --reverse --check "${CMAKE_SOURCE_DIR}/Patches/${DXVK_PATCH_NAME}"
       RESULT_VARIABLE DXVK_PATCH_ALREADY_APPLIED
