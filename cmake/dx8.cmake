@@ -354,7 +354,14 @@ elseif(ANDROID)
   # barrier fix got device init past its previous crash point:
   # DxvkSubmissionQueue::finishCmdLists's vkWaitSemaphores call, null-pointer
   # SIGSEGV on the dxvk-queue thread.
-  foreach(DXVK_PATCH_NAME dxvk-android.patch dxvk-ios.patch dxvk-vulkan11-adaptive.patch dxvk-resource-refcount-memory-order.patch dxvk-mali-clip-distance.patch dxvk-mali-g76-robustness2-optional.patch dxvk-android-missing-fallback-extensions.patch dxvk-mali-g76-legacy-barrier-fallback.patch dxvk-mali-g76-semaphore-fn-fallback.patch)
+  # dxvk-mali-g76-4444-format.patch: registers VK_EXT_4444_formats (needed
+  # for VK_FORMAT_A4R4G4B4_UNORM_PACK16 / D3DFMT_A4R4G4B4, core-only since
+  # Vulkan 1.3) so texture creation for it stops silently failing on this
+  # 1.1-only device -- used pervasively (fonts, radar, shroud, thumbnails,
+  # water's white placeholder), found via a tombstone SIGSEGV in
+  # WaterRenderObjClass::init after the barrier/semaphore fallbacks got
+  # past every prior DXVK-level crash on this device.
+  foreach(DXVK_PATCH_NAME dxvk-android.patch dxvk-ios.patch dxvk-vulkan11-adaptive.patch dxvk-resource-refcount-memory-order.patch dxvk-mali-clip-distance.patch dxvk-mali-g76-robustness2-optional.patch dxvk-android-missing-fallback-extensions.patch dxvk-mali-g76-legacy-barrier-fallback.patch dxvk-mali-g76-semaphore-fn-fallback.patch dxvk-mali-g76-4444-format.patch)
     execute_process(
       COMMAND git -C "${DXVK_LOCAL_FORK_DIR}" apply --reverse --check "${CMAKE_SOURCE_DIR}/Patches/${DXVK_PATCH_NAME}"
       RESULT_VARIABLE DXVK_PATCH_ALREADY_APPLIED
