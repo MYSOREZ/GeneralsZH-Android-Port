@@ -155,6 +155,29 @@ void computeCrashLogPath() {
 		"/data/user/%d/com.generalsx.zerohour/files/crash.log", userId);
 }
 
+// GeneralsX @bugfix Android port 30/07/2026 crash.log is append-only by
+// design -- a crash mid-write must never truncate what's already on disk --
+// but that also means it never shrinks on its own. A tester who reinstalls
+// across dozens of test builds without ever tapping "Clear Logs" ends up
+// with every launch stamp and every crash block from every prior session
+// concatenated into one growing file, with the build-compiled stamp being
+// the only (and, per the ccache note above, not fully reliable) way to tell
+// them apart. Rotate it the same way SDL3Main.cpp already rotates
+// generals-stderr.log: move whatever is there into crash-prev.log before
+// this session writes its own first byte, so crash.log holds at most this
+// session's own content, and the previous session's record is still one
+// tap away in Settings -> View Logs instead of accumulating forever.
+void rotatePrevCrashLog() {
+	if (s_crashLogPath[0] == '\0') {
+		return;
+	}
+	int userId = (int)(getuid() / 100000);
+	char prevPath[256];
+	snprintf(prevPath, sizeof(prevPath),
+		"/data/user/%d/com.generalsx.zerohour/files/crash-prev.log", userId);
+	rename(s_crashLogPath, prevPath);
+}
+
 struct sigaction s_prevHandlers[NSIG];
 bool s_haveHandlerFor[NSIG] = {};
 
@@ -295,6 +318,7 @@ char s_altStack[64 * 1024];
 __attribute__((constructor))
 void installAndroidCrashHandler() {
 	computeCrashLogPath();
+	rotatePrevCrashLog();
 
 	stack_t ss;
 	ss.ss_sp = s_altStack;

@@ -161,6 +161,15 @@ public class LogViewerActivity extends Activity {
         sb.append(crashLog.exists() ? readHeadAndTail(crashLog) : getString(R.string.logviewer_crash_log_absent));
         sb.append("\n\n");
 
+        // GeneralsX @bugfix Android port 30/07/2026 crash.log now rotates to
+        // crash-prev.log on every launch (AndroidCrashHandler.cpp) instead of
+        // growing forever across reinstalls -- show that previous record too,
+        // the same way generals-stderr-prev.log already is below.
+        File crashPrevLog = new File(getFilesDir(), "crash-prev.log");
+        sb.append(getString(R.string.logviewer_section_crash_prev_log));
+        sb.append(crashPrevLog.exists() ? readHeadAndTail(crashPrevLog) : getString(R.string.logviewer_crash_prev_log_absent));
+        sb.append("\n\n");
+
         File extDir = getExternalFilesDir(null);
         File stderrLog = extDir != null ? new File(extDir, "generals-stderr.log") : null;
         sb.append(getString(R.string.logviewer_section_stderr_log));
@@ -186,6 +195,7 @@ public class LogViewerActivity extends Activity {
 
     private void clearLogs() {
         new File(getFilesDir(), "crash.log").delete();
+        new File(getFilesDir(), "crash-prev.log").delete();
         File extDir = getExternalFilesDir(null);
         if (extDir != null) {
             new File(extDir, "generals-stderr.log").delete();

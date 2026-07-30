@@ -96,6 +96,8 @@
     <string name="logviewer_toast_copied">Copied to clipboard.</string>
     <string name="logviewer_section_crash_log">=== crash.log (native crash handler, internal storage) ===\n</string>
     <string name="logviewer_crash_log_absent">(not present — no native crash recorded since install, or the app has never launched past library load)</string>
+    <string name="logviewer_section_crash_prev_log">=== crash-prev.log (native crash handler, previous session) ===\n</string>
+    <string name="logviewer_crash_prev_log_absent">(not present)</string>
     <string name="logviewer_section_stderr_log">=== generals-stderr.log (engine log, external storage) ===\n</string>
     <string name="logviewer_stderr_log_absent">(not present — the engine\'s main() has not started yet, or external storage is unavailable)</string>
     <string name="logviewer_section_prev_log">=== generals-stderr-prev.log (previous session) ===\n</string>
