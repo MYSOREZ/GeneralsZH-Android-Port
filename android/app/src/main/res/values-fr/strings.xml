@@ -109,7 +109,6 @@
     <string name="logviewer_share_chooser_title">Partager le journal</string>
     <string name="logviewer_toast_share_failed">Impossible de préparer le fichier journal pour le partage : %1$s</string>
     <string name="logviewer_read_failed">(impossible de lire %1$s : %2$s)</string>
-    <string name="logviewer_truncated_notice">...(tronqué, affichage de la fin)...\n</string>
 
     <!-- GeneralsOnlineActivity -->
     <string name="online_window_title">Compte GeneralsOnline</string>

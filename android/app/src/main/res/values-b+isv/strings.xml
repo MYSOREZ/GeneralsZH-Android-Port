@@ -109,7 +109,6 @@
     <string name="logviewer_share_chooser_title">Poděliti log</string>
     <string name="logviewer_toast_share_failed">Ne uspělo prigotoviti datoteku loga za dělenje: %1$s</string>
     <string name="logviewer_read_failed">(ne uspělo pročitati %1$s: %2$s)</string>
-    <string name="logviewer_truncated_notice">...(skraćeno, pokazan jest konec)...\n</string>
 
     <!-- GeneralsOnlineActivity -->
     <string name="online_window_title">Konto GeneralsOnline</string>

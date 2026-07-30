@@ -109,7 +109,6 @@
     <string name="logviewer_share_chooser_title">Udostępnij dziennik</string>
     <string name="logviewer_toast_share_failed">Nie udało się przygotować pliku dziennika do udostępnienia: %1$s</string>
     <string name="logviewer_read_failed">(nie udało się odczytać %1$s: %2$s)</string>
-    <string name="logviewer_truncated_notice">...(obcięto, pokazano końcową część)...\n</string>
 
     <!-- GeneralsOnlineActivity -->
     <string name="online_window_title">Konto GeneralsOnline</string>

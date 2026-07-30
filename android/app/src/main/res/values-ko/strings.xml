@@ -109,7 +109,6 @@
     <string name="logviewer_share_chooser_title">로그 공유</string>
     <string name="logviewer_toast_share_failed">공유할 로그 파일을 준비할 수 없습니다: %1$s</string>
     <string name="logviewer_read_failed">(%1$s을(를) 읽을 수 없습니다: %2$s)</string>
-    <string name="logviewer_truncated_notice">...(일부 생략됨, 끝부분을 표시합니다)...\n</string>
 
     <!-- GeneralsOnlineActivity -->
     <string name="online_window_title">GeneralsOnline 계정</string>

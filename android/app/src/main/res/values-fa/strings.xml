@@ -109,7 +109,6 @@
     <string name="logviewer_share_chooser_title">اشتراک‌گذاری گزارش</string>
     <string name="logviewer_toast_share_failed">آماده‌سازی فایل گزارش برای اشتراک‌گذاری ممکن نشد: %1$s</string>
     <string name="logviewer_read_failed">(خواندن %1$s ممکن نشد: %2$s)</string>
-    <string name="logviewer_truncated_notice">...(کوتاه شده، پایان فایل نمایش داده می‌شود)...\n</string>
 
     <!-- GeneralsOnlineActivity -->
     <string name="online_window_title">حساب GeneralsOnline</string>

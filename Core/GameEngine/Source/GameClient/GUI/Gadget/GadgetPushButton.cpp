@@ -53,6 +53,7 @@
 #include "GameClient/Gadget.h"
 #include "GameClient/GameWindowManager.h"
 #include "GameClient/InGameUI.h"
+#include "GXTrace.h"
 
 // DEFINES ////////////////////////////////////////////////////////////////////
 
@@ -487,11 +488,9 @@ WindowMsgHandledType GadgetPushButtonSystem( GameWindow *window, UnsignedInt msg
 		case GGM_SET_LABEL:
 		{
 			// set text into the win instance text data field
-			fprintf(stderr, "[GX-TRACE] GadgetPushButtonSystem: about to winSetText window=%p\n", (void*)window);
-			fflush(stderr);
+			GX_TRACE("GadgetPushButtonSystem: about to winSetText window=%p\n", (void*)window);
 			window->winSetText( *(UnicodeString*)mData1 );
-			fprintf(stderr, "[GX-TRACE] GadgetPushButtonSystem: winSetText returned window=%p\n", (void*)window);
-			fflush(stderr);
+			GX_TRACE("GadgetPushButtonSystem: winSetText returned window=%p\n", (void*)window);
 			break;
 		}
 

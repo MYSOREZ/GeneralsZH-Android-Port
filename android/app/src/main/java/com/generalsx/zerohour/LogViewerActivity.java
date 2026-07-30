@@ -72,6 +72,21 @@ public class LogViewerActivity extends Activity {
     // megabytes, and this is a plain TextView, not a virtualized log viewer.
     private static final int MAX_CHARS_PER_FILE = 200_000;
 
+    // GeneralsX @bugfix Android port 30/07/2026 Of that budget, keep this much
+    // from the START of the session and spend the rest on the tail.
+    //
+    // Tail-only truncation kept losing exactly the part that explains a
+    // failure. The startup banner (build number, device, GPU/driver, Vulkan
+    // version), the INI load sequence and DXVK init all happen in the first
+    // few thousand lines; a per-frame-chatty session then pushes them out
+    // long before the user gets around to exporting. Issue #2's 2026-07-26
+    // report was the clearest case: 2,681 lines exported, every one of them
+    // per-frame render tracing, nothing at all about what went wrong.
+    //
+    // 60k/140k rather than an even split: the head only has to cover
+    // startup, while the tail is where a hang or a repeating error shows up.
+    private static final int HEAD_CHARS_PER_FILE = 60_000;
+
     private String combinedLog = "";
 
     @Override
@@ -143,18 +158,18 @@ public class LogViewerActivity extends Activity {
 
         File crashLog = new File(getFilesDir(), "crash.log");
         sb.append(getString(R.string.logviewer_section_crash_log));
-        sb.append(crashLog.exists() ? readTail(crashLog) : getString(R.string.logviewer_crash_log_absent));
+        sb.append(crashLog.exists() ? readHeadAndTail(crashLog) : getString(R.string.logviewer_crash_log_absent));
         sb.append("\n\n");
 
         File extDir = getExternalFilesDir(null);
         File stderrLog = extDir != null ? new File(extDir, "generals-stderr.log") : null;
         sb.append(getString(R.string.logviewer_section_stderr_log));
-        sb.append(stderrLog != null && stderrLog.exists() ? readTail(stderrLog) : getString(R.string.logviewer_stderr_log_absent));
+        sb.append(stderrLog != null && stderrLog.exists() ? readHeadAndTail(stderrLog) : getString(R.string.logviewer_stderr_log_absent));
         sb.append("\n\n");
 
         File prevLog = extDir != null ? new File(extDir, "generals-stderr-prev.log") : null;
         sb.append(getString(R.string.logviewer_section_prev_log));
-        sb.append(prevLog != null && prevLog.exists() ? readTail(prevLog) : getString(R.string.logviewer_prev_log_absent));
+        sb.append(prevLog != null && prevLog.exists() ? readHeadAndTail(prevLog) : getString(R.string.logviewer_prev_log_absent));
 
         combinedLog = sb.toString();
         logText().setText(combinedLog);
@@ -200,18 +215,56 @@ public class LogViewerActivity extends Activity {
         }
     }
 
-    private String readTail(File file) {
+    /**
+     * Read a log, keeping the beginning of the session as well as the end.
+     * Under the cap the file is returned whole; over it, the head and the
+     * tail are joined by a marker naming how much was dropped in between.
+     */
+    private String readHeadAndTail(File file) {
         try (Reader r = new FileReader(file)) {
             long size = file.length();
-            if (size > MAX_CHARS_PER_FILE) {
-                r.skip(size - MAX_CHARS_PER_FILE);
+            if (size <= MAX_CHARS_PER_FILE) {
+                return readChars(r, (int) size);
             }
-            CharBuffer buf = CharBuffer.allocate(MAX_CHARS_PER_FILE);
-            r.read(buf);
-            buf.flip();
-            return (size > MAX_CHARS_PER_FILE ? getString(R.string.logviewer_truncated_notice) : "") + buf.toString();
+
+            String head = readChars(r, HEAD_CHARS_PER_FILE);
+
+            int tailChars = MAX_CHARS_PER_FILE - HEAD_CHARS_PER_FILE;
+            // size is a byte count and we are reading chars; for the ASCII
+            // these logs are made of they match, and being off by a little
+            // only shifts the cut, so an estimate is good enough here.
+            long elided = size - HEAD_CHARS_PER_FILE - tailChars;
+            skipFully(r, elided);
+
+            String tail = readChars(r, tailChars);
+            return head + getString(R.string.logviewer_elided_notice, elided) + tail;
         } catch (IOException e) {
             return getString(R.string.logviewer_read_failed, file.getAbsolutePath(), e.getMessage());
+        }
+    }
+
+    private static String readChars(Reader r, int count) throws IOException {
+        if (count <= 0) {
+            return "";
+        }
+        CharBuffer buf = CharBuffer.allocate(count);
+        // A single read() can come up short; keep going until the buffer is
+        // full or the stream ends, or the tail would start at the wrong offset.
+        while (buf.hasRemaining() && r.read(buf) != -1) {
+            // keep reading
+        }
+        buf.flip();
+        return buf.toString();
+    }
+
+    private static void skipFully(Reader r, long count) throws IOException {
+        long remaining = count;
+        while (remaining > 0) {
+            long skipped = r.skip(remaining);
+            if (skipped <= 0) {
+                break;
+            }
+            remaining -= skipped;
         }
     }
 

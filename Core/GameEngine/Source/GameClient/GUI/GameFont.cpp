@@ -30,6 +30,7 @@
 #include "PreRTS.h"	// This must go first in EVERY cpp file in the GameEngine
 
 #include "GameClient/GameFont.h"
+#include "GXTrace.h"
 
 // PUBLIC DATA ////////////////////////////////////////////////////////////////////////////////////
 FontLibrary *TheFontLibrary = nullptr;
@@ -196,8 +197,7 @@ GameFont *FontLibrary::getFont( AsciiString name, Int pointSize, Bool bold )
 				font->nameString == name
 			)
 		{
-			fprintf(stderr, "[GX-TRACE] getFont: cache-hit return name=%s size=%d bold=%d font=%p\n", name.str(), pointSize, bold, (void*)font);
-			fflush(stderr);
+			GX_TRACE("getFont: cache-hit return name=%s size=%d bold=%d font=%p\n", name.str(), pointSize, bold, (void*)font);
 			return font;  // found
 		}
 
@@ -234,8 +234,7 @@ GameFont *FontLibrary::getFont( AsciiString name, Int pointSize, Bool bold )
 	linkFont( font );
 
 	// all is done and loaded
-	fprintf(stderr, "[GX-TRACE] getFont: freshly-loaded return name=%s size=%d bold=%d font=%p\n", name.str(), pointSize, bold, (void*)font);
-	fflush(stderr);
+	GX_TRACE("getFont: freshly-loaded return name=%s size=%d bold=%d font=%p\n", name.str(), pointSize, bold, (void*)font);
 	return font;
 
 }

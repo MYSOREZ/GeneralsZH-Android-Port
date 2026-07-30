@@ -109,7 +109,6 @@
     <string name="logviewer_share_chooser_title">Compartir registro</string>
     <string name="logviewer_toast_share_failed">No se pudo preparar el archivo de registro para compartir: %1$s</string>
     <string name="logviewer_read_failed">(no se pudo leer %1$s: %2$s)</string>
-    <string name="logviewer_truncated_notice">...(truncado, mostrando el final)...\n</string>
 
     <!-- GeneralsOnlineActivity -->
     <string name="online_window_title">Cuenta de GeneralsOnline</string>

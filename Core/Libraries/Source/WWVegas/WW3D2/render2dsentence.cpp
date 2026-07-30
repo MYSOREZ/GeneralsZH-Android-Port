@@ -40,6 +40,7 @@
 #include "wwprofile.h"
 #include "wwmemlog.h"
 #include "dx8wrapper.h"
+#include "GXTrace.h"
 
 
 ////////////////////////////////////////////////////////////////////////////////////
@@ -203,21 +204,17 @@ Render2DSentenceClass::Render ()
 	//
 	//	Build any textures that are pending
 	//
-	fprintf(stderr, "[GX-TRACE] Render2DSentenceClass::Render: about to Build_Textures pending=%d\n", PendingSurfaces.Count());
-	fflush(stderr);
+	GX_TRACE("Render2DSentenceClass::Render: about to Build_Textures pending=%d\n", PendingSurfaces.Count());
 	Build_Textures ();
-	fprintf(stderr, "[GX-TRACE] Render2DSentenceClass::Render: Build_Textures returned, renderers=%d\n", Renderers.Count());
-	fflush(stderr);
+	GX_TRACE("Render2DSentenceClass::Render: Build_Textures returned, renderers=%d\n", Renderers.Count());
 
 	//
 	//	Ask each renderer to draw its contents
 	//
 	for (int i = 0; i < Renderers.Count (); i ++) {
-		fprintf(stderr, "[GX-TRACE] Render2DSentenceClass::Render: about to Renderers[%d]->Render()\n", i);
-		fflush(stderr);
+		GX_TRACE("Render2DSentenceClass::Render: about to Renderers[%d]->Render()\n", i);
 		Renderers[i].Renderer->Render ();
-		fprintf(stderr, "[GX-TRACE] Render2DSentenceClass::Render: Renderers[%d]->Render() returned\n", i);
-		fflush(stderr);
+		GX_TRACE("Render2DSentenceClass::Render: Renderers[%d]->Render() returned\n", i);
 	}
 }
 
@@ -377,11 +374,9 @@ Render2DSentenceClass::Build_Textures ()
 		//
 		//	Create the new texture
 		//
-		fprintf(stderr, "[GX-TRACE] Build_Textures: about to create TextureClass width=%u\n", desc.Width);
-		fflush(stderr);
+		GX_TRACE("Build_Textures: about to create TextureClass width=%u\n", desc.Width);
 		TextureClass *new_texture = W3DNEW TextureClass (desc.Width, desc.Width, WW3D_FORMAT_A4R4G4B4, MIP_LEVELS_1);
-		fprintf(stderr, "[GX-TRACE] Build_Textures: TextureClass created=%p\n", (void*)new_texture);
-		fflush(stderr);
+		GX_TRACE("Build_Textures: TextureClass created=%p\n", (void*)new_texture);
 		SurfaceClass *texture_surface = new_texture->Get_Surface_Level ();
 
 		new_texture->Get_Filter().Set_U_Addr_Mode(TextureFilterClass::TEXTURE_ADDRESS_CLAMP);
@@ -393,12 +388,10 @@ Render2DSentenceClass::Build_Textures ()
 		//
 		//	Copy the contents of the texture from the surface
 		//
-		fprintf(stderr, "[GX-TRACE] Build_Textures: about to _Copy_DX8_Rects src=%p dst=%p\n",
+		GX_TRACE("Build_Textures: about to _Copy_DX8_Rects src=%p dst=%p\n",
 			(void*)curr_surface->Peek_D3D_Surface(), (void*)texture_surface->Peek_D3D_Surface());
-		fflush(stderr);
 		DX8Wrapper::_Copy_DX8_Rects (curr_surface->Peek_D3D_Surface (), nullptr, 0, texture_surface->Peek_D3D_Surface (), nullptr);
-		fprintf(stderr, "[GX-TRACE] Build_Textures: _Copy_DX8_Rects returned\n");
-		fflush(stderr);
+		GX_TRACE("Build_Textures: _Copy_DX8_Rects returned\n");
 		REF_PTR_RELEASE (texture_surface);
 
 		//
@@ -703,11 +696,9 @@ Render2DSentenceClass::Allocate_New_Surface (const WCHAR *text, bool justCalcExt
 		//
 		//	Create the new surface
 		//
-		fprintf(stderr, "[GX-TRACE] Allocate_New_Surface: about to create SurfaceClass size=%d\n", CurrTextureSize);
-		fflush(stderr);
+		GX_TRACE("Allocate_New_Surface: about to create SurfaceClass size=%d\n", CurrTextureSize);
 		CurSurface = NEW_REF (SurfaceClass, (CurrTextureSize, CurrTextureSize, WW3D_FORMAT_A4R4G4B4));
-		fprintf(stderr, "[GX-TRACE] Allocate_New_Surface: SurfaceClass created=%p\n", (void*)CurSurface);
-		fflush(stderr);
+		GX_TRACE("Allocate_New_Surface: SurfaceClass created=%p\n", (void*)CurSurface);
 		WWASSERT (CurSurface != nullptr);
 		CurSurface->Add_Ref ();
 
@@ -1924,15 +1915,13 @@ FontCharsClass::Create_Freetype_Font (const char *font_name)
 const FontCharsClassCharDataStruct *
 FontCharsClass::Store_Freetype_Char (WCHAR ch)
 {
-	fprintf(stderr, "[GX-TRACE] Store_Freetype_Char: enter ch=U+%04X font=%s FTFace=%p\n", (unsigned int)ch, GDIFontName.str(), (void*)FTFace);
-	fflush(stderr);
+	GX_TRACE("Store_Freetype_Char: enter ch=U+%04X font=%s FTFace=%p\n", (unsigned int)ch, GDIFontName.str(), (void*)FTFace);
 
 	//
 	//	Get the glyph index for the character
 	//
 	FT_UInt glyph_index = FT_Get_Char_Index( FTFace, ch );
-	fprintf(stderr, "[GX-TRACE] Store_Freetype_Char: FT_Get_Char_Index returned glyph_index=%u\n", (unsigned int)glyph_index);
-	fflush(stderr);
+	GX_TRACE("Store_Freetype_Char: FT_Get_Char_Index returned glyph_index=%u\n", (unsigned int)glyph_index);
 
 	// GeneralsX @bugfix fbraz 03/06/2026 Log ALL Cyrillic character rendering attempts
 	if (ch >= 0x0400 && ch <= 0x04FF) {
@@ -1949,8 +1938,7 @@ FontCharsClass::Store_Freetype_Char (WCHAR ch)
 	//	Load the glyph (without rendering yet)
 	//
 	FT_Error error = FT_Load_Glyph( FTFace, glyph_index, FT_LOAD_DEFAULT );
-	fprintf(stderr, "[GX-TRACE] Store_Freetype_Char: FT_Load_Glyph returned error=%d\n", (int)error);
-	fflush(stderr);
+	GX_TRACE("Store_Freetype_Char: FT_Load_Glyph returned error=%d\n", (int)error);
 	if ( error != 0 ) {
 		return nullptr;
 	}
@@ -1959,16 +1947,14 @@ FontCharsClass::Store_Freetype_Char (WCHAR ch)
 	//	Convert to an anti-aliased bitmap
 	//
 	error = FT_Render_Glyph( FTFace->glyph, FT_RENDER_MODE_NORMAL );
-	fprintf(stderr, "[GX-TRACE] Store_Freetype_Char: FT_Render_Glyph returned error=%d\n", (int)error);
-	fflush(stderr);
+	GX_TRACE("Store_Freetype_Char: FT_Render_Glyph returned error=%d\n", (int)error);
 	if ( error != 0 ) {
 		return nullptr;
 	}
 
 	FT_GlyphSlot glyph = FTFace->glyph;
-	fprintf(stderr, "[GX-TRACE] Store_Freetype_Char: glyph slot=%p bitmap.width=%u bitmap.rows=%u advance.x=%ld\n",
+	GX_TRACE("Store_Freetype_Char: glyph slot=%p bitmap.width=%u bitmap.rows=%u advance.x=%ld\n",
 		(void*)glyph, glyph ? glyph->bitmap.width : 0u, glyph ? glyph->bitmap.rows : 0u, glyph ? (long)glyph->advance.x : 0L);
-	fflush(stderr);
 
 	//
 	//	Calculate X position (special case for 'W')

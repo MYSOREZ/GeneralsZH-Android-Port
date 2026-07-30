@@ -109,7 +109,6 @@
     <string name="logviewer_share_chooser_title">Поділитися логом</string>
     <string name="logviewer_toast_share_failed">Не вдалося підготувати файл логу для надсилання: %1$s</string>
     <string name="logviewer_read_failed">(не вдалося прочитати %1$s: %2$s)</string>
-    <string name="logviewer_truncated_notice">...(обрізано, показано кінець файлу)...\n</string>
 
     <!-- GeneralsOnlineActivity -->
     <string name="online_window_title">Обліковий запис GeneralsOnline</string>

@@ -109,7 +109,6 @@
     <string name="logviewer_share_chooser_title">分享日志</string>
     <string name="logviewer_toast_share_failed">无法准备要分享的日志文件：%1$s</string>
     <string name="logviewer_read_failed">（无法读取 %1$s：%2$s）</string>
-    <string name="logviewer_truncated_notice">...（已截断，显示末尾部分）...\n</string>
 
     <!-- GeneralsOnlineActivity -->
     <string name="online_window_title">GeneralsOnline 账号</string>

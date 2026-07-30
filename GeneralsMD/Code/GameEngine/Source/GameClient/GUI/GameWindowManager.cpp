@@ -55,6 +55,7 @@
 #include "GameClient/GlobalLanguage.h"
 #include "GameClient/GameWindowTransitions.h"
 #include "Common/NameKeyGenerator.h"
+#include "GXTrace.h"
 
 // PUBLIC DATA ////////////////////////////////////////////////////////////////////////////////////
 GameWindowManager *TheWindowManager = nullptr;
@@ -1512,20 +1513,17 @@ GameWindow *GameWindowManager::winCreate( GameWindow *parent,
 		// font) stayed at its unscaled point size while everything else
 		// scaled up for the display, so plain UI text looked tiny and
 		// inconsistent on high-resolution phone screens.
-		fprintf(stderr, "[GX-TRACE] winCreate: about to winFindFont window=%p name=%s size=%d bold=%d\n",
+		GX_TRACE("winCreate: about to winFindFont window=%p name=%s size=%d bold=%d\n",
 			(void*)window, TheGlobalLanguageData->m_defaultWindowFont.name.str(),
 			TheGlobalLanguageData->adjustFontSize(TheGlobalLanguageData->m_defaultWindowFont.size),
 			TheGlobalLanguageData->m_defaultWindowFont.bold);
-		fflush(stderr);
 		GameFont *defFont = winFindFont(
 			TheGlobalLanguageData->m_defaultWindowFont.name,
 			TheGlobalLanguageData->adjustFontSize(TheGlobalLanguageData->m_defaultWindowFont.size),
 			TheGlobalLanguageData->m_defaultWindowFont.bold);
-		fprintf(stderr, "[GX-TRACE] winCreate: winFindFont returned font=%p, about to winSetFont window=%p\n", (void*)defFont, (void*)window);
-		fflush(stderr);
+		GX_TRACE("winCreate: winFindFont returned font=%p, about to winSetFont window=%p\n", (void*)defFont, (void*)window);
 		window->winSetFont( defFont );
-		fprintf(stderr, "[GX-TRACE] winCreate: winSetFont returned window=%p\n", (void*)window);
-		fflush(stderr);
+		GX_TRACE("winCreate: winSetFont returned window=%p\n", (void*)window);
 	}
 	else
 	{
@@ -3004,20 +3002,17 @@ void GameWindowManager::assignDefaultGadgetLook( GameWindow *gadget,
 			// TheSuperHackers @bugfix Same adjustFontSize() fix as winCreate's
 			// default-font path above -- gadget captions (button/checkbox/
 			// listbox text etc.) were the same unscaled outlier.
-			fprintf(stderr, "[GX-TRACE] assignDefaultGadgetLook: about to winFindFont gadget=%p name=%s size=%d bold=%d\n",
+			GX_TRACE("assignDefaultGadgetLook: about to winFindFont gadget=%p name=%s size=%d bold=%d\n",
 				(void*)gadget, TheGlobalLanguageData->m_defaultWindowFont.name.str(),
 				TheGlobalLanguageData->adjustFontSize(TheGlobalLanguageData->m_defaultWindowFont.size),
 				TheGlobalLanguageData->m_defaultWindowFont.bold);
-			fflush(stderr);
 			GameFont *defWinFont = winFindFont(
 				TheGlobalLanguageData->m_defaultWindowFont.name,
 				TheGlobalLanguageData->adjustFontSize(TheGlobalLanguageData->m_defaultWindowFont.size),
 				TheGlobalLanguageData->m_defaultWindowFont.bold);
-			fprintf(stderr, "[GX-TRACE] assignDefaultGadgetLook: winFindFont returned font=%p, about to winSetFont gadget=%p\n", (void*)defWinFont, (void*)gadget);
-			fflush(stderr);
+			GX_TRACE("assignDefaultGadgetLook: winFindFont returned font=%p, about to winSetFont gadget=%p\n", (void*)defWinFont, (void*)gadget);
 			gadget->winSetFont( defWinFont );
-			fprintf(stderr, "[GX-TRACE] assignDefaultGadgetLook: winSetFont returned gadget=%p\n", (void*)gadget);
-			fflush(stderr);
+			GX_TRACE("assignDefaultGadgetLook: winSetFont returned gadget=%p\n", (void*)gadget);
 		}
 		else
 		{

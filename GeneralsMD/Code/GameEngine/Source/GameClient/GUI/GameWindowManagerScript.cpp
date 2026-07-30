@@ -71,6 +71,7 @@
 #include "GameClient/GadgetSlider.h"
 #include "GameClient/GameText.h"
 #include "GameClient/HeaderTemplate.h"
+#include "GXTrace.h"
 
 
 
@@ -2136,11 +2137,9 @@ static GameWindow *createWindow( char *type,
 	{
 
 		// set any text read from the textLabel
-		fprintf(stderr, "[GX-TRACE] createWindow: about to setWindowText window=%p label='%s'\n", (void*)window, instData->m_textLabelString.str());
-		fflush(stderr);
+		GX_TRACE("createWindow: about to setWindowText window=%p label='%s'\n", (void*)window, instData->m_textLabelString.str());
 		setWindowText( window, instData->m_textLabelString );
-		fprintf(stderr, "[GX-TRACE] createWindow: setWindowText returned window=%p\n", (void*)window);
-		fflush(stderr);
+		GX_TRACE("createWindow: setWindowText returned window=%p\n", (void*)window);
 
 	}
 

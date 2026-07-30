@@ -109,7 +109,6 @@
     <string name="logviewer_share_chooser_title">Log teilen</string>
     <string name="logviewer_toast_share_failed">Log-Datei konnte nicht zum Teilen vorbereitet werden: %1$s</string>
     <string name="logviewer_read_failed">(konnte %1$s nicht lesen: %2$s)</string>
-    <string name="logviewer_truncated_notice">...(gekürzt, zeigt das Ende der Datei)...\n</string>
 
     <!-- GeneralsOnlineActivity -->
     <string name="online_window_title">GeneralsOnline-Konto</string>
