@@ -346,7 +346,15 @@ elseif(ANDROID)
   # when synchronization2 isn't available, the same thing every
   # mobile-shipping game engine (including this exact device's copy of Call
   # of Duty Mobile) already does instead of depending on it.
-  foreach(DXVK_PATCH_NAME dxvk-android.patch dxvk-ios.patch dxvk-vulkan11-adaptive.patch dxvk-resource-refcount-memory-order.patch dxvk-mali-clip-distance.patch dxvk-mali-g76-robustness2-optional.patch dxvk-android-missing-fallback-extensions.patch dxvk-mali-g76-legacy-barrier-fallback.patch)
+  # dxvk-mali-g76-semaphore-fn-fallback.patch: same class of bug as the
+  # barrier fallback, one layer down -- vkResetQueryPool/vkGetSemaphore-
+  # CounterValue/vkSignalSemaphore/vkWaitSemaphores are promoted-in-1.2 core
+  # functions with no KHR/EXT fallback, so they resolved to nullptr on this
+  # 1.1-only device too. Found via a real Android tombstone after the
+  # barrier fix got device init past its previous crash point:
+  # DxvkSubmissionQueue::finishCmdLists's vkWaitSemaphores call, null-pointer
+  # SIGSEGV on the dxvk-queue thread.
+  foreach(DXVK_PATCH_NAME dxvk-android.patch dxvk-ios.patch dxvk-vulkan11-adaptive.patch dxvk-resource-refcount-memory-order.patch dxvk-mali-clip-distance.patch dxvk-mali-g76-robustness2-optional.patch dxvk-android-missing-fallback-extensions.patch dxvk-mali-g76-legacy-barrier-fallback.patch dxvk-mali-g76-semaphore-fn-fallback.patch)
     execute_process(
       COMMAND git -C "${DXVK_LOCAL_FORK_DIR}" apply --reverse --check "${CMAKE_SOURCE_DIR}/Patches/${DXVK_PATCH_NAME}"
       RESULT_VARIABLE DXVK_PATCH_ALREADY_APPLIED
