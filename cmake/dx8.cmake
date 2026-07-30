@@ -317,7 +317,15 @@ elseif(ANDROID)
   #    VUID-VkShaderModuleCreateInfo-pCode-08740 error preceding the
   #    libGLES_mali.so SIGSEGV on issue #9's device. Now gated on whether
   #    the device actually reports the feature.
-  foreach(DXVK_PATCH_NAME dxvk-android.patch dxvk-ios.patch dxvk-vulkan11-adaptive.patch dxvk-resource-refcount-memory-order.patch dxvk-mali-clip-distance.patch)
+  #  - dxvk-mali-g76-robustness2-optional.patch: VK_EXT_robustness2 was
+  #    hard DxvkExtMode::Required — fine on desktop/Adreno, but Mali-G76
+  #    (Redmi Note 8 Pro) reports Vulkan 1.1 with no robustness2 at all,
+  #    so vkCreateDevice refused outright ("required extension(s) missing").
+  #    The two features this fork leans on already survive without it on
+  #    macOS (MoltenVK doesn't support it either), and everything else that
+  #    reads them already treats them as optional. Now Optional, same as
+  #    every other extension this project doesn't unconditionally require.
+  foreach(DXVK_PATCH_NAME dxvk-android.patch dxvk-ios.patch dxvk-vulkan11-adaptive.patch dxvk-resource-refcount-memory-order.patch dxvk-mali-clip-distance.patch dxvk-mali-g76-robustness2-optional.patch)
     execute_process(
       COMMAND git -C "${DXVK_LOCAL_FORK_DIR}" apply --reverse --check "${CMAKE_SOURCE_DIR}/Patches/${DXVK_PATCH_NAME}"
       RESULT_VARIABLE DXVK_PATCH_ALREADY_APPLIED
