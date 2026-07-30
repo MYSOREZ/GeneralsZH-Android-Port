@@ -476,7 +476,21 @@ elseif(ANDROID)
   # DxvkUnboundResources, mirroring its existing dummy buffer/sampler
   # pattern, and uses it (plus the existing dummy buffer) instead of
   # VK_NULL_HANDLE when nullDescriptor is unavailable.
-  foreach(DXVK_PATCH_NAME dxvk-android.patch dxvk-ios.patch dxvk-vulkan11-adaptive.patch dxvk-resource-refcount-memory-order.patch dxvk-mali-clip-distance.patch dxvk-mali-g76-robustness2-optional.patch dxvk-android-missing-fallback-extensions.patch dxvk-mali-g76-legacy-barrier-fallback.patch dxvk-mali-g76-semaphore-fn-fallback.patch dxvk-mali-g76-4444-format.patch dxvk-mali-g76-copy-commands2.patch dxvk-mali-g76-legacy-copy-fallback.patch dxvk-mali-g76-legacy-render-pass.patch dxvk-mali-g76-composite-alpha.patch dxvk-mali-g76-vertex-buffer-stride-fallback.patch dxvk-mali-g76-extended-dynamic-state.patch dxvk-mali-g76-dynamic-state-fallback.patch dxvk-mali-g76-demote-to-helper-fallback.patch dxvk-mali-g76-null-descriptor-fallback.patch)
+  # dxvk-mali-g76-swapchain-blitter-legacy-renderpass.patch:
+  # DxvkSwapchainBlitter::present() (the final swapchain present/blit,
+  # HUD and cursor compositing) is a separate consumer of dynamic
+  # rendering that doesn't go through DxvkContext::renderPassBind
+  # Framebuffer at all, so it was missed by dxvk-mali-g76-legacy-
+  # render-pass.patch above. Confirmed via a real tombstone: SIGSEGV at
+  # pc=0x0 (null function pointer call, vkCmdBeginRendering) on the CS
+  # thread inside DxvkSwapchainBlitter::present, reached only once the
+  # main render path (already using the legacy render pass pool) starts
+  # succeeding far enough to present a frame. Routes present() through
+  # the same DxvkLegacyRenderPassPool via a single-color-attachment
+  # DxvkRenderTargets/DxvkRenderPassOps built from the same layout/
+  # loadOp values already computed for the dynamic-rendering path, so
+  # the two branches stay in sync.
+  foreach(DXVK_PATCH_NAME dxvk-android.patch dxvk-ios.patch dxvk-vulkan11-adaptive.patch dxvk-resource-refcount-memory-order.patch dxvk-mali-clip-distance.patch dxvk-mali-g76-robustness2-optional.patch dxvk-android-missing-fallback-extensions.patch dxvk-mali-g76-legacy-barrier-fallback.patch dxvk-mali-g76-semaphore-fn-fallback.patch dxvk-mali-g76-4444-format.patch dxvk-mali-g76-copy-commands2.patch dxvk-mali-g76-legacy-copy-fallback.patch dxvk-mali-g76-legacy-render-pass.patch dxvk-mali-g76-composite-alpha.patch dxvk-mali-g76-vertex-buffer-stride-fallback.patch dxvk-mali-g76-extended-dynamic-state.patch dxvk-mali-g76-dynamic-state-fallback.patch dxvk-mali-g76-demote-to-helper-fallback.patch dxvk-mali-g76-null-descriptor-fallback.patch dxvk-mali-g76-swapchain-blitter-legacy-renderpass.patch)
     execute_process(
       COMMAND git -C "${DXVK_LOCAL_FORK_DIR}" apply --reverse --check "${CMAKE_SOURCE_DIR}/Patches/${DXVK_PATCH_NAME}"
       RESULT_VARIABLE DXVK_PATCH_ALREADY_APPLIED
