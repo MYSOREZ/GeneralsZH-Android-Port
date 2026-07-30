@@ -1,5 +1,5 @@
 diff --git a/src/dxvk/dxvk_barrier.cpp b/src/dxvk/dxvk_barrier.cpp
-index e643974..a4de6ac 100644
+index e643974..2983f00 100644
 --- a/src/dxvk/dxvk_barrier.cpp
 +++ b/src/dxvk/dxvk_barrier.cpp
 @@ -1,5 +1,8 @@
@@ -11,22 +11,43 @@ index e643974..a4de6ac 100644
  namespace dxvk {
    
    DxvkBarrierTracker::DxvkBarrierTracker() {
-@@ -194,6 +197,18 @@ namespace dxvk {
-     if (!(m_rootMaskValid & rootBit)) {
-       m_rootMaskValid |= rootBit;
+@@ -188,6 +191,21 @@ namespace dxvk {
+   uint32_t DxvkBarrierTracker::insertNode(
+     const DxvkAddressRange&           range,
+           uint32_t                    rootIndex) {
++    // GeneralsX @bugfix Android port 30/07/2026 Diagnostic-only: unconditional,
++    // fires on every call regardless of which branch below ends up crashing
++    // (a first run pinned the Mali-G76 SIGSEGV to the m_nodes[rootIndex] read
++    // in the "first insertion into this root" branch a few lines down; a
++    // second run under the exact same build instead crashed a few lines
++    // later, in the tree-traversal else-branch -- the crash site moving
++    // between otherwise-identical runs points at a timing-dependent race
++    // rather than a deterministic logic bug, so log ground truth up front
++    // every time instead of only right before one specific access).
++    Logger::err(str::format("DxvkBarrierTracker::insertNode entry: this=",
++      static_cast<const void*>(this), " rootIndex=", rootIndex,
++      " m_nodes.size()=", m_nodes.size(),
++      " m_nodes.data()=", static_cast<const void*>(m_nodes.data()),
++      " m_rootMaskValid=", m_rootMaskValid));
++
+     // Check if the given root is valid at all
+     uint64_t rootBit = uint64_t(1u) << (rootIndex - 1u);
  
-+      // GeneralsX @bugfix Android port 30/07/2026 Diagnostic-only: this
-+      // vector index is always in [1, 2*HashTableSize] by construction
-+      // (see DxvkBarrierTracker::DxvkBarrierTracker), so a fault here means
-+      // either `this`/m_nodes is corrupted/dangling or rootIndex is garbage
-+      // -- log everything needed to tell those apart before we potentially
-+      // crash on the next line, for the still-unexplained Mali-G76 SIGSEGV
-+      // that symbolizes to this exact line.
-+      Logger::err(str::format("DxvkBarrierTracker::insertNode diag: this=",
-+        static_cast<const void*>(this),
-+        " rootIndex=", rootIndex, " m_nodes.size()=", m_nodes.size(),
+@@ -233,6 +251,17 @@ namespace dxvk {
+ 
+       // Only do the fixup to maintain red-black properties if
+       // we haven't marked the root node as red in a deletion.
++      // GeneralsX @bugfix Android port 30/07/2026 Diagnostic-only: this is
++      // the exact m_nodes[rootIndex] access a second Mali-G76 run crashed
++      // on (dxvk_barrier.cpp:251 in that build), a few instructions after
++      // m_nodes[parentIndex]/m_nodes[nodeIndex] above succeeded in the same
++      // call -- log immediately before it to catch m_nodes changing under
++      // us between those accesses (would point at a genuine data race).
++      Logger::err(str::format("DxvkBarrierTracker::insertNode pre-rootIndex-read: this=",
++        static_cast<const void*>(this), " rootIndex=", rootIndex,
++        " m_nodes.size()=", m_nodes.size(),
 +        " m_nodes.data()=", static_cast<const void*>(m_nodes.data())));
 +
-       // Update root node as necessary. Also reset
-       // its red-ness if we set it during deletion.
-       auto& node = m_nodes[rootIndex];
+       if (parentIndex != rootIndex && !m_nodes[rootIndex].isRed())
+         rebalancePostInsert(nodeIndex, rootIndex);
+ 
