@@ -429,7 +429,23 @@ elseif(ANDROID)
   # ClipDistance capability too -- a separate compiler from the DXSO one
   # that dxvk-mali-clip-distance.patch already gated, so it was missed by
   # that earlier fix.
-  foreach(DXVK_PATCH_NAME dxvk-android.patch dxvk-ios.patch dxvk-vulkan11-adaptive.patch dxvk-resource-refcount-memory-order.patch dxvk-mali-clip-distance.patch dxvk-mali-g76-robustness2-optional.patch dxvk-android-missing-fallback-extensions.patch dxvk-mali-g76-legacy-barrier-fallback.patch dxvk-mali-g76-semaphore-fn-fallback.patch dxvk-mali-g76-4444-format.patch dxvk-mali-g76-copy-commands2.patch dxvk-mali-g76-legacy-copy-fallback.patch dxvk-mali-g76-legacy-render-pass.patch dxvk-mali-g76-composite-alpha.patch dxvk-mali-g76-vertex-buffer-stride-fallback.patch dxvk-mali-g76-extended-dynamic-state.patch)
+  # dxvk-mali-g76-dynamic-state-fallback.patch: registering
+  # VK_EXT_extended_dynamic_state (dxvk-mali-g76-extended-dynamic-state.patch)
+  # wasn't enough -- Mali-G76 genuinely doesn't support it (unlike the
+  # earlier six-extension registration bug), confirmed by a real tombstone:
+  # SIGSEGV inside the Mali driver itself, called from
+  # DxvkGraphicsPipeline::createOptimizedPipeline. Unlike previous legacy-
+  # function-pointer fallbacks, there is no dynamic per-draw equivalent for
+  # VK_DYNAMIC_STATE_CULL_MODE/FRONT_FACE at all, so this drops them from
+  # the pipeline's dynamic state entirely and bakes a fixed
+  # VK_CULL_MODE_NONE (this is a "step 1" cheap fix: crash gone, but no
+  # per-draw cull mode support on this device until/unless a bigger
+  # follow-up threads real cull state through the pipeline cache key).
+  # VK_DYNAMIC_STATE_VIEWPORT_WITH_COUNT/SCISSOR_WITH_COUNT do have a
+  # legacy equivalent (core 1.0 VIEWPORT/SCISSOR, fixed count baked in --
+  # harmless since D3D9 never uses more than one viewport), so those fall
+  # back properly instead of being dropped.
+  foreach(DXVK_PATCH_NAME dxvk-android.patch dxvk-ios.patch dxvk-vulkan11-adaptive.patch dxvk-resource-refcount-memory-order.patch dxvk-mali-clip-distance.patch dxvk-mali-g76-robustness2-optional.patch dxvk-android-missing-fallback-extensions.patch dxvk-mali-g76-legacy-barrier-fallback.patch dxvk-mali-g76-semaphore-fn-fallback.patch dxvk-mali-g76-4444-format.patch dxvk-mali-g76-copy-commands2.patch dxvk-mali-g76-legacy-copy-fallback.patch dxvk-mali-g76-legacy-render-pass.patch dxvk-mali-g76-composite-alpha.patch dxvk-mali-g76-vertex-buffer-stride-fallback.patch dxvk-mali-g76-extended-dynamic-state.patch dxvk-mali-g76-dynamic-state-fallback.patch)
     execute_process(
       COMMAND git -C "${DXVK_LOCAL_FORK_DIR}" apply --reverse --check "${CMAKE_SOURCE_DIR}/Patches/${DXVK_PATCH_NAME}"
       RESULT_VARIABLE DXVK_PATCH_ALREADY_APPLIED
