@@ -490,7 +490,21 @@ elseif(ANDROID)
   # DxvkRenderTargets/DxvkRenderPassOps built from the same layout/
   # loadOp values already computed for the dynamic-rendering path, so
   # the two branches stay in sync.
-  foreach(DXVK_PATCH_NAME dxvk-android.patch dxvk-ios.patch dxvk-vulkan11-adaptive.patch dxvk-resource-refcount-memory-order.patch dxvk-mali-clip-distance.patch dxvk-mali-g76-robustness2-optional.patch dxvk-android-missing-fallback-extensions.patch dxvk-mali-g76-legacy-barrier-fallback.patch dxvk-mali-g76-semaphore-fn-fallback.patch dxvk-mali-g76-4444-format.patch dxvk-mali-g76-copy-commands2.patch dxvk-mali-g76-legacy-copy-fallback.patch dxvk-mali-g76-legacy-render-pass.patch dxvk-mali-g76-composite-alpha.patch dxvk-mali-g76-vertex-buffer-stride-fallback.patch dxvk-mali-g76-extended-dynamic-state.patch dxvk-mali-g76-dynamic-state-fallback.patch dxvk-mali-g76-demote-to-helper-fallback.patch dxvk-mali-g76-null-descriptor-fallback.patch dxvk-mali-g76-swapchain-blitter-legacy-renderpass.patch)
+  # dxvk-mali-g76-blitter-pipeline-legacy-renderpass.patch: the previous
+  # patch got present() past its own vkCmdBeginRendering/vkCmdEndRendering
+  # calls, but performDraw() inside that same present() call still
+  # crashed one level deeper -- DxvkSwapchainBlitter::createPipeline()
+  # (and the sibling createCursorPipeline()/HudRenderer::createPipeline(),
+  # same pattern) build their VkGraphicsPipelineCreateInfo independently
+  # of DxvkGraphicsPipeline's own cache, chaining
+  # VkPipelineRenderingCreateInfo unconditionally and leaving .renderPass
+  # at VK_NULL_HANDLE (only valid under dynamic rendering). Confirmed via
+  # a real tombstone: SIGSEGV inside the Mali driver's
+  # vkCreateGraphicsPipelines, called from DxvkSwapchainBlitter::
+  # createPipeline via performDraw via present. All three now chain a
+  # real getCompatibleRenderPass() handle instead when the device lacks
+  # dynamic rendering, same as the main pipeline path.
+  foreach(DXVK_PATCH_NAME dxvk-android.patch dxvk-ios.patch dxvk-vulkan11-adaptive.patch dxvk-resource-refcount-memory-order.patch dxvk-mali-clip-distance.patch dxvk-mali-g76-robustness2-optional.patch dxvk-android-missing-fallback-extensions.patch dxvk-mali-g76-legacy-barrier-fallback.patch dxvk-mali-g76-semaphore-fn-fallback.patch dxvk-mali-g76-4444-format.patch dxvk-mali-g76-copy-commands2.patch dxvk-mali-g76-legacy-copy-fallback.patch dxvk-mali-g76-legacy-render-pass.patch dxvk-mali-g76-composite-alpha.patch dxvk-mali-g76-vertex-buffer-stride-fallback.patch dxvk-mali-g76-extended-dynamic-state.patch dxvk-mali-g76-dynamic-state-fallback.patch dxvk-mali-g76-demote-to-helper-fallback.patch dxvk-mali-g76-null-descriptor-fallback.patch dxvk-mali-g76-swapchain-blitter-legacy-renderpass.patch dxvk-mali-g76-blitter-pipeline-legacy-renderpass.patch)
     execute_process(
       COMMAND git -C "${DXVK_LOCAL_FORK_DIR}" apply --reverse --check "${CMAKE_SOURCE_DIR}/Patches/${DXVK_PATCH_NAME}"
       RESULT_VARIABLE DXVK_PATCH_ALREADY_APPLIED
