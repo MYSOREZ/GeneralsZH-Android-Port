@@ -370,7 +370,17 @@ elseif(ANDROID)
   # registered in getExtensionList, same missing-registration bug as the
   # earlier six-extension fix, just found one crash later: SIGSEGV in
   # DxvkContext::copyImageBufferData on Mali-G76, confirmed via tombstone.
-  foreach(DXVK_PATCH_NAME dxvk-android.patch dxvk-ios.patch dxvk-vulkan11-adaptive.patch dxvk-resource-refcount-memory-order.patch dxvk-mali-clip-distance.patch dxvk-mali-g76-robustness2-optional.patch dxvk-android-missing-fallback-extensions.patch dxvk-mali-g76-legacy-barrier-fallback.patch dxvk-mali-g76-semaphore-fn-fallback.patch dxvk-mali-g76-4444-format.patch dxvk-mali-g76-copy-commands2.patch)
+  # dxvk-mali-g76-legacy-copy-fallback.patch: registering VK_KHR_copy_commands2
+  # wasn't enough -- Mali-G76 genuinely doesn't support it (unlike the
+  # earlier six-extension registration bug), so vkCmdCopyBufferToImage2 and
+  # its five siblings (vkCmdCopyBuffer2, vkCmdCopyImage2, vkCmdCopyImage-
+  # ToBuffer2, vkCmdBlitImage2, vkCmdResolveImage2) all stayed null.
+  # SIGSEGV persisted identically in DxvkContext::copyImageBufferData after
+  # the extension-registration fix, confirmed via a second tombstone at the
+  # exact same offsets. Adds a legacy (non-"2") fallback for all six,
+  # gated on the resolved function pointer itself rather than a cached
+  # feature bool (DxvkDevice is only forward-declared in this header).
+  foreach(DXVK_PATCH_NAME dxvk-android.patch dxvk-ios.patch dxvk-vulkan11-adaptive.patch dxvk-resource-refcount-memory-order.patch dxvk-mali-clip-distance.patch dxvk-mali-g76-robustness2-optional.patch dxvk-android-missing-fallback-extensions.patch dxvk-mali-g76-legacy-barrier-fallback.patch dxvk-mali-g76-semaphore-fn-fallback.patch dxvk-mali-g76-4444-format.patch dxvk-mali-g76-copy-commands2.patch dxvk-mali-g76-legacy-copy-fallback.patch)
     execute_process(
       COMMAND git -C "${DXVK_LOCAL_FORK_DIR}" apply --reverse --check "${CMAKE_SOURCE_DIR}/Patches/${DXVK_PATCH_NAME}"
       RESULT_VARIABLE DXVK_PATCH_ALREADY_APPLIED
