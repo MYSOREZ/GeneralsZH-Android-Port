@@ -445,7 +445,23 @@ elseif(ANDROID)
   # legacy equivalent (core 1.0 VIEWPORT/SCISSOR, fixed count baked in --
   # harmless since D3D9 never uses more than one viewport), so those fall
   # back properly instead of being dropped.
-  foreach(DXVK_PATCH_NAME dxvk-android.patch dxvk-ios.patch dxvk-vulkan11-adaptive.patch dxvk-resource-refcount-memory-order.patch dxvk-mali-clip-distance.patch dxvk-mali-g76-robustness2-optional.patch dxvk-android-missing-fallback-extensions.patch dxvk-mali-g76-legacy-barrier-fallback.patch dxvk-mali-g76-semaphore-fn-fallback.patch dxvk-mali-g76-4444-format.patch dxvk-mali-g76-copy-commands2.patch dxvk-mali-g76-legacy-copy-fallback.patch dxvk-mali-g76-legacy-render-pass.patch dxvk-mali-g76-composite-alpha.patch dxvk-mali-g76-vertex-buffer-stride-fallback.patch dxvk-mali-g76-extended-dynamic-state.patch dxvk-mali-g76-dynamic-state-fallback.patch)
+  # dxvk-mali-g76-demote-to-helper-fallback.patch: VK_EXT_shader_demote_
+  # to_helper_invocation is ALSO genuinely unsupported on Mali-G76 (used
+  # by D3D9's alpha-test and texkill/clip instruction emulation) -- unlike
+  # extended_dynamic_state this produced a hard failure, not just a
+  # validation warning: vkCreateShaderModule returned
+  # VK_ERROR_INITIALIZATION_FAILED outright, and DXVK didn't handle the
+  # resulting null shader module gracefully in
+  # DxvkGraphicsPipeline::createOptimizedPipeline. Adds SpirvModule::
+  # opKill() (didn't exist anywhere in this codebase -- every discard-like
+  # operation went through demote-to-helper) as a fallback: a plain SPIR-V
+  # discard instead of demoting the invocation. Slightly less accurate
+  # (no derivatives survive past the discard, so texkill'd pixels can
+  # pick a slightly wrong mip level for subsequent texture samples in the
+  # same shader), but a fixed, acceptable tradeoff against not being able
+  # to compile the shader at all. Alpha test is unaffected by this
+  # tradeoff since it's always the last operation in the pixel shader.
+  foreach(DXVK_PATCH_NAME dxvk-android.patch dxvk-ios.patch dxvk-vulkan11-adaptive.patch dxvk-resource-refcount-memory-order.patch dxvk-mali-clip-distance.patch dxvk-mali-g76-robustness2-optional.patch dxvk-android-missing-fallback-extensions.patch dxvk-mali-g76-legacy-barrier-fallback.patch dxvk-mali-g76-semaphore-fn-fallback.patch dxvk-mali-g76-4444-format.patch dxvk-mali-g76-copy-commands2.patch dxvk-mali-g76-legacy-copy-fallback.patch dxvk-mali-g76-legacy-render-pass.patch dxvk-mali-g76-composite-alpha.patch dxvk-mali-g76-vertex-buffer-stride-fallback.patch dxvk-mali-g76-extended-dynamic-state.patch dxvk-mali-g76-dynamic-state-fallback.patch dxvk-mali-g76-demote-to-helper-fallback.patch)
     execute_process(
       COMMAND git -C "${DXVK_LOCAL_FORK_DIR}" apply --reverse --check "${CMAKE_SOURCE_DIR}/Patches/${DXVK_PATCH_NAME}"
       RESULT_VARIABLE DXVK_PATCH_ALREADY_APPLIED
