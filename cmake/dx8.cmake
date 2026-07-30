@@ -301,7 +301,15 @@ elseif(ANDROID)
   #    only report Vulkan 1.1/1.2 (Mali, Unisoc, PowerVR) while leaving >=1.3
   #    adapters (including Adreno via Turnip driver injection) unaffected —
   #    see issue #5 ("DxvkAdapter: Failed to create device" on Unisoc)
-  foreach(DXVK_PATCH_NAME dxvk-android.patch dxvk-ios.patch dxvk-vulkan11-adaptive.patch)
+  #  - dxvk-resource-refcount-memory-order.patch: DxvkResourceAllocation's
+  #    incRef/decRef used memory_order_acquire on both, with no release —
+  #    a no-op on x86 (DXVK's dev/test target, where every RMW is already a
+  #    full fence) but on ARM's weaker model it lets a thread recycle an
+  #    allocation before another thread's just-prior writes to it are
+  #    visible. Matches the exact corruption real devices reported
+  #    ("DxvkResourceAllocationPool: corrupted free list head") — see
+  #    issues #2, #9, #11.
+  foreach(DXVK_PATCH_NAME dxvk-android.patch dxvk-ios.patch dxvk-vulkan11-adaptive.patch dxvk-resource-refcount-memory-order.patch)
     execute_process(
       COMMAND git -C "${DXVK_LOCAL_FORK_DIR}" apply --reverse --check "${CMAKE_SOURCE_DIR}/Patches/${DXVK_PATCH_NAME}"
       RESULT_VARIABLE DXVK_PATCH_ALREADY_APPLIED
