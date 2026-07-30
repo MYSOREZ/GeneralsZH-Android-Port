@@ -503,8 +503,23 @@ elseif(ANDROID)
   # vkCreateGraphicsPipelines, called from DxvkSwapchainBlitter::
   # createPipeline via performDraw via present. All three now chain a
   # real getCompatibleRenderPass() handle instead when the device lacks
-  # dynamic rendering, same as the main pipeline path.
-  foreach(DXVK_PATCH_NAME dxvk-android.patch dxvk-ios.patch dxvk-vulkan11-adaptive.patch dxvk-resource-refcount-memory-order.patch dxvk-mali-clip-distance.patch dxvk-mali-g76-robustness2-optional.patch dxvk-android-missing-fallback-extensions.patch dxvk-mali-g76-legacy-barrier-fallback.patch dxvk-mali-g76-semaphore-fn-fallback.patch dxvk-mali-g76-4444-format.patch dxvk-mali-g76-copy-commands2.patch dxvk-mali-g76-legacy-copy-fallback.patch dxvk-mali-g76-legacy-render-pass.patch dxvk-mali-g76-composite-alpha.patch dxvk-mali-g76-vertex-buffer-stride-fallback.patch dxvk-mali-g76-extended-dynamic-state.patch dxvk-mali-g76-dynamic-state-fallback.patch dxvk-mali-g76-demote-to-helper-fallback.patch dxvk-mali-g76-null-descriptor-fallback.patch dxvk-mali-g76-swapchain-blitter-legacy-renderpass.patch dxvk-mali-g76-blitter-pipeline-legacy-renderpass.patch)
+  # dynamic rendering, same as the main pipeline path. Note: this patch
+  # file was later extended (same crash site, dynamic-state fix) -- see
+  # its own header comment for the full history.
+  # dxvk-mali-g76-blitter-null-descriptor-fallback.patch: one more
+  # independent consumer of the nullDescriptor gap
+  # (dxvk-mali-g76-null-descriptor-fallback.patch above only covered
+  # DxvkContext's own descriptor update loop). DxvkSwapchainBlitter::
+  # performDraw() writes its gamma/HUD/cursor descriptors unconditionally
+  # (all 4 bindings are statically referenced by the present shader via
+  # spec constants), leaving imageView at VK_NULL_HANDLE whenever that
+  # frame has no gamma ramp/HUD/cursor to composite -- confirmed via a
+  # real tombstone at the exact same Mali driver call site as the
+  # earlier nullDescriptor fix. Adds a small DxvkDevice::dummyResources()
+  # forwarding accessor (the blitter isn't a DxvkContext, so it can't
+  # reach DxvkObjects's dummy resources via the usual m_common friend
+  # access) and uses the existing dummy-image-view cache through it.
+  foreach(DXVK_PATCH_NAME dxvk-android.patch dxvk-ios.patch dxvk-vulkan11-adaptive.patch dxvk-resource-refcount-memory-order.patch dxvk-mali-clip-distance.patch dxvk-mali-g76-robustness2-optional.patch dxvk-android-missing-fallback-extensions.patch dxvk-mali-g76-legacy-barrier-fallback.patch dxvk-mali-g76-semaphore-fn-fallback.patch dxvk-mali-g76-4444-format.patch dxvk-mali-g76-copy-commands2.patch dxvk-mali-g76-legacy-copy-fallback.patch dxvk-mali-g76-legacy-render-pass.patch dxvk-mali-g76-composite-alpha.patch dxvk-mali-g76-vertex-buffer-stride-fallback.patch dxvk-mali-g76-extended-dynamic-state.patch dxvk-mali-g76-dynamic-state-fallback.patch dxvk-mali-g76-demote-to-helper-fallback.patch dxvk-mali-g76-null-descriptor-fallback.patch dxvk-mali-g76-swapchain-blitter-legacy-renderpass.patch dxvk-mali-g76-blitter-pipeline-legacy-renderpass.patch dxvk-mali-g76-blitter-null-descriptor-fallback.patch)
     execute_process(
       COMMAND git -C "${DXVK_LOCAL_FORK_DIR}" apply --reverse --check "${CMAKE_SOURCE_DIR}/Patches/${DXVK_PATCH_NAME}"
       RESULT_VARIABLE DXVK_PATCH_ALREADY_APPLIED
