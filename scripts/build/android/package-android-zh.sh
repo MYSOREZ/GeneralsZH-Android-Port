@@ -136,6 +136,21 @@ if [[ -z "${LIBCXX}" ]]; then
 fi
 cp "${LIBCXX}" "${JNILIBS}/"
 
+# Opt-in Vulkan validation layer (SDL3Main.cpp dxvk_validation.txt marker,
+# see docs/BUILD/ANDROID_SANDBOXED_LOCAL.md). Not required for the game to
+# run -- skip with a warning instead of failing the build if it isn't
+# staged, same as the diagnostic tool it is.
+VVL_STAGED="${STAGING}/vulkan_validation/libVkLayer_khronos_validation.so"
+if [[ ! -f "${VVL_STAGED}" ]]; then
+    echo "==> Vulkan validation layer not staged yet; fetching"
+    "${PROJECT_ROOT}/scripts/build/android/fetch-vulkan-validation-layer.sh" || true
+fi
+if [[ -f "${VVL_STAGED}" ]]; then
+    cp "${VVL_STAGED}" "${JNILIBS}/"
+else
+    echo "WARNING: Vulkan validation layer not available -- dxvk_validation.txt will have no effect in this build."
+fi
+
 echo "==> Staged $(ls "${JNILIBS}" | wc -l | tr -d ' ') native libraries:"
 ls -la "${JNILIBS}"
 

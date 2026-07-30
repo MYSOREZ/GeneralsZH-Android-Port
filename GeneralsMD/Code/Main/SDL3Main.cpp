@@ -743,6 +743,30 @@ int main(int argc, char* argv[])
 			fprintf(stderr, "WARNING: could not enter game data directory (external storage unavailable?)\n");
 		}
 
+		// GeneralsX @feature Android port 30/07/2026 Opt-in Vulkan validation
+		// layer, same UX as gx_trace.txt: a tester drops a file named
+		// dxvk_validation.txt into the game data folder (no adb, no rebuild)
+		// and the next launch runs with VK_LAYER_KHRONOS_validation attached.
+		// DXVK already supports this natively via DXVK_DEBUG=validation
+		// (dxvk_instance.cpp) and its debug-callback output already goes to
+		// stderr on non-Windows (log.cpp) -- i.e. straight into the
+		// generals-stderr.log this file just set up above -- so the only
+		// missing piece was getting the loader to find the layer at all:
+		// libVkLayer_khronos_validation.so is bundled in jniLibs/arm64-v8a/,
+		// which Android's Vulkan loader searches automatically for a
+		// debuggable app. Checked relative to CWD, same as gx_trace.txt,
+		// because that's only valid after the chdir above. Off by default:
+		// the layer adds real per-call overhead and DXVK itself warns about
+		// it, so this is for a specific repro, not every session.
+		if (didChdir) {
+			FILE *vvlMarker = fopen("dxvk_validation.txt", "r");
+			if (vvlMarker != nullptr) {
+				fclose(vvlMarker);
+				setenv("DXVK_DEBUG", "validation", 1);
+				fprintf(stderr, "INFO: dxvk_validation.txt found -- Vulkan validation layer requested (DXVK_DEBUG=validation)\n");
+			}
+		}
+
 		// GeneralsX @feature Android port 13/07/2026 Game DATA language
 		// override (separate from the launcher's own UI language, see
 		// LocaleHelper.java): SetupActivity.applyGameLanguageOverride()

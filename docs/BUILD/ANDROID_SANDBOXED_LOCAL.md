@@ -107,6 +107,15 @@ the result at the exact path the consuming tool expects:
 | patchelf | `NixOS/patchelf` release tarball | `/opt/vcpkg/downloads/patchelf-<ver>-x86_64.tar.gz` | SHA512 in `vcpkg_find_acquire_program(PATCHELF).cmake` |
 | Liberation fonts | `liberationfonts/liberation-fonts` release/attached-file tarball | extract, rename+copy the 4 `.ttf`s into `${GX_ANDROID_STAGING}/fonts/{arial,arialbold,couriernew,timesnewroman}.ttf` | SHA256 in `scripts/build/ios/stage-fonts.sh` |
 | Turnip driver | `K11MCH1/AdrenoToolsDrivers` release zip | extract `meta.json` + the `.so` it names into `${GX_ANDROID_STAGING}/default_driver/` | `file` reports AArch64; no upstream checksum (script notes why) |
+| Vulkan Validation Layer | `KhronosGroup/Vulkan-ValidationLayers` `android-binaries-<ver>.zip` | extract `arm64-v8a/libVkLayer_khronos_validation.so` into `${GX_ANDROID_STAGING}/vulkan_validation/` | `file` reports AArch64, ~27MB unstripped -- this is expected, not a corrupt download |
+
+Correction found 30/07: `github.com/.../releases/download/<tag>/<file>` -- an
+actual asset download, not a page -- works with a plain `curl -fL`, no
+WebFetch redirect dance needed, even though `github.com/.../releases/tag/...`
+(the page) and `api.github.com` both 403 for a repo outside this session's
+scope. Try plain `curl -fL` on the exact download URL first; only fall back
+to the WebFetch trick above if that 403s too. `scripts/build/android/fetch-
+turnip.sh` and `fetch-vulkan-validation-layer.sh` both just do this.
 
 If any of these are already present at their destination, the corresponding
 script/tool skips fetching and this whole table is moot -- only needed once
@@ -129,8 +138,9 @@ above -- doesn't hold up:
   (`~/.cache/vcpkg/archives`) and ccache already exist to avoid on a
   *second* run in the *same* long-lived environment -- they just don't
   survive a fresh session/container.
-- **The one-off assets above are tiny (all under 20MB combined) and cheap
-  to re-fetch** -- the durable fixes handle everything that's actually
+- **The one-off assets above are small and cheap to re-fetch** (the Vulkan
+  validation layer is the largest at ~27MB, everything else is under 5MB
+  combined) -- the durable fixes handle everything that's actually
   expensive to reproduce (the ~20 vcpkg source archives, all multi-MB to
   multi-hundred-MB), leaving only a handful of small files that need an
   agent's redirect-resolution step regardless of whether they're
@@ -168,7 +178,9 @@ project's custom-built libraries ("Unable to strip ... packaging them as
 they are") for reasons unrelated to the deliberate DXVK exception above --
 so `build-local-sandboxed.sh` strips everything itself with `llvm-strip
 --strip-unneeded` before packaging, *except* the two DXVK libraries. That
-brings a clean build down to ~39MB.
+brings a clean build down to ~39MB (~47MB once the optional Vulkan
+validation layer, ~27MB and already stripped upstream, is bundled in --
+see "Diagnosing driver-side crashes" below).
 
 One gotcha hit while verifying this: AGP's incremental APK packager can
 leave old bytes physically in the zip file when a library shrinks (only
@@ -176,6 +188,34 @@ the central directory gets updated to point at the new, smaller entry) --
 the on-disk `.apk` didn't shrink at all until `android/app/build` was
 removed and packaging re-run from a clean slate. If a rebuild's output
 size looks wrong, that's the first thing to check.
+
+## Diagnosing driver-side crashes: the bundled Vulkan validation layer
+
+A crash whose PC/LR both resolve inside the vendor driver itself (e.g.
+`/vendor/lib64/egl/mt6789/libGLES_mali.so`, seen on issue #9's Mali G57
+device) tells you almost nothing on its own -- Mali's driver is closed
+source and, per community reports (Winlator's issue tracker has dozens),
+tends to hard-crash on API misuse that Adreno silently tolerates. The fix
+isn't to guess at alignment/sync theories one at a time; it's to ask the
+driver what it didn't like.
+
+DXVK (`references/fbraz3-dxvk/src/dxvk/dxvk_instance.cpp`) already supports
+`VK_LAYER_KHRONOS_validation` out of the box via `DXVK_DEBUG=validation`,
+and its debug-callback output already goes to `std::cerr` on non-Windows
+(`log.cpp`) -- which is already redirected into `generals-stderr.log`
+(`SDL3Main.cpp`). The only missing piece was getting Android's Vulkan
+loader to find the layer at all: it auto-discovers a layer bundled in a
+*debuggable* app's own `jniLibs/<abi>/`, which this (debug) build already
+is.
+
+So `libVkLayer_khronos_validation.so` is staged (see the one-off assets
+table above) and packaged into every build, gated off by default:
+`SDL3Main.cpp` only sets `DXVK_DEBUG=validation` when it finds a file named
+`dxvk_validation.txt` in the game data folder -- same opt-in UX as
+`gx_trace.txt`, no adb, no rebuild, just a file a tester (or the folder
+owner via a file manager) can drop in before reproducing a driver crash.
+It costs real per-call overhead, which is why it's off unless someone asks
+for it specifically.
 
 ## Distributing the APK: don't use Git LFS on this fork
 
