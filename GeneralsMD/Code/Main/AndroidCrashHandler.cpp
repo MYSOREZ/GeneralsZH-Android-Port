@@ -218,6 +218,23 @@ void appendCrashLog(const char *message, size_t length) {
 void logResolvedAddress(const char *label, uintptr_t addr) {
 	char buf[256];
 	if (addr == 0) {
+		// GeneralsX @bugfix Android port 30/07/2026 This used to silently
+		// return here, on the assumption that 0 only ever meant "no value
+		// available" (e.g. the backtrace walker's own savedLR==0 loop
+		// terminator, still handled separately below). That hid the single
+		// most important fact in a real crash: PC==0 IS the finding, not a
+		// missing value -- it means execution branched through a null (or
+		// zeroed/corrupted) function pointer or GOT/PLT entry, as opposed to
+		// a normal fault while executing real code at LR. A run of Mali-G76
+		// crashes all had fault_addr=0x0 and a perfectly resolvable "crash
+		// LR" (the call site), while "crash PC" never appeared in any log
+		// at all -- this line is why, and it was mistaken for "logging
+		// never ran" instead of "PC really is null, silently dropped".
+		int zlen = snprintf(buf, sizeof(buf), "%s=0x0 (NULL -- branch/call through a "
+			"null or corrupted function pointer, not a fault while executing real code)\n", label);
+		if (zlen > 0) {
+			appendCrashLog(buf, (size_t)zlen < sizeof(buf) ? (size_t)zlen : sizeof(buf) - 1);
+		}
 		return;
 	}
 	char libName[192];
