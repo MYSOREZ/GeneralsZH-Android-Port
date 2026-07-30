@@ -180,19 +180,34 @@ fi
 # Turnip driver at ${GX_ANDROID_STAGING}/default_driver/{meta.json,*.so} --
 # both are fetched from github.com release assets, which this script can't
 # reach itself.
+# Always package from a clean Gradle build dir. AGP's incremental packager
+# can leave superseded entries physically in the zip when a library shrinks,
+# rewriting only the central directory -- the .apk then carries dead weight
+# that no amount of stripping removes. This has bitten twice now: once when
+# libmain.so went 282MB -> 41MB post-strip and the .apk didn't shrink one
+# byte, and again at 58MB where 18MB turned out to be orphaned. Re-running
+# packaging costs ~10s against a native build measured in minutes, so pay it
+# unconditionally rather than shipping a mystery-sized APK.
+rm -rf android/app/build
+
 ./scripts/build/android/package-android-zh.sh
 
-# A stale incrementally-packaged APK can be *larger* than a fresh one even
-# when its content shrank: AGP's incremental packager can leave old package
-# bytes physically in the zip (only the central directory gets updated) --
-# seen firsthand as libmain.so shrinking 282MB -> 41MB post-strip without
-# the final .apk's byte size changing at all until `android/app/build` was
-# removed and packaging re-run from scratch. If a rebuild here looks
-# suspiciously large, `rm -rf android/app/build` and re-run.
 APK="android/app/build/outputs/apk/debug/app-debug.apk"
 if [ -f "$APK" ]; then
   cp "$APK" "${REPO}/GeneralsXZH-android-local.apk"
   echo "=== BUILD SUCCEEDED: ${REPO}/GeneralsXZH-android-local.apk ($(du -h "$APK" | cut -f1)) ==="
+
+  # Guard against the packager regressing: every byte in the file should
+  # belong to a live zip entry, give or take the central directory itself.
+  python3 - "$APK" <<'PY' || true
+import os, sys, zipfile
+path = sys.argv[1]
+live = sum(i.compress_size for i in zipfile.ZipFile(path).infolist())
+orphaned = os.path.getsize(path) - live
+if orphaned > 2 * 1024 * 1024:
+    print(f"WARNING: {orphaned/1048576:.1f}MB of this APK belongs to no zip entry "
+          f"-- stale incremental packaging, the APK is bloated.")
+PY
 else
   echo "=== BUILD FAILED: APK not found at $APK ==="
   exit 1
