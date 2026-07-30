@@ -332,7 +332,14 @@ elseif(ANDROID)
   # never actually enabled them despite the feature bits being reported as
   # supported -- root cause of the Mali-G76 (Redmi Note 8 Pro) timeline
   # semaphore VUID crash found after the robustness2-optional fix.
-  foreach(DXVK_PATCH_NAME dxvk-android.patch dxvk-ios.patch dxvk-vulkan11-adaptive.patch dxvk-resource-refcount-memory-order.patch dxvk-mali-clip-distance.patch dxvk-mali-g76-robustness2-optional.patch dxvk-android-missing-fallback-extensions.patch)
+  # dxvk-mali-g76-barrier-diagnostic.patch: diagnostic-only logging in
+  # DxvkBarrierTracker::insertNode (dxvk_barrier.cpp:199) -- addr2line with
+  # real debug info pinned a still-unexplained Mali-G76 SIGSEGV to the
+  # m_nodes[rootIndex] access there, in code that's bounds-safe by
+  # construction, meaning something elsewhere corrupted this object or its
+  # index. Logs `this`/m_nodes.data()/size()/rootIndex right before the
+  # access so the next crash log tells us which. Remove once root-caused.
+  foreach(DXVK_PATCH_NAME dxvk-android.patch dxvk-ios.patch dxvk-vulkan11-adaptive.patch dxvk-resource-refcount-memory-order.patch dxvk-mali-clip-distance.patch dxvk-mali-g76-robustness2-optional.patch dxvk-android-missing-fallback-extensions.patch dxvk-mali-g76-barrier-diagnostic.patch)
     execute_process(
       COMMAND git -C "${DXVK_LOCAL_FORK_DIR}" apply --reverse --check "${CMAKE_SOURCE_DIR}/Patches/${DXVK_PATCH_NAME}"
       RESULT_VARIABLE DXVK_PATCH_ALREADY_APPLIED
