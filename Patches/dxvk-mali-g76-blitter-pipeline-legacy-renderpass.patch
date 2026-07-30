@@ -1,8 +1,46 @@
 diff --git a/src/dxvk/dxvk_swapchain_blitter.cpp b/src/dxvk/dxvk_swapchain_blitter.cpp
-index 1bd581d..a1a917f 100644
+index 1bd581d..0276dd0 100644
 --- a/src/dxvk/dxvk_swapchain_blitter.cpp
 +++ b/src/dxvk/dxvk_swapchain_blitter.cpp
-@@ -1022,7 +1022,21 @@ namespace dxvk {
+@@ -990,8 +990,25 @@ namespace dxvk {
+     VkPipelineInputAssemblyStateCreateInfo iaState = { VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO };
+     iaState.topology = VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST;
+ 
++    // GeneralsX @bugfix Android port 30/07/2026 VK_DYNAMIC_STATE_VIEWPORT_
++    // WITH_COUNT/SCISSOR_WITH_COUNT need VK_EXT_extended_dynamic_state
++    // (or 1.3), which Mali-G76 genuinely lacks -- using them anyway in
++    // pDynamicStates crashes vkCreateGraphicsPipelines itself (confirmed
++    // via a real tombstone: SIGSEGV inside the Mali driver, one level
++    // past the legacy-render-pass fix above). Falls back to the classic
++    // per-draw-fixed-count dynamic viewport/scissor, matching
++    // DxvkCommandList::cmdSetViewport/cmdSetScissor's own fallback
++    // (dxvk-mali-g76-dynamic-state-fallback.patch) used to record this
++    // pipeline's draws.
++    bool hasExtendedDynamicState = m_device->features().extExtendedDynamicState.extendedDynamicState;
++
+     VkPipelineViewportStateCreateInfo vpState = { VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_STATE_CREATE_INFO };
+ 
++    if (!hasExtendedDynamicState) {
++      vpState.viewportCount = 1;
++      vpState.scissorCount = 1;
++    }
++
+     VkPipelineRasterizationStateCreateInfo rsState = { VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO };
+     rsState.cullMode = VK_CULL_MODE_NONE;
+     rsState.polygonMode = VK_POLYGON_MODE_FILL;
+@@ -1013,16 +1030,29 @@ namespace dxvk {
+     cbState.attachmentCount = 1;
+     cbState.pAttachments = &cbAttachment;
+ 
+-    static const std::array<VkDynamicState, 2> dynStates = {
+-      VK_DYNAMIC_STATE_VIEWPORT_WITH_COUNT,
+-      VK_DYNAMIC_STATE_SCISSOR_WITH_COUNT,
+-    };
++    const std::array<VkDynamicState, 2> dynStates = hasExtendedDynamicState
++      ? std::array<VkDynamicState, 2>{ VK_DYNAMIC_STATE_VIEWPORT_WITH_COUNT, VK_DYNAMIC_STATE_SCISSOR_WITH_COUNT }
++      : std::array<VkDynamicState, 2>{ VK_DYNAMIC_STATE_VIEWPORT, VK_DYNAMIC_STATE_SCISSOR };
+ 
+     VkPipelineDynamicStateCreateInfo dynState = { VK_STRUCTURE_TYPE_PIPELINE_DYNAMIC_STATE_CREATE_INFO };
      dynState.dynamicStateCount = dynStates.size();
      dynState.pDynamicStates = dynStates.data();
  
@@ -25,7 +63,7 @@ index 1bd581d..a1a917f 100644
      blitInfo.stageCount = blitStages.size();
      blitInfo.pStages = blitStages.data();
      blitInfo.pVertexInputState = &viState;
-@@ -1033,6 +1047,7 @@ namespace dxvk {
+@@ -1033,6 +1063,7 @@ namespace dxvk {
      blitInfo.pColorBlendState = &cbState;
      blitInfo.pDynamicState = &dynState;
      blitInfo.layout = m_pipelineLayout;
@@ -33,7 +71,37 @@ index 1bd581d..a1a917f 100644
      blitInfo.basePipelineIndex = -1;
  
      VkPipeline pipeline = VK_NULL_HANDLE;
-@@ -1131,7 +1146,14 @@ namespace dxvk {
+@@ -1092,8 +1123,17 @@ namespace dxvk {
+     VkPipelineInputAssemblyStateCreateInfo iaState = { VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO };
+     iaState.topology = VK_PRIMITIVE_TOPOLOGY_TRIANGLE_STRIP;
+ 
++    // GeneralsX @bugfix Android port 30/07/2026 see createPipeline above
++    // re: VK_DYNAMIC_STATE_VIEWPORT_WITH_COUNT/SCISSOR_WITH_COUNT.
++    bool hasExtendedDynamicState = m_device->features().extExtendedDynamicState.extendedDynamicState;
++
+     VkPipelineViewportStateCreateInfo vpState = { VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_STATE_CREATE_INFO };
+ 
++    if (!hasExtendedDynamicState) {
++      vpState.viewportCount = 1;
++      vpState.scissorCount = 1;
++    }
++
+     VkPipelineRasterizationStateCreateInfo rsState = { VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO };
+     rsState.cullMode = VK_CULL_MODE_NONE;
+     rsState.polygonMode = VK_POLYGON_MODE_FILL;
+@@ -1122,16 +1162,22 @@ namespace dxvk {
+     cbState.attachmentCount = 1;
+     cbState.pAttachments = &cbAttachment;
+ 
+-    static const std::array<VkDynamicState, 2> dynStates = {
+-      VK_DYNAMIC_STATE_VIEWPORT_WITH_COUNT,
+-      VK_DYNAMIC_STATE_SCISSOR_WITH_COUNT,
+-    };
++    const std::array<VkDynamicState, 2> dynStates = hasExtendedDynamicState
++      ? std::array<VkDynamicState, 2>{ VK_DYNAMIC_STATE_VIEWPORT_WITH_COUNT, VK_DYNAMIC_STATE_SCISSOR_WITH_COUNT }
++      : std::array<VkDynamicState, 2>{ VK_DYNAMIC_STATE_VIEWPORT, VK_DYNAMIC_STATE_SCISSOR };
+ 
+     VkPipelineDynamicStateCreateInfo dynState = { VK_STRUCTURE_TYPE_PIPELINE_DYNAMIC_STATE_CREATE_INFO };
      dynState.dynamicStateCount = dynStates.size();
      dynState.pDynamicStates = dynStates.data();
  
@@ -49,7 +117,7 @@ index 1bd581d..a1a917f 100644
      blitInfo.stageCount = stages.size();
      blitInfo.pStages = stages.data();
      blitInfo.pVertexInputState = &viState;
-@@ -1142,6 +1164,7 @@ namespace dxvk {
+@@ -1142,6 +1188,7 @@ namespace dxvk {
      blitInfo.pColorBlendState = &cbState;
      blitInfo.pDynamicState = &dynState;
      blitInfo.layout = m_cursorPipelineLayout;
@@ -58,10 +126,44 @@ index 1bd581d..a1a917f 100644
  
      VkPipeline pipeline = VK_NULL_HANDLE;
 diff --git a/src/dxvk/hud/dxvk_hud_renderer.cpp b/src/dxvk/hud/dxvk_hud_renderer.cpp
-index 78f3906..b8157ec 100644
+index 78f3906..f5c3c83 100644
 --- a/src/dxvk/hud/dxvk_hud_renderer.cpp
 +++ b/src/dxvk/hud/dxvk_hud_renderer.cpp
-@@ -609,7 +609,18 @@ namespace dxvk::hud {
+@@ -570,8 +570,21 @@ namespace dxvk::hud {
+     VkPipelineInputAssemblyStateCreateInfo iaState = { VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO };
+     iaState.topology = VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST;
+ 
++    // GeneralsX @bugfix Android port 30/07/2026 VK_DYNAMIC_STATE_VIEWPORT_
++    // WITH_COUNT/SCISSOR_WITH_COUNT need VK_EXT_extended_dynamic_state
++    // (or 1.3), which Mali-G76 genuinely lacks -- using them anyway in
++    // pDynamicStates crashes vkCreateGraphicsPipelines itself (see
++    // DxvkSwapchainBlitter::createPipeline in dxvk_swapchain_blitter.cpp
++    // for the real tombstone this was confirmed with).
++    bool hasExtendedDynamicState = m_device->features().extExtendedDynamicState.extendedDynamicState;
++
+     VkPipelineViewportStateCreateInfo vpState = { VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_STATE_CREATE_INFO };
+ 
++    if (!hasExtendedDynamicState) {
++      vpState.viewportCount = 1;
++      vpState.scissorCount = 1;
++    }
++
+     VkPipelineRasterizationStateCreateInfo rsState = { VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO };
+     rsState.cullMode = VK_CULL_MODE_NONE;
+     rsState.polygonMode = VK_POLYGON_MODE_FILL;
+@@ -600,16 +613,26 @@ namespace dxvk::hud {
+     cbOpaqueState.attachmentCount = 1;
+     cbOpaqueState.pAttachments = &cbAttachment;
+ 
+-    static const std::array<VkDynamicState, 2> dynStates = {
+-      VK_DYNAMIC_STATE_VIEWPORT_WITH_COUNT,
+-      VK_DYNAMIC_STATE_SCISSOR_WITH_COUNT,
+-    };
++    const std::array<VkDynamicState, 2> dynStates = hasExtendedDynamicState
++      ? std::array<VkDynamicState, 2>{ VK_DYNAMIC_STATE_VIEWPORT_WITH_COUNT, VK_DYNAMIC_STATE_SCISSOR_WITH_COUNT }
++      : std::array<VkDynamicState, 2>{ VK_DYNAMIC_STATE_VIEWPORT, VK_DYNAMIC_STATE_SCISSOR };
+ 
+     VkPipelineDynamicStateCreateInfo dynState = { VK_STRUCTURE_TYPE_PIPELINE_DYNAMIC_STATE_CREATE_INFO };
      dynState.dynamicStateCount = dynStates.size();
      dynState.pDynamicStates = dynStates.data();
  
@@ -81,7 +183,7 @@ index 78f3906..b8157ec 100644
      blitInfo.stageCount = stages.size();
      blitInfo.pStages = stages.data();
      blitInfo.pVertexInputState = &viState;
-@@ -620,6 +631,7 @@ namespace dxvk::hud {
+@@ -620,6 +643,7 @@ namespace dxvk::hud {
      blitInfo.pColorBlendState = &cbOpaqueState;
      blitInfo.pDynamicState = &dynState;
      blitInfo.layout = m_textPipelineLayout;
