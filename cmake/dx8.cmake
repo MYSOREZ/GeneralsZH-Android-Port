@@ -395,7 +395,15 @@ elseif(ANDROID)
   # VkPipelineRenderingCreateInfo (graphics-pipeline-library's own
   # createBasePipeline path was already gated on device support and needs
   # no change).
-  foreach(DXVK_PATCH_NAME dxvk-android.patch dxvk-ios.patch dxvk-vulkan11-adaptive.patch dxvk-resource-refcount-memory-order.patch dxvk-mali-clip-distance.patch dxvk-mali-g76-robustness2-optional.patch dxvk-android-missing-fallback-extensions.patch dxvk-mali-g76-legacy-barrier-fallback.patch dxvk-mali-g76-semaphore-fn-fallback.patch dxvk-mali-g76-4444-format.patch dxvk-mali-g76-copy-commands2.patch dxvk-mali-g76-legacy-copy-fallback.patch dxvk-mali-g76-legacy-render-pass.patch)
+  # dxvk-mali-g76-composite-alpha.patch: swap chain creation hardcoded
+  # VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR. Real-device testing (Redmi Note 8
+  # Pro / Mali-G76 MC4) found a surface that only reports
+  # VK_COMPOSITE_ALPHA_INHERIT_BIT_KHR as supported (validation:
+  # VUID-VkSwapchainCreateInfoKHR-compositeAlpha-01280), so
+  # vkCreateSwapchainKHR failed and left the swapchain null, crashing the
+  # next time the render loop touched it. Now picks OPAQUE when supported,
+  # otherwise the first bit the surface actually reports.
+  foreach(DXVK_PATCH_NAME dxvk-android.patch dxvk-ios.patch dxvk-vulkan11-adaptive.patch dxvk-resource-refcount-memory-order.patch dxvk-mali-clip-distance.patch dxvk-mali-g76-robustness2-optional.patch dxvk-android-missing-fallback-extensions.patch dxvk-mali-g76-legacy-barrier-fallback.patch dxvk-mali-g76-semaphore-fn-fallback.patch dxvk-mali-g76-4444-format.patch dxvk-mali-g76-copy-commands2.patch dxvk-mali-g76-legacy-copy-fallback.patch dxvk-mali-g76-legacy-render-pass.patch dxvk-mali-g76-composite-alpha.patch)
     execute_process(
       COMMAND git -C "${DXVK_LOCAL_FORK_DIR}" apply --reverse --check "${CMAKE_SOURCE_DIR}/Patches/${DXVK_PATCH_NAME}"
       RESULT_VARIABLE DXVK_PATCH_ALREADY_APPLIED
