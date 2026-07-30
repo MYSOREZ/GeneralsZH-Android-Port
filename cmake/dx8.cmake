@@ -461,7 +461,22 @@ elseif(ANDROID)
   # same shader), but a fixed, acceptable tradeoff against not being able
   # to compile the shader at all. Alpha test is unaffected by this
   # tradeoff since it's always the last operation in the pixel shader.
-  foreach(DXVK_PATCH_NAME dxvk-android.patch dxvk-ios.patch dxvk-vulkan11-adaptive.patch dxvk-resource-refcount-memory-order.patch dxvk-mali-clip-distance.patch dxvk-mali-g76-robustness2-optional.patch dxvk-android-missing-fallback-extensions.patch dxvk-mali-g76-legacy-barrier-fallback.patch dxvk-mali-g76-semaphore-fn-fallback.patch dxvk-mali-g76-4444-format.patch dxvk-mali-g76-copy-commands2.patch dxvk-mali-g76-legacy-copy-fallback.patch dxvk-mali-g76-legacy-render-pass.patch dxvk-mali-g76-composite-alpha.patch dxvk-mali-g76-vertex-buffer-stride-fallback.patch dxvk-mali-g76-extended-dynamic-state.patch dxvk-mali-g76-dynamic-state-fallback.patch dxvk-mali-g76-demote-to-helper-fallback.patch)
+  # dxvk-mali-g76-null-descriptor-fallback.patch: VK_EXT_robustness2's
+  # nullDescriptor sub-feature is also genuinely unsupported on Mali-G76
+  # (already correctly disabled at the device level by
+  # dxvk-mali-g76-robustness2-optional.patch), but the descriptor-set-
+  # update code in DxvkContext still unconditionally wrote VK_NULL_HANDLE
+  # for unbound sampled/storage/combined-image-sampler and uniform/storage
+  # buffer slots, which is only a valid VkImageView/VkBuffer value when
+  # nullDescriptor IS supported. Confirmed via engine log VUIDs
+  # (VUID-VkWriteDescriptorSet-descriptorType-02997,
+  # VUID-VkDescriptorBufferInfo-buffer-02998) right before a crash inside
+  # the Mali driver itself. Adds a dummy 1x1 image (plus per-view-type
+  # DxvkImageView cache, covering 1D/2D/3D/Cube/array variants) to
+  # DxvkUnboundResources, mirroring its existing dummy buffer/sampler
+  # pattern, and uses it (plus the existing dummy buffer) instead of
+  # VK_NULL_HANDLE when nullDescriptor is unavailable.
+  foreach(DXVK_PATCH_NAME dxvk-android.patch dxvk-ios.patch dxvk-vulkan11-adaptive.patch dxvk-resource-refcount-memory-order.patch dxvk-mali-clip-distance.patch dxvk-mali-g76-robustness2-optional.patch dxvk-android-missing-fallback-extensions.patch dxvk-mali-g76-legacy-barrier-fallback.patch dxvk-mali-g76-semaphore-fn-fallback.patch dxvk-mali-g76-4444-format.patch dxvk-mali-g76-copy-commands2.patch dxvk-mali-g76-legacy-copy-fallback.patch dxvk-mali-g76-legacy-render-pass.patch dxvk-mali-g76-composite-alpha.patch dxvk-mali-g76-vertex-buffer-stride-fallback.patch dxvk-mali-g76-extended-dynamic-state.patch dxvk-mali-g76-dynamic-state-fallback.patch dxvk-mali-g76-demote-to-helper-fallback.patch dxvk-mali-g76-null-descriptor-fallback.patch)
     execute_process(
       COMMAND git -C "${DXVK_LOCAL_FORK_DIR}" apply --reverse --check "${CMAKE_SOURCE_DIR}/Patches/${DXVK_PATCH_NAME}"
       RESULT_VARIABLE DXVK_PATCH_ALREADY_APPLIED
