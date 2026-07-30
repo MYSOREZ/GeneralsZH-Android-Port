@@ -380,7 +380,22 @@ elseif(ANDROID)
   # exact same offsets. Adds a legacy (non-"2") fallback for all six,
   # gated on the resolved function pointer itself rather than a cached
   # feature bool (DxvkDevice is only forward-declared in this header).
-  foreach(DXVK_PATCH_NAME dxvk-android.patch dxvk-ios.patch dxvk-vulkan11-adaptive.patch dxvk-resource-refcount-memory-order.patch dxvk-mali-clip-distance.patch dxvk-mali-g76-robustness2-optional.patch dxvk-android-missing-fallback-extensions.patch dxvk-mali-g76-legacy-barrier-fallback.patch dxvk-mali-g76-semaphore-fn-fallback.patch dxvk-mali-g76-4444-format.patch dxvk-mali-g76-copy-commands2.patch dxvk-mali-g76-legacy-copy-fallback.patch)
+  # dxvk-mali-g76-legacy-render-pass.patch: Mali-G76 also genuinely lacks
+  # VK_KHR_dynamic_rendering, which DXVK 2.x's whole render-target-binding
+  # and (monolithic) pipeline-creation path is unconditionally built on --
+  # SIGSEGV (null vkCmdBeginRendering) on the very first draw call,
+  # confirmed via tombstone in DxvkContext::renderPassBindFramebuffer. No
+  # 1:1 legacy function exists for dynamic rendering, so this adds a
+  # minimal classic VkRenderPass/VkFramebuffer object cache back
+  # (dxvk_legacy_renderpass.h/.cpp, new files) used only when
+  # !features().vk13.dynamicRendering: DxvkContext::renderPassBindFramebuffer
+  # /renderPassUnbindFramebuffer branch to vkCmdBeginRenderPass/
+  # vkCmdEndRenderPass, and DxvkGraphicsPipeline::createOptimizedPipeline
+  # uses a format/sample-count-compatible render pass instead of chaining
+  # VkPipelineRenderingCreateInfo (graphics-pipeline-library's own
+  # createBasePipeline path was already gated on device support and needs
+  # no change).
+  foreach(DXVK_PATCH_NAME dxvk-android.patch dxvk-ios.patch dxvk-vulkan11-adaptive.patch dxvk-resource-refcount-memory-order.patch dxvk-mali-clip-distance.patch dxvk-mali-g76-robustness2-optional.patch dxvk-android-missing-fallback-extensions.patch dxvk-mali-g76-legacy-barrier-fallback.patch dxvk-mali-g76-semaphore-fn-fallback.patch dxvk-mali-g76-4444-format.patch dxvk-mali-g76-copy-commands2.patch dxvk-mali-g76-legacy-copy-fallback.patch dxvk-mali-g76-legacy-render-pass.patch)
     execute_process(
       COMMAND git -C "${DXVK_LOCAL_FORK_DIR}" apply --reverse --check "${CMAKE_SOURCE_DIR}/Patches/${DXVK_PATCH_NAME}"
       RESULT_VARIABLE DXVK_PATCH_ALREADY_APPLIED
