@@ -325,7 +325,14 @@ elseif(ANDROID)
   #    macOS (MoltenVK doesn't support it either), and everything else that
   #    reads them already treats them as optional. Now Optional, same as
   #    every other extension this project doesn't unconditionally require.
-  foreach(DXVK_PATCH_NAME dxvk-android.patch dxvk-ios.patch dxvk-vulkan11-adaptive.patch dxvk-resource-refcount-memory-order.patch dxvk-mali-clip-distance.patch dxvk-mali-g76-robustness2-optional.patch)
+  # dxvk-android-missing-fallback-extensions.patch: the sub-1.2/1.3 KHR/EXT
+  # fallback extensions (timelineSemaphore, vulkanMemoryModel, dynamicRendering,
+  # maintenance4, synchronization2, hostQueryReset) were declared and queried
+  # but never registered in DxvkAdapter::getExtensionList(), so vkCreateDevice
+  # never actually enabled them despite the feature bits being reported as
+  # supported -- root cause of the Mali-G76 (Redmi Note 8 Pro) timeline
+  # semaphore VUID crash found after the robustness2-optional fix.
+  foreach(DXVK_PATCH_NAME dxvk-android.patch dxvk-ios.patch dxvk-vulkan11-adaptive.patch dxvk-resource-refcount-memory-order.patch dxvk-mali-clip-distance.patch dxvk-mali-g76-robustness2-optional.patch dxvk-android-missing-fallback-extensions.patch)
     execute_process(
       COMMAND git -C "${DXVK_LOCAL_FORK_DIR}" apply --reverse --check "${CMAKE_SOURCE_DIR}/Patches/${DXVK_PATCH_NAME}"
       RESULT_VARIABLE DXVK_PATCH_ALREADY_APPLIED
