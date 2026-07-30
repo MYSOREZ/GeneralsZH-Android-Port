@@ -413,7 +413,23 @@ elseif(ANDROID)
   # otherwise the real stride is baked into the pipeline's
   # VkVertexInputBindingDescription as usual, avoiding a stride-0 fallback
   # (silent broken rendering) once the crash itself is fixed.
-  foreach(DXVK_PATCH_NAME dxvk-android.patch dxvk-ios.patch dxvk-vulkan11-adaptive.patch dxvk-resource-refcount-memory-order.patch dxvk-mali-clip-distance.patch dxvk-mali-g76-robustness2-optional.patch dxvk-android-missing-fallback-extensions.patch dxvk-mali-g76-legacy-barrier-fallback.patch dxvk-mali-g76-semaphore-fn-fallback.patch dxvk-mali-g76-4444-format.patch dxvk-mali-g76-copy-commands2.patch dxvk-mali-g76-legacy-copy-fallback.patch dxvk-mali-g76-legacy-render-pass.patch dxvk-mali-g76-composite-alpha.patch dxvk-mali-g76-vertex-buffer-stride-fallback.patch)
+  # dxvk-mali-g76-extended-dynamic-state.patch: after the fixes above got
+  # the game rendering, validation on Mali-G76 revealed
+  # vkCreateGraphicsPipelines() unconditionally using
+  # VK_DYNAMIC_STATE_CULL_MODE/FRONT_FACE/VIEWPORT_WITH_COUNT/etc.
+  # (VK_EXT_extended_dynamic_state) and vkCreateShaderModule() declaring
+  # SPV_EXT_demote_to_helper_invocation (D3D9 alpha-test emulation),
+  # neither ever registered on this fork -- same missing-registration bug
+  # as khrCopyCommands2, just found via VUIDs instead of a crash this
+  # time (the driver appears to tolerate the malformed pipeline/shader
+  # module well enough to not immediately SIGSEGV, but it's undefined
+  # behavior per spec). Also found and fixed a second, unrelated gap
+  # while investigating: D3D9's *fixed-function* vertex shader compiler
+  # (d3d9_fixed_function.cpp) unconditionally declared SPIR-V's
+  # ClipDistance capability too -- a separate compiler from the DXSO one
+  # that dxvk-mali-clip-distance.patch already gated, so it was missed by
+  # that earlier fix.
+  foreach(DXVK_PATCH_NAME dxvk-android.patch dxvk-ios.patch dxvk-vulkan11-adaptive.patch dxvk-resource-refcount-memory-order.patch dxvk-mali-clip-distance.patch dxvk-mali-g76-robustness2-optional.patch dxvk-android-missing-fallback-extensions.patch dxvk-mali-g76-legacy-barrier-fallback.patch dxvk-mali-g76-semaphore-fn-fallback.patch dxvk-mali-g76-4444-format.patch dxvk-mali-g76-copy-commands2.patch dxvk-mali-g76-legacy-copy-fallback.patch dxvk-mali-g76-legacy-render-pass.patch dxvk-mali-g76-composite-alpha.patch dxvk-mali-g76-vertex-buffer-stride-fallback.patch dxvk-mali-g76-extended-dynamic-state.patch)
     execute_process(
       COMMAND git -C "${DXVK_LOCAL_FORK_DIR}" apply --reverse --check "${CMAKE_SOURCE_DIR}/Patches/${DXVK_PATCH_NAME}"
       RESULT_VARIABLE DXVK_PATCH_ALREADY_APPLIED
