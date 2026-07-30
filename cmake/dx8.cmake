@@ -309,7 +309,15 @@ elseif(ANDROID)
   #    visible. Matches the exact corruption real devices reported
   #    ("DxvkResourceAllocationPool: corrupted free list head") — see
   #    issues #2, #9, #11.
-  foreach(DXVK_PATCH_NAME dxvk-android.patch dxvk-ios.patch dxvk-vulkan11-adaptive.patch dxvk-resource-refcount-memory-order.patch)
+  #  - dxvk-mali-clip-distance.patch: the D3D9 backend requested
+  #    shaderClipDistance/shaderCullDistance unconditionally and the DXSO
+  #    compiler declared SPIR-V's ClipDistance capability on every vertex
+  #    shader regardless of device support — true on desktop/Adreno, false
+  #    on Mali G57, confirmed via Vulkan validation layers as the exact
+  #    VUID-VkShaderModuleCreateInfo-pCode-08740 error preceding the
+  #    libGLES_mali.so SIGSEGV on issue #9's device. Now gated on whether
+  #    the device actually reports the feature.
+  foreach(DXVK_PATCH_NAME dxvk-android.patch dxvk-ios.patch dxvk-vulkan11-adaptive.patch dxvk-resource-refcount-memory-order.patch dxvk-mali-clip-distance.patch)
     execute_process(
       COMMAND git -C "${DXVK_LOCAL_FORK_DIR}" apply --reverse --check "${CMAKE_SOURCE_DIR}/Patches/${DXVK_PATCH_NAME}"
       RESULT_VARIABLE DXVK_PATCH_ALREADY_APPLIED
