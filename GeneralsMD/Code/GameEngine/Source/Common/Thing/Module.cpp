@@ -296,8 +296,22 @@ void UpgradeMuxData::getUpgradeActivationMasks(UpgradeMaskType& activation, Upgr
 			const UpgradeTemplate* theTemplate = TheUpgradeCenter->findUpgrade( *it );
 			if( !theTemplate )
 			{
+				// GeneralsX @bugfix Android port 30/07/2026 - Real-device log
+				// (GitHub issue #2, hufgacer) showed this throw firing from
+				// ThingFactory::newObject -> Object::initObject ->
+				// updateUpgradeModules -> attemptUpgrade, during
+				// GameLogic::tryStartNewGame while creating a shell-map
+				// object. The per-frame exception-survival wrapper
+				// (GameEngine::update) catches it and skips the rest of the
+				// frame, but tryStartNewGame never finishes, so the shell
+				// map stays stuck loading forever instead of a one-time
+				// warning. Same pattern as every other unresolved-reference
+				// crash in this codebase (locomotors, sciences): skip this
+				// one name's contribution to the mask instead of throwing.
 				DEBUG_CRASH(("An upgrade module references '%s', which is not an Upgrade", it->str()));
-				throw INI_INVALID_DATA;
+				fprintf(stderr, "WARNING: Upgrade '%s' not recognized -- skipping its activation mask contribution\n", it->str());
+				fflush(stderr);
+				continue;
 			}
 
 			m_activationMask.set( theTemplate->getUpgradeMask() );
@@ -311,7 +325,9 @@ void UpgradeMuxData::getUpgradeActivationMasks(UpgradeMaskType& activation, Upgr
 			if( !theTemplate )
 			{
 				DEBUG_CRASH(("An upgrade module references '%s', which is not an Upgrade", it->str()));
-				throw INI_INVALID_DATA;
+				fprintf(stderr, "WARNING: Upgrade '%s' not recognized -- skipping its conflicting mask contribution\n", it->str());
+				fflush(stderr);
+				continue;
 			}
 
 			m_conflictingMask.set( theTemplate->getUpgradeMask() );
