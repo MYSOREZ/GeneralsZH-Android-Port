@@ -30,8 +30,10 @@
 // SYSTEM INCLUDES ////////////////////////////////////////////////////////////
 #include <stdexcept>
 #include <cstdio>
+#include <chrono>
 #include "PreRTS.h"	// This must go first in EVERY cpp file in the GameEngine
 #include "GameClient/GameClient.h"
+#include "GXTrace.h"
 
 // USER INCLUDES //////////////////////////////////////////////////////////////
 #include "Common/ActionManager.h"
@@ -513,6 +515,55 @@ void GameClient::registerDrawable( Drawable *draw )
 
 }
 
+// GeneralsX @bugfix Android port 31/07/2026 Real-device [GX-PERF] data
+// (140 samples, Redmi Note 8 Pro/Mali-G76) showed the "client" bucket in
+// GameEngine::update() -- i.e. this whole function -- at ~90% of frame
+// time in steady-state gameplay, with logic/audio/network/radar all minor.
+// That single bucket doesn't say WHERE inside GameClient::update() the
+// time goes, so break it down the same way: time each major sub-block and
+// flush an aggregate once a second. Buckets group logically-related calls
+// so the count stays manageable (see body below for exactly what each
+// covers). Cost when disabled is the single bool check -- no now()/
+// duration calls execute. Only covers the steady-state gameplay path;
+// the one-time intro/sizzle movie path returns before gxT0 is captured.
+static void gxTraceClientUpdatePhase(
+	double inputUs, double windowMgrUs, double videoPlayerUs,
+	double drawablesUs, double terrainDisplayUs, double drawUs, double uiTailUs)
+{
+	static std::chrono::steady_clock::time_point s_windowStart = std::chrono::steady_clock::now();
+	static double s_inputUs = 0, s_windowMgrUs = 0, s_videoPlayerUs = 0,
+		s_drawablesUs = 0, s_terrainDisplayUs = 0, s_drawUs = 0, s_uiTailUs = 0;
+	static int s_frames = 0;
+
+	s_inputUs += inputUs;
+	s_windowMgrUs += windowMgrUs;
+	s_videoPlayerUs += videoPlayerUs;
+	s_drawablesUs += drawablesUs;
+	s_terrainDisplayUs += terrainDisplayUs;
+	s_drawUs += drawUs;
+	s_uiTailUs += uiTailUs;
+	++s_frames;
+
+	std::chrono::steady_clock::time_point now = std::chrono::steady_clock::now();
+	double elapsedUs = std::chrono::duration<double, std::micro>(now - s_windowStart).count();
+	if (elapsedUs >= 1'000'000.0 && s_frames > 0)
+	{
+		GX_PERF_TRACE("[GX-PERF-CLIENT] frames=%d input=%.2fms windowMgr=%.2fms videoPlayer=%.2fms drawables=%.2fms terrainDisplay=%.2fms draw=%.2fms uiTail=%.2fms\n",
+			s_frames,
+			s_inputUs / 1000.0 / s_frames,
+			s_windowMgrUs / 1000.0 / s_frames,
+			s_videoPlayerUs / 1000.0 / s_frames,
+			s_drawablesUs / 1000.0 / s_frames,
+			s_terrainDisplayUs / 1000.0 / s_frames,
+			s_drawUs / 1000.0 / s_frames,
+			s_uiTailUs / 1000.0 / s_frames);
+
+		s_windowStart = now;
+		s_inputUs = s_windowMgrUs = s_videoPlayerUs = s_drawablesUs = s_terrainDisplayUs = s_drawUs = s_uiTailUs = 0;
+		s_frames = 0;
+	}
+}
+
 /** -----------------------------------------------------------------------------------------------
  * Redraw all views, update the GUI, play sound effects, etc.
  */
@@ -523,6 +574,9 @@ void GameClient::update()
 	USE_PERF_TIMER(GameClient_update)
 	PROFILER_FRAME_MARK;
 	PROFILER_SECTION_COLOR(0x2196F3);
+	// GeneralsX @bugfix Android port 31/07/2026 see gxTraceClientUpdatePhase() above.
+	const bool gxPerfTrace = GXTrace::isPerfEnabled();
+	std::chrono::steady_clock::time_point gxcT0, gxcT1, gxcT2, gxcT3, gxcT4, gxcT5, gxcT6;
 	// create the FRAME_TICK message
 	GameMessage *frameMsg = TheMessageStream->appendMessage( GameMessage::MSG_FRAME_TICK );
 	frameMsg->appendTimestampArgument( getFrame() );
@@ -596,6 +650,8 @@ void GameClient::update()
 		}
 	}
 
+	if (gxPerfTrace) gxcT0 = std::chrono::steady_clock::now();
+
 	//Update snow particles.
 	if (TheSnowManager)
 		TheSnowManager->UPDATE();
@@ -642,15 +698,21 @@ void GameClient::update()
 		return;
 	}
 
+	if (gxPerfTrace) gxcT1 = std::chrono::steady_clock::now();
+
 	// update the window system itself
 	{
 		TheWindowManager->UPDATE();
 	}
 
+	if (gxPerfTrace) gxcT2 = std::chrono::steady_clock::now();
+
 	// update the video player
 	{
 		TheVideoPlayer->UPDATE();
 	}
+
+	if (gxPerfTrace) gxcT3 = std::chrono::steady_clock::now();
 
 	const Bool freezeTime = TheGameEngine->isTimeFrozen() || TheGameEngine->isGameHalted();
 
@@ -740,6 +802,8 @@ void GameClient::update()
 		}
 	}
 
+	if (gxPerfTrace) gxcT4 = std::chrono::steady_clock::now();
+
 #if defined(RTS_DEBUG)
 	// need to draw the first frame, then don't draw again until TheGlobalData->m_noDraw
 	if (TheGlobalData->m_noDraw > TheGameLogic->getFrame() && TheGameLogic->getFrame() > 0)
@@ -767,6 +831,8 @@ void GameClient::update()
 		TheDisplay->UPDATE();
 	}
 
+	if (gxPerfTrace) gxcT5 = std::chrono::steady_clock::now();
+
 	{
 		USE_PERF_TIMER(GameClient_draw)
 
@@ -775,6 +841,8 @@ void GameClient::update()
 
 		TheDisplay->DRAW();
 	}
+
+	if (gxPerfTrace) gxcT6 = std::chrono::steady_clock::now();
 
 	{
 		// let display string factory handle its update
@@ -789,6 +857,19 @@ void GameClient::update()
 	{
 		// update the in game UI
 		TheInGameUI->UPDATE();
+	}
+
+	if (gxPerfTrace)
+	{
+		std::chrono::steady_clock::time_point gxcT7 = std::chrono::steady_clock::now();
+		gxTraceClientUpdatePhase(
+			std::chrono::duration<double, std::micro>(gxcT1 - gxcT0).count(),
+			std::chrono::duration<double, std::micro>(gxcT2 - gxcT1).count(),
+			std::chrono::duration<double, std::micro>(gxcT3 - gxcT2).count(),
+			std::chrono::duration<double, std::micro>(gxcT4 - gxcT3).count(),
+			std::chrono::duration<double, std::micro>(gxcT5 - gxcT4).count(),
+			std::chrono::duration<double, std::micro>(gxcT6 - gxcT5).count(),
+			std::chrono::duration<double, std::micro>(gxcT7 - gxcT6).count());
 	}
 }
 
