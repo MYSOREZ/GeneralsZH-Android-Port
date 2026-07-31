@@ -519,7 +519,28 @@ elseif(ANDROID)
   # forwarding accessor (the blitter isn't a DxvkContext, so it can't
   # reach DxvkObjects's dummy resources via the usual m_common friend
   # access) and uses the existing dummy-image-view cache through it.
-  foreach(DXVK_PATCH_NAME dxvk-android.patch dxvk-ios.patch dxvk-vulkan11-adaptive.patch dxvk-resource-refcount-memory-order.patch dxvk-mali-clip-distance.patch dxvk-mali-g76-robustness2-optional.patch dxvk-android-missing-fallback-extensions.patch dxvk-mali-g76-legacy-barrier-fallback.patch dxvk-mali-g76-semaphore-fn-fallback.patch dxvk-mali-g76-4444-format.patch dxvk-mali-g76-copy-commands2.patch dxvk-mali-g76-legacy-copy-fallback.patch dxvk-mali-g76-legacy-render-pass.patch dxvk-mali-g76-composite-alpha.patch dxvk-mali-g76-vertex-buffer-stride-fallback.patch dxvk-mali-g76-extended-dynamic-state.patch dxvk-mali-g76-dynamic-state-fallback.patch dxvk-mali-g76-demote-to-helper-fallback.patch dxvk-mali-g76-null-descriptor-fallback.patch dxvk-mali-g76-swapchain-blitter-legacy-renderpass.patch dxvk-mali-g76-blitter-pipeline-legacy-renderpass.patch dxvk-mali-g76-blitter-null-descriptor-fallback.patch)
+  # dxvk-mali-g76-format-properties3-fallback.patch: root cause of the
+  # green/magenta texture corruption. DxvkAdapter::getFormatFeatures read
+  # its results out of a VkFormatProperties3 chained into
+  # vkGetPhysicalDeviceFormatProperties2, but that struct is core only in
+  # Vulkan 1.3 and otherwise needs VK_KHR_format_feature_flags2 -- which
+  # this build never enables anywhere. A Vulkan 1.1 driver silently ignores
+  # the unrecognised pNext node and never writes to it, so the
+  # zero-initialised struct came back untouched and EVERY format reported
+  # ZERO features. Completely invisible: no VUID, no DXVK error, and the
+  # engine's own "no valid texture format" assert is compiled out in
+  # release. Downstream that made IDirect3D9::CheckDeviceFormat answer
+  # D3DERR_NOTAVAILABLE for every format, so DX8Caps marked even DXTC
+  # unsupported, Get_Valid_Texture_Format fell off the end of its fallback
+  # ladder and degraded every texture in the game to R5G6B5, and the
+  # CompatLib D3DX shims then bailed out on the resulting format mismatch
+  # without writing any texels -- leaving uninitialised VRAM (the flat
+  # green) or the engine's own magenta "missing texture" placeholder.
+  # Fixes it by reading the core VkFormatProperties2::formatProperties
+  # when VkFormatProperties3 is unavailable; VkFormatFeatureFlagBits2
+  # deliberately shares bit values with VkFormatFeatureFlagBits, so the
+  # widening is exact.
+  foreach(DXVK_PATCH_NAME dxvk-android.patch dxvk-ios.patch dxvk-vulkan11-adaptive.patch dxvk-resource-refcount-memory-order.patch dxvk-mali-clip-distance.patch dxvk-mali-g76-robustness2-optional.patch dxvk-android-missing-fallback-extensions.patch dxvk-mali-g76-legacy-barrier-fallback.patch dxvk-mali-g76-semaphore-fn-fallback.patch dxvk-mali-g76-4444-format.patch dxvk-mali-g76-copy-commands2.patch dxvk-mali-g76-legacy-copy-fallback.patch dxvk-mali-g76-legacy-render-pass.patch dxvk-mali-g76-composite-alpha.patch dxvk-mali-g76-vertex-buffer-stride-fallback.patch dxvk-mali-g76-extended-dynamic-state.patch dxvk-mali-g76-dynamic-state-fallback.patch dxvk-mali-g76-demote-to-helper-fallback.patch dxvk-mali-g76-null-descriptor-fallback.patch dxvk-mali-g76-swapchain-blitter-legacy-renderpass.patch dxvk-mali-g76-blitter-pipeline-legacy-renderpass.patch dxvk-mali-g76-blitter-null-descriptor-fallback.patch dxvk-mali-g76-format-properties3-fallback.patch)
     execute_process(
       COMMAND git -C "${DXVK_LOCAL_FORK_DIR}" apply --reverse --check "${CMAKE_SOURCE_DIR}/Patches/${DXVK_PATCH_NAME}"
       RESULT_VARIABLE DXVK_PATCH_ALREADY_APPLIED
