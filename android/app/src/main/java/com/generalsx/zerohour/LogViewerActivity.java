@@ -59,11 +59,9 @@ import android.widget.Toast;
 import androidx.core.content.FileProvider;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
-import java.nio.charset.StandardCharsets;
 import java.nio.CharBuffer;
 
 public class LogViewerActivity extends Activity {
@@ -205,23 +203,54 @@ public class LogViewerActivity extends Activity {
         Toast.makeText(this, R.string.logviewer_toast_cleared, Toast.LENGTH_SHORT).show();
     }
 
+    // GeneralsX @bugfix Android port 31/07/2026 Used to share the same
+    // head+tail-capped combinedLog the on-screen TextView shows -- fine for
+    // the viewer (a 70+ MB session isn't reasonable to lay out in a plain
+    // TextView), but that meant Share could never hand over more than the
+    // 200 KB cap, and a real multi-minute session with active logging
+    // observed on-device was tens of MB, entirely eliding the gameplay in
+    // the middle. Rather than add a second button, Share now sends the real
+    // on-disk files unmodified (multiple attachments if more than one
+    // exists) -- FileProvider has no size limit of its own the way the old
+    // raw EXTRA_TEXT approach did (see the FileProvider migration comment
+    // at the top of this file), so the receiving app (email, Drive,
+    // Telegram, etc.) decides what it can handle, not us.
     private void shareLogAsFile() {
         try {
-            File logFile = new File(getCacheDir(), "generalszh-log.txt");
-            try (FileOutputStream out = new FileOutputStream(logFile, false)) {
-                out.write(combinedLog.getBytes(StandardCharsets.UTF_8));
+            java.util.ArrayList<Uri> uris = new java.util.ArrayList<>();
+            addLogFileUri(uris, new File(getFilesDir(), "crash.log"));
+            addLogFileUri(uris, new File(getFilesDir(), "crash-prev.log"));
+            File extDir = getExternalFilesDir(null);
+            if (extDir != null) {
+                addLogFileUri(uris, new File(extDir, "generals-stderr.log"));
+                addLogFileUri(uris, new File(extDir, "generals-stderr-prev.log"));
             }
 
-            Uri uri = FileProvider.getUriForFile(this, getPackageName() + ".fileprovider", logFile);
+            if (uris.isEmpty()) {
+                Toast.makeText(this, R.string.logviewer_toast_share_none, Toast.LENGTH_LONG).show();
+                return;
+            }
 
-            Intent share = new Intent(Intent.ACTION_SEND);
+            Intent share;
+            if (uris.size() == 1) {
+                share = new Intent(Intent.ACTION_SEND);
+                share.putExtra(Intent.EXTRA_STREAM, uris.get(0));
+            } else {
+                share = new Intent(Intent.ACTION_SEND_MULTIPLE);
+                share.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris);
+            }
             share.setType("text/plain");
             share.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.logviewer_share_subject));
-            share.putExtra(Intent.EXTRA_STREAM, uri);
             share.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             startActivity(Intent.createChooser(share, getString(R.string.logviewer_share_chooser_title)));
-        } catch (IOException e) {
+        } catch (Exception e) {
             Toast.makeText(this, getString(R.string.logviewer_toast_share_failed, e.getMessage()), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void addLogFileUri(java.util.List<Uri> list, File f) {
+        if (f.isFile()) {
+            list.add(FileProvider.getUriForFile(this, getPackageName() + ".fileprovider", f));
         }
     }
 

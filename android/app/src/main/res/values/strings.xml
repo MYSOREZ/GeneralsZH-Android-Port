@@ -120,6 +120,7 @@
     <string name="logviewer_share_subject">GeneralsZH Android log</string>
     <string name="logviewer_share_chooser_title">Share log</string>
     <string name="logviewer_toast_share_failed">Could not prepare log file to share: %1$s</string>
+    <string name="logviewer_toast_share_none">No log files found to share yet.</string>
     <string name="logviewer_read_failed">(could not read %1$s: %2$s)</string>
     <string name="logviewer_elided_notice">\n...(%1$d characters omitted here; the session start above and the most recent output below are kept)...\n\n</string>
 

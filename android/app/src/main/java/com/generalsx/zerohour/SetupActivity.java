@@ -128,6 +128,16 @@ public class SetupActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
+        // GeneralsX @bugfix Android port 31/07/2026 onLaunchGame() forces this
+        // Activity to landscape right before starting the game (see its
+        // comment) so the rotation settles before GeneralsZHActivity's native
+        // window-size probe runs. That request otherwise sticks on this
+        // Activity instance indefinitely, so coming back here (Back from the
+        // game, or from any child screen) left Setup stuck landscape instead
+        // of returning to its normal portrait-first state. Reset it every
+        // time this screen comes back to the foreground; onLaunchGame()
+        // re-applies the landscape lock itself the next time it's needed.
+        setRequestedOrientation(android.content.pm.ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
         refreshStatus();
         refreshGeneralsOnlineStatus();
         loadDxvkConfigIntoEditor();
