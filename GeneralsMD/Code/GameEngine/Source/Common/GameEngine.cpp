@@ -70,6 +70,9 @@
 #include "Common/GameLOD.h"
 #include "Common/Registry.h"
 #include "Common/GameCommon.h"	// FOR THE ALLOW_DEBUG_CHEATS_IN_RELEASE #define
+#include "GXTrace.h"
+
+#include <chrono>
 
 // GeneralsX @bugfix Android port 16/07/2026 __cxa_current_exception_type() /
 // __cxa_demangle() are Itanium C++ ABI runtime entry points (libc++abi on
@@ -1016,26 +1019,83 @@ DECLARE_PERF_TIMER(GameEngine_update)
 /** -----------------------------------------------------------------------------------------------
  * Update the game engine by updating the GameClient and GameLogic singletons.
  */
+// GeneralsX @perf Android port 31/07/2026 lightweight per-subsystem
+// frame-phase timing for GameEngine::update(), gated by the existing
+// GX_TRACE opt-in (gx_trace.txt marker / GX_TRACE env var, off by default).
+// DXVK's own HUD counters (already logged elsewhere as "DXVK_HUD: ...")
+// showed near-zero GPU wait/submission cost on Mali-G76 real-device runs
+// -- syncs=0 almost always, low draw/submit/barrier counts -- so whatever
+// is capping FPS on that device has to be on the CPU side of this
+// function, not in DXVK/Vulkan submission. This times each subsystem
+// UPDATE() call and flushes an aggregate once a second, so a real-device
+// log can show which subsystem actually owns the frame budget instead of
+// guessing. Cost when disabled is the single bool check below -- none of
+// the now()/duration calls execute.
+static void gxTraceEngineUpdatePhase(
+	double radarUs, double audioUs, double clientUs,
+	double networkUs, double logicUs, double stepUs)
+{
+	static std::chrono::steady_clock::time_point s_windowStart = std::chrono::steady_clock::now();
+	static double s_radarUs = 0, s_audioUs = 0, s_clientUs = 0,
+		s_networkUs = 0, s_logicUs = 0, s_stepUs = 0;
+	static int s_frames = 0;
+
+	s_radarUs += radarUs;
+	s_audioUs += audioUs;
+	s_clientUs += clientUs;
+	s_networkUs += networkUs;
+	s_logicUs += logicUs;
+	s_stepUs += stepUs;
+	++s_frames;
+
+	std::chrono::steady_clock::time_point now = std::chrono::steady_clock::now();
+	double elapsedUs = std::chrono::duration<double, std::micro>(now - s_windowStart).count();
+	if (elapsedUs >= 1'000'000.0 && s_frames > 0)
+	{
+		GX_TRACE("[GX-PERF] frames=%d avgFrameMs=%.2f radar=%.2fms audio=%.2fms client=%.2fms network=%.2fms logic=%.2fms step=%.2fms\n",
+			s_frames,
+			(elapsedUs / 1000.0) / s_frames,
+			s_radarUs / 1000.0 / s_frames,
+			s_audioUs / 1000.0 / s_frames,
+			s_clientUs / 1000.0 / s_frames,
+			s_networkUs / 1000.0 / s_frames,
+			s_logicUs / 1000.0 / s_frames,
+			s_stepUs / 1000.0 / s_frames);
+
+		s_windowStart = now;
+		s_radarUs = s_audioUs = s_clientUs = s_networkUs = s_logicUs = s_stepUs = 0;
+		s_frames = 0;
+	}
+}
+
 void GameEngine::update()
 {
 	USE_PERF_TIMER(GameEngine_update)
 	{
+		const bool gxPerfTrace = GXTrace::isEnabled();
+		std::chrono::steady_clock::time_point gxT0, gxT1, gxT2, gxT3, gxT4, gxT5;
+
 		{
 			// VERIFY CRC needs to be in this code block.  Please to not pull TheGameLogic->update() inside this block.
 			VERIFY_CRC
 
+			if (gxPerfTrace) gxT0 = std::chrono::steady_clock::now();
 			TheRadar->UPDATE();
+			if (gxPerfTrace) gxT1 = std::chrono::steady_clock::now();
 
 			/// @todo Move audio init, update, etc, into GameClient update
 
 			TheAudio->UPDATE();
+			if (gxPerfTrace) gxT2 = std::chrono::steady_clock::now();
 			TheGameClient->UPDATE();
+			if (gxPerfTrace) gxT3 = std::chrono::steady_clock::now();
 			TheMessageStream->propagateMessages();
 
 			if (TheNetwork != nullptr)
 			{
 				TheNetwork->UPDATE();
 			}
+			if (gxPerfTrace) gxT4 = std::chrono::steady_clock::now();
 
 			// GeneralsX @bugfix Android port 07/11/2026 - ported from upstream GeneralsOnline: process a deferred TearDownGeneralsOnline() request
 			if (g_bTearDownGeneralsOnlineRequested) // delayed tear down
@@ -1052,14 +1112,35 @@ void GameEngine::update()
 		}
 
 		// TheSuperHackers @info Ignores frozen time because the script engine needs updating in the logic update regardless.
+		double logicUs = 0.0, stepUs = 0.0;
 		if (canUpdateGameLogic(FramePacer::IgnoreFrozenTime))
 		{
 			TheGameLogic->UPDATE();
+			if (gxPerfTrace) gxT5 = std::chrono::steady_clock::now();
 
 			if (!TheFramePacer->isTimeFrozen())
 			{
 				TheGameClient->step();
 			}
+
+			if (gxPerfTrace)
+			{
+				std::chrono::steady_clock::time_point gxT6 = std::chrono::steady_clock::now();
+				logicUs = std::chrono::duration<double, std::micro>(gxT5 - gxT4).count();
+				stepUs = std::chrono::duration<double, std::micro>(gxT6 - gxT5).count();
+			}
+		}
+
+		if (gxPerfTrace)
+		{
+			// gxT4->gxT5 also covers propagateMessages()/online-services tick (unlabeled,
+			// folded into "logic" below since they're consistently cheap message-queue work).
+			gxTraceEngineUpdatePhase(
+				std::chrono::duration<double, std::micro>(gxT1 - gxT0).count(),
+				std::chrono::duration<double, std::micro>(gxT2 - gxT1).count(),
+				std::chrono::duration<double, std::micro>(gxT3 - gxT2).count(),
+				std::chrono::duration<double, std::micro>(gxT4 - gxT3).count(),
+				logicUs, stepUs);
 		}
 	}
 }
