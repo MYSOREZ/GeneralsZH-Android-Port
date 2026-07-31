@@ -540,7 +540,17 @@ elseif(ANDROID)
   # when VkFormatProperties3 is unavailable; VkFormatFeatureFlagBits2
   # deliberately shares bit values with VkFormatFeatureFlagBits, so the
   # widening is exact.
-  foreach(DXVK_PATCH_NAME dxvk-android.patch dxvk-ios.patch dxvk-vulkan11-adaptive.patch dxvk-resource-refcount-memory-order.patch dxvk-mali-clip-distance.patch dxvk-mali-g76-robustness2-optional.patch dxvk-android-missing-fallback-extensions.patch dxvk-mali-g76-legacy-barrier-fallback.patch dxvk-mali-g76-semaphore-fn-fallback.patch dxvk-mali-g76-4444-format.patch dxvk-mali-g76-copy-commands2.patch dxvk-mali-g76-legacy-copy-fallback.patch dxvk-mali-g76-legacy-render-pass.patch dxvk-mali-g76-composite-alpha.patch dxvk-mali-g76-vertex-buffer-stride-fallback.patch dxvk-mali-g76-extended-dynamic-state.patch dxvk-mali-g76-dynamic-state-fallback.patch dxvk-mali-g76-demote-to-helper-fallback.patch dxvk-mali-g76-null-descriptor-fallback.patch dxvk-mali-g76-swapchain-blitter-legacy-renderpass.patch dxvk-mali-g76-blitter-pipeline-legacy-renderpass.patch dxvk-mali-g76-blitter-null-descriptor-fallback.patch dxvk-mali-g76-format-properties3-fallback.patch)
+  # dxvk-mali-g76-hud-image-legacy-renderpass.patch: DxvkSwapchainBlitter::
+  # renderHudImage is a third consumer of dynamic rendering in that file,
+  # separate from present() and from the pipeline creation paths, and it was
+  # missed when those were converted. It only runs when the DXVK HUD is
+  # enabled AND the swap chain needs composition, which is why it stayed
+  # hidden until the HUD was turned on to collect frame timings -- then it
+  # crashed immediately on a null vkCmdBeginRendering (tombstone: pc=0x0 in
+  # renderHudImage). Routes it through the same DxvkLegacyRenderPassPool.
+  # Unlike present(), this pass uses LOAD_OP_CLEAR, so it always supplies a
+  # clear value.
+  foreach(DXVK_PATCH_NAME dxvk-android.patch dxvk-ios.patch dxvk-vulkan11-adaptive.patch dxvk-resource-refcount-memory-order.patch dxvk-mali-clip-distance.patch dxvk-mali-g76-robustness2-optional.patch dxvk-android-missing-fallback-extensions.patch dxvk-mali-g76-legacy-barrier-fallback.patch dxvk-mali-g76-semaphore-fn-fallback.patch dxvk-mali-g76-4444-format.patch dxvk-mali-g76-copy-commands2.patch dxvk-mali-g76-legacy-copy-fallback.patch dxvk-mali-g76-legacy-render-pass.patch dxvk-mali-g76-composite-alpha.patch dxvk-mali-g76-vertex-buffer-stride-fallback.patch dxvk-mali-g76-extended-dynamic-state.patch dxvk-mali-g76-dynamic-state-fallback.patch dxvk-mali-g76-demote-to-helper-fallback.patch dxvk-mali-g76-null-descriptor-fallback.patch dxvk-mali-g76-swapchain-blitter-legacy-renderpass.patch dxvk-mali-g76-blitter-pipeline-legacy-renderpass.patch dxvk-mali-g76-blitter-null-descriptor-fallback.patch dxvk-mali-g76-format-properties3-fallback.patch dxvk-mali-g76-hud-image-legacy-renderpass.patch)
     execute_process(
       COMMAND git -C "${DXVK_LOCAL_FORK_DIR}" apply --reverse --check "${CMAKE_SOURCE_DIR}/Patches/${DXVK_PATCH_NAME}"
       RESULT_VARIABLE DXVK_PATCH_ALREADY_APPLIED
