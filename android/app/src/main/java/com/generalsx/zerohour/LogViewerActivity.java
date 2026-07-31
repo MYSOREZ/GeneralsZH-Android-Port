@@ -209,49 +209,71 @@ public class LogViewerActivity extends Activity {
     // TextView), but that meant Share could never hand over more than the
     // 200 KB cap, and a real multi-minute session with active logging
     // observed on-device was tens of MB, entirely eliding the gameplay in
-    // the middle. Rather than add a second button, Share now sends the real
-    // on-disk files unmodified (multiple attachments if more than one
-    // exists) -- FileProvider has no size limit of its own the way the old
-    // raw EXTRA_TEXT approach did (see the FileProvider migration comment
-    // at the top of this file), so the receiving app (email, Drive,
-    // Telegram, etc.) decides what it can handle, not us.
+    // the middle.
+    //
+    // GeneralsX @bugfix Android port 31/07/2026 follow-up: a first attempt
+    // shared the real files unmodified as separate attachments
+    // (ACTION_SEND_MULTIPLE), which does avoid the truncation, but a tester
+    // pointed out that's worse to actually receive -- several separate
+    // files instead of one, and no compression, so a real session's
+    // generals-stderr.log alone came in over the ~30 MB limit some chat
+    // apps enforce per upload even though it compresses down to a fraction
+    // of that (plain-text logs, especially this engine's repetitive
+    // per-field/per-frame tracing, compress extremely well). Zip everything
+    // into a single archive instead: one attachment, no receiving-app size
+    // surprise, and FileProvider still has no size limit of its own on the
+    // sharing side (see the FileProvider migration comment at the top of
+    // this file) -- the receiving app decides what it can handle, not us.
     private void shareLogAsFile() {
         try {
-            java.util.ArrayList<Uri> uris = new java.util.ArrayList<>();
-            addLogFileUri(uris, new File(getFilesDir(), "crash.log"));
-            addLogFileUri(uris, new File(getFilesDir(), "crash-prev.log"));
-            File extDir = getExternalFilesDir(null);
-            if (extDir != null) {
-                addLogFileUri(uris, new File(extDir, "generals-stderr.log"));
-                addLogFileUri(uris, new File(extDir, "generals-stderr-prev.log"));
+            File zipFile = new File(getCacheDir(), "generalszh-logs.zip");
+            int fileCount = 0;
+            try (java.util.zip.ZipOutputStream zos = new java.util.zip.ZipOutputStream(
+                    new java.io.FileOutputStream(zipFile, false))) {
+                fileCount += addLogFileToZip(zos, new File(getFilesDir(), "crash.log"));
+                fileCount += addLogFileToZip(zos, new File(getFilesDir(), "crash-prev.log"));
+                File extDir = getExternalFilesDir(null);
+                if (extDir != null) {
+                    fileCount += addLogFileToZip(zos, new File(extDir, "generals-stderr.log"));
+                    fileCount += addLogFileToZip(zos, new File(extDir, "generals-stderr-prev.log"));
+                }
             }
 
-            if (uris.isEmpty()) {
+            if (fileCount == 0) {
+                zipFile.delete();
                 Toast.makeText(this, R.string.logviewer_toast_share_none, Toast.LENGTH_LONG).show();
                 return;
             }
 
-            Intent share;
-            if (uris.size() == 1) {
-                share = new Intent(Intent.ACTION_SEND);
-                share.putExtra(Intent.EXTRA_STREAM, uris.get(0));
-            } else {
-                share = new Intent(Intent.ACTION_SEND_MULTIPLE);
-                share.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris);
-            }
-            share.setType("text/plain");
+            Uri uri = FileProvider.getUriForFile(this, getPackageName() + ".fileprovider", zipFile);
+
+            Intent share = new Intent(Intent.ACTION_SEND);
+            share.setType("application/zip");
             share.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.logviewer_share_subject));
+            share.putExtra(Intent.EXTRA_STREAM, uri);
             share.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             startActivity(Intent.createChooser(share, getString(R.string.logviewer_share_chooser_title)));
-        } catch (Exception e) {
+        } catch (IOException e) {
             Toast.makeText(this, getString(R.string.logviewer_toast_share_failed, e.getMessage()), Toast.LENGTH_LONG).show();
         }
     }
 
-    private void addLogFileUri(java.util.List<Uri> list, File f) {
-        if (f.isFile()) {
-            list.add(FileProvider.getUriForFile(this, getPackageName() + ".fileprovider", f));
+    // Returns 1 if the file existed and was added, 0 if it didn't exist (so
+    // the caller can tell "nothing to share" apart from "wrote an empty zip").
+    private int addLogFileToZip(java.util.zip.ZipOutputStream zos, File f) throws IOException {
+        if (!f.isFile()) {
+            return 0;
         }
+        zos.putNextEntry(new java.util.zip.ZipEntry(f.getName()));
+        try (java.io.FileInputStream in = new java.io.FileInputStream(f)) {
+            byte[] buf = new byte[65536];
+            int n;
+            while ((n = in.read(buf)) > 0) {
+                zos.write(buf, 0, n);
+            }
+        }
+        zos.closeEntry();
+        return 1;
     }
 
     /**
