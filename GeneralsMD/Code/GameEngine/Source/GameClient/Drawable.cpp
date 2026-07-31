@@ -80,6 +80,7 @@
 #include "GameClient/LanguageFilter.h"
 #include "GameClient/Shadow.h"
 #include "GameClient/GameText.h"
+#include "GXTrace.h"
 
 #include "ww3d.h"
 
@@ -3656,8 +3657,6 @@ void Drawable::drawDisabled(const IRegion2D* healthBarRegion)
 //-------------------------------------------------------------------------------------------------
 void Drawable::drawConstructPercent( const IRegion2D *healthBarRegion )
 {
-	char log_buffer[512];
-
 	// this data is in an attached object
 	Object *obj = getObject();
 
@@ -3687,11 +3686,9 @@ void Drawable::drawConstructPercent( const IRegion2D *healthBarRegion )
 		if (m_constructDisplayString)
 		{
 			m_constructDisplayString->setFont(ResolveDrawableCaptionFont());
-			sprintf(log_buffer,
-				"[GX-ISSUE144] Drawable construct string allocated drawable=%p obj=%p",
+			GX_TRACE("[GX-ISSUE144] Drawable construct string allocated drawable=%p obj=%p\n",
 				this,
 				obj);
-			fprintf(stderr, "%s\n", log_buffer);
 		}
 	}
 
@@ -3701,6 +3698,7 @@ void Drawable::drawConstructPercent( const IRegion2D *healthBarRegion )
 		UnicodeString buffer;
 
 		// Log the raw format string from GameText before formatting
+		if (GXTrace::isEnabled())
 		{
 			static bool _fetchLogged = false;
 			if (!_fetchLogged) {
@@ -3710,10 +3708,8 @@ void Drawable::drawConstructPercent( const IRegion2D *healthBarRegion )
 				char fnarrow[128] = {};
 				for (int _fi = 0; _fi < 64 && fws[_fi]; ++_fi)
 					fnarrow[_fi] = (fws[_fi] < 128) ? (char)fws[_fi] : '?';
-				sprintf(log_buffer,
-					"[GX-ISSUE144] fetch UnderConstructionDesc len=%d text=\"%s\"",
+				GX_TRACE("[GX-ISSUE144] fetch UnderConstructionDesc len=%d text=\"%s\"\n",
 					fetchResult.getLength(), fnarrow);
-				fprintf(stderr, "%s\n", log_buffer);
 			}
 		}
 
@@ -3723,20 +3719,26 @@ void Drawable::drawConstructPercent( const IRegion2D *healthBarRegion )
 		// record this percent as our last displayed so we don't un-necessarily rebuild the string
 		m_lastConstructDisplayed = obj->getConstructionPercent();
 
-		// Log actual text content (convert wchar to narrow for logging)
-		const WideChar *ws = buffer.str();
-		char narrow[128] = {};
-		for (int _i = 0; _i < 64 && ws[_i]; ++_i)
-			narrow[_i] = (ws[_i] < 128) ? (char)ws[_i] : '?';
-		GameFont *curFont = m_constructDisplayString->getFont();
-		sprintf(log_buffer,
-			"[GX-ISSUE144] Drawable construct text update drawable=%p pct=%g len=%d text=\"%s\" font=%s",
-			this,
-			(double)obj->getConstructionPercent(),
-			buffer.getLength(),
-			narrow,
-			curFont ? curFont->nameString.str() : "NULL");
-		fprintf(stderr, "%s\n", log_buffer);
+		// GeneralsX @performance Android port 31/07/2026 this branch runs every
+		// frame for every building under construction (the shell map behind the
+		// main menu always has one), so the wchar->narrow conversion below is
+		// gated too, not just the print: it was pure per-frame cost feeding a
+		// log line nobody reads in a normal run.
+		if (GXTrace::isEnabled())
+		{
+			// Log actual text content (convert wchar to narrow for logging)
+			const WideChar *ws = buffer.str();
+			char narrow[128] = {};
+			for (int _i = 0; _i < 64 && ws[_i]; ++_i)
+				narrow[_i] = (ws[_i] < 128) ? (char)ws[_i] : '?';
+			GameFont *curFont = m_constructDisplayString->getFont();
+			GX_TRACE("[GX-ISSUE144] Drawable construct text update drawable=%p pct=%g len=%d text=\"%s\" font=%s\n",
+				this,
+				(double)obj->getConstructionPercent(),
+				buffer.getLength(),
+				narrow,
+				curFont ? curFont->nameString.str() : "NULL");
+		}
 	}
 
 	// get center position in drawable
@@ -3757,11 +3759,9 @@ void Drawable::drawConstructPercent( const IRegion2D *healthBarRegion )
 	static bool _constructDrawLogged = false;
 	if (!_constructDrawLogged) {
 		GameFont *df = m_constructDisplayString->getFont();
-		sprintf(log_buffer,
-			"[GX-ISSUE144] Drawable construct draw drawable=%p screen=(%d,%d) width=%d font=%s",
+		GX_TRACE("[GX-ISSUE144] Drawable construct draw drawable=%p screen=(%d,%d) width=%d font=%s\n",
 			this, screen.x, screen.y, tw,
 			df ? df->nameString.str() : "NULL");
-		fprintf(stderr, "%s\n", log_buffer);
 		_constructDrawLogged = true;
 	}
 	screen.x -= (tw / 2);
@@ -4343,13 +4343,10 @@ const Matrix3D *Drawable::getTransformMatrix() const
 //-------------------------------------------------------------------------------------------------
 void Drawable::setCaptionText( const UnicodeString& captionText )
 {
-	char log_buffer[512];
-
 	if (captionText.isEmpty())
 	{
 		clearCaptionText();
-		sprintf(log_buffer, "[GX-ISSUE144] Drawable caption clear-request drawable=%p", this);
-		fprintf(stderr, "%s\n", log_buffer);
+		GX_TRACE("[GX-ISSUE144] Drawable caption clear-request drawable=%p\n", this);
 		return;
 	}
 
@@ -4362,12 +4359,10 @@ void Drawable::setCaptionText( const UnicodeString& captionText )
 		GameFont *font = ResolveDrawableCaptionFont();
 		m_captionDisplayString->setFont( font );
 		m_captionDisplayString->setText( sanitizedString );
-		sprintf(log_buffer,
-			"[GX-ISSUE144] Drawable caption new drawable=%p textLength=%d font=%p",
+		GX_TRACE("[GX-ISSUE144] Drawable caption new drawable=%p textLength=%d font=%p\n",
 			this,
 			sanitizedString.getLength(),
 			font);
-		fprintf(stderr, "%s\n", log_buffer);
 	}
 	else
 	{
@@ -4375,11 +4370,9 @@ void Drawable::setCaptionText( const UnicodeString& captionText )
 		if( m_captionDisplayString->getText().compare(sanitizedString) != 0 )
 		{
 			m_captionDisplayString->setText( sanitizedString );
-			sprintf(log_buffer,
-				"[GX-ISSUE144] Drawable caption update drawable=%p textLength=%d",
+			GX_TRACE("[GX-ISSUE144] Drawable caption update drawable=%p textLength=%d\n",
 				this,
 				sanitizedString.getLength());
-			fprintf(stderr, "%s\n", log_buffer);
 		}
 	}
 }

@@ -62,6 +62,7 @@
 
 #include "GameClient/Display.h"
 #include "GameClient/GlobalLanguage.h"
+#include "GXTrace.h"
 
 //-----------------------------------------------------------------------------
 // DEFINES ////////////////////////////////////////////////////////////////////
@@ -151,24 +152,19 @@ GlobalLanguage::~GlobalLanguage()
 void GlobalLanguage::init()
 {
 	// GeneralsX @bugfix GitHubCopilot 27/05/2026 Implement Language.ini fallback chain so stock values fill missing override keys.
-	char log_buffer[512];
 	{
 		AsciiString registryLanguage = GetRegistryLanguage();
 		AsciiString fname;
 		fname.format("Data\\%s\\Language", registryLanguage.str());
 
-		sprintf(log_buffer,
-			"[GX-ISSUE144] GlobalLanguage init registryLanguage=%s primaryIni=%s",
+		GX_TRACE("[GX-ISSUE144] GlobalLanguage init registryLanguage=%s primaryIni=%s\n",
 			registryLanguage.str(),
 			fname.str());
-		fprintf(stderr, "%s\n", log_buffer);
 
 		INI ini;
 		ini.loadFileDirectory( fname, INI_LOAD_OVERWRITE, nullptr );
-		sprintf(log_buffer,
-			"[GX-ISSUE144] GlobalLanguage init loaded primary unicodeFont=%s",
+		GX_TRACE("[GX-ISSUE144] GlobalLanguage init loaded primary unicodeFont=%s\n",
 			m_unicodeFontName.isNotEmpty() ? m_unicodeFontName.str() : "<empty>");
-		fprintf(stderr, "%s\n", log_buffer);
 
 		// GeneralsX @bugfix fbraz 04/06/2026 Only fall back to stock English if the primary language
 		// did not set UnicodeFontName. This protects two scenarios:
@@ -185,31 +181,23 @@ void GlobalLanguage::init()
 			stockFnameWithExt.concat(".ini");
 			if (TheFileSystem->doesFileExist(stockFnameWithExt.str()))
 			{
-				sprintf(log_buffer,
-					"[GX-ISSUE144] GlobalLanguage init loading stock fallback=%s",
+				GX_TRACE("[GX-ISSUE144] GlobalLanguage init loading stock fallback=%s\n",
 					stockFname.str());
-				fprintf(stderr, "%s\n", log_buffer);
 				ini.loadFileDirectory( stockFname, INI_LOAD_MULTIFILE, nullptr );
-				sprintf(log_buffer,
-					"[GX-ISSUE144] GlobalLanguage init fallback merged unicodeFont=%s (may have been filled)",
+				GX_TRACE("[GX-ISSUE144] GlobalLanguage init fallback merged unicodeFont=%s (may have been filled)\n",
 					m_unicodeFontName.isNotEmpty() ? m_unicodeFontName.str() : "<empty>");
-				fprintf(stderr, "%s\n", log_buffer);
 			}
 			else
 			{
-				sprintf(log_buffer,
-					"[GX-ISSUE144] GlobalLanguage init stock fallback skipped, file not present: %s",
+				GX_TRACE("[GX-ISSUE144] GlobalLanguage init stock fallback skipped, file not present: %s\n",
 					stockFnameWithExt.str());
-				fprintf(stderr, "%s\n", log_buffer);
 			}
 		}
 
-		sprintf(log_buffer,
-			"[GX-ISSUE144] GlobalLanguage init final unicodeFont=%s drawableCaption=%s defaultWindow=%s",
+		GX_TRACE("[GX-ISSUE144] GlobalLanguage init final unicodeFont=%s drawableCaption=%s defaultWindow=%s\n",
 			m_unicodeFontName.isNotEmpty() ? m_unicodeFontName.str() : "<empty>",
 			m_drawableCaptionFont.name.isNotEmpty() ? m_drawableCaptionFont.name.str() : "<empty>",
 			m_defaultWindowFont.name.isNotEmpty() ? m_defaultWindowFont.name.str() : "<empty>");
-		fprintf(stderr, "%s\n", log_buffer);
 	}
 
 	StringList::iterator it = m_localFonts.begin();
@@ -218,14 +206,12 @@ void GlobalLanguage::init()
 		AsciiString font = *it;
 		if(AddFontResource(font.str()) == 0)
 		{
-			sprintf(log_buffer, "[GX-ISSUE144] GlobalLanguage local font add FAILED file=%s", font.str());
-			fprintf(stderr, "%s\n", log_buffer);
+			GX_TRACE("[GX-ISSUE144] GlobalLanguage local font add FAILED file=%s\n", font.str());
 			DEBUG_CRASH(("GlobalLanguage::init Failed to add font %s", font.str()));
 		}
 		else
 		{
-			sprintf(log_buffer, "[GX-ISSUE144] GlobalLanguage local font add OK file=%s", font.str());
-			fprintf(stderr, "%s\n", log_buffer);
+			GX_TRACE("[GX-ISSUE144] GlobalLanguage local font add OK file=%s\n", font.str());
 			//SendMessage( HWND_BROADCAST, WM_FONTCHANGE, 0, 0);
 		}
 		++it;
@@ -234,12 +220,10 @@ void GlobalLanguage::init()
 	// override values with user preferences
 	OptionPreferences optionPref;
 	m_userResolutionFontSizeAdjustment = optionPref.getResolutionFontAdjustment();
-	sprintf(log_buffer,
-		"[GX-ISSUE144] GlobalLanguage resolutionAdjustment effective=%.3f user=%.3f base=%.3f",
+	GX_TRACE("[GX-ISSUE144] GlobalLanguage resolutionAdjustment effective=%.3f user=%.3f base=%.3f\n",
 		getResolutionFontSizeAdjustment(),
 		m_userResolutionFontSizeAdjustment,
 		m_resolutionFontSizeAdjustment);
-	fprintf(stderr, "%s\n", log_buffer);
 }
 
 void GlobalLanguage::reset()
