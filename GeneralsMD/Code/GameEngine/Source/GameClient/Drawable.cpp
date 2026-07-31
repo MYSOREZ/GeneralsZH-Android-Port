@@ -3693,7 +3693,20 @@ void Drawable::drawConstructPercent( const IRegion2D *healthBarRegion )
 	}
 
 	// set the string if the value has changed
-	if( m_lastConstructDisplayed != obj->getConstructionPercent() )
+	// GeneralsX @performance Android port 31/07/2026 obj->getConstructionPercent()
+	// ticks fractionally every single logic frame, but
+	// CONTROLBAR:UnderConstructionDesc only ever displays a whole percent
+	// (rounded) -- comparing the raw float here meant this branch (setText ->
+	// full glyph rebuild in Render2DSentenceClass -> a brand new GPU texture
+	// upload) reran every frame for as long as anything was under
+	// construction, even on ticks where the on-screen text was byte-identical
+	// to the previous frame. The shell map behind the main menu always has a
+	// building under construction, so this ran unconditionally, forever, and
+	// profiling on a real Mali-G76 device showed it dominating frame time
+	// (TheGameClient->UPDATE() at ~100ms of a ~115ms frame). Compare at the
+	// same whole-percent granularity that's actually shown on screen instead.
+	const Real currentConstructPercent = (Real)(Int)(obj->getConstructionPercent() + 0.5f);
+	if( m_lastConstructDisplayed != currentConstructPercent )
 	{
 		UnicodeString buffer;
 
@@ -3717,7 +3730,7 @@ void Drawable::drawConstructPercent( const IRegion2D *healthBarRegion )
 		m_constructDisplayString->setText( buffer );
 
 		// record this percent as our last displayed so we don't un-necessarily rebuild the string
-		m_lastConstructDisplayed = obj->getConstructionPercent();
+		m_lastConstructDisplayed = currentConstructPercent;
 
 		// GeneralsX @performance Android port 31/07/2026 this branch runs every
 		// frame for every building under construction (the shell map behind the
