@@ -1326,6 +1326,16 @@ FontCharsClass::Get_Char_Spacing (WCHAR ch)
 {
 	const FontCharsClassCharDataStruct	* data = Get_Char_Data( ch );
 	if ( data != nullptr ) {
+		// GeneralsX @bugfix Android port 30/07/2026 prefer the real
+		// typographic advance when the backend recorded one. The legacy
+		// formula below derives spacing from the atlas cell width, but the
+		// FreeType backend has to widen that cell whenever a glyph's bitmap
+		// overhangs its advance -- so deriving spacing from it inflated the
+		// step by each glyph's overhang, producing ragged gaps inside words
+		// ("S OL O PL AY" instead of "SOLO PLAY").
+		if ( data->Advance > 0 ) {
+			return data->Advance;
+		}
 		if ( data->Width != 0 ) {
 			return data->Width - PixelOverlap - CharOverhang;
 		}
@@ -2050,6 +2060,12 @@ FontCharsClass::Store_Freetype_Char (WCHAR ch)
 	FontCharsClassCharDataStruct *char_data = W3DNEW FontCharsClassCharDataStruct;
 	char_data->Value = ch;
 	char_data->Width = (short)char_width;
+	// GeneralsX @bugfix Android port 30/07/2026 record the true advance
+	// separately from the atlas cell width above; see Get_Char_Spacing.
+	// Guard against a zero advance (some glyphs legitimately have none, and
+	// zero would mean "unset" to Get_Char_Spacing) by leaving it unset so the
+	// legacy formula still applies.
+	char_data->Advance = (short)(glyph->advance.x >> 6);
 	char_data->Buffer = BufferList[BufferList.Count() - 1]->Buffer + CurrPixelOffset;
 
 	//

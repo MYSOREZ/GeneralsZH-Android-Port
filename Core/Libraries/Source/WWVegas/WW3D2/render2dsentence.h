@@ -69,7 +69,14 @@ class FontCharsClassCharDataStruct
 	W3DMPO_CODE(FontCharsClassCharDataStruct)
 public:
 	WCHAR				Value;
+	// Width is the width of this glyph's cell in the atlas. It may be wider
+	// than the typographic advance, because a glyph's bitmap can legitimately
+	// overhang its advance and must not be clipped.
 	short				Width;
+	// GeneralsX @bugfix Android port 30/07/2026 the layout advance, kept
+	// separate from the atlas cell width above. Zero means "not set" (the GDI
+	// path), in which case Get_Char_Spacing falls back to the legacy formula.
+	short				Advance = 0;
 	uint16 *		Buffer;
 };
 
