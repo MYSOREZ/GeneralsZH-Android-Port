@@ -61,6 +61,16 @@
     <string name="setup_toast_driver_config_failed">Не удалось сохранить конфигурацию драйвера: %1$s</string>
     <string name="setup_toast_driver_imported">Драйвер импортирован: %1$s. Применится при следующем запуске.</string>
 
+    <!-- SetupActivity: DXVK Config card -->
+    <string name="setup_card_dxvk_config">Настройки DXVK (dxvk.conf, для опытных)</string>
+    <string name="setup_dxvk_config_help">Редактирует dxvk.conf напрямую — тот же файл, который движок читает при запуске. Пересборка не нужна, изменения применяются при следующем запуске игры. Полезные параметры, если игра тормозит на вашем устройстве:\n\nd3d9.samplerAnisotropy = 2 (или 0, чтобы отключить) — меньше значения по умолчанию (16), снижает нагрузку на слабый GPU.\ndxvk.hud = fps,drawcalls,submissions,pipelines — небольшой оверлей с показателями производительности прямо на экране.\ndxvk.logLevel = none — лучше не трогать без необходимости; более подробные уровни замедляют игру.\n\nПо одной паре «ключ = значение» на строку. Некорректную строку DXVK просто игнорирует, так что опечатка не сломает игру — в худшем случае изменение просто не подействует.</string>
+    <string name="setup_button_dxvk_config_save">Сохранить</string>
+    <string name="setup_button_dxvk_config_reset">Сбросить на стандартные</string>
+    <string name="setup_dxvk_config_no_folder">Сначала выберите папку с игрой (выше)</string>
+    <string name="setup_toast_dxvk_config_saved">Сохранено. Применится при следующем запуске игры.</string>
+    <string name="setup_toast_dxvk_config_reset">Сброшено на стандартный dxvk.conf.</string>
+    <string name="setup_toast_dxvk_config_no_default">В этой сборке нет встроенного dxvk.conf по умолчанию.</string>
+
     <!-- SetupActivity: Online Multiplayer card -->
     <string name="setup_card_online">Онлайн-мультиплеер</string>
     <string name="setup_button_online_account">Аккаунт GeneralsOnline</string>

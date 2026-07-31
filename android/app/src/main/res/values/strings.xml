@@ -61,6 +61,16 @@
     <string name="setup_toast_driver_config_failed">Could not save driver config: %1$s</string>
     <string name="setup_toast_driver_imported">Driver imported: %1$s. Takes effect next launch.</string>
 
+    <!-- SetupActivity: DXVK Config card -->
+    <string name="setup_card_dxvk_config">DXVK Config (dxvk.conf, advanced)</string>
+    <string name="setup_dxvk_config_help">Edits dxvk.conf directly, the same file the engine reads on startup — no rebuild needed, takes effect next launch. Useful settings if the game feels slow on your device:\n\nd3d9.samplerAnisotropy = 2 (or 0 to disable) — lower than the default 16 to reduce GPU work on weaker hardware.\ndxvk.hud = fps,drawcalls,submissions,pipelines — shows a small on-screen performance overlay.\ndxvk.logLevel = none — keep this unless asked to change it; more verbose levels slow the game down.\n\nOne \"key = value\" per line. An invalid line is simply ignored by DXVK, so a typo won\'t break the game — worst case your change has no effect.</string>
+    <string name="setup_button_dxvk_config_save">Save</string>
+    <string name="setup_button_dxvk_config_reset">Reset to Default</string>
+    <string name="setup_dxvk_config_no_folder">Select a game folder first (above)</string>
+    <string name="setup_toast_dxvk_config_saved">Saved. Takes effect next time you launch the game.</string>
+    <string name="setup_toast_dxvk_config_reset">Reset to the default dxvk.conf.</string>
+    <string name="setup_toast_dxvk_config_no_default">No bundled default dxvk.conf found in this build.</string>
+
     <!-- SetupActivity: Online Multiplayer card -->
     <string name="setup_card_online">Online Multiplayer</string>
     <string name="setup_button_online_account">GeneralsOnline Account</string>

@@ -39,6 +39,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.Settings;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -129,6 +130,7 @@ public class SetupActivity extends Activity {
         super.onResume();
         refreshStatus();
         refreshGeneralsOnlineStatus();
+        loadDxvkConfigIntoEditor();
     }
 
     // GeneralsX @feature Android port 08/07/2026 Material redesign: each
@@ -173,6 +175,7 @@ public class SetupActivity extends Activity {
         buildUiScaleSection(root);
         applyRecommendedDriverIfNeeded();
         buildCustomDriverSection(root);
+        buildDxvkConfigSection(root);
         buildGeneralsOnlineSection(root);
 
         LinearLayout helpCard = startCard(root, getString(R.string.setup_card_how_it_works));
@@ -734,6 +737,122 @@ public class SetupActivity extends Activity {
         } catch (java.io.IOException e) {
             return null;
         }
+    }
+
+    // GeneralsX @feature Android port 31/07/2026 dxvk.conf editor: real-device
+    // Mali-G76 performance tuning kept coming back to "edit one line of
+    // dxvk.conf on the phone" (e.g. d3d9.samplerAnisotropy), which meant a
+    // file manager and manual editing outside the app every time. This edits
+    // the actual file the engine reads (SDL3Main.cpp/DXVK read dxvk.conf
+    // relative to CWD, i.e. the selected game folder -- see
+    // copyBundledRuntimeIfMissing()'s comment above), as raw text rather than
+    // a bespoke widget per key, so any current or future DXVK config option
+    // works here without launcher code changes, and existing comments in the
+    // file round-trip untouched instead of being reparsed away.
+    private EditText dxvkConfigEdit;
+
+    private void buildDxvkConfigSection(LinearLayout root) {
+        LinearLayout content = startCard(root, getString(R.string.setup_card_dxvk_config));
+
+        TextView help = new TextView(this);
+        help.setAlpha(0.8f);
+        help.setText(R.string.setup_dxvk_config_help);
+        help.setPadding(0, 0, 0, dp(8));
+        content.addView(help);
+
+        dxvkConfigEdit = new EditText(this);
+        dxvkConfigEdit.setTypeface(android.graphics.Typeface.MONOSPACE);
+        dxvkConfigEdit.setTextSize(12);
+        dxvkConfigEdit.setMinLines(6);
+        dxvkConfigEdit.setMaxLines(20);
+        dxvkConfigEdit.setGravity(android.view.Gravity.TOP | android.view.Gravity.START);
+        dxvkConfigEdit.setInputType(android.text.InputType.TYPE_CLASS_TEXT
+            | android.text.InputType.TYPE_TEXT_FLAG_MULTI_LINE
+            | android.text.InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+        content.addView(dxvkConfigEdit);
+
+        addButton(content, getString(R.string.setup_button_dxvk_config_save), this::onSaveDxvkConfig);
+        addButton(content, getString(R.string.setup_button_dxvk_config_reset), this::onResetDxvkConfig);
+
+        loadDxvkConfigIntoEditor();
+    }
+
+    // Live copy the engine actually reads -- lives in the user-selected game
+    // folder, same as DefaultOptions.ini and fonts/ (see
+    // copyBundledRuntimeIfMissing()).
+    private File dxvkConfFile() {
+        String gamePath = getSavedGamePath();
+        return gamePath != null ? new File(gamePath, "dxvk.conf") : null;
+    }
+
+    // Pristine template this build ships, staged into getExternalFilesDir()
+    // by GeneralsZHActivity on first run -- same source
+    // copyBundledRuntimeIfMissing() copies from when a game folder is first
+    // selected.
+    private File bundledDxvkConfFile() {
+        File root = getExternalFilesDir(null);
+        return root != null ? new File(root, "dxvk.conf") : null;
+    }
+
+    private void loadDxvkConfigIntoEditor() {
+        if (dxvkConfigEdit == null) {
+            return;
+        }
+        File live = dxvkConfFile();
+        File source = (live != null && live.isFile()) ? live : bundledDxvkConfFile();
+        String text = "";
+        if (source != null && source.isFile()) {
+            try {
+                text = readWholeFile(source);
+            } catch (java.io.IOException e) {
+                // Leave the editor empty; Save will still work and create a fresh file.
+            }
+        }
+        dxvkConfigEdit.setText(text);
+        boolean haveFolder = getSavedGamePath() != null;
+        dxvkConfigEdit.setEnabled(haveFolder);
+        dxvkConfigEdit.setHint(haveFolder ? null : getString(R.string.setup_dxvk_config_no_folder));
+    }
+
+    private void onSaveDxvkConfig() {
+        File dest = dxvkConfFile();
+        if (dest == null) {
+            Toast.makeText(this, R.string.setup_dxvk_config_no_folder, Toast.LENGTH_LONG).show();
+            return;
+        }
+        try (java.io.Writer w = new java.io.FileWriter(dest, false)) {
+            w.write(dxvkConfigEdit.getText().toString());
+        } catch (java.io.IOException e) {
+            Toast.makeText(this, getString(R.string.setup_toast_options_save_failed, e.getMessage()), Toast.LENGTH_LONG).show();
+            return;
+        }
+        Toast.makeText(this, R.string.setup_toast_dxvk_config_saved, Toast.LENGTH_SHORT).show();
+    }
+
+    private void onResetDxvkConfig() {
+        File bundled = bundledDxvkConfFile();
+        if (bundled == null || !bundled.isFile()) {
+            Toast.makeText(this, R.string.setup_toast_dxvk_config_no_default, Toast.LENGTH_LONG).show();
+            return;
+        }
+        String text;
+        try {
+            text = readWholeFile(bundled);
+        } catch (java.io.IOException e) {
+            Toast.makeText(this, getString(R.string.setup_toast_options_save_failed, e.getMessage()), Toast.LENGTH_LONG).show();
+            return;
+        }
+        dxvkConfigEdit.setText(text);
+        File dest = dxvkConfFile();
+        if (dest != null) {
+            try (java.io.Writer w = new java.io.FileWriter(dest, false)) {
+                w.write(text);
+            } catch (java.io.IOException e) {
+                Toast.makeText(this, getString(R.string.setup_toast_options_save_failed, e.getMessage()), Toast.LENGTH_LONG).show();
+                return;
+            }
+        }
+        Toast.makeText(this, R.string.setup_toast_dxvk_config_reset, Toast.LENGTH_SHORT).show();
     }
 
     // GeneralsX @feature Android port 10/07/2026 GeneralsOnline (playgenerals.online)
