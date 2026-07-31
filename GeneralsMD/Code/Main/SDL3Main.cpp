@@ -765,6 +765,45 @@ int main(int argc, char* argv[])
 				setenv("DXVK_DEBUG", "validation", 1);
 				fprintf(stderr, "INFO: dxvk_validation.txt found -- Vulkan validation layer requested (DXVK_DEBUG=validation)\n");
 			}
+
+			// GeneralsX @feature Android port 30/07/2026 DXVK's HUD, same
+			// opt-in UX as the validation marker above: drop dxvk_hud.txt into
+			// the game data folder, no rebuild and no adb. There is no other
+			// way to get frame timings off a retail device, and asset
+			// extraction deliberately never overwrites a user's dxvk.conf, so
+			// editing the shipped one would not reach existing installs.
+			//
+			// An empty file gets a safe default. Anything written inside is
+			// passed through verbatim as the HUD element list, EXCEPT that
+			// "frametimes" and "memory" are refused: those two draw through
+			// their own graph pipelines (HudFrameTimeItem/HudMemoryDetailsItem),
+			// which still chain VkPipelineRenderingCreateInfo unconditionally
+			// and therefore crash on a device without VK_KHR_dynamic_rendering.
+			// The text elements go through HudRenderer, which this port already
+			// routes via the legacy render pass.
+			FILE *hudMarker = fopen("dxvk_hud.txt", "r");
+			if (hudMarker != nullptr) {
+				char hudSpec[256] = { 0 };
+				if (fgets(hudSpec, sizeof(hudSpec), hudMarker) == nullptr)
+					hudSpec[0] = '\0';
+				fclose(hudMarker);
+
+				// Trim trailing newline/whitespace left by a text editor.
+				for (size_t i = strlen(hudSpec); i > 0 && (unsigned char)hudSpec[i - 1] <= ' '; --i)
+					hudSpec[i - 1] = '\0';
+
+				if (hudSpec[0] == '\0')
+					strcpy(hudSpec, "fps,drawcalls,submissions,pipelines");
+
+				if (strstr(hudSpec, "frametimes") != nullptr || strstr(hudSpec, "memory") != nullptr) {
+					fprintf(stderr, "WARNING: dxvk_hud.txt requests 'frametimes'/'memory', which crash on this "
+						"device's Vulkan 1.1 driver -- falling back to the safe element list\n");
+					strcpy(hudSpec, "fps,drawcalls,submissions,pipelines");
+				}
+
+				setenv("DXVK_HUD", hudSpec, 1);
+				fprintf(stderr, "INFO: dxvk_hud.txt found -- DXVK HUD enabled (DXVK_HUD=%s)\n", hudSpec);
+			}
 		}
 
 		// GeneralsX @feature Android port 13/07/2026 Game DATA language

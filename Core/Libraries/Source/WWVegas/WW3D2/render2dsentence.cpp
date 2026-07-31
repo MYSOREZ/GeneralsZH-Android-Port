@@ -60,6 +60,7 @@ Render2DSentenceClass::Render2DSentenceClass () :
 	Cursor (0.0F,0.0F),
 	TextureOffset (0, 0),
 	TextureStartX (0),
+	LastCharOverhang (0),
 	CurSurface (nullptr),
 	CurrTextureSize (0),
 	MonoSpaced (false),
@@ -357,6 +358,7 @@ Render2DSentenceClass::Build_Textures ()
 	REF_PTR_RELEASE (CurSurface);
 	TextureOffset.Set (0, 0);
 	TextureStartX = 0;
+	LastCharOverhang = 0;
 
 	//
 	//	Convert all pending surfaces to textures
@@ -601,13 +603,26 @@ Render2DSentenceClass::Record_Sentence_Chunk ()
 		SentenceDataStruct sentence_data;
 		sentence_data.Surface = CurSurface;
 		sentence_data.Surface->Add_Ref ();
+		// GeneralsX @bugfix Android port 30/07/2026 Blit_Char writes a cell of
+		// Get_Char_Width() columns, but we only stepped TextureOffset.I by the
+		// advance, so the last glyph of this chunk spills LastCharOverhang
+		// pixels past TextureOffset.I. Inside a chunk that overlap is harmless
+		// (the next glyph is blitted over it, which is what PixelOverlap is
+		// for), but at the chunk edge it falls outside the rect below and the
+		// glyph loses its tail -- while Cursor.X still advanced by the full
+		// advance, which reads on screen as a gap in the middle of a word.
+		// Widen both rects by the overhang so the tail is drawn; Cursor.X is
+		// deliberately still advanced by `width` only, so the next chunk
+		// overlaps this one by exactly the overhang.
+		int overhang = LastCharOverhang;
+
 		sentence_data.ScreenRect.Left		= Cursor.X;
-		sentence_data.ScreenRect.Right	= Cursor.X + width;
+		sentence_data.ScreenRect.Right	= Cursor.X + width + overhang;
 		sentence_data.ScreenRect.Top		= Cursor.Y;
 		sentence_data.ScreenRect.Bottom	= Cursor.Y + char_height;
 		sentence_data.UVRect.Left			= TextureStartX;
 		sentence_data.UVRect.Top			= TextureOffset.J;
-		sentence_data.UVRect.Right			= TextureOffset.I;
+		sentence_data.UVRect.Right			= TextureOffset.I + overhang;
 		sentence_data.UVRect.Bottom		= TextureOffset.J + char_height;
 
 		//
@@ -715,6 +730,7 @@ Render2DSentenceClass::Allocate_New_Surface (const WCHAR *text, bool justCalcExt
 	//
 	TextureOffset.Set (0, 0);
 	TextureStartX = 0;
+	LastCharOverhang = 0;
 }
 
 float FindStartingXPos( const WCHAR *text )
@@ -886,7 +902,7 @@ void	Render2DSentenceClass::Build_Sentence_Centered (const WCHAR *text, int *hkX
 			}
 			float char_spacing = Font->Get_Char_Spacing (ch);
 
-			bool exceeded_texture_width	= ((TextureOffset.I + char_spacing) >= CurrTextureSize);
+			bool exceeded_texture_width	= ((TextureOffset.I + Font->Get_Char_Width (ch)) >= CurrTextureSize);
 			bool encountered_break_char	= (ch == L' ' || ch == L'\n' || ch == 0);
 
 			//
@@ -942,7 +958,7 @@ void	Render2DSentenceClass::Build_Sentence_Centered (const WCHAR *text, int *hkX
 				//
 				//	Check to ensure the text will fit on this texture
 				//
-				WWASSERT (((TextureOffset.I + char_spacing) < CurrTextureSize) && ((TextureOffset.J + char_height) < CurrTextureSize));
+				WWASSERT (((TextureOffset.I + Font->Get_Char_Width (ch)) <= CurrTextureSize) && ((TextureOffset.J + char_height) < CurrTextureSize));
 
 				//
 				//	Blit the character to the surface
@@ -958,6 +974,10 @@ void	Render2DSentenceClass::Build_Sentence_Centered (const WCHAR *text, int *hkX
 						char_spacing++;
 					}
 				}
+
+				// GeneralsX @bugfix Android port 30/07/2026 see Record_Sentence_Chunk.
+				LastCharOverhang = dontBlit ? 0
+					: max( 0, (int)(Font->Get_Char_Width (ch) - char_spacing) );
 
 				TextureOffset.I += char_spacing;
 			}
@@ -1043,7 +1063,7 @@ Vector2	Render2DSentenceClass::Build_Sentence_Not_Centered (const WCHAR *text, i
 		}
 		float char_spacing = Font->Get_Char_Spacing (ch);
 
-		bool exceeded_texture_width	= ((TextureOffset.I + char_spacing) >= CurrTextureSize);
+		bool exceeded_texture_width	= ((TextureOffset.I + Font->Get_Char_Width (ch)) >= CurrTextureSize);
 		bool encountered_break_char	= (ch == L' ' || ch == L'\n' || ch == 0);
 		bool wordBiggerThenLine = ((useHardWordWrap) && ( WrapWidth != 0 ) &&((Cursor.X + TextureOffset.I -TextureStartX + char_spacing) >= WrapWidth));
 		//
@@ -1139,7 +1159,7 @@ Vector2	Render2DSentenceClass::Build_Sentence_Not_Centered (const WCHAR *text, i
 			//
 			//	Check to ensure the text will fit on this texture
 			//
-			WWASSERT (((TextureOffset.I + char_spacing) < CurrTextureSize) && ((TextureOffset.J + char_height) < CurrTextureSize));
+			WWASSERT (((TextureOffset.I + Font->Get_Char_Width (ch)) <= CurrTextureSize) && ((TextureOffset.J + char_height) < CurrTextureSize));
 
 			//
 			//	Blit the character to the surface
@@ -1148,6 +1168,11 @@ Vector2	Render2DSentenceClass::Build_Sentence_Not_Centered (const WCHAR *text, i
 			{
 				Font->Blit_Char (ch, LockedPtr, LockedStride, TextureOffset.I, TextureOffset.J);
 			}
+
+			// GeneralsX @bugfix Android port 30/07/2026 see Record_Sentence_Chunk.
+			LastCharOverhang = dontBlit ? 0
+				: max( 0, (int)(Font->Get_Char_Width (ch) - char_spacing) );
+
 			TextureOffset.I += char_spacing;
 		}
 	}

@@ -293,6 +293,10 @@ private:
 	Vector2											Cursor;
 	Vector2i										TextureOffset;
 	int													TextureStartX;
+	// GeneralsX @bugfix Android port 30/07/2026 how far the last blitted glyph's
+	// cell spills past the advance we stepped by. Record_Sentence_Chunk has to
+	// include it, or the final glyph of every chunk loses its tail.
+	int													LastCharOverhang;
 	int													CurrTextureSize;
 	int													TextureSizeHint;
 	SurfaceClass *							CurSurface;
