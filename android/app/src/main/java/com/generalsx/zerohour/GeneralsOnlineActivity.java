@@ -104,7 +104,6 @@ public class GeneralsOnlineActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setRequestedOrientation(android.content.pm.ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         super.onCreate(savedInstanceState);
         setTitle(R.string.online_window_title);
         buildUi();

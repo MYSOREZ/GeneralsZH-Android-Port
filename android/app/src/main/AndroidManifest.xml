@@ -70,26 +70,26 @@
              launcher icon: configuring the game folder or reading a crash log
              must never depend on the game itself having launched successfully.
 
-             GeneralsX @bugfix Android port 07/07/2026 Locked to the same
-             absolute "landscape" as GeneralsZHActivity (was unspecified, i.e.
-             portrait-first): a real-device log caught the game's D3D device
-             creation reading a portrait window size (1156x2510 instead of
-             the correct 2510x1156) because Setup -> Launch Game triggered a
-             portrait->landscape rotation that hadn't finished settling by
-             the time WW3D::Init() queried the window size a few seconds
-             later. Keeping both activities landscape the whole time removes
-             the rotation — and the race — entirely. GeneralsZHActivity was
-             also switched here from sensorLandscape (accelerometer-based) to
-             plain landscape: sensorLandscape is what actually produced the
-             race, since it can take a moment to settle instead of applying
-             immediately like a plain absolute orientation. -->
+             GeneralsX @bugfix Android port 31/07/2026 Was locked to
+             "landscape" (same as GeneralsZHActivity) to sidestep a real
+             device bug: a portrait->landscape rotation triggered by
+             Setup -> Launch Game could still be settling when the game's
+             native window-size probe (WW3D::Init()) ran, and it read a
+             swapped/portrait window size. Reverted to unspecified
+             (portrait-first, matching FolderPickerActivity/
+             LogViewerActivity/every other non-game screen) since a locked
+             landscape settings menu looked wrong next to those. The race
+             this used to sidestep is now handled explicitly instead:
+             SetupActivity.onLaunchGame() forces landscape and waits for
+             onConfigurationChanged() to actually confirm the rotation
+             completed before starting GeneralsZHActivity, rather than
+             never rotating in the first place. -->
         <activity
             android:name=".SetupActivity"
             android:exported="true"
             android:label="@string/setup_window_title"
             android:icon="@mipmap/ic_launcher_setup"
             android:theme="@style/Theme.GeneralsZHSettings"
-            android:screenOrientation="landscape"
             android:configChanges="orientation|screenSize|keyboardHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -113,7 +113,6 @@
             android:name=".GeneralsOnlineActivity"
             android:exported="false"
             android:theme="@style/Theme.GeneralsZHSettings"
-            android:screenOrientation="landscape"
             android:configChanges="orientation|screenSize|keyboardHidden" />
 
         <!-- GeneralsX @bugfix Android port 11/07/2026 LogViewerActivity's

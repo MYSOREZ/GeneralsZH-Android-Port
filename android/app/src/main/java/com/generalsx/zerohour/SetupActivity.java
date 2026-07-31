@@ -34,6 +34,7 @@ import android.content.SharedPreferences;
 import android.content.pm.FeatureInfo;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -79,13 +80,12 @@ public class SetupActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // TheSuperHackers @bugfix Android port 07/07/2026 See the matching
-        // comment in GeneralsZHActivity.onCreate(): reinforce the manifest's
-        // screenOrientation="landscape" in code so Setup -> Launch never
-        // starts a rotation the game's window-size probe could still catch
-        // mid-flight.
-        setRequestedOrientation(android.content.pm.ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-
+        // GeneralsX @bugfix Android port 31/07/2026 No longer forced to
+        // landscape here -- see the matching AndroidManifest.xml comment.
+        // This screen now starts portrait-first like every other non-game
+        // screen; onLaunchGame()/onConfigurationChanged() below handle the
+        // Setup -> Launch rotation race that used to be sidestepped by never
+        // rotating Setup at all.
         super.onCreate(savedInstanceState);
         setTitle(R.string.setup_window_title);
 
@@ -1190,8 +1190,34 @@ public class SetupActivity extends Activity {
         startActivity(new Intent(this, LogViewerActivity.class));
     }
 
+    // GeneralsX @bugfix Android port 31/07/2026 Setup is portrait-first now
+    // (see AndroidManifest.xml/onCreate() comments), so launching straight
+    // into GeneralsZHActivity (locked landscape) can trigger a real
+    // portrait->landscape rotation right as the game's native window-size
+    // probe (WW3D::Init()) runs -- previously sidestepped entirely by never
+    // letting Setup rotate. Force landscape here and wait for
+    // onConfigurationChanged() to confirm the OS has actually applied it
+    // before starting the game, instead of guessing with a fixed delay. If
+    // we're already landscape (e.g. a tablet, or the user physically
+    // rotated the phone), there's nothing to wait for.
+    private boolean pendingLaunchAfterRotation = false;
+
     private void onLaunchGame() {
-        startActivity(new Intent(this, GeneralsZHActivity.class));
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            startActivity(new Intent(this, GeneralsZHActivity.class));
+            return;
+        }
+        pendingLaunchAfterRotation = true;
+        setRequestedOrientation(android.content.pm.ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        if (pendingLaunchAfterRotation && newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            pendingLaunchAfterRotation = false;
+            startActivity(new Intent(this, GeneralsZHActivity.class));
+        }
     }
 
     private int dp(int value) {
