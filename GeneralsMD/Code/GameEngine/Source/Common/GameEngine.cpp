@@ -1020,8 +1020,14 @@ DECLARE_PERF_TIMER(GameEngine_update)
  * Update the game engine by updating the GameClient and GameLogic singletons.
  */
 // GeneralsX @perf Android port 31/07/2026 lightweight per-subsystem
-// frame-phase timing for GameEngine::update(), gated by the existing
-// GX_TRACE opt-in (gx_trace.txt marker / GX_TRACE env var, off by default).
+// frame-phase timing for GameEngine::update(), gated by the GX_PERF opt-in
+// (gx_perf.txt marker / GX_PERF env var, off by default -- gx_trace.txt/
+// GX_TRACE also enables it, see GXTrace.h). A dedicated flag rather than
+// reusing GX_TRACE outright: a real multi-minute session with full tracing
+// on produced a >70 MB stderr log, and the in-app log export's head+tail
+// cap then elided the entire middle of the session -- exactly where the
+// [GX-PERF] samples that matter live. gx_perf.txt alone gets just this
+// ~1-line-per-second summary, cheap enough to leave on for a whole session.
 // DXVK's own HUD counters (already logged elsewhere as "DXVK_HUD: ...")
 // showed near-zero GPU wait/submission cost on Mali-G76 real-device runs
 // -- syncs=0 almost always, low draw/submit/barrier counts -- so whatever
@@ -1052,7 +1058,7 @@ static void gxTraceEngineUpdatePhase(
 	double elapsedUs = std::chrono::duration<double, std::micro>(now - s_windowStart).count();
 	if (elapsedUs >= 1'000'000.0 && s_frames > 0)
 	{
-		GX_TRACE("[GX-PERF] frames=%d avgFrameMs=%.2f radar=%.2fms audio=%.2fms client=%.2fms network=%.2fms logic=%.2fms step=%.2fms\n",
+		GX_PERF_TRACE("[GX-PERF] frames=%d avgFrameMs=%.2f radar=%.2fms audio=%.2fms client=%.2fms network=%.2fms logic=%.2fms step=%.2fms\n",
 			s_frames,
 			(elapsedUs / 1000.0) / s_frames,
 			s_radarUs / 1000.0 / s_frames,
@@ -1072,7 +1078,11 @@ void GameEngine::update()
 {
 	USE_PERF_TIMER(GameEngine_update)
 	{
-		const bool gxPerfTrace = GXTrace::isEnabled();
+		// GeneralsX @bugfix Android port 31/07/2026 gated on isPerfEnabled(),
+		// not isEnabled() -- a gx_perf.txt-only session should still get
+		// this cheap ~1-line-per-second summary without also paying for
+		// (and drowning the exported log in) full GX_TRACE font/UI tracing.
+		const bool gxPerfTrace = GXTrace::isPerfEnabled();
 		std::chrono::steady_clock::time_point gxT0, gxT1, gxT2, gxT3, gxT4, gxT5;
 
 		{

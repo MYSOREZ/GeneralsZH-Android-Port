@@ -27,6 +27,20 @@
 **
 **	When disabled the macro costs one already-resolved bool load, so it is
 **	safe to leave in per-frame paths.
+**
+**	GeneralsX @feature Android port 31/07/2026 GX_PERF is a second, separate
+**	opt-in for just the low-volume [GX-PERF] per-subsystem frame-timing
+**	summary (one line per second, see GameEngine::update()) -- deliberately
+**	independent of GX_TRACE/gx_trace.txt. A real multi-minute session with
+**	gx_trace.txt on produced a >70 MB stderr log; the in-app log viewer's
+**	head+tail export (LogViewerActivity, 200 KB cap) then elided the entire
+**	middle of the session -- exactly where sustained gameplay, and every
+**	[GX-PERF] sample from it, lived. A tester who only needs the frame-time
+**	breakdown, not full font/UI tracing, can now get it without drowning the
+**	exported log: a "gx_perf.txt" marker file or GX_PERF env var enables
+**	[GX-PERF] on its own, at native cost even over a long session. Enabling
+**	GX_TRACE also implies this (a full trace session naturally wants the
+**	perf summary too).
 */
 
 #pragma once
@@ -63,6 +77,29 @@ namespace GXTrace
 		return enabled;
 	}
 
+	inline bool computePerfEnabled()
+	{
+		const char *env = getenv("GX_PERF");
+		if (env != nullptr && env[0] != '\0' && env[0] != '0') {
+			return true;
+		}
+
+		FILE *marker = fopen("gx_perf.txt", "r");
+		if (marker != nullptr) {
+			fclose(marker);
+			return true;
+		}
+
+		return false;
+	}
+
+	inline bool isPerfEnabled()
+	{
+		// GX_TRACE implies GX_PERF: a full trace session wants the summary too.
+		static const bool enabled = isEnabled() || computePerfEnabled();
+		return enabled;
+	}
+
 }  // namespace GXTrace
 
 // Usage: GX_TRACE("Some_Function: about to do the thing x=%d\n", x);
@@ -71,6 +108,18 @@ namespace GXTrace
 	do {                                                  \
 		if (GXTrace::isEnabled()) {                        \
 			fprintf(stderr, "[GX-TRACE] " __VA_ARGS__);    \
+			fflush(stderr);                                \
+		}                                                 \
+	} while (0)
+
+// Usage: GX_PERF_TRACE("[GX-PERF] frames=%d ...\n", n); -- caller supplies
+// its own tag/prefix (unlike GX_TRACE), since callers of this one already
+// have a specific line format. Gated on isPerfEnabled(), not isEnabled(),
+// so it works with just gx_perf.txt/GX_PERF -- see the header comment above.
+#define GX_PERF_TRACE(...)                                \
+	do {                                                  \
+		if (GXTrace::isPerfEnabled()) {                     \
+			fprintf(stderr, __VA_ARGS__);                  \
 			fflush(stderr);                                \
 		}                                                 \
 	} while (0)
