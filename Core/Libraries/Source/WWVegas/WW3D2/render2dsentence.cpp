@@ -69,6 +69,7 @@ Render2DSentenceClass::Render2DSentenceClass () :
 	BaseLocation (0, 0),
 	LockedPtr (nullptr),
 	LockedStride (0),
+	LockedBytesPerPixel (2),
 	TextureSizeHint (0),
 	WrapWidth (0),
 	Centered (false),
@@ -951,8 +952,21 @@ void	Render2DSentenceClass::Build_Sentence_Centered (const WCHAR *text, int *hkX
 				//	Ensure the surface is locked
 				//
 				if (LockedPtr == nullptr) {
-					LockedPtr = (uint16 *)CurSurface->Lock (&LockedStride);
+					LockedPtr = CurSurface->Lock (&LockedStride);
 					WWASSERT (LockedPtr != nullptr);
+					// GeneralsX @bugfix Android port 31/07/2026 CurSurface was created
+					// with WW3D_FORMAT_A4R4G4B4, but Patches/dxvk-mali-g76-4444-format.patch
+					// maps that D3D9 format to a real 32-bit VK_FORMAT_B8G8R8A8_UNORM on
+					// this device (Mali-G76 can't create the packed 16-bit format DXVK
+					// would otherwise use), so the surface's real bytes-per-pixel no
+					// longer matches Get_Bytes_Per_Pixel()'s WW3D_FORMAT_A4R4G4B4 table
+					// entry (still 2). Comparing the pitch DXVK actually returned
+					// against the known pixel width (rather than assuming an exact
+					// stride == width * bpp, which Vulkan does not guarantee for a
+					// linear-tiled image -- a driver is free to pad each row) keeps
+					// this correct regardless of which format substitution, if any,
+					// is active for the current device.
+					LockedBytesPerPixel = (LockedStride >= CurrTextureSize * 4) ? 4 : 2;
 				}
 
 				//
@@ -964,7 +978,7 @@ void	Render2DSentenceClass::Build_Sentence_Centered (const WCHAR *text, int *hkX
 				//	Blit the character to the surface
 				//
 				if(!dontBlit)
-					Font->Blit_Char (ch, LockedPtr, LockedStride, TextureOffset.I, TextureOffset.J);
+					Font->Blit_Char (ch, LockedPtr, LockedStride, LockedBytesPerPixel, TextureOffset.I, TextureOffset.J);
 
 				if (dontBlit) {
 					// we don't blit for a hot key character.  So add extra spacing.
@@ -1151,8 +1165,21 @@ Vector2	Render2DSentenceClass::Build_Sentence_Not_Centered (const WCHAR *text, i
 			if (!justCalcExtents)
 			{
 				if (LockedPtr == nullptr) {
-					LockedPtr = (uint16 *)CurSurface->Lock (&LockedStride);
+					LockedPtr = CurSurface->Lock (&LockedStride);
 					WWASSERT (LockedPtr != nullptr);
+					// GeneralsX @bugfix Android port 31/07/2026 CurSurface was created
+					// with WW3D_FORMAT_A4R4G4B4, but Patches/dxvk-mali-g76-4444-format.patch
+					// maps that D3D9 format to a real 32-bit VK_FORMAT_B8G8R8A8_UNORM on
+					// this device (Mali-G76 can't create the packed 16-bit format DXVK
+					// would otherwise use), so the surface's real bytes-per-pixel no
+					// longer matches Get_Bytes_Per_Pixel()'s WW3D_FORMAT_A4R4G4B4 table
+					// entry (still 2). Comparing the pitch DXVK actually returned
+					// against the known pixel width (rather than assuming an exact
+					// stride == width * bpp, which Vulkan does not guarantee for a
+					// linear-tiled image -- a driver is free to pad each row) keeps
+					// this correct regardless of which format substitution, if any,
+					// is active for the current device.
+					LockedBytesPerPixel = (LockedStride >= CurrTextureSize * 4) ? 4 : 2;
 				}
 			}
 
@@ -1166,7 +1193,7 @@ Vector2	Render2DSentenceClass::Build_Sentence_Not_Centered (const WCHAR *text, i
 			//
 			if (!justCalcExtents && !dontBlit )
 			{
-				Font->Blit_Char (ch, LockedPtr, LockedStride, TextureOffset.I, TextureOffset.J);
+				Font->Blit_Char (ch, LockedPtr, LockedStride, LockedBytesPerPixel, TextureOffset.I, TextureOffset.J);
 			}
 
 			// GeneralsX @bugfix Android port 30/07/2026 see Record_Sentence_Chunk.
@@ -1376,31 +1403,58 @@ FontCharsClass::Get_Char_Spacing (WCHAR ch)
 //
 ////////////////////////////////////////////////////////////////////////////////////
 void
-FontCharsClass::Blit_Char (WCHAR ch, uint16 *dest_ptr, int dest_stride, int x, int y)
+FontCharsClass::Blit_Char (WCHAR ch, void *dest_ptr, int dest_stride, int dest_bytes_per_pixel, int x, int y)
 {
 	const FontCharsClassCharDataStruct	* data = Get_Char_Data( ch );
 	if ( data != nullptr && data->Width != 0 ) {
 
-		//
-		//	Setup the src and destination pointers
-		//
-		int dest_inc		= (dest_stride >> 1);
+		// GeneralsX @bugfix Android port 31/07/2026 data->Buffer (the glyph
+		// cache Store_Freetype_Char/Store_GDI_Char wrote into) is always
+		// packed 16-bit A4R4G4B4 -- that is this engine's own private cache
+		// format and is untouched by any D3D/DXVK format substitution. The
+		// destination surface is a different story: on a device where DXVK
+		// had to remap WW3D_FORMAT_A4R4G4B4 to a real 32-bit format (see the
+		// call site), each source texel must be unpacked and re-expanded
+		// into 8-bit-per-channel BGRA8 instead of written verbatim.
+		uint8 *dest_row = static_cast<uint8*>(dest_ptr) + dest_stride * y + dest_bytes_per_pixel * x;
 		uint16 *src_ptr	= data->Buffer;
-		dest_ptr				+= (dest_inc * y) + x;
 
-		//
-		//	Simply copy the data from the src buffer to the destination
-		//
-		for ( int row = 0; row < CharHeight; row ++ ) {
-			for ( int col = 0; col < data->Width; col ++ ) {
-				uint16 curData = *src_ptr;
-				if (col<PixelOverlap) {
-					curData |= dest_ptr[col];
+		if (dest_bytes_per_pixel == 4) {
+			for ( int row = 0; row < CharHeight; row ++ ) {
+				uint32 *dest32 = reinterpret_cast<uint32*>(dest_row);
+				for ( int col = 0; col < data->Width; col ++ ) {
+					uint16 packed = *src_ptr++;
+					// Unpack this engine's 4-bit-alpha/12-bit-color cache
+					// format and replicate each nibble into a full byte
+					// (0-15 -> 0-255 evenly) to build a BGRA8 word matching
+					// VK_FORMAT_B8G8R8A8_UNORM's byte order.
+					unsigned a4 = (packed >> 12) & 0xF;
+					unsigned r4 = (packed >> 8)  & 0xF;
+					unsigned g4 = (packed >> 4)  & 0xF;
+					unsigned b4 =  packed        & 0xF;
+					uint32 curData = ((a4 << 4 | a4) << 24)
+					               | ((r4 << 4 | r4) << 16)
+					               | ((g4 << 4 | g4) << 8)
+					               |  (b4 << 4 | b4);
+					if (col < PixelOverlap) {
+						curData |= dest32[col];
+					}
+					dest32[col] = curData;
 				}
-				dest_ptr[col] = curData;
-				src_ptr++;
+				dest_row += dest_stride;
 			}
-			dest_ptr	+= dest_inc;
+		} else {
+			for ( int row = 0; row < CharHeight; row ++ ) {
+				uint16 *dest16 = reinterpret_cast<uint16*>(dest_row);
+				for ( int col = 0; col < data->Width; col ++ ) {
+					uint16 curData = *src_ptr++;
+					if (col < PixelOverlap) {
+						curData |= dest16[col];
+					}
+					dest16[col] = curData;
+				}
+				dest_row += dest_stride;
+			}
 		}
 	}
 }

@@ -112,7 +112,10 @@ public:
 
 	int Get_Extra_Overlap() {return PixelOverlap;}
 
-	void	Blit_Char( WCHAR ch, uint16 *dest_ptr, int dest_stride, int x, int y );
+	// GeneralsX @bugfix Android port 31/07/2026 dest_ptr's true pixel size is
+	// no longer assumed to be 16-bit -- see the call site in
+	// Render2DSentenceClass::Build_Sentence_Not_Centered for why.
+	void	Blit_Char( WCHAR ch, void *dest_ptr, int dest_stride, int dest_bytes_per_pixel, int x, int y );
 
 private:
 
@@ -309,8 +312,11 @@ private:
 	bool												ParseHotKey;
 	bool												useHardWordWrap;
 
-	uint16 *										LockedPtr;
+	// GeneralsX @bugfix Android port 31/07/2026 no longer typed uint16* --
+	// see Blit_Char in render2dsentence.h and its call sites.
+	void *											LockedPtr;
 	int													LockedStride;
+	int													LockedBytesPerPixel;
 	TextureClass *							CurTexture;
 	ShaderClass									Shader;
 };
