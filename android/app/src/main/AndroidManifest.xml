@@ -3,10 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Vulkan is the entire render path (D3D8 -> DXVK -> Vulkan); refuse to
-         install on devices without a Vulkan 1.1 driver. DXVK 2.6 itself needs
-         Vulkan 1.3 at runtime — checked with a readable error at startup
-         rather than a market filter, so Mali-1.1 devices can still run a
-         future fallback renderer build. -->
+         install on devices without a Vulkan 1.1 driver. DXVK's own minimum
+         was lowered from 1.3 to 1.1 (dxvk-vulkan11-adaptive.patch + the
+         Mali-G76 fix series in Patches/), so 1.1 here is now the real
+         runtime floor, not just an install-time gate ahead of a future
+         fallback renderer. A device below 1.1, or with a genuinely broken
+         driver, still gets a readable on-screen error at startup rather
+         than silently failing. -->
     <uses-feature
         android:name="android.hardware.vulkan.version"
         android:version="0x401000"

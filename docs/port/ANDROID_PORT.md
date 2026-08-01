@@ -86,38 +86,42 @@ system Vulkan loader.
 
 ## 2. The device / driver matrix (read this before filing "black screen" bugs)
 
-DXVK 2.6 requires **Vulkan 1.3** with a handful of features (robustness2,
-null descriptors, etc.). That, not CPU or OS version, decides whether a device
-can run this port.
+DXVK's own minimum was originally Vulkan 1.3 with a handful of features
+(robustness2, null descriptors, etc.), which is still the *best-supported*
+path. `Patches/dxvk-vulkan11-adaptive.patch` (see the archive note at the
+bottom of the repo's plan history, or just `git log --oneline -- Patches/dxvk-vulkan11-adaptive.patch`)
+lowered the hard floor to **Vulkan 1.1**, with the required features chained
+through KHR/EXT fallback extensions when the device doesn't have them
+natively — plus a long tail of Mali/Bifrost-specific fixes (see the
+`dxvk-mali-g76-*.patch` series in `Patches/`) for real crashes found on
+real Mali-G76 hardware. A device with no usable Vulkan driver at all
+(< 1.1, or a completely broken one) still gets a clear on-screen message
+instead of a silent black screen.
 
 | Device | SoC / GPU | Vulkan | Verdict |
 |---|---|---|---|
-| **Poco F8 Pro** | Snapdragon 8 Elite / **Adreno 830** | 1.3+ (excellent proprietary driver) | **Primary target.** This is the device to bring the port up on. GPU-wise a 2003 title is a rounding error; expect native-res 120 Hz. |
-| **Redmi Note 8 Pro** | Helio G90T / **Mali-G76 MC4** | **1.1 only** | **Not supported by the DXVK 2.6 path.** The APK installs (manifest gate is 1.1) but D3D init will fail with a clear log message. Options below. |
+| **Poco F8 Pro** | Snapdragon 8 Elite / **Adreno 830** | 1.3+ (excellent proprietary driver) | **Best case.** GPU-wise a 2003 title is a rounding error; expect native-res 120 Hz. |
+| **Redmi Note 8 Pro** | Helio G90T / **Mali-G76 MC4** | **1.1 only** | **Supported**, via the adaptive Vulkan 1.1 path above. Frame rate is CPU-bound rather than GPU-bound on this class of device — expect noticeably lower FPS than an Adreno 7xx/8xx phone, and occasional freezes on map/mission load, not a GPU limitation. |
 
-**Mali-G76 / Vulkan 1.1 options** (in order of realism):
-1. **d3d8to9 + DXVK 1.10.x** — DXVK's 1.10 branch runs on Vulkan 1.1, but has
-   no d3d8 frontend (d3d8 arrived in 2.4). Chaining the standalone `d3d8to9`
-   shim in front of `libdxvk_d3d9.so` 1.10.3 is the plausible route; it is a
-   separate integration effort and untested here.
-2. **Zink-style GL fallback / software** — not worth it for this GPU class.
-3. Accept it as a casualty: the G90T is a 2019 midrange chip whose Mali driver
-   is frozen; even Winlator-class emulation struggles there for the same reason.
+Any other Vulkan-1.1-capable Mali GPU (Mali-G57 and similar Bifrost/Valhall
+chips) is expected to behave the same way as the Redmi Note 8 Pro above —
+supported, CPU-bound. Adreno phones below Vulkan 1.3 get an optional bundled
+Mesa Turnip fallback driver instead (see below); this does not apply to
+Mali/PowerVR.
 
 **About the helper repos provided alongside this one:**
 - **Turnip_drivers_adreno / Mesa Turnip** — the open-source Vulkan driver for
   **Adreno 6xx/7xx**. It does *not* support the Adreno 830 (a8xx support is
   still maturing in Mesa), and the 8 Elite's stock driver is already Vulkan
-  1.3-complete, so Turnip is **not needed for either of the target devices**.
-  It becomes relevant for third-party devices with old/broken vendor drivers
-  (e.g. Adreno 642L phones), via the AdrenoTools loading mechanism below.
+  1.3-complete, so Turnip is **not needed** on either flagship device above.
+  It's the automatic fallback for older/lower-Vulkan Adreno phones (e.g.
+  Adreno 642L), via the AdrenoTools loading mechanism below.
 - **AdrenoToolsDrivers** — packaged driver bundles consumed by
   [libadrenotools](https://github.com/bylaws/libadrenotools), which lets an app
   load a replacement Vulkan driver *into its own process* (how Winlator and the
-  Switch emulators do it). A future enhancement here: an optional
-  libadrenotools hook before `SDL_Vulkan_LoadLibrary`, letting users pick a
-  Turnip build from a folder. Deliberately out of scope for the first bring-up
-  — the primary device doesn't need it.
+  Switch emulators do it). The Setup app's Driver Options card uses this to
+  apply the bundled Turnip build automatically on a qualifying Adreno phone,
+  or let you import your own adrenotools-format driver .zip.
 - **Winlator / MiceWine** — the *other* way to run Zero Hour on Android: the
   unmodified Windows binary under Wine + Box64 + DXVK-as-DLLs. It works today
   but pays the x86→ARM emulation tax and fights input/latency. This repo is the
