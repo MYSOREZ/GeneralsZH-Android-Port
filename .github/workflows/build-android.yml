@@ -319,7 +319,27 @@ jobs:
           # real path deterministic, so use it directly instead of searching.
           GAME_LIB="build/${{ env.PRESET }}/GeneralsMD/Code/Main/libmain.so"
           if [ ! -f "$GAME_LIB" ]; then echo "::error::libmain.so not found at $GAME_LIB"; exit 1; fi
-          "$READELF" -h "$GAME_LIB" | grep -q AArch64 || { echo "::error::libmain.so is not AArch64"; exit 1; }
+          # GeneralsX @bugfix Android port 31/07/2026 - the deterministic
+          # OUTPUT_NAME path above (13/07/2026 fix) stopped `head -1` from
+          # grabbing the wrong file, but the readelf check itself still
+          # failed twice in a row on two otherwise-clean reruns of the exact
+          # same commit (both with warm ccache/vcpkg/DXVK caches, both
+          # failing within ~25ms of this step starting) -- pointing at an
+          # I/O visibility race on the runner rather than a real wrong-arch
+          # binary: the prior step already exited 0, so the linker's writes
+          # should be complete, but the file's content isn't always visible
+          # to a process started microseconds later. Retry a few times with
+          # a short sleep before failing for real; a genuinely wrong-arch
+          # binary will still fail every attempt and correctly error out.
+          READELF_OK=0
+          for attempt in 1 2 3 4 5; do
+            if "$READELF" -h "$GAME_LIB" 2>/dev/null | grep -q AArch64; then
+              READELF_OK=1
+              break
+            fi
+            sleep 1
+          done
+          [ "$READELF_OK" = "1" ] || { echo "::error::libmain.so is not AArch64"; exit 1; }
           for lib in libdxvk_d3d8.so libdxvk_d3d9.so; do
             [ -f "build/${{ env.PRESET }}/$lib" ] || { echo "::error::$lib missing"; exit 1; }
           done
