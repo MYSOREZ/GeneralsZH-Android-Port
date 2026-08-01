@@ -766,6 +766,27 @@ int main(int argc, char* argv[])
 				fprintf(stderr, "INFO: dxvk_validation.txt found -- Vulkan validation layer requested (DXVK_DEBUG=validation)\n");
 			}
 
+			// GeneralsX @feature Android port 01/08/2026 Same opt-in UX again:
+			// dxvk_verbose_log.txt bumps DXVK_LOG_LEVEL from this build's
+			// default of "error" (set above) up to "info", which is what makes
+			// DXVK's "Presenter: Actual swapchain properties" line (format,
+			// present mode, image count, composite alpha) show up in
+			// generals-stderr.log. That line is normally silent, and it's the
+			// only way to see what compositeAlpha/present mode a specific
+			// device's driver actually negotiated (e.g. tracking down a
+			// device-specific screenshot/task-switcher-only rendering
+			// artifact) without an adb-attached logcat. Overwrite=1 so this
+			// marker always wins over the "error" default above, and the
+			// overhead (a handful of one-line-per-swapchain-recreation logs)
+			// is negligible compared to dxvk_validation.txt's, so it's safe
+			// to leave enabled for a whole repro session.
+			FILE *verboseMarker = fopen("dxvk_verbose_log.txt", "r");
+			if (verboseMarker != nullptr) {
+				fclose(verboseMarker);
+				setenv("DXVK_LOG_LEVEL", "info", 1);
+				fprintf(stderr, "INFO: dxvk_verbose_log.txt found -- DXVK_LOG_LEVEL=info\n");
+			}
+
 			// GeneralsX @feature Android port 30/07/2026 DXVK's HUD, same
 			// opt-in UX as the validation marker above: drop dxvk_hud.txt into
 			// the game data folder, no rebuild and no adb. There is no other
