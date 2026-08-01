@@ -350,8 +350,15 @@ static void TryLoadCustomVulkanDriver(const char *internalPath)
 		&mappingHandle);
 
 	if (lib == nullptr) {
-		fprintf(stderr, "WARNING: adrenotools_open_libvulkan('%s') failed -- falling back to stock Vulkan driver\n",
-		        driverName);
+		// GeneralsX @bugfix Android port 01/08/2026 adrenotools_open_libvulkan()
+		// wraps dlopen() internally for the actual driver .so; dlerror() often
+		// carries the real reason (missing dependency symbol, wrong ELF class,
+		// etc.) that the plain nullptr return on its own doesn't. Real-device
+		// testing (Turnip import on a Snapdragon 8 Elite / Adreno 830) hit this
+		// exact failure with no further detail previously logged.
+		const char *dlErr = dlerror();
+		fprintf(stderr, "WARNING: adrenotools_open_libvulkan('%s') failed -- falling back to stock Vulkan driver (dlerror: %s)\n",
+		        driverName, dlErr ? dlErr : "(none)");
 		return;
 	}
 	fprintf(stderr, "INFO: Loaded custom Vulkan driver '%s' via libadrenotools (hookLibDir=%s)\n",
