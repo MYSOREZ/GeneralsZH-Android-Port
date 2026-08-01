@@ -294,7 +294,18 @@ static void TryLoadCustomVulkanDriver(const char *internalPath)
 	}
 
 	char driverDir[1024];
-	snprintf(driverDir, sizeof(driverDir), "%s/custom_driver", internalPath);
+	// GeneralsX @bugfix Android port 01/08/2026 adrenotools_open_libvulkan()
+	// internally does `std::string(customDriverDir) + customDriverName` with
+	// NO separator inserted (driver.cpp, right before the pre-flight stat()
+	// check) -- customDriverDir must already carry its own trailing slash, or
+	// the concatenated path is garbage (".../custom_driverlibvulkan_x.so"
+	// instead of ".../custom_driver/libvulkan_x.so") and stat() fails before
+	// dlopen() is ever reached, which is exactly why adding a dlerror() log
+	// to the failure path earlier showed "(none)" -- the failure was a plain
+	// ENOENT from stat(), never a dlopen() error at all. This has silently
+	// broken every custom-driver (Turnip) import on Android since the
+	// feature was added.
+	snprintf(driverDir, sizeof(driverDir), "%s/custom_driver/", internalPath);
 	if (access(driverDir, R_OK) != 0) {
 		fprintf(stderr, "WARNING: custom_driver.cfg names '%s' but %s doesn't exist -- using stock Vulkan driver\n",
 		        driverName, driverDir);
