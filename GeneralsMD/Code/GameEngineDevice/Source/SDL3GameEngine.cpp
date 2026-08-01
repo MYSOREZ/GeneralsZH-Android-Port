@@ -231,12 +231,15 @@ TouchState s_touch;
 const Uint64 LONG_PRESS_MS = 600;
 const float TAP_DEAD_ZONE_PX = 8.0f;   // jitter below this keeps a tap a tap
 
-// GeneralsX @feature Android port 01/08/2026 A finger that moves past the
-// dead zone BEFORE this elapses commits straight to a camera pan (see the
-// PENDING branch in handleTouchEvent) -- so a quick drag always pans, no
-// artificial arming delay. A finger that instead stays put THROUGH this
-// window fires the long-press RMB click below (updateTouchLongPress); moving
-// AFTER that point is what starts a selection-box drag instead.
+// GeneralsX @feature Android port 01/08/2026 Brief settle window so ordinary
+// touch-down tremor can't accumulate into a false camera pan (see the
+// PENDING branch in handleTouchEvent, and its @bugfix comment for why this
+// exists). Movement that continues past this point commits to a pan; a
+// finger that stays put all the way to LONG_PRESS_MS instead fires the RMB
+// long-press (updateTouchLongPress), and moving AFTER that point is what
+// starts a selection-box drag. Short relative to LONG_PRESS_MS so a genuine
+// quick pan still feels immediate.
+const Uint64 PAN_SETTLE_MS = 100;
 
 // Double-tap: select all of the clicked unit's type on screen, matching the
 // PC's double-click. 350ms/40px roughly matches Android's own
@@ -435,21 +438,39 @@ void handleTouchEvent(SDL3Mouse *mouse, SDL_Window *window, const SDL_Event &eve
 		}
 
 		if (s_touch.phase == TouchState::PENDING && event.tfinger.fingerID == s_touch.finger1) {
-			const float moved = SDL_fabsf(px - s_touch.downX) + SDL_fabsf(py - s_touch.downY);
-			if (moved >= TAP_DEAD_ZONE_PX) {
-				// GeneralsX @feature Android port 01/08/2026 Real touch camera
-				// pan: moving before the long-press threshold elapses commits
-				// straight to a direct camera pan (TheTacticalView->userScrollBy,
-				// see applyCameraPan) -- no synthetic mouse involved at all.
-				// This is the natural "quick drag moves the map" gesture.
-				// Holding still past the long-press threshold instead fires the
-				// existing RMB long-press (updateTouchLongPress below), and
-				// dragging AFTER that point is what starts a selection-box drag
-				// (see the LONGPRESSED branch below) -- the finger stayed still
-				// long enough to mean "select", not "look around".
-				s_touch.phase = TouchState::PANNING;
-				s_touch.panLastNormX = event.tfinger.x;
-				s_touch.panLastNormY = event.tfinger.y;
+			// GeneralsX @bugfix Android port 01/08/2026 First cut checked
+			// displacement from the raw FINGER_DOWN point with no jitter
+			// absorption at all: real fingers settle with a few px of tremor
+			// right after landing, and TAP_DEAD_ZONE_PX (8px) is small enough
+			// that a plain stationary hold could drift past it well before
+			// LONG_PRESS_MS (600ms) elapsed, silently hijacking ordinary
+			// taps/long-presses into a camera pan -- reported as "controls
+			// don't work". PAN_SETTLE_MS re-anchors the reference point to
+			// wherever the finger currently is for a short window after
+			// landing (same technique the old DRAG_ARM_DELAY_MS used for the
+			// selection-box drag this replaces), so only movement that
+			// continues PAST that settle window counts toward starting a pan.
+			// A genuine fast flick still starts, just ~PAN_SETTLE_MS later.
+			if (SDL_GetTicks() - s_touch.downTicks < PAN_SETTLE_MS) {
+				s_touch.downX = px;
+				s_touch.downY = py;
+			} else {
+				const float moved = SDL_fabsf(px - s_touch.downX) + SDL_fabsf(py - s_touch.downY);
+				if (moved >= TAP_DEAD_ZONE_PX) {
+					// Real touch camera pan: moving after the settle window
+					// (but still before the long-press threshold) commits
+					// straight to a direct camera pan
+					// (TheTacticalView->userScrollBy, see applyCameraPan) --
+					// no synthetic mouse involved at all. Holding still past
+					// the long-press threshold instead fires the existing RMB
+					// long-press (updateTouchLongPress below), and dragging
+					// AFTER that point is what starts a selection-box drag
+					// (see the LONGPRESSED branch below) -- the finger stayed
+					// still long enough to mean "select", not "look around".
+					s_touch.phase = TouchState::PANNING;
+					s_touch.panLastNormX = event.tfinger.x;
+					s_touch.panLastNormY = event.tfinger.y;
+				}
 			}
 		}
 		else if (s_touch.phase == TouchState::PANNING && event.tfinger.fingerID == s_touch.finger1) {
