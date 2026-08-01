@@ -16,22 +16,16 @@ permissions:
   actions: write
 
 on:
-  push:
-    branches:
-      - main
-      - 'claude/**'
-    paths:
-      - 'GeneralsMD/**'
-      - 'Core/**'
-      - 'Dependencies/**'
-      - 'cmake/**'
-      - 'android/**'
-      - 'scripts/build/android/**'
-      - 'Patches/**'
-      - 'CMakeLists.txt'
-      - 'CMakePresets.json'
-      - 'vcpkg.json'
-      - '.github/workflows/build-android.yml'
+  # GeneralsX @bugfix Android CI 01/08/2026 dropped the push: trigger that
+  # used to fire a full CI build on every push to main/claude/** touching
+  # these paths. This session's actual dev loop builds and checksum-verifies
+  # locally (scripts/build/android/build-local-sandboxed.sh) before ever
+  # pushing, and pushes to BOTH main and the working branch on every commit
+  # (main is kept fast-forwarded) -- so every commit was silently kicking off
+  # two full ~15min CI builds nobody was looking at, burning real Actions
+  # usage for zero benefit. pull_request/workflow_dispatch (manual runs,
+  # including the "publish a Release" path) are unaffected and still work
+  # exactly as before.
   pull_request:
     branches:
       - main
