@@ -745,10 +745,28 @@ void SDL3GameEngine::update(void)
 	// CAMetalLayer/MoltenVK; Android: the ANativeWindow is torn down) and,
 	// across repeated suspend/switcher cycles, crashes the app. Keep polling so
 	// we still catch the resume events; just don't touch the GPU.
-	if (mobileShouldPauseRendering()) {
+	//
+	// GeneralsX @bugfix Android port 01/08/2026 Only start skipping from the
+	// SECOND consecutive paused update() onward. The very first call where we
+	// observe the transition still safely owns a valid ANativeWindow/swapchain
+	// (pollSDL3Events() just delivered the focus-lost/background event; the OS
+	// tears the surface down some time after that, not synchronously with it),
+	// so let this one call finish a completely normal update+render+present.
+	// Otherwise whatever GPU work was in flight the instant focus was lost is
+	// what stays on screen for as long as we're backgrounded -- and that's
+	// exactly what Android's task-switcher thumbnail and (on at least one
+	// real device, POCO/Snapdragon 8 Elite via HyperOS) its screenshot tool
+	// both read back. Real-device testing found the same "torn"-looking black
+	// patch in the same spot every single time in Recents and in screenshots,
+	// never during actual play -- consistent with the OS snapshotting a
+	// still-mid-render frame rather than a genuine capture-time race.
+	static bool s_wasPausedLastFrame = false;
+	const bool pausedNow = mobileShouldPauseRendering();
+	if (pausedNow && s_wasPausedLastFrame) {
 		SDL_Delay(50);
 		return;
 	}
+	s_wasPausedLastFrame = pausedNow;
 #endif
 	GameEngine::update();
 }
