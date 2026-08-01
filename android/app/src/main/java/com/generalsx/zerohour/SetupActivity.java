@@ -181,12 +181,18 @@ public class SetupActivity extends Activity {
         addButton(actionsCard, getString(R.string.setup_button_view_logs), this::onViewLogs);
         addButton(actionsCard, getString(R.string.setup_button_clear_game_folder), this::onClearGameFolder);
 
+        // GeneralsX @bugfix Android port 01/08/2026 moved up from below the
+        // language/UI-scale/driver/dxvk-config cards -- signing into
+        // GeneralsOnline is a primary action most people want right after
+        // picking their game folder, not buried under advanced settings most
+        // players never touch.
+        buildGeneralsOnlineSection(root);
+
         buildLanguageSection(root);
         buildUiScaleSection(root);
         applyRecommendedDriverIfNeeded();
         buildCustomDriverSection(root);
         buildDxvkConfigSection(root);
-        buildGeneralsOnlineSection(root);
 
         LinearLayout helpCard = startCard(root, getString(R.string.setup_card_how_it_works));
         TextView help = new TextView(this);
