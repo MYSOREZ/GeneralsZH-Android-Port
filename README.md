@@ -146,7 +146,10 @@ artifact from the run and install it.
 **"GeneralsZH Setup"**, with an in-app folder picker (point it at wherever
 you copied your own game files — Downloads, an SD card, anywhere) and a log
 viewer with Clear/Share buttons. See [docs/port/ANDROID_PORT.md §4](docs/port/ANDROID_PORT.md#4-game-data-and-first-run--the-in-app-setup-flow-no-adb-no-pc-needed)
-for the full first-run walkthrough.
+for the full first-run walkthrough. A default log is small and readable —
+if a bug report needs more (frame-timing breakdown, full trace, DXVK HUD
+counters, Vulkan validation), see [**Diagnostic marker files**](docs/port/ANDROID_PORT.md#diagnostic-marker-files-opt-in-extra-logging)
+for which plain-text file to drop into the game folder and what it turns on.
 
 Building locally instead needs the Android NDK (r26+), vcpkg, meson/ninja:
 

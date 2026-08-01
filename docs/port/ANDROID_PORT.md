@@ -223,11 +223,37 @@ Open **GeneralsZH Setup → View Logs**. It shows, without any PC:
 - `generals-stderr.log` (+ `-prev.log`) — the regular engine log, active once
   `main()` starts.
 
-Use the **Share** button there to send the log to yourself (email, messaging
-app, anywhere) directly from the phone. `adb pull`/`adb logcat` still work
-too and remain useful for anything the in-app viewer can't show (an OS-level
-tombstone needs adb + often root; `crash.log` is the no-root substitute for
-the common case).
+Use the **Share** button there to send the logs to yourself (email, messaging
+app, anywhere) directly from the phone — it bundles `crash.log` (+
+`crash-prev.log` if present) and `generals-stderr.log` (+ `-prev.log`) into a
+single `generalszh-logs.zip` so you don't need to attach several files.
+`adb pull`/`adb logcat` still work too and remain useful for anything the
+in-app viewer can't show (an OS-level tombstone needs adb + often root;
+`crash.log` is the no-root substitute for the common case).
+
+### Diagnostic marker files (opt-in extra logging)
+
+None of these are on by default — a plain log from a fresh install is small
+and readable. If a bug report needs more detail, ask for one of these: **drop
+an empty text file with the exact name below into the same game data folder
+you picked in Setup → Select Game Folder** (the one that has your `.big`
+files in it — no `adb`, no rebuild, just a file manager). Delete the file (or
+uninstall/reinstall the game data) to turn it back off; each one is read once
+per launch.
+
+| File to create | What it does | When to ask for it |
+|---|---|---|
+| `gx_trace.txt` | Turns on full `[GX-TRACE]` logging (font/UI/INI internals, very verbose). | Chasing a hang or a specific UI/parsing bug. **Warning:** on a long session this can produce a 50-100+ MB log — use `gx_perf.txt` instead if you only need frame-timing numbers. |
+| `gx_perf.txt` | Turns on just the low-volume `[GX-PERF]` line (one per second: time spent in radar/audio/client/network/logic/render, per subsystem). Implied automatically by `gx_trace.txt`. | Performance/FPS reports — this is the one that actually shows where frame time goes, safe to leave on for a whole session. |
+| `dxvk_hud.txt` | Turns on DXVK's own HUD (on-screen counters, mirrored into the log as `DXVK_HUD: ...` lines). Leave the file empty for the safe default (`fps,drawcalls,submissions,pipelines`); anything you type inside becomes the element list. `frametimes`/`memory` are refused and fall back to the default — those two crash on this port's Vulkan 1.1 devices. | GPU-side numbers: draw call counts, submissions, pipeline count. |
+| `dxvk_validation.txt` | Turns on the Vulkan validation layer (`DXVK_DEBUG=validation`) — adds real per-call overhead, so only for a specific repro, not everyday testing. | Suspected Vulkan API misuse (validation errors/UB), not a performance report. |
+
+All four are read from the working directory the engine `chdir()`s into at
+startup — the game data folder, same place as above, not the app's internal
+storage.
+
+**→ For sharing this section directly:
+[docs/port/ANDROID_PORT.md#diagnostic-marker-files-opt-in-extra-logging](docs/port/ANDROID_PORT.md#diagnostic-marker-files-opt-in-extra-logging)**
 
 ## 5. Verification checklist for first device bring-up
 
