@@ -3861,8 +3861,12 @@ GameFont *ControlBar::overrideTooltipGadgetFont( GameWindow *win )
 	if( TheGlobalLanguageData && TheGlobalLanguageData->m_unicodeFontName.isNotEmpty() )
 		fontName = TheGlobalLanguageData->m_unicodeFontName;
 
-	// Get the font from the font library (12pt, not bold)
-	GameFont *newFont = TheFontLibrary->getFont( fontName, 12, FALSE );
+	// Get the font from the font library (12pt, not bold), scaled the same way every other
+	// font in the game is scaled for high resolutions (GlobalLanguage::adjustFontSize(),
+	// user-adjustable via the Setup screen's "Menu Text Size" slider). This call site used to
+	// request a hardcoded 12pt, leaving tooltips tiny on high-DPI screens.
+	Int tooltipPointSize = TheGlobalLanguageData ? TheGlobalLanguageData->adjustFontSize( 12 ) : 12;
+	GameFont *newFont = TheFontLibrary->getFont( fontName, tooltipPointSize, FALSE );
 	if( !newFont )
 		return nullptr;
 
