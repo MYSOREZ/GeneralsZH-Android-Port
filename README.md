@@ -1,5 +1,13 @@
 # Command & Conquer Generals: Zero Hour — Android (+ macOS, iOS & iPadOS)
 
+> **This is an unofficial, community-made fan port.** It is not affiliated
+> with, endorsed by, or produced by Electronic Arts, Westwood Studios, or any
+> other rights holder, and it is not an official Google Play / App Store
+> release. It's a fork maintained by volunteers (see
+> [Lineage & credits](#lineage--credits)) built from EA's own GPL v3 source
+> release. If you saw this described anywhere as an "official" release, that's
+> wrong — please don't spread it further.
+
 <img width="500" height="281" alt="IMG_3457_500" src="https://github.com/user-attachments/assets/aeaf6692-36e6-40c8-b9f8-8066d014ec4b" />
 
 **Zero Hour running natively on Android** — campaign, skirmish, Generals Challenge,
@@ -111,12 +119,22 @@ other can't play-test on a real phone.
 ## Quick start — Android
 
 Same engine, one translation layer fewer than iOS: DirectX 8 → DXVK →
-**Vulkan native** (no MoltenVK). Needs a device whose GPU driver speaks
-**Vulkan 1.3** (Snapdragon with Adreno 7xx/8xx: yes; older Mali like the G76:
-no — the app detects this and shows a clear on-screen message instead of
-silently closing; see the doc for driver-replacement options).
+**Vulkan native** (no MoltenVK). DXVK's own minimum was lowered from Vulkan
+1.3 to **Vulkan 1.1**, with an adaptive feature/extension fallback path, so
+it now runs on a much wider range of hardware: Snapdragon with Adreno
+7xx/8xx (native 1.3), older Adreno below 1.3 (via an optional bundled Mesa
+Turnip fallback driver), and Vulkan-1.1-only Arm Mali GPUs (Mali-G76,
+Mali-G57, and similar Bifrost/Valhall chips — e.g. the Redmi Note 8 Pro) are
+all supported. A device with no usable Vulkan driver at all still gets a
+clear on-screen message instead of silently closing. Frame rate on
+Vulkan-1.1-only / older-CPU devices is CPU-bound, not GPU-bound — expect
+lower FPS and occasional freezes on weaker phones; see the doc for the full
+device/driver matrix and driver-replacement options.
 
-**No local toolchain needed** — push to a `claude/**` branch (or run it
+**Simplest option — no build, no CI**: grab a prebuilt APK from the
+[Releases page](../../releases/latest) and sideload it.
+
+**No local toolchain needed either** — push to a `claude/**` branch (or run it
 manually) and GitHub Actions builds the APK: **Actions tab → Build Android →
 Run workflow**. Every CI build is signed with the same committed debug key and
 gets an increasing versionCode, so you can install a newer run **over** an
@@ -214,10 +232,12 @@ iteration.
   the Files app under the game's folder. Under investigation.
 - Backgrounding mid-game can occasionally crash on iOS — the lifecycle pause covers
   the common paths; a rare race remains. Save often.
-- Android: GPUs limited to Vulkan 1.1 (e.g. Mali-G76) can't run the DXVK 2.6 path —
-  the app now shows a clear on-screen message instead of closing silently; see
+- Android on Vulkan-1.1-only GPUs (Mali-G76, Mali-G57, and similar) is
+  CPU-bound: expect lower frame rates and occasional freezes on weaker/older
+  phones, especially during map/mission loading, and please share logs if you
+  hit something worse than that — see
   [docs/port/ANDROID_PORT.md §2](docs/port/ANDROID_PORT.md#2-the-device--driver-matrix-read-this-before-filing-black-screen-bugs)
-  for driver-replacement options if you want to chase it further.
+  for the device/driver matrix.
 - Android multiplayer is under active real-device shakeout — most reported crashes
   have traced to a handful of recurring bug classes (see the "what this port
   actually involved" section above) and get fixed fast, but if something's still
