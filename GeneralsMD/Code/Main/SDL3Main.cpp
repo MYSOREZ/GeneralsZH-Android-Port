@@ -59,6 +59,7 @@
 #include <jni.h>
 #include <dlfcn.h>
 #include <adrenotools/driver.h>
+#include <android/api-level.h>
 #endif
 #include <cstdlib>
 #include <cctype>
@@ -350,6 +351,25 @@ static void TryLoadCustomVulkanDriver(const char *internalPath)
 	}
 
 	void *mappingHandle = nullptr;
+	// GeneralsX @bugfix Android port 01/08/2026 The trailing-slash fix above
+	// (commit 453bb4ec6) didn't resolve the real-device failure -- still
+	// "(none)" from dlerror() after that fix too, meaning either the stat()
+	// pre-check still isn't finding the file for some OTHER reason, or the
+	// failure is actually happening at one of adrenotools' EARLIER,
+	// dlopen()-independent bail-outs (driver.cpp: linkernsbypass_load_status()
+	// failing "probably means we're on api < 28", or the isolated-namespace
+	// creation/linking step) -- both return nullptr just as silently as the
+	// stat() check does. Replicate adrenotools' own concatenation and stat()
+	// here, and log the device API level, to see exactly which one it is.
+	{
+		std::string probePath = std::string(driverDir) + driverName;
+		struct stat probeBuf{};
+		int probeResult = stat(probePath.c_str(), &probeBuf);
+		fprintf(stderr, "INFO: TryLoadCustomVulkanDriver probe: path='%s' stat=%d (errno=%d: %s) apiLevel=%d\n",
+		        probePath.c_str(), probeResult, probeResult == 0 ? 0 : errno,
+		        probeResult == 0 ? "ok" : strerror(errno),
+		        android_get_device_api_level());
+	}
 	void *lib = adrenotools_open_libvulkan(
 		RTLD_NOW,
 		ADRENOTOOLS_DRIVER_CUSTOM,
