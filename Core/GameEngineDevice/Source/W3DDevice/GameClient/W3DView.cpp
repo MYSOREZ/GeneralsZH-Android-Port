@@ -68,6 +68,7 @@
 #include "GameLogic/AI.h"			///< For AI debug (yes, I'm cheating for now)
 #include "GameLogic/AIPathfind.h"			///< For AI debug (yes, I'm cheating for now)
 #include "GameLogic/ExperienceTracker.h"
+#include "GameLogic/FPUControl.h"
 #include "GameLogic/GameLogic.h"
 #include "GameLogic/Module/AIUpdate.h"
 #include "GameLogic/Module/BodyModule.h"
@@ -645,6 +646,13 @@ Bool W3DView::isWithinCameraHeightConstraints() const
 //-------------------------------------------------------------------------------------------------
 void W3DView::getPickRay(const ICoord2D *screen, Vector3 *rayStart, Vector3 *rayEnd)
 {
+	// The projection/unproject math below relies on the engine's FP mode (the same mode
+	// GameLogic::update() re-asserts each frame for its fast float->int conversions). Other
+	// subsystems (e.g. audio) can leave it in an unexpected state, making picks resolve to the
+	// wrong world position. Re-assert it here so every caller of getPickRay() (screenToTerrain,
+	// pickDrawable, screenToWorldAtZ, ...) gets a correct ray.
+	setFPMode();
+
 	Real logX;
 	Real logY;
 	Real screenX = screen->x - m_originX;
