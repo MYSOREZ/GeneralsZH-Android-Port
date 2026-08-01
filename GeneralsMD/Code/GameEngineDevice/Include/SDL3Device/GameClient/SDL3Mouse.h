@@ -33,6 +33,9 @@
 #include <SDL3/SDL.h>
 #include <SDL3_image/SDL_image.h>
 #include <array>
+#if defined(__APPLE__)
+#include <TargetConditionals.h>
+#endif
 
 // USER INCLUDES
 #include "GameClient/Mouse.h"
@@ -60,6 +63,20 @@ public:
 	virtual void setVisibility(Bool visible);
 	virtual void loseFocus();
 	virtual void regainFocus();
+
+#if (defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE) || defined(__ANDROID__)
+	// GeneralsX @feature Android port 01/08/2026 On touch-first platforms there
+	// is no real mouse hardware, and SDL3GameEngine.cpp's touch handler drives
+	// the message stream directly (MSG_RAW_MOUSE_* pushed straight onto
+	// TheMessageStream from real finger events). The base Mouse::
+	// createStreamMessages() unconditionally emits a MSG_RAW_MOUSE_POSITION
+	// every single frame from this object's own (never-updated-by-touch)
+	// m_currMouse.pos -- left enabled, that stale per-frame ping would fight
+	// the touch-driven position messages for GUI hover every frame. Override
+	// it to do nothing here; nothing on mobile calls addSDLEvent() on this
+	// object anymore, so there's no button/wheel state to flush either.
+	virtual void createStreamMessages() override;
+#endif
 
 	// SDL3-specific methods
 	// Fighter19 pattern: addSDLEvent() accepts raw SDL_Event directly

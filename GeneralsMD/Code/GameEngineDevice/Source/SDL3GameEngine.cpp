@@ -32,6 +32,7 @@
 #include "OpenALAudioManager.h"
 #include "SDL3Device/GameClient/SDL3Mouse.h"
 #include "SDL3Device/GameClient/SDL3Keyboard.h"
+#include "Common/MessageStream.h"
 #include "GameClient/Mouse.h"
 #include "GameClient/Keyboard.h"
 #include "GameClient/GameWindow.h"
@@ -140,18 +141,35 @@ static bool SDLCALL mobileLifecycleWatcher(void *userdata, SDL_Event *event)
 // sets SDL_HINT_TOUCH_MOUSE_EVENTS=0) -- this code owns touch interpretation
 // completely.
 //
-// GeneralsX @feature Android port 01/08/2026, rewritten 01/08/2026 Native
-// touch camera control: camera pan and zoom are real touch gestures with NO
-// mouse involvement at all -- applyCameraPan()/applyCameraZoom() call
-// TheTacticalView->userScrollBy()/userZoom() directly, driven by actual
-// per-frame finger deltas. Selection and commands still go through
-// SDL3Mouse: this engine's selection logic (SelectionXlat.cpp) and its
-// multiplayer-sync message stream are both keyed on mouse-shaped
-// GameMessages, and there is no bypassing that queue for ANY input device --
-// but the *decision* of what gesture occurred is made once, here, from real
-// touch geometry, and the synthetic cursor is never left lingering where it
-// can visibly affect the GUI (see the edge-guard comment at the bottom of
-// handleTouchEvent for the specific bug this fixes).
+// GeneralsX @feature Android port 01/08/2026, rewritten 01/08/2026 twice
+// Native touch control, with NO mouse hardware emulation anywhere:
+//
+// - Camera pan/zoom call TheTacticalView->userScrollBy()/userZoom()
+//   directly (applyCameraPan()/applyCameraZoom()), driven by real per-frame
+//   finger deltas. Nothing mouse-shaped is involved at all.
+//
+// - Selection, GUI clicks, right-click commands, and selection-box/slider
+//   drags go straight onto TheMessageStream as the same MSG_RAW_MOUSE_*
+//   GameMessages a real mouse would produce (pushMousePosition()/
+//   pushMouseButton()/pushMouseDrag() below) -- but pushed directly from
+//   real finger events, not synthesized as SDL_Event mouse structs fed
+//   through SDL3Mouse's hardware-mouse pipeline. This is as close to "no
+//   mouse system" as this engine's input architecture allows: selection
+//   (SelectionXlat.cpp), GUI hover/hilite (WindowXlat.cpp), and the
+//   multiplayer-sync message stream itself are all keyed on that exact
+//   GameMessage vocabulary -- built in 2003 for a PC mouse, and there is no
+//   bypassing that queue for ANY input device without rewriting those
+//   systems (out of scope; this is the original engine's synchronization
+//   mechanism for multiplayer/replays, not a design choice we get to
+//   route around). What we DO get to remove is everything downstream of
+//   that: no persisted cursor object, no OS mouse cursor, no hover-then-
+//   click timing built for a physical mouse, no per-frame position
+//   heartbeat -- SDL3Mouse::createStreamMessages() is a no-op on mobile
+//   (see SDL3Mouse.cpp) specifically so nothing but real touch events ever
+//   produces a mouse-shaped message. A GameMessage type being literally
+//   named MSG_RAW_MOUSE_LEFT_BUTTON_DOWN is a historical label, not mouse
+//   emulation: no mouse is being pretended to exist, no cursor persists
+//   between touches, and nothing here reads back "where the mouse is".
 //
 // Gestures, deliberately as few and as standard as an Android map/RTS app
 // gets:
@@ -216,6 +234,12 @@ struct TouchState {
 	// by real per-frame finger deltas -- no synthetic mouse motion, no
 	// wheel-tick/RMB-drag translation. See applyCameraPan()/applyCameraZoom().
 	float panLastPxX = 0.0f, panLastPxY = 0.0f; // last processed finger1 pixel pos, single-finger PANNING
+
+	// Selection-box drag (DRAGGING): last position a MSG_RAW_MOUSE_LEFT_DRAG
+	// was built from, so each motion event can compute a real delta the way
+	// a mouse's own frame-to-frame position diff normally would -- see
+	// pushMouseDrag().
+	float dragLastPxX = 0.0f, dragLastPxY = 0.0f;
 
 	// TWOFINGER tracking: both fingers' current pixel positions, plus the
 	// last-processed centroid/spread so every motion event can diff against
@@ -311,46 +335,70 @@ void applyCameraZoom(float distDeltaPx)
 	TheTacticalView->userZoom(-distDeltaPx * ZOOM_HEIGHT_PER_PIXEL);
 }
 
-void sendSyntheticMouse(SDL3Mouse *mouse, SDL_Window *window, Uint32 type,
-                        float x, float y, Uint8 button = 0, float wheelY = 0.0f, Uint8 clicks = 1)
-{
-	// The windowID must be valid: SDL3Mouse::scaleMouseCoordinates() looks the
-	// window up by id to map window points into the game's internal resolution,
-	// and silently skips scaling when the lookup fails.
-	const SDL_WindowID windowID = SDL_GetWindowID(window);
+// GeneralsX @feature Android port 01/08/2026 These three functions are the
+// ENTIRE touch->engine bridge for anything that isn't direct camera control:
+// each pushes exactly the GameMessage a real mouse would have produced for
+// the same physical action, straight onto TheMessageStream, and nothing
+// else. No SDL_Event mouse structs, no SDL3Mouse involvement, no persisted
+// position -- see the file-header comment above for why this is what "no
+// mouse emulation" means concretely in this engine.
 
-	SDL_Event ev;
-	SDL_zero(ev);
-	ev.type = type;
-	switch (type) {
-		case SDL_EVENT_MOUSE_MOTION:
-			ev.motion.windowID = windowID;
-			ev.motion.x = x;
-			ev.motion.y = y;
-			break;
-		case SDL_EVENT_MOUSE_BUTTON_DOWN:
-		case SDL_EVENT_MOUSE_BUTTON_UP:
-			ev.button.windowID = windowID;
-			ev.button.button = button;
-			ev.button.down = (type == SDL_EVENT_MOUSE_BUTTON_DOWN);
-			// clicks>=2 on a DOWN event is what SDL3Mouse.cpp promotes to
-			// MBS_DoubleClick -- see the double-tap handling below.
-			ev.button.clicks = clicks;
-			ev.button.x = x;
-			ev.button.y = y;
-			break;
-		case SDL_EVENT_MOUSE_WHEEL:
-			ev.wheel.windowID = windowID;
-			ev.wheel.x = 0.0f;
-			ev.wheel.y = wheelY;
-			ev.wheel.mouse_x = x;
-			ev.wheel.mouse_y = y;
-			break;
-	}
-	mouse->addSDLEvent(&ev);
+ICoord2D touchPixel(float x, float y)
+{
+	ICoord2D p;
+	p.x = (Int)x;
+	p.y = (Int)y;
+	return p;
 }
 
-void handleTouchEvent(SDL3Mouse *mouse, SDL_Window *window, const SDL_Event &event)
+// Hover/position hint -- WindowXlat.cpp uses this to set GUI hilite state,
+// SelectionXlat.cpp uses it to build the selection-box drag region, and
+// LookAtXlat.cpp uses it to know where a drag/edge-scroll anchor is. A real
+// mouse's equivalent (Mouse::createStreamMessages()) sends this every
+// frame from a persisted position; here it's sent only exactly when a real
+// finger event gives us a real position to report.
+void pushMousePosition(float x, float y)
+{
+	if (!TheMessageStream) {
+		return;
+	}
+	GameMessage *msg = TheMessageStream->appendMessage(GameMessage::MSG_RAW_MOUSE_POSITION);
+	msg->appendPixelArgument(touchPixel(x, y));
+	msg->appendIntegerArgument(TheKeyboard ? TheKeyboard->getModifierFlags() : 0);
+}
+
+// Button down/up/double-click -- MetaEventTranslator (MetaEvent.cpp) turns a
+// DOWN+UP pair into the semantic MSG_MOUSE_LEFT_CLICK/RIGHT_CLICK
+// SelectionXlat.cpp actually acts on; MSG_RAW_MOUSE_LEFT_DOUBLE_CLICK
+// instead marks the NEXT up as a double-click (matching real click
+// semantics exactly -- see the double-tap handling below for why DOUBLE_
+// CLICK is sent instead of, not in addition to, a DOWN).
+void pushMouseButton(GameMessage::Type type, float x, float y)
+{
+	if (!TheMessageStream) {
+		return;
+	}
+	GameMessage *msg = TheMessageStream->appendMessage(type);
+	msg->appendPixelArgument(touchPixel(x, y));
+	msg->appendIntegerArgument(TheKeyboard ? TheKeyboard->getModifierFlags() : 0);
+	msg->appendIntegerArgument((Int)SDL_GetTicks()); // unread by every consumer, kept for schema parity
+}
+
+// Drag delta -- needed specifically for GUI widgets (sliders, etc, via
+// WindowXlat.cpp's GWM_LEFT_DRAG) that only update their value on an
+// explicit drag message, not from position alone.
+void pushMouseDrag(GameMessage::Type type, float x, float y, float dx, float dy)
+{
+	if (!TheMessageStream) {
+		return;
+	}
+	GameMessage *msg = TheMessageStream->appendMessage(type);
+	msg->appendPixelArgument(touchPixel(x, y));
+	msg->appendPixelArgument(touchPixel(dx, dy));
+	msg->appendIntegerArgument(TheKeyboard ? TheKeyboard->getModifierFlags() : 0);
+}
+
+void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 {
 	int winW = 0, winH = 0;
 	SDL_GetWindowSize(window, &winW, &winH);
@@ -378,7 +426,7 @@ void handleTouchEvent(SDL3Mouse *mouse, SDL_Window *window, const SDL_Event &eve
 			// mouse-enter) then accept the click. Real mice hover before clicking;
 			// without this, a synthetic tap teleports + clicks in one instant and
 			// the widget is never hilited, so only the default/first item responds.
-			sendSyntheticMouse(mouse, window, SDL_EVENT_MOUSE_MOTION, px, py);
+			pushMousePosition(px, py);
 		}
 		else if (s_touch.phase == TouchState::PENDING || s_touch.phase == TouchState::DRAGGING ||
 		         s_touch.phase == TouchState::PANNING) {
@@ -388,8 +436,7 @@ void handleTouchEvent(SDL3Mouse *mouse, SDL_Window *window, const SDL_Event &eve
 			// lifting first) picks it up the same way.
 			if (s_touch.phase == TouchState::DRAGGING) {
 				// Finish the drag-box first.
-				sendSyntheticMouse(mouse, window, SDL_EVENT_MOUSE_BUTTON_UP,
-				                   s_touch.lastX, s_touch.lastY, SDL_BUTTON_LEFT);
+				pushMouseButton(GameMessage::MSG_RAW_MOUSE_LEFT_BUTTON_UP, s_touch.lastX, s_touch.lastY);
 			}
 			s_touch.finger2 = event.tfinger.fingerID;
 			s_touch.f1px = s_touch.lastX;  // finger1's current pixel pos
@@ -450,14 +497,19 @@ void handleTouchEvent(SDL3Mouse *mouse, SDL_Window *window, const SDL_Event &eve
 			// "did the finger actually move since it went down" needs.
 			const float moved = SDL_fabsf(px - s_touch.downX) + SDL_fabsf(py - s_touch.downY);
 			if (moved >= TAP_DEAD_ZONE_PX) {
-				sendSyntheticMouse(mouse, window, SDL_EVENT_MOUSE_MOTION, px, py);
-				sendSyntheticMouse(mouse, window, SDL_EVENT_MOUSE_BUTTON_DOWN,
-				                   px, py, SDL_BUTTON_LEFT);
+				pushMousePosition(px, py);
+				pushMouseButton(GameMessage::MSG_RAW_MOUSE_LEFT_BUTTON_DOWN, px, py);
 				s_touch.phase = TouchState::DRAGGING;
+				s_touch.dragLastPxX = px;
+				s_touch.dragLastPxY = py;
 			}
 		}
 		else if (s_touch.phase == TouchState::DRAGGING && event.tfinger.fingerID == s_touch.finger1) {
-			sendSyntheticMouse(mouse, window, SDL_EVENT_MOUSE_MOTION, px, py);
+			pushMousePosition(px, py);
+			pushMouseDrag(GameMessage::MSG_RAW_MOUSE_LEFT_DRAG, px, py,
+			              px - s_touch.dragLastPxX, py - s_touch.dragLastPxY);
+			s_touch.dragLastPxX = px;
+			s_touch.dragLastPxY = py;
 		}
 		else if (s_touch.phase == TouchState::TWOFINGER) {
 			// Both signals, every motion event, unconditionally -- see the
@@ -499,23 +551,28 @@ void handleTouchEvent(SDL3Mouse *mouse, SDL_Window *window, const SDL_Event &eve
 					}
 					{
 						// Double-tap: select all of the clicked unit's type on
-						// screen, matching the PC's double-click.
-						// MSG_MOUSE_LEFT_DOUBLE_CLICK is entirely handled already
-						// (SelectionXlat.cpp) once SDL3Mouse.cpp sees clicks>=2 on
-						// the DOWN event -- we only need to count taps correctly.
+						// screen, matching the PC's double-click. MetaEventTranslator
+						// (MetaEvent.cpp) turns MSG_RAW_MOUSE_LEFT_DOUBLE_CLICK +
+						// the next BUTTON_UP into MSG_MOUSE_LEFT_DOUBLE_CLICK, which
+						// SelectionXlat.cpp already fully handles -- we only need to
+						// count taps correctly and send DOUBLE_CLICK instead of DOWN
+						// for the second tap (matching exactly what a real double-
+						// click's second press already does at this message level:
+						// it never re-sends DOWN either, see MetaEvent.cpp).
 						const float distFromLastTap = SDL_fabsf(s_touch.downX - s_touch.lastTapX)
 						                             + SDL_fabsf(s_touch.downY - s_touch.lastTapY);
 						const bool isDoubleTap = s_touch.hasLastTap
 							&& (SDL_GetTicks() - s_touch.lastTapTicks) <= DOUBLE_TAP_MS
 							&& distFromLastTap <= DOUBLE_TAP_DIST_PX;
-						const Uint8 clicks = isDoubleTap ? 2 : 1;
 
 						// Clean tap: deliver the full click at the exact press position.
-						sendSyntheticMouse(mouse, window, SDL_EVENT_MOUSE_MOTION, s_touch.downX, s_touch.downY);
-						sendSyntheticMouse(mouse, window, SDL_EVENT_MOUSE_BUTTON_DOWN,
-						                   s_touch.downX, s_touch.downY, SDL_BUTTON_LEFT, 0.0f, clicks);
-						sendSyntheticMouse(mouse, window, SDL_EVENT_MOUSE_BUTTON_UP,
-						                   s_touch.downX, s_touch.downY, SDL_BUTTON_LEFT, 0.0f, clicks);
+						pushMousePosition(s_touch.downX, s_touch.downY);
+						if (isDoubleTap) {
+							pushMouseButton(GameMessage::MSG_RAW_MOUSE_LEFT_DOUBLE_CLICK, s_touch.downX, s_touch.downY);
+						} else {
+							pushMouseButton(GameMessage::MSG_RAW_MOUSE_LEFT_BUTTON_DOWN, s_touch.downX, s_touch.downY);
+						}
+						pushMouseButton(GameMessage::MSG_RAW_MOUSE_LEFT_BUTTON_UP, s_touch.downX, s_touch.downY);
 
 						// A completed double-tap starts a fresh sequence rather
 						// than chaining into a false "triple click".
@@ -528,11 +585,11 @@ void handleTouchEvent(SDL3Mouse *mouse, SDL_Window *window, const SDL_Event &eve
 					}
 					break;
 				case TouchState::PANNING:
-					// Direct camera pan -- no synthetic mouse was ever pressed,
+					// Direct camera pan -- no message stream involvement at all,
 					// nothing to release.
 					break;
 				case TouchState::DRAGGING:
-					sendSyntheticMouse(mouse, window, SDL_EVENT_MOUSE_BUTTON_UP, px, py, SDL_BUTTON_LEFT);
+					pushMouseButton(GameMessage::MSG_RAW_MOUSE_LEFT_BUTTON_UP, px, py);
 					break;
 				case TouchState::TWOFINGER:
 					// Direct camera control -- no synthetic mouse was ever
@@ -558,22 +615,21 @@ void handleTouchEvent(SDL3Mouse *mouse, SDL_Window *window, const SDL_Event &eve
 
 			if (!continueAsSinglePan) {
 				// GeneralsX @bugfix Android port 08/07/2026, narrowed 01/08/2026
-				// The engine's own edge-scroll (mouse near a viewport edge keeps
-				// scrolling the camera every frame) checks wherever the synthetic
-				// cursor was last placed, and a lifted finger will never send it
-				// another position update -- so a cursor left near an edge would
+				// The engine's own edge-scroll (mouse near a viewport edge
+				// keeps scrolling the camera every frame) latches onto wherever the
+				// last MSG_RAW_MOUSE_POSITION placed it, and a lifted finger will
+				// never send another one -- so a position left near an edge would
 				// scroll the camera in that direction forever. Recentering
 				// UNCONDITIONALLY on every release (including an ordinary tap in
-				// the middle of the screen) was fixing that but left the invisible
-				// cursor "living" at the window center between touches, hijacking
-				// whatever GUI widget sat there into a permanent hover-highlight
-				// after every tap (reported: a menu button in the center lit up
-				// after every touch release, no matter where the touch itself
-				// landed). Only step in when a real edge-scroll risk exists.
+				// the middle of the screen) was fixing that but caused whatever GUI
+				// widget sat at the window center to hilite after every tap,
+				// anywhere on screen. Only step in when a real edge-scroll risk
+				// exists; this is now the ONLY position message this file ever
+				// sends without a real finger behind it.
 				const float EDGE_GUARD_PX = 40.0f;
 				if (s_touch.lastX < EDGE_GUARD_PX || s_touch.lastY < EDGE_GUARD_PX ||
 				    s_touch.lastX >= (float)winW - EDGE_GUARD_PX || s_touch.lastY >= (float)winH - EDGE_GUARD_PX) {
-					sendSyntheticMouse(mouse, window, SDL_EVENT_MOUSE_MOTION, (float)winW * 0.5f, (float)winH * 0.5f);
+					pushMousePosition((float)winW * 0.5f, (float)winH * 0.5f);
 				}
 				s_touch.phase = TouchState::IDLE;
 			}
@@ -585,16 +641,14 @@ void handleTouchEvent(SDL3Mouse *mouse, SDL_Window *window, const SDL_Event &eve
 // Called once per engine frame (not just per touch event): a perfectly
 // stationary finger produces no SDL events, so the long-press timer must be
 // polled from the frame loop or it would never fire.
-void updateTouchLongPress(SDL3Mouse *mouse, SDL_Window *window)
+void updateTouchLongPress()
 {
 	if (s_touch.phase == TouchState::PENDING &&
 	    (SDL_GetTicks() - s_touch.downTicks) >= LONG_PRESS_MS) {
 		// No LMB was sent yet (deferred), so this is a pure right-click.
-		sendSyntheticMouse(mouse, window, SDL_EVENT_MOUSE_MOTION, s_touch.downX, s_touch.downY);
-		sendSyntheticMouse(mouse, window, SDL_EVENT_MOUSE_BUTTON_DOWN,
-		                   s_touch.downX, s_touch.downY, SDL_BUTTON_RIGHT);
-		sendSyntheticMouse(mouse, window, SDL_EVENT_MOUSE_BUTTON_UP,
-		                   s_touch.downX, s_touch.downY, SDL_BUTTON_RIGHT);
+		pushMousePosition(s_touch.downX, s_touch.downY);
+		pushMouseButton(GameMessage::MSG_RAW_MOUSE_RIGHT_BUTTON_DOWN, s_touch.downX, s_touch.downY);
+		pushMouseButton(GameMessage::MSG_RAW_MOUSE_RIGHT_BUTTON_UP, s_touch.downX, s_touch.downY);
 		s_touch.phase = TouchState::LONGPRESSED;
 	}
 }
@@ -933,8 +987,12 @@ void SDL3GameEngine::pollSDL3Events(void)
 			case SDL_EVENT_MOUSE_WHEEL:
 #if defined(SAGE_MOBILE_PLATFORM)
 				// Belt-and-braces: drop SDL's own touch-synthesized mouse events.
-				// The gesture translator owns all touch->mouse conversion; double
-				// delivery would produce phantom second clicks.
+				// handleTouchEvent() owns all touch input (pushing GameMessages
+				// directly, see its file-header comment) and SDL3Mouse never
+				// receives real touch events at all on mobile -- but SDL can still
+				// synthesize its own mouse-shaped events from a touch if the
+				// SDL_HINT_TOUCH_MOUSE_EVENTS hint didn't take for some reason;
+				// drop them so they can't sneak a phantom click in some other way.
 				if (event.motion.which == SDL_TOUCH_MOUSEID) {
 					break;
 				}
@@ -963,11 +1021,8 @@ void SDL3GameEngine::pollSDL3Events(void)
 				if (event.type == SDL_EVENT_FINGER_DOWN || event.type == SDL_EVENT_FINGER_UP) {
 					m_PendingTextInputRearmFrames = 20;
 				}
-				if (TheMouse && m_SDLWindow) {
-					SDL3Mouse* mouse = dynamic_cast<SDL3Mouse*>(TheMouse);
-					if (mouse) {
-						handleTouchEvent(mouse, m_SDLWindow, event);
-					}
+				if (m_SDLWindow) {
+					handleTouchEvent(m_SDLWindow, event);
 				}
 				break;
 #endif
@@ -986,11 +1041,8 @@ void SDL3GameEngine::pollSDL3Events(void)
 
 #if defined(SAGE_MOBILE_PLATFORM)
 	// Poll the long-press timer every frame; a stationary finger emits no events.
-	if (TheMouse && m_SDLWindow) {
-		SDL3Mouse* touchMouse = dynamic_cast<SDL3Mouse*>(TheMouse);
-		if (touchMouse) {
-			updateTouchLongPress(touchMouse, m_SDLWindow);
-		}
+	if (m_SDLWindow) {
+		updateTouchLongPress();
 	}
 #endif
 }

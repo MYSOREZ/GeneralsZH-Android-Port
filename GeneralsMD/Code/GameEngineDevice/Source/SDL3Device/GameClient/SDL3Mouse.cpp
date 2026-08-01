@@ -528,6 +528,20 @@ void SDL3Mouse::regainFocus()
 	// Capture may be re-enabled by game logic
 }
 
+#if (defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE) || defined(__ANDROID__)
+/**
+ * GeneralsX @feature Android port 01/08/2026 See the declaration comment in
+ * SDL3Mouse.h: touch input on this platform drives the message stream
+ * directly from SDL3GameEngine.cpp, so this object never receives real
+ * events (nothing calls addSDLEvent() on it here) and its inherited
+ * per-frame MSG_RAW_MOUSE_POSITION heartbeat would only inject a second,
+ * stale position source. No-op.
+ */
+void SDL3Mouse::createStreamMessages()
+{
+}
+#endif
+
 /**
  * Capture mouse (confine to window)
  */
