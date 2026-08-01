@@ -37,8 +37,21 @@ original GeneralsX README lives on the `upstream-main` branch.
 
 ## Status
 
-- **Android**: primary target. CI builds a signed, installable APK on every
-  push. Campaign, skirmish, and Generals Challenge run natively. **Online
+| Feature | Status |
+|---|---|
+| Campaign / Skirmish / Generals Challenge | ✅ Working |
+| Rendering (DirectX 8 → DXVK → Vulkan) | ✅ Working — native Vulkan 1.3 (Adreno 7xx/8xx), adaptive Vulkan 1.1 fallback (Mali-G76/G57 and similar) |
+| Audio | ✅ Working (OpenAL, OpenSL/AAudio backends) |
+| Video / cutscenes | ✅ Working (FFmpeg) |
+| Touch controls | ✅ Working (tap/drag/long-press/pinch — see [Touch controls](#touch-controls)) |
+| Online multiplayer (GeneralsOnline) | ✅ Working — real matches between real players, P2P transport |
+| macOS / iOS / iPadOS build | ✅ Working (campaign/skirmish/Challenge; no GeneralsOnline there yet) |
+| Performance on Vulkan-1.1-only GPUs (Mali) | ⚠️ Playable, but CPU-bound — expect lower FPS and occasional freezes on weaker/older phones |
+
+- **Android**: primary target. Grab a prebuilt APK from
+  [Releases](../../releases/latest), or build via GitHub Actions (**Actions
+  tab → Build Android → Run workflow**) — no local toolchain needed either
+  way. Campaign, skirmish, and Generals Challenge run natively. **Online
   multiplayer works, including actual matches**: GeneralsOnline (a from-scratch
   NGMP-based backend, not the long-dead GameSpy servers) drives account login,
   the multiplayer lobby, Custom Match (create/browse/join, live room + player
@@ -56,6 +69,28 @@ original GeneralsX README lives on the `upstream-main` branch.
   Challenge), maintained, not currently receiving the same volume of new work.
   GeneralsOnline multiplayer has not been ported to these platforms yet — the
   Android build is where that backend was built.
+
+## Touch controls
+
+The original game is mouse-driven (left-click-centric); every gesture below
+maps straight onto the same mouse events, so the whole UI (sidebar, minimap,
+unit portraits) responds exactly like it does on PC — just tap instead of
+click.
+
+| Gesture | Action |
+|---|---|
+| Tap | Left-click — select a unit/building, issue a command, or press a UI button |
+| Double-tap (two quick taps, same spot) | Left double-click — select all of that unit type on screen |
+| Press and hold, then drag | Left-button drag — selection box |
+| Long-press, no movement (~0.6s) | Right-click |
+| Two fingers: one held still, the other dragged mostly vertically | Zoom (mouse wheel) |
+| Two fingers moving together | Right-button drag — camera pan |
+| Two fingers tapped together, no movement | Right-click (quick) |
+
+Each gesture is only classified once real intent is clear (a short delay/
+distance threshold), so an ordinary tap never misfires into a selection box,
+and pan/zoom don't flicker into each other even when both fingers don't move
+in perfect lockstep.
 
 ## What this port actually involved
 
