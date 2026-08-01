@@ -37,6 +37,7 @@
 #include "GameClient/GameWindow.h"
 #include "GameClient/GameWindowManager.h"
 #include "GameClient/Gadget.h"
+#include "GameClient/View.h"
 #include "W3DDevice/GameLogic/W3DGameLogic.h"
 #include "W3DDevice/GameClient/W3DGameClient.h"
 #include "W3DDevice/Common/W3DModuleFactory.h"
@@ -133,24 +134,35 @@ static bool SDLCALL mobileLifecycleWatcher(void *userdata, SDL_Event *event)
 }
 
 // ---------------------------------------------------------------------------
-// Touch -> mouse gesture translation (iOS + Android)
+// Touch input (iOS + Android)
 //
 // SDL's automatic touch-mouse synthesis is disabled on mobile (SDL3Main.cpp
-// sets SDL_HINT_TOUCH_MOUSE_EVENTS=0); every mouse event the game sees here is
-// synthesized below, through the same SDL3Mouse::addSDLEvent path real mice use.
+// sets SDL_HINT_TOUCH_MOUSE_EVENTS=0) -- this code owns touch interpretation
+// completely.
 //
-// Gestures (matching the game's stock control scheme, which is LMB-centric,
-// and the PC trackpad-style scheme requested in the Android control-scheme
-// discussion):
-//   1 finger tap             -> left button click (select / command)
-//   1 finger double-tap      -> left double-click (select all of that unit's
-//                                type on screen, via the engine's existing
-//                                MSG_MOUSE_LEFT_DOUBLE_CLICK handling)
-//   1 finger press-and-HOLD, then drag -> left-button drag (drag-box / select)
-//   1 finger long-press      -> right button click (deselect), if finger stays put
-//   2 fingers, one held still + the other dragging mostly vertically -> zoom
-//   2 fingers moving together -> right-button drag at the centroid (camera scroll)
-//   2 fingers tapped together, neither moving -> right button click (fast RMB)
+// GeneralsX @feature Android port 01/08/2026 Native touch camera control,
+// modeled on mobile-RTS convention (Rusted Warfare): camera pan and zoom are
+// real touch gestures with NO mouse involvement at all -- applyCameraPan()/
+// applyCameraZoom() call TheTacticalView->userScrollBy()/userZoom() directly,
+// driven by actual per-frame finger deltas, not a synthesized wheel tick or
+// an RMB-drag for LookAtXlat.cpp to reinterpret. Selection and commands
+// still go through SDL3Mouse (mouse click/drag IS how this engine's
+// selection logic and its multiplayer-sync message stream work -- see the
+// design discussion this session -- there's no bypassing that queue, only
+// the fake-cursor/click-timing-heuristics part is worth avoiding), but even
+// there the *decision* of what gesture occurred is made once, here, from
+// real touch geometry -- not guessed from mouse-shaped click/drag timing.
+//
+// Gestures:
+//   1 finger tap                       -> select / issue command (LMB click)
+//   1 finger double-tap                -> select all of that unit's type on
+//                                          screen (existing double-click handling)
+//   1 finger quick drag (before the long-press threshold) -> direct camera pan
+//   1 finger press-and-HOLD, then drag -> selection-box drag (LMB drag)
+//   1 finger long-press, released without dragging -> right-click (deselect)
+//   2 fingers, one held still + the other dragging mostly vertically -> direct camera zoom
+//   2 fingers moving together          -> direct camera pan (centroid delta)
+//   2 fingers tapped together, neither moving -> right-click (fast RMB)
 //
 // GeneralsX @feature Android port 08/07/2026 Previously ANY two-finger motion
 // simultaneously panned (centroid drift) AND zoomed (pinch-distance change),
@@ -163,12 +175,14 @@ static bool SDLCALL mobileLifecycleWatcher(void *userdata, SDL_Event *event)
 // to pan/zoom/tap for the rest of that touch (no re-classifying mid-gesture,
 // which would otherwise flicker between modes).
 //
-// GeneralsX @bugfix Android port 08/07/2026 A single finger moving past the
-// dead zone used to commit to a drag-box instantly ("I just swipe and it
-// already selects"); it now requires the finger to stay down for
-// DRAG_ARM_DELAY_MS before movement can start a drag, matching the requested
-// press-and-hold-then-drag. The synthetic mouse cursor is also recentered on
-// every full release, since a lingering position near a screen edge would
+// A single finger moving past the dead zone commits to a direct camera pan
+// immediately (see PANNING below) -- no artificial arming delay, since
+// panning is now the obvious/safe outcome of a quick drag, not a
+// selection-box. Selection-box dragging instead requires the finger to
+// press-and-HOLD past the long-press threshold first, then move (see the
+// LONGPRESSED branch). The synthetic mouse cursor (still used for the
+// LMB/RMB-based selection and command gestures) is also recentered on every
+// full release, since a lingering position near a screen edge would
 // otherwise trip the engine's own edge-scroll and scroll the camera forever
 // after the finger lifted.
 // ---------------------------------------------------------------------------
@@ -178,11 +192,12 @@ struct TouchState {
 	enum Phase {
 		IDLE,        // no fingers tracked
 		PENDING,     // finger1 down, gesture identity not yet known, nothing sent
-		DRAGGING,    // finger1 drag in progress, LMB held
-		LONGPRESSED, // long-press fired (RMB click sent), swallow until lift
+		PANNING,     // finger1 dragged before the long-press threshold -- direct camera pan, no mouse involved
+		DRAGGING,    // finger1 held past the long-press threshold, then dragged -- LMB drag (selection box)
+		LONGPRESSED, // long-press fired (RMB click sent); a further drag from here upgrades to DRAGGING
 		TWO_PENDING, // two fingers down, pan/zoom/tap identity not yet known
-		PAN,         // two-finger camera pan, RMB held
-		ZOOM         // two-finger zoom: one finger anchored, the other dragging vertically
+		PAN,         // two-finger camera pan -- direct camera control, no mouse involved
+		ZOOM         // two-finger zoom: one finger anchored, the other dragging vertically -- direct camera control
 	};
 
 	Phase phase = IDLE;
@@ -190,15 +205,20 @@ struct TouchState {
 	SDL_FingerID finger2 = 0;
 	float downX = 0.0f, downY = 0.0f;   // finger1 down position (window points)
 	float lastX = 0.0f, lastY = 0.0f;   // finger1 latest position
-	float panX = 0.0f, panY = 0.0f;     // pan centroid
 	Uint64 downTicks = 0;
 	float f1x = 0.0f, f1y = 0.0f, f2x = 0.0f, f2y = 0.0f; // normalized (0..1) per finger, latest
+
+	// GeneralsX @feature Android port 01/08/2026 Native touch camera control:
+	// pan/zoom go straight to TheTacticalView (userScrollBy/userZoom), driven
+	// by real per-frame finger deltas -- no synthetic mouse motion, no
+	// wheel-tick/RMB-drag translation. See applyCameraPan()/applyCameraZoom().
+	float panLastNormX = 0.0f, panLastNormY = 0.0f; // last processed finger1 normalized pos, single-finger PANNING
+	float panLastCentroidNormX = 0.0f, panLastCentroidNormY = 0.0f; // last processed 2-finger centroid, PAN
+	float zoomLastDistPx = 0.0f; // last processed inter-finger pixel distance, ZOOM
 
 	// Two-finger gesture classification (TWO_PENDING/PAN/ZOOM).
 	float twoAnchor1X = 0.0f, twoAnchor1Y = 0.0f; // finger1 pixel pos when finger2 landed
 	float twoAnchor2X = 0.0f, twoAnchor2Y = 0.0f; // finger2 pixel pos when finger2 landed
-	bool  zoomFinger1IsMover = false;             // once committed to ZOOM, which finger drives it
-	float zoomTickBaselineY = 0.0f;               // mover's Y at the last zoom tick
 
 	// Double-tap tracking (single-finger taps only).
 	bool   hasLastTap = false;
@@ -211,17 +231,12 @@ TouchState s_touch;
 const Uint64 LONG_PRESS_MS = 600;
 const float TAP_DEAD_ZONE_PX = 8.0f;   // jitter below this keeps a tap a tap
 
-// GeneralsX @bugfix Android port 08/07/2026 Any finger movement past the dead
-// zone used to commit to a drag-box immediately -- reported as "it already
-// selects, I just swipe and it starts selecting" when the user wanted to
-// press-and-HOLD first, then drag, the same way the long-press-for-RMB
-// already requires a pause. Movement during this arming window no longer
-// commits to anything (the reference point tracks the finger instead, so a
-// fast flick doesn't silently bank distance toward the drag threshold);
-// only after it elapses can a drag begin. Short enough not to make an
-// ordinary tap-to-select feel delayed, well under LONG_PRESS_MS so holding
-// straight through still reaches the right-click.
-const Uint64 DRAG_ARM_DELAY_MS = 180;
+// GeneralsX @feature Android port 01/08/2026 A finger that moves past the
+// dead zone BEFORE this elapses commits straight to a camera pan (see the
+// PENDING branch in handleTouchEvent) -- so a quick drag always pans, no
+// artificial arming delay. A finger that instead stays put THROUGH this
+// window fires the long-press RMB click below (updateTouchLongPress); moving
+// AFTER that point is what starts a selection-box drag instead.
 
 // Double-tap: select all of the clicked unit's type on screen, matching the
 // PC's double-click. 350ms/40px roughly matches Android's own
@@ -262,6 +277,52 @@ const float ZOOM_PX_PER_TICK = 40.0f;     // vertical pixels of mover movement p
 // pan contribution points the same way as the other finger.
 const float CODIRECTIONAL_MIN_PX = 10.0f;      // below this, the anchor's movement is too small for direction to mean anything
 const float CODIRECTIONAL_COS_THRESHOLD = 0.5f; // cosine similarity (~60 degrees) counts as "same direction" -> reject zoom, it's a pan
+
+// GeneralsX @feature Android port 01/08/2026 Native camera control constants.
+// Pan and zoom call TheTacticalView directly (userScrollBy/userZoom) every
+// touch-motion event, instead of synthesizing mouse motion/wheel events for
+// SDL3Mouse.cpp and the message-stream translators (LookAtXlat.cpp) to
+// reinterpret. No fake cursor, no click/drag timing heuristics sized for a
+// physical mouse -- the finger IS the camera control.
+//
+// PAN_SENSITIVITY: W3DView::scrollBy() treats its Coord2D delta as a
+// screen-space fraction (internally scaled by its own SCROLL_RESOLUTION=250
+// constant), so passing the finger's raw normalized (0..1 window fraction)
+// per-frame delta is already the right order of magnitude; this is a small
+// multiplier on top for feel, tune on-device.
+const float PAN_SENSITIVITY = 1.0f;
+// ZOOM_HEIGHT_PER_PIXEL: calibrated against the exact sensitivity the old
+// discrete wheel-tick zoom already used and was tuned for (ZOOM_PX_PER_TICK
+// pixels of pinch movement == one wheel tick == View::ZoomHeightPerSecond
+// world-height-units), just made continuous instead of stepped.
+const float ZOOM_HEIGHT_PER_PIXEL = (float)View::ZoomHeightPerSecond / ZOOM_PX_PER_TICK;
+
+// Applies a one-frame camera pan from a normalized (0..1 window fraction)
+// finger delta. Sign: dragging the finger left/up should make the world
+// appear to follow the finger (drag-the-map feel), so the camera itself
+// moves the opposite way.
+void applyCameraPan(float normDX, float normDY)
+{
+	if (!TheTacticalView) {
+		return;
+	}
+	Coord2D delta;
+	delta.x = -normDX * PAN_SENSITIVITY;
+	delta.y = -normDY * PAN_SENSITIVITY;
+	if (delta.x != 0.0f || delta.y != 0.0f) {
+		TheTacticalView->userScrollBy(&delta);
+	}
+}
+
+// Applies a one-frame camera zoom from a change in inter-finger pixel
+// distance. Fingers moving apart (distance growing) zooms in.
+void applyCameraZoom(float distDeltaPx)
+{
+	if (!TheTacticalView || distDeltaPx == 0.0f) {
+		return;
+	}
+	TheTacticalView->userZoom(-distDeltaPx * ZOOM_HEIGHT_PER_PIXEL);
+}
 
 void sendSyntheticMouse(SDL3Mouse *mouse, SDL_Window *window, Uint32 type,
                         float x, float y, Uint8 button = 0, float wheelY = 0.0f, Uint8 clicks = 1)
@@ -334,10 +395,14 @@ void handleTouchEvent(SDL3Mouse *mouse, SDL_Window *window, const SDL_Event &eve
 			// the widget is never hilited, so only the default/first item responds.
 			sendSyntheticMouse(mouse, window, SDL_EVENT_MOUSE_MOTION, px, py);
 		}
-		else if (s_touch.phase == TouchState::PENDING || s_touch.phase == TouchState::DRAGGING) {
+		else if (s_touch.phase == TouchState::PENDING || s_touch.phase == TouchState::DRAGGING ||
+		         s_touch.phase == TouchState::PANNING) {
 			// Second finger: gesture identity (pan / zoom / two-finger tap)
 			// isn't known yet -- defer, exactly like the single-finger PENDING
-			// state, until movement makes the intent clear.
+			// state, until movement makes the intent clear. A finger landing
+			// mid-PANNING (drag-then-pinch without lifting first) re-classifies
+			// the same way -- direct camera control just stops until the
+			// two-finger gesture resolves to PAN or ZOOM.
 			if (s_touch.phase == TouchState::DRAGGING) {
 				// Finish the drag-box first.
 				sendSyntheticMouse(mouse, window, SDL_EVENT_MOUSE_BUTTON_UP,
@@ -370,26 +435,40 @@ void handleTouchEvent(SDL3Mouse *mouse, SDL_Window *window, const SDL_Event &eve
 		}
 
 		if (s_touch.phase == TouchState::PENDING && event.tfinger.fingerID == s_touch.finger1) {
-			if (SDL_GetTicks() - s_touch.downTicks < DRAG_ARM_DELAY_MS) {
-				// Still arming: keep the reference point pinned to wherever the
-				// finger currently is, so a fast swipe during this window can't
-				// bank distance toward the drag threshold. Only a finger that's
-				// still down and moves AFTER this window elapses can start a
-				// drag-box -- exactly the press-and-hold-then-drag the user asked
-				// for (a plain tap still resolves normally regardless of hold time).
-				s_touch.downX = px;
-				s_touch.downY = py;
-			} else {
-				const float moved = SDL_fabsf(px - s_touch.downX) + SDL_fabsf(py - s_touch.downY);
-				if (moved >= TAP_DEAD_ZONE_PX) {
-					// Commit to a drag: anchor the LMB at the point the finger was
-					// at when arming finished, so drag-boxes start there.
-					sendSyntheticMouse(mouse, window, SDL_EVENT_MOUSE_MOTION, s_touch.downX, s_touch.downY);
-					sendSyntheticMouse(mouse, window, SDL_EVENT_MOUSE_BUTTON_DOWN,
-					                   s_touch.downX, s_touch.downY, SDL_BUTTON_LEFT);
-					sendSyntheticMouse(mouse, window, SDL_EVENT_MOUSE_MOTION, px, py);
-					s_touch.phase = TouchState::DRAGGING;
-				}
+			const float moved = SDL_fabsf(px - s_touch.downX) + SDL_fabsf(py - s_touch.downY);
+			if (moved >= TAP_DEAD_ZONE_PX) {
+				// GeneralsX @feature Android port 01/08/2026 Real touch camera
+				// pan: moving before the long-press threshold elapses commits
+				// straight to a direct camera pan (TheTacticalView->userScrollBy,
+				// see applyCameraPan) -- no synthetic mouse involved at all.
+				// This is the natural "quick drag moves the map" gesture.
+				// Holding still past the long-press threshold instead fires the
+				// existing RMB long-press (updateTouchLongPress below), and
+				// dragging AFTER that point is what starts a selection-box drag
+				// (see the LONGPRESSED branch below) -- the finger stayed still
+				// long enough to mean "select", not "look around".
+				s_touch.phase = TouchState::PANNING;
+				s_touch.panLastNormX = event.tfinger.x;
+				s_touch.panLastNormY = event.tfinger.y;
+			}
+		}
+		else if (s_touch.phase == TouchState::PANNING && event.tfinger.fingerID == s_touch.finger1) {
+			applyCameraPan(event.tfinger.x - s_touch.panLastNormX, event.tfinger.y - s_touch.panLastNormY);
+			s_touch.panLastNormX = event.tfinger.x;
+			s_touch.panLastNormY = event.tfinger.y;
+		}
+		else if (s_touch.phase == TouchState::LONGPRESSED && event.tfinger.fingerID == s_touch.finger1) {
+			// The long-press already fired its RMB click; movement from here
+			// upgrades to a selection-box drag starting at the current point,
+			// instead of being swallowed. downX/downY is still the original
+			// press point (untouched since FINGER_DOWN), which is exactly what
+			// "did the finger actually move since it went down" needs.
+			const float moved = SDL_fabsf(px - s_touch.downX) + SDL_fabsf(py - s_touch.downY);
+			if (moved >= TAP_DEAD_ZONE_PX) {
+				sendSyntheticMouse(mouse, window, SDL_EVENT_MOUSE_MOTION, px, py);
+				sendSyntheticMouse(mouse, window, SDL_EVENT_MOUSE_BUTTON_DOWN,
+				                   px, py, SDL_BUTTON_LEFT);
+				s_touch.phase = TouchState::DRAGGING;
 			}
 		}
 		else if (s_touch.phase == TouchState::DRAGGING && event.tfinger.fingerID == s_touch.finger1) {
@@ -442,37 +521,40 @@ void handleTouchEvent(SDL3Mouse *mouse, SDL_Window *window, const SDL_Event &eve
 					anchorCoDirectional = cosSim >= CODIRECTIONAL_COS_THRESHOLD;
 				}
 
+				// GeneralsX @feature Android port 01/08/2026 Both branches below are
+				// now direct camera control (applyCameraPan/applyCameraZoom) --
+				// no synthetic RMB-down, no wheel ticks. The ratio/co-directional
+				// classification above (deciding PAN vs ZOOM in the first place)
+				// is unchanged; only what happens once classified is new.
 				if (!anchorCoDirectional && ratio <= ZOOM_RATIO_MAX && mostlyVertical) {
-					s_touch.zoomFinger1IsMover = !finger1IsAnchor;
-					s_touch.zoomTickBaselineY = s_touch.zoomFinger1IsMover ? f1py : f2py;
+					const float dx = f2px - f1px, dy2 = f2py - f1py;
+					s_touch.zoomLastDistPx = SDL_sqrtf(dx * dx + dy2 * dy2);
 					s_touch.phase = TouchState::ZOOM;
 				} else {
-					const float cx = (f1px + f2px) * 0.5f, cy = (f1py + f2py) * 0.5f;
-					s_touch.panX = cx;
-					s_touch.panY = cy;
-					sendSyntheticMouse(mouse, window, SDL_EVENT_MOUSE_MOTION, cx, cy);
-					sendSyntheticMouse(mouse, window, SDL_EVENT_MOUSE_BUTTON_DOWN, cx, cy, SDL_BUTTON_RIGHT);
+					s_touch.panLastCentroidNormX = (s_touch.f1x + s_touch.f2x) * 0.5f;
+					s_touch.panLastCentroidNormY = (s_touch.f1y + s_touch.f2y) * 0.5f;
 					s_touch.phase = TouchState::PAN;
 				}
 			}
 		}
 		else if (s_touch.phase == TouchState::PAN) {
-			const float cx = (s_touch.f1x + s_touch.f2x) * 0.5f * (float)winW;
-			const float cy = (s_touch.f1y + s_touch.f2y) * 0.5f * (float)winH;
-			sendSyntheticMouse(mouse, window, SDL_EVENT_MOUSE_MOTION, cx, cy);
-			s_touch.panX = cx;
-			s_touch.panY = cy;
+			const float cx = (s_touch.f1x + s_touch.f2x) * 0.5f;
+			const float cy = (s_touch.f1y + s_touch.f2y) * 0.5f;
+			applyCameraPan(cx - s_touch.panLastCentroidNormX, cy - s_touch.panLastCentroidNormY);
+			s_touch.panLastCentroidNormX = cx;
+			s_touch.panLastCentroidNormY = cy;
 		}
 		else if (s_touch.phase == TouchState::ZOOM) {
-			const float moverX = s_touch.zoomFinger1IsMover ? s_touch.f1x * (float)winW : s_touch.f2x * (float)winW;
-			const float moverY = s_touch.zoomFinger1IsMover ? s_touch.f1y * (float)winH : s_touch.f2y * (float)winH;
-			const float dy = moverY - s_touch.zoomTickBaselineY;
-			if (SDL_fabsf(dy) >= ZOOM_PX_PER_TICK) {
-				// Dragging UP (finger moves toward the top of the screen, smaller Y) zooms IN.
-				const float wheelY = (dy < 0.0f) ? 1.0f : -1.0f;
-				sendSyntheticMouse(mouse, window, SDL_EVENT_MOUSE_WHEEL, moverX, moverY, 0, wheelY);
-				s_touch.zoomTickBaselineY += (dy < 0.0f) ? -ZOOM_PX_PER_TICK : ZOOM_PX_PER_TICK;
-			}
+			// Real pinch distance between both fingers (not just one finger's
+			// absolute position) -- fingers spreading apart zooms in, exactly
+			// like the pinch looks, regardless of which finger the classifier
+			// above happened to call the "mover".
+			const float f1px = s_touch.f1x * (float)winW, f1py = s_touch.f1y * (float)winH;
+			const float f2px = s_touch.f2x * (float)winW, f2py = s_touch.f2y * (float)winH;
+			const float dx = f2px - f1px, dy2 = f2py - f1py;
+			const float dist = SDL_sqrtf(dx * dx + dy2 * dy2);
+			applyCameraZoom(dist - s_touch.zoomLastDistPx);
+			s_touch.zoomLastDistPx = dist;
 		}
 		break;
 
@@ -521,6 +603,10 @@ void handleTouchEvent(SDL3Mouse *mouse, SDL_Window *window, const SDL_Event &eve
 					}
 				}
 				break;
+			case TouchState::PANNING:
+				// Direct camera pan -- no synthetic mouse was ever pressed,
+				// nothing to release.
+				break;
 			case TouchState::DRAGGING:
 				sendSyntheticMouse(mouse, window, SDL_EVENT_MOUSE_BUTTON_UP, px, py, SDL_BUTTON_LEFT);
 				break;
@@ -537,11 +623,9 @@ void handleTouchEvent(SDL3Mouse *mouse, SDL_Window *window, const SDL_Event &eve
 				}
 				break;
 			case TouchState::PAN:
-				sendSyntheticMouse(mouse, window, SDL_EVENT_MOUSE_BUTTON_UP,
-				                   s_touch.panX, s_touch.panY, SDL_BUTTON_RIGHT);
-				break;
 			case TouchState::ZOOM:
-				// Nothing held to release -- wheel events are stateless ticks.
+				// Direct camera control -- no synthetic mouse was ever
+				// pressed, nothing to release.
 				break;
 			default:
 				break;
