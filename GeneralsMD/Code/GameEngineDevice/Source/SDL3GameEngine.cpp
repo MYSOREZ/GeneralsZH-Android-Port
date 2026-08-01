@@ -212,8 +212,8 @@ struct TouchState {
 	// pan/zoom go straight to TheTacticalView (userScrollBy/userZoom), driven
 	// by real per-frame finger deltas -- no synthetic mouse motion, no
 	// wheel-tick/RMB-drag translation. See applyCameraPan()/applyCameraZoom().
-	float panLastNormX = 0.0f, panLastNormY = 0.0f; // last processed finger1 normalized pos, single-finger PANNING
-	float panLastCentroidNormX = 0.0f, panLastCentroidNormY = 0.0f; // last processed 2-finger centroid, PAN
+	float panLastPxX = 0.0f, panLastPxY = 0.0f; // last processed finger1 pixel pos, single-finger PANNING
+	float panLastCentroidPxX = 0.0f, panLastCentroidPxY = 0.0f; // last processed 2-finger centroid (pixels), PAN
 	float zoomLastDistPx = 0.0f; // last processed inter-finger pixel distance, ZOOM
 
 	// Two-finger gesture classification (TWO_PENDING/PAN/ZOOM).
@@ -288,30 +288,45 @@ const float CODIRECTIONAL_COS_THRESHOLD = 0.5f; // cosine similarity (~60 degree
 // reinterpret. No fake cursor, no click/drag timing heuristics sized for a
 // physical mouse -- the finger IS the camera control.
 //
-// PAN_SENSITIVITY: W3DView::scrollBy() treats its Coord2D delta as a
-// screen-space fraction (internally scaled by its own SCROLL_RESOLUTION=250
-// constant), so passing the finger's raw normalized (0..1 window fraction)
-// per-frame delta is already the right order of magnitude; this is a small
-// multiplier on top for feel, tune on-device.
+// GeneralsX @bugfix Android port 01/08/2026 The first cut passed the
+// finger's raw NORMALIZED (0..1 window-fraction) per-frame delta straight
+// into userScrollBy(), reasoning "scrollBy's own comment says screen
+// coordinates, so a 0..1 fraction is the right order of magnitude" -- that
+// reasoning was simply wrong. Reading W3DView::scrollBy()'s actual body
+// (Core/GameEngineDevice/.../W3DView.cpp): `start.X = getWidth()` (a
+// literal PIXEL count, not a 0..1 fraction) and
+// `end.X = start.X + delta->x * SCROLL_RESOLUTION`, so delta->x*250 is
+// added to a pixel-space coordinate -- delta is denominated in
+// "pixels / 250", not "fraction of window". A normalized delta of, say,
+// 0.01 (a small but real drag) times SCROLL_RESOLUTION is 2.5 device-space
+// units against a ~2500px-wide screen -- an imperceptible camera nudge.
+// Reported as "controls don't work" (they were "working", just by a
+// fraction of a pixel per frame). Fixed by using the finger's actual PIXEL
+// delta divided by the same SCROLL_RESOLUTION scrollBy() itself divides
+// by, which is the literal definition of "make the world point under the
+// finger track the finger" -- PAN_SENSITIVITY=1.0 means exactly that; only
+// change it for a deliberate faster/slower feel, not to compensate for a
+// wrong base unit again.
+const float SCROLL_RESOLUTION = 250.0f; // must match W3DView::scrollBy()'s own constant
 const float PAN_SENSITIVITY = 1.0f;
 // ZOOM_HEIGHT_PER_PIXEL: calibrated against the exact sensitivity the old
 // discrete wheel-tick zoom already used and was tuned for (ZOOM_PX_PER_TICK
 // pixels of pinch movement == one wheel tick == View::ZoomHeightPerSecond
-// world-height-units), just made continuous instead of stepped.
+// world-height-units), just made continuous instead of stepped. This one
+// was already in real pixels, not normalized -- unaffected by the bug above.
 const float ZOOM_HEIGHT_PER_PIXEL = (float)View::ZoomHeightPerSecond / ZOOM_PX_PER_TICK;
 
-// Applies a one-frame camera pan from a normalized (0..1 window fraction)
-// finger delta. Sign: dragging the finger left/up should make the world
-// appear to follow the finger (drag-the-map feel), so the camera itself
-// moves the opposite way.
-void applyCameraPan(float normDX, float normDY)
+// Applies a one-frame camera pan from a PIXEL (window-point) finger delta.
+// Sign: dragging the finger left/up should make the world appear to follow
+// the finger (drag-the-map feel), so the camera itself moves the opposite way.
+void applyCameraPan(float pixelDX, float pixelDY)
 {
 	if (!TheTacticalView) {
 		return;
 	}
 	Coord2D delta;
-	delta.x = -normDX * PAN_SENSITIVITY;
-	delta.y = -normDY * PAN_SENSITIVITY;
+	delta.x = -pixelDX / SCROLL_RESOLUTION * PAN_SENSITIVITY;
+	delta.y = -pixelDY / SCROLL_RESOLUTION * PAN_SENSITIVITY;
 	if (delta.x != 0.0f || delta.y != 0.0f) {
 		TheTacticalView->userScrollBy(&delta);
 	}
@@ -468,15 +483,15 @@ void handleTouchEvent(SDL3Mouse *mouse, SDL_Window *window, const SDL_Event &eve
 					// (see the LONGPRESSED branch below) -- the finger stayed
 					// still long enough to mean "select", not "look around".
 					s_touch.phase = TouchState::PANNING;
-					s_touch.panLastNormX = event.tfinger.x;
-					s_touch.panLastNormY = event.tfinger.y;
+					s_touch.panLastPxX = px;
+					s_touch.panLastPxY = py;
 				}
 			}
 		}
 		else if (s_touch.phase == TouchState::PANNING && event.tfinger.fingerID == s_touch.finger1) {
-			applyCameraPan(event.tfinger.x - s_touch.panLastNormX, event.tfinger.y - s_touch.panLastNormY);
-			s_touch.panLastNormX = event.tfinger.x;
-			s_touch.panLastNormY = event.tfinger.y;
+			applyCameraPan(px - s_touch.panLastPxX, py - s_touch.panLastPxY);
+			s_touch.panLastPxX = px;
+			s_touch.panLastPxY = py;
 		}
 		else if (s_touch.phase == TouchState::LONGPRESSED && event.tfinger.fingerID == s_touch.finger1) {
 			// The long-press already fired its RMB click; movement from here
@@ -552,18 +567,18 @@ void handleTouchEvent(SDL3Mouse *mouse, SDL_Window *window, const SDL_Event &eve
 					s_touch.zoomLastDistPx = SDL_sqrtf(dx * dx + dy2 * dy2);
 					s_touch.phase = TouchState::ZOOM;
 				} else {
-					s_touch.panLastCentroidNormX = (s_touch.f1x + s_touch.f2x) * 0.5f;
-					s_touch.panLastCentroidNormY = (s_touch.f1y + s_touch.f2y) * 0.5f;
+					s_touch.panLastCentroidPxX = (f1px + f2px) * 0.5f;
+					s_touch.panLastCentroidPxY = (f1py + f2py) * 0.5f;
 					s_touch.phase = TouchState::PAN;
 				}
 			}
 		}
 		else if (s_touch.phase == TouchState::PAN) {
-			const float cx = (s_touch.f1x + s_touch.f2x) * 0.5f;
-			const float cy = (s_touch.f1y + s_touch.f2y) * 0.5f;
-			applyCameraPan(cx - s_touch.panLastCentroidNormX, cy - s_touch.panLastCentroidNormY);
-			s_touch.panLastCentroidNormX = cx;
-			s_touch.panLastCentroidNormY = cy;
+			const float cx = (s_touch.f1x + s_touch.f2x) * 0.5f * (float)winW;
+			const float cy = (s_touch.f1y + s_touch.f2y) * 0.5f * (float)winH;
+			applyCameraPan(cx - s_touch.panLastCentroidPxX, cy - s_touch.panLastCentroidPxY);
+			s_touch.panLastCentroidPxX = cx;
+			s_touch.panLastCentroidPxY = cy;
 		}
 		else if (s_touch.phase == TouchState::ZOOM) {
 			// Real pinch distance between both fingers (not just one finger's
