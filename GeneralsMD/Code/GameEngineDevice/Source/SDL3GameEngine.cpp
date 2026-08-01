@@ -140,51 +140,57 @@ static bool SDLCALL mobileLifecycleWatcher(void *userdata, SDL_Event *event)
 // sets SDL_HINT_TOUCH_MOUSE_EVENTS=0) -- this code owns touch interpretation
 // completely.
 //
-// GeneralsX @feature Android port 01/08/2026 Native touch camera control,
-// modeled on mobile-RTS convention (Rusted Warfare): camera pan and zoom are
-// real touch gestures with NO mouse involvement at all -- applyCameraPan()/
-// applyCameraZoom() call TheTacticalView->userScrollBy()/userZoom() directly,
-// driven by actual per-frame finger deltas, not a synthesized wheel tick or
-// an RMB-drag for LookAtXlat.cpp to reinterpret. Selection and commands
-// still go through SDL3Mouse (mouse click/drag IS how this engine's
-// selection logic and its multiplayer-sync message stream work -- see the
-// design discussion this session -- there's no bypassing that queue, only
-// the fake-cursor/click-timing-heuristics part is worth avoiding), but even
-// there the *decision* of what gesture occurred is made once, here, from
-// real touch geometry -- not guessed from mouse-shaped click/drag timing.
+// GeneralsX @feature Android port 01/08/2026, rewritten 01/08/2026 Native
+// touch camera control: camera pan and zoom are real touch gestures with NO
+// mouse involvement at all -- applyCameraPan()/applyCameraZoom() call
+// TheTacticalView->userScrollBy()/userZoom() directly, driven by actual
+// per-frame finger deltas. Selection and commands still go through
+// SDL3Mouse: this engine's selection logic (SelectionXlat.cpp) and its
+// multiplayer-sync message stream are both keyed on mouse-shaped
+// GameMessages, and there is no bypassing that queue for ANY input device --
+// but the *decision* of what gesture occurred is made once, here, from real
+// touch geometry, and the synthetic cursor is never left lingering where it
+// can visibly affect the GUI (see the edge-guard comment at the bottom of
+// handleTouchEvent for the specific bug this fixes).
 //
-// Gestures:
+// Gestures, deliberately as few and as standard as an Android map/RTS app
+// gets:
 //   1 finger tap                       -> select / issue command (LMB click)
 //   1 finger double-tap                -> select all of that unit's type on
 //                                          screen (existing double-click handling)
-//   1 finger quick drag (before the long-press threshold) -> direct camera pan
-//   1 finger press-and-HOLD, then drag -> selection-box drag (LMB drag)
-//   1 finger long-press, released without dragging -> right-click (deselect)
-//   2 fingers, one held still + the other dragging mostly vertically -> direct camera zoom
-//   2 fingers moving together          -> direct camera pan (centroid delta)
-//   2 fingers tapped together, neither moving -> right-click (fast RMB)
+//   1 finger drag (past a small dead zone) -> direct camera pan, immediately,
+//                                          no delay
+//   1 finger press-and-HOLD (long-press), then drag -> selection-box drag (LMB drag)
+//   1 finger long-press, released without dragging -> right-click (issue command)
+//   2 fingers                          -> direct camera pan (centroid delta)
+//                                          AND zoom (spread delta) together,
+//                                          every motion event, unconditionally
 //
-// GeneralsX @feature Android port 08/07/2026 Previously ANY two-finger motion
-// simultaneously panned (centroid drift) AND zoomed (pinch-distance change),
-// since real fingers essentially never move in perfect lockstep -- reported
-// as "even a pinch both zooms and moves the camera". Two-finger gestures now
-// defer (TWO_PENDING, mirroring the existing single-finger PENDING deferral)
-// until per-finger displacement makes the intent unambiguous (a much larger
-// commit distance + a RATIO between the two fingers' displacement, not an
-// absolute cap -- see TWO_FINGER_COMMIT_PX/ZOOM_RATIO_MAX), then commit ONCE
-// to pan/zoom/tap for the rest of that touch (no re-classifying mid-gesture,
-// which would otherwise flicker between modes).
+// GeneralsX @bugfix Android port 01/08/2026 Previous revisions tried to
+// classify a two-finger gesture as EITHER pan OR zoom (a "one finger
+// anchored, the other drags vertically" heuristic with a commit distance,
+// a displacement ratio, and a co-directionality check) before applying
+// anything -- built to fix an OLDER architecture where zoom was a discrete
+// wheel-tick and any accidental pan alongside it was jarring. That
+// architecture is gone: pan and zoom are now both continuous, real-pixel,
+// 1:1 camera control, so feeding both signals every frame -- exactly the way
+// a normal two-finger touch UI (map apps, browsers, Rusted Warfare) already
+// works -- is simply correct. A little pan drift from two hands never moving
+// in perfect lockstep during a pinch is imperceptible next to the zoom
+// itself; the classifier was solving a problem this architecture doesn't
+// have, and its heuristics were exactly why zoom worked "sometimes" --
+// real symmetric two-hand pinches (both fingers moving, neither "anchored")
+// routinely failed the ratio check and were misclassified as pan.
 //
-// A single finger moving past the dead zone commits to a direct camera pan
-// immediately (see PANNING below) -- no artificial arming delay, since
-// panning is now the obvious/safe outcome of a quick drag, not a
-// selection-box. Selection-box dragging instead requires the finger to
-// press-and-HOLD past the long-press threshold first, then move (see the
-// LONGPRESSED branch). The synthetic mouse cursor (still used for the
-// LMB/RMB-based selection and command gestures) is also recentered on every
-// full release, since a lingering position near a screen edge would
-// otherwise trip the engine's own edge-scroll and scroll the camera forever
-// after the finger lifted.
+// GeneralsX @bugfix Android port 01/08/2026 A prior revision added a fixed
+// settle window (re-anchoring the pan reference point for the first 100ms
+// after touch-down) to keep ordinary hold-still tremor from hijacking a tap
+// into a pan. That timer could also silently eat an entire quick, deliberate
+// flick if the whole gesture finished inside the window -- reported as
+// "can't pan with my finger at all". Removed in favor of the simplest
+// standard approach: a single dead-zone distance (TAP_DEAD_ZONE_PX) decides
+// tap vs. drag, no timer involved, matching how every ordinary Android touch
+// UI (not just this engine) already disambiguates the two.
 // ---------------------------------------------------------------------------
 namespace {
 
@@ -192,33 +198,31 @@ struct TouchState {
 	enum Phase {
 		IDLE,        // no fingers tracked
 		PENDING,     // finger1 down, gesture identity not yet known, nothing sent
-		PANNING,     // finger1 dragged before the long-press threshold -- direct camera pan, no mouse involved
+		PANNING,     // finger1 dragged past the dead zone -- direct camera pan, no mouse involved
 		DRAGGING,    // finger1 held past the long-press threshold, then dragged -- LMB drag (selection box)
 		LONGPRESSED, // long-press fired (RMB click sent); a further drag from here upgrades to DRAGGING
-		TWO_PENDING, // two fingers down, pan/zoom/tap identity not yet known
-		PAN,         // two-finger camera pan -- direct camera control, no mouse involved
-		ZOOM         // two-finger zoom: one finger anchored, the other dragging vertically -- direct camera control
+		TWOFINGER    // two fingers down -- direct camera pan (centroid) + zoom (spread), every motion event
 	};
 
 	Phase phase = IDLE;
 	SDL_FingerID finger1 = 0;
 	SDL_FingerID finger2 = 0;
-	float downX = 0.0f, downY = 0.0f;   // finger1 down position (window points)
-	float lastX = 0.0f, lastY = 0.0f;   // finger1 latest position
+	float downX = 0.0f, downY = 0.0f;   // finger1 down position (window points), fixed until release
+	float lastX = 0.0f, lastY = 0.0f;   // finger1 latest position (pixels)
 	Uint64 downTicks = 0;
-	float f1x = 0.0f, f1y = 0.0f, f2x = 0.0f, f2y = 0.0f; // normalized (0..1) per finger, latest
 
 	// GeneralsX @feature Android port 01/08/2026 Native touch camera control:
 	// pan/zoom go straight to TheTacticalView (userScrollBy/userZoom), driven
 	// by real per-frame finger deltas -- no synthetic mouse motion, no
 	// wheel-tick/RMB-drag translation. See applyCameraPan()/applyCameraZoom().
 	float panLastPxX = 0.0f, panLastPxY = 0.0f; // last processed finger1 pixel pos, single-finger PANNING
-	float panLastCentroidPxX = 0.0f, panLastCentroidPxY = 0.0f; // last processed 2-finger centroid (pixels), PAN
-	float zoomLastDistPx = 0.0f; // last processed inter-finger pixel distance, ZOOM
 
-	// Two-finger gesture classification (TWO_PENDING/PAN/ZOOM).
-	float twoAnchor1X = 0.0f, twoAnchor1Y = 0.0f; // finger1 pixel pos when finger2 landed
-	float twoAnchor2X = 0.0f, twoAnchor2Y = 0.0f; // finger2 pixel pos when finger2 landed
+	// TWOFINGER tracking: both fingers' current pixel positions, plus the
+	// last-processed centroid/spread so every motion event can diff against
+	// them directly -- no classification, both signals are always live.
+	float f1px = 0.0f, f1py = 0.0f, f2px = 0.0f, f2py = 0.0f;
+	float twoCentroidLastX = 0.0f, twoCentroidLastY = 0.0f;
+	float twoDistLastPx = 0.0f;
 
 	// Double-tap tracking (single-finger taps only).
 	bool   hasLastTap = false;
@@ -229,17 +233,13 @@ struct TouchState {
 TouchState s_touch;
 
 const Uint64 LONG_PRESS_MS = 600;
-const float TAP_DEAD_ZONE_PX = 8.0f;   // jitter below this keeps a tap a tap
 
-// GeneralsX @feature Android port 01/08/2026 Brief settle window so ordinary
-// touch-down tremor can't accumulate into a false camera pan (see the
-// PENDING branch in handleTouchEvent, and its @bugfix comment for why this
-// exists). Movement that continues past this point commits to a pan; a
-// finger that stays put all the way to LONG_PRESS_MS instead fires the RMB
-// long-press (updateTouchLongPress), and moving AFTER that point is what
-// starts a selection-box drag. Short relative to LONG_PRESS_MS so a genuine
-// quick pan still feels immediate.
-const Uint64 PAN_SETTLE_MS = 100;
+// GeneralsX @feature Android port 01/08/2026 Single dead-zone distance is the
+// ONLY thing deciding tap vs. drag -- no settle timer (see the file-header
+// @bugfix comment for why a timer was tried and removed). 16px doubles as
+// both the standard Android touch-slop range and enough slack to absorb
+// stationary-hold tremor while waiting out LONG_PRESS_MS for a long-press.
+const float TAP_DEAD_ZONE_PX = 16.0f;
 
 // Double-tap: select all of the clicked unit's type on screen, matching the
 // PC's double-click. 350ms/40px roughly matches Android's own
@@ -248,38 +248,7 @@ const Uint64 PAN_SETTLE_MS = 100;
 const Uint64 DOUBLE_TAP_MS = 350;
 const float DOUBLE_TAP_DIST_PX = 40.0f;
 
-// GeneralsX @bugfix Android port 08/07/2026 Two-finger pan vs. zoom
-// classification was deciding from a mere 10px of movement on whichever
-// finger happened to move first, and called anything "zoom" once one
-// finger's displacement was under a small ABSOLUTE threshold (18px). Real
-// fingers essentially never move in perfect lockstep even during a deliberate
-// two-hand pan, so ordinary pan attempts kept misfiring as zoom, while a
-// genuinely "held still" finger drifts more than 18px from natural hand
-// tremor while the other hand is dragging -- so genuine zoom attempts often
-// fell through to pan instead. Fixed two ways: (1) wait for the more-active
-// finger to move a much more meaningful distance before deciding anything at
-// all (jitter noise dominates under ~10px; real intent is usually clear by
-// ~30px), and (2) classify by the RATIO between the two fingers' displacement
-// rather than an absolute cap on the "anchor" -- a deliberate hold-one-drag-
-// the-other gesture keeps that ratio close to 0 even after 30+px of the mover
-// moving, while a real two-hand pan keeps both fingers' displacement
-// comparable (ratio close to 1) throughout.
-const float TWO_FINGER_COMMIT_PX = 30.0f; // the MORE-active finger must move at least this far before we decide anything
-const float ZOOM_RATIO_MAX = 0.28f;       // less-active/more-active displacement ratio must be below this to count as "anchored"
-const float ZOOM_VERTICAL_BIAS = 1.5f;    // mover's |dy| must exceed |dx| by this factor to count as "vertical"
-const float ZOOM_PX_PER_TICK = 40.0f;     // vertical pixels of mover movement per zoom step (wheel tick)
-
-// GeneralsX @bugfix Android port 08/07/2026 The ratio check alone still let a
-// genuine two-hand vertical PAN misfire as zoom whenever the two hands
-// (naturally) didn't travel identical distances -- e.g. one hand moving
-// 60px and the other 15px in the SAME direction satisfied ZOOM_RATIO_MAX,
-// even though both were clearly cooperating on one vertical scroll rather
-// than one holding still. Reject zoom whenever the "anchor" moved enough to
-// rule out pure jitter AND its direction lines up with the mover's --
-// incidental hand tremor has no consistent direction; a real (if smaller)
-// pan contribution points the same way as the other finger.
-const float CODIRECTIONAL_MIN_PX = 10.0f;      // below this, the anchor's movement is too small for direction to mean anything
-const float CODIRECTIONAL_COS_THRESHOLD = 0.5f; // cosine similarity (~60 degrees) counts as "same direction" -> reject zoom, it's a pan
+const float ZOOM_PX_PER_TICK = 40.0f; // calibration only -- see ZOOM_HEIGHT_PER_PIXEL below
 
 // GeneralsX @feature Android port 01/08/2026 Native camera control constants.
 // Pan and zoom call TheTacticalView directly (userScrollBy/userZoom) every
@@ -400,8 +369,6 @@ void handleTouchEvent(SDL3Mouse *mouse, SDL_Window *window, const SDL_Event &eve
 			s_touch.phase = TouchState::PENDING;
 			s_touch.downX = s_touch.lastX = px;
 			s_touch.downY = s_touch.lastY = py;
-			s_touch.f1x = event.tfinger.x;
-			s_touch.f1y = event.tfinger.y;
 			s_touch.downTicks = SDL_GetTicks();
 			// Move the cursor to the touch point NOW (motion clicks nothing, so the
 			// deferred-tap protection is intact). This lets the GUI process hover
@@ -415,77 +382,59 @@ void handleTouchEvent(SDL3Mouse *mouse, SDL_Window *window, const SDL_Event &eve
 		}
 		else if (s_touch.phase == TouchState::PENDING || s_touch.phase == TouchState::DRAGGING ||
 		         s_touch.phase == TouchState::PANNING) {
-			// Second finger: gesture identity (pan / zoom / two-finger tap)
-			// isn't known yet -- defer, exactly like the single-finger PENDING
-			// state, until movement makes the intent clear. A finger landing
-			// mid-PANNING (drag-then-pinch without lifting first) re-classifies
-			// the same way -- direct camera control just stops until the
-			// two-finger gesture resolves to PAN or ZOOM.
+			// Second finger: always becomes direct two-finger pan+zoom
+			// immediately, no classification -- see the file-header comment
+			// for why. A finger landing mid-PANNING (drag-then-pinch without
+			// lifting first) picks it up the same way.
 			if (s_touch.phase == TouchState::DRAGGING) {
 				// Finish the drag-box first.
 				sendSyntheticMouse(mouse, window, SDL_EVENT_MOUSE_BUTTON_UP,
 				                   s_touch.lastX, s_touch.lastY, SDL_BUTTON_LEFT);
 			}
 			s_touch.finger2 = event.tfinger.fingerID;
-			s_touch.f2x = event.tfinger.x;
-			s_touch.f2y = event.tfinger.y;
-			s_touch.twoAnchor1X = s_touch.lastX;  // finger1's current pixel pos
-			s_touch.twoAnchor1Y = s_touch.lastY;
-			s_touch.twoAnchor2X = px;             // finger2's landing pixel pos
-			s_touch.twoAnchor2Y = py;
-			s_touch.phase = TouchState::TWO_PENDING;
+			s_touch.f1px = s_touch.lastX;  // finger1's current pixel pos
+			s_touch.f1py = s_touch.lastY;
+			s_touch.f2px = px;             // finger2's landing pixel pos
+			s_touch.f2py = py;
+			s_touch.twoCentroidLastX = (s_touch.f1px + s_touch.f2px) * 0.5f;
+			s_touch.twoCentroidLastY = (s_touch.f1py + s_touch.f2py) * 0.5f;
+			{
+				const float ddx = s_touch.f2px - s_touch.f1px, ddy = s_touch.f2py - s_touch.f1py;
+				s_touch.twoDistLastPx = SDL_sqrtf(ddx * ddx + ddy * ddy);
+			}
+			s_touch.phase = TouchState::TWOFINGER;
 		}
-		// LONGPRESSED / TWO_PENDING / PAN / ZOOM with extra fingers: ignored
+		// LONGPRESSED / TWOFINGER with a third finger: ignored
 		break;
 
 	case SDL_EVENT_FINGER_MOTION:
 		if (event.tfinger.fingerID == s_touch.finger1) {
-			s_touch.f1x = event.tfinger.x;
-			s_touch.f1y = event.tfinger.y;
 			s_touch.lastX = px;
 			s_touch.lastY = py;
-		} else if ((s_touch.phase == TouchState::TWO_PENDING || s_touch.phase == TouchState::PAN ||
-		            s_touch.phase == TouchState::ZOOM) && event.tfinger.fingerID == s_touch.finger2) {
-			s_touch.f2x = event.tfinger.x;
-			s_touch.f2y = event.tfinger.y;
+			if (s_touch.phase == TouchState::TWOFINGER) {
+				s_touch.f1px = px;
+				s_touch.f1py = py;
+			}
+		} else if (s_touch.phase == TouchState::TWOFINGER && event.tfinger.fingerID == s_touch.finger2) {
+			s_touch.f2px = px;
+			s_touch.f2py = py;
 		} else {
 			break;
 		}
 
 		if (s_touch.phase == TouchState::PENDING && event.tfinger.fingerID == s_touch.finger1) {
-			// GeneralsX @bugfix Android port 01/08/2026 First cut checked
-			// displacement from the raw FINGER_DOWN point with no jitter
-			// absorption at all: real fingers settle with a few px of tremor
-			// right after landing, and TAP_DEAD_ZONE_PX (8px) is small enough
-			// that a plain stationary hold could drift past it well before
-			// LONG_PRESS_MS (600ms) elapsed, silently hijacking ordinary
-			// taps/long-presses into a camera pan -- reported as "controls
-			// don't work". PAN_SETTLE_MS re-anchors the reference point to
-			// wherever the finger currently is for a short window after
-			// landing (same technique the old DRAG_ARM_DELAY_MS used for the
-			// selection-box drag this replaces), so only movement that
-			// continues PAST that settle window counts toward starting a pan.
-			// A genuine fast flick still starts, just ~PAN_SETTLE_MS later.
-			if (SDL_GetTicks() - s_touch.downTicks < PAN_SETTLE_MS) {
-				s_touch.downX = px;
-				s_touch.downY = py;
-			} else {
-				const float moved = SDL_fabsf(px - s_touch.downX) + SDL_fabsf(py - s_touch.downY);
-				if (moved >= TAP_DEAD_ZONE_PX) {
-					// Real touch camera pan: moving after the settle window
-					// (but still before the long-press threshold) commits
-					// straight to a direct camera pan
-					// (TheTacticalView->userScrollBy, see applyCameraPan) --
-					// no synthetic mouse involved at all. Holding still past
-					// the long-press threshold instead fires the existing RMB
-					// long-press (updateTouchLongPress below), and dragging
-					// AFTER that point is what starts a selection-box drag
-					// (see the LONGPRESSED branch below) -- the finger stayed
-					// still long enough to mean "select", not "look around".
-					s_touch.phase = TouchState::PANNING;
-					s_touch.panLastPxX = px;
-					s_touch.panLastPxY = py;
-				}
+			const float moved = SDL_fabsf(px - s_touch.downX) + SDL_fabsf(py - s_touch.downY);
+			if (moved >= TAP_DEAD_ZONE_PX) {
+				// Past the dead zone commits straight to a direct camera pan
+				// (TheTacticalView->userScrollBy, see applyCameraPan) -- no
+				// synthetic mouse involved at all. Holding still past the
+				// long-press threshold instead fires the existing RMB
+				// long-press (updateTouchLongPress below), and dragging AFTER
+				// that point is what starts a selection-box drag (see the
+				// LONGPRESSED branch below).
+				s_touch.phase = TouchState::PANNING;
+				s_touch.panLastPxX = px;
+				s_touch.panLastPxY = py;
 			}
 		}
 		else if (s_touch.phase == TouchState::PANNING && event.tfinger.fingerID == s_touch.finger1) {
@@ -510,173 +459,125 @@ void handleTouchEvent(SDL3Mouse *mouse, SDL_Window *window, const SDL_Event &eve
 		else if (s_touch.phase == TouchState::DRAGGING && event.tfinger.fingerID == s_touch.finger1) {
 			sendSyntheticMouse(mouse, window, SDL_EVENT_MOUSE_MOTION, px, py);
 		}
-		else if (s_touch.phase == TouchState::TWO_PENDING) {
-			const float f1px = s_touch.f1x * (float)winW, f1py = s_touch.f1y * (float)winH;
-			const float f2px = s_touch.f2x * (float)winW, f2py = s_touch.f2y * (float)winH;
-			const float d1x = f1px - s_touch.twoAnchor1X, d1y = f1py - s_touch.twoAnchor1Y;
-			const float d2x = f2px - s_touch.twoAnchor2X, d2y = f2py - s_touch.twoAnchor2Y;
-			const float delta1 = SDL_sqrtf(d1x * d1x + d1y * d1y);
-			const float delta2 = SDL_sqrtf(d2x * d2x + d2y * d2y);
-			const float moverDeltaCandidate = (delta1 > delta2) ? delta1 : delta2;
+		else if (s_touch.phase == TouchState::TWOFINGER) {
+			// Both signals, every motion event, unconditionally -- see the
+			// file-header @bugfix comment for why this replaced the old
+			// pan-vs-zoom classifier.
+			const float cx = (s_touch.f1px + s_touch.f2px) * 0.5f;
+			const float cy = (s_touch.f1py + s_touch.f2py) * 0.5f;
+			applyCameraPan(cx - s_touch.twoCentroidLastX, cy - s_touch.twoCentroidLastY);
+			s_touch.twoCentroidLastX = cx;
+			s_touch.twoCentroidLastY = cy;
 
-			// Wait for the MORE-active finger to clear real movement (not just
-			// jitter) before deciding anything -- see TWO_FINGER_COMMIT_PX comment.
-			if (moverDeltaCandidate >= TWO_FINGER_COMMIT_PX) {
-				// One-time gesture-type decision, kept for the rest of this
-				// touch (no re-classifying mid-gesture).
-				const bool finger1IsAnchor = delta1 <= delta2;
-				const float anchorDelta = finger1IsAnchor ? delta1 : delta2;
-				const float moverDelta = finger1IsAnchor ? delta2 : delta1;
-				const float moverDX = finger1IsAnchor ? d2x : d1x;
-				const float moverDY = finger1IsAnchor ? d2y : d1y;
-				const float anchorDX = finger1IsAnchor ? d1x : d2x;
-				const float anchorDY = finger1IsAnchor ? d1y : d2y;
-				// Ratio, not an absolute cap: a real two-hand pan keeps both
-				// fingers' displacement comparable (ratio near 1) no matter how
-				// far it's gone, while a deliberate hold-one-drag-the-other
-				// gesture keeps the anchor's share small (ratio near 0)
-				// regardless of how vigorously the other hand moves.
-				const float ratio = anchorDelta / moverDelta;
-				const bool mostlyVertical = SDL_fabsf(moverDY) > SDL_fabsf(moverDX) * ZOOM_VERTICAL_BIAS;
-
-				// GeneralsX @bugfix Android port 08/07/2026 The ratio alone still
-				// misfired as zoom during a genuine two-hand vertical PAN: two
-				// hands rarely travel the exact same distance, so the
-				// less-active one could satisfy ZOOM_RATIO_MAX purely from
-				// moving noticeably less, even though it was clearly moving in
-				// the SAME direction as the other (i.e. both hands cooperating
-				// on one vertical scroll, not one holding still). A true anchor
-				// finger's small movement is incidental hand tremor with no
-				// consistent direction; a real (if smaller) pan contribution
-				// points the same way as the other finger. Reject zoom whenever
-				// the "anchor" moved enough (past pure jitter) AND that
-				// movement is directionally aligned with the mover's.
-				bool anchorCoDirectional = false;
-				if (anchorDelta >= CODIRECTIONAL_MIN_PX) {
-					const float cosSim = (anchorDX * moverDX + anchorDY * moverDY) / (anchorDelta * moverDelta);
-					anchorCoDirectional = cosSim >= CODIRECTIONAL_COS_THRESHOLD;
-				}
-
-				// GeneralsX @feature Android port 01/08/2026 Both branches below are
-				// now direct camera control (applyCameraPan/applyCameraZoom) --
-				// no synthetic RMB-down, no wheel ticks. The ratio/co-directional
-				// classification above (deciding PAN vs ZOOM in the first place)
-				// is unchanged; only what happens once classified is new.
-				if (!anchorCoDirectional && ratio <= ZOOM_RATIO_MAX && mostlyVertical) {
-					const float dx = f2px - f1px, dy2 = f2py - f1py;
-					s_touch.zoomLastDistPx = SDL_sqrtf(dx * dx + dy2 * dy2);
-					s_touch.phase = TouchState::ZOOM;
-				} else {
-					s_touch.panLastCentroidPxX = (f1px + f2px) * 0.5f;
-					s_touch.panLastCentroidPxY = (f1py + f2py) * 0.5f;
-					s_touch.phase = TouchState::PAN;
-				}
-			}
-		}
-		else if (s_touch.phase == TouchState::PAN) {
-			const float cx = (s_touch.f1x + s_touch.f2x) * 0.5f * (float)winW;
-			const float cy = (s_touch.f1y + s_touch.f2y) * 0.5f * (float)winH;
-			applyCameraPan(cx - s_touch.panLastCentroidPxX, cy - s_touch.panLastCentroidPxY);
-			s_touch.panLastCentroidPxX = cx;
-			s_touch.panLastCentroidPxY = cy;
-		}
-		else if (s_touch.phase == TouchState::ZOOM) {
-			// Real pinch distance between both fingers (not just one finger's
-			// absolute position) -- fingers spreading apart zooms in, exactly
-			// like the pinch looks, regardless of which finger the classifier
-			// above happened to call the "mover".
-			const float f1px = s_touch.f1x * (float)winW, f1py = s_touch.f1y * (float)winH;
-			const float f2px = s_touch.f2x * (float)winW, f2py = s_touch.f2y * (float)winH;
-			const float dx = f2px - f1px, dy2 = f2py - f1py;
-			const float dist = SDL_sqrtf(dx * dx + dy2 * dy2);
-			applyCameraZoom(dist - s_touch.zoomLastDistPx);
-			s_touch.zoomLastDistPx = dist;
+			const float dx = s_touch.f2px - s_touch.f1px, dy = s_touch.f2py - s_touch.f1py;
+			const float dist = SDL_sqrtf(dx * dx + dy * dy);
+			applyCameraZoom(dist - s_touch.twoDistLastPx);
+			s_touch.twoDistLastPx = dist;
 		}
 		break;
 
 	case SDL_EVENT_FINGER_UP:
 	case SDL_EVENT_FINGER_CANCELED:
 		if (event.tfinger.fingerID != s_touch.finger1 &&
-		    !((s_touch.phase == TouchState::PAN || s_touch.phase == TouchState::TWO_PENDING ||
-		       s_touch.phase == TouchState::ZOOM) && event.tfinger.fingerID == s_touch.finger2)) {
+		    !(s_touch.phase == TouchState::TWOFINGER && event.tfinger.fingerID == s_touch.finger2)) {
 			break;
 		}
-		switch (s_touch.phase) {
-			case TouchState::PENDING:
-				// A CANCELED touch (incoming call, notification shade, palm
-				// rejection) must not become a committed tap — that would be a
-				// phantom select/command/rally-point click at the cancel point.
-				if (event.type == SDL_EVENT_FINGER_CANCELED) {
-					break;
-				}
-				{
-					// Double-tap: select all of the clicked unit's type on
-					// screen, matching the PC's double-click.
-					// MSG_MOUSE_LEFT_DOUBLE_CLICK is entirely handled already
-					// (SelectionXlat.cpp) once SDL3Mouse.cpp sees clicks>=2 on
-					// the DOWN event -- we only need to count taps correctly.
-					const float distFromLastTap = SDL_fabsf(s_touch.downX - s_touch.lastTapX)
-					                             + SDL_fabsf(s_touch.downY - s_touch.lastTapY);
-					const bool isDoubleTap = s_touch.hasLastTap
-						&& (SDL_GetTicks() - s_touch.lastTapTicks) <= DOUBLE_TAP_MS
-						&& distFromLastTap <= DOUBLE_TAP_DIST_PX;
-					const Uint8 clicks = isDoubleTap ? 2 : 1;
+		{
+			// Set when a TWOFINGER lift should continue as a single-finger
+			// pan with the remaining finger, instead of resetting to IDLE --
+			// matches any standard two-finger touch UI (lifting one finger
+			// mid-pinch keeps panning with the other).
+			bool continueAsSinglePan = false;
 
-					// Clean tap: deliver the full click at the exact press position.
-					sendSyntheticMouse(mouse, window, SDL_EVENT_MOUSE_MOTION, s_touch.downX, s_touch.downY);
-					sendSyntheticMouse(mouse, window, SDL_EVENT_MOUSE_BUTTON_DOWN,
-					                   s_touch.downX, s_touch.downY, SDL_BUTTON_LEFT, 0.0f, clicks);
-					sendSyntheticMouse(mouse, window, SDL_EVENT_MOUSE_BUTTON_UP,
-					                   s_touch.downX, s_touch.downY, SDL_BUTTON_LEFT, 0.0f, clicks);
-
-					// A completed double-tap starts a fresh sequence rather
-					// than chaining into a false "triple click".
-					s_touch.hasLastTap = !isDoubleTap;
-					if (!isDoubleTap) {
-						s_touch.lastTapTicks = SDL_GetTicks();
-						s_touch.lastTapX = s_touch.downX;
-						s_touch.lastTapY = s_touch.downY;
+			switch (s_touch.phase) {
+				case TouchState::PENDING:
+					// A CANCELED touch (incoming call, notification shade, palm
+					// rejection) must not become a committed tap — that would be a
+					// phantom select/command/rally-point click at the cancel point.
+					if (event.type == SDL_EVENT_FINGER_CANCELED) {
+						break;
 					}
+					{
+						// Double-tap: select all of the clicked unit's type on
+						// screen, matching the PC's double-click.
+						// MSG_MOUSE_LEFT_DOUBLE_CLICK is entirely handled already
+						// (SelectionXlat.cpp) once SDL3Mouse.cpp sees clicks>=2 on
+						// the DOWN event -- we only need to count taps correctly.
+						const float distFromLastTap = SDL_fabsf(s_touch.downX - s_touch.lastTapX)
+						                             + SDL_fabsf(s_touch.downY - s_touch.lastTapY);
+						const bool isDoubleTap = s_touch.hasLastTap
+							&& (SDL_GetTicks() - s_touch.lastTapTicks) <= DOUBLE_TAP_MS
+							&& distFromLastTap <= DOUBLE_TAP_DIST_PX;
+						const Uint8 clicks = isDoubleTap ? 2 : 1;
+
+						// Clean tap: deliver the full click at the exact press position.
+						sendSyntheticMouse(mouse, window, SDL_EVENT_MOUSE_MOTION, s_touch.downX, s_touch.downY);
+						sendSyntheticMouse(mouse, window, SDL_EVENT_MOUSE_BUTTON_DOWN,
+						                   s_touch.downX, s_touch.downY, SDL_BUTTON_LEFT, 0.0f, clicks);
+						sendSyntheticMouse(mouse, window, SDL_EVENT_MOUSE_BUTTON_UP,
+						                   s_touch.downX, s_touch.downY, SDL_BUTTON_LEFT, 0.0f, clicks);
+
+						// A completed double-tap starts a fresh sequence rather
+						// than chaining into a false "triple click".
+						s_touch.hasLastTap = !isDoubleTap;
+						if (!isDoubleTap) {
+							s_touch.lastTapTicks = SDL_GetTicks();
+							s_touch.lastTapX = s_touch.downX;
+							s_touch.lastTapY = s_touch.downY;
+						}
+					}
+					break;
+				case TouchState::PANNING:
+					// Direct camera pan -- no synthetic mouse was ever pressed,
+					// nothing to release.
+					break;
+				case TouchState::DRAGGING:
+					sendSyntheticMouse(mouse, window, SDL_EVENT_MOUSE_BUTTON_UP, px, py, SDL_BUTTON_LEFT);
+					break;
+				case TouchState::TWOFINGER:
+					// Direct camera control -- no synthetic mouse was ever
+					// pressed, nothing to release. If the OTHER finger is
+					// still down, keep controlling the camera with it.
+					if (event.type != SDL_EVENT_FINGER_CANCELED) {
+						if (event.tfinger.fingerID == s_touch.finger1) {
+							s_touch.finger1 = s_touch.finger2;
+							s_touch.lastX = s_touch.panLastPxX = s_touch.f2px;
+							s_touch.lastY = s_touch.panLastPxY = s_touch.f2py;
+						} else {
+							s_touch.panLastPxX = s_touch.lastX;
+							s_touch.panLastPxY = s_touch.lastY;
+						}
+						s_touch.finger2 = 0;
+						s_touch.phase = TouchState::PANNING;
+						continueAsSinglePan = true;
+					}
+					break;
+				default:
+					break;
+			}
+
+			if (!continueAsSinglePan) {
+				// GeneralsX @bugfix Android port 08/07/2026, narrowed 01/08/2026
+				// The engine's own edge-scroll (mouse near a viewport edge keeps
+				// scrolling the camera every frame) checks wherever the synthetic
+				// cursor was last placed, and a lifted finger will never send it
+				// another position update -- so a cursor left near an edge would
+				// scroll the camera in that direction forever. Recentering
+				// UNCONDITIONALLY on every release (including an ordinary tap in
+				// the middle of the screen) was fixing that but left the invisible
+				// cursor "living" at the window center between touches, hijacking
+				// whatever GUI widget sat there into a permanent hover-highlight
+				// after every tap (reported: a menu button in the center lit up
+				// after every touch release, no matter where the touch itself
+				// landed). Only step in when a real edge-scroll risk exists.
+				const float EDGE_GUARD_PX = 40.0f;
+				if (s_touch.lastX < EDGE_GUARD_PX || s_touch.lastY < EDGE_GUARD_PX ||
+				    s_touch.lastX >= (float)winW - EDGE_GUARD_PX || s_touch.lastY >= (float)winH - EDGE_GUARD_PX) {
+					sendSyntheticMouse(mouse, window, SDL_EVENT_MOUSE_MOTION, (float)winW * 0.5f, (float)winH * 0.5f);
 				}
-				break;
-			case TouchState::PANNING:
-				// Direct camera pan -- no synthetic mouse was ever pressed,
-				// nothing to release.
-				break;
-			case TouchState::DRAGGING:
-				sendSyntheticMouse(mouse, window, SDL_EVENT_MOUSE_BUTTON_UP, px, py, SDL_BUTTON_LEFT);
-				break;
-			case TouchState::TWO_PENDING:
-				// Neither finger moved enough to become pan/zoom before one
-				// lifted: a deliberate two-finger tap -> right-click (a
-				// faster alternative to the single-finger long-press RMB).
-				if (event.type != SDL_EVENT_FINGER_CANCELED) {
-					const float cx = (s_touch.twoAnchor1X + s_touch.twoAnchor2X) * 0.5f;
-					const float cy = (s_touch.twoAnchor1Y + s_touch.twoAnchor2Y) * 0.5f;
-					sendSyntheticMouse(mouse, window, SDL_EVENT_MOUSE_MOTION, cx, cy);
-					sendSyntheticMouse(mouse, window, SDL_EVENT_MOUSE_BUTTON_DOWN, cx, cy, SDL_BUTTON_RIGHT);
-					sendSyntheticMouse(mouse, window, SDL_EVENT_MOUSE_BUTTON_UP, cx, cy, SDL_BUTTON_RIGHT);
-				}
-				break;
-			case TouchState::PAN:
-			case TouchState::ZOOM:
-				// Direct camera control -- no synthetic mouse was ever
-				// pressed, nothing to release.
-				break;
-			default:
-				break;
+				s_touch.phase = TouchState::IDLE;
+			}
 		}
-
-		// GeneralsX @bugfix Android port 08/07/2026 The engine's own edge-scroll
-		// (mouse near a viewport edge keeps scrolling the camera every frame)
-		// checks wherever the synthetic cursor was last placed. A real mouse
-		// naturally isn't left sitting at the edge; a touch is -- lifting a
-		// finger near the screen border otherwise left the camera scrolling in
-		// that direction forever, since nothing ever told the game the "mouse"
-		// moved away. Recenter it on every full release.
-		sendSyntheticMouse(mouse, window, SDL_EVENT_MOUSE_MOTION, (float)winW * 0.5f, (float)winH * 0.5f);
-
-		s_touch.phase = TouchState::IDLE;
 		break;
 	}
 }
