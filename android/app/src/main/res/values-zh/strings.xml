@@ -45,7 +45,7 @@
     <string name="setup_card_vulkan_driver">自定义 Vulkan 驱动（高级选项，仅限 Adreno GPU）</string>
     <string name="setup_button_import_driver">导入驱动（.zip）</string>
     <string name="setup_button_reset_driver">重置为推荐驱动</string>
-    <string name="setup_driver_help">加载一个 Vulkan 驱动（Mesa Turnip 构建版本）来代替手机自带的驱动，这与 Winlator 和 AetherSX2 使用的技术相同。这可以让一些高通 Adreno 手机运行游戏，即使其原厂驱动只支持 Vulkan 1.1/1.2（DXVK 需要 1.3）。在符合条件的 Adreno 手机上会自动应用此驱动 —— 如果你之后导入了其他驱动，"重置为推荐驱动"可以恢复这个自动选择。\n\n此功能对 Mali、PowerVR 等非 Adreno GPU 无效 —— 这些 GPU 不受此选项影响，也没有对应的替代方案。\n\n"导入驱动"允许你用自己的 adrenotools 格式驱动 .zip 文件覆盖自动选择（例如来自 GitHub 上的 K11MCH1/AdrenoToolsDrivers 或 The412Banner/Banners-Turnip）。将在下次启动时生效，不会立即生效。</string>
+    <string name="setup_driver_help">加载一个 Vulkan 驱动（Mesa Turnip 构建版本）来代替手机自带的驱动，这与 Winlator 和 AetherSX2 使用的技术相同。DXVK 本身现在只需要 Vulkan 1.1，但一些较旧的高通 Adreno 原厂驱动报告的版本更低（或存在其他问题）——这个 Turnip 构建版本仍可以让这些手机运行游戏。在符合条件的 Adreno 手机上会自动应用此驱动 —— 如果你之后导入了其他驱动，"重置为推荐驱动"可以恢复这个自动选择。\n\n此功能对 Mali、PowerVR 等非 Adreno GPU 无效 —— 但它们也不需要这个：大多数 Mali GPU（Mali-G76、Mali-G57 等）已经原生满足 DXVK 的 Vulkan 1.1 要求，无需更换驱动。此选项仅限 Adreno，是因为 Turnip 只支持 Adreno 硬件，而不是因为其他 GPU 不受支持。\n\n"导入驱动"允许你用自己的 adrenotools 格式驱动 .zip 文件覆盖自动选择（例如来自 GitHub 上的 K11MCH1/AdrenoToolsDrivers 或 The412Banner/Banners-Turnip）。将在下次启动时生效，不会立即生效。</string>
     <string name="setup_driver_status_none">当前未使用自定义驱动 —— 使用手机自带的 Vulkan 驱动。</string>
     <string name="setup_driver_status_auto">推荐驱动（已为此设备自动选择）：%1$s</string>
     <string name="setup_driver_status_manual">自定义驱动（手动导入）：%1$s</string>
