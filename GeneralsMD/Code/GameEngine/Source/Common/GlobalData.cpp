@@ -680,6 +680,15 @@ GlobalData::GlobalData()
 #else
 	m_multiPassTerrain = FALSE;
 #endif
+	// GeneralsX @bugfix Android port 01/08/2026 Unconditional (not gated by
+	// any marker file) build-verification line: four unrelated fix attempts
+	// in a row for the POCO/Adreno black-terrain-edge report produced zero
+	// visible change on the device, which is unusual enough to also check
+	// whether the binary actually running there matches what was just
+	// built, rather than assuming yet another theory is wrong. This string
+	// is unique to this exact commit, so its presence/absence in
+	// generals-stderr.log answers that directly.
+	fprintf(stderr, "INFO: GX-BUILD-MARKER 20260801-multipass-terrain-fix m_multiPassTerrain=%d\n", (int)m_multiPassTerrain);
 	m_adjustCliffTextures = FALSE;
 	m_stretchTerrain = FALSE;
 	m_useHalfHeightMap = FALSE;
