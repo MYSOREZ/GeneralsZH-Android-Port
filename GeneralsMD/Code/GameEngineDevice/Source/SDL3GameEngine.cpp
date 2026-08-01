@@ -50,6 +50,7 @@
 #include "StdDevice/Common/StdLocalFileSystem.h"
 #include "StdDevice/Common/StdBIGFileSystem.h"
 #include "Common/GlobalData.h"
+#include "GXTrace.h"
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_vulkan.h>
 #include <cstdio>
@@ -349,13 +350,19 @@ const float ZOOM_HEIGHT_PER_PIXEL = (float)View::ZoomHeightPerSecond / ZOOM_PX_P
 void applyCameraPan(float pixelDX, float pixelDY)
 {
 	if (!TheTacticalView) {
+		GX_TRACE("applyCameraPan: TheTacticalView is null, dropping dx=%.2f dy=%.2f\n", pixelDX, pixelDY);
 		return;
 	}
 	Coord2D delta;
 	delta.x = -pixelDX / SCROLL_RESOLUTION * PAN_SENSITIVITY;
 	delta.y = -pixelDY / SCROLL_RESOLUTION * PAN_SENSITIVITY;
 	if (delta.x != 0.0f || delta.y != 0.0f) {
+		const Coord2D before = TheTacticalView->getPosition2D();
+		const Bool locked = TheTacticalView->isUserControlLocked();
 		TheTacticalView->userScrollBy(&delta);
+		const Coord2D after = TheTacticalView->getPosition2D();
+		GX_TRACE("applyCameraPan: px(%.2f,%.2f) delta(%.4f,%.4f) locked=%d pos(%.2f,%.2f)->(%.2f,%.2f)\n",
+		         pixelDX, pixelDY, delta.x, delta.y, (int)locked, before.x, before.y, after.x, after.y);
 	}
 }
 
@@ -366,7 +373,10 @@ void applyCameraZoom(float distDeltaPx)
 	if (!TheTacticalView || distDeltaPx == 0.0f) {
 		return;
 	}
-	TheTacticalView->userZoom(-distDeltaPx * ZOOM_HEIGHT_PER_PIXEL);
+	const Real zoomDelta = -distDeltaPx * ZOOM_HEIGHT_PER_PIXEL;
+	TheTacticalView->userZoom(zoomDelta);
+	GX_TRACE("applyCameraZoom: distDeltaPx=%.2f zoomDelta=%.4f locked=%d\n",
+	         distDeltaPx, zoomDelta, (int)TheTacticalView->isUserControlLocked());
 }
 
 // GeneralsX @feature Android port 01/08/2026 These three functions are the
@@ -496,6 +506,7 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 				// Straight to a direct camera pan (TheTacticalView->
 				// userScrollBy, see applyCameraPan) -- no message stream
 				// involvement at all.
+				GX_TRACE("handleTouchEvent: PENDING->PANNING moved=%.2f at (%.2f,%.2f)\n", moved, px, py);
 				s_touch.phase = TouchState::PANNING;
 				s_touch.panLastPxX = px;
 				s_touch.panLastPxY = py;
