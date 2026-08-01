@@ -151,7 +151,7 @@ static bool SDLCALL mobileLifecycleWatcher(void *userdata, SDL_Event *event)
 // - Selection, GUI clicks, right-click commands, and selection-box/slider
 //   drags go straight onto TheMessageStream as the same MSG_RAW_MOUSE_*
 //   GameMessages a real mouse would produce (pushMousePosition()/
-//   pushMouseButton()/pushMouseDrag() below) -- but pushed directly from
+//   pushMouseButton() below) -- but pushed directly from
 //   real finger events, not synthesized as SDL_Event mouse structs fed
 //   through SDL3Mouse's hardware-mouse pipeline. This is as close to "no
 //   mouse system" as this engine's input architecture allows: selection
@@ -176,13 +176,44 @@ static bool SDLCALL mobileLifecycleWatcher(void *userdata, SDL_Event *event)
 //   1 finger tap                       -> select / issue command (LMB click)
 //   1 finger double-tap                -> select all of that unit's type on
 //                                          screen (existing double-click handling)
-//   1 finger drag (past a small dead zone) -> direct camera pan, immediately,
-//                                          no delay
-//   1 finger press-and-HOLD (long-press), then drag -> selection-box drag (LMB drag)
-//   1 finger long-press, released without dragging -> right-click (issue command)
+//   1 finger drag, at ANY point, however long the finger sat still first ->
+//                                          direct camera pan, immediately
+//   1 finger held still the whole time, released without ever moving ->
+//                                          right-click (issue command)
 //   2 fingers                          -> direct camera pan (centroid delta)
 //                                          AND zoom (spread delta) together,
 //                                          every motion event, unconditionally
+//   2 fingers tapped together, both staying near where they landed ->
+//                                          right-click (fast "cancel selection")
+//
+// GeneralsX @bugfix Android port 01/08/2026, again Movement now ALWAYS wins
+// over hold-duration, no matter when it happens. The previous cut fired the
+// long-press right-click proactively the instant LONG_PRESS_MS elapsed
+// (600ms) while the finger was still down, and any further drag from there
+// upgraded to a selection-box drag instead of a pan -- so a completely
+// ordinary drag that started with as little as half a second's hesitation
+// (touch down, get oriented, THEN start moving -- unremarkable human
+// timing) silently turned into "select a box of units" instead of "pan the
+// camera", with no camera movement and no obvious visual cue why. Reported
+// as "I drag with one finger like every other Android RTS and the camera
+// just doesn't move, I'm stuck standing at my base". Fixed by resolving the
+// long-press ONLY at release: if the finger crosses the pan dead zone at
+// ANY time before lifting, however long it sat still first, it's a pan --
+// long-press right-click only fires if the finger never moved at all,
+// checked once, when it lifts. This removes single-finger press-and-hold-
+// then-drag box-select entirely (it's what directly conflicted with "any
+// drag pans") -- if box-select turns out to still be wanted, it needs its
+// own separate gesture, not sharing single-finger drag with panning.
+//
+// GeneralsX @feature Android port 01/08/2026, again Two-finger tap-to-
+// cancel is back: dropped in an earlier pass as "redundant with the
+// single-finger long-press", but it's faster and more natural for
+// "cancel/deselect" than reaching for a long-press, and was asked back
+// explicitly. This does NOT reintroduce the old pan-vs-zoom classifier --
+// TWOFINGER still always applies both pan and zoom to every motion event,
+// unconditionally. This only ADDS a check at release: if neither finger
+// moved more than TWO_FINGER_TAP_MAX_PX from where it landed, the whole
+// gesture is also a tap -> fire right-click at the landing centroid.
 //
 // GeneralsX @bugfix Android port 01/08/2026 Previous revisions tried to
 // classify a two-finger gesture as EITHER pan OR zoom (a "one finger
@@ -217,8 +248,6 @@ struct TouchState {
 		IDLE,        // no fingers tracked
 		PENDING,     // finger1 down, gesture identity not yet known, nothing sent
 		PANNING,     // finger1 dragged past the dead zone -- direct camera pan, no mouse involved
-		DRAGGING,    // finger1 held past the long-press threshold, then dragged -- LMB drag (selection box)
-		LONGPRESSED, // long-press fired (RMB click sent); a further drag from here upgrades to DRAGGING
 		TWOFINGER    // two fingers down -- direct camera pan (centroid) + zoom (spread), every motion event
 	};
 
@@ -235,18 +264,17 @@ struct TouchState {
 	// wheel-tick/RMB-drag translation. See applyCameraPan()/applyCameraZoom().
 	float panLastPxX = 0.0f, panLastPxY = 0.0f; // last processed finger1 pixel pos, single-finger PANNING
 
-	// Selection-box drag (DRAGGING): last position a MSG_RAW_MOUSE_LEFT_DRAG
-	// was built from, so each motion event can compute a real delta the way
-	// a mouse's own frame-to-frame position diff normally would -- see
-	// pushMouseDrag().
-	float dragLastPxX = 0.0f, dragLastPxY = 0.0f;
-
 	// TWOFINGER tracking: both fingers' current pixel positions, plus the
 	// last-processed centroid/spread so every motion event can diff against
 	// them directly -- no classification, both signals are always live.
 	float f1px = 0.0f, f1py = 0.0f, f2px = 0.0f, f2py = 0.0f;
 	float twoCentroidLastX = 0.0f, twoCentroidLastY = 0.0f;
 	float twoDistLastPx = 0.0f;
+
+	// TWOFINGER tap-to-cancel: frozen landing position of each finger (unlike
+	// f1px/f2px above, never overwritten by later motion), so release can
+	// tell "barely moved, that was a tap" from "that was a real pan/zoom".
+	float twoDownX1 = 0.0f, twoDownY1 = 0.0f, twoDownX2 = 0.0f, twoDownY2 = 0.0f;
 
 	// Double-tap tracking (single-finger taps only).
 	bool   hasLastTap = false;
@@ -271,6 +299,12 @@ const float TAP_DEAD_ZONE_PX = 16.0f;
 // (two separate taps land less precisely than one continuous drag).
 const Uint64 DOUBLE_TAP_MS = 350;
 const float DOUBLE_TAP_DIST_PX = 40.0f;
+
+// Two-finger tap-to-cancel: both fingers must stay within this distance of
+// where they landed for the whole gesture to count as a tap (-> right-click)
+// instead of a pan/zoom. A bit more generous than TAP_DEAD_ZONE_PX since two
+// simultaneous fingers naturally drift a little more than one.
+const float TWO_FINGER_TAP_MAX_PX = 24.0f;
 
 const float ZOOM_PX_PER_TICK = 40.0f; // calibration only -- see ZOOM_HEIGHT_PER_PIXEL below
 
@@ -384,20 +418,6 @@ void pushMouseButton(GameMessage::Type type, float x, float y)
 	msg->appendIntegerArgument((Int)SDL_GetTicks()); // unread by every consumer, kept for schema parity
 }
 
-// Drag delta -- needed specifically for GUI widgets (sliders, etc, via
-// WindowXlat.cpp's GWM_LEFT_DRAG) that only update their value on an
-// explicit drag message, not from position alone.
-void pushMouseDrag(GameMessage::Type type, float x, float y, float dx, float dy)
-{
-	if (!TheMessageStream) {
-		return;
-	}
-	GameMessage *msg = TheMessageStream->appendMessage(type);
-	msg->appendPixelArgument(touchPixel(x, y));
-	msg->appendPixelArgument(touchPixel(dx, dy));
-	msg->appendIntegerArgument(TheKeyboard ? TheKeyboard->getModifierFlags() : 0);
-}
-
 void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 {
 	int winW = 0, winH = 0;
@@ -408,11 +428,10 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 	switch (event.type) {
 	case SDL_EVENT_FINGER_DOWN:
 		if (s_touch.phase == TouchState::IDLE) {
-			// Defer all BUTTON output: a finger landing could become a tap, a
-			// drag-box, a long-press, or the first finger of a two-finger
-			// gesture. A premature LMB down+up is a real click to the game
-			// (e.g. it sets a rally point when a production building is
-			// selected).
+			// Defer BUTTON output: a finger landing could become a tap, a pan,
+			// a long-press, or the first finger of a two-finger gesture. A
+			// premature LMB down+up is a real click to the game (e.g. it sets
+			// a rally point when a production building is selected).
 			s_touch.finger1 = event.tfinger.fingerID;
 			s_touch.phase = TouchState::PENDING;
 			s_touch.downX = s_touch.lastX = px;
@@ -428,21 +447,20 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 			// the widget is never hilited, so only the default/first item responds.
 			pushMousePosition(px, py);
 		}
-		else if (s_touch.phase == TouchState::PENDING || s_touch.phase == TouchState::DRAGGING ||
-		         s_touch.phase == TouchState::PANNING) {
+		else if (s_touch.phase == TouchState::PENDING || s_touch.phase == TouchState::PANNING) {
 			// Second finger: always becomes direct two-finger pan+zoom
 			// immediately, no classification -- see the file-header comment
 			// for why. A finger landing mid-PANNING (drag-then-pinch without
 			// lifting first) picks it up the same way.
-			if (s_touch.phase == TouchState::DRAGGING) {
-				// Finish the drag-box first.
-				pushMouseButton(GameMessage::MSG_RAW_MOUSE_LEFT_BUTTON_UP, s_touch.lastX, s_touch.lastY);
-			}
 			s_touch.finger2 = event.tfinger.fingerID;
 			s_touch.f1px = s_touch.lastX;  // finger1's current pixel pos
 			s_touch.f1py = s_touch.lastY;
 			s_touch.f2px = px;             // finger2's landing pixel pos
 			s_touch.f2py = py;
+			s_touch.twoDownX1 = s_touch.f1px;
+			s_touch.twoDownY1 = s_touch.f1py;
+			s_touch.twoDownX2 = s_touch.f2px;
+			s_touch.twoDownY2 = s_touch.f2py;
 			s_touch.twoCentroidLastX = (s_touch.f1px + s_touch.f2px) * 0.5f;
 			s_touch.twoCentroidLastY = (s_touch.f1py + s_touch.f2py) * 0.5f;
 			{
@@ -451,7 +469,7 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 			}
 			s_touch.phase = TouchState::TWOFINGER;
 		}
-		// LONGPRESSED / TWOFINGER with a third finger: ignored
+		// TWOFINGER with a third finger: ignored
 		break;
 
 	case SDL_EVENT_FINGER_MOTION:
@@ -472,13 +490,12 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 		if (s_touch.phase == TouchState::PENDING && event.tfinger.fingerID == s_touch.finger1) {
 			const float moved = SDL_fabsf(px - s_touch.downX) + SDL_fabsf(py - s_touch.downY);
 			if (moved >= TAP_DEAD_ZONE_PX) {
-				// Past the dead zone commits straight to a direct camera pan
-				// (TheTacticalView->userScrollBy, see applyCameraPan) -- no
-				// synthetic mouse involved at all. Holding still past the
-				// long-press threshold instead fires the existing RMB
-				// long-press (updateTouchLongPress below), and dragging AFTER
-				// that point is what starts a selection-box drag (see the
-				// LONGPRESSED branch below).
+				// Movement always wins, however long the finger sat still
+				// first -- see the file-header @bugfix comment for why this
+				// no longer depends on whether LONG_PRESS_MS has elapsed.
+				// Straight to a direct camera pan (TheTacticalView->
+				// userScrollBy, see applyCameraPan) -- no message stream
+				// involvement at all.
 				s_touch.phase = TouchState::PANNING;
 				s_touch.panLastPxX = px;
 				s_touch.panLastPxY = py;
@@ -488,28 +505,6 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 			applyCameraPan(px - s_touch.panLastPxX, py - s_touch.panLastPxY);
 			s_touch.panLastPxX = px;
 			s_touch.panLastPxY = py;
-		}
-		else if (s_touch.phase == TouchState::LONGPRESSED && event.tfinger.fingerID == s_touch.finger1) {
-			// The long-press already fired its RMB click; movement from here
-			// upgrades to a selection-box drag starting at the current point,
-			// instead of being swallowed. downX/downY is still the original
-			// press point (untouched since FINGER_DOWN), which is exactly what
-			// "did the finger actually move since it went down" needs.
-			const float moved = SDL_fabsf(px - s_touch.downX) + SDL_fabsf(py - s_touch.downY);
-			if (moved >= TAP_DEAD_ZONE_PX) {
-				pushMousePosition(px, py);
-				pushMouseButton(GameMessage::MSG_RAW_MOUSE_LEFT_BUTTON_DOWN, px, py);
-				s_touch.phase = TouchState::DRAGGING;
-				s_touch.dragLastPxX = px;
-				s_touch.dragLastPxY = py;
-			}
-		}
-		else if (s_touch.phase == TouchState::DRAGGING && event.tfinger.fingerID == s_touch.finger1) {
-			pushMousePosition(px, py);
-			pushMouseDrag(GameMessage::MSG_RAW_MOUSE_LEFT_DRAG, px, py,
-			              px - s_touch.dragLastPxX, py - s_touch.dragLastPxY);
-			s_touch.dragLastPxX = px;
-			s_touch.dragLastPxY = py;
 		}
 		else if (s_touch.phase == TouchState::TWOFINGER) {
 			// Both signals, every motion event, unconditionally -- see the
@@ -547,6 +542,21 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 					// rejection) must not become a committed tap — that would be a
 					// phantom select/command/rally-point click at the cancel point.
 					if (event.type == SDL_EVENT_FINGER_CANCELED) {
+						break;
+					}
+					if ((SDL_GetTicks() - s_touch.downTicks) >= LONG_PRESS_MS) {
+						// Still PENDING at release means it never crossed the pan
+						// dead zone (crossing it is what moves phase to PANNING) --
+						// held still for the whole long-press threshold, right-click
+						// (issue command) at the press point. Resolved HERE, on
+						// release, not proactively while still held -- see the
+						// file-header @bugfix comment for why: firing it early and
+						// letting a LATER drag "upgrade" the gesture is what broke
+						// ordinary panning whenever a real drag started after a
+						// brief pause.
+						pushMousePosition(s_touch.downX, s_touch.downY);
+						pushMouseButton(GameMessage::MSG_RAW_MOUSE_RIGHT_BUTTON_DOWN, s_touch.downX, s_touch.downY);
+						pushMouseButton(GameMessage::MSG_RAW_MOUSE_RIGHT_BUTTON_UP, s_touch.downX, s_touch.downY);
 						break;
 					}
 					{
@@ -588,25 +598,38 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 					// Direct camera pan -- no message stream involvement at all,
 					// nothing to release.
 					break;
-				case TouchState::DRAGGING:
-					pushMouseButton(GameMessage::MSG_RAW_MOUSE_LEFT_BUTTON_UP, px, py);
-					break;
 				case TouchState::TWOFINGER:
-					// Direct camera control -- no synthetic mouse was ever
-					// pressed, nothing to release. If the OTHER finger is
-					// still down, keep controlling the camera with it.
+					// GeneralsX @feature Android port 01/08/2026, again Brought
+					// back: if neither finger moved more than TWO_FINGER_TAP_MAX_PX
+					// from where it landed, the whole gesture was a two-finger tap
+					// -> right-click at the landing centroid (a fast "cancel
+					// selection", asked back after an earlier pass dropped it as
+					// "redundant" with the long-press). Otherwise, direct camera
+					// control already applied every motion event -- nothing to
+					// release -- and if the OTHER finger is still down, keep
+					// controlling the camera with it.
 					if (event.type != SDL_EVENT_FINGER_CANCELED) {
-						if (event.tfinger.fingerID == s_touch.finger1) {
-							s_touch.finger1 = s_touch.finger2;
-							s_touch.lastX = s_touch.panLastPxX = s_touch.f2px;
-							s_touch.lastY = s_touch.panLastPxY = s_touch.f2py;
+						const float move1 = SDL_fabsf(s_touch.f1px - s_touch.twoDownX1) + SDL_fabsf(s_touch.f1py - s_touch.twoDownY1);
+						const float move2 = SDL_fabsf(s_touch.f2px - s_touch.twoDownX2) + SDL_fabsf(s_touch.f2py - s_touch.twoDownY2);
+						if (move1 < TWO_FINGER_TAP_MAX_PX && move2 < TWO_FINGER_TAP_MAX_PX) {
+							const float cx = (s_touch.twoDownX1 + s_touch.twoDownX2) * 0.5f;
+							const float cy = (s_touch.twoDownY1 + s_touch.twoDownY2) * 0.5f;
+							pushMousePosition(cx, cy);
+							pushMouseButton(GameMessage::MSG_RAW_MOUSE_RIGHT_BUTTON_DOWN, cx, cy);
+							pushMouseButton(GameMessage::MSG_RAW_MOUSE_RIGHT_BUTTON_UP, cx, cy);
 						} else {
-							s_touch.panLastPxX = s_touch.lastX;
-							s_touch.panLastPxY = s_touch.lastY;
+							if (event.tfinger.fingerID == s_touch.finger1) {
+								s_touch.finger1 = s_touch.finger2;
+								s_touch.lastX = s_touch.panLastPxX = s_touch.f2px;
+								s_touch.lastY = s_touch.panLastPxY = s_touch.f2py;
+							} else {
+								s_touch.panLastPxX = s_touch.lastX;
+								s_touch.panLastPxY = s_touch.lastY;
+							}
+							s_touch.finger2 = 0;
+							s_touch.phase = TouchState::PANNING;
+							continueAsSinglePan = true;
 						}
-						s_touch.finger2 = 0;
-						s_touch.phase = TouchState::PANNING;
-						continueAsSinglePan = true;
 					}
 					break;
 				default:
@@ -635,21 +658,6 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 			}
 		}
 		break;
-	}
-}
-
-// Called once per engine frame (not just per touch event): a perfectly
-// stationary finger produces no SDL events, so the long-press timer must be
-// polled from the frame loop or it would never fire.
-void updateTouchLongPress()
-{
-	if (s_touch.phase == TouchState::PENDING &&
-	    (SDL_GetTicks() - s_touch.downTicks) >= LONG_PRESS_MS) {
-		// No LMB was sent yet (deferred), so this is a pure right-click.
-		pushMousePosition(s_touch.downX, s_touch.downY);
-		pushMouseButton(GameMessage::MSG_RAW_MOUSE_RIGHT_BUTTON_DOWN, s_touch.downX, s_touch.downY);
-		pushMouseButton(GameMessage::MSG_RAW_MOUSE_RIGHT_BUTTON_UP, s_touch.downX, s_touch.downY);
-		s_touch.phase = TouchState::LONGPRESSED;
 	}
 }
 
@@ -1038,13 +1046,6 @@ void SDL3GameEngine::pollSDL3Events(void)
 
 		updateTextInputState();
 	}
-
-#if defined(SAGE_MOBILE_PLATFORM)
-	// Poll the long-press timer every frame; a stationary finger emits no events.
-	if (m_SDLWindow) {
-		updateTouchLongPress();
-	}
-#endif
 }
 
 // GeneralsX @bugfix felipebraz 01/04/2026 Enable SDL text input only while an entry gadget owns focus.
