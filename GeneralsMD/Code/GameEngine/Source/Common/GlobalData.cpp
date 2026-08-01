@@ -662,7 +662,24 @@ GlobalData::GlobalData()
 	m_useLightMap = FALSE;
 	m_bilinearTerrainTex = FALSE;
 	m_trilinearTerrainTex = FALSE;
+#if defined(__ANDROID__)
+	// GeneralsX @bugfix Android port 01/08/2026 TerrainTex.cpp's Apply()
+	// picks between two ways to blend an alpha-edge terrain tile onto its
+	// base tile: multipass (two clean draws) when m_multiPassTerrain is
+	// true, or a single-pass shortcut when it's false. That shortcut's own
+	// comment says exactly why it's risky: "This method is a backdoor
+	// specific to Nvidia based cards. It will fail on other hardware." No
+	// mobile GPU is Nvidia. Real-device testing on a Snapdragon 8 Elite
+	// (Adreno) showed a solid black fringe along every alpha-blended
+	// terrain edge (coastlines, rock/clutter bases) instead of a smooth
+	// blend -- exactly the kind of failure that comment warns about --
+	// while a Redmi Note 8 Pro (Mali-G76) happened not to hit it. Default
+	// to the safe multipass path on Android instead of gambling on which
+	// non-Nvidia GPUs tolerate the shortcut.
+	m_multiPassTerrain = TRUE;
+#else
 	m_multiPassTerrain = FALSE;
+#endif
 	m_adjustCliffTextures = FALSE;
 	m_stretchTerrain = FALSE;
 	m_useHalfHeightMap = FALSE;
