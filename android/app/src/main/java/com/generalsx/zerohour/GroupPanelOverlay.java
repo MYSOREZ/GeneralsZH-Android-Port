@@ -126,13 +126,16 @@ public class GroupPanelOverlay {
         }
         RelativeLayout.LayoutParams handleParams = new RelativeLayout.LayoutParams(
                 (int) (44 * density), (int) (44 * density));
-        handleParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+        // GeneralsX @tweak Android port 02/08/2026 Moved from bottom-right to
+        // bottom-left (above the minimap) per tester feedback.
+        handleParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
         handleParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-        handleParams.rightMargin = (int) (6 * density);
+        handleParams.leftMargin = (int) (6 * density);
         // GeneralsX @feature Android port 02/08/2026 Rough guess at clearing
-        // the engine's own command bar (rendered by the engine itself, not
-        // an Android view, so there's no layout API to ask its real height)
-        // -- adjust this margin after seeing it in game if it overlaps.
+        // the engine's own minimap/command bar (rendered by the engine
+        // itself, not an Android view, so there's no layout API to ask its
+        // real height) -- adjust this margin after seeing it in game if it
+        // overlaps.
         handleParams.bottomMargin = (int) (150 * density);
         handle.setLayoutParams(handleParams);
         handle.setOnClickListener(v -> setExpanded(!expanded));
@@ -145,9 +148,9 @@ public class GroupPanelOverlay {
         panel.setVisibility(View.GONE);
         RelativeLayout.LayoutParams panelParams = new RelativeLayout.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT, (int) (40 * density));
-        panelParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+        panelParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
         panelParams.addRule(RelativeLayout.ABOVE, handle.getId());
-        panelParams.rightMargin = (int) (6 * density);
+        panelParams.leftMargin = (int) (6 * density);
         panelParams.bottomMargin = (int) (4 * density);
         root.addView(panel, panelParams);
 
