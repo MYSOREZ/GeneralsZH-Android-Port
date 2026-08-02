@@ -47,12 +47,12 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
-import com.google.android.material.materialswitch.MaterialSwitch;
 import com.google.android.material.slider.Slider;
 
 import java.io.File;
@@ -906,7 +906,7 @@ public class SetupActivity extends Activity {
         R.string.setup_switch_gx_trace_desc, R.string.setup_switch_gx_perf_desc, R.string.setup_switch_dxvk_hud_desc,
         R.string.setup_switch_dxvk_validation_desc, R.string.setup_switch_dxvk_verbose_log_desc
     };
-    private final MaterialSwitch[] diagnosticSwitches = new MaterialSwitch[DIAGNOSTIC_MARKERS.length];
+    private final SwitchCompat[] diagnosticSwitches = new SwitchCompat[DIAGNOSTIC_MARKERS.length];
 
     private void buildDiagnosticsSection(LinearLayout root) {
         LinearLayout content = startCard(root, getString(R.string.setup_card_diagnostics));
@@ -924,7 +924,7 @@ public class SetupActivity extends Activity {
         content.addView(diagnosticsNoFolderHint);
 
         for (int i = 0; i < DIAGNOSTIC_MARKERS.length; i++) {
-            MaterialSwitch sw = new MaterialSwitch(this);
+            SwitchCompat sw = new SwitchCompat(this);
             sw.setText(getString(DIAGNOSTIC_TITLES[i]));
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -975,7 +975,7 @@ public class SetupActivity extends Activity {
         }
         for (int i = 0; i < DIAGNOSTIC_MARKERS.length; i++) {
             final int index = i;
-            MaterialSwitch sw = diagnosticSwitches[index];
+            SwitchCompat sw = diagnosticSwitches[index];
             if (sw == null) {
                 continue;
             }
