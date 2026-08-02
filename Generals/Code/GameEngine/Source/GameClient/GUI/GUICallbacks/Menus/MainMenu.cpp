@@ -54,6 +54,7 @@
 #include "GameClient/KeyDefs.h"
 #include "GameClient/GameWindowManager.h"
 #include "GameClient/GadgetStaticText.h"
+#include "GameClient/GlobalLanguage.h"
 #include "GameClient/Mouse.h"
 #include "GameClient/WindowVideoManager.h"
 #include "GameClient/CampaignManager.h"
@@ -433,7 +434,9 @@ static void initLabelVersion()
 			if (fallbackCreditLabel)
 			{
 				// GeneralsX @tweak BenderAI 31/03/2026 Keep fallback watermark subtle and aligned to bottom-left target placement.
-				fallbackCreditLabel->winSetFont(TheWindowManager->winFindFont("Arial", 12, FALSE));
+				// Scaled via GlobalLanguage::adjustFontSize() like every other font, instead of a hardcoded 12pt that stayed tiny on high-DPI screens.
+				Int creditFontSize = TheGlobalLanguageData ? TheGlobalLanguageData->adjustFontSize( 12 ) : 12;
+				fallbackCreditLabel->winSetFont(TheWindowManager->winFindFont("Arial", creditFontSize, FALSE));
 				fallbackCreditLabel->winSetEnabledTextColors(GameMakeColor(255, 220, 60, 255), GameMakeColor(0, 0, 0, 0));
 				GadgetStaticTextSetText(fallbackCreditLabel, creditText);
 			}
@@ -852,7 +855,9 @@ void MainMenuUpdate( WindowLayout *layout, void *userData )
 
 			if (updateNotifyButton)
 			{
-				GameFont* font = TheWindowManager->winFindFont("Arial", 10, FALSE);
+				// Scaled via GlobalLanguage::adjustFontSize() like every other font, instead of a hardcoded 10pt that stayed tiny on high-DPI screens.
+				Int notifyFontSize = TheGlobalLanguageData ? TheGlobalLanguageData->adjustFontSize( 10 ) : 10;
+				GameFont* font = TheWindowManager->winFindFont("Arial", notifyFontSize, FALSE);
 				if (font)
 					updateNotifyButton->winSetFont(font);
 

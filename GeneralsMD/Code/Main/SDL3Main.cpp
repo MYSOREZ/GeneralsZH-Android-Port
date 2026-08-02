@@ -59,6 +59,7 @@
 #include <jni.h>
 #include <dlfcn.h>
 #include <adrenotools/driver.h>
+#include <android/api-level.h>
 #endif
 #include <cstdlib>
 #include <cctype>
@@ -294,7 +295,18 @@ static void TryLoadCustomVulkanDriver(const char *internalPath)
 	}
 
 	char driverDir[1024];
-	snprintf(driverDir, sizeof(driverDir), "%s/custom_driver", internalPath);
+	// GeneralsX @bugfix Android port 01/08/2026 adrenotools_open_libvulkan()
+	// internally does `std::string(customDriverDir) + customDriverName` with
+	// NO separator inserted (driver.cpp, right before the pre-flight stat()
+	// check) -- customDriverDir must already carry its own trailing slash, or
+	// the concatenated path is garbage (".../custom_driverlibvulkan_x.so"
+	// instead of ".../custom_driver/libvulkan_x.so") and stat() fails before
+	// dlopen() is ever reached, which is exactly why adding a dlerror() log
+	// to the failure path earlier showed "(none)" -- the failure was a plain
+	// ENOENT from stat(), never a dlopen() error at all. This has silently
+	// broken every custom-driver (Turnip) import on Android since the
+	// feature was added.
+	snprintf(driverDir, sizeof(driverDir), "%s/custom_driver/", internalPath);
 	if (access(driverDir, R_OK) != 0) {
 		fprintf(stderr, "WARNING: custom_driver.cfg names '%s' but %s doesn't exist -- using stock Vulkan driver\n",
 		        driverName, driverDir);
@@ -339,6 +351,25 @@ static void TryLoadCustomVulkanDriver(const char *internalPath)
 	}
 
 	void *mappingHandle = nullptr;
+	// GeneralsX @bugfix Android port 01/08/2026 The trailing-slash fix above
+	// (commit 453bb4ec6) didn't resolve the real-device failure -- still
+	// "(none)" from dlerror() after that fix too, meaning either the stat()
+	// pre-check still isn't finding the file for some OTHER reason, or the
+	// failure is actually happening at one of adrenotools' EARLIER,
+	// dlopen()-independent bail-outs (driver.cpp: linkernsbypass_load_status()
+	// failing "probably means we're on api < 28", or the isolated-namespace
+	// creation/linking step) -- both return nullptr just as silently as the
+	// stat() check does. Replicate adrenotools' own concatenation and stat()
+	// here, and log the device API level, to see exactly which one it is.
+	{
+		std::string probePath = std::string(driverDir) + driverName;
+		struct stat probeBuf{};
+		int probeResult = stat(probePath.c_str(), &probeBuf);
+		fprintf(stderr, "INFO: TryLoadCustomVulkanDriver probe: path='%s' stat=%d (errno=%d: %s) apiLevel=%d\n",
+		        probePath.c_str(), probeResult, probeResult == 0 ? 0 : errno,
+		        probeResult == 0 ? "ok" : strerror(errno),
+		        android_get_device_api_level());
+	}
 	void *lib = adrenotools_open_libvulkan(
 		RTLD_NOW,
 		ADRENOTOOLS_DRIVER_CUSTOM,
@@ -350,8 +381,15 @@ static void TryLoadCustomVulkanDriver(const char *internalPath)
 		&mappingHandle);
 
 	if (lib == nullptr) {
-		fprintf(stderr, "WARNING: adrenotools_open_libvulkan('%s') failed -- falling back to stock Vulkan driver\n",
-		        driverName);
+		// GeneralsX @bugfix Android port 01/08/2026 adrenotools_open_libvulkan()
+		// wraps dlopen() internally for the actual driver .so; dlerror() often
+		// carries the real reason (missing dependency symbol, wrong ELF class,
+		// etc.) that the plain nullptr return on its own doesn't. Real-device
+		// testing (Turnip import on a Snapdragon 8 Elite / Adreno 830) hit this
+		// exact failure with no further detail previously logged.
+		const char *dlErr = dlerror();
+		fprintf(stderr, "WARNING: adrenotools_open_libvulkan('%s') failed -- falling back to stock Vulkan driver (dlerror: %s)\n",
+		        driverName, dlErr ? dlErr : "(none)");
 		return;
 	}
 	fprintf(stderr, "INFO: Loaded custom Vulkan driver '%s' via libadrenotools (hookLibDir=%s)\n",
@@ -764,6 +802,27 @@ int main(int argc, char* argv[])
 				fclose(vvlMarker);
 				setenv("DXVK_DEBUG", "validation", 1);
 				fprintf(stderr, "INFO: dxvk_validation.txt found -- Vulkan validation layer requested (DXVK_DEBUG=validation)\n");
+			}
+
+			// GeneralsX @feature Android port 01/08/2026 Same opt-in UX again:
+			// dxvk_verbose_log.txt bumps DXVK_LOG_LEVEL from this build's
+			// default of "error" (set above) up to "info", which is what makes
+			// DXVK's "Presenter: Actual swapchain properties" line (format,
+			// present mode, image count, composite alpha) show up in
+			// generals-stderr.log. That line is normally silent, and it's the
+			// only way to see what compositeAlpha/present mode a specific
+			// device's driver actually negotiated (e.g. tracking down a
+			// device-specific screenshot/task-switcher-only rendering
+			// artifact) without an adb-attached logcat. Overwrite=1 so this
+			// marker always wins over the "error" default above, and the
+			// overhead (a handful of one-line-per-swapchain-recreation logs)
+			// is negligible compared to dxvk_validation.txt's, so it's safe
+			// to leave enabled for a whole repro session.
+			FILE *verboseMarker = fopen("dxvk_verbose_log.txt", "r");
+			if (verboseMarker != nullptr) {
+				fclose(verboseMarker);
+				setenv("DXVK_LOG_LEVEL", "info", 1);
+				fprintf(stderr, "INFO: dxvk_verbose_log.txt found -- DXVK_LOG_LEVEL=info\n");
 			}
 
 			// GeneralsX @feature Android port 30/07/2026 DXVK's HUD, same

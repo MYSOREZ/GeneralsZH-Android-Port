@@ -170,8 +170,13 @@ for lib in "$GAME_LIB" \
 done
 
 export GX_ANDROID_STAGING="${REPO}/android-staging"
-export GX_ANDROID_VERSION_CODE=""
-export GX_ANDROID_VERSION_NAME=""
+# GeneralsX @feature Android port 01/08/2026 Respect a caller-provided
+# override instead of always clearing it -- lets a one-off diagnostic build
+# force a distinct versionCode/versionName so a tester can be certain a
+# fresh APK actually replaced the one already installed on their device,
+# rather than relying on the debug keystore's default 100/1.0.0 every time.
+export GX_ANDROID_VERSION_CODE="${GX_ANDROID_VERSION_CODE:-}"
+export GX_ANDROID_VERSION_NAME="${GX_ANDROID_VERSION_NAME:-}"
 if [ -x /opt/gradle/bin/gradle ]; then
   export PATH="/opt/gradle/bin:$PATH"
 fi

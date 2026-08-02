@@ -3525,8 +3525,11 @@ void ControlBar::populateSpecialPowerShortcut( Player *player)
 				}
 			}
 
-			DEBUG_ASSERTCRASH(m_specialPowerShortcutButtons[ currentButton ] != nullptr, ("m_specialPowerShortcutButtons[%d] is null", currentButton));
-			DEBUG_ASSERTCRASH(m_specialPowerShortcutButtonParents[ currentButton ] != nullptr, ("m_specialPowerShortcutButtonParents[%d] is null", currentButton));
+			if( m_specialPowerShortcutButtons[ currentButton ] == nullptr
+				|| m_specialPowerShortcutButtonParents[ currentButton ] == nullptr )
+			{
+				continue;
+			}
 
 			// make sure the window is not hidden
 			m_specialPowerShortcutButtons[ currentButton ]->winHide( FALSE );
@@ -3560,6 +3563,8 @@ Bool ControlBar::hasAnyShortcutSelection() const
 		const CommandButton *command;
 
 		win = m_specialPowerShortcutButtons[ i ];
+		if( win == nullptr )
+			continue;
 		if( win->winIsHidden() == TRUE )
 			continue;
 
@@ -3637,6 +3642,8 @@ void ControlBar::updateSpecialPowerShortcut()
 		const CommandButton *command;
 		// get the window
 		win = m_specialPowerShortcutButtons[ i ];
+		if( win == nullptr )
+			continue;
 
 		if( win->winIsHidden() == TRUE )
 			continue;
@@ -3729,6 +3736,8 @@ void ControlBar::drawSpecialPowerShortcutMultiplierText()
 		const CommandButton *command;
 		// get the window
 		win = m_specialPowerShortcutButtons[ i ];
+		if( win == nullptr )
+			continue;
 
 		if( win->winIsHidden() == TRUE )
 			continue;
@@ -3781,7 +3790,7 @@ void ControlBar::animateSpecialPowerShortcut( Bool isOn )
 	Bool dontAnimate = TRUE;
 	for( Int i = 0; i < m_currentlyUsedSpecialPowersButtons; ++i )
 	{
-		if (m_specialPowerShortcutButtons[i]->winGetUserData())
+		if (m_specialPowerShortcutButtons[i] && m_specialPowerShortcutButtons[i]->winGetUserData())
 		{
 			dontAnimate = FALSE;
 			break;
@@ -3809,7 +3818,7 @@ void ControlBar::showSpecialPowerShortcut()
 	Bool dontAnimate = TRUE;
 	for( Int i = 0; i < m_currentlyUsedSpecialPowersButtons; ++i )
 	{
-		if (m_specialPowerShortcutButtons[i]->winGetUserData())
+		if (m_specialPowerShortcutButtons[i] && m_specialPowerShortcutButtons[i]->winGetUserData())
 		{
 			dontAnimate = FALSE;
 			break;
@@ -3852,8 +3861,12 @@ GameFont *ControlBar::overrideTooltipGadgetFont( GameWindow *win )
 	if( TheGlobalLanguageData && TheGlobalLanguageData->m_unicodeFontName.isNotEmpty() )
 		fontName = TheGlobalLanguageData->m_unicodeFontName;
 
-	// Get the font from the font library (12pt, not bold)
-	GameFont *newFont = TheFontLibrary->getFont( fontName, 12, FALSE );
+	// Get the font from the font library (12pt, not bold), scaled the same way every other
+	// font in the game is scaled for high resolutions (GlobalLanguage::adjustFontSize(),
+	// user-adjustable via the Setup screen's "Menu Text Size" slider). This call site used to
+	// request a hardcoded 12pt, leaving tooltips tiny on high-DPI screens.
+	Int tooltipPointSize = TheGlobalLanguageData ? TheGlobalLanguageData->adjustFontSize( 12 ) : 12;
+	GameFont *newFont = TheFontLibrary->getFont( fontName, tooltipPointSize, FALSE );
 	if( !newFont )
 		return nullptr;
 
