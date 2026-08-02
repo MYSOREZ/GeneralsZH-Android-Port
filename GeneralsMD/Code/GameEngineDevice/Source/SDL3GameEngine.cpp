@@ -620,6 +620,22 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 			}
 			s_touch.phase = TouchState::TWOFINGER;
 		}
+		else if (s_touch.phase == TouchState::PLACING) {
+			// GeneralsX @feature Android port 02/08/2026 A second finger
+			// landing while already rotating a pending building has no other
+			// meaning here (PLACING deliberately doesn't support two-finger
+			// pan/zoom -- see the file-header design note), so treat it as an
+			// immediate cancel instead of ignoring it: the only way to back
+			// out mid-rotation would otherwise be dragging to an illegal spot,
+			// releasing, and THEN doing a separate two-finger tap. This also
+			// clears the anchor/ghost icon (setPlacementStart(nullptr) +
+			// destroyPlacementIcons() inside placeBuildAvailable()), so
+			// finger1's subsequent motion/up events land as harmless no-ops.
+			if (TheInGameUI) {
+				TheInGameUI->placeBuildAvailable(nullptr, nullptr);
+			}
+			s_touch.phase = TouchState::IDLE;
+		}
 		// TWOFINGER with a third finger: ignored
 		break;
 
