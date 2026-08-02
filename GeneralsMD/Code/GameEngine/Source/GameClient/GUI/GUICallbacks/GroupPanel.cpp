@@ -300,19 +300,30 @@ void GroupPanelShutdown(WindowLayout *layout, void *userData)
 WindowMsgHandledType GroupPanelSystem(GameWindow *window, UnsignedInt msg,
 																			 WindowMsgData mData1, WindowMsgData mData2)
 {
-	(void)window;
 	(void)mData2;
 
 	switch (msg) {
 
 		case GWM_CREATE:
 		{
+			// GeneralsX @bugfix Android port 02/08/2026 GWM_CREATE fires the
+			// instant winCreate() makes EACH window in this layout, including
+			// the parent -- BEFORE any of its children exist yet (they're
+			// created afterward, while parsing the CHILD block). Looking
+			// GroupRow up by name here on the parent's own GWM_CREATE always
+			// found nothing and silently no-opped, so the row kept whatever
+			// GameWindow's own default visibility is (visible) instead of
+			// starting collapsed. cacheWidgetIDs() itself is safe to call
+			// this early -- it only hashes names into keys, independent of
+			// whether the matching window exists yet -- so by the time
+			// GroupRow's OWN GWM_CREATE arrives (matching its own window id),
+			// s_groupRowID is already correct and it can hide itself directly.
 			cacheWidgetIDs();
-			GameWindow *groupRow = TheWindowManager->winGetWindowFromId(nullptr, s_groupRowID);
-			if (groupRow) {
-				groupRow->winHide(TRUE);
+			Int controlID = window->winGetWindowId();
+			if (controlID == s_groupRowID) {
+				window->winHide(TRUE);
+				s_groupRowExpanded = FALSE;
 			}
-			s_groupRowExpanded = FALSE;
 			break;
 		}
 

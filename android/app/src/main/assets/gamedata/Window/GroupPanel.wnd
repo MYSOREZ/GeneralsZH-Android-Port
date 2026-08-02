@@ -99,7 +99,7 @@ WINDOW
     NAME = "GroupPanel.wnd:GroupRow";
     STATUS = ENABLED+NOFOCUS;
     STYLE = USER;
-    SYSTEMCALLBACK = "[None]";
+    SYSTEMCALLBACK = "GroupPanelSystem";
     INPUTCALLBACK = "[None]";
     TOOLTIPCALLBACK = "[None]";
     DRAWCALLBACK = "[None]";
