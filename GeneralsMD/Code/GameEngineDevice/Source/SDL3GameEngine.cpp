@@ -310,60 +310,91 @@ const float TWO_FINGER_TAP_MAX_PX = 24.0f;
 const float ZOOM_PX_PER_TICK = 40.0f; // calibration only -- see ZOOM_HEIGHT_PER_PIXEL below
 
 // GeneralsX @feature Android port 01/08/2026 Native camera control constants.
-// Pan and zoom call TheTacticalView directly (userScrollBy/userZoom) every
-// touch-motion event, instead of synthesizing mouse motion/wheel events for
-// SDL3Mouse.cpp and the message-stream translators (LookAtXlat.cpp) to
-// reinterpret. No fake cursor, no click/drag timing heuristics sized for a
-// physical mouse -- the finger IS the camera control.
+// Pan and zoom call TheTacticalView directly (userScrollBy/userSetPosition,
+// userZoom) every touch-motion event. No fake cursor, no click/drag timing
+// heuristics sized for a physical mouse -- the finger IS the camera control.
 //
 // GeneralsX @bugfix Android port 01/08/2026 The first cut passed the
 // finger's raw NORMALIZED (0..1 window-fraction) per-frame delta straight
-// into userScrollBy(), reasoning "scrollBy's own comment says screen
-// coordinates, so a 0..1 fraction is the right order of magnitude" -- that
-// reasoning was simply wrong. Reading W3DView::scrollBy()'s actual body
-// (Core/GameEngineDevice/.../W3DView.cpp): `start.X = getWidth()` (a
-// literal PIXEL count, not a 0..1 fraction) and
-// `end.X = start.X + delta->x * SCROLL_RESOLUTION`, so delta->x*250 is
-// added to a pixel-space coordinate -- delta is denominated in
-// "pixels / 250", not "fraction of window". A normalized delta of, say,
-// 0.01 (a small but real drag) times SCROLL_RESOLUTION is 2.5 device-space
-// units against a ~2500px-wide screen -- an imperceptible camera nudge.
-// Reported as "controls don't work" (they were "working", just by a
-// fraction of a pixel per frame). Fixed by using the finger's actual PIXEL
-// delta divided by the same SCROLL_RESOLUTION scrollBy() itself divides
-// by, which is the literal definition of "make the world point under the
-// finger track the finger" -- PAN_SENSITIVITY=1.0 means exactly that; only
-// change it for a deliberate faster/slower feel, not to compensate for a
-// wrong base unit again.
-const float SCROLL_RESOLUTION = 250.0f; // must match W3DView::scrollBy()'s own constant
-const float PAN_SENSITIVITY = 1.0f;
+// into userScrollBy(); the second cut fixed that to a real PIXEL delta
+// divided by W3DView::scrollBy()'s own SCROLL_RESOLUTION=250 constant,
+// reasoning that matching scrollBy()'s own internal divisor was sufficient.
+// It wasn't: real device logs (GX_TRACE'd applyCameraPan calls during an
+// actual on-device drag) showed userScrollBy() being called every motion
+// event, never locked, with a nonzero delta each time -- and the camera's
+// getPosition2D() moving by roughly 0.02-0.1 world units per call against a
+// position around 1300-2000. A drag summing to 500+ screen pixels only
+// moved the camera a few TENTHS of a world unit total: real motion, just
+// three-plus orders of magnitude too small to ever be visible. scrollBy()'s
+// SCROLL_RESOLUTION constant was tuned against the OLD PC RMB-drag path
+// (LookAtXlat.cpp's SCROLL_RMB, its own separate SCROLL_AMT/SCROLL_MULTIPLIER
+// constants, called every FRAME while held, not once per motion event) --
+// matching just the one constant it shares was nowhere near enough to
+// reproduce that path's actual feel, and nobody had verified the real
+// on-screen result until now.
+//
+// Fixed by abandoning scrollBy()'s pixel-based formula entirely in favor of
+// the same ground projection the engine already uses elsewhere for exactly
+// this purpose (SelectionXlat.cpp's mouseover-terrain hint):
+// View::screenToTerrain(). Project the finger's previous and current screen
+// position to world/terrain coordinates using the CURRENT (not-yet-moved)
+// camera, and move the camera by the difference -- this is dimensionally
+// exact by construction (it's asking "where does this screen point actually
+// sit on the ground", not guessing a pixel-to-world ratio) and adapts
+// automatically to zoom level, camera angle, and screen resolution, unlike
+// a fixed constant. Applied via userSetPosition() (a direct position
+// setter) rather than userScrollBy(), since scrollBy()'s own pixel-delta
+// reinterpretation is exactly what we're bypassing.
+//
 // ZOOM_HEIGHT_PER_PIXEL: calibrated against the exact sensitivity the old
 // discrete wheel-tick zoom already used and was tuned for (ZOOM_PX_PER_TICK
 // pixels of pinch movement == one wheel tick == View::ZoomHeightPerSecond
-// world-height-units), just made continuous instead of stepped. This one
-// was already in real pixels, not normalized -- unaffected by the bug above.
+// world-height-units), just made continuous instead of stepped. Zoom's
+// calibration was never in question -- it doesn't route through scrollBy()
+// at all, and real device logs confirm userZoom() moves the camera by a
+// visible amount (single-digit to low-double-digit world-height-units) on
+// every call.
 const float ZOOM_HEIGHT_PER_PIXEL = (float)View::ZoomHeightPerSecond / ZOOM_PX_PER_TICK;
 
-// Applies a one-frame camera pan from a PIXEL (window-point) finger delta.
-// Sign: dragging the finger left/up should make the world appear to follow
-// the finger (drag-the-map feel), so the camera itself moves the opposite way.
-void applyCameraPan(float pixelDX, float pixelDY)
+// Applies a camera pan by projecting the finger's previous and current
+// screen position onto the ground (View::screenToTerrain) and moving the
+// camera by the resulting world-space difference -- see the @bugfix comment
+// above for why this replaced a pixel-delta formula. Sign: the ground point
+// that was under the finger before should be under the finger after (drag-
+// the-map feel), so the camera moves by (worldAtOldScreenPos -
+// worldAtNewScreenPos), using the CURRENT camera for both projections.
+void applyCameraPan(float fromPxX, float fromPxY, float toPxX, float toPxY)
 {
 	if (!TheTacticalView) {
-		GX_TRACE("applyCameraPan: TheTacticalView is null, dropping dx=%.2f dy=%.2f\n", pixelDX, pixelDY);
+		GX_TRACE("applyCameraPan: TheTacticalView is null, dropping from(%.2f,%.2f) to(%.2f,%.2f)\n",
+		         fromPxX, fromPxY, toPxX, toPxY);
 		return;
 	}
-	Coord2D delta;
-	delta.x = -pixelDX / SCROLL_RESOLUTION * PAN_SENSITIVITY;
-	delta.y = -pixelDY / SCROLL_RESOLUTION * PAN_SENSITIVITY;
-	if (delta.x != 0.0f || delta.y != 0.0f) {
-		const Coord2D before = TheTacticalView->getPosition2D();
-		const Bool locked = TheTacticalView->isUserControlLocked();
-		TheTacticalView->userScrollBy(&delta);
-		const Coord2D after = TheTacticalView->getPosition2D();
-		GX_TRACE("applyCameraPan: px(%.2f,%.2f) delta(%.4f,%.4f) locked=%d pos(%.2f,%.2f)->(%.2f,%.2f)\n",
-		         pixelDX, pixelDY, delta.x, delta.y, (int)locked, before.x, before.y, after.x, after.y);
+	ICoord2D fromScreen, toScreen;
+	fromScreen.x = (Int)fromPxX;
+	fromScreen.y = (Int)fromPxY;
+	toScreen.x = (Int)toPxX;
+	toScreen.y = (Int)toPxY;
+
+	Coord3D worldFrom, worldTo;
+	const Bool fromOk = TheTacticalView->screenToTerrain(&fromScreen, &worldFrom);
+	const Bool toOk = TheTacticalView->screenToTerrain(&toScreen, &worldTo);
+	if (!fromOk || !toOk) {
+		// Finger is pointing off the playable terrain (past the map edge,
+		// or above the horizon at a steep camera angle) -- skip this one
+		// increment rather than pan by a bogus/undefined amount.
+		GX_TRACE("applyCameraPan: screenToTerrain failed fromOk=%d toOk=%d screen(%d,%d)->(%d,%d)\n",
+		         (int)fromOk, (int)toOk, fromScreen.x, fromScreen.y, toScreen.x, toScreen.y);
+		return;
 	}
+
+	Coord3D pos = TheTacticalView->getPosition();
+	const Bool locked = TheTacticalView->isUserControlLocked();
+	pos.x += (worldFrom.x - worldTo.x);
+	pos.y += (worldFrom.y - worldTo.y);
+	TheTacticalView->userSetPosition(pos);
+	GX_TRACE("applyCameraPan: screen(%.2f,%.2f)->(%.2f,%.2f) worldDelta(%.4f,%.4f) locked=%d\n",
+	         fromPxX, fromPxY, toPxX, toPxY, worldFrom.x - worldTo.x, worldFrom.y - worldTo.y, (int)locked);
 }
 
 // Applies a one-frame camera zoom from a change in inter-finger pixel
@@ -513,7 +544,7 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 			}
 		}
 		else if (s_touch.phase == TouchState::PANNING && event.tfinger.fingerID == s_touch.finger1) {
-			applyCameraPan(px - s_touch.panLastPxX, py - s_touch.panLastPxY);
+			applyCameraPan(s_touch.panLastPxX, s_touch.panLastPxY, px, py);
 			s_touch.panLastPxX = px;
 			s_touch.panLastPxY = py;
 		}
@@ -523,7 +554,7 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 			// pan-vs-zoom classifier.
 			const float cx = (s_touch.f1px + s_touch.f2px) * 0.5f;
 			const float cy = (s_touch.f1py + s_touch.f2py) * 0.5f;
-			applyCameraPan(cx - s_touch.twoCentroidLastX, cy - s_touch.twoCentroidLastY);
+			applyCameraPan(s_touch.twoCentroidLastX, s_touch.twoCentroidLastY, cx, cy);
 			s_touch.twoCentroidLastX = cx;
 			s_touch.twoCentroidLastY = cy;
 
