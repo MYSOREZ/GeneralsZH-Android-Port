@@ -481,6 +481,19 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 	const float px = event.tfinger.x * (float)winW;
 	const float py = event.tfinger.y * (float)winH;
 
+	// GeneralsX @feature Android port 02/08/2026 Unconditional per-event trace
+	// -- reported "panning freezes mid-drag near my command center/units,
+	// have to lift and re-place my finger". Static review of applyCameraPan()
+	// found nothing that treats a drawable (building/unit) differently from
+	// bare terrain, and the previous log showed no run of degenerate
+	// (near-zero) deltas that would explain a freeze -- so either events stop
+	// arriving from SDL entirely during the freeze (an OS/driver-level
+	// thing), or something resets s_touch.phase away from PANNING that this
+	// file's existing traces don't cover. Logging every raw event (not just
+	// the ones that end up calling applyCameraPan) answers which.
+	GX_TRACE("handleTouchEvent: type=%u finger=%llu phase=%d px(%.2f,%.2f)\n",
+	         (unsigned)event.type, (unsigned long long)event.tfinger.fingerID, (int)s_touch.phase, px, py);
+
 	switch (event.type) {
 	case SDL_EVENT_FINGER_DOWN:
 		if (s_touch.phase == TouchState::IDLE) {
