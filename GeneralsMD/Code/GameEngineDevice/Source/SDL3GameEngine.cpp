@@ -44,6 +44,7 @@
 #include "Common/Player.h"
 #include "Common/PlayerList.h"
 #include "GameLogic/Squad.h"
+#include "GameLogic/GameLogic.h"
 #include "W3DDevice/GameLogic/W3DGameLogic.h"
 #include "W3DDevice/GameClient/W3DGameClient.h"
 #include "W3DDevice/Common/W3DModuleFactory.h"
@@ -1766,15 +1767,30 @@ Java_com_generalsx_zerohour_GeneralsZHActivity_nativeGetGroupOccupancyMask(JNIEn
 	return mask;
 }
 
-// GeneralsX @feature Android port 02/08/2026 The group overlay must hide
-// itself in the main menu/lobby/shell screens -- there's no active local
-// player/squads there, and control groups only mean anything mid-match.
-// Same TheShell->isShellActive() flag applyCameraPan()/applyCameraZoom()
-// already gate touch camera control on above.
+// GeneralsX @bugfix Android port 02/08/2026 The group overlay must hide
+// itself outside of real, already-started gameplay -- reported visible
+// during the initial black loading screen and the pre-match general-
+// briefing/army-summary screen (map preview + player list, before the
+// simulation actually starts), neither of which TheShell->isShellActive()
+// alone catches: the briefing screen already has TheGameLogic in
+// GAME_SKIRMISH mode (isInInteractiveGame() true) even though nothing is
+// simulating yet. TheGameLogic->getFrame() is the precise tell -- it stays
+// at 0 through both the loading screen and the briefing screen, confirmed
+// by the frame counter visibly reading 00:00:00:00 in the reported
+// screenshot of the briefing screen (vs. a real elapsed count once
+// gameplay is actually running) -- and only starts advancing once the
+// match truly begins, which is also exactly when there's a real local
+// player/squads for the group buttons to act on.
 extern "C" JNIEXPORT jboolean JNICALL
-Java_com_generalsx_zerohour_GeneralsZHActivity_nativeIsShellActive(JNIEnv *, jclass)
+Java_com_generalsx_zerohour_GeneralsZHActivity_nativeIsGameplayActive(JNIEnv *, jclass)
 {
-	return (TheShell && TheShell->isShellActive()) ? JNI_TRUE : JNI_FALSE;
+	if (TheShell && TheShell->isShellActive()) {
+		return JNI_FALSE;
+	}
+	if (!TheGameLogic || !TheGameLogic->isInInteractiveGame() || TheGameLogic->getFrame() == 0) {
+		return JNI_FALSE;
+	}
+	return JNI_TRUE;
 }
 #endif // __ANDROID__
 

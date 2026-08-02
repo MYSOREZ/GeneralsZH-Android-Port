@@ -69,15 +69,36 @@ public class GroupPanelOverlay {
     // against any terrain color.
     private static final int COLOR_HANDLE = Color.argb(235, 220, 160, 40);
     private static final int COLOR_HANDLE_BORDER = Color.argb(255, 255, 235, 180);
-    private static final int COLOR_PANEL_BG = Color.argb(210, 20, 20, 20);
-    private static final int COLOR_BUTTON_EMPTY = Color.argb(200, 90, 90, 90);
-    private static final int COLOR_BUTTON_OCCUPIED = Color.argb(230, 60, 160, 60);
+    // GeneralsX @bugfix Android port 02/08/2026 Reported "stylistically out
+    // of place" -- plain gray Android buttons next to the game's own
+    // steel/gold-trimmed HUD panels. Dark steel-green panel + gold-bordered
+    // buttons matches the command bar's own look (dark green-gray metal,
+    // gold/bronze trim and text) instead of a generic system control.
+    private static final int COLOR_PANEL_BG = Color.argb(225, 28, 36, 32);
+    private static final int COLOR_BUTTON_BORDER = Color.argb(255, 195, 165, 90);
+    private static final int COLOR_BUTTON_EMPTY = Color.argb(230, 42, 52, 47);
+    private static final int COLOR_BUTTON_OCCUPIED = Color.argb(235, 70, 130, 60);
 
     private final View handle;
     private final LinearLayout panel;
     private final Button[] groupButtons = new Button[GROUP_COUNT];
     private final Handler handler = new Handler(Looper.getMainLooper());
     private boolean expanded = false;
+    // GeneralsX @bugfix Android port 02/08/2026 A tester's very first try --
+    // select a worker, tap "1" -- cleared the selection instead of assigning
+    // it, because a plain tap on an EMPTY group recalls (and finds) nothing,
+    // deselecting everything in the process (matches PC: bare "1" selects,
+    // Ctrl+1 assigns, and pressing bare "1" on an empty group behaves
+    // identically there too -- but a first-time toucher has no reason to
+    // already know the long-press-to-assign convention). Since a group can
+    // only ever be legitimately recalled AFTER it's been assigned at least
+    // once, a tap on a still-empty group has no useful "recall" meaning to
+    // begin with -- reinterpreting it as assign there costs nothing and
+    // fixes exactly this. Once a group has real members, tap goes back to
+    // being a normal recall (the frequent, common case during a match);
+    // long-press still always assigns/replaces a group's members regardless
+    // of occupancy.
+    private int lastOccupancyMask = 0;
 
     private final Runnable refreshRunnable = new Runnable() {
         @Override
@@ -89,18 +110,22 @@ public class GroupPanelOverlay {
         }
     };
 
-    // GeneralsX @feature Android port 02/08/2026 Control groups only mean
-    // anything mid-match -- there's no local player/squads in the main
-    // menu/lobby/shell screens, and showing the handle there is just visual
-    // clutter. Runs for the whole lifetime of the overlay (unlike
-    // refreshRunnable, which only runs while expanded), since this is what
-    // decides whether the handle itself is even visible.
+    // GeneralsX @bugfix Android port 02/08/2026 Control groups only mean
+    // anything mid-match. Reported visible during the initial black
+    // loading screen and the pre-match general-briefing screen -- checking
+    // only TheShell->isShellActive() (native side) wasn't enough, since
+    // the briefing screen already has an interactive game mode set even
+    // though the simulation hasn't started ticking yet. See
+    // nativeIsGameplayActive()'s comment in SDL3GameEngine.cpp for the
+    // precise frame-count-based check. Runs for the whole lifetime of the
+    // overlay (unlike refreshRunnable, which only runs while expanded),
+    // since this is what decides whether the handle itself is even visible.
     private final Runnable shellPollRunnable = new Runnable() {
         @Override
         public void run() {
-            boolean shellActive = GeneralsZHActivity.nativeIsShellActive();
-            handle.setVisibility(shellActive ? View.GONE : View.VISIBLE);
-            if (shellActive && expanded) {
+            boolean gameplayActive = GeneralsZHActivity.nativeIsGameplayActive();
+            handle.setVisibility(gameplayActive ? View.VISIBLE : View.GONE);
+            if (!gameplayActive && expanded) {
                 setExpanded(false);
             }
             handler.postDelayed(this, SHELL_POLL_INTERVAL_MS);
@@ -144,10 +169,17 @@ public class GroupPanelOverlay {
         panel = new LinearLayout(context);
         panel.setId(View.generateViewId());
         panel.setOrientation(LinearLayout.HORIZONTAL);
-        panel.setBackgroundColor(COLOR_PANEL_BG);
+        {
+            GradientDrawable bg = new GradientDrawable();
+            bg.setColor(COLOR_PANEL_BG);
+            bg.setStroke((int) (1.5f * density), COLOR_BUTTON_BORDER);
+            bg.setCornerRadius(4 * density);
+            panel.setBackground(bg);
+        }
+        panel.setPadding((int) (4 * density), (int) (4 * density), (int) (4 * density), (int) (4 * density));
         panel.setVisibility(View.GONE);
         RelativeLayout.LayoutParams panelParams = new RelativeLayout.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT, (int) (40 * density));
+                ViewGroup.LayoutParams.WRAP_CONTENT, (int) (48 * density));
         panelParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
         panelParams.addRule(RelativeLayout.ABOVE, handle.getId());
         panelParams.leftMargin = (int) (6 * density);
@@ -159,13 +191,25 @@ public class GroupPanelOverlay {
             Button b = new Button(context);
             b.setAllCaps(false);
             b.setText(String.valueOf((i + 1) % 10)); // 1,2,...,9,0 -- matches the keyboard row
-            b.setTextSize(14f);
-            b.setBackgroundColor(COLOR_BUTTON_EMPTY);
+            b.setTextSize(15f);
+            b.setTypeface(Typeface.DEFAULT_BOLD);
+            b.setTextColor(Color.argb(255, 235, 220, 190));
+            {
+                GradientDrawable bg = new GradientDrawable();
+                bg.setColor(COLOR_BUTTON_EMPTY);
+                bg.setStroke((int) (1 * density), COLOR_BUTTON_BORDER);
+                bg.setCornerRadius(3 * density);
+                b.setBackground(bg);
+            }
             b.setPadding(0, 0, 0, 0);
             LinearLayout.LayoutParams bp = new LinearLayout.LayoutParams(
                     (int) (34 * density), ViewGroup.LayoutParams.MATCH_PARENT);
+            bp.setMargins((int) (1.5f * density), 0, (int) (1.5f * density), 0);
             b.setLayoutParams(bp);
-            b.setOnClickListener(v -> GeneralsZHActivity.nativeGroupCommand(group, false));
+            b.setOnClickListener(v -> {
+                boolean empty = (lastOccupancyMask & (1 << group)) == 0;
+                GeneralsZHActivity.nativeGroupCommand(group, empty);
+            });
             b.setOnLongClickListener(v -> {
                 GeneralsZHActivity.nativeGroupCommand(group, true);
                 return true;
@@ -190,10 +234,13 @@ public class GroupPanelOverlay {
     }
 
     private void refreshOccupancy() {
-        int mask = GeneralsZHActivity.nativeGetGroupOccupancyMask();
+        lastOccupancyMask = GeneralsZHActivity.nativeGetGroupOccupancyMask();
         for (int i = 0; i < GROUP_COUNT; i++) {
-            boolean occupied = (mask & (1 << i)) != 0;
-            groupButtons[i].setBackgroundColor(occupied ? COLOR_BUTTON_OCCUPIED : COLOR_BUTTON_EMPTY);
+            boolean occupied = (lastOccupancyMask & (1 << i)) != 0;
+            GradientDrawable bg = new GradientDrawable();
+            bg.setColor(occupied ? COLOR_BUTTON_OCCUPIED : COLOR_BUTTON_EMPTY);
+            bg.setStroke(1, COLOR_BUTTON_BORDER);
+            groupButtons[i].setBackground(bg);
         }
     }
 }
