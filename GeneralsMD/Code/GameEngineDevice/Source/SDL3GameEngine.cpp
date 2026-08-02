@@ -180,6 +180,10 @@ static bool SDLCALL mobileLifecycleWatcher(void *userdata, SDL_Event *event)
 //                                          screen (existing double-click handling)
 //   1 finger drag, at ANY point, however long the finger sat still first ->
 //                                          direct camera pan, immediately
+//   1 finger drag released while still moving fast -> pan keeps coasting,
+//                                          decelerating (momentum/inertia),
+//                                          until it dies down or another
+//                                          finger touches down
 //   1 finger held still the whole time, released without ever moving ->
 //                                          right-click (issue command)
 //   2 fingers                          -> direct camera pan (centroid delta)
@@ -250,7 +254,8 @@ struct TouchState {
 		IDLE,        // no fingers tracked
 		PENDING,     // finger1 down, gesture identity not yet known, nothing sent
 		PANNING,     // finger1 dragged past the dead zone -- direct camera pan, no mouse involved
-		TWOFINGER    // two fingers down -- direct camera pan (centroid) + zoom (spread), once per frame
+		TWOFINGER,   // two fingers down -- direct camera pan (centroid) + zoom (spread), once per frame
+		MOMENTUM     // finger lifted after a fast pan -- coasting with decaying velocity, no finger involved
 	};
 
 	Phase phase = IDLE;
@@ -265,6 +270,16 @@ struct TouchState {
 	// by real per-frame finger deltas -- no synthetic mouse motion, no
 	// wheel-tick/RMB-drag translation. See applyCameraPan()/applyCameraZoom().
 	float panLastPxX = 0.0f, panLastPxY = 0.0f; // last processed finger1 pixel pos, single-finger PANNING
+
+	// GeneralsX @feature Android port 02/08/2026 Momentum (inertia): the
+	// pixel delta actually applied on the LAST processed PANNING frame,
+	// carried over as the coasting phase's starting velocity on release --
+	// see applyPendingCameraMotion()'s MOMENTUM branch.
+	float panVelX = 0.0f, panVelY = 0.0f;
+	// A virtual "finger" position that MOMENTUM advances by panVelX/Y each
+	// frame (screenToTerrain needs real screen coordinates to project, even
+	// though no finger is actually there anymore).
+	float momentumX = 0.0f, momentumY = 0.0f;
 
 	// TWOFINGER tracking: both fingers' current pixel positions (updated on
 	// every motion event), plus the last-processed centroid/spread so
@@ -308,6 +323,17 @@ const float DOUBLE_TAP_DIST_PX = 40.0f;
 // instead of a pan/zoom. A bit more generous than TAP_DEAD_ZONE_PX since two
 // simultaneous fingers naturally drift a little more than one.
 const float TWO_FINGER_TAP_MAX_PX = 24.0f;
+
+// GeneralsX @feature Android port 02/08/2026 Momentum (inertia): releasing a
+// single-finger pan while it's still moving fast coasts for a bit,
+// decelerating, instead of the camera stopping dead the instant the finger
+// lifts -- matches how map/browser-style touch scrolling normally feels.
+// FRICTION is a per-frame multiplier (not per-second -- applyPendingCameraMotion
+// runs once per rendered frame, so this is frame-rate-dependent same as the
+// rest of this file's per-frame camera application).
+const float MOMENTUM_MIN_START_PX_PER_FRAME = 2.0f;  // below this release speed, don't bother coasting
+const float MOMENTUM_STOP_PX_PER_FRAME = 0.5f;       // below this, coasting has died down enough to stop
+const float MOMENTUM_FRICTION = 0.92f;               // velocity *= this, every frame, while coasting
 
 const float ZOOM_PX_PER_TICK = 40.0f; // calibration only -- see ZOOM_HEIGHT_PER_PIXEL below
 
@@ -545,7 +571,11 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 
 	switch (event.type) {
 	case SDL_EVENT_FINGER_DOWN:
-		if (s_touch.phase == TouchState::IDLE) {
+		if (s_touch.phase == TouchState::IDLE || s_touch.phase == TouchState::MOMENTUM) {
+			// A finger touching down during MOMENTUM grabs the map and stops
+			// the coast immediately -- same as tapping a map mid-fling on any
+			// touch device.
+			//
 			// Defer BUTTON output: a finger landing could become a tap, a pan,
 			// a long-press, or the first finger of a two-finger gesture. A
 			// premature LMB down+up is a real click to the game (e.g. it sets
@@ -638,6 +668,11 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 			// matches any standard two-finger touch UI (lifting one finger
 			// mid-pinch keeps panning with the other).
 			bool continueAsSinglePan = false;
+			// Set when a fast PANNING release should coast into MOMENTUM
+			// instead of stopping dead -- unlike continueAsSinglePan, this
+			// still needs the edge-scroll guard below (no real finger
+			// remains), just not the phase reset to IDLE.
+			bool startedMomentum = false;
 
 			switch (s_touch.phase) {
 				case TouchState::PENDING:
@@ -698,8 +733,22 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 					}
 					break;
 				case TouchState::PANNING:
-					// Direct camera pan -- no message stream involvement at all,
-					// nothing to release.
+					{
+						// GeneralsX @feature Android port 02/08/2026 Momentum: a
+						// fast release coasts, decelerating, instead of stopping
+						// dead the instant the finger lifts -- see
+						// applyPendingCameraMotion()'s MOMENTUM branch, which
+						// keeps calling applyCameraPan() with decaying velocity.
+						// No message stream involvement either way -- nothing to
+						// release.
+						const float speed = SDL_fabsf(s_touch.panVelX) + SDL_fabsf(s_touch.panVelY);
+						if (speed >= MOMENTUM_MIN_START_PX_PER_FRAME) {
+							s_touch.momentumX = s_touch.lastX;
+							s_touch.momentumY = s_touch.lastY;
+							s_touch.phase = TouchState::MOMENTUM;
+							startedMomentum = true;
+						}
+					}
 					break;
 				case TouchState::TWOFINGER:
 					// GeneralsX @feature Android port 01/08/2026, again Brought
@@ -757,7 +806,9 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 				    s_touch.lastX >= (float)winW - EDGE_GUARD_PX || s_touch.lastY >= (float)winH - EDGE_GUARD_PX) {
 					pushMousePosition((float)winW * 0.5f, (float)winH * 0.5f);
 				}
-				s_touch.phase = TouchState::IDLE;
+				if (!startedMomentum) {
+					s_touch.phase = TouchState::IDLE;
+				}
 			}
 		}
 		break;
@@ -794,6 +845,8 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 void applyPendingCameraMotion()
 {
 	if (s_touch.phase == TouchState::PANNING) {
+		s_touch.panVelX = s_touch.lastX - s_touch.panLastPxX;
+		s_touch.panVelY = s_touch.lastY - s_touch.panLastPxY;
 		applyCameraPan(s_touch.panLastPxX, s_touch.panLastPxY, s_touch.lastX, s_touch.lastY);
 		s_touch.panLastPxX = s_touch.lastX;
 		s_touch.panLastPxY = s_touch.lastY;
@@ -812,6 +865,24 @@ void applyPendingCameraMotion()
 		const float dist = SDL_sqrtf(dx * dx + dy * dy);
 		applyCameraZoom(dist - s_touch.twoDistLastPx);
 		s_touch.twoDistLastPx = dist;
+	}
+	else if (s_touch.phase == TouchState::MOMENTUM) {
+		// GeneralsX @feature Android port 02/08/2026 Coast with the velocity
+		// the finger had at release, decaying every frame, using a virtual
+		// "finger" (momentumX/Y) that applyCameraPan()'s screenToTerrain
+		// projection still needs real screen coordinates for -- no actual
+		// finger is down during this phase.
+		const float newX = s_touch.momentumX + s_touch.panVelX;
+		const float newY = s_touch.momentumY + s_touch.panVelY;
+		applyCameraPan(s_touch.momentumX, s_touch.momentumY, newX, newY);
+		s_touch.momentumX = newX;
+		s_touch.momentumY = newY;
+		s_touch.panVelX *= MOMENTUM_FRICTION;
+		s_touch.panVelY *= MOMENTUM_FRICTION;
+		const float speed = SDL_fabsf(s_touch.panVelX) + SDL_fabsf(s_touch.panVelY);
+		if (speed < MOMENTUM_STOP_PX_PER_FRAME) {
+			s_touch.phase = TouchState::IDLE;
+		}
 	}
 }
 
