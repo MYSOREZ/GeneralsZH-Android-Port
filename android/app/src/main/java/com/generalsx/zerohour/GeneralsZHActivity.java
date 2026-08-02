@@ -33,6 +33,8 @@ package com.generalsx.zerohour;
 
 import android.content.Intent;
 import android.content.res.AssetManager;
+import android.graphics.Rect;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -43,6 +45,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GeneralsZHActivity extends SDLActivity {
 
@@ -128,6 +132,47 @@ public class GeneralsZHActivity extends SDLActivity {
         }
 
         super.onCreate(savedInstanceState);
+    }
+
+    // GeneralsX @bugfix Android port 02/08/2026 A tester reported the camera
+    // panning to the map's left edge and then not responding to further
+    // swipes to bring it back -- until opening and closing the in-game menu
+    // "fixed" it. A real device log showed the exact culprit: after the pan
+    // that hit the edge, zero touch events of any kind reached
+    // handleTouchEvent() (SDL3GameEngine.cpp) for the rest of the session --
+    // not a camera-math bug (screenToTerrain never failed), a touch-DELIVERY
+    // one. SDLActivity already requests SYSTEM_UI_FLAG_IMMERSIVE_STICKY, but
+    // that only suppresses the legacy 3-button nav bar; on gesture-navigation
+    // Android (10+), a drag starting near the left/right screen edge is
+    // reserved for the system back gesture regardless of immersive-sticky,
+    // and is never delivered to the app at all. A camera already pinned at a
+    // map boundary is exactly when the player's next recovery swipe is most
+    // likely to start right at that edge -- explaining both symptoms in one
+    // shot. setSystemGestureExclusionRects() (API 29+) is the documented fix;
+    // the system doesn't enforce its usual per-app exclusion-height cap on
+    // windows already in sticky immersive mode, which this one is.
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) {
+            applyGestureExclusion();
+        }
+    }
+
+    private void applyGestureExclusion() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q || mSurface == null) {
+            return;
+        }
+        int w = mSurface.getWidth();
+        int h = mSurface.getHeight();
+        if (w <= 0 || h <= 0) {
+            return;
+        }
+        int stripWidth = (int) (32 * getResources().getDisplayMetrics().density);
+        List<Rect> rects = new ArrayList<>();
+        rects.add(new Rect(0, 0, stripWidth, h));
+        rects.add(new Rect(w - stripWidth, 0, w, h));
+        mSurface.setSystemGestureExclusionRects(rects);
     }
 
     private String getSavedGamePath() {
