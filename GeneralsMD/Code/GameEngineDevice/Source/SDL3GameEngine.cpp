@@ -40,6 +40,7 @@
 #include "GameClient/Gadget.h"
 #include "GameClient/View.h"
 #include "GameClient/Shell.h"
+#include "GameClient/InGameUI.h"
 #include "W3DDevice/GameLogic/W3DGameLogic.h"
 #include "W3DDevice/GameClient/W3DGameClient.h"
 #include "W3DDevice/Common/W3DModuleFactory.h"
@@ -255,7 +256,9 @@ struct TouchState {
 		PENDING,     // finger1 down, gesture identity not yet known, nothing sent
 		PANNING,     // finger1 dragged past the dead zone -- direct camera pan, no mouse involved
 		TWOFINGER,   // two fingers down -- direct camera pan (centroid) + zoom (spread), once per frame
-		MOMENTUM     // finger lifted after a fast pan -- coasting with decaying velocity, no finger involved
+		MOMENTUM,    // finger lifted after a fast pan -- coasting with decaying velocity, no finger involved
+		PLACING      // finger1 dragged past the dead zone while a building placement is pending --
+		             // anchor already sent, drag now sets rotation angle (see PlaceEventTranslator.cpp)
 	};
 
 	Phase phase = IDLE;
@@ -638,17 +641,49 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 		if (s_touch.phase == TouchState::PENDING && event.tfinger.fingerID == s_touch.finger1) {
 			const float moved = SDL_fabsf(px - s_touch.downX) + SDL_fabsf(py - s_touch.downY);
 			if (moved >= TAP_DEAD_ZONE_PX) {
-				// Movement always wins, however long the finger sat still
-				// first -- see the file-header @bugfix comment for why this
-				// no longer depends on whether LONG_PRESS_MS has elapsed.
-				// Straight to a direct camera pan (TheTacticalView->
-				// userScrollBy, see applyCameraPan) -- no message stream
-				// involvement at all.
-				GX_TRACE("handleTouchEvent: PENDING->PANNING moved=%.2f at (%.2f,%.2f)\n", moved, px, py);
-				s_touch.phase = TouchState::PANNING;
-				s_touch.panLastPxX = px;
-				s_touch.panLastPxY = py;
+				if (TheInGameUI && TheInGameUI->getPendingPlaceType()) {
+					// GeneralsX @feature Android port 02/08/2026 Building
+					// placement: a drag past the dead zone while a build is
+					// pending is the rotate gesture, not a camera pan. Send the
+					// button-down NOW, at the ORIGINAL press point (downX/downY)
+					// -- exactly like a real mouse press, which fires before any
+					// drag -- so PlaceEventTranslator anchors the building where
+					// the finger first touched, not where it dragged to.
+					// PlaceEventTranslator.cpp's MSG_RAW_MOUSE_LEFT_BUTTON_DOWN
+					// case calls TheInGameUI->setPlacementStart() and consumes
+					// the message (DESTROY_MESSAGE), so this can't also register
+					// as an ordinary click/select.
+					GX_TRACE("handleTouchEvent: PENDING->PLACING moved=%.2f anchor(%.2f,%.2f)\n",
+					         moved, s_touch.downX, s_touch.downY);
+					pushMousePosition(s_touch.downX, s_touch.downY);
+					pushMouseButton(GameMessage::MSG_RAW_MOUSE_LEFT_BUTTON_DOWN, s_touch.downX, s_touch.downY);
+					// Feed the current position immediately too, so the
+					// rotation angle starts responding without waiting for the
+					// next motion event.
+					pushMousePosition(px, py);
+					s_touch.phase = TouchState::PLACING;
+				} else {
+					// Movement always wins, however long the finger sat still
+					// first -- see the file-header @bugfix comment for why this
+					// no longer depends on whether LONG_PRESS_MS has elapsed.
+					// Straight to a direct camera pan (TheTacticalView->
+					// userScrollBy, see applyCameraPan) -- no message stream
+					// involvement at all.
+					GX_TRACE("handleTouchEvent: PENDING->PANNING moved=%.2f at (%.2f,%.2f)\n", moved, px, py);
+					s_touch.phase = TouchState::PANNING;
+					s_touch.panLastPxX = px;
+					s_touch.panLastPxY = py;
+				}
 			}
+		}
+		else if (s_touch.phase == TouchState::PLACING && event.tfinger.fingerID == s_touch.finger1) {
+			// Every motion event feeds PlaceEventTranslator's
+			// MSG_RAW_MOUSE_POSITION case (setPlacementEnd -> rotation angle)
+			// directly -- this is message-stream traffic, not a direct camera
+			// call, so there's no per-frame screenToTerrain staleness concern
+			// (see applyPendingCameraMotion()'s header comment, which is about
+			// a completely different code path).
+			pushMousePosition(px, py);
 		}
 		// PANNING and TWOFINGER don't apply the camera effect here -- see
 		// applyPendingCameraMotion() below for why (screenToTerrain-based
@@ -682,7 +717,8 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 					if (event.type == SDL_EVENT_FINGER_CANCELED) {
 						break;
 					}
-					if ((SDL_GetTicks() - s_touch.downTicks) >= LONG_PRESS_MS) {
+					if ((SDL_GetTicks() - s_touch.downTicks) >= LONG_PRESS_MS &&
+					    !(TheInGameUI && TheInGameUI->getPendingPlaceType())) {
 						// Still PENDING at release means it never crossed the pan
 						// dead zone (crossing it is what moves phase to PANNING) --
 						// held still for the whole long-press threshold, right-click
@@ -692,6 +728,17 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 						// letting a LATER drag "upgrade" the gesture is what broke
 						// ordinary panning whenever a real drag started after a
 						// brief pause.
+						//
+						// Suppressed while a building placement is pending: the
+						// natural "press, study the spot, release" pause would
+						// otherwise fire this and cancel the whole placement
+						// (right-click always cancels pending placement, see
+						// CommandXlat.cpp) instead of placing the building at the
+						// default angle. Falling through to the plain-tap logic
+						// below (unaffected by hold duration) places it instead --
+						// see PlaceEventTranslator.cpp's MSG_RAW_MOUSE_LEFT_BUTTON_DOWN
+						// case, which anchors and immediately accepts a same-point
+						// click.
 						pushMousePosition(s_touch.downX, s_touch.downY);
 						pushMouseButton(GameMessage::MSG_RAW_MOUSE_RIGHT_BUTTON_DOWN, s_touch.downX, s_touch.downY);
 						pushMouseButton(GameMessage::MSG_RAW_MOUSE_RIGHT_BUTTON_UP, s_touch.downX, s_touch.downY);
@@ -782,6 +829,30 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 							s_touch.phase = TouchState::PANNING;
 							continueAsSinglePan = true;
 						}
+					}
+					break;
+				case TouchState::PLACING:
+					// GeneralsX @feature Android port 02/08/2026 Building
+					// placement release. A normal lift sends the button-up,
+					// which MetaEventTranslator (MetaEvent.cpp) turns into the
+					// semantic MSG_MOUSE_LEFT_CLICK that PlaceEventTranslator's
+					// click case actually commits (MSG_DOZER_CONSTRUCT) or, if
+					// the spot turned out illegal, resets the anchor to try
+					// again WITHOUT leaving placement mode -- exactly the same
+					// as a real mouse press-drag-release.
+					//
+					// A CANCELED touch (incoming call, notification shade, palm
+					// rejection) never sends a matching up, so there is no
+					// later event to resolve the anchor this file already
+					// committed on the dead-zone crossing -- back out of
+					// placement mode entirely instead, same conservative
+					// no-phantom-action rule as the PENDING case above.
+					if (event.type == SDL_EVENT_FINGER_CANCELED) {
+						if (TheInGameUI) {
+							TheInGameUI->placeBuildAvailable(nullptr, nullptr);
+						}
+					} else {
+						pushMouseButton(GameMessage::MSG_RAW_MOUSE_LEFT_BUTTON_UP, px, py);
 					}
 					break;
 				default:
