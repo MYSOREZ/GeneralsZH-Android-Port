@@ -33,7 +33,6 @@
 #include "SDL3Device/GameClient/SDL3Mouse.h"
 #include "SDL3Device/GameClient/SDL3Keyboard.h"
 #include "Common/MessageStream.h"
-#include "Common/GameType.h"
 #include "GameClient/Mouse.h"
 #include "GameClient/Keyboard.h"
 #include "GameClient/GameWindow.h"
@@ -432,25 +431,23 @@ void applyCameraPan(float fromPxX, float fromPxY, float toPxX, float toPxY)
 	// actually move the camera, via the same public forceRedraw() the
 	// engine already exposes for this.
 	//
-	// GeneralsX @bugfix Android port 02/08/2026 Second, independent bypass
-	// found by the same audit: Generals' mission/skirmish scripting can
-	// call View::setCameraLock() directly (ScriptActions.cpp, e.g. a
-	// "follow this unit" cinematic trigger for reinforcements or an event),
-	// which makes W3DView re-aim the camera at the locked object EVERY
-	// FRAME regardless of m_isUserControlled. Critically, doUserAction()'s
-	// stopDoingScriptedCamera() (invoked by every userXxx() call, including
-	// ours) only clears m_scriptedState -- it never clears m_cameraLock.
-	// So a lingering script-triggered lock would silently fight our pan
-	// forever, with our writes "succeeding" every time yet being dragged
-	// back next frame -- also location-independent, also matching the
-	// report. Defensively release any camera lock the instant the user
-	// physically starts dragging: touch input must always win over an
-	// ambient camera-follow trigger. Bypasses userSetCameraLock()'s own
-	// isUserControlLocked() gate on purpose -- this needs to win even in
-	// the one real scenario that gate exists for (replay camera lock).
-	if (TheTacticalView->getCameraLock() != INVALID_ID) {
-		TheTacticalView->setCameraLock(INVALID_ID);
-	}
+	// GeneralsX @bugfix Android port 02/08/2026, reverted 02/08/2026 The same
+	// audit also found that Generals' mission/skirmish scripting can call
+	// View::setCameraLock() directly (ScriptActions.cpp, e.g. a "follow
+	// this unit" cinematic trigger) to re-aim the camera at a locked object
+	// every frame, and that doUserAction() never clears m_cameraLock, only
+	// m_scriptedState. An earlier revision of this fix defensively cleared
+	// any active camera lock here so touch dragging couldn't get stuck
+	// fighting one -- but the PC mouse-drag path (userScrollBy(), same
+	// doUserAction gating) has exactly the same non-clearing behavior, so a
+	// real camera-lock cutscene ALREADY can't be broken out of with the
+	// mouse either -- that's presumably intentional (a cutscene is supposed
+	// to hold the camera). Forcibly releasing it only from touch would have
+	// made touch behave inconsistently with mouse and defeated real
+	// cutscene camera locks whenever one actually fires, not just the
+	// hypothetical stray one this was guarding against -- never actually
+	// confirmed to be the cause here. Reverted; forceRedraw() below is the
+	// confirmed, sufficient fix.
 
 	Coord3D pos = TheTacticalView->getPosition();
 	pos.x += (worldFrom.x - worldTo.x);
