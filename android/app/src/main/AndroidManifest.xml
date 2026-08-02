@@ -28,6 +28,22 @@
     <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
 
+    <!-- GeneralsX @bugfix Android port 02/08/2026 MANAGE_EXTERNAL_STORAGE and
+         Environment.isExternalStorageManager() only exist from API 30
+         (Android 11) onward. minSdk here is 28, so on Android 9/10 devices
+         onSelectGameFolder()'s isExternalStorageManager() gate is skipped
+         entirely (SDK_INT < R) and FolderPickerActivity opens straight away,
+         but with zero storage permission ever requested, so
+         File.listFiles() on /storage/emulated/0 comes back null/empty and
+         the browser shows nothing but ".. (up)". These are the pre-R
+         runtime-permission equivalent; maxSdkVersion keeps them out of the
+         merged manifest's effective permission set on API 30+, where
+         MANAGE_EXTERNAL_STORAGE already covers everything. -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="29" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="29" />
+
     <!-- GeneralsX @feature Android port 10/07/2026 GeneralsOnline account
          login (GeneralsOnlineActivity) and, eventually, the native
          multiplayer client both need plain outbound HTTPS/WebSocket. -->

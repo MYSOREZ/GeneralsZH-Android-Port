@@ -83,6 +83,7 @@
 
     <!-- SetupActivity: folder selection / misc toasts -->
     <string name="setup_toast_grant_all_files">Предоставьте разрешение «Доступ ко всем файлам» на следующем экране, затем вернитесь и снова нажмите «Выбрать папку с игрой».</string>
+    <string name="setup_toast_storage_permission_denied">Для выбора папки с игрой требуется разрешение на доступ к хранилищу. Нажмите «Выбрать папку с игрой» ещё раз, чтобы повторить попытку.</string>
     <string name="setup_toast_folder_saved">Папка с игрой сохранена.</string>
     <string name="setup_toast_folder_saved_invalid">Сохранено, но INIZH.big/INI.big там не найдены — проверьте папку.</string>
     <string name="setup_toast_marker_save_failed">Не удалось сохранить метку папки: %1$s</string>
