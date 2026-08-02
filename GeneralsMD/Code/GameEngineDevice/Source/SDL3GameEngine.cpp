@@ -257,8 +257,10 @@ struct TouchState {
 		PANNING,     // finger1 dragged past the dead zone -- direct camera pan, no mouse involved
 		TWOFINGER,   // two fingers down -- direct camera pan (centroid) + zoom (spread), once per frame
 		MOMENTUM,    // finger lifted after a fast pan -- coasting with decaying velocity, no finger involved
-		PLACING      // finger1 dragged past the dead zone while a building placement is pending --
+		PLACING,     // finger1 dragged past the dead zone while a building placement is pending --
 		             // anchor already sent, drag now sets rotation angle (see PlaceEventTranslator.cpp)
+		SELECTING    // finger1 held past LONG_PRESS_MS, THEN dragged past the dead zone -- area
+		             // selection box, anchor already sent (see SelectionXlat.cpp)
 	};
 
 	Phase phase = IDLE;
@@ -636,6 +638,20 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 			}
 			s_touch.phase = TouchState::IDLE;
 		}
+		else if (s_touch.phase == TouchState::SELECTING) {
+			// GeneralsX @feature Android port 02/08/2026 A second finger during
+			// an in-progress selection box has no other meaning here either,
+			// but unlike PLACING there's no clean "abort" to call into --
+			// SelectionTranslator only clears its internal drag-lock state
+			// (TheTacticalView->setMouseLock, TheInGameUI->setSelecting) from
+			// its MSG_RAW_MOUSE_LEFT_BUTTON_UP handler, so leaving that message
+			// unsent would leave the camera/selection state stuck. Finalize
+			// with whatever box has been drawn so far instead of leaving it
+			// hanging -- selecting the "wrong" units this way is trivially
+			// undone by tapping again, unlike a half-placed building.
+			pushMouseButton(GameMessage::MSG_RAW_MOUSE_LEFT_BUTTON_UP, s_touch.lastX, s_touch.lastY);
+			s_touch.phase = TouchState::IDLE;
+		}
 		// TWOFINGER with a third finger: ignored
 		break;
 
@@ -678,6 +694,40 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 					// next motion event.
 					pushMousePosition(px, py);
 					s_touch.phase = TouchState::PLACING;
+				} else if ((SDL_GetTicks() - s_touch.downTicks) >= LONG_PRESS_MS) {
+					// GeneralsX @feature Android port 02/08/2026 Area selection:
+					// held past the long-press threshold WITHOUT crossing the
+					// dead zone, then dragged -- draw a selection box instead of
+					// panning. Quick drags (the vastly more common case) are
+					// unaffected: this branch is only reachable once
+					// LONG_PRESS_MS has already elapsed, same threshold already
+					// used for the long-press-issues-a-command gesture below,
+					// so a held-still finger has exactly two possible outcomes
+					// depending on what happens next (release -> command,
+					// drag -> select), never both.
+					//
+					// Unlike the long-press-cancels-nothing lesson learned
+					// earlier in this file (see the FINGER_UP PENDING case's
+					// @bugfix comment): that bug was caused by dispatching an
+					// action PREMATURELY, mid-hold, before knowing whether a
+					// drag would follow -- corrupting whatever the drag was
+					// later interpreted as. This is different: nothing at all
+					// is sent until this exact moment, when the drag has
+					// genuinely already started, so there's no premature
+					// dispatch to corrupt anything.
+					//
+					// SelectionXlat.cpp's MSG_RAW_MOUSE_LEFT_BUTTON_DOWN handler
+					// just records the anchor; its MSG_RAW_MOUSE_POSITION
+					// handler is what actually starts drawing the box once past
+					// TheMouse->m_dragTolerance -- both already exist and are
+					// shared with the desktop mouse path, same as
+					// PlaceEventTranslator above.
+					GX_TRACE("handleTouchEvent: PENDING->SELECTING moved=%.2f anchor(%.2f,%.2f)\n",
+					         moved, s_touch.downX, s_touch.downY);
+					pushMousePosition(s_touch.downX, s_touch.downY);
+					pushMouseButton(GameMessage::MSG_RAW_MOUSE_LEFT_BUTTON_DOWN, s_touch.downX, s_touch.downY);
+					pushMousePosition(px, py);
+					s_touch.phase = TouchState::SELECTING;
 				} else {
 					// Movement always wins, however long the finger sat still
 					// first -- see the file-header @bugfix comment for why this
@@ -691,6 +741,13 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 					s_touch.panLastPxY = py;
 				}
 			}
+		}
+		else if (s_touch.phase == TouchState::SELECTING && event.tfinger.fingerID == s_touch.finger1) {
+			// Every motion event feeds SelectionXlat's MSG_RAW_MOUSE_POSITION
+			// case (grows the selection-box hint rectangle) directly -- message
+			// traffic, not a direct camera call, so no per-frame staleness
+			// concern, same reasoning as the PLACING case below.
+			pushMousePosition(px, py);
 		}
 		else if (s_touch.phase == TouchState::PLACING && event.tfinger.fingerID == s_touch.finger1) {
 			// Every motion event feeds PlaceEventTranslator's
@@ -870,6 +927,20 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 					} else {
 						pushMouseButton(GameMessage::MSG_RAW_MOUSE_LEFT_BUTTON_UP, px, py);
 					}
+					break;
+				case TouchState::SELECTING:
+					// GeneralsX @feature Android port 02/08/2026 Area-selection
+					// release. Unlike PLACING, a CANCELED touch here also sends
+					// the button-up rather than backing out of anything --
+					// SelectionTranslator has no equivalent to
+					// placeBuildAvailable(nullptr, nullptr) to cleanly release
+					// its internal drag-lock state (TheTacticalView->
+					// setMouseLock(TRUE) only gets cleared from its own
+					// MSG_RAW_MOUSE_LEFT_BUTTON_UP handler), so never sending it
+					// would leave the camera/selection state stuck rather than
+					// just under- or over-selecting -- a strictly worse outcome
+					// than finalizing with whatever box was drawn so far.
+					pushMouseButton(GameMessage::MSG_RAW_MOUSE_LEFT_BUTTON_UP, px, py);
 					break;
 				default:
 					break;
