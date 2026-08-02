@@ -563,9 +563,26 @@ elseif(ANDROID)
       RESULT_VARIABLE DXVK_PATCH_ALREADY_APPLIED
       ERROR_QUIET)
     if(NOT DXVK_PATCH_ALREADY_APPLIED EQUAL 0)
+      # Some patches touch code that a later patch also touches nearby;
+      # the surrounding 3-line context can drift just enough that the
+      # exact-context idempotency check above no longer matches even
+      # though the patch's actual content is present. Retry with a
+      # smaller context window (git's own -C flag) before concluding the
+      # patch genuinely isn't applied yet.
+      execute_process(
+        COMMAND git -C "${DXVK_LOCAL_FORK_DIR}" apply --reverse --check -C1 "${CMAKE_SOURCE_DIR}/Patches/${DXVK_PATCH_NAME}"
+        RESULT_VARIABLE DXVK_PATCH_ALREADY_APPLIED
+        ERROR_QUIET)
+    endif()
+    if(NOT DXVK_PATCH_ALREADY_APPLIED EQUAL 0)
       execute_process(
         COMMAND git -C "${DXVK_LOCAL_FORK_DIR}" apply "${CMAKE_SOURCE_DIR}/Patches/${DXVK_PATCH_NAME}"
         RESULT_VARIABLE DXVK_PATCH_RESULT)
+      if(NOT DXVK_PATCH_RESULT EQUAL 0)
+        execute_process(
+          COMMAND git -C "${DXVK_LOCAL_FORK_DIR}" apply -C1 "${CMAKE_SOURCE_DIR}/Patches/${DXVK_PATCH_NAME}"
+          RESULT_VARIABLE DXVK_PATCH_RESULT)
+      endif()
       if(NOT DXVK_PATCH_RESULT EQUAL 0)
         message(FATAL_ERROR "Failed to apply Patches/${DXVK_PATCH_NAME} to references/fbraz3-dxvk — the Android DXVK build requires it.")
       endif()
