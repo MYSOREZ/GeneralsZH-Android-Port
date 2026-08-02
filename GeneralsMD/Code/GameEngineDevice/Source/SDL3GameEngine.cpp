@@ -39,6 +39,7 @@
 #include "GameClient/GameWindowManager.h"
 #include "GameClient/Gadget.h"
 #include "GameClient/View.h"
+#include "GameClient/Shell.h"
 #include "W3DDevice/GameLogic/W3DGameLogic.h"
 #include "W3DDevice/GameClient/W3DGameClient.h"
 #include "W3DDevice/Common/W3DModuleFactory.h"
@@ -370,6 +371,16 @@ void applyCameraPan(float fromPxX, float fromPxY, float toPxX, float toPxY)
 		         fromPxX, fromPxY, toPxX, toPxY);
 		return;
 	}
+	if (TheShell && TheShell->isShellActive()) {
+		// GeneralsX @bugfix Android port 02/08/2026 The shell (main menu,
+		// including the front-end's decorative background map/cutscene) has
+		// its own real TacticalView/camera sitting behind the menu widgets --
+		// dragging/pinching on a menu screen has no business moving THAT
+		// camera, but nothing here was checking game state at all, so it
+		// did. Same check WindowXlat.cpp already uses to know the shell owns
+		// input right now.
+		return;
+	}
 	ICoord2D fromScreen, toScreen;
 	fromScreen.x = (Int)fromPxX;
 	fromScreen.y = (Int)fromPxY;
@@ -402,6 +413,10 @@ void applyCameraPan(float fromPxX, float fromPxY, float toPxX, float toPxY)
 void applyCameraZoom(float distDeltaPx)
 {
 	if (!TheTacticalView || distDeltaPx == 0.0f) {
+		return;
+	}
+	if (TheShell && TheShell->isShellActive()) {
+		// See the matching check in applyCameraPan() above.
 		return;
 	}
 	const Real zoomDelta = -distDeltaPx * ZOOM_HEIGHT_PER_PIXEL;
