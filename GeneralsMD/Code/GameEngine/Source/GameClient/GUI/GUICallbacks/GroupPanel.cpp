@@ -20,17 +20,17 @@
 // GeneralsX @feature Android port 02/08/2026
 //
 // Native in-engine replacement for the Android-overlay unit-group touch
-// panel: a small handle button that expands a row of 10 buttons (1-9, 0)
-// for control-group assignment/recall. GroupPanel.wnd is loaded from a
-// loose file (Window\GroupPanel.wnd) rather than the game's own .big
-// archives -- see GameWindowManagerScript.cpp's Window\ path resolution,
-// same trick already used for GeneralsOnline's own screens -- so this
-// never touches the user's separately-owned game data.
+// panel: a small handle button that expands a row of 10 buttons (0-9) for
+// control-group assignment/recall. GroupPanel.wnd is loaded from a loose
+// file (Window\GroupPanel.wnd) rather than the game's own .big archives --
+// see GameWindowManagerScript.cpp's Window\ path resolution, same trick
+// already used for GeneralsOnline's own screens -- so this never touches
+// the user's separately-owned game data.
 //
-// Tap a group button (GBM_SELECTED): recall/select that group, same as a
-// bare 1-9/0 keypress -- unless the group is still empty, in which case
-// tap assigns instead (an empty group has no useful "recall" meaning to
-// begin with, and a first-time user has no reason to already know the
+// Quick tap (GBM_SELECTED): recall/select that group, same as a bare 0-9
+// keypress -- unless the group is still empty, in which case tap assigns
+// instead (an empty group has no useful "recall" meaning to begin with,
+// and a first-time user has no reason to already know the
 // long-press/right-click-to-assign convention -- this exact confusion was
 // reported against the Android-overlay version of this feature).
 // Two-finger-tap a group button (GBM_SELECTED_RIGHT -- GadgetPushButton's
@@ -38,6 +38,28 @@
 // already produces at whatever screen position it lands on): always
 // assign/replace, regardless of occupancy -- the deliberate, explicit
 // version of the same action.
+//
+// GeneralsX @feature Android port 02/08/2026 Rusted Warfare-style hold
+// gesture (short hold = add, long hold = clear), with two-stage radial
+// visual feedback: press and hold a group button, a clock-wipe overlay
+// (GadgetButtonDrawClock -- the same mechanism this engine already has for
+// production-progress buttons, see W3DPushButton.cpp) fills clockwise in
+// green over GROUP_HOLD_ADD_MS; release once it completes (the whole
+// button reads solid green at percent=100) to ADD the current selection
+// into the existing group instead of replacing it. Keep holding and the
+// wipe restarts in red over the next GROUP_HOLD_CLEAR_MS; release once
+// THAT completes (solid red) to CLEAR the group entirely. Releasing before
+// the green wipe completes is just the normal tap above -- unchanged.
+//
+// Both new actions are built entirely from the existing, already
+// network-replicated MSG_META_CREATE_TEAM<n> message (never a new message
+// type): ADD temporarily also selects the group's current live members
+// (in addition to whatever the player already has selected) before firing
+// the same force-assign path used by two-finger-tap, so the resulting
+// squad is the union of old + new; CLEAR temporarily deselects everything
+// before firing it, so the resulting squad is empty. The player's actual
+// on-screen selection is snapshotted first and restored afterward, so
+// this never has a lasting side effect on what's selected in the game.
 //
 // None of the actual group logic (assignment, recall, double-press-to-
 // recenter-camera) is reimplemented here -- SelectionXlat.cpp's
@@ -52,16 +74,31 @@
 #include "Common/NameKeyGenerator.h"
 #include "Common/Player.h"
 #include "Common/PlayerList.h"
+#include "GameClient/Color.h"
+#include "GameClient/Drawable.h"
+#include "GameClient/GadgetPushButton.h"
+#include "GameClient/GameClient.h"
 #include "GameClient/GameWindow.h"
 #include "GameClient/GameWindowManager.h"
 #include "GameClient/GUICallbacks.h"
+#include "GameClient/InGameUI.h"
 #include "GameClient/WindowLayout.h"
+#include "GameClient/WinInstanceData.h"
 #include "GameLogic/Squad.h"
+
+#include <vector>
 
 static NameKeyType s_buttonHandleID = NAMEKEY_INVALID;
 static NameKeyType s_groupRowID = NAMEKEY_INVALID;
 static NameKeyType s_buttonGroupID[10];
 static Bool s_groupRowExpanded = FALSE;
+
+// GeneralsX @feature Android port 02/08/2026 Hold-gesture timings. 0 means
+// "not currently pressed" for s_pressStartMs, so a genuine press start is
+// never allowed to land exactly on timeGetTime()==0 in practice.
+static const UnsignedInt GROUP_HOLD_ADD_MS = 600;
+static const UnsignedInt GROUP_HOLD_CLEAR_MS = 600;
+static UnsignedInt s_pressStartMs[10] = { 0 };
 
 //-------------------------------------------------------------------------------------------------
 static void cacheWidgetIDs()
@@ -117,6 +154,125 @@ static void handleGroupCommand(Int group, Bool forceAssign)
 }
 
 //-------------------------------------------------------------------------------------------------
+// Snapshots the drawables currently selected on the battlefield so a
+// temporary selection change (below) can be undone afterward.
+static void snapshotSelection(std::vector<Drawable*> &out)
+{
+	out.clear();
+	if (!TheGameClient) {
+		return;
+	}
+	for (Drawable *draw = TheGameClient->getDrawableList(); draw != nullptr; draw = draw->getNextDrawable()) {
+		if (draw->isSelected()) {
+			out.push_back(draw);
+		}
+	}
+}
+
+//-------------------------------------------------------------------------------------------------
+static void restoreSelection(const std::vector<Drawable*> &saved)
+{
+	if (!TheInGameUI) {
+		return;
+	}
+	TheInGameUI->deselectAllDrawables();
+	for (size_t i = 0; i < saved.size(); ++i) {
+		TheInGameUI->selectDrawable(saved[i]);
+	}
+}
+
+//-------------------------------------------------------------------------------------------------
+// Merges the group's current live members into the on-screen selection,
+// force-assigns (so the squad becomes old+new), then restores whatever was
+// actually selected before -- net effect: units get ADDED to the existing
+// group without touching what the player had selected.
+static void handleGroupAdd(Int group)
+{
+	if (!ThePlayerList || !TheInGameUI) {
+		return;
+	}
+	std::vector<Drawable*> saved;
+	snapshotSelection(saved);
+
+	Player *player = ThePlayerList->getLocalPlayer();
+	if (player) {
+		Squad *squad = player->getHotkeySquad(group);
+		if (squad) {
+			VecObjectPtr objs = squad->getLiveObjects();
+			for (size_t i = 0; i < objs.size(); ++i) {
+				if (objs[i] && objs[i]->getDrawable()) {
+					TheInGameUI->selectDrawable(objs[i]->getDrawable());
+				}
+			}
+		}
+	}
+
+	handleGroupCommand(group, TRUE);
+	restoreSelection(saved);
+}
+
+//-------------------------------------------------------------------------------------------------
+// Deselects everything, force-assigns (so the squad becomes empty), then
+// restores whatever was actually selected before -- net effect: the group
+// is CLEARED without touching what the player had selected.
+static void handleGroupClear(Int group)
+{
+	if (!TheInGameUI) {
+		return;
+	}
+	std::vector<Drawable*> saved;
+	snapshotSelection(saved);
+
+	TheInGameUI->deselectAllDrawables();
+	handleGroupCommand(group, TRUE);
+	restoreSelection(saved);
+}
+
+//-------------------------------------------------------------------------------------------------
+// Called every frame while the panel exists. Polls each group button's own
+// WIN_STATE_SELECTED bit (set/cleared by GadgetPushButtonInput on
+// GWM_LEFT_DOWN/GWM_LEFT_UP) rather than intercepting raw window messages,
+// so the existing tap/click handling in GadgetPushButton.cpp is completely
+// untouched -- this only observes it. Draws the green/red clock-wipe while
+// held; GroupPanelSystem's GBM_SELECTED handler reads s_pressStartMs to
+// decide what the release actually meant.
+static void updateHoldVisuals()
+{
+	if (!TheWindowManager) {
+		return;
+	}
+	UnsignedInt now = timeGetTime();
+	for (Int i = 0; i < 10; ++i) {
+		GameWindow *button = TheWindowManager->winGetWindowFromId(nullptr, s_buttonGroupID[i]);
+		if (!button) {
+			continue;
+		}
+
+		Bool pressed = BitIsSet(button->winGetInstanceData()->getState(), WIN_STATE_SELECTED);
+		if (!pressed) {
+			s_pressStartMs[i] = 0;
+			continue;
+		}
+
+		if (s_pressStartMs[i] == 0) {
+			s_pressStartMs[i] = now;
+		}
+
+		UnsignedInt elapsed = now - s_pressStartMs[i];
+		if (elapsed < GROUP_HOLD_ADD_MS) {
+			Int percent = 1 + (Int)((elapsed * 99u) / GROUP_HOLD_ADD_MS);
+			if (percent > 100) percent = 100;
+			GadgetButtonDrawClock(button, percent, GameMakeColor(90, 220, 100, 255));
+		} else {
+			UnsignedInt redElapsed = elapsed - GROUP_HOLD_ADD_MS;
+			Int percent = 1 + (Int)((redElapsed * 99u) / GROUP_HOLD_CLEAR_MS);
+			if (percent > 100) percent = 100;
+			GadgetButtonDrawClock(button, percent, GameMakeColor(220, 60, 50, 255));
+		}
+	}
+}
+
+//-------------------------------------------------------------------------------------------------
 void GroupPanelInit(WindowLayout *layout, void *userData)
 {
 	(void)layout;
@@ -128,6 +284,7 @@ void GroupPanelUpdate(WindowLayout *layout, void *userData)
 {
 	(void)layout;
 	(void)userData;
+	updateHoldVisuals();
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -178,7 +335,17 @@ WindowMsgHandledType GroupPanelSystem(GameWindow *window, UnsignedInt msg,
 
 			Int group = findGroupButtonIndex(controlID);
 			if (group >= 0) {
-				handleGroupCommand(group, FALSE);
+				UnsignedInt now = timeGetTime();
+				UnsignedInt elapsed = (s_pressStartMs[group] != 0) ? (now - s_pressStartMs[group]) : 0;
+				s_pressStartMs[group] = 0;
+
+				if (elapsed >= GROUP_HOLD_ADD_MS + GROUP_HOLD_CLEAR_MS) {
+					handleGroupClear(group);
+				} else if (elapsed >= GROUP_HOLD_ADD_MS) {
+					handleGroupAdd(group);
+				} else {
+					handleGroupCommand(group, FALSE);
+				}
 				return MSG_HANDLED;
 			}
 			break;
