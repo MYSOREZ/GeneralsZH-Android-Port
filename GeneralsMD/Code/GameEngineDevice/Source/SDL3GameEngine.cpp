@@ -410,13 +410,28 @@ void applyCameraPan(float fromPxX, float fromPxY, float toPxX, float toPxY)
 		return;
 	}
 
-	Coord3D pos = TheTacticalView->getPosition();
+	const Coord3D entryPos = TheTacticalView->getPosition();
+	// GeneralsX @feature Android port 02/08/2026 Reported: pan freezes
+	// specifically near the player's own base (just a command center +
+	// worker, not many buildings) but works fine in a building-dense city
+	// elsewhere on the map -- the opposite of what a busy-scene/low-FPS
+	// theory would predict, so that's very likely not it (or not the whole
+	// story). W3DView::updateCameraAreaConstraints() runs every frame and
+	// silently clips m_pos back inside a map-bounds region if it's ever
+	// outside it -- player start positions typically sit close to that
+	// boundary. Logging entry position here: if it keeps reverting to
+	// nearly the same (x,y) across many calls despite different intended
+	// deltas, that's the area-constraint clamp overriding us every frame,
+	// not a screenToTerrain/staleness issue.
+	Coord3D pos = entryPos;
 	const Bool locked = TheTacticalView->isUserControlLocked();
 	pos.x += (worldFrom.x - worldTo.x);
 	pos.y += (worldFrom.y - worldTo.y);
 	TheTacticalView->userSetPosition(pos);
-	GX_TRACE("applyCameraPan: screen(%.2f,%.2f)->(%.2f,%.2f) worldDelta(%.4f,%.4f) locked=%d\n",
-	         fromPxX, fromPxY, toPxX, toPxY, worldFrom.x - worldTo.x, worldFrom.y - worldTo.y, (int)locked);
+	const Coord3D posAfter = TheTacticalView->getPosition();
+	GX_TRACE("applyCameraPan: screen(%.2f,%.2f)->(%.2f,%.2f) worldDelta(%.4f,%.4f) locked=%d entryPos(%.2f,%.2f) requestedPos(%.2f,%.2f) actualPosAfter(%.2f,%.2f)\n",
+	         fromPxX, fromPxY, toPxX, toPxY, worldFrom.x - worldTo.x, worldFrom.y - worldTo.y, (int)locked,
+	         entryPos.x, entryPos.y, pos.x, pos.y, posAfter.x, posAfter.y);
 }
 
 // Applies a one-frame camera zoom from a change in inter-finger pixel
