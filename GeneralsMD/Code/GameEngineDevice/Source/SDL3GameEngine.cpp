@@ -379,6 +379,16 @@ void applyCameraPan(float fromPxX, float fromPxY, float toPxX, float toPxY)
 		// camera, but nothing here was checking game state at all, so it
 		// did. Same check WindowXlat.cpp already uses to know the shell owns
 		// input right now.
+		//
+		// GeneralsX @feature Android port 02/08/2026 Traced (was a silent
+		// return before): device logs showed pan attempts going completely
+		// unanswered -- no trace at all -- for a long stretch right at the
+		// start of a session, then working perfectly for the rest of a very
+		// long log with zero further gaps. That pattern (blocked once, early,
+		// never again) points at TheShell still being marked active during
+		// loading/match-start, not anything about being "near the command
+		// center" -- this line turns that inference into a direct fact.
+		GX_TRACE("applyCameraPan: blocked, TheShell->isShellActive()==true\n");
 		return;
 	}
 	ICoord2D fromScreen, toScreen;
@@ -417,6 +427,7 @@ void applyCameraZoom(float distDeltaPx)
 	}
 	if (TheShell && TheShell->isShellActive()) {
 		// See the matching check in applyCameraPan() above.
+		GX_TRACE("applyCameraZoom: blocked, TheShell->isShellActive()==true\n");
 		return;
 	}
 	const Real zoomDelta = -distDeltaPx * ZOOM_HEIGHT_PER_PIXEL;
