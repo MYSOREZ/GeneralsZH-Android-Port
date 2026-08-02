@@ -184,7 +184,7 @@ static bool SDLCALL mobileLifecycleWatcher(void *userdata, SDL_Event *event)
 //                                          right-click (issue command)
 //   2 fingers                          -> direct camera pan (centroid delta)
 //                                          AND zoom (spread delta) together,
-//                                          every motion event, unconditionally
+//                                          once per frame, unconditionally
 //   2 fingers tapped together, both staying near where they landed ->
 //                                          right-click (fast "cancel selection")
 //
@@ -212,7 +212,7 @@ static bool SDLCALL mobileLifecycleWatcher(void *userdata, SDL_Event *event)
 // single-finger long-press", but it's faster and more natural for
 // "cancel/deselect" than reaching for a long-press, and was asked back
 // explicitly. This does NOT reintroduce the old pan-vs-zoom classifier --
-// TWOFINGER still always applies both pan and zoom to every motion event,
+// TWOFINGER still always applies both pan and zoom every frame,
 // unconditionally. This only ADDS a check at release: if neither finger
 // moved more than TWO_FINGER_TAP_MAX_PX from where it landed, the whole
 // gesture is also a tap -> fire right-click at the landing centroid.
@@ -250,7 +250,7 @@ struct TouchState {
 		IDLE,        // no fingers tracked
 		PENDING,     // finger1 down, gesture identity not yet known, nothing sent
 		PANNING,     // finger1 dragged past the dead zone -- direct camera pan, no mouse involved
-		TWOFINGER    // two fingers down -- direct camera pan (centroid) + zoom (spread), every motion event
+		TWOFINGER    // two fingers down -- direct camera pan (centroid) + zoom (spread), once per frame
 	};
 
 	Phase phase = IDLE;
@@ -266,9 +266,10 @@ struct TouchState {
 	// wheel-tick/RMB-drag translation. See applyCameraPan()/applyCameraZoom().
 	float panLastPxX = 0.0f, panLastPxY = 0.0f; // last processed finger1 pixel pos, single-finger PANNING
 
-	// TWOFINGER tracking: both fingers' current pixel positions, plus the
-	// last-processed centroid/spread so every motion event can diff against
-	// them directly -- no classification, both signals are always live.
+	// TWOFINGER tracking: both fingers' current pixel positions (updated on
+	// every motion event), plus the last-processed centroid/spread so
+	// applyPendingCameraMotion() can diff against them once per frame -- no
+	// classification, both signals are always live.
 	float f1px = 0.0f, f1py = 0.0f, f2px = 0.0f, f2py = 0.0f;
 	float twoCentroidLastX = 0.0f, twoCentroidLastY = 0.0f;
 	float twoDistLastPx = 0.0f;
@@ -582,26 +583,10 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 				s_touch.panLastPxY = py;
 			}
 		}
-		else if (s_touch.phase == TouchState::PANNING && event.tfinger.fingerID == s_touch.finger1) {
-			applyCameraPan(s_touch.panLastPxX, s_touch.panLastPxY, px, py);
-			s_touch.panLastPxX = px;
-			s_touch.panLastPxY = py;
-		}
-		else if (s_touch.phase == TouchState::TWOFINGER) {
-			// Both signals, every motion event, unconditionally -- see the
-			// file-header @bugfix comment for why this replaced the old
-			// pan-vs-zoom classifier.
-			const float cx = (s_touch.f1px + s_touch.f2px) * 0.5f;
-			const float cy = (s_touch.f1py + s_touch.f2py) * 0.5f;
-			applyCameraPan(s_touch.twoCentroidLastX, s_touch.twoCentroidLastY, cx, cy);
-			s_touch.twoCentroidLastX = cx;
-			s_touch.twoCentroidLastY = cy;
-
-			const float dx = s_touch.f2px - s_touch.f1px, dy = s_touch.f2py - s_touch.f1py;
-			const float dist = SDL_sqrtf(dx * dx + dy * dy);
-			applyCameraZoom(dist - s_touch.twoDistLastPx);
-			s_touch.twoDistLastPx = dist;
-		}
+		// PANNING and TWOFINGER don't apply the camera effect here -- see
+		// applyPendingCameraMotion() below for why (screenToTerrain-based
+		// staleness when several motion events land in the same render
+		// frame).
 		break;
 
 	case SDL_EVENT_FINGER_UP:
@@ -686,8 +671,8 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 					// -> right-click at the landing centroid (a fast "cancel
 					// selection", asked back after an earlier pass dropped it as
 					// "redundant" with the long-press). Otherwise, direct camera
-					// control already applied every motion event -- nothing to
-					// release -- and if the OTHER finger is still down, keep
+					// control already applied via applyPendingCameraMotion() --
+					// nothing to release -- and if the OTHER finger is still down, keep
 					// controlling the camera with it.
 					if (event.type != SDL_EVENT_FINGER_CANCELED) {
 						const float move1 = SDL_fabsf(s_touch.f1px - s_touch.twoDownX1) + SDL_fabsf(s_touch.f1py - s_touch.twoDownY1);
@@ -739,6 +724,57 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 			}
 		}
 		break;
+	}
+}
+
+// GeneralsX @bugfix Android port 02/08/2026 Reported: panning freezes mid-
+// drag (finger stays down and moving) specifically in visually busy areas
+// (near the player's own or the enemy's buildings/units), reproducible by
+// dragging out of that area (works again) and back in (freezes again) --
+// present well into a match, not just at session start, and predates the
+// shell-active gate. handleTouchEvent() used to call applyCameraPan()/
+// applyCameraZoom() directly from inside the FINGER_MOTION case, once per
+// SDL touch event -- but pollSDL3Events() drains ALL queued SDL events in
+// a single `while (SDL_PollEvent())` pass each frame, and a busier scene
+// (more to render -> lower FPS -> touch events queue up faster than frames
+// render) means MULTIPLE motion events for the same drag land in the same
+// frame. View::screenToTerrain() casts against the 3D camera's actual
+// transform (W3DView::m_3DCamera, updated once per frame by
+// updateCameraTransform(), gated on m_recalcCamera) -- NOT against
+// View::m_pos directly. userSetPosition() updates m_pos immediately, but
+// the camera transform screenToTerrain() actually rays against stays stale
+// until the NEXT frame's update() runs. So the first pan call in a frame
+// projects correctly, but a second, third, etc. call for more motion
+// events queued in that SAME frame would ray against the now-outdated
+// (pre-this-frame's-moves) transform -- computing a wrong, often near-zero
+// world delta, exactly like the camera "wasn't moving" for those events.
+// Fixed by moving the actual camera-effect application out of the per-
+// event handler and into this function, called ONCE per frame (see its
+// call site in pollSDL3Events()) using whatever position/centroid/spread
+// the drained events left s_touch in -- guaranteeing at most one
+// screenToTerrain "from/to" pair per frame, always against a transform
+// that's consistent for both projections.
+void applyPendingCameraMotion()
+{
+	if (s_touch.phase == TouchState::PANNING) {
+		applyCameraPan(s_touch.panLastPxX, s_touch.panLastPxY, s_touch.lastX, s_touch.lastY);
+		s_touch.panLastPxX = s_touch.lastX;
+		s_touch.panLastPxY = s_touch.lastY;
+	}
+	else if (s_touch.phase == TouchState::TWOFINGER) {
+		// Both signals, every frame, unconditionally -- see the file-header
+		// @bugfix comment above (the OLDER one) for why this replaced the
+		// old pan-vs-zoom classifier.
+		const float cx = (s_touch.f1px + s_touch.f2px) * 0.5f;
+		const float cy = (s_touch.f1py + s_touch.f2py) * 0.5f;
+		applyCameraPan(s_touch.twoCentroidLastX, s_touch.twoCentroidLastY, cx, cy);
+		s_touch.twoCentroidLastX = cx;
+		s_touch.twoCentroidLastY = cy;
+
+		const float dx = s_touch.f2px - s_touch.f1px, dy = s_touch.f2py - s_touch.f1py;
+		const float dist = SDL_sqrtf(dx * dx + dy * dy);
+		applyCameraZoom(dist - s_touch.twoDistLastPx);
+		s_touch.twoDistLastPx = dist;
 	}
 }
 
@@ -1127,6 +1163,13 @@ void SDL3GameEngine::pollSDL3Events(void)
 
 		updateTextInputState();
 	}
+
+#if defined(SAGE_MOBILE_PLATFORM)
+	// Once per frame, after every queued SDL touch event for this frame has
+	// been drained -- see applyPendingCameraMotion()'s comment for why this
+	// can't happen per-event.
+	applyPendingCameraMotion();
+#endif
 }
 
 // GeneralsX @bugfix felipebraz 01/04/2026 Enable SDL text input only while an entry gadget owns focus.
