@@ -146,6 +146,7 @@ public class GeneralsZHActivity extends SDLActivity {
     // two native calls, rather than a new engine-side GameWindow.
     public static native void nativeGroupCommand(int group, boolean create);
     public static native int nativeGetGroupOccupancyMask();
+    public static native boolean nativeIsShellActive();
 
     // GeneralsX @bugfix Android port 02/08/2026 A tester reported the camera
     // panning to the map's left edge and then not responding to further

@@ -55,6 +55,7 @@ public class GroupPanelOverlay {
 
     private static final int GROUP_COUNT = 10;
     private static final int REFRESH_INTERVAL_MS = 500;
+    private static final int SHELL_POLL_INTERVAL_MS = 500;
 
     private static final int COLOR_HANDLE = Color.argb(140, 40, 40, 40);
     private static final int COLOR_PANEL_BG = Color.argb(150, 20, 20, 20);
@@ -74,6 +75,24 @@ public class GroupPanelOverlay {
             if (expanded) {
                 handler.postDelayed(this, REFRESH_INTERVAL_MS);
             }
+        }
+    };
+
+    // GeneralsX @feature Android port 02/08/2026 Control groups only mean
+    // anything mid-match -- there's no local player/squads in the main
+    // menu/lobby/shell screens, and showing the handle there is just visual
+    // clutter. Runs for the whole lifetime of the overlay (unlike
+    // refreshRunnable, which only runs while expanded), since this is what
+    // decides whether the handle itself is even visible.
+    private final Runnable shellPollRunnable = new Runnable() {
+        @Override
+        public void run() {
+            boolean shellActive = GeneralsZHActivity.nativeIsShellActive();
+            handle.setVisibility(shellActive ? View.GONE : View.VISIBLE);
+            if (shellActive && expanded) {
+                setExpanded(false);
+            }
+            handler.postDelayed(this, SHELL_POLL_INTERVAL_MS);
         }
     };
 
@@ -132,6 +151,9 @@ public class GroupPanelOverlay {
             groupButtons[i] = b;
             panel.addView(b);
         }
+
+        handle.setVisibility(View.GONE); // hidden until the first shell-poll tick confirms we're in-game
+        handler.post(shellPollRunnable);
     }
 
     private void setExpanded(boolean value) {

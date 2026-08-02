@@ -1765,6 +1765,17 @@ Java_com_generalsx_zerohour_GeneralsZHActivity_nativeGetGroupOccupancyMask(JNIEn
 	}
 	return mask;
 }
+
+// GeneralsX @feature Android port 02/08/2026 The group overlay must hide
+// itself in the main menu/lobby/shell screens -- there's no active local
+// player/squads there, and control groups only mean anything mid-match.
+// Same TheShell->isShellActive() flag applyCameraPan()/applyCameraZoom()
+// already gate touch camera control on above.
+extern "C" JNIEXPORT jboolean JNICALL
+Java_com_generalsx_zerohour_GeneralsZHActivity_nativeIsShellActive(JNIEnv *, jclass)
+{
+	return (TheShell && TheShell->isShellActive()) ? JNI_TRUE : JNI_FALSE;
+}
 #endif // __ANDROID__
 
 #endif // !_WIN32
