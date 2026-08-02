@@ -71,6 +71,14 @@
     <string name="setup_toast_dxvk_config_reset">Reset to the default dxvk.conf.</string>
     <string name="setup_toast_dxvk_config_no_default">No bundled default dxvk.conf found in this build.</string>
 
+    <!-- SetupActivity: Diagnostics card -->
+    <string name="setup_card_diagnostics">Diagnostics</string>
+    <string name="setup_diagnostics_help">These turn on extra logging for bug reports — leave them off for normal play, they make the game slower. When asked by an issue reporter, turn on the one they need, reproduce the problem, then use \"View Logs\" above.</string>
+    <string name="setup_diagnostics_no_folder">Select a game folder first (above)</string>
+    <string name="setup_switch_gx_trace">Verbose trace log (gx_trace.txt)</string>
+    <string name="setup_switch_gx_perf">Performance summary (gx_perf.txt)</string>
+    <string name="setup_switch_dxvk_validation">Vulkan validation layer (dxvk_validation.txt)</string>
+
     <!-- SetupActivity: Online Multiplayer card -->
     <string name="setup_card_online">Online Multiplayer</string>
     <string name="setup_button_online_account">GeneralsOnline Account</string>

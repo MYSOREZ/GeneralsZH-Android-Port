@@ -71,6 +71,14 @@
     <string name="setup_toast_dxvk_config_reset">Сброшено на стандартный dxvk.conf.</string>
     <string name="setup_toast_dxvk_config_no_default">В этой сборке нет встроенного dxvk.conf по умолчанию.</string>
 
+    <!-- SetupActivity: Diagnostics card -->
+    <string name="setup_card_diagnostics">Диагностика</string>
+    <string name="setup_diagnostics_help">Эти переключатели включают дополнительное логирование для отчётов об ошибках — в обычной игре держите их выключенными, они замедляют игру. Если автор issue попросил включить конкретный лог, включите нужный, воспроизведите проблему, затем откройте «Просмотр логов» выше.</string>
+    <string name="setup_diagnostics_no_folder">Сначала выберите папку с игрой (выше)</string>
+    <string name="setup_switch_gx_trace">Подробный трейс (gx_trace.txt)</string>
+    <string name="setup_switch_gx_perf">Сводка производительности (gx_perf.txt)</string>
+    <string name="setup_switch_dxvk_validation">Слой валидации Vulkan (dxvk_validation.txt)</string>
+
     <!-- SetupActivity: Online Multiplayer card -->
     <string name="setup_card_online">Онлайн-мультиплеер</string>
     <string name="setup_button_online_account">Аккаунт GeneralsOnline</string>

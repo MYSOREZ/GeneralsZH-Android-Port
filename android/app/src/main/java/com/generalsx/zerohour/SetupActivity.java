@@ -52,6 +52,7 @@ import androidx.core.content.ContextCompat;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.materialswitch.MaterialSwitch;
 import com.google.android.material.slider.Slider;
 
 import java.io.File;
@@ -145,6 +146,7 @@ public class SetupActivity extends Activity {
         refreshStatus();
         refreshGeneralsOnlineStatus();
         loadDxvkConfigIntoEditor();
+        refreshDiagnosticsSwitches();
     }
 
     // GeneralsX @feature Android port 08/07/2026 Material redesign: each
@@ -197,6 +199,7 @@ public class SetupActivity extends Activity {
         applyRecommendedDriverIfNeeded();
         buildCustomDriverSection(root);
         buildDxvkConfigSection(root);
+        buildDiagnosticsSection(root);
 
         LinearLayout helpCard = startCard(root, getString(R.string.setup_card_how_it_works));
         TextView help = new TextView(this);
@@ -875,6 +878,79 @@ public class SetupActivity extends Activity {
         Toast.makeText(this, R.string.setup_toast_dxvk_config_reset, Toast.LENGTH_SHORT).show();
     }
 
+    // GeneralsX @feature Android port 02/08/2026 Diagnostic marker toggles:
+    // GXTrace.h (gx_trace.txt/gx_perf.txt) and SDL3Main.cpp
+    // (dxvk_validation.txt) both gate opt-in logging behind a plain marker
+    // file dropped into the selected game folder, checked relative to CWD
+    // after the engine chdir()s there — deliberately no-adb, no-rebuild, so
+    // a tester can enable them. In practice almost nobody who isn't already
+    // comfortable with a file manager knows to create an empty file with an
+    // exact name, so this just does it for them: each switch creates/deletes
+    // the marker directly, no new native code needed since the engine side
+    // only ever checked "does this file exist", never its contents.
+    private static final String[] DIAGNOSTIC_MARKERS = { "gx_trace.txt", "gx_perf.txt", "dxvk_validation.txt" };
+    private final MaterialSwitch[] diagnosticSwitches = new MaterialSwitch[DIAGNOSTIC_MARKERS.length];
+
+    private void buildDiagnosticsSection(LinearLayout root) {
+        LinearLayout content = startCard(root, getString(R.string.setup_card_diagnostics));
+
+        TextView help = new TextView(this);
+        help.setAlpha(0.8f);
+        help.setText(R.string.setup_diagnostics_help);
+        help.setPadding(0, 0, 0, dp(8));
+        content.addView(help);
+
+        int[] labels = { R.string.setup_switch_gx_trace, R.string.setup_switch_gx_perf, R.string.setup_switch_dxvk_validation };
+        for (int i = 0; i < DIAGNOSTIC_MARKERS.length; i++) {
+            MaterialSwitch sw = new MaterialSwitch(this);
+            sw.setText(getString(labels[i]));
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            lp.setMargins(0, dp(4), 0, dp(4));
+            content.addView(sw, lp);
+            diagnosticSwitches[i] = sw;
+        }
+
+        refreshDiagnosticsSwitches();
+    }
+
+    private File diagnosticMarkerFile(String name) {
+        String gamePath = getSavedGamePath();
+        return gamePath != null ? new File(gamePath, name) : null;
+    }
+
+    private void setDiagnosticMarker(String name, boolean enabled) {
+        File marker = diagnosticMarkerFile(name);
+        if (marker == null) {
+            return;
+        }
+        if (enabled) {
+            try {
+                marker.createNewFile();
+            } catch (java.io.IOException e) {
+                Toast.makeText(this, getString(R.string.setup_toast_options_save_failed, e.getMessage()), Toast.LENGTH_LONG).show();
+            }
+        } else {
+            marker.delete();
+        }
+    }
+
+    private void refreshDiagnosticsSwitches() {
+        boolean haveFolder = getSavedGamePath() != null;
+        for (int i = 0; i < DIAGNOSTIC_MARKERS.length; i++) {
+            final int index = i;
+            MaterialSwitch sw = diagnosticSwitches[index];
+            if (sw == null) {
+                continue;
+            }
+            File marker = diagnosticMarkerFile(DIAGNOSTIC_MARKERS[index]);
+            sw.setOnCheckedChangeListener(null);
+            sw.setChecked(marker != null && marker.isFile());
+            sw.setEnabled(haveFolder);
+            sw.setOnCheckedChangeListener((button, checked) -> setDiagnosticMarker(DIAGNOSTIC_MARKERS[index], checked));
+        }
+    }
+
     // GeneralsX @feature Android port 10/07/2026 GeneralsOnline (playgenerals.online)
     // account status -- the actual sign-in flow lives in GeneralsOnlineActivity,
     // this is just a status line + entry point.
@@ -1230,6 +1306,7 @@ public class SetupActivity extends Activity {
             externalMarker.delete();
         }
         refreshStatus();
+        refreshDiagnosticsSwitches();
         Toast.makeText(this, R.string.setup_toast_folder_cleared, Toast.LENGTH_SHORT).show();
     }
 
