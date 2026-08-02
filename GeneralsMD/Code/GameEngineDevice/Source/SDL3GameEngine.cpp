@@ -259,7 +259,7 @@ struct TouchState {
 		MOMENTUM,    // finger lifted after a fast pan -- coasting with decaying velocity, no finger involved
 		PLACING,     // finger1 dragged past the dead zone while a building placement is pending --
 		             // anchor already sent, drag now sets rotation angle (see PlaceEventTranslator.cpp)
-		SELECTING    // finger1 held past LONG_PRESS_MS, THEN dragged past the dead zone -- area
+		SELECTING    // finger1 held past SELECT_HOLD_MS, THEN dragged past the dead zone -- area
 		             // selection box, anchor already sent (see SelectionXlat.cpp)
 	};
 
@@ -308,6 +308,14 @@ struct TouchState {
 TouchState s_touch;
 
 const Uint64 LONG_PRESS_MS = 600;
+
+// GeneralsX @feature Android port 02/08/2026 Area-selection's hold-then-drag
+// threshold is deliberately its own (shorter) constant, not LONG_PRESS_MS --
+// tester feedback found reusing the full long-press delay felt too laggy
+// before a selection box would even start responding to the drag. Kept
+// separate from LONG_PRESS_MS so the right-click-issues-a-command timing
+// (a released tap, not a drag) is untouched.
+const Uint64 SELECT_HOLD_MS = 250;
 
 // GeneralsX @feature Android port 01/08/2026 Single dead-zone distance is the
 // ONLY thing deciding tap vs. drag -- no settle timer (see the file-header
@@ -694,17 +702,20 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 					// next motion event.
 					pushMousePosition(px, py);
 					s_touch.phase = TouchState::PLACING;
-				} else if ((SDL_GetTicks() - s_touch.downTicks) >= LONG_PRESS_MS) {
+				} else if ((SDL_GetTicks() - s_touch.downTicks) >= SELECT_HOLD_MS) {
 					// GeneralsX @feature Android port 02/08/2026 Area selection:
-					// held past the long-press threshold WITHOUT crossing the
-					// dead zone, then dragged -- draw a selection box instead of
-					// panning. Quick drags (the vastly more common case) are
-					// unaffected: this branch is only reachable once
-					// LONG_PRESS_MS has already elapsed, same threshold already
-					// used for the long-press-issues-a-command gesture below,
-					// so a held-still finger has exactly two possible outcomes
-					// depending on what happens next (release -> command,
-					// drag -> select), never both.
+					// held past SELECT_HOLD_MS WITHOUT crossing the dead zone,
+					// then dragged -- draw a selection box instead of panning.
+					// Quick drags (the vastly more common case) are unaffected:
+					// this branch is only reachable once SELECT_HOLD_MS has
+					// already elapsed. Deliberately shorter than LONG_PRESS_MS
+					// (the release-without-moving command threshold below) --
+					// they're different gestures (drag vs. release) so there's
+					// no ambiguity in letting SELECT_HOLD_MS elapse first: a
+					// held-still finger still has exactly two possible
+					// eventual outcomes depending on what happens next
+					// (release after LONG_PRESS_MS -> command, drag after
+					// SELECT_HOLD_MS -> select), never both.
 					//
 					// Unlike the long-press-cancels-nothing lesson learned
 					// earlier in this file (see the FINGER_UP PENDING case's
