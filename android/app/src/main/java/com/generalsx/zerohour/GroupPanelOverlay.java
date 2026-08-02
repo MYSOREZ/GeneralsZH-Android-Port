@@ -43,6 +43,8 @@ package com.generalsx.zerohour;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
@@ -57,10 +59,19 @@ public class GroupPanelOverlay {
     private static final int REFRESH_INTERVAL_MS = 500;
     private static final int SHELL_POLL_INTERVAL_MS = 500;
 
-    private static final int COLOR_HANDLE = Color.argb(140, 40, 40, 40);
-    private static final int COLOR_PANEL_BG = Color.argb(150, 20, 20, 20);
-    private static final int COLOR_BUTTON_EMPTY = Color.argb(120, 70, 70, 70);
-    private static final int COLOR_BUTTON_OCCUPIED = Color.argb(200, 60, 140, 60);
+    // GeneralsX @bugfix Android port 02/08/2026 The original dark-gray,
+    // 55%-alpha handle was reported invisible on a real device -- it was
+    // genuinely just blending into typical green/brown terrain, not a
+    // logic bug (the shell-active gating already worked correctly, same
+    // flag proven correct for camera pan/zoom elsewhere). Bright, near-
+    // opaque amber (matching the HUD's own gold/amber accent color, per
+    // the $-cost/star-rank icons) plus a light border reads clearly
+    // against any terrain color.
+    private static final int COLOR_HANDLE = Color.argb(235, 220, 160, 40);
+    private static final int COLOR_HANDLE_BORDER = Color.argb(255, 255, 235, 180);
+    private static final int COLOR_PANEL_BG = Color.argb(210, 20, 20, 20);
+    private static final int COLOR_BUTTON_EMPTY = Color.argb(200, 90, 90, 90);
+    private static final int COLOR_BUTTON_OCCUPIED = Color.argb(230, 60, 160, 60);
 
     private final View handle;
     private final LinearLayout panel;
@@ -102,11 +113,19 @@ public class GroupPanelOverlay {
         handle = new Button(context);
         ((Button) handle).setAllCaps(false);
         ((Button) handle).setText("≡"); // "≡" -- generic menu/groups glyph
+        ((Button) handle).setTextColor(Color.BLACK);
+        ((Button) handle).setTextSize(20f);
+        ((Button) handle).setTypeface(Typeface.DEFAULT_BOLD);
         handle.setId(View.generateViewId());
-        handle.setBackgroundColor(COLOR_HANDLE);
-        handle.setAlpha(0.7f);
+        {
+            GradientDrawable bg = new GradientDrawable();
+            bg.setColor(COLOR_HANDLE);
+            bg.setStroke((int) (2 * density), COLOR_HANDLE_BORDER);
+            bg.setCornerRadius(6 * density);
+            handle.setBackground(bg);
+        }
         RelativeLayout.LayoutParams handleParams = new RelativeLayout.LayoutParams(
-                (int) (36 * density), (int) (36 * density));
+                (int) (44 * density), (int) (44 * density));
         handleParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
         handleParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
         handleParams.rightMargin = (int) (6 * density);
