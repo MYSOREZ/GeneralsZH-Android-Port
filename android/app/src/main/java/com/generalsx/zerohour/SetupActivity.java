@@ -1295,10 +1295,48 @@ public class SetupActivity extends Activity {
         copyFileIfMissing(new File(bundledRoot, "dxvk.conf"), new File(gameFolderPath, "dxvk.conf"));
         copyFileIfMissing(new File(bundledRoot, "DefaultOptions.ini"), new File(gameFolderPath, "DefaultOptions.ini"));
         copyDirIfMissing(new File(bundledRoot, "fonts"), new File(gameFolderPath, "fonts"));
-        // GeneralsX @note Android port 11/07/2026 no GeneralsOnline lobby
-        // .wnd screens are staged here anymore -- the real client reuses the
-        // original, unmodified Zero Hour .wnd files already inside the
-        // user's own copied game .big archives, so there is nothing to copy.
+        syncEngineWindowOverrides(bundledRoot, gameFolderPath);
+    }
+
+    // GeneralsX @bugfix Android port 02/08/2026 GroupPanel.wnd (the native
+    // in-engine unit-group panel) is a loose Window\ override WE inject --
+    // see GameWindowManagerScript.cpp's Window\ path resolution -- not a
+    // user file, so unlike dxvk.conf/DefaultOptions.ini/fonts/ above it must
+    // NOT use copy-if-missing: every edit to it (this exact feature has
+    // already gone through several rounds of position/behavior/style fixes)
+    // would otherwise silently never reach an existing install, since the
+    // very first copy would win forever. Always overwrite this one
+    // subdirectory; bundledRoot's own copy is kept fresh the same way, see
+    // GeneralsZHActivity.copyAssetTree's ALWAYS_OVERWRITE_PREFIX.
+    private static void syncEngineWindowOverrides(File bundledRoot, String gameFolderPath) {
+        File srcDir = new File(bundledRoot, "Window");
+        File[] children = srcDir.listFiles();
+        if (children == null) {
+            return;
+        }
+        File destDir = new File(gameFolderPath, "Window");
+        if (!destDir.isDirectory() && !destDir.mkdirs()) {
+            return;
+        }
+        for (File child : children) {
+            if (child.isFile()) {
+                copyFileOverwrite(child, new File(destDir, child.getName()));
+            }
+        }
+    }
+
+    private static void copyFileOverwrite(File src, File dest) {
+        try (java.io.InputStream in = new java.io.FileInputStream(src);
+             java.io.OutputStream out = new java.io.FileOutputStream(dest)) {
+            byte[] buf = new byte[8192];
+            int n;
+            while ((n = in.read(buf)) > 0) {
+                out.write(buf, 0, n);
+            }
+        } catch (java.io.IOException e) {
+            // Not fatal: worst case the engine keeps using a stale or
+            // missing override, same as before this fix existed.
+        }
     }
 
     private static void copyFileIfMissing(File bundled, File dest) {

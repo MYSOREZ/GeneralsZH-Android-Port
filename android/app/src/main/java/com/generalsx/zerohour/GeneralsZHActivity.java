@@ -132,21 +132,7 @@ public class GeneralsZHActivity extends SDLActivity {
         }
 
         super.onCreate(savedInstanceState);
-
-        // GeneralsX @feature Android port 02/08/2026 Unit-group touch overlay
-        // (GroupPanelOverlay.java) -- must come after super.onCreate(), which
-        // is what actually creates mLayout/mSurface (SDLActivity.onCreate()).
-        mGroupPanel = new GroupPanelOverlay(this, (android.widget.RelativeLayout) mLayout);
     }
-
-    private GroupPanelOverlay mGroupPanel;
-
-    // JNI bridge implemented in SDL3GameEngine.cpp -- see the comment there
-    // for why this is a plain Android overlay talking to the engine through
-    // two native calls, rather than a new engine-side GameWindow.
-    public static native void nativeGroupCommand(int group, boolean create);
-    public static native int nativeGetGroupOccupancyMask();
-    public static native boolean nativeIsGameplayActive();
 
     // GeneralsX @bugfix Android port 02/08/2026 A tester reported the camera
     // panning to the map's left edge and then not responding to further
@@ -209,7 +195,8 @@ public class GeneralsZHActivity extends SDLActivity {
      * Copy the APK's bundled runtime files into the external files dir
      * (the game's working directory). Existing files are left alone so a
      * user-edited dxvk.conf or replaced font survives updates; delete the
-     * file to get a fresh copy on next launch.
+     * file to get a fresh copy on next launch. The one exception is
+     * gamedata/Window/ -- see copyAssetTree's comment on ALWAYS_OVERWRITE_PREFIX.
      */
     private void extractBundledRuntime() {
         File root = getExternalFilesDir(null);
@@ -219,6 +206,16 @@ public class GeneralsZHActivity extends SDLActivity {
         }
         copyAssetTree("gamedata", root);
     }
+
+    // GeneralsX @bugfix Android port 02/08/2026 gamedata/Window/ holds loose
+    // .wnd screens WE inject (GroupPanel.wnd) that the player never edits --
+    // unlike dxvk.conf/DefaultOptions.ini/fonts/ below it, which are meant to
+    // survive an update untouched, a stale copy of OUR OWN file here just
+    // means every change we ship (this exact feature went through several
+    // rounds of position/behavior fixes) silently never reaches an existing
+    // install. Always overwrite this one subtree; everything else keeps the
+    // normal "leave it alone if it already exists" behavior.
+    private static final String ALWAYS_OVERWRITE_PREFIX = "Window/";
 
     private void copyAssetTree(String assetPath, File destRoot) {
         AssetManager assets = getAssets();
@@ -230,7 +227,8 @@ public class GeneralsZHActivity extends SDLActivity {
                 if (rel.startsWith("/")) rel = rel.substring(1);
                 if (rel.isEmpty()) return;
                 File dest = new File(destRoot, rel);
-                if (dest.exists()) return;
+                boolean alwaysOverwrite = rel.startsWith(ALWAYS_OVERWRITE_PREFIX);
+                if (dest.exists() && !alwaysOverwrite) return;
                 File parent = dest.getParentFile();
                 if (parent != null && !parent.exists() && !parent.mkdirs()) {
                     Log.e(TAG, "mkdirs failed for " + parent);
