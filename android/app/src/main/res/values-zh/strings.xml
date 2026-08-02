@@ -61,6 +61,21 @@
     <string name="setup_toast_driver_config_failed">无法保存驱动配置：%1$s</string>
     <string name="setup_toast_driver_imported">驱动已导入：%1$s。将在下次启动时生效。</string>
 
+    <!-- SetupActivity: Diagnostics card -->
+    <string name="setup_card_diagnostics">诊断</string>
+    <string name="setup_diagnostics_help">这些开关会为错误报告开启额外的日志记录 —— 正常游玩时请全部保持关闭，它们可能拖慢游戏速度或产生非常大的日志。如果问题反馈者要求你打开某一项，就打开它，重现问题，然后使用上方的"查看日志"发送结果。</string>
+    <string name="setup_diagnostics_no_folder">请先在上方选择游戏文件夹，然后才能使用这些开关</string>
+    <string name="setup_switch_gx_trace">详细跟踪日志</string>
+    <string name="setup_switch_gx_trace_desc">非常详细的内部日志（界面、字体、INI 文件），用于追踪特定的卡死或错误。长时间游玩会话中日志可能增长到 50-100+ MB —— 如果只需要 FPS 数值，请改用"性能摘要"。(gx_trace.txt)</string>
+    <string name="setup_switch_gx_perf">性能摘要</string>
+    <string name="setup_switch_gx_perf_desc">每秒添加一行简短记录，显示每帧时间花在哪里（雷达、音频、网络、游戏逻辑、渲染）。整个游玩会话保持开启也是安全的 —— 用于 FPS/卡顿报告时打开。(gx_perf.txt)</string>
+    <string name="setup_switch_dxvk_hud">屏幕性能叠加层</string>
+    <string name="setup_switch_dxvk_hud_desc">直接在屏幕和日志中显示 FPS、绘制调用数、提交数和管线数。用于 GPU 性能报告时打开。(dxvk_hud.txt)</string>
+    <string name="setup_switch_dxvk_validation">Vulkan 验证层</string>
+    <string name="setup_switch_dxvk_validation_desc">检查每次图形调用的正确性 —— 能发现真实的渲染错误，但会明显拖慢游戏速度。仅在被要求重现特定崩溃或图形故障时打开，不要在日常游玩时使用。(dxvk_validation.txt)</string>
+    <string name="setup_switch_dxvk_verbose_log">详细渲染器日志</string>
+    <string name="setup_switch_dxvk_verbose_log_desc">在启动时添加游戏与你的 GPU 驱动如何通信的额外细节（确切的显示格式和协商设置）。当被要求追查特定于你设备的图形故障时打开。(dxvk_verbose_log.txt)</string>
+
     <!-- SetupActivity: Online Multiplayer card -->
     <string name="setup_card_online">在线多人游戏</string>
     <string name="setup_button_online_account">GeneralsOnline 账号</string>

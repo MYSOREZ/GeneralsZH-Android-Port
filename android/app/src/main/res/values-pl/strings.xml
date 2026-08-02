@@ -61,6 +61,21 @@
     <string name="setup_toast_driver_config_failed">Nie udało się zapisać konfiguracji sterownika: %1$s</string>
     <string name="setup_toast_driver_imported">Zaimportowano sterownik: %1$s. Zacznie działać przy następnym uruchomieniu.</string>
 
+    <!-- SetupActivity: Diagnostics card -->
+    <string name="setup_card_diagnostics">Diagnostyka</string>
+    <string name="setup_diagnostics_help">Te przełączniki włączają dodatkowe logowanie do zgłoszeń błędów — podczas normalnej gry trzymaj je wszystkie wyłączone, mogą spowolnić grę lub wygenerować bardzo duże logi. Jeśli osoba zgłaszająca problem poprosi o włączenie któregoś, włącz go, odtwórz problem, a następnie użyj „Wyświetl logi” powyżej, aby wysłać wynik.</string>
+    <string name="setup_diagnostics_no_folder">Najpierw wybierz folder gry (powyżej), aby korzystać z tych przełączników</string>
+    <string name="setup_switch_gx_trace">Szczegółowy log śledzenia</string>
+    <string name="setup_switch_gx_trace_desc">Bardzo szczegółowe logowanie wewnętrzne (interfejs, czcionki, pliki INI) do śledzenia konkretnego zawieszenia lub błędu. Podczas długiej sesji log może urosnąć do 50–100+ MB — jeśli potrzebujesz tylko liczby FPS, użyj zamiast tego „Podsumowania wydajności”. (gx_trace.txt)</string>
+    <string name="setup_switch_gx_perf">Podsumowanie wydajności</string>
+    <string name="setup_switch_gx_perf_desc">Dodaje jedną krótką linię na sekundę pokazującą, na co idzie czas klatki (radar, dźwięk, sieć, logika gry, renderowanie). Można bezpiecznie zostawić włączone przez całą sesję — włącz do zgłoszeń o FPS/spowolnieniach. (gx_perf.txt)</string>
+    <string name="setup_switch_dxvk_hud">Nakładka wydajności na ekranie</string>
+    <string name="setup_switch_dxvk_hud_desc">Pokazuje FPS, liczbę wywołań rysowania, zgłoszeń i potoków bezpośrednio na ekranie i w logu. Włącz do zgłoszeń o wydajności GPU. (dxvk_hud.txt)</string>
+    <string name="setup_switch_dxvk_validation">Warstwa walidacji Vulkan</string>
+    <string name="setup_switch_dxvk_validation_desc">Sprawdza poprawność każdego wywołania graficznego — wykrywa prawdziwe błędy renderowania, ale zauważalnie spowalnia grę. Włączaj tylko wtedy, gdy poproszono cię o odtworzenie konkretnej awarii lub glitcha, nie do zwykłej gry. (dxvk_validation.txt)</string>
+    <string name="setup_switch_dxvk_verbose_log">Szczegółowy log renderera</string>
+    <string name="setup_switch_dxvk_verbose_log_desc">Dodaje dodatkowe informacje przy starcie o tym, jak gra komunikuje się ze sterownikiem GPU (dokładny format ekranu i uzgodnione ustawienia). Włącz, gdy poproszono cię o namierzenie glitcha graficznego specyficznego dla twojego urządzenia. (dxvk_verbose_log.txt)</string>
+
     <!-- SetupActivity: Online Multiplayer card -->
     <string name="setup_card_online">Tryb wieloosobowy online</string>
     <string name="setup_button_online_account">Konto GeneralsOnline</string>

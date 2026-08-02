@@ -73,11 +73,18 @@
 
     <!-- SetupActivity: Diagnostics card -->
     <string name="setup_card_diagnostics">Diagnostics</string>
-    <string name="setup_diagnostics_help">These turn on extra logging for bug reports — leave them off for normal play, they make the game slower. When asked by an issue reporter, turn on the one they need, reproduce the problem, then use \"View Logs\" above.</string>
-    <string name="setup_diagnostics_no_folder">Select a game folder first (above)</string>
-    <string name="setup_switch_gx_trace">Verbose trace log (gx_trace.txt)</string>
-    <string name="setup_switch_gx_perf">Performance summary (gx_perf.txt)</string>
-    <string name="setup_switch_dxvk_validation">Vulkan validation layer (dxvk_validation.txt)</string>
+    <string name="setup_diagnostics_help">These turn on extra logging for bug reports — leave them all off for normal play, they can slow the game down or produce large logs. If someone reporting an issue asks you to turn one on, enable it, reproduce the problem, then use \"View Logs\" above to send the result.</string>
+    <string name="setup_diagnostics_no_folder">Select a game folder first (above) to use these</string>
+    <string name="setup_switch_gx_trace">Verbose trace log</string>
+    <string name="setup_switch_gx_trace_desc">Very detailed internal logging (UI, fonts, INI files) for chasing a specific hang or bug. Can grow to a huge log (50–100+ MB) over a long session — use \"Performance summary\" instead if you only need FPS numbers. (gx_trace.txt)</string>
+    <string name="setup_switch_gx_perf">Performance summary</string>
+    <string name="setup_switch_gx_perf_desc">Adds one short line per second showing where frame time goes (radar, audio, network, game logic, rendering). Safe to leave on for a whole play session — turn this on for FPS/slowdown reports. (gx_perf.txt)</string>
+    <string name="setup_switch_dxvk_hud">On-screen performance overlay</string>
+    <string name="setup_switch_dxvk_hud_desc">Shows FPS, draw calls, submissions, and pipeline count directly on screen and in the log. Turn this on for GPU performance reports. (dxvk_hud.txt)</string>
+    <string name="setup_switch_dxvk_validation">Vulkan validation layer</string>
+    <string name="setup_switch_dxvk_validation_desc">Checks every graphics call for correctness — catches real rendering bugs but slows the game down noticeably. Only turn this on when asked to reproduce a specific crash or glitch, not for everyday play. (dxvk_validation.txt)</string>
+    <string name="setup_switch_dxvk_verbose_log">Verbose renderer log</string>
+    <string name="setup_switch_dxvk_verbose_log_desc">Adds extra startup details about how the game talks to your GPU driver (exact display format and settings negotiated). Turn this on when asked to track down a rendering glitch specific to your device. (dxvk_verbose_log.txt)</string>
 
     <!-- SetupActivity: Online Multiplayer card -->
     <string name="setup_card_online">Online Multiplayer</string>

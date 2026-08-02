@@ -61,6 +61,21 @@
     <string name="setup_toast_driver_config_failed">تعذر حفظ إعدادات برنامج التشغيل: %1$s</string>
     <string name="setup_toast_driver_imported">تم استيراد برنامج التشغيل: %1$s. سيسري المفعول عند التشغيل القادم.</string>
 
+    <!-- SetupActivity: Diagnostics card -->
+    <string name="setup_card_diagnostics">التشخيص</string>
+    <string name="setup_diagnostics_help">تعمل هذه المفاتيح على تفعيل تسجيل إضافي لتقارير الأخطاء — اتركها كلها مغلقة أثناء اللعب العادي، فقد تبطئ اللعبة أو تنتج سجلات كبيرة جدًا. إذا طلب منك المُبلّغ عن مشكلة تفعيل أحدها، فعّله، أعد إنتاج المشكلة، ثم استخدم "عرض السجلات" أعلاه لإرسال النتيجة.</string>
+    <string name="setup_diagnostics_no_folder">اختر مجلد اللعبة أولاً (أعلاه) لاستخدام هذه المفاتيح</string>
+    <string name="setup_switch_gx_trace">سجل تتبع مفصّل</string>
+    <string name="setup_switch_gx_trace_desc">تسجيل داخلي مفصّل جدًا (الواجهة، الخطوط، ملفات INI) لتتبع تجمّد أو خلل معيّن. قد ينمو السجل إلى حجم كبير جدًا (50-100+ ميجابايت) خلال جلسة طويلة — استخدم "ملخص الأداء" بدلاً من ذلك إذا كنت تحتاج فقط إلى أرقام معدل الإطارات. (gx_trace.txt)</string>
+    <string name="setup_switch_gx_perf">ملخص الأداء</string>
+    <string name="setup_switch_gx_perf_desc">يضيف سطرًا قصيرًا كل ثانية يوضح أين يُصرف وقت الإطار (الرادار، الصوت، الشبكة، منطق اللعبة، العرض). آمن تركه مفعّلاً طوال جلسة اللعب — فعّله لتقارير معدل الإطارات/التباطؤ. (gx_perf.txt)</string>
+    <string name="setup_switch_dxvk_hud">طبقة أداء على الشاشة</string>
+    <string name="setup_switch_dxvk_hud_desc">يعرض معدل الإطارات وعدد أوامر الرسم والإرسالات وعدد خطوط الأنابيب مباشرة على الشاشة وفي السجل. فعّله لتقارير أداء وحدة معالجة الرسومات. (dxvk_hud.txt)</string>
+    <string name="setup_switch_dxvk_validation">طبقة التحقق من Vulkan</string>
+    <string name="setup_switch_dxvk_validation_desc">يتحقق من صحة كل استدعاء رسومي — يكتشف أخطاء رسم حقيقية لكنه يبطئ اللعبة بشكل ملحوظ. فعّله فقط عند الطلب لإعادة إنتاج عطل أو خلل معيّن، وليس للعب العادي. (dxvk_validation.txt)</string>
+    <string name="setup_switch_dxvk_verbose_log">سجل تفصيلي لمحرك الرسوميات</string>
+    <string name="setup_switch_dxvk_verbose_log_desc">يضيف تفاصيل إضافية عند بدء التشغيل حول كيفية تواصل اللعبة مع تعريف وحدة معالجة الرسومات لديك (تنسيق العرض الدقيق والإعدادات المتفاوض عليها). فعّله عند الطلب لتتبع خلل رسومي خاص بجهازك. (dxvk_verbose_log.txt)</string>
+
     <!-- SetupActivity: Online Multiplayer card -->
     <string name="setup_card_online">اللعب الجماعي عبر الإنترنت</string>
     <string name="setup_button_online_account">حساب GeneralsOnline</string>

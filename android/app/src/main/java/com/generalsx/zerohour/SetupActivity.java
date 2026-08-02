@@ -879,16 +879,33 @@ public class SetupActivity extends Activity {
     }
 
     // GeneralsX @feature Android port 02/08/2026 Diagnostic marker toggles:
-    // GXTrace.h (gx_trace.txt/gx_perf.txt) and SDL3Main.cpp
-    // (dxvk_validation.txt) both gate opt-in logging behind a plain marker
-    // file dropped into the selected game folder, checked relative to CWD
-    // after the engine chdir()s there — deliberately no-adb, no-rebuild, so
-    // a tester can enable them. In practice almost nobody who isn't already
-    // comfortable with a file manager knows to create an empty file with an
-    // exact name, so this just does it for them: each switch creates/deletes
-    // the marker directly, no new native code needed since the engine side
-    // only ever checked "does this file exist", never its contents.
-    private static final String[] DIAGNOSTIC_MARKERS = { "gx_trace.txt", "gx_perf.txt", "dxvk_validation.txt" };
+    // GXTrace.h (gx_trace.txt/gx_perf.txt) and SDL3Main.cpp (dxvk_hud.txt/
+    // dxvk_validation.txt/dxvk_verbose_log.txt) all gate opt-in logging
+    // behind a plain marker file dropped into the selected game folder,
+    // checked relative to CWD after the engine chdir()s there --
+    // deliberately no-adb, no-rebuild, so a tester can enable them (see
+    // docs/port/ANDROID_PORT.md's "Diagnostic marker files" table, the
+    // canonical list this mirrors). In practice almost nobody who isn't
+    // already comfortable with a file manager knows to create an empty file
+    // with an exact name, so this just does it for them: each switch
+    // creates/deletes the marker directly, no new native code needed since
+    // the engine side only ever checked "does this file exist", never its
+    // contents. Each switch gets its own plain-language title AND a "when to
+    // turn this on" description (translated, not just the raw filename) --
+    // the filename itself still appears at the end of the description in
+    // parentheses so a tester can match it up with exact instructions from
+    // an issue reporter/maintainer.
+    private static final String[] DIAGNOSTIC_MARKERS = {
+        "gx_trace.txt", "gx_perf.txt", "dxvk_hud.txt", "dxvk_validation.txt", "dxvk_verbose_log.txt"
+    };
+    private static final int[] DIAGNOSTIC_TITLES = {
+        R.string.setup_switch_gx_trace, R.string.setup_switch_gx_perf, R.string.setup_switch_dxvk_hud,
+        R.string.setup_switch_dxvk_validation, R.string.setup_switch_dxvk_verbose_log
+    };
+    private static final int[] DIAGNOSTIC_DESCRIPTIONS = {
+        R.string.setup_switch_gx_trace_desc, R.string.setup_switch_gx_perf_desc, R.string.setup_switch_dxvk_hud_desc,
+        R.string.setup_switch_dxvk_validation_desc, R.string.setup_switch_dxvk_verbose_log_desc
+    };
     private final MaterialSwitch[] diagnosticSwitches = new MaterialSwitch[DIAGNOSTIC_MARKERS.length];
 
     private void buildDiagnosticsSection(LinearLayout root) {
@@ -900,19 +917,35 @@ public class SetupActivity extends Activity {
         help.setPadding(0, 0, 0, dp(8));
         content.addView(help);
 
-        int[] labels = { R.string.setup_switch_gx_trace, R.string.setup_switch_gx_perf, R.string.setup_switch_dxvk_validation };
+        diagnosticsNoFolderHint = new TextView(this);
+        diagnosticsNoFolderHint.setAlpha(0.8f);
+        diagnosticsNoFolderHint.setText(R.string.setup_diagnostics_no_folder);
+        diagnosticsNoFolderHint.setPadding(0, 0, 0, dp(8));
+        content.addView(diagnosticsNoFolderHint);
+
         for (int i = 0; i < DIAGNOSTIC_MARKERS.length; i++) {
             MaterialSwitch sw = new MaterialSwitch(this);
-            sw.setText(getString(labels[i]));
+            sw.setText(getString(DIAGNOSTIC_TITLES[i]));
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            lp.setMargins(0, dp(4), 0, dp(4));
+            lp.setMargins(0, dp(4), 0, 0);
             content.addView(sw, lp);
             diagnosticSwitches[i] = sw;
+
+            TextView desc = new TextView(this);
+            desc.setAlpha(0.7f);
+            desc.setTextSize(12);
+            desc.setText(getString(DIAGNOSTIC_DESCRIPTIONS[i]));
+            LinearLayout.LayoutParams descLp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            descLp.setMargins(dp(4), 0, 0, dp(10));
+            content.addView(desc, descLp);
         }
 
         refreshDiagnosticsSwitches();
     }
+
+    private TextView diagnosticsNoFolderHint;
 
     private File diagnosticMarkerFile(String name) {
         String gamePath = getSavedGamePath();
@@ -937,6 +970,9 @@ public class SetupActivity extends Activity {
 
     private void refreshDiagnosticsSwitches() {
         boolean haveFolder = getSavedGamePath() != null;
+        if (diagnosticsNoFolderHint != null) {
+            diagnosticsNoFolderHint.setVisibility(haveFolder ? android.view.View.GONE : android.view.View.VISIBLE);
+        }
         for (int i = 0; i < DIAGNOSTIC_MARKERS.length; i++) {
             final int index = i;
             MaterialSwitch sw = diagnosticSwitches[index];

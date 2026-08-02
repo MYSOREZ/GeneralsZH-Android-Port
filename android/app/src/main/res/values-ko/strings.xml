@@ -61,6 +61,21 @@
     <string name="setup_toast_driver_config_failed">드라이버 설정을 저장할 수 없습니다: %1$s</string>
     <string name="setup_toast_driver_imported">드라이버를 가져왔습니다: %1$s. 다음 실행 시 적용됩니다.</string>
 
+    <!-- SetupActivity: Diagnostics card -->
+    <string name="setup_card_diagnostics">진단</string>
+    <string name="setup_diagnostics_help">이 스위치들은 버그 신고를 위한 추가 로깅을 켭니다 — 일반 플레이 중에는 모두 꺼두세요, 게임이 느려지거나 로그가 매우 커질 수 있습니다. 문제를 제보한 사람이 특정 항목을 켜달라고 요청하면 켜고, 문제를 재현한 뒤 위의 "로그 보기"로 결과를 전송하세요.</string>
+    <string name="setup_diagnostics_no_folder">이 스위치를 사용하려면 먼저 위에서 게임 폴더를 선택하세요</string>
+    <string name="setup_switch_gx_trace">상세 추적 로그</string>
+    <string name="setup_switch_gx_trace_desc">특정 멈춤이나 버그를 추적하기 위한 매우 상세한 내부 로그(UI, 글꼴, INI 파일). 긴 세션에서는 로그가 50~100MB 이상으로 커질 수 있습니다 — FPS 수치만 필요하면 대신 "성능 요약"을 사용하세요. (gx_trace.txt)</string>
+    <string name="setup_switch_gx_perf">성능 요약</string>
+    <string name="setup_switch_gx_perf_desc">프레임 시간이 어디에 쓰이는지(레이더, 오디오, 네트워크, 게임 로직, 렌더링) 매초 한 줄씩 짧게 추가합니다. 세션 내내 켜둬도 안전합니다 — FPS/버벅임 제보 시 켜세요. (gx_perf.txt)</string>
+    <string name="setup_switch_dxvk_hud">화면 성능 오버레이</string>
+    <string name="setup_switch_dxvk_hud_desc">FPS, 드로우 콜 수, 서밋(submission) 수, 파이프라인 수를 화면과 로그에 직접 표시합니다. GPU 성능 제보 시 켜세요. (dxvk_hud.txt)</string>
+    <string name="setup_switch_dxvk_validation">Vulkan 검증 레이어</string>
+    <string name="setup_switch_dxvk_validation_desc">모든 그래픽 호출의 정확성을 검사합니다 — 실제 렌더링 버그를 찾아내지만 게임이 눈에 띄게 느려집니다. 특정 크래시나 그래픽 결함을 재현해달라는 요청이 있을 때만 켜고, 평소 플레이에는 켜지 마세요. (dxvk_validation.txt)</string>
+    <string name="setup_switch_dxvk_verbose_log">상세 렌더러 로그</string>
+    <string name="setup_switch_dxvk_verbose_log_desc">게임이 GPU 드라이버와 통신하는 방식(정확한 화면 형식과 협상된 설정)에 대한 추가 시작 정보를 로그에 추가합니다. 기기별 그래픽 결함을 추적해달라는 요청이 있을 때 켜세요. (dxvk_verbose_log.txt)</string>
+
     <!-- SetupActivity: Online Multiplayer card -->
     <string name="setup_card_online">온라인 멀티플레이어</string>
     <string name="setup_button_online_account">GeneralsOnline 계정</string>
