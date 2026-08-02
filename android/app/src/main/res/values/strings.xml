@@ -83,6 +83,7 @@
 
     <!-- SetupActivity: folder selection / misc toasts -->
     <string name="setup_toast_grant_all_files">Grant \"Allow access to manage all files\" on the next screen, then come back and tap Select Game Folder again.</string>
+    <string name="setup_toast_storage_permission_denied">Storage permission is required to browse for the game folder. Tap Select Game Folder again to retry.</string>
     <string name="setup_toast_folder_saved">Game folder saved.</string>
     <string name="setup_toast_folder_saved_invalid">Saved, but no INIZH.big/INI.big found there — check the folder.</string>
     <string name="setup_toast_marker_save_failed">Could not save folder marker: %1$s</string>
