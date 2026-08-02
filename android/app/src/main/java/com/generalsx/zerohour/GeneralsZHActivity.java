@@ -132,7 +132,20 @@ public class GeneralsZHActivity extends SDLActivity {
         }
 
         super.onCreate(savedInstanceState);
+
+        // GeneralsX @feature Android port 02/08/2026 Unit-group touch overlay
+        // (GroupPanelOverlay.java) -- must come after super.onCreate(), which
+        // is what actually creates mLayout/mSurface (SDLActivity.onCreate()).
+        mGroupPanel = new GroupPanelOverlay(this, (android.widget.RelativeLayout) mLayout);
     }
+
+    private GroupPanelOverlay mGroupPanel;
+
+    // JNI bridge implemented in SDL3GameEngine.cpp -- see the comment there
+    // for why this is a plain Android overlay talking to the engine through
+    // two native calls, rather than a new engine-side GameWindow.
+    public static native void nativeGroupCommand(int group, boolean create);
+    public static native int nativeGetGroupOccupancyMask();
 
     // GeneralsX @bugfix Android port 02/08/2026 A tester reported the camera
     // panning to the map's left edge and then not responding to further
