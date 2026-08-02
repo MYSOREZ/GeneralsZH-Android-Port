@@ -65,6 +65,7 @@
 #include "GameClient/ControlBar.h"
 #include "GameClient/ControlBarScheme.h"
 #include "GameClient/Drawable.h"
+#include "GameClient/Shell.h"
 #include "GameClient/Display.h"
 #include "GameClient/DisplayStringManager.h"
 #include "GameClient/GameClient.h"
@@ -950,6 +951,7 @@ ControlBar::ControlBar()
 
 	m_specialPowerShortcutParent = nullptr;
 	m_specialPowerLayout = nullptr;
+	m_groupPanelLayout = nullptr;
 	m_scienceLayout = nullptr;
 	m_rightHUDWindow = nullptr;
 	m_rightHUDCameoWindow = nullptr;
@@ -1006,6 +1008,12 @@ ControlBar::~ControlBar()
 		m_scienceLayout->destroyWindows();
 		deleteInstance(m_scienceLayout);
 		m_scienceLayout = nullptr;
+	}
+	if(m_groupPanelLayout)
+	{
+		m_groupPanelLayout->destroyWindows();
+		deleteInstance(m_groupPanelLayout);
+		m_groupPanelLayout = nullptr;
 	}
 	m_genArrow = nullptr;
 
@@ -1109,6 +1117,16 @@ void ControlBar::init()
 		m_scienceLayout = TheWindowManager->winCreateLayout("GeneralsExpPoints.wnd");
 		m_scienceLayout->hide(TRUE);
 		id = TheNameKeyGenerator->nameToKey( "GeneralsExpPoints.wnd:GenExpParent" );
+
+		// GeneralsX @feature Android port 02/08/2026 Native unit-group touch
+		// panel -- GroupPanel.wnd is a loose file (Window\GroupPanel.wnd, not
+		// in the game's .big archives), so this can return nullptr on an
+		// install that hasn't had it extracted yet; guard against that rather
+		// than assume it's always present the way the archived .wnd files are.
+		m_groupPanelLayout = TheWindowManager->winCreateLayout("GroupPanel.wnd");
+		if (m_groupPanelLayout) {
+			m_groupPanelLayout->hide(TRUE);
+		}
 
 		m_contextParent[ CP_PURCHASE_SCIENCE ] = TheWindowManager->winGetWindowFromId( nullptr, id );//m_scienceLayout->getFirstWindow();
 
@@ -1415,6 +1433,22 @@ void ControlBar::update()
 {
 	if (TheGlobalData->m_headless)
 		return;
+
+	// GeneralsX @feature Android port 02/08/2026 Unit-group touch panel:
+	// hide outside of real, already-started gameplay. TheGameLogic->getFrame()
+	// stays 0 through both the initial loading screen and the pre-match
+	// general-briefing/army-summary screen (map preview + player list before
+	// the simulation starts) -- TheShell->isShellActive() alone doesn't catch
+	// the briefing screen, since TheGameLogic is already in an interactive
+	// game mode there even though nothing is simulating yet. Same two-part
+	// check the Android-overlay version of this panel used (nativeIsGameplayActive()
+	// in SDL3GameEngine.cpp), just directly in C++ now -- no JNI round-trip needed.
+	if (m_groupPanelLayout) {
+		Bool gameplayActive = !(TheShell && TheShell->isShellActive())
+			&& TheGameLogic && TheGameLogic->isInInteractiveGame() && TheGameLogic->getFrame() > 0;
+		m_groupPanelLayout->hide(!gameplayActive);
+	}
+
 	getStarImage();
 	updateRadarAttackGlow();
 	if(m_controlBarSchemeManager)

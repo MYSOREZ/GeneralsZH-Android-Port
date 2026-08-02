@@ -362,6 +362,15 @@ void ResetDiplomacy();
 WindowMsgHandledType GeneralsExpPointsSystem( GameWindow *window, UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2 );
 WindowMsgHandledType GeneralsExpPointsInput( GameWindow *window, UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2 );
 
+// GeneralsX @feature Android port 02/08/2026 Native in-engine replacement
+// for the Android-overlay unit-group panel (GroupPanel.wnd, loaded from a
+// loose file outside the game's .big archives -- see
+// GameWindowManagerScript.cpp's Window\ path resolution).
+extern void GroupPanelInit( WindowLayout *layout, void *userData );
+extern void GroupPanelUpdate( WindowLayout *layout, void *userData );
+extern void GroupPanelShutdown( WindowLayout *layout, void *userData );
+extern WindowMsgHandledType GroupPanelSystem( GameWindow *window, UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2 );
+
 
 // IdleWorker Controls --------------------------------------------------------------------------------
 WindowMsgHandledType IdleWorkerSystem( GameWindow *window, UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2 );

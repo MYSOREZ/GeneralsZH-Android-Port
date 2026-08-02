@@ -914,6 +914,11 @@ protected:
 
 	GameWindow *m_communicatorButton;             ///< button for the communicator
 
+	// GeneralsX @feature Android port 02/08/2026 Native in-engine unit-group
+	// touch panel (GroupPanel.wnd, GroupPanel.cpp) -- hidden outside of real,
+	// already-started gameplay, same as the Android-overlay version this
+	// replaces was gated (see update()'s use of this).
+	WindowLayout *m_groupPanelLayout;
 	WindowLayout *m_scienceLayout;								///< the Science window layout
 	GameWindow *m_sciencePurchaseWindowsRank1[ MAX_PURCHASE_SCIENCE_RANK_1 ];			///< command window controls for easy access
 	GameWindow *m_sciencePurchaseWindowsRank3[ MAX_PURCHASE_SCIENCE_RANK_3 ];			///< command window controls for easy access
