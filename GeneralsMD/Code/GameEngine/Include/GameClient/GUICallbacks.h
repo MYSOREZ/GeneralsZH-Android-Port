@@ -370,17 +370,19 @@ extern void GroupPanelInit( WindowLayout *layout, void *userData );
 extern void GroupPanelUpdate( WindowLayout *layout, void *userData );
 extern void GroupPanelShutdown( WindowLayout *layout, void *userData );
 extern WindowMsgHandledType GroupPanelSystem( GameWindow *window, UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2 );
-// GeneralsX @feature Android port 03/08/2026 Keeps the panel's handle/row
-// glued to wherever the real command bar's root window currently sits on
-// screen -- calibrated once (the first call with visible=TRUE and
-// animationSettled=TRUE) against whatever position this file's own
-// hand-tuned SCREENRECT coordinates produced, then tracked as a plain
-// delta every frame after that, so it follows the bar through every stage
-// (default/squished/low) without this code needing to know the bar's own
-// retail coordinates in any of them. Recalibrates from scratch the next
-// time it becomes visible whenever visible=FALSE is passed in (so a bad
-// calibration never has to survive past the bar's next hide/show cycle).
-extern void GroupPanelFollowControlBar( Int barScreenX, Int barScreenY, Bool visible, Bool animationSettled );
+// GeneralsX @feature Android port 03/08/2026 Calibrates the panel's
+// handle/row screen-space offset from the real command bar's root window
+// exactly once, at ControlBar::init() time, against whatever position
+// this file's own hand-tuned SCREENRECT coordinates produced -- before
+// the bar has ever run a slide animation, so both windows are still at
+// their plain authored resting positions and the delta is the true,
+// permanent spatial relationship between them.
+extern void GroupPanelCalibrateFollowOffset( Int barScreenX, Int barScreenY );
+// Tracks the panel's handle/row to the bar's live screen position every
+// frame using the offset above, so it follows the bar through every
+// stage (default/squished/low) AND every frame of its own slide-in/out
+// animation, instead of only snapping into place once the bar settles.
+extern void GroupPanelFollowControlBar( Int barScreenX, Int barScreenY, Bool visible );
 
 
 // IdleWorker Controls --------------------------------------------------------------------------------

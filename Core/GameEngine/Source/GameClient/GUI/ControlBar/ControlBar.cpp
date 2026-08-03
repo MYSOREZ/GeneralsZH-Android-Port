@@ -1148,6 +1148,17 @@ void ControlBar::init()
 			if (groupRow) {
 				groupRow->winHide(TRUE);
 			}
+
+			// GeneralsX @bugfix Android port 03/08/2026 Calibrate the
+			// panel-to-bar follow offset right here, before the real bar has
+			// ever run a show/hide slide animation -- see
+			// GroupPanelCalibrateFollowOffset's comment in GUICallbacks.h for
+			// why this specific moment (both windows are still at their
+			// authored resting positions) makes the offset correct forever,
+			// with no runtime recalibration ever needed again.
+			Int barX, barY;
+			m_contextParent[ CP_MASTER ]->winGetScreenPosition(&barX, &barY);
+			GroupPanelCalibrateFollowOffset(barX, barY);
 		}
 
 		m_contextParent[ CP_PURCHASE_SCIENCE ] = TheWindowManager->winGetWindowFromId( nullptr, id );//m_scienceLayout->getFirstWindow();
@@ -1487,19 +1498,18 @@ void ControlBar::update()
 		m_groupPanelLayout->hide(!groupPanelVisible);
 
 		if (controlBarRoot) {
-			// GeneralsX @bugfix Android port 03/08/2026 The bar can be
-			// "visible" (WIN_STATUS_HIDDEN clear) for the entire duration of
-			// its own slide-in animation, not just once it settles -- so
-			// gating calibration on groupPanelVisible alone let it fire on a
-			// mid-slide frame, locking in an offset measured against a
-			// transient, wildly wrong bar position (reported: the panel
-			// flew off the top of the screen). Also require
-			// m_animateWindowManager->isFinished() (no animation this frame
-			// still needs to finish) before calibrating.
-			Bool animationSettled = !m_animateWindowManager || m_animateWindowManager->isFinished();
+			// GeneralsX @bugfix Android port 03/08/2026 The offset is
+			// calibrated once, permanently, in init() (see
+			// GroupPanelCalibrateFollowOffset) -- so this just tracks the
+			// bar's live screen position every single frame, including
+			// every frame of its own slide-in/out animation, instead of
+			// waiting for that animation to settle first. That's what
+			// makes the panel actually slide in/out together with the bar
+			// rather than sitting static and "already in place" for the
+			// whole animation.
 			Int barX, barY;
 			controlBarRoot->winGetScreenPosition(&barX, &barY);
-			GroupPanelFollowControlBar(barX, barY, groupPanelVisible, animationSettled);
+			GroupPanelFollowControlBar(barX, barY, groupPanelVisible);
 		}
 
 		// GeneralsX @feature Android port 03/08/2026 hold-gesture (add/clear

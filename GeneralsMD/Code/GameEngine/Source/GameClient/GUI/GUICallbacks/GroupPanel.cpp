@@ -273,23 +273,47 @@ static void updateHoldVisuals()
 }
 
 // GeneralsX @feature Android port 03/08/2026 See GUICallbacks.h's comment.
-// Not calibrated until visible=TRUE AND animationSettled=TRUE both hold
-// on the same frame -- the bar can be "visible" (WIN_STATUS_HIDDEN clear)
-// for the entire duration of its own slide-in animation, not just once it
-// settles, so visible alone isn't enough: calibrating mid-slide locks in
-// an offset measured against a transient, wildly wrong bar position (real
-// device report: the panel flew off the top of the screen). Resets
-// whenever visible=FALSE, so a bad calibration never has to survive past
-// the bar's next hide/show cycle -- worst case it just costs one more
-// calibration the next time the bar settles.
+// The offset is captured exactly ONCE, at ControlBar::init() time, before
+// the real bar has ever run a single show/hide slide animation -- at that
+// moment both this panel's handle and the real ControlBarParent are still
+// sitting at their plain authored .wnd resting positions, so the
+// screen-space delta between them is the true, permanent spatial
+// relationship, independent of any animation timing. Earlier attempts
+// calibrated lazily at runtime (once "visible", or once "visible AND the
+// bar's slide-in animation had settled") -- both were timing-dependent:
+// the first could sample a transient mid-slide bar position (real device
+// report: the panel flew off the top of the screen); the second was
+// correct but only ever moved the panel AFTER the bar's animation
+// finished, so the panel just sat static and "already in place" for the
+// whole slide instead of sliding in together with the bar, which is the
+// actual "become an inseparable part of the bar" behavior asked for.
+// Since the offset never needs to change, tracking by it unconditionally
+// every frame (see GroupPanelFollowControlBar below) makes the panel
+// mirror the bar's live screen position on every single frame, including
+// every frame of its slide-in/out animation.
 static Bool s_followOffsetCalibrated = FALSE;
 static Int s_followOffsetX = 0;
 static Int s_followOffsetY = 0;
 
-void GroupPanelFollowControlBar(Int barScreenX, Int barScreenY, Bool visible, Bool animationSettled)
+void GroupPanelCalibrateFollowOffset(Int barScreenX, Int barScreenY)
 {
-	if (!visible) {
-		s_followOffsetCalibrated = FALSE;
+	if (!TheWindowManager) {
+		return;
+	}
+	GameWindow *handle = TheWindowManager->winGetWindowFromId(nullptr, s_buttonHandleID);
+	if (!handle) {
+		return;
+	}
+	Int handleX, handleY;
+	handle->winGetScreenPosition(&handleX, &handleY);
+	s_followOffsetX = handleX - barScreenX;
+	s_followOffsetY = handleY - barScreenY;
+	s_followOffsetCalibrated = TRUE;
+}
+
+void GroupPanelFollowControlBar(Int barScreenX, Int barScreenY, Bool visible)
+{
+	if (!visible || !s_followOffsetCalibrated) {
 		return;
 	}
 	if (!TheWindowManager) {
@@ -298,18 +322,6 @@ void GroupPanelFollowControlBar(Int barScreenX, Int barScreenY, Bool visible, Bo
 	GameWindow *handle = TheWindowManager->winGetWindowFromId(nullptr, s_buttonHandleID);
 	GameWindow *row = TheWindowManager->winGetWindowFromId(nullptr, s_groupRowID);
 	if (!handle || !row) {
-		return;
-	}
-
-	if (!s_followOffsetCalibrated) {
-		if (!animationSettled) {
-			return;
-		}
-		Int handleX, handleY;
-		handle->winGetScreenPosition(&handleX, &handleY);
-		s_followOffsetX = handleX - barScreenX;
-		s_followOffsetY = handleY - barScreenY;
-		s_followOffsetCalibrated = TRUE;
 		return;
 	}
 
