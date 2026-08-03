@@ -535,6 +535,29 @@ ICoord2D touchPixel(float x, float y)
 	return p;
 }
 
+// GeneralsX @bugfix Android port 03/08/2026 A raw getWindowUnderCursor() hit
+// is not by itself proof a touch landed on real, click-blocking UI -- lots
+// of GameWindows (SelectionXlat.cpp's own obscured-object check is the
+// precedent this mirrors) are marked WIN_STATUS_SEE_THRU specifically so
+// clicks pass through them to whatever's underneath (the battlefield,
+// typically). Treating ANY hit as "this is UI, hijack the touch" regressed
+// ordinary battlefield taps -- reported: after using the group panel, a
+// tap on the ground played the unit's acknowledge voice line (so SOME
+// click landed) but produced no move order and no waypoint marker at all,
+// as if an invisible window had swallowed it. Walk up the same way
+// SelectionXlat.cpp does: only a genuinely non-see-through window (at the
+// hit point itself, or one of its ancestors) counts as real UI.
+Bool isRealUiHit(GameWindow *hit)
+{
+	while (hit) {
+		if (!BitIsSet(hit->winGetStatus(), WIN_STATUS_SEE_THRU)) {
+			return TRUE;
+		}
+		hit = hit->winGetParent();
+	}
+	return FALSE;
+}
+
 // Hover/position hint -- WindowXlat.cpp uses this to set GUI hilite state,
 // SelectionXlat.cpp uses it to build the selection-box drag region, and
 // LookAtXlat.cpp uses it to know where a drag/edge-scroll anchor is. A real
@@ -611,10 +634,10 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 			// starts on a widget -- a UI press is unambiguous the instant it
 			// happens, exactly like a real mouse press over a button, so route
 			// it straight to the engine instead of deferring it.
-			GameWindow *uiWindow = TheWindowManager
+			GameWindow *uiHit = TheWindowManager
 				? TheWindowManager->getWindowUnderCursor((Int)px, (Int)py)
 				: nullptr;
-			if (uiWindow) {
+			if (isRealUiHit(uiHit)) {
 				s_touch.finger1 = event.tfinger.fingerID;
 				s_touch.phase = TouchState::UI_PRESS;
 				s_touch.downX = s_touch.lastX = px;

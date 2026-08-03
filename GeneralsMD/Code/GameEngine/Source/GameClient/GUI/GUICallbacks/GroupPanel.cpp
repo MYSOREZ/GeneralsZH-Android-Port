@@ -39,27 +39,27 @@
 // assign/replace, regardless of occupancy -- the deliberate, explicit
 // version of the same action.
 //
-// GeneralsX @feature Android port 02/08/2026 Rusted Warfare-style hold
-// gesture (short hold = add, long hold = clear), with two-stage radial
-// visual feedback: press and hold a group button, a clock-wipe overlay
+// GeneralsX @feature Android port 02/08/2026, simplified 03/08/2026 Hold
+// gesture: press and hold a group button, a clock-wipe overlay
 // (GadgetButtonDrawClock -- the same mechanism this engine already has for
 // production-progress buttons, see W3DPushButton.cpp) fills clockwise in
-// green over GROUP_HOLD_ADD_MS; release once it completes (the whole
-// button reads solid green at percent=100) to ADD the current selection
-// into the existing group instead of replacing it. Keep holding and the
-// wipe restarts in red over the next GROUP_HOLD_CLEAR_MS; release once
-// THAT completes (solid red) to CLEAR the group entirely. Releasing before
-// the green wipe completes is just the normal tap above -- unchanged.
+// red over GROUP_HOLD_MS; release once it completes (the whole button
+// reads solid red at percent=100) to CLEAR the group entirely. Releasing
+// before the wipe completes is just the normal tap above -- unchanged.
+// (A first version also had a shorter green "add to group" stage before
+// the red one, dropped once real use showed it was redundant: a plain tap
+// on a non-empty group already assigns/replaces it with the current
+// selection, which covers the same "grow this group" need a two-finger-
+// tap/force-assign already handles explicitly.)
 //
-// Both new actions are built entirely from the existing, already
-// network-replicated MSG_META_CREATE_TEAM<n> message (never a new message
-// type): ADD temporarily also selects the group's current live members
-// (in addition to whatever the player already has selected) before firing
-// the same force-assign path used by two-finger-tap, so the resulting
-// squad is the union of old + new; CLEAR temporarily deselects everything
-// before firing it, so the resulting squad is empty. The player's actual
+// CLEAR is built entirely from the existing, already network-replicated
+// MSG_META_CREATE_TEAM<n> message (never a new message type): temporarily
+// deselects everything before firing the same force-assign path two-
+// finger-tap uses, so the resulting squad is empty. The player's actual
 // on-screen selection is snapshotted first and restored afterward, so
-// this never has a lasting side effect on what's selected in the game.
+// this never has a lasting side effect on what's selected in the game --
+// see the restoreSelection() call site below for why that restore has to
+// happen a frame late, not immediately.
 //
 // None of the actual group logic (assignment, recall, double-press-to-
 // recenter-camera) is reimplemented here -- SelectionXlat.cpp's
@@ -93,11 +93,10 @@ static NameKeyType s_groupRowID = NAMEKEY_INVALID;
 static NameKeyType s_buttonGroupID[10];
 static Bool s_groupRowExpanded = FALSE;
 
-// GeneralsX @feature Android port 02/08/2026 Hold-gesture timings. 0 means
+// GeneralsX @feature Android port 02/08/2026 Hold-gesture timing. 0 means
 // "not currently pressed" for s_pressStartMs, so a genuine press start is
 // never allowed to land exactly on timeGetTime()==0 in practice.
-static const UnsignedInt GROUP_HOLD_ADD_MS = 600;
-static const UnsignedInt GROUP_HOLD_CLEAR_MS = 600;
+static const UnsignedInt GROUP_HOLD_MS = 600;
 static UnsignedInt s_pressStartMs[10] = { 0 };
 
 //-------------------------------------------------------------------------------------------------
@@ -181,40 +180,38 @@ static void restoreSelection(const std::vector<Drawable*> &saved)
 	}
 }
 
-//-------------------------------------------------------------------------------------------------
-// Merges the group's current live members into the on-screen selection,
-// force-assigns (so the squad becomes old+new), then restores whatever was
-// actually selected before -- net effect: units get ADDED to the existing
-// group without touching what the player had selected.
-static void handleGroupAdd(Int group)
+// GeneralsX @bugfix Android port 03/08/2026 handleGroupClear() below queues
+// MSG_META_CREATE_TEAM<n> and needs the on-screen selection to still be
+// empty when that message actually gets TRANSLATED -- but appendMessage()
+// only enqueues it; SelectionTranslator::onMetaCreateTeam() (SelectionXlat.cpp)
+// doesn't read TheGameClient's live isSelected() state and build the real
+// MSG_CREATE_TEAM<n> from it until TheMessageStream->propagateMessages()
+// runs, which happens LATER in the same frame (GameEngine.cpp, after
+// TheGameClient->UPDATE() -- the same call stack this GUI callback runs
+// in). Restoring the player's original selection synchronously, right
+// after appendMessage() as the very next statement, put it back BEFORE
+// propagateMessages() ever ran -- so the translator always saw the
+// original (restored) selection, never the empty one, and the group
+// never actually got cleared. Deferring the restore to the START of the
+// NEXT frame's GroupPanelUpdate() (see s_pendingRestore below) guarantees
+// this frame's propagateMessages() has already run first.
+static std::vector<Drawable*> s_pendingRestore;
+static Bool s_hasPendingRestore = FALSE;
+
+static void applyPendingRestore()
 {
-	if (!ThePlayerList || !TheInGameUI) {
+	if (!s_hasPendingRestore) {
 		return;
 	}
-	std::vector<Drawable*> saved;
-	snapshotSelection(saved);
-
-	Player *player = ThePlayerList->getLocalPlayer();
-	if (player) {
-		Squad *squad = player->getHotkeySquad(group);
-		if (squad) {
-			VecObjectPtr objs = squad->getLiveObjects();
-			for (size_t i = 0; i < objs.size(); ++i) {
-				if (objs[i] && objs[i]->getDrawable()) {
-					TheInGameUI->selectDrawable(objs[i]->getDrawable());
-				}
-			}
-		}
-	}
-
-	handleGroupCommand(group, TRUE);
-	restoreSelection(saved);
+	restoreSelection(s_pendingRestore);
+	s_pendingRestore.clear();
+	s_hasPendingRestore = FALSE;
 }
 
 //-------------------------------------------------------------------------------------------------
-// Deselects everything, force-assigns (so the squad becomes empty), then
-// restores whatever was actually selected before -- net effect: the group
-// is CLEARED without touching what the player had selected.
+// Deselects everything, force-assigns (so the squad becomes empty) -- net
+// effect: the group is CLEARED. Restoring whatever was actually selected
+// before is deferred to next frame; see s_pendingRestore's comment above.
 static void handleGroupClear(Int group)
 {
 	if (!TheInGameUI) {
@@ -225,7 +222,9 @@ static void handleGroupClear(Int group)
 
 	TheInGameUI->deselectAllDrawables();
 	handleGroupCommand(group, TRUE);
-	restoreSelection(saved);
+
+	s_pendingRestore = saved;
+	s_hasPendingRestore = TRUE;
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -233,11 +232,13 @@ static void handleGroupClear(Int group)
 // WIN_STATE_SELECTED bit (set/cleared by GadgetPushButtonInput on
 // GWM_LEFT_DOWN/GWM_LEFT_UP) rather than intercepting raw window messages,
 // so the existing tap/click handling in GadgetPushButton.cpp is completely
-// untouched -- this only observes it. Draws the green/red clock-wipe while
-// held; GroupPanelSystem's GBM_SELECTED handler reads s_pressStartMs to
-// decide what the release actually meant.
+// untouched -- this only observes it. Draws the red clock-wipe while held;
+// GroupPanelSystem's GBM_SELECTED handler reads s_pressStartMs to decide
+// what the release actually meant.
 static void updateHoldVisuals()
 {
+	applyPendingRestore();
+
 	if (!TheWindowManager) {
 		return;
 	}
@@ -259,16 +260,9 @@ static void updateHoldVisuals()
 		}
 
 		UnsignedInt elapsed = now - s_pressStartMs[i];
-		if (elapsed < GROUP_HOLD_ADD_MS) {
-			Int percent = 1 + (Int)((elapsed * 99u) / GROUP_HOLD_ADD_MS);
-			if (percent > 100) percent = 100;
-			GadgetButtonDrawClock(button, percent, GameMakeColor(90, 220, 100, 255));
-		} else {
-			UnsignedInt redElapsed = elapsed - GROUP_HOLD_ADD_MS;
-			Int percent = 1 + (Int)((redElapsed * 99u) / GROUP_HOLD_CLEAR_MS);
-			if (percent > 100) percent = 100;
-			GadgetButtonDrawClock(button, percent, GameMakeColor(220, 60, 50, 255));
-		}
+		Int percent = 1 + (Int)((elapsed * 99u) / GROUP_HOLD_MS);
+		if (percent > 100) percent = 100;
+		GadgetButtonDrawClock(button, percent, GameMakeColor(220, 60, 50, 255));
 	}
 }
 
@@ -420,10 +414,8 @@ WindowMsgHandledType GroupPanelSystem(GameWindow *window, UnsignedInt msg,
 				UnsignedInt elapsed = (s_pressStartMs[group] != 0) ? (now - s_pressStartMs[group]) : 0;
 				s_pressStartMs[group] = 0;
 
-				if (elapsed >= GROUP_HOLD_ADD_MS + GROUP_HOLD_CLEAR_MS) {
+				if (elapsed >= GROUP_HOLD_MS) {
 					handleGroupClear(group);
-				} else if (elapsed >= GROUP_HOLD_ADD_MS) {
-					handleGroupAdd(group);
 				} else {
 					handleGroupCommand(group, FALSE);
 				}
