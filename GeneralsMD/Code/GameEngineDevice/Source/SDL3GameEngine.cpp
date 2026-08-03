@@ -259,8 +259,14 @@ struct TouchState {
 		MOMENTUM,    // finger lifted after a fast pan -- coasting with decaying velocity, no finger involved
 		PLACING,     // finger1 dragged past the dead zone while a building placement is pending --
 		             // anchor already sent, drag now sets rotation angle (see PlaceEventTranslator.cpp)
-		SELECTING    // finger1 held past SELECT_HOLD_MS, THEN dragged past the dead zone -- area
+		SELECTING,   // finger1 held past SELECT_HOLD_MS, THEN dragged past the dead zone -- area
 		             // selection box, anchor already sent (see SelectionXlat.cpp)
+		UI_PRESS     // finger1 landed directly on a GameWindow (button, panel, etc.) --
+		             // LEFT_BUTTON_DOWN already sent immediately at touch-down, motion is
+		             // ignored entirely (frozen at the anchor) until release/cancel sends
+		             // LEFT_BUTTON_UP at that same anchor point. See the FINGER_DOWN
+		             // @bugfix comment below for why UI touches skip the PENDING
+		             // classification battlefield touches go through.
 	};
 
 	Phase phase = IDLE;
@@ -585,6 +591,40 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 	switch (event.type) {
 	case SDL_EVENT_FINGER_DOWN:
 		if (s_touch.phase == TouchState::IDLE || s_touch.phase == TouchState::MOMENTUM) {
+			// GeneralsX @bugfix Android port 03/08/2026 A finger landing
+			// directly on a GUI window (button, panel, etc.) skips the whole
+			// PENDING classification below and gets a REAL, immediate
+			// LEFT_BUTTON_DOWN instead -- reported: holding a group-panel
+			// button did nothing (no add/clear), because PENDING defers ALL
+			// button output until either release (short tap) or SELECT_HOLD_MS
+			// (250ms) elapses AND a subsequent motion event promotes it to
+			// SELECTING. That gap meant the engine's own WIN_STATE_SELECTED
+			// on the button only ever started accumulating 0-250ms+ (jitter-
+			// dependent, not deterministic) after the real physical touch-down,
+			// silently eating a chunk of every hold's actual duration -- and if
+			// no motion event ever landed in that window (plausible on some
+			// hardware), release before LONG_PRESS_MS(600ms) elapsed would fall
+			// through to PENDING's own release-still-PENDING branch, which
+			// issues a RIGHT-click at the press point instead of a left one.
+			// None of that PENDING ambiguity (pan vs. select-box vs. rally-
+			// point-click vs. building-placement) applies to a touch that
+			// starts on a widget -- a UI press is unambiguous the instant it
+			// happens, exactly like a real mouse press over a button, so route
+			// it straight to the engine instead of deferring it.
+			GameWindow *uiWindow = TheWindowManager
+				? TheWindowManager->getWindowUnderCursor((Int)px, (Int)py)
+				: nullptr;
+			if (uiWindow) {
+				s_touch.finger1 = event.tfinger.fingerID;
+				s_touch.phase = TouchState::UI_PRESS;
+				s_touch.downX = s_touch.lastX = px;
+				s_touch.downY = s_touch.lastY = py;
+				s_touch.downTicks = SDL_GetTicks();
+				pushMousePosition(px, py);
+				pushMouseButton(GameMessage::MSG_RAW_MOUSE_LEFT_BUTTON_DOWN, px, py);
+				break;
+			}
+
 			// A finger touching down during MOMENTUM grabs the map and stops
 			// the coast immediately -- same as tapping a map mid-fling on any
 			// touch device.
@@ -952,6 +992,19 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 					// just under- or over-selecting -- a strictly worse outcome
 					// than finalizing with whatever box was drawn so far.
 					pushMouseButton(GameMessage::MSG_RAW_MOUSE_LEFT_BUTTON_UP, px, py);
+					break;
+				case TouchState::UI_PRESS:
+					// GeneralsX @bugfix Android port 03/08/2026 Release at the
+					// ORIGINAL anchor (downX/downY), not wherever the finger
+					// ended up (lastX/lastY) -- matches the PENDING tap case
+					// above, and guarantees this always lands back on the same
+					// widget the press started on even if the finger drifted a
+					// few pixels during a long hold, which is exactly the kind
+					// of natural tremor that used to cancel a hold gesture via
+					// GWM_MOUSE_LEAVING when this path went through PENDING's
+					// deferred classification instead.
+					pushMousePosition(s_touch.downX, s_touch.downY);
+					pushMouseButton(GameMessage::MSG_RAW_MOUSE_LEFT_BUTTON_UP, s_touch.downX, s_touch.downY);
 					break;
 				default:
 					break;
