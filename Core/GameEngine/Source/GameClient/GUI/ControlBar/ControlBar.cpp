@@ -1126,6 +1126,28 @@ void ControlBar::init()
 		m_groupPanelLayout = TheWindowManager->winCreateLayout("GroupPanel.wnd");
 		if (m_groupPanelLayout) {
 			m_groupPanelLayout->hide(TRUE);
+
+			// GeneralsX @bugfix Android port 03/08/2026 WindowLayout::hide()
+			// only touches the layout's OWN root window list (just
+			// GroupPanelParent here -- see WindowLayoutInfo::windows, which
+			// only ever collects top-level "WINDOW" blocks, never nested
+			// CHILD entries), so it does not reach GroupRow independently.
+			// GroupPanel.cpp used to try to hide GroupRow from its own
+			// GWM_CREATE handler, but for a WINDOWTYPE=USER window
+			// winSetWindowId() runs AFTER winCreate() already dispatched
+			// GWM_CREATE (see createGadget()'s "USER" branch) -- so
+			// winGetWindowId() read from inside that handler was always
+			// still the pre-assignment default, never matching, and the
+			// row silently stayed at GameWindow's own default visibility
+			// (shown) instead of starting collapsed. Right here, after
+			// winCreateLayout() has fully returned, every window in the
+			// tree is guaranteed to have its real id already set, so this
+			// lookup is race-free.
+			GameWindow *groupRow = TheWindowManager->winGetWindowFromId(nullptr,
+				TheNameKeyGenerator->nameToKey("GroupPanel.wnd:GroupRow"));
+			if (groupRow) {
+				groupRow->winHide(TRUE);
+			}
 		}
 
 		m_contextParent[ CP_PURCHASE_SCIENCE ] = TheWindowManager->winGetWindowFromId( nullptr, id );//m_scienceLayout->getFirstWindow();

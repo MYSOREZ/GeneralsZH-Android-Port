@@ -300,30 +300,27 @@ void GroupPanelShutdown(WindowLayout *layout, void *userData)
 WindowMsgHandledType GroupPanelSystem(GameWindow *window, UnsignedInt msg,
 																			 WindowMsgData mData1, WindowMsgData mData2)
 {
+	(void)window;
 	(void)mData2;
 
 	switch (msg) {
 
 		case GWM_CREATE:
 		{
-			// GeneralsX @bugfix Android port 02/08/2026 GWM_CREATE fires the
-			// instant winCreate() makes EACH window in this layout, including
-			// the parent -- BEFORE any of its children exist yet (they're
-			// created afterward, while parsing the CHILD block). Looking
-			// GroupRow up by name here on the parent's own GWM_CREATE always
-			// found nothing and silently no-opped, so the row kept whatever
-			// GameWindow's own default visibility is (visible) instead of
-			// starting collapsed. cacheWidgetIDs() itself is safe to call
-			// this early -- it only hashes names into keys, independent of
-			// whether the matching window exists yet -- so by the time
-			// GroupRow's OWN GWM_CREATE arrives (matching its own window id),
-			// s_groupRowID is already correct and it can hide itself directly.
+			// GeneralsX @bugfix Android port 03/08/2026 Used to also try to
+			// hide GroupRow from here (matching window->winGetWindowId()
+			// against s_groupRowID), but for a WINDOWTYPE=USER window
+			// winSetWindowId() only runs AFTER winCreate() has already
+			// dispatched this very GWM_CREATE (see createGadget()'s "USER"
+			// branch in GameWindowManagerScript.cpp), so winGetWindowId()
+			// read from in here was always still the pre-assignment
+			// default and never matched -- moved the actual hide to
+			// ControlBar::init(), right after winCreateLayout() returns,
+			// where every window in the tree is guaranteed to already have
+			// its real id. cacheWidgetIDs() is still safe and useful to run
+			// this early since it only hashes names, independent of
+			// whether the matching windows exist yet.
 			cacheWidgetIDs();
-			Int controlID = window->winGetWindowId();
-			if (controlID == s_groupRowID) {
-				window->winHide(TRUE);
-				s_groupRowExpanded = FALSE;
-			}
 			break;
 		}
 
