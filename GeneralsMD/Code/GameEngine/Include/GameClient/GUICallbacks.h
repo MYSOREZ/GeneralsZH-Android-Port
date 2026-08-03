@@ -370,6 +370,14 @@ extern void GroupPanelInit( WindowLayout *layout, void *userData );
 extern void GroupPanelUpdate( WindowLayout *layout, void *userData );
 extern void GroupPanelShutdown( WindowLayout *layout, void *userData );
 extern WindowMsgHandledType GroupPanelSystem( GameWindow *window, UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2 );
+// GeneralsX @feature Android port 03/08/2026 Keeps the panel's handle/row
+// glued to wherever the real command bar's root window currently sits on
+// screen -- calibrated once (the first call with canCalibrate=TRUE) against
+// whatever position this file's own hand-tuned SCREENRECT coordinates
+// produced, then tracked as a plain delta every frame after that, so it
+// follows the bar through every stage (default/squished/low) without this
+// code needing to know the bar's own retail coordinates in any of them.
+extern void GroupPanelFollowControlBar( Int barScreenX, Int barScreenY, Bool canCalibrate );
 
 
 // IdleWorker Controls --------------------------------------------------------------------------------

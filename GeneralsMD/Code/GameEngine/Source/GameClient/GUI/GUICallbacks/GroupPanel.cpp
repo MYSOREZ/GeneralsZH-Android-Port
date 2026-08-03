@@ -272,6 +272,58 @@ static void updateHoldVisuals()
 	}
 }
 
+// GeneralsX @feature Android port 03/08/2026 See GUICallbacks.h's comment.
+// Not calibrated until the first frame ControlBar::update() reports it's
+// safe to (real gameplay running, real command bar not hidden) -- calling
+// this any earlier (loading screen, pre-match briefing) would lock in an
+// offset measured against the bar's not-yet-settled position.
+static Bool s_followOffsetCalibrated = FALSE;
+static Int s_followOffsetX = 0;
+static Int s_followOffsetY = 0;
+
+void GroupPanelFollowControlBar(Int barScreenX, Int barScreenY, Bool canCalibrate)
+{
+	if (!TheWindowManager) {
+		return;
+	}
+	GameWindow *handle = TheWindowManager->winGetWindowFromId(nullptr, s_buttonHandleID);
+	GameWindow *row = TheWindowManager->winGetWindowFromId(nullptr, s_groupRowID);
+	if (!handle || !row) {
+		return;
+	}
+
+	if (!s_followOffsetCalibrated) {
+		if (!canCalibrate) {
+			return;
+		}
+		Int handleX, handleY;
+		handle->winGetScreenPosition(&handleX, &handleY);
+		s_followOffsetX = handleX - barScreenX;
+		s_followOffsetY = handleY - barScreenY;
+		s_followOffsetCalibrated = TRUE;
+		return;
+	}
+
+	Int targetX = barScreenX + s_followOffsetX;
+	Int targetY = barScreenY + s_followOffsetY;
+
+	Int curX, curY;
+	handle->winGetScreenPosition(&curX, &curY);
+	Int dx = targetX - curX;
+	Int dy = targetY - curY;
+	if (dx == 0 && dy == 0) {
+		return;
+	}
+
+	Int hx, hy;
+	handle->winGetPosition(&hx, &hy);
+	handle->winSetPosition(hx + dx, hy + dy);
+
+	Int rx, ry;
+	row->winGetPosition(&rx, &ry);
+	row->winSetPosition(rx + dx, ry + dy);
+}
+
 //-------------------------------------------------------------------------------------------------
 void GroupPanelInit(WindowLayout *layout, void *userData)
 {

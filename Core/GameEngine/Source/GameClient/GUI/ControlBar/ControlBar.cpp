@@ -1469,19 +1469,28 @@ void ControlBar::update()
 		Bool gameplayActive = !(TheShell && TheShell->isShellActive())
 			&& TheGameLogic && TheGameLogic->isInInteractiveGame() && TheGameLogic->getFrame() > 0;
 
-		// GeneralsX @bugfix Android port 03/08/2026 Also follow the real
-		// command bar's own visibility instead of only gating on gameplay:
-		// stay hidden while the bar's own slide-in/out animation is still
-		// running (m_animateWindowManager not empty) so this panel doesn't
-		// pop into its final position ahead of the bar/minimap it's meant
-		// to sit next to, and hide again whenever the player collapses the
-		// bar via the down-arrow/min-max button (any non-default
-		// m_currentControlBarStage) instead of floating on its own once
-		// the real bar and minimap have slid away.
-		Bool barAnimating = m_animateWindowManager && !m_animateWindowManager->isEmpty();
-		Bool barCollapsed = m_currentControlBarStage != CONTROL_BAR_STAGE_DEFAULT;
-		Bool groupPanelVisible = gameplayActive && !barAnimating && !barCollapsed;
+		// GeneralsX @bugfix Android port 03/08/2026 The group panel is meant
+		// to be an inseparable part of the real command bar/minimap strip --
+		// it should inherit *every* state that bar goes through, not just a
+		// gameplay-active gate. Rather than re-deriving that from
+		// m_currentControlBarStage (default/squished/low/hidden) or guessing
+		// at m_animateWindowManager's semantics (an earlier attempt at that
+		// left the panel permanently hidden -- it's evidently not reliably
+		// "empty" once the one-time slide-in finishes), just read the real
+		// bar root's own actual WIN_STATUS_HIDDEN bit directly: hidden
+		// exactly when it's hidden, visible (and followed to wherever it
+		// currently is on screen, any stage) whenever it's visible.
+		GameWindow *controlBarRoot = TheWindowManager->winGetWindowFromId(nullptr,
+			TheNameKeyGenerator->nameToKey("ControlBar.wnd:ControlBarParent"));
+		Bool barHidden = !controlBarRoot || controlBarRoot->winIsHidden();
+		Bool groupPanelVisible = gameplayActive && !barHidden;
 		m_groupPanelLayout->hide(!groupPanelVisible);
+
+		if (controlBarRoot) {
+			Int barX, barY;
+			controlBarRoot->winGetScreenPosition(&barX, &barY);
+			GroupPanelFollowControlBar(barX, barY, groupPanelVisible);
+		}
 
 		// GeneralsX @feature Android port 03/08/2026 hold-gesture (add/clear
 		// with radial clock-overlay feedback) needs GroupPanelUpdate() to
