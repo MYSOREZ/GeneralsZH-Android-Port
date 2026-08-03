@@ -273,16 +273,25 @@ static void updateHoldVisuals()
 }
 
 // GeneralsX @feature Android port 03/08/2026 See GUICallbacks.h's comment.
-// Not calibrated until the first frame ControlBar::update() reports it's
-// safe to (real gameplay running, real command bar not hidden) -- calling
-// this any earlier (loading screen, pre-match briefing) would lock in an
-// offset measured against the bar's not-yet-settled position.
+// Not calibrated until visible=TRUE AND animationSettled=TRUE both hold
+// on the same frame -- the bar can be "visible" (WIN_STATUS_HIDDEN clear)
+// for the entire duration of its own slide-in animation, not just once it
+// settles, so visible alone isn't enough: calibrating mid-slide locks in
+// an offset measured against a transient, wildly wrong bar position (real
+// device report: the panel flew off the top of the screen). Resets
+// whenever visible=FALSE, so a bad calibration never has to survive past
+// the bar's next hide/show cycle -- worst case it just costs one more
+// calibration the next time the bar settles.
 static Bool s_followOffsetCalibrated = FALSE;
 static Int s_followOffsetX = 0;
 static Int s_followOffsetY = 0;
 
-void GroupPanelFollowControlBar(Int barScreenX, Int barScreenY, Bool canCalibrate)
+void GroupPanelFollowControlBar(Int barScreenX, Int barScreenY, Bool visible, Bool animationSettled)
 {
+	if (!visible) {
+		s_followOffsetCalibrated = FALSE;
+		return;
+	}
 	if (!TheWindowManager) {
 		return;
 	}
@@ -293,7 +302,7 @@ void GroupPanelFollowControlBar(Int barScreenX, Int barScreenY, Bool canCalibrat
 	}
 
 	if (!s_followOffsetCalibrated) {
-		if (!canCalibrate) {
+		if (!animationSettled) {
 			return;
 		}
 		Int handleX, handleY;

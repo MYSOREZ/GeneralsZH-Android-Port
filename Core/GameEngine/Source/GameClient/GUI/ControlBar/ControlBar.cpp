@@ -1487,9 +1487,19 @@ void ControlBar::update()
 		m_groupPanelLayout->hide(!groupPanelVisible);
 
 		if (controlBarRoot) {
+			// GeneralsX @bugfix Android port 03/08/2026 The bar can be
+			// "visible" (WIN_STATUS_HIDDEN clear) for the entire duration of
+			// its own slide-in animation, not just once it settles -- so
+			// gating calibration on groupPanelVisible alone let it fire on a
+			// mid-slide frame, locking in an offset measured against a
+			// transient, wildly wrong bar position (reported: the panel
+			// flew off the top of the screen). Also require
+			// m_animateWindowManager->isFinished() (no animation this frame
+			// still needs to finish) before calibrating.
+			Bool animationSettled = !m_animateWindowManager || m_animateWindowManager->isFinished();
 			Int barX, barY;
 			controlBarRoot->winGetScreenPosition(&barX, &barY);
-			GroupPanelFollowControlBar(barX, barY, groupPanelVisible);
+			GroupPanelFollowControlBar(barX, barY, groupPanelVisible, animationSettled);
 		}
 
 		// GeneralsX @feature Android port 03/08/2026 hold-gesture (add/clear
