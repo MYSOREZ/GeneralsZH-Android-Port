@@ -1468,7 +1468,27 @@ void ControlBar::update()
 	if (m_groupPanelLayout) {
 		Bool gameplayActive = !(TheShell && TheShell->isShellActive())
 			&& TheGameLogic && TheGameLogic->isInInteractiveGame() && TheGameLogic->getFrame() > 0;
-		m_groupPanelLayout->hide(!gameplayActive);
+
+		// GeneralsX @bugfix Android port 03/08/2026 Also follow the real
+		// command bar's own visibility instead of only gating on gameplay:
+		// stay hidden while the bar's own slide-in/out animation is still
+		// running (m_animateWindowManager not empty) so this panel doesn't
+		// pop into its final position ahead of the bar/minimap it's meant
+		// to sit next to, and hide again whenever the player collapses the
+		// bar via the down-arrow/min-max button (any non-default
+		// m_currentControlBarStage) instead of floating on its own once
+		// the real bar and minimap have slid away.
+		Bool barAnimating = m_animateWindowManager && !m_animateWindowManager->isEmpty();
+		Bool barCollapsed = m_currentControlBarStage != CONTROL_BAR_STAGE_DEFAULT;
+		Bool groupPanelVisible = gameplayActive && !barAnimating && !barCollapsed;
+		m_groupPanelLayout->hide(!groupPanelVisible);
+
+		// GeneralsX @feature Android port 03/08/2026 hold-gesture (add/clear
+		// with radial clock-overlay feedback) needs GroupPanelUpdate() to
+		// actually run every frame -- runUpdate() was never being called
+		// for this layout at all, matching the m_buildToolTipLayout
+		// precedent just above, so the hold logic silently never fired.
+		m_groupPanelLayout->runUpdate();
 	}
 
 	getStarImage();
