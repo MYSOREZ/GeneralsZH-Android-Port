@@ -169,14 +169,42 @@ static void snapshotSelection(std::vector<Drawable*> &out)
 }
 
 //-------------------------------------------------------------------------------------------------
+// GeneralsX @bugfix Android port 04/08/2026 Restoring via
+// TheInGameUI->selectDrawable() only ever touched InGameUI's own CLIENT-
+// side selection list -- it never goes through GameLogic::selectObject(),
+// so it never rebuilds the player's actual (network-replicated, game-
+// logic-level) currently-selected AIGroup, which is what move/attack
+// orders are actually issued against (see Player::setCurrentlySelectedAIGroup,
+// GameLogic::onCreateSelectedGroup). Real device report: after using
+// CLEAR, the restored units still LOOKED selected (highlighted, control
+// bar showed them) and tapping one played its acknowledge voice line, but
+// tapping the ground to move them did nothing at all -- no order, no
+// waypoint marker -- because their AIGroup was stuck null/stale from
+// CLEAR's own MSG_DESTROY_SELECTED_GROUP (correctly sent to build the
+// empty group) and never got rebuilt to match the client-side restore.
+//
+// Sending the SAME MSG_CREATE_SELECTED_GROUP message a real click-select
+// sends (SelectionXlat.cpp) instead routes through GameLogic::selectObject()
+// exactly as a genuine selection would, rebuilding both the client list
+// AND the AIGroup together -- no more divergence between "looks selected"
+// and "is actually commandable".
 static void restoreSelection(const std::vector<Drawable*> &saved)
 {
-	if (!TheInGameUI) {
+	if (!TheInGameUI || !TheMessageStream) {
 		return;
 	}
-	TheInGameUI->deselectAllDrawables();
+	TheInGameUI->deselectAllDrawables(FALSE);
+	if (saved.empty()) {
+		return;
+	}
+
+	GameMessage *msg = TheMessageStream->appendMessage(GameMessage::MSG_CREATE_SELECTED_GROUP);
+	msg->appendBooleanArgument(TRUE);
 	for (size_t i = 0; i < saved.size(); ++i) {
-		TheInGameUI->selectDrawable(saved[i]);
+		Object *obj = saved[i] ? saved[i]->getObject() : nullptr;
+		if (obj) {
+			msg->appendObjectIDArgument(obj->getID());
+		}
 	}
 }
 
