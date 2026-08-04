@@ -165,6 +165,21 @@ mkdir -p "${JAVA_SDL}/org/libsdl/app"
 cp "${SDL_JAVA_SRC}"/*.java "${JAVA_SDL}/org/libsdl/app/"
 echo "==> Staged SDL3 Java glue ($(ls "${JAVA_SDL}/org/libsdl/app" | wc -l | tr -d ' ') files)"
 
+# java-sdl/ is gitignored (re-staged from the vanilla SDL3 tarball above on
+# every packaging run), so any GeneralsX-specific fix to this vendored glue
+# code has to be reapplied here every time, not just edited in place -- see
+# android/patches/*.patch. Patches are applied fresh against the just-copied
+# vanilla source each run, so there's no idempotency concern the way the
+# DXVK submodule patches (cmake/dx8.cmake) have to guard against.
+PATCH_DIR="${SCRIPT_DIR}/../../../android/patches"
+if [[ -d "${PATCH_DIR}" ]]; then
+    for patch_file in "${PATCH_DIR}"/*.patch; do
+        [[ -f "${patch_file}" ]] || continue
+        echo "==> Applying $(basename "${patch_file}") to SDL3 Java glue"
+        patch -p1 -d "${JAVA_SDL}" < "${patch_file}"
+    done
+fi
+
 # --- 3. runtime assets -------------------------------------------------------
 mkdir -p "${ASSETS}"
 

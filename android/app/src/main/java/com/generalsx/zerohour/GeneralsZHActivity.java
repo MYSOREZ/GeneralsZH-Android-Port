@@ -163,42 +163,42 @@ public class GeneralsZHActivity extends SDLActivity {
         }
     }
 
-    // GeneralsX @bugfix Android port 04/08/2026 Narrowing the exclusion rects
-    // (see applyGestureExclusion() below) still wasn't enough -- a tester on
-    // a gesture-nav phone confirmed the back swipe still didn't work at all,
-    // even from the now-open corners. The actual root cause is one level up:
-    // SDLActivity drives fullscreen with the DEPRECATED View.SYSTEM_UI_FLAG_*
-    // API (SYSTEM_UI_FLAG_IMMERSIVE_STICKY + SYSTEM_UI_FLAG_HIDE_NAVIGATION).
-    // Under that legacy API, gesture-navigation Android treats an edge swipe
-    // as "peek: temporarily reveal the hidden system bars", not as a back
-    // action -- regardless of exclusion rects, since those only govern the
-    // modern predictive-back gesture recognizer, and the legacy flag never
-    // opts into it. The documented modern replacement,
-    // WindowInsetsControllerCompat with BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE,
-    // is what actually tells the system "a swipe from the edge is a real
-    // back gesture, not just a peek" -- setting it alongside (not instead
-    // of) SDLActivity's existing legacy flags is enough for gesture-nav
-    // Android to honor it.
+    // GeneralsX @bugfix Android port 04/08/2026, corrected 04/08/2026 A
+    // first attempt here set BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE, which
+    // was backwards -- traced through AOSP (ViewRootImpl / NavigationBar /
+    // QuickStepContract): with the nav bar hidden, THAT specific behavior
+    // is exactly what disables the edge back gesture at the source
+    // (EdgeBackGestureHandler never arms; SystemUI's
+    // SYSUI_STATE_NAV_BAR_HIDDEN disables back unless
+    // SYSUI_STATE_ALLOW_GESTURE_IGNORING_BAR_VISIBILITY is also set, which
+    // only happens when behavior != SHOW_TRANSIENT_BARS_BY_SWIPE). It's
+    // also SDLActivity's own IMPLICIT default whenever
+    // SYSTEM_UI_FLAG_IMMERSIVE_STICKY/FLAG_FULLSCREEN is set and nothing
+    // has explicitly overridden it -- so setting it explicitly here just
+    // pinned the exact state that was already breaking the gesture.
+    // BEHAVIOR_DEFAULT is what actually keeps back-gesture recognition
+    // alive while the bars stay hidden. (SDLActivity.java's own
+    // COMMAND_CHANGE_WINDOW_STYLE handler sets this too, right where the
+    // conflicting legacy flags are (re)applied from native at unpredictable
+    // times -- this call here is a secondary safety net on focus-change,
+    // not the only place it's enforced.)
     private void applyGestureNavBackBehavior() {
         WindowInsetsControllerCompat controller =
             WindowCompat.getInsetsController(getWindow(), getWindow().getDecorView());
         if (controller != null) {
-            controller.setSystemBarsBehavior(
-                WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
+            controller.setSystemBarsBehavior(WindowInsetsControllerCompat.BEHAVIOR_DEFAULT);
         }
     }
 
-    // GeneralsX @bugfix Android port 04/08/2026 Excluding the FULL height of
-    // both edges (as the comment above originally did) also blocks gesture
-    // navigation's system "back" swipe everywhere along those edges --
-    // reported by a player on a gesture-nav phone (no hardware/soft nav
-    // buttons at all) as "can't quickly bring up the pause menu anymore".
-    // Camera-pan swipes that start right at a map edge overwhelmingly begin
-    // somewhere in the vertical middle of the screen, not tucked into the
-    // very top/bottom corners -- so excluding only that middle band, and
-    // leaving a corner margin free at top and bottom, keeps the original
-    // edge-pin fix intact while giving the system back gesture an opening
-    // to still be recognized from the corners.
+    // GeneralsX @bugfix Android port 04/08/2026, corrected 04/08/2026
+    // BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE (see applyGestureNavBackBehavior()
+    // above) was the one thing lifting Android's usual ~200dp-per-edge cap
+    // on system gesture exclusion height -- switching to BEHAVIOR_DEFAULT
+    // to restore the back gesture brings that cap back, so a band tall
+    // enough to matter for camera-pan recovery swipes but capped at 200dp
+    // is the largest that will actually be honored. Centering it leaves
+    // margin at both the top AND bottom for the back gesture, covering the
+    // vertical range a hand naturally starts a horizontal drag from.
     private void applyGestureExclusion() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q || mSurface == null) {
             return;
@@ -208,11 +208,14 @@ public class GeneralsZHActivity extends SDLActivity {
         if (w <= 0 || h <= 0) {
             return;
         }
-        int stripWidth = (int) (32 * getResources().getDisplayMetrics().density);
-        int cornerMargin = (int) (h * 0.12f);
+        float density = getResources().getDisplayMetrics().density;
+        int stripWidth = (int) (32 * density);
+        int bandHeight = Math.min(h, (int) (200 * density));
+        int bandTop = (h - bandHeight) / 2;
+        int bandBottom = bandTop + bandHeight;
         List<Rect> rects = new ArrayList<>();
-        rects.add(new Rect(0, cornerMargin, stripWidth, h - cornerMargin));
-        rects.add(new Rect(w - stripWidth, cornerMargin, w, h - cornerMargin));
+        rects.add(new Rect(0, bandTop, stripWidth, bandBottom));
+        rects.add(new Rect(w - stripWidth, bandTop, w, bandBottom));
         mSurface.setSystemGestureExclusionRects(rects);
     }
 
