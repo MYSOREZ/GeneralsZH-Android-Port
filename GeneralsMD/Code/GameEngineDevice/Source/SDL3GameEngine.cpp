@@ -535,27 +535,31 @@ ICoord2D touchPixel(float x, float y)
 	return p;
 }
 
-// GeneralsX @bugfix Android port 03/08/2026 A raw getWindowUnderCursor() hit
-// is not by itself proof a touch landed on real, click-blocking UI -- lots
-// of GameWindows (SelectionXlat.cpp's own obscured-object check is the
-// precedent this mirrors) are marked WIN_STATUS_SEE_THRU specifically so
-// clicks pass through them to whatever's underneath (the battlefield,
-// typically). Treating ANY hit as "this is UI, hijack the touch" regressed
-// ordinary battlefield taps -- reported: after using the group panel, a
-// tap on the ground played the unit's acknowledge voice line (so SOME
-// click landed) but produced no move order and no waypoint marker at all,
-// as if an invisible window had swallowed it. Walk up the same way
-// SelectionXlat.cpp does: only a genuinely non-see-through window (at the
-// hit point itself, or one of its ancestors) counts as real UI.
+// GeneralsX @bugfix Android port 03/08/2026, narrowed 04/08/2026 A raw
+// getWindowUnderCursor() hit is not by itself proof a touch landed on
+// real, click-blocking UI. First attempt walked the SEE_THRU ancestor
+// chain (mirroring SelectionXlat.cpp's own obscured-object check), but
+// that still wasn't narrow enough -- tester confirmed taps on the
+// battlefield to issue a move order (voice-ack plays, unit doesn't move,
+// no waypoint marker) were STILL swallowed after that fix, meaning
+// something non-see-through and NOT actually a button was still getting
+// hit somewhere across the battlefield (likely a full/near-full-screen
+// tracking or hover-hint window that's legitimately opaque for its own
+// purposes but was never meant to intercept a touch-down).
+//
+// The bug this whole mechanism exists to fix is specifically about
+// PUSHBUTTON hold-timing (see the FINGER_DOWN @bugfix comment below), so
+// narrow it to exactly that instead of "any opaque window": only a leaf
+// window whose own STYLE includes GWS_PUSH_BUTTON counts as a real UI
+// press. getWindowUnderCursor() already recurses to the deepest child at
+// the touch point (winPointInChild), so this is checking the actual
+// clicked widget, not some container it happens to sit inside -- no
+// SEE_THRU/ancestor walk needed, and nothing that isn't an actual button
+// (background/tracking windows, panel containers, sliders, etc.) can ever
+// match, however large its footprint.
 Bool isRealUiHit(GameWindow *hit)
 {
-	while (hit) {
-		if (!BitIsSet(hit->winGetStatus(), WIN_STATUS_SEE_THRU)) {
-			return TRUE;
-		}
-		hit = hit->winGetParent();
-	}
-	return FALSE;
+	return hit != nullptr && BitIsSet(hit->winGetStyle(), GWS_PUSH_BUTTON);
 }
 
 // Hover/position hint -- WindowXlat.cpp uses this to set GUI hilite state,
