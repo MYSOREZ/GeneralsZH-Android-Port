@@ -33,8 +33,6 @@ package com.generalsx.zerohour;
 
 import android.content.Intent;
 import android.content.res.AssetManager;
-import android.graphics.Rect;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -48,8 +46,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.List;
 
 public class GeneralsZHActivity extends SDLActivity {
 
@@ -158,7 +154,6 @@ public class GeneralsZHActivity extends SDLActivity {
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
         if (hasFocus) {
-            applyGestureExclusion();
             applyGestureNavBackBehavior();
         }
     }
@@ -190,34 +185,27 @@ public class GeneralsZHActivity extends SDLActivity {
         }
     }
 
-    // GeneralsX @bugfix Android port 04/08/2026, corrected 04/08/2026
-    // BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE (see applyGestureNavBackBehavior()
-    // above) was the one thing lifting Android's usual ~200dp-per-edge cap
-    // on system gesture exclusion height -- switching to BEHAVIOR_DEFAULT
-    // to restore the back gesture brings that cap back, so a band tall
-    // enough to matter for camera-pan recovery swipes but capped at 200dp
-    // is the largest that will actually be honored. Centering it leaves
-    // margin at both the top AND bottom for the back gesture, covering the
-    // vertical range a hand naturally starts a horizontal drag from.
-    private void applyGestureExclusion() {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q || mSurface == null) {
-            return;
-        }
-        int w = mSurface.getWidth();
-        int h = mSurface.getHeight();
-        if (w <= 0 || h <= 0) {
-            return;
-        }
-        float density = getResources().getDisplayMetrics().density;
-        int stripWidth = (int) (32 * density);
-        int bandHeight = Math.min(h, (int) (200 * density));
-        int bandTop = (h - bandHeight) / 2;
-        int bandBottom = bandTop + bandHeight;
-        List<Rect> rects = new ArrayList<>();
-        rects.add(new Rect(0, bandTop, stripWidth, bandBottom));
-        rects.add(new Rect(w - stripWidth, bandTop, w, bandBottom));
-        mSurface.setSystemGestureExclusionRects(rects);
-    }
+    // GeneralsX @bugfix Android port 04/08/2026, REMOVED 04/08/2026 This used
+    // to call setSystemGestureExclusionRects() with a band capped at 200dp
+    // and centered vertically on each edge, meant to protect an in-app
+    // camera-pan-recovery swipe from being stolen by the OS back gesture.
+    // The math assumed a tall portrait surface; this app is
+    // android:screenOrientation="landscape" (AndroidManifest.xml), so
+    // mSurface.getHeight() is the SHORT dimension -- on a typical 20:9
+    // landscape phone that's ~360dp, giving only ~80dp of open margin on
+    // each side (out of a "200dp centered" band that assumed hundreds of
+    // dp more room than actually existed), not the few hundred dp intended.
+    // Combined with AOSP's own bottom-gesture-height inset eating most of
+    // the lower margin, the actually-usable open region shrank to a sliver
+    // -- exactly the "works in some tiny millimeter" the tester reported.
+    // Removed entirely rather than re-tuned: the touch-classification
+    // state machine in SDL3GameEngine.cpp (PENDING -> PANNING dead-zone
+    // logic) has been substantially rewritten since the original camera-
+    // pinned-at-edge bug this was protecting against, so it's not
+    // confirmed that bug still reproduces the same way -- removing this
+    // is also the only way to find out, and a live back gesture is worth
+    // more than a speculative fix for a bug that may no longer exist in
+    // its original form.
 
     private String getSavedGamePath() {
         return SetupActivity.getSavedGamePath(this);
