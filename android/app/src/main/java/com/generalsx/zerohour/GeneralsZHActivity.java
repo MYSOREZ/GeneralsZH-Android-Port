@@ -159,6 +159,17 @@ public class GeneralsZHActivity extends SDLActivity {
         }
     }
 
+    // GeneralsX @bugfix Android port 04/08/2026 Excluding the FULL height of
+    // both edges (as the comment above originally did) also blocks gesture
+    // navigation's system "back" swipe everywhere along those edges --
+    // reported by a player on a gesture-nav phone (no hardware/soft nav
+    // buttons at all) as "can't quickly bring up the pause menu anymore".
+    // Camera-pan swipes that start right at a map edge overwhelmingly begin
+    // somewhere in the vertical middle of the screen, not tucked into the
+    // very top/bottom corners -- so excluding only that middle band, and
+    // leaving a corner margin free at top and bottom, keeps the original
+    // edge-pin fix intact while giving the system back gesture an opening
+    // to still be recognized from the corners.
     private void applyGestureExclusion() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q || mSurface == null) {
             return;
@@ -169,9 +180,10 @@ public class GeneralsZHActivity extends SDLActivity {
             return;
         }
         int stripWidth = (int) (32 * getResources().getDisplayMetrics().density);
+        int cornerMargin = (int) (h * 0.12f);
         List<Rect> rects = new ArrayList<>();
-        rects.add(new Rect(0, 0, stripWidth, h));
-        rects.add(new Rect(w - stripWidth, 0, w, h));
+        rects.add(new Rect(0, cornerMargin, stripWidth, h - cornerMargin));
+        rects.add(new Rect(w - stripWidth, cornerMargin, w, h - cornerMargin));
         mSurface.setSystemGestureExclusionRects(rects);
     }
 
