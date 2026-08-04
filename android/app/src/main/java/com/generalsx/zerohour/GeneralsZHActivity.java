@@ -38,6 +38,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsControllerCompat;
+
 import org.libsdl.app.SDLActivity;
 
 import java.io.File;
@@ -156,6 +159,32 @@ public class GeneralsZHActivity extends SDLActivity {
         super.onWindowFocusChanged(hasFocus);
         if (hasFocus) {
             applyGestureExclusion();
+            applyGestureNavBackBehavior();
+        }
+    }
+
+    // GeneralsX @bugfix Android port 04/08/2026 Narrowing the exclusion rects
+    // (see applyGestureExclusion() below) still wasn't enough -- a tester on
+    // a gesture-nav phone confirmed the back swipe still didn't work at all,
+    // even from the now-open corners. The actual root cause is one level up:
+    // SDLActivity drives fullscreen with the DEPRECATED View.SYSTEM_UI_FLAG_*
+    // API (SYSTEM_UI_FLAG_IMMERSIVE_STICKY + SYSTEM_UI_FLAG_HIDE_NAVIGATION).
+    // Under that legacy API, gesture-navigation Android treats an edge swipe
+    // as "peek: temporarily reveal the hidden system bars", not as a back
+    // action -- regardless of exclusion rects, since those only govern the
+    // modern predictive-back gesture recognizer, and the legacy flag never
+    // opts into it. The documented modern replacement,
+    // WindowInsetsControllerCompat with BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE,
+    // is what actually tells the system "a swipe from the edge is a real
+    // back gesture, not just a peek" -- setting it alongside (not instead
+    // of) SDLActivity's existing legacy flags is enough for gesture-nav
+    // Android to honor it.
+    private void applyGestureNavBackBehavior() {
+        WindowInsetsControllerCompat controller =
+            WindowCompat.getInsetsController(getWindow(), getWindow().getDecorView());
+        if (controller != null) {
+            controller.setSystemBarsBehavior(
+                WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
         }
     }
 
