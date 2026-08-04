@@ -52,20 +52,26 @@
 // selection, which covers the same "grow this group" need a two-finger-
 // tap/force-assign already handles explicitly.)
 //
-// CLEAR is built entirely from the existing, already network-replicated
-// MSG_META_CREATE_TEAM<n> message (never a new message type): temporarily
-// deselects everything before firing the same force-assign path two-
-// finger-tap uses, so the resulting squad is empty. The player's actual
-// on-screen selection is snapshotted first and restored afterward, so
-// this never has a lasting side effect on what's selected in the game --
-// see the restoreSelection() call site below for why that restore has to
-// happen a frame late, not immediately.
+// CLEAR is built from the existing, already network-replicated
+// MSG_CREATE_TEAM<n> message (never a new message type), sent directly
+// with zero object-ID arguments -- Player::processCreateTeamGameMessage()
+// (Player.cpp) always clears the hotkey squad first regardless, so an
+// argument-less message just clears it. This never touches the player's
+// on-screen battlefield selection at all (an earlier version tried
+// building the empty team via the SELECTION-driven MSG_META_CREATE_TEAM<n>
+// instead -- deselect everything, fire it, restore afterward -- which hit
+// a string of bugs: the restore raced the message translator, then broke
+// move orders for the restored units by only touching the client-side
+// selection list and not the player's real AIGroup, then still left the
+// selection visibly flickering/disappearing for the reselect's deferred
+// frame; sending the concrete message directly sidesteps all of it).
 //
 // None of the actual group logic (assignment, recall, double-press-to-
 // recenter-camera) is reimplemented here -- SelectionXlat.cpp's
-// onMetaCreateTeam()/onMetaSelectTeam() already do all of it; this only
-// needs to feed the same MSG_META_CREATE_TEAM<n>/MSG_META_SELECT_TEAM<n>
-// a keyboard shortcut would have.
+// onMetaCreateTeam()/onMetaSelectTeam() already do the tap/two-finger-tap
+// paths; this only needs to feed the same MSG_META_CREATE_TEAM<n>/
+// MSG_META_SELECT_TEAM<n>/MSG_CREATE_TEAM<n> a keyboard shortcut or a
+// real click-based force-assign would have.
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "PreRTS.h"
@@ -75,18 +81,13 @@
 #include "Common/Player.h"
 #include "Common/PlayerList.h"
 #include "GameClient/Color.h"
-#include "GameClient/Drawable.h"
 #include "GameClient/GadgetPushButton.h"
-#include "GameClient/GameClient.h"
 #include "GameClient/GameWindow.h"
 #include "GameClient/GameWindowManager.h"
 #include "GameClient/GUICallbacks.h"
-#include "GameClient/InGameUI.h"
 #include "GameClient/WindowLayout.h"
 #include "GameClient/WinInstanceData.h"
 #include "GameLogic/Squad.h"
-
-#include <vector>
 
 static NameKeyType s_buttonHandleID = NAMEKEY_INVALID;
 static NameKeyType s_groupRowID = NAMEKEY_INVALID;
@@ -153,106 +154,39 @@ static void handleGroupCommand(Int group, Bool forceAssign)
 }
 
 //-------------------------------------------------------------------------------------------------
-// Snapshots the drawables currently selected on the battlefield so a
-// temporary selection change (below) can be undone afterward.
-static void snapshotSelection(std::vector<Drawable*> &out)
-{
-	out.clear();
-	if (!TheGameClient) {
-		return;
-	}
-	for (Drawable *draw = TheGameClient->getDrawableList(); draw != nullptr; draw = draw->getNextDrawable()) {
-		if (draw->isSelected()) {
-			out.push_back(draw);
-		}
-	}
-}
-
-//-------------------------------------------------------------------------------------------------
-// GeneralsX @bugfix Android port 04/08/2026 Restoring via
-// TheInGameUI->selectDrawable() only ever touched InGameUI's own CLIENT-
-// side selection list -- it never goes through GameLogic::selectObject(),
-// so it never rebuilds the player's actual (network-replicated, game-
-// logic-level) currently-selected AIGroup, which is what move/attack
-// orders are actually issued against (see Player::setCurrentlySelectedAIGroup,
-// GameLogic::onCreateSelectedGroup). Real device report: after using
-// CLEAR, the restored units still LOOKED selected (highlighted, control
-// bar showed them) and tapping one played its acknowledge voice line, but
-// tapping the ground to move them did nothing at all -- no order, no
-// waypoint marker -- because their AIGroup was stuck null/stale from
-// CLEAR's own MSG_DESTROY_SELECTED_GROUP (correctly sent to build the
-// empty group) and never got rebuilt to match the client-side restore.
+// GeneralsX @bugfix Android port 04/08/2026 Two earlier versions of this
+// built the empty team via MSG_META_CREATE_TEAM<n>, which has no
+// arguments of its own -- SelectionTranslator::onMetaCreateTeam()
+// (SelectionXlat.cpp) always builds it from whatever's CURRENTLY selected
+// on the battlefield at translation time, so getting an EMPTY team out of
+// it meant deselecting everything first, then restoring the player's
+// actual selection afterward. That restore was a real source of bugs:
+// doing it synchronously raced the translator (it hadn't run yet, so it
+// saw the restored selection, not the empty one -- team never actually
+// got cleared); deferring it a frame fixed that but reportedly used
+// TheInGameUI->selectDrawable() to reselect, which never rebuilds the
+// player's real (network-replicated) AIGroup, only the client-local
+// selection list, so the "restored" units looked selected but weren't
+// actually commandable; fixing THAT to send MSG_CREATE_SELECTED_GROUP
+// instead fixed commandability, but the player's selection still
+// visibly disappeared for a frame (and, per a later report, sometimes
+// longer) between the deselect and the deferred restore.
 //
-// Sending the SAME MSG_CREATE_SELECTED_GROUP message a real click-select
-// sends (SelectionXlat.cpp) instead routes through GameLogic::selectObject()
-// exactly as a genuine selection would, rebuilding both the client list
-// AND the AIGroup together -- no more divergence between "looks selected"
-// and "is actually commandable".
-static void restoreSelection(const std::vector<Drawable*> &saved)
-{
-	if (!TheInGameUI || !TheMessageStream) {
-		return;
-	}
-	TheInGameUI->deselectAllDrawables(FALSE);
-	if (saved.empty()) {
-		return;
-	}
-
-	GameMessage *msg = TheMessageStream->appendMessage(GameMessage::MSG_CREATE_SELECTED_GROUP);
-	msg->appendBooleanArgument(TRUE);
-	for (size_t i = 0; i < saved.size(); ++i) {
-		Object *obj = saved[i] ? saved[i]->getObject() : nullptr;
-		if (obj) {
-			msg->appendObjectIDArgument(obj->getID());
-		}
-	}
-}
-
-// GeneralsX @bugfix Android port 03/08/2026 handleGroupClear() below queues
-// MSG_META_CREATE_TEAM<n> and needs the on-screen selection to still be
-// empty when that message actually gets TRANSLATED -- but appendMessage()
-// only enqueues it; SelectionTranslator::onMetaCreateTeam() (SelectionXlat.cpp)
-// doesn't read TheGameClient's live isSelected() state and build the real
-// MSG_CREATE_TEAM<n> from it until TheMessageStream->propagateMessages()
-// runs, which happens LATER in the same frame (GameEngine.cpp, after
-// TheGameClient->UPDATE() -- the same call stack this GUI callback runs
-// in). Restoring the player's original selection synchronously, right
-// after appendMessage() as the very next statement, put it back BEFORE
-// propagateMessages() ever ran -- so the translator always saw the
-// original (restored) selection, never the empty one, and the group
-// never actually got cleared. Deferring the restore to the START of the
-// NEXT frame's GroupPanelUpdate() (see s_pendingRestore below) guarantees
-// this frame's propagateMessages() has already run first.
-static std::vector<Drawable*> s_pendingRestore;
-static Bool s_hasPendingRestore = FALSE;
-
-static void applyPendingRestore()
-{
-	if (!s_hasPendingRestore) {
-		return;
-	}
-	restoreSelection(s_pendingRestore);
-	s_pendingRestore.clear();
-	s_hasPendingRestore = FALSE;
-}
-
-//-------------------------------------------------------------------------------------------------
-// Deselects everything, force-assigns (so the squad becomes empty) -- net
-// effect: the group is CLEARED. Restoring whatever was actually selected
-// before is deferred to next frame; see s_pendingRestore's comment above.
+// All of that complexity existed only to build an EMPTY team through a
+// message that has no way to say "empty" directly. The underlying
+// concrete message, MSG_CREATE_TEAM<n>, doesn't have that limitation --
+// Player::processCreateTeamGameMessage() (Player.cpp) always clears the
+// hotkey squad first, then adds whatever object-ID arguments the message
+// carries; sent with ZERO of them, it just clears. Sending that directly
+// means CLEAR never has to touch the player's on-screen selection at
+// all -- nothing to snapshot, nothing to restore, nothing that can
+// flicker or desync.
 static void handleGroupClear(Int group)
 {
-	if (!TheInGameUI) {
+	if (!TheMessageStream || group < 0 || group > 9) {
 		return;
 	}
-	std::vector<Drawable*> saved;
-	snapshotSelection(saved);
-
-	TheInGameUI->deselectAllDrawables();
-	handleGroupCommand(group, TRUE);
-
-	s_pendingRestore = saved;
-	s_hasPendingRestore = TRUE;
+	TheMessageStream->appendMessage((GameMessage::Type)(GameMessage::MSG_CREATE_TEAM0 + group));
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -265,8 +199,6 @@ static void handleGroupClear(Int group)
 // what the release actually meant.
 static void updateHoldVisuals()
 {
-	applyPendingRestore();
-
 	if (!TheWindowManager) {
 		return;
 	}
