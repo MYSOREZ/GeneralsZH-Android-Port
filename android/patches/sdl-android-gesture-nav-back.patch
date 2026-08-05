@@ -1,5 +1,5 @@
---- a/org/libsdl/app/SDLActivity.java	2026-08-04 16:00:31.599306479 +0000
-+++ b/org/libsdl/app/SDLActivity.java	2026-08-04 16:00:31.602391640 +0000
+--- a/org/libsdl/app/SDLActivity.java
++++ b/org/libsdl/app/SDLActivity.java
 @@ -48,6 +48,10 @@
  import android.widget.TextView;
  import android.widget.Toast;
@@ -66,7 +66,7 @@
                              SDLActivity.mFullscreenModeActive = false;
                          }
                          if (Build.VERSION.SDK_INT >= 30 /* Android 11 (R) */) {
-@@ -1758,29 +1781,32 @@
+@@ -1758,29 +1781,55 @@
          dialog.show();
      }
  
@@ -107,7 +107,7 @@
 +    }
  
      public void onSystemUiVisibilityChange(int visibility) {
-         if (SDLActivity.mFullscreenModeActive && ((visibility & View.SYSTEM_UI_FLAG_FULLSCREEN) == 0 || (visibility & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0)) {
+-        if (SDLActivity.mFullscreenModeActive && ((visibility & View.SYSTEM_UI_FLAG_FULLSCREEN) == 0 || (visibility & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0)) {
 -
 -            Handler handler = getWindow().getDecorView().getHandler();
 -            if (handler != null) {
@@ -115,6 +115,30 @@
 -                handler.postDelayed(rehideSystemUi, 2000);
 -            }
 -
++        // GeneralsX @bugfix Android port 05/08/2026 AOSP arbitrates system-bar
++        // control by the currently-FOCUSED window (see
++        // InsetsPolicy.updateBarControlTarget/getStatusControlTarget/
++        // getNavControlTarget in frameworks/base) -- not by whoever last
++        // called hide()/show(). A Home or Recents gesture transfers window
++        // focus away from this Activity early in the system transition
++        // (QuickStep's launcher/recents surface takes focus mid-drag, well
++        // before the drag completes), and this callback fires repeatedly
++        // during that same transition as the launcher's bars transiently
++        // show/hide underneath. Calling hideSystemUiModern() unconditionally
++        // here meant we kept issuing hide(systemBars()) after this window had
++        // already stopped being the insets control target -- a live
++        // relayout/IPC request racing the system's own Home/Recents
++        // transition, which some OEM SystemUI forks don't tolerate well
++        // (reported: game "no longer minimizes," must lock the device to
++        // exit; not reproducible on every device, consistent with
++        // OEM-dependent transition-churn tolerance). An in-app edge
++        // back-gesture never loses window focus (no other window becomes
++        // focused mid-swipe), so gating on mHasFocus -- already tracked by
++        // this file, set in onWindowFocusChanged() -- keeps the back-gesture
++        // fix intact while suppressing the interfering re-hide during
++        // Home/Recents transitions, matching what AOSP itself uses to decide
++        // whether this window even still owns the bars.
++        if (SDLActivity.mFullscreenModeActive && SDLActivity.mHasFocus && ((visibility & View.SYSTEM_UI_FLAG_FULLSCREEN) == 0 || (visibility & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0)) {
 +            hideSystemUiModern();
          }
      }
