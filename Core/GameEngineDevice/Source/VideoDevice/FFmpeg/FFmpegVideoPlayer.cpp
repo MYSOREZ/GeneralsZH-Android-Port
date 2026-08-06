@@ -524,6 +524,28 @@ void FFmpegVideoStream::frameRender( VideoBuffer *buffer )
 			return;
 	}
 
+	// GeneralsX @bugfix Android port 06/08/2026 vcpkg's own ffmpeg port
+	// (ports/ffmpeg/build.sh.in: "Disable asm and x86asm on all android
+	// targets because they trigger build failures") passes
+	// --disable-asm --disable-x86asm for every Android arch, arm64
+	// included -- confirmed via this build's own ffbuild/config.log
+	// (ARCH_AARCH64 0, HAVE_NEON 0). That leaves libswscale with no SIMD/
+	// NEON path at all on Android, so every sws_scale() call here already
+	// runs the slow portable-C fallback (visible as libswscale's own
+	// "No accelerated colorspace conversion found" warning, once per video
+	// frame). SWS_BICUBIC on top of that made a real device report the
+	// background/cutscene video crawl to ~1fps while audio (decoupled from
+	// this path) stayed real-time. There's no accelerated path to lose by
+	// switching filters here, so use the cheapest one instead of the
+	// highest-quality one -- SWS_FAST_BILINEAR trades a barely-perceptible
+	// amount of smoothing for a large constant-factor speedup, still on
+	// pure C. Desktop platforms keep SWS_BICUBIC since their swscale build
+	// does have SIMD acceleration and the cost is negligible there.
+#if defined(__ANDROID__)
+	Int swsFlags = SWS_FAST_BILINEAR;
+#else
+	Int swsFlags = SWS_BICUBIC;
+#endif
 	m_swsContext = sws_getCachedContext(m_swsContext,
 		width(),
 		height(),
@@ -531,7 +553,7 @@ void FFmpegVideoStream::frameRender( VideoBuffer *buffer )
 		buffer->width(),
 		buffer->height(),
 		dst_pix_fmt,
-		SWS_BICUBIC,
+		swsFlags,
 		nullptr,
 		nullptr,
 		nullptr);
