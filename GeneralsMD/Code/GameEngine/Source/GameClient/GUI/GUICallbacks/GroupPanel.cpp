@@ -199,6 +199,18 @@ static void handleGroupClear(Int group)
 // what the release actually meant.
 static void updateHoldVisuals()
 {
+	// GeneralsX @bugfix Android port 06/08/2026 This ran unconditionally
+	// every frame of every match regardless of whether the group row was
+	// even expanded -- 10 recursive TheWindowManager->winGetWindowFromId()
+	// tree walks/frame for buttons that are hidden (and therefore
+	// unpressable, so WIN_STATE_SELECTED could never be set on them) the
+	// vast majority of the time, since s_groupRowExpanded defaults FALSE
+	// and the row is only shown while the spoiler handle is held open.
+	// Skip the whole thing when the row is collapsed, matching the same
+	// s_groupRowExpanded gate the row's own winHide() already uses.
+	if (!s_groupRowExpanded) {
+		return;
+	}
 	if (!TheWindowManager) {
 		return;
 	}
