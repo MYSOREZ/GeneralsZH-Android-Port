@@ -341,6 +341,35 @@ jobs:
             echo "::error::libdxvk_d3d9.so built without the SDL3 WSI (silent fallback)"; exit 1; }
           echo "Artifacts verified: AArch64 libmain.so + DXVK with SDL3 WSI"
 
+      # GeneralsX @bugfix Android CI 06/08/2026 CI never stripped debug
+      # symbols, so every uploaded artifact/Release asset shipped a fully
+      # unstripped libmain.so (282MB on its own) straight into the APK --
+      # AGP's own stripReleaseDebugSymbols task fails silently on all of our
+      # custom-built libraries for an unrelated reason (see build.gradle),
+      # so nothing else in the pipeline ever did this either. The local dev
+      # loop (scripts/build/android/build-local-sandboxed.sh) already runs
+      # this exact llvm-strip pass and ships a ~48MB APK instead of the
+      # ~118MB one CI had been producing (confirmed against the v1.1.5
+      # release asset) -- port it here so public builds get the same win.
+      # libdxvk_d3d8.so/libdxvk_d3d9.so are deliberately excluded: stripping
+      # them crashes DXVK's draw path on real hardware (keepDebugSymbols in
+      # android/app/build.gradle has the full story).
+      - name: Strip debug symbols
+        run: |
+          STRIP="$(ls "${ANDROID_NDK_HOME}"/toolchains/llvm/prebuilt/*/bin/llvm-strip | head -1)"
+          for lib in "build/${{ env.PRESET }}/GeneralsMD/Code/Main/libmain.so" \
+                     "build/${{ env.PRESET }}/_deps/sdl3-build/libSDL3.so" \
+                     "build/${{ env.PRESET }}/_deps/sdl3_image-build/libSDL3_image.so" \
+                     "build/${{ env.PRESET }}/_deps/openal_soft-build/libopenal.so" \
+                     "build/${{ env.PRESET }}/libgamespy.so" \
+                     "build/${{ env.PRESET }}/_deps/adrenotools-build/libadrenotools.so" \
+                     "build/${{ env.PRESET }}/_deps/adrenotools-build/src/hook/libgsl_alloc_hook.so" \
+                     "build/${{ env.PRESET }}/_deps/adrenotools-build/src/hook/libhook_impl.so" \
+                     "build/${{ env.PRESET }}/_deps/adrenotools-build/src/hook/libmain_hook.so" \
+                     "build/${{ env.PRESET }}/_deps/adrenotools-build/src/hook/libfile_redirect_hook.so"; do
+            [ -f "$lib" ] && "$STRIP" --strip-unneeded "$lib"
+          done
+
       - name: Set artifact version
         id: artifact
         run: |
