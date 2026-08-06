@@ -100,6 +100,29 @@ bool findLibraryForAddress(uintptr_t pc, char *outName, size_t outNameLen, uintp
 	}
 	s_mapsBuf[total] = '\0';
 
+	// GeneralsX @bugfix Android port 06/08/2026 (pc - start) + fileOffset is
+	// only the correct file-relative offset for a segment where
+	// p_vaddr == p_offset -- true of a library's FIRST PT_LOAD segment (both
+	// are 0 there) but NOT for later segments: NDK/lld inserts a page of
+	// vaddr-only padding at every permission-boundary crossing (R-X -> RW)
+	// that isn't mirrored in file-offset space, so start-fileOffset grows by
+	// one page per segment (confirmed via readelf -l on our own shipped
+	// libdxvk_d3d9.so: +0x1000, +0x2000, +0x3000 across its three LOAD
+	// segments). Every "library+0x..." offset this handler has ever logged
+	// for a PC/LR/backtrace frame landing outside a library's first segment
+	// was wrong by that page-scale constant, silently pointing addr2line at
+	// the wrong function -- root-caused after two agent-assisted symbol
+	// lookups on a real device crash kept landing on implausible
+	// instructions. The correct, ASLR-stable quantity is "pc - load bias",
+	// where the load bias is the runtime start address of the library's
+	// first mapped segment (whose fileOffset is 0, so its vaddr is 0 too);
+	// /proc/self/maps always lists one library's segments as a contiguous
+	// run, so track the bias of the run currently being scanned and reset it
+	// whenever the path changes.
+	uintptr_t libBase = 0;
+	char libBasePath[192];
+	libBasePath[0] = '\0';
+
 	char *line = s_mapsBuf;
 	char *bufEnd = s_mapsBuf + total;
 	while (line < bufEnd) {
@@ -118,19 +141,32 @@ bool findLibraryForAddress(uintptr_t pc, char *outName, size_t outNameLen, uintp
 		while (p < lineEnd && *p == ' ') p++;
 		while (p < lineEnd && *p != ' ') { fileOffset = (fileOffset << 4) | (uintptr_t)hexDigitValue(*p); p++; }
 
+		char *pathStart = lineEnd;
+		while (pathStart > line && *(pathStart - 1) != ' ') {
+			pathStart--;
+		}
+		size_t pathLen = (size_t)(lineEnd - pathStart);
+		bool samePath = pathLen > 0 && pathLen == strlen(libBasePath) &&
+			memcmp(pathStart, libBasePath, pathLen) == 0;
+		if (!samePath && pathLen > 0) {
+			// New library run starting: its first segment's fileOffset is 0
+			// and start IS the load bias. If this run's very first line
+			// doesn't have fileOffset 0 (seen for some non-ELF mappings),
+			// libBase stays a best-effort fallback equal to that start.
+			libBase = start - fileOffset;
+			size_t copyLen = pathLen < sizeof(libBasePath) - 1 ? pathLen : sizeof(libBasePath) - 1;
+			memcpy(libBasePath, pathStart, copyLen);
+			libBasePath[copyLen] = '\0';
+		}
+
 		if (pc >= start && pc < end) {
-			char *pathStart = lineEnd;
-			while (pathStart > line && *(pathStart - 1) != ' ') {
-				pathStart--;
-			}
-			size_t pathLen = (size_t)(lineEnd - pathStart);
 			if (pathLen > 0 && pathLen < outNameLen) {
 				memcpy(outName, pathStart, pathLen);
 				outName[pathLen] = '\0';
 			} else {
 				outName[0] = '\0';
 			}
-			*outOffset = (pc - start) + fileOffset;
+			*outOffset = pc - libBase;
 			return true;
 		}
 
