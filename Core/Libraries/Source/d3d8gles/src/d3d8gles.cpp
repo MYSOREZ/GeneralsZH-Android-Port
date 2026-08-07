@@ -35,9 +35,11 @@
 
 #include <d3d8.h>
 
+#include <algorithm>
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
+#include <map>
 #include <vector>
 
 #include "gles_pipeline.h"
@@ -47,6 +49,51 @@
 // ---------------------------------------------------------------------------
 
 static bool g_trace = false;
+
+// GeneralsX @build Android port GLES experiment - direct, unambiguous
+// evidence for the texture-leak fix instead of inferring it indirectly from
+// whether icons still flicker. A bare live-count number only says *whether*
+// something leaks, not *what* -- there is exactly one C++ call site that
+// constructs a WebGLTexture (WebGLDevice::CreateTexture below) and exactly
+// one that destroys one (~WebGLTexture), so "where in the code" is not
+// ambiguous; what's actually unknown is *which* textures -- by size/format,
+// i.e. which category of asset -- are the ones failing to reach zero
+// refcount. g_liveTexturesByShape buckets every currently-live WebGLTexture
+// by (width, height, format) and is logged periodically (present()'s
+// existing perf line, via DumpLiveTextureShapes) as a sorted top-N. If the
+// texture-leak fix (glDeleteTextures now called in ~WebGLTexture) actually
+// closed the icon flicker, small icon-shaped buckets (64x64/128x128,
+// fmt=26=D3DFMT_A4R4G4B4) should plateau instead of climbing across
+// successive log lines; if some other bucket climbs unbounded instead, that
+// shape identifies exactly which asset class still leaks.
+struct LiveTextureShapeKey {
+	UINT w = 0, h = 0;
+	D3DFORMAT fmt = D3DFMT_UNKNOWN;
+	bool operator<(const LiveTextureShapeKey &o) const
+	{
+		if (w != o.w) return w < o.w;
+		if (h != o.h) return h < o.h;
+		return fmt < o.fmt;
+	}
+};
+static std::map<LiveTextureShapeKey, int> g_liveTexturesByShape;
+static long g_texturesCreated = 0;
+static long g_texturesDeleted = 0;
+
+static void DumpLiveTextureShapes()
+{
+	std::vector<std::pair<LiveTextureShapeKey, int>> shapes(
+		g_liveTexturesByShape.begin(), g_liveTexturesByShape.end());
+	std::sort(shapes.begin(), shapes.end(),
+		[](const auto &a, const auto &b) { return a.second > b.second; });
+	fprintf(stderr, "[d3d8gles] live texture shapes (top %zu of %zu distinct):",
+		std::min<size_t>(shapes.size(), 8), shapes.size());
+	for (size_t i = 0; i < shapes.size() && i < 8; i++) {
+		fprintf(stderr, " %ux%u,fmt%d=%d", shapes[i].first.w, shapes[i].first.h,
+			(int)shapes[i].first.fmt, shapes[i].second);
+	}
+	fprintf(stderr, "\n");
+}
 
 #define D3D8GLES_TRACE_CALL(...)                 \
 	do {                                          \
@@ -277,10 +324,18 @@ public:
 			tw = tw > 1 ? tw / 2 : 1;
 			th = th > 1 ? th / 2 : 1;
 		}
+		m_shapeKey = LiveTextureShapeKey{w, h, fmt};
+		g_liveTexturesByShape[m_shapeKey]++;
 	}
 
 	~WebGLTexture()
 	{
+		{
+			auto it = g_liveTexturesByShape.find(m_shapeKey);
+			if (it != g_liveTexturesByShape.end() && --it->second <= 0) {
+				g_liveTexturesByShape.erase(it);
+			}
+		}
 		// GeneralsX @build Android port GLES experiment - this destructor
 		// used to free only the CPU-side shadow surfaces, never the actual
 		// GL texture object (m_gl.name) or its FBO (m_gl.fbo, if this
@@ -302,6 +357,7 @@ public:
 		if (m_gl.name) {
 			glDeleteTextures(1, &m_gl.name);
 			m_gl.name = 0;
+			g_texturesDeleted++;
 		}
 		for (WebGLSurface *s : m_levels) {
 			delete s; // privately owned; public refcount does not delete these
@@ -368,6 +424,7 @@ public:
 	DWORD m_lod = 0;
 	GLTextureState m_gl;
 	std::vector<WebGLSurface *> m_levels;
+	LiveTextureShapeKey m_shapeKey;
 };
 
 // ---------------------------------------------------------------------------

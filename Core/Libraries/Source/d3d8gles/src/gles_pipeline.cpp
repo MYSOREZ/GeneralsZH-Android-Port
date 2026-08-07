@@ -913,6 +913,7 @@ void WebGLPipeline::uploadTexture(WebGLTexture *tex)
 	GLTextureState &g = tex->m_gl;
 	if (g.name == 0) {
 		glGenTextures(1, &g.name);
+		g_texturesCreated++;
 	}
 	glBindTexture(GL_TEXTURE_2D, g.name);
 	const int levels = (int)tex->m_levels.size();
@@ -1587,8 +1588,10 @@ void WebGLPipeline::present()
 			const float cacheHitPct = totalStateChecks > 0
 				? 100.0f * m_perfStateCacheHits / totalStateChecks : 0.0f;
 			fprintf(stderr, "[d3d8gles] perf: %.1f fps, %.1f draws/frame, "
-				"state-cache %.0f%% hit (%d/%d)\n",
-				fps, drawsPerFrame, cacheHitPct, m_perfStateCacheHits, totalStateChecks);
+				"state-cache %.0f%% hit (%d/%d), textures live=%ld (created=%ld deleted=%ld)\n",
+				fps, drawsPerFrame, cacheHitPct, m_perfStateCacheHits, totalStateChecks,
+				g_texturesCreated - g_texturesDeleted, g_texturesCreated, g_texturesDeleted);
+			DumpLiveTextureShapes();
 			m_perfLogLastMs = nowMs;
 			m_perfFrameCount = 0;
 			m_perfDrawAccum = 0;
