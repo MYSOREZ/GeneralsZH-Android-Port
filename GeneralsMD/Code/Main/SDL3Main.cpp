@@ -136,6 +136,23 @@ extern Int GameMain();
  *
  * GeneralsX @bugfix BenderAI 06/03/2026
  */
+/**
+ * GeneralsX @build Android port GLES experiment - runtime render-backend
+ * switch. Native GLES3 (Core/Libraries/Source/d3d8gles/, no Vulkan
+ * involved at all) is now the Android default; Vulkan/DXVK becomes an
+ * explicit opt-in via GENERALSX_RENDER_BACKEND=vulkan. This experiment is
+ * Android-only -- every other platform keeps using DXVK/Vulkan unchanged.
+ */
+static bool UseVulkanBackend()
+{
+#if defined(__ANDROID__)
+	const char *backend = getenv("GENERALSX_RENDER_BACKEND");
+	return backend != nullptr && strcmp(backend, "vulkan") == 0;
+#else
+	return true;
+#endif
+}
+
 #if !defined(__ANDROID__)
 static void FilterSoftwareVulkanICDs()
 {
@@ -977,23 +994,27 @@ int main(int argc, char* argv[])
 			return 1;
 		}
 
-		// Set DXVK WSI driver before loading Vulkan
-		setenv("DXVK_WSI_DRIVER", "SDL3", 1);
+		const bool useVulkan = UseVulkanBackend();
 
-		// GeneralsX @bugfix BenderAI 06/03/2026 - Exclude LLVMpipe Vulkan ICD before loading Vulkan.
-		// libvulkan_lvp.so crashes during static initialization with LLVM 20.x when the Vulkan
-		// loader enumerates all ICDs. Restrict to hardware ICDs first.
+		if (useVulkan) {
+			// Set DXVK WSI driver before loading Vulkan
+			setenv("DXVK_WSI_DRIVER", "SDL3", 1);
+
+			// GeneralsX @bugfix BenderAI 06/03/2026 - Exclude LLVMpipe Vulkan ICD before loading Vulkan.
+			// libvulkan_lvp.so crashes during static initialization with LLVM 20.x when the Vulkan
+			// loader enumerates all ICDs. Restrict to hardware ICDs first.
 #if !defined(__ANDROID__)
-		// Desktop-Mesa workaround; Android has no ICD JSON directories — the
-		// system Vulkan loader picks the vendor driver (Adreno/Mali) itself.
-		FilterSoftwareVulkanICDs();
+			// Desktop-Mesa workaround; Android has no ICD JSON directories — the
+			// system Vulkan loader picks the vendor driver (Adreno/Mali) itself.
+			FilterSoftwareVulkanICDs();
 #endif
+		}
 		FilterPipeWireOpenAL();
 
 #if defined(__ANDROID__)
-		// Must run before SDL_Vulkan_LoadLibrary()/DXVK's own internal
-		// dlopen("libvulkan.so") below -- see TryLoadCustomVulkanDriver().
-		{
+		if (useVulkan) {
+			// Must run before SDL_Vulkan_LoadLibrary()/DXVK's own internal
+			// dlopen("libvulkan.so") below -- see TryLoadCustomVulkanDriver().
 			const char *internalPath = SDL_GetAndroidInternalStoragePath();
 			if (internalPath != nullptr) {
 				TryLoadCustomVulkanDriver(internalPath);
@@ -1001,16 +1022,35 @@ int main(int argc, char* argv[])
 		}
 #endif
 
-		// Load Vulkan library for DXVK DirectX8→Vulkan translation
-		fprintf(stderr, "INFO: Loading Vulkan library...\n");
-		if (!SDL_Vulkan_LoadLibrary(nullptr)) {
-			fprintf(stderr, "WARNING: Failed to load Vulkan: %s\n", SDL_GetError());
-			fprintf(stderr, "WARNING: Continuing without Vulkan (may use software rendering)\n");
+		if (useVulkan) {
+			// Load Vulkan library for DXVK DirectX8→Vulkan translation
+			fprintf(stderr, "INFO: Loading Vulkan library...\n");
+			if (!SDL_Vulkan_LoadLibrary(nullptr)) {
+				fprintf(stderr, "WARNING: Failed to load Vulkan: %s\n", SDL_GetError());
+				fprintf(stderr, "WARNING: Continuing without Vulkan (may use software rendering)\n");
+			}
+		} else {
+			// GeneralsX @build Android port GLES experiment - GLES3 context
+			// attributes must be set BEFORE SDL_CreateWindow (SDL only applies
+			// them to windows created after this call); the actual GL context
+			// itself is created later, once DX8Wrapper::Init() -> the d3d8gles
+			// backend has a window handle (see WebGLPipeline::initContext).
+			fprintf(stderr, "INFO: Using native GLES3 backend (no Vulkan)\n");
+			SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_ES);
+			SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+			SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
+			SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 8);
+			SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 8);
+			SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 8);
+			SDL_GL_SetAttribute(SDL_GL_ALPHA_SIZE, 0);
+			SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
+			SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
+			SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 		}
 
-		// Create SDL3 window with Vulkan support
-		fprintf(stderr, "INFO: Creating SDL3 Vulkan window...\n");
-		Uint32 windowFlags = SDL_WINDOW_VULKAN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_HIDDEN;  // Start hidden, show after D3D init
+		// Create SDL3 window (Vulkan or OpenGL/GLES surface depending on the backend switch)
+		fprintf(stderr, "INFO: Creating SDL3 %s window...\n", useVulkan ? "Vulkan" : "OpenGL ES");
+		Uint32 windowFlags = (useVulkan ? SDL_WINDOW_VULKAN : SDL_WINDOW_OPENGL) | SDL_WINDOW_RESIZABLE | SDL_WINDOW_HIDDEN;  // Start hidden, show after D3D init
 #if defined(SAGE_MOBILE_PLATFORM)
 		// Request a native-resolution drawable (e.g. 2868x1320 instead of the
 		// 956x440 point size). Without this the swapchain renders at point size and

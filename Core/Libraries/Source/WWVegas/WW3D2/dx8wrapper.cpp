@@ -54,6 +54,10 @@
 #if defined(__APPLE__)
 #include <TargetConditionals.h>
 #endif
+#if defined(__ANDROID__)
+// GeneralsX @build Android port GLES experiment - declares Direct3DCreate8_GLES
+#include "d3d8gles.h"
+#endif
 // GeneralsX @build BenderAI 10/02/2026 - Need LoadLibrary/GetProcAddress/FreeLibrary for dynamic loading
 #include "module_compat.h"
 // GeneralsX @build felipebraz 16/02/2026 - Need dlerror() for dlopen() error reporting on Linux
@@ -591,6 +595,37 @@ bool DX8Wrapper::Init(void * hwnd, bool lite)
 		// GeneralsX @build BenderAI 10/02/2026 - Platform-specific DLL/SO/DYLIB loading (Phase 5: macOS)
 #ifdef _WIN32
 		D3D8Lib = LoadLibrary("D3D8.DLL");
+#elif defined(__ANDROID__)
+		// GeneralsX @build Android port GLES experiment - runtime backend
+		// switch (see UseVulkanBackend() in SDL3Main.cpp for the matching
+		// window-creation-side half of this switch). Native GLES3
+		// (Core/Libraries/Source/d3d8gles/) is the default; Vulkan/DXVK is
+		// opt-in via GENERALSX_RENDER_BACKEND=vulkan. The GLES backend is
+		// statically linked into libmain.so, not dlopen'd, so it skips the
+		// LoadLibrary/GetProcAddress dance entirely.
+		{
+			const char *backend = getenv("GENERALSX_RENDER_BACKEND");
+			bool useVulkan = backend != nullptr && strcmp(backend, "vulkan") == 0;
+			if (!useVulkan) {
+				fprintf(stderr, "DEBUG: DX8Wrapper::Init() - Using native GLES3 backend (Direct3DCreate8_GLES)\n");
+				D3D8Lib = nullptr;
+				Direct3DCreate8Ptr = &Direct3DCreate8_GLES;
+			} else {
+				fprintf(stderr, "DEBUG: DX8Wrapper::Init() - Loading libdxvk_d3d8.so (Android, Vulkan opt-in)...\n");
+				D3D8Lib = LoadLibrary("libdxvk_d3d8.so");
+				fprintf(stderr, "DEBUG: DX8Wrapper::Init() - LoadLibrary result: %p\n", (void*)D3D8Lib);
+				if (D3D8Lib == nullptr) {
+					const char* error = dlerror();
+					fprintf(stderr, "ERROR: DX8Wrapper::Init() - dlerror(): %s\n", error ? error : "unknown");
+					return false;
+				}
+				Direct3DCreate8Ptr = (Direct3DCreate8Type) GetProcAddress(D3D8Lib, "Direct3DCreate8");
+				if (Direct3DCreate8Ptr == nullptr) {
+					fprintf(stderr, "ERROR: DX8Wrapper::Init() - Failed to get Direct3DCreate8 function\n");
+					return false;
+				}
+			}
+		}
 #elif defined(__APPLE__)
 		fprintf(stderr, "DEBUG: DX8Wrapper::Init() - Loading libdxvk_d3d8.dylib (Apple)...\n");
 		// iOS confines dlopen to the app bundle; bare names don't resolve there, so
@@ -616,6 +651,13 @@ bool DX8Wrapper::Init(void * hwnd, bool lite)
 		}
 #endif
 
+		// GeneralsX @build Android port GLES experiment - Android already set
+		// D3D8Lib and Direct3DCreate8Ptr above (for both the GLES and the
+		// Vulkan-opt-in sub-cases); the GLES sub-case intentionally leaves
+		// D3D8Lib null (nothing was dlopen'd), which the generic checks below
+		// would misread as a load failure. Every other platform still needs
+		// this shared dlopen-style resolution.
+#if !defined(__ANDROID__)
 		if (D3D8Lib == nullptr) {
 			fprintf(stderr, "ERROR: DX8Wrapper::Init() - Failed to load D3D8 library\n");
 			return false;	// Return false at this point if init failed
@@ -627,6 +669,12 @@ bool DX8Wrapper::Init(void * hwnd, bool lite)
 			fprintf(stderr, "ERROR: DX8Wrapper::Init() - Failed to get Direct3DCreate8 function\n");
 			return false;
 		}
+#else
+		if (Direct3DCreate8Ptr == nullptr) {
+			fprintf(stderr, "ERROR: DX8Wrapper::Init() - Direct3DCreate8Ptr was not set by the Android backend switch\n");
+			return false;
+		}
+#endif
 
 		/*
 		** Create the D3D interface object

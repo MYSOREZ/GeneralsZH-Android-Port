@@ -265,3 +265,10 @@ target_link_libraries(z_ww3d2 PRIVATE
     zi_always
     d3d8lib  # Provides d3d8.h headers (Windows SDK or DXVK)
 )
+
+# GeneralsX @build Android port GLES experiment - dx8wrapper.cpp calls
+# Direct3DCreate8_GLES() directly (statically linked, unlike DXVK which is
+# dlopen'd) when the runtime backend switch selects GLES; needs d3d8gles.h.
+if(ANDROID)
+    target_link_libraries(z_ww3d2 PRIVATE d3d8gles)
+endif()

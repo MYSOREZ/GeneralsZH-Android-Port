@@ -60,6 +60,15 @@ if(ANDROID)
     target_link_libraries(z_generals PRIVATE adrenotools)
 endif()
 
+# GeneralsX @build Android port GLES experiment - statically linked
+# alternative D3D8 backend (native GLES3 via SDL3, see
+# Core/Libraries/Source/d3d8gles/), selected at runtime instead of DXVK's
+# dlopen'd D3D8->Vulkan translation -- see DX8Wrapper::Init()'s backend
+# switch in dx8wrapper.cpp.
+if(ANDROID)
+    target_link_libraries(z_generals PRIVATE d3d8gles)
+endif()
+
 # GeneralsX @feature Android port 12/07/2026 CI passes the GitHub Actions run
 # number (the same value baked into the artifact filename, e.g.
 # GeneralsXZH-android-run108.apk) via -DANDROID_CI_BUILD_NUMBER so it can be
