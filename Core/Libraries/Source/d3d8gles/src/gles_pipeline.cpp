@@ -266,7 +266,7 @@ bool WebGLPipeline::initContext(int w, int h, SDL_Window *window)
 		fprintf(stderr, "[d3d8gles] FATAL: SDL_GL_CreateContext failed: %s\n", SDL_GetError());
 		return false;
 	}
-	if (!SDL_GL_MakeCurrent(window, m_glContext)) {
+	if (!SDL_GL_MakeCurrent(window, (SDL_GLContext)m_glContext)) {
 		fprintf(stderr, "[d3d8gles] FATAL: SDL_GL_MakeCurrent failed: %s\n", SDL_GetError());
 		return false;
 	}

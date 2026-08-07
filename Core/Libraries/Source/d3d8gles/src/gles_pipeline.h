@@ -34,7 +34,12 @@
 #include <cstdint>
 
 typedef struct SDL_Window SDL_Window;
-typedef void *SDL_GLContext;
+// Not "typedef void *SDL_GLContext" here: SDL3's real header (SDL_video.h)
+// declares SDL_GLContext as "struct SDL_GLContextState *", and a forward
+// declaration must match exactly or every TU that includes both this header
+// and <SDL3/SDL.h> gets a typedef-redefinition error. m_glContext below is
+// plain void* instead; gles_pipeline.cpp (which does include <SDL3/SDL.h>)
+// casts to/from the real SDL_GLContext where needed.
 
 class WebGLDevice;
 class WebGLTexture;
@@ -107,7 +112,7 @@ private:
 	int m_fbWidth = 0;
 	int m_fbHeight = 0;
 	SDL_Window *m_window = nullptr;
-	SDL_GLContext m_glContext = nullptr;
+	void *m_glContext = nullptr; // really an SDL_GLContext, see the comment above
 
 	// Current render target (FBO rendering for SetRenderTarget).
 	GLuint m_curFBO = 0;
