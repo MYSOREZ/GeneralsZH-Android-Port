@@ -131,6 +131,22 @@ private:
 	int m_perfStateCacheHits = 0;
 	int m_perfStateCacheMisses = 0;
 
+	// GeneralsX @build Android port GLES experiment - same redundant-state
+	// rationale as m_lastProgram above, applied to bindTextures()'s two
+	// texture stages: the D3D-era engine calls SetTexture() before every
+	// draw regardless of whether the stage's texture actually changed (the
+	// same "reapply unconditionally" style that motivated FixedStateKey and
+	// m_lastProgram), so consecutive draws sharing a material/texture -- a
+	// terrain tile batch, a run of UI glyphs off the same font sheet, a
+	// string of units using the same skin -- previously re-issued
+	// glBindTexture per stage per draw for no reason. 0 doubles as "no GL
+	// texture bound" for both an unset stage and an explicitly-unbound one,
+	// which is fine since both cases want the same skip-if-unchanged
+	// behavior. Only the bind itself is skipped; glActiveTexture still runs
+	// unconditionally so applySamplerState (called right after) always has
+	// the correct unit current if it needs to touch sampler parameters.
+	GLuint m_lastBoundTex[2] = {0, 0};
+
 	// Perf counters logged once every couple of seconds by present(), not
 	// per frame -- draws/frame and cache hit rate are the numbers that
 	// actually say whether the state-cache above is doing anything, instead
