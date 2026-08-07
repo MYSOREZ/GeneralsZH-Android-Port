@@ -1116,6 +1116,23 @@ void WebGLPipeline::applyUniforms(WebGLDevice *dev, ProgramInfo *prog, unsigned 
 	}
 	if (prog->uYFlip >= 0) glUniform1f(prog->uYFlip, m_yFlip);
 
+	// GeneralsX @build Android port GLES experiment - temporary diagnostic
+	// for the confirmed whole-frame vertical flip bug: dump the actual
+	// viewport/yFlip/framebuffer values the first several draws use, since
+	// static analysis of the shader math didn't explain the symptom and
+	// toggling m_yFlip's sign made no visible difference on a real device.
+	{
+		static int s_dbgCount = 0;
+		if (s_dbgCount < 40) {
+			const D3DVIEWPORT8 &vpDbg = dev->getViewport();
+			fprintf(stderr, "[d3d8gles] applyUniforms#%d vp=(%d,%d,%d,%d) yFlip=%.1f xyzrhw=%d fb=%dx%d curFBO=%u minZ=%.3f maxZ=%.3f\n",
+				s_dbgCount, vpDbg.X, vpDbg.Y, vpDbg.Width, vpDbg.Height, m_yFlip,
+				(fvf & D3DFVF_XYZRHW) ? 1 : 0, m_fbWidth, m_fbHeight, m_curFBO,
+				vpDbg.MinZ, vpDbg.MaxZ);
+			s_dbgCount++;
+		}
+	}
+
 	float c[4];
 	argbToFloats(dev->getRenderState(D3DRS_TEXTUREFACTOR), c);
 	if (prog->uTFactor >= 0) glUniform4fv(prog->uTFactor, 1, c);
@@ -1416,7 +1433,7 @@ void WebGLPipeline::setRenderTarget(WebGLDevice * /*dev*/, WebGLTexture *tex)
 		// vertical flip on a real device (menu buttons, logo, and the 3D
 		// background all appeared upside down and in reversed top-to-bottom
 		// order, matched against a known-correct reference screenshot).
-		m_yFlip = -1.0f;
+		m_yFlip = 1.0f;
 		return;
 	}
 
@@ -1463,7 +1480,7 @@ void WebGLPipeline::setRenderTarget(WebGLDevice * /*dev*/, WebGLTexture *tex)
 		// vertical flip on a real device (menu buttons, logo, and the 3D
 		// background all appeared upside down and in reversed top-to-bottom
 		// order, matched against a known-correct reference screenshot).
-		m_yFlip = -1.0f;
+		m_yFlip = 1.0f;
 		return;
 	}
 
