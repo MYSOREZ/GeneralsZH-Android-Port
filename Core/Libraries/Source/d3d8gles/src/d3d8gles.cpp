@@ -281,6 +281,28 @@ public:
 
 	~WebGLTexture()
 	{
+		// GeneralsX @build Android port GLES experiment - this destructor
+		// used to free only the CPU-side shadow surfaces, never the actual
+		// GL texture object (m_gl.name) or its FBO (m_gl.fbo, if this
+		// texture was ever used as a render target). Every D3D texture the
+		// engine creates and releases -- confirmed via device logs to
+		// include very frequently recreated small icon/cameo textures --
+		// leaked its GL-side memory forever. Over a play session this grows
+		// unbounded and is a strong suspect for icons flickering in and out
+		// over time (confirmed via device screenshots a few seconds apart
+		// showing the same icon slots alternate between correct and black)
+		// as the driver runs low on texture memory. GL object deletion must
+		// happen on the GL thread with a context current, which holds here
+		// since resource release always happens from the game/render
+		// thread in this port.
+		if (m_gl.fbo) {
+			glDeleteFramebuffers(1, &m_gl.fbo);
+			m_gl.fbo = 0;
+		}
+		if (m_gl.name) {
+			glDeleteTextures(1, &m_gl.name);
+			m_gl.name = 0;
+		}
 		for (WebGLSurface *s : m_levels) {
 			delete s; // privately owned; public refcount does not delete these
 		}
