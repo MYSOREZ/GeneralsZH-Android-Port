@@ -127,8 +127,20 @@ D3DXLoadSurfaceFromSurface(
 	// Create two levels of mips, 0 and 1
 	gli::texture2d texSrc(imageFormat, gli::extent2d(descSrc.Width, descSrc.Height), 2);
 
-	// Copy the data to level 0
-	memcpy(texSrc.data(), srcRect.pBits, texSrc.size());
+	// Copy the data to level 0 only, using level 0's own size (texSrc.size(0)),
+	// not texSrc.size() (both levels combined, ~1.25x level 0 alone). pSrcSurface
+	// is always a single mip level -- D3DXFilterTexture calls this once per
+	// level pair via GetSurfaceLevel(), and each level is its own Surface sized
+	// to just that level (real D3D8 surfaces work the same way). Copying the
+	// combined two-level size here reads ~25% past the end of the source
+	// surface's actual buffer. This was silently harmless against DXVK's D3D8
+	// surfaces (evidently backed by allocations with enough slack to absorb the
+	// over-read) but is a real heap buffer over-read that crashes with a
+	// tightly-sized allocator -- confirmed via a device crash log during
+	// terrain texture mip generation (TerrainTextureClass::update ->
+	// D3DXFilterTexture -> here) on the experimental GLES3 backend, whose
+	// surfaces allocate exactly one level's worth of bytes with no padding.
+	memcpy(texSrc.data(0, 0, 0), srcRect.pBits, texSrc.size(0));
 	// Generate mip 1 from level 0
 	gli::texture2d mipMap = gli::generate_mipmaps(texSrc, gli::filter::FILTER_LINEAR);
 
