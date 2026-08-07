@@ -1407,7 +1407,16 @@ void WebGLPipeline::setRenderTarget(WebGLDevice * /*dev*/, WebGLTexture *tex)
 		m_curFBO = 0;
 		m_curRTWidth = m_fbWidth;
 		m_curRTHeight = m_fbHeight;
-		m_yFlip = 1.0f;
+		// GeneralsX @build Android port GLES experiment - this was +1.0f as
+		// ported from the web build. On a browser canvas, the browser's own
+		// canvas compositing absorbs part of the D3D-to-GL vertical
+		// convention mismatch, so +1.0f was correct there. Android's raw
+		// EGL/ANativeWindow presentation (via SDL_GL_SwapWindow) has no such
+		// implicit correction, and +1.0f produced a confirmed whole-frame
+		// vertical flip on a real device (menu buttons, logo, and the 3D
+		// background all appeared upside down and in reversed top-to-bottom
+		// order, matched against a known-correct reference screenshot).
+		m_yFlip = -1.0f;
 		return;
 	}
 
@@ -1445,7 +1454,16 @@ void WebGLPipeline::setRenderTarget(WebGLDevice * /*dev*/, WebGLTexture *tex)
 		m_curFBO = 0;
 		m_curRTWidth = m_fbWidth;
 		m_curRTHeight = m_fbHeight;
-		m_yFlip = 1.0f;
+		// GeneralsX @build Android port GLES experiment - this was +1.0f as
+		// ported from the web build. On a browser canvas, the browser's own
+		// canvas compositing absorbs part of the D3D-to-GL vertical
+		// convention mismatch, so +1.0f was correct there. Android's raw
+		// EGL/ANativeWindow presentation (via SDL_GL_SwapWindow) has no such
+		// implicit correction, and +1.0f produced a confirmed whole-frame
+		// vertical flip on a real device (menu buttons, logo, and the 3D
+		// background all appeared upside down and in reversed top-to-bottom
+		// order, matched against a known-correct reference screenshot).
+		m_yFlip = -1.0f;
 		return;
 	}
 
