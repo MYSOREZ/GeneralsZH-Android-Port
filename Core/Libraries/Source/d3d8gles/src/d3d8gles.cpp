@@ -263,6 +263,12 @@ public:
 	HRESULT LockRect(D3DLOCKED_RECT *locked_rect, const RECT *rect, DWORD /*flags*/) override
 	{
 		if (!locked_rect) return D3DERR_INVALIDCALL;
+		if (!m_alive) {
+			fprintf(stderr, "[d3d8gles] WARNING: LockRect on retired surface %p "
+				"(%ux%u, fmt%d) -- owning texture already destroyed, use-after-free avoided\n",
+				(void *)this, m_width, m_height, (int)m_format);
+			return D3DERR_INVALIDCALL;
+		}
 		locked_rect->Pitch = m_pitch;
 		BYTE *base = m_bits.data();
 		if (rect) {
@@ -279,6 +285,12 @@ public:
 
 	HRESULT UnlockRect() override
 	{
+		if (!m_alive) {
+			fprintf(stderr, "[d3d8gles] WARNING: UnlockRect on retired surface %p "
+				"(%ux%u, fmt%d) -- owning texture already destroyed, use-after-free avoided\n",
+				(void *)this, m_width, m_height, (int)m_format);
+			return D3DERR_INVALIDCALL;
+		}
 		if (m_ownerGL) m_ownerGL->dirty = true;
 		return D3D_OK;
 	}
@@ -293,7 +305,43 @@ public:
 	INT m_pitch = 0;
 	UINT m_size = 0;
 	std::vector<BYTE> m_bits;
+
+	// GeneralsX @build Android port GLES experiment - use-after-free
+	// detection for the residual icon-flicker investigation (see
+	// RetireSurface below). True for the surface's whole life until its
+	// owning texture is destroyed; texture-owned levels are then quarantined
+	// instead of deleted immediately so a stale IDirect3DSurface8* the
+	// engine kept around (e.g. from an earlier GetSurfaceLevel) can be
+	// caught here instead of silently reading/writing freed memory.
+	bool m_alive = true;
 };
+
+// GeneralsX @build Android port GLES experiment - see WebGLSurface::m_alive
+// above. Texture-owned level surfaces are documented (see the comment on
+// WebGLSurface's manual IUnknown) as tolerating over-Release() from D3DX8-era
+// engine code because their lifetime is bound to the owning WebGLTexture, not
+// the public refcount. That means ~WebGLTexture() always deletes them
+// outright regardless of whether some other code still holds a raw pointer
+// to one -- which is fine *if* nothing does, but if something does (a cached
+// "current cameo write target" surface pointer that outlives a texture
+// recreation, say), that pointer instantly dangles. Deferring the real
+// delete through a small quarantine keeps the memory (and therefore m_alive)
+// valid for a while after "logical" destruction, so LockRect/UnlockRect/
+// CopyRects can detect and refuse the stale access instead of corrupting the
+// heap or reading garbage -- which is a very plausible match for icons that
+// flicker rather than stay reliably broken or reliably fine.
+static std::vector<WebGLSurface *> g_surfaceQuarantine;
+static const size_t kSurfaceQuarantineMax = 64;
+
+static void RetireSurface(WebGLSurface *s)
+{
+	s->m_alive = false;
+	g_surfaceQuarantine.push_back(s);
+	if (g_surfaceQuarantine.size() > kSurfaceQuarantineMax) {
+		delete g_surfaceQuarantine.front();
+		g_surfaceQuarantine.erase(g_surfaceQuarantine.begin());
+	}
+}
 
 // ---------------------------------------------------------------------------
 // Texture (2D). Levels are WebGLSurface objects.
@@ -360,11 +408,46 @@ public:
 			g_texturesDeleted++;
 		}
 		for (WebGLSurface *s : m_levels) {
-			delete s; // privately owned; public refcount does not delete these
+			RetireSurface(s); // quarantined, not deleted outright -- see RetireSurface's comment
 		}
 	}
 
-	D3D8GLES_IUNKNOWN_IMPL(WebGLTexture)
+	// GeneralsX @build Android port GLES experiment - manual IUnknown
+	// instead of the shared D3D8GLES_IUNKNOWN_IMPL macro. The macro's
+	// Release() trusts refcounting blindly (decrement, delete at 0); the
+	// class comment on WebGLSurface above already documents that D3DX8-era
+	// engine code over-releases surface *levels* (tolerated there by never
+	// deleting texture-owned levels via the public refcount at all). If the
+	// same class of over-release happens on the *texture* object itself --
+	// plausible for cameo/icon textures given how often they're recreated,
+	// per the live-shape perf log -- the generic macro would silently
+	// double-delete/use-after-free instead of surfacing it, which fits
+	// "icons flicker depending on screen position" better than a real
+	// GL-side leak (already fixed and confirmed via the shape histogram to
+	// plateau, not climb). This guards against ref hitting 0 twice and logs
+	// it loudly instead of guessing further.
+	HRESULT QueryInterface(REFIID /*riid*/, void **ppvObject) override
+	{
+		if (ppvObject == nullptr) return E_POINTER;
+		*ppvObject = this;
+		AddRef();
+		return S_OK;
+	}
+	ULONG AddRef() override { return ++m_ref; }
+	ULONG Release() override
+	{
+		if (m_ref == 0) {
+			fprintf(stderr, "[d3d8gles] WARNING: WebGLTexture %p over-released "
+				"(Release() called with ref already 0) shape=%ux%u fmt=%d -- "
+				"ignoring to avoid a double-delete/use-after-free\n",
+				(void *)this, m_shapeKey.w, m_shapeKey.h, (int)m_shapeKey.fmt);
+			return 0;
+		}
+		const ULONG r = --m_ref;
+		if (r == 0) delete this;
+		return r;
+	}
+	ULONG m_ref = 1;
 
 	HRESULT GetDevice(struct IDirect3DDevice8 **ppDevice) override;
 	HRESULT SetPrivateData(REFGUID, const void *, DWORD, DWORD) override { return D3D_OK; }
@@ -988,6 +1071,19 @@ public:
 		if (!src_surface || !dst_surface) return D3DERR_INVALIDCALL;
 		WebGLSurface *src = static_cast<WebGLSurface *>(src_surface);
 		WebGLSurface *dst = static_cast<WebGLSurface *>(dst_surface);
+		// GeneralsX @build Android port GLES experiment - see
+		// WebGLSurface::m_alive / RetireSurface. CopyRects is the actual
+		// icon-update path (cameo blits go through here, confirmed by the
+		// CopyRects diagnostic log below) and touches src/dst directly
+		// without going through LockRect, so it needs its own guard.
+		if (!src->m_alive || !dst->m_alive) {
+			fprintf(stderr, "[d3d8gles] WARNING: CopyRects on a retired surface "
+				"(src=%p alive=%d, dst=%p alive=%d) -- owning texture already "
+				"destroyed, use-after-free avoided; this is very likely the "
+				"remaining icon-flicker cause\n",
+				(void *)src, src->m_alive, (void *)dst, dst->m_alive);
+			return D3DERR_INVALIDCALL;
+		}
 		static int s_crLog = 0;
 		if (s_crLog < 80) {
 			s_crLog++;

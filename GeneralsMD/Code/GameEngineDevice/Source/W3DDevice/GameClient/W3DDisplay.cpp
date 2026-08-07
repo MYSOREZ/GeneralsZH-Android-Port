@@ -69,6 +69,8 @@ static void drawFramerateBar();
 #include "GameClient/Mouse.h"
 #include "GameClient/GlobalLanguage.h"
 #include "GameClient/Water.h"
+#include "GameClient/Shell.h"
+#include "GameClient/WindowLayout.h"
 
 #include "GameNetwork/NetworkInterface.h"
 #include "Common/ModelState.h"
@@ -2177,8 +2179,38 @@ AGAIN:
 				if (numRenderTargetPolygons || numRenderTargetVertices)
 					Debug_Statistics::Record_DX8_Polys_And_Vertices(numRenderTargetPolygons,numRenderTargetVertices,ShaderClass::_PresetOpaqueShader);
 
+				// GeneralsX @build Android port GLES experiment - draw-call
+				// spike fix. Shell::doPush() deliberately does not hide the
+				// previous top-of-stack screen (that's what makes overlays
+				// like the pause menu work), and this draw loop calls
+				// drawViews() -- the full 3D battlefield render, terrain +
+				// units + particles -- unconditionally regardless of what's
+				// on top of the shell stack. Confirmed directly from a
+				// device log: the instant 'Menus/ScoreScreen.wnd' is pushed,
+				// draws/frame jumps from ~250 to 250-1493 and fps craters to
+				// 2.4-17, because the battlefield keeps fully rendering
+				// behind a screen that's fully covering it and about to be
+				// composited over anyway. ScoreScreen is a genuine fullscreen
+				// opaque results screen (not a translucent overlay like the
+				// pause menu), so skipping the world render while it's on
+				// top wastes nothing visible. Kept as a small explicit
+				// allowlist rather than a generic "is this window opaque"
+				// check -- only ScoreScreen has been confirmed by a real
+				// device log to cause this spike.
+				Bool skipViewsForOpaqueShellScreen = FALSE;
+				if (TheShell && TheShell->getScreenCount() > 0)
+				{
+					WindowLayout *topShellScreen = TheShell->top();
+					if (topShellScreen && !topShellScreen->isHidden() &&
+						topShellScreen->getFilename() == AsciiString("Menus/ScoreScreen.wnd"))
+					{
+						skipViewsForOpaqueShellScreen = TRUE;
+					}
+				}
+
 				// draw all views of the world
-				drawViews();
+				if (!skipViewsForOpaqueShellScreen)
+					drawViews();
 
 				// draw the user interface
 				TheInGameUI->DRAW();
