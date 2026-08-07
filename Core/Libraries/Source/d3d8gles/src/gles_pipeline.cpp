@@ -1031,6 +1031,40 @@ void WebGLPipeline::bindTextures(WebGLDevice *dev, ProgramInfo *prog)
 
 void WebGLPipeline::applyFixedState(WebGLDevice *dev)
 {
+	const D3DVIEWPORT8 &vpKey = dev->getViewport();
+	FixedStateKey key{};
+	key.zEnable = dev->getRenderState(D3DRS_ZENABLE);
+	key.zWrite = dev->getRenderState(D3DRS_ZWRITEENABLE);
+	key.zFunc = dev->getRenderState(D3DRS_ZFUNC);
+	key.zBias = dev->getRenderState(D3DRS_ZBIAS);
+	key.alphaBlend = dev->getRenderState(D3DRS_ALPHABLENDENABLE);
+	key.srcBlend = dev->getRenderState(D3DRS_SRCBLEND);
+	key.destBlend = dev->getRenderState(D3DRS_DESTBLEND);
+	key.cullMode = dev->getRenderState(D3DRS_CULLMODE);
+	key.colorWrite = dev->getRenderState(D3DRS_COLORWRITEENABLE);
+	key.stencilEnable = dev->getRenderState(D3DRS_STENCILENABLE);
+	key.stencilFunc = dev->getRenderState(D3DRS_STENCILFUNC);
+	key.stencilRef = dev->getRenderState(D3DRS_STENCILREF);
+	key.stencilMask = dev->getRenderState(D3DRS_STENCILMASK);
+	key.stencilFail = dev->getRenderState(D3DRS_STENCILFAIL);
+	key.stencilZFail = dev->getRenderState(D3DRS_STENCILZFAIL);
+	key.stencilPass = dev->getRenderState(D3DRS_STENCILPASS);
+	key.stencilWriteMask = dev->getRenderState(D3DRS_STENCILWRITEMASK);
+	key.vpX = vpKey.X;
+	key.vpY = vpKey.Y;
+	key.vpW = vpKey.Width;
+	key.vpH = vpKey.Height;
+	key.vpMinZ = vpKey.MinZ;
+	key.vpMaxZ = vpKey.MaxZ;
+
+	if (m_haveFixedStateKey && key == m_lastFixedStateKey) {
+		m_perfStateCacheHits++;
+		return; // Nothing this function sets has changed since the last draw.
+	}
+	m_perfStateCacheMisses++;
+	m_lastFixedStateKey = key;
+	m_haveFixedStateKey = true;
+
 	// Depth
 	const DWORD zEnable = dev->getRenderState(D3DRS_ZENABLE);
 	if (zEnable) glEnable(GL_DEPTH_TEST);
@@ -1104,13 +1138,14 @@ void WebGLPipeline::applyFixedState(WebGLDevice *dev)
 		glDisable(GL_STENCIL_TEST);
 	}
 
-	// Viewport position. The uniform clip-space y-negate makes every render
-	// target D3D-oriented (texel row 0 = top row of the D3D frame), so the
-	// viewport rectangle must be placed from the TOP, i.e. at vp.Y directly.
-	// The classic GL bottom-up flip here double-flipped partial viewports:
-	// full-screen ones (Y=0, H=RT) are unaffected, but the in-game 3D view
-	// (top portion of the screen) rendered shifted DOWN by RTH-H, leaving a
-	// black band on top and offsetting picking by the same amount.
+	// Viewport position, placed from the TOP at vp.Y directly (D3D
+	// convention) -- verified consistent with the vertex shader's own
+	// clip.y handling (no separate flip needed there either, see the
+	// vertex shader's cpos.y comment). A GL bottom-up conversion here would
+	// double-flip partial viewports: full-screen ones (Y=0, H=RT) would be
+	// unaffected, but a partial in-game 3D view (top portion of the
+	// screen) would render shifted, leaving a black band and offsetting
+	// picking by the same amount.
 	const D3DVIEWPORT8 &vp = dev->getViewport();
 	glViewport((GLint)vp.X, (GLint)vp.Y, (GLsizei)vp.Width, (GLsizei)vp.Height);
 	glDepthRangef(vp.MinZ, vp.MaxZ);
@@ -1118,7 +1153,10 @@ void WebGLPipeline::applyFixedState(WebGLDevice *dev)
 
 void WebGLPipeline::applyUniforms(WebGLDevice *dev, ProgramInfo *prog, unsigned fvf)
 {
-	glUseProgram(prog->prog);
+	if (prog->prog != m_lastProgram) {
+		glUseProgram(prog->prog);
+		m_lastProgram = prog->prog;
+	}
 
 	// D3D row-major memory uploaded untransposed IS the transpose GL wants
 	// for column-vector math (see plan notes).
@@ -1138,23 +1176,6 @@ void WebGLPipeline::applyUniforms(WebGLDevice *dev, ProgramInfo *prog, unsigned 
 		glUniform4f(prog->uViewportPos, (float)vp.X, (float)vp.Y, (float)vp.Width, (float)vp.Height);
 	}
 	if (prog->uYFlip >= 0) glUniform1f(prog->uYFlip, m_yFlip);
-
-	// GeneralsX @build Android port GLES experiment - temporary diagnostic
-	// for the confirmed whole-frame vertical flip bug: dump the actual
-	// viewport/yFlip/framebuffer values the first several draws use, since
-	// static analysis of the shader math didn't explain the symptom and
-	// toggling m_yFlip's sign made no visible difference on a real device.
-	{
-		static int s_dbgCount = 0;
-		if (s_dbgCount < 6000) {
-			const D3DVIEWPORT8 &vpDbg = dev->getViewport();
-			fprintf(stderr, "[d3d8gles] applyUniforms#%d vp=(%d,%d,%d,%d) yFlip=%.1f xyzrhw=%d fb=%dx%d curFBO=%u minZ=%.3f maxZ=%.3f\n",
-				s_dbgCount, vpDbg.X, vpDbg.Y, vpDbg.Width, vpDbg.Height, m_yFlip,
-				(fvf & D3DFVF_XYZRHW) ? 1 : 0, m_fbWidth, m_fbHeight, m_curFBO,
-				vpDbg.MinZ, vpDbg.MaxZ);
-			s_dbgCount++;
-		}
-	}
 
 	float c[4];
 	argbToFloats(dev->getRenderState(D3DRS_TEXTUREFACTOR), c);
@@ -1302,6 +1323,7 @@ void WebGLPipeline::drawCommon(WebGLDevice *dev, unsigned primType, unsigned pri
 	} else {
 		glDrawArrays(mode, startIndex, count);
 	}
+	m_perfDrawsThisFrame++;
 }
 
 // Buffer objects (device-side shadow -> GL) helpers.
@@ -1436,6 +1458,15 @@ void WebGLPipeline::clear(WebGLDevice *dev, unsigned flags, uint32_t argb, float
 	if (mask) glClear(mask);
 
 	if (!full) glDisable(GL_SCISSOR_TEST);
+
+	// GeneralsX @build Android port GLES experiment - clear() just forced
+	// glColorMask/glDepthMask/glStencilMask to their clear-time values
+	// (all-write) regardless of what D3D render state actually wants (e.g.
+	// COLORWRITEENABLE=0 for stencil shadow volumes). applyFixedState()'s
+	// redundant-state cache doesn't know that happened, so without this it
+	// could see an unchanged D3DRS_* key and skip re-applying those masks,
+	// leaving GL state out of sync with what the next draw actually needs.
+	m_haveFixedStateKey = false;
 }
 
 void WebGLPipeline::setRenderTarget(WebGLDevice * /*dev*/, WebGLTexture *tex)
@@ -1526,6 +1557,38 @@ void WebGLPipeline::present()
 	if (err != GL_NO_ERROR && (m_frame % 60) == 1) {
 		fprintf(stderr, "[d3d8gles] glGetError at frame %u: 0x%x\n", m_frame, err);
 	}
+
+	// GeneralsX @build Android port GLES experiment - perf visibility.
+	// Logged once every ~2s (not every frame, to keep this from becoming
+	// its own source of overhead/spam) so real numbers -- FPS, draws/frame,
+	// how often the applyFixedState redundant-state cache actually hits --
+	// are available from a device log instead of judging smoothness by feel.
+	m_perfFrameCount++;
+	m_perfDrawAccum += m_perfDrawsThisFrame;
+	m_perfDrawsThisFrame = 0;
+	{
+		const unsigned nowMs = SDL_GetTicks();
+		if (m_perfLogLastMs == 0) {
+			m_perfLogLastMs = nowMs;
+		} else if (nowMs - m_perfLogLastMs >= 2000) {
+			const float seconds = (nowMs - m_perfLogLastMs) / 1000.0f;
+			const float fps = m_perfFrameCount / seconds;
+			const float drawsPerFrame = m_perfFrameCount > 0
+				? (float)m_perfDrawAccum / m_perfFrameCount : 0.0f;
+			const int totalStateChecks = m_perfStateCacheHits + m_perfStateCacheMisses;
+			const float cacheHitPct = totalStateChecks > 0
+				? 100.0f * m_perfStateCacheHits / totalStateChecks : 0.0f;
+			fprintf(stderr, "[d3d8gles] perf: %.1f fps, %.1f draws/frame, "
+				"state-cache %.0f%% hit (%d/%d)\n",
+				fps, drawsPerFrame, cacheHitPct, m_perfStateCacheHits, totalStateChecks);
+			m_perfLogLastMs = nowMs;
+			m_perfFrameCount = 0;
+			m_perfDrawAccum = 0;
+			m_perfStateCacheHits = 0;
+			m_perfStateCacheMisses = 0;
+		}
+	}
+
 	// GeneralsX @build Android port GLES experiment - the browser build never
 	// needed an explicit swap (the canvas presents implicitly when the game
 	// pthread yields back to its rAF loop tick). Android/EGL has no such

@@ -32,6 +32,7 @@
 
 #include <GLES3/gl3.h>
 #include <cstdint>
+#include <cstring>
 
 typedef struct SDL_Window SDL_Window;
 // Not "typedef void *SDL_GLContext" here: SDL3's real header (SDL_video.h)
@@ -101,6 +102,43 @@ private:
 	ProgramInfo *getProgram(WebGLDevice *dev, unsigned fvf);
 	void applyFixedState(WebGLDevice *dev);
 	void applyUniforms(WebGLDevice *dev, ProgramInfo *prog, unsigned fvf);
+
+	// GeneralsX @build Android port GLES experiment - perf pass. The ported
+	// pipeline was correctness-first: every draw re-applied all fixed GL
+	// state and re-uploaded every uniform unconditionally (see the original
+	// header comment above), which is fine for a browser tech demo but is
+	// real, measurable per-draw driver overhead for an RTS scene with many
+	// draws per frame. FixedStateKey mirrors every D3D render-state value
+	// applyFixedState() reads (plus the viewport); when consecutive draws
+	// share the same key, the whole function body -- a dozen-plus
+	// glEnable/glDisable/glBlendFunc/... calls -- is skipped entirely.
+	struct FixedStateKey {
+		DWORD zEnable, zWrite, zFunc, zBias;
+		DWORD alphaBlend, srcBlend, destBlend;
+		DWORD cullMode, colorWrite;
+		DWORD stencilEnable, stencilFunc, stencilRef, stencilMask;
+		DWORD stencilFail, stencilZFail, stencilPass, stencilWriteMask;
+		int vpX, vpY, vpW, vpH;
+		float vpMinZ, vpMaxZ;
+
+		bool operator==(const FixedStateKey &o) const {
+			return memcmp(this, &o, sizeof(FixedStateKey)) == 0;
+		}
+	};
+	bool m_haveFixedStateKey = false;
+	FixedStateKey m_lastFixedStateKey{};
+	GLuint m_lastProgram = 0;
+	int m_perfStateCacheHits = 0;
+	int m_perfStateCacheMisses = 0;
+
+	// Perf counters logged once every couple of seconds by present(), not
+	// per frame -- draws/frame and cache hit rate are the numbers that
+	// actually say whether the state-cache above is doing anything, instead
+	// of guessing from feel alone.
+	int m_perfDrawsThisFrame = 0;
+	int m_perfFrameCount = 0;
+	int m_perfDrawAccum = 0;
+	unsigned m_perfLogLastMs = 0;
 	void bindTextures(WebGLDevice *dev, ProgramInfo *prog);
 	void uploadTexture(WebGLTexture *tex);
 	void applySamplerState(WebGLDevice *dev, unsigned stage, WebGLTexture *tex);
