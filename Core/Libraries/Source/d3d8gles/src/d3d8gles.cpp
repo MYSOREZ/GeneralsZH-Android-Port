@@ -910,11 +910,22 @@ public:
 		WebGLSurface *src = static_cast<WebGLSurface *>(src_surface);
 		WebGLSurface *dst = static_cast<WebGLSurface *>(dst_surface);
 		static int s_crLog = 0;
-		if (s_crLog < 12) {
+		if (s_crLog < 80) {
 			s_crLog++;
-			fprintf(stderr, "[d3d8gles] CopyRects#%d %ux%u(fmt%d,bb=%d)->%ux%u(fmt%d,own=%d) rects=%u\n",
+			// GeneralsX @build Android port GLES experiment - diagnostic for
+			// the missing-cameo-icon investigation: is the SOURCE surface's
+			// data already zero before we even copy it (an upstream
+			// asset-decode problem, nothing to do with this backend), or is
+			// it non-zero here (meaning the bug is somewhere after this
+			// point -- upload, format conversion, or render/blend state)?
+			size_t nonZero = 0;
+			for (size_t i = 0; i < src->m_bits.size(); i++) {
+				if (src->m_bits[i] != 0) nonZero++;
+			}
+			fprintf(stderr, "[d3d8gles] CopyRects#%d %ux%u(fmt%d,bb=%d)->%ux%u(fmt%d,own=%d) rects=%u srcNonZeroBytes=%zu/%zu\n",
 				s_crLog, src->m_width, src->m_height, (int)src->m_format, src == m_backBuffer ? 1 : 0,
-				dst->m_width, dst->m_height, (int)dst->m_format, dst->m_ownerGL ? 1 : 0, rect_count);
+				dst->m_width, dst->m_height, (int)dst->m_format, dst->m_ownerGL ? 1 : 0, rect_count,
+				nonZero, src->m_bits.size());
 		}
 		if (src->m_format != dst->m_format) return D3DERR_INVALIDCALL;
 
