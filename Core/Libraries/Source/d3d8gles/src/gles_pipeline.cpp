@@ -585,11 +585,26 @@ WebGLPipeline::ProgramInfo *WebGLPipeline::getProgram(WebGLDevice *dev, unsigned
 		vs += "  vFogDepth = 0.0;\n";
 	} else {
 		vs += "  vec4 wpos = uWorld * vec4(aPos, 1.0);\n";
-		vs += "  vec4 vpos = uView * wpos;\n";
-		vs += "  vec4 cpos = uProj * vpos;\n";
-		// D3D clip z in [0,w] -> GL [-w,w]; screen y flip.
-		vs += "  gl_Position = vec4(cpos.x, -cpos.y * uYFlip, cpos.z * 2.0 - cpos.w, cpos.w);\n";
-		vs += "  vFogDepth = -vpos.z;\n";
+			vs += "  vec4 vpos = uView * wpos;\n";
+			vs += "  vec4 cpos = uProj * vpos;\n";
+			// GeneralsX @build Android port GLES experiment - this used to be
+			// "-cpos.y * uYFlip" (an unconditional negation). D3D's clip.y=+1
+			// already means "top of screen" by construction of D3D's own
+			// viewport transform (verified with concrete NDC/window-coordinate
+			// arithmetic), and GL's NDC.y=+1 independently also means "top of
+			// screen" once GL's own viewport transform + display scanout are
+			// accounted for -- so feeding D3D's clip.y into GL as-is needs NO
+			// extra negation. The old blanket "-cpos.y" silently flipped every
+			// draw through this path, which includes both real 3D camera
+			// content AND Render2DClass's 2D UI trick (identity world/view/proj
+			// matrices, with Y already pre-flipped screen-to-NDC on the CPU
+			// side in Render2DClass::Convert_Vert, GeneralsMD/Code/.../
+			// render2d.cpp) -- confirmed via a real device screenshot showing
+			// the ENTIRE frame (menu buttons, logos, and the 3D background
+			// scene) upside down in reversed top-to-bottom order versus a
+			// known-correct reference.
+			vs += "  gl_Position = vec4(cpos.x, cpos.y * uYFlip, cpos.z * 2.0 - cpos.w, cpos.w);\n";
+			vs += "  vFogDepth = -vpos.z;\n";
 	}
 	// Diffuse color: vertex color (BGRA attribute swizzle) / lighting / white.
 	if (lighting) {
@@ -1123,7 +1138,7 @@ void WebGLPipeline::applyUniforms(WebGLDevice *dev, ProgramInfo *prog, unsigned 
 	// toggling m_yFlip's sign made no visible difference on a real device.
 	{
 		static int s_dbgCount = 0;
-		if (s_dbgCount < 40) {
+		if (s_dbgCount < 6000) {
 			const D3DVIEWPORT8 &vpDbg = dev->getViewport();
 			fprintf(stderr, "[d3d8gles] applyUniforms#%d vp=(%d,%d,%d,%d) yFlip=%.1f xyzrhw=%d fb=%dx%d curFBO=%u minZ=%.3f maxZ=%.3f\n",
 				s_dbgCount, vpDbg.X, vpDbg.Y, vpDbg.Width, vpDbg.Height, m_yFlip,
