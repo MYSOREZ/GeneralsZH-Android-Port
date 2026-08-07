@@ -1138,16 +1138,22 @@ void WebGLPipeline::applyFixedState(WebGLDevice *dev)
 		glDisable(GL_STENCIL_TEST);
 	}
 
-	// Viewport position, placed from the TOP at vp.Y directly (D3D
-	// convention) -- verified consistent with the vertex shader's own
-	// clip.y handling (no separate flip needed there either, see the
-	// vertex shader's cpos.y comment). A GL bottom-up conversion here would
-	// double-flip partial viewports: full-screen ones (Y=0, H=RT) would be
-	// unaffected, but a partial in-game 3D view (top portion of the
-	// screen) would render shifted, leaving a black band and offsetting
-	// picking by the same amount.
+	// GeneralsX @build Android port GLES experiment - glViewport's y is
+	// measured from the BOTTOM of the render target in GL (always, this is
+	// not related to the vertex shader's clip-space convention at all --
+	// that's a separate, already-correct concern, see the vertex shader's
+	// cpos.y comment); D3D's vp.Y is measured from the TOP. Converting via
+	// RTH - vp.Y - vp.Height (the standard D3D->GL viewport translation)
+	// gives the correct physical rectangle for both. Passing vp.Y through
+	// unconverted only happens to work for a fullscreen viewport (Y=0,
+	// Height=RT, where the formula reduces to 0 either way) -- exactly why
+	// menus (which Render2DClass always renders through a fullscreen
+	// viewport) looked fine while the actual in-game partial 3D viewport
+	// (top black band, picking offset by the same amount) did not: confirmed
+	// on a real device screenshot during live gameplay.
 	const D3DVIEWPORT8 &vp = dev->getViewport();
-	glViewport((GLint)vp.X, (GLint)vp.Y, (GLsizei)vp.Width, (GLsizei)vp.Height);
+	const GLint glViewportY = (GLint)(m_curRTHeight - (int)vp.Y - (int)vp.Height);
+	glViewport((GLint)vp.X, glViewportY, (GLsizei)vp.Width, (GLsizei)vp.Height);
 	glDepthRangef(vp.MinZ, vp.MaxZ);
 }
 
@@ -1433,8 +1439,10 @@ void WebGLPipeline::clear(WebGLDevice *dev, unsigned flags, uint32_t argb, float
 	                   (int)vp.Width == m_curRTWidth && (int)vp.Height == m_curRTHeight);
 	if (!full) {
 		glEnable(GL_SCISSOR_TEST);
-		// Same top-origin placement as the glViewport call in applyFixedState.
-		glScissor((GLint)vp.X, (GLint)vp.Y, (GLsizei)vp.Width, (GLsizei)vp.Height);
+		// Same D3D-top-to-GL-bottom Y conversion as applyFixedState's
+		// glViewport call -- glScissor's y is bottom-origin in GL too.
+		glScissor((GLint)vp.X, (GLint)(m_curRTHeight - (int)vp.Y - (int)vp.Height),
+		          (GLsizei)vp.Width, (GLsizei)vp.Height);
 	}
 
 	GLbitfield mask = 0;
