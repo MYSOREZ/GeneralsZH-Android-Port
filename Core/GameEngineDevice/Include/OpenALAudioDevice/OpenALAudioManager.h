@@ -221,6 +221,20 @@ protected:
 	std::list<PlayingAudio *> m_playing3DSounds;
 	std::list<PlayingAudio *> m_playingStreams;
 
+	// GeneralsX @bugfix audio-fix 08/07/2026 - Reentrancy guard. processPlayingList() calls
+	// notifyOfAudioCompletion() on the PlayingAudio* its own m_playingSounds/m_playing3DSounds
+	// iterator currently points at; that can recurse into startNextLoop() -> playSample3D() ->
+	// OpenALAudioFileCache::getBufferForFile() -> freeEnoughSpaceForSample(), which may evict a
+	// cache entry still in use and call closeAnySamplesUsingFile(). If the evicted entry's buffer
+	// handle matches the very node processPlayingList() is standing on (a real case: the node's
+	// m_bufferHandle is not cleared until after the nested playSample()/playSample3D() call
+	// returns), closeAnySamplesUsingFile() would normally delete + erase that node out from under
+	// the live outer iterator, leaving processPlayingList() to dereference a freed PlayingAudio*.
+	// This pointer records the node processPlayingList() is currently standing on so
+	// closeAnySamplesUsingFile() can detect the self-hit and defer teardown back to the outer loop
+	// (see processPlayingList() and closeAnySamplesUsingFile() in the .cpp for the other half).
+	PlayingAudio *m_reentrantProcessingAudio;
+
 	// Currently fading stuff. At this point, we just want to let it finish fading, when it is
 	// done it should be added to the completed list, then "freed" and the counts should be updated
 	// on the next update
