@@ -1049,17 +1049,25 @@ void WebGLPipeline::applyFixedState(WebGLDevice *dev)
 		glDisable(GL_BLEND);
 	}
 
-	// Cull. The uniform clip-space y-negate flips winding exactly once
-	// relative to D3D screen space, so with glFrontFace(GL_CCW):
-	// D3D-CW-culled triangles are GL front faces and vice versa.
+	// Cull. GeneralsX @build Android port GLES experiment - this used to
+	// assume the vertex shader's clip-space y-negate flipped winding once
+	// relative to D3D screen space (hence the swapped GL_FRONT/GL_BACK
+	// below), compensating for that flip. Now that the y-negate is gone
+	// (see the vertex shader's cpos.y comment), winding order matches D3D's
+	// own directly with glFrontFace at its GL default (GL_CCW), so the
+	// mapping no longer needs the swap: D3DCULL_CW -> GL_BACK,
+	// D3DCULL_CCW -> GL_FRONT. The swapped mapping was silently culling
+	// nearly everything (terrain, video quads) after the y-negate fix,
+	// since front/back faces were now backwards relative to what D3D
+	// intended.
 	switch (dev->getRenderState(D3DRS_CULLMODE)) {
 	case D3DCULL_CW:
 		glEnable(GL_CULL_FACE);
-		glCullFace(GL_FRONT);
+		glCullFace(GL_BACK);
 		break;
 	case D3DCULL_CCW:
 		glEnable(GL_CULL_FACE);
-		glCullFace(GL_BACK);
+		glCullFace(GL_FRONT);
 		break;
 	default:
 		glDisable(GL_CULL_FACE);
