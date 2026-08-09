@@ -403,7 +403,16 @@ public:
 			m_gl.fbo = 0;
 		}
 		if (m_gl.name) {
+			// GeneralsX @build Android port GLES experiment - part 2/2 of the
+			// glBindTexture-skip cache correctness fix (see
+			// WebGLPipeline::invalidateTextureBinding's declaration): GL
+			// itself clears this name's binding on every texture unit as a
+			// side effect of glDeleteTextures, but the cache doesn't observe
+			// that, and the driver commonly recycles freed names -- without
+			// this, a later unrelated texture reusing this exact name could
+			// be wrongly treated as "already bound" by a stale cache entry.
 			glDeleteTextures(1, &m_gl.name);
+			WebGLPipeline::get()->invalidateTextureBinding(m_gl.name);
 			m_gl.name = 0;
 			g_texturesDeleted++;
 		}
@@ -724,6 +733,22 @@ public:
 		m_bits.resize(length);
 	}
 
+	// GeneralsX @build Android port GLES experiment - same leak class as the
+	// one fixed in ~WebGLTexture() (glDeleteTextures never called before
+	// that fix): this class had no destructor at all, so glDeleteBuffers was
+	// never called on release and every VB the engine creates and frees
+	// leaks its GL buffer object forever. invalidateBufferBinding() closes
+	// the same GL-name-reuse hazard documented on WebGLPipeline's
+	// invalidateTextureBinding().
+	~WebGLVertexBuffer()
+	{
+		if (m_gl.name) {
+			glDeleteBuffers(1, &m_gl.name);
+			WebGLPipeline::get()->invalidateBufferBinding(m_gl.name);
+			m_gl.name = 0;
+		}
+	}
+
 	D3D8GLES_IUNKNOWN_IMPL(WebGLVertexBuffer)
 
 	HRESULT GetDevice(struct IDirect3DDevice8 **ppDevice) override;
@@ -777,6 +802,17 @@ public:
 		: m_device(dev), m_usage(usage), m_format(fmt), m_pool(pool)
 	{
 		m_bits.resize(length);
+	}
+
+	// GeneralsX @build Android port GLES experiment - see
+	// ~WebGLVertexBuffer()'s comment; same missing-destructor leak, same fix.
+	~WebGLIndexBuffer()
+	{
+		if (m_gl.name) {
+			glDeleteBuffers(1, &m_gl.name);
+			WebGLPipeline::get()->invalidateBufferBinding(m_gl.name);
+			m_gl.name = 0;
+		}
 	}
 
 	D3D8GLES_IUNKNOWN_IMPL(WebGLIndexBuffer)

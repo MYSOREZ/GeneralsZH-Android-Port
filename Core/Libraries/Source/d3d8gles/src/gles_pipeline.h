@@ -46,6 +46,7 @@ class WebGLDevice;
 class WebGLTexture;
 class WebGLVertexBuffer;
 class WebGLIndexBuffer;
+struct FVFLayout; // defined in gles_pipeline.cpp, only used by-reference here
 
 // GL side of a texture: one GL object, recreated when the shadow bits change.
 struct GLTextureState {
@@ -88,20 +89,106 @@ public:
 
 	bool hasS3TC() const { return m_hasS3TC; }
 
+	// GeneralsX @build Android port GLES experiment - GL deletes a texture's
+	// binding on every unit as a side effect of glDeleteTextures (the GL spec
+	// guarantees this), but m_lastBoundTex doesn't see that -- and GL names
+	// are commonly recycled by the driver, so a later, unrelated texture can
+	// receive the exact name this cache still has recorded as "already bound"
+	// for a stage. ~WebGLTexture() (d3d8gles.cpp) must call this right after
+	// glDeleteTextures so a stale hit can never skip a real bind and leave
+	// the wrong texture sampled.
+	void invalidateTextureBinding(GLuint name);
+
+	// Same rationale, covering both the GL_ARRAY_BUFFER skip cache
+	// (m_lastArrayBuffer below) and the VAO cache (a cached VAO can name a
+	// deleted VBO/IBO in its key, with the same reused-GL-name hazard):
+	// ~WebGLVertexBuffer()/~WebGLIndexBuffer() (d3d8gles.cpp) must call this
+	// right after glDeleteBuffers.
+	void invalidateBufferBinding(GLuint name);
+
 private:
 	WebGLPipeline() = default;
 
 	struct ProgramInfo;
 
-	// Draw guts shared by the buffer and UP paths.
+	// Draw guts shared by the buffer and UP paths. vbo/ibo are explicit GL
+	// object names (not read off some "currently bound" global) precisely
+	// because with the VAO cache below, no per-draw call is guaranteed to
+	// leave GL_ARRAY_BUFFER/GL_ELEMENT_ARRAY_BUFFER pointed at them -- a
+	// cache hit skips touching those bindings entirely, and content uploads
+	// (ensureVBUploaded/ensureIBUploaded) go through GL_COPY_WRITE_BUFFER,
+	// never GL_ARRAY_BUFFER/GL_ELEMENT_ARRAY_BUFFER, for the same reason.
 	void drawCommon(WebGLDevice *dev, unsigned primType, unsigned primCount,
-	                const uint8_t *vertexBase, unsigned stride, unsigned fvf,
-	                const uint8_t *indexBase, unsigned indexFormat,
+	                GLuint vbo, unsigned stride, unsigned fvf,
+	                GLuint ibo, unsigned indexFormat,
 	                unsigned startIndex, int baseVertexBytes, unsigned vertexCount);
 
 	ProgramInfo *getProgram(WebGLDevice *dev, unsigned fvf);
 	void applyFixedState(WebGLDevice *dev);
 	void applyUniforms(WebGLDevice *dev, ProgramInfo *prog, unsigned fvf);
+	void ensureVBUploaded(WebGLVertexBuffer *vb);
+	void ensureIBUploaded(WebGLIndexBuffer *ib);
+
+	// GeneralsX @build Android port GLES experiment - perf pass. Only
+	// GL_ARRAY_BUFFER gets a redundant-bind-skip cache: it is not part of
+	// any VAO's state (a plain, VAO-independent global target, only ever
+	// consulted transiently by glVertexAttribPointer/glBufferData), so
+	// "was this name last bound here" is always a safe question to ask.
+	// GL_ELEMENT_ARRAY_BUFFER is the opposite -- the GL/GLES spec makes it
+	// part of *each* VAO's own state, so a single global "last bound"
+	// answer can't say whether the *currently bound* VAO already has a
+	// given index buffer captured; it is always bound unconditionally,
+	// only from bindVertexLayout()'s VAO-creation path below. ~0u is an
+	// impossible GL name, used as "unknown/force a real bind" the same way
+	// m_lastBoundTex uses it for the RT-invalidation case; 0 is a real,
+	// valid "unbound" state so it must round-trip too.
+	GLuint m_lastArrayBuffer = ~0u;
+	void bindArrayBuffer(GLuint name);
+
+	// GeneralsX @build Android port GLES experiment - perf pass. No VAOs
+	// existed anywhere in this backend: setupAttribs() ran in full (8x
+	// glDisableVertexAttribArray, then glEnableVertexAttribArray +
+	// glVertexAttribPointer for each active attribute) on every single draw,
+	// unconditionally -- the one hot-path function bb4d069/this pass's other
+	// caches never touched. A VAO fully captures that state (plus, per the
+	// GL/GLES spec, the current GL_ELEMENT_ARRAY_BUFFER binding) once, keyed
+	// on the exact combination that determines it: the VBO/IBO GL object
+	// names (passed in explicitly by drawCommon's caller), the FVF (fully
+	// determines the parsed layout), the stride, and the base-vertex byte
+	// offset. Repeat draws using the same combination -- the overwhelmingly
+	// common case, e.g. one mesh's VB/IB drawn every frame -- become a
+	// single glBindVertexArray, or nothing at all if the same VAO is
+	// already bound from the previous draw.
+	struct VAOKey {
+		GLuint vbo = 0;
+		GLuint ibo = 0; // 0 for the non-indexed draw() path
+		unsigned fvf = 0;
+		unsigned stride = 0;
+		int base = 0;
+
+		bool operator==(const VAOKey &o) const {
+			return memcmp(this, &o, sizeof(VAOKey)) == 0;
+		}
+	};
+	static const int kMaxVAOs = 256;
+	struct VAOCacheEntry {
+		VAOKey key;
+		GLuint vao;
+	};
+	VAOCacheEntry m_vaoCache[kMaxVAOs];
+	int m_vaoCacheCount = 0;
+	bool m_haveLastVAOKey = false;
+	VAOKey m_lastVAOKey{};
+	int m_perfVAOCacheHits = 0;
+	int m_perfVAOCacheMisses = 0;
+	void bindVertexLayout(const FVFLayout &l, GLuint vbo, GLuint ibo, unsigned fvf, unsigned stride, int base);
+	// A VBO/IBO's GL name can be recycled by the driver after deletion (same
+	// hazard as invalidateTextureBinding/invalidateBufferBinding above); a
+	// cached VAO keyed on that name would otherwise wrongly match whatever
+	// unrelated buffer gets the reused name next. Called from
+	// invalidateBufferBinding(), not directly -- deleting a VB/IB always
+	// means "forget every GL-side cache entry that named this buffer."
+	void evictVAOsForBuffer(GLuint name);
 
 	// GeneralsX @build Android port GLES experiment - perf pass. The ported
 	// pipeline was correctness-first: every draw re-applied all fixed GL
@@ -130,6 +217,74 @@ private:
 	GLuint m_lastProgram = 0;
 	int m_perfStateCacheHits = 0;
 	int m_perfStateCacheMisses = 0;
+
+	// GeneralsX @build Android port GLES experiment - perf pass. applyUniforms()
+	// used to re-upload every uniform on every single draw, even on an
+	// m_lastProgram cache hit -- ~15-25 glUniform* calls per draw that are
+	// pure waste whenever the values feeding them didn't change since the
+	// last draw. Unlike FixedStateKey above, this can't be one monolithic
+	// key: uWorld changes on nearly every draw in real battlefield rendering
+	// (each object has its own transform), so a single all-or-nothing key
+	// would rarely hit. Split into independently-cached sub-blocks instead,
+	// matching applyUniforms()'s own existing comment that each uniform can
+	// be optimized out independently. uWorld itself is deliberately NOT
+	// cached (see above) and is always uploaded directly.
+	//
+	// Every sub-key must be invalidated when the bound program changes --
+	// uniform locations are per-program, so a hit against a key computed for
+	// a DIFFERENT program would wrongly skip uploading to this one. That
+	// invalidation happens in the one place program switches are already
+	// detected, at the top of applyUniforms() (see m_lastProgram above).
+	struct TransformKey { // view+proj+texture matrices; not uWorld, see above
+		float view[16], proj[16], texMat0[16], texMat1[16];
+		bool operator==(const TransformKey &o) const {
+			return memcmp(this, &o, sizeof(TransformKey)) == 0;
+		}
+	};
+	bool m_haveTransformKey = false;
+	TransformKey m_lastTransformKey{};
+
+	struct MiscUniformKey { // viewport, yFlip, texture-factor, alpha ref, fog
+		float vpX, vpY, vpW, vpH;
+		float yFlip;
+		float tFactor[4];
+		float alphaRef;
+		float fogColor[4];
+		float fogStart, fogEnd;
+		bool operator==(const MiscUniformKey &o) const {
+			return memcmp(this, &o, sizeof(MiscUniformKey)) == 0;
+		}
+	};
+	bool m_haveMiscKey = false;
+	MiscUniformKey m_lastMiscKey{};
+
+	struct MaterialKey { // VertexMaterialClass diffuse/ambient/emissive
+		float diffuse[4], ambient[4], emissive[4];
+		bool operator==(const MaterialKey &o) const {
+			return memcmp(this, &o, sizeof(MaterialKey)) == 0;
+		}
+	};
+	bool m_haveMaterialKey = false;
+	MaterialKey m_lastMaterialKey{};
+
+	struct LightingKey { // global ambient + up to 4 active lights
+		float globalAmbient[4];
+		int numLights;
+		int types[4];
+		float dirs[12], poss[12], diff[16], amb[16], att[16];
+		bool operator==(const LightingKey &o) const {
+			return memcmp(this, &o, sizeof(LightingKey)) == 0;
+		}
+	};
+	bool m_haveLightingKey = false;
+	LightingKey m_lastLightingKey{};
+	// One combined hit/miss counter across all four sub-blocks above, logged
+	// by present() the same way m_perfStateCacheHits/Misses is -- a per-block
+	// breakdown would be more precise but four more numbers in an
+	// already-dense perf line is not worth it for what is fundamentally one
+	// question: "is the uniform cache doing anything."
+	int m_perfUniformCacheHits = 0;
+	int m_perfUniformCacheMisses = 0;
 
 	// GeneralsX @build Android port GLES experiment - same redundant-state
 	// rationale as m_lastProgram above, applied to bindTextures()'s two

@@ -1006,6 +1006,14 @@ void WebGLPipeline::applySamplerState(WebGLDevice *dev, unsigned stage, WebGLTex
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, addr(av ? av : D3DTADDRESS_WRAP));
 }
 
+void WebGLPipeline::invalidateTextureBinding(GLuint name)
+{
+	if (name == 0) return; // 0 already means "no texture" to the cache, never a real object
+	for (int s = 0; s < 2; s++) {
+		if (m_lastBoundTex[s] == name) m_lastBoundTex[s] = ~0u;
+	}
+}
+
 void WebGLPipeline::bindTextures(WebGLDevice *dev, ProgramInfo *prog)
 {
 	for (int s = 0; s < 2; s++) {
@@ -1013,13 +1021,16 @@ void WebGLPipeline::bindTextures(WebGLDevice *dev, ProgramInfo *prog)
 		glActiveTexture(GL_TEXTURE0 + s);
 		if (tex) {
 			if (tex->m_gl.dirty || tex->m_gl.name == 0) {
-				uploadTexture(tex);
-			} else {
+				uploadTexture(tex); // binds tex->m_gl.name as a side effect
+				m_lastBoundTex[s] = tex->m_gl.name;
+			} else if (m_lastBoundTex[s] != tex->m_gl.name) {
 				glBindTexture(GL_TEXTURE_2D, tex->m_gl.name);
+				m_lastBoundTex[s] = tex->m_gl.name;
 			}
 			applySamplerState(dev, s, tex);
-		} else {
+		} else if (m_lastBoundTex[s] != 0) {
 			glBindTexture(GL_TEXTURE_2D, 0);
+			m_lastBoundTex[s] = 0;
 		}
 	}
 	if (prog->uTex0 >= 0) glUniform1i(prog->uTex0, 0);
@@ -1163,84 +1174,130 @@ void WebGLPipeline::applyUniforms(WebGLDevice *dev, ProgramInfo *prog, unsigned 
 	if (prog->prog != m_lastProgram) {
 		glUseProgram(prog->prog);
 		m_lastProgram = prog->prog;
+		// Uniform locations are per-program: a cache hit against a key
+		// computed for the PREVIOUS program would wrongly skip uploading to
+		// this one, leaving its uniforms unset. Force every sub-block below
+		// to treat this draw as a first upload for the newly bound program.
+		m_haveTransformKey = m_haveMiscKey = m_haveMaterialKey = m_haveLightingKey = false;
 	}
 
 	// D3D row-major memory uploaded untransposed IS the transpose GL wants
-	// for column-vector math (see plan notes).
+	// for column-vector math (see plan notes). uWorld is deliberately never
+	// cached -- it changes on nearly every draw in real battlefield
+	// rendering (each object has its own transform) -- see TransformKey's
+	// declaration for why the rest of this function's blocks are cached.
 	if (prog->uWorld >= 0)
 		glUniformMatrix4fv(prog->uWorld, 1, GL_FALSE, (const float *)&dev->getTransform(D3DTS_WORLD));
-	if (prog->uView >= 0)
-		glUniformMatrix4fv(prog->uView, 1, GL_FALSE, (const float *)&dev->getTransform(D3DTS_VIEW));
-	if (prog->uProj >= 0)
-		glUniformMatrix4fv(prog->uProj, 1, GL_FALSE, (const float *)&dev->getTransform(D3DTS_PROJECTION));
-	if (prog->uTexMat0 >= 0)
-		glUniformMatrix4fv(prog->uTexMat0, 1, GL_FALSE, (const float *)&dev->getTransform(D3DTS_TEXTURE0));
-	if (prog->uTexMat1 >= 0)
-		glUniformMatrix4fv(prog->uTexMat1, 1, GL_FALSE, (const float *)&dev->getTransform((D3DTRANSFORMSTATETYPE)(D3DTS_TEXTURE0 + 1)));
 
-	if (prog->uViewportPos >= 0) {
-		const D3DVIEWPORT8 &vp = dev->getViewport();
-		glUniform4f(prog->uViewportPos, (float)vp.X, (float)vp.Y, (float)vp.Width, (float)vp.Height);
+	if (prog->uView >= 0 || prog->uProj >= 0 || prog->uTexMat0 >= 0 || prog->uTexMat1 >= 0) {
+		TransformKey key{};
+		memcpy(key.view, &dev->getTransform(D3DTS_VIEW), sizeof(key.view));
+		memcpy(key.proj, &dev->getTransform(D3DTS_PROJECTION), sizeof(key.proj));
+		memcpy(key.texMat0, &dev->getTransform(D3DTS_TEXTURE0), sizeof(key.texMat0));
+		memcpy(key.texMat1, &dev->getTransform((D3DTRANSFORMSTATETYPE)(D3DTS_TEXTURE0 + 1)), sizeof(key.texMat1));
+		if (m_haveTransformKey && key == m_lastTransformKey) {
+			m_perfUniformCacheHits++;
+		} else {
+			m_perfUniformCacheMisses++;
+			if (prog->uView >= 0) glUniformMatrix4fv(prog->uView, 1, GL_FALSE, key.view);
+			if (prog->uProj >= 0) glUniformMatrix4fv(prog->uProj, 1, GL_FALSE, key.proj);
+			if (prog->uTexMat0 >= 0) glUniformMatrix4fv(prog->uTexMat0, 1, GL_FALSE, key.texMat0);
+			if (prog->uTexMat1 >= 0) glUniformMatrix4fv(prog->uTexMat1, 1, GL_FALSE, key.texMat1);
+			m_lastTransformKey = key;
+			m_haveTransformKey = true;
+		}
 	}
-	if (prog->uYFlip >= 0) glUniform1f(prog->uYFlip, m_yFlip);
 
-	float c[4];
-	argbToFloats(dev->getRenderState(D3DRS_TEXTUREFACTOR), c);
-	if (prog->uTFactor >= 0) glUniform4fv(prog->uTFactor, 1, c);
+	if (prog->uViewportPos >= 0 || prog->uYFlip >= 0 || prog->uTFactor >= 0 ||
+	    prog->uAlphaRef >= 0 || prog->uFogColor >= 0) {
+		const D3DVIEWPORT8 &vp = dev->getViewport();
+		MiscUniformKey key{};
+		key.vpX = (float)vp.X; key.vpY = (float)vp.Y; key.vpW = (float)vp.Width; key.vpH = (float)vp.Height;
+		key.yFlip = m_yFlip;
+		argbToFloats(dev->getRenderState(D3DRS_TEXTUREFACTOR), key.tFactor);
+		key.alphaRef = (float)(dev->getRenderState(D3DRS_ALPHAREF) & 0xFF) / 255.0f;
+		argbToFloats(dev->getRenderState(D3DRS_FOGCOLOR), key.fogColor);
+		key.fogStart = dwordToFloat(dev->getRenderState(D3DRS_FOGSTART));
+		key.fogEnd = dwordToFloat(dev->getRenderState(D3DRS_FOGEND));
 
-	if (prog->uAlphaRef >= 0)
-		glUniform1f(prog->uAlphaRef, (float)(dev->getRenderState(D3DRS_ALPHAREF) & 0xFF) / 255.0f);
-
-	if (prog->uFogColor >= 0) {
-		argbToFloats(dev->getRenderState(D3DRS_FOGCOLOR), c);
-		glUniform4fv(prog->uFogColor, 1, c);
-		glUniform2f(prog->uFogParams,
-		            dwordToFloat(dev->getRenderState(D3DRS_FOGSTART)),
-		            dwordToFloat(dev->getRenderState(D3DRS_FOGEND)));
+		if (m_haveMiscKey && key == m_lastMiscKey) {
+			m_perfUniformCacheHits++;
+		} else {
+			m_perfUniformCacheMisses++;
+			if (prog->uViewportPos >= 0) glUniform4f(prog->uViewportPos, key.vpX, key.vpY, key.vpW, key.vpH);
+			if (prog->uYFlip >= 0) glUniform1f(prog->uYFlip, key.yFlip);
+			if (prog->uTFactor >= 0) glUniform4fv(prog->uTFactor, 1, key.tFactor);
+			if (prog->uAlphaRef >= 0) glUniform1f(prog->uAlphaRef, key.alphaRef);
+			if (prog->uFogColor >= 0) {
+				glUniform4fv(prog->uFogColor, 1, key.fogColor);
+				glUniform2f(prog->uFogParams, key.fogStart, key.fogEnd);
+			}
+			m_lastMiscKey = key;
+			m_haveMiscKey = true;
+		}
 	}
 
 	// NOTE: each uniform can be optimized out independently (a program whose
 	// material sources are all vertex colors has NO uMat* uniforms but still
 	// needs its lights). Never gate the light upload on a material location.
-	{
+	if (prog->uMatDiffuse >= 0 || prog->uMatAmbient >= 0 || prog->uMatEmissive >= 0) {
 		const D3DMATERIAL8 &m = dev->getMaterial();
-		if (prog->uMatDiffuse >= 0) glUniform4fv(prog->uMatDiffuse, 1, (const float *)&m.Diffuse);
-		if (prog->uMatAmbient >= 0) glUniform4fv(prog->uMatAmbient, 1, (const float *)&m.Ambient);
-		if (prog->uMatEmissive >= 0) glUniform4fv(prog->uMatEmissive, 1, (const float *)&m.Emissive);
+		MaterialKey key{};
+		memcpy(key.diffuse, &m.Diffuse, sizeof(key.diffuse));
+		memcpy(key.ambient, &m.Ambient, sizeof(key.ambient));
+		memcpy(key.emissive, &m.Emissive, sizeof(key.emissive));
+		if (m_haveMaterialKey && key == m_lastMaterialKey) {
+			m_perfUniformCacheHits++;
+		} else {
+			m_perfUniformCacheMisses++;
+			if (prog->uMatDiffuse >= 0) glUniform4fv(prog->uMatDiffuse, 1, key.diffuse);
+			if (prog->uMatAmbient >= 0) glUniform4fv(prog->uMatAmbient, 1, key.ambient);
+			if (prog->uMatEmissive >= 0) glUniform4fv(prog->uMatEmissive, 1, key.emissive);
+			m_lastMaterialKey = key;
+			m_haveMaterialKey = true;
+		}
 	}
-	if (prog->uGlobalAmbient >= 0) {
-		argbToFloats(dev->getRenderState(D3DRS_AMBIENT), c);
-		glUniform4fv(prog->uGlobalAmbient, 1, c);
-	}
-	if (prog->uNumLights >= 0) {
-		int types[4] = {0, 0, 0, 0};
-		float dirs[12] = {0}, poss[12] = {0}, diff[16] = {0}, amb[16] = {0}, att[16] = {0};
+	if (prog->uGlobalAmbient >= 0 || prog->uNumLights >= 0) {
+		LightingKey key{};
+		argbToFloats(dev->getRenderState(D3DRS_AMBIENT), key.globalAmbient);
 		int n = 0;
 		for (unsigned i = 0; i < WebGLDevice::kMaxLights && n < 4; i++) {
 			if (!dev->isLightEnabled(i)) continue;
 			const D3DLIGHT8 &L = dev->getLight(i);
-			types[n] = (L.Type == D3DLIGHT_POINT) ? 1 : 0;
-			dirs[n * 3 + 0] = L.Direction.x;
-			dirs[n * 3 + 1] = L.Direction.y;
-			dirs[n * 3 + 2] = L.Direction.z;
-			poss[n * 3 + 0] = L.Position.x;
-			poss[n * 3 + 1] = L.Position.y;
-			poss[n * 3 + 2] = L.Position.z;
-			memcpy(&diff[n * 4], &L.Diffuse, 16);
-			memcpy(&amb[n * 4], &L.Ambient, 16);
-			att[n * 4 + 0] = L.Range;
-			att[n * 4 + 1] = L.Attenuation0 > 0 ? L.Attenuation0 : 1.0f;
-			att[n * 4 + 2] = L.Attenuation1;
-			att[n * 4 + 3] = L.Attenuation2;
+			key.types[n] = (L.Type == D3DLIGHT_POINT) ? 1 : 0;
+			key.dirs[n * 3 + 0] = L.Direction.x;
+			key.dirs[n * 3 + 1] = L.Direction.y;
+			key.dirs[n * 3 + 2] = L.Direction.z;
+			key.poss[n * 3 + 0] = L.Position.x;
+			key.poss[n * 3 + 1] = L.Position.y;
+			key.poss[n * 3 + 2] = L.Position.z;
+			memcpy(&key.diff[n * 4], &L.Diffuse, 16);
+			memcpy(&key.amb[n * 4], &L.Ambient, 16);
+			key.att[n * 4 + 0] = L.Range;
+			key.att[n * 4 + 1] = L.Attenuation0 > 0 ? L.Attenuation0 : 1.0f;
+			key.att[n * 4 + 2] = L.Attenuation1;
+			key.att[n * 4 + 3] = L.Attenuation2;
 			n++;
 		}
-		glUniform1i(prog->uNumLights, n);
-		glUniform1iv(prog->uLightType, 4, types);
-		glUniform3fv(prog->uLightDir, 4, dirs);
-		glUniform3fv(prog->uLightPos, 4, poss);
-		glUniform4fv(prog->uLightDiffuse, 4, diff);
-		glUniform4fv(prog->uLightAmbient, 4, amb);
-		glUniform4fv(prog->uLightAtten, 4, att);
+		key.numLights = n;
+
+		if (m_haveLightingKey && key == m_lastLightingKey) {
+			m_perfUniformCacheHits++;
+		} else {
+			m_perfUniformCacheMisses++;
+			if (prog->uGlobalAmbient >= 0) glUniform4fv(prog->uGlobalAmbient, 1, key.globalAmbient);
+			if (prog->uNumLights >= 0) {
+				glUniform1i(prog->uNumLights, key.numLights);
+				glUniform1iv(prog->uLightType, 4, key.types);
+				glUniform3fv(prog->uLightDir, 4, key.dirs);
+				glUniform3fv(prog->uLightPos, 4, key.poss);
+				glUniform4fv(prog->uLightDiffuse, 4, key.diff);
+				glUniform4fv(prog->uLightAmbient, 4, key.amb);
+				glUniform4fv(prog->uLightAtten, 4, key.att);
+			}
+			m_lastLightingKey = key;
+			m_haveLightingKey = true;
+		}
 	}
 }
 
@@ -1275,6 +1332,11 @@ static unsigned primVertexCount(unsigned primType, unsigned primCount)
 }
 
 // Sets up vertex attribute pointers for the currently bound ARRAY_BUFFER.
+// Only called from bindVertexLayout()'s VAO-creation path below (once per
+// unique VAOKey, not once per draw) -- the leading disable-all loop is
+// harmless-but-redundant there (a freshly generated VAO starts with every
+// attribute already disabled) and is left in only because it's still
+// correct and this function has no other caller to diverge from.
 static void setupAttribs(const FVFLayout &l, unsigned stride, intptr_t base)
 {
 	for (int i = 0; i < 8; i++) glDisableVertexAttribArray(i);
@@ -1300,9 +1362,84 @@ static void setupAttribs(const FVFLayout &l, unsigned stride, intptr_t base)
 	}
 }
 
+void WebGLPipeline::evictVAOsForBuffer(GLuint name)
+{
+	bool evictedAny = false;
+	for (int i = 0; i < m_vaoCacheCount; /* no increment: swap-erase */) {
+		if (m_vaoCache[i].key.vbo == name || m_vaoCache[i].key.ibo == name) {
+			glDeleteVertexArrays(1, &m_vaoCache[i].vao);
+			m_vaoCache[i] = m_vaoCache[m_vaoCacheCount - 1];
+			m_vaoCacheCount--;
+			evictedAny = true;
+		} else {
+			i++;
+		}
+	}
+	// The "same key as last draw, skip everything" fast path in
+	// bindVertexLayout() below trusts that the previously bound VAO is still
+	// valid; if it just got deleted here, that trust would be wrong.
+	if (evictedAny) m_haveLastVAOKey = false;
+}
+
+void WebGLPipeline::bindVertexLayout(const FVFLayout &l, GLuint vbo, GLuint ibo,
+                                     unsigned fvf, unsigned stride, int base)
+{
+	VAOKey key{};
+	key.vbo = vbo;
+	key.ibo = ibo;
+	key.fvf = fvf;
+	key.stride = stride;
+	key.base = base;
+
+	if (m_haveLastVAOKey && key == m_lastVAOKey) {
+		m_perfVAOCacheHits++;
+		return; // the correct VAO -- attribs and element-buffer binding alike -- is already bound
+	}
+	m_perfVAOCacheMisses++;
+	m_lastVAOKey = key;
+	m_haveLastVAOKey = true;
+
+	for (int i = 0; i < m_vaoCacheCount; i++) {
+		if (m_vaoCache[i].key == key) {
+			glBindVertexArray(m_vaoCache[i].vao);
+			return;
+		}
+	}
+
+	// Miss: this exact (vbo, ibo, fvf, stride, base) combination has never
+	// been seen before. Build (or, past the cap, temporarily fall back to
+	// an uncached bind against) a VAO for it -- rare relative to draw
+	// frequency, so the extra setup cost here is not perf-sensitive.
+	if (m_vaoCacheCount >= kMaxVAOs) {
+		WARN_ONCE(s_vaoOverflow, "VAO cache overflow (>%d), falling back to an uncached bind", kMaxVAOs);
+		glBindVertexArray(0);
+		bindArrayBuffer(vbo);
+		setupAttribs(l, stride, base);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+		m_haveLastVAOKey = false; // unknown/uncached state -- always re-decide next draw
+		return;
+	}
+
+	GLuint vao = 0;
+	glGenVertexArrays(1, &vao);
+	glBindVertexArray(vao);
+	bindArrayBuffer(vbo); // GL_ARRAY_BUFFER is not VAO state; safe to route through the skip cache
+	setupAttribs(l, stride, base);
+	// GL_ELEMENT_ARRAY_BUFFER, unlike GL_ARRAY_BUFFER, IS part of the
+	// currently-bound VAO's state -- bind unconditionally (not through a
+	// skip cache; see m_lastArrayBuffer's comment for why one would be
+	// unsafe here) so it's captured into the VAO just created above. 0 is
+	// the correct, valid binding for the non-indexed draw() path.
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+
+	m_vaoCache[m_vaoCacheCount].key = key;
+	m_vaoCache[m_vaoCacheCount].vao = vao;
+	m_vaoCacheCount++;
+}
+
 void WebGLPipeline::drawCommon(WebGLDevice *dev, unsigned primType, unsigned primCount,
-                               const uint8_t * /*vertexBase*/, unsigned stride, unsigned fvf,
-                               const uint8_t * /*indexBase*/, unsigned indexFormat,
+                               GLuint vbo, unsigned stride, unsigned fvf,
+                               GLuint ibo, unsigned indexFormat,
                                unsigned startIndex, int baseVertexBytes, unsigned /*vertexCount*/)
 {
 	FVFLayout l;
@@ -1319,7 +1456,7 @@ void WebGLPipeline::drawCommon(WebGLDevice *dev, unsigned primType, unsigned pri
 	applyUniforms(dev, prog, fvf);
 	bindTextures(dev, prog);
 
-	setupAttribs(l, stride, baseVertexBytes);
+	bindVertexLayout(l, vbo, ibo, fvf, stride, baseVertexBytes);
 
 	const GLenum mode = primModeGL(primType);
 	const unsigned count = primVertexCount(primType, primCount);
@@ -1334,24 +1471,66 @@ void WebGLPipeline::drawCommon(WebGLDevice *dev, unsigned primType, unsigned pri
 }
 
 // Buffer objects (device-side shadow -> GL) helpers.
-static void ensureVBUploaded(WebGLVertexBuffer *vb)
+void WebGLPipeline::invalidateBufferBinding(GLuint name)
+{
+	if (name == 0) return; // 0 already means "no buffer" to the cache, never a real object
+	if (m_lastArrayBuffer == name) m_lastArrayBuffer = ~0u;
+	evictVAOsForBuffer(name);
+}
+
+void WebGLPipeline::bindArrayBuffer(GLuint name)
+{
+	if (m_lastArrayBuffer == name) return;
+	glBindBuffer(GL_ARRAY_BUFFER, name);
+	m_lastArrayBuffer = name;
+}
+
+// GeneralsX @build Android port GLES experiment - perf pass. GL_COPY_WRITE_BUFFER
+// (GLES3 core) is a generic bind point no VAO or vertex-attrib state is ever
+// defined in terms of, unlike GL_ARRAY_BUFFER/GL_ELEMENT_ARRAY_BUFFER --
+// using it here for the actual data upload means a dirty VB/IB's glBufferData
+// can never disturb whatever VAO bindVertexLayout() left bound from the
+// previous draw (see that function's comment for why GL_ELEMENT_ARRAY_BUFFER
+// specifically would be unsafe to touch mid-VAO otherwise).
+void WebGLPipeline::ensureVBUploaded(WebGLVertexBuffer *vb)
 {
 	if (vb->m_gl.name == 0) glGenBuffers(1, &vb->m_gl.name);
-	glBindBuffer(GL_ARRAY_BUFFER, vb->m_gl.name);
 	if (vb->m_gl.dirty) {
-		glBufferData(GL_ARRAY_BUFFER, vb->m_bits.size(), vb->m_bits.data(), GL_DYNAMIC_DRAW);
+		glBindBuffer(GL_COPY_WRITE_BUFFER, vb->m_gl.name);
+		glBufferData(GL_COPY_WRITE_BUFFER, vb->m_bits.size(), vb->m_bits.data(), GL_DYNAMIC_DRAW);
 		vb->m_gl.dirty = false;
 	}
 }
 
-static void ensureIBUploaded(WebGLIndexBuffer *ib)
+void WebGLPipeline::ensureIBUploaded(WebGLIndexBuffer *ib)
 {
 	if (ib->m_gl.name == 0) glGenBuffers(1, &ib->m_gl.name);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ib->m_gl.name);
 	if (ib->m_gl.dirty) {
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, ib->m_bits.size(), ib->m_bits.data(), GL_DYNAMIC_DRAW);
+		glBindBuffer(GL_COPY_WRITE_BUFFER, ib->m_gl.name);
+		glBufferData(GL_COPY_WRITE_BUFFER, ib->m_bits.size(), ib->m_bits.data(), GL_DYNAMIC_DRAW);
 		ib->m_gl.dirty = false;
 	}
+}
+
+// GeneralsX @build Android port GLES experiment - perf pass. The *UP draw
+// paths (drawUP/drawIndexedUP below) reuse one fixed streaming buffer
+// (m_upVBO/m_upIBO) across every call, uploading fresh data every time --
+// unlike the dirty-gated VB/IB path above, there is no "skip the upload"
+// option here, the data really is new every call. A plain glBufferData with
+// new contents into the SAME buffer object risks the driver having to stall
+// the CPU until the GPU finishes consuming whatever THIS buffer held for the
+// previous draw (which may still be in flight) before it can safely
+// overwrite it. Explicitly orphaning first -- glBufferData with the same
+// target/size and a null data pointer, requesting a fresh anonymous
+// allocation with no dependency on the old one -- is the standard,
+// driver-portable way to ask for a new backing allocation instead of
+// waiting; mobile GL drivers are the ones most likely to need this spelled
+// out rather than inferring it from the "same size, new data" pattern alone.
+static void orphanAndUpload(GLenum target, GLuint buffer, size_t size, const void *data, GLenum usage)
+{
+	glBindBuffer(target, buffer);
+	glBufferData(target, size, nullptr, usage);
+	glBufferData(target, size, data, usage);
 }
 
 void WebGLPipeline::drawIndexed(WebGLDevice *dev, unsigned primType, unsigned /*minIndex*/,
@@ -1368,8 +1547,8 @@ void WebGLPipeline::drawIndexed(WebGLDevice *dev, unsigned primType, unsigned /*
 	const unsigned fvf = dev->getFVF() ? dev->getFVF() : vb->m_fvf;
 	const unsigned stride = dev->getStream0Stride();
 	const int baseBytes = (int)(dev->getBaseVertexIndex() * stride);
-	drawCommon(dev, primType, primCount, nullptr, stride, fvf,
-	           nullptr, ib->m_format, startIndex, baseBytes, numVertices);
+	drawCommon(dev, primType, primCount, vb->m_gl.name, stride, fvf,
+	           ib->m_gl.name, ib->m_format, startIndex, baseBytes, numVertices);
 }
 
 void WebGLPipeline::draw(WebGLDevice *dev, unsigned primType, unsigned startVertex, unsigned primCount)
@@ -1379,12 +1558,11 @@ void WebGLPipeline::draw(WebGLDevice *dev, unsigned primType, unsigned startVert
 	if (!vb) return;
 
 	ensureVBUploaded(vb);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
 	const unsigned fvf = dev->getFVF() ? dev->getFVF() : vb->m_fvf;
 	const unsigned stride = dev->getStream0Stride();
-	drawCommon(dev, primType, primCount, nullptr, stride, fvf,
-	           nullptr, 0, startVertex, 0, 0);
+	drawCommon(dev, primType, primCount, vb->m_gl.name, stride, fvf,
+	           0, 0, startVertex, 0, 0);
 }
 
 void WebGLPipeline::drawUP(WebGLDevice *dev, unsigned primType, unsigned primCount,
@@ -1397,11 +1575,9 @@ void WebGLPipeline::drawUP(WebGLDevice *dev, unsigned primType, unsigned primCou
 	if (stride == 0) stride = l.stride;
 
 	const unsigned vcount = primVertexCount(primType, primCount);
-	glBindBuffer(GL_ARRAY_BUFFER, m_upVBO);
-	glBufferData(GL_ARRAY_BUFFER, (size_t)vcount * stride, vertexData, GL_STREAM_DRAW);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	orphanAndUpload(GL_COPY_WRITE_BUFFER, m_upVBO, (size_t)vcount * stride, vertexData, GL_STREAM_DRAW);
 
-	drawCommon(dev, primType, primCount, nullptr, stride, fvf, nullptr, 0, 0, 0, vcount);
+	drawCommon(dev, primType, primCount, m_upVBO, stride, fvf, 0, 0, 0, 0, vcount);
 }
 
 void WebGLPipeline::drawIndexedUP(WebGLDevice *dev, unsigned primType, unsigned minVertexIdx,
@@ -1415,15 +1591,14 @@ void WebGLPipeline::drawIndexedUP(WebGLDevice *dev, unsigned primType, unsigned 
 	if (!parseFVF(fvf, &l)) return;
 	if (stride == 0) stride = l.stride;
 
-	glBindBuffer(GL_ARRAY_BUFFER, m_upVBO);
-	glBufferData(GL_ARRAY_BUFFER, (size_t)(minVertexIdx + numVertices) * stride, vertexData, GL_STREAM_DRAW);
+	orphanAndUpload(GL_COPY_WRITE_BUFFER, m_upVBO, (size_t)(minVertexIdx + numVertices) * stride,
+	                vertexData, GL_STREAM_DRAW);
 
 	const unsigned isize = (indexFormat == D3DFMT_INDEX32) ? 4 : 2;
 	const unsigned icount = primVertexCount(primType, primCount);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_upIBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, (size_t)icount * isize, indexData, GL_STREAM_DRAW);
+	orphanAndUpload(GL_COPY_WRITE_BUFFER, m_upIBO, (size_t)icount * isize, indexData, GL_STREAM_DRAW);
 
-	drawCommon(dev, primType, primCount, nullptr, stride, fvf, nullptr, indexFormat, 0, 0, numVertices);
+	drawCommon(dev, primType, primCount, m_upVBO, stride, fvf, m_upIBO, indexFormat, 0, 0, numVertices);
 }
 
 // ---------------------------------------------------------------------------
@@ -1503,6 +1678,18 @@ void WebGLPipeline::setRenderTarget(WebGLDevice * /*dev*/, WebGLTexture *tex)
 	// The GL texture must exist before it can be an attachment.
 	if (tex->m_gl.name == 0 || tex->m_gl.dirty) {
 		uploadTexture(tex);
+		// GeneralsX @build Android port GLES experiment - part 2/2 of the
+		// texture-bind cache perf fix (see m_lastBoundTex's declaration for
+		// part 1/2). uploadTexture() just did its own raw glBindTexture on
+		// whatever unit bindTextures()'s last draw left active, behind
+		// m_lastBoundTex's back -- GL_TEXTURE_BINDING_2D for that unit is now
+		// this render-target texture, not whatever bindTextures() last
+		// recorded. Without this, the next draw's bindTextures() could
+		// wrongly conclude the intended sampler texture is "already bound"
+		// (stale cache hit) and skip the real bind, sampling this RT texture
+		// instead. Stomp both slots with an impossible GL name so the next
+		// bindTextures() call is always forced to re-bind for real.
+		m_lastBoundTex[0] = m_lastBoundTex[1] = ~0u;
 	}
 
 	const int w = (int)tex->m_levels[0]->m_width;
@@ -1587,9 +1774,18 @@ void WebGLPipeline::present()
 			const int totalStateChecks = m_perfStateCacheHits + m_perfStateCacheMisses;
 			const float cacheHitPct = totalStateChecks > 0
 				? 100.0f * m_perfStateCacheHits / totalStateChecks : 0.0f;
+			const int totalVAOChecks = m_perfVAOCacheHits + m_perfVAOCacheMisses;
+			const float vaoHitPct = totalVAOChecks > 0
+				? 100.0f * m_perfVAOCacheHits / totalVAOChecks : 0.0f;
+			const int totalUniformChecks = m_perfUniformCacheHits + m_perfUniformCacheMisses;
+			const float uniformHitPct = totalUniformChecks > 0
+				? 100.0f * m_perfUniformCacheHits / totalUniformChecks : 0.0f;
 			fprintf(stderr, "[d3d8gles] perf: %.1f fps, %.1f draws/frame, "
-				"state-cache %.0f%% hit (%d/%d), textures live=%ld (created=%ld deleted=%ld)\n",
+				"state-cache %.0f%% hit (%d/%d), vao-cache %.0f%% hit (%d/%d, %d cached), "
+				"uniform-cache %.0f%% hit (%d/%d), textures live=%ld (created=%ld deleted=%ld)\n",
 				fps, drawsPerFrame, cacheHitPct, m_perfStateCacheHits, totalStateChecks,
+				vaoHitPct, m_perfVAOCacheHits, totalVAOChecks, m_vaoCacheCount,
+				uniformHitPct, m_perfUniformCacheHits, totalUniformChecks,
 				g_texturesCreated - g_texturesDeleted, g_texturesCreated, g_texturesDeleted);
 			DumpLiveTextureShapes();
 			m_perfLogLastMs = nowMs;
@@ -1597,6 +1793,10 @@ void WebGLPipeline::present()
 			m_perfDrawAccum = 0;
 			m_perfStateCacheHits = 0;
 			m_perfStateCacheMisses = 0;
+			m_perfVAOCacheHits = 0;
+			m_perfVAOCacheMisses = 0;
+			m_perfUniformCacheHits = 0;
+			m_perfUniformCacheMisses = 0;
 		}
 	}
 
