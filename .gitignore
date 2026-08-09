@@ -100,3 +100,7 @@ ios/GeneralsXZH.xcodeproj/
 # Android packaging staging dir (scripts/build/android/package-android-zh.sh):
 # fetched fonts + default Turnip driver, re-derivable, not source.
 android-staging/
+# build-local-sandboxed.sh's own output APK -- a build product (GitHub LFS
+# is disabled on this fork, so a ~40MB binary can't go into version control
+# at all even if it were source), not something to commit.
+/GeneralsXZH-android-local.apk
