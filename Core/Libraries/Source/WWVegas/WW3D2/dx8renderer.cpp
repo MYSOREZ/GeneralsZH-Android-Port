@@ -1763,6 +1763,58 @@ static bool Is_Instance_Batchable(PolyRenderTaskClass *prt)
 	return true;
 }
 
+// GeneralsX @build Android port GLES experiment - GPU instancing.
+// MeshClass::Set_Lighting_Environment() (mesh.h) copies the passed-in
+// environment into a private per-instance m_localLightEnv member and
+// Get_Lighting_Environment() returns &m_localLightEnv -- so this pointer is
+// NEVER shared across two different MeshClass instances, even when they are
+// lit identically. Comparing it by pointer (as an earlier version of this
+// code did) breaks every accumulated run at the second mesh, which is why
+// instanced-draws/frame stayed at 0.0 on real device logs regardless of
+// scene content -- this compares by the fields that actually matter instead.
+//
+// LightEnvironmentClass::operator== (lightenvironment.h) is not used here
+// because it also compares ObjectCenter, which is set to each mesh
+// instance's own world position (Reset(object_center,...), called once per
+// object) and therefore differs between any two distinct objects by
+// definition. ObjectCenter only actually influences the computed light for
+// POINT/SPOT lights (Init_From_Point_Or_Spot_Light derives Direction from
+// light position minus object_center, lightenvironment.cpp); directional
+// lights ignore it entirely (Init_From_Directional_Light). And
+// DX8Wrapper::Set_Light_Environment() (dx8wrapper.cpp) -- the only consumer
+// of this data -- never reads ObjectCenter directly, only Get_Light_Count(),
+// Get_Equivalent_Ambient(), and per-light Get_Light_Diffuse()/
+// Get_Light_Direction()/the point-light accessors. So two different,
+// non-colocated objects lit by the same directional light + ambient (the
+// overwhelmingly common case away from muzzle flashes/explosions) produce
+// byte-identical values for everything that reaches the shader, and are
+// safe to batch together despite comparing unequal via operator==.
+static bool Light_Environments_Equal(LightEnvironmentClass *a, LightEnvironmentClass *b)
+{
+	if (a == b) return true;
+	if (!a || !b) return false;
+	if (a->Get_Light_Count() != b->Get_Light_Count()) return false;
+	if (!(a->Get_Equivalent_Ambient() == b->Get_Equivalent_Ambient())) return false;
+	for (int i = 0; i < a->Get_Light_Count(); i++) {
+		if (a->isPointLight(i) != b->isPointLight(i)) return false;
+		if (a->isPointLight(i)) {
+			// Point/spot lights are position-dependent -- only actually
+			// equal for two objects at the exact same point-light-relative
+			// position, which in practice means the same object, so this
+			// mostly just excludes point-lit content from batching, as intended.
+			if (!(a->getPointCenter(i) == b->getPointCenter(i))) return false;
+			if (!(a->getPointDiffuse(i) == b->getPointDiffuse(i))) return false;
+			if (!(a->getPointAmbient(i) == b->getPointAmbient(i))) return false;
+			if (a->getPointOrad(i) != b->getPointOrad(i)) return false;
+			if (a->getPointIrad(i) != b->getPointIrad(i)) return false;
+		} else {
+			if (!(a->Get_Light_Diffuse(i) == b->Get_Light_Diffuse(i))) return false;
+			if (!(a->Get_Light_Direction(i) == b->Get_Light_Direction(i))) return false;
+		}
+	}
+	return true;
+}
+
 // Renders (or falls back to one Render() call per instance, below
 // kMinInstanceRun) whatever's been accumulated, then clears the
 // accumulator. A no-op when nothing is pending -- safe to call
@@ -2002,7 +2054,7 @@ void DX8TextureCategoryClass::Render()
 			// alpha/material override, non-uniform scale, ALIGNED/ORIENTED/
 			// SKIN, sorted, strip, debugger-disabled, streaming-VB overflow),
 			// so it's safe to defer instead of rendering immediately.
-			if (pending_count > 0 && (renderer != pending_renderer || mesh->Get_Lighting_Environment() != pending_lenv)) {
+			if (pending_count > 0 && (renderer != pending_renderer || !Light_Environments_Equal(mesh->Get_Lighting_Environment(), pending_lenv))) {
 				// Run broken by a different mesh/renderer or lighting
 				// environment -- flush what's pending before starting a new run.
 				Flush_Pending_Instances(pending_renderer, pending_base, pending_xforms, pending_count);
