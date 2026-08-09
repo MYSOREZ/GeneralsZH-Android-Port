@@ -1691,7 +1691,11 @@ unsigned DX8TextureCategoryClass::Add_Mesh(
 // behavior -- lets a real device confirm the refactor alone didn't change
 // anything before a follow-up commit turns batching on for real, isolating
 // which of the two changes caused a regression if one appears.
-static const int kMinInstanceRun = 999999; // TODO(instancing phase 2): lower to a real value (e.g. 4) once the refactor above is verified unchanged on a real device.
+// Phase 2: confirmed via real device log that the loop restructuring alone
+// (batching still off) reproduced the prior build's draws/frame and fps
+// exactly, with zero shader-compile/GL errors -- turning batching on for
+// real now.
+static const int kMinInstanceRun = 4;
 
 // A task is eligible to be batched into an instanced draw only if it would
 // otherwise have taken the exact same path as the final, plain
