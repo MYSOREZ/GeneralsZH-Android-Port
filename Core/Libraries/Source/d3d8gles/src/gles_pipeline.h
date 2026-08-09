@@ -33,6 +33,7 @@
 #include <GLES3/gl3.h>
 #include <cstdint>
 #include <cstring>
+#include <unordered_map>
 
 typedef struct SDL_Window SDL_Window;
 // Not "typedef void *SDL_GLContext" here: SDL3's real header (SDL_video.h)
@@ -170,17 +171,41 @@ private:
 			return memcmp(this, &o, sizeof(VAOKey)) == 0;
 		}
 	};
-	static const int kMaxVAOs = 256;
+	// GeneralsX @build Android port GLES experiment - real device logs (a
+	// battle scene, not just menus) showed draws/frame up to ~1250 and this
+	// cache saturating a 256-entry cap within the first ~10 seconds --
+	// unlike kMaxPrograms above, where 256 comfortably covers every
+	// realistic shader permutation, real content needs one VAO per unique
+	// *mesh instance/offset*, not per shader, and that count is nowhere
+	// near as bounded. A fixed array with a linear scan doesn't just stop
+	// helping past its cap, it becomes actively worse than no cache at all
+	// once every draw pays for scanning all 256 entries AND then falls
+	// through to the uncached path anyway. A hash map removes the size-vs-
+	// scan-cost tradeoff entirely -- lookup cost doesn't grow with how much
+	// is cached, so kMaxVAOs below exists only as a sanity backstop against
+	// unbounded growth (e.g. content that draws through an ever-advancing
+	// dynamic vertex-buffer-pool offset, where every draw is a genuinely
+	// new base-vertex value), not a real expected ceiling. Keyed by a
+	// byte-wise FNV-1a hash of VAOKey (hashVAOKey() below), same
+	// collision-tolerant style as computeProgramKey()'s FNV-1a program key
+	// -- no verification against a stored raw key on lookup, matching that
+	// existing precedent in this file. The full VAOKey is still kept
+	// alongside the VAO purely so evictVAOsForBuffer() can scan for
+	// vbo/ibo matches; eviction (buffer deletion) is rare, so an O(n) scan
+	// there is fine even though it would not be on the hot lookup path.
+	static const size_t kMaxVAOs = 16384;
 	struct VAOCacheEntry {
 		VAOKey key;
 		GLuint vao;
 	};
-	VAOCacheEntry m_vaoCache[kMaxVAOs];
-	int m_vaoCacheCount = 0;
+	std::unordered_map<uint64_t, VAOCacheEntry> m_vaoCache;
 	bool m_haveLastVAOKey = false;
 	VAOKey m_lastVAOKey{};
 	int m_perfVAOCacheHits = 0;
 	int m_perfVAOCacheMisses = 0;
+	// A free function couldn't name VAOKey (private nested type); a static
+	// member can, same as any other member.
+	static uint64_t hashVAOKey(const VAOKey &k);
 	void bindVertexLayout(const FVFLayout &l, GLuint vbo, GLuint ibo, unsigned fvf, unsigned stride, int base);
 	// A VBO/IBO's GL name can be recycled by the driver after deletion (same
 	// hazard as invalidateTextureBinding/invalidateBufferBinding above); a

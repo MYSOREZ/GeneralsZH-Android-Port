@@ -1362,17 +1362,31 @@ static void setupAttribs(const FVFLayout &l, unsigned stride, intptr_t base)
 	}
 }
 
+// Byte-wise FNV-1a over VAOKey's raw bytes. Safe: VAOKey is five 4-byte POD
+// members (GLuint/unsigned/int), so there's no padding to worry about
+// hashing garbage from. Same collision-tolerant precedent as
+// computeProgramKey() -- see kMaxVAOs's declaration in gles_pipeline.h.
+uint64_t WebGLPipeline::hashVAOKey(const VAOKey &k)
+{
+	uint64_t h = 0xcbf29ce484222325ull;
+	const unsigned char *p = reinterpret_cast<const unsigned char *>(&k);
+	for (size_t i = 0; i < sizeof(k); i++) {
+		h ^= p[i];
+		h *= 0x100000001b3ull;
+	}
+	return h;
+}
+
 void WebGLPipeline::evictVAOsForBuffer(GLuint name)
 {
 	bool evictedAny = false;
-	for (int i = 0; i < m_vaoCacheCount; /* no increment: swap-erase */) {
-		if (m_vaoCache[i].key.vbo == name || m_vaoCache[i].key.ibo == name) {
-			glDeleteVertexArrays(1, &m_vaoCache[i].vao);
-			m_vaoCache[i] = m_vaoCache[m_vaoCacheCount - 1];
-			m_vaoCacheCount--;
+	for (auto it = m_vaoCache.begin(); it != m_vaoCache.end(); ) {
+		if (it->second.key.vbo == name || it->second.key.ibo == name) {
+			glDeleteVertexArrays(1, &it->second.vao);
+			it = m_vaoCache.erase(it);
 			evictedAny = true;
 		} else {
-			i++;
+			++it;
 		}
 	}
 	// The "same key as last draw, skip everything" fast path in
@@ -1399,19 +1413,19 @@ void WebGLPipeline::bindVertexLayout(const FVFLayout &l, GLuint vbo, GLuint ibo,
 	m_lastVAOKey = key;
 	m_haveLastVAOKey = true;
 
-	for (int i = 0; i < m_vaoCacheCount; i++) {
-		if (m_vaoCache[i].key == key) {
-			glBindVertexArray(m_vaoCache[i].vao);
-			return;
-		}
+	const uint64_t hash = hashVAOKey(key);
+	auto it = m_vaoCache.find(hash);
+	if (it != m_vaoCache.end()) {
+		glBindVertexArray(it->second.vao);
+		return;
 	}
 
 	// Miss: this exact (vbo, ibo, fvf, stride, base) combination has never
-	// been seen before. Build (or, past the cap, temporarily fall back to
-	// an uncached bind against) a VAO for it -- rare relative to draw
-	// frequency, so the extra setup cost here is not perf-sensitive.
-	if (m_vaoCacheCount >= kMaxVAOs) {
-		WARN_ONCE(s_vaoOverflow, "VAO cache overflow (>%d), falling back to an uncached bind", kMaxVAOs);
+	// been seen before. Build (or, past the sanity-backstop cap, temporarily
+	// fall back to an uncached bind against) a VAO for it.
+	if (m_vaoCache.size() >= kMaxVAOs) {
+		WARN_ONCE(s_vaoOverflow, "VAO cache at its %zu-entry sanity cap, no longer "
+		          "caching new combinations this session", kMaxVAOs);
 		glBindVertexArray(0);
 		bindArrayBuffer(vbo);
 		setupAttribs(l, stride, base);
@@ -1432,9 +1446,7 @@ void WebGLPipeline::bindVertexLayout(const FVFLayout &l, GLuint vbo, GLuint ibo,
 	// the correct, valid binding for the non-indexed draw() path.
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
 
-	m_vaoCache[m_vaoCacheCount].key = key;
-	m_vaoCache[m_vaoCacheCount].vao = vao;
-	m_vaoCacheCount++;
+	m_vaoCache.emplace(hash, VAOCacheEntry{key, vao});
 }
 
 void WebGLPipeline::drawCommon(WebGLDevice *dev, unsigned primType, unsigned primCount,
@@ -1781,10 +1793,10 @@ void WebGLPipeline::present()
 			const float uniformHitPct = totalUniformChecks > 0
 				? 100.0f * m_perfUniformCacheHits / totalUniformChecks : 0.0f;
 			fprintf(stderr, "[d3d8gles] perf: %.1f fps, %.1f draws/frame, "
-				"state-cache %.0f%% hit (%d/%d), vao-cache %.0f%% hit (%d/%d, %d cached), "
+				"state-cache %.0f%% hit (%d/%d), vao-cache %.0f%% hit (%d/%d, %zu cached), "
 				"uniform-cache %.0f%% hit (%d/%d), textures live=%ld (created=%ld deleted=%ld)\n",
 				fps, drawsPerFrame, cacheHitPct, m_perfStateCacheHits, totalStateChecks,
-				vaoHitPct, m_perfVAOCacheHits, totalVAOChecks, m_vaoCacheCount,
+				vaoHitPct, m_perfVAOCacheHits, totalVAOChecks, m_vaoCache.size(),
 				uniformHitPct, m_perfUniformCacheHits, totalUniformChecks,
 				g_texturesCreated - g_texturesDeleted, g_texturesCreated, g_texturesDeleted);
 			DumpLiveTextureShapes();
