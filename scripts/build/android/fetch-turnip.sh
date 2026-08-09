@@ -50,7 +50,14 @@ if command -v file >/dev/null 2>&1; then
         exit 1
     fi
 fi
-if ! strings "${DRIVER_SRC_DIR}/${LIBRARY_NAME}" 2>/dev/null | grep -qiE "turnip|freedreno|mesa"; then
+# Capture to a variable first, rather than piping `strings` straight into
+# `grep -q`: grep exits right after the first match and closes its end of
+# the pipe, and `strings` (still mid-write on a multi-MB .so) gets SIGPIPE
+# for it, which `pipefail` above then reports as the pipeline failing even
+# though the match was found -- same hazard already documented and worked
+# around in build-local-sandboxed.sh's DXVK strings check.
+driver_strings="$(strings "${DRIVER_SRC_DIR}/${LIBRARY_NAME}" 2>/dev/null)"
+if ! grep -qiE "turnip|freedreno|mesa" <<< "${driver_strings}"; then
     echo "ERROR: ${LIBRARY_NAME} doesn't look like a Turnip/Mesa driver (no identifying strings found)"
     exit 1
 fi
