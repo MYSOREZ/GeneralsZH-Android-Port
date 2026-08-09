@@ -206,6 +206,11 @@ private:
 	int m_lastVAOBase = 0;
 	int m_perfVAOCacheHits = 0;
 	int m_perfVAOCacheMisses = 0;
+	// Of the hits above, how many still needed a base-vertex pointer
+	// refresh (see bindVertexLayout()'s comment) -- the residual per-draw
+	// cost a dynamic/shared vertex-buffer pool leaves behind even once its
+	// VAO object itself is being fully reused.
+	int m_perfVAOPointerRefresh = 0;
 	// A free function couldn't name VAOKey (private nested type); a static
 	// member can, same as any other member.
 	static uint64_t hashVAOKey(const VAOKey &k);

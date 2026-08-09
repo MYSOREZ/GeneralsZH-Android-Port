@@ -1427,7 +1427,6 @@ void WebGLPipeline::bindVertexLayout(const FVFLayout &l, GLuint vbo, GLuint ibo,
 		m_perfVAOCacheHits++;
 		return; // the correct VAO -- attribs, pointers, and element-buffer binding alike -- is already bound
 	}
-	m_perfVAOCacheMisses++;
 	m_lastVAOKey = key;
 	m_lastVAOBase = base;
 	m_haveLastVAOKey = true;
@@ -1435,15 +1434,24 @@ void WebGLPipeline::bindVertexLayout(const FVFLayout &l, GLuint vbo, GLuint ibo,
 	const uint64_t hash = hashVAOKey(key);
 	auto it = m_vaoCache.find(hash);
 	if (it != m_vaoCache.end()) {
+		// GeneralsX @build Android port GLES experiment - this counts as a
+		// hit, not a miss: the VAO *object* is reused either way, which is
+		// the expensive part this cache exists to avoid (glGenVertexArrays,
+		// plus the old per-draw glDisableVertexAttribArray x8 dance this
+		// object now only ever pays once). A base change below is real but
+		// comparatively cheap -- a handful of glVertexAttribPointer calls,
+		// tracked separately (m_perfVAOPointerRefresh) so the perf log can
+		// show how much of that residual cost is still coming from content
+		// that draws through a shared/dynamic buffer pool at a
+		// constantly-advancing offset, distinct from a true cache miss.
+		m_perfVAOCacheHits++;
 		glBindVertexArray(it->second.vao);
 		if (it->second.lastBase != base) {
-			// Same VAO (same vbo/ibo/fvf/stride), but content drawn through a
-			// shared/dynamic buffer pool at a different offset than the last
-			// time this exact combination was used -- reissue just the
-			// pointers, not a full rebuild. GL_ARRAY_BUFFER must be the
-			// right buffer for glVertexAttribPointer to capture it correctly;
+			// GL_ARRAY_BUFFER must be the right buffer for
+			// glVertexAttribPointer to capture it correctly;
 			// GL_ELEMENT_ARRAY_BUFFER is untouched since it doesn't encode
 			// `base` at all.
+			m_perfVAOPointerRefresh++;
 			bindArrayBuffer(vbo);
 			setAttribPointers(l, stride, base);
 			it->second.lastBase = base;
@@ -1451,9 +1459,10 @@ void WebGLPipeline::bindVertexLayout(const FVFLayout &l, GLuint vbo, GLuint ibo,
 		return;
 	}
 
-	// Miss: this (vbo, ibo, fvf, stride) combination has never been seen
-	// before. Build (or, past the sanity-backstop cap, temporarily fall
-	// back to an uncached bind against) a VAO for it.
+	// True miss: this (vbo, ibo, fvf, stride) combination has never been
+	// seen before. Build (or, past the sanity-backstop cap, temporarily
+	// fall back to an uncached bind against) a VAO for it.
+	m_perfVAOCacheMisses++;
 	if (m_vaoCache.size() >= kMaxVAOs) {
 		WARN_ONCE(s_vaoOverflow, "VAO cache at its %zu-entry sanity cap, no longer "
 		          "caching new combinations this session", kMaxVAOs);
@@ -1826,10 +1835,11 @@ void WebGLPipeline::present()
 			const float uniformHitPct = totalUniformChecks > 0
 				? 100.0f * m_perfUniformCacheHits / totalUniformChecks : 0.0f;
 			fprintf(stderr, "[d3d8gles] perf: %.1f fps, %.1f draws/frame, "
-				"state-cache %.0f%% hit (%d/%d), vao-cache %.0f%% hit (%d/%d, %zu cached), "
-				"uniform-cache %.0f%% hit (%d/%d), textures live=%ld (created=%ld deleted=%ld)\n",
+				"state-cache %.0f%% hit (%d/%d), vao-cache %.0f%% hit (%d/%d, %zu cached, "
+				"%d ptr-refresh), uniform-cache %.0f%% hit (%d/%d), "
+				"textures live=%ld (created=%ld deleted=%ld)\n",
 				fps, drawsPerFrame, cacheHitPct, m_perfStateCacheHits, totalStateChecks,
-				vaoHitPct, m_perfVAOCacheHits, totalVAOChecks, m_vaoCache.size(),
+				vaoHitPct, m_perfVAOCacheHits, totalVAOChecks, m_vaoCache.size(), m_perfVAOPointerRefresh,
 				uniformHitPct, m_perfUniformCacheHits, totalUniformChecks,
 				g_texturesCreated - g_texturesDeleted, g_texturesCreated, g_texturesDeleted);
 			DumpLiveTextureShapes();
@@ -1840,6 +1850,7 @@ void WebGLPipeline::present()
 			m_perfStateCacheMisses = 0;
 			m_perfVAOCacheHits = 0;
 			m_perfVAOCacheMisses = 0;
+			m_perfVAOPointerRefresh = 0;
 			m_perfUniformCacheHits = 0;
 			m_perfUniformCacheMisses = 0;
 		}
