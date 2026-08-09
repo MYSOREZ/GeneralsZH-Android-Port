@@ -1695,7 +1695,17 @@ unsigned DX8TextureCategoryClass::Add_Mesh(
 // (batching still off) reproduced the prior build's draws/frame and fps
 // exactly, with zero shader-compile/GL errors -- turning batching on for
 // real now.
-static const int kMinInstanceRun = 4;
+//
+// Phase 3: confirmed (after fixing the LightEnvironment pointer-vs-value
+// comparison bug below) that batching engages and measurably cuts
+// draws/frame (~38% at a comparable point in a real device log) in
+// ShellMapMD, the AI battle that runs live behind the main menu. Lowering
+// the run-length floor from 4 to 2 -- AI-built unit groups are commonly
+// only 2-3 of the same type, and even a pair collapsing into one
+// glDrawElementsInstanced call is a net win given per-draw call overhead on
+// mobile GPUs (that's the whole premise of every other caching layer in
+// this file/gles_pipeline.cpp).
+static const int kMinInstanceRun = 2;
 
 // A task is eligible to be batched into an instanced draw only if it would
 // otherwise have taken the exact same path as the final, plain
