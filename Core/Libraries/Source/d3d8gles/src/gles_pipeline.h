@@ -151,56 +151,59 @@ private:
 	// glDisableVertexAttribArray, then glEnableVertexAttribArray +
 	// glVertexAttribPointer for each active attribute) on every single draw,
 	// unconditionally -- the one hot-path function bb4d069/this pass's other
-	// caches never touched. A VAO fully captures that state (plus, per the
+	// caches never touched. A VAO captures that state (plus, per the
 	// GL/GLES spec, the current GL_ELEMENT_ARRAY_BUFFER binding) once, keyed
-	// on the exact combination that determines it: the VBO/IBO GL object
-	// names (passed in explicitly by drawCommon's caller), the FVF (fully
-	// determines the parsed layout), the stride, and the base-vertex byte
-	// offset. Repeat draws using the same combination -- the overwhelmingly
-	// common case, e.g. one mesh's VB/IB drawn every frame -- become a
-	// single glBindVertexArray, or nothing at all if the same VAO is
-	// already bound from the previous draw.
+	// on the combination that determines the *enabled-attribute set*: the
+	// VBO/IBO GL object names (passed in explicitly by drawCommon's caller)
+	// and the FVF (fully determines the parsed layout and its stride).
+	//
+	// Deliberately NOT keyed on the base-vertex byte offset, unlike this
+	// cache's first version: a real device log (a battle scene, not even a
+	// real skirmish) showed draws/frame up to ~1250 and this cache growing
+	// by thousands of entries within seconds, one new VAO -- and GL object
+	// -- for nearly every draw. Root cause: a lot of this engine's content
+	// draws through one shared/dynamic vertex-buffer pool (DX8Wrapper's
+	// BUFFER_TYPE_DYNAMIC_DX8) whose base-vertex offset advances on
+	// practically every call, so folding it into the key meant that class
+	// of content got treated as brand-new every single time, defeating the
+	// cache and leaking VAOs for the session's lifetime. `base` is still
+	// tracked (VAOCacheEntry::lastBase, m_lastVAOBase below) since a VAO's
+	// *pointers* do encode it and must stay current -- see
+	// enableAttribs()/setAttribPointers() in the .cpp for the split this
+	// enables: attribute enable/disable state only needs setting once per
+	// VAO (a fresh one starts fully disabled), pointers get reissued
+	// whenever `base` changes for an otherwise-identical, already-cached
+	// VAO -- a handful of glVertexAttribPointer calls, not a new GL object
+	// plus the full disable/enable/pointer dance every time.
 	struct VAOKey {
 		GLuint vbo = 0;
 		GLuint ibo = 0; // 0 for the non-indexed draw() path
 		unsigned fvf = 0;
 		unsigned stride = 0;
-		int base = 0;
 
 		bool operator==(const VAOKey &o) const {
 			return memcmp(this, &o, sizeof(VAOKey)) == 0;
 		}
 	};
-	// GeneralsX @build Android port GLES experiment - real device logs (a
-	// battle scene, not just menus) showed draws/frame up to ~1250 and this
-	// cache saturating a 256-entry cap within the first ~10 seconds --
-	// unlike kMaxPrograms above, where 256 comfortably covers every
-	// realistic shader permutation, real content needs one VAO per unique
-	// *mesh instance/offset*, not per shader, and that count is nowhere
-	// near as bounded. A fixed array with a linear scan doesn't just stop
-	// helping past its cap, it becomes actively worse than no cache at all
-	// once every draw pays for scanning all 256 entries AND then falls
-	// through to the uncached path anyway. A hash map removes the size-vs-
-	// scan-cost tradeoff entirely -- lookup cost doesn't grow with how much
-	// is cached, so kMaxVAOs below exists only as a sanity backstop against
-	// unbounded growth (e.g. content that draws through an ever-advancing
-	// dynamic vertex-buffer-pool offset, where every draw is a genuinely
-	// new base-vertex value), not a real expected ceiling. Keyed by a
-	// byte-wise FNV-1a hash of VAOKey (hashVAOKey() below), same
+	// Keyed by a byte-wise FNV-1a hash of VAOKey (hashVAOKey() below), same
 	// collision-tolerant style as computeProgramKey()'s FNV-1a program key
 	// -- no verification against a stored raw key on lookup, matching that
-	// existing precedent in this file. The full VAOKey is still kept
-	// alongside the VAO purely so evictVAOsForBuffer() can scan for
-	// vbo/ibo matches; eviction (buffer deletion) is rare, so an O(n) scan
-	// there is fine even though it would not be on the hot lookup path.
+	// existing precedent in this file. Lookup cost doesn't grow with how
+	// much is cached, so kMaxVAOs below is a sanity backstop against
+	// pathological growth (now bounded by unique (vbo,ibo,fvf,stride)
+	// combos rather than every base-vertex value ever seen -- expected to
+	// be a much smaller, stable number once a level's content has been
+	// drawn once), not a real expected ceiling.
 	static const size_t kMaxVAOs = 16384;
 	struct VAOCacheEntry {
-		VAOKey key;
+		VAOKey key; // kept only so evictVAOsForBuffer() can scan for vbo/ibo matches
 		GLuint vao;
+		int lastBase; // base-vertex offset currently baked into this VAO's attribute pointers
 	};
 	std::unordered_map<uint64_t, VAOCacheEntry> m_vaoCache;
 	bool m_haveLastVAOKey = false;
 	VAOKey m_lastVAOKey{};
+	int m_lastVAOBase = 0;
 	int m_perfVAOCacheHits = 0;
 	int m_perfVAOCacheMisses = 0;
 	// A free function couldn't name VAOKey (private nested type); a static

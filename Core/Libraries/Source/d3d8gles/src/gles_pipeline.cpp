@@ -1331,41 +1331,56 @@ static unsigned primVertexCount(unsigned primType, unsigned primCount)
 	}
 }
 
-// Sets up vertex attribute pointers for the currently bound ARRAY_BUFFER.
-// Only called from bindVertexLayout()'s VAO-creation path below (once per
-// unique VAOKey, not once per draw) -- the leading disable-all loop is
-// harmless-but-redundant there (a freshly generated VAO starts with every
-// attribute already disabled) and is left in only because it's still
-// correct and this function has no other caller to diverge from.
-static void setupAttribs(const FVFLayout &l, unsigned stride, intptr_t base)
+// GeneralsX @build Android port GLES experiment - perf pass, split from a
+// single setupAttribs() after a real device log showed the VAO cache
+// growing by thousands of entries within seconds in ordinary gameplay: the
+// engine draws a lot of its content (see DX8Wrapper's BUFFER_TYPE_DYNAMIC_DX8
+// pool) through one shared vertex buffer with a *base-vertex offset* that
+// advances practically every draw, so folding `base` into the VAO's cached
+// attribute pointers (as the first version of this cache did) meant that
+// class of content got a brand-new VAO -- and GL object -- almost every
+// single call, defeating the cache and leaking VAOs for the session's
+// lifetime. Splitting the two concerns fixes both: attribute
+// enable/disable state is genuinely per-(FVF layout) and only needs
+// setting once when a VAO is first created (a fresh VAO starts with every
+// attribute disabled, so enableAttribs() only ever turns bits on).
+// Attribute *pointers* additionally encode `base` and DO need reissuing
+// whenever it changes -- but that's a handful of glVertexAttribPointer
+// calls against an already-bound, otherwise-unchanged VAO, not a new GL
+// object plus the full disable/enable/pointer dance every time.
+static void enableAttribs(const FVFLayout &l)
 {
 	for (int i = 0; i < 8; i++) glDisableVertexAttribArray(i);
-
 	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, l.xyzrhw ? 4 : 3, GL_FLOAT, GL_FALSE, stride, (const void *)(base + l.posOffset));
-	if (l.hasNormal) {
-		glEnableVertexAttribArray(1);
-		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, stride, (const void *)(base + l.normalOffset));
-	}
-	if (l.hasDiffuse) {
-		glEnableVertexAttribArray(2);
-		glVertexAttribPointer(2, 4, GL_UNSIGNED_BYTE, GL_TRUE, stride, (const void *)(base + l.diffuseOffset));
-	}
-	if (l.hasSpecular) {
-		glEnableVertexAttribArray(3);
-		glVertexAttribPointer(3, 4, GL_UNSIGNED_BYTE, GL_TRUE, stride, (const void *)(base + l.specularOffset));
-	}
+	if (l.hasNormal) glEnableVertexAttribArray(1);
+	if (l.hasDiffuse) glEnableVertexAttribArray(2);
+	if (l.hasSpecular) glEnableVertexAttribArray(3);
 	const int texIn = l.texCount > 2 ? 2 : l.texCount;
-	for (int i = 0; i < texIn; i++) {
-		glEnableVertexAttribArray(4 + i);
-		glVertexAttribPointer(4 + i, l.texSize[i], GL_FLOAT, GL_FALSE, stride, (const void *)(base + l.texOffset[i]));
-	}
+	for (int i = 0; i < texIn; i++) glEnableVertexAttribArray(4 + i);
 }
 
-// Byte-wise FNV-1a over VAOKey's raw bytes. Safe: VAOKey is five 4-byte POD
-// members (GLuint/unsigned/int), so there's no padding to worry about
-// hashing garbage from. Same collision-tolerant precedent as
-// computeProgramKey() -- see kMaxVAOs's declaration in gles_pipeline.h.
+// Sets attribute pointers (format + base-relative offset) for the currently
+// bound ARRAY_BUFFER and VAO. Safe to call on an already-enabled attribute
+// -- glVertexAttribPointer only ever touches format/pointer state, never
+// enabled/disabled state, regardless of how many times it's reissued.
+static void setAttribPointers(const FVFLayout &l, unsigned stride, intptr_t base)
+{
+	glVertexAttribPointer(0, l.xyzrhw ? 4 : 3, GL_FLOAT, GL_FALSE, stride, (const void *)(base + l.posOffset));
+	if (l.hasNormal)
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, stride, (const void *)(base + l.normalOffset));
+	if (l.hasDiffuse)
+		glVertexAttribPointer(2, 4, GL_UNSIGNED_BYTE, GL_TRUE, stride, (const void *)(base + l.diffuseOffset));
+	if (l.hasSpecular)
+		glVertexAttribPointer(3, 4, GL_UNSIGNED_BYTE, GL_TRUE, stride, (const void *)(base + l.specularOffset));
+	const int texIn = l.texCount > 2 ? 2 : l.texCount;
+	for (int i = 0; i < texIn; i++)
+		glVertexAttribPointer(4 + i, l.texSize[i], GL_FLOAT, GL_FALSE, stride, (const void *)(base + l.texOffset[i]));
+}
+
+// Byte-wise FNV-1a over VAOKey's raw bytes. Safe: VAOKey is four 4-byte POD
+// members (GLuint/unsigned), so there's no padding to worry about hashing
+// garbage from. Same collision-tolerant precedent as computeProgramKey()
+// -- see kMaxVAOs's declaration in gles_pipeline.h.
 uint64_t WebGLPipeline::hashVAOKey(const VAOKey &k)
 {
 	uint64_t h = 0xcbf29ce484222325ull;
@@ -1403,32 +1418,49 @@ void WebGLPipeline::bindVertexLayout(const FVFLayout &l, GLuint vbo, GLuint ibo,
 	key.ibo = ibo;
 	key.fvf = fvf;
 	key.stride = stride;
-	key.base = base;
+	// `base` is deliberately NOT part of the key -- see enableAttribs()'s
+	// comment. It's still tracked below (m_lastVAOBase / VAOCacheEntry::
+	// lastBase) since a VAO's *pointers* do encode it and must be kept
+	// current even when the VAO object itself is being reused.
 
-	if (m_haveLastVAOKey && key == m_lastVAOKey) {
+	if (m_haveLastVAOKey && key == m_lastVAOKey && base == m_lastVAOBase) {
 		m_perfVAOCacheHits++;
-		return; // the correct VAO -- attribs and element-buffer binding alike -- is already bound
+		return; // the correct VAO -- attribs, pointers, and element-buffer binding alike -- is already bound
 	}
 	m_perfVAOCacheMisses++;
 	m_lastVAOKey = key;
+	m_lastVAOBase = base;
 	m_haveLastVAOKey = true;
 
 	const uint64_t hash = hashVAOKey(key);
 	auto it = m_vaoCache.find(hash);
 	if (it != m_vaoCache.end()) {
 		glBindVertexArray(it->second.vao);
+		if (it->second.lastBase != base) {
+			// Same VAO (same vbo/ibo/fvf/stride), but content drawn through a
+			// shared/dynamic buffer pool at a different offset than the last
+			// time this exact combination was used -- reissue just the
+			// pointers, not a full rebuild. GL_ARRAY_BUFFER must be the
+			// right buffer for glVertexAttribPointer to capture it correctly;
+			// GL_ELEMENT_ARRAY_BUFFER is untouched since it doesn't encode
+			// `base` at all.
+			bindArrayBuffer(vbo);
+			setAttribPointers(l, stride, base);
+			it->second.lastBase = base;
+		}
 		return;
 	}
 
-	// Miss: this exact (vbo, ibo, fvf, stride, base) combination has never
-	// been seen before. Build (or, past the sanity-backstop cap, temporarily
-	// fall back to an uncached bind against) a VAO for it.
+	// Miss: this (vbo, ibo, fvf, stride) combination has never been seen
+	// before. Build (or, past the sanity-backstop cap, temporarily fall
+	// back to an uncached bind against) a VAO for it.
 	if (m_vaoCache.size() >= kMaxVAOs) {
 		WARN_ONCE(s_vaoOverflow, "VAO cache at its %zu-entry sanity cap, no longer "
 		          "caching new combinations this session", kMaxVAOs);
 		glBindVertexArray(0);
 		bindArrayBuffer(vbo);
-		setupAttribs(l, stride, base);
+		enableAttribs(l);
+		setAttribPointers(l, stride, base);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
 		m_haveLastVAOKey = false; // unknown/uncached state -- always re-decide next draw
 		return;
@@ -1438,7 +1470,8 @@ void WebGLPipeline::bindVertexLayout(const FVFLayout &l, GLuint vbo, GLuint ibo,
 	glGenVertexArrays(1, &vao);
 	glBindVertexArray(vao);
 	bindArrayBuffer(vbo); // GL_ARRAY_BUFFER is not VAO state; safe to route through the skip cache
-	setupAttribs(l, stride, base);
+	enableAttribs(l);
+	setAttribPointers(l, stride, base);
 	// GL_ELEMENT_ARRAY_BUFFER, unlike GL_ARRAY_BUFFER, IS part of the
 	// currently-bound VAO's state -- bind unconditionally (not through a
 	// skip cache; see m_lastArrayBuffer's comment for why one would be
@@ -1446,7 +1479,7 @@ void WebGLPipeline::bindVertexLayout(const FVFLayout &l, GLuint vbo, GLuint ibo,
 	// the correct, valid binding for the non-indexed draw() path.
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
 
-	m_vaoCache.emplace(hash, VAOCacheEntry{key, vao});
+	m_vaoCache.emplace(hash, VAOCacheEntry{key, vao, base});
 }
 
 void WebGLPipeline::drawCommon(WebGLDevice *dev, unsigned primType, unsigned primCount,
