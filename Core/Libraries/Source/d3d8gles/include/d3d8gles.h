@@ -36,3 +36,20 @@ extern "C" IDirect3D8 *WINAPI Direct3DCreate8_GLES(UINT sdkVersion);
 // Called from the SDL3 window-resize path so the GLES pipeline's cached
 // framebuffer size stays in sync without waiting for the next Reset().
 extern "C" void d3d8gles_resize(int w, int h);
+
+// GeneralsX @build Android port GLES experiment - GPU instancing for
+// repeated draws of identical geometry (see DX8PolygonRendererClass::
+// Render_Instanced() / DX8Wrapper::Draw_Triangles_Instanced() in WW3D2,
+// which call this). Real D3D8 has no instancing concept to extend, and
+// IDirect3DDevice8 (references/fbraz3-dxvk's vendored d3d8.h) must not be
+// touched -- this free-function escape hatch is the established pattern
+// for GLES-only entry points, same as Direct3DCreate8_GLES/d3d8gles_resize
+// above. worldMatrices is instanceCount consecutive 16-float blocks, each
+// already in the same row-major-uploaded-untransposed layout
+// DX8Wrapper::Set_Transform's non-instanced path feeds glUniformMatrix4fv
+// today (see WebGLPipeline::drawIndexedInstanced's comment) -- callers must
+// not reformat it.
+extern "C" void d3d8gles_drawIndexedInstanced(
+	IDirect3DDevice8 *dev, D3DPRIMITIVETYPE primType,
+	UINT minIndex, UINT numVertices, UINT startIndex, UINT primCount,
+	const float *worldMatrices, int instanceCount);

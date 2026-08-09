@@ -284,6 +284,7 @@ bool WebGLPipeline::initContext(int w, int h, SDL_Window *window)
 
 	glGenBuffers(1, &m_upVBO);
 	glGenBuffers(1, &m_upIBO);
+	glGenBuffers(1, &m_instanceVBO);
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 	glDisable(GL_DITHER);
 
@@ -353,7 +354,7 @@ static void getStageKey(WebGLDevice *dev, int stage, StageKey *k)
 	if (dev->getStageState(stage, D3DTSS_ALPHAARG1) == 0) k->alphaArg1 = 2;
 }
 
-uint64_t WebGLPipeline::computeProgramKey(WebGLDevice *dev, unsigned fvf) const
+uint64_t WebGLPipeline::computeProgramKey(WebGLDevice *dev, unsigned fvf, bool instanced) const
 {
 	FVFLayout l;
 	parseFVF(fvf, &l);
@@ -366,6 +367,12 @@ uint64_t WebGLPipeline::computeProgramKey(WebGLDevice *dev, unsigned fvf) const
 		key ^= v + 0x9E37;
 		key *= 0x100000001b3ull;
 	};
+
+	// GeneralsX @build Android port GLES experiment - GPU instancing: an
+	// instanced program reads aInstWorld (a vertex attribute) instead of
+	// uWorld (a uniform) -- a different, independently-cached program per
+	// FVF+state combination, same pattern as every other bit folded in here.
+	put(instanced ? 1 : 0, 1);
 
 	put(l.xyzrhw ? 1 : 0, 1);
 	put(l.hasNormal ? 1 : 0, 1);
@@ -514,9 +521,9 @@ static GLuint compileShader(GLenum type, const std::string &src)
 	return sh;
 }
 
-WebGLPipeline::ProgramInfo *WebGLPipeline::getProgram(WebGLDevice *dev, unsigned fvf)
+WebGLPipeline::ProgramInfo *WebGLPipeline::getProgram(WebGLDevice *dev, unsigned fvf, bool instanced)
 {
-	const uint64_t key = computeProgramKey(dev, fvf);
+	const uint64_t key = computeProgramKey(dev, fvf, instanced);
 	for (int i = 0; i < m_programCount; i++) {
 		if (m_programs[i].key == key) return m_programs[i].prog;
 	}
@@ -565,7 +572,19 @@ WebGLPipeline::ProgramInfo *WebGLPipeline::getProgram(WebGLDevice *dev, unsigned
 		snprintf(b, sizeof(b), "layout(location=%d) in vec4 aUV%d;\n", 4 + i, i);
 		vs += b;
 	}
-	vs += "uniform mat4 uWorld, uView, uProj;\n";
+	// GeneralsX @build Android port GLES experiment - GPU instancing: an
+	// instanced program reads the per-instance world matrix from a vertex
+	// attribute (glVertexAttribDivisor'd 1, one mat4 = locations 6-9, see
+	// bindVertexLayout()'s instanced branch) instead of a uniform. Every
+	// other use of "the world matrix" below reads worldExpr instead of a
+	// hardcoded "uWorld" so both variants share one generator.
+	const char *worldExpr = instanced ? "aInstWorld" : "uWorld";
+	if (instanced) {
+		vs += "layout(location=6) in mat4 aInstWorld;\n";
+		vs += "uniform mat4 uView, uProj;\n";
+	} else {
+		vs += "uniform mat4 uWorld, uView, uProj;\n";
+	}
 	vs += "uniform vec4 uViewportPos;\n"; // x, y, w, h
 	vs += "uniform float uYFlip;\n"; // +1 backbuffer, -1 render-to-texture
 	vs += "uniform mat4 uTexMat0, uTexMat1;\n";
@@ -584,7 +603,11 @@ WebGLPipeline::ProgramInfo *WebGLPipeline::getProgram(WebGLDevice *dev, unsigned
 		vs += "  gl_Position = vec4(nx, ny * uYFlip, aPos.z * 2.0 - 1.0, 1.0);\n";
 		vs += "  vFogDepth = 0.0;\n";
 	} else {
-		vs += "  vec4 wpos = uWorld * vec4(aPos, 1.0);\n";
+		{
+			char b[96];
+			snprintf(b, sizeof(b), "  vec4 wpos = %s * vec4(aPos, 1.0);\n", worldExpr);
+			vs += b;
+		}
 			vs += "  vec4 vpos = uView * wpos;\n";
 			vs += "  vec4 cpos = uProj * vpos;\n";
 			// GeneralsX @build Android port GLES experiment - this used to be
@@ -608,7 +631,11 @@ WebGLPipeline::ProgramInfo *WebGLPipeline::getProgram(WebGLDevice *dev, unsigned
 	}
 	// Diffuse color: vertex color (BGRA attribute swizzle) / lighting / white.
 	if (lighting) {
-		vs += "  vec3 wnrm = normalize(mat3(uWorld) * aNormal);\n";
+		{
+			char b[96];
+			snprintf(b, sizeof(b), "  vec3 wnrm = normalize(mat3(%s) * aNormal);\n", worldExpr);
+			vs += b;
+		}
 		// Material color sources per D3DRS_*MATERIALSOURCE (COLOR1 = vertex).
 		vs += diffFromVertex ? "  vec4 matDiff = aColor0.zyxw;\n"
 		                     : "  vec4 matDiff = uMatDiffuse;\n";
@@ -649,11 +676,11 @@ WebGLPipeline::ProgramInfo *WebGLPipeline::getProgram(WebGLDevice *dev, unsigned
 			// D3DTSS_TCI_CAMERASPACEREFLECTIONVECTOR: environment mapping.
 			snprintf(b, sizeof(b),
 				"  vUV%d = (uTexMat%d * vec4(reflect(normalize(vpos.xyz), "
-				"normalize(mat3(uView) * mat3(uWorld) * aNormal)), 1.0)).xy;\n", s, s);
+				"normalize(mat3(uView) * mat3(%s) * aNormal)), 1.0)).xy;\n", s, s, worldExpr);
 		} else if (st[s].texgen == 3 && !l.xyzrhw && l.hasNormal) {
 			// D3DTSS_TCI_CAMERASPACENORMAL.
 			snprintf(b, sizeof(b),
-				"  vUV%d = (uTexMat%d * vec4(normalize(mat3(uView) * mat3(uWorld) * aNormal), 1.0)).xy;\n", s, s);
+				"  vUV%d = (uTexMat%d * vec4(normalize(mat3(uView) * mat3(%s) * aNormal), 1.0)).xy;\n", s, s, worldExpr);
 		} else if (texIn == 0) {
 			snprintf(b, sizeof(b), "  vUV%d = vec2(0.0);\n", s);
 		} else if (st[s].xform) {
@@ -1377,7 +1404,7 @@ static void setAttribPointers(const FVFLayout &l, unsigned stride, intptr_t base
 		glVertexAttribPointer(4 + i, l.texSize[i], GL_FLOAT, GL_FALSE, stride, (const void *)(base + l.texOffset[i]));
 }
 
-// Byte-wise FNV-1a over VAOKey's raw bytes. Safe: VAOKey is four 4-byte POD
+// Byte-wise FNV-1a over VAOKey's raw bytes. Safe: VAOKey is five 4-byte POD
 // members (GLuint/unsigned), so there's no padding to worry about hashing
 // garbage from. Same collision-tolerant precedent as computeProgramKey()
 // -- see kMaxVAOs's declaration in gles_pipeline.h.
@@ -1410,14 +1437,30 @@ void WebGLPipeline::evictVAOsForBuffer(GLuint name)
 	if (evictedAny) m_haveLastVAOKey = false;
 }
 
+// GeneralsX @build Android port GLES experiment - GPU instancing. m_instanceVBO
+// is a fixed, session-lifetime buffer name (see its declaration) reused by
+// every instanced VAO, always laid out as tightly-packed 64-byte (one mat4)
+// records -- so this setup never needs to vary per VAO and is always
+// correct regardless of how many instances a given draw actually uses.
+void WebGLPipeline::bindInstanceAttribs()
+{
+	bindArrayBuffer(m_instanceVBO);
+	for (int i = 0; i < 4; i++) {
+		glEnableVertexAttribArray(6 + i);
+		glVertexAttribPointer(6 + i, 4, GL_FLOAT, GL_FALSE, 64, (const void *)(intptr_t)(i * 16));
+		glVertexAttribDivisor(6 + i, 1);
+	}
+}
+
 void WebGLPipeline::bindVertexLayout(const FVFLayout &l, GLuint vbo, GLuint ibo,
-                                     unsigned fvf, unsigned stride, int base)
+                                     unsigned fvf, unsigned stride, int base, bool instanced)
 {
 	VAOKey key{};
 	key.vbo = vbo;
 	key.ibo = ibo;
 	key.fvf = fvf;
 	key.stride = stride;
+	key.instanced = instanced ? 1u : 0u;
 	// `base` is deliberately NOT part of the key -- see enableAttribs()'s
 	// comment. It's still tracked below (m_lastVAOBase / VAOCacheEntry::
 	// lastBase) since a VAO's *pointers* do encode it and must be kept
@@ -1470,6 +1513,7 @@ void WebGLPipeline::bindVertexLayout(const FVFLayout &l, GLuint vbo, GLuint ibo,
 		bindArrayBuffer(vbo);
 		enableAttribs(l);
 		setAttribPointers(l, stride, base);
+		if (instanced) bindInstanceAttribs();
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
 		m_haveLastVAOKey = false; // unknown/uncached state -- always re-decide next draw
 		return;
@@ -1481,6 +1525,16 @@ void WebGLPipeline::bindVertexLayout(const FVFLayout &l, GLuint vbo, GLuint ibo,
 	bindArrayBuffer(vbo); // GL_ARRAY_BUFFER is not VAO state; safe to route through the skip cache
 	enableAttribs(l);
 	setAttribPointers(l, stride, base);
+	// GeneralsX @build Android port GLES experiment - GPU instancing: bind
+	// m_instanceVBO at locations 6-9 (aInstWorld) with a divisor of 1, once
+	// per instanced VAO -- captured into VAO state just like the regular
+	// attributes above, never needs reissuing on later draws even though
+	// the buffer's *contents* get re-orphaned every instanced draw (see
+	// drawIndexedInstanced()). Rigid, non-skinned meshes (the only kind
+	// eligible for instancing -- see dx8renderer.cpp's Is_Instance_Batchable)
+	// always have base==0 for their whole lifetime, so this VAO's `base`
+	// never needs a pointer refresh in practice either.
+	if (instanced) bindInstanceAttribs();
 	// GL_ELEMENT_ARRAY_BUFFER, unlike GL_ARRAY_BUFFER, IS part of the
 	// currently-bound VAO's state -- bind unconditionally (not through a
 	// skip cache; see m_lastArrayBuffer's comment for why one would be
@@ -1494,7 +1548,8 @@ void WebGLPipeline::bindVertexLayout(const FVFLayout &l, GLuint vbo, GLuint ibo,
 void WebGLPipeline::drawCommon(WebGLDevice *dev, unsigned primType, unsigned primCount,
                                GLuint vbo, unsigned stride, unsigned fvf,
                                GLuint ibo, unsigned indexFormat,
-                               unsigned startIndex, int baseVertexBytes, unsigned /*vertexCount*/)
+                               unsigned startIndex, int baseVertexBytes, unsigned /*vertexCount*/,
+                               int instanceCount)
 {
 	FVFLayout l;
 	if (!parseFVF(fvf, &l)) {
@@ -1503,22 +1558,32 @@ void WebGLPipeline::drawCommon(WebGLDevice *dev, unsigned primType, unsigned pri
 	}
 	if (stride == 0) stride = l.stride;
 
-	ProgramInfo *prog = getProgram(dev, fvf);
+	const bool instanced = instanceCount > 0;
+	ProgramInfo *prog = getProgram(dev, fvf, instanced);
 	if (!prog || !prog->prog) return;
 
 	applyFixedState(dev);
 	applyUniforms(dev, prog, fvf);
 	bindTextures(dev, prog);
 
-	bindVertexLayout(l, vbo, ibo, fvf, stride, baseVertexBytes);
+	bindVertexLayout(l, vbo, ibo, fvf, stride, baseVertexBytes, instanced);
 
 	const GLenum mode = primModeGL(primType);
 	const unsigned count = primVertexCount(primType, primCount);
 	if (indexFormat != 0) {
 		const GLenum itype = (indexFormat == D3DFMT_INDEX32) ? GL_UNSIGNED_INT : GL_UNSIGNED_SHORT;
 		const unsigned isize = (indexFormat == D3DFMT_INDEX32) ? 4 : 2;
-		glDrawElements(mode, count, itype, (const void *)(intptr_t)(startIndex * isize));
+		if (instanced) {
+			glDrawElementsInstanced(mode, count, itype, (const void *)(intptr_t)(startIndex * isize), instanceCount);
+			m_perfInstancedDrawsThisFrame++;
+			m_perfInstancesThisFrame += instanceCount;
+		} else {
+			glDrawElements(mode, count, itype, (const void *)(intptr_t)(startIndex * isize));
+		}
 	} else {
+		// GeneralsX @build Android port GLES experiment - GPU instancing
+		// only ever arrives via the indexed path (drawIndexedInstanced);
+		// non-indexed instancing has no caller and isn't implemented here.
 		glDrawArrays(mode, startIndex, count);
 	}
 	m_perfDrawsThisFrame++;
@@ -1603,6 +1668,37 @@ void WebGLPipeline::drawIndexed(WebGLDevice *dev, unsigned primType, unsigned /*
 	const int baseBytes = (int)(dev->getBaseVertexIndex() * stride);
 	drawCommon(dev, primType, primCount, vb->m_gl.name, stride, fvf,
 	           ib->m_gl.name, ib->m_format, startIndex, baseBytes, numVertices);
+}
+
+// GeneralsX @build Android port GLES experiment - GPU instancing entry
+// point, reached via d3d8gles_drawIndexedInstanced (d3d8gles.cpp) <-
+// DX8Wrapper::Draw_Triangles_Instanced <- DX8PolygonRendererClass::
+// Render_Instanced (WW3D2). worldMatrices is instanceCount consecutive
+// 16-float blocks; each one is byte-identical to what drawIndexed()'s path
+// already uploads to uWorld via glUniformMatrix4fv today (D3D row-major
+// memory uploaded untransposed IS the transpose GL wants -- see
+// applyUniforms()'s comment), so no per-instance conversion happens here,
+// only a bulk upload.
+void WebGLPipeline::drawIndexedInstanced(WebGLDevice *dev, unsigned primType, unsigned /*minIndex*/,
+                                         unsigned numVertices, unsigned startIndex, unsigned primCount,
+                                         const float *worldMatrices, int instanceCount)
+{
+	if (!m_ctxReady || !worldMatrices || instanceCount <= 0) return;
+	WebGLVertexBuffer *vb = dev->getStream0();
+	WebGLIndexBuffer *ib = dev->getIndices();
+	if (!vb || !ib) return;
+
+	ensureVBUploaded(vb);
+	ensureIBUploaded(ib);
+
+	orphanAndUpload(GL_COPY_WRITE_BUFFER, m_instanceVBO, (size_t)instanceCount * 16 * sizeof(float),
+	                worldMatrices, GL_STREAM_DRAW);
+
+	const unsigned fvf = dev->getFVF() ? dev->getFVF() : vb->m_fvf;
+	const unsigned stride = dev->getStream0Stride();
+	const int baseBytes = (int)(dev->getBaseVertexIndex() * stride);
+	drawCommon(dev, primType, primCount, vb->m_gl.name, stride, fvf,
+	           ib->m_gl.name, ib->m_format, startIndex, baseBytes, numVertices, instanceCount);
 }
 
 void WebGLPipeline::draw(WebGLDevice *dev, unsigned primType, unsigned startVertex, unsigned primCount)
@@ -1816,6 +1912,10 @@ void WebGLPipeline::present()
 	m_perfFrameCount++;
 	m_perfDrawAccum += m_perfDrawsThisFrame;
 	m_perfDrawsThisFrame = 0;
+	m_perfInstancedDrawAccum += m_perfInstancedDrawsThisFrame;
+	m_perfInstancedDrawsThisFrame = 0;
+	m_perfInstancesAccum += m_perfInstancesThisFrame;
+	m_perfInstancesThisFrame = 0;
 	{
 		const unsigned nowMs = SDL_GetTicks();
 		if (m_perfLogLastMs == 0) {
@@ -1834,13 +1934,19 @@ void WebGLPipeline::present()
 			const int totalUniformChecks = m_perfUniformCacheHits + m_perfUniformCacheMisses;
 			const float uniformHitPct = totalUniformChecks > 0
 				? 100.0f * m_perfUniformCacheHits / totalUniformChecks : 0.0f;
+			const float instancedDrawsPerFrame = m_perfFrameCount > 0
+				? (float)m_perfInstancedDrawAccum / m_perfFrameCount : 0.0f;
+			const float instancesPerFrame = m_perfFrameCount > 0
+				? (float)m_perfInstancesAccum / m_perfFrameCount : 0.0f;
 			fprintf(stderr, "[d3d8gles] perf: %.1f fps, %.1f draws/frame, "
 				"state-cache %.0f%% hit (%d/%d), vao-cache %.0f%% hit (%d/%d, %zu cached, "
 				"%d ptr-refresh), uniform-cache %.0f%% hit (%d/%d), "
+				"%.1f instanced-draws/frame collapsing %.1f instances/frame, "
 				"textures live=%ld (created=%ld deleted=%ld)\n",
 				fps, drawsPerFrame, cacheHitPct, m_perfStateCacheHits, totalStateChecks,
 				vaoHitPct, m_perfVAOCacheHits, totalVAOChecks, m_vaoCache.size(), m_perfVAOPointerRefresh,
 				uniformHitPct, m_perfUniformCacheHits, totalUniformChecks,
+				instancedDrawsPerFrame, instancesPerFrame,
 				g_texturesCreated - g_texturesDeleted, g_texturesCreated, g_texturesDeleted);
 			DumpLiveTextureShapes();
 			m_perfLogLastMs = nowMs;
@@ -1853,6 +1959,8 @@ void WebGLPipeline::present()
 			m_perfVAOPointerRefresh = 0;
 			m_perfUniformCacheHits = 0;
 			m_perfUniformCacheMisses = 0;
+			m_perfInstancedDrawAccum = 0;
+			m_perfInstancesAccum = 0;
 		}
 	}
 

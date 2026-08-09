@@ -1964,6 +1964,21 @@ extern "C" void d3d8gles_resize(int w, int h)
 	}
 }
 
+// GeneralsX @build Android port GLES experiment - GPU instancing, part 1/2
+// (plumbing only): forwards to WebGLPipeline::drawIndexedInstanced() once
+// that exists. Not yet called from anywhere -- exists so the
+// DX8TextureCategoryClass -> DX8PolygonRendererClass -> DX8Wrapper -> here
+// call chain type-checks end to end before any real GL work is written.
+extern "C" void d3d8gles_drawIndexedInstanced(
+	IDirect3DDevice8 *dev, D3DPRIMITIVETYPE primType,
+	UINT minIndex, UINT numVertices, UINT startIndex, UINT primCount,
+	const float *worldMatrices, int instanceCount)
+{
+	WebGLPipeline::get()->drawIndexedInstanced(static_cast<WebGLDevice *>(dev), primType,
+	                                            minIndex, numVertices, startIndex, primCount,
+	                                            worldMatrices, instanceCount);
+}
+
 // ---------------------------------------------------------------------------
 // Entry point. Named distinctly from the real Direct3DCreate8 (unlike the
 // web port, which statically links this as the *only* D3D8 implementation

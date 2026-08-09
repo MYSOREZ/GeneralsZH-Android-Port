@@ -1676,6 +1676,109 @@ unsigned DX8TextureCategoryClass::Add_Mesh(
 
 // ----------------------------------------------------------------------------
 
+// GeneralsX @build Android port GLES experiment - GPU instancing, Phase 1.
+// See docs on DX8Wrapper::Draw_Triangles_Instanced/DX8PolygonRendererClass::
+// Render_Instanced for the rest of the call chain this feeds. Real device
+// logs showed 800-1250 separate draw calls per frame in ordinary content --
+// this collapses runs of them that share identical geometry (a
+// DX8PolygonRendererClass, i.e. one MeshModelClass registered once and
+// shared by every MeshClass instance using it -- see
+// DX8MeshRendererClass::Register_Mesh_Type()) into one glDrawElementsInstanced
+// call instead of one per instance.
+//
+// Starts disabled (kMinInstanceRun set unreachably high below) so this
+// commit only changes the *shape* of the render loop below, not its
+// behavior -- lets a real device confirm the refactor alone didn't change
+// anything before a follow-up commit turns batching on for real, isolating
+// which of the two changes caused a regression if one appears.
+static const int kMinInstanceRun = 999999; // TODO(instancing phase 2): lower to a real value (e.g. 4) once the refactor above is verified unchanged on a real device.
+
+// A task is eligible to be batched into an instanced draw only if it would
+// otherwise have taken the exact same path as the final, plain
+// `renderer->Render(mesh->Get_Base_Vertex_Offset());` call inside
+// DX8TextureCategoryClass::Render() below -- every check here corresponds
+// to one of that function's OTHER branches, each of which does something
+// genuinely per-instance that a single instanced draw call can't represent:
+static bool Is_Instance_Batchable(PolyRenderTaskClass *prt)
+{
+	MeshClass *mesh = prt->Peek_Mesh();
+	DX8PolygonRendererClass *renderer = prt->Peek_Polygon_Renderer();
+
+	// Render_Instanced only implements the indexed-triangle-list path.
+	if (renderer->Is_Strip()) return false;
+
+	// Sorted/translucent geometry goes through Render_Sorted() ->
+	// SortingRendererClass, a different batcher entirely -- not this one.
+	if (mesh->Peek_Model()->Get_Flag(MeshGeometryClass::SORT) && WW3D::Is_Sorting_Enabled()) return false;
+
+	// This branch (dx8renderer.cpp's alpha-override/material-override
+	// handling) mutates the *shared* VertexMaterialClass's opacity/UV-offset
+	// per-instance then restores it -- incompatible with one draw covering
+	// many instances that would each need a different override.
+	if (mesh->Get_Alpha_Override() != 1.0f) return false;
+	if (mesh->Get_User_Data() && *(int *)mesh->Get_User_Data() == RenderObjClass::USER_DATA_MATERIAL_OVERRIDE) return false;
+
+	// A non-1 scale toggles D3DRS_NORMALIZENORMALS around just this one
+	// render call -- a per-task, not per-instance, render state in the
+	// original code (see the two "//---" blocks bracketing the render
+	// decision in DX8TextureCategoryClass::Render()).
+	if (mesh->Get_ObjectScale() != 1.0f) return false;
+
+	// ALIGNED/ORIENTED recompute a camera-derived world transform every
+	// frame (compatible with instancing in principle -- each instance
+	// would just need its own camera-derived matrix -- but this content
+	// class, billboards/effects, isn't the reported bottleneck; deferred to
+	// keep this first pass reviewable). SKIN meshes recompute deformed
+	// vertex data into a shared streaming VB every frame -- no stable
+	// shared geometry to instance against at all.
+	MeshModelClass *model = mesh->Peek_Model();
+	if (model->Get_Flag(MeshModelClass::ALIGNED) ||
+	    model->Get_Flag(MeshModelClass::ORIENTED) ||
+	    model->Get_Flag(MeshModelClass::SKIN)) return false;
+
+	// Streaming-VB-overflow meshes are deferred to a later frame by the
+	// caller (the VERTEX_BUFFER_OVERFLOW check earlier in the while loop) --
+	// belt-and-suspenders, since only skin meshes (already excluded above)
+	// set this in practice.
+	if (mesh->Get_Base_Vertex_Offset() == VERTEX_BUFFER_OVERFLOW) return false;
+
+	// Parity with the outer debugger-disabled guard in the caller (a
+	// debugger-disabled mesh renders nothing at all, batched or not; this
+	// check only matters if Is_Instance_Batchable is ever called from
+	// somewhere that doesn't already guard on it).
+	if (DX8RendererDebugger::Is_Enabled() && mesh->Is_Disabled_By_Debugger()) return false;
+
+	// NOTE: deliberately NOT checked here -- per-object texture-stage
+	// transform (D3DTSS_TEXTURETRANSFORMFLAGS) state isn't readable back
+	// from DX8Wrapper (write-only from this layer), so there's no cheap way
+	// to verify uTexMat0/1 stay instance-invariant within a run. Believed
+	// low-risk for this feature's target content (opaque ship/vehicle hulls
+	// and turrets, not the water/terrain systems that use per-object UV
+	// animation in this engine), but flagged here in case wrong/static UVs
+	// are ever reported on batched content.
+	return true;
+}
+
+// Renders (or falls back to one Render() call per instance, below
+// kMinInstanceRun) whatever's been accumulated, then clears the
+// accumulator. A no-op when nothing is pending -- safe to call
+// unconditionally at every point a run might be broken.
+static void Flush_Pending_Instances(DX8PolygonRendererClass *&pending_renderer, int pending_base,
+                                    Matrix3D *pending_xforms, int &pending_count)
+{
+	if (pending_count == 0) return;
+	if (pending_count >= kMinInstanceRun) {
+		pending_renderer->Render_Instanced(pending_base, pending_xforms, pending_count);
+	} else {
+		for (int i = 0; i < pending_count; i++) {
+			DX8Wrapper::Set_Transform(D3DTS_WORLD, pending_xforms[i]);
+			pending_renderer->Render(pending_base);
+		}
+	}
+	pending_renderer = nullptr;
+	pending_count = 0;
+}
+
 void DX8TextureCategoryClass::Render()
 {
 	#ifdef WWDEBUG
@@ -1722,6 +1825,17 @@ void DX8TextureCategoryClass::Render()
 
 
 	bool renderTasksRemaining=false;
+
+	// GeneralsX @build Android port GLES experiment - GPU instancing
+	// collection state, flushed (rendered) whenever a run of consecutive
+	// batchable tasks sharing the same renderer/lighting-environment
+	// breaks -- see Is_Instance_Batchable()/Flush_Pending_Instances() above
+	// and their call sites in the loop below.
+	DX8PolygonRendererClass *pending_renderer = nullptr;
+	LightEnvironmentClass *pending_lenv = nullptr;
+	int pending_base = 0;
+	Matrix3D pending_xforms[DX8Wrapper::DX8_MAX_INSTANCES_PER_DRAW];
+	int pending_count = 0;
 
 	PolyRenderTaskClass * prt = render_task_head;
 	PolyRenderTaskClass * last_prt = nullptr;
@@ -1869,8 +1983,40 @@ void DX8TextureCategoryClass::Render()
 		if (!DX8RendererDebugger::Is_Enabled() || !mesh->Is_Disabled_By_Debugger()) {
 
 		if ((!!mesh->Peek_Model()->Get_Flag(MeshGeometryClass::SORT)) && WW3D::Is_Sorting_Enabled()) {
+			// GeneralsX @build Android port GLES experiment - GPU instancing.
+			// A sorted/translucent mesh always breaks a pending instance
+			// run (it goes through a completely different, already-
+			// batching, code path -- SortingRendererClass -- not this
+			// one) and must render in its original relative position.
+			Flush_Pending_Instances(pending_renderer, pending_base, pending_xforms, pending_count);
 			renderer->Render_Sorted(mesh->Get_Base_Vertex_Offset(),mesh->Get_Bounding_Sphere());
+		} else if (Is_Instance_Batchable(prt)) {
+			// GeneralsX @build Android port GLES experiment - GPU instancing.
+			// This task takes exactly the same path the final `else
+			// renderer->Render(...)` below would have taken (Is_Instance_Batchable
+			// already excludes every other branch in this function --
+			// alpha/material override, non-uniform scale, ALIGNED/ORIENTED/
+			// SKIN, sorted, strip, debugger-disabled, streaming-VB overflow),
+			// so it's safe to defer instead of rendering immediately.
+			if (pending_count > 0 && (renderer != pending_renderer || mesh->Get_Lighting_Environment() != pending_lenv)) {
+				// Run broken by a different mesh/renderer or lighting
+				// environment -- flush what's pending before starting a new run.
+				Flush_Pending_Instances(pending_renderer, pending_base, pending_xforms, pending_count);
+			}
+			if (pending_count >= DX8Wrapper::Get_Max_Instances_Per_Draw()) {
+				Flush_Pending_Instances(pending_renderer, pending_base, pending_xforms, pending_count);
+			}
+			pending_renderer = renderer;
+			pending_lenv = mesh->Get_Lighting_Environment();
+			pending_base = mesh->Get_Base_Vertex_Offset();
+			pending_xforms[pending_count++] = mesh->Get_Transform();
 		} else {
+			// GeneralsX @build Android port GLES experiment - GPU instancing.
+			// Not batchable (one of the guardrails in Is_Instance_Batchable
+			// failed) -- flush any pending run first so it renders in its
+			// original relative position, then fall through to the
+			// original, completely unmodified immediate-render code below.
+			Flush_Pending_Instances(pending_renderer, pending_base, pending_xforms, pending_count);
 			//non-transparent mesh that will be rendered immediately.  Okay to adjust the shader/material
 			//if necessary
 			if (mesh->Get_Alpha_Override() != 1.0 || (mesh->Get_User_Data() && *(int *)mesh->Get_User_Data() == RenderObjClass::USER_DATA_MATERIAL_OVERRIDE))
@@ -1950,6 +2096,11 @@ void DX8TextureCategoryClass::Render()
 		delete prt;
 		prt = next_prt;
 	}
+
+	// GeneralsX @build Android port GLES experiment - GPU instancing: the
+	// loop above may have ended mid-run (the last tasks in the list were
+	// still accumulating), so flush whatever's left pending here.
+	Flush_Pending_Instances(pending_renderer, pending_base, pending_xforms, pending_count);
 
 	if (!renderTasksRemaining)
 	{
