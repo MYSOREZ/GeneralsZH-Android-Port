@@ -611,6 +611,11 @@ public:
 	static const char* Get_DX8_Render_State_Name(D3DRENDERSTATETYPE state);
 	static const char* Get_DX8_Texture_Stage_State_Name(D3DTEXTURESTAGESTATETYPE state);
 	static unsigned Get_DX8_Render_State(D3DRENDERSTATETYPE state) { return RenderStates[state]; }
+	// GeneralsX @build Android port GLES experiment - GPU instancing. Mirrors
+	// Get_DX8_Render_State above; needed so dx8renderer.cpp's
+	// Is_Instance_Batchable() can verify D3DTSS_TEXTURETRANSFORMFLAGS is off
+	// for a category before batching it (see the guardrail note there).
+	static unsigned Get_DX8_Texture_Stage_State(unsigned stage, D3DTEXTURESTAGESTATETYPE state) { return TextureStageStates[stage][(unsigned)state]; }
 
 	// Names of the specific values of render states and texture stage states
 	static void Get_DX8_Texture_Stage_State_Value_Name(StringClass& name, D3DTEXTURESTAGESTATETYPE state, unsigned value);

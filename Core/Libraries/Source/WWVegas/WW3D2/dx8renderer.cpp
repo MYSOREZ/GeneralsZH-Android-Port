@@ -1713,10 +1713,15 @@ static const int kMinInstanceRun = 2;
 // DX8TextureCategoryClass::Render() below -- every check here corresponds
 // to one of that function's OTHER branches, each of which does something
 // genuinely per-instance that a single instanced draw call can't represent:
-static bool Is_Instance_Batchable(PolyRenderTaskClass *prt)
+static bool Is_Instance_Batchable(PolyRenderTaskClass *prt, bool category_texturewise_batchable)
 {
 	MeshClass *mesh = prt->Peek_Mesh();
 	DX8PolygonRendererClass *renderer = prt->Peek_Polygon_Renderer();
+
+	// Category-level texture-stage-transform check (computed once by the
+	// caller, see DX8TextureCategoryClass::Render() right after
+	// Set_Material() -- guardrail #8, see below).
+	if (!category_texturewise_batchable) return false;
 
 	// Render_Instanced only implements the indexed-triangle-list path.
 	if (renderer->Is_Strip()) return false;
@@ -1762,14 +1767,20 @@ static bool Is_Instance_Batchable(PolyRenderTaskClass *prt)
 	// somewhere that doesn't already guard on it).
 	if (DX8RendererDebugger::Is_Enabled() && mesh->Is_Disabled_By_Debugger()) return false;
 
-	// NOTE: deliberately NOT checked here -- per-object texture-stage
-	// transform (D3DTSS_TEXTURETRANSFORMFLAGS) state isn't readable back
-	// from DX8Wrapper (write-only from this layer), so there's no cheap way
-	// to verify uTexMat0/1 stay instance-invariant within a run. Believed
-	// low-risk for this feature's target content (opaque ship/vehicle hulls
-	// and turrets, not the water/terrain systems that use per-object UV
-	// animation in this engine), but flagged here in case wrong/static UVs
-	// are ever reported on batched content.
+	// Texture-stage-transform check: was originally skipped here as
+	// "believed low-risk" (D3DTSS_TEXTURETRANSFORMFLAGS wasn't readable back
+	// from DX8Wrapper at the time). A real device log then showed wrong-
+	// looking content (wrong texture/UV appearance) right after batching
+	// activity jumped sharply, which is exactly the failure mode this gap
+	// predicted -- uTexMat0/1 are uniforms, shared for the whole instanced
+	// draw call, so if the run's UV-transform state weren't actually
+	// instance-invariant, every instance would render with whichever mesh's
+	// transform happened to be set. Added DX8Wrapper::Get_DX8_Texture_Stage_State()
+	// and check it above via `category_texturewise_batchable` (computed once
+	// per category in DX8TextureCategoryClass::Render(), right after
+	// Set_Material() -- cheaper than a per-task check and correct since the
+	// transform state is tied to the material/mapper, which categories are
+	// already partitioned by).
 	return true;
 }
 
@@ -1864,6 +1875,21 @@ void DX8TextureCategoryClass::Render()
 	SNAPSHOT_SAY(("Set_Material(%s)",Peek_Material() ? Peek_Material()->Get_Name() : "null"));
 	VertexMaterialClass *vmaterial=(VertexMaterialClass *)Peek_Material();	//ugly cast from const but we'll restore it after changes so okay. -MW
 	DX8Wrapper::Set_Material(vmaterial);
+
+	// GeneralsX @build Android port GLES experiment - GPU instancing
+	// guardrail #8: uTexMat0/1 (gles_pipeline.cpp) are uniforms, shared for
+	// a whole instanced draw call, so a run is only batchable if this
+	// category's UV-transform state (tied to the material/mapper just
+	// applied above, hence checked once here rather than per-task) is
+	// actually off for both texture stages -- otherwise nothing guarantees
+	// the transform is instance-invariant, just whether one applies at all.
+	bool category_texturewise_batchable = true;
+	for (unsigned tstage = 0; tstage < MeshMatDescClass::MAX_TEX_STAGES; ++tstage) {
+		if (DX8Wrapper::Get_DX8_Texture_Stage_State(tstage, D3DTSS_TEXTURETRANSFORMFLAGS) != D3DTTFF_DISABLE) {
+			category_texturewise_batchable = false;
+			break;
+		}
+	}
 
 	SNAPSHOT_SAY(("Set_Shader(%x)",Get_Shader().Get_Bits()));
 	ShaderClass theShader = Get_Shader();
@@ -2056,7 +2082,7 @@ void DX8TextureCategoryClass::Render()
 			// one) and must render in its original relative position.
 			Flush_Pending_Instances(pending_renderer, pending_base, pending_xforms, pending_count);
 			renderer->Render_Sorted(mesh->Get_Base_Vertex_Offset(),mesh->Get_Bounding_Sphere());
-		} else if (Is_Instance_Batchable(prt)) {
+		} else if (Is_Instance_Batchable(prt, category_texturewise_batchable)) {
 			// GeneralsX @build Android port GLES experiment - GPU instancing.
 			// This task takes exactly the same path the final `else
 			// renderer->Render(...)` below would have taken (Is_Instance_Batchable
