@@ -2275,6 +2275,20 @@ AGAIN:
 
 				if (gxPerfTrace) gxdT3 = std::chrono::steady_clock::now();
 
+				// GeneralsX @bugfix Android port 08/30/2026 EXPERIMENT: composite
+				// the (possibly downscaled) 3D scene onto the backbuffer now,
+				// then switch to a native-resolution viewport for everything
+				// drawn from here through End_Render() -- UI, mouse cursor,
+				// cinematic text, debug overlays. Both calls no-op when
+				// pillarboxing isn't engaged (desktop/non-Android), so this is
+				// a pure no-op there. See Pillarbox_Begin_UI()'s comment in
+				// dx8wrapper.h/.cpp for why this doesn't need any UI-side
+				// changes: Render2DClass positions everything in NDC space
+				// derived from the logical resolution, independent of viewport
+				// pixel size.
+				DX8Wrapper::Pillarbox_End();
+				DX8Wrapper::Pillarbox_Begin_UI();
+
 				// draw the user interface
 				TheInGameUI->DRAW();
 

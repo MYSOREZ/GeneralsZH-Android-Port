@@ -377,6 +377,25 @@ void DX8Wrapper::Pillarbox_End()
 	D3DDevice->SetTexture(0, nullptr);
 }
 
+// GeneralsX @bugfix Android port 08/30/2026 EXPERIMENT: real separation of
+// 3D-scene resolution from UI resolution, as recommended by SGSR's own
+// integration notes ("draw 2D UI at device resolution ... while rendering
+// the 3D scene at a lower resolution"). Call after Pillarbox_End() has
+// already composited the (possibly downscaled) scene onto the backbuffer.
+// Render2DClass::Convert_Vert() computes NDC purely from ScreenResolution
+// (the logical, unchanged ResolutionWidth/ResolutionHeight) -- it never
+// reads the viewport -- so simply widening the viewport here to the real
+// letterboxed destination rect makes every subsequent NDC-space draw
+// (TheInGameUI->DRAW(), the mouse cursor, cinematic text, debug overlays,
+// all the way to WW3D::End_Render()) rasterize at native pixel density,
+// with no changes needed on the UI side at all.
+void DX8Wrapper::Pillarbox_Begin_UI()
+{
+	if (!s_pillarboxEnabled) return;
+	D3DVIEWPORT8 vp = {(DWORD)s_dstX, (DWORD)s_dstY, (DWORD)s_dstW, (DWORD)s_dstH, 0.0f, 1.0f};
+	D3DDevice->SetViewport(&vp);
+}
+
 bool DX8Wrapper::Pillarbox_Get_Rect(int& x, int& y, int& w, int& h)
 {
 	if (!s_pillarboxEnabled) return false;
