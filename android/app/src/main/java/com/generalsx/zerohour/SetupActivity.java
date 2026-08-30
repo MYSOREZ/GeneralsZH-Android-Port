@@ -1374,7 +1374,19 @@ public class SetupActivity extends Activity {
         if (bigFiles == null) {
             return issues;
         }
-        File iniArchive = null;
+        // GeneralsX @bugfix Android port game-folder-integrity-check 07/09/2026
+        // INI.big (base Generals) and INIZH.big (the Zero Hour expansion)
+        // both get loaded and merged into one virtual file list by the
+        // engine's ArchiveFileSystem -- they don't replace each other, ZH
+        // only overrides/adds specific entries on top of the base game's.
+        // Weather.ini is base-game content, not something Zero Hour
+        // replaces, so on an install with both archives it can legitimately
+        // live in INI.big while INIZH.big itself is missing/corrupted --
+        // checking only whichever one was found last would have produced a
+        // false "missing data" report. Collect every present ini archive
+        // and only flag a problem if NONE of them have the entry, matching
+        // how the actual merged filesystem resolves it.
+        java.util.List<File> iniArchives = new java.util.ArrayList<>();
         for (File f : bigFiles) {
             if (f.length() == 0) {
                 issues.add(getString(R.string.setup_folder_issue_empty_file, f.getName()));
@@ -1386,11 +1398,27 @@ public class SetupActivity extends Activity {
             }
             String lower = f.getName().toLowerCase(java.util.Locale.ROOT);
             if (lower.equals("ini.big") || lower.equals("inizh.big")) {
-                iniArchive = f;
+                iniArchives.add(f);
             }
         }
-        if (iniArchive != null && !bigArchiveHasEntry(iniArchive, BIG_CRITICAL_ENTRY)) {
-            issues.add(getString(R.string.setup_folder_issue_missing_data, iniArchive.getName()));
+        if (!iniArchives.isEmpty()) {
+            boolean found = false;
+            for (File f : iniArchives) {
+                if (bigArchiveHasEntry(f, BIG_CRITICAL_ENTRY)) {
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                StringBuilder names = new StringBuilder();
+                for (File f : iniArchives) {
+                    if (names.length() > 0) {
+                        names.append(", ");
+                    }
+                    names.append(f.getName());
+                }
+                issues.add(getString(R.string.setup_folder_issue_missing_data, names.toString()));
+            }
         }
         return issues;
     }
