@@ -13,4 +13,13 @@
     <color name="gzh_background">#0F2530</color>
     <color name="gzh_surface">#16323F</color>
     <color name="gzh_on_surface">#EAF2F2</color>
+
+    <!-- GeneralsX @feature Android port game-folder-integrity-check 07/09/2026
+         Semantic status colors for the game-folder validity line (see
+         refreshStatus() in SetupActivity.java) — picked for contrast
+         against the dark gzh_surface/gzh_background above, not tied to the
+         eagle-emblem palette. -->
+    <color name="gzh_status_ok">#66BB6A</color>
+    <color name="gzh_status_warn">#FFB300</color>
+    <color name="gzh_status_error">#EF5350</color>
 </resources>

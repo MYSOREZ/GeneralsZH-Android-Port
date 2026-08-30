@@ -36,11 +36,17 @@ import android.content.pm.FeatureInfo;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.content.res.Configuration;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.Settings;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.StyleSpan;
+import android.text.style.UnderlineSpan;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -1211,30 +1217,56 @@ public class SetupActivity extends Activity {
         root.addView(b, lp);
     }
 
+    // GeneralsX @feature Android port game-folder-integrity-check 07/09/2026
+    // Plain text made "not set"/"looks valid"/"looks incomplete" too easy to
+    // miss right after picking a folder -- the status line is now bold,
+    // underlined and colored (green/amber/red) so it reads as a clear
+    // verdict at a glance instead of blending into the paragraph around it.
+    // The invalid/incomplete cases additionally get a blocking AlertDialog
+    // right after picking (see onActivityResult()), since even a colored
+    // line can be scrolled past unnoticed but a dialog can't.
     private void refreshStatus() {
         String path = getSavedGamePath();
-        StringBuilder sb = new StringBuilder();
+        SpannableStringBuilder sb = new SpannableStringBuilder();
         if (path == null) {
             sb.append(getString(R.string.setup_status_folder_not_set));
         } else {
             File dir = new File(path);
             boolean valid = isValidGameFolder(dir);
             sb.append(getString(R.string.setup_status_folder_line, path));
+            int statusStart = sb.length();
+            int statusColorRes;
             if (!valid) {
                 sb.append(getString(R.string.setup_status_folder_invalid));
+                statusColorRes = R.color.gzh_status_error;
             } else {
                 java.util.List<String> issues = findGameFolderIntegrityIssues(dir);
                 if (issues.isEmpty()) {
                     sb.append(getString(R.string.setup_status_folder_valid));
+                    statusColorRes = R.color.gzh_status_ok;
                 } else {
                     sb.append(getString(R.string.setup_status_folder_incomplete, String.join("; ", issues)));
+                    statusColorRes = R.color.gzh_status_warn;
                 }
             }
+            int statusEnd = sb.length();
+            sb.setSpan(new ForegroundColorSpan(ContextCompat.getColor(this, statusColorRes)),
+                statusStart, statusEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            sb.setSpan(new StyleSpan(Typeface.BOLD), statusStart, statusEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            sb.setSpan(new UnderlineSpan(), statusStart, statusEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
         sb.append('\n');
         sb.append(getString(R.string.setup_status_logs_note));
-        statusText.setText(sb.toString());
+        statusText.setText(sb);
         updateGameLanguageStatusView();
+    }
+
+    private void showFolderProblemDialog(String message) {
+        new android.app.AlertDialog.Builder(this)
+            .setTitle(R.string.setup_dialog_folder_problem_title)
+            .setMessage(message)
+            .setPositiveButton(android.R.string.ok, null)
+            .show();
     }
 
     private String getSavedGamePath() {
@@ -1474,15 +1506,25 @@ public class SetupActivity extends Activity {
                 refreshStatus();
                 File dir = new File(path);
                 boolean valid = isValidGameFolder(dir);
-                int toastRes;
+                // GeneralsX @feature Android port game-folder-integrity-check
+                // 07/09/2026 - a Toast auto-dismisses in a couple of seconds
+                // and is easy to miss entirely; a real problem here means
+                // the game WILL crash on launch, so it gets a blocking
+                // dialog the user has to acknowledge instead. The colored
+                // status line in refreshStatus() (visible right below) still
+                // covers "I want to re-check the status later" without
+                // re-triggering the dialog every time the screen redraws.
                 if (!valid) {
-                    toastRes = R.string.setup_toast_folder_saved_invalid;
-                } else if (!findGameFolderIntegrityIssues(dir).isEmpty()) {
-                    toastRes = R.string.setup_toast_folder_saved_incomplete;
+                    showFolderProblemDialog(getString(R.string.setup_status_folder_invalid).trim());
                 } else {
-                    toastRes = R.string.setup_toast_folder_saved;
+                    java.util.List<String> issues = findGameFolderIntegrityIssues(dir);
+                    if (!issues.isEmpty()) {
+                        showFolderProblemDialog(getString(R.string.setup_status_folder_incomplete,
+                            String.join("; ", issues)).trim());
+                    } else {
+                        Toast.makeText(this, R.string.setup_toast_folder_saved, Toast.LENGTH_LONG).show();
+                    }
                 }
-                Toast.makeText(this, toastRes, Toast.LENGTH_LONG).show();
             }
         } else if (requestCode == REQUEST_IMPORT_DRIVER && resultCode == Activity.RESULT_OK && data != null) {
             Uri uri = data.getData();

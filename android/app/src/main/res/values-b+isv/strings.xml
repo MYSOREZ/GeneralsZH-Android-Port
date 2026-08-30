@@ -22,6 +22,7 @@
     <string name="setup_status_folder_valid">Status: vygledaje validno (najdene sut datoteky arhiva igry).\n</string>
     <string name="setup_status_folder_invalid">Status: ta papka NE sodrži očekivane INIZH.big / INI.big — prověri, či ty izbral pravilnu papku.\n</string>
     <string name="setup_status_folder_incomplete">Status: fajly arhiva igry sut najdeny, no izgledaju nekompletnymi ili poškoděnymi (%1$s) — igra najvěrojatno padne pri spuštěniju. Probuj kopirovati fajly igry iznova iz čistogo izvora.\n</string>
+    <string name="setup_dialog_folder_problem_title">Problema s papkoju igry</string>
     <string name="setup_folder_issue_empty_file">%1$s jest prazdny (0 bajtov)</string>
     <string name="setup_folder_issue_bad_header">%1$s ne izgledaje kako validny arhiv igry</string>
     <string name="setup_folder_issue_missing_data">V %1$s ne dostaje očekyvanyh dat igry — najvěrojatno nekompletna kopija</string>

@@ -22,6 +22,7 @@
     <string name="setup_status_folder_valid">Stan: wygląda poprawnie (znaleziono pliki archiwów gry).\n</string>
     <string name="setup_status_folder_invalid">Stan: ten folder NIE zawiera oczekiwanych plików INIZH.big / INI.big — sprawdź, czy wybrano właściwy folder.\n</string>
     <string name="setup_status_folder_incomplete">Stan: znaleziono pliki archiwów gry, ale wyglądają na niekompletne lub uszkodzone (%1$s) — gra prawdopodobnie ulegnie awarii przy uruchomieniu. Spróbuj skopiować pliki gry ponownie z czystego źródła.\n</string>
+    <string name="setup_dialog_folder_problem_title">Problem z folderem gry</string>
     <string name="setup_folder_issue_empty_file">%1$s jest pusty (0 bajtów)</string>
     <string name="setup_folder_issue_bad_header">%1$s nie wygląda na prawidłowe archiwum gry</string>
     <string name="setup_folder_issue_missing_data">W %1$s brakuje oczekiwanych danych gry — prawdopodobnie niekompletna kopia</string>

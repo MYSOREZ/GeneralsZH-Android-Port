@@ -22,6 +22,7 @@
     <string name="setup_status_folder_valid">Статус: схоже на правильну папку (знайдено файли архівів гри).\n</string>
     <string name="setup_status_folder_invalid">Статус: у цій папці НЕМАЄ очікуваних INIZH.big / INI.big — перевірте, чи ту папку ви обрали.\n</string>
     <string name="setup_status_folder_incomplete">Статус: файли архівів гри знайдено, але вони виглядають неповними або пошкодженими (%1$s) — гра, ймовірно, вилетить під час запуску. Спробуйте скопіювати файли гри заново з чистого джерела.\n</string>
+    <string name="setup_dialog_folder_problem_title">Проблема з папкою гри</string>
     <string name="setup_folder_issue_empty_file">%1$s порожній (0 байт)</string>
     <string name="setup_folder_issue_bad_header">%1$s не схожий на коректний архів гри</string>
     <string name="setup_folder_issue_missing_data">У %1$s бракує очікуваних даних гри — ймовірно, неповна копія</string>

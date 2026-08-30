@@ -22,6 +22,7 @@
     <string name="setup_status_folder_valid">Status: sieht gültig aus (Spiel-Archivdateien gefunden).\n</string>
     <string name="setup_status_folder_invalid">Status: dieser Ordner enthält NICHT die erwarteten INIZH.big / INI.big — bitte prüfen, ob der richtige Ordner gewählt wurde.\n</string>
     <string name="setup_status_folder_incomplete">Status: Spielarchive gefunden, aber sie sehen unvollständig oder beschädigt aus (%1$s) — das Spiel wird beim Start wahrscheinlich abstürzen. Versuche, deine Spieldateien aus einer sauberen Quelle neu zu kopieren.\n</string>
+    <string name="setup_dialog_folder_problem_title">Problem mit dem Spielordner</string>
     <string name="setup_folder_issue_empty_file">%1$s ist leer (0 Byte)</string>
     <string name="setup_folder_issue_bad_header">%1$s sieht nicht wie ein gültiges Spielarchiv aus</string>
     <string name="setup_folder_issue_missing_data">%1$s fehlen erwartete Spieldaten — vermutlich eine unvollständige Kopie</string>

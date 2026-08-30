@@ -22,6 +22,7 @@
     <string name="setup_status_folder_valid">الحالة: يبدو صحيحًا (تم العثور على ملفات أرشيف اللعبة).\n</string>
     <string name="setup_status_folder_invalid">الحالة: هذا المجلد لا يحتوي على INIZH.big / INI.big المتوقعة — تحقق من أنك اخترت المجلد الصحيح.\n</string>
     <string name="setup_status_folder_incomplete">الحالة: تم العثور على ملفات أرشيف اللعبة، لكنها تبدو غير مكتملة أو تالفة (%1$s) — من المرجح أن تتعطل اللعبة عند التشغيل. حاول نسخ ملفات اللعبة من مصدر نظيف من جديد.\n</string>
+    <string name="setup_dialog_folder_problem_title">مشكلة في مجلد اللعبة</string>
     <string name="setup_folder_issue_empty_file">%1$s فارغ (0 بايت)</string>
     <string name="setup_folder_issue_bad_header">%1$s لا يبدو أرشيف لعبة صالحًا</string>
     <string name="setup_folder_issue_missing_data">%1$s ينقصه بيانات لعبة متوقعة — على الأرجح نسخة غير مكتملة</string>

@@ -22,6 +22,7 @@
     <string name="setup_status_folder_valid">Status: parece válida (arquivos de dados do jogo encontrados).\n</string>
     <string name="setup_status_folder_invalid">Status: esta pasta NÃO contém os arquivos INIZH.big / INI.big esperados — verifique se você escolheu a pasta correta.\n</string>
     <string name="setup_status_folder_incomplete">Status: arquivos do jogo encontrados, mas parecem incompletos ou corrompidos (%1$s) — o jogo provavelmente vai travar ao iniciar. Tente copiar novamente os arquivos do jogo de uma fonte limpa.\n</string>
+    <string name="setup_dialog_folder_problem_title">Problema na pasta do jogo</string>
     <string name="setup_folder_issue_empty_file">%1$s está vazio (0 bytes)</string>
     <string name="setup_folder_issue_bad_header">%1$s não parece um arquivo de jogo válido</string>
     <string name="setup_folder_issue_missing_data">Faltam dados esperados do jogo em %1$s — provavelmente uma cópia incompleta</string>
