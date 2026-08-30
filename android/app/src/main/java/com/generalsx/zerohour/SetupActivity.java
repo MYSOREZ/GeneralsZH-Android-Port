@@ -1368,19 +1368,17 @@ public class SetupActivity extends Activity {
     // GeneralsX @bugfix Android port game-folder-integrity-check 08/30/2026
     // Some retail/Deluxe layouts don't put the base Generals archives (incl.
     // INI.big) next to the ZH ones -- they nest an entire base-game copy in
-    // a "ZH_Generals" subfolder instead (confirmed via real "Generals
-    // Deluxe" install screenshots: root has INIZH.big + *ZH.big, and
-    // ZH_Generals\ has a plain INI.big alongside unsuffixed archives). This
-    // isn't a guess: the engine itself already expects exactly this layout
-    // -- loadBaseGeneralsAssetsForZH() in StdBIGFileSystem.cpp tries
-    // "<zhAssetDirectory>/ZH_Generals" (tagged "default-zh-generals") as one
-    // of its fallbacks for locating the base game's assets and merges
-    // whatever it finds there into the same virtual filesystem as the ZH
-    // archives. So the folder checker needs to look there too, or a
-    // perfectly valid install (root INIZH.big alone, no root INI.big) gets
-    // wrongly flagged as missing data.
-    private static final String NESTED_BASE_GAME_SUBFOLDER = "ZH_Generals";
-
+    // a subfolder instead (confirmed via real "Generals Deluxe" install
+    // screenshots: root has INIZH.big + *ZH.big, and a "ZH_Generals"
+    // subfolder has a plain INI.big alongside unsuffixed archives). The
+    // engine itself already expects layouts like this -- see
+    // loadBaseGeneralsAssetsForZH() in StdBIGFileSystem.cpp, which tries a
+    // handful of base-game locations including a "ZH_Generals" sibling --
+    // but that folder name isn't the only one real installers have used
+    // over the years, so rather than hardcode it, scan every immediate
+    // subfolder of the selected directory for ini archives. One level deep
+    // only: cheap (just a directory listing per subfolder), and matches
+    // what the engine itself is willing to look for automatically.
     private java.util.List<String> findGameFolderIntegrityIssues(File dir) {
         java.util.List<String> issues = new java.util.ArrayList<>();
         if (dir == null || !dir.isDirectory()) {
@@ -1388,9 +1386,11 @@ public class SetupActivity extends Activity {
         }
         java.util.List<File> scanRoots = new java.util.ArrayList<>();
         scanRoots.add(dir);
-        File nestedBaseGame = new File(dir, NESTED_BASE_GAME_SUBFOLDER);
-        if (nestedBaseGame.isDirectory()) {
-            scanRoots.add(nestedBaseGame);
+        File[] subdirs = dir.listFiles(File::isDirectory);
+        if (subdirs != null) {
+            for (File sub : subdirs) {
+                scanRoots.add(sub);
+            }
         }
 
         // GeneralsX @bugfix Android port game-folder-integrity-check 07/09/2026
@@ -1403,16 +1403,16 @@ public class SetupActivity extends Activity {
         // live in INI.big while INIZH.big itself is missing/corrupted --
         // checking only whichever one was found last would have produced a
         // false "missing data" report. Collect every present ini archive
-        // (root and nested ZH_Generals\ alike) and only flag a problem if
-        // NONE of them have the entry, matching how the actual merged
-        // filesystem resolves it.
+        // (root and any subfolder alike) and only flag a problem if NONE of
+        // them have the entry, matching how the actual merged filesystem
+        // resolves it.
         java.util.List<File> iniArchives = new java.util.ArrayList<>();
         for (File root : scanRoots) {
             File[] bigFiles = root.listFiles((d, name) -> name.toLowerCase(java.util.Locale.ROOT).endsWith(".big"));
             if (bigFiles == null) {
                 continue;
             }
-            String prefix = (root == dir) ? "" : (NESTED_BASE_GAME_SUBFOLDER + "\\");
+            String prefix = (root == dir) ? "" : (root.getName() + "\\");
             for (File f : bigFiles) {
                 if (f.length() == 0) {
                     issues.add(getString(R.string.setup_folder_issue_empty_file, prefix + f.getName()));
@@ -1442,8 +1442,9 @@ public class SetupActivity extends Activity {
                     if (names.length() > 0) {
                         names.append(", ");
                     }
-                    boolean nested = f.getParentFile() != null && f.getParentFile().equals(nestedBaseGame);
-                    names.append(nested ? (NESTED_BASE_GAME_SUBFOLDER + "\\" + f.getName()) : f.getName());
+                    File parent = f.getParentFile();
+                    boolean nested = parent != null && !parent.equals(dir);
+                    names.append(nested ? (parent.getName() + "\\" + f.getName()) : f.getName());
                 }
                 issues.add(getString(R.string.setup_folder_issue_missing_data, names.toString()));
             }
