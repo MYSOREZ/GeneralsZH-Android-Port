@@ -121,6 +121,30 @@ TextureBaseClass::~TextureBaseClass()
 
 	if (D3DTexture)
 	{
+		// GeneralsX @build Android port GLES experiment - texture-churn
+		// diagnostic. This destructor is the ONLY place in the codebase that
+		// actually releases the underlying GL texture (confirmed:
+		// TextureBaseClass::Invalidate(), the other release site, is only
+		// ever called from Invalidate_Old_Unused_Textures(), which is a
+		// guaranteed no-op on this build since WW3D::Set_Thumbnail_Enabled(false)
+		// is set once at W3DDisplay::init() and never re-enabled during
+		// gameplay). So every real device-texture destroy that shows up as
+		// "deleted" in the [d3d8gles] perf log's texture counter runs
+		// through here. Sampling names (not every single one, to avoid
+		// flooding the log) directly answers what is actually churning --
+		// house-color/HSV-recolor variants ("#...!H...S...V..." munged
+		// names, see W3DAssetManager::Recolor_Texture_One_Time), plain
+		// shared model/terrain textures, or something else entirely --
+		// instead of guessing further from static code reading.
+		static int s_destroyLogCount = 0;
+		static unsigned s_destroyLogNextMs = 0;
+		unsigned nowMs = WW3D::Get_Sync_Time();
+		if (s_destroyLogCount < 200 && nowMs >= s_destroyLogNextMs) {
+			s_destroyLogCount++;
+			s_destroyLogNextMs = nowMs + 50; // at most one line per 50ms
+			fprintf(stderr, "[texchurn] destroy #%d name='%s' %ux%u\n",
+				s_destroyLogCount, Get_Texture_Name().str(), Width, Height);
+		}
 		D3DTexture->Release();
 		D3DTexture = nullptr;
 	}
