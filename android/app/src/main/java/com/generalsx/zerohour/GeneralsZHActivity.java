@@ -34,7 +34,11 @@ package com.generalsx.zerohour;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
+import android.view.Display;
+import android.view.Surface;
 
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
@@ -71,11 +75,54 @@ public class GeneralsZHActivity extends SDLActivity {
     // SDL_HINT_ORIENTATIONS hint — applies SCREEN_ORIENTATION_SENSOR_LANDSCAPE,
     // silently overriding both earlier locks and re-enabling accelerometer
     // rotation (including the 180° landscape flip the user kept seeing).
-    // SDL documents this method as "This can be overridden": pin it to the
-    // absolute landscape orientation unconditionally.
+    // SDL documents this method as "This can be overridden": pin it to a
+    // fixed landscape orientation unconditionally -- see
+    // lockToPhysicallyCorrectLandscape() below for why "fixed" doesn't mean
+    // hardcoded SCREEN_ORIENTATION_LANDSCAPE anymore.
     @Override
     public void setOrientationBis(int w, int h, boolean resizable, String hint) {
-        setRequestedOrientation(android.content.pm.ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        lockToPhysicallyCorrectLandscape();
+    }
+
+    private final Handler orientationSettleHandler = new Handler(Looper.getMainLooper());
+
+    // GeneralsX @bugfix Android port 08/30/2026 A real device report (Redmi
+    // Note 8 Pro, screenshot + log attached in GitHub issue discussion)
+    // showed the ENTIRE landscape UI rendered upside-down -- menu items in
+    // reverse top-to-bottom order, title relocated to the opposite corner --
+    // despite being pinned to SCREEN_ORIENTATION_LANDSCAPE (the fix just
+    // above this method for the *different*, previously-fixed bug: SDL
+    // re-enabling ongoing accelerometer-driven flips mid-session).
+    //
+    // The two bugs need two different fixes because they have different
+    // causes: Android's SCREEN_ORIENTATION_LANDSCAPE/REVERSE_LANDSCAPE
+    // constants are NOT guaranteed to map to the same physical rotation
+    // across OEM sensor-calibration data -- on some devices (apparently
+    // including this one) plain LANDSCAPE resolves to what most phones
+    // would call "reverse". Hardcoding LANDSCAPE fixed the ongoing-flip bug
+    // but baked in this per-device mismatch for whichever devices disagree
+    // with that hardcoded choice.
+    //
+    // Fix: briefly allow SCREEN_ORIENTATION_SENSOR_LANDSCAPE so the OS
+    // resolves the physically-correct rotation via the accelerometer (the
+    // one signal that's actually aware of this device's calibration), then
+    // immediately read back which concrete rotation it settled on and pin
+    // to the matching LANDSCAPE/REVERSE_LANDSCAPE constant. This keeps both
+    // fixes at once: correct orientation on every device at startup, AND no
+    // further sensor-driven flips afterward, since the freeze happens
+    // within one short delay of the window actually appearing.
+    private void lockToPhysicallyCorrectLandscape() {
+        setRequestedOrientation(android.content.pm.ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+        orientationSettleHandler.removeCallbacksAndMessages(null);
+        orientationSettleHandler.postDelayed(() -> {
+            @SuppressWarnings("deprecation")
+            Display display = getWindowManager().getDefaultDisplay();
+            int rotation = (display != null) ? display.getRotation() : Surface.ROTATION_90;
+            int fixedOrientation = (rotation == Surface.ROTATION_270)
+                ? android.content.pm.ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE
+                : android.content.pm.ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
+            setRequestedOrientation(fixedOrientation);
+        }, 200);
     }
 
     @Override
@@ -87,7 +134,13 @@ public class GeneralsZHActivity extends SDLActivity {
         // manifest lock alone isn't settling fast enough on every device/OEM
         // skin. Setting it again here in code takes effect before this
         // Activity's window is even measured, closing the gap further.
-        setRequestedOrientation(android.content.pm.ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        // GeneralsX @bugfix Android port 08/30/2026 lockToPhysicallyCorrectLandscape()
+        // (see its comment above) still locks to a landscape orientation
+        // synchronously here -- same timing as the plain LANDSCAPE call this
+        // replaces -- it just settles on the physically-correct one of the
+        // two landscape constants shortly after, instead of hardcoding a
+        // choice that's wrong on some devices.
+        lockToPhysicallyCorrectLandscape();
 
         extractBundledRuntime();
 
