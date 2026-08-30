@@ -1989,31 +1989,37 @@ void W3DDisplay::step()
 // (drawViews()), and the UI/mouse/present tail -- to see which one
 // actually owns the growing cost instead of guessing again.
 static void gxTraceDisplayDrawPhase(double preRTTUs, double waterShadowRTTUs,
-	double mainSceneUs, double uiPresentUs)
+	double mainSceneUs, double uiWidgetsUs, double presentUs)
 {
 	static std::chrono::steady_clock::time_point s_windowStart = std::chrono::steady_clock::now();
-	static double s_preRTTUs = 0, s_waterShadowRTTUs = 0, s_mainSceneUs = 0, s_uiPresentUs = 0;
+	static double s_preRTTUs = 0, s_waterShadowRTTUs = 0, s_mainSceneUs = 0, s_uiWidgetsUs = 0, s_presentUs = 0;
 	static int s_frames = 0;
 
 	s_preRTTUs += preRTTUs;
 	s_waterShadowRTTUs += waterShadowRTTUs;
 	s_mainSceneUs += mainSceneUs;
-	s_uiPresentUs += uiPresentUs;
+	s_uiWidgetsUs += uiWidgetsUs;
+	s_presentUs += presentUs;
 	++s_frames;
 
 	std::chrono::steady_clock::time_point now = std::chrono::steady_clock::now();
 	double elapsedUs = std::chrono::duration<double, std::micro>(now - s_windowStart).count();
 	if (elapsedUs >= 1'000'000.0 && s_frames > 0)
 	{
-		GX_PERF_TRACE("[GX-PERF-DISPLAY] frames=%d preRTT=%.2fms waterShadowRTT=%.2fms mainScene=%.2fms uiPresent=%.2fms\n",
+		// uiWidgets = TheInGameUI->DRAW() (winRepaint() -- every .wnd control);
+		// present = mouse/debug draw + WW3D::End_Render() (the actual swap).
+		// Split out of the old single "uiPresent" number -- see the comment at
+		// gxdT3b's assignment above for why.
+		GX_PERF_TRACE("[GX-PERF-DISPLAY] frames=%d preRTT=%.2fms waterShadowRTT=%.2fms mainScene=%.2fms uiWidgets=%.2fms present=%.2fms\n",
 			s_frames,
 			s_preRTTUs / 1000.0 / s_frames,
 			s_waterShadowRTTUs / 1000.0 / s_frames,
 			s_mainSceneUs / 1000.0 / s_frames,
-			s_uiPresentUs / 1000.0 / s_frames);
+			s_uiWidgetsUs / 1000.0 / s_frames,
+			s_presentUs / 1000.0 / s_frames);
 
 		s_windowStart = now;
-		s_preRTTUs = s_waterShadowRTTUs = s_mainSceneUs = s_uiPresentUs = 0;
+		s_preRTTUs = s_waterShadowRTTUs = s_mainSceneUs = s_uiWidgetsUs = s_presentUs = 0;
 		s_frames = 0;
 	}
 }
@@ -2026,7 +2032,7 @@ void W3DDisplay::draw()
 {
 	//USE_PERF_TIMER(W3DDisplay_draw)
 	const bool gxPerfTrace = GXTrace::isPerfEnabled();
-	std::chrono::steady_clock::time_point gxdT0, gxdT1, gxdT2, gxdT3;
+	std::chrono::steady_clock::time_point gxdT0, gxdT1, gxdT2, gxdT3, gxdT3b;
 
 	// GeneralsX @feature xxorza 15/04/2026 Process deferred window resize for pillarbox
 	DX8Wrapper::Pillarbox_Process_Resize();
@@ -2272,6 +2278,18 @@ AGAIN:
 				// draw the user interface
 				TheInGameUI->DRAW();
 
+				// GeneralsX @build Android port ANGLE experiment - split off
+				// uiPresent's dominant cost: TheInGameUI->DRAW() -> winRepaint()
+				// draws every .wnd control (menus/dialogs), which was ~flat
+				// under system GLES but spikes hugely on ANGLE's Vulkan
+				// backend specifically in control-heavy menus (e.g.
+				// SkirmishGameOptionsMenu) -- likely a lot of distinct
+				// blend/stencil state permutations each forcing ANGLE to
+				// build a new VkPipeline. Splitting this out from mouse/debug
+				// draw + End_Render (the actual present/swap) isolates which
+				// half of the old "uiPresent" number is really the culprit.
+				if (gxPerfTrace) gxdT3b = std::chrono::steady_clock::now();
+
 				// end of video example code
 
 				// draw the mouse
@@ -2365,7 +2383,8 @@ AGAIN:
 						std::chrono::duration<double, std::micro>(gxdT1 - gxdT0).count(),
 						std::chrono::duration<double, std::micro>(gxdT2 - gxdT1).count(),
 						std::chrono::duration<double, std::micro>(gxdT3 - gxdT2).count(),
-						std::chrono::duration<double, std::micro>(gxdT4 - gxdT3).count());
+						std::chrono::duration<double, std::micro>(gxdT3b - gxdT3).count(),
+						std::chrono::duration<double, std::micro>(gxdT4 - gxdT3b).count());
 				}
 			}
 			else
