@@ -21,6 +21,10 @@
     <string name="setup_status_folder_line">Dossier du jeu : %1$s\n</string>
     <string name="setup_status_folder_valid">État : semble valide (fichiers d\'archives du jeu trouvés).\n</string>
     <string name="setup_status_folder_invalid">État : ce dossier ne contient PAS les fichiers INIZH.big / INI.big attendus — vérifiez que vous avez choisi le bon dossier.\n</string>
+    <string name="setup_status_folder_incomplete">État : des fichiers d\'archive du jeu ont été trouvés, mais ils semblent incomplets ou corrompus (%1$s) — le jeu plantera probablement au démarrage. Essayez de recopier vos fichiers de jeu depuis une source saine.\n</string>
+    <string name="setup_folder_issue_empty_file">%1$s est vide (0 octet)</string>
+    <string name="setup_folder_issue_bad_header">%1$s ne ressemble pas à une archive de jeu valide</string>
+    <string name="setup_folder_issue_missing_data">Il manque des données de jeu attendues dans %1$s — probablement une copie incomplète</string>
     <string name="setup_status_logs_note">Les journaux de plantage/du moteur sont stockés dans le stockage privé de cette application et ne sont accessibles que via « Afficher les journaux » ci-dessus — Android les masque intentionnellement des gestionnaires de fichiers classiques (c\'est le fonctionnement standard du bac à sable Android, pas une particularité de cette application).</string>
 
     <!-- SetupActivity: Language card -->
@@ -102,6 +106,7 @@
     <string name="setup_toast_grant_all_files">Accordez « Autoriser l\'accès pour gérer tous les fichiers » sur l\'écran suivant, puis revenez et appuyez à nouveau sur Sélectionner le dossier du jeu.</string>
     <string name="setup_toast_folder_saved">Dossier du jeu enregistré.</string>
     <string name="setup_toast_folder_saved_invalid">Enregistré, mais aucun INIZH.big/INI.big trouvé — vérifiez le dossier.</string>
+    <string name="setup_toast_folder_saved_incomplete">Enregistré, mais certains fichiers du jeu semblent incomplets ou corrompus — consultez les détails sur l\'écran principal avant de lancer le jeu.</string>
     <string name="setup_toast_marker_save_failed">Impossible d\'enregistrer le repère du dossier : %1$s</string>
     <string name="setup_toast_folder_cleared">Réinitialisé. Le jeu utilisera à nouveau son dossier par défaut.</string>
     <string name="setup_toast_options_dir_failed">Impossible de créer le dossier pour Options.ini</string>

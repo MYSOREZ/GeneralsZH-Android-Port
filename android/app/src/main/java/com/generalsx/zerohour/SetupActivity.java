@@ -1217,9 +1217,19 @@ public class SetupActivity extends Activity {
         if (path == null) {
             sb.append(getString(R.string.setup_status_folder_not_set));
         } else {
-            boolean valid = isValidGameFolder(new File(path));
+            File dir = new File(path);
+            boolean valid = isValidGameFolder(dir);
             sb.append(getString(R.string.setup_status_folder_line, path));
-            sb.append(getString(valid ? R.string.setup_status_folder_valid : R.string.setup_status_folder_invalid));
+            if (!valid) {
+                sb.append(getString(R.string.setup_status_folder_invalid));
+            } else {
+                java.util.List<String> issues = findGameFolderIntegrityIssues(dir);
+                if (issues.isEmpty()) {
+                    sb.append(getString(R.string.setup_status_folder_valid));
+                } else {
+                    sb.append(getString(R.string.setup_status_folder_incomplete, String.join("; ", issues)));
+                }
+            }
         }
         sb.append('\n');
         sb.append(getString(R.string.setup_status_logs_note));
@@ -1289,6 +1299,129 @@ public class SetupActivity extends Activity {
         return false;
     }
 
+    // GeneralsX @feature Android port game-folder-integrity-check 07/09/2026
+    // isValidGameFolder() above only checks that INIZH.big/INI.big EXIST --
+    // a truncated/incomplete copy (interrupted transfer, bad extraction,
+    // etc.) can pass that check while still crashing the engine deep in
+    // INI::loadFileDirectory() the first time it hits a directory whose
+    // data never made it into the archive: a real user report hit
+    // "[INI] ERROR: No files read from directory 'Data\INI\Default\Weather'"
+    // followed by an uncaught C++ exception during GameEngine::init() --
+    // well before any graphics/Vulkan code runs, so it isn't a driver bug.
+    // The same broken copy also failed the same way in Winlator (a
+    // completely different Wine/DXVK compatibility layer), confirming it's
+    // the user's own file set, not this port's code.
+    //
+    // These two checks stay cheap by only reading each .big's small BIGF
+    // directory table (a header + a null-terminated path per entry), never
+    // the actual multi-hundred-MB file payloads the table points at:
+    //   1. Every *.big already present must start with the "BIGF" magic
+    //      and be non-zero size (catches an empty/corrupted download).
+    //   2. Whichever ini archive is present (INI.big or INIZH.big) must
+    //      contain Data/INI/Default/Weather.ini specifically -- the exact
+    //      file the real crash above needed, and a reasonable proxy for
+    //      "this archive's directory table wasn't truncated partway
+    //      through", since an interrupted copy would most likely lose
+    //      entries somewhere in the middle of the table, not leave out
+    //      exactly and only this one file.
+    //
+    // BIG format read from this project's own parser --
+    // Core/GameEngineDevice/Source/StdDevice/Common/StdBIGFileSystem.cpp,
+    // openArchiveFile(): "BIGF" magic at offset 0, file count (big-endian)
+    // at offset 8, directory table starting at offset 0x10, each entry is
+    // [4-byte offset, big-endian][4-byte size, big-endian][null-terminated
+    // backslash-separated path].
+    private static final String BIG_CRITICAL_ENTRY = "data\\ini\\default\\weather.ini";
+
+    private java.util.List<String> findGameFolderIntegrityIssues(File dir) {
+        java.util.List<String> issues = new java.util.ArrayList<>();
+        if (dir == null || !dir.isDirectory()) {
+            return issues;
+        }
+        File[] bigFiles = dir.listFiles((d, name) -> name.toLowerCase(java.util.Locale.ROOT).endsWith(".big"));
+        if (bigFiles == null) {
+            return issues;
+        }
+        File iniArchive = null;
+        for (File f : bigFiles) {
+            if (f.length() == 0) {
+                issues.add(getString(R.string.setup_folder_issue_empty_file, f.getName()));
+                continue;
+            }
+            if (!hasBigFHeader(f)) {
+                issues.add(getString(R.string.setup_folder_issue_bad_header, f.getName()));
+                continue;
+            }
+            String lower = f.getName().toLowerCase(java.util.Locale.ROOT);
+            if (lower.equals("ini.big") || lower.equals("inizh.big")) {
+                iniArchive = f;
+            }
+        }
+        if (iniArchive != null && !bigArchiveHasEntry(iniArchive, BIG_CRITICAL_ENTRY)) {
+            issues.add(getString(R.string.setup_folder_issue_missing_data, iniArchive.getName()));
+        }
+        return issues;
+    }
+
+    private static boolean hasBigFHeader(File f) {
+        try (java.io.RandomAccessFile raf = new java.io.RandomAccessFile(f, "r")) {
+            byte[] magic = new byte[4];
+            if (raf.read(magic) != 4) {
+                return false;
+            }
+            return magic[0] == 'B' && magic[1] == 'I' && magic[2] == 'G' && magic[3] == 'F';
+        } catch (java.io.IOException e) {
+            return false;
+        }
+    }
+
+    private static int readBigEndianInt(java.io.RandomAccessFile raf) throws java.io.IOException {
+        int b0 = raf.read(), b1 = raf.read(), b2 = raf.read(), b3 = raf.read();
+        if ((b0 | b1 | b2 | b3) < 0) {
+            throw new java.io.EOFException();
+        }
+        return (b0 << 24) | (b1 << 16) | (b2 << 8) | b3;
+    }
+
+    private static boolean bigArchiveHasEntry(File bigFile, String targetLowerPath) {
+        if (!bigFile.isFile() || bigFile.length() < 0x10) {
+            return false;
+        }
+        try (java.io.RandomAccessFile raf = new java.io.RandomAccessFile(bigFile, "r")) {
+            if (!hasBigFHeader(bigFile)) {
+                return false;
+            }
+            raf.seek(8);
+            int numFiles = readBigEndianInt(raf);
+            if (numFiles < 0 || numFiles > 500000) {
+                return false;  // sanity guard against a corrupted/garbage header
+            }
+            raf.seek(0x10);
+            byte[] nameBuf = new byte[512];
+            for (int i = 0; i < numFiles; i++) {
+                raf.skipBytes(8);  // per-entry offset + size, not needed for this check
+                int len = 0;
+                int b;
+                while ((b = raf.read()) > 0) {
+                    if (len < nameBuf.length - 1) {
+                        nameBuf[len++] = (byte) b;
+                    }
+                }
+                if (b < 0) {
+                    return false;  // ran off the end of the file mid-entry -- truncated archive
+                }
+                String path = new String(nameBuf, 0, len, java.nio.charset.StandardCharsets.US_ASCII)
+                    .toLowerCase(java.util.Locale.ROOT);
+                if (path.equals(targetLowerPath)) {
+                    return true;
+                }
+            }
+        } catch (java.io.IOException e) {
+            return false;
+        }
+        return false;
+    }
+
     private static final int REQUEST_LEGACY_STORAGE_PERMISSION = 1003;
 
     private void onSelectGameFolder() {
@@ -1339,10 +1472,17 @@ public class SetupActivity extends Activity {
             if (path != null) {
                 saveGamePath(path);
                 refreshStatus();
-                boolean valid = isValidGameFolder(new File(path));
-                Toast.makeText(this,
-                    valid ? R.string.setup_toast_folder_saved : R.string.setup_toast_folder_saved_invalid,
-                    Toast.LENGTH_LONG).show();
+                File dir = new File(path);
+                boolean valid = isValidGameFolder(dir);
+                int toastRes;
+                if (!valid) {
+                    toastRes = R.string.setup_toast_folder_saved_invalid;
+                } else if (!findGameFolderIntegrityIssues(dir).isEmpty()) {
+                    toastRes = R.string.setup_toast_folder_saved_incomplete;
+                } else {
+                    toastRes = R.string.setup_toast_folder_saved;
+                }
+                Toast.makeText(this, toastRes, Toast.LENGTH_LONG).show();
             }
         } else if (requestCode == REQUEST_IMPORT_DRIVER && resultCode == Activity.RESULT_OK && data != null) {
             Uri uri = data.getData();

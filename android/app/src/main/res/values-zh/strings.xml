@@ -21,6 +21,10 @@
     <string name="setup_status_folder_line">游戏文件夹：%1$s\n</string>
     <string name="setup_status_folder_valid">状态：看起来有效（已找到游戏数据文件）。\n</string>
     <string name="setup_status_folder_invalid">状态：该文件夹中没有找到 INIZH.big / INI.big — 请确认选择的是正确的文件夹。\n</string>
+    <string name="setup_status_folder_incomplete">状态：找到了游戏存档文件，但它们看起来不完整或已损坏（%1$s）——游戏启动时很可能会崩溃。请尝试从干净的来源重新复制游戏文件。\n</string>
+    <string name="setup_folder_issue_empty_file">%1$s 为空（0 字节）</string>
+    <string name="setup_folder_issue_bad_header">%1$s 看起来不是有效的游戏存档</string>
+    <string name="setup_folder_issue_missing_data">%1$s 缺少预期的游戏数据——可能是不完整的副本</string>
     <string name="setup_status_logs_note">崩溃日志/引擎日志保存在本应用的私有存储中，只能通过上方的“查看日志”访问 —— Android 出于设计原因将它们对普通文件管理器隐藏（这是 Android 标准的沙盒机制，并非本应用特有）。</string>
 
     <!-- SetupActivity: Language card -->
@@ -102,6 +106,7 @@
     <string name="setup_toast_grant_all_files">请在下一个界面中授予「允许管理所有文件的访问权限」，然后返回并再次点击「选择游戏文件夹」。</string>
     <string name="setup_toast_folder_saved">游戏文件夹已保存。</string>
     <string name="setup_toast_folder_saved_invalid">已保存，但未在其中找到 INIZH.big/INI.big —— 请检查该文件夹。</string>
+    <string name="setup_toast_folder_saved_incomplete">已保存，但部分游戏文件看起来不完整或已损坏——启动前请查看主屏幕上的详细信息。</string>
     <string name="setup_toast_marker_save_failed">无法保存文件夹标记：%1$s</string>
     <string name="setup_toast_folder_cleared">已重置，游戏将回退使用默认文件夹。</string>
     <string name="setup_toast_options_dir_failed">无法创建 Options.ini 所在的文件夹</string>

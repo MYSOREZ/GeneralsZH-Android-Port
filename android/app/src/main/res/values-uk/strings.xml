@@ -21,6 +21,10 @@
     <string name="setup_status_folder_line">Папка з грою: %1$s\n</string>
     <string name="setup_status_folder_valid">Статус: схоже на правильну папку (знайдено файли архівів гри).\n</string>
     <string name="setup_status_folder_invalid">Статус: у цій папці НЕМАЄ очікуваних INIZH.big / INI.big — перевірте, чи ту папку ви обрали.\n</string>
+    <string name="setup_status_folder_incomplete">Статус: файли архівів гри знайдено, але вони виглядають неповними або пошкодженими (%1$s) — гра, ймовірно, вилетить під час запуску. Спробуйте скопіювати файли гри заново з чистого джерела.\n</string>
+    <string name="setup_folder_issue_empty_file">%1$s порожній (0 байт)</string>
+    <string name="setup_folder_issue_bad_header">%1$s не схожий на коректний архів гри</string>
+    <string name="setup_folder_issue_missing_data">У %1$s бракує очікуваних даних гри — ймовірно, неповна копія</string>
     <string name="setup_status_logs_note">Логи краху/рушія зберігаються у приватному сховищі застосунку і доступні лише через кнопку «Переглянути логи» вище — Android навмисно приховує їх від звичайних файлових менеджерів (це стандартна пісочниця Android, а не особливість цього застосунку).</string>
 
     <!-- SetupActivity: Language card -->
@@ -102,6 +106,7 @@
     <string name="setup_toast_grant_all_files">Надайте дозвіл «Доступ до всіх файлів» на наступному екрані, потім поверніться і знову натисніть «Обрати папку з грою».</string>
     <string name="setup_toast_folder_saved">Папку з грою збережено.</string>
     <string name="setup_toast_folder_saved_invalid">Збережено, але INIZH.big/INI.big там не знайдено — перевірте папку.</string>
+    <string name="setup_toast_folder_saved_incomplete">Збережено, але деякі файли гри виглядають неповними або пошкодженими — перегляньте деталі на головному екрані перед запуском.</string>
     <string name="setup_toast_marker_save_failed">Не вдалося зберегти мітку папки: %1$s</string>
     <string name="setup_toast_folder_cleared">Скинуто. Гра використовуватиме папку за замовчуванням.</string>
     <string name="setup_toast_options_dir_failed">Не вдалося створити папку для Options.ini</string>

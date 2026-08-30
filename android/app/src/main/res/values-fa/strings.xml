@@ -21,6 +21,10 @@
     <string name="setup_status_folder_line">پوشه بازی: %1$s\n</string>
     <string name="setup_status_folder_valid">وضعیت: معتبر به نظر می‌رسد (فایل‌های آرشیو بازی پیدا شدند).\n</string>
     <string name="setup_status_folder_invalid">وضعیت: این پوشه حاوی INIZH.big / INI.big مورد انتظار نیست — بررسی کنید پوشه درست را انتخاب کرده باشید.\n</string>
+    <string name="setup_status_folder_incomplete">وضعیت: فایل‌های آرشیو بازی پیدا شدند، اما ناقص یا خراب به‌نظر می‌رسند (%1$s) — احتمالاً بازی هنگام اجرا کرش می‌کند. سعی کنید فایل‌های بازی را از یک منبع سالم دوباره کپی کنید.\n</string>
+    <string name="setup_folder_issue_empty_file">%1$s خالی است (۰ بایت)</string>
+    <string name="setup_folder_issue_bad_header">%1$s شبیه یک آرشیو معتبر بازی نیست</string>
+    <string name="setup_folder_issue_missing_data">در %1$s داده‌های موردانتظار بازی کم است — احتمالاً یک نسخهٔ ناقص</string>
     <string name="setup_status_logs_note">گزارش‌های خرابی/موتور در حافظه خصوصی این برنامه ذخیره می‌شوند و فقط از طریق «مشاهده گزارش‌ها» در بالا قابل دسترسی هستند — اندروید عمداً آن‌ها را از مدیرهای فایل معمولی پنهان می‌کند (این رفتار استاندارد سندباکس اندروید است، نه ویژگی خاص این برنامه).</string>
 
     <!-- SetupActivity: Language card -->
@@ -102,6 +106,7 @@
     <string name="setup_toast_grant_all_files">مجوز «اجازه دسترسی برای مدیریت همه فایل‌ها» را در صفحه بعدی اعطا کنید، سپس بازگردید و دوباره روی انتخاب پوشه بازی ضربه بزنید.</string>
     <string name="setup_toast_folder_saved">پوشه بازی ذخیره شد.</string>
     <string name="setup_toast_folder_saved_invalid">ذخیره شد، اما INIZH.big/INI.big در آنجا یافت نشد — پوشه را بررسی کنید.</string>
+    <string name="setup_toast_folder_saved_incomplete">ذخیره شد، اما برخی فایل‌های بازی ناقص یا خراب به‌نظر می‌رسند — پیش از اجرا، جزئیات را در صفحهٔ اصلی بررسی کنید.</string>
     <string name="setup_toast_marker_save_failed">ذخیره نشانه پوشه ممکن نشد: %1$s</string>
     <string name="setup_toast_folder_cleared">بازنشانی شد. بازی از پوشه پیش‌فرض خود استفاده خواهد کرد.</string>
     <string name="setup_toast_options_dir_failed">ایجاد پوشه برای Options.ini ممکن نشد</string>

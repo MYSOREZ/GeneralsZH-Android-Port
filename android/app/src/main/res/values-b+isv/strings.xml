@@ -21,6 +21,10 @@
     <string name="setup_status_folder_line">Papka igry: %1$s\n</string>
     <string name="setup_status_folder_valid">Status: vygledaje validno (najdene sut datoteky arhiva igry).\n</string>
     <string name="setup_status_folder_invalid">Status: ta papka NE sodrži očekivane INIZH.big / INI.big — prověri, či ty izbral pravilnu papku.\n</string>
+    <string name="setup_status_folder_incomplete">Status: fajly arhiva igry sut najdeny, no izgledaju nekompletnymi ili poškoděnymi (%1$s) — igra najvěrojatno padne pri spuštěniju. Probuj kopirovati fajly igry iznova iz čistogo izvora.\n</string>
+    <string name="setup_folder_issue_empty_file">%1$s jest prazdny (0 bajtov)</string>
+    <string name="setup_folder_issue_bad_header">%1$s ne izgledaje kako validny arhiv igry</string>
+    <string name="setup_folder_issue_missing_data">V %1$s ne dostaje očekyvanyh dat igry — najvěrojatno nekompletna kopija</string>
     <string name="setup_status_logs_note">Logi padu/jadra sut v privatnom skladišču aplikacije i dostupni tolko čerez \"Prokazati logi\" vyše — Android namerno skryva jih od normalnyh upravitelev datotek (to jest standardny Android peskovnik, ne osobitost sej aplikacije).</string>
 
     <!-- SetupActivity: Language card -->
@@ -102,6 +106,7 @@
     <string name="setup_toast_grant_all_files">Daj dozvolu \"Pozvoliti dostup ko upravjenju vsimi datotekami\" na sledujućem ekranu, potom vrni sę i znova klikni Izbrati papku igry.</string>
     <string name="setup_toast_folder_saved">Papka igry sohranjena.</string>
     <string name="setup_toast_folder_saved_invalid">Sohranjeno, no INIZH.big/INI.big tam ne najdeny — prověri papku.</string>
+    <string name="setup_toast_folder_saved_incomplete">Sohranjeno, no někotori fajly igry izgledaju nekompletnymi ili poškoděnymi — pogledaj detali na glavnom ekranu prěd spuštěnjem.</string>
     <string name="setup_toast_marker_save_failed">Ne uspělo sohraniti marker papky: %1$s</string>
     <string name="setup_toast_folder_cleared">Izbrisano. Igra bude upotrěbjati svoju děfoltnu papku.</string>
     <string name="setup_toast_options_dir_failed">Ne uspělo storiti papku za Options.ini</string>
