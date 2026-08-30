@@ -319,4 +319,21 @@ private:
 	int													LockedBytesPerPixel;
 	TextureClass *							CurTexture;
 	ShaderClass									Shader;
+
+	// GeneralsX @build Android port GLES experiment - Reset() below tears
+	// down every Renderers[] entry (and, with it, whatever glyph-cache
+	// texture each one held) every time this sentence's content changes,
+	// before Build_Textures() gets a chance to rebuild new renderers for
+	// the new content. That meant a same-size/same-format texture could
+	// never be reused -- every content change was a guaranteed GL texture
+	// destroy immediately followed by a GL texture create for the
+	// replacement, confirmed as the dominant source of GL texture churn on
+	// a real device (~200 create+destroy cycles within a few seconds of
+	// ordinary main-menu gameplay, see the [texchurn] diagnostic). Reset()
+	// salvages each outgoing renderer's texture into this short-lived pool
+	// (Add_Ref'd, so it survives the renderer's destruction) instead of
+	// just letting it die with the renderer; Build_Textures() checks here
+	// before allocating a new one, and releases whatever's left unclaimed
+	// once it's done rebuilding.
+	DynamicVectorClass<TextureClass*>	RecycledTextures;
 };

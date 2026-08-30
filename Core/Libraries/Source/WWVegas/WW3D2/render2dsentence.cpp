@@ -90,6 +90,16 @@ Render2DSentenceClass::~Render2DSentenceClass ()
 {
 	REF_PTR_RELEASE (Font);
 	Reset ();
+
+	// GeneralsX @build Android port GLES experiment - Reset() just salvaged
+	// any live renderers' textures into RecycledTextures, but with the
+	// object being destroyed there's no following Build_Textures() call
+	// left to reclaim them -- release them here instead of leaking.
+	while (RecycledTextures.Count () > 0) {
+		TextureClass *leftover = RecycledTextures[0];
+		RecycledTextures.Delete (0);
+		REF_PTR_RELEASE (leftover);
+	}
 }
 
 
@@ -142,9 +152,17 @@ Render2DSentenceClass::Reset ()
 	REF_PTR_RELEASE (CurSurface);
 
 	//
-	//	Free each renderer
+	//	Free each renderer, salvaging its texture into RecycledTextures
+	//	first (see the member's comment in render2dsentence.h) so
+	//	Build_Textures() can reuse it instead of always allocating a fresh
+	//	GL texture object for the content that's about to replace this.
 	//
 	while (Renderers.Count () > 0) {
+		TextureClass *salvaged = Renderers[0].Renderer->Peek_Texture ();
+		if (salvaged != nullptr) {
+			salvaged->Add_Ref ();
+			RecycledTextures.Add (salvaged);
+		}
 		delete Renderers[0].Renderer;
 		Renderers.Delete(0);
 	}
@@ -375,29 +393,30 @@ Render2DSentenceClass::Build_Textures ()
 		curr_surface->Get_Description (desc);
 
 		//
-		//	Reuse the renderer's existing glyph-cache texture when it already
-		//	matches what we need instead of always allocating a fresh GL
-		//	texture object. This function runs every time on-screen text is
-		//	rebuilt (any 2D sentence/label content change) -- on a real
+		//	Reuse a texture Reset() salvaged into RecycledTextures (see that
+		//	function and the member's comment in render2dsentence.h) when
+		//	one matches what we need, instead of always allocating a fresh
+		//	GL texture object. This function runs every time on-screen text
+		//	is rebuilt (any 2D sentence/label content change) -- on a real
 		//	device that showed up as ~200 GL texture create+destroy cycles
 		//	within a few seconds during ordinary gameplay, all unnamed
 		//	64x64-ish A4R4G4B4 textures (see the [texchurn] diagnostic that
-		//	traced them here). REF_PTR_SET (used below via renderer->
-		//	Set_Texture) Add_Refs the new value before Release_Ref'ing the
-		//	old one, so handing it the SAME object we just peeked is safe
-		//	even when it's the only other reference.
+		//	traced them here). Renderers[0]->Peek_Texture() itself is
+		//	useless here -- by this point Reset() has already deleted every
+		//	old renderer and PendingSurfaces' renderers are freshly
+		//	constructed with no texture of their own yet.
 		//
 		TextureClass *new_texture = nullptr;
-		if (surface_info.Renderers.Count () > 0) {
-			TextureClass *existing = surface_info.Renderers[0]->Peek_Texture ();
-			if (existing != nullptr &&
-				existing->Get_Width () == (int)desc.Width &&
-				existing->Get_Height () == (int)desc.Width &&
-				existing->Get_Texture_Format () == WW3D_FORMAT_A4R4G4B4) {
-				new_texture = existing;
-				new_texture->Add_Ref ();
-				GX_TRACE("Build_Textures: reusing existing TextureClass=%p width=%u\n",
+		for (int pool_index = 0; pool_index < RecycledTextures.Count (); pool_index ++) {
+			TextureClass *candidate = RecycledTextures[pool_index];
+			if (candidate->Get_Width () == (int)desc.Width &&
+				candidate->Get_Height () == (int)desc.Width &&
+				candidate->Get_Texture_Format () == WW3D_FORMAT_A4R4G4B4) {
+				new_texture = candidate;
+				RecycledTextures.Delete (pool_index);
+				GX_TRACE("Build_Textures: reusing recycled TextureClass=%p width=%u\n",
 					(void*)new_texture, desc.Width);
+				break;
 			}
 		}
 		if (new_texture == nullptr) {
@@ -442,6 +461,19 @@ Render2DSentenceClass::Build_Textures ()
 	//
 	if (PendingSurfaces.Count()>0) {
 		PendingSurfaces.Delete_All ();
+	}
+
+	//
+	//	Release any recycled textures nothing above claimed (e.g. the new
+	//	content needed fewer glyph-atlas pages than the old content did) --
+	//	Reset() Add_Ref'd each one when it salvaged it, so this is the
+	//	matching release, not a double-free of something a renderer still
+	//	owns.
+	//
+	while (RecycledTextures.Count () > 0) {
+		TextureClass *leftover = RecycledTextures[0];
+		RecycledTextures.Delete (0);
+		REF_PTR_RELEASE (leftover);
 	}
 }
 
