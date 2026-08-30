@@ -415,6 +415,15 @@ private:
 	GLuint m_depthRB = 0; // shared depth-stencil renderbuffer for FBOs
 	int m_depthRBW = 0, m_depthRBH = 0;
 
+	// GeneralsX @build Android port GLES experiment 08/30/2026 Camera
+	// (view+proj) uniform buffer -- see kViewProjUBOBinding's comment in
+	// gles_pipeline.cpp for why this exists instead of plain glUniform*
+	// calls. Created once in initContext(), bound to kViewProjUBOBinding
+	// for the whole session; only its DATA changes, via applyUniforms()'s
+	// glBufferSubData when the CPU-side ViewProjKey actually differs from
+	// what's currently uploaded.
+	GLuint m_viewProjUBO = 0;
+
 	// Streaming buffers for the UP draw paths.
 	GLuint m_upVBO = 0;
 	GLuint m_upIBO = 0;

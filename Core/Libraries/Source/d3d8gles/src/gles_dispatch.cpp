@@ -10,12 +10,14 @@ namespace {
 typedef void (GL_APIENTRY *PFN_glActiveTexture)(GLenum texture);
 typedef void (GL_APIENTRY *PFN_glAttachShader)(GLuint program, GLuint shader);
 typedef void (GL_APIENTRY *PFN_glBindBuffer)(GLenum target, GLuint buffer);
+typedef void (GL_APIENTRY *PFN_glBindBufferBase)(GLenum target, GLuint index, GLuint buffer);
 typedef void (GL_APIENTRY *PFN_glBindFramebuffer)(GLenum target, GLuint framebuffer);
 typedef void (GL_APIENTRY *PFN_glBindRenderbuffer)(GLenum target, GLuint renderbuffer);
 typedef void (GL_APIENTRY *PFN_glBindTexture)(GLenum target, GLuint texture);
 typedef void (GL_APIENTRY *PFN_glBindVertexArray)(GLuint array);
 typedef void (GL_APIENTRY *PFN_glBlendFunc)(GLenum sfactor, GLenum dfactor);
 typedef void (GL_APIENTRY *PFN_glBufferData)(GLenum target, GLsizeiptr size, const void *data, GLenum usage);
+typedef void (GL_APIENTRY *PFN_glBufferSubData)(GLenum target, GLintptr offset, GLsizeiptr size, const void *data);
 typedef GLenum (GL_APIENTRY *PFN_glCheckFramebufferStatus)(GLenum target);
 typedef void (GL_APIENTRY *PFN_glClear)(GLbitfield mask);
 typedef void (GL_APIENTRY *PFN_glClearColor)(GLfloat red, GLfloat green, GLfloat blue, GLfloat alpha);
@@ -57,6 +59,7 @@ typedef void (GL_APIENTRY *PFN_glGetProgramiv)(GLuint program, GLenum pname, GLi
 typedef void (GL_APIENTRY *PFN_glGetShaderInfoLog)(GLuint shader, GLsizei bufSize, GLsizei *length, GLchar *infoLog);
 typedef void (GL_APIENTRY *PFN_glGetShaderiv)(GLuint shader, GLenum pname, GLint *params);
 typedef const GLubyte * (GL_APIENTRY *PFN_glGetString)(GLenum name);
+typedef GLuint (GL_APIENTRY *PFN_glGetUniformBlockIndex)(GLuint program, const GLchar *uniformBlockName);
 typedef GLint (GL_APIENTRY *PFN_glGetUniformLocation)(GLuint program, const GLchar *name);
 typedef void (GL_APIENTRY *PFN_glLinkProgram)(GLuint program);
 typedef void (GL_APIENTRY *PFN_glPixelStorei)(GLenum pname, GLint param);
@@ -69,6 +72,7 @@ typedef void (GL_APIENTRY *PFN_glStencilMask)(GLuint mask);
 typedef void (GL_APIENTRY *PFN_glStencilOp)(GLenum fail, GLenum zfail, GLenum zpass);
 typedef void (GL_APIENTRY *PFN_glTexImage2D)(GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLint border, GLenum format, GLenum type, const void *pixels);
 typedef void (GL_APIENTRY *PFN_glTexParameteri)(GLenum target, GLenum pname, GLint param);
+typedef void (GL_APIENTRY *PFN_glUniformBlockBinding)(GLuint program, GLuint uniformBlockIndex, GLuint uniformBlockBinding);
 typedef void (GL_APIENTRY *PFN_glUniform1f)(GLint location, GLfloat v0);
 typedef void (GL_APIENTRY *PFN_glUniform1i)(GLint location, GLint v0);
 typedef void (GL_APIENTRY *PFN_glUniform1iv)(GLint location, GLsizei count, const GLint *value);
@@ -84,12 +88,14 @@ typedef void (GL_APIENTRY *PFN_glViewport)(GLint x, GLint y, GLsizei width, GLsi
 PFN_glActiveTexture d3d8gles_pfn_glActiveTexture = nullptr;
 PFN_glAttachShader d3d8gles_pfn_glAttachShader = nullptr;
 PFN_glBindBuffer d3d8gles_pfn_glBindBuffer = nullptr;
+PFN_glBindBufferBase d3d8gles_pfn_glBindBufferBase = nullptr;
 PFN_glBindFramebuffer d3d8gles_pfn_glBindFramebuffer = nullptr;
 PFN_glBindRenderbuffer d3d8gles_pfn_glBindRenderbuffer = nullptr;
 PFN_glBindTexture d3d8gles_pfn_glBindTexture = nullptr;
 PFN_glBindVertexArray d3d8gles_pfn_glBindVertexArray = nullptr;
 PFN_glBlendFunc d3d8gles_pfn_glBlendFunc = nullptr;
 PFN_glBufferData d3d8gles_pfn_glBufferData = nullptr;
+PFN_glBufferSubData d3d8gles_pfn_glBufferSubData = nullptr;
 PFN_glCheckFramebufferStatus d3d8gles_pfn_glCheckFramebufferStatus = nullptr;
 PFN_glClear d3d8gles_pfn_glClear = nullptr;
 PFN_glClearColor d3d8gles_pfn_glClearColor = nullptr;
@@ -131,6 +137,7 @@ PFN_glGetProgramiv d3d8gles_pfn_glGetProgramiv = nullptr;
 PFN_glGetShaderInfoLog d3d8gles_pfn_glGetShaderInfoLog = nullptr;
 PFN_glGetShaderiv d3d8gles_pfn_glGetShaderiv = nullptr;
 PFN_glGetString d3d8gles_pfn_glGetString = nullptr;
+PFN_glGetUniformBlockIndex d3d8gles_pfn_glGetUniformBlockIndex = nullptr;
 PFN_glGetUniformLocation d3d8gles_pfn_glGetUniformLocation = nullptr;
 PFN_glLinkProgram d3d8gles_pfn_glLinkProgram = nullptr;
 PFN_glPixelStorei d3d8gles_pfn_glPixelStorei = nullptr;
@@ -143,6 +150,7 @@ PFN_glStencilMask d3d8gles_pfn_glStencilMask = nullptr;
 PFN_glStencilOp d3d8gles_pfn_glStencilOp = nullptr;
 PFN_glTexImage2D d3d8gles_pfn_glTexImage2D = nullptr;
 PFN_glTexParameteri d3d8gles_pfn_glTexParameteri = nullptr;
+PFN_glUniformBlockBinding d3d8gles_pfn_glUniformBlockBinding = nullptr;
 PFN_glUniform1f d3d8gles_pfn_glUniform1f = nullptr;
 PFN_glUniform1i d3d8gles_pfn_glUniform1i = nullptr;
 PFN_glUniform1iv d3d8gles_pfn_glUniform1iv = nullptr;
@@ -174,6 +182,11 @@ GL_APICALL void GL_APIENTRY glBindBuffer(GLenum target, GLuint buffer)
 	d3d8gles_pfn_glBindBuffer(target, buffer);
 }
 
+GL_APICALL void GL_APIENTRY glBindBufferBase(GLenum target, GLuint index, GLuint buffer)
+{
+	d3d8gles_pfn_glBindBufferBase(target, index, buffer);
+}
+
 GL_APICALL void GL_APIENTRY glBindFramebuffer(GLenum target, GLuint framebuffer)
 {
 	d3d8gles_pfn_glBindFramebuffer(target, framebuffer);
@@ -202,6 +215,11 @@ GL_APICALL void GL_APIENTRY glBlendFunc(GLenum sfactor, GLenum dfactor)
 GL_APICALL void GL_APIENTRY glBufferData(GLenum target, GLsizeiptr size, const void *data, GLenum usage)
 {
 	d3d8gles_pfn_glBufferData(target, size, data, usage);
+}
+
+GL_APICALL void GL_APIENTRY glBufferSubData(GLenum target, GLintptr offset, GLsizeiptr size, const void *data)
+{
+	d3d8gles_pfn_glBufferSubData(target, offset, size, data);
 }
 
 GL_APICALL GLenum GL_APIENTRY glCheckFramebufferStatus(GLenum target)
@@ -409,6 +427,11 @@ GL_APICALL const GLubyte * GL_APIENTRY glGetString(GLenum name)
 	return d3d8gles_pfn_glGetString(name);
 }
 
+GL_APICALL GLuint GL_APIENTRY glGetUniformBlockIndex(GLuint program, const GLchar *uniformBlockName)
+{
+	return d3d8gles_pfn_glGetUniformBlockIndex(program, uniformBlockName);
+}
+
 GL_APICALL GLint GL_APIENTRY glGetUniformLocation(GLuint program, const GLchar *name)
 {
 	return d3d8gles_pfn_glGetUniformLocation(program, name);
@@ -467,6 +490,11 @@ GL_APICALL void GL_APIENTRY glTexImage2D(GLenum target, GLint level, GLint inter
 GL_APICALL void GL_APIENTRY glTexParameteri(GLenum target, GLenum pname, GLint param)
 {
 	d3d8gles_pfn_glTexParameteri(target, pname, param);
+}
+
+GL_APICALL void GL_APIENTRY glUniformBlockBinding(GLuint program, GLuint uniformBlockIndex, GLuint uniformBlockBinding)
+{
+	d3d8gles_pfn_glUniformBlockBinding(program, uniformBlockIndex, uniformBlockBinding);
 }
 
 GL_APICALL void GL_APIENTRY glUniform1f(GLint location, GLfloat v0)
@@ -541,6 +569,8 @@ bool d3d8gles_LoadGLESDispatch(const char *libName)
 	if (!d3d8gles_pfn_glAttachShader) { fprintf(stderr, "[d3d8gles] GLES dispatch: missing symbol glAttachShader in %s\n", libName); ok = false; }
 	d3d8gles_pfn_glBindBuffer = reinterpret_cast<PFN_glBindBuffer>(dlsym(lib, "glBindBuffer"));
 	if (!d3d8gles_pfn_glBindBuffer) { fprintf(stderr, "[d3d8gles] GLES dispatch: missing symbol glBindBuffer in %s\n", libName); ok = false; }
+	d3d8gles_pfn_glBindBufferBase = reinterpret_cast<PFN_glBindBufferBase>(dlsym(lib, "glBindBufferBase"));
+	if (!d3d8gles_pfn_glBindBufferBase) { fprintf(stderr, "[d3d8gles] GLES dispatch: missing symbol glBindBufferBase in %s\n", libName); ok = false; }
 	d3d8gles_pfn_glBindFramebuffer = reinterpret_cast<PFN_glBindFramebuffer>(dlsym(lib, "glBindFramebuffer"));
 	if (!d3d8gles_pfn_glBindFramebuffer) { fprintf(stderr, "[d3d8gles] GLES dispatch: missing symbol glBindFramebuffer in %s\n", libName); ok = false; }
 	d3d8gles_pfn_glBindRenderbuffer = reinterpret_cast<PFN_glBindRenderbuffer>(dlsym(lib, "glBindRenderbuffer"));
@@ -553,6 +583,8 @@ bool d3d8gles_LoadGLESDispatch(const char *libName)
 	if (!d3d8gles_pfn_glBlendFunc) { fprintf(stderr, "[d3d8gles] GLES dispatch: missing symbol glBlendFunc in %s\n", libName); ok = false; }
 	d3d8gles_pfn_glBufferData = reinterpret_cast<PFN_glBufferData>(dlsym(lib, "glBufferData"));
 	if (!d3d8gles_pfn_glBufferData) { fprintf(stderr, "[d3d8gles] GLES dispatch: missing symbol glBufferData in %s\n", libName); ok = false; }
+	d3d8gles_pfn_glBufferSubData = reinterpret_cast<PFN_glBufferSubData>(dlsym(lib, "glBufferSubData"));
+	if (!d3d8gles_pfn_glBufferSubData) { fprintf(stderr, "[d3d8gles] GLES dispatch: missing symbol glBufferSubData in %s\n", libName); ok = false; }
 	d3d8gles_pfn_glCheckFramebufferStatus = reinterpret_cast<PFN_glCheckFramebufferStatus>(dlsym(lib, "glCheckFramebufferStatus"));
 	if (!d3d8gles_pfn_glCheckFramebufferStatus) { fprintf(stderr, "[d3d8gles] GLES dispatch: missing symbol glCheckFramebufferStatus in %s\n", libName); ok = false; }
 	d3d8gles_pfn_glClear = reinterpret_cast<PFN_glClear>(dlsym(lib, "glClear"));
@@ -635,6 +667,8 @@ bool d3d8gles_LoadGLESDispatch(const char *libName)
 	if (!d3d8gles_pfn_glGetShaderiv) { fprintf(stderr, "[d3d8gles] GLES dispatch: missing symbol glGetShaderiv in %s\n", libName); ok = false; }
 	d3d8gles_pfn_glGetString = reinterpret_cast<PFN_glGetString>(dlsym(lib, "glGetString"));
 	if (!d3d8gles_pfn_glGetString) { fprintf(stderr, "[d3d8gles] GLES dispatch: missing symbol glGetString in %s\n", libName); ok = false; }
+	d3d8gles_pfn_glGetUniformBlockIndex = reinterpret_cast<PFN_glGetUniformBlockIndex>(dlsym(lib, "glGetUniformBlockIndex"));
+	if (!d3d8gles_pfn_glGetUniformBlockIndex) { fprintf(stderr, "[d3d8gles] GLES dispatch: missing symbol glGetUniformBlockIndex in %s\n", libName); ok = false; }
 	d3d8gles_pfn_glGetUniformLocation = reinterpret_cast<PFN_glGetUniformLocation>(dlsym(lib, "glGetUniformLocation"));
 	if (!d3d8gles_pfn_glGetUniformLocation) { fprintf(stderr, "[d3d8gles] GLES dispatch: missing symbol glGetUniformLocation in %s\n", libName); ok = false; }
 	d3d8gles_pfn_glLinkProgram = reinterpret_cast<PFN_glLinkProgram>(dlsym(lib, "glLinkProgram"));
@@ -659,6 +693,8 @@ bool d3d8gles_LoadGLESDispatch(const char *libName)
 	if (!d3d8gles_pfn_glTexImage2D) { fprintf(stderr, "[d3d8gles] GLES dispatch: missing symbol glTexImage2D in %s\n", libName); ok = false; }
 	d3d8gles_pfn_glTexParameteri = reinterpret_cast<PFN_glTexParameteri>(dlsym(lib, "glTexParameteri"));
 	if (!d3d8gles_pfn_glTexParameteri) { fprintf(stderr, "[d3d8gles] GLES dispatch: missing symbol glTexParameteri in %s\n", libName); ok = false; }
+	d3d8gles_pfn_glUniformBlockBinding = reinterpret_cast<PFN_glUniformBlockBinding>(dlsym(lib, "glUniformBlockBinding"));
+	if (!d3d8gles_pfn_glUniformBlockBinding) { fprintf(stderr, "[d3d8gles] GLES dispatch: missing symbol glUniformBlockBinding in %s\n", libName); ok = false; }
 	d3d8gles_pfn_glUniform1f = reinterpret_cast<PFN_glUniform1f>(dlsym(lib, "glUniform1f"));
 	if (!d3d8gles_pfn_glUniform1f) { fprintf(stderr, "[d3d8gles] GLES dispatch: missing symbol glUniform1f in %s\n", libName); ok = false; }
 	d3d8gles_pfn_glUniform1i = reinterpret_cast<PFN_glUniform1i>(dlsym(lib, "glUniform1i"));
@@ -683,7 +719,7 @@ bool d3d8gles_LoadGLESDispatch(const char *libName)
 	if (!d3d8gles_pfn_glViewport) { fprintf(stderr, "[d3d8gles] GLES dispatch: missing symbol glViewport in %s\n", libName); ok = false; }
 
 	if (!ok) return false;
-	fprintf(stderr, "[d3d8gles] GLES dispatch: resolved %zu entry points from %s\n", static_cast<size_t>(73), libName);
+	fprintf(stderr, "[d3d8gles] GLES dispatch: resolved %zu entry points from %s\n", static_cast<size_t>(77), libName);
 	return true;
 }
 

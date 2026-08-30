@@ -1,5 +1,5 @@
 // GeneralsX @build Android port ANGLE integration
-// Auto-generated dispatch shim: forwards the 73 gl* entry points d3d8gles
+// Auto-generated dispatch shim: forwards the 77 gl* entry points d3d8gles
 // actually calls to function pointers resolved from a dlopen'd GLES
 // implementation (ANGLE's libGLESv2_angle.so, or a system libGLESv3.so
 // fallback), instead of linking directly against system libGLESv3.so.

@@ -42,6 +42,23 @@
 
 static bool g_glTrace = false;
 
+// GeneralsX @build Android port GLES experiment 08/30/2026 Uniform Buffer
+// Object binding point for the camera (view+proj) block -- see its use in
+// getProgram()/applyUniforms() below for why this exists: a plain
+// glUniformMatrix4fv upload is per-PROGRAM state (GL forgets it across a
+// glUseProgram switch), so a scene that alternates shader programs a lot
+// (different FVF/lighting/material/fog/texture-stage combos for terrain vs.
+// units vs. particles vs. decals) was forced to re-upload the camera on
+// every single program switch even when the camera hadn't moved at all --
+// confirmed via a real device log's per-block uniform-cache breakdown
+// dropping to ~50% mid-battle. A UBO's DATA lives independently of which
+// program is currently bound; only the bound *buffer* at this binding
+// point matters, and that's set once here, not per-draw or per-program.
+// So the camera now only needs a real re-upload when its actual value
+// changes (once per frame in the common case), never merely because the
+// active program changed.
+static const GLuint kViewProjUBOBinding = 0;
+
 #define GLTRACE(...)                              \
 	do {                                          \
 		if (g_glTrace) {                          \
@@ -203,7 +220,10 @@ static bool parseFVF(unsigned fvf, FVFLayout *out)
 struct WebGLPipeline::ProgramInfo {
 	GLuint prog = 0;
 	// uniforms
-	GLint uWorld = -1, uView = -1, uProj = -1;
+	GLint uWorld = -1;
+	// uView/uProj moved into the ViewProjBlock UBO (kViewProjUBOBinding) --
+	// no per-program location for them anymore, see getProgram()'s shader
+	// declaration and the post-link glUniformBlockBinding() call below.
 	GLint uViewportPos = -1;
 	GLint uYFlip = -1;
 	GLint uTex0 = -1, uTex1 = -1;
@@ -319,6 +339,20 @@ bool WebGLPipeline::initContext(int w, int h, SDL_Window *window)
 
 	glGenBuffers(1, &m_upVBO);
 	glGenBuffers(1, &m_upIBO);
+
+	// GeneralsX @build Android port GLES experiment 08/30/2026 See
+	// kViewProjUBOBinding's comment: allocate the camera UBO once here and
+	// bind it to its binding point for the whole session. std140 layout of
+	// two consecutive mat4 members needs no padding (each is a 64-byte,
+	// 16-byte-aligned block) -- 128 bytes total, matching ViewProjKey's
+	// `float view[16], proj[16]` byte-for-byte, same raw column-major
+	// layout already assumed everywhere else this codebase uploads a D3D
+	// matrix via glUniformMatrix4fv(..., GL_FALSE, ...).
+	glGenBuffers(1, &m_viewProjUBO);
+	glBindBuffer(GL_UNIFORM_BUFFER, m_viewProjUBO);
+	glBufferData(GL_UNIFORM_BUFFER, sizeof(float) * 32, nullptr, GL_DYNAMIC_DRAW);
+	glBindBufferBase(GL_UNIFORM_BUFFER, kViewProjUBOBinding, m_viewProjUBO);
+
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 	glDisable(GL_DITHER);
 
@@ -600,7 +634,13 @@ WebGLPipeline::ProgramInfo *WebGLPipeline::getProgram(WebGLDevice *dev, unsigned
 		snprintf(b, sizeof(b), "layout(location=%d) in vec4 aUV%d;\n", 4 + i, i);
 		vs += b;
 	}
-	vs += "uniform mat4 uWorld, uView, uProj;\n";
+	vs += "uniform mat4 uWorld;\n";
+	// GeneralsX @build Android port GLES experiment 08/30/2026 view/proj as a
+	// uniform block (see kViewProjUBOBinding's comment) instead of two plain
+	// uniforms -- block member names (uView/uProj) are referenced exactly
+	// the same as before in the shader body below, no other change needed
+	// there.
+	vs += "uniform ViewProjBlock { mat4 uView; mat4 uProj; };\n";
 	vs += "uniform vec4 uViewportPos;\n"; // x, y, w, h
 	vs += "uniform float uYFlip;\n"; // +1 backbuffer, -1 render-to-texture
 	vs += "uniform mat4 uTexMat0, uTexMat1;\n";
@@ -782,8 +822,19 @@ WebGLPipeline::ProgramInfo *WebGLPipeline::getProgram(WebGLDevice *dev, unsigned
 	if (info->prog) {
 		GLuint p = info->prog;
 		info->uWorld = glGetUniformLocation(p, "uWorld");
-		info->uView = glGetUniformLocation(p, "uView");
-		info->uProj = glGetUniformLocation(p, "uProj");
+		// GeneralsX @build Android port GLES experiment 08/30/2026 Bind this
+		// program's ViewProjBlock to the shared UBO binding point once,
+		// here at link time -- not per-draw. A program whose xyzrhw (2D)
+		// vertex path never references uView/uProj (see the xyzrhw branch
+		// just above, which only uses uYFlip/uViewportPos) has the whole
+		// block optimized out entirely, so blockIdx is GL_INVALID_INDEX
+		// there -- expected, not an error.
+		{
+			GLuint blockIdx = glGetUniformBlockIndex(p, "ViewProjBlock");
+			if (blockIdx != GL_INVALID_INDEX) {
+				glUniformBlockBinding(p, blockIdx, kViewProjUBOBinding);
+			}
+		}
 		info->uViewportPos = glGetUniformLocation(p, "uViewportPos");
 		info->uYFlip = glGetUniformLocation(p, "uYFlip");
 		info->uTex0 = glGetUniformLocation(p, "uTex0");
@@ -1391,7 +1442,17 @@ void WebGLPipeline::applyUniforms(WebGLDevice *dev, ProgramInfo *prog, unsigned 
 		// computed for the PREVIOUS program would wrongly skip uploading to
 		// this one, leaving its uniforms unset. Force every sub-block below
 		// to treat this draw as a first upload for the newly bound program.
-		m_haveViewProjKey = m_haveTexMatKey = m_haveMiscKey = m_haveMaterialKey = m_haveLightingKey = false;
+		// GeneralsX @build Android port GLES experiment 08/30/2026
+		// m_haveViewProjKey is deliberately NOT reset here anymore -- the
+		// camera now lives in a UBO (kViewProjUBOBinding), whose DATA is
+		// independent of which program is bound, so a program switch alone
+		// no longer means the GPU forgot the camera. This was the single
+		// biggest source of uniform-cache misses on a real device (a
+		// per-block breakdown showed the combined rate collapsing to ~50%
+		// mid-battle purely from program switches between terrain/unit/
+		// particle/decal draws, even though the camera itself hadn't
+		// changed at all).
+		m_haveTexMatKey = m_haveMiscKey = m_haveMaterialKey = m_haveLightingKey = false;
 	}
 
 	// D3D row-major memory uploaded untransposed IS the transpose GL wants
@@ -1402,7 +1463,18 @@ void WebGLPipeline::applyUniforms(WebGLDevice *dev, ProgramInfo *prog, unsigned 
 	if (prog->uWorld >= 0)
 		glUniformMatrix4fv(prog->uWorld, 1, GL_FALSE, (const float *)&dev->getTransform(D3DTS_WORLD));
 
-	if (prog->uView >= 0 || prog->uProj >= 0) {
+	// GeneralsX @build Android port GLES experiment 08/30/2026 view/proj now
+	// live in a UBO (kViewProjUBOBinding), not per-program uniform
+	// locations -- unconditional (no prog->uView/uProj gate; those fields
+	// are gone from ProgramInfo, see the struct's comment) since the
+	// buffer's binding is fixed for the whole session and every vertex
+	// shader variant declares the same ViewProjBlock regardless of FVF.
+	// Cheap to run even for xyzrhw (2D) draws that don't reference the
+	// block at all in their shader body -- worst case a redundant upload
+	// when content alternates between 3D and 2D, never a correctness
+	// issue. Real re-upload (glBufferSubData) only happens when the value
+	// actually differs from what's already on the GPU.
+	{
 		ViewProjKey key{};
 		memcpy(key.view, &dev->getTransform(D3DTS_VIEW), sizeof(key.view));
 		memcpy(key.proj, &dev->getTransform(D3DTS_PROJECTION), sizeof(key.proj));
@@ -1412,8 +1484,8 @@ void WebGLPipeline::applyUniforms(WebGLDevice *dev, ProgramInfo *prog, unsigned 
 		} else {
 			m_perfUniformCacheMisses++;
 			m_perfUniformViewProjMisses++;
-			if (prog->uView >= 0) glUniformMatrix4fv(prog->uView, 1, GL_FALSE, key.view);
-			if (prog->uProj >= 0) glUniformMatrix4fv(prog->uProj, 1, GL_FALSE, key.proj);
+			glBindBuffer(GL_UNIFORM_BUFFER, m_viewProjUBO);
+			glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(key), &key);
 			m_lastViewProjKey = key;
 			m_haveViewProjKey = true;
 		}
