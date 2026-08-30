@@ -16,6 +16,33 @@
 #
 # Apply with: git -C references/fbraz3-dxvk apply ../../Patches/dxvk-android.patch
 # Then build with: meson setup --cross-file build/<preset>/meson-arm64-android-cross.ini ...
+diff --git a/src/dxvk/dxvk_adapter.cpp b/src/dxvk/dxvk_adapter.cpp
+index 981b0003..6f865466 100644
+--- a/src/dxvk/dxvk_adapter.cpp
++++ b/src/dxvk/dxvk_adapter.cpp
+@@ -926,7 +926,21 @@ namespace dxvk {
+     const auto memoryInfo = this->memoryProperties();
+     
+     Logger::info(str::format(deviceInfo.core.properties.deviceName, ":",
+-      "\n  Driver : ", deviceInfo.vk12.driverName, " ", deviceInfo.driverVersion.toString()));
++      "\n  Vendor ID            : 0x", std::hex, deviceInfo.core.properties.vendorID,
++      "\n  Device ID            : 0x", std::hex, deviceInfo.core.properties.deviceID,
++      "\n  Vulkan API           : ", std::dec,
++        VK_VERSION_MAJOR(deviceInfo.core.properties.apiVersion), ".",
++        VK_VERSION_MINOR(deviceInfo.core.properties.apiVersion), ".",
++        VK_VERSION_PATCH(deviceInfo.core.properties.apiVersion),
++      "\n  Driver               : ", deviceInfo.vk12.driverName, " ", deviceInfo.driverVersion.toString(),
++      "\n  textureCompressionBC : ", m_deviceFeatures.core.features.textureCompressionBC ? "1" : "0"));
++    // GeneralsX @build Android port issue-triage 07/09/2026 richer adapter
++    // log line for future crash-report triage (issues #11/#16): vendor/
++    // device ID and the exact reported Vulkan API version are what
++    // distinguish "this GPU/driver combo is known-bad" from "another
++    // untested one" when matching a new report against fixes already made
++    // for a specific chip, without waiting on the reporter to separately
++    // provide them.
+ 
+     for (uint32_t i = 0; i < memoryInfo.memoryHeapCount; i++) {
+       constexpr VkDeviceSize mib = 1024 * 1024;
 diff --git a/meson.build b/meson.build
 index 8f725104..3e6bd9d5 100644
 --- a/meson.build
