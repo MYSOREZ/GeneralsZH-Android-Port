@@ -251,6 +251,19 @@ private:
 	int m_perfStateCacheHits = 0;
 	int m_perfStateCacheMisses = 0;
 
+	// GeneralsX @build Android port ANGLE experiment - a program-cache miss in
+	// getProgram() means an actual glCreateProgram/glLinkProgram (this module
+	// caches by full render-state key, so a new key = a genuinely new shader
+	// variant). Under ANGLE's Vulkan backend this can mean synchronous
+	// VkPipeline creation, which is far pricier than the equivalent state
+	// change on a native GLES driver -- suspected cause of the multi-second
+	// freeze reported when opening menus with many distinct widget/state
+	// combinations (e.g. SkirmishGameOptionsMenu) for the first time. Counts
+	// and total time are folded into the existing "[d3d8gles] perf: ..." line
+	// in present() to confirm/refute this without guessing further.
+	int m_perfProgramBuilds = 0;
+	double m_perfProgramBuildUs = 0.0;
+
 	// GeneralsX @build Android port GLES experiment - perf pass. applyUniforms()
 	// used to re-upload every uniform on every single draw, even on an
 	// m_lastProgram cache hit -- ~15-25 glUniform* calls per draw that are

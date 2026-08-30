@@ -28,6 +28,7 @@
 // it can access the device/resource class internals defined there.
 #include "gles_pipeline.h"
 #include "gles_dispatch.h"
+#include <chrono>
 
 #include <SDL3/SDL.h>
 #include <cstdio>
@@ -745,6 +746,7 @@ WebGLPipeline::ProgramInfo *WebGLPipeline::getProgram(WebGLDevice *dev, unsigned
 	fs += "}\n";
 
 	// ---------------- link ----------------
+	const std::chrono::steady_clock::time_point buildStart = std::chrono::steady_clock::now();
 	GLuint vsh = compileShader(GL_VERTEX_SHADER, vs);
 	GLuint fsh = compileShader(GL_FRAGMENT_SHADER, fs);
 	ProgramInfo *info = new ProgramInfo();
@@ -766,6 +768,9 @@ WebGLPipeline::ProgramInfo *WebGLPipeline::getProgram(WebGLDevice *dev, unsigned
 	}
 	if (vsh) glDeleteShader(vsh);
 	if (fsh) glDeleteShader(fsh);
+	m_perfProgramBuilds++;
+	m_perfProgramBuildUs += std::chrono::duration<double, std::micro>(
+		std::chrono::steady_clock::now() - buildStart).count();
 
 	if (info->prog) {
 		GLuint p = info->prog;
@@ -2038,11 +2043,15 @@ void WebGLPipeline::present()
 			fprintf(stderr, "[d3d8gles] perf: %.1f fps, %.1f draws/frame, "
 				"state-cache %.0f%% hit (%d/%d), vao-cache %.0f%% hit (%d/%d, %zu cached, "
 				"%d ptr-refresh), uniform-cache %.0f%% hit (%d/%d), "
-				"textures live=%ld (created=%ld deleted=%ld)\n",
+				"textures live=%ld (created=%ld deleted=%ld), "
+				"programs built=%d (%.1fms total, %.2fms avg, %d cached)\n",
 				fps, drawsPerFrame, cacheHitPct, m_perfStateCacheHits, totalStateChecks,
 				vaoHitPct, m_perfVAOCacheHits, totalVAOChecks, m_vaoCache.size(), m_perfVAOPointerRefresh,
 				uniformHitPct, m_perfUniformCacheHits, totalUniformChecks,
-				g_texturesCreated - g_texturesDeleted, g_texturesCreated, g_texturesDeleted);
+				g_texturesCreated - g_texturesDeleted, g_texturesCreated, g_texturesDeleted,
+				m_perfProgramBuilds, m_perfProgramBuildUs / 1000.0,
+				m_perfProgramBuilds > 0 ? m_perfProgramBuildUs / 1000.0 / m_perfProgramBuilds : 0.0,
+				m_programCount);
 			DumpLiveTextureShapes();
 			m_perfLogLastMs = nowMs;
 			m_perfFrameCount = 0;
@@ -2054,6 +2063,8 @@ void WebGLPipeline::present()
 			m_perfVAOPointerRefresh = 0;
 			m_perfUniformCacheHits = 0;
 			m_perfUniformCacheMisses = 0;
+			m_perfProgramBuilds = 0;
+			m_perfProgramBuildUs = 0.0;
 		}
 	}
 
