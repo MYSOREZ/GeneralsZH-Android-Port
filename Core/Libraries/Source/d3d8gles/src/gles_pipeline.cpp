@@ -825,6 +825,166 @@ struct UploadDesc {
 	std::vector<uint8_t> converted;
 };
 
+// ---------------------------------------------------------------------------
+// Software DXT/BC1-3 decompression fallback. Most Android GPUs (Mali,
+// Adreno, PowerVR) don't expose GL_EXT_texture_compression_s3tc -- without
+// this, every DXT-compressed asset (chiefly terrain .dds, not the mostly-
+// uncompressed-TGA menu art) fell through to prepareLevelUpload's "unknown
+// format" case and got uploaded as solid magenta (see uploadTexture below).
+// This decodes one whole compressed level into a tightly packed RGBA8
+// buffer, block by block per the standard S3TC/BC1-BC3 bit layout, so it
+// can be uploaded via the ordinary uncompressed glTexImage2D path instead.
+// One-time cost per texture level at upload time (uploadTexture runs on
+// dirty, not per frame), so a straightforward scalar decode is fine.
+// ---------------------------------------------------------------------------
+
+static inline void UnpackRGB565(uint16_t c, uint8_t *r, uint8_t *g, uint8_t *b)
+{
+	*r = (uint8_t)(((c >> 11) & 0x1F) * 255 / 31);
+	*g = (uint8_t)(((c >> 5)  & 0x3F) * 255 / 63);
+	*b = (uint8_t)(( c        & 0x1F) * 255 / 31);
+}
+
+// Decodes one 8-byte BC1/DXT1-style color block (also the RGB half of
+// BC2/BC3) into a 4x4 RGBA8 array (row-major, 16 texels, 4 bytes each).
+// hasAlpha selects DXT1's punch-through-alpha special case (color0 <=
+// color1 numerically => palette entries 2/3 collapse to a 50% blend +
+// transparent black). BC2/BC3 callers pass hasAlpha=false since those
+// formats carry alpha in a separate 8-byte block and always treat this
+// block as opaque 4-color; the alpha channel written here gets overwritten
+// by the caller afterwards.
+static void DecodeBC1Block(const uint8_t block[8], bool hasAlpha, uint8_t outRGBA[16 * 4])
+{
+	const uint16_t c0 = (uint16_t)(block[0] | (block[1] << 8));
+	const uint16_t c1 = (uint16_t)(block[2] | (block[3] << 8));
+	uint8_t r0, g0, b0, r1, g1, b1;
+	UnpackRGB565(c0, &r0, &g0, &b0);
+	UnpackRGB565(c1, &r1, &g1, &b1);
+
+	uint8_t pal[4][4]; // [index][RGBA]
+	pal[0][0] = r0; pal[0][1] = g0; pal[0][2] = b0; pal[0][3] = 255;
+	pal[1][0] = r1; pal[1][1] = g1; pal[1][2] = b1; pal[1][3] = 255;
+	const bool punchThrough = hasAlpha && c0 <= c1;
+	if (!punchThrough) {
+		pal[2][0] = (uint8_t)((2 * r0 + r1) / 3);
+		pal[2][1] = (uint8_t)((2 * g0 + g1) / 3);
+		pal[2][2] = (uint8_t)((2 * b0 + b1) / 3);
+		pal[2][3] = 255;
+		pal[3][0] = (uint8_t)((r0 + 2 * r1) / 3);
+		pal[3][1] = (uint8_t)((g0 + 2 * g1) / 3);
+		pal[3][2] = (uint8_t)((b0 + 2 * b1) / 3);
+		pal[3][3] = 255;
+	} else {
+		pal[2][0] = (uint8_t)((r0 + r1) / 2);
+		pal[2][1] = (uint8_t)((g0 + g1) / 2);
+		pal[2][2] = (uint8_t)((b0 + b1) / 2);
+		pal[2][3] = 255;
+		pal[3][0] = 0; pal[3][1] = 0; pal[3][2] = 0; pal[3][3] = 0; // transparent
+	}
+
+	const uint32_t indices = (uint32_t)block[4] | ((uint32_t)block[5] << 8) |
+	                          ((uint32_t)block[6] << 16) | ((uint32_t)block[7] << 24);
+	for (int i = 0; i < 16; i++) {
+		const int idx = (indices >> (i * 2)) & 0x3;
+		outRGBA[i * 4 + 0] = pal[idx][0];
+		outRGBA[i * 4 + 1] = pal[idx][1];
+		outRGBA[i * 4 + 2] = pal[idx][2];
+		outRGBA[i * 4 + 3] = pal[idx][3];
+	}
+}
+
+// Decodes one 8-byte BC3/DXT5-style interpolated alpha block into 16
+// 8-bit alpha values (row-major, matches DecodeBC1Block's texel order).
+static void DecodeBC3AlphaBlock(const uint8_t block[8], uint8_t outAlpha[16])
+{
+	const uint8_t a0 = block[0];
+	const uint8_t a1 = block[1];
+	uint8_t pal[8];
+	pal[0] = a0;
+	pal[1] = a1;
+	if (a0 > a1) {
+		for (int i = 1; i <= 6; i++)
+			pal[1 + i] = (uint8_t)(((7 - i) * a0 + i * a1) / 7);
+	} else {
+		for (int i = 1; i <= 4; i++)
+			pal[1 + i] = (uint8_t)(((5 - i) * a0 + i * a1) / 5);
+		pal[6] = 0;
+		pal[7] = 255;
+	}
+	// 6 bytes = 48 bits = 16 * 3-bit indices, little-endian bit-packed.
+	uint64_t bits = 0;
+	for (int i = 0; i < 6; i++)
+		bits |= (uint64_t)block[2 + i] << (8 * i);
+	for (int i = 0; i < 16; i++) {
+		const int idx = (int)((bits >> (i * 3)) & 0x7);
+		outAlpha[i] = pal[idx];
+	}
+}
+
+// Decodes one whole DXT1/2/3/4/5-compressed level into a tightly packed
+// w*h*4 RGBA8 buffer. Reads full 4x4 blocks from src (compressed data is
+// always stored in whole blocks, even for the last row/column of a
+// non-multiple-of-4 or sub-4x4 mip) but only writes the w x h texels that
+// are actually in bounds into out. Returns false (leaving out alone) if
+// srcSize is too small for the implied block count, so the caller can
+// still fall back safely instead of reading out of bounds.
+static bool DecodeDXTLevel(D3DFORMAT fmt, unsigned w, unsigned h,
+                           const uint8_t *src, size_t srcSize,
+                           std::vector<uint8_t> *out)
+{
+	const bool isDXT1 = (fmt == D3DFMT_DXT1);
+	const unsigned blockBytes = isDXT1 ? 8 : 16;
+	const unsigned blocksWide = (w + 3) / 4;
+	const unsigned blocksHigh = (h + 3) / 4;
+	const size_t needed = (size_t)blocksWide * blocksHigh * blockBytes;
+	if (needed > srcSize) return false; // truncated/corrupt data, bail to magenta
+
+	out->resize((size_t)w * h * 4);
+	uint8_t *dst = out->data();
+
+	for (unsigned by = 0; by < blocksHigh; by++) {
+		for (unsigned bx = 0; bx < blocksWide; bx++) {
+			const uint8_t *blockSrc = src + ((size_t)by * blocksWide + bx) * blockBytes;
+			uint8_t rgba[16 * 4];
+			uint8_t alpha[16]; // only used for BC2/BC3
+
+			if (isDXT1) {
+				DecodeBC1Block(blockSrc, /*hasAlpha=*/true, rgba);
+			} else if (fmt == D3DFMT_DXT2 || fmt == D3DFMT_DXT3) {
+				// Explicit 4-bit-per-texel alpha: 8 bytes, 2 nibbles/byte,
+				// texel order matches the RGB block's row-major layout.
+				DecodeBC1Block(blockSrc + 8, /*hasAlpha=*/false, rgba);
+				for (int i = 0; i < 16; i++) {
+					const uint8_t nibble = (blockSrc[i / 2] >> ((i & 1) * 4)) & 0xF;
+					alpha[i] = (uint8_t)(nibble * 17); // 4-bit -> 8-bit (0,17,...,255)
+				}
+				for (int i = 0; i < 16; i++) rgba[i * 4 + 3] = alpha[i];
+			} else { // DXT4 / DXT5: interpolated alpha block
+				DecodeBC3AlphaBlock(blockSrc, alpha);
+				DecodeBC1Block(blockSrc + 8, /*hasAlpha=*/false, rgba);
+				for (int i = 0; i < 16; i++) rgba[i * 4 + 3] = alpha[i];
+			}
+
+			// Scatter the 4x4 block into the w x h output, clipping at
+			// the right/bottom edge for non-multiple-of-4 dimensions.
+			const unsigned baseX = bx * 4, baseY = by * 4;
+			const unsigned maxX = (baseX + 4 <= w) ? 4 : (w - baseX);
+			const unsigned maxY = (baseY + 4 <= h) ? 4 : (h - baseY);
+			for (unsigned ty = 0; ty < maxY; ty++) {
+				for (unsigned tx = 0; tx < maxX; tx++) {
+					const uint8_t *srcTexel = &rgba[(ty * 4 + tx) * 4];
+					uint8_t *dstTexel = &dst[((size_t)(baseY + ty) * w + (baseX + tx)) * 4];
+					dstTexel[0] = srcTexel[0];
+					dstTexel[1] = srcTexel[1];
+					dstTexel[2] = srcTexel[2];
+					dstTexel[3] = srcTexel[3];
+				}
+			}
+		}
+	}
+	return true;
+}
+
 static bool prepareLevelUpload(D3DFORMAT fmt, unsigned w, unsigned h,
                                const uint8_t *src, size_t srcSize, bool hasS3TC, UploadDesc *out)
 {
@@ -909,7 +1069,17 @@ static bool prepareLevelUpload(D3DFORMAT fmt, unsigned w, unsigned h,
 	case D3DFMT_DXT4:
 	case D3DFMT_DXT5: {
 		if (!hasS3TC) {
-			WARN_ONCE(s_noS3tc, "DXT texture but WEBGL_compressed_texture_s3tc missing");
+			if (DecodeDXTLevel(fmt, w, h, src, srcSize, &out->converted)) {
+				WARN_ONCE(s_dxtSoftDecode, "DXT texture but WEBGL_compressed_texture_s3tc "
+					"missing; using software BC1-3 decode fallback");
+				out->pixels = out->converted.data();
+				out->internalFormat = GL_RGBA;
+				out->format = GL_RGBA;
+				out->type = GL_UNSIGNED_BYTE;
+				return true;
+			}
+			WARN_ONCE(s_noS3tc, "DXT texture but WEBGL_compressed_texture_s3tc missing "
+				"and software decode failed (truncated data?)");
 			return false;
 		}
 		out->compressed = true;
@@ -975,10 +1145,14 @@ void WebGLPipeline::uploadTexture(WebGLTexture *tex)
 			glTexImage2D(GL_TEXTURE_2D, lvl, up.internalFormat, s->m_width, s->m_height, 0,
 			             up.format, up.type, up.pixels);
 			uploaded = lvl + 1;
-			if (levels > 1) {
+			if (!isDXT && levels > 1) {
 				// The engine frequently fills only level 0 of uncompressed
 				// textures; GPU-generate the chain instead of sampling the
-				// empty (transparent black) shadow mips.
+				// empty (transparent black) shadow mips. DXT textures
+				// (including software-decoded ones, which land in this same
+				// branch) always come with a full pre-authored mip chain, so
+				// this must keep looping for them instead of stopping after
+				// level 0.
 				break;
 			}
 		}
