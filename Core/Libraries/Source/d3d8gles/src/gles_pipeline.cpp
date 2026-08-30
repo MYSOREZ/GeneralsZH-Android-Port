@@ -1450,6 +1450,28 @@ void WebGLPipeline::applyUniforms(WebGLDevice *dev, ProgramInfo *prog, unsigned 
 		}
 	}
 
+	// GeneralsX @build Android port GLES experiment 08/30/2026 A Redmi Note
+	// 8 Pro (Mali-G76, "native GLES3 backend, no Vulkan/ANGLE") report shows
+	// the exact same whole-frame vertical-flip symptom (menu buttons, logo,
+	// background all upside down) that bd2a2379 already fixed and verified
+	// on a real device back on 08/07 -- and every mechanism from that fix
+	// (the non-negated "cpos.y * uYFlip" / "ny * uYFlip" shader math, the
+	// D3D->GL viewport Y conversion) is confirmed still present unmodified.
+	// Static re-analysis alone didn't explain it the first time either (see
+	// bd2a2379's own commit message) -- reintroducing the same bounded,
+	// tagged diagnostic dump that got real data then, instead of guessing
+	// again. Remove once a fresh device log has actually pinned this down.
+	{
+		static int s_flipDbgCount = 0;
+		if (s_flipDbgCount < 30) {
+			const D3DVIEWPORT8 &vpDbg = dev->getViewport();
+			fprintf(stderr, "[d3d8gles-flipdbg] #%d vp=(%d,%d,%d,%d) yFlip=%.1f xyzrhw=%d fb=%dx%d curRT=%dx%d curFBO=%u\n",
+				s_flipDbgCount, vpDbg.X, vpDbg.Y, vpDbg.Width, vpDbg.Height, m_yFlip,
+				(fvf & D3DFVF_XYZRHW) ? 1 : 0, m_fbWidth, m_fbHeight, m_curRTWidth, m_curRTHeight, m_curFBO);
+			s_flipDbgCount++;
+		}
+	}
+
 	// NOTE: each uniform can be optimized out independently (a program whose
 	// material sources are all vertex colors has NO uMat* uniforms but still
 	// needs its lights). Never gate the light upload on a material location.

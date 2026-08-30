@@ -80,6 +80,15 @@ static const char *ReadRenderBackendConfigFile()
 				fclose(cfg);
 			}
 		}
+		// GeneralsX @bugfix Android port 08/30/2026 Cheap, permanent
+		// diagnostic: which render backend actually got resolved, and from
+		// where. Added while chasing a vertical-flip report where the
+		// higher-level "Vulkan vs GLES" log line (SDL3Main.cpp) didn't
+		// distinguish ANGLE from the system driver, leaving no way to tell
+		// from a device log whether ANGLE came from an explicit choice or
+		// this file being missing/unreadable.
+		fprintf(stderr, "[d3d8gles] render_backend.cfg resolved to: %s\n",
+			s_value[0] != '\0' ? s_value : "(unset -- falling back to env vars/defaults)");
 	}
 	return s_value[0] != '\0' ? s_value : nullptr;
 }
@@ -100,8 +109,21 @@ extern "C" bool d3d8gles_ShouldUseANGLE()
 	if (configured != nullptr) {
 		return strcmp(configured, "gles_angle") == 0;
 	}
+	// GeneralsX @bugfix Android port 08/30/2026 This used to default to
+	// TRUE (ANGLE on) whenever render_backend.cfg was missing/unreadable --
+	// inconsistent with d3d8gles_ShouldUseVulkanBackend() just above, which
+	// conservatively defaults to FALSE in the same situation. A real device
+	// report (Redmi Note 8 Pro) showed the whole-frame vertical-flip bug
+	// bd2a2379 fixed and verified back on 08/07 -- against the system GLES
+	// driver, before ANGLE existed in this codebase at all -- reappearing;
+	// the device's log confirmed ANGLE ("[d3d8gles] GLES backend:
+	// libGLESv2_angle.so") was active. Whether that came from an explicit
+	// "gles_angle" choice or this exact silent fallback, defaulting an
+	// unconfigured install into an experimental Vulkan-translation layer
+	// nobody opted into defeats the whole point of the picker being
+	// explicit. Default OFF like the Vulkan check now.
 	const char *v = getenv("GENERALSX_GLES_ANGLE");
-	return v == nullptr || strcmp(v, "0") != 0;
+	return v != nullptr && strcmp(v, "0") != 0;
 }
 #endif // __ANDROID__
 
