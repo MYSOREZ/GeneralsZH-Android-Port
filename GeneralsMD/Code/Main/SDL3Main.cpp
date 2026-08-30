@@ -153,6 +153,25 @@ static bool UseVulkanBackend()
 #endif
 }
 
+/**
+ * GeneralsX @build Android port ANGLE experiment - when the GLES backend is
+ * selected, route its EGL context (and, via d3d8gles_LoadGLESDispatch() in
+ * WebGLPipeline::initContext(), every gl* call) through ANGLE's bundled
+ * libEGL_angle.so/libGLESv2_angle.so (Vulkan-backed) instead of the device's
+ * system GLES driver, on by default. GENERALSX_GLES_ANGLE=0 opts back out to
+ * the system driver for A/B comparison without a rebuild -- same pattern as
+ * GENERALSX_RENDER_BACKEND above.
+ */
+static bool UseANGLE()
+{
+#if defined(__ANDROID__)
+	const char *v = getenv("GENERALSX_GLES_ANGLE");
+	return v == nullptr || strcmp(v, "0") != 0;
+#else
+	return false;
+#endif
+}
+
 #if !defined(__ANDROID__)
 static void FilterSoftwareVulkanICDs()
 {
@@ -989,12 +1008,27 @@ int main(int argc, char* argv[])
 		// SDL3GameEngine::update() owns the pause so state stays consistent.
 		SDL_SetHint(SDL_HINT_ANDROID_BLOCK_ON_PAUSE, "0");
 #endif
+		// GeneralsX @build Android port ANGLE experiment - useVulkan/useANGLE
+		// only read an env var each, so it's safe to decide before SDL's video
+		// subsystem (and therefore EGL) is initialized. SDL_HINT_EGL_LIBRARY
+		// must be set before SDL_InitSubSystem(SDL_INIT_VIDEO) -- SDL loads EGL
+		// while bringing up the video driver, not lazily at context-creation
+		// time. libEGL_angle.so is bundled in jniLibs alongside libmain.so and
+		// resolves via the app's normal dlopen search path -- no absolute path
+		// needed, and it's named distinctly from libEGL.so so Android's linker
+		// namespace (which reserves that name for the system library) never
+		// gets a say. The matching gl* dispatch is loaded separately, in
+		// WebGLPipeline::initContext(), once the context is current.
+		const bool useVulkan = UseVulkanBackend();
+#if defined(__ANDROID__)
+		if (!useVulkan && UseANGLE()) {
+			SDL_SetHint(SDL_HINT_EGL_LIBRARY, "libEGL_angle.so");
+		}
+#endif
 		if (!SDL_InitSubSystem(SDL_INIT_VIDEO | SDL_INIT_AUDIO)) {
 			fprintf(stderr, "FATAL: Failed to initialize SDL3: %s\n", SDL_GetError());
 			return 1;
 		}
-
-		const bool useVulkan = UseVulkanBackend();
 
 		if (useVulkan) {
 			// Set DXVK WSI driver before loading Vulkan

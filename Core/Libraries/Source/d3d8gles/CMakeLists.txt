@@ -17,6 +17,7 @@ endif()
 
 add_library(d3d8gles STATIC
     src/d3d8gles.cpp
+    src/gles_dispatch.cpp
 )
 
 target_include_directories(d3d8gles PUBLIC
@@ -32,10 +33,19 @@ target_include_directories(d3d8gles PRIVATE
 # types (HWND, WINAPI, DWORD, ...) come from CompatLib transitively through
 # it. sdl3lib provides GLES3/gl3.h (Android NDK) and the SDL3 GL context API
 # (SDL_GL_CreateContext/MakeCurrent/SwapWindow) this module's context setup
-# uses instead of Emscripten's WebGL2 canvas API. GLESv3 is the actual NDK
-# system library the gl* symbols resolve against (sdl3lib only gives us the
-# header + SDL's own context-management calls, not the GL entry points
-# themselves -- those come from the platform, same as EGL would).
-target_link_libraries(d3d8gles PRIVATE d3d8lib sdl3lib GLESv3)
+# uses instead of Emscripten's WebGL2 canvas API.
+#
+# GeneralsX @build Android port ANGLE experiment - deliberately NOT linked
+# against system GLESv3 (unlike the original port). gl* symbols are instead
+# defined by src/gles_dispatch.cpp, which forwards them to function pointers
+# resolved at runtime via dlopen/dlsym against a chosen GLES implementation
+# library -- ANGLE's bundled libGLESv2_angle.so (routes through its Vulkan
+# backend) by default, or system libGLESv3.so as a fallback/A-B toggle (see
+# d3d8gles_LoadGLESDispatch's caller in SDL3Main.cpp). Direct DT_NEEDED
+# linking against libGLESv3.so can't be repointed at a same-named bundled
+# library -- Android's linker namespace reserves that name for the system
+# library -- so an explicit dispatch table is the only way to route these
+# calls through an app-bundled, differently-named implementation.
+target_link_libraries(d3d8gles PRIVATE d3d8lib sdl3lib)
 
 target_compile_features(d3d8gles PRIVATE cxx_std_20)

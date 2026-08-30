@@ -136,6 +136,25 @@ if [[ -z "${LIBCXX}" ]]; then
 fi
 cp "${LIBCXX}" "${JNILIBS}/"
 
+# GeneralsX @build Android port ANGLE experiment - bundled prebuilt ANGLE
+# (Vulkan backend) so the GLES rendering path (d3d8gles) can route its EGL
+# context and gl* calls through ANGLE's Vulkan translation instead of the
+# device's own GLES driver (see gles_dispatch.cpp / SDL3Main.cpp's
+# GENERALSX_GLES_ANGLE toggle). Committed as prebuilt binaries, not rebuilt
+# here: this ANGLE checkout is a Vulkan-only Android arm64 build from the
+# AOSP mirror (android.googlesource.com/platform/external/angle), built with
+# a hand-bootstrapped gn+ninja toolchain instead of the official
+# depot_tools/gclient workflow (100GB+ disk, unavailable in this sandbox) --
+# not a build this script can reasonably reproduce on every run. Not
+# required for the game to run: d3d8gles falls back to the system's
+# libGLESv3.so at runtime if either file is missing or fails to dlopen.
+ANGLE_PREBUILT="${PROJECT_ROOT}/Core/Libraries/Source/d3d8gles/angle-prebuilt/arm64-v8a"
+if [[ -f "${ANGLE_PREBUILT}/libEGL_angle.so" && -f "${ANGLE_PREBUILT}/libGLESv2_angle.so" ]]; then
+    cp "${ANGLE_PREBUILT}/libEGL_angle.so" "${ANGLE_PREBUILT}/libGLESv2_angle.so" "${JNILIBS}/"
+else
+    echo "WARNING: prebuilt ANGLE libraries not found at ${ANGLE_PREBUILT} -- GLES backend will fall back to the system GLES driver."
+fi
+
 # Opt-in Vulkan validation layer (SDL3Main.cpp dxvk_validation.txt marker,
 # see docs/BUILD/ANDROID_SANDBOXED_LOCAL.md). Not required for the game to
 # run -- skip with a warning instead of failing the build if it isn't

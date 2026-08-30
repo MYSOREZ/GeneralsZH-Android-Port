@@ -27,6 +27,7 @@
 // NOTE: this file is #included at the bottom of d3d8gles.cpp (single TU) so
 // it can access the device/resource class internals defined there.
 #include "gles_pipeline.h"
+#include "gles_dispatch.h"
 
 #include <SDL3/SDL.h>
 #include <cstdio>
@@ -271,6 +272,32 @@ bool WebGLPipeline::initContext(int w, int h, SDL_Window *window)
 		return false;
 	}
 	SDL_GL_SetSwapInterval(1);
+
+	// GeneralsX @build Android port ANGLE experiment - resolve every gl*
+	// entry point this module calls via gles_dispatch.cpp instead of relying
+	// on direct DT_NEEDED linking against system libGLESv3.so (see
+	// CMakeLists.txt for why). Must run after MakeCurrent (a context needs to
+	// be current for the chosen implementation to hand back valid function
+	// pointers) and before the very first gl* call below. Mirrors the
+	// SDL_HINT_EGL_LIBRARY choice made in SDL3Main.cpp before SDL_InitSubSystem
+	// -- both must agree on ANGLE vs. system GLES, or the EGL context and the
+	// GL entry points come from two different, incompatible implementations.
+	{
+		const char *angleOverride = getenv("GENERALSX_GLES_ANGLE");
+		const bool useANGLE = angleOverride == nullptr || strcmp(angleOverride, "0") != 0;
+		const char *libName = useANGLE ? "libGLESv2_angle.so" : "libGLESv3.so";
+		if (!d3d8gles_LoadGLESDispatch(libName)) {
+			if (useANGLE) {
+				fprintf(stderr, "[d3d8gles] ANGLE GLES dispatch unavailable, falling back to system libGLESv3.so\n");
+				libName = "libGLESv3.so";
+			}
+			if (!d3d8gles_LoadGLESDispatch(libName)) {
+				fprintf(stderr, "[d3d8gles] FATAL: could not resolve any GLES implementation (tried %s)\n", libName);
+				return false;
+			}
+		}
+		fprintf(stderr, "[d3d8gles] GLES backend: %s\n", libName);
+	}
 
 	const char *extensions = (const char *)glGetString(GL_EXTENSIONS);
 	m_hasS3TC = extensions != nullptr &&

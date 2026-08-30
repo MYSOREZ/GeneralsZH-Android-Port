@@ -22,6 +22,10 @@ cmake_install.cmake
 install_manifest.txt
 compile_commands.json
 *.so*
+# GeneralsX @build Android port ANGLE experiment - prebuilt ANGLE .so's are
+# a committed vendor artifact (see package-android-zh.sh), not a build
+# output, so they're exempt from the blanket *.so* ignore above.
+!Core/Libraries/Source/d3d8gles/angle-prebuilt/**/*.so
 CPackConfig.cmake
 CPackSourceConfig.cmake
 *.spec
