@@ -211,6 +211,22 @@ protected:
 	Real m_slowDeathScale;			///<values < 1.0f are used to accelerate deaths
 	ParticlePriorityType m_minDynamicParticlePriority;	///<only priorities above/including this value are allowed to render.
 	ParticlePriorityType m_minDynamicParticleSkipPriority;	///<priorities above/including this value never skip particles.
+
+	// GeneralsX @build Android port GLES experiment - dynamic LOD's existing
+	// particle/debris skip masks alone can't relieve real-device GPU
+	// throughput pressure from heavy scene content (confirmed via
+	// [GX-PERF-DISPLAY] profiling: draws/frame into the thousands,
+	// present-wait plateaued near a hard ceiling, in both the ShellMapMD
+	// menu background and real skirmish gameplay) -- they don't touch
+	// unit/shadow rendering cost at all. At the lowest dynamic LOD tier,
+	// temporarily force shadows off (both TheGlobalData->m_useShadowVolumes
+	// and m_useShadowDecals, the same flags the *static* LOD/graphics-
+	// options system already drives) and restore whatever the player/static
+	// LOD had them set to once FPS recovers -- see applyDynamicLODLevel().
+	Bool m_dynamicShadowsSuppressed;
+	Bool m_savedUseShadowVolumes;
+	Bool m_savedUseShadowDecals;
+
 	Bool m_videoPassed;
 	Bool m_cpuPassed;
 	Bool m_memPassed;
