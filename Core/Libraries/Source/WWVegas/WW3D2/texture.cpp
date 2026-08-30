@@ -43,6 +43,12 @@
 
 #include <d3d8.h>
 #include <d3dx8core.h>
+// GeneralsX @build Android port GLES experiment - texture-churn diagnostic,
+// see the TextureClass(width,height,...) constructor below.
+#ifdef __ANDROID__
+#include <dlfcn.h>
+#include <cstring>
+#endif
 #include "dx8wrapper.h"
 #include "TARGA.h"
 #include <nstrdup.h>
@@ -642,14 +648,32 @@ TextureClass::TextureClass
 	// libmain.so via: aarch64-linux-android-addr2line -f -C -e libmain.so <addr>
 	// (or nm/objdump -d if addr2line isn't available), matching this
 	// exact commit so addresses line up.
+#ifdef __ANDROID__
 	{
 		static int s_ctorLogCount = 0;
 		if (s_ctorLogCount < 200) {
 			s_ctorLogCount++;
-			fprintf(stderr, "[texchurn] create #%d %ux%u caller=%p\n",
-				s_ctorLogCount, width, height, __builtin_return_address(0));
+			void *retAddr = __builtin_return_address(0);
+			// GeneralsX @build Android port GLES experiment - the raw return
+			// address alone can't be resolved offline (ASLR randomizes where
+			// libmain.so is loaded each run). dladdr() gives the containing
+			// module's load base (dli_fbase) so retAddr-dli_fbase is a stable
+			// file offset into libmain.so, resolvable via:
+			// aarch64-linux-android-addr2line -f -C -e libmain.so <fileoffset>
+			Dl_info info;
+			memset(&info, 0, sizeof(info));
+			uintptr_t fileOffset = 0;
+			if (dladdr(retAddr, &info) && info.dli_fbase) {
+				fileOffset = (uintptr_t)retAddr - (uintptr_t)info.dli_fbase;
+			}
+			fprintf(stderr, "[texchurn] create #%d %ux%u caller=%p module=%s fileoff=0x%lx nearest_sym=%s\n",
+				s_ctorLogCount, width, height, retAddr,
+				info.dli_fname ? info.dli_fname : "?",
+				(unsigned long)fileOffset,
+				info.dli_sname ? info.dli_sname : "?");
 		}
 	}
+#endif
 	Set_Texture_Name("!diag_whf_ctor");
 
 	switch (format)
