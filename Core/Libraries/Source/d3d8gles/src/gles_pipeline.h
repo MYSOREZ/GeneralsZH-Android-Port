@@ -281,14 +281,37 @@ private:
 	// a DIFFERENT program would wrongly skip uploading to this one. That
 	// invalidation happens in the one place program switches are already
 	// detected, at the top of applyUniforms() (see m_lastProgram above).
-	struct TransformKey { // view+proj+texture matrices; not uWorld, see above
-		float view[16], proj[16], texMat0[16], texMat1[16];
-		bool operator==(const TransformKey &o) const {
-			return memcmp(this, &o, sizeof(TransformKey)) == 0;
+	// GeneralsX @build Android port GLES experiment 08/30/2026 Split from one
+	// combined "TransformKey" (view+proj+texMat0+texMat1 as a single cache
+	// slot) after a real device log's new per-block uniform-cache breakdown
+	// showed the transform bucket collapsing to ~35% hit rate mid-battle,
+	// far below vao-cache's 99.8%+ -- suspicious, since the camera
+	// (view/proj) is set once per frame and every draw that frame should
+	// share it. The likely culprit: per-object texture-stage transforms
+	// (UV scroll/glow animations on individual units) invalidating the
+	// WHOLE combined key on every draw that uses them, forcing a spurious
+	// view/proj re-upload too even though the camera hadn't changed at all.
+	// Splitting into two independent caches lets view/proj stay cached
+	// across a whole frame regardless of what any one object's texMat is
+	// doing -- can only raise the hit rate, never lower it, since it's the
+	// same comparisons just no longer coupled together.
+	struct ViewProjKey {
+		float view[16], proj[16];
+		bool operator==(const ViewProjKey &o) const {
+			return memcmp(this, &o, sizeof(ViewProjKey)) == 0;
 		}
 	};
-	bool m_haveTransformKey = false;
-	TransformKey m_lastTransformKey{};
+	bool m_haveViewProjKey = false;
+	ViewProjKey m_lastViewProjKey{};
+
+	struct TexMatKey {
+		float texMat0[16], texMat1[16];
+		bool operator==(const TexMatKey &o) const {
+			return memcmp(this, &o, sizeof(TexMatKey)) == 0;
+		}
+	};
+	bool m_haveTexMatKey = false;
+	TexMatKey m_lastTexMatKey{};
 
 	struct MiscUniformKey { // viewport, yFlip, texture-factor, alpha ref, fog
 		float vpX, vpY, vpW, vpH;
@@ -341,7 +364,8 @@ private:
 	// battle with many differently-colored/lit units) or one that SHOULD be
 	// near-constant within a frame (transform/misc -- a real inefficiency if
 	// it's missing a lot). Split out so the next log settles which.
-	int m_perfUniformTransformHits = 0, m_perfUniformTransformMisses = 0;
+	int m_perfUniformViewProjHits = 0, m_perfUniformViewProjMisses = 0;
+	int m_perfUniformTexMatHits = 0, m_perfUniformTexMatMisses = 0;
 	int m_perfUniformMiscHits = 0, m_perfUniformMiscMisses = 0;
 	int m_perfUniformMaterialHits = 0, m_perfUniformMaterialMisses = 0;
 	int m_perfUniformLightingHits = 0, m_perfUniformLightingMisses = 0;

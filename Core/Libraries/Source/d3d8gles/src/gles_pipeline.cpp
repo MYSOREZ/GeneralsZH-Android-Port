@@ -1391,35 +1391,48 @@ void WebGLPipeline::applyUniforms(WebGLDevice *dev, ProgramInfo *prog, unsigned 
 		// computed for the PREVIOUS program would wrongly skip uploading to
 		// this one, leaving its uniforms unset. Force every sub-block below
 		// to treat this draw as a first upload for the newly bound program.
-		m_haveTransformKey = m_haveMiscKey = m_haveMaterialKey = m_haveLightingKey = false;
+		m_haveViewProjKey = m_haveTexMatKey = m_haveMiscKey = m_haveMaterialKey = m_haveLightingKey = false;
 	}
 
 	// D3D row-major memory uploaded untransposed IS the transpose GL wants
 	// for column-vector math (see plan notes). uWorld is deliberately never
 	// cached -- it changes on nearly every draw in real battlefield
-	// rendering (each object has its own transform) -- see TransformKey's
+	// rendering (each object has its own transform) -- see ViewProjKey's
 	// declaration for why the rest of this function's blocks are cached.
 	if (prog->uWorld >= 0)
 		glUniformMatrix4fv(prog->uWorld, 1, GL_FALSE, (const float *)&dev->getTransform(D3DTS_WORLD));
 
-	if (prog->uView >= 0 || prog->uProj >= 0 || prog->uTexMat0 >= 0 || prog->uTexMat1 >= 0) {
-		TransformKey key{};
+	if (prog->uView >= 0 || prog->uProj >= 0) {
+		ViewProjKey key{};
 		memcpy(key.view, &dev->getTransform(D3DTS_VIEW), sizeof(key.view));
 		memcpy(key.proj, &dev->getTransform(D3DTS_PROJECTION), sizeof(key.proj));
-		memcpy(key.texMat0, &dev->getTransform(D3DTS_TEXTURE0), sizeof(key.texMat0));
-		memcpy(key.texMat1, &dev->getTransform((D3DTRANSFORMSTATETYPE)(D3DTS_TEXTURE0 + 1)), sizeof(key.texMat1));
-		if (m_haveTransformKey && key == m_lastTransformKey) {
+		if (m_haveViewProjKey && key == m_lastViewProjKey) {
 			m_perfUniformCacheHits++;
-			m_perfUniformTransformHits++;
+			m_perfUniformViewProjHits++;
 		} else {
 			m_perfUniformCacheMisses++;
-			m_perfUniformTransformMisses++;
+			m_perfUniformViewProjMisses++;
 			if (prog->uView >= 0) glUniformMatrix4fv(prog->uView, 1, GL_FALSE, key.view);
 			if (prog->uProj >= 0) glUniformMatrix4fv(prog->uProj, 1, GL_FALSE, key.proj);
+			m_lastViewProjKey = key;
+			m_haveViewProjKey = true;
+		}
+	}
+
+	if (prog->uTexMat0 >= 0 || prog->uTexMat1 >= 0) {
+		TexMatKey key{};
+		memcpy(key.texMat0, &dev->getTransform(D3DTS_TEXTURE0), sizeof(key.texMat0));
+		memcpy(key.texMat1, &dev->getTransform((D3DTRANSFORMSTATETYPE)(D3DTS_TEXTURE0 + 1)), sizeof(key.texMat1));
+		if (m_haveTexMatKey && key == m_lastTexMatKey) {
+			m_perfUniformCacheHits++;
+			m_perfUniformTexMatHits++;
+		} else {
+			m_perfUniformCacheMisses++;
+			m_perfUniformTexMatMisses++;
 			if (prog->uTexMat0 >= 0) glUniformMatrix4fv(prog->uTexMat0, 1, GL_FALSE, key.texMat0);
 			if (prog->uTexMat1 >= 0) glUniformMatrix4fv(prog->uTexMat1, 1, GL_FALSE, key.texMat1);
-			m_lastTransformKey = key;
-			m_haveTransformKey = true;
+			m_lastTexMatKey = key;
+			m_haveTexMatKey = true;
 		}
 	}
 
@@ -2068,25 +2081,28 @@ void WebGLPipeline::present()
 				m_perfProgramBuilds > 0 ? m_perfProgramBuildUs / 1000.0 / m_perfProgramBuilds : 0.0,
 				m_programCount);
 			// GeneralsX @build Android port GLES experiment 08/30/2026 Per-
-			// block breakdown of the combined uniform-cache rate above --
-			// added to find out whether a lower-than-vao-cache hit rate
-			// (real device logs: ~74% combined vs vao-cache 99.8%+) comes
-			// from a block that's expected to miss a lot per-object
-			// (material/lighting -- genuinely varies per unit) or one that
-			// should be near-constant within a frame (transform/misc --
-			// same camera/viewport for every draw in a frame, a low rate
-			// there would point at a real inefficiency, e.g. something
-			// invalidating the key unnecessarily between draws that
-			// shouldn't differ).
+			// block breakdown of the combined uniform-cache rate above. A
+			// real device log with this line's first version (transform =
+			// view+proj+texMat0+texMat1 as one combined key) showed
+			// transform/misc collapsing to ~35% hit rate mid-battle while
+			// material/lighting held 82-88% -- suspicious, since the camera
+			// (view/proj) is set once per frame and should hit on nearly
+			// every draw. Split transform into separate viewproj/texmat
+			// buckets (gles_pipeline.h's ViewProjKey/TexMatKey) to confirm
+			// whether per-object texture-stage transforms (UV scroll/glow
+			// animations) were invalidating the whole combined key on every
+			// such draw and forcing a spurious view/proj re-upload too.
 			{
 				auto pct = [](int hits, int misses) {
 					int total = hits + misses;
 					return total > 0 ? 100.0f * hits / total : 0.0f;
 				};
-				fprintf(stderr, "[d3d8gles] uniform-cache breakdown: transform %.0f%% (%d/%d), "
-					"misc %.0f%% (%d/%d), material %.0f%% (%d/%d), lighting %.0f%% (%d/%d)\n",
-					pct(m_perfUniformTransformHits, m_perfUniformTransformMisses),
-					m_perfUniformTransformHits, m_perfUniformTransformHits + m_perfUniformTransformMisses,
+				fprintf(stderr, "[d3d8gles] uniform-cache breakdown: viewproj %.0f%% (%d/%d), "
+					"texmat %.0f%% (%d/%d), misc %.0f%% (%d/%d), material %.0f%% (%d/%d), lighting %.0f%% (%d/%d)\n",
+					pct(m_perfUniformViewProjHits, m_perfUniformViewProjMisses),
+					m_perfUniformViewProjHits, m_perfUniformViewProjHits + m_perfUniformViewProjMisses,
+					pct(m_perfUniformTexMatHits, m_perfUniformTexMatMisses),
+					m_perfUniformTexMatHits, m_perfUniformTexMatHits + m_perfUniformTexMatMisses,
 					pct(m_perfUniformMiscHits, m_perfUniformMiscMisses),
 					m_perfUniformMiscHits, m_perfUniformMiscHits + m_perfUniformMiscMisses,
 					pct(m_perfUniformMaterialHits, m_perfUniformMaterialMisses),
@@ -2105,8 +2121,10 @@ void WebGLPipeline::present()
 			m_perfVAOPointerRefresh = 0;
 			m_perfUniformCacheHits = 0;
 			m_perfUniformCacheMisses = 0;
-			m_perfUniformTransformHits = 0;
-			m_perfUniformTransformMisses = 0;
+			m_perfUniformViewProjHits = 0;
+			m_perfUniformViewProjMisses = 0;
+			m_perfUniformTexMatHits = 0;
+			m_perfUniformTexMatMisses = 0;
 			m_perfUniformMiscHits = 0;
 			m_perfUniformMiscMisses = 0;
 			m_perfUniformMaterialHits = 0;
