@@ -1705,7 +1705,20 @@ unsigned DX8TextureCategoryClass::Add_Mesh(
 // glDrawElementsInstanced call is a net win given per-draw call overhead on
 // mobile GPUs (that's the whole premise of every other caching layer in
 // this file/gles_pipeline.cpp).
-static const int kMinInstanceRun = 2;
+//
+// A/B diagnostic (temporary): user reported wrong-looking geometry (a
+// mast/antenna-like structure floating detached from its ship) in the main
+// menu's ShellMapMD battle, still present after the texture-stage-transform
+// guardrail fix (#8) shipped -- so that wasn't the only cause, or wasn't the
+// cause at all. A second full read-through of the accumulate/flush loop and
+// the GLES instanced draw path (Draw_Triangles_Instanced's per-instance
+// matrix packing, drawIndexedInstanced's orphan-and-upload of m_instanceVBO,
+// the instanced-vs-non-instanced program/uWorld/aInstWorld selection in
+// gles_pipeline.cpp) found nothing conclusively wrong. Forcing this back to
+// an unreachable value isolates whether instancing is the cause at all,
+// same trick as Phase 1/2's initial refactor-only build -- compare against
+// the exact same content with this one knob flipped.
+static const int kMinInstanceRun = 999999;
 
 // A task is eligible to be batched into an instanced draw only if it would
 // otherwise have taken the exact same path as the final, plain
