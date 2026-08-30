@@ -632,6 +632,24 @@ TextureClass::TextureClass
 	IsReducible=false;
 	// GeneralsX @build Android port GLES experiment - texture-churn
 	// diagnostic call-site tag (see ~TextureBaseClass's [texchurn] log).
+	// Every known static call site for this constructor was ruled out
+	// (DX8Wrapper::Create_Render_Target and W3DShroud pass POOL_DEFAULT
+	// explicitly; MetalMapManagerClass sets a name right after
+	// construction; AlphaEdgeTextureClass is 2048px wide and created once
+	// per map load, not per-frame) -- so instead of grepping for more
+	// candidates, print the caller's actual return address here. It can be
+	// resolved to a source line offline against this exact build's
+	// libmain.so via: aarch64-linux-android-addr2line -f -C -e libmain.so <addr>
+	// (or nm/objdump -d if addr2line isn't available), matching this
+	// exact commit so addresses line up.
+	{
+		static int s_ctorLogCount = 0;
+		if (s_ctorLogCount < 200) {
+			s_ctorLogCount++;
+			fprintf(stderr, "[texchurn] create #%d %ux%u caller=%p\n",
+				s_ctorLogCount, width, height, __builtin_return_address(0));
+		}
+	}
 	Set_Texture_Name("!diag_whf_ctor");
 
 	switch (format)
