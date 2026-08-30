@@ -119,6 +119,8 @@ bool DX8Wrapper::s_pillarboxEnabled = false;
 bool DX8Wrapper::s_pillarboxActive = false;
 int DX8Wrapper::s_bbW = 0;
 int DX8Wrapper::s_bbH = 0;
+int DX8Wrapper::s_renderW = 0;
+int DX8Wrapper::s_renderH = 0;
 int DX8Wrapper::s_dstX = 0;
 int DX8Wrapper::s_dstY = 0;
 int DX8Wrapper::s_dstW = 0;
@@ -157,6 +159,31 @@ void DX8Wrapper::Pillarbox_Cleanup()
 	s_pillarboxActive = false;
 }
 
+// GeneralsX @bugfix Android port 08/30/2026 EXPERIMENT: deliberately render the
+// 3D scene + UI at less than the device's native pixel count and let the
+// existing pillarbox blit upscale it, trading a small amount of resolution
+// for fill-rate headroom. This is DIFFERENT from the xres/yres-based attempt
+// documented in SDL3Main.cpp (which was reverted): that changed the ENGINE's
+// logical resolution (ResolutionWidth/Height), which font-size bucketing and
+// other resolution-aware code read directly, causing UI text to visibly jump
+// size. Here ResolutionWidth/Height (and therefore all UI/.wnd layout math
+// and font-size selection) are untouched -- only the pixel dimensions of the
+// pillarbox's OWN offscreen render target and scene viewport shrink. Since
+// D3D8's projection/ortho matrices map the *logical* [0,ResolutionWidth]
+// coordinate space onto NDC independent of viewport pixel size, and the
+// pillarbox blit then upscales that render target back up to the real
+// backbuffer, every UI element's on-screen position/proportion works out
+// identically to native rendering -- the same math already proven correct by
+// the pre-existing incidental case where the backbuffer didn't exactly match
+// game resolution (e.g. the tested Redmi Note 8 Pro's ~96.7% case). Only the
+// image itself gets a little softer, matching a deliberate but modest
+// (~90%) scale rather than an incidental (~97%) one.
+#if defined(__ANDROID__)
+static const float kPillarboxRenderScale = 0.90f;
+#else
+static const float kPillarboxRenderScale = 1.0f;
+#endif
+
 bool DX8Wrapper::Pillarbox_Setup(int gameW, int gameH)
 {
 	Pillarbox_Cleanup();
@@ -178,17 +205,22 @@ bool DX8Wrapper::Pillarbox_Setup(int gameW, int gameH)
 		}
 	}
 
-	// No pillarbox needed if backbuffer matches game resolution
-	if (bbW == gameW && bbH == gameH) return false;
+	int renderW = (int)(gameW * kPillarboxRenderScale) & ~1;
+	int renderH = (int)(gameH * kPillarboxRenderScale) & ~1;
+	if (renderW <= 0) renderW = gameW;
+	if (renderH <= 0) renderH = gameH;
 
-	// Create offscreen render target at game resolution
-	HRESULT hr = D3DDevice->CreateTexture(gameW, gameH, 1, D3DUSAGE_RENDERTARGET,
+	// No pillarbox needed if backbuffer matches the actual render resolution
+	if (bbW == renderW && bbH == renderH) return false;
+
+	// Create offscreen render target at the (possibly downscaled) render resolution
+	HRESULT hr = D3DDevice->CreateTexture(renderW, renderH, 1, D3DUSAGE_RENDERTARGET,
 		D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, &s_offscreenTex);
 	if (FAILED(hr)) return false;
 	s_offscreenTex->GetSurfaceLevel(0, &s_offscreenSurf);
 
-	// Create dedicated depth stencil at game resolution
-	hr = D3DDevice->CreateDepthStencilSurface(gameW, gameH,
+	// Create dedicated depth stencil at the same render resolution
+	hr = D3DDevice->CreateDepthStencilSurface(renderW, renderH,
 		_PresentParameters.AutoDepthStencilFormat, D3DMULTISAMPLE_NONE, &s_depthSurf);
 	if (FAILED(hr)) {
 		s_offscreenSurf->Release(); s_offscreenSurf = nullptr;
@@ -198,8 +230,9 @@ bool DX8Wrapper::Pillarbox_Setup(int gameW, int gameH)
 
 	// Cache backbuffer size and compute aspect-correct fit rect once
 	s_bbW = bbW; s_bbH = bbH;
+	s_renderW = renderW; s_renderH = renderH;
 	s_pixelDensity = density;
-	float gameAspect = (float)gameW / (float)gameH;
+	float gameAspect = (float)renderW / (float)renderH;
 	float bbAspect = (float)bbW / (float)bbH;
 	if (bbAspect > gameAspect) {
 		s_dstW = (int)(bbH * gameAspect); s_dstH = bbH;
@@ -209,9 +242,12 @@ bool DX8Wrapper::Pillarbox_Setup(int gameW, int gameH)
 		s_dstX = 0; s_dstY = (bbH - s_dstH) / 2;
 	}
 	s_pillarboxEnabled = true;
-	fprintf(stderr, "INFO: Pillarbox: game=%dx%d, backbuffer=%dx%d, present=%ux%u, windowed=%d\n",
+	fprintf(stderr, "INFO: Pillarbox: game=%dx%d, render=%dx%d (scale=%.2f), backbuffer=%dx%d, present=%ux%u, windowed=%d\n",
 		gameW,
 		gameH,
+		renderW,
+		renderH,
+		kPillarboxRenderScale,
 		bbW,
 		bbH,
 		_PresentParameters.BackBufferWidth,
@@ -229,11 +265,17 @@ void DX8Wrapper::Pillarbox_Begin()
 	IsRenderToTexture = false;
 	// GeneralsX @bugfix GitHub Copilot 27/04/2026 Ensure scene render uses game-resolution viewport on the offscreen RT.
 	// Without this, a stale fullscreen-sized viewport can survive the target switch and crop/zoom into the top-left area.
+	// GeneralsX @bugfix Android port 08/30/2026 Use s_renderW/s_renderH (the
+	// offscreen render target's ACTUAL pixel size), not ResolutionWidth/
+	// ResolutionHeight -- these differ when kPillarboxRenderScale < 1.0.
+	// Using the logical resolution here would set a viewport larger than the
+	// render target, cropping/zooming into its top-left corner exactly like
+	// the stale-viewport bug this code already guards against.
 	D3DVIEWPORT8 sceneViewport = {
 		0,
 		0,
-		(DWORD)ResolutionWidth,
-		(DWORD)ResolutionHeight,
+		(DWORD)s_renderW,
+		(DWORD)s_renderH,
 		0.0f,
 		1.0f
 	};
@@ -279,7 +321,12 @@ void DX8Wrapper::Pillarbox_End()
 	Set_DX8_Texture_Stage_State(1, D3DTSS_ALPHAOP, D3DTOP_DISABLE);
 	Set_DX8_Texture_Stage_State(0, D3DTSS_COLOROP, D3DTOP_SELECTARG1);
 	Set_DX8_Texture_Stage_State(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
-	DWORD filterMode = (s_dstW == ResolutionWidth && s_dstH == ResolutionHeight)
+	// GeneralsX @bugfix Android port 08/30/2026 Compare against s_renderW/
+	// s_renderH (the offscreen target's actual size), not ResolutionWidth/
+	// ResolutionHeight -- with kPillarboxRenderScale < 1.0 those always
+	// differ, so this check must reflect the real render-target size to
+	// still pick nearest-neighbor in the (now rarer) exact-match case.
+	DWORD filterMode = (s_dstW == s_renderW && s_dstH == s_renderH)
 		? D3DTEXF_POINT : D3DTEXF_LINEAR;
 	Set_DX8_Texture_Stage_State(0, D3DTSS_MINFILTER, filterMode);
 	Set_DX8_Texture_Stage_State(0, D3DTSS_MAGFILTER, filterMode);

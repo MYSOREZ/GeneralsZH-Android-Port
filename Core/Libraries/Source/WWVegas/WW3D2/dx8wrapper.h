@@ -742,6 +742,10 @@ protected:
 	static bool								s_pillarboxEnabled;
 	static bool								s_pillarboxActive;
 	static int								s_bbW, s_bbH;
+	// GeneralsX @bugfix Android port 08/30/2026 Actual pixel size of the
+	// offscreen render target / scene viewport, which is NOT always equal to
+	// gameW/gameH passed into Pillarbox_Setup -- see kPillarboxRenderScale.
+	static int								s_renderW, s_renderH;
 	static int								s_dstX, s_dstY, s_dstW, s_dstH;
 	static float							s_pixelDensity;
 	static IDirect3DTexture8*			s_offscreenTex;
