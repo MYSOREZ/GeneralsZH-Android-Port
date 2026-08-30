@@ -142,8 +142,16 @@ TextureBaseClass::~TextureBaseClass()
 		if (s_destroyLogCount < 200 && nowMs >= s_destroyLogNextMs) {
 			s_destroyLogCount++;
 			s_destroyLogNextMs = nowMs + 50; // at most one line per 50ms
-			fprintf(stderr, "[texchurn] destroy #%d name='%s' %ux%u\n",
-				s_destroyLogCount, Get_Texture_Name().str(), Width, Height);
+			// pool: 0=DEFAULT (render targets use this explicitly, see
+			// DX8Wrapper::Create_Render_Target), 1=MANAGED, 2=SYSTEMMEM.
+			// procedural: true for every non-filename constructor (render
+			// targets, raw-surface textures like font3d.cpp/bmp2d.cpp, and
+			// a few others) -- doesn't by itself distinguish which, but
+			// combined with pool it should narrow down the real source of
+			// the unnamed 64x64 churn seen in the previous diagnostic build.
+			fprintf(stderr, "[texchurn] destroy #%d name='%s' %ux%u pool=%d procedural=%d\n",
+				s_destroyLogCount, Get_Texture_Name().str(), Width, Height,
+				(int)Pool, IsProcedural ? 1 : 0);
 		}
 		D3DTexture->Release();
 		D3DTexture = nullptr;
