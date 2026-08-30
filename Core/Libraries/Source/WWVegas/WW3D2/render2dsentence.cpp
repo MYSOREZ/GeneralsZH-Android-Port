@@ -375,11 +375,36 @@ Render2DSentenceClass::Build_Textures ()
 		curr_surface->Get_Description (desc);
 
 		//
-		//	Create the new texture
+		//	Reuse the renderer's existing glyph-cache texture when it already
+		//	matches what we need instead of always allocating a fresh GL
+		//	texture object. This function runs every time on-screen text is
+		//	rebuilt (any 2D sentence/label content change) -- on a real
+		//	device that showed up as ~200 GL texture create+destroy cycles
+		//	within a few seconds during ordinary gameplay, all unnamed
+		//	64x64-ish A4R4G4B4 textures (see the [texchurn] diagnostic that
+		//	traced them here). REF_PTR_SET (used below via renderer->
+		//	Set_Texture) Add_Refs the new value before Release_Ref'ing the
+		//	old one, so handing it the SAME object we just peeked is safe
+		//	even when it's the only other reference.
 		//
-		GX_TRACE("Build_Textures: about to create TextureClass width=%u\n", desc.Width);
-		TextureClass *new_texture = W3DNEW TextureClass (desc.Width, desc.Width, WW3D_FORMAT_A4R4G4B4, MIP_LEVELS_1);
-		GX_TRACE("Build_Textures: TextureClass created=%p\n", (void*)new_texture);
+		TextureClass *new_texture = nullptr;
+		if (surface_info.Renderers.Count () > 0) {
+			TextureClass *existing = surface_info.Renderers[0]->Peek_Texture ();
+			if (existing != nullptr &&
+				existing->Get_Width () == (int)desc.Width &&
+				existing->Get_Height () == (int)desc.Width &&
+				existing->Get_Texture_Format () == WW3D_FORMAT_A4R4G4B4) {
+				new_texture = existing;
+				new_texture->Add_Ref ();
+				GX_TRACE("Build_Textures: reusing existing TextureClass=%p width=%u\n",
+					(void*)new_texture, desc.Width);
+			}
+		}
+		if (new_texture == nullptr) {
+			GX_TRACE("Build_Textures: about to create TextureClass width=%u\n", desc.Width);
+			new_texture = W3DNEW TextureClass (desc.Width, desc.Width, WW3D_FORMAT_A4R4G4B4, MIP_LEVELS_1);
+			GX_TRACE("Build_Textures: TextureClass created=%p\n", (void*)new_texture);
+		}
 		SurfaceClass *texture_surface = new_texture->Get_Surface_Level ();
 
 		new_texture->Get_Filter().Set_U_Addr_Mode(TextureFilterClass::TEXTURE_ADDRESS_CLAMP);
