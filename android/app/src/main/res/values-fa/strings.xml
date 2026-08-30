@@ -41,6 +41,18 @@
     <string name="setup_text_size_help">اندازه متن بیشتر دکمه‌ها/برچسب‌های منو را متناسب با وضوح صفحه تنظیم می‌کند. مقدار پیش‌فرض خود بازی ۷۰ است؛ مقادیر بالاتر متن منو را بزرگ‌تر می‌کنند. این تغییر در اجرای بعدی بازی اعمال می‌شود، نه بلافاصله.</string>
     <string name="setup_toast_text_size_saved">ذخیره شد. در اجرای بعدی بازی اعمال خواهد شد.</string>
 
+    <!-- SetupActivity: Render Backend card -->
+    <string name="setup_card_render_backend">بک‌اند رندر</string>
+    <string name="setup_render_backend_help">اینکه بازی از کدام API گرافیکی استفاده می‌کند. این تغییر در اجرای بعدی بازی اعمال می‌شود، نه بلافاصله.\n\nVulkan (پیشنهادی): اصلی‌ترین و بیشتر آزموده‌شده‌ترین بک‌اند (از طریق ترجمهٔ Direct3D 8 به Vulkan توسط DXVK). اکثر گوشی‌های امروزی (مانند سری Snapdragon 8 Gen/Elite) با درایور پیش‌فرض خود عالی کار می‌کنند، بدون نیاز به تنظیم اضافی. بخش «درایور Vulkan سفارشی» در پایین اختیاری است و فقط برای برخی تراشه‌های قدیمی Adreno اهمیت دارد که درایور پیش‌فرضشان نسخه‌ای پایین‌تر از Vulkan 1.1 گزارش می‌دهد — این فقط به‌صورت خودکار روی گوشی‌هایی اعمال می‌شود که واقعاً به آن نیاز دارند.\n\nOpenGL ES: یک جایگزین بومی و آزمایشی برای گوشی‌هایی که اصلاً نمی‌توانند از Vulkan استفاده کنند (پردازنده‌های گرافیکی خیلی قدیمی یا پشتیبانی‌نشده). تقریباً همه‌جا کار می‌کند، اما به‌طور محسوسی کندتر از دو گزینهٔ دیگر است — آن را چاره‌ای آخر بدانید، نه انتخاب اول.\n\nOpenGL ES + ANGLE: همان رندرکنندهٔ آزمایشی، اما همراه با ANGLE گوگل و مسیردهی از طریق آن (ترجمه به Vulkan) به‌جای درایور داخلی GLES گوشی شما. این نسخهٔ ANGLE مستقیماً درون همین برنامه جای گرفته است — برخلاف ویژگی ANGLE سیستمیِ خود اندروید، نه به حداقل نسخه‌ای از اندروید نیاز دارد و نه به کلید جداگانه‌ای در تنظیمات گوشی شما. پس از اجرا، به‌طور محسوسی سریع‌تر از OpenGL ES ساده است، اما ممکن است در اولین بار باز شدن منویی با کنترل‌های زیاد (مانند تنظیمات نبرد پراکنده) کمی کند شود، تا وقتی ANGLE آنچه لازم دارد را کامپایل کند؛ این کندی خودبه‌خود برطرف می‌شود و تا زمانی که از آن منو خارج و دوباره وارد نشوید تکرار نمی‌شود.\n\nبخش‌های «درایور Vulkan سفارشی» و «تنظیمات DXVK» در پایین فقط زمانی نمایش داده می‌شوند که Vulkan انتخاب شده باشد.</string>
+    <string name="setup_render_backend_status">کنونی: %1$s</string>
+    <string name="setup_button_change_render_backend">تغییر بک‌اند رندر</string>
+    <string name="setup_render_backend_dialog_title">یک بک‌اند رندر انتخاب کنید</string>
+    <string name="setup_render_backend_vulkan">Vulkan</string>
+    <string name="setup_render_backend_gles">OpenGL ES (آزمایشی)</string>
+    <string name="setup_render_backend_gles_angle">OpenGL ES + ANGLE (آزمایشی)</string>
+    <string name="setup_toast_render_backend_saved">ذخیره شد. در اجرای بعدی بازی اعمال خواهد شد.</string>
+    <string name="setup_toast_render_backend_failed">ذخیرهٔ انتخاب بک‌اند رندر ممکن نشد: %1$s</string>
+
     <!-- SetupActivity: Custom Vulkan Driver card -->
     <string name="setup_card_vulkan_driver">درایور Vulkan سفارشی (پیشرفته، فقط پردازنده‌های گرافیکی Adreno)</string>
     <string name="setup_button_import_driver">وارد کردن درایور (.zip)</string>

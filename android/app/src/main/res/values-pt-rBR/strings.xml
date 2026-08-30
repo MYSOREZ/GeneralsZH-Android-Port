@@ -41,6 +41,18 @@
     <string name="setup_text_size_help">Redimensiona a maior parte do texto de botões/rótulos do menu de acordo com a resolução da tela. 70 é o valor padrão do próprio jogo; valores mais altos aumentam o texto do menu. Terá efeito na próxima vez que você iniciar o jogo, não imediatamente.</string>
     <string name="setup_toast_text_size_saved">Salvo. Terá efeito na próxima vez que você iniciar o jogo.</string>
 
+    <!-- SetupActivity: Render Backend card -->
+    <string name="setup_card_render_backend">Backend de renderização</string>
+    <string name="setup_render_backend_help">Qual API gráfica o jogo usa. Terá efeito na próxima vez que você iniciar o jogo, não imediatamente.\n\nVulkan (recomendado): o backend original e mais testado (via tradução de Direct3D 8 para Vulkan do DXVK). A maioria dos celulares modernos (séries Snapdragon 8 Gen/Elite e similares) funciona muito bem com o driver de fábrica, sem configuração extra. A seção \"Driver Vulkan personalizado\" abaixo é opcional e só importa em alguns chips Adreno mais antigos cujo driver de fábrica reporta uma versão inferior ao Vulkan 1.1 — é aplicada automaticamente apenas nos celulares que realmente precisam dela.\n\nOpenGL ES: uma alternativa nativa e experimental para celulares que não conseguem usar Vulkan de forma alguma (GPUs muito antigas ou não suportadas). Funciona quase em qualquer lugar, mas é visivelmente mais lenta que as outras duas opções — trate como último recurso, não como primeira escolha.\n\nOpenGL ES + ANGLE: o mesmo renderizador experimental, mas empacotado com o ANGLE do Google e roteado através dele (traduzido para Vulkan) em vez do driver GLES embutido do seu celular. Esta versão do ANGLE vem empacotada diretamente dentro deste app — diferente do próprio recurso ANGLE do sistema Android, ela não exige uma versão mínima do Android nem um interruptor separado em nenhum lugar das configurações do seu celular. Visivelmente mais rápida que o OpenGL ES puro assim que está rodando, mas pode engasgar brevemente na primeira vez que um menu com muitos controles (como as opções de escaramuça) for aberto, enquanto o ANGLE compila o que precisa; o engasgo desaparece sozinho e não volta até você sair desse menu e abri-lo novamente.\n\nAs seções \"Driver Vulkan personalizado\" e \"Configuração do DXVK\" abaixo só aparecem quando o Vulkan é selecionado.</string>
+    <string name="setup_render_backend_status">Atual: %1$s</string>
+    <string name="setup_button_change_render_backend">Alterar backend de renderização</string>
+    <string name="setup_render_backend_dialog_title">Escolha um backend de renderização</string>
+    <string name="setup_render_backend_vulkan">Vulkan</string>
+    <string name="setup_render_backend_gles">OpenGL ES (experimental)</string>
+    <string name="setup_render_backend_gles_angle">OpenGL ES + ANGLE (experimental)</string>
+    <string name="setup_toast_render_backend_saved">Salvo. Terá efeito na próxima vez que você iniciar o jogo.</string>
+    <string name="setup_toast_render_backend_failed">Não foi possível salvar a escolha do backend de renderização: %1$s</string>
+
     <!-- SetupActivity: Custom Vulkan Driver card -->
     <string name="setup_card_vulkan_driver">Driver Vulkan personalizado (avançado, apenas GPUs Adreno)</string>
     <string name="setup_button_import_driver">Importar driver (.zip)</string>

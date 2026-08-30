@@ -41,6 +41,18 @@
     <string name="setup_text_size_help">Масштабує текст більшості кнопок і підписів меню під роздільність екрана. 70 — значення за замовчуванням у грі; більші значення збільшують текст меню. Застосовується при наступному запуску гри, не одразу.</string>
     <string name="setup_toast_text_size_saved">Збережено. Застосується при наступному запуску гри.</string>
 
+    <!-- SetupActivity: Render Backend card -->
+    <string name="setup_card_render_backend">Графічний бекенд</string>
+    <string name="setup_render_backend_help">Який графічний API використовує гра. Застосовується при наступному запуску гри, не одразу.\n\nVulkan (рекомендовано): оригінальний, найбільш протестований варіант (через трансляцію Direct3D 8→Vulkan у DXVK). Більшість сучасних телефонів (серія Snapdragon 8 Gen/Elite тощо) чудово працює на вбудованому драйвері, без додаткового налаштування. Розділ «Власний Vulkan-драйвер» нижче необов\'язковий і стосується лише деяких старих чіпів Adreno, чий вбудований драйвер повідомляє версію нижче Vulkan 1.1 — він застосовується автоматично тільки на тих телефонах, яким він дійсно потрібен.\n\nOpenGL ES: рідний експериментальний запасний варіант для телефонів, які взагалі не можуть використовувати Vulkan (дуже старі або непідтримувані GPU). Працює майже всюди, але помітно більше лагає, ніж два інші варіанти — сприймайте його як крайній випадок, а не перший вибір.\n\nOpenGL ES + ANGLE: той самий експериментальний рендерер, але з вбудованим ANGLE від Google — рендер йде через нього (транслюється в Vulkan) замість вбудованого GLES-драйвера телефона. Цей ANGLE вбудований прямо всередині додатка — на відміну від системної функції ANGLE самого Android, він не потребує мінімальної версії Android чи окремого перемикача десь в налаштуваннях телефона. Помітно швидший за звичайний OpenGL ES після запуску, але може ненадовго пригальмувати при першому відкритті меню з багатьма елементами керування (наприклад, налаштувань сутички), поки ANGLE компілює потрібне — пригальмовування проходить само і не повторюється, поки ви не вийдете і знову не відкриєте це меню.\n\nРозділи «Власний Vulkan-драйвер» та «Налаштування DXVK» нижче з’являються лише при виборі Vulkan.</string>
+    <string name="setup_render_backend_status">Зараз: %1$s</string>
+    <string name="setup_button_change_render_backend">Змінити графічний бекенд</string>
+    <string name="setup_render_backend_dialog_title">Виберіть графічний бекенд</string>
+    <string name="setup_render_backend_vulkan">Vulkan</string>
+    <string name="setup_render_backend_gles">OpenGL ES (експериментальний)</string>
+    <string name="setup_render_backend_gles_angle">OpenGL ES + ANGLE (експериментальний)</string>
+    <string name="setup_toast_render_backend_saved">Збережено. Застосується при наступному запуску гри.</string>
+    <string name="setup_toast_render_backend_failed">Не вдалося зберегти вибір графічного бекенда: %1$s</string>
+
     <!-- SetupActivity: Custom Vulkan Driver card -->
     <string name="setup_card_vulkan_driver">Власний Vulkan-драйвер (для досвідчених, лише Adreno)</string>
     <string name="setup_button_import_driver">Імпортувати драйвер (.zip)</string>

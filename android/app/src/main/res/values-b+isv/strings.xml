@@ -41,6 +41,18 @@
     <string name="setup_text_size_help">Měri věličinu teksta bolšiny ključev/oznak menija po ekranovoj rezoluciji. 70 jest sobstvena děfoltna věličina igry; věće hodnoty čine tekst menija bolšim. Dějstvuje pri sledujućem spuštěniju igry, ne odmah.</string>
     <string name="setup_toast_text_size_saved">Sohranjeno. Dějstvovati bude pri sledujućem spuštěniju igry.</string>
 
+    <!-- SetupActivity: Render Backend card -->
+    <string name="setup_card_render_backend">Grafičen backend</string>
+    <string name="setup_render_backend_help">Kotoryj grafičen API igra upotřebjaje. Dějstvuje pri sledujućem spuštěniju igry, ne odmah.\n\nVulkan (preporučeno): originalny, najbolje testovany backend (přez prevod DXVK Direct3D 8→Vulkan). Bolšina modernyh telefonov (serija Snapdragon 8 Gen/Elite i podobne) rabotaje s nim otlično na svojem sobstvenom draiveru, bez dodatnyh nastavjenj. Sekcija «Sobstveny Vulkan draiver» niže jest neobovjazkova i tiče sę tolko někotoryh staryh čipov Adreno, čijij sobstveny draiver javjaje versiju nižšu od Vulkan 1.1 — primenjaje sę avtomatično tolko na telefonah, kotori to naisto potrěbujut.\n\nOpenGL ES: sobstveny eksperimentalny zapasny variant za telefony, kotori vobče ne mogut upotřebiti Vulkan (vельmi stari ili nepodderžani GPU). Rabotaje počti vsjudě, no primětno bolje laguje nego dva druga varianty — smatraj jego za poslědnju možnost, ne za prvy izbor.\n\nOpenGL ES + ANGLE: tot že eksperimentalny renderer, no z vgrajenym ANGLE od Google — render idě přez njego (prevoditsę do Vulkan) město sobstvenogo GLES draivera telefona. Tota versija ANGLE jest vgrajena prěmo v aplikaciju — na razliku od sistemnoje funkcije ANGLE samogo Android, ne trěbuje minimalnu versiju Android ani osobny prěključatelj něgdě v nastavjenjah telefona. Primětno brže od prostogo OpenGL ES po spuštěniju, no може kratko zalagovati pri prvom otvorjeniju menija z mnogimi elementami (naprimer, nastavjenj skirmiša), poka ANGLE kompiluje trěbovano; lagovanje prohodi samo i ne opětuje sę, poka ne iziděš i ne otvoriš tot meni znovu.\n\nSekcije «Sobstveny Vulkan draiver» i «Nastavjenja DXVK» niže pokazuju sę tolko pri izboru Vulkan.</string>
+    <string name="setup_render_backend_status">Sejčas: %1$s</string>
+    <string name="setup_button_change_render_backend">Změniti grafičen backend</string>
+    <string name="setup_render_backend_dialog_title">Izberi grafičen backend</string>
+    <string name="setup_render_backend_vulkan">Vulkan</string>
+    <string name="setup_render_backend_gles">OpenGL ES (eksperimentalny)</string>
+    <string name="setup_render_backend_gles_angle">OpenGL ES + ANGLE (eksperimentalny)</string>
+    <string name="setup_toast_render_backend_saved">Sohranjeno. Dějstvovati bude pri sledujućem spuštěniju igry.</string>
+    <string name="setup_toast_render_backend_failed">Ne uspělo sohraniti izbor grafičnogo backenda: %1$s</string>
+
     <!-- SetupActivity: Custom Vulkan Driver card -->
     <string name="setup_card_vulkan_driver">Sobstveny Vulkan draiver (za napredne, tolko Adreno GPU)</string>
     <string name="setup_button_import_driver">Importovati draiver (.zip)</string>

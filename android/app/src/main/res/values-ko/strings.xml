@@ -41,6 +41,18 @@
     <string name="setup_text_size_help">화면 해상도에 맞춰 대부분의 메뉴 버튼/레이블 텍스트 크기를 조정합니다. 70이 게임 자체 기본값이며, 값이 클수록 메뉴 텍스트가 커집니다. 다음에 게임을 실행할 때 적용되며, 즉시 적용되지는 않습니다.</string>
     <string name="setup_toast_text_size_saved">저장되었습니다. 다음에 게임을 실행할 때 적용됩니다.</string>
 
+    <!-- SetupActivity: Render Backend card -->
+    <string name="setup_card_render_backend">렌더 백엔드</string>
+    <string name="setup_render_backend_help">게임이 사용하는 그래픽 API입니다. 다음에 게임을 실행할 때 적용되며, 즉시 적용되지는 않습니다.\n\nVulkan(권장): 가장 오래되고 가장 많이 테스트된 백엔드입니다(DXVK의 Direct3D 8→Vulkan 변환 사용). 대부분의 최신 휴대폰(Snapdragon 8 Gen/Elite 시리즈 등)은 별도 설정 없이 기본 드라이버로도 훌륭하게 작동합니다. 아래의 「사용자 지정 Vulkan 드라이버」 항목은 선택 사항이며, 기본 드라이버가 Vulkan 1.1 미만 버전을 보고하는 일부 구형 Adreno 칩에만 관련이 있습니다 — 실제로 필요한 휴대폰에만 자동으로 적용됩니다.\n\nOpenGL ES: Vulkan을 전혀 사용할 수 없는 휴대폰(매우 오래되었거나 지원되지 않는 GPU)을 위한 네이티브 실험적 대체 수단입니다. 거의 모든 곳에서 작동하지만 다른 두 옵션보다 눈에 띄게 느립니다 — 첫 번째 선택이 아니라 최후의 수단으로 생각하세요.\n\nOpenGL ES + ANGLE: 동일한 실험적 렌더러이지만, 휴대폰에 내장된 GLES 드라이버 대신 Google의 ANGLE을 함께 번들로 포함하여 이를 통해(Vulkan으로 변환되어) 렌더링합니다. 이 ANGLE 빌드는 이 앱 안에 직접 포함되어 있습니다 — Android 자체의 시스템 전역 ANGLE 기능과 달리 최소 Android 버전이나 휴대폰 설정의 별도 전환 스위치가 필요하지 않습니다. 실행되면 일반 OpenGL ES보다 눈에 띄게 빠르지만, 컨트롤이 많은 메뉴(예: 스커미시 옵션)를 처음 열 때 ANGLE이 필요한 것을 컴파일하는 동안 잠깐 끓길 수 있습니다. 이 끓김은 저절로 사라지며, 해당 메뉴를 나갔다가 다시 열기 전까지는 다시 나타나지 않습니다.\n\n아래의 「사용자 지정 Vulkan 드라이버」와 「DXVK 설정」 섹션은 Vulkan을 선택했을 때만 표시됩니다.</string>
+    <string name="setup_render_backend_status">현재: %1$s</string>
+    <string name="setup_button_change_render_backend">렌더 백엔드 변경</string>
+    <string name="setup_render_backend_dialog_title">렌더 백엔드 선택</string>
+    <string name="setup_render_backend_vulkan">Vulkan</string>
+    <string name="setup_render_backend_gles">OpenGL ES (실험적)</string>
+    <string name="setup_render_backend_gles_angle">OpenGL ES + ANGLE (실험적)</string>
+    <string name="setup_toast_render_backend_saved">저장되었습니다. 다음에 게임을 실행할 때 적용됩니다.</string>
+    <string name="setup_toast_render_backend_failed">렌더 백엔드 선택을 저장하지 못했습니다: %1$s</string>
+
     <!-- SetupActivity: Custom Vulkan Driver card -->
     <string name="setup_card_vulkan_driver">사용자 지정 Vulkan 드라이버 (고급, Adreno GPU 전용)</string>
     <string name="setup_button_import_driver">드라이버 가져오기 (.zip)</string>

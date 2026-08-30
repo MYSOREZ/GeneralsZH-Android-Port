@@ -41,6 +41,18 @@
     <string name="setup_text_size_help">Redimensionne la plupart des textes de boutons/étiquettes de menu selon la résolution de l\'écran. 70 est la valeur par défaut du jeu ; des valeurs plus élevées agrandissent le texte des menus. Prend effet au prochain lancement du jeu, pas immédiatement.</string>
     <string name="setup_toast_text_size_saved">Enregistré. Prendra effet au prochain lancement du jeu.</string>
 
+    <!-- SetupActivity: Render Backend card -->
+    <string name="setup_card_render_backend">Moteur de rendu</string>
+    <string name="setup_render_backend_help">Quelle API graphique le jeu utilise. Prend effet au prochain lancement du jeu, pas immédiatement.\n\nVulkan (recommandé) : le backend d\'origine, le plus testé (via la traduction Direct3D 8 vers Vulkan de DXVK). La plupart des téléphones modernes (séries Snapdragon 8 Gen/Elite et similaires) fonctionnent très bien avec leur pilote d\'origine, sans configuration supplémentaire. La section « Pilote Vulkan personnalisé » ci-dessous est facultative et ne concerne que certaines anciennes puces Adreno dont le pilote d\'origine indique une version inférieure à Vulkan 1.1 — elle n\'est appliquée automatiquement que sur les téléphones qui en ont réellement besoin.\n\nOpenGL ES : une solution de repli native et expérimentale pour les téléphones qui ne peuvent pas du tout utiliser Vulkan (GPU très anciens ou non pris en charge). Fonctionne presque partout, mais nettement plus lent que les deux autres options — à considérer comme un dernier recours, pas un premier choix.\n\nOpenGL ES + ANGLE : le même moteur de rendu expérimental, mais intégré avec ANGLE de Google et acheminé à travers celui-ci (traduit en Vulkan) au lieu du pilote GLES intégré de votre téléphone. Cette version d\'ANGLE est intégrée directement dans cette application — contrairement à la fonctionnalité ANGLE propre au système Android, elle ne nécessite aucune version minimale d\'Android ni interrupteur séparé quelque part dans les paramètres Android de votre téléphone. Nettement plus rapide qu\'OpenGL ES seul une fois lancé, mais peut brièvement ralentir la première fois qu\'un menu avec beaucoup de contrôles (comme les options d\'escarmouche) est ouvert, le temps qu\'ANGLE compile ce dont il a besoin ; le ralentissement disparaît de lui-même et ne revient pas tant que vous ne quittez pas ce menu pour le rouvrir.\n\nLes sections « Pilote Vulkan personnalisé » et « Configuration DXVK » ci-dessous ne s\'affichent que lorsque Vulkan est sélectionné.</string>
+    <string name="setup_render_backend_status">Actuel : %1$s</string>
+    <string name="setup_button_change_render_backend">Changer de moteur de rendu</string>
+    <string name="setup_render_backend_dialog_title">Choisir un moteur de rendu</string>
+    <string name="setup_render_backend_vulkan">Vulkan</string>
+    <string name="setup_render_backend_gles">OpenGL ES (expérimental)</string>
+    <string name="setup_render_backend_gles_angle">OpenGL ES + ANGLE (expérimental)</string>
+    <string name="setup_toast_render_backend_saved">Enregistré. Prendra effet au prochain lancement du jeu.</string>
+    <string name="setup_toast_render_backend_failed">Impossible d\'enregistrer le choix du moteur de rendu : %1$s</string>
+
     <!-- SetupActivity: Custom Vulkan Driver card -->
     <string name="setup_card_vulkan_driver">Pilote Vulkan personnalisé (avancé, GPU Adreno uniquement)</string>
     <string name="setup_button_import_driver">Importer un pilote (.zip)</string>

@@ -41,6 +41,18 @@
     <string name="setup_text_size_help">Skaluje tekst większości przycisków/etykiet menu w zależności od rozdzielczości ekranu. 70 to wartość domyślna samej gry; wyższe wartości powiększają tekst menu. Zaczyna działać przy następnym uruchomieniu gry, nie na żywo.</string>
     <string name="setup_toast_text_size_saved">Zapisano. Zacznie działać przy następnym uruchomieniu gry.</string>
 
+    <!-- SetupActivity: Render Backend card -->
+    <string name="setup_card_render_backend">Backend renderowania</string>
+    <string name="setup_render_backend_help">Którego API graficznego używa gra. Zaczyna działać przy następnym uruchomieniu gry, nie na żywo.\n\nVulkan (zalecany): pierwotny, najlepiej przetestowany backend (przez tłumaczenie Direct3D 8→Vulkan w DXVK). Większość nowoczesnych telefonów (seria Snapdragon 8 Gen/Elite i podobne) działa z nim świetnie na fabrycznym sterowniku, bez dodatkowej konfiguracji. Sekcja „Własny sterownik Vulkan” poniżej jest opcjonalna i dotyczy tylko niektórych starszych chipów Adreno, których fabryczny sterownik zgłasza wersję niższą niż Vulkan 1.1 — jest stosowana automatycznie tylko na telefonach, które tego naprawdę potrzebują.\n\nOpenGL ES: natywna, eksperymentalna opcja zapasowa dla telefonów, które w ogóle nie mogą używać Vulkan (bardzo stare lub nieobsługiwane GPU). Działa niemal wszędzie, ale zauważalnie bardziej lagguje niż dwie pozostałe opcje — traktuj to jako ostateczność, nie pierwszy wybór.\n\nOpenGL ES + ANGLE: ten sam eksperymentalny renderer, ale dołączony razem z ANGLE od Google i kierowany przez nie (tłumaczone na Vulkan) zamiast wbudowanego sterownika GLES telefonu. Ta wersja ANGLE jest wbudowana bezpośrednio w tę aplikację — w przeciwieństwie do własnej, systemowej funkcji ANGLE Androida, nie wymaga minimalnej wersji Androida ani osobnego przełącznika gdziekolwiek w ustawieniach telefonu. Zauważalnie szybsza niż zwykłe OpenGL ES po uruchomieniu, ale przy pierwszym otwarciu menu z wieloma elementami sterującymi (np. opcji potyczki) może na chwilę zaciąć się, gdy ANGLE kompiluje to, czego potrzebuje; zacięcie znika samo i nie powraca, dopóki nie opuścisz i ponownie nie otworzysz tego menu.\n\nSekcje „Własny sterownik Vulkan” i „Konfiguracja DXVK” poniżej pojawiają się tylko po wybraniu Vulkan.</string>
+    <string name="setup_render_backend_status">Obecnie: %1$s</string>
+    <string name="setup_button_change_render_backend">Zmień backend renderowania</string>
+    <string name="setup_render_backend_dialog_title">Wybierz backend renderowania</string>
+    <string name="setup_render_backend_vulkan">Vulkan</string>
+    <string name="setup_render_backend_gles">OpenGL ES (eksperymentalny)</string>
+    <string name="setup_render_backend_gles_angle">OpenGL ES + ANGLE (eksperymentalny)</string>
+    <string name="setup_toast_render_backend_saved">Zapisano. Zacznie działać przy następnym uruchomieniu gry.</string>
+    <string name="setup_toast_render_backend_failed">Nie udało się zapisać wyboru backendu renderowania: %1$s</string>
+
     <!-- SetupActivity: Custom Vulkan Driver card -->
     <string name="setup_card_vulkan_driver">Własny sterownik Vulkan (zaawansowane, tylko GPU Adreno)</string>
     <string name="setup_button_import_driver">Importuj sterownik (.zip)</string>
