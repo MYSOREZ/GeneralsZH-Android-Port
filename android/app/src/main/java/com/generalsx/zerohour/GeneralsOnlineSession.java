@@ -86,6 +86,15 @@ final class GeneralsOnlineSession {
         String wsUri = "";
     }
 
+    // GeneralsX @bugfix Android port 08/30/2026 A user reported the network-
+    // error screen with no way to see WHY -- no adb, no logcat access, just
+    // a generic "check your connection" string. This captures the actual
+    // failure (host tried, HTTP status + a body snippet, or the exception)
+    // from the most recent postJson() call so the caller can put it right
+    // on screen. Single mutable field is fine: this launcher only ever runs
+    // one login/refresh attempt at a time.
+    static volatile String lastNetworkErrorDetail = "";
+
     private GeneralsOnlineSession() {
     }
 
@@ -105,15 +114,24 @@ final class GeneralsOnlineSession {
     // mislabeling; this fallback additionally gives blocked requests a
     // second real chance via the alternate host before giving up.
     static AuthResult postJson(String endpoint, JSONObject body, String bearerToken) {
-        AuthResult result = postJsonOnce(API_BASE, endpoint, body, bearerToken);
+        StringBuilder errors = new StringBuilder();
+        AuthResult result = postJsonOnce(API_BASE, endpoint, body, bearerToken, errors);
         if (result != null) {
+            lastNetworkErrorDetail = "";
             return result;
         }
         Log.w(TAG, "primary API endpoint (" + API_BASE + ") unreachable or rejected the request; retrying via alternate endpoint");
-        return postJsonOnce(API_BASE_ALT, endpoint, body, bearerToken);
+        result = postJsonOnce(API_BASE_ALT, endpoint, body, bearerToken, errors);
+        lastNetworkErrorDetail = errors.toString().trim();
+        if (result != null) {
+            lastNetworkErrorDetail = "";
+        } else {
+            Log.w(TAG, "both API endpoints failed for " + endpoint + ": " + lastNetworkErrorDetail);
+        }
+        return result;
     }
 
-    private static AuthResult postJsonOnce(String base, String endpoint, JSONObject body, String bearerToken) {
+    private static AuthResult postJsonOnce(String base, String endpoint, JSONObject body, String bearerToken, StringBuilder errorOut) {
         HttpURLConnection conn = null;
         try {
             URL url = new URL(base + endpoint);
@@ -137,10 +155,17 @@ final class GeneralsOnlineSession {
                 // response is a transport/policy rejection, not an answer
                 // about the login attempt itself, even when its body
                 // happens to parse as a valid-looking AuthResponse.
+                errorOut.append(hostOf(base)).append(": HTTP ").append(status);
+                String snippet = readSnippet(conn.getErrorStream());
+                if (!snippet.isEmpty()) {
+                    errorOut.append(" ").append(snippet);
+                }
+                errorOut.append("; ");
                 return null;
             }
             java.io.InputStream in = conn.getInputStream();
             if (in == null) {
+                errorOut.append(hostOf(base)).append(": empty response body; ");
                 return null;
             }
             JSONObject json = new JSONObject(readAll(in));
@@ -154,11 +179,42 @@ final class GeneralsOnlineSession {
             result.wsUri = json.optString("ws_uri", "");
             return result;
         } catch (Exception e) {
+            errorOut.append(hostOf(base)).append(": ").append(e.getClass().getSimpleName());
+            if (e.getMessage() != null) {
+                errorOut.append(": ").append(e.getMessage());
+            }
+            errorOut.append("; ");
             return null;
         } finally {
             if (conn != null) {
                 conn.disconnect();
             }
+        }
+    }
+
+    private static String hostOf(String base) {
+        try {
+            return new URL(base).getHost();
+        } catch (Exception e) {
+            return base;
+        }
+    }
+
+    // Best-effort, truncated: this is for on-screen diagnostics, not a full
+    // dump -- a WAF/proxy error page can be arbitrarily large.
+    private static String readSnippet(java.io.InputStream in) {
+        if (in == null) {
+            return "";
+        }
+        try {
+            String body = readAll(in);
+            body = body.replaceAll("\\s+", " ").trim();
+            if (body.length() > 200) {
+                body = body.substring(0, 200) + "...";
+            }
+            return body;
+        } catch (Exception e) {
+            return "";
         }
     }
 

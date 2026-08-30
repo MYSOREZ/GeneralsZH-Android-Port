@@ -215,11 +215,28 @@ public class GeneralsOnlineActivity extends Activity {
                 if (result != null && result.state == 1) {
                     saveSession(result);
                     refreshStatus();
-                } else {
-                    // Refresh token expired/invalid -- fall back to a fresh
-                    // browser sign-in next time the user taps Sign In.
+                } else if (result != null && result.state == 2) {
+                    // Server explicitly says the refresh token is dead --
+                    // fall back to a fresh browser sign-in next time the
+                    // user taps Sign In.
                     clearSession();
                     refreshStatus();
+                } else {
+                    // GeneralsX @bugfix Android port 08/30/2026 result==null
+                    // (or an unexpected state) means the request never got a
+                    // real answer -- network error or a blocked/rejected
+                    // request (see GeneralsOnlineSession.postJson). That is
+                    // NOT the same as "this refresh token is invalid", so
+                    // don't clearSession() here: a transient connectivity
+                    // problem used to silently wipe a perfectly good cached
+                    // session, forcing the full browser flow again on next
+                    // launch even though nothing was actually wrong with the
+                    // account. Leave the cached session alone; the game (or
+                    // a later launch) will just try refreshing again.
+                    refreshStatus();
+                    if (result == null) {
+                        statusText.setText(withNetworkErrorDetail(getString(R.string.online_status_network_error)));
+                    }
                 }
             });
         }).start();
@@ -287,7 +304,7 @@ public class GeneralsOnlineActivity extends Activity {
         if (result == null) {
             busy = false;
             signInButton.setEnabled(true);
-            statusText.setText(R.string.online_status_network_error);
+            statusText.setText(withNetworkErrorDetail(getString(R.string.online_status_network_error)));
             return;
         }
 
@@ -321,6 +338,21 @@ public class GeneralsOnlineActivity extends Activity {
                 statusText.setText(R.string.online_status_unexpected);
                 break;
         }
+    }
+
+    // GeneralsX @bugfix Android port 08/30/2026 A user reported the network-
+    // error screen with no way to see WHY it failed (no adb/logcat access).
+    // GeneralsOnlineSession.lastNetworkErrorDetail now captures the actual
+    // host + HTTP status/body snippet (or exception) from the failed
+    // request -- surface it right on screen instead of just the generic
+    // string. statusText already has setTextIsSelectable(true), so this is
+    // also copyable to paste into a bug report.
+    private String withNetworkErrorDetail(String baseMessage) {
+        String detail = GeneralsOnlineSession.lastNetworkErrorDetail;
+        if (detail == null || detail.isEmpty()) {
+            return baseMessage;
+        }
+        return baseMessage + "\n\n" + detail;
     }
 
     // Runs on a background thread.
