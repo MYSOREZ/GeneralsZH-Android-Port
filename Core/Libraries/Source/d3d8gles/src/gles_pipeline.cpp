@@ -284,8 +284,35 @@ bool WebGLPipeline::initContext(int w, int h, SDL_Window *window)
 	// -- both must agree on ANGLE vs. system GLES, or the EGL context and the
 	// GL entry points come from two different, incompatible implementations.
 	{
-		const char *angleOverride = getenv("GENERALSX_GLES_ANGLE");
-		const bool useANGLE = angleOverride == nullptr || strcmp(angleOverride, "0") != 0;
+		// GeneralsX @build Android port render-backend picker 07/09/2026 -
+		// must resolve ANGLE-vs-system exactly the way SDL3Main.cpp's
+		// UseANGLE() does (config file first, GENERALSX_GLES_ANGLE env var as
+		// the pre-Setup-UI fallback) -- see that function's comment. Read
+		// directly here rather than sharing code across modules, matching
+		// this project's existing per-callsite custom_driver.cfg reads.
+		bool useANGLE;
+		char cfgValue[32] = {0};
+		const char *internalPath = SDL_GetAndroidInternalStoragePath();
+		if (internalPath != nullptr) {
+			char cfgPath[1024];
+			snprintf(cfgPath, sizeof(cfgPath), "%s/render_backend.cfg", internalPath);
+			FILE *cfg = fopen(cfgPath, "r");
+			if (cfg != nullptr) {
+				if (fgets(cfgValue, sizeof(cfgValue), cfg) != nullptr) {
+					size_t len = strlen(cfgValue);
+					while (len > 0 && (cfgValue[len - 1] == '\n' || cfgValue[len - 1] == '\r')) {
+						cfgValue[--len] = '\0';
+					}
+				}
+				fclose(cfg);
+			}
+		}
+		if (cfgValue[0] != '\0') {
+			useANGLE = strcmp(cfgValue, "gles_angle") == 0;
+		} else {
+			const char *angleOverride = getenv("GENERALSX_GLES_ANGLE");
+			useANGLE = angleOverride == nullptr || strcmp(angleOverride, "0") != 0;
+		}
 		const char *libName = useANGLE ? "libGLESv2_angle.so" : "libGLESv3.so";
 		if (!d3d8gles_LoadGLESDispatch(libName)) {
 			if (useANGLE) {

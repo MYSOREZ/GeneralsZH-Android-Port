@@ -196,9 +196,15 @@ public class SetupActivity extends Activity {
 
         buildLanguageSection(root);
         buildUiScaleSection(root);
-        applyRecommendedDriverIfNeeded();
-        buildCustomDriverSection(root);
-        buildDxvkConfigSection(root);
+        buildRenderBackendSection(root);
+        // Custom Vulkan driver / dxvk.conf only matter when Vulkan is the
+        // selected backend -- the GLES/GLES+ANGLE paths never touch DXVK at
+        // all, see Core/Libraries/Source/d3d8gles/CMakeLists.txt.
+        if (RENDER_BACKEND_VULKAN.equals(getRenderBackendChoice())) {
+            applyRecommendedDriverIfNeeded();
+            buildCustomDriverSection(root);
+            buildDxvkConfigSection(root);
+        }
         buildDiagnosticsSection(root);
 
         LinearLayout helpCard = startCard(root, getString(R.string.setup_card_how_it_works));
@@ -408,6 +414,105 @@ public class SetupActivity extends Activity {
 
     private void updateUiScaleLabel(int percent) {
         uiScaleLabel.setText(getString(R.string.setup_text_size_label, percent));
+    }
+
+    // GeneralsX @feature Android port render-backend picker 07/09/2026 -
+    // three render backends this branch supports, replacing the previous
+    // adb-only GENERALSX_RENDER_BACKEND/GENERALSX_GLES_ANGLE env vars with a
+    // real in-app choice (most users have no adb at all). Read/written the
+    // same way as CUSTOM_DRIVER_CFG_NAME above: a plain-text marker file in
+    // getFilesDir(), one line, read natively by SDL3Main.cpp's
+    // UseVulkanBackend()/UseANGLE() (and duplicated in gles_pipeline.cpp's
+    // initContext() -- see its comment for why) before the game's video
+    // subsystem starts.
+    private static final String RENDER_BACKEND_CFG_NAME = "render_backend.cfg";
+    private static final String RENDER_BACKEND_VULKAN = "vulkan";
+    private static final String RENDER_BACKEND_GLES = "gles";
+    private static final String RENDER_BACKEND_GLES_ANGLE = "gles_angle";
+
+    private TextView renderBackendStatusView;
+
+    // No config file yet (fresh install) means "whatever UseVulkanBackend()/
+    // UseANGLE() default to today when their env vars are unset" -- GLES,
+    // per SDL3Main.cpp's own comment on why this branch defaults there.
+    // Deliberately NOT auto-detecting "the best backend for this device"
+    // here: preserves today's actual behavior for existing installs instead
+    // of silently switching anyone's renderer the next time Setup runs.
+    private String getRenderBackendChoice() {
+        File cfg = new File(getFilesDir(), RENDER_BACKEND_CFG_NAME);
+        if (!cfg.isFile()) {
+            return RENDER_BACKEND_GLES;
+        }
+        String value = readFirstLine(cfg);
+        if (RENDER_BACKEND_VULKAN.equals(value) || RENDER_BACKEND_GLES_ANGLE.equals(value)) {
+            return value;
+        }
+        return RENDER_BACKEND_GLES;
+    }
+
+    private String renderBackendLabel(String choice) {
+        switch (choice) {
+            case RENDER_BACKEND_VULKAN:
+                return getString(R.string.setup_render_backend_vulkan);
+            case RENDER_BACKEND_GLES_ANGLE:
+                return getString(R.string.setup_render_backend_gles_angle);
+            default:
+                return getString(R.string.setup_render_backend_gles);
+        }
+    }
+
+    private void buildRenderBackendSection(LinearLayout root) {
+        LinearLayout content = startCard(root, getString(R.string.setup_card_render_backend));
+
+        renderBackendStatusView = new TextView(this);
+        renderBackendStatusView.setText(getString(R.string.setup_render_backend_status, renderBackendLabel(getRenderBackendChoice())));
+        renderBackendStatusView.setPadding(0, 0, 0, dp(8));
+        content.addView(renderBackendStatusView);
+
+        addButton(content, getString(R.string.setup_button_change_render_backend), this::onChangeRenderBackend);
+
+        TextView help = new TextView(this);
+        help.setAlpha(0.8f);
+        help.setText(R.string.setup_render_backend_help);
+        content.addView(help);
+    }
+
+    private void onChangeRenderBackend() {
+        String[] choices = { RENDER_BACKEND_VULKAN, RENDER_BACKEND_GLES, RENDER_BACKEND_GLES_ANGLE };
+        String[] labels = new String[choices.length];
+        for (int i = 0; i < choices.length; i++) {
+            labels[i] = renderBackendLabel(choices[i]);
+        }
+        String current = getRenderBackendChoice();
+        int currentIndex = 0;
+        for (int i = 0; i < choices.length; i++) {
+            if (choices[i].equals(current)) {
+                currentIndex = i;
+                break;
+            }
+        }
+        new android.app.AlertDialog.Builder(this)
+            .setTitle(R.string.setup_render_backend_dialog_title)
+            .setSingleChoiceItems(labels, currentIndex, (dialog, which) -> {
+                File cfg = new File(getFilesDir(), RENDER_BACKEND_CFG_NAME);
+                try (java.io.FileWriter w = new java.io.FileWriter(cfg, false)) {
+                    w.write(choices[which]);
+                    w.write("\n");
+                } catch (java.io.IOException e) {
+                    Toast.makeText(this, getString(R.string.setup_toast_render_backend_failed, e.getMessage()), Toast.LENGTH_LONG).show();
+                    dialog.dismiss();
+                    return;
+                }
+                dialog.dismiss();
+                Toast.makeText(this, R.string.setup_toast_render_backend_saved, Toast.LENGTH_LONG).show();
+                // The Custom Vulkan Driver / DXVK Config cards below are only
+                // relevant for the Vulkan backend -- recreate() re-runs
+                // buildUi() so they show/hide immediately, same pattern
+                // onChangeLanguage() already uses for its own dialog.
+                recreate();
+            })
+            .setNegativeButton(R.string.common_cancel, null)
+            .show();
     }
 
     // GeneralsX @feature Android port 10/07/2026 Optional custom Vulkan

@@ -137,15 +137,65 @@ extern Int GameMain();
  * GeneralsX @bugfix BenderAI 06/03/2026
  */
 /**
+ * GeneralsX @build Android port render-backend picker 07/09/2026 - the Setup
+ * app (SetupActivity.java's "Render Backend" section) writes
+ * <internalPath>/render_backend.cfg (one line: "vulkan", "gles", or
+ * "gles_angle") whenever the user picks a backend from Settings -- the same
+ * config-file pattern custom_driver.cfg already uses for the Vulkan driver
+ * picker (see TryLoadCustomVulkanDriver() below), chosen for the same reason:
+ * ordinary users have no adb, so a file the Setup app can write is the only
+ * way for them to reach this choice at all. Absent (fresh install, or an old
+ * APK's Setup build that predates this feature) falls back to the
+ * GENERALSX_RENDER_BACKEND / GENERALSX_GLES_ANGLE env vars this experiment
+ * used before the Setup UI existed -- kept working for manual/dev testing
+ * without a rebuild. Read once and cached; Setup only ever writes this before
+ * the game process starts (never while it's running), so there's no
+ * live-reload case to handle.
+ */
+static const char *ReadRenderBackendConfig()
+{
+#if defined(__ANDROID__)
+	static bool s_read = false;
+	static char s_value[32] = {0};
+	if (!s_read) {
+		s_read = true;
+		const char *internalPath = SDL_GetAndroidInternalStoragePath();
+		if (internalPath != nullptr) {
+			char cfgPath[1024];
+			snprintf(cfgPath, sizeof(cfgPath), "%s/render_backend.cfg", internalPath);
+			FILE *cfg = fopen(cfgPath, "r");
+			if (cfg != nullptr) {
+				if (fgets(s_value, sizeof(s_value), cfg) != nullptr) {
+					size_t len = strlen(s_value);
+					while (len > 0 && (s_value[len - 1] == '\n' || s_value[len - 1] == '\r')) {
+						s_value[--len] = '\0';
+					}
+				}
+				fclose(cfg);
+			}
+		}
+	}
+	return s_value[0] != '\0' ? s_value : nullptr;
+#else
+	return nullptr;
+#endif
+}
+
+/**
  * GeneralsX @build Android port GLES experiment - runtime render-backend
  * switch. Native GLES3 (Core/Libraries/Source/d3d8gles/, no Vulkan
  * involved at all) is now the Android default; Vulkan/DXVK becomes an
- * explicit opt-in via GENERALSX_RENDER_BACKEND=vulkan. This experiment is
+ * explicit opt-in -- via the Setup app's Render Backend picker, or
+ * GENERALSX_RENDER_BACKEND=vulkan for manual testing. This experiment is
  * Android-only -- every other platform keeps using DXVK/Vulkan unchanged.
  */
 static bool UseVulkanBackend()
 {
 #if defined(__ANDROID__)
+	const char *configured = ReadRenderBackendConfig();
+	if (configured != nullptr) {
+		return strcmp(configured, "vulkan") == 0;
+	}
 	const char *backend = getenv("GENERALSX_RENDER_BACKEND");
 	return backend != nullptr && strcmp(backend, "vulkan") == 0;
 #else
@@ -158,13 +208,17 @@ static bool UseVulkanBackend()
  * selected, route its EGL context (and, via d3d8gles_LoadGLESDispatch() in
  * WebGLPipeline::initContext(), every gl* call) through ANGLE's bundled
  * libEGL_angle.so/libGLESv2_angle.so (Vulkan-backed) instead of the device's
- * system GLES driver, on by default. GENERALSX_GLES_ANGLE=0 opts back out to
- * the system driver for A/B comparison without a rebuild -- same pattern as
- * GENERALSX_RENDER_BACKEND above.
+ * system GLES driver. Setup's picker writing "gles" (not "gles_angle") is an
+ * explicit opt-out to the system driver, same as GENERALSX_GLES_ANGLE=0 was
+ * before the picker existed -- kept as the env var fallback below.
  */
 static bool UseANGLE()
 {
 #if defined(__ANDROID__)
+	const char *configured = ReadRenderBackendConfig();
+	if (configured != nullptr) {
+		return strcmp(configured, "gles_angle") == 0;
+	}
 	const char *v = getenv("GENERALSX_GLES_ANGLE");
 	return v == nullptr || strcmp(v, "0") != 0;
 #else

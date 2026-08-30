@@ -41,6 +41,18 @@
     <string name="setup_text_size_help">Масштабирует текст большинства кнопок и подписей меню под разрешение экрана. 70 — значение по умолчанию в игре; большие значения увеличивают текст меню. Применяется при следующем запуске игры, не сразу.</string>
     <string name="setup_toast_text_size_saved">Сохранено. Применится при следующем запуске игры.</string>
 
+    <!-- SetupActivity: Render Backend card -->
+    <string name="setup_card_render_backend">Графический бэкенд</string>
+    <string name="setup_render_backend_help">Какой графический API использует игра. Применяется при следующем запуске игры, не сразу.\n\nVulkan: исходный, наиболее протестированный вариант (через трансляцию Direct3D 8→Vulkan в DXVK).\nOpenGL ES: нативный экспериментальный рендерер без участия Vulkan.\nOpenGL ES + ANGLE: тот же экспериментальный рендерер, но через ANGLE от Google (транслируется в Vulkan) вместо встроенного GLES-драйвера телефона — заметно быстрее после запуска, но может ненадолго подтормаживать при первом открытии насыщенного элементами меню (например, настроек скирмиша), пока ANGLE компилирует нужное — подтормаживание проходит само и не повторяется, пока вы не выйдете и не откроете это меню заново.\n\nРазделы «Свой Vulkan-драйвер» и «Настройки DXVK» ниже применяются только при выборе Vulkan.</string>
+    <string name="setup_render_backend_status">Сейчас: %1$s</string>
+    <string name="setup_button_change_render_backend">Изменить графический бэкенд</string>
+    <string name="setup_render_backend_dialog_title">Выберите графический бэкенд</string>
+    <string name="setup_render_backend_vulkan">Vulkan</string>
+    <string name="setup_render_backend_gles">OpenGL ES (экспериментальный)</string>
+    <string name="setup_render_backend_gles_angle">OpenGL ES + ANGLE (экспериментальный)</string>
+    <string name="setup_toast_render_backend_saved">Сохранено. Применится при следующем запуске игры.</string>
+    <string name="setup_toast_render_backend_failed">Не удалось сохранить выбор графического бэкенда: %1$s</string>
+
     <!-- SetupActivity: Custom Vulkan Driver card -->
     <string name="setup_card_vulkan_driver">Свой Vulkan-драйвер (для опытных, только Adreno)</string>
     <string name="setup_button_import_driver">Импортировать драйвер (.zip)</string>
