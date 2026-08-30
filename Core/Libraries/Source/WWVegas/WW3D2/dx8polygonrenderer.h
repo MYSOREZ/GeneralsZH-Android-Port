@@ -80,22 +80,11 @@ public:
 
 	void								Render(/*const Matrix3D & tm,*/int base_vertex_offset);
 	void								Render_Sorted(/*const Matrix3D & tm,*/int base_vertex_offset,const SphereClass & bounding_sphere);
-	// GeneralsX @build Android port GLES experiment - GPU instancing.
-	// world_transforms is instance_count consecutive world matrices, one
-	// per instance -- see DX8Wrapper::Draw_Triangles_Instanced. Indexed
-	// triangle lists only (see the WWASSERT below); base_vertex_offset is
-	// only ever nonzero for skinned meshes in this engine, and those are
-	// explicitly excluded from instancing (see dx8renderer.cpp's
-	// Is_Instance_Batchable), so this is really always 0 in practice --
-	// still threaded through and applied for symmetry with Render()/
-	// Render_Sorted() above, not assumed away.
-	void								Render_Instanced(int base_vertex_offset, const Matrix3D* world_transforms, int instance_count);
 	void								Set_Vertex_Index_Range(unsigned min_vertex_index_,unsigned vertex_index_range_);
 
 	unsigned							Get_Vertex_Offset()	{ return vertex_offset; }
 	unsigned							Get_Index_Offset()	{ return index_offset; }
 	unsigned						Get_Pass()	{ return pass; }
-	bool								Is_Strip() const	{ return strip; }
 
 	MeshModelClass*				Get_Mesh_Model_Class() { return mmc; }
 	DX8TextureCategoryClass*	Get_Texture_Category() { return texture_category; }
@@ -160,23 +149,4 @@ inline void DX8PolygonRendererClass::Render_Sorted(/*const Matrix3D & tm,*/int b
 		min_vertex_index,
 		vertex_index_range);
 
-}
-
-// GeneralsX @build Android port GLES experiment - GPU instancing. Mirrors
-// Render()'s non-strip (triangle list) branch exactly, just calling
-// Draw_Triangles_Instanced instead of Draw_Triangles.
-inline void DX8PolygonRendererClass::Render_Instanced(int base_vertex_offset, const Matrix3D* world_transforms, int instance_count)
-{
-	WWASSERT(!strip); // Phase 1: instancing only implemented for indexed triangle lists
-	SNAPSHOT_SAY(("Set_Index_Buffer_Index_Offset(%d)",base_vertex_offset));
-	SNAPSHOT_SAY(("Draw_Triangles_Instanced(%d,%d,%d,%d,x%d)",index_offset,index_count/3,min_vertex_index,vertex_index_range,instance_count));
-
-	DX8Wrapper::Set_Index_Buffer_Index_Offset(base_vertex_offset);
-	DX8Wrapper::Draw_Triangles_Instanced(
-		index_offset,
-		index_count/3,
-		min_vertex_index,
-		vertex_index_range,
-		world_transforms,
-		instance_count);
 }

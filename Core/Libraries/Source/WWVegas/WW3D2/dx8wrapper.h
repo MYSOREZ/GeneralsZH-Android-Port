@@ -388,45 +388,6 @@ public:
 		unsigned short min_vertex_index,
 		unsigned short vertex_count);
 
-	// GeneralsX @build Android port GLES experiment - GPU instancing.
-	// Indexed-triangle-list only (see DX8PolygonRendererClass::Render_Instanced's
-	// comment for why strips aren't supported); world_transforms is
-	// instance_count consecutive world matrices, one per instance, applied
-	// in place of the single Set_Transform(D3DTS_WORLD, ...) the
-	// non-instanced Draw_Triangles overloads above rely on -- callers must
-	// NOT call Set_Transform themselves before this. Android-GLES-backend
-	// only for now (see the .cpp): DXVK/real-D3D8 have no instancing
-	// concept, so this only exists to be reachable, not to be a general
-	// cross-backend API yet.
-	static void Draw_Triangles_Instanced(
-		unsigned short start_index,
-		unsigned short polygon_count,
-		unsigned short min_vertex_index,
-		unsigned short vertex_count,
-		const Matrix3D* world_transforms,
-		int instance_count);
-
-	// GeneralsX @build Android port GLES experiment - GPU instancing. Fixed
-	// cap on Draw_Triangles_Instanced's instance_count, backing a stack
-	// (not heap) buffer in that function's .cpp body -- callers must chunk
-	// any longer run into multiple calls. 64 comfortably covers this
-	// feature's target content (a handful to a few dozen identical
-	// ship/unit instances) while keeping the stack buffer small
-	// (64*16*4 bytes = 4KB).
-	static const int DX8_MAX_INSTANCES_PER_DRAW = 64;
-	static int Get_Max_Instances_Per_Draw() { return DX8_MAX_INSTANCES_PER_DRAW; }
-
-	// GeneralsX @build Android port GLES experiment - GPU instancing. Set
-	// once in Init() (Android's GENERALSX_RENDER_BACKEND switch) alongside
-	// Direct3DCreate8Ptr, since D3D8Lib being null there is otherwise an
-	// implicit, easy-to-misread signal (it's also null pre-Init on every
-	// platform). Draw_Triangles_Instanced (dx8wrapper.cpp) checks this to
-	// decide between the real GLES instanced path and a plain per-instance
-	// fallback loop for every other backend (DXVK/real D3D8), which has no
-	// instancing concept to call into.
-	static bool Is_Using_GLES_Backend() { return s_usingGLESBackend; }
-	static bool s_usingGLESBackend;
-
 	/*
 	** Resources
 	*/
@@ -611,11 +572,6 @@ public:
 	static const char* Get_DX8_Render_State_Name(D3DRENDERSTATETYPE state);
 	static const char* Get_DX8_Texture_Stage_State_Name(D3DTEXTURESTAGESTATETYPE state);
 	static unsigned Get_DX8_Render_State(D3DRENDERSTATETYPE state) { return RenderStates[state]; }
-	// GeneralsX @build Android port GLES experiment - GPU instancing. Mirrors
-	// Get_DX8_Render_State above; needed so dx8renderer.cpp's
-	// Is_Instance_Batchable() can verify D3DTSS_TEXTURETRANSFORMFLAGS is off
-	// for a category before batching it (see the guardrail note there).
-	static unsigned Get_DX8_Texture_Stage_State(unsigned stage, D3DTEXTURESTAGESTATETYPE state) { return TextureStageStates[stage][(unsigned)state]; }
 
 	// Names of the specific values of render states and texture stage states
 	static void Get_DX8_Texture_Stage_State_Value_Name(StringClass& name, D3DTEXTURESTAGESTATETYPE state, unsigned value);

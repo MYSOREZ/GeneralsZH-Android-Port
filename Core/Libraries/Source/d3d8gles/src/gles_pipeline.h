@@ -76,14 +76,6 @@ public:
 	void clear(WebGLDevice *dev, unsigned flags, uint32_t argbColor, float z, unsigned stencil);
 	void drawIndexed(WebGLDevice *dev, unsigned primType, unsigned minIndex,
 	                 unsigned numVertices, unsigned startIndex, unsigned primCount);
-	// GeneralsX @build Android port GLES experiment - GPU instancing, part
-	// 2/2 (see d3d8gles.h's d3d8gles_drawIndexedInstanced comment for part
-	// 1/2). worldMatrices is instanceCount consecutive 16-float blocks, same
-	// layout drawIndexed()'s single uWorld upload already uses -- see this
-	// method's .cpp body for why no conversion is needed.
-	void drawIndexedInstanced(WebGLDevice *dev, unsigned primType, unsigned minIndex,
-	                          unsigned numVertices, unsigned startIndex, unsigned primCount,
-	                          const float *worldMatrices, int instanceCount);
 	void draw(WebGLDevice *dev, unsigned primType, unsigned startVertex, unsigned primCount);
 	void drawUP(WebGLDevice *dev, unsigned primType, unsigned primCount,
 	            const void *vertexData, unsigned stride);
@@ -127,21 +119,12 @@ private:
 	// cache hit skips touching those bindings entirely, and content uploads
 	// (ensureVBUploaded/ensureIBUploaded) go through GL_COPY_WRITE_BUFFER,
 	// never GL_ARRAY_BUFFER/GL_ELEMENT_ARRAY_BUFFER, for the same reason.
-	// instanceCount > 0 selects the instanced path (glDrawElementsInstanced,
-	// the instanced program/VAO variant) -- defaulted to 0 so drawIndexed/
-	// draw/drawUP/drawIndexedUP's existing call sites don't need touching.
 	void drawCommon(WebGLDevice *dev, unsigned primType, unsigned primCount,
 	                GLuint vbo, unsigned stride, unsigned fvf,
 	                GLuint ibo, unsigned indexFormat,
-	                unsigned startIndex, int baseVertexBytes, unsigned vertexCount,
-	                int instanceCount = 0);
+	                unsigned startIndex, int baseVertexBytes, unsigned vertexCount);
 
-	// `instanced` selects between two independently-cached program variants
-	// per FVF+state combination: the normal one reads a per-draw uWorld
-	// uniform, the instanced one reads a per-vertex aInstWorld attribute
-	// instead (see getProgram()'s .cpp body). Same pattern as every other
-	// state axis already folded into the program key.
-	ProgramInfo *getProgram(WebGLDevice *dev, unsigned fvf, bool instanced);
+	ProgramInfo *getProgram(WebGLDevice *dev, unsigned fvf);
 	void applyFixedState(WebGLDevice *dev);
 	void applyUniforms(WebGLDevice *dev, ProgramInfo *prog, unsigned fvf);
 	void ensureVBUploaded(WebGLVertexBuffer *vb);
@@ -197,16 +180,6 @@ private:
 		GLuint ibo = 0; // 0 for the non-indexed draw() path
 		unsigned fvf = 0;
 		unsigned stride = 0;
-		// GeneralsX @build Android port GLES experiment - GPU instancing.
-		// An instanced VAO additionally binds m_instanceVBO at locations
-		// 6-9 (aInstWorld) with glVertexAttribDivisor -- genuinely
-		// different captured state from the non-instanced VAO for the same
-		// (vbo,ibo,fvf,stride), so it needs its own cache entry. `unsigned`
-		// rather than `bool` deliberately: every other field here is 4
-		// bytes, so this stays padding-free for the memcmp/FNV-hash below
-		// (a bool would leave 3 undefined padding bytes, since this struct
-		// is otherwise all naturally-aligned 4-byte fields).
-		unsigned instanced = 0;
 
 		bool operator==(const VAOKey &o) const {
 			return memcmp(this, &o, sizeof(VAOKey)) == 0;
@@ -241,13 +214,7 @@ private:
 	// A free function couldn't name VAOKey (private nested type); a static
 	// member can, same as any other member.
 	static uint64_t hashVAOKey(const VAOKey &k);
-	void bindVertexLayout(const FVFLayout &l, GLuint vbo, GLuint ibo, unsigned fvf, unsigned stride,
-	                      int base, bool instanced);
-	// Binds m_instanceVBO at locations 6-9 (one mat4, divisor 1) into
-	// whichever VAO is currently being built. Needs bindArrayBuffer() (a
-	// member) so it can't be the same free-function shape as
-	// enableAttribs()/setAttribPointers() in the .cpp.
-	void bindInstanceAttribs();
+	void bindVertexLayout(const FVFLayout &l, GLuint vbo, GLuint ibo, unsigned fvf, unsigned stride, int base);
 	// A VBO/IBO's GL name can be recycled by the driver after deletion (same
 	// hazard as invalidateTextureBinding/invalidateBufferBinding above); a
 	// cached VAO keyed on that name would otherwise wrongly match whatever
@@ -376,21 +343,11 @@ private:
 	int m_perfFrameCount = 0;
 	int m_perfDrawAccum = 0;
 	unsigned m_perfLogLastMs = 0;
-	// GeneralsX @build Android port GLES experiment - GPU instancing. Two
-	// numbers: how many glDrawElementsInstanced calls happened (a subset of
-	// m_perfDrawsThisFrame above, not additional to it), and the total
-	// instance count they covered -- the second number minus the first is
-	// "how many separate draw calls this frame did NOT need to be issued"
-	// thanks to instancing, the actual thing this feature exists to reduce.
-	int m_perfInstancedDrawsThisFrame = 0;
-	int m_perfInstancedDrawAccum = 0;
-	int m_perfInstancesThisFrame = 0;
-	int m_perfInstancesAccum = 0;
 	void bindTextures(WebGLDevice *dev, ProgramInfo *prog);
 	void uploadTexture(WebGLTexture *tex);
 	void applySamplerState(WebGLDevice *dev, unsigned stage, WebGLTexture *tex);
 
-	uint64_t computeProgramKey(WebGLDevice *dev, unsigned fvf, bool instanced) const;
+	uint64_t computeProgramKey(WebGLDevice *dev, unsigned fvf) const;
 
 	bool m_ctxReady = false;
 	bool m_hasS3TC = false;
@@ -410,15 +367,6 @@ private:
 	// Streaming buffers for the UP draw paths.
 	GLuint m_upVBO = 0;
 	GLuint m_upIBO = 0;
-
-	// GeneralsX @build Android port GLES experiment - GPU instancing.
-	// Session-lifetime streaming buffer for per-instance world matrices,
-	// same "one shared buffer, orphan-and-reupload every draw" shape as
-	// m_upVBO/m_upIBO above (created once in initContext(), never deleted).
-	// Bound at attribute locations 6-9 (aInstWorld, one mat4 = 4 vec4 slots)
-	// with a divisor of 1 by any instanced VAO -- see bindVertexLayout()'s
-	// instanced branch.
-	GLuint m_instanceVBO = 0;
 
 	// Program cache: key -> program.
 	static const int kMaxPrograms = 256;

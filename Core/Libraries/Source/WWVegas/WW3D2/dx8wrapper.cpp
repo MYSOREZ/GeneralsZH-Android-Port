@@ -51,8 +51,6 @@
 #endif
 
 #include "dx8wrapper.h"
-// GeneralsX @build Android port GLES experiment - GPU instancing, Draw_Triangles_Instanced's memcpy.
-#include <cstring>
 #if defined(__APPLE__)
 #include <TargetConditionals.h>
 #endif
@@ -124,9 +122,6 @@ int DX8Wrapper::s_bbH = 0;
 int DX8Wrapper::s_dstX = 0;
 int DX8Wrapper::s_dstY = 0;
 int DX8Wrapper::s_dstW = 0;
-// GeneralsX @build Android port GLES experiment - GPU instancing. Set in
-// Init()'s Android backend switch; see Is_Using_GLES_Backend()'s comment.
-bool DX8Wrapper::s_usingGLESBackend = false;
 int DX8Wrapper::s_dstH = 0;
 float DX8Wrapper::s_pixelDensity = 1.0f;
 IDirect3DTexture8* DX8Wrapper::s_offscreenTex = nullptr;
@@ -615,7 +610,6 @@ bool DX8Wrapper::Init(void * hwnd, bool lite)
 				fprintf(stderr, "DEBUG: DX8Wrapper::Init() - Using native GLES3 backend (Direct3DCreate8_GLES)\n");
 				D3D8Lib = nullptr;
 				Direct3DCreate8Ptr = &Direct3DCreate8_GLES;
-				s_usingGLESBackend = true;
 			} else {
 				fprintf(stderr, "DEBUG: DX8Wrapper::Init() - Loading libdxvk_d3d8.so (Android, Vulkan opt-in)...\n");
 				D3D8Lib = LoadLibrary("libdxvk_d3d8.so");
@@ -2681,67 +2675,6 @@ void DX8Wrapper::Draw_Strip(
 	unsigned short vertex_count)
 {
 	Draw(D3DPT_TRIANGLESTRIP,start_index,polygon_count,min_vertex_index,vertex_count);
-}
-
-// ----------------------------------------------------------------------------
-//
-//
-//
-// ----------------------------------------------------------------------------
-
-// GeneralsX @build Android port GLES experiment - GPU instancing. Callers
-// (DX8PolygonRendererClass::Render_Instanced) must never pass more than
-// Get_Max_Instances_Per_Draw() instances in one call -- chunk longer runs
-// into multiple calls instead. A fixed stack buffer here (no heap
-// allocation on this per-draw path) is simpler and cheaper than a
-// std::vector for the realistic batch sizes this feature targets (a
-// handful to a few dozen identical ship/unit instances), and keeps this
-// function's contract enforceable with a single WWASSERT rather than a
-// silent truncation that would under-render.
-void DX8Wrapper::Draw_Triangles_Instanced(
-	unsigned short start_index,
-	unsigned short polygon_count,
-	unsigned short min_vertex_index,
-	unsigned short vertex_count,
-	const Matrix3D* world_transforms,
-	int instance_count)
-{
-	if (!world_transforms || instance_count <= 0) return;
-	WWASSERT(instance_count <= Get_Max_Instances_Per_Draw());
-
-#if defined(__ANDROID__)
-	if (s_usingGLESBackend) {
-		Apply_Render_State_Changes();
-
-		// D3D row-major memory uploaded untransposed IS the transpose GL
-		// wants -- same Matrix4x4(m).Transpose() Set_Transform(D3DTS_WORLD,
-		// ...) already does above (WWINLINE void DX8Wrapper::Set_Transform),
-		// just written straight into a batch buffer instead of
-		// render_state.world one instance at a time.
-		float matrices[DX8_MAX_INSTANCES_PER_DRAW * 16];
-		for (int i = 0; i < instance_count; i++) {
-			const Matrix4x4 m = Matrix4x4(world_transforms[i]).Transpose();
-			memcpy(matrices + i * 16, &m, 16 * sizeof(float));
-		}
-
-		DX8_RECORD_RENDER(polygon_count,vertex_count,render_state.shader);
-		DX8_RECORD_DRAW_CALLS();
-		d3d8gles_drawIndexedInstanced(_Get_D3D_Device8(), D3DPT_TRIANGLELIST,
-			min_vertex_index, vertex_count, start_index + render_state.iba_offset,
-			polygon_count, matrices, instance_count);
-		return;
-	}
-#endif
-
-	// Fallback for every other backend (DXVK/real D3D8 have no instancing
-	// concept to call into): replicate today's per-instance behavior
-	// exactly, so callers can call this unconditionally regardless of
-	// platform/backend and always get correct (if not always batched)
-	// results.
-	for (int i = 0; i < instance_count; i++) {
-		Set_Transform(D3DTS_WORLD, world_transforms[i]);
-		Draw(D3DPT_TRIANGLELIST, start_index, polygon_count, min_vertex_index, vertex_count);
-	}
 }
 
 // ----------------------------------------------------------------------------

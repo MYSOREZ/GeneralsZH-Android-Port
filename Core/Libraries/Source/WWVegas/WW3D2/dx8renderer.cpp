@@ -1676,199 +1676,6 @@ unsigned DX8TextureCategoryClass::Add_Mesh(
 
 // ----------------------------------------------------------------------------
 
-// GeneralsX @build Android port GLES experiment - GPU instancing, Phase 1.
-// See docs on DX8Wrapper::Draw_Triangles_Instanced/DX8PolygonRendererClass::
-// Render_Instanced for the rest of the call chain this feeds. Real device
-// logs showed 800-1250 separate draw calls per frame in ordinary content --
-// this collapses runs of them that share identical geometry (a
-// DX8PolygonRendererClass, i.e. one MeshModelClass registered once and
-// shared by every MeshClass instance using it -- see
-// DX8MeshRendererClass::Register_Mesh_Type()) into one glDrawElementsInstanced
-// call instead of one per instance.
-//
-// Starts disabled (kMinInstanceRun set unreachably high below) so this
-// commit only changes the *shape* of the render loop below, not its
-// behavior -- lets a real device confirm the refactor alone didn't change
-// anything before a follow-up commit turns batching on for real, isolating
-// which of the two changes caused a regression if one appears.
-// Phase 2: confirmed via real device log that the loop restructuring alone
-// (batching still off) reproduced the prior build's draws/frame and fps
-// exactly, with zero shader-compile/GL errors -- turning batching on for
-// real now.
-//
-// Phase 3: confirmed (after fixing the LightEnvironment pointer-vs-value
-// comparison bug below) that batching engages and measurably cuts
-// draws/frame (~38% at a comparable point in a real device log) in
-// ShellMapMD, the AI battle that runs live behind the main menu. Lowering
-// the run-length floor from 4 to 2 -- AI-built unit groups are commonly
-// only 2-3 of the same type, and even a pair collapsing into one
-// glDrawElementsInstanced call is a net win given per-draw call overhead on
-// mobile GPUs (that's the whole premise of every other caching layer in
-// this file/gles_pipeline.cpp).
-//
-// A/B diagnostic (temporary): user reported wrong-looking geometry (a
-// mast/antenna-like structure floating detached from its ship) in the main
-// menu's ShellMapMD battle, still present after the texture-stage-transform
-// guardrail fix (#8) shipped -- so that wasn't the only cause, or wasn't the
-// cause at all. A second full read-through of the accumulate/flush loop and
-// the GLES instanced draw path (Draw_Triangles_Instanced's per-instance
-// matrix packing, drawIndexedInstanced's orphan-and-upload of m_instanceVBO,
-// the instanced-vs-non-instanced program/uWorld/aInstWorld selection in
-// gles_pipeline.cpp) found nothing conclusively wrong. Forcing this back to
-// an unreachable value isolates whether instancing is the cause at all,
-// same trick as Phase 1/2's initial refactor-only build -- compare against
-// the exact same content with this one knob flipped.
-static const int kMinInstanceRun = 999999;
-
-// A task is eligible to be batched into an instanced draw only if it would
-// otherwise have taken the exact same path as the final, plain
-// `renderer->Render(mesh->Get_Base_Vertex_Offset());` call inside
-// DX8TextureCategoryClass::Render() below -- every check here corresponds
-// to one of that function's OTHER branches, each of which does something
-// genuinely per-instance that a single instanced draw call can't represent:
-static bool Is_Instance_Batchable(PolyRenderTaskClass *prt, bool category_texturewise_batchable)
-{
-	MeshClass *mesh = prt->Peek_Mesh();
-	DX8PolygonRendererClass *renderer = prt->Peek_Polygon_Renderer();
-
-	// Category-level texture-stage-transform check (computed once by the
-	// caller, see DX8TextureCategoryClass::Render() right after
-	// Set_Material() -- guardrail #8, see below).
-	if (!category_texturewise_batchable) return false;
-
-	// Render_Instanced only implements the indexed-triangle-list path.
-	if (renderer->Is_Strip()) return false;
-
-	// Sorted/translucent geometry goes through Render_Sorted() ->
-	// SortingRendererClass, a different batcher entirely -- not this one.
-	if (mesh->Peek_Model()->Get_Flag(MeshGeometryClass::SORT) && WW3D::Is_Sorting_Enabled()) return false;
-
-	// This branch (dx8renderer.cpp's alpha-override/material-override
-	// handling) mutates the *shared* VertexMaterialClass's opacity/UV-offset
-	// per-instance then restores it -- incompatible with one draw covering
-	// many instances that would each need a different override.
-	if (mesh->Get_Alpha_Override() != 1.0f) return false;
-	if (mesh->Get_User_Data() && *(int *)mesh->Get_User_Data() == RenderObjClass::USER_DATA_MATERIAL_OVERRIDE) return false;
-
-	// A non-1 scale toggles D3DRS_NORMALIZENORMALS around just this one
-	// render call -- a per-task, not per-instance, render state in the
-	// original code (see the two "//---" blocks bracketing the render
-	// decision in DX8TextureCategoryClass::Render()).
-	if (mesh->Get_ObjectScale() != 1.0f) return false;
-
-	// ALIGNED/ORIENTED recompute a camera-derived world transform every
-	// frame (compatible with instancing in principle -- each instance
-	// would just need its own camera-derived matrix -- but this content
-	// class, billboards/effects, isn't the reported bottleneck; deferred to
-	// keep this first pass reviewable). SKIN meshes recompute deformed
-	// vertex data into a shared streaming VB every frame -- no stable
-	// shared geometry to instance against at all.
-	MeshModelClass *model = mesh->Peek_Model();
-	if (model->Get_Flag(MeshModelClass::ALIGNED) ||
-	    model->Get_Flag(MeshModelClass::ORIENTED) ||
-	    model->Get_Flag(MeshModelClass::SKIN)) return false;
-
-	// Streaming-VB-overflow meshes are deferred to a later frame by the
-	// caller (the VERTEX_BUFFER_OVERFLOW check earlier in the while loop) --
-	// belt-and-suspenders, since only skin meshes (already excluded above)
-	// set this in practice.
-	if (mesh->Get_Base_Vertex_Offset() == VERTEX_BUFFER_OVERFLOW) return false;
-
-	// Parity with the outer debugger-disabled guard in the caller (a
-	// debugger-disabled mesh renders nothing at all, batched or not; this
-	// check only matters if Is_Instance_Batchable is ever called from
-	// somewhere that doesn't already guard on it).
-	if (DX8RendererDebugger::Is_Enabled() && mesh->Is_Disabled_By_Debugger()) return false;
-
-	// Texture-stage-transform check: was originally skipped here as
-	// "believed low-risk" (D3DTSS_TEXTURETRANSFORMFLAGS wasn't readable back
-	// from DX8Wrapper at the time). A real device log then showed wrong-
-	// looking content (wrong texture/UV appearance) right after batching
-	// activity jumped sharply, which is exactly the failure mode this gap
-	// predicted -- uTexMat0/1 are uniforms, shared for the whole instanced
-	// draw call, so if the run's UV-transform state weren't actually
-	// instance-invariant, every instance would render with whichever mesh's
-	// transform happened to be set. Added DX8Wrapper::Get_DX8_Texture_Stage_State()
-	// and check it above via `category_texturewise_batchable` (computed once
-	// per category in DX8TextureCategoryClass::Render(), right after
-	// Set_Material() -- cheaper than a per-task check and correct since the
-	// transform state is tied to the material/mapper, which categories are
-	// already partitioned by).
-	return true;
-}
-
-// GeneralsX @build Android port GLES experiment - GPU instancing.
-// MeshClass::Set_Lighting_Environment() (mesh.h) copies the passed-in
-// environment into a private per-instance m_localLightEnv member and
-// Get_Lighting_Environment() returns &m_localLightEnv -- so this pointer is
-// NEVER shared across two different MeshClass instances, even when they are
-// lit identically. Comparing it by pointer (as an earlier version of this
-// code did) breaks every accumulated run at the second mesh, which is why
-// instanced-draws/frame stayed at 0.0 on real device logs regardless of
-// scene content -- this compares by the fields that actually matter instead.
-//
-// LightEnvironmentClass::operator== (lightenvironment.h) is not used here
-// because it also compares ObjectCenter, which is set to each mesh
-// instance's own world position (Reset(object_center,...), called once per
-// object) and therefore differs between any two distinct objects by
-// definition. ObjectCenter only actually influences the computed light for
-// POINT/SPOT lights (Init_From_Point_Or_Spot_Light derives Direction from
-// light position minus object_center, lightenvironment.cpp); directional
-// lights ignore it entirely (Init_From_Directional_Light). And
-// DX8Wrapper::Set_Light_Environment() (dx8wrapper.cpp) -- the only consumer
-// of this data -- never reads ObjectCenter directly, only Get_Light_Count(),
-// Get_Equivalent_Ambient(), and per-light Get_Light_Diffuse()/
-// Get_Light_Direction()/the point-light accessors. So two different,
-// non-colocated objects lit by the same directional light + ambient (the
-// overwhelmingly common case away from muzzle flashes/explosions) produce
-// byte-identical values for everything that reaches the shader, and are
-// safe to batch together despite comparing unequal via operator==.
-static bool Light_Environments_Equal(LightEnvironmentClass *a, LightEnvironmentClass *b)
-{
-	if (a == b) return true;
-	if (!a || !b) return false;
-	if (a->Get_Light_Count() != b->Get_Light_Count()) return false;
-	if (!(a->Get_Equivalent_Ambient() == b->Get_Equivalent_Ambient())) return false;
-	for (int i = 0; i < a->Get_Light_Count(); i++) {
-		if (a->isPointLight(i) != b->isPointLight(i)) return false;
-		if (a->isPointLight(i)) {
-			// Point/spot lights are position-dependent -- only actually
-			// equal for two objects at the exact same point-light-relative
-			// position, which in practice means the same object, so this
-			// mostly just excludes point-lit content from batching, as intended.
-			if (!(a->getPointCenter(i) == b->getPointCenter(i))) return false;
-			if (!(a->getPointDiffuse(i) == b->getPointDiffuse(i))) return false;
-			if (!(a->getPointAmbient(i) == b->getPointAmbient(i))) return false;
-			if (a->getPointOrad(i) != b->getPointOrad(i)) return false;
-			if (a->getPointIrad(i) != b->getPointIrad(i)) return false;
-		} else {
-			if (!(a->Get_Light_Diffuse(i) == b->Get_Light_Diffuse(i))) return false;
-			if (!(a->Get_Light_Direction(i) == b->Get_Light_Direction(i))) return false;
-		}
-	}
-	return true;
-}
-
-// Renders (or falls back to one Render() call per instance, below
-// kMinInstanceRun) whatever's been accumulated, then clears the
-// accumulator. A no-op when nothing is pending -- safe to call
-// unconditionally at every point a run might be broken.
-static void Flush_Pending_Instances(DX8PolygonRendererClass *&pending_renderer, int pending_base,
-                                    Matrix3D *pending_xforms, int &pending_count)
-{
-	if (pending_count == 0) return;
-	if (pending_count >= kMinInstanceRun) {
-		pending_renderer->Render_Instanced(pending_base, pending_xforms, pending_count);
-	} else {
-		for (int i = 0; i < pending_count; i++) {
-			DX8Wrapper::Set_Transform(D3DTS_WORLD, pending_xforms[i]);
-			pending_renderer->Render(pending_base);
-		}
-	}
-	pending_renderer = nullptr;
-	pending_count = 0;
-}
-
 void DX8TextureCategoryClass::Render()
 {
 	#ifdef WWDEBUG
@@ -1888,21 +1695,6 @@ void DX8TextureCategoryClass::Render()
 	SNAPSHOT_SAY(("Set_Material(%s)",Peek_Material() ? Peek_Material()->Get_Name() : "null"));
 	VertexMaterialClass *vmaterial=(VertexMaterialClass *)Peek_Material();	//ugly cast from const but we'll restore it after changes so okay. -MW
 	DX8Wrapper::Set_Material(vmaterial);
-
-	// GeneralsX @build Android port GLES experiment - GPU instancing
-	// guardrail #8: uTexMat0/1 (gles_pipeline.cpp) are uniforms, shared for
-	// a whole instanced draw call, so a run is only batchable if this
-	// category's UV-transform state (tied to the material/mapper just
-	// applied above, hence checked once here rather than per-task) is
-	// actually off for both texture stages -- otherwise nothing guarantees
-	// the transform is instance-invariant, just whether one applies at all.
-	bool category_texturewise_batchable = true;
-	for (unsigned tstage = 0; tstage < MeshMatDescClass::MAX_TEX_STAGES; ++tstage) {
-		if (DX8Wrapper::Get_DX8_Texture_Stage_State(tstage, D3DTSS_TEXTURETRANSFORMFLAGS) != D3DTTFF_DISABLE) {
-			category_texturewise_batchable = false;
-			break;
-		}
-	}
 
 	SNAPSHOT_SAY(("Set_Shader(%x)",Get_Shader().Get_Bits()));
 	ShaderClass theShader = Get_Shader();
@@ -1930,17 +1722,6 @@ void DX8TextureCategoryClass::Render()
 
 
 	bool renderTasksRemaining=false;
-
-	// GeneralsX @build Android port GLES experiment - GPU instancing
-	// collection state, flushed (rendered) whenever a run of consecutive
-	// batchable tasks sharing the same renderer/lighting-environment
-	// breaks -- see Is_Instance_Batchable()/Flush_Pending_Instances() above
-	// and their call sites in the loop below.
-	DX8PolygonRendererClass *pending_renderer = nullptr;
-	LightEnvironmentClass *pending_lenv = nullptr;
-	int pending_base = 0;
-	Matrix3D pending_xforms[DX8Wrapper::DX8_MAX_INSTANCES_PER_DRAW];
-	int pending_count = 0;
 
 	PolyRenderTaskClass * prt = render_task_head;
 	PolyRenderTaskClass * last_prt = nullptr;
@@ -2088,40 +1869,8 @@ void DX8TextureCategoryClass::Render()
 		if (!DX8RendererDebugger::Is_Enabled() || !mesh->Is_Disabled_By_Debugger()) {
 
 		if ((!!mesh->Peek_Model()->Get_Flag(MeshGeometryClass::SORT)) && WW3D::Is_Sorting_Enabled()) {
-			// GeneralsX @build Android port GLES experiment - GPU instancing.
-			// A sorted/translucent mesh always breaks a pending instance
-			// run (it goes through a completely different, already-
-			// batching, code path -- SortingRendererClass -- not this
-			// one) and must render in its original relative position.
-			Flush_Pending_Instances(pending_renderer, pending_base, pending_xforms, pending_count);
 			renderer->Render_Sorted(mesh->Get_Base_Vertex_Offset(),mesh->Get_Bounding_Sphere());
-		} else if (Is_Instance_Batchable(prt, category_texturewise_batchable)) {
-			// GeneralsX @build Android port GLES experiment - GPU instancing.
-			// This task takes exactly the same path the final `else
-			// renderer->Render(...)` below would have taken (Is_Instance_Batchable
-			// already excludes every other branch in this function --
-			// alpha/material override, non-uniform scale, ALIGNED/ORIENTED/
-			// SKIN, sorted, strip, debugger-disabled, streaming-VB overflow),
-			// so it's safe to defer instead of rendering immediately.
-			if (pending_count > 0 && (renderer != pending_renderer || !Light_Environments_Equal(mesh->Get_Lighting_Environment(), pending_lenv))) {
-				// Run broken by a different mesh/renderer or lighting
-				// environment -- flush what's pending before starting a new run.
-				Flush_Pending_Instances(pending_renderer, pending_base, pending_xforms, pending_count);
-			}
-			if (pending_count >= DX8Wrapper::Get_Max_Instances_Per_Draw()) {
-				Flush_Pending_Instances(pending_renderer, pending_base, pending_xforms, pending_count);
-			}
-			pending_renderer = renderer;
-			pending_lenv = mesh->Get_Lighting_Environment();
-			pending_base = mesh->Get_Base_Vertex_Offset();
-			pending_xforms[pending_count++] = mesh->Get_Transform();
 		} else {
-			// GeneralsX @build Android port GLES experiment - GPU instancing.
-			// Not batchable (one of the guardrails in Is_Instance_Batchable
-			// failed) -- flush any pending run first so it renders in its
-			// original relative position, then fall through to the
-			// original, completely unmodified immediate-render code below.
-			Flush_Pending_Instances(pending_renderer, pending_base, pending_xforms, pending_count);
 			//non-transparent mesh that will be rendered immediately.  Okay to adjust the shader/material
 			//if necessary
 			if (mesh->Get_Alpha_Override() != 1.0 || (mesh->Get_User_Data() && *(int *)mesh->Get_User_Data() == RenderObjClass::USER_DATA_MATERIAL_OVERRIDE))
@@ -2201,11 +1950,6 @@ void DX8TextureCategoryClass::Render()
 		delete prt;
 		prt = next_prt;
 	}
-
-	// GeneralsX @build Android port GLES experiment - GPU instancing: the
-	// loop above may have ended mid-run (the last tasks in the list were
-	// still accumulating), so flush whatever's left pending here.
-	Flush_Pending_Instances(pending_renderer, pending_base, pending_xforms, pending_count);
 
 	if (!renderTasksRemaining)
 	{
