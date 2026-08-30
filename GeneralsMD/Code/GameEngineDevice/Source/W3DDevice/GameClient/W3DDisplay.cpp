@@ -34,9 +34,13 @@
 static void drawFramerateBar();
 
 // SYSTEM INCLUDES ////////////////////////////////////////////////////////////
+#include <chrono>
 #include <numeric>
 #include <stdlib.h>
 #include <windows.h>
+// GeneralsX @build Android port GLES experiment - see gxTraceDisplayDrawPhase
+// in W3DDisplay::draw() below.
+#include "GXTrace.h"
 // GeneralsX @bugfix BenderAI 13/02/2026 - io.h is Windows-specific, use unistd.h on Linux
 #ifdef _WIN32
 #include <io.h>
@@ -1970,6 +1974,50 @@ void W3DDisplay::step()
 
 //DECLARE_PERF_TIMER(BigAssRenderLoop)
 
+// GeneralsX @build Android port GLES experiment - GameClient.cpp's
+// [GX-PERF-CLIENT] breakdown already showed the entire "draw" bucket
+// (TheDisplay->DRAW(), i.e. this function) climbing from a few ms to
+// 70-90ms/frame as the ShellMapMD battle escalates, with everything else
+// (input/drawables/terrainDisplay/uiTail) staying near zero -- so the cost
+// is genuinely inside this function, not before or after it. Two earlier
+// hypotheses (draw-call count via GPU instancing, GL texture create/destroy
+// churn) were each tested on a real device and neither moved FPS at all,
+// so before trying another point fix, split this function's own major
+// blocks: view/particle updates, the water-reflection and projected-shadow
+// render-to-texture passes (each a full extra scene render, scaling with
+// the same battle content as the main view), the main scene render
+// (drawViews()), and the UI/mouse/present tail -- to see which one
+// actually owns the growing cost instead of guessing again.
+static void gxTraceDisplayDrawPhase(double preRTTUs, double waterShadowRTTUs,
+	double mainSceneUs, double uiPresentUs)
+{
+	static std::chrono::steady_clock::time_point s_windowStart = std::chrono::steady_clock::now();
+	static double s_preRTTUs = 0, s_waterShadowRTTUs = 0, s_mainSceneUs = 0, s_uiPresentUs = 0;
+	static int s_frames = 0;
+
+	s_preRTTUs += preRTTUs;
+	s_waterShadowRTTUs += waterShadowRTTUs;
+	s_mainSceneUs += mainSceneUs;
+	s_uiPresentUs += uiPresentUs;
+	++s_frames;
+
+	std::chrono::steady_clock::time_point now = std::chrono::steady_clock::now();
+	double elapsedUs = std::chrono::duration<double, std::micro>(now - s_windowStart).count();
+	if (elapsedUs >= 1'000'000.0 && s_frames > 0)
+	{
+		GX_PERF_TRACE("[GX-PERF-DISPLAY] frames=%d preRTT=%.2fms waterShadowRTT=%.2fms mainScene=%.2fms uiPresent=%.2fms\n",
+			s_frames,
+			s_preRTTUs / 1000.0 / s_frames,
+			s_waterShadowRTTUs / 1000.0 / s_frames,
+			s_mainSceneUs / 1000.0 / s_frames,
+			s_uiPresentUs / 1000.0 / s_frames);
+
+		s_windowStart = now;
+		s_preRTTUs = s_waterShadowRTTUs = s_mainSceneUs = s_uiPresentUs = 0;
+		s_frames = 0;
+	}
+}
+
 // W3DDisplay::draw ===========================================================
 /** Draw the entire W3D Display */
 //=============================================================================
@@ -1977,6 +2025,8 @@ void W3DDisplay::step()
 void W3DDisplay::draw()
 {
 	//USE_PERF_TIMER(W3DDisplay_draw)
+	const bool gxPerfTrace = GXTrace::isPerfEnabled();
+	std::chrono::steady_clock::time_point gxdT0, gxdT1, gxdT2, gxdT3;
 
 	// GeneralsX @feature xxorza 15/04/2026 Process deferred window resize for pillarbox
 	DX8Wrapper::Pillarbox_Process_Resize();
@@ -2120,6 +2170,8 @@ AGAIN:
 
 	do {
 
+		if (gxPerfTrace) gxdT0 = std::chrono::steady_clock::now();
+
 		// update all views of the world - recomputes data which will affect drawing
 		if (DX8Wrapper::_Get_D3D_Device8() && (DX8Wrapper::_Get_D3D_Device8()->TestCooperativeLevel()) == D3D_OK)
 		{	//Checking if we have the device before updating views because the heightmap crashes otherwise while
@@ -2135,6 +2187,7 @@ AGAIN:
                                            //REVOLUTIONARY!
                                            //-LORENZEN
 
+			if (gxPerfTrace) gxdT1 = std::chrono::steady_clock::now();
 
 			if (TheWaterRenderObj && TheGlobalData->m_waterType == 2)
 				TheWaterRenderObj->updateRenderTargetTextures(primaryW3DView->get3DCamera());	//do a render into each texture
@@ -2144,6 +2197,8 @@ AGAIN:
 			if (TheW3DProjectedShadowManager)
 				TheW3DProjectedShadowManager->updateRenderTargetTextures();
 		}
+
+		if (gxPerfTrace) gxdT2 = std::chrono::steady_clock::now();
 
 		// Switch to offscreen RT AFTER pre-render (shadows/water) completes, BEFORE main render.
 		DX8Wrapper::Pillarbox_Begin();
@@ -2211,6 +2266,8 @@ AGAIN:
 				// draw all views of the world
 				if (!skipViewsForOpaqueShellScreen)
 					drawViews();
+
+				if (gxPerfTrace) gxdT3 = std::chrono::steady_clock::now();
 
 				// draw the user interface
 				TheInGameUI->DRAW();
@@ -2300,6 +2357,16 @@ AGAIN:
 #endif
 				// render is all done!
 				WW3D::End_Render();
+
+				if (gxPerfTrace)
+				{
+					std::chrono::steady_clock::time_point gxdT4 = std::chrono::steady_clock::now();
+					gxTraceDisplayDrawPhase(
+						std::chrono::duration<double, std::micro>(gxdT1 - gxdT0).count(),
+						std::chrono::duration<double, std::micro>(gxdT2 - gxdT1).count(),
+						std::chrono::duration<double, std::micro>(gxdT3 - gxdT2).count(),
+						std::chrono::duration<double, std::micro>(gxdT4 - gxdT3).count());
+				}
 			}
 			else
 			{
