@@ -1410,8 +1410,10 @@ void WebGLPipeline::applyUniforms(WebGLDevice *dev, ProgramInfo *prog, unsigned 
 		memcpy(key.texMat1, &dev->getTransform((D3DTRANSFORMSTATETYPE)(D3DTS_TEXTURE0 + 1)), sizeof(key.texMat1));
 		if (m_haveTransformKey && key == m_lastTransformKey) {
 			m_perfUniformCacheHits++;
+			m_perfUniformTransformHits++;
 		} else {
 			m_perfUniformCacheMisses++;
+			m_perfUniformTransformMisses++;
 			if (prog->uView >= 0) glUniformMatrix4fv(prog->uView, 1, GL_FALSE, key.view);
 			if (prog->uProj >= 0) glUniformMatrix4fv(prog->uProj, 1, GL_FALSE, key.proj);
 			if (prog->uTexMat0 >= 0) glUniformMatrix4fv(prog->uTexMat0, 1, GL_FALSE, key.texMat0);
@@ -1435,8 +1437,10 @@ void WebGLPipeline::applyUniforms(WebGLDevice *dev, ProgramInfo *prog, unsigned 
 
 		if (m_haveMiscKey && key == m_lastMiscKey) {
 			m_perfUniformCacheHits++;
+			m_perfUniformMiscHits++;
 		} else {
 			m_perfUniformCacheMisses++;
+			m_perfUniformMiscMisses++;
 			if (prog->uViewportPos >= 0) glUniform4f(prog->uViewportPos, key.vpX, key.vpY, key.vpW, key.vpH);
 			if (prog->uYFlip >= 0) glUniform1f(prog->uYFlip, key.yFlip);
 			if (prog->uTFactor >= 0) glUniform4fv(prog->uTFactor, 1, key.tFactor);
@@ -1447,28 +1451,6 @@ void WebGLPipeline::applyUniforms(WebGLDevice *dev, ProgramInfo *prog, unsigned 
 			}
 			m_lastMiscKey = key;
 			m_haveMiscKey = true;
-		}
-	}
-
-	// GeneralsX @build Android port GLES experiment 08/30/2026 A Redmi Note
-	// 8 Pro (Mali-G76, "native GLES3 backend, no Vulkan/ANGLE") report shows
-	// the exact same whole-frame vertical-flip symptom (menu buttons, logo,
-	// background all upside down) that bd2a2379 already fixed and verified
-	// on a real device back on 08/07 -- and every mechanism from that fix
-	// (the non-negated "cpos.y * uYFlip" / "ny * uYFlip" shader math, the
-	// D3D->GL viewport Y conversion) is confirmed still present unmodified.
-	// Static re-analysis alone didn't explain it the first time either (see
-	// bd2a2379's own commit message) -- reintroducing the same bounded,
-	// tagged diagnostic dump that got real data then, instead of guessing
-	// again. Remove once a fresh device log has actually pinned this down.
-	{
-		static int s_flipDbgCount = 0;
-		if (s_flipDbgCount < 30) {
-			const D3DVIEWPORT8 &vpDbg = dev->getViewport();
-			fprintf(stderr, "[d3d8gles-flipdbg] #%d vp=(%d,%d,%d,%d) yFlip=%.1f xyzrhw=%d fb=%dx%d curRT=%dx%d curFBO=%u\n",
-				s_flipDbgCount, vpDbg.X, vpDbg.Y, vpDbg.Width, vpDbg.Height, m_yFlip,
-				(fvf & D3DFVF_XYZRHW) ? 1 : 0, m_fbWidth, m_fbHeight, m_curRTWidth, m_curRTHeight, m_curFBO);
-			s_flipDbgCount++;
 		}
 	}
 
@@ -1483,8 +1465,10 @@ void WebGLPipeline::applyUniforms(WebGLDevice *dev, ProgramInfo *prog, unsigned 
 		memcpy(key.emissive, &m.Emissive, sizeof(key.emissive));
 		if (m_haveMaterialKey && key == m_lastMaterialKey) {
 			m_perfUniformCacheHits++;
+			m_perfUniformMaterialHits++;
 		} else {
 			m_perfUniformCacheMisses++;
+			m_perfUniformMaterialMisses++;
 			if (prog->uMatDiffuse >= 0) glUniform4fv(prog->uMatDiffuse, 1, key.diffuse);
 			if (prog->uMatAmbient >= 0) glUniform4fv(prog->uMatAmbient, 1, key.ambient);
 			if (prog->uMatEmissive >= 0) glUniform4fv(prog->uMatEmissive, 1, key.emissive);
@@ -1518,8 +1502,10 @@ void WebGLPipeline::applyUniforms(WebGLDevice *dev, ProgramInfo *prog, unsigned 
 
 		if (m_haveLightingKey && key == m_lastLightingKey) {
 			m_perfUniformCacheHits++;
+			m_perfUniformLightingHits++;
 		} else {
 			m_perfUniformCacheMisses++;
+			m_perfUniformLightingMisses++;
 			if (prog->uGlobalAmbient >= 0) glUniform4fv(prog->uGlobalAmbient, 1, key.globalAmbient);
 			if (prog->uNumLights >= 0) {
 				glUniform1i(prog->uNumLights, key.numLights);
@@ -2081,6 +2067,33 @@ void WebGLPipeline::present()
 				m_perfProgramBuilds, m_perfProgramBuildUs / 1000.0,
 				m_perfProgramBuilds > 0 ? m_perfProgramBuildUs / 1000.0 / m_perfProgramBuilds : 0.0,
 				m_programCount);
+			// GeneralsX @build Android port GLES experiment 08/30/2026 Per-
+			// block breakdown of the combined uniform-cache rate above --
+			// added to find out whether a lower-than-vao-cache hit rate
+			// (real device logs: ~74% combined vs vao-cache 99.8%+) comes
+			// from a block that's expected to miss a lot per-object
+			// (material/lighting -- genuinely varies per unit) or one that
+			// should be near-constant within a frame (transform/misc --
+			// same camera/viewport for every draw in a frame, a low rate
+			// there would point at a real inefficiency, e.g. something
+			// invalidating the key unnecessarily between draws that
+			// shouldn't differ).
+			{
+				auto pct = [](int hits, int misses) {
+					int total = hits + misses;
+					return total > 0 ? 100.0f * hits / total : 0.0f;
+				};
+				fprintf(stderr, "[d3d8gles] uniform-cache breakdown: transform %.0f%% (%d/%d), "
+					"misc %.0f%% (%d/%d), material %.0f%% (%d/%d), lighting %.0f%% (%d/%d)\n",
+					pct(m_perfUniformTransformHits, m_perfUniformTransformMisses),
+					m_perfUniformTransformHits, m_perfUniformTransformHits + m_perfUniformTransformMisses,
+					pct(m_perfUniformMiscHits, m_perfUniformMiscMisses),
+					m_perfUniformMiscHits, m_perfUniformMiscHits + m_perfUniformMiscMisses,
+					pct(m_perfUniformMaterialHits, m_perfUniformMaterialMisses),
+					m_perfUniformMaterialHits, m_perfUniformMaterialHits + m_perfUniformMaterialMisses,
+					pct(m_perfUniformLightingHits, m_perfUniformLightingMisses),
+					m_perfUniformLightingHits, m_perfUniformLightingHits + m_perfUniformLightingMisses);
+			}
 			DumpLiveTextureShapes();
 			m_perfLogLastMs = nowMs;
 			m_perfFrameCount = 0;
@@ -2092,6 +2105,14 @@ void WebGLPipeline::present()
 			m_perfVAOPointerRefresh = 0;
 			m_perfUniformCacheHits = 0;
 			m_perfUniformCacheMisses = 0;
+			m_perfUniformTransformHits = 0;
+			m_perfUniformTransformMisses = 0;
+			m_perfUniformMiscHits = 0;
+			m_perfUniformMiscMisses = 0;
+			m_perfUniformMaterialHits = 0;
+			m_perfUniformMaterialMisses = 0;
+			m_perfUniformLightingHits = 0;
+			m_perfUniformLightingMisses = 0;
 			m_perfProgramBuilds = 0;
 			m_perfProgramBuildUs = 0.0;
 		}

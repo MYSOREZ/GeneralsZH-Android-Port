@@ -331,6 +331,20 @@ private:
 	// question: "is the uniform cache doing anything."
 	int m_perfUniformCacheHits = 0;
 	int m_perfUniformCacheMisses = 0;
+	// GeneralsX @build Android port GLES experiment 08/30/2026 The combined
+	// counters above answer "is the cache doing anything" but not "which of
+	// the four blocks is dragging the average down" -- real device logs
+	// (Redmi Note 8 Pro) showed the combined rate stuck around 74% while
+	// vao-cache sits at 99.8%+, and there's no way to tell from that one
+	// number whether the miss-heavy block is one that's genuinely
+	// per-object-variant (material/lighting -- expected to miss a lot in a
+	// battle with many differently-colored/lit units) or one that SHOULD be
+	// near-constant within a frame (transform/misc -- a real inefficiency if
+	// it's missing a lot). Split out so the next log settles which.
+	int m_perfUniformTransformHits = 0, m_perfUniformTransformMisses = 0;
+	int m_perfUniformMiscHits = 0, m_perfUniformMiscMisses = 0;
+	int m_perfUniformMaterialHits = 0, m_perfUniformMaterialMisses = 0;
+	int m_perfUniformLightingHits = 0, m_perfUniformLightingMisses = 0;
 
 	// GeneralsX @build Android port GLES experiment - same redundant-state
 	// rationale as m_lastProgram above, applied to bindTextures()'s two
