@@ -36,3 +36,21 @@ extern "C" IDirect3D8 *WINAPI Direct3DCreate8_GLES(UINT sdkVersion);
 // Called from the SDL3 window-resize path so the GLES pipeline's cached
 // framebuffer size stays in sync without waiting for the next Reset().
 extern "C" void d3d8gles_resize(int w, int h);
+
+// GeneralsX @build Android port render-backend picker 07/09/2026 - single
+// source of truth for the Vulkan/GLES/GLES+ANGLE choice, called from every
+// place that needs to agree on it: SDL3Main.cpp (decides which kind of SDL
+// window/EGL surface to create) and dx8wrapper.cpp (decides whether to load
+// libdxvk_d3d8.so or use Direct3DCreate8_GLES). These USED to be two
+// separate copies of the same getenv() check; they drifted out of sync the
+// moment the Setup app's render_backend.cfg picker was added to only one of
+// them (SDL3Main.cpp), so a phone with "Vulkan" selected got a Vulkan SDL
+// window from SDL3Main.cpp but dx8wrapper.cpp still silently loaded the GLES
+// backend underneath it -- SDL_GL_CreateContext then failed ("the specified
+// window isn't an OpenGL window") and nothing ever rendered, while the rest
+// of the engine (audio, game logic) ran fine. Implemented in d3d8gles.cpp
+// (which already links sdl3lib) so both callers -- one of which, WW3D2, does
+// NOT itself link sdl3lib -- can share one implementation instead of each
+// re-reading render_backend.cfg/the env vars themselves.
+extern "C" bool d3d8gles_ShouldUseVulkanBackend();
+extern "C" bool d3d8gles_ShouldUseANGLE();

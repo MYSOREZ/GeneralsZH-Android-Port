@@ -596,16 +596,18 @@ bool DX8Wrapper::Init(void * hwnd, bool lite)
 #ifdef _WIN32
 		D3D8Lib = LoadLibrary("D3D8.DLL");
 #elif defined(__ANDROID__)
-		// GeneralsX @build Android port GLES experiment - runtime backend
-		// switch (see UseVulkanBackend() in SDL3Main.cpp for the matching
-		// window-creation-side half of this switch). Native GLES3
-		// (Core/Libraries/Source/d3d8gles/) is the default; Vulkan/DXVK is
-		// opt-in via GENERALSX_RENDER_BACKEND=vulkan. The GLES backend is
-		// statically linked into libmain.so, not dlopen'd, so it skips the
-		// LoadLibrary/GetProcAddress dance entirely.
+		// GeneralsX @build Android port render-backend picker 07/09/2026 -
+		// runtime backend switch (see d3d8gles_ShouldUseVulkanBackend() in
+		// d3d8gles.h/d3d8gles.cpp for the single source of truth this and
+		// SDL3Main.cpp's UseVulkanBackend() both now call -- they used to be
+		// two separate copies of this same check and drifted out of sync,
+		// see that function's comment for the resulting black-screen bug).
+		// Native GLES3 (Core/Libraries/Source/d3d8gles/) is the default;
+		// Vulkan/DXVK is opt-in. The GLES backend is statically linked into
+		// libmain.so, not dlopen'd, so it skips the LoadLibrary/
+		// GetProcAddress dance entirely.
 		{
-			const char *backend = getenv("GENERALSX_RENDER_BACKEND");
-			bool useVulkan = backend != nullptr && strcmp(backend, "vulkan") == 0;
+			bool useVulkan = d3d8gles_ShouldUseVulkanBackend();
 			if (!useVulkan) {
 				fprintf(stderr, "DEBUG: DX8Wrapper::Init() - Using native GLES3 backend (Direct3DCreate8_GLES)\n");
 				D3D8Lib = nullptr;

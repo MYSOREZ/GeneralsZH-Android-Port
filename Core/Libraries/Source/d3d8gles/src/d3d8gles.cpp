@@ -42,7 +42,68 @@
 #include <map>
 #include <vector>
 
+#if defined(__ANDROID__)
+#include <SDL3/SDL.h>
+#endif
+
 #include "gles_pipeline.h"
+
+#if defined(__ANDROID__)
+// GeneralsX @build Android port render-backend picker 07/09/2026 - see
+// d3d8gles.h's comment on d3d8gles_ShouldUseVulkanBackend()/
+// d3d8gles_ShouldUseANGLE() for why this lives here instead of being
+// duplicated per-caller. Reads <internalPath>/render_backend.cfg (written by
+// SetupActivity.java's "Render Backend" picker; one line: "vulkan", "gles",
+// or "gles_angle"), falling back to the GENERALSX_RENDER_BACKEND/
+// GENERALSX_GLES_ANGLE env vars this experiment used before that picker
+// existed (kept working for manual/dev testing without a rebuild). Each
+// value is read once and cached -- Setup only ever writes this file before
+// the game process starts, never while it's running.
+static const char *ReadRenderBackendConfigFile()
+{
+	static bool s_read = false;
+	static char s_value[32] = {0};
+	if (!s_read) {
+		s_read = true;
+		const char *internalPath = SDL_GetAndroidInternalStoragePath();
+		if (internalPath != nullptr) {
+			char cfgPath[1024];
+			snprintf(cfgPath, sizeof(cfgPath), "%s/render_backend.cfg", internalPath);
+			FILE *cfg = fopen(cfgPath, "r");
+			if (cfg != nullptr) {
+				if (fgets(s_value, sizeof(s_value), cfg) != nullptr) {
+					size_t len = strlen(s_value);
+					while (len > 0 && (s_value[len - 1] == '\n' || s_value[len - 1] == '\r')) {
+						s_value[--len] = '\0';
+					}
+				}
+				fclose(cfg);
+			}
+		}
+	}
+	return s_value[0] != '\0' ? s_value : nullptr;
+}
+
+extern "C" bool d3d8gles_ShouldUseVulkanBackend()
+{
+	const char *configured = ReadRenderBackendConfigFile();
+	if (configured != nullptr) {
+		return strcmp(configured, "vulkan") == 0;
+	}
+	const char *backend = getenv("GENERALSX_RENDER_BACKEND");
+	return backend != nullptr && strcmp(backend, "vulkan") == 0;
+}
+
+extern "C" bool d3d8gles_ShouldUseANGLE()
+{
+	const char *configured = ReadRenderBackendConfigFile();
+	if (configured != nullptr) {
+		return strcmp(configured, "gles_angle") == 0;
+	}
+	const char *v = getenv("GENERALSX_GLES_ANGLE");
+	return v == nullptr || strcmp(v, "0") != 0;
+}
+#endif // __ANDROID__
 
 // ---------------------------------------------------------------------------
 // Helpers
