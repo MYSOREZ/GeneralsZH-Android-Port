@@ -159,27 +159,36 @@ void DX8Wrapper::Pillarbox_Cleanup()
 	s_pillarboxActive = false;
 }
 
-// GeneralsX @bugfix Android port 08/30/2026 EXPERIMENT: deliberately render the
-// 3D scene + UI at less than the device's native pixel count and let the
-// existing pillarbox blit upscale it, trading a small amount of resolution
-// for fill-rate headroom. This is DIFFERENT from the xres/yres-based attempt
-// documented in SDL3Main.cpp (which was reverted): that changed the ENGINE's
-// logical resolution (ResolutionWidth/Height), which font-size bucketing and
-// other resolution-aware code read directly, causing UI text to visibly jump
-// size. Here ResolutionWidth/Height (and therefore all UI/.wnd layout math
-// and font-size selection) are untouched -- only the pixel dimensions of the
-// pillarbox's OWN offscreen render target and scene viewport shrink. Since
-// D3D8's projection/ortho matrices map the *logical* [0,ResolutionWidth]
-// coordinate space onto NDC independent of viewport pixel size, and the
-// pillarbox blit then upscales that render target back up to the real
-// backbuffer, every UI element's on-screen position/proportion works out
-// identically to native rendering -- the same math already proven correct by
-// the pre-existing incidental case where the backbuffer didn't exactly match
-// game resolution (e.g. the tested Redmi Note 8 Pro's ~96.7% case). Only the
-// image itself gets a little softer, matching a deliberate but modest
-// (~90%) scale rather than an incidental (~97%) one.
+// GeneralsX @bugfix Android port 08/30/2026 EXPERIMENT, currently PARKED AT
+// 1.0 -- see the real-device regression report below before ever raising
+// this again. The original idea: deliberately render the 3D scene + UI at
+// less than the device's native pixel count and let the existing pillarbox
+// blit upscale it, trading a small amount of resolution for fill-rate
+// headroom. That's safe for anything positioned through NDC-based drawing
+// (Render2DClass::Convert_Vert(), which all .wnd/HUD drawing goes through --
+// it never reads pixel counts, only ScreenResolution, so it's automatically
+// consistent regardless of viewport size). It is NOT safe for anything that
+// round-trips through PIXEL coordinates computed from View::getWidth()/
+// getHeight() -- confirmed by reading W3DView::worldToScreenTriReturn()
+// (Core/GameEngineDevice/.../W3DView.cpp), which projects to NDC then
+// converts to pixels via W3DLogicalScreenToPixelScreen(..., getWidth(),
+// getHeight()). getWidth()/getHeight() report the LOGICAL resolution
+// (ResolutionWidth/Height), which no longer matched the actual (smaller)
+// render-target/viewport pixel count once this scale went below 1.0 --
+// confirmed by a real-device test where every worldToScreen()-positioned
+// overlay (health bars via Drawable::drawIconUI(), called from
+// drawablePostDraw() -- itself called from inside drawViews(), i.e. the
+// low-res 3D pass) visibly shifted, while genuine 3D geometry (positioned
+// via the view/proj matrices, which are resolution-independent by
+// construction) stayed correct. The same getWidth()/getHeight() values also
+// drive W3DView::setWidth/setHeight's camera aspect-ratio and FOV/view-plane
+// setup and the click-to-world conversion (PixelScreenToW3DLogicalScreen) --
+// pervasive enough that safely decoupling render-target pixel count from
+// View's logical dimensions needs its own dedicated fix (making the 3D
+// pass's worldToScreen()-consumers aware of the actual render resolution),
+// not something to reattempt blindly alongside this constant.
 #if defined(__ANDROID__)
-static const float kPillarboxRenderScale = 0.90f;
+static const float kPillarboxRenderScale = 1.0f;
 #else
 static const float kPillarboxRenderScale = 1.0f;
 #endif
