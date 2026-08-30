@@ -1365,15 +1365,34 @@ public class SetupActivity extends Activity {
     // backslash-separated path].
     private static final String BIG_CRITICAL_ENTRY = "data\\ini\\default\\weather.ini";
 
+    // GeneralsX @bugfix Android port game-folder-integrity-check 08/30/2026
+    // Some retail/Deluxe layouts don't put the base Generals archives (incl.
+    // INI.big) next to the ZH ones -- they nest an entire base-game copy in
+    // a "ZH_Generals" subfolder instead (confirmed via real "Generals
+    // Deluxe" install screenshots: root has INIZH.big + *ZH.big, and
+    // ZH_Generals\ has a plain INI.big alongside unsuffixed archives). This
+    // isn't a guess: the engine itself already expects exactly this layout
+    // -- loadBaseGeneralsAssetsForZH() in StdBIGFileSystem.cpp tries
+    // "<zhAssetDirectory>/ZH_Generals" (tagged "default-zh-generals") as one
+    // of its fallbacks for locating the base game's assets and merges
+    // whatever it finds there into the same virtual filesystem as the ZH
+    // archives. So the folder checker needs to look there too, or a
+    // perfectly valid install (root INIZH.big alone, no root INI.big) gets
+    // wrongly flagged as missing data.
+    private static final String NESTED_BASE_GAME_SUBFOLDER = "ZH_Generals";
+
     private java.util.List<String> findGameFolderIntegrityIssues(File dir) {
         java.util.List<String> issues = new java.util.ArrayList<>();
         if (dir == null || !dir.isDirectory()) {
             return issues;
         }
-        File[] bigFiles = dir.listFiles((d, name) -> name.toLowerCase(java.util.Locale.ROOT).endsWith(".big"));
-        if (bigFiles == null) {
-            return issues;
+        java.util.List<File> scanRoots = new java.util.ArrayList<>();
+        scanRoots.add(dir);
+        File nestedBaseGame = new File(dir, NESTED_BASE_GAME_SUBFOLDER);
+        if (nestedBaseGame.isDirectory()) {
+            scanRoots.add(nestedBaseGame);
         }
+
         // GeneralsX @bugfix Android port game-folder-integrity-check 07/09/2026
         // INI.big (base Generals) and INIZH.big (the Zero Hour expansion)
         // both get loaded and merged into one virtual file list by the
@@ -1384,21 +1403,29 @@ public class SetupActivity extends Activity {
         // live in INI.big while INIZH.big itself is missing/corrupted --
         // checking only whichever one was found last would have produced a
         // false "missing data" report. Collect every present ini archive
-        // and only flag a problem if NONE of them have the entry, matching
-        // how the actual merged filesystem resolves it.
+        // (root and nested ZH_Generals\ alike) and only flag a problem if
+        // NONE of them have the entry, matching how the actual merged
+        // filesystem resolves it.
         java.util.List<File> iniArchives = new java.util.ArrayList<>();
-        for (File f : bigFiles) {
-            if (f.length() == 0) {
-                issues.add(getString(R.string.setup_folder_issue_empty_file, f.getName()));
+        for (File root : scanRoots) {
+            File[] bigFiles = root.listFiles((d, name) -> name.toLowerCase(java.util.Locale.ROOT).endsWith(".big"));
+            if (bigFiles == null) {
                 continue;
             }
-            if (!hasBigFHeader(f)) {
-                issues.add(getString(R.string.setup_folder_issue_bad_header, f.getName()));
-                continue;
-            }
-            String lower = f.getName().toLowerCase(java.util.Locale.ROOT);
-            if (lower.equals("ini.big") || lower.equals("inizh.big")) {
-                iniArchives.add(f);
+            String prefix = (root == dir) ? "" : (NESTED_BASE_GAME_SUBFOLDER + "\\");
+            for (File f : bigFiles) {
+                if (f.length() == 0) {
+                    issues.add(getString(R.string.setup_folder_issue_empty_file, prefix + f.getName()));
+                    continue;
+                }
+                if (!hasBigFHeader(f)) {
+                    issues.add(getString(R.string.setup_folder_issue_bad_header, prefix + f.getName()));
+                    continue;
+                }
+                String lower = f.getName().toLowerCase(java.util.Locale.ROOT);
+                if (lower.equals("ini.big") || lower.equals("inizh.big")) {
+                    iniArchives.add(f);
+                }
             }
         }
         if (!iniArchives.isEmpty()) {
@@ -1415,7 +1442,8 @@ public class SetupActivity extends Activity {
                     if (names.length() > 0) {
                         names.append(", ");
                     }
-                    names.append(f.getName());
+                    boolean nested = f.getParentFile() != null && f.getParentFile().equals(nestedBaseGame);
+                    names.append(nested ? (NESTED_BASE_GAME_SUBFOLDER + "\\" + f.getName()) : f.getName());
                 }
                 issues.add(getString(R.string.setup_folder_issue_missing_data, names.toString()));
             }
