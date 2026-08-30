@@ -2256,6 +2256,27 @@ void DX8Wrapper::End_Scene(bool flip_frames)
 		// GeneralsX @bugfix GitHub Copilot 10/05/2026 Re-sync cached DX8 state after the pillarbox blit mutates global render state at the end of the frame.
 		Invalidate_Cached_Render_States();
 	}
+	// GeneralsX @bugfix Android port 08/30/2026 Unconditionally restore a
+	// full-backbuffer viewport here, regardless of whether Pillarbox_End()
+	// ran above. Pillarbox_Begin_UI() (called mid-frame, from W3DDisplay.cpp
+	// right after drawViews()) narrows the viewport to the letterboxed
+	// destination rect for the rest of the frame's UI/overlay drawing, and
+	// nothing else was resetting it back afterward. This device's D3D8
+	// Clear() emulation deliberately clears only the CURRENT VIEWPORT's rect
+	// when no explicit rects are given (matches real D3D8 semantics -- see
+	// WebGLPipeline::clear()'s "D3D clears the viewport region only"
+	// comment), so a leftover narrow viewport meant any frame that calls
+	// Clear() without first going through Pillarbox_Begin() again (e.g. the
+	// load-screen branch in W3DDisplay.cpp, which skips the whole
+	// Pillarbox_Begin()/drawViews()/Pillarbox_End() sequence entirely) would
+	// only clear that same narrow rect -- leaving a stale strip of the
+	// previous frame's content visible outside it. Confirmed by a real-
+	// device report: a sliver of leftover battle-scene content next to the
+	// intro/briefing cinematic text while the game was still loading.
+	if (s_pillarboxEnabled) {
+		D3DVIEWPORT8 fullVp = {0, 0, (DWORD)s_bbW, (DWORD)s_bbH, 0.0f, 1.0f};
+		D3DDevice->SetViewport(&fullVp);
+	}
 	DX8CALL(EndScene());
 
 	// GeneralsX @build BenderAI 10/02/2026 - Embedded browser Windows-only
