@@ -1020,6 +1020,37 @@ int main(int argc, char* argv[])
 #if defined(__ANDROID__)
 		if (!useVulkan && UseANGLE()) {
 			SDL_SetHint(SDL_HINT_EGL_LIBRARY, "libEGL_angle.so");
+
+			// GeneralsX @bugfix Android port 08/30/2026 A Redmi Note 8 Pro
+			// (Mali-G76) device log showed the whole-frame vertical-flip bug
+			// that bd2a2379 (gles_pipeline.cpp) already fixed and verified
+			// against the SYSTEM GLES driver reappearing specifically once
+			// this device's GLES backend routed through ANGLE
+			// ("[d3d8gles] GLES backend: libGLESv2_angle.so" in the log).
+			// The same device's Vulkan/DXVK path has never shown this --
+			// DXVK's swapchain creation hardcodes
+			// VkSwapchainCreateInfoKHR::preTransform = IDENTITY
+			// unconditionally (dxvk_presenter.cpp) and just lets
+			// SurfaceFlinger do a compositor-side rotation blit if the
+			// surface's actual currentTransform isn't identity -- always
+			// correct, if marginally less efficient. ANGLE instead reads
+			// the surface's real currentTransform and internally
+			// "pre-rotates" its own rendering (vertex positions, viewport,
+			// scissor, render-pass area -- see ANGLE's SurfaceVk.cpp,
+			// enablePreRotateSurfaces, enabled by default on Android) to
+			// avoid that compositor blit. 90/270-degree pre-rotation is the
+			// common case on portrait-primary phones and well exercised;
+			// 180 degrees (this device apparently reports a landscape
+			// window rotated 180 from what most phones consider forward
+			// landscape -- see the reverted 106cd23 for the same finding
+			// via Android's orientation API) is a much rarer path through
+			// the same ANGLE code and a very plausible place for a
+			// device-specific bug to hide. Disabling this ANGLE feature
+			// makes it fall back to declaring IDENTITY and relying on the
+			// same compositor-blit behavior already confirmed correct via
+			// DXVK on this exact device, instead of ANGLE's own internal
+			// compensation math.
+			setenv("ANGLE_FEATURE_OVERRIDES_DISABLED", "enablePreRotateSurfaces", 1);
 		}
 #endif
 		if (!SDL_InitSubSystem(SDL_INIT_VIDEO | SDL_INIT_AUDIO)) {
