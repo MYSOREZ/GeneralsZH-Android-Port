@@ -288,9 +288,42 @@ void DX8Wrapper::Pillarbox_End()
 	float x0 = (float)s_dstX - 0.5f, y0 = (float)s_dstY - 0.5f;
 	float x1 = (float)(s_dstX + s_dstW) - 0.5f, y1 = (float)(s_dstY + s_dstH) - 0.5f;
 	struct BV { float x, y, z, rhw; float u, v; };
+
+	// GeneralsX @bugfix Android port 08/30/2026 v0Top/v1Bottom used to be a
+	// flat 0.0f/1.0f (v=0 sampling the destination's TOP), which is correct
+	// for a texture whose row 0 was pre-flipped at LOAD time to match D3D's
+	// v=0-means-top convention -- true of every normal asset texture this
+	// engine loads. s_offscreenTex is NOT one of those: it's a render
+	// target, populated purely by rasterization, never touched by any
+	// loader-side flip.
+	//
+	// Traced why that matters with concrete NDC/window/texture-storage
+	// arithmetic (real device report: whole composed frame -- 3D scene AND
+	// UI together -- upside down on both the system GLES driver and ANGLE,
+	// but never on Vulkan/DXVK, on a Redmi Note 8 Pro where Pillarbox
+	// actually engages: game=2264x1080 vs backbuffer=2340x1080). The scene
+	// was rendered into s_offscreenTex with m_yFlip=+1 (gles_pipeline.cpp),
+	// which correctly keeps D3D's clip.y=+1 (top) at NDC y=+1 with no extra
+	// negation. But NDC y=+1 becomes WINDOW-space y=height under OpenGL's
+	// own (bottom-origin) viewport transform, and OpenGL's own (equally
+	// bottom-origin) framebuffer-to-texture storage convention then places
+	// that same content at texel row (height-1) -- sampled at v=1, not
+	// v=0. So on the GLES/ANGLE backends specifically, v=0 samples this
+	// render target's BOTTOM, while the quad below put v=0 at the
+	// destination's TOP: an inversion. Vulkan has no such mismatch --
+	// window space and texture storage are both top-origin there, matching
+	// D3D already -- which is exactly why the same unmodified quad code has
+	// never shown this on DXVK.
+#if defined(__ANDROID__)
+	const bool flipForGLTextureStorage = !d3d8gles_ShouldUseVulkanBackend();
+#else
+	const bool flipForGLTextureStorage = false;
+#endif
+	const float v0Top = flipForGLTextureStorage ? 1.0f : 0.0f;
+	const float v1Bottom = flipForGLTextureStorage ? 0.0f : 1.0f;
 	BV quad[4] = {
-		{x0, y0, 0, 1, 0, 0}, {x1, y0, 0, 1, 1, 0},
-		{x0, y1, 0, 1, 0, 1}, {x1, y1, 0, 1, 1, 1},
+		{x0, y0, 0, 1, 0, v0Top}, {x1, y0, 0, 1, 1, v0Top},
+		{x0, y1, 0, 1, 0, v1Bottom}, {x1, y1, 0, 1, 1, v1Bottom},
 	};
 	D3DDevice->SetVertexShader(D3DFVF_XYZRHW | D3DFVF_TEX1);
 	D3DDevice->DrawPrimitiveUP(D3DPT_TRIANGLESTRIP, 2, quad, sizeof(BV));
