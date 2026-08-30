@@ -630,6 +630,9 @@ TextureClass::TextureClass
 	Initialized=true;
 	IsProcedural=true;
 	IsReducible=false;
+	// GeneralsX @build Android port GLES experiment - texture-churn
+	// diagnostic call-site tag (see ~TextureBaseClass's [texchurn] log).
+	Set_Texture_Name("!diag_whf_ctor");
 
 	switch (format)
 	{
@@ -795,6 +798,9 @@ TextureClass::TextureClass
 	IsProcedural=true;
 	Initialized=true;
 	IsReducible=false;
+	// GeneralsX @build Android port GLES experiment - texture-churn
+	// diagnostic call-site tag (see ~TextureBaseClass's [texchurn] log).
+	Set_Texture_Name("!diag_surface_ctor");
 
 	SurfaceClass::SurfaceDescription sd;
 	surface->Get_Description(sd);
@@ -836,6 +842,9 @@ TextureClass::TextureClass(IDirect3DBaseTexture8* d3d_texture)
 	Initialized=true;
 	IsProcedural=true;
 	IsReducible=false;
+	// GeneralsX @build Android port GLES experiment - texture-churn
+	// diagnostic call-site tag (see ~TextureBaseClass's [texchurn] log).
+	Set_Texture_Name("!diag_d3dtex_ctor");
 
 	Set_D3D_Base_Texture(d3d_texture);
 	IDirect3DSurface8* surface;
