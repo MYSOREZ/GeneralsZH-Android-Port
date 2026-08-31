@@ -38,6 +38,8 @@
 #include "GameClient/GameWindow.h"
 #include "GameClient/GameWindowManager.h"
 #include "GameClient/Gadget.h"
+#include "GameClient/Display.h"
+#include "WW3D2/dx8wrapper.h"
 #include "GameClient/View.h"
 #include "GameClient/Shell.h"
 #include "GameClient/InGameUI.h"
@@ -652,8 +654,35 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 {
 	int winW = 0, winH = 0;
 	SDL_GetWindowSize(window, &winW, &winH);
-	const float px = event.tfinger.x * (float)winW;
-	const float py = event.tfinger.y * (float)winH;
+	float px = event.tfinger.x * (float)winW;
+	float py = event.tfinger.y * (float)winH;
+
+	// GeneralsX @bugfix Android port 08/31/2026 px/py above are in REAL
+	// window pixel space (event.tfinger.x/y are normalized [0,1] against the
+	// actual window, per SDL's touch API). Every consumer below --
+	// getWindowUnderCursor() and the GameMessages built by touchPixel() --
+	// expects coordinates in LOGICAL game-resolution space instead, which is
+	// what widget layout and Render2DClass positioning are actually done in
+	// (see dx8wrapper.h's Pillarbox_Begin_UI() comment for the same
+	// distinction on the rendering side). These two spaces were always
+	// identical before today -- Resize_And_Position_Window() used to force
+	// the real SDL window down to match ResolutionWidth/Height on every
+	// resolution change, and prior to adding more resolution options there
+	// was only ever one to begin with -- so this mismatch never had a chance
+	// to surface. Now that a user can pick a resolution smaller than the
+	// real screen (with the window itself correctly left alone, see
+	// Resize_And_Position_Window()'s own comment), touches must be remapped
+	// through the pillarbox destination rect or every widget hit-test lands
+	// on the wrong logical coordinate -- confirmed on a real device: touch
+	// input was entirely unresponsive after switching to a non-native
+	// resolution, exactly what happens when every tap misses its target.
+	{
+		int pbX = 0, pbY = 0, pbW = 0, pbH = 0;
+		if (DX8Wrapper::Pillarbox_Get_Rect(pbX, pbY, pbW, pbH) && pbW > 0 && pbH > 0 && TheDisplay) {
+			px = (px - (float)pbX) * ((float)TheDisplay->getWidth() / (float)pbW);
+			py = (py - (float)pbY) * ((float)TheDisplay->getHeight() / (float)pbH);
+		}
+	}
 
 	// GeneralsX @feature Android port 02/08/2026 Unconditional per-event trace
 	// -- reported "panning freezes mid-drag near my command center/units,
