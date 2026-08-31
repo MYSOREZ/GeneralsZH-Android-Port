@@ -502,6 +502,30 @@ StaticGameLODLevel GameLODManager::getRecommendedStaticLODLevel()
 		//search all our presets for matching hardware
 		m_idealDetailLevel = STATIC_GAME_LOD_LOW;
 
+#if defined(__ANDROID__)
+		// GeneralsX @bugfix Android port 08/31/2026 The preset-matching loop
+		// below identifies hardware by legacy PC-era CPU family (P3/P4/...)
+		// and GPU PCI vendor/device ID (GeForce/Radeon/...), none of which
+		// exist on ARM/Android. testMinimumRequirements() has no real data
+		// here, so m_cpuType/m_cpuFreq fall back to an assumed "P4, 2000MHz"
+		// (see this function's own m_videoChipType fallback below, and
+		// init()'s #ifndef _WIN32 block for the CPU one) and m_videoChipType
+		// falls back to DC_TNT2 -- both comfortably clear this 2003-era
+		// game's MEDIUM/HIGH preset thresholds despite being nowhere close to
+		// representing real mobile GPU/CPU capability. Confirmed on a real
+		// device: this made the game default to a demanding detail level on
+		// first launch instead of a safe, always-playable one. Skip the
+		// legacy matching entirely and stay at the LOW default set just
+		// above -- the user can always raise it manually in Options once
+		// they know their device handles more.
+		OptionPreferences androidOptionPref;
+		androidOptionPref["IdealStaticGameLOD"] = getStaticGameLODLevelName(m_idealDetailLevel);
+		if (getStaticLODLevel() == STATIC_GAME_LOD_UNKNOWN)
+			androidOptionPref["StaticGameLOD"] = getStaticGameLODLevelName(m_idealDetailLevel);
+		androidOptionPref.write();
+		return m_idealDetailLevel;
+#endif
+
 		//get system configuration - only need vide chip type, got rest in ::init().
 		testMinimumRequirements(&m_videoChipType,nullptr,nullptr,nullptr,nullptr,nullptr,nullptr);
 		if (m_videoChipType == DC_UNKNOWN)

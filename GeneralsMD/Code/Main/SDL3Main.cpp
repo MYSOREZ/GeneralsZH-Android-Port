@@ -1168,10 +1168,24 @@ int main(int argc, char* argv[])
 			// pillarboxed into a portrait window while a later screen in the same
 			// session was already correctly landscape). Poll briefly for the window
 			// to actually report landscape before trusting its size.
+			//
+			// GeneralsX @bugfix Android port 08/31/2026 The original version of this
+			// loop broke as soon as the FIRST landscape-shaped (w>h) reading appeared,
+			// which is not the same as the window having actually finished settling --
+			// on a real device (Redmi Note 8 Pro) this baked xres/yres as 2264x1080,
+			// while the window's true final size (once edge-to-edge/display-cutout
+			// layout finished applying, a few frames later) was 2340x1080. That 76px
+			// gap then became a permanent, if minor, pillarbox letterbox margin for
+			// the whole session. Now requires the SAME landscape size to be read on
+			// two consecutive polls before trusting it -- a simple debounce -- instead
+			// of accepting the very first landscape-shaped sample.
+			int prevW = -1, prevH = -1;
 			for (int attempt = 0; attempt < 20; ++attempt) {
 				int w = 0, h = 0;
 				SDL_GetWindowSizeInPixels(TheSDL3Window, &w, &h);
-				if (w > h) break;
+				if (w > h && w == prevW && h == prevH) break;
+				prevW = w;
+				prevH = h;
 				SDL_PumpEvents();
 				SDL_Delay(50);
 			}

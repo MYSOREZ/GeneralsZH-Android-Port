@@ -627,6 +627,24 @@ static void buildFilteredResolutions()
 	DX8Wrapper::GetNativeDisplaySize(nativeW, nativeH, density);
 	if (nativeW <= 0 || nativeH <= 0) { nativeW = 1024; nativeH = 768; }
 	s_filteredResolutions.push_back({ nativeW, nativeH, 32 });
+	// GeneralsX @bugfix Android port 08/31/2026 Users have asked for a manual
+	// way to trade resolution for FPS on weaker devices. Unlike the earlier
+	// pillarbox-render-scale experiment (which decoupled the RENDER
+	// resolution from the LOGICAL one and broke worldToScreen()-based UI
+	// positioning -- see dx8wrapper.cpp's kPillarboxRenderScale comment),
+	// picking one of these entries goes through the same
+	// setDisplayMode()/WW3D::Set_Device_Resolution() path desktop users have
+	// always used to change resolution: it updates ResolutionWidth/Height
+	// (and therefore worldToScreen(), UI layout, camera aspect, font-size
+	// bucketing) all consistently together, so there's no split-brain
+	// mismatch. The existing pillarbox mechanism still centers/letterboxes
+	// whichever of these doesn't exactly fill the native screen, exactly as
+	// it already does for the native entry today.
+	for (int pct : {85, 70, 55}) {
+		int w = (nativeW * pct / 100) & ~1;
+		int h = (nativeH * pct / 100) & ~1;
+		if (w > 0 && h > 0) s_filteredResolutions.push_back({ w, h, 32 });
+	}
 	s_filteredDirty = false;
 	return;
 #else
