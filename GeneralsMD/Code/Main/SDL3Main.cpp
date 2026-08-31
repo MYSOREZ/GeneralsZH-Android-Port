@@ -1176,14 +1176,32 @@ int main(int argc, char* argv[])
 			// while the window's true final size (once edge-to-edge/display-cutout
 			// layout finished applying, a few frames later) was 2340x1080. That 76px
 			// gap then became a permanent, if minor, pillarbox letterbox margin for
-			// the whole session. Now requires the SAME landscape size to be read on
-			// two consecutive polls before trusting it -- a simple debounce -- instead
-			// of accepting the very first landscape-shaped sample.
+			// the whole session.
+			//
+			// GeneralsX @bugfix Android port 08/31/2026, take 2 A first attempt required
+			// only TWO consecutive identical landscape readings (100ms of stability)
+			// before trusting the size -- confirmed via a real-device log
+			// (Pillarbox: game=2264x1080...) that this still wasn't long enough: the
+			// window can apparently report a genuinely STABLE intermediate width for
+			// well over 100ms before a later, asynchronous inset/cutout adjustment
+			// (status/navigation bar animation, WindowInsetsAnimation, etc.) changes
+			// it again. Widened to require FOUR consecutive matches (200ms stable) and
+			// extended the budget to 60 attempts (up to 3s total, vs. 1s before) to
+			// give that later adjustment more room to happen before this loop gives up
+			// and trusts whatever it has. Still fundamentally a best-effort heuristic,
+			// not a guarantee -- the robust fix would be reacting to a real
+			// SDL_EVENT_WINDOW_RESIZED after startup instead of polling once here, but
+			// that's a bigger change than this loop.
 			int prevW = -1, prevH = -1;
-			for (int attempt = 0; attempt < 20; ++attempt) {
+			int stableCount = 0;
+			for (int attempt = 0; attempt < 60; ++attempt) {
 				int w = 0, h = 0;
 				SDL_GetWindowSizeInPixels(TheSDL3Window, &w, &h);
-				if (w > h && w == prevW && h == prevH) break;
+				if (w > h && w == prevW && h == prevH) {
+					if (++stableCount >= 4) break;
+				} else {
+					stableCount = 0;
+				}
 				prevW = w;
 				prevH = h;
 				SDL_PumpEvents();

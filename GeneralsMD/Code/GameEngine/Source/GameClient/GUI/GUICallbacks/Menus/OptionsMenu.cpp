@@ -897,6 +897,19 @@ static void saveOptions()
 				AsciiString prefString;
 				prefString.format("%d %d", xres, yres );
 				(*pref)["Resolution"] = prefString;
+				// GeneralsX @bugfix Android port 08/31/2026 Write immediately
+				// instead of relying on OptionsMenuShutdown()'s pref->write()
+				// running later: TheShell->recreateWindowLayouts() just below
+				// tears down and recreates the whole shell (including this
+				// very Options screen instance), and on a real device the
+				// Resolution key was never actually persisted to Options.ini
+				// -- every other setting on this screen survived a restart,
+				// only Resolution didn't, exactly what you'd expect if the
+				// abrupt shell-wide teardown skips (or the new instance
+				// races) the normal close-triggered write for this one
+				// setting in particular, since it's the only one that
+				// immediately triggers a full layout recreation.
+				pref->write();
 
 				TheShell->recreateWindowLayouts();
 
