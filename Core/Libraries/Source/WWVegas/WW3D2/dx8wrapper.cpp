@@ -1866,6 +1866,27 @@ void DX8Wrapper::Get_Render_Target_Resolution(int & set_w,int & set_h,int & set_
 		set_bits			= BitDepth;		// should we get the actual bit depth of the target?
 		set_windowed	= IsWindowed;	// this doesn't really make sense for render targets (shouldn't matter)...
 
+	// GeneralsX @bugfix Android port 08/30/2026 CurrentRenderTarget==nullptr
+	// means "the real default backbuffer", but Get_Device_Resolution() below
+	// reports ResolutionWidth/ResolutionHeight -- the LOGICAL game
+	// resolution, which the pillarbox mechanism can deliberately (or
+	// incidentally, e.g. an SDL window-size-measurement rounding quirk)
+	// differ from the real backbuffer's actual pixel size (s_bbW/s_bbH).
+	// WW3D::Begin_Render() sets its clear-time viewport from THIS function's
+	// output, and this device's D3D8 Clear() emulation only clears the
+	// current viewport's rect -- so reporting the logical size here instead
+	// of the real backbuffer size left a permanent uncleared strip on any
+	// frame that renders straight to the backbuffer without going through
+	// the pillarbox offscreen-target dance (whose own end-of-frame blit
+	// clears the full real backbuffer). Confirmed on a real device: the
+	// load-screen/briefing render path (W3DDisplay.cpp) skips Pillarbox
+	// entirely, and a sliver of stale old-frame content stayed visible at
+	// the strip Get_Device_Resolution()'s narrower number never covered.
+	} else if (s_pillarboxEnabled) {
+		set_w				= s_bbW;
+		set_h				= s_bbH;
+		set_bits			= BitDepth;
+		set_windowed	= IsWindowed;
 	} else {
 		Get_Device_Resolution (set_w, set_h, set_bits, set_windowed);
 	}
