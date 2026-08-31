@@ -2275,15 +2275,22 @@ AGAIN:
 
 				if (gxPerfTrace) gxdT3 = std::chrono::steady_clock::now();
 
-				// GeneralsX @bugfix Android port 08/30/2026 EXPERIMENT, TEMPORARILY
-				// DISABLED for an A/B diagnostic build: a real-device report
-				// showed a strip near one screen edge where the UI/menu border
-				// isn't drawn (3D content visible, decoration missing) on the
-				// main menu, which does go through this path. Commented out
-				// (rather than deleted) to A/B against the un-narrowed-viewport
-				// behavior and confirm whether this call chain is the cause
-				// before investigating further. See Pillarbox_Begin_UI()'s
-				// comment in dx8wrapper.h/.cpp for the original rationale.
+				// GeneralsX @bugfix Android port 08/30/2026 EXPERIMENT, PARKED
+				// (disabled) after a real-device A/B test: with this call pair
+				// active, the main menu showed a much wider (and asymmetric)
+				// strip near one screen edge with no UI/border drawn, versus a
+				// barely-visible ~1mm gap (the same pre-existing, harmless
+				// letterbox margin from this device's incidental
+				// game-resolution/backbuffer mismatch) with it disabled. The
+				// device-side viewport/state-cache plumbing (FixedStateKey
+				// includes vpX/Y/W/H, so it does re-apply glViewport on
+				// change) looks correct on inspection, so the actual cause
+				// wasn't root-caused from code reading alone. Since
+				// kPillarboxRenderScale is currently parked at 1.0 (see its
+				// own comment) this split provides no benefit today anyway --
+				// left disabled rather than spending more real-device test
+				// cycles on an architecture change that isn't earning its
+				// keep yet. Revisit together with re-enabling render-scale.
 				// DX8Wrapper::Pillarbox_End();
 				// DX8Wrapper::Pillarbox_Begin_UI();
 
