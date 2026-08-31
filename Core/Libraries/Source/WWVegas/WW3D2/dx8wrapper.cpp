@@ -1388,6 +1388,27 @@ void DX8Wrapper::Get_Format_Name(unsigned int format, StringClass *tex_format)
 
 void DX8Wrapper::Resize_And_Position_Window()
 {
+#if defined(__ANDROID__)
+	// GeneralsX @bugfix Android port 08/31/2026 On Android the "window" IS
+	// the screen -- there is no OS-level concept of resizing/repositioning
+	// it to something smaller than the display, the way a desktop window
+	// can be. This function's SDL path below (SetWindowPos -> SDL_
+	// SetWindowSize under the hood) still tried to shrink the actual SDL
+	// window/surface to match a newly chosen (smaller) ResolutionWidth/
+	// Height whenever a user picked a lower resolution in Options.
+	// Confirmed on a real device: after doing that, the resulting
+	// resolution-confirmation dialog's OK/Cancel buttons (and every other
+	// touch target) stopped responding entirely -- shrinking the real
+	// window/surface desyncs Android's touch-coordinate space from
+	// whatever the renderer now thinks the screen looks like. This is
+	// exactly what the pillarbox mechanism (dx8wrapper.cpp's Pillarbox_*)
+	// already exists to handle correctly: it letterboxes/centers a game
+	// resolution smaller than the real (unchanged) backbuffer without ever
+	// touching the actual window/surface. Skip this function entirely on
+	// Android -- Set_Device_Resolution() below still updates ResolutionWidth
+	// /Height and re-runs Pillarbox_Setup() with them either way.
+	return;
+#endif
 	// Get the current dimensions of the 'render area' of the window
 	RECT rect = { 0 };
 	::GetClientRect (_Hwnd, &rect);
