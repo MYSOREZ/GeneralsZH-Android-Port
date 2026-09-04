@@ -690,6 +690,24 @@ void Render2DClass::Render()
 	}
 	else
 		DX8Wrapper::Set_Shader(Shader);
+
+	// GeneralsX @bugfix Android port 09/04/2026 GLES/ANGLE only: this draw
+	// path is shared by every UI widget AND the video-overlay quad
+	// (W3DDisplay::drawVideoBuffer -> Add_Quad -> here), but never
+	// explicitly sets the texture wrap mode, so it silently inherits
+	// whatever the last 3D draw left set -- normally D3DTADDRESS_WRAP
+	// (terrain/model textures). The video buffer's texture is deliberately
+	// NOT padded to a power-of-two on Android (see W3DVideoBuffer::allocate,
+	// issue #9), so its UV range covers the real content edge-to-edge; with
+	// WRAP and bilinear filtering, sampling right at that edge blends with
+	// the opposite edge's texel instead of clamping, which reads as exactly
+	// the kind of empty/wrong-content seam reported at a UI/video edge.
+	// The equivalent fix already shipped for the (unrelated, and since
+	// ruled out) pillarbox blit quad in Pillarbox_End() -- this is the same
+	// fix for the actual shared 2D/video draw path instead.
+	DX8Wrapper::Set_DX8_Texture_Stage_State(0, D3DTSS_ADDRESSU, D3DTADDRESS_CLAMP);
+	DX8Wrapper::Set_DX8_Texture_Stage_State(0, D3DTSS_ADDRESSV, D3DTADDRESS_CLAMP);
+
 	DX8Wrapper::Draw_Triangles(0,Indices.Count()/3,0,Vertices.Count());
 
 	DX8Wrapper::Set_Transform(D3DTS_VIEW,view);
