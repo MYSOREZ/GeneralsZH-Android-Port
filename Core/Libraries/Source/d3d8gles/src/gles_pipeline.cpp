@@ -2357,6 +2357,30 @@ void WebGLPipeline::present()
 		}
 	}
 
+	// GeneralsX @bugfix Android port 09/04/2026 EXPERIMENT (low confidence):
+	// every geometry/state theory for the edge strip has now been directly
+	// disproven on a real device -- texture wrap, viewport (both at
+	// present() time AND at every single glViewport() application site),
+	// EGL surface size, alpha/opaque-surface compositing, and vsync are all
+	// confirmed correct. The remaining category this hasn't ruled out yet
+	// is a GPU-side synchronization race: this pipeline streams UI/dynamic
+	// geometry through orphan-and-upload buffers (m_upVBO/m_upIBO,
+	// ensureVBUploaded/ensureIBUploaded) without any explicit fence/finish
+	// between the CPU write and the GPU read for that same frame's draws.
+	// A missing sync there is a well-known class of Android GLES driver bug
+	// -- exactly the kind of thing that would (a) only show up under
+	// on-screen motion (heavier per-frame streaming traffic), (b)
+	// occasionally drop an entire draw/frame's content, and (c) be
+	// completely absent on the Vulkan/DXVK path, which already does its
+	// own explicit fence/semaphore synchronization as part of normal
+	// Vulkan presentation. glFinish() forces the CPU to block until the GPU
+	// has actually finished all outstanding work before the buffer is
+	// handed to the compositor -- expensive, not a real fix, but a clean
+	// A/B: if the strip stops (or gets much rarer) with this in place, the
+	// cause is a genuine missing-sync race upstream of here; if it's
+	// unchanged, this whole category is ruled out too.
+	glFinish();
+
 	// GeneralsX @build Android port GLES experiment - the browser build never
 	// needed an explicit swap (the canvas presents implicitly when the game
 	// pthread yields back to its rAF loop tick). Android/EGL has no such

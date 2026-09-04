@@ -45,6 +45,7 @@ typedef void (GL_APIENTRY *PFN_glDrawArrays)(GLenum mode, GLint first, GLsizei c
 typedef void (GL_APIENTRY *PFN_glDrawElements)(GLenum mode, GLsizei count, GLenum type, const void *indices);
 typedef void (GL_APIENTRY *PFN_glEnable)(GLenum cap);
 typedef void (GL_APIENTRY *PFN_glEnableVertexAttribArray)(GLuint index);
+typedef void (GL_APIENTRY *PFN_glFinish)(void);
 typedef void (GL_APIENTRY *PFN_glFramebufferRenderbuffer)(GLenum target, GLenum attachment, GLenum renderbuffertarget, GLuint renderbuffer);
 typedef void (GL_APIENTRY *PFN_glFramebufferTexture2D)(GLenum target, GLenum attachment, GLenum textarget, GLuint texture, GLint level);
 typedef void (GL_APIENTRY *PFN_glGenBuffers)(GLsizei n, GLuint *buffers);
@@ -124,6 +125,7 @@ PFN_glDrawArrays d3d8gles_pfn_glDrawArrays = nullptr;
 PFN_glDrawElements d3d8gles_pfn_glDrawElements = nullptr;
 PFN_glEnable d3d8gles_pfn_glEnable = nullptr;
 PFN_glEnableVertexAttribArray d3d8gles_pfn_glEnableVertexAttribArray = nullptr;
+PFN_glFinish d3d8gles_pfn_glFinish = nullptr;
 PFN_glFramebufferRenderbuffer d3d8gles_pfn_glFramebufferRenderbuffer = nullptr;
 PFN_glFramebufferTexture2D d3d8gles_pfn_glFramebufferTexture2D = nullptr;
 PFN_glGenBuffers d3d8gles_pfn_glGenBuffers = nullptr;
@@ -357,6 +359,11 @@ GL_APICALL void GL_APIENTRY glEnable(GLenum cap)
 GL_APICALL void GL_APIENTRY glEnableVertexAttribArray(GLuint index)
 {
 	d3d8gles_pfn_glEnableVertexAttribArray(index);
+}
+
+GL_APICALL void GL_APIENTRY glFinish(void)
+{
+	d3d8gles_pfn_glFinish();
 }
 
 GL_APICALL void GL_APIENTRY glFramebufferRenderbuffer(GLenum target, GLenum attachment, GLenum renderbuffertarget, GLuint renderbuffer)
@@ -646,6 +653,8 @@ bool d3d8gles_LoadGLESDispatch(const char *libName)
 	if (!d3d8gles_pfn_glEnable) { fprintf(stderr, "[d3d8gles] GLES dispatch: missing symbol glEnable in %s\n", libName); ok = false; }
 	d3d8gles_pfn_glEnableVertexAttribArray = reinterpret_cast<PFN_glEnableVertexAttribArray>(dlsym(lib, "glEnableVertexAttribArray"));
 	if (!d3d8gles_pfn_glEnableVertexAttribArray) { fprintf(stderr, "[d3d8gles] GLES dispatch: missing symbol glEnableVertexAttribArray in %s\n", libName); ok = false; }
+	d3d8gles_pfn_glFinish = reinterpret_cast<PFN_glFinish>(dlsym(lib, "glFinish"));
+	if (!d3d8gles_pfn_glFinish) { fprintf(stderr, "[d3d8gles] GLES dispatch: missing symbol glFinish in %s\n", libName); ok = false; }
 	d3d8gles_pfn_glFramebufferRenderbuffer = reinterpret_cast<PFN_glFramebufferRenderbuffer>(dlsym(lib, "glFramebufferRenderbuffer"));
 	if (!d3d8gles_pfn_glFramebufferRenderbuffer) { fprintf(stderr, "[d3d8gles] GLES dispatch: missing symbol glFramebufferRenderbuffer in %s\n", libName); ok = false; }
 	d3d8gles_pfn_glFramebufferTexture2D = reinterpret_cast<PFN_glFramebufferTexture2D>(dlsym(lib, "glFramebufferTexture2D"));
@@ -728,7 +737,7 @@ bool d3d8gles_LoadGLESDispatch(const char *libName)
 	if (!d3d8gles_pfn_glViewport) { fprintf(stderr, "[d3d8gles] GLES dispatch: missing symbol glViewport in %s\n", libName); ok = false; }
 
 	if (!ok) return false;
-	fprintf(stderr, "[d3d8gles] GLES dispatch: resolved %zu entry points from %s\n", static_cast<size_t>(78), libName);
+	fprintf(stderr, "[d3d8gles] GLES dispatch: resolved %zu entry points from %s\n", static_cast<size_t>(79), libName);
 	return true;
 }
 
