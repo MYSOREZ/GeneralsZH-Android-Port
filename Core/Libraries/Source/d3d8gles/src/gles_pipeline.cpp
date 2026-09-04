@@ -292,6 +292,27 @@ bool WebGLPipeline::initContext(int w, int h, SDL_Window *window)
 		fprintf(stderr, "[d3d8gles] FATAL: SDL_GL_MakeCurrent failed: %s\n", SDL_GetError());
 		return false;
 	}
+	// GeneralsX @bugfix Android port 09/04/2026 Diagnostic: a real-device
+	// GL_VIEWPORT dump at present() time already confirmed our own viewport
+	// bookkeeping (w/h passed in here, from _PresentParameters) is applied
+	// correctly to GL every frame, yet a persistent edge strip remains --
+	// meaning the ACTUAL EGL window surface's real pixel size may not match
+	// w/h at all. eglCreateWindowSurface() (called inside SDL_GL_CreateContext
+	// above) sizes the surface from the ANativeWindow directly, independent
+	// of any width/height we pass anywhere -- if the window hadn't fully
+	// settled by the time THIS call ran (a separate race from the
+	// resolution-detection debounce in SDL3Main.cpp, which only guards
+	// xres/yres computed much earlier, before device/context creation), the
+	// EGL surface could be locked in at a stale size for its whole lifetime.
+	// Query the window's size again right here, at the exact moment the EGL
+	// surface actually gets created, to see whether it agrees with w/h.
+	{
+		int freshW = 0, freshH = 0;
+		SDL_GetWindowSizeInPixels(window, &freshW, &freshH);
+		fprintf(stderr, "[d3d8gles-diag] initContext(): requested w=%d h=%d, "
+			"SDL_GetWindowSizeInPixels() right after SDL_GL_CreateContext=%dx%d\n",
+			w, h, freshW, freshH);
+	}
 	SDL_GL_SetSwapInterval(1);
 
 	// GeneralsX @build Android port ANGLE experiment - resolve every gl*
