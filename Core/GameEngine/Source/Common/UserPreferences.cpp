@@ -32,6 +32,8 @@
 // SYSTEM INCLUDES ////////////////////////////////////////////////////////////
 //-----------------------------------------------------------------------------
 #include "PreRTS.h"	// This must go first in EVERY cpp file in the GameEngine
+#include <cerrno>
+#include <cstring>
 
 //-----------------------------------------------------------------------------
 // USER INCLUDES //////////////////////////////////////////////////////////////
@@ -124,9 +126,19 @@ Bool UserPreferences::load(AsciiString fname)
 	m_filename.concat(fname);
 
 	FILE *fp = fopen(m_filename.str(), "r");
+	// GeneralsX @bugfix Android port 09/04/2026 UserPreferences::load()/
+	// write() had no logging at all, making a persistence failure
+	// (confirmed on a real device: Resolution setting never survived an
+	// app restart) impossible to diagnose from a device log -- couldn't
+	// tell whether the write failed, the read failed, or they used
+	// different paths. fopen()'s own errno on failure (permission denied,
+	// path doesn't exist, etc.) is the actual diagnostic signal here.
+	fprintf(stderr, "[UserPreferences] load('%s') -> fopen %s (errno=%d: %s)\n",
+	        m_filename.str(), fp ? "OK" : "FAILED", fp ? 0 : errno, fp ? "" : strerror(errno));
 	if (fp)
 	{
 		char buf[LINE_LEN];
+		int lineCount = 0;
 		while( fgets( buf, LINE_LEN, fp ) != nullptr )
 		{
 			AsciiString line = buf;
@@ -143,8 +155,10 @@ Bool UserPreferences::load(AsciiString fname)
 				continue;
 
 			(*this)[key] = val;
+			++lineCount;
 		}
 		fclose(fp);
+		fprintf(stderr, "[UserPreferences] load('%s') parsed %d key(s)\n", m_filename.str(), lineCount);
 		return true;
 	}
 	return false;
@@ -153,18 +167,28 @@ Bool UserPreferences::load(AsciiString fname)
 Bool UserPreferences::write()
 {
 	if (m_filename.isEmpty())
+	{
+		fprintf(stderr, "[UserPreferences] write() called with empty m_filename -- load() was never called successfully first\n");
 		return false;
+	}
 
 	FILE *fp = fopen(m_filename.str(), "w");
+	// GeneralsX @bugfix Android port 09/04/2026 See load()'s matching
+	// comment -- same diagnostic gap for the write side.
+	fprintf(stderr, "[UserPreferences] write('%s') -> fopen %s (errno=%d: %s)\n",
+	        m_filename.str(), fp ? "OK" : "FAILED", fp ? 0 : errno, fp ? "" : strerror(errno));
 	if (fp)
 	{
 		PreferenceMap::const_iterator it = begin();
+		int lineCount = 0;
 		while (it != end())
 		{
 			fprintf(fp, "%s = %s\n", it->first.str(), it->second.str());
 			++it;
+			++lineCount;
 		}
 		fclose(fp);
+		fprintf(stderr, "[UserPreferences] write('%s') wrote %d key(s)\n", m_filename.str(), lineCount);
 		return true;
 	}
 	return false;
