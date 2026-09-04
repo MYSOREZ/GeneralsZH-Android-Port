@@ -614,18 +614,26 @@ void Render2DClass::Render()
 	//
 	int width, height, bits;
 	bool windowed;
-	// GeneralsX @bugfix Android port 09/04/2026 Was WW3D::Get_Device_Resolution()
-	// (the game's chosen/LOGICAL resolution), which can be smaller than the
-	// real render target whenever the pillarbox downscale path is active --
-	// CameraClass::Apply() (camera.cpp) has always sized the 3D viewport
-	// from Get_Render_Target_Resolution() instead, which is why 3D content
-	// correctly fills the real screen while UI/video (both built from this
-	// function's viewport AND from Set_Coordinate_Range(), which callers
-	// also now source from Get_Render_Target_Resolution() -- see
-	// W3DDisplay::init()/setDisplayMode()) fell short on the far edges.
-	// Matching the camera's source here keeps 2D and 3D on the same
-	// real-target basis regardless of whether pillarbox scaling is active.
-	WW3D::Get_Render_Target_Resolution( width, height, bits, windowed );
+	// GeneralsX @bugfix Android port 09/04/2026 REVERTED: tried switching this
+	// to WW3D::Get_Render_Target_Resolution() (matching CameraClass::Apply())
+	// on the theory that it would give UI/video the same real-backbuffer
+	// extent as 3D. Confirmed WRONG on a real device at a non-100% pillarbox
+	// resolution (1756x808 chosen, 2510x1156 real backbuffer): this class
+	// still draws while Pillarbox's offscreen render target is bound (there
+	// is no separate native-resolution UI pass -- Pillarbox_Begin_UI() is
+	// parked/disabled), so Get_Render_Target_Resolution() correctly reports
+	// the SMALL offscreen texture's own size (1756x808) via CurrentRenderTarget's
+	// surface desc while 3D is actively rendering into it -- Get_Device_Resolution()
+	// happening to equal that same value (both trace back to the same chosen
+	// resolution when kPillarboxRenderScale=1.0) was never the bug. Forcing
+	// this to the REAL backbuffer size while still bound to the smaller
+	// offscreen texture made UI/video get clipped to the texture's actual
+	// bounds, which Pillarbox_End()'s blit then stretched -- visibly WORSE
+	// (UI/video confined to a shrunken box, live 3D showing through the
+	// rest). Reverted to Get_Device_Resolution(). Whatever causes the strip
+	// at an exact 100%-resolution match (where Pillarbox is inactive and
+	// both functions agree anyway) is still unexplained.
+	WW3D::Get_Device_Resolution( width, height, bits, windowed );
 
 	D3DVIEWPORT8 vp = { 0 };
 	vp.X			= 0;

@@ -725,25 +725,13 @@ Bool W3DDisplay::setDisplayMode( UnsignedInt xres, UnsignedInt yres, UnsignedInt
 		Render2DClass::Set_Screen_Resolution(RectClass(0, 0, xres, yres));
 		Display::setDisplayMode(xres, yres, bitdepth, windowed);
 
-		// GeneralsX @bugfix Android port 09/04/2026 Display::setDisplayMode()
-		// above calls the virtual setWidth()/setHeight(), whose W3DDisplay
-		// override rebuilds m_2DRender's coordinate range from xres/yres --
-		// the LOGICAL resolution just requested, not necessarily the real
-		// render target (they can differ whenever the pillarbox downscale
-		// path is active, same mismatch fixed in init() for the initial
-		// device creation). WW3D::Set_Device_Resolution() above has already
-		// run Pillarbox_Setup for this new resolution by this point, so
-		// Get_Render_Target_Resolution() now reflects the correct final
-		// answer -- refresh the coordinate range from it, overriding
-		// whatever setWidth/setHeight just set from the logical value.
-		{
-			int rtWidth, rtHeight, rtBits;
-			bool rtWindowed;
-			WW3D::Get_Render_Target_Resolution(rtWidth, rtHeight, rtBits, rtWindowed);
-			if (m_2DRender) {
-				m_2DRender->Set_Coordinate_Range(RectClass(0, 0, (float)rtWidth, (float)rtHeight));
-			}
-		}
+		// GeneralsX @bugfix Android port 09/04/2026 REVERTED: forcing
+		// m_2DRender's coordinate range to WW3D::Get_Render_Target_Resolution()
+		// here was confirmed WRONG on a real device -- see render2d.cpp's
+		// matching revert for the full explanation (Render2DClass still
+		// draws into Pillarbox's small offscreen render target, so the
+		// logical-resolution range that setWidth()/setHeight() just set,
+		// two lines up via Display::setDisplayMode(), was already correct).
 
 		return TRUE;
 	}
@@ -1135,30 +1123,17 @@ void W3DDisplay::init()
 			return;
 		}
 
-		// GeneralsX @bugfix Android port 09/04/2026 CameraClass::Apply()
-		// (camera.cpp) sizes the 3D viewport from WW3D::Get_Render_Target_Resolution()
-		// -- the REAL render target, which on Android can be the actual
-		// backbuffer even when the game's own chosen/logical resolution
-		// (Get_Device_Resolution(), what setWidth()/setHeight() and thus
-		// this class's own m_2DRender->Set_Coordinate_Range() are fed from)
-		// is smaller, e.g. whenever the pillarbox downscale path is active.
-		// Since Render2DClass's coordinate range (built from setWidth/
-		// setHeight, called further up BEFORE Set_Render_Device/Pillarbox_Setup
-		// ever run) was never refreshed against the real target once it's
-		// actually known, 2D content -- every UI widget and the video
-		// overlay quad -- was built to the smaller logical extent while 3D
-		// correctly fills the real, larger one: exactly the "3D fills the
-		// screen, UI/video fall short on the far (right/bottom) edges"
-		// mismatch reported on a real device. Refresh it here, right after
-		// the render device (and therefore Pillarbox_Setup) is known good.
-		{
-			int rtWidth, rtHeight, rtBits;
-			bool rtWindowed;
-			WW3D::Get_Render_Target_Resolution(rtWidth, rtHeight, rtBits, rtWindowed);
-			if (m_2DRender) {
-				m_2DRender->Set_Coordinate_Range(RectClass(0, 0, (float)rtWidth, (float)rtHeight));
-			}
-		}
+		// GeneralsX @bugfix Android port 09/04/2026 REVERTED: this refresh
+		// (forcing m_2DRender's coordinate range to WW3D::Get_Render_Target_Resolution())
+		// was confirmed WRONG on a real device at a non-100% pillarbox
+		// resolution -- Render2DClass still draws into Pillarbox's small
+		// offscreen render target (there's no separate native-resolution UI
+		// pass), so forcing its coordinate range to the REAL backbuffer size
+		// while the actually-bound target is still the smaller offscreen
+		// texture made UI/video get clipped to the texture's real bounds,
+		// which Pillarbox_End()'s blit then visibly stretched -- worse than
+		// before (UI/video confined to a shrunken box). See render2d.cpp's
+		// matching revert for the full explanation.
 
 		#ifdef SAGE_USE_SDL3
 		SDL3_ApplyWindowModeForRenderConfig(getWindowed(), getWidth(), getHeight());
