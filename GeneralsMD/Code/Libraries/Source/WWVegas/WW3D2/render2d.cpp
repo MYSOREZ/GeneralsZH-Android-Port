@@ -691,6 +691,26 @@ void Render2DClass::Render()
 	else
 		DX8Wrapper::Set_Shader(Shader);
 
+	// GeneralsX @bugfix Android port 09/04/2026 EXPERIMENT (GLES/ANGLE only):
+	// the user clarified the strip isn't a texture-sampling artifact -- it's
+	// a genuine GAP where nothing gets drawn at all, and the LIVE 3D scene
+	// (still rendering this same frame, e.g. the ShellMap background behind
+	// the main menu) shows through it. Viewport and scissor are both
+	// already confirmed correct at every single application site on a real
+	// device, so the remaining way a 2D quad's fragments could be discarded
+	// in a screen-region-dependent way is a depth or stencil test rejecting
+	// them against whatever the PRIOR 3D draw left in those buffers (e.g.
+	// stencil shadow volumes). Get_Default_Shader() sets Depth_Compare to
+	// PASS_ALWAYS and Depth_Mask to WRITE_DISABLE, which should already
+	// disable any real depth rejection, and this Shader has never touched
+	// stencil state at all -- so if either ends up wrong at the actual GL
+	// level (e.g. a render-state redundant-change-skip cache bug), nothing
+	// upstream of DX8Wrapper would show it. Force both off explicitly and
+	// unconditionally right here, bypassing whatever DX8Wrapper::Set_Shader
+	// / the state cache would normally decide, as a direct test.
+	DX8Wrapper::Set_DX8_Render_State(D3DRS_ZENABLE, FALSE);
+	DX8Wrapper::Set_DX8_Render_State(D3DRS_STENCILENABLE, FALSE);
+
 	// GeneralsX @bugfix Android port 09/04/2026 GLES/ANGLE only: this draw
 	// path is shared by every UI widget AND the video-overlay quad
 	// (W3DDisplay::drawVideoBuffer -> Add_Quad -> here), but never
