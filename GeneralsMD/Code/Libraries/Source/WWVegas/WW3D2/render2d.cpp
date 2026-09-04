@@ -691,25 +691,16 @@ void Render2DClass::Render()
 	else
 		DX8Wrapper::Set_Shader(Shader);
 
-	// GeneralsX @bugfix Android port 09/04/2026 EXPERIMENT (GLES/ANGLE only):
-	// the user clarified the strip isn't a texture-sampling artifact -- it's
-	// a genuine GAP where nothing gets drawn at all, and the LIVE 3D scene
-	// (still rendering this same frame, e.g. the ShellMap background behind
-	// the main menu) shows through it. Viewport and scissor are both
-	// already confirmed correct at every single application site on a real
-	// device, so the remaining way a 2D quad's fragments could be discarded
-	// in a screen-region-dependent way is a depth or stencil test rejecting
-	// them against whatever the PRIOR 3D draw left in those buffers (e.g.
-	// stencil shadow volumes). Get_Default_Shader() sets Depth_Compare to
-	// PASS_ALWAYS and Depth_Mask to WRITE_DISABLE, which should already
-	// disable any real depth rejection, and this Shader has never touched
-	// stencil state at all -- so if either ends up wrong at the actual GL
-	// level (e.g. a render-state redundant-change-skip cache bug), nothing
-	// upstream of DX8Wrapper would show it. Force both off explicitly and
-	// unconditionally right here, bypassing whatever DX8Wrapper::Set_Shader
-	// / the state cache would normally decide, as a direct test.
-	DX8Wrapper::Set_DX8_Render_State(D3DRS_ZENABLE, FALSE);
-	DX8Wrapper::Set_DX8_Render_State(D3DRS_STENCILENABLE, FALSE);
+	// GeneralsX @bugfix Android port 09/04/2026 REVERTED: the depth/stencil
+	// force-off experiment tried here (Set_DX8_Render_State(D3DRS_ZENABLE,
+	// FALSE) / D3DRS_STENCILENABLE, FALSE) didn't fix the reported strip,
+	// and the user reported 3D models (ship hulls in the ShellMap) losing
+	// their textures/visibility right after this build -- writing directly
+	// into DX8Wrapper's render-state array here, bypassing the normal
+	// Set_Shader()/shader-diffing path entirely, most likely desynced
+	// whatever cache assumes "shader unchanged => render state unchanged"
+	// for the next 3D draw that reuses the same shader right after a UI
+	// draw. Reverted; do not re-add without also auditing that cache path.
 
 	// GeneralsX @bugfix Android port 09/04/2026 GLES/ANGLE only: this draw
 	// path is shared by every UI widget AND the video-overlay quad
