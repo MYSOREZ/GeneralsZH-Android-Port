@@ -330,6 +330,26 @@ void DX8Wrapper::Pillarbox_End()
 	Set_DX8_Texture_Stage_State(1, D3DTSS_ALPHAOP, D3DTOP_DISABLE);
 	Set_DX8_Texture_Stage_State(0, D3DTSS_COLOROP, D3DTOP_SELECTARG1);
 	Set_DX8_Texture_Stage_State(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
+	// GeneralsX @bugfix Android port 09/04/2026 The engine's global default
+	// (Set_Default_Global_Render_States()) leaves D3DTSS_ADDRESSU/V at
+	// D3DTADDRESS_WRAP for every stage, and nothing here ever overrode it
+	// for this blit -- so whatever the last draw before this one happened
+	// to leave stage 0's address mode at is what s_offscreenTex got
+	// sampled with. WRAP maps straight to GL_REPEAT in the GLES backend
+	// (see gles_pipeline.cpp's texture-stage-state translation), and with
+	// bilinear filtering active (whenever s_dstW/H != s_renderW/H, i.e. any
+	// non-native chosen resolution -- confirmed on a real device: game=
+	// 1756x808 stretched to a 2510-wide destination), sampling near u=1 or
+	// v=1 wraps around and blends with texels from the OPPOSITE edge of
+	// the offscreen texture, producing a thin, one-sided streak of wrong
+	// content. Confirmed present on GLES/ANGLE and absent on Vulkan/DXVK on
+	// the same device with the same chosen resolution -- consistent with
+	// DXVK resolving D3D8's default address mode differently (or just not
+	// having this specific ambient-state-inheritance path). Explicitly
+	// clamping here removes the dependency on whatever state happened to
+	// be left over from the previous draw.
+	Set_DX8_Texture_Stage_State(0, D3DTSS_ADDRESSU, D3DTADDRESS_CLAMP);
+	Set_DX8_Texture_Stage_State(0, D3DTSS_ADDRESSV, D3DTADDRESS_CLAMP);
 	// GeneralsX @bugfix Android port 08/30/2026 Compare against s_renderW/
 	// s_renderH (the offscreen target's actual size), not ResolutionWidth/
 	// ResolutionHeight -- with kPillarboxRenderScale < 1.0 those always
