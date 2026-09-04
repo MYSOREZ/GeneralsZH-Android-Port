@@ -614,42 +614,18 @@ void Render2DClass::Render()
 	//
 	int width, height, bits;
 	bool windowed;
-	WW3D::Get_Device_Resolution( width, height, bits, windowed );
-
-	// GeneralsX @bugfix Android port 09/04/2026 DIAGNOSTIC: the user
-	// clarified that 3D fills the screen correctly, but BOTH the UI and
-	// the video overlay consistently fall short on the right and bottom
-	// edges -- never left/top. The viewport reset right below this (built
-	// from WW3D::Get_Device_Resolution(), i.e. width/height above) is
-	// already confirmed correct at every application site on a real device
-	// (a prior targeted diagnostic never once caught a partial viewport
-	// hitting the default framebuffer). The one thing that diagnostic
-	// could NOT see is whether the actual QUAD VERTICES this class builds
-	// (via Set_Coordinate_Range(), fed from a completely separate value --
-	// TheDisplay/W3DDisplay's own getWidth()/getHeight(), set through
-	// W3DDisplay::setWidth()/setHeight() -- not this function's own
-	// WW3D::Get_Device_Resolution() call) actually reach the same extent
-	// as this viewport. Code reading says both should always be kept in
-	// sync (Display::setDisplayMode calls the virtual setWidth()/
-	// setHeight(), which W3DDisplay overrides to also update this class's
-	// coordinate range) -- but that's exactly the kind of assumption this
-	// investigation has been burned by before. Log both directly,
-	// throttled to once per second, so a real device can either confirm or
-	// contradict the "they're always equal" assumption.
-	{
-		static int s_callCounter = 0;
-		if ((s_callCounter++ % 300) == 0) {
-			// Reconstruct the actual range Set_Coordinate_Range() was last
-			// called with from CoordinateScale (the value that really drives
-			// Convert_Vert()'s vertex placement), rather than the separate
-			// ScreenResolution static (only used for the pixel-bias divisor).
-			const float coordRangeW = (CoordinateScale.X != 0.0f) ? (2.0f / CoordinateScale.X) : 0.0f;
-			const float coordRangeH = (CoordinateScale.Y != 0.0f) ? (-2.0f / CoordinateScale.Y) : 0.0f;
-			fprintf(stderr, "[d3d8gles-diag] Render2DClass::Render(): viewport(from Get_Device_Resolution)=%dx%d "
-				"vs coordinate-range(from Set_Coordinate_Range, drives actual vertex placement)=%.1fx%.1f\n",
-				width, height, coordRangeW, coordRangeH);
-		}
-	}
+	// GeneralsX @bugfix Android port 09/04/2026 Was WW3D::Get_Device_Resolution()
+	// (the game's chosen/LOGICAL resolution), which can be smaller than the
+	// real render target whenever the pillarbox downscale path is active --
+	// CameraClass::Apply() (camera.cpp) has always sized the 3D viewport
+	// from Get_Render_Target_Resolution() instead, which is why 3D content
+	// correctly fills the real screen while UI/video (both built from this
+	// function's viewport AND from Set_Coordinate_Range(), which callers
+	// also now source from Get_Render_Target_Resolution() -- see
+	// W3DDisplay::init()/setDisplayMode()) fell short on the far edges.
+	// Matching the camera's source here keeps 2D and 3D on the same
+	// real-target basis regardless of whether pillarbox scaling is active.
+	WW3D::Get_Render_Target_Resolution( width, height, bits, windowed );
 
 	D3DVIEWPORT8 vp = { 0 };
 	vp.X			= 0;
