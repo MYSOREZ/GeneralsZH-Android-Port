@@ -1232,6 +1232,48 @@ int main(int argc, char* argv[])
 				int yres = winH;
 				int xres = winW;
 				xres &= ~1;  // keep it even
+
+				// GeneralsX @bugfix Android port 09/04/2026 This block injects
+				// -xres/-yres as if the user passed them on the command line, and
+				// CommandLine::parseCommandLineForEngineInit() (which runs AFTER
+				// GameData.ini has already applied any saved Options.ini
+				// "Resolution" preference into TheGlobalData) unconditionally
+				// overwrites m_xResolution/m_yResolution with whatever -xres/-yres
+				// say -- confirmed via real-device logs (Poco F8 Pro) that a
+				// resolution picked in Options, confirmed written to Options.ini
+				// with no I/O error, was silently discarded on the very next
+				// launch because THIS code always re-injects the current window
+				// size regardless. Options.ini itself is a plain "key = value"
+				// per line format (UserPreferences::write()), so read it directly
+				// here (the engine's own preference-loading machinery isn't up
+				// yet at this point in startup) and prefer its saved Resolution
+				// over the window-derived one when present and parseable --
+				// falling back to the window size exactly as before otherwise
+				// (first launch, or a corrupt/missing file).
+				{
+					const char *userDataDir = getenv("GENERALSX_USERDATA_DIR");
+					if (userDataDir) {
+						char optionsPath[512];
+						snprintf(optionsPath, sizeof(optionsPath), "%s/Options.ini", userDataDir);
+						FILE *fp = fopen(optionsPath, "r");
+						if (fp) {
+							char line[256];
+							while (fgets(line, sizeof(line), fp)) {
+								int savedX = 0, savedY = 0;
+								if (sscanf(line, " Resolution = %d %d", &savedX, &savedY) == 2 &&
+								    savedX > 0 && savedY > 0) {
+									xres = savedX & ~1;
+									yres = savedY;
+									fprintf(stderr, "INFO: using saved Resolution %dx%d from Options.ini instead of window size %dx%d\n",
+									        xres, yres, winW, winH);
+									break;
+								}
+							}
+							fclose(fp);
+						}
+					}
+				}
+
 				snprintf(xresVal, sizeof(xresVal), "%d", xres);
 				snprintf(yresVal, sizeof(yresVal), "%d", yres);
 
