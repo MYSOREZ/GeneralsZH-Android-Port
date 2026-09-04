@@ -348,7 +348,30 @@ bool WebGLPipeline::initContext(int w, int h, SDL_Window *window)
 		}
 	}
 #endif
-	SDL_GL_SetSwapInterval(1);
+	// GeneralsX @bugfix Android port 09/04/2026 EXPERIMENT (low confidence):
+	// this call's return value was never checked. Reconsidering the reported
+	// edge artifact from scratch: it's variable in *which* edge (right, then
+	// also bottom), only shows on scenes with real on-screen motion (menu
+	// water/ships, gameplay units, video playback), sometimes coincides with
+	// UI briefly not appearing at all, and is completely absent on Vulkan/
+	// DXVK -- all consistent with plain screen TEARING (GL swap running
+	// without real vsync) rather than a rendering-geometry bug, which every
+	// other diagnostic this branch has already ruled out (GL_VIEWPORT and
+	// the EGL surface's actual size both confirmed correct on a real
+	// device). DXVK's own present path is Vulkan-native (vkQueuePresentKHR
+	// with its own FIFO/vsync semantics) and was never touched by this
+	// SDL_GL_SetSwapInterval() call at all, so a vsync failure specific to
+	// the GLES/EGL path would explain the Vulkan/GLES split directly. Log
+	// the actual result and the interval SDL reports back afterward, since
+	// silent failure here would otherwise be invisible.
+	{
+		bool intervalOk = SDL_GL_SetSwapInterval(1);
+		int actualInterval = 0;
+		bool queryOk = SDL_GL_GetSwapInterval(&actualInterval);
+		fprintf(stderr, "[d3d8gles-diag] SDL_GL_SetSwapInterval(1) -> %d, "
+			"SDL_GL_GetSwapInterval() -> ok=%d interval=%d\n",
+			(int)intervalOk, (int)queryOk, actualInterval);
+	}
 
 	// GeneralsX @build Android port ANGLE experiment - resolve every gl*
 	// entry point this module calls via gles_dispatch.cpp instead of relying
