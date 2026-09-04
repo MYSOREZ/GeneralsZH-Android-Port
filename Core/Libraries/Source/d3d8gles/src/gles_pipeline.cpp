@@ -2357,6 +2357,24 @@ void WebGLPipeline::present()
 		}
 	}
 
+	// GeneralsX @bugfix Android port 09/04/2026 EXPERIMENT (low confidence):
+	// the UI/video texture-clamp fix (c5cf01917) didn't change anything, so
+	// that category (texture edge-wrap sampling) is ruled out too, same as
+	// every geometry/state theory before it. Re-testing the GPU-sync-race
+	// hypothesis this was swapped out for before it ever got a real device
+	// test: this pipeline streams UI/dynamic geometry through orphan-and-
+	// upload buffers (m_upVBO/m_upIBO) without any explicit fence/finish
+	// between the CPU write and the GPU's read of that same frame's draws.
+	// A missing sync there is a well-documented class of Android GLES
+	// driver bug, and explains the GLES-vs-Vulkan split directly: DXVK
+	// already does its own explicit fence/semaphore sync as part of normal
+	// Vulkan presentation. glFinish() forces the CPU to block until the GPU
+	// has actually finished all outstanding work before presenting --
+	// expensive, not a real fix, but a clean A/B: if the strip stops or
+	// gets much rarer, the cause is a genuine missing-sync race upstream;
+	// if unchanged, this category is ruled out too.
+	glFinish();
+
 	// GeneralsX @build Android port GLES experiment - the browser build never
 	// needed an explicit swap (the canvas presents implicitly when the game
 	// pthread yields back to its rAF loop tick). Android/EGL has no such
