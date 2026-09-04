@@ -2182,6 +2182,30 @@ void WebGLPipeline::present()
 					pct(m_perfUniformLightingHits, m_perfUniformLightingMisses),
 					m_perfUniformLightingHits, m_perfUniformLightingHits + m_perfUniformLightingMisses);
 			}
+			// GeneralsX @bugfix Android port 09/04/2026 Diagnostic for a
+			// persistent strip near the screen edge reported on GLES/ANGLE
+			// (present at native/100% resolution too, so it's not a
+			// pillarbox-blit artifact -- confirmed by real-device testing
+			// that ruled out every pillarbox-side theory tried so far).
+			// Everything on the C++ bookkeeping side (m_fbWidth/Height,
+			// _PresentParameters, Get_Render_Target_Resolution) claims the
+			// backbuffer is the full real window size, but that's all
+			// self-reported -- this logs the ACTUAL GL state at present()
+			// time (real glViewport, not what we think we set) to see
+			// whether it agrees. If GL_VIEWPORT doesn't match
+			// m_fbWidth/m_fbHeight here, the bug is in how a viewport call
+			// got lost/cached wrong somewhere in this file. If it DOES
+			// match, the bug is further upstream (EGL surface/window
+			// geometry itself), outside this pipeline's control.
+			{
+				GLint vpDump[4] = {-1, -1, -1, -1};
+				glGetIntegerv(GL_VIEWPORT, vpDump);
+				fprintf(stderr, "[d3d8gles-diag] present(): GL_VIEWPORT=(%d,%d,%d,%d) m_fbWidth=%d m_fbHeight=%d "
+					"m_curRTWidth=%d m_curRTHeight=%d m_curFBO=%u m_yFlip=%.1f\n",
+					vpDump[0], vpDump[1], vpDump[2], vpDump[3],
+					m_fbWidth, m_fbHeight, m_curRTWidth, m_curRTHeight,
+					(unsigned)m_curFBO, m_yFlip);
+			}
 			DumpLiveTextureShapes();
 			m_perfLogLastMs = nowMs;
 			m_perfFrameCount = 0;
