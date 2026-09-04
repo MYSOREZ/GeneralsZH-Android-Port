@@ -38,6 +38,7 @@
  * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
+#include <cstdio>
 #include "always.h"
 #include "render2d.h"
 #include "mutex.h"
@@ -245,11 +246,40 @@ Vector2 Render2DClass::Convert_Vert( const Vector2 & v )
 // NOPE ** In addition, it rounds all coordinates off to the nearest pixel
 ** Also, it offsets the coordinates as need for Screen_UV_Bias
 */
+// GeneralsX @bugfix Android port 09/04/2026 DIAGNOSTIC: every transform
+// parameter feeding this conversion (CoordinateScale/BiasedCoordinateOffset,
+// and the width/height that derive them) has already been confirmed
+// correct and self-consistent on a real device (viewport, coordinate
+// range, and independent window-size measurements all agree exactly).
+// Yet the user still sees UI/video fall short of the real screen edge at
+// ANY resolution, including an exact match where every measured input is
+// provably right. The one thing never directly measured is the actual
+// OUTPUT of this conversion -- the real NDC-ish value hitting the GPU.
+// Track the largest |X|/|Y| this function has ever produced and log any
+// new record: if it never reaches (close to) 1.0, that's direct proof the
+// output itself falls short despite correct inputs, and by how much.
+static void GeneralsX_Track_Convert_Vert_Extremes(float x, float y)
+{
+	static float s_maxAbsX = 0.0f;
+	static float s_maxAbsY = 0.0f;
+	const float ax = (x < 0.0f) ? -x : x;
+	const float ay = (y < 0.0f) ? -y : y;
+	bool changed = false;
+	if (ax > s_maxAbsX) { s_maxAbsX = ax; changed = true; }
+	if (ay > s_maxAbsY) { s_maxAbsY = ay; changed = true; }
+	if (changed) {
+		fprintf(stderr, "[d3d8gles-diag] Convert_Vert new extreme: maxAbsX=%.6f maxAbsY=%.6f "
+			"(this vert x=%.6f y=%.6f) -- expect ~1.0 at true screen edges\n",
+			s_maxAbsX, s_maxAbsY, x, y);
+	}
+}
+
 void Render2DClass::Convert_Vert( Vector2 & vert_out, const Vector2 & vert_in )
 {
 	// Convert to (-1,1)-(1,-1)
 	vert_out.X = vert_in.X * CoordinateScale.X + BiasedCoordinateOffset.X;
 	vert_out.Y = vert_in.Y * CoordinateScale.Y + BiasedCoordinateOffset.Y;
+	GeneralsX_Track_Convert_Vert_Extremes(vert_out.X, vert_out.Y);
 }
 
 void Render2DClass::Convert_Vert( Vector2 & vert_out, float x_in, float y_in )
@@ -257,6 +287,7 @@ void Render2DClass::Convert_Vert( Vector2 & vert_out, float x_in, float y_in )
 	// Convert to (-1,1)-(1,-1)
 	vert_out.X = x_in * CoordinateScale.X + BiasedCoordinateOffset.X;
 	vert_out.Y = y_in * CoordinateScale.Y + BiasedCoordinateOffset.Y;
+	GeneralsX_Track_Convert_Vert_Extremes(vert_out.X, vert_out.Y);
 }
 
 #endif
