@@ -36,6 +36,10 @@
 #include <string>
 #include <vector>
 
+#if defined(__ANDROID__)
+#include <android/native_window.h>
+#endif
+
 // ---------------------------------------------------------------------------
 // Small helpers
 // ---------------------------------------------------------------------------
@@ -313,6 +317,37 @@ bool WebGLPipeline::initContext(int w, int h, SDL_Window *window)
 			"SDL_GetWindowSizeInPixels() right after SDL_GL_CreateContext=%dx%d\n",
 			w, h, freshW, freshH);
 	}
+#if defined(__ANDROID__)
+	// GeneralsX @bugfix Android port 09/04/2026 EXPERIMENT (low confidence):
+	// force the underlying ANativeWindow's pixel format to RGBX_8888
+	// (opaque -- the 4th byte is padding, explicitly ignored by
+	// SurfaceFlinger/the compositor) rather than whatever format the chosen
+	// EGL config implied. This is the Android-native equivalent of Vulkan's
+	// VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR, which DXVK's swapchain likely
+	// declares explicitly -- EGL has no equivalent explicit knob, so on
+	// Android the compositor's opaque-vs-blended decision is otherwise
+	// inferred from the EGL config's alpha bits, which is comparatively
+	// fragile. Explicitly setting RGBX_8888 here removes that inference
+	// entirely, regardless of what SDL_GL_ALPHA_SIZE was requested and
+	// regardless of whether any of this engine's own rendering incidentally
+	// writes a non-1.0 alpha into the framebuffer somewhere. width/height=0
+	// means "keep the ANativeWindow's current size", only the format
+	// changes. Real-device diagnostics already ruled out every
+	// application-level cause (viewport application, EGL surface size at
+	// creation time) for a persistent edge strip seen only on GLES/ANGLE,
+	// never Vulkan -- worth testing whether this is a compositor-level
+	// alpha-blending artifact instead.
+	{
+		void *nativeWindowPtr = SDL_GetPointerProperty(SDL_GetWindowProperties(window),
+			SDL_PROP_WINDOW_ANDROID_WINDOW_POINTER, nullptr);
+		if (nativeWindowPtr) {
+			int rc = ANativeWindow_setBuffersGeometry((ANativeWindow *)nativeWindowPtr, 0, 0, WINDOW_FORMAT_RGBX_8888);
+			fprintf(stderr, "[d3d8gles-diag] ANativeWindow_setBuffersGeometry(RGBX_8888) -> %d\n", rc);
+		} else {
+			fprintf(stderr, "[d3d8gles-diag] ANativeWindow_setBuffersGeometry skipped: no native window pointer\n");
+		}
+	}
+#endif
 	SDL_GL_SetSwapInterval(1);
 
 	// GeneralsX @build Android port ANGLE experiment - resolve every gl*
@@ -2006,6 +2041,23 @@ void WebGLPipeline::clear(WebGLDevice *dev, unsigned flags, uint32_t argb, float
 	if (flags & D3DCLEAR_TARGET) {
 		float c[4];
 		argbToFloats(argb, c);
+		// GeneralsX @bugfix Android port 09/04/2026 D3D8's Clear() alpha
+		// component is meaningless on a real Windows backbuffer (no OS-level
+		// compositing depends on it there), so callers have always felt free
+		// to pass whatever's convenient -- e.g. W3DDisplay.cpp's main
+		// per-frame Begin_Render() clear reuses TheWaterTransparency->
+		// m_minWaterOpacity as this value, which has nothing to do with
+		// wanting the actual screen transparent. That's harmless as long as
+		// the default framebuffer has no alpha channel to write to, but
+		// becomes a real hazard on Android if it ever does (SurfaceFlinger
+		// can and does composite a GL-backed Surface's alpha against
+		// whatever is behind it). Force full opacity on the DEFAULT
+		// framebuffer specifically (m_curFBO==0, i.e. the real on-screen
+		// backbuffer) regardless of whatever alpha the caller asked for --
+		// offscreen render targets (m_curFBO!=0, e.g. water reflections)
+		// keep using the caller's real alpha, since those aren't presented
+		// directly to the OS compositor.
+		if (m_curFBO == 0) c[3] = 1.0f;
 		glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
 		glClearColor(c[0], c[1], c[2], c[3]);
 		mask |= GL_COLOR_BUFFER_BIT;

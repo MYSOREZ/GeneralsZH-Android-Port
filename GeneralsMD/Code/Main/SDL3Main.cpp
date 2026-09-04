@@ -1104,7 +1104,23 @@ int main(int argc, char* argv[])
 			SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 8);
 			SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 8);
 			SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 8);
-			SDL_GL_SetAttribute(SDL_GL_ALPHA_SIZE, 0);
+			// GeneralsX @bugfix Android port 09/04/2026 EXPERIMENT (low
+			// confidence): was 0 (opaque, no alpha channel). Real-device
+			// diagnostics ruled out every application-level cause (viewport
+			// application, EGL surface size at creation time -- both
+			// confirmed correct) for a persistent edge strip seen only on
+			// GLES/ANGLE, never Vulkan, at any resolution including an exact
+			// 1:1 match with no pillarboxing involved at all. Alpha=0 is a
+			// comparatively rare, less-traveled EGL config on Android (almost
+			// every GL app requests the standard RGBA8888 config), so it's
+			// worth testing whether SurfaceFlinger/the GPU driver's edge/
+			// display-cutout/rounded-corner composition handles that more
+			// common configuration differently. Vulkan/DXVK's swapchain
+			// likely declares VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR explicitly
+			// (telling the compositor unambiguously to ignore alpha), which
+			// EGL has no equivalent explicit knob for -- its blend behavior
+			// is inferred from the chosen config's alpha bits instead.
+			SDL_GL_SetAttribute(SDL_GL_ALPHA_SIZE, 8);
 			SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
 			SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
 			SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
