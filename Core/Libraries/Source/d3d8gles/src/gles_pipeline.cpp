@@ -1572,14 +1572,40 @@ void WebGLPipeline::applyFixedState(WebGLDevice *dev)
 	// nearly everything (terrain, video quads) after the y-negate fix,
 	// since front/back faces were now backwards relative to what D3D
 	// intended.
+	// GeneralsX @build Android port 09/05/2026 A/B DIAGNOSTIC -- see the CMake
+	// option of the same name. Shadow-volume fill draws (stencil on, colour
+	// writes off) get the OPPOSITE cull face from the mapping above.
+	//
+	// Why only these draws: the z-pass count works by drawing the volume's
+	// near-facing half with INCR and its far-facing half with DECR. Which half
+	// is which is decided purely by winding, and D3D measures winding in a
+	// y-DOWN screen space while GL measures it in a y-UP window space -- the
+	// one place in the whole pipeline where "correct for opaque models" and
+	// "correct for a two-pass stencil count" can disagree. If the halves are
+	// swapped, both passes still issue exactly the same number of draw calls
+	// (measured: incr=8865 decr=8865, they always match) while rasterizing the
+	// wrong halves, so no draw-call counter could ever have caught it -- a
+	// fully culled draw call still counts as a draw.
+	//
+	// Deliberately NOT applied to ordinary geometry: the current mapping is
+	// known-correct there (swapping it globally once culled terrain and video
+	// quads away entirely), and this is exactly the kind of change that must
+	// stay scoped to the pass whose symptom it explains.
+	const bool gxShadowVolumeFill =
+#if defined(GENERALSX_AB_SHADOW_CULL_FLIP)
+		dev->getRenderState(D3DRS_STENCILENABLE) != 0 &&
+		dev->getRenderState(D3DRS_COLORWRITEENABLE) == 0;
+#else
+		false;
+#endif
 	switch (dev->getRenderState(D3DRS_CULLMODE)) {
 	case D3DCULL_CW:
 		glEnable(GL_CULL_FACE);
-		glCullFace(GL_BACK);
+		glCullFace(gxShadowVolumeFill ? GL_FRONT : GL_BACK);
 		break;
 	case D3DCULL_CCW:
 		glEnable(GL_CULL_FACE);
-		glCullFace(GL_FRONT);
+		glCullFace(gxShadowVolumeFill ? GL_BACK : GL_FRONT);
 		break;
 	default:
 		glDisable(GL_CULL_FACE);
