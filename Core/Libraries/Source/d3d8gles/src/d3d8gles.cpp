@@ -2045,8 +2045,17 @@ public:
 	                     D3DPRESENT_PARAMETERS *pp, struct IDirect3DDevice8 **ppReturnedDeviceInterface) override
 	{
 		if (!pp || !ppReturnedDeviceInterface || adapter != 0) return D3DERR_INVALIDCALL;
-		fprintf(stderr, "[d3d8gles] CreateDevice %ux%u fmt=%d (Phase 0 null device)\n",
-		        pp->BackBufferWidth, pp->BackBufferHeight, (int)pp->BackBufferFormat);
+		// GeneralsX @build Android port 09/05/2026 AutoDepthStencilFormat is
+		// what DX8Wrapper::Clear() keys its "does this device have a stencil
+		// buffer?" decision on (via GetDepthStencilSurface()->GetDesc()), and
+		// therefore whether D3DCLEAR_STENCIL is ever requested at all. It was
+		// inferred to be D3DFMT_D24S8 from Find_Z_Mode's preference order --
+		// print it instead of inferring it. 80 = D3DFMT_D24S8, 77 = D3DFMT_D16,
+		// 79 = D3DFMT_D24X8, 71 = D3DFMT_D32, 0 = D3DFMT_UNKNOWN.
+		fprintf(stderr, "[d3d8gles] CreateDevice %ux%u fmt=%d autoDS=%d dsFmt=%d "
+		        "(Phase 0 null device)\n",
+		        pp->BackBufferWidth, pp->BackBufferHeight, (int)pp->BackBufferFormat,
+		        (int)pp->EnableAutoDepthStencil, (int)pp->AutoDepthStencilFormat);
 		*ppReturnedDeviceInterface = new WebGLDevice(this, pp, focusWindow, behaviorFlags);
 		return D3D_OK;
 	}

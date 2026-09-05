@@ -2382,6 +2382,24 @@ void WebGLPipeline::clear(WebGLDevice *dev, unsigned flags, uint32_t argb, float
 {
 	if (!m_ctxReady) return;
 
+	// GeneralsX @build Android port 09/05/2026 The volumetric-shadow hunt has
+	// reached "the stencil CONTENT is wrong" (the darkening quad is verified to
+	// be the visible artifact, and colour writes are verified off during the
+	// volume fill). The fill increments with GL_INCR_WRAP, which never
+	// saturates -- so if the stencil buffer is not actually being cleared each
+	// frame, values accumulate and more and more pixels satisfy the darkening
+	// quad's "stencil >= 1". Whether D3DCLEAR_STENCIL is requested at all was
+	// INFERRED from Find_Z_Mode's preference order last round; measure it.
+	// bit0 = TARGET, bit1 = ZBUFFER, bit2 = STENCIL.
+	{
+		static int s_clearLogs = 0;
+		if (s_clearLogs < 10) {
+			s_clearLogs++;
+			fprintf(stderr, "[gxclear] flags=0x%x (target=%d z=%d stencil=%d) stencilValue=%u\n",
+				flags, (flags & 1) ? 1 : 0, (flags & 2) ? 1 : 0, (flags & 4) ? 1 : 0, stencil);
+		}
+	}
+
 	// D3D clears the viewport region only.
 	const D3DVIEWPORT8 &vp = dev->getViewport();
 	const bool full = (vp.X == 0 && vp.Y == 0 &&
