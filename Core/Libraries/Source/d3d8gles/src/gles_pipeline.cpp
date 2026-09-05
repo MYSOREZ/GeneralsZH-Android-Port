@@ -2168,12 +2168,25 @@ void WebGLPipeline::drawCommon(WebGLDevice *dev, unsigned primType, unsigned pri
 	// answer the actual question: does the SECOND pass rasterize anything?
 	// GL_ANY_SAMPLES_PASSED answers it directly. Capped hard at a handful of
 	// draws for the whole session: reading a query back stalls the pipeline.
+	// The budget is PER STENCIL OP, not shared. A single shared budget was
+	// spent entirely on INCR draws inside the first frame and never reached the
+	// DECR pass at all -- which is the pass the probe exists to measure.
 	bool gxQueryActive = false;
-	static int s_gxQueryBudget = 24;
+	static int s_gxQueryBudget[2] = {12, 12};	// [0] = INCR-like, [1] = DECR-like
 	static GLuint s_gxQuery = 0;
 	const bool gxIsVolumeFill = dev->getRenderState(D3DRS_STENCILENABLE) != 0 &&
 	                            dev->getRenderState(D3DRS_COLORWRITEENABLE) == 0;
-	if (gxIsVolumeFill && s_gxQueryBudget > 0) {
+	int gxQueryBucket = -1;
+	if (gxIsVolumeFill) {
+		switch (dev->getRenderState(D3DRS_STENCILPASS)) {
+		case D3DSTENCILOP_INCR:
+		case D3DSTENCILOP_INCRSAT: gxQueryBucket = 0; break;
+		case D3DSTENCILOP_DECR:
+		case D3DSTENCILOP_DECRSAT: gxQueryBucket = 1; break;
+		default: break;
+		}
+	}
+	if (gxQueryBucket >= 0 && s_gxQueryBudget[gxQueryBucket] > 0) {
 		if (s_gxQuery == 0) glGenQueries(1, &s_gxQuery);
 		if (s_gxQuery != 0) {
 			glBeginQuery(GL_ANY_SAMPLES_PASSED, s_gxQuery);
@@ -2192,7 +2205,7 @@ void WebGLPipeline::drawCommon(WebGLDevice *dev, unsigned primType, unsigned pri
 		glEndQuery(GL_ANY_SAMPLES_PASSED);
 		GLuint anyPassed = 0;
 		glGetQueryObjectuiv(s_gxQuery, GL_QUERY_RESULT, &anyPassed);
-		s_gxQueryBudget--;
+		s_gxQueryBudget[gxQueryBucket]--;
 		const unsigned op = dev->getRenderState(D3DRS_STENCILPASS);
 		fprintf(stderr, "[gxstencil] volume draw op=%s cull=%u tris=%u -> samplesPassed=%u\n",
 			(op == D3DSTENCILOP_INCR || op == D3DSTENCILOP_INCRSAT) ? "INCR" :
