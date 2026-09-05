@@ -2000,12 +2000,21 @@ void WebGLPipeline::ensureVBUploaded(WebGLVertexBuffer *vb)
 	if (vb->m_gl.dirty) {
 		glBindBuffer(GL_COPY_WRITE_BUFFER, vb->m_gl.name);
 		const bool haveRange = vb->m_gl.dirtyBegin < vb->m_gl.dirtyEnd;
-		if (vb->m_gl.allocated && haveRange && vb->m_gl.pendingDiscard) {
-			// D3DLOCK_DISCARD: orphan, so this upload and the NOOVERWRITE
-			// appends after it in the same ring cycle never wait on the GPU.
-			glBufferData(GL_COPY_WRITE_BUFFER, vb->m_bits.size(), nullptr, GL_DYNAMIC_DRAW);
-		}
-		if (!vb->m_gl.allocated || !haveRange) {
+		// GeneralsX @bugfix Android port 09/05/2026 D3DLOCK_DISCARD does a FULL
+		// upload rather than orphaning with glBufferData(..., nullptr) and then
+		// pushing only the fresh range. Orphaning leaves every byte outside
+		// that range undefined, and the engine does not treat the ring's older
+		// contents as dead: SortingRendererClass draws sorted translucent
+		// geometry that can still reference vertex ranges written earlier in
+		// the frame. Those ranges survive in m_bits but not in the newly
+		// orphaned GL storage, so they rasterized as garbage -- confirmed on a
+		// real device as stray grids and long diagonal lines across the scene.
+		// glBufferData WITH data respecifies the storage too (so it does not
+		// wait on the GPU either), it just also refills it. This only happens
+		// when the ring wraps, so the ordinary NOOVERWRITE appends below stay
+		// cheap.
+		const bool fullUpload = !vb->m_gl.allocated || !haveRange || vb->m_gl.pendingDiscard;
+		if (fullUpload) {
 			// First use, or an update with no recorded range: full upload,
 			// which also (re)allocates the GL storage.
 			glBufferData(GL_COPY_WRITE_BUFFER, vb->m_bits.size(), vb->m_bits.data(), GL_DYNAMIC_DRAW);
@@ -2054,12 +2063,21 @@ void WebGLPipeline::ensureIBUploaded(WebGLIndexBuffer *ib)
 	if (ib->m_gl.dirty) {
 		glBindBuffer(GL_COPY_WRITE_BUFFER, ib->m_gl.name);
 		const bool haveRange = ib->m_gl.dirtyBegin < ib->m_gl.dirtyEnd;
-		if (ib->m_gl.allocated && haveRange && ib->m_gl.pendingDiscard) {
-			// D3DLOCK_DISCARD: orphan, so this upload and the NOOVERWRITE
-			// appends after it in the same ring cycle never wait on the GPU.
-			glBufferData(GL_COPY_WRITE_BUFFER, ib->m_bits.size(), nullptr, GL_DYNAMIC_DRAW);
-		}
-		if (!ib->m_gl.allocated || !haveRange) {
+		// GeneralsX @bugfix Android port 09/05/2026 D3DLOCK_DISCARD does a FULL
+		// upload rather than orphaning with glBufferData(..., nullptr) and then
+		// pushing only the fresh range. Orphaning leaves every byte outside
+		// that range undefined, and the engine does not treat the ring's older
+		// contents as dead: SortingRendererClass draws sorted translucent
+		// geometry that can still reference vertex ranges written earlier in
+		// the frame. Those ranges survive in m_bits but not in the newly
+		// orphaned GL storage, so they rasterized as garbage -- confirmed on a
+		// real device as stray grids and long diagonal lines across the scene.
+		// glBufferData WITH data respecifies the storage too (so it does not
+		// wait on the GPU either), it just also refills it. This only happens
+		// when the ring wraps, so the ordinary NOOVERWRITE appends below stay
+		// cheap.
+		const bool fullUpload = !ib->m_gl.allocated || !haveRange || ib->m_gl.pendingDiscard;
+		if (fullUpload) {
 			glBufferData(GL_COPY_WRITE_BUFFER, ib->m_bits.size(), ib->m_bits.data(), GL_DYNAMIC_DRAW);
 			ib->m_gl.allocated = true;
 		} else {
