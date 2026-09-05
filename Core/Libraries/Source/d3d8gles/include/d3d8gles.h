@@ -53,4 +53,17 @@ extern "C" void d3d8gles_resize(int w, int h);
 // NOT itself link sdl3lib -- can share one implementation instead of each
 // re-reading render_backend.cfg/the env vars themselves.
 extern "C" bool d3d8gles_ShouldUseVulkanBackend();
+
+// GeneralsX @perf Android port 09/05/2026 Draw-call breakdown by subsystem.
+// Engine code tags the passes it can identify cheaply so the per-frame perf log
+// can report where the ~1200-2500 draws/frame actually come from; anything
+// untagged counts as OTHER. Sets the current category and returns the previous
+// one, so callers restore it and nesting stays correct.
+enum {
+	D3D8GLES_DRAWCAT_OTHER  = 0,
+	D3D8GLES_DRAWCAT_MODELS = 1,  // DX8TextureCategoryClass::Render -- rigid HLod meshes
+	D3D8GLES_DRAWCAT_SORTED = 2,  // SortingRendererClass::Flush -- particles, decals
+	D3D8GLES_DRAWCAT_2D     = 3   // Render2DClass::Render -- all UI and video
+};
+extern "C" int d3d8gles_SetDrawCategory(int category);
 extern "C" bool d3d8gles_ShouldUseANGLE();

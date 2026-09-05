@@ -1877,6 +1877,35 @@ void WebGLPipeline::bindVertexLayout(const FVFLayout &l, GLuint vbo, GLuint ibo,
 	m_vaoCache.emplace(hash, VAOCacheEntry{key, vao, base});
 }
 
+// GeneralsX @perf Android port 09/05/2026 Draw-call breakdown by subsystem.
+// Real-device logs show ~1200-2500 draws/frame in gameplay at 13-15 fps, i.e.
+// roughly 27k draws/sec -- about what a mobile GLES driver sustains when each
+// draw carries state changes, so we are draw-call bound. But "reduce draw
+// calls" is useless without knowing WHERE they come from: the instancing
+// attempt earlier only ever collapsed ~10% of them, because it targeted the
+// rigid-model path while most draws apparently come from somewhere else.
+//
+// Engine code tags the few passes it can identify cheaply (see
+// d3d8gles_SetDrawCategory's callers); everything else lands in OTHER
+// (terrain, shadows, skinned meshes, ...). Callers save/restore the previous
+// value, so nesting works.
+enum GeneralsXDrawCategory {
+	GX_DRAWCAT_OTHER = 0,
+	GX_DRAWCAT_MODELS,   // DX8TextureCategoryClass::Render -- rigid HLod meshes
+	GX_DRAWCAT_SORTED,   // SortingRendererClass::Flush -- particles, decals
+	GX_DRAWCAT_2D,       // Render2DClass::Render -- all UI and video
+	GX_DRAWCAT_COUNT
+};
+static int s_gxDrawCategory = GX_DRAWCAT_OTHER;
+static unsigned s_gxDrawsByCategory[GX_DRAWCAT_COUNT] = {0, 0, 0, 0};
+
+extern "C" int d3d8gles_SetDrawCategory(int category)
+{
+	const int prev = s_gxDrawCategory;
+	s_gxDrawCategory = (category >= 0 && category < GX_DRAWCAT_COUNT) ? category : GX_DRAWCAT_OTHER;
+	return prev;
+}
+
 void WebGLPipeline::drawCommon(WebGLDevice *dev, unsigned primType, unsigned primCount,
                                GLuint vbo, unsigned stride, unsigned fvf,
                                GLuint ibo, unsigned indexFormat,
@@ -1908,6 +1937,7 @@ void WebGLPipeline::drawCommon(WebGLDevice *dev, unsigned primType, unsigned pri
 		glDrawArrays(mode, startIndex, count);
 	}
 	m_perfDrawsThisFrame++;
+	s_gxDrawsByCategory[s_gxDrawCategory]++;
 }
 
 // Buffer objects (device-side shadow -> GL) helpers.
@@ -2237,6 +2267,18 @@ void WebGLPipeline::present()
 			const int totalUniformChecks = m_perfUniformCacheHits + m_perfUniformCacheMisses;
 			const float uniformHitPct = totalUniformChecks > 0
 				? 100.0f * m_perfUniformCacheHits / totalUniformChecks : 0.0f;
+			// GeneralsX @perf Android port 09/05/2026 Per-subsystem draw split,
+			// averaged over the same window as draws/frame above.
+			{
+				const float f = m_perfFrameCount > 0 ? (float)m_perfFrameCount : 1.0f;
+				fprintf(stderr, "[d3d8gles] perf-draws/frame by source: models=%.1f sorted(particles)=%.1f "
+					"2d-ui=%.1f other(terrain/shadows/skin)=%.1f\n",
+					s_gxDrawsByCategory[GX_DRAWCAT_MODELS] / f,
+					s_gxDrawsByCategory[GX_DRAWCAT_SORTED] / f,
+					s_gxDrawsByCategory[GX_DRAWCAT_2D] / f,
+					s_gxDrawsByCategory[GX_DRAWCAT_OTHER] / f);
+				for (int i = 0; i < GX_DRAWCAT_COUNT; i++) s_gxDrawsByCategory[i] = 0;
+			}
 			fprintf(stderr, "[d3d8gles] perf: %.1f fps, %.1f draws/frame, "
 				"state-cache %.0f%% hit (%d/%d), vao-cache %.0f%% hit (%d/%d, %zu cached, "
 				"%d ptr-refresh), uniform-cache %.0f%% hit (%d/%d), "

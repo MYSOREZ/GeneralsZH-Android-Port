@@ -63,6 +63,7 @@
 #include "wwmemlog.h"
 #include "assetmgr.h"
 
+
 RectClass							Render2DClass::ScreenResolution( 0,0,0,0 );
 
 
@@ -779,7 +780,13 @@ void Render2DClass::Render()
 	DX8Wrapper::Set_DX8_Texture_Stage_State(0, D3DTSS_ADDRESSU, D3DTADDRESS_CLAMP);
 	DX8Wrapper::Set_DX8_Texture_Stage_State(0, D3DTSS_ADDRESSV, D3DTADDRESS_CLAMP);
 
+#if defined(__ANDROID__)
+	const int gxPrevCat = d3d8gles_SetDrawCategory(D3D8GLES_DRAWCAT_2D);
+#endif
 	DX8Wrapper::Draw_Triangles(0,Indices.Count()/3,0,Vertices.Count());
+#if defined(__ANDROID__)
+	d3d8gles_SetDrawCategory(gxPrevCat);
+#endif
 
 	DX8Wrapper::Set_Transform(D3DTS_VIEW,view);
 	DX8Wrapper::Set_Transform(D3DTS_PROJECTION,proj);

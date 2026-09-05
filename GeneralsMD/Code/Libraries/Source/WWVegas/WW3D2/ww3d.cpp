@@ -106,6 +106,7 @@
 #include "meshmdl.h"
 #include "dx8renderer.h"
 #include "render2d.h"
+#include "render2dsentence.h"  // GeneralsX @perf Android port 09/05/2026 - Flush_Recycled_Textures()
 #include "bound.h"
 #include "rddesc.h"
 #include "Vector3i.h"
@@ -754,6 +755,13 @@ void WW3D::_Invalidate_Mesh_Cache()
 
 void WW3D::_Invalidate_Textures()
 {
+	// GeneralsX @perf Android port 09/05/2026 The glyph-atlas recycle pool
+	// (render2dsentence.cpp) holds textures that outlive individual sentence
+	// objects on purpose, and they are created directly rather than registered
+	// with the asset manager -- so the hash walk below would never reach them.
+	// Drop them here so a device reset cannot leave stale GPU resources cached.
+	Render2DSentenceClass::Flush_Recycled_Textures();
+
 	if (!WW3DAssetManager::Get_Instance()) return;
 
 	TextureLoader::Flush_Pending_Load_Tasks();

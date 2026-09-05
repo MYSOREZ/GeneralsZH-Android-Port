@@ -82,6 +82,50 @@ Render2DSentenceClass::Render2DSentenceClass () :
 
 
 ////////////////////////////////////////////////////////////////////////////////////
+// GeneralsX @perf Android port 09/05/2026 The glyph-atlas recycle pool used to
+// be a per-instance member, and Build_Textures() destroyed whatever it did not
+// immediately reclaim. That only ever helped one case: a single long-lived
+// sentence object rebuilding text that needs exactly as many atlas pages as
+// before. It cannot help the case that actually dominates in gameplay --
+// SHORT-LIVED sentence objects (damage numbers, tooltips, unit labels, build
+// progress) constantly being constructed and destroyed. Each one allocated its
+// own atlas texture and destroyed it moments later, and a texture freed by one
+// object was invisible to every other. A real device log for an ordinary
+// gameplay session still showed 187 of 191 total texture creations coming from
+// Build_Textures (162 of them 64x64, 29 of them 128x128), with 364 deletions --
+// which lines up with the frame-time dips to 3-6 fps that do NOT correlate with
+// draw-call count.
+//
+// So the pool is shared across all Render2DSentenceClass instances, and
+// survives Build_Textures() instead of being drained at the end of it. Sizing:
+// entries are A4R4G4B4, so 64x64 is 8 KB and 128x128 is 32 KB -- a 32-entry cap
+// is a few hundred KB worst case, far cheaper than the churn it replaces.
+//
+// The pool is heap-allocated and deliberately never destroyed. This codebase
+// has been bitten before by global destructors running at exit (see AGENTS.md's
+// "Exit semantics" note -- Windows ExitProcess skips them, POSIX does not, and
+// pool allocators crash in that window). Letting process teardown reclaim it is
+// the safe choice; Flush_Recycled_Textures() below is the explicit release path
+// for device-reset/shutdown.
+static const int GENERALSX_MAX_RECYCLED_GLYPH_TEXTURES = 32;
+
+static DynamicVectorClass<TextureClass *> &GeneralsX_Get_Glyph_Texture_Pool ()
+{
+	static DynamicVectorClass<TextureClass *> *pool = new DynamicVectorClass<TextureClass *>;
+	return *pool;
+}
+
+void Render2DSentenceClass::Flush_Recycled_Textures ()
+{
+	DynamicVectorClass<TextureClass *> &pool = GeneralsX_Get_Glyph_Texture_Pool ();
+	while (pool.Count () > 0) {
+		TextureClass *leftover = pool[0];
+		pool.Delete (0);
+		REF_PTR_RELEASE (leftover);
+	}
+}
+
+
 //
 //	~Render2DSentenceClass
 //
@@ -91,15 +135,10 @@ Render2DSentenceClass::~Render2DSentenceClass ()
 	REF_PTR_RELEASE (Font);
 	Reset ();
 
-	// GeneralsX @build Android port GLES experiment - Reset() just salvaged
-	// any live renderers' textures into RecycledTextures, but with the
-	// object being destroyed there's no following Build_Textures() call
-	// left to reclaim them -- release them here instead of leaking.
-	while (RecycledTextures.Count () > 0) {
-		TextureClass *leftover = RecycledTextures[0];
-		RecycledTextures.Delete (0);
-		REF_PTR_RELEASE (leftover);
-	}
+	// GeneralsX @perf Android port 09/05/2026 Reset() salvaged this object's
+	// textures into the SHARED pool above, which outlives this object on
+	// purpose -- other sentence objects reuse them. Nothing to release here.
+	// (This used to drain a per-instance pool; see the pool's comment.)
 }
 
 
@@ -160,8 +199,16 @@ Render2DSentenceClass::Reset ()
 	while (Renderers.Count () > 0) {
 		TextureClass *salvaged = Renderers[0].Renderer->Peek_Texture ();
 		if (salvaged != nullptr) {
-			salvaged->Add_Ref ();
-			RecycledTextures.Add (salvaged);
+			// GeneralsX @perf Android port 09/05/2026 Salvage into the SHARED
+			// pool (see its comment above) so any sentence object can reclaim
+			// it, not just this one -- short-lived label objects are the main
+			// churn source and never reuse their own textures. Past the cap,
+			// release instead of growing without bound.
+			DynamicVectorClass<TextureClass *> &pool = GeneralsX_Get_Glyph_Texture_Pool ();
+			if (pool.Count () < GENERALSX_MAX_RECYCLED_GLYPH_TEXTURES) {
+				salvaged->Add_Ref ();
+				pool.Add (salvaged);
+			}
 		}
 		delete Renderers[0].Renderer;
 		Renderers.Delete(0);
@@ -407,13 +454,16 @@ Render2DSentenceClass::Build_Textures ()
 		//	constructed with no texture of their own yet.
 		//
 		TextureClass *new_texture = nullptr;
-		for (int pool_index = 0; pool_index < RecycledTextures.Count (); pool_index ++) {
-			TextureClass *candidate = RecycledTextures[pool_index];
+		DynamicVectorClass<TextureClass *> &pool = GeneralsX_Get_Glyph_Texture_Pool ();
+		for (int pool_index = 0; pool_index < pool.Count (); pool_index ++) {
+			TextureClass *candidate = pool[pool_index];
+			// Atlas pages are always square (allocated below as Width x Width),
+			// so both dimensions are checked against desc.Width by design.
 			if (candidate->Get_Width () == (int)desc.Width &&
 				candidate->Get_Height () == (int)desc.Width &&
 				candidate->Get_Texture_Format () == WW3D_FORMAT_A4R4G4B4) {
 				new_texture = candidate;
-				RecycledTextures.Delete (pool_index);
+				pool.Delete (pool_index);
 				GX_TRACE("Build_Textures: reusing recycled TextureClass=%p width=%u\n",
 					(void*)new_texture, desc.Width);
 				break;
@@ -463,18 +513,12 @@ Render2DSentenceClass::Build_Textures ()
 		PendingSurfaces.Delete_All ();
 	}
 
-	//
-	//	Release any recycled textures nothing above claimed (e.g. the new
-	//	content needed fewer glyph-atlas pages than the old content did) --
-	//	Reset() Add_Ref'd each one when it salvaged it, so this is the
-	//	matching release, not a double-free of something a renderer still
-	//	owns.
-	//
-	while (RecycledTextures.Count () > 0) {
-		TextureClass *leftover = RecycledTextures[0];
-		RecycledTextures.Delete (0);
-		REF_PTR_RELEASE (leftover);
-	}
+	// GeneralsX @perf Android port 09/05/2026 Unclaimed entries deliberately
+	// STAY in the shared pool now (bounded by GENERALSX_MAX_RECYCLED_GLYPH_TEXTURES
+	// at insertion time). Destroying them here, as this used to, is what kept
+	// the churn alive: pages freed by one sentence object were thrown away
+	// before any other object could claim them. Flush_Recycled_Textures() is
+	// the explicit release path.
 }
 
 

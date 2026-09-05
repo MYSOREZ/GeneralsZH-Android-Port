@@ -60,6 +60,11 @@
 #include "camera.h"
 #include "stripoptimizer.h"
 #include "meshgeometry.h"
+#if defined(__ANDROID__)
+// GeneralsX @perf Android port 09/05/2026 - d3d8gles_SetDrawCategory()
+#include "d3d8gles.h"
+#endif
+
 
 /*
 ** Global Instance of the DX8MeshRender
@@ -1678,6 +1683,11 @@ unsigned DX8TextureCategoryClass::Add_Mesh(
 
 void DX8TextureCategoryClass::Render()
 {
+#if defined(__ANDROID__)
+	const int gxPrevCat = d3d8gles_SetDrawCategory(D3D8GLES_DRAWCAT_MODELS);
+	struct GxCatRestore { int prev; ~GxCatRestore() { d3d8gles_SetDrawCategory(prev); } } gxCatRestore{gxPrevCat};
+#endif
+
 	#ifdef WWDEBUG
 	if (!WW3D::Expose_Prelit()) {
 	#endif

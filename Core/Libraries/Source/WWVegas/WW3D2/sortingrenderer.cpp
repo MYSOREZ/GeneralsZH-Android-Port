@@ -50,6 +50,11 @@
 #include <wwprofile.h>
 #include <algorithm>
 #include <list>
+#if defined(__ANDROID__)
+// GeneralsX @perf Android port 09/05/2026 - d3d8gles_SetDrawCategory()
+#include "d3d8gles.h"
+#endif
+
 
 
 bool SortingRendererClass::_EnableTriangleDraw=true;
@@ -601,6 +606,11 @@ void SortingRendererClass::Flush_Sorting_Pool()
 
 void SortingRendererClass::Flush()
 {
+#if defined(__ANDROID__)
+	const int gxPrevCat = d3d8gles_SetDrawCategory(D3D8GLES_DRAWCAT_SORTED);
+	struct GxCatRestore { int prev; ~GxCatRestore() { d3d8gles_SetDrawCategory(prev); } } gxCatRestore{gxPrevCat};
+#endif
+
 	WWPROFILE("SortingRenderer::Flush");
 	Matrix4x4 old_view;
 	Matrix4x4 old_world;
