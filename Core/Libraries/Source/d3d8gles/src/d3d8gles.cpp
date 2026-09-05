@@ -1082,6 +1082,23 @@ public:
 		//   switch to High -> [gxstate] TERRAIN zEnable=1 ...
 		//   back to Low    -> [gxstate] TERRAIN zEnable=1 ... (stays repaired)
 		m_renderStates[D3DRS_ZENABLE] = D3DZB_TRUE;
+		// GeneralsX @build Android port 09/05/2026 Prints the seeded values back
+		// out. Two consecutive builds differed ONLY by this seeding and emitted
+		// no distinguishing log line, so when a device log came back still
+		// showing zEnable=0 there was no way to tell "the seeding is not in the
+		// build you tested" from "the seeding is there and something overwrites
+		// it". That ambiguity cost a full test round. Any change whose whole
+		// effect is a value must print that value.
+		fprintf(stderr, "[gxdefaults] seeded render states: zEnable=%u zWrite=%u "
+			"zFunc=%u cull=%u src=%u dst=%u alphaFunc=%u tFactor=0x%x\n",
+			(unsigned)m_renderStates[D3DRS_ZENABLE],
+			(unsigned)m_renderStates[D3DRS_ZWRITEENABLE],
+			(unsigned)m_renderStates[D3DRS_ZFUNC],
+			(unsigned)m_renderStates[D3DRS_CULLMODE],
+			(unsigned)m_renderStates[D3DRS_SRCBLEND],
+			(unsigned)m_renderStates[D3DRS_DESTBLEND],
+			(unsigned)m_renderStates[D3DRS_ALPHAFUNC],
+			(unsigned)m_renderStates[D3DRS_TEXTUREFACTOR]);
 		m_renderStates[D3DRS_ZWRITEENABLE] = TRUE;
 		m_renderStates[D3DRS_ZFUNC] = D3DCMP_LESSEQUAL;
 		// The rest of the D3D8 defaults the pipeline actually reads. Same rule
@@ -1503,6 +1520,18 @@ public:
 
 	HRESULT SetRenderState(D3DRENDERSTATETYPE state, DWORD value) override
 	{
+		// GeneralsX @build Android port 09/05/2026 Log every write that turns
+		// the depth TEST off, with the value and a running count. If the seeded
+		// default is being overwritten, this names the moment it happens; if
+		// nothing ever writes it, the seeding itself is not in effect. Capped.
+		if (state == D3DRS_ZENABLE) {
+			static int s_zLogs = 0;
+			if (s_zLogs < 16) {
+				s_zLogs++;
+				fprintf(stderr, "[gxdefaults] SetRenderState(D3DRS_ZENABLE, %u)\n",
+					(unsigned)value);
+			}
+		}
 		if ((size_t)state < kMaxRenderStates) m_renderStates[state] = value;
 		return D3D_OK;
 	}
