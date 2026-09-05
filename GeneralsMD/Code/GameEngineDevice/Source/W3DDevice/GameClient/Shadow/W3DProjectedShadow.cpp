@@ -56,6 +56,16 @@
 #include "GameClient/Drawable.h"
 #include "W3DDevice/GameClient/Module/W3DModelDraw.h"
 #include "W3DDevice/GameClient/W3DShadow.h"
+#if defined(__ANDROID__)
+// GeneralsX @perf Android port 09/05/2026 - draw-category hook. Forward-declared
+// rather than including d3d8gles.h: that header is not on the gameenginedevice
+// target's include path, and everything links into the same libmain.so.
+// Values must match the enum in Core/Libraries/Source/d3d8gles/include/d3d8gles.h.
+extern "C" int d3d8gles_SetDrawCategory(int category);
+#define D3D8GLES_DRAWCAT_TERRAIN 4
+#define D3D8GLES_DRAWCAT_SHADOWS 5
+#endif
+
 
 
 /** @todo: We're going to have a pool of a couple rendertargets to use
@@ -1301,6 +1311,11 @@ void W3DProjectedShadowManager::prepareShadows()
 
 Int W3DProjectedShadowManager::renderShadows(RenderInfoClass & rinfo)
 {
+#if defined(__ANDROID__)
+	const int gxPrevCat = d3d8gles_SetDrawCategory(D3D8GLES_DRAWCAT_SHADOWS);
+	struct GxCatRestore { int prev; ~GxCatRestore() { d3d8gles_SetDrawCategory(prev); } } gxCatRestore{gxPrevCat};
+#endif
+
 	Int projectionCount=0;
 
 	if (!TheTerrainRenderObject)

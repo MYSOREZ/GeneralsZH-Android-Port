@@ -639,6 +639,18 @@ void	Render2DClass::Add_Outline( const RectClass & rect, float width, const Rect
 
 void Render2DClass::Render()
 {
+#if defined(__ANDROID__)
+	struct GxUiTimer {
+		std::chrono::steady_clock::time_point t0;
+		int bucket;
+		GxUiTimer(int b) : t0(std::chrono::steady_clock::now()), bucket(b) {}
+		~GxUiTimer() {
+			d3d8gles_AddUiTiming(bucket,
+				std::chrono::duration<double, std::micro>(std::chrono::steady_clock::now() - t0).count());
+		}
+	} gxUiTimer(D3D8GLES_UITIME_2D_SUBMIT);
+#endif
+
 	if ( !Indices.Count() || IsHidden) {
 		return;
 	}

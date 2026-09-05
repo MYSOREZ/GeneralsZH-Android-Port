@@ -1894,10 +1894,24 @@ enum GeneralsXDrawCategory {
 	GX_DRAWCAT_MODELS,   // DX8TextureCategoryClass::Render -- rigid HLod meshes
 	GX_DRAWCAT_SORTED,   // SortingRendererClass::Flush -- particles, decals
 	GX_DRAWCAT_2D,       // Render2DClass::Render -- all UI and video
+	GX_DRAWCAT_TERRAIN,  // HeightMapRenderObjClass::Render
+	GX_DRAWCAT_SHADOWS,  // W3DProjectedShadowManager::renderShadows
+	GX_DRAWCAT_SKIN,     // DX8SkinFVFCategoryContainer::Render
 	GX_DRAWCAT_COUNT
 };
 static int s_gxDrawCategory = GX_DRAWCAT_OTHER;
-static unsigned s_gxDrawsByCategory[GX_DRAWCAT_COUNT] = {0, 0, 0, 0};
+static unsigned s_gxDrawsByCategory[GX_DRAWCAT_COUNT] = {0, 0, 0, 0, 0, 0, 0};
+
+// GeneralsX @perf Android port 09/05/2026 UI cost buckets, filled by engine
+// code that times itself (see d3d8gles_AddUiTiming's callers). Reported next to
+// the draw split so one log line shows both where the draws and where the CPU
+// time go.
+static double s_gxUiTimeUs[3] = {0.0, 0.0, 0.0};
+
+extern "C" void d3d8gles_AddUiTiming(int bucket, double microseconds)
+{
+	if (bucket >= 0 && bucket < 3) s_gxUiTimeUs[bucket] += microseconds;
+}
 
 extern "C" int d3d8gles_SetDrawCategory(int category)
 {
@@ -2272,11 +2286,19 @@ void WebGLPipeline::present()
 			{
 				const float f = m_perfFrameCount > 0 ? (float)m_perfFrameCount : 1.0f;
 				fprintf(stderr, "[d3d8gles] perf-draws/frame by source: models=%.1f sorted(particles)=%.1f "
-					"2d-ui=%.1f other(terrain/shadows/skin)=%.1f\n",
+					"2d-ui=%.1f terrain=%.1f shadows=%.1f skin=%.1f other=%.1f\n",
 					s_gxDrawsByCategory[GX_DRAWCAT_MODELS] / f,
 					s_gxDrawsByCategory[GX_DRAWCAT_SORTED] / f,
 					s_gxDrawsByCategory[GX_DRAWCAT_2D] / f,
+					s_gxDrawsByCategory[GX_DRAWCAT_TERRAIN] / f,
+					s_gxDrawsByCategory[GX_DRAWCAT_SHADOWS] / f,
+					s_gxDrawsByCategory[GX_DRAWCAT_SKIN] / f,
 					s_gxDrawsByCategory[GX_DRAWCAT_OTHER] / f);
+				fprintf(stderr, "[d3d8gles] perf-ui ms/frame: text-raster=%.2f text-texture=%.2f 2d-submit=%.2f\n",
+					s_gxUiTimeUs[0] / 1000.0 / f,
+					s_gxUiTimeUs[1] / 1000.0 / f,
+					s_gxUiTimeUs[2] / 1000.0 / f);
+				for (int i = 0; i < 3; i++) s_gxUiTimeUs[i] = 0.0;
 				for (int i = 0; i < GX_DRAWCAT_COUNT; i++) s_gxDrawsByCategory[i] = 0;
 			}
 			fprintf(stderr, "[d3d8gles] perf: %.1f fps, %.1f draws/frame, "

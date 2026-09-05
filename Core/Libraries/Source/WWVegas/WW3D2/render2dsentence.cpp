@@ -41,6 +41,12 @@
 #include "wwmemlog.h"
 #include "dx8wrapper.h"
 #include "GXTrace.h"
+#if defined(__ANDROID__)
+// GeneralsX @perf Android port 09/05/2026 - draw-category / UI-timing hooks
+#include "d3d8gles.h"
+#include <chrono>
+#endif
+
 
 
 ////////////////////////////////////////////////////////////////////////////////////
@@ -408,6 +414,18 @@ Render2DSentenceClass::Release_Pending_Surfaces ()
 void
 Render2DSentenceClass::Build_Textures ()
 {
+#if defined(__ANDROID__)
+	struct GxUiTimer {
+		std::chrono::steady_clock::time_point t0;
+		int bucket;
+		GxUiTimer(int b) : t0(std::chrono::steady_clock::now()), bucket(b) {}
+		~GxUiTimer() {
+			d3d8gles_AddUiTiming(bucket,
+				std::chrono::duration<double, std::micro>(std::chrono::steady_clock::now() - t0).count());
+		}
+	} gxUiTimer(D3D8GLES_UITIME_TEXT_TEXTURE);
+#endif
+
 	WWMEMLOG(MEM_TEXTURE);
 
 	//
@@ -1330,6 +1348,18 @@ Vector2	Render2DSentenceClass::Build_Sentence_Not_Centered (const WCHAR *text, i
 void
 Render2DSentenceClass::Build_Sentence (const WCHAR *text, int *hkX, int *hkY)
 {
+#if defined(__ANDROID__)
+	struct GxUiTimer {
+		std::chrono::steady_clock::time_point t0;
+		int bucket;
+		GxUiTimer(int b) : t0(std::chrono::steady_clock::now()), bucket(b) {}
+		~GxUiTimer() {
+			d3d8gles_AddUiTiming(bucket,
+				std::chrono::duration<double, std::micro>(std::chrono::steady_clock::now() - t0).count());
+		}
+	} gxUiTimer(D3D8GLES_UITIME_TEXT_RASTER);
+#endif
+
 	if (text == nullptr) {
 		return ;
 	}

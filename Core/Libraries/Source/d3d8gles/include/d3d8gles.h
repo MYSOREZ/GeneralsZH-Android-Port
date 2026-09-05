@@ -66,4 +66,27 @@ enum {
 	D3D8GLES_DRAWCAT_2D     = 3   // Render2DClass::Render -- all UI and video
 };
 extern "C" int d3d8gles_SetDrawCategory(int category);
+
+// GeneralsX @perf Android port 09/05/2026 Extra draw categories. Real-device
+// timings showed the frame is CPU-bound with present() at only 0.5-2.5ms, and
+// "other" was the single biggest draw bucket at ~560/frame -- split it so the
+// next optimization has a target instead of a guess.
+enum {
+	D3D8GLES_DRAWCAT_TERRAIN = 4,  // HeightMapRenderObjClass::Render
+	D3D8GLES_DRAWCAT_SHADOWS = 5,  // W3DProjectedShadowManager::renderShadows
+	D3D8GLES_DRAWCAT_SKIN    = 6   // DX8SkinFVFCategoryContainer::Render
+};
+
+// GeneralsX @perf Android port 09/05/2026 UI cost breakdown. [GX-PERF-DISPLAY]
+// puts uiWidgets (TheInGameUI->DRAW()) at 40-55ms/frame, spiking to 170-190ms,
+// against mainScene at 30-42ms -- i.e. the UI costs as much as the entire 3D
+// scene while issuing a fifth of the draws. These buckets say which part of it:
+// glyph rasterization, glyph-atlas texture building, or 2D draw submission.
+enum {
+	D3D8GLES_UITIME_TEXT_RASTER  = 0,  // Render2DSentenceClass::Build_Sentence
+	D3D8GLES_UITIME_TEXT_TEXTURE = 1,  // Render2DSentenceClass::Build_Textures
+	D3D8GLES_UITIME_2D_SUBMIT    = 2,  // Render2DClass::Render
+	D3D8GLES_UITIME_COUNT        = 3
+};
+extern "C" void d3d8gles_AddUiTiming(int bucket, double microseconds);
 extern "C" bool d3d8gles_ShouldUseANGLE();
