@@ -74,7 +74,29 @@ void DoShadows(RenderInfoClass & rinfo, Bool stencilPass)
 {
 	//USE_PERF_TIMER(shadowsRender)
 	shadowCameraFrustum=&rinfo.Camera.Get_Frustum();
-	Int projectionCount=0;
+
+	// GeneralsX @bugfix Android port 09/05/2026 projectionCount used to be a
+	// LOCAL here, which made W3DVolumetricShadowManager's forceStencilFill
+	// argument dead code. DoShadows() is called twice per frame from
+	// W3DScene: once with stencilPass=FALSE, which is the only call that
+	// computes projectionCount from the projected-shadow manager, and once
+	// with stencilPass=TRUE, which is the only call that passes it on. As a
+	// local it was re-zeroed by the second call, so renderShadows() always
+	// received 0 and its "no shadow volumes to render, but still need to fill
+	// the stencil buffer for other effects" branch could never run.
+	//
+	// That matters beyond the stencil fill itself: both of renderShadows()'
+	// branches end with DX8Wrapper::Invalidate_Cached_Render_States(), and
+	// with shadow volumes OFF (Medium detail and below) neither branch ran, so
+	// nothing flushed that cache all session. DX8Wrapper::Set_DX8_Texture and
+	// Set_DX8_Texture_Stage_State are pure redundancy filters -- they skip the
+	// real call when they believe the state already matches -- and several
+	// subsystems (W3DWater, W3DTreeBuffer, the shadow setup itself) poke the
+	// device directly, desyncing that belief. On High the per-frame flush hid
+	// it; on a Medium-only session it was never repaired, which is why
+	// textures came back black only after a fresh start on Medium and why
+	// switching to High "fixed" it permanently.
+	static Int projectionCount = 0;
 
 	//Projected shadows render first because they may fill the stencil buffer
 	//which will be used by the shadow volumes

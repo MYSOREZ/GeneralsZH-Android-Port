@@ -583,9 +583,19 @@ static bool stageChannelReadsTexture(unsigned op, unsigned arg0, unsigned arg1, 
 	return false;
 }
 
+// GeneralsX @build Android port 09/05/2026 Counter for the measurement that
+// settles the black-polygon report: a stage-0 collapse means a draw asked to
+// sample a texture and none was bound, so its colour falls back to bare vertex
+// diffuse -- dark or black geometry, with no GL error and the texture still
+// alive. If this is high on Medium and near zero on High, the cause is a
+// texture that stopped being bound, not one that failed to load.
+static unsigned s_gxStage0Collapses = 0;
+static unsigned s_gxStage1Collapses = 0;
+
 static void collapseStageWithoutTexture(StageKey *k, int stage)
 {
 	if (stageChannelReadsTexture(k->colorOp, k->colorArg0, k->colorArg1, k->colorArg2)) {
+		if (stage == 0) s_gxStage0Collapses++; else s_gxStage1Collapses++;
 		if (stage == 0) {
 			k->colorOp = D3DTOP_SELECTARG2;
 			k->colorArg2 = 0; // DIFFUSE
@@ -2746,6 +2756,13 @@ void WebGLPipeline::present()
 					s_gxStencilIncrDraws = 0;
 					s_gxStencilDecrDraws = 0;
 					s_gxStencilOtherDraws = 0;
+				}
+				if (s_gxStage0Collapses || s_gxStage1Collapses) {
+					fprintf(stderr, "[gxtex] stage collapses this window (draw asked for a "
+						"texture, none bound -> renders as flat vertex colour): stage0=%u stage1=%u\n",
+						s_gxStage0Collapses, s_gxStage1Collapses);
+					s_gxStage0Collapses = 0;
+					s_gxStage1Collapses = 0;
 				}
 				fprintf(stderr, "[d3d8gles] perf-draws/frame by source: models=%.1f sorted(particles)=%.1f "
 					"2d-ui=%.1f terrain=%.1f shadows=%.1f skin=%.1f other=%.1f\n",
