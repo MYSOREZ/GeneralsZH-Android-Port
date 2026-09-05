@@ -1626,23 +1626,6 @@ void WebGLPipeline::applyFixedState(WebGLDevice *dev)
 	// made every shadow volume a visible black silhouette.
 	const DWORD cw = dev->getRenderState(D3DRS_COLORWRITEENABLE);
 	glColorMask((cw & 1) != 0, (cw & 2) != 0, (cw & 4) != 0, (cw & 8) != 0);
-	// GeneralsX @build Android port 09/05/2026 Free half of the shadow A/B:
-	// read the mask back from GL the first few times D3D asks for "write no
-	// colour". If GL disagrees, the shadow-volume fill is painting into the
-	// colour buffer and the visible quad is the volume geometry itself; if GL
-	// agrees, it cannot be, and the artifact must be the darkening pass. One
-	// readback, capped at 4 -- glGet stalls, so it must never be uncapped.
-	if (cw == 0) {
-		static int s_cwChecks = 0;
-		if (s_cwChecks < 4) {
-			s_cwChecks++;
-			GLboolean m[4] = {GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE};
-			glGetBooleanv(GL_COLOR_WRITEMASK, m);
-			fprintf(stderr, "[gxstencil] D3D asked COLORWRITEENABLE=0; GL reports "
-				"colormask r=%d g=%d b=%d a=%d (all zero = correctly disabled)\n",
-				(int)m[0], (int)m[1], (int)m[2], (int)m[3]);
-		}
-	}
 
 	// Stencil
 	if (dev->getRenderState(D3DRS_STENCILENABLE)) {
@@ -1680,14 +1663,49 @@ void WebGLPipeline::applyFixedState(WebGLDevice *dev)
 			}
 		}
 		glEnable(GL_STENCIL_TEST);
-		const DWORD func = dev->getRenderState(D3DRS_STENCILFUNC);
-		glStencilFunc(d3dCmpToGL(func ? func : D3DCMP_ALWAYS),
-		              (GLint)dev->getRenderState(D3DRS_STENCILREF),
-		              dev->getRenderState(D3DRS_STENCILMASK) ? dev->getRenderState(D3DRS_STENCILMASK) : 0xFFFFFFFF);
+		// GeneralsX @bugfix Android port 09/05/2026 Two deviations from D3D8
+		// semantics used to live in these three calls, and together they broke
+		// stencil shadow volumes on GLES while leaving DXVK unaffected.
+		//
+		// 1. The reference value was cast straight to a signed GLint.
+		//    W3DVolumetricShadow's fill passes set D3DRS_STENCILREF =
+		//    0x80808080, which as a GLint is -2139062144. GLES 3.0 4.1.4 says
+		//    ref is clamped to [0, 2^s - 1], so a negative value clamps to 0.
+		// 2. A D3DRS_STENCILMASK of 0 was treated as "never set" and replaced
+		//    with 0xFFFFFFFF. Zero is a real D3D value meaning "compare no
+		//    bits", i.e. the test always passes -- and it is exactly what the
+		//    engine asks for here, since TheW3DShadowManager's stencil shadow
+		//    mask is 0 (W3DShadow.cpp) when the player-colour occluder feature
+		//    is off. Substituting a full mask turned a guaranteed pass into a
+		//    real comparison.
+		//
+		// Together those made the fill passes run as
+		// glStencilFunc(GL_GEQUAL, 0, 0xFF) -- "pass only where the stencil is
+		// still 0" -- instead of "always pass". The INCR pass then raised the
+		// whole volume silhouette to 1, and the DECR pass, meeting a buffer
+		// that now held 1, failed the stencil test everywhere it had just
+		// incremented (STENCILFAIL is KEEP, so nothing decremented). The far
+		// half never cancelled the near half, the entire silhouette stayed at
+		// 1, and the darkening quad painted all of it -- the dark slab
+		// reported around aircraft.
+		//
+		// This also explains the two results that made no sense before:
+		// inverting the cull face changed nothing (whichever half draws first
+		// paints the silhouette to 1 and locks the other half out through the
+		// stencil test, and both halves share a screen footprint), and the
+		// occlusion probe still saw samples in the DECR pass (fringe pixels
+		// and depth-failed regions were left at 0 and did survive).
+		//
+		// The masks are now passed through verbatim; the device seeds D3D8's
+		// documented stencil defaults so a zero here really does mean the game
+		// asked for zero (see WebGLDevice's constructor).
+		glStencilFunc(d3dCmpToGL(dev->getRenderState(D3DRS_STENCILFUNC)),
+		              (GLint)(dev->getRenderState(D3DRS_STENCILREF) & 0xFFu),
+		              (GLuint)dev->getRenderState(D3DRS_STENCILMASK));
 		glStencilOp(d3dStencilOpToGL(dev->getRenderState(D3DRS_STENCILFAIL)),
 		            d3dStencilOpToGL(dev->getRenderState(D3DRS_STENCILZFAIL)),
 		            d3dStencilOpToGL(dev->getRenderState(D3DRS_STENCILPASS)));
-		glStencilMask(dev->getRenderState(D3DRS_STENCILWRITEMASK) ? dev->getRenderState(D3DRS_STENCILWRITEMASK) : 0xFFFFFFFF);
+		glStencilMask((GLuint)dev->getRenderState(D3DRS_STENCILWRITEMASK));
 	} else {
 		glDisable(GL_STENCIL_TEST);
 	}
@@ -2161,39 +2179,6 @@ void WebGLPipeline::drawCommon(WebGLDevice *dev, unsigned primType, unsigned pri
 	const GLenum mode = primModeGL(primType);
 	const unsigned count = primVertexCount(primType, primCount);
 
-	// GeneralsX @build Android port 09/05/2026 Occlusion-query probe for the
-	// shadow-volume fill. The draw-call counter said the two z-pass halves are
-	// perfectly balanced (incr=7830 decr=7830), but a draw call whose triangles
-	// are all culled still counts as a draw -- so that instrument could never
-	// answer the actual question: does the SECOND pass rasterize anything?
-	// GL_ANY_SAMPLES_PASSED answers it directly. Capped hard at a handful of
-	// draws for the whole session: reading a query back stalls the pipeline.
-	// The budget is PER STENCIL OP, not shared. A single shared budget was
-	// spent entirely on INCR draws inside the first frame and never reached the
-	// DECR pass at all -- which is the pass the probe exists to measure.
-	bool gxQueryActive = false;
-	static int s_gxQueryBudget[2] = {12, 12};	// [0] = INCR-like, [1] = DECR-like
-	static GLuint s_gxQuery = 0;
-	const bool gxIsVolumeFill = dev->getRenderState(D3DRS_STENCILENABLE) != 0 &&
-	                            dev->getRenderState(D3DRS_COLORWRITEENABLE) == 0;
-	int gxQueryBucket = -1;
-	if (gxIsVolumeFill) {
-		switch (dev->getRenderState(D3DRS_STENCILPASS)) {
-		case D3DSTENCILOP_INCR:
-		case D3DSTENCILOP_INCRSAT: gxQueryBucket = 0; break;
-		case D3DSTENCILOP_DECR:
-		case D3DSTENCILOP_DECRSAT: gxQueryBucket = 1; break;
-		default: break;
-		}
-	}
-	if (gxQueryBucket >= 0 && s_gxQueryBudget[gxQueryBucket] > 0) {
-		if (s_gxQuery == 0) glGenQueries(1, &s_gxQuery);
-		if (s_gxQuery != 0) {
-			glBeginQuery(GL_ANY_SAMPLES_PASSED, s_gxQuery);
-			gxQueryActive = true;
-		}
-	}
-
 	if (indexFormat != 0) {
 		const GLenum itype = (indexFormat == D3DFMT_INDEX32) ? GL_UNSIGNED_INT : GL_UNSIGNED_SHORT;
 		const unsigned isize = (indexFormat == D3DFMT_INDEX32) ? 4 : 2;
@@ -2201,18 +2186,6 @@ void WebGLPipeline::drawCommon(WebGLDevice *dev, unsigned primType, unsigned pri
 	} else {
 		glDrawArrays(mode, startIndex, count);
 	}
-	if (gxQueryActive) {
-		glEndQuery(GL_ANY_SAMPLES_PASSED);
-		GLuint anyPassed = 0;
-		glGetQueryObjectuiv(s_gxQuery, GL_QUERY_RESULT, &anyPassed);
-		s_gxQueryBudget[gxQueryBucket]--;
-		const unsigned op = dev->getRenderState(D3DRS_STENCILPASS);
-		fprintf(stderr, "[gxstencil] volume draw op=%s cull=%u tris=%u -> samplesPassed=%u\n",
-			(op == D3DSTENCILOP_INCR || op == D3DSTENCILOP_INCRSAT) ? "INCR" :
-			(op == D3DSTENCILOP_DECR || op == D3DSTENCILOP_DECRSAT) ? "DECR" : "other",
-			(unsigned)dev->getRenderState(D3DRS_CULLMODE), primCount, anyPassed);
-	}
-
 	m_perfDrawsThisFrame++;
 	s_gxDrawsByCategory[s_gxDrawCategory]++;
 	// Shadow-volume fill draws are the ones with the stencil on and colour

@@ -1049,6 +1049,20 @@ public:
 		m_renderStates[D3DRS_DIFFUSEMATERIALSOURCE] = D3DMCS_COLOR1;
 		m_renderStates[D3DRS_SPECULARMATERIALSOURCE] = D3DMCS_COLOR2;
 		// AMBIENT/EMISSIVEMATERIALSOURCE default to D3DMCS_MATERIAL (0).
+		// GeneralsX @bugfix Android port 09/05/2026 Stencil defaults. These
+		// matter for the same reason COLORWRITEENABLE above does: zero is a
+		// MEANINGFUL value for the mask states (D3D compares/writes no bits),
+		// so the pipeline must be able to tell "the game asked for 0" from
+		// "nobody ever set this". Seeding D3D8's documented defaults here is
+		// what lets applyFixedState pass these through verbatim instead of
+		// second-guessing a zero -- see the stencil block there for the bug
+		// that guessing caused.
+		m_renderStates[D3DRS_STENCILFUNC] = D3DCMP_ALWAYS;
+		m_renderStates[D3DRS_STENCILMASK] = 0xFFFFFFFF;
+		m_renderStates[D3DRS_STENCILWRITEMASK] = 0xFFFFFFFF;
+		m_renderStates[D3DRS_STENCILFAIL] = D3DSTENCILOP_KEEP;
+		m_renderStates[D3DRS_STENCILZFAIL] = D3DSTENCILOP_KEEP;
+		m_renderStates[D3DRS_STENCILPASS] = D3DSTENCILOP_KEEP;
 		// Phase 2: bring up the WebGL2 pipeline on the canvas.
 		WebGLPipeline::get()->initContext((int)m_pp.BackBufferWidth, (int)m_pp.BackBufferHeight,
 			(SDL_Window *)focusWindow);
