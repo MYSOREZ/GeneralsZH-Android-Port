@@ -40,9 +40,55 @@
 #include "WW3D2/rinfo.h"
 #include "WW3D2/camera.h"
 #include "WW3D2/sortingrenderer.h"
+#include <cstdio>
+#if defined(__ANDROID__)
+// GeneralsX @perf Android port 09/05/2026 Forward-declared rather than pulling
+// in "d3d8gles.h": that header lives in the d3d8gles target's include dir,
+// which this target (gameenginedevice) does not carry, and widening the
+// include paths for a single bool query isn't worth it. The symbol resolves at
+// link time -- everything here ends up in the same libmain.so. Declaration
+// mirrors Core/Libraries/Source/d3d8gles/include/d3d8gles.h exactly.
+extern "C" bool d3d8gles_ShouldUseVulkanBackend();
+#endif
 
 
 SmudgeManager *TheSmudgeManager=nullptr;
+
+// GeneralsX @perf Android port 09/05/2026 The heat-distortion (smudge) effect
+// works by copying the finished backbuffer into a texture and re-sampling it
+// with per-smudge UV offsets. That requires reading back what was actually
+// rendered. On the native GLES backend it cannot: SurfaceClass::Copy ends up in
+// d3d8gles.cpp's CopyRects, which is a CPU memcpy between the surfaces' SHADOW
+// bit buffers in system RAM -- it never touches the real GL framebuffer, and
+// nothing ever writes rendered pixels back into the backbuffer's shadow. So the
+// effect samples an empty buffer and produces nothing visible.
+//
+// What it does cost, every frame that has even one visible smudge (i.e. any
+// on-screen explosion), at a 2510x1156 backbuffer:
+//   1. ~11.6 MB CPU memcpy in W3DSmudgeManager::render()'s full-surface Copy;
+//   2. that Copy sets m_ownerGL->dirty, so the next bindTextures() calls
+//      uploadTexture() -- another ~11.6 MB pushed CPU->GPU.
+// ~23 MB of memory-bus traffic per frame, ~700 MB/s at 30fps, for an invisible
+// effect -- on a tile-based mobile GPU where bandwidth is the scarce resource.
+// It also explains why explosions specifically tank the framerate.
+//
+// testHardwareSupport() was supposed to catch exactly this, but its first
+// branch returns SMUDGE_SUPPORT_YES unconditionally whenever render-to-texture
+// is off and m_backgroundTexture exists, without running its readback probe --
+// and the probe itself would be meaningless here anyway, since it validates
+// through the same non-functional readback path.
+//
+// So: report the effect as unsupported on the native GLES backend, which is the
+// honest answer. Vulkan/DXVK keeps it (DXVK implements a real backbuffer
+// readback), and non-Android builds are untouched.
+static inline bool GeneralsX_SmudgeUsableOnThisBackend()
+{
+#if defined(__ANDROID__)
+	return d3d8gles_ShouldUseVulkanBackend();
+#else
+	return true;
+#endif
+}
 
 W3DSmudgeManager::W3DSmudgeManager()
 {
@@ -86,7 +132,22 @@ void W3DSmudgeManager::ReAcquireResources()
 	surface->Get_Description(surface_desc);
 	REF_PTR_RELEASE(surface);
 
-	m_backgroundTexture = MSGNEW("TextureClass") TextureClass(surface_desc.Width,surface_desc.Height,surface_desc.Format,MIP_LEVELS_1,TextureClass::POOL_DEFAULT, true);
+	// GeneralsX @perf Android port 09/05/2026 Skip the full-screen background
+	// texture on the native GLES backend -- the effect is reported unsupported
+	// there (see GeneralsX_SmudgeUsableOnThisBackend()), so this would be a
+	// pure ~11.6 MB allocation that nothing ever samples. Leaving it null also
+	// keeps testHardwareSupport()'s own first branch from claiming support.
+	if (GeneralsX_SmudgeUsableOnThisBackend())
+	{
+		m_backgroundTexture = MSGNEW("TextureClass") TextureClass(surface_desc.Width,surface_desc.Height,surface_desc.Format,MIP_LEVELS_1,TextureClass::POOL_DEFAULT, true);
+	}
+	else
+	{
+		fprintf(stderr, "INFO: smudge/heat-distortion disabled on the native GLES backend "
+			"(no working backbuffer readback; saves a %ux%u render-target texture and "
+			"~23 MB/frame of bus traffic during explosions)\n",
+			surface_desc.Width, surface_desc.Height);
+	}
 
 	m_backBufferWidth = surface_desc.Width;
 	m_backBufferHeight = surface_desc.Height;
@@ -204,6 +265,18 @@ Bool W3DSmudgeManager::testHardwareSupport()
 {
 	if (m_hardwareSupportStatus == SMUDGE_SUPPORT_UNKNOWN)
 	{	//we have not done the test yet.
+
+		// GeneralsX @perf Android port 09/05/2026 See
+		// GeneralsX_SmudgeUsableOnThisBackend()'s comment: the native GLES
+		// backend has no working backbuffer readback, so this effect renders
+		// nothing while costing ~23 MB of memory-bus traffic per frame with
+		// explosions on screen. Answer honestly before the probe below, which
+		// would otherwise short-circuit to YES without testing anything.
+		if (!GeneralsX_SmudgeUsableOnThisBackend())
+		{
+			m_hardwareSupportStatus = SMUDGE_SUPPORT_NO;
+			return FALSE;
+		}
 
 		IDirect3DTexture8 *backTexture=W3DShaderManager::getRenderTexture();
 		if (!backTexture || !W3DShaderManager::isRenderingToTexture())
