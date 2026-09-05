@@ -57,6 +57,12 @@ Every one of these is a *silent* corruption class they hit and documented; grep 
 | **MSVC builtins** | `__max/__min/__int64/__forceinline` | One compat-types header; grep audit |
 | **High-DPI** | window points ≠ drawable pixels: input lands wrong / render in a corner (both they and we hit variants) | Decide pixel-vs-point per API call; verify input scaling end-to-end with a corner tap |
 | **Dual package roots** | Two Homebrews (Intel + ARM) → pkg-config silently picks wrong arch | Pin `PKG_CONFIG_PATH`; check `lipo -info` of what you linked |
+| **Graphics API conventions** | Engine code contains *deliberate corrections* for the old API's conventions (pixel-center/half-pixel offsets, viewport Y origin, clip-space Y, render-target texture origin, default address mode). Under a **faithful translator** (DXVK) they still do their job; under a **native reimplementation** (our GLES backend) they become real, uncompensated errors — a half-pixel shift, a flipped frame, an edge streak | Enumerate the conventions before writing backend code; grep `0.5`/`bias`/`flip`/`RHW`/`texel` near screen-space code. "Correct on the translator, wrong on the native backend" is the fingerprint. Full case study + debugging method: `docs/WORKDIR/lessons/LESSON-d3d-vs-gl-rasterization-conventions.md` |
+
+**When every input measures correct but the picture is wrong**, the bug is *downstream of what
+you are measuring* — instrument the final value handed to the GPU, and enumerate every term of
+the transform (`out = in*scale + offset`), not just the obvious one. That lesson file documents
+the ~15-hypothesis hunt that rule came from.
 
 ## 5. Verification: determinism as the master gate
 

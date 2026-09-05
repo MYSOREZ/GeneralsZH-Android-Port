@@ -122,6 +122,13 @@ cmake --build build/macos-vulkan --target z_generals
 - **SDL3 from source**: Fetched via CMake FetchContent. No system package needed.
 - **Manual memory**: Always delete/delete[]. Use STLPort for VC6 legacy builds.
 - **Debug options break replays**: Use `RTS_BUILD_OPTION_DEBUG=OFF` for replay tests.
+- **Rendering correct on Vulkan but wrong on GLES (or vice versa)**: almost always a D3D↔GL
+  *convention* mismatch, not a logic bug — the engine's D3D-era corrections (half-pixel offset,
+  viewport Y origin, clip-space Y, render-target texture origin, default address mode) are
+  right under DXVK and wrong under the native GLES backend. Read
+  `docs/WORKDIR/lessons/LESSON-d3d-vs-gl-rasterization-conventions.md` **before** hypothesis-hunting;
+  it lists the known instances and the debugging method (measure the transform's *output*, not
+  its inputs).
 
 ## Testing & Validation
 ### Smoke test
