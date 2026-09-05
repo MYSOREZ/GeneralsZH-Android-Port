@@ -2220,16 +2220,28 @@ void WebGLPipeline::drawCommon(WebGLDevice *dev, unsigned primType, unsigned pri
 	// which is why two logs of the same scene look identical everywhere the
 	// fault has to live. Read from the device-side state, one line per category
 	// per window, so it costs nothing.
-	if (s_gxDrawCategory == GX_DRAWCAT_TERRAIN || s_gxDrawCategory == GX_DRAWCAT_MODELS) {
-		static unsigned s_lastDumpFrame[2] = {~0u, ~0u};
-		const int slot = (s_gxDrawCategory == GX_DRAWCAT_TERRAIN) ? 0 : 1;
+	// GeneralsX @build Android port 09/05/2026 The first version of this dump
+	// omitted the DEPTH state, which was a real gap: the Low-detail terrain
+	// draws turned out to have entirely correct colour/blend/stage state and
+	// still not appear, and the screenshot shows water covering ground that
+	// should be in front of it. Depth compare/write is the one thing that
+	// decides that and it was the one thing not being reported. OTHER is
+	// included now too, because that is the bucket the water draws land in.
+	if (s_gxDrawCategory == GX_DRAWCAT_TERRAIN || s_gxDrawCategory == GX_DRAWCAT_MODELS ||
+	    s_gxDrawCategory == GX_DRAWCAT_OTHER) {
+		static unsigned s_lastDumpFrame[3] = {~0u, ~0u, ~0u};
+		const int slot = (s_gxDrawCategory == GX_DRAWCAT_TERRAIN) ? 0
+		               : (s_gxDrawCategory == GX_DRAWCAT_MODELS)  ? 1 : 2;
 		// Once per ~4 seconds per category, not per frame.
 		if ((m_frame % 120u) == 1u && s_lastDumpFrame[slot] != m_frame) {
 			s_lastDumpFrame[slot] = m_frame;
-			fprintf(stderr, "[gxstate] %s tex0=%p tex1=%p | blend=%u src=%u dst=%u "
+			fprintf(stderr, "[gxstate] %s zEnable=%u zFunc=%u zWrite=%u | tex0=%p tex1=%p | blend=%u src=%u dst=%u "
 				"alphaTest=%u colorWrite=0x%x tFactor=0x%x | s0: op=%u a1=%u a2=%u aop=%u tci=%u "
 				"| s1: op=%u a1=%u a2=%u aop=%u tci=%u\n",
-				slot == 0 ? "TERRAIN" : "MODELS ",
+				slot == 0 ? "TERRAIN" : slot == 1 ? "MODELS " : "OTHER  ",
+				(unsigned)dev->getRenderState(D3DRS_ZENABLE),
+				(unsigned)dev->getRenderState(D3DRS_ZFUNC),
+				(unsigned)dev->getRenderState(D3DRS_ZWRITEENABLE),
 				(void *)dev->getTexture2D(0), (void *)dev->getTexture2D(1),
 				(unsigned)dev->getRenderState(D3DRS_ALPHABLENDENABLE),
 				(unsigned)dev->getRenderState(D3DRS_SRCBLEND),
