@@ -1082,6 +1082,17 @@ public:
 		//   switch to High -> [gxstate] TERRAIN zEnable=1 ...
 		//   back to Low    -> [gxstate] TERRAIN zEnable=1 ... (stays repaired)
 		m_renderStates[D3DRS_ZENABLE] = D3DZB_TRUE;
+		m_renderStates[D3DRS_ZWRITEENABLE] = TRUE;
+		m_renderStates[D3DRS_ZFUNC] = D3DCMP_LESSEQUAL;
+		// The rest of the D3D8 defaults the pipeline actually reads. Same rule
+		// as above: a zero here must mean "the game asked for zero", so every
+		// state whose documented default is non-zero has to be seeded rather
+		// than pattern-matched at the point of use.
+		m_renderStates[D3DRS_CULLMODE] = D3DCULL_CCW;
+		m_renderStates[D3DRS_SRCBLEND] = D3DBLEND_ONE;
+		m_renderStates[D3DRS_DESTBLEND] = D3DBLEND_ZERO;
+		m_renderStates[D3DRS_ALPHAFUNC] = D3DCMP_ALWAYS;
+		m_renderStates[D3DRS_TEXTUREFACTOR] = 0xFFFFFFFF;
 		// GeneralsX @build Android port 09/05/2026 Prints the seeded values back
 		// out. Two consecutive builds differed ONLY by this seeding and emitted
 		// no distinguishing log line, so when a device log came back still
@@ -1099,17 +1110,6 @@ public:
 			(unsigned)m_renderStates[D3DRS_DESTBLEND],
 			(unsigned)m_renderStates[D3DRS_ALPHAFUNC],
 			(unsigned)m_renderStates[D3DRS_TEXTUREFACTOR]);
-		m_renderStates[D3DRS_ZWRITEENABLE] = TRUE;
-		m_renderStates[D3DRS_ZFUNC] = D3DCMP_LESSEQUAL;
-		// The rest of the D3D8 defaults the pipeline actually reads. Same rule
-		// as above: a zero here must mean "the game asked for zero", so every
-		// state whose documented default is non-zero has to be seeded rather
-		// than pattern-matched at the point of use.
-		m_renderStates[D3DRS_CULLMODE] = D3DCULL_CCW;
-		m_renderStates[D3DRS_SRCBLEND] = D3DBLEND_ONE;
-		m_renderStates[D3DRS_DESTBLEND] = D3DBLEND_ZERO;
-		m_renderStates[D3DRS_ALPHAFUNC] = D3DCMP_ALWAYS;
-		m_renderStates[D3DRS_TEXTUREFACTOR] = 0xFFFFFFFF;
 		// D3DRS_LIGHTING's documented default is TRUE, and it is deliberately
 		// NOT seeded: every engine path that wants lighting sets it explicitly
 		// (VertexMaterialClass::Apply, ShaderClass), so seeding it would light

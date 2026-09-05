@@ -93,6 +93,42 @@ DXVK is unaffected because D3D applies the mask to both operands and the ref is 
 `0xFFFFFFFF`, the three ops `KEEP`) so a zero really means the game asked for zero, then pass
 ref and both masks through verbatim, masking the ref into the stencil range **unsigned**.
 
+## Case 3 — geometry invisible below High detail
+
+**Symptom as reported**: "half the textures are missing" after starting the game on Medium or
+Low; switching to High fixes it; a *live* switch down to Low is fine.
+
+It was neither textures nor missing. The geometry was drawn every frame, with entirely correct
+texture, colour, blend and stage state — and then overpainted, because **the depth test was off
+for the whole scene**.
+
+`D3DRS_ZENABLE` defaults to `D3DZB_TRUE` in D3D8 and the engine relies on that: `ShaderClass::Apply`
+drives `D3DRS_ZFUNC` and `D3DRS_ZWRITEENABLE` and **never touches `ZENABLE`**, because under a real
+runtime the depth test is already on. The device's render-state array started zeroed, so `ZENABLE`
+read back as `D3DZB_FALSE`, the pipeline called `glDisable(GL_DEPTH_TEST)`, everything drew in
+submission order — and the water, drawn last from `Render_And_Clear_Static_Sort_Lists`, painted
+over the terrain in front of it.
+
+The detail-level dependency had nothing to do with textures or with detail as such: `W3DVolumetricShadow`'s
+stencil passes do `SetRenderState(D3DRS_ZENABLE, TRUE)`, and shadow volumes are on only at High and
+above. That one incidental write repaired the state for the rest of the session. Hence: broken on a
+fresh Low/Medium start, fine after a live switch *down* (already repaired), permanently fixed by
+visiting High once.
+
+The dump caught it in a single log by watching the value change with the setting:
+
+```
+start on Low     -> [gxstate] TERRAIN zEnable=0 ...   (broken)
+switch to High   -> [gxstate] TERRAIN zEnable=1 ...   (correct)
+back to Low      -> [gxstate] TERRAIN zEnable=1 ...   (stays correct)
+```
+
+Same fix as the other two cases: seed D3D8's documented defaults in the device
+(`ZENABLE`, `ZWRITEENABLE`, `ZFUNC`, `CULLMODE`, `SRCBLEND`, `DESTBLEND`, `ALPHAFUNC`,
+`TEXTUREFACTOR`). Note the consumer side had *guarded* every neighbouring zero
+(`zfunc ? zfunc : D3DCMP_LESSEQUAL`, `sb ? sb : D3DBLEND_ONE`) and left `ZENABLE` unguarded —
+the point-of-use patching that rule 1 warns against, applied inconsistently, which is how it hid.
+
 ## The debugging methodology — the part worth reusing
 
 This hunt cost roughly a dozen device round-trips. Most of that was avoidable.
@@ -133,6 +169,35 @@ After the cull flip failed, every idea I had left was a variation on ones alread
 An independent audit of the same code — given the measured facts and told not to re-derive
 them — found the root cause in one pass. The value was not extra compute; it was **not having
 my accumulated assumptions**.
+
+### An instrument chosen to fit your theory will confirm your theory
+
+Twice in the same hunt a counter was added, went up, and was read as the fingerprint of the bug:
+
+- **Stage-0 texture collapses.** Believed to mark draws rendering black. It turned out to be
+  *inversely* correlated: 16936 per window in the CORRECT High run, 180 in the BROKEN Low run.
+  It counts untextured draws, i.e. scene complexity. The earlier "healthy 6-549 vs broken 14490"
+  reading that launched the theory was menu-versus-in-game, not Low-versus-High in the same scene.
+- **The state dump that finally found it** did not report depth on its first version, because its
+  fields were chosen to match the theory already held.
+
+**Pick the fields, and the control, before you know what you expect to see.** A counter compared
+against a different scene is not a control.
+
+### A change whose whole effect is a value must print that value
+
+Two consecutive builds differed *only* by seeding a render-state default, and neither emitted a
+line naming it. A device log came back still showing the old value, and it was impossible to tell
+"the fix is not in the build you tested" from "the fix is there and something overwrites it".
+That ambiguity cost a full test round — and the answer was the boring one: the tester had the
+older APK.
+
+Two things make this impossible to repeat:
+- every build already stamps `CI build number:` (from `date +%s`); **read it off the tester's log
+  and compare it against the build you meant to ship, before interpreting anything else**;
+- print the values themselves. (And place that print *after* every assignment it reports —
+  the first version of this very line sat mid-block and reported seven of its eight fields as
+  zeros, recreating the ambiguity it existed to remove.)
 
 ### What actually worked, throughout
 

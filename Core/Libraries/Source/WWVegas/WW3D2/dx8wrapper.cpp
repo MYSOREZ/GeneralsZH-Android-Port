@@ -409,6 +409,25 @@ void DX8Wrapper::Pillarbox_End()
 	D3DDevice->SetVertexShader(D3DFVF_XYZRHW | D3DFVF_TEX1);
 	D3DDevice->DrawPrimitiveUP(D3DPT_TRIANGLESTRIP, 2, quad, sizeof(BV));
 	Set_DX8_Texture(0, nullptr);
+
+	// GeneralsX @bugfix Android port 09/05/2026 Restore the depth state this
+	// function turned off for the blit quad. It used to leave
+	// D3DRS_ZENABLE = FALSE behind, and nothing in the engine ever turns the
+	// depth TEST back on: ShaderClass drives ZFUNC and ZWRITEENABLE but never
+	// ZENABLE, because under a real D3D8 runtime it defaults to TRUE and stays
+	// there. The only other writers are W3DVolumetricShadow's stencil passes
+	// (High detail and above) and two occlusion paths in W3DScene that need
+	// units actually hidden behind buildings -- none of which is guaranteed to
+	// run. So with pillarbox enabled this reproduces, from frame 2 onward and
+	// at ANY detail level, exactly the bug being chased on Low: depth testing
+	// off for the whole scene, everything drawn in submission order, and the
+	// water painting over the terrain in front of it.
+	//
+	// Pillarbox happens to be inactive in the sessions where that bug was
+	// reported, so this is not its cause there -- it is the same defect waiting
+	// on a different trigger.
+	Set_DX8_Render_State(D3DRS_ZENABLE, D3DZB_TRUE);
+	Set_DX8_Render_State(D3DRS_ZWRITEENABLE, TRUE);
 }
 
 // GeneralsX @bugfix Android port 08/30/2026 EXPERIMENT: real separation of
