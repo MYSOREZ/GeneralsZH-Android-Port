@@ -109,6 +109,7 @@ cmake --preset "${PRESET}" \
   -DFETCHCONTENT_SOURCE_DIR_SDL3="${FETCHCONTENT_SRC}/SDL3-src" \
   -DFETCHCONTENT_SOURCE_DIR_SDL3_IMAGE="${FETCHCONTENT_SRC}/SDL3_image-src" \
   -DFETCHCONTENT_SOURCE_DIR_OPENAL_SOFT="${FETCHCONTENT_SRC}/openal-soft-src" \
+  ${GX_EXTRA_CMAKE:-} \
   2>&1 | tee logs/configure_android.log
 
 # DXVK's meson build finds SDL3 via a generated sdl3.pc that hardcodes

@@ -292,3 +292,14 @@ if(RTS_BUILD_OPTION_FFMPEG)
 endif()
 
 # CURL::libcurl is now propagated transitively via corei_gameengine_public (Core/GameEngine/CMakeLists.txt).
+
+# GeneralsX @build Android port 09/05/2026 A/B DIAGNOSTIC SWITCH -- temporary.
+# Skips every projected shadow decal (W3DProjectedShadowManager::flushDecals) so
+# a device test can say whether the dark quad reported around helicopters comes
+# from the shadow subsystem at all, or from the aircraft model's own translucent
+# rotor geometry. OFF by default; the diagnostic APK is built with it ON. Remove
+# this block, and its guard in W3DProjectedShadow.cpp, once the answer is in.
+option(GENERALSX_AB_DISABLE_SHADOW_DECALS "A/B diagnostic: skip all shadow decal draws" OFF)
+if(GENERALSX_AB_DISABLE_SHADOW_DECALS)
+    target_compile_definitions(z_gameenginedevice PRIVATE GENERALSX_AB_DISABLE_SHADOW_DECALS)
+endif()

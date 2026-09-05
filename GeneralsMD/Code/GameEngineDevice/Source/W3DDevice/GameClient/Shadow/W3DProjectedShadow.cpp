@@ -697,6 +697,34 @@ void W3DProjectedShadowManager::flushDecals(W3DShadowTexture *texture, ShadowTyp
 	LPDIRECT3DDEVICE8 m_pDev=DX8Wrapper::_Get_D3D_Device8();
 	if (!m_pDev)	return;	//no D3D Device to render
 
+#if defined(GENERALSX_AB_DISABLE_SHADOW_DECALS)
+	// GeneralsX @build Android port 09/05/2026 A/B DIAGNOSTIC BUILD ONLY -- not
+	// a fix, and not to be merged enabled. The artifact around helicopters is
+	// described as a dark translucent quad that moves with the aircraft, which
+	// fits two completely different subsystems equally well: this ground-decal
+	// path, or the aircraft model's own translucent rotor-blur geometry (a
+	// sorted/alpha-blended sub-mesh, nothing to do with shadows). Three fixes
+	// have now been aimed at shadow code without moving the symptom, so stop
+	// aiming and split the space instead: with every shadow decal skipped, if
+	// the quad is still there it is model geometry and the whole shadow
+	// subsystem is exonerated. The diagnostic log above already established
+	// this path only ever draws two textures (shadow.tga, ShadowI.tga, both
+	// DXT5 64x64 with a real alpha channel), so skipping here removes all of
+	// them and nothing else.
+	{
+		static bool s_logged = false;
+		if (!s_logged) {
+			s_logged = true;
+			fprintf(stderr, "[gxshadow] A/B BUILD: all shadow decals disabled\n");
+		}
+		nShadowDecalStartBatchVertex=nShadowDecalVertsInBuf;
+		nShadowDecalStartBatchIndex=nShadowDecalIndicesInBuf;
+		nShadowDecalPolysInBatch=0;
+		nShadowDecalVertsInBatch=0;
+		return;
+	}
+#endif
+
 	VertexMaterialClass *vmat=VertexMaterialClass::Get_Preset(VertexMaterialClass::PRELIT_DIFFUSE);
 	DX8Wrapper::Set_Material(vmat);
 	REF_PTR_RELEASE(vmat);
