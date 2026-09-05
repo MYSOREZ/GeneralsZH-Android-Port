@@ -1976,23 +1976,67 @@ void WebGLPipeline::bindArrayBuffer(GLuint name)
 // can never disturb whatever VAO bindVertexLayout() left bound from the
 // previous draw (see that function's comment for why GL_ELEMENT_ARRAY_BUFFER
 // specifically would be unsafe to touch mid-VAO otherwise).
+// GeneralsX @perf Android port 09/05/2026 This used to respecify the ENTIRE
+// buffer with glBufferData on every update. For the engine's shared dynamic VB
+// (DEFAULT_VB_SIZE = 5000 vertices, ~220 KB at dynamic_fvf_type's 44
+// bytes/vertex) that meant a full 220 KB re-upload for callers that wrote only
+// a handful of quads into it -- Render2DClass::Render() does exactly that, and
+// real-device timings measured it at 16-59 ms/frame across just 24-60 UI draws
+// (~0.5-1 ms per draw, about half the frame). SortingRendererClass::Flush
+// streams particles through the same buffer.
+//
+// Now: allocate storage once, then push only the byte range Lock/Unlock
+// actually recorded (GLBufferState::markRange). Deliberately NOT orphaning
+// (glBufferData with nullptr) before each glBufferSubData: this is a
+// ring-style dynamic buffer where earlier sub-ranges belong to draws already
+// submitted but not necessarily consumed yet, and orphaning would discard
+// them. That matches D3D8's own NOOVERWRITE semantics for this usage.
 void WebGLPipeline::ensureVBUploaded(WebGLVertexBuffer *vb)
 {
-	if (vb->m_gl.name == 0) glGenBuffers(1, &vb->m_gl.name);
+	if (vb->m_gl.name == 0) {
+		glGenBuffers(1, &vb->m_gl.name);
+		vb->m_gl.allocated = false;
+	}
 	if (vb->m_gl.dirty) {
 		glBindBuffer(GL_COPY_WRITE_BUFFER, vb->m_gl.name);
-		glBufferData(GL_COPY_WRITE_BUFFER, vb->m_bits.size(), vb->m_bits.data(), GL_DYNAMIC_DRAW);
+		const bool haveRange = vb->m_gl.dirtyBegin < vb->m_gl.dirtyEnd;
+		if (!vb->m_gl.allocated || !haveRange) {
+			// First use, or an update with no recorded range: full upload,
+			// which also (re)allocates the GL storage.
+			glBufferData(GL_COPY_WRITE_BUFFER, vb->m_bits.size(), vb->m_bits.data(), GL_DYNAMIC_DRAW);
+			vb->m_gl.allocated = true;
+		} else {
+			glBufferSubData(GL_COPY_WRITE_BUFFER, (GLintptr)vb->m_gl.dirtyBegin,
+				(GLsizeiptr)(vb->m_gl.dirtyEnd - vb->m_gl.dirtyBegin),
+				vb->m_bits.data() + vb->m_gl.dirtyBegin);
+		}
 		vb->m_gl.dirty = false;
+		vb->m_gl.clearRange();
 	}
 }
 
+// GeneralsX @perf Android port 09/05/2026 Same range-only upload as
+// ensureVBUploaded above -- see that comment for the reasoning and the
+// measurements.
 void WebGLPipeline::ensureIBUploaded(WebGLIndexBuffer *ib)
 {
-	if (ib->m_gl.name == 0) glGenBuffers(1, &ib->m_gl.name);
+	if (ib->m_gl.name == 0) {
+		glGenBuffers(1, &ib->m_gl.name);
+		ib->m_gl.allocated = false;
+	}
 	if (ib->m_gl.dirty) {
 		glBindBuffer(GL_COPY_WRITE_BUFFER, ib->m_gl.name);
-		glBufferData(GL_COPY_WRITE_BUFFER, ib->m_bits.size(), ib->m_bits.data(), GL_DYNAMIC_DRAW);
+		const bool haveRange = ib->m_gl.dirtyBegin < ib->m_gl.dirtyEnd;
+		if (!ib->m_gl.allocated || !haveRange) {
+			glBufferData(GL_COPY_WRITE_BUFFER, ib->m_bits.size(), ib->m_bits.data(), GL_DYNAMIC_DRAW);
+			ib->m_gl.allocated = true;
+		} else {
+			glBufferSubData(GL_COPY_WRITE_BUFFER, (GLintptr)ib->m_gl.dirtyBegin,
+				(GLsizeiptr)(ib->m_gl.dirtyEnd - ib->m_gl.dirtyBegin),
+				ib->m_bits.data() + ib->m_gl.dirtyBegin);
+		}
 		ib->m_gl.dirty = false;
+		ib->m_gl.clearRange();
 	}
 }
 

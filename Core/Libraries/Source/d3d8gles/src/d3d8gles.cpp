@@ -844,16 +844,33 @@ public:
 	void PreLoad() override {}
 	D3DRESOURCETYPE GetType() override { return D3DRTYPE_VERTEXBUFFER; }
 
-	HRESULT Lock(UINT offset, UINT /*size*/, BYTE **ppbData, DWORD /*flags*/) override
+	// GeneralsX @perf Android port 09/05/2026 The `size` argument used to be
+	// ignored and Unlock() just flagged the whole buffer dirty, so
+	// ensureVBUploaded respecified ALL of it on every update. The engine's
+	// shared dynamic VB is DEFAULT_VB_SIZE (5000) vertices -- ~220 KB at
+	// dynamic_fvf_type's 44 bytes/vertex -- and Render2DClass::Render() locks
+	// just a few quads out of it per call. Real-device timings put that at
+	// 16-59 ms/frame for only 24-60 UI draws (~0.5-1 ms per draw), roughly
+	// half the frame; SortingRendererClass::Flush (particles, 200+ draws)
+	// streams through the same buffer. Record what was actually written so
+	// only that range is uploaded.
+	HRESULT Lock(UINT offset, UINT size, BYTE **ppbData, DWORD /*flags*/) override
 	{
 		if (!ppbData || offset > m_bits.size()) return D3DERR_INVALIDCALL;
+		// D3D8: size 0 means "from offset to the end of the buffer".
+		size_t end = (size == 0) ? m_bits.size() : (size_t)offset + size;
+		if (end > m_bits.size()) end = m_bits.size();
+		m_lockBegin = offset;
+		m_lockEnd = end;
 		*ppbData = m_bits.data() + offset;
 		return D3D_OK;
 	}
 
 	HRESULT Unlock() override
 	{
-		m_gl.dirty = true;
+		m_gl.markRange(m_lockBegin, m_lockEnd);
+		m_lockBegin = 0;
+		m_lockEnd = 0;
 		return D3D_OK;
 	}
 
@@ -874,6 +891,8 @@ public:
 	DWORD m_fvf;
 	D3DPOOL m_pool;
 	DWORD m_priority = 0;
+	size_t m_lockBegin = 0;
+	size_t m_lockEnd = 0;
 	GLBufferState m_gl;
 	std::vector<BYTE> m_bits;
 };
@@ -910,16 +929,24 @@ public:
 	void PreLoad() override {}
 	D3DRESOURCETYPE GetType() override { return D3DRTYPE_INDEXBUFFER; }
 
-	HRESULT Lock(UINT offset, UINT /*size*/, BYTE **ppbData, DWORD /*flags*/) override
+	// GeneralsX @perf Android port 09/05/2026 Same dirty-range tracking as
+	// WebGLVertexBuffer::Lock -- see that comment for the measurements.
+	HRESULT Lock(UINT offset, UINT size, BYTE **ppbData, DWORD /*flags*/) override
 	{
 		if (!ppbData || offset > m_bits.size()) return D3DERR_INVALIDCALL;
+		size_t end = (size == 0) ? m_bits.size() : (size_t)offset + size;
+		if (end > m_bits.size()) end = m_bits.size();
+		m_lockBegin = offset;
+		m_lockEnd = end;
 		*ppbData = m_bits.data() + offset;
 		return D3D_OK;
 	}
 
 	HRESULT Unlock() override
 	{
-		m_gl.dirty = true;
+		m_gl.markRange(m_lockBegin, m_lockEnd);
+		m_lockBegin = 0;
+		m_lockEnd = 0;
 		return D3D_OK;
 	}
 
@@ -939,6 +966,8 @@ public:
 	D3DFORMAT m_format;
 	D3DPOOL m_pool;
 	DWORD m_priority = 0;
+	size_t m_lockBegin = 0;
+	size_t m_lockEnd = 0;
 	GLBufferState m_gl;
 	std::vector<BYTE> m_bits;
 };

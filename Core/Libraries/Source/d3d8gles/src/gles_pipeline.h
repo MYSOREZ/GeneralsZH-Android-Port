@@ -61,6 +61,29 @@ struct GLTextureState {
 struct GLBufferState {
 	GLuint name = 0;
 	bool dirty = true;
+	// GeneralsX @perf Android port 09/05/2026 Byte range actually written since
+	// the last upload, accumulated across Lock/Unlock pairs (see
+	// WebGLVertexBuffer::Lock/Unlock in d3d8gles.cpp). ensureVBUploaded/
+	// ensureIBUploaded push only this range instead of respecifying the whole
+	// buffer. begin >= end means "nothing recorded" -> fall back to a full
+	// upload. `allocated` tracks whether GL storage exists yet, since
+	// glBufferSubData needs a sized buffer to write into.
+	size_t dirtyBegin = (size_t)-1;
+	size_t dirtyEnd = 0;
+	bool allocated = false;
+
+	void markRange(size_t begin, size_t end)
+	{
+		dirty = true;
+		if (end <= begin) return;
+		if (begin < dirtyBegin) dirtyBegin = begin;
+		if (end > dirtyEnd) dirtyEnd = end;
+	}
+	void clearRange()
+	{
+		dirtyBegin = (size_t)-1;
+		dirtyEnd = 0;
+	}
 };
 
 class WebGLPipeline {
