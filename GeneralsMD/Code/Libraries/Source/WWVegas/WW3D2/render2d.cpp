@@ -41,6 +41,10 @@
 #include <cstdio>
 #include "always.h"
 #include "render2d.h"
+#if defined(__ANDROID__)
+// GeneralsX @bugfix Android port 09/05/2026 - d3d8gles_ShouldUseVulkanBackend()
+#include "d3d8gles.h"
+#endif
 #include "mutex.h"
 #include "ww3d.h"
 #include "font3d.h"
@@ -198,7 +202,42 @@ void	  Render2DClass::Update_Bias()
 
 	BiasedCoordinateOffset = CoordinateOffset;
 
-	if ( WW3D::Is_Screen_UV_Biased() ) {	// Global bais setting
+	// GeneralsX @bugfix Android port 09/05/2026 The -0.5 pixel bias below is a
+	// Direct3D-specific texel-to-pixel alignment correction: D3D's rasterizer
+	// samples a pixel at its center, but D3D's screen-space convention puts
+	// that center half a pixel off from where a 0..W quad's edge lands, so
+	// screen-aligned 2D content needs -0.5 to make texels line up with pixels
+	// ("this makes text look good", W3DDisplay::init()). OpenGL's convention
+	// already has pixel centers at the +0.5 offsets, so on the native GLES
+	// backend this correction is not a correction at all -- it's an extra,
+	// real half-pixel shift of the ENTIRE 2D layer up and to the left.
+	//
+	// Worked through exactly (W = coordinate range width):
+	//   CoordinateScale.X = 2/W, CoordinateOffset.X = -1
+	//   bais_add.X = -0.5 / (W * 0.5) = -1/W
+	//   right edge: W*(2/W) - 1 - 1/W = 1 - 1/W  <-- 0.5 px short of +1
+	//   left  edge:      0    - 1 - 1/W          <-- 0.5 px PAST -1, clipped
+	// and the same for Y (bais_add.Y = -0.5/(H*-0.5) = +1/H, so the bottom
+	// edge lands at -1 + 1/H, 0.5 px short, while the top overshoots and is
+	// clipped). That is a half-covered edge pixel along the RIGHT and BOTTOM
+	// only -- which, alpha-blended, reads as a thin see-through strip showing
+	// whatever the 3D pass already drew underneath, at ANY resolution (the
+	// shift is a constant in pixels), on UI and the video overlay alike (both
+	// go through Convert_Vert) but never on 3D (which never goes through this
+	// class). Every one of those matches the reported artifact exactly.
+	//
+	// DXVK/Vulkan faithfully reproduces D3D8's rasterization offset, so the
+	// bias does its intended job there -- which is precisely why the strip has
+	// only ever been reported on GLES/ANGLE and never on Vulkan. Skip it on
+	// the native GLES backend only; the Vulkan path keeps the original
+	// behavior, and non-Android builds are untouched.
+#if defined(__ANDROID__)
+	const bool screenUVBiasApplies = d3d8gles_ShouldUseVulkanBackend();
+#else
+	const bool screenUVBiasApplies = true;
+#endif
+
+	if ( WW3D::Is_Screen_UV_Biased() && screenUVBiasApplies ) {	// Global bais setting
 		Vector2 bais_add( -0.5f ,-0.5f );	// offset by -0.5,-0.5 in pixels
 
 		// Convert from pixels to (-1,1)-(1,-1) units
