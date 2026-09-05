@@ -18,6 +18,12 @@ typedef void (GL_APIENTRY *PFN_glBindVertexArray)(GLuint array);
 typedef void (GL_APIENTRY *PFN_glBlendFunc)(GLenum sfactor, GLenum dfactor);
 typedef void (GL_APIENTRY *PFN_glBufferData)(GLenum target, GLsizeiptr size, const void *data, GLenum usage);
 typedef void (GL_APIENTRY *PFN_glBufferSubData)(GLenum target, GLintptr offset, GLsizeiptr size, const void *data);
+// GeneralsX @perf Android port 09/05/2026 Needed to translate D3DLOCK_NOOVERWRITE
+// faithfully: GL_MAP_UNSYNCHRONIZED_BIT is the only way to write into a region
+// of a buffer the GPU may still be reading without the driver inserting a wait,
+// which is exactly the guarantee NOOVERWRITE makes.
+typedef void *(GL_APIENTRY *PFN_glMapBufferRange)(GLenum target, GLintptr offset, GLsizeiptr length, GLbitfield access);
+typedef GLboolean (GL_APIENTRY *PFN_glUnmapBuffer)(GLenum target);
 typedef GLenum (GL_APIENTRY *PFN_glCheckFramebufferStatus)(GLenum target);
 typedef void (GL_APIENTRY *PFN_glClear)(GLbitfield mask);
 typedef void (GL_APIENTRY *PFN_glClearColor)(GLfloat red, GLfloat green, GLfloat blue, GLfloat alpha);
@@ -98,6 +104,8 @@ PFN_glBindVertexArray d3d8gles_pfn_glBindVertexArray = nullptr;
 PFN_glBlendFunc d3d8gles_pfn_glBlendFunc = nullptr;
 PFN_glBufferData d3d8gles_pfn_glBufferData = nullptr;
 PFN_glBufferSubData d3d8gles_pfn_glBufferSubData = nullptr;
+PFN_glMapBufferRange d3d8gles_pfn_glMapBufferRange = nullptr;
+PFN_glUnmapBuffer d3d8gles_pfn_glUnmapBuffer = nullptr;
 PFN_glCheckFramebufferStatus d3d8gles_pfn_glCheckFramebufferStatus = nullptr;
 PFN_glClear d3d8gles_pfn_glClear = nullptr;
 PFN_glClearColor d3d8gles_pfn_glClearColor = nullptr;
@@ -224,6 +232,16 @@ GL_APICALL void GL_APIENTRY glBufferData(GLenum target, GLsizeiptr size, const v
 GL_APICALL void GL_APIENTRY glBufferSubData(GLenum target, GLintptr offset, GLsizeiptr size, const void *data)
 {
 	d3d8gles_pfn_glBufferSubData(target, offset, size, data);
+}
+
+GL_APICALL void *GL_APIENTRY glMapBufferRange(GLenum target, GLintptr offset, GLsizeiptr length, GLbitfield access)
+{
+	return d3d8gles_pfn_glMapBufferRange(target, offset, length, access);
+}
+
+GL_APICALL GLboolean GL_APIENTRY glUnmapBuffer(GLenum target)
+{
+	return d3d8gles_pfn_glUnmapBuffer(target);
 }
 
 GL_APICALL GLenum GL_APIENTRY glCheckFramebufferStatus(GLenum target)
@@ -599,6 +617,10 @@ bool d3d8gles_LoadGLESDispatch(const char *libName)
 	if (!d3d8gles_pfn_glBufferData) { fprintf(stderr, "[d3d8gles] GLES dispatch: missing symbol glBufferData in %s\n", libName); ok = false; }
 	d3d8gles_pfn_glBufferSubData = reinterpret_cast<PFN_glBufferSubData>(dlsym(lib, "glBufferSubData"));
 	if (!d3d8gles_pfn_glBufferSubData) { fprintf(stderr, "[d3d8gles] GLES dispatch: missing symbol glBufferSubData in %s\n", libName); ok = false; }
+	d3d8gles_pfn_glMapBufferRange = reinterpret_cast<PFN_glMapBufferRange>(dlsym(lib, "glMapBufferRange"));
+	if (!d3d8gles_pfn_glMapBufferRange) { fprintf(stderr, "[d3d8gles] GLES dispatch: missing symbol glMapBufferRange in %s\n", libName); ok = false; }
+	d3d8gles_pfn_glUnmapBuffer = reinterpret_cast<PFN_glUnmapBuffer>(dlsym(lib, "glUnmapBuffer"));
+	if (!d3d8gles_pfn_glUnmapBuffer) { fprintf(stderr, "[d3d8gles] GLES dispatch: missing symbol glUnmapBuffer in %s\n", libName); ok = false; }
 	d3d8gles_pfn_glCheckFramebufferStatus = reinterpret_cast<PFN_glCheckFramebufferStatus>(dlsym(lib, "glCheckFramebufferStatus"));
 	if (!d3d8gles_pfn_glCheckFramebufferStatus) { fprintf(stderr, "[d3d8gles] GLES dispatch: missing symbol glCheckFramebufferStatus in %s\n", libName); ok = false; }
 	d3d8gles_pfn_glClear = reinterpret_cast<PFN_glClear>(dlsym(lib, "glClear"));
@@ -737,7 +759,7 @@ bool d3d8gles_LoadGLESDispatch(const char *libName)
 	if (!d3d8gles_pfn_glViewport) { fprintf(stderr, "[d3d8gles] GLES dispatch: missing symbol glViewport in %s\n", libName); ok = false; }
 
 	if (!ok) return false;
-	fprintf(stderr, "[d3d8gles] GLES dispatch: resolved %zu entry points from %s\n", static_cast<size_t>(79), libName);
+	fprintf(stderr, "[d3d8gles] GLES dispatch: resolved %zu entry points from %s\n", static_cast<size_t>(81), libName);
 	return true;
 }
 

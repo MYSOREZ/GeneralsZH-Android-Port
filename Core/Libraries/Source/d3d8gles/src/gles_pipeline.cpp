@@ -2011,9 +2011,30 @@ void WebGLPipeline::ensureVBUploaded(WebGLVertexBuffer *vb)
 			glBufferData(GL_COPY_WRITE_BUFFER, vb->m_bits.size(), vb->m_bits.data(), GL_DYNAMIC_DRAW);
 			vb->m_gl.allocated = true;
 		} else {
-			glBufferSubData(GL_COPY_WRITE_BUFFER, (GLintptr)vb->m_gl.dirtyBegin,
-				(GLsizeiptr)(vb->m_gl.dirtyEnd - vb->m_gl.dirtyBegin),
-				vb->m_bits.data() + vb->m_gl.dirtyBegin);
+			// GeneralsX @perf Android port 09/05/2026 This is the
+			// D3DLOCK_NOOVERWRITE case (the engine's ring buffer appending
+			// past offset 0). glBufferSubData here makes the driver
+			// synchronize against the GPU still reading earlier ranges of the
+			// same buffer, and real-device timings showed exactly that: a flat
+			// ~1 ms per Render2DClass::Render() call, tracking UI draw count
+			// 1:1 (50.6 draws -> 49.3 ms, 65.2 -> 62.5) and independent of how
+			// much data was written -- the signature of waiting, not working.
+			// GL_MAP_UNSYNCHRONIZED_BIT is the exact translation of what
+			// NOOVERWRITE promises: the caller guarantees it is not touching
+			// bytes the GPU may still read, so no wait is needed.
+			const GLintptr off = (GLintptr)vb->m_gl.dirtyBegin;
+			const GLsizeiptr len = (GLsizeiptr)(vb->m_gl.dirtyEnd - vb->m_gl.dirtyBegin);
+			void *mapped = glMapBufferRange(GL_COPY_WRITE_BUFFER, off, len,
+				GL_MAP_WRITE_BIT | GL_MAP_UNSYNCHRONIZED_BIT);
+			if (mapped) {
+				memcpy(mapped, vb->m_bits.data() + vb->m_gl.dirtyBegin, (size_t)len);
+				glUnmapBuffer(GL_COPY_WRITE_BUFFER);
+			} else {
+				// Mapping can legitimately fail (driver refusal, lost
+				// context); the synchronizing path is slower but correct.
+				glBufferSubData(GL_COPY_WRITE_BUFFER, off, len,
+					vb->m_bits.data() + vb->m_gl.dirtyBegin);
+			}
 		}
 		vb->m_gl.dirty = false;
 		vb->m_gl.pendingDiscard = false;
@@ -2042,9 +2063,30 @@ void WebGLPipeline::ensureIBUploaded(WebGLIndexBuffer *ib)
 			glBufferData(GL_COPY_WRITE_BUFFER, ib->m_bits.size(), ib->m_bits.data(), GL_DYNAMIC_DRAW);
 			ib->m_gl.allocated = true;
 		} else {
-			glBufferSubData(GL_COPY_WRITE_BUFFER, (GLintptr)ib->m_gl.dirtyBegin,
-				(GLsizeiptr)(ib->m_gl.dirtyEnd - ib->m_gl.dirtyBegin),
-				ib->m_bits.data() + ib->m_gl.dirtyBegin);
+			// GeneralsX @perf Android port 09/05/2026 This is the
+			// D3DLOCK_NOOVERWRITE case (the engine's ring buffer appending
+			// past offset 0). glBufferSubData here makes the driver
+			// synchronize against the GPU still reading earlier ranges of the
+			// same buffer, and real-device timings showed exactly that: a flat
+			// ~1 ms per Render2DClass::Render() call, tracking UI draw count
+			// 1:1 (50.6 draws -> 49.3 ms, 65.2 -> 62.5) and independent of how
+			// much data was written -- the signature of waiting, not working.
+			// GL_MAP_UNSYNCHRONIZED_BIT is the exact translation of what
+			// NOOVERWRITE promises: the caller guarantees it is not touching
+			// bytes the GPU may still read, so no wait is needed.
+			const GLintptr off = (GLintptr)ib->m_gl.dirtyBegin;
+			const GLsizeiptr len = (GLsizeiptr)(ib->m_gl.dirtyEnd - ib->m_gl.dirtyBegin);
+			void *mapped = glMapBufferRange(GL_COPY_WRITE_BUFFER, off, len,
+				GL_MAP_WRITE_BIT | GL_MAP_UNSYNCHRONIZED_BIT);
+			if (mapped) {
+				memcpy(mapped, ib->m_bits.data() + ib->m_gl.dirtyBegin, (size_t)len);
+				glUnmapBuffer(GL_COPY_WRITE_BUFFER);
+			} else {
+				// Mapping can legitimately fail (driver refusal, lost
+				// context); the synchronizing path is slower but correct.
+				glBufferSubData(GL_COPY_WRITE_BUFFER, off, len,
+					ib->m_bits.data() + ib->m_gl.dirtyBegin);
+			}
 		}
 		ib->m_gl.dirty = false;
 		ib->m_gl.pendingDiscard = false;
