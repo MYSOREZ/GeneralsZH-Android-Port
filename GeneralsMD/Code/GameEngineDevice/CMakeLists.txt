@@ -303,3 +303,13 @@ option(GENERALSX_AB_DISABLE_SHADOW_DECALS "A/B diagnostic: skip all shadow decal
 if(GENERALSX_AB_DISABLE_SHADOW_DECALS)
     target_compile_definitions(z_gameenginedevice PRIVATE GENERALSX_AB_DISABLE_SHADOW_DECALS)
 endif()
+
+# GeneralsX @build Android port 09/05/2026 A/B DIAGNOSTIC SWITCH -- temporary.
+# Skips only W3DVolumetricShadowManager::renderStencilShadows()'s darkening
+# pass, leaving the stencil fill passes running, to separate "the stencil
+# content is wrong" from "the shadow volume geometry is visible". OFF by
+# default. Remove with its guard in W3DVolumetricShadow.cpp once answered.
+option(GENERALSX_AB_DISABLE_STENCIL_SHADOW_QUAD "A/B diagnostic: skip the stencil shadow darkening quad" OFF)
+if(GENERALSX_AB_DISABLE_STENCIL_SHADOW_QUAD)
+    target_compile_definitions(z_gameenginedevice PRIVATE GENERALSX_AB_DISABLE_STENCIL_SHADOW_QUAD)
+endif()

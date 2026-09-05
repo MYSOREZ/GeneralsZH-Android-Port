@@ -62,6 +62,7 @@ typedef void (GL_APIENTRY *PFN_glGenVertexArrays)(GLsizei n, GLuint *arrays);
 typedef void (GL_APIENTRY *PFN_glGenerateMipmap)(GLenum target);
 typedef GLenum (GL_APIENTRY *PFN_glGetError)(void);
 typedef void (GL_APIENTRY *PFN_glGetIntegerv)(GLenum pname, GLint *data);
+typedef void (GL_APIENTRY *PFN_glGetBooleanv)(GLenum pname, GLboolean *data);
 typedef void (GL_APIENTRY *PFN_glGetProgramInfoLog)(GLuint program, GLsizei bufSize, GLsizei *length, GLchar *infoLog);
 typedef void (GL_APIENTRY *PFN_glGetProgramiv)(GLuint program, GLenum pname, GLint *params);
 typedef void (GL_APIENTRY *PFN_glGetShaderInfoLog)(GLuint shader, GLsizei bufSize, GLsizei *length, GLchar *infoLog);
@@ -145,6 +146,7 @@ PFN_glGenVertexArrays d3d8gles_pfn_glGenVertexArrays = nullptr;
 PFN_glGenerateMipmap d3d8gles_pfn_glGenerateMipmap = nullptr;
 PFN_glGetError d3d8gles_pfn_glGetError = nullptr;
 PFN_glGetIntegerv d3d8gles_pfn_glGetIntegerv = nullptr;
+PFN_glGetBooleanv d3d8gles_pfn_glGetBooleanv = nullptr;
 PFN_glGetProgramInfoLog d3d8gles_pfn_glGetProgramInfoLog = nullptr;
 PFN_glGetProgramiv d3d8gles_pfn_glGetProgramiv = nullptr;
 PFN_glGetShaderInfoLog d3d8gles_pfn_glGetShaderInfoLog = nullptr;
@@ -431,6 +433,11 @@ GL_APICALL GLenum GL_APIENTRY glGetError(void)
 	return d3d8gles_pfn_glGetError();
 }
 
+GL_APICALL void GL_APIENTRY glGetBooleanv(GLenum pname, GLboolean *data)
+{
+	d3d8gles_pfn_glGetBooleanv(pname, data);
+}
+
 GL_APICALL void GL_APIENTRY glGetIntegerv(GLenum pname, GLint *data)
 {
 	d3d8gles_pfn_glGetIntegerv(pname, data);
@@ -705,6 +712,8 @@ bool d3d8gles_LoadGLESDispatch(const char *libName)
 	if (!d3d8gles_pfn_glGetError) { fprintf(stderr, "[d3d8gles] GLES dispatch: missing symbol glGetError in %s\n", libName); ok = false; }
 	d3d8gles_pfn_glGetIntegerv = reinterpret_cast<PFN_glGetIntegerv>(dlsym(lib, "glGetIntegerv"));
 	if (!d3d8gles_pfn_glGetIntegerv) { fprintf(stderr, "[d3d8gles] GLES dispatch: missing symbol glGetIntegerv in %s\n", libName); ok = false; }
+	d3d8gles_pfn_glGetBooleanv = reinterpret_cast<PFN_glGetBooleanv>(dlsym(lib, "glGetBooleanv"));
+	if (!d3d8gles_pfn_glGetBooleanv) { fprintf(stderr, "[d3d8gles] GLES dispatch: missing symbol glGetBooleanv in %s\n", libName); ok = false; }
 	d3d8gles_pfn_glGetProgramInfoLog = reinterpret_cast<PFN_glGetProgramInfoLog>(dlsym(lib, "glGetProgramInfoLog"));
 	if (!d3d8gles_pfn_glGetProgramInfoLog) { fprintf(stderr, "[d3d8gles] GLES dispatch: missing symbol glGetProgramInfoLog in %s\n", libName); ok = false; }
 	d3d8gles_pfn_glGetProgramiv = reinterpret_cast<PFN_glGetProgramiv>(dlsym(lib, "glGetProgramiv"));
@@ -769,7 +778,7 @@ bool d3d8gles_LoadGLESDispatch(const char *libName)
 	if (!d3d8gles_pfn_glViewport) { fprintf(stderr, "[d3d8gles] GLES dispatch: missing symbol glViewport in %s\n", libName); ok = false; }
 
 	if (!ok) return false;
-	fprintf(stderr, "[d3d8gles] GLES dispatch: resolved %zu entry points from %s\n", static_cast<size_t>(82), libName);
+	fprintf(stderr, "[d3d8gles] GLES dispatch: resolved %zu entry points from %s\n", static_cast<size_t>(83), libName);
 	return true;
 }
 

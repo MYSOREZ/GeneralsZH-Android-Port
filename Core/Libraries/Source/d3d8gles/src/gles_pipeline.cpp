@@ -1600,6 +1600,23 @@ void WebGLPipeline::applyFixedState(WebGLDevice *dev)
 	// made every shadow volume a visible black silhouette.
 	const DWORD cw = dev->getRenderState(D3DRS_COLORWRITEENABLE);
 	glColorMask((cw & 1) != 0, (cw & 2) != 0, (cw & 4) != 0, (cw & 8) != 0);
+	// GeneralsX @build Android port 09/05/2026 Free half of the shadow A/B:
+	// read the mask back from GL the first few times D3D asks for "write no
+	// colour". If GL disagrees, the shadow-volume fill is painting into the
+	// colour buffer and the visible quad is the volume geometry itself; if GL
+	// agrees, it cannot be, and the artifact must be the darkening pass. One
+	// readback, capped at 4 -- glGet stalls, so it must never be uncapped.
+	if (cw == 0) {
+		static int s_cwChecks = 0;
+		if (s_cwChecks < 4) {
+			s_cwChecks++;
+			GLboolean m[4] = {GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE};
+			glGetBooleanv(GL_COLOR_WRITEMASK, m);
+			fprintf(stderr, "[gxstencil] D3D asked COLORWRITEENABLE=0; GL reports "
+				"colormask r=%d g=%d b=%d a=%d (all zero = correctly disabled)\n",
+				(int)m[0], (int)m[1], (int)m[2], (int)m[3]);
+		}
+	}
 
 	// Stencil
 	if (dev->getRenderState(D3DRS_STENCILENABLE)) {
