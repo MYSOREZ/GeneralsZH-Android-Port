@@ -2081,6 +2081,24 @@ static unsigned s_gxDrawsByCategory[GX_DRAWCAT_COUNT] = {0, 0, 0, 0, 0, 0, 0};
 // time go.
 static double s_gxUiTimeUs[3] = {0.0, 0.0, 0.0};
 
+// GeneralsX @build Android port 09/05/2026 Shadow-volume pass balance. Every
+// structural theory for the dark quad around aircraft is now dead by
+// measurement: the stencil buffer exists (8 bits), its format really is
+// D3DFMT_D24S8, D3DCLEAR_STENCIL runs every frame with value 0, colour writes
+// are genuinely off during the fill, the state sequence translates term for
+// term, and SV_DEBUG showed the volume geometry is structurally sane.
+//
+// What is left is the balance of the z-pass count itself. The engine draws
+// each volume TWICE: once with D3DSTENCILOP_INCR while culling one way, then
+// again with D3DSTENCILOP_DECRSAT while culling the other. If the second pass
+// issues fewer draws than the first -- or none -- nothing cancels the
+// increments and the WHOLE volume silhouette ends up at stencil >= 1 instead
+// of just the shadowed part, which is exactly the reported artifact. Counting
+// the draws in each pass says so directly and changes no behaviour.
+static unsigned s_gxStencilIncrDraws = 0;
+static unsigned s_gxStencilDecrDraws = 0;
+static unsigned s_gxStencilOtherDraws = 0;
+
 extern "C" void d3d8gles_AddUiTiming(int bucket, double microseconds)
 {
 	if (bucket >= 0 && bucket < 3) s_gxUiTimeUs[bucket] += microseconds;
@@ -2125,6 +2143,18 @@ void WebGLPipeline::drawCommon(WebGLDevice *dev, unsigned primType, unsigned pri
 	}
 	m_perfDrawsThisFrame++;
 	s_gxDrawsByCategory[s_gxDrawCategory]++;
+	// Shadow-volume fill draws are the ones with the stencil on and colour
+	// writes off; bucket them by which stencil op they carry.
+	if (dev->getRenderState(D3DRS_STENCILENABLE) &&
+	    dev->getRenderState(D3DRS_COLORWRITEENABLE) == 0) {
+		switch (dev->getRenderState(D3DRS_STENCILPASS)) {
+		case D3DSTENCILOP_INCR:
+		case D3DSTENCILOP_INCRSAT:  s_gxStencilIncrDraws++; break;
+		case D3DSTENCILOP_DECR:
+		case D3DSTENCILOP_DECRSAT:  s_gxStencilDecrDraws++; break;
+		default:                    s_gxStencilOtherDraws++; break;
+		}
+	}
 }
 
 // Buffer objects (device-side shadow -> GL) helpers.
@@ -2648,6 +2678,14 @@ void WebGLPipeline::present()
 			// averaged over the same window as draws/frame above.
 			{
 				const float f = m_perfFrameCount > 0 ? (float)m_perfFrameCount : 1.0f;
+				if (s_gxStencilIncrDraws || s_gxStencilDecrDraws || s_gxStencilOtherDraws) {
+					fprintf(stderr, "[gxstencil] shadow-volume fill draws this window: "
+						"incr=%u decr=%u other=%u (incr and decr should match)\n",
+						s_gxStencilIncrDraws, s_gxStencilDecrDraws, s_gxStencilOtherDraws);
+					s_gxStencilIncrDraws = 0;
+					s_gxStencilDecrDraws = 0;
+					s_gxStencilOtherDraws = 0;
+				}
 				fprintf(stderr, "[d3d8gles] perf-draws/frame by source: models=%.1f sorted(particles)=%.1f "
 					"2d-ui=%.1f terrain=%.1f shadows=%.1f skin=%.1f other=%.1f\n",
 					s_gxDrawsByCategory[GX_DRAWCAT_MODELS] / f,
