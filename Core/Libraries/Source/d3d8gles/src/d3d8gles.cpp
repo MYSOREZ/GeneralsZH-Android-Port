@@ -1248,6 +1248,19 @@ public:
 		// m_alive guard above is a real safety check and stays.
 		if (src->m_format != dst->m_format) return D3DERR_INVALIDCALL;
 
+		// GeneralsX @bugfix Android port 09/05/2026 If the SOURCE is a render
+		// target, its CPU shadow bits are stale by construction -- the content
+		// only exists in GL. Pull it back first, or the memcpy below faithfully
+		// copies zeroes. This is how projected (runtime-generated) shadows are
+		// moved into their permanent texture; see
+		// WebGLPipeline::readbackRenderTarget for the full story. The fbo
+		// handle is the discriminator: it is only ever created by
+		// setRenderTarget, so an ordinary texture never takes this path.
+		if (src->m_ownerTex != nullptr && src->m_ownerTex->m_gl.fbo != 0 &&
+		    !src->m_ownerTex->m_levels.empty() && src->m_ownerTex->m_levels[0] == src) {
+			WebGLPipeline::get()->readbackRenderTarget(src->m_ownerTex);
+		}
+
 		if (rect_count == 0 || src_rects == nullptr) {
 			const size_t n = src->m_bits.size() < dst->m_bits.size() ? src->m_bits.size() : dst->m_bits.size();
 			memcpy(dst->m_bits.data(), src->m_bits.data(), n);

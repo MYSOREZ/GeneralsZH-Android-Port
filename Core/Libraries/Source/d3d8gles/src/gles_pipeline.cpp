@@ -84,6 +84,26 @@ static const GLuint kViewProjUBOBinding = 0;
 		}                                             \
 	} while (0)
 
+// Same, but keyed on a runtime value instead of a call site: warns once per
+// distinct value (up to 8 of them), so one unimplemented enum does not drown
+// out the next. Used for the texture-stage op fallback, where the whole point
+// is to name WHICH op is missing.
+#define WARN_ONCE_ARG(val, ...)                                          \
+	do {                                                                  \
+		static unsigned s_seen[8] = {0, 0, 0, 0, 0, 0, 0, 0};             \
+		static int s_seenCount = 0;                                       \
+		bool s_already = false;                                           \
+		for (int s_i = 0; s_i < s_seenCount; s_i++) {                     \
+			if (s_seen[s_i] == (unsigned)(val)) { s_already = true; break; } \
+		}                                                                 \
+		if (!s_already && s_seenCount < 8) {                              \
+			s_seen[s_seenCount++] = (unsigned)(val);                      \
+			fprintf(stderr, "[d3d8gles] WARN: ");                        \
+			fprintf(stderr, __VA_ARGS__);                                 \
+			fprintf(stderr, "\n");                                        \
+		}                                                                 \
+	} while (0)
+
 static float dwordToFloat(DWORD v)
 {
 	float f;
@@ -248,8 +268,14 @@ struct WebGLPipeline::ProgramInfo {
 
 // Stage portion of the program key.
 struct StageKey {
-	unsigned colorOp, colorArg1, colorArg2;
-	unsigned alphaOp, alphaArg1, alphaArg2;
+	// GeneralsX @bugfix Android port 09/05/2026 arg0 is D3D8's THIRD combiner
+	// argument (D3DTSS_COLORARG0/D3DTSS_ALPHAARG0), used only by the
+	// multiply-accumulate and lerp ops. It was missing entirely, so
+	// D3DTOP_MULTIPLYADD fell through combinerOp()'s silent `default:` and
+	// was emitted as a plain modulate -- see the D3DTOP_MULTIPLYADD case
+	// there for the UI bug that caused.
+	unsigned colorOp, colorArg0, colorArg1, colorArg2;
+	unsigned alphaOp, alphaArg0, alphaArg1, alphaArg2;
 	unsigned tci;
 	unsigned texgen; // 0=vertex uv set, 1=camera-space position
 	bool xform;
@@ -257,8 +283,8 @@ struct StageKey {
 
 static void getStageKey(WebGLDevice *dev, int stage, StageKey *k);
 static std::string combinerArg(unsigned arg, const char *texExpr, int *usesTex);
-static std::string combinerOp(unsigned op, const std::string &a1, const std::string &a2,
-                              const char *texAlphaExpr);
+static std::string combinerOp(unsigned op, const std::string &a0, const std::string &a1,
+                              const std::string &a2, const char *texAlphaExpr);
 
 WebGLPipeline *WebGLPipeline::get()
 {
@@ -470,6 +496,12 @@ static void getStageKey(WebGLDevice *dev, int stage, StageKey *k)
 	k->alphaOp = dev->getStageState(stage, D3DTSS_ALPHAOP);
 	k->alphaArg1 = dev->getStageState(stage, D3DTSS_ALPHAARG1) & 0x3F;
 	k->alphaArg2 = dev->getStageState(stage, D3DTSS_ALPHAARG2) & 0x3F;
+	// D3D8's documented default for ARG0 is D3DTA_CURRENT, not D3DTA_DIFFUSE
+	// (which is what a never-set 0 would otherwise decode to here).
+	const DWORD rawColorArg0 = dev->getStageState(stage, D3DTSS_COLORARG0);
+	const DWORD rawAlphaArg0 = dev->getStageState(stage, D3DTSS_ALPHAARG0);
+	k->colorArg0 = rawColorArg0 ? (unsigned)(rawColorArg0 & 0x3F) : (unsigned)D3DTA_CURRENT;
+	k->alphaArg0 = rawAlphaArg0 ? (unsigned)(rawAlphaArg0 & 0x3F) : (unsigned)D3DTA_CURRENT;
 	const DWORD tciRaw = dev->getStageState(stage, D3DTSS_TEXCOORDINDEX);
 	k->texgen = 0;
 	if (tciRaw & 0xFFFF0000u) {
@@ -557,9 +589,11 @@ uint64_t WebGLPipeline::computeProgramKey(WebGLDevice *dev, unsigned fvf) const
 			}
 		}
 		put(sk.colorOp, 5);
+		put(sk.colorArg0, 6);
 		put(sk.colorArg1, 6);
 		put(sk.colorArg2, 6);
 		put(sk.alphaOp, 5);
+		put(sk.alphaArg0, 6);
 		put(sk.alphaArg1, 6);
 		put(sk.alphaArg2, 6);
 		put(sk.tci, 1);
@@ -589,10 +623,10 @@ static std::string combinerArg(unsigned arg, const char *texExpr, int *usesTex)
 	return e;
 }
 
-static std::string combinerOp(unsigned op, const std::string &a1, const std::string &a2,
-                              const char *texAlphaExpr)
+static std::string combinerOp(unsigned op, const std::string &a0, const std::string &a1,
+                              const std::string &a2, const char *texAlphaExpr)
 {
-	char buf[512];
+	char buf[768];
 	switch (op) {
 	case D3DTOP_SELECTARG1: return a1;
 	case D3DTOP_SELECTARG2: return a2;
@@ -637,7 +671,42 @@ static std::string combinerOp(unsigned op, const std::string &a1, const std::str
 			"vec4(vec3(clamp(dot(%s.rgb - 0.5, %s.rgb - 0.5) * 4.0, 0.0, 1.0)), 1.0)",
 			a1.c_str(), a2.c_str());
 		break;
+	// GeneralsX @bugfix Android port 09/05/2026 D3D8: SRGBA = Arg1 + Arg2 * Arg0.
+	// Missing until now, and the silent `default:` below turned it into a plain
+	// modulate -- which is what made greyed-out (unbuildable) command-bar
+	// buttons vanish on GLES while looking fine under DXVK. Render2DClass::
+	// Render()'s IsGrayScale path builds its greyscale in two stages: stage 0
+	// does MULTIPLYADD to bias the texture up by TFACTOR.a * TFACTOR.a, then
+	// stage 1 DOTPRODUCT3s the result against TFACTOR's luminance weights,
+	// which subtracts 0.5 first. Emitting stage 0 as tex * TFACTOR.a instead
+	// of tex + 0.25 caps the stage-0 result at TFACTOR.a (0.5) -- i.e. always
+	// at or below the 0.5 the next stage subtracts -- so the dot product came
+	// out negative for every texel and clamped to 0. Every disabled button
+	// rendered solid black, and against the dark command bar that reads as the
+	// button having disappeared. Moving the camera changes what is buildable,
+	// which is exactly why the buttons came and went with camera movement.
+	case D3DTOP_MULTIPLYADD:
+		snprintf(buf, sizeof(buf), "min(%s + %s * %s, vec4(1.0))",
+			a1.c_str(), a2.c_str(), a0.c_str());
+		break;
+	// D3D8: SRGBA = Arg1 * Arg0 + Arg2 * (1 - Arg0), i.e. mix() with Arg0 as
+	// the interpolant. Added alongside MULTIPLYADD because it is the other op
+	// that reads ARG0 -- without it, ARG0 would still be write-only state.
+	case D3DTOP_LERP:
+		snprintf(buf, sizeof(buf), "mix(%s, %s, %s)",
+			a2.c_str(), a1.c_str(), a0.c_str());
+		break;
 	default:
+		// Silence here is how MULTIPLYADD survived: an unimplemented op used
+		// to render as a modulate that looks plausible in most content. Say so
+		// once per op instead, so the next missing one shows up in the device
+		// log rather than as a mystery visual bug.
+		// D3DTOP_DISABLE can reach here for a disabled stage 0 that sits below
+		// an enabled stage 1; that is a known, harmless shape, not a gap.
+		if (op != D3DTOP_DISABLE) {
+			WARN_ONCE_ARG(op, "texture stage COLOROP/ALPHAOP %u not implemented, "
+				"approximating as MODULATE", op);
+		}
 		snprintf(buf, sizeof(buf), "(%s * %s)", a1.c_str(), a2.c_str());
 		break;
 	}
@@ -837,14 +906,16 @@ WebGLPipeline::ProgramInfo *WebGLPipeline::getProgram(WebGLDevice *dev, unsigned
 		snprintf(b, sizeof(b), "  vec4 tex%d = texture(uTex%d, vUV%d);\n", s, s, s);
 		fs += b;
 		int usesTex = 0;
+		std::string c0 = combinerArg(st[s].colorArg0, texv, &usesTex);
 		std::string c1 = combinerArg(st[s].colorArg1, texv, &usesTex);
 		std::string c2 = combinerArg(st[s].colorArg2, texv, &usesTex);
+		std::string a0 = combinerArg(st[s].alphaArg0, texv, &usesTex);
 		std::string a1 = combinerArg(st[s].alphaArg1, texv, &usesTex);
 		std::string a2 = combinerArg(st[s].alphaArg2, texv, &usesTex);
 		// At stage 0, D3DTA_CURRENT reads DIFFUSE.
-		std::string colorExpr = combinerOp(st[s].colorOp, c1, c2, texa);
+		std::string colorExpr = combinerOp(st[s].colorOp, c0, c1, c2, texa);
 		std::string alphaExpr =
-			st[s].alphaOp == D3DTOP_DISABLE ? "cur" : combinerOp(st[s].alphaOp, a1, a2, texa);
+			st[s].alphaOp == D3DTOP_DISABLE ? "cur" : combinerOp(st[s].alphaOp, a0, a1, a2, texa);
 		snprintf(b, sizeof(b), "  cur = vec4((%s).rgb, (%s).a);\n", colorExpr.c_str(), alphaExpr.c_str());
 		fs += b;
 	}
@@ -2359,6 +2430,62 @@ void WebGLPipeline::setRenderTarget(WebGLDevice * /*dev*/, WebGLTexture *tex)
 	m_yFlip = 1.0f;
 	// Rendered content supersedes the CPU shadow from now on.
 	tex->m_gl.dirty = false;
+}
+
+// GeneralsX @bugfix Android port 09/05/2026 See the declaration in
+// gles_pipeline.h. Projected shadows (W3DProjectedShadow::updateTexture) render
+// an object's silhouette into a 512x512 render target and then blit it into a
+// permanent texture with SurfaceClass::Copy -> _Copy_DX8_Rects -> CopyRects.
+// CopyRects is a CPU memcpy between shadow bits, and a render target's shadow
+// bits were never written by anything, so the permanent shadow texture came out
+// all zeroes. Drawn with _PresetMultiplicativeShader (dst *= src), an all-zero
+// texture multiplies the terrain to black across the whole decal quad -- which
+// is exactly the "strange" helicopter shadows reported on GLES and never on
+// DXVK (DXVK's CopyRects does a real GPU copy). Only SHADOW_PROJECTION shadows
+// are generated this way; ground units use artist-supplied decal textures,
+// which is why the symptom looked aircraft-specific.
+void WebGLPipeline::readbackRenderTarget(WebGLTexture *tex)
+{
+	if (!m_ctxReady || tex == nullptr || tex->m_gl.fbo == 0 || tex->m_levels.empty()) return;
+
+	WebGLSurface *s = tex->m_levels[0];
+	const int w = (int)s->m_width;
+	const int h = (int)s->m_height;
+	if (w <= 0 || h <= 0) return;
+
+	// glReadPixels' guaranteed-supported combination in GLES3 is RGBA/UBYTE,
+	// and the only render-target format this engine creates is A8R8G8B8
+	// (DX8Wrapper::Create_Render_Target, with an X8R8G8B8 fallback).
+	if (tex->m_format != D3DFMT_A8R8G8B8 && tex->m_format != D3DFMT_X8R8G8B8) {
+		WARN_ONCE_ARG((unsigned)tex->m_format,
+			"render-target readback for format %u not implemented",
+			(unsigned)tex->m_format);
+		return;
+	}
+	if (s->m_bits.size() < (size_t)h * s->m_pitch) return;
+
+	m_rtReadback.resize((size_t)w * h * 4);
+	glBindFramebuffer(GL_FRAMEBUFFER, tex->m_gl.fbo);
+	glPixelStorei(GL_PACK_ALIGNMENT, 1);
+	glReadPixels(0, 0, w, h, GL_RGBA, GL_UNSIGNED_BYTE, m_rtReadback.data());
+	glBindFramebuffer(GL_FRAMEBUFFER, m_curFBO);
+
+	// Row 0 of this FBO's texture attachment is D3D's top row (setRenderTarget
+	// keeps m_yFlip at +1 precisely so it lands there), and glReadPixels
+	// numbers rows from attachment row 0 upward -- so the rows come back in
+	// the same order the CPU shadow stores them. No vertical flip here.
+	// Bytes still need RGBA -> BGRA, the inverse of the conversion
+	// prepareLevelUpload() does when pushing an A8R8G8B8 surface to GL.
+	for (int y = 0; y < h; y++) {
+		const uint8_t *src = m_rtReadback.data() + (size_t)y * w * 4;
+		uint8_t *dst = s->m_bits.data() + (size_t)y * s->m_pitch;
+		for (int x = 0; x < w; x++) {
+			dst[x * 4 + 0] = src[x * 4 + 2]; // B
+			dst[x * 4 + 1] = src[x * 4 + 1]; // G
+			dst[x * 4 + 2] = src[x * 4 + 0]; // R
+			dst[x * 4 + 3] = src[x * 4 + 3]; // A
+		}
+	}
 }
 
 void WebGLPipeline::present()

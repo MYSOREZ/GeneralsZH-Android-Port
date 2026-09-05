@@ -121,6 +121,40 @@ static DynamicVectorClass<TextureClass *> &GeneralsX_Get_Glyph_Texture_Pool ()
 	return *pool;
 }
 
+// GeneralsX @perf Android port 09/05/2026 Glyph-pool instrumentation. The pool
+// above was added to stop the ~200-textures-in-a-few-seconds churn traced here
+// by the [texchurn] diagnostic, and it did NOT: a later device log still showed
+// created=784 deleted=630 live=154. Two rounds of code-reading produced
+// plausible-sounding explanations that all turned out to be wrong (Get_Width()
+// returning 0 -- disproven, TextureBaseClass's ctor sets it; the pool being
+// flushed by _Invalidate_Textures -- disproven, that only runs on device
+// reset). So stop guessing and measure the pool's OUTPUT: hits, misses, what
+// size the miss wanted, and what was actually sitting in the pool when it
+// missed. See docs/WORKDIR/lessons/LESSON-d3d-vs-gl-rasterization-conventions.md
+// for why this project debugs outputs and not inferred inputs.
+static long g_glyphPoolHits			= 0;
+static long g_glyphPoolMisses			= 0;
+static long g_glyphPoolSalvaged		= 0;
+static long g_glyphPoolSalvageFull	= 0;
+static long g_glyphPoolSalvageDup	= 0;
+
+void GeneralsX_Report_Glyph_Pool (const char *why)
+{
+	DynamicVectorClass<TextureClass *> &pool = GeneralsX_Get_Glyph_Texture_Pool ();
+	char sizes[192];
+	int used = 0;
+	sizes[0] = 0;
+	for (int i = 0; i < pool.Count () && used < (int)sizeof (sizes) - 16; i ++) {
+		used += snprintf (sizes + used, sizeof (sizes) - used, "%s%dx%d/%d",
+			(i ? "," : ""), pool[i]->Get_Width (), pool[i]->Get_Height (),
+			(int)pool[i]->Get_Texture_Format ());
+	}
+	fprintf (stderr, "[glyphpool] %s hit=%ld miss=%ld salvaged=%ld salvage_full=%ld "
+		"salvage_dup=%ld pool=%d [%s]\n",
+		why, g_glyphPoolHits, g_glyphPoolMisses, g_glyphPoolSalvaged,
+		g_glyphPoolSalvageFull, g_glyphPoolSalvageDup, pool.Count (), sizes);
+}
+
 void Render2DSentenceClass::Flush_Recycled_Textures ()
 {
 	DynamicVectorClass<TextureClass *> &pool = GeneralsX_Get_Glyph_Texture_Pool ();
@@ -211,9 +245,26 @@ Render2DSentenceClass::Reset ()
 			// churn source and never reuse their own textures. Past the cap,
 			// release instead of growing without bound.
 			DynamicVectorClass<TextureClass *> &pool = GeneralsX_Get_Glyph_Texture_Pool ();
-			if (pool.Count () < GENERALSX_MAX_RECYCLED_GLYPH_TEXTURES) {
+			// Several renderers of one sentence share a single atlas page, so
+			// the same TextureClass comes back around this loop more than
+			// once. Adding it twice would let Build_Textures hand the SAME
+			// page to two different pending surfaces in one pass, and the
+			// second _Copy_DX8_Rects would overwrite the first one's glyphs.
+			bool already_pooled = false;
+			for (int pool_index = 0; pool_index < pool.Count (); pool_index ++) {
+				if (pool[pool_index] == salvaged) {
+					already_pooled = true;
+					break;
+				}
+			}
+			if (already_pooled) {
+				g_glyphPoolSalvageDup ++;
+			} else if (pool.Count () < GENERALSX_MAX_RECYCLED_GLYPH_TEXTURES) {
 				salvaged->Add_Ref ();
 				pool.Add (salvaged);
+				g_glyphPoolSalvaged ++;
+			} else {
+				g_glyphPoolSalvageFull ++;
 			}
 		}
 		delete Renderers[0].Renderer;
@@ -482,12 +533,24 @@ Render2DSentenceClass::Build_Textures ()
 				candidate->Get_Texture_Format () == WW3D_FORMAT_A4R4G4B4) {
 				new_texture = candidate;
 				pool.Delete (pool_index);
+				g_glyphPoolHits ++;
 				GX_TRACE("Build_Textures: reusing recycled TextureClass=%p width=%u\n",
 					(void*)new_texture, desc.Width);
 				break;
 			}
 		}
 		if (new_texture == nullptr) {
+			g_glyphPoolMisses ++;
+			// Print the pool's contents at the moment of the miss -- the whole
+			// point of this diagnostic is to see WHY nothing matched, not just
+			// that nothing did. Throttled so it does not become the bottleneck
+			// it is measuring.
+			if ((g_glyphPoolMisses % 25) == 1) {
+				char miss_why[64];
+				snprintf (miss_why, sizeof (miss_why), "miss want=%ux%u/%d",
+					desc.Width, desc.Width, (int)WW3D_FORMAT_A4R4G4B4);
+				GeneralsX_Report_Glyph_Pool (miss_why);
+			}
 			GX_TRACE("Build_Textures: about to create TextureClass width=%u\n", desc.Width);
 			new_texture = W3DNEW TextureClass (desc.Width, desc.Width, WW3D_FORMAT_A4R4G4B4, MIP_LEVELS_1);
 			GX_TRACE("Build_Textures: TextureClass created=%p\n", (void*)new_texture);

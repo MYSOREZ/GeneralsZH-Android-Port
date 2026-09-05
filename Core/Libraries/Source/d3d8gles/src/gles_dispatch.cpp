@@ -71,6 +71,7 @@ typedef GLuint (GL_APIENTRY *PFN_glGetUniformBlockIndex)(GLuint program, const G
 typedef GLint (GL_APIENTRY *PFN_glGetUniformLocation)(GLuint program, const GLchar *name);
 typedef void (GL_APIENTRY *PFN_glLinkProgram)(GLuint program);
 typedef void (GL_APIENTRY *PFN_glPixelStorei)(GLenum pname, GLint param);
+typedef void (GL_APIENTRY *PFN_glReadPixels)(GLint x, GLint y, GLsizei width, GLsizei height, GLenum format, GLenum type, void *pixels);
 typedef void (GL_APIENTRY *PFN_glPolygonOffset)(GLfloat factor, GLfloat units);
 typedef void (GL_APIENTRY *PFN_glRenderbufferStorage)(GLenum target, GLenum internalformat, GLsizei width, GLsizei height);
 typedef void (GL_APIENTRY *PFN_glScissor)(GLint x, GLint y, GLsizei width, GLsizei height);
@@ -153,6 +154,7 @@ PFN_glGetUniformBlockIndex d3d8gles_pfn_glGetUniformBlockIndex = nullptr;
 PFN_glGetUniformLocation d3d8gles_pfn_glGetUniformLocation = nullptr;
 PFN_glLinkProgram d3d8gles_pfn_glLinkProgram = nullptr;
 PFN_glPixelStorei d3d8gles_pfn_glPixelStorei = nullptr;
+PFN_glReadPixels d3d8gles_pfn_glReadPixels = nullptr;
 PFN_glPolygonOffset d3d8gles_pfn_glPolygonOffset = nullptr;
 PFN_glRenderbufferStorage d3d8gles_pfn_glRenderbufferStorage = nullptr;
 PFN_glScissor d3d8gles_pfn_glScissor = nullptr;
@@ -474,6 +476,12 @@ GL_APICALL void GL_APIENTRY glLinkProgram(GLuint program)
 	d3d8gles_pfn_glLinkProgram(program);
 }
 
+GL_APICALL void GL_APIENTRY glReadPixels(GLint x, GLint y, GLsizei width, GLsizei height,
+                                         GLenum format, GLenum type, void *pixels)
+{
+	d3d8gles_pfn_glReadPixels(x, y, width, height, format, type, pixels);
+}
+
 GL_APICALL void GL_APIENTRY glPixelStorei(GLenum pname, GLint param)
 {
 	d3d8gles_pfn_glPixelStorei(pname, param);
@@ -715,6 +723,8 @@ bool d3d8gles_LoadGLESDispatch(const char *libName)
 	if (!d3d8gles_pfn_glLinkProgram) { fprintf(stderr, "[d3d8gles] GLES dispatch: missing symbol glLinkProgram in %s\n", libName); ok = false; }
 	d3d8gles_pfn_glPixelStorei = reinterpret_cast<PFN_glPixelStorei>(dlsym(lib, "glPixelStorei"));
 	if (!d3d8gles_pfn_glPixelStorei) { fprintf(stderr, "[d3d8gles] GLES dispatch: missing symbol glPixelStorei in %s\n", libName); ok = false; }
+	d3d8gles_pfn_glReadPixels = reinterpret_cast<PFN_glReadPixels>(dlsym(lib, "glReadPixels"));
+	if (!d3d8gles_pfn_glReadPixels) { fprintf(stderr, "[d3d8gles] GLES dispatch: missing symbol glReadPixels in %s\n", libName); ok = false; }
 	d3d8gles_pfn_glPolygonOffset = reinterpret_cast<PFN_glPolygonOffset>(dlsym(lib, "glPolygonOffset"));
 	if (!d3d8gles_pfn_glPolygonOffset) { fprintf(stderr, "[d3d8gles] GLES dispatch: missing symbol glPolygonOffset in %s\n", libName); ok = false; }
 	d3d8gles_pfn_glRenderbufferStorage = reinterpret_cast<PFN_glRenderbufferStorage>(dlsym(lib, "glRenderbufferStorage"));
@@ -759,7 +769,7 @@ bool d3d8gles_LoadGLESDispatch(const char *libName)
 	if (!d3d8gles_pfn_glViewport) { fprintf(stderr, "[d3d8gles] GLES dispatch: missing symbol glViewport in %s\n", libName); ok = false; }
 
 	if (!ok) return false;
-	fprintf(stderr, "[d3d8gles] GLES dispatch: resolved %zu entry points from %s\n", static_cast<size_t>(81), libName);
+	fprintf(stderr, "[d3d8gles] GLES dispatch: resolved %zu entry points from %s\n", static_cast<size_t>(82), libName);
 	return true;
 }
 
