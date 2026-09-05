@@ -132,6 +132,16 @@ static DynamicVectorClass<TextureClass *> &GeneralsX_Get_Glyph_Texture_Pool ()
 // size the miss wanted, and what was actually sitting in the pool when it
 // missed. See docs/WORKDIR/lessons/LESSON-d3d-vs-gl-rasterization-conventions.md
 // for why this project debugs outputs and not inferred inputs.
+// MEASURED RESULT (real device, full session through menus and a skirmish):
+//   hit=20428 miss=351 salvaged=20432 salvage_full=237 salvage_dup=0 pool=4
+// i.e. the pool works -- 98.3% of atlas pages are recycled, and every miss the
+// dump caught wanted a 64x64 page while the pool held only 128x128/256x256
+// ones, which is an ordinary size mismatch and not a broken lookup. So the
+// earlier "created=784 deleted=630" reading was NOT this pool failing; that
+// counter is g_texturesCreated in the GLES backend, which counts every GL
+// texture object in the process, glyph atlases included but far from alone.
+// Keep the counters: they are ~free and turn "is the pool working?" back into
+// one grep instead of another round of hypotheses.
 static long g_glyphPoolHits			= 0;
 static long g_glyphPoolMisses			= 0;
 static long g_glyphPoolSalvaged		= 0;

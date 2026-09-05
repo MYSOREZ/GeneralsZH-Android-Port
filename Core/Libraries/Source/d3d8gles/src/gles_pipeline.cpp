@@ -533,6 +533,57 @@ static void getStageKey(WebGLDevice *dev, int stage, StageKey *k)
 	if (dev->getStageState(stage, D3DTSS_ALPHAARG1) == 0) k->alphaArg1 = 2;
 }
 
+// GeneralsX @bugfix Android port 09/05/2026 D3D8 still RUNS a texture stage
+// whose op is not D3DTOP_DISABLE when no texture is bound at that stage, as
+// long as the op's arguments do not source D3DTA_TEXTURE. This backend used to
+// disable the entire stage on "no texture", which silently deleted a real pass.
+//
+// The case that exposed it: Render2DClass::Render()'s greyscale path (disabled
+// command-bar buttons) puts D3DTOP_DOTPRODUCT3 on stage 1 with COLORARG1 =
+// D3DTA_CURRENT and COLORARG2 = D3DTA_TFACTOR -- neither touches a texture, and
+// the 2D path only ever binds stage 0. So the desaturation never ran, and the
+// button came out as the bare stage-0 result (a MULTIPLYADD that brightens the
+// icon by +0.25 -- reported as "the building icons became too light and I can
+// no longer tell what is available"). Worse, it was intermittent: whenever a
+// previous 3D pass happened to leave a texture bound on stage 1, the stage did
+// run and every icon went greyscale at once -- which is the all-colour /
+// all-grey flicker seen between otherwise identical frames.
+//
+// Collapse per channel, and only for the channel that actually reads the
+// missing texture.
+static bool stageChannelReadsTexture(unsigned op, unsigned arg0, unsigned arg1, unsigned arg2)
+{
+	if (op == D3DTOP_DISABLE) return false;
+	// BLENDTEXTUREALPHA takes the texture's alpha implicitly, not through an
+	// argument, so it reads the texture no matter what its args say.
+	if (op == D3DTOP_BLENDTEXTUREALPHA) return true;
+	auto isTex = [](unsigned a) { return (a & 0xF) == (unsigned)D3DTA_TEXTURE; };
+	if (isTex(arg1) || isTex(arg2)) return true;
+	// arg0 is only consulted by the two ops that take a third argument.
+	if ((op == D3DTOP_MULTIPLYADD || op == D3DTOP_LERP) && isTex(arg0)) return true;
+	return false;
+}
+
+static void collapseStageWithoutTexture(StageKey *k, int stage)
+{
+	if (stageChannelReadsTexture(k->colorOp, k->colorArg0, k->colorArg1, k->colorArg2)) {
+		if (stage == 0) {
+			k->colorOp = D3DTOP_SELECTARG2;
+			k->colorArg2 = 0; // DIFFUSE
+		} else {
+			k->colorOp = D3DTOP_DISABLE;
+		}
+	}
+	if (stageChannelReadsTexture(k->alphaOp, k->alphaArg0, k->alphaArg1, k->alphaArg2)) {
+		if (stage == 0) {
+			k->alphaOp = D3DTOP_SELECTARG2;
+			k->alphaArg2 = 0;
+		} else {
+			k->alphaOp = D3DTOP_DISABLE;
+		}
+	}
+}
+
 uint64_t WebGLPipeline::computeProgramKey(WebGLDevice *dev, unsigned fvf) const
 {
 	FVFLayout l;
@@ -576,18 +627,8 @@ uint64_t WebGLPipeline::computeProgramKey(WebGLDevice *dev, unsigned fvf) const
 	for (int s = 0; s < 2; s++) {
 		StageKey sk;
 		getStageKey(dev, s, &sk);
-		if (!dev->getTexture2D(s)) {
-			// No texture bound: any op sourcing TEXTURE collapses.
-			if (s == 0) {
-				sk.colorOp = D3DTOP_SELECTARG2;
-				sk.colorArg2 = 0; // DIFFUSE
-				sk.alphaOp = D3DTOP_SELECTARG2;
-				sk.alphaArg2 = 0;
-			} else {
-				sk.colorOp = D3DTOP_DISABLE;
-				sk.alphaOp = D3DTOP_DISABLE;
-			}
-		}
+		// No texture bound: only the channels that source TEXTURE collapse.
+		if (!dev->getTexture2D(s)) collapseStageWithoutTexture(&sk, s);
 		put(sk.colorOp, 5);
 		put(sk.colorArg0, 6);
 		put(sk.colorArg1, 6);
@@ -755,17 +796,9 @@ WebGLPipeline::ProgramInfo *WebGLPipeline::getProgram(WebGLDevice *dev, unsigned
 	int stagesUsed = 0;
 	for (int s = 0; s < 2; s++) {
 		getStageKey(dev, s, &st[s]);
-		if (!dev->getTexture2D(s)) {
-			if (s == 0) {
-				st[s].colorOp = D3DTOP_SELECTARG2;
-				st[s].colorArg2 = 0;
-				st[s].alphaOp = D3DTOP_SELECTARG2;
-				st[s].alphaArg2 = 0;
-			} else {
-				st[s].colorOp = D3DTOP_DISABLE;
-				st[s].alphaOp = D3DTOP_DISABLE;
-			}
-		}
+		// Must stay identical to computeProgramKey's handling above, or the
+		// cache key and the generated shader describe different pipelines.
+		if (!dev->getTexture2D(s)) collapseStageWithoutTexture(&st[s], s);
 		if (st[s].colorOp != D3DTOP_DISABLE) stagesUsed = s + 1;
 	}
 
