@@ -49,16 +49,3 @@ target_include_directories(d3d8gles PRIVATE
 target_link_libraries(d3d8gles PRIVATE d3d8lib sdl3lib)
 
 target_compile_features(d3d8gles PRIVATE cxx_std_20)
-
-# GeneralsX @build Android port 09/05/2026 A/B DIAGNOSTIC SWITCH -- temporary.
-# Inverts the D3D->GL cull-face mapping for shadow-volume fill draws only
-# (stencil enabled, colour writes off). Tests whether the two z-pass halves
-# are swapped by the D3D/GL winding convention difference, which is the last
-# explanation standing for the dark quad around aircraft: every other part of
-# that path has now been measured correct, and a swap is invisible to a
-# draw-call counter because a fully culled draw still counts. If this makes
-# the shadows correct it becomes the fix, properly scoped and commented.
-option(GENERALSX_AB_SHADOW_CULL_FLIP "A/B diagnostic: invert cull face for shadow-volume fill passes" OFF)
-if(GENERALSX_AB_SHADOW_CULL_FLIP)
-    target_compile_definitions(d3d8gles PRIVATE GENERALSX_AB_SHADOW_CULL_FLIP)
-endif()

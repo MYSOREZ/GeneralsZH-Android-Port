@@ -293,17 +293,6 @@ endif()
 
 # CURL::libcurl is now propagated transitively via corei_gameengine_public (Core/GameEngine/CMakeLists.txt).
 
-# GeneralsX @build Android port 09/05/2026 A/B DIAGNOSTIC SWITCH -- temporary.
-# Skips every projected shadow decal (W3DProjectedShadowManager::flushDecals) so
-# a device test can say whether the dark quad reported around helicopters comes
-# from the shadow subsystem at all, or from the aircraft model's own translucent
-# rotor geometry. OFF by default; the diagnostic APK is built with it ON. Remove
-# this block, and its guard in W3DProjectedShadow.cpp, once the answer is in.
-option(GENERALSX_AB_DISABLE_SHADOW_DECALS "A/B diagnostic: skip all shadow decal draws" OFF)
-if(GENERALSX_AB_DISABLE_SHADOW_DECALS)
-    target_compile_definitions(z_gameenginedevice PRIVATE GENERALSX_AB_DISABLE_SHADOW_DECALS)
-endif()
-
 # GeneralsX @build Android port 09/05/2026 DIAGNOSTIC SWITCH -- temporary.
 # Turns on W3DVolumetricShadow.cpp's own SV_DEBUG path, which the original
 # developers left in the file: the shadow volumes are drawn as visible,
@@ -318,12 +307,4 @@ if(GENERALSX_SHADOW_VOLUME_DEBUG)
         Source/W3DDevice/GameClient/Shadow/W3DVolumetricShadow.cpp
         TARGET_DIRECTORY z_gameenginedevice
         PROPERTIES COMPILE_DEFINITIONS SV_DEBUG)
-endif()
-
-# GeneralsX @build Android port 09/05/2026 A/B DIAGNOSTIC SWITCH -- temporary.
-# Forces WW3D texture reduction to 0 regardless of detail level, so a Low-detail
-# start can be tested with reduction as the ONLY thing changed. OFF by default.
-option(GENERALSX_AB_NO_TEXTURE_REDUCTION "A/B diagnostic: force texture reduction off" OFF)
-if(GENERALSX_AB_NO_TEXTURE_REDUCTION)
-    target_compile_definitions(z_gameenginedevice PRIVATE GENERALSX_AB_NO_TEXTURE_REDUCTION)
 endif()

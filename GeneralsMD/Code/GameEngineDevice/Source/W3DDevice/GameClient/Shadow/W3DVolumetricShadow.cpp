@@ -3618,36 +3618,6 @@ void W3DVolumetricShadowManager::renderShadows( Bool forceStencilFill )
 		// render the big transparent square of shadows in the stencil buffer
 		// to the screen
 		//
-		// GeneralsX @build Android port 09/05/2026 Backend-agnostic volume-shadow
-		// counter -- deliberately in ENGINE code, not in the GLES backend, so the
-		// same line appears under DXVK/Vulkan too. Every GLES-side measurement now
-		// says this pass is translated faithfully (stencil buffer present and
-		// cleared, colour writes off, both z-pass halves rasterizing real samples
-		// with matching draw counts), which raises a question no GLES-only
-		// diagnostic can answer: does Vulkan render these shadows at all? If it
-		// renders zero while GLES renders thousands, the two backends are not even
-		// running the same code path and the difference is upstream of the
-		// renderer -- which would explain "never happens on Vulkan" without any
-		// GL bug at all. Throttled to one line per ~2s.
-		{
-			static unsigned s_gxShadowFrames = 0;
-			static unsigned s_gxShadowVolumes = 0;
-			static unsigned s_gxLastLogMs = 0;
-			s_gxShadowFrames++;
-			s_gxShadowVolumes += (unsigned)numRenderedShadows;
-			const unsigned nowMs = (unsigned)(clock() * 1000ull / CLOCKS_PER_SEC);
-			if (s_gxLastLogMs == 0) {
-				s_gxLastLogMs = nowMs;
-			} else if (nowMs - s_gxLastLogMs >= 2000) {
-				fprintf(stderr, "[gxvolshadow] %u frames, %u volumes rendered "
-					"(%.1f per frame)\n", s_gxShadowFrames, s_gxShadowVolumes,
-					s_gxShadowFrames ? (float)s_gxShadowVolumes / s_gxShadowFrames : 0.0f);
-				s_gxShadowFrames = 0;
-				s_gxShadowVolumes = 0;
-				s_gxLastLogMs = nowMs;
-			}
-		}
-
 ///@todo: Put this check back in after water is fixed so it doesn't require shadow rendering to fix alpha.
 //		if (numRenderedShadows)
 			renderStencilShadows();

@@ -1520,18 +1520,6 @@ public:
 
 	HRESULT SetRenderState(D3DRENDERSTATETYPE state, DWORD value) override
 	{
-		// GeneralsX @build Android port 09/05/2026 Log every write that turns
-		// the depth TEST off, with the value and a running count. If the seeded
-		// default is being overwritten, this names the moment it happens; if
-		// nothing ever writes it, the seeding itself is not in effect. Capped.
-		if (state == D3DRS_ZENABLE) {
-			static int s_zLogs = 0;
-			if (s_zLogs < 16) {
-				s_zLogs++;
-				fprintf(stderr, "[gxdefaults] SetRenderState(D3DRS_ZENABLE, %u)\n",
-					(unsigned)value);
-			}
-		}
 		if ((size_t)state < kMaxRenderStates) m_renderStates[state] = value;
 		return D3D_OK;
 	}

@@ -711,102 +711,11 @@ void W3DProjectedShadowManager::flushDecals(W3DShadowTexture *texture, ShadowTyp
 	LPDIRECT3DDEVICE8 m_pDev=DX8Wrapper::_Get_D3D_Device8();
 	if (!m_pDev)	return;	//no D3D Device to render
 
-#if defined(GENERALSX_AB_DISABLE_SHADOW_DECALS)
-	// GeneralsX @build Android port 09/05/2026 A/B DIAGNOSTIC BUILD ONLY -- not
-	// a fix, and not to be merged enabled. The artifact around helicopters is
-	// described as a dark translucent quad that moves with the aircraft, which
-	// fits two completely different subsystems equally well: this ground-decal
-	// path, or the aircraft model's own translucent rotor-blur geometry (a
-	// sorted/alpha-blended sub-mesh, nothing to do with shadows). Three fixes
-	// have now been aimed at shadow code without moving the symptom, so stop
-	// aiming and split the space instead: with every shadow decal skipped, if
-	// the quad is still there it is model geometry and the whole shadow
-	// subsystem is exonerated. The diagnostic log above already established
-	// this path only ever draws two textures (shadow.tga, ShadowI.tga, both
-	// DXT5 64x64 with a real alpha channel), so skipping here removes all of
-	// them and nothing else.
-	{
-		static bool s_logged = false;
-		if (!s_logged) {
-			s_logged = true;
-			fprintf(stderr, "[gxshadow] A/B BUILD: all shadow decals disabled\n");
-		}
-		nShadowDecalStartBatchVertex=nShadowDecalVertsInBuf;
-		nShadowDecalStartBatchIndex=nShadowDecalIndicesInBuf;
-		nShadowDecalPolysInBatch=0;
-		nShadowDecalVertsInBatch=0;
-		return;
-	}
-#endif
-
 	VertexMaterialClass *vmat=VertexMaterialClass::Get_Preset(VertexMaterialClass::PRELIT_DIFFUSE);
 	DX8Wrapper::Set_Material(vmat);
 	REF_PTR_RELEASE(vmat);
 	DX8Wrapper::Set_Texture(0,texture->getTexture());
 
-#if defined(__ANDROID__)
-	// GeneralsX @build Android port 09/05/2026 Shadow-decal diagnostic. Aircraft
-	// shadows render as pale opaque rectangles on the native GLES backend and
-	// are correct under DXVK. A render-target readback fix (added for
-	// SHADOW_PROJECTION) did not change them, so this path -- artist-supplied
-	// decal textures blended with _PresetAlphaShader -- is the one actually in
-	// use, and the rectangle shape says the texture's ALPHA is not reaching the
-	// blend. Rather than guess which stage drops it, report what is actually
-	// being drawn: the decal type, the texture, its pixel format, and whether
-	// its alpha channel has any range at all. Once per distinct texture, capped;
-	// remove once the cause is found.
-	{
-		static const void *s_seenTex[12] = {nullptr};
-		static int s_seenCount = 0;
-		bool alreadyLogged = false;
-		for (int i = 0; i < s_seenCount; i++) {
-			if (s_seenTex[i] == (const void *)texture) { alreadyLogged = true; break; }
-		}
-		if (!alreadyLogged && s_seenCount < 12) {
-			s_seenTex[s_seenCount++] = (const void *)texture;
-			TextureClass *decalTex = texture->getTexture();
-			SurfaceClass::SurfaceDescription sd;
-			sd.Width = sd.Height = 0;
-			sd.Format = WW3D_FORMAT_UNKNOWN;
-			int alphaMin = -1, alphaMax = -1;
-			if (decalTex != nullptr) {
-				decalTex->Get_Level_Description(sd);
-				// Only scan formats whose alpha is one plain byte/nibble per
-				// texel; a compressed level would need a block decode here and
-				// the format alone already answers the question for those.
-				if (sd.Format == WW3D_FORMAT_A8R8G8B8 || sd.Format == WW3D_FORMAT_A4R4G4B4) {
-					SurfaceClass *lvl = decalTex->Get_Surface_Level();
-					if (lvl != nullptr) {
-						int pitch = 0;
-						unsigned char *bits = (unsigned char *)lvl->Lock(&pitch);
-						if (bits != nullptr) {
-							alphaMin = 255;
-							alphaMax = 0;
-							for (unsigned y = 0; y < sd.Height; y++) {
-								const unsigned char *row = bits + (size_t)y * pitch;
-								for (unsigned x = 0; x < sd.Width; x++) {
-									int a;
-									if (sd.Format == WW3D_FORMAT_A8R8G8B8) {
-										a = row[x * 4 + 3];
-									} else {	// A4R4G4B4: alpha is the top nibble of the high byte
-										a = (row[x * 2 + 1] >> 4) * 17;
-									}
-									if (a < alphaMin) alphaMin = a;
-									if (a > alphaMax) alphaMax = a;
-								}
-							}
-							lvl->Unlock();
-						}
-						REF_PTR_RELEASE(lvl);
-					}
-				}
-			}
-			fprintf(stderr, "[gxshadow] decal type=%d tex='%s' %ux%u fmt=%d alpha=[%d..%d]\n",
-				(int)type, texture->Get_Name(), sd.Width, sd.Height,
-				(int)sd.Format, alphaMin, alphaMax);
-		}
-	}
-#endif
 
 //	DX8Wrapper::Set_Shader(ShaderClass::_PresetOpaqueShader);	//good for debugging, draws without alpha
 	switch (type)

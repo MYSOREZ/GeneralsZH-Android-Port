@@ -583,19 +583,10 @@ static bool stageChannelReadsTexture(unsigned op, unsigned arg0, unsigned arg1, 
 	return false;
 }
 
-// GeneralsX @build Android port 09/05/2026 Counter for the measurement that
-// settles the black-polygon report: a stage-0 collapse means a draw asked to
-// sample a texture and none was bound, so its colour falls back to bare vertex
-// diffuse -- dark or black geometry, with no GL error and the texture still
-// alive. If this is high on Medium and near zero on High, the cause is a
-// texture that stopped being bound, not one that failed to load.
-static unsigned s_gxStage0Collapses = 0;
-static unsigned s_gxStage1Collapses = 0;
-
 static void collapseStageWithoutTexture(StageKey *k, int stage)
 {
 	if (stageChannelReadsTexture(k->colorOp, k->colorArg0, k->colorArg1, k->colorArg2)) {
-		if (stage == 0) s_gxStage0Collapses++; else s_gxStage1Collapses++;
+
 		if (stage == 0) {
 			k->colorOp = D3DTOP_SELECTARG2;
 			k->colorArg2 = 0; // DIFFUSE
@@ -1598,40 +1589,14 @@ void WebGLPipeline::applyFixedState(WebGLDevice *dev)
 	// nearly everything (terrain, video quads) after the y-negate fix,
 	// since front/back faces were now backwards relative to what D3D
 	// intended.
-	// GeneralsX @build Android port 09/05/2026 A/B DIAGNOSTIC -- see the CMake
-	// option of the same name. Shadow-volume fill draws (stencil on, colour
-	// writes off) get the OPPOSITE cull face from the mapping above.
-	//
-	// Why only these draws: the z-pass count works by drawing the volume's
-	// near-facing half with INCR and its far-facing half with DECR. Which half
-	// is which is decided purely by winding, and D3D measures winding in a
-	// y-DOWN screen space while GL measures it in a y-UP window space -- the
-	// one place in the whole pipeline where "correct for opaque models" and
-	// "correct for a two-pass stencil count" can disagree. If the halves are
-	// swapped, both passes still issue exactly the same number of draw calls
-	// (measured: incr=8865 decr=8865, they always match) while rasterizing the
-	// wrong halves, so no draw-call counter could ever have caught it -- a
-	// fully culled draw call still counts as a draw.
-	//
-	// Deliberately NOT applied to ordinary geometry: the current mapping is
-	// known-correct there (swapping it globally once culled terrain and video
-	// quads away entirely), and this is exactly the kind of change that must
-	// stay scoped to the pass whose symptom it explains.
-	const bool gxShadowVolumeFill =
-#if defined(GENERALSX_AB_SHADOW_CULL_FLIP)
-		dev->getRenderState(D3DRS_STENCILENABLE) != 0 &&
-		dev->getRenderState(D3DRS_COLORWRITEENABLE) == 0;
-#else
-		false;
-#endif
 	switch (dev->getRenderState(D3DRS_CULLMODE)) {
 	case D3DCULL_CW:
 		glEnable(GL_CULL_FACE);
-		glCullFace(gxShadowVolumeFill ? GL_FRONT : GL_BACK);
+		glCullFace(GL_BACK);
 		break;
 	case D3DCULL_CCW:
 		glEnable(GL_CULL_FACE);
-		glCullFace(gxShadowVolumeFill ? GL_BACK : GL_FRONT);
+		glCullFace(GL_FRONT);
 		break;
 	default:
 		glDisable(GL_CULL_FACE);
@@ -1655,39 +1620,6 @@ void WebGLPipeline::applyFixedState(WebGLDevice *dev)
 
 	// Stencil
 	if (dev->getRenderState(D3DRS_STENCILENABLE)) {
-		// GeneralsX @build Android port 09/05/2026 Stencil-sequence diagnostic,
-		// capped. Volumetric shadows are the only user of the stencil buffer in
-		// this engine, they are enabled only at High detail and above, and that
-		// is exactly the setting where the helicopter artifact appears (and
-		// never under DXVK at any setting). Dumping the actual translated state
-		// -- func/ref/masks/ops plus the cull mode and colour mask the volume
-		// fill passes depend on -- lets the whole D3D sequence be checked
-		// against the GL one offline instead of guessed at. Remove once the
-		// cause is found.
-		{
-			static int s_stencilLogs = 0;
-			if (s_stencilLogs < 24) {
-				s_stencilLogs++;
-				fprintf(stderr, "[gxstencil] func=%u ref=%u mask=0x%x writemask=0x%x "
-					"fail=%u zfail=%u pass=%u | cull=%u colorwrite=0x%x zenable=%u "
-					"zfunc=%u zwrite=%u blend=%u src=%u dst=%u\n",
-					(unsigned)dev->getRenderState(D3DRS_STENCILFUNC),
-					(unsigned)dev->getRenderState(D3DRS_STENCILREF),
-					(unsigned)dev->getRenderState(D3DRS_STENCILMASK),
-					(unsigned)dev->getRenderState(D3DRS_STENCILWRITEMASK),
-					(unsigned)dev->getRenderState(D3DRS_STENCILFAIL),
-					(unsigned)dev->getRenderState(D3DRS_STENCILZFAIL),
-					(unsigned)dev->getRenderState(D3DRS_STENCILPASS),
-					(unsigned)dev->getRenderState(D3DRS_CULLMODE),
-					(unsigned)dev->getRenderState(D3DRS_COLORWRITEENABLE),
-					(unsigned)dev->getRenderState(D3DRS_ZENABLE),
-					(unsigned)dev->getRenderState(D3DRS_ZFUNC),
-					(unsigned)dev->getRenderState(D3DRS_ZWRITEENABLE),
-					(unsigned)dev->getRenderState(D3DRS_ALPHABLENDENABLE),
-					(unsigned)dev->getRenderState(D3DRS_SRCBLEND),
-					(unsigned)dev->getRenderState(D3DRS_DESTBLEND));
-			}
-		}
 		glEnable(GL_STENCIL_TEST);
 		// GeneralsX @bugfix Android port 09/05/2026 Two deviations from D3D8
 		// semantics used to live in these three calls, and together they broke
@@ -2151,23 +2083,6 @@ static unsigned s_gxDrawsByCategory[GX_DRAWCAT_COUNT] = {0, 0, 0, 0, 0, 0, 0};
 // time go.
 static double s_gxUiTimeUs[3] = {0.0, 0.0, 0.0};
 
-// GeneralsX @build Android port 09/05/2026 Shadow-volume pass balance. Every
-// structural theory for the dark quad around aircraft is now dead by
-// measurement: the stencil buffer exists (8 bits), its format really is
-// D3DFMT_D24S8, D3DCLEAR_STENCIL runs every frame with value 0, colour writes
-// are genuinely off during the fill, the state sequence translates term for
-// term, and SV_DEBUG showed the volume geometry is structurally sane.
-//
-// What is left is the balance of the z-pass count itself. The engine draws
-// each volume TWICE: once with D3DSTENCILOP_INCR while culling one way, then
-// again with D3DSTENCILOP_DECRSAT while culling the other. If the second pass
-// issues fewer draws than the first -- or none -- nothing cancels the
-// increments and the WHOLE volume silhouette ends up at stencil >= 1 instead
-// of just the shadowed part, which is exactly the reported artifact. Counting
-// the draws in each pass says so directly and changes no behaviour.
-static unsigned s_gxStencilIncrDraws = 0;
-static unsigned s_gxStencilDecrDraws = 0;
-static unsigned s_gxStencilOtherDraws = 0;
 
 extern "C" void d3d8gles_AddUiTiming(int bucket, double microseconds)
 {
@@ -2220,62 +2135,8 @@ void WebGLPipeline::drawCommon(WebGLDevice *dev, unsigned primType, unsigned pri
 	// which is why two logs of the same scene look identical everywhere the
 	// fault has to live. Read from the device-side state, one line per category
 	// per window, so it costs nothing.
-	// GeneralsX @build Android port 09/05/2026 The first version of this dump
-	// omitted the DEPTH state, which was a real gap: the Low-detail terrain
-	// draws turned out to have entirely correct colour/blend/stage state and
-	// still not appear, and the screenshot shows water covering ground that
-	// should be in front of it. Depth compare/write is the one thing that
-	// decides that and it was the one thing not being reported. OTHER is
-	// included now too, because that is the bucket the water draws land in.
-	if (s_gxDrawCategory == GX_DRAWCAT_TERRAIN || s_gxDrawCategory == GX_DRAWCAT_MODELS ||
-	    s_gxDrawCategory == GX_DRAWCAT_OTHER) {
-		static unsigned s_lastDumpFrame[3] = {~0u, ~0u, ~0u};
-		const int slot = (s_gxDrawCategory == GX_DRAWCAT_TERRAIN) ? 0
-		               : (s_gxDrawCategory == GX_DRAWCAT_MODELS)  ? 1 : 2;
-		// Once per ~4 seconds per category, not per frame.
-		if ((m_frame % 120u) == 1u && s_lastDumpFrame[slot] != m_frame) {
-			s_lastDumpFrame[slot] = m_frame;
-			fprintf(stderr, "[gxstate] %s zEnable=%u zFunc=%u zWrite=%u | tex0=%p tex1=%p | blend=%u src=%u dst=%u "
-				"alphaTest=%u colorWrite=0x%x tFactor=0x%x | s0: op=%u a1=%u a2=%u aop=%u tci=%u "
-				"| s1: op=%u a1=%u a2=%u aop=%u tci=%u\n",
-				slot == 0 ? "TERRAIN" : slot == 1 ? "MODELS " : "OTHER  ",
-				(unsigned)dev->getRenderState(D3DRS_ZENABLE),
-				(unsigned)dev->getRenderState(D3DRS_ZFUNC),
-				(unsigned)dev->getRenderState(D3DRS_ZWRITEENABLE),
-				(void *)dev->getTexture2D(0), (void *)dev->getTexture2D(1),
-				(unsigned)dev->getRenderState(D3DRS_ALPHABLENDENABLE),
-				(unsigned)dev->getRenderState(D3DRS_SRCBLEND),
-				(unsigned)dev->getRenderState(D3DRS_DESTBLEND),
-				(unsigned)dev->getRenderState(D3DRS_ALPHATESTENABLE),
-				(unsigned)dev->getRenderState(D3DRS_COLORWRITEENABLE),
-				(unsigned)dev->getRenderState(D3DRS_TEXTUREFACTOR),
-				(unsigned)dev->getStageState(0, D3DTSS_COLOROP),
-				(unsigned)dev->getStageState(0, D3DTSS_COLORARG1),
-				(unsigned)dev->getStageState(0, D3DTSS_COLORARG2),
-				(unsigned)dev->getStageState(0, D3DTSS_ALPHAOP),
-				(unsigned)dev->getStageState(0, D3DTSS_TEXCOORDINDEX),
-				(unsigned)dev->getStageState(1, D3DTSS_COLOROP),
-				(unsigned)dev->getStageState(1, D3DTSS_COLORARG1),
-				(unsigned)dev->getStageState(1, D3DTSS_COLORARG2),
-				(unsigned)dev->getStageState(1, D3DTSS_ALPHAOP),
-				(unsigned)dev->getStageState(1, D3DTSS_TEXCOORDINDEX));
-		}
-	}
-
 	m_perfDrawsThisFrame++;
 	s_gxDrawsByCategory[s_gxDrawCategory]++;
-	// Shadow-volume fill draws are the ones with the stencil on and colour
-	// writes off; bucket them by which stencil op they carry.
-	if (dev->getRenderState(D3DRS_STENCILENABLE) &&
-	    dev->getRenderState(D3DRS_COLORWRITEENABLE) == 0) {
-		switch (dev->getRenderState(D3DRS_STENCILPASS)) {
-		case D3DSTENCILOP_INCR:
-		case D3DSTENCILOP_INCRSAT:  s_gxStencilIncrDraws++; break;
-		case D3DSTENCILOP_DECR:
-		case D3DSTENCILOP_DECRSAT:  s_gxStencilDecrDraws++; break;
-		default:                    s_gxStencilOtherDraws++; break;
-		}
-	}
 }
 
 // Buffer objects (device-side shadow -> GL) helpers.
@@ -2533,23 +2394,6 @@ void WebGLPipeline::clear(WebGLDevice *dev, unsigned flags, uint32_t argb, float
 {
 	if (!m_ctxReady) return;
 
-	// GeneralsX @build Android port 09/05/2026 The volumetric-shadow hunt has
-	// reached "the stencil CONTENT is wrong" (the darkening quad is verified to
-	// be the visible artifact, and colour writes are verified off during the
-	// volume fill). The fill increments with GL_INCR_WRAP, which never
-	// saturates -- so if the stencil buffer is not actually being cleared each
-	// frame, values accumulate and more and more pixels satisfy the darkening
-	// quad's "stencil >= 1". Whether D3DCLEAR_STENCIL is requested at all was
-	// INFERRED from Find_Z_Mode's preference order last round; measure it.
-	// bit0 = TARGET, bit1 = ZBUFFER, bit2 = STENCIL.
-	{
-		static int s_clearLogs = 0;
-		if (s_clearLogs < 10) {
-			s_clearLogs++;
-			fprintf(stderr, "[gxclear] flags=0x%x (target=%d z=%d stencil=%d) stencilValue=%u\n",
-				flags, (flags & 1) ? 1 : 0, (flags & 2) ? 1 : 0, (flags & 4) ? 1 : 0, stencil);
-		}
-	}
 
 	// D3D clears the viewport region only.
 	const D3DVIEWPORT8 &vp = dev->getViewport();
@@ -2799,21 +2643,6 @@ void WebGLPipeline::present()
 			// averaged over the same window as draws/frame above.
 			{
 				const float f = m_perfFrameCount > 0 ? (float)m_perfFrameCount : 1.0f;
-				if (s_gxStencilIncrDraws || s_gxStencilDecrDraws || s_gxStencilOtherDraws) {
-					fprintf(stderr, "[gxstencil] shadow-volume fill draws this window: "
-						"incr=%u decr=%u other=%u (incr and decr should match)\n",
-						s_gxStencilIncrDraws, s_gxStencilDecrDraws, s_gxStencilOtherDraws);
-					s_gxStencilIncrDraws = 0;
-					s_gxStencilDecrDraws = 0;
-					s_gxStencilOtherDraws = 0;
-				}
-				if (s_gxStage0Collapses || s_gxStage1Collapses) {
-					fprintf(stderr, "[gxtex] stage collapses this window (draw asked for a "
-						"texture, none bound -> renders as flat vertex colour): stage0=%u stage1=%u\n",
-						s_gxStage0Collapses, s_gxStage1Collapses);
-					s_gxStage0Collapses = 0;
-					s_gxStage1Collapses = 0;
-				}
 				fprintf(stderr, "[d3d8gles] perf-draws/frame by source: models=%.1f sorted(particles)=%.1f "
 					"2d-ui=%.1f terrain=%.1f shadows=%.1f skin=%.1f other=%.1f\n",
 					s_gxDrawsByCategory[GX_DRAWCAT_MODELS] / f,
