@@ -315,7 +315,12 @@ void DX8Wrapper::Pillarbox_End()
 	D3DDevice->Clear(0, nullptr, D3DCLEAR_TARGET, 0x00000000, 1.0f, 0);
 
 	// Use DX8Wrapper's cached state setters so the cache stays in sync — no invalidation needed.
-	D3DDevice->SetTexture(0, s_offscreenTex);
+	// GeneralsX @bugfix Android port 09/05/2026 The two SetTexture calls in this
+	// function used to be the exception to that sentence: they went straight to
+	// the device while every state setter around them went through the cache,
+	// so stage 0's cached binding was left claiming whatever was bound before.
+	// Routed through Set_DX8_Texture now, like the rest.
+	Set_DX8_Texture(0, s_offscreenTex);
 	Set_DX8_Render_State(D3DRS_ZENABLE, FALSE);
 	Set_DX8_Render_State(D3DRS_ZWRITEENABLE, FALSE);
 	Set_DX8_Render_State(D3DRS_LIGHTING, FALSE);
@@ -403,7 +408,7 @@ void DX8Wrapper::Pillarbox_End()
 	};
 	D3DDevice->SetVertexShader(D3DFVF_XYZRHW | D3DFVF_TEX1);
 	D3DDevice->DrawPrimitiveUP(D3DPT_TRIANGLESTRIP, 2, quad, sizeof(BV));
-	D3DDevice->SetTexture(0, nullptr);
+	Set_DX8_Texture(0, nullptr);
 }
 
 // GeneralsX @bugfix Android port 08/30/2026 EXPERIMENT: real separation of

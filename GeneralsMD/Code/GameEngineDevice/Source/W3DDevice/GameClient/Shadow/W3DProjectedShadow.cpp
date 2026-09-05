@@ -531,6 +531,20 @@ Int W3DProjectedShadowManager::renderProjectedTerrainShadow(W3DProjectedShadow *
 //    m_pDev->SetRenderState( D3DRS_ALPHABLENDENABLE, TRUE );
 		m_pDev->SetRenderState( D3DRS_LIGHTING, TRUE);
 
+		// GeneralsX @bugfix Android port 09/05/2026 This function drives the
+		// device directly for a dozen render states and only raw-restores three
+		// of them, so DX8Wrapper's RenderStates[] cache is left describing
+		// state the device does not have. The two that matter most are never
+		// restored at all: SRCBLEND stays D3DBLEND_DESTCOLOR and DESTBLEND
+		// stays D3DBLEND_ZERO. Because Set_DX8_Render_State is a redundancy
+		// filter, a later draw asking for the blend mode the cache already
+		// claims is SKIPPED, and it renders multiplied against the destination
+		// instead -- another way to get dark or black geometry with no error
+		// anywhere. Unlike the shadow-volume and tree renderers, which end with
+		// this same call as their documented cleanup contract, nothing in this
+		// file repaired it on any path.
+		DX8Wrapper::Invalidate_Cached_Render_States();
+
 		nShadowVertsInBuf += numVerts;
 		nShadowStartBatchVertex=nShadowVertsInBuf;
 
