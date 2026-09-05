@@ -129,6 +129,14 @@ cmake --build build/macos-vulkan --target z_generals
   `docs/WORKDIR/lessons/LESSON-d3d-vs-gl-rasterization-conventions.md` **before** hypothesis-hunting;
   it lists the known instances and the debugging method (measure the transform's *output*, not
   its inputs).
+- **Slow/stuttering on the native GLES backend**: check the D3D8 **lock/usage flags** before
+  anything else. `D3DLOCK_DISCARD`/`D3DLOCK_NOOVERWRITE` and the lock's `offset`/`size` are a
+  synchronization contract; dropping them turns every dynamic-buffer update into a GPU stall,
+  which is what cost this port ~45 fps. Cost that scales with *call count* and is flat per call
+  means waiting, not working. Read
+  `docs/WORKDIR/lessons/LESSON-gles-dynamic-buffer-stalls.md` — it also documents the
+  per-subsystem draw and UI-time counters (`[d3d8gles] perf-draws/frame by source:`,
+  `[d3d8gles] perf-ui ms/frame:`) that attribute a frame's cost from a device log.
 
 ## Testing & Validation
 ### Smoke test
