@@ -462,6 +462,25 @@ bool WebGLPipeline::initContext(int w, int h, SDL_Window *window)
 	glDisable(GL_DITHER);
 
 	m_ctxReady = true;
+	// GeneralsX @build Android port 09/05/2026 Report the DEFAULT framebuffer's
+	// actual bit depths, not the ones we asked SDL for. Stencil is the one that
+	// matters: volumetric (stencil) shadows are enabled only at High detail and
+	// above, which is exactly when the reported helicopter artifact appears, and
+	// a config without stencil bits makes every stencil test pass silently --
+	// which would draw W3DVolumetricShadowManager::renderStencilShadows()'s
+	// darkening quad unmasked instead of only inside the shadow. SDL is free to
+	// hand back a config that does not satisfy every requested attribute.
+	{
+		GLint rb = 0, gb = 0, bb = 0, ab = 0, db = 0, sb = 0;
+		glGetIntegerv(GL_RED_BITS, &rb);
+		glGetIntegerv(GL_GREEN_BITS, &gb);
+		glGetIntegerv(GL_BLUE_BITS, &bb);
+		glGetIntegerv(GL_ALPHA_BITS, &ab);
+		glGetIntegerv(GL_DEPTH_BITS, &db);
+		glGetIntegerv(GL_STENCIL_BITS, &sb);
+		fprintf(stderr, "[d3d8gles] default framebuffer bits: r=%d g=%d b=%d a=%d depth=%d stencil=%d\n",
+			(int)rb, (int)gb, (int)bb, (int)ab, (int)db, (int)sb);
+	}
 	fprintf(stderr, "[d3d8gles] GLES3 context ready %dx%d (s3tc=%d)\n", w, h, (int)m_hasS3TC);
 	return true;
 }
@@ -1584,6 +1603,39 @@ void WebGLPipeline::applyFixedState(WebGLDevice *dev)
 
 	// Stencil
 	if (dev->getRenderState(D3DRS_STENCILENABLE)) {
+		// GeneralsX @build Android port 09/05/2026 Stencil-sequence diagnostic,
+		// capped. Volumetric shadows are the only user of the stencil buffer in
+		// this engine, they are enabled only at High detail and above, and that
+		// is exactly the setting where the helicopter artifact appears (and
+		// never under DXVK at any setting). Dumping the actual translated state
+		// -- func/ref/masks/ops plus the cull mode and colour mask the volume
+		// fill passes depend on -- lets the whole D3D sequence be checked
+		// against the GL one offline instead of guessed at. Remove once the
+		// cause is found.
+		{
+			static int s_stencilLogs = 0;
+			if (s_stencilLogs < 24) {
+				s_stencilLogs++;
+				fprintf(stderr, "[gxstencil] func=%u ref=%u mask=0x%x writemask=0x%x "
+					"fail=%u zfail=%u pass=%u | cull=%u colorwrite=0x%x zenable=%u "
+					"zfunc=%u zwrite=%u blend=%u src=%u dst=%u\n",
+					(unsigned)dev->getRenderState(D3DRS_STENCILFUNC),
+					(unsigned)dev->getRenderState(D3DRS_STENCILREF),
+					(unsigned)dev->getRenderState(D3DRS_STENCILMASK),
+					(unsigned)dev->getRenderState(D3DRS_STENCILWRITEMASK),
+					(unsigned)dev->getRenderState(D3DRS_STENCILFAIL),
+					(unsigned)dev->getRenderState(D3DRS_STENCILZFAIL),
+					(unsigned)dev->getRenderState(D3DRS_STENCILPASS),
+					(unsigned)dev->getRenderState(D3DRS_CULLMODE),
+					(unsigned)dev->getRenderState(D3DRS_COLORWRITEENABLE),
+					(unsigned)dev->getRenderState(D3DRS_ZENABLE),
+					(unsigned)dev->getRenderState(D3DRS_ZFUNC),
+					(unsigned)dev->getRenderState(D3DRS_ZWRITEENABLE),
+					(unsigned)dev->getRenderState(D3DRS_ALPHABLENDENABLE),
+					(unsigned)dev->getRenderState(D3DRS_SRCBLEND),
+					(unsigned)dev->getRenderState(D3DRS_DESTBLEND));
+			}
+		}
 		glEnable(GL_STENCIL_TEST);
 		const DWORD func = dev->getRenderState(D3DRS_STENCILFUNC);
 		glStencilFunc(d3dCmpToGL(func ? func : D3DCMP_ALWAYS),
