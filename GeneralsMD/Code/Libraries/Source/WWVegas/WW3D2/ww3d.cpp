@@ -1819,6 +1819,16 @@ float	WW3D::Get_Movie_Capture_Frame_Rate()
 void	WW3D::Set_Texture_Reduction( int value, int minDim )
 {
 	if (_TextureReduction != value || _TextureMinDim != minDim) {
+		// GeneralsX @build Android port 09/05/2026 Name the setting in the log.
+		// Textures go missing after RESTARTING on Medium detail while a live
+		// switch to Medium looks fine, which points at load-time reduction
+		// rather than at rendering -- a live switch does not reload anything
+		// already in memory. This prints what reduction the next load will
+		// actually use. Engine-side deliberately, so it appears under Vulkan
+		// too and the two can be compared.
+		fprintf(stderr, "[gxtex] texture reduction %d -> %d, minDim %d -> %d "
+			"(invalidating textures)\n",
+			_TextureReduction, value, _TextureMinDim, minDim);
 		_TextureReduction=value;
 		_TextureMinDim=minDim;
 		_Invalidate_Textures();

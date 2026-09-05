@@ -1428,6 +1428,22 @@ void WebGLPipeline::uploadTexture(WebGLTexture *tex)
 	} else {
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, uploaded > 0 ? uploaded - 1 : 0);
 	}
+	// GeneralsX @build Android port 09/05/2026 A texture that received no
+	// glTexImage2D at all is INCOMPLETE in GL and samples as opaque black --
+	// silently, with no GL error. That is the exact signature of the reported
+	// "half the textures are gone after restarting on Medium detail", and
+	// nothing in this function would otherwise say it happened. Capped.
+	if (uploaded == 0) {
+		static int s_emptyUploads = 0;
+		if (s_emptyUploads < 12) {
+			s_emptyUploads++;
+			fprintf(stderr, "[gxtex] EMPTY upload: texture %ux%u fmt=%d levels=%d "
+				"-- incomplete, will sample as black\n",
+				levels > 0 ? tex->m_levels[0]->m_width : 0,
+				levels > 0 ? tex->m_levels[0]->m_height : 0,
+				(int)tex->m_format, levels);
+		}
+	}
 	g.dirty = false;
 	g.samplerKey = ~0u; // force sampler reapply
 	GLTRACE("texture %u uploaded (%dx%d fmt=%d levels=%d)", g.name,
