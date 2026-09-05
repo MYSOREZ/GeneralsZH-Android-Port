@@ -1063,6 +1063,42 @@ public:
 		m_renderStates[D3DRS_STENCILFAIL] = D3DSTENCILOP_KEEP;
 		m_renderStates[D3DRS_STENCILZFAIL] = D3DSTENCILOP_KEEP;
 		m_renderStates[D3DRS_STENCILPASS] = D3DSTENCILOP_KEEP;
+		// GeneralsX @bugfix Android port 09/05/2026 THE DEPTH DEFAULTS, and the
+		// reason this whole block exists. D3DRS_ZENABLE defaults to D3DZB_TRUE
+		// in D3D8, and the engine relies on that -- ShaderClass drives ZFUNC and
+		// ZWRITEENABLE but never turns the depth TEST on, because under a real
+		// runtime it already is. With the array starting zeroed, ZENABLE read
+		// back as 0 = D3DZB_FALSE and the pipeline disabled GL_DEPTH_TEST for
+		// the entire scene: everything drew in submission order, so the water,
+		// which is drawn last, painted over the terrain in front of it.
+		//
+		// It only showed below High detail because W3DVolumetricShadow's fill
+		// passes set D3DRS_ZENABLE = TRUE explicitly, and shadow volumes are
+		// on only at High and above. That single write repaired the state for
+		// the rest of the session, which is exactly why a fresh start on Low
+		// was broken, a live switch DOWN to Low was fine, and switching up to
+		// High "fixed" it permanently. Measured directly:
+		//   start Low      -> [gxstate] TERRAIN zEnable=0 ... (all categories)
+		//   switch to High -> [gxstate] TERRAIN zEnable=1 ...
+		//   back to Low    -> [gxstate] TERRAIN zEnable=1 ... (stays repaired)
+		m_renderStates[D3DRS_ZENABLE] = D3DZB_TRUE;
+		m_renderStates[D3DRS_ZWRITEENABLE] = TRUE;
+		m_renderStates[D3DRS_ZFUNC] = D3DCMP_LESSEQUAL;
+		// The rest of the D3D8 defaults the pipeline actually reads. Same rule
+		// as above: a zero here must mean "the game asked for zero", so every
+		// state whose documented default is non-zero has to be seeded rather
+		// than pattern-matched at the point of use.
+		m_renderStates[D3DRS_CULLMODE] = D3DCULL_CCW;
+		m_renderStates[D3DRS_SRCBLEND] = D3DBLEND_ONE;
+		m_renderStates[D3DRS_DESTBLEND] = D3DBLEND_ZERO;
+		m_renderStates[D3DRS_ALPHAFUNC] = D3DCMP_ALWAYS;
+		m_renderStates[D3DRS_TEXTUREFACTOR] = 0xFFFFFFFF;
+		// D3DRS_LIGHTING's documented default is TRUE, and it is deliberately
+		// NOT seeded: every engine path that wants lighting sets it explicitly
+		// (VertexMaterialClass::Apply, ShaderClass), so seeding it would light
+		// draws that are currently unlit and change rendering with nothing to
+		// show for it. Revisit only with a measurement that says a path relies
+		// on the default.
 		// Phase 2: bring up the WebGL2 pipeline on the canvas.
 		WebGLPipeline::get()->initContext((int)m_pp.BackBufferWidth, (int)m_pp.BackBufferHeight,
 			(SDL_Window *)focusWindow);
