@@ -2160,6 +2160,27 @@ void WebGLPipeline::drawCommon(WebGLDevice *dev, unsigned primType, unsigned pri
 
 	const GLenum mode = primModeGL(primType);
 	const unsigned count = primVertexCount(primType, primCount);
+
+	// GeneralsX @build Android port 09/05/2026 Occlusion-query probe for the
+	// shadow-volume fill. The draw-call counter said the two z-pass halves are
+	// perfectly balanced (incr=7830 decr=7830), but a draw call whose triangles
+	// are all culled still counts as a draw -- so that instrument could never
+	// answer the actual question: does the SECOND pass rasterize anything?
+	// GL_ANY_SAMPLES_PASSED answers it directly. Capped hard at a handful of
+	// draws for the whole session: reading a query back stalls the pipeline.
+	bool gxQueryActive = false;
+	static int s_gxQueryBudget = 24;
+	static GLuint s_gxQuery = 0;
+	const bool gxIsVolumeFill = dev->getRenderState(D3DRS_STENCILENABLE) != 0 &&
+	                            dev->getRenderState(D3DRS_COLORWRITEENABLE) == 0;
+	if (gxIsVolumeFill && s_gxQueryBudget > 0) {
+		if (s_gxQuery == 0) glGenQueries(1, &s_gxQuery);
+		if (s_gxQuery != 0) {
+			glBeginQuery(GL_ANY_SAMPLES_PASSED, s_gxQuery);
+			gxQueryActive = true;
+		}
+	}
+
 	if (indexFormat != 0) {
 		const GLenum itype = (indexFormat == D3DFMT_INDEX32) ? GL_UNSIGNED_INT : GL_UNSIGNED_SHORT;
 		const unsigned isize = (indexFormat == D3DFMT_INDEX32) ? 4 : 2;
@@ -2167,6 +2188,18 @@ void WebGLPipeline::drawCommon(WebGLDevice *dev, unsigned primType, unsigned pri
 	} else {
 		glDrawArrays(mode, startIndex, count);
 	}
+	if (gxQueryActive) {
+		glEndQuery(GL_ANY_SAMPLES_PASSED);
+		GLuint anyPassed = 0;
+		glGetQueryObjectuiv(s_gxQuery, GL_QUERY_RESULT, &anyPassed);
+		s_gxQueryBudget--;
+		const unsigned op = dev->getRenderState(D3DRS_STENCILPASS);
+		fprintf(stderr, "[gxstencil] volume draw op=%s cull=%u tris=%u -> samplesPassed=%u\n",
+			(op == D3DSTENCILOP_INCR || op == D3DSTENCILOP_INCRSAT) ? "INCR" :
+			(op == D3DSTENCILOP_DECR || op == D3DSTENCILOP_DECRSAT) ? "DECR" : "other",
+			(unsigned)dev->getRenderState(D3DRS_CULLMODE), primCount, anyPassed);
+	}
+
 	m_perfDrawsThisFrame++;
 	s_gxDrawsByCategory[s_gxDrawCategory]++;
 	// Shadow-volume fill draws are the ones with the stencil on and colour
