@@ -71,6 +71,13 @@ struct GLBufferState {
 	size_t dirtyBegin = (size_t)-1;
 	size_t dirtyEnd = 0;
 	bool allocated = false;
+	// GeneralsX @perf Android port 09/05/2026 Set when the engine locked with
+	// D3DLOCK_DISCARD (dx8vertexbuffer.cpp uses it at ring offset 0, and
+	// NOOVERWRITE for the appends after it). Translated as buffer orphaning:
+	// glBufferData(..., nullptr) hands back a fresh block, so neither that
+	// upload nor the NOOVERWRITE appends that follow in the same ring cycle
+	// have to wait on the GPU still reading the old contents.
+	bool pendingDiscard = false;
 
 	void markRange(size_t begin, size_t end)
 	{

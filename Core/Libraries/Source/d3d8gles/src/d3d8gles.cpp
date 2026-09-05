@@ -854,7 +854,7 @@ public:
 	// half the frame; SortingRendererClass::Flush (particles, 200+ draws)
 	// streams through the same buffer. Record what was actually written so
 	// only that range is uploaded.
-	HRESULT Lock(UINT offset, UINT size, BYTE **ppbData, DWORD /*flags*/) override
+	HRESULT Lock(UINT offset, UINT size, BYTE **ppbData, DWORD flags) override
 	{
 		if (!ppbData || offset > m_bits.size()) return D3DERR_INVALIDCALL;
 		// D3D8: size 0 means "from offset to the end of the buffer".
@@ -862,6 +862,7 @@ public:
 		if (end > m_bits.size()) end = m_bits.size();
 		m_lockBegin = offset;
 		m_lockEnd = end;
+		m_lockDiscard = (flags & D3DLOCK_DISCARD) != 0;
 		*ppbData = m_bits.data() + offset;
 		return D3D_OK;
 	}
@@ -869,8 +870,10 @@ public:
 	HRESULT Unlock() override
 	{
 		m_gl.markRange(m_lockBegin, m_lockEnd);
+		if (m_lockDiscard) m_gl.pendingDiscard = true;
 		m_lockBegin = 0;
 		m_lockEnd = 0;
+		m_lockDiscard = false;
 		return D3D_OK;
 	}
 
@@ -893,6 +896,7 @@ public:
 	DWORD m_priority = 0;
 	size_t m_lockBegin = 0;
 	size_t m_lockEnd = 0;
+	bool m_lockDiscard = false;
 	GLBufferState m_gl;
 	std::vector<BYTE> m_bits;
 };
@@ -931,13 +935,14 @@ public:
 
 	// GeneralsX @perf Android port 09/05/2026 Same dirty-range tracking as
 	// WebGLVertexBuffer::Lock -- see that comment for the measurements.
-	HRESULT Lock(UINT offset, UINT size, BYTE **ppbData, DWORD /*flags*/) override
+	HRESULT Lock(UINT offset, UINT size, BYTE **ppbData, DWORD flags) override
 	{
 		if (!ppbData || offset > m_bits.size()) return D3DERR_INVALIDCALL;
 		size_t end = (size == 0) ? m_bits.size() : (size_t)offset + size;
 		if (end > m_bits.size()) end = m_bits.size();
 		m_lockBegin = offset;
 		m_lockEnd = end;
+		m_lockDiscard = (flags & D3DLOCK_DISCARD) != 0;
 		*ppbData = m_bits.data() + offset;
 		return D3D_OK;
 	}
@@ -945,8 +950,10 @@ public:
 	HRESULT Unlock() override
 	{
 		m_gl.markRange(m_lockBegin, m_lockEnd);
+		if (m_lockDiscard) m_gl.pendingDiscard = true;
 		m_lockBegin = 0;
 		m_lockEnd = 0;
+		m_lockDiscard = false;
 		return D3D_OK;
 	}
 
@@ -968,6 +975,7 @@ public:
 	DWORD m_priority = 0;
 	size_t m_lockBegin = 0;
 	size_t m_lockEnd = 0;
+	bool m_lockDiscard = false;
 	GLBufferState m_gl;
 	std::vector<BYTE> m_bits;
 };

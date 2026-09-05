@@ -2000,6 +2000,11 @@ void WebGLPipeline::ensureVBUploaded(WebGLVertexBuffer *vb)
 	if (vb->m_gl.dirty) {
 		glBindBuffer(GL_COPY_WRITE_BUFFER, vb->m_gl.name);
 		const bool haveRange = vb->m_gl.dirtyBegin < vb->m_gl.dirtyEnd;
+		if (vb->m_gl.allocated && haveRange && vb->m_gl.pendingDiscard) {
+			// D3DLOCK_DISCARD: orphan, so this upload and the NOOVERWRITE
+			// appends after it in the same ring cycle never wait on the GPU.
+			glBufferData(GL_COPY_WRITE_BUFFER, vb->m_bits.size(), nullptr, GL_DYNAMIC_DRAW);
+		}
 		if (!vb->m_gl.allocated || !haveRange) {
 			// First use, or an update with no recorded range: full upload,
 			// which also (re)allocates the GL storage.
@@ -2011,6 +2016,7 @@ void WebGLPipeline::ensureVBUploaded(WebGLVertexBuffer *vb)
 				vb->m_bits.data() + vb->m_gl.dirtyBegin);
 		}
 		vb->m_gl.dirty = false;
+		vb->m_gl.pendingDiscard = false;
 		vb->m_gl.clearRange();
 	}
 }
@@ -2027,6 +2033,11 @@ void WebGLPipeline::ensureIBUploaded(WebGLIndexBuffer *ib)
 	if (ib->m_gl.dirty) {
 		glBindBuffer(GL_COPY_WRITE_BUFFER, ib->m_gl.name);
 		const bool haveRange = ib->m_gl.dirtyBegin < ib->m_gl.dirtyEnd;
+		if (ib->m_gl.allocated && haveRange && ib->m_gl.pendingDiscard) {
+			// D3DLOCK_DISCARD: orphan, so this upload and the NOOVERWRITE
+			// appends after it in the same ring cycle never wait on the GPU.
+			glBufferData(GL_COPY_WRITE_BUFFER, ib->m_bits.size(), nullptr, GL_DYNAMIC_DRAW);
+		}
 		if (!ib->m_gl.allocated || !haveRange) {
 			glBufferData(GL_COPY_WRITE_BUFFER, ib->m_bits.size(), ib->m_bits.data(), GL_DYNAMIC_DRAW);
 			ib->m_gl.allocated = true;
@@ -2036,6 +2047,7 @@ void WebGLPipeline::ensureIBUploaded(WebGLIndexBuffer *ib)
 				ib->m_bits.data() + ib->m_gl.dirtyBegin);
 		}
 		ib->m_gl.dirty = false;
+		ib->m_gl.pendingDiscard = false;
 		ib->m_gl.clearRange();
 	}
 }
