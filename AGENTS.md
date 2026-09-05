@@ -129,6 +129,15 @@ cmake --build build/macos-vulkan --target z_generals
   `docs/WORKDIR/lessons/LESSON-d3d-vs-gl-rasterization-conventions.md` **before** hypothesis-hunting;
   it lists the known instances and the debugging method (measure the transform's *output*, not
   its inputs).
+- **A D3D state value that "cannot have meant that"**: in a translation layer, zero is a
+  VALUE, not "unset" (`D3DRS_STENCILMASK`/`STENCILWRITEMASK`/`COLORWRITEENABLE` of 0 all mean
+  "none"), D3D state is unsigned (`DWORD` -> `GLint` silently turns `0x80808080` into a
+  negative that GL clamps to 0), and an unimplemented fixed-function op must warn rather than
+  be silently approximated. Every `x ? x : DEFAULT` in a state translator is a latent bug of
+  this kind; seed the API's documented defaults instead. Three GLES-only visual bugs in this
+  port came from exactly this -- read
+  `docs/WORKDIR/lessons/LESSON-d3d-state-value-semantics.md`, which also records which
+  diagnostics were blind to it and why.
 - **Slow/stuttering on the native GLES backend**: check the D3D8 **lock/usage flags** before
   anything else. `D3DLOCK_DISCARD`/`D3DLOCK_NOOVERWRITE` and the lock's `offset`/`size` are a
   synchronization contract; dropping them turns every dynamic-buffer update into a GPU stall,
