@@ -628,6 +628,22 @@ void GameLODManager::applyStaticLODLevel(StaticGameLODLevel level)
 
 		TheWritableGlobalData->m_textureReductionFactor = requestedTextureReduction;
 
+		// GeneralsX @build Android port 09/05/2026 Expose the whole detail-level
+		// decision. Textures go missing after RESTARTING on Medium/Low while a
+		// live switch changes nothing at all visually, and the first
+		// measurement showed WW3D::Set_Texture_Reduction is never even called
+		// with a changed value -- so the reduction the engine picks is not what
+		// I assumed it was. Note requestedTextureReduction for a non-custom
+		// level comes from getRecommendedTextureLODLevel(), a hardware
+		// recommendation, NOT from the level the player chose. Print both.
+		fprintf(stderr, "[gxlod] setStaticLODLevel(%d) prevLevel=%d "
+			"recommendedTextureLevel=%d -> textureReduction=%d useTrees=%d "
+			"shadowVolumes=%d shadowDecals=%d\n",
+			(int)level, (int)m_currentStaticLOD,
+			(int)getRecommendedTextureLODLevel(), (int)requestedTextureReduction,
+			(int)requestedTrees, (int)lodInfo->m_useShadowVolumes,
+			(int)lodInfo->m_useShadowDecals);
+
 		//Check if shadow state changed
 		if (m_currentStaticLOD == STATIC_GAME_LOD_UNKNOWN	||
 			lodInfo->m_useShadowVolumes != prevLodInfo->m_useShadowVolumes ||
