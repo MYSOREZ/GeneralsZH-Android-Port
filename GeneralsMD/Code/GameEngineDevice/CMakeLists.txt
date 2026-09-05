@@ -304,12 +304,18 @@ if(GENERALSX_AB_DISABLE_SHADOW_DECALS)
     target_compile_definitions(z_gameenginedevice PRIVATE GENERALSX_AB_DISABLE_SHADOW_DECALS)
 endif()
 
-# GeneralsX @build Android port 09/05/2026 A/B DIAGNOSTIC SWITCH -- temporary.
-# Skips only W3DVolumetricShadowManager::renderStencilShadows()'s darkening
-# pass, leaving the stencil fill passes running, to separate "the stencil
-# content is wrong" from "the shadow volume geometry is visible". OFF by
-# default. Remove with its guard in W3DVolumetricShadow.cpp once answered.
-option(GENERALSX_AB_DISABLE_STENCIL_SHADOW_QUAD "A/B diagnostic: skip the stencil shadow darkening quad" OFF)
-if(GENERALSX_AB_DISABLE_STENCIL_SHADOW_QUAD)
-    target_compile_definitions(z_gameenginedevice PRIVATE GENERALSX_AB_DISABLE_STENCIL_SHADOW_QUAD)
+# GeneralsX @build Android port 09/05/2026 DIAGNOSTIC SWITCH -- temporary.
+# Turns on W3DVolumetricShadow.cpp's own SV_DEBUG path, which the original
+# developers left in the file: the shadow volumes are drawn as visible,
+# randomly-coloured opaque geometry with the stencil test off, instead of
+# invisibly into the stencil buffer. That answers, by looking, whether the
+# volume geometry itself is built correctly -- the last open question behind
+# the dark quad reported around aircraft on GLES at High detail. Shadows will
+# look absurd in this build; that is the point. OFF by default.
+option(GENERALSX_SHADOW_VOLUME_DEBUG "Diagnostic: draw shadow volumes as visible geometry (SV_DEBUG)" OFF)
+if(GENERALSX_SHADOW_VOLUME_DEBUG)
+    set_source_files_properties(
+        Source/W3DDevice/GameClient/Shadow/W3DVolumetricShadow.cpp
+        TARGET_DIRECTORY z_gameenginedevice
+        PROPERTIES COMPILE_DEFINITIONS SV_DEBUG)
 endif()

@@ -3355,29 +3355,6 @@ void W3DVolumetricShadowManager::renderStencilShadows()
 	if (!m_pDev)
 		return;	//need device to render anything.
 
-#if defined(GENERALSX_AB_DISABLE_STENCIL_SHADOW_QUAD)
-	// GeneralsX @build Android port 09/05/2026 A/B DIAGNOSTIC BUILD ONLY.
-	// Skips ONLY the darkening pass below, leaving the stencil fill passes
-	// (and everything else) running. That splits the two remaining
-	// explanations for the dark quad around aircraft, which the [gxstencil]
-	// log narrowed this far but cannot separate on its own:
-	//   * gone with this build  -> the darkening quad is being drawn where it
-	//     should not be, i.e. the STENCIL CONTENT is wrong;
-	//   * still there           -> what is visible is the shadow VOLUME
-	//     geometry itself, despite D3DRS_COLORWRITEENABLE=0 being set for it
-	//     (the log confirms the engine asks for it).
-	// Volumetric shadows disappear entirely in this build; that is expected,
-	// only the artifact matters.
-	{
-		static bool s_logged = false;
-		if (!s_logged) {
-			s_logged = true;
-			fprintf(stderr, "[gxstencil] A/B BUILD: stencil shadow darkening quad disabled\n");
-		}
-		return;
-	}
-#endif
-
 	struct _TRANSLITVERTEX {
 	    D3DXVECTOR4 p;
 		DWORD color;   // diffuse color
