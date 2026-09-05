@@ -34,6 +34,7 @@
 #include <cstdint>
 #include <cstring>
 #include <unordered_map>
+#include <vector>
 
 typedef struct SDL_Window SDL_Window;
 // Not "typedef void *SDL_GLContext" here: SDL3's real header (SDL_video.h)
@@ -61,6 +62,36 @@ struct GLTextureState {
 struct GLBufferState {
 	GLuint name = 0;
 	bool dirty = true;
+	// GeneralsX @perf Android port 09/05/2026 Byte range actually written since
+	// the last upload, accumulated across Lock/Unlock pairs (see
+	// WebGLVertexBuffer::Lock/Unlock in d3d8gles.cpp). ensureVBUploaded/
+	// ensureIBUploaded push only this range instead of respecifying the whole
+	// buffer. begin >= end means "nothing recorded" -> fall back to a full
+	// upload. `allocated` tracks whether GL storage exists yet, since
+	// glBufferSubData needs a sized buffer to write into.
+	size_t dirtyBegin = (size_t)-1;
+	size_t dirtyEnd = 0;
+	bool allocated = false;
+	// GeneralsX @perf Android port 09/05/2026 Set when the engine locked with
+	// D3DLOCK_DISCARD (dx8vertexbuffer.cpp uses it at ring offset 0, and
+	// NOOVERWRITE for the appends after it). Translated as buffer orphaning:
+	// glBufferData(..., nullptr) hands back a fresh block, so neither that
+	// upload nor the NOOVERWRITE appends that follow in the same ring cycle
+	// have to wait on the GPU still reading the old contents.
+	bool pendingDiscard = false;
+
+	void markRange(size_t begin, size_t end)
+	{
+		dirty = true;
+		if (end <= begin) return;
+		if (begin < dirtyBegin) dirtyBegin = begin;
+		if (end > dirtyEnd) dirtyEnd = end;
+	}
+	void clearRange()
+	{
+		dirtyBegin = (size_t)-1;
+		dirtyEnd = 0;
+	}
 };
 
 class WebGLPipeline {
@@ -87,6 +118,16 @@ public:
 
 	// Render-target switch: tex==nullptr selects the canvas backbuffer.
 	void setRenderTarget(WebGLDevice *dev, WebGLTexture *tex);
+
+	// GeneralsX @bugfix Android port 09/05/2026 Pull a render-target texture's
+	// GPU contents back into its CPU shadow bits. Everything else in this
+	// backend treats the CPU bits as the source of truth and pushes them to
+	// GL; a render target is the one case where GL holds content the CPU side
+	// has never seen. CopyRects (the D3D8 surface->surface blit) is a plain
+	// memcpy between shadow bits, so a blit whose SOURCE is a render target
+	// copied zeroes -- see the call site in d3d8gles.cpp's CopyRects for the
+	// visual bug that caused.
+	void readbackRenderTarget(WebGLTexture *tex);
 
 	bool hasS3TC() const { return m_hasS3TC; }
 
@@ -425,6 +466,9 @@ private:
 	GLuint m_viewProjUBO = 0;
 
 	// Streaming buffers for the UP draw paths.
+	// Scratch for readbackRenderTarget(); a member so the 1 MB staging buffer
+	// is allocated once instead of per shadow update.
+	std::vector<uint8_t> m_rtReadback;
 	GLuint m_upVBO = 0;
 	GLuint m_upIBO = 0;
 

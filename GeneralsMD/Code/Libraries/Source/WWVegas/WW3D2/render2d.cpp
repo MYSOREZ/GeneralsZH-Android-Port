@@ -38,8 +38,13 @@
  * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
+#include <cstdio>
 #include "always.h"
 #include "render2d.h"
+#if defined(__ANDROID__)
+// GeneralsX @bugfix Android port 09/05/2026 - d3d8gles_ShouldUseVulkanBackend()
+#include "d3d8gles.h"
+#endif
 #include "mutex.h"
 #include "ww3d.h"
 #include "font3d.h"
@@ -57,6 +62,7 @@
 #include "wwprofile.h"
 #include "wwmemlog.h"
 #include "assetmgr.h"
+
 
 RectClass							Render2DClass::ScreenResolution( 0,0,0,0 );
 
@@ -197,7 +203,42 @@ void	  Render2DClass::Update_Bias()
 
 	BiasedCoordinateOffset = CoordinateOffset;
 
-	if ( WW3D::Is_Screen_UV_Biased() ) {	// Global bais setting
+	// GeneralsX @bugfix Android port 09/05/2026 The -0.5 pixel bias below is a
+	// Direct3D-specific texel-to-pixel alignment correction: D3D's rasterizer
+	// samples a pixel at its center, but D3D's screen-space convention puts
+	// that center half a pixel off from where a 0..W quad's edge lands, so
+	// screen-aligned 2D content needs -0.5 to make texels line up with pixels
+	// ("this makes text look good", W3DDisplay::init()). OpenGL's convention
+	// already has pixel centers at the +0.5 offsets, so on the native GLES
+	// backend this correction is not a correction at all -- it's an extra,
+	// real half-pixel shift of the ENTIRE 2D layer up and to the left.
+	//
+	// Worked through exactly (W = coordinate range width):
+	//   CoordinateScale.X = 2/W, CoordinateOffset.X = -1
+	//   bais_add.X = -0.5 / (W * 0.5) = -1/W
+	//   right edge: W*(2/W) - 1 - 1/W = 1 - 1/W  <-- 0.5 px short of +1
+	//   left  edge:      0    - 1 - 1/W          <-- 0.5 px PAST -1, clipped
+	// and the same for Y (bais_add.Y = -0.5/(H*-0.5) = +1/H, so the bottom
+	// edge lands at -1 + 1/H, 0.5 px short, while the top overshoots and is
+	// clipped). That is a half-covered edge pixel along the RIGHT and BOTTOM
+	// only -- which, alpha-blended, reads as a thin see-through strip showing
+	// whatever the 3D pass already drew underneath, at ANY resolution (the
+	// shift is a constant in pixels), on UI and the video overlay alike (both
+	// go through Convert_Vert) but never on 3D (which never goes through this
+	// class). Every one of those matches the reported artifact exactly.
+	//
+	// DXVK/Vulkan faithfully reproduces D3D8's rasterization offset, so the
+	// bias does its intended job there -- which is precisely why the strip has
+	// only ever been reported on GLES/ANGLE and never on Vulkan. Skip it on
+	// the native GLES backend only; the Vulkan path keeps the original
+	// behavior, and non-Android builds are untouched.
+#if defined(__ANDROID__)
+	const bool screenUVBiasApplies = d3d8gles_ShouldUseVulkanBackend();
+#else
+	const bool screenUVBiasApplies = true;
+#endif
+
+	if ( WW3D::Is_Screen_UV_Biased() && screenUVBiasApplies ) {	// Global bais setting
 		Vector2 bais_add( -0.5f ,-0.5f );	// offset by -0.5,-0.5 in pixels
 
 		// Convert from pixels to (-1,1)-(1,-1) units
@@ -598,6 +639,18 @@ void	Render2DClass::Add_Outline( const RectClass & rect, float width, const Rect
 
 void Render2DClass::Render()
 {
+#if defined(__ANDROID__)
+	struct GxUiTimer {
+		std::chrono::steady_clock::time_point t0;
+		int bucket;
+		GxUiTimer(int b) : t0(std::chrono::steady_clock::now()), bucket(b) {}
+		~GxUiTimer() {
+			d3d8gles_AddUiTiming(bucket,
+				std::chrono::duration<double, std::micro>(std::chrono::steady_clock::now() - t0).count());
+		}
+	} gxUiTimer(D3D8GLES_UITIME_2D_SUBMIT);
+#endif
+
 	if ( !Indices.Count() || IsHidden) {
 		return;
 	}
@@ -614,7 +667,27 @@ void Render2DClass::Render()
 	//
 	int width, height, bits;
 	bool windowed;
+	// GeneralsX @bugfix Android port 09/04/2026 REVERTED: tried switching this
+	// to WW3D::Get_Render_Target_Resolution() (matching CameraClass::Apply())
+	// on the theory that it would give UI/video the same real-backbuffer
+	// extent as 3D. Confirmed WRONG on a real device at a non-100% pillarbox
+	// resolution (1756x808 chosen, 2510x1156 real backbuffer): this class
+	// still draws while Pillarbox's offscreen render target is bound (there
+	// is no separate native-resolution UI pass -- Pillarbox_Begin_UI() is
+	// parked/disabled), so Get_Render_Target_Resolution() correctly reports
+	// the SMALL offscreen texture's own size (1756x808) via CurrentRenderTarget's
+	// surface desc while 3D is actively rendering into it -- Get_Device_Resolution()
+	// happening to equal that same value (both trace back to the same chosen
+	// resolution when kPillarboxRenderScale=1.0) was never the bug. Forcing
+	// this to the REAL backbuffer size while still bound to the smaller
+	// offscreen texture made UI/video get clipped to the texture's actual
+	// bounds, which Pillarbox_End()'s blit then stretched -- visibly WORSE
+	// (UI/video confined to a shrunken box, live 3D showing through the
+	// rest). Reverted to Get_Device_Resolution(). Whatever causes the strip
+	// at an exact 100%-resolution match (where Pillarbox is inactive and
+	// both functions agree anyway) is still unexplained.
 	WW3D::Get_Device_Resolution( width, height, bits, windowed );
+
 	D3DVIEWPORT8 vp = { 0 };
 	vp.X			= 0;
 	vp.Y			= 0;
@@ -690,7 +763,42 @@ void Render2DClass::Render()
 	}
 	else
 		DX8Wrapper::Set_Shader(Shader);
+
+	// GeneralsX @bugfix Android port 09/04/2026 REVERTED: the depth/stencil
+	// force-off experiment tried here (Set_DX8_Render_State(D3DRS_ZENABLE,
+	// FALSE) / D3DRS_STENCILENABLE, FALSE) didn't fix the reported strip,
+	// and the user reported 3D models (ship hulls in the ShellMap) losing
+	// their textures/visibility right after this build -- writing directly
+	// into DX8Wrapper's render-state array here, bypassing the normal
+	// Set_Shader()/shader-diffing path entirely, most likely desynced
+	// whatever cache assumes "shader unchanged => render state unchanged"
+	// for the next 3D draw that reuses the same shader right after a UI
+	// draw. Reverted; do not re-add without also auditing that cache path.
+
+	// GeneralsX @bugfix Android port 09/04/2026 GLES/ANGLE only: this draw
+	// path is shared by every UI widget AND the video-overlay quad
+	// (W3DDisplay::drawVideoBuffer -> Add_Quad -> here), but never
+	// explicitly sets the texture wrap mode, so it silently inherits
+	// whatever the last 3D draw left set -- normally D3DTADDRESS_WRAP
+	// (terrain/model textures). The video buffer's texture is deliberately
+	// NOT padded to a power-of-two on Android (see W3DVideoBuffer::allocate,
+	// issue #9), so its UV range covers the real content edge-to-edge; with
+	// WRAP and bilinear filtering, sampling right at that edge blends with
+	// the opposite edge's texel instead of clamping, which reads as exactly
+	// the kind of empty/wrong-content seam reported at a UI/video edge.
+	// The equivalent fix already shipped for the (unrelated, and since
+	// ruled out) pillarbox blit quad in Pillarbox_End() -- this is the same
+	// fix for the actual shared 2D/video draw path instead.
+	DX8Wrapper::Set_DX8_Texture_Stage_State(0, D3DTSS_ADDRESSU, D3DTADDRESS_CLAMP);
+	DX8Wrapper::Set_DX8_Texture_Stage_State(0, D3DTSS_ADDRESSV, D3DTADDRESS_CLAMP);
+
+#if defined(__ANDROID__)
+	const int gxPrevCat = d3d8gles_SetDrawCategory(D3D8GLES_DRAWCAT_2D);
+#endif
 	DX8Wrapper::Draw_Triangles(0,Indices.Count()/3,0,Vertices.Count());
+#if defined(__ANDROID__)
+	d3d8gles_SetDrawCategory(gxPrevCat);
+#endif
 
 	DX8Wrapper::Set_Transform(D3DTS_VIEW,view);
 	DX8Wrapper::Set_Transform(D3DTS_PROJECTION,proj);

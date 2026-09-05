@@ -35,6 +35,7 @@
 ///@todo: Find better way to determine when shadow volumes need updating - lights move, objects move.
 
 // SYSTEM INCLUDES ////////////////////////////////////////////////////////////
+#include <ctime>
 #include <assert.h>
 
 // USER INCLUDES //////////////////////////////////////////////////////////////

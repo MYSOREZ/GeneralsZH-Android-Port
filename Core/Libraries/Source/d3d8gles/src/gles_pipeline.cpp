@@ -36,6 +36,10 @@
 #include <string>
 #include <vector>
 
+#if defined(__ANDROID__)
+#include <android/native_window.h>
+#endif
+
 // ---------------------------------------------------------------------------
 // Small helpers
 // ---------------------------------------------------------------------------
@@ -78,6 +82,26 @@ static const GLuint kViewProjUBOBinding = 0;
 			fprintf(stderr, __VA_ARGS__);             \
 			fprintf(stderr, "\n");                    \
 		}                                             \
+	} while (0)
+
+// Same, but keyed on a runtime value instead of a call site: warns once per
+// distinct value (up to 8 of them), so one unimplemented enum does not drown
+// out the next. Used for the texture-stage op fallback, where the whole point
+// is to name WHICH op is missing.
+#define WARN_ONCE_ARG(val, ...)                                          \
+	do {                                                                  \
+		static unsigned s_seen[8] = {0, 0, 0, 0, 0, 0, 0, 0};             \
+		static int s_seenCount = 0;                                       \
+		bool s_already = false;                                           \
+		for (int s_i = 0; s_i < s_seenCount; s_i++) {                     \
+			if (s_seen[s_i] == (unsigned)(val)) { s_already = true; break; } \
+		}                                                                 \
+		if (!s_already && s_seenCount < 8) {                              \
+			s_seen[s_seenCount++] = (unsigned)(val);                      \
+			fprintf(stderr, "[d3d8gles] WARN: ");                        \
+			fprintf(stderr, __VA_ARGS__);                                 \
+			fprintf(stderr, "\n");                                        \
+		}                                                                 \
 	} while (0)
 
 static float dwordToFloat(DWORD v)
@@ -244,8 +268,14 @@ struct WebGLPipeline::ProgramInfo {
 
 // Stage portion of the program key.
 struct StageKey {
-	unsigned colorOp, colorArg1, colorArg2;
-	unsigned alphaOp, alphaArg1, alphaArg2;
+	// GeneralsX @bugfix Android port 09/05/2026 arg0 is D3D8's THIRD combiner
+	// argument (D3DTSS_COLORARG0/D3DTSS_ALPHAARG0), used only by the
+	// multiply-accumulate and lerp ops. It was missing entirely, so
+	// D3DTOP_MULTIPLYADD fell through combinerOp()'s silent `default:` and
+	// was emitted as a plain modulate -- see the D3DTOP_MULTIPLYADD case
+	// there for the UI bug that caused.
+	unsigned colorOp, colorArg0, colorArg1, colorArg2;
+	unsigned alphaOp, alphaArg0, alphaArg1, alphaArg2;
 	unsigned tci;
 	unsigned texgen; // 0=vertex uv set, 1=camera-space position
 	bool xform;
@@ -253,8 +283,8 @@ struct StageKey {
 
 static void getStageKey(WebGLDevice *dev, int stage, StageKey *k);
 static std::string combinerArg(unsigned arg, const char *texExpr, int *usesTex);
-static std::string combinerOp(unsigned op, const std::string &a1, const std::string &a2,
-                              const char *texAlphaExpr);
+static std::string combinerOp(unsigned op, const std::string &a0, const std::string &a1,
+                              const std::string &a2, const char *texAlphaExpr);
 
 WebGLPipeline *WebGLPipeline::get()
 {
@@ -292,7 +322,82 @@ bool WebGLPipeline::initContext(int w, int h, SDL_Window *window)
 		fprintf(stderr, "[d3d8gles] FATAL: SDL_GL_MakeCurrent failed: %s\n", SDL_GetError());
 		return false;
 	}
-	SDL_GL_SetSwapInterval(1);
+	// GeneralsX @bugfix Android port 09/04/2026 Diagnostic: a real-device
+	// GL_VIEWPORT dump at present() time already confirmed our own viewport
+	// bookkeeping (w/h passed in here, from _PresentParameters) is applied
+	// correctly to GL every frame, yet a persistent edge strip remains --
+	// meaning the ACTUAL EGL window surface's real pixel size may not match
+	// w/h at all. eglCreateWindowSurface() (called inside SDL_GL_CreateContext
+	// above) sizes the surface from the ANativeWindow directly, independent
+	// of any width/height we pass anywhere -- if the window hadn't fully
+	// settled by the time THIS call ran (a separate race from the
+	// resolution-detection debounce in SDL3Main.cpp, which only guards
+	// xres/yres computed much earlier, before device/context creation), the
+	// EGL surface could be locked in at a stale size for its whole lifetime.
+	// Query the window's size again right here, at the exact moment the EGL
+	// surface actually gets created, to see whether it agrees with w/h.
+	{
+		int freshW = 0, freshH = 0;
+		SDL_GetWindowSizeInPixels(window, &freshW, &freshH);
+		fprintf(stderr, "[d3d8gles-diag] initContext(): requested w=%d h=%d, "
+			"SDL_GetWindowSizeInPixels() right after SDL_GL_CreateContext=%dx%d\n",
+			w, h, freshW, freshH);
+	}
+#if defined(__ANDROID__)
+	// GeneralsX @bugfix Android port 09/04/2026 EXPERIMENT (low confidence):
+	// force the underlying ANativeWindow's pixel format to RGBX_8888
+	// (opaque -- the 4th byte is padding, explicitly ignored by
+	// SurfaceFlinger/the compositor) rather than whatever format the chosen
+	// EGL config implied. This is the Android-native equivalent of Vulkan's
+	// VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR, which DXVK's swapchain likely
+	// declares explicitly -- EGL has no equivalent explicit knob, so on
+	// Android the compositor's opaque-vs-blended decision is otherwise
+	// inferred from the EGL config's alpha bits, which is comparatively
+	// fragile. Explicitly setting RGBX_8888 here removes that inference
+	// entirely, regardless of what SDL_GL_ALPHA_SIZE was requested and
+	// regardless of whether any of this engine's own rendering incidentally
+	// writes a non-1.0 alpha into the framebuffer somewhere. width/height=0
+	// means "keep the ANativeWindow's current size", only the format
+	// changes. Real-device diagnostics already ruled out every
+	// application-level cause (viewport application, EGL surface size at
+	// creation time) for a persistent edge strip seen only on GLES/ANGLE,
+	// never Vulkan -- worth testing whether this is a compositor-level
+	// alpha-blending artifact instead.
+	{
+		void *nativeWindowPtr = SDL_GetPointerProperty(SDL_GetWindowProperties(window),
+			SDL_PROP_WINDOW_ANDROID_WINDOW_POINTER, nullptr);
+		if (nativeWindowPtr) {
+			int rc = ANativeWindow_setBuffersGeometry((ANativeWindow *)nativeWindowPtr, 0, 0, WINDOW_FORMAT_RGBX_8888);
+			fprintf(stderr, "[d3d8gles-diag] ANativeWindow_setBuffersGeometry(RGBX_8888) -> %d\n", rc);
+		} else {
+			fprintf(stderr, "[d3d8gles-diag] ANativeWindow_setBuffersGeometry skipped: no native window pointer\n");
+		}
+	}
+#endif
+	// GeneralsX @bugfix Android port 09/04/2026 EXPERIMENT (low confidence):
+	// this call's return value was never checked. Reconsidering the reported
+	// edge artifact from scratch: it's variable in *which* edge (right, then
+	// also bottom), only shows on scenes with real on-screen motion (menu
+	// water/ships, gameplay units, video playback), sometimes coincides with
+	// UI briefly not appearing at all, and is completely absent on Vulkan/
+	// DXVK -- all consistent with plain screen TEARING (GL swap running
+	// without real vsync) rather than a rendering-geometry bug, which every
+	// other diagnostic this branch has already ruled out (GL_VIEWPORT and
+	// the EGL surface's actual size both confirmed correct on a real
+	// device). DXVK's own present path is Vulkan-native (vkQueuePresentKHR
+	// with its own FIFO/vsync semantics) and was never touched by this
+	// SDL_GL_SetSwapInterval() call at all, so a vsync failure specific to
+	// the GLES/EGL path would explain the Vulkan/GLES split directly. Log
+	// the actual result and the interval SDL reports back afterward, since
+	// silent failure here would otherwise be invisible.
+	{
+		bool intervalOk = SDL_GL_SetSwapInterval(1);
+		int actualInterval = 0;
+		bool queryOk = SDL_GL_GetSwapInterval(&actualInterval);
+		fprintf(stderr, "[d3d8gles-diag] SDL_GL_SetSwapInterval(1) -> %d, "
+			"SDL_GL_GetSwapInterval() -> ok=%d interval=%d\n",
+			(int)intervalOk, (int)queryOk, actualInterval);
+	}
 
 	// GeneralsX @build Android port ANGLE experiment - resolve every gl*
 	// entry point this module calls via gles_dispatch.cpp instead of relying
@@ -357,6 +462,25 @@ bool WebGLPipeline::initContext(int w, int h, SDL_Window *window)
 	glDisable(GL_DITHER);
 
 	m_ctxReady = true;
+	// GeneralsX @build Android port 09/05/2026 Report the DEFAULT framebuffer's
+	// actual bit depths, not the ones we asked SDL for. Stencil is the one that
+	// matters: volumetric (stencil) shadows are enabled only at High detail and
+	// above, which is exactly when the reported helicopter artifact appears, and
+	// a config without stencil bits makes every stencil test pass silently --
+	// which would draw W3DVolumetricShadowManager::renderStencilShadows()'s
+	// darkening quad unmasked instead of only inside the shadow. SDL is free to
+	// hand back a config that does not satisfy every requested attribute.
+	{
+		GLint rb = 0, gb = 0, bb = 0, ab = 0, db = 0, sb = 0;
+		glGetIntegerv(GL_RED_BITS, &rb);
+		glGetIntegerv(GL_GREEN_BITS, &gb);
+		glGetIntegerv(GL_BLUE_BITS, &bb);
+		glGetIntegerv(GL_ALPHA_BITS, &ab);
+		glGetIntegerv(GL_DEPTH_BITS, &db);
+		glGetIntegerv(GL_STENCIL_BITS, &sb);
+		fprintf(stderr, "[d3d8gles] default framebuffer bits: r=%d g=%d b=%d a=%d depth=%d stencil=%d\n",
+			(int)rb, (int)gb, (int)bb, (int)ab, (int)db, (int)sb);
+	}
 	fprintf(stderr, "[d3d8gles] GLES3 context ready %dx%d (s3tc=%d)\n", w, h, (int)m_hasS3TC);
 	return true;
 }
@@ -391,6 +515,12 @@ static void getStageKey(WebGLDevice *dev, int stage, StageKey *k)
 	k->alphaOp = dev->getStageState(stage, D3DTSS_ALPHAOP);
 	k->alphaArg1 = dev->getStageState(stage, D3DTSS_ALPHAARG1) & 0x3F;
 	k->alphaArg2 = dev->getStageState(stage, D3DTSS_ALPHAARG2) & 0x3F;
+	// D3D8's documented default for ARG0 is D3DTA_CURRENT, not D3DTA_DIFFUSE
+	// (which is what a never-set 0 would otherwise decode to here).
+	const DWORD rawColorArg0 = dev->getStageState(stage, D3DTSS_COLORARG0);
+	const DWORD rawAlphaArg0 = dev->getStageState(stage, D3DTSS_ALPHAARG0);
+	k->colorArg0 = rawColorArg0 ? (unsigned)(rawColorArg0 & 0x3F) : (unsigned)D3DTA_CURRENT;
+	k->alphaArg0 = rawAlphaArg0 ? (unsigned)(rawAlphaArg0 & 0x3F) : (unsigned)D3DTA_CURRENT;
 	const DWORD tciRaw = dev->getStageState(stage, D3DTSS_TEXCOORDINDEX);
 	k->texgen = 0;
 	if (tciRaw & 0xFFFF0000u) {
@@ -420,6 +550,58 @@ static void getStageKey(WebGLDevice *dev, int stage, StageKey *k)
 	if (dev->getStageState(stage, D3DTSS_COLORARG1) == 0) k->colorArg1 = 2; // TEXTURE
 	if (dev->getStageState(stage, D3DTSS_COLORARG2) == 0) k->colorArg2 = 0; // (CURRENT->DIFFUSE for st0)
 	if (dev->getStageState(stage, D3DTSS_ALPHAARG1) == 0) k->alphaArg1 = 2;
+}
+
+// GeneralsX @bugfix Android port 09/05/2026 D3D8 still RUNS a texture stage
+// whose op is not D3DTOP_DISABLE when no texture is bound at that stage, as
+// long as the op's arguments do not source D3DTA_TEXTURE. This backend used to
+// disable the entire stage on "no texture", which silently deleted a real pass.
+//
+// The case that exposed it: Render2DClass::Render()'s greyscale path (disabled
+// command-bar buttons) puts D3DTOP_DOTPRODUCT3 on stage 1 with COLORARG1 =
+// D3DTA_CURRENT and COLORARG2 = D3DTA_TFACTOR -- neither touches a texture, and
+// the 2D path only ever binds stage 0. So the desaturation never ran, and the
+// button came out as the bare stage-0 result (a MULTIPLYADD that brightens the
+// icon by +0.25 -- reported as "the building icons became too light and I can
+// no longer tell what is available"). Worse, it was intermittent: whenever a
+// previous 3D pass happened to leave a texture bound on stage 1, the stage did
+// run and every icon went greyscale at once -- which is the all-colour /
+// all-grey flicker seen between otherwise identical frames.
+//
+// Collapse per channel, and only for the channel that actually reads the
+// missing texture.
+static bool stageChannelReadsTexture(unsigned op, unsigned arg0, unsigned arg1, unsigned arg2)
+{
+	if (op == D3DTOP_DISABLE) return false;
+	// BLENDTEXTUREALPHA takes the texture's alpha implicitly, not through an
+	// argument, so it reads the texture no matter what its args say.
+	if (op == D3DTOP_BLENDTEXTUREALPHA) return true;
+	auto isTex = [](unsigned a) { return (a & 0xF) == (unsigned)D3DTA_TEXTURE; };
+	if (isTex(arg1) || isTex(arg2)) return true;
+	// arg0 is only consulted by the two ops that take a third argument.
+	if ((op == D3DTOP_MULTIPLYADD || op == D3DTOP_LERP) && isTex(arg0)) return true;
+	return false;
+}
+
+static void collapseStageWithoutTexture(StageKey *k, int stage)
+{
+	if (stageChannelReadsTexture(k->colorOp, k->colorArg0, k->colorArg1, k->colorArg2)) {
+
+		if (stage == 0) {
+			k->colorOp = D3DTOP_SELECTARG2;
+			k->colorArg2 = 0; // DIFFUSE
+		} else {
+			k->colorOp = D3DTOP_DISABLE;
+		}
+	}
+	if (stageChannelReadsTexture(k->alphaOp, k->alphaArg0, k->alphaArg1, k->alphaArg2)) {
+		if (stage == 0) {
+			k->alphaOp = D3DTOP_SELECTARG2;
+			k->alphaArg2 = 0;
+		} else {
+			k->alphaOp = D3DTOP_DISABLE;
+		}
+	}
 }
 
 uint64_t WebGLPipeline::computeProgramKey(WebGLDevice *dev, unsigned fvf) const
@@ -465,22 +647,14 @@ uint64_t WebGLPipeline::computeProgramKey(WebGLDevice *dev, unsigned fvf) const
 	for (int s = 0; s < 2; s++) {
 		StageKey sk;
 		getStageKey(dev, s, &sk);
-		if (!dev->getTexture2D(s)) {
-			// No texture bound: any op sourcing TEXTURE collapses.
-			if (s == 0) {
-				sk.colorOp = D3DTOP_SELECTARG2;
-				sk.colorArg2 = 0; // DIFFUSE
-				sk.alphaOp = D3DTOP_SELECTARG2;
-				sk.alphaArg2 = 0;
-			} else {
-				sk.colorOp = D3DTOP_DISABLE;
-				sk.alphaOp = D3DTOP_DISABLE;
-			}
-		}
+		// No texture bound: only the channels that source TEXTURE collapse.
+		if (!dev->getTexture2D(s)) collapseStageWithoutTexture(&sk, s);
 		put(sk.colorOp, 5);
+		put(sk.colorArg0, 6);
 		put(sk.colorArg1, 6);
 		put(sk.colorArg2, 6);
 		put(sk.alphaOp, 5);
+		put(sk.alphaArg0, 6);
 		put(sk.alphaArg1, 6);
 		put(sk.alphaArg2, 6);
 		put(sk.tci, 1);
@@ -510,10 +684,10 @@ static std::string combinerArg(unsigned arg, const char *texExpr, int *usesTex)
 	return e;
 }
 
-static std::string combinerOp(unsigned op, const std::string &a1, const std::string &a2,
-                              const char *texAlphaExpr)
+static std::string combinerOp(unsigned op, const std::string &a0, const std::string &a1,
+                              const std::string &a2, const char *texAlphaExpr)
 {
-	char buf[512];
+	char buf[768];
 	switch (op) {
 	case D3DTOP_SELECTARG1: return a1;
 	case D3DTOP_SELECTARG2: return a2;
@@ -558,7 +732,42 @@ static std::string combinerOp(unsigned op, const std::string &a1, const std::str
 			"vec4(vec3(clamp(dot(%s.rgb - 0.5, %s.rgb - 0.5) * 4.0, 0.0, 1.0)), 1.0)",
 			a1.c_str(), a2.c_str());
 		break;
+	// GeneralsX @bugfix Android port 09/05/2026 D3D8: SRGBA = Arg1 + Arg2 * Arg0.
+	// Missing until now, and the silent `default:` below turned it into a plain
+	// modulate -- which is what made greyed-out (unbuildable) command-bar
+	// buttons vanish on GLES while looking fine under DXVK. Render2DClass::
+	// Render()'s IsGrayScale path builds its greyscale in two stages: stage 0
+	// does MULTIPLYADD to bias the texture up by TFACTOR.a * TFACTOR.a, then
+	// stage 1 DOTPRODUCT3s the result against TFACTOR's luminance weights,
+	// which subtracts 0.5 first. Emitting stage 0 as tex * TFACTOR.a instead
+	// of tex + 0.25 caps the stage-0 result at TFACTOR.a (0.5) -- i.e. always
+	// at or below the 0.5 the next stage subtracts -- so the dot product came
+	// out negative for every texel and clamped to 0. Every disabled button
+	// rendered solid black, and against the dark command bar that reads as the
+	// button having disappeared. Moving the camera changes what is buildable,
+	// which is exactly why the buttons came and went with camera movement.
+	case D3DTOP_MULTIPLYADD:
+		snprintf(buf, sizeof(buf), "min(%s + %s * %s, vec4(1.0))",
+			a1.c_str(), a2.c_str(), a0.c_str());
+		break;
+	// D3D8: SRGBA = Arg1 * Arg0 + Arg2 * (1 - Arg0), i.e. mix() with Arg0 as
+	// the interpolant. Added alongside MULTIPLYADD because it is the other op
+	// that reads ARG0 -- without it, ARG0 would still be write-only state.
+	case D3DTOP_LERP:
+		snprintf(buf, sizeof(buf), "mix(%s, %s, %s)",
+			a2.c_str(), a1.c_str(), a0.c_str());
+		break;
 	default:
+		// Silence here is how MULTIPLYADD survived: an unimplemented op used
+		// to render as a modulate that looks plausible in most content. Say so
+		// once per op instead, so the next missing one shows up in the device
+		// log rather than as a mystery visual bug.
+		// D3DTOP_DISABLE can reach here for a disabled stage 0 that sits below
+		// an enabled stage 1; that is a known, harmless shape, not a gap.
+		if (op != D3DTOP_DISABLE) {
+			WARN_ONCE_ARG(op, "texture stage COLOROP/ALPHAOP %u not implemented, "
+				"approximating as MODULATE", op);
+		}
 		snprintf(buf, sizeof(buf), "(%s * %s)", a1.c_str(), a2.c_str());
 		break;
 	}
@@ -607,17 +816,9 @@ WebGLPipeline::ProgramInfo *WebGLPipeline::getProgram(WebGLDevice *dev, unsigned
 	int stagesUsed = 0;
 	for (int s = 0; s < 2; s++) {
 		getStageKey(dev, s, &st[s]);
-		if (!dev->getTexture2D(s)) {
-			if (s == 0) {
-				st[s].colorOp = D3DTOP_SELECTARG2;
-				st[s].colorArg2 = 0;
-				st[s].alphaOp = D3DTOP_SELECTARG2;
-				st[s].alphaArg2 = 0;
-			} else {
-				st[s].colorOp = D3DTOP_DISABLE;
-				st[s].alphaOp = D3DTOP_DISABLE;
-			}
-		}
+		// Must stay identical to computeProgramKey's handling above, or the
+		// cache key and the generated shader describe different pipelines.
+		if (!dev->getTexture2D(s)) collapseStageWithoutTexture(&st[s], s);
 		if (st[s].colorOp != D3DTOP_DISABLE) stagesUsed = s + 1;
 	}
 
@@ -758,14 +959,16 @@ WebGLPipeline::ProgramInfo *WebGLPipeline::getProgram(WebGLDevice *dev, unsigned
 		snprintf(b, sizeof(b), "  vec4 tex%d = texture(uTex%d, vUV%d);\n", s, s, s);
 		fs += b;
 		int usesTex = 0;
+		std::string c0 = combinerArg(st[s].colorArg0, texv, &usesTex);
 		std::string c1 = combinerArg(st[s].colorArg1, texv, &usesTex);
 		std::string c2 = combinerArg(st[s].colorArg2, texv, &usesTex);
+		std::string a0 = combinerArg(st[s].alphaArg0, texv, &usesTex);
 		std::string a1 = combinerArg(st[s].alphaArg1, texv, &usesTex);
 		std::string a2 = combinerArg(st[s].alphaArg2, texv, &usesTex);
 		// At stage 0, D3DTA_CURRENT reads DIFFUSE.
-		std::string colorExpr = combinerOp(st[s].colorOp, c1, c2, texa);
+		std::string colorExpr = combinerOp(st[s].colorOp, c0, c1, c2, texa);
 		std::string alphaExpr =
-			st[s].alphaOp == D3DTOP_DISABLE ? "cur" : combinerOp(st[s].alphaOp, a1, a2, texa);
+			st[s].alphaOp == D3DTOP_DISABLE ? "cur" : combinerOp(st[s].alphaOp, a0, a1, a2, texa);
 		snprintf(b, sizeof(b), "  cur = vec4((%s).rgb, (%s).a);\n", colorExpr.c_str(), alphaExpr.c_str());
 		fs += b;
 	}
@@ -1226,6 +1429,22 @@ void WebGLPipeline::uploadTexture(WebGLTexture *tex)
 	} else {
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, uploaded > 0 ? uploaded - 1 : 0);
 	}
+	// GeneralsX @build Android port 09/05/2026 A texture that received no
+	// glTexImage2D at all is INCOMPLETE in GL and samples as opaque black --
+	// silently, with no GL error. That is the exact signature of the reported
+	// "half the textures are gone after restarting on Medium detail", and
+	// nothing in this function would otherwise say it happened. Capped.
+	if (uploaded == 0) {
+		static int s_emptyUploads = 0;
+		if (s_emptyUploads < 12) {
+			s_emptyUploads++;
+			fprintf(stderr, "[gxtex] EMPTY upload: texture %ux%u fmt=%d levels=%d "
+				"-- incomplete, will sample as black\n",
+				levels > 0 ? tex->m_levels[0]->m_width : 0,
+				levels > 0 ? tex->m_levels[0]->m_height : 0,
+				(int)tex->m_format, levels);
+		}
+	}
 	g.dirty = false;
 	g.samplerKey = ~0u; // force sampler reapply
 	GLTRACE("texture %u uploaded (%dx%d fmt=%d levels=%d)", g.name,
@@ -1402,14 +1621,49 @@ void WebGLPipeline::applyFixedState(WebGLDevice *dev)
 	// Stencil
 	if (dev->getRenderState(D3DRS_STENCILENABLE)) {
 		glEnable(GL_STENCIL_TEST);
-		const DWORD func = dev->getRenderState(D3DRS_STENCILFUNC);
-		glStencilFunc(d3dCmpToGL(func ? func : D3DCMP_ALWAYS),
-		              (GLint)dev->getRenderState(D3DRS_STENCILREF),
-		              dev->getRenderState(D3DRS_STENCILMASK) ? dev->getRenderState(D3DRS_STENCILMASK) : 0xFFFFFFFF);
+		// GeneralsX @bugfix Android port 09/05/2026 Two deviations from D3D8
+		// semantics used to live in these three calls, and together they broke
+		// stencil shadow volumes on GLES while leaving DXVK unaffected.
+		//
+		// 1. The reference value was cast straight to a signed GLint.
+		//    W3DVolumetricShadow's fill passes set D3DRS_STENCILREF =
+		//    0x80808080, which as a GLint is -2139062144. GLES 3.0 4.1.4 says
+		//    ref is clamped to [0, 2^s - 1], so a negative value clamps to 0.
+		// 2. A D3DRS_STENCILMASK of 0 was treated as "never set" and replaced
+		//    with 0xFFFFFFFF. Zero is a real D3D value meaning "compare no
+		//    bits", i.e. the test always passes -- and it is exactly what the
+		//    engine asks for here, since TheW3DShadowManager's stencil shadow
+		//    mask is 0 (W3DShadow.cpp) when the player-colour occluder feature
+		//    is off. Substituting a full mask turned a guaranteed pass into a
+		//    real comparison.
+		//
+		// Together those made the fill passes run as
+		// glStencilFunc(GL_GEQUAL, 0, 0xFF) -- "pass only where the stencil is
+		// still 0" -- instead of "always pass". The INCR pass then raised the
+		// whole volume silhouette to 1, and the DECR pass, meeting a buffer
+		// that now held 1, failed the stencil test everywhere it had just
+		// incremented (STENCILFAIL is KEEP, so nothing decremented). The far
+		// half never cancelled the near half, the entire silhouette stayed at
+		// 1, and the darkening quad painted all of it -- the dark slab
+		// reported around aircraft.
+		//
+		// This also explains the two results that made no sense before:
+		// inverting the cull face changed nothing (whichever half draws first
+		// paints the silhouette to 1 and locks the other half out through the
+		// stencil test, and both halves share a screen footprint), and the
+		// occlusion probe still saw samples in the DECR pass (fringe pixels
+		// and depth-failed regions were left at 0 and did survive).
+		//
+		// The masks are now passed through verbatim; the device seeds D3D8's
+		// documented stencil defaults so a zero here really does mean the game
+		// asked for zero (see WebGLDevice's constructor).
+		glStencilFunc(d3dCmpToGL(dev->getRenderState(D3DRS_STENCILFUNC)),
+		              (GLint)(dev->getRenderState(D3DRS_STENCILREF) & 0xFFu),
+		              (GLuint)dev->getRenderState(D3DRS_STENCILMASK));
 		glStencilOp(d3dStencilOpToGL(dev->getRenderState(D3DRS_STENCILFAIL)),
 		            d3dStencilOpToGL(dev->getRenderState(D3DRS_STENCILZFAIL)),
 		            d3dStencilOpToGL(dev->getRenderState(D3DRS_STENCILPASS)));
-		glStencilMask(dev->getRenderState(D3DRS_STENCILWRITEMASK) ? dev->getRenderState(D3DRS_STENCILWRITEMASK) : 0xFFFFFFFF);
+		glStencilMask((GLuint)dev->getRenderState(D3DRS_STENCILWRITEMASK));
 	} else {
 		glDisable(GL_STENCIL_TEST);
 	}
@@ -1431,6 +1685,7 @@ void WebGLPipeline::applyFixedState(WebGLDevice *dev)
 	const GLint glViewportY = (GLint)(m_curRTHeight - (int)vp.Y - (int)vp.Height);
 	glViewport((GLint)vp.X, glViewportY, (GLsizei)vp.Width, (GLsizei)vp.Height);
 	glDepthRangef(vp.MinZ, vp.MaxZ);
+
 }
 
 void WebGLPipeline::applyUniforms(WebGLDevice *dev, ProgramInfo *prog, unsigned fvf)
@@ -1797,6 +2052,50 @@ void WebGLPipeline::bindVertexLayout(const FVFLayout &l, GLuint vbo, GLuint ibo,
 	m_vaoCache.emplace(hash, VAOCacheEntry{key, vao, base});
 }
 
+// GeneralsX @perf Android port 09/05/2026 Draw-call breakdown by subsystem.
+// Real-device logs show ~1200-2500 draws/frame in gameplay at 13-15 fps, i.e.
+// roughly 27k draws/sec -- about what a mobile GLES driver sustains when each
+// draw carries state changes, so we are draw-call bound. But "reduce draw
+// calls" is useless without knowing WHERE they come from: the instancing
+// attempt earlier only ever collapsed ~10% of them, because it targeted the
+// rigid-model path while most draws apparently come from somewhere else.
+//
+// Engine code tags the few passes it can identify cheaply (see
+// d3d8gles_SetDrawCategory's callers); everything else lands in OTHER
+// (terrain, shadows, skinned meshes, ...). Callers save/restore the previous
+// value, so nesting works.
+enum GeneralsXDrawCategory {
+	GX_DRAWCAT_OTHER = 0,
+	GX_DRAWCAT_MODELS,   // DX8TextureCategoryClass::Render -- rigid HLod meshes
+	GX_DRAWCAT_SORTED,   // SortingRendererClass::Flush -- particles, decals
+	GX_DRAWCAT_2D,       // Render2DClass::Render -- all UI and video
+	GX_DRAWCAT_TERRAIN,  // HeightMapRenderObjClass::Render
+	GX_DRAWCAT_SHADOWS,  // W3DProjectedShadowManager::renderShadows
+	GX_DRAWCAT_SKIN,     // DX8SkinFVFCategoryContainer::Render
+	GX_DRAWCAT_COUNT
+};
+static int s_gxDrawCategory = GX_DRAWCAT_OTHER;
+static unsigned s_gxDrawsByCategory[GX_DRAWCAT_COUNT] = {0, 0, 0, 0, 0, 0, 0};
+
+// GeneralsX @perf Android port 09/05/2026 UI cost buckets, filled by engine
+// code that times itself (see d3d8gles_AddUiTiming's callers). Reported next to
+// the draw split so one log line shows both where the draws and where the CPU
+// time go.
+static double s_gxUiTimeUs[3] = {0.0, 0.0, 0.0};
+
+
+extern "C" void d3d8gles_AddUiTiming(int bucket, double microseconds)
+{
+	if (bucket >= 0 && bucket < 3) s_gxUiTimeUs[bucket] += microseconds;
+}
+
+extern "C" int d3d8gles_SetDrawCategory(int category)
+{
+	const int prev = s_gxDrawCategory;
+	s_gxDrawCategory = (category >= 0 && category < GX_DRAWCAT_COUNT) ? category : GX_DRAWCAT_OTHER;
+	return prev;
+}
+
 void WebGLPipeline::drawCommon(WebGLDevice *dev, unsigned primType, unsigned primCount,
                                GLuint vbo, unsigned stride, unsigned fvf,
                                GLuint ibo, unsigned indexFormat,
@@ -1820,6 +2119,7 @@ void WebGLPipeline::drawCommon(WebGLDevice *dev, unsigned primType, unsigned pri
 
 	const GLenum mode = primModeGL(primType);
 	const unsigned count = primVertexCount(primType, primCount);
+
 	if (indexFormat != 0) {
 		const GLenum itype = (indexFormat == D3DFMT_INDEX32) ? GL_UNSIGNED_INT : GL_UNSIGNED_SHORT;
 		const unsigned isize = (indexFormat == D3DFMT_INDEX32) ? 4 : 2;
@@ -1827,7 +2127,16 @@ void WebGLPipeline::drawCommon(WebGLDevice *dev, unsigned primType, unsigned pri
 	} else {
 		glDrawArrays(mode, startIndex, count);
 	}
+	// GeneralsX @build Android port 09/05/2026 Dump the fixed-function state
+	// actually in effect for the first terrain draw and the first model draw of
+	// each log window. Every remaining theory for the black geometry on a
+	// Low-detail start predicts a specific difference in these values between a
+	// Low run and a High run, and NO counter in the build reports any of them --
+	// which is why two logs of the same scene look identical everywhere the
+	// fault has to live. Read from the device-side state, one line per category
+	// per window, so it costs nothing.
 	m_perfDrawsThisFrame++;
+	s_gxDrawsByCategory[s_gxDrawCategory]++;
 }
 
 // Buffer objects (device-side shadow -> GL) helpers.
@@ -1852,23 +2161,139 @@ void WebGLPipeline::bindArrayBuffer(GLuint name)
 // can never disturb whatever VAO bindVertexLayout() left bound from the
 // previous draw (see that function's comment for why GL_ELEMENT_ARRAY_BUFFER
 // specifically would be unsafe to touch mid-VAO otherwise).
+// GeneralsX @perf Android port 09/05/2026 This used to respecify the ENTIRE
+// buffer with glBufferData on every update. For the engine's shared dynamic VB
+// (DEFAULT_VB_SIZE = 5000 vertices, ~220 KB at dynamic_fvf_type's 44
+// bytes/vertex) that meant a full 220 KB re-upload for callers that wrote only
+// a handful of quads into it -- Render2DClass::Render() does exactly that, and
+// real-device timings measured it at 16-59 ms/frame across just 24-60 UI draws
+// (~0.5-1 ms per draw, about half the frame). SortingRendererClass::Flush
+// streams particles through the same buffer.
+//
+// Now: allocate storage once, then push only the byte range Lock/Unlock
+// actually recorded (GLBufferState::markRange). Deliberately NOT orphaning
+// (glBufferData with nullptr) before each glBufferSubData: this is a
+// ring-style dynamic buffer where earlier sub-ranges belong to draws already
+// submitted but not necessarily consumed yet, and orphaning would discard
+// them. That matches D3D8's own NOOVERWRITE semantics for this usage.
 void WebGLPipeline::ensureVBUploaded(WebGLVertexBuffer *vb)
 {
-	if (vb->m_gl.name == 0) glGenBuffers(1, &vb->m_gl.name);
+	if (vb->m_gl.name == 0) {
+		glGenBuffers(1, &vb->m_gl.name);
+		vb->m_gl.allocated = false;
+	}
 	if (vb->m_gl.dirty) {
 		glBindBuffer(GL_COPY_WRITE_BUFFER, vb->m_gl.name);
-		glBufferData(GL_COPY_WRITE_BUFFER, vb->m_bits.size(), vb->m_bits.data(), GL_DYNAMIC_DRAW);
+		const bool haveRange = vb->m_gl.dirtyBegin < vb->m_gl.dirtyEnd;
+		// GeneralsX @bugfix Android port 09/05/2026 D3DLOCK_DISCARD does a FULL
+		// upload rather than orphaning with glBufferData(..., nullptr) and then
+		// pushing only the fresh range. Orphaning leaves every byte outside
+		// that range undefined, and the engine does not treat the ring's older
+		// contents as dead: SortingRendererClass draws sorted translucent
+		// geometry that can still reference vertex ranges written earlier in
+		// the frame. Those ranges survive in m_bits but not in the newly
+		// orphaned GL storage, so they rasterized as garbage -- confirmed on a
+		// real device as stray grids and long diagonal lines across the scene.
+		// glBufferData WITH data respecifies the storage too (so it does not
+		// wait on the GPU either), it just also refills it. This only happens
+		// when the ring wraps, so the ordinary NOOVERWRITE appends below stay
+		// cheap.
+		const bool fullUpload = !vb->m_gl.allocated || !haveRange || vb->m_gl.pendingDiscard;
+		if (fullUpload) {
+			// First use, or an update with no recorded range: full upload,
+			// which also (re)allocates the GL storage.
+			glBufferData(GL_COPY_WRITE_BUFFER, vb->m_bits.size(), vb->m_bits.data(), GL_DYNAMIC_DRAW);
+			vb->m_gl.allocated = true;
+		} else {
+			// GeneralsX @perf Android port 09/05/2026 This is the
+			// D3DLOCK_NOOVERWRITE case (the engine's ring buffer appending
+			// past offset 0). glBufferSubData here makes the driver
+			// synchronize against the GPU still reading earlier ranges of the
+			// same buffer, and real-device timings showed exactly that: a flat
+			// ~1 ms per Render2DClass::Render() call, tracking UI draw count
+			// 1:1 (50.6 draws -> 49.3 ms, 65.2 -> 62.5) and independent of how
+			// much data was written -- the signature of waiting, not working.
+			// GL_MAP_UNSYNCHRONIZED_BIT is the exact translation of what
+			// NOOVERWRITE promises: the caller guarantees it is not touching
+			// bytes the GPU may still read, so no wait is needed.
+			const GLintptr off = (GLintptr)vb->m_gl.dirtyBegin;
+			const GLsizeiptr len = (GLsizeiptr)(vb->m_gl.dirtyEnd - vb->m_gl.dirtyBegin);
+			void *mapped = glMapBufferRange(GL_COPY_WRITE_BUFFER, off, len,
+				GL_MAP_WRITE_BIT | GL_MAP_UNSYNCHRONIZED_BIT);
+			if (mapped) {
+				memcpy(mapped, vb->m_bits.data() + vb->m_gl.dirtyBegin, (size_t)len);
+				glUnmapBuffer(GL_COPY_WRITE_BUFFER);
+			} else {
+				// Mapping can legitimately fail (driver refusal, lost
+				// context); the synchronizing path is slower but correct.
+				glBufferSubData(GL_COPY_WRITE_BUFFER, off, len,
+					vb->m_bits.data() + vb->m_gl.dirtyBegin);
+			}
+		}
 		vb->m_gl.dirty = false;
+		vb->m_gl.pendingDiscard = false;
+		vb->m_gl.clearRange();
 	}
 }
 
+// GeneralsX @perf Android port 09/05/2026 Same range-only upload as
+// ensureVBUploaded above -- see that comment for the reasoning and the
+// measurements.
 void WebGLPipeline::ensureIBUploaded(WebGLIndexBuffer *ib)
 {
-	if (ib->m_gl.name == 0) glGenBuffers(1, &ib->m_gl.name);
+	if (ib->m_gl.name == 0) {
+		glGenBuffers(1, &ib->m_gl.name);
+		ib->m_gl.allocated = false;
+	}
 	if (ib->m_gl.dirty) {
 		glBindBuffer(GL_COPY_WRITE_BUFFER, ib->m_gl.name);
-		glBufferData(GL_COPY_WRITE_BUFFER, ib->m_bits.size(), ib->m_bits.data(), GL_DYNAMIC_DRAW);
+		const bool haveRange = ib->m_gl.dirtyBegin < ib->m_gl.dirtyEnd;
+		// GeneralsX @bugfix Android port 09/05/2026 D3DLOCK_DISCARD does a FULL
+		// upload rather than orphaning with glBufferData(..., nullptr) and then
+		// pushing only the fresh range. Orphaning leaves every byte outside
+		// that range undefined, and the engine does not treat the ring's older
+		// contents as dead: SortingRendererClass draws sorted translucent
+		// geometry that can still reference vertex ranges written earlier in
+		// the frame. Those ranges survive in m_bits but not in the newly
+		// orphaned GL storage, so they rasterized as garbage -- confirmed on a
+		// real device as stray grids and long diagonal lines across the scene.
+		// glBufferData WITH data respecifies the storage too (so it does not
+		// wait on the GPU either), it just also refills it. This only happens
+		// when the ring wraps, so the ordinary NOOVERWRITE appends below stay
+		// cheap.
+		const bool fullUpload = !ib->m_gl.allocated || !haveRange || ib->m_gl.pendingDiscard;
+		if (fullUpload) {
+			glBufferData(GL_COPY_WRITE_BUFFER, ib->m_bits.size(), ib->m_bits.data(), GL_DYNAMIC_DRAW);
+			ib->m_gl.allocated = true;
+		} else {
+			// GeneralsX @perf Android port 09/05/2026 This is the
+			// D3DLOCK_NOOVERWRITE case (the engine's ring buffer appending
+			// past offset 0). glBufferSubData here makes the driver
+			// synchronize against the GPU still reading earlier ranges of the
+			// same buffer, and real-device timings showed exactly that: a flat
+			// ~1 ms per Render2DClass::Render() call, tracking UI draw count
+			// 1:1 (50.6 draws -> 49.3 ms, 65.2 -> 62.5) and independent of how
+			// much data was written -- the signature of waiting, not working.
+			// GL_MAP_UNSYNCHRONIZED_BIT is the exact translation of what
+			// NOOVERWRITE promises: the caller guarantees it is not touching
+			// bytes the GPU may still read, so no wait is needed.
+			const GLintptr off = (GLintptr)ib->m_gl.dirtyBegin;
+			const GLsizeiptr len = (GLsizeiptr)(ib->m_gl.dirtyEnd - ib->m_gl.dirtyBegin);
+			void *mapped = glMapBufferRange(GL_COPY_WRITE_BUFFER, off, len,
+				GL_MAP_WRITE_BIT | GL_MAP_UNSYNCHRONIZED_BIT);
+			if (mapped) {
+				memcpy(mapped, ib->m_bits.data() + ib->m_gl.dirtyBegin, (size_t)len);
+				glUnmapBuffer(GL_COPY_WRITE_BUFFER);
+			} else {
+				// Mapping can legitimately fail (driver refusal, lost
+				// context); the synchronizing path is slower but correct.
+				glBufferSubData(GL_COPY_WRITE_BUFFER, off, len,
+					ib->m_bits.data() + ib->m_gl.dirtyBegin);
+			}
+		}
 		ib->m_gl.dirty = false;
+		ib->m_gl.pendingDiscard = false;
+		ib->m_gl.clearRange();
 	}
 }
 
@@ -1969,6 +2394,7 @@ void WebGLPipeline::clear(WebGLDevice *dev, unsigned flags, uint32_t argb, float
 {
 	if (!m_ctxReady) return;
 
+
 	// D3D clears the viewport region only.
 	const D3DVIEWPORT8 &vp = dev->getViewport();
 	const bool full = (vp.X == 0 && vp.Y == 0 &&
@@ -1985,6 +2411,23 @@ void WebGLPipeline::clear(WebGLDevice *dev, unsigned flags, uint32_t argb, float
 	if (flags & D3DCLEAR_TARGET) {
 		float c[4];
 		argbToFloats(argb, c);
+		// GeneralsX @bugfix Android port 09/04/2026 D3D8's Clear() alpha
+		// component is meaningless on a real Windows backbuffer (no OS-level
+		// compositing depends on it there), so callers have always felt free
+		// to pass whatever's convenient -- e.g. W3DDisplay.cpp's main
+		// per-frame Begin_Render() clear reuses TheWaterTransparency->
+		// m_minWaterOpacity as this value, which has nothing to do with
+		// wanting the actual screen transparent. That's harmless as long as
+		// the default framebuffer has no alpha channel to write to, but
+		// becomes a real hazard on Android if it ever does (SurfaceFlinger
+		// can and does composite a GL-backed Surface's alpha against
+		// whatever is behind it). Force full opacity on the DEFAULT
+		// framebuffer specifically (m_curFBO==0, i.e. the real on-screen
+		// backbuffer) regardless of whatever alpha the caller asked for --
+		// offscreen render targets (m_curFBO!=0, e.g. water reflections)
+		// keep using the caller's real alpha, since those aren't presented
+		// directly to the OS compositor.
+		if (m_curFBO == 0) c[3] = 1.0f;
 		glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
 		glClearColor(c[0], c[1], c[2], c[3]);
 		mask |= GL_COLOR_BUFFER_BIT;
@@ -2104,6 +2547,62 @@ void WebGLPipeline::setRenderTarget(WebGLDevice * /*dev*/, WebGLTexture *tex)
 	tex->m_gl.dirty = false;
 }
 
+// GeneralsX @bugfix Android port 09/05/2026 See the declaration in
+// gles_pipeline.h. Projected shadows (W3DProjectedShadow::updateTexture) render
+// an object's silhouette into a 512x512 render target and then blit it into a
+// permanent texture with SurfaceClass::Copy -> _Copy_DX8_Rects -> CopyRects.
+// CopyRects is a CPU memcpy between shadow bits, and a render target's shadow
+// bits were never written by anything, so the permanent shadow texture came out
+// all zeroes. Drawn with _PresetMultiplicativeShader (dst *= src), an all-zero
+// texture multiplies the terrain to black across the whole decal quad -- which
+// is exactly the "strange" helicopter shadows reported on GLES and never on
+// DXVK (DXVK's CopyRects does a real GPU copy). Only SHADOW_PROJECTION shadows
+// are generated this way; ground units use artist-supplied decal textures,
+// which is why the symptom looked aircraft-specific.
+void WebGLPipeline::readbackRenderTarget(WebGLTexture *tex)
+{
+	if (!m_ctxReady || tex == nullptr || tex->m_gl.fbo == 0 || tex->m_levels.empty()) return;
+
+	WebGLSurface *s = tex->m_levels[0];
+	const int w = (int)s->m_width;
+	const int h = (int)s->m_height;
+	if (w <= 0 || h <= 0) return;
+
+	// glReadPixels' guaranteed-supported combination in GLES3 is RGBA/UBYTE,
+	// and the only render-target format this engine creates is A8R8G8B8
+	// (DX8Wrapper::Create_Render_Target, with an X8R8G8B8 fallback).
+	if (tex->m_format != D3DFMT_A8R8G8B8 && tex->m_format != D3DFMT_X8R8G8B8) {
+		WARN_ONCE_ARG((unsigned)tex->m_format,
+			"render-target readback for format %u not implemented",
+			(unsigned)tex->m_format);
+		return;
+	}
+	if (s->m_bits.size() < (size_t)h * s->m_pitch) return;
+
+	m_rtReadback.resize((size_t)w * h * 4);
+	glBindFramebuffer(GL_FRAMEBUFFER, tex->m_gl.fbo);
+	glPixelStorei(GL_PACK_ALIGNMENT, 1);
+	glReadPixels(0, 0, w, h, GL_RGBA, GL_UNSIGNED_BYTE, m_rtReadback.data());
+	glBindFramebuffer(GL_FRAMEBUFFER, m_curFBO);
+
+	// Row 0 of this FBO's texture attachment is D3D's top row (setRenderTarget
+	// keeps m_yFlip at +1 precisely so it lands there), and glReadPixels
+	// numbers rows from attachment row 0 upward -- so the rows come back in
+	// the same order the CPU shadow stores them. No vertical flip here.
+	// Bytes still need RGBA -> BGRA, the inverse of the conversion
+	// prepareLevelUpload() does when pushing an A8R8G8B8 surface to GL.
+	for (int y = 0; y < h; y++) {
+		const uint8_t *src = m_rtReadback.data() + (size_t)y * w * 4;
+		uint8_t *dst = s->m_bits.data() + (size_t)y * s->m_pitch;
+		for (int x = 0; x < w; x++) {
+			dst[x * 4 + 0] = src[x * 4 + 2]; // B
+			dst[x * 4 + 1] = src[x * 4 + 1]; // G
+			dst[x * 4 + 2] = src[x * 4 + 0]; // R
+			dst[x * 4 + 3] = src[x * 4 + 3]; // A
+		}
+	}
+}
+
 void WebGLPipeline::present()
 {
 	if (!m_ctxReady) return;
@@ -2140,6 +2639,26 @@ void WebGLPipeline::present()
 			const int totalUniformChecks = m_perfUniformCacheHits + m_perfUniformCacheMisses;
 			const float uniformHitPct = totalUniformChecks > 0
 				? 100.0f * m_perfUniformCacheHits / totalUniformChecks : 0.0f;
+			// GeneralsX @perf Android port 09/05/2026 Per-subsystem draw split,
+			// averaged over the same window as draws/frame above.
+			{
+				const float f = m_perfFrameCount > 0 ? (float)m_perfFrameCount : 1.0f;
+				fprintf(stderr, "[d3d8gles] perf-draws/frame by source: models=%.1f sorted(particles)=%.1f "
+					"2d-ui=%.1f terrain=%.1f shadows=%.1f skin=%.1f other=%.1f\n",
+					s_gxDrawsByCategory[GX_DRAWCAT_MODELS] / f,
+					s_gxDrawsByCategory[GX_DRAWCAT_SORTED] / f,
+					s_gxDrawsByCategory[GX_DRAWCAT_2D] / f,
+					s_gxDrawsByCategory[GX_DRAWCAT_TERRAIN] / f,
+					s_gxDrawsByCategory[GX_DRAWCAT_SHADOWS] / f,
+					s_gxDrawsByCategory[GX_DRAWCAT_SKIN] / f,
+					s_gxDrawsByCategory[GX_DRAWCAT_OTHER] / f);
+				fprintf(stderr, "[d3d8gles] perf-ui ms/frame: text-raster=%.2f text-texture=%.2f 2d-submit=%.2f\n",
+					s_gxUiTimeUs[0] / 1000.0 / f,
+					s_gxUiTimeUs[1] / 1000.0 / f,
+					s_gxUiTimeUs[2] / 1000.0 / f);
+				for (int i = 0; i < 3; i++) s_gxUiTimeUs[i] = 0.0;
+				for (int i = 0; i < GX_DRAWCAT_COUNT; i++) s_gxDrawsByCategory[i] = 0;
+			}
 			fprintf(stderr, "[d3d8gles] perf: %.1f fps, %.1f draws/frame, "
 				"state-cache %.0f%% hit (%d/%d), vao-cache %.0f%% hit (%d/%d, %zu cached, "
 				"%d ptr-refresh), uniform-cache %.0f%% hit (%d/%d), "
@@ -2181,6 +2700,30 @@ void WebGLPipeline::present()
 					m_perfUniformMaterialHits, m_perfUniformMaterialHits + m_perfUniformMaterialMisses,
 					pct(m_perfUniformLightingHits, m_perfUniformLightingMisses),
 					m_perfUniformLightingHits, m_perfUniformLightingHits + m_perfUniformLightingMisses);
+			}
+			// GeneralsX @bugfix Android port 09/04/2026 Diagnostic for a
+			// persistent strip near the screen edge reported on GLES/ANGLE
+			// (present at native/100% resolution too, so it's not a
+			// pillarbox-blit artifact -- confirmed by real-device testing
+			// that ruled out every pillarbox-side theory tried so far).
+			// Everything on the C++ bookkeeping side (m_fbWidth/Height,
+			// _PresentParameters, Get_Render_Target_Resolution) claims the
+			// backbuffer is the full real window size, but that's all
+			// self-reported -- this logs the ACTUAL GL state at present()
+			// time (real glViewport, not what we think we set) to see
+			// whether it agrees. If GL_VIEWPORT doesn't match
+			// m_fbWidth/m_fbHeight here, the bug is in how a viewport call
+			// got lost/cached wrong somewhere in this file. If it DOES
+			// match, the bug is further upstream (EGL surface/window
+			// geometry itself), outside this pipeline's control.
+			{
+				GLint vpDump[4] = {-1, -1, -1, -1};
+				glGetIntegerv(GL_VIEWPORT, vpDump);
+				fprintf(stderr, "[d3d8gles-diag] present(): GL_VIEWPORT=(%d,%d,%d,%d) m_fbWidth=%d m_fbHeight=%d "
+					"m_curRTWidth=%d m_curRTHeight=%d m_curFBO=%u m_yFlip=%.1f\n",
+					vpDump[0], vpDump[1], vpDump[2], vpDump[3],
+					m_fbWidth, m_fbHeight, m_curRTWidth, m_curRTHeight,
+					(unsigned)m_curFBO, m_yFlip);
 			}
 			DumpLiveTextureShapes();
 			m_perfLogLastMs = nowMs;

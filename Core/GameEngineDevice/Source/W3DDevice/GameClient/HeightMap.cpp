@@ -90,6 +90,16 @@
 #include "W3DDevice/GameClient/W3DCustomScene.h"
 
 #include "Common/UnitTimings.h" //Contains the DO_UNIT_TIMINGS define jba.
+#if defined(__ANDROID__)
+// GeneralsX @perf Android port 09/05/2026 - draw-category hook. Forward-declared
+// rather than including d3d8gles.h: that header is not on the gameenginedevice
+// target's include path, and everything links into the same libmain.so.
+// Values must match the enum in Core/Libraries/Source/d3d8gles/include/d3d8gles.h.
+extern "C" int d3d8gles_SetDrawCategory(int category);
+#define D3D8GLES_DRAWCAT_TERRAIN 4
+#define D3D8GLES_DRAWCAT_SHADOWS 5
+#endif
+
 
 
 #define no_OPTIMIZED_HEIGHTMAP_LIGHTING	01
@@ -1891,6 +1901,11 @@ void HeightMapRenderObjClass::updateCenter(CameraClass *camera, const Vector3 *c
 
 void HeightMapRenderObjClass::Render(RenderInfoClass & rinfo)
 {
+#if defined(__ANDROID__)
+	const int gxPrevCat = d3d8gles_SetDrawCategory(D3D8GLES_DRAWCAT_TERRAIN);
+	struct GxCatRestore { int prev; ~GxCatRestore() { d3d8gles_SetDrawCategory(prev); } } gxCatRestore{gxPrevCat};
+#endif
+
 	//USE_PERF_TIMER(Terrain_Render)
 
 	Int i,j,devicePasses;

@@ -199,6 +199,12 @@ void W3DGameClient::setTeamColor(Int red, Int green, Int blue)
 //-------------------------------------------------------------------------------------------------
 void W3DGameClient::setTextureLOD( Int level )
 {
+	// GeneralsX @build Android port 09/05/2026 Unconditional so the log shows
+	// the call even when it changes nothing -- the previous diagnostic only
+	// fired on a change and stayed silent, which was itself the finding.
+	fprintf(stderr, "[gxlod] setTextureLOD(%d), current WW3D reduction=%d, "
+		"terrain=%p\n", (int)level, (int)WW3D::Get_Texture_Reduction(),
+		(void *)TheTerrainRenderObject);
 	if (WW3D::Get_Texture_Reduction() != level)
 	{
 		WW3D::Set_Texture_Reduction(level, 32);

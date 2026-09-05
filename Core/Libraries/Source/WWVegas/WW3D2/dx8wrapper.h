@@ -521,6 +521,17 @@ public:
 	static bool					Pillarbox_Get_Rect(int& x, int& y, int& w, int& h);
 	static void					Pillarbox_Begin();
 	static void					Pillarbox_End();
+	// GeneralsX @bugfix Android port 08/30/2026 EXPERIMENT: call right after
+	// Pillarbox_End() and before any UI/HUD/overlay drawing for the rest of
+	// the frame. Sets the device viewport to the letterboxed destination rect
+	// on the (now current) backbuffer, so everything drawn after this point
+	// renders at native/full resolution instead of inheriting the 3D scene's
+	// (possibly downscaled) render-resolution viewport. Render2DClass (which
+	// all .wnd/HUD drawing goes through) computes vertex NDC positions purely
+	// from the logical ScreenResolution, independent of viewport pixel size,
+	// so this doesn't require touching any UI code -- only where its NDC
+	// output gets rasterized. No-op when pillarboxing isn't engaged.
+	static void					Pillarbox_Begin_UI();
 	static void					Pillarbox_Process_Resize();
 
 	// for depth map support KJM V
@@ -742,6 +753,10 @@ protected:
 	static bool								s_pillarboxEnabled;
 	static bool								s_pillarboxActive;
 	static int								s_bbW, s_bbH;
+	// GeneralsX @bugfix Android port 08/30/2026 Actual pixel size of the
+	// offscreen render target / scene viewport, which is NOT always equal to
+	// gameW/gameH passed into Pillarbox_Setup -- see kPillarboxRenderScale.
+	static int								s_renderW, s_renderH;
 	static int								s_dstX, s_dstY, s_dstW, s_dstH;
 	static float							s_pixelDensity;
 	static IDirect3DTexture8*			s_offscreenTex;

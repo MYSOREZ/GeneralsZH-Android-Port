@@ -56,6 +56,16 @@
 #include "GameClient/Drawable.h"
 #include "W3DDevice/GameClient/Module/W3DModelDraw.h"
 #include "W3DDevice/GameClient/W3DShadow.h"
+#if defined(__ANDROID__)
+// GeneralsX @perf Android port 09/05/2026 - draw-category hook. Forward-declared
+// rather than including d3d8gles.h: that header is not on the gameenginedevice
+// target's include path, and everything links into the same libmain.so.
+// Values must match the enum in Core/Libraries/Source/d3d8gles/include/d3d8gles.h.
+extern "C" int d3d8gles_SetDrawCategory(int category);
+#define D3D8GLES_DRAWCAT_TERRAIN 4
+#define D3D8GLES_DRAWCAT_SHADOWS 5
+#endif
+
 
 
 /** @todo: We're going to have a pool of a couple rendertargets to use
@@ -521,6 +531,20 @@ Int W3DProjectedShadowManager::renderProjectedTerrainShadow(W3DProjectedShadow *
 //    m_pDev->SetRenderState( D3DRS_ALPHABLENDENABLE, TRUE );
 		m_pDev->SetRenderState( D3DRS_LIGHTING, TRUE);
 
+		// GeneralsX @bugfix Android port 09/05/2026 This function drives the
+		// device directly for a dozen render states and only raw-restores three
+		// of them, so DX8Wrapper's RenderStates[] cache is left describing
+		// state the device does not have. The two that matter most are never
+		// restored at all: SRCBLEND stays D3DBLEND_DESTCOLOR and DESTBLEND
+		// stays D3DBLEND_ZERO. Because Set_DX8_Render_State is a redundancy
+		// filter, a later draw asking for the blend mode the cache already
+		// claims is SKIPPED, and it renders multiplied against the destination
+		// instead -- another way to get dark or black geometry with no error
+		// anywhere. Unlike the shadow-volume and tree renderers, which end with
+		// this same call as their documented cleanup contract, nothing in this
+		// file repaired it on any path.
+		DX8Wrapper::Invalidate_Cached_Render_States();
+
 		nShadowVertsInBuf += numVerts;
 		nShadowStartBatchVertex=nShadowVertsInBuf;
 
@@ -691,6 +715,7 @@ void W3DProjectedShadowManager::flushDecals(W3DShadowTexture *texture, ShadowTyp
 	DX8Wrapper::Set_Material(vmat);
 	REF_PTR_RELEASE(vmat);
 	DX8Wrapper::Set_Texture(0,texture->getTexture());
+
 
 //	DX8Wrapper::Set_Shader(ShaderClass::_PresetOpaqueShader);	//good for debugging, draws without alpha
 	switch (type)
@@ -1301,6 +1326,11 @@ void W3DProjectedShadowManager::prepareShadows()
 
 Int W3DProjectedShadowManager::renderShadows(RenderInfoClass & rinfo)
 {
+#if defined(__ANDROID__)
+	const int gxPrevCat = d3d8gles_SetDrawCategory(D3D8GLES_DRAWCAT_SHADOWS);
+	struct GxCatRestore { int prev; ~GxCatRestore() { d3d8gles_SetDrawCategory(prev); } } gxCatRestore{gxPrevCat};
+#endif
+
 	Int projectionCount=0;
 
 	if (!TheTerrainRenderObject)

@@ -18,6 +18,12 @@ typedef void (GL_APIENTRY *PFN_glBindVertexArray)(GLuint array);
 typedef void (GL_APIENTRY *PFN_glBlendFunc)(GLenum sfactor, GLenum dfactor);
 typedef void (GL_APIENTRY *PFN_glBufferData)(GLenum target, GLsizeiptr size, const void *data, GLenum usage);
 typedef void (GL_APIENTRY *PFN_glBufferSubData)(GLenum target, GLintptr offset, GLsizeiptr size, const void *data);
+// GeneralsX @perf Android port 09/05/2026 Needed to translate D3DLOCK_NOOVERWRITE
+// faithfully: GL_MAP_UNSYNCHRONIZED_BIT is the only way to write into a region
+// of a buffer the GPU may still be reading without the driver inserting a wait,
+// which is exactly the guarantee NOOVERWRITE makes.
+typedef void *(GL_APIENTRY *PFN_glMapBufferRange)(GLenum target, GLintptr offset, GLsizeiptr length, GLbitfield access);
+typedef GLboolean (GL_APIENTRY *PFN_glUnmapBuffer)(GLenum target);
 typedef GLenum (GL_APIENTRY *PFN_glCheckFramebufferStatus)(GLenum target);
 typedef void (GL_APIENTRY *PFN_glClear)(GLbitfield mask);
 typedef void (GL_APIENTRY *PFN_glClearColor)(GLfloat red, GLfloat green, GLfloat blue, GLfloat alpha);
@@ -45,6 +51,7 @@ typedef void (GL_APIENTRY *PFN_glDrawArrays)(GLenum mode, GLint first, GLsizei c
 typedef void (GL_APIENTRY *PFN_glDrawElements)(GLenum mode, GLsizei count, GLenum type, const void *indices);
 typedef void (GL_APIENTRY *PFN_glEnable)(GLenum cap);
 typedef void (GL_APIENTRY *PFN_glEnableVertexAttribArray)(GLuint index);
+typedef void (GL_APIENTRY *PFN_glFinish)(void);
 typedef void (GL_APIENTRY *PFN_glFramebufferRenderbuffer)(GLenum target, GLenum attachment, GLenum renderbuffertarget, GLuint renderbuffer);
 typedef void (GL_APIENTRY *PFN_glFramebufferTexture2D)(GLenum target, GLenum attachment, GLenum textarget, GLuint texture, GLint level);
 typedef void (GL_APIENTRY *PFN_glGenBuffers)(GLsizei n, GLuint *buffers);
@@ -54,6 +61,12 @@ typedef void (GL_APIENTRY *PFN_glGenTextures)(GLsizei n, GLuint *textures);
 typedef void (GL_APIENTRY *PFN_glGenVertexArrays)(GLsizei n, GLuint *arrays);
 typedef void (GL_APIENTRY *PFN_glGenerateMipmap)(GLenum target);
 typedef GLenum (GL_APIENTRY *PFN_glGetError)(void);
+typedef void (GL_APIENTRY *PFN_glGetIntegerv)(GLenum pname, GLint *data);
+typedef void (GL_APIENTRY *PFN_glGetBooleanv)(GLenum pname, GLboolean *data);
+typedef void (GL_APIENTRY *PFN_glGenQueries)(GLsizei n, GLuint *ids);
+typedef void (GL_APIENTRY *PFN_glBeginQuery)(GLenum target, GLuint id);
+typedef void (GL_APIENTRY *PFN_glEndQuery)(GLenum target);
+typedef void (GL_APIENTRY *PFN_glGetQueryObjectuiv)(GLuint id, GLenum pname, GLuint *params);
 typedef void (GL_APIENTRY *PFN_glGetProgramInfoLog)(GLuint program, GLsizei bufSize, GLsizei *length, GLchar *infoLog);
 typedef void (GL_APIENTRY *PFN_glGetProgramiv)(GLuint program, GLenum pname, GLint *params);
 typedef void (GL_APIENTRY *PFN_glGetShaderInfoLog)(GLuint shader, GLsizei bufSize, GLsizei *length, GLchar *infoLog);
@@ -63,6 +76,7 @@ typedef GLuint (GL_APIENTRY *PFN_glGetUniformBlockIndex)(GLuint program, const G
 typedef GLint (GL_APIENTRY *PFN_glGetUniformLocation)(GLuint program, const GLchar *name);
 typedef void (GL_APIENTRY *PFN_glLinkProgram)(GLuint program);
 typedef void (GL_APIENTRY *PFN_glPixelStorei)(GLenum pname, GLint param);
+typedef void (GL_APIENTRY *PFN_glReadPixels)(GLint x, GLint y, GLsizei width, GLsizei height, GLenum format, GLenum type, void *pixels);
 typedef void (GL_APIENTRY *PFN_glPolygonOffset)(GLfloat factor, GLfloat units);
 typedef void (GL_APIENTRY *PFN_glRenderbufferStorage)(GLenum target, GLenum internalformat, GLsizei width, GLsizei height);
 typedef void (GL_APIENTRY *PFN_glScissor)(GLint x, GLint y, GLsizei width, GLsizei height);
@@ -96,6 +110,8 @@ PFN_glBindVertexArray d3d8gles_pfn_glBindVertexArray = nullptr;
 PFN_glBlendFunc d3d8gles_pfn_glBlendFunc = nullptr;
 PFN_glBufferData d3d8gles_pfn_glBufferData = nullptr;
 PFN_glBufferSubData d3d8gles_pfn_glBufferSubData = nullptr;
+PFN_glMapBufferRange d3d8gles_pfn_glMapBufferRange = nullptr;
+PFN_glUnmapBuffer d3d8gles_pfn_glUnmapBuffer = nullptr;
 PFN_glCheckFramebufferStatus d3d8gles_pfn_glCheckFramebufferStatus = nullptr;
 PFN_glClear d3d8gles_pfn_glClear = nullptr;
 PFN_glClearColor d3d8gles_pfn_glClearColor = nullptr;
@@ -123,6 +139,7 @@ PFN_glDrawArrays d3d8gles_pfn_glDrawArrays = nullptr;
 PFN_glDrawElements d3d8gles_pfn_glDrawElements = nullptr;
 PFN_glEnable d3d8gles_pfn_glEnable = nullptr;
 PFN_glEnableVertexAttribArray d3d8gles_pfn_glEnableVertexAttribArray = nullptr;
+PFN_glFinish d3d8gles_pfn_glFinish = nullptr;
 PFN_glFramebufferRenderbuffer d3d8gles_pfn_glFramebufferRenderbuffer = nullptr;
 PFN_glFramebufferTexture2D d3d8gles_pfn_glFramebufferTexture2D = nullptr;
 PFN_glGenBuffers d3d8gles_pfn_glGenBuffers = nullptr;
@@ -132,6 +149,12 @@ PFN_glGenTextures d3d8gles_pfn_glGenTextures = nullptr;
 PFN_glGenVertexArrays d3d8gles_pfn_glGenVertexArrays = nullptr;
 PFN_glGenerateMipmap d3d8gles_pfn_glGenerateMipmap = nullptr;
 PFN_glGetError d3d8gles_pfn_glGetError = nullptr;
+PFN_glGetIntegerv d3d8gles_pfn_glGetIntegerv = nullptr;
+PFN_glGetBooleanv d3d8gles_pfn_glGetBooleanv = nullptr;
+PFN_glGenQueries d3d8gles_pfn_glGenQueries = nullptr;
+PFN_glBeginQuery d3d8gles_pfn_glBeginQuery = nullptr;
+PFN_glEndQuery d3d8gles_pfn_glEndQuery = nullptr;
+PFN_glGetQueryObjectuiv d3d8gles_pfn_glGetQueryObjectuiv = nullptr;
 PFN_glGetProgramInfoLog d3d8gles_pfn_glGetProgramInfoLog = nullptr;
 PFN_glGetProgramiv d3d8gles_pfn_glGetProgramiv = nullptr;
 PFN_glGetShaderInfoLog d3d8gles_pfn_glGetShaderInfoLog = nullptr;
@@ -141,6 +164,7 @@ PFN_glGetUniformBlockIndex d3d8gles_pfn_glGetUniformBlockIndex = nullptr;
 PFN_glGetUniformLocation d3d8gles_pfn_glGetUniformLocation = nullptr;
 PFN_glLinkProgram d3d8gles_pfn_glLinkProgram = nullptr;
 PFN_glPixelStorei d3d8gles_pfn_glPixelStorei = nullptr;
+PFN_glReadPixels d3d8gles_pfn_glReadPixels = nullptr;
 PFN_glPolygonOffset d3d8gles_pfn_glPolygonOffset = nullptr;
 PFN_glRenderbufferStorage d3d8gles_pfn_glRenderbufferStorage = nullptr;
 PFN_glScissor d3d8gles_pfn_glScissor = nullptr;
@@ -220,6 +244,16 @@ GL_APICALL void GL_APIENTRY glBufferData(GLenum target, GLsizeiptr size, const v
 GL_APICALL void GL_APIENTRY glBufferSubData(GLenum target, GLintptr offset, GLsizeiptr size, const void *data)
 {
 	d3d8gles_pfn_glBufferSubData(target, offset, size, data);
+}
+
+GL_APICALL void *GL_APIENTRY glMapBufferRange(GLenum target, GLintptr offset, GLsizeiptr length, GLbitfield access)
+{
+	return d3d8gles_pfn_glMapBufferRange(target, offset, length, access);
+}
+
+GL_APICALL GLboolean GL_APIENTRY glUnmapBuffer(GLenum target)
+{
+	return d3d8gles_pfn_glUnmapBuffer(target);
 }
 
 GL_APICALL GLenum GL_APIENTRY glCheckFramebufferStatus(GLenum target)
@@ -357,6 +391,11 @@ GL_APICALL void GL_APIENTRY glEnableVertexAttribArray(GLuint index)
 	d3d8gles_pfn_glEnableVertexAttribArray(index);
 }
 
+GL_APICALL void GL_APIENTRY glFinish(void)
+{
+	d3d8gles_pfn_glFinish();
+}
+
 GL_APICALL void GL_APIENTRY glFramebufferRenderbuffer(GLenum target, GLenum attachment, GLenum renderbuffertarget, GLuint renderbuffer)
 {
 	d3d8gles_pfn_glFramebufferRenderbuffer(target, attachment, renderbuffertarget, renderbuffer);
@@ -402,6 +441,36 @@ GL_APICALL GLenum GL_APIENTRY glGetError(void)
 	return d3d8gles_pfn_glGetError();
 }
 
+GL_APICALL void GL_APIENTRY glGetBooleanv(GLenum pname, GLboolean *data)
+{
+	d3d8gles_pfn_glGetBooleanv(pname, data);
+}
+
+GL_APICALL void GL_APIENTRY glGenQueries(GLsizei n, GLuint *ids)
+{
+	d3d8gles_pfn_glGenQueries(n, ids);
+}
+
+GL_APICALL void GL_APIENTRY glBeginQuery(GLenum target, GLuint id)
+{
+	d3d8gles_pfn_glBeginQuery(target, id);
+}
+
+GL_APICALL void GL_APIENTRY glEndQuery(GLenum target)
+{
+	d3d8gles_pfn_glEndQuery(target);
+}
+
+GL_APICALL void GL_APIENTRY glGetQueryObjectuiv(GLuint id, GLenum pname, GLuint *params)
+{
+	d3d8gles_pfn_glGetQueryObjectuiv(id, pname, params);
+}
+
+GL_APICALL void GL_APIENTRY glGetIntegerv(GLenum pname, GLint *data)
+{
+	d3d8gles_pfn_glGetIntegerv(pname, data);
+}
+
 GL_APICALL void GL_APIENTRY glGetProgramInfoLog(GLuint program, GLsizei bufSize, GLsizei *length, GLchar *infoLog)
 {
 	d3d8gles_pfn_glGetProgramInfoLog(program, bufSize, length, infoLog);
@@ -440,6 +509,12 @@ GL_APICALL GLint GL_APIENTRY glGetUniformLocation(GLuint program, const GLchar *
 GL_APICALL void GL_APIENTRY glLinkProgram(GLuint program)
 {
 	d3d8gles_pfn_glLinkProgram(program);
+}
+
+GL_APICALL void GL_APIENTRY glReadPixels(GLint x, GLint y, GLsizei width, GLsizei height,
+                                         GLenum format, GLenum type, void *pixels)
+{
+	d3d8gles_pfn_glReadPixels(x, y, width, height, format, type, pixels);
 }
 
 GL_APICALL void GL_APIENTRY glPixelStorei(GLenum pname, GLint param)
@@ -585,6 +660,10 @@ bool d3d8gles_LoadGLESDispatch(const char *libName)
 	if (!d3d8gles_pfn_glBufferData) { fprintf(stderr, "[d3d8gles] GLES dispatch: missing symbol glBufferData in %s\n", libName); ok = false; }
 	d3d8gles_pfn_glBufferSubData = reinterpret_cast<PFN_glBufferSubData>(dlsym(lib, "glBufferSubData"));
 	if (!d3d8gles_pfn_glBufferSubData) { fprintf(stderr, "[d3d8gles] GLES dispatch: missing symbol glBufferSubData in %s\n", libName); ok = false; }
+	d3d8gles_pfn_glMapBufferRange = reinterpret_cast<PFN_glMapBufferRange>(dlsym(lib, "glMapBufferRange"));
+	if (!d3d8gles_pfn_glMapBufferRange) { fprintf(stderr, "[d3d8gles] GLES dispatch: missing symbol glMapBufferRange in %s\n", libName); ok = false; }
+	d3d8gles_pfn_glUnmapBuffer = reinterpret_cast<PFN_glUnmapBuffer>(dlsym(lib, "glUnmapBuffer"));
+	if (!d3d8gles_pfn_glUnmapBuffer) { fprintf(stderr, "[d3d8gles] GLES dispatch: missing symbol glUnmapBuffer in %s\n", libName); ok = false; }
 	d3d8gles_pfn_glCheckFramebufferStatus = reinterpret_cast<PFN_glCheckFramebufferStatus>(dlsym(lib, "glCheckFramebufferStatus"));
 	if (!d3d8gles_pfn_glCheckFramebufferStatus) { fprintf(stderr, "[d3d8gles] GLES dispatch: missing symbol glCheckFramebufferStatus in %s\n", libName); ok = false; }
 	d3d8gles_pfn_glClear = reinterpret_cast<PFN_glClear>(dlsym(lib, "glClear"));
@@ -639,6 +718,8 @@ bool d3d8gles_LoadGLESDispatch(const char *libName)
 	if (!d3d8gles_pfn_glEnable) { fprintf(stderr, "[d3d8gles] GLES dispatch: missing symbol glEnable in %s\n", libName); ok = false; }
 	d3d8gles_pfn_glEnableVertexAttribArray = reinterpret_cast<PFN_glEnableVertexAttribArray>(dlsym(lib, "glEnableVertexAttribArray"));
 	if (!d3d8gles_pfn_glEnableVertexAttribArray) { fprintf(stderr, "[d3d8gles] GLES dispatch: missing symbol glEnableVertexAttribArray in %s\n", libName); ok = false; }
+	d3d8gles_pfn_glFinish = reinterpret_cast<PFN_glFinish>(dlsym(lib, "glFinish"));
+	if (!d3d8gles_pfn_glFinish) { fprintf(stderr, "[d3d8gles] GLES dispatch: missing symbol glFinish in %s\n", libName); ok = false; }
 	d3d8gles_pfn_glFramebufferRenderbuffer = reinterpret_cast<PFN_glFramebufferRenderbuffer>(dlsym(lib, "glFramebufferRenderbuffer"));
 	if (!d3d8gles_pfn_glFramebufferRenderbuffer) { fprintf(stderr, "[d3d8gles] GLES dispatch: missing symbol glFramebufferRenderbuffer in %s\n", libName); ok = false; }
 	d3d8gles_pfn_glFramebufferTexture2D = reinterpret_cast<PFN_glFramebufferTexture2D>(dlsym(lib, "glFramebufferTexture2D"));
@@ -657,6 +738,18 @@ bool d3d8gles_LoadGLESDispatch(const char *libName)
 	if (!d3d8gles_pfn_glGenerateMipmap) { fprintf(stderr, "[d3d8gles] GLES dispatch: missing symbol glGenerateMipmap in %s\n", libName); ok = false; }
 	d3d8gles_pfn_glGetError = reinterpret_cast<PFN_glGetError>(dlsym(lib, "glGetError"));
 	if (!d3d8gles_pfn_glGetError) { fprintf(stderr, "[d3d8gles] GLES dispatch: missing symbol glGetError in %s\n", libName); ok = false; }
+	d3d8gles_pfn_glGetIntegerv = reinterpret_cast<PFN_glGetIntegerv>(dlsym(lib, "glGetIntegerv"));
+	if (!d3d8gles_pfn_glGetIntegerv) { fprintf(stderr, "[d3d8gles] GLES dispatch: missing symbol glGetIntegerv in %s\n", libName); ok = false; }
+	d3d8gles_pfn_glGetBooleanv = reinterpret_cast<PFN_glGetBooleanv>(dlsym(lib, "glGetBooleanv"));
+	if (!d3d8gles_pfn_glGetBooleanv) { fprintf(stderr, "[d3d8gles] GLES dispatch: missing symbol glGetBooleanv in %s\n", libName); ok = false; }
+	d3d8gles_pfn_glGenQueries = reinterpret_cast<PFN_glGenQueries>(dlsym(lib, "glGenQueries"));
+	if (!d3d8gles_pfn_glGenQueries) { fprintf(stderr, "[d3d8gles] GLES dispatch: missing symbol glGenQueries in %s\n", libName); ok = false; }
+	d3d8gles_pfn_glBeginQuery = reinterpret_cast<PFN_glBeginQuery>(dlsym(lib, "glBeginQuery"));
+	if (!d3d8gles_pfn_glBeginQuery) { fprintf(stderr, "[d3d8gles] GLES dispatch: missing symbol glBeginQuery in %s\n", libName); ok = false; }
+	d3d8gles_pfn_glEndQuery = reinterpret_cast<PFN_glEndQuery>(dlsym(lib, "glEndQuery"));
+	if (!d3d8gles_pfn_glEndQuery) { fprintf(stderr, "[d3d8gles] GLES dispatch: missing symbol glEndQuery in %s\n", libName); ok = false; }
+	d3d8gles_pfn_glGetQueryObjectuiv = reinterpret_cast<PFN_glGetQueryObjectuiv>(dlsym(lib, "glGetQueryObjectuiv"));
+	if (!d3d8gles_pfn_glGetQueryObjectuiv) { fprintf(stderr, "[d3d8gles] GLES dispatch: missing symbol glGetQueryObjectuiv in %s\n", libName); ok = false; }
 	d3d8gles_pfn_glGetProgramInfoLog = reinterpret_cast<PFN_glGetProgramInfoLog>(dlsym(lib, "glGetProgramInfoLog"));
 	if (!d3d8gles_pfn_glGetProgramInfoLog) { fprintf(stderr, "[d3d8gles] GLES dispatch: missing symbol glGetProgramInfoLog in %s\n", libName); ok = false; }
 	d3d8gles_pfn_glGetProgramiv = reinterpret_cast<PFN_glGetProgramiv>(dlsym(lib, "glGetProgramiv"));
@@ -675,6 +768,8 @@ bool d3d8gles_LoadGLESDispatch(const char *libName)
 	if (!d3d8gles_pfn_glLinkProgram) { fprintf(stderr, "[d3d8gles] GLES dispatch: missing symbol glLinkProgram in %s\n", libName); ok = false; }
 	d3d8gles_pfn_glPixelStorei = reinterpret_cast<PFN_glPixelStorei>(dlsym(lib, "glPixelStorei"));
 	if (!d3d8gles_pfn_glPixelStorei) { fprintf(stderr, "[d3d8gles] GLES dispatch: missing symbol glPixelStorei in %s\n", libName); ok = false; }
+	d3d8gles_pfn_glReadPixels = reinterpret_cast<PFN_glReadPixels>(dlsym(lib, "glReadPixels"));
+	if (!d3d8gles_pfn_glReadPixels) { fprintf(stderr, "[d3d8gles] GLES dispatch: missing symbol glReadPixels in %s\n", libName); ok = false; }
 	d3d8gles_pfn_glPolygonOffset = reinterpret_cast<PFN_glPolygonOffset>(dlsym(lib, "glPolygonOffset"));
 	if (!d3d8gles_pfn_glPolygonOffset) { fprintf(stderr, "[d3d8gles] GLES dispatch: missing symbol glPolygonOffset in %s\n", libName); ok = false; }
 	d3d8gles_pfn_glRenderbufferStorage = reinterpret_cast<PFN_glRenderbufferStorage>(dlsym(lib, "glRenderbufferStorage"));
@@ -719,7 +814,7 @@ bool d3d8gles_LoadGLESDispatch(const char *libName)
 	if (!d3d8gles_pfn_glViewport) { fprintf(stderr, "[d3d8gles] GLES dispatch: missing symbol glViewport in %s\n", libName); ok = false; }
 
 	if (!ok) return false;
-	fprintf(stderr, "[d3d8gles] GLES dispatch: resolved %zu entry points from %s\n", static_cast<size_t>(77), libName);
+	fprintf(stderr, "[d3d8gles] GLES dispatch: resolved %zu entry points from %s\n", static_cast<size_t>(87), libName);
 	return true;
 }
 

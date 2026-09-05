@@ -292,3 +292,19 @@ if(RTS_BUILD_OPTION_FFMPEG)
 endif()
 
 # CURL::libcurl is now propagated transitively via corei_gameengine_public (Core/GameEngine/CMakeLists.txt).
+
+# GeneralsX @build Android port 09/05/2026 DIAGNOSTIC SWITCH -- temporary.
+# Turns on W3DVolumetricShadow.cpp's own SV_DEBUG path, which the original
+# developers left in the file: the shadow volumes are drawn as visible,
+# randomly-coloured opaque geometry with the stencil test off, instead of
+# invisibly into the stencil buffer. That answers, by looking, whether the
+# volume geometry itself is built correctly -- the last open question behind
+# the dark quad reported around aircraft on GLES at High detail. Shadows will
+# look absurd in this build; that is the point. OFF by default.
+option(GENERALSX_SHADOW_VOLUME_DEBUG "Diagnostic: draw shadow volumes as visible geometry (SV_DEBUG)" OFF)
+if(GENERALSX_SHADOW_VOLUME_DEBUG)
+    set_source_files_properties(
+        Source/W3DDevice/GameClient/Shadow/W3DVolumetricShadow.cpp
+        TARGET_DIRECTORY z_gameenginedevice
+        PROPERTIES COMPILE_DEFINITIONS SV_DEBUG)
+endif()

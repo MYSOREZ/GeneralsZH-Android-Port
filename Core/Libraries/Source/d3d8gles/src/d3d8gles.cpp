@@ -844,16 +844,36 @@ public:
 	void PreLoad() override {}
 	D3DRESOURCETYPE GetType() override { return D3DRTYPE_VERTEXBUFFER; }
 
-	HRESULT Lock(UINT offset, UINT /*size*/, BYTE **ppbData, DWORD /*flags*/) override
+	// GeneralsX @perf Android port 09/05/2026 The `size` argument used to be
+	// ignored and Unlock() just flagged the whole buffer dirty, so
+	// ensureVBUploaded respecified ALL of it on every update. The engine's
+	// shared dynamic VB is DEFAULT_VB_SIZE (5000) vertices -- ~220 KB at
+	// dynamic_fvf_type's 44 bytes/vertex -- and Render2DClass::Render() locks
+	// just a few quads out of it per call. Real-device timings put that at
+	// 16-59 ms/frame for only 24-60 UI draws (~0.5-1 ms per draw), roughly
+	// half the frame; SortingRendererClass::Flush (particles, 200+ draws)
+	// streams through the same buffer. Record what was actually written so
+	// only that range is uploaded.
+	HRESULT Lock(UINT offset, UINT size, BYTE **ppbData, DWORD flags) override
 	{
 		if (!ppbData || offset > m_bits.size()) return D3DERR_INVALIDCALL;
+		// D3D8: size 0 means "from offset to the end of the buffer".
+		size_t end = (size == 0) ? m_bits.size() : (size_t)offset + size;
+		if (end > m_bits.size()) end = m_bits.size();
+		m_lockBegin = offset;
+		m_lockEnd = end;
+		m_lockDiscard = (flags & D3DLOCK_DISCARD) != 0;
 		*ppbData = m_bits.data() + offset;
 		return D3D_OK;
 	}
 
 	HRESULT Unlock() override
 	{
-		m_gl.dirty = true;
+		m_gl.markRange(m_lockBegin, m_lockEnd);
+		if (m_lockDiscard) m_gl.pendingDiscard = true;
+		m_lockBegin = 0;
+		m_lockEnd = 0;
+		m_lockDiscard = false;
 		return D3D_OK;
 	}
 
@@ -874,6 +894,9 @@ public:
 	DWORD m_fvf;
 	D3DPOOL m_pool;
 	DWORD m_priority = 0;
+	size_t m_lockBegin = 0;
+	size_t m_lockEnd = 0;
+	bool m_lockDiscard = false;
 	GLBufferState m_gl;
 	std::vector<BYTE> m_bits;
 };
@@ -910,16 +933,27 @@ public:
 	void PreLoad() override {}
 	D3DRESOURCETYPE GetType() override { return D3DRTYPE_INDEXBUFFER; }
 
-	HRESULT Lock(UINT offset, UINT /*size*/, BYTE **ppbData, DWORD /*flags*/) override
+	// GeneralsX @perf Android port 09/05/2026 Same dirty-range tracking as
+	// WebGLVertexBuffer::Lock -- see that comment for the measurements.
+	HRESULT Lock(UINT offset, UINT size, BYTE **ppbData, DWORD flags) override
 	{
 		if (!ppbData || offset > m_bits.size()) return D3DERR_INVALIDCALL;
+		size_t end = (size == 0) ? m_bits.size() : (size_t)offset + size;
+		if (end > m_bits.size()) end = m_bits.size();
+		m_lockBegin = offset;
+		m_lockEnd = end;
+		m_lockDiscard = (flags & D3DLOCK_DISCARD) != 0;
 		*ppbData = m_bits.data() + offset;
 		return D3D_OK;
 	}
 
 	HRESULT Unlock() override
 	{
-		m_gl.dirty = true;
+		m_gl.markRange(m_lockBegin, m_lockEnd);
+		if (m_lockDiscard) m_gl.pendingDiscard = true;
+		m_lockBegin = 0;
+		m_lockEnd = 0;
+		m_lockDiscard = false;
 		return D3D_OK;
 	}
 
@@ -939,6 +973,9 @@ public:
 	D3DFORMAT m_format;
 	D3DPOOL m_pool;
 	DWORD m_priority = 0;
+	size_t m_lockBegin = 0;
+	size_t m_lockEnd = 0;
+	bool m_lockDiscard = false;
 	GLBufferState m_gl;
 	std::vector<BYTE> m_bits;
 };
@@ -1012,6 +1049,73 @@ public:
 		m_renderStates[D3DRS_DIFFUSEMATERIALSOURCE] = D3DMCS_COLOR1;
 		m_renderStates[D3DRS_SPECULARMATERIALSOURCE] = D3DMCS_COLOR2;
 		// AMBIENT/EMISSIVEMATERIALSOURCE default to D3DMCS_MATERIAL (0).
+		// GeneralsX @bugfix Android port 09/05/2026 Stencil defaults. These
+		// matter for the same reason COLORWRITEENABLE above does: zero is a
+		// MEANINGFUL value for the mask states (D3D compares/writes no bits),
+		// so the pipeline must be able to tell "the game asked for 0" from
+		// "nobody ever set this". Seeding D3D8's documented defaults here is
+		// what lets applyFixedState pass these through verbatim instead of
+		// second-guessing a zero -- see the stencil block there for the bug
+		// that guessing caused.
+		m_renderStates[D3DRS_STENCILFUNC] = D3DCMP_ALWAYS;
+		m_renderStates[D3DRS_STENCILMASK] = 0xFFFFFFFF;
+		m_renderStates[D3DRS_STENCILWRITEMASK] = 0xFFFFFFFF;
+		m_renderStates[D3DRS_STENCILFAIL] = D3DSTENCILOP_KEEP;
+		m_renderStates[D3DRS_STENCILZFAIL] = D3DSTENCILOP_KEEP;
+		m_renderStates[D3DRS_STENCILPASS] = D3DSTENCILOP_KEEP;
+		// GeneralsX @bugfix Android port 09/05/2026 THE DEPTH DEFAULTS, and the
+		// reason this whole block exists. D3DRS_ZENABLE defaults to D3DZB_TRUE
+		// in D3D8, and the engine relies on that -- ShaderClass drives ZFUNC and
+		// ZWRITEENABLE but never turns the depth TEST on, because under a real
+		// runtime it already is. With the array starting zeroed, ZENABLE read
+		// back as 0 = D3DZB_FALSE and the pipeline disabled GL_DEPTH_TEST for
+		// the entire scene: everything drew in submission order, so the water,
+		// which is drawn last, painted over the terrain in front of it.
+		//
+		// It only showed below High detail because W3DVolumetricShadow's fill
+		// passes set D3DRS_ZENABLE = TRUE explicitly, and shadow volumes are
+		// on only at High and above. That single write repaired the state for
+		// the rest of the session, which is exactly why a fresh start on Low
+		// was broken, a live switch DOWN to Low was fine, and switching up to
+		// High "fixed" it permanently. Measured directly:
+		//   start Low      -> [gxstate] TERRAIN zEnable=0 ... (all categories)
+		//   switch to High -> [gxstate] TERRAIN zEnable=1 ...
+		//   back to Low    -> [gxstate] TERRAIN zEnable=1 ... (stays repaired)
+		m_renderStates[D3DRS_ZENABLE] = D3DZB_TRUE;
+		m_renderStates[D3DRS_ZWRITEENABLE] = TRUE;
+		m_renderStates[D3DRS_ZFUNC] = D3DCMP_LESSEQUAL;
+		// The rest of the D3D8 defaults the pipeline actually reads. Same rule
+		// as above: a zero here must mean "the game asked for zero", so every
+		// state whose documented default is non-zero has to be seeded rather
+		// than pattern-matched at the point of use.
+		m_renderStates[D3DRS_CULLMODE] = D3DCULL_CCW;
+		m_renderStates[D3DRS_SRCBLEND] = D3DBLEND_ONE;
+		m_renderStates[D3DRS_DESTBLEND] = D3DBLEND_ZERO;
+		m_renderStates[D3DRS_ALPHAFUNC] = D3DCMP_ALWAYS;
+		m_renderStates[D3DRS_TEXTUREFACTOR] = 0xFFFFFFFF;
+		// GeneralsX @build Android port 09/05/2026 Prints the seeded values back
+		// out. Two consecutive builds differed ONLY by this seeding and emitted
+		// no distinguishing log line, so when a device log came back still
+		// showing zEnable=0 there was no way to tell "the seeding is not in the
+		// build you tested" from "the seeding is there and something overwrites
+		// it". That ambiguity cost a full test round. Any change whose whole
+		// effect is a value must print that value.
+		fprintf(stderr, "[gxdefaults] seeded render states: zEnable=%u zWrite=%u "
+			"zFunc=%u cull=%u src=%u dst=%u alphaFunc=%u tFactor=0x%x\n",
+			(unsigned)m_renderStates[D3DRS_ZENABLE],
+			(unsigned)m_renderStates[D3DRS_ZWRITEENABLE],
+			(unsigned)m_renderStates[D3DRS_ZFUNC],
+			(unsigned)m_renderStates[D3DRS_CULLMODE],
+			(unsigned)m_renderStates[D3DRS_SRCBLEND],
+			(unsigned)m_renderStates[D3DRS_DESTBLEND],
+			(unsigned)m_renderStates[D3DRS_ALPHAFUNC],
+			(unsigned)m_renderStates[D3DRS_TEXTUREFACTOR]);
+		// D3DRS_LIGHTING's documented default is TRUE, and it is deliberately
+		// NOT seeded: every engine path that wants lighting sets it explicitly
+		// (VertexMaterialClass::Apply, ShaderClass), so seeding it would light
+		// draws that are currently unlit and change rendering with nothing to
+		// show for it. Revisit only with a measurement that says a path relies
+		// on the default.
 		// Phase 2: bring up the WebGL2 pipeline on the canvas.
 		WebGLPipeline::get()->initContext((int)m_pp.BackBufferWidth, (int)m_pp.BackBufferHeight,
 			(SDL_Window *)focusWindow);
@@ -1203,25 +1307,26 @@ public:
 				(void *)src, src->m_alive, (void *)dst, dst->m_alive);
 			return D3DERR_INVALIDCALL;
 		}
-		static int s_crLog = 0;
-		if (s_crLog < 80) {
-			s_crLog++;
-			// GeneralsX @build Android port GLES experiment - diagnostic for
-			// the missing-cameo-icon investigation: is the SOURCE surface's
-			// data already zero before we even copy it (an upstream
-			// asset-decode problem, nothing to do with this backend), or is
-			// it non-zero here (meaning the bug is somewhere after this
-			// point -- upload, format conversion, or render/blend state)?
-			size_t nonZero = 0;
-			for (size_t i = 0; i < src->m_bits.size(); i++) {
-				if (src->m_bits[i] != 0) nonZero++;
-			}
-			fprintf(stderr, "[d3d8gles] CopyRects#%d %ux%u(fmt%d,bb=%d)->%ux%u(fmt%d,own=%d) rects=%u srcNonZeroBytes=%zu/%zu\n",
-				s_crLog, src->m_width, src->m_height, (int)src->m_format, src == m_backBuffer ? 1 : 0,
-				dst->m_width, dst->m_height, (int)dst->m_format, dst->m_ownerGL ? 1 : 0, rect_count,
-				nonZero, src->m_bits.size());
-		}
+		// GeneralsX @perf Android port 09/05/2026 Removed the per-call
+		// srcNonZeroBytes diagnostic that used to live here. It scanned EVERY
+		// byte of the source surface for the first 80 calls -- ~11.6M
+		// iterations per call on a full-screen surface -- as a one-off probe
+		// for the (since resolved) missing-cameo-icon investigation. The
+		// m_alive guard above is a real safety check and stays.
 		if (src->m_format != dst->m_format) return D3DERR_INVALIDCALL;
+
+		// GeneralsX @bugfix Android port 09/05/2026 If the SOURCE is a render
+		// target, its CPU shadow bits are stale by construction -- the content
+		// only exists in GL. Pull it back first, or the memcpy below faithfully
+		// copies zeroes. This is how projected (runtime-generated) shadows are
+		// moved into their permanent texture; see
+		// WebGLPipeline::readbackRenderTarget for the full story. The fbo
+		// handle is the discriminator: it is only ever created by
+		// setRenderTarget, so an ordinary texture never takes this path.
+		if (src->m_ownerTex != nullptr && src->m_ownerTex->m_gl.fbo != 0 &&
+		    !src->m_ownerTex->m_levels.empty() && src->m_ownerTex->m_levels[0] == src) {
+			WebGLPipeline::get()->readbackRenderTarget(src->m_ownerTex);
+		}
 
 		if (rect_count == 0 || src_rects == nullptr) {
 			const size_t n = src->m_bits.size() < dst->m_bits.size() ? src->m_bits.size() : dst->m_bits.size();
@@ -2007,8 +2112,17 @@ public:
 	                     D3DPRESENT_PARAMETERS *pp, struct IDirect3DDevice8 **ppReturnedDeviceInterface) override
 	{
 		if (!pp || !ppReturnedDeviceInterface || adapter != 0) return D3DERR_INVALIDCALL;
-		fprintf(stderr, "[d3d8gles] CreateDevice %ux%u fmt=%d (Phase 0 null device)\n",
-		        pp->BackBufferWidth, pp->BackBufferHeight, (int)pp->BackBufferFormat);
+		// GeneralsX @build Android port 09/05/2026 AutoDepthStencilFormat is
+		// what DX8Wrapper::Clear() keys its "does this device have a stencil
+		// buffer?" decision on (via GetDepthStencilSurface()->GetDesc()), and
+		// therefore whether D3DCLEAR_STENCIL is ever requested at all. It was
+		// inferred to be D3DFMT_D24S8 from Find_Z_Mode's preference order --
+		// print it instead of inferring it. 80 = D3DFMT_D24S8, 77 = D3DFMT_D16,
+		// 79 = D3DFMT_D24X8, 71 = D3DFMT_D32, 0 = D3DFMT_UNKNOWN.
+		fprintf(stderr, "[d3d8gles] CreateDevice %ux%u fmt=%d autoDS=%d dsFmt=%d "
+		        "(Phase 0 null device)\n",
+		        pp->BackBufferWidth, pp->BackBufferHeight, (int)pp->BackBufferFormat,
+		        (int)pp->EnableAutoDepthStencil, (int)pp->AutoDepthStencilFormat);
 		*ppReturnedDeviceInterface = new WebGLDevice(this, pp, focusWindow, behaviorFlags);
 		return D3D_OK;
 	}

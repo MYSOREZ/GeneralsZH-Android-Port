@@ -1490,10 +1490,24 @@ AsciiString GlobalData::BuildUserDataPathFromRegistry()
 		const char* androidUserDataDir = getenv("GENERALSX_USERDATA_DIR");
 		if (androidUserDataDir) {
 			std::filesystem::path path = std::filesystem::path(androidUserDataDir) / "";
-			std::filesystem::create_directories(path);
+			// GeneralsX @bugfix Android port 09/04/2026 create_directories()'s
+			// return value/exception were both silently discarded, so a
+			// failure here (e.g. scoped-storage restrictions on some Android
+			// versions/OEM skins still blocking this even with
+			// MANAGE_EXTERNAL_STORAGE granted at the settings-toggle level)
+			// left userDataDir pointing at a directory that doesn't actually
+			// exist/isn't writable, with no way to tell from a device log --
+			// confirmed on a real device that Options.ini (which lives here)
+			// never survived an app restart. Log the outcome explicitly.
+			std::error_code ec;
+			bool created = std::filesystem::create_directories(path, ec);
 			userDataDir = path.string().c_str();
+			fprintf(stderr, "[GlobalData] Android user data dir: env='%s' resolved='%s' create_directories=%s (created=%d, ec=%d: %s)\n",
+			        androidUserDataDir, userDataDir.str(),
+			        ec ? "FAILED" : "OK", (int)created, ec.value(), ec.message().c_str());
 		} else {
 			userDataDir = "./";
+			fprintf(stderr, "[GlobalData] GENERALSX_USERDATA_DIR not set -- falling back to './' (relative to whatever the working directory is)\n");
 		}
 	}
 

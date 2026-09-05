@@ -502,6 +502,30 @@ StaticGameLODLevel GameLODManager::getRecommendedStaticLODLevel()
 		//search all our presets for matching hardware
 		m_idealDetailLevel = STATIC_GAME_LOD_LOW;
 
+#if defined(__ANDROID__)
+		// GeneralsX @bugfix Android port 08/31/2026 The preset-matching loop
+		// below identifies hardware by legacy PC-era CPU family (P3/P4/...)
+		// and GPU PCI vendor/device ID (GeForce/Radeon/...), none of which
+		// exist on ARM/Android. testMinimumRequirements() has no real data
+		// here, so m_cpuType/m_cpuFreq fall back to an assumed "P4, 2000MHz"
+		// (see this function's own m_videoChipType fallback below, and
+		// init()'s #ifndef _WIN32 block for the CPU one) and m_videoChipType
+		// falls back to DC_TNT2 -- both comfortably clear this 2003-era
+		// game's MEDIUM/HIGH preset thresholds despite being nowhere close to
+		// representing real mobile GPU/CPU capability. Confirmed on a real
+		// device: this made the game default to a demanding detail level on
+		// first launch instead of a safe, always-playable one. Skip the
+		// legacy matching entirely and stay at the LOW default set just
+		// above -- the user can always raise it manually in Options once
+		// they know their device handles more.
+		OptionPreferences androidOptionPref;
+		androidOptionPref["IdealStaticGameLOD"] = getStaticGameLODLevelName(m_idealDetailLevel);
+		if (getStaticLODLevel() == STATIC_GAME_LOD_UNKNOWN)
+			androidOptionPref["StaticGameLOD"] = getStaticGameLODLevelName(m_idealDetailLevel);
+		androidOptionPref.write();
+		return m_idealDetailLevel;
+#endif
+
 		//get system configuration - only need vide chip type, got rest in ::init().
 		testMinimumRequirements(&m_videoChipType,nullptr,nullptr,nullptr,nullptr,nullptr,nullptr);
 		if (m_videoChipType == DC_UNKNOWN)
@@ -603,6 +627,22 @@ void GameLODManager::applyStaticLODLevel(StaticGameLODLevel level)
 		TheWritableGlobalData->m_useShadowDecals=lodInfo->m_useShadowDecals;
 
 		TheWritableGlobalData->m_textureReductionFactor = requestedTextureReduction;
+
+		// GeneralsX @build Android port 09/05/2026 Expose the whole detail-level
+		// decision. Textures go missing after RESTARTING on Medium/Low while a
+		// live switch changes nothing at all visually, and the first
+		// measurement showed WW3D::Set_Texture_Reduction is never even called
+		// with a changed value -- so the reduction the engine picks is not what
+		// I assumed it was. Note requestedTextureReduction for a non-custom
+		// level comes from getRecommendedTextureLODLevel(), a hardware
+		// recommendation, NOT from the level the player chose. Print both.
+		fprintf(stderr, "[gxlod] setStaticLODLevel(%d) prevLevel=%d "
+			"recommendedTextureLevel=%d -> textureReduction=%d useTrees=%d "
+			"shadowVolumes=%d shadowDecals=%d\n",
+			(int)level, (int)m_currentStaticLOD,
+			(int)getRecommendedTextureLODLevel(), (int)requestedTextureReduction,
+			(int)requestedTrees, (int)lodInfo->m_useShadowVolumes,
+			(int)lodInfo->m_useShadowDecals);
 
 		//Check if shadow state changed
 		if (m_currentStaticLOD == STATIC_GAME_LOD_UNKNOWN	||

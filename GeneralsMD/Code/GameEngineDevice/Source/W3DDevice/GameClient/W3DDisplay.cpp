@@ -627,6 +627,24 @@ static void buildFilteredResolutions()
 	DX8Wrapper::GetNativeDisplaySize(nativeW, nativeH, density);
 	if (nativeW <= 0 || nativeH <= 0) { nativeW = 1024; nativeH = 768; }
 	s_filteredResolutions.push_back({ nativeW, nativeH, 32 });
+	// GeneralsX @bugfix Android port 08/31/2026 Users have asked for a manual
+	// way to trade resolution for FPS on weaker devices. Unlike the earlier
+	// pillarbox-render-scale experiment (which decoupled the RENDER
+	// resolution from the LOGICAL one and broke worldToScreen()-based UI
+	// positioning -- see dx8wrapper.cpp's kPillarboxRenderScale comment),
+	// picking one of these entries goes through the same
+	// setDisplayMode()/WW3D::Set_Device_Resolution() path desktop users have
+	// always used to change resolution: it updates ResolutionWidth/Height
+	// (and therefore worldToScreen(), UI layout, camera aspect, font-size
+	// bucketing) all consistently together, so there's no split-brain
+	// mismatch. The existing pillarbox mechanism still centers/letterboxes
+	// whichever of these doesn't exactly fill the native screen, exactly as
+	// it already does for the native entry today.
+	for (int pct : {85, 70, 55}) {
+		int w = (nativeW * pct / 100) & ~1;
+		int h = (nativeH * pct / 100) & ~1;
+		if (w > 0 && h > 0) s_filteredResolutions.push_back({ w, h, 32 });
+	}
 	s_filteredDirty = false;
 	return;
 #else
@@ -706,6 +724,15 @@ Bool W3DDisplay::setDisplayMode( UnsignedInt xres, UnsignedInt yres, UnsignedInt
 		#endif
 		Render2DClass::Set_Screen_Resolution(RectClass(0, 0, xres, yres));
 		Display::setDisplayMode(xres, yres, bitdepth, windowed);
+
+		// GeneralsX @bugfix Android port 09/04/2026 REVERTED: forcing
+		// m_2DRender's coordinate range to WW3D::Get_Render_Target_Resolution()
+		// here was confirmed WRONG on a real device -- see render2d.cpp's
+		// matching revert for the full explanation (Render2DClass still
+		// draws into Pillarbox's small offscreen render target, so the
+		// logical-resolution range that setWidth()/setHeight() just set,
+		// two lines up via Display::setDisplayMode(), was already correct).
+
 		return TRUE;
 	}
 
@@ -1095,6 +1122,18 @@ void W3DDisplay::init()
 			DEBUG_CRASH( ("Unable to set render device") );
 			return;
 		}
+
+		// GeneralsX @bugfix Android port 09/04/2026 REVERTED: this refresh
+		// (forcing m_2DRender's coordinate range to WW3D::Get_Render_Target_Resolution())
+		// was confirmed WRONG on a real device at a non-100% pillarbox
+		// resolution -- Render2DClass still draws into Pillarbox's small
+		// offscreen render target (there's no separate native-resolution UI
+		// pass), so forcing its coordinate range to the REAL backbuffer size
+		// while the actually-bound target is still the smaller offscreen
+		// texture made UI/video get clipped to the texture's real bounds,
+		// which Pillarbox_End()'s blit then visibly stretched -- worse than
+		// before (UI/video confined to a shrunken box). See render2d.cpp's
+		// matching revert for the full explanation.
 
 		#ifdef SAGE_USE_SDL3
 		SDL3_ApplyWindowModeForRenderConfig(getWindowed(), getWidth(), getHeight());
@@ -2274,6 +2313,25 @@ AGAIN:
 					drawViews();
 
 				if (gxPerfTrace) gxdT3 = std::chrono::steady_clock::now();
+
+				// GeneralsX @bugfix Android port 08/30/2026 EXPERIMENT, PARKED
+				// (disabled) after a real-device A/B test: with this call pair
+				// active, the main menu showed a much wider (and asymmetric)
+				// strip near one screen edge with no UI/border drawn, versus a
+				// barely-visible ~1mm gap (the same pre-existing, harmless
+				// letterbox margin from this device's incidental
+				// game-resolution/backbuffer mismatch) with it disabled. The
+				// device-side viewport/state-cache plumbing (FixedStateKey
+				// includes vpX/Y/W/H, so it does re-apply glViewport on
+				// change) looks correct on inspection, so the actual cause
+				// wasn't root-caused from code reading alone. Since
+				// kPillarboxRenderScale is currently parked at 1.0 (see its
+				// own comment) this split provides no benefit today anyway --
+				// left disabled rather than spending more real-device test
+				// cycles on an architecture change that isn't earning its
+				// keep yet. Revisit together with re-enabling render-scale.
+				// DX8Wrapper::Pillarbox_End();
+				// DX8Wrapper::Pillarbox_Begin_UI();
 
 				// draw the user interface
 				TheInGameUI->DRAW();

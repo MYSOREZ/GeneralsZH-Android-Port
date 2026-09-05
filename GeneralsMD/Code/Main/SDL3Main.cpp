@@ -1104,7 +1104,23 @@ int main(int argc, char* argv[])
 			SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 8);
 			SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 8);
 			SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 8);
-			SDL_GL_SetAttribute(SDL_GL_ALPHA_SIZE, 0);
+			// GeneralsX @bugfix Android port 09/04/2026 EXPERIMENT (low
+			// confidence): was 0 (opaque, no alpha channel). Real-device
+			// diagnostics ruled out every application-level cause (viewport
+			// application, EGL surface size at creation time -- both
+			// confirmed correct) for a persistent edge strip seen only on
+			// GLES/ANGLE, never Vulkan, at any resolution including an exact
+			// 1:1 match with no pillarboxing involved at all. Alpha=0 is a
+			// comparatively rare, less-traveled EGL config on Android (almost
+			// every GL app requests the standard RGBA8888 config), so it's
+			// worth testing whether SurfaceFlinger/the GPU driver's edge/
+			// display-cutout/rounded-corner composition handles that more
+			// common configuration differently. Vulkan/DXVK's swapchain
+			// likely declares VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR explicitly
+			// (telling the compositor unambiguously to ignore alpha), which
+			// EGL has no equivalent explicit knob for -- its blend behavior
+			// is inferred from the chosen config's alpha bits instead.
+			SDL_GL_SetAttribute(SDL_GL_ALPHA_SIZE, 8);
 			SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
 			SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
 			SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
@@ -1168,10 +1184,42 @@ int main(int argc, char* argv[])
 			// pillarboxed into a portrait window while a later screen in the same
 			// session was already correctly landscape). Poll briefly for the window
 			// to actually report landscape before trusting its size.
-			for (int attempt = 0; attempt < 20; ++attempt) {
+			//
+			// GeneralsX @bugfix Android port 08/31/2026 The original version of this
+			// loop broke as soon as the FIRST landscape-shaped (w>h) reading appeared,
+			// which is not the same as the window having actually finished settling --
+			// on a real device (Redmi Note 8 Pro) this baked xres/yres as 2264x1080,
+			// while the window's true final size (once edge-to-edge/display-cutout
+			// layout finished applying, a few frames later) was 2340x1080. That 76px
+			// gap then became a permanent, if minor, pillarbox letterbox margin for
+			// the whole session.
+			//
+			// GeneralsX @bugfix Android port 08/31/2026, take 2 A first attempt required
+			// only TWO consecutive identical landscape readings (100ms of stability)
+			// before trusting the size -- confirmed via a real-device log
+			// (Pillarbox: game=2264x1080...) that this still wasn't long enough: the
+			// window can apparently report a genuinely STABLE intermediate width for
+			// well over 100ms before a later, asynchronous inset/cutout adjustment
+			// (status/navigation bar animation, WindowInsetsAnimation, etc.) changes
+			// it again. Widened to require FOUR consecutive matches (200ms stable) and
+			// extended the budget to 60 attempts (up to 3s total, vs. 1s before) to
+			// give that later adjustment more room to happen before this loop gives up
+			// and trusts whatever it has. Still fundamentally a best-effort heuristic,
+			// not a guarantee -- the robust fix would be reacting to a real
+			// SDL_EVENT_WINDOW_RESIZED after startup instead of polling once here, but
+			// that's a bigger change than this loop.
+			int prevW = -1, prevH = -1;
+			int stableCount = 0;
+			for (int attempt = 0; attempt < 60; ++attempt) {
 				int w = 0, h = 0;
 				SDL_GetWindowSizeInPixels(TheSDL3Window, &w, &h);
-				if (w > h) break;
+				if (w > h && w == prevW && h == prevH) {
+					if (++stableCount >= 4) break;
+				} else {
+					stableCount = 0;
+				}
+				prevW = w;
+				prevH = h;
 				SDL_PumpEvents();
 				SDL_Delay(50);
 			}
@@ -1200,6 +1248,48 @@ int main(int argc, char* argv[])
 				int yres = winH;
 				int xres = winW;
 				xres &= ~1;  // keep it even
+
+				// GeneralsX @bugfix Android port 09/04/2026 This block injects
+				// -xres/-yres as if the user passed them on the command line, and
+				// CommandLine::parseCommandLineForEngineInit() (which runs AFTER
+				// GameData.ini has already applied any saved Options.ini
+				// "Resolution" preference into TheGlobalData) unconditionally
+				// overwrites m_xResolution/m_yResolution with whatever -xres/-yres
+				// say -- confirmed via real-device logs (Poco F8 Pro) that a
+				// resolution picked in Options, confirmed written to Options.ini
+				// with no I/O error, was silently discarded on the very next
+				// launch because THIS code always re-injects the current window
+				// size regardless. Options.ini itself is a plain "key = value"
+				// per line format (UserPreferences::write()), so read it directly
+				// here (the engine's own preference-loading machinery isn't up
+				// yet at this point in startup) and prefer its saved Resolution
+				// over the window-derived one when present and parseable --
+				// falling back to the window size exactly as before otherwise
+				// (first launch, or a corrupt/missing file).
+				{
+					const char *userDataDir = getenv("GENERALSX_USERDATA_DIR");
+					if (userDataDir) {
+						char optionsPath[512];
+						snprintf(optionsPath, sizeof(optionsPath), "%s/Options.ini", userDataDir);
+						FILE *fp = fopen(optionsPath, "r");
+						if (fp) {
+							char line[256];
+							while (fgets(line, sizeof(line), fp)) {
+								int savedX = 0, savedY = 0;
+								if (sscanf(line, " Resolution = %d %d", &savedX, &savedY) == 2 &&
+								    savedX > 0 && savedY > 0) {
+									xres = savedX & ~1;
+									yres = savedY;
+									fprintf(stderr, "INFO: using saved Resolution %dx%d from Options.ini instead of window size %dx%d\n",
+									        xres, yres, winW, winH);
+									break;
+								}
+							}
+							fclose(fp);
+						}
+					}
+				}
+
 				snprintf(xresVal, sizeof(xresVal), "%d", xres);
 				snprintf(yresVal, sizeof(yresVal), "%d", yres);
 
