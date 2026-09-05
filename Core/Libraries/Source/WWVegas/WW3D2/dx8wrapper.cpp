@@ -219,30 +219,6 @@ bool DX8Wrapper::Pillarbox_Setup(int gameW, int gameH)
 	if (renderW <= 0) renderW = gameW;
 	if (renderH <= 0) renderH = gameH;
 
-	// GeneralsX @bugfix Android port 09/04/2026 DIAGNOSTIC: bbW/bbH above
-	// come from _PresentParameters.BackBufferWidth/Height first, which is
-	// itself derived from gameW/gameH at device-creation time -- so the
-	// "no mismatch" check right below this is effectively comparing
-	// ResolutionWidth/Height against itself, NOT against an independent
-	// measurement of the real window. GetWindowSize() (the actual
-	// SDL-backed query) is only ever consulted as a fallback when
-	// _PresentParameters is empty, which is normally never. The user's
-	// strip is consistently on the RIGHT and BOTTOM edges only, at any
-	// resolution including an exact 100% match -- exactly the shape you'd
-	// get if the game's chosen resolution is very slightly smaller than
-	// the real window with the origin still correct at (0,0). Log the
-	// independent measurement unconditionally to see whether it actually
-	// agrees with what the "no pillarbox needed" branch below is about to
-	// conclude.
-	{
-		int trueW = 0, trueH = 0;
-		float trueDensity = 1.0f;
-		bool gotTrueSize = GetWindowSize(trueW, trueH, trueDensity);
-		fprintf(stderr, "[d3d8gles-diag] Pillarbox_Setup: game=%dx%d presentParams-bb=%dx%d "
-			"independent GetWindowSize()=%dx%d (ok=%d, density=%.2f)\n",
-			gameW, gameH, bbW, bbH, trueW, trueH, (int)gotTrueSize, trueDensity);
-	}
-
 	// No pillarbox needed if backbuffer matches the actual render resolution
 	if (bbW == renderW && bbH == renderH) return false;
 

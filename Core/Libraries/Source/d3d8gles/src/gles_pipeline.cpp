@@ -1511,34 +1511,6 @@ void WebGLPipeline::applyFixedState(WebGLDevice *dev)
 	glViewport((GLint)vp.X, glViewportY, (GLsizei)vp.Width, (GLsizei)vp.Height);
 	glDepthRangef(vp.MinZ, vp.MaxZ);
 
-	// GeneralsX @bugfix Android port 09/04/2026 DIAGNOSTIC (targeted): the
-	// swap-interval theory came back clean (vsync genuinely enabled), so
-	// re-examining the strip from the render side instead of the present
-	// side. Render2DClass::Render() (render2d.cpp) resets the D3D viewport
-	// to WW3D::Get_Device_Resolution() -- the LOGICAL resolution -- before
-	// every UI/video-overlay draw, not the real backbuffer size; if that
-	// value is ever even one pixel narrower than the real render target,
-	// every 2D draw for the rest of that Render2DClass::Render() call is
-	// clipped to it, leaving an uncleared, undrawn strip that shows
-	// whatever the 3D pass already wrote there earlier the same frame --
-	// which matches the report exactly (empty/transparent, reveals live 3D
-	// content, variable edge, absent when nothing narrows the viewport).
-	// Log every DISTINCT partial-viewport application that targets the
-	// real on-screen framebuffer (m_curFBO==0) so it's possible to tell
-	// whether this ever actually happens, and if so, how far off it is.
-	if (m_curFBO == 0 && ((int)vp.X != 0 || (int)vp.Y != 0 ||
-	    (int)vp.Width != m_curRTWidth || (int)vp.Height != m_curRTHeight)) {
-		static int s_lastPartialX = -1, s_lastPartialY = -1, s_lastPartialW = -1, s_lastPartialH = -1;
-		if ((int)vp.X != s_lastPartialX || (int)vp.Y != s_lastPartialY ||
-		    (int)vp.Width != s_lastPartialW || (int)vp.Height != s_lastPartialH) {
-			s_lastPartialX = (int)vp.X; s_lastPartialY = (int)vp.Y;
-			s_lastPartialW = (int)vp.Width; s_lastPartialH = (int)vp.Height;
-			fprintf(stderr, "[d3d8gles-diag] PARTIAL viewport on DEFAULT framebuffer: "
-				"vp=(%d,%d,%d,%d) vs full RT %dx%d\n",
-				s_lastPartialX, s_lastPartialY, s_lastPartialW, s_lastPartialH,
-				m_curRTWidth, m_curRTHeight);
-		}
-	}
 }
 
 void WebGLPipeline::applyUniforms(WebGLDevice *dev, ProgramInfo *prog, unsigned fvf)
