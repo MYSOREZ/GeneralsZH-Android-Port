@@ -2212,6 +2212,44 @@ void WebGLPipeline::drawCommon(WebGLDevice *dev, unsigned primType, unsigned pri
 	} else {
 		glDrawArrays(mode, startIndex, count);
 	}
+	// GeneralsX @build Android port 09/05/2026 Dump the fixed-function state
+	// actually in effect for the first terrain draw and the first model draw of
+	// each log window. Every remaining theory for the black geometry on a
+	// Low-detail start predicts a specific difference in these values between a
+	// Low run and a High run, and NO counter in the build reports any of them --
+	// which is why two logs of the same scene look identical everywhere the
+	// fault has to live. Read from the device-side state, one line per category
+	// per window, so it costs nothing.
+	if (s_gxDrawCategory == GX_DRAWCAT_TERRAIN || s_gxDrawCategory == GX_DRAWCAT_MODELS) {
+		static unsigned s_lastDumpFrame[2] = {~0u, ~0u};
+		const int slot = (s_gxDrawCategory == GX_DRAWCAT_TERRAIN) ? 0 : 1;
+		// Once per ~4 seconds per category, not per frame.
+		if ((m_frame % 120u) == 1u && s_lastDumpFrame[slot] != m_frame) {
+			s_lastDumpFrame[slot] = m_frame;
+			fprintf(stderr, "[gxstate] %s tex0=%p tex1=%p | blend=%u src=%u dst=%u "
+				"alphaTest=%u colorWrite=0x%x tFactor=0x%x | s0: op=%u a1=%u a2=%u aop=%u tci=%u "
+				"| s1: op=%u a1=%u a2=%u aop=%u tci=%u\n",
+				slot == 0 ? "TERRAIN" : "MODELS ",
+				(void *)dev->getTexture2D(0), (void *)dev->getTexture2D(1),
+				(unsigned)dev->getRenderState(D3DRS_ALPHABLENDENABLE),
+				(unsigned)dev->getRenderState(D3DRS_SRCBLEND),
+				(unsigned)dev->getRenderState(D3DRS_DESTBLEND),
+				(unsigned)dev->getRenderState(D3DRS_ALPHATESTENABLE),
+				(unsigned)dev->getRenderState(D3DRS_COLORWRITEENABLE),
+				(unsigned)dev->getRenderState(D3DRS_TEXTUREFACTOR),
+				(unsigned)dev->getStageState(0, D3DTSS_COLOROP),
+				(unsigned)dev->getStageState(0, D3DTSS_COLORARG1),
+				(unsigned)dev->getStageState(0, D3DTSS_COLORARG2),
+				(unsigned)dev->getStageState(0, D3DTSS_ALPHAOP),
+				(unsigned)dev->getStageState(0, D3DTSS_TEXCOORDINDEX),
+				(unsigned)dev->getStageState(1, D3DTSS_COLOROP),
+				(unsigned)dev->getStageState(1, D3DTSS_COLORARG1),
+				(unsigned)dev->getStageState(1, D3DTSS_COLORARG2),
+				(unsigned)dev->getStageState(1, D3DTSS_ALPHAOP),
+				(unsigned)dev->getStageState(1, D3DTSS_TEXCOORDINDEX));
+		}
+	}
+
 	m_perfDrawsThisFrame++;
 	s_gxDrawsByCategory[s_gxDrawCategory]++;
 	// Shadow-volume fill draws are the ones with the stencil on and colour

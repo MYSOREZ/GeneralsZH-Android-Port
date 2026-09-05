@@ -319,3 +319,11 @@ if(GENERALSX_SHADOW_VOLUME_DEBUG)
         TARGET_DIRECTORY z_gameenginedevice
         PROPERTIES COMPILE_DEFINITIONS SV_DEBUG)
 endif()
+
+# GeneralsX @build Android port 09/05/2026 A/B DIAGNOSTIC SWITCH -- temporary.
+# Forces WW3D texture reduction to 0 regardless of detail level, so a Low-detail
+# start can be tested with reduction as the ONLY thing changed. OFF by default.
+option(GENERALSX_AB_NO_TEXTURE_REDUCTION "A/B diagnostic: force texture reduction off" OFF)
+if(GENERALSX_AB_NO_TEXTURE_REDUCTION)
+    target_compile_definitions(z_gameenginedevice PRIVATE GENERALSX_AB_NO_TEXTURE_REDUCTION)
+endif()

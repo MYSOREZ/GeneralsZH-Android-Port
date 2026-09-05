@@ -205,6 +205,24 @@ void W3DGameClient::setTextureLOD( Int level )
 	fprintf(stderr, "[gxlod] setTextureLOD(%d), current WW3D reduction=%d, "
 		"terrain=%p\n", (int)level, (int)WW3D::Get_Texture_Reduction(),
 		(void *)TheTerrainRenderObject);
+#if defined(GENERALSX_AB_NO_TEXTURE_REDUCTION)
+	// GeneralsX @build Android port 09/05/2026 A/B DIAGNOSTIC BUILD ONLY.
+	// Forces texture reduction off while leaving every other Low-detail setting
+	// alone. Reduction is the one thing unique to Low (Medium and above run
+	// with reduction 0), so this single change splits the remaining hypothesis
+	// space in half: geometry still black -> reduction is exonerated outright;
+	// geometry correct -> reduction is the cause and the render-state theories
+	// die. Textures will look full-resolution on Low in this build; that is
+	// expected and is not the thing to judge.
+	level = 0;
+	if (WW3D::Get_Texture_Reduction() != 0) {
+		fprintf(stderr, "[gxlod] A/B BUILD: forcing texture reduction to 0\n");
+		WW3D::Set_Texture_Reduction(0, 1);
+		if (TheTerrainRenderObject)
+			TheTerrainRenderObject->setTextureLOD(0);
+	}
+	return;
+#endif
 	if (WW3D::Get_Texture_Reduction() != level)
 	{
 		WW3D::Set_Texture_Reduction(level, 32);
