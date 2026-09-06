@@ -26,8 +26,7 @@
     <string name="setup_folder_issue_empty_file">%1$s is empty (0 bytes)</string>
     <string name="setup_folder_issue_bad_header">%1$s doesn\'t look like a valid game archive</string>
     <string name="setup_folder_issue_missing_data">%1$s is missing expected game data — likely an incomplete copy</string>
-    <string name="setup_folder_issue_no_base_game">Base Generals game data missing:%1$s</string>
-    <string name="setup_folder_issue_no_base_language">Base Generals language archive missing (English.big, German.big, French.big, …)</string>
+    <string name="setup_folder_issue_no_base_game">Base Generals game data missing:%1$s\n\nOr point Setup at the folder that already has them — the “Base Generals folder” button below (usually ZH_Generals or Command and Conquer Generals).</string>
     <string name="setup_status_logs_note">Crash/engine logs live in this app\'s private storage and are only reachable through \"View Logs\" above — Android hides them from normal file managers by design (this is standard Android sandboxing, not specific to this app).</string>
 
     <!-- SetupActivity: Language card -->

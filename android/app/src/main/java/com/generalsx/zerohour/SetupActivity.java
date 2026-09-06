@@ -1521,32 +1521,18 @@ public class SetupActivity extends Activity {
         }
 
         // GeneralsX @bugfix Android port game-folder-integrity-check 06/09/2026
-        // The base game also needs a language archive, but naming one would be
-        // wrong: which it is depends on the SKU, and demanding English.big from
-        // a legitimate German copy sends its owner hunting for a file that
-        // never existed. So require that ANY of them is present. The list is
-        // the engine's own -- registry.cpp's tryAutoDetectLanguage() probes
-        // exactly these to decide what language to run in -- rather than one
-        // written from memory here, so the two cannot drift apart.
-        boolean sawLanguageArchive = false;
-        for (String name : BASE_GAME_LANGUAGE_ARCHIVES) {
-            if (presentArchives.contains(name)) {
-                sawLanguageArchive = true;
-                break;
-            }
-        }
-        if (!sawLanguageArchive) {
-            issues.add(getString(R.string.setup_folder_issue_no_base_language));
-            m_lastCheckWantedBaseGenerals = true;
-        }
+        // A check for a base-game language archive used to live here, matching
+        // English.big / German.big / ... against the list registry.cpp probes.
+        // Removed: it fired on a copy that plays perfectly well. Localisations
+        // are routinely shipped as mods rather than as the archive a retail
+        // installer would have written -- a real one here is named
+        // 00RussianZH.big, its leading zeroes chosen so it sorts first and wins
+        // the load order -- and no list of expected names can cover that. A
+        // check that calls a working setup broken is worse than no check, and
+        // what it guarded against costs some text and voices, not a playable
+        // game.
         return issues;
     }
-
-    private static final java.util.Set<String> BASE_GAME_LANGUAGE_ARCHIVES =
-        new java.util.HashSet<>(java.util.Arrays.asList(
-            "english.big", "german.big", "french.big", "spanish.big",
-            "chinese.big", "korean.big", "polish.big", "brazilian.big",
-            "russian.big", "italian.big"));
 
     // GeneralsX @bugfix Android port game-folder-integrity-check 06/09/2026
     // The base Generals archives, named as they ship. Zero Hour's own archives
@@ -1564,14 +1550,44 @@ public class SetupActivity extends Activity {
     // never had would send people hunting for a file that does not exist.
     // A missing language archive also degrades far more gracefully than a
     // missing Textures.big.
-    // GeneralsX @feature Android port 06/09/2026 Used twice: to judge the game
-    // folder, and to sanity-check a folder someone picks as the base-Generals
-    // one. Same scan depth as the integrity check -- the folder itself plus its
-    // immediate subfolders -- so a picked "Generals Deluxe" resolves through its
-    // ZH_Generals child without the user having to descend into it.
+    // GeneralsX @bugfix Android port 06/09/2026 TOP LEVEL ONLY, deliberately.
+    // This also looked one folder deep, which made Setup more permissive than
+    // the engine and produced the worst possible answer: pick the root of a
+    // Steam copy, be told the folder is fine because the archives sit in its
+    // ZH_Generals child, then watch the game render magenta anyway.
+    //
+    // The engine cannot see that child. StdLocalFileSystem::getFileListInDirectory()
+    // recurses by passing the subfolder's NAME with an empty originalDirectory,
+    // so the recursive call resolves it against the working directory instead of
+    // the folder being scanned -- fine for the relative scan of the game folder,
+    // useless for the absolute path CNC_GENERALS_PATH carries. Until that is
+    // fixed in the engine, Setup has to judge a folder by what the engine will
+    // really find in it; resolveBaseGeneralsFolder() descends into the child on
+    // the user's behalf instead of pretending the engine would.
+    java.util.List<String> missingBaseGeneralsArchives(File dir) {
+        java.util.Set<String> present = new java.util.HashSet<>();
+        if (dir != null && dir.isDirectory()) {
+            File[] bigs = dir.listFiles((d, name) ->
+                name.toLowerCase(java.util.Locale.ROOT).endsWith(".big"));
+            if (bigs != null) {
+                for (File f : bigs) {
+                    present.add(f.getName().toLowerCase(java.util.Locale.ROOT));
+                }
+            }
+        }
+        java.util.List<String> missing = new java.util.ArrayList<>();
+        for (String name : BASE_GAME_REQUIRED_ARCHIVES) {
+            if (!present.contains(name.toLowerCase(java.util.Locale.ROOT))) {
+                missing.add(name);
+            }
+        }
+        return missing;
+    }
+
     // The three archives Zero Hour cannot supply for itself and that a magenta
-    // battlefield depends on. A folder without a single one of them is not a base
-    // Generals folder, whatever else it happens to contain.
+    // battlefield depends on. A folder without a single one of them is not a
+    // base Generals folder, whatever else it happens to contain -- one stray
+    // Music.big was enough to fool an earlier version of this check.
     private static final String[] BASE_GAME_ASSET_ARCHIVES = { "terrain.big", "textures.big", "w3d.big" };
 
     private boolean hasAnyBaseGeneralsAssets(File dir) {
@@ -1591,33 +1607,23 @@ public class SetupActivity extends Activity {
         return false;
     }
 
-    java.util.List<String> missingBaseGeneralsArchives(File dir) {
-        java.util.Set<String> present = new java.util.HashSet<>();
-        if (dir != null && dir.isDirectory()) {
-            java.util.List<File> roots = new java.util.ArrayList<>();
-            roots.add(dir);
-            File[] subdirs = dir.listFiles(File::isDirectory);
-            if (subdirs != null) {
-                java.util.Collections.addAll(roots, subdirs);
-            }
-            for (File root : roots) {
-                File[] bigs = root.listFiles((d, name) ->
-                    name.toLowerCase(java.util.Locale.ROOT).endsWith(".big"));
-                if (bigs == null) {
-                    continue;
-                }
-                for (File f : bigs) {
-                    present.add(f.getName().toLowerCase(java.util.Locale.ROOT));
+    private File resolveBaseGeneralsFolder(File picked) {
+        if (picked == null || !picked.isDirectory()) {
+            return null;
+        }
+        if (hasAnyBaseGeneralsAssets(picked)) {
+            return picked;
+        }
+        File[] subdirs = picked.listFiles(File::isDirectory);
+        if (subdirs != null) {
+            java.util.Arrays.sort(subdirs, (a, b) -> a.getName().compareToIgnoreCase(b.getName()));
+            for (File sub : subdirs) {
+                if (hasAnyBaseGeneralsAssets(sub)) {
+                    return sub;
                 }
             }
         }
-        java.util.List<String> missing = new java.util.ArrayList<>();
-        for (String name : BASE_GAME_REQUIRED_ARCHIVES) {
-            if (!present.contains(name.toLowerCase(java.util.Locale.ROOT))) {
-                missing.add(name);
-            }
-        }
-        return missing;
+        return null;
     }
 
     // Set by findGameFolderIntegrityIssues(): whether the problems it just
@@ -1799,20 +1805,21 @@ public class SetupActivity extends Activity {
         } else if (requestCode == REQUEST_PICK_BASE_GENERALS && resultCode == Activity.RESULT_OK && data != null) {
             String path = data.getStringExtra(FolderPickerActivity.EXTRA_SELECTED_PATH);
             if (path != null) {
-                // GeneralsX @bugfix Android port 06/09/2026 This used to accept the
-                // folder unless ALL ten archives were absent, which a single
-                // incidental file defeats: a real report picked a folder holding
-                // seventeen duplicate *ZH.big archives plus Music.big, nine of ten
-                // missing, and it was accepted -- so the engine dutifully searched
-                // a folder with no base game in it and the terrain stayed magenta.
-                // Judge it on the archives that actually carry the original game's
-                // artwork instead. Music.big cannot stand in for those.
-                if (!hasAnyBaseGeneralsAssets(new File(path))) {
+                // GeneralsX @bugfix Android port 06/09/2026 Judged on the archives
+                // that actually carry the original game's artwork -- an earlier
+                // version accepted a folder unless ALL ten were absent, which one
+                // stray Music.big was enough to defeat.
+                //
+                // Picking the root of a Steam install is the natural thing to do,
+                // so resolve it to the child that really holds them rather than
+                // saving a path the engine cannot make use of.
+                File resolved = resolveBaseGeneralsFolder(new File(path));
+                if (resolved == null) {
                     showFolderProblemDialog(getString(R.string.setup_base_generals_not_here, path));
                 } else {
-                    saveBaseGeneralsPath(path);
-                    Toast.makeText(this, getString(R.string.setup_toast_base_generals_saved, path),
-                        Toast.LENGTH_LONG).show();
+                    saveBaseGeneralsPath(resolved.getAbsolutePath());
+                    Toast.makeText(this, getString(R.string.setup_toast_base_generals_saved,
+                        resolved.getAbsolutePath()), Toast.LENGTH_LONG).show();
                     recreate();
                 }
             }

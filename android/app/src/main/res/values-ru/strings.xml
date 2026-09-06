@@ -26,8 +26,7 @@
     <string name="setup_folder_issue_empty_file">%1$s пустой (0 байт)</string>
     <string name="setup_folder_issue_bad_header">%1$s не похож на корректный архив игры</string>
     <string name="setup_folder_issue_missing_data">В %1$s не хватает ожидаемых данных игры — вероятно, неполная копия</string>
-    <string name="setup_folder_issue_no_base_game">Отсутствуют данные базовой игры Generals:%1$s</string>
-    <string name="setup_folder_issue_no_base_language">Отсутствует языковой архив базовой Generals (English.big, German.big, French.big, …)</string>
+    <string name="setup_folder_issue_no_base_game">Отсутствуют данные базовой игры Generals:%1$s\n\nЛибо укажите папку, где они уже есть — кнопка «Папка базовой Generals…» ниже (обычно ZH_Generals или Command and Conquer Generals).</string>
     <string name="setup_status_logs_note">Логи краша/движка хранятся в приватном хранилище приложения и доступны только через кнопку «Просмотреть логи» выше — Android намеренно скрывает их от обычных файловых менеджеров (это стандартная песочница Android, не особенность этого приложения).</string>
 
     <!-- SetupActivity: Language card -->

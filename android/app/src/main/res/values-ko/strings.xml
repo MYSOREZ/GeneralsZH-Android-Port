@@ -26,8 +26,7 @@
     <string name="setup_folder_issue_empty_file">%1$s 파일이 비어 있습니다 (0바이트)</string>
     <string name="setup_folder_issue_bad_header">%1$s은(는) 올바른 게임 아카이브로 보이지 않습니다</string>
     <string name="setup_folder_issue_missing_data">%1$s에 예상되는 게임 데이터가 없습니다 — 불완전한 복사본일 가능성이 있습니다</string>
-    <string name="setup_folder_issue_no_base_language">기본 게임 Generals의 언어 아카이브가 없습니다 (English.big, German.big, French.big, …)</string>
-    <string name="setup_folder_issue_no_base_game">기본 게임 Generals의 데이터가 없습니다:%1$s</string>
+    <string name="setup_folder_issue_no_base_game">기본 게임 Generals의 데이터가 없습니다:%1$s\n\n또는 이미 파일이 있는 폴더를 지정하세요 — 아래의 “기본 게임 Generals 폴더…” 버튼 (보통 ZH_Generals 또는 Command and Conquer Generals).</string>
     <string name="setup_status_logs_note">충돌/엔진 로그는 이 앱의 전용 저장소에 보관되며 위의 \"로그 보기\"를 통해서만 접근할 수 있습니다 — Android는 이를 일반 파일 관리자로부터 의도적으로 숨깁니다 (이는 이 앱만의 특징이 아니라 Android의 표준 샌드박스 동작입니다).</string>
 
     <!-- SetupActivity: Language card -->

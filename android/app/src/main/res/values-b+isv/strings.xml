@@ -26,8 +26,7 @@
     <string name="setup_folder_issue_empty_file">%1$s jest prazdny (0 bajtov)</string>
     <string name="setup_folder_issue_bad_header">%1$s ne izgledaje kako validny arhiv igry</string>
     <string name="setup_folder_issue_missing_data">V %1$s ne dostaje očekyvanyh dat igry — najvěrojatno nekompletna kopija</string>
-    <string name="setup_folder_issue_no_base_language">Ne dostaje jezyčnogo arhiva osnovnoj igry Generals (English.big, German.big, French.big, …)</string>
-    <string name="setup_folder_issue_no_base_game">Ne dostajut dannyh osnovnoj igry Generals:%1$s</string>
+    <string name="setup_folder_issue_no_base_game">Ne dostajut dannyh osnovnoj igry Generals:%1$s\n\nAbo ukaži papku, v kojej oni uže sut — gomba „Papka osnovnoj igry Generals…“ nizše (obyčno ZH_Generals abo Command and Conquer Generals).</string>
     <string name="setup_status_logs_note">Logi padu/jadra sut v privatnom skladišču aplikacije i dostupni tolko čerez \"Prokazati logi\" vyše — Android namerno skryva jih od normalnyh upravitelev datotek (to jest standardny Android peskovnik, ne osobitost sej aplikacije).</string>
 
     <!-- SetupActivity: Language card -->

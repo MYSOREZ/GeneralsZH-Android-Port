@@ -26,8 +26,7 @@
     <string name="setup_folder_issue_empty_file">%1$s ist leer (0 Byte)</string>
     <string name="setup_folder_issue_bad_header">%1$s sieht nicht wie ein gültiges Spielarchiv aus</string>
     <string name="setup_folder_issue_missing_data">%1$s fehlen erwartete Spieldaten — vermutlich eine unvollständige Kopie</string>
-    <string name="setup_folder_issue_no_base_language">Spracharchiv des Basisspiels Generals fehlt (English.big, German.big, French.big, …)</string>
-    <string name="setup_folder_issue_no_base_game">Daten des Basisspiels Generals fehlen:%1$s</string>
+    <string name="setup_folder_issue_no_base_game">Daten des Basisspiels Generals fehlen:%1$s\n\nOder gib Setup den Ordner an, in dem sie schon liegen — die Schaltfläche „Ordner des Basisspiels Generals…“ unten (meist ZH_Generals oder Command and Conquer Generals).</string>
     <string name="setup_status_logs_note">Absturz-/Engine-Logs liegen im privaten Speicher dieser App und sind nur über „Logs anzeigen“ oben erreichbar — Android verbirgt sie absichtlich vor normalen Dateimanagern (dies ist normales Android-Sandboxing, keine Besonderheit dieser App).</string>
 
     <!-- SetupActivity: Language card -->
