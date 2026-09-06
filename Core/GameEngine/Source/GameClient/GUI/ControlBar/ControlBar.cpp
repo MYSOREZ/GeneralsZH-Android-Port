@@ -1589,6 +1589,23 @@ void ControlBar::update()
 
 			if (BitIsSet(cmdWin->winGetInstanceData()->getState(), WIN_STATE_SELECTED))
 			{
+				// GeneralsX @bugfix Android port 06/09/2026 Reported: the description vanishes
+				// partway through the hold and never comes back.
+				//
+				// showBuildTooltipLayout() keeps its decision state in statics
+				// (prevWindow/isInitialized, ControlBarPopupDescription.cpp:151-190). Once it
+				// has shown a popup for a window, every later call with that SAME window
+				// returns early -- so if anything hides the layout meanwhile (the control bar
+				// rebuilding its command windows mid-hold will, since the rebuilt window is a
+				// different pointer and the "different window" branch hides), no subsequent
+				// call can ever bring it back while the finger stays on the same button.
+				//
+				// Re-arm it: a call with nullptr resets that state machine, and the next
+				// frame's call with the button starts the delay again. Costs one tooltip
+				// delay, instead of the description being gone for the rest of the hold.
+				if (m_buildToolTipLayout != nullptr && m_buildToolTipLayout->isHidden())
+					showBuildTooltipLayout(nullptr);
+
 				showBuildTooltipLayout(cmdWin);
 				break;   // only one finger, so only one button can be held
 			}

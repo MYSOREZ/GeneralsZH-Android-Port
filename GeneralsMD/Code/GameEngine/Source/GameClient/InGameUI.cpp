@@ -1745,11 +1745,26 @@ void InGameUI::handleBuildPlacements()
 		}
 		else
 		{
+#if defined(__ANDROID__) || (defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE)
+			// GeneralsX @bugfix Android port 06/09/2026 Reported: picking a structure at a
+			// dozer immediately drew its silhouette in the middle of the screen, which means
+			// nothing -- the player is about to tap where they actually want it.
+			//
+			// Same cause as the ability radius: "the mouse position" is not an answer to
+			// "where is the player pointing" on a touchscreen. Between gestures there is no
+			// pointer at all, and this read whatever value happened to be left in the mouse
+			// object. Use the aim point the touch layer reports, and draw nothing until a
+			// finger has actually pointed somewhere -- so the ghost appears under the finger,
+			// where the building is going, and nowhere before that.
+			if( !m_touchAimKnown )
+				return;
+			loc = m_touchAimPoint;
+#else
 			const MouseIO *mouseIO = TheMouse->getMouseStatus();
 
 			// location is the mouse position
 			loc = mouseIO->pos;
-
+#endif
 		}
 
 		// set the location and angle of the place icon
@@ -3381,6 +3396,11 @@ void InGameUI::placeBuildAvailable( const ThingTemplate *build, Drawable *buildD
 	{
 		// if building something, no radius cursor, thankew
 		setRadiusCursorNone();
+
+		// GeneralsX @bugfix Android port 06/09/2026 And no stale aim point either: the
+		// ghost must not appear at wherever the player last touched the map before they
+		// picked this building. It appears when a finger points somewhere, and there.
+		clearTouchAimPoint();
 	}
 
 	//

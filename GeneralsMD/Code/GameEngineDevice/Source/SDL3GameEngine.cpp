@@ -755,6 +755,18 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 		}
 	}
 
+	// GeneralsX @bugfix Android port 06/09/2026 Report the same point as the aim point.
+	// Anything that draws a preview where the player is pointing -- the ability radius, the
+	// building placement ghost -- reads this instead of the mouse object now, so it has to
+	// be fed by every real battlefield finger position, not only while an ability is armed.
+	// Validity only means something with a command armed; when none is, it is unread.
+	if (TheInGameUI && !touchIsOnUi) {
+		TheInGameUI->setTouchAimPoint((Int)px, (Int)py,
+		                              TouchInput::hasArmedCommand()
+		                                ? TouchInput::armedTargetValid((Int)px, (Int)py)
+		                                : FALSE);
+	}
+
 	// GeneralsX @feature Android port 02/08/2026 Unconditional per-event trace
 	// -- reported "panning freezes mid-drag near my command center/units,
 	// have to lift and re-place my finger". Static review of applyCameraPan()
