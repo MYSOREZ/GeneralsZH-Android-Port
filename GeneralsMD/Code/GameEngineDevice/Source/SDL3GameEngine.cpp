@@ -623,6 +623,15 @@ Bool isRealUiHit(GameWindow *hit)
 // mouse's equivalent (Mouse::createStreamMessages()) sends this every
 // frame from a persisted position; here it's sent only exactly when a real
 // finger event gives us a real position to report.
+// GeneralsX @bugfix Android port 06/09/2026 The last position actually PUBLISHED
+// to the engine, in logical display units. The engine's edge-scroll latch keys on
+// this and only this (LookAtXlat.cpp:335 assigns m_currentPos from the message
+// argument), so anything asking "is the engine about to scroll?" has to ask about
+// this value -- not about where the finger is, which is a different thing entirely
+// during a pan, when no position is published at all.
+float s_lastPublishedX = 0.0f;
+float s_lastPublishedY = 0.0f;
+
 void pushMousePosition(float x, float y)
 {
 	if (!TheMessageStream) {
@@ -631,6 +640,8 @@ void pushMousePosition(float x, float y)
 	GameMessage *msg = TheMessageStream->appendMessage(GameMessage::MSG_RAW_MOUSE_POSITION);
 	msg->appendPixelArgument(touchPixel(x, y));
 	msg->appendIntegerArgument(TheKeyboard ? TheKeyboard->getModifierFlags() : 0);
+	s_lastPublishedX = x;
+	s_lastPublishedY = y;
 }
 
 // Button down/up/double-click -- MetaEventTranslator (MetaEvent.cpp) turns a
@@ -703,7 +714,22 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 	// centre used to park the edge-scroll anchor -- and the preview would jump to
 	// those instead of tracking the finger. This runs only for an actual
 	// SDL_EVENT_FINGER_* with the finger's own coordinates.
-	if (TheMouse) {
+	//
+	// GeneralsX @bugfix Android port 06/09/2026 Not for touches that land on the
+	// UI. A tap on a build button would otherwise leave the cursor position sitting
+	// ON that button, and InGameUI::handleBuildPlacements() would dutifully draw
+	// the placement ghost there -- reported as "it tries to put the building behind
+	// the button I just pressed". The same applies to the ability radius. The
+	// battlefield is the only place this position means anything, so only the
+	// battlefield writes it; a UI touch leaves it at the last spot the player
+	// actually pointed at in the world.
+	//
+	const Bool touchIsOnUi =
+		(s_touch.phase == TouchState::UI_PRESS) ||
+		(TheWindowManager != nullptr &&
+		 isRealUiHit(TheWindowManager->getWindowUnderCursor((Int)px, (Int)py)));
+
+	if (TheMouse && !touchIsOnUi) {
 		SDL3Mouse *sdlMouse = dynamic_cast<SDL3Mouse *>(TheMouse);
 		if (sdlMouse) {
 			sdlMouse->setTouchCursorPos((Int)px, (Int)py);
@@ -1158,10 +1184,41 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 				// anywhere on screen. Only step in when a real edge-scroll risk
 				// exists; this is now the ONLY position message this file ever
 				// sends without a real finger behind it.
-				const float EDGE_GUARD_PX = 40.0f;
-				if (s_touch.lastX < EDGE_GUARD_PX || s_touch.lastY < EDGE_GUARD_PX ||
-				    s_touch.lastX >= (float)winW - EDGE_GUARD_PX || s_touch.lastY >= (float)winH - EDGE_GUARD_PX) {
-					pushMousePosition((float)winW * 0.5f, (float)winH * 0.5f);
+				// GeneralsX @bugfix Android port 06/09/2026 This asked the wrong
+				// question, in the wrong units, with the wrong threshold.
+				//
+				// Wrong question: it tested s_touch.lastX/lastY, where the FINGER
+				// ended up. The engine latches on the last position MESSAGE, and
+				// during a pan no position is published at all -- so the engine
+				// still held the touch-DOWN point while this inspected the release
+				// point. Panning is precisely the gesture that separates the two.
+				// Start a drag near an edge, pan inward, release in the middle: the
+				// engine latched at touch-down, this saw a mid-screen finger, said
+				// nothing, and the map scrolled forever. That is the reported
+				// self-scrolling map, and it needed none of the reverted cursor
+				// work to happen. Ask about s_lastPublished* instead -- our own
+				// output, which is what the engine actually saw.
+				//
+				// Wrong units: px/py are remapped into logical display space above,
+				// but this compared them against SDL's window size. Those differ
+				// exactly when pillarboxing is on, and on a 1280x720 surface inside
+				// a 2400x1080 window "lastX >= winW - 40" can never be true -- the
+				// right and bottom checks were dead code in the one configuration
+				// that needs them. And the recentre pushed a window-space centre,
+				// which is not the logical centre either.
+				//
+				// Wrong threshold: 40px against the engine's edgeScrollSize of 3
+				// (LookAtXlat.cpp:80), thirteen times wider than the band it is
+				// guarding, so the false-positive rate on the centre-hilite side was
+				// thirteen times what it needed to be.
+				const Int dispW = TheDisplay ? TheDisplay->getWidth() : 0;
+				const Int dispH = TheDisplay ? TheDisplay->getHeight() : 0;
+				const float EDGE_GUARD_PX = 4.0f;   // engine uses 3; one pixel of slack
+				if (dispW > 0 && dispH > 0 &&
+				    (s_lastPublishedX < EDGE_GUARD_PX || s_lastPublishedY < EDGE_GUARD_PX ||
+				     s_lastPublishedX >= (float)dispW - EDGE_GUARD_PX ||
+				     s_lastPublishedY >= (float)dispH - EDGE_GUARD_PX)) {
+					pushMousePosition((float)dispW * 0.5f, (float)dispH * 0.5f);
 				}
 				if (!startedMomentum) {
 					s_touch.phase = TouchState::IDLE;
