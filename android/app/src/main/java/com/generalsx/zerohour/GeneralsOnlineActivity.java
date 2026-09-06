@@ -44,12 +44,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.card.MaterialCardView;
 
 import org.json.JSONObject;
 
@@ -111,79 +109,28 @@ public class GeneralsOnlineActivity extends Activity {
         maybeSilentReauth();
     }
 
+    // GeneralsX @feature Android port launcher-ui-refresh 06/09/2026 Built
+    // from the shared LauncherUi vocabulary now, so this screen picks up the
+    // same spacing, type scale and light/dark palette as Setup instead of
+    // carrying its own copy of startCard()/addButton() that had already
+    // drifted from it. Sign In is the filled action; Sign Out sits in the
+    // status card as a low-emphasis text button, which is what it deserves
+    // to be next to it.
     private void buildUi() {
-        ScrollView scroll = new ScrollView(this);
-        LinearLayout root = new LinearLayout(this);
-        root.setOrientation(LinearLayout.VERTICAL);
-        int pad = dp(16);
-        root.setPadding(pad, pad, pad, pad);
-        scroll.addView(root);
-        setContentView(scroll);
-        InsetUtil.applySafeInsets(scroll);
+        LinearLayout column = LauncherUi.scrollingScaffold(this);
+        LauncherUi.screenHeader(column, getString(R.string.online_window_title),
+            getString(R.string.online_subtitle));
 
-        TextView title = new TextView(this);
-        title.setText(R.string.online_window_title);
-        title.setTextSize(22);
-        title.setTypeface(title.getTypeface(), android.graphics.Typeface.BOLD);
-        title.setPadding(dp(4), dp(8), dp(4), dp(4));
-        root.addView(title);
-
-        TextView subtitle = new TextView(this);
-        subtitle.setText(R.string.online_subtitle);
-        subtitle.setTextSize(14);
-        subtitle.setAlpha(0.7f);
-        subtitle.setPadding(dp(4), 0, dp(4), dp(16));
-        root.addView(subtitle);
-
-        LinearLayout statusCard = startCard(root, null);
-        statusText = new TextView(this);
+        LinearLayout statusCard = LauncherUi.card(column, null, R.color.gzh_surface_container);
+        statusText = LauncherUi.body(statusCard, "");
         statusText.setTextIsSelectable(true);
-        statusCard.addView(statusText);
-        signOutButton = addButton(statusCard, getString(R.string.online_button_sign_out), this::onSignOut);
+        signOutButton = LauncherUi.button(statusCard, LauncherUi.BUTTON_TEXT,
+            getString(R.string.online_button_sign_out), this::onSignOut);
 
-        LinearLayout stepsCard = startCard(root, getString(R.string.online_card_sign_in));
-        TextView help = new TextView(this);
-        help.setText(R.string.online_signin_help);
-        stepsCard.addView(help);
-        signInButton = addButton(stepsCard, getString(R.string.online_button_sign_in), this::onSignIn);
-    }
-
-    private LinearLayout startCard(LinearLayout root, String header) {
-        MaterialCardView card = new MaterialCardView(this);
-        LinearLayout.LayoutParams cardLp = new LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        cardLp.setMargins(0, 0, 0, dp(12));
-        card.setLayoutParams(cardLp);
-        card.setRadius(dp(12));
-        card.setCardElevation(dp(2));
-        card.setCardBackgroundColor(getColor(R.color.gzh_surface));
-        card.setContentPadding(dp(16), dp(14), dp(16), dp(14));
-
-        LinearLayout content = new LinearLayout(this);
-        content.setOrientation(LinearLayout.VERTICAL);
-        card.addView(content);
-        root.addView(card);
-
-        if (header != null) {
-            TextView headerView = new TextView(this);
-            headerView.setText(header);
-            headerView.setTextSize(15);
-            headerView.setTypeface(headerView.getTypeface(), android.graphics.Typeface.BOLD);
-            headerView.setPadding(0, 0, 0, dp(8));
-            content.addView(headerView);
-        }
-        return content;
-    }
-
-    private MaterialButton addButton(LinearLayout root, String label, Runnable action) {
-        MaterialButton b = new MaterialButton(this);
-        b.setText(label);
-        b.setOnClickListener(v -> action.run());
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        lp.setMargins(0, dp(4), 0, dp(4));
-        root.addView(b, lp);
-        return b;
+        LinearLayout stepsCard = LauncherUi.card(column, getString(R.string.online_card_sign_in));
+        LauncherUi.help(stepsCard, getString(R.string.online_signin_help));
+        signInButton = LauncherUi.button(stepsCard, LauncherUi.BUTTON_FILLED,
+            getString(R.string.online_button_sign_in), this::onSignIn);
     }
 
     private String generateGameCode() {
@@ -417,10 +364,5 @@ public class GeneralsOnlineActivity extends Activity {
             return displayName;
         }
         return null;
-    }
-
-    private int dp(int value) {
-        float density = getResources().getDisplayMetrics().density;
-        return (int) (value * density + 0.5f);
     }
 }

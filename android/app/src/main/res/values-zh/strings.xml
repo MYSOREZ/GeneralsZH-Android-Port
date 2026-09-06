@@ -17,22 +17,19 @@
     <string name="setup_button_clear_game_folder">重置游戏文件夹</string>
 
     <!-- SetupActivity: status text -->
-    <string name="setup_status_folder_not_set">游戏文件夹：未设置。\n</string>
-    <string name="setup_status_folder_line">游戏文件夹：%1$s\n</string>
-    <string name="setup_status_folder_valid">状态：看起来有效（已找到游戏数据文件）。\n</string>
-    <string name="setup_status_folder_invalid">状态：该文件夹中没有找到 INIZH.big / INI.big — 请确认选择的是正确的文件夹。\n</string>
-    <string name="setup_status_folder_incomplete">状态：找到了游戏归档文件，但文件集不完整：\n%1$s\n</string>
+    <string name="setup_status_folder_line">游戏文件夹：%1$s</string>
+    <string name="setup_status_folder_invalid">该文件夹中没有找到 INIZH.big / INI.big — 请确认选择的是正确的文件夹。</string>
+    <string name="setup_status_folder_incomplete">找到了游戏归档文件，但文件集不完整：\n%1$s</string>
     <string name="setup_dialog_folder_problem_title">游戏文件夹问题</string>
     <string name="setup_folder_issue_empty_file">%1$s 为空（0 字节）</string>
     <string name="setup_folder_issue_bad_header">%1$s 看起来不是有效的游戏存档</string>
     <string name="setup_folder_issue_missing_data">%1$s 缺少预期的游戏数据——可能是不完整的副本</string>
     <string name="setup_folder_issue_no_base_game">缺少基础游戏 Generals 的数据：%1$s\n\n也可以直接指定已有这些文件的文件夹——下面的“基础游戏 Generals 文件夹…”按钮（通常是 ZH_Generals 或 Command and Conquer Generals）。</string>
-    <string name="setup_status_logs_note">崩溃日志/引擎日志保存在本应用的私有存储中，只能通过上方的“查看日志”访问 —— Android 出于设计原因将它们对普通文件管理器隐藏（这是 Android 标准的沙盒机制，并非本应用特有）。</string>
+    <string name="setup_status_logs_note">崩溃日志/引擎日志保存在本应用的私有存储中，只能通过“查看日志”访问 —— Android 出于设计原因将它们对普通文件管理器隐藏（这是 Android 标准的沙盒机制，并非本应用特有）。</string>
 
     <!-- SetupActivity: Language card -->
     <string name="setup_card_language">语言</string>
     <string name="setup_language_help">更改此设置应用、日志查看器和文件夹选择器的语言。对于德语、西班牙语、中文、法语、韩语、波兰语、巴西葡萄牙语和俄语，还会同时切换游戏本体的文字 —— 但仅当你的游戏文件夹中确实存在该语言的数据时才会生效（data/&lt;语言&gt;/generals.csf）；本应用永远不会自行提供或伪造游戏文字。其他语言不会影响游戏本体的文字。“跟随系统”会使用手机的语言，如果列表中没有该语言，则回退为英语。</string>
-    <string name="setup_language_status">语言：%1$s</string>
     <string name="setup_button_change_language">更改语言</string>
     <string name="setup_language_dialog_title">选择语言</string>
     <string name="setup_language_system_default">跟随系统</string>
@@ -51,7 +48,6 @@
     <string name="setup_card_render_backend">渲染后端</string>
     <string name="setup_render_backend_help">游戏使用哪种图形 API。下次启动游戏时生效，不会立即生效。\n\nOpenGL ES（默认）：为本移植版编写的原生渲染器。它是默认项，因为在目前测试过的所有设备上都能工作，包括那些 Vulkan 会画出错乱画面的设备。请从这里开始，只有在有理由时才更改。\n\nOpenGL ES + ANGLE：同一个渲染器，但改为经过 Google 的 ANGLE（由它翻译成 Vulkan），而不是手机自带的 GLES 驱动。ANGLE 已内置在本应用中，因此不需要最低 Android 版本，也不需要任何系统设置。运行起来通常更快，不过控件较多的菜单（遭遇战选项）首次打开时可能会卡顿，那是 ANGLE 在编译所需内容；在你离开并重新打开该菜单之前不会再次卡顿。\n\nVulkan：最初的后端，通过 DXVK 把 Direct3D 8 翻译为 Vulkan。在驱动处理得好的手机上（通常是较新的骁龙）比其他两项更快。但它完全取决于该驱动，在某些 GPU 上会出现品红色色块、几何变形或菜单错乱，这里的任何设置都无法修复 \u2014 已有 PowerVR BXM 与三星 Xclipse 的报告。如果 Vulkan 在你的设备上显示异常，默认项正是为此准备的。\n\n「自定义 Vulkan 驱动」和「DXVK 配置」两节仅在选择 Vulkan 时显示。</string>
     <string name="setup_render_backend_gpu">你的 GPU：%1$s</string>
-    <string name="setup_render_backend_status">当前：%1$s</string>
     <string name="setup_button_change_render_backend">更改渲染后端</string>
     <string name="setup_render_backend_dialog_title">选择渲染后端</string>
     <string name="setup_render_backend_vulkan">Vulkan</string>
@@ -82,8 +78,8 @@
 
     <!-- SetupActivity: Diagnostics card -->
     <string name="setup_card_diagnostics">诊断</string>
-    <string name="setup_diagnostics_help">这些开关会为错误报告开启额外的日志记录 —— 正常游玩时请全部保持关闭，它们可能拖慢游戏速度或产生非常大的日志。如果问题反馈者要求你打开某一项，就打开它，重现问题，然后使用上方的"查看日志"发送结果。</string>
-    <string name="setup_diagnostics_no_folder">请先在上方选择游戏文件夹，然后才能使用这些开关</string>
+    <string name="setup_diagnostics_help">这些开关会为错误报告开启额外的日志记录 —— 正常游玩时请全部保持关闭，它们可能拖慢游戏速度或产生非常大的日志。如果问题反馈者要求你打开某一项，就打开它，重现问题，然后使用"查看日志"发送结果。</string>
+    <string name="setup_diagnostics_no_folder">请先选择游戏文件夹，然后才能使用这些开关</string>
     <string name="setup_switch_gx_trace">详细跟踪日志</string>
     <string name="setup_switch_gx_trace_desc">非常详细的内部日志（界面、字体、INI 文件），用于追踪特定的卡死或错误。长时间游玩会话中日志可能增长到 50-100+ MB —— 如果只需要 FPS 数值，请改用"性能摘要"。(gx_trace.txt)</string>
     <string name="setup_switch_touch_debug">触摸输入调试叠加</string>
@@ -171,7 +167,7 @@
     <string name="setup_toast_base_generals_saved">基础游戏 Generals 文件夹：%1$s</string>
     <string name="setup_toast_base_generals_cleared">已清除基础游戏文件夹</string>
     <string name="setup_base_generals_not_here">%1$s 中没有基础游戏 Generals 的归档文件——请选择包含 Terrain.big、Textures.big 和 W3D.big 的文件夹。</string>
-    <string name="setup_status_base_generals_line">基础 Generals：%1$s\n</string>
+    <string name="setup_status_base_generals_line">基础 Generals：%1$s</string>
     <string name="logviewer_crash_prev_log_absent">（不存在）</string>
     <string name="logviewer_elided_notice">\n...(此处省略 %1$d 个字符；上方的会话开头与下方的最新输出已保留)...\n\n</string>
     <string name="logviewer_section_crash_prev_log">=== crash-prev.log（原生崩溃处理器，上一次会话）===\n</string>
@@ -180,9 +176,32 @@
     <string name="setup_button_dxvk_config_save">保存</string>
     <string name="setup_card_dxvk_config">DXVK 配置（dxvk.conf，高级）</string>
     <string name="setup_dxvk_config_help">直接编辑 dxvk.conf，也就是引擎启动时读取的那个文件——无需重新构建，下次启动即生效。如果游戏在你的设备上偏慢，这些设置会有帮助：\n\nd3d9.samplerAnisotropy = 2（设为 0 则关闭）——低于默认的 16，可减轻较弱硬件上的 GPU 负担。\ndxvk.hud = fps,drawcalls,submissions,pipelines——在屏幕上显示一个小的性能叠加层。\ndxvk.logLevel = none——除非有人要求，否则保持不变；更详细的级别会拖慢游戏。\n\n每行一条「key = value」。无效的行会被 DXVK 直接忽略，所以打错字不会弄坏游戏——最坏的情况只是你的改动不起作用。</string>
-    <string name="setup_dxvk_config_no_folder">请先选择游戏文件夹（上方）</string>
+    <string name="setup_dxvk_config_no_folder">请先选择游戏文件夹</string>
     <string name="setup_toast_dxvk_config_no_default">此版本中未找到随附的默认 dxvk.conf。</string>
     <string name="setup_toast_dxvk_config_reset">已恢复为默认的 dxvk.conf。</string>
     <string name="setup_toast_dxvk_config_saved">已保存。下次启动游戏时生效。</string>
     <string name="setup_toast_storage_permission_denied">浏览游戏文件夹需要存储权限。请再次点按「选择游戏文件夹」。</string>
+
+    <!-- GeneralsX @feature Android port launcher-ui-refresh 06/09/2026
+         Readiness banner, section headings, collapsible sections and the
+         Advanced & Diagnostics screen. -->
+    <string name="common_expand">展开</string>
+    <string name="common_collapse">收起</string>
+    <string name="setup_section_setup">初始设置</string>
+    <string name="setup_section_settings">设置</string>
+    <string name="setup_section_more">更多</string>
+    <string name="setup_state_ready_title">可以开始游戏</string>
+    <string name="setup_state_ready_body">游戏文件已位于引擎期望的位置。</string>
+    <string name="setup_state_no_folder_title">尚未设置游戏文件夹</string>
+    <string name="setup_state_no_folder_body">请指定存放你自己的 Zero Hour 副本的文件夹（其中包含 INIZH.big）。</string>
+    <string name="setup_state_invalid_title">文件夹不正确</string>
+    <string name="setup_state_incomplete_title">游戏文件不完整</string>
+    <string name="setup_card_base_generals">基础 Generals 文件夹</string>
+    <string name="setup_base_generals_help">可选项。只有当基础 Generals 的归档文件（Terrain.big、Textures.big、W3D.big 等）放在引擎无法自行找到的位置时才需要设置 —— 例如单独的安装目录，或位于 Zero Hour 旁边但名称引擎并不认识的文件夹。如果游戏已经能启动，就不用管这里。</string>
+    <string name="setup_summary_not_set">未设置</string>
+    <string name="setup_button_advanced">高级与诊断</string>
+    <string name="setup_advanced_title">高级与诊断</string>
+    <string name="setup_advanced_subtitle">渲染器调优、驱动替换，以及让引擎输出更多日志的开关</string>
+    <string name="setup_advanced_vulkan_only">只有在选择 Vulkan 渲染后端时，「自定义 Vulkan 驱动」和「DXVK 配置」两节才会出现在这里 —— OpenGL ES 后端根本不会加载 DXVK。</string>
+    <string name="setup_logs_row_subtitle">引擎日志与原生崩溃日志，以及发送它们的方式</string>
 </resources>

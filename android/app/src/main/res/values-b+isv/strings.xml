@@ -17,22 +17,19 @@
     <string name="setup_button_clear_game_folder">Izbrisati nastojenje papky igry</string>
 
     <!-- SetupActivity: status text -->
-    <string name="setup_status_folder_not_set">Papka igry: ne nastojena.\n</string>
-    <string name="setup_status_folder_line">Papka igry: %1$s\n</string>
-    <string name="setup_status_folder_valid">Status: vygledaje validno (najdene sut datoteky arhiva igry).\n</string>
-    <string name="setup_status_folder_invalid">Status: ta papka NE sodrži očekivane INIZH.big / INI.big — prověri, či ty izbral pravilnu papku.\n</string>
-    <string name="setup_status_folder_incomplete">Status: arhivy igry sut najdene, ale komplet jest nepolny:\n%1$s\n</string>
+    <string name="setup_status_folder_line">Papka igry: %1$s</string>
+    <string name="setup_status_folder_invalid">Ta papka NE sodrži očekivane INIZH.big / INI.big — prověri, či ty izbral pravilnu papku.</string>
+    <string name="setup_status_folder_incomplete">Arhivy igry sut najdene, ale komplet jest nepolny:\n%1$s</string>
     <string name="setup_dialog_folder_problem_title">Problema s papkoju igry</string>
     <string name="setup_folder_issue_empty_file">%1$s jest prazdny (0 bajtov)</string>
     <string name="setup_folder_issue_bad_header">%1$s ne izgledaje kako validny arhiv igry</string>
     <string name="setup_folder_issue_missing_data">V %1$s ne dostaje očekyvanyh dat igry — najvěrojatno nekompletna kopija</string>
     <string name="setup_folder_issue_no_base_game">Ne dostajut dannyh osnovnoj igry Generals:%1$s\n\nAbo ukaži papku, v kojej oni uže sut — gomba „Papka osnovnoj igry Generals…“ nizše (obyčno ZH_Generals abo Command and Conquer Generals).</string>
-    <string name="setup_status_logs_note">Logi padu/jadra sut v privatnom skladišču aplikacije i dostupni tolko čerez \"Prokazati logi\" vyše — Android namerno skryva jih od normalnyh upravitelev datotek (to jest standardny Android peskovnik, ne osobitost sej aplikacije).</string>
+    <string name="setup_status_logs_note">Logi padu/jadra sut v privatnom skladišču aplikacije i dostupni tolko čerez \"Prokazati logi\" — Android namerno skryva jih od normalnyh upravitelev datotek (to jest standardny Android peskovnik, ne osobitost sej aplikacije).</string>
 
     <!-- SetupActivity: Language card -->
     <string name="setup_card_language">Jezyk</string>
     <string name="setup_language_help">Měnji jezyk sej aplikacije nastojenj, prokazyvača logov i izbirača papky. Za německy, špansky, kitajsky, francuzsky, korejsky, poljsky, brazilsko-portugalsky i rusky jezyk takože pěreključa tekst same igry — no tolko jestli vaša papka igry děistvitělno sodrži dane za tyj jezyk (data/&lt;jezyk&gt;/generals.csf); ta aplikacija nikogda sama ne dava ili ne izmyšlja tekst igry. Za druge jezyky tekst igry ostaje netaknuty. \"Sistemny\" sledi jezyku vašego telefona, s otkazom na anglijsky, jestli on ne jest v spisku.</string>
-    <string name="setup_language_status">Jezyk: %1$s</string>
     <string name="setup_button_change_language">Změniti jezyk</string>
     <string name="setup_language_dialog_title">Izberi jezyk</string>
     <string name="setup_language_system_default">Sistemny</string>
@@ -51,7 +48,6 @@
     <string name="setup_card_render_backend">Grafičen backend</string>
     <string name="setup_render_backend_help">Kotory grafičny API igra upotrěbljaje. Dějstvuje od naslědujučego zapuska igry, ne odrazu.\n\nOpenGL ES (izhodno): nativny renderer, napisany za tot port. Jest izhodnym, ibo rabotaje na vsih dosud prověrenyh uređajah, tože na tyh, gdě Vulkan risuje popsovanu grafiku. Načinaj odsud i směnjaj samo pri pričině.\n\nOpenGL ES + ANGLE: tot že renderer, ale prěz ANGLE od Google, ktory prěvodi jego v Vulkan, město sobstvenogo GLES-drajvera telefona. ANGLE vgraditeljny v tuto aplikaciju, tako ne trěbuje ni minimalnoj versije Androida, ni sistemnoj nastrojki. Často byrše v rabotě, ale menu s mnogymi elementami (nastrojki sråženja) može zaviseti pri prvom otvorenju, poka ANGLE kompiluje potrěbno; vtorično to ne povtori sę, poka ne vyjdeš i ne otvoriš to menu iznova.\n\nVulkan: iznačalny bekend, prěz prěvod Direct3D 8 v Vulkan sredstvami DXVK. Byrše ostalnyh na telefonah, čij drajver s njim spravlja sę \u2014 obyčno svěže Snapdragon. Ale vse zavisi imenno od drajvera, i na někotoryh GPU pojavljajut sę purpurne pjatna, iskrivjena geometrija ili popsovane menu, čego nijakoju nastrojkoju odsud ne popraviti \u2014 soobщali pro PowerVR BXM i Samsung Xclipse. Ako Vulkan vygleda nepravilno na tvojem uređaju, izhodny variant iznačalno jest za to.\n\nRazdely «Svoj drajver Vulkan» i «Konfiguracija DXVK» pokazyvajut sę samo pri izbranom Vulkanu.</string>
     <string name="setup_render_backend_gpu">Tvoj GPU: %1$s</string>
-    <string name="setup_render_backend_status">Sejčas: %1$s</string>
     <string name="setup_button_change_render_backend">Změniti grafičen backend</string>
     <string name="setup_render_backend_dialog_title">Izberi grafičen backend</string>
     <string name="setup_render_backend_vulkan">Vulkan</string>
@@ -82,8 +78,8 @@
 
     <!-- SetupActivity: Diagnostics card -->
     <string name="setup_card_diagnostics">Diagnostika</string>
-    <string name="setup_diagnostics_help">Ti pereklopniki uklapjaju dodatno logovanje za izvěšćenja o greškah — pri normalnoj igrě děrjte ih vsi vyklopjeni, oni mogu zapovolniti igru ili stvoriti věliki log. Jesli izvěstitelj problema prosi uklopiti někotory, uklopte jego, reproducirajte problem, potom upotrěbte "Prikazati logi" vyše da pošlete rezultat.</string>
-    <string name="setup_diagnostics_no_folder">Naprvo izběrte papku igry (vyše) da upotrěbite ti pereklopniki</string>
+    <string name="setup_diagnostics_help">Ti pereklopniki uklapjaju dodatno logovanje za izvěšćenja o greškah — pri normalnoj igrě děrjte ih vsi vyklopjeni, oni mogu zapovolniti igru ili stvoriti věliki log. Jesli izvěstitelj problema prosi uklopiti někotory, uklopte jego, reproducirajte problem, potom upotrěbte "Prikazati logi" da pošlete rezultat.</string>
+    <string name="setup_diagnostics_no_folder">Naprvo izběrte papku igry da upotrěbite ti pereklopniki</string>
     <string name="setup_switch_gx_trace">Podrobny log tracovanja</string>
     <string name="setup_switch_gx_trace_desc">Věoma podrobno vnutrněje logovanje (interfejs, šrifti, INI datoteki) za iskanje konkretnogo zavisanja ili greški. Za dolgu sesiju log može narosti do vělikoj věličiny (50-100+ MB) — upotrěbte město togo "Rezimě proizvoditelnosti" jesli trěbujete tolko čisla FPS. (gx_trace.txt)</string>
     <string name="setup_switch_touch_debug">Nakladka sensornogo vvoda</string>
@@ -171,7 +167,7 @@
     <string name="setup_toast_base_generals_saved">Papka osnovnoj igry Generals: %1$s</string>
     <string name="setup_toast_base_generals_cleared">Papka osnovnoj igry odstranjena</string>
     <string name="setup_base_generals_not_here">V %1$s ne ima arhivov osnovnoj igry Generals — izberi papku, v kojej sut Terrain.big, Textures.big i W3D.big.</string>
-    <string name="setup_status_base_generals_line">Osnovna Generals: %1$s\n</string>
+    <string name="setup_status_base_generals_line">Osnovna Generals: %1$s</string>
     <string name="logviewer_crash_prev_log_absent">(néma)</string>
     <string name="logviewer_elided_notice">\n...(%1$d znakov tut propuščeno; početok sesije vyše i najnovějši vyvod nižeje sohranjeni)...\n\n</string>
     <string name="logviewer_section_crash_prev_log">=== crash-prev.log (nativny obrabotnik padenij, prědiduča sesija) ===\n</string>
@@ -180,9 +176,32 @@
     <string name="setup_button_dxvk_config_save">Sohraniti</string>
     <string name="setup_card_dxvk_config">Konfiguracija DXVK (dxvk.conf, naprědno)</string>
     <string name="setup_dxvk_config_help">Rediguje dxvk.conf naprosto — tot že fajl, ktory dvižok čita pri startu. Perestrojka ne trěbna, dějstvuje od naslědujučego zapuska. Korisno, ako igra idet medlenno na tvojem uređaju:\n\nd3d9.samplerAnisotropy = 2 (ili 0 za odklučenje) — menje od izhodnyh 16, umenjšaje nagruzku na GPU slabših uređajev.\ndxvk.hud = fps,drawcalls,submissions,pipelines — pokazyva malu nakladku proizvoditelnosti.\ndxvk.logLevel = none — ostavi tako, ako ne prosili inako; podrobnějše rovni zpomaljajut igru.\n\nJedno «key = value» na rědok. Nepravilny rědok DXVK prosto ignoruje, tako čto opečatka ne zlomi igru — v najgoršem slučaju tvoja izměna ne budet iměti effekta.</string>
-    <string name="setup_dxvk_config_no_folder">Najprvo izberi papku igry (vyše)</string>
+    <string name="setup_dxvk_config_no_folder">Najprvo izberi papku igry</string>
     <string name="setup_toast_dxvk_config_no_default">V tom bildu ne najden vgraditelny izhodny dxvk.conf.</string>
     <string name="setup_toast_dxvk_config_reset">Vrnjeno k izhodnomu dxvk.conf.</string>
     <string name="setup_toast_dxvk_config_saved">Sohranjeno. Budet dějstvovati pri naslědujučem zapusku igry.</string>
     <string name="setup_toast_storage_permission_denied">Za prěgled papki igry trěbno dozvolenje k hranilišču. Natisni «Izbrati papku igry» ješče raz.</string>
+
+    <!-- GeneralsX @feature Android port launcher-ui-refresh 06/09/2026
+         Readiness banner, section headings, collapsible sections and the
+         Advanced & Diagnostics screen. -->
+    <string name="common_expand">Razvinuti</string>
+    <string name="common_collapse">Zvinuti</string>
+    <string name="setup_section_setup">Nastrojenje</string>
+    <string name="setup_section_settings">Nastrojenja</string>
+    <string name="setup_section_more">Dodatno</string>
+    <string name="setup_state_ready_title">Gotovo za igru</string>
+    <string name="setup_state_ready_body">Datoteky igry sut tam, gdě jih očekuje jadro.</string>
+    <string name="setup_state_no_folder_title">Papka igry ne jest nastavjena</string>
+    <string name="setup_state_no_folder_body">Ukaži papku s tvojeju kopijeju Zero Hour (tu, v kojej jest INIZH.big).</string>
+    <string name="setup_state_invalid_title">Nepravilna papka</string>
+    <string name="setup_state_incomplete_title">Datoteky igry sut nepolne</string>
+    <string name="setup_card_base_generals">Papka osnovnoj Generals</string>
+    <string name="setup_base_generals_help">Neobvezno. Trěbno jest tolko togda, kogda arhivy osnovnoj Generals (Terrain.big, Textures.big, W3D.big i podobne) sut tamo, gdě jadro jih samo ne najde — otděljna instalacija ili papka pri Zero Hour s imenom, kojego jadro ne zna. Jesli igra uže se spuskaje, ne diraj to.</string>
+    <string name="setup_summary_not_set">Ne nastavjeno</string>
+    <string name="setup_button_advanced">Naprědne nastrojenja i diagnostika</string>
+    <string name="setup_advanced_title">Naprědne nastrojenja i diagnostika</string>
+    <string name="setup_advanced_subtitle">Nastrojenje renderera, zaměna drajvera i pereklopniki, ktore prisiljajut jadro logovati več</string>
+    <string name="setup_advanced_vulkan_only">Sekcije «Vlastny drajver Vulkan» i «Konfiguracija DXVK» pokazujut se tut tolko togda, kogda jest izbrany render-backend Vulkan — backendy OpenGL ES nikogda ne nakladajut DXVK.</string>
+    <string name="setup_logs_row_subtitle">Log jadra i nativny log padu, i sposob poslati jih</string>
 </resources>

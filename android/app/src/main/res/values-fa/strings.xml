@@ -17,22 +17,19 @@
     <string name="setup_button_clear_game_folder">بازنشانی پوشه بازی</string>
 
     <!-- SetupActivity: status text -->
-    <string name="setup_status_folder_not_set">پوشه بازی: تنظیم نشده است.\n</string>
-    <string name="setup_status_folder_line">پوشه بازی: %1$s\n</string>
-    <string name="setup_status_folder_valid">وضعیت: معتبر به نظر می‌رسد (فایل‌های آرشیو بازی پیدا شدند).\n</string>
-    <string name="setup_status_folder_invalid">وضعیت: این پوشه حاوی INIZH.big / INI.big مورد انتظار نیست — بررسی کنید پوشه درست را انتخاب کرده باشید.\n</string>
-    <string name="setup_status_folder_incomplete">وضعیت: آرشیوهای بازی پیدا شدند، اما مجموعه ناقص است:\n%1$s\n</string>
+    <string name="setup_status_folder_line">پوشه بازی: %1$s</string>
+    <string name="setup_status_folder_invalid">این پوشه حاوی INIZH.big / INI.big مورد انتظار نیست — بررسی کنید پوشه درست را انتخاب کرده باشید.</string>
+    <string name="setup_status_folder_incomplete">آرشیوهای بازی پیدا شدند، اما مجموعه ناقص است:\n%1$s</string>
     <string name="setup_dialog_folder_problem_title">مشکل پوشهٔ بازی</string>
     <string name="setup_folder_issue_empty_file">%1$s خالی است (۰ بایت)</string>
     <string name="setup_folder_issue_bad_header">%1$s شبیه یک آرشیو معتبر بازی نیست</string>
     <string name="setup_folder_issue_missing_data">در %1$s داده‌های موردانتظار بازی کم است — احتمالاً یک نسخهٔ ناقص</string>
     <string name="setup_folder_issue_no_base_game">داده‌های بازی پایه Generals موجود نیست:%1$s\n\nیا پوشه‌ای را که از قبل آن‌ها را دارد مشخص کنید — دکمهٔ «پوشهٔ بازی پایه Generals…» در پایین (معمولاً ZH_Generals یا Command and Conquer Generals).</string>
-    <string name="setup_status_logs_note">گزارش‌های خرابی/موتور در حافظه خصوصی این برنامه ذخیره می‌شوند و فقط از طریق «مشاهده گزارش‌ها» در بالا قابل دسترسی هستند — اندروید عمداً آن‌ها را از مدیرهای فایل معمولی پنهان می‌کند (این رفتار استاندارد سندباکس اندروید است، نه ویژگی خاص این برنامه).</string>
+    <string name="setup_status_logs_note">گزارش‌های خرابی/موتور در حافظه خصوصی این برنامه ذخیره می‌شوند و فقط از طریق «مشاهده گزارش‌ها» قابل دسترسی هستند — اندروید عمداً آن‌ها را از مدیرهای فایل معمولی پنهان می‌کند (این رفتار استاندارد سندباکس اندروید است، نه ویژگی خاص این برنامه).</string>
 
     <!-- SetupActivity: Language card -->
     <string name="setup_card_language">زبان</string>
     <string name="setup_language_help">این گزینه زبان همین برنامه تنظیمات، نمایشگر گزارش‌ها و مرورگر پوشه را تغییر می‌دهد. برای زبان‌های آلمانی، اسپانیایی، چینی، فرانسوی، کره‌ای، لهستانی، پرتغالی برزیل و روسی، متن خود بازی را نیز تغییر می‌دهد — اما فقط در صورتی که پوشه بازی شما واقعاً داده‌های آن زبان را داشته باشد (data/&lt;زبان&gt;/generals.csf)؛ این برنامه هرگز خودش متن بازی را تأمین یا جعل نمی‌کند. برای زبان‌های دیگر، متن بازی بدون تغییر باقی می‌ماند. گزینه «پیش‌فرض سیستم» از زبان گوشی شما پیروی می‌کند و در صورتی که آن زبان در فهرست نباشد، به انگلیسی بازمی‌گردد.</string>
-    <string name="setup_language_status">زبان: %1$s</string>
     <string name="setup_button_change_language">تغییر زبان</string>
     <string name="setup_language_dialog_title">یک زبان انتخاب کنید</string>
     <string name="setup_language_system_default">پیش‌فرض سیستم</string>
@@ -51,7 +48,6 @@
     <string name="setup_card_render_backend">بک‌اند رندر</string>
     <string name="setup_render_backend_help">بازی از کدام رابط گرافیکی استفاده کند. در اجرای بعدی بازی اثر می‌کند، نه بی‌درنگ.\n\nOpenGL ES (پیش‌فرض): یک رندرگر بومی که برای همین نسخه نوشته شده است. پیش‌فرض است چون روی هر دستگاهی که تاکنون آزموده شده کار می‌کند، از جمله دستگاه‌هایی که Vulkan روی آن‌ها تصویر خراب می‌کشد. از همین‌جا شروع کنید و تنها با دلیل تغییرش دهید.\n\nOpenGL ES + ANGLE: همان رندرگر، اما به‌جای درایور GLES خود گوشی از ANGLE گوگل می‌گذرد که آن را به Vulkan ترجمه می‌کند. ANGLE درون همین برنامه جای گرفته، پس نه نسخه حداقلی اندروید می‌خواهد و نه تنظیمی در سیستم. پس از راه‌افتادن معمولاً سریع‌تر است، هرچند منویی با عناصر فراوان (تنظیمات نبرد کوتاه) ممکن است بار نخست کمی گیر کند تا ANGLE آنچه لازم است را ترجمه کند؛ تا وقتی از آن منو بیرون نروید و دوباره بازش نکنید تکرار نمی‌شود.\n\nVulkan: پشتوانه اصلی، از راه ترجمه Direct3D 8 به Vulkan توسط DXVK. روی گوشی‌هایی که درایورشان از پس آن برمی‌آید، معمولاً اسنپدراگون‌های تازه، از بقیه سریع‌تر است. اما کاملاً به همان درایور وابسته است و روی برخی پردازنده‌های گرافیکی لکه‌های سرخابی، هندسه درهم‌ریخته یا منوهای خراب پدید می‌آورد که هیچ تنظیمی در اینجا آن را درست نمی‌کند \u2014 از PowerVR BXM و Samsung Xclipse گزارش شده است. اگر Vulkan روی دستگاه شما نادرست به نظر می‌رسد، گزینه پیش‌فرض دقیقاً برای همین است.\n\nبخش‌های «درایور Vulkan سفارشی» و «پیکربندی DXVK» تنها با انتخاب Vulkan نمایان می‌شوند.</string>
     <string name="setup_render_backend_gpu">پردازنده گرافیکی شما: %1$s</string>
-    <string name="setup_render_backend_status">کنونی: %1$s</string>
     <string name="setup_button_change_render_backend">تغییر بک‌اند رندر</string>
     <string name="setup_render_backend_dialog_title">یک بک‌اند رندر انتخاب کنید</string>
     <string name="setup_render_backend_vulkan">Vulkan</string>
@@ -82,8 +78,8 @@
 
     <!-- SetupActivity: Diagnostics card -->
     <string name="setup_card_diagnostics">عیب‌یابی</string>
-    <string name="setup_diagnostics_help">این کلیدها گزارش‌گیری اضافی برای گزارش خطاها را فعال می‌کنند — در بازی عادی همه را خاموش نگه دارید، چون می‌توانند بازی را کند کنند یا گزارش‌های بسیار بزرگ ایجاد کنند. اگر گزارش‌دهنده یک مشکل از شما خواست یکی را روشن کنید، آن را فعال کنید، مشکل را دوباره ایجاد کنید، سپس نتیجه را با «مشاهده گزارش‌ها» در بالا ارسال کنید.</string>
-    <string name="setup_diagnostics_no_folder">برای استفاده از این کلیدها ابتدا یک پوشه بازی (بالا) انتخاب کنید</string>
+    <string name="setup_diagnostics_help">این کلیدها گزارش‌گیری اضافی برای گزارش خطاها را فعال می‌کنند — در بازی عادی همه را خاموش نگه دارید، چون می‌توانند بازی را کند کنند یا گزارش‌های بسیار بزرگ ایجاد کنند. اگر گزارش‌دهنده یک مشکل از شما خواست یکی را روشن کنید، آن را فعال کنید، مشکل را دوباره ایجاد کنید، سپس نتیجه را با «مشاهده گزارش‌ها» ارسال کنید.</string>
+    <string name="setup_diagnostics_no_folder">برای استفاده از این کلیدها ابتدا یک پوشه بازی انتخاب کنید</string>
     <string name="setup_switch_gx_trace">گزارش ردیابی مفصل</string>
     <string name="setup_switch_gx_trace_desc">گزارش‌گیری داخلی بسیار مفصل (رابط کاربری، فونت‌ها، فایل‌های INI) برای ردیابی یک هنگ یا باگ خاص. ممکن است در یک نشست طولانی به ۵۰ تا ۱۰۰+ مگابایت برسد — اگر فقط به اعداد FPS نیاز دارید، به‌جای آن «خلاصه عملکرد» را فعال کنید. (gx_trace.txt)</string>
     <string name="setup_switch_touch_debug">پوشش اشکال‌زدایی لمسی</string>
@@ -171,7 +167,7 @@
     <string name="setup_toast_base_generals_saved">پوشهٔ بازی پایه Generals: %1$s</string>
     <string name="setup_toast_base_generals_cleared">پوشهٔ بازی پایه پاک شد</string>
     <string name="setup_base_generals_not_here">در %1$s آرشیو بازی پایه Generals وجود ندارد — پوشه‌ای را انتخاب کنید که Terrain.big و Textures.big و W3D.big در آن باشد.</string>
-    <string name="setup_status_base_generals_line">Generals پایه: %1$s\n</string>
+    <string name="setup_status_base_generals_line">Generals پایه: %1$s</string>
     <string name="logviewer_crash_prev_log_absent">(موجود نیست)</string>
     <string name="logviewer_elided_notice">\n...(%1$d نویسه در اینجا حذف شد؛ آغاز نشست در بالا و تازه‌ترین خروجی در پایین نگه داشته شده‌اند)...\n\n</string>
     <string name="logviewer_section_crash_prev_log">=== crash-prev.log (مدیر خرابی بومی، نشست پیشین) ===\n</string>
@@ -180,9 +176,32 @@
     <string name="setup_button_dxvk_config_save">ذخیره</string>
     <string name="setup_card_dxvk_config">پیکربندی DXVK (dxvk.conf، پیشرفته)</string>
     <string name="setup_dxvk_config_help">مستقیماً dxvk.conf را ویرایش می‌کند؛ همان پرونده‌ای که موتور بازی هنگام راه‌اندازی می‌خواند — نیازی به ساخت دوباره نیست و از اجرای بعدی اثر می‌کند. تنظیمات سودمند اگر بازی روی دستگاه شما کند است:\n\nd3d9.samplerAnisotropy = 2 (یا 0 برای خاموش کردن) — کمتر از پیش‌فرض ۱۶، بار پردازنده گرافیکی را روی سخت‌افزار ضعیف‌تر کم می‌کند.\ndxvk.hud = fps,drawcalls,submissions,pipelines — یک نمایه کوچک کارایی روی صفحه نشان می‌دهد.\ndxvk.logLevel = none — جز در صورت درخواست، همین بماند؛ سطوح پرجزئیات‌تر بازی را کند می‌کنند.\n\nدر هر خط یک «key = value». DXVK خط نامعتبر را نادیده می‌گیرد، پس یک غلط تایپی بازی را خراب نمی‌کند — در بدترین حالت تغییر شما اثری ندارد.</string>
-    <string name="setup_dxvk_config_no_folder">نخست پوشه بازی را انتخاب کنید (بالا)</string>
+    <string name="setup_dxvk_config_no_folder">نخست پوشه بازی را انتخاب کنید</string>
     <string name="setup_toast_dxvk_config_no_default">در این نسخه پرونده dxvk.conf پیش‌فرض همراه یافت نشد.</string>
     <string name="setup_toast_dxvk_config_reset">به dxvk.conf پیش‌فرض بازگردانده شد.</string>
     <string name="setup_toast_dxvk_config_saved">ذخیره شد. در اجرای بعدی بازی اثر می‌کند.</string>
     <string name="setup_toast_storage_permission_denied">برای مرور پوشه بازی به اجازه دسترسی به حافظه نیاز است. دوباره «انتخاب پوشه بازی» را بزنید.</string>
+
+    <!-- GeneralsX @feature Android port launcher-ui-refresh 06/09/2026
+         Readiness banner, section headings, collapsible sections and the
+         Advanced & Diagnostics screen. -->
+    <string name="common_expand">باز کردن</string>
+    <string name="common_collapse">بستن</string>
+    <string name="setup_section_setup">راه‌اندازی</string>
+    <string name="setup_section_settings">تنظیمات</string>
+    <string name="setup_section_more">بیشتر</string>
+    <string name="setup_state_ready_title">آماده بازی</string>
+    <string name="setup_state_ready_body">فایل‌های بازی در جایی هستند که موتور بازی انتظار دارد.</string>
+    <string name="setup_state_no_folder_title">پوشه بازی تعیین نشده است</string>
+    <string name="setup_state_no_folder_body">پوشه‌ای را که نسخه خودتان از Zero Hour در آن است انتخاب کنید (پوشه‌ای که INIZH.big در آن قرار دارد).</string>
+    <string name="setup_state_invalid_title">پوشه نادرست</string>
+    <string name="setup_state_incomplete_title">فایل‌های بازی ناقص است</string>
+    <string name="setup_card_base_generals">پوشه Generals پایه</string>
+    <string name="setup_base_generals_help">اختیاری. فقط زمانی لازم است که آرشیوهای Generals پایه (Terrain.big، Textures.big، W3D.big و مانند آن‌ها) جایی باشند که موتور بازی خودش پیدایشان نمی‌کند — نصبی جداگانه، یا پوشه‌ای کنار Zero Hour با نامی که موتور نمی‌شناسد. اگر بازی همین حالا اجرا می‌شود، این را دست نزنید.</string>
+    <string name="setup_summary_not_set">تعیین نشده</string>
+    <string name="setup_button_advanced">پیشرفته و عیب‌یابی</string>
+    <string name="setup_advanced_title">پیشرفته و عیب‌یابی</string>
+    <string name="setup_advanced_subtitle">تنظیم دقیق رندرر، جایگزینی درایور و کلیدهایی که موتور را وادار به ثبت گزارش بیشتر می‌کنند</string>
+    <string name="setup_advanced_vulkan_only">بخش‌های «درایور Vulkan سفارشی» و «پیکربندی DXVK» فقط زمانی اینجا نمایش داده می‌شوند که بک‌اند رندر Vulkan انتخاب شده باشد — بک‌اندهای OpenGL ES اصلاً DXVK را بارگذاری نمی‌کنند.</string>
+    <string name="setup_logs_row_subtitle">گزارش موتور بازی و گزارش خرابی بومی، و راهی برای فرستادن آن‌ها</string>
 </resources>

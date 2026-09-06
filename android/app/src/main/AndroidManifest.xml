@@ -116,6 +116,19 @@
             </intent-filter>
         </activity>
 
+        <!-- GeneralsX @feature Android port launcher-ui-refresh 06/09/2026
+             The custom Vulkan driver importer, the dxvk.conf editor and the
+             diagnostic marker switches, moved off the Setup screen. Not
+             exported and not a launcher icon: it is reached from Setup, and
+             only ever wanted by someone who was told to go there. Same
+             configChanges/theme as every other non-game screen. -->
+        <activity
+            android:name=".AdvancedActivity"
+            android:exported="false"
+            android:label="@string/setup_advanced_title"
+            android:theme="@style/Theme.GeneralsZHSettings"
+            android:configChanges="orientation|screenSize|keyboardHidden" />
+
         <activity
             android:name=".FolderPickerActivity"
             android:exported="false"

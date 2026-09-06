@@ -50,13 +50,15 @@ import android.content.ClipboardManager;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.core.content.FileProvider;
+
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.card.MaterialCardView;
 
 import java.io.File;
 import java.io.FileReader;
@@ -97,12 +99,20 @@ public class LogViewerActivity extends Activity {
         super.onCreate(savedInstanceState);
         setTitle(R.string.logviewer_title);
 
+        // GeneralsX @feature Android port launcher-ui-refresh 06/09/2026
+        // Same three actions, same log, but on the shared palette and type
+        // scale: Share is the filled action (getting the log off the phone is
+        // the entire point of this screen), Copy is tonal, and Clear -- the
+        // only destructive one here -- is a text button so it stops looking
+        // like a peer of the other two.
         LinearLayout root = new LinearLayout(this);
         root.setOrientation(LinearLayout.VERTICAL);
+        root.setBackgroundColor(LauncherUi.color(this, R.color.gzh_background));
 
         LinearLayout buttonRow = new LinearLayout(this);
         buttonRow.setOrientation(LinearLayout.HORIZONTAL);
-        buttonRow.setPadding(dp(8), dp(8), dp(8), dp(8));
+        int pad = LauncherUi.dp(this, LauncherUi.SPACE_3);
+        buttonRow.setPadding(pad, pad, pad, LauncherUi.dp(this, LauncherUi.SPACE_2));
 
         // GeneralsX @bugfix Android port 13/07/2026 WRAP_CONTENT height let
         // each button size to its own text independently -- fine in English,
@@ -110,41 +120,61 @@ public class LogViewerActivity extends Activity {
         // "Очистити логи") made that one button taller than its siblings,
         // breaking the row's bottom edge. MATCH_PARENT makes every button in
         // the row stretch to the tallest sibling's height instead.
-        Button clearButton = new Button(this);
-        clearButton.setText(R.string.logviewer_button_clear);
-        clearButton.setOnClickListener(v -> confirmClearLogs());
-        buttonRow.addView(clearButton, new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1f));
-
-        Button copyButton = new Button(this);
-        copyButton.setText(R.string.logviewer_button_copy);
-        copyButton.setOnClickListener(v -> {
+        addRowButton(buttonRow, LauncherUi.BUTTON_TEXT, R.string.logviewer_button_clear,
+            this::confirmClearLogs);
+        addRowButton(buttonRow, LauncherUi.BUTTON_TONAL, R.string.logviewer_button_copy, () -> {
             ClipboardManager cm = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
             cm.setPrimaryClip(ClipData.newPlainText(getString(R.string.logviewer_share_subject), combinedLog));
             Toast.makeText(this, R.string.logviewer_toast_copied, Toast.LENGTH_SHORT).show();
         });
-        buttonRow.addView(copyButton, new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1f));
-
-        Button shareButton = new Button(this);
-        shareButton.setText(R.string.logviewer_button_share);
-        shareButton.setOnClickListener(v -> shareLogAsFile());
-        buttonRow.addView(shareButton, new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1f));
+        addRowButton(buttonRow, LauncherUi.BUTTON_FILLED, R.string.logviewer_button_share,
+            this::shareLogAsFile);
 
         root.addView(buttonRow);
+
+        MaterialCardView logCard = new MaterialCardView(this);
+        logCard.setRadius(LauncherUi.dp(this, LauncherUi.CARD_RADIUS));
+        logCard.setCardElevation(0f);
+        logCard.setStrokeWidth(LauncherUi.dp(this, 1));
+        logCard.setStrokeColor(LauncherUi.color(this, R.color.gzh_outline_variant));
+        logCard.setCardBackgroundColor(LauncherUi.color(this, R.color.gzh_surface));
+        LinearLayout.LayoutParams cardLp = new LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT, 0, 1f);
+        cardLp.setMargins(pad, 0, pad, pad);
+        logCard.setLayoutParams(cardLp);
 
         ScrollView scroll = new ScrollView(this);
         TextView logText = new TextView(this);
         logText.setId(android.R.id.text1);
         logText.setTextIsSelectable(true);
-        logText.setPadding(dp(12), dp(12), dp(12), dp(12));
+        logText.setTextColor(LauncherUi.color(this, R.color.gzh_on_surface));
+        int inner = LauncherUi.dp(this, LauncherUi.SPACE_3);
+        logText.setPadding(inner, inner, inner, inner);
         logText.setTypeface(android.graphics.Typeface.MONOSPACE);
         logText.setTextSize(11);
         scroll.addView(logText);
-        root.addView(scroll, new LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT, 0, 1f));
+        logCard.addView(scroll);
+        root.addView(logCard);
 
         setContentView(root);
         InsetUtil.applySafeInsets(root);
         loadLogs();
+    }
+
+    // Buttons in a horizontal row need weighted layout params, which
+    // LauncherUi.button()'s full-width default does not give them.
+    private void addRowButton(LinearLayout row, int variant, int labelRes, Runnable action) {
+        MaterialButton button = LauncherUi.button(row, variant, getString(labelRes), action);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+            0, LinearLayout.LayoutParams.MATCH_PARENT, 1f);
+        lp.setMargins(LauncherUi.dp(this, 2), 0, LauncherUi.dp(this, 2), 0);
+        button.setLayoutParams(lp);
+        // A three-button row in a language with long words has no space for
+        // Material's default horizontal padding as well as the text.
+        button.setPadding(LauncherUi.dp(this, LauncherUi.SPACE_2), button.getPaddingTop(),
+            LauncherUi.dp(this, LauncherUi.SPACE_2), button.getPaddingBottom());
+        button.setInsetTop(0);
+        button.setInsetBottom(0);
     }
 
     private TextView logText() {
@@ -327,10 +357,5 @@ public class LogViewerActivity extends Activity {
             }
             remaining -= skipped;
         }
-    }
-
-    private int dp(int value) {
-        float density = getResources().getDisplayMetrics().density;
-        return (int) (value * density + 0.5f);
     }
 }

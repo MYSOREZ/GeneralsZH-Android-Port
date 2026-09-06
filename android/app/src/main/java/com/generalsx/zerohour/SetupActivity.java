@@ -25,6 +25,15 @@
 // full mod-manager-style launcher (à la GenLauncher) is future scope, but
 // picking where the game lives and seeing why it crashed are needed on
 // every single install, so they live here now.
+//
+// GeneralsX @feature Android port launcher-ui-refresh 06/09/2026 It grew
+// into a mod-manager-sized screen without ever growing a shape: eight cards
+// of equal weight, the play button buried among them, and no answer anywhere
+// to "is this thing ready to run". This file is now the answer to that
+// question plus the settings a player might reasonably change; the tools a
+// maintainer asks a tester to touch live in AdvancedActivity, and the shared
+// view vocabulary lives in LauncherUi. See the "new UI" block further down
+// for what moved and why.
 
 package com.generalsx.zerohour;
 
@@ -32,28 +41,20 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.FeatureInfo;
 import android.content.pm.PackageManager;
-import android.content.res.AssetManager;
 import android.content.res.Configuration;
-import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.Settings;
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
-import android.text.style.ForegroundColorSpan;
-import android.text.style.StyleSpan;
-import android.text.style.UnderlineSpan;
-import android.widget.EditText;
+import android.view.Gravity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -86,172 +87,9 @@ public class SetupActivity extends Activity {
     // must match GameEngine/CMake's GeneralsMD/Code/Main/SDL3Main.cpp exactly.
     private static final String[] REQUIRED_GAME_FILES = { "INIZH.big", "INI.big" };
 
-    private TextView statusText;
-
     @Override
     protected void attachBaseContext(android.content.Context newBase) {
         super.attachBaseContext(LocaleHelper.wrap(newBase));
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        // GeneralsX @bugfix Android port 31/07/2026 No longer forced to
-        // landscape here -- see the matching AndroidManifest.xml comment.
-        // This screen now starts portrait-first like every other non-game
-        // screen; onLaunchGame()/onConfigurationChanged() below handle the
-        // Setup -> Launch rotation race that used to be sidestepped by never
-        // rotating Setup at all.
-        super.onCreate(savedInstanceState);
-        setTitle(R.string.setup_window_title);
-
-        // GeneralsX @bugfix Android port 08/07/2026 This screen is the ONLY
-        // way to reach "View Logs" without adb, so it must never be the thing
-        // that crashes. Any future Material/theme incompatibility falls back
-        // to a bare-bones plain-widget UI (same actions, no styling) instead
-        // of taking the whole Settings app down with it.
-        try {
-            buildUi();
-        } catch (Throwable t) {
-            buildFallbackUi(t);
-        }
-    }
-
-    private void buildFallbackUi(Throwable failure) {
-        LinearLayout root = new LinearLayout(this);
-        root.setOrientation(LinearLayout.VERTICAL);
-        int pad = dp(20);
-        root.setPadding(pad, pad, pad, pad);
-        setContentView(root);
-        InsetUtil.applySafeInsets(root);
-
-        TextView warning = new TextView(this);
-        warning.setText(getString(R.string.setup_fallback_warning, String.valueOf(failure)));
-        warning.setPadding(0, 0, 0, dp(16));
-        root.addView(warning);
-
-        statusText = new TextView(this);
-        statusText.setTextIsSelectable(true);
-        statusText.setPadding(0, 0, 0, dp(24));
-        root.addView(statusText);
-
-        addButton(root, getString(R.string.setup_button_select_game_folder), this::onSelectGameFolder);
-        addButton(root, getString(R.string.setup_button_view_logs), this::onViewLogs);
-        addButton(root, getString(R.string.setup_button_launch_game), this::onLaunchGame);
-        addButton(root, getString(R.string.setup_button_clear_game_folder), this::onClearGameFolder);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        // GeneralsX @bugfix Android port 31/07/2026 onLaunchGame() forces this
-        // Activity to landscape right before starting the game (see its
-        // comment) so the rotation settles before GeneralsZHActivity's native
-        // window-size probe runs. That request otherwise sticks on this
-        // Activity instance indefinitely, so coming back here (Back from the
-        // game, or from any child screen) left Setup stuck landscape instead
-        // of returning to its normal portrait-first state. Reset it every
-        // time this screen comes back to the foreground; onLaunchGame()
-        // re-applies the landscape lock itself the next time it's needed.
-        setRequestedOrientation(android.content.pm.ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
-        refreshStatus();
-        refreshGeneralsOnlineStatus();
-        loadDxvkConfigIntoEditor();
-        refreshDiagnosticsSwitches();
-    }
-
-    // GeneralsX @feature Android port 08/07/2026 Material redesign: each
-    // logical section lives in its own MaterialCardView instead of a flat
-    // wall of buttons/text on the raw window background.
-    private void buildUi() {
-        ScrollView scroll = new ScrollView(this);
-        LinearLayout root = new LinearLayout(this);
-        root.setOrientation(LinearLayout.VERTICAL);
-        int pad = dp(16);
-        root.setPadding(pad, pad, pad, pad);
-        scroll.addView(root);
-        setContentView(scroll);
-        InsetUtil.applySafeInsets(scroll);
-
-        TextView title = new TextView(this);
-        title.setText(R.string.setup_title);
-        title.setTextSize(22);
-        title.setTypeface(title.getTypeface(), android.graphics.Typeface.BOLD);
-        title.setPadding(dp(4), dp(8), dp(4), dp(4));
-        root.addView(title);
-
-        TextView subtitle = new TextView(this);
-        subtitle.setText(R.string.setup_subtitle);
-        subtitle.setTextSize(14);
-        subtitle.setAlpha(0.7f);
-        subtitle.setPadding(dp(4), 0, dp(4), dp(16));
-        root.addView(subtitle);
-
-        LinearLayout statusCard = startCard(root, null);
-        statusText = new TextView(this);
-        statusText.setTextIsSelectable(true);
-        statusCard.addView(statusText);
-
-        LinearLayout actionsCard = startCard(root, getString(R.string.setup_card_game_folder));
-        addButton(actionsCard, getString(R.string.setup_button_select_game_folder), this::onSelectGameFolder);
-        addButton(actionsCard, getString(R.string.setup_button_launch_game), this::onLaunchGame);
-        addButton(actionsCard, getString(R.string.setup_button_view_logs), this::onViewLogs);
-        addButton(actionsCard, getString(R.string.setup_button_clear_game_folder), this::onClearGameFolder);
-        addButton(actionsCard, getString(R.string.setup_button_select_base_generals), this::onSelectBaseGeneralsFolder);
-        if (getBaseGeneralsPath() != null) {
-            addButton(actionsCard, getString(R.string.setup_button_clear_base_generals), this::onClearBaseGeneralsFolder);
-        }
-
-        // GeneralsX @bugfix Android port 01/08/2026 moved up from below the
-        // language/UI-scale/driver/dxvk-config cards -- signing into
-        // GeneralsOnline is a primary action most people want right after
-        // picking their game folder, not buried under advanced settings most
-        // players never touch.
-        buildGeneralsOnlineSection(root);
-
-        buildLanguageSection(root);
-        buildUiScaleSection(root);
-        buildRenderBackendSection(root);
-        // Custom Vulkan driver / dxvk.conf only matter when Vulkan is the
-        // selected backend -- the GLES/GLES+ANGLE paths never touch DXVK at
-        // all, see Core/Libraries/Source/d3d8gles/CMakeLists.txt.
-        if (RENDER_BACKEND_VULKAN.equals(getRenderBackendChoice())) {
-            applyRecommendedDriverIfNeeded();
-            buildCustomDriverSection(root);
-            buildDxvkConfigSection(root);
-        }
-        buildDiagnosticsSection(root);
-
-        LinearLayout helpCard = startCard(root, getString(R.string.setup_card_how_it_works));
-        TextView help = new TextView(this);
-        help.setText(R.string.setup_how_it_works_body);
-        helpCard.addView(help);
-    }
-
-    // GeneralsX @feature Android port 13/07/2026 GitHub issue #4: in-app
-    // language override for this launcher (Setup/Log Viewer/folder browser)
-    // -- see LocaleHelper for why it's a manual attachBaseContext() wrap
-    // rather than androidx.appcompat's per-app language API, and why
-    // "System Default" needs no explicit handling.
-    private void buildLanguageSection(LinearLayout root) {
-        LinearLayout content = startCard(root, getString(R.string.setup_card_language));
-
-        TextView status = new TextView(this);
-        status.setText(getString(R.string.setup_language_status,
-            LocaleHelper.displayNameFor(this, LocaleHelper.getSavedLanguageTag(this))));
-        status.setPadding(0, 0, 0, dp(8));
-        content.addView(status);
-
-        addButton(content, getString(R.string.setup_button_change_language), this::onChangeLanguage);
-
-        gameLanguageStatusView = new TextView(this);
-        gameLanguageStatusView.setPadding(0, dp(8), 0, 0);
-        updateGameLanguageStatusView();
-        content.addView(gameLanguageStatusView);
-
-        TextView help = new TextView(this);
-        help.setAlpha(0.8f);
-        help.setText(R.string.setup_language_help);
-        content.addView(help);
     }
 
     // GeneralsX @feature Android port 13/07/2026 GitHub issue #4 follow-up:
@@ -346,36 +184,6 @@ public class SetupActivity extends Activity {
         }
     }
 
-    // Creates a MaterialCardView appended to `root`, with an optional bold
-    // header line, and returns its inner vertical content LinearLayout so
-    // callers can just addView() into it like before.
-    private LinearLayout startCard(LinearLayout root, String header) {
-        MaterialCardView card = new MaterialCardView(this);
-        LinearLayout.LayoutParams cardLp = new LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        cardLp.setMargins(0, 0, 0, dp(12));
-        card.setLayoutParams(cardLp);
-        card.setRadius(dp(12));
-        card.setCardElevation(dp(2));
-        card.setCardBackgroundColor(getColor(R.color.gzh_surface));
-        card.setContentPadding(dp(16), dp(14), dp(16), dp(14));
-
-        LinearLayout content = new LinearLayout(this);
-        content.setOrientation(LinearLayout.VERTICAL);
-        card.addView(content);
-        root.addView(card);
-
-        if (header != null) {
-            TextView headerView = new TextView(this);
-            headerView.setText(header);
-            headerView.setTextSize(15);
-            headerView.setTypeface(headerView.getTypeface(), android.graphics.Typeface.BOLD);
-            headerView.setPadding(0, 0, 0, dp(8));
-            content.addView(headerView);
-        }
-        return content;
-    }
-
     // TheSuperHackers @feature Android port 07/07/2026 Menu text size scaling
     // (GlobalLanguage::adjustFontSize()) has no in-game slider yet -- the
     // Options screen lives in the user's own game data (.wnd layout), not in
@@ -399,37 +207,6 @@ public class SetupActivity extends Activity {
     // rect). Removed rather than ship a slider that visibly does nothing;
     // "Menu Text Size" below is the one scaling option that actually works.
 
-    private void buildUiScaleSection(LinearLayout root) {
-        LinearLayout content = startCard(root, getString(R.string.setup_card_text_size));
-
-        uiScaleLabel = new TextView(this);
-        content.addView(uiScaleLabel);
-
-        int startPercent = readUiScalePercent();
-        uiScaleSlider = new Slider(this);
-        uiScaleSlider.setValueFrom(0f);
-        uiScaleSlider.setValueTo(150f);
-        uiScaleSlider.setStepSize(1f);
-        uiScaleSlider.setValue(startPercent);
-        updateUiScaleLabel(startPercent);
-        uiScaleSlider.addOnChangeListener((slider, value, fromUser) -> updateUiScaleLabel((int) value));
-        content.addView(uiScaleSlider);
-
-        addButton(content, getString(R.string.setup_button_apply_text_size), () -> {
-            writeUiScalePercent((int) uiScaleSlider.getValue());
-            Toast.makeText(this, R.string.setup_toast_text_size_saved, Toast.LENGTH_LONG).show();
-        });
-
-        TextView uiScaleHelp = new TextView(this);
-        uiScaleHelp.setAlpha(0.8f);
-        uiScaleHelp.setText(R.string.setup_text_size_help);
-        content.addView(uiScaleHelp);
-    }
-
-    private void updateUiScaleLabel(int percent) {
-        uiScaleLabel.setText(getString(R.string.setup_text_size_label, percent));
-    }
-
     // GeneralsX @feature Android port render-backend picker 07/09/2026 -
     // three render backends this branch supports, replacing the previous
     // adb-only GENERALSX_RENDER_BACKEND/GENERALSX_GLES_ANGLE env vars with a
@@ -444,16 +221,14 @@ public class SetupActivity extends Activity {
     private static final String RENDER_BACKEND_GLES = "gles";
     private static final String RENDER_BACKEND_GLES_ANGLE = "gles_angle";
 
-    private TextView renderBackendStatusView;
-
     // No config file yet (fresh install) means "whatever UseVulkanBackend()/
     // UseANGLE() default to today when their env vars are unset" -- GLES,
     // per SDL3Main.cpp's own comment on why this branch defaults there.
     // Deliberately NOT auto-detecting "the best backend for this device"
     // here: preserves today's actual behavior for existing installs instead
     // of silently switching anyone's renderer the next time Setup runs.
-    private String getRenderBackendChoice() {
-        File cfg = new File(getFilesDir(), RENDER_BACKEND_CFG_NAME);
+    static String getRenderBackendChoice(android.content.Context ctx) {
+        File cfg = new File(ctx.getFilesDir(), RENDER_BACKEND_CFG_NAME);
         if (!cfg.isFile()) {
             return RENDER_BACKEND_GLES;
         }
@@ -562,31 +337,6 @@ public class SetupActivity extends Activity {
         }
     }
 
-    private void buildRenderBackendSection(LinearLayout root) {
-        LinearLayout content = startCard(root, getString(R.string.setup_card_render_backend));
-
-        renderBackendStatusView = new TextView(this);
-        renderBackendStatusView.setText(getString(R.string.setup_render_backend_status, renderBackendLabel(getRenderBackendChoice())));
-        renderBackendStatusView.setPadding(0, 0, 0, dp(4));
-        content.addView(renderBackendStatusView);
-
-        String gpu = detectGpuName();
-        if (!gpu.isEmpty()) {
-            TextView gpuView = new TextView(this);
-            gpuView.setAlpha(0.8f);
-            gpuView.setText(getString(R.string.setup_render_backend_gpu, gpu));
-            gpuView.setPadding(0, 0, 0, dp(8));
-            content.addView(gpuView);
-        }
-
-        addButton(content, getString(R.string.setup_button_change_render_backend), this::onChangeRenderBackend);
-
-        TextView help = new TextView(this);
-        help.setAlpha(0.8f);
-        help.setText(R.string.setup_render_backend_help);
-        content.addView(help);
-    }
-
     private void onChangeRenderBackend() {
         // Default first: the list order is a recommendation in itself, and Vulkan has
         // not been the default since this branch started shipping GLES builds.
@@ -595,7 +345,7 @@ public class SetupActivity extends Activity {
         for (int i = 0; i < choices.length; i++) {
             labels[i] = renderBackendLabel(choices[i]);
         }
-        String current = getRenderBackendChoice();
+        String current = getRenderBackendChoice(this);
         int currentIndex = 0;
         for (int i = 0; i < choices.length; i++) {
             if (choices[i].equals(current)) {
@@ -617,9 +367,10 @@ public class SetupActivity extends Activity {
                 }
                 dialog.dismiss();
                 Toast.makeText(this, R.string.setup_toast_render_backend_saved, Toast.LENGTH_LONG).show();
-                // The Custom Vulkan Driver / DXVK Config cards below are only
-                // relevant for the Vulkan backend -- recreate() re-runs
-                // buildUi() so they show/hide immediately, same pattern
+                // The Custom Vulkan Driver / DXVK Config sections on the
+                // Advanced screen are only relevant for the Vulkan backend,
+                // and this screen's own summary line has to catch up --
+                // recreate() re-runs buildUi() so both do, the same pattern
                 // onChangeLanguage() already uses for its own dialog.
                 recreate();
             })
@@ -627,339 +378,9 @@ public class SetupActivity extends Activity {
             .show();
     }
 
-    // GeneralsX @feature Android port 10/07/2026 Optional custom Vulkan
-    // driver (e.g. Mesa Turnip for Adreno GPUs), loaded natively via
-    // libadrenotools -- see TryLoadCustomVulkanDriver() in SDL3Main.cpp.
-    // Package format matches the convention Winlator/AetherSX2/PPSSPP all
-    // use: a .zip containing meta.json (schemaVersion/name/description/
-    // author/packageVersion/vendor/driverVersion/minApi/libraryName) plus
-    // the driver .so (and any dependency .so's) alongside it. We never
-    // bundle a driver ourselves -- the user supplies one (e.g. from
-    // K11MCH1/AdrenoToolsDrivers or The412Banner/Banners-Turnip on GitHub),
-    // matching every other app that uses this technique.
-    private static final String CUSTOM_DRIVER_DIR_NAME = "custom_driver";
-    private static final String CUSTOM_DRIVER_CFG_NAME = "custom_driver.cfg";
-    // GeneralsX @feature Android port 13/07/2026 Marks that custom_driver.cfg
-    // was populated by applyRecommendedDriverIfNeeded() rather than by the
-    // user importing their own .zip -- lets the status text and the
-    // "reset" button distinguish "we picked this for you" from "you chose
-    // this", without changing anything on the native loading side (both
-    // cases are the same custom_driver.cfg/custom_driver/ that
-    // TryLoadCustomVulkanDriver() in SDL3Main.cpp already reads).
-    private static final String CUSTOM_DRIVER_AUTO_MARKER_NAME = "custom_driver.auto";
-    // Bundled fallback driver (staged by scripts/build/android/fetch-turnip.sh
-    // into this asset folder at build time) -- see applyRecommendedDriverIfNeeded().
-    private static final String DEFAULT_DRIVER_ASSET_DIR = "default_driver";
-    private static final int REQUEST_IMPORT_DRIVER = 1002;
     private static final int REQUEST_PICK_BASE_GENERALS = 1003;
 
-    private TextView customDriverStatusView;
-
-    private void buildCustomDriverSection(LinearLayout root) {
-        LinearLayout content = startCard(root, getString(R.string.setup_card_vulkan_driver));
-
-        customDriverStatusView = new TextView(this);
-        customDriverStatusView.setText(customDriverStatusText());
-        customDriverStatusView.setPadding(0, 0, 0, dp(8));
-        content.addView(customDriverStatusView);
-
-        addButton(content, getString(R.string.setup_button_import_driver), this::onImportCustomDriver);
-        addButton(content, getString(R.string.setup_button_reset_driver), this::onClearCustomDriver);
-
-        TextView help = new TextView(this);
-        help.setAlpha(0.8f);
-        help.setText(R.string.setup_driver_help);
-        content.addView(help);
-    }
-
-    private String customDriverStatusText() {
-        File cfg = new File(getFilesDir(), CUSTOM_DRIVER_CFG_NAME);
-        if (!cfg.isFile()) {
-            return getString(R.string.setup_driver_status_none);
-        }
-        String driverName = readFirstLine(cfg);
-        boolean isAuto = new File(getFilesDir(), CUSTOM_DRIVER_AUTO_MARKER_NAME).isFile();
-        String name = driverName != null ? driverName : getString(R.string.setup_driver_unknown);
-        return getString(isAuto ? R.string.setup_driver_status_auto : R.string.setup_driver_status_manual, name);
-    }
-
-    // GeneralsX @feature Android port 13/07/2026 Auto-applies the bundled
-    // Turnip driver on Adreno phones whose stock driver reports less than
-    // Vulkan 1.3, without touching anything if the user already imported
-    // their own driver or the phone doesn't need help. Called on every
-    // Setup launch (cheap no-op once satisfied) and again from
-    // onClearCustomDriver() so "reset" actually restores the recommended
-    // state instead of just going blank.
-    private void applyRecommendedDriverIfNeeded() {
-        try {
-            if (new File(getFilesDir(), CUSTOM_DRIVER_CFG_NAME).isFile()) {
-                return;  // already configured (auto or user) -- leave it alone
-            }
-            if (deviceReportsVulkan13()) {
-                return;  // stock driver already handles what DXVK needs
-            }
-            File destDir = new File(getFilesDir(), CUSTOM_DRIVER_DIR_NAME);
-            deleteRecursive(destDir);
-            if (!copyDriverAssetTree(DEFAULT_DRIVER_ASSET_DIR, destDir)) {
-                return;  // no bundled driver in this build -- nothing to apply
-            }
-            File metaFile = new File(destDir, "meta.json");
-            if (!metaFile.isFile()) {
-                deleteRecursive(destDir);
-                return;
-            }
-            String libraryName;
-            try {
-                org.json.JSONObject meta = new org.json.JSONObject(readWholeFile(metaFile));
-                libraryName = meta.optString("libraryName", "");
-            } catch (Exception e) {
-                libraryName = "";
-            }
-            if (libraryName.isEmpty() || !new File(destDir, libraryName).isFile()) {
-                deleteRecursive(destDir);
-                return;
-            }
-            File cfg = new File(getFilesDir(), CUSTOM_DRIVER_CFG_NAME);
-            try (java.io.FileWriter w = new java.io.FileWriter(cfg, false)) {
-                w.write(libraryName);
-                w.write("\n");
-            }
-            new File(getFilesDir(), CUSTOM_DRIVER_AUTO_MARKER_NAME).createNewFile();
-        } catch (Exception e) {
-            // Never let driver auto-selection take Setup down with it --
-            // worst case the phone's stock driver loads, same as before
-            // this feature existed.
-        }
-    }
-
-    // FEATURE_VULKAN_HARDWARE_VERSION's reported "version" is a Vulkan
-    // version int using the same VK_MAKE_API_VERSION encoding as the C API;
-    // VK_API_VERSION_1_3 is (1<<22)|(3<<12) = 0x00403000. No feature entry
-    // at all (some devices/emulators) is treated as "can't confirm 1.3" so
-    // the recommended driver still gets a chance to help.
-    private boolean deviceReportsVulkan13() {
-        PackageManager pm = getPackageManager();
-        FeatureInfo[] features = pm.getSystemAvailableFeatures();
-        if (features == null) {
-            return false;
-        }
-        for (FeatureInfo fi : features) {
-            if (fi.name != null && fi.name.equals(PackageManager.FEATURE_VULKAN_HARDWARE_VERSION)) {
-                return fi.version >= 0x00403000;
-            }
-        }
-        return false;
-    }
-
-    // Recursively copies an assets/ subtree (raw files, not a zip) into
-    // destDir. Returns false if the source asset folder doesn't exist/is
-    // empty -- lets callers tell "not bundled in this build" apart from a
-    // real I/O failure without throwing.
-    private boolean copyDriverAssetTree(String assetDir, File destDir) {
-        AssetManager assets = getAssets();
-        String[] children;
-        try {
-            children = assets.list(assetDir);
-        } catch (java.io.IOException e) {
-            return false;
-        }
-        if (children == null || children.length == 0) {
-            return false;
-        }
-        if (!destDir.mkdirs() && !destDir.isDirectory()) {
-            return false;
-        }
-        for (String child : children) {
-            String childAssetPath = assetDir + "/" + child;
-            File childDest = new File(destDir, child);
-            try {
-                String[] grandchildren = assets.list(childAssetPath);
-                if (grandchildren != null && grandchildren.length > 0) {
-                    if (!copyDriverAssetTree(childAssetPath, childDest)) {
-                        return false;
-                    }
-                    continue;
-                }
-            } catch (java.io.IOException e) {
-                return false;
-            }
-            try (java.io.InputStream in = assets.open(childAssetPath);
-                 java.io.FileOutputStream out = new java.io.FileOutputStream(childDest)) {
-                byte[] buf = new byte[65536];
-                int n;
-                while ((n = in.read(buf)) > 0) {
-                    out.write(buf, 0, n);
-                }
-            } catch (java.io.IOException e) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private void refreshCustomDriverStatus() {
-        if (customDriverStatusView != null) {
-            customDriverStatusView.setText(customDriverStatusText());
-        }
-    }
-
-    private void onImportCustomDriver() {
-        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-        intent.addCategory(Intent.CATEGORY_OPENABLE);
-        intent.setType("*/*");
-        intent.putExtra(Intent.EXTRA_MIME_TYPES, new String[]{
-            "application/zip", "application/x-zip-compressed", "application/octet-stream"});
-        try {
-            startActivityForResult(intent, REQUEST_IMPORT_DRIVER);
-        } catch (Exception e) {
-            Toast.makeText(this, getString(R.string.setup_toast_no_file_picker, e.getMessage()), Toast.LENGTH_LONG).show();
-        }
-    }
-
-    private void onClearCustomDriver() {
-        new File(getFilesDir(), CUSTOM_DRIVER_CFG_NAME).delete();
-        new File(getFilesDir(), CUSTOM_DRIVER_AUTO_MARKER_NAME).delete();
-        deleteRecursive(new File(getFilesDir(), CUSTOM_DRIVER_DIR_NAME));
-        applyRecommendedDriverIfNeeded();
-        refreshCustomDriverStatus();
-        boolean autoApplied = new File(getFilesDir(), CUSTOM_DRIVER_AUTO_MARKER_NAME).isFile();
-        Toast.makeText(this, autoApplied
-            ? R.string.setup_toast_reset_auto
-            : R.string.setup_toast_reset_stock,
-            Toast.LENGTH_SHORT).show();
-    }
-
-    // customDriverDir passed to adrenotools_open_libvulkan() MUST NOT be on
-    // sdcard/external storage (dlopen refuses world-writable paths) -- unzip
-    // straight into getFilesDir() (app-private internal storage), the same
-    // directory SDL_GetAndroidInternalStoragePath() resolves to in native code.
-    private void importCustomDriver(Uri uri) {
-        File destDir = new File(getFilesDir(), CUSTOM_DRIVER_DIR_NAME);
-        File tmpDir = new File(getFilesDir(), CUSTOM_DRIVER_DIR_NAME + ".tmp");
-        deleteRecursive(tmpDir);
-        if (!tmpDir.mkdirs()) {
-            Toast.makeText(this, R.string.setup_toast_driver_import_no_tmp, Toast.LENGTH_LONG).show();
-            return;
-        }
-
-        try (java.io.InputStream in = getContentResolver().openInputStream(uri);
-             java.util.zip.ZipInputStream zip = new java.util.zip.ZipInputStream(in)) {
-            java.util.zip.ZipEntry entry;
-            byte[] buf = new byte[8192];
-            String tmpCanonical = tmpDir.getCanonicalPath();
-            while ((entry = zip.getNextEntry()) != null) {
-                File out = new File(tmpDir, entry.getName()).getCanonicalFile();
-                // Zip-slip guard: never let an archive entry write outside tmpDir.
-                if (!out.getPath().equals(tmpCanonical) && !out.getPath().startsWith(tmpCanonical + File.separator)) {
-                    throw new java.io.IOException("zip entry escapes target folder: " + entry.getName());
-                }
-                if (entry.isDirectory()) {
-                    out.mkdirs();
-                    continue;
-                }
-                File parent = out.getParentFile();
-                if (parent != null) {
-                    parent.mkdirs();
-                }
-                try (java.io.FileOutputStream fos = new java.io.FileOutputStream(out)) {
-                    int n;
-                    while ((n = zip.read(buf)) > 0) {
-                        fos.write(buf, 0, n);
-                    }
-                }
-            }
-        } catch (Exception e) {
-            deleteRecursive(tmpDir);
-            Toast.makeText(this, getString(R.string.setup_toast_driver_import_failed, e.getMessage()), Toast.LENGTH_LONG).show();
-            return;
-        }
-
-        File metaFile = findFileByName(tmpDir, "meta.json");
-        if (metaFile == null) {
-            deleteRecursive(tmpDir);
-            Toast.makeText(this, R.string.setup_toast_driver_import_no_meta, Toast.LENGTH_LONG).show();
-            return;
-        }
-
-        String libraryName;
-        try {
-            org.json.JSONObject meta = new org.json.JSONObject(readWholeFile(metaFile));
-            libraryName = meta.optString("libraryName", "");
-            if (libraryName.isEmpty()) {
-                throw new org.json.JSONException("meta.json has no libraryName");
-            }
-            if (!new File(metaFile.getParentFile(), libraryName).isFile()) {
-                throw new org.json.JSONException("meta.json names '" + libraryName + "' but that file isn't in the package");
-            }
-        } catch (Exception e) {
-            deleteRecursive(tmpDir);
-            Toast.makeText(this, getString(R.string.setup_toast_driver_import_bad_meta, e.getMessage()), Toast.LENGTH_LONG).show();
-            return;
-        }
-
-        // The driver .so + meta.json might be nested inside a subfolder of
-        // the zip -- move THAT folder into place as custom_driver/ (not
-        // tmpDir itself), so the native side's customDriverDir points at
-        // exactly the folder containing libraryName.
-        File driverSourceDir = metaFile.getParentFile();
-        deleteRecursive(destDir);
-        boolean moved = driverSourceDir.renameTo(destDir);
-        deleteRecursive(tmpDir);  // no-op if driverSourceDir WAS tmpDir (already moved away)
-        if (!moved) {
-            Toast.makeText(this, R.string.setup_toast_driver_import_no_finalize, Toast.LENGTH_LONG).show();
-            return;
-        }
-
-        File cfg = new File(getFilesDir(), CUSTOM_DRIVER_CFG_NAME);
-        try (java.io.FileWriter w = new java.io.FileWriter(cfg, false)) {
-            w.write(libraryName);
-            w.write("\n");
-        } catch (java.io.IOException e) {
-            Toast.makeText(this, getString(R.string.setup_toast_driver_config_failed, e.getMessage()), Toast.LENGTH_LONG).show();
-            return;
-        }
-        // This is an explicit user choice, not the auto-selected default --
-        // see applyRecommendedDriverIfNeeded() / CUSTOM_DRIVER_AUTO_MARKER_NAME.
-        new File(getFilesDir(), CUSTOM_DRIVER_AUTO_MARKER_NAME).delete();
-
-        refreshCustomDriverStatus();
-        Toast.makeText(this, getString(R.string.setup_toast_driver_imported, libraryName), Toast.LENGTH_LONG).show();
-    }
-
-    private static File findFileByName(File dir, String name) {
-        File[] children = dir.listFiles();
-        if (children == null) {
-            return null;
-        }
-        for (File c : children) {
-            if (c.isDirectory()) {
-                File found = findFileByName(c, name);
-                if (found != null) {
-                    return found;
-                }
-            } else if (c.getName().equals(name)) {
-                return c;
-            }
-        }
-        return null;
-    }
-
-    private static void deleteRecursive(File f) {
-        if (f == null || !f.exists()) {
-            return;
-        }
-        if (f.isDirectory()) {
-            File[] children = f.listFiles();
-            if (children != null) {
-                for (File c : children) {
-                    deleteRecursive(c);
-                }
-            }
-        }
-        f.delete();
-    }
-
-    private static String readWholeFile(File f) throws java.io.IOException {
+    static String readWholeFile(File f) throws java.io.IOException {
         StringBuilder sb = new StringBuilder();
         try (java.io.BufferedReader r = new java.io.BufferedReader(new java.io.FileReader(f))) {
             char[] buf = new char[4096];
@@ -971,266 +392,13 @@ public class SetupActivity extends Activity {
         return sb.toString();
     }
 
-    private static String readFirstLine(File f) {
+    static String readFirstLine(File f) {
         try (java.io.BufferedReader r = new java.io.BufferedReader(new java.io.FileReader(f))) {
             String line = r.readLine();
             return line != null ? line.trim() : null;
         } catch (java.io.IOException e) {
             return null;
         }
-    }
-
-    // GeneralsX @feature Android port 31/07/2026 dxvk.conf editor: real-device
-    // Mali-G76 performance tuning kept coming back to "edit one line of
-    // dxvk.conf on the phone" (e.g. d3d9.samplerAnisotropy), which meant a
-    // file manager and manual editing outside the app every time. This edits
-    // the actual file the engine reads (SDL3Main.cpp/DXVK read dxvk.conf
-    // relative to CWD, i.e. the selected game folder -- see
-    // copyBundledRuntimeIfMissing()'s comment above), as raw text rather than
-    // a bespoke widget per key, so any current or future DXVK config option
-    // works here without launcher code changes, and existing comments in the
-    // file round-trip untouched instead of being reparsed away.
-    private EditText dxvkConfigEdit;
-
-    private void buildDxvkConfigSection(LinearLayout root) {
-        LinearLayout content = startCard(root, getString(R.string.setup_card_dxvk_config));
-
-        TextView help = new TextView(this);
-        help.setAlpha(0.8f);
-        help.setText(R.string.setup_dxvk_config_help);
-        help.setPadding(0, 0, 0, dp(8));
-        content.addView(help);
-
-        dxvkConfigEdit = new EditText(this);
-        dxvkConfigEdit.setTypeface(android.graphics.Typeface.MONOSPACE);
-        dxvkConfigEdit.setTextSize(12);
-        dxvkConfigEdit.setMinLines(6);
-        dxvkConfigEdit.setMaxLines(20);
-        dxvkConfigEdit.setGravity(android.view.Gravity.TOP | android.view.Gravity.START);
-        dxvkConfigEdit.setInputType(android.text.InputType.TYPE_CLASS_TEXT
-            | android.text.InputType.TYPE_TEXT_FLAG_MULTI_LINE
-            | android.text.InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
-        content.addView(dxvkConfigEdit);
-
-        addButton(content, getString(R.string.setup_button_dxvk_config_save), this::onSaveDxvkConfig);
-        addButton(content, getString(R.string.setup_button_dxvk_config_reset), this::onResetDxvkConfig);
-
-        loadDxvkConfigIntoEditor();
-    }
-
-    // Live copy the engine actually reads -- lives in the user-selected game
-    // folder, same as DefaultOptions.ini and fonts/ (see
-    // copyBundledRuntimeIfMissing()).
-    private File dxvkConfFile() {
-        String gamePath = getSavedGamePath();
-        return gamePath != null ? new File(gamePath, "dxvk.conf") : null;
-    }
-
-    // Pristine template this build ships, staged into getExternalFilesDir()
-    // by GeneralsZHActivity on first run -- same source
-    // copyBundledRuntimeIfMissing() copies from when a game folder is first
-    // selected.
-    private File bundledDxvkConfFile() {
-        File root = getExternalFilesDir(null);
-        return root != null ? new File(root, "dxvk.conf") : null;
-    }
-
-    private void loadDxvkConfigIntoEditor() {
-        if (dxvkConfigEdit == null) {
-            return;
-        }
-        File live = dxvkConfFile();
-        File source = (live != null && live.isFile()) ? live : bundledDxvkConfFile();
-        String text = "";
-        if (source != null && source.isFile()) {
-            try {
-                text = readWholeFile(source);
-            } catch (java.io.IOException e) {
-                // Leave the editor empty; Save will still work and create a fresh file.
-            }
-        }
-        dxvkConfigEdit.setText(text);
-        boolean haveFolder = getSavedGamePath() != null;
-        dxvkConfigEdit.setEnabled(haveFolder);
-        dxvkConfigEdit.setHint(haveFolder ? null : getString(R.string.setup_dxvk_config_no_folder));
-    }
-
-    private void onSaveDxvkConfig() {
-        File dest = dxvkConfFile();
-        if (dest == null) {
-            Toast.makeText(this, R.string.setup_dxvk_config_no_folder, Toast.LENGTH_LONG).show();
-            return;
-        }
-        try (java.io.Writer w = new java.io.FileWriter(dest, false)) {
-            w.write(dxvkConfigEdit.getText().toString());
-        } catch (java.io.IOException e) {
-            Toast.makeText(this, getString(R.string.setup_toast_options_save_failed, e.getMessage()), Toast.LENGTH_LONG).show();
-            return;
-        }
-        Toast.makeText(this, R.string.setup_toast_dxvk_config_saved, Toast.LENGTH_SHORT).show();
-    }
-
-    private void onResetDxvkConfig() {
-        File bundled = bundledDxvkConfFile();
-        if (bundled == null || !bundled.isFile()) {
-            Toast.makeText(this, R.string.setup_toast_dxvk_config_no_default, Toast.LENGTH_LONG).show();
-            return;
-        }
-        String text;
-        try {
-            text = readWholeFile(bundled);
-        } catch (java.io.IOException e) {
-            Toast.makeText(this, getString(R.string.setup_toast_options_save_failed, e.getMessage()), Toast.LENGTH_LONG).show();
-            return;
-        }
-        dxvkConfigEdit.setText(text);
-        File dest = dxvkConfFile();
-        if (dest != null) {
-            try (java.io.Writer w = new java.io.FileWriter(dest, false)) {
-                w.write(text);
-            } catch (java.io.IOException e) {
-                Toast.makeText(this, getString(R.string.setup_toast_options_save_failed, e.getMessage()), Toast.LENGTH_LONG).show();
-                return;
-            }
-        }
-        Toast.makeText(this, R.string.setup_toast_dxvk_config_reset, Toast.LENGTH_SHORT).show();
-    }
-
-    // GeneralsX @feature Android port 02/08/2026 Diagnostic marker toggles:
-    // GXTrace.h (gx_trace.txt/gx_perf.txt) and SDL3Main.cpp (dxvk_hud.txt/
-    // dxvk_validation.txt/dxvk_verbose_log.txt) all gate opt-in logging
-    // behind a plain marker file dropped into the selected game folder,
-    // checked relative to CWD after the engine chdir()s there --
-    // deliberately no-adb, no-rebuild, so a tester can enable them (see
-    // docs/port/ANDROID_PORT.md's "Diagnostic marker files" table, the
-    // canonical list this mirrors). In practice almost nobody who isn't
-    // already comfortable with a file manager knows to create an empty file
-    // with an exact name, so this just does it for them: each switch
-    // creates/deletes the marker directly, no new native code needed since
-    // the engine side only ever checked "does this file exist", never its
-    // contents. Each switch gets its own plain-language title AND a "when to
-    // turn this on" description (translated, not just the raw filename) --
-    // the filename itself still appears at the end of the description in
-    // parentheses so a tester can match it up with exact instructions from
-    // an issue reporter/maintainer.
-    private static final String[] DIAGNOSTIC_MARKERS = {
-        "gx_trace.txt", "gx_perf.txt", "gx_touch_debug.txt", "dxvk_hud.txt", "dxvk_validation.txt",
-        "dxvk_verbose_log.txt"
-    };
-    private static final int[] DIAGNOSTIC_TITLES = {
-        R.string.setup_switch_gx_trace, R.string.setup_switch_gx_perf, R.string.setup_switch_touch_debug,
-        R.string.setup_switch_dxvk_hud, R.string.setup_switch_dxvk_validation,
-        R.string.setup_switch_dxvk_verbose_log
-    };
-    private static final int[] DIAGNOSTIC_DESCRIPTIONS = {
-        R.string.setup_switch_gx_trace_desc, R.string.setup_switch_gx_perf_desc,
-        R.string.setup_switch_touch_debug_desc, R.string.setup_switch_dxvk_hud_desc,
-        R.string.setup_switch_dxvk_validation_desc, R.string.setup_switch_dxvk_verbose_log_desc
-    };
-    private final SwitchCompat[] diagnosticSwitches = new SwitchCompat[DIAGNOSTIC_MARKERS.length];
-
-    private void buildDiagnosticsSection(LinearLayout root) {
-        LinearLayout content = startCard(root, getString(R.string.setup_card_diagnostics));
-
-        TextView help = new TextView(this);
-        help.setAlpha(0.8f);
-        help.setText(R.string.setup_diagnostics_help);
-        help.setPadding(0, 0, 0, dp(8));
-        content.addView(help);
-
-        diagnosticsNoFolderHint = new TextView(this);
-        diagnosticsNoFolderHint.setAlpha(0.8f);
-        diagnosticsNoFolderHint.setText(R.string.setup_diagnostics_no_folder);
-        diagnosticsNoFolderHint.setPadding(0, 0, 0, dp(8));
-        content.addView(diagnosticsNoFolderHint);
-
-        for (int i = 0; i < DIAGNOSTIC_MARKERS.length; i++) {
-            SwitchCompat sw = new SwitchCompat(this);
-            sw.setText(getString(DIAGNOSTIC_TITLES[i]));
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            lp.setMargins(0, dp(4), 0, 0);
-            content.addView(sw, lp);
-            diagnosticSwitches[i] = sw;
-
-            TextView desc = new TextView(this);
-            desc.setAlpha(0.7f);
-            desc.setTextSize(12);
-            desc.setText(getString(DIAGNOSTIC_DESCRIPTIONS[i]));
-            LinearLayout.LayoutParams descLp = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            descLp.setMargins(dp(4), 0, 0, dp(10));
-            content.addView(desc, descLp);
-        }
-
-        refreshDiagnosticsSwitches();
-    }
-
-    private TextView diagnosticsNoFolderHint;
-
-    private File diagnosticMarkerFile(String name) {
-        String gamePath = getSavedGamePath();
-        return gamePath != null ? new File(gamePath, name) : null;
-    }
-
-    private void setDiagnosticMarker(String name, boolean enabled) {
-        File marker = diagnosticMarkerFile(name);
-        if (marker == null) {
-            return;
-        }
-        if (enabled) {
-            try {
-                marker.createNewFile();
-            } catch (java.io.IOException e) {
-                Toast.makeText(this, getString(R.string.setup_toast_options_save_failed, e.getMessage()), Toast.LENGTH_LONG).show();
-            }
-        } else {
-            marker.delete();
-        }
-    }
-
-    private void refreshDiagnosticsSwitches() {
-        boolean haveFolder = getSavedGamePath() != null;
-        if (diagnosticsNoFolderHint != null) {
-            diagnosticsNoFolderHint.setVisibility(haveFolder ? android.view.View.GONE : android.view.View.VISIBLE);
-        }
-        for (int i = 0; i < DIAGNOSTIC_MARKERS.length; i++) {
-            final int index = i;
-            SwitchCompat sw = diagnosticSwitches[index];
-            if (sw == null) {
-                continue;
-            }
-            File marker = diagnosticMarkerFile(DIAGNOSTIC_MARKERS[index]);
-            sw.setOnCheckedChangeListener(null);
-            sw.setChecked(marker != null && marker.isFile());
-            sw.setEnabled(haveFolder);
-            sw.setOnCheckedChangeListener((button, checked) -> setDiagnosticMarker(DIAGNOSTIC_MARKERS[index], checked));
-        }
-    }
-
-    // GeneralsX @feature Android port 10/07/2026 GeneralsOnline (playgenerals.online)
-    // account status -- the actual sign-in flow lives in GeneralsOnlineActivity,
-    // this is just a status line + entry point.
-    private TextView onlineStatusView;
-
-    private void buildGeneralsOnlineSection(LinearLayout root) {
-        LinearLayout content = startCard(root, getString(R.string.setup_card_online));
-
-        onlineStatusView = new TextView(this);
-        content.addView(onlineStatusView);
-
-        addButton(content, getString(R.string.setup_button_online_account), () ->
-            startActivity(new Intent(this, GeneralsOnlineActivity.class)));
-    }
-
-    private void refreshGeneralsOnlineStatus() {
-        if (onlineStatusView == null) {
-            return;
-        }
-        String displayName = GeneralsOnlineActivity.getSignedInDisplayName(this);
-        onlineStatusView.setText(displayName != null
-            ? getString(R.string.setup_online_signed_in, displayName)
-            : getString(R.string.setup_online_signed_out));
     }
 
     private File optionsIniFile() {
@@ -1315,67 +483,6 @@ public class SetupActivity extends Activity {
             // Treat as empty; caller falls back to defaults.
         }
         return result;
-    }
-
-    private void addButton(LinearLayout root, String label, Runnable action) {
-        MaterialButton b = new MaterialButton(this);
-        b.setText(label);
-        b.setOnClickListener(v -> action.run());
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        lp.setMargins(0, dp(4), 0, dp(4));
-        root.addView(b, lp);
-    }
-
-    // GeneralsX @feature Android port game-folder-integrity-check 07/09/2026
-    // Plain text made "not set"/"looks valid"/"looks incomplete" too easy to
-    // miss right after picking a folder -- the status line is now bold,
-    // underlined and colored (green/amber/red) so it reads as a clear
-    // verdict at a glance instead of blending into the paragraph around it.
-    // The invalid/incomplete cases additionally get a blocking AlertDialog
-    // right after picking (see onActivityResult()), since even a colored
-    // line can be scrolled past unnoticed but a dialog can't.
-    private void refreshStatus() {
-        String path = getSavedGamePath();
-        SpannableStringBuilder sb = new SpannableStringBuilder();
-        if (path == null) {
-            sb.append(getString(R.string.setup_status_folder_not_set));
-        } else {
-            File dir = new File(path);
-            boolean valid = isValidGameFolder(dir);
-            sb.append(getString(R.string.setup_status_folder_line, path));
-            int statusStart = sb.length();
-            int statusColorRes;
-            if (!valid) {
-                sb.append(getString(R.string.setup_status_folder_invalid));
-                statusColorRes = R.color.gzh_status_error;
-            } else {
-                java.util.List<String> issues = findGameFolderIntegrityIssues(dir);
-                if (issues.isEmpty()) {
-                    sb.append(getString(R.string.setup_status_folder_valid));
-                    statusColorRes = R.color.gzh_status_ok;
-                } else {
-                    sb.append(getString(R.string.setup_status_folder_incomplete, String.join("\n", issues)));
-                    statusColorRes = R.color.gzh_status_error;
-                }
-            }
-            int statusEnd = sb.length();
-            sb.setSpan(new ForegroundColorSpan(ContextCompat.getColor(this, statusColorRes)),
-                statusStart, statusEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            sb.setSpan(new StyleSpan(Typeface.BOLD), statusStart, statusEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            sb.setSpan(new UnderlineSpan(), statusStart, statusEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-            // Only worth a line when it is actually set: an absent optional
-            // setting does not need to occupy space on the screen.
-            final String basePath = getBaseGeneralsPath();
-            if (basePath != null) {
-                sb.append(getString(R.string.setup_status_base_generals_line, basePath));
-            }
-        }
-        sb.append('\n');
-        sb.append(getString(R.string.setup_status_logs_note));
-        statusText.setText(sb);
-        updateGameLanguageStatusView();
     }
 
     private void showFolderProblemDialog(String message) {
@@ -1873,65 +980,6 @@ public class SetupActivity extends Activity {
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1001 && resultCode == Activity.RESULT_OK && data != null) {
-            String path = data.getStringExtra(FolderPickerActivity.EXTRA_SELECTED_PATH);
-            if (path != null) {
-                saveGamePath(path);
-                refreshStatus();
-                File dir = new File(path);
-                boolean valid = isValidGameFolder(dir);
-                // GeneralsX @feature Android port game-folder-integrity-check
-                // 07/09/2026 - a Toast auto-dismisses in a couple of seconds
-                // and is easy to miss entirely; a real problem here means
-                // the game WILL crash on launch, so it gets a blocking
-                // dialog the user has to acknowledge instead. The colored
-                // status line in refreshStatus() (visible right below) still
-                // covers "I want to re-check the status later" without
-                // re-triggering the dialog every time the screen redraws.
-                if (!valid) {
-                    showFolderProblemDialog(getString(R.string.setup_status_folder_invalid).trim());
-                } else {
-                    java.util.List<String> issues = findGameFolderIntegrityIssues(dir);
-                    if (!issues.isEmpty()) {
-                        showFolderProblemDialog(getString(R.string.setup_status_folder_incomplete,
-                            String.join("\n", issues)).trim(), m_lastCheckWantedBaseGenerals);
-                    } else {
-                        Toast.makeText(this, R.string.setup_toast_folder_saved, Toast.LENGTH_LONG).show();
-                    }
-                }
-            }
-        } else if (requestCode == REQUEST_PICK_BASE_GENERALS && resultCode == Activity.RESULT_OK && data != null) {
-            String path = data.getStringExtra(FolderPickerActivity.EXTRA_SELECTED_PATH);
-            if (path != null) {
-                // GeneralsX @bugfix Android port 06/09/2026 Judged on the archives
-                // that actually carry the original game's artwork -- an earlier
-                // version accepted a folder unless ALL ten were absent, which one
-                // stray Music.big was enough to defeat.
-                //
-                // Picking the root of a Steam install is the natural thing to do,
-                // so resolve it to the child that really holds them rather than
-                // saving a path the engine cannot make use of.
-                File resolved = resolveBaseGeneralsFolder(new File(path));
-                if (resolved == null) {
-                    showFolderProblemDialog(getString(R.string.setup_base_generals_not_here, path));
-                } else {
-                    saveBaseGeneralsPath(resolved.getAbsolutePath());
-                    Toast.makeText(this, getString(R.string.setup_toast_base_generals_saved,
-                        resolved.getAbsolutePath()), Toast.LENGTH_LONG).show();
-                    recreate();
-                }
-            }
-        } else if (requestCode == REQUEST_IMPORT_DRIVER && resultCode == Activity.RESULT_OK && data != null) {
-            Uri uri = data.getData();
-            if (uri != null) {
-                importCustomDriver(uri);
-            }
-        }
-    }
-
     private void saveGamePath(String path) {
         getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit()
             .putString(PREF_GAME_PATH, path)
@@ -2056,19 +1104,6 @@ public class SetupActivity extends Activity {
         }
     }
 
-    private void onClearGameFolder() {
-        getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit().remove(PREF_GAME_PATH).apply();
-        new File(getFilesDir(), "gamedata_path.txt").delete();
-        new File(getFilesDir(), "game_language.cfg").delete();
-        File externalMarker = externalMarkerFile();
-        if (externalMarker != null) {
-            externalMarker.delete();
-        }
-        refreshStatus();
-        refreshDiagnosticsSwitches();
-        Toast.makeText(this, R.string.setup_toast_folder_cleared, Toast.LENGTH_SHORT).show();
-    }
-
     private void onViewLogs() {
         startActivity(new Intent(this, LogViewerActivity.class));
     }
@@ -2106,5 +1141,590 @@ public class SetupActivity extends Activity {
     private int dp(int value) {
         float density = getResources().getDisplayMetrics().density;
         return (int) (value * density + 0.5f);
+    }
+
+    // ============================================================ new UI ===
+    // GeneralsX @feature Android port launcher-ui-refresh 06/09/2026
+    //
+    // The screen used to be one vertical stack of eight cards that all
+    // looked the same: the game folder, the online account, the language,
+    // the text size, the renderer, a custom Vulkan driver importer, a raw
+    // dxvk.conf text editor, six diagnostic switches, and a wall of help
+    // text -- with "Launch Game" as the second of six identical buttons
+    // inside the third card. Nothing on it said which of those things a
+    // person actually had to do, or whether the game was even ready to run.
+    //
+    // Three changes fix that, in order of how much they matter:
+    //
+    //  1. A readiness banner is the first thing on the screen. It answers
+    //     "can I play right now" in one line and one color, and it carries
+    //     the primary button -- Launch when the answer is yes, Select Game
+    //     Folder when it is not. Both buttons always exist; which one is
+    //     filled and which is tonal is the whole message.
+    //  2. Everything else is grouped (Setup / Settings / More) and collapsed
+    //     into expanders that show their current value while closed. A
+    //     scroll past the settings is now a list of nine short rows instead
+    //     of nine paragraphs, and the one being changed is the only one
+    //     taking up room.
+    //  3. The custom Vulkan driver, the dxvk.conf editor and the diagnostic
+    //     switches moved out entirely, to AdvancedActivity. They are the
+    //     three things on this screen that only exist because a maintainer
+    //     asked someone to change them, and they were sitting between a
+    //     player and the play button.
+
+    // ------------------------------------------------------------ readiness
+
+    private static final int STATE_READY = 0;
+    private static final int STATE_NO_FOLDER = 1;
+    private static final int STATE_INVALID = 2;
+    private static final int STATE_INCOMPLETE = 3;
+
+    private MaterialCardView readinessCard;
+    private View readinessDot;
+    private TextView readinessTitle;
+    private TextView readinessBody;
+    private TextView readinessPath;
+    private LinearLayout readinessButtons;
+
+    private LauncherUi.Expander gameFolderSection;
+    private LauncherUi.Expander baseGeneralsSection;
+    private LauncherUi.Expander onlineSection;
+    private LauncherUi.Expander languageSection;
+    private LauncherUi.Expander textSizeSection;
+    private LauncherUi.Expander renderBackendSection;
+    private MaterialButton clearBaseGeneralsButton;
+
+    // Only ever set by buildFallbackUi(); refreshStatus() writes to whichever
+    // of the two UIs actually got built.
+    private TextView fallbackStatusText;
+
+    private void buildUi() {
+        LinearLayout column = LauncherUi.scrollingScaffold(this);
+        LauncherUi.screenHeader(column, getString(R.string.setup_title),
+            getString(R.string.setup_subtitle));
+
+        buildReadinessBanner(column);
+
+        LauncherUi.sectionLabel(column, getString(R.string.setup_section_setup));
+        buildGameFolderSection(column);
+        buildBaseGeneralsSection(column);
+
+        LauncherUi.sectionLabel(column, getString(R.string.setup_section_settings));
+        buildGeneralsOnlineSection(column);
+        buildLanguageSection(column);
+        buildUiScaleSection(column);
+        buildRenderBackendSection(column);
+
+        LauncherUi.sectionLabel(column, getString(R.string.setup_section_more));
+        LauncherUi.navigationRow(column, getString(R.string.setup_button_advanced),
+            getString(R.string.setup_advanced_subtitle), this::onOpenAdvanced);
+        LauncherUi.navigationRow(column, getString(R.string.setup_button_view_logs),
+            getString(R.string.setup_logs_row_subtitle), this::onViewLogs);
+        buildHowItWorksSection(column);
+    }
+
+    // The banner is built once and re-tinted on every refresh rather than
+    // rebuilt, so returning from the folder picker does not throw away the
+    // scroll position or which expanders were open. Only the button row is
+    // recreated, because a MaterialButton's emphasis is decided by the style
+    // it is constructed against and cannot be swapped afterwards.
+    private void buildReadinessBanner(LinearLayout column) {
+        readinessCard = LauncherUi.cardShell(column, R.color.gzh_surface_container, 0);
+
+        LinearLayout content = new LinearLayout(this);
+        content.setOrientation(LinearLayout.VERTICAL);
+        int pad = LauncherUi.dp(this, LauncherUi.SPACE_4);
+        content.setPadding(pad, pad, pad, pad);
+        readinessCard.addView(content);
+
+        LinearLayout titleRow = new LinearLayout(this);
+        titleRow.setOrientation(LinearLayout.HORIZONTAL);
+        titleRow.setGravity(Gravity.CENTER_VERTICAL);
+        content.addView(titleRow, LauncherUi.marginsBelow(this, LauncherUi.SPACE_2));
+
+        readinessDot = new View(this);
+        LinearLayout.LayoutParams dotLp = new LinearLayout.LayoutParams(
+            LauncherUi.dp(this, 12), LauncherUi.dp(this, 12));
+        dotLp.setMarginEnd(LauncherUi.dp(this, LauncherUi.SPACE_2));
+        titleRow.addView(readinessDot, dotLp);
+
+        // Weighted, so a long translation of "Game files incomplete" wraps
+        // inside the banner instead of running off the edge next to the dot.
+        readinessTitle = new TextView(this);
+        readinessTitle.setTextAppearance(R.style.Gzh_Text_TitleLarge);
+        titleRow.addView(readinessTitle, new LinearLayout.LayoutParams(
+            0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f));
+
+        readinessBody = LauncherUi.text(content, "", R.style.Gzh_Text_Body,
+            R.color.gzh_on_surface, LauncherUi.SPACE_2);
+
+        // Selectable, because "what exactly did it pick" is the first thing
+        // anyone asks in a bug report -- the old status TextView was
+        // selectable for the same reason.
+        readinessPath = LauncherUi.text(content, "", R.style.Gzh_Text_BodySmall,
+            R.color.gzh_on_surface_variant, LauncherUi.SPACE_3);
+        readinessPath.setTypeface(android.graphics.Typeface.MONOSPACE);
+        readinessPath.setTextIsSelectable(true);
+
+        readinessButtons = new LinearLayout(this);
+        readinessButtons.setOrientation(LinearLayout.VERTICAL);
+        content.addView(readinessButtons);
+    }
+
+    // findGameFolderIntegrityIssues() opens and parses every .big directory
+    // table in the folder, so the verdict and the text describing it are
+    // produced by one pass and carried together, not recomputed per view.
+    private static final class Readiness {
+        final int state;
+        final java.util.List<String> issues;
+
+        Readiness(int state, java.util.List<String> issues) {
+            this.state = state;
+            this.issues = issues;
+        }
+    }
+
+    private Readiness readinessOf(String path) {
+        if (path == null) {
+            return new Readiness(STATE_NO_FOLDER, java.util.Collections.emptyList());
+        }
+        File dir = new File(path);
+        if (!isValidGameFolder(dir)) {
+            return new Readiness(STATE_INVALID, java.util.Collections.emptyList());
+        }
+        java.util.List<String> issues = findGameFolderIntegrityIssues(dir);
+        return new Readiness(issues.isEmpty() ? STATE_READY : STATE_INCOMPLETE, issues);
+    }
+
+    private String readinessBodyText(Readiness readiness) {
+        switch (readiness.state) {
+            case STATE_READY:
+                return getString(R.string.setup_state_ready_body);
+            case STATE_NO_FOLDER:
+                return getString(R.string.setup_state_no_folder_body);
+            case STATE_INVALID:
+                return getString(R.string.setup_status_folder_invalid);
+            default:
+                return getString(R.string.setup_status_folder_incomplete,
+                    String.join("\n", readiness.issues));
+        }
+    }
+
+    private void applyReadiness(Readiness readiness, String path) {
+        int accentColorRes;
+        int containerColorRes;
+        int titleRes;
+        switch (readiness.state) {
+            case STATE_READY:
+                accentColorRes = R.color.gzh_status_ok;
+                containerColorRes = R.color.gzh_status_ok_container;
+                titleRes = R.string.setup_state_ready_title;
+                break;
+            case STATE_NO_FOLDER:
+                accentColorRes = R.color.gzh_status_warn;
+                containerColorRes = R.color.gzh_status_warn_container;
+                titleRes = R.string.setup_state_no_folder_title;
+                break;
+            case STATE_INVALID:
+                accentColorRes = R.color.gzh_status_error;
+                containerColorRes = R.color.gzh_status_error_container;
+                titleRes = R.string.setup_state_invalid_title;
+                break;
+            default:
+                accentColorRes = R.color.gzh_status_error;
+                containerColorRes = R.color.gzh_status_error_container;
+                titleRes = R.string.setup_state_incomplete_title;
+                break;
+        }
+
+        readinessCard.setCardBackgroundColor(LauncherUi.color(this, containerColorRes));
+        readinessDot.setBackground(LauncherUi.dot(this, accentColorRes));
+        readinessTitle.setText(titleRes);
+        readinessTitle.setTextColor(LauncherUi.color(this, accentColorRes));
+        readinessBody.setText(readinessBodyText(readiness));
+
+        StringBuilder paths = new StringBuilder();
+        if (path != null) {
+            paths.append(getString(R.string.setup_status_folder_line, path));
+        }
+        String basePath = getBaseGeneralsPath();
+        if (basePath != null) {
+            if (paths.length() > 0) {
+                paths.append('\n');
+            }
+            paths.append(getString(R.string.setup_status_base_generals_line, basePath));
+        }
+        readinessPath.setText(paths);
+        readinessPath.setVisibility(paths.length() > 0 ? View.VISIBLE : View.GONE);
+
+        // Emphasis, not availability: both actions are always offered, and
+        // which one is filled is how the screen says what to do next.
+        readinessButtons.removeAllViews();
+        if (readiness.state == STATE_READY) {
+            MaterialButton launch = LauncherUi.button(readinessButtons, LauncherUi.BUTTON_FILLED,
+                getString(R.string.setup_button_launch_game), this::onLaunchGame);
+            launch.setIconResource(R.drawable.ic_gzh_play_arrow);
+            launch.setIconGravity(MaterialButton.ICON_GRAVITY_TEXT_START);
+            launch.setMinHeight(LauncherUi.dp(this, 56));
+        } else {
+            MaterialButton pick = LauncherUi.button(readinessButtons, LauncherUi.BUTTON_FILLED,
+                getString(R.string.setup_button_select_game_folder), this::onSelectGameFolder);
+            pick.setIconResource(R.drawable.ic_gzh_folder);
+            pick.setIconGravity(MaterialButton.ICON_GRAVITY_TEXT_START);
+            pick.setMinHeight(LauncherUi.dp(this, 56));
+            LauncherUi.button(readinessButtons, LauncherUi.BUTTON_TONAL,
+                getString(R.string.setup_button_launch_game), this::onLaunchGame);
+        }
+    }
+
+    // GeneralsX @feature Android port game-folder-integrity-check 07/09/2026
+    // Plain text made "not set"/"looks valid"/"looks incomplete" too easy to
+    // miss right after picking a folder. That verdict is now the banner at
+    // the top of the screen -- its own headline, its own color and its own
+    // button -- rather than a colored run inside a paragraph. The
+    // invalid/incomplete cases still additionally get a blocking AlertDialog
+    // right after picking (see onActivityResult()), since even a banner can
+    // be scrolled past but a dialog cannot.
+    private void refreshStatus() {
+        String path = getSavedGamePath();
+        Readiness readiness = readinessOf(path);
+
+        if (readinessCard != null) {
+            applyReadiness(readiness, path);
+        }
+        if (fallbackStatusText != null) {
+            StringBuilder sb = new StringBuilder();
+            if (path != null) {
+                sb.append(getString(R.string.setup_status_folder_line, path)).append('\n');
+            }
+            sb.append(readinessBodyText(readiness)).append('\n');
+            sb.append(getString(R.string.setup_status_logs_note));
+            fallbackStatusText.setText(sb);
+        }
+        updateGameLanguageStatusView();
+    }
+
+    /**
+     * Pushes the current value of every collapsed section into its summary
+     * line. This is what makes the expanders honest: a closed section still
+     * has to tell you what it is set to, or collapsing it would have hidden
+     * information rather than noise.
+     */
+    private void refreshSummaries() {
+        String notSet = getString(R.string.setup_summary_not_set);
+        if (gameFolderSection != null) {
+            String path = getSavedGamePath();
+            gameFolderSection.setSummary(path != null ? path : notSet);
+        }
+        if (baseGeneralsSection != null) {
+            String basePath = getBaseGeneralsPath();
+            baseGeneralsSection.setSummary(basePath != null ? basePath : notSet);
+        }
+        if (clearBaseGeneralsButton != null) {
+            clearBaseGeneralsButton.setVisibility(
+                getBaseGeneralsPath() != null ? View.VISIBLE : View.GONE);
+        }
+        if (onlineSection != null) {
+            String displayName = GeneralsOnlineActivity.getSignedInDisplayName(this);
+            onlineSection.setSummary(displayName != null
+                ? getString(R.string.setup_online_signed_in, displayName)
+                : getString(R.string.setup_online_signed_out));
+        }
+        if (languageSection != null) {
+            languageSection.setSummary(
+                LocaleHelper.displayNameFor(this, LocaleHelper.getSavedLanguageTag(this)));
+        }
+        if (textSizeSection != null) {
+            textSizeSection.setSummary(
+                getString(R.string.setup_text_size_label, readUiScalePercent()));
+        }
+        if (renderBackendSection != null) {
+            renderBackendSection.setSummary(renderBackendLabel(getRenderBackendChoice(this)));
+        }
+    }
+
+    // -------------------------------------------------------------- sections
+
+    private void buildGameFolderSection(LinearLayout column) {
+        gameFolderSection = LauncherUi.expander(column,
+            getString(R.string.setup_card_game_folder), null);
+        LauncherUi.button(gameFolderSection.content, LauncherUi.BUTTON_OUTLINED,
+            getString(R.string.setup_button_select_game_folder), this::onSelectGameFolder);
+        LauncherUi.button(gameFolderSection.content, LauncherUi.BUTTON_TEXT,
+            getString(R.string.setup_button_clear_game_folder), this::onClearGameFolder);
+    }
+
+    // GeneralsX @feature Android port 06/09/2026 Optional second folder, for
+    // copies that keep the base Generals archives somewhere the engine will
+    // not find on its own. Its own section rather than two more buttons in
+    // the game-folder card: it is a different folder answering a different
+    // question, and most installs never need it at all -- which is exactly
+    // what a collapsed row reading "Not set" should say.
+    private void buildBaseGeneralsSection(LinearLayout column) {
+        baseGeneralsSection = LauncherUi.expander(column,
+            getString(R.string.setup_card_base_generals), null);
+        LauncherUi.help(baseGeneralsSection.content,
+            getString(R.string.setup_base_generals_help));
+        LauncherUi.button(baseGeneralsSection.content, LauncherUi.BUTTON_OUTLINED,
+            getString(R.string.setup_button_select_base_generals), this::onSelectBaseGeneralsFolder);
+        clearBaseGeneralsButton = LauncherUi.button(baseGeneralsSection.content,
+            LauncherUi.BUTTON_TEXT, getString(R.string.setup_button_clear_base_generals),
+            this::onClearBaseGeneralsFolder);
+    }
+
+    // GeneralsX @feature Android port 10/07/2026 GeneralsOnline (playgenerals.online)
+    // account status -- the actual sign-in flow lives in GeneralsOnlineActivity,
+    // this is just a status line + entry point. The status line is the
+    // section's summary now, so signed-in-as is readable without opening
+    // anything.
+    private void buildGeneralsOnlineSection(LinearLayout column) {
+        onlineSection = LauncherUi.expander(column, getString(R.string.setup_card_online), null);
+        LauncherUi.button(onlineSection.content, LauncherUi.BUTTON_OUTLINED,
+            getString(R.string.setup_button_online_account), () ->
+                startActivity(new Intent(this, GeneralsOnlineActivity.class)));
+    }
+
+    // GeneralsX @feature Android port 13/07/2026 GitHub issue #4: in-app
+    // language override for this launcher (Setup/Log Viewer/folder browser)
+    // -- see LocaleHelper for why it's a manual attachBaseContext() wrap
+    // rather than androidx.appcompat's per-app language API, and why
+    // "System Default" needs no explicit handling.
+    private void buildLanguageSection(LinearLayout column) {
+        languageSection = LauncherUi.expander(column,
+            getString(R.string.setup_card_language), null);
+
+        LauncherUi.button(languageSection.content, LauncherUi.BUTTON_OUTLINED,
+            getString(R.string.setup_button_change_language), this::onChangeLanguage);
+
+        gameLanguageStatusView = LauncherUi.body(languageSection.content, "");
+        updateGameLanguageStatusView();
+
+        LauncherUi.help(languageSection.content, getString(R.string.setup_language_help));
+    }
+
+    private void buildUiScaleSection(LinearLayout column) {
+        textSizeSection = LauncherUi.expander(column,
+            getString(R.string.setup_card_text_size), null);
+
+        uiScaleLabel = LauncherUi.body(textSizeSection.content, "");
+
+        int startPercent = readUiScalePercent();
+        uiScaleSlider = new Slider(this);
+        uiScaleSlider.setValueFrom(0f);
+        uiScaleSlider.setValueTo(150f);
+        uiScaleSlider.setStepSize(1f);
+        uiScaleSlider.setValue(startPercent);
+        updateUiScaleLabel(startPercent);
+        uiScaleSlider.addOnChangeListener((slider, value, fromUser) -> updateUiScaleLabel((int) value));
+        textSizeSection.content.addView(uiScaleSlider);
+
+        LauncherUi.button(textSizeSection.content, LauncherUi.BUTTON_OUTLINED,
+            getString(R.string.setup_button_apply_text_size), () -> {
+                writeUiScalePercent((int) uiScaleSlider.getValue());
+                refreshSummaries();
+                Toast.makeText(this, R.string.setup_toast_text_size_saved, Toast.LENGTH_LONG).show();
+            });
+
+        LauncherUi.help(textSizeSection.content, getString(R.string.setup_text_size_help));
+    }
+
+    private void updateUiScaleLabel(int percent) {
+        uiScaleLabel.setText(getString(R.string.setup_text_size_label, percent));
+    }
+
+    private void buildRenderBackendSection(LinearLayout column) {
+        renderBackendSection = LauncherUi.expander(column,
+            getString(R.string.setup_card_render_backend), null);
+
+        String gpu = detectGpuName();
+        if (!gpu.isEmpty()) {
+            LauncherUi.body(renderBackendSection.content,
+                getString(R.string.setup_render_backend_gpu, gpu));
+        }
+
+        LauncherUi.button(renderBackendSection.content, LauncherUi.BUTTON_OUTLINED,
+            getString(R.string.setup_button_change_render_backend), this::onChangeRenderBackend);
+
+        LauncherUi.help(renderBackendSection.content,
+            getString(R.string.setup_render_backend_help));
+    }
+
+    private void buildHowItWorksSection(LinearLayout column) {
+        LauncherUi.Expander section = LauncherUi.expander(column,
+            getString(R.string.setup_card_how_it_works), null);
+        LauncherUi.body(section.content, getString(R.string.setup_how_it_works_body));
+    }
+
+    private void onOpenAdvanced() {
+        startActivity(new Intent(this, AdvancedActivity.class));
+    }
+
+    static boolean isVulkanBackendSelected(android.content.Context ctx) {
+        return RENDER_BACKEND_VULKAN.equals(getRenderBackendChoice(ctx));
+    }
+
+    private void onClearGameFolder() {
+        getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit().remove(PREF_GAME_PATH).apply();
+        new File(getFilesDir(), "gamedata_path.txt").delete();
+        new File(getFilesDir(), "game_language.cfg").delete();
+        File externalMarker = externalMarkerFile();
+        if (externalMarker != null) {
+            externalMarker.delete();
+        }
+        refreshStatus();
+        refreshSummaries();
+        Toast.makeText(this, R.string.setup_toast_folder_cleared, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1001 && resultCode == Activity.RESULT_OK && data != null) {
+            String path = data.getStringExtra(FolderPickerActivity.EXTRA_SELECTED_PATH);
+            if (path != null) {
+                saveGamePath(path);
+                refreshStatus();
+                refreshSummaries();
+                File dir = new File(path);
+                boolean valid = isValidGameFolder(dir);
+                // GeneralsX @feature Android port game-folder-integrity-check
+                // 07/09/2026 - a Toast auto-dismisses in a couple of seconds
+                // and is easy to miss entirely; a real problem here means
+                // the game WILL crash on launch, so it gets a blocking
+                // dialog the user has to acknowledge instead. The readiness
+                // banner (visible right above) still covers "I want to
+                // re-check the status later" without re-triggering the
+                // dialog every time the screen redraws.
+                if (!valid) {
+                    showFolderProblemDialog(getString(R.string.setup_status_folder_invalid).trim());
+                } else {
+                    java.util.List<String> issues = findGameFolderIntegrityIssues(dir);
+                    if (!issues.isEmpty()) {
+                        showFolderProblemDialog(getString(R.string.setup_status_folder_incomplete,
+                            String.join("\n", issues)).trim(), m_lastCheckWantedBaseGenerals);
+                    } else {
+                        Toast.makeText(this, R.string.setup_toast_folder_saved, Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+        } else if (requestCode == REQUEST_PICK_BASE_GENERALS && resultCode == Activity.RESULT_OK && data != null) {
+            String path = data.getStringExtra(FolderPickerActivity.EXTRA_SELECTED_PATH);
+            if (path != null) {
+                // GeneralsX @bugfix Android port 06/09/2026 Judged on the archives
+                // that actually carry the original game's artwork -- an earlier
+                // version accepted a folder unless ALL ten were absent, which one
+                // stray Music.big was enough to defeat.
+                //
+                // Picking the root of a Steam install is the natural thing to do,
+                // so resolve it to the child that really holds them rather than
+                // saving a path the engine cannot make use of.
+                File resolved = resolveBaseGeneralsFolder(new File(path));
+                if (resolved == null) {
+                    showFolderProblemDialog(getString(R.string.setup_base_generals_not_here, path));
+                } else {
+                    saveBaseGeneralsPath(resolved.getAbsolutePath());
+                    Toast.makeText(this, getString(R.string.setup_toast_base_generals_saved,
+                        resolved.getAbsolutePath()), Toast.LENGTH_LONG).show();
+                    refreshStatus();
+                    refreshSummaries();
+                }
+            }
+        }
+    }
+
+    // ------------------------------------------------------------ lifecycle
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        // GeneralsX @bugfix Android port 31/07/2026 No longer forced to
+        // landscape here -- see the matching AndroidManifest.xml comment.
+        // This screen now starts portrait-first like every other non-game
+        // screen; onLaunchGame()/onConfigurationChanged() below handle the
+        // Setup -> Launch rotation race that used to be sidestepped by never
+        // rotating Setup at all.
+        super.onCreate(savedInstanceState);
+        setTitle(R.string.setup_window_title);
+
+        // GeneralsX @bugfix Android port 08/07/2026 This screen is the ONLY
+        // way to reach "View Logs" without adb, so it must never be the thing
+        // that crashes. Any future Material/theme incompatibility falls back
+        // to a bare-bones plain-widget UI (same actions, no styling) instead
+        // of taking the whole Settings app down with it.
+        try {
+            buildUi();
+        } catch (Throwable t) {
+            buildFallbackUi(t);
+        }
+    }
+
+    // GeneralsX @bugfix Android port launcher-ui-refresh 06/09/2026 The
+    // fallback used to be assembled out of the same MaterialButton the main
+    // UI uses, which quietly defeated its own purpose: the failure it exists
+    // to survive is Material or the launcher theme not resolving, and it
+    // would have hit the same wall one line later. Framework widgets only in
+    // here now, and no launcher color or style resource either.
+    private void buildFallbackUi(Throwable failure) {
+        LinearLayout root = new LinearLayout(this);
+        root.setOrientation(LinearLayout.VERTICAL);
+        int pad = dp(20);
+        root.setPadding(pad, pad, pad, pad);
+        setContentView(root);
+        InsetUtil.applySafeInsets(root);
+
+        TextView warning = new TextView(this);
+        warning.setText(getString(R.string.setup_fallback_warning, String.valueOf(failure)));
+        warning.setPadding(0, 0, 0, dp(16));
+        root.addView(warning);
+
+        fallbackStatusText = new TextView(this);
+        fallbackStatusText.setTextIsSelectable(true);
+        fallbackStatusText.setPadding(0, 0, 0, dp(24));
+        root.addView(fallbackStatusText);
+
+        addPlainButton(root, getString(R.string.setup_button_select_game_folder), this::onSelectGameFolder);
+        addPlainButton(root, getString(R.string.setup_button_view_logs), this::onViewLogs);
+        addPlainButton(root, getString(R.string.setup_button_launch_game), this::onLaunchGame);
+        addPlainButton(root, getString(R.string.setup_button_clear_game_folder), this::onClearGameFolder);
+        addPlainButton(root, getString(R.string.setup_button_advanced), this::onOpenAdvanced);
+    }
+
+    private void addPlainButton(LinearLayout root, String label, Runnable action) {
+        Button button = new Button(this);
+        button.setText(label);
+        button.setMinHeight(dp(LauncherUi.TOUCH_TARGET));
+        button.setOnClickListener(v -> action.run());
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        lp.setMargins(0, dp(4), 0, dp(4));
+        root.addView(button, lp);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // GeneralsX @bugfix Android port 31/07/2026 onLaunchGame() forces this
+        // Activity to landscape right before starting the game (see its
+        // comment) so the rotation settles before GeneralsZHActivity's native
+        // window-size probe runs. That request otherwise sticks on this
+        // Activity instance indefinitely, so coming back here (Back from the
+        // game, or from any child screen) left Setup stuck landscape instead
+        // of returning to its normal portrait-first state. Reset it every
+        // time this screen comes back to the foreground; onLaunchGame()
+        // re-applies the landscape lock itself the next time it's needed.
+        setRequestedOrientation(android.content.pm.ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+
+        // GeneralsX @bugfix Android port launcher-ui-refresh 06/09/2026 The
+        // recommended-driver check used to piggyback on buildUi(), back when
+        // the driver card lived on this screen. It has to keep running on
+        // every launcher start now that the card moved to AdvancedActivity,
+        // which most people will never open -- it is what makes a qualifying
+        // Adreno phone work out of the box, and it must not depend on anyone
+        // finding the screen that displays its result.
+        if (isVulkanBackendSelected(this)) {
+            AdvancedActivity.applyRecommendedDriverIfNeeded(this);
+        }
+
+        refreshStatus();
+        refreshSummaries();
     }
 }

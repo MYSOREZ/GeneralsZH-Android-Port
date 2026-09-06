@@ -17,11 +17,9 @@
     <string name="setup_button_clear_game_folder">Restablecer carpeta del juego</string>
 
     <!-- SetupActivity: status text -->
-    <string name="setup_status_folder_not_set">Carpeta del juego: no establecida.\n</string>
-    <string name="setup_status_folder_line">Carpeta del juego: %1$s\n</string>
-    <string name="setup_status_folder_valid">Estado: parece válida (se encontraron archivos de datos del juego).\n</string>
-    <string name="setup_status_folder_invalid">Estado: esta carpeta NO contiene los archivos INIZH.big / INI.big esperados — comprueba que hayas elegido la carpeta correcta.\n</string>
-    <string name="setup_status_folder_incomplete">Estado: se encontraron los archivos del juego, pero el conjunto está incompleto:\n%1$s\n</string>
+    <string name="setup_status_folder_line">Carpeta del juego: %1$s</string>
+    <string name="setup_status_folder_invalid">Esta carpeta NO contiene los archivos INIZH.big / INI.big esperados — comprueba que hayas elegido la carpeta correcta.</string>
+    <string name="setup_status_folder_incomplete">Se encontraron los archivos del juego, pero el conjunto está incompleto:\n%1$s</string>
     <string name="setup_dialog_folder_problem_title">Problema con la carpeta del juego</string>
     <string name="setup_folder_issue_empty_file">%1$s está vacío (0 bytes)</string>
     <string name="setup_folder_issue_bad_header">%1$s no parece un archivo de juego válido</string>
@@ -32,7 +30,6 @@
     <!-- SetupActivity: Language card -->
     <string name="setup_card_language">Idioma</string>
     <string name="setup_language_help">Cambia el idioma de esta app de ajustes, del visor de registros y del selector de carpetas. En alemán, español, chino, francés, coreano, polaco, portugués brasileño y ruso, también cambia el texto del propio juego — pero solo si tu carpeta del juego realmente contiene datos de ese idioma (data/&lt;idioma&gt;/generals.csf); esta app nunca aporta ni inventa texto del juego por sí misma. En los demás idiomas, el texto del juego no se ve afectado. \"Predeterminado del sistema\" sigue el idioma de tu teléfono, y usa inglés si ese idioma no está en la lista.</string>
-    <string name="setup_language_status">Idioma: %1$s</string>
     <string name="setup_button_change_language">Cambiar idioma</string>
     <string name="setup_language_dialog_title">Elige un idioma</string>
     <string name="setup_language_system_default">Predeterminado del sistema</string>
@@ -51,7 +48,6 @@
     <string name="setup_card_render_backend">Backend de renderizado</string>
     <string name="setup_render_backend_help">Qué API gráfica usa el juego. Surte efecto la próxima vez que lo inicies, no al instante.\n\nOpenGL ES (predeterminado): un renderizador nativo escrito para este port. Es el predeterminado porque funciona en todos los dispositivos probados hasta ahora, incluidos aquellos en los que Vulkan dibuja gráficos corruptos. Empieza aquí y cámbialo solo si tienes un motivo.\n\nOpenGL ES + ANGLE: el mismo renderizador, pero pasando por ANGLE de Google, que lo traduce a Vulkan, en lugar del controlador GLES propio del teléfono. ANGLE viene incluido en esta app, así que no necesita una versión mínima de Android ni ningún ajuste del sistema. Suele ser más rápido una vez en marcha, aunque un menú con muchos controles (opciones de Escaramuza) puede trabarse la primera vez que se abre mientras ANGLE compila lo necesario; no vuelve a ocurrir hasta que sales y lo abres de nuevo.\n\nVulkan: el backend original, mediante la traducción de Direct3D 8 a Vulkan de DXVK. Más rápido que los demás en teléfonos cuyo controlador lo maneja bien, normalmente Snapdragon recientes. Pero depende por completo de ese controlador, y en algunas GPU produce manchas magenta, geometría distorsionada o menús corruptos que ningún ajuste de aquí puede arreglar \u2014 se han reportado PowerVR BXM y Samsung Xclipse. Si Vulkan se ve mal en tu dispositivo, para eso está el predeterminado.\n\nLas secciones «Controlador Vulkan personalizado» y «Configuración de DXVK» solo aparecen con Vulkan seleccionado.</string>
     <string name="setup_render_backend_gpu">Tu GPU: %1$s</string>
-    <string name="setup_render_backend_status">Actual: %1$s</string>
     <string name="setup_button_change_render_backend">Cambiar backend de renderizado</string>
     <string name="setup_render_backend_dialog_title">Elige un backend de renderizado</string>
     <string name="setup_render_backend_vulkan">Vulkan</string>
@@ -82,8 +78,8 @@
 
     <!-- SetupActivity: Diagnostics card -->
     <string name="setup_card_diagnostics">Diagnóstico</string>
-    <string name="setup_diagnostics_help">Estos interruptores activan registros adicionales para informes de errores — déjalos todos apagados durante el juego normal, pueden ralentizar el juego o generar registros muy grandes. Si alguien que reporta un problema te pide activar uno, actívalo, reproduce el problema y luego usa "Ver registros" arriba para enviar el resultado.</string>
-    <string name="setup_diagnostics_no_folder">Selecciona primero una carpeta de juego (arriba) para usar estos interruptores</string>
+    <string name="setup_diagnostics_help">Estos interruptores activan registros adicionales para informes de errores — déjalos todos apagados durante el juego normal, pueden ralentizar el juego o generar registros muy grandes. Si alguien que reporta un problema te pide activar uno, actívalo, reproduce el problema y luego usa "Ver registros" para enviar el resultado.</string>
+    <string name="setup_diagnostics_no_folder">Selecciona primero una carpeta de juego para usar estos interruptores</string>
     <string name="setup_switch_gx_trace">Registro de rastreo detallado</string>
     <string name="setup_switch_gx_trace_desc">Registro interno muy detallado (interfaz, fuentes, archivos INI) para rastrear un bloqueo o error específico. Puede crecer hasta 50-100+ MB en una sesión larga — usa "Resumen de rendimiento" en su lugar si solo necesitas los números de FPS. (gx_trace.txt)</string>
     <string name="setup_switch_touch_debug">Superposición de entrada táctil</string>
@@ -171,7 +167,7 @@
     <string name="setup_toast_base_generals_saved">Carpeta del juego base Generals: %1$s</string>
     <string name="setup_toast_base_generals_cleared">Carpeta del juego base borrada</string>
     <string name="setup_base_generals_not_here">En %1$s no hay archivos del juego base Generals — elige la carpeta que contiene Terrain.big, Textures.big y W3D.big.</string>
-    <string name="setup_status_base_generals_line">Generals base: %1$s\n</string>
+    <string name="setup_status_base_generals_line">Generals base: %1$s</string>
     <string name="logviewer_crash_prev_log_absent">(no presente)</string>
     <string name="logviewer_elided_notice">\n...(%1$d caracteres omitidos aquí; se conservan el inicio de sesión de arriba y la salida más reciente de abajo)...\n\n</string>
     <string name="logviewer_section_crash_prev_log">=== crash-prev.log (gestor de fallos nativo, sesión anterior) ===\n</string>
@@ -180,9 +176,32 @@
     <string name="setup_button_dxvk_config_save">Guardar</string>
     <string name="setup_card_dxvk_config">Configuración de DXVK (dxvk.conf, avanzado)</string>
     <string name="setup_dxvk_config_help">Edita dxvk.conf directamente, el mismo archivo que el motor lee al arrancar: no hace falta recompilar y surte efecto en el siguiente inicio. Ajustes útiles si el juego va lento en tu dispositivo:\n\nd3d9.samplerAnisotropy = 2 (o 0 para desactivar): menos que el valor predeterminado de 16, reduce el trabajo de la GPU en hardware más débil.\ndxvk.hud = fps,drawcalls,submissions,pipelines: muestra una pequeña superposición de rendimiento.\ndxvk.logLevel = none: déjalo así salvo que te pidan lo contrario; los niveles más detallados ralentizan el juego.\n\nUn «key = value» por línea. DXVK ignora las líneas inválidas, así que una errata no romperá el juego: en el peor caso tu cambio no tendrá efecto.</string>
-    <string name="setup_dxvk_config_no_folder">Selecciona primero una carpeta del juego (arriba)</string>
+    <string name="setup_dxvk_config_no_folder">Selecciona primero una carpeta del juego</string>
     <string name="setup_toast_dxvk_config_no_default">No se encontró un dxvk.conf predeterminado incluido en esta versión.</string>
     <string name="setup_toast_dxvk_config_reset">Restablecido al dxvk.conf predeterminado.</string>
     <string name="setup_toast_dxvk_config_saved">Guardado. Surtirá efecto la próxima vez que inicies el juego.</string>
     <string name="setup_toast_storage_permission_denied">Se necesita permiso de almacenamiento para buscar la carpeta del juego. Toca de nuevo «Seleccionar carpeta del juego».</string>
+
+    <!-- GeneralsX @feature Android port launcher-ui-refresh 06/09/2026
+         Readiness banner, section headings, collapsible sections and the
+         Advanced & Diagnostics screen. -->
+    <string name="common_expand">Expandir</string>
+    <string name="common_collapse">Contraer</string>
+    <string name="setup_section_setup">Configuración inicial</string>
+    <string name="setup_section_settings">Ajustes</string>
+    <string name="setup_section_more">Más</string>
+    <string name="setup_state_ready_title">Listo para jugar</string>
+    <string name="setup_state_ready_body">Los archivos del juego están donde el motor los espera.</string>
+    <string name="setup_state_no_folder_title">Carpeta del juego sin definir</string>
+    <string name="setup_state_no_folder_body">Indica la carpeta con tu propia copia de Zero Hour (la que contiene INIZH.big).</string>
+    <string name="setup_state_invalid_title">Carpeta incorrecta</string>
+    <string name="setup_state_incomplete_title">Archivos del juego incompletos</string>
+    <string name="setup_card_base_generals">Carpeta de Generals base</string>
+    <string name="setup_base_generals_help">Opcional. Solo hace falta cuando los archivos del Generals base (Terrain.big, Textures.big, W3D.big y compañía) están en un sitio que el motor no encuentra por su cuenta: una instalación aparte, o una carpeta junto a Zero Hour con un nombre que el motor no conoce. Si el juego ya arranca, no toques esto.</string>
+    <string name="setup_summary_not_set">Sin definir</string>
+    <string name="setup_button_advanced">Avanzado y diagnóstico</string>
+    <string name="setup_advanced_title">Avanzado y diagnóstico</string>
+    <string name="setup_advanced_subtitle">Ajuste del renderizador, sustitución del controlador y los interruptores que hacen que el motor registre más</string>
+    <string name="setup_advanced_vulkan_only">Las secciones «Controlador Vulkan personalizado» y «Configuración de DXVK» solo aparecen aquí mientras esté seleccionado el backend de renderizado Vulkan; los backends de OpenGL ES nunca cargan DXVK.</string>
+    <string name="setup_logs_row_subtitle">El registro del motor y el registro nativo de fallos, y cómo enviarlos</string>
 </resources>

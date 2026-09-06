@@ -1,15 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- GeneralsX @feature Android port 08/07/2026 Material theme for the
-         Settings/Log-Viewer/Folder-Picker screens, applied per-Activity in
-         AndroidManifest.xml. The application-level Theme.NoTitleBar.Fullscreen
-         stays the default for GeneralsZHActivity (the game surface). -->
-    <style name="Theme.GeneralsZHSettings" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <!-- GeneralsX @feature Android port launcher-ui-refresh 06/09/2026
+         The launcher's Material 3 theme, applied per-Activity in
+         AndroidManifest.xml (Setup, Advanced, Log Viewer, Folder Picker,
+         GeneralsOnline). GeneralsZHActivity — the game surface — keeps its
+         own plain fullscreen theme and never sees any of this.
+
+         Moved from Theme.MaterialComponents.DayNight (M2) to
+         Theme.Material3.DayNight. Material 1.12.0, already a dependency,
+         ships both; M3 is what makes the tonal buttons, the 48dp default
+         touch target on Widget.Material3.Button, and the surface-container
+         roles the cards use available without hand-rolling them. -->
+    <style name="Theme.GeneralsZHSettings" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">@color/gzh_primary</item>
+        <item name="colorOnPrimary">@color/gzh_on_primary</item>
+        <item name="colorPrimaryContainer">@color/gzh_primary_container</item>
+        <item name="colorOnPrimaryContainer">@color/gzh_on_primary_container</item>
         <item name="colorPrimaryDark">@color/gzh_primary_dark</item>
+
+        <item name="colorSecondary">@color/gzh_secondary</item>
+        <item name="colorOnSecondary">@color/gzh_on_secondary</item>
+        <item name="colorSecondaryContainer">@color/gzh_secondary_container</item>
+        <item name="colorOnSecondaryContainer">@color/gzh_on_secondary_container</item>
         <item name="colorAccent">@color/gzh_accent</item>
+
+        <item name="android:colorBackground">@color/gzh_background</item>
+        <item name="colorOnBackground">@color/gzh_on_surface</item>
+        <item name="colorSurface">@color/gzh_surface</item>
+        <item name="colorOnSurface">@color/gzh_on_surface</item>
+        <item name="colorSurfaceVariant">@color/gzh_surface_container</item>
+        <item name="colorOnSurfaceVariant">@color/gzh_on_surface_variant</item>
+        <item name="colorSurfaceContainer">@color/gzh_surface_container</item>
+        <item name="colorSurfaceContainerHigh">@color/gzh_surface_container_high</item>
+        <item name="colorSurfaceContainerHighest">@color/gzh_surface_container_high</item>
+        <item name="colorSurfaceContainerLow">@color/gzh_surface</item>
+        <item name="colorSurfaceContainerLowest">@color/gzh_surface</item>
+        <item name="colorOutline">@color/gzh_outline</item>
+        <item name="colorOutlineVariant">@color/gzh_outline_variant</item>
+        <item name="colorError">@color/gzh_status_error</item>
+        <item name="colorErrorContainer">@color/gzh_status_error_container</item>
+        <item name="colorOnErrorContainer">@color/gzh_status_error</item>
+
         <item name="android:windowBackground">@color/gzh_background</item>
+        <item name="android:statusBarColor">@color/gzh_background</item>
+        <item name="android:navigationBarColor">@color/gzh_background</item>
+        <!-- System-bar icon polarity has to follow the scheme, otherwise the
+             clock disappears in one of the two themes. @bool so the single
+             values-night/bools.xml flip covers both bars. -->
+        <item name="android:windowLightStatusBar">@bool/gzh_light_system_bars</item>
+        <item name="android:windowLightNavigationBar">@bool/gzh_light_system_bars</item>
+
         <item name="android:textColorPrimary">@color/gzh_on_surface</item>
-        <item name="android:textColorSecondary">@color/gzh_on_surface</item>
+        <item name="android:textColorSecondary">@color/gzh_on_surface_variant</item>
+    </style>
+
+    <!-- Type scale. Applied with TextView.setTextAppearance(int); every call
+         site sets the color right after, because some Material text
+         appearances carry a color of their own and the launcher wants the
+         role color it just picked, not the style's. -->
+    <style name="Gzh.Text.Headline" parent="TextAppearance.Material3.HeadlineSmall" />
+    <style name="Gzh.Text.TitleLarge" parent="TextAppearance.Material3.TitleLarge" />
+    <style name="Gzh.Text.Title" parent="TextAppearance.Material3.TitleMedium" />
+    <style name="Gzh.Text.Body" parent="TextAppearance.Material3.BodyMedium" />
+    <style name="Gzh.Text.BodySmall" parent="TextAppearance.Material3.BodySmall" />
+    <style name="Gzh.Text.Label" parent="TextAppearance.Material3.LabelLarge" />
+    <style name="Gzh.Text.LabelSmall" parent="TextAppearance.Material3.LabelSmall" />
+
+    <!-- MaterialButton picks its style from the theme's materialButtonStyle
+         at construction time, and the launcher builds every view in code —
+         so each button variant is a one-attribute ThemeOverlay the widget is
+         constructed against (see LauncherUi.button()). Cheaper and far less
+         fragile than reproducing M3 button backgrounds by hand. -->
+    <style name="Gzh.Button.Filled" parent="Widget.Material3.Button" />
+    <style name="Gzh.Button.Tonal" parent="Widget.Material3.Button.TonalButton" />
+    <style name="Gzh.Button.Outlined" parent="Widget.Material3.Button.OutlinedButton" />
+    <style name="Gzh.Button.Text" parent="Widget.Material3.Button.TextButton" />
+
+    <style name="ThemeOverlay.Gzh.Button.Filled" parent="">
+        <item name="materialButtonStyle">@style/Gzh.Button.Filled</item>
+    </style>
+    <style name="ThemeOverlay.Gzh.Button.Tonal" parent="">
+        <item name="materialButtonStyle">@style/Gzh.Button.Tonal</item>
+    </style>
+    <style name="ThemeOverlay.Gzh.Button.Outlined" parent="">
+        <item name="materialButtonStyle">@style/Gzh.Button.Outlined</item>
+    </style>
+    <style name="ThemeOverlay.Gzh.Button.Text" parent="">
+        <item name="materialButtonStyle">@style/Gzh.Button.Text</item>
     </style>
 </resources>

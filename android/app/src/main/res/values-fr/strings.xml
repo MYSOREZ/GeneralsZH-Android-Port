@@ -17,22 +17,19 @@
     <string name="setup_button_clear_game_folder">Réinitialiser le dossier du jeu</string>
 
     <!-- SetupActivity: status text -->
-    <string name="setup_status_folder_not_set">Dossier du jeu : non défini.\n</string>
-    <string name="setup_status_folder_line">Dossier du jeu : %1$s\n</string>
-    <string name="setup_status_folder_valid">État : semble valide (fichiers d\'archives du jeu trouvés).\n</string>
-    <string name="setup_status_folder_invalid">État : ce dossier ne contient PAS les fichiers INIZH.big / INI.big attendus — vérifiez que vous avez choisi le bon dossier.\n</string>
-    <string name="setup_status_folder_incomplete">Statut : archives du jeu trouvées, mais l\'ensemble est incomplet :\n%1$s\n</string>
+    <string name="setup_status_folder_line">Dossier du jeu : %1$s</string>
+    <string name="setup_status_folder_invalid">Ce dossier ne contient PAS les fichiers INIZH.big / INI.big attendus — vérifiez que vous avez choisi le bon dossier.</string>
+    <string name="setup_status_folder_incomplete">Archives du jeu trouvées, mais l\'ensemble est incomplet :\n%1$s</string>
     <string name="setup_dialog_folder_problem_title">Problème avec le dossier du jeu</string>
     <string name="setup_folder_issue_empty_file">%1$s est vide (0 octet)</string>
     <string name="setup_folder_issue_bad_header">%1$s ne ressemble pas à une archive de jeu valide</string>
     <string name="setup_folder_issue_missing_data">Il manque des données de jeu attendues dans %1$s — probablement une copie incomplète</string>
     <string name="setup_folder_issue_no_base_game">Données du jeu de base Generals manquantes :%1$s\n\nOu indiquez à Setup le dossier qui les contient déjà — le bouton « Dossier du jeu de base Generals… » ci-dessous (en général ZH_Generals ou Command and Conquer Generals).</string>
-    <string name="setup_status_logs_note">Les journaux de plantage/du moteur sont stockés dans le stockage privé de cette application et ne sont accessibles que via « Afficher les journaux » ci-dessus — Android les masque intentionnellement des gestionnaires de fichiers classiques (c\'est le fonctionnement standard du bac à sable Android, pas une particularité de cette application).</string>
+    <string name="setup_status_logs_note">Les journaux de plantage/du moteur sont stockés dans le stockage privé de cette application et ne sont accessibles que via « Afficher les journaux » — Android les masque intentionnellement des gestionnaires de fichiers classiques (c\'est le fonctionnement standard du bac à sable Android, pas une particularité de cette application).</string>
 
     <!-- SetupActivity: Language card -->
     <string name="setup_card_language">Langue</string>
     <string name="setup_language_help">Change la langue de cette application de paramètres, de son visualiseur de journaux et de son sélecteur de dossier. Pour l\'allemand, l\'espagnol, le chinois, le français, le coréen, le polonais, le portugais brésilien et le russe, cela change aussi automatiquement le texte du jeu lui-même — mais seulement si votre dossier de jeu contient réellement les données de cette langue (data/&lt;langue&gt;/generals.csf) ; cette application ne fournit ni n\'invente jamais elle-même le texte du jeu. Pour les autres langues, le texte du jeu reste inchangé. « Par défaut du système » suit la langue de votre téléphone, avec repli sur l\'anglais si elle ne figure pas dans la liste.</string>
-    <string name="setup_language_status">Langue : %1$s</string>
     <string name="setup_button_change_language">Changer de langue</string>
     <string name="setup_language_dialog_title">Choisir une langue</string>
     <string name="setup_language_system_default">Par défaut du système</string>
@@ -51,7 +48,6 @@
     <string name="setup_card_render_backend">Moteur de rendu</string>
     <string name="setup_render_backend_help">Quelle API graphique le jeu utilise. Prend effet au prochain lancement du jeu, pas immédiatement.\n\nOpenGL ES (par défaut) : un moteur de rendu natif écrit pour ce portage. Il est par défaut parce qu\u0027il fonctionne sur tous les appareils testés jusqu\u0027ici, y compris ceux où Vulkan affiche des graphismes corrompus. Commencez ici et ne changez que si vous avez une raison.\n\nOpenGL ES + ANGLE : le même moteur, mais passant par ANGLE de Google, qui le traduit en Vulkan, au lieu du pilote GLES de votre téléphone. ANGLE est intégré à cette application : ni version minimale d\u0027Android ni réglage système requis. Souvent plus rapide une fois lancé, même si un menu chargé (options d\u0027escarmouche) peut saccader à sa première ouverture pendant qu\u0027ANGLE compile ce dont il a besoin ; cela ne se reproduit pas tant que vous ne quittez pas puis rouvrez ce menu.\n\nVulkan : le backend d\u0027origine, via la traduction Direct3D 8 vers Vulkan de DXVK. Plus rapide que les autres sur les téléphones dont le pilote le gère bien, typiquement les Snapdragon récents. Mais tout dépend de ce pilote, et sur certains GPU il produit des taches magenta, une géométrie déformée ou des menus corrompus qu\u0027aucun réglage d\u0027ici ne corrige \u2014 PowerVR BXM et Samsung Xclipse ont tous deux été signalés. Si Vulkan s\u0027affiche mal sur votre appareil, c\u0027est précisément à cela que sert le choix par défaut.\n\nLes sections « Pilote Vulkan personnalisé » et « Configuration DXVK » n\u0027apparaissent que si Vulkan est sélectionné.</string>
     <string name="setup_render_backend_gpu">Votre GPU : %1$s</string>
-    <string name="setup_render_backend_status">Actuel : %1$s</string>
     <string name="setup_button_change_render_backend">Changer de moteur de rendu</string>
     <string name="setup_render_backend_dialog_title">Choisir un moteur de rendu</string>
     <string name="setup_render_backend_vulkan">Vulkan</string>
@@ -82,8 +78,8 @@
 
     <!-- SetupActivity: Diagnostics card -->
     <string name="setup_card_diagnostics">Diagnostic</string>
-    <string name="setup_diagnostics_help">Ces interrupteurs activent une journalisation supplémentaire pour les rapports de bug — laissez-les tous désactivés en jeu normal, ils peuvent ralentir le jeu ou produire d\'énormes journaux. Si la personne qui signale un problème vous demande d\'en activer un, activez-le, reproduisez le problème, puis utilisez « Voir les journaux » ci-dessus pour envoyer le résultat.</string>
-    <string name="setup_diagnostics_no_folder">Sélectionnez d\'abord un dossier de jeu (ci-dessus) pour utiliser ces interrupteurs</string>
+    <string name="setup_diagnostics_help">Ces interrupteurs activent une journalisation supplémentaire pour les rapports de bug — laissez-les tous désactivés en jeu normal, ils peuvent ralentir le jeu ou produire d\'énormes journaux. Si la personne qui signale un problème vous demande d\'en activer un, activez-le, reproduisez le problème, puis utilisez « Voir les journaux » pour envoyer le résultat.</string>
+    <string name="setup_diagnostics_no_folder">Sélectionnez d\'abord un dossier de jeu pour utiliser ces interrupteurs</string>
     <string name="setup_switch_gx_trace">Journal de trace détaillé</string>
     <string name="setup_switch_gx_trace_desc">Journalisation interne très détaillée (interface, polices, fichiers INI) pour traquer un blocage ou un bug précis. Peut atteindre 50 à 100+ Mo sur une longue session — utilisez plutôt « Résumé des performances » si vous n\'avez besoin que des chiffres de FPS. (gx_trace.txt)</string>
     <string name="setup_switch_touch_debug">Superposition de saisie tactile</string>
@@ -171,7 +167,7 @@
     <string name="setup_toast_base_generals_saved">Dossier du jeu de base Generals : %1$s</string>
     <string name="setup_toast_base_generals_cleared">Dossier du jeu de base réinitialisé</string>
     <string name="setup_base_generals_not_here">Aucune archive du jeu de base Generals dans %1$s — choisissez le dossier contenant Terrain.big, Textures.big et W3D.big.</string>
-    <string name="setup_status_base_generals_line">Generals de base : %1$s\n</string>
+    <string name="setup_status_base_generals_line">Generals de base : %1$s</string>
     <string name="logviewer_crash_prev_log_absent">(absent)</string>
     <string name="logviewer_elided_notice">\n...(%1$d caractères omis ici ; le début de session ci-dessus et la sortie la plus récente ci-dessous sont conservés)...\n\n</string>
     <string name="logviewer_section_crash_prev_log">=== crash-prev.log (gestionnaire de plantage natif, session précédente) ===\n</string>
@@ -180,9 +176,32 @@
     <string name="setup_button_dxvk_config_save">Enregistrer</string>
     <string name="setup_card_dxvk_config">Configuration DXVK (dxvk.conf, avancé)</string>
     <string name="setup_dxvk_config_help">Modifie directement dxvk.conf, le fichier que le moteur lit au démarrage : aucune recompilation nécessaire, l\u0027effet est immédiat au prochain lancement. Réglages utiles si le jeu est lent sur votre appareil :\n\nd3d9.samplerAnisotropy = 2 (ou 0 pour désactiver) — inférieur à la valeur par défaut de 16, allège le travail du GPU sur le matériel modeste.\ndxvk.hud = fps,drawcalls,submissions,pipelines — affiche une petite surcouche de performances.\ndxvk.logLevel = none — à laisser tel quel sauf demande contraire ; les niveaux plus bavards ralentissent le jeu.\n\nUn « key = value » par ligne. DXVK ignore simplement une ligne invalide : une faute de frappe ne cassera pas le jeu, au pire votre modification restera sans effet.</string>
-    <string name="setup_dxvk_config_no_folder">Sélectionnez d\u0027abord un dossier de jeu (ci-dessus)</string>
+    <string name="setup_dxvk_config_no_folder">Sélectionnez d\u0027abord un dossier de jeu</string>
     <string name="setup_toast_dxvk_config_no_default">Aucun dxvk.conf par défaut fourni dans cette version.</string>
     <string name="setup_toast_dxvk_config_reset">Réinitialisé au dxvk.conf par défaut.</string>
     <string name="setup_toast_dxvk_config_saved">Enregistré. Prendra effet au prochain lancement du jeu.</string>
     <string name="setup_toast_storage_permission_denied">L\u0027autorisation de stockage est nécessaire pour parcourir le dossier du jeu. Appuyez à nouveau sur « Sélectionner le dossier du jeu ».</string>
+
+    <!-- GeneralsX @feature Android port launcher-ui-refresh 06/09/2026
+         Readiness banner, section headings, collapsible sections and the
+         Advanced & Diagnostics screen. -->
+    <string name="common_expand">Développer</string>
+    <string name="common_collapse">Réduire</string>
+    <string name="setup_section_setup">Configuration</string>
+    <string name="setup_section_settings">Paramètres</string>
+    <string name="setup_section_more">Plus</string>
+    <string name="setup_state_ready_title">Prêt à jouer</string>
+    <string name="setup_state_ready_body">Les fichiers du jeu sont là où le moteur les attend.</string>
+    <string name="setup_state_no_folder_title">Dossier du jeu non défini</string>
+    <string name="setup_state_no_folder_body">Indiquez le dossier contenant votre propre copie de Zero Hour (celui où se trouve INIZH.big).</string>
+    <string name="setup_state_invalid_title">Mauvais dossier</string>
+    <string name="setup_state_incomplete_title">Fichiers du jeu incomplets</string>
+    <string name="setup_card_base_generals">Dossier de Generals de base</string>
+    <string name="setup_base_generals_help">Facultatif. Utile uniquement si les archives de Generals de base (Terrain.big, Textures.big, W3D.big et consorts) se trouvent à un endroit que le moteur ne trouve pas tout seul : une installation séparée, ou un dossier à côté de Zero Hour portant un nom que le moteur ne connaît pas. Si le jeu démarre déjà, n\'y touchez pas.</string>
+    <string name="setup_summary_not_set">Non défini</string>
+    <string name="setup_button_advanced">Avancé et diagnostic</string>
+    <string name="setup_advanced_title">Avancé et diagnostic</string>
+    <string name="setup_advanced_subtitle">Réglage du moteur de rendu, remplacement du pilote et interrupteurs qui font journaliser davantage</string>
+    <string name="setup_advanced_vulkan_only">Les sections « Pilote Vulkan personnalisé » et « Configuration DXVK » n\'apparaissent ici que lorsque le backend de rendu Vulkan est sélectionné — les backends OpenGL ES ne chargent jamais DXVK.</string>
+    <string name="setup_logs_row_subtitle">Le journal du moteur et le journal de plantage natif, avec de quoi les envoyer</string>
 </resources>

@@ -1,25 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- GeneralsX @feature Android port 08/07/2026 Palette for the Settings /
-         Log Viewer / Folder Picker screens (Material redesign). Loosely nods
-         at the game's own eagle-emblem colors (see mipmap-xxxhdpi/
-         ic_launcher_foreground.png) without trying to reskin the whole OS
-         theme. GeneralsZHActivity (the game surface itself) never references
-         these — it stays on its own plain fullscreen theme. -->
-    <color name="gzh_primary">#1F6B6B</color>
-    <color name="gzh_primary_dark">#123B3B</color>
-    <color name="gzh_on_primary">#FFFFFF</color>
-    <color name="gzh_accent">#E8C547</color>
-    <color name="gzh_background">#0F2530</color>
-    <color name="gzh_surface">#16323F</color>
-    <color name="gzh_on_surface">#EAF2F2</color>
+    <!-- GeneralsX @feature Android port launcher-ui-refresh 06/09/2026
+         Material 3 color roles for the launcher (Setup / Advanced / Log
+         Viewer / Folder Picker / GeneralsOnline). This file is the LIGHT
+         scheme; values-night/colors.xml redefines exactly the same names for
+         dark. Every launcher screen reads colors only through these names,
+         so a theme switch never needs a code change.
 
-    <!-- GeneralsX @feature Android port game-folder-integrity-check 07/09/2026
-         Semantic status colors for the game-folder validity line (see
-         refreshStatus() in SetupActivity.java) — picked for contrast
-         against the dark gzh_surface/gzh_background above, not tied to the
-         eagle-emblem palette. -->
-    <color name="gzh_status_ok">#66BB6A</color>
-    <color name="gzh_status_warn">#FFB300</color>
-    <color name="gzh_status_error">#EF5350</color>
+         The previous palette was a single dark-only set applied under a
+         DayNight theme, which meant a phone in light mode still got dark
+         cards — and the pieces that DID follow the system (dialogs, the
+         Slider, list rows) clashed with them. Two real schemes instead.
+
+         Hue is unchanged on purpose: the teal below is the same
+         eagle-emblem teal the launcher has always used (#1F6B6B), re-toned
+         per scheme so contrast holds in both. -->
+
+    <color name="gzh_primary">#0E5C5A</color>
+    <color name="gzh_on_primary">#FFFFFF</color>
+    <color name="gzh_primary_container">#B7E9E5</color>
+    <color name="gzh_on_primary_container">#00201F</color>
+
+    <!-- Kept: AndroidManifest/themes still name colorPrimaryDark, and the
+         status-bar scrim wants a darker relative of the primary. -->
+    <color name="gzh_primary_dark">#0A3E3D</color>
+
+    <color name="gzh_secondary">#6E5300</color>
+    <color name="gzh_on_secondary">#FFFFFF</color>
+    <color name="gzh_secondary_container">#FFE08A</color>
+    <color name="gzh_on_secondary_container">#231A00</color>
+
+    <!-- Legacy name, still referenced by the theme's colorAccent. -->
+    <color name="gzh_accent">#8A6900</color>
+
+    <color name="gzh_background">#F4F7F7</color>
+    <color name="gzh_surface">#FFFFFF</color>
+    <color name="gzh_surface_container">#EBF1F0</color>
+    <color name="gzh_surface_container_high">#E3EAE9</color>
+    <color name="gzh_on_surface">#111C1C</color>
+    <color name="gzh_on_surface_variant">#3E4948</color>
+    <color name="gzh_outline">#6E7978</color>
+    <color name="gzh_outline_variant">#C2CCCB</color>
+
+    <!-- Semantic status colors for the readiness banner and the folder
+         verdict line. A tinted container plus a same-hue foreground, so the
+         state reads at a glance without relying on color alone (the banner
+         also carries a distinct headline per state). -->
+    <color name="gzh_status_ok">#146B2E</color>
+    <color name="gzh_status_ok_container">#C6EFCD</color>
+    <color name="gzh_status_warn">#8A5A00</color>
+    <color name="gzh_status_warn_container">#FFE2AE</color>
+    <color name="gzh_status_error">#B3261E</color>
+    <color name="gzh_status_error_container">#F9DEDC</color>
 </resources>

@@ -17,22 +17,19 @@
     <string name="setup_button_clear_game_folder">Clear Game Folder Setting</string>
 
     <!-- SetupActivity: status text -->
-    <string name="setup_status_folder_not_set">Game folder: not set.\n</string>
-    <string name="setup_status_folder_line">Game folder: %1$s\n</string>
-    <string name="setup_status_folder_valid">Status: looks valid (found game archive files).\n</string>
-    <string name="setup_status_folder_invalid">Status: this folder does NOT contain the expected INIZH.big / INI.big — double check you picked the right one.\n</string>
-    <string name="setup_status_folder_incomplete">Status: game archives found, but the set is incomplete:\n%1$s\n</string>
+    <string name="setup_status_folder_line">Game folder: %1$s</string>
+    <string name="setup_status_folder_invalid">This folder does NOT contain the expected INIZH.big / INI.big — double check you picked the right one.</string>
+    <string name="setup_status_folder_incomplete">Game archives found, but the set is incomplete:\n%1$s</string>
     <string name="setup_dialog_folder_problem_title">Game Folder Problem</string>
     <string name="setup_folder_issue_empty_file">%1$s is empty (0 bytes)</string>
     <string name="setup_folder_issue_bad_header">%1$s doesn\'t look like a valid game archive</string>
     <string name="setup_folder_issue_missing_data">%1$s is missing expected game data — likely an incomplete copy</string>
     <string name="setup_folder_issue_no_base_game">Base Generals game data missing:%1$s\n\nOr point Setup at the folder that already has them — the “Base Generals folder” button below (usually ZH_Generals or Command and Conquer Generals).</string>
-    <string name="setup_status_logs_note">Crash/engine logs live in this app\'s private storage and are only reachable through \"View Logs\" above — Android hides them from normal file managers by design (this is standard Android sandboxing, not specific to this app).</string>
+    <string name="setup_status_logs_note">Crash/engine logs live in this app\'s private storage and are only reachable through \"View Logs\" — Android hides them from normal file managers by design (this is standard Android sandboxing, not specific to this app).</string>
 
     <!-- SetupActivity: Language card -->
     <string name="setup_card_language">Language</string>
     <string name="setup_language_help">Changes the language of this Settings app and its Log Viewer / folder browser. For German, Spanish, Chinese, French, Korean, Polish, Brazilian Portuguese and Russian, it also switches the game\'s own text automatically, but only if your game folder actually contains that language\'s data (data/&lt;language&gt;/generals.csf) — this app never ships or fakes game text itself, and other languages leave the game\'s own text untouched. \"System Default\" follows your phone\'s language, falling back to English if it isn\'t one of the languages listed.</string>
-    <string name="setup_language_status">Language: %1$s</string>
     <string name="setup_button_change_language">Change Language</string>
     <string name="setup_language_dialog_title">Choose a language</string>
     <string name="setup_language_system_default">System Default</string>
@@ -51,7 +48,6 @@
     <string name="setup_card_render_backend">Render Backend</string>
     <string name="setup_render_backend_help">Which graphics API the game uses. Takes effect the next time you launch the game, not live.\n\nOpenGL ES (default): a native renderer written for this port. It is the default because it works on every device tested so far, including ones where Vulkan renders corrupted graphics. Start here; only change it if you have a reason to.\n\nOpenGL ES + ANGLE: the same renderer, but routed through Google\u0027s ANGLE, which translates it to Vulkan, instead of your phone\u0027s own GLES driver. ANGLE is bundled inside this app, so it needs no minimum Android version and no system setting. Often faster once running, though a menu with many controls (Skirmish options) can stutter the first time it opens while ANGLE compiles what it needs; it does not stutter again until you leave and reopen that menu.\n\nVulkan: the original backend, through DXVK\u0027s Direct3D 8 to Vulkan translation. Faster than the others on phones whose driver handles it well, typically recent Snapdragon. But it depends entirely on that driver, and on some GPUs it produces magenta patches, distorted geometry or corrupted menus that no setting here can fix \u2014 PowerVR BXM and Samsung Xclipse have both been reported. If Vulkan looks wrong on your device, that is what the default is for.\n\nThe Custom Vulkan Driver and DXVK Config sections only appear when Vulkan is selected.</string>
     <string name="setup_render_backend_gpu">Your GPU: %1$s</string>
-    <string name="setup_render_backend_status">Current: %1$s</string>
     <string name="setup_button_change_render_backend">Change Render Backend</string>
     <string name="setup_render_backend_dialog_title">Choose a render backend</string>
     <string name="setup_render_backend_vulkan">Vulkan</string>
@@ -85,15 +81,15 @@
     <string name="setup_dxvk_config_help">Edits dxvk.conf directly, the same file the engine reads on startup — no rebuild needed, takes effect next launch. Useful settings if the game feels slow on your device:\n\nd3d9.samplerAnisotropy = 2 (or 0 to disable) — lower than the default 16 to reduce GPU work on weaker hardware.\ndxvk.hud = fps,drawcalls,submissions,pipelines — shows a small on-screen performance overlay.\ndxvk.logLevel = none — keep this unless asked to change it; more verbose levels slow the game down.\n\nOne \"key = value\" per line. An invalid line is simply ignored by DXVK, so a typo won\'t break the game — worst case your change has no effect.</string>
     <string name="setup_button_dxvk_config_save">Save</string>
     <string name="setup_button_dxvk_config_reset">Reset to Default</string>
-    <string name="setup_dxvk_config_no_folder">Select a game folder first (above)</string>
+    <string name="setup_dxvk_config_no_folder">Select a game folder first</string>
     <string name="setup_toast_dxvk_config_saved">Saved. Takes effect next time you launch the game.</string>
     <string name="setup_toast_dxvk_config_reset">Reset to the default dxvk.conf.</string>
     <string name="setup_toast_dxvk_config_no_default">No bundled default dxvk.conf found in this build.</string>
 
     <!-- SetupActivity: Diagnostics card -->
     <string name="setup_card_diagnostics">Diagnostics</string>
-    <string name="setup_diagnostics_help">These turn on extra logging for bug reports — leave them all off for normal play, they can slow the game down or produce large logs. If someone reporting an issue asks you to turn one on, enable it, reproduce the problem, then use \"View Logs\" above to send the result.</string>
-    <string name="setup_diagnostics_no_folder">Select a game folder first (above) to use these</string>
+    <string name="setup_diagnostics_help">These turn on extra logging for bug reports — leave them all off for normal play, they can slow the game down or produce large logs. If someone reporting an issue asks you to turn one on, enable it, reproduce the problem, then use \"View Logs\" to send the result.</string>
+    <string name="setup_diagnostics_no_folder">Select a game folder first to use these</string>
     <string name="setup_switch_gx_trace">Verbose trace log</string>
     <string name="setup_switch_gx_trace_desc">Very detailed internal logging (UI, fonts, INI files) for chasing a specific hang or bug. Can grow to a huge log (50–100+ MB) over a long session — use \"Performance summary\" instead if you only need FPS numbers. (gx_trace.txt)</string>
     <string name="setup_switch_touch_debug">Touch input overlay</string>
@@ -186,5 +182,28 @@
     <string name="setup_toast_base_generals_saved">Base Generals folder: %1$s</string>
     <string name="setup_toast_base_generals_cleared">Base Generals folder cleared</string>
     <string name="setup_base_generals_not_here">No base Generals archives in %1$s — pick the folder that holds Terrain.big, Textures.big and W3D.big.</string>
-    <string name="setup_status_base_generals_line">Base Generals: %1$s\n</string>
+    <string name="setup_status_base_generals_line">Base Generals: %1$s</string>
+
+    <!-- GeneralsX @feature Android port launcher-ui-refresh 06/09/2026
+         Readiness banner, section headings, collapsible sections and the
+         Advanced & Diagnostics screen. -->
+    <string name="common_expand">Expand</string>
+    <string name="common_collapse">Collapse</string>
+    <string name="setup_section_setup">Setup</string>
+    <string name="setup_section_settings">Settings</string>
+    <string name="setup_section_more">More</string>
+    <string name="setup_state_ready_title">Ready to play</string>
+    <string name="setup_state_ready_body">Your game files are where the engine expects them.</string>
+    <string name="setup_state_no_folder_title">Game folder not set</string>
+    <string name="setup_state_no_folder_body">Point the launcher at the folder holding your own copy of Zero Hour (the one with INIZH.big in it).</string>
+    <string name="setup_state_invalid_title">Wrong folder</string>
+    <string name="setup_state_incomplete_title">Game files incomplete</string>
+    <string name="setup_card_base_generals">Base Generals folder</string>
+    <string name="setup_base_generals_help">Optional. Only needed when the base Generals archives (Terrain.big, Textures.big, W3D.big and friends) live somewhere the engine will not find on its own — a separate install, or a folder next to Zero Hour under a name the engine does not know. Leave it alone if the game already starts.</string>
+    <string name="setup_summary_not_set">Not set</string>
+    <string name="setup_button_advanced">Advanced &amp; diagnostics</string>
+    <string name="setup_advanced_title">Advanced &amp; Diagnostics</string>
+    <string name="setup_advanced_subtitle">Renderer tuning, driver overrides, and the switches that make the engine log more</string>
+    <string name="setup_advanced_vulkan_only">The Custom Vulkan Driver and DXVK Config sections only appear here while the Vulkan render backend is selected — the OpenGL ES backends never load DXVK at all.</string>
+    <string name="setup_logs_row_subtitle">The engine log and the native crash log, and a way to send them</string>
 </resources>

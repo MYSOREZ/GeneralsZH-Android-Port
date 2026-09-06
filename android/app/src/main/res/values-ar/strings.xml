@@ -17,22 +17,19 @@
     <string name="setup_button_clear_game_folder">إعادة تعيين مجلد اللعبة</string>
 
     <!-- SetupActivity: status text -->
-    <string name="setup_status_folder_not_set">مجلد اللعبة: غير محدد.\n</string>
-    <string name="setup_status_folder_line">مجلد اللعبة: %1$s\n</string>
-    <string name="setup_status_folder_valid">الحالة: يبدو صحيحًا (تم العثور على ملفات أرشيف اللعبة).\n</string>
-    <string name="setup_status_folder_invalid">الحالة: هذا المجلد لا يحتوي على INIZH.big / INI.big المتوقعة — تحقق من أنك اخترت المجلد الصحيح.\n</string>
-    <string name="setup_status_folder_incomplete">الحالة: تم العثور على أرشيفات اللعبة، لكن المجموعة غير مكتملة:\n%1$s\n</string>
+    <string name="setup_status_folder_line">مجلد اللعبة: %1$s</string>
+    <string name="setup_status_folder_invalid">هذا المجلد لا يحتوي على INIZH.big / INI.big المتوقعة — تحقق من أنك اخترت المجلد الصحيح.</string>
+    <string name="setup_status_folder_incomplete">تم العثور على أرشيفات اللعبة، لكن المجموعة غير مكتملة:\n%1$s</string>
     <string name="setup_dialog_folder_problem_title">مشكلة في مجلد اللعبة</string>
     <string name="setup_folder_issue_empty_file">%1$s فارغ (0 بايت)</string>
     <string name="setup_folder_issue_bad_header">%1$s لا يبدو أرشيف لعبة صالحًا</string>
     <string name="setup_folder_issue_missing_data">%1$s ينقصه بيانات لعبة متوقعة — على الأرجح نسخة غير مكتملة</string>
     <string name="setup_folder_issue_no_base_game">بيانات لعبة Generals الأساسية مفقودة:%1$s\n\nأو حدّد المجلد الذي يحتوي عليها بالفعل — زر «مجلد لعبة Generals الأساسية…» بالأسفل (عادةً ZH_Generals أو Command and Conquer Generals).</string>
-    <string name="setup_status_logs_note">سجلات الأعطال/المحرك مخزنة في التخزين الخاص بالتطبيق ولا يمكن الوصول إليها إلا عبر \"عرض السجلات\" أعلاه — يقوم أندرويد بإخفائها عمدًا عن مديري الملفات العاديين (هذا هو العزل المعتاد في أندرويد، وليس خاصية مميزة لهذا التطبيق).</string>
+    <string name="setup_status_logs_note">سجلات الأعطال/المحرك مخزنة في التخزين الخاص بالتطبيق ولا يمكن الوصول إليها إلا عبر \"عرض السجلات\" — يقوم أندرويد بإخفائها عمدًا عن مديري الملفات العاديين (هذا هو العزل المعتاد في أندرويد، وليس خاصية مميزة لهذا التطبيق).</string>
 
     <!-- SetupActivity: Language card -->
     <string name="setup_card_language">اللغة</string>
     <string name="setup_language_help">يغيّر هذا لغة تطبيق الإعدادات هذا وعارض السجلات ومتصفح المجلدات. بالنسبة للألمانية والإسبانية والصينية والفرنسية والكورية والبولندية والبرتغالية البرازيلية والروسية، يقوم أيضًا بتبديل نص اللعبة نفسها — ولكن فقط إذا كان مجلد اللعبة يحتوي فعليًا على بيانات تلك اللغة (data/&lt;اللغة&gt;/generals.csf)؛ هذا التطبيق لا يوفر أو يختلق نص اللعبة بنفسه أبدًا. أما بالنسبة للغات الأخرى، فلا يتأثر نص اللعبة. يتبع خيار \"افتراضي النظام\" لغة هاتفك، ويعود إلى الإنجليزية إذا لم تكن ضمن القائمة.</string>
-    <string name="setup_language_status">اللغة: %1$s</string>
     <string name="setup_button_change_language">تغيير اللغة</string>
     <string name="setup_language_dialog_title">اختر لغة</string>
     <string name="setup_language_system_default">افتراضي النظام</string>
@@ -51,7 +48,6 @@
     <string name="setup_card_render_backend">خلفية الرسومات</string>
     <string name="setup_render_backend_help">واجهة الرسوميات التي تستخدمها اللعبة. تسري عند التشغيل التالي للعبة، لا فورًا.\n\nOpenGL ES (الافتراضي): مُصيِّر أصلي كُتب لهذا النقل. هو الافتراضي لأنه يعمل على كل جهاز جُرّب حتى الآن، بما في ذلك الأجهزة التي يرسم فيها Vulkan رسوميات تالفة. ابدأ من هنا ولا تغيّره إلا لسبب.\n\nOpenGL ES + ANGLE: المُصيِّر نفسه، لكن عبر ANGLE من Google الذي يترجمه إلى Vulkan بدلًا من مشغّل GLES الخاص بهاتفك. ANGLE مضمّن داخل هذا التطبيق، فلا يحتاج إصدار أندرويد أدنى ولا أي إعداد في النظام. غالبًا أسرع بعد التشغيل، غير أن قائمة تحتوي عناصر كثيرة (خيارات المناوشة) قد تتلعثم عند فتحها أول مرة بينما يترجم ANGLE ما يحتاجه؛ ولا يتكرر ذلك حتى تخرج وتفتح تلك القائمة من جديد.\n\nVulkan: الواجهة الخلفية الأصلية، عبر ترجمة DXVK من Direct3D 8 إلى Vulkan. أسرع من غيرها على الهواتف التي يتعامل مشغّلها معها جيدًا، وغالبًا Snapdragon الحديثة. لكنها تعتمد كليًا على ذلك المشغّل، وعلى بعض المعالجات الرسومية تنتج بقعًا أرجوانية وهندسة مشوّهة وقوائم تالفة لا يصلحها أي إعداد هنا \u2014 وقد أُبلغ عن PowerVR BXM وSamsung Xclipse. إن بدا Vulkan خاطئًا على جهازك، فالخيار الافتراضي موجود لهذا بالضبط.\n\nقسما «مشغّل Vulkan مخصص» و«إعدادات DXVK» يظهران فقط عند اختيار Vulkan.</string>
     <string name="setup_render_backend_gpu">معالجك الرسومي: %1$s</string>
-    <string name="setup_render_backend_status">الحالي: %1$s</string>
     <string name="setup_button_change_render_backend">تغيير خلفية الرسومات</string>
     <string name="setup_render_backend_dialog_title">اختر خلفية الرسومات</string>
     <string name="setup_render_backend_vulkan">Vulkan</string>
@@ -82,8 +78,8 @@
 
     <!-- SetupActivity: Diagnostics card -->
     <string name="setup_card_diagnostics">التشخيص</string>
-    <string name="setup_diagnostics_help">تعمل هذه المفاتيح على تفعيل تسجيل إضافي لتقارير الأخطاء — اتركها كلها مغلقة أثناء اللعب العادي، فقد تبطئ اللعبة أو تنتج سجلات كبيرة جدًا. إذا طلب منك المُبلّغ عن مشكلة تفعيل أحدها، فعّله، أعد إنتاج المشكلة، ثم استخدم "عرض السجلات" أعلاه لإرسال النتيجة.</string>
-    <string name="setup_diagnostics_no_folder">اختر مجلد اللعبة أولاً (أعلاه) لاستخدام هذه المفاتيح</string>
+    <string name="setup_diagnostics_help">تعمل هذه المفاتيح على تفعيل تسجيل إضافي لتقارير الأخطاء — اتركها كلها مغلقة أثناء اللعب العادي، فقد تبطئ اللعبة أو تنتج سجلات كبيرة جدًا. إذا طلب منك المُبلّغ عن مشكلة تفعيل أحدها، فعّله، أعد إنتاج المشكلة، ثم استخدم "عرض السجلات" لإرسال النتيجة.</string>
+    <string name="setup_diagnostics_no_folder">اختر مجلد اللعبة أولاً لاستخدام هذه المفاتيح</string>
     <string name="setup_switch_gx_trace">سجل تتبع مفصّل</string>
     <string name="setup_switch_gx_trace_desc">تسجيل داخلي مفصّل جدًا (الواجهة، الخطوط، ملفات INI) لتتبع تجمّد أو خلل معيّن. قد ينمو السجل إلى حجم كبير جدًا (50-100+ ميجابايت) خلال جلسة طويلة — استخدم "ملخص الأداء" بدلاً من ذلك إذا كنت تحتاج فقط إلى أرقام معدل الإطارات. (gx_trace.txt)</string>
     <string name="setup_switch_touch_debug">عرض تشخيص اللمس</string>
@@ -171,7 +167,7 @@
     <string name="setup_toast_base_generals_saved">مجلد لعبة Generals الأساسية: %1$s</string>
     <string name="setup_toast_base_generals_cleared">تم مسح مجلد اللعبة الأساسية</string>
     <string name="setup_base_generals_not_here">لا توجد أرشيفات لعبة Generals الأساسية في %1$s — اختر المجلد الذي يحتوي على Terrain.big وTextures.big وW3D.big.</string>
-    <string name="setup_status_base_generals_line">Generals الأساسية: %1$s\n</string>
+    <string name="setup_status_base_generals_line">Generals الأساسية: %1$s</string>
     <string name="logviewer_crash_prev_log_absent">(غير موجود)</string>
     <string name="logviewer_elided_notice">\n...(تم حذف %1$d حرفًا هنا؛ بداية الجلسة أعلاه وأحدث المخرجات أدناه محفوظة)...\n\n</string>
     <string name="logviewer_section_crash_prev_log">=== crash-prev.log (معالج الأعطال الأصلي، الجلسة السابقة) ===\n</string>
@@ -180,9 +176,32 @@
     <string name="setup_button_dxvk_config_save">حفظ</string>
     <string name="setup_card_dxvk_config">إعدادات DXVK (dxvk.conf، متقدم)</string>
     <string name="setup_dxvk_config_help">يحرّر dxvk.conf مباشرة، وهو الملف نفسه الذي يقرأه المحرك عند الإقلاع — لا حاجة لإعادة بناء، ويسري مفعوله في التشغيل التالي. إعدادات مفيدة إذا كانت اللعبة بطيئة على جهازك:\n\nd3d9.samplerAnisotropy = 2 (أو 0 للتعطيل) — أقل من الافتراضي 16 لتقليل حمل المعالج الرسومي على الأجهزة الأضعف.\ndxvk.hud = fps,drawcalls,submissions,pipelines — يعرض طبقة أداء صغيرة على الشاشة.\ndxvk.logLevel = none — أبقِ هذا كما هو ما لم يُطلب منك تغييره؛ المستويات الأكثر تفصيلاً تبطئ اللعبة.\n\nسطر واحد بصيغة «key = value». يتجاهل DXVK أي سطر غير صالح، لذا لن يعطّل الخطأ المطبعي اللعبة — في أسوأ الحالات لن يكون لتغييرك أي أثر.</string>
-    <string name="setup_dxvk_config_no_folder">اختر مجلد اللعبة أولاً (بالأعلى)</string>
+    <string name="setup_dxvk_config_no_folder">اختر مجلد اللعبة أولاً</string>
     <string name="setup_toast_dxvk_config_no_default">لم يُعثر على ملف dxvk.conf افتراضي مضمّن في هذه النسخة.</string>
     <string name="setup_toast_dxvk_config_reset">تمت الإعادة إلى dxvk.conf الافتراضي.</string>
     <string name="setup_toast_dxvk_config_saved">تم الحفظ. سيسري المفعول عند تشغيل اللعبة في المرة القادمة.</string>
     <string name="setup_toast_storage_permission_denied">يلزم إذن التخزين لتصفح مجلد اللعبة. اضغط «اختيار مجلد اللعبة» مرة أخرى للمحاولة.</string>
+
+    <!-- GeneralsX @feature Android port launcher-ui-refresh 06/09/2026
+         Readiness banner, section headings, collapsible sections and the
+         Advanced & Diagnostics screen. -->
+    <string name="common_expand">توسيع</string>
+    <string name="common_collapse">طيّ</string>
+    <string name="setup_section_setup">الإعداد</string>
+    <string name="setup_section_settings">الإعدادات</string>
+    <string name="setup_section_more">المزيد</string>
+    <string name="setup_state_ready_title">جاهزة للعب</string>
+    <string name="setup_state_ready_body">ملفات لعبتك موجودة في المكان الذي يتوقعه المحرك.</string>
+    <string name="setup_state_no_folder_title">لم يتم تحديد مجلد اللعبة</string>
+    <string name="setup_state_no_folder_body">وجّه المشغّل إلى المجلد الذي يحتوي على نسختك من Zero Hour (المجلد الذي يوجد فيه INIZH.big).</string>
+    <string name="setup_state_invalid_title">مجلد غير صحيح</string>
+    <string name="setup_state_incomplete_title">ملفات اللعبة غير مكتملة</string>
+    <string name="setup_card_base_generals">مجلد Generals الأساسية</string>
+    <string name="setup_base_generals_help">اختياري. لا يلزم إلا عندما تكون أرشيفات Generals الأساسية (Terrain.big وTextures.big وW3D.big وما شابهها) في مكان لا يجده المحرك بنفسه — تثبيت منفصل، أو مجلد بجوار Zero Hour باسم لا يعرفه المحرك. اتركه كما هو إذا كانت اللعبة تعمل بالفعل.</string>
+    <string name="setup_summary_not_set">غير محدد</string>
+    <string name="setup_button_advanced">إعدادات متقدمة وتشخيص</string>
+    <string name="setup_advanced_title">إعدادات متقدمة وتشخيص</string>
+    <string name="setup_advanced_subtitle">ضبط العارض، وتجاوز التعريف، والمفاتيح التي تجعل المحرك يسجّل المزيد</string>
+    <string name="setup_advanced_vulkan_only">يظهر قسما «تعريف Vulkan المخصص» و«إعدادات DXVK» هنا فقط عندما تكون واجهة العرض المختارة هي Vulkan — أما واجهات OpenGL ES فلا تُحمّل DXVK إطلاقًا.</string>
+    <string name="setup_logs_row_subtitle">سجل المحرك وسجل الأعطال الأصلي، وطريقة لإرسالهما</string>
 </resources>

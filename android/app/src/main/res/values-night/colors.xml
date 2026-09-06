@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- GeneralsX @feature Android port launcher-ui-refresh 06/09/2026
+         Dark scheme. Same names as values/colors.xml, nothing else — see
+         that file for why the launcher has two schemes at all. The surface
+         and status colors here are deliberately the ones this launcher has
+         shipped since the first Material pass (#16323F, #66BB6A, #FFB300,
+         #EF5350), so a dark-mode user sees the app they already know. -->
+
+    <color name="gzh_primary">#6FD8D2</color>
+    <color name="gzh_on_primary">#003735</color>
+    <color name="gzh_primary_container">#14504E</color>
+    <color name="gzh_on_primary_container">#9CF2EC</color>
+
+    <color name="gzh_primary_dark">#04191E</color>
+
+    <color name="gzh_secondary">#E8C547</color>
+    <color name="gzh_on_secondary">#3B2F00</color>
+    <color name="gzh_secondary_container">#554500</color>
+    <color name="gzh_on_secondary_container">#FFE08A</color>
+
+    <color name="gzh_accent">#E8C547</color>
+
+    <color name="gzh_background">#0B1C22</color>
+    <color name="gzh_surface">#122A33</color>
+    <color name="gzh_surface_container">#16323F</color>
+    <color name="gzh_surface_container_high">#1D3E4B</color>
+    <color name="gzh_on_surface">#E2ECEB</color>
+    <color name="gzh_on_surface_variant">#B2C3C2</color>
+    <color name="gzh_outline">#7C8D8C</color>
+    <color name="gzh_outline_variant">#38494A</color>
+
+    <color name="gzh_status_ok">#66BB6A</color>
+    <color name="gzh_status_ok_container">#13351B</color>
+    <color name="gzh_status_warn">#FFB300</color>
+    <color name="gzh_status_warn_container">#3A2A00</color>
+    <color name="gzh_status_error">#EF5350</color>
+    <color name="gzh_status_error_container">#40130F</color>
+</resources>

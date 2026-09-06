@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Light scheme: dark icons in the system bars. Flipped in
+         values-night/bools.xml. -->
+    <bool name="gzh_light_system_bars">true</bool>
+</resources>

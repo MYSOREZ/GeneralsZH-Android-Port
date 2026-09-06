@@ -37,11 +37,12 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.material.button.MaterialButton;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -72,36 +73,55 @@ public class FolderPickerActivity extends Activity {
         File start = Environment.getExternalStorageDirectory();
         currentDir = (start != null && start.isDirectory()) ? start : new File("/storage/emulated/0");
 
+        // GeneralsX @feature Android port launcher-ui-refresh 06/09/2026 The
+        // browser's own verdict on the folder you are standing in ("this one
+        // has the archives" / "keep looking") is the only thing on this
+        // screen worth reading, so it gets the semantic status color and the
+        // path above it gets the monospace treatment. Rows are padded to a
+        // 48dp target -- simple_list_item_1's default is shorter than that on
+        // a dense screen, and this list is scrolled with a thumb.
         LinearLayout root = new LinearLayout(this);
         root.setOrientation(LinearLayout.VERTICAL);
+        root.setBackgroundColor(LauncherUi.color(this, R.color.gzh_background));
+
+        int pad = LauncherUi.dp(this, LauncherUi.SPACE_4);
 
         pathLabel = new TextView(this);
-        pathLabel.setPadding(dp(16), dp(12), dp(16), dp(4));
+        pathLabel.setTextAppearance(R.style.Gzh_Text_BodySmall);
+        pathLabel.setTextColor(LauncherUi.color(this, R.color.gzh_on_surface_variant));
+        pathLabel.setTypeface(android.graphics.Typeface.MONOSPACE);
+        pathLabel.setPadding(pad, pad, pad, LauncherUi.dp(this, LauncherUi.SPACE_1));
         pathLabel.setTextIsSelectable(true);
         root.addView(pathLabel);
 
         hintLabel = new TextView(this);
-        hintLabel.setPadding(dp(16), 0, dp(16), dp(8));
+        hintLabel.setTextAppearance(R.style.Gzh_Text_Title);
+        hintLabel.setPadding(pad, 0, pad, LauncherUi.dp(this, LauncherUi.SPACE_3));
         root.addView(hintLabel);
 
         listView = new ListView(this);
+        listView.setDivider(null);
         LinearLayout.LayoutParams listParams = new LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT, 0, 1f);
         root.addView(listView, listParams);
 
         LinearLayout buttonRow = new LinearLayout(this);
         buttonRow.setOrientation(LinearLayout.HORIZONTAL);
-        buttonRow.setPadding(dp(8), dp(8), dp(8), dp(8));
+        buttonRow.setPadding(LauncherUi.dp(this, LauncherUi.SPACE_3),
+            LauncherUi.dp(this, LauncherUi.SPACE_2),
+            LauncherUi.dp(this, LauncherUi.SPACE_3),
+            LauncherUi.dp(this, LauncherUi.SPACE_3));
 
-        Button useButton = new Button(this);
-        useButton.setText(R.string.folderpicker_button_use);
-        useButton.setOnClickListener(v -> finishWithSelection());
-        buttonRow.addView(useButton, new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1f));
+        MaterialButton cancelButton = LauncherUi.button(buttonRow, LauncherUi.BUTTON_TEXT,
+            getString(R.string.common_cancel),
+            () -> { setResult(RESULT_CANCELED); finish(); });
+        cancelButton.setLayoutParams(new LinearLayout.LayoutParams(
+            0, LinearLayout.LayoutParams.MATCH_PARENT, 1f));
 
-        Button cancelButton = new Button(this);
-        cancelButton.setText(R.string.common_cancel);
-        cancelButton.setOnClickListener(v -> { setResult(RESULT_CANCELED); finish(); });
-        buttonRow.addView(cancelButton, new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1f));
+        MaterialButton useButton = LauncherUi.button(buttonRow, LauncherUi.BUTTON_FILLED,
+            getString(R.string.folderpicker_button_use), this::finishWithSelection);
+        useButton.setLayoutParams(new LinearLayout.LayoutParams(
+            0, LinearLayout.LayoutParams.MATCH_PARENT, 2f));
 
         root.addView(buttonRow);
         setContentView(root);
@@ -129,9 +149,12 @@ public class FolderPickerActivity extends Activity {
 
     private void refresh() {
         pathLabel.setText(currentDir.getAbsolutePath());
-        hintLabel.setText(SetupActivity.isValidGameFolder(currentDir)
+        boolean looksRight = SetupActivity.isValidGameFolder(currentDir);
+        hintLabel.setText(looksRight
             ? getString(R.string.folderpicker_hint_valid)
             : getString(R.string.folderpicker_hint_invalid));
+        hintLabel.setTextColor(LauncherUi.color(this,
+            looksRight ? R.color.gzh_status_ok : R.color.gzh_on_surface_variant));
 
         List<String> entries = new ArrayList<>();
         if (currentDir.getParentFile() != null) {
@@ -153,7 +176,19 @@ public class FolderPickerActivity extends Activity {
             Toast.makeText(this, R.string.folderpicker_toast_cant_read, Toast.LENGTH_LONG).show();
         }
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, entries);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                this, android.R.layout.simple_list_item_1, entries) {
+            @Override
+            public View getView(int position, View convertView, android.view.ViewGroup parent) {
+                TextView row = (TextView) super.getView(position, convertView, parent);
+                row.setTextColor(LauncherUi.color(FolderPickerActivity.this, R.color.gzh_on_surface));
+                row.setMinHeight(LauncherUi.dp(FolderPickerActivity.this, LauncherUi.TOUCH_TARGET));
+                row.setGravity(Gravity.CENTER_VERTICAL);
+                int side = LauncherUi.dp(FolderPickerActivity.this, LauncherUi.SPACE_4);
+                row.setPadding(side, 0, side, 0);
+                return row;
+            }
+        };
         listView.setAdapter(adapter);
     }
 
@@ -162,10 +197,5 @@ public class FolderPickerActivity extends Activity {
         result.putExtra(EXTRA_SELECTED_PATH, currentDir.getAbsolutePath());
         setResult(RESULT_OK, result);
         finish();
-    }
-
-    private int dp(int value) {
-        float density = getResources().getDisplayMetrics().density;
-        return (int) (value * density + 0.5f);
     }
 }
