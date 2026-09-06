@@ -653,6 +653,9 @@ Bool StdBIGFileSystem::loadBigFilesFromDirectory(AsciiString dir, AsciiString fi
 	FilenameList filenameList;
 	TheLocalFileSystem->getFileListInDirectory(dir, "", fileMask, filenameList, TRUE);
 
+	fprintf(stderr, "[gxbig] scanning '%s' for '%s': %u candidate(s)\n",
+		dir.isEmpty() ? "." : dir.str(), fileMask.str(), (unsigned)filenameList.size());
+
 	Bool actuallyAdded = FALSE;
 	FilenameListIter it = filenameList.begin();
 	while (it != filenameList.end()) {
@@ -667,6 +670,13 @@ Bool StdBIGFileSystem::loadBigFilesFromDirectory(AsciiString dir, AsciiString fi
 #endif
 
 		ArchiveFile *archiveFile = openArchiveFile((*it).str());
+
+		// GeneralsX @diag Android port 06/09/2026 Which archives were actually
+		// mounted is the first thing worth knowing about a "half my textures are
+		// magenta" report, and until now the log never said. DEBUG_LOG below is
+		// compiled out of release builds, which is exactly the build testers run.
+		fprintf(stderr, "[gxbig] %s: %s\n",
+			archiveFile != nullptr ? "loaded" : "FAILED TO OPEN", (*it).str());
 
 		if (archiveFile != nullptr) {
 			DEBUG_LOG(("StdBIGFileSystem::loadBigFilesFromDirectory - loading %s into the directory tree.", (*it).str()));

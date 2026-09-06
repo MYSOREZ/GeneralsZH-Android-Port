@@ -33,6 +33,7 @@
 #include "StdDevice/Common/StdLocalFile.h"
 
 #include <algorithm>
+#include <cctype>
 #include <filesystem>
 
 #ifndef _WIN32
@@ -284,7 +285,17 @@ void StdLocalFileSystem::getFileListInDirectory(const AsciiString& currentDirect
 	AsciiString asciisearch;
 	asciisearch = originalDirectory;
 	asciisearch.concat(currentDirectory);
-	auto searchExt = std::filesystem::path(searchName.str()).extension();
+	// GeneralsX @bugfix Android port 06/09/2026 The extension was compared byte
+	// for byte. Windows, where this engine grew up, does not care about the case
+	// of a filename; Android's filesystem does. So a game copy whose archives
+	// are named "TerrainZH.BIG" rather than "TerrainZH.big" had those archives
+	// silently skipped here -- not reported missing, just never listed -- and
+	// everything inside them turned into the magenta missing-texture placeholder
+	// at draw time, with nothing anywhere saying why. Compare case-insensitively,
+	// which is what the caller ("*.big") has always meant.
+	std::string searchExt = std::filesystem::path(searchName.str()).extension().string();
+	std::transform(searchExt.begin(), searchExt.end(), searchExt.begin(),
+		[](unsigned char c) { return (char)std::tolower(c); });
 	if (asciisearch.isEmpty()) {
 		asciisearch = ".";
 	}
@@ -310,7 +321,10 @@ void StdLocalFileSystem::getFileListInDirectory(const AsciiString& currentDirect
 
 	while (!done)	{
 		std::string filenameStr = iter->path().filename().string();
-		if (!iter->is_directory() && iter->path().extension() == searchExt &&
+		std::string entryExt = iter->path().extension().string();
+		std::transform(entryExt.begin(), entryExt.end(), entryExt.begin(),
+			[](unsigned char c) { return (char)std::tolower(c); });
+		if (!iter->is_directory() && entryExt == searchExt &&
 			(strcmp(filenameStr.c_str(), ".") != 0 && strcmp(filenameStr.c_str(), "..") != 0)) {
 			// if we haven't already, add this filename to the list.
 			// a stl set should only allow one copy of each filename
