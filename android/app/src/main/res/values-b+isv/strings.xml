@@ -171,4 +171,17 @@
     <string name="setup_toast_base_generals_cleared">Papka osnovnoj igry odstranjena</string>
     <string name="setup_base_generals_not_here">V %1$s ne ima arhivov osnovnoj igry Generals — izberi papku, v kojej sut Terrain.big, Textures.big i W3D.big.</string>
     <string name="setup_status_base_generals_line">Osnovna Generals: %1$s\n</string>
+    <string name="logviewer_crash_prev_log_absent">(néma)</string>
+    <string name="logviewer_elided_notice">\n...(%1$d znakov tut propuščeno; početok sesije vyše i najnovějši vyvod nižeje sohranjeni)...\n\n</string>
+    <string name="logviewer_section_crash_prev_log">=== crash-prev.log (nativny obrabotnik padenij, prědiduča sesija) ===\n</string>
+    <string name="logviewer_toast_share_none">Ješče něma fajlov žurnala za dělenje.</string>
+    <string name="setup_button_dxvk_config_reset">Vrnuti izhodno</string>
+    <string name="setup_button_dxvk_config_save">Sohraniti</string>
+    <string name="setup_card_dxvk_config">Konfiguracija DXVK (dxvk.conf, naprědno)</string>
+    <string name="setup_dxvk_config_help">Rediguje dxvk.conf naprosto — tot že fajl, ktory dvižok čita pri startu. Perestrojka ne trěbna, dějstvuje od naslědujučego zapuska. Korisno, ako igra idet medlenno na tvojem uređaju:\n\nd3d9.samplerAnisotropy = 2 (ili 0 za odklučenje) — menje od izhodnyh 16, umenjšaje nagruzku na GPU slabših uređajev.\ndxvk.hud = fps,drawcalls,submissions,pipelines — pokazyva malu nakladku proizvoditelnosti.\ndxvk.logLevel = none — ostavi tako, ako ne prosili inako; podrobnějše rovni zpomaljajut igru.\n\nJedno «key = value» na rědok. Nepravilny rědok DXVK prosto ignoruje, tako čto opečatka ne zlomi igru — v najgoršem slučaju tvoja izměna ne budet iměti effekta.</string>
+    <string name="setup_dxvk_config_no_folder">Najprvo izberi papku igry (vyše)</string>
+    <string name="setup_toast_dxvk_config_no_default">V tom bildu ne najden vgraditelny izhodny dxvk.conf.</string>
+    <string name="setup_toast_dxvk_config_reset">Vrnjeno k izhodnomu dxvk.conf.</string>
+    <string name="setup_toast_dxvk_config_saved">Sohranjeno. Budet dějstvovati pri naslědujučem zapusku igry.</string>
+    <string name="setup_toast_storage_permission_denied">Za prěgled papki igry trěbno dozvolenje k hranilišču. Natisni «Izbrati papku igry» ješče raz.</string>
 </resources>

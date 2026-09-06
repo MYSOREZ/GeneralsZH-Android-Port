@@ -171,4 +171,17 @@
     <string name="setup_toast_base_generals_cleared">Ordner des Basisspiels zurückgesetzt</string>
     <string name="setup_base_generals_not_here">In %1$s liegen keine Archive des Basisspiels Generals — wähle den Ordner mit Terrain.big, Textures.big und W3D.big.</string>
     <string name="setup_status_base_generals_line">Basisspiel Generals: %1$s\n</string>
+    <string name="logviewer_crash_prev_log_absent">(nicht vorhanden)</string>
+    <string name="logviewer_elided_notice">\n...(%1$d Zeichen hier ausgelassen; der Sitzungsstart oben und die neueste Ausgabe unten bleiben erhalten)...\n\n</string>
+    <string name="logviewer_section_crash_prev_log">=== crash-prev.log (nativer Absturz-Handler, vorherige Sitzung) ===\n</string>
+    <string name="logviewer_toast_share_none">Noch keine Protokolldateien zum Teilen vorhanden.</string>
+    <string name="setup_button_dxvk_config_reset">Auf Standard zurücksetzen</string>
+    <string name="setup_button_dxvk_config_save">Speichern</string>
+    <string name="setup_card_dxvk_config">DXVK-Konfiguration (dxvk.conf, fortgeschritten)</string>
+    <string name="setup_dxvk_config_help">Bearbeitet dxvk.conf direkt — dieselbe Datei, die die Engine beim Start liest. Kein Neubau nötig, wirkt ab dem nächsten Start. Nützliche Einstellungen, wenn das Spiel auf deinem Gerät langsam läuft:\n\nd3d9.samplerAnisotropy = 2 (oder 0 zum Abschalten) — niedriger als der Standardwert 16, entlastet schwächere GPUs.\ndxvk.hud = fps,drawcalls,submissions,pipelines — zeigt eine kleine Leistungsanzeige auf dem Bildschirm.\ndxvk.logLevel = none — so lassen, sofern nicht anders gewünscht; ausführlichere Stufen bremsen das Spiel.\n\nEin „key = value“ pro Zeile. Eine ungültige Zeile ignoriert DXVK einfach, ein Tippfehler kann das Spiel also nicht kaputt machen — schlimmstenfalls bleibt die Änderung wirkungslos.</string>
+    <string name="setup_dxvk_config_no_folder">Wähle zuerst einen Spielordner (oben)</string>
+    <string name="setup_toast_dxvk_config_no_default">In diesem Build wurde keine mitgelieferte Standard-dxvk.conf gefunden.</string>
+    <string name="setup_toast_dxvk_config_reset">Auf die Standard-dxvk.conf zurückgesetzt.</string>
+    <string name="setup_toast_dxvk_config_saved">Gespeichert. Wirkt beim nächsten Start des Spiels.</string>
+    <string name="setup_toast_storage_permission_denied">Für die Suche nach dem Spielordner wird die Speicherberechtigung benötigt. Tippe erneut auf „Spielordner wählen“.</string>
 </resources>

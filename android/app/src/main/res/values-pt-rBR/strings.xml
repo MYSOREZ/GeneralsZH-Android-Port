@@ -171,4 +171,17 @@
     <string name="setup_toast_base_generals_cleared">Pasta do jogo base limpa</string>
     <string name="setup_base_generals_not_here">Não há arquivos do jogo base Generals em %1$s — escolha a pasta que contém Terrain.big, Textures.big e W3D.big.</string>
     <string name="setup_status_base_generals_line">Generals base: %1$s\n</string>
+    <string name="logviewer_crash_prev_log_absent">(não presente)</string>
+    <string name="logviewer_elided_notice">\n...(%1$d caracteres omitidos aqui; o início da sessão acima e a saída mais recente abaixo foram mantidos)...\n\n</string>
+    <string name="logviewer_section_crash_prev_log">=== crash-prev.log (manipulador nativo de falhas, sessão anterior) ===\n</string>
+    <string name="logviewer_toast_share_none">Ainda não há arquivos de log para compartilhar.</string>
+    <string name="setup_button_dxvk_config_reset">Restaurar padrão</string>
+    <string name="setup_button_dxvk_config_save">Salvar</string>
+    <string name="setup_card_dxvk_config">Configuração do DXVK (dxvk.conf, avançado)</string>
+    <string name="setup_dxvk_config_help">Edita o dxvk.conf diretamente, o mesmo arquivo que o motor lê ao iniciar — sem precisar recompilar, passa a valer no próximo lançamento. Ajustes úteis se o jogo estiver lento no seu aparelho:\n\nd3d9.samplerAnisotropy = 2 (ou 0 para desativar) — menor que o padrão 16, reduz o trabalho da GPU em hardware mais fraco.\ndxvk.hud = fps,drawcalls,submissions,pipelines — mostra uma pequena sobreposição de desempenho.\ndxvk.logLevel = none — deixe assim, a menos que peçam o contrário; níveis mais detalhados deixam o jogo lento.\n\nUm «key = value» por linha. O DXVK simplesmente ignora uma linha inválida, então um erro de digitação não quebra o jogo — na pior das hipóteses sua mudança não terá efeito.</string>
+    <string name="setup_dxvk_config_no_folder">Selecione primeiro uma pasta do jogo (acima)</string>
+    <string name="setup_toast_dxvk_config_no_default">Nenhum dxvk.conf padrão incluído foi encontrado nesta versão.</string>
+    <string name="setup_toast_dxvk_config_reset">Restaurado para o dxvk.conf padrão.</string>
+    <string name="setup_toast_dxvk_config_saved">Salvo. Passa a valer na próxima vez que você iniciar o jogo.</string>
+    <string name="setup_toast_storage_permission_denied">É necessária permissão de armazenamento para procurar a pasta do jogo. Toque em «Selecionar pasta do jogo» novamente.</string>
 </resources>

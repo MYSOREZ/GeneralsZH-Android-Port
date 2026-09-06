@@ -183,4 +183,7 @@
     <string name="setup_toast_base_generals_cleared">Папка базовой Generals сброшена</string>
     <string name="setup_base_generals_not_here">В %1$s нет архивов базовой Generals — выберите папку, где лежат Terrain.big, Textures.big и W3D.big.</string>
     <string name="setup_status_base_generals_line">Базовая Generals: %1$s\n</string>
+    <string name="logviewer_crash_prev_log_absent">(отсутствует)</string>
+    <string name="logviewer_elided_notice">\n...(здесь пропущено символов: %1$d; начало сессии выше и самый свежий вывод ниже сохранены)...\n\n</string>
+    <string name="logviewer_section_crash_prev_log">=== crash-prev.log (нативный обработчик падений, предыдущая сессия) ===\n</string>
 </resources>
