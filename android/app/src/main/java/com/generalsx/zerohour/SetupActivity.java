@@ -464,6 +464,93 @@ public class SetupActivity extends Activity {
         return RENDER_BACKEND_GLES;
     }
 
+    // GeneralsX @feature Android port 06/09/2026 The GPU's own name, as its driver
+    // reports it. This is the one piece of information the render-backend choice
+    // actually turns on -- every Vulkan corruption report on this project so far has
+    // been a driver family, not a device model (PowerVR BXM, Samsung Xclipse) -- and
+    // until now the launcher asked the user to choose without showing it to them.
+    //
+    // Deliberately shown rather than acted on. Auto-switching the renderer from a
+    // string match would be guesswork wearing a confident face: the same family can
+    // ship a fixed driver in a later Android release, and silently moving someone off
+    // a backend that works for them is worse than letting them read the name and
+    // decide. See getRenderBackendChoice()'s comment on the same principle.
+    private static String cachedGpuName;
+
+    private String detectGpuName() {
+        if (cachedGpuName != null) {
+            return cachedGpuName;
+        }
+        cachedGpuName = "";
+        android.opengl.EGLDisplay display = android.opengl.EGL14.EGL_NO_DISPLAY;
+        android.opengl.EGLContext context = android.opengl.EGL14.EGL_NO_CONTEXT;
+        android.opengl.EGLSurface surface = android.opengl.EGL14.EGL_NO_SURFACE;
+        try {
+            display = android.opengl.EGL14.eglGetDisplay(android.opengl.EGL14.EGL_DEFAULT_DISPLAY);
+            if (display == android.opengl.EGL14.EGL_NO_DISPLAY) {
+                return cachedGpuName;
+            }
+            int[] version = new int[2];
+            if (!android.opengl.EGL14.eglInitialize(display, version, 0, version, 1)) {
+                return cachedGpuName;
+            }
+            int[] cfgAttribs = {
+                android.opengl.EGL14.EGL_RENDERABLE_TYPE, android.opengl.EGL14.EGL_OPENGL_ES2_BIT,
+                android.opengl.EGL14.EGL_SURFACE_TYPE, android.opengl.EGL14.EGL_PBUFFER_BIT,
+                android.opengl.EGL14.EGL_NONE
+            };
+            android.opengl.EGLConfig[] configs = new android.opengl.EGLConfig[1];
+            int[] numConfigs = new int[1];
+            if (!android.opengl.EGL14.eglChooseConfig(display, cfgAttribs, 0, configs, 0, 1, numConfigs, 0)
+                    || numConfigs[0] == 0) {
+                return cachedGpuName;
+            }
+            int[] ctxAttribs = { android.opengl.EGL14.EGL_CONTEXT_CLIENT_VERSION, 2, android.opengl.EGL14.EGL_NONE };
+            context = android.opengl.EGL14.eglCreateContext(display, configs[0],
+                android.opengl.EGL14.EGL_NO_CONTEXT, ctxAttribs, 0);
+            if (context == android.opengl.EGL14.EGL_NO_CONTEXT) {
+                return cachedGpuName;
+            }
+            int[] surfAttribs = {
+                android.opengl.EGL14.EGL_WIDTH, 1,
+                android.opengl.EGL14.EGL_HEIGHT, 1,
+                android.opengl.EGL14.EGL_NONE
+            };
+            surface = android.opengl.EGL14.eglCreatePbufferSurface(display, configs[0], surfAttribs, 0);
+            if (surface == android.opengl.EGL14.EGL_NO_SURFACE) {
+                return cachedGpuName;
+            }
+            if (!android.opengl.EGL14.eglMakeCurrent(display, surface, surface, context)) {
+                return cachedGpuName;
+            }
+            String renderer = android.opengl.GLES20.glGetString(android.opengl.GLES20.GL_RENDERER);
+            if (renderer != null && !renderer.isEmpty()) {
+                cachedGpuName = renderer;
+            }
+        } catch (Throwable t) {
+            // A launcher must never fail to open because a driver misbehaved while
+            // being asked its own name.
+            cachedGpuName = "";
+        } finally {
+            try {
+                if (display != android.opengl.EGL14.EGL_NO_DISPLAY) {
+                    android.opengl.EGL14.eglMakeCurrent(display, android.opengl.EGL14.EGL_NO_SURFACE,
+                        android.opengl.EGL14.EGL_NO_SURFACE, android.opengl.EGL14.EGL_NO_CONTEXT);
+                    if (surface != android.opengl.EGL14.EGL_NO_SURFACE) {
+                        android.opengl.EGL14.eglDestroySurface(display, surface);
+                    }
+                    if (context != android.opengl.EGL14.EGL_NO_CONTEXT) {
+                        android.opengl.EGL14.eglDestroyContext(display, context);
+                    }
+                    android.opengl.EGL14.eglTerminate(display);
+                }
+            } catch (Throwable ignored) {
+                // nothing useful to do here
+            }
+        }
+        return cachedGpuName;
+    }
+
     private String renderBackendLabel(String choice) {
         switch (choice) {
             case RENDER_BACKEND_VULKAN:
@@ -480,8 +567,17 @@ public class SetupActivity extends Activity {
 
         renderBackendStatusView = new TextView(this);
         renderBackendStatusView.setText(getString(R.string.setup_render_backend_status, renderBackendLabel(getRenderBackendChoice())));
-        renderBackendStatusView.setPadding(0, 0, 0, dp(8));
+        renderBackendStatusView.setPadding(0, 0, 0, dp(4));
         content.addView(renderBackendStatusView);
+
+        String gpu = detectGpuName();
+        if (!gpu.isEmpty()) {
+            TextView gpuView = new TextView(this);
+            gpuView.setAlpha(0.8f);
+            gpuView.setText(getString(R.string.setup_render_backend_gpu, gpu));
+            gpuView.setPadding(0, 0, 0, dp(8));
+            content.addView(gpuView);
+        }
 
         addButton(content, getString(R.string.setup_button_change_render_backend), this::onChangeRenderBackend);
 
@@ -492,7 +588,9 @@ public class SetupActivity extends Activity {
     }
 
     private void onChangeRenderBackend() {
-        String[] choices = { RENDER_BACKEND_VULKAN, RENDER_BACKEND_GLES, RENDER_BACKEND_GLES_ANGLE };
+        // Default first: the list order is a recommendation in itself, and Vulkan has
+        // not been the default since this branch started shipping GLES builds.
+        String[] choices = { RENDER_BACKEND_GLES, RENDER_BACKEND_GLES_ANGLE, RENDER_BACKEND_VULKAN };
         String[] labels = new String[choices.length];
         for (int i = 0; i < choices.length; i++) {
             labels[i] = renderBackendLabel(choices[i]);

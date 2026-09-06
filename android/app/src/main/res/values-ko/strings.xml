@@ -49,13 +49,14 @@
 
     <!-- SetupActivity: Render Backend card -->
     <string name="setup_card_render_backend">렌더 백엔드</string>
-    <string name="setup_render_backend_help">게임이 사용하는 그래픽 API입니다. 다음에 게임을 실행할 때 적용되며, 즉시 적용되지는 않습니다.\n\nVulkan(권장): 가장 오래되고 가장 많이 테스트된 백엔드입니다(DXVK의 Direct3D 8→Vulkan 변환 사용). 대부분의 최신 휴대폰(Snapdragon 8 Gen/Elite 시리즈 등)은 별도 설정 없이 기본 드라이버로도 훌륭하게 작동합니다. 아래의 「사용자 지정 Vulkan 드라이버」 항목은 선택 사항이며, 기본 드라이버가 Vulkan 1.1 미만 버전을 보고하는 일부 구형 Adreno 칩에만 관련이 있습니다 — 실제로 필요한 휴대폰에만 자동으로 적용됩니다.\n\nOpenGL ES: Vulkan을 전혀 사용할 수 없는 휴대폰(매우 오래되었거나 지원되지 않는 GPU)을 위한 네이티브 실험적 대체 수단입니다. 거의 모든 곳에서 작동하지만 다른 두 옵션보다 눈에 띄게 느립니다 — 첫 번째 선택이 아니라 최후의 수단으로 생각하세요.\n\nOpenGL ES + ANGLE: 동일한 실험적 렌더러이지만, 휴대폰에 내장된 GLES 드라이버 대신 Google의 ANGLE을 함께 번들로 포함하여 이를 통해(Vulkan으로 변환되어) 렌더링합니다. 이 ANGLE 빌드는 이 앱 안에 직접 포함되어 있습니다 — Android 자체의 시스템 전역 ANGLE 기능과 달리 최소 Android 버전이나 휴대폰 설정의 별도 전환 스위치가 필요하지 않습니다. 실행되면 일반 OpenGL ES보다 눈에 띄게 빠르지만, 컨트롤이 많은 메뉴(예: 스커미시 옵션)를 처음 열 때 ANGLE이 필요한 것을 컴파일하는 동안 잠깐 끓길 수 있습니다. 이 끓김은 저절로 사라지며, 해당 메뉴를 나갔다가 다시 열기 전까지는 다시 나타나지 않습니다.\n\n아래의 「사용자 지정 Vulkan 드라이버」와 「DXVK 설정」 섹션은 Vulkan을 선택했을 때만 표시됩니다.</string>
+    <string name="setup_render_backend_help">게임이 사용할 그래픽 API입니다. 즉시가 아니라 다음에 게임을 실행할 때 적용됩니다.\n\nOpenGL ES (기본값): 이 이식판을 위해 작성된 네이티브 렌더러입니다. 지금까지 시험한 모든 기기에서 동작하고, Vulkan이 깨진 화면을 그리는 기기에서도 동작하기 때문에 기본값입니다. 여기서 시작하고, 이유가 있을 때만 바꾸세요.\n\nOpenGL ES + ANGLE: 같은 렌더러지만 휴대폰의 GLES 드라이버 대신 구글 ANGLE을 거쳐 Vulkan으로 번역됩니다. ANGLE은 이 앱에 포함되어 있어 최소 안드로이드 버전도, 시스템 설정도 필요 없습니다. 실행 후에는 대체로 더 빠르지만, 요소가 많은 메뉴(교전 설정)를 처음 열 때 ANGLE이 필요한 것을 컴파일하는 동안 잠깐 끊길 수 있습니다. 그 메뉴를 나갔다가 다시 열기 전까지는 다시 끊기지 않습니다.\n\nVulkan: DXVK의 Direct3D 8 → Vulkan 변환을 거치는 원래 백엔드입니다. 드라이버가 잘 처리하는 기기, 보통 최신 스냅드래곤에서는 가장 빠릅니다. 다만 전적으로 그 드라이버에 달려 있어서, 일부 GPU에서는 자홍색 얼룩, 일그러진 지오메트리, 깨진 메뉴가 나타나며 여기의 어떤 설정으로도 고칠 수 없습니다 \u2014 PowerVR BXM과 삼성 Xclipse가 보고되었습니다. 기기에서 Vulkan이 이상해 보인다면, 기본값은 바로 그럴 때를 위한 것입니다.\n\n«사용자 지정 Vulkan 드라이버»와 «DXVK 설정» 항목은 Vulkan을 선택했을 때만 나타납니다.</string>
+    <string name="setup_render_backend_gpu">사용 중인 GPU: %1$s</string>
     <string name="setup_render_backend_status">현재: %1$s</string>
     <string name="setup_button_change_render_backend">렌더 백엔드 변경</string>
     <string name="setup_render_backend_dialog_title">렌더 백엔드 선택</string>
     <string name="setup_render_backend_vulkan">Vulkan</string>
-    <string name="setup_render_backend_gles">OpenGL ES (실험적)</string>
-    <string name="setup_render_backend_gles_angle">OpenGL ES + ANGLE (실험적)</string>
+    <string name="setup_render_backend_gles">OpenGL ES (기본값)</string>
+    <string name="setup_render_backend_gles_angle">OpenGL ES + ANGLE</string>
     <string name="setup_toast_render_backend_saved">저장되었습니다. 다음에 게임을 실행할 때 적용됩니다.</string>
     <string name="setup_toast_render_backend_failed">렌더 백엔드 선택을 저장하지 못했습니다: %1$s</string>
 
