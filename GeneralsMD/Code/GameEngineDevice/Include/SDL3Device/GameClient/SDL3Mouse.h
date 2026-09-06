@@ -76,6 +76,23 @@ public:
 	// it to do nothing here; nothing on mobile calls addSDLEvent() on this
 	// object anymore, so there's no button/wheel state to flush either.
 	virtual void createStreamMessages() override;
+
+	// GeneralsX @bugfix Android port 06/09/2026 Where the last finger touched.
+	//
+	// Writes ONLY m_currMouse.pos, the value getMouseStatus() returns. That field
+	// is read by preview drawing -- InGameUI::handleRadiusCursor() for the ability
+	// radius, InGameUI::handleBuildPlacements() for the placement icon, both called
+	// once a frame from InGameUI::preDraw() -- and with nothing writing it on a
+	// touch device they drew at (0,0), in the top-left corner.
+	//
+	// It deliberately does NOT emit MSG_RAW_MOUSE_POSITION. That message is the
+	// event that drives GUI hilite, the selection box, and the engine's edge-scroll
+	// anchor; two earlier attempts at this published one and had to be reverted,
+	// because a position event arriving every frame gives the game a cursor that
+	// outlives the finger -- menu buttons hilited with nothing on screen, and the
+	// map scrolling by itself from a point left near an edge. The position and the
+	// event are different things and only the first one is wanted here.
+	void setTouchCursorPos(Int x, Int y);
 #endif
 
 	// SDL3-specific methods

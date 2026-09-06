@@ -587,6 +587,26 @@ ICoord2D touchPixel(float x, float y)
 	ICoord2D p;
 	p.x = (Int)x;
 	p.y = (Int)y;
+
+	// GeneralsX @bugfix Android port 06/09/2026 Also publish it as the position
+	// preview drawing reads. InGameUI::handleRadiusCursor() (the ability radius)
+	// and InGameUI::handleBuildPlacements() (the placement icon) take it straight
+	// from TheMouse->getMouseStatus()->pos every frame in preDraw(), and with
+	// nothing writing it on a touch device both drew in the top-left corner.
+	//
+	// setTouchCursorPos() writes that field and nothing else -- no
+	// MSG_RAW_MOUSE_POSITION is emitted here, and none should be. Every touch that
+	// legitimately produces a position event already sends one through
+	// pushMousePosition(); the events stay exactly as they were.
+	//
+	// This function is on the path of every touch-derived message, so it is the
+	// one place that cannot be forgotten when a new gesture is added.
+	if (TheMouse) {
+		SDL3Mouse *sdlMouse = dynamic_cast<SDL3Mouse *>(TheMouse);
+		if (sdlMouse) {
+			sdlMouse->setTouchCursorPos(p.x, p.y);
+		}
+	}
 	return p;
 }
 
