@@ -85,6 +85,8 @@
     <string name="setup_diagnostics_no_folder">이 스위치를 사용하려면 먼저 위에서 게임 폴더를 선택하세요</string>
     <string name="setup_switch_gx_trace">상세 추적 로그</string>
     <string name="setup_switch_gx_trace_desc">특정 멈춤이나 버그를 추적하기 위한 매우 상세한 내부 로그(UI, 글꼴, INI 파일). 긴 세션에서는 로그가 50~100MB 이상으로 커질 수 있습니다 — FPS 수치만 필요하면 대신 "성능 요약"을 사용하세요. (gx_trace.txt)</string>
+    <string name="setup_switch_touch_debug">터치 입력 오버레이</string>
+    <string name="setup_switch_touch_debug_desc">터치 계층의 상태를 게임 위에 표시합니다: 현재 제스처, 손가락 위치, 엔진이 포인터가 있다고 여기는 위치, 카메라 스크롤 기준점. 조작 문제를 보고할 때 켜세요 — 저절로 움직이는 지도, 엉뚱한 곳의 유령 건물, 누르지 않은 곳을 겨냥하는 능력. (gx_touch_debug.txt)</string>
     <string name="setup_switch_gx_perf">성능 요약</string>
     <string name="setup_switch_gx_perf_desc">프레임 시간이 어디에 쓰이는지(레이더, 오디오, 네트워크, 게임 로직, 렌더링) 매초 한 줄씩 짧게 추가합니다. 세션 내내 켜둬도 안전합니다 — FPS/버벅임 제보 시 켜세요. (gx_perf.txt)</string>
     <string name="setup_switch_dxvk_hud">화면 성능 오버레이</string>
@@ -169,4 +171,17 @@
     <string name="setup_toast_base_generals_cleared">기본 게임 폴더를 지웠습니다</string>
     <string name="setup_base_generals_not_here">%1$s에는 기본 게임 Generals 아카이브가 없습니다 — Terrain.big, Textures.big, W3D.big이 있는 폴더를 선택하세요.</string>
     <string name="setup_status_base_generals_line">기본 Generals: %1$s\n</string>
+    <string name="logviewer_crash_prev_log_absent">(없음)</string>
+    <string name="logviewer_elided_notice">\n...(여기서 %1$d자 생략됨. 위의 세션 시작 부분과 아래의 최신 출력은 유지됩니다)...\n\n</string>
+    <string name="logviewer_section_crash_prev_log">=== crash-prev.log (네이티브 크래시 핸들러, 이전 세션) ===\n</string>
+    <string name="logviewer_toast_share_none">아직 공유할 로그 파일이 없습니다.</string>
+    <string name="setup_button_dxvk_config_reset">기본값으로 되돌리기</string>
+    <string name="setup_button_dxvk_config_save">저장</string>
+    <string name="setup_card_dxvk_config">DXVK 설정 (dxvk.conf, 고급)</string>
+    <string name="setup_dxvk_config_help">dxvk.conf를 직접 편집합니다. 엔진이 시작할 때 읽는 바로 그 파일이라 다시 빌드할 필요 없이 다음 실행부터 적용됩니다. 기기에서 게임이 느리게 느껴질 때 유용한 설정:\n\nd3d9.samplerAnisotropy = 2 (끄려면 0) — 기본값 16보다 낮춰 성능이 약한 기기의 GPU 부담을 줄입니다.\ndxvk.hud = fps,drawcalls,submissions,pipelines — 화면에 작은 성능 오버레이를 표시합니다.\ndxvk.logLevel = none — 요청받지 않았다면 그대로 두세요. 자세한 수준일수록 게임이 느려집니다.\n\n한 줄에 «key = value» 하나씩. 잘못된 줄은 DXVK가 그냥 무시하므로 오타로 게임이 망가지지 않습니다. 최악의 경우 변경이 적용되지 않을 뿐입니다.</string>
+    <string name="setup_dxvk_config_no_folder">먼저 게임 폴더를 선택하세요 (위)</string>
+    <string name="setup_toast_dxvk_config_no_default">이 빌드에는 기본 dxvk.conf가 포함되어 있지 않습니다.</string>
+    <string name="setup_toast_dxvk_config_reset">기본 dxvk.conf로 되돌렸습니다.</string>
+    <string name="setup_toast_dxvk_config_saved">저장했습니다. 다음에 게임을 실행할 때 적용됩니다.</string>
+    <string name="setup_toast_storage_permission_denied">게임 폴더를 찾아보려면 저장소 권한이 필요합니다. «게임 폴더 선택»을 다시 누르세요.</string>
 </resources>

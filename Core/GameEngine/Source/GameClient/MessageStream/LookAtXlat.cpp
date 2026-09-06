@@ -114,8 +114,25 @@ void LookAtTranslator::stopScrolling()
 //-----------------------------------------------------------------------------
 Bool LookAtTranslator::canScrollAtScreenEdge() const
 {
+#if defined(__ANDROID__) || (defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE)
+	// GeneralsX @bugfix Android port 06/09/2026 Never on a touchscreen.
+	//
+	// Screen-edge scrolling is defined by a pointer RESTING within a few pixels of an
+	// edge, and it ends only when a later pointer event reports a position back inside
+	// the safe zone. A finger rests nowhere and sends nothing after it lifts, so the mode
+	// can start but has no natural way to end: it scrolled until something unrelated
+	// reset it. That is the runaway camera reported on this port, and no amount of
+	// guarding the entry and exit points fixes a mode whose exit condition cannot occur.
+	//
+	// Nothing is lost -- dragging the map with a finger is the touch equivalent, and it
+	// is both more precise and already native (applyCameraPan -> TheTacticalView).
+	// If mouse support is ever offered here for an attached OTG/Bluetooth pointer, this
+	// is the line that has to consult that setting rather than the platform.
+	return false;
+#else
 	if (!TheMouse->isCursorCaptured())
 		return false;
+#endif
 
 	if (TheDisplay->getWindowed())
 	{
@@ -769,6 +786,42 @@ GameMessageDisposition LookAtTranslator::translateGameMessage(const GameMessage 
 
 }
 
+// GeneralsX @bugfix Android port 06/09/2026 See the declaration comment. Guarded on
+// m_isScrolling because stopScrolling() also restores the pre-scroll mouse cursor and
+// closes a stats-collector timer -- neither of which should happen when no scroll was
+// ever started.
+void LookAtTranslator::cancelScrolling()
+{
+	if (m_isScrolling)
+	{
+		stopScrolling();
+	}
+}
+
+// GeneralsX @feature Android port 06/09/2026 See the declaration comment.
+const char *LookAtTranslator::getCameraModeDebugText() const
+{
+	static char buf[160];
+	const char *scrollName = "none";
+	switch (m_scrollType)
+	{
+		case SCROLL_NONE:				scrollName = "none";      break;
+		case SCROLL_RMB:				scrollName = "RMB";       break;
+		case SCROLL_KEY:				scrollName = "KEY";       break;
+		case SCROLL_SCREENEDGE:	scrollName = "EDGE";      break;
+	}
+	snprintf(buf, sizeof(buf), "%s%s%s%s%s anchor %d,%d cur %d,%d lock%d",
+					 m_isScrolling ? scrollName : "-",
+					 m_isRotating ? " ROT" : "",
+					 m_isPitching ? " PITCH" : "",
+					 m_isPitchingToDefault ? " PITCHDEF" : "",
+					 m_isChangingFOV ? " FOV" : "",
+					 m_anchor.x, m_anchor.y, m_currentPos.x, m_currentPos.y,
+					 (TheTacticalView && TheTacticalView->isMouseLocked()) ? 1 : 0);
+	return buf;
+}
+
+//-----------------------------------------------------------------------------
 void LookAtTranslator::resetModes()
 {
 	m_isScrolling = FALSE;

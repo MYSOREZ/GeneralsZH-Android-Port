@@ -85,6 +85,8 @@
     <string name="setup_diagnostics_no_folder">برای استفاده از این کلیدها ابتدا یک پوشه بازی (بالا) انتخاب کنید</string>
     <string name="setup_switch_gx_trace">گزارش ردیابی مفصل</string>
     <string name="setup_switch_gx_trace_desc">گزارش‌گیری داخلی بسیار مفصل (رابط کاربری، فونت‌ها، فایل‌های INI) برای ردیابی یک هنگ یا باگ خاص. ممکن است در یک نشست طولانی به ۵۰ تا ۱۰۰+ مگابایت برسد — اگر فقط به اعداد FPS نیاز دارید، به‌جای آن «خلاصه عملکرد» را فعال کنید. (gx_trace.txt)</string>
+    <string name="setup_switch_touch_debug">پوشش اشکال‌زدایی لمسی</string>
+    <string name="setup_switch_touch_debug_desc">وضعیت لایه لمسی را روی بازی می‌کشد: حرکت فعلی، جای انگشت شما، جایی که موتور بازی فکر می‌کند نشانگر است، و لنگر پیمایش دوربین. برای گزارش مشکلات کنترل این را روشن کنید — نقشه‌ای که خودش حرکت می‌کند، ساختمان شبح در جای اشتباه، توانایی که جایی را نشانه می‌رود که لمس نکرده‌اید. (gx_touch_debug.txt)</string>
     <string name="setup_switch_gx_perf">خلاصه عملکرد</string>
     <string name="setup_switch_gx_perf_desc">هر ثانیه یک خط کوتاه اضافه می‌کند که نشان می‌دهد زمان هر فریم صرف چه چیزی می‌شود (رادار، صدا، شبکه، منطق بازی، رندر). فعال نگه‌داشتن آن در کل نشست بازی بی‌خطر است — برای گزارش‌های FPS/کندی فعال کنید. (gx_perf.txt)</string>
     <string name="setup_switch_dxvk_hud">نمایش عملکرد روی صفحه</string>
@@ -169,4 +171,17 @@
     <string name="setup_toast_base_generals_cleared">پوشهٔ بازی پایه پاک شد</string>
     <string name="setup_base_generals_not_here">در %1$s آرشیو بازی پایه Generals وجود ندارد — پوشه‌ای را انتخاب کنید که Terrain.big و Textures.big و W3D.big در آن باشد.</string>
     <string name="setup_status_base_generals_line">Generals پایه: %1$s\n</string>
+    <string name="logviewer_crash_prev_log_absent">(موجود نیست)</string>
+    <string name="logviewer_elided_notice">\n...(%1$d نویسه در اینجا حذف شد؛ آغاز نشست در بالا و تازه‌ترین خروجی در پایین نگه داشته شده‌اند)...\n\n</string>
+    <string name="logviewer_section_crash_prev_log">=== crash-prev.log (مدیر خرابی بومی، نشست پیشین) ===\n</string>
+    <string name="logviewer_toast_share_none">هنوز پرونده گزارشی برای هم‌رسانی نیست.</string>
+    <string name="setup_button_dxvk_config_reset">بازگردانی به پیش‌فرض</string>
+    <string name="setup_button_dxvk_config_save">ذخیره</string>
+    <string name="setup_card_dxvk_config">پیکربندی DXVK (dxvk.conf، پیشرفته)</string>
+    <string name="setup_dxvk_config_help">مستقیماً dxvk.conf را ویرایش می‌کند؛ همان پرونده‌ای که موتور بازی هنگام راه‌اندازی می‌خواند — نیازی به ساخت دوباره نیست و از اجرای بعدی اثر می‌کند. تنظیمات سودمند اگر بازی روی دستگاه شما کند است:\n\nd3d9.samplerAnisotropy = 2 (یا 0 برای خاموش کردن) — کمتر از پیش‌فرض ۱۶، بار پردازنده گرافیکی را روی سخت‌افزار ضعیف‌تر کم می‌کند.\ndxvk.hud = fps,drawcalls,submissions,pipelines — یک نمایه کوچک کارایی روی صفحه نشان می‌دهد.\ndxvk.logLevel = none — جز در صورت درخواست، همین بماند؛ سطوح پرجزئیات‌تر بازی را کند می‌کنند.\n\nدر هر خط یک «key = value». DXVK خط نامعتبر را نادیده می‌گیرد، پس یک غلط تایپی بازی را خراب نمی‌کند — در بدترین حالت تغییر شما اثری ندارد.</string>
+    <string name="setup_dxvk_config_no_folder">نخست پوشه بازی را انتخاب کنید (بالا)</string>
+    <string name="setup_toast_dxvk_config_no_default">در این نسخه پرونده dxvk.conf پیش‌فرض همراه یافت نشد.</string>
+    <string name="setup_toast_dxvk_config_reset">به dxvk.conf پیش‌فرض بازگردانده شد.</string>
+    <string name="setup_toast_dxvk_config_saved">ذخیره شد. در اجرای بعدی بازی اثر می‌کند.</string>
+    <string name="setup_toast_storage_permission_denied">برای مرور پوشه بازی به اجازه دسترسی به حافظه نیاز است. دوباره «انتخاب پوشه بازی» را بزنید.</string>
 </resources>

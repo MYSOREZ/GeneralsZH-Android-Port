@@ -85,6 +85,8 @@
     <string name="setup_diagnostics_no_folder">请先在上方选择游戏文件夹，然后才能使用这些开关</string>
     <string name="setup_switch_gx_trace">详细跟踪日志</string>
     <string name="setup_switch_gx_trace_desc">非常详细的内部日志（界面、字体、INI 文件），用于追踪特定的卡死或错误。长时间游玩会话中日志可能增长到 50-100+ MB —— 如果只需要 FPS 数值，请改用"性能摘要"。(gx_trace.txt)</string>
+    <string name="setup_switch_touch_debug">触摸输入调试叠加</string>
+    <string name="setup_switch_touch_debug_desc">在游戏画面上绘制触摸层的状态：当前手势、手指位置、引擎认为指针所在的位置，以及镜头滚动锚点。报告操作问题时请开启——地图自行移动、幽灵建筑出现在错误位置、技能瞄准到你没有触摸的地方。(gx_touch_debug.txt)</string>
     <string name="setup_switch_gx_perf">性能摘要</string>
     <string name="setup_switch_gx_perf_desc">每秒添加一行简短记录，显示每帧时间花在哪里（雷达、音频、网络、游戏逻辑、渲染）。整个游玩会话保持开启也是安全的 —— 用于 FPS/卡顿报告时打开。(gx_perf.txt)</string>
     <string name="setup_switch_dxvk_hud">屏幕性能叠加层</string>
@@ -169,4 +171,17 @@
     <string name="setup_toast_base_generals_cleared">已清除基础游戏文件夹</string>
     <string name="setup_base_generals_not_here">%1$s 中没有基础游戏 Generals 的归档文件——请选择包含 Terrain.big、Textures.big 和 W3D.big 的文件夹。</string>
     <string name="setup_status_base_generals_line">基础 Generals：%1$s\n</string>
+    <string name="logviewer_crash_prev_log_absent">（不存在）</string>
+    <string name="logviewer_elided_notice">\n...(此处省略 %1$d 个字符；上方的会话开头与下方的最新输出已保留)...\n\n</string>
+    <string name="logviewer_section_crash_prev_log">=== crash-prev.log（原生崩溃处理器，上一次会话）===\n</string>
+    <string name="logviewer_toast_share_none">暂时没有可分享的日志文件。</string>
+    <string name="setup_button_dxvk_config_reset">恢复默认</string>
+    <string name="setup_button_dxvk_config_save">保存</string>
+    <string name="setup_card_dxvk_config">DXVK 配置（dxvk.conf，高级）</string>
+    <string name="setup_dxvk_config_help">直接编辑 dxvk.conf，也就是引擎启动时读取的那个文件——无需重新构建，下次启动即生效。如果游戏在你的设备上偏慢，这些设置会有帮助：\n\nd3d9.samplerAnisotropy = 2（设为 0 则关闭）——低于默认的 16，可减轻较弱硬件上的 GPU 负担。\ndxvk.hud = fps,drawcalls,submissions,pipelines——在屏幕上显示一个小的性能叠加层。\ndxvk.logLevel = none——除非有人要求，否则保持不变；更详细的级别会拖慢游戏。\n\n每行一条「key = value」。无效的行会被 DXVK 直接忽略，所以打错字不会弄坏游戏——最坏的情况只是你的改动不起作用。</string>
+    <string name="setup_dxvk_config_no_folder">请先选择游戏文件夹（上方）</string>
+    <string name="setup_toast_dxvk_config_no_default">此版本中未找到随附的默认 dxvk.conf。</string>
+    <string name="setup_toast_dxvk_config_reset">已恢复为默认的 dxvk.conf。</string>
+    <string name="setup_toast_dxvk_config_saved">已保存。下次启动游戏时生效。</string>
+    <string name="setup_toast_storage_permission_denied">浏览游戏文件夹需要存储权限。请再次点按「选择游戏文件夹」。</string>
 </resources>

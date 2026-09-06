@@ -464,6 +464,21 @@ public:  // ********************************************************************
 	virtual void setRadiusCursor(RadiusCursorType r, const SpecialPowerTemplate* sp, WeaponSlotType wslot);
 	virtual void setRadiusCursorNone() { setRadiusCursor(RADIUSCURSOR_NONE, nullptr, PRIMARY_WEAPON); }
 
+	// GeneralsX @feature Android port 06/09/2026 Report the touch layer's own view of
+	// the gesture, for the debug overlay drawn in postDraw(). Called only while the
+	// overlay is enabled; phaseName must have static lifetime (it is a literal).
+	// Turning it into a picture is the point: the numbers that matter here -- where the
+	// finger is versus where the engine thinks the pointer is versus where the camera is
+	// anchored -- are three different things that only ever disagree on a touchscreen,
+	// and a log cannot be read while a gesture is in progress.
+	void setTouchDebugState( const char *phaseName, Int downX, Int downY,
+													 Int lastX, Int lastY, Int pubX, Int pubY, Int fingers );
+
+	// GeneralsX @feature Android port 06/09/2026 Report where the finger is aiming and
+	// whether the armed command accepts it. See m_touchAimKnown.
+	void setTouchAimPoint( Int x, Int y, Bool valid );
+	void clearTouchAimPoint() { m_touchAimKnown = FALSE; m_touchAimValid = FALSE; }
+
 	virtual void setInputEnabled( Bool enable );										///< Set the input enabled or disabled
 	virtual Bool getInputEnabled() { return m_inputEnabled; }	///< Get the current input status
 
@@ -902,6 +917,31 @@ protected:
 	Bool												m_isSelecting;
 	MouseMode										m_mouseMode;
 	Int													m_mouseModeCursor;
+	// GeneralsX @feature Android port 06/09/2026 Where the finger is aiming, and whether
+	// the armed command would accept that point.
+	//
+	// This replaces reading TheMouse's position. A mouse position is a truthful answer to
+	// "where is the player pointing" because a real pointer is always somewhere; a touch
+	// device has nowhere to point between gestures, and the last written value is a
+	// leftover from the previous attempt. So it is recorded explicitly, per gesture, and
+	// m_touchAimKnown says whether there is an answer at all -- there is none until a
+	// finger actually lands, and arming a command clears it again.
+	//
+	// Validity comes from evaluateContextCommand's EVALUATE_ONLY mode, the same evaluation
+	// the order itself will run, so the feedback cannot disagree with the outcome.
+	Bool												m_touchAimKnown;
+	Bool												m_touchAimValid;
+	ICoord2D										m_touchAimPoint;
+
+	// GeneralsX @feature Android port 06/09/2026 Touch-input debug overlay state, fed
+	// from the platform touch handler (see setTouchDebugState). Off unless the tester
+	// enables it in the launcher's Diagnostics section.
+	Bool												m_touchDebugOn;
+	const char *								m_touchDebugPhase;
+	ICoord2D										m_touchDebugDown;
+	ICoord2D										m_touchDebugLast;
+	ICoord2D										m_touchDebugPublished;
+	Int													m_touchDebugFingers;
 	DrawableID									m_mousedOverDrawableID;
 	Coord2D											m_scrollAmt;
 	Bool												m_isQuitMenuVisible;

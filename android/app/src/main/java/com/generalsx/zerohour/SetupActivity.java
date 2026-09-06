@@ -1016,14 +1016,17 @@ public class SetupActivity extends Activity {
     // parentheses so a tester can match it up with exact instructions from
     // an issue reporter/maintainer.
     private static final String[] DIAGNOSTIC_MARKERS = {
-        "gx_trace.txt", "gx_perf.txt", "dxvk_hud.txt", "dxvk_validation.txt", "dxvk_verbose_log.txt"
+        "gx_trace.txt", "gx_perf.txt", "gx_touch_debug.txt", "dxvk_hud.txt", "dxvk_validation.txt",
+        "dxvk_verbose_log.txt"
     };
     private static final int[] DIAGNOSTIC_TITLES = {
-        R.string.setup_switch_gx_trace, R.string.setup_switch_gx_perf, R.string.setup_switch_dxvk_hud,
-        R.string.setup_switch_dxvk_validation, R.string.setup_switch_dxvk_verbose_log
+        R.string.setup_switch_gx_trace, R.string.setup_switch_gx_perf, R.string.setup_switch_touch_debug,
+        R.string.setup_switch_dxvk_hud, R.string.setup_switch_dxvk_validation,
+        R.string.setup_switch_dxvk_verbose_log
     };
     private static final int[] DIAGNOSTIC_DESCRIPTIONS = {
-        R.string.setup_switch_gx_trace_desc, R.string.setup_switch_gx_perf_desc, R.string.setup_switch_dxvk_hud_desc,
+        R.string.setup_switch_gx_trace_desc, R.string.setup_switch_gx_perf_desc,
+        R.string.setup_switch_touch_debug_desc, R.string.setup_switch_dxvk_hud_desc,
         R.string.setup_switch_dxvk_validation_desc, R.string.setup_switch_dxvk_verbose_log_desc
     };
     private final SwitchCompat[] diagnosticSwitches = new SwitchCompat[DIAGNOSTIC_MARKERS.length];

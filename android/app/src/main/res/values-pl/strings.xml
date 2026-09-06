@@ -85,6 +85,8 @@
     <string name="setup_diagnostics_no_folder">Najpierw wybierz folder gry (powyżej), aby korzystać z tych przełączników</string>
     <string name="setup_switch_gx_trace">Szczegółowy log śledzenia</string>
     <string name="setup_switch_gx_trace_desc">Bardzo szczegółowe logowanie wewnętrzne (interfejs, czcionki, pliki INI) do śledzenia konkretnego zawieszenia lub błędu. Podczas długiej sesji log może urosnąć do 50–100+ MB — jeśli potrzebujesz tylko liczby FPS, użyj zamiast tego „Podsumowania wydajności”. (gx_trace.txt)</string>
+    <string name="setup_switch_touch_debug">Nakładka wejścia dotykowego</string>
+    <string name="setup_switch_touch_debug_desc">Rysuje na grze stan warstwy dotykowej: bieżący gest, położenie palca, miejsce, w którym silnik widzi wskaźnik, oraz kotwicę przewijania kamery. Włącz to przy zgłaszaniu problemów ze sterowaniem — uciekająca mapa, widmowy budynek w złym miejscu, zdolność celująca tam, gdzie nie dotknięto. (gx_touch_debug.txt)</string>
     <string name="setup_switch_gx_perf">Podsumowanie wydajności</string>
     <string name="setup_switch_gx_perf_desc">Dodaje jedną krótką linię na sekundę pokazującą, na co idzie czas klatki (radar, dźwięk, sieć, logika gry, renderowanie). Można bezpiecznie zostawić włączone przez całą sesję — włącz do zgłoszeń o FPS/spowolnieniach. (gx_perf.txt)</string>
     <string name="setup_switch_dxvk_hud">Nakładka wydajności na ekranie</string>
@@ -169,4 +171,17 @@
     <string name="setup_toast_base_generals_cleared">Folder podstawowej gry wyczyszczony</string>
     <string name="setup_base_generals_not_here">W %1$s nie ma archiwów podstawowej gry Generals — wybierz folder zawierający Terrain.big, Textures.big i W3D.big.</string>
     <string name="setup_status_base_generals_line">Podstawowa Generals: %1$s\n</string>
+    <string name="logviewer_crash_prev_log_absent">(brak)</string>
+    <string name="logviewer_elided_notice">\n...(pominięto tu %1$d znaków; początek sesji powyżej i najnowsze dane poniżej zostały zachowane)...\n\n</string>
+    <string name="logviewer_section_crash_prev_log">=== crash-prev.log (natywna obsługa awarii, poprzednia sesja) ===\n</string>
+    <string name="logviewer_toast_share_none">Nie ma jeszcze plików dziennika do udostępnienia.</string>
+    <string name="setup_button_dxvk_config_reset">Przywróć domyślne</string>
+    <string name="setup_button_dxvk_config_save">Zapisz</string>
+    <string name="setup_card_dxvk_config">Konfiguracja DXVK (dxvk.conf, zaawansowane)</string>
+    <string name="setup_dxvk_config_help">Edytuje dxvk.conf bezpośrednio — ten sam plik, który silnik czyta przy starcie. Nie trzeba niczego przebudowywać, działa od następnego uruchomienia. Przydatne ustawienia, gdy gra działa wolno na Twoim urządzeniu:\n\nd3d9.samplerAnisotropy = 2 (lub 0, aby wyłączyć) — mniej niż domyślne 16, odciąża GPU na słabszym sprzęcie.\ndxvk.hud = fps,drawcalls,submissions,pipelines — pokazuje małą nakładkę wydajności.\ndxvk.logLevel = none — zostaw tak, chyba że poproszono inaczej; bardziej szczegółowe poziomy spowalniają grę.\n\nJedno «key = value» na wiersz. Nieprawidłowy wiersz DXVK po prostu pomija, więc literówka nie zepsuje gry — w najgorszym razie zmiana nie zadziała.</string>
+    <string name="setup_dxvk_config_no_folder">Najpierw wybierz folder gry (powyżej)</string>
+    <string name="setup_toast_dxvk_config_no_default">W tej wersji nie znaleziono dołączonego domyślnego pliku dxvk.conf.</string>
+    <string name="setup_toast_dxvk_config_reset">Przywrócono domyślny dxvk.conf.</string>
+    <string name="setup_toast_dxvk_config_saved">Zapisano. Zadziała przy następnym uruchomieniu gry.</string>
+    <string name="setup_toast_storage_permission_denied">Do przeglądania folderu gry potrzebne jest uprawnienie do pamięci. Naciśnij ponownie «Wybierz folder gry».</string>
 </resources>

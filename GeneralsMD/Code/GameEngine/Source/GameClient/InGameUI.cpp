@@ -1066,6 +1066,15 @@ InGameUI::InGameUI()
 	m_mouseMode = MOUSEMODE_DEFAULT;
 	m_mouseModeCursor = Mouse::ARROW;
 	m_mousedOverDrawableID = INVALID_DRAWABLE_ID;
+	m_touchAimKnown = FALSE;
+	m_touchAimValid = FALSE;
+	m_touchAimPoint.x = m_touchAimPoint.y = 0;
+	m_touchDebugOn = FALSE;
+	m_touchDebugPhase = "";
+	m_touchDebugDown.x = m_touchDebugDown.y = 0;
+	m_touchDebugLast.x = m_touchDebugLast.y = 0;
+	m_touchDebugPublished.x = m_touchDebugPublished.y = 0;
+	m_touchDebugFingers = 0;
 
 	m_currentlyPlayingMovie.clear();
 	m_militarySubtitle = nullptr;
@@ -1535,6 +1544,29 @@ void InGameUI::setRadiusCursor(RadiusCursorType cursorType, const SpecialPowerTe
 //-------------------------------------------------------------------------------------------------
 void InGameUI::handleRadiusCursor()
 {
+#if defined(__ANDROID__) || (defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE)
+	// GeneralsX @bugfix Android port 06/09/2026 Reported: the ability circle appears for a
+	// moment when the finger lands and is then gone for the rest of the drag, leaving the
+	// player aiming a superweapon with nothing on screen.
+	//
+	// The decal is created once, when aiming starts, and seven different places in the
+	// engine call setRadiusCursorNone() -- createCommandHint() does it unconditionally on
+	// every hint, ControlBar::switchToContext() does it whenever the selection context is
+	// rebuilt, and so on. On the mouse path that is harmless because the very next mouse
+	// position recreates it a frame later; native aiming sends no positions, so the first
+	// one to fire kills it for good.
+	//
+	// Rather than hunt which one it was, re-assert the invariant here, once a frame: while
+	// a command is armed and a finger is aiming it, its radius decal exists. Cheap, because
+	// setRadiusCursor() is only reached on the frame after something cleared it.
+	if (m_touchAimKnown && m_pendingGUICommand != nullptr && m_curRadiusCursor.isEmpty())
+	{
+		setRadiusCursor(m_pendingGUICommand->getRadiusCursorType(),
+										m_pendingGUICommand->getSpecialPowerTemplate(),
+										m_pendingGUICommand->getWeaponSlot());
+	}
+#endif
+
 	if (!m_curRadiusCursor.isEmpty())
 	{
     if ( TheGlobalData->m_doubleClickAttackMove && m_duringDoubleClickAttackMoveGuardHintTimer > 0 )
@@ -1549,6 +1581,23 @@ void InGameUI::handleRadiusCursor()
 			Coord3D pos;
 			Bool hasPos = false;
 
+			// GeneralsX @bugfix Android port 06/09/2026 On a touch device the aim point is
+			// reported explicitly by the gesture (setTouchAimPoint) rather than read out of
+			// the mouse object. TheMouse's position between gestures is not "where the
+			// player is pointing" -- there is no pointer -- it is wherever the last touch
+			// happened to leave it, which is how the ability radius ended up drawn on the
+			// button that armed it, and on the previous attempt's target after re-arming.
+			const ICoord2D *aimPixel = &mouseIO->pos;
+#if defined(__ANDROID__) || (defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE)
+			if( !m_touchAimKnown )
+			{
+				// no finger has pointed anywhere yet: leave the decal exactly as it is
+				// rather than parking it somewhere arbitrary
+				return;
+			}
+			aimPixel = &m_touchAimPoint;
+#endif
+
 			//
 			// if the mouse is in the radar window, the position in the world is that which is
 			// represented by the radar, otherwise we use the mouse position itself transformed
@@ -1556,13 +1605,13 @@ void InGameUI::handleRadiusCursor()
 			//
 			if( rts::localPlayerHasRadar() )
 			{
-				hasPos = TheRadar->screenPixelToWorld( &mouseIO->pos, &pos );
+				hasPos = TheRadar->screenPixelToWorld( aimPixel, &pos );
 			}
 
 			if( !hasPos )
 			{
 				// if radar off, or point not on radar
-				hasPos = TheTacticalView->screenToTerrain( &mouseIO->pos, &pos );
+				hasPos = TheTacticalView->screenToTerrain( aimPixel, &pos );
 			}
 
 			if( hasPos )
@@ -1696,11 +1745,26 @@ void InGameUI::handleBuildPlacements()
 		}
 		else
 		{
+#if defined(__ANDROID__) || (defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE)
+			// GeneralsX @bugfix Android port 06/09/2026 Reported: picking a structure at a
+			// dozer immediately drew its silhouette in the middle of the screen, which means
+			// nothing -- the player is about to tap where they actually want it.
+			//
+			// Same cause as the ability radius: "the mouse position" is not an answer to
+			// "where is the player pointing" on a touchscreen. Between gestures there is no
+			// pointer at all, and this read whatever value happened to be left in the mouse
+			// object. Use the aim point the touch layer reports, and draw nothing until a
+			// finger has actually pointed somewhere -- so the ghost appears under the finger,
+			// where the building is going, and nowhere before that.
+			if( !m_touchAimKnown )
+				return;
+			loc = m_touchAimPoint;
+#else
 			const MouseIO *mouseIO = TheMouse->getMouseStatus();
 
 			// location is the mouse position
 			loc = mouseIO->pos;
-
+#endif
 		}
 
 		// set the location and angle of the place icon
@@ -3221,6 +3285,14 @@ void InGameUI::setGUICommand( const CommandButton *command )
 	// set the command
 	m_pendingGUICommand = command;
 
+	// GeneralsX @bugfix Android port 06/09/2026 Arming a command forgets where the last
+	// one was aimed. A mouse cursor is wherever the player physically left it, so it is
+	// always a truthful answer to "where am I aiming"; a touch cursor is a leftover from
+	// the previous attempt and is not. Reported: re-arming an ability showed the reticle
+	// still sitting at the previous try's target. Nothing is drawn again until a finger
+	// touches the battlefield and createCommandHint() supplies a real point.
+	clearTouchAimPoint();
+
 	// set the mouse cursor for commands that need a targeting or to normal with no command
 	if( command && BitIsSet( command->getOptions(), COMMAND_OPTION_NEED_TARGET ) && !command->isContextCommand() )
 	{
@@ -3228,9 +3300,16 @@ void InGameUI::setGUICommand( const CommandButton *command )
 		// the mouseoverhint code will take care of the cursor context, once the mouse leaves the panel
 		// but we will set the radius cursor here, so you can see it bleeding out from beneath the panel
 
+#if defined(__ANDROID__) || (defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE)
+		// ...except on a touchscreen, where "bleeding out from beneath the panel" is not
+		// what happens: with no live pointer the decal appears at the stale cursor point,
+		// which is the previous attempt's target somewhere else on the map. Leave it to
+		// createCommandHint(), one finger-down later.
+#else
 		setRadiusCursor(command->getRadiusCursorType(), //*****************************************************************
 										command->getSpecialPowerTemplate(),
 										command->getWeaponSlot());
+#endif
 	}
 	else
 	{
@@ -3243,6 +3322,34 @@ void InGameUI::setGUICommand( const CommandButton *command )
 
 	m_mouseModeCursor = TheMouse->getMouseCursor();
 
+}
+
+//-------------------------------------------------------------------------------------------------
+/** GeneralsX @feature Android port 06/09/2026 See the declaration comment. */
+//-------------------------------------------------------------------------------------------------
+void InGameUI::setTouchAimPoint( Int x, Int y, Bool valid )
+{
+	m_touchAimKnown = TRUE;
+	m_touchAimValid = valid;
+	m_touchAimPoint.x = x;
+	m_touchAimPoint.y = y;
+}
+
+//-------------------------------------------------------------------------------------------------
+/** GeneralsX @feature Android port 06/09/2026 See the declaration comment. */
+//-------------------------------------------------------------------------------------------------
+void InGameUI::setTouchDebugState( const char *phaseName, Int downX, Int downY,
+																	 Int lastX, Int lastY, Int pubX, Int pubY, Int fingers )
+{
+	m_touchDebugOn = TRUE;
+	m_touchDebugPhase = (phaseName != nullptr) ? phaseName : "";
+	m_touchDebugDown.x = downX;
+	m_touchDebugDown.y = downY;
+	m_touchDebugLast.x = lastX;
+	m_touchDebugLast.y = lastY;
+	m_touchDebugPublished.x = pubX;
+	m_touchDebugPublished.y = pubY;
+	m_touchDebugFingers = fingers;
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -3289,6 +3396,11 @@ void InGameUI::placeBuildAvailable( const ThingTemplate *build, Drawable *buildD
 	{
 		// if building something, no radius cursor, thankew
 		setRadiusCursorNone();
+
+		// GeneralsX @bugfix Android port 06/09/2026 And no stale aim point either: the
+		// ghost must not appear at wherever the player last touched the map before they
+		// picked this building. It appears when a finger points somewhere, and there.
+		clearTouchAimPoint();
 	}
 
 	//
@@ -4174,6 +4286,144 @@ void InGameUI::postDraw()
 			TheDisplay->drawFillRect( anchor->x-w, anchor->y-h*r, w*2+1, h*2*r+1, mainColor );
 		}
 	}
+
+#if defined(__ANDROID__) || (defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE)
+	// GeneralsX @feature Android port 06/09/2026 Draw the targeting reticle a touchscreen
+	// has no cursor to carry.
+	//
+	// With an ability armed, the shape of the mouse cursor was the ONLY thing telling the
+	// player whether the point under it would accept the order: createCommandHint() picks
+	// getCursorName() or getInvalidCursorName() from the hint message and calls
+	// setMouseCursor() with it. On Android that cursor is an SDL system cursor
+	// (SDL3Mouse::setCursor) and a touchscreen never draws one, so the whole valid/invalid
+	// channel simply vanished -- a player would drop a fuel-air bomb or a spy drone blind
+	// and find out where it went afterwards. Nothing here restores the cursor; it draws the
+	// answer directly, at the point the finger is actually pointing at.
+	//
+	// Not colour alone: valid draws inward ticks, invalid draws an X across the box, so it
+	// reads on a small bright screen and without colour vision.
+	if( m_mouseMode == MOUSEMODE_GUI_COMMAND && m_pendingGUICommand != nullptr && m_touchAimKnown )
+	{
+		const Bool needsATarget =
+			m_pendingGUICommand->isContextCommand() ||
+			m_pendingGUICommand->getCommandType() == GUI_COMMAND_SPECIAL_POWER ||
+			m_pendingGUICommand->getCommandType() == GUI_COMMAND_SPECIAL_POWER_FROM_SHORTCUT ||
+			BitIsSet( m_pendingGUICommand->getOptions(), COMMAND_OPTION_NEED_TARGET );
+
+		if( needsATarget )
+		{
+			const ICoord2D pos = m_touchAimPoint;
+			const Color mainColor = m_touchAimValid ? GameMakeColor( 80, 255, 80, 255 )
+																							: GameMakeColor( 255, 48, 48, 255 );
+			const Color dropColor = GameMakeColor( 0, 0, 0, 255 );
+			const Int r = 22;			// half-size of the reticle box, in logical pixels
+			const Int gap = 8;		// centre kept clear so the target stays visible
+			const Real lineW = 2.0f;
+
+			// black outline first, so the reticle survives whatever it is drawn over
+			TheDisplay->drawOpenRect( pos.x - r - 1, pos.y - r - 1, r * 2 + 3, r * 2 + 3, lineW, dropColor );
+			TheDisplay->drawOpenRect( pos.x - r, pos.y - r, r * 2 + 1, r * 2 + 1, lineW, mainColor );
+
+			if( m_touchAimValid )
+			{
+				TheDisplay->drawLine( pos.x, pos.y - r, pos.x, pos.y - gap, lineW, mainColor );
+				TheDisplay->drawLine( pos.x, pos.y + gap, pos.x, pos.y + r, lineW, mainColor );
+				TheDisplay->drawLine( pos.x - r, pos.y, pos.x - gap, pos.y, lineW, mainColor );
+				TheDisplay->drawLine( pos.x + gap, pos.y, pos.x + r, pos.y, lineW, mainColor );
+			}
+			else
+			{
+				TheDisplay->drawLine( pos.x - r, pos.y - r, pos.x + r, pos.y + r, lineW, mainColor );
+				TheDisplay->drawLine( pos.x + r, pos.y - r, pos.x - r, pos.y + r, lineW, mainColor );
+			}
+		}
+	}
+#endif
+
+#if defined(__ANDROID__) || (defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE)
+	// GeneralsX @feature Android port 06/09/2026 Touch-input debug overlay, off unless
+	// the tester turns it on in the launcher's Diagnostics section.
+	//
+	// It exists because the hard bugs here are all disagreements between three positions
+	// that are the same thing on a desktop and different things on a touchscreen: where
+	// the finger is, where the engine thinks the pointer is (TheMouse's own position,
+	// which drives the placement ghost and the ability radius), and where the camera is
+	// anchored (LookAtTranslator's, which drives scrolling). A log cannot show that --
+	// the disagreement only matters mid-gesture, while the player's finger is on the
+	// screen and their eyes are on the game.
+	if( m_touchDebugOn )
+	{
+		const MouseIO *mio = TheMouse ? TheMouse->getMouseStatus() : nullptr;
+		const Color colFinger    = GameMakeColor(  80, 255,  80, 255 );  // where the finger is now
+		const Color colAnchor    = GameMakeColor(  80, 160, 255, 255 );  // where it went down
+		const Color colCursor    = GameMakeColor( 255, 220,  40, 255 );  // engine pointer position
+		const Color colPublished = GameMakeColor( 255,  80, 255, 255 );  // last position we sent
+		const Color colScroll    = GameMakeColor( 255,  60,  60, 255 );  // camera scroll anchor
+		const Color colBack      = GameMakeColor(   0,   0,   0, 160 );
+
+		// Each marker is a different SHAPE as well as a different colour -- they routinely
+		// sit on top of each other, which is exactly the case worth being able to read.
+		// finger: filled square
+		TheDisplay->drawFillRect( m_touchDebugLast.x - 6, m_touchDebugLast.y - 6, 13, 13, colFinger );
+		// anchor: hollow square
+		TheDisplay->drawOpenRect( m_touchDebugDown.x - 11, m_touchDebugDown.y - 11, 23, 23, 2.0f, colAnchor );
+		// engine cursor: long cross
+		if( mio != nullptr )
+		{
+			TheDisplay->drawLine( mio->pos.x - 20, mio->pos.y, mio->pos.x + 20, mio->pos.y, 2.0f, colCursor );
+			TheDisplay->drawLine( mio->pos.x, mio->pos.y - 20, mio->pos.x, mio->pos.y + 20, 2.0f, colCursor );
+		}
+		// last published position: diagonal cross
+		TheDisplay->drawLine( m_touchDebugPublished.x - 14, m_touchDebugPublished.y - 14,
+													m_touchDebugPublished.x + 14, m_touchDebugPublished.y + 14, 2.0f, colPublished );
+		TheDisplay->drawLine( m_touchDebugPublished.x + 14, m_touchDebugPublished.y - 14,
+													m_touchDebugPublished.x - 14, m_touchDebugPublished.y + 14, 2.0f, colPublished );
+
+		// The camera scroll anchor: the one that answers "why is the map running away".
+		// A non-null anchor while no finger is down means a scroll is latched.
+		const ICoord2D *scrollAnchor = TheLookAtTranslator ? TheLookAtTranslator->getRMBScrollAnchor() : nullptr;
+		if( scrollAnchor != nullptr )
+		{
+			TheDisplay->drawOpenRect( scrollAnchor->x - 17, scrollAnchor->y - 17, 35, 35, 3.0f, colScroll );
+		}
+
+		static DisplayString *debugText = nullptr;
+		if( debugText == nullptr && TheDisplayStringManager != nullptr && TheFontLibrary != nullptr )
+		{
+			debugText = TheDisplayStringManager->newDisplayString();
+			if( debugText != nullptr )
+			{
+				debugText->setFont( TheFontLibrary->getFont( AsciiString("Arial"), 12, FALSE ) );
+			}
+		}
+
+		if( debugText != nullptr )
+		{
+			// The camera half of the line is the important half. "cam" reports EVERY mode
+			// LookAtTranslator can be stuck in, not just the RMB one -- a camera moving on
+			// its own is one of them latched, and naming which is the whole diagnosis.
+			const char *camState = TheLookAtTranslator
+				? TheLookAtTranslator->getCameraModeDebugText() : "(no xlat)";
+
+			UnicodeString line;
+			line.format( L"TOUCH %hs f=%d | finger %d,%d | down %d,%d | sent %d,%d | cursor %d,%d | cam %hs | uiScroll %d sel %d | view %dx%d",
+									 m_touchDebugPhase, m_touchDebugFingers,
+									 m_touchDebugLast.x, m_touchDebugLast.y,
+									 m_touchDebugDown.x, m_touchDebugDown.y,
+									 m_touchDebugPublished.x, m_touchDebugPublished.y,
+									 mio ? mio->pos.x : -1, mio ? mio->pos.y : -1,
+									 camState,
+									 m_isScrolling ? 1 : 0, m_isSelecting ? 1 : 0,
+									 TheDisplay->getWidth(), TheDisplay->getHeight() );
+			debugText->setText( line );
+
+			const Int textW = debugText->getWidth();
+			const Int textH = debugText->getFont() ? debugText->getFont()->height : 14;
+			TheDisplay->drawFillRect( 2, 2, textW + 8, textH + 4, colBack );
+			debugText->draw( 6, 4, GameMakeColor( 255, 255, 255, 255 ), GameMakeColor( 0, 0, 0, 255 ) );
+		}
+	}
+#endif
 
 	//draw superweapon ready multipliers
 	TheControlBar->drawSpecialPowerShortcutMultiplierText();

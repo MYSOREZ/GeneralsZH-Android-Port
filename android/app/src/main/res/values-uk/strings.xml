@@ -85,6 +85,8 @@
     <string name="setup_diagnostics_no_folder">Спочатку виберіть папку з грою (вище), щоб використовувати ці перемикачі</string>
     <string name="setup_switch_gx_trace">Детальний лог трасування</string>
     <string name="setup_switch_gx_trace_desc">Дуже детальне внутрішнє логування (інтерфейс, шрифти, INI-файли) для пошуку конкретного зависання чи бага. За довгу сесію лог може вирости до 50–100+ МБ — якщо потрібні лише цифри FPS, скористайтеся замість цього «Зведенням продуктивності». (gx_trace.txt)</string>
+    <string name="setup_switch_touch_debug">Налагодження сенсорного керування</string>
+    <string name="setup_switch_touch_debug_desc">Малює поверх гри стан сенсорного шару: поточний жест, де палець, де рушій вважає вказівник, і якір прокручування камери. Вмикайте, коли повідомляєте про проблеми керування — карта їде сама, привид будівлі не на тому місці, здібність цілиться туди, куди ви не натискали. (gx_touch_debug.txt)</string>
     <string name="setup_switch_gx_perf">Зведення продуктивності</string>
     <string name="setup_switch_gx_perf_desc">Додає один короткий рядок на секунду про те, куди йде час кадру (радар, звук, мережа, логіка гри, рендеринг). Можна безпечно залишити увімкненим на всю сесію — вмикайте для звітів про FPS/просідання. (gx_perf.txt)</string>
     <string name="setup_switch_dxvk_hud">Екранний оверлей продуктивності</string>
@@ -169,4 +171,17 @@
     <string name="setup_toast_base_generals_cleared">Папку базової Generals скинуто</string>
     <string name="setup_base_generals_not_here">У %1$s немає архівів базової Generals — оберіть папку, де лежать Terrain.big, Textures.big і W3D.big.</string>
     <string name="setup_status_base_generals_line">Базова Generals: %1$s\n</string>
+    <string name="logviewer_crash_prev_log_absent">(відсутній)</string>
+    <string name="logviewer_elided_notice">\n...(тут пропущено символів: %1$d; початок сесії вище та найсвіжіший вивід нижче збережено)...\n\n</string>
+    <string name="logviewer_section_crash_prev_log">=== crash-prev.log (нативний обробник збоїв, попередня сесія) ===\n</string>
+    <string name="logviewer_toast_share_none">Файлів журналу для надсилання ще немає.</string>
+    <string name="setup_button_dxvk_config_reset">Скинути до типових</string>
+    <string name="setup_button_dxvk_config_save">Зберегти</string>
+    <string name="setup_card_dxvk_config">Конфігурація DXVK (dxvk.conf, для досвідчених)</string>
+    <string name="setup_dxvk_config_help">Редагує dxvk.conf напряму — той самий файл, який рушій читає під час запуску. Перезбирати нічого не треба, діє з наступного запуску. Корисні налаштування, якщо гра гальмує на вашому пристрої:\n\nd3d9.samplerAnisotropy = 2 (або 0, щоб вимкнути) — менше за типові 16, зменшує навантаження на GPU слабших пристроїв.\ndxvk.hud = fps,drawcalls,submissions,pipelines — показує невеликий екранний лічильник продуктивності.\ndxvk.logLevel = none — лишайте так, якщо не просили інакше; докладніші рівні сповільнюють гру.\n\nОдне «key = value» на рядок. Некоректний рядок DXVK просто ігнорує, тож друкарська помилка гру не зламає — у найгіршому разі зміна не подіє.</string>
+    <string name="setup_dxvk_config_no_folder">Спершу виберіть теку гри (вище)</string>
+    <string name="setup_toast_dxvk_config_no_default">У цій збірці не знайдено вбудованого типового dxvk.conf.</string>
+    <string name="setup_toast_dxvk_config_reset">Скинуто до типового dxvk.conf.</string>
+    <string name="setup_toast_dxvk_config_saved">Збережено. Подіє з наступного запуску гри.</string>
+    <string name="setup_toast_storage_permission_denied">Щоб переглянути теку гри, потрібен дозвіл на доступ до сховища. Натисніть «Вибрати теку гри» ще раз.</string>
 </resources>

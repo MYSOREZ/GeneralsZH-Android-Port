@@ -206,6 +206,7 @@ else()
         Source/SDL3GameEngine.cpp
         Source/SDL3Device/GameClient/SDL3Mouse.cpp
         Source/SDL3Device/GameClient/SDL3Keyboard.cpp
+        Source/SDL3Device/GameClient/TouchInput.cpp
         Source/VideoDevice/BinkVideoPlayerStub.cpp
     )
 

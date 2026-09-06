@@ -85,6 +85,8 @@
     <string name="setup_diagnostics_no_folder">اختر مجلد اللعبة أولاً (أعلاه) لاستخدام هذه المفاتيح</string>
     <string name="setup_switch_gx_trace">سجل تتبع مفصّل</string>
     <string name="setup_switch_gx_trace_desc">تسجيل داخلي مفصّل جدًا (الواجهة، الخطوط، ملفات INI) لتتبع تجمّد أو خلل معيّن. قد ينمو السجل إلى حجم كبير جدًا (50-100+ ميجابايت) خلال جلسة طويلة — استخدم "ملخص الأداء" بدلاً من ذلك إذا كنت تحتاج فقط إلى أرقام معدل الإطارات. (gx_trace.txt)</string>
+    <string name="setup_switch_touch_debug">عرض تشخيص اللمس</string>
+    <string name="setup_switch_touch_debug_desc">يرسم حالة طبقة اللمس فوق اللعبة: الإيماءة الحالية، وموضع إصبعك، والموضع الذي يعتقد المحرك أن المؤشر فيه، ونقطة ارتكاز تمرير الكاميرا. فعّل هذا للإبلاغ عن مشكلات التحكم — خريطة تتحرك من تلقاء نفسها، أو مبنى شبحي في المكان الخطأ، أو قدرة تستهدف مكانًا لم تلمسه. (gx_touch_debug.txt)</string>
     <string name="setup_switch_gx_perf">ملخص الأداء</string>
     <string name="setup_switch_gx_perf_desc">يضيف سطرًا قصيرًا كل ثانية يوضح أين يُصرف وقت الإطار (الرادار، الصوت، الشبكة، منطق اللعبة، العرض). آمن تركه مفعّلاً طوال جلسة اللعب — فعّله لتقارير معدل الإطارات/التباطؤ. (gx_perf.txt)</string>
     <string name="setup_switch_dxvk_hud">طبقة أداء على الشاشة</string>
@@ -169,4 +171,17 @@
     <string name="setup_toast_base_generals_cleared">تم مسح مجلد اللعبة الأساسية</string>
     <string name="setup_base_generals_not_here">لا توجد أرشيفات لعبة Generals الأساسية في %1$s — اختر المجلد الذي يحتوي على Terrain.big وTextures.big وW3D.big.</string>
     <string name="setup_status_base_generals_line">Generals الأساسية: %1$s\n</string>
+    <string name="logviewer_crash_prev_log_absent">(غير موجود)</string>
+    <string name="logviewer_elided_notice">\n...(تم حذف %1$d حرفًا هنا؛ بداية الجلسة أعلاه وأحدث المخرجات أدناه محفوظة)...\n\n</string>
+    <string name="logviewer_section_crash_prev_log">=== crash-prev.log (معالج الأعطال الأصلي، الجلسة السابقة) ===\n</string>
+    <string name="logviewer_toast_share_none">لا توجد ملفات سجل لمشاركتها بعد.</string>
+    <string name="setup_button_dxvk_config_reset">إعادة للافتراضي</string>
+    <string name="setup_button_dxvk_config_save">حفظ</string>
+    <string name="setup_card_dxvk_config">إعدادات DXVK (dxvk.conf، متقدم)</string>
+    <string name="setup_dxvk_config_help">يحرّر dxvk.conf مباشرة، وهو الملف نفسه الذي يقرأه المحرك عند الإقلاع — لا حاجة لإعادة بناء، ويسري مفعوله في التشغيل التالي. إعدادات مفيدة إذا كانت اللعبة بطيئة على جهازك:\n\nd3d9.samplerAnisotropy = 2 (أو 0 للتعطيل) — أقل من الافتراضي 16 لتقليل حمل المعالج الرسومي على الأجهزة الأضعف.\ndxvk.hud = fps,drawcalls,submissions,pipelines — يعرض طبقة أداء صغيرة على الشاشة.\ndxvk.logLevel = none — أبقِ هذا كما هو ما لم يُطلب منك تغييره؛ المستويات الأكثر تفصيلاً تبطئ اللعبة.\n\nسطر واحد بصيغة «key = value». يتجاهل DXVK أي سطر غير صالح، لذا لن يعطّل الخطأ المطبعي اللعبة — في أسوأ الحالات لن يكون لتغييرك أي أثر.</string>
+    <string name="setup_dxvk_config_no_folder">اختر مجلد اللعبة أولاً (بالأعلى)</string>
+    <string name="setup_toast_dxvk_config_no_default">لم يُعثر على ملف dxvk.conf افتراضي مضمّن في هذه النسخة.</string>
+    <string name="setup_toast_dxvk_config_reset">تمت الإعادة إلى dxvk.conf الافتراضي.</string>
+    <string name="setup_toast_dxvk_config_saved">تم الحفظ. سيسري المفعول عند تشغيل اللعبة في المرة القادمة.</string>
+    <string name="setup_toast_storage_permission_denied">يلزم إذن التخزين لتصفح مجلد اللعبة. اضغط «اختيار مجلد اللعبة» مرة أخرى للمحاولة.</string>
 </resources>
