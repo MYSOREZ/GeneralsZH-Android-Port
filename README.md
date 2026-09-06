@@ -18,6 +18,13 @@ this is the real 2003 engine compiled for ARM64, rendering DirectX 8 →
 [DXVK](https://github.com/doitsujin/dxvk) → **Vulkan native** — no translation
 layer beyond DXVK itself, since Android speaks Vulkan directly.
 
+There is a **second, independent renderer**: DirectX 8 → **OpenGL ES 3.0**,
+through a native translation layer written for this port (optionally routed
+through [ANGLE](https://github.com/google/angle)), with **no DXVK and no
+Vulkan involved at all**. Pick it in the Setup app — it exists for phones
+whose Vulkan driver can't carry DXVK, which until now had no way to run the
+game. Vulkan stays the default where it works.
+
 The same codebase also runs on Apple Silicon Macs, iPhone, and iPad (DirectX 8 →
 DXVK → [MoltenVK](https://github.com/KhronosGroup/MoltenVK) → Metal) — that's
 where this port started, and it's still maintained, but active development has
@@ -40,7 +47,8 @@ original GeneralsX README lives on the `upstream-main` branch.
 | Feature | Status |
 |---|---|
 | Campaign / Skirmish / Generals Challenge | ✅ Working |
-| Rendering (DirectX 8 → DXVK → Vulkan) | ✅ Working — native Vulkan 1.3 (Adreno 7xx/8xx), adaptive Vulkan 1.1 fallback (Mali-G76/G57 and similar) |
+| Rendering — Vulkan (DirectX 8 → DXVK → Vulkan) | ✅ Working — native Vulkan 1.3 (Adreno 7xx/8xx), adaptive Vulkan 1.1 fallback (Mali-G76/G57 and similar). The default. |
+| Rendering — OpenGL ES (DirectX 8 → GLES 3.0, no DXVK) | ✅ Working — selectable in Setup, for devices whose Vulkan driver can't run DXVK. Device-verified on Mali-G76 and Adreno 640. |
 | Audio | ✅ Working (OpenAL, OpenSL/AAudio backends) |
 | Video / cutscenes | ✅ Working (FFmpeg) |
 | Touch controls | ✅ Working (tap/drag/long-press/pinch — see [Touch controls](#touch-controls)) |
@@ -166,6 +174,18 @@ Vulkan-1.1-only / older-CPU devices is CPU-bound, not GPU-bound — expect
 lower FPS and occasional freezes on weaker phones; see the doc for the full
 device/driver matrix and driver-replacement options.
 
+**If Vulkan doesn't work on your phone, there is a second renderer.** The
+Setup app has a **Render Backend** picker with three options: *Vulkan*
+(default, DXVK), *OpenGL ES*, and *OpenGL ES + ANGLE*. The GLES options do
+not use DXVK or Vulkan at all — they run DirectX 8 through a translation
+layer written for this port
+([`Core/Libraries/Source/d3d8gles/`](Core/Libraries/Source/d3d8gles)) straight
+onto OpenGL ES 3.0, which every Android GPU speaks. That covers devices whose
+Vulkan driver exists but can't carry DXVK, which previously had nothing to
+fall back on. Switching backends needs no rebuild: change it in Setup and
+restart the game. Vulkan is still the one to prefer where it works — GLES is
+the newer path and has had less device exposure.
+
 **Simplest option — no build, no CI**: grab a prebuilt APK from the
 [Releases page](../../releases/latest) and sideload it.
 
@@ -261,6 +281,7 @@ iteration.
 | `android/` | Gradle shell app (SDLActivity) that packages `libmain.so` + DXVK into an APK, plus the Setup/FolderPicker/LogViewer/GeneralsOnline-account activities |
 | `ios/` | XcodeGen signing-stub project + `ios/config/` (staged Options.ini, dxvk.conf) |
 | `GeneralsMD/Code/GameEngine/Source/GameNetwork/GeneralsOnline/` | The GeneralsOnline multiplayer client: auth, lobby, rooms, stats, matchmaking, social — talks to a REST + WebSocket backend, not GameSpy |
+| `Core/Libraries/Source/d3d8gles/` | The DirectX 8 → OpenGL ES 3.0 renderer: device/state emulation, fixed-function-to-GLSL shader generation, texture upload (including a software BC1-3 decoder for GPUs without S3TC) |
 | `Patches/dxvk-android.patch`, `Patches/dxvk-ios.patch` | DXVK changes the Android/iOS d3d8/d3d9 `.so`/dylib builds are built from |
 
 ## Known issues
@@ -276,6 +297,13 @@ iteration.
   hit something worse than that — see
   [docs/port/ANDROID_PORT.md §2](docs/port/ANDROID_PORT.md#2-the-device--driver-matrix-read-this-before-filing-black-screen-bugs)
   for the device/driver matrix.
+- The OpenGL ES backend is newer than the Vulkan one and has had far less
+  device exposure. It is verified end to end on Mali-G76 and reported working
+  on Adreno 640, but one tester has seen magenta textures on one particular
+  (re-packaged, non-English) copy of the game files while the same build is
+  clean on others — if you hit that, please attach a log: the build names the
+  offending texture format in a `[d3d8gles] MAGENTA:` line, and the Setup app's
+  game-folder check will tell you whether an archive is truncated.
 - Android multiplayer is under active real-device shakeout — most reported crashes
   have traced to a handful of recurring bug classes (see the "what this port
   actually involved" section above) and get fixed fast, but if something's still
