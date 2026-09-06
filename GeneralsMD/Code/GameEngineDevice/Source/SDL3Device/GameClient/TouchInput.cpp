@@ -78,8 +78,25 @@ namespace
 		return draw;
 	}
 
-	/// Replace the whole selection with this one drawable, and tell the logic about it.
-	void selectOnly(Drawable *draw)
+	/**
+		Replace the whole selection with this one drawable, and tell the logic about it.
+
+		The selection is game state, not a local highlight: it travels over the network and
+		into replays. Skipping the message would make the unit look selected and take no
+		orders.
+
+		GeneralsX @bugfix Android port 06/09/2026 playSound exists because the two message
+		types are not interchangeable, and this first shipped using the wrong one. Reported:
+		tapping a unit or a building was silent, where a click makes it answer.
+
+		MSG_CREATE_SELECTED_GROUP is what an ordinary click sends
+		(SelectionXlat.cpp:900) and is what produces the voice response or the building's
+		select sound. MSG_CREATE_SELECTED_GROUP_NO_SOUND exists for exactly one caller --
+		the double-click path, which selects one unit and then widens the selection to every
+		matching unit on screen; that second step sends the sound-carrying message itself,
+		so the first one has to stay quiet or the unit answers twice.
+	*/
+	void selectOnly(Drawable *draw, Bool playSound)
 	{
 		if (draw == nullptr || TheInGameUI == nullptr)
 			return;
@@ -87,13 +104,12 @@ namespace
 		TheInGameUI->deselectAllDrawables();
 		TheInGameUI->selectDrawable(draw);
 
-		// The selection itself is game state, not a local highlight: it travels over the
-		// network and into replays as MSG_CREATE_SELECTED_GROUP_NO_SOUND. Skipping this
-		// would make the unit look selected and take no orders.
 		Object *obj = draw->getObject();
 		if (obj != nullptr && TheMessageStream != nullptr)
 		{
-			GameMessage *msg = TheMessageStream->appendMessage(GameMessage::MSG_CREATE_SELECTED_GROUP_NO_SOUND);
+			GameMessage *msg = TheMessageStream->appendMessage(
+				playSound ? GameMessage::MSG_CREATE_SELECTED_GROUP
+									: GameMessage::MSG_CREATE_SELECTED_GROUP_NO_SOUND);
 			msg->appendBooleanArgument(TRUE);
 			msg->appendObjectIDArgument(obj->getID());
 		}
@@ -247,7 +263,7 @@ namespace TouchInput
 															 selectionInteractsWith(selectable, pos);
 				if (!interacts)
 				{
-					selectOnly(selectable);
+					selectOnly(selectable, TRUE);
 					return;
 				}
 				// else: fall through and let it be an order onto that object
@@ -267,7 +283,7 @@ namespace TouchInput
 		// 4. Nothing selectable, nothing to order: a tap on empty ground clears the
 		//    selection, the same as a click on empty ground does.
 		if (selectable != nullptr)
-			selectOnly(selectable);
+			selectOnly(selectable, TRUE);
 		else
 			TheInGameUI->deselectAllDrawables();
 	}
@@ -303,7 +319,7 @@ namespace TouchInput
 			return;
 		}
 
-		selectOnly(picked);
+		selectOnly(picked, FALSE);
 		TheInGameUI->selectMatchingAcrossScreen();
 	}
 
