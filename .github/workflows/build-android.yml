@@ -361,9 +361,13 @@ jobs:
           LIB="build/${{ env.PRESET }}/GeneralsMD/Code/Main/libmain.so"
           mkdir -p symbols
           OUT="symbols/libmain-run${{ github.run_number }}.symbols.txt"
+          BUILD_ID="$(readelf -n "$LIB" 2>/dev/null | sed -n 's/.*Build ID: \([0-9a-f]*\).*/\1/p' | head -1)"
           {
             echo "# libmain.so symbols -- run ${{ github.run_number }}, commit ${{ github.sha }}"
-            echo "# Match the BuildID below against the tombstone before trusting any address."
+            echo "# Match this BuildID against the tombstone's before trusting any address."
+            # llvm-readelf --notes prints the note's header but not the build-id
+            # value itself, so pull it out with GNU readelf, which does.
+            echo "# BuildID: ${BUILD_ID:-UNKNOWN}"
             "$TOOLS/llvm-readelf" --notes --program-headers "$LIB"
             echo "# --- defined symbols: address size type name ---"
             "$TOOLS/llvm-nm" --defined-only --numeric-sort --print-size --demangle "$LIB"
