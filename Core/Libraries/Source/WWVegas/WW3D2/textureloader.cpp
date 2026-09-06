@@ -249,8 +249,19 @@ IDirect3DTexture8* Load_Compressed_Texture(
 	// If DDS file isn't available, use TGA file to convert to DDS.
 
 	DDSFileClass dds_file(filename,reduction_factor);
-	if (!dds_file.Is_Available()) return nullptr;
-	if (!dds_file.Load()) return nullptr;
+	if (!dds_file.Is_Available() || !dds_file.Load()) {
+		// GeneralsX @diag Android port Distinguish "no .dds in the archives" from
+		// "found it but could not read it" -- a repacked asset set can produce
+		// either, and they have different fixes.
+		static int s_logs = 0;
+		if (s_logs < 40) {
+			s_logs++;
+			fprintf(stderr, "[gxmiss] DDS %s: %s (reduction=%u)\n",
+				dds_file.Is_Available() ? "load failed" : "not available",
+				(const char*)filename, reduction_factor);
+		}
+		return nullptr;
+	}
 
 	unsigned width=dds_file.Get_Width(0);
 	unsigned height=dds_file.Get_Height(0);
@@ -446,6 +457,17 @@ IDirect3DTexture8* TextureLoader::Load_Thumbnail(const StringClass& filename, co
 
 	// If no thumb is found return a missing texture
 	if (!thumb) {
+		// GeneralsX @diag Android port This is a silent whole-object magenta:
+		// with texture reduction on (the Android default detail level), every
+		// texture is first requested as a thumbnail, and an asset set without a
+		// thumbnail database turns the entire scene magenta with nothing in the
+		// log to say why. Name the file, capped.
+		static int s_logs = 0;
+		if (s_logs < 40) {
+			s_logs++;
+			fprintf(stderr, "[gxmiss] no thumbnail -> MissingTexture: %s\n",
+				(const char*)filename);
+		}
 		return MissingTexture::_Get_Missing_Texture();
 	}
 
@@ -991,6 +1013,17 @@ void TextureLoader::Load_Thumbnail(TextureBaseClass *tc)
 	{
 		// GeneralsX @bugfix fbraz 04/05/2026 Avoid null dereference when fallback missing texture cannot be created.
 		WWDEBUG_SAY(("TextureLoader::Load_Thumbnail failed: null D3D texture for %s", tc->Get_Full_Path()));
+		{
+			static int s_logs = 0;
+			if (s_logs < 40) {
+				s_logs++;
+				// Get_Full_Path() returns a StringClass by value; a non-POD
+				// cannot go through varargs, so bind it and pass its buffer.
+				const StringClass path = tc->Get_Full_Path();
+				fprintf(stderr, "[gxmiss] thumbnail load returned nothing: %s\n",
+					(const char*)path);
+			}
+		}
 		return;
 	}
 

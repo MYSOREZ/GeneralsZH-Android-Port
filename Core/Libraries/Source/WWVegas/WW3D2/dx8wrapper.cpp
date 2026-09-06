@@ -3219,6 +3219,19 @@ IDirect3DTexture8 * DX8Wrapper::_Create_DX8_Texture
 		&texture);
 
 	if (result != D3D_OK) {
+		// GeneralsX @diag Android port Every substitution of MissingTexture
+		// paints the object solid magenta on screen (missingtexture.cpp writes
+		// 0x7FFF00FF), and until now none of them said which file it was for --
+		// a whole-scene magenta report was indistinguishable from a one-asset
+		// one. Name the file. Capped so a broken asset set cannot flood the log.
+		{
+			static int s_logs = 0;
+			if (s_logs < 40) {
+				s_logs++;
+				fprintf(stderr, "[gxmiss] D3DX file load returned 0x%08X -> MissingTexture: %s\n",
+					result, filename ? filename : "(null)");
+			}
+		}
 		return MissingTexture::_Get_Missing_Texture();
 	}
 
@@ -3226,6 +3239,14 @@ IDirect3DTexture8 * DX8Wrapper::_Create_DX8_Texture
 	D3DSURFACE_DESC desc;
 	texture->GetLevelDesc(0,&desc);
 	if (desc.Format==D3DFMT_P8) {
+		{
+			static int s_logs = 0;
+			if (s_logs < 40) {
+				s_logs++;
+				fprintf(stderr, "[gxmiss] paletted (P8) -> MissingTexture: %s\n",
+					filename ? filename : "(null)");
+			}
+		}
 		texture->Release();
 		return MissingTexture::_Get_Missing_Texture();
 	}

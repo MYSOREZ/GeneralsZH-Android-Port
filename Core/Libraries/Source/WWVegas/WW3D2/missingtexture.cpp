@@ -48,6 +48,21 @@ IDirect3DTexture8* MissingTexture::_Get_Missing_Texture()
 		return nullptr;
 	}
 
+	// GeneralsX @diag Android port The per-call-site logs above are capped, so
+	// they cannot tell "one broken asset" from "the whole scene is magenta".
+	// This counter can: it is the exact number of objects that will render as
+	// the magenta placeholder. Reported on a widening scale so a healthy run
+	// stays quiet and a broken asset set is unmistakable.
+	{
+		static unsigned s_handouts = 0;
+		static unsigned s_next = 1;
+		s_handouts++;
+		if (s_handouts >= s_next) {
+			fprintf(stderr, "[gxmiss] MissingTexture handed out %u time(s) so far\n", s_handouts);
+			s_next = (s_handouts < 16) ? s_handouts + 1 : s_handouts * 2;
+		}
+	}
+
 	_MissingTexture->AddRef();
 	return _MissingTexture;
 }
