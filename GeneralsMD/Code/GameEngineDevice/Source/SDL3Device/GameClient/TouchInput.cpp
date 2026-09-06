@@ -26,7 +26,10 @@
 #include "Common/MessageStream.h"
 #include "Common/Player.h"
 #include "Common/ThingTemplate.h"
+#include "Common/GlobalData.h"
 #include "GameClient/CommandXlat.h"
+#include "GameClient/ControlBar.h"
+#include "GameClient/Display.h"
 #include "GameClient/Drawable.h"
 #include "GameClient/GameClient.h"
 #include "GameClient/InGameUI.h"
@@ -161,8 +164,58 @@ namespace TouchInput
 	}
 
 	//-------------------------------------------------------------------------------------
+	Bool skipMovieIfPlaying()
+	{
+		// GeneralsX @bugfix Android port 06/09/2026 Reported: the intro could no longer be
+		// skipped by tapping, only with the system Back gesture.
+		//
+		// Skipping a movie was never handled by the translator chain at all -- WindowXlat
+		// watches for a raw MSG_RAW_MOUSE_LEFT_BUTTON_DOWN that nothing else consumed and
+		// calls stopMovie() on it (WindowXlat.cpp, the movie branch). The moment battlefield
+		// taps stopped synthesizing that button, the only way to reach that branch was gone.
+		// Handled here instead, before anything else: while a movie is up, the only thing a
+		// tap anywhere can mean is "skip it".
+		if (TheDisplay != nullptr && TheDisplay->isMoviePlaying() &&
+				TheGlobalData != nullptr && TheGlobalData->m_allowExitOutOfMovies)
+		{
+			TheDisplay->stopMovie();
+			return TRUE;
+		}
+		return FALSE;
+	}
+
+	//-------------------------------------------------------------------------------------
+	void beginAiming(Int x, Int y)
+	{
+		// GeneralsX @bugfix Android port 06/09/2026 Reported: no circle when aiming an
+		// ability -- the satellite scan simply went off with no radius shown.
+		//
+		// The radius decal is created by setRadiusCursor(), which on the mouse path is
+		// called from createCommandHint() every time a MSG_RAW_MOUSE_POSITION produces a
+		// fresh hint. Native aiming sends no position messages, so no hint was ever
+		// created, so setRadiusCursor() was never called and m_curRadiusCursor stayed
+		// empty. Create it here, at the moment a finger actually starts aiming -- which is
+		// also the right moment: not when the button is pressed (there is nowhere to draw
+		// it yet) and not on every motion (it only needs creating once).
+		if (TheInGameUI == nullptr)
+			return;
+
+		const CommandButton *command = TheInGameUI->getGUICommand();
+		if (command == nullptr)
+			return;
+
+		TheInGameUI->setRadiusCursor(command->getRadiusCursorType(),
+																 command->getSpecialPowerTemplate(),
+																 command->getWeaponSlot());
+		TheInGameUI->setTouchAimPoint(x, y, armedTargetValid(x, y));
+	}
+
+	//-------------------------------------------------------------------------------------
 	void tap(Int x, Int y)
 	{
+		if (skipMovieIfPlaying())
+			return;
+
 		if (TheInGameUI == nullptr || TheTacticalView == nullptr)
 			return;
 
@@ -222,6 +275,9 @@ namespace TouchInput
 	//-------------------------------------------------------------------------------------
 	void doubleTap(Int x, Int y)
 	{
+		if (skipMovieIfPlaying())
+			return;
+
 		if (TheInGameUI == nullptr || TheTacticalView == nullptr)
 			return;
 
@@ -288,6 +344,11 @@ namespace TouchInput
 			return;
 
 		issueContextOrder(pickForOrder(pixel), pos);
+
+		// The aim is spent: drop the radius decal and forget the point, so neither is left
+		// hanging over the map after the ability goes off.
+		TheInGameUI->setRadiusCursorNone();
+		TheInGameUI->clearTouchAimPoint();
 	}
 
 	//-------------------------------------------------------------------------------------

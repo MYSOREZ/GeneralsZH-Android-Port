@@ -98,6 +98,10 @@ namespace TouchInput
 	/// Second tap in the same spot: select every unit of that type on screen.
 	void doubleTap(Int x, Int y);
 
+	/// A finger has started aiming an armed command: create its radius decal and record
+	/// the first aim point. Sending no position messages means nothing else will.
+	void beginAiming(Int x, Int y);
+
 	/// Would the armed command accept this point? Does NOT issue it. For target feedback.
 	Bool armedTargetValid(Int x, Int y);
 

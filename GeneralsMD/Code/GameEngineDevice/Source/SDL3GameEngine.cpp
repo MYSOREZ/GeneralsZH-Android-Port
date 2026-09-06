@@ -62,6 +62,7 @@
 #include <cstring>
 
 #include "GameClient/LookAtXlat.h"
+#include "GameLogic/GameLogic.h"
 #include "SDL3Device/GameClient/TouchInput.h"
 #if defined(__APPLE__)
 #include <TargetConditionals.h>
@@ -830,8 +831,7 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 				s_touch.downX = s_touch.lastX = px;
 				s_touch.downY = s_touch.lastY = py;
 				s_touch.downTicks = SDL_GetTicks();
-				TheInGameUI->setTouchAimPoint((Int)px, (Int)py,
-				                              TouchInput::armedTargetValid((Int)px, (Int)py));
+				TouchInput::beginAiming((Int)px, (Int)py);
 				break;
 			}
 
@@ -864,7 +864,17 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 			// and the ability radius would then follow it. The hover priming still matters
 			// in the shell, where those hover-driven checkboxes live and where there is no
 			// battlefield to contaminate.
-			if (TheShell && TheShell->isShellActive()) {
+			//
+			// GeneralsX @bugfix Android port 06/09/2026 First attempt gated this on
+			// TheShell->isShellActive(), and the device log then showed it publishing
+			// positions during an actual match (logic=83ms frames, control bar up). The
+			// shell-active flag is not the question being asked -- ask the game logic
+			// instead. isInGame() alone is not enough either: the main menu's battle
+			// backdrop is a running game by that measure, and that is precisely a case
+			// where the priming IS wanted, so the shell game has to be excluded explicitly.
+			const Bool inRealGame = (TheGameLogic != nullptr && TheGameLogic->isInGame() &&
+			                         !TheGameLogic->isInShellGame());
+			if (!inRealGame) {
 				pushMousePosition(px, py);
 			}
 		}
@@ -1123,7 +1133,22 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 						// press point. Now the tap is resolved against the engine's own rules --
 						// pick, evaluate, order or select -- with no pointer invented on the way.
 						// See TouchInput.h for why the click detour had to go.
-						if (isDoubleTap) {
+						//
+						// EXCEPT while a building placement is pending. Reported: picking a
+						// structure at a dozer and tapping the ground walked the dozer there
+						// instead of building. Placement is not a context order at all -- it is
+						// PlaceEventTranslator's own press/drag/release state machine, which
+						// anchors on the button-down and commits MSG_DOZER_CONSTRUCT on the
+						// click, with ~150 lines of angle and line-build rules in between.
+						// A press-and-release on a spot is exactly what a click faithfully
+						// represents here, and the drag-to-rotate path (PLACING) already feeds
+						// that same translator, so placement stays whole on one mechanism
+						// rather than being half reimplemented.
+						if (TheInGameUI && TheInGameUI->getPendingPlaceType()) {
+							pushMousePosition(s_touch.downX, s_touch.downY);
+							pushMouseButton(GameMessage::MSG_RAW_MOUSE_LEFT_BUTTON_DOWN, s_touch.downX, s_touch.downY);
+							pushMouseButton(GameMessage::MSG_RAW_MOUSE_LEFT_BUTTON_UP, s_touch.downX, s_touch.downY);
+						} else if (isDoubleTap) {
 							TouchInput::doubleTap((Int)s_touch.downX, (Int)s_touch.downY);
 						} else {
 							TouchInput::tap((Int)s_touch.downX, (Int)s_touch.downY);
