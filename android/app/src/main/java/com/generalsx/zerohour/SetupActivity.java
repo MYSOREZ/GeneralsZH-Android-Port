@@ -1569,6 +1569,28 @@ public class SetupActivity extends Activity {
     // one. Same scan depth as the integrity check -- the folder itself plus its
     // immediate subfolders -- so a picked "Generals Deluxe" resolves through its
     // ZH_Generals child without the user having to descend into it.
+    // The three archives Zero Hour cannot supply for itself and that a magenta
+    // battlefield depends on. A folder without a single one of them is not a base
+    // Generals folder, whatever else it happens to contain.
+    private static final String[] BASE_GAME_ASSET_ARCHIVES = { "terrain.big", "textures.big", "w3d.big" };
+
+    private boolean hasAnyBaseGeneralsAssets(File dir) {
+        java.util.List<String> missing = missingBaseGeneralsArchives(dir);
+        for (String name : BASE_GAME_ASSET_ARCHIVES) {
+            boolean absent = false;
+            for (String m : missing) {
+                if (m.toLowerCase(java.util.Locale.ROOT).equals(name)) {
+                    absent = true;
+                    break;
+                }
+            }
+            if (!absent) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     java.util.List<String> missingBaseGeneralsArchives(File dir) {
         java.util.Set<String> present = new java.util.HashSet<>();
         if (dir != null && dir.isDirectory()) {
@@ -1777,11 +1799,15 @@ public class SetupActivity extends Activity {
         } else if (requestCode == REQUEST_PICK_BASE_GENERALS && resultCode == Activity.RESULT_OK && data != null) {
             String path = data.getStringExtra(FolderPickerActivity.EXTRA_SELECTED_PATH);
             if (path != null) {
-                java.util.List<String> missing = missingBaseGeneralsArchives(new File(path));
-                if (missing.size() == BASE_GAME_REQUIRED_ARCHIVES.length) {
-                    // Not one of them here: almost certainly the wrong folder, and
-                    // saving it would quietly shadow the engine's own search with
-                    // something worse than nothing.
+                // GeneralsX @bugfix Android port 06/09/2026 This used to accept the
+                // folder unless ALL ten archives were absent, which a single
+                // incidental file defeats: a real report picked a folder holding
+                // seventeen duplicate *ZH.big archives plus Music.big, nine of ten
+                // missing, and it was accepted -- so the engine dutifully searched
+                // a folder with no base game in it and the terrain stayed magenta.
+                // Judge it on the archives that actually carry the original game's
+                // artwork instead. Music.big cannot stand in for those.
+                if (!hasAnyBaseGeneralsAssets(new File(path))) {
                     showFolderProblemDialog(getString(R.string.setup_base_generals_not_here, path));
                 } else {
                     saveBaseGeneralsPath(path);
