@@ -164,4 +164,10 @@
     <string name="online_toast_signed_out">로그아웃되었습니다.</string>
     <string name="online_status_signed_in_as">%1$s(으)로 로그인되었습니다.</string>
     <string name="online_status_not_signed_in">로그인되지 않았습니다.</string>
+    <string name="setup_button_select_base_generals">기본 게임 Generals 폴더…</string>
+    <string name="setup_button_clear_base_generals">기본 게임 폴더 지우기</string>
+    <string name="setup_toast_base_generals_saved">기본 게임 Generals 폴더: %1$s</string>
+    <string name="setup_toast_base_generals_cleared">기본 게임 폴더를 지웠습니다</string>
+    <string name="setup_base_generals_not_here">%1$s에는 기본 게임 Generals 아카이브가 없습니다 — Terrain.big, Textures.big, W3D.big이 있는 폴더를 선택하세요.</string>
+    <string name="setup_status_base_generals_line">기본 Generals: %1$s\n</string>
 </resources>

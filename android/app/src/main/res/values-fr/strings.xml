@@ -164,4 +164,10 @@
     <string name="online_toast_signed_out">Déconnecté.</string>
     <string name="online_status_signed_in_as">Connecté en tant que %1$s.</string>
     <string name="online_status_not_signed_in">Non connecté.</string>
+    <string name="setup_button_select_base_generals">Dossier du jeu de base Generals…</string>
+    <string name="setup_button_clear_base_generals">Réinitialiser le dossier du jeu de base</string>
+    <string name="setup_toast_base_generals_saved">Dossier du jeu de base Generals : %1$s</string>
+    <string name="setup_toast_base_generals_cleared">Dossier du jeu de base réinitialisé</string>
+    <string name="setup_base_generals_not_here">Aucune archive du jeu de base Generals dans %1$s — choisissez le dossier contenant Terrain.big, Textures.big et W3D.big.</string>
+    <string name="setup_status_base_generals_line">Generals de base : %1$s\n</string>
 </resources>

@@ -164,4 +164,10 @@
     <string name="online_toast_signed_out">Odjavjeny.</string>
     <string name="online_status_signed_in_as">Prijavjeny kako %1$s.</string>
     <string name="online_status_not_signed_in">Ne prijavjeny.</string>
+    <string name="setup_button_select_base_generals">Papka osnovnoj igry Generals…</string>
+    <string name="setup_button_clear_base_generals">Odstraniti papku osnovnoj igry</string>
+    <string name="setup_toast_base_generals_saved">Papka osnovnoj igry Generals: %1$s</string>
+    <string name="setup_toast_base_generals_cleared">Papka osnovnoj igry odstranjena</string>
+    <string name="setup_base_generals_not_here">V %1$s ne ima arhivov osnovnoj igry Generals — izberi papku, v kojej sut Terrain.big, Textures.big i W3D.big.</string>
+    <string name="setup_status_base_generals_line">Osnovna Generals: %1$s\n</string>
 </resources>

@@ -164,4 +164,10 @@
     <string name="online_toast_signed_out">Abgemeldet.</string>
     <string name="online_status_signed_in_as">Angemeldet als %1$s.</string>
     <string name="online_status_not_signed_in">Nicht angemeldet.</string>
+    <string name="setup_button_select_base_generals">Ordner des Basisspiels Generals…</string>
+    <string name="setup_button_clear_base_generals">Ordner des Basisspiels zurücksetzen</string>
+    <string name="setup_toast_base_generals_saved">Ordner des Basisspiels Generals: %1$s</string>
+    <string name="setup_toast_base_generals_cleared">Ordner des Basisspiels zurückgesetzt</string>
+    <string name="setup_base_generals_not_here">In %1$s liegen keine Archive des Basisspiels Generals — wähle den Ordner mit Terrain.big, Textures.big und W3D.big.</string>
+    <string name="setup_status_base_generals_line">Basisspiel Generals: %1$s\n</string>
 </resources>

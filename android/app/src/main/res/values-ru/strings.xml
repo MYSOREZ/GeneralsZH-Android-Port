@@ -176,4 +176,10 @@
     <string name="online_toast_signed_out">Выход выполнен.</string>
     <string name="online_status_signed_in_as">Вход выполнен как %1$s.</string>
     <string name="online_status_not_signed_in">Вход не выполнен.</string>
+    <string name="setup_button_select_base_generals">Папка базовой Generals…</string>
+    <string name="setup_button_clear_base_generals">Сбросить папку базовой Generals</string>
+    <string name="setup_toast_base_generals_saved">Папка базовой Generals: %1$s</string>
+    <string name="setup_toast_base_generals_cleared">Папка базовой Generals сброшена</string>
+    <string name="setup_base_generals_not_here">В %1$s нет архивов базовой Generals — выберите папку, где лежат Terrain.big, Textures.big и W3D.big.</string>
+    <string name="setup_status_base_generals_line">Базовая Generals: %1$s\n</string>
 </resources>

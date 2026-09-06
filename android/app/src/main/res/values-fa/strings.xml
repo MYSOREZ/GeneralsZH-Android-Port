@@ -164,4 +164,10 @@
     <string name="online_toast_signed_out">از حساب خارج شدید.</string>
     <string name="online_status_signed_in_as">واردشده به‌عنوان %1$s.</string>
     <string name="online_status_not_signed_in">وارد نشده‌اید.</string>
+    <string name="setup_button_select_base_generals">پوشهٔ بازی پایه Generals…</string>
+    <string name="setup_button_clear_base_generals">پاک کردن پوشهٔ بازی پایه</string>
+    <string name="setup_toast_base_generals_saved">پوشهٔ بازی پایه Generals: %1$s</string>
+    <string name="setup_toast_base_generals_cleared">پوشهٔ بازی پایه پاک شد</string>
+    <string name="setup_base_generals_not_here">در %1$s آرشیو بازی پایه Generals وجود ندارد — پوشه‌ای را انتخاب کنید که Terrain.big و Textures.big و W3D.big در آن باشد.</string>
+    <string name="setup_status_base_generals_line">Generals پایه: %1$s\n</string>
 </resources>

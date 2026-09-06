@@ -164,4 +164,10 @@
     <string name="online_toast_signed_out">已退出登录。</string>
     <string name="online_status_signed_in_as">已登录为 %1$s。</string>
     <string name="online_status_not_signed_in">未登录。</string>
+    <string name="setup_button_select_base_generals">基础游戏 Generals 文件夹…</string>
+    <string name="setup_button_clear_base_generals">清除基础游戏文件夹</string>
+    <string name="setup_toast_base_generals_saved">基础游戏 Generals 文件夹：%1$s</string>
+    <string name="setup_toast_base_generals_cleared">已清除基础游戏文件夹</string>
+    <string name="setup_base_generals_not_here">%1$s 中没有基础游戏 Generals 的归档文件——请选择包含 Terrain.big、Textures.big 和 W3D.big 的文件夹。</string>
+    <string name="setup_status_base_generals_line">基础 Generals：%1$s\n</string>
 </resources>

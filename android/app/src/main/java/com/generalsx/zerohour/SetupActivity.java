@@ -67,6 +67,10 @@ public class SetupActivity extends Activity {
 
     static final String PREFS_NAME = "generalszh_setup";
     static final String PREF_GAME_PATH = "game_path";
+    // GeneralsX @feature Android port 06/09/2026 Optional folder holding the
+    // BASE Generals archives, for copies that keep them somewhere the engine
+    // will not find on its own.
+    static final String PREF_BASE_GENERALS_PATH = "base_generals_path";
 
     // TheSuperHackers @bugfix Android port 07/07/2026 SharedPreferences and
     // getFilesDir() both live under /data/data/<pkg>/ and are wiped the
@@ -192,6 +196,10 @@ public class SetupActivity extends Activity {
         addButton(actionsCard, getString(R.string.setup_button_launch_game), this::onLaunchGame);
         addButton(actionsCard, getString(R.string.setup_button_view_logs), this::onViewLogs);
         addButton(actionsCard, getString(R.string.setup_button_clear_game_folder), this::onClearGameFolder);
+        addButton(actionsCard, getString(R.string.setup_button_select_base_generals), this::onSelectBaseGeneralsFolder);
+        if (getBaseGeneralsPath() != null) {
+            addButton(actionsCard, getString(R.string.setup_button_clear_base_generals), this::onClearBaseGeneralsFolder);
+        }
 
         // GeneralsX @bugfix Android port 01/08/2026 moved up from below the
         // language/UI-scale/driver/dxvk-config cards -- signing into
@@ -545,6 +553,7 @@ public class SetupActivity extends Activity {
     // into this asset folder at build time) -- see applyRecommendedDriverIfNeeded().
     private static final String DEFAULT_DRIVER_ASSET_DIR = "default_driver";
     private static final int REQUEST_IMPORT_DRIVER = 1002;
+    private static final int REQUEST_PICK_BASE_GENERALS = 1003;
 
     private TextView customDriverStatusView;
 
@@ -1254,6 +1263,13 @@ public class SetupActivity extends Activity {
                 statusStart, statusEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             sb.setSpan(new StyleSpan(Typeface.BOLD), statusStart, statusEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             sb.setSpan(new UnderlineSpan(), statusStart, statusEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+            // Only worth a line when it is actually set: an absent optional
+            // setting does not need to occupy space on the screen.
+            final String basePath = getBaseGeneralsPath();
+            if (basePath != null) {
+                sb.append(getString(R.string.setup_status_base_generals_line, basePath));
+            }
         }
         sb.append('\n');
         sb.append(getString(R.string.setup_status_logs_note));
@@ -1470,10 +1486,19 @@ public class SetupActivity extends Activity {
         // unambiguously a Zero-Hour-only folder. Deliberately keyed on the
         // asset archives rather than "any archive without a ZH suffix" --
         // Music.big is commonly present on its own and would mask the problem.
+        // A folder chosen as the base-Generals location supplies these instead, so
+        // do not go on demanding them here -- the warning would be permanent and
+        // wrong for exactly the people who already did the right thing.
+        final String basePath = getBaseGeneralsPath();
+        final boolean baseFolderCovers =
+            basePath != null && missingBaseGeneralsArchives(new File(basePath)).isEmpty();
+
         StringBuilder missing = new StringBuilder();
-        for (String name : BASE_GAME_REQUIRED_ARCHIVES) {
-            if (!presentArchives.contains(name.toLowerCase(java.util.Locale.ROOT))) {
-                missing.append("\n  \u2022 ").append(name);
+        if (!baseFolderCovers) {
+            for (String name : BASE_GAME_REQUIRED_ARCHIVES) {
+                if (!presentArchives.contains(name.toLowerCase(java.util.Locale.ROOT))) {
+                    missing.append("\n  \u2022 ").append(name);
+                }
             }
         }
         if (missing.length() > 0) {
@@ -1523,6 +1548,40 @@ public class SetupActivity extends Activity {
     // never had would send people hunting for a file that does not exist.
     // A missing language archive also degrades far more gracefully than a
     // missing Textures.big.
+    // GeneralsX @feature Android port 06/09/2026 Used twice: to judge the game
+    // folder, and to sanity-check a folder someone picks as the base-Generals
+    // one. Same scan depth as the integrity check -- the folder itself plus its
+    // immediate subfolders -- so a picked "Generals Deluxe" resolves through its
+    // ZH_Generals child without the user having to descend into it.
+    java.util.List<String> missingBaseGeneralsArchives(File dir) {
+        java.util.Set<String> present = new java.util.HashSet<>();
+        if (dir != null && dir.isDirectory()) {
+            java.util.List<File> roots = new java.util.ArrayList<>();
+            roots.add(dir);
+            File[] subdirs = dir.listFiles(File::isDirectory);
+            if (subdirs != null) {
+                java.util.Collections.addAll(roots, subdirs);
+            }
+            for (File root : roots) {
+                File[] bigs = root.listFiles((d, name) ->
+                    name.toLowerCase(java.util.Locale.ROOT).endsWith(".big"));
+                if (bigs == null) {
+                    continue;
+                }
+                for (File f : bigs) {
+                    present.add(f.getName().toLowerCase(java.util.Locale.ROOT));
+                }
+            }
+        }
+        java.util.List<String> missing = new java.util.ArrayList<>();
+        for (String name : BASE_GAME_REQUIRED_ARCHIVES) {
+            if (!present.contains(name.toLowerCase(java.util.Locale.ROOT))) {
+                missing.add(name);
+            }
+        }
+        return missing;
+    }
+
     private static final String[] BASE_GAME_REQUIRED_ARCHIVES = {
         "INI.big", "Terrain.big", "Textures.big", "W3D.big", "Window.big",
         "Shaders.big", "Audio.big", "Speech.big", "Maps.big", "Music.big"
@@ -1616,6 +1675,42 @@ public class SetupActivity extends Activity {
         startActivityForResult(new Intent(this, FolderPickerActivity.class), 1001);
     }
 
+    // GeneralsX @feature Android port 06/09/2026 Second picker, same browser,
+    // different destination. Deliberately not merged with the game-folder flow:
+    // that one validates what it is given as a Zero Hour folder, and this one
+    // must accept the opposite -- a folder with base archives and no *ZH.big.
+    private void onSelectBaseGeneralsFolder() {
+        startActivityForResult(new Intent(this, FolderPickerActivity.class), REQUEST_PICK_BASE_GENERALS);
+    }
+
+    private void onClearBaseGeneralsFolder() {
+        getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit().remove(PREF_BASE_GENERALS_PATH).apply();
+        new File(getFilesDir(), "generals_base_path.txt").delete();
+        Toast.makeText(this, R.string.setup_toast_base_generals_cleared, Toast.LENGTH_LONG).show();
+        recreate();
+    }
+
+    String getBaseGeneralsPath() {
+        return getSharedPreferences(PREFS_NAME, MODE_PRIVATE).getString(PREF_BASE_GENERALS_PATH, null);
+    }
+
+    private void saveBaseGeneralsPath(String path) {
+        getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit()
+            .putString(PREF_BASE_GENERALS_PATH, path)
+            .apply();
+        // SDL3Main.cpp reads this plain-text marker on the next launch and turns
+        // it into CNC_GENERALS_PATH, which is the first location the engine's
+        // base-game search consults. Native code cannot read SharedPreferences,
+        // hence the file -- same arrangement as gamedata_path.txt.
+        File marker = new File(getFilesDir(), "generals_base_path.txt");
+        try (java.io.FileWriter w = new java.io.FileWriter(marker, false)) {
+            w.write(path);
+            w.write("\n");
+        } catch (java.io.IOException e) {
+            Toast.makeText(this, getString(R.string.setup_toast_marker_save_failed, e.getMessage()), Toast.LENGTH_LONG).show();
+        }
+    }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -1657,6 +1752,22 @@ public class SetupActivity extends Activity {
                     } else {
                         Toast.makeText(this, R.string.setup_toast_folder_saved, Toast.LENGTH_LONG).show();
                     }
+                }
+            }
+        } else if (requestCode == REQUEST_PICK_BASE_GENERALS && resultCode == Activity.RESULT_OK && data != null) {
+            String path = data.getStringExtra(FolderPickerActivity.EXTRA_SELECTED_PATH);
+            if (path != null) {
+                java.util.List<String> missing = missingBaseGeneralsArchives(new File(path));
+                if (missing.size() == BASE_GAME_REQUIRED_ARCHIVES.length) {
+                    // Not one of them here: almost certainly the wrong folder, and
+                    // saving it would quietly shadow the engine's own search with
+                    // something worse than nothing.
+                    showFolderProblemDialog(getString(R.string.setup_base_generals_not_here, path));
+                } else {
+                    saveBaseGeneralsPath(path);
+                    Toast.makeText(this, getString(R.string.setup_toast_base_generals_saved, path),
+                        Toast.LENGTH_LONG).show();
+                    recreate();
                 }
             }
         } else if (requestCode == REQUEST_IMPORT_DRIVER && resultCode == Activity.RESULT_OK && data != null) {

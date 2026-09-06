@@ -164,4 +164,10 @@
     <string name="online_toast_signed_out">Sesión cerrada.</string>
     <string name="online_status_signed_in_as">Sesión iniciada como %1$s.</string>
     <string name="online_status_not_signed_in">Sesión no iniciada.</string>
+    <string name="setup_button_select_base_generals">Carpeta del juego base Generals…</string>
+    <string name="setup_button_clear_base_generals">Borrar carpeta del juego base</string>
+    <string name="setup_toast_base_generals_saved">Carpeta del juego base Generals: %1$s</string>
+    <string name="setup_toast_base_generals_cleared">Carpeta del juego base borrada</string>
+    <string name="setup_base_generals_not_here">En %1$s no hay archivos del juego base Generals — elige la carpeta que contiene Terrain.big, Textures.big y W3D.big.</string>
+    <string name="setup_status_base_generals_line">Generals base: %1$s\n</string>
 </resources>

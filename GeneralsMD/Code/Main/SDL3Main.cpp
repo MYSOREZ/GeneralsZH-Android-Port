@@ -814,6 +814,49 @@ int main(int argc, char* argv[])
 			fprintf(stderr, "WARNING: could not enter game data directory (external storage unavailable?)\n");
 		}
 
+		// GeneralsX @feature Android port 06/09/2026 Optional second folder:
+		// where the BASE Generals archives live. Zero Hour is an expansion and
+		// only ships what it added, so it needs the original game's Terrain.big,
+		// Textures.big, W3D.big and friends alongside its own.
+		//
+		// The engine already knows how to find them -- loadBaseGeneralsAssetsForZH()
+		// in StdBIGFileSystem.cpp -- but its automatic guesses are a sibling
+		// "../Generals" directory and a nested "ZH_Generals" one, in that order,
+		// and it stops at the first that yields anything. A repack that leaves a
+		// sibling Generals folder full of duplicate *ZH.big archives therefore
+		// swallows the search before the real base game is ever reached.
+		//
+		// Dropping the base archives in beside the ZH ones is NOT a fix: archive
+		// precedence is load order, the list is alphabetical, and INI.big sorts
+		// before INIZH.big -- so the base game wins every shared file and Zero
+		// Hour turns into original Generals wearing the expansion's menus. That
+		// first-one-wins rule is also what mods rely on, so it must not change.
+		//
+		// So point the engine straight at the folder instead. CNC_GENERALS_PATH
+		// is the very first thing loadBaseGeneralsAssetsForZH() consults, ahead of
+		// every guess, and setting it here costs the engine nothing. Same plumbing
+		// as the game folder above: the Setup app writes a plain-text marker,
+		// native code reads it before the engine starts.
+		if (internalPath != nullptr) {
+			char basePathMarker[1024];
+			snprintf(basePathMarker, sizeof(basePathMarker), "%s/generals_base_path.txt", internalPath);
+			FILE *baseMarker = fopen(basePathMarker, "r");
+			if (baseMarker != nullptr) {
+				char basePath[900] = {0};
+				if (fgets(basePath, sizeof(basePath), baseMarker) != nullptr) {
+					size_t len = strlen(basePath);
+					while (len > 0 && (basePath[len - 1] == '\n' || basePath[len - 1] == '\r')) {
+						basePath[--len] = '\0';
+					}
+					if (len > 0) {
+						setenv("CNC_GENERALS_PATH", basePath, 1);
+						fprintf(stderr, "INFO: Android base Generals folder (Setup-selected): %s\n", basePath);
+					}
+				}
+				fclose(baseMarker);
+			}
+		}
+
 		// GeneralsX @feature Android port 30/07/2026 Opt-in Vulkan validation
 		// layer, same UX as gx_trace.txt: a tester drops a file named
 		// dxvk_validation.txt into the game data folder (no adb, no rebuild)
