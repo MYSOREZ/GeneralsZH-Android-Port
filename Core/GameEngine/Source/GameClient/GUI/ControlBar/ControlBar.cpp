@@ -903,6 +903,8 @@ ControlBar::ControlBar()
 	m_observedPlayer = nullptr;
 	m_buildToolTipLayout = nullptr;
 	m_showBuildToolTipLayout = FALSE;
+	m_touchHoldActive = FALSE;
+	m_touchHoldPoint.x = m_touchHoldPoint.y = 0;
 
 	m_animateDownWin1Pos.x = m_animateDownWin1Pos.y = 0;
 	m_animateDownWin1Size.x = m_animateDownWin1Size.y = 0;
@@ -1558,57 +1560,44 @@ void ControlBar::update()
 
 #if defined(__ANDROID__) || (defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE)
 	// GeneralsX @feature Android port 06/09/2026 Hold a command button to read its
-	// description. On a mouse the popup is a hover affordance; a touchscreen has no
-	// hover, and a press cannot stand in for one, because the engine deliberately
-	// SUPPRESSES tooltips while a button is held: winProcessMouseEvent() wipes the
-	// tooltip text at GameWindowManager.cpp:966, sets m_grabWindow on LEFT_DOWN
-	// (:1200) and then returns from the grab branch (:1024-1117) before ever
-	// reaching the tooltip block at :1226. Two attempts to feed that path from the
-	// touch layer were reverted; it was never going to work, because the path exits
-	// before the point being fed.
+	// description. On a mouse the popup is a hover affordance; a touchscreen has no hover,
+	// and a press cannot stand in for one, because the engine deliberately SUPPRESSES
+	// tooltips while a button is held: winProcessMouseEvent() wipes the tooltip text at
+	// GameWindowManager.cpp:966, sets m_grabWindow on LEFT_DOWN (:1200) and returns from
+	// the grab branch (:1024-1117) before ever reaching the tooltip block at :1226. So do
+	// not go through the window manager at all -- drive the popup directly.
 	//
-	// So do not go through the window manager at all. Poll the buttons' own
-	// WIN_STATE_SELECTED once a frame and call showBuildTooltipLayout() directly --
-	// the same shape GroupPanel.cpp already uses for its long-press
-	// (updateHoldVisuals(), GroupPanel.cpp:200), which has been shipping here since
-	// August. showBuildTooltipLayout() carries its own delay state machine
-	// (ControlBarPopupDescription.cpp:151-190): the first call arms the timer, later
-	// calls with the same window show the popup once getTooltipDelay() has passed,
-	// so it wants to be called repeatedly and the hold timing needs no code here.
+	// GeneralsX @bugfix Android port 06/09/2026 Reported twice: the description appears for
+	// about a second and vanishes with the finger still down. Two separate causes, both
+	// fixed here.
 	//
-	// Must run BEFORE the runUpdate() block below: that clears m_showBuildToolTipLayout
-	// every frame, and ControlBarPopupDescriptionUpdateFunc tears the layout down
-	// when it is FALSE, so the flag has to be re-set each frame to keep the popup up.
-	if (TheInGameUI && !TheInGameUI->areTooltipsDisabled())
+	// First, the popup was not being hidden, it was being DELETED.
+	// ControlBarPopupDescriptionUpdateFunc() calls deleteBuildTooltipLayout() on any frame
+	// where getShowBuildTooltipLayout() is FALSE, and that flag is cleared at the bottom of
+	// every update. Re-setting it depended on showBuildTooltipLayout() taking its
+	// "same window as last time" branch -- which it stops doing the moment the control bar
+	// rebuilds its command windows mid-hold, since the rebuilt button is a different
+	// pointer. One such frame and the popup is gone. So while a finger is genuinely held on
+	// a command button, assert the flag directly: a held finger IS the condition the flag
+	// is meant to express, and nothing downstream should be second-guessing it.
+	//
+	// Second, the previous attempt to recover from that called showBuildTooltipLayout(null)
+	// whenever the layout was hidden. That resets the popup's internal wait timer, and it
+	// ran every frame, so the tooltip delay could never elapse and the description could
+	// never come back at all. Removed: with the deletion prevented, the popup's own state
+	// machine recovers on its own, and one reset per frame was making that impossible.
+	//
+	// Driven by the touch hold POINT rather than the button's WIN_STATE_SELECTED, for the
+	// same reason the point is stored instead of a pointer: the state lives on a window
+	// that gets rebuilt underneath the finger, and hit-testing the point again each frame
+	// survives that.
+	if (m_touchHoldActive && TheInGameUI && !TheInGameUI->areTooltipsDisabled() && TheWindowManager)
 	{
-		for (Int cmdIdx = 0; cmdIdx < MAX_COMMANDS_PER_SET; ++cmdIdx)
+		GameWindow *held = TheWindowManager->getWindowUnderCursor(m_touchHoldPoint.x, m_touchHoldPoint.y);
+		if (held != nullptr && BitIsSet(held->winGetStyle(), GWS_PUSH_BUTTON))
 		{
-			GameWindow *cmdWin = m_commandWindows[cmdIdx];
-			if (cmdWin == nullptr || cmdWin->winIsHidden())
-				continue;
-
-			if (BitIsSet(cmdWin->winGetInstanceData()->getState(), WIN_STATE_SELECTED))
-			{
-				// GeneralsX @bugfix Android port 06/09/2026 Reported: the description vanishes
-				// partway through the hold and never comes back.
-				//
-				// showBuildTooltipLayout() keeps its decision state in statics
-				// (prevWindow/isInitialized, ControlBarPopupDescription.cpp:151-190). Once it
-				// has shown a popup for a window, every later call with that SAME window
-				// returns early -- so if anything hides the layout meanwhile (the control bar
-				// rebuilding its command windows mid-hold will, since the rebuilt window is a
-				// different pointer and the "different window" branch hides), no subsequent
-				// call can ever bring it back while the finger stays on the same button.
-				//
-				// Re-arm it: a call with nullptr resets that state machine, and the next
-				// frame's call with the button starts the delay again. Costs one tooltip
-				// delay, instead of the description being gone for the rest of the hold.
-				if (m_buildToolTipLayout != nullptr && m_buildToolTipLayout->isHidden())
-					showBuildTooltipLayout(nullptr);
-
-				showBuildTooltipLayout(cmdWin);
-				break;   // only one finger, so only one button can be held
-			}
+			showBuildTooltipLayout(held);
+			m_showBuildToolTipLayout = TRUE;
 		}
 	}
 #endif

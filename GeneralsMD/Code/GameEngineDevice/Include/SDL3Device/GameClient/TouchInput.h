@@ -108,6 +108,12 @@ namespace TouchInput
 	/// Issue the armed command at this point.
 	void fireArmed(Int x, Int y);
 
+	/// Tell the control bar that a finger is held at this point, so it can keep the held
+	/// button's description alive (ControlBar::update). Routed through here rather than
+	/// called directly because ControlBar.h does not compile standalone from the device
+	/// layer's include order.
+	void reportUiHold(Int x, Int y, Bool held);
+
 	/// Back out of an armed command or a pending building placement. Deselects otherwise.
 	void cancelOrDeselect();
 

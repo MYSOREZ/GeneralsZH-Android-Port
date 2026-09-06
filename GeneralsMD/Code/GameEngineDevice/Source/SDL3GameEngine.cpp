@@ -814,6 +814,11 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 				s_touch.downTicks = SDL_GetTicks();
 				pushMousePosition(px, py);
 				pushMouseButton(GameMessage::MSG_RAW_MOUSE_LEFT_BUTTON_DOWN, px, py);
+				// GeneralsX @feature Android port 06/09/2026 Tell the control bar a finger is
+				// down here, so it can keep the held button's description alive. It re-hit-tests
+				// this point every frame rather than trusting a window pointer or a widget state
+				// that its own rebuilds invalidate. See ControlBar::update().
+				TouchInput::reportUiHold((Int)px, (Int)py, TRUE);
 				break;
 			}
 
@@ -1319,6 +1324,7 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 					// deferred classification instead.
 					pushMousePosition(s_touch.downX, s_touch.downY);
 					pushMouseButton(GameMessage::MSG_RAW_MOUSE_LEFT_BUTTON_UP, s_touch.downX, s_touch.downY);
+					TouchInput::reportUiHold(0, 0, FALSE);
 					// GeneralsX @bugfix Android port 06/09/2026 Reported: holding a build
 					// button to read its description eventually enters build mode and the
 					// description disappears. The hold has to keep the button pressed -- that

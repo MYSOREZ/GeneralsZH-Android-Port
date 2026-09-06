@@ -986,7 +986,22 @@ protected:
 
 	WindowLayout *m_buildToolTipLayout;										///< The window that will slide on/display tooltips
 	Bool m_showBuildToolTipLayout;											///< every frame we test to see if we are going to continue showing this or not.
+
+	// GeneralsX @feature Android port 06/09/2026 Where a finger is currently held, if it
+	// is. Reported by the touch layer, in logical display coordinates. A POINT and not a
+	// GameWindow*: the control bar rebuilds its command windows whenever the selection
+	// context changes, so a pointer captured at touch-down goes stale mid-hold, while a
+	// point stays true and can simply be hit-tested again each frame.
+	Bool m_touchHoldActive;
+	ICoord2D m_touchHoldPoint;
 public:
+	void setTouchHoldPoint( Int x, Int y, Bool held )
+	{
+		m_touchHoldActive = held;
+		m_touchHoldPoint.x = x;
+		m_touchHoldPoint.y = y;
+	}
+
 	void showBuildTooltipLayout( GameWindow *cmdButton );
 	void hideBuildTooltipLayout();
 	void deleteBuildTooltipLayout();

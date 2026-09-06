@@ -352,6 +352,13 @@ namespace TouchInput
 	}
 
 	//-------------------------------------------------------------------------------------
+	void reportUiHold(Int x, Int y, Bool held)
+	{
+		if (TheControlBar != nullptr)
+			TheControlBar->setTouchHoldPoint(x, y, held);
+	}
+
+	//-------------------------------------------------------------------------------------
 	void cancelOrDeselect()
 	{
 		if (TheInGameUI == nullptr)
