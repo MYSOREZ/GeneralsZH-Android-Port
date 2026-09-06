@@ -474,6 +474,11 @@ public:  // ********************************************************************
 	void setTouchDebugState( const char *phaseName, Int downX, Int downY,
 													 Int lastX, Int lastY, Int pubX, Int pubY, Int fingers );
 
+	// GeneralsX @feature Android port 06/09/2026 Report where the finger is aiming and
+	// whether the armed command accepts it. See m_touchAimKnown.
+	void setTouchAimPoint( Int x, Int y, Bool valid );
+	void clearTouchAimPoint() { m_touchAimKnown = FALSE; m_touchAimValid = FALSE; }
+
 	virtual void setInputEnabled( Bool enable );										///< Set the input enabled or disabled
 	virtual Bool getInputEnabled() { return m_inputEnabled; }	///< Get the current input status
 
@@ -912,14 +917,21 @@ protected:
 	Bool												m_isSelecting;
 	MouseMode										m_mouseMode;
 	Int													m_mouseModeCursor;
-	// GeneralsX @feature Android port 06/09/2026 Whether the armed GUI command would
-	// currently accept the point under the cursor. On a mouse this is carried purely by
-	// the cursor bitmap (valid vs invalid art, chosen in createCommandHint); a touchscreen
-	// has no cursor to carry it, so the answer has to be recorded and drawn instead.
-	Bool												m_touchTargetValid;
-	// Whether a finger has pointed anywhere since this command was armed. Until it has,
-	// there is no aim point to draw -- the cursor still holds the previous attempt's.
-	Bool												m_touchTargetKnown;
+	// GeneralsX @feature Android port 06/09/2026 Where the finger is aiming, and whether
+	// the armed command would accept that point.
+	//
+	// This replaces reading TheMouse's position. A mouse position is a truthful answer to
+	// "where is the player pointing" because a real pointer is always somewhere; a touch
+	// device has nowhere to point between gestures, and the last written value is a
+	// leftover from the previous attempt. So it is recorded explicitly, per gesture, and
+	// m_touchAimKnown says whether there is an answer at all -- there is none until a
+	// finger actually lands, and arming a command clears it again.
+	//
+	// Validity comes from evaluateContextCommand's EVALUATE_ONLY mode, the same evaluation
+	// the order itself will run, so the feedback cannot disagree with the outcome.
+	Bool												m_touchAimKnown;
+	Bool												m_touchAimValid;
+	ICoord2D										m_touchAimPoint;
 
 	// GeneralsX @feature Android port 06/09/2026 Touch-input debug overlay state, fed
 	// from the platform touch handler (see setTouchDebugState). Off unless the tester

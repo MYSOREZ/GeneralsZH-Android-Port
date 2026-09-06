@@ -114,8 +114,25 @@ void LookAtTranslator::stopScrolling()
 //-----------------------------------------------------------------------------
 Bool LookAtTranslator::canScrollAtScreenEdge() const
 {
+#if defined(__ANDROID__) || (defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE)
+	// GeneralsX @bugfix Android port 06/09/2026 Never on a touchscreen.
+	//
+	// Screen-edge scrolling is defined by a pointer RESTING within a few pixels of an
+	// edge, and it ends only when a later pointer event reports a position back inside
+	// the safe zone. A finger rests nowhere and sends nothing after it lifts, so the mode
+	// can start but has no natural way to end: it scrolled until something unrelated
+	// reset it. That is the runaway camera reported on this port, and no amount of
+	// guarding the entry and exit points fixes a mode whose exit condition cannot occur.
+	//
+	// Nothing is lost -- dragging the map with a finger is the touch equivalent, and it
+	// is both more precise and already native (applyCameraPan -> TheTacticalView).
+	// If mouse support is ever offered here for an attached OTG/Bluetooth pointer, this
+	// is the line that has to consult that setting rather than the platform.
+	return false;
+#else
 	if (!TheMouse->isCursorCaptured())
 		return false;
+#endif
 
 	if (TheDisplay->getWindowed())
 	{

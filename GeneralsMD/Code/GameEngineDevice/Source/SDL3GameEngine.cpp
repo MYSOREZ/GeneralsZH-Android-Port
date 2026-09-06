@@ -62,6 +62,7 @@
 #include <cstring>
 
 #include "GameClient/LookAtXlat.h"
+#include "SDL3Device/GameClient/TouchInput.h"
 #if defined(__APPLE__)
 #include <TargetConditionals.h>
 #endif
@@ -829,7 +830,8 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 				s_touch.downX = s_touch.lastX = px;
 				s_touch.downY = s_touch.lastY = py;
 				s_touch.downTicks = SDL_GetTicks();
-				pushMousePosition(px, py);
+				TheInGameUI->setTouchAimPoint((Int)px, (Int)py,
+				                              TouchInput::armedTargetValid((Int)px, (Int)py));
 				break;
 			}
 
@@ -854,7 +856,17 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 			// mouse-enter) then accept the click. Real mice hover before clicking;
 			// without this, a synthetic tap teleports + clicks in one instant and
 			// the widget is never hilited, so only the default/first item responds.
-			pushMousePosition(px, py);
+			//
+			// GeneralsX @refactor Android port 06/09/2026 Menus only now. In a game the
+			// battlefield tap is resolved natively (TouchInput) and needs no pointer, while
+			// in-game buttons take the UI_PRESS path above -- so publishing a position here
+			// would only put a phantom pointer on the battlefield, where the placement ghost
+			// and the ability radius would then follow it. The hover priming still matters
+			// in the shell, where those hover-driven checkboxes live and where there is no
+			// battlefield to contaminate.
+			if (TheShell && TheShell->isShellActive()) {
+				pushMousePosition(px, py);
+			}
 		}
 		else if (s_touch.phase == TouchState::PENDING || s_touch.phase == TouchState::PANNING ||
 		         s_touch.phase == TouchState::TARGETING) {
@@ -1010,12 +1022,15 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 			pushMousePosition(px, py);
 		}
 		else if (s_touch.phase == TouchState::TARGETING && event.tfinger.fingerID == s_touch.finger1) {
-			// GeneralsX @feature Android port 06/09/2026 The whole point of the phase:
-			// every motion feeds CommandTranslator, which recomputes the valid/invalid
-			// hint for this point, which InGameUI::createCommandHint() turns into the
-			// radius decal position and the reticle's colour. Nothing is committed --
-			// no button has been sent yet.
-			pushMousePosition(px, py);
+			// GeneralsX @refactor Android port 06/09/2026 Aiming asks the engine a question
+			// instead of feeding it a fake pointer. armedTargetValid() runs the SAME
+			// evaluation the order will run, in EVALUATE_ONLY mode, so the reticle cannot
+			// disagree with what release actually does. Publishing a position here is what
+			// used to latch the edge scroll and drag the GUI hilite around.
+			if (TheInGameUI) {
+				TheInGameUI->setTouchAimPoint((Int)px, (Int)py,
+				                              TouchInput::armedTargetValid((Int)px, (Int)py));
+			}
 		}
 		else if (s_touch.phase == TouchState::PLACING && event.tfinger.fingerID == s_touch.finger1) {
 			// Every motion event feeds PlaceEventTranslator's
@@ -1080,9 +1095,12 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 						// see PlaceEventTranslator.cpp's MSG_RAW_MOUSE_LEFT_BUTTON_DOWN
 						// case, which anchors and immediately accepts a same-point
 						// click.
-						pushMousePosition(s_touch.downX, s_touch.downY);
-						pushMouseButton(GameMessage::MSG_RAW_MOUSE_RIGHT_BUTTON_DOWN, s_touch.downX, s_touch.downY);
-						pushMouseButton(GameMessage::MSG_RAW_MOUSE_RIGHT_BUTTON_UP, s_touch.downX, s_touch.downY);
+						// GeneralsX @refactor Android port 06/09/2026 Was a synthesized right-click.
+						// It is now the thing a right-click was being borrowed FOR: back out of
+						// an armed command or a pending building, else clear the selection. The
+						// right-click detour is what let a destroyed RIGHT_BUTTON_UP leave the
+						// camera scrolling forever -- see TouchInput.h.
+						TouchInput::cancelOrDeselect();
 						break;
 					}
 					{
@@ -1101,14 +1119,15 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 							&& (SDL_GetTicks() - s_touch.lastTapTicks) <= DOUBLE_TAP_MS
 							&& distFromLastTap <= DOUBLE_TAP_DIST_PX;
 
-						// Clean tap: deliver the full click at the exact press position.
-						pushMousePosition(s_touch.downX, s_touch.downY);
+						// GeneralsX @refactor Android port 06/09/2026 Was a synthesized click at the
+						// press point. Now the tap is resolved against the engine's own rules --
+						// pick, evaluate, order or select -- with no pointer invented on the way.
+						// See TouchInput.h for why the click detour had to go.
 						if (isDoubleTap) {
-							pushMouseButton(GameMessage::MSG_RAW_MOUSE_LEFT_DOUBLE_CLICK, s_touch.downX, s_touch.downY);
+							TouchInput::doubleTap((Int)s_touch.downX, (Int)s_touch.downY);
 						} else {
-							pushMouseButton(GameMessage::MSG_RAW_MOUSE_LEFT_BUTTON_DOWN, s_touch.downX, s_touch.downY);
+							TouchInput::tap((Int)s_touch.downX, (Int)s_touch.downY);
 						}
-						pushMouseButton(GameMessage::MSG_RAW_MOUSE_LEFT_BUTTON_UP, s_touch.downX, s_touch.downY);
 
 						// A completed double-tap starts a fresh sequence rather
 						// than chaining into a false "triple click".
@@ -1152,11 +1171,9 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 						const float move1 = SDL_fabsf(s_touch.f1px - s_touch.twoDownX1) + SDL_fabsf(s_touch.f1py - s_touch.twoDownY1);
 						const float move2 = SDL_fabsf(s_touch.f2px - s_touch.twoDownX2) + SDL_fabsf(s_touch.f2py - s_touch.twoDownY2);
 						if (move1 < TWO_FINGER_TAP_MAX_PX && move2 < TWO_FINGER_TAP_MAX_PX) {
-							const float cx = (s_touch.twoDownX1 + s_touch.twoDownX2) * 0.5f;
-							const float cy = (s_touch.twoDownY1 + s_touch.twoDownY2) * 0.5f;
-							pushMousePosition(cx, cy);
-							pushMouseButton(GameMessage::MSG_RAW_MOUSE_RIGHT_BUTTON_DOWN, cx, cy);
-							pushMouseButton(GameMessage::MSG_RAW_MOUSE_RIGHT_BUTTON_UP, cx, cy);
+							// GeneralsX @refactor Android port 06/09/2026 Also a cancel, not a
+							// right-click. Same reason as the long press above.
+							TouchInput::cancelOrDeselect();
 						} else {
 							if (event.tfinger.fingerID == s_touch.finger1) {
 								s_touch.finger1 = s_touch.finger2;
@@ -1217,9 +1234,7 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 					// player aims again rather than having a superweapon land wherever the
 					// OS interrupted them.
 					if (event.type != SDL_EVENT_FINGER_CANCELED) {
-						pushMousePosition(px, py);
-						pushMouseButton(GameMessage::MSG_RAW_MOUSE_LEFT_BUTTON_DOWN, px, py);
-						pushMouseButton(GameMessage::MSG_RAW_MOUSE_LEFT_BUTTON_UP, px, py);
+						TouchInput::fireArmed((Int)px, (Int)py);
 					}
 					break;
 				case TouchState::UI_PRESS:
@@ -1240,54 +1255,16 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 			}
 
 			if (!continueAsSinglePan) {
-				// GeneralsX @bugfix Android port 08/07/2026, narrowed 01/08/2026
-				// The engine's own edge-scroll (mouse near a viewport edge
-				// keeps scrolling the camera every frame) latches onto wherever the
-				// last MSG_RAW_MOUSE_POSITION placed it, and a lifted finger will
-				// never send another one -- so a position left near an edge would
-				// scroll the camera in that direction forever. Recentering
-				// UNCONDITIONALLY on every release (including an ordinary tap in
-				// the middle of the screen) was fixing that but caused whatever GUI
-				// widget sat at the window center to hilite after every tap,
-				// anywhere on screen. Only step in when a real edge-scroll risk
-				// exists; this is now the ONLY position message this file ever
-				// sends without a real finger behind it.
-				// GeneralsX @bugfix Android port 06/09/2026 This asked the wrong
-				// question, in the wrong units, with the wrong threshold.
+				// GeneralsX @refactor Android port 06/09/2026 The edge-scroll guard that used
+				// to live here is gone, along with the mode it was guarding: screen-edge
+				// scrolling is now off on touch platforms outright (canScrollAtScreenEdge).
 				//
-				// Wrong question: it tested s_touch.lastX/lastY, where the FINGER
-				// ended up. The engine latches on the last position MESSAGE, and
-				// during a pan no position is published at all -- so the engine
-				// still held the touch-DOWN point while this inspected the release
-				// point. Panning is precisely the gesture that separates the two.
-				// Start a drag near an edge, pan inward, release in the middle: the
-				// engine latched at touch-down, this saw a mid-screen finger, said
-				// nothing, and the map scrolled forever. That is the reported
-				// self-scrolling map, and it needed none of the reverted cursor
-				// work to happen. Ask about s_lastPublished* instead -- our own
-				// output, which is what the engine actually saw.
-				//
-				// Wrong units: px/py are remapped into logical display space above,
-				// but this compared them against SDL's window size. Those differ
-				// exactly when pillarboxing is on, and on a 1280x720 surface inside
-				// a 2400x1080 window "lastX >= winW - 40" can never be true -- the
-				// right and bottom checks were dead code in the one configuration
-				// that needs them. And the recentre pushed a window-space centre,
-				// which is not the logical centre either.
-				//
-				// Wrong threshold: 40px against the engine's edgeScrollSize of 3
-				// (LookAtXlat.cpp:80), thirteen times wider than the band it is
-				// guarding, so the false-positive rate on the centre-hilite side was
-				// thirteen times what it needed to be.
-				const Int dispW = TheDisplay ? TheDisplay->getWidth() : 0;
-				const Int dispH = TheDisplay ? TheDisplay->getHeight() : 0;
-				const float EDGE_GUARD_PX = 4.0f;   // engine uses 3; one pixel of slack
-				if (dispW > 0 && dispH > 0 &&
-				    (s_lastPublishedX < EDGE_GUARD_PX || s_lastPublishedY < EDGE_GUARD_PX ||
-				     s_lastPublishedX >= (float)dispW - EDGE_GUARD_PX ||
-				     s_lastPublishedY >= (float)dispH - EDGE_GUARD_PX)) {
-					pushMousePosition((float)dispW * 0.5f, (float)dispH * 0.5f);
-				}
+				// It only ever existed to undo a hazard this file created -- a position
+				// message left near an edge that no finger would ever follow up. It undid it
+				// by sending ANOTHER position message with no finger behind it, at the screen
+				// centre, which is what dragged the GUI hilite onto whatever widget sat there
+				// after a release. With the mode gone the hazard is gone, and so is the last
+				// place this file moved a pointer the player was not touching.
 				if (!startedMomentum) {
 					s_touch.phase = TouchState::IDLE;
 				}

@@ -1066,8 +1066,9 @@ InGameUI::InGameUI()
 	m_mouseMode = MOUSEMODE_DEFAULT;
 	m_mouseModeCursor = Mouse::ARROW;
 	m_mousedOverDrawableID = INVALID_DRAWABLE_ID;
-	m_touchTargetValid = FALSE;
-	m_touchTargetKnown = FALSE;
+	m_touchAimKnown = FALSE;
+	m_touchAimValid = FALSE;
+	m_touchAimPoint.x = m_touchAimPoint.y = 0;
 	m_touchDebugOn = FALSE;
 	m_touchDebugPhase = "";
 	m_touchDebugDown.x = m_touchDebugDown.y = 0;
@@ -1557,6 +1558,23 @@ void InGameUI::handleRadiusCursor()
 			Coord3D pos;
 			Bool hasPos = false;
 
+			// GeneralsX @bugfix Android port 06/09/2026 On a touch device the aim point is
+			// reported explicitly by the gesture (setTouchAimPoint) rather than read out of
+			// the mouse object. TheMouse's position between gestures is not "where the
+			// player is pointing" -- there is no pointer -- it is wherever the last touch
+			// happened to leave it, which is how the ability radius ended up drawn on the
+			// button that armed it, and on the previous attempt's target after re-arming.
+			const ICoord2D *aimPixel = &mouseIO->pos;
+#if defined(__ANDROID__) || (defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE)
+			if( !m_touchAimKnown )
+			{
+				// no finger has pointed anywhere yet: leave the decal exactly as it is
+				// rather than parking it somewhere arbitrary
+				return;
+			}
+			aimPixel = &m_touchAimPoint;
+#endif
+
 			//
 			// if the mouse is in the radar window, the position in the world is that which is
 			// represented by the radar, otherwise we use the mouse position itself transformed
@@ -1564,13 +1582,13 @@ void InGameUI::handleRadiusCursor()
 			//
 			if( rts::localPlayerHasRadar() )
 			{
-				hasPos = TheRadar->screenPixelToWorld( &mouseIO->pos, &pos );
+				hasPos = TheRadar->screenPixelToWorld( aimPixel, &pos );
 			}
 
 			if( !hasPos )
 			{
 				// if radar off, or point not on radar
-				hasPos = TheTacticalView->screenToTerrain( &mouseIO->pos, &pos );
+				hasPos = TheTacticalView->screenToTerrain( aimPixel, &pos );
 			}
 
 			if( hasPos )
@@ -3075,16 +3093,6 @@ void InGameUI::createCommandHint( const GameMessage *msg )
 								break;
 						}
 
-						// GeneralsX @feature Android port 06/09/2026 Keep the answer, not just
-						// the artwork chosen from it. evaluateContextCommand() has already done
-						// the work of deciding whether this point is a legal target and said so
-						// by picking the message type; on a mouse that decision leaves the engine
-						// as a cursor bitmap and nowhere else. A touchscreen draws no cursor, so
-						// the player would arm a superweapon and learn the answer only afterwards.
-						// Store it here and draw it in postDraw().
-						m_touchTargetValid = (t == GameMessage::MSG_VALID_GUICOMMAND_HINT);
-						m_touchTargetKnown = TRUE;
-
 						Int index = TheMouse->getCursorIndex(cursorName);
 						if( index != Mouse::INVALID_MOUSE_CURSOR )
 						{
@@ -3100,9 +3108,6 @@ void InGameUI::createCommandHint( const GameMessage *msg )
 					}
 					else if( BitIsSet( m_pendingGUICommand->getOptions(), COMMAND_OPTION_NEED_TARGET ) )
 					{
-						// this branch has no invalid variant -- it only ever shows the plain cursor
-						m_touchTargetValid = TRUE;
-						m_touchTargetKnown = TRUE;
 						Int index = TheMouse->getCursorIndex(m_pendingGUICommand->getCursorName());
 						if (index != Mouse::INVALID_MOUSE_CURSOR)
 							setMouseCursor( (Mouse::MouseCursor)index );
@@ -3248,8 +3253,7 @@ void InGameUI::setGUICommand( const CommandButton *command )
 	// the previous attempt and is not. Reported: re-arming an ability showed the reticle
 	// still sitting at the previous try's target. Nothing is drawn again until a finger
 	// touches the battlefield and createCommandHint() supplies a real point.
-	m_touchTargetKnown = FALSE;
-	m_touchTargetValid = FALSE;
+	clearTouchAimPoint();
 
 	// set the mouse cursor for commands that need a targeting or to normal with no command
 	if( command && BitIsSet( command->getOptions(), COMMAND_OPTION_NEED_TARGET ) && !command->isContextCommand() )
@@ -3280,6 +3284,17 @@ void InGameUI::setGUICommand( const CommandButton *command )
 
 	m_mouseModeCursor = TheMouse->getMouseCursor();
 
+}
+
+//-------------------------------------------------------------------------------------------------
+/** GeneralsX @feature Android port 06/09/2026 See the declaration comment. */
+//-------------------------------------------------------------------------------------------------
+void InGameUI::setTouchAimPoint( Int x, Int y, Bool valid )
+{
+	m_touchAimKnown = TRUE;
+	m_touchAimValid = valid;
+	m_touchAimPoint.x = x;
+	m_touchAimPoint.y = y;
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -4244,8 +4259,7 @@ void InGameUI::postDraw()
 	//
 	// Not colour alone: valid draws inward ticks, invalid draws an X across the box, so it
 	// reads on a small bright screen and without colour vision.
-	if( m_mouseMode == MOUSEMODE_GUI_COMMAND && m_pendingGUICommand != nullptr &&
-			m_touchTargetKnown && TheMouse != nullptr )
+	if( m_mouseMode == MOUSEMODE_GUI_COMMAND && m_pendingGUICommand != nullptr && m_touchAimKnown )
 	{
 		const Bool needsATarget =
 			m_pendingGUICommand->isContextCommand() ||
@@ -4255,9 +4269,9 @@ void InGameUI::postDraw()
 
 		if( needsATarget )
 		{
-			const ICoord2D pos = TheMouse->getMouseStatus()->pos;
-			const Color mainColor = m_touchTargetValid ? GameMakeColor( 80, 255, 80, 255 )
-																								 : GameMakeColor( 255, 48, 48, 255 );
+			const ICoord2D pos = m_touchAimPoint;
+			const Color mainColor = m_touchAimValid ? GameMakeColor( 80, 255, 80, 255 )
+																							: GameMakeColor( 255, 48, 48, 255 );
 			const Color dropColor = GameMakeColor( 0, 0, 0, 255 );
 			const Int r = 22;			// half-size of the reticle box, in logical pixels
 			const Int gap = 8;		// centre kept clear so the target stays visible
@@ -4267,7 +4281,7 @@ void InGameUI::postDraw()
 			TheDisplay->drawOpenRect( pos.x - r - 1, pos.y - r - 1, r * 2 + 3, r * 2 + 3, lineW, dropColor );
 			TheDisplay->drawOpenRect( pos.x - r, pos.y - r, r * 2 + 1, r * 2 + 1, lineW, mainColor );
 
-			if( m_touchTargetValid )
+			if( m_touchAimValid )
 			{
 				TheDisplay->drawLine( pos.x, pos.y - r, pos.x, pos.y - gap, lineW, mainColor );
 				TheDisplay->drawLine( pos.x, pos.y + gap, pos.x, pos.y + r, lineW, mainColor );

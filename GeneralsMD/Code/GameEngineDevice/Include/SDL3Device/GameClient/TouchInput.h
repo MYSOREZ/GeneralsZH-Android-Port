@@ -1,0 +1,110 @@
+/*
+**	Command & Conquer Generals Zero Hour(tm)
+**	Copyright 2025 Electronic Arts Inc.
+**
+**	This program is free software: you can redistribute it and/or modify
+**	it under the terms of the GNU General Public License as published by
+**	the Free Software Foundation, either version 3 of the License, or
+**	(at your option) any later version.
+**
+**	This program is distributed in the hope that it will be useful,
+**	but WITHOUT ANY WARRANTY; without even the implied warranty of
+**	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+**	GNU General Public License for more details.
+**
+**	You should have received a copy of the GNU General Public License
+**	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+/*
+** TouchInput.h
+**
+** GeneralsX @feature Android port 06/09/2026 Native touch input: battlefield
+** gestures expressed as what the player meant, resolved by the engine's own rules,
+** with no synthesized pointer anywhere.
+**
+** WHY THIS EXISTS
+**
+** Until now a touch was turned into a stream of MSG_RAW_MOUSE_POSITION /
+** MSG_RAW_MOUSE_*_BUTTON_* messages and handed to the translator chain, which is
+** written around a pointer: something that has a position even when nothing is
+** pressed, that hovers, that can be parked near a screen edge, and whose button
+** releases are guaranteed to arrive. A finger has none of those properties. Every
+** control bug reported on this port came out of that gap -- a cursor left sitting on
+** a button so the placement ghost drew there, a camera scroll latched by a
+** right-button-up that a higher-priority translator legitimately destroyed, an
+** ability radius that froze because a pan publishes no positions. Each was fixed
+** individually; each fix produced the next report. The premise was wrong, not the
+** patches.
+**
+** WHAT REPLACES IT
+**
+** The engine's decision-making does NOT require a pointer. It is already reachable
+** from a screen point and a world position, and one part of the engine already uses
+** it that way: a click on the radar minimap issues real orders through
+** evaluateContextCommand() without a single MSG_RAW_MOUSE_* (ControlBarCallback.cpp).
+** This module is that same path, for the battlefield:
+**
+**   TheTacticalView->pickDrawable()          screen point -> object under the finger
+**   TheTacticalView->screenToTerrain()       screen point -> world position
+**   TheGameClient->evaluateContextCommand()  (object, world) -> the actual order
+**   TheInGameUI->selectDrawable() et al      selection
+**
+** Note especially evaluateContextCommand's EVALUATE_ONLY mode: it answers "would this
+** be a legal order" WITHOUT issuing it. That is the real source of truth for target
+** feedback, which previously had to be read back out of which cursor bitmap the engine
+** had chosen.
+**
+** WHAT IS DELIBERATELY NOT HERE
+**
+** Taps on the control bar and menus still go through the ordinary button messages.
+** That is not a leftover: a tap on a button IS a click, the window manager's handling
+** of it is correct, and nothing about it was ever the problem.
+**
+** Nothing here invents a message. Everything below MSG_BEGIN_NETWORK_MESSAGES is the
+** multiplayer and replay protocol, and the orders this module produces are the same
+** MSG_DO_* the mouse path produced, issued by the same engine code.
+*/
+
+#pragma once
+
+#include "Lib/BaseType.h"
+
+class Drawable;
+
+namespace TouchInput
+{
+
+	/// TRUE while a GUI command (ability, special power) is armed and waiting for a target.
+	Bool hasArmedCommand();
+
+	/// TRUE if the current selection can actually be given orders by the local player.
+	Bool hasControllableSelection();
+
+	/**
+		A tap on the battlefield, in logical display coordinates.
+
+		Resolution order, and why:
+		 1. A command armed -> the tap is its target. Nothing else can be meant.
+		 2. Something the local player owns under the finger -> select it, UNLESS the
+				engine says the current selection has a more specific interaction with it
+				than "walk over there" (enter it, repair it, ...), in which case that is
+				obviously what was meant. EVALUATE_ONLY answers that; we do not guess.
+		 3. Anything else, with a controllable selection -> a context order there.
+		 4. Otherwise -> clear the selection.
+	*/
+	void tap(Int x, Int y);
+
+	/// Second tap in the same spot: select every unit of that type on screen.
+	void doubleTap(Int x, Int y);
+
+	/// Would the armed command accept this point? Does NOT issue it. For target feedback.
+	Bool armedTargetValid(Int x, Int y);
+
+	/// Issue the armed command at this point.
+	void fireArmed(Int x, Int y);
+
+	/// Back out of an armed command or a pending building placement. Deselects otherwise.
+	void cancelOrDeselect();
+
+}  // namespace TouchInput
