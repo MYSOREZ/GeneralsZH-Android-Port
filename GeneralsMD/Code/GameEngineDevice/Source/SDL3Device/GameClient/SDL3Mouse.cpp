@@ -29,6 +29,7 @@
 
 // GeneralsX @bugfix BenderAI 13/02/2026 Fix include path (fighter19 pattern)
 #include "SDL3Device/GameClient/SDL3Mouse.h"
+#include "GameClient/Keyboard.h"
 #include <cstdio>
 #include <cstring>
 
@@ -529,16 +530,78 @@ void SDL3Mouse::regainFocus()
 }
 
 #if (defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE) || defined(__ANDROID__)
+
+// Defined in SDL3GameEngine.cpp, where the touch state lives. TRUE only while a
+// finger is being held on a push button.
+extern Bool SDL3TouchUiHoldAnchor(Int &x, Int &y);
+
 /**
  * GeneralsX @feature Android port 01/08/2026 See the declaration comment in
  * SDL3Mouse.h: touch input on this platform drives the message stream
  * directly from SDL3GameEngine.cpp, so this object never receives real
  * events (nothing calls addSDLEvent() on it here) and its inherited
  * per-frame MSG_RAW_MOUSE_POSITION heartbeat would only inject a second,
- * stale position source. No-op.
+ * stale position source. No-op -- except for one case.
+ *
+ * GeneralsX @bugfix Android port 06/09/2026 A press and hold on a command button
+ * showed its description for a single frame and lost it. m_displayTooltip is
+ * decided in the base createStreamMessages() from how long the pointer has held
+ * still, and with this a pure no-op it could never become TRUE. A still finger
+ * produces no events at all, so there is nothing else to derive "held still"
+ * from.
+ *
+ * The first attempt published the last touch as a persistent cursor position and
+ * had to be reverted: a position outliving the finger hovers menu buttons with
+ * nothing on the screen, and near a viewport edge it edge-scrolls the map
+ * forever. So this is deliberately as narrow as the symptom -- a position is
+ * published ONLY while a finger is genuinely held on a button, and the instant it
+ * lifts the phase stops being UI_PRESS and this returns to being a no-op. Nothing
+ * survives the release, and the battlefield is never given a pointer at all.
  */
 void SDL3Mouse::createStreamMessages()
 {
+	Int holdX = 0;
+	Int holdY = 0;
+	if (!SDL3TouchUiHoldAnchor(holdX, holdY))
+	{
+		// No finger on a button: no pointer exists. Drop any tooltip the last
+		// hold raised so it cannot linger past the touch that earned it.
+		m_displayTooltip = FALSE;
+		m_stillTime = timeGetTime();
+		return;
+	}
+
+	if (TheMessageStream == nullptr)
+		return;
+
+	m_currMouse.pos.x = holdX;
+	m_currMouse.pos.y = holdY;
+
+	GameMessage *msg = TheMessageStream->appendMessage( GameMessage::MSG_RAW_MOUSE_POSITION );
+	msg->appendPixelArgument( m_currMouse.pos );
+	msg->appendIntegerArgument( TheKeyboard ? TheKeyboard->getModifierFlags() : 0 );
+
+	// "Held still" is simply "the anchor has not moved" -- the anchor is the
+	// press point, which does not drift with finger tremor (see the UI_PRESS
+	// release path in SDL3GameEngine.cpp for why it is the press point and not
+	// the current one).
+	static Int s_lastHoldX = 0;
+	static Int s_lastHoldY = 0;
+	const UnsignedInt now = timeGetTime();
+	if (holdX != s_lastHoldX || holdY != s_lastHoldY)
+	{
+		s_lastHoldX = holdX;
+		s_lastHoldY = holdY;
+		m_stillTime = now;
+		m_displayTooltip = FALSE;
+		return;
+	}
+
+	Int delay = m_tooltipDelayTime;
+	if (m_tooltipDelay >= 0)
+		delay = m_tooltipDelay;
+	if (now - m_stillTime >= (UnsignedInt)delay)
+		m_displayTooltip = TRUE;
 }
 #endif
 
