@@ -73,7 +73,8 @@ compiled under a shared `SAGE_MOBILE_PLATFORM` guard
 | `Core/.../WW3D2/render2dsentence.{h,cpp}` | bundled-font locator now iOS **and** Android |
 | `GeneralsMD/Code/Main/CMakeLists.txt` | Android: `z_generals` builds as `libmain.so` (SDLActivity convention) instead of an executable |
 | `GeneralsMD/Code/Main/SDL3Main.cpp` | Android env bootstrap: HOME→internal storage, cwd→external files dir (or its `GameData/`), DXVK cache→app cache dir, stderr→pullable log file with rotation, Options.ini seeding; fullscreen/immersive; `SDL_HINT_ANDROID_BLOCK_ON_PAUSE=0`; OpenAL Linux workarounds excluded on Android (they would mute OpenSL/AAudio) |
-| `GeneralsMD/.../SDL3GameEngine.cpp` | touch gestures + lifecycle render gate generalized to `SAGE_MOBILE_PLATFORM` |
+| `GeneralsMD/.../SDL3GameEngine.cpp` | touch gesture state machine + lifecycle render gate, generalized to `SAGE_MOBILE_PLATFORM` |
+| `GeneralsMD/.../SDL3Device/GameClient/TouchInput.{h,cpp}` | what a gesture *means*, resolved against the engine's own rules with no synthesized pointer — see §2a |
 | `android/` | Gradle shell: `GeneralsZHActivity extends SDLActivity`, asset extraction, missing-game-data dialog, placeholder adaptive icon |
 | `scripts/build/android/{build,package}-android-zh.sh` | build + verify artifacts (AArch64, `Sdl3WsiDriver` compiled in), stage jniLibs/Java/assets, gradle assemble |
 | `vcpkg.json` | fontconfig excluded on android; ffmpeg enabled for android |
@@ -85,6 +86,15 @@ its non-Apple list already tries `libvulkan.so` first — that *is* Android's
 system Vulkan loader.
 
 ## 2. The device / driver matrix (read this before filing "black screen" bugs)
+
+> **Since 1.2.1, OpenGL ES is the default backend**, in the launcher and in
+> the engine alike (`d3d8gles_ShouldUseVulkanBackend()` returns false with no
+> `render_backend.cfg`). Everything in this section describes Vulkan, which is
+> now the *opt-in* path — faster where the driver handles it, and reported
+> unusable on PowerVR BXM and Samsung Xclipse, where it renders magenta
+> patches, distorted geometry and corrupted menus that nothing above the
+> driver can fix. Setup's Render Backend card shows the GPU's own name, since
+> every such report has been a driver family rather than a device model.
 
 DXVK's own minimum was originally Vulkan 1.3 with a handful of features
 (robustness2, null descriptors, etc.), which is still the *best-supported*
@@ -128,6 +138,48 @@ Mali/PowerVR.
   native path: the real engine compiled for ARM64, zero emulation, RTS-tuned
   touch controls. The Winlator tree remains valuable as a **reference** for
   Android-side DXVK configuration and driver quirks.
+
+## 2a. Input: native touch, not mouse emulation
+
+Battlefield input does **not** synthesize `MSG_RAW_MOUSE_*`. Taps, double
+taps, the long press, the two-finger cancel and ability targeting are
+resolved directly through the engine's own decision-making:
+
+```cpp
+TheTacticalView->pickDrawable(&screenPoint, forceAttack, pickType);
+TheTacticalView->screenToTerrain(&screenPoint, &worldPos);
+TheGameClient->evaluateContextCommand(draw, &worldPos, DO_COMMAND);   // or EVALUATE_ONLY
+```
+
+This is the same path a click on the radar minimap has always used
+(`ControlBarCallback.cpp`), and it produces exactly the same `MSG_DO_*`
+orders the mouse path produced — so multiplayer and replays are untouched.
+`EVALUATE_ONLY` answers "what order *would* this be" without issuing it,
+which is what drives target feedback and resolves the one ambiguous tap
+(tapping your own unit: select it, or get in / repair it).
+
+Deliberately still on the click path: taps on the control bar and menus (a
+tap on a button *is* a click), building placement (`PlaceEventTranslator` is
+its own press/drag/release state machine), and the selection box. The window
+manager gets first refusal on every battlefield tap, so a tap on a panel
+cannot fall through to the map underneath.
+
+Screen-edge scrolling is off on touch: it is defined by a pointer resting
+near an edge and ends only when a later pointer event reports a position back
+inside the safe zone, which cannot happen without a pointer.
+
+**If you are going to touch input code, read
+[`docs/WORKDIR/lessons/LESSON-touch-input-is-not-a-mouse.md`](../WORKDIR/lessons/LESSON-touch-input-is-not-a-mouse.md)
+first.** It documents why the emulation approach failed, the five pointer
+properties a finger lacks, the two patterns that keep coming back (preview
+code must be *told* the aim point, not ask the mouse; engine state a mouse
+would refresh constantly must be re-asserted once a frame), and how to add a
+gesture without reintroducing any of it.
+
+Debugging: Setup → Diagnostics → **Touch input overlay** draws the gesture
+phase, the finger, the engine's pointer position and the camera scroll anchor
+together, and writes `[gxtouch]` lines to the log on every phase or
+camera-mode change.
 
 ## 3. Building
 
@@ -302,6 +354,28 @@ In dependency order; each gate isolates a failure class (the iOS port's ladder,
     code, also expected to hold).
 
 ## 6. Known gaps / next steps
+
+### Native touch input, and OpenGL ES as the default (06/09/2026, v1.2.1)
+
+Battlefield input stopped synthesizing a pointer. See §2a for the shape and
+the lesson document for why. What changed, and what each item had been
+reported as:
+
+| Was reported as | Actually was |
+|---|---|
+| "the building silhouette appears in the middle of the screen" | `handleBuildPlacements()` read the mouse position, which on a touchscreen is a leftover from the last gesture |
+| "the map flies around by itself, only the pause menu fixes it" | `SCROLL_RMB` latched by a right-button-up that `SelectionXlat` legitimately destroys to cancel a GUI command; and `SCROLL_SCREENEDGE`, whose exit condition needs a pointer |
+| "the ability circle flashes and disappears" | the decal is created once and destroyed by any of seven `setRadiusCursorNone()` sites; the mouse path recreates it a frame later, native aiming does not |
+| "the description vanishes while I'm still holding" | the popup was being *deleted*, not hidden, whenever the show flag was false for one frame — and the control bar rebuilding its command windows mid-hold made that happen |
+| "the intro can't be skipped by tapping" | skipping was never in the translator chain; `WindowXlat` watches for an unconsumed raw left-button-down |
+| "tapping in the powers panel also set a rally point" | the native path skipped the window manager's first refusal, which the synthetic click used to get for free |
+
+Also in this release: screen-edge scrolling off on touch; a **Touch input
+overlay** diagnostic (Setup → Diagnostics) drawing the gesture, the finger,
+the engine's pointer and the camera anchor together with `[gxtouch]` log
+lines; **OpenGL ES promoted to the documented default** with the picker text
+rewritten to match reality and the GPU name shown; and the launcher finished
+in all 13 languages (the log viewer and DXVK config card were still English).
 
 ### UX overhaul: in-app Setup, folder picker, crash log viewer (07/07/2026)
 

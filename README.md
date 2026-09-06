@@ -47,11 +47,11 @@ original GeneralsX README lives on the `upstream-main` branch.
 | Feature | Status |
 |---|---|
 | Campaign / Skirmish / Generals Challenge | ✅ Working |
-| Rendering — Vulkan (DirectX 8 → DXVK → Vulkan) | ✅ Working — native Vulkan 1.3 (Adreno 7xx/8xx), adaptive Vulkan 1.1 fallback (Mali-G76/G57 and similar). The default. |
-| Rendering — OpenGL ES (DirectX 8 → GLES 3.0, no DXVK) | ✅ Working — selectable in Setup, for devices whose Vulkan driver can't run DXVK. Device-verified on Mali-G76 and Adreno 640. |
+| Rendering — OpenGL ES (DirectX 8 → GLES 3.0, no DXVK) | ✅ Working — **the default.** A native backend written for this port; it works on every device tested so far, including ones whose Vulkan driver renders corrupted graphics. |
+| Rendering — Vulkan (DirectX 8 → DXVK → Vulkan) | ✅ Working — selectable in Setup. Native Vulkan 1.3 (Adreno 7xx/8xx), adaptive Vulkan 1.1 fallback (Mali-G76/G57). Faster where the driver handles it; unusable on some (PowerVR BXM, Samsung Xclipse — see [Known issues](#known-issues)). |
 | Audio | ✅ Working (OpenAL, OpenSL/AAudio backends) |
 | Video / cutscenes | ✅ Working (FFmpeg) |
-| Touch controls | ✅ Working (tap/drag/long-press/pinch — see [Touch controls](#touch-controls)) |
+| Touch controls | ✅ Working — native touch, not mouse emulation (see [Touch controls](#touch-controls)) |
 | Online multiplayer (GeneralsOnline) | ✅ Working — real matches between real players, P2P transport |
 | macOS / iOS / iPadOS build | ✅ Working (campaign/skirmish/Challenge; no GeneralsOnline there yet) |
 | Performance on Vulkan-1.1-only GPUs (Mali) | ⚠️ Playable, but CPU-bound — expect lower FPS and occasional freezes on weaker/older phones |
@@ -80,25 +80,52 @@ original GeneralsX README lives on the `upstream-main` branch.
 
 ## Touch controls
 
-The original game is mouse-driven (left-click-centric); every gesture below
-maps straight onto the same mouse events, so the whole UI (sidebar, minimap,
-unit portraits) responds exactly like it does on PC — just tap instead of
-click.
+Battlefield input is **native**: a finger is not turned into a mouse. Taps,
+double taps, long presses, the two-finger cancel and ability targeting are
+resolved directly against the engine's own decision-making — pick what is
+under the finger, project it into the world, ask the engine what order that
+means. The orders produced are identical to the ones the mouse path
+produces, so multiplayer and replays are unaffected.
+
+Taps on the control bar and menus are still ordinary clicks, deliberately: a
+tap on a button *is* a click, and the window manager's handling of it is
+correct. The window manager also gets first refusal on every battlefield tap,
+so a tap on a panel never falls through to the map underneath.
 
 | Gesture | Action |
 |---|---|
-| Tap | Left-click — select a unit/building, issue a command, or press a UI button |
-| Double-tap (two quick taps, same spot) | Left double-click — select all of that unit type on screen |
-| Press and hold, then drag | Left-button drag — selection box |
-| Long-press, no movement (~0.6s) | Right-click |
-| Two fingers: one held still, the other dragged mostly vertically | Zoom (mouse wheel) |
-| Two fingers moving together | Right-button drag — camera pan |
-| Two fingers tapped together, no movement | Right-click (quick) |
+| Tap on the map | Select what is under your finger, or — with units selected — give them the order that point implies (move, attack, enter, repair …) |
+| Tap a unit you own | Select it. If the engine says your current selection has a *specific* interaction with it (get in, repair), that happens instead |
+| Double-tap | Select every unit of that type on screen |
+| Press and hold, then drag | Selection box |
+| Drag | Pan the camera (direct, no mouse involved) |
+| Two fingers | Pan and zoom together |
+| Long press on the map (~0.6s, no movement) | Cancel an armed ability or a pending building; otherwise clear the selection |
+| Two-finger tap | The same cancel |
+| Tap a UI button | Press it |
+| Hold a UI button | Read its description, without pressing it |
+| **With an ability armed**: touch the map, drag, release | Aim it — the radius circle follows your finger; release fires it where you let go; a second finger cancels |
+| **With a building picked**: tap where it goes | Place it. The ghost appears under your finger, not before you point |
 
-Each gesture is only classified once real intent is clear (a short delay/
-distance threshold), so an ordinary tap never misfires into a selection box,
-and pan/zoom don't flicker into each other even when both fingers don't move
-in perfect lockstep.
+Every gesture is classified only once the intent is unambiguous (a short
+delay or distance threshold), so an ordinary tap never misfires into a
+selection box, and pan and zoom don't flicker into each other.
+
+Screen-edge scrolling is **off** on touch. It is defined by a pointer resting
+near an edge, and it ends only when a later pointer event reports a position
+back inside the safe zone — a condition that cannot occur without a pointer,
+which is why it used to leave the camera scrolling on its own. Dragging with
+a finger is the touch equivalent and is already direct.
+
+If controls misbehave, turn on **Touch input overlay** in Setup →
+Diagnostics: it draws the current gesture, where your finger is, where the
+engine thinks the pointer is, and the camera's scroll anchor, and writes
+matching `[gxtouch]` lines into the log. Those four things are the same thing
+on a desktop and different things on a touchscreen, and their disagreement is
+what every control bug here has turned out to be.
+
+For how this is built and how to add a gesture, see
+[`docs/WORKDIR/lessons/LESSON-touch-input-is-not-a-mouse.md`](docs/WORKDIR/lessons/LESSON-touch-input-is-not-a-mouse.md).
 
 ## What this port actually involved
 
@@ -297,13 +324,20 @@ iteration.
   hit something worse than that — see
   [docs/port/ANDROID_PORT.md §2](docs/port/ANDROID_PORT.md#2-the-device--driver-matrix-read-this-before-filing-black-screen-bugs)
   for the device/driver matrix.
-- The OpenGL ES backend is newer than the Vulkan one and has had far less
-  device exposure. It is verified end to end on Mali-G76 and reported working
-  on Adreno 640, but one tester has seen magenta textures on one particular
-  (re-packaged, non-English) copy of the game files while the same build is
-  clean on others — if you hit that, please attach a log: the build names the
-  offending texture format in a `[d3d8gles] MAGENTA:` line, and the Setup app's
-  game-folder check will tell you whether an archive is truncated.
+- Vulkan renders corrupted graphics on some GPU drivers, and no setting in
+  Setup can fix it — the corruption is below the game. Magenta patches,
+  distorted geometry and duplicated/overlapping menu elements have been
+  reported on PowerVR BXM and Samsung Xclipse. This is why OpenGL ES is the
+  default; if Vulkan looks wrong on your device, switch back to it in Setup →
+  Render Backend, which also now shows your GPU's own name.
+- Magenta textures are usually a game-files problem rather than a renderer
+  one, and the build says which: `[gxmiss] magenta substituted (<reason>):
+  <file>` names the file and why (no thumbnail, archive missing, unreadable),
+  and `[d3d8gles] MAGENTA:` names an unsupported texture format. Zero Hour is
+  an expansion — if base *Generals* archives (`Terrain.big`, `Textures.big`,
+  `W3D.big`) are absent, most of the artwork has nowhere to come from. Setup
+  lists any missing archive by name and can be pointed at a separate base-game
+  folder.
 - Android multiplayer is under active real-device shakeout — most reported crashes
   have traced to a handful of recurring bug classes (see the "what this port
   actually involved" section above) and get fixed fast, but if something's still

@@ -25,6 +25,8 @@ Before starting work, read:
 - `Core/GameEngineDevice/Source/`
 - `GeneralsMD/Code/GameEngine/Source/GameNetwork/GeneralsOnline/` – multiplayer backend client
 - `android/` – Gradle shell app (SDLActivity), Setup/FolderPicker/LogViewer/GeneralsOnline-account activities
+- `GeneralsMD/Code/GameEngineDevice/Source/SDL3GameEngine.cpp` – touch gesture state machine
+- `GeneralsMD/Code/GameEngineDevice/Source/SDL3Device/GameClient/TouchInput.cpp` – what a gesture means, resolved by the engine's own rules
 
 ## Platform Focus
 - **Active**: Android (`android-vulkan`) — primary target, most real-device testing
@@ -122,6 +124,19 @@ cmake --build build/macos-vulkan --target z_generals
 - **SDL3 from source**: Fetched via CMake FetchContent. No system package needed.
 - **Manual memory**: Always delete/delete[]. Use STLPort for VC6 legacy builds.
 - **Debug options break replays**: Use `RTS_BUILD_OPTION_DEBUG=OFF` for replay tests.
+- **Touch input is not a mouse**: do NOT fix a control bug by synthesizing
+  `MSG_RAW_MOUSE_*`. A pointer has five properties a finger does not (a position
+  when nothing is pressed, hover, the ability to rest near a screen edge, a
+  guaranteed release for every press, being singular), and the translator chain
+  depends on all five — that mismatch, not five separate bugs, is what produced
+  the placement ghost on the wrong widget, the camera that scrolled by itself,
+  the frozen ability radius and the tooltip that would not stay up. Battlefield
+  input goes through `TouchInput.cpp` instead, using `pickDrawable` /
+  `screenToTerrain` / `evaluateContextCommand`. Read
+  `docs/WORKDIR/lessons/LESSON-touch-input-is-not-a-mouse.md` **before** touching
+  input code; it also covers the two patterns that keep recurring (preview code
+  must be told the aim point rather than reading the mouse; engine state a mouse
+  would refresh every frame must be re-asserted, not hunted).
 - **Rendering correct on Vulkan but wrong on GLES (or vice versa)**: almost always a D3D↔GL
   *convention* mismatch, not a logic bug — the engine's D3D-era corrections (half-pixel offset,
   viewport Y origin, clip-space Y, render-target texture origin, default address mode) are
