@@ -56,6 +56,12 @@ public:
 
 	void resetModes(); //Used when disabling input, so when we reenable it we aren't stuck in a mode.
 
+	// GeneralsX @bugfix Android port 06/09/2026 Stop any camera scroll this translator
+	// started, from outside it. Needed because a translator with a HIGHER priority can
+	// DESTROY the very message this one relies on to stop -- see the call site in
+	// SelectionXlat.cpp's onRawMouseRightButtonUp().
+	void cancelScrolling();
+
 private:
 	enum
 	{

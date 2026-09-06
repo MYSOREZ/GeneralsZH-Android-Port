@@ -769,6 +769,19 @@ GameMessageDisposition LookAtTranslator::translateGameMessage(const GameMessage 
 
 }
 
+// GeneralsX @bugfix Android port 06/09/2026 See the declaration comment. Guarded on
+// m_isScrolling because stopScrolling() also restores the pre-scroll mouse cursor and
+// closes a stats-collector timer -- neither of which should happen when no scroll was
+// ever started.
+void LookAtTranslator::cancelScrolling()
+{
+	if (m_isScrolling)
+	{
+		stopScrolling();
+	}
+}
+
+//-----------------------------------------------------------------------------
 void LookAtTranslator::resetModes()
 {
 	m_isScrolling = FALSE;

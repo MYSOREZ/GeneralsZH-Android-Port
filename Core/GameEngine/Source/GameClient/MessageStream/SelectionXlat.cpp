@@ -52,6 +52,7 @@
 #include "GameClient/GameText.h"
 #include "GameClient/GameWindowManager.h"
 #include "GameClient/Keyboard.h"
+#include "GameClient/LookAtXlat.h"
 #include "GameClient/SelectionInfo.h"
 #include "GameClient/SelectionXlat.h"
 #include "GameClient/TerrainVisual.h"
@@ -1109,6 +1110,22 @@ GameMessageDisposition SelectionTranslator::onRawMouseRightButtonUp(MAYBE_UNUSED
 			TheInGameUI->setGUICommand( nullptr );
 			TheInGameUI->setScrolling( FALSE );
 
+			// GeneralsX @bugfix Android port 06/09/2026 Stop the camera scroll too.
+			// The matching RIGHT_BUTTON_DOWN reached LookAtTranslator (priority 60)
+			// and started SCROLL_RMB, anchored where the button went down. This
+			// DESTROY_MESSAGE below means the RIGHT_BUTTON_UP never gets there, so
+			// LookAtTranslator's own stopScrolling() -- which fires only from its
+			// MSG_RAW_MOUSE_RIGHT_BUTTON_UP case -- is never reached and the scroll
+			// stays latched. TheInGameUI->setScrolling(FALSE) above is a different
+			// flag on a different object and does not clear it. On a mouse the damage
+			// is invisible: the pointer keeps feeding positions and stays near the
+			// anchor, so the scroll vector is ~0. On a touchscreen there is no such
+			// stream, the anchor is wherever the cancel gesture happened, and the
+			// camera then flies across the map on the next position message -- until
+			// the pause menu's MSG_FRAME_TICK path happens to clear it.
+			if( TheLookAtTranslator )
+				TheLookAtTranslator->cancelScrolling();
+
 			//With a GUI command cancel, we want no other behavior.
 			return DESTROY_MESSAGE;
 		}
@@ -1121,6 +1138,10 @@ GameMessageDisposition SelectionTranslator::onRawMouseRightButtonUp(MAYBE_UNUSED
 				TheInGameUI->placeBuildAvailable(nullptr, nullptr);
 				TheInGameUI->setPreventLeftClickDeselectionInAlternateMouseModeForOneClick(FALSE);
 				TheInGameUI->setScrolling(FALSE);
+
+				// same latched-scroll hazard as the GUI-command cancel above
+				if( TheLookAtTranslator )
+					TheLookAtTranslator->cancelScrolling();
 
 				return DESTROY_MESSAGE;
 			}
