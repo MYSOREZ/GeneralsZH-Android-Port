@@ -781,6 +781,29 @@ void LookAtTranslator::cancelScrolling()
 	}
 }
 
+// GeneralsX @feature Android port 06/09/2026 See the declaration comment.
+const char *LookAtTranslator::getCameraModeDebugText() const
+{
+	static char buf[160];
+	const char *scrollName = "none";
+	switch (m_scrollType)
+	{
+		case SCROLL_NONE:				scrollName = "none";      break;
+		case SCROLL_RMB:				scrollName = "RMB";       break;
+		case SCROLL_KEY:				scrollName = "KEY";       break;
+		case SCROLL_SCREENEDGE:	scrollName = "EDGE";      break;
+	}
+	snprintf(buf, sizeof(buf), "%s%s%s%s%s anchor %d,%d cur %d,%d lock%d",
+					 m_isScrolling ? scrollName : "-",
+					 m_isRotating ? " ROT" : "",
+					 m_isPitching ? " PITCH" : "",
+					 m_isPitchingToDefault ? " PITCHDEF" : "",
+					 m_isChangingFOV ? " FOV" : "",
+					 m_anchor.x, m_anchor.y, m_currentPos.x, m_currentPos.y,
+					 (TheTacticalView && TheTacticalView->isMouseLocked()) ? 1 : 0);
+	return buf;
+}
+
 //-----------------------------------------------------------------------------
 void LookAtTranslator::resetModes()
 {

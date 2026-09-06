@@ -60,6 +60,8 @@
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
+
+#include "GameClient/LookAtXlat.h"
 #if defined(__APPLE__)
 #include <TargetConditionals.h>
 #endif
@@ -637,6 +639,10 @@ Bool isRealUiHit(GameWindow *hit)
 float s_lastPublishedX = 0.0f;
 float s_lastPublishedY = 0.0f;
 
+// GeneralsX @feature Android port 06/09/2026 See touchDebugEnabled(). Declared here
+// because everything that emits a message wants to log it, and those come first.
+Bool touchDebugEnabled();
+
 void pushMousePosition(float x, float y)
 {
 	if (!TheMessageStream) {
@@ -647,6 +653,9 @@ void pushMousePosition(float x, float y)
 	msg->appendIntegerArgument(TheKeyboard ? TheKeyboard->getModifierFlags() : 0);
 	s_lastPublishedX = x;
 	s_lastPublishedY = y;
+	if (touchDebugEnabled()) {
+		fprintf(stderr, "[gxtouch] send POSITION %d,%d\n", (Int)x, (Int)y);
+	}
 }
 
 // Button down/up/double-click -- MetaEventTranslator (MetaEvent.cpp) turns a
@@ -664,6 +673,9 @@ void pushMouseButton(GameMessage::Type type, float x, float y)
 	msg->appendPixelArgument(touchPixel(x, y));
 	msg->appendIntegerArgument(TheKeyboard ? TheKeyboard->getModifierFlags() : 0);
 	msg->appendIntegerArgument((Int)SDL_GetTicks()); // unread by every consumer, kept for schema parity
+	if (touchDebugEnabled()) {
+		fprintf(stderr, "[gxtouch] send BUTTON type=%d at %d,%d\n", (int)type, (Int)x, (Int)y);
+	}
 }
 
 void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
@@ -1343,6 +1355,26 @@ void publishTouchDebug()
 	                                (Int)s_touch.lastX, (Int)s_touch.lastY,
 	                                (Int)s_lastPublishedX, (Int)s_lastPublishedY,
 	                                fingers);
+
+	// Log the touch phase and the camera mode, but only when either CHANGES. A camera
+	// that moves on its own has some mode latched; what the log has to show is the exact
+	// moment it latched and what the touch layer had just done -- which a per-frame dump
+	// would bury and a per-event dump would miss entirely, since the latch outlives the
+	// gesture that caused it.
+	static TouchState::Phase lastLoggedPhase = TouchState::IDLE;
+	static char lastLoggedCam[160] = "";
+	const char *cam = TheLookAtTranslator ? TheLookAtTranslator->getCameraModeDebugText() : "(none)";
+	const Bool phaseChanged = (s_touch.phase != lastLoggedPhase);
+	const Bool camChanged = (strcmp(cam, lastLoggedCam) != 0);
+	if (phaseChanged || camChanged) {
+		fprintf(stderr, "[gxtouch] phase=%s finger=%d,%d down=%d,%d sent=%d,%d cam=[%s]\n",
+		        touchPhaseName(s_touch.phase),
+		        (Int)s_touch.lastX, (Int)s_touch.lastY,
+		        (Int)s_touch.downX, (Int)s_touch.downY,
+		        (Int)s_lastPublishedX, (Int)s_lastPublishedY, cam);
+		lastLoggedPhase = s_touch.phase;
+		snprintf(lastLoggedCam, sizeof(lastLoggedCam), "%s", cam);
+	}
 }
 
 // GeneralsX @bugfix Android port 02/08/2026 Reported: panning freezes mid-
@@ -1372,9 +1404,44 @@ void publishTouchDebug()
 // the drained events left s_touch in -- guaranteeing at most one
 // screenToTerrain "from/to" pair per frame, always against a transform
 // that's consistent for both projections.
+// GeneralsX @bugfix Android port 06/09/2026 No finger on the screen means no pointer,
+// and no pointer means a pointer-driven scroll cannot be legitimate.
+//
+// Two of the engine's scroll modes exist because a pointer is being HELD somewhere:
+// SCROLL_RMB (right button down, scroll away from the anchor) and SCROLL_SCREENEDGE
+// (pointer parked within 3px of an edge). Both stop when a later event says the pointer
+// moved or was released. On a touchscreen there is no such stream: once either latches
+// with no finger down, nothing routine clears it, and the camera scrolls until something
+// unrelated -- the pause menu -- happens to reset it. That is the reported runaway.
+//
+// One specific way it latches is fixed at the source (SelectionXlat.cpp destroying the
+// right-button-up that would have stopped it), but that is one path among several, and
+// each is a message any higher-priority translator may swallow for its own good reasons.
+// So rather than chase them one at a time, assert the invariant directly, once a frame:
+// fingers off the glass, pointer scroll off. SCROLL_KEY is untouched -- an attached
+// keyboard is a real source and its own key-up will stop it.
+//
+// Touch platforms only. On desktop this same file runs with a real mouse, where
+// s_touch.phase is permanently IDLE and this would cancel every legitimate edge scroll.
+void enforceNoPointerScrollWithoutFinger()
+{
+#if defined(__ANDROID__) || (defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE)
+	if (TheLookAtTranslator == nullptr) {
+		return;
+	}
+	const Bool noFinger = (s_touch.phase == TouchState::IDLE || s_touch.phase == TouchState::MOMENTUM);
+	if (noFinger && TheLookAtTranslator->isPointerScrollActive()) {
+		fprintf(stderr, "[gxtouch] cancelling pointer scroll with no finger down: cam=[%s]\n",
+		        TheLookAtTranslator->getCameraModeDebugText());
+		TheLookAtTranslator->cancelScrolling();
+	}
+#endif
+}
+
 void applyPendingCameraMotion()
 {
 	publishTouchDebug();
+	enforceNoPointerScrollWithoutFinger();
 
 	if (s_touch.phase == TouchState::PANNING) {
 		s_touch.panVelX = s_touch.lastX - s_touch.panLastPxX;

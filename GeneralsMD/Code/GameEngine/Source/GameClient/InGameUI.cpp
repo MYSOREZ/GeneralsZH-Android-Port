@@ -4342,15 +4342,21 @@ void InGameUI::postDraw()
 
 		if( debugText != nullptr )
 		{
+			// The camera half of the line is the important half. "cam" reports EVERY mode
+			// LookAtTranslator can be stuck in, not just the RMB one -- a camera moving on
+			// its own is one of them latched, and naming which is the whole diagnosis.
+			const char *camState = TheLookAtTranslator
+				? TheLookAtTranslator->getCameraModeDebugText() : "(no xlat)";
+
 			UnicodeString line;
-			line.format( L"TOUCH %hs f=%d | finger %d,%d | down %d,%d | sent %d,%d | cursor %d,%d | scroll %hs%hs | view %dx%d",
+			line.format( L"TOUCH %hs f=%d | finger %d,%d | down %d,%d | sent %d,%d | cursor %d,%d | cam %hs | uiScroll %d sel %d | view %dx%d",
 									 m_touchDebugPhase, m_touchDebugFingers,
 									 m_touchDebugLast.x, m_touchDebugLast.y,
 									 m_touchDebugDown.x, m_touchDebugDown.y,
 									 m_touchDebugPublished.x, m_touchDebugPublished.y,
 									 mio ? mio->pos.x : -1, mio ? mio->pos.y : -1,
-									 m_isScrolling ? "UI" : "-",
-									 scrollAnchor ? " RMB-LATCHED" : "",
+									 camState,
+									 m_isScrolling ? 1 : 0, m_isSelecting ? 1 : 0,
 									 TheDisplay->getWidth(), TheDisplay->getHeight() );
 			debugText->setText( line );
 
