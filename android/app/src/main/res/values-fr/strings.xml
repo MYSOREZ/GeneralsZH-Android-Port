@@ -85,8 +85,6 @@
     <string name="setup_diagnostics_no_folder">Sélectionnez d\'abord un dossier de jeu (ci-dessus) pour utiliser ces interrupteurs</string>
     <string name="setup_switch_gx_trace">Journal de trace détaillé</string>
     <string name="setup_switch_gx_trace_desc">Journalisation interne très détaillée (interface, polices, fichiers INI) pour traquer un blocage ou un bug précis. Peut atteindre 50 à 100+ Mo sur une longue session — utilisez plutôt « Résumé des performances » si vous n\'avez besoin que des chiffres de FPS. (gx_trace.txt)</string>
-    <string name="setup_switch_touch_debug">Superposition de saisie tactile</string>
-    <string name="setup_switch_touch_debug_desc">Affiche par-dessus le jeu l\'état de la couche tactile : geste en cours, position de votre doigt, position où le moteur croit que se trouve le pointeur, et ancre de défilement de la caméra. Activez ceci pour signaler des problèmes de contrôle : carte qui défile toute seule, bâtiment fantôme au mauvais endroit, capacité qui vise là où vous n\'avez pas touché. (gx_touch_debug.txt)</string>
     <string name="setup_switch_gx_perf">Résumé des performances</string>
     <string name="setup_switch_gx_perf_desc">Ajoute une courte ligne par seconde indiquant où passe le temps de trame (radar, audio, réseau, logique du jeu, rendu). Peut rester activé toute la session sans risque — activez-le pour les rapports de FPS/ralentissements. (gx_perf.txt)</string>
     <string name="setup_switch_dxvk_hud">Overlay de performances à l\'écran</string>

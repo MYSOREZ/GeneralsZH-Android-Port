@@ -1556,46 +1556,6 @@ void ControlBar::update()
 
 
 
-#if defined(__ANDROID__) || (defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE)
-	// GeneralsX @feature Android port 06/09/2026 Hold a command button to read its
-	// description. On a mouse the popup is a hover affordance; a touchscreen has no
-	// hover, and a press cannot stand in for one, because the engine deliberately
-	// SUPPRESSES tooltips while a button is held: winProcessMouseEvent() wipes the
-	// tooltip text at GameWindowManager.cpp:966, sets m_grabWindow on LEFT_DOWN
-	// (:1200) and then returns from the grab branch (:1024-1117) before ever
-	// reaching the tooltip block at :1226. Two attempts to feed that path from the
-	// touch layer were reverted; it was never going to work, because the path exits
-	// before the point being fed.
-	//
-	// So do not go through the window manager at all. Poll the buttons' own
-	// WIN_STATE_SELECTED once a frame and call showBuildTooltipLayout() directly --
-	// the same shape GroupPanel.cpp already uses for its long-press
-	// (updateHoldVisuals(), GroupPanel.cpp:200), which has been shipping here since
-	// August. showBuildTooltipLayout() carries its own delay state machine
-	// (ControlBarPopupDescription.cpp:151-190): the first call arms the timer, later
-	// calls with the same window show the popup once getTooltipDelay() has passed,
-	// so it wants to be called repeatedly and the hold timing needs no code here.
-	//
-	// Must run BEFORE the runUpdate() block below: that clears m_showBuildToolTipLayout
-	// every frame, and ControlBarPopupDescriptionUpdateFunc tears the layout down
-	// when it is FALSE, so the flag has to be re-set each frame to keep the popup up.
-	if (TheInGameUI && !TheInGameUI->areTooltipsDisabled())
-	{
-		for (Int cmdIdx = 0; cmdIdx < MAX_COMMANDS_PER_SET; ++cmdIdx)
-		{
-			GameWindow *cmdWin = m_commandWindows[cmdIdx];
-			if (cmdWin == nullptr || cmdWin->winIsHidden())
-				continue;
-
-			if (BitIsSet(cmdWin->winGetInstanceData()->getState(), WIN_STATE_SELECTED))
-			{
-				showBuildTooltipLayout(cmdWin);
-				break;   // only one finger, so only one button can be held
-			}
-		}
-	}
-#endif
-
 	if( !m_buildToolTipLayout->isHidden())
 	{
 		m_buildToolTipLayout->runUpdate();

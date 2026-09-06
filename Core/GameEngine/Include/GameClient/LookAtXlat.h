@@ -44,15 +44,6 @@ enum ScreenEdgeScrollMode_ CPP_11(: ScreenEdgeScrollMode)
 //-----------------------------------------------------------------------------
 class LookAtTranslator : public GameMessageTranslator
 {
-	// Declared before the public section only so isPointerScrollActive() can name these.
-	enum ScrollType
-	{
-		SCROLL_NONE = 0,
-		SCROLL_RMB,
-		SCROLL_KEY,
-		SCROLL_SCREENEDGE
-	};
-
 public:
 	LookAtTranslator();
 	virtual ~LookAtTranslator() override;
@@ -65,32 +56,17 @@ public:
 
 	void resetModes(); //Used when disabling input, so when we reenable it we aren't stuck in a mode.
 
-	// GeneralsX @bugfix Android port 06/09/2026 Stop any camera scroll this translator
-	// started, from outside it. Needed because a translator with a HIGHER priority can
-	// DESTROY the very message this one relies on to stop -- see the call site in
-	// SelectionXlat.cpp's onRawMouseRightButtonUp().
-	void cancelScrolling();
-
-	// GeneralsX @feature Android port 06/09/2026 One-line description of every camera
-	// mode this translator can be stuck in -- scroll type, rotate, pitch, FOV, plus the
-	// scroll anchor. For the touch debug overlay and log: a camera that moves on its own
-	// is one of these latched, and until it says which one, every fix is a guess.
-	// Returns a pointer to a static buffer, valid until the next call.
-	const char *getCameraModeDebugText() const;
-
-	// GeneralsX @bugfix Android port 06/09/2026 TRUE while a scroll that only a HELD
-	// POINTER can justify is running -- right-button drag, or the screen-edge scroll,
-	// both of which mean "the pointer is currently sitting somewhere". Keyboard scrolling
-	// is deliberately excluded: an attached keyboard is a real, legitimate source.
-	Bool isPointerScrollActive() const
-	{
-		return m_isScrolling && (m_scrollType == SCROLL_RMB || m_scrollType == SCROLL_SCREENEDGE);
-	}
-
 private:
 	enum
 	{
 		MAX_VIEW_LOCS = 8
+	};
+	enum ScrollType
+	{
+		SCROLL_NONE = 0,
+		SCROLL_RMB,
+		SCROLL_KEY,
+		SCROLL_SCREENEDGE
 	};
 	ICoord2D m_anchor;
 	ICoord2D m_originalAnchor;

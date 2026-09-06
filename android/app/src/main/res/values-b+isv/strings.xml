@@ -85,8 +85,6 @@
     <string name="setup_diagnostics_no_folder">Naprvo izběrte papku igry (vyše) da upotrěbite ti pereklopniki</string>
     <string name="setup_switch_gx_trace">Podrobny log tracovanja</string>
     <string name="setup_switch_gx_trace_desc">Věoma podrobno vnutrněje logovanje (interfejs, šrifti, INI datoteki) za iskanje konkretnogo zavisanja ili greški. Za dolgu sesiju log može narosti do vělikoj věličiny (50-100+ MB) — upotrěbte město togo "Rezimě proizvoditelnosti" jesli trěbujete tolko čisla FPS. (gx_trace.txt)</string>
-    <string name="setup_switch_touch_debug">Nakladka sensornogo vvoda</string>
-    <string name="setup_switch_touch_debug_desc">Risuje sostojanje sensornogo sloja poverh igry: tekuщij žest, gdě tvoj palec, gdě dvižok sčitaje ukazatelj, i jakorj prokrutki kamery. Vklučaj, kogda soobщaješ o problemah upravlenja — karta uhodi sama, prizračnoje zdanje ne na svojem městu, sposobnostj cělitsja tuda, gdě ty ne kasal sę. (gx_touch_debug.txt)</string>
     <string name="setup_switch_gx_perf">Rezimě proizvoditelnosti</string>
     <string name="setup_switch_gx_perf_desc">Dodaje odnu kratku liniju na sekundu, kotora pokazuje kde ide vrěmě kadra (radar, zvuk, sěť, logika igry, renderovanje). Bezpečno ostaviti uklopjeno za cělu sesiju igry — uklopte za izvěšćenja o FPS/zapovolnjenjih. (gx_perf.txt)</string>
     <string name="setup_switch_dxvk_hud">Ekranny overlej proizvoditelnosti</string>

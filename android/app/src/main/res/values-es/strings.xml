@@ -85,8 +85,6 @@
     <string name="setup_diagnostics_no_folder">Selecciona primero una carpeta de juego (arriba) para usar estos interruptores</string>
     <string name="setup_switch_gx_trace">Registro de rastreo detallado</string>
     <string name="setup_switch_gx_trace_desc">Registro interno muy detallado (interfaz, fuentes, archivos INI) para rastrear un bloqueo o error específico. Puede crecer hasta 50-100+ MB en una sesión larga — usa "Resumen de rendimiento" en su lugar si solo necesitas los números de FPS. (gx_trace.txt)</string>
-    <string name="setup_switch_touch_debug">Superposición de entrada táctil</string>
-    <string name="setup_switch_touch_debug_desc">Dibuja sobre el juego el estado de la capa táctil: gesto actual, dónde está tu dedo, dónde cree el motor que está el puntero y el ancla de desplazamiento de la cámara. Actívalo para informar de problemas de control: mapa que se desplaza solo, edificio fantasma en el lugar equivocado, habilidad que apunta a donde no tocaste. (gx_touch_debug.txt)</string>
     <string name="setup_switch_gx_perf">Resumen de rendimiento</string>
     <string name="setup_switch_gx_perf_desc">Añade una línea corta por segundo mostrando en qué se gasta el tiempo de cuadro (radar, audio, red, lógica del juego, renderizado). Seguro dejarlo activado toda la sesión — actívalo para informes de FPS/ralentización. (gx_perf.txt)</string>
     <string name="setup_switch_dxvk_hud">Superposición de rendimiento en pantalla</string>
