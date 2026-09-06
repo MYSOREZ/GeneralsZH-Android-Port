@@ -644,7 +644,26 @@ void GameEngine::init()
 	#endif/////////////////////////////////////////////////////////////////////////////////////////////
 		initSubsystem(TheAudio,"TheAudio", createAudioManager(TheGlobalData->m_headless), nullptr);
 		if (!TheAudio->isMusicAlreadyLoaded())
+		{
+			// GeneralsX @bugfix Android port 06/09/2026 This one missing file used
+			// to end the session outright: init ran to completion, the main menu
+			// was built, and the loop's first check quit -- a black screen, then
+			// the app closing with status 0 and not one line of explanation. A
+			// real report cost a whole debugging session to get this far.
+			//
+			// On desktop the check is a reasonable "the game data was never
+			// installed" guard. On Android people assemble their own file set by
+			// hand, so a single absent music track is both far more likely and far
+			// less serious, and the folder check in the Setup app now covers the
+			// case this was really guarding against. Say what happened and keep
+			// going: a game that runs without music beats one that vanishes.
+			fprintf(stderr, "[gxaudio] music data missing -- see the [gxaudio] line above for the file\n");
+#if defined(__ANDROID__)
+			fprintf(stderr, "[gxaudio] continuing anyway (Android): music may be silent\n");
+#else
 			setQuitting(TRUE);
+#endif
+		}
 
 #if RTS_ZEROHOUR && RETAIL_COMPATIBLE_CRC
 		TheNameKeyGenerator->syncNameKeyID();

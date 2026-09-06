@@ -959,6 +959,11 @@ Bool AudioManager::isMusicAlreadyLoaded() const
 	}
 
 	if (!musicToLoad) {
+		// GeneralsX @diag Android port 06/09/2026 A FALSE from this function makes
+		// GameEngine::init() set the quit flag, so the game reaches the main menu
+		// and then closes on the loop's first check -- a black screen and an exit
+		// with status 0, with nothing anywhere saying why. Say why.
+		fprintf(stderr, "[gxaudio] isMusicAlreadyLoaded: no AT_Music entries defined at all\n");
 		return FALSE;
 	}
 
@@ -968,7 +973,15 @@ Bool AudioManager::isMusicAlreadyLoaded() const
 
 	AsciiString astr = aud.getFilename();
 
-	return (TheFileSystem->doesFileExist(astr.str()));
+	const Bool exists = TheFileSystem->doesFileExist(astr.str());
+	if (!exists) {
+		// Note that the probed track is whichever music entry came last out of an
+		// unordered hash, so this names one missing file, not necessarily the only
+		// one -- but it is the one the engine judged the whole game on.
+		fprintf(stderr, "[gxaudio] isMusicAlreadyLoaded: probe track '%s' -> file '%s' NOT FOUND\n",
+			musicToLoad->m_audioName.str(), astr.str());
+	}
+	return exists;
 }
 
 //-------------------------------------------------------------------------------------------------
