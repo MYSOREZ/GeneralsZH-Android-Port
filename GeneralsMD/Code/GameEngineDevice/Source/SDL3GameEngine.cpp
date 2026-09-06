@@ -617,7 +617,6 @@ Bool isRealUiHit(GameWindow *hit)
 	return hit != nullptr && BitIsSet(hit->winGetStyle(), GWS_PUSH_BUTTON);
 }
 
-
 // Hover/position hint -- WindowXlat.cpp uses this to set GUI hilite state,
 // SelectionXlat.cpp uses it to build the selection-box drag region, and
 // LookAtXlat.cpp uses it to know where a drag/edge-scroll anchor is. A real
@@ -1219,37 +1218,6 @@ void applyPendingCameraMotion()
 }
 
 } // anonymous namespace
-
-// GeneralsX @feature Android port 06/09/2026 Is a finger being HELD on a button
-// right now, and where did it land? Asked once a frame by
-// SDL3Mouse::createStreamMessages() (mobile build) so a long press can raise the
-// button's description, which needs the engine to see the pointer sitting still
-// -- something a touch device never produces on its own, since a still finger
-// generates no events at all.
-//
-// Deliberately a question the touch layer answers from live state rather than a
-// flag it sets and clears. A first attempt at this published the last touch as a
-// persistent cursor position and had to be reverted: a position that outlives the
-// finger gives the game a pointer that hovers menu buttons with nothing on the
-// screen and, left near a viewport edge, edge-scrolls the map forever (the
-// release path below has fought that exact behaviour before). Answering from
-// s_touch.phase means the moment the finger lifts, the phase is no longer
-// UI_PRESS and the position stops being published -- there is no transition left
-// to forget to handle.
-//
-// UI_PRESS only, never the battlefield: hover means something over a button and
-// nothing at all over terrain, and the edge-scroll hazard lives entirely in the
-// latter.
-Bool SDL3TouchUiHoldAnchor(Int &x, Int &y)
-{
-	if (s_touch.phase != TouchState::UI_PRESS) {
-		return FALSE;
-	}
-	x = (Int)s_touch.downX;
-	y = (Int)s_touch.downY;
-	return TRUE;
-}
-
 #endif // SAGE_MOBILE_PLATFORM
 
 namespace {
