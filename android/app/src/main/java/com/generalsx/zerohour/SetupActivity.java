@@ -1407,7 +1407,7 @@ public class SetupActivity extends Activity {
         // them have the entry, matching how the actual merged filesystem
         // resolves it.
         java.util.List<File> iniArchives = new java.util.ArrayList<>();
-        boolean sawBaseGameAssets = false;
+        java.util.Set<String> presentArchives = new java.util.HashSet<>();
         for (File root : scanRoots) {
             File[] bigFiles = root.listFiles((d, name) -> name.toLowerCase(java.util.Locale.ROOT).endsWith(".big"));
             if (bigFiles == null) {
@@ -1427,9 +1427,7 @@ public class SetupActivity extends Activity {
                 if (lower.equals("ini.big") || lower.equals("inizh.big")) {
                     iniArchives.add(f);
                 }
-                if (BASE_GAME_ASSET_ARCHIVES.contains(lower)) {
-                    sawBaseGameAssets = true;
-                }
+                presentArchives.add(lower);
             }
         }
         if (!iniArchives.isEmpty()) {
@@ -1472,14 +1470,41 @@ public class SetupActivity extends Activity {
         // unambiguously a Zero-Hour-only folder. Deliberately keyed on the
         // asset archives rather than "any archive without a ZH suffix" --
         // Music.big is commonly present on its own and would mask the problem.
-        if (!sawBaseGameAssets) {
-            issues.add(getString(R.string.setup_folder_issue_no_base_game));
+        StringBuilder missing = new StringBuilder();
+        for (String name : BASE_GAME_REQUIRED_ARCHIVES) {
+            if (!presentArchives.contains(name.toLowerCase(java.util.Locale.ROOT))) {
+                if (missing.length() > 0) {
+                    missing.append(", ");
+                }
+                missing.append(name);
+            }
+        }
+        if (missing.length() > 0) {
+            issues.add(getString(R.string.setup_folder_issue_no_base_game, missing.toString()));
         }
         return issues;
     }
 
-    private static final java.util.Set<String> BASE_GAME_ASSET_ARCHIVES =
-        new java.util.HashSet<>(java.util.Arrays.asList("terrain.big", "textures.big", "w3d.big"));
+    // GeneralsX @bugfix Android port game-folder-integrity-check 06/09/2026
+    // The base Generals archives, named as they ship. Zero Hour's own archives
+    // all carry a ZH suffix and hold only what the expansion added or changed,
+    // so a copy with nothing but *ZH.big passes every other check here -- all
+    // archives valid, none truncated -- and then renders the original game's
+    // terrain and units as solid magenta. Reported as the exact list of names
+    // that are absent, because "your copy is incomplete" leaves the user with
+    // nothing to act on.
+    //
+    // Deliberately limited to archives whose base-game names are certain.
+    // Language-specific ones (English.big and the AudioEnglish/SpeechEnglish/
+    // W3DEnglish family) are left out: which of them a given release ships
+    // varies by SKU and language, and naming one that a perfectly good copy
+    // never had would send people hunting for a file that does not exist.
+    // A missing language archive also degrades far more gracefully than a
+    // missing Textures.big.
+    private static final String[] BASE_GAME_REQUIRED_ARCHIVES = {
+        "INI.big", "Terrain.big", "Textures.big", "W3D.big", "Window.big",
+        "Shaders.big", "Audio.big", "Speech.big", "Maps.big", "Music.big"
+    };
 
     private static boolean hasBigFHeader(File f) {
         try (java.io.RandomAccessFile raf = new java.io.RandomAccessFile(f, "r")) {

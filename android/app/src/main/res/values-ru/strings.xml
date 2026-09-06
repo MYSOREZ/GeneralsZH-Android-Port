@@ -26,7 +26,7 @@
     <string name="setup_folder_issue_empty_file">%1$s пустой (0 байт)</string>
     <string name="setup_folder_issue_bad_header">%1$s не похож на корректный архив игры</string>
     <string name="setup_folder_issue_missing_data">В %1$s не хватает ожидаемых данных игры — вероятно, неполная копия</string>
-    <string name="setup_folder_issue_no_base_game">Найдены только архивы Zero Hour — отсутствуют данные базовой игры Generals (Terrain.big, Textures.big, W3D.big). Zero Hour — дополнение и не содержит графику оригинальной игры, поэтому земля и многие юниты будут отображаться сплошным пурпурным цветом.</string>
+    <string name="setup_folder_issue_no_base_game">Отсутствуют данные базовой игры Generals: %1$s. Zero Hour — дополнение, его архивы *ZH.big содержат только добавленное, поэтому без этих файлов оригинальная земля и многие юниты отображаются сплошным пурпурным цветом. Скопируйте их из полной установки Generals (в Steam-версии они лежат во вложенной папке ZH_Generals).</string>
     <string name="setup_status_logs_note">Логи краша/движка хранятся в приватном хранилище приложения и доступны только через кнопку «Просмотреть логи» выше — Android намеренно скрывает их от обычных файловых менеджеров (это стандартная песочница Android, не особенность этого приложения).</string>
 
     <!-- SetupActivity: Language card -->
