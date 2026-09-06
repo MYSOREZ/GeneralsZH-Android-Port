@@ -21,11 +21,13 @@
     <string name="setup_status_folder_line">پوشه بازی: %1$s\n</string>
     <string name="setup_status_folder_valid">وضعیت: معتبر به نظر می‌رسد (فایل‌های آرشیو بازی پیدا شدند).\n</string>
     <string name="setup_status_folder_invalid">وضعیت: این پوشه حاوی INIZH.big / INI.big مورد انتظار نیست — بررسی کنید پوشه درست را انتخاب کرده باشید.\n</string>
-    <string name="setup_status_folder_incomplete">وضعیت: فایل‌های آرشیو بازی پیدا شدند، اما ناقص یا خراب به‌نظر می‌رسند (%1$s) — احتمالاً بازی هنگام اجرا کرش می‌کند. سعی کنید فایل‌های بازی را از یک منبع سالم دوباره کپی کنید.\n</string>
+    <string name="setup_status_folder_incomplete">وضعیت: آرشیوهای بازی پیدا شدند، اما مجموعه ناقص است:\n%1$s\n</string>
     <string name="setup_dialog_folder_problem_title">مشکل پوشهٔ بازی</string>
     <string name="setup_folder_issue_empty_file">%1$s خالی است (۰ بایت)</string>
     <string name="setup_folder_issue_bad_header">%1$s شبیه یک آرشیو معتبر بازی نیست</string>
     <string name="setup_folder_issue_missing_data">در %1$s داده‌های موردانتظار بازی کم است — احتمالاً یک نسخهٔ ناقص</string>
+    <string name="setup_folder_issue_no_base_language">آرشیو زبان بازی پایه Generals موجود نیست (English.big، German.big، French.big، …)</string>
+    <string name="setup_folder_issue_no_base_game">داده‌های بازی پایه Generals موجود نیست:%1$s</string>
     <string name="setup_status_logs_note">گزارش‌های خرابی/موتور در حافظه خصوصی این برنامه ذخیره می‌شوند و فقط از طریق «مشاهده گزارش‌ها» در بالا قابل دسترسی هستند — اندروید عمداً آن‌ها را از مدیرهای فایل معمولی پنهان می‌کند (این رفتار استاندارد سندباکس اندروید است، نه ویژگی خاص این برنامه).</string>
 
     <!-- SetupActivity: Language card -->

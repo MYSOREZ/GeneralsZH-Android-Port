@@ -21,11 +21,13 @@
     <string name="setup_status_folder_line">게임 폴더: %1$s\n</string>
     <string name="setup_status_folder_valid">상태: 유효한 것으로 보입니다 (게임 아카이브 파일 발견).\n</string>
     <string name="setup_status_folder_invalid">상태: 이 폴더에는 예상되는 INIZH.big / INI.big 파일이 없습니다 — 올바른 폴더를 선택했는지 다시 확인하세요.\n</string>
-    <string name="setup_status_folder_incomplete">상태: 게임 아카이브 파일을 찾았지만, 불완전하거나 손상된 것으로 보입니다 (%1$s) — 시작 시 게임이 크래시될 가능성이 높습니다. 깨끗한 소스에서 게임 파일을 다시 복사해 보세요.\n</string>
+    <string name="setup_status_folder_incomplete">상태: 게임 아카이브를 찾았지만 구성이 불완전합니다:\n%1$s\n</string>
     <string name="setup_dialog_folder_problem_title">게임 폴더 문제</string>
     <string name="setup_folder_issue_empty_file">%1$s 파일이 비어 있습니다 (0바이트)</string>
     <string name="setup_folder_issue_bad_header">%1$s은(는) 올바른 게임 아카이브로 보이지 않습니다</string>
     <string name="setup_folder_issue_missing_data">%1$s에 예상되는 게임 데이터가 없습니다 — 불완전한 복사본일 가능성이 있습니다</string>
+    <string name="setup_folder_issue_no_base_language">기본 게임 Generals의 언어 아카이브가 없습니다 (English.big, German.big, French.big, …)</string>
+    <string name="setup_folder_issue_no_base_game">기본 게임 Generals의 데이터가 없습니다:%1$s</string>
     <string name="setup_status_logs_note">충돌/엔진 로그는 이 앱의 전용 저장소에 보관되며 위의 \"로그 보기\"를 통해서만 접근할 수 있습니다 — Android는 이를 일반 파일 관리자로부터 의도적으로 숨깁니다 (이는 이 앱만의 특징이 아니라 Android의 표준 샌드박스 동작입니다).</string>
 
     <!-- SetupActivity: Language card -->

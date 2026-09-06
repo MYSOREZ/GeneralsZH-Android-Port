@@ -21,11 +21,13 @@
     <string name="setup_status_folder_line">游戏文件夹：%1$s\n</string>
     <string name="setup_status_folder_valid">状态：看起来有效（已找到游戏数据文件）。\n</string>
     <string name="setup_status_folder_invalid">状态：该文件夹中没有找到 INIZH.big / INI.big — 请确认选择的是正确的文件夹。\n</string>
-    <string name="setup_status_folder_incomplete">状态：找到了游戏存档文件，但它们看起来不完整或已损坏（%1$s）——游戏启动时很可能会崩溃。请尝试从干净的来源重新复制游戏文件。\n</string>
+    <string name="setup_status_folder_incomplete">状态：找到了游戏归档文件，但文件集不完整：\n%1$s\n</string>
     <string name="setup_dialog_folder_problem_title">游戏文件夹问题</string>
     <string name="setup_folder_issue_empty_file">%1$s 为空（0 字节）</string>
     <string name="setup_folder_issue_bad_header">%1$s 看起来不是有效的游戏存档</string>
     <string name="setup_folder_issue_missing_data">%1$s 缺少预期的游戏数据——可能是不完整的副本</string>
+    <string name="setup_folder_issue_no_base_language">缺少基础游戏 Generals 的语言归档文件（English.big、German.big、French.big…）</string>
+    <string name="setup_folder_issue_no_base_game">缺少基础游戏 Generals 的数据：%1$s</string>
     <string name="setup_status_logs_note">崩溃日志/引擎日志保存在本应用的私有存储中，只能通过上方的“查看日志”访问 —— Android 出于设计原因将它们对普通文件管理器隐藏（这是 Android 标准的沙盒机制，并非本应用特有）。</string>
 
     <!-- SetupActivity: Language card -->

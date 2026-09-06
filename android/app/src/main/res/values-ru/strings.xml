@@ -21,13 +21,13 @@
     <string name="setup_status_folder_line">Папка с игрой: %1$s\n</string>
     <string name="setup_status_folder_valid">Статус: похоже на верную папку (найдены файлы архивов игры).\n</string>
     <string name="setup_status_folder_invalid">Статус: в этой папке НЕТ ожидаемых INIZH.big / INI.big — проверьте, ту ли папку вы выбрали.\n</string>
-    <string name="setup_status_folder_incomplete">Статус: файлы архивов игры найдены, но выглядят неполными или повреждёнными (%1$s) — игра, скорее всего, вылетит при запуске. Попробуйте перекопировать файлы игры из чистого источника.\n</string>
+    <string name="setup_status_folder_incomplete">Статус: архивы игры найдены, но набор неполный:\n%1$s\n</string>
     <string name="setup_dialog_folder_problem_title">Проблема с папкой игры</string>
     <string name="setup_folder_issue_empty_file">%1$s пустой (0 байт)</string>
     <string name="setup_folder_issue_bad_header">%1$s не похож на корректный архив игры</string>
     <string name="setup_folder_issue_missing_data">В %1$s не хватает ожидаемых данных игры — вероятно, неполная копия</string>
-    <string name="setup_folder_issue_no_base_game">Отсутствуют данные базовой игры Generals: %1$s. Zero Hour — дополнение, его архивы *ZH.big содержат только добавленное, поэтому без этих файлов оригинальная земля и многие юниты отображаются сплошным пурпурным цветом. Скопируйте их из полной установки Generals (в Steam-версии они лежат во вложенной папке ZH_Generals).</string>
-    <string name="setup_folder_issue_no_base_language">Не найден языковой архив базовой Generals (English.big, German.big, French.big, … — тот, что соответствует вашей копии). Без него отсутствуют тексты и озвучка базовой игры, а запуск может не состояться.</string>
+    <string name="setup_folder_issue_no_base_game">Отсутствуют данные базовой игры Generals:%1$s</string>
+    <string name="setup_folder_issue_no_base_language">Отсутствует языковой архив базовой Generals (English.big, German.big, French.big, …)</string>
     <string name="setup_status_logs_note">Логи краша/движка хранятся в приватном хранилище приложения и доступны только через кнопку «Просмотреть логи» выше — Android намеренно скрывает их от обычных файловых менеджеров (это стандартная песочница Android, не особенность этого приложения).</string>
 
     <!-- SetupActivity: Language card -->

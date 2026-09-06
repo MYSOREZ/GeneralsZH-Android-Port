@@ -21,11 +21,13 @@
     <string name="setup_status_folder_line">Folder gry: %1$s\n</string>
     <string name="setup_status_folder_valid">Stan: wygląda poprawnie (znaleziono pliki archiwów gry).\n</string>
     <string name="setup_status_folder_invalid">Stan: ten folder NIE zawiera oczekiwanych plików INIZH.big / INI.big — sprawdź, czy wybrano właściwy folder.\n</string>
-    <string name="setup_status_folder_incomplete">Stan: znaleziono pliki archiwów gry, ale wyglądają na niekompletne lub uszkodzone (%1$s) — gra prawdopodobnie ulegnie awarii przy uruchomieniu. Spróbuj skopiować pliki gry ponownie z czystego źródła.\n</string>
+    <string name="setup_status_folder_incomplete">Stan: znaleziono archiwa gry, ale zestaw jest niekompletny:\n%1$s\n</string>
     <string name="setup_dialog_folder_problem_title">Problem z folderem gry</string>
     <string name="setup_folder_issue_empty_file">%1$s jest pusty (0 bajtów)</string>
     <string name="setup_folder_issue_bad_header">%1$s nie wygląda na prawidłowe archiwum gry</string>
     <string name="setup_folder_issue_missing_data">W %1$s brakuje oczekiwanych danych gry — prawdopodobnie niekompletna kopia</string>
+    <string name="setup_folder_issue_no_base_language">Brak archiwum językowego podstawowej gry Generals (English.big, German.big, French.big, …)</string>
+    <string name="setup_folder_issue_no_base_game">Brak danych podstawowej gry Generals:%1$s</string>
     <string name="setup_status_logs_note">Dzienniki awarii/silnika znajdują się w prywatnej pamięci tej aplikacji i są dostępne tylko przez „Wyświetl dzienniki” powyżej — Android celowo ukrywa je przed zwykłymi menedżerami plików (to standardowe piaskownicowanie Androida, a nie cecha specyficzna dla tej aplikacji).</string>
 
     <!-- SetupActivity: Language card -->

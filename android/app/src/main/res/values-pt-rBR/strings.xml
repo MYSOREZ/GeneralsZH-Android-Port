@@ -21,11 +21,13 @@
     <string name="setup_status_folder_line">Pasta do jogo: %1$s\n</string>
     <string name="setup_status_folder_valid">Status: parece válida (arquivos de dados do jogo encontrados).\n</string>
     <string name="setup_status_folder_invalid">Status: esta pasta NÃO contém os arquivos INIZH.big / INI.big esperados — verifique se você escolheu a pasta correta.\n</string>
-    <string name="setup_status_folder_incomplete">Status: arquivos do jogo encontrados, mas parecem incompletos ou corrompidos (%1$s) — o jogo provavelmente vai travar ao iniciar. Tente copiar novamente os arquivos do jogo de uma fonte limpa.\n</string>
+    <string name="setup_status_folder_incomplete">Status: arquivos do jogo encontrados, mas o conjunto está incompleto:\n%1$s\n</string>
     <string name="setup_dialog_folder_problem_title">Problema na pasta do jogo</string>
     <string name="setup_folder_issue_empty_file">%1$s está vazio (0 bytes)</string>
     <string name="setup_folder_issue_bad_header">%1$s não parece um arquivo de jogo válido</string>
     <string name="setup_folder_issue_missing_data">Faltam dados esperados do jogo em %1$s — provavelmente uma cópia incompleta</string>
+    <string name="setup_folder_issue_no_base_language">Falta o arquivo de idioma do jogo base Generals (English.big, German.big, French.big, …)</string>
+    <string name="setup_folder_issue_no_base_game">Faltam dados do jogo base Generals:%1$s</string>
     <string name="setup_status_logs_note">Os registros de falha/motor ficam no armazenamento privado deste aplicativo e só podem ser acessados por \"Ver registros\" acima — o Android os oculta intencionalmente dos gerenciadores de arquivos comuns (esse é o isolamento padrão do Android, não algo específico deste aplicativo).</string>
 
     <!-- SetupActivity: Language card -->

@@ -1245,8 +1245,8 @@ public class SetupActivity extends Activity {
                     sb.append(getString(R.string.setup_status_folder_valid));
                     statusColorRes = R.color.gzh_status_ok;
                 } else {
-                    sb.append(getString(R.string.setup_status_folder_incomplete, String.join("; ", issues)));
-                    statusColorRes = R.color.gzh_status_warn;
+                    sb.append(getString(R.string.setup_status_folder_incomplete, String.join("\n", issues)));
+                    statusColorRes = R.color.gzh_status_error;
                 }
             }
             int statusEnd = sb.length();
@@ -1473,10 +1473,7 @@ public class SetupActivity extends Activity {
         StringBuilder missing = new StringBuilder();
         for (String name : BASE_GAME_REQUIRED_ARCHIVES) {
             if (!presentArchives.contains(name.toLowerCase(java.util.Locale.ROOT))) {
-                if (missing.length() > 0) {
-                    missing.append(", ");
-                }
-                missing.append(name);
+                missing.append("\n  \u2022 ").append(name);
             }
         }
         if (missing.length() > 0) {
@@ -1656,7 +1653,7 @@ public class SetupActivity extends Activity {
                     java.util.List<String> issues = findGameFolderIntegrityIssues(dir);
                     if (!issues.isEmpty()) {
                         showFolderProblemDialog(getString(R.string.setup_status_folder_incomplete,
-                            String.join("; ", issues)).trim());
+                            String.join("\n", issues)).trim());
                     } else {
                         Toast.makeText(this, R.string.setup_toast_folder_saved, Toast.LENGTH_LONG).show();
                     }

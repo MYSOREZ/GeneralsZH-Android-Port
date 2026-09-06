@@ -21,13 +21,13 @@
     <string name="setup_status_folder_line">Game folder: %1$s\n</string>
     <string name="setup_status_folder_valid">Status: looks valid (found game archive files).\n</string>
     <string name="setup_status_folder_invalid">Status: this folder does NOT contain the expected INIZH.big / INI.big — double check you picked the right one.\n</string>
-    <string name="setup_status_folder_incomplete">Status: game archive files were found, but they look incomplete or corrupted (%1$s) — the game will likely crash on startup. Try re-copying your game files from a clean source.\n</string>
+    <string name="setup_status_folder_incomplete">Status: game archives found, but the set is incomplete:\n%1$s\n</string>
     <string name="setup_dialog_folder_problem_title">Game Folder Problem</string>
     <string name="setup_folder_issue_empty_file">%1$s is empty (0 bytes)</string>
     <string name="setup_folder_issue_bad_header">%1$s doesn\'t look like a valid game archive</string>
     <string name="setup_folder_issue_missing_data">%1$s is missing expected game data — likely an incomplete copy</string>
-    <string name="setup_folder_issue_no_base_game">Missing base Generals game data: %1$s. Zero Hour is an expansion — its own *ZH.big archives contain only what it added, so without these the original terrain and many units render as solid magenta. Copy them from a full Generals install (in a Steam copy they are in the ZH_Generals subfolder).</string>
-    <string name="setup_folder_issue_no_base_language">No base Generals language archive found (English.big, German.big, French.big, … — whichever matches your copy). Without it the base game text and voices are missing and the game can fail to start.</string>
+    <string name="setup_folder_issue_no_base_game">Base Generals game data missing:%1$s</string>
+    <string name="setup_folder_issue_no_base_language">Base Generals language archive missing (English.big, German.big, French.big, …)</string>
     <string name="setup_status_logs_note">Crash/engine logs live in this app\'s private storage and are only reachable through \"View Logs\" above — Android hides them from normal file managers by design (this is standard Android sandboxing, not specific to this app).</string>
 
     <!-- SetupActivity: Language card -->
