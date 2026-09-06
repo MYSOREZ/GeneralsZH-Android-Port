@@ -1482,8 +1482,33 @@ public class SetupActivity extends Activity {
         if (missing.length() > 0) {
             issues.add(getString(R.string.setup_folder_issue_no_base_game, missing.toString()));
         }
+
+        // GeneralsX @bugfix Android port game-folder-integrity-check 06/09/2026
+        // The base game also needs a language archive, but naming one would be
+        // wrong: which it is depends on the SKU, and demanding English.big from
+        // a legitimate German copy sends its owner hunting for a file that
+        // never existed. So require that ANY of them is present. The list is
+        // the engine's own -- registry.cpp's tryAutoDetectLanguage() probes
+        // exactly these to decide what language to run in -- rather than one
+        // written from memory here, so the two cannot drift apart.
+        boolean sawLanguageArchive = false;
+        for (String name : BASE_GAME_LANGUAGE_ARCHIVES) {
+            if (presentArchives.contains(name)) {
+                sawLanguageArchive = true;
+                break;
+            }
+        }
+        if (!sawLanguageArchive) {
+            issues.add(getString(R.string.setup_folder_issue_no_base_language));
+        }
         return issues;
     }
+
+    private static final java.util.Set<String> BASE_GAME_LANGUAGE_ARCHIVES =
+        new java.util.HashSet<>(java.util.Arrays.asList(
+            "english.big", "german.big", "french.big", "spanish.big",
+            "chinese.big", "korean.big", "polish.big", "brazilian.big",
+            "russian.big", "italian.big"));
 
     // GeneralsX @bugfix Android port game-folder-integrity-check 06/09/2026
     // The base Generals archives, named as they ship. Zero Hour's own archives

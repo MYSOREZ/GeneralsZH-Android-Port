@@ -27,6 +27,7 @@
     <string name="setup_folder_issue_bad_header">%1$s doesn\'t look like a valid game archive</string>
     <string name="setup_folder_issue_missing_data">%1$s is missing expected game data — likely an incomplete copy</string>
     <string name="setup_folder_issue_no_base_game">Missing base Generals game data: %1$s. Zero Hour is an expansion — its own *ZH.big archives contain only what it added, so without these the original terrain and many units render as solid magenta. Copy them from a full Generals install (in a Steam copy they are in the ZH_Generals subfolder).</string>
+    <string name="setup_folder_issue_no_base_language">No base Generals language archive found (English.big, German.big, French.big, … — whichever matches your copy). Without it the base game text and voices are missing and the game can fail to start.</string>
     <string name="setup_status_logs_note">Crash/engine logs live in this app\'s private storage and are only reachable through \"View Logs\" above — Android hides them from normal file managers by design (this is standard Android sandboxing, not specific to this app).</string>
 
     <!-- SetupActivity: Language card -->
