@@ -902,6 +902,11 @@ protected:
 	Bool												m_isSelecting;
 	MouseMode										m_mouseMode;
 	Int													m_mouseModeCursor;
+	// GeneralsX @feature Android port 06/09/2026 Whether the armed GUI command would
+	// currently accept the point under the cursor. On a mouse this is carried purely by
+	// the cursor bitmap (valid vs invalid art, chosen in createCommandHint); a touchscreen
+	// has no cursor to carry it, so the answer has to be recorded and drawn instead.
+	Bool												m_touchTargetValid;
 	DrawableID									m_mousedOverDrawableID;
 	Coord2D											m_scrollAmt;
 	Bool												m_isQuitMenuVisible;

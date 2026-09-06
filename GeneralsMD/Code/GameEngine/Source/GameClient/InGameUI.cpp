@@ -1066,6 +1066,7 @@ InGameUI::InGameUI()
 	m_mouseMode = MOUSEMODE_DEFAULT;
 	m_mouseModeCursor = Mouse::ARROW;
 	m_mousedOverDrawableID = INVALID_DRAWABLE_ID;
+	m_touchTargetValid = FALSE;
 
 	m_currentlyPlayingMovie.clear();
 	m_militarySubtitle = nullptr;
@@ -3067,6 +3068,15 @@ void InGameUI::createCommandHint( const GameMessage *msg )
 								break;
 						}
 
+						// GeneralsX @feature Android port 06/09/2026 Keep the answer, not just
+						// the artwork chosen from it. evaluateContextCommand() has already done
+						// the work of deciding whether this point is a legal target and said so
+						// by picking the message type; on a mouse that decision leaves the engine
+						// as a cursor bitmap and nowhere else. A touchscreen draws no cursor, so
+						// the player would arm a superweapon and learn the answer only afterwards.
+						// Store it here and draw it in postDraw().
+						m_touchTargetValid = (t == GameMessage::MSG_VALID_GUICOMMAND_HINT);
+
 						Int index = TheMouse->getCursorIndex(cursorName);
 						if( index != Mouse::INVALID_MOUSE_CURSOR )
 						{
@@ -3082,6 +3092,8 @@ void InGameUI::createCommandHint( const GameMessage *msg )
 					}
 					else if( BitIsSet( m_pendingGUICommand->getOptions(), COMMAND_OPTION_NEED_TARGET ) )
 					{
+						// this branch has no invalid variant -- it only ever shows the plain cursor
+						m_touchTargetValid = TRUE;
 						Int index = TheMouse->getCursorIndex(m_pendingGUICommand->getCursorName());
 						if (index != Mouse::INVALID_MOUSE_CURSOR)
 							setMouseCursor( (Mouse::MouseCursor)index );
@@ -4174,6 +4186,59 @@ void InGameUI::postDraw()
 			TheDisplay->drawFillRect( anchor->x-w, anchor->y-h*r, w*2+1, h*2*r+1, mainColor );
 		}
 	}
+
+#if defined(__ANDROID__) || (defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE)
+	// GeneralsX @feature Android port 06/09/2026 Draw the targeting reticle a touchscreen
+	// has no cursor to carry.
+	//
+	// With an ability armed, the shape of the mouse cursor was the ONLY thing telling the
+	// player whether the point under it would accept the order: createCommandHint() picks
+	// getCursorName() or getInvalidCursorName() from the hint message and calls
+	// setMouseCursor() with it. On Android that cursor is an SDL system cursor
+	// (SDL3Mouse::setCursor) and a touchscreen never draws one, so the whole valid/invalid
+	// channel simply vanished -- a player would drop a fuel-air bomb or a spy drone blind
+	// and find out where it went afterwards. Nothing here restores the cursor; it draws the
+	// answer directly, at the point the finger is actually pointing at.
+	//
+	// Not colour alone: valid draws inward ticks, invalid draws an X across the box, so it
+	// reads on a small bright screen and without colour vision.
+	if( m_mouseMode == MOUSEMODE_GUI_COMMAND && m_pendingGUICommand != nullptr && TheMouse != nullptr )
+	{
+		const Bool needsATarget =
+			m_pendingGUICommand->isContextCommand() ||
+			m_pendingGUICommand->getCommandType() == GUI_COMMAND_SPECIAL_POWER ||
+			m_pendingGUICommand->getCommandType() == GUI_COMMAND_SPECIAL_POWER_FROM_SHORTCUT ||
+			BitIsSet( m_pendingGUICommand->getOptions(), COMMAND_OPTION_NEED_TARGET );
+
+		if( needsATarget )
+		{
+			const ICoord2D pos = TheMouse->getMouseStatus()->pos;
+			const Color mainColor = m_touchTargetValid ? GameMakeColor( 80, 255, 80, 255 )
+																								 : GameMakeColor( 255, 48, 48, 255 );
+			const Color dropColor = GameMakeColor( 0, 0, 0, 255 );
+			const Int r = 22;			// half-size of the reticle box, in logical pixels
+			const Int gap = 8;		// centre kept clear so the target stays visible
+			const Real lineW = 2.0f;
+
+			// black outline first, so the reticle survives whatever it is drawn over
+			TheDisplay->drawOpenRect( pos.x - r - 1, pos.y - r - 1, r * 2 + 3, r * 2 + 3, lineW, dropColor );
+			TheDisplay->drawOpenRect( pos.x - r, pos.y - r, r * 2 + 1, r * 2 + 1, lineW, mainColor );
+
+			if( m_touchTargetValid )
+			{
+				TheDisplay->drawLine( pos.x, pos.y - r, pos.x, pos.y - gap, lineW, mainColor );
+				TheDisplay->drawLine( pos.x, pos.y + gap, pos.x, pos.y + r, lineW, mainColor );
+				TheDisplay->drawLine( pos.x - r, pos.y, pos.x - gap, pos.y, lineW, mainColor );
+				TheDisplay->drawLine( pos.x + gap, pos.y, pos.x + r, pos.y, lineW, mainColor );
+			}
+			else
+			{
+				TheDisplay->drawLine( pos.x - r, pos.y - r, pos.x + r, pos.y + r, lineW, mainColor );
+				TheDisplay->drawLine( pos.x + r, pos.y - r, pos.x - r, pos.y + r, lineW, mainColor );
+			}
+		}
+	}
+#endif
 
 	//draw superweapon ready multipliers
 	TheControlBar->drawSpecialPowerShortcutMultiplierText();
