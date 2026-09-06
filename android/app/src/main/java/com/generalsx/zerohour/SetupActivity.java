@@ -1278,11 +1278,24 @@ public class SetupActivity extends Activity {
     }
 
     private void showFolderProblemDialog(String message) {
-        new android.app.AlertDialog.Builder(this)
+        showFolderProblemDialog(message, false);
+    }
+
+    // GeneralsX @feature Android port 06/09/2026 When what is missing is the
+    // base game specifically, listing the filenames is only half an answer:
+    // the other half is that they do not have to be moved at all, since Setup
+    // can be pointed at wherever they already live. Offer that here rather
+    // than leaving it to be discovered among the buttons further down.
+    private void showFolderProblemDialog(String message, boolean offerBasePicker) {
+        android.app.AlertDialog.Builder b = new android.app.AlertDialog.Builder(this)
             .setTitle(R.string.setup_dialog_folder_problem_title)
             .setMessage(message)
-            .setPositiveButton(android.R.string.ok, null)
-            .show();
+            .setPositiveButton(android.R.string.ok, null);
+        if (offerBasePicker) {
+            b.setNeutralButton(R.string.setup_button_select_base_generals,
+                (d, which) -> onSelectBaseGeneralsFolder());
+        }
+        b.show();
     }
 
     private String getSavedGamePath() {
@@ -1397,6 +1410,7 @@ public class SetupActivity extends Activity {
     // what the engine itself is willing to look for automatically.
     private java.util.List<String> findGameFolderIntegrityIssues(File dir) {
         java.util.List<String> issues = new java.util.ArrayList<>();
+        m_lastCheckWantedBaseGenerals = false;
         if (dir == null || !dir.isDirectory()) {
             return issues;
         }
@@ -1503,6 +1517,7 @@ public class SetupActivity extends Activity {
         }
         if (missing.length() > 0) {
             issues.add(getString(R.string.setup_folder_issue_no_base_game, missing.toString()));
+            m_lastCheckWantedBaseGenerals = true;
         }
 
         // GeneralsX @bugfix Android port game-folder-integrity-check 06/09/2026
@@ -1522,6 +1537,7 @@ public class SetupActivity extends Activity {
         }
         if (!sawLanguageArchive) {
             issues.add(getString(R.string.setup_folder_issue_no_base_language));
+            m_lastCheckWantedBaseGenerals = true;
         }
         return issues;
     }
@@ -1581,6 +1597,10 @@ public class SetupActivity extends Activity {
         }
         return missing;
     }
+
+    // Set by findGameFolderIntegrityIssues(): whether the problems it just
+    // found are ones that pointing Setup at a base-Generals folder would fix.
+    private boolean m_lastCheckWantedBaseGenerals = false;
 
     private static final String[] BASE_GAME_REQUIRED_ARCHIVES = {
         "INI.big", "Terrain.big", "Textures.big", "W3D.big", "Window.big",
@@ -1748,7 +1768,7 @@ public class SetupActivity extends Activity {
                     java.util.List<String> issues = findGameFolderIntegrityIssues(dir);
                     if (!issues.isEmpty()) {
                         showFolderProblemDialog(getString(R.string.setup_status_folder_incomplete,
-                            String.join("\n", issues)).trim());
+                            String.join("\n", issues)).trim(), m_lastCheckWantedBaseGenerals);
                     } else {
                         Toast.makeText(this, R.string.setup_toast_folder_saved, Toast.LENGTH_LONG).show();
                     }
