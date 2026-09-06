@@ -1114,6 +1114,39 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 						break;
 					}
 					{
+						// GeneralsX @bugfix Android port 06/09/2026 Reported: with the generals
+						// powers panel open, a tap inside it closed the panel AND set the
+						// command centre's rally point on the ground underneath -- a click
+						// straight through the UI.
+						//
+						// The old synthetic-click path was protected for free: WindowXlat runs
+						// at priority 10, hands the click to the window manager, and destroys
+						// the message when the manager reports WIN_INPUT_USED, so CommandXlat
+						// never saw it. Resolving the tap natively skipped that entirely, and
+						// only touches on an actual GWS_PUSH_BUTTON leaf were being diverted
+						// (isRealUiHit) -- a panel background, a list, a slider are none of
+						// those.
+						//
+						// So ask the window manager the same question it would have been asked,
+						// directly, with no message and no phantom pointer: a balanced
+						// down-then-up at the finger's own point, which is exactly what a tap
+						// is. If it takes the input, the tap was for the UI and the battlefield
+						// must not also act on it. This cannot swallow battlefield taps -- every
+						// tap went through this same call before this branch existed, and orders
+						// worked.
+						if (TheWindowManager) {
+							ICoord2D uiPoint;
+							uiPoint.x = (Int)s_touch.downX;
+							uiPoint.y = (Int)s_touch.downY;
+							const WinInputReturnCode usedDown =
+								TheWindowManager->winProcessMouseEvent(GWM_LEFT_DOWN, &uiPoint, nullptr);
+							const WinInputReturnCode usedUp =
+								TheWindowManager->winProcessMouseEvent(GWM_LEFT_UP, &uiPoint, nullptr);
+							if (usedDown == WIN_INPUT_USED || usedUp == WIN_INPUT_USED) {
+								break;
+							}
+						}
+
 						// Double-tap: select all of the clicked unit's type on
 						// screen, matching the PC's double-click. MetaEventTranslator
 						// (MetaEvent.cpp) turns MSG_RAW_MOUSE_LEFT_DOUBLE_CLICK +
@@ -1274,6 +1307,16 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 					// deferred classification instead.
 					pushMousePosition(s_touch.downX, s_touch.downY);
 					pushMouseButton(GameMessage::MSG_RAW_MOUSE_LEFT_BUTTON_UP, s_touch.downX, s_touch.downY);
+					// GeneralsX @bugfix Android port 06/09/2026 Reported: holding a build
+					// button to read its description eventually enters build mode and the
+					// description disappears. The hold has to keep the button pressed -- that
+					// is what the description poll watches (WIN_STATE_SELECTED) -- so the
+					// release necessarily completes a click. Undo the intent rather than the
+					// mechanics: a press held this long was to read, not to arm, so back out
+					// of whatever it armed. A short tap is unaffected and still builds.
+					if ((SDL_GetTicks() - s_touch.downTicks) >= LONG_PRESS_MS) {
+						TouchInput::cancelOrDeselect();
+					}
 					break;
 				default:
 					break;

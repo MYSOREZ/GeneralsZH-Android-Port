@@ -1544,6 +1544,29 @@ void InGameUI::setRadiusCursor(RadiusCursorType cursorType, const SpecialPowerTe
 //-------------------------------------------------------------------------------------------------
 void InGameUI::handleRadiusCursor()
 {
+#if defined(__ANDROID__) || (defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE)
+	// GeneralsX @bugfix Android port 06/09/2026 Reported: the ability circle appears for a
+	// moment when the finger lands and is then gone for the rest of the drag, leaving the
+	// player aiming a superweapon with nothing on screen.
+	//
+	// The decal is created once, when aiming starts, and seven different places in the
+	// engine call setRadiusCursorNone() -- createCommandHint() does it unconditionally on
+	// every hint, ControlBar::switchToContext() does it whenever the selection context is
+	// rebuilt, and so on. On the mouse path that is harmless because the very next mouse
+	// position recreates it a frame later; native aiming sends no positions, so the first
+	// one to fire kills it for good.
+	//
+	// Rather than hunt which one it was, re-assert the invariant here, once a frame: while
+	// a command is armed and a finger is aiming it, its radius decal exists. Cheap, because
+	// setRadiusCursor() is only reached on the frame after something cleared it.
+	if (m_touchAimKnown && m_pendingGUICommand != nullptr && m_curRadiusCursor.isEmpty())
+	{
+		setRadiusCursor(m_pendingGUICommand->getRadiusCursorType(),
+										m_pendingGUICommand->getSpecialPowerTemplate(),
+										m_pendingGUICommand->getWeaponSlot());
+	}
+#endif
+
 	if (!m_curRadiusCursor.isEmpty())
 	{
     if ( TheGlobalData->m_doubleClickAttackMove && m_duringDoubleClickAttackMoveGuardHintTimer > 0 )
