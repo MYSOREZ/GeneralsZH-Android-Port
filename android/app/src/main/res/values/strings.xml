@@ -95,6 +95,8 @@
     <string name="setup_diagnostics_no_folder">Select a game folder first (above) to use these</string>
     <string name="setup_switch_gx_trace">Verbose trace log</string>
     <string name="setup_switch_gx_trace_desc">Very detailed internal logging (UI, fonts, INI files) for chasing a specific hang or bug. Can grow to a huge log (50–100+ MB) over a long session — use \"Performance summary\" instead if you only need FPS numbers. (gx_trace.txt)</string>
+    <string name="setup_switch_touch_debug">Touch input overlay</string>
+    <string name="setup_switch_touch_debug_desc">Draws the touch layer\'s own state over the game: current gesture, where your finger is, where the engine thinks the pointer is, and the camera scroll anchor. Turn this on to report control problems — a runaway map, a ghost building in the wrong place, an ability aiming somewhere you did not touch. (gx_touch_debug.txt)</string>
     <string name="setup_switch_gx_perf">Performance summary</string>
     <string name="setup_switch_gx_perf_desc">Adds one short line per second showing where frame time goes (radar, audio, network, game logic, rendering). Safe to leave on for a whole play session — turn this on for FPS/slowdown reports. (gx_perf.txt)</string>
     <string name="setup_switch_dxvk_hud">On-screen performance overlay</string>

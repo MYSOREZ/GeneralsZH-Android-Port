@@ -85,6 +85,8 @@
     <string name="setup_diagnostics_no_folder">اختر مجلد اللعبة أولاً (أعلاه) لاستخدام هذه المفاتيح</string>
     <string name="setup_switch_gx_trace">سجل تتبع مفصّل</string>
     <string name="setup_switch_gx_trace_desc">تسجيل داخلي مفصّل جدًا (الواجهة، الخطوط، ملفات INI) لتتبع تجمّد أو خلل معيّن. قد ينمو السجل إلى حجم كبير جدًا (50-100+ ميجابايت) خلال جلسة طويلة — استخدم "ملخص الأداء" بدلاً من ذلك إذا كنت تحتاج فقط إلى أرقام معدل الإطارات. (gx_trace.txt)</string>
+    <string name="setup_switch_touch_debug">عرض تشخيص اللمس</string>
+    <string name="setup_switch_touch_debug_desc">يرسم حالة طبقة اللمس فوق اللعبة: الإيماءة الحالية، وموضع إصبعك، والموضع الذي يعتقد المحرك أن المؤشر فيه، ونقطة ارتكاز تمرير الكاميرا. فعّل هذا للإبلاغ عن مشكلات التحكم — خريطة تتحرك من تلقاء نفسها، أو مبنى شبحي في المكان الخطأ، أو قدرة تستهدف مكانًا لم تلمسه. (gx_touch_debug.txt)</string>
     <string name="setup_switch_gx_perf">ملخص الأداء</string>
     <string name="setup_switch_gx_perf_desc">يضيف سطرًا قصيرًا كل ثانية يوضح أين يُصرف وقت الإطار (الرادار، الصوت، الشبكة، منطق اللعبة، العرض). آمن تركه مفعّلاً طوال جلسة اللعب — فعّله لتقارير معدل الإطارات/التباطؤ. (gx_perf.txt)</string>
     <string name="setup_switch_dxvk_hud">طبقة أداء على الشاشة</string>

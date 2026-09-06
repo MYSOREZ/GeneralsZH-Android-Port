@@ -316,6 +316,11 @@ struct TouchState {
 		             // anchor already sent, drag now sets rotation angle (see PlaceEventTranslator.cpp)
 		SELECTING,   // finger1 held past SELECT_HOLD_MS, THEN dragged past the dead zone -- area
 		             // selection box, anchor already sent (see SelectionXlat.cpp)
+		TARGETING,   // finger1 landed on the battlefield while a GUI command (ability,
+		             // special power) was armed -- the finger IS the aiming reticle: every
+		             // motion publishes a position so the radius decal, the validity hint and
+		             // the on-screen reticle follow it, and release fires the command there.
+		             // See the FINGER_DOWN case for why this cannot be left to PENDING.
 		UI_PRESS     // finger1 landed directly on a GameWindow (button, panel, etc.) --
 		             // LEFT_BUTTON_DOWN already sent immediately at touch-down, motion is
 		             // ignored entirely (frozen at the anchor) until release/cancel sends
@@ -786,6 +791,36 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 				break;
 			}
 
+			// GeneralsX @feature Android port 06/09/2026 An armed ability turns the
+			// finger into the aiming reticle, with its own phase.
+			//
+			// Without this, a targeting drag fell into PENDING's classification and
+			// came out as one of two wrong things: held-then-dragged became SELECTING
+			// (a selection box, drawn over the battlefield while an ability was armed),
+			// dragged straight away became PANNING (the camera moves, the ability is
+			// still armed, and PANNING publishes no positions at all -- so the radius
+			// decal froze while the reticle kept following the finger, reported as
+			// "the area appears and disappears"). Neither is a targeting gesture, and
+			// PENDING cannot be taught to tell them apart, because at touch-down they
+			// look identical.
+			//
+			// An armed command removes the ambiguity entirely -- there is nothing else
+			// a battlefield touch can mean while one is pending -- so classify on that
+			// instead of on the gesture. Position only, no button: the command must
+			// not fire until the finger lifts, which is what makes drag-to-aim work.
+			// Cancel is unchanged: a second finger still goes through the two-finger
+			// path and right-clicks, which SelectionXlat turns into a GUI-command
+			// cancel.
+			if (TheInGameUI && TheInGameUI->getGUICommand() != nullptr) {
+				s_touch.finger1 = event.tfinger.fingerID;
+				s_touch.phase = TouchState::TARGETING;
+				s_touch.downX = s_touch.lastX = px;
+				s_touch.downY = s_touch.lastY = py;
+				s_touch.downTicks = SDL_GetTicks();
+				pushMousePosition(px, py);
+				break;
+			}
+
 			// A finger touching down during MOMENTUM grabs the map and stops
 			// the coast immediately -- same as tapping a map mid-fling on any
 			// touch device.
@@ -809,7 +844,8 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 			// the widget is never hilited, so only the default/first item responds.
 			pushMousePosition(px, py);
 		}
-		else if (s_touch.phase == TouchState::PENDING || s_touch.phase == TouchState::PANNING) {
+		else if (s_touch.phase == TouchState::PENDING || s_touch.phase == TouchState::PANNING ||
+		         s_touch.phase == TouchState::TARGETING) {
 			// Second finger: always becomes direct two-finger pan+zoom
 			// immediately, no classification -- see the file-header comment
 			// for why. A finger landing mid-PANNING (drag-then-pinch without
@@ -959,6 +995,14 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 			// case (grows the selection-box hint rectangle) directly -- message
 			// traffic, not a direct camera call, so no per-frame staleness
 			// concern, same reasoning as the PLACING case below.
+			pushMousePosition(px, py);
+		}
+		else if (s_touch.phase == TouchState::TARGETING && event.tfinger.fingerID == s_touch.finger1) {
+			// GeneralsX @feature Android port 06/09/2026 The whole point of the phase:
+			// every motion feeds CommandTranslator, which recomputes the valid/invalid
+			// hint for this point, which InGameUI::createCommandHint() turns into the
+			// radius decal position and the reticle's colour. Nothing is committed --
+			// no button has been sent yet.
 			pushMousePosition(px, py);
 		}
 		else if (s_touch.phase == TouchState::PLACING && event.tfinger.fingerID == s_touch.finger1) {
@@ -1154,6 +1198,18 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 					// than finalizing with whatever box was drawn so far.
 					pushMouseButton(GameMessage::MSG_RAW_MOUSE_LEFT_BUTTON_UP, px, py);
 					break;
+				case TouchState::TARGETING:
+					// GeneralsX @feature Android port 06/09/2026 Release fires the ability
+					// where the finger let go. A CANCELED touch (incoming call, palm
+					// rejection) must not: leave the command armed and send nothing, so the
+					// player aims again rather than having a superweapon land wherever the
+					// OS interrupted them.
+					if (event.type != SDL_EVENT_FINGER_CANCELED) {
+						pushMousePosition(px, py);
+						pushMouseButton(GameMessage::MSG_RAW_MOUSE_LEFT_BUTTON_DOWN, px, py);
+						pushMouseButton(GameMessage::MSG_RAW_MOUSE_LEFT_BUTTON_UP, px, py);
+					}
+					break;
 				case TouchState::UI_PRESS:
 					// GeneralsX @bugfix Android port 03/08/2026 Release at the
 					// ORIGINAL anchor (downX/downY), not wherever the finger
@@ -1229,6 +1285,66 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 	}
 }
 
+// GeneralsX @feature Android port 06/09/2026 Touch-input debug overlay feed.
+//
+// Enabled by a gx_touch_debug.txt marker in the game folder (the launcher's Diagnostics
+// section writes it) or a GX_TOUCH_DEBUG env var -- the same opt-in shape as gx_trace.txt,
+// resolved once. The marker path is relative on purpose: the engine chdir()s into the
+// selected game data folder long before any touch arrives.
+Bool touchDebugEnabled()
+{
+	static const bool enabled = []() {
+		const char *env = getenv("GX_TOUCH_DEBUG");
+		if (env != nullptr && env[0] != '\0' && env[0] != '0') {
+			return true;
+		}
+		FILE *marker = fopen("gx_touch_debug.txt", "r");
+		if (marker != nullptr) {
+			fclose(marker);
+			return true;
+		}
+		return false;
+	}();
+	return enabled ? TRUE : FALSE;
+}
+
+const char *touchPhaseName(TouchState::Phase phase)
+{
+	switch (phase) {
+		case TouchState::IDLE:      return "IDLE";
+		case TouchState::PENDING:   return "PENDING";
+		case TouchState::PANNING:   return "PANNING";
+		case TouchState::TWOFINGER: return "TWOFINGER";
+		case TouchState::MOMENTUM:  return "MOMENTUM";
+		case TouchState::PLACING:   return "PLACING";
+		case TouchState::SELECTING: return "SELECTING";
+		case TouchState::TARGETING: return "TARGETING";
+		case TouchState::UI_PRESS:  return "UI_PRESS";
+	}
+	return "?";
+}
+
+// Pushed every frame, not only on touch events: the state worth seeing -- a camera scroll
+// still latched with no finger on the screen -- is precisely the state in which no touch
+// event is arriving to refresh it.
+void publishTouchDebug()
+{
+	if (!touchDebugEnabled() || TheInGameUI == nullptr) {
+		return;
+	}
+	Int fingers = 0;
+	if (s_touch.phase == TouchState::TWOFINGER) {
+		fingers = 2;
+	} else if (s_touch.phase != TouchState::IDLE && s_touch.phase != TouchState::MOMENTUM) {
+		fingers = 1;
+	}
+	TheInGameUI->setTouchDebugState(touchPhaseName(s_touch.phase),
+	                                (Int)s_touch.downX, (Int)s_touch.downY,
+	                                (Int)s_touch.lastX, (Int)s_touch.lastY,
+	                                (Int)s_lastPublishedX, (Int)s_lastPublishedY,
+	                                fingers);
+}
+
 // GeneralsX @bugfix Android port 02/08/2026 Reported: panning freezes mid-
 // drag (finger stays down and moving) specifically in visually busy areas
 // (near the player's own or the enemy's buildings/units), reproducible by
@@ -1258,6 +1374,8 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 // that's consistent for both projections.
 void applyPendingCameraMotion()
 {
+	publishTouchDebug();
+
 	if (s_touch.phase == TouchState::PANNING) {
 		s_touch.panVelX = s_touch.lastX - s_touch.panLastPxX;
 		s_touch.panVelY = s_touch.lastY - s_touch.panLastPxY;

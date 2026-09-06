@@ -85,6 +85,8 @@
     <string name="setup_diagnostics_no_folder">请先在上方选择游戏文件夹，然后才能使用这些开关</string>
     <string name="setup_switch_gx_trace">详细跟踪日志</string>
     <string name="setup_switch_gx_trace_desc">非常详细的内部日志（界面、字体、INI 文件），用于追踪特定的卡死或错误。长时间游玩会话中日志可能增长到 50-100+ MB —— 如果只需要 FPS 数值，请改用"性能摘要"。(gx_trace.txt)</string>
+    <string name="setup_switch_touch_debug">触摸输入调试叠加</string>
+    <string name="setup_switch_touch_debug_desc">在游戏画面上绘制触摸层的状态：当前手势、手指位置、引擎认为指针所在的位置，以及镜头滚动锚点。报告操作问题时请开启——地图自行移动、幽灵建筑出现在错误位置、技能瞄准到你没有触摸的地方。(gx_touch_debug.txt)</string>
     <string name="setup_switch_gx_perf">性能摘要</string>
     <string name="setup_switch_gx_perf_desc">每秒添加一行简短记录，显示每帧时间花在哪里（雷达、音频、网络、游戏逻辑、渲染）。整个游玩会话保持开启也是安全的 —— 用于 FPS/卡顿报告时打开。(gx_perf.txt)</string>
     <string name="setup_switch_dxvk_hud">屏幕性能叠加层</string>

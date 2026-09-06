@@ -85,6 +85,8 @@
     <string name="setup_diagnostics_no_folder">Wähle zuerst einen Spielordner (oben), um diese Schalter zu nutzen</string>
     <string name="setup_switch_gx_trace">Ausführliches Trace-Protokoll</string>
     <string name="setup_switch_gx_trace_desc">Sehr detailliertes internes Protokoll (Oberfläche, Schriftarten, INI-Dateien) zur Suche nach einem bestimmten Hänger oder Fehler. Kann bei einer langen Sitzung auf 50–100+ MB anwachsen — nutze stattdessen „Leistungsübersicht“, wenn du nur FPS-Werte brauchst. (gx_trace.txt)</string>
+    <string name="setup_switch_touch_debug">Touch-Eingabe-Overlay</string>
+    <string name="setup_switch_touch_debug_desc">Zeigt den Zustand der Touch-Schicht über dem Spiel an: aktuelle Geste, Position deines Fingers, Position, an der die Engine den Zeiger vermutet, und den Scroll-Anker der Kamera. Aktiviere das für Meldungen zur Steuerung — davonlaufende Karte, Geisterbau an der falschen Stelle, Fähigkeit zielt dorthin, wo du nicht getippt hast. (gx_touch_debug.txt)</string>
     <string name="setup_switch_gx_perf">Leistungsübersicht</string>
     <string name="setup_switch_gx_perf_desc">Fügt einmal pro Sekunde eine kurze Zeile hinzu, die zeigt, wohin die Frame-Zeit geht (Radar, Audio, Netzwerk, Spiellogik, Rendering). Kann problemlos die ganze Spielsitzung über aktiviert bleiben — nutze dies für FPS-/Ruckler-Berichte. (gx_perf.txt)</string>
     <string name="setup_switch_dxvk_hud">Bildschirm-Leistungsanzeige</string>

@@ -85,6 +85,8 @@
     <string name="setup_diagnostics_no_folder">Najpierw wybierz folder gry (powyżej), aby korzystać z tych przełączników</string>
     <string name="setup_switch_gx_trace">Szczegółowy log śledzenia</string>
     <string name="setup_switch_gx_trace_desc">Bardzo szczegółowe logowanie wewnętrzne (interfejs, czcionki, pliki INI) do śledzenia konkretnego zawieszenia lub błędu. Podczas długiej sesji log może urosnąć do 50–100+ MB — jeśli potrzebujesz tylko liczby FPS, użyj zamiast tego „Podsumowania wydajności”. (gx_trace.txt)</string>
+    <string name="setup_switch_touch_debug">Nakładka wejścia dotykowego</string>
+    <string name="setup_switch_touch_debug_desc">Rysuje na grze stan warstwy dotykowej: bieżący gest, położenie palca, miejsce, w którym silnik widzi wskaźnik, oraz kotwicę przewijania kamery. Włącz to przy zgłaszaniu problemów ze sterowaniem — uciekająca mapa, widmowy budynek w złym miejscu, zdolność celująca tam, gdzie nie dotknięto. (gx_touch_debug.txt)</string>
     <string name="setup_switch_gx_perf">Podsumowanie wydajności</string>
     <string name="setup_switch_gx_perf_desc">Dodaje jedną krótką linię na sekundę pokazującą, na co idzie czas klatki (radar, dźwięk, sieć, logika gry, renderowanie). Można bezpiecznie zostawić włączone przez całą sesję — włącz do zgłoszeń o FPS/spowolnieniach. (gx_perf.txt)</string>
     <string name="setup_switch_dxvk_hud">Nakładka wydajności na ekranie</string>
