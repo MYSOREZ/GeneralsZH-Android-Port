@@ -76,6 +76,23 @@ public:
 	// it to do nothing here; nothing on mobile calls addSDLEvent() on this
 	// object anymore, so there's no button/wheel state to flush either.
 	virtual void createStreamMessages() override;
+
+	// GeneralsX @feature Android port 06/09/2026 Where the last finger touched,
+	// in the engine's logical coordinates. On a phone there is no pointer that
+	// persists between touches, but the engine has places that read the cursor
+	// position directly rather than from the message stream -- the build-placement
+	// icon (InGameUI.cpp), mouseover hints, getWindowUnderCursor() -- and with
+	// nothing ever writing it those all resolved to (0,0), which is why held
+	// commands and placement previews appeared in the top-left corner. The touch
+	// layer publishes its anchor here so those readers see the last place the
+	// player actually touched.
+	static void setTouchAnchor(Int x, Int y);
+
+	// True when a real pointing device is driving input: a mouse attached over
+	// OTG or Bluetooth on Android, or an ordinary mouse on desktop. Touch-only
+	// devices report false, and the two paths deliberately do not run at once --
+	// a phantom second position source is what the mobile no-op was avoiding.
+	static Bool hasRealPointer();
 #endif
 
 	// SDL3-specific methods
