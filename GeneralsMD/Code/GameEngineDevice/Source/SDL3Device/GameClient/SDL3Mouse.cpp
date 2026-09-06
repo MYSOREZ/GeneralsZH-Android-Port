@@ -29,7 +29,6 @@
 
 // GeneralsX @bugfix BenderAI 13/02/2026 Fix include path (fighter19 pattern)
 #include "SDL3Device/GameClient/SDL3Mouse.h"
-#include "GameClient/Keyboard.h"
 #include <cstdio>
 #include <cstring>
 
@@ -530,91 +529,16 @@ void SDL3Mouse::regainFocus()
 }
 
 #if (defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE) || defined(__ANDROID__)
-
-// GeneralsX @feature Android port 06/09/2026 Last place a finger touched, in
-// logical coordinates, published by the touch layer in SDL3GameEngine.cpp.
-static Int s_touchAnchorX = 0;
-static Int s_touchAnchorY = 0;
-static Bool s_touchAnchorValid = FALSE;
-
-void SDL3Mouse::setTouchAnchor(Int x, Int y)
-{
-	s_touchAnchorX = x;
-	s_touchAnchorY = y;
-	s_touchAnchorValid = TRUE;
-}
-
-// A phone has no mouse -- until someone plugs one in over OTG or pairs one over
-// Bluetooth, at which point SDL reports it like any other and its events already
-// reach addSDLEvent() below (SDL3GameEngine.cpp forwards them, dropping only the
-// touch-synthesized ones). Ask SDL rather than assuming by platform, and re-ask
-// each frame so attaching or unplugging one mid-game takes effect without a
-// restart.
-Bool SDL3Mouse::hasRealPointer()
-{
-	return SDL_HasMouse() ? TRUE : FALSE;
-}
-
 /**
- * GeneralsX @bugfix Android port 06/09/2026 This used to be an unconditional
- * no-op, on the reasoning that touch drives the message stream directly from
- * SDL3GameEngine.cpp and a second position source would only be stale. The first
- * half is right; the conclusion threw out two things the engine needs and does
- * not get anywhere else.
- *
- * Mouse::createStreamMessages() is also what maintains the cursor position other
- * code reads directly -- the build-placement icon, mouseover hints,
- * getWindowUnderCursor() -- and what decides m_displayTooltip from how long the
- * pointer has held still. With this a no-op, the first resolved to (0,0) forever
- * (held commands and placement previews drawn in the top-left corner, a real
- * report) and the second could never become true (button descriptions flashing
- * for one frame and vanishing).
- *
- * So: with a real pointer attached, run the inherited behaviour and let a mouse
- * be a mouse. Otherwise keep the touch anchor as the cursor position and let a
- * held finger count as holding still, which is what a long press on a button
- * means on a touchscreen.
+ * GeneralsX @feature Android port 01/08/2026 See the declaration comment in
+ * SDL3Mouse.h: touch input on this platform drives the message stream
+ * directly from SDL3GameEngine.cpp, so this object never receives real
+ * events (nothing calls addSDLEvent() on it here) and its inherited
+ * per-frame MSG_RAW_MOUSE_POSITION heartbeat would only inject a second,
+ * stale position source. No-op.
  */
 void SDL3Mouse::createStreamMessages()
 {
-	if (hasRealPointer())
-	{
-		Mouse::createStreamMessages();
-		return;
-	}
-
-	if (TheMessageStream == nullptr || !s_touchAnchorValid)
-		return;
-
-	m_currMouse.pos.x = s_touchAnchorX;
-	m_currMouse.pos.y = s_touchAnchorY;
-
-	GameMessage *msg = TheMessageStream->appendMessage( GameMessage::MSG_RAW_MOUSE_POSITION );
-	msg->appendPixelArgument( m_currMouse.pos );
-	msg->appendIntegerArgument( TheKeyboard ? TheKeyboard->getModifierFlags() : 0 );
-
-	// Tooltip timing, driven by the finger instead of by a pointer at rest. The
-	// anchor moves only when a touch moves, so "held still" is simply "the anchor
-	// has not changed" -- which makes a long press on a command button show its
-	// description and, unlike before, keep showing it.
-	static Int s_lastAnchorX = 0;
-	static Int s_lastAnchorY = 0;
-	const UnsignedInt now = timeGetTime();
-	if (m_currMouse.pos.x != s_lastAnchorX || m_currMouse.pos.y != s_lastAnchorY)
-	{
-		s_lastAnchorX = m_currMouse.pos.x;
-		s_lastAnchorY = m_currMouse.pos.y;
-		m_stillTime = now;
-		m_displayTooltip = FALSE;
-	}
-	else
-	{
-		Int delay = m_tooltipDelayTime;
-		if (m_tooltipDelay >= 0)
-			delay = m_tooltipDelay;
-		if (now - m_stillTime >= (UnsignedInt)delay)
-			m_displayTooltip = TRUE;
-	}
 }
 #endif
 

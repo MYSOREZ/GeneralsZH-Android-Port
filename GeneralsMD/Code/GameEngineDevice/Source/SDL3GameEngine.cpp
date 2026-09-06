@@ -587,14 +587,6 @@ ICoord2D touchPixel(float x, float y)
 	ICoord2D p;
 	p.x = (Int)x;
 	p.y = (Int)y;
-	// GeneralsX @bugfix Android port 06/09/2026 Publish it as the cursor position
-	// too. Parts of the engine read TheMouse->getMouseStatus()->pos directly
-	// instead of taking it off the message stream -- the build-placement icon,
-	// mouseover hints, getWindowUnderCursor() -- and with nothing writing it on a
-	// touch device they all resolved to (0,0), drawing held commands and placement
-	// previews in the top-left corner. Every message built from a touch goes
-	// through here, so this is the one place that cannot be forgotten.
-	SDL3Mouse::setTouchAnchor(p.x, p.y);
 	return p;
 }
 
