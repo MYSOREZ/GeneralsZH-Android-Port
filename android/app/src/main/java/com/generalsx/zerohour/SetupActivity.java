@@ -1407,6 +1407,7 @@ public class SetupActivity extends Activity {
         // them have the entry, matching how the actual merged filesystem
         // resolves it.
         java.util.List<File> iniArchives = new java.util.ArrayList<>();
+        boolean sawBaseGameAssets = false;
         for (File root : scanRoots) {
             File[] bigFiles = root.listFiles((d, name) -> name.toLowerCase(java.util.Locale.ROOT).endsWith(".big"));
             if (bigFiles == null) {
@@ -1425,6 +1426,9 @@ public class SetupActivity extends Activity {
                 String lower = f.getName().toLowerCase(java.util.Locale.ROOT);
                 if (lower.equals("ini.big") || lower.equals("inizh.big")) {
                     iniArchives.add(f);
+                }
+                if (BASE_GAME_ASSET_ARCHIVES.contains(lower)) {
+                    sawBaseGameAssets = true;
                 }
             }
         }
@@ -1449,8 +1453,33 @@ public class SetupActivity extends Activity {
                 issues.add(getString(R.string.setup_folder_issue_missing_data, names.toString()));
             }
         }
+
+        // GeneralsX @bugfix Android port game-folder-integrity-check 06/09/2026
+        // A copy holding only *ZH.big archives passes every check above -- the
+        // archives are all present, valid and complete -- and then renders its
+        // terrain and half its units in solid magenta, because Zero Hour is an
+        // expansion: its archives carry only what it added or changed, and the
+        // original game's artwork lives in the base game's Terrain.big /
+        // Textures.big / W3D.big. Traced from a real report: every archive in
+        // the folder mounted successfully, yet trdirtroad, trsidewalk,
+        // trtwolane, trtraintrack and their neighbours were nowhere in the
+        // merged filesystem, so the engine substituted the magenta
+        // missing-texture placeholder for each of them.
+        //
+        // Only flag it when ALL of the base asset archives are absent from
+        // every scanned root: a copy missing one of the three is unusual but
+        // could still be deliberate, whereas none of the three is
+        // unambiguously a Zero-Hour-only folder. Deliberately keyed on the
+        // asset archives rather than "any archive without a ZH suffix" --
+        // Music.big is commonly present on its own and would mask the problem.
+        if (!sawBaseGameAssets) {
+            issues.add(getString(R.string.setup_folder_issue_no_base_game));
+        }
         return issues;
     }
+
+    private static final java.util.Set<String> BASE_GAME_ASSET_ARCHIVES =
+        new java.util.HashSet<>(java.util.Arrays.asList("terrain.big", "textures.big", "w3d.big"));
 
     private static boolean hasBigFHeader(File f) {
         try (java.io.RandomAccessFile raf = new java.io.RandomAccessFile(f, "r")) {
