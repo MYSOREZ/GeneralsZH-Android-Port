@@ -48,23 +48,38 @@ IDirect3DTexture8* MissingTexture::_Get_Missing_Texture()
 		return nullptr;
 	}
 
-	// GeneralsX @diag Android port The per-call-site logs above are capped, so
-	// they cannot tell "one broken asset" from "the whole scene is magenta".
-	// This counter can: it is the exact number of objects that will render as
-	// the magenta placeholder. Reported on a widening scale so a healthy run
-	// stays quiet and a broken asset set is unmistakable.
-	{
-		static unsigned s_handouts = 0;
-		static unsigned s_next = 1;
-		s_handouts++;
-		if (s_handouts >= s_next) {
-			fprintf(stderr, "[gxmiss] MissingTexture handed out %u time(s) so far\n", s_handouts);
-			s_next = (s_handouts < 16) ? s_handouts + 1 : s_handouts * 2;
-		}
-	}
-
 	_MissingTexture->AddRef();
 	return _MissingTexture;
+}
+
+// GeneralsX @diag Android port One report for every real substitution of the
+// magenta placeholder. The first run of this diagnostic counted inside
+// _Get_Missing_Texture() instead, which Is_Missing_Texture() also calls just to
+// compare pointers -- so it counted pointer comparisons and produced a number
+// that looked like damage without being it. Count where the substitution
+// actually happens, and nowhere else.
+//
+// Names are capped so a wholly broken asset set cannot flood the log; the
+// count is not, because the count is the answer to "one texture or the whole
+// scene?" and a cap would destroy exactly that.
+void MissingTexture::_Note_Substitution(const char* reason, const char* name)
+{
+	static unsigned s_count = 0;
+	static unsigned s_next_report = 1;
+	static int s_named = 0;
+
+	s_count++;
+
+	if (s_named < 40) {
+		s_named++;
+		fprintf(stderr, "[gxmiss] magenta substituted (%s): %s\n",
+			reason ? reason : "?", (name && *name) ? name : "(unnamed)");
+	}
+
+	if (s_count >= s_next_report) {
+		fprintf(stderr, "[gxmiss] magenta substitutions so far: %u\n", s_count);
+		s_next_report = (s_count < 16) ? s_count + 1 : s_count * 2;
+	}
 }
 
 IDirect3DSurface8* MissingTexture::_Create_Missing_Surface()

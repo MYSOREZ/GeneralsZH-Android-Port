@@ -457,17 +457,7 @@ IDirect3DTexture8* TextureLoader::Load_Thumbnail(const StringClass& filename, co
 
 	// If no thumb is found return a missing texture
 	if (!thumb) {
-		// GeneralsX @diag Android port This is a silent whole-object magenta:
-		// with texture reduction on (the Android default detail level), every
-		// texture is first requested as a thumbnail, and an asset set without a
-		// thumbnail database turns the entire scene magenta with nothing in the
-		// log to say why. Name the file, capped.
-		static int s_logs = 0;
-		if (s_logs < 40) {
-			s_logs++;
-			fprintf(stderr, "[gxmiss] no thumbnail -> MissingTexture: %s\n",
-				(const char*)filename);
-		}
+		MissingTexture::_Note_Substitution("no thumbnail", (const char*)filename);
 		return MissingTexture::_Get_Missing_Texture();
 	}
 
@@ -1014,15 +1004,8 @@ void TextureLoader::Load_Thumbnail(TextureBaseClass *tc)
 		// GeneralsX @bugfix fbraz 04/05/2026 Avoid null dereference when fallback missing texture cannot be created.
 		WWDEBUG_SAY(("TextureLoader::Load_Thumbnail failed: null D3D texture for %s", tc->Get_Full_Path()));
 		{
-			static int s_logs = 0;
-			if (s_logs < 40) {
-				s_logs++;
-				// Get_Full_Path() returns a StringClass by value; a non-POD
-				// cannot go through varargs, so bind it and pass its buffer.
-				const StringClass path = tc->Get_Full_Path();
-				fprintf(stderr, "[gxmiss] thumbnail load returned nothing: %s\n",
-					(const char*)path);
-			}
+			const StringClass path = tc->Get_Full_Path();
+			MissingTexture::_Note_Substitution("thumbnail load produced nothing", (const char*)path);
 		}
 		return;
 	}
@@ -1354,6 +1337,14 @@ void TextureLoadTaskClass::Apply_Missing_Texture()
 		return;
 	}
 
+	{
+		// This is the path the previous diagnostic build could not see: every
+		// texture whose load never even began ends up magenta right here, and
+		// it was the only substitution site with nothing to say.
+		const StringClass path = Texture->Get_Full_Path();
+		MissingTexture::_Note_Substitution("load could not begin", (const char*)path);
+	}
+
 	D3DTexture = MissingTexture::_Get_Missing_Texture();
 	if (D3DTexture == nullptr)
 	{
@@ -1432,8 +1423,16 @@ static bool	Get_Texture_Information
 		if (compressed)
 		{
 			DDSFileClass dds_file(filename, 0);
-			if (!dds_file.Is_Available())
+			if (!dds_file.Is_Available()) {
+				// GeneralsX @diag Android port The caller turns this false into
+				// a magenta placeholder without ever saying what it looked for.
+				static int s_logs = 0;
+				if (s_logs < 40) {
+					s_logs++;
+					fprintf(stderr, "[gxmiss] reason: no thumbnail and no .dds: %s\n", filename);
+				}
 				return false;
+			}
 
 			// Destination size will be the next power of two square from the larger width and height...
 			w = dds_file.Get_Width(0);
@@ -1449,6 +1448,11 @@ static bool	Get_Texture_Information
 		Targa targa;
 		if (TARGA_ERROR_HANDLER(targa.Open(filename, TGA_READMODE), filename))
 		{
+			static int s_logs = 0;
+			if (s_logs < 40) {
+				s_logs++;
+				fprintf(stderr, "[gxmiss] reason: no thumbnail and .tga unreadable: %s\n", filename);
+			}
 			return false;
 		}
 

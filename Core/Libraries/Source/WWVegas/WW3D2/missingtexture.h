@@ -30,5 +30,13 @@ public:
 	static void _Deinit();
 
 	static IDirect3DTexture8* _Get_Missing_Texture();		// Return a reference to missing texture
+	// GeneralsX @diag Android port Called from the places that actually
+	// SUBSTITUTE the magenta placeholder for a texture that failed to load,
+	// naming the file and why. Deliberately not called from
+	// _Get_Missing_Texture(): TextureBaseClass::Is_Missing_Texture() calls
+	// that merely to compare pointers, so counting there counts queries, not
+	// failures, and inflates the number that is supposed to say how much of
+	// the scene is broken.
+	static void _Note_Substitution(const char* reason, const char* name);
 	static IDirect3DSurface8* _Create_Missing_Surface();	// Create new surface which contain missing texture image
 };
