@@ -666,6 +666,28 @@ void pushMousePosition(float x, float y)
 // instead marks the NEXT up as a double-click (matching real click
 // semantics exactly -- see the double-tap handling below for why DOUBLE_
 // CLICK is sent instead of, not in addition to, a DOWN).
+// GeneralsX @bugfix Android port 07/09/2026 Tell the window manager the pointer is gone.
+//
+// Reported: the Guard button stayed visually pressed after the command was issued.
+// GadgetPushButton clears a check-like button's WIN_STATE_SELECTED on GWM_MOUSE_LEAVING
+// (GadgetPushButton.cpp:120-138), not on the button-up -- on a mouse that arrives by
+// itself the moment the pointer travels to the map. A finger travels nowhere: it lifts,
+// and m_currMouseRgn stays parked on that button for the rest of the match, so the button
+// stays lit and every later hover decision is made about a widget nobody is touching.
+//
+// The truthful statement after a lift is not "the pointer moved somewhere else", it is
+// "there is no pointer". An off-screen position says exactly that: getWindowUnderCursor()
+// finds nothing there, so winProcessMouseEvent's enter/leave tail sends MOUSE_LEAVING to
+// whatever held the region and clears it. Nothing else reads it -- screen-edge scrolling,
+// the one thing that used to care where an unattended pointer sat, is off on touch.
+//
+// Must come AFTER the button-up: the leave tail only runs while m_grabWindow is null, and
+// the up is what clears the grab.
+void pushPointerGone()
+{
+	pushMousePosition(-1.0f, -1.0f);
+}
+
 void pushMouseButton(GameMessage::Type type, float x, float y)
 {
 	if (!TheMessageStream) {
@@ -1182,6 +1204,15 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 								TheWindowManager->winProcessMouseEvent(GWM_LEFT_DOWN, &uiPoint, nullptr);
 							const WinInputReturnCode usedUp =
 								TheWindowManager->winProcessMouseEvent(GWM_LEFT_UP, &uiPoint, nullptr);
+
+							// ...and the pointer is gone again, same reason as pushPointerGone().
+							// Direct call rather than a message because this whole exchange is
+							// synchronous; the up above has already cleared the grab.
+							ICoord2D nowhere;
+							nowhere.x = -1;
+							nowhere.y = -1;
+							TheWindowManager->winProcessMouseEvent(GWM_MOUSE_POS, &nowhere, nullptr);
+
 							if (usedDown == WIN_INPUT_USED || usedUp == WIN_INPUT_USED) {
 								break;
 							}
@@ -1395,6 +1426,7 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 					// deferred classification instead.
 					pushMousePosition(s_touch.downX, s_touch.downY);
 					pushMouseButton(GameMessage::MSG_RAW_MOUSE_LEFT_BUTTON_UP, s_touch.downX, s_touch.downY);
+					pushPointerGone();
 					TouchInput::reportUiHold(0, 0, FALSE);
 					// GeneralsX @bugfix Android port 06/09/2026 Reported: holding a build
 					// button to read its description eventually enters build mode and the
