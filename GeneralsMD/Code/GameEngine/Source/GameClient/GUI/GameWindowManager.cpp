@@ -945,6 +945,75 @@ WinInputReturnCode GameWindowManager::winProcessKey( UnsignedByte key,
 }
 
 //-------------------------------------------------------------------------------------------------
+/** Pick the window that mouse input at 'mousePos' belongs to, for the case where neither a mouse
+	* captor nor a grab window is claiming input. This is the selection half of
+	* winProcessMouseEvent() -- factored out so that a caller can ask "where would a press here
+	* go?" without actually sending anything (see getWindowForInputAt).
+	* 'toolTipWindow' is threaded through because findWindowUnderMouse() fills it in as a
+	* side effect of the search; pass a throwaway when the answer is not wanted. */
+//-------------------------------------------------------------------------------------------------
+GameWindow* GameWindowManager::findInputTargetWindow( const ICoord2D* mousePos, GameWindow*& toolTipWindow )
+{
+	GameWindow *window = nullptr;
+
+	if( m_modalHead && m_modalHead->window )
+	{
+		window = m_modalHead->window->winPointInChild( mousePos->x, mousePos->y );
+	}
+	else
+	{
+		// search for top-level window which contains pointer
+		window = findWindowUnderMouse(toolTipWindow, mousePos, WIN_STATUS_ABOVE, WIN_STATUS_HIDDEN);
+
+		// check !above, below and hidden
+		if( window == nullptr )
+			window = findWindowUnderMouse(toolTipWindow, mousePos, WIN_STATUS_NONE, WIN_STATUS_ABOVE | WIN_STATUS_BELOW | WIN_STATUS_HIDDEN);
+
+		// check below and !hidden
+		if( window == nullptr )
+			window = findWindowUnderMouse(toolTipWindow, mousePos, WIN_STATUS_BELOW, WIN_STATUS_HIDDEN);
+	}
+
+	if( window )
+		if( BitIsSet( window->m_status, WIN_STATUS_NO_INPUT ) )
+		{
+			if(window->winGetParent() && BitIsSet( window->winGetParent()->winGetInstanceData()->getStyle(), GWS_COMBO_BOX ))
+				window = window->winGetParent();
+			else
+				window = nullptr;
+		}
+
+	return window;
+}
+
+//-------------------------------------------------------------------------------------------------
+/** GeneralsX @bugfix Android port 07/09/2026 Answer, without sending anything, the question
+	* winProcessMouseEvent() answers for itself every time it runs: which window does a mouse
+	* press at these coordinates belong to? A NULL result means the press belongs to the game
+	* world. Touch input needs this to decide whether a finger position is a point on the
+	* battlefield at all -- the previous test looked for a leaf GWS_PUSH_BUTTON, which is true
+	* of the command bar but false of every dialog that is not made of buttons, so a tap inside
+	* the generals-promotions dialog was still being reported as an aim point and dragged the
+	* armed command's radius decal around the map behind it. */
+//-------------------------------------------------------------------------------------------------
+GameWindow *GameWindowManager::getWindowForInputAt( Int x, Int y )
+{
+	ICoord2D mousePos;
+	mousePos.x = x;
+	mousePos.y = y;
+
+	if( m_mouseCaptor )
+		return m_mouseCaptor->winPointInChild( x, y );
+
+	if( m_grabWindow )
+		return m_grabWindow;
+
+	// not wanted here, but findWindowUnderMouse() insists on somewhere to put it
+	GameWindow *toolTipWindow = nullptr;
+	return findInputTargetWindow( &mousePos, toolTipWindow );
+}
+
+//-------------------------------------------------------------------------------------------------
 /** Process a single mouse event through the window system */
 //-------------------------------------------------------------------------------------------------
 WinInputReturnCode GameWindowManager::winProcessMouseEvent( GameWindowMessage msg,
@@ -1118,32 +1187,7 @@ WinInputReturnCode GameWindowManager::winProcessMouseEvent( GameWindowMessage ms
 		else
 		{
 
-			if( m_modalHead && m_modalHead->window )
-			{
-				window = m_modalHead->window->winPointInChild( mousePos->x, mousePos->y );
-			}
-			else
-			{
-				// search for top-level window which contains pointer
-				window = findWindowUnderMouse(toolTipWindow, mousePos, WIN_STATUS_ABOVE, WIN_STATUS_HIDDEN);
-
-				// check !above, below and hidden
-				if( window == nullptr )
-					window = findWindowUnderMouse(toolTipWindow, mousePos, WIN_STATUS_NONE, WIN_STATUS_ABOVE | WIN_STATUS_BELOW | WIN_STATUS_HIDDEN);
-
-				// check below and !hidden
-				if( window == nullptr )
-					window = findWindowUnderMouse(toolTipWindow, mousePos, WIN_STATUS_BELOW, WIN_STATUS_HIDDEN);
-			}
-
-			if( window )
-				if( BitIsSet( window->m_status, WIN_STATUS_NO_INPUT ) )
-				{
-					if(window->winGetParent() && BitIsSet( window->winGetParent()->winGetInstanceData()->getStyle(), GWS_COMBO_BOX ))
-						window = window->winGetParent();
-					else
-						window = nullptr;
-				}
+			window = findInputTargetWindow( mousePos, toolTipWindow );
 
 			if( window )
 			{

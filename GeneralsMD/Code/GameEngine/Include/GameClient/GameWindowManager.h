@@ -254,6 +254,8 @@ public:
 
 	// Finds the top-level window at the mouse position that matches the required and forbidden status masks.
 	virtual GameWindow* findWindowUnderMouse(GameWindow*& toolTipWindow, const ICoord2D* mousePos, unsigned int requiredStatusMask, unsigned int forbiddenStatusMask);
+	/// pick the window mouse input at mousePos belongs to, once no captor or grab window is in play
+	GameWindow* findInputTargetWindow(const ICoord2D* mousePos, GameWindow*& toolTipWindow);
 	static bool isMouseWithinWindow(GameWindow* window, const ICoord2D* mousePos, unsigned int requiredStatusMask, unsigned int forbiddenStatusMask);
 
 	virtual Bool isEnabled( GameWindow *win );  ///< is window or parents enabled
@@ -322,6 +324,16 @@ public:
 	Bool initTestGUI();
 
 	virtual GameWindow *getWindowUnderCursor( Int x, Int y, Bool ignoreEnabled = FALSE );	///< find the top window at the given coordinates
+
+	// GeneralsX @bugfix Android port 07/09/2026 getWindowUnderCursor() is NOT the
+	// same question winProcessMouseEvent() asks when it decides where a click
+	// goes: it skips the WIN_STATUS_NO_INPUT filter and the non-ABOVE fallback
+	// passes, so it both reports windows that can never take input and misses
+	// windows that can. Touch input needs the real answer -- "would a press here
+	// be routed to a widget instead of to the battlefield?" -- to know whether a
+	// finger position means anything in the world (see InGameUI::setTouchAimPoint).
+	// This shares winProcessMouseEvent's own selection code so the two cannot drift.
+	virtual GameWindow *getWindowForInputAt( Int x, Int y );	///< the window a mouse press at (x,y) would actually be routed to, or NULL for none
 
 	//---------------------------------------------------------------------------
 	/////////////////////////////////////////////////////////////////////////////

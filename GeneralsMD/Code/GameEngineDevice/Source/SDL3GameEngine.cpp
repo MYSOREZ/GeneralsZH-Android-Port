@@ -626,6 +626,26 @@ Bool isRealUiHit(GameWindow *hit)
 	return hit != nullptr && BitIsSet(hit->winGetStyle(), GWS_PUSH_BUTTON);
 }
 
+// GeneralsX @bugfix Android port 07/09/2026 The question above ("is this a button
+// I should press immediately?") is deliberately narrow. It is the WRONG question
+// for the other consumer of a UI test: "does this finger position mean a point on
+// the battlefield?" -- reported as, with a unit selected and Guard armed, opening
+// the generals-promotions dialog and tapping inside it dragging the guard radius
+// around the map behind the dialog. That dialog is not made of push buttons, so
+// isRealUiHit() said "battlefield" for every tap in it.
+//
+// Ask the window manager the same thing winProcessMouseEvent() asks itself instead:
+// which window does a press here belong to? A null answer -- and only a null answer
+// -- means the press belongs to the world. That covers dialogs, list boxes, sliders
+// and panels alike, and it excludes WIN_STATUS_NO_INPUT windows (the decorative
+// full-screen tracking/hint windows that made an earlier, wider attempt at this test
+// swallow battlefield taps), because winProcessMouseEvent() excludes them too.
+Bool touchPointBelongsToUi(Real px, Real py)
+{
+	return TheWindowManager != nullptr &&
+	       TheWindowManager->getWindowForInputAt((Int)px, (Int)py) != nullptr;
+}
+
 // Hover/position hint -- WindowXlat.cpp uses this to set GUI hilite state,
 // SelectionXlat.cpp uses it to build the selection-box drag region, and
 // LookAtXlat.cpp uses it to know where a drag/edge-scroll anchor is. A real
@@ -767,8 +787,7 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 	//
 	const Bool touchIsOnUi =
 		(s_touch.phase == TouchState::UI_PRESS) ||
-		(TheWindowManager != nullptr &&
-		 isRealUiHit(TheWindowManager->getWindowUnderCursor((Int)px, (Int)py)));
+		touchPointBelongsToUi(px, py);
 
 	if (TheMouse && !touchIsOnUi) {
 		SDL3Mouse *sdlMouse = dynamic_cast<SDL3Mouse *>(TheMouse);
@@ -864,7 +883,14 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 			// Cancel is unchanged: a second finger still goes through the two-finger
 			// path and right-clicks, which SelectionXlat turns into a GUI-command
 			// cancel.
-			if (TheInGameUI && TheInGameUI->getGUICommand() != nullptr) {
+			// GeneralsX @bugfix Android port 07/09/2026 ...but only for a finger on the
+			// battlefield. An armed command does not make the whole screen a targeting
+			// surface: with Guard armed and the generals-promotions dialog open, taps
+			// inside the dialog were being read as aiming, publishing a pointer position
+			// on the dialog when the finger lifted. A touch the window manager would route
+			// to a widget goes down the PENDING path instead, whose release asks the
+			// manager first and stops there when the manager takes the input.
+			if (TheInGameUI && TheInGameUI->getGUICommand() != nullptr && !touchPointBelongsToUi(px, py)) {
 				s_touch.finger1 = event.tfinger.fingerID;
 				s_touch.phase = TouchState::TARGETING;
 				s_touch.downX = s_touch.lastX = px;
@@ -1122,8 +1148,13 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 					if (event.type == SDL_EVENT_FINGER_CANCELED) {
 						break;
 					}
+					// GeneralsX @bugfix Android port 07/09/2026 ...and not for a press that
+					// landed on UI the window manager owns. Dwelling on a dialog is not a
+					// battlefield gesture, and cancelOrDeselect() there would throw away the
+					// armed command the player is holding the dialog open to use.
 					if ((SDL_GetTicks() - s_touch.downTicks) >= LONG_PRESS_MS &&
-					    !(TheInGameUI && TheInGameUI->getPendingPlaceType())) {
+					    !(TheInGameUI && TheInGameUI->getPendingPlaceType()) &&
+					    !touchPointBelongsToUi(s_touch.downX, s_touch.downY)) {
 						// Still PENDING at release means it never crossed the pan
 						// dead zone (crossing it is what moves phase to PANNING) --
 						// held still for the whole long-press threshold, right-click
