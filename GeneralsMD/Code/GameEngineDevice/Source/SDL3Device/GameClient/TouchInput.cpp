@@ -24,7 +24,10 @@
 
 #include "Common/GameType.h"
 #include "Common/MessageStream.h"
+#include "Common/AcademyStats.h"
+#include "Common/GameCommon.h"
 #include "Common/Player.h"
+#include "Common/PlayerList.h"
 #include "Common/ThingTemplate.h"
 #include "Common/GlobalData.h"
 #include "GameClient/CommandXlat.h"
@@ -314,6 +317,45 @@ namespace TouchInput
 		if (picked == nullptr || obj == nullptr || !obj->isLocallyControlled() ||
 				!picked->isMassSelectable())
 		{
+			// GeneralsX @bugfix Android port 08/09/2026 ...except a double tap on bare
+			// ground, which has its own meaning the player can switch on: Options ->
+			// CONTROL OPTIONS -> "Double Click Guard" (m_doubleClickAttackMove) makes a
+			// double click on the ground an attack-move instead of a plain move. Reported
+			// as "the Double Click Guard checkbox does nothing".
+			//
+			// It did nothing because the flag is only ever read while handling
+			// MSG_MOUSE_LEFT_DOUBLE_CLICK in CommandXlat (CommandXlat.cpp:3980), and a
+			// natively resolved double tap never puts that message in the stream. So do
+			// here exactly what that case does -- same message, same guard mode, same
+			// academy stat and hint -- rather than route a synthetic double click through
+			// the translators just to reach it.
+			//
+			// Only for a tap that picked nothing at all. Double-tapping an enemy or a
+			// neutral object stays an ordinary tap (an attack, a capture), keeping the
+			// "never worse than a single tap" rule above intact. CommandXlat's own
+			// alternate-mouse condition is dropped: a finger has no second button, so
+			// that setting does not govern touch input at all.
+			if (picked == nullptr &&
+					TheGlobalData != nullptr && TheGlobalData->m_doubleClickAttackMove &&
+					hasControllableSelection() && TheMessageStream != nullptr)
+			{
+				Coord3D pos;
+				if (TheTacticalView->screenToTerrain(&pixel, &pos))
+				{
+					GameMessage *newMsg =
+						TheMessageStream->appendMessage(GameMessage::MSG_DO_GUARD_POSITION);
+					newMsg->appendLocationArgument(pos);
+					newMsg->appendIntegerArgument(GUARDMODE_NORMAL);
+
+					if (ThePlayerList != nullptr && ThePlayerList->getLocalPlayer() != nullptr)
+						ThePlayerList->getLocalPlayer()->getAcademyStats()
+							->recordDoubleClickAttackMoveOrderGiven();
+
+					TheInGameUI->triggerDoubleClickAttackMoveGuardHint();
+					return;
+				}
+			}
+
 			tap(x, y);
 			return;
 		}
