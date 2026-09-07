@@ -239,12 +239,14 @@ namespace TouchInput
 		pixel.x = x;
 		pixel.y = y;
 
-		// 1. An armed command owns the tap outright.
+		// 1. An armed command owns the tap outright -- but it is not dispatched here.
+		// A battlefield touch with a command armed enters the TARGETING phase, which
+		// commits it as a real click on release, because GUICommandTranslator (guard,
+		// evacuate, ...) acts on nothing else. See the comment at that call site. This
+		// branch exists so a tap arriving by some other route cannot fall through and
+		// be read as a move order.
 		if (hasArmedCommand())
-		{
-			fireArmed(x, y);
 			return;
-		}
 
 		Coord3D pos;
 		const Bool onTerrain = TheTacticalView->screenToTerrain(&pixel, &pos);
@@ -298,10 +300,7 @@ namespace TouchInput
 			return;
 
 		if (hasArmedCommand())
-		{
-			fireArmed(x, y);
 			return;
-		}
 
 		ICoord2D pixel;
 		pixel.x = x;
@@ -343,28 +342,6 @@ namespace TouchInput
 			TheGameClient->evaluateContextCommand(pickForOrder(pixel), &pos, CommandTranslator::EVALUATE_ONLY);
 
 		return (t != GameMessage::MSG_INVALID);
-	}
-
-	//-------------------------------------------------------------------------------------
-	void fireArmed(Int x, Int y)
-	{
-		if (TheTacticalView == nullptr || TheInGameUI == nullptr)
-			return;
-
-		ICoord2D pixel;
-		pixel.x = x;
-		pixel.y = y;
-
-		Coord3D pos;
-		if (!TheTacticalView->screenToTerrain(&pixel, &pos))
-			return;
-
-		issueContextOrder(pickForOrder(pixel), pos);
-
-		// The aim is spent: drop the radius decal and forget the point, so neither is left
-		// hanging over the map after the ability goes off.
-		TheInGameUI->setRadiusCursorNone();
-		TheInGameUI->clearTouchAimPoint();
 	}
 
 	//-------------------------------------------------------------------------------------

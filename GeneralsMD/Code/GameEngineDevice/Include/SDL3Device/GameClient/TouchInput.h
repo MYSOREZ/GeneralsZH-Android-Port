@@ -103,10 +103,14 @@ namespace TouchInput
 	void beginAiming(Int x, Int y);
 
 	/// Would the armed command accept this point? Does NOT issue it. For target feedback.
+	///
+	/// There is deliberately no "fire it" counterpart here. An armed command is committed
+	/// as a real click by the TARGETING phase, because GUICommandTranslator -- which owns
+	/// guard, evacuate and the rest, and which is what clears the mode on completion --
+	/// acts on MSG_MOUSE_LEFT_CLICK and nothing else. Dispatching those by hand would mean
+	/// reimplementing the engine's own command rules, which is what this module exists to
+	/// avoid. The aiming is still native; only the commit is a click.
 	Bool armedTargetValid(Int x, Int y);
-
-	/// Issue the armed command at this point.
-	void fireArmed(Int x, Int y);
 
 	/// Tell the control bar that a finger is held at this point, so it can keep the held
 	/// button's description alive (ControlBar::update). Routed through here rather than

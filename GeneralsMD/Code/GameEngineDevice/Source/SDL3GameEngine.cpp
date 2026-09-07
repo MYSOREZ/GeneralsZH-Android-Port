@@ -1352,7 +1352,34 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 						    movedFromDown < TAP_DEAD_ZONE_PX) {
 							TouchInput::cancelOrDeselect();
 						} else {
-							TouchInput::fireArmed((Int)px, (Int)py);
+							// GeneralsX @bugfix Android port 07/09/2026 An armed command commits
+							// as a real click, and this one is not a retreat from native input --
+							// it is the same judgement building placement already gets.
+							//
+							// Reported: Guard stayed armed after being used, its button still lit.
+							// evaluateContextCommand() dispatches only the CONTEXT commands --
+							// special powers, hijack, carbomb, sabotage, fire weapon, combat drop
+							// (CommandXlat.cpp:1712-1763). Guard, evacuate and the rest belong to
+							// GUICommandTranslator (priority 40), which acts on MSG_MOUSE_LEFT_CLICK
+							// and nothing else, and which is also what reports COMMAND_COMPLETE and
+							// so clears the mode. Sending no click meant that whole class of
+							// commands was never issued and never cleared -- the mode could only be
+							// escaped, never completed.
+							//
+							// Dispatching them by hand would mean reimplementing doGuardCommand()
+							// and its siblings, which is reintroducing game rules by hand: exactly
+							// what the native path exists to avoid. The click is how the engine
+							// dispatches an armed command, so let it. Special powers are unaffected
+							// -- GUICommandTranslator returns KEEP_MESSAGE for them and the same
+							// click reaches CommandXlat's evaluateContextCommand, which is the
+							// desktop path verbatim.
+							//
+							// The AIM stays native: the radius circle and the valid/invalid answer
+							// still come from armedTargetValid()/setTouchAimPoint() with no messages
+							// at all. Only the commit is a click, at the point the finger let go.
+							pushMousePosition(px, py);
+							pushMouseButton(GameMessage::MSG_RAW_MOUSE_LEFT_BUTTON_DOWN, px, py);
+							pushMouseButton(GameMessage::MSG_RAW_MOUSE_LEFT_BUTTON_UP, px, py);
 						}
 					}
 					break;
