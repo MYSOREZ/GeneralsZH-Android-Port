@@ -113,6 +113,7 @@ static NameKeyType s_buttonGroupID[10];
 // (SelectionXlat.cpp:1197).
 static NameKeyType s_buttonAddID = NAMEKEY_INVALID;
 static Bool s_addToSelectionArmed = FALSE;
+static Bool s_addLabelsShown = FALSE;
 static Bool s_groupRowExpanded = FALSE;
 
 // GeneralsX @feature Android port 02/08/2026 Hold-gesture timing. 0 means
@@ -234,6 +235,35 @@ static void handleGroupClear(Int group)
 // untouched -- this only observes it. Draws the red clock-wipe while held;
 // GroupPanelSystem's GBM_SELECTED handler reads s_pressStartMs to decide
 // what the release actually meant.
+// GeneralsX @feature Android port 08/09/2026 While "+" is armed, the group buttons
+// say what they will now do: 0..9 become +0..+9. Reported after the first build --
+// arming changed nothing the player could see except a small green square, and the
+// natural instinct is to press "+" LAST, after picking the group, which does nothing.
+// Relabelling the buttons themselves answers both: the prefix is impossible to miss,
+// and it is on the very buttons whose meaning it changes. Digits and "+" are literal
+// characters, like every other label on this panel -- our own strings cannot reach
+// the player's string table, so nothing here is translatable and nothing needs to be.
+static void updateAddPrefixLabels()
+{
+	if (!TheWindowManager) {
+		return;
+	}
+	if (s_addToSelectionArmed == s_addLabelsShown) {
+		return;  // only on a change: this rewrites ten labels
+	}
+	s_addLabelsShown = s_addToSelectionArmed;
+
+	for (Int i = 0; i < 10; ++i) {
+		GameWindow *button = TheWindowManager->winGetWindowFromId(nullptr, s_buttonGroupID[i]);
+		if (!button) {
+			continue;
+		}
+		UnicodeString label;
+		label.format(s_addToSelectionArmed ? L"+%d" : L"%d", i);
+		GadgetButtonSetText(button, label);
+	}
+}
+
 static void updateHoldVisuals()
 {
 	// GeneralsX @bugfix Android port 06/08/2026 This ran unconditionally
@@ -372,6 +402,7 @@ void GroupPanelUpdate(WindowLayout *layout, void *userData)
 	(void)layout;
 	(void)userData;
 	updateHoldVisuals();
+	updateAddPrefixLabels();
 }
 
 //-------------------------------------------------------------------------------------------------
