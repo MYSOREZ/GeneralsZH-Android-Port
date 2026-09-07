@@ -1155,6 +1155,29 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 							ICoord2D uiPoint;
 							uiPoint.x = (Int)s_touch.downX;
 							uiPoint.y = (Int)s_touch.downY;
+
+							// GeneralsX @bugfix Android port 07/09/2026 Hover first, and it has to
+							// be its own pass. Reported: promotions in the generals menu could not
+							// be bought even when unlocked, and the pause menu ignored Exit/Return.
+							//
+							// winProcessMouseEvent() does its enter/leave tracking at the very END
+							// of the function, and only `if (m_grabWindow == nullptr)`
+							// (GameWindowManager.cpp:1267). So a bare LEFT_DOWN reaches the widget
+							// while it is still un-hilited, and the same call then sets m_grabWindow
+							// -- which means GWM_MOUSE_ENTERING is never sent at all. A widget that
+							// ignores a click unless WIN_STATE_HILITED was set by a prior
+							// mouse-enter (the generals-promotion and Challenge checkboxes are
+							// exactly that) therefore never sees a usable click.
+							//
+							// A real mouse cannot press a widget it was not already over, so give
+							// the manager that move first. GWM_MOUSE_POS is not forwarded to windows
+							// unless a static flag says so, but that does not matter here: what is
+							// wanted is the region-tracking tail, which sends MOUSE_ENTERING and
+							// updates m_currMouseRgn. Being a direct call, it is synchronous -- the
+							// hilite is set before the DOWN on the next line, with no frame gap and
+							// no message in the stream.
+							TheWindowManager->winProcessMouseEvent(GWM_MOUSE_POS, &uiPoint, nullptr);
+
 							const WinInputReturnCode usedDown =
 								TheWindowManager->winProcessMouseEvent(GWM_LEFT_DOWN, &uiPoint, nullptr);
 							const WinInputReturnCode usedUp =
@@ -1309,7 +1332,28 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 					// player aims again rather than having a superweapon land wherever the
 					// OS interrupted them.
 					if (event.type != SDL_EVENT_FINGER_CANCELED) {
-						TouchInput::fireArmed((Int)px, (Int)py);
+						// GeneralsX @bugfix Android port 07/09/2026 A long press gets you out.
+						// Reported: issuing Guard left the player stuck in targeting mode with
+						// no way back. Introducing this phase took the escape away without
+						// noticing: a long press is the cancel gesture everywhere else in the
+						// game, but it lives in PENDING, and an armed command routes every
+						// battlefield touch here instead -- where release unconditionally fired.
+						// Tapping again just re-fires, and if the target is one the command
+						// rejects, nothing clears it either (CommandXlat only nulls the pending
+						// command on a VALID DO_COMMAND), so the mode is genuinely inescapable
+						// apart from the two-finger tap.
+						//
+						// Same rule PENDING uses for its own escape: held past the threshold AND
+						// never crossed the dead zone. Aiming an area ability means moving, so a
+						// deliberate aim cannot be swallowed by this; pressing and waiting is
+						// what "get me out of here" looks like on a touchscreen.
+						const float movedFromDown = SDL_fabsf(px - s_touch.downX) + SDL_fabsf(py - s_touch.downY);
+						if ((SDL_GetTicks() - s_touch.downTicks) >= LONG_PRESS_MS &&
+						    movedFromDown < TAP_DEAD_ZONE_PX) {
+							TouchInput::cancelOrDeselect();
+						} else {
+							TouchInput::fireArmed((Int)px, (Int)py);
+						}
 					}
 					break;
 				case TouchState::UI_PRESS:
