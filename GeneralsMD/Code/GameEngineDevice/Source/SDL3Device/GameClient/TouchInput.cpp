@@ -354,7 +354,13 @@ namespace TouchInput
 						ThePlayerList->getLocalPlayer()->getAcademyStats()
 							->recordDoubleClickAttackMoveOrderGiven();
 
-					TheInGameUI->triggerDoubleClickAttackMoveGuardHint();
+					// The touch entry point, not the mouse one: that reads TheMouse's
+					// position (InGameUI.cpp:1631), which on a touch device is not where
+					// the player pointed, and it leaves the decal to createCommandHint(),
+					// which runs off mouseover hints a finger never generates. Reported as
+					// "double tap does nothing, and the radius only appears if I open the
+					// game menu". Pass the point that was actually ordered.
+					TheInGameUI->triggerTouchAttackMoveGuardHint(&pos);
 					return;
 				}
 			}

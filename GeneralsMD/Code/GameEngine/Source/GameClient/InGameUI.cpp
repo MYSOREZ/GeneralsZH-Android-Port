@@ -1625,6 +1625,27 @@ void InGameUI::handleRadiusCursor()
 }
 
 
+//-------------------------------------------------------------------------------------------------
+/** Touch version: the caller already knows the world point, and nothing else will build
+	* the decal for us. See the header for why this cannot just call the mouse version. */
+//-------------------------------------------------------------------------------------------------
+void InGameUI::triggerTouchAttackMoveGuardHint(const Coord3D *worldPos)
+{
+	if( worldPos == nullptr )
+		return;
+
+	m_duringDoubleClickAttackMoveGuardHintStashedPosition = *worldPos;
+	m_duringDoubleClickAttackMoveGuardHintTimer = 11;
+
+	// createCommandHint() does this for the mouse, once per frame, off a hint that a
+	// finger never produces. handleRadiusCursor() only draws the stashed position while
+	// the decal exists, so without this the hint was invisible until something else
+	// happened to create a decal -- opening the game menu, for instance, which is exactly
+	// what the report described.
+	setRadiusCursor(RADIUSCURSOR_GUARD_AREA, nullptr, PRIMARY_WEAPON);
+}
+
+//-------------------------------------------------------------------------------------------------
 void InGameUI::triggerDoubleClickAttackMoveGuardHint()
 {
 	const MouseIO* mouseIO = TheMouse->getMouseStatus();
@@ -1913,6 +1934,19 @@ void InGameUI::preDraw()
 
 	// handle any "icons" for the act of building things and placing them in the world
 	handleBuildPlacements();
+
+#if defined(__ANDROID__) || (defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE)
+	// GeneralsX @bugfix Android port 08/09/2026 Age the attack-move guard hint here.
+	// On the mouse path createCommandHint() ticks it, but that runs off mouseover hints,
+	// which a finger never generates -- so the timer sat at 11 forever and the decal
+	// stayed on screen until some unrelated event cleared it ("the radius stays until I
+	// tap"). Clearing the decal at zero is what actually ends the hint.
+	if( m_duringDoubleClickAttackMoveGuardHintTimer > 0 )
+	{
+		if( --m_duringDoubleClickAttackMoveGuardHintTimer <= 0 )
+			setRadiusCursorNone();
+	}
+#endif
 
 	// handle radius-cursors, if any
 	handleRadiusCursor();

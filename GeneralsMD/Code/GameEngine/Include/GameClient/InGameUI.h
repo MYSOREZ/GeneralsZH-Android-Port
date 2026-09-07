@@ -620,6 +620,16 @@ public:
 
   void triggerDoubleClickAttackMoveGuardHint();
 
+	// GeneralsX @bugfix Android port 08/09/2026 The touch equivalent of the above, and it
+	// has to be a separate entry point for two reasons. It takes the world point that was
+	// actually ordered instead of reading TheMouse's position, which on a touch device is
+	// not where the player pointed. And it creates the radius decal itself, because the
+	// mouse path gets that for free from createCommandHint() -- which runs off mouseover
+	// hints that a finger never generates, so on touch the hint's timer was never ticked
+	// and its decal never existed. Reported as "double tap does nothing; the radius only
+	// shows up if I open the game menu, and then it stays".
+	void triggerTouchAttackMoveGuardHint(const Coord3D *worldPos);
+
 
 public:
 	// World 2D animation methods
