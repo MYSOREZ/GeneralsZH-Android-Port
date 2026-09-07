@@ -92,6 +92,27 @@
 static NameKeyType s_buttonHandleID = NAMEKEY_INVALID;
 static NameKeyType s_groupRowID = NAMEKEY_INVALID;
 static NameKeyType s_buttonGroupID[10];
+
+// GeneralsX @feature Android port 08/09/2026 The "+" button: a ONE-SHOT prefix,
+// not a mode. Armed, the next group button adds its squad to the current
+// selection (MSG_META_ADD_TEAM<n>) instead of replacing it, then disarms itself.
+//
+// This exists because a finger cannot hold Shift. On the mouse, a mixed force is
+// built by shift-clicking; here a tap always replaced the selection outright, so
+// units standing apart could not be selected together at all.
+//
+// One-shot rather than latching on purpose. Every latching mode this port has
+// shipped has produced a "now I cannot get out of it" report, so this one cannot
+// outlive the action it modifies: it clears on use, and it clears whenever the
+// row it lives in is collapsed.
+//
+// It is also NOT on a double tap of the group button, which is already taken
+// twice over: the first tap of any double tap has already recalled the squad and
+// thrown the player's selection away, and the engine itself reads two quick
+// presses of the same group as "centre the camera on it"
+// (SelectionXlat.cpp:1197).
+static NameKeyType s_buttonAddID = NAMEKEY_INVALID;
+static Bool s_addToSelectionArmed = FALSE;
 static Bool s_groupRowExpanded = FALSE;
 
 // GeneralsX @feature Android port 02/08/2026 Hold-gesture timing. 0 means
@@ -108,6 +129,7 @@ static void cacheWidgetIDs()
 	}
 	s_buttonHandleID = TheNameKeyGenerator->nameToKey("GroupPanel.wnd:ButtonHandle");
 	s_groupRowID = TheNameKeyGenerator->nameToKey("GroupPanel.wnd:GroupRow");
+	s_buttonAddID = TheNameKeyGenerator->nameToKey("GroupPanel.wnd:ButtonAdd");
 	char buf[40];
 	for (Int i = 0; i < 10; ++i) {
 		sprintf(buf, "GroupPanel.wnd:ButtonGroup%d", i);
@@ -146,6 +168,21 @@ static void handleGroupCommand(Int group, Bool forceAssign)
 	if (!TheMessageStream || group < 0 || group > 9) {
 		return;
 	}
+	// GeneralsX @feature Android port 08/09/2026 Armed "+" wins over everything: add
+	// this squad to what is already selected and leave the selection intact.
+	// MSG_META_ADD_TEAM<n> is an engine message that nothing has ever sent
+	// (handled at SelectionXlat.cpp:1255); the keyboard reaches it with a modifier
+	// this platform does not have. Adding an EMPTY squad would be a no-op that
+	// silently ate the player's press, so fall through to the normal meaning then.
+	if (s_addToSelectionArmed) {
+		s_addToSelectionArmed = FALSE;
+		if (!isGroupEmpty(group)) {
+			TheMessageStream->appendMessage(
+				(GameMessage::Type)(GameMessage::MSG_META_ADD_TEAM0 + group));
+			return;
+		}
+	}
+
 	Bool assign = forceAssign || isGroupEmpty(group);
 	GameMessage::Type type = assign
 		? (GameMessage::Type)(GameMessage::MSG_META_CREATE_TEAM0 + group)
@@ -235,6 +272,17 @@ static void updateHoldVisuals()
 		Int percent = 1 + (Int)((elapsed * 99u) / GROUP_HOLD_MS);
 		if (percent > 100) percent = 100;
 		GadgetButtonDrawClock(button, percent, GameMakeColor(220, 60, 50, 255));
+	}
+
+	// GeneralsX @feature Android port 08/09/2026 Show that "+" is armed, by the same
+	// overlay the hold-to-clear wipe uses -- a full disc rather than a growing one.
+	// A one-shot prefix that gives no sign of being armed is a trap: the player would
+	// press a group expecting a recall and get an add, or the reverse.
+	if (s_addToSelectionArmed) {
+		GameWindow *addButton = TheWindowManager->winGetWindowFromId(nullptr, s_buttonAddID);
+		if (addButton) {
+			GadgetButtonDrawClock(addButton, 100, GameMakeColor(90, 170, 90, 255));
+		}
 	}
 }
 
@@ -377,6 +425,15 @@ WindowMsgHandledType GroupPanelSystem(GameWindow *window, UnsignedInt msg,
 				if (groupRow) {
 					groupRow->winHide(!s_groupRowExpanded);
 				}
+				// A prefix cannot survive the disappearance of the buttons it prefixes.
+				if (!s_groupRowExpanded) {
+					s_addToSelectionArmed = FALSE;
+				}
+				return MSG_HANDLED;
+			}
+
+			if (controlID == s_buttonAddID) {
+				s_addToSelectionArmed = !s_addToSelectionArmed;
 				return MSG_HANDLED;
 			}
 
