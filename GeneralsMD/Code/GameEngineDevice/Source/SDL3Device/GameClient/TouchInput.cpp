@@ -28,6 +28,7 @@
 #include "Common/GameCommon.h"
 #include "Common/Player.h"
 #include "Common/PlayerList.h"
+#include "Common/Radar.h"
 #include "Common/ThingTemplate.h"
 #include "Common/GlobalData.h"
 #include "GameClient/CommandXlat.h"
@@ -35,6 +36,8 @@
 #include "GameClient/Display.h"
 #include "GameClient/Drawable.h"
 #include "GameClient/GameClient.h"
+#include "GameClient/GameWindow.h"
+#include "GameClient/GameWindowManager.h"
 #include "GameClient/InGameUI.h"
 #include "GameClient/SelectionInfo.h"
 #include "GameClient/SelectionXlat.h"
@@ -416,6 +419,51 @@ namespace TouchInput
 		}
 
 		TheInGameUI->deselectAllDrawables();
+	}
+
+
+	//-------------------------------------------------------------------------------------
+	Bool lookAtRadarPoint(Int x, Int y)
+	{
+		if (TheRadar == nullptr || TheWindowManager == nullptr || TheTacticalView == nullptr)
+			return FALSE;
+
+		// getWindowForInputAt() reports the deepest window a press here would be routed to,
+		// which for the radar is whatever child happens to sit at that pixel -- so walk up
+		// to the radar window itself. Radar::isRadarWindow() is the engine's own test; the
+		// window is looked up once per map in Radar::newMap (Radar.cpp:314).
+		Bool onRadar = FALSE;
+		for (GameWindow *win = TheWindowManager->getWindowForInputAt(x, y);
+		     win != nullptr;
+		     win = win->winGetParent())
+		{
+			if (TheRadar->isRadarWindow(win))
+			{
+				onRadar = TRUE;
+				break;
+			}
+		}
+
+		if (!onRadar)
+			return FALSE;
+
+		// Radar::screenPixelToWorld does the whole conversion the radar callback does by
+		// hand -- window-relative pixel, radar cell, world point -- and fails cleanly for a
+		// pixel that is inside the window but outside the map's part of it.
+		ICoord2D pixel;
+		pixel.x = x;
+		pixel.y = y;
+
+		Coord3D world;
+		if (!TheRadar->screenPixelToWorld(&pixel, &world))
+			return FALSE;
+
+		// Straight to the view, exactly as ControlBarCallback.cpp:267 does for a right
+		// click. Not a synthesized right click: a raw right button in the message stream is
+		// what left the camera latched into an edge scroll before (see the header comment on
+		// this module), and nothing about moving the camera needs the message stream.
+		TheTacticalView->userLookAt(&world);
+		return TRUE;
 	}
 
 }  // namespace TouchInput

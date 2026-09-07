@@ -121,4 +121,17 @@ namespace TouchInput
 	/// Back out of an armed command or a pending building placement. Deselects otherwise.
 	void cancelOrDeselect();
 
+	/// A held finger on the minimap moves the camera there, and nothing else.
+	///
+	/// The mouse has two answers for a click on the radar and touch had only one. A left
+	/// click orders the selected army to that point; a right click just looks at it
+	/// (ControlBarCallback.cpp:262). A tap can only be the left one, so with anything
+	/// selected there was no way to look at the map at all -- worse, the attempt sent the
+	/// army across it. A press-and-hold is the natural second answer, and it is free: the
+	/// long-press gesture explicitly ignores points the window manager owns.
+	///
+	/// Returns TRUE when the point was on the radar and the camera was moved, so the
+	/// caller knows to consume the touch instead of replaying it as a click.
+	Bool lookAtRadarPoint(Int x, Int y);
+
 }  // namespace TouchInput

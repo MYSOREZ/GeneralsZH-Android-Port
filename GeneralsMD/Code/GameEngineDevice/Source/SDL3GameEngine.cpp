@@ -1148,6 +1148,24 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 					if (event.type == SDL_EVENT_FINGER_CANCELED) {
 						break;
 					}
+					// GeneralsX @feature Android port 08/09/2026 A long press on the minimap
+					// moves the camera there instead. This has to be tested BEFORE the
+					// deselect branch below and before the window-manager replay further
+					// down, because both would otherwise claim it: the replay turns every
+					// radar touch into a left button down, and a left button down on the
+					// radar with units selected is an ORDER, not a look
+					// (ControlBarCallback.cpp:300). That is the bug this fixes -- with an
+					// army selected the player could not move the camera from the minimap
+					// at all, and the attempt marched the army across the map.
+					//
+					// Mouse parity, not an invention: on the radar a left click orders and a
+					// right click looks (ControlBarCallback.cpp:262). A tap is the left one;
+					// this is the right one.
+					if ((SDL_GetTicks() - s_touch.downTicks) >= LONG_PRESS_MS &&
+					    TouchInput::lookAtRadarPoint((Int)s_touch.downX, (Int)s_touch.downY)) {
+						break;
+					}
+
 					// GeneralsX @bugfix Android port 07/09/2026 ...and not for a press that
 					// landed on UI the window manager owns. Dwelling on a dialog is not a
 					// battlefield gesture, and cancelOrDeselect() there would throw away the
