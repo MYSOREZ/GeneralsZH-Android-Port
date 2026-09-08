@@ -162,8 +162,21 @@ void LoadScreen::update( Int percent )
 	if (TheGameEngine->getQuitting() || (TheGameLogic && TheGameLogic->isQuitToDesktopRequested()))
 		return;	//don't bother with any of this if the player is exiting game.
 
+	// GeneralsX @bugfix Android port 08/09/2026 Pump the audio too. Reported: the music
+	// that starts as loading begins goes silent almost immediately and stays silent until
+	// the map is loaded. Nothing was killing it — nothing was FEEDING it. Streamed audio is
+	// decoded and re-queued synchronously from TheAudio->UPDATE(), which normally runs once
+	// per frame from GameEngine::update() (GameEngine.cpp:1117); loading never returns to
+	// that loop. This one does everything else a frame does — windows, display, draw — so
+	// the queue simply drained and the source ran out of anything to play.
+	//
+	// The same applies to the briefing and movie loops further down this file, which have
+	// the same shape and the same omission, and which is why the problem was reported in
+	// the campaign as well.
 	TheWindowManager->update();
 	TheDisplay->update();
+	if (TheAudio)
+		TheAudio->UPDATE();
 	// redraw all views, update the GUI
 	TheDisplay->draw();
 
@@ -585,6 +598,9 @@ void SinglePlayerLoadScreen::init( GameInfo *game )
 
 			}
 			TheWindowManager->update();
+			// see the comment in LoadScreen::update(): this loop is a frame too
+			if (TheAudio)
+				TheAudio->UPDATE();
 
 			// redraw all views, update the GUI
 			TheDisplay->draw();
@@ -641,6 +657,10 @@ void SinglePlayerLoadScreen::init( GameInfo *game )
 			}
 
 			TheWindowManager->update();
+			// see the comment in LoadScreen::update(). These wait loops sleep 100ms a turn,
+			// so a stream left unfed here runs dry faster than anywhere else.
+			if (TheAudio)
+				TheAudio->UPDATE();
 			TheDisplay->draw();
 			Sleep(100);
 			currTime = timeGetTime();
@@ -1146,6 +1166,10 @@ void ChallengeLoadScreen::init( GameInfo *game )
 			}
 
 			TheWindowManager->update();
+			// see the comment in LoadScreen::update(). These wait loops sleep 100ms a turn,
+			// so a stream left unfed here runs dry faster than anywhere else.
+			if (TheAudio)
+				TheAudio->UPDATE();
 			TheDisplay->draw();
 			Sleep(100);
 			currTime = timeGetTime();
