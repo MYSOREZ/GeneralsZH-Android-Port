@@ -187,4 +187,17 @@
     <string name="setup_toast_base_generals_cleared">Base Generals folder cleared</string>
     <string name="setup_base_generals_not_here">No base Generals archives in %1$s — pick the folder that holds Terrain.big, Textures.big and W3D.big.</string>
     <string name="setup_status_base_generals_line">Base Generals: %1$s\n</string>
+
+    <!-- Launcher bottom navigation (SetupActivity) + short, segment-sized
+         versions of the render-backend names. All three backend names are
+         brand names, so every locale carries the same Latin text unless it
+         needs to transliterate them. -->
+    <string name="nav_tab_home">Home</string>
+    <string name="nav_tab_graphics">Graphics</string>
+    <string name="nav_tab_interface">Interface</string>
+    <string name="nav_tab_tools">Tools</string>
+    <string name="nav_tab_help">Help</string>
+    <string name="setup_render_backend_gles_short">GLES</string>
+    <string name="setup_render_backend_gles_angle_short">ANGLE</string>
+    <string name="setup_render_backend_vulkan_short">Vulkan</string>
 </resources>

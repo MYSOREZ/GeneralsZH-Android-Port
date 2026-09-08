@@ -187,4 +187,14 @@
     <string name="logviewer_crash_prev_log_absent">(отсутствует)</string>
     <string name="logviewer_elided_notice">\n...(здесь пропущено символов: %1$d; начало сессии выше и самый свежий вывод ниже сохранены)...\n\n</string>
     <string name="logviewer_section_crash_prev_log">=== crash-prev.log (нативный обработчик падений, предыдущая сессия) ===\n</string>
+
+    <!-- Launcher bottom navigation + short render-backend names -->
+    <string name="nav_tab_home">Главная</string>
+    <string name="nav_tab_graphics">Графика</string>
+    <string name="nav_tab_interface">Интерфейс</string>
+    <string name="nav_tab_tools">Инструменты</string>
+    <string name="nav_tab_help">Справка</string>
+    <string name="setup_render_backend_gles_short">GLES</string>
+    <string name="setup_render_backend_gles_angle_short">ANGLE</string>
+    <string name="setup_render_backend_vulkan_short">Vulkan</string>
 </resources>

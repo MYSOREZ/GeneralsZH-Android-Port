@@ -185,4 +185,14 @@
     <string name="setup_toast_dxvk_config_reset">به dxvk.conf پیش‌فرض بازگردانده شد.</string>
     <string name="setup_toast_dxvk_config_saved">ذخیره شد. در اجرای بعدی بازی اثر می‌کند.</string>
     <string name="setup_toast_storage_permission_denied">برای مرور پوشه بازی به اجازه دسترسی به حافظه نیاز است. دوباره «انتخاب پوشه بازی» را بزنید.</string>
+
+    <!-- Launcher bottom navigation + short render-backend names -->
+    <string name="nav_tab_home">خانه</string>
+    <string name="nav_tab_graphics">گرافیک</string>
+    <string name="nav_tab_interface">رابط</string>
+    <string name="nav_tab_tools">ابزارها</string>
+    <string name="nav_tab_help">راهنما</string>
+    <string name="setup_render_backend_gles_short">GLES</string>
+    <string name="setup_render_backend_gles_angle_short">ANGLE</string>
+    <string name="setup_render_backend_vulkan_short">Vulkan</string>
 </resources>

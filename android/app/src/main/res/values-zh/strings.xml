@@ -185,4 +185,14 @@
     <string name="setup_toast_dxvk_config_reset">已恢复为默认的 dxvk.conf。</string>
     <string name="setup_toast_dxvk_config_saved">已保存。下次启动游戏时生效。</string>
     <string name="setup_toast_storage_permission_denied">浏览游戏文件夹需要存储权限。请再次点按「选择游戏文件夹」。</string>
+
+    <!-- Launcher bottom navigation + short render-backend names -->
+    <string name="nav_tab_home">主页</string>
+    <string name="nav_tab_graphics">图形</string>
+    <string name="nav_tab_interface">界面</string>
+    <string name="nav_tab_tools">工具</string>
+    <string name="nav_tab_help">帮助</string>
+    <string name="setup_render_backend_gles_short">GLES</string>
+    <string name="setup_render_backend_gles_angle_short">ANGLE</string>
+    <string name="setup_render_backend_vulkan_short">Vulkan</string>
 </resources>

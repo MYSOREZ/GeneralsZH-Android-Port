@@ -44,12 +44,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.card.MaterialCardView;
 
 import org.json.JSONObject;
 
@@ -111,79 +109,38 @@ public class GeneralsOnlineActivity extends Activity {
         maybeSilentReauth();
     }
 
+    // GeneralsX @feature Android port launcher-ui-2026 08/09/2026 Same shell
+    // as every other launcher screen now: an app bar with the title, a
+    // scrolling column of UiKit cards, one accent action.
     private void buildUi() {
-        ScrollView scroll = new ScrollView(this);
-        LinearLayout root = new LinearLayout(this);
-        root.setOrientation(LinearLayout.VERTICAL);
-        int pad = dp(16);
-        root.setPadding(pad, pad, pad, pad);
-        scroll.addView(root);
-        setContentView(scroll);
-        InsetUtil.applySafeInsets(scroll);
+        LinearLayout shell = new LinearLayout(this);
+        shell.setOrientation(LinearLayout.VERTICAL);
+        shell.setBackgroundColor(UiKit.color(this, R.color.gzh_background));
+        setContentView(shell);
+        InsetUtil.applySafeInsets(shell);
 
-        TextView title = new TextView(this);
-        title.setText(R.string.online_window_title);
-        title.setTextSize(22);
-        title.setTypeface(title.getTypeface(), android.graphics.Typeface.BOLD);
-        title.setPadding(dp(4), dp(8), dp(4), dp(4));
-        root.addView(title);
+        UiKit.appBar(shell, getString(R.string.online_subtitle),
+            getString(R.string.online_window_title), 0, null, null);
 
-        TextView subtitle = new TextView(this);
-        subtitle.setText(R.string.online_subtitle);
-        subtitle.setTextSize(14);
-        subtitle.setAlpha(0.7f);
-        subtitle.setPadding(dp(4), 0, dp(4), dp(16));
-        root.addView(subtitle);
+        android.widget.FrameLayout host = new android.widget.FrameLayout(this);
+        shell.addView(host, new LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT, 0, 1f));
+        LinearLayout page = UiKit.scrollingPage(host);
 
-        LinearLayout statusCard = startCard(root, null);
-        statusText = new TextView(this);
+        LinearLayout statusCard = UiKit.card(page);
+        UiKit.sectionHeader(statusCard, R.drawable.ic_gzh_account,
+            getString(R.string.online_window_title), false);
+        statusText = UiKit.body(statusCard, null);
         statusText.setTextIsSelectable(true);
-        statusCard.addView(statusText);
-        signOutButton = addButton(statusCard, getString(R.string.online_button_sign_out), this::onSignOut);
+        signOutButton = UiKit.button(statusCard, UiKit.BTN_DANGER, R.drawable.ic_gzh_trash,
+            getString(R.string.online_button_sign_out), this::onSignOut);
 
-        LinearLayout stepsCard = startCard(root, getString(R.string.online_card_sign_in));
-        TextView help = new TextView(this);
-        help.setText(R.string.online_signin_help);
-        stepsCard.addView(help);
-        signInButton = addButton(stepsCard, getString(R.string.online_button_sign_in), this::onSignIn);
-    }
-
-    private LinearLayout startCard(LinearLayout root, String header) {
-        MaterialCardView card = new MaterialCardView(this);
-        LinearLayout.LayoutParams cardLp = new LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        cardLp.setMargins(0, 0, 0, dp(12));
-        card.setLayoutParams(cardLp);
-        card.setRadius(dp(12));
-        card.setCardElevation(dp(2));
-        card.setCardBackgroundColor(getColor(R.color.gzh_surface));
-        card.setContentPadding(dp(16), dp(14), dp(16), dp(14));
-
-        LinearLayout content = new LinearLayout(this);
-        content.setOrientation(LinearLayout.VERTICAL);
-        card.addView(content);
-        root.addView(card);
-
-        if (header != null) {
-            TextView headerView = new TextView(this);
-            headerView.setText(header);
-            headerView.setTextSize(15);
-            headerView.setTypeface(headerView.getTypeface(), android.graphics.Typeface.BOLD);
-            headerView.setPadding(0, 0, 0, dp(8));
-            content.addView(headerView);
-        }
-        return content;
-    }
-
-    private MaterialButton addButton(LinearLayout root, String label, Runnable action) {
-        MaterialButton b = new MaterialButton(this);
-        b.setText(label);
-        b.setOnClickListener(v -> action.run());
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        lp.setMargins(0, dp(4), 0, dp(4));
-        root.addView(b, lp);
-        return b;
+        LinearLayout stepsCard = UiKit.card(page);
+        UiKit.sectionHeader(stepsCard, R.drawable.ic_gzh_check,
+            getString(R.string.online_card_sign_in), false);
+        UiKit.supporting(stepsCard, getString(R.string.online_signin_help));
+        signInButton = UiKit.button(stepsCard, UiKit.BTN_PRIMARY, R.drawable.ic_gzh_account,
+            getString(R.string.online_button_sign_in), this::onSignIn);
     }
 
     private String generateGameCode() {
@@ -419,8 +376,4 @@ public class GeneralsOnlineActivity extends Activity {
         return null;
     }
 
-    private int dp(int value) {
-        float density = getResources().getDisplayMetrics().density;
-        return (int) (value * density + 0.5f);
-    }
 }

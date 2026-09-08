@@ -47,7 +47,12 @@ import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.text.style.UnderlineSpan;
+import android.view.ContextThemeWrapper;
+import android.view.Menu;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -57,9 +62,13 @@ import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.navigation.NavigationBarView;
+import com.google.android.material.slider.LabelFormatter;
 import com.google.android.material.slider.Slider;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.io.File;
 
@@ -104,6 +113,15 @@ public class SetupActivity extends Activity {
         super.onCreate(savedInstanceState);
         setTitle(R.string.setup_window_title);
 
+        // GeneralsX @feature Android port launcher-ui-2026 08/09/2026 Which
+        // bottom-navigation section to open on. Survives the recreate() the
+        // language picker performs, so changing the launcher language leaves
+        // you looking at the section you changed it from rather than being
+        // dropped back on Home.
+        if (savedInstanceState != null) {
+            currentTab = savedInstanceState.getInt(STATE_TAB, TAB_HOME);
+        }
+
         // GeneralsX @bugfix Android port 08/07/2026 This screen is the ONLY
         // way to reach "View Logs" without adb, so it must never be the thing
         // that crashes. Any future Material/theme incompatibility falls back
@@ -116,13 +134,31 @@ public class SetupActivity extends Activity {
         }
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(STATE_TAB, currentTab);
+    }
+
+    // GeneralsX @bugfix Android port launcher-ui-2026 08/09/2026 The fallback
+    // exists precisely for the case where a Material widget or theme attribute
+    // is what blew up, so it must not itself construct one -- it used to build
+    // MaterialButtons, which would have failed again for exactly the reason it
+    // was reached. Plain framework widgets only, from here down.
     private void buildFallbackUi(Throwable failure) {
+        clearPageReferences();
+        // No tabs in the fallback: showTab() must become a no-op if anything
+        // still calls it (onActivityResult does).
+        contentHost = null;
+        appBarTitle = null;
+        ScrollView scroll = new ScrollView(this);
         LinearLayout root = new LinearLayout(this);
         root.setOrientation(LinearLayout.VERTICAL);
         int pad = dp(20);
         root.setPadding(pad, pad, pad, pad);
-        setContentView(root);
-        InsetUtil.applySafeInsets(root);
+        scroll.addView(root);
+        setContentView(scroll);
+        InsetUtil.applySafeInsets(scroll);
 
         TextView warning = new TextView(this);
         warning.setText(getString(R.string.setup_fallback_warning, String.valueOf(failure)));
@@ -134,10 +170,20 @@ public class SetupActivity extends Activity {
         statusText.setPadding(0, 0, 0, dp(24));
         root.addView(statusText);
 
-        addButton(root, getString(R.string.setup_button_select_game_folder), this::onSelectGameFolder);
-        addButton(root, getString(R.string.setup_button_view_logs), this::onViewLogs);
-        addButton(root, getString(R.string.setup_button_launch_game), this::onLaunchGame);
-        addButton(root, getString(R.string.setup_button_clear_game_folder), this::onClearGameFolder);
+        addPlainButton(root, getString(R.string.setup_button_select_game_folder), this::onSelectGameFolder);
+        addPlainButton(root, getString(R.string.setup_button_view_logs), this::onViewLogs);
+        addPlainButton(root, getString(R.string.setup_button_launch_game), this::onLaunchGame);
+        addPlainButton(root, getString(R.string.setup_button_clear_game_folder), this::onClearGameFolder);
+    }
+
+    private void addPlainButton(LinearLayout root, String label, Runnable action) {
+        Button b = new Button(this);
+        b.setText(label);
+        b.setOnClickListener(v -> action.run());
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        lp.setMargins(0, dp(4), 0, dp(4));
+        root.addView(b, lp);
     }
 
     @Override
@@ -159,72 +205,233 @@ public class SetupActivity extends Activity {
         refreshDiagnosticsSwitches();
     }
 
-    // GeneralsX @feature Android port 08/07/2026 Material redesign: each
-    // logical section lives in its own MaterialCardView instead of a flat
-    // wall of buttons/text on the raw window background.
+    // GeneralsX @feature Android port launcher-ui-2026 08/09/2026 The launcher
+    // was one endless scroll: eleven stacked cards, every one of them visible
+    // whether or not it had anything to do with what you came here for, and
+    // the two controls people actually open this app for (pick a folder,
+    // launch) sat in the middle of it. It is now five sections behind a
+    // Material 3 bottom navigation bar -- Home, Graphics, Interface, Tools,
+    // Help -- each a short page you can take in at a glance.
+    //
+    // Nothing was dropped in the process: every card, button, switch, slider
+    // and status line that existed before still exists, and every string
+    // resource is still used. See showTab() for where each one landed.
+    private static final String STATE_TAB = "gzh_tab";
+    private static final int TAB_HOME = 1;
+    private static final int TAB_GRAPHICS = 2;
+    private static final int TAB_INTERFACE = 3;
+    private static final int TAB_TOOLS = 4;
+    private static final int TAB_HELP = 5;
+
+    private int currentTab = TAB_HOME;
+    private FrameLayout contentHost;
+    private TextView appBarTitle;
+
     private void buildUi() {
-        ScrollView scroll = new ScrollView(this);
-        LinearLayout root = new LinearLayout(this);
-        root.setOrientation(LinearLayout.VERTICAL);
-        int pad = dp(16);
-        root.setPadding(pad, pad, pad, pad);
-        scroll.addView(root);
-        setContentView(scroll);
-        InsetUtil.applySafeInsets(scroll);
+        clearPageReferences();
 
-        TextView title = new TextView(this);
-        title.setText(R.string.setup_title);
-        title.setTextSize(22);
-        title.setTypeface(title.getTypeface(), android.graphics.Typeface.BOLD);
-        title.setPadding(dp(4), dp(8), dp(4), dp(4));
-        root.addView(title);
+        LinearLayout shell = new LinearLayout(this);
+        shell.setOrientation(LinearLayout.VERTICAL);
+        shell.setBackgroundColor(UiKit.color(this, R.color.gzh_background));
+        setContentView(shell);
+        // Edge-to-edge still handled the same way: pad the outermost view by
+        // the system bars/cutout so the app bar clears the status bar and the
+        // navigation bar below clears the gesture handle.
+        InsetUtil.applySafeInsets(shell);
 
-        TextView subtitle = new TextView(this);
-        subtitle.setText(R.string.setup_subtitle);
-        subtitle.setTextSize(14);
-        subtitle.setAlpha(0.7f);
-        subtitle.setPadding(dp(4), 0, dp(4), dp(16));
-        root.addView(subtitle);
+        appBarTitle = UiKit.appBar(shell, getString(R.string.setup_title),
+            getString(R.string.nav_tab_home),
+            R.drawable.ic_gzh_doc, getString(R.string.setup_button_view_logs), this::onViewLogs);
 
-        LinearLayout statusCard = startCard(root, null);
-        statusText = new TextView(this);
+        contentHost = new FrameLayout(this);
+        shell.addView(contentHost, new LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT, 0, 1f));
+
+        shell.addView(buildBottomNav(), new LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+
+        if (contentHost.getChildCount() == 0) {
+            showTab(currentTab);
+        }
+    }
+
+    private BottomNavigationView buildBottomNav() {
+        BottomNavigationView nav = new BottomNavigationView(this);
+        nav.setBackgroundColor(UiKit.color(this, R.color.gzh_surface_container_low));
+        nav.setElevation(0f);
+        nav.setLabelVisibilityMode(NavigationBarView.LABEL_VISIBILITY_LABELED);
+        nav.setItemIconSize(UiKit.dp(this, 22));
+        // Checked/unchecked pair: the selected item is the one sitting in the
+        // active-indicator pill, so it takes the on-container colour.
+        android.content.res.ColorStateList itemTint = new android.content.res.ColorStateList(
+            new int[][] { new int[] { android.R.attr.state_checked }, new int[0] },
+            new int[] { UiKit.color(this, R.color.gzh_on_primary_container),
+                        UiKit.color(this, R.color.gzh_on_surface_faint) });
+        nav.setItemIconTintList(itemTint);
+        nav.setItemTextColor(itemTint);
+        nav.setItemActiveIndicatorColor(UiKit.tint(this, R.color.gzh_primary_container));
+        nav.setItemRippleColor(UiKit.tint(this, R.color.gzh_ripple_primary));
+
+        Menu menu = nav.getMenu();
+        menu.add(Menu.NONE, TAB_HOME, 0, R.string.nav_tab_home).setIcon(R.drawable.ic_gzh_home);
+        menu.add(Menu.NONE, TAB_GRAPHICS, 1, R.string.nav_tab_graphics).setIcon(R.drawable.ic_gzh_display);
+        menu.add(Menu.NONE, TAB_INTERFACE, 2, R.string.nav_tab_interface).setIcon(R.drawable.ic_gzh_globe);
+        menu.add(Menu.NONE, TAB_TOOLS, 3, R.string.nav_tab_tools).setIcon(R.drawable.ic_gzh_wrench);
+        menu.add(Menu.NONE, TAB_HELP, 4, R.string.nav_tab_help).setIcon(R.drawable.ic_gzh_info);
+
+        nav.setOnItemSelectedListener(item -> {
+            showTab(item.getItemId());
+            return true;
+        });
+        nav.setSelectedItemId(currentTab);
+        return nav;
+    }
+
+    private int tabTitle(int tab) {
+        switch (tab) {
+            case TAB_GRAPHICS:  return R.string.nav_tab_graphics;
+            case TAB_INTERFACE: return R.string.nav_tab_interface;
+            case TAB_TOOLS:     return R.string.nav_tab_tools;
+            case TAB_HELP:      return R.string.nav_tab_help;
+            default:            return R.string.nav_tab_home;
+        }
+    }
+
+    /**
+     * Swaps the page inside the shell. Every view a refresh* method touches is
+     * page-scoped, so the references are dropped first and the refreshers are
+     * re-run at the end against whatever the new page actually built -- they
+     * all null-check, so a page that has no status line simply doesn't get one
+     * updated.
+     */
+    private void showTab(int tab) {
+        currentTab = tab;
+        if (contentHost == null) {
+            return;  // the plain-widget fallback UI is up; there are no tabs
+        }
+        clearPageReferences();
+        contentHost.removeAllViews();
+        if (appBarTitle != null) {
+            appBarTitle.setText(tabTitle(tab));
+        }
+
+        LinearLayout page = UiKit.scrollingPage(contentHost);
+        switch (tab) {
+            case TAB_GRAPHICS:
+                buildRenderBackendSection(page);
+                // Custom Vulkan driver / dxvk.conf only matter when Vulkan is
+                // the selected backend -- the GLES/GLES+ANGLE paths never
+                // touch DXVK at all, see
+                // Core/Libraries/Source/d3d8gles/CMakeLists.txt.
+                if (RENDER_BACKEND_VULKAN.equals(getRenderBackendChoice())) {
+                    applyRecommendedDriverIfNeeded();
+                    buildCustomDriverSection(page);
+                    buildDxvkConfigSection(page);
+                }
+                break;
+            case TAB_INTERFACE:
+                buildLanguageSection(page);
+                buildUiScaleSection(page);
+                break;
+            case TAB_TOOLS:
+                buildLogsSection(page);
+                buildDiagnosticsSection(page);
+                break;
+            case TAB_HELP:
+                buildHelpSection(page);
+                break;
+            case TAB_HOME:
+            default:
+                buildHomeSection(page);
+                break;
+        }
+
+        refreshStatus();
+        refreshGeneralsOnlineStatus();
+        loadDxvkConfigIntoEditor();
+        refreshDiagnosticsSwitches();
+    }
+
+    /** Forgets every page-scoped view so a stale one is never written to. */
+    private void clearPageReferences() {
+        statusText = null;
+        onlineStatusView = null;
+        gameLanguageStatusView = null;
+        renderBackendStatusView = null;
+        customDriverStatusView = null;
+        diagnosticsNoFolderHint = null;
+        dxvkConfigEdit = null;
+        uiScaleSlider = null;
+        uiScaleLabel = null;
+        java.util.Arrays.fill(diagnosticSwitches, null);
+    }
+
+    // ------------------------------------------------------------ Home page
+
+    private void buildHomeSection(LinearLayout page) {
+        // The one thing this app exists to do, as the first thing on it.
+        UiKit.button(page, UiKit.BTN_PRIMARY, R.drawable.ic_gzh_play,
+            getString(R.string.setup_button_launch_game), this::onLaunchGame);
+
+        LinearLayout folder = UiKit.card(page);
+        UiKit.sectionHeader(folder, R.drawable.ic_gzh_folder,
+            getString(R.string.setup_card_game_folder), false);
+
+        statusText = UiKit.body(folder, null);
         statusText.setTextIsSelectable(true);
-        statusCard.addView(statusText);
 
-        LinearLayout actionsCard = startCard(root, getString(R.string.setup_card_game_folder));
-        addButton(actionsCard, getString(R.string.setup_button_select_game_folder), this::onSelectGameFolder);
-        addButton(actionsCard, getString(R.string.setup_button_launch_game), this::onLaunchGame);
-        addButton(actionsCard, getString(R.string.setup_button_view_logs), this::onViewLogs);
-        addButton(actionsCard, getString(R.string.setup_button_clear_game_folder), this::onClearGameFolder);
-        addButton(actionsCard, getString(R.string.setup_button_select_base_generals), this::onSelectBaseGeneralsFolder);
+        UiKit.button(folder, UiKit.BTN_TONAL, R.drawable.ic_gzh_folder,
+            getString(R.string.setup_button_select_game_folder), this::onSelectGameFolder);
+        UiKit.button(folder, UiKit.BTN_TONAL, R.drawable.ic_gzh_folder,
+            getString(R.string.setup_button_select_base_generals), this::onSelectBaseGeneralsFolder);
+        UiKit.button(folder, UiKit.BTN_DANGER, R.drawable.ic_gzh_broom,
+            getString(R.string.setup_button_clear_game_folder), this::onClearGameFolder);
         if (getBaseGeneralsPath() != null) {
-            addButton(actionsCard, getString(R.string.setup_button_clear_base_generals), this::onClearBaseGeneralsFolder);
+            UiKit.button(folder, UiKit.BTN_DANGER, R.drawable.ic_gzh_broom,
+                getString(R.string.setup_button_clear_base_generals), this::onClearBaseGeneralsFolder);
         }
 
-        // GeneralsX @bugfix Android port 01/08/2026 moved up from below the
-        // language/UI-scale/driver/dxvk-config cards -- signing into
-        // GeneralsOnline is a primary action most people want right after
-        // picking their game folder, not buried under advanced settings most
-        // players never touch.
-        buildGeneralsOnlineSection(root);
+        // GeneralsX @bugfix Android port 01/08/2026 kept above the advanced
+        // settings -- signing into GeneralsOnline is a primary action most
+        // people want right after picking their game folder, not something to
+        // bury under settings most players never touch.
+        buildGeneralsOnlineSection(page);
+    }
 
-        buildLanguageSection(root);
-        buildUiScaleSection(root);
-        buildRenderBackendSection(root);
-        // Custom Vulkan driver / dxvk.conf only matter when Vulkan is the
-        // selected backend -- the GLES/GLES+ANGLE paths never touch DXVK at
-        // all, see Core/Libraries/Source/d3d8gles/CMakeLists.txt.
-        if (RENDER_BACKEND_VULKAN.equals(getRenderBackendChoice())) {
-            applyRecommendedDriverIfNeeded();
-            buildCustomDriverSection(root);
-            buildDxvkConfigSection(root);
+    // ------------------------------------------------------------ Help page
+
+    private void buildHelpSection(LinearLayout page) {
+        LinearLayout about = UiKit.card(page);
+        UiKit.sectionHeader(about, R.drawable.ic_gzh_info,
+            getString(R.string.setup_window_title), false);
+        UiKit.supporting(about, getString(R.string.setup_subtitle));
+        UiKit.chip(about, R.drawable.ic_gzh_check, versionLabel(),
+            R.color.gzh_primary, R.color.gzh_surface_container_high);
+
+        LinearLayout help = UiKit.card(page);
+        UiKit.sectionHeader(help, R.drawable.ic_gzh_doc,
+            getString(R.string.setup_card_how_it_works), false);
+        UiKit.supporting(help, getString(R.string.setup_how_it_works_body));
+    }
+
+    // The build's own version, as the manifest carries it -- no new string
+    // resource needed, and it is the first thing any bug report needs.
+    private String versionLabel() {
+        try {
+            return getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
+        } catch (Exception e) {
+            return "";
         }
-        buildDiagnosticsSection(root);
+    }
 
-        LinearLayout helpCard = startCard(root, getString(R.string.setup_card_how_it_works));
-        TextView help = new TextView(this);
-        help.setText(R.string.setup_how_it_works_body);
-        helpCard.addView(help);
+    // ------------------------------------------------------------ Logs entry
+
+    private void buildLogsSection(LinearLayout page) {
+        LinearLayout card = UiKit.card(page);
+        UiKit.listRow(card, R.drawable.ic_gzh_doc,
+            getString(R.string.setup_button_view_logs),
+            getString(R.string.setup_status_logs_note),
+            this::onViewLogs);
     }
 
     // GeneralsX @feature Android port 13/07/2026 GitHub issue #4: in-app
@@ -233,25 +440,23 @@ public class SetupActivity extends Activity {
     // rather than androidx.appcompat's per-app language API, and why
     // "System Default" needs no explicit handling.
     private void buildLanguageSection(LinearLayout root) {
-        LinearLayout content = startCard(root, getString(R.string.setup_card_language));
-
-        TextView status = new TextView(this);
-        status.setText(getString(R.string.setup_language_status,
+        LinearLayout content = UiKit.card(root);
+        // The current language is the value the header carries, so the card
+        // answers "what is it set to" before you read a word of it.
+        TextView value = UiKit.sectionHeader(content, R.drawable.ic_gzh_globe,
+            getString(R.string.setup_card_language), true);
+        value.setText(LocaleHelper.displayNameFor(this, LocaleHelper.getSavedLanguageTag(this)));
+        // The full "Language: X" sentence is still what a screen reader hears.
+        content.setContentDescription(getString(R.string.setup_language_status,
             LocaleHelper.displayNameFor(this, LocaleHelper.getSavedLanguageTag(this))));
-        status.setPadding(0, 0, 0, dp(8));
-        content.addView(status);
 
-        addButton(content, getString(R.string.setup_button_change_language), this::onChangeLanguage);
+        UiKit.button(content, UiKit.BTN_TONAL, R.drawable.ic_gzh_globe,
+            getString(R.string.setup_button_change_language), this::onChangeLanguage);
 
-        gameLanguageStatusView = new TextView(this);
-        gameLanguageStatusView.setPadding(0, dp(8), 0, 0);
+        gameLanguageStatusView = UiKit.supporting(content, null);
         updateGameLanguageStatusView();
-        content.addView(gameLanguageStatusView);
 
-        TextView help = new TextView(this);
-        help.setAlpha(0.8f);
-        help.setText(R.string.setup_language_help);
-        content.addView(help);
+        UiKit.helpText(content, getString(R.string.setup_language_help));
     }
 
     // GeneralsX @feature Android port 13/07/2026 GitHub issue #4 follow-up:
@@ -346,36 +551,6 @@ public class SetupActivity extends Activity {
         }
     }
 
-    // Creates a MaterialCardView appended to `root`, with an optional bold
-    // header line, and returns its inner vertical content LinearLayout so
-    // callers can just addView() into it like before.
-    private LinearLayout startCard(LinearLayout root, String header) {
-        MaterialCardView card = new MaterialCardView(this);
-        LinearLayout.LayoutParams cardLp = new LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        cardLp.setMargins(0, 0, 0, dp(12));
-        card.setLayoutParams(cardLp);
-        card.setRadius(dp(12));
-        card.setCardElevation(dp(2));
-        card.setCardBackgroundColor(getColor(R.color.gzh_surface));
-        card.setContentPadding(dp(16), dp(14), dp(16), dp(14));
-
-        LinearLayout content = new LinearLayout(this);
-        content.setOrientation(LinearLayout.VERTICAL);
-        card.addView(content);
-        root.addView(card);
-
-        if (header != null) {
-            TextView headerView = new TextView(this);
-            headerView.setText(header);
-            headerView.setTextSize(15);
-            headerView.setTypeface(headerView.getTypeface(), android.graphics.Typeface.BOLD);
-            headerView.setPadding(0, 0, 0, dp(8));
-            content.addView(headerView);
-        }
-        return content;
-    }
-
     // TheSuperHackers @feature Android port 07/07/2026 Menu text size scaling
     // (GlobalLanguage::adjustFontSize()) has no in-game slider yet -- the
     // Options screen lives in the user's own game data (.wnd layout), not in
@@ -400,10 +575,11 @@ public class SetupActivity extends Activity {
     // "Menu Text Size" below is the one scaling option that actually works.
 
     private void buildUiScaleSection(LinearLayout root) {
-        LinearLayout content = startCard(root, getString(R.string.setup_card_text_size));
-
-        uiScaleLabel = new TextView(this);
-        content.addView(uiScaleLabel);
+        LinearLayout content = UiKit.card(root);
+        // The live percentage reads out of the header, right-aligned in the
+        // accent, instead of a separate line above the track.
+        uiScaleLabel = UiKit.sectionHeader(content, R.drawable.ic_gzh_sliders,
+            getString(R.string.setup_card_text_size), true);
 
         int startPercent = readUiScalePercent();
         uiScaleSlider = new Slider(this);
@@ -411,23 +587,33 @@ public class SetupActivity extends Activity {
         uiScaleSlider.setValueTo(150f);
         uiScaleSlider.setStepSize(1f);
         uiScaleSlider.setValue(startPercent);
+        // The floating bubble would show a bare untranslated number on top of
+        // the value the header already spells out properly.
+        uiScaleSlider.setLabelBehavior(LabelFormatter.LABEL_GONE);
+        uiScaleSlider.setTrackActiveTintList(UiKit.tint(this, R.color.gzh_primary));
+        uiScaleSlider.setTrackInactiveTintList(UiKit.tint(this, R.color.gzh_surface_container_highest));
+        uiScaleSlider.setThumbTintList(UiKit.tint(this, R.color.gzh_primary));
+        uiScaleSlider.setHaloTintList(UiKit.tint(this, R.color.gzh_ripple_primary));
         updateUiScaleLabel(startPercent);
         uiScaleSlider.addOnChangeListener((slider, value, fromUser) -> updateUiScaleLabel((int) value));
-        content.addView(uiScaleSlider);
+        LinearLayout.LayoutParams sliderLp = new LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        sliderLp.topMargin = UiKit.dim(this, R.dimen.gzh_item_gap_tight);
+        content.addView(uiScaleSlider, sliderLp);
 
-        addButton(content, getString(R.string.setup_button_apply_text_size), () -> {
-            writeUiScalePercent((int) uiScaleSlider.getValue());
-            Toast.makeText(this, R.string.setup_toast_text_size_saved, Toast.LENGTH_LONG).show();
-        });
+        UiKit.button(content, UiKit.BTN_PRIMARY, R.drawable.ic_gzh_check,
+            getString(R.string.setup_button_apply_text_size), () -> {
+                writeUiScalePercent((int) uiScaleSlider.getValue());
+                Toast.makeText(this, R.string.setup_toast_text_size_saved, Toast.LENGTH_LONG).show();
+            });
 
-        TextView uiScaleHelp = new TextView(this);
-        uiScaleHelp.setAlpha(0.8f);
-        uiScaleHelp.setText(R.string.setup_text_size_help);
-        content.addView(uiScaleHelp);
+        UiKit.helpText(content, getString(R.string.setup_text_size_help));
     }
 
     private void updateUiScaleLabel(int percent) {
-        uiScaleLabel.setText(getString(R.string.setup_text_size_label, percent));
+        if (uiScaleLabel != null) {
+            uiScaleLabel.setText(getString(R.string.setup_text_size_label, percent));
+        }
     }
 
     // GeneralsX @feature Android port render-backend picker 07/09/2026 -
@@ -551,6 +737,21 @@ public class SetupActivity extends Activity {
         return cachedGpuName;
     }
 
+    // Short, segment-sized versions of the same three names. All three are
+    // brand names, so every locale carries the same text -- they exist as
+    // string resources rather than literals so a locale that needs to
+    // transliterate them (Arabic, Farsi, Korean) can.
+    private String shortRenderBackendLabel(String choice) {
+        switch (choice) {
+            case RENDER_BACKEND_VULKAN:
+                return getString(R.string.setup_render_backend_vulkan_short);
+            case RENDER_BACKEND_GLES_ANGLE:
+                return getString(R.string.setup_render_backend_gles_angle_short);
+            default:
+                return getString(R.string.setup_render_backend_gles_short);
+        }
+    }
+
     private String renderBackendLabel(String choice) {
         switch (choice) {
             case RENDER_BACKEND_VULKAN:
@@ -562,69 +763,84 @@ public class SetupActivity extends Activity {
         }
     }
 
-    private void buildRenderBackendSection(LinearLayout root) {
-        LinearLayout content = startCard(root, getString(R.string.setup_card_render_backend));
+    // Default first: the order is a recommendation in itself, and Vulkan has
+    // not been the default since this branch started shipping GLES builds.
+    private static final String[] RENDER_BACKEND_CHOICES = {
+        RENDER_BACKEND_GLES, RENDER_BACKEND_GLES_ANGLE, RENDER_BACKEND_VULKAN
+    };
 
-        renderBackendStatusView = new TextView(this);
-        renderBackendStatusView.setText(getString(R.string.setup_render_backend_status, renderBackendLabel(getRenderBackendChoice())));
-        renderBackendStatusView.setPadding(0, 0, 0, dp(4));
-        content.addView(renderBackendStatusView);
+    // GeneralsX @feature Android port launcher-ui-2026 08/09/2026 The three
+    // backends were behind a "Change Render Backend" button that opened a
+    // single-choice dialog -- two taps and a modal to see what you already
+    // had selected. They are three fixed, mutually exclusive choices, which
+    // is exactly what a segmented button row is for: the current one is
+    // visible without touching anything, and switching is one tap.
+    //
+    // The dialog's own strings (setup_button_change_render_backend,
+    // setup_render_backend_dialog_title) are deliberately left in the string
+    // resources: they are still translated in every locale and the dialog is
+    // one commit away if this ever needs to go back.
+    private void buildRenderBackendSection(LinearLayout root) {
+        LinearLayout content = UiKit.card(root);
+        renderBackendStatusView = UiKit.sectionHeader(content, R.drawable.ic_gzh_display,
+            getString(R.string.setup_card_render_backend), true);
+        renderBackendStatusView.setText(shortRenderBackendLabel(getRenderBackendChoice()));
+        renderBackendStatusView.setContentDescription(getString(R.string.setup_render_backend_status,
+            renderBackendLabel(getRenderBackendChoice())));
+
+        String current = getRenderBackendChoice();
+        int currentIndex = 0;
+        CharSequence[] labels = new CharSequence[RENDER_BACKEND_CHOICES.length];
+        for (int i = 0; i < RENDER_BACKEND_CHOICES.length; i++) {
+            labels[i] = shortRenderBackendLabel(RENDER_BACKEND_CHOICES[i]);
+            if (RENDER_BACKEND_CHOICES[i].equals(current)) {
+                currentIndex = i;
+            }
+        }
+        final String initial = current;
+        com.google.android.material.button.MaterialButtonToggleGroup group =
+            UiKit.segmented(content, labels, currentIndex, index -> {
+            String picked = RENDER_BACKEND_CHOICES[index];
+            if (picked.equals(initial)) {
+                return;  // programmatic/no-op selection: nothing to save
+            }
+            onPickRenderBackend(picked);
+        });
+        // Keeps the picker's own (translated) prompt as what a screen reader
+        // announces for the row of three brand names.
+        group.setContentDescription(getString(R.string.setup_render_backend_dialog_title));
+
+        // The full sentence stays available under the segments: the short
+        // segment labels are brand names, this is the one that says which is
+        // the default and what "Current:" means.
+        UiKit.supporting(content, getString(R.string.setup_render_backend_status,
+            renderBackendLabel(current)));
 
         String gpu = detectGpuName();
         if (!gpu.isEmpty()) {
-            TextView gpuView = new TextView(this);
-            gpuView.setAlpha(0.8f);
-            gpuView.setText(getString(R.string.setup_render_backend_gpu, gpu));
-            gpuView.setPadding(0, 0, 0, dp(8));
-            content.addView(gpuView);
+            UiKit.chip(content, R.drawable.ic_gzh_chip,
+                getString(R.string.setup_render_backend_gpu, gpu),
+                R.color.gzh_on_surface, R.color.gzh_surface_container_high);
         }
 
-        addButton(content, getString(R.string.setup_button_change_render_backend), this::onChangeRenderBackend);
-
-        TextView help = new TextView(this);
-        help.setAlpha(0.8f);
-        help.setText(R.string.setup_render_backend_help);
-        content.addView(help);
+        UiKit.helpText(content, getString(R.string.setup_render_backend_help));
     }
 
-    private void onChangeRenderBackend() {
-        // Default first: the list order is a recommendation in itself, and Vulkan has
-        // not been the default since this branch started shipping GLES builds.
-        String[] choices = { RENDER_BACKEND_GLES, RENDER_BACKEND_GLES_ANGLE, RENDER_BACKEND_VULKAN };
-        String[] labels = new String[choices.length];
-        for (int i = 0; i < choices.length; i++) {
-            labels[i] = renderBackendLabel(choices[i]);
+    private void onPickRenderBackend(String choice) {
+        File cfg = new File(getFilesDir(), RENDER_BACKEND_CFG_NAME);
+        try (java.io.FileWriter w = new java.io.FileWriter(cfg, false)) {
+            w.write(choice);
+            w.write("\n");
+        } catch (java.io.IOException e) {
+            Toast.makeText(this, getString(R.string.setup_toast_render_backend_failed, e.getMessage()), Toast.LENGTH_LONG).show();
+            return;
         }
-        String current = getRenderBackendChoice();
-        int currentIndex = 0;
-        for (int i = 0; i < choices.length; i++) {
-            if (choices[i].equals(current)) {
-                currentIndex = i;
-                break;
-            }
-        }
-        new android.app.AlertDialog.Builder(this)
-            .setTitle(R.string.setup_render_backend_dialog_title)
-            .setSingleChoiceItems(labels, currentIndex, (dialog, which) -> {
-                File cfg = new File(getFilesDir(), RENDER_BACKEND_CFG_NAME);
-                try (java.io.FileWriter w = new java.io.FileWriter(cfg, false)) {
-                    w.write(choices[which]);
-                    w.write("\n");
-                } catch (java.io.IOException e) {
-                    Toast.makeText(this, getString(R.string.setup_toast_render_backend_failed, e.getMessage()), Toast.LENGTH_LONG).show();
-                    dialog.dismiss();
-                    return;
-                }
-                dialog.dismiss();
-                Toast.makeText(this, R.string.setup_toast_render_backend_saved, Toast.LENGTH_LONG).show();
-                // The Custom Vulkan Driver / DXVK Config cards below are only
-                // relevant for the Vulkan backend -- recreate() re-runs
-                // buildUi() so they show/hide immediately, same pattern
-                // onChangeLanguage() already uses for its own dialog.
-                recreate();
-            })
-            .setNegativeButton(R.string.common_cancel, null)
-            .show();
+        Toast.makeText(this, R.string.setup_toast_render_backend_saved, Toast.LENGTH_LONG).show();
+        // The Custom Vulkan Driver / DXVK Config cards are only relevant for
+        // the Vulkan backend -- rebuilding this one page shows/hides them
+        // immediately, without the full recreate() (and the jump back to
+        // Home) the old dialog needed.
+        showTab(TAB_GRAPHICS);
     }
 
     // GeneralsX @feature Android port 10/07/2026 Optional custom Vulkan
@@ -656,20 +872,18 @@ public class SetupActivity extends Activity {
     private TextView customDriverStatusView;
 
     private void buildCustomDriverSection(LinearLayout root) {
-        LinearLayout content = startCard(root, getString(R.string.setup_card_vulkan_driver));
+        LinearLayout content = UiKit.card(root);
+        UiKit.sectionHeader(content, R.drawable.ic_gzh_chip,
+            getString(R.string.setup_card_vulkan_driver), false);
 
-        customDriverStatusView = new TextView(this);
-        customDriverStatusView.setText(customDriverStatusText());
-        customDriverStatusView.setPadding(0, 0, 0, dp(8));
-        content.addView(customDriverStatusView);
+        customDriverStatusView = UiKit.supporting(content, customDriverStatusText());
 
-        addButton(content, getString(R.string.setup_button_import_driver), this::onImportCustomDriver);
-        addButton(content, getString(R.string.setup_button_reset_driver), this::onClearCustomDriver);
+        UiKit.button(content, UiKit.BTN_TONAL, R.drawable.ic_gzh_download,
+            getString(R.string.setup_button_import_driver), this::onImportCustomDriver);
+        UiKit.button(content, UiKit.BTN_DANGER, R.drawable.ic_gzh_refresh,
+            getString(R.string.setup_button_reset_driver), this::onClearCustomDriver);
 
-        TextView help = new TextView(this);
-        help.setAlpha(0.8f);
-        help.setText(R.string.setup_driver_help);
-        content.addView(help);
+        UiKit.helpText(content, getString(R.string.setup_driver_help));
     }
 
     private String customDriverStatusText() {
@@ -992,28 +1206,57 @@ public class SetupActivity extends Activity {
     // file round-trip untouched instead of being reparsed away.
     private EditText dxvkConfigEdit;
 
+    // GeneralsX @feature Android port launcher-ui-2026 08/09/2026 The raw
+    // EditText is now a Material 3 outlined text field. TextInputLayout picks
+    // its style from ?attr/textInputStyle, so an outlined box on a view built
+    // in code (rather than inflated from a layout with a style= attribute) is
+    // a matter of constructing it against a ContextThemeWrapper that swaps
+    // that one attribute -- see ThemeOverlay.GeneralsZH.OutlinedField.
     private void buildDxvkConfigSection(LinearLayout root) {
-        LinearLayout content = startCard(root, getString(R.string.setup_card_dxvk_config));
+        LinearLayout content = UiKit.card(root);
+        UiKit.sectionHeader(content, R.drawable.ic_gzh_terminal,
+            getString(R.string.setup_card_dxvk_config), false);
 
-        TextView help = new TextView(this);
-        help.setAlpha(0.8f);
-        help.setText(R.string.setup_dxvk_config_help);
-        help.setPadding(0, 0, 0, dp(8));
-        content.addView(help);
+        ContextThemeWrapper fieldContext =
+            new ContextThemeWrapper(this, R.style.ThemeOverlay_GeneralsZH_OutlinedField);
+        TextInputLayout field = new TextInputLayout(fieldContext);
+        field.setHint(R.string.setup_card_dxvk_config);
+        field.setBoxStrokeColor(UiKit.color(this, R.color.gzh_primary));
+        field.setHintTextColor(UiKit.tint(this, R.color.gzh_on_surface_variant));
+        // Keep the label in its floated position even when the box is empty:
+        // loadDxvkConfigIntoEditor() puts the "select a game folder first"
+        // prompt in the field's own hint, and an expanded label would sit on
+        // top of it.
+        field.setExpandedHintEnabled(false);
+        float boxRadius = UiKit.dim(this, R.dimen.gzh_radius_field);
+        field.setBoxCornerRadii(boxRadius, boxRadius, boxRadius, boxRadius);
 
-        dxvkConfigEdit = new EditText(this);
-        dxvkConfigEdit.setTypeface(android.graphics.Typeface.MONOSPACE);
-        dxvkConfigEdit.setTextSize(12);
-        dxvkConfigEdit.setMinLines(6);
-        dxvkConfigEdit.setMaxLines(20);
-        dxvkConfigEdit.setGravity(android.view.Gravity.TOP | android.view.Gravity.START);
-        dxvkConfigEdit.setInputType(android.text.InputType.TYPE_CLASS_TEXT
+        TextInputEditText edit = new TextInputEditText(field.getContext());
+        edit.setTypeface(android.graphics.Typeface.MONOSPACE);
+        edit.setTextSize(12);
+        edit.setTextColor(UiKit.color(this, R.color.gzh_on_surface));
+        edit.setMinLines(6);
+        edit.setMaxLines(20);
+        edit.setGravity(android.view.Gravity.TOP | android.view.Gravity.START);
+        edit.setInputType(android.text.InputType.TYPE_CLASS_TEXT
             | android.text.InputType.TYPE_TEXT_FLAG_MULTI_LINE
             | android.text.InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
-        content.addView(dxvkConfigEdit);
+        field.addView(edit, new LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        dxvkConfigEdit = edit;
 
-        addButton(content, getString(R.string.setup_button_dxvk_config_save), this::onSaveDxvkConfig);
-        addButton(content, getString(R.string.setup_button_dxvk_config_reset), this::onResetDxvkConfig);
+        LinearLayout.LayoutParams fieldLp = new LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        fieldLp.topMargin = UiKit.dim(this, R.dimen.gzh_item_gap_tight);
+        content.addView(field, fieldLp);
+
+        LinearLayout row = UiKit.buttonRow(content);
+        UiKit.share(UiKit.button(row, UiKit.BTN_PRIMARY, R.drawable.ic_gzh_save,
+            getString(R.string.setup_button_dxvk_config_save), this::onSaveDxvkConfig), true);
+        UiKit.share(UiKit.button(row, UiKit.BTN_DANGER, R.drawable.ic_gzh_refresh,
+            getString(R.string.setup_button_dxvk_config_reset), this::onResetDxvkConfig), false);
+
+        UiKit.helpText(content, getString(R.string.setup_dxvk_config_help));
 
         loadDxvkConfigIntoEditor();
     }
@@ -1129,38 +1372,29 @@ public class SetupActivity extends Activity {
     };
     private final SwitchCompat[] diagnosticSwitches = new SwitchCompat[DIAGNOSTIC_MARKERS.length];
 
+    // GeneralsX @feature Android port launcher-ui-2026 08/09/2026 Each toggle
+    // used to be a SwitchCompat whose LABEL was the title, with the "when to
+    // turn this on" paragraph as a separate, differently-indented TextView
+    // underneath -- so a long translated title wrapped around the switch and
+    // the two halves of one control drifted apart. They are now proper
+    // Material 3 list rows: title and description in a text column, the
+    // switch pinned to the end edge, a hairline between rows.
     private void buildDiagnosticsSection(LinearLayout root) {
-        LinearLayout content = startCard(root, getString(R.string.setup_card_diagnostics));
+        LinearLayout content = UiKit.card(root);
+        UiKit.sectionHeader(content, R.drawable.ic_gzh_wrench,
+            getString(R.string.setup_card_diagnostics), false);
+        UiKit.supporting(content, getString(R.string.setup_diagnostics_help));
 
-        TextView help = new TextView(this);
-        help.setAlpha(0.8f);
-        help.setText(R.string.setup_diagnostics_help);
-        help.setPadding(0, 0, 0, dp(8));
-        content.addView(help);
-
-        diagnosticsNoFolderHint = new TextView(this);
-        diagnosticsNoFolderHint.setAlpha(0.8f);
-        diagnosticsNoFolderHint.setText(R.string.setup_diagnostics_no_folder);
-        diagnosticsNoFolderHint.setPadding(0, 0, 0, dp(8));
-        content.addView(diagnosticsNoFolderHint);
+        diagnosticsNoFolderHint = UiKit.chip(content, R.drawable.ic_gzh_info,
+            getString(R.string.setup_diagnostics_no_folder),
+            R.color.gzh_status_warn, R.color.gzh_surface_container_high);
 
         for (int i = 0; i < DIAGNOSTIC_MARKERS.length; i++) {
-            SwitchCompat sw = new SwitchCompat(this);
-            sw.setText(getString(DIAGNOSTIC_TITLES[i]));
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            lp.setMargins(0, dp(4), 0, 0);
-            content.addView(sw, lp);
-            diagnosticSwitches[i] = sw;
-
-            TextView desc = new TextView(this);
-            desc.setAlpha(0.7f);
-            desc.setTextSize(12);
-            desc.setText(getString(DIAGNOSTIC_DESCRIPTIONS[i]));
-            LinearLayout.LayoutParams descLp = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            descLp.setMargins(dp(4), 0, 0, dp(10));
-            content.addView(desc, descLp);
+            if (i > 0) {
+                UiKit.divider(content);
+            }
+            diagnosticSwitches[i] = UiKit.switchRow(content,
+                getString(DIAGNOSTIC_TITLES[i]), getString(DIAGNOSTIC_DESCRIPTIONS[i]));
         }
 
         refreshDiagnosticsSwitches();
@@ -1214,13 +1448,15 @@ public class SetupActivity extends Activity {
     private TextView onlineStatusView;
 
     private void buildGeneralsOnlineSection(LinearLayout root) {
-        LinearLayout content = startCard(root, getString(R.string.setup_card_online));
+        LinearLayout content = UiKit.card(root);
+        UiKit.sectionHeader(content, R.drawable.ic_gzh_account,
+            getString(R.string.setup_card_online), false);
 
-        onlineStatusView = new TextView(this);
-        content.addView(onlineStatusView);
+        onlineStatusView = UiKit.supporting(content, null);
 
-        addButton(content, getString(R.string.setup_button_online_account), () ->
-            startActivity(new Intent(this, GeneralsOnlineActivity.class)));
+        UiKit.button(content, UiKit.BTN_TONAL, R.drawable.ic_gzh_account,
+            getString(R.string.setup_button_online_account), () ->
+                startActivity(new Intent(this, GeneralsOnlineActivity.class)));
     }
 
     private void refreshGeneralsOnlineStatus() {
@@ -1317,16 +1553,6 @@ public class SetupActivity extends Activity {
         return result;
     }
 
-    private void addButton(LinearLayout root, String label, Runnable action) {
-        MaterialButton b = new MaterialButton(this);
-        b.setText(label);
-        b.setOnClickListener(v -> action.run());
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        lp.setMargins(0, dp(4), 0, dp(4));
-        root.addView(b, lp);
-    }
-
     // GeneralsX @feature Android port game-folder-integrity-check 07/09/2026
     // Plain text made "not set"/"looks valid"/"looks incomplete" too easy to
     // miss right after picking a folder -- the status line is now bold,
@@ -1336,6 +1562,9 @@ public class SetupActivity extends Activity {
     // right after picking (see onActivityResult()), since even a colored
     // line can be scrolled past unnoticed but a dialog can't.
     private void refreshStatus() {
+        if (statusText == null) {
+            return;  // the current page has no status line (see showTab())
+        }
         String path = getSavedGamePath();
         SpannableStringBuilder sb = new SpannableStringBuilder();
         if (path == null) {
@@ -1355,7 +1584,7 @@ public class SetupActivity extends Activity {
                     sb.append(getString(R.string.setup_status_folder_valid));
                     statusColorRes = R.color.gzh_status_ok;
                 } else {
-                    sb.append(getString(R.string.setup_status_folder_incomplete, String.join("\n", issues)));
+                    sb.append(getString(R.string.setup_status_folder_incomplete, joinLines(issues)));
                     statusColorRes = R.color.gzh_status_error;
                 }
             }
@@ -1372,10 +1601,32 @@ public class SetupActivity extends Activity {
                 sb.append(getString(R.string.setup_status_base_generals_line, basePath));
             }
         }
-        sb.append('\n');
-        sb.append(getString(R.string.setup_status_logs_note));
-        statusText.setText(sb);
+        // GeneralsX @feature Android port launcher-ui-2026 08/09/2026 The
+        // "your logs live in private storage" paragraph used to be glued to
+        // the end of this verdict, burying it. It now labels the View Logs
+        // row on the Tools page (buildLogsSection()), where it is actually
+        // about to be acted on.
+        int end = sb.length();
+        while (end > 0 && Character.isWhitespace(sb.charAt(end - 1))) {
+            end--;
+        }
+        statusText.setText(sb.subSequence(0, end));
         updateGameLanguageStatusView();
+    }
+
+    // String.join() is API 26; this launcher's UI code deliberately stays
+    // inside the API 24 surface (see the minSdk note in android/app/build.gradle),
+    // so the one place that needed it gets a three-line equivalent instead of
+    // a version gate.
+    private static String joinLines(java.util.List<String> lines) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < lines.size(); i++) {
+            if (i > 0) {
+                sb.append('\n');
+            }
+            sb.append(lines.get(i));
+        }
+        return sb.toString();
     }
 
     private void showFolderProblemDialog(String message) {
@@ -1836,7 +2087,10 @@ public class SetupActivity extends Activity {
         getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit().remove(PREF_BASE_GENERALS_PATH).apply();
         new File(getFilesDir(), "generals_base_path.txt").delete();
         Toast.makeText(this, R.string.setup_toast_base_generals_cleared, Toast.LENGTH_LONG).show();
-        recreate();
+        // Only the Home card changes shape (the "clear" button disappears) --
+        // rebuilding that one page is enough, and keeps the user where they
+        // are instead of restarting the whole Activity.
+        showTab(TAB_HOME);
     }
 
     String getBaseGeneralsPath() {
@@ -1897,7 +2151,7 @@ public class SetupActivity extends Activity {
                     java.util.List<String> issues = findGameFolderIntegrityIssues(dir);
                     if (!issues.isEmpty()) {
                         showFolderProblemDialog(getString(R.string.setup_status_folder_incomplete,
-                            String.join("\n", issues)).trim(), m_lastCheckWantedBaseGenerals);
+                            joinLines(issues)).trim(), m_lastCheckWantedBaseGenerals);
                     } else {
                         Toast.makeText(this, R.string.setup_toast_folder_saved, Toast.LENGTH_LONG).show();
                     }
@@ -1921,7 +2175,7 @@ public class SetupActivity extends Activity {
                     saveBaseGeneralsPath(resolved.getAbsolutePath());
                     Toast.makeText(this, getString(R.string.setup_toast_base_generals_saved,
                         resolved.getAbsolutePath()), Toast.LENGTH_LONG).show();
-                    recreate();
+                    showTab(TAB_HOME);
                 }
             }
         } else if (requestCode == REQUEST_IMPORT_DRIVER && resultCode == Activity.RESULT_OK && data != null) {

@@ -185,4 +185,14 @@
     <string name="setup_toast_dxvk_config_reset">تمت الإعادة إلى dxvk.conf الافتراضي.</string>
     <string name="setup_toast_dxvk_config_saved">تم الحفظ. سيسري المفعول عند تشغيل اللعبة في المرة القادمة.</string>
     <string name="setup_toast_storage_permission_denied">يلزم إذن التخزين لتصفح مجلد اللعبة. اضغط «اختيار مجلد اللعبة» مرة أخرى للمحاولة.</string>
+
+    <!-- Launcher bottom navigation + short render-backend names -->
+    <string name="nav_tab_home">الرئيسية</string>
+    <string name="nav_tab_graphics">الرسوميات</string>
+    <string name="nav_tab_interface">الواجهة</string>
+    <string name="nav_tab_tools">الأدوات</string>
+    <string name="nav_tab_help">المساعدة</string>
+    <string name="setup_render_backend_gles_short">GLES</string>
+    <string name="setup_render_backend_gles_angle_short">ANGLE</string>
+    <string name="setup_render_backend_vulkan_short">Vulkan</string>
 </resources>

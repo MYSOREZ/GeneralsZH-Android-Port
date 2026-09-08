@@ -185,4 +185,14 @@
     <string name="setup_toast_dxvk_config_reset">Vrnjeno k izhodnomu dxvk.conf.</string>
     <string name="setup_toast_dxvk_config_saved">Sohranjeno. Budet dějstvovati pri naslědujučem zapusku igry.</string>
     <string name="setup_toast_storage_permission_denied">Za prěgled papki igry trěbno dozvolenje k hranilišču. Natisni «Izbrati papku igry» ješče raz.</string>
+
+    <!-- Launcher bottom navigation + short render-backend names -->
+    <string name="nav_tab_home">Glavna</string>
+    <string name="nav_tab_graphics">Grafika</string>
+    <string name="nav_tab_interface">Interfejs</string>
+    <string name="nav_tab_tools">Orudja</string>
+    <string name="nav_tab_help">Pomoč</string>
+    <string name="setup_render_backend_gles_short">GLES</string>
+    <string name="setup_render_backend_gles_angle_short">ANGLE</string>
+    <string name="setup_render_backend_vulkan_short">Vulkan</string>
 </resources>

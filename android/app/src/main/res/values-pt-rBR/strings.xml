@@ -185,4 +185,14 @@
     <string name="setup_toast_dxvk_config_reset">Restaurado para o dxvk.conf padrão.</string>
     <string name="setup_toast_dxvk_config_saved">Salvo. Passa a valer na próxima vez que você iniciar o jogo.</string>
     <string name="setup_toast_storage_permission_denied">É necessária permissão de armazenamento para procurar a pasta do jogo. Toque em «Selecionar pasta do jogo» novamente.</string>
+
+    <!-- Launcher bottom navigation + short render-backend names -->
+    <string name="nav_tab_home">Início</string>
+    <string name="nav_tab_graphics">Gráficos</string>
+    <string name="nav_tab_interface">Interface</string>
+    <string name="nav_tab_tools">Ferramentas</string>
+    <string name="nav_tab_help">Ajuda</string>
+    <string name="setup_render_backend_gles_short">GLES</string>
+    <string name="setup_render_backend_gles_angle_short">ANGLE</string>
+    <string name="setup_render_backend_vulkan_short">Vulkan</string>
 </resources>

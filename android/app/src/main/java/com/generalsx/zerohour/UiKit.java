@@ -121,11 +121,12 @@ final class UiKit {
 
     /**
      * Top app bar: a small muted overline, a large bold title beneath it, and
-     * an optional icon button pinned to the end edge.
+     * an optional icon button pinned to the end edge. Returns the title view,
+     * which the caller retitles as the user moves between sections.
      */
-    static LinearLayout appBar(ViewGroup parent, CharSequence overline, CharSequence title,
-                               int trailingIconRes, CharSequence trailingDescription,
-                               Runnable trailingAction) {
+    static TextView appBar(ViewGroup parent, CharSequence overline, CharSequence title,
+                           int trailingIconRes, CharSequence trailingDescription,
+                           Runnable trailingAction) {
         Context c = parent.getContext();
         LinearLayout bar = new LinearLayout(c);
         bar.setOrientation(LinearLayout.HORIZONTAL);
@@ -164,7 +165,7 @@ final class UiKit {
 
         parent.addView(bar, new LinearLayout.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        return bar;
+        return titleView;
     }
 
     /** Round, tonal icon-only button — used for the app bar's trailing action. */
@@ -420,11 +421,25 @@ final class UiKit {
         return row;
     }
 
-    /** Re-weights a button already added to a {@link #buttonRow}. */
+    /**
+     * Re-weights a button already added to a {@link #buttonRow} so the row's
+     * buttons split its width evenly.
+     *
+     * MATCH_PARENT height rather than WRAP_CONTENT, deliberately: a
+     * translation that wraps to two lines (Ukrainian "Очистити логи" is the
+     * one that first caught this) would otherwise make that one button taller
+     * than its siblings and break the row's bottom edge. Horizontal padding
+     * also comes down, since a third of a phone's width has to hold an icon
+     * and a word.
+     */
     static void share(MaterialButton button, boolean firstInRow) {
         Context c = button.getContext();
+        button.setPadding(dp(c, 8), dp(c, 10), dp(c, 8), dp(c, 10));
+        button.setMaxLines(2);
+        button.setEllipsize(android.text.TextUtils.TruncateAt.END);
         LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) button.getLayoutParams();
         lp.width = 0;
+        lp.height = ViewGroup.LayoutParams.MATCH_PARENT;
         lp.weight = 1f;
         lp.topMargin = 0;
         if (!firstInRow) {

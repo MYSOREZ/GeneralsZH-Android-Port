@@ -25,7 +25,9 @@
     <!-- Content on those surfaces -->
     <color name="gzh_on_surface">#ECEBF2</color>
     <color name="gzh_on_surface_variant">#A5A2B4</color>
-    <color name="gzh_on_surface_faint">#7C798C</color>
+    <!-- The faintest tier still has to clear WCAG AA (4.5:1) at 12sp against
+         gzh_surface_container, which #7C798C did not (3.9:1). -->
+    <color name="gzh_on_surface_faint">#8F8CA0</color>
     <color name="gzh_outline">#3A3846</color>
     <color name="gzh_outline_variant">#26252F</color>
 

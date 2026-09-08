@@ -185,4 +185,14 @@
     <string name="setup_toast_dxvk_config_reset">기본 dxvk.conf로 되돌렸습니다.</string>
     <string name="setup_toast_dxvk_config_saved">저장했습니다. 다음에 게임을 실행할 때 적용됩니다.</string>
     <string name="setup_toast_storage_permission_denied">게임 폴더를 찾아보려면 저장소 권한이 필요합니다. «게임 폴더 선택»을 다시 누르세요.</string>
+
+    <!-- Launcher bottom navigation + short render-backend names -->
+    <string name="nav_tab_home">홈</string>
+    <string name="nav_tab_graphics">그래픽</string>
+    <string name="nav_tab_interface">인터페이스</string>
+    <string name="nav_tab_tools">도구</string>
+    <string name="nav_tab_help">도움말</string>
+    <string name="setup_render_backend_gles_short">GLES</string>
+    <string name="setup_render_backend_gles_angle_short">ANGLE</string>
+    <string name="setup_render_backend_vulkan_short">Vulkan</string>
 </resources>

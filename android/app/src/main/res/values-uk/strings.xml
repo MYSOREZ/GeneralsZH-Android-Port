@@ -185,4 +185,14 @@
     <string name="setup_toast_dxvk_config_reset">Скинуто до типового dxvk.conf.</string>
     <string name="setup_toast_dxvk_config_saved">Збережено. Подіє з наступного запуску гри.</string>
     <string name="setup_toast_storage_permission_denied">Щоб переглянути теку гри, потрібен дозвіл на доступ до сховища. Натисніть «Вибрати теку гри» ще раз.</string>
+
+    <!-- Launcher bottom navigation + short render-backend names -->
+    <string name="nav_tab_home">Головна</string>
+    <string name="nav_tab_graphics">Графіка</string>
+    <string name="nav_tab_interface">Інтерфейс</string>
+    <string name="nav_tab_tools">Інструменти</string>
+    <string name="nav_tab_help">Довідка</string>
+    <string name="setup_render_backend_gles_short">GLES</string>
+    <string name="setup_render_backend_gles_angle_short">ANGLE</string>
+    <string name="setup_render_backend_vulkan_short">Vulkan</string>
 </resources>
