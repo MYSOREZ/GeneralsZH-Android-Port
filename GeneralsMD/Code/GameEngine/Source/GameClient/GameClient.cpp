@@ -599,6 +599,10 @@ void GameClient::update()
 		if (moviePlaying != s_audioPausedForMovie && TheAudio != nullptr)
 		{
 			s_audioPausedForMovie = moviePlaying;
+			fprintf(stderr, "[GX-AUDIO] movie %s -> world samples %s\n",
+			        moviePlaying ? "started" : "ended",
+			        moviePlaying ? "paused" : "resumed");
+			fflush(stderr);
 			const AudioAffect worldSamples =
 				(AudioAffect)(AudioAffect_Sound | AudioAffect_Sound3D);
 			if (moviePlaying)

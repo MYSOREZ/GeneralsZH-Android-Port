@@ -2,6 +2,7 @@
 #include "OpenALAudioDevice/OpenALAudioManager.h"
 #include <AL/alext.h>
 #include <chrono>
+#include <cstdio>
 
 // GeneralsX @bugfix Android port 08/09/2026 Wall clock for the EOF probe below.
 static unsigned long gxNowMs()
@@ -104,7 +105,13 @@ void OpenALAudioStream::update()
             bool moreData = m_requireDataCallback();
             ALint queuedAfter = 0;
             alGetSourcei(m_source, AL_BUFFERS_QUEUED, &queuedAfter);
+            fprintf(stderr, "[GX-AUDIO] probe src=%u queued=%d processed=%d moreData=%d queuedAfter=%d stalled=%d\n",
+                    (unsigned)m_source, (int)num_queued, (int)processedNow, (int)moreData,
+                    (int)queuedAfter, (int)m_stalledProbes);
+            fflush(stderr);
             if (!moreData) {
+                fprintf(stderr, "[GX-AUDIO] EOF latched: decoder said no more data (src=%u)\n", (unsigned)m_source);
+                fflush(stderr);
                 m_endOfData = true;   // definitive EOF from the decoder
             }
             else if (queuedAfter <= queuedBefore) {
@@ -133,6 +140,9 @@ void OpenALAudioStream::update()
                 m_stalledProbes = followsLastClosely ? (m_stalledProbes + 1) : 1;
                 m_lastProbeMs = nowMs;
                 if (m_stalledProbes >= 3) {
+                    fprintf(stderr, "[GX-AUDIO] EOF latched: 3 stalled probes (src=%u, gap=%lums)\n",
+                            (unsigned)m_source, followsLastClosely ? (nowMs - m_lastProbeMs) : 0UL);
+                    fflush(stderr);
                     m_endOfData = true;
                 }
             }

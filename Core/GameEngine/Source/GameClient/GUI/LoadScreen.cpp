@@ -176,7 +176,15 @@ void LoadScreen::update( Int percent )
 	TheWindowManager->update();
 	TheDisplay->update();
 	if (TheAudio)
+	{
+		static Int s_pumpCount = 0;
+		if ((s_pumpCount++ % 10) == 0)
+		{
+			fprintf(stderr, "[GX-AUDIO] loadscreen pump #%d at %d%%\n", s_pumpCount, (int)percent);
+			fflush(stderr);
+		}
 		TheAudio->UPDATE();
+	}
 	// redraw all views, update the GUI
 	TheDisplay->draw();
 

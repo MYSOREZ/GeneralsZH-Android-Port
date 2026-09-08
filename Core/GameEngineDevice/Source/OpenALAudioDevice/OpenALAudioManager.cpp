@@ -2624,6 +2624,15 @@ void OpenALAudioManager::processPlayingList(void)
 		// genuinely finished stream still gets released here, and a merely starved one is left
 		// for update() to revive. That latch is also what stops this from leaking a stream that
 		// can never play again.
+		if (playing->m_stream && sourceIsStopped(playing->m_stream->getSource()))
+		{
+			fprintf(stderr, "[GX-AUDIO] stream stopped: src=%u atEnd=%d event=%s\n",
+			        (unsigned)playing->m_stream->getSource(),
+			        (int)playing->m_stream->isAtEnd(),
+			        (playing->m_audioEventRTS ? playing->m_audioEventRTS->getEventName().str() : "?"));
+			fflush(stderr);
+		}
+
 		if (playing->m_stream && sourceIsStopped(playing->m_stream->getSource())
 		    && playing->m_stream->isAtEnd())
 		{
