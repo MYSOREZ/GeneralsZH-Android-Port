@@ -46,6 +46,7 @@
 //----------------------------------------------------------------------------
 
 #include "Lib/BaseType.h"
+#include <cstdio>
 #include "VideoDevice/FFmpeg/FFmpegVideoPlayer.h"
 #include "Common/AudioAffect.h"
 #include "Common/GameAudio.h"
@@ -340,6 +341,9 @@ FFmpegVideoStream::FFmpegVideoStream(FFmpegFile* file)
     // Issue: https://github.com/fbraz3/GeneralsX/issues/38
     audioStream->setVolume(1.0f);
     audioStream->play();
+    fprintf(stderr, "[GX-AUDIO] FFmpegVideoStream ctor: audioStream=%p hasAudio=%d gotFirstVideoFrame=%d\n",
+            (void*)audioStream, (int)m_ffmpegFile->hasAudio(), (int)m_gotFrame);
+    fflush(stderr);
 #endif
 
     m_startTime = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
@@ -378,6 +382,20 @@ void FFmpegVideoStream::onFrame(AVFrame *frame, int stream_idx, int stream_type,
     }
 #ifdef SAGE_USE_OPENAL
     else if (stream_type == AVMEDIA_TYPE_AUDIO) {
+        // GeneralsX @feature Android port 08/09/2026 Reported: the intro/sizzle movie has
+        // no sound at all. This path is the ONLY one that ever produces movie audio -- it is
+        // driven directly by FFmpegVideoStream's own decode loop, not through
+        // OpenALAudioManager's streaming lambda (setRequireDataCallback is never called on
+        // this stream), so none of the [GX-AUDIO] unqueue/refilled tracing added earlier for
+        // the loading-screen music covers this path at all -- a wrong assumption from a
+        // previous round. Trace it directly instead.
+        static int gxAudioFrameCount = 0;
+        if ((gxAudioFrameCount++ % 30) == 0) {
+            fprintf(stderr, "[GX-AUDIO] movie audio frame #%d: ch=%d samples=%d fmt=%d rate=%d\n",
+                    gxAudioFrameCount, frame->ch_layout.nb_channels, frame->nb_samples,
+                    (int)frame->format, frame->sample_rate);
+            fflush(stderr);
+        }
         OpenALAudioStream* audioStream = (OpenALAudioStream*)TheAudio->getHandleForBink();
 
         AVSampleFormat sampleFmt = static_cast<AVSampleFormat>(frame->format);
@@ -457,7 +475,12 @@ void FFmpegVideoStream::onFrame(AVFrame *frame, int stream_idx, int stream_type,
         }
 
         ALenum format = OpenALAudioManager::getALFormat(frame->ch_layout.nb_channels, outputBitsPerSample);
-        audioStream->bufferData(frameData, outputFrameSize, format, frame->sample_rate);
+        bool gxQueued = audioStream->bufferData(frameData, outputFrameSize, format, frame->sample_rate);
+        if (!gxQueued) {
+            fprintf(stderr, "[GX-AUDIO] movie audio frame: bufferData() FAILED (format=0x%x rate=%d size=%d)\n",
+                    (unsigned)format, frame->sample_rate, outputFrameSize);
+            fflush(stderr);
+        }
         audioStream->update();
     }
 #endif
