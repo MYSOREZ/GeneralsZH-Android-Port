@@ -83,6 +83,15 @@ echo "==> Building z_generals (libmain.so) + DXVK d3d8/d3d9"
 # named explicitly here. Missing this list is exactly what made
 # package-android-zh.sh's "libmain_hook.so not found" check fail on the
 # first CI run of the Custom Vulkan Driver feature.
+# GeneralsX @build Android port 08/09/2026 Force the crash handler to recompile every
+# build, so the "[build compiled ...]" stamp it prints is the stamp of THIS build.
+# It bakes in __DATE__/__TIME__, and nothing normally edits that file, so an
+# incremental build left the stamp frozen at whenever it was last touched -- which
+# made every device log claim the same build date regardless of what was actually
+# installed. Several rounds of a bug hunt were spent unable to tell one build from
+# another because of it. One touch is cheaper than that ambiguity.
+touch "${PROJECT_ROOT}/GeneralsMD/Code/Main/AndroidCrashHandler.cpp"
+
 cmake --build "${BUILD_DIR}" --target z_generals dxvk_d3d8_install \
     main_hook file_redirect_hook gsl_alloc_hook hook_impl
 
