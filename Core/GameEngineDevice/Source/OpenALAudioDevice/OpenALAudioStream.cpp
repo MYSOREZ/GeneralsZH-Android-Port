@@ -180,8 +180,21 @@ void OpenALAudioStream::update()
     alGetSourcei(m_source, AL_BUFFERS_PROCESSED, &processedBeforeUnqueue);
     DEBUG_LOG(("%i buffers have been processed\n", processedBeforeUnqueue));
 
-    // GeneralsX @bugfix BenderAI 22/04/2026 Only unqueue processed data in active playback states.
-    ALint processedToUnqueue = ((sourceState == AL_PLAYING || sourceState == AL_PAUSED) ? processedBeforeUnqueue : 0);
+    // GeneralsX @bugfix Android port 08/09/2026 Unqueue in EVERY state, not only while playing.
+    //
+    // This gate is what makes the loading music stutter, and a device log shows it exactly:
+    //   probe src=2 queued=16 processed=16 moreData=1 queuedAfter=17 stalled=0
+    // Every buffer queued has been played, and none is ever released, because a starved source
+    // is AL_STOPPED and this skipped it. num_queued therefore sits at the buffer count forever,
+    // so the bulk refill below -- which only runs while num_queued < AL_STREAM_BUFFER_COUNT / 2
+    // -- can never run. The only thing that ever adds data is the single-buffer EOF probe, one
+    // buffer per audio update, and during a load those updates are seconds apart. Hence music
+    // in fragments: it plays one buffer, runs dry, waits for the next pump.
+    //
+    // Unqueueing here cannot lose anything. AL_BUFFERS_PROCESSED counts only buffers played to
+    // completion; freshly queued, unplayed data is not included, which is what the original
+    // caution was about.
+    ALint processedToUnqueue = processedBeforeUnqueue;
     while (processedToUnqueue > 0) {
         ALuint buffer;
         alSourceUnqueueBuffers(m_source, 1, &buffer);

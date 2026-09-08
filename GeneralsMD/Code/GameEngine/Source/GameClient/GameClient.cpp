@@ -596,6 +596,19 @@ void GameClient::update()
 	{
 		static Bool s_audioPausedForMovie = FALSE;
 		const Bool moviePlaying = (TheDisplay != nullptr && TheDisplay->isMoviePlaying());
+		const AudioAffect worldSamples =
+			(AudioAffect)(AudioAffect_Sound | AudioAffect_Sound3D);
+
+		// GeneralsX @bugfix Android port 08/09/2026 Re-assert it EVERY frame while the movie
+		// runs, not once when it starts. The device log shows the gate firing correctly
+		// ("movie started -> world samples paused") and the shell map still audible over the
+		// cutscene, because pausing only silences what is playing at that instant. The shell
+		// map keeps running behind the movie and keeps asking for new sounds, and those start
+		// normally. pauseAudio() also drops queued play requests, so calling it each frame is
+		// what actually keeps the world quiet.
+		if (moviePlaying && TheAudio != nullptr)
+			TheAudio->pauseAudio(worldSamples);
+
 		if (moviePlaying != s_audioPausedForMovie && TheAudio != nullptr)
 		{
 			s_audioPausedForMovie = moviePlaying;
@@ -603,11 +616,7 @@ void GameClient::update()
 			        moviePlaying ? "started" : "ended",
 			        moviePlaying ? "paused" : "resumed");
 			fflush(stderr);
-			const AudioAffect worldSamples =
-				(AudioAffect)(AudioAffect_Sound | AudioAffect_Sound3D);
-			if (moviePlaying)
-				TheAudio->pauseAudio(worldSamples);
-			else
+			if (!moviePlaying)
 				TheAudio->resumeAudio(worldSamples);
 		}
 	}
