@@ -48,15 +48,23 @@ public:
     void update();
     void reset();
 
-    void play() { alSourcePlay(m_source); }
-    void pause() { alSourcePause(m_source); }
-    void stop() { alSourceStop(m_source); }
+    // GeneralsX @bugfix Android port 08/09/2026 pause() has to LATCH, not just ask OpenAL
+    // to pause. update() restarts any source it finds in AL_PAUSED with buffers queued (two
+    // places, both deliberate -- they recover a stream whose queue ran dry). Nothing told
+    // those two apart from a stream the GAME paused, so a paused stream un-paused itself on
+    // the very next audio update, and TheAudio->UPDATE() keeps running while the game is
+    // paused. Speech and music therefore never actually stayed paused.
+    void play() { m_paused = false; alSourcePlay(m_source); }
+    void pause() { m_paused = true; alSourcePause(m_source); }
+    void stop() { m_paused = false; alSourceStop(m_source); }
+    bool isPaused() const { return m_paused; }
 
     void setVolume(float vol) { alSourcef(m_source, AL_GAIN, vol); }
 
 protected:
     std::function<bool()> m_requireDataCallback = nullptr;
     bool m_endOfData = false; ///< GeneralsX: source stream signalled true EOF; stop restarting it
+    bool m_paused = false;    ///< GeneralsX: the GAME paused this stream; update() must not restart it
     int m_stalledProbes = 0;  ///< GeneralsX: consecutive EOF-probes that produced no new data
     ALuint m_source = 0;
     ALuint m_buffers[AL_STREAM_BUFFER_COUNT] = {};

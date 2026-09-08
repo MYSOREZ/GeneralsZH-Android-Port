@@ -121,7 +121,7 @@ void OpenALAudioStream::update()
     // briefing buffers when OpenAL reports AL_STOPPED with processed buffers.
     // GeneralsX @bugfix 14/06/2026 ...but NOT once the stream is at true EOF: a finished one-shot
     // speech (taunt) must be allowed to reach a stable AL_STOPPED so its disallowSpeech flag clears.
-    if ((sourceState == AL_STOPPED || sourceState == AL_INITIAL || sourceState == AL_PAUSED) && num_queued > 0 && !m_endOfData) {
+    if ((sourceState == AL_STOPPED || sourceState == AL_INITIAL || sourceState == AL_PAUSED) && num_queued > 0 && !m_endOfData && !m_paused) {
         play();
         alGetSourcei(m_source, AL_SOURCE_STATE, &sourceState);
     }
@@ -185,13 +185,14 @@ void OpenALAudioStream::update()
     // stopped before the newly buffered narrator audio ever starts playing.
     // GeneralsX @bugfix 14/06/2026 As above, do not restart a source that has reached true EOF.
     alGetSourcei(m_source, AL_SOURCE_STATE, &sourceState);
-    if ((sourceState == AL_STOPPED || sourceState == AL_INITIAL || sourceState == AL_PAUSED) && num_queued > 0 && !m_endOfData) {
+    if ((sourceState == AL_STOPPED || sourceState == AL_INITIAL || sourceState == AL_PAUSED) && num_queued > 0 && !m_endOfData && !m_paused) {
         play();
     }
 }
 
 void OpenALAudioStream::reset()
 {
+    m_paused = false;  // GeneralsX @bugfix Android port 08/09/2026 a reset stream is not a paused one
     DEBUG_LOG(("Resetting stream\n"));
     // alSourceStop() marks all queued buffers as processed so they can be
     // unqueued. alSourceRewind() transitions to AL_INITIAL but does NOT move

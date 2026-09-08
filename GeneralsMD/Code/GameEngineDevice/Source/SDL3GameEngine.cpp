@@ -62,6 +62,8 @@
 #include <cstring>
 
 #include "GameClient/LookAtXlat.h"
+#include "Common/AudioAffect.h"
+#include "Common/GameAudio.h"
 #include "GameLogic/GameLogic.h"
 #include "SDL3Device/GameClient/TouchInput.h"
 #if defined(__APPLE__)
@@ -111,6 +113,11 @@ extern GameWindowManager *TheWindowManager;
 // multitasking a few times"). Pause whenever either is set.
 static std::atomic<bool> s_appBackgrounded{false};
 static std::atomic<bool> s_appInactive{false};
+
+// GeneralsX @bugfix Android port 08/09/2026 Whether the background transition is what
+// silenced the audio, so the foreground transition resumes exactly that and nothing
+// else. Without it a resume would also undo a pause the game made for its own reasons.
+static bool s_audioPausedByLifecycle = false;
 
 static inline bool mobileShouldPauseRendering()
 {
@@ -1989,6 +1996,18 @@ void SDL3GameEngine::pollSDL3Events(void)
 				if (TheMouse) {
 					TheMouse->loseFocus();
 				}
+				// GeneralsX @bugfix Android port 08/09/2026 Silence the audio too. The
+				// comment above this block has always claimed audio pauses here; nothing
+				// ever did it. Worse than merely playing on in the background: from the
+				// second consecutive paused frame update() returns before the engine
+				// update (see mobileShouldPauseRendering there), so TheAudio->UPDATE()
+				// stops running and streamed music and speech simply drain their queues
+				// and die -- one of the "sound cuts out" reports. Pausing properly here
+				// is what makes the resume below able to put them back.
+				if (TheAudio && !s_audioPausedByLifecycle) {
+					s_audioPausedByLifecycle = true;
+					TheAudio->pauseAudio(AudioAffect_All);
+				}
 				break;
 
 			case SDL_EVENT_DID_ENTER_FOREGROUND:
@@ -1996,6 +2015,17 @@ void SDL3GameEngine::pollSDL3Events(void)
 				if (TheMouse) {
 					TheMouse->regainFocus();
 					TheMouse->refreshCursorCapture();
+				}
+				// Resume only what this pause silenced, and only what the game itself
+				// still wants audible: coming back into an open pause menu must not
+				// restart the battlefield behind it, because GameLogic paused everything
+				// but the music on its own account (GameLogic.cpp:4554) and nothing will
+				// pause it again on our behalf.
+				if (TheAudio && s_audioPausedByLifecycle) {
+					s_audioPausedByLifecycle = false;
+					const Bool gamePaused =
+						(TheGameLogic != nullptr && TheGameLogic->isGamePaused());
+					TheAudio->resumeAudio(gamePaused ? AudioAffect_Music : AudioAffect_All);
 				}
 				break;
 #endif
