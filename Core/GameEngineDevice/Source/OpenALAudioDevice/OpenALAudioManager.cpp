@@ -2611,8 +2611,21 @@ void OpenALAudioManager::processPlayingList(void)
 		}
 		playing->m_stream->update();
 
-		// After update(), if stream source is still stopped there is no more data — release it.
-		if (playing->m_stream && sourceIsStopped(playing->m_stream->getSource()))
+		// GeneralsX @bugfix Android port 08/09/2026 "Still stopped means no more data" was an
+		// assumption, and a wrong one. A stream also reads as stopped when it simply ran dry --
+		// nothing refilled it in time -- and this released it on the spot, permanently, when
+		// update()'s own recovery would have restarted it a frame later. Reported as the music
+		// after the lobby starting and instantly dying: loading a map starves the refill, which
+		// happens synchronously on this thread, so the queue empties and the source stops while
+		// there is plenty of music left to play.
+		//
+		// The stream already knows the difference. m_endOfData is latched only on a real EOF
+		// from the decoder, or after three consecutive probes that produced no new data -- so a
+		// genuinely finished stream still gets released here, and a merely starved one is left
+		// for update() to revive. That latch is also what stops this from leaking a stream that
+		// can never play again.
+		if (playing->m_stream && sourceIsStopped(playing->m_stream->getSource())
+		    && playing->m_stream->isAtEnd())
 		{
 			// If this was an uninterruptible speech stream, clear the disallow flag.
 			const AudioEventInfo* streamInfo = (playing->m_audioEventRTS ? playing->m_audioEventRTS->getAudioEventInfo() : nullptr);
