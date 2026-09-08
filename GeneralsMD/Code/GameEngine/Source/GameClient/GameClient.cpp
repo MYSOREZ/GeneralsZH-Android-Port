@@ -594,30 +594,43 @@ void GameClient::update()
 	// This uses pauseAudio, which genuinely pauses now rather than stopping -- before that fix
 	// this would have destroyed the shell map's sounds instead of holding them.
 	{
-		static Bool s_audioPausedForMovie = FALSE;
+		// GeneralsX @bugfix Android port 08/09/2026 Mute by VOLUME, not by pausing.
+		//
+		// Pausing was the previous attempt and it half-worked: the device log showed the gate
+		// firing at the right moments, the shell map's voices did go quiet -- and gunfire still
+		// leaked through in short bursts. Ordering explains it. TheAudio->UPDATE() runs BEFORE
+		// TheGameClient->UPDATE() (GameEngine.cpp:1117), so a sound requested during a frame is
+		// started by the audio update at the top of the next frame and only silenced when this
+		// code runs later in that same frame. Every new sound therefore got a fraction of a
+		// frame of airtime, which is exactly the chopped-up gunfire that was reported.
+		//
+		// Volume has no such window: a sound started while the world is muted starts silent.
+		// Samples only -- the movie's own audio is a stream, and music is left alone.
+		static Bool s_mutedForMovie = FALSE;
+		static Real s_savedSoundVolume = 1.0f;
+		static Real s_savedSound3DVolume = 1.0f;
 		const Bool moviePlaying = (TheDisplay != nullptr && TheDisplay->isMoviePlaying());
-		const AudioAffect worldSamples =
-			(AudioAffect)(AudioAffect_Sound | AudioAffect_Sound3D);
 
-		// GeneralsX @bugfix Android port 08/09/2026 Re-assert it EVERY frame while the movie
-		// runs, not once when it starts. The device log shows the gate firing correctly
-		// ("movie started -> world samples paused") and the shell map still audible over the
-		// cutscene, because pausing only silences what is playing at that instant. The shell
-		// map keeps running behind the movie and keeps asking for new sounds, and those start
-		// normally. pauseAudio() also drops queued play requests, so calling it each frame is
-		// what actually keeps the world quiet.
-		if (moviePlaying && TheAudio != nullptr)
-			TheAudio->pauseAudio(worldSamples);
-
-		if (moviePlaying != s_audioPausedForMovie && TheAudio != nullptr)
+		if (TheAudio != nullptr && moviePlaying != s_mutedForMovie)
 		{
-			s_audioPausedForMovie = moviePlaying;
-			fprintf(stderr, "[GX-AUDIO] movie %s -> world samples %s\n",
+			s_mutedForMovie = moviePlaying;
+			if (moviePlaying)
+			{
+				s_savedSoundVolume   = TheAudio->getVolume(AudioAffect_Sound);
+				s_savedSound3DVolume = TheAudio->getVolume(AudioAffect_Sound3D);
+				TheAudio->setVolume(0.0f, AudioAffect_Sound);
+				TheAudio->setVolume(0.0f, AudioAffect_Sound3D);
+			}
+			else
+			{
+				TheAudio->setVolume(s_savedSoundVolume,   AudioAffect_Sound);
+				TheAudio->setVolume(s_savedSound3DVolume, AudioAffect_Sound3D);
+			}
+			fprintf(stderr, "[GX-AUDIO] movie %s -> world samples %s (restore %.2f/%.2f)\n",
 			        moviePlaying ? "started" : "ended",
-			        moviePlaying ? "paused" : "resumed");
+			        moviePlaying ? "muted" : "unmuted",
+			        (double)s_savedSoundVolume, (double)s_savedSound3DVolume);
 			fflush(stderr);
-			if (!moviePlaying)
-				TheAudio->resumeAudio(worldSamples);
 		}
 	}
 

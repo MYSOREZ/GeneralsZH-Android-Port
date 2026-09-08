@@ -170,6 +170,11 @@ void OpenALAudioStream::update()
     // where the only thing left to "resume" is the past.
     ALint processedNow = 0;
     alGetSourcei(m_source, AL_BUFFERS_PROCESSED, &processedNow);
+    // GeneralsX @feature Android port 08/09/2026 Trace the WHOLE starved update, not just its
+    // first half. The previous log showed three probes in a row all reporting a full,
+    // fully-played queue, which the unqueue was supposed to have emptied -- but nothing said
+    // what the unqueue and the refill actually did in between, so the reason is unknowable.
+    const bool gxStarved = (sourceState == AL_STOPPED && num_queued > 0 && processedNow >= num_queued);
     if ((sourceState == AL_STOPPED || sourceState == AL_INITIAL || sourceState == AL_PAUSED)
         && num_queued > processedNow && !m_endOfData && !m_paused) {
         play();
@@ -195,10 +200,22 @@ void OpenALAudioStream::update()
     // completion; freshly queued, unplayed data is not included, which is what the original
     // caution was about.
     ALint processedToUnqueue = processedBeforeUnqueue;
+    ALint gxUnqueueFailures = 0;
     while (processedToUnqueue > 0) {
         ALuint buffer;
+        alGetError();
         alSourceUnqueueBuffers(m_source, 1, &buffer);
+        if (alGetError() != AL_NO_ERROR)
+            gxUnqueueFailures++;
         processedToUnqueue--;
+    }
+    if (gxStarved) {
+        ALint afterUnqueue = 0;
+        alGetSourcei(m_source, AL_BUFFERS_QUEUED, &afterUnqueue);
+        fprintf(stderr, "[GX-AUDIO] unqueue src=%u asked=%d failed=%d queuedAfter=%d\n",
+                (unsigned)m_source, (int)processedBeforeUnqueue, (int)gxUnqueueFailures,
+                (int)afterUnqueue);
+        fflush(stderr);
     }
 
     // GeneralsX @bugfix 14/06/2026 At true EOF the source has stopped with its final buffers
@@ -250,6 +267,18 @@ void OpenALAudioStream::update()
     alGetSourcei(m_source, AL_SOURCE_STATE, &sourceState);
     if ((sourceState == AL_STOPPED || sourceState == AL_INITIAL || sourceState == AL_PAUSED) && num_queued > 0 && !m_endOfData && !m_paused) {
         play();
+    }
+    if (gxStarved) {
+        ALint finalQueued = 0, finalProcessed = 0, finalState = 0;
+        alGetSourcei(m_source, AL_BUFFERS_QUEUED, &finalQueued);
+        alGetSourcei(m_source, AL_BUFFERS_PROCESSED, &finalProcessed);
+        alGetSourcei(m_source, AL_SOURCE_STATE, &finalState);
+        fprintf(stderr, "[GX-AUDIO] refilled src=%u queued=%d processed=%d state=%s\n",
+                (unsigned)m_source, (int)finalQueued, (int)finalProcessed,
+                finalState == AL_PLAYING ? "PLAYING" :
+                finalState == AL_STOPPED ? "STOPPED" :
+                finalState == AL_PAUSED  ? "PAUSED"  : "INITIAL");
+        fflush(stderr);
     }
 }
 
