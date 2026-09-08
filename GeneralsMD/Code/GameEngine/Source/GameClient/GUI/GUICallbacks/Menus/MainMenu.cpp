@@ -505,7 +505,23 @@ void MainMenuInit( WindowLayout *layout, void *userData )
 	// finished; skipping it here means that later, correctly-gated call is the only one that
 	// ever runs it during startup.
 	if (!TheGlobalData->m_playIntro && !TheGlobalData->m_afterIntro)
+	{
 		TheShell->showShellMap(TRUE);
+	}
+	else
+	{
+		// GeneralsX @bugfix Android port 08/09/2026 Deferring showShellMap() above stopped
+		// the animated battle background from loading under the movie, but this layout --
+		// MainMenu.wnd's own static background and logo -- is created and shown regardless,
+		// synchronously, as part of this very push. Before this fix that never mattered:
+		// the shell map used to start loading essentially immediately (see the comment
+		// above) and its full-screen 3D render covered this static layout within a second
+		// or two either way. With the map deferred, this static layout is now the only
+		// thing behind the movie for the whole wait, and it is not opaque everywhere the
+		// video isn't -- reported as a fragment of the CONQUER/GENERALS logo visible in a
+		// corner during the intro. Hide it until the same point that reveals the map.
+		layout->hide(TRUE);
+	}
 
 	TheMouse->setVisibility(TRUE);
 	//winVidManager = NEW WindowVideoManager;

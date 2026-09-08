@@ -13,6 +13,7 @@
 // the build-system level, any bug fixed here must be fixed identically in Core's copy too,
 // and vice versa -- see the audio-stream-starvation fix as the example.
 #include "Common/file.h"
+#include <cstdio>
 
 extern "C" {
 #include <libavcodec/avcodec.h>
@@ -209,6 +210,10 @@ bool FFmpegFile::decodePacket()
     auto &stream = m_streams[stream_idx];
     AVCodecContext *codec_ctx = stream.codec_ctx;
 
+    // GeneralsX @feature Android port 08/09/2026 See Core's copy for the full
+    // rationale -- counts frames actually delivered by THIS call.
+    int gxFramesThisCall = 0;
+
     // GeneralsX @bugfix Android port 08/09/2026 See the identical fix and full explanation
     // in Core/GameEngineDevice/Source/VideoDevice/FFmpeg/FFmpegFile.cpp -- this file and
     // that one are two separately-compiled copies of the same class (both end up linked
@@ -220,6 +225,10 @@ bool FFmpegFile::decodePacket()
     while (result == AVERROR(EAGAIN) && gxDrainGuard-- > 0) {
         int recvResult = avcodec_receive_frame(codec_ctx, stream.frame);
         if (recvResult == AVERROR(EAGAIN)) {
+            if (gxFramesThisCall == 0) {
+                fprintf(stderr, "[GX-AUDIO] decodePacket: drain-EAGAIN with 0 frames delivered, stream_idx=%d type=%d\n", stream_idx, stream.stream_type);
+                fflush(stderr);
+            }
             return true;
         }
         if (recvResult < 0) {
@@ -230,6 +239,7 @@ bool FFmpegFile::decodePacket()
         }
         if (m_frameCallback != nullptr) {
             m_frameCallback(stream.frame, stream_idx, stream.stream_type, m_userData);
+            gxFramesThisCall++;
         }
         result = avcodec_send_packet(codec_ctx, m_packet);
     }
@@ -261,7 +271,13 @@ bool FFmpegFile::decodePacket()
 
         if (m_frameCallback != nullptr) {
             m_frameCallback(stream.frame, stream_idx, stream.stream_type, m_userData);
+            gxFramesThisCall++;
         }
+    }
+
+    if (gxFramesThisCall == 0) {
+        fprintf(stderr, "[GX-AUDIO] decodePacket: main-loop EAGAIN with 0 frames delivered, stream_idx=%d type=%d\n", stream_idx, stream.stream_type);
+        fflush(stderr);
     }
 
     return true;

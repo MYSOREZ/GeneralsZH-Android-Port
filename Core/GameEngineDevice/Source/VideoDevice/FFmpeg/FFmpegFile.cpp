@@ -28,6 +28,7 @@
 
 #include "VideoDevice/FFmpeg/FFmpegFile.h"
 #include "Common/file.h"
+#include <cstdio>
 
 extern "C" {
 #include <libavcodec/avcodec.h>
@@ -222,6 +223,13 @@ Bool FFmpegFile::decodePacket()
 	auto &stream = m_streams[stream_idx];
 	AVCodecContext *codec_ctx = stream.codec_ctx;
 
+	// GeneralsX @feature Android port 08/09/2026 Count frames actually delivered by
+	// THIS call, so the two early-return points below can say whether a call that
+	// read a full packet and reports "true" (more data coming) really produced
+	// nothing at all -- the exact signature of a stream that stays stuck despite
+	// the EAGAIN-drain fix above.
+	int gxFramesThisCall = 0;
+
 	// GeneralsX @bugfix Android port 08/09/2026 avcodec_send_packet() returning EAGAIN
 	// means the decoder's internal output buffer is full -- per FFmpeg's own documented
 	// contract (avcodec.h: "Sending a packet will return AVERROR(EAGAIN) if the internal
@@ -244,6 +252,10 @@ Bool FFmpegFile::decodePacket()
 		if (recvResult == AVERROR(EAGAIN)) {
 			// The decoder says its buffer is full but has nothing ready to hand back --
 			// should not happen per the contract above, but do not spin on it.
+			if (gxFramesThisCall == 0) {
+				fprintf(stderr, "[GX-AUDIO] decodePacket: drain-EAGAIN with 0 frames delivered, stream_idx=%d type=%d\n", stream_idx, stream.stream_type);
+				fflush(stderr);
+			}
 			return true;
 		}
 		if (recvResult < 0) {
@@ -254,6 +266,7 @@ Bool FFmpegFile::decodePacket()
 		}
 		if (m_frameCallback != nullptr) {
 			m_frameCallback(stream.frame, stream_idx, stream.stream_type, m_userData);
+			gxFramesThisCall++;
 		}
 		result = avcodec_send_packet(codec_ctx, m_packet);
 	}
@@ -285,7 +298,13 @@ Bool FFmpegFile::decodePacket()
 
 		if (m_frameCallback != nullptr) {
 			m_frameCallback(stream.frame, stream_idx, stream.stream_type, m_userData);
+			gxFramesThisCall++;
 		}
+	}
+
+	if (gxFramesThisCall == 0) {
+		fprintf(stderr, "[GX-AUDIO] decodePacket: main-loop EAGAIN with 0 frames delivered, stream_idx=%d type=%d\n", stream_idx, stream.stream_type);
+		fflush(stderr);
 	}
 
 	return true;

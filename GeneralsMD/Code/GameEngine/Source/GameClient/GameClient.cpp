@@ -692,6 +692,10 @@ void GameClient::update()
 			fprintf(stderr, "[GX-AUDIO] intro finished (%d frames quiet) -> loading shell map\n",
 			        (int)s_framesSinceMoviePlaying);
 			fflush(stderr);
+			// Reveal the static main-menu layout MainMenuInit hid while the intro was
+			// pending (MainMenu.cpp), at the same point the map itself is finally let in.
+			if (TheShell->top())
+				TheShell->top()->hide(FALSE);
 			TheShell->showShellMap(TRUE);
 			TheShell->showShell();
 			TheWritableGlobalData->m_afterIntro = FALSE;
