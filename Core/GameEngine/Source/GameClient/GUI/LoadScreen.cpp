@@ -598,10 +598,13 @@ void SinglePlayerLoadScreen::init( GameInfo *game )
 
 			}
 			TheWindowManager->update();
-			// see the comment in LoadScreen::update(): this loop is a frame too
-			if (TheAudio)
-				TheAudio->UPDATE();
 
+			// GeneralsX @bugfix Android port 08/09/2026 Deliberately NO TheAudio->UPDATE()
+			// here, unlike the loading pump. This loop plays a movie, and the movie feeds its
+			// own audio through TheVideoPlayer->update() a few lines above. Pumping the
+			// general audio system as well revived the shell music that the transition into
+			// the movie had left starved, and it played over the cutscene -- reported after
+			// the first version of this fix, which did pump here.
 			// redraw all views, update the GUI
 			TheDisplay->draw();
 		}
@@ -657,10 +660,7 @@ void SinglePlayerLoadScreen::init( GameInfo *game )
 			}
 
 			TheWindowManager->update();
-			// see the comment in LoadScreen::update(). These wait loops sleep 100ms a turn,
-			// so a stream left unfed here runs dry faster than anywhere else.
-			if (TheAudio)
-				TheAudio->UPDATE();
+			// No audio pump here either -- see the movie loop above. These wait on a movie.
 			TheDisplay->draw();
 			Sleep(100);
 			currTime = timeGetTime();
@@ -1166,10 +1166,7 @@ void ChallengeLoadScreen::init( GameInfo *game )
 			}
 
 			TheWindowManager->update();
-			// see the comment in LoadScreen::update(). These wait loops sleep 100ms a turn,
-			// so a stream left unfed here runs dry faster than anywhere else.
-			if (TheAudio)
-				TheAudio->UPDATE();
+			// No audio pump here either -- see the movie loop above. These wait on a movie.
 			TheDisplay->draw();
 			Sleep(100);
 			currTime = timeGetTime();

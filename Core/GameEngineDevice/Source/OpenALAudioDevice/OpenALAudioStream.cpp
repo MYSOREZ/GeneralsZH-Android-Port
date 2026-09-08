@@ -121,7 +121,21 @@ void OpenALAudioStream::update()
     // briefing buffers when OpenAL reports AL_STOPPED with processed buffers.
     // GeneralsX @bugfix 14/06/2026 ...but NOT once the stream is at true EOF: a finished one-shot
     // speech (taunt) must be allowed to reach a stable AL_STOPPED so its disallowSpeech flag clears.
-    if ((sourceState == AL_STOPPED || sourceState == AL_INITIAL || sourceState == AL_PAUSED) && num_queued > 0 && !m_endOfData && !m_paused) {
+    // GeneralsX @bugfix Android port 08/09/2026 Only restart if there is something here that
+    // has NOT been played yet. "num_queued > 0" counts buffers that are still attached to the
+    // source, and a source that ran dry still has all of its ALREADY-PLAYED buffers attached,
+    // because they are unqueued further down -- after this. So restarting a dry source replayed
+    // the last second of audio, drained again, replayed again: reported as the loading music
+    // stuttering "like Morse code" and starting over every time, once starved streams stopped
+    // being destroyed and this loop got to run repeatedly.
+    //
+    // Requiring an unprocessed buffer keeps the case this restart exists for -- a source that
+    // stopped while freshly queued, never-played data was waiting on it -- and drops the case
+    // where the only thing left to "resume" is the past.
+    ALint processedNow = 0;
+    alGetSourcei(m_source, AL_BUFFERS_PROCESSED, &processedNow);
+    if ((sourceState == AL_STOPPED || sourceState == AL_INITIAL || sourceState == AL_PAUSED)
+        && num_queued > processedNow && !m_endOfData && !m_paused) {
         play();
         alGetSourcei(m_source, AL_SOURCE_STATE, &sourceState);
     }
