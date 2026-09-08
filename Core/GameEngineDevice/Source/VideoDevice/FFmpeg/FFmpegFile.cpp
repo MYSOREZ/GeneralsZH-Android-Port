@@ -221,10 +221,42 @@ Bool FFmpegFile::decodePacket()
 
 	auto &stream = m_streams[stream_idx];
 	AVCodecContext *codec_ctx = stream.codec_ctx;
+
+	// GeneralsX @bugfix Android port 08/09/2026 avcodec_send_packet() returning EAGAIN
+	// means the decoder's internal output buffer is full -- per FFmpeg's own documented
+	// contract (avcodec.h: "Sending a packet will return AVERROR(EAGAIN) if the internal
+	// output buffer is full, in which case avcodec_receive_frame() must be called to free
+	// space"). This used to return TRUE immediately instead, without ever draining, and
+	// without retrying the packet it had just read -- the next call's av_read_frame simply
+	// overwrote it. So a decoder that filled its buffer even once got permanently stuck:
+	// every later packet hit the same full buffer, got the same EAGAIN, and was silently
+	// discarded, forever, while this function kept reporting "more data is coming".
+	//
+	// A device log caught it directly: OpenALAudioManager's data callback (which calls
+	// this and answers !isAtEof()) kept answering "yes, more data" while queueing nothing,
+	// sixteen retries running inside one audio update -- and hundreds of updates across a
+	// whole map load -- landing on the same stuck decoder every single time. Reported as
+	// streamed music and speech playing in short, repeating fragments.
+	int gxDrainGuard = 64;  // the decoder's buffer is bounded; this is just a safety net
 	result = avcodec_send_packet(codec_ctx, m_packet);
-	// Check if we need more data
-	if (result == AVERROR(EAGAIN))
-		return true;
+	while (result == AVERROR(EAGAIN) && gxDrainGuard-- > 0) {
+		int recvResult = avcodec_receive_frame(codec_ctx, stream.frame);
+		if (recvResult == AVERROR(EAGAIN)) {
+			// The decoder says its buffer is full but has nothing ready to hand back --
+			// should not happen per the contract above, but do not spin on it.
+			return true;
+		}
+		if (recvResult < 0) {
+			char error_buffer[1024];
+			av_strerror(recvResult, error_buffer, sizeof(error_buffer));
+			DEBUG_LOG(("Failed 'avcodec_receive_frame' while draining EAGAIN: %s", error_buffer));
+			return false;
+		}
+		if (m_frameCallback != nullptr) {
+			m_frameCallback(stream.frame, stream_idx, stream.stream_type, m_userData);
+		}
+		result = avcodec_send_packet(codec_ctx, m_packet);
+	}
 
 	// Handle any other errors
 	if (result < 0) {

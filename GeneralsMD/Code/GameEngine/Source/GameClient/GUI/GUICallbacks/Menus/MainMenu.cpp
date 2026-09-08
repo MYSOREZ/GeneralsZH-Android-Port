@@ -488,7 +488,25 @@ void MainMenuInit( WindowLayout *layout, void *userData )
 {
 	TheWritableGlobalData->m_breakTheMovie = FALSE;
 
-	TheShell->showShellMap(TRUE);
+	// GeneralsX @bugfix Android port 08/09/2026 This call used to run unconditionally.
+	// TheShell->push("Menus/MainMenu.wnd") happens synchronously during GameEngine::init(),
+	// before frame 1 -- before the intro-movie sequencing in GameClient::update() has run at
+	// all -- so this ran, and queued MSG_NEW_GAME (inside showShellMap), while the EA logo and
+	// sizzle movie had not even started. GameLogic::update() then started the real, heavy
+	// shell-map load ("Maps\ShellMapMD\map.ini") as soon as its own (separate, undebounced)
+	// !TheDisplay->isMoviePlaying() check happened to read false -- which on this port's
+	// asynchronous video path can be true for a frame or two around either movie, letting the
+	// load slip in underneath. That is why the shell map's ambient loops and unit sounds were
+	// audible under the intro: the battle was already running behind it.
+	//
+	// A real device log showed the shell map load starting between "movie started" and
+	// "movie ended". This condition matches the one GameClient.cpp's own m_afterIntro block
+	// already uses to call showShellMap() at the CORRECT time, after the intro has actually
+	// finished; skipping it here means that later, correctly-gated call is the only one that
+	// ever runs it during startup.
+	if (!TheGlobalData->m_playIntro && !TheGlobalData->m_afterIntro)
+		TheShell->showShellMap(TRUE);
+
 	TheMouse->setVisibility(TRUE);
 	//winVidManager = NEW WindowVideoManager;
 	buttonPushed = FALSE;
