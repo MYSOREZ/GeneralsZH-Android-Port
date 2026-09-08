@@ -2,17 +2,27 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- Vulkan is the entire render path (D3D8 -> DXVK -> Vulkan); refuse to
-         install on devices without a Vulkan 1.1 driver. DXVK's own minimum
-         was lowered from 1.3 to 1.1 (dxvk-vulkan11-adaptive.patch + the
-         Mali-G76 fix series in Patches/), so 1.1 here is now the real
-         runtime floor, not just an install-time gate ahead of a future
-         fallback renderer. A device below 1.1, or with a genuinely broken
-         driver, still gets a readable on-screen error at startup rather
-         than silently failing. -->
+    <!-- GeneralsX @build Android port 08/09/2026 The comment that used to stand here
+         said Vulkan was "the entire render path", and the gate below said required.
+         Neither has been true since 1.2.1: OpenGL ES is now the DEFAULT backend, in
+         the launcher and in the engine alike, and the whole D3D8 -> GLES 3.0
+         translation layer (Core/Libraries/Source/d3d8gles/) runs with no DXVK and no
+         Vulkan involved at all. So the requirement was refusing installation to
+         devices that run this game perfectly well — including, pointedly, the ones
+         whose Vulkan drivers are broken enough that GLES is the only sane choice for
+         them anyway.
+
+         Vulkan stays declared, because the DXVK path is still here and still the
+         faster one where the driver is sound; declaring it lets a store or an
+         installer that cares know we can use it. It is simply no longer a condition
+         of installing. What IS a condition is GLES 3.0, which every backend on this
+         port ultimately needs, and which was never declared at all. -->
     <uses-feature
         android:name="android.hardware.vulkan.version"
         android:version="0x401000"
+        android:required="false" />
+    <uses-feature
+        android:glEsVersion="0x00030000"
         android:required="true" />
     <uses-feature
         android:name="android.hardware.touchscreen"
