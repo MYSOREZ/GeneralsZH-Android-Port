@@ -153,6 +153,20 @@ static void advancePosition(GameWindow *window, const Image *image, UnsignedInt 
 
 void W3DShellMenuSchemeDraw( GameWindow *window, WinInstanceData *instData )
 {
+	// GeneralsX @bugfix Android port 08/09/2026 Nothing of the shell may be painted over a
+	// movie. Reported: a stray picture in the top-right corner during the intro video.
+	//
+	// MainMenuInit already hides the whole MainMenu layout while an intro is pending, and a
+	// device log confirms the hide takes effect (isHidden now=1) -- yet the artwork stayed on
+	// screen, because it is not drawn by that layout at all. It is drawn here: the shell menu
+	// SCHEME paints its images straight to the display at absolute positions
+	// (ShellMenuScheme::draw), through a callback bound to a window outside MainMenu.wnd, and
+	// its only condition was "is the shell active", which is true the whole time the movie
+	// plays. Same for the watermark below.
+	const Bool moviePlaying = (TheDisplay != NULL && TheDisplay->isMoviePlaying());
+	if (moviePlaying)
+		return;
+
 	if(TheShell && TheShell->isShellActive())
 		TheShell->getShellMenuSchemeManager()->draw();
 
@@ -414,6 +428,12 @@ void W3DGeneralsXCreditDraw( GameWindow *window, WinInstanceData *instData )
 {
 	// GeneralsX @bugfix BenderAI 31/03/2026 Reuse callback instance text display string to avoid static managed DisplayString lifetime leaks.
 	if (!instData)
+		return;
+
+	// GeneralsX @bugfix Android port 08/09/2026 Four different menu draw callbacks funnel into
+	// here, so the watermark has four ways to land on top of a playing movie. Gate it once,
+	// here, rather than at every caller.
+	if (TheDisplay != NULL && TheDisplay->isMoviePlaying())
 		return;
 
 	UnicodeString ucredit;

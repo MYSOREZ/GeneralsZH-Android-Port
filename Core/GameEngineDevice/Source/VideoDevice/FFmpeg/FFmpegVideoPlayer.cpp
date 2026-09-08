@@ -439,6 +439,29 @@ void FFmpegVideoStream::onFrame(AVFrame *frame, int stream_idx, int stream_type,
 		}
 
 		ALenum format = OpenALAudioManager::getALFormat(frame->ch_layout.nb_channels, outputBitsPerSample);
+
+		// GeneralsX @bugfix Android port 08/09/2026 Give the movie's audio queue a cushion of
+		// silence ahead of its first real buffer. Movie audio is produced here, one AVFrame per
+		// decoded packet, and the decode loop only runs when the player wants the next VIDEO
+		// frame -- so a single ~40ms buffer is queued, played out in 40ms, and the source drains
+		// and stops before the next video frame arrives. On Android that made the intro movies
+		// completely inaudible. Decoding ahead is not an option (it would drop video frames),
+		// but padding the FRONT of the queue costs only a fixed lead-in and keeps the source
+		// AL_PLAYING across frame boundaries. Kept in sync with the GeneralsMD copy of this file,
+		// which is the one that actually links (see FFmpegFile.cpp for that trap).
+		if (!videoStream->m_audioPrimed) {
+			videoStream->m_audioPrimed = true;
+			const int gxPrimeBuffers = 6;   // 6 * ~40ms == ~240ms of lead-in
+			uint8_t* gxSilence = static_cast<uint8_t*>(av_mallocz(outputFrameSize));
+			if (gxSilence != nullptr) {
+				for (int i = 0; i < gxPrimeBuffers; ++i) {
+					if (!audioStream->bufferData(gxSilence, outputFrameSize, format, frame->sample_rate))
+						break;
+				}
+				av_freep(&gxSilence);
+			}
+		}
+
 		audioStream->bufferData(frameData, outputFrameSize, format, frame->sample_rate);
 		audioStream->update();
 	}

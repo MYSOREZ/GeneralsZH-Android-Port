@@ -382,20 +382,11 @@ void FFmpegVideoStream::onFrame(AVFrame *frame, int stream_idx, int stream_type,
     }
 #ifdef SAGE_USE_OPENAL
     else if (stream_type == AVMEDIA_TYPE_AUDIO) {
-        // GeneralsX @feature Android port 08/09/2026 Reported: the intro/sizzle movie has
-        // no sound at all. This path is the ONLY one that ever produces movie audio -- it is
-        // driven directly by FFmpegVideoStream's own decode loop, not through
-        // OpenALAudioManager's streaming lambda (setRequireDataCallback is never called on
-        // this stream), so none of the [GX-AUDIO] unqueue/refilled tracing added earlier for
-        // the loading-screen music covers this path at all -- a wrong assumption from a
-        // previous round. Trace it directly instead.
-        static int gxAudioFrameCount = 0;
-        if ((gxAudioFrameCount++ % 30) == 0) {
-            fprintf(stderr, "[GX-AUDIO] movie audio frame #%d: ch=%d samples=%d fmt=%d rate=%d\n",
-                    gxAudioFrameCount, frame->ch_layout.nb_channels, frame->nb_samples,
-                    (int)frame->format, frame->sample_rate);
-            fflush(stderr);
-        }
+        // GeneralsX @feature Android port 08/09/2026 This path is the ONLY one that ever
+        // produces movie audio -- it is driven directly by FFmpegVideoStream's own decode
+        // loop, not through OpenALAudioManager's streaming lambda (setRequireDataCallback is
+        // never called on this stream). Trace what the source actually holds, so the queue
+        // depth the fix below is about is visible in a device log.
         OpenALAudioStream* audioStream = (OpenALAudioStream*)TheAudio->getHandleForBink();
 
         AVSampleFormat sampleFmt = static_cast<AVSampleFormat>(frame->format);
@@ -475,13 +466,63 @@ void FFmpegVideoStream::onFrame(AVFrame *frame, int stream_idx, int stream_type,
         }
 
         ALenum format = OpenALAudioManager::getALFormat(frame->ch_layout.nb_channels, outputBitsPerSample);
-        bool gxQueued = audioStream->bufferData(frameData, outputFrameSize, format, frame->sample_rate);
-        if (!gxQueued) {
+
+        // GeneralsX @bugfix Android port 08/09/2026 Give the movie's audio queue a cushion of
+        // silence ahead of its first real buffer.
+        //
+        // Root cause of "the intro movie has no sound", straight out of a device log: the
+        // movie's audio source never holds more than ONE buffer. Movie audio is not streamed
+        // by OpenALAudioManager -- it is produced right here, one AVFrame per decoded packet,
+        // and the decode loop only runs when the player wants the NEXT VIDEO FRAME. So a
+        // single ~40ms buffer gets queued, OpenAL plays it out in 40ms, and the source drains
+        // and stops before the next video frame arrives. update() then reported, over and
+        // over, for the whole movie:
+        //     unqueue src=1 asked=1 failed=0 queuedAfter=0
+        //     refilled src=1 queued=0 processed=0 state=STOPPED
+        // 240 times in one run, across both intro movies, and never a single probe line --
+        // which is what identifies src=1 as this stream: the probe needs a data callback and
+        // this stream has none. Audio that starts and stops every 40ms is not audio, it is
+        // silence with clicks in it.
+        //
+        // The queue cannot be deepened by decoding ahead: decodePacket() also produces video
+        // frames, and running ahead of the player would drop them. Padding the FRONT of the
+        // queue with silence costs only a fixed lead-in and gives playback a cushion that
+        // absorbs the per-frame jitter, so the source stays AL_PLAYING across frame
+        // boundaries instead of restarting on every single buffer.
+        if (!videoStream->m_audioPrimed) {
+            videoStream->m_audioPrimed = true;
+            const int gxPrimeBuffers = 6;   // 6 * ~40ms == ~240ms of lead-in
+            uint8_t* gxSilence = static_cast<uint8_t*>(av_mallocz(outputFrameSize));
+            if (gxSilence != nullptr) {
+                for (int i = 0; i < gxPrimeBuffers; ++i) {
+                    if (!audioStream->bufferData(gxSilence, outputFrameSize, format, frame->sample_rate))
+                        break;
+                }
+                av_freep(&gxSilence);
+            }
+        }
+
+        if (!audioStream->bufferData(frameData, outputFrameSize, format, frame->sample_rate)) {
             fprintf(stderr, "[GX-AUDIO] movie audio frame: bufferData() FAILED (format=0x%x rate=%d size=%d)\n",
                     (unsigned)format, frame->sample_rate, outputFrameSize);
             fflush(stderr);
         }
         audioStream->update();
+
+        static int gxAudioFrameCount = 0;
+        if ((gxAudioFrameCount++ % 30) == 0) {
+            ALint gxQueued = 0, gxProcessed = 0, gxState = 0;
+            alGetSourcei(audioStream->getSource(), AL_BUFFERS_QUEUED, &gxQueued);
+            alGetSourcei(audioStream->getSource(), AL_BUFFERS_PROCESSED, &gxProcessed);
+            alGetSourcei(audioStream->getSource(), AL_SOURCE_STATE, &gxState);
+            fprintf(stderr, "[GX-AUDIO] movie audio frame #%d: ch=%d samples=%d fmt=%d rate=%d queued=%d processed=%d state=%s\n",
+                    gxAudioFrameCount, frame->ch_layout.nb_channels, frame->nb_samples,
+                    (int)frame->format, frame->sample_rate, (int)gxQueued, (int)gxProcessed,
+                    gxState == AL_PLAYING ? "PLAYING" :
+                    gxState == AL_STOPPED ? "STOPPED" :
+                    gxState == AL_PAUSED  ? "PAUSED"  : "INITIAL");
+            fflush(stderr);
+        }
     }
 #endif
 }

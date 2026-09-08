@@ -105,7 +105,12 @@ if [[ -z "${GAME_LIB}" ]]; then
     echo "ERROR: libmain.so not found under ${BUILD_DIR}"
     exit 1
 fi
-if ! "${READELF}" -h "${GAME_LIB}" | grep -q "AArch64"; then
+# NOTE: capture first, then grep. Under `set -o pipefail`, `readelf | grep -q`
+# reports the pipeline as failed whenever grep exits on its first match before
+# readelf has finished writing, killing readelf with SIGPIPE (status 141) -- a
+# race that fails a perfectly good AArch64 build at random.
+GAME_LIB_ELF_HEADER="$("${READELF}" -h "${GAME_LIB}")"
+if ! grep -q "AArch64" <<< "${GAME_LIB_ELF_HEADER}"; then
     echo "ERROR: ${GAME_LIB} is not AArch64 — wrong toolchain reached the build."
     exit 1
 fi
@@ -116,7 +121,8 @@ for lib in libdxvk_d3d8.so libdxvk_d3d9.so; do
         exit 1
     fi
 done
-if ! strings "${BUILD_DIR}/libdxvk_d3d9.so" | grep -q "Sdl3WsiDriver"; then
+DXVK_D3D9_STRINGS="$(strings "${BUILD_DIR}/libdxvk_d3d9.so" || true)"
+if ! grep -q "Sdl3WsiDriver" <<< "${DXVK_D3D9_STRINGS}"; then
     echo "ERROR: libdxvk_d3d9.so was built WITHOUT the SDL3 WSI (silent SDL2/none fallback)."
     echo "       The game window is SDL3; this DXVK cannot present. Check the meson"
     echo "       configure log in ${BUILD_DIR}/_deps/dxvk-build-android/meson-logs/."
