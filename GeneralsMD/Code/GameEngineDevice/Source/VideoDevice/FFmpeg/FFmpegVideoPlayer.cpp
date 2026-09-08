@@ -539,6 +539,41 @@ void FFmpegVideoStream::update( void )
     // Calling play() from the video update loop can continuously reset source progress
     // during loadscreen transitions, leading to effective silence.
     OpenALAudioStream* audioStream = (OpenALAudioStream*)TheAudio->getHandleForBink();
+
+    // GeneralsX @bugfix Android port 09/09/2026 Keep the movie's audio fed at REAL TIME,
+    // independently of how fast the video is managing to decode.
+    //
+    // Movie audio is produced one AVFrame per decoded packet, and packets are only pulled
+    // when the player wants the next VIDEO frame (Display::update -> frameNext, at most once
+    // per game frame). On a device that cannot decode and software-scale the movie at its own
+    // frame rate -- and the log says exactly that, every frame going through swscale with
+    // "No accelerated colorspace conversion found from yuv420p to bgra" -- the whole stream,
+    // audio included, advances in slow motion. The audio source then drains between every
+    // pair of video frames no matter how deep the queue starts, which is why a lead-in of
+    // silence alone was not enough.
+    //
+    // So top the queue up here, from the stream's own update, until it holds a real cushion.
+    // This is self-limiting: decoding ahead advances frameIndex(), isFrameReady() compares
+    // that against the wall clock, and the player simply stops asking for frames until time
+    // catches up. The visible effect is that video frames get dropped on a device too slow to
+    // show them all -- which is the correct trade, and what every media player does: audio is
+    // the master clock, video follows.
+    //
+    // m_good is deliberately NOT assigned from these decode calls, so end-of-stream is still
+    // detected exactly where it was before, in frameNext().
+    if (m_good && m_ffmpegFile != nullptr && m_ffmpegFile->hasAudio())
+    {
+        ALint gxQueued = 0;
+        alGetSourcei(audioStream->getSource(), AL_BUFFERS_QUEUED, &gxQueued);
+        int gxBudget = 24;   // bounded work per game frame; never spin on a dead stream
+        while (gxQueued < AL_STREAM_BUFFER_COUNT / 2 && gxBudget-- > 0)
+        {
+            if (!m_ffmpegFile->decodePacket())
+                break;
+            alGetSourcei(audioStream->getSource(), AL_BUFFERS_QUEUED, &gxQueued);
+        }
+    }
+
     audioStream->update();
 #endif
 	//BinkWait( m_handle );

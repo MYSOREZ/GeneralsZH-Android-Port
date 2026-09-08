@@ -3342,6 +3342,28 @@ void W3DDisplay::drawScaledVideoBuffer( VideoBuffer *buffer, VideoStreamInterfac
 		endX = getWidth();
 	}
 
+	// GeneralsX @bugfix Android port 09/09/2026 Black out everything around the movie.
+	//
+	// Movies are drawn AFTER TheInGameUI->DRAW() and only cover their own letterboxed
+	// rectangle, and nothing clears the rest of the frame -- so whatever the shell painted
+	// stays on screen beside the video. That is the corner logo and the bottom-left watermark
+	// reported over the intro, and it is why they FLICKER rather than sit still: with a
+	// multi-buffered swap chain the stale pixels live in some buffers and not others, so they
+	// blink at the swap rate. Gating the callbacks that draw them (see W3DMainMenu.cpp) stops
+	// new ones appearing but cannot erase what is already in a back buffer.
+	//
+	// Filling the margins here fixes the whole class of problem at its source: while a movie
+	// is on screen, nothing behind it can show through, no matter which callback drew it.
+	const Color gxLetterbox = GameMakeColor( 0, 0, 0, 255 );
+	if ( startY > 0 )
+		drawFillRect( 0, 0, getWidth(), startY, gxLetterbox );
+	if ( endY < getHeight() )
+		drawFillRect( 0, endY, getWidth(), getHeight() - endY, gxLetterbox );
+	if ( startX > 0 )
+		drawFillRect( 0, startY, startX, endY - startY, gxLetterbox );
+	if ( endX < getWidth() )
+		drawFillRect( endX, startY, getWidth() - endX, endY - startY, gxLetterbox );
+
 	drawVideoBuffer( buffer, startX, startY, endX, endY );
 }
 

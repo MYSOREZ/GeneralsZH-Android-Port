@@ -481,6 +481,30 @@ void FFmpegVideoStream::update()
 	// first unprocessed buffer (OpenAL 1.1 spec §4.3.9), which causes
 	// effective silence when invoked every game frame.
 	OpenALAudioStream* audioStream = (OpenALAudioStream*)TheAudio->getHandleForBink();
+
+	// GeneralsX @bugfix Android port 09/09/2026 Keep the movie's audio fed at REAL TIME,
+	// independently of how fast the video is managing to decode. Packets are only pulled when
+	// the player wants the next VIDEO frame, so on a device that cannot decode and software-
+	// scale the movie at its own frame rate the audio advances in slow motion and its source
+	// drains between every pair of frames. Topping the queue up here is self-limiting:
+	// decoding ahead advances frameIndex(), isFrameReady() compares that against the wall
+	// clock, and the player stops asking for frames until time catches up -- so video frames
+	// are dropped on a device too slow to show them all, with audio as the master clock.
+	// m_good is deliberately not assigned here, so end-of-stream is still detected in
+	// frameNext(). Kept in sync with the GeneralsMD copy, which is the one that links.
+	if (m_good && m_ffmpegFile != nullptr && m_ffmpegFile->hasAudio())
+	{
+		ALint gxQueued = 0;
+		alGetSourcei(audioStream->getSource(), AL_BUFFERS_QUEUED, &gxQueued);
+		int gxBudget = 24;
+		while (gxQueued < AL_STREAM_BUFFER_COUNT / 2 && gxBudget-- > 0)
+		{
+			if (!m_ffmpegFile->decodePacket())
+				break;
+			alGetSourcei(audioStream->getSource(), AL_BUFFERS_QUEUED, &gxQueued);
+		}
+	}
+
 	if (!audioStream->isPlaying()) {
 		audioStream->play();
 	}
