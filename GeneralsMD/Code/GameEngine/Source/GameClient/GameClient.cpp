@@ -598,6 +598,25 @@ void GameClient::update()
 		g_gxTraceSampleStarts = TheDisplay->isMoviePlaying();
 	}
 
+	// GeneralsX @bugfix Android port 08/09/2026 Count frames since a movie was last playing.
+	//
+	// This is the real cause of "the main menu battle is audible under the intro video", and
+	// it was never an audio bug at all: the shell map was being LOADED AND STARTED while the
+	// video was still on screen. A device log shows it plainly -- Maps\ShellMapMD\map.ini
+	// loading between the movie's start and its end. On the PC the order is strictly video
+	// first, shell map afterwards.
+	//
+	// The gate below is `!isMoviePlaying()`, which is not enough here: this port's video path
+	// is asynchronous, so that flag is still false in the frame that starts a movie and can
+	// drop briefly between the logo and the sizzle. Either window lets the shell through.
+	// Requiring it to have been quiet for a stretch closes both without needing to know which
+	// one actually fired.
+	static Int s_framesSinceMoviePlaying = 0;
+	if (TheDisplay != nullptr && TheDisplay->isMoviePlaying())
+		s_framesSinceMoviePlaying = 0;
+	else
+		s_framesSinceMoviePlaying++;
+
 	static Bool playSizzle = FALSE;
 	// We need to show the movie first.
 	if(TheGlobalData->m_playIntro && !TheDisplay->isMoviePlaying())
@@ -609,6 +628,9 @@ void GameClient::update()
 		TheWritableGlobalData->m_playIntro = FALSE;
 		TheWritableGlobalData->m_afterIntro = TRUE;
 		playSizzle = TRUE;
+		// the movie has just been asked to start; it is not "quiet" any more, whatever
+		// isMoviePlaying() says about it this instant
+		s_framesSinceMoviePlaying = 0;
 	}
 
 	//Initial Game Condition.  We must show the movie first and then we can display the shell
@@ -662,9 +684,18 @@ void GameClient::update()
 
 			}
 
-		TheShell->showShellMap(TRUE);
-		TheShell->showShell();
-		TheWritableGlobalData->m_afterIntro = FALSE;
+		// Wait for the screen to have been free of video for a stretch before loading the
+		// shell map. Deliberately NOT applied to the sizzle branch above, which must follow
+		// the logo immediately.
+		if (s_framesSinceMoviePlaying >= 30)
+		{
+			fprintf(stderr, "[GX-AUDIO] intro finished (%d frames quiet) -> loading shell map\n",
+			        (int)s_framesSinceMoviePlaying);
+			fflush(stderr);
+			TheShell->showShellMap(TRUE);
+			TheShell->showShell();
+			TheWritableGlobalData->m_afterIntro = FALSE;
+		}
 		}
 	}
 
