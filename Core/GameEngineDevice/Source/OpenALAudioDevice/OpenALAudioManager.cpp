@@ -96,6 +96,12 @@ enum { INFINITE_LOOP_COUNT = 1000000 };
 
 #define LOAD_ALC_PROC(N) N = reinterpret_cast<decltype(N)>(alcGetProcAddress(m_alcDevice, #N))
 
+// GeneralsX @feature Android port 08/09/2026 Diagnostic: while this is set (GameClient turns
+// it on for exactly as long as a movie is on screen), every sample that starts naming itself in
+// the log. Two attempts to silence "the world" during a cutscene silenced the wrong things,
+// because nothing here said which events those actually were.
+Bool g_gxTraceSampleStarts = FALSE;
+
 static inline bool sourceIsStopped(ALuint source)
 {
 	// GeneralsX @bugfix Android port 08/09/2026 Seed the state. alGetSourcei leaves the
@@ -944,6 +950,12 @@ void OpenALAudioManager::playAudioEvent(AudioEventRTS* event)
 				if (alGetError() != AL_NO_ERROR)
 					source = 0;
 			}
+			if (g_gxTraceSampleStarts)
+			{
+				fprintf(stderr, "[GX-AUDIO] sample starts during movie: %s\n",
+				        (event && event->getEventName().isNotEmpty()) ? event->getEventName().str() : "?");
+				fflush(stderr);
+			}
 			else
 			{
 				source = 0;
@@ -1011,6 +1023,12 @@ void OpenALAudioManager::playAudioEvent(AudioEventRTS* event)
 				alGenSources(1, &source);
 				if (alGetError() != AL_NO_ERROR)
 					source = 0;
+			}
+			if (g_gxTraceSampleStarts)
+			{
+				fprintf(stderr, "[GX-AUDIO] sample starts during movie: %s\n",
+				        (event && event->getEventName().isNotEmpty()) ? event->getEventName().str() : "?");
+				fflush(stderr);
 			}
 			else
 			{

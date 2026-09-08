@@ -240,6 +240,8 @@ void OpenALAudioStream::update()
         // Ask for more data to be buffered.
         // Only fill up to the half, because some formats can output
         // more than one buffer per decoded frame.
+        const int MAX_BARREN_CALLS = 16;
+        int barrenCalls = 0;
         while (num_queued < AL_STREAM_BUFFER_COUNT / 2) {
             // GeneralsX @bugfix 14/06/2026 callback returns FALSE at true end-of-file (no more
             // data will ever come). Latch m_endOfData so we stop restarting the drained source
@@ -253,8 +255,27 @@ void OpenALAudioStream::update()
             ALint refreshedQueued = 0;
             alGetSourcei(m_source, AL_BUFFERS_QUEUED, &refreshedQueued);
             if (refreshedQueued <= num_queued) {
-                break;
+                // GeneralsX @bugfix Android port 08/09/2026 One barren call is not "no data".
+                //
+                // A device log ends this trace over and over during a load:
+                //   unqueue src=1 asked=1 failed=0 queuedAfter=0
+                //   refilled src=1 queued=0 processed=0 state=STOPPED
+                // The queue empties cleanly, the refill runs -- and comes back with NOTHING,
+                // every single time. Not because the file ended (the callback returns TRUE),
+                // but because one call is often not enough: the decoder needs feeding before
+                // it can hand back a frame, and a call that lands mid-way returns without
+                // producing one. Breaking on the first such call meant the stream got at most
+                // one buffer per audio update, and during a load those are seconds apart.
+                //
+                // So keep asking, within a bounded budget. The callback returning FALSE still
+                // means a real end of file and still breaks immediately; the budget only stops
+                // this from spinning forever on a decoder that genuinely has nothing.
+                if (++barrenCalls >= MAX_BARREN_CALLS) {
+                    break;
+                }
+                continue;
             }
+            barrenCalls = 0;
             num_queued = refreshedQueued;
             m_stalledProbes = 0;  // GeneralsX @bugfix 04/07/2026 healthy refill: stalls must be CONSECUTIVE to latch EOF, not accumulated over the stream's lifetime
         }

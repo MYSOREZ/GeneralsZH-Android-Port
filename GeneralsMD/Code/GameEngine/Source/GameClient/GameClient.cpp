@@ -582,56 +582,20 @@ void GameClient::update()
 	// create the FRAME_TICK message
 	GameMessage *frameMsg = TheMessageStream->appendMessage( GameMessage::MSG_FRAME_TICK );
 	frameMsg->appendTimestampArgument( getFrame() );
-	// GeneralsX @bugfix Android port 08/09/2026 Silence the world while a movie is on screen.
-	// Reported: during the intro/sizzle movie you can hear the main menu's shell map behind it
-	// -- ships firing, infantry shouting -- over a cutscene that shows none of that. The movie
-	// is drawn over the running game, not instead of it, so the shell map keeps playing and its
-	// samples keep sounding.
+	// GeneralsX @bugfix Android port 08/09/2026 The movie gate that used to live here is GONE.
 	//
-	// Samples only, deliberately. The movie's own audio is a STREAM, and pausing streams here
-	// would silence the cutscene itself. Music is left alone for the same reason.
+	// It tried to silence the shell map behind the intro movie, first by pausing the world's
+	// samples and then by zeroing their volume. The second version silenced the MOVIE and left
+	// the background playing -- the exact opposite of the intent -- which says the assumption
+	// underneath both attempts was simply wrong: the movie's own audio is carried by the same
+	// sample volumes, and what is audible behind it is not.
 	//
-	// This uses pauseAudio, which genuinely pauses now rather than stopping -- before that fix
-	// this would have destroyed the shell map's sounds instead of holding them.
+	// Rather than guess a third time, the sample-start trace below names what is actually
+	// playing while a movie is on screen. Nothing is silenced until that says what to silence.
+	if (TheAudio != nullptr && TheDisplay != nullptr)
 	{
-		// GeneralsX @bugfix Android port 08/09/2026 Mute by VOLUME, not by pausing.
-		//
-		// Pausing was the previous attempt and it half-worked: the device log showed the gate
-		// firing at the right moments, the shell map's voices did go quiet -- and gunfire still
-		// leaked through in short bursts. Ordering explains it. TheAudio->UPDATE() runs BEFORE
-		// TheGameClient->UPDATE() (GameEngine.cpp:1117), so a sound requested during a frame is
-		// started by the audio update at the top of the next frame and only silenced when this
-		// code runs later in that same frame. Every new sound therefore got a fraction of a
-		// frame of airtime, which is exactly the chopped-up gunfire that was reported.
-		//
-		// Volume has no such window: a sound started while the world is muted starts silent.
-		// Samples only -- the movie's own audio is a stream, and music is left alone.
-		static Bool s_mutedForMovie = FALSE;
-		static Real s_savedSoundVolume = 1.0f;
-		static Real s_savedSound3DVolume = 1.0f;
-		const Bool moviePlaying = (TheDisplay != nullptr && TheDisplay->isMoviePlaying());
-
-		if (TheAudio != nullptr && moviePlaying != s_mutedForMovie)
-		{
-			s_mutedForMovie = moviePlaying;
-			if (moviePlaying)
-			{
-				s_savedSoundVolume   = TheAudio->getVolume(AudioAffect_Sound);
-				s_savedSound3DVolume = TheAudio->getVolume(AudioAffect_Sound3D);
-				TheAudio->setVolume(0.0f, AudioAffect_Sound);
-				TheAudio->setVolume(0.0f, AudioAffect_Sound3D);
-			}
-			else
-			{
-				TheAudio->setVolume(s_savedSoundVolume,   AudioAffect_Sound);
-				TheAudio->setVolume(s_savedSound3DVolume, AudioAffect_Sound3D);
-			}
-			fprintf(stderr, "[GX-AUDIO] movie %s -> world samples %s (restore %.2f/%.2f)\n",
-			        moviePlaying ? "started" : "ended",
-			        moviePlaying ? "muted" : "unmuted",
-			        (double)s_savedSoundVolume, (double)s_savedSound3DVolume);
-			fflush(stderr);
-		}
+		extern Bool g_gxTraceSampleStarts;
+		g_gxTraceSampleStarts = TheDisplay->isMoviePlaying();
 	}
 
 	static Bool playSizzle = FALSE;
