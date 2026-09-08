@@ -1,6 +1,14 @@
 #include "OpenALAudioDevice/OpenALAudioStream.h"
 #include "OpenALAudioDevice/OpenALAudioManager.h"
 #include <AL/alext.h>
+#include <chrono>
+
+// GeneralsX @bugfix Android port 08/09/2026 Wall clock for the EOF probe below.
+static unsigned long gxNowMs()
+{
+    using namespace std::chrono;
+    return (unsigned long)duration_cast<milliseconds>(steady_clock::now().time_since_epoch()).count();
+}
 
 OpenALAudioStream::OpenALAudioStream()
 { 
@@ -107,12 +115,30 @@ void OpenALAudioStream::update()
                 // voice line, which also pins the stream un-stopped and holds the
                 // disallow-speech flag (silencing subsequent EVA). Three consecutive
                 // no-growth probes = the stream is done; latch EOF and let it stop.
-                if (++m_stalledProbes >= 3) {
+                // GeneralsX @bugfix Android port 08/09/2026 Three failures mean "the decoder is
+                // stuck" only if they happened in quick succession. Reported: the music on the
+                // loading screen arriving in fragments and restarting from the top every time.
+                // That is this rule misfiring. Loading pumps the audio rarely and starves the
+                // refill, so a perfectly healthy stream shows the same signature -- dry source,
+                // callback says "more coming", nothing decoded yet -- a few hundred milliseconds
+                // apart, three times. EOF was latched, processPlayingList released the stream,
+                // and the music event started again from the beginning.
+                //
+                // A genuinely stuck decoder fails on consecutive fast updates; a starved one
+                // fails on updates that are far apart. So only count a probe as consecutive if
+                // it follows the last one closely, and otherwise start the count over.
+                const unsigned long nowMs = gxNowMs();
+                const bool followsLastClosely =
+                    (m_lastProbeMs != 0) && (nowMs - m_lastProbeMs <= 100);
+                m_stalledProbes = followsLastClosely ? (m_stalledProbes + 1) : 1;
+                m_lastProbeMs = nowMs;
+                if (m_stalledProbes >= 3) {
                     m_endOfData = true;
                 }
             }
             else {
                 m_stalledProbes = 0;
+                m_lastProbeMs = 0;
             }
         }
     }

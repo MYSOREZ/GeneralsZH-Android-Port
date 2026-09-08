@@ -36,6 +36,8 @@
 #include "GXTrace.h"
 
 // USER INCLUDES //////////////////////////////////////////////////////////////
+#include "Common/AudioAffect.h"
+#include "Common/GameAudio.h"
 #include "Common/ActionManager.h"
 #include "Common/GameEngine.h"
 #include "Common/GameState.h"
@@ -580,6 +582,32 @@ void GameClient::update()
 	// create the FRAME_TICK message
 	GameMessage *frameMsg = TheMessageStream->appendMessage( GameMessage::MSG_FRAME_TICK );
 	frameMsg->appendTimestampArgument( getFrame() );
+	// GeneralsX @bugfix Android port 08/09/2026 Silence the world while a movie is on screen.
+	// Reported: during the intro/sizzle movie you can hear the main menu's shell map behind it
+	// -- ships firing, infantry shouting -- over a cutscene that shows none of that. The movie
+	// is drawn over the running game, not instead of it, so the shell map keeps playing and its
+	// samples keep sounding.
+	//
+	// Samples only, deliberately. The movie's own audio is a STREAM, and pausing streams here
+	// would silence the cutscene itself. Music is left alone for the same reason.
+	//
+	// This uses pauseAudio, which genuinely pauses now rather than stopping -- before that fix
+	// this would have destroyed the shell map's sounds instead of holding them.
+	{
+		static Bool s_audioPausedForMovie = FALSE;
+		const Bool moviePlaying = (TheDisplay != nullptr && TheDisplay->isMoviePlaying());
+		if (moviePlaying != s_audioPausedForMovie && TheAudio != nullptr)
+		{
+			s_audioPausedForMovie = moviePlaying;
+			const AudioAffect worldSamples =
+				(AudioAffect)(AudioAffect_Sound | AudioAffect_Sound3D);
+			if (moviePlaying)
+				TheAudio->pauseAudio(worldSamples);
+			else
+				TheAudio->resumeAudio(worldSamples);
+		}
+	}
+
 	static Bool playSizzle = FALSE;
 	// We need to show the movie first.
 	if(TheGlobalData->m_playIntro && !TheDisplay->isMoviePlaying())

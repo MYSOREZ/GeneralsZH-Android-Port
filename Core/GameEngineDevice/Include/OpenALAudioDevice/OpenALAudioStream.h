@@ -66,6 +66,7 @@ protected:
     bool m_endOfData = false; ///< GeneralsX: source stream signalled true EOF; stop restarting it
     bool m_paused = false;    ///< GeneralsX: the GAME paused this stream; update() must not restart it
     int m_stalledProbes = 0;  ///< GeneralsX: consecutive EOF-probes that produced no new data
+    unsigned long m_lastProbeMs = 0; ///< GeneralsX: when the previous EOF-probe ran, to tell a stuck decoder from a starved one
     ALuint m_source = 0;
     ALuint m_buffers[AL_STREAM_BUFFER_COUNT] = {};
     unsigned int m_current_buffer_idx = 0;
