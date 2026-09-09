@@ -90,6 +90,8 @@
     <string name="setup_switch_touch_debug_desc">Dibuja sobre el juego el estado de la capa táctil: gesto actual, dónde está tu dedo, dónde cree el motor que está el puntero y el ancla de desplazamiento de la cámara. Actívalo para informar de problemas de control: mapa que se desplaza solo, edificio fantasma en el lugar equivocado, habilidad que apunta a donde no tocaste. (gx_touch_debug.txt)</string>
     <string name="setup_switch_gx_perf">Resumen de rendimiento</string>
     <string name="setup_switch_gx_perf_desc">Añade una línea corta por segundo mostrando en qué se gasta el tiempo de cuadro (radar, audio, red, lógica del juego, renderizado). Seguro dejarlo activado toda la sesión — actívalo para informes de FPS/ralentización. (gx_perf.txt)</string>
+    <string name="setup_switch_gx_audio_trace">Registro de audio</string>
+    <string name="setup_switch_gx_audio_trace_desc">Registra lo que hace el sistema de sonido: nivel de los búferes de música y voz, audio de los vídeos y cada fuente que se inicia o se detiene. Actívalo si te piden un registro de audio tras informar de sonido ausente, entrecortado o mudo. (gx_audio_trace.txt)</string>
     <string name="setup_switch_dxvk_hud">Superposición de rendimiento en pantalla</string>
     <string name="setup_switch_dxvk_hud_desc">Muestra FPS, draw calls, envíos y número de pipelines directamente en pantalla y en el registro. Actívalo para informes de rendimiento de la GPU. (dxvk_hud.txt)</string>
     <string name="setup_switch_dxvk_validation">Capa de validación de Vulkan</string>

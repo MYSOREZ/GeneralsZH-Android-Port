@@ -90,6 +90,8 @@
     <string name="setup_switch_touch_debug_desc">Zeigt den Zustand der Touch-Schicht über dem Spiel an: aktuelle Geste, Position deines Fingers, Position, an der die Engine den Zeiger vermutet, und den Scroll-Anker der Kamera. Aktiviere das für Meldungen zur Steuerung — davonlaufende Karte, Geisterbau an der falschen Stelle, Fähigkeit zielt dorthin, wo du nicht getippt hast. (gx_touch_debug.txt)</string>
     <string name="setup_switch_gx_perf">Leistungsübersicht</string>
     <string name="setup_switch_gx_perf_desc">Fügt einmal pro Sekunde eine kurze Zeile hinzu, die zeigt, wohin die Frame-Zeit geht (Radar, Audio, Netzwerk, Spiellogik, Rendering). Kann problemlos die ganze Spielsitzung über aktiviert bleiben — nutze dies für FPS-/Ruckler-Berichte. (gx_perf.txt)</string>
+    <string name="setup_switch_gx_audio_trace">Audio-Protokoll</string>
+    <string name="setup_switch_gx_audio_trace_desc">Zeichnet auf, was das Soundsystem tut: Pufferstände von Musik und Sprache, Filmton sowie jede Quelle, die startet oder stoppt. Aktivieren Sie dies, wenn nach einer Meldung über fehlenden, stockenden oder stummen Ton ein Audio-Protokoll angefordert wird. (gx_audio_trace.txt)</string>
     <string name="setup_switch_dxvk_hud">Bildschirm-Leistungsanzeige</string>
     <string name="setup_switch_dxvk_hud_desc">Zeigt FPS, Draw Calls, Submissions und Pipeline-Anzahl direkt auf dem Bildschirm und im Protokoll. Aktiviere dies für GPU-Leistungsberichte. (dxvk_hud.txt)</string>
     <string name="setup_switch_dxvk_validation">Vulkan-Validierungsschicht</string>

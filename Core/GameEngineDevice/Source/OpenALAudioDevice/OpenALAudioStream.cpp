@@ -1,4 +1,5 @@
 #include "OpenALAudioDevice/OpenALAudioStream.h"
+#include "GXTrace.h"
 #include "OpenALAudioDevice/OpenALAudioManager.h"
 #include <AL/alext.h>
 #include <chrono>
@@ -156,13 +157,11 @@ void OpenALAudioStream::update()
             bool moreData = m_requireDataCallback();
             ALint queuedAfter = 0;
             alGetSourcei(m_source, AL_BUFFERS_QUEUED, &queuedAfter);
-            fprintf(stderr, "[GX-AUDIO] probe src=%u queued=%d processed=%d moreData=%d queuedAfter=%d stalled=%d\n",
+            GX_AUDIO_TRACE("probe src=%u queued=%d processed=%d moreData=%d queuedAfter=%d stalled=%d\n",
                     (unsigned)m_source, (int)num_queued, (int)processedNow, (int)moreData,
                     (int)queuedAfter, (int)m_stalledProbes);
-            fflush(stderr);
             if (!moreData) {
-                fprintf(stderr, "[GX-AUDIO] EOF latched: decoder said no more data (src=%u)\n", (unsigned)m_source);
-                fflush(stderr);
+                GX_AUDIO_TRACE("EOF latched: decoder said no more data (src=%u)\n", (unsigned)m_source);
                 m_endOfData = true;   // definitive EOF from the decoder
             }
             else if (queuedAfter <= queuedBefore) {
@@ -191,9 +190,8 @@ void OpenALAudioStream::update()
                 m_stalledProbes = followsLastClosely ? (m_stalledProbes + 1) : 1;
                 m_lastProbeMs = nowMs;
                 if (m_stalledProbes >= 3) {
-                    fprintf(stderr, "[GX-AUDIO] EOF latched: 3 stalled probes (src=%u, gap=%lums)\n",
+                    GX_AUDIO_TRACE("EOF latched: 3 stalled probes (src=%u, gap=%lums)\n",
                             (unsigned)m_source, followsLastClosely ? (nowMs - m_lastProbeMs) : 0UL);
-                    fflush(stderr);
                     m_endOfData = true;
                 }
             }
@@ -240,10 +238,9 @@ void OpenALAudioStream::update()
     }
     alGetSourcei(m_source, AL_BUFFERS_QUEUED, &num_queued);
     if (gxStarved) {
-        fprintf(stderr, "[GX-AUDIO] unqueue src=%u played=%d unplayedWhileStopped=%d failed=%d queuedAfter=%d\n",
+        GX_AUDIO_TRACE("unqueue src=%u played=%d unplayedWhileStopped=%d failed=%d queuedAfter=%d\n",
                 (unsigned)m_source, (int)processedBeforeUnqueue, (int)m_unplayedWhileStopped,
                 (int)gxUnqueueFailures, (int)num_queued);
-        fflush(stderr);
     }
 
     // GeneralsX @bugfix BenderAI 22/04/2026 Restart before the refill, so freshly queued briefing
@@ -337,12 +334,11 @@ void OpenALAudioStream::update()
         alGetSourcei(m_source, AL_BUFFERS_QUEUED, &finalQueued);
         const ALint finalProcessed = gxPlayedBuffers();
         alGetSourcei(m_source, AL_SOURCE_STATE, &finalState);
-        fprintf(stderr, "[GX-AUDIO] refilled src=%u queued=%d played=%d state=%s\n",
+        GX_AUDIO_TRACE("refilled src=%u queued=%d played=%d state=%s\n",
                 (unsigned)m_source, (int)finalQueued, (int)finalProcessed,
                 finalState == AL_PLAYING ? "PLAYING" :
                 finalState == AL_STOPPED ? "STOPPED" :
                 finalState == AL_PAUSED  ? "PAUSED"  : "INITIAL");
-        fflush(stderr);
     }
 }
 

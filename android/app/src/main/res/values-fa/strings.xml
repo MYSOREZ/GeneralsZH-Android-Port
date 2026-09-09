@@ -90,6 +90,8 @@
     <string name="setup_switch_touch_debug_desc">وضعیت لایه لمسی را روی بازی می‌کشد: حرکت فعلی، جای انگشت شما، جایی که موتور بازی فکر می‌کند نشانگر است، و لنگر پیمایش دوربین. برای گزارش مشکلات کنترل این را روشن کنید — نقشه‌ای که خودش حرکت می‌کند، ساختمان شبح در جای اشتباه، توانایی که جایی را نشانه می‌رود که لمس نکرده‌اید. (gx_touch_debug.txt)</string>
     <string name="setup_switch_gx_perf">خلاصه عملکرد</string>
     <string name="setup_switch_gx_perf_desc">هر ثانیه یک خط کوتاه اضافه می‌کند که نشان می‌دهد زمان هر فریم صرف چه چیزی می‌شود (رادار، صدا، شبکه، منطق بازی، رندر). فعال نگه‌داشتن آن در کل نشست بازی بی‌خطر است — برای گزارش‌های FPS/کندی فعال کنید. (gx_perf.txt)</string>
+    <string name="setup_switch_gx_audio_trace">گزارش صدا</string>
+    <string name="setup_switch_gx_audio_trace_desc">ثبت می‌کند سامانهٔ صدا چه می‌کند: میزان پر بودن بافرهای موسیقی و گفتار، صدای ویدیوها، و هر منبعی که آغاز یا متوقف می‌شود. اگر پس از گزارش صدای ناموجود، بریده‌بریده یا خاموش از شما گزارش صدا خواستند، این را روشن کنید. ‎(gx_audio_trace.txt)</string>
     <string name="setup_switch_dxvk_hud">نمایش عملکرد روی صفحه</string>
     <string name="setup_switch_dxvk_hud_desc">FPS، تعداد draw call، ارسال‌ها و تعداد پایپ‌لاین‌ها را مستقیماً روی صفحه و در گزارش نشان می‌دهد. برای گزارش‌های عملکرد GPU فعال کنید. (dxvk_hud.txt)</string>
     <string name="setup_switch_dxvk_validation">لایه اعتبارسنجی Vulkan</string>

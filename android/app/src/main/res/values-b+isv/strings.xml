@@ -90,6 +90,8 @@
     <string name="setup_switch_touch_debug_desc">Risuje sostojanje sensornogo sloja poverh igry: tekuщij žest, gdě tvoj palec, gdě dvižok sčitaje ukazatelj, i jakorj prokrutki kamery. Vklučaj, kogda soobщaješ o problemah upravlenja — karta uhodi sama, prizračnoje zdanje ne na svojem městu, sposobnostj cělitsja tuda, gdě ty ne kasal sę. (gx_touch_debug.txt)</string>
     <string name="setup_switch_gx_perf">Rezimě proizvoditelnosti</string>
     <string name="setup_switch_gx_perf_desc">Dodaje odnu kratku liniju na sekundu, kotora pokazuje kde ide vrěmě kadra (radar, zvuk, sěť, logika igry, renderovanje). Bezpečno ostaviti uklopjeno za cělu sesiju igry — uklopte za izvěšćenja o FPS/zapovolnjenjih. (gx_perf.txt)</string>
+    <string name="setup_switch_gx_audio_trace">Dnevnik zvuka</string>
+    <string name="setup_switch_gx_audio_trace_desc">Zapisyvaje, čto dělaje zvukova sistema: napolnjenje buferov muziky i govora, zvuk video i vsakoje počenje i zastavjenje izvora. Vključite, ako po žalobě na izgubjeny, preryvny ili tihy zvuk od vas poprosjut dnevnik zvuka. (gx_audio_trace.txt)</string>
     <string name="setup_switch_dxvk_hud">Ekranny overlej proizvoditelnosti</string>
     <string name="setup_switch_dxvk_hud_desc">Pokazuje FPS, čislo draw call, otprav i pajplajnov prěmo na ekranu i v logu. Uklopte za izvěšćenja o proizvoditelnosti GPU. (dxvk_hud.txt)</string>
     <string name="setup_switch_dxvk_validation">Sloj validacije Vulkan</string>

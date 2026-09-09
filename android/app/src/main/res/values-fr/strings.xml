@@ -90,6 +90,8 @@
     <string name="setup_switch_touch_debug_desc">Affiche par-dessus le jeu l\'état de la couche tactile : geste en cours, position de votre doigt, position où le moteur croit que se trouve le pointeur, et ancre de défilement de la caméra. Activez ceci pour signaler des problèmes de contrôle : carte qui défile toute seule, bâtiment fantôme au mauvais endroit, capacité qui vise là où vous n\'avez pas touché. (gx_touch_debug.txt)</string>
     <string name="setup_switch_gx_perf">Résumé des performances</string>
     <string name="setup_switch_gx_perf_desc">Ajoute une courte ligne par seconde indiquant où passe le temps de trame (radar, audio, réseau, logique du jeu, rendu). Peut rester activé toute la session sans risque — activez-le pour les rapports de FPS/ralentissements. (gx_perf.txt)</string>
+    <string name="setup_switch_gx_audio_trace">Journal audio</string>
+    <string name="setup_switch_gx_audio_trace_desc">Enregistre ce que fait le système sonore : niveau des tampons de musique et de voix, audio des vidéos, et chaque source qui démarre ou s\'arrête. Activez-le si un journal audio vous est demandé après un signalement de son absent, haché ou muet. (gx_audio_trace.txt)</string>
     <string name="setup_switch_dxvk_hud">Overlay de performances à l\'écran</string>
     <string name="setup_switch_dxvk_hud_desc">Affiche les FPS, le nombre d\'appels de dessin, de soumissions et de pipelines directement à l\'écran et dans le journal. Activez-le pour les rapports de performances GPU. (dxvk_hud.txt)</string>
     <string name="setup_switch_dxvk_validation">Couche de validation Vulkan</string>

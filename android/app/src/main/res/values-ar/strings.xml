@@ -90,6 +90,8 @@
     <string name="setup_switch_touch_debug_desc">يرسم حالة طبقة اللمس فوق اللعبة: الإيماءة الحالية، وموضع إصبعك، والموضع الذي يعتقد المحرك أن المؤشر فيه، ونقطة ارتكاز تمرير الكاميرا. فعّل هذا للإبلاغ عن مشكلات التحكم — خريطة تتحرك من تلقاء نفسها، أو مبنى شبحي في المكان الخطأ، أو قدرة تستهدف مكانًا لم تلمسه. (gx_touch_debug.txt)</string>
     <string name="setup_switch_gx_perf">ملخص الأداء</string>
     <string name="setup_switch_gx_perf_desc">يضيف سطرًا قصيرًا كل ثانية يوضح أين يُصرف وقت الإطار (الرادار، الصوت، الشبكة، منطق اللعبة، العرض). آمن تركه مفعّلاً طوال جلسة اللعب — فعّله لتقارير معدل الإطارات/التباطؤ. (gx_perf.txt)</string>
+    <string name="setup_switch_gx_audio_trace">سجل الصوت</string>
+    <string name="setup_switch_gx_audio_trace_desc">يسجل ما يقوم به نظام الصوت: مستوى مخازن الموسيقى والحوار، وصوت المقاطع السينمائية، وكل مصدر يبدأ أو يتوقف. فعّل هذا إذا طُلب منك سجل صوت بعد الإبلاغ عن صوت مفقود أو متقطع أو صامت. ‎(gx_audio_trace.txt)</string>
     <string name="setup_switch_dxvk_hud">طبقة أداء على الشاشة</string>
     <string name="setup_switch_dxvk_hud_desc">يعرض معدل الإطارات وعدد أوامر الرسم والإرسالات وعدد خطوط الأنابيب مباشرة على الشاشة وفي السجل. فعّله لتقارير أداء وحدة معالجة الرسومات. (dxvk_hud.txt)</string>
     <string name="setup_switch_dxvk_validation">طبقة التحقق من Vulkan</string>

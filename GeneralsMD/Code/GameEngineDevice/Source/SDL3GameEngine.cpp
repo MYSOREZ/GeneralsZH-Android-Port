@@ -370,6 +370,13 @@ struct TouchState {
 	float f1px = 0.0f, f1py = 0.0f, f2px = 0.0f, f2py = 0.0f;
 	float twoCentroidLastX = 0.0f, twoCentroidLastY = 0.0f;
 	float twoDistLastPx = 0.0f;
+	// GeneralsX @feature Android port 09/09/2026 Two-finger twist -> camera rotation.
+	// twoAngleLastRad is the angle of the finger-to-finger vector on the previous frame;
+	// twoTwistAccumRad is how far the gesture has twisted in total since it began, used
+	// only to decide whether the player MEANT to rotate (see applyPendingCameraMotion).
+	float twoAngleLastRad = 0.0f;
+	float twoTwistAccumRad = 0.0f;
+	Bool twoRotateArmed = FALSE;
 
 	// TWOFINGER tap-to-cancel: frozen landing position of each finger (unlike
 	// f1px/f2px above, never overwritten by later motion), so release can
@@ -481,6 +488,37 @@ const float ZOOM_HEIGHT_PER_PIXEL = (float)View::ZoomHeightPerSecond / ZOOM_PX_P
 // that was under the finger before should be under the finger after (drag-
 // the-map feel), so the camera moves by (worldAtOldScreenPos -
 // worldAtNewScreenPos), using the CURRENT camera for both projections.
+// GeneralsX @bugfix Android port 09/09/2026 The script owns the camera during a
+// cinematic, and a finger drag must not fight it.
+//
+// Reported from device: during cutscenes the camera can still be dragged, which
+// breaks the scripted follow the mission authors wrote. Two distinct ways the
+// script takes the camera, and both have to be honoured:
+//
+//   - isCameraMovementFinished() is false while a scripted rotate, pitch, zoom or
+//     move-along-waypoint-path is running. The engine's own keyboard rotate path
+//     already gates on exactly this (CommandXlat.cpp), so this is the idiomatic
+//     test, not a new invention.
+//   - getCameraLock()/getCameraLockDrawable() are set while the camera is pinned to
+//     an object -- the "follow that unit" shot.
+//
+// Deliberately not a blanket "no input during cutscenes": selection and orders are
+// left alone, because the player is still allowed to give them. Only the camera is
+// handed back to the script.
+static Bool gxScriptOwnsCamera(void)
+{
+	if (!TheTacticalView) {
+		return FALSE;
+	}
+	if (!TheTacticalView->isCameraMovementFinished()) {
+		return TRUE;
+	}
+	if (TheTacticalView->getCameraLock() != INVALID_ID) {
+		return TRUE;
+	}
+	return TheTacticalView->getCameraLockDrawable() != NULL;
+}
+
 void applyCameraPan(float fromPxX, float fromPxY, float toPxX, float toPxY)
 {
 	if (!TheTacticalView) {
@@ -506,6 +544,10 @@ void applyCameraPan(float fromPxX, float fromPxY, float toPxX, float toPxY)
 		// loading/match-start, not anything about being "near the command
 		// center" -- this line turns that inference into a direct fact.
 		GX_TRACE("applyCameraPan: blocked, TheShell->isShellActive()==true\n");
+		return;
+	}
+	if (gxScriptOwnsCamera()) {
+		GX_TRACE("applyCameraPan: blocked, the script owns the camera (cinematic)\n");
 		return;
 	}
 	ICoord2D fromScreen, toScreen;
@@ -584,10 +626,36 @@ void applyCameraZoom(float distDeltaPx)
 		GX_TRACE("applyCameraZoom: blocked, TheShell->isShellActive()==true\n");
 		return;
 	}
+	if (gxScriptOwnsCamera()) {
+		GX_TRACE("applyCameraZoom: blocked, the script owns the camera (cinematic)\n");
+		return;
+	}
 	const Real zoomDelta = -distDeltaPx * ZOOM_HEIGHT_PER_PIXEL;
 	TheTacticalView->userZoom(zoomDelta);
 	GX_TRACE("applyCameraZoom: distDeltaPx=%.2f zoomDelta=%.4f locked=%d\n",
 	         distDeltaPx, zoomDelta, (int)TheTacticalView->isUserControlLocked());
+}
+
+// GeneralsX @feature Android port 09/09/2026 Camera rotation, the last thing the
+// mouse-and-keyboard build could do that touch could not.
+//
+// userSetAngle() rather than rotateCamera(): rotateCamera() is the SCRIPTED,
+// eased-over-N-frames rotation, and driving it once per frame from a gesture would
+// fight itself. userSetAngle() is the direct, immediate yaw the keyboard's own rotate
+// ends up at, and going through the user* wrapper means an engine user-control lock
+// still holds -- the same reason pan and zoom use userSetPosition()/userZoom().
+void applyCameraRotate(float deltaRad)
+{
+	if (!TheTacticalView || deltaRad == 0.0f) {
+		return;
+	}
+	if (TheShell && TheShell->isShellActive()) {
+		return;
+	}
+	if (gxScriptOwnsCamera()) {
+		return;
+	}
+	TheTacticalView->userSetAngle(TheTacticalView->getAngle() + (Real)deltaRad);
 }
 
 // GeneralsX @feature Android port 01/08/2026 These three functions are the
@@ -970,6 +1038,9 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 			{
 				const float ddx = s_touch.f2px - s_touch.f1px, ddy = s_touch.f2py - s_touch.f1py;
 				s_touch.twoDistLastPx = SDL_sqrtf(ddx * ddx + ddy * ddy);
+				s_touch.twoAngleLastRad = SDL_atan2f(ddy, ddx);
+				s_touch.twoTwistAccumRad = 0.0f;
+				s_touch.twoRotateArmed = FALSE;
 			}
 			s_touch.phase = TouchState::TWOFINGER;
 		}
@@ -1686,6 +1757,35 @@ void applyPendingCameraMotion()
 		const float dist = SDL_sqrtf(dx * dx + dy * dy);
 		applyCameraZoom(dist - s_touch.twoDistLastPx);
 		s_touch.twoDistLastPx = dist;
+
+		// GeneralsX @feature Android port 09/09/2026 Twist the two fingers, rotate the
+		// camera. The angle of the finger-to-finger vector was already being computed and
+		// thrown away; this is the delta of it, wrapped into (-pi, pi] so the seam at the
+		// half-turn does not produce a spin.
+		//
+		// It has to be armed, not applied immediately. Two fingers never pinch or drag
+		// perfectly parallel, so every zoom carries a degree or two of incidental twist,
+		// and applying that would make the camera creep whenever the player zooms. So
+		// accumulate the twist and only start rotating once the gesture has clearly asked
+		// for it; from then on the gesture is 1:1 and stays armed for its lifetime.
+		const float angle = SDL_atan2f(dy, dx);
+		float twist = angle - s_touch.twoAngleLastRad;
+		while (twist > PI)  { twist -= 2.0f * PI; }
+		while (twist < -PI) { twist += 2.0f * PI; }
+		s_touch.twoAngleLastRad = angle;
+
+		if (s_touch.twoRotateArmed) {
+			applyCameraRotate(twist);
+		}
+		else {
+			const float TWIST_ARM_RAD = 0.14f;   // ~8 degrees of deliberate twist
+			s_touch.twoTwistAccumRad += twist;
+			if (SDL_fabsf(s_touch.twoTwistAccumRad) >= TWIST_ARM_RAD) {
+				s_touch.twoRotateArmed = TRUE;
+				GX_TRACE("two-finger twist armed after %.3f rad\n",
+				         (double)s_touch.twoTwistAccumRad);
+			}
+		}
 	}
 	else if (s_touch.phase == TouchState::MOMENTUM) {
 		// GeneralsX @feature Android port 02/08/2026 Coast with the velocity

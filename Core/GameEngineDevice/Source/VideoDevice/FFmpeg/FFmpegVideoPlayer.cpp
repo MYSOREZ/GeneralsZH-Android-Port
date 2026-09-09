@@ -31,6 +31,7 @@
 //----------------------------------------------------------------------------
 
 #include <cstdio>
+#include "GXTrace.h"
 
 #include "Lib/BaseType.h"
 #include "VideoDevice/FFmpeg/FFmpegVideoPlayer.h"
@@ -323,12 +324,11 @@ FFmpegVideoStream::FFmpegVideoStream(FFmpegFile* file)
 	ALint gxLeftOver = 0, gxPrevState = 0;
 	alGetSourcei(audioStream->getSource(), AL_BUFFERS_QUEUED, &gxLeftOver);
 	alGetSourcei(audioStream->getSource(), AL_SOURCE_STATE, &gxPrevState);
-	fprintf(stderr, "[GX-AUDIO] new movie: dropping %d queued buffer(s) from the previous stream (state=%s)\n",
+	GX_AUDIO_TRACE("new movie: dropping %d queued buffer(s) from the previous stream (state=%s)\n",
 			(int)gxLeftOver,
 			gxPrevState == AL_PLAYING ? "PLAYING" :
 			gxPrevState == AL_STOPPED ? "STOPPED" :
 			gxPrevState == AL_PAUSED  ? "PAUSED"  : "INITIAL");
-	fflush(stderr);
 	audioStream->reset();
 #endif
 
@@ -498,9 +498,8 @@ void FFmpegVideoStream::onFrame(AVFrame *frame, int stream_idx, int stream_type,
 		}
 
 		if (!audioStream->bufferData(frameData, outputFrameSize, format, frame->sample_rate)) {
-			fprintf(stderr, "[GX-AUDIO] movie audio frame: bufferData() FAILED (format=0x%x rate=%d size=%d)\n",
+			GX_AUDIO_TRACE("movie audio frame: bufferData() FAILED (format=0x%x rate=%d size=%d)\n",
 					(unsigned)format, frame->sample_rate, outputFrameSize);
-			fflush(stderr);
 		}
 		audioStream->update();
 
@@ -510,14 +509,13 @@ void FFmpegVideoStream::onFrame(AVFrame *frame, int stream_idx, int stream_type,
 			alGetSourcei(audioStream->getSource(), AL_BUFFERS_QUEUED, &gxQueued);
 			alGetSourcei(audioStream->getSource(), AL_BUFFERS_PROCESSED, &gxProcessed);
 			alGetSourcei(audioStream->getSource(), AL_SOURCE_STATE, &gxState);
-			fprintf(stderr, "[GX-AUDIO] movie audio frame #%d: ch=%d samples=%d fmt=%d rate=%d peak=%d queued=%d processed=%d state=%s\n",
+			GX_AUDIO_TRACE("movie audio frame #%d: ch=%d samples=%d fmt=%d rate=%d peak=%d queued=%d processed=%d state=%s\n",
 					gxAudioFrameCount, frame->ch_layout.nb_channels, frame->nb_samples,
 					(int)frame->format, frame->sample_rate, gxPeakSinceTrace,
 					(int)gxQueued, (int)gxProcessed,
 					gxState == AL_PLAYING ? "PLAYING" :
 					gxState == AL_STOPPED ? "STOPPED" :
 					gxState == AL_PAUSED  ? "PAUSED"  : "INITIAL");
-			fflush(stderr);
 			gxPeakSinceTrace = 0;
 		}
 	}

@@ -27,6 +27,7 @@
 /////////////////////////////////////////////////
 
 #include "VideoDevice/FFmpeg/FFmpegFile.h"
+#include "GXTrace.h"
 #include "Common/file.h"
 #include <cstdio>
 
@@ -253,8 +254,7 @@ Bool FFmpegFile::decodePacket()
 			// The decoder says its buffer is full but has nothing ready to hand back --
 			// should not happen per the contract above, but do not spin on it.
 			if (gxFramesThisCall == 0) {
-				fprintf(stderr, "[GX-AUDIO] decodePacket: drain-EAGAIN with 0 frames delivered, stream_idx=%d type=%d\n", stream_idx, stream.stream_type);
-				fflush(stderr);
+				GX_AUDIO_TRACE("decodePacket: drain-EAGAIN with 0 frames delivered, stream_idx=%d type=%d\n", stream_idx, stream.stream_type);
 			}
 			return true;
 		}
@@ -303,8 +303,7 @@ Bool FFmpegFile::decodePacket()
 	}
 
 	if (gxFramesThisCall == 0) {
-		fprintf(stderr, "[GX-AUDIO] decodePacket: main-loop EAGAIN with 0 frames delivered, stream_idx=%d type=%d\n", stream_idx, stream.stream_type);
-		fflush(stderr);
+		GX_AUDIO_TRACE("decodePacket: main-loop EAGAIN with 0 frames delivered, stream_idx=%d type=%d\n", stream_idx, stream.stream_type);
 	}
 
 	return true;

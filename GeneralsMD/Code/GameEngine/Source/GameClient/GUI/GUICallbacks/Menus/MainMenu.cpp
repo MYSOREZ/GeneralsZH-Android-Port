@@ -29,6 +29,7 @@
 
 // INCLUDES ///////////////////////////////////////////////////////////////////////////////////////
 #include "PreRTS.h"	// This must go first in EVERY cpp file in the GameEngine
+#include "GXTrace.h"
 
 #include "gamespy/ghttp/ghttp.h"
 
@@ -504,20 +505,17 @@ void MainMenuInit( WindowLayout *layout, void *userData )
 	// already uses to call showShellMap() at the CORRECT time, after the intro has actually
 	// finished; skipping it here means that later, correctly-gated call is the only one that
 	// ever runs it during startup.
-	fprintf(stderr, "[GX-AUDIO] MainMenuInit: playIntro=%d afterIntro=%d layout=%p\n",
+	GX_AUDIO_TRACE("MainMenuInit: playIntro=%d afterIntro=%d layout=%p\n",
 	        (int)TheGlobalData->m_playIntro, (int)TheGlobalData->m_afterIntro, (void*)layout);
-	fflush(stderr);
 
 	if (!TheGlobalData->m_playIntro && !TheGlobalData->m_afterIntro)
 	{
-		fprintf(stderr, "[GX-AUDIO] MainMenuInit: showing shell map immediately\n");
-		fflush(stderr);
+		GX_AUDIO_TRACE("MainMenuInit: showing shell map immediately\n");
 		TheShell->showShellMap(TRUE);
 	}
 	else
 	{
-		fprintf(stderr, "[GX-AUDIO] MainMenuInit: intro pending -> hiding layout %p\n", (void*)layout);
-		fflush(stderr);
+		GX_AUDIO_TRACE("MainMenuInit: intro pending -> hiding layout %p\n", (void*)layout);
 		// GeneralsX @bugfix Android port 08/09/2026 Deferring showShellMap() above stopped
 		// the animated battle background from loading under the movie, but this layout --
 		// MainMenu.wnd's own static background and logo -- is created and shown regardless,
@@ -529,9 +527,8 @@ void MainMenuInit( WindowLayout *layout, void *userData )
 		// video isn't -- reported as a fragment of the CONQUER/GENERALS logo visible in a
 		// corner during the intro. Hide it until the same point that reveals the map.
 		layout->hide(TRUE);
-		fprintf(stderr, "[GX-AUDIO] MainMenuInit: layout->hide(TRUE) called, isHidden now=%d\n",
+		GX_AUDIO_TRACE("MainMenuInit: layout->hide(TRUE) called, isHidden now=%d\n",
 		        (int)layout->isHidden());
-		fflush(stderr);
 	}
 
 	TheMouse->setVisibility(TRUE);

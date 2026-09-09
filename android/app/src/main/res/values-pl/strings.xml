@@ -90,6 +90,8 @@
     <string name="setup_switch_touch_debug_desc">Rysuje na grze stan warstwy dotykowej: bieżący gest, położenie palca, miejsce, w którym silnik widzi wskaźnik, oraz kotwicę przewijania kamery. Włącz to przy zgłaszaniu problemów ze sterowaniem — uciekająca mapa, widmowy budynek w złym miejscu, zdolność celująca tam, gdzie nie dotknięto. (gx_touch_debug.txt)</string>
     <string name="setup_switch_gx_perf">Podsumowanie wydajności</string>
     <string name="setup_switch_gx_perf_desc">Dodaje jedną krótką linię na sekundę pokazującą, na co idzie czas klatki (radar, dźwięk, sieć, logika gry, renderowanie). Można bezpiecznie zostawić włączone przez całą sesję — włącz do zgłoszeń o FPS/spowolnieniach. (gx_perf.txt)</string>
+    <string name="setup_switch_gx_audio_trace">Dziennik dźwięku</string>
+    <string name="setup_switch_gx_audio_trace_desc">Zapisuje, co robi system dźwięku: zapełnienie buforów muzyki i mowy, dźwięk filmów oraz każde uruchomienie i zatrzymanie źródła. Włącz, jeśli po zgłoszeniu braku dźwięku, przerywania lub ciszy poproszą Cię o dziennik dźwięku. (gx_audio_trace.txt)</string>
     <string name="setup_switch_dxvk_hud">Nakładka wydajności na ekranie</string>
     <string name="setup_switch_dxvk_hud_desc">Pokazuje FPS, liczbę wywołań rysowania, zgłoszeń i potoków bezpośrednio na ekranie i w logu. Włącz do zgłoszeń o wydajności GPU. (dxvk_hud.txt)</string>
     <string name="setup_switch_dxvk_validation">Warstwa walidacji Vulkan</string>

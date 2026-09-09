@@ -692,9 +692,8 @@ void GameClient::update()
 		// the logo immediately.
 		if (s_framesSinceMoviePlaying >= 30)
 		{
-			fprintf(stderr, "[GX-AUDIO] intro finished (%d frames quiet) -> loading shell map\n",
+			GX_AUDIO_TRACE("intro finished (%d frames quiet) -> loading shell map\n",
 			        (int)s_framesSinceMoviePlaying);
-			fflush(stderr);
 			// GeneralsX @bugfix Android port 09/09/2026 Order matters here, in both directions.
 			//
 			// showShell() runs the top layout's init callback again -- a device log shows

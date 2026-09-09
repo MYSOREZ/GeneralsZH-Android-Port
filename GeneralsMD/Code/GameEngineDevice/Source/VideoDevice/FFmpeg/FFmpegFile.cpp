@@ -1,4 +1,5 @@
 #include "VideoDevice/FFmpeg/FFmpegFile.h"
+#include "GXTrace.h"
 
 // GeneralsX @build Android port 08/09/2026 NOTE FOR ANYONE EDITING THIS FILE: this class
 // is compiled TWICE into the shipped binary. GeneralsMD/Code/GameEngineDevice/CMakeLists.txt
@@ -226,8 +227,7 @@ bool FFmpegFile::decodePacket()
         int recvResult = avcodec_receive_frame(codec_ctx, stream.frame);
         if (recvResult == AVERROR(EAGAIN)) {
             if (gxFramesThisCall == 0) {
-                fprintf(stderr, "[GX-AUDIO] decodePacket: drain-EAGAIN with 0 frames delivered, stream_idx=%d type=%d\n", stream_idx, stream.stream_type);
-                fflush(stderr);
+                GX_AUDIO_TRACE("decodePacket: drain-EAGAIN with 0 frames delivered, stream_idx=%d type=%d\n", stream_idx, stream.stream_type);
             }
             return true;
         }
@@ -276,8 +276,7 @@ bool FFmpegFile::decodePacket()
     }
 
     if (gxFramesThisCall == 0) {
-        fprintf(stderr, "[GX-AUDIO] decodePacket: main-loop EAGAIN with 0 frames delivered, stream_idx=%d type=%d\n", stream_idx, stream.stream_type);
-        fflush(stderr);
+        GX_AUDIO_TRACE("decodePacket: main-loop EAGAIN with 0 frames delivered, stream_idx=%d type=%d\n", stream_idx, stream.stream_type);
     }
 
     return true;

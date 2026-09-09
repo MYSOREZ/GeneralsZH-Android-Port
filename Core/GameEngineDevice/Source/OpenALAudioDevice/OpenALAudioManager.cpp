@@ -39,6 +39,7 @@
 /*---------------------------------------------------------------------------*/
 
 #include "Lib/BaseType.h"
+#include "GXTrace.h"
 #include "OpenALAudioDevice/OpenALAudioManager.h"
 #include "OpenALAudioDevice/OpenALAudioStream.h"
 #include "OpenALAudioCache.h"
@@ -2637,11 +2638,10 @@ void OpenALAudioManager::processPlayingList(void)
 		// can never play again.
 		if (playing->m_stream && sourceIsStopped(playing->m_stream->getSource()))
 		{
-			fprintf(stderr, "[GX-AUDIO] stream stopped: src=%u atEnd=%d event=%s\n",
+			GX_AUDIO_TRACE("stream stopped: src=%u atEnd=%d event=%s\n",
 			        (unsigned)playing->m_stream->getSource(),
 			        (int)playing->m_stream->isAtEnd(),
 			        (playing->m_audioEventRTS ? playing->m_audioEventRTS->getEventName().str() : "?"));
-			fflush(stderr);
 		}
 
 		if (playing->m_stream && sourceIsStopped(playing->m_stream->getSource())

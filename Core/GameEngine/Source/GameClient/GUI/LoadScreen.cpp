@@ -48,6 +48,7 @@
 // SYSTEM INCLUDES ////////////////////////////////////////////////////////////
 //-----------------------------------------------------------------------------
 #include "PreRTS.h"	// This must go first in EVERY cpp file in the GameEngine
+#include "GXTrace.h"
 
 //-----------------------------------------------------------------------------
 // USER INCLUDES //////////////////////////////////////////////////////////////
@@ -180,8 +181,7 @@ void LoadScreen::update( Int percent )
 		static Int s_pumpCount = 0;
 		if ((s_pumpCount++ % 10) == 0)
 		{
-			fprintf(stderr, "[GX-AUDIO] loadscreen pump #%d at %d%%\n", s_pumpCount, (int)percent);
-			fflush(stderr);
+			GX_AUDIO_TRACE("loadscreen pump #%d at %d%%\n", s_pumpCount, (int)percent);
 		}
 		TheAudio->UPDATE();
 	}

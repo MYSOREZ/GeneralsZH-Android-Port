@@ -90,6 +90,8 @@
     <string name="setup_switch_touch_debug_desc">在游戏画面上绘制触摸层的状态：当前手势、手指位置、引擎认为指针所在的位置，以及镜头滚动锚点。报告操作问题时请开启——地图自行移动、幽灵建筑出现在错误位置、技能瞄准到你没有触摸的地方。(gx_touch_debug.txt)</string>
     <string name="setup_switch_gx_perf">性能摘要</string>
     <string name="setup_switch_gx_perf_desc">每秒添加一行简短记录，显示每帧时间花在哪里（雷达、音频、网络、游戏逻辑、渲染）。整个游玩会话保持开启也是安全的 —— 用于 FPS/卡顿报告时打开。(gx_perf.txt)</string>
+    <string name="setup_switch_gx_audio_trace">音频日志</string>
+    <string name="setup_switch_gx_audio_trace_desc">记录声音系统的运行情况：音乐与语音的缓冲区水平、过场动画音频，以及每一个启动或停止的音源。如果你报告了声音缺失、断续或无声后被要求提供音频日志，请打开此项。(gx_audio_trace.txt)</string>
     <string name="setup_switch_dxvk_hud">屏幕性能叠加层</string>
     <string name="setup_switch_dxvk_hud_desc">直接在屏幕和日志中显示 FPS、绘制调用数、提交数和管线数。用于 GPU 性能报告时打开。(dxvk_hud.txt)</string>
     <string name="setup_switch_dxvk_validation">Vulkan 验证层</string>

@@ -90,6 +90,8 @@
     <string name="setup_switch_touch_debug_desc">Малює поверх гри стан сенсорного шару: поточний жест, де палець, де рушій вважає вказівник, і якір прокручування камери. Вмикайте, коли повідомляєте про проблеми керування — карта їде сама, привид будівлі не на тому місці, здібність цілиться туди, куди ви не натискали. (gx_touch_debug.txt)</string>
     <string name="setup_switch_gx_perf">Зведення продуктивності</string>
     <string name="setup_switch_gx_perf_desc">Додає один короткий рядок на секунду про те, куди йде час кадру (радар, звук, мережа, логіка гри, рендеринг). Можна безпечно залишити увімкненим на всю сесію — вмикайте для звітів про FPS/просідання. (gx_perf.txt)</string>
+    <string name="setup_switch_gx_audio_trace">Журнал звуку</string>
+    <string name="setup_switch_gx_audio_trace_desc">Записує, що робить звукова система: заповнення буферів музики й мовлення, звук роликів і кожен запуск та зупинку джерела. Увімкніть, якщо після скарги на зниклий, переривчастий або тихий звук у вас попросять журнал звуку. (gx_audio_trace.txt)</string>
     <string name="setup_switch_dxvk_hud">Екранний оверлей продуктивності</string>
     <string name="setup_switch_dxvk_hud_desc">Показує FPS, кількість draw call, надсилань і пайплайнів прямо на екрані та в логу. Вмикайте для звітів про продуктивність GPU. (dxvk_hud.txt)</string>
     <string name="setup_switch_dxvk_validation">Шар валідації Vulkan</string>

@@ -90,6 +90,8 @@
     <string name="setup_switch_touch_debug_desc">터치 계층의 상태를 게임 위에 표시합니다: 현재 제스처, 손가락 위치, 엔진이 포인터가 있다고 여기는 위치, 카메라 스크롤 기준점. 조작 문제를 보고할 때 켜세요 — 저절로 움직이는 지도, 엉뚱한 곳의 유령 건물, 누르지 않은 곳을 겨냥하는 능력. (gx_touch_debug.txt)</string>
     <string name="setup_switch_gx_perf">성능 요약</string>
     <string name="setup_switch_gx_perf_desc">프레임 시간이 어디에 쓰이는지(레이더, 오디오, 네트워크, 게임 로직, 렌더링) 매초 한 줄씩 짧게 추가합니다. 세션 내내 켜둬도 안전합니다 — FPS/버벅임 제보 시 켜세요. (gx_perf.txt)</string>
+    <string name="setup_switch_gx_audio_trace">오디오 로그</string>
+    <string name="setup_switch_gx_audio_trace_desc">사운드 시스템의 동작을 기록합니다: 음악과 음성의 버퍼 수준, 동영상 오디오, 그리고 시작되거나 중지되는 모든 소스. 소리가 나지 않거나 끊기거나 무음이라고 신고한 뒤 오디오 로그를 요청받으면 켜세요. (gx_audio_trace.txt)</string>
     <string name="setup_switch_dxvk_hud">화면 성능 오버레이</string>
     <string name="setup_switch_dxvk_hud_desc">FPS, 드로우 콜 수, 서밋(submission) 수, 파이프라인 수를 화면과 로그에 직접 표시합니다. GPU 성능 제보 시 켜세요. (dxvk_hud.txt)</string>
     <string name="setup_switch_dxvk_validation">Vulkan 검증 레이어</string>
