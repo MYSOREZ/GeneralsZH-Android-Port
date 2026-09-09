@@ -498,21 +498,34 @@ Int ScreenBWFilterDOT3::init()
 		return false;
 	}
 
-	// GeneralsX @bugfix Android port 09/09/2026 Do not ask what card this is.
+	// GeneralsX @bugfix Android port 09/09/2026 Registering this filter here was tried and
+	// REVERTED, and the gate below is what keeps it off. Read this before trying again.
 	//
-	// This is the fixed-function fallback -- the one written for cards with no pixel shaders
-	// at all -- so a named chipset was never what it needed. It needs a render target and a
-	// texture pipeline, and it checks Support_Dot3() itself at draw time and has its own
-	// non-DOT3 path if that is missing. Requiring getChipset() != 0 meant an unrecognised
-	// chipset (which is every device this port runs on -- see the note in
-	// W3DShaderManager::init) disabled the very fallback that exists for exactly this case,
-	// and the scripted black-and-white shots rendered in colour.
+	// The chipset test is indeed wrong for what this filter needs: it is the fixed-function
+	// fallback, written for cards with no pixel shaders at all, and it checks Support_Dot3()
+	// itself at draw time with its own non-DOT3 path. Removing the test does register it, and
+	// a device log confirmed the first half of the theory --
+	//     [GX-FILTER] shaderManager: chipset=0 renderToTexture=1 bw=0x... motionBlur=0x...
+	// -- render-to-texture works and all three filters registered.
 	//
-	// The technique itself is known to work here: stage 0 MULTIPLYADD, stage 1 DOTPRODUCT3
-	// against TFACTOR's luminance weights is the same pair the command bar uses to grey out
-	// unbuildable buttons, and the GLES translator implements both ops (gles_pipeline.cpp).
-	W3DFilters[FT_VIEW_BW_FILTER]=&screenBWFilterDOT3;
-	return TRUE;
+	// The scripted black-and-white shots then rendered SOLID BLACK instead of colour, which is
+	// worse than the bug. Not yet root-caused, and the two candidates need different fixes:
+	// either the render target comes back empty when the filter samples it, or the two-stage
+	// desaturation itself lands on black (stage 0 MULTIPLYADD biases the image up by 0.25 so
+	// stage 1's DOTPRODUCT3, which subtracts 0.5, does not clip a dark scene to zero -- and
+	// the scene it was tested on is a night shot, so losing that bias would look exactly like
+	// this). Nothing in the log distinguishes them: no FBO-incomplete warning, no unsupported
+	// SetRenderTarget, no GL error.
+	//
+	// So it stays gated until the next attempt can tell those two apart -- by sampling what
+	// the render target actually contains, rather than by inference.
+	Int res;
+	if ((res=W3DShaderManager::getChipset()) != 0)
+	{
+			W3DFilters[FT_VIEW_BW_FILTER]=&screenBWFilterDOT3;
+			return TRUE;
+	}
+	return FALSE;
 }
 
 Bool ScreenBWFilterDOT3::preRender(Bool &skipRender, CustomScenePassModes &scenePassMode)
@@ -2645,24 +2658,22 @@ void W3DShaderManager::init()
 	// For now, check & see if we are gf3 or higher on the food chain.
 
 	ChipsetType res=DC_UNKNOWN;
-	// GeneralsX @bugfix Android port 09/09/2026 Build the offscreen render target even on a
-	// chipset this 2003 classifier cannot name.
+	// GeneralsX @bugfix Android port 09/09/2026 Removing this gate was tried and REVERTED.
 	//
-	// getChipset() knows a fixed list of 2001-era cards and, for anything else, falls back to
-	// "4+ simultaneous textures AND pixel shader 1.1+". The GLES translator deliberately
-	// reports 2 texture stages and pixel shader version 0 so the engine picks its
-	// fixed-function paths (d3d8gles.cpp:1957/1977), so it lands on DC_UNKNOWN -- and that
-	// skipped this whole block, which is where the render-to-texture surface is created.
-	// Without it canRenderToTexture() is false forever, and every screen filter refuses to
-	// initialise. That is why the scripted black-and-white shots (ScriptActions.cpp:3856,
-	// FT_VIEW_BW_FILTER) came out in full colour.
+	// It is the reason no screen filter exists on this port: getChipset() knows a list of
+	// 2001-era cards and otherwise wants "4+ simultaneous textures AND pixel shader 1.1+",
+	// while the GLES translator deliberately reports 2 stages and pixel shader version 0
+	// (d3d8gles.cpp:1957/1977) so the engine picks its fixed-function paths. That lands on
+	// DC_UNKNOWN, skips this block, and leaves canRenderToTexture() false forever -- so the
+	// scripted black-and-white shots (ScriptActions.cpp:3856) render in colour.
 	//
-	// Nothing in here is chipset-specific: it asks D3D for the current render target, makes a
-	// texture the same size and format, and gives up cleanly if any of that fails. The
-	// individual shaders below still have their own capability gates, so this does not enable
-	// anything that cannot run -- it only stops an unrecognised chipset from being treated as
-	// a chipset with no render target.
-	res = W3DShaderManager::getChipset();
+	// Running it unconditionally does work: a device log showed renderToTexture=1 and all
+	// three filters registered. But the black-and-white shots then came out solid black, and
+	// motion blur and crossfade -- which need nothing but this render target -- would have
+	// come alive at the same time and are equally untested. Reverted whole rather than left
+	// half-enabled; see the note in ScreenBWFilterDOT3::init() for what the next attempt has
+	// to establish first.
+	if ((res=W3DShaderManager::getChipset()) != 0)
 	{
 		m_currentChipset = res;	//cache the current chipset.
 
