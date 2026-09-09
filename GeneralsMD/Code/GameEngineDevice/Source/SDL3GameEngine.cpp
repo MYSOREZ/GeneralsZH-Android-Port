@@ -1789,11 +1789,24 @@ static void updateTouchTargetFeedback()
 
 	Drawable *under = TheTacticalView->pickDrawable(&pixel, TheInGameUI->isInForceAttackMode(),
 	                                                (PickType)PICK_TYPE_SELECTABLE);
-	TheInGameUI->setTouchHoverDrawable(under ? under->getID() : INVALID_DRAWABLE_ID);
+	const DrawableID underID = under ? under->getID() : INVALID_DRAWABLE_ID;
+	TheInGameUI->setTouchHoverDrawable(underID);
 
-	// The icon comes from TheInGameUI's own pending command. Asking it to do the lookup keeps
-	// ControlBar.h out of this file -- that header does not compile standalone here.
-	TheInGameUI->updateTouchCommandIcon(pixel.x, pixel.y);
+	// GeneralsX @feature Android port 09/09/2026 The target is only handed over in PENDING --
+	// the phase where letting go actually issues an order. Once the gesture has become a pan,
+	// a two-finger zoom or a selection box, releasing gives no order at all, and whatever the
+	// finger happens to be sliding over is not about to be attacked; advertising an order
+	// there would be a lie that flickers on and off as the map moves underneath. The pending
+	// GUI command's own icon is unaffected and still follows the finger in every phase, as
+	// before: that one is the player's own armed choice, not a guess about the target.
+	const DrawableID orderTargetID =
+		(s_touch.phase == TouchState::PENDING) ? underID : INVALID_DRAWABLE_ID;
+
+	// The icon comes from TheInGameUI: either the pending command's button image, or -- with
+	// nothing armed -- whatever the implicit order on this target turns out to be. Asking it
+	// to do the lookup keeps ControlBar.h out of this file (that header does not compile
+	// standalone here) and puts the intent test next to the predicates it has to call.
+	TheInGameUI->updateTouchCommandIcon(pixel.x, pixel.y, orderTargetID);
 #endif
 }
 

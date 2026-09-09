@@ -64,6 +64,7 @@
 #include "GameClient/GameWindowGlobal.h"
 #include "GameClient/GameWindowID.h"
 #include "GameClient/GUICallbacks.h"
+#include "GameClient/Image.h"
 #include "GameClient/InGameUI.h"
 #include "GameClient/VideoPlayer.h"
 #include "GameClient/Mouse.h"
@@ -1063,6 +1064,7 @@ InGameUI::InGameUI()
 	// GeneralsX @feature Android port 09/09/2026 Touch feedback under the finger; see the
 	// header for what each of these is for.
 	m_touchCommandIcon = nullptr;
+	m_touchOrderMarker = TOUCHMARKER_NONE;
 	m_touchCommandIconPos.x = 0;
 	m_touchCommandIconPos.y = 0;
 	m_touchCommandIconTimer = 0;
@@ -1654,19 +1656,235 @@ void InGameUI::triggerTouchAttackMoveGuardHint(const Coord3D *worldPos)
 }
 
 //-------------------------------------------------------------------------------------------------
-void InGameUI::updateTouchCommandIcon(Int screenX, Int screenY)
+/** GeneralsX @feature Android port 09/09/2026 What would pressing here actually order?
+
+	This mirrors CommandTranslator::evaluateContextCommand() -- the function that decides,
+	for the mouse, whether a click on an object is a move, an attack, a capture or an entry
+	-- but it asks the questions instead of answering them with a message. The tests below
+	are the very same TheInGameUI predicates evaluateContextCommand() uses, in the very same
+	order, because the order is the decision: "can enter" is checked before "can attack",
+	so a transport you own does not read as a target.
+
+	It is deliberately not a call to evaluateContextCommand(..., EVALUATE_ONLY) even though
+	that entry point exists and TouchInput.cpp uses it. That path is fine once per tap, but
+	this runs on every frame a finger is down, and even in EVALUATE_ONLY it still walks
+	through issueMoveToLocationCommand() (which bumps TheStatsCollector's move count) and
+	issueAttackCommand() (which logs a line per call). Neither is something to do sixty
+	times a second to decide whether to draw a picture.
+
+	Intents that are checked but not covered return TOUCHMARKER_NONE rather than falling
+	through: they sit ABOVE attack in the chain, so skipping them entirely would make a
+	dock or a hijack draw the attack marker.
+*/
+//-------------------------------------------------------------------------------------------------
+InGameUI::TouchOrderMarker InGameUI::computeTouchOrderMarker( const Drawable *targetDraw ) const
 {
-	const Image *image = (m_pendingGUICommand != nullptr)
-		? m_pendingGUICommand->getButtonImage()
-		: nullptr;
+	// Open ground is the case that must stay silent. The green ground decal already says
+	// where the units are going, and an icon on top of it is noise.
+	if( targetDraw == nullptr )
+		return TOUCHMARKER_NONE;
+
+	const Object *obj = targetDraw->getObject();
+	if( obj == nullptr )
+		return TOUCHMARKER_NONE;
+
+	// (m_selectCount rather than getSelectCount(), which is not const.)
+	if( m_selectCount == 0 || !areSelectedObjectsControllable() )
+		return TOUCHMARKER_NONE;
+
+	// The cases where evaluateContextCommand() throws the target away and evaluates a plain
+	// ground order instead. There is then no order-on-an-object to advertise.
+	if( obj->getStatusBits().test( OBJECT_STATUS_MASKED )
+			&& !obj->isKindOf( KINDOF_SHRUBBERY ) && !obj->isKindOf( KINDOF_FORCEATTACKABLE ) )
+		return TOUCHMARKER_NONE;
+	if( obj->isLocallyControlled() && obj->isKindOf( KINDOF_MINE ) )
+		return TOUCHMARKER_NONE;
+	if( isInForceMoveToMode() )
+		return TOUCHMARKER_NONE;
+	if( obj->isLocallyControlled() && isInPreferSelectionMode() )
+		return TOUCHMARKER_NONE;
+
+	const Bool forceAttack = isInForceAttackMode();
+
+	// --- the chain, in evaluateContextCommand()'s order -------------------------------------
+	if( !forceAttack && canSelectedObjectsDoAction( ACTIONTYPE_RESUME_CONSTRUCTION, obj, SELECTION_ANY ) )
+		return TOUCHMARKER_NONE;																					// not covered, but claims priority
+	if( !forceAttack && canSelectedObjectsDoAction( ACTIONTYPE_DOCK_AT, obj, SELECTION_ALL ) )
+		return TOUCHMARKER_NONE;																					// not covered
+	if( !forceAttack && canSelectedObjectsDoAction( ACTIONTYPE_REPAIR_OBJECT, obj, SELECTION_ANY ) )
+		return TOUCHMARKER_REPAIR;
+	if( !forceAttack && canSelectedObjectsDoAction( ACTIONTYPE_GET_REPAIRED_AT, obj, SELECTION_ANY ) )
+		return TOUCHMARKER_NONE;																					// "go and be repaired", not "repair that"
+	if( !forceAttack && canSelectedObjectsDoAction( ACTIONTYPE_GET_HEALED_AT, obj, SELECTION_ANY ) )
+		return TOUCHMARKER_NONE;																					// likewise
+	if( !forceAttack && canSelectedObjectsDoAction( ACTIONTYPE_HIJACK_VEHICLE, obj, SELECTION_ANY ) )
+		return TOUCHMARKER_NONE;																					// enter-aggressively; no art for it
+	if( !forceAttack && canSelectedObjectsDoAction( ACTIONTYPE_CONVERT_OBJECT_TO_CARBOMB, obj, SELECTION_ANY ) )
+		return TOUCHMARKER_NONE;																					// likewise
+	if( !forceAttack && canSelectedObjectsDoAction( ACTIONTYPE_SABOTAGE_BUILDING, obj, SELECTION_ANY ) )
+		return TOUCHMARKER_NONE;																					// likewise
+	if( !forceAttack && canSelectedObjectsDoAction( ACTIONTYPE_ENTER_OBJECT, obj, SELECTION_ANY, true ) )
+		return TOUCHMARKER_ENTER;
+
+	// The one the whole thing exists for.
+	const CanAttackResult attack = getCanSelectedObjectsAttack( ACTIONTYPE_ATTACK_OBJECT, obj,
+																														 SELECTION_ANY, forceAttack );
+	if( attack == ATTACKRESULT_POSSIBLE || attack == ATTACKRESULT_POSSIBLE_AFTER_MOVING )
+		return TOUCHMARKER_ATTACK;
+
+	if( canSelectedObjectsDoAction( ACTIONTYPE_CAPTURE_BUILDING, obj, SELECTION_ANY ) )
+		return TOUCHMARKER_CAPTURE;
+
+	return TOUCHMARKER_NONE;
+}
+
+//-------------------------------------------------------------------------------------------------
+/** GeneralsX @feature Android port 09/09/2026 Is there a picture of this order in the data?
+
+	The honest answer is "sometimes, and only the data can say". The mouse's shapes are
+	cursor resources, not Images: Mouse.ini names a W3D model, a .tga texture and a
+	Data/Cursors/*.ani file per cursor, and none of those can be handed to
+	TheDisplay->drawImage(). The one bridge the engine itself builds is CursorInfo::imageName
+	-- Mouse.ini's "Image =" field -- which W3DMouse::initPolygonAssets() resolves through
+	TheMappedImageCollection for its RM_POLYGON cursor mode. So that is what is asked for
+	here, by the cursor the mouse would have shown; if the installed Mouse.ini fills that
+	field in, the player gets the game's own cursor art, and if it does not, this returns
+	null and the caller falls back to a drawn marker. Nothing is guessed and no image name
+	is hardcoded: the data names the picture, or there is no picture.
+
+	Capture is the exception that has real art regardless, and it comes from where
+	evaluateContextCommand() gets it: the capture special power's own command button, found
+	in the selected unit's command set. That is the flag icon the control bar shows.
+*/
+//-------------------------------------------------------------------------------------------------
+const Image *InGameUI::findTouchOrderImage( TouchOrderMarker marker ) const
+{
+	if( marker == TOUCHMARKER_NONE )
+		return nullptr;
+
+	// Capture first: a real button image beats anything else available.
+	if( marker == TOUCHMARKER_CAPTURE && TheControlBar != nullptr )
+	{
+		const DrawableList *selected = getAllSelectedDrawables();
+		const Drawable *srcDraw = (selected != nullptr && !selected->empty()) ? selected->front() : nullptr;
+		const Object *source = srcDraw ? srcDraw->getObject() : nullptr;
+		const CommandSet *set = source ? TheControlBar->findCommandSet( source->getCommandSetString() ) : nullptr;
+		if( set != nullptr )
+		{
+			for( Int i = 0; i < MAX_COMMANDS_PER_SET; i++ )
+			{
+				const CommandButton *button = set->getCommandButton( i );
+				if( button == nullptr || button->getCommandType() != GUI_COMMAND_SPECIAL_POWER )
+					continue;
+				const SpecialPowerTemplate *spTemplate = button->getSpecialPowerTemplate();
+				if( spTemplate == nullptr )
+					continue;
+				const SpecialPowerType spType = spTemplate->getSpecialPowerType();
+				if( spType == SPECIAL_INFANTRY_CAPTURE_BUILDING || spType == SPECIAL_BLACKLOTUS_CAPTURE_BUILDING )
+				{
+					if( const Image *buttonImage = button->getButtonImage() )
+						return buttonImage;
+				}
+			}
+		}
+	}
+
+	if( TheMouse == nullptr || TheMappedImageCollection == nullptr )
+		return nullptr;
+
+	Mouse::MouseCursor cursor;
+	switch( marker )
+	{
+		case TOUCHMARKER_ATTACK:	cursor = Mouse::ATTACK_OBJECT;		break;
+		case TOUCHMARKER_CAPTURE:	cursor = Mouse::CAPTUREBUILDING;	break;
+		case TOUCHMARKER_ENTER:		cursor = Mouse::ENTER_FRIENDLY;		break;
+		case TOUCHMARKER_REPAIR:	cursor = Mouse::DO_REPAIR;				break;
+		default:									return nullptr;
+	}
+
+	// Only the declared mapping is followed. The Texture = name (a .tga for the DX8 cursor
+	// path) and the cursor's own INI name are NOT tried as image names: a mapped image that
+	// happens to share one of those names is not the same picture, and drawing the wrong
+	// icon under a finger is worse than drawing none.
+	const CursorInfo &info = TheMouse->m_cursorInfo[ cursor ];
+	if( info.imageName.isEmpty() )
+		return nullptr;
+
+	return TheMappedImageCollection->findImageByName( info.imageName );
+}
+
+//-------------------------------------------------------------------------------------------------
+/** GeneralsX @feature Android port 09/09/2026 The fallback, and it is only a fallback.
+
+	Drawn when the intent is known but the installed data offered no picture of it. This is
+	a hand-drawn marker, not the game's art: a single chevron pointing down at the target,
+	coloured by intent, in the same two-primitive style the rest of postDraw() already uses.
+	Kept small and thin on purpose -- it is meant to be read at a glance next to a finger,
+	not to compete with the control bar.
+*/
+//-------------------------------------------------------------------------------------------------
+void InGameUI::drawTouchOrderMarker( TouchOrderMarker marker, Int x, Int y ) const
+{
+	if( TheDisplay == nullptr )
+		return;
+
+	Color color;
+	switch( marker )
+	{
+		case TOUCHMARKER_ATTACK:	color = GameMakeColor( 255,  48,  48, 255 ); break;	// red -- the attack arrow
+		case TOUCHMARKER_CAPTURE:	color = GameMakeColor( 255, 200,  48, 255 ); break;
+		case TOUCHMARKER_ENTER:		color = GameMakeColor(  64, 220,  80, 255 ); break;
+		case TOUCHMARKER_REPAIR:	color = GameMakeColor(  80, 200, 255, 255 ); break;
+		default:									return;
+	}
+
+	// Sits above the touch point, like the icon, so the finger does not cover it.
+	const Int halfWidth = 15;
+	const Int height		= 13;
+	const Int tipY			= y - 14;
+	const Real width		= 3.0f;
+
+	TheDisplay->drawLine( x - halfWidth, tipY - height, x, tipY, width, color );
+	TheDisplay->drawLine( x + halfWidth, tipY - height, x, tipY, width, color );
+}
+
+//-------------------------------------------------------------------------------------------------
+void InGameUI::updateTouchCommandIcon(Int screenX, Int screenY, DrawableID targetID)
+{
+	const Image *image = nullptr;
+	TouchOrderMarker marker = TOUCHMARKER_NONE;
+
+	if( m_pendingGUICommand != nullptr )
+	{
+		// An armed ability owns the answer outright: the player pressed a specific button to
+		// get here, so that button's own picture is the truthful thing to show.
+		image = m_pendingGUICommand->getButtonImage();
+	}
+	else if( TheGameClient != nullptr )
+	{
+		// Nothing armed: the press is an implicit order, and what it would be depends only on
+		// what is under the finger.
+		const Drawable *target = (targetID != INVALID_DRAWABLE_ID)
+			? TheGameClient->findDrawableByID( targetID )
+			: nullptr;
+
+		marker = computeTouchOrderMarker( target );
+		if( marker != TOUCHMARKER_NONE )
+		{
+			image = findTouchOrderImage( marker );
+			if( image != nullptr )
+				marker = TOUCHMARKER_NONE;	// real art found; the drawn fallback is not needed
+		}
+	}
 
 	m_touchCommandIcon = image;
+	m_touchOrderMarker = marker;
 	m_touchCommandIconPos.x = screenX;
 	m_touchCommandIconPos.y = screenY;
 	// A few frames, refreshed on every frame the finger is still down. Expiring on its own
 	// means the release does not have to be noticed anywhere -- and a release that never
 	// arrives (the touch layer's recurring hazard) cannot leave the icon stuck on screen.
-	m_touchCommandIconTimer = (image != nullptr) ? 3 : 0;
+	m_touchCommandIconTimer = (image != nullptr || marker != TOUCHMARKER_NONE) ? 3 : 0;
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -1985,7 +2203,10 @@ void InGameUI::preDraw()
 	if( m_touchCommandIconTimer > 0 )
 	{
 		if( --m_touchCommandIconTimer <= 0 )
+		{
 			m_touchCommandIcon = nullptr;
+			m_touchOrderMarker = TOUCHMARKER_NONE;
+		}
 	}
 	if( m_touchHoverTimer > 0 )
 	{
@@ -4000,6 +4221,12 @@ void InGameUI::postDraw()
 		const Int x = m_touchCommandIconPos.x - size / 2;
 		const Int y = m_touchCommandIconPos.y - size - (size / 4);
 		TheDisplay->drawImage( m_touchCommandIcon, x, y, x + size, y + size );
+	}
+	else if( m_touchOrderMarker != TOUCHMARKER_NONE )
+	{
+		// An implicit order -- an attack, most often -- that the installed data had no
+		// picture for. See drawTouchOrderMarker(): a drawn marker, not the game's art.
+		drawTouchOrderMarker( m_touchOrderMarker, m_touchCommandIconPos.x, m_touchCommandIconPos.y );
 	}
 #endif
 

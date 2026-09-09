@@ -645,7 +645,25 @@ public:
 	// never produces. Pointing this at whatever is under the finger gives back the health
 	// readout the mouse had on hover; the timer lets it linger briefly after release rather
 	// than vanishing with the touch.
-	void updateTouchCommandIcon(Int screenX, Int screenY);
+	// A third case, added after device testing: an order the player never armed a button
+	// for. With units selected, pressing an ENEMY is an attack, and the mouse said so with
+	// its own red cursor -- but there is no CommandButton behind an implicit order, so
+	// there is no button image to borrow and touch showed nothing at all. Reported as the
+	// missing "red arrow". TouchOrderMarker is the small set of implicit orders worth
+	// advertising; see InGameUI::computeTouchOrderMarker() for how the intent is decided
+	// (by asking the same predicates the order path asks) and InGameUI::findTouchOrderImage()
+	// for where the art comes from, and why there may not be any.
+	enum TouchOrderMarker
+	{
+		TOUCHMARKER_NONE = 0,	///< nothing to advertise -- notably a plain move onto open ground,
+													///< where the green ground decal already says everything
+		TOUCHMARKER_ATTACK,		///< the press would attack the object under the finger
+		TOUCHMARKER_CAPTURE,	///< ...capture the building under it
+		TOUCHMARKER_ENTER,		///< ...enter/garrison it
+		TOUCHMARKER_REPAIR,		///< ...repair it
+	};
+
+	void updateTouchCommandIcon(Int screenX, Int screenY, DrawableID targetID);
 	void setTouchHoverDrawable(DrawableID id);
 
 
@@ -999,10 +1017,24 @@ protected:
 
 	RadiusDecalTemplate					m_radiusCursors[RADIUSCURSOR_COUNT];
 
+	// GeneralsX @feature Android port 09/09/2026 Implicit-order feedback under the finger.
+	// computeTouchOrderMarker() answers "what would pressing this do", findTouchOrderImage()
+	// answers "is there a picture of that in the game's own data", drawTouchOrderMarker()
+	// is what is drawn when the answer to the second question is no.
+	TouchOrderMarker computeTouchOrderMarker( const Drawable *targetDraw ) const;
+	const Image *findTouchOrderImage( TouchOrderMarker marker ) const;
+	void drawTouchOrderMarker( TouchOrderMarker marker, Int x, Int y ) const;
+
 	// GeneralsX @feature Android port 09/09/2026 See setTouchCommandIcon/setTouchHoverDrawable.
 	// Both are refreshed every frame while a finger is down and expire on their own, so
 	// nothing has to notice the release to clean them up.
+	//
+	// m_touchOrderMarker is the fallback for the implicit-order case: it is only ever set
+	// when the intent is known but no image could be found for it, and postDraw() then
+	// draws a small primitive instead of an icon. Real art always wins; see
+	// findTouchOrderImage().
 	const Image *								m_touchCommandIcon;
+	TouchOrderMarker						m_touchOrderMarker;
 	ICoord2D										m_touchCommandIconPos;
 	Int													m_touchCommandIconTimer;
 	Int													m_touchHoverTimer;
