@@ -761,7 +761,16 @@ void GameEngine::init()
 
 		AsciiString fname;
 		fname.format("Data\\%s\\CommandMap", GetRegistryLanguage().str());
-		initSubsystem(TheMetaMap,"TheMetaMap", MSGNEW("GameEngineSubsystem") MetaMap(), nullptr, fname.str(), "Data\\INI\\CommandMap");
+		// GeneralsX @bugfix Android port 09/09/2026 Only pass the per-language command map
+		// when it is actually there. initSubsystem() loads it with loadFileDirectory(), which
+		// throws on reading zero files, and Data\<language>\ exists only for the SKUs EA
+		// shipped -- so an unofficial language died here during startup. The real command map
+		// is the second path, Data\INI\CommandMap; the language one is an optional override.
+		AsciiString fnameWithExt = fname;
+		fnameWithExt.concat(".ini");
+		const Bool haveLanguageCommandMap = TheFileSystem->doesFileExist(fnameWithExt.str());
+		initSubsystem(TheMetaMap,"TheMetaMap", MSGNEW("GameEngineSubsystem") MetaMap(), nullptr,
+			haveLanguageCommandMap ? fname.str() : nullptr, "Data\\INI\\CommandMap");
 
 #if defined(RTS_DEBUG)
 		ini.loadFileDirectory("Data\\INI\\CommandMapDebug", INI_LOAD_MULTIFILE, nullptr);

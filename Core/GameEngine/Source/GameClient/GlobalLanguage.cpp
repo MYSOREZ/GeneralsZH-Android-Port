@@ -51,6 +51,7 @@
 // USER INCLUDES //////////////////////////////////////////////////////////////
 //-----------------------------------------------------------------------------
 #include "PreRTS.h"
+#include <cstdio>
 
 #include <stdio.h>
 
@@ -162,9 +163,37 @@ void GlobalLanguage::init()
 			fname.str());
 
 		INI ini;
-		ini.loadFileDirectory( fname, INI_LOAD_OVERWRITE, nullptr );
-		GX_TRACE("[GX-ISSUE144] GlobalLanguage init loaded primary unicodeFont=%s\n",
-			m_unicodeFontName.isNotEmpty() ? m_unicodeFontName.str() : "<empty>");
+
+		// GeneralsX @bugfix Android port 09/09/2026 Guard the PRIMARY load the same way the
+		// fallback below is already guarded, or an unofficial language kills the game on
+		// startup before anything is on screen.
+		//
+		// loadFileDirectory() throws INI_CANT_OPEN_FILE when it reads zero files, and a
+		// language that is not one of the SKUs EA shipped has no Data\<language>\Language at
+		// all -- it is font and layout configuration, not text, and a translation has no
+		// reason to carry it. Selecting Russian therefore ended the process during
+		// GameEngine::init() with "Uncaught Exception during initialization", the log showing
+		// exactly one line of cause: "No files read from directory 'Data\russian\Language'".
+		//
+		// The comment on the fallback below already spells this hazard out and guards against
+		// it; the primary load simply never got the same treatment, because until a language
+		// could be selected without shipping a whole SKU there was nothing to expose it.
+		// Skipping it leaves every field empty, which is precisely the condition the English
+		// fallback underneath exists to fill.
+		AsciiString fnameWithExt = fname;
+		fnameWithExt.concat(".ini");
+		if (TheFileSystem->doesFileExist(fnameWithExt.str()))
+		{
+			ini.loadFileDirectory( fname, INI_LOAD_OVERWRITE, nullptr );
+			GX_TRACE("[GX-ISSUE144] GlobalLanguage init loaded primary unicodeFont=%s\n",
+				m_unicodeFontName.isNotEmpty() ? m_unicodeFontName.str() : "<empty>");
+		}
+		else
+		{
+			fprintf(stderr, "[GX-LANG] no %s; falling back to the stock English font settings\n",
+				fnameWithExt.str());
+			fflush(stderr);
+		}
 
 		// GeneralsX @bugfix fbraz 04/06/2026 Only fall back to stock English if the primary language
 		// did not set UnicodeFontName. This protects two scenarios:
