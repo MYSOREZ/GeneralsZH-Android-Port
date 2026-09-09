@@ -969,8 +969,22 @@ int main(int argc, char* argv[])
 						lang[--len] = '\0';
 					}
 					if (len > 0) {
-						setenv("CNC_ZH_LANGUAGE", lang, 1);
-						fprintf(stderr, "INFO: Game data language override: %s\n", lang);
+						// GeneralsX @bugfix Android port 09/09/2026 Set the TEXT language, not
+						// the game's language.
+						//
+						// This used to export CNC_ZH_LANGUAGE, which is what GetRegistryLanguage()
+						// answers -- and that answer is read by far more than the string table.
+						// It picks the header templates, the font configuration, the command map,
+						// and through them the menu ARTWORK. So selecting Russian did translate
+						// the text, and also swapped Zero Hour's branding for the base Generals
+						// one, because those are the assets the engine could still resolve.
+						//
+						// A language pack is text. It is not a different SKU, and it has no
+						// business deciding which game's logo is on the menu. So it now sets a
+						// variable only the string table reads, and everything else stays on the
+						// language the installed game data actually is.
+						setenv("GENERALSX_TEXT_LANGUAGE", lang, 1);
+						fprintf(stderr, "INFO: Game TEXT language override: %s\n", lang);
 					}
 				}
 				fclose(langMarker);

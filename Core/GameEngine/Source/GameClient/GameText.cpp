@@ -44,6 +44,7 @@
 //----------------------------------------------------------------------------
 
 #include "PreRTS.h"	// This must go first in EVERY cpp file in the GameEngine
+#include <cstdlib>
 #include <cctype>
 
 #include "GameClient/GameText.h"
@@ -293,8 +294,27 @@ extern const Char *g_csfFile;
 
 void GameTextManager::init()
 {
+	// GeneralsX @feature Android port 09/09/2026 The language of the TEXT, which is not
+	// necessarily the language of the game.
+	//
+	// GetRegistryLanguage() answers "which localised build is this", and the whole engine
+	// leans on it: header templates, fonts, the command map, and through those the menu
+	// artwork. A language pack is none of that -- it is a string table, and pointing the
+	// engine's language at it swapped Zero Hour's branding for the base Generals one, because
+	// those were the assets that still resolved under the new name.
+	//
+	// So a pack sets GENERALSX_TEXT_LANGUAGE and only this function reads it. Without it,
+	// nothing changes anywhere: the game's own language answers, exactly as before.
+	AsciiString textLanguage;
+	{
+		const char *packLanguage = getenv("GENERALSX_TEXT_LANGUAGE");
+		textLanguage = (packLanguage != nullptr && packLanguage[0] != '\0')
+			? AsciiString(packLanguage)
+			: GetRegistryLanguage();
+	}
+
 	AsciiString csfFile;
-	csfFile.format(g_csfFile, GetRegistryLanguage().str());
+	csfFile.format(g_csfFile, textLanguage.str());
 
 	// GeneralsX @feature Android port 09/09/2026 The .str path may now be per-language.
 	//
@@ -306,7 +326,7 @@ void GameTextManager::init()
 	// exactly as they were.
 	AsciiString strFile;
 	if( strstr( g_strFile, "%s" ) != nullptr )
-		strFile.format( g_strFile, GetRegistryLanguage().str() );
+		strFile.format( g_strFile, textLanguage.str() );
 	else
 		strFile = g_strFile;
 
