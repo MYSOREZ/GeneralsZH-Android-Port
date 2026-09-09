@@ -491,8 +491,6 @@ Int ScreenBWFilter::shutdown()
 /**Alternate version of the above filter which does not require pixel shaders - good for older cards*/
 Int ScreenBWFilterDOT3::init()
 {
-	Int res;
-
 	m_curFadeFrame = 0;
 
 	if (!W3DShaderManager::canRenderToTexture()) {
@@ -500,12 +498,21 @@ Int ScreenBWFilterDOT3::init()
 		return false;
 	}
 
-	if ((res=W3DShaderManager::getChipset()) != 0)
-	{
-			W3DFilters[FT_VIEW_BW_FILTER]=&screenBWFilterDOT3;
-			return TRUE;
-	}
-	return FALSE;
+	// GeneralsX @bugfix Android port 09/09/2026 Do not ask what card this is.
+	//
+	// This is the fixed-function fallback -- the one written for cards with no pixel shaders
+	// at all -- so a named chipset was never what it needed. It needs a render target and a
+	// texture pipeline, and it checks Support_Dot3() itself at draw time and has its own
+	// non-DOT3 path if that is missing. Requiring getChipset() != 0 meant an unrecognised
+	// chipset (which is every device this port runs on -- see the note in
+	// W3DShaderManager::init) disabled the very fallback that exists for exactly this case,
+	// and the scripted black-and-white shots rendered in colour.
+	//
+	// The technique itself is known to work here: stage 0 MULTIPLYADD, stage 1 DOTPRODUCT3
+	// against TFACTOR's luminance weights is the same pair the command bar uses to grey out
+	// unbuildable buttons, and the GLES translator implements both ops (gles_pipeline.cpp).
+	W3DFilters[FT_VIEW_BW_FILTER]=&screenBWFilterDOT3;
+	return TRUE;
 }
 
 Bool ScreenBWFilterDOT3::preRender(Bool &skipRender, CustomScenePassModes &scenePassMode)
@@ -2638,7 +2645,24 @@ void W3DShaderManager::init()
 	// For now, check & see if we are gf3 or higher on the food chain.
 
 	ChipsetType res=DC_UNKNOWN;
-	if ((res=W3DShaderManager::getChipset()) != 0)
+	// GeneralsX @bugfix Android port 09/09/2026 Build the offscreen render target even on a
+	// chipset this 2003 classifier cannot name.
+	//
+	// getChipset() knows a fixed list of 2001-era cards and, for anything else, falls back to
+	// "4+ simultaneous textures AND pixel shader 1.1+". The GLES translator deliberately
+	// reports 2 texture stages and pixel shader version 0 so the engine picks its
+	// fixed-function paths (d3d8gles.cpp:1957/1977), so it lands on DC_UNKNOWN -- and that
+	// skipped this whole block, which is where the render-to-texture surface is created.
+	// Without it canRenderToTexture() is false forever, and every screen filter refuses to
+	// initialise. That is why the scripted black-and-white shots (ScriptActions.cpp:3856,
+	// FT_VIEW_BW_FILTER) came out in full colour.
+	//
+	// Nothing in here is chipset-specific: it asks D3D for the current render target, makes a
+	// texture the same size and format, and gives up cleanly if any of that fails. The
+	// individual shaders below still have their own capability gates, so this does not enable
+	// anything that cannot run -- it only stops an unrecognised chipset from being treated as
+	// a chipset with no render target.
+	res = W3DShaderManager::getChipset();
 	{
 		m_currentChipset = res;	//cache the current chipset.
 
@@ -2708,6 +2732,17 @@ void W3DShaderManager::init()
 	}
 
 	DEBUG_LOG(("ShaderManager ChipsetID %d", res));
+
+	// GeneralsX @feature Android port 09/09/2026 One line, once per launch, in release too --
+	// DEBUG_LOG is compiled out and this is the state that decides whether the scripted
+	// screen filters exist at all. Reading it off a device log beats guessing at it from the
+	// chipset classifier's 2001 card list.
+	fprintf(stderr, "[GX-FILTER] shaderManager: chipset=%d renderToTexture=%d bw=%p motionBlur=%p crossFade=%p\n",
+	        (int)res, (int)W3DShaderManager::canRenderToTexture(),
+	        (void*)W3DFilters[FT_VIEW_BW_FILTER],
+	        (void*)W3DFilters[FT_VIEW_MOTION_BLUR_FILTER],
+	        (void*)W3DFilters[FT_VIEW_CROSSFADE]);
+	fflush(stderr);
 }
 
 // W3DShaderManager::shutdown =======================================================
