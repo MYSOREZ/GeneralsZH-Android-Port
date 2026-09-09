@@ -50,13 +50,16 @@ import android.content.ClipboardManager;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.widget.Button;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.core.content.FileProvider;
+
+import com.google.android.material.card.MaterialCardView;
 
 import java.io.File;
 import java.io.FileReader;
@@ -97,49 +100,73 @@ public class LogViewerActivity extends Activity {
         super.onCreate(savedInstanceState);
         setTitle(R.string.logviewer_title);
 
+        // GeneralsX @feature Android port launcher-ui-2026 08/09/2026 The
+        // three plain framework Buttons in a raw row are now the same M3
+        // actions the rest of the launcher uses, and the log itself sits on
+        // a rounded surface card rather than directly on the window
+        // background -- so a wall of monospace reads as a document, not as
+        // the app having failed to draw anything.
         LinearLayout root = new LinearLayout(this);
         root.setOrientation(LinearLayout.VERTICAL);
+        root.setBackgroundColor(UiKit.color(this, R.color.gzh_background));
 
-        LinearLayout buttonRow = new LinearLayout(this);
-        buttonRow.setOrientation(LinearLayout.HORIZONTAL);
-        buttonRow.setPadding(dp(8), dp(8), dp(8), dp(8));
+        UiKit.appBar(root, getString(R.string.setup_window_title),
+            getString(R.string.logviewer_title), 0, null, null);
 
-        // GeneralsX @bugfix Android port 13/07/2026 WRAP_CONTENT height let
-        // each button size to its own text independently -- fine in English,
-        // but a translation that wraps to two lines (e.g. Ukrainian
-        // "Очистити логи") made that one button taller than its siblings,
-        // breaking the row's bottom edge. MATCH_PARENT makes every button in
-        // the row stretch to the tallest sibling's height instead.
-        Button clearButton = new Button(this);
-        clearButton.setText(R.string.logviewer_button_clear);
-        clearButton.setOnClickListener(v -> confirmClearLogs());
-        buttonRow.addView(clearButton, new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1f));
+        LinearLayout actions = new LinearLayout(this);
+        actions.setOrientation(LinearLayout.VERTICAL);
+        int gutter = UiKit.dim(this, R.dimen.gzh_gutter);
+        actions.setPadding(gutter, 0, gutter, 0);
+        root.addView(actions, new LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
 
-        Button copyButton = new Button(this);
-        copyButton.setText(R.string.logviewer_button_copy);
-        copyButton.setOnClickListener(v -> {
-            ClipboardManager cm = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
-            cm.setPrimaryClip(ClipData.newPlainText(getString(R.string.logviewer_share_subject), combinedLog));
-            Toast.makeText(this, R.string.logviewer_toast_copied, Toast.LENGTH_SHORT).show();
-        });
-        buttonRow.addView(copyButton, new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1f));
+        // GeneralsX @bugfix Android port 13/07/2026 Equal weights, and a
+        // shared row height, so a translation that wraps to two lines (e.g.
+        // Ukrainian "Очистити логи") cannot make one button taller than its
+        // siblings and break the row's bottom edge.
+        // Share is the reason this screen exists on a phone with no adb, so it
+        // gets the full width; Copy and Clear split the row beneath it, which
+        // also keeps three long translated labels off one 360dp line.
+        UiKit.button(actions, UiKit.BTN_PRIMARY, R.drawable.ic_gzh_share,
+            getString(R.string.logviewer_button_share), this::shareLogAsFile);
 
-        Button shareButton = new Button(this);
-        shareButton.setText(R.string.logviewer_button_share);
-        shareButton.setOnClickListener(v -> shareLogAsFile());
-        buttonRow.addView(shareButton, new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1f));
+        LinearLayout buttonRow = UiKit.buttonRow(actions);
+        UiKit.share(UiKit.button(buttonRow, UiKit.BTN_TONAL, R.drawable.ic_gzh_copy,
+            getString(R.string.logviewer_button_copy), () -> {
+                ClipboardManager cm = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+                cm.setPrimaryClip(ClipData.newPlainText(getString(R.string.logviewer_share_subject), combinedLog));
+                Toast.makeText(this, R.string.logviewer_toast_copied, Toast.LENGTH_SHORT).show();
+            }), true);
+        UiKit.share(UiKit.button(buttonRow, UiKit.BTN_DANGER, R.drawable.ic_gzh_trash,
+            getString(R.string.logviewer_button_clear), this::confirmClearLogs), false);
 
-        root.addView(buttonRow);
+        MaterialCardView logCard = new MaterialCardView(this);
+        logCard.setRadius(UiKit.dim(this, R.dimen.gzh_radius_card));
+        logCard.setCardElevation(0f);
+        logCard.setCardBackgroundColor(UiKit.color(this, R.color.gzh_surface_container));
+        logCard.setStrokeWidth(0);
+        logCard.setUseCompatPadding(false);
+        logCard.setPreventCornerOverlap(false);
 
         ScrollView scroll = new ScrollView(this);
         TextView logText = new TextView(this);
         logText.setId(android.R.id.text1);
         logText.setTextIsSelectable(true);
-        logText.setPadding(dp(12), dp(12), dp(12), dp(12));
+        int pad = UiKit.dim(this, R.dimen.gzh_item_gap);
+        logText.setPadding(pad, pad, pad, pad);
         logText.setTypeface(android.graphics.Typeface.MONOSPACE);
         logText.setTextSize(11);
+        logText.setTextColor(UiKit.color(this, R.color.gzh_on_surface_variant));
         scroll.addView(logText);
-        root.addView(scroll, new LinearLayout.LayoutParams(
+        logCard.addView(scroll, new ViewGroup.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+
+        FrameLayout logHost = new FrameLayout(this);
+        logHost.setPadding(gutter, UiKit.dim(this, R.dimen.gzh_card_gap), gutter,
+            UiKit.dim(this, R.dimen.gzh_card_gap));
+        logHost.addView(logCard, new FrameLayout.LayoutParams(
+            FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
+        root.addView(logHost, new LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT, 0, 1f));
 
         setContentView(root);
@@ -329,8 +356,4 @@ public class LogViewerActivity extends Activity {
         }
     }
 
-    private int dp(int value) {
-        float density = getResources().getDisplayMetrics().density;
-        return (int) (value * density + 0.5f);
-    }
 }

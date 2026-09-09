@@ -31,7 +31,7 @@
 
     <!-- SetupActivity: Language card -->
     <string name="setup_card_language">Idioma</string>
-    <string name="setup_language_help">Cambia el idioma de esta app de ajustes, del visor de registros y del selector de carpetas. En alemán, español, chino, francés, coreano, polaco, portugués brasileño y ruso, también cambia el texto del propio juego — pero solo si tu carpeta del juego realmente contiene datos de ese idioma (data/&lt;idioma&gt;/generals.csf); esta app nunca aporta ni inventa texto del juego por sí misma. En los demás idiomas, el texto del juego no se ve afectado. \"Predeterminado del sistema\" sigue el idioma de tu teléfono, y usa inglés si ese idioma no está en la lista.</string>
+    <string name="setup_language_help">Cambia el idioma de esta app de ajustes, del visor de registros y del explorador de carpetas. El texto del juego es un ajuste aparte, más abajo: elígelo entre los idiomas que realmente están en tu carpeta del juego, o descarga uno. «Predeterminado del sistema» sigue el idioma del teléfono y recurre al inglés si no está en la lista.</string>
     <string name="setup_language_status">Idioma: %1$s</string>
     <string name="setup_button_change_language">Cambiar idioma</string>
     <string name="setup_language_dialog_title">Elige un idioma</string>
@@ -90,6 +90,26 @@
     <string name="setup_switch_touch_debug_desc">Dibuja sobre el juego el estado de la capa táctil: gesto actual, dónde está tu dedo, dónde cree el motor que está el puntero y el ancla de desplazamiento de la cámara. Actívalo para informar de problemas de control: mapa que se desplaza solo, edificio fantasma en el lugar equivocado, habilidad que apunta a donde no tocaste. (gx_touch_debug.txt)</string>
     <string name="setup_switch_gx_perf">Resumen de rendimiento</string>
     <string name="setup_switch_gx_perf_desc">Añade una línea corta por segundo mostrando en qué se gasta el tiempo de cuadro (radar, audio, red, lógica del juego, renderizado). Seguro dejarlo activado toda la sesión — actívalo para informes de FPS/ralentización. (gx_perf.txt)</string>
+    <string name="setup_switch_gx_audio_trace">Registro de audio</string>
+    <string name="setup_switch_gx_audio_trace_desc">Registra lo que hace el sistema de sonido: nivel de los búferes de música y voz, audio de los vídeos y cada fuente que se inicia o se detiene. Actívalo si te piden un registro de audio tras informar de sonido ausente, entrecortado o mudo. (gx_audio_trace.txt)</string>
+    <string name="setup_button_download_langpack">Descargar paquete de idioma</string>
+    <string name="setup_langpack_downloading">Descargando el paquete de idioma…</string>
+    <string name="setup_langpack_done">Paquete de idioma instalado. El juego lo usará en el próximo inicio.</string>
+    <string name="setup_langpack_done_n">Se instalaron %1$d paquete(s) de idioma: %2$s. Elige uno abajo.</string>
+    <string name="setup_langpack_failed">No se pudo descargar el paquete de idioma: %1$s</string>
+    <string name="setup_langpack_not_available">Este idioma del lanzador no tiene paquete de texto del juego.</string>
+    <string name="setup_langpack_no_folder">Selecciona primero la carpeta del juego.</string>
+    <string name="setup_langpack_err_none_yet">Todavía no hay paquete para este idioma. Se agradecen las traducciones: consulta languages/README.md en el repositorio del proyecto.</string>
+    <string name="setup_langpack_err_mkdir">no se pudo crear la carpeta de idioma en la carpeta del juego</string>
+    <string name="setup_langpack_err_empty">el archivo descargado estaba vacío</string>
+    <string name="setup_langpack_err_replace">no se pudo reemplazar el archivo existente</string>
+    <string name="setup_button_game_text_language">Idioma del texto del juego</string>
+    <string name="setup_game_text_dialog_title">Idioma del texto del juego</string>
+    <string name="setup_game_text_default">Predeterminado (.big tiene prioridad)</string>
+    <string name="setup_game_text_status">Texto del juego: %1$s</string>
+    <string name="setup_game_text_status_default">Texto del juego: inglés, salvo que un .big de tu carpeta lo sustituya</string>
+    <string name="setup_game_text_none_found">Aún no hay paquetes de idioma en la carpeta del juego. Descarga uno primero.</string>
+    <string name="setup_langpack_dialog_title">¿Qué idioma?</string>
     <string name="setup_switch_dxvk_hud">Superposición de rendimiento en pantalla</string>
     <string name="setup_switch_dxvk_hud_desc">Muestra FPS, draw calls, envíos y número de pipelines directamente en pantalla y en el registro. Actívalo para informes de rendimiento de la GPU. (dxvk_hud.txt)</string>
     <string name="setup_switch_dxvk_validation">Capa de validación de Vulkan</string>
@@ -185,4 +205,14 @@
     <string name="setup_toast_dxvk_config_reset">Restablecido al dxvk.conf predeterminado.</string>
     <string name="setup_toast_dxvk_config_saved">Guardado. Surtirá efecto la próxima vez que inicies el juego.</string>
     <string name="setup_toast_storage_permission_denied">Se necesita permiso de almacenamiento para buscar la carpeta del juego. Toca de nuevo «Seleccionar carpeta del juego».</string>
+
+    <!-- Launcher bottom navigation + short render-backend names -->
+    <string name="nav_tab_home">Inicio</string>
+    <string name="nav_tab_graphics">Gráficos</string>
+    <string name="nav_tab_interface">Interfaz</string>
+    <string name="nav_tab_tools">Herramientas</string>
+    <string name="nav_tab_help">Ayuda</string>
+    <string name="setup_render_backend_gles_short">GLES</string>
+    <string name="setup_render_backend_gles_angle_short">ANGLE</string>
+    <string name="setup_render_backend_vulkan_short">Vulkan</string>
 </resources>

@@ -31,7 +31,7 @@
 
     <!-- SetupActivity: Language card -->
     <string name="setup_card_language">语言</string>
-    <string name="setup_language_help">更改此设置应用、日志查看器和文件夹选择器的语言。对于德语、西班牙语、中文、法语、韩语、波兰语、巴西葡萄牙语和俄语，还会同时切换游戏本体的文字 —— 但仅当你的游戏文件夹中确实存在该语言的数据时才会生效（data/&lt;语言&gt;/generals.csf）；本应用永远不会自行提供或伪造游戏文字。其他语言不会影响游戏本体的文字。“跟随系统”会使用手机的语言，如果列表中没有该语言，则回退为英语。</string>
+    <string name="setup_language_help">更改此设置应用、日志查看器和文件夹浏览器的语言。游戏本身的文本是下方的独立设置——从游戏文件夹中实际存在的语言里选择，或者下载一个。“系统默认”跟随手机语言，若不在列表中则回退为英语。</string>
     <string name="setup_language_status">语言：%1$s</string>
     <string name="setup_button_change_language">更改语言</string>
     <string name="setup_language_dialog_title">选择语言</string>
@@ -90,6 +90,26 @@
     <string name="setup_switch_touch_debug_desc">在游戏画面上绘制触摸层的状态：当前手势、手指位置、引擎认为指针所在的位置，以及镜头滚动锚点。报告操作问题时请开启——地图自行移动、幽灵建筑出现在错误位置、技能瞄准到你没有触摸的地方。(gx_touch_debug.txt)</string>
     <string name="setup_switch_gx_perf">性能摘要</string>
     <string name="setup_switch_gx_perf_desc">每秒添加一行简短记录，显示每帧时间花在哪里（雷达、音频、网络、游戏逻辑、渲染）。整个游玩会话保持开启也是安全的 —— 用于 FPS/卡顿报告时打开。(gx_perf.txt)</string>
+    <string name="setup_switch_gx_audio_trace">音频日志</string>
+    <string name="setup_switch_gx_audio_trace_desc">记录声音系统的运行情况：音乐与语音的缓冲区水平、过场动画音频，以及每一个启动或停止的音源。如果你报告了声音缺失、断续或无声后被要求提供音频日志，请打开此项。(gx_audio_trace.txt)</string>
+    <string name="setup_button_download_langpack">下载语言包</string>
+    <string name="setup_langpack_downloading">正在下载语言包…</string>
+    <string name="setup_langpack_done">语言包已安装。游戏将在下次启动时使用它。</string>
+    <string name="setup_langpack_done_n">已安装 %1$d 个语言包：%2$s。请在下方选择。</string>
+    <string name="setup_langpack_failed">无法下载语言包：%1$s</string>
+    <string name="setup_langpack_not_available">此启动器语言没有对应的游戏文本包。</string>
+    <string name="setup_langpack_no_folder">请先选择游戏文件夹。</string>
+    <string name="setup_langpack_err_none_yet">该语言暂时还没有语言包。欢迎参与翻译——请查看项目仓库中的 languages/README.md。</string>
+    <string name="setup_langpack_err_mkdir">无法在游戏文件夹中创建语言文件夹</string>
+    <string name="setup_langpack_err_empty">下载的文件是空的</string>
+    <string name="setup_langpack_err_replace">无法替换已有的文件</string>
+    <string name="setup_button_game_text_language">游戏文本语言</string>
+    <string name="setup_game_text_dialog_title">游戏文本语言</string>
+    <string name="setup_game_text_default">默认（.big 优先）</string>
+    <string name="setup_game_text_status">游戏文本：%1$s</string>
+    <string name="setup_game_text_status_default">游戏文本：英语——除非游戏文件夹中的 .big 将其替换</string>
+    <string name="setup_game_text_none_found">游戏文件夹中还没有语言包。请先下载一个。</string>
+    <string name="setup_langpack_dialog_title">选择哪种语言？</string>
     <string name="setup_switch_dxvk_hud">屏幕性能叠加层</string>
     <string name="setup_switch_dxvk_hud_desc">直接在屏幕和日志中显示 FPS、绘制调用数、提交数和管线数。用于 GPU 性能报告时打开。(dxvk_hud.txt)</string>
     <string name="setup_switch_dxvk_validation">Vulkan 验证层</string>
@@ -185,4 +205,14 @@
     <string name="setup_toast_dxvk_config_reset">已恢复为默认的 dxvk.conf。</string>
     <string name="setup_toast_dxvk_config_saved">已保存。下次启动游戏时生效。</string>
     <string name="setup_toast_storage_permission_denied">浏览游戏文件夹需要存储权限。请再次点按「选择游戏文件夹」。</string>
+
+    <!-- Launcher bottom navigation + short render-backend names -->
+    <string name="nav_tab_home">主页</string>
+    <string name="nav_tab_graphics">图形</string>
+    <string name="nav_tab_interface">界面</string>
+    <string name="nav_tab_tools">工具</string>
+    <string name="nav_tab_help">帮助</string>
+    <string name="setup_render_backend_gles_short">GLES</string>
+    <string name="setup_render_backend_gles_angle_short">ANGLE</string>
+    <string name="setup_render_backend_vulkan_short">Vulkan</string>
 </resources>

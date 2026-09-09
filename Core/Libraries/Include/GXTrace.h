@@ -100,6 +100,40 @@ namespace GXTrace
 		return enabled;
 	}
 
+	// GeneralsX @feature Android port 09/09/2026 A third, separate opt-in, for the
+	// [GX-AUDIO] instrumentation. Chasing the silent intro movies and the fragmenting
+	// loading music took several device sessions, and every one of them needed a log
+	// with the audio path talking -- queue depth, source state, what the movie decoder
+	// handed over. That instrumentation is worth keeping: audio faults are invisible in
+	// a normal log and impossible to reason about without it. But it is per-audio-frame
+	// output, so leaving it permanently on buries the rest of the log.
+	//
+	// Deliberately NOT implied by GX_TRACE: a font/GUI trace session already produces
+	// enormous logs, and someone chasing a hang does not want the audio path in there
+	// too. The launcher's Diagnostics section creates the marker file, so a tester who
+	// is asked for an audio log just flips a switch.
+	inline bool computeAudioEnabled()
+	{
+		const char *env = getenv("GX_AUDIO_TRACE");
+		if (env != nullptr && env[0] != '\0' && env[0] != '0') {
+			return true;
+		}
+
+		FILE *marker = fopen("gx_audio_trace.txt", "r");
+		if (marker != nullptr) {
+			fclose(marker);
+			return true;
+		}
+
+		return false;
+	}
+
+	inline bool isAudioEnabled()
+	{
+		static const bool enabled = computeAudioEnabled();
+		return enabled;
+	}
+
 }  // namespace GXTrace
 
 // Usage: GX_TRACE("Some_Function: about to do the thing x=%d\n", x);
@@ -121,5 +155,16 @@ namespace GXTrace
 		if (GXTrace::isPerfEnabled()) {                     \
 			fprintf(stderr, __VA_ARGS__);                  \
 			fflush(stderr);                                \
+		}                                                 \
+	} while (0)
+
+// Usage: GX_AUDIO_TRACE("stream stopped: src=%u\n", src);
+// The "[GX-AUDIO] " prefix and the flush are supplied here, as for GX_TRACE.
+// Gated on isAudioEnabled() alone -- see the note on computeAudioEnabled().
+#define GX_AUDIO_TRACE(...)                               \
+	do {                                                  \
+		if (GXTrace::isAudioEnabled()) {                     \
+			fprintf(stderr, "[GX-AUDIO] " __VA_ARGS__);        \
+			fflush(stderr);                                    \
 		}                                                 \
 	} while (0)

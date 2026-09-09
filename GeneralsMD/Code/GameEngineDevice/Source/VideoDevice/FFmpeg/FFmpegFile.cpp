@@ -1,5 +1,20 @@
 #include "VideoDevice/FFmpeg/FFmpegFile.h"
+#include "GXTrace.h"
+
+// GeneralsX @build Android port 08/09/2026 NOTE FOR ANYONE EDITING THIS FILE: this class
+// is compiled TWICE into the shipped binary. GeneralsMD/Code/GameEngineDevice/CMakeLists.txt
+// adds THIS file directly (under RTS_BUILD_OPTION_FFMPEG), and separately links against
+// corei_gameenginedevice_private, an INTERFACE library that propagates
+// Core/GameEngineDevice/Source/VideoDevice/FFmpeg/FFmpegFile.cpp -- a second, independent
+// definition of the same FFmpegFile class -- into the same target's own compile step
+// (Core/GameEngineDevice/CMakeLists.txt:271-290). Both get archived into libz_gameenginedevice.a;
+// which one the final link actually keeps is decided by object/archive scan order, not by
+// any deliberate choice, and the two headers are not identical (Bool/Int here vs bool/int
+// in Core's copy -- an ODR violation waiting to bite). Until that duplication is removed at
+// the build-system level, any bug fixed here must be fixed identically in Core's copy too,
+// and vice versa -- see the audio-stream-starvation fix as the example.
 #include "Common/file.h"
+#include <cstdio>
 
 extern "C" {
 #include <libavcodec/avcodec.h>
@@ -180,18 +195,54 @@ bool FFmpegFile::decodePacket()
     DEBUG_ASSERTCRASH(m_packet != nullptr, ("null packet pointer"));
 
     int result = av_read_frame(m_fmtCtx, m_packet);
-    if (result == AVERROR_EOF) // EOF
+    if (result == AVERROR_EOF) {
+        // GeneralsX @bugfix Android port 08/09/2026 This copy of the file never recorded
+        // real end-of-file at all -- m_atEof stayed false forever, so isAtEof() (which the
+        // audio data callback relies on to tell "the file is genuinely finished" from "the
+        // decoder just needs another push") could never answer TRUE. The Core/ copy of
+        // this same file already had this exact fix (14/06/2026); this copy was missed.
+        m_atEof = true;
         return false;
+    }
 
     const int stream_idx = m_packet->stream_index;
     DEBUG_ASSERTCRASH(m_streams.size() > stream_idx, ("stream index out of bounds"));
 
     auto &stream = m_streams[stream_idx];
     AVCodecContext *codec_ctx = stream.codec_ctx;
+
+    // GeneralsX @feature Android port 08/09/2026 See Core's copy for the full
+    // rationale -- counts frames actually delivered by THIS call.
+    int gxFramesThisCall = 0;
+
+    // GeneralsX @bugfix Android port 08/09/2026 See the identical fix and full explanation
+    // in Core/GameEngineDevice/Source/VideoDevice/FFmpeg/FFmpegFile.cpp -- this file and
+    // that one are two separately-compiled copies of the same class (both end up linked
+    // into the shipped binary; see the CMake note at the top of this file), and this bug
+    // exists in both. Fixed identically in both on purpose, so it no longer matters which
+    // copy the linker actually keeps.
+    int gxDrainGuard = 64;
     result = avcodec_send_packet(codec_ctx, m_packet);
-    // Check if we need more data
-    if (result == AVERROR(EAGAIN))
-        return true;
+    while (result == AVERROR(EAGAIN) && gxDrainGuard-- > 0) {
+        int recvResult = avcodec_receive_frame(codec_ctx, stream.frame);
+        if (recvResult == AVERROR(EAGAIN)) {
+            if (gxFramesThisCall == 0) {
+                GX_AUDIO_TRACE("decodePacket: drain-EAGAIN with 0 frames delivered, stream_idx=%d type=%d\n", stream_idx, stream.stream_type);
+            }
+            return true;
+        }
+        if (recvResult < 0) {
+            char error_buffer[1024];
+            av_strerror(recvResult, error_buffer, sizeof(error_buffer));
+            DEBUG_LOG(("Failed 'avcodec_receive_frame' while draining EAGAIN: %s", error_buffer));
+            return false;
+        }
+        if (m_frameCallback != nullptr) {
+            m_frameCallback(stream.frame, stream_idx, stream.stream_type, m_userData);
+            gxFramesThisCall++;
+        }
+        result = avcodec_send_packet(codec_ctx, m_packet);
+    }
 
     // Handle any other errors
     if (result < 0) {
@@ -220,7 +271,12 @@ bool FFmpegFile::decodePacket()
 
         if (m_frameCallback != nullptr) {
             m_frameCallback(stream.frame, stream_idx, stream.stream_type, m_userData);
+            gxFramesThisCall++;
         }
+    }
+
+    if (gxFramesThisCall == 0) {
+        GX_AUDIO_TRACE("decodePacket: main-loop EAGAIN with 0 frames delivered, stream_idx=%d type=%d\n", stream_idx, stream.stream_type);
     }
 
     return true;

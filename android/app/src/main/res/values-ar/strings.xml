@@ -31,7 +31,7 @@
 
     <!-- SetupActivity: Language card -->
     <string name="setup_card_language">اللغة</string>
-    <string name="setup_language_help">يغيّر هذا لغة تطبيق الإعدادات هذا وعارض السجلات ومتصفح المجلدات. بالنسبة للألمانية والإسبانية والصينية والفرنسية والكورية والبولندية والبرتغالية البرازيلية والروسية، يقوم أيضًا بتبديل نص اللعبة نفسها — ولكن فقط إذا كان مجلد اللعبة يحتوي فعليًا على بيانات تلك اللغة (data/&lt;اللغة&gt;/generals.csf)؛ هذا التطبيق لا يوفر أو يختلق نص اللعبة بنفسه أبدًا. أما بالنسبة للغات الأخرى، فلا يتأثر نص اللعبة. يتبع خيار \"افتراضي النظام\" لغة هاتفك، ويعود إلى الإنجليزية إذا لم تكن ضمن القائمة.</string>
+    <string name="setup_language_help">يغيّر لغة تطبيق الإعدادات هذا وعارض السجلات ومتصفّح المجلدات. نصوص اللعبة نفسها إعداد منفصل بالأسفل — اخترها من اللغات الموجودة فعلاً في مجلد اللعبة، أو نزّل واحدة. «افتراضي النظام» يتبع لغة الهاتف، ويعود إلى الإنجليزية إن لم تكن ضمن القائمة.</string>
     <string name="setup_language_status">اللغة: %1$s</string>
     <string name="setup_button_change_language">تغيير اللغة</string>
     <string name="setup_language_dialog_title">اختر لغة</string>
@@ -90,6 +90,26 @@
     <string name="setup_switch_touch_debug_desc">يرسم حالة طبقة اللمس فوق اللعبة: الإيماءة الحالية، وموضع إصبعك، والموضع الذي يعتقد المحرك أن المؤشر فيه، ونقطة ارتكاز تمرير الكاميرا. فعّل هذا للإبلاغ عن مشكلات التحكم — خريطة تتحرك من تلقاء نفسها، أو مبنى شبحي في المكان الخطأ، أو قدرة تستهدف مكانًا لم تلمسه. (gx_touch_debug.txt)</string>
     <string name="setup_switch_gx_perf">ملخص الأداء</string>
     <string name="setup_switch_gx_perf_desc">يضيف سطرًا قصيرًا كل ثانية يوضح أين يُصرف وقت الإطار (الرادار، الصوت، الشبكة، منطق اللعبة، العرض). آمن تركه مفعّلاً طوال جلسة اللعب — فعّله لتقارير معدل الإطارات/التباطؤ. (gx_perf.txt)</string>
+    <string name="setup_switch_gx_audio_trace">سجل الصوت</string>
+    <string name="setup_switch_gx_audio_trace_desc">يسجل ما يقوم به نظام الصوت: مستوى مخازن الموسيقى والحوار، وصوت المقاطع السينمائية، وكل مصدر يبدأ أو يتوقف. فعّل هذا إذا طُلب منك سجل صوت بعد الإبلاغ عن صوت مفقود أو متقطع أو صامت. ‎(gx_audio_trace.txt)</string>
+    <string name="setup_button_download_langpack">تنزيل حزمة اللغة</string>
+    <string name="setup_langpack_downloading">جارٍ تنزيل حزمة اللغة…</string>
+    <string name="setup_langpack_done">تم تثبيت حزمة اللغة. ستستخدمها اللعبة عند التشغيل التالي.</string>
+    <string name="setup_langpack_done_n">تم تثبيت %1$d حزمة لغة: %2$s. اختر واحدة بالأسفل.</string>
+    <string name="setup_langpack_failed">تعذّر تنزيل حزمة اللغة: %1$s</string>
+    <string name="setup_langpack_not_available">لا توجد حزمة نصوص للعبة بلغة المشغّل هذه.</string>
+    <string name="setup_langpack_no_folder">اختر مجلد اللعبة أولاً.</string>
+    <string name="setup_langpack_err_none_yet">لا توجد حزمة لهذه اللغة بعد. الترجمات مرحّب بها — راجع languages/README.md في مستودع المشروع.</string>
+    <string name="setup_langpack_err_mkdir">تعذّر إنشاء مجلد اللغة داخل مجلد اللعبة</string>
+    <string name="setup_langpack_err_empty">الملف الذي تم تنزيله فارغ</string>
+    <string name="setup_langpack_err_replace">تعذّر استبدال الملف الموجود</string>
+    <string name="setup_button_game_text_language">لغة نصوص اللعبة</string>
+    <string name="setup_game_text_dialog_title">لغة نصوص اللعبة</string>
+    <string name="setup_game_text_default">افتراضي (الأولوية لملف ‎.big)</string>
+    <string name="setup_game_text_status">نصوص اللعبة: %1$s</string>
+    <string name="setup_game_text_status_default">نصوص اللعبة: الإنجليزية — ما لم يستبدلها ملف ‎.big في مجلد اللعبة</string>
+    <string name="setup_game_text_none_found">لا توجد حزم لغة في مجلد اللعبة بعد. نزّل واحدة أولاً.</string>
+    <string name="setup_langpack_dialog_title">أي لغة؟</string>
     <string name="setup_switch_dxvk_hud">طبقة أداء على الشاشة</string>
     <string name="setup_switch_dxvk_hud_desc">يعرض معدل الإطارات وعدد أوامر الرسم والإرسالات وعدد خطوط الأنابيب مباشرة على الشاشة وفي السجل. فعّله لتقارير أداء وحدة معالجة الرسومات. (dxvk_hud.txt)</string>
     <string name="setup_switch_dxvk_validation">طبقة التحقق من Vulkan</string>
@@ -185,4 +205,14 @@
     <string name="setup_toast_dxvk_config_reset">تمت الإعادة إلى dxvk.conf الافتراضي.</string>
     <string name="setup_toast_dxvk_config_saved">تم الحفظ. سيسري المفعول عند تشغيل اللعبة في المرة القادمة.</string>
     <string name="setup_toast_storage_permission_denied">يلزم إذن التخزين لتصفح مجلد اللعبة. اضغط «اختيار مجلد اللعبة» مرة أخرى للمحاولة.</string>
+
+    <!-- Launcher bottom navigation + short render-backend names -->
+    <string name="nav_tab_home">الرئيسية</string>
+    <string name="nav_tab_graphics">الرسوميات</string>
+    <string name="nav_tab_interface">الواجهة</string>
+    <string name="nav_tab_tools">الأدوات</string>
+    <string name="nav_tab_help">المساعدة</string>
+    <string name="setup_render_backend_gles_short">GLES</string>
+    <string name="setup_render_backend_gles_angle_short">ANGLE</string>
+    <string name="setup_render_backend_vulkan_short">Vulkan</string>
 </resources>

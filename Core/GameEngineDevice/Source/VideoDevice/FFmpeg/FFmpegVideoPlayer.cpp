@@ -31,6 +31,7 @@
 //----------------------------------------------------------------------------
 
 #include <cstdio>
+#include "GXTrace.h"
 
 #include "Lib/BaseType.h"
 #include "VideoDevice/FFmpeg/FFmpegVideoPlayer.h"
@@ -316,6 +317,18 @@ FFmpegVideoStream::FFmpegVideoStream(FFmpegFile* file)
 #ifdef SAGE_USE_OPENAL
 	// Release the audio handle if it's already in use
 	OpenALAudioStream* audioStream = (OpenALAudioStream*)TheAudio->getHandleForBink();
+	// GeneralsX @feature Android port 09/09/2026 Measure the tail the previous movie lost.
+	// reset() is alSourceStop() + unqueue-everything, so whatever the last movie still had
+	// buffered ahead of the speaker is discarded here. The movie's audio queue runs a decode
+	// burst ahead of playback, so this is how much of the previous movie was never heard.
+	ALint gxLeftOver = 0, gxPrevState = 0;
+	alGetSourcei(audioStream->getSource(), AL_BUFFERS_QUEUED, &gxLeftOver);
+	alGetSourcei(audioStream->getSource(), AL_SOURCE_STATE, &gxPrevState);
+	GX_AUDIO_TRACE("new movie: dropping %d queued buffer(s) from the previous stream (state=%s)\n",
+			(int)gxLeftOver,
+			gxPrevState == AL_PLAYING ? "PLAYING" :
+			gxPrevState == AL_STOPPED ? "STOPPED" :
+			gxPrevState == AL_PAUSED  ? "PAUSED"  : "INITIAL");
 	audioStream->reset();
 #endif
 
@@ -328,7 +341,14 @@ FFmpegVideoStream::FFmpegVideoStream(FFmpegFile* file)
 	// GeneralsX @bugfix fbraz3 23/04/2026 Ensure video stream starts with audible gain even after prior source reuse.
 	// Issue: https://github.com/fbraz3/GeneralsX/issues/38
 	audioStream->setVolume(1.0f);
-	audioStream->play();
+	// GeneralsX @bugfix Android port 09/09/2026 Do NOT restart a source that is already playing.
+	// alSourcePlay() on an AL_PLAYING source rewinds it to the FRONT of its queue (openal-soft
+	// StartSources: "A source that's already playing is restarted from the beginning"), so this
+	// replayed every buffer the decode loop above had just queued. update() already starts the
+	// source the moment the first buffer lands, which is why it is playing by the time we get
+	// here; all this call has to do is cover the case where it is not.
+	if (!audioStream->isPlaying())
+	    audioStream->play();
 #endif
 
 	m_startTime = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
@@ -439,8 +459,65 @@ void FFmpegVideoStream::onFrame(AVFrame *frame, int stream_idx, int stream_type,
 		}
 
 		ALenum format = OpenALAudioManager::getALFormat(frame->ch_layout.nb_channels, outputBitsPerSample);
-		audioStream->bufferData(frameData, outputFrameSize, format, frame->sample_rate);
+
+		// GeneralsX @bugfix Android port 08/09/2026 Give the movie's audio queue a cushion of
+		// silence ahead of its first real buffer. Movie audio is produced here, one AVFrame per
+		// decoded packet, and the decode loop only runs when the player wants the next VIDEO
+		// frame -- so a single ~40ms buffer is queued, played out in 40ms, and the source drains
+		// and stops before the next video frame arrives. On Android that made the intro movies
+		// completely inaudible. Decoding ahead is not an option (it would drop video frames),
+		// but padding the FRONT of the queue costs only a fixed lead-in and keeps the source
+		// AL_PLAYING across frame boundaries. Kept in sync with the GeneralsMD copy of this file,
+		// which is the one that actually links (see FFmpegFile.cpp for that trap).
+		if (!videoStream->m_audioPrimed) {
+			videoStream->m_audioPrimed = true;
+			const int gxPrimeBuffers = 6;   // 6 * ~40ms == ~240ms of lead-in
+			uint8_t* gxSilence = static_cast<uint8_t*>(av_mallocz(outputFrameSize));
+			if (gxSilence != nullptr) {
+				for (int i = 0; i < gxPrimeBuffers; ++i) {
+					if (!audioStream->bufferData(gxSilence, outputFrameSize, format, frame->sample_rate))
+						break;
+				}
+				av_freep(&gxSilence);
+			}
+		}
+
+		// GeneralsX @feature Android port 09/09/2026 Peak amplitude of the PCM we are about to
+		// queue. This is the one thing the device logs could never answer: whether the silence
+		// is in the pipeline or in the file. peak==0 across a whole movie means the decoder is
+		// handing us digital silence; a healthy track peaks in the thousands.
+		static int gxPeakSinceTrace = 0;
+		if (outputBitsPerSample == 16) {
+			const int16_t* gxPcm = reinterpret_cast<const int16_t*>(frameData);
+			const int gxCount = outputFrameSize / (int)sizeof(int16_t);
+			for (int i = 0; i < gxCount; ++i) {
+				const int v = gxPcm[i] < 0 ? -(int)gxPcm[i] : (int)gxPcm[i];
+				if (v > gxPeakSinceTrace)
+					gxPeakSinceTrace = v;
+			}
+		}
+
+		if (!audioStream->bufferData(frameData, outputFrameSize, format, frame->sample_rate)) {
+			GX_AUDIO_TRACE("movie audio frame: bufferData() FAILED (format=0x%x rate=%d size=%d)\n",
+					(unsigned)format, frame->sample_rate, outputFrameSize);
+		}
 		audioStream->update();
+
+		static int gxAudioFrameCount = 0;
+		if ((gxAudioFrameCount++ % 30) == 0) {
+			ALint gxQueued = 0, gxProcessed = 0, gxState = 0;
+			alGetSourcei(audioStream->getSource(), AL_BUFFERS_QUEUED, &gxQueued);
+			alGetSourcei(audioStream->getSource(), AL_BUFFERS_PROCESSED, &gxProcessed);
+			alGetSourcei(audioStream->getSource(), AL_SOURCE_STATE, &gxState);
+			GX_AUDIO_TRACE("movie audio frame #%d: ch=%d samples=%d fmt=%d rate=%d peak=%d queued=%d processed=%d state=%s\n",
+					gxAudioFrameCount, frame->ch_layout.nb_channels, frame->nb_samples,
+					(int)frame->format, frame->sample_rate, gxPeakSinceTrace,
+					(int)gxQueued, (int)gxProcessed,
+					gxState == AL_PLAYING ? "PLAYING" :
+					gxState == AL_STOPPED ? "STOPPED" :
+					gxState == AL_PAUSED  ? "PAUSED"  : "INITIAL");
+			gxPeakSinceTrace = 0;
+		}
 	}
 #endif
 }
@@ -458,6 +535,36 @@ void FFmpegVideoStream::update()
 	// first unprocessed buffer (OpenAL 1.1 spec §4.3.9), which causes
 	// effective silence when invoked every game frame.
 	OpenALAudioStream* audioStream = (OpenALAudioStream*)TheAudio->getHandleForBink();
+
+	// GeneralsX @bugfix Android port 09/09/2026 Keep the movie's audio fed at REAL TIME,
+	// independently of how fast the video is managing to decode. Packets are only pulled when
+	// the player wants the next VIDEO frame, so on a device that cannot decode and software-
+	// scale the movie at its own frame rate the audio advances in slow motion and its source
+	// drains between every pair of frames. Topping the queue up here is self-limiting:
+	// decoding ahead advances frameIndex(), isFrameReady() compares that against the wall
+	// clock, and the player stops asking for frames until time catches up -- so video frames
+	// are dropped on a device too slow to show them all, with audio as the master clock.
+	// m_good is deliberately not assigned here, so end-of-stream is still detected in
+	// frameNext(). Kept in sync with the GeneralsMD copy, which is the one that links.
+	if (m_good && m_ffmpegFile != nullptr && m_ffmpegFile->hasAudio())
+	{
+		ALint gxQueued = 0;
+		alGetSourcei(audioStream->getSource(), AL_BUFFERS_QUEUED, &gxQueued);
+		int gxBudget = 24;
+		// Never let the look-ahead run into the tail: Display::update() ends a movie by
+		// testing frameIndex() against frameCount()-1 for EQUALITY, so overshooting it hangs
+		// the movie on its last frame with no way to skip. Stop a few frames short and let
+		// Display::update() walk onto the last frame itself.
+		const int gxLastFrame = m_ffmpegFile->getNumFrames() - 1;
+		while (gxQueued < AL_STREAM_BUFFER_COUNT / 2 && gxBudget-- > 0
+		       && m_ffmpegFile->getCurrentFrame() + 4 < gxLastFrame)
+		{
+			if (!m_ffmpegFile->decodePacket())
+				break;
+			alGetSourcei(audioStream->getSource(), AL_BUFFERS_QUEUED, &gxQueued);
+		}
+	}
+
 	if (!audioStream->isPlaying()) {
 		audioStream->play();
 	}

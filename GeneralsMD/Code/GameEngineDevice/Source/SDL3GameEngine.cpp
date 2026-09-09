@@ -43,6 +43,7 @@
 #include "GameClient/View.h"
 #include "GameClient/Shell.h"
 #include "GameClient/InGameUI.h"
+#include "GameClient/Drawable.h"
 #include "W3DDevice/GameLogic/W3DGameLogic.h"
 #include "W3DDevice/GameClient/W3DGameClient.h"
 #include "W3DDevice/Common/W3DModuleFactory.h"
@@ -62,6 +63,8 @@
 #include <cstring>
 
 #include "GameClient/LookAtXlat.h"
+#include "Common/AudioAffect.h"
+#include "Common/GameAudio.h"
 #include "GameLogic/GameLogic.h"
 #include "SDL3Device/GameClient/TouchInput.h"
 #if defined(__APPLE__)
@@ -111,6 +114,11 @@ extern GameWindowManager *TheWindowManager;
 // multitasking a few times"). Pause whenever either is set.
 static std::atomic<bool> s_appBackgrounded{false};
 static std::atomic<bool> s_appInactive{false};
+
+// GeneralsX @bugfix Android port 08/09/2026 Whether the background transition is what
+// silenced the audio, so the foreground transition resumes exactly that and nothing
+// else. Without it a resume would also undo a pause the game made for its own reasons.
+static bool s_audioPausedByLifecycle = false;
 
 static inline bool mobileShouldPauseRendering()
 {
@@ -363,6 +371,13 @@ struct TouchState {
 	float f1px = 0.0f, f1py = 0.0f, f2px = 0.0f, f2py = 0.0f;
 	float twoCentroidLastX = 0.0f, twoCentroidLastY = 0.0f;
 	float twoDistLastPx = 0.0f;
+	// GeneralsX @feature Android port 09/09/2026 Two-finger twist -> camera rotation.
+	// twoAngleLastRad is the angle of the finger-to-finger vector on the previous frame;
+	// twoTwistAccumRad is how far the gesture has twisted in total since it began, used
+	// only to decide whether the player MEANT to rotate (see applyPendingCameraMotion).
+	float twoAngleLastRad = 0.0f;
+	float twoTwistAccumRad = 0.0f;
+	Bool twoRotateArmed = FALSE;
 
 	// TWOFINGER tap-to-cancel: frozen landing position of each finger (unlike
 	// f1px/f2px above, never overwritten by later motion), so release can
@@ -474,6 +489,55 @@ const float ZOOM_HEIGHT_PER_PIXEL = (float)View::ZoomHeightPerSecond / ZOOM_PX_P
 // that was under the finger before should be under the finger after (drag-
 // the-map feel), so the camera moves by (worldAtOldScreenPos -
 // worldAtNewScreenPos), using the CURRENT camera for both projections.
+// GeneralsX @bugfix Android port 09/09/2026 The script owns the camera during a
+// cinematic, and a finger drag must not fight it.
+//
+// Reported from device: during cutscenes the camera can still be dragged, which
+// breaks the scripted follow the mission authors wrote. Two distinct ways the
+// script takes the camera, and both have to be honoured:
+//
+//   - isCameraMovementFinished() is false while a scripted rotate, pitch, zoom or
+//     move-along-waypoint-path is running. The engine's own keyboard rotate path
+//     already gates on exactly this (CommandXlat.cpp), so this is the idiomatic
+//     test, not a new invention.
+//   - getCameraLock()/getCameraLockDrawable() are set while the camera is pinned to
+//     an object -- the "follow that unit" shot.
+//
+// Deliberately not a blanket "no input during cutscenes": selection and orders are
+// left alone, because the player is still allowed to give them. Only the camera is
+// handed back to the script.
+static Bool gxScriptOwnsCamera(void)
+{
+	if (!TheTacticalView) {
+		return FALSE;
+	}
+
+	// GeneralsX @bugfix Android port 09/09/2026 The camera-state tests below are not
+	// enough on their own, and a device report said so: in some missions the camera could
+	// still be dragged during a cutscene. They only catch a script that is ACTIVELY moving
+	// the camera. A cutscene that holds a fixed shot, or one that has finished its move and
+	// is playing out dialogue, sets none of them -- and neither does a scripted move whose
+	// own state is cleared while it runs (resetCamera does exactly that).
+	//
+	// What every cutscene does do is call the Disable Input script action, and on the PC
+	// that is precisely what stops the mouse from scrolling: LookAtTranslator::setScrolling
+	// returns immediately when getInputEnabled() is false (LookAtXlat.cpp:87). The touch
+	// path calls TheTacticalView directly and never goes near that translator, so it never
+	// inherited the rule. Ask the same question here and the behaviour matches the desktop
+	// build for every cutscene, not just the ones that happen to be moving the camera.
+	if (TheInGameUI != NULL && !TheInGameUI->getInputEnabled()) {
+		return TRUE;
+	}
+
+	if (!TheTacticalView->isCameraMovementFinished()) {
+		return TRUE;
+	}
+	if (TheTacticalView->getCameraLock() != INVALID_ID) {
+		return TRUE;
+	}
+	return TheTacticalView->getCameraLockDrawable() != NULL;
+}
+
 void applyCameraPan(float fromPxX, float fromPxY, float toPxX, float toPxY)
 {
 	if (!TheTacticalView) {
@@ -499,6 +563,10 @@ void applyCameraPan(float fromPxX, float fromPxY, float toPxX, float toPxY)
 		// loading/match-start, not anything about being "near the command
 		// center" -- this line turns that inference into a direct fact.
 		GX_TRACE("applyCameraPan: blocked, TheShell->isShellActive()==true\n");
+		return;
+	}
+	if (gxScriptOwnsCamera()) {
+		GX_TRACE("applyCameraPan: blocked, the script owns the camera (cinematic)\n");
 		return;
 	}
 	ICoord2D fromScreen, toScreen;
@@ -577,10 +645,36 @@ void applyCameraZoom(float distDeltaPx)
 		GX_TRACE("applyCameraZoom: blocked, TheShell->isShellActive()==true\n");
 		return;
 	}
+	if (gxScriptOwnsCamera()) {
+		GX_TRACE("applyCameraZoom: blocked, the script owns the camera (cinematic)\n");
+		return;
+	}
 	const Real zoomDelta = -distDeltaPx * ZOOM_HEIGHT_PER_PIXEL;
 	TheTacticalView->userZoom(zoomDelta);
 	GX_TRACE("applyCameraZoom: distDeltaPx=%.2f zoomDelta=%.4f locked=%d\n",
 	         distDeltaPx, zoomDelta, (int)TheTacticalView->isUserControlLocked());
+}
+
+// GeneralsX @feature Android port 09/09/2026 Camera rotation, the last thing the
+// mouse-and-keyboard build could do that touch could not.
+//
+// userSetAngle() rather than rotateCamera(): rotateCamera() is the SCRIPTED,
+// eased-over-N-frames rotation, and driving it once per frame from a gesture would
+// fight itself. userSetAngle() is the direct, immediate yaw the keyboard's own rotate
+// ends up at, and going through the user* wrapper means an engine user-control lock
+// still holds -- the same reason pan and zoom use userSetPosition()/userZoom().
+void applyCameraRotate(float deltaRad)
+{
+	if (!TheTacticalView || deltaRad == 0.0f) {
+		return;
+	}
+	if (TheShell && TheShell->isShellActive()) {
+		return;
+	}
+	if (gxScriptOwnsCamera()) {
+		return;
+	}
+	TheTacticalView->userSetAngle(TheTacticalView->getAngle() + (Real)deltaRad);
 }
 
 // GeneralsX @feature Android port 01/08/2026 These three functions are the
@@ -963,6 +1057,9 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 			{
 				const float ddx = s_touch.f2px - s_touch.f1px, ddy = s_touch.f2py - s_touch.f1py;
 				s_touch.twoDistLastPx = SDL_sqrtf(ddx * ddx + ddy * ddy);
+				s_touch.twoAngleLastRad = SDL_atan2f(ddy, ddx);
+				s_touch.twoTwistAccumRad = 0.0f;
+				s_touch.twoRotateArmed = FALSE;
 			}
 			s_touch.phase = TouchState::TWOFINGER;
 		}
@@ -1653,10 +1750,71 @@ void enforceNoPointerScrollWithoutFinger()
 #endif
 }
 
+// GeneralsX @feature Android port 09/09/2026 The two things a finger loses that a mouse
+// pointer had: it cannot hover, and it has no cursor to change shape.
+//
+//   - Health bars. Drawable::drawHealthBar shows the bar for a drawable that is selected or
+//     that TheInGameUI calls its moused-over drawable, and that id is fed by
+//     MSG_MOUSEOVER_DRAWABLE_HINT -- a message a finger never produces, so tapping a unit
+//     told the player nothing about its condition. Point it at whatever is under the finger.
+//   - Which order is pending. Touch already draws the ability's ground decal, but that decal
+//     is the same green square for every ability, where the mouse had a distinct cursor per
+//     command. Pin the command button's own image under the finger instead, so the picture
+//     the player pressed to get here is the picture they are holding.
+//
+// Both are refreshed here, every frame the finger is down, and both expire on their own in
+// InGameUI::preDraw(). That matters more than it looks: a touch release is the one event
+// this layer cannot count on receiving, and every bug in it so far has been something that
+// latched on a press and waited for a release to clear it.
+static void updateTouchTargetFeedback()
+{
+#if defined(__ANDROID__) || (defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE)
+	if (TheInGameUI == nullptr || TheTacticalView == nullptr) {
+		return;
+	}
+	const Bool fingerDown = (s_touch.phase != TouchState::IDLE && s_touch.phase != TouchState::MOMENTUM);
+	if (!fingerDown) {
+		return;
+	}
+	if (TheShell && TheShell->isShellActive()) {
+		return;
+	}
+	if (touchPointBelongsToUi(s_touch.lastX, s_touch.lastY)) {
+		return;
+	}
+
+	ICoord2D pixel;
+	pixel.x = (Int)s_touch.lastX;
+	pixel.y = (Int)s_touch.lastY;
+
+	Drawable *under = TheTacticalView->pickDrawable(&pixel, TheInGameUI->isInForceAttackMode(),
+	                                                (PickType)PICK_TYPE_SELECTABLE);
+	const DrawableID underID = under ? under->getID() : INVALID_DRAWABLE_ID;
+	TheInGameUI->setTouchHoverDrawable(underID);
+
+	// GeneralsX @feature Android port 09/09/2026 The target is only handed over in PENDING --
+	// the phase where letting go actually issues an order. Once the gesture has become a pan,
+	// a two-finger zoom or a selection box, releasing gives no order at all, and whatever the
+	// finger happens to be sliding over is not about to be attacked; advertising an order
+	// there would be a lie that flickers on and off as the map moves underneath. The pending
+	// GUI command's own icon is unaffected and still follows the finger in every phase, as
+	// before: that one is the player's own armed choice, not a guess about the target.
+	const DrawableID orderTargetID =
+		(s_touch.phase == TouchState::PENDING) ? underID : INVALID_DRAWABLE_ID;
+
+	// The icon comes from TheInGameUI: either the pending command's button image, or -- with
+	// nothing armed -- whatever the implicit order on this target turns out to be. Asking it
+	// to do the lookup keeps ControlBar.h out of this file (that header does not compile
+	// standalone here) and puts the intent test next to the predicates it has to call.
+	TheInGameUI->updateTouchCommandIcon(pixel.x, pixel.y, orderTargetID);
+#endif
+}
+
 void applyPendingCameraMotion()
 {
 	publishTouchDebug();
 	enforceNoPointerScrollWithoutFinger();
+	updateTouchTargetFeedback();
 
 	if (s_touch.phase == TouchState::PANNING) {
 		s_touch.panVelX = s_touch.lastX - s_touch.panLastPxX;
@@ -1679,6 +1837,35 @@ void applyPendingCameraMotion()
 		const float dist = SDL_sqrtf(dx * dx + dy * dy);
 		applyCameraZoom(dist - s_touch.twoDistLastPx);
 		s_touch.twoDistLastPx = dist;
+
+		// GeneralsX @feature Android port 09/09/2026 Twist the two fingers, rotate the
+		// camera. The angle of the finger-to-finger vector was already being computed and
+		// thrown away; this is the delta of it, wrapped into (-pi, pi] so the seam at the
+		// half-turn does not produce a spin.
+		//
+		// It has to be armed, not applied immediately. Two fingers never pinch or drag
+		// perfectly parallel, so every zoom carries a degree or two of incidental twist,
+		// and applying that would make the camera creep whenever the player zooms. So
+		// accumulate the twist and only start rotating once the gesture has clearly asked
+		// for it; from then on the gesture is 1:1 and stays armed for its lifetime.
+		const float angle = SDL_atan2f(dy, dx);
+		float twist = angle - s_touch.twoAngleLastRad;
+		while (twist > PI)  { twist -= 2.0f * PI; }
+		while (twist < -PI) { twist += 2.0f * PI; }
+		s_touch.twoAngleLastRad = angle;
+
+		if (s_touch.twoRotateArmed) {
+			applyCameraRotate(twist);
+		}
+		else {
+			const float TWIST_ARM_RAD = 0.14f;   // ~8 degrees of deliberate twist
+			s_touch.twoTwistAccumRad += twist;
+			if (SDL_fabsf(s_touch.twoTwistAccumRad) >= TWIST_ARM_RAD) {
+				s_touch.twoRotateArmed = TRUE;
+				GX_TRACE("two-finger twist armed after %.3f rad\n",
+				         (double)s_touch.twoTwistAccumRad);
+			}
+		}
 	}
 	else if (s_touch.phase == TouchState::MOMENTUM) {
 		// GeneralsX @feature Android port 02/08/2026 Coast with the velocity
@@ -1989,6 +2176,18 @@ void SDL3GameEngine::pollSDL3Events(void)
 				if (TheMouse) {
 					TheMouse->loseFocus();
 				}
+				// GeneralsX @bugfix Android port 08/09/2026 Silence the audio too. The
+				// comment above this block has always claimed audio pauses here; nothing
+				// ever did it. Worse than merely playing on in the background: from the
+				// second consecutive paused frame update() returns before the engine
+				// update (see mobileShouldPauseRendering there), so TheAudio->UPDATE()
+				// stops running and streamed music and speech simply drain their queues
+				// and die -- one of the "sound cuts out" reports. Pausing properly here
+				// is what makes the resume below able to put them back.
+				if (TheAudio && !s_audioPausedByLifecycle) {
+					s_audioPausedByLifecycle = true;
+					TheAudio->pauseAudio(AudioAffect_All);
+				}
 				break;
 
 			case SDL_EVENT_DID_ENTER_FOREGROUND:
@@ -1996,6 +2195,17 @@ void SDL3GameEngine::pollSDL3Events(void)
 				if (TheMouse) {
 					TheMouse->regainFocus();
 					TheMouse->refreshCursorCapture();
+				}
+				// Resume only what this pause silenced, and only what the game itself
+				// still wants audible: coming back into an open pause menu must not
+				// restart the battlefield behind it, because GameLogic paused everything
+				// but the music on its own account (GameLogic.cpp:4554) and nothing will
+				// pause it again on our behalf.
+				if (TheAudio && s_audioPausedByLifecycle) {
+					s_audioPausedByLifecycle = false;
+					const Bool gamePaused =
+						(TheGameLogic != nullptr && TheGameLogic->isGamePaused());
+					TheAudio->resumeAudio(gamePaused ? AudioAffect_Music : AudioAffect_All);
 				}
 				break;
 #endif

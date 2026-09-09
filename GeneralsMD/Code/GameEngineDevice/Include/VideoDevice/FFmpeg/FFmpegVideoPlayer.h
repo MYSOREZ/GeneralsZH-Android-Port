@@ -80,6 +80,11 @@ class FFmpegVideoStream : public VideoStream
 		Char					*m_memFile;													///< Pointer to memory resident file
 		uint64_t				m_startTime = 0;												///< Time the stream started		
 		uint8_t *m_audioBuffer = nullptr;
+		/// GeneralsX @bugfix Android port 08/09/2026 Has this stream already pushed its
+		/// lead-in of silence into the movie audio source? Movie audio arrives one frame
+		/// per decoded packet and is paced by the VIDEO frame rate, so without a cushion
+		/// the source drains and stops between every pair of frames -- inaudible playback.
+		bool m_audioPrimed = false;
 
 		FFmpegVideoStream(FFmpegFile* file);																///< only BinkVideoPlayer can create these
 		virtual ~FFmpegVideoStream();												

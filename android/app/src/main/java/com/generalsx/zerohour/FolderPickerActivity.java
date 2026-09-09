@@ -33,15 +33,16 @@ package com.generalsx.zerohour;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Environment;
-import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.core.content.ContextCompat;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -72,38 +73,61 @@ public class FolderPickerActivity extends Activity {
         File start = Environment.getExternalStorageDirectory();
         currentDir = (start != null && start.isDirectory()) ? start : new File("/storage/emulated/0");
 
+        // GeneralsX @feature Android port launcher-ui-2026 08/09/2026 Same
+        // shell as the rest of the launcher: an app bar carrying the current
+        // path, the folder list on the page ground, and the two decisions as
+        // M3 actions at the bottom where a thumb reaches them.
         LinearLayout root = new LinearLayout(this);
         root.setOrientation(LinearLayout.VERTICAL);
+        root.setBackgroundColor(UiKit.color(this, R.color.gzh_background));
+
+        UiKit.appBar(root, getString(R.string.setup_window_title),
+            getString(R.string.folderpicker_title), 0, null, null);
+
+        int gutter = UiKit.dim(this, R.dimen.gzh_gutter);
 
         pathLabel = new TextView(this);
-        pathLabel.setPadding(dp(16), dp(12), dp(16), dp(4));
+        pathLabel.setPadding(gutter, 0, gutter, UiKit.dp(this, 2));
         pathLabel.setTextIsSelectable(true);
+        pathLabel.setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX,
+            UiKit.dim(this, R.dimen.gzh_text_body));
+        pathLabel.setTextColor(UiKit.color(this, R.color.gzh_on_surface));
         root.addView(pathLabel);
 
         hintLabel = new TextView(this);
-        hintLabel.setPadding(dp(16), 0, dp(16), dp(8));
+        hintLabel.setPadding(gutter, 0, gutter, UiKit.dim(this, R.dimen.gzh_item_gap_tight));
+        hintLabel.setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX,
+            UiKit.dim(this, R.dimen.gzh_text_caption));
+        hintLabel.setTextColor(UiKit.color(this, R.color.gzh_on_surface_variant));
         root.addView(hintLabel);
 
         listView = new ListView(this);
+        listView.setDivider(new android.graphics.drawable.ColorDrawable(
+            UiKit.color(this, R.color.gzh_outline_variant)));
+        listView.setDividerHeight(Math.max(1, UiKit.dp(this, 1)));
+        listView.setPadding(UiKit.dim(this, R.dimen.gzh_item_gap_tight), 0,
+            UiKit.dim(this, R.dimen.gzh_item_gap_tight), 0);
+        listView.setClipToPadding(false);
+        listView.setSelector(new android.graphics.drawable.ColorDrawable(
+            UiKit.color(this, R.color.gzh_ripple_light)));
         LinearLayout.LayoutParams listParams = new LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT, 0, 1f);
         root.addView(listView, listParams);
 
-        LinearLayout buttonRow = new LinearLayout(this);
-        buttonRow.setOrientation(LinearLayout.HORIZONTAL);
-        buttonRow.setPadding(dp(8), dp(8), dp(8), dp(8));
+        LinearLayout actions = new LinearLayout(this);
+        actions.setOrientation(LinearLayout.VERTICAL);
+        actions.setPadding(gutter, UiKit.dim(this, R.dimen.gzh_item_gap_tight),
+            gutter, UiKit.dim(this, R.dimen.gzh_item_gap_tight));
+        root.addView(actions, new LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
 
-        Button useButton = new Button(this);
-        useButton.setText(R.string.folderpicker_button_use);
-        useButton.setOnClickListener(v -> finishWithSelection());
-        buttonRow.addView(useButton, new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1f));
+        LinearLayout buttonRow = UiKit.buttonRow(actions);
+        UiKit.share(UiKit.button(buttonRow, UiKit.BTN_OUTLINE, 0,
+            getString(R.string.common_cancel),
+            () -> { setResult(RESULT_CANCELED); finish(); }), true);
+        UiKit.share(UiKit.button(buttonRow, UiKit.BTN_PRIMARY, R.drawable.ic_gzh_check,
+            getString(R.string.folderpicker_button_use), this::finishWithSelection), false);
 
-        Button cancelButton = new Button(this);
-        cancelButton.setText(R.string.common_cancel);
-        cancelButton.setOnClickListener(v -> { setResult(RESULT_CANCELED); finish(); });
-        buttonRow.addView(cancelButton, new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1f));
-
-        root.addView(buttonRow);
         setContentView(root);
         InsetUtil.applySafeInsets(root);
 
@@ -153,7 +177,32 @@ public class FolderPickerActivity extends Activity {
             Toast.makeText(this, R.string.folderpicker_toast_cant_read, Toast.LENGTH_LONG).show();
         }
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, entries);
+        // Framework list rows on a near-black ground default to a light-theme
+        // text colour on some OEM builds; style each row explicitly instead,
+        // and give it the same folder glyph the rest of the launcher uses.
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                this, android.R.layout.simple_list_item_1, entries) {
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                TextView row = (TextView) super.getView(position, convertView, parent);
+                row.setTextColor(UiKit.color(FolderPickerActivity.this, R.color.gzh_on_surface));
+                row.setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX,
+                    UiKit.dim(FolderPickerActivity.this, R.dimen.gzh_text_body));
+                int padH = UiKit.dim(FolderPickerActivity.this, R.dimen.gzh_item_gap);
+                int padV = UiKit.dp(FolderPickerActivity.this, 14);
+                row.setPadding(padH, padV, padH, padV);
+                row.setCompoundDrawablePadding(padH);
+                android.graphics.drawable.Drawable icon = ContextCompat.getDrawable(
+                    FolderPickerActivity.this, R.drawable.ic_gzh_folder);
+                if (icon != null) {
+                    int s = UiKit.dim(FolderPickerActivity.this, R.dimen.gzh_icon);
+                    icon.setBounds(0, 0, s, s);
+                    icon.setTint(UiKit.color(FolderPickerActivity.this, R.color.gzh_primary));
+                    row.setCompoundDrawablesRelative(icon, null, null, null);
+                }
+                return row;
+            }
+        };
         listView.setAdapter(adapter);
     }
 
@@ -164,8 +213,4 @@ public class FolderPickerActivity extends Activity {
         finish();
     }
 
-    private int dp(int value) {
-        float density = getResources().getDisplayMetrics().density;
-        return (int) (value * density + 0.5f);
-    }
 }

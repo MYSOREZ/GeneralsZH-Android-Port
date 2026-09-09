@@ -44,6 +44,8 @@
 //----------------------------------------------------------------------------
 
 #include "PreRTS.h"	// This must go first in EVERY cpp file in the GameEngine
+#include <cstdlib>
+#include <cctype>
 
 #include "GameClient/GameText.h"
 #include "Common/Language.h"
@@ -292,8 +294,42 @@ extern const Char *g_csfFile;
 
 void GameTextManager::init()
 {
+	// GeneralsX @feature Android port 09/09/2026 The language of the TEXT, which is not
+	// necessarily the language of the game.
+	//
+	// GetRegistryLanguage() answers "which localised build is this", and the whole engine
+	// leans on it: header templates, fonts, the command map, and through those the menu
+	// artwork. A language pack is none of that -- it is a string table, and pointing the
+	// engine's language at it swapped Zero Hour's branding for the base Generals one, because
+	// those were the assets that still resolved under the new name.
+	//
+	// So a pack sets GENERALSX_TEXT_LANGUAGE and only this function reads it. Without it,
+	// nothing changes anywhere: the game's own language answers, exactly as before.
+	AsciiString textLanguage;
+	{
+		const char *packLanguage = getenv("GENERALSX_TEXT_LANGUAGE");
+		textLanguage = (packLanguage != nullptr && packLanguage[0] != '\0')
+			? AsciiString(packLanguage)
+			: GetRegistryLanguage();
+	}
+
 	AsciiString csfFile;
-	csfFile.format(g_csfFile, GetRegistryLanguage().str());
+	csfFile.format(g_csfFile, textLanguage.str());
+
+	// GeneralsX @feature Android port 09/09/2026 The .str path may now be per-language.
+	//
+	// g_strFile was a single fixed path, "data/Generals.str" -- one file, no language in it,
+	// a development convenience that shipped installs never contained. The CSF path next to
+	// it has always been per-language ("data/%s/generals.csf"), so this makes the two match:
+	// if the platform's g_strFile carries a %s it is filled in with the current language, and
+	// if it does not it is used verbatim, which leaves the Windows build and every tool
+	// exactly as they were.
+	AsciiString strFile;
+	if( strstr( g_strFile, "%s" ) != nullptr )
+		strFile.format( g_strFile, textLanguage.str() );
+	else
+		strFile = g_strFile;
+
 	Int format;
 
 	// GeneralsX @bugfix BenderAI 16/02/2026 - Debug CSF init
@@ -315,7 +351,7 @@ void GameTextManager::init()
 	}
 #endif
 
-	if ( m_useStringFile && getStringCount( g_strFile, m_textCount ) )
+	if ( m_useStringFile && getStringCount( strFile.str(), m_textCount ) )
 	{
 		format = STRING_FILE;
 	}
@@ -347,7 +383,7 @@ void GameTextManager::init()
 
 	if ( format == STRING_FILE )
 	{
-		if( parseStringFile( g_strFile ) == FALSE )
+		if( parseStringFile( strFile.str() ) == FALSE )
 		{
 			deinit();
 			return;
@@ -494,6 +530,25 @@ void GameTextManager::reset()
 // GameTextManager::stripSpaces
 //============================================================================
 
+// GeneralsX @bugfix Android port 09/09/2026 Whitespace means ASCII whitespace, and nothing
+// above it.
+//
+// The four callers of this used iswspace() directly on a Char, which is signed: byte 0xA0
+// arrives as -96, and asking a wide-character classifier about a negative value is undefined
+// to begin with. On this platform it answers "yes" for 0xA0 and 0x85 -- and those are
+// CONTINUATION bytes of perfectly ordinary UTF-8 letters. "Р" is D0 A0 and "х" is D1 85, so
+// readToEndOfQuote turned their second byte into a space, the decoder then found a lead byte
+// with no continuation after it and fell back to Latin-1, and the Russian menu read
+// "ЗАГД УЗИТЬ" and "АВТОÐЫ" instead of "ЗАГРУЗИТЬ" and "АВТОРЫ".
+//
+// A byte at or above 0x80 is part of a multi-byte sequence and is never whitespace. Below
+// that this behaves exactly as before, so ASCII text is unaffected.
+static inline Bool isAsciiSpace( Char ch )
+{
+	const unsigned char b = (unsigned char)ch;
+	return (b < 0x80) && (isspace( b ) != 0);
+}
+
 void GameTextManager::stripSpaces ( WideChar *string )
 {
 	WideChar *str, *ptr;
@@ -548,7 +603,7 @@ void GameTextManager::removeLeadingAndTrailing ( Char *buffer )
 
 	ptr = first = buffer;
 
-	while ( (ch = *first) != 0 && iswspace ( ch ))
+	while ( (ch = *first) != 0 && isAsciiSpace( ch ))
 	{
 			first++;
 	}
@@ -557,7 +612,7 @@ void GameTextManager::removeLeadingAndTrailing ( Char *buffer )
 
 	ptr -= 2;
 
-	while ( (ptr > buffer) && (ch = *ptr) != 0 && iswspace ( ch ) )
+	while ( (ptr > buffer) && (ch = *ptr) != 0 && isAsciiSpace( ch ) )
 	{
 		ptr--;
 	}
@@ -626,7 +681,7 @@ void GameTextManager::readToEndOfQuote( File *file, Char *in, Char *out, Char *w
 			slash = FALSE;
 		}
 
-		if ( iswspace ( ch ))
+		if ( isAsciiSpace( ch ))
 		{
 			ch = ' ';
 		}
@@ -663,7 +718,7 @@ void GameTextManager::readToEndOfQuote( File *file, Char *in, Char *out, Char *w
 		{
 
 			case 0:
-				if ( iswspace ( ch ) || ch == '=' )
+				if ( isAsciiSpace( ch ) || ch == '=' )
 				{
 					break;
 				}
@@ -742,6 +797,48 @@ void GameTextManager::reverseWord ( Char *file, Char *lp )
 //============================================================================
 // GameTextManager::translateCopy
 //============================================================================
+
+// GeneralsX @feature Android port 09/09/2026 Decode one UTF-8 sequence.
+//
+// Returns the code point and, through extraBytes, how many bytes BEYOND the first it
+// consumed -- the caller advances by one on its own. A byte that does not begin a valid,
+// complete, correctly-continued sequence is returned as itself with extraBytes 0, which is
+// exactly the old "mask to 0x00FF" behaviour, so a legacy Latin-1 .str file is unchanged.
+//
+// Everything above the Basic Multilingual Plane is folded to U+FFFD: the engine stores text
+// as UTF-16 in a fixed-size WideChar buffer with no surrogate handling anywhere, so a
+// surrogate pair would be counted and measured wrong all the way through the text system.
+// No game string needs one.
+static UnsignedInt decodeUtf8( const unsigned char *in, Int &extraBytes )
+{
+	extraBytes = 0;
+
+	const unsigned char lead = in[0];
+	if( lead < 0x80 )
+		return lead;
+
+	Int needed;
+	UnsignedInt value;
+	if( (lead & 0xE0) == 0xC0 )      { needed = 1; value = lead & 0x1F; }
+	else if( (lead & 0xF0) == 0xE0 ) { needed = 2; value = lead & 0x0F; }
+	else if( (lead & 0xF8) == 0xF0 ) { needed = 3; value = lead & 0x07; }
+	else                             { return lead; }   // continuation byte or invalid lead
+
+	for( Int i = 1; i <= needed; i++ )
+	{
+		const unsigned char cont = in[i];
+		if( (cont & 0xC0) != 0x80 )
+			return lead;              // truncated or malformed: treat the lead as Latin-1
+		value = (value << 6) | (cont & 0x3F);
+	}
+
+	extraBytes = needed;
+
+	if( value > 0xFFFF )
+		return 0xFFFD;                // outside the BMP; see above
+
+	return value;
+}
 
 void GameTextManager::translateCopy( WideChar *outbuf, Char *inbuf )
 {
@@ -856,7 +953,26 @@ void GameTextManager::translateCopy( WideChar *outbuf, Char *inbuf )
 		}
 		else if( *inbuf != '\\' )
 		{
-			*outbuf++ = *inbuf & 0x00FF;
+			// GeneralsX @feature Android port 09/09/2026 Decode UTF-8 here, instead of
+			// masking each byte to 0x00FF.
+			//
+			// That mask is what made .str files English-only. A byte became the code point
+			// with the same value, so a .str file could carry Latin-1 and nothing else --
+			// Cyrillic, Greek, anything outside the first 256 code points came out as
+			// mojibake, and every translation had to be shipped as a compiled binary .csf
+			// instead. Which is why community translations are .big archives that overwrite
+			// Data\English rather than proper language folders: the plain-text format the
+			// engine already reads could not hold their alphabet.
+			//
+			// Decoding UTF-8 makes that format usable by every language, and costs nothing
+			// for the files that already exist: a pure-ASCII .str decodes byte for byte to
+			// exactly what the mask produced. Only a malformed sequence falls back to the
+			// old behaviour, so a genuine Latin-1 file still reads as it always did rather
+			// than turning into replacement characters.
+			Int extraBytes = 0;
+			UnsignedInt codePoint = decodeUtf8( (const unsigned char *)inbuf, extraBytes );
+			*outbuf++ = (WideChar)codePoint;
+			inbuf += extraBytes;
 		}
 		else
 			slash = TRUE;

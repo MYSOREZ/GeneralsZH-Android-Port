@@ -129,6 +129,16 @@ public:
 	// visual bug that caused.
 	void readbackRenderTarget(WebGLTexture *tex);
 
+	// GeneralsX @feature Android port 09/09/2026 One-shot diagnostic: read a small
+	// block out of a full-screen render target and print what is actually in it.
+	// The scripted screen filters (W3DShaderManager) render the scene into a
+	// full-screen render target and then sample it back as a texture; when that
+	// came out black on a device there was no way to tell an empty render target
+	// from a bad combiner without a number. Prints at most a few times per launch
+	// and ignores every render target that is not backbuffer-sized (water
+	// reflections, projected shadows).
+	void debugSampleRenderTarget(WebGLTexture *tex, const char *tag);
+
 	bool hasS3TC() const { return m_hasS3TC; }
 
 	// GeneralsX @build Android port GLES experiment - GL deletes a texture's

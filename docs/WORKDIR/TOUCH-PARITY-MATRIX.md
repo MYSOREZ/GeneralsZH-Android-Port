@@ -201,3 +201,59 @@ are excluded deliberately; they are not player-facing in a release build.
 - A "hold then drag" gesture cannot be added: 250 ms of hold followed by a drag is already the selection box, and any earlier drag is already the pan. The two exhaust the one-finger drag space.
 - Anything routed through a synthesized right click is now dead weight: nothing in the touch layer emits `MSG_RAW_MOUSE_RIGHT_*`, and re-introducing one revives the latched-scroll hazard that `TouchInput.h:28`–`38` and `SelectionXlat.cpp:1116`–`1130` describe. New capabilities should call the engine directly, the way `TouchInput` already does.
 - Latching modes need an explicit exit. Two shipped bugs came from a mode with no way out (`SDL3GameEngine.cpp:1391`–`1414` for targeting, `SDL3GameEngine.cpp:1462`–`1468` for a held build button); any new toggle should clear on deselect and show its state.
+
+---
+
+## Open requests from device testing, 09/09/2026
+
+Raised together after a full campaign-mission playthrough on device. Ordered by
+how much they cost the player, not by how hard they are.
+
+### 1. Cursor feedback lives under the finger, not on a cursor
+
+The mouse showed intent before you committed: a red arrow over an enemy, a flag
+over a capturable building, a distinct cursor for attack-move. Touch has none of
+that, and the one thing it does have -- the radius decal for abilities -- is a
+green square regardless of what the ability actually is.
+
+What is wanted: while a finger is down on a target (and while it hovers, in the
+sense of "held before release"), draw the ability's real icon at the finger.
+Red arrow for a force-attack on an enemy object, the capture flag for capture,
+the attack-move icon for attack-move. Plain movement stays as it is -- the green
+ground marker already says everything, and an icon there would be noise.
+
+The radius-cursor machinery already exists (`InGameUI::setRadiusCursor`,
+`RADIUSCURSOR_*`), and `triggerTouchAttackMoveGuardHint` shows the pattern for
+driving it from a touch gesture. The icons are the game's own command-button
+images.
+
+### 2. Health bars on tap
+
+The mouse showed a unit's or building's health on hover. A tap should do the
+same for a moment -- and for as long as the finger stays down if it stays down.
+
+### 3. Two-finger camera rotation
+
+Still free, as noted above: `TWOFINGER` reads the centroid and the distance and
+throws the angle away (`SDL3GameEngine.cpp:1650`-`1664`). Rotation is the
+obvious use for it and the last camera control the mouse+keyboard build has that
+touch does not.
+
+### 4. The camera can be dragged during scripted cinematics
+
+The engine hands the camera to the script during a cutscene; the touch pan does
+not know that and fights it, breaking the intended shot. The pan needs to fold
+while the script owns the camera.
+
+### 5. Cinematic stills render in colour
+
+Where the game is supposed to show its black-and-white mission photographs, they
+come out in colour. Some filter or material state that the D3D8 path applied is
+not surviving the GLES translation.
+
+### 6. Main-menu buttons drawn over each other
+
+Seen once, in one session: the Solo Play submenu (`CAMPAIGN`, `SKIRMISH`, and a
+`MISSING: 'GUI:CustomMission'` string) painted through the main list while both
+were visible. A transition that did not finish hiding the layer underneath.
+Not yet reproducible.

@@ -630,6 +630,42 @@ public:
 	// shows up if I open the game menu, and then it stays".
 	void triggerTouchAttackMoveGuardHint(const Coord3D *worldPos);
 
+	// GeneralsX @feature Android port 09/09/2026 Two things the mouse gave the player for
+	// free and a finger does not, both reported from device testing.
+	//
+	// setTouchCommandIcon() pins the pending command's own icon under the finger while it is
+	// held on a target. Touch already draws the ability's ground decal, but that decal is the
+	// same green square whatever the ability is, so nothing says WHICH order is about to be
+	// given -- where the mouse showed a distinct cursor per command. The icon is the command
+	// button's own image, so it is exactly the picture the player pressed to get here.
+	//
+	// setTouchHoverDrawable() is the "hover" a touchscreen cannot have. Drawable::drawHealthBar
+	// shows a health bar when the drawable is selected OR is TheInGameUI's moused-over
+	// drawable, and the moused-over id is fed by MSG_MOUSEOVER_DRAWABLE_HINT, which a finger
+	// never produces. Pointing this at whatever is under the finger gives back the health
+	// readout the mouse had on hover; the timer lets it linger briefly after release rather
+	// than vanishing with the touch.
+	// A third case, added after device testing: an order the player never armed a button
+	// for. With units selected, pressing an ENEMY is an attack, and the mouse said so with
+	// its own red cursor -- but there is no CommandButton behind an implicit order, so
+	// there is no button image to borrow and touch showed nothing at all. Reported as the
+	// missing "red arrow". TouchOrderMarker is the small set of implicit orders worth
+	// advertising; see InGameUI::computeTouchOrderMarker() for how the intent is decided
+	// (by asking the same predicates the order path asks) and InGameUI::findTouchOrderImage()
+	// for where the art comes from, and why there may not be any.
+	enum TouchOrderMarker
+	{
+		TOUCHMARKER_NONE = 0,	///< nothing to advertise -- notably a plain move onto open ground,
+													///< where the green ground decal already says everything
+		TOUCHMARKER_ATTACK,		///< the press would attack the object under the finger
+		TOUCHMARKER_CAPTURE,	///< ...capture the building under it
+		TOUCHMARKER_ENTER,		///< ...enter/garrison it
+		TOUCHMARKER_REPAIR,		///< ...repair it
+	};
+
+	void updateTouchCommandIcon(Int screenX, Int screenY, DrawableID targetID);
+	void setTouchHoverDrawable(DrawableID id);
+
 
 public:
 	// World 2D animation methods
@@ -980,6 +1016,28 @@ protected:
 	Int													m_militaryCaptionSpeed;
 
 	RadiusDecalTemplate					m_radiusCursors[RADIUSCURSOR_COUNT];
+
+	// GeneralsX @feature Android port 09/09/2026 Implicit-order feedback under the finger.
+	// computeTouchOrderMarker() answers "what would pressing this do", findTouchOrderImage()
+	// answers "is there a picture of that in the game's own data", drawTouchOrderMarker()
+	// is what is drawn when the answer to the second question is no.
+	TouchOrderMarker computeTouchOrderMarker( const Drawable *targetDraw ) const;
+	const Image *findTouchOrderImage( TouchOrderMarker marker ) const;
+	void drawTouchOrderMarker( TouchOrderMarker marker, Int x, Int y ) const;
+
+	// GeneralsX @feature Android port 09/09/2026 See setTouchCommandIcon/setTouchHoverDrawable.
+	// Both are refreshed every frame while a finger is down and expire on their own, so
+	// nothing has to notice the release to clean them up.
+	//
+	// m_touchOrderMarker is the fallback for the implicit-order case: it is only ever set
+	// when the intent is known but no image could be found for it, and postDraw() then
+	// draws a small primitive instead of an icon. Real art always wins; see
+	// findTouchOrderImage().
+	const Image *								m_touchCommandIcon;
+	TouchOrderMarker						m_touchOrderMarker;
+	ICoord2D										m_touchCommandIconPos;
+	Int													m_touchCommandIconTimer;
+	Int													m_touchHoverTimer;
 	RadiusDecal									m_curRadiusCursor;
 	RadiusCursorType						m_curRcType;
 

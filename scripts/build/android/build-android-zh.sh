@@ -83,6 +83,15 @@ echo "==> Building z_generals (libmain.so) + DXVK d3d8/d3d9"
 # named explicitly here. Missing this list is exactly what made
 # package-android-zh.sh's "libmain_hook.so not found" check fail on the
 # first CI run of the Custom Vulkan Driver feature.
+# GeneralsX @build Android port 08/09/2026 Force the crash handler to recompile every
+# build, so the "[build compiled ...]" stamp it prints is the stamp of THIS build.
+# It bakes in __DATE__/__TIME__, and nothing normally edits that file, so an
+# incremental build left the stamp frozen at whenever it was last touched -- which
+# made every device log claim the same build date regardless of what was actually
+# installed. Several rounds of a bug hunt were spent unable to tell one build from
+# another because of it. One touch is cheaper than that ambiguity.
+touch "${PROJECT_ROOT}/GeneralsMD/Code/Main/AndroidCrashHandler.cpp"
+
 cmake --build "${BUILD_DIR}" --target z_generals dxvk_d3d8_install \
     main_hook file_redirect_hook gsl_alloc_hook hook_impl
 
@@ -96,7 +105,12 @@ if [[ -z "${GAME_LIB}" ]]; then
     echo "ERROR: libmain.so not found under ${BUILD_DIR}"
     exit 1
 fi
-if ! "${READELF}" -h "${GAME_LIB}" | grep -q "AArch64"; then
+# NOTE: capture first, then grep. Under `set -o pipefail`, `readelf | grep -q`
+# reports the pipeline as failed whenever grep exits on its first match before
+# readelf has finished writing, killing readelf with SIGPIPE (status 141) -- a
+# race that fails a perfectly good AArch64 build at random.
+GAME_LIB_ELF_HEADER="$("${READELF}" -h "${GAME_LIB}")"
+if ! grep -q "AArch64" <<< "${GAME_LIB_ELF_HEADER}"; then
     echo "ERROR: ${GAME_LIB} is not AArch64 — wrong toolchain reached the build."
     exit 1
 fi
@@ -107,7 +121,8 @@ for lib in libdxvk_d3d8.so libdxvk_d3d9.so; do
         exit 1
     fi
 done
-if ! strings "${BUILD_DIR}/libdxvk_d3d9.so" | grep -q "Sdl3WsiDriver"; then
+DXVK_D3D9_STRINGS="$(strings "${BUILD_DIR}/libdxvk_d3d9.so" || true)"
+if ! grep -q "Sdl3WsiDriver" <<< "${DXVK_D3D9_STRINGS}"; then
     echo "ERROR: libdxvk_d3d9.so was built WITHOUT the SDL3 WSI (silent SDL2/none fallback)."
     echo "       The game window is SDL3; this DXVK cannot present. Check the meson"
     echo "       configure log in ${BUILD_DIR}/_deps/dxvk-build-android/meson-logs/."

@@ -39,6 +39,7 @@
 /*---------------------------------------------------------------------------*/
 
 #include "Lib/BaseType.h"
+#include "GXTrace.h"
 #include "OpenALAudioDevice/OpenALAudioManager.h"
 #include "OpenALAudioDevice/OpenALAudioStream.h"
 #include "OpenALAudioCache.h"
@@ -96,11 +97,19 @@ enum { INFINITE_LOOP_COUNT = 1000000 };
 
 #define LOAD_ALC_PROC(N) N = reinterpret_cast<decltype(N)>(alcGetProcAddress(m_alcDevice, #N))
 
+
 static inline bool sourceIsStopped(ALuint source)
 {
-	ALenum state;
+	// GeneralsX @bugfix Android port 08/09/2026 Seed the state. alGetSourcei leaves the
+	// out-param untouched when the call fails (an invalid or already-deleted source),
+	// and the callers of this treat "stopped" as "finished, release it" -- so reading
+	// stack garbage here could destroy a sound that is still playing. AL_INITIAL makes
+	// a failed query mean "leave it alone", which is the safe direction.
+	ALenum state = AL_INITIAL;
 	alGetSourcei(source, AL_SOURCE_STATE, &state);
-	
+
+	// Deliberately AL_STOPPED only: AL_PAUSED is a live sample that the game has paused
+	// (see pauseAudio) and must survive until it is resumed.
 	return (state == AL_STOPPED);
 }
 
@@ -108,6 +117,7 @@ static inline bool sourceIsStopped(ALuint source)
 OpenALAudioManager::OpenALAudioManager() :
 	m_providerCount(1),
 	m_selectedProvider(PROVIDER_ERROR),
+	m_reentrantProcessingAudio(NULL),
 	m_selectedSpeakerType(0),
 	m_lastProvider(PROVIDER_ERROR),
 	m_alcDevice(NULL),
@@ -612,11 +622,26 @@ void OpenALAudioManager::pauseAudio(AudioAffect which)
 	std::list<PlayingAudio*>::iterator it;
 
 	PlayingAudio* playing = NULL;
+
+	// GeneralsX @bugfix Android port 08/09/2026 alSourcePause, NOT alSourceStop.
+	//
+	// Reported as sound cutting out. Every sample that was playing when the pause menu
+	// (or any scripted popup) opened was gone for good afterwards, because a stopped
+	// source is indistinguishable from a finished one: TheAudio->UPDATE() keeps running
+	// while the game is paused, processPlayingList() sees AL_STOPPED, treats the sample
+	// as having played to its end, and releases it (see the reap at the top of that
+	// function). resumeAudio() then walks m_playingSounds -- which no longer contains
+	// them -- and resumes nothing.
+	//
+	// A paused source reports AL_PAUSED, which sourceIsStopped() does not match, so the
+	// sample survives the pause; alSourcePlay() in resumeAudio() then continues it from
+	// where it was rather than restarting it. The stream branch below already had this
+	// right (m_stream->pause()); only the sample branches did not.
 	if (BitIsSet(which, AudioAffect_Sound)) {
 		for (it = m_playingSounds.begin(); it != m_playingSounds.end(); ++it) {
 			playing = *it;
 			if (playing) {
-				alSourceStop(playing->m_source);
+				alSourcePause(playing->m_source);
 			}
 		}
 	}
@@ -625,7 +650,7 @@ void OpenALAudioManager::pauseAudio(AudioAffect which)
 		for (it = m_playing3DSounds.begin(); it != m_playing3DSounds.end(); ++it) {
 			playing = *it;
 			if (playing) {
-				alSourceStop(playing->m_source);
+				alSourcePause(playing->m_source);
 			}
 		}
 	}
@@ -711,7 +736,11 @@ void OpenALAudioManager::resumeAudio(AudioAffect which)
 						continue;
 					}
 				}
-				alSourcePlay(playing->m_stream->getSource());
+				// GeneralsX @bugfix Android port 08/09/2026 Through the stream, not straight at
+				// its source: play() clears the paused latch that pause() sets. Poking the raw
+				// source would restart the audio while leaving the stream still marked paused,
+				// and its own update() would then refuse to ever restart it again.
+				playing->m_stream->play();
 			}
 		}
 	}
@@ -902,16 +931,30 @@ void OpenALAudioManager::playAudioEvent(AudioEventRTS* event)
 				}
 			}
 
-			ALuint source;
+			// GeneralsX @bugfix Android port 08/09/2026 Seed it and check the call. On a
+			// device the source pool is finite and alGenSources genuinely fails when it is
+			// exhausted -- and on failure it leaves the out-param untouched, so an
+			// uninitialised ALuint went straight into audio->m_source and every later
+			// alSourcei/alSourcePlay/alGetSourcei ran against a garbage name. 0 is what
+			// the else branch below already uses to mean "no source", so failing to the
+			// same value keeps every existing "is there a source" check honest.
+			ALuint source = 0;
 			if (!handleToKill || foundSoundToReplace)
 			{
+				alGetError();  // clear anything stale so the check below means this call
 				alGenSources(1, &source);
-
+				if (alGetError() != AL_NO_ERROR)
+					source = 0;
 			}
-			else
-			{
-				source = 0;
-			}
+			// GeneralsX @bugfix Android port 09/09/2026 There used to be an "else { source = 0; }"
+			// here, left behind by the abandoned experiment that tried to silence the world
+			// behind the intro movie. The flag it hung off is false at all times except while a
+			// movie is on screen, so the else ran for EVERY sample the game has ever played:
+			// the source that was just generated was thrown away unplayed and, because
+			// audio->m_source was then 0, never deleted either. Two symptoms, one line -- no
+			// button clicks and no world sound anywhere (music survived, being a stream), and
+			// the OpenAL source pool draining until alGenSources threw, about four hundred
+			// times in one session of the device log.
 			// Push it onto the list of playing things
 			audio->m_audioEventRTS = event;
 			audio->m_source = source;
@@ -961,15 +1004,30 @@ void OpenALAudioManager::playAudioEvent(AudioEventRTS* event)
 				}
 			}
 
-			ALuint source;
+			// GeneralsX @bugfix Android port 08/09/2026 Seed it and check the call. On a
+			// device the source pool is finite and alGenSources genuinely fails when it is
+			// exhausted -- and on failure it leaves the out-param untouched, so an
+			// uninitialised ALuint went straight into audio->m_source and every later
+			// alSourcei/alSourcePlay/alGetSourcei ran against a garbage name. 0 is what
+			// the else branch below already uses to mean "no source", so failing to the
+			// same value keeps every existing "is there a source" check honest.
+			ALuint source = 0;
 			if (!handleToKill || foundSoundToReplace)
 			{
+				alGetError();  // clear anything stale so the check below means this call
 				alGenSources(1, &source);
+				if (alGetError() != AL_NO_ERROR)
+					source = 0;
 			}
-			else
-			{
-				source = 0;
-			}
+			// GeneralsX @bugfix Android port 09/09/2026 There used to be an "else { source = 0; }"
+			// here, left behind by the abandoned experiment that tried to silence the world
+			// behind the intro movie. The flag it hung off is false at all times except while a
+			// movie is on screen, so the else ran for EVERY sample the game has ever played:
+			// the source that was just generated was thrown away unplayed and, because
+			// audio->m_source was then 0, never deleted either. Two symptoms, one line -- no
+			// button clicks and no world sound anywhere (music survived, being a stream), and
+			// the OpenAL source pool draining until alGenSources threw, about four hundred
+			// times in one session of the device log.
 
 			// Push it onto the list of playing things
 			audio->m_audioEventRTS = event;
@@ -2377,6 +2435,9 @@ void OpenALAudioManager::processRequestList(void)
 	for (it = m_audioRequests.begin(); it != m_audioRequests.end(); /* empty */) {
 		AudioRequest* req = (*it);
 		if (req == NULL) {
+			// GeneralsX @bugfix Android port 08/09/2026 Was `continue` with the iterator
+			// untouched: an infinite loop rather than a skip. Drop the empty slot instead.
+			it = m_audioRequests.erase(it);
 			continue;
 		}
 
@@ -2417,7 +2478,19 @@ void OpenALAudioManager::processPlayingList(void)
 			// Miles used EOS callbacks; OpenAL requires polling. Without this call the Attack
 			// (static/intro) portion plays but Sound (voice) is never started.
 			if (!playing->m_requestStop)
+			{
+				// GeneralsX @bugfix Android port 08/09/2026 Arm the reentrancy guard the
+				// header has always described and the .cpp never implemented. This call can
+				// recurse all the way into freeEnoughSpaceForSample(), which evicts a cache
+				// entry and calls closeAnySamplesUsingFile() -- and if the evicted entry's
+				// buffer is the one THIS node holds, that function would delete and erase the
+				// node the loop below is still standing on. Recording it lets
+				// closeAnySamplesUsingFile() recognise the self-hit and leave the teardown to
+				// this loop, which does it correctly two lines further down.
+				m_reentrantProcessingAudio = playing;
 				notifyOfAudioCompletion(playing->m_source, PAT_Sample);
+				m_reentrantProcessingAudio = NULL;
+			}
 			// If notifyOfAudioCompletion started the next portion the source is now playing;
 			// only erase when it is still stopped (done or failed to start next portion).
 			if (sourceIsStopped(playing->m_source))
@@ -2455,7 +2528,19 @@ void OpenALAudioManager::processPlayingList(void)
 			// GeneralsX @bugfix BenderAI 09/05/2026 - Same fix as for 2D samples: advance
 			// Attack→Sound→Decay before releasing. Miles used EOS callbacks; we must poll.
 			if (!playing->m_requestStop)
+			{
+				// GeneralsX @bugfix Android port 08/09/2026 Arm the reentrancy guard the
+				// header has always described and the .cpp never implemented. This call can
+				// recurse all the way into freeEnoughSpaceForSample(), which evicts a cache
+				// entry and calls closeAnySamplesUsingFile() -- and if the evicted entry's
+				// buffer is the one THIS node holds, that function would delete and erase the
+				// node the loop below is still standing on. Recording it lets
+				// closeAnySamplesUsingFile() recognise the self-hit and leave the teardown to
+				// this loop, which does it correctly two lines further down.
+				m_reentrantProcessingAudio = playing;
 				notifyOfAudioCompletion(playing->m_source, PAT_3DSample);
+				m_reentrantProcessingAudio = NULL;
+			}
 			if (sourceIsStopped(playing->m_source))
 			{
 				//m_stoppedAudio.push_back(playing);
@@ -2538,8 +2623,29 @@ void OpenALAudioManager::processPlayingList(void)
 		}
 		playing->m_stream->update();
 
-		// After update(), if stream source is still stopped there is no more data — release it.
+		// GeneralsX @bugfix Android port 08/09/2026 "Still stopped means no more data" was an
+		// assumption, and a wrong one. A stream also reads as stopped when it simply ran dry --
+		// nothing refilled it in time -- and this released it on the spot, permanently, when
+		// update()'s own recovery would have restarted it a frame later. Reported as the music
+		// after the lobby starting and instantly dying: loading a map starves the refill, which
+		// happens synchronously on this thread, so the queue empties and the source stops while
+		// there is plenty of music left to play.
+		//
+		// The stream already knows the difference. m_endOfData is latched only on a real EOF
+		// from the decoder, or after three consecutive probes that produced no new data -- so a
+		// genuinely finished stream still gets released here, and a merely starved one is left
+		// for update() to revive. That latch is also what stops this from leaking a stream that
+		// can never play again.
 		if (playing->m_stream && sourceIsStopped(playing->m_stream->getSource()))
+		{
+			GX_AUDIO_TRACE("stream stopped: src=%u atEnd=%d event=%s\n",
+			        (unsigned)playing->m_stream->getSource(),
+			        (int)playing->m_stream->isAtEnd(),
+			        (playing->m_audioEventRTS ? playing->m_audioEventRTS->getEventName().str() : "?"));
+		}
+
+		if (playing->m_stream && sourceIsStopped(playing->m_stream->getSource())
+		    && playing->m_stream->isAtEnd())
 		{
 			// If this was an uninterruptible speech stream, clear the disallow flag.
 			const AudioEventInfo* streamInfo = (playing->m_audioEventRTS ? playing->m_audioEventRTS->getAudioEventInfo() : nullptr);
@@ -2810,13 +2916,24 @@ void OpenALAudioManager::closeAnySamplesUsingFile(const void* fileToClose)
 	std::list<PlayingAudio*>::iterator it;
 	PlayingAudio* playing;
 
+	// GeneralsX @bugfix Android port 08/09/2026 Two things wrong in both loops below.
+	//
+	// First, a null entry used to `continue` without touching the iterator, which is an
+	// infinite loop, not a skip -- a hang, on a list this code does not control the
+	// contents of. Erase it and move on, the same way processPlayingList() already does.
+	//
+	// Second, this can be reached from inside processPlayingList()'s own iteration (see
+	// the reentrancy guard armed there), and deleting the node that loop is standing on
+	// leaves it dereferencing freed memory. Leave that one node alone; the outer loop
+	// tears it down itself immediately afterwards.
 	for (it = m_playingSounds.begin(); it != m_playingSounds.end(); ) {
 		playing = *it;
 		if (!playing) {
+			it = m_playingSounds.erase(it);
 			continue;
 		}
 
-		if (playing->m_bufferHandle == bufferHandle) {
+		if (playing->m_bufferHandle == bufferHandle && playing != m_reentrantProcessingAudio) {
 			releasePlayingAudio(playing);
 			it = m_playingSounds.erase(it);
 		}
@@ -2828,10 +2945,11 @@ void OpenALAudioManager::closeAnySamplesUsingFile(const void* fileToClose)
 	for (it = m_playing3DSounds.begin(); it != m_playing3DSounds.end(); ) {
 		playing = *it;
 		if (!playing) {
+			it = m_playing3DSounds.erase(it);
 			continue;
 		}
 
-		if (playing->m_bufferHandle == bufferHandle) {
+		if (playing->m_bufferHandle == bufferHandle && playing != m_reentrantProcessingAudio) {
 			releasePlayingAudio(playing);
 			it = m_playing3DSounds.erase(it);
 		}

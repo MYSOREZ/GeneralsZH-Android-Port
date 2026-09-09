@@ -31,7 +31,7 @@
 
     <!-- SetupActivity: Language card -->
     <string name="setup_card_language">Language</string>
-    <string name="setup_language_help">Changes the language of this Settings app and its Log Viewer / folder browser. For German, Spanish, Chinese, French, Korean, Polish, Brazilian Portuguese and Russian, it also switches the game\'s own text automatically, but only if your game folder actually contains that language\'s data (data/&lt;language&gt;/generals.csf) — this app never ships or fakes game text itself, and other languages leave the game\'s own text untouched. \"System Default\" follows your phone\'s language, falling back to English if it isn\'t one of the languages listed.</string>
+    <string name="setup_language_help">Changes the language of this Settings app, the log viewer and the folder browser. The game\'s own text is a separate setting below — pick it from the languages actually present in your game folder, or download one. “System default” follows your phone\'s language, falling back to English if it is not one of the languages listed.</string>
     <string name="setup_language_status">Language: %1$s</string>
     <string name="setup_button_change_language">Change Language</string>
     <string name="setup_language_dialog_title">Choose a language</string>
@@ -100,6 +100,26 @@
     <string name="setup_switch_touch_debug_desc">Draws the touch layer\'s own state over the game: current gesture, where your finger is, where the engine thinks the pointer is, and the camera scroll anchor. Turn this on to report control problems — a runaway map, a ghost building in the wrong place, an ability aiming somewhere you did not touch. (gx_touch_debug.txt)</string>
     <string name="setup_switch_gx_perf">Performance summary</string>
     <string name="setup_switch_gx_perf_desc">Adds one short line per second showing where frame time goes (radar, audio, network, game logic, rendering). Safe to leave on for a whole play session — turn this on for FPS/slowdown reports. (gx_perf.txt)</string>
+    <string name="setup_switch_gx_audio_trace">Audio log</string>
+    <string name="setup_switch_gx_audio_trace_desc">Records what the sound system is doing: music and speech buffer levels, movie audio, and every source that starts or stops. Turn this on if you are asked for an audio log after reporting missing, stuttering or silent sound. (gx_audio_trace.txt)</string>
+    <string name="setup_button_download_langpack">Download language pack</string>
+    <string name="setup_langpack_downloading">Downloading the language pack…</string>
+    <string name="setup_langpack_done">Language pack installed. The game will use it on the next launch.</string>
+    <string name="setup_langpack_done_n">Installed %1$d language pack(s): %2$s. Pick one below.</string>
+    <string name="setup_langpack_failed">Could not download the language pack: %1$s</string>
+    <string name="setup_langpack_not_available">This launcher language has no game-text pack.</string>
+    <string name="setup_langpack_no_folder">Select your game folder first.</string>
+    <string name="setup_langpack_err_none_yet">There is no pack for this language yet. Translations are welcome — see languages/README.md in the project repository.</string>
+    <string name="setup_langpack_err_mkdir">could not create the language folder in your game folder</string>
+    <string name="setup_langpack_err_empty">the downloaded file was empty</string>
+    <string name="setup_langpack_err_replace">could not replace the existing file</string>
+    <string name="setup_button_game_text_language">Game text language</string>
+    <string name="setup_game_text_dialog_title">Game text language</string>
+    <string name="setup_game_text_default">Default (a .big takes priority)</string>
+    <string name="setup_game_text_status">Game text: %1$s</string>
+    <string name="setup_game_text_status_default">Game text: English — unless a .big in your game folder replaces it</string>
+    <string name="setup_game_text_none_found">No language packs found in your game folder yet. Download one first.</string>
+    <string name="setup_langpack_dialog_title">Which language?</string>
     <string name="setup_switch_dxvk_hud">On-screen performance overlay</string>
     <string name="setup_switch_dxvk_hud_desc">Shows FPS, draw calls, submissions, and pipeline count directly on screen and in the log. Turn this on for GPU performance reports. (dxvk_hud.txt)</string>
     <string name="setup_switch_dxvk_validation">Vulkan validation layer</string>
@@ -187,4 +207,17 @@
     <string name="setup_toast_base_generals_cleared">Base Generals folder cleared</string>
     <string name="setup_base_generals_not_here">No base Generals archives in %1$s — pick the folder that holds Terrain.big, Textures.big and W3D.big.</string>
     <string name="setup_status_base_generals_line">Base Generals: %1$s\n</string>
+
+    <!-- Launcher bottom navigation (SetupActivity) + short, segment-sized
+         versions of the render-backend names. All three backend names are
+         brand names, so every locale carries the same Latin text unless it
+         needs to transliterate them. -->
+    <string name="nav_tab_home">Home</string>
+    <string name="nav_tab_graphics">Graphics</string>
+    <string name="nav_tab_interface">Interface</string>
+    <string name="nav_tab_tools">Tools</string>
+    <string name="nav_tab_help">Help</string>
+    <string name="setup_render_backend_gles_short">GLES</string>
+    <string name="setup_render_backend_gles_angle_short">ANGLE</string>
+    <string name="setup_render_backend_vulkan_short">Vulkan</string>
 </resources>

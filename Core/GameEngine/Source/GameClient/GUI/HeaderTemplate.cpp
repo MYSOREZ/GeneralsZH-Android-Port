@@ -53,6 +53,7 @@
 // USER INCLUDES //////////////////////////////////////////////////////////////
 //-----------------------------------------------------------------------------
 #include "PreRTS.h"
+#include <cstdio>
 
 #include "Common/INI.h"
 #include "Common/FileSystem.h"
@@ -134,8 +135,33 @@ void HeaderTemplateManager::init()
 		AsciiString fname;
 		fname.format("Data\\%s\\HeaderTemplate", GetRegistryLanguage().str());
 
+		// GeneralsX @bugfix Android port 09/09/2026 Same guard as GlobalLanguage::init().
+		// loadFileDirectory() throws when it reads zero files, and Data\<language>\ only
+		// exists for the SKUs EA shipped -- a translation is text, and has no reason to carry
+		// header-template configuration. Without this, selecting any unofficial language ends
+		// the process during startup. Skipping the load leaves the templates at their
+		// defaults, which is what a language with no overrides should get.
+		AsciiString fnameWithExt = fname;
+		fnameWithExt.concat(".ini");
 		INI ini;
-		ini.loadFileDirectory( fname, INI_LOAD_OVERWRITE, nullptr );
+		if (TheFileSystem->doesFileExist(fnameWithExt.str()))
+		{
+			ini.loadFileDirectory( fname, INI_LOAD_OVERWRITE, nullptr );
+		}
+		else if (TheFileSystem->doesFileExist("Data\\English\\HeaderTemplate.ini"))
+		{
+			// GeneralsX @bugfix Android port 09/09/2026 Fall back to English, do not just skip.
+			//
+			// Skipping left the header templates EMPTY, and they are where the menus get their
+			// fonts and their header art from -- so selecting Russian gave tiny text and the
+			// plain Generals branding instead of Zero Hour's. A language that ships only
+			// translated strings wants English's layout, not no layout: the templates are
+			// sizes and image names, and a translation has no reason to restate them.
+			fprintf(stderr, "[GX-LANG] no %s; using the English header templates\n",
+				fnameWithExt.str());
+			fflush(stderr);
+			ini.loadFileDirectory( AsciiString("Data\\English\\HeaderTemplate"), INI_LOAD_OVERWRITE, nullptr );
+		}
 	}
 
 	populateGameFonts();

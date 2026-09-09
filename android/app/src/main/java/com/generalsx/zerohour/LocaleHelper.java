@@ -101,6 +101,61 @@ final class LocaleHelper {
     // generals.csf to actually exist in the user's own game folder before
     // ever writing the override -- this mapping alone never forces a
     // language whose data isn't present.
+    // GeneralsX @feature Android port 09/09/2026 The game's text language is now a setting of
+    // its own, not a shadow of the launcher's UI language.
+    //
+    // They were one control, and that was wrong in both directions: picking Russian for the
+    // launcher silently changed the game's text, and once changed there was no way back to
+    // English short of picking English for the launcher too. They are separate questions --
+    // someone can want a Russian launcher over an English game, or the reverse -- and with
+    // downloadable packs the game side is a list of what is actually installed rather than a
+    // fixed mapping.
+    static final String PREF_GAME_TEXT_TOKEN = "game_text_token";
+
+    /** Has the player ever answered the question? Absent is not the same as "default". */
+    static boolean hasGameTextToken(Context ctx) {
+        return ctx.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+                  .contains(PREF_GAME_TEXT_TOKEN);
+    }
+
+    static String getGameTextToken(Context ctx) {
+        return ctx.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+                  .getString(PREF_GAME_TEXT_TOKEN, "");
+    }
+
+    static void setGameTextToken(Context ctx, String token) {
+        ctx.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).edit()
+           .putString(PREF_GAME_TEXT_TOKEN, token == null ? "" : token).apply();
+    }
+
+    /** Human name for an engine language token, in that language where it is obvious. */
+    static String gameTextDisplayName(String token) {
+        if (token == null) {
+            return "";
+        }
+        switch (token) {
+            case "english":   return "English";
+            case "german":    return "Deutsch";
+            case "french":    return "Français";
+            case "spanish":   return "Español";
+            case "italian":   return "Italiano";
+            case "polish":    return "Polski";
+            case "brazilian": return "Português (BR)";
+            case "russian":   return "Русский";
+            case "korean":    return "한국어";
+            case "chinese":   return "中文";
+            case "ukrainian": return "Українська";
+            default:
+                // GeneralsX @feature Android port 09/09/2026 A language nobody listed is still
+                // a language. Show the folder name with a capital rather than nothing, so a
+                // pack contributed after this file was written is still pickable.
+                if (token.isEmpty()) {
+                    return token;
+                }
+                return Character.toUpperCase(token.charAt(0)) + token.substring(1);
+        }
+    }
+
     static String gameDataLanguageFor(String launcherTag) {
         if (launcherTag == null) {
             return null;

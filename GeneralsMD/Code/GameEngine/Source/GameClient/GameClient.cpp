@@ -36,6 +36,8 @@
 #include "GXTrace.h"
 
 // USER INCLUDES //////////////////////////////////////////////////////////////
+#include "Common/AudioAffect.h"
+#include "Common/GameAudio.h"
 #include "Common/ActionManager.h"
 #include "Common/GameEngine.h"
 #include "Common/GameState.h"
@@ -93,6 +95,11 @@
 
 /// The GameClient singleton instance
 GameClient *TheGameClient = nullptr;
+
+// GeneralsX @bugfix Android port 09/09/2026 Let the renderer black the whole screen out while
+// the intro sequence is running (see W3DDisplay::draw()). Cleared only around the legal page,
+// which is the one thing that is legitimately drawn during the intro without a movie under it.
+Bool g_gxIntroBlackoutAllowed = TRUE;
 
 //-------------------------------------------------------------------------------------------------
 GameClient::GameClient()
@@ -580,6 +587,35 @@ void GameClient::update()
 	// create the FRAME_TICK message
 	GameMessage *frameMsg = TheMessageStream->appendMessage( GameMessage::MSG_FRAME_TICK );
 	frameMsg->appendTimestampArgument( getFrame() );
+	// GeneralsX @bugfix Android port 08/09/2026 The movie gate that used to live here is GONE.
+	//
+	// It tried to silence the shell map behind the intro movie, first by pausing the world's
+	// samples and then by zeroing their volume. The second version silenced the MOVIE and left
+	// the background playing -- the exact opposite of the intent -- which says the assumption
+	// underneath both attempts was simply wrong: the movie's own audio is carried by the same
+	// sample volumes, and what is audible behind it is not.
+	//
+	// Rather than guess a third time, the sample-start trace below names what is actually
+	// playing while a movie is on screen. Nothing is silenced until that says what to silence.
+	// GeneralsX @bugfix Android port 08/09/2026 Count frames since a movie was last playing.
+	//
+	// This is the real cause of "the main menu battle is audible under the intro video", and
+	// it was never an audio bug at all: the shell map was being LOADED AND STARTED while the
+	// video was still on screen. A device log shows it plainly -- Maps\ShellMapMD\map.ini
+	// loading between the movie's start and its end. On the PC the order is strictly video
+	// first, shell map afterwards.
+	//
+	// The gate below is `!isMoviePlaying()`, which is not enough here: this port's video path
+	// is asynchronous, so that flag is still false in the frame that starts a movie and can
+	// drop briefly between the logo and the sizzle. Either window lets the shell through.
+	// Requiring it to have been quiet for a stretch closes both without needing to know which
+	// one actually fired.
+	static Int s_framesSinceMoviePlaying = 0;
+	if (TheDisplay != nullptr && TheDisplay->isMoviePlaying())
+		s_framesSinceMoviePlaying = 0;
+	else
+		s_framesSinceMoviePlaying++;
+
 	static Bool playSizzle = FALSE;
 	// We need to show the movie first.
 	if(TheGlobalData->m_playIntro && !TheDisplay->isMoviePlaying())
@@ -591,6 +627,9 @@ void GameClient::update()
 		TheWritableGlobalData->m_playIntro = FALSE;
 		TheWritableGlobalData->m_afterIntro = TRUE;
 		playSizzle = TRUE;
+		// the movie has just been asked to start; it is not "quiet" any more, whatever
+		// isMoviePlaying() says about it this instant
+		s_framesSinceMoviePlaying = 0;
 	}
 
 	//Initial Game Condition.  We must show the movie first and then we can display the shell
@@ -617,6 +656,9 @@ void GameClient::update()
 				WindowLayout *legal = TheWindowManager->winCreateLayout("Menus/LegalPage.wnd");
 				if(legal)
 				{
+					// This page IS meant to be visible during the intro, with no movie behind
+					// it -- exempt it from the intro blackout for as long as it is up.
+					g_gxIntroBlackoutAllowed = FALSE;
 					legal->hide(FALSE);
 					legal->bringForward();
 					Int beginTime = timeGetTime();
@@ -637,6 +679,7 @@ void GameClient::update()
 
 					legal->destroyWindows();
 					deleteInstance(legal);
+					g_gxIntroBlackoutAllowed = TRUE;
 
 				}
 				TheWritableGlobalData->m_breakTheMovie = TRUE;
@@ -644,9 +687,33 @@ void GameClient::update()
 
 			}
 
-		TheShell->showShellMap(TRUE);
-		TheShell->showShell();
-		TheWritableGlobalData->m_afterIntro = FALSE;
+		// Wait for the screen to have been free of video for a stretch before loading the
+		// shell map. Deliberately NOT applied to the sizzle branch above, which must follow
+		// the logo immediately.
+		if (s_framesSinceMoviePlaying >= 30)
+		{
+			GX_AUDIO_TRACE("intro finished (%d frames quiet) -> loading shell map\n",
+			        (int)s_framesSinceMoviePlaying);
+			// GeneralsX @bugfix Android port 09/09/2026 Order matters here, in both directions.
+			//
+			// showShell() runs the top layout's init callback again -- a device log shows
+			// MainMenuInit running a second time right after this point -- and MainMenuInit
+			// only skips queueing its own MSG_NEW_GAME (through showShellMap) while it can
+			// still see an intro in progress. So m_afterIntro has to stay set across the
+			// showShell() call, or the shell map gets requested twice.
+			//
+			// MainMenuInit also (re)hides the layout for as long as either intro flag is set,
+			// so the reveal has to come AFTER both showShell() and the flag clear, not before
+			// them -- doing it first, as this used to, left the layout hidden by that second
+			// MainMenuInit with nothing to ever show it again.
+			TheShell->showShellMap(TRUE);
+			TheShell->showShell();
+			TheWritableGlobalData->m_afterIntro = FALSE;
+			// Reveal the static main-menu layout MainMenuInit kept hidden through the intro
+			// (MainMenu.cpp), at the same point the map itself is finally let in.
+			if (TheShell->top())
+				TheShell->top()->hide(FALSE);
+		}
 		}
 	}
 
@@ -692,6 +759,18 @@ void GameClient::update()
 
 	if(TheGlobalData->m_playIntro || TheGlobalData->m_afterIntro)
 	{
+		// GeneralsX @bugfix Android port 09/09/2026 Do NOT call TheVideoPlayer->UPDATE() here.
+		//
+		// It looks like an obvious omission -- this branch returns before the
+		// TheVideoPlayer->UPDATE() further down, so during the intro the player is never
+		// updated and the movie's audio only ever gets the one frame per game frame that
+		// Display::update() pulls. Adding the call did make the audio queue fill. It also hung
+		// the intro dead: black screen, no video, no way to skip, reproduced on device twice.
+		// Guarding the look-ahead against overrunning the last frame did not help, so the
+		// interaction is not understood yet, and a playable game beats a fed audio queue.
+		// The buffering work stays in FFmpegVideoStream (dormant here); the sound in the intro
+		// movies is still open, and needs a path that cannot touch video frame accounting.
+
 		// redraw all views, update the GUI
 		TheDisplay->UPDATE();
 		TheDisplay->DRAW();

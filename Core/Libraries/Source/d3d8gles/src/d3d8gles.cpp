@@ -1384,6 +1384,20 @@ public:
 	HRESULT SetRenderTarget(IDirect3DSurface8 *pRenderTarget, IDirect3DSurface8 *pNewZStencil) override
 	{
 		if (pRenderTarget) {
+			// GeneralsX @feature Android port 09/09/2026 One-shot diagnostic. This is the
+			// exact moment W3DShaderManager::endRenderToTexture() hands the scene it just
+			// rendered offscreen to a screen filter, which samples it as a texture. When
+			// the black-and-white cinematic came out solid black there was no way to tell
+			// "the render target is empty" from "the combiner maths is wrong" -- this
+			// prints what is in the render target so the two can never be confused again.
+			// Prints at most 4 times per launch, only for backbuffer-sized targets.
+			if (m_currentRT && m_currentRT != pRenderTarget &&
+			    static_cast<WebGLSurface *>(pRenderTarget) == m_backBuffer &&
+			    m_currentRT->m_ownerTex != nullptr && m_currentRT->m_ownerTex->m_gl.fbo != 0) {
+				WebGLPipeline::get()->debugSampleRenderTarget(m_currentRT->m_ownerTex,
+					"endRenderToTexture");
+			}
+
 			pRenderTarget->AddRef();
 			if (m_currentRT) m_currentRT->Release();
 			m_currentRT = static_cast<WebGLSurface *>(pRenderTarget);

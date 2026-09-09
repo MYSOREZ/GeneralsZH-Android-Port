@@ -29,6 +29,7 @@
 
 // INCLUDES ///////////////////////////////////////////////////////////////////////////////////////
 #include "PreRTS.h"	// This must go first in EVERY cpp file in the GameEngine
+#include "GXTrace.h"
 
 #include "gamespy/ghttp/ghttp.h"
 
@@ -488,7 +489,48 @@ void MainMenuInit( WindowLayout *layout, void *userData )
 {
 	TheWritableGlobalData->m_breakTheMovie = FALSE;
 
-	TheShell->showShellMap(TRUE);
+	// GeneralsX @bugfix Android port 08/09/2026 This call used to run unconditionally.
+	// TheShell->push("Menus/MainMenu.wnd") happens synchronously during GameEngine::init(),
+	// before frame 1 -- before the intro-movie sequencing in GameClient::update() has run at
+	// all -- so this ran, and queued MSG_NEW_GAME (inside showShellMap), while the EA logo and
+	// sizzle movie had not even started. GameLogic::update() then started the real, heavy
+	// shell-map load ("Maps\ShellMapMD\map.ini") as soon as its own (separate, undebounced)
+	// !TheDisplay->isMoviePlaying() check happened to read false -- which on this port's
+	// asynchronous video path can be true for a frame or two around either movie, letting the
+	// load slip in underneath. That is why the shell map's ambient loops and unit sounds were
+	// audible under the intro: the battle was already running behind it.
+	//
+	// A real device log showed the shell map load starting between "movie started" and
+	// "movie ended". This condition matches the one GameClient.cpp's own m_afterIntro block
+	// already uses to call showShellMap() at the CORRECT time, after the intro has actually
+	// finished; skipping it here means that later, correctly-gated call is the only one that
+	// ever runs it during startup.
+	GX_AUDIO_TRACE("MainMenuInit: playIntro=%d afterIntro=%d layout=%p\n",
+	        (int)TheGlobalData->m_playIntro, (int)TheGlobalData->m_afterIntro, (void*)layout);
+
+	if (!TheGlobalData->m_playIntro && !TheGlobalData->m_afterIntro)
+	{
+		GX_AUDIO_TRACE("MainMenuInit: showing shell map immediately\n");
+		TheShell->showShellMap(TRUE);
+	}
+	else
+	{
+		GX_AUDIO_TRACE("MainMenuInit: intro pending -> hiding layout %p\n", (void*)layout);
+		// GeneralsX @bugfix Android port 08/09/2026 Deferring showShellMap() above stopped
+		// the animated battle background from loading under the movie, but this layout --
+		// MainMenu.wnd's own static background and logo -- is created and shown regardless,
+		// synchronously, as part of this very push. Before this fix that never mattered:
+		// the shell map used to start loading essentially immediately (see the comment
+		// above) and its full-screen 3D render covered this static layout within a second
+		// or two either way. With the map deferred, this static layout is now the only
+		// thing behind the movie for the whole wait, and it is not opaque everywhere the
+		// video isn't -- reported as a fragment of the CONQUER/GENERALS logo visible in a
+		// corner during the intro. Hide it until the same point that reveals the map.
+		layout->hide(TRUE);
+		GX_AUDIO_TRACE("MainMenuInit: layout->hide(TRUE) called, isHidden now=%d\n",
+		        (int)layout->isHidden());
+	}
+
 	TheMouse->setVisibility(TRUE);
 	//winVidManager = NEW WindowVideoManager;
 	buttonPushed = FALSE;
@@ -619,7 +661,18 @@ void MainMenuInit( WindowLayout *layout, void *userData )
 //	TheShell->registerWithAnimateManager(buttonOptions, WIN_ANIMATION_SLIDE_LEFT, TRUE, 1);
 //	TheShell->registerWithAnimateManager(buttonExit, WIN_ANIMATION_SLIDE_RIGHT, TRUE, 1);
 //
-	layout->hide( FALSE );
+	// GeneralsX @bugfix Android port 09/09/2026 This unconditional unhide is what defeated the
+	// intro hide near the top of this same function. MainMenuInit is one long function: it
+	// calls layout->hide(TRUE) while an intro is pending (see above), then ~130 lines later
+	// arrives here and shows the layout again, in the same call, before the first frame is
+	// ever drawn. A device log printing isHidden right after the hide therefore reported
+	// isHidden=1 and looked like proof the menu was hidden -- it was, for the few microseconds
+	// until this line. The whole MainMenu layout was in fact visible for the entire intro, and
+	// it is the shell artwork reported over the movie (only the middle of the screen is
+	// covered by the letterboxed/pillarboxed video, so everything outside that rectangle shows
+	// through). Keep it hidden for as long as either intro flag is set; GameClient::update()
+	// clears m_afterIntro and reveals this layout when the intro is really over.
+	layout->hide( TheGlobalData->m_playIntro || TheGlobalData->m_afterIntro );
 
 	/*
 	if (!checkedForUpdate)

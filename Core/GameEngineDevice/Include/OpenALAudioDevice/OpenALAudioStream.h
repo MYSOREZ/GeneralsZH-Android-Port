@@ -48,17 +48,37 @@ public:
     void update();
     void reset();
 
-    void play() { alSourcePlay(m_source); }
-    void pause() { alSourcePause(m_source); }
-    void stop() { alSourceStop(m_source); }
+    // GeneralsX @bugfix Android port 08/09/2026 pause() has to LATCH, not just ask OpenAL
+    // to pause. update() restarts any source it finds in AL_PAUSED with buffers queued (two
+    // places, both deliberate -- they recover a stream whose queue ran dry). Nothing told
+    // those two apart from a stream the GAME paused, so a paused stream un-paused itself on
+    // the very next audio update, and TheAudio->UPDATE() keeps running while the game is
+    // paused. Speech and music therefore never actually stayed paused.
+    // GeneralsX @bugfix Android port 09/09/2026 Starting or stopping the source hands the
+    // accounting back to OpenAL, so the "queued while stopped, never rendered" tally goes to
+    // zero. alSourcePlay() always (re)starts a source at the FRONT of its queue, so anything
+    // still queued is about to be played from the beginning; alSourceStop() abandons the queue.
+    void play() { m_paused = false; m_unplayedWhileStopped = 0; alSourcePlay(m_source); }
+    void pause() { m_paused = true; alSourcePause(m_source); }
+    void stop() { m_paused = false; m_unplayedWhileStopped = 0; alSourceStop(m_source); }
+    bool isPaused() const { return m_paused; }
 
     void setVolume(float vol) { alSourcef(m_source, AL_GAIN, vol); }
 
 protected:
+    // GeneralsX @bugfix Android port 09/09/2026 How many buffers OpenAL will claim are
+    // "processed" that it has in fact never rendered a single sample of. See the long comment
+    // on gxPlayedBuffers() in the .cpp: a source in AL_STOPPED reports its ENTIRE queue as
+    // processed, including buffers queued after it stopped.
+    ALint gxPlayedBuffers() const;
+
     std::function<bool()> m_requireDataCallback = nullptr;
     bool m_endOfData = false; ///< GeneralsX: source stream signalled true EOF; stop restarting it
+    bool m_paused = false;    ///< GeneralsX: the GAME paused this stream; update() must not restart it
     int m_stalledProbes = 0;  ///< GeneralsX: consecutive EOF-probes that produced no new data
+    unsigned long m_lastProbeMs = 0; ///< GeneralsX: when the previous EOF-probe ran, to tell a stuck decoder from a starved one
     ALuint m_source = 0;
     ALuint m_buffers[AL_STREAM_BUFFER_COUNT] = {};
     unsigned int m_current_buffer_idx = 0;
+    ALint m_unplayedWhileStopped = 0; ///< GeneralsX: buffers queued onto an AL_STOPPED source, which OpenAL then misreports as already processed
 };

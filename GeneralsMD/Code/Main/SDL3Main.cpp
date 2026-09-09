@@ -118,7 +118,12 @@ SDL_Window* TheSDL3Window = nullptr;
 // Format %s is replaced with language code in GameTextManager::init()
 // GeneralsX @bugfix BenderAI 13/02/2026 - Fix case-sensitivity on Linux (generals.csf vs Generals.csf)
 const Char *g_csfFile = "data/%s/generals.csf";  ///< CSF file path (lowercase for Linux compatibility)
-const Char *g_strFile = "data/Generals.str";     ///< STR file path
+// GeneralsX @feature Android port 09/09/2026 Per-language, like g_csfFile above it.
+// GameTextManager::init() fills the %s in with the current language, and prefers this
+// plain-text file over the compiled .csf when it exists -- which is what makes a language
+// pack a text file someone can translate and send as a pull request, rather than a binary
+// nobody can review. See languages/README.md.
+const Char *g_strFile = "data/%s/generals.str";  ///< STR file path, per language
 
 // Extern declarations (from GameMain.cpp)
 extern Int GameMain();
@@ -964,8 +969,22 @@ int main(int argc, char* argv[])
 						lang[--len] = '\0';
 					}
 					if (len > 0) {
-						setenv("CNC_ZH_LANGUAGE", lang, 1);
-						fprintf(stderr, "INFO: Game data language override: %s\n", lang);
+						// GeneralsX @bugfix Android port 09/09/2026 Set the TEXT language, not
+						// the game's language.
+						//
+						// This used to export CNC_ZH_LANGUAGE, which is what GetRegistryLanguage()
+						// answers -- and that answer is read by far more than the string table.
+						// It picks the header templates, the font configuration, the command map,
+						// and through them the menu ARTWORK. So selecting Russian did translate
+						// the text, and also swapped Zero Hour's branding for the base Generals
+						// one, because those are the assets the engine could still resolve.
+						//
+						// A language pack is text. It is not a different SKU, and it has no
+						// business deciding which game's logo is on the menu. So it now sets a
+						// variable only the string table reads, and everything else stays on the
+						// language the installed game data actually is.
+						setenv("GENERALSX_TEXT_LANGUAGE", lang, 1);
+						fprintf(stderr, "INFO: Game TEXT language override: %s\n", lang);
 					}
 				}
 				fclose(langMarker);

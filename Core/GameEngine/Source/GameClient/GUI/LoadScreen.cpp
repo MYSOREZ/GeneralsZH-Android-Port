@@ -48,6 +48,7 @@
 // SYSTEM INCLUDES ////////////////////////////////////////////////////////////
 //-----------------------------------------------------------------------------
 #include "PreRTS.h"	// This must go first in EVERY cpp file in the GameEngine
+#include "GXTrace.h"
 
 //-----------------------------------------------------------------------------
 // USER INCLUDES //////////////////////////////////////////////////////////////
@@ -162,8 +163,28 @@ void LoadScreen::update( Int percent )
 	if (TheGameEngine->getQuitting() || (TheGameLogic && TheGameLogic->isQuitToDesktopRequested()))
 		return;	//don't bother with any of this if the player is exiting game.
 
+	// GeneralsX @bugfix Android port 08/09/2026 Pump the audio too. Reported: the music
+	// that starts as loading begins goes silent almost immediately and stays silent until
+	// the map is loaded. Nothing was killing it — nothing was FEEDING it. Streamed audio is
+	// decoded and re-queued synchronously from TheAudio->UPDATE(), which normally runs once
+	// per frame from GameEngine::update() (GameEngine.cpp:1117); loading never returns to
+	// that loop. This one does everything else a frame does — windows, display, draw — so
+	// the queue simply drained and the source ran out of anything to play.
+	//
+	// The same applies to the briefing and movie loops further down this file, which have
+	// the same shape and the same omission, and which is why the problem was reported in
+	// the campaign as well.
 	TheWindowManager->update();
 	TheDisplay->update();
+	if (TheAudio)
+	{
+		static Int s_pumpCount = 0;
+		if ((s_pumpCount++ % 10) == 0)
+		{
+			GX_AUDIO_TRACE("loadscreen pump #%d at %d%%\n", s_pumpCount, (int)percent);
+		}
+		TheAudio->UPDATE();
+	}
 	// redraw all views, update the GUI
 	TheDisplay->draw();
 
@@ -586,6 +607,12 @@ void SinglePlayerLoadScreen::init( GameInfo *game )
 			}
 			TheWindowManager->update();
 
+			// GeneralsX @bugfix Android port 08/09/2026 Deliberately NO TheAudio->UPDATE()
+			// here, unlike the loading pump. This loop plays a movie, and the movie feeds its
+			// own audio through TheVideoPlayer->update() a few lines above. Pumping the
+			// general audio system as well revived the shell music that the transition into
+			// the movie had left starved, and it played over the cutscene -- reported after
+			// the first version of this fix, which did pump here.
 			// redraw all views, update the GUI
 			TheDisplay->draw();
 		}
@@ -641,6 +668,7 @@ void SinglePlayerLoadScreen::init( GameInfo *game )
 			}
 
 			TheWindowManager->update();
+			// No audio pump here either -- see the movie loop above. These wait on a movie.
 			TheDisplay->draw();
 			Sleep(100);
 			currTime = timeGetTime();
@@ -1146,6 +1174,7 @@ void ChallengeLoadScreen::init( GameInfo *game )
 			}
 
 			TheWindowManager->update();
+			// No audio pump here either -- see the movie loop above. These wait on a movie.
 			TheDisplay->draw();
 			Sleep(100);
 			currTime = timeGetTime();

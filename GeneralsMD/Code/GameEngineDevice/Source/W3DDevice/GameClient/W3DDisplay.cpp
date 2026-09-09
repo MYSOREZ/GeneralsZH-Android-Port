@@ -356,6 +356,11 @@ StatDumpClass TheStatDump("StatisticsDump.txt");
 
 #endif //DUMP_PERF_STATS
 
+// GeneralsX @bugfix Android port 09/09/2026 Defined in GameClient.cpp. FALSE only while the
+// legal page is up, which is the one screen that is legitimately drawn during the intro with
+// no movie behind it; see the intro blackout in W3DDisplay::draw().
+extern Bool g_gxIntroBlackoutAllowed;
+
 //*****************************************************************************************
 //**** End Statistical Dump ***************************************************************
 //*****************************************************************************************
@@ -2359,6 +2364,32 @@ AGAIN:
 					// TheSuperHackers @bugfix Mauller 20/07/2025 scale videos based on screen size so they are shown in their original aspect
 					drawScaledVideoBuffer( m_videoBuffer, m_videoStream );
 				}
+				// GeneralsX @bugfix Android port 09/09/2026 Nothing of the shell may reach the
+				// screen before the intro is over -- reported as the Zero Hour logo flashing in
+				// a corner "for a fraction of a second" as the game starts, and as shell art
+				// sitting in the black bars beside the movie.
+				//
+				// Gating the individual draw callbacks could never close this on its own,
+				// because there are frames during the intro with NO movie on screen at all:
+				// Display::update() calls stopMovie() the moment a movie runs out (nulling
+				// m_videoStream), and GameClient::update() only starts the next one on the
+				// FOLLOWING frame -- and it calls TheDisplay->UPDATE() immediately before
+				// TheDisplay->DRAW(), so the frame in between is drawn with the shell fully
+				// exposed and isMoviePlaying() reading false. That happens at least twice, once
+				// between the EA logo and the sizzle reel and once at the end of the sizzle.
+				//
+				// So do it once, here, at the bottom of the frame and independent of which
+				// window or callback painted what: while the intro sequence is running, either
+				// a movie covers its own rectangle (and drawScaledVideoBuffer blacks out the
+				// margins around it) or the whole frame goes black. Both intro flags are
+				// cleared by GameClient::update() when the intro really ends, so the normal
+				// main menu comes up by itself afterwards.
+				else if ( TheGlobalData != NULL
+					&& ( TheGlobalData->m_playIntro || TheGlobalData->m_afterIntro )
+					&& g_gxIntroBlackoutAllowed )
+				{
+					drawFillRect( 0, 0, getWidth(), getHeight(), GameMakeColor( 0, 0, 0, 255 ) );
+				}
 				if( m_copyrightDisplayString )
 				{
 					Int x, y, dX, dY;
@@ -3341,6 +3372,28 @@ void W3DDisplay::drawScaledVideoBuffer( VideoBuffer *buffer, VideoStreamInterfac
 
 		endX = getWidth();
 	}
+
+	// GeneralsX @bugfix Android port 09/09/2026 Black out everything around the movie.
+	//
+	// Movies are drawn AFTER TheInGameUI->DRAW() and only cover their own letterboxed
+	// rectangle, and nothing clears the rest of the frame -- so whatever the shell painted
+	// stays on screen beside the video. That is the corner logo and the bottom-left watermark
+	// reported over the intro, and it is why they FLICKER rather than sit still: with a
+	// multi-buffered swap chain the stale pixels live in some buffers and not others, so they
+	// blink at the swap rate. Gating the callbacks that draw them (see W3DMainMenu.cpp) stops
+	// new ones appearing but cannot erase what is already in a back buffer.
+	//
+	// Filling the margins here fixes the whole class of problem at its source: while a movie
+	// is on screen, nothing behind it can show through, no matter which callback drew it.
+	const Color gxLetterbox = GameMakeColor( 0, 0, 0, 255 );
+	if ( startY > 0 )
+		drawFillRect( 0, 0, getWidth(), startY, gxLetterbox );
+	if ( endY < getHeight() )
+		drawFillRect( 0, endY, getWidth(), getHeight() - endY, gxLetterbox );
+	if ( startX > 0 )
+		drawFillRect( 0, startY, startX, endY - startY, gxLetterbox );
+	if ( endX < getWidth() )
+		drawFillRect( endX, startY, getWidth() - endX, endY - startY, gxLetterbox );
 
 	drawVideoBuffer( buffer, startX, startY, endX, endY );
 }
