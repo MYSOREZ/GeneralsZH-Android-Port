@@ -104,9 +104,9 @@
     <string name="setup_langpack_err_replace">جایگزینی فایل موجود ممکن نشد</string>
     <string name="setup_button_game_text_language">زبان متن بازی</string>
     <string name="setup_game_text_dialog_title">زبان متن بازی</string>
-    <string name="setup_game_text_default">بازی را همان‌طور که هست بگذار</string>
+    <string name="setup_game_text_default">انگلیسی (یک ‎.big در پوشهٔ بازی می‌تواند جایگزینش کند)</string>
     <string name="setup_game_text_status">متن بازی: %1$s</string>
-    <string name="setup_game_text_status_default">متن بازی: همان‌طور که خود بازی آمده</string>
+    <string name="setup_game_text_status_default">متن بازی: انگلیسی — مگر آنکه یک ‎.big در پوشهٔ بازی جایگزینش کند</string>
     <string name="setup_game_text_none_found">هنوز بستهٔ زبانی در پوشهٔ بازی نیست. ابتدا یکی دانلود کنید.</string>
     <string name="setup_langpack_dialog_title">کدام زبان؟</string>
     <string name="setup_switch_dxvk_hud">نمایش عملکرد روی صفحه</string>

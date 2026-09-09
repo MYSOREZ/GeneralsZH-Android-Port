@@ -104,9 +104,9 @@
     <string name="setup_langpack_err_replace">não foi possível substituir o arquivo existente</string>
     <string name="setup_button_game_text_language">Idioma do texto do jogo</string>
     <string name="setup_game_text_dialog_title">Idioma do texto do jogo</string>
-    <string name="setup_game_text_default">Deixar o jogo como está</string>
+    <string name="setup_game_text_default">Inglês (um .big na pasta do jogo pode substituí-lo)</string>
     <string name="setup_game_text_status">Texto do jogo: %1$s</string>
-    <string name="setup_game_text_status_default">Texto do jogo: como o jogo veio</string>
+    <string name="setup_game_text_status_default">Texto do jogo: inglês — a menos que um .big na pasta do jogo o substitua</string>
     <string name="setup_game_text_none_found">Ainda não há pacotes de idioma na pasta do jogo. Baixe um primeiro.</string>
     <string name="setup_langpack_dialog_title">Qual idioma?</string>
     <string name="setup_switch_dxvk_hud">Overlay de desempenho na tela</string>

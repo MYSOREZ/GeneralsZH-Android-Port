@@ -104,9 +104,9 @@
     <string name="setup_langpack_err_replace">ne bylo možno zaměniti postoječi fajl</string>
     <string name="setup_button_game_text_language">Jezyk teksta igry</string>
     <string name="setup_game_text_dialog_title">Jezyk teksta igry</string>
-    <string name="setup_game_text_default">Ostaviti kako v samoj igrě</string>
+    <string name="setup_game_text_default">Anglijsky (jego može zaměniti .big v papkě igry)</string>
     <string name="setup_game_text_status">Tekst igry: %1$s</string>
-    <string name="setup_game_text_status_default">Tekst igry: kako v samoj igrě</string>
+    <string name="setup_game_text_status_default">Tekst igry: anglijsky — ako jego ne zaměnjaje .big v papkě igry</string>
     <string name="setup_game_text_none_found">V papkě igry hče ne jest jezyčnyh paketov. Najprvo sņimite jedin.</string>
     <string name="setup_langpack_dialog_title">Kotory jezyk?</string>
     <string name="setup_switch_dxvk_hud">Ekranny overlej proizvoditelnosti</string>

@@ -118,6 +118,12 @@ final class LocaleHelper {
         "brazilian", "russian", "korean", "chinese"
     };
 
+    /** Has the player ever answered the question? Absent is not the same as "default". */
+    static boolean hasGameTextToken(Context ctx) {
+        return ctx.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+                  .contains(PREF_GAME_TEXT_TOKEN);
+    }
+
     static String getGameTextToken(Context ctx) {
         return ctx.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
                   .getString(PREF_GAME_TEXT_TOKEN, "");

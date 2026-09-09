@@ -467,6 +467,7 @@ public class SetupActivity extends Activity {
         UiKit.button(content, UiKit.BTN_TONAL, R.drawable.ic_gzh_globe,
             getString(R.string.setup_button_change_language), this::onChangeLanguage);
 
+        migrateGameTextTokenFromMarker();
         gameLanguageStatusView = UiKit.supporting(content, null);
         updateGameLanguageStatusView();
 
@@ -594,22 +595,63 @@ public class SetupActivity extends Activity {
     // text, if the CSF is missing -- silently wrong is worse than
     // untouched). Called both when the language changes and when the game
     // folder changes, since either one can flip the answer.
+    // GeneralsX @feature Android port 09/09/2026 Adopt a marker written by an older build.
+    //
+    // Before the game's text language became a setting of its own it was derived from the
+    // launcher's UI language and written straight to game_language.cfg. Someone upgrading has
+    // that file and no preference, and without this they would silently be moved to English
+    // on first launch of the new version. Read the old answer once and keep it.
+    private void migrateGameTextTokenFromMarker() {
+        if (LocaleHelper.hasGameTextToken(this)) {
+            return;
+        }
+        File marker = new File(getFilesDir(), "game_language.cfg");
+        if (!marker.isFile()) {
+            return;
+        }
+        try (java.io.BufferedReader r = new java.io.BufferedReader(new java.io.FileReader(marker))) {
+            String line = r.readLine();
+            if (line != null && !line.trim().isEmpty()) {
+                LocaleHelper.setGameTextToken(this, line.trim());
+            }
+        } catch (java.io.IOException e) {
+            // Nothing to do: the player picks a language and the question answers itself.
+        }
+    }
+
     private void applyGameLanguageOverride() {
         File marker = new File(getFilesDir(), "game_language.cfg");
         // GeneralsX @feature Android port 09/09/2026 Driven by the player's explicit choice,
-        // not by the launcher's UI language. Empty means "leave the game's own text alone",
-        // and deleting the marker is what says that to the engine.
+        // not by the launcher's UI language.
         String engineToken = LocaleHelper.getGameTextToken(this);
+        boolean defaultedToEnglish = false;
         if (engineToken == null || engineToken.isEmpty()) {
-            marker.delete();
-            return;
+            // GeneralsX @bugfix Android port 09/09/2026 Default means ENGLISH, spelled out --
+            // not "say nothing and let the engine work it out".
+            //
+            // With no marker the engine falls back to its own auto-detect, which reads the
+            // .big files present and answers with whichever language it recognises. That is
+            // not a default, it is a lottery: it reported Russian on a machine whose game is
+            // English, purely because a Russian archive was in the folder. Naming english
+            // explicitly makes the default the same everywhere.
+            //
+            // It also costs nothing that anyone wants to keep. A translation .big that
+            // replaces Data\English\generals.csf still wins outright -- archives mount in
+            // name order, the first one wins, and that is exactly why these packs are named
+            // 00Something. Asking for English is asking for "whatever is filed as English",
+            // which is what a mod archive makes itself.
+            engineToken = "english";
+            defaultedToEnglish = true;
         }
         String gamePath = getSavedGamePath();
-        if (gamePath == null) {
+        if (gamePath == null && !defaultedToEnglish) {
             marker.delete();
             return;
         }
-        if (!gameHasTextFor(gamePath, engineToken)) {
+        // A language the player CHOSE has to be there, or the game would come up with no text
+        // at all. English is not checked: it is the answer of last resort, and writing it is
+        // how the engine is kept off its own auto-detect.
+        if (!defaultedToEnglish && !gameHasTextFor(gamePath, engineToken)) {
             marker.delete();
             return;
         }

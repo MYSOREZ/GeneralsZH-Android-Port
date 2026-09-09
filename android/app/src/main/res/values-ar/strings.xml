@@ -104,9 +104,9 @@
     <string name="setup_langpack_err_replace">تعذّر استبدال الملف الموجود</string>
     <string name="setup_button_game_text_language">لغة نصوص اللعبة</string>
     <string name="setup_game_text_dialog_title">لغة نصوص اللعبة</string>
-    <string name="setup_game_text_default">اترك اللعبة كما هي</string>
+    <string name="setup_game_text_default">الإنجليزية (يمكن لملف ‎.big في مجلد اللعبة أن يستبدلها)</string>
     <string name="setup_game_text_status">نصوص اللعبة: %1$s</string>
-    <string name="setup_game_text_status_default">نصوص اللعبة: كما جاءت مع اللعبة</string>
+    <string name="setup_game_text_status_default">نصوص اللعبة: الإنجليزية — ما لم يستبدلها ملف ‎.big في مجلد اللعبة</string>
     <string name="setup_game_text_none_found">لا توجد حزم لغة في مجلد اللعبة بعد. نزّل واحدة أولاً.</string>
     <string name="setup_langpack_dialog_title">أي لغة؟</string>
     <string name="setup_switch_dxvk_hud">طبقة أداء على الشاشة</string>

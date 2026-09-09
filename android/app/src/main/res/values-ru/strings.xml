@@ -114,9 +114,9 @@
     <string name="setup_langpack_err_replace">не удалось заменить существующий файл</string>
     <string name="setup_button_game_text_language">Язык текста игры</string>
     <string name="setup_game_text_dialog_title">Язык текста игры</string>
-    <string name="setup_game_text_default">Оставить как в самой игре</string>
+    <string name="setup_game_text_default">Английский (его может заменить .big в папке игры)</string>
     <string name="setup_game_text_status">Текст игры: %1$s</string>
-    <string name="setup_game_text_status_default">Текст игры: как в самой игре</string>
+    <string name="setup_game_text_status_default">Текст игры: английский — если только его не заменяет .big в папке игры</string>
     <string name="setup_game_text_none_found">В папке игры пока нет языковых пакетов. Сначала скачайте.</string>
     <string name="setup_langpack_dialog_title">Какой язык?</string>
     <string name="setup_switch_dxvk_hud">Оверлей производительности на экране</string>

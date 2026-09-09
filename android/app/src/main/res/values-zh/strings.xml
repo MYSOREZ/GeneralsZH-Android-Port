@@ -104,9 +104,9 @@
     <string name="setup_langpack_err_replace">无法替换已有的文件</string>
     <string name="setup_button_game_text_language">游戏文本语言</string>
     <string name="setup_game_text_dialog_title">游戏文本语言</string>
-    <string name="setup_game_text_default">保持游戏原样</string>
+    <string name="setup_game_text_default">英语（游戏文件夹中的 .big 可以替换它）</string>
     <string name="setup_game_text_status">游戏文本：%1$s</string>
-    <string name="setup_game_text_status_default">游戏文本：与游戏本身相同</string>
+    <string name="setup_game_text_status_default">游戏文本：英语——除非游戏文件夹中的 .big 将其替换</string>
     <string name="setup_game_text_none_found">游戏文件夹中还没有语言包。请先下载一个。</string>
     <string name="setup_langpack_dialog_title">选择哪种语言？</string>
     <string name="setup_switch_dxvk_hud">屏幕性能叠加层</string>

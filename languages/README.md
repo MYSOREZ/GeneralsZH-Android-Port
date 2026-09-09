@@ -45,6 +45,26 @@ The launcher's Diagnostics section will fetch these packs directly in a later
 version. The format is settled first so that translations started now stay
 valid.
 
+## Converting an existing translation
+
+A `.csf` cannot be renamed into a `.str` -- it is binary. Its text is UTF-16LE with
+every byte bitwise inverted, wrapped in a table of contents. `scripts/language/csf2str.py`
+undoes that and writes the UTF-8 text file:
+
+```
+python3 scripts/language/csf2str.py Generals.csf -o languages/<language>/generals.str
+```
+
+It also reads a `.big` archive directly, since community translations ship as one,
+and takes the first `generals.csf` inside whatever language folder the archive
+happens to file it under:
+
+```
+python3 scripts/language/csf2str.py 00RussianZH.big -o languages/russian/generals.str
+```
+
+Nothing else is needed: the output is the pack.
+
 ## Russian
 
 `languages/russian/generals.str` was produced from the community `00RussianZH.big`
