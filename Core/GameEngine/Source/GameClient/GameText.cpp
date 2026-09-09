@@ -44,6 +44,7 @@
 //----------------------------------------------------------------------------
 
 #include "PreRTS.h"	// This must go first in EVERY cpp file in the GameEngine
+#include <cctype>
 
 #include "GameClient/GameText.h"
 #include "Common/Language.h"
@@ -509,6 +510,25 @@ void GameTextManager::reset()
 // GameTextManager::stripSpaces
 //============================================================================
 
+// GeneralsX @bugfix Android port 09/09/2026 Whitespace means ASCII whitespace, and nothing
+// above it.
+//
+// The four callers of this used iswspace() directly on a Char, which is signed: byte 0xA0
+// arrives as -96, and asking a wide-character classifier about a negative value is undefined
+// to begin with. On this platform it answers "yes" for 0xA0 and 0x85 -- and those are
+// CONTINUATION bytes of perfectly ordinary UTF-8 letters. "Р" is D0 A0 and "х" is D1 85, so
+// readToEndOfQuote turned their second byte into a space, the decoder then found a lead byte
+// with no continuation after it and fell back to Latin-1, and the Russian menu read
+// "ЗАГД УЗИТЬ" and "АВТОÐЫ" instead of "ЗАГРУЗИТЬ" and "АВТОРЫ".
+//
+// A byte at or above 0x80 is part of a multi-byte sequence and is never whitespace. Below
+// that this behaves exactly as before, so ASCII text is unaffected.
+static inline Bool isAsciiSpace( Char ch )
+{
+	const unsigned char b = (unsigned char)ch;
+	return (b < 0x80) && (isspace( b ) != 0);
+}
+
 void GameTextManager::stripSpaces ( WideChar *string )
 {
 	WideChar *str, *ptr;
@@ -563,7 +583,7 @@ void GameTextManager::removeLeadingAndTrailing ( Char *buffer )
 
 	ptr = first = buffer;
 
-	while ( (ch = *first) != 0 && iswspace ( ch ))
+	while ( (ch = *first) != 0 && isAsciiSpace( ch ))
 	{
 			first++;
 	}
@@ -572,7 +592,7 @@ void GameTextManager::removeLeadingAndTrailing ( Char *buffer )
 
 	ptr -= 2;
 
-	while ( (ptr > buffer) && (ch = *ptr) != 0 && iswspace ( ch ) )
+	while ( (ptr > buffer) && (ch = *ptr) != 0 && isAsciiSpace( ch ) )
 	{
 		ptr--;
 	}
@@ -641,7 +661,7 @@ void GameTextManager::readToEndOfQuote( File *file, Char *in, Char *out, Char *w
 			slash = FALSE;
 		}
 
-		if ( iswspace ( ch ))
+		if ( isAsciiSpace( ch ))
 		{
 			ch = ' ';
 		}
@@ -678,7 +698,7 @@ void GameTextManager::readToEndOfQuote( File *file, Char *in, Char *out, Char *w
 		{
 
 			case 0:
-				if ( iswspace ( ch ) || ch == '=' )
+				if ( isAsciiSpace( ch ) || ch == '=' )
 				{
 					break;
 				}

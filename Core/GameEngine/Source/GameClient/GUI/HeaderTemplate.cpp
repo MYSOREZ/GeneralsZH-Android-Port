@@ -53,6 +53,7 @@
 // USER INCLUDES //////////////////////////////////////////////////////////////
 //-----------------------------------------------------------------------------
 #include "PreRTS.h"
+#include <cstdio>
 
 #include "Common/INI.h"
 #include "Common/FileSystem.h"
@@ -146,6 +147,20 @@ void HeaderTemplateManager::init()
 		if (TheFileSystem->doesFileExist(fnameWithExt.str()))
 		{
 			ini.loadFileDirectory( fname, INI_LOAD_OVERWRITE, nullptr );
+		}
+		else if (TheFileSystem->doesFileExist("Data\\English\\HeaderTemplate.ini"))
+		{
+			// GeneralsX @bugfix Android port 09/09/2026 Fall back to English, do not just skip.
+			//
+			// Skipping left the header templates EMPTY, and they are where the menus get their
+			// fonts and their header art from -- so selecting Russian gave tiny text and the
+			// plain Generals branding instead of Zero Hour's. A language that ships only
+			// translated strings wants English's layout, not no layout: the templates are
+			// sizes and image names, and a translation has no reason to restate them.
+			fprintf(stderr, "[GX-LANG] no %s; using the English header templates\n",
+				fnameWithExt.str());
+			fflush(stderr);
+			ini.loadFileDirectory( AsciiString("Data\\English\\HeaderTemplate"), INI_LOAD_OVERWRITE, nullptr );
 		}
 	}
 
