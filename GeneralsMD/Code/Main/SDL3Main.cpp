@@ -118,7 +118,12 @@ SDL_Window* TheSDL3Window = nullptr;
 // Format %s is replaced with language code in GameTextManager::init()
 // GeneralsX @bugfix BenderAI 13/02/2026 - Fix case-sensitivity on Linux (generals.csf vs Generals.csf)
 const Char *g_csfFile = "data/%s/generals.csf";  ///< CSF file path (lowercase for Linux compatibility)
-const Char *g_strFile = "data/Generals.str";     ///< STR file path
+// GeneralsX @feature Android port 09/09/2026 Per-language, like g_csfFile above it.
+// GameTextManager::init() fills the %s in with the current language, and prefers this
+// plain-text file over the compiled .csf when it exists -- which is what makes a language
+// pack a text file someone can translate and send as a pull request, rather than a binary
+// nobody can review. See languages/README.md.
+const Char *g_strFile = "data/%s/generals.str";  ///< STR file path, per language
 
 // Extern declarations (from GameMain.cpp)
 extern Int GameMain();

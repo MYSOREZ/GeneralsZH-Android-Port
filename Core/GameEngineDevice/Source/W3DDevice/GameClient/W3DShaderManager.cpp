@@ -2675,7 +2675,26 @@ void W3DShaderManager::init()
 	// and crossfade come alive with this too, as they always would: they need nothing but
 	// this render target. Both are plain full-screen quads with preset shaders and neither
 	// touches MULTIPLYADD or DOTPRODUCT3.
-	res = W3DShaderManager::getChipset();
+	// GeneralsX @bugfix Android port 09/09/2026 CLOSED AGAIN, and this time by measurement.
+	//
+	// The MULTIPLYADD transposition below this file was real and is fixed, and the emitted
+	// GLSL now reads exactly as it should:
+	//   cur = clamp(vec4(uTFactor.a) + tex0 * vec4(uTFactor.a), 0, 1)
+	//   cur = clamp(dot(cur.rgb - 0.5, uTFactor.rgb - 0.5) * 4, 0, 1)
+	// But the shot still came out black, because tex0 is black. A glReadPixels of the render
+	// target, taken at the exact moment endRenderToTexture() hands it to the filter, says so
+	// outright:
+	//   rt-sample endRenderToTexture 2510x1156 avg=(0.0,0.0,0.0) max=(0,0,0) nonblack=0/4096 glerr=0x0
+	// The FBO is complete, the read is from the texture's own FBO, and GL reports no error --
+	// the scene simply never lands in it. So there were two independent faults, the arithmetic
+	// was only one of them, and the second is still open.
+	//
+	// Until the scene actually renders into that target, opening this gate ships black
+	// cinematics, which is worse than the colour ones it was meant to fix. The next question
+	// is who unbinds the FBO between preRender() and postRender() -- WW3D::Begin_Render and
+	// the 3D scene pass are the obvious suspects, since they run in between and both touch
+	// the render target.
+	if ((res=W3DShaderManager::getChipset()) != 0)
 	{
 		m_currentChipset = res;	//cache the current chipset.
 
