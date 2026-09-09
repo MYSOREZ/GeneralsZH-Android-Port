@@ -96,11 +96,6 @@ enum { INFINITE_LOOP_COUNT = 1000000 };
 
 #define LOAD_ALC_PROC(N) N = reinterpret_cast<decltype(N)>(alcGetProcAddress(m_alcDevice, #N))
 
-// GeneralsX @feature Android port 08/09/2026 Diagnostic: while this is set (GameClient turns
-// it on for exactly as long as a movie is on screen), every sample that starts naming itself in
-// the log. Two attempts to silence "the world" during a cutscene silenced the wrong things,
-// because nothing here said which events those actually were.
-Bool g_gxTraceSampleStarts = FALSE;
 
 static inline bool sourceIsStopped(ALuint source)
 {
@@ -950,16 +945,15 @@ void OpenALAudioManager::playAudioEvent(AudioEventRTS* event)
 				if (alGetError() != AL_NO_ERROR)
 					source = 0;
 			}
-			if (g_gxTraceSampleStarts)
-			{
-				fprintf(stderr, "[GX-AUDIO] sample starts during movie: %s\n",
-				        (event && event->getEventName().isNotEmpty()) ? event->getEventName().str() : "?");
-				fflush(stderr);
-			}
-			else
-			{
-				source = 0;
-			}
+			// GeneralsX @bugfix Android port 09/09/2026 There used to be an "else { source = 0; }"
+			// here, left behind by the abandoned experiment that tried to silence the world
+			// behind the intro movie. The flag it hung off is false at all times except while a
+			// movie is on screen, so the else ran for EVERY sample the game has ever played:
+			// the source that was just generated was thrown away unplayed and, because
+			// audio->m_source was then 0, never deleted either. Two symptoms, one line -- no
+			// button clicks and no world sound anywhere (music survived, being a stream), and
+			// the OpenAL source pool draining until alGenSources threw, about four hundred
+			// times in one session of the device log.
 			// Push it onto the list of playing things
 			audio->m_audioEventRTS = event;
 			audio->m_source = source;
@@ -1024,16 +1018,15 @@ void OpenALAudioManager::playAudioEvent(AudioEventRTS* event)
 				if (alGetError() != AL_NO_ERROR)
 					source = 0;
 			}
-			if (g_gxTraceSampleStarts)
-			{
-				fprintf(stderr, "[GX-AUDIO] sample starts during movie: %s\n",
-				        (event && event->getEventName().isNotEmpty()) ? event->getEventName().str() : "?");
-				fflush(stderr);
-			}
-			else
-			{
-				source = 0;
-			}
+			// GeneralsX @bugfix Android port 09/09/2026 There used to be an "else { source = 0; }"
+			// here, left behind by the abandoned experiment that tried to silence the world
+			// behind the intro movie. The flag it hung off is false at all times except while a
+			// movie is on screen, so the else ran for EVERY sample the game has ever played:
+			// the source that was just generated was thrown away unplayed and, because
+			// audio->m_source was then 0, never deleted either. Two symptoms, one line -- no
+			// button clicks and no world sound anywhere (music survived, being a stream), and
+			// the OpenAL source pool draining until alGenSources threw, about four hundred
+			// times in one session of the device log.
 
 			// Push it onto the list of playing things
 			audio->m_audioEventRTS = event;

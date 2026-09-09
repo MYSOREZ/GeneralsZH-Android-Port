@@ -597,12 +597,6 @@ void GameClient::update()
 	//
 	// Rather than guess a third time, the sample-start trace below names what is actually
 	// playing while a movie is on screen. Nothing is silenced until that says what to silence.
-	if (TheAudio != nullptr && TheDisplay != nullptr)
-	{
-		extern Bool g_gxTraceSampleStarts;
-		g_gxTraceSampleStarts = TheDisplay->isMoviePlaying();
-	}
-
 	// GeneralsX @bugfix Android port 08/09/2026 Count frames since a movie was last playing.
 	//
 	// This is the real cause of "the main menu battle is audible under the intro video", and
