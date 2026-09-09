@@ -745,6 +745,24 @@ void GameClient::update()
 
 	if(TheGlobalData->m_playIntro || TheGlobalData->m_afterIntro)
 	{
+		// GeneralsX @bugfix Android port 09/09/2026 The video player has to be updated here
+		// too. This branch returns early, skipping the TheVideoPlayer->UPDATE() further down --
+		// so during the whole intro sequence, which is the one time a video is guaranteed to
+		// be on screen, the player was never updated at all. Only Display::update() ran, and
+		// that pulls exactly one video frame per game frame, which is also all the audio the
+		// stream ever got: movie audio is produced one frame per decoded packet.
+		//
+		// A device log shows the difference precisely. The first movie, whose opening is
+		// pumped through a load-screen wait loop that does call the player, reached
+		//     movie audio frame #31: queued=26 state=PLAYING
+		// while the second, driven only from here, sat at
+		//     movie audio frame #121/#151/#181/#211: queued=0 state=STOPPED
+		// for its entire length -- one buffer queued, played out, drained, silence. That is
+		// the intro with no sound, and no amount of buffering inside the stream could fix it
+		// while the code that does the buffering was never reached.
+		if (TheVideoPlayer != nullptr)
+			TheVideoPlayer->UPDATE();
+
 		// redraw all views, update the GUI
 		TheDisplay->UPDATE();
 		TheDisplay->DRAW();
