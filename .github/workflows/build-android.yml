@@ -183,7 +183,16 @@ jobs:
           # were cached) -- an object-level compiler cache turns a one-file
           # change back into a near-incremental build instead of a 20-40 min
           # full rebuild.
-          sudo apt-get update -qq
+          # Every package below comes from the Ubuntu archive, but the runner
+          # image also carries third-party lists (Chrome, Microsoft) whose
+          # indexes are periodically served corrupt -- a "Hash Sum mismatch"
+          # there makes `apt-get update` exit 100 and, under `bash -e`, kills
+          # the whole release build. Drop the lists we do not need, then retry
+          # once for a genuinely transient mirror hiccup. A real archive
+          # outage still fails loudly on the `install` below.
+          sudo rm -f /etc/apt/sources.list.d/google-chrome.list \
+                     /etc/apt/sources.list.d/microsoft-prod.list
+          sudo apt-get update -qq || sudo apt-get update -qq || true
           sudo apt-get install -y -qq --no-install-recommends \
             ninja-build meson pkg-config glslang-tools ccache
           meson --version
