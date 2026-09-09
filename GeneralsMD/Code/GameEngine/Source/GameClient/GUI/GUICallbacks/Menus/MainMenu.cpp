@@ -664,7 +664,18 @@ void MainMenuInit( WindowLayout *layout, void *userData )
 //	TheShell->registerWithAnimateManager(buttonOptions, WIN_ANIMATION_SLIDE_LEFT, TRUE, 1);
 //	TheShell->registerWithAnimateManager(buttonExit, WIN_ANIMATION_SLIDE_RIGHT, TRUE, 1);
 //
-	layout->hide( FALSE );
+	// GeneralsX @bugfix Android port 09/09/2026 This unconditional unhide is what defeated the
+	// intro hide near the top of this same function. MainMenuInit is one long function: it
+	// calls layout->hide(TRUE) while an intro is pending (see above), then ~130 lines later
+	// arrives here and shows the layout again, in the same call, before the first frame is
+	// ever drawn. A device log printing isHidden right after the hide therefore reported
+	// isHidden=1 and looked like proof the menu was hidden -- it was, for the few microseconds
+	// until this line. The whole MainMenu layout was in fact visible for the entire intro, and
+	// it is the shell artwork reported over the movie (only the middle of the screen is
+	// covered by the letterboxed/pillarboxed video, so everything outside that rectangle shows
+	// through). Keep it hidden for as long as either intro flag is set; GameClient::update()
+	// clears m_afterIntro and reveals this layout when the intro is really over.
+	layout->hide( TheGlobalData->m_playIntro || TheGlobalData->m_afterIntro );
 
 	/*
 	if (!checkedForUpdate)

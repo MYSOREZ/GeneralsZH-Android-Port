@@ -44,6 +44,45 @@ OpenALAudioStream::~OpenALAudioStream()
     alDeleteBuffers(AL_STREAM_BUFFER_COUNT, m_buffers);
 }
 
+// GeneralsX @bugfix Android port 09/09/2026 How many queued buffers OpenAL has ACTUALLY
+// rendered -- which is NOT what AL_BUFFERS_PROCESSED reports.
+//
+// openal-soft answers AL_BUFFERS_PROCESSED by walking the source's queue up to the buffer the
+// source's *voice* is currently on (al/source.cpp, GetProperty):
+//
+//     int played{0};
+//     if(Source->state != AL_INITIAL) {
+//         const VoiceBufferItem *Current{nullptr};
+//         if(Voice *voice{GetSourceVoice(Source, Context)})
+//             Current = voice->mCurrentBuffer.load(...);
+//         for(auto &item : Source->mQueue) { if(&item == Current) break; ++played; }
+//     }
+//
+// A source in AL_STOPPED has no voice -- alSourceStop() sets VoiceIdx = InvalidVoiceIndex, and
+// a source that starves is stopped the same way -- so Current is nullptr, the loop never breaks,
+// and played comes back as the WHOLE QUEUE. Buffers queued onto a stopped source, which have not
+// had a single sample rendered, are reported as fully processed the instant they are queued.
+//
+// That is why the intro movies were silent. Movie audio is pushed straight in here (bufferData
+// then update(), no data callback), and FFmpegVideoStream's constructor calls reset() -- i.e.
+// alSourceStop() -- before decoding. On the second movie the source was therefore AL_STOPPED
+// with a real voice history, so every buffer the movie pushed was instantly "processed":
+// update()'s restart guard saw num_queued == processed and refused to start the source, then the
+// unqueue loop threw the untouched audio away. Device log, for the entire length of movie two:
+//     unqueue src=1 asked=1 failed=0 queuedAfter=0
+//     refilled src=1 queued=0 processed=0 state=STOPPED
+// The first movie escaped only because its source was brand new: alSourceStop() on an AL_INITIAL
+// source is a no-op, and AL_INITIAL is special-cased above to report zero processed.
+//
+// So track the buffers we queue while the source is stopped ourselves, and subtract them.
+ALint OpenALAudioStream::gxPlayedBuffers() const
+{
+    ALint processed = 0;
+    alGetSourcei(m_source, AL_BUFFERS_PROCESSED, &processed);
+    processed -= m_unplayedWhileStopped;
+    return processed > 0 ? processed : 0;
+}
+
 bool OpenALAudioStream::bufferData(uint8_t *data, size_t data_size, ALenum format, int samplerate)
 {
     DEBUG_LOG(("Buffering %zu bytes of data (samplerate: %i, format: %i)\n", data_size, samplerate, format));
@@ -73,6 +112,15 @@ bool OpenALAudioStream::bufferData(uint8_t *data, size_t data_size, ALenum forma
         return false;
     }
 
+    // GeneralsX @bugfix Android port 09/09/2026 Remember that this buffer went onto a stopped
+    // source, so gxPlayedBuffers() can discount OpenAL's claim that it is already processed.
+    // Only AL_STOPPED lies: AL_INITIAL is special-cased to report zero, and AL_PLAYING /
+    // AL_PAUSED both still own a voice and report the true position.
+    ALint stateNow = 0;
+    alGetSourcei(m_source, AL_SOURCE_STATE, &stateNow);
+    if (stateNow == AL_STOPPED)
+        m_unplayedWhileStopped++;
+
     m_current_buffer_idx++;
 
     if (m_current_buffer_idx >= AL_STREAM_BUFFER_COUNT)
@@ -96,9 +144,12 @@ void OpenALAudioStream::update()
     // threshold (so the periodic refill/EOF check below hasn't run) gets restarted, REPLAYING its
     // already-played buffers as a repeating 'chip' until the next line. If data IS still available
     // this is a genuine underrun and m_endOfData stays false so the normal refill+restart recovers.
+    // GeneralsX @bugfix Android port 09/09/2026 "Fully played" has to mean gxPlayedBuffers(),
+    // not AL_BUFFERS_PROCESSED: on a stopped source the latter counts never-rendered buffers too,
+    // so a source holding fresh, unplayed data would be probed (and eventually EOF-latched) as if
+    // it had run dry.
     {
-        ALint processedNow = 0;
-        alGetSourcei(m_source, AL_BUFFERS_PROCESSED, &processedNow);
+        ALint processedNow = gxPlayedBuffers();
         if (sourceState == AL_STOPPED && num_queued > 0 && processedNow >= num_queued
             && !m_endOfData && m_requireDataCallback) {
             ALint queuedBefore = num_queued;
@@ -153,52 +204,30 @@ void OpenALAudioStream::update()
         }
     }
 
-    // GeneralsX @bugfix BenderAI 22/04/2026 Restart before unqueue to avoid dropping freshly queued
-    // briefing buffers when OpenAL reports AL_STOPPED with processed buffers.
-    // GeneralsX @bugfix 14/06/2026 ...but NOT once the stream is at true EOF: a finished one-shot
-    // speech (taunt) must be allowed to reach a stable AL_STOPPED so its disallowSpeech flag clears.
-    // GeneralsX @bugfix Android port 08/09/2026 Only restart if there is something here that
-    // has NOT been played yet. "num_queued > 0" counts buffers that are still attached to the
-    // source, and a source that ran dry still has all of its ALREADY-PLAYED buffers attached,
-    // because they are unqueued further down -- after this. So restarting a dry source replayed
-    // the last second of audio, drained again, replayed again: reported as the loading music
-    // stuttering "like Morse code" and starting over every time, once starved streams stopped
-    // being destroyed and this loop got to run repeatedly.
+    // GeneralsX @bugfix Android port 09/09/2026 Release what was really played FIRST, and only
+    // then restart. The order matters both ways round:
     //
-    // Requiring an unprocessed buffer keeps the case this restart exists for -- a source that
-    // stopped while freshly queued, never-played data was waiting on it -- and drops the case
-    // where the only thing left to "resume" is the past.
-    ALint processedNow = 0;
-    alGetSourcei(m_source, AL_BUFFERS_PROCESSED, &processedNow);
+    //  * alSourcePlay() always (re)starts a source at the FRONT of its queue (openal-soft
+    //    StartSources: voice->mCurrentBuffer = &source->mQueue.front()). Restarting a dry source
+    //    before releasing its spent buffers therefore REPLAYS the last second of audio, drains,
+    //    replays -- the loading music that stuttered "like Morse code" and started over.
+    //  * Unqueueing everything AL_BUFFERS_PROCESSED reports, on the other hand, throws away
+    //    audio that was never rendered, because a stopped source reports its whole queue as
+    //    processed (see gxPlayedBuffers()). That is what silenced the intro movies.
+    //
+    // Releasing exactly gxPlayedBuffers() buffers satisfies both: spent buffers go, fresh data
+    // stays, and the restart below then starts the source on the first frame it has not heard.
+    // (alSourceUnqueueBuffers takes from the front of the queue, which is where the spent
+    // buffers are, so the count alone selects the right ones.)
+    ALint processedBeforeUnqueue = gxPlayedBuffers();
+    DEBUG_LOG(("%i buffers have been processed\n", processedBeforeUnqueue));
+
     // GeneralsX @feature Android port 08/09/2026 Trace the WHOLE starved update, not just its
     // first half. The previous log showed three probes in a row all reporting a full,
     // fully-played queue, which the unqueue was supposed to have emptied -- but nothing said
     // what the unqueue and the refill actually did in between, so the reason is unknowable.
-    const bool gxStarved = (sourceState == AL_STOPPED && num_queued > 0 && processedNow >= num_queued);
-    if ((sourceState == AL_STOPPED || sourceState == AL_INITIAL || sourceState == AL_PAUSED)
-        && num_queued > processedNow && !m_endOfData && !m_paused) {
-        play();
-        alGetSourcei(m_source, AL_SOURCE_STATE, &sourceState);
-    }
+    const bool gxStarved = (sourceState == AL_STOPPED && num_queued > 0);
 
-    ALint processedBeforeUnqueue = 0;
-    alGetSourcei(m_source, AL_BUFFERS_PROCESSED, &processedBeforeUnqueue);
-    DEBUG_LOG(("%i buffers have been processed\n", processedBeforeUnqueue));
-
-    // GeneralsX @bugfix Android port 08/09/2026 Unqueue in EVERY state, not only while playing.
-    //
-    // This gate is what makes the loading music stutter, and a device log shows it exactly:
-    //   probe src=2 queued=16 processed=16 moreData=1 queuedAfter=17 stalled=0
-    // Every buffer queued has been played, and none is ever released, because a starved source
-    // is AL_STOPPED and this skipped it. num_queued therefore sits at the buffer count forever,
-    // so the bulk refill below -- which only runs while num_queued < AL_STREAM_BUFFER_COUNT / 2
-    // -- can never run. The only thing that ever adds data is the single-buffer EOF probe, one
-    // buffer per audio update, and during a load those updates are seconds apart. Hence music
-    // in fragments: it plays one buffer, runs dry, waits for the next pump.
-    //
-    // Unqueueing here cannot lose anything. AL_BUFFERS_PROCESSED counts only buffers played to
-    // completion; freshly queued, unplayed data is not included, which is what the original
-    // caution was about.
     ALint processedToUnqueue = processedBeforeUnqueue;
     ALint gxUnqueueFailures = 0;
     while (processedToUnqueue > 0) {
@@ -209,19 +238,32 @@ void OpenALAudioStream::update()
             gxUnqueueFailures++;
         processedToUnqueue--;
     }
+    alGetSourcei(m_source, AL_BUFFERS_QUEUED, &num_queued);
     if (gxStarved) {
-        ALint afterUnqueue = 0;
-        alGetSourcei(m_source, AL_BUFFERS_QUEUED, &afterUnqueue);
-        fprintf(stderr, "[GX-AUDIO] unqueue src=%u asked=%d failed=%d queuedAfter=%d\n",
-                (unsigned)m_source, (int)processedBeforeUnqueue, (int)gxUnqueueFailures,
-                (int)afterUnqueue);
+        fprintf(stderr, "[GX-AUDIO] unqueue src=%u played=%d unplayedWhileStopped=%d failed=%d queuedAfter=%d\n",
+                (unsigned)m_source, (int)processedBeforeUnqueue, (int)m_unplayedWhileStopped,
+                (int)gxUnqueueFailures, (int)num_queued);
         fflush(stderr);
+    }
+
+    // GeneralsX @bugfix BenderAI 22/04/2026 Restart before the refill, so freshly queued briefing
+    // buffers are not left sitting on a stopped source until the next update.
+    // GeneralsX @bugfix 14/06/2026 ...but NOT once the stream is at true EOF: a finished one-shot
+    // speech (taunt) must be allowed to reach a stable AL_STOPPED so its disallowSpeech flag clears.
+    if ((sourceState == AL_STOPPED || sourceState == AL_INITIAL || sourceState == AL_PAUSED)
+        && num_queued > 0 && !m_endOfData && !m_paused) {
+        play();
+        alGetSourcei(m_source, AL_SOURCE_STATE, &sourceState);
     }
 
     // GeneralsX @bugfix 14/06/2026 At true EOF the source has stopped with its final buffers
     // still queued-but-processed; the state-gated unqueue above skips them. Reap them here so
     // num_queued can reach 0, letting processPlayingList detect the finished one-shot as stopped
     // (which clears disallowSpeech the frame the audio ends, so back-to-back taunts play).
+    // GeneralsX @bugfix Android port 09/09/2026 This one reaps the RAW processed count on
+    // purpose, not gxPlayedBuffers(): at true EOF nothing more will ever be played, so holding
+    // buffers back would leave num_queued permanently above zero and processPlayingList would
+    // never see the one-shot finish. Clear the "queued while stopped" tally with them.
     if (m_endOfData) {
         ALint processedAtEof = 0;
         alGetSourcei(m_source, AL_BUFFERS_PROCESSED, &processedAtEof);
@@ -230,6 +272,7 @@ void OpenALAudioStream::update()
             alSourceUnqueueBuffers(m_source, 1, &buffer);
             processedAtEof--;
         }
+        m_unplayedWhileStopped = 0;
     }
 
     alGetSourcei(m_source, AL_BUFFERS_QUEUED, &num_queued);
@@ -290,11 +333,11 @@ void OpenALAudioStream::update()
         play();
     }
     if (gxStarved) {
-        ALint finalQueued = 0, finalProcessed = 0, finalState = 0;
+        ALint finalQueued = 0, finalState = 0;
         alGetSourcei(m_source, AL_BUFFERS_QUEUED, &finalQueued);
-        alGetSourcei(m_source, AL_BUFFERS_PROCESSED, &finalProcessed);
+        const ALint finalProcessed = gxPlayedBuffers();
         alGetSourcei(m_source, AL_SOURCE_STATE, &finalState);
-        fprintf(stderr, "[GX-AUDIO] refilled src=%u queued=%d processed=%d state=%s\n",
+        fprintf(stderr, "[GX-AUDIO] refilled src=%u queued=%d played=%d state=%s\n",
                 (unsigned)m_source, (int)finalQueued, (int)finalProcessed,
                 finalState == AL_PLAYING ? "PLAYING" :
                 finalState == AL_STOPPED ? "STOPPED" :
@@ -321,6 +364,7 @@ void OpenALAudioStream::reset()
         num_queued--;
     }
     m_current_buffer_idx = 0;
+    m_unplayedWhileStopped = 0;  // GeneralsX @bugfix Android port 09/09/2026 the queue is gone; nothing is pending
     m_endOfData = false;  // GeneralsX @bugfix 14/06/2026 streams are reused (handleToKill/replace); clear EOF latch
     m_stalledProbes = 0;
 }

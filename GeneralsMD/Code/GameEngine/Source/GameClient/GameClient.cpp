@@ -96,6 +96,11 @@
 /// The GameClient singleton instance
 GameClient *TheGameClient = nullptr;
 
+// GeneralsX @bugfix Android port 09/09/2026 Let the renderer black the whole screen out while
+// the intro sequence is running (see W3DDisplay::draw()). Cleared only around the legal page,
+// which is the one thing that is legitimately drawn during the intro without a movie under it.
+Bool g_gxIntroBlackoutAllowed = TRUE;
+
 //-------------------------------------------------------------------------------------------------
 GameClient::GameClient()
 {
@@ -657,6 +662,9 @@ void GameClient::update()
 				WindowLayout *legal = TheWindowManager->winCreateLayout("Menus/LegalPage.wnd");
 				if(legal)
 				{
+					// This page IS meant to be visible during the intro, with no movie behind
+					// it -- exempt it from the intro blackout for as long as it is up.
+					g_gxIntroBlackoutAllowed = FALSE;
 					legal->hide(FALSE);
 					legal->bringForward();
 					Int beginTime = timeGetTime();
@@ -677,6 +685,7 @@ void GameClient::update()
 
 					legal->destroyWindows();
 					deleteInstance(legal);
+					g_gxIntroBlackoutAllowed = TRUE;
 
 				}
 				TheWritableGlobalData->m_breakTheMovie = TRUE;
@@ -692,13 +701,25 @@ void GameClient::update()
 			fprintf(stderr, "[GX-AUDIO] intro finished (%d frames quiet) -> loading shell map\n",
 			        (int)s_framesSinceMoviePlaying);
 			fflush(stderr);
-			// Reveal the static main-menu layout MainMenuInit hid while the intro was
-			// pending (MainMenu.cpp), at the same point the map itself is finally let in.
-			if (TheShell->top())
-				TheShell->top()->hide(FALSE);
+			// GeneralsX @bugfix Android port 09/09/2026 Order matters here, in both directions.
+			//
+			// showShell() runs the top layout's init callback again -- a device log shows
+			// MainMenuInit running a second time right after this point -- and MainMenuInit
+			// only skips queueing its own MSG_NEW_GAME (through showShellMap) while it can
+			// still see an intro in progress. So m_afterIntro has to stay set across the
+			// showShell() call, or the shell map gets requested twice.
+			//
+			// MainMenuInit also (re)hides the layout for as long as either intro flag is set,
+			// so the reveal has to come AFTER both showShell() and the flag clear, not before
+			// them -- doing it first, as this used to, left the layout hidden by that second
+			// MainMenuInit with nothing to ever show it again.
 			TheShell->showShellMap(TRUE);
 			TheShell->showShell();
 			TheWritableGlobalData->m_afterIntro = FALSE;
+			// Reveal the static main-menu layout MainMenuInit kept hidden through the intro
+			// (MainMenu.cpp), at the same point the map itself is finally let in.
+			if (TheShell->top())
+				TheShell->top()->hide(FALSE);
 		}
 		}
 	}
