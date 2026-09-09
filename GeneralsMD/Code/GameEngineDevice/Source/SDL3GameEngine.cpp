@@ -510,6 +510,24 @@ static Bool gxScriptOwnsCamera(void)
 	if (!TheTacticalView) {
 		return FALSE;
 	}
+
+	// GeneralsX @bugfix Android port 09/09/2026 The camera-state tests below are not
+	// enough on their own, and a device report said so: in some missions the camera could
+	// still be dragged during a cutscene. They only catch a script that is ACTIVELY moving
+	// the camera. A cutscene that holds a fixed shot, or one that has finished its move and
+	// is playing out dialogue, sets none of them -- and neither does a scripted move whose
+	// own state is cleared while it runs (resetCamera does exactly that).
+	//
+	// What every cutscene does do is call the Disable Input script action, and on the PC
+	// that is precisely what stops the mouse from scrolling: LookAtTranslator::setScrolling
+	// returns immediately when getInputEnabled() is false (LookAtXlat.cpp:87). The touch
+	// path calls TheTacticalView directly and never goes near that translator, so it never
+	// inherited the rule. Ask the same question here and the behaviour matches the desktop
+	// build for every cutscene, not just the ones that happen to be moving the camera.
+	if (TheInGameUI != NULL && !TheInGameUI->getInputEnabled()) {
+		return TRUE;
+	}
+
 	if (!TheTacticalView->isCameraMovementFinished()) {
 		return TRUE;
 	}
