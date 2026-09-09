@@ -307,7 +307,13 @@ void Display::update()
 		{
 			m_videoStream->frameDecompress();
 			m_videoStream->frameRender( m_videoBuffer );
-			if( m_videoStream->frameIndex() != m_videoStream->frameCount() - 1)
+			// GeneralsX @bugfix Android port 09/09/2026 "<", not "!=". An equality test here
+			// is a trap: anything that advances the stream by more than one frame at a time --
+			// a decoder handing back several frames for one packet, or a look-ahead reading
+			// ahead for audio -- steps over the last frame, and then this branch keeps calling
+			// frameNext() on an exhausted stream forever. The movie hangs on its final frame
+			// and cannot be skipped. Reaching or passing the last frame must end the movie.
+			if( m_videoStream->frameIndex() < m_videoStream->frameCount() - 1)
 				m_videoStream->frameNext();
 			else if( m_copyrightHoldTime >= 0 ||m_movieHoldTime >= 0 )
 			{

@@ -497,7 +497,13 @@ void FFmpegVideoStream::update()
 		ALint gxQueued = 0;
 		alGetSourcei(audioStream->getSource(), AL_BUFFERS_QUEUED, &gxQueued);
 		int gxBudget = 24;
-		while (gxQueued < AL_STREAM_BUFFER_COUNT / 2 && gxBudget-- > 0)
+		// Never let the look-ahead run into the tail: Display::update() ends a movie by
+		// testing frameIndex() against frameCount()-1 for EQUALITY, so overshooting it hangs
+		// the movie on its last frame with no way to skip. Stop a few frames short and let
+		// Display::update() walk onto the last frame itself.
+		const int gxLastFrame = m_ffmpegFile->getNumFrames() - 1;
+		while (gxQueued < AL_STREAM_BUFFER_COUNT / 2 && gxBudget-- > 0
+		       && m_ffmpegFile->getCurrentFrame() + 4 < gxLastFrame)
 		{
 			if (!m_ffmpegFile->decodePacket())
 				break;

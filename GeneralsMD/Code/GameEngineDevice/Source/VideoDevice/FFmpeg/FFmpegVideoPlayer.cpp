@@ -566,7 +566,18 @@ void FFmpegVideoStream::update( void )
         ALint gxQueued = 0;
         alGetSourcei(audioStream->getSource(), AL_BUFFERS_QUEUED, &gxQueued);
         int gxBudget = 24;   // bounded work per game frame; never spin on a dead stream
-        while (gxQueued < AL_STREAM_BUFFER_COUNT / 2 && gxBudget-- > 0)
+
+        // GeneralsX @bugfix Android port 09/09/2026 Never let the look-ahead run into the tail
+        // of the movie. Display::update() ends a movie by testing frameIndex() against
+        // frameCount()-1 for EQUALITY; decoding past that point makes the test never match, so
+        // frameNext() is called forever on an exhausted stream and the movie hangs on its last
+        // frame -- reported as a black screen that cannot be skipped. Stopping a few frames
+        // short leaves the ending to Display::update(), which advances one frame at a time and
+        // always lands on it exactly. (A single decodePacket() can deliver more than one frame,
+        // hence the margin rather than a bare "not the last one".)
+        const int gxLastFrame = m_ffmpegFile->getNumFrames() - 1;
+        while (gxQueued < AL_STREAM_BUFFER_COUNT / 2 && gxBudget-- > 0
+               && m_ffmpegFile->getCurrentFrame() + 4 < gxLastFrame)
         {
             if (!m_ffmpegFile->decodePacket())
                 break;
