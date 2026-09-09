@@ -102,6 +102,16 @@
     <string name="setup_switch_gx_perf_desc">Добавляет одну короткую строку в секунду о том, куда уходит время кадра (радар, звук, сеть, игровая логика, рендер). Можно оставить включённым на всю сессию — включайте для отчётов о низком FPS/подтормаживаниях. (gx_perf.txt)</string>
     <string name="setup_switch_gx_audio_trace">Журнал звука</string>
     <string name="setup_switch_gx_audio_trace_desc">Записывает, что делает звуковая система: заполнение буферов музыки и речи, звук роликов и каждый запуск и остановку источника. Включите, если после жалобы на пропавший, прерывистый или тихий звук у вас попросят журнал звука. (gx_audio_trace.txt)</string>
+    <string name="setup_button_download_langpack">Скачать языковой пакет</string>
+    <string name="setup_langpack_downloading">Загружаю языковой пакет…</string>
+    <string name="setup_langpack_done">Языковой пакет установлен. Игра подхватит его при следующем запуске.</string>
+    <string name="setup_langpack_failed">Не удалось скачать языковой пакет: %1$s</string>
+    <string name="setup_langpack_not_available">Для этого языка лаунчера нет пакета игрового текста.</string>
+    <string name="setup_langpack_no_folder">Сначала выберите папку с игрой.</string>
+    <string name="setup_langpack_err_none_yet">Пакета для этого языка пока нет. Переводы приветствуются — см. languages/README.md в репозитории проекта.</string>
+    <string name="setup_langpack_err_mkdir">не удалось создать языковую папку в папке игры</string>
+    <string name="setup_langpack_err_empty">скачанный файл оказался пустым</string>
+    <string name="setup_langpack_err_replace">не удалось заменить существующий файл</string>
     <string name="setup_switch_dxvk_hud">Оверлей производительности на экране</string>
     <string name="setup_switch_dxvk_hud_desc">Показывает FPS, число draw call\'ов, отправок команд GPU и пайплайнов прямо на экране и в логе. Включайте для отчётов о производительности GPU. (dxvk_hud.txt)</string>
     <string name="setup_switch_dxvk_validation">Слой валидации Vulkan</string>

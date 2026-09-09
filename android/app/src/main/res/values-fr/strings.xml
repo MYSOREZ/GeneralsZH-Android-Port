@@ -92,6 +92,16 @@
     <string name="setup_switch_gx_perf_desc">Ajoute une courte ligne par seconde indiquant où passe le temps de trame (radar, audio, réseau, logique du jeu, rendu). Peut rester activé toute la session sans risque — activez-le pour les rapports de FPS/ralentissements. (gx_perf.txt)</string>
     <string name="setup_switch_gx_audio_trace">Journal audio</string>
     <string name="setup_switch_gx_audio_trace_desc">Enregistre ce que fait le système sonore : niveau des tampons de musique et de voix, audio des vidéos, et chaque source qui démarre ou s\'arrête. Activez-le si un journal audio vous est demandé après un signalement de son absent, haché ou muet. (gx_audio_trace.txt)</string>
+    <string name="setup_button_download_langpack">Télécharger le pack de langue</string>
+    <string name="setup_langpack_downloading">Téléchargement du pack de langue…</string>
+    <string name="setup_langpack_done">Pack de langue installé. Le jeu l\'utilisera au prochain lancement.</string>
+    <string name="setup_langpack_failed">Impossible de télécharger le pack de langue : %1$s</string>
+    <string name="setup_langpack_not_available">Cette langue du lanceur n\'a pas de pack de texte de jeu.</string>
+    <string name="setup_langpack_no_folder">Sélectionnez d\'abord votre dossier de jeu.</string>
+    <string name="setup_langpack_err_none_yet">Il n\'y a pas encore de pack pour cette langue. Les traductions sont bienvenues — voir languages/README.md dans le dépôt du projet.</string>
+    <string name="setup_langpack_err_mkdir">impossible de créer le dossier de langue dans le dossier du jeu</string>
+    <string name="setup_langpack_err_empty">le fichier téléchargé était vide</string>
+    <string name="setup_langpack_err_replace">impossible de remplacer le fichier existant</string>
     <string name="setup_switch_dxvk_hud">Overlay de performances à l\'écran</string>
     <string name="setup_switch_dxvk_hud_desc">Affiche les FPS, le nombre d\'appels de dessin, de soumissions et de pipelines directement à l\'écran et dans le journal. Activez-le pour les rapports de performances GPU. (dxvk_hud.txt)</string>
     <string name="setup_switch_dxvk_validation">Couche de validation Vulkan</string>

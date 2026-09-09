@@ -92,6 +92,16 @@
     <string name="setup_switch_gx_perf_desc">Додає один короткий рядок на секунду про те, куди йде час кадру (радар, звук, мережа, логіка гри, рендеринг). Можна безпечно залишити увімкненим на всю сесію — вмикайте для звітів про FPS/просідання. (gx_perf.txt)</string>
     <string name="setup_switch_gx_audio_trace">Журнал звуку</string>
     <string name="setup_switch_gx_audio_trace_desc">Записує, що робить звукова система: заповнення буферів музики й мовлення, звук роликів і кожен запуск та зупинку джерела. Увімкніть, якщо після скарги на зниклий, переривчастий або тихий звук у вас попросять журнал звуку. (gx_audio_trace.txt)</string>
+    <string name="setup_button_download_langpack">Завантажити мовний пакет</string>
+    <string name="setup_langpack_downloading">Завантажую мовний пакет…</string>
+    <string name="setup_langpack_done">Мовний пакет встановлено. Гра підхопить його під час наступного запуску.</string>
+    <string name="setup_langpack_failed">Не вдалося завантажити мовний пакет: %1$s</string>
+    <string name="setup_langpack_not_available">Для цієї мови лаунчера немає пакета ігрового тексту.</string>
+    <string name="setup_langpack_no_folder">Спочатку виберіть теку з грою.</string>
+    <string name="setup_langpack_err_none_yet">Пакета для цієї мови ще немає. Переклади вітаються — див. languages/README.md у репозиторії проєкту.</string>
+    <string name="setup_langpack_err_mkdir">не вдалося створити мовну теку в теці гри</string>
+    <string name="setup_langpack_err_empty">завантажений файл виявився порожнім</string>
+    <string name="setup_langpack_err_replace">не вдалося замінити наявний файл</string>
     <string name="setup_switch_dxvk_hud">Екранний оверлей продуктивності</string>
     <string name="setup_switch_dxvk_hud_desc">Показує FPS, кількість draw call, надсилань і пайплайнів прямо на екрані та в логу. Вмикайте для звітів про продуктивність GPU. (dxvk_hud.txt)</string>
     <string name="setup_switch_dxvk_validation">Шар валідації Vulkan</string>

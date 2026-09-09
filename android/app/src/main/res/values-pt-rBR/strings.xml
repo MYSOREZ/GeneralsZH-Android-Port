@@ -92,6 +92,16 @@
     <string name="setup_switch_gx_perf_desc">Adiciona uma linha curta por segundo mostrando para onde vai o tempo de quadro (radar, áudio, rede, lógica do jogo, renderização). Seguro deixar ativado durante toda a sessão — ative para relatos de FPS/lentidão. (gx_perf.txt)</string>
     <string name="setup_switch_gx_audio_trace">Registro de áudio</string>
     <string name="setup_switch_gx_audio_trace_desc">Registra o que o sistema de som está fazendo: nível dos buffers de música e fala, áudio dos vídeos e cada fonte que inicia ou para. Ative isto se pedirem um registro de áudio depois de você relatar som ausente, engasgado ou mudo. (gx_audio_trace.txt)</string>
+    <string name="setup_button_download_langpack">Baixar pacote de idioma</string>
+    <string name="setup_langpack_downloading">Baixando o pacote de idioma…</string>
+    <string name="setup_langpack_done">Pacote de idioma instalado. O jogo vai usá-lo no próximo início.</string>
+    <string name="setup_langpack_failed">Não foi possível baixar o pacote de idioma: %1$s</string>
+    <string name="setup_langpack_not_available">Este idioma do inicializador não tem pacote de texto do jogo.</string>
+    <string name="setup_langpack_no_folder">Selecione primeiro a pasta do jogo.</string>
+    <string name="setup_langpack_err_none_yet">Ainda não há pacote para este idioma. Traduções são bem-vindas — veja languages/README.md no repositório do projeto.</string>
+    <string name="setup_langpack_err_mkdir">não foi possível criar a pasta de idioma na pasta do jogo</string>
+    <string name="setup_langpack_err_empty">o arquivo baixado estava vazio</string>
+    <string name="setup_langpack_err_replace">não foi possível substituir o arquivo existente</string>
     <string name="setup_switch_dxvk_hud">Overlay de desempenho na tela</string>
     <string name="setup_switch_dxvk_hud_desc">Mostra FPS, número de draw calls, submissions e pipelines diretamente na tela e no registro. Ative para relatos de desempenho da GPU. (dxvk_hud.txt)</string>
     <string name="setup_switch_dxvk_validation">Camada de validação Vulkan</string>

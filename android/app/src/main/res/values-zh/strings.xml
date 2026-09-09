@@ -92,6 +92,16 @@
     <string name="setup_switch_gx_perf_desc">每秒添加一行简短记录，显示每帧时间花在哪里（雷达、音频、网络、游戏逻辑、渲染）。整个游玩会话保持开启也是安全的 —— 用于 FPS/卡顿报告时打开。(gx_perf.txt)</string>
     <string name="setup_switch_gx_audio_trace">音频日志</string>
     <string name="setup_switch_gx_audio_trace_desc">记录声音系统的运行情况：音乐与语音的缓冲区水平、过场动画音频，以及每一个启动或停止的音源。如果你报告了声音缺失、断续或无声后被要求提供音频日志，请打开此项。(gx_audio_trace.txt)</string>
+    <string name="setup_button_download_langpack">下载语言包</string>
+    <string name="setup_langpack_downloading">正在下载语言包…</string>
+    <string name="setup_langpack_done">语言包已安装。游戏将在下次启动时使用它。</string>
+    <string name="setup_langpack_failed">无法下载语言包：%1$s</string>
+    <string name="setup_langpack_not_available">此启动器语言没有对应的游戏文本包。</string>
+    <string name="setup_langpack_no_folder">请先选择游戏文件夹。</string>
+    <string name="setup_langpack_err_none_yet">该语言暂时还没有语言包。欢迎参与翻译——请查看项目仓库中的 languages/README.md。</string>
+    <string name="setup_langpack_err_mkdir">无法在游戏文件夹中创建语言文件夹</string>
+    <string name="setup_langpack_err_empty">下载的文件是空的</string>
+    <string name="setup_langpack_err_replace">无法替换已有的文件</string>
     <string name="setup_switch_dxvk_hud">屏幕性能叠加层</string>
     <string name="setup_switch_dxvk_hud_desc">直接在屏幕和日志中显示 FPS、绘制调用数、提交数和管线数。用于 GPU 性能报告时打开。(dxvk_hud.txt)</string>
     <string name="setup_switch_dxvk_validation">Vulkan 验证层</string>

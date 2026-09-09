@@ -92,6 +92,16 @@
     <string name="setup_switch_gx_perf_desc">Dodaje odnu kratku liniju na sekundu, kotora pokazuje kde ide vrěmě kadra (radar, zvuk, sěť, logika igry, renderovanje). Bezpečno ostaviti uklopjeno za cělu sesiju igry — uklopte za izvěšćenja o FPS/zapovolnjenjih. (gx_perf.txt)</string>
     <string name="setup_switch_gx_audio_trace">Dnevnik zvuka</string>
     <string name="setup_switch_gx_audio_trace_desc">Zapisyvaje, čto dělaje zvukova sistema: napolnjenje buferov muziky i govora, zvuk video i vsakoje počenje i zastavjenje izvora. Vključite, ako po žalobě na izgubjeny, preryvny ili tihy zvuk od vas poprosjut dnevnik zvuka. (gx_audio_trace.txt)</string>
+    <string name="setup_button_download_langpack">Sņeti jezyčny paket</string>
+    <string name="setup_langpack_downloading">Sņimaje se jezyčny paket…</string>
+    <string name="setup_langpack_done">Jezyčny paket instalovany. Igra jego upotrěbi pri slědujučem pusku.</string>
+    <string name="setup_langpack_failed">Ne bylo možno sņeti jezyčny paket: %1$s</string>
+    <string name="setup_langpack_not_available">Za tutu jezyk pusknika ne jest paketa igrovogo teksta.</string>
+    <string name="setup_langpack_no_folder">Najprvo izberite papku igry.</string>
+    <string name="setup_langpack_err_none_yet">Za tutu jezyk hče ne jest paketa. Prěvody sut vitajemy — glejte languages/README.md v repozitoriju projekta.</string>
+    <string name="setup_langpack_err_mkdir">ne bylo možno stvoriti jezyčnu papku v papkě igry</string>
+    <string name="setup_langpack_err_empty">sņety fajl byl prazdny</string>
+    <string name="setup_langpack_err_replace">ne bylo možno zaměniti postoječi fajl</string>
     <string name="setup_switch_dxvk_hud">Ekranny overlej proizvoditelnosti</string>
     <string name="setup_switch_dxvk_hud_desc">Pokazuje FPS, čislo draw call, otprav i pajplajnov prěmo na ekranu i v logu. Uklopte za izvěšćenja o proizvoditelnosti GPU. (dxvk_hud.txt)</string>
     <string name="setup_switch_dxvk_validation">Sloj validacije Vulkan</string>

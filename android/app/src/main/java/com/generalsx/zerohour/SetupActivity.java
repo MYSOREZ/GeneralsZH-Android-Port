@@ -70,6 +70,8 @@ import com.google.android.material.slider.Slider;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.io.File;
 
 public class SetupActivity extends Activity {
@@ -467,6 +469,9 @@ public class SetupActivity extends Activity {
 
         gameLanguageStatusView = UiKit.supporting(content, null);
         updateGameLanguageStatusView();
+
+        languagePackButton = UiKit.button(content, UiKit.BTN_OUTLINE, R.drawable.ic_gzh_download,
+            getString(R.string.setup_button_download_langpack), this::onDownloadLanguagePack);
 
         UiKit.helpText(content, getString(R.string.setup_language_help));
     }
@@ -1685,19 +1690,28 @@ public class SetupActivity extends Activity {
         if (gamePath == null || token == null) {
             return false;
         }
-        if (new File(gamePath, "data/" + token + "/generals.csf").isFile()) {
-            return true;
+        // GeneralsX @feature Android port 09/09/2026 Either format counts. generals.str is
+        // the plain-text one the engine now prefers and the one a language pack ships as
+        // (languages/README.md); generals.csf is the compiled form the original SKUs and the
+        // old .big translations carry. Asking only about the .csf would have told a player
+        // who just downloaded a pack that their game folder had nothing in it.
+        for (String leaf : new String[] { "generals.str", "generals.csf" }) {
+            if (new File(gamePath, "data/" + token + "/" + leaf).isFile()) {
+                return true;
+            }
         }
-        String wanted = ("data/" + token + "/generals.csf").toLowerCase(java.util.Locale.ROOT);
         File root = new File(gamePath);
-        if (bigContainsEntry(root, wanted)) {
-            return true;
-        }
         File[] children = root.listFiles();
-        if (children != null) {
-            for (File child : children) {
-                if (child.isDirectory() && bigContainsEntry(child, wanted)) {
-                    return true;
+        for (String leaf : new String[] { "generals.str", "generals.csf" }) {
+            String wanted = ("data/" + token + "/" + leaf).toLowerCase(java.util.Locale.ROOT);
+            if (bigContainsEntry(root, wanted)) {
+                return true;
+            }
+            if (children != null) {
+                for (File child : children) {
+                    if (child.isDirectory() && bigContainsEntry(child, wanted)) {
+                        return true;
+                    }
                 }
             }
         }
@@ -1757,6 +1771,126 @@ public class SetupActivity extends Activity {
         }
         return false;
     }
+
+
+    // GeneralsX @feature Android port 09/09/2026 Fetch a language pack straight from the
+    // project's own repository.
+    //
+    // A language is one plain-text file now (languages/<token>/generals.str -- see
+    // languages/README.md), so installing one is downloading a file into
+    // data/<token>/generals.str inside the game folder. No archive, no unpacking, no
+    // asking a player to find a folder with a file manager. And because the pack is a text
+    // file in the repository, a translator's pull request reaches players as soon as it is
+    // merged.
+    // Points at the branch the packs currently live on. Move it to "main" when this work
+    // merges -- a button that 404s because the file is on another branch is a worse first
+    // impression than no button.
+    private static final String LANGUAGE_PACK_BASE =
+        "https://raw.githubusercontent.com/MYSOREZ/GeneralsZH-Android-Port/claude/audio-fixes/languages/";
+
+    private void onDownloadLanguagePack() {
+        final String launcherTag = LocaleHelper.getSavedLanguageTag(this);
+        final String token = LocaleHelper.gameDataLanguageFor(launcherTag);
+        final String gamePath = getSavedGamePath();
+
+        if (token == null) {
+            toast(getString(R.string.setup_langpack_not_available));
+            return;
+        }
+        if (gamePath == null) {
+            toast(getString(R.string.setup_langpack_no_folder));
+            return;
+        }
+        if (languagePackButton != null) {
+            languagePackButton.setEnabled(false);
+        }
+        toast(getString(R.string.setup_langpack_downloading));
+
+        new Thread(() -> {
+            final String error = downloadLanguagePack(token, gamePath);
+            runOnUiThread(() -> {
+                if (languagePackButton != null) {
+                    languagePackButton.setEnabled(true);
+                }
+                if (error == null) {
+                    // The pack only counts once the engine can actually be pointed at it,
+                    // so re-run the same override the language picker runs.
+                    applyGameLanguageOverride(LocaleHelper.getSavedLanguageTag(this));
+                    updateGameLanguageStatusView();
+                    toast(getString(R.string.setup_langpack_done));
+                } else {
+                    toast(getString(R.string.setup_langpack_failed, error));
+                }
+            });
+        }, "gx-langpack").start();
+    }
+
+    /** @return null on success, else a short reason to put in front of the user. */
+    private String downloadLanguagePack(String token, String gamePath) {
+        HttpURLConnection conn = null;
+        // Written beside the real file and renamed at the end: a half-downloaded
+        // generals.str in place would leave the game with a truncated string table, which
+        // fails in a far more confusing way than not having the file at all.
+        File dir = new File(gamePath, "data/" + token);
+        File tmp = new File(dir, "generals.str.part");
+        File dest = new File(dir, "generals.str");
+        try {
+            if (!dir.isDirectory() && !dir.mkdirs()) {
+                return getString(R.string.setup_langpack_err_mkdir);
+            }
+            URL url = new URL(LANGUAGE_PACK_BASE + token + "/generals.str");
+            conn = (HttpURLConnection) url.openConnection();
+            conn.setConnectTimeout(15000);
+            conn.setReadTimeout(30000);
+            conn.setRequestProperty("Accept", "text/plain");
+            final int status = conn.getResponseCode();
+            if (status == 404) {
+                return getString(R.string.setup_langpack_err_none_yet);
+            }
+            if (status < 200 || status >= 300) {
+                return "HTTP " + status;
+            }
+            byte[] buf = new byte[16 * 1024];
+            long total = 0;
+            try (java.io.InputStream in = conn.getInputStream();
+                 java.io.FileOutputStream out = new java.io.FileOutputStream(tmp)) {
+                int n;
+                while ((n = in.read(buf)) > 0) {
+                    out.write(buf, 0, n);
+                    total += n;
+                    if (total > 8L * 1024 * 1024) {
+                        return "> 8 MB";   // a string table is a few hundred KB; this is not one
+                    }
+                }
+            }
+            if (total == 0) {
+                return getString(R.string.setup_langpack_err_empty);
+            }
+            if (dest.exists() && !dest.delete()) {
+                return getString(R.string.setup_langpack_err_replace);
+            }
+            if (!tmp.renameTo(dest)) {
+                return getString(R.string.setup_langpack_err_replace);
+            }
+            return null;
+        } catch (Exception e) {
+            String msg = e.getMessage();
+            return (msg == null || msg.isEmpty()) ? e.getClass().getSimpleName() : msg;
+        } finally {
+            if (conn != null) {
+                conn.disconnect();
+            }
+            if (tmp.exists()) {
+                tmp.delete();
+            }
+        }
+    }
+
+    private void toast(CharSequence text) {
+        android.widget.Toast.makeText(this, text, android.widget.Toast.LENGTH_LONG).show();
+    }
+
+    private com.google.android.material.button.MaterialButton languagePackButton;
 
     private String getSavedGamePath() {
         return getSavedGamePath(this);

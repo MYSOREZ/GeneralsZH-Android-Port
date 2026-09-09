@@ -92,6 +92,16 @@
     <string name="setup_switch_gx_perf_desc">هر ثانیه یک خط کوتاه اضافه می‌کند که نشان می‌دهد زمان هر فریم صرف چه چیزی می‌شود (رادار، صدا، شبکه، منطق بازی، رندر). فعال نگه‌داشتن آن در کل نشست بازی بی‌خطر است — برای گزارش‌های FPS/کندی فعال کنید. (gx_perf.txt)</string>
     <string name="setup_switch_gx_audio_trace">گزارش صدا</string>
     <string name="setup_switch_gx_audio_trace_desc">ثبت می‌کند سامانهٔ صدا چه می‌کند: میزان پر بودن بافرهای موسیقی و گفتار، صدای ویدیوها، و هر منبعی که آغاز یا متوقف می‌شود. اگر پس از گزارش صدای ناموجود، بریده‌بریده یا خاموش از شما گزارش صدا خواستند، این را روشن کنید. ‎(gx_audio_trace.txt)</string>
+    <string name="setup_button_download_langpack">دانلود بستهٔ زبان</string>
+    <string name="setup_langpack_downloading">در حال دانلود بستهٔ زبان…</string>
+    <string name="setup_langpack_done">بستهٔ زبان نصب شد. بازی در اجرای بعدی از آن استفاده می‌کند.</string>
+    <string name="setup_langpack_failed">دانلود بستهٔ زبان ممکن نشد: %1$s</string>
+    <string name="setup_langpack_not_available">برای این زبانِ راه‌انداز بستهٔ متن بازی وجود ندارد.</string>
+    <string name="setup_langpack_no_folder">ابتدا پوشهٔ بازی را انتخاب کنید.</string>
+    <string name="setup_langpack_err_none_yet">هنوز بسته‌ای برای این زبان نیست. ترجمه‌ها خوش‌آمدند — languages/README.md را در مخزن پروژه ببینید.</string>
+    <string name="setup_langpack_err_mkdir">ساخت پوشهٔ زبان در پوشهٔ بازی ممکن نشد</string>
+    <string name="setup_langpack_err_empty">فایل دانلودشده خالی بود</string>
+    <string name="setup_langpack_err_replace">جایگزینی فایل موجود ممکن نشد</string>
     <string name="setup_switch_dxvk_hud">نمایش عملکرد روی صفحه</string>
     <string name="setup_switch_dxvk_hud_desc">FPS، تعداد draw call، ارسال‌ها و تعداد پایپ‌لاین‌ها را مستقیماً روی صفحه و در گزارش نشان می‌دهد. برای گزارش‌های عملکرد GPU فعال کنید. (dxvk_hud.txt)</string>
     <string name="setup_switch_dxvk_validation">لایه اعتبارسنجی Vulkan</string>
