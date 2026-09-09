@@ -487,7 +487,7 @@ public class SetupActivity extends Activity {
             return;
         }
         String gamePath = getSavedGamePath();
-        boolean found = gamePath != null && new File(gamePath, "data/" + engineToken + "/generals.csf").isFile();
+        boolean found = gameHasCsfFor(gamePath, engineToken);
         gameLanguageStatusView.setText(getString(
             found ? R.string.setup_language_game_status_override : R.string.setup_language_game_status_missing,
             engineToken));
@@ -549,8 +549,7 @@ public class SetupActivity extends Activity {
             marker.delete();
             return;
         }
-        File csf = new File(gamePath, "data/" + engineToken + "/generals.csf");
-        if (!csf.isFile()) {
+        if (!gameHasCsfFor(gamePath, engineToken)) {
             marker.delete();
             return;
         }
@@ -1662,6 +1661,101 @@ public class SetupActivity extends Activity {
                 (d, which) -> onSelectBaseGeneralsFolder());
         }
         b.show();
+    }
+
+
+    // GeneralsX @feature Android port 09/09/2026 A language's text can live in a .big
+    // archive, not just as a loose file, and this used to look only for the loose one.
+    //
+    // The engine never cared: g_csfFile is "data/%s/generals.csf" (SDL3Main.cpp) with %s
+    // being whatever GetRegistryLanguage() returns, and it is opened through TheFileSystem,
+    // which spans loose files AND every mounted .big equally. There is no list of supported
+    // languages anywhere in the engine -- any token works if the CSF resolves. So the
+    // launcher was the only thing insisting on a loose file, and it told players with a
+    // perfectly good language pack that their game folder had nothing.
+    //
+    // Community translations ship exactly that way. The Russian pack, for instance, is a
+    // single 00RussianZH.big whose entries are Data\English\generals.csf plus Russian menu
+    // .wnd layouts and textures -- it REPLACES English rather than adding a token, and wins
+    // because archives are mounted in name order, first one wins, and "00..." sorts first.
+    //
+    // Both shapes are now recognised: a loose data/<token>/generals.csf, or that path inside
+    // any .big in the game folder (or one level down -- ZH_Generals/ and friends).
+    private static boolean gameHasCsfFor(String gamePath, String token) {
+        if (gamePath == null || token == null) {
+            return false;
+        }
+        if (new File(gamePath, "data/" + token + "/generals.csf").isFile()) {
+            return true;
+        }
+        String wanted = ("data/" + token + "/generals.csf").toLowerCase(java.util.Locale.ROOT);
+        File root = new File(gamePath);
+        if (bigContainsEntry(root, wanted)) {
+            return true;
+        }
+        File[] children = root.listFiles();
+        if (children != null) {
+            for (File child : children) {
+                if (child.isDirectory() && bigContainsEntry(child, wanted)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private static boolean bigContainsEntry(File dir, String wantedLowerSlash) {
+        File[] bigs = dir.listFiles((d, name) -> name.toLowerCase(java.util.Locale.ROOT).endsWith(".big"));
+        if (bigs == null) {
+            return false;
+        }
+        for (File big : bigs) {
+            if (bigContainsEntry(big, wantedLowerSlash, 0)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // BIGF layout: "BIGF", archive size (little-endian), then file count and the offset of
+    // the first file, both BIG-endian, then one record per file -- offset, size, and a
+    // NUL-terminated name. Only the names are read here; nothing is decompressed, so this
+    // costs a few kilobytes per archive however large the archive is.
+    private static boolean bigContainsEntry(File big, String wantedLowerSlash, int unusedDepth) {
+        try (java.io.DataInputStream in =
+                 new java.io.DataInputStream(new java.io.BufferedInputStream(new java.io.FileInputStream(big), 1 << 16))) {
+            byte[] magic = new byte[4];
+            in.readFully(magic);
+            if (magic[0] != 'B' || magic[1] != 'I' || magic[2] != 'G' || magic[3] != 'F') {
+                return false;
+            }
+            in.skipBytes(4);                 // archive size, little-endian, not needed
+            int count = in.readInt();        // big-endian
+            in.readInt();                    // offset of the first file, not needed
+            if (count <= 0 || count > 200000) {
+                return false;                // not a shape we recognise; do not chew memory over it
+            }
+            StringBuilder name = new StringBuilder(64);
+            for (int i = 0; i < count; i++) {
+                in.readInt();                // entry offset
+                in.readInt();                // entry size
+                name.setLength(0);
+                int c;
+                while ((c = in.read()) > 0) {
+                    name.append((char) (c == '\\' ? '/' : c));
+                }
+                if (c < 0) {
+                    return false;            // truncated archive
+                }
+                if (name.toString().toLowerCase(java.util.Locale.ROOT).equals(wantedLowerSlash)) {
+                    return true;
+                }
+            }
+        } catch (Exception e) {
+            // An unreadable or unfamiliar archive is not an error worth surfacing: it just
+            // does not answer the question, and the loose-file check already ran.
+        }
+        return false;
     }
 
     private String getSavedGamePath() {
