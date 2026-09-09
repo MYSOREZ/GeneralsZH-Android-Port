@@ -112,12 +112,6 @@ final class LocaleHelper {
     // fixed mapping.
     static final String PREF_GAME_TEXT_TOKEN = "game_text_token";
 
-    /** Every language folder the engine can be pointed at, official SKU or downloaded pack. */
-    static final String[] GAME_TEXT_TOKENS = {
-        "english", "german", "french", "spanish", "italian", "polish",
-        "brazilian", "russian", "korean", "chinese"
-    };
-
     /** Has the player ever answered the question? Absent is not the same as "default". */
     static boolean hasGameTextToken(Context ctx) {
         return ctx.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
@@ -150,7 +144,15 @@ final class LocaleHelper {
             case "russian":   return "Русский";
             case "korean":    return "한국어";
             case "chinese":   return "中文";
-            default:          return token;
+            case "ukrainian": return "Українська";
+            default:
+                // GeneralsX @feature Android port 09/09/2026 A language nobody listed is still
+                // a language. Show the folder name with a capital rather than nothing, so a
+                // pack contributed after this file was written is still pickable.
+                if (token.isEmpty()) {
+                    return token;
+                }
+                return Character.toUpperCase(token.charAt(0)) + token.substring(1);
         }
     }
 

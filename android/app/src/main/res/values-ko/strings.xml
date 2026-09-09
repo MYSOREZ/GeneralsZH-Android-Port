@@ -95,6 +95,7 @@
     <string name="setup_button_download_langpack">언어 팩 다운로드</string>
     <string name="setup_langpack_downloading">언어 팩을 내려받는 중…</string>
     <string name="setup_langpack_done">언어 팩을 설치했습니다. 다음 실행부터 게임에 적용됩니다.</string>
+    <string name="setup_langpack_done_n">언어 팩 %1$d개를 설치했습니다: %2$s. 아래에서 선택하세요.</string>
     <string name="setup_langpack_failed">언어 팩을 내려받지 못했습니다: %1$s</string>
     <string name="setup_langpack_not_available">이 런처 언어에는 게임 텍스트 팩이 없습니다.</string>
     <string name="setup_langpack_no_folder">먼저 게임 폴더를 선택하세요.</string>
@@ -104,7 +105,7 @@
     <string name="setup_langpack_err_replace">기존 파일을 바꾸지 못했습니다</string>
     <string name="setup_button_game_text_language">게임 텍스트 언어</string>
     <string name="setup_game_text_dialog_title">게임 텍스트 언어</string>
-    <string name="setup_game_text_default">영어 (게임 폴더의 .big이 대체할 수 있음)</string>
+    <string name="setup_game_text_default">기본값 (.big 우선)</string>
     <string name="setup_game_text_status">게임 텍스트: %1$s</string>
     <string name="setup_game_text_status_default">게임 텍스트: 영어 — 게임 폴더의 .big이 대체하지 않는 한</string>
     <string name="setup_game_text_none_found">게임 폴더에 아직 언어 팩이 없습니다. 먼저 내려받으세요.</string>

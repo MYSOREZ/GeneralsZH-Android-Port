@@ -95,6 +95,7 @@
     <string name="setup_button_download_langpack">下载语言包</string>
     <string name="setup_langpack_downloading">正在下载语言包…</string>
     <string name="setup_langpack_done">语言包已安装。游戏将在下次启动时使用它。</string>
+    <string name="setup_langpack_done_n">已安装 %1$d 个语言包：%2$s。请在下方选择。</string>
     <string name="setup_langpack_failed">无法下载语言包：%1$s</string>
     <string name="setup_langpack_not_available">此启动器语言没有对应的游戏文本包。</string>
     <string name="setup_langpack_no_folder">请先选择游戏文件夹。</string>
@@ -104,7 +105,7 @@
     <string name="setup_langpack_err_replace">无法替换已有的文件</string>
     <string name="setup_button_game_text_language">游戏文本语言</string>
     <string name="setup_game_text_dialog_title">游戏文本语言</string>
-    <string name="setup_game_text_default">英语（游戏文件夹中的 .big 可以替换它）</string>
+    <string name="setup_game_text_default">默认（.big 优先）</string>
     <string name="setup_game_text_status">游戏文本：%1$s</string>
     <string name="setup_game_text_status_default">游戏文本：英语——除非游戏文件夹中的 .big 将其替换</string>
     <string name="setup_game_text_none_found">游戏文件夹中还没有语言包。请先下载一个。</string>

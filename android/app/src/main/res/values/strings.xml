@@ -105,6 +105,7 @@
     <string name="setup_button_download_langpack">Download language pack</string>
     <string name="setup_langpack_downloading">Downloading the language pack…</string>
     <string name="setup_langpack_done">Language pack installed. The game will use it on the next launch.</string>
+    <string name="setup_langpack_done_n">Installed %1$d language pack(s): %2$s. Pick one below.</string>
     <string name="setup_langpack_failed">Could not download the language pack: %1$s</string>
     <string name="setup_langpack_not_available">This launcher language has no game-text pack.</string>
     <string name="setup_langpack_no_folder">Select your game folder first.</string>
@@ -114,7 +115,7 @@
     <string name="setup_langpack_err_replace">could not replace the existing file</string>
     <string name="setup_button_game_text_language">Game text language</string>
     <string name="setup_game_text_dialog_title">Game text language</string>
-    <string name="setup_game_text_default">English (a .big in your game folder can replace it)</string>
+    <string name="setup_game_text_default">Default (a .big takes priority)</string>
     <string name="setup_game_text_status">Game text: %1$s</string>
     <string name="setup_game_text_status_default">Game text: English — unless a .big in your game folder replaces it</string>
     <string name="setup_game_text_none_found">No language packs found in your game folder yet. Download one first.</string>

@@ -95,6 +95,7 @@
     <string name="setup_button_download_langpack">تنزيل حزمة اللغة</string>
     <string name="setup_langpack_downloading">جارٍ تنزيل حزمة اللغة…</string>
     <string name="setup_langpack_done">تم تثبيت حزمة اللغة. ستستخدمها اللعبة عند التشغيل التالي.</string>
+    <string name="setup_langpack_done_n">تم تثبيت %1$d حزمة لغة: %2$s. اختر واحدة بالأسفل.</string>
     <string name="setup_langpack_failed">تعذّر تنزيل حزمة اللغة: %1$s</string>
     <string name="setup_langpack_not_available">لا توجد حزمة نصوص للعبة بلغة المشغّل هذه.</string>
     <string name="setup_langpack_no_folder">اختر مجلد اللعبة أولاً.</string>
@@ -104,7 +105,7 @@
     <string name="setup_langpack_err_replace">تعذّر استبدال الملف الموجود</string>
     <string name="setup_button_game_text_language">لغة نصوص اللعبة</string>
     <string name="setup_game_text_dialog_title">لغة نصوص اللعبة</string>
-    <string name="setup_game_text_default">الإنجليزية (يمكن لملف ‎.big في مجلد اللعبة أن يستبدلها)</string>
+    <string name="setup_game_text_default">افتراضي (الأولوية لملف ‎.big)</string>
     <string name="setup_game_text_status">نصوص اللعبة: %1$s</string>
     <string name="setup_game_text_status_default">نصوص اللعبة: الإنجليزية — ما لم يستبدلها ملف ‎.big في مجلد اللعبة</string>
     <string name="setup_game_text_none_found">لا توجد حزم لغة في مجلد اللعبة بعد. نزّل واحدة أولاً.</string>

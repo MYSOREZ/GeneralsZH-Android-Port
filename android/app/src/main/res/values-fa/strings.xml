@@ -95,6 +95,7 @@
     <string name="setup_button_download_langpack">دانلود بستهٔ زبان</string>
     <string name="setup_langpack_downloading">در حال دانلود بستهٔ زبان…</string>
     <string name="setup_langpack_done">بستهٔ زبان نصب شد. بازی در اجرای بعدی از آن استفاده می‌کند.</string>
+    <string name="setup_langpack_done_n">%1$d بستهٔ زبان نصب شد: %2$s. از پایین یکی را انتخاب کنید.</string>
     <string name="setup_langpack_failed">دانلود بستهٔ زبان ممکن نشد: %1$s</string>
     <string name="setup_langpack_not_available">برای این زبانِ راه‌انداز بستهٔ متن بازی وجود ندارد.</string>
     <string name="setup_langpack_no_folder">ابتدا پوشهٔ بازی را انتخاب کنید.</string>
@@ -104,7 +105,7 @@
     <string name="setup_langpack_err_replace">جایگزینی فایل موجود ممکن نشد</string>
     <string name="setup_button_game_text_language">زبان متن بازی</string>
     <string name="setup_game_text_dialog_title">زبان متن بازی</string>
-    <string name="setup_game_text_default">انگلیسی (یک ‎.big در پوشهٔ بازی می‌تواند جایگزینش کند)</string>
+    <string name="setup_game_text_default">پیش‌فرض (اولویت با ‎.big)</string>
     <string name="setup_game_text_status">متن بازی: %1$s</string>
     <string name="setup_game_text_status_default">متن بازی: انگلیسی — مگر آنکه یک ‎.big در پوشهٔ بازی جایگزینش کند</string>
     <string name="setup_game_text_none_found">هنوز بستهٔ زبانی در پوشهٔ بازی نیست. ابتدا یکی دانلود کنید.</string>

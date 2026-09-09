@@ -95,6 +95,7 @@
     <string name="setup_button_download_langpack">Sņeti jezyčny paket</string>
     <string name="setup_langpack_downloading">Sņimaje se jezyčny paket…</string>
     <string name="setup_langpack_done">Jezyčny paket instalovany. Igra jego upotrěbi pri slědujučem pusku.</string>
+    <string name="setup_langpack_done_n">Instalovano jezyčnyh paketov: %1$d (%2$s). Izberite nizše.</string>
     <string name="setup_langpack_failed">Ne bylo možno sņeti jezyčny paket: %1$s</string>
     <string name="setup_langpack_not_available">Za tutu jezyk pusknika ne jest paketa igrovogo teksta.</string>
     <string name="setup_langpack_no_folder">Najprvo izberite papku igry.</string>
@@ -104,7 +105,7 @@
     <string name="setup_langpack_err_replace">ne bylo možno zaměniti postoječi fajl</string>
     <string name="setup_button_game_text_language">Jezyk teksta igry</string>
     <string name="setup_game_text_dialog_title">Jezyk teksta igry</string>
-    <string name="setup_game_text_default">Anglijsky (jego može zaměniti .big v papkě igry)</string>
+    <string name="setup_game_text_default">Podrazuměvano (.big ima prioritet)</string>
     <string name="setup_game_text_status">Tekst igry: %1$s</string>
     <string name="setup_game_text_status_default">Tekst igry: anglijsky — ako jego ne zaměnjaje .big v papkě igry</string>
     <string name="setup_game_text_none_found">V papkě igry hče ne jest jezyčnyh paketov. Najprvo sņimite jedin.</string>

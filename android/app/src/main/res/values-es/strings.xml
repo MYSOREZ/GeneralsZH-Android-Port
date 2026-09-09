@@ -95,6 +95,7 @@
     <string name="setup_button_download_langpack">Descargar paquete de idioma</string>
     <string name="setup_langpack_downloading">Descargando el paquete de idioma…</string>
     <string name="setup_langpack_done">Paquete de idioma instalado. El juego lo usará en el próximo inicio.</string>
+    <string name="setup_langpack_done_n">Se instalaron %1$d paquete(s) de idioma: %2$s. Elige uno abajo.</string>
     <string name="setup_langpack_failed">No se pudo descargar el paquete de idioma: %1$s</string>
     <string name="setup_langpack_not_available">Este idioma del lanzador no tiene paquete de texto del juego.</string>
     <string name="setup_langpack_no_folder">Selecciona primero la carpeta del juego.</string>
@@ -104,7 +105,7 @@
     <string name="setup_langpack_err_replace">no se pudo reemplazar el archivo existente</string>
     <string name="setup_button_game_text_language">Idioma del texto del juego</string>
     <string name="setup_game_text_dialog_title">Idioma del texto del juego</string>
-    <string name="setup_game_text_default">Inglés (un .big en tu carpeta del juego puede sustituirlo)</string>
+    <string name="setup_game_text_default">Predeterminado (.big tiene prioridad)</string>
     <string name="setup_game_text_status">Texto del juego: %1$s</string>
     <string name="setup_game_text_status_default">Texto del juego: inglés, salvo que un .big de tu carpeta lo sustituya</string>
     <string name="setup_game_text_none_found">Aún no hay paquetes de idioma en la carpeta del juego. Descarga uno primero.</string>

@@ -505,17 +505,62 @@ public class SetupActivity extends Activity {
     // table. That is the list worth offering, and it is the one that answers "how do I get
     // back to English" -- English is simply one of the entries.
     private java.util.List<String> installedGameTextTokens() {
-        java.util.List<String> found = new java.util.ArrayList<>();
+        java.util.TreeSet<String> found = new java.util.TreeSet<>();
         String gamePath = getSavedGamePath();
         if (gamePath == null) {
-            return found;
+            return new java.util.ArrayList<>(found);
         }
-        for (String token : LocaleHelper.GAME_TEXT_TOKENS) {
-            if (gameHasTextFor(gamePath, token)) {
-                found.add(token);
+        File root = new File(gamePath);
+
+        // Loose folders: data/<language>/generals.str or .csf.
+        File dataDir = new File(root, "data");
+        File[] languageDirs = dataDir.listFiles();
+        if (languageDirs != null) {
+            for (File dir : languageDirs) {
+                if (dir.isDirectory()
+                    && (new File(dir, "generals.str").isFile() || new File(dir, "generals.csf").isFile())) {
+                    found.add(dir.getName().toLowerCase(java.util.Locale.ROOT));
+                }
             }
         }
-        return found;
+
+        // And the archives, which is where the game's own language lives.
+        collectArchiveLanguages(root, found);
+        File[] children = root.listFiles();
+        if (children != null) {
+            for (File child : children) {
+                if (child.isDirectory()) {
+                    collectArchiveLanguages(child, found);
+                }
+            }
+        }
+        return new java.util.ArrayList<>(found);
+    }
+
+    // GeneralsX @feature Android port 09/09/2026 Read the language names out of the archives
+    // instead of checking a list of names this file happens to know.
+    //
+    // A hardcoded list is wrong by construction here: the first language contributed after it
+    // was written -- Ukrainian -- was not in it, so it could be neither offered nor detected.
+    // Whatever is filed as data/<something>/generals.str or .csf is a language, whether anyone
+    // anticipated it or not.
+    private static void collectArchiveLanguages(File dir, java.util.Set<String> out) {
+        File[] bigs = dir.listFiles((d, name) -> name.toLowerCase(java.util.Locale.ROOT).endsWith(".big"));
+        if (bigs == null) {
+            return;
+        }
+        for (File big : bigs) {
+            forEachBigEntry(big, name -> {
+                // data/<language>/generals.str|csf, and nothing deeper.
+                if (!name.startsWith("data/") || !(name.endsWith("/generals.str") || name.endsWith("/generals.csf"))) {
+                    return;
+                }
+                String middle = name.substring("data/".length(), name.lastIndexOf('/'));
+                if (!middle.isEmpty() && middle.indexOf('/') < 0) {
+                    out.add(middle);
+                }
+            });
+        }
     }
 
     private void onChangeGameTextLanguage() {
@@ -1833,18 +1878,34 @@ public class SetupActivity extends Activity {
     // NUL-terminated name. Only the names are read here; nothing is decompressed, so this
     // costs a few kilobytes per archive however large the archive is.
     private static boolean bigContainsEntry(File big, String wantedLowerSlash, int unusedDepth) {
+        final boolean[] hit = { false };
+        forEachBigEntry(big, name -> {
+            if (name.equals(wantedLowerSlash)) {
+                hit[0] = true;
+            }
+        });
+        return hit[0];
+    }
+
+    // BIGF layout: "BIGF", archive size (little-endian), then file count and the offset of
+    // the first file, both BIG-endian, then one record per file -- offset, size, and a
+    // NUL-terminated name. Only the names are read here; nothing is decompressed, so this
+    // costs a few kilobytes per archive however large the archive is. Names are handed over
+    // lowercased with backslashes turned into forward slashes, which is how every caller
+    // wants to compare them.
+    private static void forEachBigEntry(File big, java.util.function.Consumer<String> visit) {
         try (java.io.DataInputStream in =
                  new java.io.DataInputStream(new java.io.BufferedInputStream(new java.io.FileInputStream(big), 1 << 16))) {
             byte[] magic = new byte[4];
             in.readFully(magic);
             if (magic[0] != 'B' || magic[1] != 'I' || magic[2] != 'G' || magic[3] != 'F') {
-                return false;
+                return;
             }
             in.skipBytes(4);                 // archive size, little-endian, not needed
             int count = in.readInt();        // big-endian
             in.readInt();                    // offset of the first file, not needed
             if (count <= 0 || count > 200000) {
-                return false;                // not a shape we recognise; do not chew memory over it
+                return;                      // not a shape we recognise; do not chew memory over it
             }
             StringBuilder name = new StringBuilder(64);
             for (int i = 0; i < count; i++) {
@@ -1856,17 +1917,14 @@ public class SetupActivity extends Activity {
                     name.append((char) (c == '\\' ? '/' : c));
                 }
                 if (c < 0) {
-                    return false;            // truncated archive
+                    return;                  // truncated archive
                 }
-                if (name.toString().toLowerCase(java.util.Locale.ROOT).equals(wantedLowerSlash)) {
-                    return true;
-                }
+                visit.accept(name.toString().toLowerCase(java.util.Locale.ROOT));
             }
         } catch (Exception e) {
             // An unreadable or unfamiliar archive is not an error worth surfacing: it just
-            // does not answer the question, and the loose-file check already ran.
+            // does not answer the question the caller asked.
         }
-        return false;
     }
 
 
@@ -1879,33 +1937,22 @@ public class SetupActivity extends Activity {
     // asking a player to find a folder with a file manager. And because the pack is a text
     // file in the repository, a translator's pull request reaches players as soon as it is
     // merged.
-    // Points at the branch the packs currently live on. Move it to "main" when this work
-    // merges -- a button that 404s because the file is on another branch is a worse first
-    // impression than no button.
+    private static final String LANGUAGE_PACK_INDEX =
+        "https://api.github.com/repos/MYSOREZ/GeneralsZH-Android-Port/contents/languages?ref=main";
     private static final String LANGUAGE_PACK_BASE =
-        "https://raw.githubusercontent.com/MYSOREZ/GeneralsZH-Android-Port/claude/audio-fixes/languages/";
+        "https://raw.githubusercontent.com/MYSOREZ/GeneralsZH-Android-Port/main/languages/";
 
+    // GeneralsX @feature Android port 09/09/2026 Fetch every pack there is, and do not ask
+    // which one first.
+    //
+    // Asking was the wrong question twice over. The list it asked from was hardcoded, so a
+    // language nobody had thought of when it was written -- Ukrainian, the very next one
+    // contributed -- could not be chosen and therefore could not be downloaded. And the
+    // question is premature anyway: choosing belongs to the picker below, which lists what is
+    // really in the game folder, and there is nothing to choose between until something has
+    // been downloaded. So this downloads all of them, the picker then shows what arrived, and
+    // the set of languages comes from the repository rather than from this file.
     private void onDownloadLanguagePack() {
-        // GeneralsX @feature Android port 09/09/2026 Ask which language, rather than assuming
-        // the launcher's own. The two are separate settings now, and someone running an
-        // English launcher is exactly the person most likely to be fetching a translation.
-        if (getSavedGamePath() == null) {
-            toast(getString(R.string.setup_langpack_no_folder));
-            return;
-        }
-        final String[] tokens = LocaleHelper.GAME_TEXT_TOKENS;
-        final String[] labels = new String[tokens.length];
-        for (int i = 0; i < tokens.length; i++) {
-            labels[i] = LocaleHelper.gameTextDisplayName(tokens[i]);
-        }
-        new android.app.AlertDialog.Builder(this)
-            .setTitle(R.string.setup_langpack_dialog_title)
-            .setItems(labels, (dialog, which) -> startLanguagePackDownload(tokens[which]))
-            .setNegativeButton(R.string.common_cancel, null)
-            .show();
-    }
-
-    private void startLanguagePackDownload(final String token) {
         final String gamePath = getSavedGamePath();
         if (gamePath == null) {
             toast(getString(R.string.setup_langpack_no_folder));
@@ -1917,24 +1964,88 @@ public class SetupActivity extends Activity {
         toast(getString(R.string.setup_langpack_downloading));
 
         new Thread(() -> {
-            final String error = downloadLanguagePack(token, gamePath);
+            final java.util.List<String> tokens = new java.util.ArrayList<>();
+            final String indexError = fetchLanguagePackIndex(tokens);
+            final java.util.List<String> installed = new java.util.ArrayList<>();
+            final java.util.List<String> failed = new java.util.ArrayList<>();
+            if (indexError == null) {
+                for (String token : tokens) {
+                    if (downloadLanguagePack(token, gamePath) == null) {
+                        installed.add(token);
+                    } else {
+                        failed.add(token);
+                    }
+                }
+            }
             runOnUiThread(() -> {
                 if (languagePackButton != null) {
                     languagePackButton.setEnabled(true);
                 }
-                if (error == null) {
-                    // Select what was just downloaded. Downloading a language and then having
-                    // to find a second control to switch to it is a step nobody wants; the
-                    // picker is still there to go back, English included.
-                    LocaleHelper.setGameTextToken(this, token);
-                    applyGameLanguageOverride();
-                    updateGameLanguageStatusView();
-                    toast(getString(R.string.setup_langpack_done));
-                } else {
-                    toast(getString(R.string.setup_langpack_failed, error));
+                if (indexError != null) {
+                    toast(getString(R.string.setup_langpack_failed, indexError));
+                    return;
                 }
+                if (installed.isEmpty()) {
+                    toast(getString(R.string.setup_langpack_failed,
+                        failed.isEmpty() ? getString(R.string.setup_langpack_err_none_yet)
+                                         : android.text.TextUtils.join(", ", failed)));
+                    return;
+                }
+                updateGameLanguageStatusView();
+                StringBuilder names = new StringBuilder();
+                for (String token : installed) {
+                    if (names.length() > 0) {
+                        names.append(", ");
+                    }
+                    names.append(LocaleHelper.gameTextDisplayName(token));
+                }
+                toast(getString(R.string.setup_langpack_done_n, installed.size(), names.toString()));
             });
         }, "gx-langpack").start();
+    }
+
+    /**
+     * Ask the repository which languages exist. Returns null on success, else a reason.
+     *
+     * The directory listing IS the list -- add languages/<name>/generals.str to the project
+     * and it appears here, with nothing in this app to update.
+     */
+    private String fetchLanguagePackIndex(java.util.List<String> out) {
+        HttpURLConnection conn = null;
+        try {
+            URL url = new URL(LANGUAGE_PACK_INDEX);
+            conn = (HttpURLConnection) url.openConnection();
+            conn.setConnectTimeout(15000);
+            conn.setReadTimeout(30000);
+            conn.setRequestProperty("Accept", "application/vnd.github+json");
+            final int status = conn.getResponseCode();
+            if (status < 200 || status >= 300) {
+                return "HTTP " + status;
+            }
+            StringBuilder body = new StringBuilder();
+            try (java.io.BufferedReader r = new java.io.BufferedReader(
+                     new java.io.InputStreamReader(conn.getInputStream(), "UTF-8"))) {
+                String line;
+                while ((line = r.readLine()) != null) {
+                    body.append(line);
+                }
+            }
+            org.json.JSONArray entries = new org.json.JSONArray(body.toString());
+            for (int i = 0; i < entries.length(); i++) {
+                org.json.JSONObject entry = entries.getJSONObject(i);
+                if ("dir".equals(entry.optString("type"))) {
+                    out.add(entry.optString("name"));
+                }
+            }
+            return out.isEmpty() ? getString(R.string.setup_langpack_err_none_yet) : null;
+        } catch (Exception e) {
+            String msg = e.getMessage();
+            return (msg == null || msg.isEmpty()) ? e.getClass().getSimpleName() : msg;
+        } finally {
+            if (conn != null) {
+                conn.disconnect();
+            }
+        }
     }
 
     /** @return null on success, else a short reason to put in front of the user. */
