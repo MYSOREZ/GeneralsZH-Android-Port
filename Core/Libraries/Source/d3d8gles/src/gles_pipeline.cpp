@@ -732,23 +732,39 @@ static std::string combinerOp(unsigned op, const std::string &a0, const std::str
 			"vec4(vec3(clamp(dot(%s.rgb - 0.5, %s.rgb - 0.5) * 4.0, 0.0, 1.0)), 1.0)",
 			a1.c_str(), a2.c_str());
 		break;
-	// GeneralsX @bugfix Android port 09/05/2026 D3D8: SRGBA = Arg1 + Arg2 * Arg0.
-	// Missing until now, and the silent `default:` below turned it into a plain
-	// modulate -- which is what made greyed-out (unbuildable) command-bar
-	// buttons vanish on GLES while looking fine under DXVK. Render2DClass::
-	// Render()'s IsGrayScale path builds its greyscale in two stages: stage 0
-	// does MULTIPLYADD to bias the texture up by TFACTOR.a * TFACTOR.a, then
-	// stage 1 DOTPRODUCT3s the result against TFACTOR's luminance weights,
-	// which subtracts 0.5 first. Emitting stage 0 as tex * TFACTOR.a instead
-	// of tex + 0.25 caps the stage-0 result at TFACTOR.a (0.5) -- i.e. always
-	// at or below the 0.5 the next stage subtracts -- so the dot product came
-	// out negative for every texel and clamped to 0. Every disabled button
-	// rendered solid black, and against the dark command bar that reads as the
-	// button having disappeared. Moving the camera changes what is buildable,
-	// which is exactly why the buttons came and went with camera movement.
+	// GeneralsX @bugfix Android port 09/09/2026 D3D8: SRGBA = Arg0 + Arg1 * Arg2,
+	// i.e. ARG0 is the ADDEND and ARG1/ARG2 are the two multiplicands.
+	//
+	// This was implemented on 09/05/2026 as "Arg1 + Arg2 * Arg0" -- the operands
+	// the wrong way round. It looked right on the one case it was written for
+	// (Render2DClass::Render()'s greyscale command-bar buttons, which are bright)
+	// and it is catastrophically wrong on anything dark. Both call sites in the
+	// engine use the same pair of stages:
+	//
+	//     stage 0: MULTIPLYADD  ARG0 = ARG2 = TFACTOR|ALPHAREPLICATE, ARG1 = TEXTURE
+	//     stage 1: DOTPRODUCT3  ARG1 = CURRENT, ARG2 = TFACTOR
+	//     D3DRS_TEXTUREFACTOR = 0x80A5CA8E
+	//
+	// The constant is the proof of which order is real. TFACTOR.a = 0x80 = 0.502,
+	// so the correct stage 0 is 0.502 + 0.502*tex, which lands in [0.5, 1.0]; the
+	// DOT3 then subtracts 0.5 and scales by 4, giving 4*0.502*(tf.rgb - 0.5) . tex.
+	// With tf.rgb = (0xA5, 0xCA, 0x8E)/255 those weights come out as
+	// (0.295, 0.586, 0.114) -- Rec.601 luminance to within the rounding of a byte,
+	// on all three channels. Westwood picked the constant by inverting exactly this
+	// formula; no other operand order reproduces it.
+	//
+	// The old order gave tex + 0.502*0.502 = tex + 0.25, so the DOT3 computed
+	// luminance(tex) - 0.49 instead: every texel darker than mid-grey clamped to
+	// zero. Bright button icons survived (too dark, but visible), which is why it
+	// passed as fixed; a whole night scene did not, and the scripted black-and-white
+	// cinematic (ScreenBWFilterDOT3, W3DShaderManager.cpp) rendered SOLID BLACK.
+	//
+	// Cross-checked against DXVK's fixed-function translation, which emits
+	// fma(arg[1], arg[2], arg[0]) with arg[0] = D3DTSS_COLORARG0 (d3d9_fixed_function
+	// .cpp, D3DTOP_MULTIPLYADD), and saturates the result.
 	case D3DTOP_MULTIPLYADD:
-		snprintf(buf, sizeof(buf), "min(%s + %s * %s, vec4(1.0))",
-			a1.c_str(), a2.c_str(), a0.c_str());
+		snprintf(buf, sizeof(buf), "clamp(%s + %s * %s, vec4(0.0), vec4(1.0))",
+			a0.c_str(), a1.c_str(), a2.c_str());
 		break;
 	// D3D8: SRGBA = Arg1 * Arg0 + Arg2 * (1 - Arg0), i.e. mix() with Arg0 as
 	// the interpolant. Added alongside MULTIPLYADD because it is the other op
@@ -994,6 +1010,28 @@ WebGLPipeline::ProgramInfo *WebGLPipeline::getProgram(WebGLDevice *dev, unsigned
 	}
 	fs += "  fragColor = cur;\n";
 	fs += "}\n";
+
+	// GeneralsX @feature Android port 09/09/2026 One-shot, release-included dump of
+	// the combiner this backend actually generates for the two-stage greyscale pair
+	// (stage 0 MULTIPLYADD, stage 1 DOTPRODUCT3). It is used by exactly two places
+	// -- Render2DClass::Render()'s disabled command-bar buttons and
+	// ScreenBWFilterDOT3 (the scripted black-and-white cinematics) -- and both have
+	// already been mis-rendered once by an operand-order bug in that combiner that
+	// no log would have shown. Printed at most once per launch, at shader-build
+	// time, never per frame. Safe to delete once the black-and-white shots are
+	// confirmed good on a device.
+	if (st[1].colorOp == D3DTOP_DOTPRODUCT3) {
+		static bool s_dumpedDot3 = false;
+		if (!s_dumpedDot3) {
+			s_dumpedDot3 = true;
+			fprintf(stderr, "[GX-FILTER] dot3 program: stage0 op=%u arg0=0x%x arg1=0x%x arg2=0x%x | "
+				"stage1 op=%u arg1=0x%x arg2=0x%x | stagesUsed=%d fvf=0x%x\n",
+				st[0].colorOp, st[0].colorArg0, st[0].colorArg1, st[0].colorArg2,
+				st[1].colorOp, st[1].colorArg1, st[1].colorArg2, stagesUsed, fvf);
+			fprintf(stderr, "[GX-FILTER] dot3 fragment shader:\n%s", fs.c_str());
+			fflush(stderr);
+		}
+	}
 
 	// ---------------- link ----------------
 	const std::chrono::steady_clock::time_point buildStart = std::chrono::steady_clock::now();
@@ -2601,6 +2639,52 @@ void WebGLPipeline::readbackRenderTarget(WebGLTexture *tex)
 			dst[x * 4 + 3] = src[x * 4 + 3]; // A
 		}
 	}
+}
+
+void WebGLPipeline::debugSampleRenderTarget(WebGLTexture *tex, const char *tag)
+{
+	static int s_samplesLeft = 4;
+	if (s_samplesLeft <= 0) return;
+	if (!m_ctxReady || tex == nullptr || tex->m_gl.fbo == 0 || tex->m_levels.empty()) return;
+
+	const int w = (int)tex->m_levels[0]->m_width;
+	const int h = (int)tex->m_levels[0]->m_height;
+	// Only the screen filters' target is backbuffer-sized; water reflections and
+	// projected shadows are small and would drown this out.
+	if (w != m_fbWidth || h != m_fbHeight || w <= 0 || h <= 0) return;
+	s_samplesLeft--;
+
+	const int bw = w < 64 ? w : 64;
+	const int bh = h < 64 ? h : 64;
+	const int bx = (w - bw) / 2;
+	const int by = (h - bh) / 2;
+
+	std::vector<uint8_t> px((size_t)bw * bh * 4);
+	const GLuint prevFBO = m_curFBO;
+	glBindFramebuffer(GL_FRAMEBUFFER, tex->m_gl.fbo);
+	glPixelStorei(GL_PACK_ALIGNMENT, 1);
+	glReadPixels(bx, by, bw, bh, GL_RGBA, GL_UNSIGNED_BYTE, px.data());
+	const GLenum err = glGetError();
+	glBindFramebuffer(GL_FRAMEBUFFER, prevFBO);
+
+	double sum[3] = {0.0, 0.0, 0.0};
+	int mx[3] = {0, 0, 0};
+	int nonBlack = 0;
+	const int n = bw * bh;
+	for (int i = 0; i < n; i++) {
+		const uint8_t *p = px.data() + (size_t)i * 4;
+		for (int c = 0; c < 3; c++) {
+			sum[c] += p[c];
+			if (p[c] > mx[c]) mx[c] = p[c];
+		}
+		if (p[0] || p[1] || p[2]) nonBlack++;
+	}
+
+	fprintf(stderr, "[GX-FILTER] rt-sample %s %dx%d block=%dx%d@%d,%d "
+		"avg=(%.1f,%.1f,%.1f) max=(%d,%d,%d) nonblack=%d/%d glerr=0x%x\n",
+		tag, w, h, bw, bh, bx, by,
+		sum[0] / n, sum[1] / n, sum[2] / n, mx[0], mx[1], mx[2], nonBlack, n, (unsigned)err);
+	fflush(stderr);
 }
 
 void WebGLPipeline::present()

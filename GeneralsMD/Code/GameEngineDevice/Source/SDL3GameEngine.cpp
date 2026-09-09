@@ -43,6 +43,7 @@
 #include "GameClient/View.h"
 #include "GameClient/Shell.h"
 #include "GameClient/InGameUI.h"
+#include "GameClient/Drawable.h"
 #include "W3DDevice/GameLogic/W3DGameLogic.h"
 #include "W3DDevice/GameClient/W3DGameClient.h"
 #include "W3DDevice/Common/W3DModuleFactory.h"
@@ -1749,10 +1750,58 @@ void enforceNoPointerScrollWithoutFinger()
 #endif
 }
 
+// GeneralsX @feature Android port 09/09/2026 The two things a finger loses that a mouse
+// pointer had: it cannot hover, and it has no cursor to change shape.
+//
+//   - Health bars. Drawable::drawHealthBar shows the bar for a drawable that is selected or
+//     that TheInGameUI calls its moused-over drawable, and that id is fed by
+//     MSG_MOUSEOVER_DRAWABLE_HINT -- a message a finger never produces, so tapping a unit
+//     told the player nothing about its condition. Point it at whatever is under the finger.
+//   - Which order is pending. Touch already draws the ability's ground decal, but that decal
+//     is the same green square for every ability, where the mouse had a distinct cursor per
+//     command. Pin the command button's own image under the finger instead, so the picture
+//     the player pressed to get here is the picture they are holding.
+//
+// Both are refreshed here, every frame the finger is down, and both expire on their own in
+// InGameUI::preDraw(). That matters more than it looks: a touch release is the one event
+// this layer cannot count on receiving, and every bug in it so far has been something that
+// latched on a press and waited for a release to clear it.
+static void updateTouchTargetFeedback()
+{
+#if defined(__ANDROID__) || (defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE)
+	if (TheInGameUI == nullptr || TheTacticalView == nullptr) {
+		return;
+	}
+	const Bool fingerDown = (s_touch.phase != TouchState::IDLE && s_touch.phase != TouchState::MOMENTUM);
+	if (!fingerDown) {
+		return;
+	}
+	if (TheShell && TheShell->isShellActive()) {
+		return;
+	}
+	if (touchPointBelongsToUi(s_touch.lastX, s_touch.lastY)) {
+		return;
+	}
+
+	ICoord2D pixel;
+	pixel.x = (Int)s_touch.lastX;
+	pixel.y = (Int)s_touch.lastY;
+
+	Drawable *under = TheTacticalView->pickDrawable(&pixel, TheInGameUI->isInForceAttackMode(),
+	                                                (PickType)PICK_TYPE_SELECTABLE);
+	TheInGameUI->setTouchHoverDrawable(under ? under->getID() : INVALID_DRAWABLE_ID);
+
+	// The icon comes from TheInGameUI's own pending command. Asking it to do the lookup keeps
+	// ControlBar.h out of this file -- that header does not compile standalone here.
+	TheInGameUI->updateTouchCommandIcon(pixel.x, pixel.y);
+#endif
+}
+
 void applyPendingCameraMotion()
 {
 	publishTouchDebug();
 	enforceNoPointerScrollWithoutFinger();
+	updateTouchTargetFeedback();
 
 	if (s_touch.phase == TouchState::PANNING) {
 		s_touch.panVelX = s_touch.lastX - s_touch.panLastPxX;

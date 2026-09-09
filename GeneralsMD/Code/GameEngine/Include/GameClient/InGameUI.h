@@ -630,6 +630,24 @@ public:
 	// shows up if I open the game menu, and then it stays".
 	void triggerTouchAttackMoveGuardHint(const Coord3D *worldPos);
 
+	// GeneralsX @feature Android port 09/09/2026 Two things the mouse gave the player for
+	// free and a finger does not, both reported from device testing.
+	//
+	// setTouchCommandIcon() pins the pending command's own icon under the finger while it is
+	// held on a target. Touch already draws the ability's ground decal, but that decal is the
+	// same green square whatever the ability is, so nothing says WHICH order is about to be
+	// given -- where the mouse showed a distinct cursor per command. The icon is the command
+	// button's own image, so it is exactly the picture the player pressed to get here.
+	//
+	// setTouchHoverDrawable() is the "hover" a touchscreen cannot have. Drawable::drawHealthBar
+	// shows a health bar when the drawable is selected OR is TheInGameUI's moused-over
+	// drawable, and the moused-over id is fed by MSG_MOUSEOVER_DRAWABLE_HINT, which a finger
+	// never produces. Pointing this at whatever is under the finger gives back the health
+	// readout the mouse had on hover; the timer lets it linger briefly after release rather
+	// than vanishing with the touch.
+	void updateTouchCommandIcon(Int screenX, Int screenY);
+	void setTouchHoverDrawable(DrawableID id);
+
 
 public:
 	// World 2D animation methods
@@ -980,6 +998,14 @@ protected:
 	Int													m_militaryCaptionSpeed;
 
 	RadiusDecalTemplate					m_radiusCursors[RADIUSCURSOR_COUNT];
+
+	// GeneralsX @feature Android port 09/09/2026 See setTouchCommandIcon/setTouchHoverDrawable.
+	// Both are refreshed every frame while a finger is down and expire on their own, so
+	// nothing has to notice the release to clean them up.
+	const Image *								m_touchCommandIcon;
+	ICoord2D										m_touchCommandIconPos;
+	Int													m_touchCommandIconTimer;
+	Int													m_touchHoverTimer;
 	RadiusDecal									m_curRadiusCursor;
 	RadiusCursorType						m_curRcType;
 

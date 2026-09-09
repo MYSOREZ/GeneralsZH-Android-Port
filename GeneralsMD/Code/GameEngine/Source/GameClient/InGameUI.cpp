@@ -1059,6 +1059,14 @@ InGameUI::InGameUI()
 	m_selectCount = 0;
 	m_frameSelectionChanged = 0;
   m_duringDoubleClickAttackMoveGuardHintTimer = 0;
+
+	// GeneralsX @feature Android port 09/09/2026 Touch feedback under the finger; see the
+	// header for what each of these is for.
+	m_touchCommandIcon = nullptr;
+	m_touchCommandIconPos.x = 0;
+	m_touchCommandIconPos.y = 0;
+	m_touchCommandIconTimer = 0;
+	m_touchHoverTimer = 0;
   m_duringDoubleClickAttackMoveGuardHintStashedPosition.zero();
 	m_maxSelectCount = -1;
 	m_isScrolling = FALSE;
@@ -1646,6 +1654,31 @@ void InGameUI::triggerTouchAttackMoveGuardHint(const Coord3D *worldPos)
 }
 
 //-------------------------------------------------------------------------------------------------
+void InGameUI::updateTouchCommandIcon(Int screenX, Int screenY)
+{
+	const Image *image = (m_pendingGUICommand != nullptr)
+		? m_pendingGUICommand->getButtonImage()
+		: nullptr;
+
+	m_touchCommandIcon = image;
+	m_touchCommandIconPos.x = screenX;
+	m_touchCommandIconPos.y = screenY;
+	// A few frames, refreshed on every frame the finger is still down. Expiring on its own
+	// means the release does not have to be noticed anywhere -- and a release that never
+	// arrives (the touch layer's recurring hazard) cannot leave the icon stuck on screen.
+	m_touchCommandIconTimer = (image != nullptr) ? 3 : 0;
+}
+
+//-------------------------------------------------------------------------------------------------
+void InGameUI::setTouchHoverDrawable(DrawableID id)
+{
+	m_mousedOverDrawableID = id;
+	// Longer than the icon: the point is that the health bar stays readable for a moment
+	// after the finger lifts, which is when the player is actually looking at it.
+	m_touchHoverTimer = (id != INVALID_DRAWABLE_ID) ? 45 : 0;
+}
+
+//-------------------------------------------------------------------------------------------------
 void InGameUI::triggerDoubleClickAttackMoveGuardHint()
 {
 	const MouseIO* mouseIO = TheMouse->getMouseStatus();
@@ -1945,6 +1978,19 @@ void InGameUI::preDraw()
 	{
 		if( --m_duringDoubleClickAttackMoveGuardHintTimer <= 0 )
 			setRadiusCursorNone();
+	}
+
+	// GeneralsX @feature Android port 09/09/2026 Same treatment for the two touch feedback
+	// aids: nothing on a touchscreen reliably reports "the finger left", so they expire.
+	if( m_touchCommandIconTimer > 0 )
+	{
+		if( --m_touchCommandIconTimer <= 0 )
+			m_touchCommandIcon = nullptr;
+	}
+	if( m_touchHoverTimer > 0 )
+	{
+		if( --m_touchHoverTimer <= 0 )
+			m_mousedOverDrawableID = INVALID_DRAWABLE_ID;
 	}
 #endif
 
@@ -3943,6 +3989,20 @@ void InGameUI::postWindowDraw()
 //-------------------------------------------------------------------------------------------------
 void InGameUI::postDraw()
 {
+#if defined(__ANDROID__) || (defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE)
+	// GeneralsX @feature Android port 09/09/2026 The pending command's own icon, under the
+	// finger. Drawn here rather than as part of the world so it is never occluded and never
+	// scales with the camera -- it belongs to the finger, not to the ground. Offset up and
+	// left of the touch point by half its size so the finger does not cover it.
+	if( m_touchCommandIcon != nullptr && TheDisplay != nullptr )
+	{
+		const Int size = 48;
+		const Int x = m_touchCommandIconPos.x - size / 2;
+		const Int y = m_touchCommandIconPos.y - size - (size / 4);
+		TheDisplay->drawImage( m_touchCommandIcon, x, y, x + size, y + size );
+	}
+#endif
+
 
 	// render our display strings for the messages if on
 	if( m_messagesOn )
