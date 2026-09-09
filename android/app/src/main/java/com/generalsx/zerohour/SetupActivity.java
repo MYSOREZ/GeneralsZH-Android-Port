@@ -257,6 +257,18 @@ public class SetupActivity extends Activity {
 
     private BottomNavigationView buildBottomNav() {
         BottomNavigationView nav = new BottomNavigationView(this);
+
+        // Keep the tab order left-to-right in every language, Arabic and Farsi
+        // included. Android mirrors layouts in RTL locales, which is correct for
+        // the content -- and the rest of this launcher is built on start/end so
+        // it mirrors properly -- but it also reversed the five tabs, putting Home
+        // on the right, and that was reported as wrong. The tabs are a fixed rail
+        // of destinations rather than a line of reading, so pin the bar itself to
+        // LTR and leave text direction on the locale, so the labels still shape
+        // and read right-to-left inside their items.
+        nav.setLayoutDirection(android.view.View.LAYOUT_DIRECTION_LTR);
+        nav.setTextDirection(android.view.View.TEXT_DIRECTION_LOCALE);
+
         nav.setBackgroundColor(UiKit.color(this, R.color.gzh_surface_container_low));
         nav.setElevation(0f);
         nav.setLabelVisibilityMode(NavigationBarView.LABEL_VISIBILITY_LABELED);
