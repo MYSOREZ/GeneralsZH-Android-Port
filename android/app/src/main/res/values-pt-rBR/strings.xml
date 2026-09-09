@@ -31,7 +31,7 @@
 
     <!-- SetupActivity: Language card -->
     <string name="setup_card_language">Idioma</string>
-    <string name="setup_language_help">Muda o idioma deste aplicativo de configurações, do visualizador de registros e do seletor de pastas. Para alemão, espanhol, chinês, francês, coreano, polonês, português brasileiro e russo, também muda automaticamente o texto do próprio jogo — mas somente se a pasta do jogo realmente contiver os dados desse idioma (data/&lt;idioma&gt;/generals.csf); este aplicativo nunca fornece nem inventa o texto do jogo por conta própria. Para os demais idiomas, o texto do jogo permanece inalterado. \"Padrão do sistema\" segue o idioma do seu telefone, retornando ao inglês se ele não estiver na lista.</string>
+    <string name="setup_language_help">Muda o idioma deste app de configurações, do visualizador de registros e do navegador de pastas. O texto do jogo é uma configuração separada abaixo — escolha entre os idiomas realmente presentes na pasta do jogo, ou baixe um. “Padrão do sistema” segue o idioma do telefone e recorre ao inglês se ele não estiver na lista.</string>
     <string name="setup_language_status">Idioma: %1$s</string>
     <string name="setup_button_change_language">Mudar idioma</string>
     <string name="setup_language_dialog_title">Escolha um idioma</string>
@@ -102,6 +102,13 @@
     <string name="setup_langpack_err_mkdir">não foi possível criar a pasta de idioma na pasta do jogo</string>
     <string name="setup_langpack_err_empty">o arquivo baixado estava vazio</string>
     <string name="setup_langpack_err_replace">não foi possível substituir o arquivo existente</string>
+    <string name="setup_button_game_text_language">Idioma do texto do jogo</string>
+    <string name="setup_game_text_dialog_title">Idioma do texto do jogo</string>
+    <string name="setup_game_text_default">Deixar o jogo como está</string>
+    <string name="setup_game_text_status">Texto do jogo: %1$s</string>
+    <string name="setup_game_text_status_default">Texto do jogo: como o jogo veio</string>
+    <string name="setup_game_text_none_found">Ainda não há pacotes de idioma na pasta do jogo. Baixe um primeiro.</string>
+    <string name="setup_langpack_dialog_title">Qual idioma?</string>
     <string name="setup_switch_dxvk_hud">Overlay de desempenho na tela</string>
     <string name="setup_switch_dxvk_hud_desc">Mostra FPS, número de draw calls, submissions e pipelines diretamente na tela e no registro. Ative para relatos de desempenho da GPU. (dxvk_hud.txt)</string>
     <string name="setup_switch_dxvk_validation">Camada de validação Vulkan</string>

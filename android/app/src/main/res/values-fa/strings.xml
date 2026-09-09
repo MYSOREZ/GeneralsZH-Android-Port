@@ -31,7 +31,7 @@
 
     <!-- SetupActivity: Language card -->
     <string name="setup_card_language">زبان</string>
-    <string name="setup_language_help">این گزینه زبان همین برنامه تنظیمات، نمایشگر گزارش‌ها و مرورگر پوشه را تغییر می‌دهد. برای زبان‌های آلمانی، اسپانیایی، چینی، فرانسوی، کره‌ای، لهستانی، پرتغالی برزیل و روسی، متن خود بازی را نیز تغییر می‌دهد — اما فقط در صورتی که پوشه بازی شما واقعاً داده‌های آن زبان را داشته باشد (data/&lt;زبان&gt;/generals.csf)؛ این برنامه هرگز خودش متن بازی را تأمین یا جعل نمی‌کند. برای زبان‌های دیگر، متن بازی بدون تغییر باقی می‌ماند. گزینه «پیش‌فرض سیستم» از زبان گوشی شما پیروی می‌کند و در صورتی که آن زبان در فهرست نباشد، به انگلیسی بازمی‌گردد.</string>
+    <string name="setup_language_help">زبان این برنامهٔ تنظیمات، نمایشگر گزارش‌ها و مرورگر پوشه را تغییر می‌دهد. متن خود بازی تنظیمی جداگانه در پایین است — از میان زبان‌هایی که واقعاً در پوشهٔ بازی هستند انتخاب کنید یا یکی دانلود کنید. «پیش‌فرض سامانه» از زبان گوشی پیروی می‌کند و اگر در فهرست نباشد به انگلیسی بازمی‌گردد.</string>
     <string name="setup_language_status">زبان: %1$s</string>
     <string name="setup_button_change_language">تغییر زبان</string>
     <string name="setup_language_dialog_title">یک زبان انتخاب کنید</string>
@@ -102,6 +102,13 @@
     <string name="setup_langpack_err_mkdir">ساخت پوشهٔ زبان در پوشهٔ بازی ممکن نشد</string>
     <string name="setup_langpack_err_empty">فایل دانلودشده خالی بود</string>
     <string name="setup_langpack_err_replace">جایگزینی فایل موجود ممکن نشد</string>
+    <string name="setup_button_game_text_language">زبان متن بازی</string>
+    <string name="setup_game_text_dialog_title">زبان متن بازی</string>
+    <string name="setup_game_text_default">بازی را همان‌طور که هست بگذار</string>
+    <string name="setup_game_text_status">متن بازی: %1$s</string>
+    <string name="setup_game_text_status_default">متن بازی: همان‌طور که خود بازی آمده</string>
+    <string name="setup_game_text_none_found">هنوز بستهٔ زبانی در پوشهٔ بازی نیست. ابتدا یکی دانلود کنید.</string>
+    <string name="setup_langpack_dialog_title">کدام زبان؟</string>
     <string name="setup_switch_dxvk_hud">نمایش عملکرد روی صفحه</string>
     <string name="setup_switch_dxvk_hud_desc">FPS، تعداد draw call، ارسال‌ها و تعداد پایپ‌لاین‌ها را مستقیماً روی صفحه و در گزارش نشان می‌دهد. برای گزارش‌های عملکرد GPU فعال کنید. (dxvk_hud.txt)</string>
     <string name="setup_switch_dxvk_validation">لایه اعتبارسنجی Vulkan</string>

@@ -31,7 +31,7 @@
 
     <!-- SetupActivity: Language card -->
     <string name="setup_card_language">Language</string>
-    <string name="setup_language_help">Changes the language of this Settings app and its Log Viewer / folder browser. For German, Spanish, Chinese, French, Korean, Polish, Brazilian Portuguese and Russian, it also switches the game\'s own text automatically, but only if your game folder actually contains that language\'s data (data/&lt;language&gt;/generals.csf) — this app never ships or fakes game text itself, and other languages leave the game\'s own text untouched. \"System Default\" follows your phone\'s language, falling back to English if it isn\'t one of the languages listed.</string>
+    <string name="setup_language_help">Changes the language of this Settings app, the log viewer and the folder browser. The game\'s own text is a separate setting below — pick it from the languages actually present in your game folder, or download one. “System default” follows your phone\'s language, falling back to English if it is not one of the languages listed.</string>
     <string name="setup_language_status">Language: %1$s</string>
     <string name="setup_button_change_language">Change Language</string>
     <string name="setup_language_dialog_title">Choose a language</string>
@@ -112,6 +112,13 @@
     <string name="setup_langpack_err_mkdir">could not create the language folder in your game folder</string>
     <string name="setup_langpack_err_empty">the downloaded file was empty</string>
     <string name="setup_langpack_err_replace">could not replace the existing file</string>
+    <string name="setup_button_game_text_language">Game text language</string>
+    <string name="setup_game_text_dialog_title">Game text language</string>
+    <string name="setup_game_text_default">Leave the game as it is</string>
+    <string name="setup_game_text_status">Game text: %1$s</string>
+    <string name="setup_game_text_status_default">Game text: as the game itself shipped</string>
+    <string name="setup_game_text_none_found">No language packs found in your game folder yet. Download one first.</string>
+    <string name="setup_langpack_dialog_title">Which language?</string>
     <string name="setup_switch_dxvk_hud">On-screen performance overlay</string>
     <string name="setup_switch_dxvk_hud_desc">Shows FPS, draw calls, submissions, and pipeline count directly on screen and in the log. Turn this on for GPU performance reports. (dxvk_hud.txt)</string>
     <string name="setup_switch_dxvk_validation">Vulkan validation layer</string>

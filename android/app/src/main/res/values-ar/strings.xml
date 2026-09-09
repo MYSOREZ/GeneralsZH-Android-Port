@@ -31,7 +31,7 @@
 
     <!-- SetupActivity: Language card -->
     <string name="setup_card_language">اللغة</string>
-    <string name="setup_language_help">يغيّر هذا لغة تطبيق الإعدادات هذا وعارض السجلات ومتصفح المجلدات. بالنسبة للألمانية والإسبانية والصينية والفرنسية والكورية والبولندية والبرتغالية البرازيلية والروسية، يقوم أيضًا بتبديل نص اللعبة نفسها — ولكن فقط إذا كان مجلد اللعبة يحتوي فعليًا على بيانات تلك اللغة (data/&lt;اللغة&gt;/generals.csf)؛ هذا التطبيق لا يوفر أو يختلق نص اللعبة بنفسه أبدًا. أما بالنسبة للغات الأخرى، فلا يتأثر نص اللعبة. يتبع خيار \"افتراضي النظام\" لغة هاتفك، ويعود إلى الإنجليزية إذا لم تكن ضمن القائمة.</string>
+    <string name="setup_language_help">يغيّر لغة تطبيق الإعدادات هذا وعارض السجلات ومتصفّح المجلدات. نصوص اللعبة نفسها إعداد منفصل بالأسفل — اخترها من اللغات الموجودة فعلاً في مجلد اللعبة، أو نزّل واحدة. «افتراضي النظام» يتبع لغة الهاتف، ويعود إلى الإنجليزية إن لم تكن ضمن القائمة.</string>
     <string name="setup_language_status">اللغة: %1$s</string>
     <string name="setup_button_change_language">تغيير اللغة</string>
     <string name="setup_language_dialog_title">اختر لغة</string>
@@ -102,6 +102,13 @@
     <string name="setup_langpack_err_mkdir">تعذّر إنشاء مجلد اللغة داخل مجلد اللعبة</string>
     <string name="setup_langpack_err_empty">الملف الذي تم تنزيله فارغ</string>
     <string name="setup_langpack_err_replace">تعذّر استبدال الملف الموجود</string>
+    <string name="setup_button_game_text_language">لغة نصوص اللعبة</string>
+    <string name="setup_game_text_dialog_title">لغة نصوص اللعبة</string>
+    <string name="setup_game_text_default">اترك اللعبة كما هي</string>
+    <string name="setup_game_text_status">نصوص اللعبة: %1$s</string>
+    <string name="setup_game_text_status_default">نصوص اللعبة: كما جاءت مع اللعبة</string>
+    <string name="setup_game_text_none_found">لا توجد حزم لغة في مجلد اللعبة بعد. نزّل واحدة أولاً.</string>
+    <string name="setup_langpack_dialog_title">أي لغة؟</string>
     <string name="setup_switch_dxvk_hud">طبقة أداء على الشاشة</string>
     <string name="setup_switch_dxvk_hud_desc">يعرض معدل الإطارات وعدد أوامر الرسم والإرسالات وعدد خطوط الأنابيب مباشرة على الشاشة وفي السجل. فعّله لتقارير أداء وحدة معالجة الرسومات. (dxvk_hud.txt)</string>
     <string name="setup_switch_dxvk_validation">طبقة التحقق من Vulkan</string>

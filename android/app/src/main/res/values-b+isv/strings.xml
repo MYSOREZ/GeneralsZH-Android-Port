@@ -31,7 +31,7 @@
 
     <!-- SetupActivity: Language card -->
     <string name="setup_card_language">Jezyk</string>
-    <string name="setup_language_help">Měnji jezyk sej aplikacije nastojenj, prokazyvača logov i izbirača papky. Za německy, špansky, kitajsky, francuzsky, korejsky, poljsky, brazilsko-portugalsky i rusky jezyk takože pěreključa tekst same igry — no tolko jestli vaša papka igry děistvitělno sodrži dane za tyj jezyk (data/&lt;jezyk&gt;/generals.csf); ta aplikacija nikogda sama ne dava ili ne izmyšlja tekst igry. Za druge jezyky tekst igry ostaje netaknuty. \"Sistemny\" sledi jezyku vašego telefona, s otkazom na anglijsky, jestli on ne jest v spisku.</string>
+    <string name="setup_language_help">Měnjaje jezyk tutoj aplikacije nastrojenj, pregleda dnevnikov i izbora papky. Tekst samoj igry jest odděljeno nastrojenje nizše — izberite iz jezykov, ktore vistinno sut v papkě igry, ili sņimite jedin. «Kako v sistemě» slěduje jezyku telefona, a ako jego ne jest v spisku — jest upotrěbjeny anglijsky.</string>
     <string name="setup_language_status">Jezyk: %1$s</string>
     <string name="setup_button_change_language">Změniti jezyk</string>
     <string name="setup_language_dialog_title">Izberi jezyk</string>
@@ -102,6 +102,13 @@
     <string name="setup_langpack_err_mkdir">ne bylo možno stvoriti jezyčnu papku v papkě igry</string>
     <string name="setup_langpack_err_empty">sņety fajl byl prazdny</string>
     <string name="setup_langpack_err_replace">ne bylo možno zaměniti postoječi fajl</string>
+    <string name="setup_button_game_text_language">Jezyk teksta igry</string>
+    <string name="setup_game_text_dialog_title">Jezyk teksta igry</string>
+    <string name="setup_game_text_default">Ostaviti kako v samoj igrě</string>
+    <string name="setup_game_text_status">Tekst igry: %1$s</string>
+    <string name="setup_game_text_status_default">Tekst igry: kako v samoj igrě</string>
+    <string name="setup_game_text_none_found">V papkě igry hče ne jest jezyčnyh paketov. Najprvo sņimite jedin.</string>
+    <string name="setup_langpack_dialog_title">Kotory jezyk?</string>
     <string name="setup_switch_dxvk_hud">Ekranny overlej proizvoditelnosti</string>
     <string name="setup_switch_dxvk_hud_desc">Pokazuje FPS, čislo draw call, otprav i pajplajnov prěmo na ekranu i v logu. Uklopte za izvěšćenja o proizvoditelnosti GPU. (dxvk_hud.txt)</string>
     <string name="setup_switch_dxvk_validation">Sloj validacije Vulkan</string>

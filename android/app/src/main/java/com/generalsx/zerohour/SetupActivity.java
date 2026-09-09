@@ -470,6 +470,9 @@ public class SetupActivity extends Activity {
         gameLanguageStatusView = UiKit.supporting(content, null);
         updateGameLanguageStatusView();
 
+        UiKit.button(content, UiKit.BTN_TONAL, R.drawable.ic_gzh_globe,
+            getString(R.string.setup_button_game_text_language), this::onChangeGameTextLanguage);
+
         languagePackButton = UiKit.button(content, UiKit.BTN_OUTLINE, R.drawable.ic_gzh_download,
             getString(R.string.setup_button_download_langpack), this::onDownloadLanguagePack);
 
@@ -485,17 +488,66 @@ public class SetupActivity extends Activity {
         if (gameLanguageStatusView == null) {
             return;
         }
-        String launcherTag = LocaleHelper.getSavedLanguageTag(this);
-        String engineToken = LocaleHelper.gameDataLanguageFor(launcherTag);
-        if (engineToken == null) {
-            gameLanguageStatusView.setText(R.string.setup_language_game_status_default);
+        String token = LocaleHelper.getGameTextToken(this);
+        if (token == null || token.isEmpty()) {
+            gameLanguageStatusView.setText(R.string.setup_game_text_status_default);
+        } else {
+            gameLanguageStatusView.setText(getString(R.string.setup_game_text_status,
+                LocaleHelper.gameTextDisplayName(token)));
+        }
+    }
+
+    // GeneralsX @feature Android port 09/09/2026 Which languages are actually installed.
+    //
+    // Not a fixed list of what the game might have shipped with: what is really in this
+    // player's game folder right now, loose or inside a .big, as text or as the compiled
+    // table. That is the list worth offering, and it is the one that answers "how do I get
+    // back to English" -- English is simply one of the entries.
+    private java.util.List<String> installedGameTextTokens() {
+        java.util.List<String> found = new java.util.ArrayList<>();
+        String gamePath = getSavedGamePath();
+        if (gamePath == null) {
+            return found;
+        }
+        for (String token : LocaleHelper.GAME_TEXT_TOKENS) {
+            if (gameHasTextFor(gamePath, token)) {
+                found.add(token);
+            }
+        }
+        return found;
+    }
+
+    private void onChangeGameTextLanguage() {
+        final java.util.List<String> tokens = installedGameTextTokens();
+        if (tokens.isEmpty()) {
+            toast(getString(R.string.setup_game_text_none_found));
             return;
         }
-        String gamePath = getSavedGamePath();
-        boolean found = gameHasCsfFor(gamePath, engineToken);
-        gameLanguageStatusView.setText(getString(
-            found ? R.string.setup_language_game_status_override : R.string.setup_language_game_status_missing,
-            engineToken));
+        // Entry 0 is always "leave the game alone", so there is a way back out of every
+        // choice, including out of a pack that turned out to be a bad fit.
+        final String[] labels = new String[tokens.size() + 1];
+        labels[0] = getString(R.string.setup_game_text_default);
+        for (int i = 0; i < tokens.size(); i++) {
+            labels[i + 1] = LocaleHelper.gameTextDisplayName(tokens.get(i));
+        }
+        String current = LocaleHelper.getGameTextToken(this);
+        int checked = 0;
+        for (int i = 0; i < tokens.size(); i++) {
+            if (tokens.get(i).equals(current)) {
+                checked = i + 1;
+                break;
+            }
+        }
+        new android.app.AlertDialog.Builder(this)
+            .setTitle(R.string.setup_game_text_dialog_title)
+            .setSingleChoiceItems(labels, checked, (dialog, which) -> {
+                LocaleHelper.setGameTextToken(this, which == 0 ? "" : tokens.get(which - 1));
+                applyGameLanguageOverride();
+                updateGameLanguageStatusView();
+                dialog.dismiss();
+            })
+            .setNegativeButton(R.string.common_cancel, null)
+            .show();
     }
 
     private void onChangeLanguage() {
@@ -516,7 +568,7 @@ public class SetupActivity extends Activity {
             .setTitle(R.string.setup_language_dialog_title)
             .setSingleChoiceItems(labels, currentIndex, (dialog, which) -> {
                 LocaleHelper.setSavedLanguageTag(this, tags[which]);
-                applyGameLanguageOverride(tags[which]);
+                applyGameLanguageOverride();
                 dialog.dismiss();
                 recreate();
             })
@@ -542,10 +594,13 @@ public class SetupActivity extends Activity {
     // text, if the CSF is missing -- silently wrong is worse than
     // untouched). Called both when the language changes and when the game
     // folder changes, since either one can flip the answer.
-    private void applyGameLanguageOverride(String launcherTag) {
+    private void applyGameLanguageOverride() {
         File marker = new File(getFilesDir(), "game_language.cfg");
-        String engineToken = LocaleHelper.gameDataLanguageFor(launcherTag);
-        if (engineToken == null) {
+        // GeneralsX @feature Android port 09/09/2026 Driven by the player's explicit choice,
+        // not by the launcher's UI language. Empty means "leave the game's own text alone",
+        // and deleting the marker is what says that to the engine.
+        String engineToken = LocaleHelper.getGameTextToken(this);
+        if (engineToken == null || engineToken.isEmpty()) {
             marker.delete();
             return;
         }
@@ -554,7 +609,7 @@ public class SetupActivity extends Activity {
             marker.delete();
             return;
         }
-        if (!gameHasCsfFor(gamePath, engineToken)) {
+        if (!gameHasTextFor(gamePath, engineToken)) {
             marker.delete();
             return;
         }
@@ -1686,7 +1741,7 @@ public class SetupActivity extends Activity {
     //
     // Both shapes are now recognised: a loose data/<token>/generals.csf, or that path inside
     // any .big in the game folder (or one level down -- ZH_Generals/ and friends).
-    private static boolean gameHasCsfFor(String gamePath, String token) {
+    private static boolean gameHasTextFor(String gamePath, String token) {
         if (gamePath == null || token == null) {
             return false;
         }
@@ -1789,14 +1844,27 @@ public class SetupActivity extends Activity {
         "https://raw.githubusercontent.com/MYSOREZ/GeneralsZH-Android-Port/claude/audio-fixes/languages/";
 
     private void onDownloadLanguagePack() {
-        final String launcherTag = LocaleHelper.getSavedLanguageTag(this);
-        final String token = LocaleHelper.gameDataLanguageFor(launcherTag);
-        final String gamePath = getSavedGamePath();
-
-        if (token == null) {
-            toast(getString(R.string.setup_langpack_not_available));
+        // GeneralsX @feature Android port 09/09/2026 Ask which language, rather than assuming
+        // the launcher's own. The two are separate settings now, and someone running an
+        // English launcher is exactly the person most likely to be fetching a translation.
+        if (getSavedGamePath() == null) {
+            toast(getString(R.string.setup_langpack_no_folder));
             return;
         }
+        final String[] tokens = LocaleHelper.GAME_TEXT_TOKENS;
+        final String[] labels = new String[tokens.length];
+        for (int i = 0; i < tokens.length; i++) {
+            labels[i] = LocaleHelper.gameTextDisplayName(tokens[i]);
+        }
+        new android.app.AlertDialog.Builder(this)
+            .setTitle(R.string.setup_langpack_dialog_title)
+            .setItems(labels, (dialog, which) -> startLanguagePackDownload(tokens[which]))
+            .setNegativeButton(R.string.common_cancel, null)
+            .show();
+    }
+
+    private void startLanguagePackDownload(final String token) {
+        final String gamePath = getSavedGamePath();
         if (gamePath == null) {
             toast(getString(R.string.setup_langpack_no_folder));
             return;
@@ -1813,9 +1881,11 @@ public class SetupActivity extends Activity {
                     languagePackButton.setEnabled(true);
                 }
                 if (error == null) {
-                    // The pack only counts once the engine can actually be pointed at it,
-                    // so re-run the same override the language picker runs.
-                    applyGameLanguageOverride(LocaleHelper.getSavedLanguageTag(this));
+                    // Select what was just downloaded. Downloading a language and then having
+                    // to find a second control to switch to it is a step nobody wants; the
+                    // picker is still there to go back, English included.
+                    LocaleHelper.setGameTextToken(this, token);
+                    applyGameLanguageOverride();
                     updateGameLanguageStatusView();
                     toast(getString(R.string.setup_langpack_done));
                 } else {
@@ -2456,7 +2526,7 @@ public class SetupActivity extends Activity {
         if (bundledRoot != null) {
             copyBundledRuntimeIfMissing(bundledRoot, path);
         }
-        applyGameLanguageOverride(LocaleHelper.getSavedLanguageTag(this));
+        applyGameLanguageOverride();
     }
 
     // GeneralsX @bugfix Android port 07/07/2026 dxvk.conf, DefaultOptions.ini,

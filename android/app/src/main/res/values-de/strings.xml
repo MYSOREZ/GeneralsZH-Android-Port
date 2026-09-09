@@ -31,7 +31,7 @@
 
     <!-- SetupActivity: Language card -->
     <string name="setup_card_language">Sprache</string>
-    <string name="setup_language_help">Ändert die Sprache dieser Einstellungs-App, des Log-Viewers und der Ordnerauswahl. Bei Deutsch, Spanisch, Chinesisch, Französisch, Koreanisch, Polnisch, brasilianischem Portugiesisch und Russisch wird zusätzlich auch der Spieltext selbst umgeschaltet — aber nur, wenn dein Spielordner tatsächlich Daten für diese Sprache enthält (data/&lt;Sprache&gt;/generals.csf); diese App liefert oder erfindet niemals selbst Spieltext. Bei anderen Sprachen bleibt der Spieltext unverändert. „Systemstandard“ folgt der Sprache deines Telefons, mit Englisch als Rückfalloption, falls sie nicht in der Liste ist.</string>
+    <string name="setup_language_help">Ändert die Sprache dieser Einstellungen-App, des Log-Viewers und der Ordnerauswahl. Die Spieltexte sind eine eigene Einstellung weiter unten — wählen Sie aus den Sprachen, die tatsächlich in Ihrem Spielordner liegen, oder laden Sie eine herunter. „Systemstandard“ folgt der Sprache des Telefons und fällt auf Englisch zurück, wenn diese nicht aufgeführt ist.</string>
     <string name="setup_language_status">Sprache: %1$s</string>
     <string name="setup_button_change_language">Sprache ändern</string>
     <string name="setup_language_dialog_title">Sprache wählen</string>
@@ -102,6 +102,13 @@
     <string name="setup_langpack_err_mkdir">der Sprachordner konnte im Spielordner nicht angelegt werden</string>
     <string name="setup_langpack_err_empty">die heruntergeladene Datei war leer</string>
     <string name="setup_langpack_err_replace">die vorhandene Datei konnte nicht ersetzt werden</string>
+    <string name="setup_button_game_text_language">Sprache der Spieltexte</string>
+    <string name="setup_game_text_dialog_title">Sprache der Spieltexte</string>
+    <string name="setup_game_text_default">Spiel unverändert lassen</string>
+    <string name="setup_game_text_status">Spieltexte: %1$s</string>
+    <string name="setup_game_text_status_default">Spieltexte: wie im Spiel selbst</string>
+    <string name="setup_game_text_none_found">Noch keine Sprachpakete im Spielordner. Laden Sie zuerst eines herunter.</string>
+    <string name="setup_langpack_dialog_title">Welche Sprache?</string>
     <string name="setup_switch_dxvk_hud">Bildschirm-Leistungsanzeige</string>
     <string name="setup_switch_dxvk_hud_desc">Zeigt FPS, Draw Calls, Submissions und Pipeline-Anzahl direkt auf dem Bildschirm und im Protokoll. Aktiviere dies für GPU-Leistungsberichte. (dxvk_hud.txt)</string>
     <string name="setup_switch_dxvk_validation">Vulkan-Validierungsschicht</string>

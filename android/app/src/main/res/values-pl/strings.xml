@@ -31,7 +31,7 @@
 
     <!-- SetupActivity: Language card -->
     <string name="setup_card_language">Język</string>
-    <string name="setup_language_help">Zmienia język tej aplikacji ustawień, przeglądarki dzienników i wyboru folderu. Dla niemieckiego, hiszpańskiego, chińskiego, francuskiego, koreańskiego, polskiego, brazylijskiego portugalskiego i rosyjskiego zmienia też automatycznie tekst samej gry — ale tylko jeśli folder gry rzeczywiście zawiera dane tego języka (data/&lt;język&gt;/generals.csf); ta aplikacja nigdy sama nie dostarcza ani nie zmyśla tekstu gry. Dla pozostałych języków tekst gry pozostaje bez zmian. „Domyślny systemowy” podąża za językiem telefonu, z powrotem do angielskiego, jeśli nie ma go na liście.</string>
+    <string name="setup_language_help">Zmienia język tej aplikacji ustawień, podglądu dziennika i przeglądarki folderów. Tekst samej gry to osobne ustawienie poniżej — wybierz spośród języków faktycznie obecnych w folderze gry albo pobierz jeden. „Domyślny systemu” podąża za językiem telefonu, a przy braku na liście wraca do angielskiego.</string>
     <string name="setup_language_status">Język: %1$s</string>
     <string name="setup_button_change_language">Zmień język</string>
     <string name="setup_language_dialog_title">Wybierz język</string>
@@ -102,6 +102,13 @@
     <string name="setup_langpack_err_mkdir">nie udało się utworzyć folderu językowego w folderze gry</string>
     <string name="setup_langpack_err_empty">pobrany plik był pusty</string>
     <string name="setup_langpack_err_replace">nie udało się zastąpić istniejącego pliku</string>
+    <string name="setup_button_game_text_language">Język tekstów w grze</string>
+    <string name="setup_game_text_dialog_title">Język tekstów w grze</string>
+    <string name="setup_game_text_default">Zostaw grę bez zmian</string>
+    <string name="setup_game_text_status">Tekst gry: %1$s</string>
+    <string name="setup_game_text_status_default">Tekst gry: taki jak w samej grze</string>
+    <string name="setup_game_text_none_found">W folderze gry nie ma jeszcze pakietów językowych. Najpierw pobierz.</string>
+    <string name="setup_langpack_dialog_title">Który język?</string>
     <string name="setup_switch_dxvk_hud">Nakładka wydajności na ekranie</string>
     <string name="setup_switch_dxvk_hud_desc">Pokazuje FPS, liczbę wywołań rysowania, zgłoszeń i potoków bezpośrednio na ekranie i w logu. Włącz do zgłoszeń o wydajności GPU. (dxvk_hud.txt)</string>
     <string name="setup_switch_dxvk_validation">Warstwa walidacji Vulkan</string>
