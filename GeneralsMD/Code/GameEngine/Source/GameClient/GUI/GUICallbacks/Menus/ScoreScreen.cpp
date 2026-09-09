@@ -654,7 +654,14 @@ WindowMsgHandledType ScoreScreenSystem( GameWindow *window, UnsignedInt msg,
 						}
 						else
 						{
-
+							// GeneralsX @bugfix Android port 09/09/2026 This branch was empty, so
+							// "Continue" on the score screen did nothing whenever there WAS a next
+							// mission -- the campaign could not be advanced at all, only exited.
+							// startNextCampaignGame() is defined right above in this file and had no
+							// caller anywhere in the tree; the Generals copy of this same file calls
+							// it from exactly here (Generals/.../ScoreScreen.cpp:482), so this is a
+							// line lost in a merge rather than a design difference.
+							startNextCampaignGame();
 						}
 					}
 					else if (screenType == SCORESCREEN_INTERNET)
