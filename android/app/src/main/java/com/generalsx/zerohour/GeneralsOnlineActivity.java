@@ -60,13 +60,14 @@ public class GeneralsOnlineActivity extends Activity {
     // the session token at game launch (they expire server-side within
     // hours; a stale marker file made the game's Online button fail with
     // "HTTP response code said error"/401 despite a "valid" local session).
-    // GeneralsX @bugfix Android port 10/07/2026 the reference client
-    // (OnlineServices_Auth.cpp BeginLogin) always appends &client=<id> to
-    // this URL -- without it the site apparently doesn't reliably associate
-    // the code with a pending login (the site says "return to the game" but
-    // CheckLogin never resolves it, so the launcher sits on "Not signed in"
-    // with a network-error toast until POLL_MAX_ATTEMPTS gives up).
-    private static final String LOGIN_URL_FMT = "https://www.playgenerals.online/login/?gamecode=%s&client=%s";
+    // GeneralsX @bugfix Android port 13/09/2026 &client= dropped. A note
+    // here used to claim the reference client always appended it and that
+    // the site needed it; upstream's BeginLogin no longer sends it, and the
+    // site demonstrably ignores it -- the page is byte-identical with and
+    // without, and the parameter appears nowhere in it. What actually
+    // broke that July sign-in was the client id itself; see
+    // GeneralsOnlineSession.CLIENT_ID.
+    private static final String LOGIN_URL_FMT = "https://www.playgenerals.online/login/?gamecode=%s";
     private static final String CLIENT_ID = GeneralsOnlineSession.CLIENT_ID;
 
     private static final String PREFS_NAME = GeneralsOnlineSession.PREFS_NAME;
@@ -94,6 +95,14 @@ public class GeneralsOnlineActivity extends Activity {
 
     private int pollAttempt = 0;
     private boolean busy = false;
+
+    // GeneralsX @bugfix Android port 13/09/2026 Tapping Sign In again while
+    // a sign-in was already running left the first poll loop alive: the log
+    // from a failed attempt shows two different codes being polled one
+    // second apart, doubling the request rate and letting whichever loop
+    // answered last decide the screen. Each attempt now carries a
+    // generation, and a result from a superseded one is dropped.
+    private int signInGeneration = 0;
 
     @Override
     protected void attachBaseContext(android.content.Context newBase) {
@@ -233,10 +242,11 @@ public class GeneralsOnlineActivity extends Activity {
         }
         busy = true;
         pollAttempt = 0;
+        final int generation = ++signInGeneration;
         signInButton.setEnabled(false);
 
         String code = generateGameCode();
-        String url = String.format(LOGIN_URL_FMT, code, CLIENT_ID);
+        String url = String.format(LOGIN_URL_FMT, code);
         NetworkTrace.section(this, "sign-in attempt");
         NetworkTrace.write(this, "opening browser for login code (" + code.length() + " chars)");
         try {
@@ -249,13 +259,16 @@ public class GeneralsOnlineActivity extends Activity {
         }
 
         statusText.setText(R.string.online_status_continue_browser);
-        handler.postDelayed(() -> pollOnce(code), POLL_INTERVAL_MS);
+        handler.postDelayed(() -> pollOnce(code, generation), POLL_INTERVAL_MS);
     }
 
-    private void pollOnce(String code) {
+    private void pollOnce(String code, int generation) {
+        if (generation != signInGeneration) {
+            return;
+        }
         new Thread(() -> {
             GeneralsOnlineSession.AuthResult result = callCheckLogin(code);
-            handler.post(() -> handlePollResult(code, result));
+            handler.post(() -> handlePollResult(code, generation, result));
         }).start();
     }
 
@@ -273,7 +286,13 @@ public class GeneralsOnlineActivity extends Activity {
     // instead of "sign-in failed" immediately, and the log records every
     // answer in between. What IS terminal: an explicit ban (423), and a
     // transport failure with no parseable body at all.
-    private void handlePollResult(String code, GeneralsOnlineSession.AuthResult result) {
+    private void handlePollResult(String code, int generation,
+                                  GeneralsOnlineSession.AuthResult result) {
+        if (generation != signInGeneration) {
+            // A newer attempt has taken over; this answer is about a code
+            // nobody is waiting on any more.
+            return;
+        }
         if (result == null) {
             busy = false;
             signInButton.setEnabled(true);
@@ -327,7 +346,7 @@ public class GeneralsOnlineActivity extends Activity {
             NetworkTrace.write(this, "poll " + pollAttempt + ": HTTP " + result.httpStatus
                 + ", result " + result.state + " (still waiting)");
         }
-        handler.postDelayed(() -> pollOnce(code), POLL_INTERVAL_MS);
+        handler.postDelayed(() -> pollOnce(code, generation), POLL_INTERVAL_MS);
     }
 
     // GeneralsX @bugfix Android port 08/30/2026 A user reported the network-

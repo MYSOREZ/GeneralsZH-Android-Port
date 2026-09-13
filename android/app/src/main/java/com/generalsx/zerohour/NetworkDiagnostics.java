@@ -412,8 +412,16 @@ final class NetworkDiagnostics {
                 return "the request was rejected before reaching the login logic "
                     + "(no credentials accepted)";
             case 403:
-                return "expected: the code has not been claimed on the website yet. "
-                    + "The launcher must keep polling through this, not stop.";
+                // Two different situations share this status, and only the
+                // sign-in log can tell them apart: 403 while waiting is
+                // normal, 403 that outlives a successful website sign-in is
+                // the server refusing the poll itself -- which is how the
+                // client_id mismatch presented (see
+                // GeneralsOnlineSession.CLIENT_ID).
+                return "expected for a code nobody has claimed. During a real sign-in "
+                    + "this is also the normal answer while waiting -- but if it "
+                    + "continues after the website says you are signed in, the server "
+                    + "is refusing the poll, not waiting for you.";
             case 423:
                 return "this account is banned server-side";
             default:

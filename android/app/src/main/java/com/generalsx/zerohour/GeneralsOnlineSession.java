@@ -78,10 +78,31 @@ final class GeneralsOnlineSession {
     static final String SESSION_MARKER_NAME = "generalsonline_session.txt";
 
     // GeneralsX @bugfix Android port 13/09/2026 Moved here from
-    // GeneralsOnlineActivity: both the sign-in flow and the diagnostics
-    // sweep send it, and it is part of the wire contract rather than of
-    // any one screen.
-    static final String CLIENT_ID = "custom_third_party_client";
+    // GeneralsOnlineActivity, and changed from "custom_third_party_client"
+    // to the id the engine itself sends. That invented value is why sign-in
+    // failed with the website reporting success.
+    //
+    // The login URL carries the game code to the website, and the website
+    // hands it to the API once the user finishes with Discord/Steam. The
+    // only thing that survives that round-trip is the OAuth "state":
+    //
+    //   {"type":1, "code":"<gamecode>", "env":"prod", "login_type":"0"}
+    //
+    // There is no client field in it, and the page drops our &client=
+    // parameter entirely -- the string never reaches the server by that
+    // route at all. So the server records the pending login under its own
+    // default client, we then polled CheckLogin claiming to be
+    // "custom_third_party_client", the two did not match, and every poll
+    // was refused. The user saw "Welcome Back" on the site and "not signed
+    // in" in the launcher, for as long as they cared to wait.
+    //
+    // GENERALS_ONLINE_CLIENT_ID in NextGenMP_defines.h is "gen_online_30hz"
+    // and the engine has always sent exactly that, so this is not the
+    // launcher claiming to be something it is not -- it is the launcher
+    // finally agreeing with the game it launches. A session obtained under
+    // one client id and then used by a process announcing another was never
+    // going to be sound anyway.
+    static final String CLIENT_ID = "gen_online_30hz";
 
     static class AuthResult {
         int state = -1;
