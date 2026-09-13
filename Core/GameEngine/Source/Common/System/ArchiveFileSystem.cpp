@@ -251,35 +251,27 @@ void ArchiveFileSystem::loadMods()
 	// over the retail archives because digits sort ahead of letters, and later
 	// data packs slot in by number rather than by mount order.
 	//
+	// The path is the user-data folder, unchanged from the PC client's -- which
+	// on this port is already a plain, visible directory laid out exactly like
+	// Windows' Documents leaf (see SDL3Main.cpp and BuildUserDataPathFromRegistry).
+	// So this needs no new location and invents no convention: the same relative
+	// path under the folder that already holds Options.ini, save games and Maps.
+	//
 	// Presence is the switch. Without the file this does nothing and the port
 	// behaves as before; with it, the INI checksum should land on the PC's value
 	// -- and land on it honestly, because the simulation is then reading the same
 	// unit data, which is the whole point of the checksum.
 	{
-		AsciiString userData = TheGlobalData->getPath_UserData();
-		AsciiString patchPath;
-
-		const char* const kCommunityPatchBig = "GeneralsOnlineGameData/500_900_CommunityPatch_CoreINI.big";
-
-		if (userData.isNotEmpty())
-		{
-			patchPath = userData;
-			if (!patchPath.endsWith("/") && !patchPath.endsWith("\\"))
-				patchPath.concat('/');
-			patchPath.concat(kCommunityPatchBig);
-
-			if (!TheLocalFileSystem->doesFileExist(patchPath.str()))
-				patchPath.clear();
-		}
-
-		if (patchPath.isEmpty() && TheLocalFileSystem->doesFileExist(kCommunityPatchBig))
-		{
-			// The game folder, which is the one place an Android player can actually
-			// drop a file the PC client keeps in Documents.
-			patchPath = kCommunityPatchBig;
-		}
+		AsciiString patchPath = TheGlobalData->getPath_UserData();
 
 		if (patchPath.isNotEmpty())
+		{
+			if (!patchPath.endsWith("/") && !patchPath.endsWith("\\"))
+				patchPath.concat('/');
+			patchPath.concat("GeneralsOnlineGameData/500_900_CommunityPatch_CoreINI.big");
+		}
+
+		if (patchPath.isNotEmpty() && TheLocalFileSystem->doesFileExist(patchPath.str()))
 		{
 			ArchiveFile* archiveFile = openArchiveFile(patchPath.str());
 			if (archiveFile != nullptr)
@@ -295,7 +287,8 @@ void ArchiveFileSystem::loadMods()
 		}
 		else
 		{
-			fprintf(stderr, "[gxbig] no community patch archive (%s); INI stays retail\n", kCommunityPatchBig);
+			fprintf(stderr, "[gxbig] no community patch archive at %s; INI stays retail\n",
+				patchPath.isEmpty() ? "<no user data dir>" : patchPath.str());
 		}
 		fflush(stderr);
 	}

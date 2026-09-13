@@ -235,7 +235,7 @@
     <string name="online_card_crossplay">跨平台游戏</string>
     <string name="online_crossplay_help">Windows 客户端创建的游戏通常会拒绝本机：两者是不同的程序，EXE 校验和永远不可能一致。</string>
     <string name="online_crossplay_patch_found">已找到社区数据补丁——本设备加载的 INI 数据与 Windows 客户端相同。</string>
-    <string name="online_crossplay_patch_missing">未找到社区数据补丁。Windows 客户端同样会加载它，缺少它时其游戏会拒绝本设备。请把 GeneralsOnlineGameData/500_900_CommunityPatch_CoreINI.big 从电脑的“文档”文件夹复制到本游戏文件夹。</string>
+    <string name="online_crossplay_patch_missing">未找到社区数据补丁。Windows 客户端同样会加载它，缺少它时其游戏会拒绝本设备。请把 GeneralsOnlineGameData/500_900_CommunityPatch_CoreINI.big 从电脑的“文档”文件夹复制到游戏数据文件夹，与 Options.ini 和 Maps 放在一起。</string>
     <string name="online_switch_crossplay">与 PC 玩家一起游戏</string>
     <string name="online_switch_crossplay_desc">上报 Windows 客户端的 EXE 校验和，好让它的游戏接纳你。该校验和不是反作弊：它的作用是阻止运算结果会不同的两台机器一起游戏，所以这样做可能让大厅里所有人掉线不同步。请只为自己的 PC 开启，并且要先把那台 PC 的 INI 数据复制到本游戏文件夹。</string>
 </resources>

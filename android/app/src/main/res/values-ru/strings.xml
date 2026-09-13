@@ -237,7 +237,7 @@
     <string name="online_card_crossplay">Кроссплатформенная игра</string>
     <string name="online_crossplay_help">Игры, созданные Windows-клиентом, обычно отказывают этому устройству: это разные программы, и их контрольные суммы EXE совпасть не могут.</string>
     <string name="online_crossplay_patch_found">Патч данных сообщества найден — устройство загружает те же INI-данные, что и Windows-клиент.</string>
-    <string name="online_crossplay_patch_missing">Патч данных сообщества не найден. Windows-клиент загружает его тоже, поэтому без него его игры отказывают этому устройству. Скопируйте GeneralsOnlineGameData/500_900_CommunityPatch_CoreINI.big из папки «Документы» на ПК в папку с игрой.</string>
+    <string name="online_crossplay_patch_missing">Патч данных сообщества не найден. Windows-клиент загружает его тоже, поэтому без него его игры отказывают этому устройству. Скопируйте GeneralsOnlineGameData/500_900_CommunityPatch_CoreINI.big из папки «Документы» на ПК в папку данных игры, рядом с Options.ini и Maps.</string>
     <string name="online_switch_crossplay">Играть с игроками на ПК</string>
     <string name="online_switch_crossplay_desc">Сообщает контрольную сумму EXE Windows-клиента, чтобы его игры вас пускали. Эта сумма не античит — она не даёт играть вместе машинам, которые посчитали бы матч по-разному, поэтому так можно развалить игру всем в лобби. Включайте для своего же ПК и только скопировав с него INI-данные в папку с игрой, чтобы они действительно совпали.</string>
 </resources>
