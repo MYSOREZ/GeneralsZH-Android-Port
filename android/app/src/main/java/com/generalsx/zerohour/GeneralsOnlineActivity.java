@@ -197,6 +197,22 @@ public class GeneralsOnlineActivity extends Activity {
             return;
         }
 
+        // GeneralsX @feature Android port 13/09/2026 The EXE checksum is only half
+        // of what a PC-hosted game checks; the other half is the INI checksum, and
+        // that one this device can genuinely match rather than claim. The PC client
+        // mounts a community data patch it downloads into the user's Documents
+        // folder, so a retail-only install computes a different number and is turned
+        // away no matter what it reports for the EXE. Nothing here can fetch that
+        // file, so say plainly whether it is present and where it comes from.
+        final File patch = communityPatchFile();
+        final boolean havePatch = patch != null && patch.isFile();
+        UiKit.chip(card, havePatch ? R.drawable.ic_gzh_check : R.drawable.ic_gzh_info,
+            getString(havePatch
+                ? R.string.online_crossplay_patch_found
+                : R.string.online_crossplay_patch_missing),
+            havePatch ? R.color.gzh_status_ok : R.color.gzh_status_warn,
+            R.color.gzh_surface_container_high);
+
         com.google.android.material.materialswitch.MaterialSwitch sw = UiKit.switchRow(card,
             getString(R.string.online_switch_crossplay),
             getString(R.string.online_switch_crossplay_desc));
@@ -221,6 +237,15 @@ public class GeneralsOnlineActivity extends Activity {
     private File crossPlayMarkerFile() {
         String gamePath = SetupActivity.getSavedGamePath(this);
         return gamePath != null ? new File(gamePath, "gx_pc_compat.txt") : null;
+    }
+
+    // Same path the engine looks in (ArchiveFileSystem::loadMods), and the same
+    // layout the PC client uses under Documents -- so a player can copy the folder
+    // across rather than learn a new one.
+    private File communityPatchFile() {
+        String gamePath = SetupActivity.getSavedGamePath(this);
+        return gamePath == null ? null
+            : new File(gamePath, "GeneralsOnlineGameData/500_900_CommunityPatch_CoreINI.big");
     }
 
     // If we already have a refresh_token from a previous sign-in, try to

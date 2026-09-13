@@ -234,6 +234,8 @@
     <string name="online_status_no_login_code">لم يُصدر الخادم رمز تسجيل دخول. تحقّق من الاتصال وحاول مجددًا، أو شغّل تشخيص الشبكة من الأدوات.</string>
     <string name="online_card_crossplay">اللعب عبر المنصات</string>
     <string name="online_crossplay_help">المباريات التي يستضيفها عميل ويندوز ترفض هذا الجهاز عادةً: فهما برنامجان مختلفان ولا يمكن لمجموعَي تحقّق EXE أن يتطابقا أبدًا.</string>
+    <string name="online_crossplay_patch_found">تم العثور على حزمة بيانات المجتمع — يحمّل هذا الجهاز بيانات INI نفسها التي يحمّلها عميل ويندوز.</string>
+    <string name="online_crossplay_patch_missing">لم يتم العثور على حزمة بيانات المجتمع. يحمّلها عميل ويندوز أيضاً، ومن دونها ترفض مبارياته هذا الجهاز. انسخ GeneralsOnlineGameData/500_900_CommunityPatch_CoreINI.big من مجلد Documents على الحاسوب إلى مجلد اللعبة هذا.</string>
     <string name="online_switch_crossplay">اللعب مع لاعبي الحاسوب</string>
     <string name="online_switch_crossplay_desc">يُبلغ عن مجموع تحقّق EXE الخاص بعميل ويندوز كي تقبلك مبارياته. هذا المجموع ليس مضادًا للغش: وظيفته منع جهازين يحسبان المباراة بطريقتين مختلفتين من اللعب معًا، لذا قد يُفسد ذلك المباراة على الجميع في الردهة. فعّله لحاسوب تملكه، وبعد نسخ بيانات INI منه إلى مجلد اللعبة هذا فقط.</string>
 </resources>

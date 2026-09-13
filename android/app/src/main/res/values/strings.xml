@@ -205,6 +205,8 @@
     <string name="online_signin_help">Tap Sign In. The first tap may ask to exempt this app from battery optimization -- allow it, then come back and tap Sign In again. A browser then opens to playgenerals.online, already carrying a one-time code for this device. Pick Steam, Discord, or GameReplays there, then just come back to this app; it finishes on its own.</string>
     <string name="online_card_crossplay">Cross-platform play</string>
     <string name="online_crossplay_help">Games hosted by the Windows client normally refuse this device, because the two are different programs and their EXE checksums can never match.</string>
+    <string name="online_crossplay_patch_found">Community data patch found — this device loads the same INI data as the Windows client.</string>
+    <string name="online_crossplay_patch_missing">Community data patch not found. The Windows client loads one as well, so its games refuse this device without it. Copy GeneralsOnlineGameData/500_900_CommunityPatch_CoreINI.big from the PC\'s Documents folder into this game folder.</string>
     <string name="online_switch_crossplay">Play with PC players</string>
     <string name="online_switch_crossplay_desc">Reports the Windows client\'s EXE checksum so its games will accept you. That checksum is not anti-cheat — it is what keeps two machines that would compute the match differently from playing it together, so this can desync the game for everyone in the lobby. Turn it on for a PC you own, and only after copying that PC\'s INI data into this game folder so the two really do match.</string>
     <string name="online_button_sign_in">Sign In</string>

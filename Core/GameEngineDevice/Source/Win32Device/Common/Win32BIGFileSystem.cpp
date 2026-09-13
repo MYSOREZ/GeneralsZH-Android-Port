@@ -67,40 +67,6 @@ static const char* kBaseGeneralsAssetEnv = "CNC_GENERALS_PATH";
 static const char* kBaseGeneralsAssetIniKey = "GeneralsAssetPath";
 #endif
 
-#if RTS_ZEROHOUR
-// GeneralsX @feature Android port 13/09/2026 Cross-play data compatibility.
-//
-// The duplicate-archive skip further down is right for playing on this machine
-// and wrong for playing against the stock PC client, and the difference is
-// measurable: the INI checksum every PC GeneralsOnline lobby reports is
-// 2180732466, while an install without the duplicate produces 4272612339 --
-// the number this port prints and the number GeneralsOnline's own source calls
-// VANILLA_INI_CRC. The PC client predates the skip, so on an install that
-// carries both INIZH.big files it mounts the Data\INI one first and reads its
-// INI from there. Loading the same archive it loads is the only way to arrive
-// at the same INI, and therefore at the same simulation.
-//
-// Gated on the same marker file that turns on the EXE-checksum claim, so the
-// two stay one decision -- "talk to the PC client" -- rather than two switches
-// a player has to get right together. Off by default: on an install without
-// the duplicate this changes nothing either way.
-static Bool isPcCrossPlayEnabled()
-{
-	static Bool s_checked = FALSE;
-	static Bool s_enabled = FALSE;
-
-	if (!s_checked) {
-		s_checked = TRUE;
-		if (FILE* marker = fopen("gx_pc_compat.txt", "r")) {
-			fclose(marker);
-			s_enabled = TRUE;
-		}
-	}
-
-	return s_enabled;
-}
-#endif
-
 static Bool equalsIgnoreCase(const char* lhs, const char* rhs)
 {
 	if (lhs == nullptr || rhs == nullptr) {
@@ -689,13 +655,8 @@ Bool Win32BIGFileSystem::loadBigFilesFromDirectory(AsciiString dir, AsciiString 
 		// English, Chinese, and Korean SKUs shipped with two INIZH.big files (one in Run directory, one in Run\Data\INI).
 		// The DeleteFile cleanup doesn't work on EA App/Origin installs because the folder is not writable, so we skip loading it instead.
 		if (it->endsWithNoCase("Data\\INI\\INIZH.big") || it->endsWithNoCase("Data/INI/INIZH.big")) {
-			if (!isPcCrossPlayEnabled()) {
-				fprintf(stderr, "[gxbig] skipped duplicate archive: %s\n", (*it).str());
-				it++;
-				continue;
-			}
-
-			fprintf(stderr, "[gxbig] cross-play on: loading duplicate archive %s, as the PC client does\n", (*it).str());
+			it++;
+			continue;
 		}
 #endif
 

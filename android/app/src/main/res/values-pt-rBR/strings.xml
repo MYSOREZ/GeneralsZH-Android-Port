@@ -234,6 +234,8 @@
     <string name="online_status_no_login_code">O servidor não emitiu um código de login. Verifique a conexão e tente de novo, ou execute o diagnóstico de rede em Ferramentas.</string>
     <string name="online_card_crossplay">Jogo multiplataforma</string>
     <string name="online_crossplay_help">Partidas hospedadas pelo cliente Windows normalmente recusam este aparelho: são programas diferentes e suas somas de verificação EXE nunca podem coincidir.</string>
+    <string name="online_crossplay_patch_found">Patch de dados da comunidade encontrado — este dispositivo carrega os mesmos dados INI que o cliente do Windows.</string>
+    <string name="online_crossplay_patch_missing">Patch de dados da comunidade não encontrado. O cliente do Windows também o carrega, então sem ele as partidas dele recusam este dispositivo. Copie GeneralsOnlineGameData/500_900_CommunityPatch_CoreINI.big da pasta Documentos do PC para esta pasta do jogo.</string>
     <string name="online_switch_crossplay">Jogar com jogadores de PC</string>
     <string name="online_switch_crossplay_desc">Informa a soma de verificação EXE do cliente Windows para que suas partidas aceitem você. Essa soma não é anticheat — ela impede que máquinas que calculariam a partida de formas diferentes joguem juntas, então isso pode dessincronizar a partida para todos no lobby. Ative para um PC seu e somente após copiar os dados INI dele para esta pasta do jogo.</string>
 </resources>

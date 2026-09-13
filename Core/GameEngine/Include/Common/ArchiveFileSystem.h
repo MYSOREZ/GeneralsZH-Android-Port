@@ -162,7 +162,7 @@ protected:
 
 	ArchivedDirectoryInfoResult getArchivedDirectoryInfo(const Char* directory);
 
-	virtual void loadIntoDirectoryTree(ArchiveFile *archiveFile, Bool overwrite = FALSE);	///< load the archive file's header information and apply it to the global archive directory tree.
+	virtual void loadIntoDirectoryTree(ArchiveFile *archiveFile, Bool overwrite = FALSE, Bool sortedByName = FALSE);	///< load the archive file's header information and apply it to the global archive directory tree. sortedByName inserts by archive filename order (the addon-number convention), ignoring overwrite.
 
 	ArchiveFileMap m_archiveFileMap;
 	ArchivedDirectoryInfo m_rootDirectory;

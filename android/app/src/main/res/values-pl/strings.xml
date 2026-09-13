@@ -234,6 +234,8 @@
     <string name="online_status_no_login_code">Serwer nie wydał kodu logowania. Sprawdź połączenie i spróbuj ponownie lub uruchom diagnostykę sieci w Narzędziach.</string>
     <string name="online_card_crossplay">Gra międzyplatformowa</string>
     <string name="online_crossplay_help">Gry hostowane przez klienta Windows zwykle odrzucają to urządzenie: to różne programy, a ich sumy kontrolne EXE nigdy się nie zgodzą.</string>
+    <string name="online_crossplay_patch_found">Znaleziono społecznościową łatkę danych — to urządzenie wczytuje te same dane INI co klient Windows.</string>
+    <string name="online_crossplay_patch_missing">Nie znaleziono społecznościowej łatki danych. Klient Windows też ją wczytuje, więc bez niej jego gry odrzucają to urządzenie. Skopiuj GeneralsOnlineGameData/500_900_CommunityPatch_CoreINI.big z folderu Dokumenty na komputerze do tego folderu gry.</string>
     <string name="online_switch_crossplay">Graj z graczami na PC</string>
     <string name="online_switch_crossplay_desc">Zgłasza sumę kontrolną EXE klienta Windows, aby jego gry cię przyjmowały. Ta suma nie jest antycheatem — nie pozwala grać razem maszynom, które policzyłyby mecz inaczej, więc może to rozsypać grę wszystkim w poczekalni. Włącz dla własnego PC i dopiero po skopiowaniu z niego danych INI do tego folderu gry.</string>
 </resources>

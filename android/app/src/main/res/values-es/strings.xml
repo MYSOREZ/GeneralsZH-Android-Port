@@ -234,6 +234,8 @@
     <string name="online_status_no_login_code">El servidor no emitió un código de inicio de sesión. Comprueba la conexión e inténtalo de nuevo, o ejecuta el diagnóstico de red en Herramientas.</string>
     <string name="online_card_crossplay">Juego multiplataforma</string>
     <string name="online_crossplay_help">Las partidas creadas por el cliente de Windows suelen rechazar este dispositivo: son programas distintos y sus sumas de comprobación EXE nunca pueden coincidir.</string>
+    <string name="online_crossplay_patch_found">Parche de datos de la comunidad encontrado: este dispositivo carga los mismos datos INI que el cliente de Windows.</string>
+    <string name="online_crossplay_patch_missing">No se encontró el parche de datos de la comunidad. El cliente de Windows también lo carga, así que sin él sus partidas rechazan este dispositivo. Copie GeneralsOnlineGameData/500_900_CommunityPatch_CoreINI.big desde la carpeta Documentos del PC a esta carpeta del juego.</string>
     <string name="online_switch_crossplay">Jugar con jugadores de PC</string>
     <string name="online_switch_crossplay_desc">Informa la suma de comprobación EXE del cliente de Windows para que sus partidas te acepten. Esa suma no es un antitrampas: impide que jueguen juntas máquinas que calcularían la partida de forma distinta, así que esto puede desincronizar la partida para toda la sala. Actívalo para un PC tuyo y solo tras copiar sus datos INI a esta carpeta del juego.</string>
 </resources>

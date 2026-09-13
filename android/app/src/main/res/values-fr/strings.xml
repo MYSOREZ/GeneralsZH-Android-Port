@@ -234,6 +234,8 @@
     <string name="online_status_no_login_code">Le serveur n\'a pas délivré de code de connexion. Vérifiez votre connexion et réessayez, ou lancez le diagnostic réseau dans Outils.</string>
     <string name="online_card_crossplay">Jeu multiplateforme</string>
     <string name="online_crossplay_help">Les parties hébergées par le client Windows refusent normalement cet appareil : ce sont deux programmes différents et leurs sommes de contrôle EXE ne peuvent jamais coïncider.</string>
+    <string name="online_crossplay_patch_found">Correctif de données communautaire trouvé — cet appareil charge les mêmes données INI que le client Windows.</string>
+    <string name="online_crossplay_patch_missing">Correctif de données communautaire introuvable. Le client Windows le charge aussi ; sans lui, ses parties refusent cet appareil. Copiez GeneralsOnlineGameData/500_900_CommunityPatch_CoreINI.big depuis le dossier Documents du PC vers ce dossier de jeu.</string>
     <string name="online_switch_crossplay">Jouer avec des joueurs PC</string>
     <string name="online_switch_crossplay_desc">Annonce la somme de contrôle EXE du client Windows pour que ses parties vous acceptent. Cette somme n\'est pas un anti-triche : elle empêche deux machines qui calculeraient la partie différemment de jouer ensemble, donc cela peut désynchroniser la partie pour tout le salon. À activer pour un PC vous appartenant, et seulement après avoir copié ses données INI dans ce dossier de jeu.</string>
 </resources>

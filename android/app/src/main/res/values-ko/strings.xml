@@ -234,6 +234,8 @@
     <string name="online_status_no_login_code">서버가 로그인 코드를 발급하지 않았습니다. 연결을 확인하고 다시 시도하거나, 도구에서 네트워크 진단을 실행하세요.</string>
     <string name="online_card_crossplay">크로스 플랫폼 플레이</string>
     <string name="online_crossplay_help">Windows 클라이언트가 만든 게임은 보통 이 기기를 거부합니다. 서로 다른 프로그램이라 EXE 체크섬이 결코 일치할 수 없기 때문입니다.</string>
+    <string name="online_crossplay_patch_found">커뮤니티 데이터 패치를 찾았습니다 — 이 기기는 Windows 클라이언트와 동일한 INI 데이터를 불러옵니다.</string>
+    <string name="online_crossplay_patch_missing">커뮤니티 데이터 패치를 찾을 수 없습니다. Windows 클라이언트도 이 패치를 불러오므로, 없으면 해당 게임이 이 기기를 거부합니다. PC의 문서 폴더에서 GeneralsOnlineGameData/500_900_CommunityPatch_CoreINI.big 을 이 게임 폴더로 복사하세요.</string>
     <string name="online_switch_crossplay">PC 플레이어와 함께 플레이</string>
     <string name="online_switch_crossplay_desc">Windows 클라이언트의 EXE 체크섬을 보고해 해당 게임이 참가를 허용하게 합니다. 이 체크섬은 안티치트가 아니라, 경기를 다르게 계산할 기기끼리 함께 플레이하지 못하게 막는 장치입니다. 따라서 로비의 모든 사람에게 동기화 오류를 낼 수 있습니다. 본인 소유의 PC를 상대할 때, 그 PC의 INI 데이터를 이 게임 폴더에 복사한 뒤에만 켜세요.</string>
 </resources>

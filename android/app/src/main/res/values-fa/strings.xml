@@ -234,6 +234,8 @@
     <string name="online_status_no_login_code">سرور کد ورود صادر نکرد. اتصال را بررسی کنید و دوباره تلاش کنید، یا عیب‌یابی شبکه را در ابزارها اجرا کنید.</string>
     <string name="online_card_crossplay">بازی میان‌سکویی</string>
     <string name="online_crossplay_help">بازی‌هایی که کلاینت ویندوز میزبانی می‌کند معمولاً این دستگاه را رد می‌کنند: این دو برنامهٔ متفاوت‌اند و مجموع کنترلی EXE آن‌ها هرگز یکی نمی‌شود.</string>
+    <string name="online_crossplay_patch_found">وصله داده‌های انجمن پیدا شد — این دستگاه همان داده‌های INI کلاینت ویندوز را بارگذاری می‌کند.</string>
+    <string name="online_crossplay_patch_missing">وصله داده‌های انجمن پیدا نشد. کلاینت ویندوز هم آن را بارگذاری می‌کند و بدون آن بازی‌هایش این دستگاه را نمی‌پذیرند. فایل GeneralsOnlineGameData/500_900_CommunityPatch_CoreINI.big را از پوشه Documents رایانه به این پوشه بازی کپی کنید.</string>
     <string name="online_switch_crossplay">بازی با بازیکنان رایانه</string>
     <string name="online_switch_crossplay_desc">مجموع کنترلی EXE کلاینت ویندوز را گزارش می‌کند تا بازی‌هایش شما را بپذیرند. این مجموع ضدتقلب نیست: جلوی هم‌بازی شدن دستگاه‌هایی را می‌گیرد که بازی را متفاوت محاسبه می‌کنند، پس می‌تواند بازی را برای همهٔ افراد لابی خراب کند. برای رایانهٔ خودتان و فقط پس از کپی‌کردن داده‌های INI آن به این پوشهٔ بازی روشن کنید.</string>
 </resources>

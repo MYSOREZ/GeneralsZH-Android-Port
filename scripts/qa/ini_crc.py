@@ -23,7 +23,12 @@ did, the final number is trustworthy; if it did not, the data is unusual enough
 that the number means nothing and the tool says so.
 
 Usage:
-    scripts/qa/ini_crc.py <game folder>
+    scripts/qa/ini_crc.py <game folder> [community patch .big]
+
+The second argument is GeneralsOnline's community data patch, which its client
+downloads into the user-data folder and mounts ahead of the retail archives on
+every launch. Pass it to see the number a normal GeneralsOnline install reports
+rather than the number the retail data alone produces.
 
 Known values:
     4272612339  untouched retail data -- GeneralsOnline calls this VANILLA_INI_CRC
@@ -152,12 +157,18 @@ def read_big(path):
 class GameFiles(object):
     """The merged archive tree, with the engine's first-archive-wins rule."""
 
-    def __init__(self, root, load_duplicate_inizh=False):
+    def __init__(self, root, community_patch=None):
         self.files = {}
         self.dirs = {}
+        # The community patch mounts ahead of everything else: its "500_900_"
+        # prefix sorts before every retail archive name, which is what the
+        # addon-number convention is for.
+        if community_patch:
+            self._mount(community_patch)
         for display, real in self._archives(root):
-            lowered = display.lower().replace("/", "\\")
-            if lowered.endswith("data\\ini\\inizh.big") and not load_duplicate_inizh:
+            # The engine skips a duplicate INIZH.big in Data\\INI; some SKUs
+            # shipped two, and the one in Data\\INI would otherwise win.
+            if display.lower().replace("/", "\\").endswith("data\\ini\\inizh.big"):
                 continue
             self._mount(real)
 
@@ -244,13 +255,18 @@ def load_directory(files, name, crc, loaded):
 
 
 def main(argv):
-    if len(argv) != 2:
-        sys.stderr.write("usage: ini_crc.py <game folder>\n")
+    if len(argv) not in (2, 3):
+        sys.stderr.write("usage: ini_crc.py <game folder> [community patch .big]\n")
         return 2
 
     root = argv[1]
     if not os.path.isdir(root):
         sys.stderr.write("not a directory: %s\n" % root)
+        return 2
+
+    patch = argv[2] if len(argv) == 3 else None
+    if patch and not os.path.isfile(patch):
+        sys.stderr.write("not a file: %s\n" % patch)
         return 2
 
     duplicate = None
@@ -260,7 +276,7 @@ def main(argv):
             if joined.endswith("data/ini/inizh.big"):
                 duplicate = os.path.join(dirpath, name)
 
-    files = GameFiles(root)
+    files = GameFiles(root, community_patch=patch)
     crc = XferCRC()
     loaded = []
     checkpoints = {}
@@ -281,13 +297,13 @@ def main(argv):
     object_ok = checkpoints.get("object") == CHECKPOINT_OBJECT
 
     print("folder          : %s" % os.path.abspath(root))
+    print("community patch : %s" % (os.path.abspath(patch) if patch else "none"))
     print("INI files hashed: %d, from %s" % (len(loaded), ", ".join(sources)))
     print("checkpoints     : weather %08X (%s), object %08X (%s)" % (
         checkpoints.get("weather", 0), "ok" if weather_ok else "UNEXPECTED",
         checkpoints.get("object", 0), "ok" if object_ok else "UNEXPECTED"))
     if duplicate:
-        print("duplicate INIZH : %s -- skipped, as the engine does unless" % duplicate)
-        print("                  gx_pc_compat.txt turns on cross-play")
+        print("duplicate INIZH : %s -- skipped, as the engine does" % duplicate)
     print("ini_crc         : %u (0x%08X)" % (crc.value(), crc.value()))
     print("                  4272612339 = untouched retail data")
     print("                  2180732466 = what PC GeneralsOnline lobbies report")
