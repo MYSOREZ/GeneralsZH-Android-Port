@@ -99,6 +99,34 @@ const char *lastReplayFileName = "00000000";	// a name the user is unlikely to e
 // Note that this will overflow on January 18, 2038. @todo Upgrade to 64 bits when we break compatibility.
 typedef int32_t replay_time_t;
 
+// GeneralsX @bugfix Android port 13/09/2026 The replay format stores text as
+// 16-bit code units, so read and write it as 16-bit regardless of wchar_t.
+//
+// readWideChar()/writeChar() move sizeof(WideChar) bytes, and WideChar is
+// wchar_t -- two bytes on Windows, four here. Every string in a replay header
+// was therefore written at double width and read at double width, which is
+// self-consistent on one platform and incompatible between two. A replay
+// recorded on a PC could not even be listed on this device: the three strings
+// in its header consumed twice the bytes they should, the reads walked off into
+// the middle of the file, and the game options came back as the single letter
+// "M" -- a fragment of a UTF-16 string read as ASCII. That failure was silent,
+// and it is why "copy a PC replay across and play it" never worked.
+//
+// Sixteen bits is what retail writes and what every existing replay contains,
+// so this is the format, not a choice. Replays recorded by earlier builds of
+// this port are the ones that are wrong, and they will no longer load.
+static void gxWriteReplayUnicodeString(File* file, const WideChar* text)
+{
+	for (const WideChar* p = text; ; ++p)
+	{
+		const UnsignedShort unit = (UnsignedShort)(*p);
+		file->write(&unit, sizeof(unit));
+		if (*p == L'\0')
+			break;
+	}
+}
+
+
 static time_t startTime;
 static const UnsignedInt startTimeOffset = 6;
 static const UnsignedInt endTimeOffset = startTimeOffset + sizeof(replay_time_t);
@@ -561,8 +589,7 @@ void RecorderClass::startRecording(GameDifficulty diff, Int originalGameMode, In
 	// Print out the name of the replay.
 	UnicodeString replayName;
 	replayName = TheGameText->fetch("GUI:LastReplay");
-	m_file->writeFormat(L"%s", replayName.str());
-	m_file->writeChar(L"\0");
+	gxWriteReplayUnicodeString(m_file, replayName.str());
 
 	// Date and Time
 	SYSTEMTIME systemTime;
@@ -573,10 +600,8 @@ void RecorderClass::startRecording(GameDifficulty diff, Int originalGameMode, In
 	UnicodeString versionString = TheVersion->getUnicodeVersion();
 	UnicodeString versionTimeString = TheVersion->getUnicodeBuildTime();
 	UnsignedInt versionNumber = TheVersion->getVersionNumber();
-	m_file->writeFormat(L"%s", versionString.str());
-	m_file->writeChar(L"\0");
-	m_file->writeFormat(L"%s", versionTimeString.str());
-	m_file->writeChar(L"\0");
+	gxWriteReplayUnicodeString(m_file, versionString.str());
+	gxWriteReplayUnicodeString(m_file, versionTimeString.str());
 	m_file->write(&versionNumber, sizeof(versionNumber));
 	m_file->write(&(TheGlobalData->m_exeCRC), sizeof(TheGlobalData->m_exeCRC));
 	m_file->write(&(TheGlobalData->m_iniCRC), sizeof(TheGlobalData->m_iniCRC));
@@ -1387,20 +1412,17 @@ UnicodeString RecorderClass::readUnicodeString() {
 	WideChar str[1024] = L"";
 	Int index = 0;
 
-	Int c = m_file->readWideChar();
-	if (c == EOF) {
-		str[index] = 0;
-	}
-	str[index] = c;
-
-	while (index < 1024 && str[index] != 0) {
-		++index;
-		Int c = m_file->readWideChar();
-		if (c == EOF) {
+	// See gxWriteReplayUnicodeString above: the units on disk are 16 bits wide.
+	while (index < 1023) {
+		UnsignedShort unit = 0;
+		if (m_file->read(&unit, sizeof(unit)) != (Int)sizeof(unit)) {
 			str[index] = 0;
 			break;
 		}
-		str[index] = c;
+		str[index] = (WideChar)unit;
+		if (unit == 0)
+			break;
+		++index;
 	}
 	str[1023] = L'\0';
 
