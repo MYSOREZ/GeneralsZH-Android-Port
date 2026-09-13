@@ -1070,15 +1070,26 @@ void NGMP_OnlineServices_LobbyInterface::JoinLobby(LobbyEntry lobbyInfo, std::st
 
 			std::string strPostData = j.dump();
 
-			// create our mesh
-			// GeneralsX @bugfix Android port 10/07/2026 P2P transport (NetworkMesh)
-			// deferred, see NGMP_include.h -- leave m_pLobbyMesh null in this build.
-#if defined(GENERALS_ONLINE_ENABLE_P2P_TRANSPORT)
-			if (m_pLobbyMesh == nullptr)
-			{
-				m_pLobbyMesh = new NetworkMesh();
-			}
-#endif
+			// GeneralsX @bugfix Android port 13/09/2026 The mesh used to be built
+			// here, before the request below -- which is one step too early, and
+			// it left the joining player unable to reach anyone.
+			//
+			// NetworkMesh's constructor reads the lobby's TURN username and token
+			// and pushes them straight into the global GameNetworkingSockets
+			// config. Those credentials arrive in the response to the very request
+			// this preceded, so at this point there are none: the mesh came up with
+			// an empty relay list and nothing later replaced it, because
+			// OnJoinedOrCreatedLobby only creates a mesh when there is not one
+			// already.
+			//
+			// A host never noticed. It does not take this path at all -- CreateLobby
+			// returns its credentials first and the mesh is built afterwards, in
+			// OnJoinedOrCreatedLobby. Two devices' logs show exactly that split:
+			// "turnUser empty=0" on the host, "turnUser empty=1" on the joiner, and
+			// a lobby where neither player could connect to the other.
+			//
+			// So the mesh is left to OnJoinedOrCreatedLobby, which runs after the
+			// credentials have been stored, and both sides now build it the same way.
 
 			// convert
 			NGMP_OnlineServicesManager::GetInstance()->GetHTTPManager()->SendPUTRequest(strURI.c_str(), EIPProtocolVersion::DONT_CARE, mapHeaders, strPostData.c_str(), [=](bool bSuccess, int statusCode, std::string strBody, HTTPRequest* pReq)
@@ -1166,6 +1177,8 @@ void NGMP_OnlineServices_LobbyInterface::JoinLobby(LobbyEntry lobbyInfo, std::st
 							m_strTURNUsername = resp.turn_username;
 							m_strTURNToken = resp.turn_token;
 							NetworkLog(ELogVerbosity::LOG_DEBUG, "Got TURN username: %s, token: %s", m_strTURNUsername.c_str(), m_strTURNToken.c_str());
+							NetworkLog(ELogVerbosity::LOG_RELEASE, "[NGMP] JoinLobby stored TURN credentials (username empty=%d, token empty=%d) before building the mesh",
+								(int)m_strTURNUsername.empty(), (int)m_strTURNToken.empty());
 						}
 						catch (...)
 						{
