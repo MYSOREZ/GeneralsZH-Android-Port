@@ -34,6 +34,8 @@
 #include "PreRTS.h"	// This must go first in EVERY cpp file in the GameEngine
 #include <cerrno>
 #include <cstring>
+#include <filesystem>
+#include <string>
 
 //-----------------------------------------------------------------------------
 // USER INCLUDES //////////////////////////////////////////////////////////////
@@ -117,6 +119,46 @@ UserPreferences::~UserPreferences()
 }
 
 #define LINE_LEN 2048
+// GeneralsX @bugfix Android port 13/09/2026 Preference names are written in
+// Windows form, and some of them name a subdirectory: "GeneralsOnline\\MiscPref
+// %d.ini" is four call sites in the GeneralsOnline menus. A backslash is a
+// separator on Windows and an ordinary character everywhere else, so on Android
+// that asked for one file whose name contained a backslash -- which shared
+// storage refuses outright, with EPERM rather than anything that reads like a
+// bad path. Every custom-match and player-info preference silently failed to
+// save.
+//
+// Translated here rather than at the call sites: the names are Windows paths by
+// convention across the whole engine, and the place that turns a convention
+// into a real path is the right place to honour it.
+static AsciiString normalizePreferencePath(const AsciiString& path)
+{
+#ifdef _WIN32
+	return path;
+#else
+	std::string translated(path.str());
+	std::replace(translated.begin(), translated.end(), '\\', '/');
+	return AsciiString(translated.c_str());
+#endif
+}
+
+static void ensurePreferenceDirectory(const AsciiString& path)
+{
+	const std::filesystem::path parent = std::filesystem::path(path.str()).parent_path();
+	if (parent.empty())
+	{
+		return;
+	}
+
+	std::error_code ec;
+	std::filesystem::create_directories(parent, ec);
+	if (ec)
+	{
+		fprintf(stderr, "[UserPreferences] could not create '%s' (%d: %s)\n",
+		        parent.string().c_str(), ec.value(), ec.message().c_str());
+	}
+}
+
 Bool UserPreferences::load(AsciiString fname)
 {
 //	if (strstr(fname.str(), "\\"))
@@ -124,6 +166,7 @@ Bool UserPreferences::load(AsciiString fname)
 
 	m_filename = TheGlobalData->getPath_UserData();
 	m_filename.concat(fname);
+	m_filename = normalizePreferencePath(m_filename);
 
 	FILE *fp = fopen(m_filename.str(), "r");
 	// GeneralsX @bugfix Android port 09/04/2026 UserPreferences::load()/
@@ -171,6 +214,12 @@ Bool UserPreferences::write()
 		fprintf(stderr, "[UserPreferences] write() called with empty m_filename -- load() was never called successfully first\n");
 		return false;
 	}
+
+	// GeneralsX @bugfix Android port 13/09/2026 A preference file in a
+	// subdirectory used to fail here, because nothing creates that directory.
+	// On Windows it happened to exist already; the GeneralsOnline ones do not,
+	// and the write failed every time with nothing but an errno to show for it.
+	ensurePreferenceDirectory(m_filename);
 
 	FILE *fp = fopen(m_filename.str(), "w");
 	// GeneralsX @bugfix Android port 09/04/2026 See load()'s matching
