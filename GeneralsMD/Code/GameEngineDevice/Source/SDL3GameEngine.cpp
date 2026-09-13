@@ -1346,10 +1346,36 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 							// no message in the stream.
 							TheWindowManager->winProcessMouseEvent(GWM_MOUSE_POS, &uiPoint, nullptr);
 
+							// GeneralsX @feature Android port 13/09/2026 A long press on shell UI
+							// is a right-click.
+							//
+							// The menus still expect one. The lobby's player menu -- profile,
+							// add friend, mute -- opens from GLM_RIGHT_CLICKED, which only a
+							// GWM_RIGHT_UP produces, and a touchscreen never sends one; the menu
+							// was unreachable in principle, as was every other right-click
+							// affordance in the shell.
+							//
+							// It belongs HERE rather than in the UI_PRESS branch above, which was
+							// the first place I put it and the wrong one: isRealUiHit() admits
+							// only GWS_PUSH_BUTTON, so a list, a panel or a slider never takes
+							// that path at all -- which is exactly why this direct-to-manager
+							// exchange exists. A list is also the only thing with a right-click
+							// menu to open, and pressing a button is not a gesture that wants one.
+							//
+							// Shell only, because in-game a long press already means
+							// cancelOrDeselect -- a synthesized right-click there was what once
+							// left the camera scrolling forever (see TouchInput.h).
+							const Bool shellLongPress =
+								(TheShell && TheShell->isShellActive()) &&
+								(SDL_GetTicks() - s_touch.downTicks) >= LONG_PRESS_MS;
+
+							const GameWindowMessage downMsg = shellLongPress ? GWM_RIGHT_DOWN : GWM_LEFT_DOWN;
+							const GameWindowMessage upMsg   = shellLongPress ? GWM_RIGHT_UP   : GWM_LEFT_UP;
+
 							const WinInputReturnCode usedDown =
-								TheWindowManager->winProcessMouseEvent(GWM_LEFT_DOWN, &uiPoint, nullptr);
+								TheWindowManager->winProcessMouseEvent(downMsg, &uiPoint, nullptr);
 							const WinInputReturnCode usedUp =
-								TheWindowManager->winProcessMouseEvent(GWM_LEFT_UP, &uiPoint, nullptr);
+								TheWindowManager->winProcessMouseEvent(upMsg, &uiPoint, nullptr);
 
 							// ...and the pointer is gone again, same reason as pushPointerGone().
 							// Direct call rather than a message because this whole exchange is
@@ -1574,33 +1600,6 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 					pushMousePosition(s_touch.downX, s_touch.downY);
 					pushMouseButton(GameMessage::MSG_RAW_MOUSE_LEFT_BUTTON_UP, s_touch.downX, s_touch.downY);
 
-					// GeneralsX @feature Android port 13/09/2026 A long press in the shell
-					// is a right-click.
-					//
-					// The menus still expect one: the lobby player list opens its player
-					// menu -- profile, add friend, mute -- from GLM_RIGHT_CLICKED, which
-					// only a GWM_RIGHT_UP produces, and a touchscreen never sends one. So
-					// that menu was simply unreachable on this port, along with every other
-					// right-click affordance in the shell.
-					//
-					// Sent after the left release above rather than instead of it, so the
-					// window manager never sees a button left held; the left click also
-					// lands on the row first, which is what a right-click on a list does on
-					// a mouse anyway.
-					//
-					// Shell only. In-game the same gesture already means something else
-					// (cancelOrDeselect below), decided long ago because a synthesized
-					// right-click there could strand the camera -- see TouchInput.h.
-					const Bool shellLongPress =
-						(TheShell && TheShell->isShellActive()) &&
-						(SDL_GetTicks() - s_touch.downTicks) >= LONG_PRESS_MS &&
-						(SDL_fabsf(s_touch.lastX - s_touch.downX)
-							+ SDL_fabsf(s_touch.lastY - s_touch.downY)) < TAP_DEAD_ZONE_PX;
-					if (shellLongPress) {
-						pushMouseButton(GameMessage::MSG_RAW_MOUSE_RIGHT_BUTTON_DOWN, s_touch.downX, s_touch.downY);
-						pushMouseButton(GameMessage::MSG_RAW_MOUSE_RIGHT_BUTTON_UP, s_touch.downX, s_touch.downY);
-					}
-
 					pushPointerGone();
 					TouchInput::reportUiHold(0, 0, FALSE);
 					// GeneralsX @bugfix Android port 06/09/2026 Reported: holding a build
@@ -1610,7 +1609,7 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 					// release necessarily completes a click. Undo the intent rather than the
 					// mechanics: a press held this long was to read, not to arm, so back out
 					// of whatever it armed. A short tap is unaffected and still builds.
-					if (!shellLongPress && (SDL_GetTicks() - s_touch.downTicks) >= LONG_PRESS_MS) {
+					if ((SDL_GetTicks() - s_touch.downTicks) >= LONG_PRESS_MS) {
 						TouchInput::cancelOrDeselect();
 					}
 					break;
