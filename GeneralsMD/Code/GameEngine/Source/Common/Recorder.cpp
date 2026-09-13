@@ -906,6 +906,12 @@ Bool RecorderClass::readReplayHeader(ReplayHeader& header)
 	if (m_file == nullptr)
 	{
 		DEBUG_LOG(("Can't open %s (%s)", filepath.str(), header.filename.str()));
+		// GeneralsX @diag Android port 13/09/2026 Every way out of this function
+		// used DEBUG_LOG, which release builds compile away, so a replay that
+		// would not load said nothing at all -- and a replay copied from a PC
+		// simply vanished from the list. Each refusal now names itself.
+		fprintf(stderr, "[GX-REPLAY] header refused: cannot open '%s'\n", filepath.str());
+		fflush(stderr);
 		return FALSE;
 	}
 
@@ -914,6 +920,8 @@ Bool RecorderClass::readReplayHeader(ReplayHeader& header)
 	m_file->read( &genrep, sizeof(s_genrep) - 1 );
 	if ( strncmp(genrep, s_genrep, sizeof(s_genrep) - 1 ) != 0 ) {
 		DEBUG_LOG(("RecorderClass::readReplayHeader - replay file did not have GENREP at the start."));
+		fprintf(stderr, "[GX-REPLAY] header refused: '%s' does not start with GENREP\n", filepath.str());
+		fflush(stderr);
 		m_file->close();
 		m_file = nullptr;
 		return FALSE;
@@ -956,6 +964,9 @@ Bool RecorderClass::readReplayHeader(ReplayHeader& header)
 	if (!ParseAsciiStringToGameInfo(&m_gameInfo, header.gameOptions))
 	{
 		DEBUG_LOG(("RecorderClass::readReplayHeader - replay file did not have a valid GameInfo string."));
+		fprintf(stderr, "[GX-REPLAY] header refused: game options did not parse -- '%s'\n",
+			header.gameOptions.str());
+		fflush(stderr);
 		m_file->close();
 		m_file = nullptr;
 		return FALSE;
@@ -967,6 +978,9 @@ Bool RecorderClass::readReplayHeader(ReplayHeader& header)
 	if (header.localPlayerIndex < -1 || header.localPlayerIndex >= MAX_SLOTS)
 	{
 		DEBUG_LOG(("RecorderClass::readReplayHeader - invalid local slot number."));
+		fprintf(stderr, "[GX-REPLAY] header refused: local slot %d out of range\n",
+			header.localPlayerIndex);
+		fflush(stderr);
 		m_gameInfo.endGame();
 		m_gameInfo.reset();
 		m_file->close();

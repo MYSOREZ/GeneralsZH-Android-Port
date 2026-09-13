@@ -27,6 +27,11 @@
 // Author: Michael S. Booth, April 2001
 
 #include "PreRTS.h"	// This must go first in EVERY cpp file in the GameEngine
+#if defined(__ANDROID__) || defined(__linux__) || defined(__APPLE__)
+#include <dlfcn.h>
+#include <sys/stat.h>
+#include <ctime>
+#endif
 
 #include "Common/ActionManager.h"
 #include "Common/AudioAffect.h"
@@ -418,6 +423,11 @@ Bool GameEngine::isGameHalted()
 /** -----------------------------------------------------------------------------------------------
  * Initialize the game engine by initializing the GameLogic and GameClient.
  */
+// GeneralsX @feature Android port 13/09/2026 An ordinary function in this
+// translation unit, so dladdr has an address it can resolve back to the
+// shared library (a pointer-to-member is not a code address).
+static void gxBuildStampAnchor() {}
+
 void GameEngine::init()
 {
 	try {
@@ -840,7 +850,35 @@ void GameEngine::init()
 			(int)RETAIL_COMPATIBLE_CRC, (int)RETAIL_COMPATIBLE_XFER_SAVE,
 			(int)RETAIL_COMPATIBLE_PATHFINDING_ALLOCATION, (int)RETAIL_COMPATIBLE_AIGROUP,
 			(int)RETAIL_COMPATIBLE_NETWORKING);
-		fprintf(stderr, "[GX-BUILD] built %s %s\n", __DATE__, __TIME__);
+		// GeneralsX @bugfix Android port 13/09/2026 Take the build time from the
+		// binary, not from __TIME__.
+		//
+		// ccache is configured to ignore the time macros when hashing, which is
+		// what makes it able to reuse an object at all -- so __TIME__ reports when
+		// this file last actually compiled, not when the build was made. A log
+		// already arrived stamped with an older build's time while carrying code
+		// only the newer build has, which is precisely the confusion the stamp
+		// exists to prevent. The shared library is relinked every build, so its
+		// modification time is the honest answer.
+		{
+			const char* soPath = "<unknown>";
+			char timeText[64] = "<unknown>";
+#if defined(__ANDROID__) || defined(__linux__) || defined(__APPLE__)
+			Dl_info info;
+			if (dladdr((const void*)&gxBuildStampAnchor, &info) != 0 && info.dli_fname != nullptr)
+			{
+				soPath = info.dli_fname;
+				struct stat st;
+				if (stat(soPath, &st) == 0)
+				{
+					struct tm tmBuf;
+					localtime_r(&st.st_mtime, &tmBuf);
+					strftime(timeText, sizeof(timeText), "%Y-%m-%d %H:%M:%S", &tmBuf);
+				}
+			}
+#endif
+			fprintf(stderr, "[GX-BUILD] binary %s built %s\n", soPath, timeText);
+		}
 		fflush(stderr);
 
 		TheSubsystemList->postProcessLoadAll();
