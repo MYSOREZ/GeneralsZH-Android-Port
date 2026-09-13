@@ -232,4 +232,8 @@
     <string name="online_status_banned_reason">Цей обліковий запис заблоковано на GeneralsOnline: %1$s</string>
     <string name="online_status_requesting_code">Запитуємо код входу в сервера…</string>
     <string name="online_status_no_login_code">Сервер не видав код входу. Перевірте з’єднання і спробуйте ще раз або запустіть «Діагностику мережі» в Інструментах.</string>
+    <string name="online_card_crossplay">Кросплатформна гра</string>
+    <string name="online_crossplay_help">Ігри, створені Windows-клієнтом, зазвичай відмовляють цьому пристрою: це різні програми, і їхні контрольні суми EXE збігтися не можуть.</string>
+    <string name="online_switch_crossplay">Грати з гравцями на ПК</string>
+    <string name="online_switch_crossplay_desc">Повідомляє контрольну суму EXE Windows-клієнта, щоб його ігри вас пускали. Ця сума не античит — вона не дає грати разом машинам, які порахували б матч по-різному, тож так можна розвалити гру всім у лобі. Вмикайте для власного ПК і лише скопіювавши з нього INI-дані в теку з грою, щоб вони справді збіглися.</string>
 </resources>

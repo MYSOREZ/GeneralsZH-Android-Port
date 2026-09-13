@@ -232,4 +232,8 @@
     <string name="online_status_banned_reason">此账号已被 GeneralsOnline 封禁：%1$s</string>
     <string name="online_status_requesting_code">正在向服务器申请登录码…</string>
     <string name="online_status_no_login_code">服务器未发放登录码。请检查网络后重试，或在「工具」中运行网络诊断。</string>
+    <string name="online_card_crossplay">跨平台游戏</string>
+    <string name="online_crossplay_help">Windows 客户端创建的游戏通常会拒绝本机：两者是不同的程序，EXE 校验和永远不可能一致。</string>
+    <string name="online_switch_crossplay">与 PC 玩家一起游戏</string>
+    <string name="online_switch_crossplay_desc">上报 Windows 客户端的 EXE 校验和，好让它的游戏接纳你。该校验和不是反作弊：它的作用是阻止运算结果会不同的两台机器一起游戏，所以这样做可能让大厅里所有人掉线不同步。请只为自己的 PC 开启，并且要先把那台 PC 的 INI 数据复制到本游戏文件夹。</string>
 </resources>

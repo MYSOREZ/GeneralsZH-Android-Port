@@ -51,6 +51,8 @@ import com.google.android.material.button.MaterialButton;
 
 import org.json.JSONObject;
 
+import java.io.File;
+
 
 public class GeneralsOnlineActivity extends Activity {
 
@@ -169,6 +171,56 @@ public class GeneralsOnlineActivity extends Activity {
         UiKit.supporting(stepsCard, getString(R.string.online_signin_help));
         signInButton = UiKit.button(stepsCard, UiKit.BTN_PRIMARY, R.drawable.ic_gzh_account,
             getString(R.string.online_button_sign_in), this::onSignIn);
+
+        // GeneralsX @feature Android port 13/09/2026 Cross-play toggle, here beside
+        // Sign In rather than among the gx_* diagnostics it is implemented as.
+        // Whether this device can play against a PC belongs with the account screen
+        // -- that is where someone goes when they want to play online at all -- and
+        // filed under diagnostics it read as one more trace switch for developers.
+        buildCrossPlayCard(page);
+    }
+
+    // The engine reads this as a marker file in the game folder (GlobalData::init);
+    // the switch just creates or deletes it. Same convention as the gx_* markers,
+    // which is why it needs the game folder and says so when there is not one.
+    private void buildCrossPlayCard(LinearLayout page) {
+        LinearLayout card = UiKit.card(page);
+        UiKit.sectionHeader(card, R.drawable.ic_gzh_globe,
+            getString(R.string.online_card_crossplay), false);
+        UiKit.supporting(card, getString(R.string.online_crossplay_help));
+
+        final File marker = crossPlayMarkerFile();
+        if (marker == null) {
+            UiKit.chip(card, R.drawable.ic_gzh_info,
+                getString(R.string.setup_diagnostics_no_folder),
+                R.color.gzh_status_warn, R.color.gzh_surface_container_high);
+            return;
+        }
+
+        com.google.android.material.materialswitch.MaterialSwitch sw = UiKit.switchRow(card,
+            getString(R.string.online_switch_crossplay),
+            getString(R.string.online_switch_crossplay_desc));
+        sw.setChecked(marker.isFile());
+        sw.setOnCheckedChangeListener((button, checked) -> {
+            if (checked) {
+                try {
+                    marker.createNewFile();
+                } catch (java.io.IOException e) {
+                    Toast.makeText(this,
+                        getString(R.string.setup_toast_options_save_failed, e.getMessage()),
+                        Toast.LENGTH_LONG).show();
+                    button.setChecked(false);
+                    return;
+                }
+            } else {
+                marker.delete();
+            }
+        });
+    }
+
+    private File crossPlayMarkerFile() {
+        String gamePath = SetupActivity.getSavedGamePath(this);
+        return gamePath != null ? new File(gamePath, "gx_pc_compat.txt") : null;
     }
 
     // If we already have a refresh_token from a previous sign-in, try to

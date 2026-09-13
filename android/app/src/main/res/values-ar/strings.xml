@@ -232,4 +232,8 @@
     <string name="online_status_banned_reason">هذا الحساب محظور على GeneralsOnline: %1$s</string>
     <string name="online_status_requesting_code">جارٍ طلب رمز تسجيل الدخول من الخادم…</string>
     <string name="online_status_no_login_code">لم يُصدر الخادم رمز تسجيل دخول. تحقّق من الاتصال وحاول مجددًا، أو شغّل تشخيص الشبكة من الأدوات.</string>
+    <string name="online_card_crossplay">اللعب عبر المنصات</string>
+    <string name="online_crossplay_help">المباريات التي يستضيفها عميل ويندوز ترفض هذا الجهاز عادةً: فهما برنامجان مختلفان ولا يمكن لمجموعَي تحقّق EXE أن يتطابقا أبدًا.</string>
+    <string name="online_switch_crossplay">اللعب مع لاعبي الحاسوب</string>
+    <string name="online_switch_crossplay_desc">يُبلغ عن مجموع تحقّق EXE الخاص بعميل ويندوز كي تقبلك مبارياته. هذا المجموع ليس مضادًا للغش: وظيفته منع جهازين يحسبان المباراة بطريقتين مختلفتين من اللعب معًا، لذا قد يُفسد ذلك المباراة على الجميع في الردهة. فعّله لحاسوب تملكه، وبعد نسخ بيانات INI منه إلى مجلد اللعبة هذا فقط.</string>
 </resources>

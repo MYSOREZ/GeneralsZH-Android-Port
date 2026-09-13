@@ -1181,6 +1181,53 @@ GlobalData *GlobalData::newOverride()
 void GlobalData::init()
 {
 	m_exeCRC = generateExeCRC();
+
+	// GeneralsX @feature Android port 13/09/2026 Optional EXE-checksum override,
+	// for testing against a PC client.
+	//
+	// The PC client hashes its own Windows binary; this port takes the Linux
+	// branch of generateExeCRC() and hashes a version number plus the .scb
+	// scripts. Two different programs, two numbers that can never agree -- so the
+	// lobby's CRC gate refuses every PC-hosted game, regardless of whether the two
+	// would actually simulate it the same way.
+	//
+	// That question is worth answering, and the only way to answer it live is to
+	// claim the PC client's number. Which is exactly why this is opt-in, off by
+	// default, and per-game-folder: the checksum is not anti-cheat, it is the
+	// guard against desync in a lockstep simulation, and defeating it in a public
+	// lobby risks wrecking the match for seven other people who did not agree to
+	// the experiment. Between two machines you own, there is nobody else to hurt.
+	//
+	// Deliberately NOT extended to the INI checksum, though the same trick would
+	// work. That one CAN legitimately match -- it is computed over the INI files
+	// in the game folder, so copying the PC client's data across makes it agree
+	// for real. Faking it instead would paper over genuinely different unit stats
+	// and guarantee the desync this is meant to measure. See the [GX-CRC] line
+	// GameEngine.cpp prints at startup for what the two checksums currently are.
+	if (FILE *marker = fopen("gx_pc_compat.txt", "r"))
+	{
+		// The file may name a checksum to claim; empty means "the stock PC
+		// GeneralsOnline client", which is what it is for.
+		char buf[64] = { 0 };
+		unsigned long claimed = 3118172181UL;
+		if (fgets(buf, sizeof(buf), marker) != nullptr)
+		{
+			const unsigned long parsed = strtoul(buf, nullptr, 10);
+			if (parsed != 0)
+			{
+				claimed = parsed;
+			}
+		}
+		fclose(marker);
+
+		fprintf(stderr, "[GX-CRC] gx_pc_compat.txt present: reporting exe_crc=%lu instead of %u.\n",
+			claimed, (unsigned)m_exeCRC);
+		fprintf(stderr, "[GX-CRC] This defeats the desync guard. Use it only against machines you own,\n");
+		fprintf(stderr, "[GX-CRC] and only with INI data that genuinely matches the other side.\n");
+		fflush(stderr);
+
+		m_exeCRC = (UnsignedInt)claimed;
+	}
 }
 
 //-------------------------------------------------------------------------------------------------

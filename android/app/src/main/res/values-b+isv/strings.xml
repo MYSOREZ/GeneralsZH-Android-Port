@@ -232,4 +232,8 @@
     <string name="online_status_banned_reason">Toj akaunt jest blokovany na GeneralsOnline: %1$s</string>
     <string name="online_status_requesting_code">Zaprašajemo kod vhoda od servera…</string>
     <string name="online_status_no_login_code">Server ne vydal kod vhoda. Proverite sopojenje i probujte znovu, ili pustite «Diagnostiku mreže» v Instrumentah.</string>
+    <string name="online_card_crossplay">Krosplatformna igra</string>
+    <string name="online_crossplay_help">Igry, kreirane Windows-klientom, obyčno odkazujut tomu ustrojstvu: to sut različne programy i ih EXE-sumy nikogda ne mogut sovpasti.</string>
+    <string name="online_switch_crossplay">Igrati s igračami na PC</string>
+    <string name="online_switch_crossplay_desc">Soobčaje kontrolnu sumu EXE Windows-klienta, aby jego igry vas puščali. Ta suma ne jest antičit — ona ne dozvoljaje igrati vmeste mašinam, ktore bi sčitali meč različno, tako to može razvaliti igru vsem v lobby. Vključite za svoj PC i samo poslě kopirovanja jego INI-dannyh v tu papku igry.</string>
 </resources>

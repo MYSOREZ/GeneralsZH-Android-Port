@@ -805,6 +805,27 @@ void GameEngine::init()
 		TheWritableGlobalData->m_iniCRC = xferCRC.getCRC();
 		DEBUG_LOG(("INI CRC is 0x%8.8X", TheGlobalData->m_iniCRC));
 
+		// GeneralsX @feature Android port 13/09/2026 Report both checksums once, in
+		// release too. They decide whether this installation can join a PC-hosted
+		// game, and until now the only way to see them was to try to join one and
+		// read the refusal -- DEBUG_LOG above is compiled out of the builds people
+		// run.
+		//
+		// The INI checksum is the one that can be changed: it is computed over the
+		// INI files in the game folder, so swapping in a different set moves it.
+		// The stock PC GeneralsOnline client reports 2180732466, against
+		// VANILLA_INI_CRC's 4272612339 for untouched EA data -- printing ours next
+		// to both turns "did that data change anything?" into one line of the log.
+		//
+		// The EXE checksum is not fixable this way and is printed only so a report
+		// carries it: the PC client hashes its own Windows binary, this port hashes
+		// a version number and the .scb scripts, and no arrangement of game files
+		// will ever make those agree.
+		fprintf(stderr, "[GX-CRC] ini_crc=%u exe_crc=%u  (vanilla ini=%u, PC GeneralsOnline ini=2180732466, PC exe=3118172181)\n",
+			(unsigned)TheGlobalData->m_iniCRC, (unsigned)TheGlobalData->m_exeCRC,
+			(unsigned)VANILLA_INI_CRC);
+		fflush(stderr);
+
 		TheSubsystemList->postProcessLoadAll();
 
 		// GeneralsX @bugfix Copilot 11/05/2026 Prevent uncapped render when FPS limiter is enabled but no valid limit value was loaded.

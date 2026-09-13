@@ -25,6 +25,7 @@
 #include "PreRTS.h"	// This must go first in EVERY cpp file in the GameEngine
 
 #include "Common/Recorder.h"
+#include "GXTrace.h"
 #include "Common/file.h"
 #include "Common/FileSystem.h"
 #include "Common/PlayerList.h"
@@ -1123,6 +1124,32 @@ void RecorderClass::handleCRCMessage(UnsignedInt newCRC, Int playerIndex, Bool f
 		UnsignedInt playbackCRC = m_crcInfo->readCRC();
 		//DEBUG_LOG(("RecorderClass::handleCRCMessage() - Comparing CRCs of InGame:%8.8X Replay:%8.8X Frame:%d from Player %d",
 		//	playbackCRC, newCRC, TheGameLogic->getFrame()-m_crcInfo->GetQueueSize()-1, playerIndex));
+		// GeneralsX @feature Android port 13/09/2026 Report agreement too, at the
+		// same 900-frame cadence the network check uses.
+		//
+		// A mismatch already prints unconditionally a few lines below, but silence
+		// meant two opposite things -- the replay tracked perfectly, or the
+		// comparison never ran -- and this is the measurement that answers whether
+		// this port simulates a game the same way the build that recorded it did.
+		// A replay recorded on Windows is the safe way to ask that: no server, no
+		// other players, nothing to spoil if the answer is no.
+		if (GXTrace::isNetEnabled() && TheGameLogic->getFrame() > 0 && newCRC == playbackCRC)
+		{
+			static UnsignedInt s_lastReplaySyncReport = 0;
+			const UnsignedInt frameNow = TheGameLogic->getFrame();
+			if (frameNow < s_lastReplaySyncReport)
+			{
+				s_lastReplaySyncReport = 0;
+			}
+			if (s_lastReplaySyncReport == 0 || frameNow - s_lastReplaySyncReport >= 900)
+			{
+				s_lastReplaySyncReport = frameNow;
+				fprintf(stderr, "[GX-NET] replay in sync at frame %u (crc=%08X)\n",
+					(unsigned)frameNow, (unsigned)newCRC);
+				fflush(stderr);
+			}
+		}
+
 		if (TheGameLogic->getFrame() > 0 && newCRC != playbackCRC && !m_crcInfo->sawCRCMismatch())
 		{
 			//Kris: Patch 1.01 November 10, 2003 (integrated changes from Matt Campbell)

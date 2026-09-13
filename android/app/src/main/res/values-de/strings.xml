@@ -232,4 +232,8 @@
     <string name="online_status_banned_reason">Dieses Konto ist auf GeneralsOnline gesperrt: %1$s</string>
     <string name="online_status_requesting_code">Anmeldecode wird vom Server angefordert…</string>
     <string name="online_status_no_login_code">Der Server hat keinen Anmeldecode ausgegeben. Prüfe die Verbindung und versuche es erneut, oder führe die Netzwerkdiagnose unter Werkzeuge aus.</string>
+    <string name="online_card_crossplay">Plattformübergreifendes Spiel</string>
+    <string name="online_crossplay_help">Spiele des Windows-Clients weisen dieses Gerät normalerweise ab: Es sind zwei verschiedene Programme, deren EXE-Prüfsummen nie übereinstimmen können.</string>
+    <string name="online_switch_crossplay">Mit PC-Spielern spielen</string>
+    <string name="online_switch_crossplay_desc">Meldet die EXE-Prüfsumme des Windows-Clients, damit dessen Spiele dich annehmen. Diese Prüfsumme ist kein Anti-Cheat — sie verhindert, dass Maschinen zusammen spielen, die das Match unterschiedlich berechnen würden; das kann die Partie für alle in der Lobby zerstören. Aktiviere es für einen eigenen PC, und erst nachdem dessen INI-Daten in diesen Spielordner kopiert wurden.</string>
 </resources>
