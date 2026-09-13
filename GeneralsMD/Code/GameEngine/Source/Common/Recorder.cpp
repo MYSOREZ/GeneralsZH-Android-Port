@@ -1081,8 +1081,20 @@ class CRCInfo
 {
 public:
 	CRCInfo(UnsignedInt localPlayer, Bool isMultiplayer);
-	void addCRC(UnsignedInt val);
-	UnsignedInt readCRC();
+	// GeneralsX @bugfix Android port 13/09/2026 Queue each local checksum with
+	// the frame it describes, and match on that instead of on arrival order.
+	//
+	// The queue used to be a bare list paired up by position, with one heuristic
+	// keeping it aligned: skip the first local checksum, but only in multiplayer,
+	// because a recording's first one "somehow doesn't make it through the
+	// network". A PC-recorded skirmish does not contain its frame 0 checksum
+	// either, so playing one back here compared this device's frame 0 against the
+	// recording's frame 100 and called the difference a desync. The numbers in
+	// the log said so outright: the value reported as ours was the frame 0 total.
+	//
+	// Frames are already known on both sides, so nothing has to be assumed.
+	void addCRC(UnsignedInt frame, UnsignedInt val);
+	Bool readCRC(UnsignedInt wantFrame, UnsignedInt& out);
 
 	int GetQueueSize() const { return m_data.size(); }
 
@@ -1094,47 +1106,45 @@ public:
 protected:
 
 	Bool m_sawCRCMismatch;
-	Bool m_skippedOne;
-	std::list<UnsignedInt> m_data;
+	std::list< std::pair<UnsignedInt, UnsignedInt> > m_data;   // frame, crc
 	UnsignedInt m_localPlayer;
 };
 
 CRCInfo::CRCInfo(UnsignedInt localPlayer, Bool isMultiplayer)
 {
 	m_localPlayer = localPlayer;
-	m_skippedOne = !isMultiplayer;
 	m_sawCRCMismatch = FALSE;
 }
 
-void CRCInfo::addCRC(UnsignedInt val)
+void CRCInfo::addCRC(UnsignedInt frame, UnsignedInt val)
 {
-	// TheSuperHackers @fix helmutbuhler 03/04/2025
-	// In Multiplayer, the first MSG_LOGIC_CRC message somehow doesn't make it through the network.
-	// Perhaps this happens because the network is not yet set up on frame 0.
-	// So we also don't queue up the first local crc message, otherwise the crc
-	// messages wouldn't match up anymore and we'd desync immediately during playback.
-	if (!m_skippedOne)
-	{
-		m_skippedOne = TRUE;
-		return;
-	}
+	m_data.push_back(std::make_pair(frame, val));
 
-	m_data.push_back(val);
-	//DEBUG_LOG(("CRCInfo::addCRC() - crc %8.8X pushes list to %d entries (full=%d)", val, m_data.size(), !m_data.empty()));
+	// A recording that ends before its checksums are consumed would otherwise
+	// grow this without limit; nothing needs more than a few intervals of slack.
+	while (m_data.size() > 16)
+	{
+		m_data.pop_front();
+	}
 }
 
-UnsignedInt CRCInfo::readCRC()
+Bool CRCInfo::readCRC(UnsignedInt wantFrame, UnsignedInt& out)
 {
-	if (m_data.empty())
+	// Anything older than the frame being asked about will never be asked for
+	// again, so drop it rather than let it shift every later comparison.
+	while (!m_data.empty() && m_data.front().first < wantFrame)
 	{
-		DEBUG_LOG(("CRCInfo::readCRC() - bailing, full=0, size=%d", m_data.size()));
-		return 0;
+		m_data.pop_front();
 	}
 
-	UnsignedInt val = m_data.front();
+	if (m_data.empty() || m_data.front().first != wantFrame)
+	{
+		return FALSE;
+	}
+
+	out = m_data.front().second;
 	m_data.pop_front();
-	//DEBUG_LOG(("CRCInfo::readCRC() - returning %8.8X, full=%d, size=%d", val, !m_data.empty(), m_data.size()));
-	return val;
+	return TRUE;
 }
 
 Bool RecorderClass::sawCRCMismatch() const
@@ -1147,7 +1157,9 @@ void RecorderClass::handleCRCMessage(UnsignedInt newCRC, Int playerIndex, Bool f
 	if (fromPlayback)
 	{
 		//DEBUG_LOG(("RecorderClass::handleCRCMessage() - Adding CRC of %X from %d to m_crcInfo", newCRC, playerIndex));
-		m_crcInfo->addCRC(newCRC);
+		// The local checksum is generated during the frame it describes and
+		// arrives here on the same frame, so that is the frame it belongs to.
+		m_crcInfo->addCRC(TheGameLogic->getFrame(), newCRC);
 		return;
 	}
 
@@ -1160,7 +1172,27 @@ void RecorderClass::handleCRCMessage(UnsignedInt newCRC, Int playerIndex, Bool f
 		samePlayer = TRUE;
 	if (samePlayer || (localPlayerIndex < 0))
 	{
-		UnsignedInt playbackCRC = m_crcInfo->readCRC();
+		// A recorded checksum is written to the file on the frame after the one it
+		// describes, so it is this device's previous frame that has to answer for
+		// it. Without a match there is nothing to compare, and saying so is the
+		// point: a missing counterpart is not a desync.
+		const UnsignedInt describedFrame = TheGameLogic->getFrame() > 0
+			? TheGameLogic->getFrame() - 1 : 0;
+		UnsignedInt playbackCRC = 0;
+		const Bool haveLocalCRC = m_crcInfo->readCRC(describedFrame, playbackCRC);
+
+		if (!haveLocalCRC)
+		{
+			if (GXTrace::isNetEnabled())
+			{
+				fprintf(stderr, "[GX-NET] replay crc at frame %u: recorded=%08X but this"
+					" device has no checksum for frame %u -- not compared\n",
+					(unsigned)TheGameLogic->getFrame(), (unsigned)newCRC,
+					(unsigned)describedFrame);
+				fflush(stderr);
+			}
+			return;
+		}
 		//DEBUG_LOG(("RecorderClass::handleCRCMessage() - Comparing CRCs of InGame:%8.8X Replay:%8.8X Frame:%d from Player %d",
 		//	playbackCRC, newCRC, TheGameLogic->getFrame()-m_crcInfo->GetQueueSize()-1, playerIndex));
 		// GeneralsX @feature Android port 13/09/2026 Report every comparison, not a
@@ -1190,8 +1222,8 @@ void RecorderClass::handleCRCMessage(UnsignedInt newCRC, Int playerIndex, Bool f
 		// stock message a few lines down has always said.
 		if (GXTrace::isNetEnabled() && TheGameLogic->getFrame() > 0)
 		{
-			fprintf(stderr, "[GX-NET] replay crc at frame %u: ours=%08X recorded=%08X%s\n",
-				(unsigned)TheGameLogic->getFrame(), (unsigned)playbackCRC, (unsigned)newCRC,
+			fprintf(stderr, "[GX-NET] replay crc for frame %u: ours=%08X recorded=%08X%s\n",
+				(unsigned)describedFrame, (unsigned)playbackCRC, (unsigned)newCRC,
 				(newCRC == playbackCRC) ? "" : "  <-- DIVERGED");
 			fflush(stderr);
 		}
@@ -1211,7 +1243,7 @@ void RecorderClass::handleCRCMessage(UnsignedInt newCRC, Int playerIndex, Bool f
 			// TheSuperHackers @info helmutbuhler 03/04/2025
 			// Note: We subtract the queue size from the frame number. This way we calculate the correct frame
 			// the mismatch first happened in case the NetCRCInterval is set to 1 during the game.
-			const UnsignedInt mismatchFrame = TheGameLogic->getFrame() - m_crcInfo->GetQueueSize() - 1;
+			const UnsignedInt mismatchFrame = describedFrame;
 
 			// Now also prints a UI message for it.
 			const UnicodeString mismatchDetailsStr = TheGameText->FETCH_OR_SUBSTITUTE("GUI:CRCMismatchDetails", L"InGame:%8.8X Replay:%8.8X Frame:%d");
