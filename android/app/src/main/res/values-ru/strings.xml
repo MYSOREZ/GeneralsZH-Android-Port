@@ -234,10 +234,20 @@
     <string name="online_status_banned_reason">Этот аккаунт заблокирован на GeneralsOnline: %1$s</string>
     <string name="online_status_requesting_code">Запрашиваем код входа у сервера…</string>
     <string name="online_status_no_login_code">Сервер не выдал код входа. Проверьте соединение и попробуйте снова или запустите «Диагностику сети» в Инструментах.</string>
+    <string name="online_card_datapacks">Сетевые данные игры</string>
+    <string name="online_datapacks_help">Для игры по сети нужны две вещи, которых нет в обычной игре: патч данных сообщества, от которого зависит, примет ли вас игра с ПК, и карты сообщества, на которых эти игры идут. Здесь и то и другое качается прямо с GeneralsOnline — ПК не нужен.</string>
+    <string name="online_button_datapacks_update">Обновить</string>
+    <string name="online_datapacks_checking">Проверка обновлений…</string>
+    <string name="online_datapacks_downloading">Загрузка… %1$d%%</string>
+    <string name="online_datapacks_installing">Установка…</string>
+    <string name="online_datapacks_done">Обновлено до %1$s. Установлено файлов: %2$d.</string>
+    <string name="online_datapacks_failed">Не удалось обновить: %1$s</string>
+    <string name="online_datapacks_installed">Установлено: версия %1$s</string>
+    <string name="online_datapacks_not_installed">Ещё не установлено.</string>
     <string name="online_card_crossplay">Кроссплатформенная игра</string>
     <string name="online_crossplay_help">Игры, созданные Windows-клиентом, обычно отказывают этому устройству: это разные программы, и их контрольные суммы EXE совпасть не могут.</string>
-    <string name="online_crossplay_patch_found">Патч данных сообщества найден — устройство загружает те же INI-данные, что и Windows-клиент.</string>
-    <string name="online_crossplay_patch_missing">Патч данных сообщества не найден. Windows-клиент загружает его тоже, поэтому без него его игры отказывают этому устройству. Скопируйте GeneralsOnlineGameData/500_900_CommunityPatch_CoreINI.big из папки «Документы» на ПК в папку данных игры, рядом с Options.ini и Maps.</string>
+    <string name="online_crossplay_patch_found">Патч данных сообщества установлен</string>
+    <string name="online_crossplay_patch_missing">Нет патча данных сообщества — нажмите «Обновить»</string>
     <string name="online_switch_crossplay">Играть с игроками на ПК</string>
     <string name="online_switch_crossplay_desc">Сообщает контрольную сумму EXE Windows-клиента, чтобы его игры вас пускали. Эта сумма не античит — она не даёт играть вместе машинам, которые посчитали бы матч по-разному, поэтому так можно развалить игру всем в лобби. Включайте для своего же ПК и только скопировав с него INI-данные в папку с игрой, чтобы они действительно совпали.</string>
 </resources>

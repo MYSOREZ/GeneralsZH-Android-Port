@@ -232,10 +232,20 @@
     <string name="online_status_banned_reason">此账号已被 GeneralsOnline 封禁：%1$s</string>
     <string name="online_status_requesting_code">正在向服务器申请登录码…</string>
     <string name="online_status_no_login_code">服务器未发放登录码。请检查网络后重试，或在「工具」中运行网络诊断。</string>
+    <string name="online_card_datapacks">联机游戏数据</string>
+    <string name="online_datapacks_help">联机需要两样游戏本体没有的东西：决定电脑端对局是否接纳本设备的社区数据补丁，以及这些对局所使用的社区地图。这里直接从 GeneralsOnline 下载两者，无需电脑。</string>
+    <string name="online_button_datapacks_update">更新</string>
+    <string name="online_datapacks_checking">正在检查更新…</string>
+    <string name="online_datapacks_downloading">正在下载… %1$d%%</string>
+    <string name="online_datapacks_installing">正在安装…</string>
+    <string name="online_datapacks_done">已更新到 %1$s，安装了 %2$d 个文件。</string>
+    <string name="online_datapacks_failed">更新失败：%1$s</string>
+    <string name="online_datapacks_installed">已安装：版本 %1$s</string>
+    <string name="online_datapacks_not_installed">尚未安装。</string>
     <string name="online_card_crossplay">跨平台游戏</string>
     <string name="online_crossplay_help">Windows 客户端创建的游戏通常会拒绝本机：两者是不同的程序，EXE 校验和永远不可能一致。</string>
-    <string name="online_crossplay_patch_found">已找到社区数据补丁——本设备加载的 INI 数据与 Windows 客户端相同。</string>
-    <string name="online_crossplay_patch_missing">未找到社区数据补丁。Windows 客户端同样会加载它，缺少它时其游戏会拒绝本设备。请把 GeneralsOnlineGameData/500_900_CommunityPatch_CoreINI.big 从电脑的“文档”文件夹复制到游戏数据文件夹，与 Options.ini 和 Maps 放在一起。</string>
+    <string name="online_crossplay_patch_found">社区数据补丁已安装</string>
+    <string name="online_crossplay_patch_missing">缺少社区数据补丁 — 请点击“更新”</string>
     <string name="online_switch_crossplay">与 PC 玩家一起游戏</string>
     <string name="online_switch_crossplay_desc">上报 Windows 客户端的 EXE 校验和，好让它的游戏接纳你。该校验和不是反作弊：它的作用是阻止运算结果会不同的两台机器一起游戏，所以这样做可能让大厅里所有人掉线不同步。请只为自己的 PC 开启，并且要先把那台 PC 的 INI 数据复制到本游戏文件夹。</string>
 </resources>

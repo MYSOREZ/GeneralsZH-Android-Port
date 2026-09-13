@@ -16,11 +16,18 @@ It is a direct transcription of what the engine does, not an approximation:
   * the exact order of INI loads in GameEngine::init, which is what makes the
     checksum order-sensitive (GeneralsMD/.../Common/GameEngine.cpp)
 
+  * the point in GameEngine::init where ArchiveFileSystem::loadMods() mounts
+    the community patch -- after the GameData INI has already been read from
+    the retail archive, and before the weather INI. That ordering is not a
+    detail: mounting the patch a few lines earlier changes the result.
+
 The transcription is checked, not assumed: the engine carries two hardcoded
 checkpoint values for retail data (0xA1E7F8E6 after the weather INI, 0x6209AF6E
 after the object INI), and this tool reports whether it reproduced them. If it
 did, the final number is trustworthy; if it did not, the data is unusual enough
-that the number means nothing and the tool says so.
+that the number means nothing and the tool says so. The checkpoints describe
+retail data only, so they are not expected to hold once a patch is mounted --
+what stands in for them there is the known 2180732466.
 
 Usage:
     scripts/qa/ini_crc.py <game folder> [community patch .big]
@@ -49,6 +56,10 @@ CHECKPOINT_OBJECT = 0x6209AF6E
 # (default directory, override directory); either may be absent.
 CRC_LOAD_ORDER = [
     ("Data\\INI\\Default\\GameData", "Data\\INI\\GameData"),
+    # ArchiveFileSystem::loadMods() sits exactly here, between the GameData INI
+    # and the weather INI -- so the GameData files are read from the retail
+    # archive and everything after them from the patch.
+    ("__mount_patch__", None),
     (None, "Data\\INI\\Default\\Water"),
     (None, "Data\\INI\\Water"),
     (None, "Data\\INI\\Default\\Weather"),
@@ -160,11 +171,9 @@ class GameFiles(object):
     def __init__(self, root, community_patch=None):
         self.files = {}
         self.dirs = {}
-        # The community patch mounts ahead of everything else: its "500_900_"
-        # prefix sorts before every retail archive name, which is what the
-        # addon-number convention is for.
-        if community_patch:
-            self._mount(community_patch)
+        # Held back until mount_patch(): the engine mounts it from loadMods(),
+        # partway through the INI loads rather than alongside the game folder.
+        self._pending_patch = community_patch
         for display, real in self._archives(root):
             # The engine skips a duplicate INIZH.big in Data\\INI; some SKUs
             # shipped two, and the one in Data\\INI would otherwise win.
@@ -196,6 +205,24 @@ class GameFiles(object):
             full = (directory + "\\" + filename).lower() if directory else filename.lower()
             self.files.setdefault(full, []).append((real, offset, size))
             self.dirs.setdefault(directory.lower(), set()).add(filename.lower())
+
+    def mount_patch(self):
+        """Mount the community patch ahead of the retail archives.
+
+        Its "500_900_" prefix sorts before every retail archive name, which is
+        what the addon-number convention is for: digits come before letters, so
+        the patch wins every file it defines and later packs slot in by number.
+        """
+        if self._pending_patch is None:
+            return
+        retail_files, retail_dirs = self.files, self.dirs
+        self.files, self.dirs = {}, {}
+        self._mount(self._pending_patch)
+        for key, locations in retail_files.items():
+            self.files.setdefault(key, []).extend(locations)
+        for key, names in retail_dirs.items():
+            self.dirs.setdefault(key, set()).update(names)
+        self._pending_patch = None
 
     def exists(self, path):
         return path.replace("/", "\\").lower() in self.files
@@ -282,6 +309,9 @@ def main(argv):
     checkpoints = {}
 
     for default_dir, override_dir in CRC_LOAD_ORDER:
+        if default_dir == "__mount_patch__":
+            files.mount_patch()
+            continue
         if default_dir == "__checkpoint_weather__":
             checkpoints["weather"] = crc.value()
             continue
@@ -308,7 +338,12 @@ def main(argv):
     print("                  4272612339 = untouched retail data")
     print("                  2180732466 = what PC GeneralsOnline lobbies report")
 
-    if not (weather_ok and object_ok):
+    if patch:
+        print("")
+        print("The retail checkpoints are not expected to hold with a patch mounted --")
+        print("the patch redefines the data they were computed over. 2180732466 is the")
+        print("value to compare against here.")
+    elif not (weather_ok and object_ok):
         print("")
         print("The checkpoint values the engine hardcodes for retail data did not come")
         print("out, so this folder's INI is not the set those constants describe and the")

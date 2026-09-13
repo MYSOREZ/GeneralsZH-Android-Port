@@ -232,10 +232,20 @@
     <string name="online_status_banned_reason">Esta conta está banida no GeneralsOnline: %1$s</string>
     <string name="online_status_requesting_code">Solicitando um código de login ao servidor…</string>
     <string name="online_status_no_login_code">O servidor não emitiu um código de login. Verifique a conexão e tente de novo, ou execute o diagnóstico de rede em Ferramentas.</string>
+    <string name="online_card_datapacks">Dados do jogo on-line</string>
+    <string name="online_datapacks_help">Jogar on-line exige duas coisas que o jogo não traz: o patch de dados da comunidade, do qual depende uma partida de PC aceitar este dispositivo, e os mapas da comunidade em que se joga. Ambos são baixados aqui direto do GeneralsOnline, sem PC.</string>
+    <string name="online_button_datapacks_update">Atualizar</string>
+    <string name="online_datapacks_checking">Procurando atualizações…</string>
+    <string name="online_datapacks_downloading">Baixando… %1$d%%</string>
+    <string name="online_datapacks_installing">Instalando…</string>
+    <string name="online_datapacks_done">Atualizado para %1$s. %2$d arquivos instalados.</string>
+    <string name="online_datapacks_failed">Falha na atualização: %1$s</string>
+    <string name="online_datapacks_installed">Instalado: versão %1$s</string>
+    <string name="online_datapacks_not_installed">Ainda não instalado.</string>
     <string name="online_card_crossplay">Jogo multiplataforma</string>
     <string name="online_crossplay_help">Partidas hospedadas pelo cliente Windows normalmente recusam este aparelho: são programas diferentes e suas somas de verificação EXE nunca podem coincidir.</string>
-    <string name="online_crossplay_patch_found">Patch de dados da comunidade encontrado — este dispositivo carrega os mesmos dados INI que o cliente do Windows.</string>
-    <string name="online_crossplay_patch_missing">Patch de dados da comunidade não encontrado. O cliente do Windows também o carrega, então sem ele as partidas dele recusam este dispositivo. Copie GeneralsOnlineGameData/500_900_CommunityPatch_CoreINI.big da pasta Documentos do PC para a pasta de dados do jogo, ao lado de Options.ini e Maps.</string>
+    <string name="online_crossplay_patch_found">Patch de dados da comunidade instalado</string>
+    <string name="online_crossplay_patch_missing">Falta o patch da comunidade — toque em Atualizar</string>
     <string name="online_switch_crossplay">Jogar com jogadores de PC</string>
     <string name="online_switch_crossplay_desc">Informa a soma de verificação EXE do cliente Windows para que suas partidas aceitem você. Essa soma não é anticheat — ela impede que máquinas que calculariam a partida de formas diferentes joguem juntas, então isso pode dessincronizar a partida para todos no lobby. Ative para um PC seu e somente após copiar os dados INI dele para esta pasta do jogo.</string>
 </resources>

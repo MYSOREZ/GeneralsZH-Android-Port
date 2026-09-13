@@ -232,10 +232,20 @@
     <string name="online_status_banned_reason">این حساب در GeneralsOnline مسدود شده است: %1$s</string>
     <string name="online_status_requesting_code">در حال درخواست کد ورود از سرور…</string>
     <string name="online_status_no_login_code">سرور کد ورود صادر نکرد. اتصال را بررسی کنید و دوباره تلاش کنید، یا عیب‌یابی شبکه را در ابزارها اجرا کنید.</string>
+    <string name="online_card_datapacks">داده‌های بازی آنلاین</string>
+    <string name="online_datapacks_help">بازی آنلاین به دو چیز نیاز دارد که در خود بازی نیست: وصله داده‌های انجمن، که پذیرفته‌شدن این دستگاه در بازی رایانه به آن بستگی دارد، و نقشه‌های انجمن که آن بازی‌ها روی آن‌ها انجام می‌شود. هر دو اینجا مستقیم از GeneralsOnline دریافت می‌شوند — بدون نیاز به رایانه.</string>
+    <string name="online_button_datapacks_update">به‌روزرسانی</string>
+    <string name="online_datapacks_checking">در حال بررسی به‌روزرسانی…</string>
+    <string name="online_datapacks_downloading">در حال دانلود… %1$d%%</string>
+    <string name="online_datapacks_installing">در حال نصب…</string>
+    <string name="online_datapacks_done">به %1$s به‌روزرسانی شد. %2$d فایل نصب شد.</string>
+    <string name="online_datapacks_failed">به‌روزرسانی ناموفق بود: %1$s</string>
+    <string name="online_datapacks_installed">نصب‌شده: نسخه %1$s</string>
+    <string name="online_datapacks_not_installed">هنوز نصب نشده است.</string>
     <string name="online_card_crossplay">بازی میان‌سکویی</string>
     <string name="online_crossplay_help">بازی‌هایی که کلاینت ویندوز میزبانی می‌کند معمولاً این دستگاه را رد می‌کنند: این دو برنامهٔ متفاوت‌اند و مجموع کنترلی EXE آن‌ها هرگز یکی نمی‌شود.</string>
-    <string name="online_crossplay_patch_found">وصله داده‌های انجمن پیدا شد — این دستگاه همان داده‌های INI کلاینت ویندوز را بارگذاری می‌کند.</string>
-    <string name="online_crossplay_patch_missing">وصله داده‌های انجمن پیدا نشد. کلاینت ویندوز هم آن را بارگذاری می‌کند و بدون آن بازی‌هایش این دستگاه را نمی‌پذیرند. فایل GeneralsOnlineGameData/500_900_CommunityPatch_CoreINI.big را از پوشه Documents رایانه به پوشه داده‌های بازی، کنار Options.ini و Maps، کپی کنید.</string>
+    <string name="online_crossplay_patch_found">وصله داده‌های انجمن نصب شد</string>
+    <string name="online_crossplay_patch_missing">وصله داده‌های انجمن نیست — «به‌روزرسانی» را بزنید</string>
     <string name="online_switch_crossplay">بازی با بازیکنان رایانه</string>
     <string name="online_switch_crossplay_desc">مجموع کنترلی EXE کلاینت ویندوز را گزارش می‌کند تا بازی‌هایش شما را بپذیرند. این مجموع ضدتقلب نیست: جلوی هم‌بازی شدن دستگاه‌هایی را می‌گیرد که بازی را متفاوت محاسبه می‌کنند، پس می‌تواند بازی را برای همهٔ افراد لابی خراب کند. برای رایانهٔ خودتان و فقط پس از کپی‌کردن داده‌های INI آن به این پوشهٔ بازی روشن کنید.</string>
 </resources>

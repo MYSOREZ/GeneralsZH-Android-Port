@@ -84,6 +84,10 @@ public class GeneralsOnlineActivity extends Activity {
     private static final int POLL_MAX_ATTEMPTS = 180; // ~3 minutes
 
     private final Handler handler = new Handler(Looper.getMainLooper());
+    private TextView dataPackStatus;
+    private com.google.android.material.button.MaterialButton dataPackButton;
+    private boolean dataPackBusy;
+    private TextView crossPlayPatchChip;
 
     private TextView statusText;
     private MaterialButton signInButton;
@@ -172,12 +176,96 @@ public class GeneralsOnlineActivity extends Activity {
         signInButton = UiKit.button(stepsCard, UiKit.BTN_PRIMARY, R.drawable.ic_gzh_account,
             getString(R.string.online_button_sign_in), this::onSignIn);
 
+        // GeneralsX @feature Android port 13/09/2026 The online data comes before
+        // the cross-play toggle because it gates it: without the community patch
+        // the INI checksum cannot match a PC lobby no matter what the toggle
+        // claims for the EXE, so the thing that fixes that should be the one a
+        // player reaches first.
+        buildDataPackCard(page);
+
         // GeneralsX @feature Android port 13/09/2026 Cross-play toggle, here beside
         // Sign In rather than among the gx_* diagnostics it is implemented as.
         // Whether this device can play against a PC belongs with the account screen
         // -- that is where someone goes when they want to play online at all -- and
         // filed under diagnostics it read as one more trace switch for developers.
         buildCrossPlayCard(page);
+    }
+
+    // GeneralsX @feature Android port 13/09/2026 Maps and the community data
+    // patch, fetched straight from GeneralsOnline's own published package, so
+    // that getting online needs nothing but this device. What the PC does with
+    // an installer, this does with the ZIP the same release is published as --
+    // see DataPackInstaller for why those two directories and nothing else.
+    private void buildDataPackCard(LinearLayout page) {
+        LinearLayout card = UiKit.card(page);
+        UiKit.sectionHeader(card, R.drawable.ic_gzh_download,
+            getString(R.string.online_card_datapacks), false);
+        UiKit.supporting(card, getString(R.string.online_datapacks_help));
+
+        dataPackStatus = UiKit.body(card, null);
+        dataPackStatus.setTextIsSelectable(true);
+        dataPackButton = UiKit.button(card, UiKit.BTN_PRIMARY, R.drawable.ic_gzh_download,
+            getString(R.string.online_button_datapacks_update), this::onUpdateDataPacks);
+
+        refreshDataPackStatus();
+    }
+
+    private void refreshDataPackStatus() {
+        if (dataPackStatus == null) {
+            return;
+        }
+        String version = DataPackInstaller.installedVersion(this);
+        dataPackStatus.setText(version != null && !version.isEmpty()
+            ? getString(R.string.online_datapacks_installed, version)
+            : getString(R.string.online_datapacks_not_installed));
+    }
+
+    private void onUpdateDataPacks() {
+        if (dataPackBusy) {
+            return;
+        }
+        dataPackBusy = true;
+        dataPackButton.setEnabled(false);
+
+        new Thread(() -> {
+            DataPackInstaller.Result result = DataPackInstaller.install(this,
+                new DataPackInstaller.Progress() {
+                    @Override public void onChecking() {
+                        handler.post(() ->
+                            dataPackStatus.setText(R.string.online_datapacks_checking));
+                    }
+
+                    @Override public void onDownloading(long bytes, long total) {
+                        final int percent = total > 0 ? (int) (bytes * 100 / total) : 0;
+                        handler.post(() -> dataPackStatus.setText(
+                            getString(R.string.online_datapacks_downloading, percent)));
+                    }
+
+                    @Override public void onInstalling() {
+                        handler.post(() ->
+                            dataPackStatus.setText(R.string.online_datapacks_installing));
+                    }
+                });
+
+            handler.post(() -> {
+                dataPackBusy = false;
+                dataPackButton.setEnabled(true);
+                if (result.ok) {
+                    dataPackStatus.setText(getString(R.string.online_datapacks_done,
+                        result.version, result.filesWritten));
+                    // The cross-play chip below was built while the file was
+                    // still missing. Correcting it in place rather than
+                    // recreating the activity keeps the result on screen,
+                    // which is the one thing the player just asked for.
+                    if (crossPlayPatchChip != null) {
+                        crossPlayPatchChip.setText(R.string.online_crossplay_patch_found);
+                    }
+                } else {
+                    dataPackStatus.setText(getString(R.string.online_datapacks_failed,
+                        result.error));
+                }
+            });
+        }).start();
     }
 
     // The engine reads this as a marker file in the game folder (GlobalData::init);
@@ -197,9 +285,9 @@ public class GeneralsOnlineActivity extends Activity {
         // matter what it reports for the EXE. Nothing here can fetch that file, so
         // say plainly whether it is present -- before the game-folder check below,
         // because the patch lives in the user-data folder either way.
-        final File patch = communityPatchFile();
-        final boolean havePatch = patch.isFile();
-        UiKit.chip(card, havePatch ? R.drawable.ic_gzh_check : R.drawable.ic_gzh_info,
+        final boolean havePatch = DataPackInstaller.communityPatchFile().isFile();
+        crossPlayPatchChip = UiKit.chip(card,
+            havePatch ? R.drawable.ic_gzh_check : R.drawable.ic_gzh_info,
             getString(havePatch
                 ? R.string.online_crossplay_patch_found
                 : R.string.online_crossplay_patch_missing),
@@ -240,18 +328,6 @@ public class GeneralsOnlineActivity extends Activity {
         return gamePath != null ? new File(gamePath, "gx_pc_compat.txt") : null;
     }
 
-    // The user-data folder, not the game folder: this port already lays that out
-    // exactly like the Windows client's Documents leaf (SDL3Main.cpp builds
-    // /storage/emulated/<user>/Generals/Command and Conquer Generals Zero Hour Data
-    // and hands it to the engine as GENERALSX_USERDATA_DIR), and it is where
-    // Options.ini, save games and custom maps already live. So the patch goes
-    // where it goes on a PC, at the same relative path, and nothing new is
-    // invented next to the game files.
-    private File communityPatchFile() {
-        File userData = new File(android.os.Environment.getExternalStorageDirectory(),
-            "Generals/Command and Conquer Generals Zero Hour Data");
-        return new File(userData, "GeneralsOnlineGameData/500_900_CommunityPatch_CoreINI.big");
-    }
 
     // If we already have a refresh_token from a previous sign-in, try to
     // silently re-authenticate instead of making the user go through the

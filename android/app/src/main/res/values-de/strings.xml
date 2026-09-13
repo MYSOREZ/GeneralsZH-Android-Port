@@ -232,10 +232,20 @@
     <string name="online_status_banned_reason">Dieses Konto ist auf GeneralsOnline gesperrt: %1$s</string>
     <string name="online_status_requesting_code">Anmeldecode wird vom Server angefordert…</string>
     <string name="online_status_no_login_code">Der Server hat keinen Anmeldecode ausgegeben. Prüfe die Verbindung und versuche es erneut, oder führe die Netzwerkdiagnose unter Werkzeuge aus.</string>
+    <string name="online_card_datapacks">Online-Spieldaten</string>
+    <string name="online_datapacks_help">Für das Spiel im Netz fehlen dem Spiel zwei Dinge: der Community-Datenpatch, von dem abhängt, ob ein PC-Spiel dieses Gerät annimmt, und die Community-Karten, auf denen gespielt wird. Beides wird hier direkt von GeneralsOnline geladen — ganz ohne PC.</string>
+    <string name="online_button_datapacks_update">Aktualisieren</string>
+    <string name="online_datapacks_checking">Suche nach Updates…</string>
+    <string name="online_datapacks_downloading">Wird geladen… %1$d%%</string>
+    <string name="online_datapacks_installing">Wird installiert…</string>
+    <string name="online_datapacks_done">Auf %1$s aktualisiert. %2$d Dateien installiert.</string>
+    <string name="online_datapacks_failed">Update fehlgeschlagen: %1$s</string>
+    <string name="online_datapacks_installed">Installiert: Version %1$s</string>
+    <string name="online_datapacks_not_installed">Noch nicht installiert.</string>
     <string name="online_card_crossplay">Plattformübergreifendes Spiel</string>
     <string name="online_crossplay_help">Spiele des Windows-Clients weisen dieses Gerät normalerweise ab: Es sind zwei verschiedene Programme, deren EXE-Prüfsummen nie übereinstimmen können.</string>
-    <string name="online_crossplay_patch_found">Community-Datenpatch gefunden — dieses Gerät lädt dieselben INI-Daten wie der Windows-Client.</string>
-    <string name="online_crossplay_patch_missing">Community-Datenpatch nicht gefunden. Der Windows-Client lädt ihn ebenfalls, ohne ihn weisen seine Spiele dieses Gerät ab. Kopieren Sie GeneralsOnlineGameData/500_900_CommunityPatch_CoreINI.big aus dem Dokumente-Ordner des PCs in den Spieldaten-Ordner, neben Options.ini und Maps.</string>
+    <string name="online_crossplay_patch_found">Community-Datenpatch installiert</string>
+    <string name="online_crossplay_patch_missing">Community-Datenpatch fehlt — auf Aktualisieren tippen</string>
     <string name="online_switch_crossplay">Mit PC-Spielern spielen</string>
     <string name="online_switch_crossplay_desc">Meldet die EXE-Prüfsumme des Windows-Clients, damit dessen Spiele dich annehmen. Diese Prüfsumme ist kein Anti-Cheat — sie verhindert, dass Maschinen zusammen spielen, die das Match unterschiedlich berechnen würden; das kann die Partie für alle in der Lobby zerstören. Aktiviere es für einen eigenen PC, und erst nachdem dessen INI-Daten in diesen Spielordner kopiert wurden.</string>
 </resources>

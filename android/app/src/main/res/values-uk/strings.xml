@@ -232,10 +232,20 @@
     <string name="online_status_banned_reason">Цей обліковий запис заблоковано на GeneralsOnline: %1$s</string>
     <string name="online_status_requesting_code">Запитуємо код входу в сервера…</string>
     <string name="online_status_no_login_code">Сервер не видав код входу. Перевірте з’єднання і спробуйте ще раз або запустіть «Діагностику мережі» в Інструментах.</string>
+    <string name="online_card_datapacks">Мережеві дані гри</string>
+    <string name="online_datapacks_help">Для гри в мережі потрібні дві речі, яких немає у звичайній грі: патч даних спільноти, від якого залежить, чи прийме вас гра з ПК, і карти спільноти, на яких ці ігри йдуть. Тут і те й інше завантажується просто з GeneralsOnline — ПК не потрібен.</string>
+    <string name="online_button_datapacks_update">Оновити</string>
+    <string name="online_datapacks_checking">Перевірка оновлень…</string>
+    <string name="online_datapacks_downloading">Завантаження… %1$d%%</string>
+    <string name="online_datapacks_installing">Встановлення…</string>
+    <string name="online_datapacks_done">Оновлено до %1$s. Встановлено файлів: %2$d.</string>
+    <string name="online_datapacks_failed">Не вдалося оновити: %1$s</string>
+    <string name="online_datapacks_installed">Встановлено: версія %1$s</string>
+    <string name="online_datapacks_not_installed">Ще не встановлено.</string>
     <string name="online_card_crossplay">Кросплатформна гра</string>
     <string name="online_crossplay_help">Ігри, створені Windows-клієнтом, зазвичай відмовляють цьому пристрою: це різні програми, і їхні контрольні суми EXE збігтися не можуть.</string>
-    <string name="online_crossplay_patch_found">Патч даних спільноти знайдено — пристрій завантажує ті самі INI-дані, що й Windows-клієнт.</string>
-    <string name="online_crossplay_patch_missing">Патч даних спільноти не знайдено. Windows-клієнт завантажує його теж, тож без нього його ігри відмовляють цьому пристрою. Скопіюйте GeneralsOnlineGameData/500_900_CommunityPatch_CoreINI.big із теки «Документи» на ПК до теки даних гри, поряд з Options.ini і Maps.</string>
+    <string name="online_crossplay_patch_found">Патч даних спільноти встановлено</string>
+    <string name="online_crossplay_patch_missing">Немає патча даних спільноти — натисніть «Оновити»</string>
     <string name="online_switch_crossplay">Грати з гравцями на ПК</string>
     <string name="online_switch_crossplay_desc">Повідомляє контрольну суму EXE Windows-клієнта, щоб його ігри вас пускали. Ця сума не античит — вона не дає грати разом машинам, які порахували б матч по-різному, тож так можна розвалити гру всім у лобі. Вмикайте для власного ПК і лише скопіювавши з нього INI-дані в теку з грою, щоб вони справді збіглися.</string>
 </resources>
