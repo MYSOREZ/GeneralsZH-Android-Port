@@ -1124,30 +1124,25 @@ void RecorderClass::handleCRCMessage(UnsignedInt newCRC, Int playerIndex, Bool f
 		UnsignedInt playbackCRC = m_crcInfo->readCRC();
 		//DEBUG_LOG(("RecorderClass::handleCRCMessage() - Comparing CRCs of InGame:%8.8X Replay:%8.8X Frame:%d from Player %d",
 		//	playbackCRC, newCRC, TheGameLogic->getFrame()-m_crcInfo->GetQueueSize()-1, playerIndex));
-		// GeneralsX @feature Android port 13/09/2026 Report agreement too, at the
-		// same 900-frame cadence the network check uses.
+		// GeneralsX @feature Android port 13/09/2026 Report every comparison, not a
+		// sample of the agreeing ones.
 		//
-		// A mismatch already prints unconditionally a few lines below, but silence
-		// meant two opposite things -- the replay tracked perfectly, or the
-		// comparison never ran -- and this is the measurement that answers whether
-		// this port simulates a game the same way the build that recorded it did.
-		// A replay recorded on Windows is the safe way to ask that: no server, no
-		// other players, nothing to spoil if the answer is no.
-		if (GXTrace::isNetEnabled() && TheGameLogic->getFrame() > 0 && newCRC == playbackCRC)
+		// A replay recorded on a PC and played back here is the only way to ask
+		// "does this port simulate a game the same way the build that recorded it
+		// did?" without a second person, a server, or a match to spoil -- and the
+		// answer it gives is repeatable, which a live match is not. That makes it
+		// the instrument for chasing the x86/arm64 divergence a PC-hosted match
+		// hits at frame 100, so it should show its work: every interval, the frame
+		// and both CRCs.
+		//
+		// This is one line per CRC interval, roughly one every three seconds of
+		// replayed play, and only when the gx_net_trace.txt marker is present.
+		if (GXTrace::isNetEnabled() && TheGameLogic->getFrame() > 0)
 		{
-			static UnsignedInt s_lastReplaySyncReport = 0;
-			const UnsignedInt frameNow = TheGameLogic->getFrame();
-			if (frameNow < s_lastReplaySyncReport)
-			{
-				s_lastReplaySyncReport = 0;
-			}
-			if (s_lastReplaySyncReport == 0 || frameNow - s_lastReplaySyncReport >= 900)
-			{
-				s_lastReplaySyncReport = frameNow;
-				fprintf(stderr, "[GX-NET] replay in sync at frame %u (crc=%08X)\n",
-					(unsigned)frameNow, (unsigned)newCRC);
-				fflush(stderr);
-			}
+			fprintf(stderr, "[GX-NET] replay crc at frame %u: ours=%08X replay=%08X%s\n",
+				(unsigned)TheGameLogic->getFrame(), (unsigned)newCRC, (unsigned)playbackCRC,
+				(newCRC == playbackCRC) ? "" : "  <-- DIVERGED");
+			fflush(stderr);
 		}
 
 		if (TheGameLogic->getFrame() > 0 && newCRC != playbackCRC && !m_crcInfo->sawCRCMismatch())
