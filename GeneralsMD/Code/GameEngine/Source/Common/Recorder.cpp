@@ -1157,8 +1157,11 @@ void RecorderClass::handleCRCMessage(UnsignedInt newCRC, Int playerIndex, Bool f
 	if (fromPlayback)
 	{
 		//DEBUG_LOG(("RecorderClass::handleCRCMessage() - Adding CRC of %X from %d to m_crcInfo", newCRC, playerIndex));
-		// The local checksum is generated during the frame it describes and
-		// arrives here on the same frame, so that is the frame it belongs to.
+		// Keyed by the frame this message is handled on, which is one after the
+		// frame it describes -- a checksum generated during frame N is appended to
+		// the message list and processed on N+1. A recorded checksum is written to
+		// the file on that same N+1, so both sides key alike and the arithmetic
+		// stays out of it.
 		m_crcInfo->addCRC(TheGameLogic->getFrame(), newCRC);
 		return;
 	}
@@ -1176,19 +1179,26 @@ void RecorderClass::handleCRCMessage(UnsignedInt newCRC, Int playerIndex, Bool f
 		// describes, so it is this device's previous frame that has to answer for
 		// it. Without a match there is nothing to compare, and saying so is the
 		// point: a missing counterpart is not a desync.
+		// GeneralsX @bugfix Android port 13/09/2026 Look the local checksum up by
+		// the frame this message is handled on, not by the frame it describes.
+		//
+		// Both are queued and consulted on frame N+1; asking for N found nothing,
+		// every interval reported "no checksum for this frame", and the mismatch
+		// dialog stopped appearing -- which looked like the problem being fixed
+		// and was the comparison being switched off.
+		UnsignedInt playbackCRC = 0;
+		const Bool haveLocalCRC = m_crcInfo->readCRC(TheGameLogic->getFrame(), playbackCRC);
 		const UnsignedInt describedFrame = TheGameLogic->getFrame() > 0
 			? TheGameLogic->getFrame() - 1 : 0;
-		UnsignedInt playbackCRC = 0;
-		const Bool haveLocalCRC = m_crcInfo->readCRC(describedFrame, playbackCRC);
 
 		if (!haveLocalCRC)
 		{
 			if (GXTrace::isNetEnabled())
 			{
 				fprintf(stderr, "[GX-NET] replay crc at frame %u: recorded=%08X but this"
-					" device has no checksum for frame %u -- not compared\n",
-					(unsigned)TheGameLogic->getFrame(), (unsigned)newCRC,
-					(unsigned)describedFrame);
+					" device has no checksum queued for frame %u -- not compared\n",
+					(unsigned)describedFrame, (unsigned)newCRC,
+					(unsigned)TheGameLogic->getFrame());
 				fflush(stderr);
 			}
 			return;
