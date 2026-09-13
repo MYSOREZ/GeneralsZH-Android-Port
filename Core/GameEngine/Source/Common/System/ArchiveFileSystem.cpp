@@ -94,6 +94,12 @@ ArchiveFileSystem *TheArchiveFileSystem = nullptr;
 //         Private Functions
 //----------------------------------------------------------------------------
 
+#if RTS_ZEROHOUR
+// Presence turns the community data patch off without removing it -- the
+// launcher writes and deletes this, and loadMods() below is the only reader.
+static const char* const kCommunityPatchDisableMarker = "gx_no_community_patch.txt";
+#endif
+
 static AsciiString getBaseFilename(const AsciiString& path)
 {
 	const char* str = path.str();
@@ -262,16 +268,34 @@ void ArchiveFileSystem::loadMods()
 	// -- and land on it honestly, because the simulation is then reading the same
 	// unit data, which is the whole point of the checksum.
 	{
-		AsciiString patchPath = TheGlobalData->getPath_UserData();
+		AsciiString userData = TheGlobalData->getPath_UserData();
+		if (userData.isNotEmpty() && !userData.endsWith("/") && !userData.endsWith("\\"))
+			userData.concat('/');
 
-		if (patchPath.isNotEmpty())
+		AsciiString patchPath;
+		AsciiString disableMarkerPath;
+
+		if (userData.isNotEmpty())
 		{
-			if (!patchPath.endsWith("/") && !patchPath.endsWith("\\"))
-				patchPath.concat('/');
+			patchPath = userData;
 			patchPath.concat("GeneralsOnlineGameData/500_900_CommunityPatch_CoreINI.big");
+
+			disableMarkerPath = userData;
+			disableMarkerPath.concat(kCommunityPatchDisableMarker);
 		}
 
-		if (patchPath.isNotEmpty() && TheLocalFileSystem->doesFileExist(patchPath.str()))
+		// The PC client has a settings switch for this (DataPacks_UseCommunityPatch)
+		// and a command-line override; a marker file is this port's equivalent, and
+		// it sits beside the patch so turning the data off never means deleting it.
+		const Bool disabled = disableMarkerPath.isNotEmpty()
+			&& TheLocalFileSystem->doesFileExist(disableMarkerPath.str());
+
+		if (disabled)
+		{
+			fprintf(stderr, "[gxbig] community patch disabled by %s; INI stays retail\n",
+				disableMarkerPath.str());
+		}
+		else if (patchPath.isNotEmpty() && TheLocalFileSystem->doesFileExist(patchPath.str()))
 		{
 			ArchiveFile* archiveFile = openArchiveFile(patchPath.str());
 			if (archiveFile != nullptr)

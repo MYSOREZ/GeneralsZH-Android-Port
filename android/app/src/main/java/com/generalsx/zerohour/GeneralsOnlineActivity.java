@@ -86,7 +86,11 @@ public class GeneralsOnlineActivity extends Activity {
     private final Handler handler = new Handler(Looper.getMainLooper());
     private TextView dataPackStatus;
     private com.google.android.material.button.MaterialButton dataPackButton;
+    private com.google.android.material.button.MaterialButton dataPackDeleteButton;
+    private com.google.android.material.materialswitch.MaterialSwitch dataPackSwitch;
+    private TextView dataPackChip;
     private boolean dataPackBusy;
+    private boolean dataPackPrompted;
     private TextView crossPlayPatchChip;
 
     private TextView statusText;
@@ -202,22 +206,150 @@ public class GeneralsOnlineActivity extends Activity {
             getString(R.string.online_card_datapacks), false);
         UiKit.supporting(card, getString(R.string.online_datapacks_help));
 
+        dataPackChip = UiKit.chip(card, R.drawable.ic_gzh_info, "",
+            R.color.gzh_status_warn, R.color.gzh_surface_container_high);
+
         dataPackStatus = UiKit.body(card, null);
         dataPackStatus.setTextIsSelectable(true);
+
         dataPackButton = UiKit.button(card, UiKit.BTN_PRIMARY, R.drawable.ic_gzh_download,
             getString(R.string.online_button_datapacks_update), this::onUpdateDataPacks);
+        dataPackDeleteButton = UiKit.button(card, UiKit.BTN_DANGER, R.drawable.ic_gzh_trash,
+            getString(R.string.online_button_datapacks_delete), this::onDeleteDataPacks);
 
-        refreshDataPackStatus();
+        // Off is a legitimate choice, and it should not mean deleting a 30MB
+        // download: the PC client has the same switch. It only reaches the
+        // engine on the next launch, which the description says.
+        dataPackSwitch = UiKit.switchRow(card,
+            getString(R.string.online_switch_datapacks),
+            getString(R.string.online_switch_datapacks_desc));
+        dataPackSwitch.setChecked(DataPackInstaller.isEnabled());
+        dataPackSwitch.setOnCheckedChangeListener((button, checked) -> {
+            if (!DataPackInstaller.setEnabled(this, checked)) {
+                Toast.makeText(this, R.string.online_datapacks_switch_failed,
+                    Toast.LENGTH_LONG).show();
+                button.setChecked(!checked);
+            }
+        });
+
+        refreshDataPackCard();
     }
 
-    private void refreshDataPackStatus() {
+    /**
+     * One place decides what the card says, because three things feed it:
+     * whether the account is signed in, whether the data is installed, and
+     * whether it is switched on.
+     */
+    private void refreshDataPackCard() {
         if (dataPackStatus == null) {
             return;
         }
-        String version = DataPackInstaller.installedVersion(this);
-        dataPackStatus.setText(version != null && !version.isEmpty()
+
+        final boolean signedIn = getSignedInDisplayName(this) != null;
+        final String version = DataPackInstaller.installedVersion(this);
+        final boolean installed = version != null && !version.isEmpty();
+
+        dataPackStatus.setText(installed
             ? getString(R.string.online_datapacks_installed, version)
             : getString(R.string.online_datapacks_not_installed));
+
+        // Downloading before sign-in would be allowed by the CDN, but it would
+        // also be the wrong order to learn this in: the data exists to make an
+        // account's games joinable, so the account comes first and the card
+        // says so rather than failing quietly later.
+        dataPackButton.setEnabled(signedIn && !dataPackBusy);
+        dataPackDeleteButton.setEnabled(installed && !dataPackBusy);
+        dataPackSwitch.setEnabled(installed);
+        dataPackSwitch.setChecked(DataPackInstaller.isEnabled());
+
+        if (!signedIn) {
+            setChip(dataPackChip, R.drawable.ic_gzh_info,
+                R.string.online_datapacks_chip_sign_in_first, R.color.gzh_status_warn);
+        } else if (!installed) {
+            setChip(dataPackChip, R.drawable.ic_gzh_info,
+                R.string.online_datapacks_chip_required, R.color.gzh_status_warn);
+        } else if (!DataPackInstaller.isEnabled()) {
+            setChip(dataPackChip, R.drawable.ic_gzh_info,
+                R.string.online_datapacks_chip_off, R.color.gzh_status_warn);
+        } else {
+            setChip(dataPackChip, R.drawable.ic_gzh_check,
+                R.string.online_datapacks_chip_ready, R.color.gzh_status_ok);
+        }
+
+        if (crossPlayPatchChip != null) {
+            final boolean havePatch = DataPackInstaller.communityPatchFile().isFile();
+            setChip(crossPlayPatchChip,
+                havePatch ? R.drawable.ic_gzh_check : R.drawable.ic_gzh_info,
+                havePatch ? R.string.online_crossplay_patch_found
+                          : R.string.online_crossplay_patch_missing,
+                havePatch ? R.color.gzh_status_ok : R.color.gzh_status_warn);
+        }
+    }
+
+    // UiKit.chip() builds one; this restyles it afterwards, which the card
+    // needs because its state changes without the screen being rebuilt.
+    private void setChip(TextView chip, int iconRes, int labelRes, int colorRes) {
+        if (chip == null) {
+            return;
+        }
+        int tint = androidx.core.content.ContextCompat.getColor(this, colorRes);
+        chip.setText(labelRes);
+        chip.setTextColor(tint);
+        android.graphics.drawable.Drawable icon =
+            androidx.core.content.ContextCompat.getDrawable(this, iconRes);
+        if (icon != null) {
+            int size = Math.round(15 * getResources().getDisplayMetrics().density);
+            icon.setBounds(0, 0, size, size);
+            icon.setTint(tint);
+            chip.setCompoundDrawablesRelative(icon, null, null, null);
+        }
+    }
+
+    /**
+     * Asks once per sign-in, and only when there is nothing installed. The
+     * card already states it permanently; this is for the case the card is
+     * below the fold on a phone, which is most of them.
+     */
+    private void maybePromptForDataPacks() {
+        if (dataPackPrompted || dataPackBusy) {
+            return;
+        }
+        if (getSignedInDisplayName(this) == null) {
+            return;
+        }
+        if (DataPackInstaller.installedVersion(this) != null) {
+            return;
+        }
+        dataPackPrompted = true;
+        new android.app.AlertDialog.Builder(this)
+            .setTitle(R.string.online_card_datapacks)
+            .setMessage(R.string.online_datapacks_prompt)
+            .setPositiveButton(R.string.online_button_datapacks_update,
+                (dialog, which) -> onUpdateDataPacks())
+            .setNegativeButton(R.string.online_datapacks_prompt_later, null)
+            .show();
+    }
+
+    private void onDeleteDataPacks() {
+        new android.app.AlertDialog.Builder(this)
+            .setTitle(R.string.online_button_datapacks_delete)
+            .setMessage(R.string.online_datapacks_delete_confirm)
+            .setPositiveButton(R.string.online_button_datapacks_delete, (dialog, which) -> {
+                int removed = DataPackInstaller.uninstall(this);
+                if (removed < 0) {
+                    Toast.makeText(this, R.string.online_datapacks_delete_no_record,
+                        Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(this,
+                        getString(R.string.online_datapacks_deleted, removed),
+                        Toast.LENGTH_LONG).show();
+                }
+                // Asking again is right after a deliberate delete only if the
+                // player signs in afresh, so leave dataPackPrompted set.
+                refreshDataPackCard();
+            })
+            .setNegativeButton(R.string.common_cancel, null)
+            .show();
     }
 
     private void onUpdateDataPacks() {
@@ -226,6 +358,7 @@ public class GeneralsOnlineActivity extends Activity {
         }
         dataPackBusy = true;
         dataPackButton.setEnabled(false);
+        dataPackDeleteButton.setEnabled(false);
 
         new Thread(() -> {
             DataPackInstaller.Result result = DataPackInstaller.install(this,
@@ -249,21 +382,14 @@ public class GeneralsOnlineActivity extends Activity {
 
             handler.post(() -> {
                 dataPackBusy = false;
-                dataPackButton.setEnabled(true);
-                if (result.ok) {
-                    dataPackStatus.setText(getString(R.string.online_datapacks_done,
-                        result.version, result.filesWritten));
-                    // The cross-play chip below was built while the file was
-                    // still missing. Correcting it in place rather than
-                    // recreating the activity keeps the result on screen,
-                    // which is the one thing the player just asked for.
-                    if (crossPlayPatchChip != null) {
-                        crossPlayPatchChip.setText(R.string.online_crossplay_patch_found);
-                    }
-                } else {
-                    dataPackStatus.setText(getString(R.string.online_datapacks_failed,
-                        result.error));
-                }
+                // refreshDataPackCard() re-reads the installed state and fixes
+                // the cross-play chip too; the result line is written after it
+                // so a finished install still says what it did.
+                refreshDataPackCard();
+                dataPackStatus.setText(result.ok
+                    ? getString(R.string.online_datapacks_done,
+                        result.version, result.filesWritten)
+                    : getString(R.string.online_datapacks_failed, result.error));
             });
         }).start();
     }
@@ -615,6 +741,9 @@ public class GeneralsOnlineActivity extends Activity {
             statusText.setText(R.string.online_status_not_signed_in);
             signOutButton.setEnabled(false);
         }
+
+        refreshDataPackCard();
+        maybePromptForDataPacks();
     }
 
     // Static helper so other screens (SetupActivity) can show a one-line

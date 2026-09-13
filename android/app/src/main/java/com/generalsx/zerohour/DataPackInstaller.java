@@ -44,8 +44,8 @@
 package com.generalsx.zerohour;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
@@ -57,6 +57,10 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.security.MessageDigest;
+import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
@@ -76,6 +80,21 @@ final class DataPackInstaller {
     private static final String PREFS_NAME = "generals_online";
     private static final String PREF_INSTALLED_VERSION = "datapack_version";
 
+    /**
+     * Presence turns the patch off without removing it, and the engine is the
+     * only reader (ArchiveFileSystem::loadMods). It sits in the user-data
+     * folder beside the patch rather than in the game folder, so the switch
+     * works whether or not a game folder has been picked yet.
+     */
+    private static final String DISABLE_MARKER = "gx_no_community_patch.txt";
+
+    /**
+     * What the last install actually wrote, so uninstalling removes that and
+     * nothing else. Deleting Maps/ wholesale would take the player's own maps
+     * with it -- they share the directory.
+     */
+    private static final String INSTALLED_LIST = "datapack-installed.json";
+
     /** Where the engine looks: BuildUserDataPathFromRegistry's Android branch. */
     static File userDataDir() {
         return new File(android.os.Environment.getExternalStorageDirectory(),
@@ -93,6 +112,117 @@ final class DataPackInstaller {
         // A recorded version with the file gone is worse than no record: it
         // would report "installed" for data the player has since deleted.
         return communityPatchFile().isFile() ? version : null;
+    }
+
+    static boolean isEnabled() {
+        return !new File(userDataDir(), DISABLE_MARKER).isFile();
+    }
+
+    /** Returns true if the state now matches what was asked for. */
+    static boolean setEnabled(Context ctx, boolean enabled) {
+        File marker = new File(userDataDir(), DISABLE_MARKER);
+        if (enabled) {
+            boolean ok = !marker.exists() || marker.delete();
+            NetworkTrace.write(ctx, "[datapack] community patch enabled=" + ok);
+            return ok;
+        }
+        try {
+            File parent = marker.getParentFile();
+            if (parent != null && !parent.isDirectory()) {
+                parent.mkdirs();
+            }
+            try (FileWriter out = new FileWriter(marker)) {
+                out.write("The community data patch is disabled while this file exists.\n");
+            }
+            NetworkTrace.write(ctx, "[datapack] community patch disabled");
+            return true;
+        } catch (IOException e) {
+            NetworkTrace.write(ctx, "[datapack] could not disable: " + e);
+            return false;
+        }
+    }
+
+    /**
+     * Removes exactly the files the last install wrote, then any directories
+     * left empty by that. Returns how many files went, or -1 if there was no
+     * record to work from.
+     */
+    static int uninstall(Context ctx) {
+        List<String> installed = readInstalledList(ctx);
+        if (installed == null) {
+            return -1;
+        }
+
+        File root = userDataDir();
+        int removed = 0;
+        for (String relative : installed) {
+            File victim = new File(root, relative);
+            if (victim.isFile() && victim.delete()) {
+                removed++;
+            }
+        }
+
+        // Second pass: the directories those files were the only contents of.
+        // Deepest first, so a directory whose children just went can still go.
+        List<String> dirs = new ArrayList<>();
+        for (String relative : installed) {
+            int cut = relative.lastIndexOf('/');
+            while (cut > 0) {
+                String dir = relative.substring(0, cut);
+                if (!dirs.contains(dir)) {
+                    dirs.add(dir);
+                }
+                cut = dir.lastIndexOf('/');
+            }
+        }
+        java.util.Collections.sort(dirs);
+        java.util.Collections.reverse(dirs);
+        for (String dir : dirs) {
+            File candidate = new File(root, dir);
+            String[] left = candidate.list();
+            if (left != null && left.length == 0) {
+                candidate.delete();
+            }
+        }
+
+        new File(ctx.getFilesDir(), INSTALLED_LIST).delete();
+        ctx.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+            .edit().remove(PREF_INSTALLED_VERSION).apply();
+
+        NetworkTrace.write(ctx, "[datapack] uninstalled " + removed + " file(s)");
+        return removed;
+    }
+
+    private static List<String> readInstalledList(Context ctx) {
+        File list = new File(ctx.getFilesDir(), INSTALLED_LIST);
+        if (!list.isFile()) {
+            return null;
+        }
+        try {
+            java.io.ByteArrayOutputStream raw = new java.io.ByteArrayOutputStream();
+            try (InputStream in = new FileInputStream(list)) {
+                copy(in, raw);
+            }
+            JSONArray array = new JSONArray(raw.toString("UTF-8"));
+            List<String> paths = new ArrayList<>(array.length());
+            for (int i = 0; i < array.length(); i++) {
+                paths.add(array.getString(i));
+            }
+            return paths;
+        } catch (Exception e) {
+            NetworkTrace.write(ctx, "[datapack] could not read the installed list: " + e);
+            return null;
+        }
+    }
+
+    private static void writeInstalledList(Context ctx, List<String> paths) {
+        try (FileWriter out = new FileWriter(new File(ctx.getFilesDir(), INSTALLED_LIST))) {
+            out.write(new JSONArray(paths).toString());
+        } catch (Exception e) {
+            // Losing this costs the player a clean uninstall, not the install
+            // itself -- so it is worth a log line and nothing more.
+            NetworkTrace.write(ctx, "[datapack] could not record the installed list: " + e);
+        }
     }
 
     /** Phases the caller turns into something on screen. */
@@ -164,14 +294,15 @@ final class DataPackInstaller {
 
             progress.onInstalling();
             File target = userDataDir();
-            int written = extract(tempZip, target);
-            NetworkTrace.write(ctx, "[datapack] installed " + written
+            List<String> written = extract(tempZip, target);
+            writeInstalledList(ctx, written);
+            NetworkTrace.write(ctx, "[datapack] installed " + written.size()
                 + " file(s) into " + target.getAbsolutePath());
 
             ctx.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
                 .edit().putString(PREF_INSTALLED_VERSION, version).apply();
 
-            return Result.success(version, written);
+            return Result.success(version, written.size());
         } catch (Exception e) {
             String message = e.getMessage() != null ? e.getMessage() : e.toString();
             NetworkTrace.write(ctx, "[datapack] failed: " + message);
@@ -256,10 +387,10 @@ final class DataPackInstaller {
         }
     }
 
-    /** Extracts the wanted prefixes into targetRoot. Returns the file count. */
-    private static int extract(File zipFile, File targetRoot) throws IOException {
+    /** Extracts the wanted prefixes into targetRoot, listing what it wrote. */
+    private static List<String> extract(File zipFile, File targetRoot) throws IOException {
         String rootPath = targetRoot.getCanonicalPath() + File.separator;
-        int written = 0;
+        List<String> written = new ArrayList<>();
 
         try (ZipInputStream zip = new ZipInputStream(
                 new BufferedInputStream(new java.io.FileInputStream(zipFile)))) {
@@ -290,11 +421,11 @@ final class DataPackInstaller {
                 try (OutputStream dest = new FileOutputStream(out)) {
                     copy(zip, dest);
                 }
-                written++;
+                written.add(name);
             }
         }
 
-        if (written == 0) {
+        if (written.isEmpty()) {
             throw new IOException("package contained none of the expected data");
         }
         return written;
