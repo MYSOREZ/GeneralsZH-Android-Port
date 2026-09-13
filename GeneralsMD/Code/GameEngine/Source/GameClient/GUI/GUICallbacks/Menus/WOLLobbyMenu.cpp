@@ -2607,7 +2607,20 @@ WindowMsgHandledType WOLLobbyMenuSystem( GameWindow *window, UnsignedInt msg,
 								}
 								else if (Lobby.ini_crc != VANILLA_INI_CRC)
 								{
-									GSMessageBoxOk(TheGameText->fetch("GUI:JoinFailedDefault"), UnicodeString(L"The host has modified INI files or a modification."));
+									// GeneralsX @bugfix Android port 13/09/2026 This branch is now the
+									// one people actually reach, because the EXE checksum can be made
+									// to match (see GlobalData::init and the cross-platform switch),
+									// and it was still accusing the host of running a modification.
+									//
+									// Usually it is nothing of the kind. The stock PC client ships its
+									// own patched INI set -- every ordinary lobby reports 2180732466
+									// against VANILLA_INI_CRC's 4272612339 -- so what this really
+									// means is that the host has that data and we have untouched EA
+									// data. The fix is to obtain theirs, not to accuse them; there is
+									// no honest way to fake it, since the numbers are computed from
+									// the files the match will actually be played with.
+									GSMessageBoxOk(TheGameText->fetch("GUI:JoinFailedDefault"),
+										UnicodeString(L"This game's INI data differs from yours. The PC client ships its own INI files; copy them into your game folder to join games hosted by it. The startup log line tagged [GX-CRC] shows whether they took."));
 								}
 								else
 								{
