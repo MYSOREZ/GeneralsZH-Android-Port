@@ -1094,7 +1094,7 @@ public:
 	//
 	// Frames are already known on both sides, so nothing has to be assumed.
 	void addCRC(UnsignedInt frame, UnsignedInt val);
-	Bool readCRC(UnsignedInt wantFrame, UnsignedInt& out);
+	Bool readCRC(UnsignedInt notAfterFrame, UnsignedInt& out, UnsignedInt& outFrame);
 
 	int GetQueueSize() const { return m_data.size(); }
 
@@ -1128,20 +1128,37 @@ void CRCInfo::addCRC(UnsignedInt frame, UnsignedInt val)
 	}
 }
 
-Bool CRCInfo::readCRC(UnsignedInt wantFrame, UnsignedInt& out)
+Bool CRCInfo::readCRC(UnsignedInt notAfterFrame, UnsignedInt& out, UnsignedInt& outFrame)
 {
-	// Anything older than the frame being asked about will never be asked for
-	// again, so drop it rather than let it shift every later comparison.
-	while (!m_data.empty() && m_data.front().first < wantFrame)
-	{
-		m_data.pop_front();
-	}
-
-	if (m_data.empty() || m_data.front().first != wantFrame)
+	// GeneralsX @bugfix Android port 13/09/2026 Take the newest local checksum
+	// that is not from the future, rather than one at an exact frame.
+	//
+	// Exact matching works for a solo replay, where a checksum is recorded on the
+	// frame after the one it describes, and fails for a multiplayer one, where the
+	// message travelled over the network first and lands several frames later --
+	// recorded at 105 against a local entry queued at 101. Pairing them by order
+	// alone, which is what this did originally, needs a guess about whether the
+	// recording's first checksum survived, and both available guesses have now
+	// been wrong on some replay.
+	//
+	// The frame is in the queue, so neither guess is needed: a recorded checksum
+	// covers the most recent interval that had already happened when it was
+	// written, which is exactly the newest entry at or before this frame.
+	if (m_data.empty() || m_data.front().first > notAfterFrame)
 	{
 		return FALSE;
 	}
 
+	while (m_data.size() > 1 && m_data.begin()->first <= notAfterFrame)
+	{
+		std::list< std::pair<UnsignedInt, UnsignedInt> >::iterator next = m_data.begin();
+		++next;
+		if (next->first > notAfterFrame)
+			break;
+		m_data.pop_front();
+	}
+
+	outFrame = m_data.front().first;
 	out = m_data.front().second;
 	m_data.pop_front();
 	return TRUE;
@@ -1187,17 +1204,17 @@ void RecorderClass::handleCRCMessage(UnsignedInt newCRC, Int playerIndex, Bool f
 		// dialog stopped appearing -- which looked like the problem being fixed
 		// and was the comparison being switched off.
 		UnsignedInt playbackCRC = 0;
-		const Bool haveLocalCRC = m_crcInfo->readCRC(TheGameLogic->getFrame(), playbackCRC);
-		const UnsignedInt describedFrame = TheGameLogic->getFrame() > 0
-			? TheGameLogic->getFrame() - 1 : 0;
+		UnsignedInt localFrame = 0;
+		const Bool haveLocalCRC = m_crcInfo->readCRC(TheGameLogic->getFrame(), playbackCRC, localFrame);
+		const UnsignedInt describedFrame = localFrame > 0 ? localFrame - 1 : 0;
 
 		if (!haveLocalCRC)
 		{
 			if (GXTrace::isNetEnabled())
 			{
 				fprintf(stderr, "[GX-NET] replay crc at frame %u: recorded=%08X but this"
-					" device has no checksum queued for frame %u -- not compared\n",
-					(unsigned)describedFrame, (unsigned)newCRC,
+					" device has no checksum queued at or before frame %u -- not compared\n",
+					(unsigned)TheGameLogic->getFrame(), (unsigned)newCRC,
 					(unsigned)TheGameLogic->getFrame());
 				fflush(stderr);
 			}
