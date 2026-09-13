@@ -826,6 +826,23 @@ void GameEngine::init()
 			(unsigned)VANILLA_INI_CRC);
 		fflush(stderr);
 
+		// GeneralsX @feature Android port 13/09/2026 State which simulation
+		// switches this binary was built with.
+		//
+		// These decide whether a match against a PC client can agree with it --
+		// RETAIL_COMPATIBLE_CRC alone changes which bytes go into the per-frame
+		// checksum -- and they are compile-time, so a log cannot be read without
+		// knowing them. A test round was already spent on a log that turned out to
+		// come from the previous build, which was only caught because a checksum
+		// that had to change had not. One line makes every log say for itself
+		// which binary produced it.
+		fprintf(stderr, "[GX-BUILD] sim flags: crc=%d xfer_save=%d pathfind_alloc=%d aigroup=%d networking=%d  (0 = as the PC client builds it)\n",
+			(int)RETAIL_COMPATIBLE_CRC, (int)RETAIL_COMPATIBLE_XFER_SAVE,
+			(int)RETAIL_COMPATIBLE_PATHFINDING_ALLOCATION, (int)RETAIL_COMPATIBLE_AIGROUP,
+			(int)RETAIL_COMPATIBLE_NETWORKING);
+		fprintf(stderr, "[GX-BUILD] built %s %s\n", __DATE__, __TIME__);
+		fflush(stderr);
+
 		TheSubsystemList->postProcessLoadAll();
 
 		// GeneralsX @bugfix Copilot 11/05/2026 Prevent uncapped render when FPS limiter is enabled but no valid limit value was loaded.
