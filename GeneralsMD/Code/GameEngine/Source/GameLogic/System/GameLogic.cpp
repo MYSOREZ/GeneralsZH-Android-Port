@@ -2746,7 +2746,24 @@ void GameLogic::processCommandList( CommandList *list )
 				{
 					// TheSuperHackers @bugfix Caball009 14/06/2026 Check if player is still connected,
 					// to avoid spurious mismatches at low CRC intervals, e.g. every frame.
-					if (!TheNetwork->isPlayerConnected(it->first))
+					// GeneralsX @bugfix Android port 13/09/2026 Ask about the slot, and only
+					// skip a player whose slot is known to be gone.
+					//
+					// This passed a player index to a function that takes a slot index. They
+					// are different numbering schemes -- a 2-player match ran as players 2
+					// and 3 in slots 0 and 1 -- so the lookup missed every time, every CRC
+					// was skipped as "not connected", and the comparison had nothing left to
+					// compare. This build could not detect a desync at all: a PC-hosted match
+					// ended with a mismatch dialog on the PC naming this device while this
+					// device reported everything fine. The earlier Android-to-Android runs
+					// that "stayed in sync for 9405 frames" were measured with the same
+					// broken check and proved nothing either way.
+					//
+					// The second half matters as much: skipping on a failed lookup is what
+					// silences the check, so an unknown slot (-1) now means "compare it"
+					// rather than "ignore it".
+					const Int slotIndex = ThePlayerList->getSlotIndex(it->first);
+					if (slotIndex >= 0 && !TheNetwork->isPlayerConnected(slotIndex))
 						continue;
 
 					const UnsignedInt crc = it->second;
@@ -2824,9 +2841,11 @@ void GameLogic::processCommandList( CommandList *list )
 				(unsigned)m_frame, numPlayers, (int)m_cachedCRCs.size());
 			for (CachedCRCMap::const_iterator crcIt = m_cachedCRCs.begin(); crcIt != m_cachedCRCs.end(); ++crcIt)
 			{
-				GX_NET_TRACE("  player %d crc=%08X%s\n",
-					crcIt->first, crcIt->second,
-					TheNetwork->isPlayerConnected(crcIt->first) ? "" : " (skipped: not connected)");
+				const Int reportSlot = ThePlayerList->getSlotIndex(crcIt->first);
+				GX_NET_TRACE("  player %d (slot %d) crc=%08X%s\n",
+					crcIt->first, reportSlot, crcIt->second,
+					(reportSlot >= 0 && !TheNetwork->isPlayerConnected(reportSlot))
+						? " (skipped: not connected)" : "");
 			}
 		}
 	}

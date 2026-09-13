@@ -70,6 +70,8 @@ enum AllowPlayerRelationship CPP_11(: Int)
 /**
 	This is a singleton class that maintains the list of Players.
 */
+class GameInfo;
+
 class PlayerList : public SubsystemInterface,
 									 public Snapshot
 {
@@ -156,6 +158,14 @@ public:
 	*/
 	PlayerMaskType getPlayersWithRelationship( Int srcPlayerIndex, UnsignedInt allowedRelationships );
 
+	/**
+		Map a player index to the multiplayer slot index that player occupies,
+		or -1 when it has none (an AI, or a single player game). TheNetwork
+		talks in slots and everything else talks in player indices, so anything
+		asking the network about a player has to come through here first.
+	*/
+	Int getSlotIndex(Int playerIndex) const;
+
 protected:
 
 	// snapshot methods
@@ -165,9 +175,13 @@ protected:
 
 private:
 
+	void assignSlotIndices(const GameInfo& gameInfo);
+	void setSlotIndex(Int playerIndex, Int slotIndex);
+
 	Player				*m_local;
 	Int						m_playerCount;
 	Player				*m_players[MAX_PLAYER_COUNT];
+	Int						m_slotIndices[MAX_PLAYER_COUNT];
 
 };
 
