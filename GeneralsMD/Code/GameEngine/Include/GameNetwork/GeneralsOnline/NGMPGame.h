@@ -1,16 +1,5 @@
 #pragma once
 #include "GameNetwork/GameInfo.h"
-#ifndef _WIN32
-// GeneralsX @build Android port 13/09/2026 The Windows compat layer and the
-// gamespy headers define min and max as macros, and libstdc++'s <chrono>
-// declares members with those names -- so every translation unit that reaches
-// this header after them fails inside <chrono> rather than anywhere near the
-// cause. Retired here, at the include that pulls <chrono> in, so it is fixed
-// once for every consumer instead of per file.
-#undef min
-#undef max
-#endif
-
 #include <chrono>
 #include "NextGenMP_defines.h"
 
