@@ -1799,6 +1799,30 @@ GameSlot *lSlot = game->getSlot(game->getLocalSlotNum());
 			GadgetStaticTextSetText(m_playerTotalDisconnects[netSlot], formatString);
 			m_playerTotalDisconnects[netSlot]->winSetEnabledTextColors(houseColor, m_playerTotalDisconnects[netSlot]->winGetEnabledTextBorderColor());
 		}
+		else
+		{
+			// GeneralsX @bugfix Android port 13/09/2026 Hide the stats cells when
+			// there is nobody to fill them.
+			//
+			// Skipping the block above left these four windows holding the label
+			// GameWindowManager gives a static text that was never assigned one,
+			// so the loading screen showed a column of "MISSING: 'Static Text'"
+			// where each player's record should be. Hiding them is what this same
+			// function already does for AI slots a few lines below, and it leaves
+			// the headings in place without inventing numbers we do not have.
+			//
+			// GeneralsOnline does serve per-player stats (PlayerStats/Batch), so
+			// these cells could be filled for real later; that is a bigger change
+			// than making the screen stop lying.
+			if (m_playerWinLosses[netSlot])
+				m_playerWinLosses[netSlot]->winHide(TRUE);
+			if (m_playerTotalDisconnects[netSlot])
+				m_playerTotalDisconnects[netSlot]->winHide(TRUE);
+			if (m_playerRank[netSlot])
+				m_playerRank[netSlot]->winHide(TRUE);
+			if (m_playerOfficerMedal[netSlot])
+				m_playerOfficerMedal[netSlot]->winHide(TRUE);
+		}
 		GadgetStaticTextSetText(m_playerSide[netSlot], slot->getApparentPlayerTemplateDisplayName() );
 		m_playerSide[netSlot]->winSetEnabledTextColors(houseColor, m_playerSide[netSlot]->winGetEnabledTextBorderColor());
 

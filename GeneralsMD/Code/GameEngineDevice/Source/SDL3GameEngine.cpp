@@ -1561,6 +1561,7 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 					}
 					break;
 				case TouchState::UI_PRESS:
+				{
 					// GeneralsX @bugfix Android port 03/08/2026 Release at the
 					// ORIGINAL anchor (downX/downY), not wherever the finger
 					// ended up (lastX/lastY) -- matches the PENDING tap case
@@ -1572,6 +1573,34 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 					// deferred classification instead.
 					pushMousePosition(s_touch.downX, s_touch.downY);
 					pushMouseButton(GameMessage::MSG_RAW_MOUSE_LEFT_BUTTON_UP, s_touch.downX, s_touch.downY);
+
+					// GeneralsX @feature Android port 13/09/2026 A long press in the shell
+					// is a right-click.
+					//
+					// The menus still expect one: the lobby player list opens its player
+					// menu -- profile, add friend, mute -- from GLM_RIGHT_CLICKED, which
+					// only a GWM_RIGHT_UP produces, and a touchscreen never sends one. So
+					// that menu was simply unreachable on this port, along with every other
+					// right-click affordance in the shell.
+					//
+					// Sent after the left release above rather than instead of it, so the
+					// window manager never sees a button left held; the left click also
+					// lands on the row first, which is what a right-click on a list does on
+					// a mouse anyway.
+					//
+					// Shell only. In-game the same gesture already means something else
+					// (cancelOrDeselect below), decided long ago because a synthesized
+					// right-click there could strand the camera -- see TouchInput.h.
+					const Bool shellLongPress =
+						(TheShell && TheShell->isShellActive()) &&
+						(SDL_GetTicks() - s_touch.downTicks) >= LONG_PRESS_MS &&
+						(SDL_fabsf(s_touch.lastX - s_touch.downX)
+							+ SDL_fabsf(s_touch.lastY - s_touch.downY)) < TAP_DEAD_ZONE_PX;
+					if (shellLongPress) {
+						pushMouseButton(GameMessage::MSG_RAW_MOUSE_RIGHT_BUTTON_DOWN, s_touch.downX, s_touch.downY);
+						pushMouseButton(GameMessage::MSG_RAW_MOUSE_RIGHT_BUTTON_UP, s_touch.downX, s_touch.downY);
+					}
+
 					pushPointerGone();
 					TouchInput::reportUiHold(0, 0, FALSE);
 					// GeneralsX @bugfix Android port 06/09/2026 Reported: holding a build
@@ -1581,10 +1610,11 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 					// release necessarily completes a click. Undo the intent rather than the
 					// mechanics: a press held this long was to read, not to arm, so back out
 					// of whatever it armed. A short tap is unaffected and still builds.
-					if ((SDL_GetTicks() - s_touch.downTicks) >= LONG_PRESS_MS) {
+					if (!shellLongPress && (SDL_GetTicks() - s_touch.downTicks) >= LONG_PRESS_MS) {
 						TouchInput::cancelOrDeselect();
 					}
 					break;
+				}
 				default:
 					break;
 			}
