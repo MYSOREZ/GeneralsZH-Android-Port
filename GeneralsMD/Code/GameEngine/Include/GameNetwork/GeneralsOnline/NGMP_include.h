@@ -7,6 +7,20 @@ enum class ELogVerbosity
 	LOG_RELEASE = 1
 };
 
+// GeneralsX @bugfix Android port 13/09/2026 Every packet on a mesh connection
+// carries this as its first byte, because one connection carries both the game
+// and the anticheat. This port never sent it and never skipped it on arrival,
+// which put every field of every packet one byte out of place: a PC-hosted
+// match reported "BAD MAGIC - expected 0xF00D, got 0x0D00" -- the magic read
+// starting one byte early -- and the match never left the loading screen.
+// Android talking to Android worked only because both ends were wrong in the
+// same direction.
+enum class ENetworkChannel : BYTE
+{
+	NETWORK_CHANNEL_GAME = 0,
+	NETWORK_CHANNEL_AC = 1
+};
+
 #define CHECK_MAIN_THREAD assert(std::this_thread::get_id() == NGMP_OnlineServicesManager::g_MainThreadID);
 #define CHECK_WORKER_THREAD assert(std::this_thread::get_id() != NGMP_OnlineServicesManager::g_MainThreadID);
 

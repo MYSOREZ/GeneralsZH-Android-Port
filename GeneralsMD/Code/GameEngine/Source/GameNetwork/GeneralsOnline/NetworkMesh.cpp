@@ -1125,9 +1125,17 @@ int PlayerConnection::SendGamePacket(void* pBuffer, uint32_t totalDataSize)
 		}
 	}
 
+	// GeneralsX @bugfix Android port 13/09/2026 Prefix the channel byte the rest
+	// of GeneralsOnline expects, so a PC client can find the header where it
+	// looks for it. See ENetworkChannel in NGMP_include.h.
+	std::vector<BYTE> vecData;
+	vecData.resize(totalDataSize + sizeof(ENetworkChannel));
+	vecData[0] = (BYTE)ENetworkChannel::NETWORK_CHANNEL_GAME;
+	memcpy(vecData.data() + sizeof(ENetworkChannel), pBuffer, totalDataSize);
+
 	NetworkLog(ELogVerbosity::LOG_DEBUG, "[GAME PACKET] Sending msg of size %ld to user %lld\n", totalDataSize, m_userID);
 	EResult r = SteamNetworkingSockets()->SendMessageToConnection(
-		m_hSteamConnection, pBuffer, (int)totalDataSize, sendFlags, nullptr);
+		m_hSteamConnection, vecData.data(), (int)vecData.size(), sendFlags, nullptr);
 
 	if (r != k_EResultOK)
 	{

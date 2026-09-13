@@ -222,55 +222,66 @@ static UnsignedByte grabUByte(const char *s)
 	return b;
 }
 
-// GeneralsX @bugfix Android port 13/09/2026 Removes printf specifiers from a
-// translated string that is displayed without arguments. Only "%%" survives, as
-// the escape for a literal percent sign. Leftover whitespace is collapsed so a
-// removed specifier does not leave a gap mid-sentence.
-static UnicodeString stripStaleFormatSpecifiers(const UnicodeString& text)
+// GeneralsX @bugfix Android port 13/09/2026 Drops the lines of a translated
+// heading that still carry a printf specifier, for a heading that is displayed
+// with no arguments to fill one.
+//
+// MOTD:NumPlayersHeading is two sentences: a welcome, and a player count. EA
+// removed the count from the English string in patch 1.01 and removed the
+// matching argument, but never touched the translations -- so every localised
+// build has been handing format() a "%d" with nothing behind it and printing
+// whatever was on the stack ("-1229458044 players online" on a Russian
+// install). Removing just the specifier would leave "there are currently
+// online", a sentence with a hole in it, so the whole line goes. The welcome
+// survives, and the real count is in the server's own MOTD directly below it.
+static UnicodeString dropLinesWithFormatSpecifiers(const UnicodeString& text)
 {
 	std::wstring out;
+	std::wstring line;
+	bool lineHasSpecifier = false;
+
 	const WideChar* p = text.str();
-
-	while (p != nullptr && *p != L'\0')
+	for (;; ++p)
 	{
-		if (*p != L'%')
+		const WideChar c = (p != nullptr) ? *p : L'\0';
+
+		if (c == L'\n' || c == L'\0')
 		{
-			out.push_back(*p++);
+			if (!lineHasSpecifier)
+			{
+				out.append(line);
+				if (c == L'\n')
+				{
+					out.push_back(L'\n');
+				}
+			}
+			line.clear();
+			lineHasSpecifier = false;
+
+			if (c == L'\0')
+			{
+				break;
+			}
 			continue;
 		}
 
-		++p;
-		if (*p == L'%')
+		if (c == L'%')
 		{
-			out.push_back(*p++);
-			continue;
+			// "%%" is an escaped percent sign, not a conversion.
+			if (*(p + 1) == L'%')
+			{
+				line.push_back(L'%');
+				++p;
+				continue;
+			}
+			lineHasSpecifier = true;
 		}
 
-		// Flags, width, precision and length modifiers, then the conversion.
-		while (*p != L'\0' && wcschr(L"-+ #0123456789.*hlLqjzt", *p) != nullptr)
-		{
-			++p;
-		}
-		if (*p != L'\0')
-		{
-			++p;
-		}
-	}
-
-	// Collapse the run of spaces a removed specifier leaves behind.
-	std::wstring collapsed;
-	collapsed.reserve(out.size());
-	for (size_t i = 0; i < out.size(); ++i)
-	{
-		if (out[i] == L' ' && !collapsed.empty() && collapsed.back() == L' ')
-		{
-			continue;
-		}
-		collapsed.push_back(out[i]);
+		line.push_back(c);
 	}
 
 	UnicodeString result;
-	result.set(collapsed.c_str());
+	result.set(out.c_str());
 	return result;
 }
 
@@ -304,14 +315,9 @@ static void updateNumPlayersOnline()
 		//Removed number of players from string, and removed the argument. The number is incorrect anyways...
 		//This was a Harvard initiated fix.
 		// GeneralsX @bugfix Android port 13/09/2026 That fix only ever reached the
-		// English string. Every other localisation still reads "... %d ...", and
-		// format() was still being handed it with no argument to match -- so on a
-		// Russian install the welcome screen announced "-1229458044 players
-		// online", and on any other translated one whatever else happened to be on
-		// the stack. Drop the stale specifier instead of feeding it a number: the
-		// count was deliberately removed twenty years ago because it was wrong,
-		// and GeneralsOnline's own MOTD below already states the real one.
-		headingStr = stripStaleFormatSpecifiers(TheGameText->fetch("MOTD:NumPlayersHeading"));
+		// English string -- see dropLinesWithFormatSpecifiers above for what every
+		// other localisation was printing instead.
+		headingStr = dropLinesWithFormatSpecifiers(TheGameText->fetch("MOTD:NumPlayersHeading"));
 
 		//<hexcol>%hs for colors
 		while (headingStr.nextToken(&line, L"\n"))

@@ -2304,8 +2304,31 @@ void SDL3GameEngine::pollSDL3Events(void)
 				// Set on both since the eventual entry-field focus change is processed a
 				// few frames later by GameEngine::update(), not synchronously here -- see
 				// updateTextInputState() and m_PendingTextInputRearmFrames.
+				//
+				// GeneralsX @bugfix Android port 13/09/2026 ...but only when the
+				// finger actually landed on a text field. This used to rearm on
+				// every touch anywhere on screen, and in the lobby and chat rooms
+				// the chat box holds focus the whole time -- so tapping a player,
+				// a map, a dropdown or empty space all summoned the on-screen
+				// keyboard again, over and over, with no way to keep it down.
+				// Dismissing it and tapping anything brought it straight back.
 				if (event.type == SDL_EVENT_FINGER_DOWN || event.type == SDL_EVENT_FINGER_UP) {
-					m_PendingTextInputRearmFrames = 20;
+					int winW = 0;
+					int winH = 0;
+					if (m_SDLWindow) {
+						SDL_GetWindowSize(m_SDLWindow, &winW, &winH);
+					}
+
+					GameWindow* touched = (TheWindowManager && winW > 0 && winH > 0)
+						? TheWindowManager->getWindowUnderCursor(
+							(Int)(event.tfinger.x * (float)winW),
+							(Int)(event.tfinger.y * (float)winH))
+						: nullptr;
+
+					if (touched != nullptr &&
+						BitIsSet(touched->winGetStyle(), GWS_ENTRY_FIELD)) {
+						m_PendingTextInputRearmFrames = 20;
+					}
 				}
 				if (m_SDLWindow) {
 					handleTouchEvent(m_SDLWindow, event);
