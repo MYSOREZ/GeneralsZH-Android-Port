@@ -2576,9 +2576,32 @@ WindowMsgHandledType WOLLobbyMenuSystem( GameWindow *window, UnsignedInt msg,
 							fflush(stderr);
 
 							// CRC Check
+							//
+							// GeneralsX @bugfix Android port 13/09/2026 The messages below used to
+							// blame whichever side was not "vanilla", which on this port means the
+							// host is accused every single time -- and wrongly. A device log of a
+							// full lobby list makes the real situation plain: 27 lobbies at
+							// exe 3118172181 / ini 2180732466 (the stock PC GeneralsOnline client,
+							// whose own patched INI set is simply not EA-vanilla), 9 at the same
+							// exe with a different INI (an actual mod), and our own lobbies at
+							// exe 4265514697 / ini 4272612339 -- our INI matching VANILLA_INI_CRC
+							// exactly. Nobody out there was modded except the nine.
+							//
+							// The gate trips on the EXE CRC, and that one cannot match by
+							// construction: the PC client CRCs its own Windows binary, while this
+							// port takes the Linux branch of generateExeCRC() and hashes only the
+							// version plus the .scb scripts. Two different programs, two different
+							// numbers, forever. Saying so is more useful than picking a side to
+							// accuse, so the EXE case is now reported for what it is, and the INI
+							// messages are left for the case they were actually written for.
 							if (Lobby.exe_crc != TheGlobalData->m_exeCRC || Lobby.ini_crc != TheGlobalData->m_iniCRC)
 							{
-								if (TheGlobalData->m_iniCRC != VANILLA_INI_CRC)
+								if (Lobby.exe_crc != TheGlobalData->m_exeCRC)
+								{
+									GSMessageBoxOk(TheGameText->fetch("GUI:JoinFailedDefault"),
+										UnicodeString(L"This Android build cannot join games hosted by the PC client: the two are different programs, so their EXE checksums never match. Games hosted from Android can be joined normally."));
+								}
+								else if (TheGlobalData->m_iniCRC != VANILLA_INI_CRC)
 								{
 									GSMessageBoxOk(TheGameText->fetch("GUI:JoinFailedDefault"), UnicodeString(L"You have modified INI files or a modification."));
 								}
