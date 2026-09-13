@@ -4334,9 +4334,11 @@ UnsignedInt GameLogic::getCRC( Int mode, AsciiString deepCRCFileName )
 
 	marker = "MARKER:Objects";
 	xferCRC->xferAsciiString(&marker);
+	Int objectCountForTrace = 0;
 	for( obj = m_objList; obj; obj=obj->getNextObject() )
 	{
 		xferCRC->xferSnapshot( obj );
+		++objectCountForTrace;
 	}
 	UnsignedInt seed = GetGameLogicRandomSeedCRC();
 	if (isInGameLogicUpdate())
@@ -4352,6 +4354,21 @@ UnsignedInt GameLogic::getCRC( Int mode, AsciiString deepCRCFileName )
 	{
 		xferCRC->xferUnsignedInt( &seed );
 	}
+	const Bool gxTraceParts = GXTrace::isNetEnabled() && isInGameLogicUpdate()
+		&& xferCRC->getXferMode() == XFER_CRC;
+	if (gxTraceParts)
+	{
+		// GeneralsX @feature Android port 13/09/2026 The whole-state checksum is a
+		// single number, so a disagreement with another machine says only "these
+		// simulations differ" -- not where. Every section it is accumulated from
+		// gets a line here, so a mismatch can be narrowed to objects, the
+		// partition manager, the player list or the AI before anything is guessed
+		// about why. Only at the frames a CRC is actually generated, and only with
+		// the gx_net_trace.txt marker present.
+		GX_NET_TRACE("crc parts frame %u: afterObjects=%08X seed=%08X\n",
+			(unsigned)m_frame, (unsigned)xferCRC->getCRC(), (unsigned)seed);
+	}
+
 	marker = "MARKER:ThePartitionManager";
 	xferCRC->xferAsciiString(&marker);
 	xferCRC->xferSnapshot( ThePartitionManager );
@@ -4374,12 +4391,24 @@ UnsignedInt GameLogic::getCRC( Int mode, AsciiString deepCRCFileName )
 	}
 #endif // DEBUG_CRC
 
+	if (gxTraceParts)
+	{
+		GX_NET_TRACE("crc parts frame %u: afterPartition=%08X\n",
+			(unsigned)m_frame, (unsigned)xferCRC->getCRC());
+	}
+
 	marker = "MARKER:ThePlayerList";
 	xferCRC->xferAsciiString(&marker);
 	xferCRC->xferSnapshot( ThePlayerList );
 	if (isInGameLogicUpdate())
 	{
 		CRCGEN_LOG(("CRC after PlayerList for frame %d is 0x%8.8X", m_frame, xferCRC->getCRC()));
+	}
+
+	if (gxTraceParts)
+	{
+		GX_NET_TRACE("crc parts frame %u: afterPlayerList=%08X\n",
+			(unsigned)m_frame, (unsigned)xferCRC->getCRC());
 	}
 
 	marker = "MARKER:TheAI";
@@ -4395,6 +4424,12 @@ UnsignedInt GameLogic::getCRC( Int mode, AsciiString deepCRCFileName )
 		marker = "MARKER:GameSave";
 		xferCRC->xferAsciiString(&marker);
 		TheGameState->friend_xferSaveDataForCRC(xferCRC, SNAPSHOT_DEEPCRC_LOGICONLY);
+	}
+
+	if (gxTraceParts)
+	{
+		GX_NET_TRACE("crc parts frame %u: afterAI=%08X  (objects counted: %d)\n",
+			(unsigned)m_frame, (unsigned)xferCRC->getCRC(), (int)objectCountForTrace);
 	}
 
 	xferCRC->close();
