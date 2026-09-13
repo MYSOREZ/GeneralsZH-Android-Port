@@ -2803,25 +2803,30 @@ void GameLogic::processCommandList( CommandList *list )
 		}
 		else if (numPlayers > 1)
 		{
-			// A silent log cannot distinguish "stayed in sync" from "the
-			// check never ran", and for this test those are opposite
-			// answers. One line every 30 exchanges is enough to show the
-			// comparison is alive and agreeing, without flooding a match.
-			static UnsignedInt s_lastSyncReport = 0;
-			// m_frame restarts at 0 with each new game, and this counter
-			// outlives the game it belongs to; without the first test the
-			// subtraction would wrap and the report would fire on an
-			// unsigned accident rather than on purpose.
-			if (m_frame < s_lastSyncReport)
+			// A silent log cannot distinguish "stayed in sync" from "the check
+			// never ran", and for this test those are opposite answers.
+			//
+			// GeneralsX @bugfix Android port 13/09/2026 Print the CRCs, not a
+			// verdict. This used to report "%d players agree" using numPlayers --
+			// which is how many players are in the game, not how many CRCs were
+			// compared and matched -- and a single CRC as if it spoke for all of
+			// them. It said "in sync at frame 105 (2 players agree)" for a match
+			// the PC on the other side ended with a mismatch dialog naming this
+			// device, and a log that confidently disagrees with the other machine
+			// is worse than no log: it sent the search in the wrong direction.
+			//
+			// The comparison above deliberately skips players it does not consider
+			// connected, so a CRC can sit in the map and never be looked at. That
+			// distinction is exactly what has to be visible, hence the per-player
+			// lines and the "(skipped)" marker. Once every CRC interval is not a
+			// flood -- roughly one report every three seconds of play.
+			GX_NET_TRACE("crc check at frame %u -- %d players, %d CRCs\n",
+				(unsigned)m_frame, numPlayers, (int)m_cachedCRCs.size());
+			for (CachedCRCMap::const_iterator crcIt = m_cachedCRCs.begin(); crcIt != m_cachedCRCs.end(); ++crcIt)
 			{
-				s_lastSyncReport = 0;
-			}
-			if (s_lastSyncReport == 0 || m_frame - s_lastSyncReport >= 900)
-			{
-				s_lastSyncReport = m_frame;
-				UnsignedInt firstCRC = m_cachedCRCs.empty() ? 0 : m_cachedCRCs.begin()->second;
-				GX_NET_TRACE("in sync at frame %u (%d players agree, crc=%08X)\n",
-					(unsigned)m_frame, numPlayers, firstCRC);
+				GX_NET_TRACE("  player %d crc=%08X%s\n",
+					crcIt->first, crcIt->second,
+					TheNetwork->isPlayerConnected(crcIt->first) ? "" : " (skipped: not connected)");
 			}
 		}
 	}
