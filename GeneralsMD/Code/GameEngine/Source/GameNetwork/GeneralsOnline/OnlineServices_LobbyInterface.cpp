@@ -1052,6 +1052,15 @@ void NGMP_OnlineServices_LobbyInterface::JoinLobby(LobbyEntry lobbyInfo, std::st
 			// TODO_NGMP: Remove this and just hardcode it or provide from service
 			j["preferred_port"] = 0;
 
+			// GeneralsX @bugfix Android port 13/09/2026 Upstream's JoinLobby sends
+			// this and ours did not -- the only difference left between the two
+			// requests. CreateLobby here has always sent it (and creating a lobby
+			// works), so this is an omission on the join path rather than a
+			// decision. On this platform the plugin is a stub and the value is 0,
+			// which is what every lobby in a live list reports anyway; the point is
+			// that the field is present, not what it holds.
+			j["anticheat_id"] = AnticheatPlugInterface::GetAnticheatIdentifier();
+
 			j["has_map"] = bHasMap;
 
 			if (!strPassword.empty())
@@ -1092,7 +1101,42 @@ void NGMP_OnlineServices_LobbyInterface::JoinLobby(LobbyEntry lobbyInfo, std::st
 					// TODO_NGMP: Dont do extra get here, just return it in the put...
 					EJoinLobbyResult JoinResult = EJoinLobbyResult::JoinLobbyResult_JoinFailed;
 
-					if (statusCode == 200 && bSuccess)
+					// GeneralsX @bugfix Android port 13/09/2026 The server refuses a join
+					// with HTTP 200 and {"success":false} in the body, and "bSuccess" below
+					// is curl's verdict on the transfer, not the server's on the join. So a
+					// refusal was read as an accepted join, and the comment further down --
+					// "no response body from this, just http codes" -- was simply no longer
+					// true.
+					//
+					// What that looked like on a device: the joining player got "Joined
+					// lobby", sat in a lobby the server had never put them in, never
+					// appeared in the host's player list, could not take a slot, and was
+					// left behind when the host started. The empty turn_username/turn_token
+					// in that same refusal are the other half of it -- without TURN
+					// credentials the peer mesh has no relay to fall back on, so even the
+					// connection could not have been established.
+					bool bServerAccepted = true;
+					try
+					{
+						nlohmann::json jsonObject = nlohmann::json::parse(strBody);
+						if (jsonObject.contains("success"))
+						{
+							bServerAccepted = jsonObject["success"].get<bool>();
+						}
+					}
+					catch (...)
+					{
+						// An unparseable body is not a refusal; fall back to the status code.
+					}
+
+					if (!bServerAccepted)
+					{
+						NetworkLog(ELogVerbosity::LOG_RELEASE,
+							"[NGMP] JoinLobby refused by server (HTTP %d, success=false). The usual cause is that this account is already in the lobby -- one account cannot occupy two seats, so two devices need two accounts.",
+							statusCode);
+					}
+
+					if (statusCode == 200 && bSuccess && bServerAccepted)
 					{
 						JoinResult = EJoinLobbyResult::JoinLobbyResult_Success;
 					}
