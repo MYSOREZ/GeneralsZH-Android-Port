@@ -230,4 +230,6 @@
     <string name="netdiag_share_subject">Мережевий лог GeneralsZH</string>
     <string name="online_status_banned">Цей обліковий запис заблоковано на GeneralsOnline. Подати апеляцію можна в їхньому Discord.</string>
     <string name="online_status_banned_reason">Цей обліковий запис заблоковано на GeneralsOnline: %1$s</string>
+    <string name="online_status_requesting_code">Запитуємо код входу в сервера…</string>
+    <string name="online_status_no_login_code">Сервер не видав код входу. Перевірте з’єднання і спробуйте ще раз або запустіть «Діагностику мережі» в Інструментах.</string>
 </resources>

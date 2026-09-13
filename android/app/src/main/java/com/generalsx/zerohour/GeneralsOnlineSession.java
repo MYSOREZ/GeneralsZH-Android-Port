@@ -278,6 +278,75 @@ final class GeneralsOnlineSession {
         return buf.toString("UTF-8");
     }
 
+    /**
+     * Asks the server to issue a login code. Runs on a background thread.
+     * Returns null if the server would not issue one.
+     *
+     * GeneralsX @bugfix Android port 13/09/2026 This call is the whole
+     * sign-in fix. The launcher used to invent its own 32-character code
+     * and open the browser with it, and no such code has ever meant
+     * anything to the server -- CheckLogin answered result:2 for it
+     * forever, whatever the user did on the website. What the website
+     * reports is that the Discord/Steam identity checked out; the game code
+     * it was handed was simply not one the server had issued, so there was
+     * no pending login for the identity to attach to.
+     *
+     * The reference client does it this way and always has
+     * (OnlineServices_Auth.cpp, DoFullLoginFlow): GET LoginCode first, open
+     * the browser with the code that comes back, then poll for it. The
+     * difference is visible from outside -- a server-issued code polls
+     * HTTP 200 result:0 ("waiting for the user") while an invented one
+     * polls HTTP 403 result:2 -- and the alphabets differ too: the server
+     * issues uppercase letters and digits, the old local generator produced
+     * mixed-case letters.
+     */
+    static String fetchLoginCode(Context ctx) {
+        HttpURLConnection conn = null;
+        try {
+            URL url = new URL(API_BASE + "LoginCode");
+            conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            conn.setConnectTimeout(10000);
+            conn.setReadTimeout(10000);
+
+            int status = conn.getResponseCode();
+            java.io.InputStream in = (status >= 200 && status < 300)
+                ? conn.getInputStream() : conn.getErrorStream();
+            String raw = in != null ? readAll(in) : "";
+            NetworkTrace.write(ctx, "GET " + hostOf(API_BASE) + "/LoginCode -> HTTP " + status
+                + "  " + NetworkTrace.snippet(raw, 200));
+
+            if (status < 200 || status >= 300 || raw.isEmpty()) {
+                lastNetworkErrorDetail = hostOf(API_BASE) + ": HTTP " + status
+                    + " requesting a login code";
+                return null;
+            }
+
+            JSONObject json = new JSONObject(raw);
+            if (!json.optBoolean("success", false)) {
+                lastNetworkErrorDetail = "the server declined to issue a login code";
+                return null;
+            }
+            String code = json.optString("login_code", "");
+            if (code.isEmpty()) {
+                lastNetworkErrorDetail = "the server issued an empty login code";
+                return null;
+            }
+            lastNetworkErrorDetail = "";
+            return code;
+        } catch (Exception e) {
+            NetworkTrace.write(ctx, "GET LoginCode failed: " + e.getClass().getSimpleName()
+                + (e.getMessage() != null ? ": " + e.getMessage() : ""));
+            lastNetworkErrorDetail = hostOf(API_BASE) + ": " + e.getClass().getSimpleName()
+                + (e.getMessage() != null ? ": " + e.getMessage() : "");
+            return null;
+        } finally {
+            if (conn != null) {
+                conn.disconnect();
+            }
+        }
+    }
+
     // Runs on a background thread. Mirrors the reference client's
     // GetCredentials()/LoginWithToken silent-reauth branch.
     //

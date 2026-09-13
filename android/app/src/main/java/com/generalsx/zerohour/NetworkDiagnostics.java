@@ -363,6 +363,19 @@ final class NetworkDiagnostics {
 
         r.append('\n');
         r.append("[4] Sign-in API behaviour\n");
+
+        // The first thing a real sign-in does. If this fails there is no
+        // code to put in the browser and nothing downstream can work.
+        step(progress, "LoginCode");
+        Probe issued = probe(ctx, "GET", GeneralsOnlineSession.API_BASE + "LoginCode", null, null);
+        r.append("  LoginCode (issues the code the website claims)\n");
+        r.append("    status  : ").append(issued.status > 0
+            ? Integer.toString(issued.status) : "no response").append('\n');
+        r.append("    meaning : ").append(issued.status == 200
+            ? "the server issues login codes normally"
+            : "the server would not issue a login code -- sign-in cannot start")
+            .append('\n');
+
         step(progress, "CheckLogin");
 
         // A code that was never issued by the website. The answer to this is

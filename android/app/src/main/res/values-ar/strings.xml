@@ -230,4 +230,6 @@
     <string name="netdiag_share_subject">سجل شبكة GeneralsZH</string>
     <string name="online_status_banned">هذا الحساب محظور على GeneralsOnline. يمكنك تقديم اعتراض عبر Discord الخاص بهم.</string>
     <string name="online_status_banned_reason">هذا الحساب محظور على GeneralsOnline: %1$s</string>
+    <string name="online_status_requesting_code">جارٍ طلب رمز تسجيل الدخول من الخادم…</string>
+    <string name="online_status_no_login_code">لم يُصدر الخادم رمز تسجيل دخول. تحقّق من الاتصال وحاول مجددًا، أو شغّل تشخيص الشبكة من الأدوات.</string>
 </resources>

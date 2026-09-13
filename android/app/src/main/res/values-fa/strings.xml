@@ -230,4 +230,6 @@
     <string name="netdiag_share_subject">گزارش شبکهٔ GeneralsZH</string>
     <string name="online_status_banned">این حساب در GeneralsOnline مسدود شده است. می‌توانید در دیسکورد آن‌ها اعتراض کنید.</string>
     <string name="online_status_banned_reason">این حساب در GeneralsOnline مسدود شده است: %1$s</string>
+    <string name="online_status_requesting_code">در حال درخواست کد ورود از سرور…</string>
+    <string name="online_status_no_login_code">سرور کد ورود صادر نکرد. اتصال را بررسی کنید و دوباره تلاش کنید، یا عیب‌یابی شبکه را در ابزارها اجرا کنید.</string>
 </resources>

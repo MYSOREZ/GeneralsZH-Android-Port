@@ -230,4 +230,6 @@
     <string name="netdiag_share_subject">GeneralsZH-Netzwerkprotokoll</string>
     <string name="online_status_banned">Dieses Konto ist auf GeneralsOnline gesperrt. Einspruch ist über deren Discord möglich.</string>
     <string name="online_status_banned_reason">Dieses Konto ist auf GeneralsOnline gesperrt: %1$s</string>
+    <string name="online_status_requesting_code">Anmeldecode wird vom Server angefordert…</string>
+    <string name="online_status_no_login_code">Der Server hat keinen Anmeldecode ausgegeben. Prüfe die Verbindung und versuche es erneut, oder führe die Netzwerkdiagnose unter Werkzeuge aus.</string>
 </resources>

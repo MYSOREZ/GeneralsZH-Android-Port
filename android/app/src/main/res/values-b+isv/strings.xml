@@ -230,4 +230,6 @@
     <string name="netdiag_share_subject">Mrežny log GeneralsZH</string>
     <string name="online_status_banned">Toj akaunt jest blokovany na GeneralsOnline. Apelaciju možete podati v ihnem Discorde.</string>
     <string name="online_status_banned_reason">Toj akaunt jest blokovany na GeneralsOnline: %1$s</string>
+    <string name="online_status_requesting_code">Zaprašajemo kod vhoda od servera…</string>
+    <string name="online_status_no_login_code">Server ne vydal kod vhoda. Proverite sopojenje i probujte znovu, ili pustite «Diagnostiku mreže» v Instrumentah.</string>
 </resources>

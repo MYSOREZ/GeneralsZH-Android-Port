@@ -230,4 +230,6 @@
     <string name="netdiag_share_subject">GeneralsZH 네트워크 로그</string>
     <string name="online_status_banned">이 계정은 GeneralsOnline에서 차단되었습니다. 해당 Discord에서 이의를 제기할 수 있습니다.</string>
     <string name="online_status_banned_reason">이 계정은 GeneralsOnline에서 차단되었습니다: %1$s</string>
+    <string name="online_status_requesting_code">서버에 로그인 코드를 요청하는 중…</string>
+    <string name="online_status_no_login_code">서버가 로그인 코드를 발급하지 않았습니다. 연결을 확인하고 다시 시도하거나, 도구에서 네트워크 진단을 실행하세요.</string>
 </resources>

@@ -237,4 +237,6 @@
     <string name="setup_render_backend_gles_short">GLES</string>
     <string name="setup_render_backend_gles_angle_short">ANGLE</string>
     <string name="setup_render_backend_vulkan_short">Vulkan</string>
+    <string name="online_status_requesting_code">Requesting a login code from the server…</string>
+    <string name="online_status_no_login_code">The server would not issue a login code. Check your connection and try again, or run Network diagnostics in Tools.</string>
 </resources>

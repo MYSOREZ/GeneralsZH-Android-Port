@@ -230,4 +230,6 @@
     <string name="netdiag_share_subject">GeneralsZH 网络日志</string>
     <string name="online_status_banned">此账号已被 GeneralsOnline 封禁。你可以在他们的 Discord 上申诉。</string>
     <string name="online_status_banned_reason">此账号已被 GeneralsOnline 封禁：%1$s</string>
+    <string name="online_status_requesting_code">正在向服务器申请登录码…</string>
+    <string name="online_status_no_login_code">服务器未发放登录码。请检查网络后重试，或在「工具」中运行网络诊断。</string>
 </resources>

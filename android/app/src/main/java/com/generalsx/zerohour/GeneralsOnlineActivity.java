@@ -51,7 +51,6 @@ import com.google.android.material.button.MaterialButton;
 
 import org.json.JSONObject;
 
-import java.security.SecureRandom;
 
 public class GeneralsOnlineActivity extends Activity {
 
@@ -82,12 +81,7 @@ public class GeneralsOnlineActivity extends Activity {
     private static final int POLL_INTERVAL_MS = 1000;
     private static final int POLL_MAX_ATTEMPTS = 180; // ~3 minutes
 
-    private static final String CODE_CHARSET =
-        "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    private static final int CODE_LENGTH = 32;
-
     private final Handler handler = new Handler(Looper.getMainLooper());
-    private final SecureRandom random = new SecureRandom();
 
     private TextView statusText;
     private MaterialButton signInButton;
@@ -150,14 +144,6 @@ public class GeneralsOnlineActivity extends Activity {
         UiKit.supporting(stepsCard, getString(R.string.online_signin_help));
         signInButton = UiKit.button(stepsCard, UiKit.BTN_PRIMARY, R.drawable.ic_gzh_account,
             getString(R.string.online_button_sign_in), this::onSignIn);
-    }
-
-    private String generateGameCode() {
-        StringBuilder sb = new StringBuilder(CODE_LENGTH);
-        for (int i = 0; i < CODE_LENGTH; ++i) {
-            sb.append(CODE_CHARSET.charAt(random.nextInt(CODE_CHARSET.length())));
-        }
-        return sb.toString();
     }
 
     // If we already have a refresh_token from a previous sign-in, try to
@@ -245,10 +231,33 @@ public class GeneralsOnlineActivity extends Activity {
         final int generation = ++signInGeneration;
         signInButton.setEnabled(false);
 
-        String code = generateGameCode();
-        String url = String.format(LOGIN_URL_FMT, code);
+        // GeneralsX @bugfix Android port 13/09/2026 The code now comes from
+        // the server instead of being invented here -- see
+        // GeneralsOnlineSession.fetchLoginCode. That means a network round
+        // trip before the browser can open, so the tap no longer opens it
+        // directly.
         NetworkTrace.section(this, "sign-in attempt");
-        NetworkTrace.write(this, "opening browser for login code (" + code.length() + " chars)");
+        statusText.setText(R.string.online_status_requesting_code);
+        new Thread(() -> {
+            String code = GeneralsOnlineSession.fetchLoginCode(this);
+            handler.post(() -> onLoginCodeReady(code, generation));
+        }, "GeneralsOnlineLoginCode").start();
+    }
+
+    private void onLoginCodeReady(String code, int generation) {
+        if (generation != signInGeneration) {
+            return;
+        }
+        if (code == null) {
+            busy = false;
+            signInButton.setEnabled(true);
+            statusText.setText(withNetworkErrorDetail(getString(R.string.online_status_no_login_code)));
+            return;
+        }
+
+        String url = String.format(LOGIN_URL_FMT, code);
+        NetworkTrace.write(this, "server issued a login code (" + code.length()
+            + " chars); opening browser");
         try {
             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
         } catch (Exception e) {

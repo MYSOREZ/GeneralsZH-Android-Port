@@ -230,4 +230,6 @@
     <string name="netdiag_share_subject">Dziennik sieci GeneralsZH</string>
     <string name="online_status_banned">To konto jest zbanowane w GeneralsOnline. Odwołanie możesz złożyć na ich Discordzie.</string>
     <string name="online_status_banned_reason">To konto jest zbanowane w GeneralsOnline: %1$s</string>
+    <string name="online_status_requesting_code">Pobieranie kodu logowania z serwera…</string>
+    <string name="online_status_no_login_code">Serwer nie wydał kodu logowania. Sprawdź połączenie i spróbuj ponownie lub uruchom diagnostykę sieci w Narzędziach.</string>
 </resources>

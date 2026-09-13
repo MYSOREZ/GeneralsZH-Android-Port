@@ -230,4 +230,6 @@
     <string name="netdiag_share_subject">Registro de red de GeneralsZH</string>
     <string name="online_status_banned">Esta cuenta está baneada en GeneralsOnline. Puedes apelar en su Discord.</string>
     <string name="online_status_banned_reason">Esta cuenta está baneada en GeneralsOnline: %1$s</string>
+    <string name="online_status_requesting_code">Solicitando un código de inicio de sesión al servidor…</string>
+    <string name="online_status_no_login_code">El servidor no emitió un código de inicio de sesión. Comprueba la conexión e inténtalo de nuevo, o ejecuta el diagnóstico de red en Herramientas.</string>
 </resources>

@@ -232,4 +232,6 @@
     <string name="netdiag_share_subject">Сетевой лог GeneralsZH</string>
     <string name="online_status_banned">Этот аккаунт заблокирован на GeneralsOnline. Подать апелляцию можно в их Discord.</string>
     <string name="online_status_banned_reason">Этот аккаунт заблокирован на GeneralsOnline: %1$s</string>
+    <string name="online_status_requesting_code">Запрашиваем код входа у сервера…</string>
+    <string name="online_status_no_login_code">Сервер не выдал код входа. Проверьте соединение и попробуйте снова или запустите «Диагностику сети» в Инструментах.</string>
 </resources>
