@@ -1070,26 +1070,39 @@ void NGMP_OnlineServices_LobbyInterface::JoinLobby(LobbyEntry lobbyInfo, std::st
 
 			std::string strPostData = j.dump();
 
-			// GeneralsX @bugfix Android port 13/09/2026 The mesh used to be built
-			// here, before the request below -- which is one step too early, and
-			// it left the joining player unable to reach anyone.
+			// create our mesh
 			//
-			// NetworkMesh's constructor reads the lobby's TURN username and token
-			// and pushes them straight into the global GameNetworkingSockets
-			// config. Those credentials arrive in the response to the very request
-			// this preceded, so at this point there are none: the mesh came up with
-			// an empty relay list and nothing later replaced it, because
-			// OnJoinedOrCreatedLobby only creates a mesh when there is not one
-			// already.
+			// GeneralsX @bugfix Android port 13/09/2026 Built HERE, before the
+			// request below, and that ordering is load-bearing -- an earlier
+			// attempt to defer it until the TURN credentials had arrived broke
+			// joining outright.
 			//
-			// A host never noticed. It does not take this path at all -- CreateLobby
-			// returns its credentials first and the mesh is built afterwards, in
-			// OnJoinedOrCreatedLobby. Two devices' logs show exactly that split:
-			// "turnUser empty=0" on the host, "turnUser empty=1" on the joiner, and
-			// a lobby where neither player could connect to the other.
+			// The service pushes NETWORK_CONNECTION_START_SIGNALLING over the
+			// WebSocket as soon as the join is registered, and on a real device
+			// that push arrives ~78 ms BEFORE the client's own HTTP response
+			// callback. The handler drops it when there is no mesh yet
+			// (OnlineServices_RoomsInterface.cpp, "Network mesh is null"), so the
+			// joiner never starts signalling, never opens an outbound connection,
+			// and then cannot accept the host's inbound one either: the accept
+			// path matches the incoming handle against m_mapConnections, finds
+			// nothing, and falls through in silence.
 			//
-			// So the mesh is left to OnJoinedOrCreatedLobby, which runs after the
-			// credentials have been stored, and both sides now build it the same way.
+			// The retry cannot save it, because the player with the higher user id
+			// is the one responsible for re-requesting signalling and that code
+			// sits behind the same lookup that just failed. Both sides then wait
+			// for each other until the connection times out.
+			//
+			// Upstream builds the mesh here too, with TURN credentials that are
+			// equally empty at this point -- it reads them from the response that
+			// has not arrived yet, exactly as we do. Empty relay credentials on
+			// the joining side are therefore the normal state of affairs and not
+			// worth reordering anything for.
+#if defined(GENERALS_ONLINE_ENABLE_P2P_TRANSPORT)
+			if (m_pLobbyMesh == nullptr)
+			{
+				m_pLobbyMesh = new NetworkMesh();
+			}
+#endif
 
 			// convert
 			NGMP_OnlineServicesManager::GetInstance()->GetHTTPManager()->SendPUTRequest(strURI.c_str(), EIPProtocolVersion::DONT_CARE, mapHeaders, strPostData.c_str(), [=](bool bSuccess, int statusCode, std::string strBody, HTTPRequest* pReq)

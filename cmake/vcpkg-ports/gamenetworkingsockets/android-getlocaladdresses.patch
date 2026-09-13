@@ -1,0 +1,58 @@
+GeneralsX @bugfix Android port 13/09/2026
+
+Let GetLocalAddresses() use getifaddrs() on Android.
+
+Android is excluded from the POSIX branch, so the function falls through to
+AssertMsg(false, "Write me!") and returns false. Its only caller is the ICE
+session's interface gathering:
+
+    void CSteamNetworkingICESession::GatherInterfaces()
+    {
+        CUtlVector<LocalAddress_t> vecAddrs;
+        if ( !GetLocalAddresses( &vecAddrs ) )
+            return;
+
+Everything ICE does is per-interface -- host candidates, STUN binding
+requests, TURN allocations, and the sending of packets itself. With no
+interfaces there are no candidates of any kind, no STUN traffic and no TURN
+traffic, and a peer connection can only ever time out. A device log of a
+failed match shows that exact assert firing 293 times, once per gathering
+attempt, for the whole duration of the connect.
+
+The exclusion looks like "nobody wrote it" rather than a real limitation:
+bionic has had getifaddrs()/freeifaddrs() since API 24 (Android 7.0), this
+port's minSdk is 28, and the engine beside it already enumerates interfaces
+this way (Core/GameEngine/Source/GameNetwork/IPEnumeration.cpp).
+
+This is not a problem upstream's Windows client can hit -- it builds
+GameNetworkingSockets with USE_STEAMWEBRTC=ON and never compiles this ICE
+client at all. This port is the first user of Valve's native one.
+
+bionic ships <ifaddrs.h> too, and the header was hidden behind the same
+assumption, so the include guard has to go with it or the source above will
+not compile.
+
+--- a/src/steamnetworkingsockets/clientlib/steamnetworkingsockets_socketthread.cpp
++++ b/src/steamnetworkingsockets/clientlib/steamnetworkingsockets_socketthread.cpp
+@@ -4221,7 +4221,7 @@
+     free( pAddrInfo );
+ 	return true;
+ 
+-#elif IsPosix() && !IsPlaystation() && !IsAndroid() && !IsNintendoSwitch()
++#elif IsPosix() && !IsPlaystation() && !IsNintendoSwitch()
+ 
+ 	ifaddrs *pMyAddrInfo = NULL;
+ 	int r = getifaddrs( &pMyAddrInfo );
+
+--- a/src/public/tier0/platform_sockets.h
++++ b/src/public/tier0/platform_sockets.h
+@@ -87,9 +87,7 @@
+ 	#include <poll.h>
+ 	#include <errno.h>
+ 
+-	#if !IsAndroid()
+ 		#include <ifaddrs.h>
+-	#endif
+ 	#include <net/if.h>
+ 
+ 	#ifndef closesocket

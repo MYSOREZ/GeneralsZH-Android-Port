@@ -1,10 +1,12 @@
 # GeneralsX @build Android port 12/07/2026 Overlay port: byte-for-byte copy of
 # vcpkg's gamenetworkingsockets 1.6.0 port (from the CI's pinned vcpkg commit
-# 42e4e33e) plus ONE addition -- the android-os-check.patch below. Upstream
+# 42e4e33e) plus the two Android patches below. Upstream
 # GNS 1.6.0's CMake aborts with "Could not identify your target operating
 # system" for CMAKE_SYSTEM_NAME=Android; the patch teaches it to treat Android
-# as the Linux it is. Drop this overlay once a vcpkg pin ships a port/GNS
-# release that recognizes Android natively.
+# as the Linux it is. The second lets GetLocalAddresses() enumerate interfaces
+# on Android instead of asserting -- without it ICE gathers no candidates at
+# all and no peer connection can ever form. Drop this overlay once a vcpkg pin
+# ships a port/GNS release that recognizes Android natively.
 vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO ValveSoftware/GameNetworkingSockets
@@ -13,6 +15,7 @@ vcpkg_from_github(
     HEAD_REF master
     PATCHES
         android-os-check.patch
+        android-getlocaladdresses.patch
 )
 
 vcpkg_check_features(
