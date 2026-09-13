@@ -121,7 +121,26 @@ static Bool readReplayMapInfo(const AsciiString& filename, RecorderClass::Replay
 
 			return true;
 		}
+
+		// GeneralsX @diag Android port 13/09/2026 Say why a replay is missing from
+		// the list instead of dropping it in silence.
+		//
+		// A replay this returns false for is left out of the listbox entirely, with
+		// nothing on screen or in the log to distinguish "the file is not there"
+		// from "the file is there and was rejected". A replay copied from a PC not
+		// appearing sent a whole round of testing down the wrong path -- the
+		// replay being played back was the device's own, not the one under test,
+		// and every conclusion drawn from it was about the wrong file.
+		fprintf(stderr, "[GX-REPLAY] '%s' left out of the list: the header read but its"
+			" game options did not parse -- options were '%s'\n",
+			filename.str(), header.gameOptions.str());
+		fflush(stderr);
+		return false;
 	}
+
+	fprintf(stderr, "[GX-REPLAY] '%s' left out of the list: the header could not be read\n",
+		filename.str());
+	fflush(stderr);
 	return false;
 }
 
