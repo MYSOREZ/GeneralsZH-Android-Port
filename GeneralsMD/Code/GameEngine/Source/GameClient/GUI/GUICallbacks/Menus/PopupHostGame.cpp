@@ -51,6 +51,7 @@
 // USER INCLUDES //////////////////////////////////////////////////////////////
 //-----------------------------------------------------------------------------
 #include "PreRTS.h"	// This must go first in EVERY cpp file in the GameEngine
+#include <cwchar>
 
 #include "Common/GlobalData.h"
 #include "Common/NameKeyGenerator.h"
@@ -677,6 +678,28 @@ void createGame()
 	AsciiString passwd;
 	passwd.translate(GadgetTextEntryGetText(textEntryGamePassword));
 
+
+	// GeneralsX @feature Android port 13/09/2026 Mark the lobby as hosted from
+	// Android, in the one place every player actually sees before deciding to
+	// join: the name in the lobby list.
+	//
+	// The obvious alternative -- announcing it in the lobby chat on creation --
+	// cannot work, and the lobby JSON says why: it carries members, map, rules
+	// and checksums, and no chat at all. Chat is a live WebSocket fan-out with no
+	// history, so a message sent as the lobby is created is delivered to the
+	// people in it at that moment, which is nobody. The name, by contrast, is
+	// carried in the lobby listing itself and is there for everyone who browses,
+	// joins late, or looks at the title bar during the match setup.
+	//
+	// Prepended rather than appended so it survives the server's own "[EU][shield]"
+	// prefix and any truncation of a long name, and skipped when the text already
+	// carries it so re-hosting a remembered name does not stack tags.
+	if (wcsstr(gameName.str(), L"[Android]") == nullptr)
+	{
+		UnicodeString tagged(L"[Android] ");
+		tagged.concat(gameName);
+		gameName = tagged;
+	}
 
 	// NGMP:NOTE: We count money here because mods etc sometimes change the starting money, so we dont want to hard code it, just create with whatever the client is telling us is a sensible amount
 	NGMP_OnlineServices_LobbyInterface* pLobbyInterface = NGMP_OnlineServicesManager::GetInterface<NGMP_OnlineServices_LobbyInterface>();

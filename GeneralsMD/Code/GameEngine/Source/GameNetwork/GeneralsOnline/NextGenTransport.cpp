@@ -188,8 +188,28 @@ Bool NextGenTransport::doRecv(void)
 
             if (!isGenerals)
             {
-                NetworkLog(ELogVerbosity::LOG_RELEASE,
-                    "Game Packet Recv: Is NOT a generals packet");
+                // GeneralsX @diag Android port 13/09/2026 Say which of the two
+                // checks failed, the way upstream does. "Is NOT a generals
+                // packet" covers both a wrong magic number and a failed CRC,
+                // and those point at completely different problems -- a peer
+                // framing packets differently versus bytes arriving corrupted
+                // -- so on its own the line costs a whole test round to resolve.
+                if (incomingMessage.header.magic != GENERALS_MAGIC_NUMBER)
+                {
+                    NetworkLog(ELogVerbosity::LOG_RELEASE,
+                        "Game Packet Recv: BAD MAGIC - expected 0x%04X, got 0x%04X "
+                        "from user %lld (%u bytes on the wire, %u payload)",
+                        GENERALS_MAGIC_NUMBER, incomingMessage.header.magic,
+                        static_cast<long long>(kvPair.second.m_userID), numBytes, payloadLen);
+                }
+                else
+                {
+                    NetworkLog(ELogVerbosity::LOG_RELEASE,
+                        "Game Packet Recv: CRC MISMATCH - header says 0x%08X "
+                        "from user %lld (%u bytes on the wire, %u payload)",
+                        incomingMessage.header.crc,
+                        static_cast<long long>(kvPair.second.m_userID), numBytes, payloadLen);
+                }
                 m_unknownPackets[m_statisticsSlot]++;
                 m_unknownBytes[m_statisticsSlot] += numBytes;
                 continue;

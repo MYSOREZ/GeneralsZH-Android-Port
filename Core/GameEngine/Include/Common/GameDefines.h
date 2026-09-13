@@ -106,8 +106,31 @@
 #endif
 
 // Disable non retail fixes in the networking, such as putting more data per UDP packet
+//
+// GeneralsX @bugfix Android port 13/09/2026 Default to the non-retail wire
+// format, because that is the only one anything this port can talk to speaks.
+//
+// GeneralsOnline builds with this off (upstream guards the default with
+// !defined(GENERALS_ONLINE)), which makes its UDP payloads up to 1100 bytes
+// against retail's 476, its TransportMessage::data correspondingly wider, and
+// its command-id ordering overflow-safe. This port had it on, so a PC-hosted
+// match and this device disagreed about the size and shape of every game
+// packet -- and nothing catches that: the lobby compares INI and EXE
+// checksums, not the transport, so the match starts, the loading screen sits
+// at 0%, and the peer eventually times out. A device log of exactly that shows
+// 268 packets from the PC rejected as "Is NOT a generals packet".
+//
+// Set here rather than by mirroring upstream's GENERALS_ONLINE guard on
+// purpose: that macro is added by GeneralsMD's CMakeLists and so does not
+// reach Core's own targets, which compile NetworkDefs.h too. Guarding on it
+// would give one binary two different TransportMessage layouts depending on
+// which target a translation unit landed in, which is worse than either value.
+//
+// Retail networking is not a mode this port can use anyway -- retail's
+// GameSpy servers are long gone -- so there is nothing on the other side of
+// this switch to stay compatible with.
 #ifndef RETAIL_COMPATIBLE_NETWORKING
-#define RETAIL_COMPATIBLE_NETWORKING (1)
+#define RETAIL_COMPATIBLE_NETWORKING (0)
 #endif
 
 // This is essentially synonymous for RETAIL_COMPATIBLE_CRC. There is a lot wrong with AIGroup, such as use-after-free, double-free, leaks,

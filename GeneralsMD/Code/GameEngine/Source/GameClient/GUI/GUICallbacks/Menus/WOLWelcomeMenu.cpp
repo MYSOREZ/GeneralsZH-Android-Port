@@ -30,6 +30,8 @@
 
 // INCLUDES ///////////////////////////////////////////////////////////////////////////////////////
 #include "PreRTS.h"	// This must go first in EVERY cpp file in the GameEngine
+#include <cwchar>
+#include <string>
 
 #include "gamespy/peer/peer.h"
 
@@ -220,6 +222,58 @@ static UnsignedByte grabUByte(const char *s)
 	return b;
 }
 
+// GeneralsX @bugfix Android port 13/09/2026 Removes printf specifiers from a
+// translated string that is displayed without arguments. Only "%%" survives, as
+// the escape for a literal percent sign. Leftover whitespace is collapsed so a
+// removed specifier does not leave a gap mid-sentence.
+static UnicodeString stripStaleFormatSpecifiers(const UnicodeString& text)
+{
+	std::wstring out;
+	const WideChar* p = text.str();
+
+	while (p != nullptr && *p != L'\0')
+	{
+		if (*p != L'%')
+		{
+			out.push_back(*p++);
+			continue;
+		}
+
+		++p;
+		if (*p == L'%')
+		{
+			out.push_back(*p++);
+			continue;
+		}
+
+		// Flags, width, precision and length modifiers, then the conversion.
+		while (*p != L'\0' && wcschr(L"-+ #0123456789.*hlLqjzt", *p) != nullptr)
+		{
+			++p;
+		}
+		if (*p != L'\0')
+		{
+			++p;
+		}
+	}
+
+	// Collapse the run of spaces a removed specifier leaves behind.
+	std::wstring collapsed;
+	collapsed.reserve(out.size());
+	for (size_t i = 0; i < out.size(); ++i)
+	{
+		if (out[i] == L' ' && !collapsed.empty() && collapsed.back() == L' ')
+		{
+			continue;
+		}
+		collapsed.push_back(out[i]);
+	}
+
+	UnicodeString result;
+	result.set(collapsed.c_str());
+	return result;
+}
+
 static void updateNumPlayersOnline()
 {
 	GameWindow *playersOnlineWindow = TheWindowManager->winGetWindowFromId(
@@ -249,7 +303,15 @@ static void updateNumPlayersOnline()
 		//Kris: Patch 1.01 - November 12, 2003
 		//Removed number of players from string, and removed the argument. The number is incorrect anyways...
 		//This was a Harvard initiated fix.
-		headingStr.format(TheGameText->fetch("MOTD:NumPlayersHeading"));
+		// GeneralsX @bugfix Android port 13/09/2026 That fix only ever reached the
+		// English string. Every other localisation still reads "... %d ...", and
+		// format() was still being handed it with no argument to match -- so on a
+		// Russian install the welcome screen announced "-1229458044 players
+		// online", and on any other translated one whatever else happened to be on
+		// the stack. Drop the stale specifier instead of feeding it a number: the
+		// count was deliberately removed twenty years ago because it was wrong,
+		// and GeneralsOnline's own MOTD below already states the real one.
+		headingStr = stripStaleFormatSpecifiers(TheGameText->fetch("MOTD:NumPlayersHeading"));
 
 		//<hexcol>%hs for colors
 		while (headingStr.nextToken(&line, L"\n"))
