@@ -1,0 +1,125 @@
+GeneralsX @bugfix Android port 13/09/2026
+
+Stop the ICE STUN request chain from spinning the thinker loop.
+
+Once GetLocalAddresses() started working on Android (see
+android-getlocaladdresses.patch), devices began offering every interface they
+have, including unroutable ones -- a 29.x placeholder, carrier-NAT 10.x, IPv6
+ULAs. A UDP send bound to such a source address fails synchronously, and on
+POSIX it fails silently.
+
+That exposed a latent defect. CSteamNetworkingSocketsSTUNRequest::Think treats
+an immediate send failure as terminal: it invokes the callback and deletes
+itself on the first Think, never reaching the retry schedule. The callback,
+STUNRequestCallback_ServerReflexiveCandidate, responds by trying "the next
+STUN server" -- index_of(addr) + 1. But index_of returns the FIRST match, and
+ResolveHostname produces runs of identical addresses, so the next server is
+the same server. The new request is queued with SetNextThinkTimeASAP(), an
+absolute timestamp of 1 microsecond, which is permanently in the past.
+
+So each iteration creates one object, fails to send, and queues a successor
+that is already overdue. Thinker_ProcessThinkers runs to its 10000 iteration
+cap, holding the global lock throughout, and then does it again: a device log
+shows 4715 such passes over 82 seconds, with the game's main thread waiting up
+to 24.8 seconds for that lock. To the player the game is simply frozen, with
+no sound, until they background it.
+
+The duplicates come from two places at once: getaddrinfo is called with
+ai_socktype 0, which returns each address once per socket type, and the five
+Google STUN hostnames in the configured list all resolve to one IP.
+
+De-duplicating the resolved lists breaks the fixed point, and the walk ends by
+falling off the end of the list as it was meant to. The TURN list is built the
+same way and feeds an identical index_of(addr)+1 chain in
+STUNRequestCallback_AllocateRelay, so it gets the same treatment, skipping the
+matching credential so the two vectors stay parallel.
+
+The keepalive callback is a third instance and worse: it cycles with % len(),
+so it has no termination condition even with a perfectly unique list. It no
+longer re-queues; Think_KeepAliveOnCandidates already retries on its own timer.
+
+This is not Android-specific. Any platform using Valve's native ICE
+implementation -- ENABLE_ICE without USE_STEAMWEBRTC, which is our
+configuration and not the one Steam ships -- can hit it with a single
+unroutable local address.
+
+--- a/src/steamnetworkingsockets/clientlib/steamnetworkingsockets_ice_client.cpp
++++ b/src/steamnetworkingsockets/clientlib/steamnetworkingsockets_ice_client.cpp
+@@ -1211,7 +1211,17 @@
+ 			{
+ 				netadr_t adr;
+ 				SteamNetworkingIPAddrToNetAdr( adr, ip );
+-				m_vecSTUNServers.push_back( adr );
++				// GeneralsX @bugfix Android port 13/09/2026 Skip duplicates.
++				// ResolveHostname() asks getaddrinfo() with ai_socktype 0, so every
++				// address comes back once per socket type, and distinct hostnames
++				// often share one IP. Duplicates are fatal here:
++				// STUNRequestCallback_ServerReflexiveCandidate moves on with
++				// index_of(addr)+1, and index_of returns the FIRST match -- so inside
++				// a run of equal addresses "the next server" is the same server, and
++				// the walk that was meant to end by falling off the list never does.
++				if ( has_element( m_vecSTUNServers, adr ) )
++					continue;
++				m_vecSTUNServers.push_back( adr );
+ 			}
+ 		}
+ 	}
+--- a/src/steamnetworkingsockets/clientlib/steamnetworkingsockets_ice_client.cpp
++++ b/src/steamnetworkingsockets/clientlib/steamnetworkingsockets_ice_client.cpp
+@@ -1235,7 +1235,11 @@
+ 		{
+ 			netadr_t adr;
+ 			SteamNetworkingIPAddrToNetAdr( adr, ip );
+-			m_vecTURNServers.push_back( adr );
++			// Same duplicate trap as the STUN list above; the credential is skipped
++			// with it so the two vectors stay index-parallel.
++			if ( has_element( m_vecTURNServers, adr ) )
++				continue;
++			m_vecTURNServers.push_back( adr );
+ 			TURNCredentials cred;
+ 			cred.m_strUsername = pszUsername;
+ 			cred.m_strPassword = pszPassword;
+--- a/src/steamnetworkingsockets/clientlib/steamnetworkingsockets_ice_client.cpp
++++ b/src/steamnetworkingsockets/clientlib/steamnetworkingsockets_ice_client.cpp
+@@ -2294,13 +2294,17 @@
+         return;
+     }
+ 
+-    // Timed out -- try the next STUN server (cycling through the list).
+-    if ( m_vecSTUNServers.empty() )
+-        return;
+-
+-    const int nSTUNServerIdx = std::max( 0, index_of( m_vecSTUNServers, info.m_pRequest->m_remoteAddr ) );
+-    const int nNextSTUNServerIdx = ( nSTUNServerIdx + 1 ) % len( m_vecSTUNServers );
+-    pIntf->QueueBindRequest( m_vecSTUNServers[ nNextSTUNServerIdx ], &CSteamNetworkingICESession::STUNRequestCallback_ServerReflexiveKeepAlive, m_nEncoding );
++    // GeneralsX @bugfix Android port 13/09/2026 Do not re-queue from here.
++    // This ran with % len(), so it had no termination condition at all -- even
++    // a single-entry list cycles back to itself. When an interface cannot send,
++    // the failed request invokes this callback from inside its own Think() and
++    // the replacement is scheduled ASAP, which is an absolute timestamp of 1us:
++    // permanently in the past. Thinker_ProcessThinkers then spins to its 10000
++    // iteration cap while holding the global lock, and everything else -- the
++    // game thread included -- waits on it.
++    //
++    // Think_KeepAliveOnCandidates retries on its own 15s tick, which is the
++    // right rate for a keepalive anyway.
+ }
+ 
+ void CSteamNetworkingICESession::UpdateKeepalive( ICESessionInterface *pIntf )
+--- a/src/steamnetworkingsockets/clientlib/steamnetworkingsockets_socketthread.cpp
++++ b/src/steamnetworkingsockets/clientlib/steamnetworkingsockets_socketthread.cpp
+@@ -3999,7 +3999,13 @@
+ 	hints.ai_flags = AI_ADDRCONFIG;
+ #endif
+ 	hints.ai_family = AF_UNSPEC;
+-	hints.ai_socktype = 0;
++	// GeneralsX @bugfix Android port 13/09/2026 Ask for UDP specifically. With 0,
++	// getaddrinfo returns one entry per socket type, so every resolved address is
++	// appended three times. Both callers resolve STUN/TURN servers, which ICE only
++	// ever speaks UDP to. This is hygiene, not the fix -- separate hostnames can
++	// still share an address -- so it goes with the de-duplication above, not
++	// instead of it.
++	hints.ai_socktype = SOCK_DGRAM;
+ 	hints.ai_protocol = 0;
+ 
+ 	addrinfo *result = NULL;

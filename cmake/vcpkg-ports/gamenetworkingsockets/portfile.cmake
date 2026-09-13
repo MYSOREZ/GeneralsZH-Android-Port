@@ -5,8 +5,11 @@
 # system" for CMAKE_SYSTEM_NAME=Android; the patch teaches it to treat Android
 # as the Linux it is. The second lets GetLocalAddresses() enumerate interfaces
 # on Android instead of asserting -- without it ICE gathers no candidates at
-# all and no peer connection can ever form. Drop this overlay once a vcpkg pin
-# ships a port/GNS release that recognizes Android natively.
+# all and no peer connection can ever form. The third stops the ICE STUN
+# request chain from spinning the thinker loop, which that second patch exposed
+# by letting devices offer interfaces they cannot actually send from. Drop this
+# overlay once a vcpkg pin ships a port/GNS release that recognizes Android
+# natively.
 vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO ValveSoftware/GameNetworkingSockets
@@ -16,6 +19,7 @@ vcpkg_from_github(
     PATCHES
         android-os-check.patch
         android-getlocaladdresses.patch
+        android-ice-stun-spin.patch
 )
 
 vcpkg_check_features(
