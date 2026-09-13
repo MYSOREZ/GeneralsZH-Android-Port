@@ -1137,10 +1137,22 @@ void RecorderClass::handleCRCMessage(UnsignedInt newCRC, Int playerIndex, Bool f
 		//
 		// This is one line per CRC interval, roughly one every three seconds of
 		// replayed play, and only when the gx_net_trace.txt marker is present.
+		// GeneralsX @bugfix Android port 13/09/2026 These two were labelled the
+		// wrong way round, and the mislabelling wasted a round of testing.
+		//
+		// newCRC is the value carried by the CRC message being processed, and
+		// during playback those come out of the replay file: GameLogic tags a
+		// locally generated CRC message with isPlayback, so this device's own
+		// checksum arrives with fromPlayback set and is queued by the branch above
+		// rather than compared. What reaches this comparison is the recorded
+		// value, checked against readCRC() -- the local one queued earlier.
+		//
+		// So newCRC is the recording's and playbackCRC is ours, which is what the
+		// stock message a few lines down has always said.
 		if (GXTrace::isNetEnabled() && TheGameLogic->getFrame() > 0)
 		{
-			fprintf(stderr, "[GX-NET] replay crc at frame %u: ours=%08X replay=%08X%s\n",
-				(unsigned)TheGameLogic->getFrame(), (unsigned)newCRC, (unsigned)playbackCRC,
+			fprintf(stderr, "[GX-NET] replay crc at frame %u: ours=%08X recorded=%08X%s\n",
+				(unsigned)TheGameLogic->getFrame(), (unsigned)playbackCRC, (unsigned)newCRC,
 				(newCRC == playbackCRC) ? "" : "  <-- DIVERGED");
 			fflush(stderr);
 		}
