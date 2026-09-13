@@ -91,12 +91,25 @@ public class GeneralsOnlineActivity extends Activity {
     private boolean busy = false;
 
     // GeneralsX @bugfix Android port 13/09/2026 Tapping Sign In again while
-    // a sign-in was already running left the first poll loop alive: the log
-    // from a failed attempt shows two different codes being polled one
-    // second apart, doubling the request rate and letting whichever loop
-    // answered last decide the screen. Each attempt now carries a
-    // generation, and a result from a superseded one is dropped.
-    private int signInGeneration = 0;
+    // a sign-in was already running left the first poll loop alive, so two
+    // codes were polled a second apart -- double the request rate, with
+    // whichever loop answered last owning the screen. Each attempt carries
+    // a generation and a superseded result is dropped.
+    //
+    // Static, and that is the point. The first version of this was an
+    // instance field, which did not help at all: the sign-in flow sends the
+    // user to a browser, and coming back can bring a NEW Activity instance
+    // with it. The old instance's loop kept running -- its handler is bound
+    // to the main Looper, not to the Activity -- and checked its OWN
+    // generation field, which of course still matched. A successful sign-in
+    // log shows exactly that: the abandoned instance polled its dead code
+    // for another 26 seconds after the live one had finished.
+    //
+    // One counter for the process means a new attempt in any instance
+    // retires every older loop, while a recreation that does NOT start a
+    // new attempt leaves the in-flight sign-in alone -- which matters,
+    // since that sign-in is the reason we were sent to the browser.
+    private static int signInGeneration = 0;
 
     @Override
     protected void attachBaseContext(android.content.Context newBase) {
@@ -110,6 +123,18 @@ public class GeneralsOnlineActivity extends Activity {
         buildUi();
         refreshStatus();
         maybeSilentReauth();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // Only when the screen is really being left. A bare recreation --
+        // which is what returning from the sign-in browser can look like --
+        // must not cancel the sign-in that recreation is the result of.
+        if (isFinishing()) {
+            ++signInGeneration;
+            handler.removeCallbacksAndMessages(null);
+        }
     }
 
     // GeneralsX @feature Android port launcher-ui-2026 08/09/2026 Same shell
