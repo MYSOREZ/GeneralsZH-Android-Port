@@ -215,4 +215,19 @@
     <string name="setup_render_backend_gles_short">GLES</string>
     <string name="setup_render_backend_gles_angle_short">ANGLE</string>
     <string name="setup_render_backend_vulkan_short">Vulkan</string>
+    <string name="setup_switch_gx_net_trace">سجل شبكة اللعب عبر الإنترنت</string>
+    <string name="setup_switch_gx_net_trace_desc">يسجّل كل طلب ترسله اللعبة إلى خوادم GeneralsOnline والرد الذي يصلها. فعّل هذا إذا كان تسجيل الدخول أو الردهة أو المطابقة يفشل داخل اللعبة نفسها. طلبات المشغّل تُسجَّل دائمًا، وهذا يضيف طلبات اللعبة. (gx_net_trace.txt)</string>
+    <string name="netdiag_title">تشخيص الشبكة</string>
+    <string name="netdiag_row_note">تحقّق مما إذا كان هذا الجهاز يصل إلى خوادم GeneralsOnline، واجمع تقريرًا لإرفاقه ببلاغ عن خلل.</string>
+    <string name="netdiag_intro">يفحص بالترتيب: هل توجد شبكة تعمل، وهل تُترجَم أسماء خوادم GeneralsOnline، وهل تستجيب الخوادم، وماذا تقول عن تسجيل الدخول.\n\nلا يُرسَل أي شيء إلى أي جهة. اضغط «تشغيل» للبدء.</string>
+    <string name="netdiag_running">جارٍ التشغيل…</string>
+    <string name="netdiag_running_step">جارٍ التشغيل… (%1$s)</string>
+    <string name="netdiag_button_run">تشغيل التشخيص</string>
+    <string name="netdiag_button_share">مشاركة التقرير</string>
+    <string name="netdiag_button_copy">نسخ</string>
+    <string name="netdiag_toast_copied">تم نسخ التقرير إلى الحافظة.</string>
+    <string name="netdiag_toast_share_failed">تعذّرت مشاركة التقرير: %1$s</string>
+    <string name="netdiag_share_subject">سجل شبكة GeneralsZH</string>
+    <string name="online_status_banned">هذا الحساب محظور على GeneralsOnline. يمكنك تقديم اعتراض عبر Discord الخاص بهم.</string>
+    <string name="online_status_banned_reason">هذا الحساب محظور على GeneralsOnline: %1$s</string>
 </resources>

@@ -67,7 +67,7 @@ public class GeneralsOnlineActivity extends Activity {
     // CheckLogin never resolves it, so the launcher sits on "Not signed in"
     // with a network-error toast until POLL_MAX_ATTEMPTS gives up).
     private static final String LOGIN_URL_FMT = "https://www.playgenerals.online/login/?gamecode=%s&client=%s";
-    private static final String CLIENT_ID = "custom_third_party_client";
+    private static final String CLIENT_ID = GeneralsOnlineSession.CLIENT_ID;
 
     private static final String PREFS_NAME = GeneralsOnlineSession.PREFS_NAME;
     private static final String PREF_SESSION_TOKEN = GeneralsOnlineSession.PREF_SESSION_TOKEN;
@@ -237,6 +237,8 @@ public class GeneralsOnlineActivity extends Activity {
 
         String code = generateGameCode();
         String url = String.format(LOGIN_URL_FMT, code, CLIENT_ID);
+        NetworkTrace.section(this, "sign-in attempt");
+        NetworkTrace.write(this, "opening browser for login code (" + code.length() + " chars)");
         try {
             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
         } catch (Exception e) {
@@ -257,44 +259,75 @@ public class GeneralsOnlineActivity extends Activity {
         }).start();
     }
 
+    // GeneralsX @bugfix Android port 13/09/2026 Rewritten around one fact:
+    // until the user finishes on the website, the server's answer to every
+    // poll is indistinguishable from a rejection. An unclaimed code comes
+    // back as HTTP 403 with result:2 (FAILED) -- the same pair a genuinely
+    // refused sign-in produces. The old loop treated both as terminal and
+    // gave up on the first tick, one second after opening the browser and
+    // long before anyone could have typed a password.
+    //
+    // So a FAILED is no longer terminal on its own; it is only terminal
+    // once the whole window has elapsed. Nothing is lost by waiting: a real
+    // refusal just means the user sees "timed out" three minutes later
+    // instead of "sign-in failed" immediately, and the log records every
+    // answer in between. What IS terminal: an explicit ban (423), and a
+    // transport failure with no parseable body at all.
     private void handlePollResult(String code, GeneralsOnlineSession.AuthResult result) {
         if (result == null) {
             busy = false;
             signInButton.setEnabled(true);
             statusText.setText(withNetworkErrorDetail(getString(R.string.online_status_network_error)));
+            NetworkTrace.write(this, "sign-in aborted: no usable response from either endpoint");
             return;
         }
 
-        switch (result.state) {
-            case 1: // SUCCEEDED
-                busy = false;
-                signInButton.setEnabled(true);
-                saveSession(result);
-                refreshStatus();
-                Toast.makeText(this, getString(R.string.online_toast_signed_in_as, result.displayName), Toast.LENGTH_LONG).show();
-                break;
-            case 2: // FAILED
-                busy = false;
-                signInButton.setEnabled(true);
-                statusText.setText(R.string.online_status_signin_failed);
-                break;
-            case 0: // WAITING_USER_ACTION
-            case -1: // CODE_INVALID (not registered yet server-side -- keep polling, it's a timing thing)
-                ++pollAttempt;
-                if (pollAttempt >= POLL_MAX_ATTEMPTS) {
-                    busy = false;
-                    signInButton.setEnabled(true);
-                    statusText.setText(R.string.online_status_timed_out);
-                } else {
-                    handler.postDelayed(() -> pollOnce(code), POLL_INTERVAL_MS);
-                }
-                break;
-            default:
-                busy = false;
-                signInButton.setEnabled(true);
-                statusText.setText(R.string.online_status_unexpected);
-                break;
+        if (result.httpStatus == 423) {
+            busy = false;
+            signInButton.setEnabled(true);
+            String reason = result.banReason == null || result.banReason.isEmpty()
+                ? getString(R.string.online_status_banned)
+                : getString(R.string.online_status_banned_reason, result.banReason);
+            statusText.setText(reason);
+            NetworkTrace.write(this, "sign-in refused: account banned");
+            return;
         }
+
+        if (result.state == 1) { // SUCCEEDED
+            busy = false;
+            signInButton.setEnabled(true);
+            saveSession(result);
+            refreshStatus();
+            NetworkTrace.write(this, "sign-in complete after " + pollAttempt
+                + " polls, user " + result.userId);
+            Toast.makeText(this, getString(R.string.online_toast_signed_in_as, result.displayName),
+                Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        // Everything else -- WAITING_USER_ACTION, CODE_INVALID, and the
+        // FAILED that an unclaimed code produces -- means "not yet".
+        ++pollAttempt;
+        if (pollAttempt >= POLL_MAX_ATTEMPTS) {
+            busy = false;
+            signInButton.setEnabled(true);
+            // After a full window of nothing but refusals, the likeliest
+            // cause is that the sign-in was never completed in the browser,
+            // so say that rather than blaming the network.
+            statusText.setText(withNetworkErrorDetail(getString(R.string.online_status_timed_out)));
+            NetworkTrace.write(this, "sign-in timed out after " + pollAttempt
+                + " polls; last status HTTP " + result.httpStatus
+                + ", result " + result.state);
+            return;
+        }
+
+        if (pollAttempt == 1 || pollAttempt % 15 == 0) {
+            // One line a poll would be 180 lines of the same thing; this is
+            // enough to see the loop is alive and what it is being told.
+            NetworkTrace.write(this, "poll " + pollAttempt + ": HTTP " + result.httpStatus
+                + ", result " + result.state + " (still waiting)");
+        }
+        handler.postDelayed(() -> pollOnce(code), POLL_INTERVAL_MS);
     }
 
     // GeneralsX @bugfix Android port 08/30/2026 A user reported the network-
@@ -313,23 +346,32 @@ public class GeneralsOnlineActivity extends Activity {
     }
 
     // Runs on a background thread.
+    //
+    // GeneralsX @bugfix Android port 13/09/2026 reserved_0/1/2 retired in
+    // favour of machine_guid/mac_addr/vol_serial, matching the current
+    // upstream client (OnlineServices_Auth.cpp). exe_crc/ini_crc are the
+    // engine's own checksums, which the launcher process cannot compute --
+    // it never loads the game -- so they go as 0 and the game sends the
+    // real ones on its own calls.
     private GeneralsOnlineSession.AuthResult callCheckLogin(String code) {
         JSONObject body = new JSONObject();
         try {
             body.put("code", code);
             body.put("client_id", CLIENT_ID);
-            body.put("reserved_0", "");
-            body.put("reserved_1", "");
-            body.put("reserved_2", "");
+            body.put("machine_guid", NetworkDiagnostics.installId(this));
+            body.put("mac_addr", NetworkDiagnostics.syntheticMac(this));
+            body.put("vol_serial", NetworkDiagnostics.syntheticVolumeSerial(this));
+            body.put("exe_crc", 0);
+            body.put("ini_crc", 0);
         } catch (Exception e) {
             return null;
         }
-        return GeneralsOnlineSession.postJson("CheckLogin", body, null);
+        return GeneralsOnlineSession.postJson(this, "CheckLogin", body, null);
     }
 
     // Runs on a background thread.
     private GeneralsOnlineSession.AuthResult callLoginWithToken(String refreshToken) {
-        return GeneralsOnlineSession.loginWithToken(refreshToken);
+        return GeneralsOnlineSession.loginWithToken(this, refreshToken);
     }
 
     private void saveSession(GeneralsOnlineSession.AuthResult result) {

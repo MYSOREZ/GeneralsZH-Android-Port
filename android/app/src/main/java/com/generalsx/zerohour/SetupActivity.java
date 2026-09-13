@@ -446,6 +446,15 @@ public class SetupActivity extends Activity {
             getString(R.string.setup_button_view_logs),
             getString(R.string.setup_status_logs_note),
             this::onViewLogs);
+        UiKit.divider(card);
+        // GeneralsX @feature Android port 13/09/2026 Sits with the logs
+        // rather than with the GeneralsOnline account screen on purpose: by
+        // the time this is worth opening, the account screen is the thing
+        // that is not working.
+        UiKit.listRow(card, R.drawable.ic_gzh_wrench,
+            getString(R.string.netdiag_title),
+            getString(R.string.netdiag_row_note),
+            this::onNetworkDiagnostics);
     }
 
     // GeneralsX @feature Android port 13/07/2026 GitHub issue #4: in-app
@@ -1515,18 +1524,21 @@ public class SetupActivity extends Activity {
     // parentheses so a tester can match it up with exact instructions from
     // an issue reporter/maintainer.
     private static final String[] DIAGNOSTIC_MARKERS = {
-        "gx_trace.txt", "gx_perf.txt", "gx_audio_trace.txt", "gx_touch_debug.txt", "dxvk_hud.txt",
+        "gx_trace.txt", "gx_perf.txt", "gx_audio_trace.txt", "gx_net_trace.txt",
+        "gx_touch_debug.txt", "dxvk_hud.txt",
         "dxvk_validation.txt", "dxvk_verbose_log.txt"
     };
     private static final int[] DIAGNOSTIC_TITLES = {
         R.string.setup_switch_gx_trace, R.string.setup_switch_gx_perf,
-        R.string.setup_switch_gx_audio_trace, R.string.setup_switch_touch_debug,
+        R.string.setup_switch_gx_audio_trace, R.string.setup_switch_gx_net_trace,
+        R.string.setup_switch_touch_debug,
         R.string.setup_switch_dxvk_hud, R.string.setup_switch_dxvk_validation,
         R.string.setup_switch_dxvk_verbose_log
     };
     private static final int[] DIAGNOSTIC_DESCRIPTIONS = {
         R.string.setup_switch_gx_trace_desc, R.string.setup_switch_gx_perf_desc,
-        R.string.setup_switch_gx_audio_trace_desc, R.string.setup_switch_touch_debug_desc,
+        R.string.setup_switch_gx_audio_trace_desc, R.string.setup_switch_gx_net_trace_desc,
+        R.string.setup_switch_touch_debug_desc,
         R.string.setup_switch_dxvk_hud_desc, R.string.setup_switch_dxvk_validation_desc,
         R.string.setup_switch_dxvk_verbose_log_desc
     };
@@ -2790,6 +2802,10 @@ public class SetupActivity extends Activity {
 
     private void onViewLogs() {
         startActivity(new Intent(this, LogViewerActivity.class));
+    }
+
+    private void onNetworkDiagnostics() {
+        startActivity(new Intent(this, NetworkDiagnosticsActivity.class));
     }
 
     // GeneralsX @bugfix Android port 31/07/2026 Setup is portrait-first now

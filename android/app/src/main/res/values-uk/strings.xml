@@ -215,4 +215,19 @@
     <string name="setup_render_backend_gles_short">GLES</string>
     <string name="setup_render_backend_gles_angle_short">ANGLE</string>
     <string name="setup_render_backend_vulkan_short">Vulkan</string>
+    <string name="setup_switch_gx_net_trace">Мережевий лог онлайну</string>
+    <string name="setup_switch_gx_net_trace_desc">Записує кожен запит гри до серверів GeneralsOnline і отриману відповідь. Увімкніть, якщо вхід, лобі чи підбір гри не працюють уже всередині гри. Запити самого лаунчера записуються завжди; цей перемикач додає запити гри. (gx_net_trace.txt)</string>
+    <string name="netdiag_title">Діагностика мережі</string>
+    <string name="netdiag_row_note">Перевірити, чи дістається пристрій до серверів GeneralsOnline, і зібрати звіт для повідомлення про помилку.</string>
+    <string name="netdiag_intro">Перевірка йде по черзі: чи є робоча мережа, чи розпізнаються імена серверів GeneralsOnline, чи відповідають сервери і що вони кажуть про вхід.\n\nНікуди нічого не надсилається. Натисніть «Запустити».</string>
+    <string name="netdiag_running">Виконується…</string>
+    <string name="netdiag_running_step">Виконується… (%1$s)</string>
+    <string name="netdiag_button_run">Запустити діагностику</string>
+    <string name="netdiag_button_share">Надіслати звіт</string>
+    <string name="netdiag_button_copy">Копіювати</string>
+    <string name="netdiag_toast_copied">Звіт скопійовано в буфер обміну.</string>
+    <string name="netdiag_toast_share_failed">Не вдалося надіслати звіт: %1$s</string>
+    <string name="netdiag_share_subject">Мережевий лог GeneralsZH</string>
+    <string name="online_status_banned">Цей обліковий запис заблоковано на GeneralsOnline. Подати апеляцію можна в їхньому Discord.</string>
+    <string name="online_status_banned_reason">Цей обліковий запис заблоковано на GeneralsOnline: %1$s</string>
 </resources>

@@ -77,6 +77,12 @@ final class GeneralsOnlineSession {
     // gamedata_path.txt (see GeneralsOnline_AndroidGlue.cpp).
     static final String SESSION_MARKER_NAME = "generalsonline_session.txt";
 
+    // GeneralsX @bugfix Android port 13/09/2026 Moved here from
+    // GeneralsOnlineActivity: both the sign-in flow and the diagnostics
+    // sweep send it, and it is part of the wire contract rather than of
+    // any one screen.
+    static final String CLIENT_ID = "custom_third_party_client";
+
     static class AuthResult {
         int state = -1;
         String sessionToken = "";
@@ -84,6 +90,16 @@ final class GeneralsOnlineSession {
         long userId = -1;
         String displayName = "";
         String wsUri = "";
+
+        // GeneralsX @bugfix Android port 13/09/2026 The HTTP status that
+        // carried this answer. The API uses the status and the "result"
+        // field to say different things -- 403 + result:2 is "that code
+        // has not been claimed yet", which is the normal answer to every
+        // poll before the user finishes on the website, while 423 is a
+        // ban and needs its own message. A caller that sees only "result"
+        // cannot tell those apart, so it is recorded here.
+        int httpStatus = -1;
+        String banReason = "";
     }
 
     // GeneralsX @bugfix Android port 08/30/2026 A user reported the network-
@@ -100,39 +116,52 @@ final class GeneralsOnlineSession {
 
     // Runs on a background thread.
     //
-    // GeneralsX @bugfix Android port 08/30/2026 Falls back to API_BASE_ALT
-    // when the primary host is unreachable or rejects the request at the
-    // transport level. Confirmed live (curl) that api.playgenerals.online
-    // can answer a CheckLogin call with HTTP 403 while still returning a
-    // body shaped exactly like a normal AuthResponse
-    // ({"result":2,"session_token":"",...}) -- postJsonOnce() below now
-    // treats any non-2xx status as a transport failure (null) rather than
-    // trusting that body's "result" field, so a rejected/blocked request
-    // can no longer be misread as "the user's login attempt failed" (it
-    // previously was: state=2 is FAILED, same as a real failed login,
-    // and the UI has no way to tell the two apart). That alone fixed the
-    // mislabeling; this fallback additionally gives blocked requests a
-    // second real chance via the alternate host before giving up.
-    static AuthResult postJson(String endpoint, JSONObject body, String bearerToken) {
+    // GeneralsX @bugfix Android port 13/09/2026 Rewritten. This used to
+    // treat every non-2xx status as a transport failure and return null,
+    // on the theory that a 403 meant an ISP/WAF had eaten the request.
+    // That was wrong, and it is what broke sign-in.
+    //
+    // The API answers a CheckLogin for a code the website has not claimed
+    // yet with HTTP 403 and a perfectly normal AuthResponse body. That is
+    // the answer to EVERY poll between opening the browser and the user
+    // finishing the login -- the whole waiting period. Discarding it as a
+    // transport failure meant the first poll, one second in, aborted the
+    // sign-in that was still perfectly on track. Verified against the live
+    // server: an unclaimed code returns 403 with
+    // {"result":2,...}, a malformed one returns 401, and neither is a
+    // network problem.
+    //
+    // So: the body decides, the status annotates. The reference client has
+    // always worked this way -- its CheckLogin handler parses the body and
+    // only ever looks at the status to catch 423 (banned). A response is a
+    // transport failure now only when there is no parseable body at all.
+    static AuthResult postJson(Context ctx, String endpoint, JSONObject body, String bearerToken) {
         StringBuilder errors = new StringBuilder();
-        AuthResult result = postJsonOnce(API_BASE, endpoint, body, bearerToken, errors);
+        AuthResult result = postJsonOnce(ctx, API_BASE, endpoint, body, bearerToken, errors);
         if (result != null) {
             lastNetworkErrorDetail = "";
             return result;
         }
-        Log.w(TAG, "primary API endpoint (" + API_BASE + ") unreachable or rejected the request; retrying via alternate endpoint");
-        result = postJsonOnce(API_BASE_ALT, endpoint, body, bearerToken, errors);
+        // Only a genuine transport failure gets here, so the alternate host
+        // is now a real second chance rather than a second helping of the
+        // same answer.
+        Log.w(TAG, "primary API endpoint (" + API_BASE + ") unreachable; retrying via alternate endpoint");
+        NetworkTrace.write(ctx, "primary endpoint failed, trying " + API_BASE_ALT);
+        result = postJsonOnce(ctx, API_BASE_ALT, endpoint, body, bearerToken, errors);
         lastNetworkErrorDetail = errors.toString().trim();
         if (result != null) {
             lastNetworkErrorDetail = "";
         } else {
             Log.w(TAG, "both API endpoints failed for " + endpoint + ": " + lastNetworkErrorDetail);
+            NetworkTrace.write(ctx, "both endpoints failed for " + endpoint + ": " + lastNetworkErrorDetail);
         }
         return result;
     }
 
-    private static AuthResult postJsonOnce(String base, String endpoint, JSONObject body, String bearerToken, StringBuilder errorOut) {
+    private static AuthResult postJsonOnce(Context ctx, String base, String endpoint, JSONObject body,
+                                           String bearerToken, StringBuilder errorOut) {
         HttpURLConnection conn = null;
+        long t0 = System.currentTimeMillis();
         try {
             URL url = new URL(base + endpoint);
             conn = (HttpURLConnection) url.openConnection();
@@ -145,40 +174,58 @@ final class GeneralsOnlineSession {
             conn.setReadTimeout(10000);
             conn.setDoOutput(true);
 
+            NetworkTrace.write(ctx, "POST " + hostOf(base) + "/" + endpoint
+                + "  body=" + NetworkTrace.snippet(body.toString(), 300)
+                + (bearerToken != null ? "  auth=Bearer " + bearerToken : "  auth=none"));
+
             try (OutputStream os = conn.getOutputStream()) {
                 os.write(body.toString().getBytes(StandardCharsets.UTF_8));
             }
 
             int status = conn.getResponseCode();
-            if (status < 200 || status >= 300) {
-                // See the class-level comment on postJson(): a non-2xx
-                // response is a transport/policy rejection, not an answer
-                // about the login attempt itself, even when its body
-                // happens to parse as a valid-looking AuthResponse.
-                errorOut.append(hostOf(base)).append(": HTTP ").append(status);
-                String snippet = readSnippet(conn.getErrorStream());
-                if (!snippet.isEmpty()) {
-                    errorOut.append(" ").append(snippet);
-                }
-                errorOut.append("; ");
+            long ms = System.currentTimeMillis() - t0;
+
+            // A non-2xx response still carries its body on the error stream,
+            // and for this API that body is the answer.
+            java.io.InputStream in = (status >= 200 && status < 300)
+                ? conn.getInputStream() : conn.getErrorStream();
+            String raw = in != null ? readAll(in) : "";
+
+            NetworkTrace.write(ctx, "  <- HTTP " + status + " (" + ms + " ms)  "
+                + NetworkTrace.snippet(raw, 300));
+
+            if (raw.isEmpty()) {
+                // No body at all: nothing to interpret. This is the shape a
+                // proxy/WAF rejection actually takes, and the case the
+                // alternate-endpoint retry was added for.
+                errorOut.append(hostOf(base)).append(": HTTP ").append(status)
+                    .append(" with no body; ");
                 return null;
             }
-            java.io.InputStream in = conn.getInputStream();
-            if (in == null) {
-                errorOut.append(hostOf(base)).append(": empty response body; ");
+
+            JSONObject json;
+            try {
+                json = new JSONObject(raw);
+            } catch (Exception notJson) {
+                // An HTML error page from something between us and the API.
+                errorOut.append(hostOf(base)).append(": HTTP ").append(status).append(' ')
+                    .append(NetworkTrace.snippet(raw, 200)).append("; ");
                 return null;
             }
-            JSONObject json = new JSONObject(readAll(in));
 
             AuthResult result = new AuthResult();
+            result.httpStatus = status;
             result.state = json.optInt("result", -1);
             result.sessionToken = json.optString("session_token", "");
             result.refreshToken = json.optString("refresh_token", "");
             result.userId = json.optLong("user_id", -1);
             result.displayName = json.optString("display_name", "");
             result.wsUri = json.optString("ws_uri", "");
+            result.banReason = json.optString("ban_reason", "");
             return result;
         } catch (Exception e) {
+            NetworkTrace.write(ctx, "  <- " + e.getClass().getSimpleName()
+                + (e.getMessage() != null ? ": " + e.getMessage() : ""));
             errorOut.append(hostOf(base)).append(": ").append(e.getClass().getSimpleName());
             if (e.getMessage() != null) {
                 errorOut.append(": ").append(e.getMessage());
@@ -200,24 +247,6 @@ final class GeneralsOnlineSession {
         }
     }
 
-    // Best-effort, truncated: this is for on-screen diagnostics, not a full
-    // dump -- a WAF/proxy error page can be arbitrarily large.
-    private static String readSnippet(java.io.InputStream in) {
-        if (in == null) {
-            return "";
-        }
-        try {
-            String body = readAll(in);
-            body = body.replaceAll("\\s+", " ").trim();
-            if (body.length() > 200) {
-                body = body.substring(0, 200) + "...";
-            }
-            return body;
-        } catch (Exception e) {
-            return "";
-        }
-    }
-
     private static String readAll(java.io.InputStream in) throws IOException {
         java.io.ByteArrayOutputStream buf = new java.io.ByteArrayOutputStream();
         byte[] chunk = new byte[4096];
@@ -230,16 +259,26 @@ final class GeneralsOnlineSession {
 
     // Runs on a background thread. Mirrors the reference client's
     // GetCredentials()/LoginWithToken silent-reauth branch.
-    static AuthResult loginWithToken(String refreshToken) {
+    //
+    // GeneralsX @bugfix Android port 13/09/2026 Body updated to the current
+    // wire contract. Upstream replaced the three placeholder reserved_N
+    // fields this used to send with machine_guid / mac_addr / vol_serial
+    // (GeneralsOnline GameClient, OnlineServices_Auth.cpp BeginLogin) --
+    // we were still sending the retired shape. See NetworkDiagnostics for
+    // what those three values are on a device that has none of the three
+    // things they name.
+    static AuthResult loginWithToken(Context ctx, String refreshToken) {
         JSONObject body = new JSONObject();
         try {
-            body.put("reserved_0", "");
-            body.put("reserved_1", "");
-            body.put("reserved_2", "");
+            body.put("machine_guid", NetworkDiagnostics.installId(ctx));
+            body.put("mac_addr", NetworkDiagnostics.syntheticMac(ctx));
+            body.put("vol_serial", NetworkDiagnostics.syntheticVolumeSerial(ctx));
+            body.put("exe_crc", 0);
+            body.put("ini_crc", 0);
         } catch (Exception e) {
             return null;
         }
-        return postJson("LoginWithToken", body, refreshToken);
+        return postJson(ctx, "LoginWithToken", body, refreshToken);
     }
 
     static void saveSession(Context ctx, AuthResult result) {
@@ -259,6 +298,16 @@ final class GeneralsOnlineSession {
             w.write("user_id=" + result.userId + "\n");
             w.write("display_name=" + result.displayName + "\n");
             w.write("ws_uri=" + result.wsUri + "\n");
+            // GeneralsX @bugfix Android port 13/09/2026 The engine makes its
+            // own auth calls (session refresh, and the login flow if it ever
+            // runs without the launcher), and the API now wants the same
+            // three identity fields on those. They have to be the SAME
+            // values the launcher sent or the server sees one installation
+            // as two, so they travel with the session rather than being
+            // derived twice -- the engine cannot read SharedPreferences.
+            w.write("machine_guid=" + NetworkDiagnostics.installId(ctx) + "\n");
+            w.write("mac_addr=" + NetworkDiagnostics.syntheticMac(ctx) + "\n");
+            w.write("vol_serial=" + NetworkDiagnostics.syntheticVolumeSerial(ctx) + "\n");
         } catch (IOException e) {
             // Not fatal: the game will report the connection failure itself.
         }
@@ -287,11 +336,15 @@ final class GeneralsOnlineSession {
                 Log.i(TAG, "no cached refresh_token; skipping launch-time session refresh");
                 return;
             }
-            AuthResult result = loginWithToken(refreshToken);
+            NetworkTrace.section(ctx, "session refresh at game launch");
+            AuthResult result = loginWithToken(ctx, refreshToken);
             if (result != null && result.state == 1) {
                 saveSession(ctx, result);
                 Log.i(TAG, "session refreshed at launch for user " + result.userId);
+                NetworkTrace.write(ctx, "refresh OK for user " + result.userId);
             } else {
+                NetworkTrace.write(ctx, "refresh FAILED -- the game will start with the "
+                    + "existing session marker, which may be expired");
                 Log.w(TAG, "launch-time session refresh failed (state="
                     + (result != null ? result.state : "network-error")
                     + "); keeping existing session marker");

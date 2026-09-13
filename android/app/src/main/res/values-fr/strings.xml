@@ -215,4 +215,19 @@
     <string name="setup_render_backend_gles_short">GLES</string>
     <string name="setup_render_backend_gles_angle_short">ANGLE</string>
     <string name="setup_render_backend_vulkan_short">Vulkan</string>
+    <string name="setup_switch_gx_net_trace">Journal réseau en ligne</string>
+    <string name="setup_switch_gx_net_trace_desc">Enregistre chaque requête du jeu vers les serveurs GeneralsOnline et la réponse reçue. Activez ceci si la connexion, le salon ou le matchmaking échouent une fois dans le jeu. Les requêtes du lanceur sont toujours enregistrées ; ceci ajoute celles du jeu. (gx_net_trace.txt)</string>
+    <string name="netdiag_title">Diagnostic réseau</string>
+    <string name="netdiag_row_note">Vérifier si cet appareil atteint les serveurs GeneralsOnline et produire un rapport à joindre à un signalement.</string>
+    <string name="netdiag_intro">Vérifie, dans l\'ordre : si le réseau fonctionne, si les noms des serveurs GeneralsOnline se résolvent, si les serveurs répondent et ce qu\'ils disent de la connexion.\n\nRien n\'est envoyé. Touchez « Lancer » pour commencer.</string>
+    <string name="netdiag_running">En cours…</string>
+    <string name="netdiag_running_step">En cours… (%1$s)</string>
+    <string name="netdiag_button_run">Lancer le diagnostic</string>
+    <string name="netdiag_button_share">Partager le rapport</string>
+    <string name="netdiag_button_copy">Copier</string>
+    <string name="netdiag_toast_copied">Rapport copié dans le presse-papiers.</string>
+    <string name="netdiag_toast_share_failed">Impossible de partager le rapport : %1$s</string>
+    <string name="netdiag_share_subject">Journal réseau GeneralsZH</string>
+    <string name="online_status_banned">Ce compte est banni sur GeneralsOnline. Vous pouvez faire appel sur leur Discord.</string>
+    <string name="online_status_banned_reason">Ce compte est banni sur GeneralsOnline : %1$s</string>
 </resources>

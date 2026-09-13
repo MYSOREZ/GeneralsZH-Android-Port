@@ -215,4 +215,19 @@
     <string name="setup_render_backend_gles_short">GLES</string>
     <string name="setup_render_backend_gles_angle_short">ANGLE</string>
     <string name="setup_render_backend_vulkan_short">Vulkan</string>
+    <string name="setup_switch_gx_net_trace">Mrežny log online</string>
+    <string name="setup_switch_gx_net_trace_desc">Zapisuje kojžde zaprošenje igry do serverov GeneralsOnline i odpoved, ktora prišla. Vključite, ako vhod, lobby ili podbiranje igry ne rabotaje uže vnutri igry. Zaprošenja samogo launchera zapisujut se vsegda; to dodaje zaprošenja igry. (gx_net_trace.txt)</string>
+    <string name="netdiag_title">Diagnostika mreže</string>
+    <string name="netdiag_row_note">Proveriti, jestli to ustrojstvo dohodi do serverov GeneralsOnline, i sobrati raport za soobčenje o greške.</string>
+    <string name="netdiag_intro">Proverjaje po redu: jest li rabotajuča mreža, razrešajut li se imena serverov GeneralsOnline, odpovedajut li servery i čto oni govoret o vhode.\n\nNičto nikuda ne posylaje se. Tisnite «Pustiti».</string>
+    <string name="netdiag_running">Rabotaje…</string>
+    <string name="netdiag_running_step">Rabotaje… (%1$s)</string>
+    <string name="netdiag_button_run">Pustiti diagnostiku</string>
+    <string name="netdiag_button_share">Podeliti raport</string>
+    <string name="netdiag_button_copy">Kopirovati</string>
+    <string name="netdiag_toast_copied">Raport kopirovany do bufera.</string>
+    <string name="netdiag_toast_share_failed">Ne udalo se podeliti raport: %1$s</string>
+    <string name="netdiag_share_subject">Mrežny log GeneralsZH</string>
+    <string name="online_status_banned">Toj akaunt jest blokovany na GeneralsOnline. Apelaciju možete podati v ihnem Discorde.</string>
+    <string name="online_status_banned_reason">Toj akaunt jest blokovany na GeneralsOnline: %1$s</string>
 </resources>

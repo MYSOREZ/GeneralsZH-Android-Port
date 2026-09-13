@@ -215,4 +215,19 @@
     <string name="setup_render_backend_gles_short">GLES</string>
     <string name="setup_render_backend_gles_angle_short">ANGLE</string>
     <string name="setup_render_backend_vulkan_short">Vulkan</string>
+    <string name="setup_switch_gx_net_trace">گزارش شبکهٔ آنلاین</string>
+    <string name="setup_switch_gx_net_trace_desc">هر درخواستی را که بازی به سرورهای GeneralsOnline می‌فرستد به همراه پاسخ آن ثبت می‌کند. اگر ورود، لابی یا همسان‌سازی داخل خود بازی شکست می‌خورد این را روشن کنید. درخواست‌های خودِ لانچر همیشه ثبت می‌شوند؛ این گزینه درخواست‌های بازی را اضافه می‌کند. (gx_net_trace.txt)</string>
+    <string name="netdiag_title">عیب‌یابی شبکه</string>
+    <string name="netdiag_row_note">بررسی اینکه آیا این دستگاه به سرورهای GeneralsOnline می‌رسد، و تهیهٔ گزارشی برای پیوست به گزارش خطا.</string>
+    <string name="netdiag_intro">به ترتیب بررسی می‌کند: آیا شبکه کار می‌کند، آیا نام سرورهای GeneralsOnline ترجمه می‌شود، آیا سرورها پاسخ می‌دهند، و دربارهٔ ورود چه می‌گویند.\n\nچیزی به جایی فرستاده نمی‌شود. برای شروع «اجرا» را بزنید.</string>
+    <string name="netdiag_running">در حال اجرا…</string>
+    <string name="netdiag_running_step">در حال اجرا… (%1$s)</string>
+    <string name="netdiag_button_run">اجرای عیب‌یابی</string>
+    <string name="netdiag_button_share">هم‌رسانی گزارش</string>
+    <string name="netdiag_button_copy">رونوشت</string>
+    <string name="netdiag_toast_copied">گزارش در کلیپ‌بورد رونوشت شد.</string>
+    <string name="netdiag_toast_share_failed">هم‌رسانی گزارش ممکن نشد: %1$s</string>
+    <string name="netdiag_share_subject">گزارش شبکهٔ GeneralsZH</string>
+    <string name="online_status_banned">این حساب در GeneralsOnline مسدود شده است. می‌توانید در دیسکورد آن‌ها اعتراض کنید.</string>
+    <string name="online_status_banned_reason">این حساب در GeneralsOnline مسدود شده است: %1$s</string>
 </resources>

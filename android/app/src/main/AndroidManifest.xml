@@ -139,6 +139,12 @@
             android:configChanges="orientation|screenSize|keyboardHidden" />
 
         <activity
+            android:name=".NetworkDiagnosticsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.GeneralsZHSettings"
+            android:configChanges="orientation|screenSize|keyboardHidden" />
+
+        <activity
             android:name=".GeneralsOnlineActivity"
             android:exported="false"
             android:theme="@style/Theme.GeneralsZHSettings"

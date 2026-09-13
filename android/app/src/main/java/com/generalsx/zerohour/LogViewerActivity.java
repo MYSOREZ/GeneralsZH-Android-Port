@@ -263,6 +263,13 @@ public class LogViewerActivity extends Activity {
                 if (extDir != null) {
                     fileCount += addLogFileToZip(zos, new File(extDir, "generals-stderr.log"));
                     fileCount += addLogFileToZip(zos, new File(extDir, "generals-stderr-prev.log"));
+                    // GeneralsX @feature Android port 13/09/2026 The
+                    // launcher's own GeneralsOnline request log. Written by a
+                    // different process than the engine logs beside it, so it
+                    // is the only record of a sign-in that failed before the
+                    // game ever started.
+                    fileCount += addLogFileToZip(zos, new File(extDir, NetworkTrace.LOG_NAME));
+                    fileCount += addLogFileToZip(zos, new File(extDir, NetworkTrace.LOG_NAME + ".prev"));
                 }
             }
 

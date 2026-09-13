@@ -215,4 +215,19 @@
     <string name="setup_render_backend_gles_short">GLES</string>
     <string name="setup_render_backend_gles_angle_short">ANGLE</string>
     <string name="setup_render_backend_vulkan_short">Vulkan</string>
+    <string name="setup_switch_gx_net_trace">Dziennik sieci online</string>
+    <string name="setup_switch_gx_net_trace_desc">Zapisuje każde żądanie gry do serwerów GeneralsOnline wraz z otrzymaną odpowiedzią. Włącz, jeśli logowanie, poczekalnia lub dobieranie graczy zawodzą już w grze. Żądania samego launchera są zapisywane zawsze; to dodaje żądania gry. (gx_net_trace.txt)</string>
+    <string name="netdiag_title">Diagnostyka sieci</string>
+    <string name="netdiag_row_note">Sprawdź, czy to urządzenie dociera do serwerów GeneralsOnline, i zbierz raport do zgłoszenia błędu.</string>
+    <string name="netdiag_intro">Sprawdzane po kolei: czy sieć działa, czy nazwy serwerów GeneralsOnline się rozwiązują, czy serwery odpowiadają i co mówią o logowaniu.\n\nNic nie jest nigdzie wysyłane. Dotknij „Uruchom”.</string>
+    <string name="netdiag_running">Trwa…</string>
+    <string name="netdiag_running_step">Trwa… (%1$s)</string>
+    <string name="netdiag_button_run">Uruchom diagnostykę</string>
+    <string name="netdiag_button_share">Udostępnij raport</string>
+    <string name="netdiag_button_copy">Kopiuj</string>
+    <string name="netdiag_toast_copied">Raport skopiowany do schowka.</string>
+    <string name="netdiag_toast_share_failed">Nie udało się udostępnić raportu: %1$s</string>
+    <string name="netdiag_share_subject">Dziennik sieci GeneralsZH</string>
+    <string name="online_status_banned">To konto jest zbanowane w GeneralsOnline. Odwołanie możesz złożyć na ich Discordzie.</string>
+    <string name="online_status_banned_reason">To konto jest zbanowane w GeneralsOnline: %1$s</string>
 </resources>

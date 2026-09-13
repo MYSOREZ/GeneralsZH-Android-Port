@@ -29,6 +29,9 @@ namespace
 		std::string userId;
 		std::string displayName;
 		std::string wsUri;
+		std::string machineGuid;
+		std::string macAddr;
+		std::string volSerial;
 	};
 
 	// Mirrors SDL3Main.cpp's gamedata_path.txt reader: the Android launcher
@@ -78,6 +81,9 @@ namespace
 			else if (strcmp(key, "user_id") == 0) outSession.userId = value;
 			else if (strcmp(key, "display_name") == 0) outSession.displayName = value;
 			else if (strcmp(key, "ws_uri") == 0) outSession.wsUri = value;
+			else if (strcmp(key, "machine_guid") == 0) outSession.machineGuid = value;
+			else if (strcmp(key, "mac_addr") == 0) outSession.macAddr = value;
+			else if (strcmp(key, "vol_serial") == 0) outSession.volSerial = value;
 		}
 		fclose(f);
 
@@ -89,6 +95,42 @@ namespace
 	}
 }
 #endif // __ANDROID__
+
+void GeneralsOnline_GetDeviceIdentity(std::string& outMachineGuid,
+	std::string& outMacAddr, std::string& outVolSerial)
+{
+	outMachineGuid.clear();
+	outMacAddr.clear();
+	outVolSerial.clear();
+
+#if defined(__ANDROID__)
+	// Read once and keep. This is called from the auth path, which can run
+	// on every session refresh; the marker file only changes at sign-in, and
+	// a sign-in means a fresh process anyway.
+	//
+	// Deliberately ignores ReadAndroidSession's validity result: a refresh
+	// runs precisely when the session token has gone stale, and the identity
+	// fields are still the right ones to send in that case.
+	static bool s_read = false;
+	static std::string s_machineGuid;
+	static std::string s_macAddr;
+	static std::string s_volSerial;
+
+	if (!s_read)
+	{
+		AndroidSession session;
+		ReadAndroidSession(session);
+		s_machineGuid = session.machineGuid;
+		s_macAddr = session.macAddr;
+		s_volSerial = session.volSerial;
+		s_read = true;
+	}
+
+	outMachineGuid = s_machineGuid;
+	outMacAddr = s_macAddr;
+	outVolSerial = s_volSerial;
+#endif
+}
 
 bool TryStartGeneralsOnline()
 {

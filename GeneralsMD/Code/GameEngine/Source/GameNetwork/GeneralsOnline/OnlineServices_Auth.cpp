@@ -3,6 +3,7 @@
 #include "GameNetwork/GeneralsOnline/HTTP/HTTPManager.h"
 #include "GameNetwork/GeneralsOnline/HTTP/HTTPRequest.h"
 #include "GameNetwork/GeneralsOnline/PluginInterfaces.h"
+#include "GameNetwork/GeneralsOnline/GeneralsOnline_AndroidGlue.h"
 #include "GameNetwork/GeneralsOnline/json.hpp"
 #include <algorithm>
 #include <chrono>
@@ -151,10 +152,17 @@ void NGMP_OnlineServices_AuthInterface::BeginLogin()
 		// login
 		std::map<std::string, std::string> mapHeaders;
 
+		// GeneralsX @bugfix Android port 13/09/2026 reserved_0/1/2 retired
+		// upstream in favour of the three identity fields; see
+		// GeneralsOnline_AndroidGlue.h for where these values come from on
+		// a device that has none of the hardware they name.
+		std::string strMachineGuid, strMacAddr, strVolSerial;
+		GeneralsOnline_GetDeviceIdentity(strMachineGuid, strMacAddr, strVolSerial);
+
 		nlohmann::json j;
-		j["reserved_0"] = std::string();
-		j["reserved_1"] = std::string();
-		j["reserved_2"] = std::string();
+		j["machine_guid"] = strMachineGuid;
+		j["mac_addr"] = strMacAddr;
+		j["vol_serial"] = strVolSerial;
 		j["exe_crc"] = TheGlobalData->m_exeCRC;
 		j["ini_crc"] = TheGlobalData->m_iniCRC;
 		std::string strPostData = j.dump();
@@ -320,12 +328,15 @@ void NGMP_OnlineServices_AuthInterface::Tick()
 			std::string strURI = NGMP_OnlineServicesManager::GetAPIEndpoint("CheckLogin");
 			std::map<std::string, std::string> mapHeaders;
 
+			std::string strMachineGuid, strMacAddr, strVolSerial;
+			GeneralsOnline_GetDeviceIdentity(strMachineGuid, strMacAddr, strVolSerial);
+
 			nlohmann::json j;
 			j["code"] = m_strCode.c_str();
 			j["client_id"] = GENERALS_ONLINE_CLIENT_ID;
-			j["reserved_0"] = std::string();
-            j["reserved_1"] = std::string();
-            j["reserved_2"] = std::string();
+			j["machine_guid"] = strMachineGuid;
+			j["mac_addr"] = strMacAddr;
+			j["vol_serial"] = strVolSerial;
 			j["exe_crc"] = TheGlobalData->m_exeCRC;
             j["ini_crc"] = TheGlobalData->m_iniCRC;
 			std::string strPostData = j.dump();

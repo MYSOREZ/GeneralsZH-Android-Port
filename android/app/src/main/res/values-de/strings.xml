@@ -215,4 +215,19 @@
     <string name="setup_render_backend_gles_short">GLES</string>
     <string name="setup_render_backend_gles_angle_short">ANGLE</string>
     <string name="setup_render_backend_vulkan_short">Vulkan</string>
+    <string name="setup_switch_gx_net_trace">Online-Netzwerkprotokoll</string>
+    <string name="setup_switch_gx_net_trace_desc">Zeichnet jede Anfrage des Spiels an die GeneralsOnline-Server samt Antwort auf. Aktiviere dies, wenn Anmeldung, Lobby oder Matchmaking erst im Spiel fehlschlagen. Die Anfragen des Launchers werden immer aufgezeichnet; dies ergänzt die des Spiels. (gx_net_trace.txt)</string>
+    <string name="netdiag_title">Netzwerkdiagnose</string>
+    <string name="netdiag_row_note">Prüfen, ob dieses Gerät die GeneralsOnline-Server erreicht, und einen Bericht für eine Fehlermeldung erstellen.</string>
+    <string name="netdiag_intro">Geprüft wird der Reihe nach: ob ein funktionierendes Netzwerk vorhanden ist, ob die GeneralsOnline-Servernamen auflösbar sind, ob die Server antworten und was sie zur Anmeldung sagen.\n\nEs wird nichts verschickt. Zum Start auf „Ausführen“ tippen.</string>
+    <string name="netdiag_running">Läuft…</string>
+    <string name="netdiag_running_step">Läuft… (%1$s)</string>
+    <string name="netdiag_button_run">Diagnose ausführen</string>
+    <string name="netdiag_button_share">Bericht teilen</string>
+    <string name="netdiag_button_copy">Kopieren</string>
+    <string name="netdiag_toast_copied">Bericht in die Zwischenablage kopiert.</string>
+    <string name="netdiag_toast_share_failed">Bericht konnte nicht geteilt werden: %1$s</string>
+    <string name="netdiag_share_subject">GeneralsZH-Netzwerkprotokoll</string>
+    <string name="online_status_banned">Dieses Konto ist auf GeneralsOnline gesperrt. Einspruch ist über deren Discord möglich.</string>
+    <string name="online_status_banned_reason">Dieses Konto ist auf GeneralsOnline gesperrt: %1$s</string>
 </resources>

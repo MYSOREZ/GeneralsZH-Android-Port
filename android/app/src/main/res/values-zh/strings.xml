@@ -215,4 +215,19 @@
     <string name="setup_render_backend_gles_short">GLES</string>
     <string name="setup_render_backend_gles_angle_short">ANGLE</string>
     <string name="setup_render_backend_vulkan_short">Vulkan</string>
+    <string name="setup_switch_gx_net_trace">在线网络日志</string>
+    <string name="setup_switch_gx_net_trace_desc">记录游戏发往 GeneralsOnline 服务器的每个请求及其回复。如果登录、大厅或匹配是在进入游戏后才失败，请打开此项。启动器自身的请求始终会被记录；此开关会额外记录游戏的请求。(gx_net_trace.txt)</string>
+    <string name="netdiag_title">网络诊断</string>
+    <string name="netdiag_row_note">检查本设备能否连上 GeneralsOnline 服务器，并生成一份可随错误报告一起发送的报告。</string>
+    <string name="netdiag_intro">按顺序检查：网络是否可用、GeneralsOnline 服务器域名能否解析、服务器是否响应，以及它们对登录的答复。\n\n不会向任何地方发送数据。点击「运行」开始。</string>
+    <string name="netdiag_running">正在运行…</string>
+    <string name="netdiag_running_step">正在运行…（%1$s）</string>
+    <string name="netdiag_button_run">运行诊断</string>
+    <string name="netdiag_button_share">分享报告</string>
+    <string name="netdiag_button_copy">复制</string>
+    <string name="netdiag_toast_copied">报告已复制到剪贴板。</string>
+    <string name="netdiag_toast_share_failed">无法分享报告：%1$s</string>
+    <string name="netdiag_share_subject">GeneralsZH 网络日志</string>
+    <string name="online_status_banned">此账号已被 GeneralsOnline 封禁。你可以在他们的 Discord 上申诉。</string>
+    <string name="online_status_banned_reason">此账号已被 GeneralsOnline 封禁：%1$s</string>
 </resources>

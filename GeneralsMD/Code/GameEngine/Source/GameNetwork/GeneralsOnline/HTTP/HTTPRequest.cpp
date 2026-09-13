@@ -2,6 +2,75 @@
 #include "GameNetwork/GeneralsOnline/OnlineServices_Init.h"
 #include "GameNetwork/GeneralsOnline/HTTP/HTTPManager.h"
 #include "GameNetwork/GeneralsOnline/NGMP_interfaces.h"
+#include "GXTrace.h"
+
+#include <cstring>
+#include <string>
+
+// GeneralsX @feature Android port 13/09/2026 Token redaction for [GX-NET].
+//
+// NetworkLog's own release-build redaction throws away the entire response
+// whenever it contains the word "token", which is every auth response -- so
+// the log says "<redacted>" exactly where the interesting answer was. This
+// replaces the token VALUE and keeps the rest of the body, because "which
+// field came back, with what result code" is the whole question when sign-in
+// fails.
+static std::string GXRedactTokens(const std::string& in)
+{
+	static const char* const fields[] = {
+		"\"session_token\":", "\"refresh_token\":", "\"access_token\":"
+	};
+
+	std::string out = in;
+	for (const char* field : fields)
+	{
+		size_t at = 0;
+		while ((at = out.find(field, at)) != std::string::npos)
+		{
+			size_t open = out.find('"', at + strlen(field));
+			if (open == std::string::npos)
+			{
+				break;
+			}
+			size_t close = out.find('"', open + 1);
+			if (close == std::string::npos)
+			{
+				break;
+			}
+			const size_t len = close - open - 1;
+			if (len == 0)
+			{
+				at = close + 1;
+				continue;
+			}
+			char replacement[64];
+			snprintf(replacement, sizeof(replacement), "\"<token, %zu chars>\"", len);
+			out.replace(open, close - open + 1, replacement);
+			at = open + strlen(replacement);
+		}
+	}
+	return out;
+}
+
+// A response body can be a whole HTML error page from something between us
+// and the API; one failure should not push the rest of the session out of
+// the log.
+static std::string GXSnippet(const std::string& in, size_t maxLen)
+{
+	std::string flat = in;
+	for (char& c : flat)
+	{
+		if (c == '\n' || c == '\r' || c == '\t')
+		{
+			c = ' ';
+		}
+	}
+	if (flat.size() <= maxLen)
+	{
+		return flat;
+	}
+	return flat.substr(0, maxLen) + "... (" + std::to_string(in.size()) + " bytes total)";
+}
 
 size_t WriteMemoryCallback(void* contents, size_t sizePerByte, size_t numBytes, void* userp)
 {
@@ -68,6 +137,8 @@ void HTTPRequest::StartRequest()
 	m_currentBufSize_Used = 0;
 
 	NetworkLog(ELogVerbosity::LOG_DEBUG, "[%p|%s|Verb %d] Transfer is starting: Body is %s", this, m_strURI.c_str(), m_httpVerb, m_strPostData.c_str());
+	GX_NET_TRACE("-> verb %d %s  body=%s\n", m_httpVerb, m_strURI.c_str(),
+		GXSnippet(GXRedactTokens(m_strPostData), 300).c_str());
 	PlatformStartRequest();
 }
 
@@ -178,6 +249,10 @@ void HTTPRequest::Threaded_SetComplete(CURLcode result)
 	// GeneralsX @bugfix Android port 10/07/2026 m_responseCode is now a
 	// long (see HTTPRequest.h) -- %ld, not %d.
 	NetworkLog(ELogVerbosity::LOG_RELEASE, "[%p|%s|Verb %d] Response was %ld - %s!", this, strURIRedacted.c_str(), m_httpVerb, m_responseCode, strResponse.c_str());
+
+	GX_NET_TRACE("<- %s  HTTP %ld  curl=%d  %s\n", strURIRedacted.c_str(), m_responseCode, result,
+		GXSnippet(GXRedactTokens(std::string(
+			reinterpret_cast<const char*>(m_vecBuffer.data()), m_currentBufSize_Used)), 400).c_str());
 
 	// trigger callback
 	InvokeCallbackIfComplete();
