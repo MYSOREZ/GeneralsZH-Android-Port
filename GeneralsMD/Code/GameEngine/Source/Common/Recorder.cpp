@@ -23,6 +23,15 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "PreRTS.h"	// This must go first in EVERY cpp file in the GameEngine
+#ifndef _WIN32
+// GeneralsX @build Android port 13/09/2026 The compat layer defines min/max as
+// macros for the Windows sources that expect them, and libstdc++'s <chrono>
+// declares members with those names -- so whichever header pulls <chrono> in
+// after them turns it into a wall of syntax errors. Retire the macros here;
+// nothing in this file uses them.
+#undef min
+#undef max
+#endif
 
 #include "Common/Recorder.h"
 #include "GXTrace.h"
