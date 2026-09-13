@@ -1,4 +1,5 @@
 #include "GameNetwork/GeneralsOnline/NetworkMesh.h"
+#include "GXTrace.h"
 #include "GameNetwork/GeneralsOnline/NGMP_include.h"
 #include "GameNetwork/GeneralsOnline/NGMP_interfaces.h"
 
@@ -664,7 +665,27 @@ NetworkMesh::NetworkMesh()
 	fflush(stderr);
 
 	// comma seperated setting lists
-	const char* turnList = "turn:turn.playgenerals.online:53?transport=udp,turn:turn.playgenerals.online:3478?transport=udp";
+	//
+	// GeneralsX @bugfix Android port 13/09/2026 The "?transport=udp" suffix is
+	// gone, because this build's GameNetworkingSockets cannot read it and threw
+	// both TURN servers away over it:
+	//
+	//   Name lookup for "turn.playgenerals.online" failed
+	//       - servname not supported for ai_socktype
+	//
+	// Its TURN parser strips the leading "turn:" and hands the rest to
+	// ResolveHostname (steamnetworkingsockets_ice_client.cpp), which splits at
+	// the first colon and passes everything after it to getaddrinfo as the
+	// service. That makes the service "53?transport=udp", which is neither a
+	// number nor a name in /etc/services, so resolution fails and the server is
+	// dropped. The query-string form appears nowhere in this library except
+	// inside a quoted RFC excerpt -- it simply is not supported. UDP is what it
+	// does anyway.
+	//
+	// The result on two devices was a lobby where neither player could reach the
+	// other: credentials present, relays silently absent, and a mesh with
+	// nothing to fall back on when the direct path did not come up.
+	const char* turnList = "turn:turn.playgenerals.online:53,turn:turn.playgenerals.online:3478";
 
 	m_strTurnUsername = pLobbyInterface->GetLobbyTurnUsername();
 	m_strTurnToken = pLobbyInterface->GetLobbyTurnToken();
@@ -717,11 +738,19 @@ NetworkMesh::NetworkMesh()
 	fprintf(stderr, "DEBUG-P2P: NetworkMesh ctor SetGlobalCallback_SteamNetConnectionStatusChanged done\n");
 	fflush(stderr);
 
+	// GeneralsX @feature Android port 13/09/2026 gx_net_trace.txt now raises this
+	// too. At Msg level the library reports that a connection timed out but not
+	// one word about why -- no candidate gathering, no ICE pairing, no route
+	// selection -- which is precisely the part that has to be read when two
+	// peers fail to meet. The marker is already the switch for "I am collecting
+	// a network log", so it may as well turn on the layer the answer lives in.
 	ESteamNetworkingSocketsDebugOutputType logType =
 #if defined(_DEBUG)
 		ESteamNetworkingSocketsDebugOutputType::k_ESteamNetworkingSocketsDebugOutputType_Debug
 #else
-		NGMP_OnlineServicesManager::Settings.Debug_VerboseLogging() ? ESteamNetworkingSocketsDebugOutputType::k_ESteamNetworkingSocketsDebugOutputType_Debug : ESteamNetworkingSocketsDebugOutputType::k_ESteamNetworkingSocketsDebugOutputType_Msg
+		(GXTrace::isNetEnabled() || NGMP_OnlineServicesManager::Settings.Debug_VerboseLogging())
+			? ESteamNetworkingSocketsDebugOutputType::k_ESteamNetworkingSocketsDebugOutputType_Debug
+			: ESteamNetworkingSocketsDebugOutputType::k_ESteamNetworkingSocketsDebugOutputType_Msg
 #endif;
 		;
 
