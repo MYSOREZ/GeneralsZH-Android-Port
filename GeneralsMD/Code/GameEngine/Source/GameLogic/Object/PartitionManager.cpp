@@ -1861,14 +1861,11 @@ void PartitionData::doCircleFill(
 	Int y = cellRadius - 1;
 	Int dec = 3 - 2*cellRadius;
 
-#if RETAIL_COMPATIBLE_CRC
-	// Cell coverage diverges at radii >= 240 between algorithms.
-	Int end = cellRadius - 1;
-	Int& endRef = (cellRadius < 240) ? y : end;
-	for (Int x = 0; x <= endRef; ++x)
-#else
-	for (Int x = 0; x <= y; ++x)
-#endif
+	// The GeneralsOnline client fills the full cellRadius here with no octant bound
+	// and no RETAIL_COMPATIBLE_CRC special case. The set of cells this touches feeds
+	// the shroud and threat grids, which are part of the lockstep CRC, so the loop
+	// shape has to match the client we play against bit for bit.
+	for (Int x = 0; x < cellRadius; x++)
 	{
 		hLineCircle(cellCenterX - x, cellCenterX + x, cellCenterY + y);
 		hLineCircle(cellCenterX - x, cellCenterX + x, cellCenterY - y);
@@ -1901,13 +1898,21 @@ void PartitionData::doCircleFillPrecise(Real centerX, Real centerY, Real radius)
 	ThePartitionManager->worldToCell(centerX + radius, centerY + radius, &maxCellX, &maxCellY);
 
 	Real cellSize = ThePartitionManager->getCellSize();
+	Real halfCellSize = cellSize * 0.5f;
 
 	for (Int x = minCellX; x <= maxCellX; ++x)
 	{
 		for (Int y = minCellY; y <= maxCellY; ++y)
 		{
-			Real cellWorldX = x * cellSize;
-			Real cellWorldY = y * cellSize;
+			// getCellCenterPos returns the world-space center of the cell, accounting for
+			// the m_worldExtents.lo offset; subtracting halfCellSize gives the lower-left
+			// corner, which is what doesCircleOverlapCell expects. Plain x * cellSize drops
+			// the world origin offset, which both desynchronises us from the PC client and
+			// misplaces the cell on any map whose extents do not start at zero.
+			Real cellWorldX, cellWorldY;
+			ThePartitionManager->getCellCenterPos(x, y, cellWorldX, cellWorldY);
+			cellWorldX -= halfCellSize;
+			cellWorldY -= halfCellSize;
 
 			if (doesCircleOverlapCell(centerX, centerY, radius, cellWorldX, cellWorldY, cellSize))
 			{

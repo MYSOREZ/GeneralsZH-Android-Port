@@ -750,6 +750,17 @@ Int Object::getTransportSlotCount() const
 	return count;
 }
 
+void Object::friend_setContainedBy(Object* containedBy)
+{
+	m_containedBy = containedBy;
+
+#if !RETAIL_COMPATIBLE_CRC
+	// The contained-by frame is part of the lockstep CRC, so it must be stamped on
+	// every path that changes the container, not just onContainedBy/onRemovedFrom.
+	m_containedByFrame = containedBy ? TheGameLogic->getFrame() : 0;
+#endif
+}
+
 const Object* Object::getEnclosingContainedBy() const
 {
 	for (const Object* child = this, *container = getContainedBy(); container; child = container, container = container->getContainedBy())

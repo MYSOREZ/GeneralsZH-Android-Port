@@ -47,33 +47,37 @@
 #define INT_PI								12868
 #define INT_HALFPI 						6434
 
-// GeneralsX @refactor fbraz 03/05/2026 Route legacy trig functions through WWMath wrappers.
-// Upstream reference: Okladnoj, PR #2670
-// https://github.com/TheSuperHackers/GeneralsGameCode/pull/2670
+// These five feed object orientation and the transform matrix, which the lockstep
+// CRC hashes raw. They must be the exact same operations the client we play against
+// performs, so they call the single-precision CRT entry points directly rather than
+// routing through the WWMath gateways. SinTrig/CosTrig/TanTrig happen to resolve to
+// sinf/cosf/tanf off MSVC anyway, but ACosTrig/ASinTrig land on WWMath::Acos/Asin,
+// which compute in double and round once more on the way out - that extra rounding
+// step can differ from acosf/asinf in the last bit.
 
 Real Sin(Real x)
 {
-	return WWMath::SinTrig(x);
+	return sinf(x);
 }
 
 Real Cos(Real x)
 {
-	return WWMath::CosTrig(x);
+	return cosf(x);
 }
 
 Real Tan(Real x)
 {
-	return WWMath::TanTrig(x);
+	return tanf(x);
 }
 
 Real ACos(Real x)
 {
-	return WWMath::ACosTrig(x);
+	return acosf(x);
 }
 
 Real ASin(Real x)
 {
-	return WWMath::ASinTrig(x);
+	return asinf(x);
 }
 
 double Sqrt(double x)
