@@ -40,6 +40,7 @@
 
 #define DEFINE_PARTICLE_SYSTEM_NAMES
 #include "GameClient/ParticleSys.h"
+#include "GameLogic/GameLogic.h"
 
 
 #define PROFILE_ERROR_LIMIT	0.94f	//fraction of profiled result needed to get a match.  Allows some room for error/fluctuation.

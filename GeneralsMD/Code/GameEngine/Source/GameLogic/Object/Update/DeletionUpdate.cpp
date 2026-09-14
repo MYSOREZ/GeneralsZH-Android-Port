@@ -69,6 +69,14 @@ void DeletionUpdate::setLifetimeRange( UnsignedInt minFrames, UnsignedInt maxFra
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
+void DeletionUpdate::restartLifetime()
+{
+	const DeletionUpdateModuleData *d = getDeletionUpdateModuleData();
+	setLifetimeRange( d->m_minFrames, d->m_maxFrames );
+}
+
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
 UnsignedInt DeletionUpdate::calcSleepDelay(UnsignedInt minFrames, UnsignedInt maxFrames)
 {
 	UnsignedInt delay = GameLogicRandomValue( minFrames, maxFrames );

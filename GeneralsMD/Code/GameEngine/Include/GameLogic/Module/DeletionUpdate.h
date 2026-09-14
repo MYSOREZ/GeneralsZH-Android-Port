@@ -72,6 +72,7 @@ public:
 	// virtual destructor prototype provided by memory pool declaration
 
 	void setLifetimeRange( UnsignedInt minFrames, UnsignedInt maxFrames );
+	void restartLifetime();
 	UnsignedInt getDieFrame() { return m_dieFrame; }
 
 	virtual UpdateSleepTime update() override;
