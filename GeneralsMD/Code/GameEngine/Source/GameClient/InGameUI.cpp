@@ -93,6 +93,12 @@
 
 #include "GameNetwork/GameInfo.h"
 #include "GameNetwork/NetworkInterface.h"
+#if defined(GENERALS_ONLINE)
+// ConvertMSLatencyToFrames / ConvertMSLatencyToGenToolFrames, used by drawNetworkLatency.
+// The client picks these up transitively; include them directly so this does not depend on
+// include order.
+#include "GameNetwork/GeneralsOnline/NGMP_include.h"
+#endif
 
 #include "Common/UnitTimings.h" //Contains the DO_UNIT_TIMINGS define jba.
 #include "GXTrace.h"
@@ -2271,7 +2277,15 @@ void InGameUI::update()
 	// frame
 	//
 	UnsignedInt currLogicFrame = TheGameLogic->getFrame();
+	// GeneralsOnline NOTE: the message lifetime is tied to the frame rate elsewhere, so it has to
+	// scale with the tick rate. The client additionally splits this into a separate chat timeout
+	// driven by Settings.GetChatLifeSeconds(); that needs an isChat flag on the message which this
+	// port does not carry, so only the tick-rate scaling is taken here.
+#if defined(GENERALS_ONLINE)
+	const int messageTimeout = (m_messageDelayMS / static_cast<float>(LOGICFRAMES_PER_SECOND) / 1000) * GENERALS_ONLINE_HIGH_FPS_FRAME_MULTIPLIER;
+#else
 	const int messageTimeout = m_messageDelayMS / static_cast<float>(LOGICFRAMES_PER_SECOND) / 1000;
+#endif
 	UnsignedByte r, g, b, a;
 	Int amount;
 	for( i = MAX_UI_MESSAGES - 1; i >= 0; i-- )
@@ -4524,7 +4538,12 @@ void InGameUI::postDraw()
 				UnsignedInt readyFrame = TheGameLogic->getFrame();
 				if (framesLeft > 0)
 					readyFrame += framesLeft;
+#if defined(GENERALS_ONLINE_HIGH_FPS_SERVER)
+				// Script counters are kept in retail frames, so convert with the retail rate.
+				Int readySecs = (Int)((Real)(readyFrame - TheGameLogic->getFrame()) / (Real)BaseFps);
+#else
 				Int readySecs = (Int)(SECONDS_PER_LOGICFRAME_REAL * (readyFrame - TheGameLogic->getFrame()));
+#endif
 				if ( (info->isCountdown && readySecs != info->timestamp) || (!info->isCountdown && framesLeft != info->timestamp) )
 				{
 					if (!readySecs && info->isCountdown)
@@ -6733,6 +6752,28 @@ void InGameUI::updateRenderFpsString()
 
 void InGameUI::drawNetworkLatency(Int &x, Int &y)
 {
+#if defined(GENERALS_ONLINE)
+	// The run-ahead is a frame count, so converting it to milliseconds depends on the tick rate.
+	const UnsignedInt actualLatencyInMS = TheNetwork->getRunAhead() * (1000 / GENERALS_ONLINE_HIGH_FPS_LIMIT);
+	const UnsignedInt actualFrames = ConvertMSLatencyToFrames(actualLatencyInMS);
+	const UnsignedInt gentoolFrames = ConvertMSLatencyToGenToolFrames(actualLatencyInMS);
+
+	if (gentoolFrames != m_lastNetworkLatencyFrames)
+	{
+		UnicodeString latencyStr;
+
+		if (actualFrames != gentoolFrames)
+		{
+			latencyStr.format(L"[%u] - [%ums - %u]", TheNetwork->getFrameRate(), actualLatencyInMS, actualFrames);
+		}
+		else
+		{
+			latencyStr.format(L"%u [%ums][L: %u]", gentoolFrames, actualLatencyInMS, TheNetwork->getFrameRate());
+		}
+		m_networkLatencyString->setText(latencyStr);
+		m_lastNetworkLatencyFrames = gentoolFrames;
+	}
+#else
 	const UnsignedInt networkLatencyFrames = TheNetwork->getRunAhead();
 
 	if (networkLatencyFrames != m_lastNetworkLatencyFrames)
@@ -6742,6 +6783,7 @@ void InGameUI::drawNetworkLatency(Int &x, Int &y)
 		m_networkLatencyString->setText(latencyStr);
 		m_lastNetworkLatencyFrames = networkLatencyFrames;
 	}
+#endif
 
 	// TheSuperHackers @info at the HUD anchor this draws inline and advances x otherwise uses configured position
 	if (isAtHudAnchorPos(m_networkLatencyPosition))

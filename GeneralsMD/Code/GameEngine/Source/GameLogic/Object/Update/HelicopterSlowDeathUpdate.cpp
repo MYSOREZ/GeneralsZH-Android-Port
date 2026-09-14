@@ -276,6 +276,12 @@ void HelicopterSlowDeathBehavior::beginSlowDeath( const DamageInfo *damageInfo )
 //-------------------------------------------------------------------------------------------------
 UpdateSleepTime HelicopterSlowDeathBehavior::update()
 {
+#if defined(GENERALS_ONLINE_HIGH_FPS_SERVER)
+	if (!TheGameLogic->HasLegacyFrameAdvanced())
+	{
+		return UPDATE_SLEEP_NONE;
+	}
+#endif
 /// @todo srj use SLEEPY_UPDATE here
 	// call the base class cause we're extending functionality
 	SlowDeathBehavior::update();
@@ -310,7 +316,11 @@ UpdateSleepTime HelicopterSlowDeathBehavior::update()
 		// will ping pong back and forth between the MinSelfSpin and MaxSelfSpin defined in INI
 		//
 		if( modData->m_selfSpinUpdateDelay &&
+#if defined(GENERALS_ONLINE_HIGH_FPS_SERVER)
+				TheGameLogic->getFrameLegacy() - m_lastSelfSpinUpdateFrame > modData->m_selfSpinUpdateDelay )
+#else
 				TheGameLogic->getFrame() - m_lastSelfSpinUpdateFrame > modData->m_selfSpinUpdateDelay )
+#endif
 		{
 
 			// update the self spin
@@ -344,7 +354,11 @@ UpdateSleepTime HelicopterSlowDeathBehavior::update()
 			}
 
 			// we have made a change to the self spinning
+#if defined(GENERALS_ONLINE_HIGH_FPS_SERVER)
+			m_lastSelfSpinUpdateFrame = TheGameLogic->getFrameLegacy();
+#else
 			m_lastSelfSpinUpdateFrame = TheGameLogic->getFrame();
+#endif
 
 		}
 
@@ -359,8 +373,13 @@ UpdateSleepTime HelicopterSlowDeathBehavior::update()
 		// is *NOT* the angle the object is facing
 		//
 		Coord3D force;
+#if defined(GENERALS_ONLINE) && defined(GENERALS_ONLINE_HIGH_FPS_SERVER)
+		force.x = DOUBLE_TO_REAL( Cos( m_forwardAngle ) ) * m_forwardSpeed/2.f;
+		force.y = DOUBLE_TO_REAL( Sin( m_forwardAngle ) ) * m_forwardSpeed/2.f;
+#else
 		force.x = DOUBLE_TO_REAL( Cos( m_forwardAngle ) ) * m_forwardSpeed;
 		force.y = DOUBLE_TO_REAL( Sin( m_forwardAngle ) ) * m_forwardSpeed;
+#endif
 		force.z = 0.0f;
 		physics->applyMotiveForce( &force );
 
@@ -445,7 +464,11 @@ UpdateSleepTime HelicopterSlowDeathBehavior::update()
 		{
 
 			// mark the frame we hit the ground on
+#if defined(GENERALS_ONLINE_HIGH_FPS_SERVER)
+			m_hitGroundFrame = TheGameLogic->getFrameLegacy();
+#else
 			m_hitGroundFrame = TheGameLogic->getFrame();
+#endif
 
 			// make hit ground effect
 			FXList::doFXObj( modData->m_fxHitGround, copter );
@@ -467,7 +490,11 @@ UpdateSleepTime HelicopterSlowDeathBehavior::update()
 
 	// if we're on the ground, see if it's time for our final boom
 	if( m_hitGroundFrame &&
+#if defined(GENERALS_ONLINE_HIGH_FPS_SERVER)
+			TheGameLogic->getFrameLegacy() - m_hitGroundFrame > modData->m_delayFromGroundToFinalDeath )
+#else
 			TheGameLogic->getFrame() - m_hitGroundFrame > modData->m_delayFromGroundToFinalDeath )
+#endif
 	{
 
 		// make effect

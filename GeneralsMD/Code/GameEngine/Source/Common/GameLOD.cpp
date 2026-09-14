@@ -233,6 +233,12 @@ GameLODManager::GameLODManager()
 	m_compositeBenchIndex=0;
 	m_numBenchProfiles=0;
 	m_reallyLowMHz = 400;
+#if defined(GENERALS_ONLINE_HIGH_FPS_SERVER)
+	m_isQualityReduced = false;
+	m_lowFPSSecondsCount = 0;
+	m_stableFPSSecondsCount = 0;
+	m_userMaxParticleCount = 0;
+#endif
 
 	for (Int i=0; i<STATIC_GAME_LOD_CUSTOM; i++)
 		m_numLevelPresets[i]=0;
@@ -849,3 +855,87 @@ Bool GameLODManager::didMemPass()
 {
 	return m_memPassed;
 }
+
+#if defined(GENERALS_ONLINE_HIGH_FPS_SERVER)
+void GameLODManager::updateGraphicsQualityState(float averageFPS)
+{
+	if (!TheGameLogic || (TheGameLogic->getFrame() % LOGICFRAMES_PER_SECOND) != 0)
+		return;
+
+	if (TheGameLogic->isInShellGame() || TheGameLogic->isInReplayGame() || (TheGameLogic->getFrame() < LOGICFRAMES_PER_SECOND))
+	{
+		if (m_isQualityReduced)
+			restoreQualitySettings();
+		return;
+	}
+
+	if (!m_isQualityReduced)
+	{
+		m_userShadowVolumesEnabled = TheGlobalData->m_useShadowVolumes;
+		m_userShadowDecalsEnabled = TheGlobalData->m_useShadowDecals;
+		m_userHeatEffectsEnabled = TheGlobalData->m_useHeatEffects;
+		m_userMaxParticleCount = TheGlobalData->m_maxParticleCount;
+	}
+
+	// Track how many consecutive seconds FPS is below or above threshold.
+	const float minAcceptedFPS = 58.f;
+	if (averageFPS < minAcceptedFPS)
+	{
+		m_lowFPSSecondsCount++;
+		m_stableFPSSecondsCount = 0;
+	}
+	else
+	{
+		m_stableFPSSecondsCount++;
+		m_lowFPSSecondsCount = 0;
+	}
+
+	bool isInGame = TheGameLogic->isInGame();
+	bool shouldReduceQuality = (m_lowFPSSecondsCount >= 2 && isInGame);
+	if (shouldReduceQuality && !m_isQualityReduced)
+	{
+		TheGameClient->releaseShadows();
+		TheWritableGlobalData->m_useShadowVolumes = false;
+		TheWritableGlobalData->m_useShadowDecals = false;
+		TheWritableGlobalData->m_useHeatEffects = false;
+		m_isQualityReduced = true;
+		m_lowFPSSecondsCount = 0;
+	}
+
+
+	if (m_isQualityReduced)
+	{
+		float particleReductionFactor = max(0.f, min(1.f, (minAcceptedFPS - averageFPS) / minAcceptedFPS * 5.f));
+		int targetCount = max(100, (int)(m_userMaxParticleCount * (1.f - particleReductionFactor)));
+		int current = TheGlobalData->m_maxParticleCount;
+
+		if (targetCount < current)
+			TheWritableGlobalData->m_maxParticleCount = max(100, current + (int)((targetCount - current) * 0.5f));
+
+		if (!shouldReduceQuality && m_stableFPSSecondsCount > 15)
+		{
+			int newCount = current + (int)((m_userMaxParticleCount - current) * 0.3f);
+			if (newCount >= m_userMaxParticleCount || newCount == current)
+				restoreQualitySettings();
+			else
+				TheWritableGlobalData->m_maxParticleCount = newCount;
+
+			DynamicGameLODLevel lod = TheGameLODManager->findDynamicLODLevel(averageFPS);
+			TheGameLODManager->setDynamicLODLevel(lod);
+		}
+	}
+}
+
+void GameLODManager::restoreQualitySettings()
+{
+	TheWritableGlobalData->m_useShadowVolumes = m_userShadowVolumesEnabled;
+	TheWritableGlobalData->m_useShadowDecals = m_userShadowDecalsEnabled;
+	TheWritableGlobalData->m_useHeatEffects = m_userHeatEffectsEnabled;
+	TheWritableGlobalData->m_maxParticleCount = m_userMaxParticleCount;
+	m_stableFPSSecondsCount = 0;
+	m_lowFPSSecondsCount = 0;
+	m_isQualityReduced = false;
+	if (TheGameClient)
+		TheGameClient->allocateShadows();
+}
+#endif // GENERALS_ONLINE_HIGH_FPS_SERVER

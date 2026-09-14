@@ -88,6 +88,25 @@ else()
 endif()
 
 include(cmake/config.cmake)
+
+# Must be set here, before any add_subdirectory, so that Core and GeneralsMD are compiled
+# with the same value. GameLogic declares m_frameLegacy/m_frameLegacyLast behind this macro,
+# so a target that disagrees about it disagrees about the class layout.
+# The derived macros are set here as well, not in NextGenMP_defines.h, because Core files
+# (htree.cpp, FrameRateLimit.cpp, ParticleSys.cpp, seglinerenderer.cpp, ...) use them and Core
+# cannot include a GeneralsMD header. Upstream solves this by having WWCommon.h reach across
+# into GeneralsMD with a relative path; defining them here keeps the dependency one-way.
+if(SAGE_HIGH_FPS_SIM)
+    add_compile_definitions(GENERALS_ONLINE_HIGH_FPS_SERVER=1)
+    add_compile_definitions(GENERALS_ONLINE_HIGH_FPS_LIMIT=60)
+    add_compile_definitions(GENERALS_ONLINE_HIGH_FPS_FRAME_MULTIPLIER=2)
+else()
+    add_compile_definitions(GENERALS_ONLINE_HIGH_FPS_LIMIT=30)
+    add_compile_definitions(GENERALS_ONLINE_HIGH_FPS_FRAME_MULTIPLIER=1)
+endif()
+# Unlocks the render framerate. Required at 60 Hz, optional but desirable at 30.
+add_compile_definitions(GENERALS_ONLINE_HIGH_FPS_RENDER=1)
+
 include(cmake/gamespy.cmake)
 include(cmake/lzhl.cmake)
 

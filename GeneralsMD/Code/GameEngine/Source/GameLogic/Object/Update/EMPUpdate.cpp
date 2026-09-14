@@ -136,7 +136,12 @@ UpdateSleepTime EMPUpdate::update()
 	Drawable *dr = obj->getDrawable();
 	UnsignedInt now = TheGameLogic->getFrame();
 
+	// TODO_NGMP: We should actually use a frame time delta here, not assume we're hitting 60
+#if defined(GENERALS_ONLINE)
+	m_currentScale += ( m_targetScale - m_currentScale ) * (0.05f / GENERALS_ONLINE_HIGH_FPS_FRAME_MULTIPLIER);
+#else
 	m_currentScale += ( m_targetScale - m_currentScale ) * 0.05f;
+#endif
 	dr->setInstanceScale( m_currentScale );
 
 	if ( now < m_tintEnvPlayFrame)
@@ -327,8 +332,17 @@ void EMPUpdate::doDisableAttack()
 
 							sys->attachToObject(curVictim);
 							sys->setPosition( &offs );
+							// Note the RNG source differs between the two branches, exactly as it does in
+							// the client: at 60 Hz this draws from the logic stream, at 30 Hz from the client
+							// stream. Using the logic stream unconditionally shifts the logic RNG draw count
+							// against the client on every EMP disable, which is a desync in its own right.
+#if defined(GENERALS_ONLINE) && defined(GENERALS_ONLINE_HIGH_FPS_SERVER)
+							sys->setSystemLifetime(MAX(0, (data->m_disabledDuration/ GENERALS_ONLINE_HIGH_FPS_FRAME_MULTIPLIER) - 240));
+							sys->setInitialDelay(GameLogicRandomValue(1, 100) / GENERALS_ONLINE_HIGH_FPS_FRAME_MULTIPLIER);
+#else
 							sys->setSystemLifetime(MAX(0, data->m_disabledDuration - 30));
-							sys->setInitialDelay(GameLogicRandomValue(1,100));
+							sys->setInitialDelay(GameClientRandomValue(1, 100));
+#endif
 						}
 					}
 				}

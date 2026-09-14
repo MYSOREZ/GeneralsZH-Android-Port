@@ -188,7 +188,11 @@ void JetSlowDeathBehavior::beginSlowDeath( const DamageInfo *damageInfo )
 	const JetSlowDeathBehaviorModuleData *modData = getJetSlowDeathBehaviorModuleData();
 
 	// record the frame we died on
+#if defined(GENERALS_ONLINE) && defined(GENERALS_ONLINE_HIGH_FPS_SERVER)
+	m_timerDeathFrame = TheGameLogic->getFrameLegacy();
+#else
 	m_timerDeathFrame = TheGameLogic->getFrame();
+#endif
 
 	// do some effects
 	FXList::doFXObj( modData->m_fxInitialDeath, us );
@@ -294,7 +298,11 @@ UpdateSleepTime JetSlowDeathBehavior::update()
 			ObjectCreationList::create( modData->m_oclHitGround, us, nullptr );
 
 			// we are now on the ground
+#if defined(GENERALS_ONLINE) && defined(GENERALS_ONLINE_HIGH_FPS_SERVER)
+			m_timerOnGroundFrame = TheGameLogic->getFrameLegacy();
+#else
 			m_timerOnGroundFrame = TheGameLogic->getFrame();
+#endif
 
 			// start us rolling on another axis too
 			if( physics )
@@ -304,7 +312,11 @@ UpdateSleepTime JetSlowDeathBehavior::update()
 
 		// timers for the secondary effect
 		if( m_timerDeathFrame != 0 &&
+#if defined(GENERALS_ONLINE) && defined(GENERALS_ONLINE_HIGH_FPS_SERVER)
+				TheGameLogic->getFrameLegacy() - m_timerDeathFrame >= modData->m_delaySecondaryFromInitialDeath )
+#else
 				TheGameLogic->getFrame() - m_timerDeathFrame >= modData->m_delaySecondaryFromInitialDeath )
+#endif
 		{
 
 			// do some effects
@@ -320,7 +332,11 @@ UpdateSleepTime JetSlowDeathBehavior::update()
 	else
 	{
 		// we are on the ground, pay attention to the final explosion timers
+#if defined(GENERALS_ONLINE) && defined(GENERALS_ONLINE_HIGH_FPS_SERVER)
+		if( TheGameLogic->getFrameLegacy() - m_timerOnGroundFrame >= modData->m_delayFinalBlowUpFromHitGround )
+#else
 		if( TheGameLogic->getFrame() - m_timerOnGroundFrame >= modData->m_delayFinalBlowUpFromHitGround )
+#endif
 		{
 
 			// do some effects

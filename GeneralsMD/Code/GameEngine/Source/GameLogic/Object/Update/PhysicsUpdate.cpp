@@ -363,6 +363,9 @@ void PhysicsBehavior::applyShock( const Coord3D *force )
 {
 	Coord3D resistedForce = *force;
 	resistedForce.scale( 1.0f - min( 1.0f, max( 0.0f, getPhysicsBehaviorModuleData()->m_shockResistance ) ) );
+#if defined(GENERALS_ONLINE_HIGH_FPS_SERVER)
+    resistedForce.scale(0.5f);
+#endif
 
 	// Apply the processed shock force to the object
 	applyForce(&resistedForce);
@@ -382,6 +385,16 @@ void PhysicsBehavior::applyRandomRotation()
 
 	Real randomModifier;
 
+#if defined(GENERALS_ONLINE) && defined(GENERALS_ONLINE_HIGH_FPS_SERVER)
+	randomModifier = GameLogicRandomValue(-1.0f, 1.0f);
+	m_yawRate += (getPhysicsBehaviorModuleData()->m_shockMaxYaw/2.f) * randomModifier;
+
+	randomModifier = GameLogicRandomValue(-1.0f, 1.0f);
+	m_pitchRate += (getPhysicsBehaviorModuleData()->m_shockMaxPitch / 2.f) * randomModifier;
+
+	randomModifier = GameLogicRandomValue(-1.0f, 1.0f);
+	m_rollRate += (getPhysicsBehaviorModuleData()->m_shockMaxRoll / 2.f) * randomModifier;
+#else
 	randomModifier = GameLogicRandomValue(-1.0f, 1.0f);
 	m_yawRate += getPhysicsBehaviorModuleData()->m_shockMaxYaw * randomModifier;
 
@@ -390,6 +403,7 @@ void PhysicsBehavior::applyRandomRotation()
 
 	randomModifier = GameLogicRandomValue(-1.0f, 1.0f);
 	m_rollRate += getPhysicsBehaviorModuleData()->m_shockMaxRoll * randomModifier;
+#endif
 
 #ifdef SLEEPY_PHYSICS
 	if (getFlag(IS_IN_UPDATE))
@@ -654,8 +668,17 @@ UpdateSleepTime PhysicsBehavior::update()
 
 		// when vel gets tiny, just clamp to zero
 		const Real THRESH = 0.001f;
+#if defined(GENERALS_ONLINE_HIGH_FPS_SERVER)
+		// Info: At 60Hz, motive acceleration can be smaller than THRESH and must accumulate across frames.
+		if (!isMotive())
+		{
+			if (fabsf(m_vel.x) < THRESH) m_vel.x = 0.0f;
+			if (fabsf(m_vel.y) < THRESH) m_vel.y = 0.0f;
+		}
+#else
 		if (fabsf(m_vel.x) < THRESH) m_vel.x = 0.0f;
 		if (fabsf(m_vel.y) < THRESH) m_vel.y = 0.0f;
+#endif
 		if (fabsf(m_vel.z) < THRESH) m_vel.z = 0.0f;
 
 		m_velMag = INVALID_VEL_MAG;

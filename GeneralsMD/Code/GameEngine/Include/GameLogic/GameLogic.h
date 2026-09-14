@@ -143,6 +143,11 @@ public:
 
 	void setObjectIDCounter( ObjectID nextObjID ) { m_nextObjID = nextObjID; }
 	ObjectID getObjectIDCounter() { return m_nextObjID; }
+#if defined(GENERALS_ONLINE_HIGH_FPS_SERVER)
+	UnsignedInt getFrameLegacy(void);
+	UnsignedInt getFrameLegacyLast(void);
+	bool HasLegacyFrameAdvanced(void);
+#endif
 
 	//-----------------------------------------------------------------------------------------------
 	void setBuildableStatusOverride(const ThingTemplate* tt, BuildableStatus bs);
@@ -387,6 +392,10 @@ private:
 
 	Real m_width, m_height;																	///< Dimensions of the world
 	UnsignedInt m_frame;																		///< Simulation frame number
+#if defined(GENERALS_ONLINE_HIGH_FPS_SERVER)
+	UnsignedInt m_frameLegacy;
+	UnsignedInt m_frameLegacyLast;
+#endif
 
 	// CRC cache system -----------------------------------------------------------------------------
 	UnsignedInt	m_CRC;																			///< Cache of previous CRC value
@@ -502,6 +511,11 @@ inline GameMode GameLogic::getGameMode() { return m_gameMode; }
 inline Bool GameLogic::isInLanGame() { return (m_gameMode == GAME_LAN); }
 inline Bool GameLogic::isInSkirmishGame() { return (m_gameMode == GAME_SKIRMISH); }
 inline Bool GameLogic::isInMultiplayerGame() { return (m_gameMode == GAME_LAN) || (m_gameMode == GAME_INTERNET) ; }
+#if defined(GENERALS_ONLINE_HIGH_FPS_SERVER)
+inline UnsignedInt GameLogic::getFrameLegacy(void) { return m_frameLegacy; }
+inline UnsignedInt GameLogic::getFrameLegacyLast(void) { return m_frameLegacyLast; }
+inline bool GameLogic::HasLegacyFrameAdvanced(void) { return m_frameLegacy != m_frameLegacyLast; }
+#endif
 inline Bool GameLogic::isInInteractiveGame() const { return isInInteractiveGame(m_gameMode); }
 inline Bool GameLogic::isInReplayGame() { return (m_gameMode == GAME_REPLAY); }
 inline Bool GameLogic::isInInternetGame() { return (m_gameMode == GAME_INTERNET); }

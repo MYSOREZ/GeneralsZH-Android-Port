@@ -60,13 +60,21 @@ FrameMetrics::~FrameMetrics() {
 }
 
 void FrameMetrics::init() {
+#if defined(GENERALS_ONLINE_HIGH_FPS_SERVER)
+	m_averageFps = GENERALS_ONLINE_HIGH_FPS_LIMIT;
+#else
 	m_averageFps = 30;
+#endif
 	m_averageLatency = (Real)0.2;
 	m_minimumCushion = -1;
 
 	UnsignedInt i = 0;
 	for (; i < TheGlobalData->m_networkFPSHistoryLength; ++i) {
+#if defined(GENERALS_ONLINE_HIGH_FPS_SERVER)
+		m_fpsList[i] = GENERALS_ONLINE_HIGH_FPS_LIMIT;
+#else
 		m_fpsList[i] = 30.0;
+#endif
 	}
 	m_fpsListIndex = 0;
 	for (i = 0; i < TheGlobalData->m_networkLatencyHistoryLength; ++i) {

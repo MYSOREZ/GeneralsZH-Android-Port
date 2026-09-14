@@ -125,9 +125,13 @@ enum { K_SCRIPTS_DATA_VERSION_1 = 1 };
 enum { MAX_SPIN_COUNT = 20 };
 #define NONE_STRING "<none>"
 
+#if defined(GENERALS_ONLINE) && defined(GENERALS_ONLINE_HIGH_FPS_SERVER)
 static const Int FRAMES_TO_SHOW_WIN_LOSE_MESSAGE = 120;
-
 static const Int FRAMES_TO_FADE_IN_AT_START = 33;
+#else
+static const Int FRAMES_TO_SHOW_WIN_LOSE_MESSAGE = 120;
+static const Int FRAMES_TO_FADE_IN_AT_START = 33;
+#endif
 
 
 //------------------------------------------------------------------------------ Performance Timers
@@ -5516,6 +5520,11 @@ void ScriptEngine::update()
 */
 #endif
 #endif
+#if defined(GENERALS_ONLINE_HIGH_FPS_SERVER)
+	const bool legacyFrameAdvanced = TheGameLogic->HasLegacyFrameAdvanced();
+#else
+	const bool legacyFrameAdvanced = true;
+#endif
 	if (m_firstUpdate) {
 		createNamedCache();
 		particleEditorUpdate();
@@ -5564,7 +5573,11 @@ void ScriptEngine::update()
 		if (m_counters[i].isCountdownTimer) {
 			// If counter has any time left, decrement.  Counters go to -1 and stop.
 			if (m_counters[i].value >= 0) {
-				m_counters[i].value--;
+				// Countdown timers are expressed in retail frames, so they tick once per legacy
+				// frame, not once per simulation frame.
+				if (legacyFrameAdvanced) {
+					m_counters[i].value--;
+				}
 			}
 		}
 	}
@@ -6743,7 +6756,12 @@ void ScriptEngine::setTimer( ScriptAction *pAction, Bool millisecondTimer, Bool 
 			Real randomValue = pAction->getParameter(2)->getReal();
 			value = GameLogicRandomValue(value, randomValue);
 		}
+#if defined(GENERALS_ONLINE_HIGH_FPS_SERVER)
+		const int LEGACY_FPS_INT = BaseFps;
+		m_counters[counterNdx].value = REAL_TO_INT_CEIL(value * (Real)LEGACY_FPS_INT);
+#else
 		m_counters[counterNdx].value = REAL_TO_INT_CEIL(ConvertDurationFromMsecsToFrames(value*1000));
+#endif
 	} else {
 		Int value = pAction->getParameter(1)->getInt();
 		if (random) {

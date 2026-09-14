@@ -21,6 +21,15 @@ if(NOT DEFINED CACHE{SAGE_UPDATE_CHECK})
     set(SAGE_UPDATE_CHECK "${SAGE_USE_SDL3}" CACHE BOOL "Enable in-game update check via GitHub Releases API")
 endif()
 
+# The GeneralsOnline PC client is built with GENERALS_ONLINE_HIGH_FPS_SERVER defined
+# unconditionally, so its simulation runs at 60 Hz while ours runs at 30. That is part of
+# the lockstep contract - the service even separates the two populations by client id
+# (gen_online_60hz vs gen_online_30hz) - so cross-play with Windows requires this ON.
+# It is defined at the top level rather than in a header because it changes the layout of
+# GameLogic (m_frameLegacy) and the value of WWSyncPerSecond, which Core and GeneralsMD
+# must agree on in every single translation unit.
+option(SAGE_HIGH_FPS_SIM "Simulate at 60 Hz to match the GeneralsOnline PC client" OFF)
+
 # macOS port option (Phase 5)
 option(SAGE_USE_MOLTENVK "Use MoltenVK for Vulkan on macOS (Phase 5 macOS port)" OFF)
 

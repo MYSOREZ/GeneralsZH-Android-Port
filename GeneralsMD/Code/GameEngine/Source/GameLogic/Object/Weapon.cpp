@@ -499,6 +499,23 @@ Int WeaponTemplate::getDelayBetweenShots(const WeaponBonus& bonus) const
 	else
 		delayToUse = GameLogicRandomValue( m_minDelayBetweenShots, m_maxDelayBetweenShots );
 
+// TODO_NGMP: Better solution, less hackyness
+#if defined(GENERALS_ONLINE_HIGH_FPS_SERVER)
+	if (delayToUse != 0 && delayToUse < (2*GENERALS_ONLINE_HIGH_FPS_FRAME_MULTIPLIER))
+	{
+		delayToUse = 2*GENERALS_ONLINE_HIGH_FPS_FRAME_MULTIPLIER;
+	}
+
+	// HACK
+	// TODO_NGMP: Better solution for this, seems like an ini data bug
+	if (getName().compareNoCase("GattlingBuilding") == 0
+		|| getName().compareNoCase("GattlingBuildingGun") == 0
+		|| getName().compareNoCase("GattlingBuildingGunAir") == 0
+		|| getName().compareNoCase("GattlingBuildingGunAirDummy") == 0)
+	{
+		delayToUse /= 1.5;
+	}
+#endif
 	Real bonusROF = bonus.getField(WeaponBonus::RATE_OF_FIRE);
 	//CRCDEBUG_LOG(("WeaponTemplate::getDelayBetweenShots() - min:%d max:%d val:%d, bonusROF=%g/%8.8X",
 		//m_minDelayBetweenShots, m_maxDelayBetweenShots, delayToUse, bonusROF, AS_INT(bonusROF)));
@@ -1910,6 +1927,20 @@ void Weapon::computeBonus(const Object *source, WeaponBonusConditionFlags extraB
 	const WeaponBonusSet* extra = m_template->getExtraBonus();
 	if (extra)
 		extra->appendBonuses(flags, bonus);
+#if defined(GENERALS_ONLINE_HIGH_FPS_SERVER)
+     // Fix v1 quad cannon damage this way for now
+     const char* weaponName = m_template->getName().str();
+     if (source->getVeterancyLevel() == 1 &&
+     (strcmp(weaponName, "QuadCannonGun") == 0 ||
+     strcmp(weaponName, "QuadCannonGunAir") == 0 ||
+     strcmp(weaponName, "QuadCannonGunUpgradeOne") == 0 ||
+     strcmp(weaponName, "QuadCannonGunUpgradeOneAir") == 0 ||
+     strcmp(weaponName, "QuadCannonGunUpgradeTwo") == 0 ||
+     strcmp(weaponName, "QuadCannonGunUpgradeTwoAir") == 0))
+     {
+     bonus.setField(WeaponBonus::RATE_OF_FIRE, 1.25f);
+     }
+#endif
 }
 
 //-------------------------------------------------------------------------------------------------

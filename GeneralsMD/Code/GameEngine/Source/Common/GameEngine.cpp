@@ -1116,6 +1116,9 @@ Bool GameEngine::canUpdateRegularGameLogic(UnsignedInt logicTimeQueryFlags)
 
 	return false;
 }
+#if defined(GENERALS_ONLINE_HIGH_FPS_RENDER)
+extern NGMPGame* TheNGMPGame;
+#endif
 
 /// -----------------------------------------------------------------------------------------------
 DECLARE_PERF_TIMER(GameEngine_update)
@@ -1192,6 +1195,19 @@ void GameEngine::update()
 		{
 			// VERIFY CRC needs to be in this code block.  Please to not pull TheGameLogic->update() inside this block.
 			VERIFY_CRC
+
+#if defined(GENERALS_ONLINE_HIGH_FPS_RENDER)
+			// NGMP_NOTE: Lock the shellmap to 30fps until we fix everything
+			if (TheNGMPGame != nullptr && TheGameLogic->isInGame() && !TheShell->isShellActive())
+			{
+				TheFramePacer->setFramesPerSecondLimit(NGMP_OnlineServicesManager::Settings.Graphics_GetFPSLimit());
+				TheWritableGlobalData->m_useFpsLimit = NGMP_OnlineServicesManager::Settings.Graphics_GetFPSLimit();
+			}
+			else
+			{
+				TheFramePacer->setFramesPerSecondLimit(GENERALS_ONLINE_HIGH_FPS_LIMIT);
+			}
+#endif
 
 			if (gxPerfTrace) gxT0 = std::chrono::steady_clock::now();
 			TheRadar->UPDATE();

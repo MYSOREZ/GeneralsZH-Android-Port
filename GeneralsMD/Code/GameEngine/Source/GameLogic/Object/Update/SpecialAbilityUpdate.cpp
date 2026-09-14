@@ -1218,7 +1218,11 @@ Bool SpecialAbilityUpdate::continuePreparation()
 
           Real denominator = MAX(1, data->m_preparationFrames);
           Real increment = 1.0f - ((Real)m_prepFrames / denominator );
+#if defined(GENERALS_ONLINE) && defined(GENERALS_ONLINE_HIGH_FPS_SERVER)
+          m_captureFlashPhase += increment / (3.0f * GENERALS_ONLINE_HIGH_FPS_FRAME_MULTIPLIER);
+#else
           m_captureFlashPhase += increment / 3.0f;
+#endif
 
           Bool thisPhase = ( ((Int)m_captureFlashPhase) & 1 );// are we in a flashy phase this frame?
 

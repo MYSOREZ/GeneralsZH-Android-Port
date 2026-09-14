@@ -62,27 +62,19 @@ void showNotificationBox(AsciiString nick, UnicodeString message, bool bPlaySoun
 #define GENERALS_ONLINE_MIN_LOBBY_CAMERA_ZOOM 210
 #define GENERALS_ONLINE_MAX_LOBBY_CAMERA_ZOOM 1000
 
-//#define GENERALS_ONLINE_HIGH_FPS_SERVER 1
+// GENERALS_ONLINE_HIGH_FPS_SERVER is not defined here. It comes from the build system
+// (SAGE_HIGH_FPS_SIM -> add_compile_definitions at the top level) because Core needs to see
+// the same value as GeneralsMD: it selects WWSyncPerSecond, and therefore the class layout
+// of GameLogic. A header define here would only ever reach GeneralsMD.
 
 #if defined(GENERALS_ONLINE_HIGH_FPS_SERVER)
-//#define GENERALS_ONLINE_CLIENT_ID "gen_online_60hz"
+#define GENERALS_ONLINE_CLIENT_ID "gen_online_60hz"
 #else
-//#define GENERALS_ONLINE_CLIENT_ID "gen_online_30hz"
-#endif
-
-// TODO_GO: Change to superhackers_community_patch_client after service deployment
 #define GENERALS_ONLINE_CLIENT_ID "gen_online_30hz"
-
-#if defined(GENERALS_ONLINE_HIGH_FPS_SERVER)
-	#define GENERALS_ONLINE_HIGH_FPS_LIMIT 60
-	#define GENERALS_ONLINE_HIGH_FPS_FRAME_MULTIPLIER (GENERALS_ONLINE_HIGH_FPS_LIMIT/30)
-	#define GENERALS_ONLINE_HIGH_FPS_RENDER 1 // This must be defined for high fps server
-#else
-	#define GENERALS_ONLINE_HIGH_FPS_LIMIT 30
-	#define GENERALS_ONLINE_HIGH_FPS_FRAME_MULTIPLIER 1
-
-	#define GENERALS_ONLINE_HIGH_FPS_RENDER 1 // This is optional on 30fps, but will boost/unlock the framerate, similar to gentool
 #endif
+
+// GENERALS_ONLINE_HIGH_FPS_LIMIT, _FRAME_MULTIPLIER and _RENDER also come from the build
+// system, for the same reason as _SERVER: Core uses them and cannot include this header.
 
 #if defined(GENERALS_ONLINE_HIGH_FPS_SERVER)
 static int FRAME_GROUPING_CAP = 32;

@@ -611,7 +611,7 @@ void HTreeClass::Anim_Update_Without_Interpolation(const Matrix3D & root,HRawAni
 	{
 		// TheSuperHackers @tweak Keep the animation frame step in sync with the ww3d frame step if they can align.
 		// @todo This needs improving if the WWSyncPerSecond is changed or the animation frame rates can be larger.
-		static_assert(WWSyncPerSecond == 30, "This is currently catered to a 30 fps sync");
+		static_assert(WWSyncPerSecond == GENERALS_ONLINE_HIGH_FPS_LIMIT, "This is currently catered to a 60/30 fps sync (depending on define)");
 		return;
 	}
 

@@ -722,6 +722,12 @@ void Network::update()
 	GetCommandsFromCommandList(); // Remove commands from TheCommandList and send them to the connection manager.
 	if (m_conMgr != nullptr) {
 		if (m_localStatus == NETLOCALSTATUS_INGAME) {
+			// The run-ahead window is expressed in frames, so it has to follow the logic tick rate.
+#if defined(GENERALS_ONLINE_HIGH_FPS_SERVER)
+			m_frameRate = GENERALS_ONLINE_HIGH_FPS_LIMIT;
+#else
+			m_frameRate = 30;
+#endif
 			m_conMgr->updateRunAhead(m_runAhead, m_frameRate, m_didSelfSlug, getExecutionFrame());
 			m_didSelfSlug = FALSE;
 		}

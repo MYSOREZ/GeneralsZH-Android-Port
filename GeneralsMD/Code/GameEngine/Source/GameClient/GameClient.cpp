@@ -115,6 +115,11 @@ GameClient::GameClient()
 	m_textBearingDrawableList.clear();
 
 	m_frame = 0;
+#if defined(GENERALS_ONLINE_HIGH_FPS_RENDER)
+	m_legacyFrameMSAccured = 0;
+	m_frameLegacy = 0;
+	m_frameLegacyLast = 0;
+#endif
 
 	m_drawableList = nullptr;
 
@@ -950,6 +955,32 @@ void GameClient::update()
 			std::chrono::duration<double, std::micro>(gxcT6 - gxcT5).count(),
 			std::chrono::duration<double, std::micro>(gxcT7 - gxcT6).count());
 	}
+
+#if defined(GENERALS_ONLINE_HIGH_FPS_RENDER)
+	// The client's legacy frame is driven by wall time, not by the logic tick, so that render-side
+	// cadences (particle keyframes, FX delays) stay at the retail 30 Hz however fast we render.
+	// The client uses utc_clock here; steady_clock is used instead because this value is only ever
+	// consumed as a delta and steady_clock is both monotonic and portable to the NDK.
+	const int64_t currTime = std::chrono::duration_cast<std::chrono::milliseconds>(
+		std::chrono::steady_clock::now().time_since_epoch()).count();
+
+	if (!freezeTime)
+	{
+		m_legacyFrameMSAccured += currTime - m_LegacyFrameEndLastFrame;
+	}
+	m_LegacyFrameEndLastFrame = currTime;
+
+	// TODO_NGMP: This should really use partial frame intervals instead of a fixed 60hz update
+	if (m_legacyFrameMSAccured >= 33)
+	{
+		m_legacyFrameMSAccured = 0;
+		m_frameLegacy++;
+	}
+	else
+	{
+		m_frameLegacyLast = m_frameLegacy;
+	}
+#endif
 }
 
 void GameClient::step()

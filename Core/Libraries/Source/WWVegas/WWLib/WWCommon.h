@@ -67,7 +67,11 @@ enum
 {
 	// TheSuperHackers @info The original WWSync was 33 ms, ~30 fps, integer.
 	// Changing this will require tweaking all Drawable code that concerns the ww3d time step, including locomotion physics.
+#if defined(GENERALS_ONLINE_HIGH_FPS_SERVER)
+	WWSyncPerSecond = 60,
+#else
 	WWSyncPerSecond = 30,
+#endif
 	WWSyncMilliseconds = 1000 / WWSyncPerSecond,
 };
 
