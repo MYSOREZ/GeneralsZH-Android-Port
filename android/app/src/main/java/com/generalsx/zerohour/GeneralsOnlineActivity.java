@@ -451,6 +451,7 @@ public class GeneralsOnlineActivity extends Activity {
                 // the logic work per second and a slow device will feel it.
                 if (SetupActivity.getSimHz(this) != SetupActivity.SIM_HZ_CROSSPLAY) {
                     SetupActivity.setSimHz(this, SetupActivity.SIM_HZ_CROSSPLAY);
+                    refreshCrossPlayHzChip();
                     new com.google.android.material.dialog.MaterialAlertDialogBuilder(this)
                         .setTitle(R.string.online_crossplay_hz_title)
                         .setMessage(R.string.online_crossplay_hz_message)

@@ -49,6 +49,17 @@
 
     <!-- SetupActivity: Render Backend card -->
     <string name="setup_card_render_backend">渲染后端</string>
+    <string name="setup_card_sim_rate">模拟频率</string>
+    <string name="setup_sim_rate_30_short">30 Hz</string>
+    <string name="setup_sim_rate_60_short">60 Hz</string>
+    <string name="setup_sim_rate_30_desc">30 Hz 是本移植版此前所有版本使用的频率。安卓之间的对战可以正常进行，但与 Windows 玩家的对战会失去同步。</string>
+    <string name="setup_sim_rate_60_desc">60 Hz 与 Windows 版 GeneralsOnline 客户端一致，这正是跨平台对战得以实现的前提。它使每秒的模拟计算量翻倍，性能较弱的设备可能无法跑满速度。</string>
+    <string name="setup_sim_rate_help">帧率在编译引擎时就已固定，因此应用同时包含两个版本，并加载你在此选择的那个。更改将在下次启动游戏时生效。同一场对战的双方必须使用相同的频率。</string>
+    <string name="setup_toast_sim_rate_saved">模拟频率已保存，将在下次启动游戏时生效。</string>
+    <string name="online_crossplay_hz_title">模拟频率已切换为 60 Hz</string>
+    <string name="online_crossplay_hz_message">Windows 客户端以 60 Hz 进行模拟，30 Hz 的客户端无法与之保持同步，因此跨平台对战已将本设备切换为 60 Hz。该更改将在下次启动游戏时生效。\n\n这会使每秒的模拟计算量翻倍。如果游戏运行缓慢，请关闭跨平台对战，或在“图形”中改回 30 Hz——但那样就只能与同为 30 Hz 的其他安卓玩家对战。</string>
+    <string name="online_crossplay_hz_30">模拟频率：30 Hz — 无法与 PC 保持同步</string>
+    <string name="online_crossplay_hz_60">模拟频率：60 Hz — 与 PC 客户端一致</string>
     <string name="setup_render_backend_help">游戏使用哪种图形 API。下次启动游戏时生效，不会立即生效。\n\nOpenGL ES（默认）：为本移植版编写的原生渲染器。它是默认项，因为在目前测试过的所有设备上都能工作，包括那些 Vulkan 会画出错乱画面的设备。请从这里开始，只有在有理由时才更改。\n\nOpenGL ES + ANGLE：同一个渲染器，但改为经过 Google 的 ANGLE（由它翻译成 Vulkan），而不是手机自带的 GLES 驱动。ANGLE 已内置在本应用中，因此不需要最低 Android 版本，也不需要任何系统设置。运行起来通常更快，不过控件较多的菜单（遭遇战选项）首次打开时可能会卡顿，那是 ANGLE 在编译所需内容；在你离开并重新打开该菜单之前不会再次卡顿。\n\nVulkan：最初的后端，通过 DXVK 把 Direct3D 8 翻译为 Vulkan。在驱动处理得好的手机上（通常是较新的骁龙）比其他两项更快。但它完全取决于该驱动，在某些 GPU 上会出现品红色色块、几何变形或菜单错乱，这里的任何设置都无法修复 \u2014 已有 PowerVR BXM 与三星 Xclipse 的报告。如果 Vulkan 在你的设备上显示异常，默认项正是为此准备的。\n\n「自定义 Vulkan 驱动」和「DXVK 配置」两节仅在选择 Vulkan 时显示。</string>
     <string name="setup_render_backend_gpu">你的 GPU：%1$s</string>
     <string name="setup_render_backend_status">当前：%1$s</string>

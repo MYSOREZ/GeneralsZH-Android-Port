@@ -4382,10 +4382,29 @@ UnsignedInt GameLogic::getCRC( Int mode, AsciiString deepCRCFileName )
 	marker = "MARKER:Objects";
 	xferCRC->xferAsciiString(&marker);
 	Int objectCountForTrace = 0;
+	// GeneralsX @feature Android port 15/09/2026 Per-object checksums.
+	//
+	// The stage trace narrows a mismatch to "the objects", which on a map carrying
+	// three hundred pieces of scenery is still most of the simulation. Hashing each
+	// object on its own as well costs one small CRC per object on the frames a
+	// checksum is generated anyway, and makes the list diffable: an object whose own
+	// number moves between two frames is one that actually evolves, and on an idle
+	// map that is a very short list. Only with the gx_net_trace.txt marker present.
+	const Bool gxTraceObjects = GXTrace::isNetEnabled() && isInGameLogicUpdate()
+		&& xferCRC->getXferMode() == XFER_CRC;
 	for( obj = m_objList; obj; obj=obj->getNextObject() )
 	{
 		xferCRC->xferSnapshot( obj );
 		++objectCountForTrace;
+		if (gxTraceObjects)
+		{
+			XferCRC objCRC;
+			objCRC.open("perObject");
+			objCRC.xferSnapshot( obj );
+			GX_NET_TRACE("crc obj frame %u: id=%u crc=%08X tmpl=%s\n",
+				(unsigned)m_frame, (unsigned)obj->getID(), (unsigned)objCRC.getCRC(),
+				obj->getTemplate() ? obj->getTemplate()->getName().str() : "(none)");
+		}
 	}
 	UnsignedInt seed = GetGameLogicRandomSeedCRC();
 	if (isInGameLogicUpdate())

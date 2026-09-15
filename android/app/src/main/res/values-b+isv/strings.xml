@@ -49,6 +49,17 @@
 
     <!-- SetupActivity: Render Backend card -->
     <string name="setup_card_render_backend">Grafičen backend</string>
+    <string name="setup_card_sim_rate">Častota simulacije</string>
+    <string name="setup_sim_rate_30_short">30 Hz</string>
+    <string name="setup_sim_rate_60_short">60 Hz</string>
+    <string name="setup_sim_rate_30_desc">30 Hz je to, čto imali vse prědšestvujuče verzije tutoj portacije. Igra Android proti Androida rabotaje, no meč proti igrača na Windows izgubi sinhronizaciju.</string>
+    <string name="setup_sim_rate_60_desc">60 Hz je častota klienta GeneralsOnline na Windows i jedina, pri kotoroj možlivo jest igrati s PC. Simulacija děla dvakrat vyše rabotǫ na sekundǫ, tomu na slabšem uređaju igra može iti pomalěje.</string>
+    <string name="setup_sim_rate_help">Častota tika jest utverđena pri buđenju motora, tomu aplikacija nese obě verzije i nalagaje tu, kotorǫ izbereš tutde. Izměna dějstvuje pri slědujučem puščenju igry. Oba igrača v meču mahjǫt iměti istǫ častotǫ.</string>
+    <string name="setup_toast_sim_rate_saved">Častota simulacije sohranjena. Budě dějstvovati pri slědujučem puščenju igry.</string>
+    <string name="online_crossplay_hz_title">Častota simulacije prěključena na 60 Hz</string>
+    <string name="online_crossplay_hz_message">Klient Windows simuluje na 60 Hz, a klient na 30 Hz ne može držati s njim takt, tomu križna igra prěključila tuto uređaje na 60 Hz. Budě dějstvovati pri slědujučem puščenju igry.\n\nRabota simulacije na sekundǫ stane dvakrat vyša. Ako igra pojde pomalěje, izključi križnǫ igrǫ ili vrni 30 Hz v razdělu «Grafika» — no togda igrati budě možno tolko s drugymi igračami na Android na 30 Hz.</string>
+    <string name="online_crossplay_hz_30">Častota simulacije: 30 Hz — sinhronizacija s PC nemožliva</string>
+    <string name="online_crossplay_hz_60">Častota simulacije: 60 Hz — sglasna s klientom na PC</string>
     <string name="setup_render_backend_help">Kotory grafičny API igra upotrěbljaje. Dějstvuje od naslědujučego zapuska igry, ne odrazu.\n\nOpenGL ES (izhodno): nativny renderer, napisany za tot port. Jest izhodnym, ibo rabotaje na vsih dosud prověrenyh uređajah, tože na tyh, gdě Vulkan risuje popsovanu grafiku. Načinaj odsud i směnjaj samo pri pričině.\n\nOpenGL ES + ANGLE: tot že renderer, ale prěz ANGLE od Google, ktory prěvodi jego v Vulkan, město sobstvenogo GLES-drajvera telefona. ANGLE vgraditeljny v tuto aplikaciju, tako ne trěbuje ni minimalnoj versije Androida, ni sistemnoj nastrojki. Často byrše v rabotě, ale menu s mnogymi elementami (nastrojki sråženja) može zaviseti pri prvom otvorenju, poka ANGLE kompiluje potrěbno; vtorično to ne povtori sę, poka ne vyjdeš i ne otvoriš to menu iznova.\n\nVulkan: iznačalny bekend, prěz prěvod Direct3D 8 v Vulkan sredstvami DXVK. Byrše ostalnyh na telefonah, čij drajver s njim spravlja sę \u2014 obyčno svěže Snapdragon. Ale vse zavisi imenno od drajvera, i na někotoryh GPU pojavljajut sę purpurne pjatna, iskrivjena geometrija ili popsovane menu, čego nijakoju nastrojkoju odsud ne popraviti \u2014 soobщali pro PowerVR BXM i Samsung Xclipse. Ako Vulkan vygleda nepravilno na tvojem uređaju, izhodny variant iznačalno jest za to.\n\nRazdely «Svoj drajver Vulkan» i «Konfiguracija DXVK» pokazyvajut sę samo pri izbranom Vulkanu.</string>
     <string name="setup_render_backend_gpu">Tvoj GPU: %1$s</string>
     <string name="setup_render_backend_status">Sejčas: %1$s</string>
