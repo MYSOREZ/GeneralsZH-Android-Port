@@ -91,6 +91,7 @@
 #include "GameLogic/CrateSystem.h"
 #include "GameLogic/FPUControl.h"
 #include "GameLogic/GameLogic.h"
+#include "GameNetwork/GeneralsOnline/NextGenMP_defines.h"
 #include "GameLogic/Locomotor.h"
 #include "GameLogic/Object.h"
 #include "GameLogic/Module/AIUpdate.h"
@@ -913,12 +914,29 @@ static void populateRandomStartPosition( GameInfo *game )
 		if (!slot || !slot->isOccupied() || slot->getPlayerTemplate() == PLAYERTEMPLATE_OBSERVER)
 			continue;
 
+#if defined(GENERALS_ONLINE_IBRA_STARTING_POS_LOGIC)
+		Int posIdx = slot->getStartPos();
+		if (posIdx >= 0 && posIdx < numPlayers)
+		{
+			if (taken[posIdx])
+			{
+				// Duplicate explicit start position: mark as random so it gets reassigned
+				slot->setStartPos(-1);
+			}
+			else
+			{
+				hasStartSpotBeenPicked = TRUE;
+				taken[posIdx] = TRUE;
+			}
+		}
+#else
 		Int posIdx = slot->getStartPos();
 		if (posIdx >= 0 || posIdx >= numPlayers)
 		{
 			hasStartSpotBeenPicked = TRUE;
 			taken[posIdx] = TRUE;
 		}
+#endif
 	}
 
 #if 0  //GS  The old way puts everyone as far apart as possible.

@@ -124,8 +124,15 @@
 #endif
 
 // This is here to easily toggle between the retail compatible with fixed pathfinding fallback and pure fixed pathfinding mode
+//
+// The GeneralsOnline client never defines this symbol at all, so every #if on it in
+// AIPathfind.cpp - 93 of them - takes the false arm there. It was (1) here, which changed the
+// A* search itself: at AIPathfind.cpp:1309 the start cell is opened with m_open = TRUE on this
+// side and FALSE on the client's, because s_useFixedPathfinding is initialised false and only
+// the retail arm consults it. A different start node expands differently, which gives a
+// different path, which puts units in different places - and unit positions are hashed.
 #ifndef RETAIL_COMPATIBLE_PATHFINDING
-#define RETAIL_COMPATIBLE_PATHFINDING (1)
+#define RETAIL_COMPATIBLE_PATHFINDING (0)
 #endif
 
 // This is here to easily toggle between the retail compatible pathfinding memory allocation and the new static allocated data mode

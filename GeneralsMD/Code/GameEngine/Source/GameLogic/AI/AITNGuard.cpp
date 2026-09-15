@@ -501,28 +501,14 @@ StateReturnType AITNGuardOuterState::onEnter()
 //--------------------------------------------------------------------------------------
 StateReturnType AITNGuardOuterState::update()
 {
-	Object *owner = getMachineOwner();
-	if (m_attackState == nullptr)
-	{
-		// GeneralsX @bugfix fbraz3 16/04/2026 Recreate missing attack sub-state to avoid null dereference in guard update.
-		Object* nemesis = TheGameLogic->findObjectByID(getGuardMachine()->getNemesisID());
-		if (nemesis == nullptr)
-		{
-			DEBUG_LOG(("AITNGuardOuterState::update has no attack state and no nemesis."));
-			return STATE_SUCCESS;
-		}
-
-		m_exitConditions.m_attackGiveUpFrame = TheGameLogic->getFrame() + TheAI->getAiData()->m_guardChaseUnitFrames;
-		m_attackState = newInstance(AIAttackState)(getMachine(), false, true, false, &m_exitConditions);
-		m_attackState->getMachine()->setGoalObject(nemesis);
-
-		StateReturnType returnVal = m_attackState->onEnter();
-		if (returnVal != STATE_CONTINUE)
-		{
-			return returnVal;
-		}
+	// The client simply gives up here. The port used to rebuild the attack sub-state instead,
+	// which keeps the unit attacking where the client stops, and burns logic RNG inside
+	// onEnter() - both of which desynchronise hashed AI and object state.
+	if (m_attackState == nullptr) {
+		return STATE_SUCCESS;
 	}
 
+	Object *owner = getMachineOwner();
 	Object* goalObj = m_attackState->getMachineGoalObject();
 	if (goalObj)
 	{
