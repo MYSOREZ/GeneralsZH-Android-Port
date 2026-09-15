@@ -126,6 +126,7 @@
 // WebSocket need pumping once a frame, same as TheNetwork below, or nothing
 // they kick off (auth polling, WS connect, HTTP requests) ever progresses.
 #include "GameNetwork/GeneralsOnline/NGMP_interfaces.h"
+#include "GameNetwork/GeneralsOnline/NextGenMP_defines.h"
 // GeneralsX @bugfix Android port 07/11/2026 - needed for GSMessageBoxOk/GameSpyCloseAllOverlays used by TearDownGeneralsOnline below
 #include "GameNetwork/GameSpyOverlay.h"
 
@@ -850,6 +851,10 @@ void GameEngine::init()
 			(int)RETAIL_COMPATIBLE_CRC, (int)RETAIL_COMPATIBLE_XFER_SAVE,
 			(int)RETAIL_COMPATIBLE_PATHFINDING_ALLOCATION, (int)RETAIL_COMPATIBLE_AIGROUP,
 			(int)RETAIL_COMPATIBLE_NETWORKING);
+		// The tick rate is part of the lockstep contract and is a build-time choice, so a log
+		// has to say which one produced it. Deducing it from a CRC that moved is guesswork.
+		fprintf(stderr, "[GX-BUILD] sim tick: %d Hz, client id %s  (the PC client is 60 Hz)\n",
+			(int)LOGICFRAMES_PER_SECOND, GENERALS_ONLINE_CLIENT_ID);
 		// GeneralsX @bugfix Android port 13/09/2026 Take the build time from the
 		// binary, not from __TIME__.
 		//
