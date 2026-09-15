@@ -48,6 +48,22 @@ rm -rf "${JNILIBS}"
 mkdir -p "${JNILIBS}"
 cp "${GAME_LIB}" "${JNILIBS}/libmain.so"
 
+# GeneralsX @feature Android port 15/09/2026 Optional second engine build.
+#
+# The simulation tick rate is fixed at compile time -- it selects an enum constant
+# the whole engine reads and decides which fields GameLogic has -- so it cannot be a
+# runtime setting. To offer it as one anyway, the APK carries both engines and the
+# launcher loads whichever the player picked (GeneralsZHActivity.getLibraries()).
+# Set GX_SECOND_GAME_LIB to the other build's libmain.so; build-dual-hz.sh does this.
+if [[ -n "${GX_SECOND_GAME_LIB:-}" ]]; then
+    if [[ ! -f "${GX_SECOND_GAME_LIB}" ]]; then
+        echo "ERROR: GX_SECOND_GAME_LIB points at a file that does not exist: ${GX_SECOND_GAME_LIB}"
+        exit 1
+    fi
+    cp "${GX_SECOND_GAME_LIB}" "${JNILIBS}/libmain60.so"
+    echo "Packaging a second engine: libmain60.so ($(du -h "${GX_SECOND_GAME_LIB}" | cut -f1))"
+fi
+
 # Required runtime .so set. Fail loudly on any missing file: a stale or partial
 # stage produces an APK that dies at System.loadLibrary / D3D init.
 declare -a REQUIRED_LIBS=(

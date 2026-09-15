@@ -49,6 +49,17 @@
 
     <!-- SetupActivity: Render Backend card -->
     <string name="setup_card_render_backend">Render Backend</string>
+    <string name="setup_card_sim_rate">Simulation Rate</string>
+    <string name="setup_sim_rate_30_short">30 Hz</string>
+    <string name="setup_sim_rate_60_short">60 Hz</string>
+    <string name="setup_sim_rate_30_desc">30 Hz matches every earlier build of this port. Android-to-Android matches work on it, but a match against a Windows player will desynchronise.</string>
+    <string name="setup_sim_rate_60_desc">60 Hz matches the Windows GeneralsOnline client, which is what makes cross-play possible. It doubles the simulation work per second, so a slower device may run the game below full speed.</string>
+    <string name="setup_sim_rate_help">The tick rate is fixed when the engine is built, so the app carries both versions and loads the one you pick here. The change takes effect the next time you start the game. Both players in a match must be on the same rate.</string>
+    <string name="setup_toast_sim_rate_saved">Simulation rate saved. It will apply the next time you start the game.</string>
+    <string name="online_crossplay_hz_title">Simulation rate switched to 60 Hz</string>
+    <string name="online_crossplay_hz_message">The Windows client simulates at 60 Hz, and a 30 Hz client cannot stay in step with it, so cross-play has switched this device to 60 Hz. It takes effect the next time you start the game.\n\nThis doubles the simulation work per second. If the game runs slowly, turn cross-play off or set the rate back to 30 Hz under Graphics — but then you can only play against other Android players on 30 Hz.</string>
+    <string name="online_crossplay_hz_30">Simulation rate: 30 Hz — cannot hold sync with a PC</string>
+    <string name="online_crossplay_hz_60">Simulation rate: 60 Hz — matches the PC client</string>
     <string name="setup_render_backend_help">Which graphics API the game uses. Takes effect the next time you launch the game, not live.\n\nOpenGL ES (default): a native renderer written for this port. It is the default because it works on every device tested so far, including ones where Vulkan renders corrupted graphics. Start here; only change it if you have a reason to.\n\nOpenGL ES + ANGLE: the same renderer, but routed through Google\u0027s ANGLE, which translates it to Vulkan, instead of your phone\u0027s own GLES driver. ANGLE is bundled inside this app, so it needs no minimum Android version and no system setting. Often faster once running, though a menu with many controls (Skirmish options) can stutter the first time it opens while ANGLE compiles what it needs; it does not stutter again until you leave and reopen that menu.\n\nVulkan: the original backend, through DXVK\u0027s Direct3D 8 to Vulkan translation. Faster than the others on phones whose driver handles it well, typically recent Snapdragon. But it depends entirely on that driver, and on some GPUs it produces magenta patches, distorted geometry or corrupted menus that no setting here can fix \u2014 PowerVR BXM and Samsung Xclipse have both been reported. If Vulkan looks wrong on your device, that is what the default is for.\n\nThe Custom Vulkan Driver and DXVK Config sections only appear when Vulkan is selected.</string>
     <string name="setup_render_backend_gpu">Your GPU: %1$s</string>
     <string name="setup_render_backend_status">Current: %1$s</string>

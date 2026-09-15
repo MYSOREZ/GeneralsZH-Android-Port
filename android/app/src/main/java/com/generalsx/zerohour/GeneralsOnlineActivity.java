@@ -92,6 +92,7 @@ public class GeneralsOnlineActivity extends Activity {
     private boolean dataPackBusy;
     private boolean dataPackPrompted;
     private TextView crossPlayPatchChip;
+    private TextView crossPlayHzChip;
 
     private TextView statusText;
     private MaterialButton signInButton;
@@ -443,10 +444,39 @@ public class GeneralsOnlineActivity extends Activity {
                     button.setChecked(false);
                     return;
                 }
+                // GeneralsX @feature Android port 15/09/2026 Cross-play is not just a
+                // checksum claim: the Windows client simulates at 60 Hz, and a 30 Hz
+                // client cannot stay in lockstep with it whatever it reports. So turning
+                // this on switches the engine too - and says so, because it costs twice
+                // the logic work per second and a slow device will feel it.
+                if (SetupActivity.getSimHz(this) != SetupActivity.SIM_HZ_CROSSPLAY) {
+                    SetupActivity.setSimHz(this, SetupActivity.SIM_HZ_CROSSPLAY);
+                    new com.google.android.material.dialog.MaterialAlertDialogBuilder(this)
+                        .setTitle(R.string.online_crossplay_hz_title)
+                        .setMessage(R.string.online_crossplay_hz_message)
+                        .setPositiveButton(android.R.string.ok, null)
+                        .show();
+                }
             } else {
                 marker.delete();
             }
         });
+
+        // The tick rate is the other half of cross-play, so show where it stands here
+        // rather than making someone go and look in the graphics settings.
+        crossPlayHzChip = UiKit.chip(card, R.drawable.ic_gzh_chip, "",
+            R.color.gzh_on_surface, R.color.gzh_surface_container_high);
+        refreshCrossPlayHzChip();
+    }
+
+    private void refreshCrossPlayHzChip() {
+        if (crossPlayHzChip == null) {
+            return;
+        }
+        boolean crossPlayRate = SetupActivity.getSimHz(this) == SetupActivity.SIM_HZ_CROSSPLAY;
+        crossPlayHzChip.setText(getString(crossPlayRate
+            ? R.string.online_crossplay_hz_60
+            : R.string.online_crossplay_hz_30));
     }
 
     private File crossPlayMarkerFile() {
