@@ -227,7 +227,7 @@
     <string name="setup_render_backend_gles_angle_short">ANGLE</string>
     <string name="setup_render_backend_vulkan_short">Vulkan</string>
     <string name="setup_switch_gx_net_trace">온라인 네트워크 로그</string>
-    <string name="setup_switch_gx_net_trace_desc">게임이 GeneralsOnline 서버에 보낸 모든 요청과 받은 응답을 기록합니다. 게임 안에서 로그인, 로비, 매치메이킹이 실패할 때 켜세요. 런처 자체의 요청은 항상 기록되며, 이 스위치는 게임의 요청을 추가합니다. (gx_net_trace.txt)</string>
+    <string name="setup_switch_gx_net_trace_desc">게임이 GeneralsOnline 서버에 보낸 모든 요청과 받은 응답을 기록합니다. 게임 안에서 로그인, 로비, 매치메이킹이 실패할 때 켜세요. 런처 자체의 요청은 항상 기록되며, 이 스위치는 게임의 요청을 추가합니다. 교차 플랫폼 플레이의 desync 진단도 함께 켭니다. 각 간격마다 비교되는 시뮬레이션 체크섬과, 리플레이에서는 개별 오브젝트마다의 체크섬을 기록합니다. (gx_net_trace.txt)</string>
     <string name="netdiag_title">네트워크 진단</string>
     <string name="netdiag_row_note">이 기기가 GeneralsOnline 서버에 연결되는지 확인하고, 버그 신고에 첨부할 보고서를 만듭니다.</string>
     <string name="netdiag_intro">네트워크가 작동하는지, GeneralsOnline 서버 이름이 해석되는지, 서버가 응답하는지, 로그인에 대해 뭐라고 답하는지를 순서대로 확인합니다.\n\n아무것도 외부로 전송되지 않습니다. 「실행」을 누르세요.</string>

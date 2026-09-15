@@ -227,7 +227,7 @@
     <string name="setup_render_backend_gles_angle_short">ANGLE</string>
     <string name="setup_render_backend_vulkan_short">Vulkan</string>
     <string name="setup_switch_gx_net_trace">Journal réseau en ligne</string>
-    <string name="setup_switch_gx_net_trace_desc">Enregistre chaque requête du jeu vers les serveurs GeneralsOnline et la réponse reçue. Activez ceci si la connexion, le salon ou le matchmaking échouent une fois dans le jeu. Les requêtes du lanceur sont toujours enregistrées ; ceci ajoute celles du jeu. (gx_net_trace.txt)</string>
+    <string name="setup_switch_gx_net_trace_desc">Enregistre chaque requête du jeu vers les serveurs GeneralsOnline et la réponse reçue. Activez ceci si la connexion, le salon ou le matchmaking échouent une fois dans le jeu. Les requêtes du lanceur sont toujours enregistrées ; ceci ajoute celles du jeu. Active également le diagnostic de désynchronisation en jeu multiplateforme : les sommes de contrôle de la simulation comparées à chaque intervalle et, dans une rediffusion, celle de chaque objet. (gx_net_trace.txt)</string>
     <string name="netdiag_title">Diagnostic réseau</string>
     <string name="netdiag_row_note">Vérifier si cet appareil atteint les serveurs GeneralsOnline et produire un rapport à joindre à un signalement.</string>
     <string name="netdiag_intro">Vérifie, dans l\'ordre : si le réseau fonctionne, si les noms des serveurs GeneralsOnline se résolvent, si les serveurs répondent et ce qu\'ils disent de la connexion.\n\nRien n\'est envoyé. Touchez « Lancer » pour commencer.</string>

@@ -227,7 +227,7 @@
     <string name="setup_render_backend_gles_angle_short">ANGLE</string>
     <string name="setup_render_backend_vulkan_short">Vulkan</string>
     <string name="setup_switch_gx_net_trace">سجل شبكة اللعب عبر الإنترنت</string>
-    <string name="setup_switch_gx_net_trace_desc">يسجّل كل طلب ترسله اللعبة إلى خوادم GeneralsOnline والرد الذي يصلها. فعّل هذا إذا كان تسجيل الدخول أو الردهة أو المطابقة يفشل داخل اللعبة نفسها. طلبات المشغّل تُسجَّل دائمًا، وهذا يضيف طلبات اللعبة. (gx_net_trace.txt)</string>
+    <string name="setup_switch_gx_net_trace_desc">يسجّل كل طلب ترسله اللعبة إلى خوادم GeneralsOnline والرد الذي يصلها. فعّل هذا إذا كان تسجيل الدخول أو الردهة أو المطابقة يفشل داخل اللعبة نفسها. طلبات المشغّل تُسجَّل دائمًا، وهذا يضيف طلبات اللعبة. كما يُفعّل تشخيص عدم التزامن في اللعب عبر المنصات: مجاميع التحقّق للمحاكاة التي تُقارن في كل فترة، وفي إعادة العرض مجموع التحقّق لكل كائن على حدة. (gx_net_trace.txt)</string>
     <string name="netdiag_title">تشخيص الشبكة</string>
     <string name="netdiag_row_note">تحقّق مما إذا كان هذا الجهاز يصل إلى خوادم GeneralsOnline، واجمع تقريرًا لإرفاقه ببلاغ عن خلل.</string>
     <string name="netdiag_intro">يفحص بالترتيب: هل توجد شبكة تعمل، وهل تُترجَم أسماء خوادم GeneralsOnline، وهل تستجيب الخوادم، وماذا تقول عن تسجيل الدخول.\n\nلا يُرسَل أي شيء إلى أي جهة. اضغط «تشغيل» للبدء.</string>

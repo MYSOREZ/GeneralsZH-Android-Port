@@ -227,7 +227,7 @@
     <string name="setup_render_backend_gles_angle_short">ANGLE</string>
     <string name="setup_render_backend_vulkan_short">Vulkan</string>
     <string name="setup_switch_gx_net_trace">Online-Netzwerkprotokoll</string>
-    <string name="setup_switch_gx_net_trace_desc">Zeichnet jede Anfrage des Spiels an die GeneralsOnline-Server samt Antwort auf. Aktiviere dies, wenn Anmeldung, Lobby oder Matchmaking erst im Spiel fehlschlagen. Die Anfragen des Launchers werden immer aufgezeichnet; dies ergänzt die des Spiels. (gx_net_trace.txt)</string>
+    <string name="setup_switch_gx_net_trace_desc">Zeichnet jede Anfrage des Spiels an die GeneralsOnline-Server samt Antwort auf. Aktiviere dies, wenn Anmeldung, Lobby oder Matchmaking erst im Spiel fehlschlagen. Die Anfragen des Launchers werden immer aufgezeichnet; dies ergänzt die des Spiels. Schaltet außerdem die Desync-Diagnose für das plattformübergreifende Spiel ein: die Prüfsummen der Simulation, die in jedem Intervall verglichen werden, und in einer Wiederholung die Prüfsumme jedes einzelnen Objekts. (gx_net_trace.txt)</string>
     <string name="netdiag_title">Netzwerkdiagnose</string>
     <string name="netdiag_row_note">Prüfen, ob dieses Gerät die GeneralsOnline-Server erreicht, und einen Bericht für eine Fehlermeldung erstellen.</string>
     <string name="netdiag_intro">Geprüft wird der Reihe nach: ob ein funktionierendes Netzwerk vorhanden ist, ob die GeneralsOnline-Servernamen auflösbar sind, ob die Server antworten und was sie zur Anmeldung sagen.\n\nEs wird nichts verschickt. Zum Start auf „Ausführen“ tippen.</string>

@@ -114,7 +114,7 @@
     <string name="setup_switch_gx_audio_trace">Audio log</string>
     <string name="setup_switch_gx_audio_trace_desc">Records what the sound system is doing: music and speech buffer levels, movie audio, and every source that starts or stops. Turn this on if you are asked for an audio log after reporting missing, stuttering or silent sound. (gx_audio_trace.txt)</string>
     <string name="setup_switch_gx_net_trace">Online network log</string>
-    <string name="setup_switch_gx_net_trace_desc">Records every request the game makes to the GeneralsOnline servers, with the reply it got. Turn this on if sign-in, the lobby or matchmaking fails from inside the game. The launcher\'s own requests are always recorded; this adds the game\'s. (gx_net_trace.txt)</string>
+    <string name="setup_switch_gx_net_trace_desc">Records every request the game makes to the GeneralsOnline servers, with the reply it got. Turn this on if sign-in, the lobby or matchmaking fails from inside the game. The launcher\'s own requests are always recorded; this adds the game\'s. It also turns on the cross-play desync diagnostics: the simulation checksums that are compared each interval, and, in a replay, the checksum of every single object. (gx_net_trace.txt)</string>
     <string name="setup_button_download_langpack">Download language pack</string>
     <string name="setup_langpack_downloading">Downloading the language pack…</string>
     <string name="setup_langpack_done">Language pack installed. The game will use it on the next launch.</string>

@@ -227,7 +227,7 @@
     <string name="setup_render_backend_gles_angle_short">ANGLE</string>
     <string name="setup_render_backend_vulkan_short">Vulkan</string>
     <string name="setup_switch_gx_net_trace">Мережевий лог онлайну</string>
-    <string name="setup_switch_gx_net_trace_desc">Записує кожен запит гри до серверів GeneralsOnline і отриману відповідь. Увімкніть, якщо вхід, лобі чи підбір гри не працюють уже всередині гри. Запити самого лаунчера записуються завжди; цей перемикач додає запити гри. (gx_net_trace.txt)</string>
+    <string name="setup_switch_gx_net_trace_desc">Записує кожен запит гри до серверів GeneralsOnline і отриману відповідь. Увімкніть, якщо вхід, лобі чи підбір гри не працюють уже всередині гри. Запити самого лаунчера записуються завжди; цей перемикач додає запити гри. Також вмикає діагностику розсинхронізації у кросплатформеній грі: контрольні суми симуляції, які порівнюються на кожному інтервалі, а в повторі — контрольну суму кожного окремого об\'єкта. (gx_net_trace.txt)</string>
     <string name="netdiag_title">Діагностика мережі</string>
     <string name="netdiag_row_note">Перевірити, чи дістається пристрій до серверів GeneralsOnline, і зібрати звіт для повідомлення про помилку.</string>
     <string name="netdiag_intro">Перевірка йде по черзі: чи є робоча мережа, чи розпізнаються імена серверів GeneralsOnline, чи відповідають сервери і що вони кажуть про вхід.\n\nНікуди нічого не надсилається. Натисніть «Запустити».</string>
