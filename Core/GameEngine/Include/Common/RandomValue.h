@@ -55,6 +55,18 @@ struct ClientRandomValueClass final : RandomValueClass
 	virtual Real GetRandomValueReal( Real lo, Real hi, const char *file, Int line ) const override;
 };
 
+// GeneralsX @feature Android port 15/09/2026 Logic-RNG call-site tally.
+//
+// The logic seed is hashed straight into the lockstep checksum, so a single
+// extra or missing draw on one machine desynchronises the match. When the two
+// machines disagree, the seed alone says the streams diverged, never who drew.
+// Every draw already carries __FILE__ and __LINE__ for the debug logging, so
+// the same two values can be tallied per call site and printed at the frames a
+// checksum is generated -- turning "the seeds differ" into a short list of the
+// call sites that consumed randomness in between. Recording costs nothing
+// unless the gx_net_trace.txt marker is present.
+extern void GameLogicRandomTallyDump( UnsignedInt frame );
+
 // use these macros to access the random value functions
 #define RandomValueInt(randomValueClass, lo, hi) randomValueClass.GetRandomValueInt( lo, hi, __FILE__, __LINE__ )
 #define RandomValueReal(randomValueClass, lo, hi) randomValueClass.GetRandomValueReal( lo, hi, __FILE__, __LINE__ )

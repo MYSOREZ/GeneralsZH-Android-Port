@@ -4401,8 +4401,16 @@ UnsignedInt GameLogic::getCRC( Int mode, AsciiString deepCRCFileName )
 			XferCRC objCRC;
 			objCRC.open("perObject");
 			objCRC.xferSnapshot( obj );
-			GX_NET_TRACE("crc obj frame %u: id=%u crc=%08X tmpl=%s\n",
+			// The checksum says an object moved, never by how much. Printing the
+			// position and facing alongside it separates the two explanations that
+			// matter: a civilian car actually driving somewhere covers whole map
+			// units, whereas rounding that differs between x86 and arm64 shows up in
+			// the last digits of a coordinate that is otherwise standing still.
+			const Coord3D *objPos = obj->getPosition();
+			GX_NET_TRACE("crc obj frame %u: id=%u crc=%08X pos=%.6f,%.6f,%.6f ang=%.6f tmpl=%s\n",
 				(unsigned)m_frame, (unsigned)obj->getID(), (unsigned)objCRC.getCRC(),
+				objPos ? objPos->x : 0.0f, objPos ? objPos->y : 0.0f, objPos ? objPos->z : 0.0f,
+				obj->getOrientation(),
 				obj->getTemplate() ? obj->getTemplate()->getName().str() : "(none)");
 		}
 	}
@@ -4433,6 +4441,11 @@ UnsignedInt GameLogic::getCRC( Int mode, AsciiString deepCRCFileName )
 		// the gx_net_trace.txt marker present.
 		GX_NET_TRACE("crc parts frame %u: afterObjects=%08X seed=%08X\n",
 			(unsigned)m_frame, (unsigned)xferCRC->getCRC(), (unsigned)seed);
+
+		// The seed above is one number: it says the two streams parted, never who
+		// drew. This names the call sites that consumed logic randomness since the
+		// previous checksum, with a count each.
+		GameLogicRandomTallyDump( m_frame );
 	}
 
 	marker = "MARKER:ThePartitionManager";

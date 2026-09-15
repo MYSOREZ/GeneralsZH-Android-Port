@@ -35,6 +35,56 @@
 #include "GameLogic/GameLogic.h"
 #include "GameLogic/LogicRandomValue.h"
 #include "GameClient/ClientRandomValue.h"
+#include "GXTrace.h"
+
+#include <cstring>
+#include <map>
+#include <utility>
+
+// GeneralsX @feature Android port 15/09/2026 See RandomValue.h: the lockstep
+// checksum hashes the logic seed, so the one thing worth knowing when two
+// machines' seeds part ways is which call sites drew in between. __FILE__ is a
+// string literal, so its address identifies the call site as cheaply as the
+// line number does and no string is ever copied while tallying.
+namespace
+{
+	typedef std::pair<const char *, Int> LogicDrawSite;
+	std::map<LogicDrawSite, UnsignedInt> theLogicDrawTally;
+	UnsignedInt theLogicDrawTotal = 0;
+
+	inline void tallyLogicDraw( const char *file, Int line )
+	{
+		if (!GXTrace::isNetEnabled())
+			return;
+		++theLogicDrawTally[LogicDrawSite(file, line)];
+		++theLogicDrawTotal;
+	}
+}
+
+void GameLogicRandomTallyDump( UnsignedInt frame )
+{
+	if (!GXTrace::isNetEnabled())
+		return;
+
+	GX_NET_TRACE("crc rng frame %u: draws=%u sites=%u\n",
+		(unsigned)frame, (unsigned)theLogicDrawTotal, (unsigned)theLogicDrawTally.size());
+
+	for (std::map<LogicDrawSite, UnsignedInt>::const_iterator it = theLogicDrawTally.begin();
+		it != theLogicDrawTally.end(); ++it)
+	{
+		const char *file = it->first.first ? it->first.first : "(none)";
+		// Only the tail of the path is useful and the full one is long.
+		const char *slash = strrchr(file, '/');
+		if (slash)
+			file = slash + 1;
+		GX_NET_TRACE("crc rng frame %u:   %s:%d drew %u\n",
+			(unsigned)frame, file, (int)it->first.second, (unsigned)it->second);
+	}
+
+	theLogicDrawTally.clear();
+	theLogicDrawTotal = 0;
+}
+
 
 #undef DEBUG_RANDOM_AUDIO
 #undef DEBUG_RANDOM_CLIENT
@@ -282,6 +332,8 @@ Int GetGameLogicRandomValue( int lo, int hi, const char *file, int line )
 
 	const Int rval = ((Int)(randomValue(theGameLogicSeed) % delta)) + lo;
 
+	tallyLogicDraw( file, line );
+
 #ifdef DEBUG_RANDOM_LOGIC
 	DEBUG_LOG(( "%d: GetGameLogicRandomValue = %d (%d - %d), %s line %d",
 		TheGameLogic->getFrame(), rval, lo, hi, file, line ));
@@ -308,6 +360,8 @@ Real GetGameLogicRandomValueReal( Real lo, Real hi, const char *file, int line )
 #endif
 
 	const Real rval = ((Real)(randomValue(theGameLogicSeed)) * theMultFactor) * delta + lo;
+
+	tallyLogicDraw( file, line );
 
 #ifdef DEBUG_RANDOM_LOGIC
 	DEBUG_LOG(( "%d: GetGameLogicRandomValueReal = %f, %s line %d",

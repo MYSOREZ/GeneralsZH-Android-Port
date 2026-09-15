@@ -47,6 +47,19 @@
 #define PRESERVE_NO_XP_FROM_OCL_KILLS (1)
 #endif
 
+// GeneralsX @note Android port 15/09/2026 Three of the switches below are written
+// in the client as a choice between (0) and (1) on
+// defined(GENERALS_ONLINE) && defined(GENERALS_ONLINE_COMMUNITY_PATCH_CHANGES),
+// and are flattened to (1) here. That is not a simplification of the behaviour, it
+// is the behaviour: the client defines GENERALS_ONLINE from CMake but
+// GENERALS_ONLINE_COMMUNITY_PATCH_CHANGES only inside NextGenMP_defines.h, and this
+// file is reached through PreRTS.h -> Common/GameCommon.h long before any
+// translation unit includes that header. The second condition is therefore always
+// false where it is evaluated, so the client compiles the (1) arm every time.
+// Two of the three feed the lockstep checksum -- experience from poison kills and
+// the Battle Bus death frame -- so if that macro ever does reach this file, these
+// must move with it or cross-play desynchronises.
+
 #ifndef PRESERVE_NO_XP_FROM_POISON_KILLS
 #define PRESERVE_NO_XP_FROM_POISON_KILLS (1)
 #endif
