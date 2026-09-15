@@ -730,12 +730,16 @@ Bool SpecialAbilityUpdate::needToUnpack() const
 }
 
 //-------------------------------------------------------------------------------------------------
+// Note: the client uses m_unpackTime here, not m_packTime, exactly as it does in
+// startUnpacking. That looks like an upstream mistake, but m_animFrames decides how long the
+// unit stays locked in the packing state - and therefore when it next moves or fires - so we
+// have to reproduce it rather than correct it.
 void SpecialAbilityUpdate::startPacking(Bool success)
 {
   const SpecialAbilityUpdateModuleData* data = getSpecialAbilityUpdateModuleData();
   m_packingState = STATE_PACKING;
   Real variation = GameLogicRandomValueReal( 1.0f - data->m_packUnpackVariationFactor, 1.0f + data->m_packUnpackVariationFactor );
-  m_animFrames = data->m_packTime * variation;
+  m_animFrames = data->m_unpackTime * variation;
 
   //Set the animation state
   getObject()->clearAndSetModelConditionFlags(

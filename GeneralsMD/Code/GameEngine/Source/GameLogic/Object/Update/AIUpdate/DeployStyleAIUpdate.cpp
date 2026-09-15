@@ -237,6 +237,12 @@ UpdateSleepTime DeployStyleAIUpdate::update()
 		case DEPLOY:
 			if( data->m_manualDeployAnimations )
 			{
+#if defined(GENERALS_ONLINE) && defined(GENERALS_ONLINE_HIGH_FPS_SERVER)
+				if (!TheGameLogic->HasLegacyFrameAdvanced())
+				{
+					break;
+				}
+#endif
 				UnsignedInt totalFrames = getPackTime();
 				UnsignedInt framesLeft = m_frameToWaitForDeploy - now;
 				Drawable *draw = self->getDrawable();
