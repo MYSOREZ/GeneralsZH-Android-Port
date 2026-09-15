@@ -35,4 +35,28 @@ extern void InitRandom( UnsignedInt seed );
 extern UnsignedInt GetGameLogicRandomSeed();   ///< Get the seed (used for replays)
 extern UnsignedInt GetGameLogicRandomSeedCRC();///< Get the seed (used for CRCs)
 
+// Lets a helper be told which stream to draw from instead of hardcoding one. The client uses
+// this to keep purely cosmetic draws (particle placement) off the logic stream: the logic RNG
+// state is hashed into the lockstep CRC, so an extra draw there desynchronises the game even
+// though the value is only ever used to place a puff of smoke.
+struct RandomValueClass
+{
+	virtual Int GetRandomValueInt( Int lo, Int hi, const char *file, Int line ) const = 0;
+	virtual Real GetRandomValueReal( Real lo, Real hi, const char *file, Int line ) const = 0;
+};
+struct LogicRandomValueClass final : RandomValueClass
+{
+	virtual Int GetRandomValueInt( Int lo, Int hi, const char *file, Int line ) const override;
+	virtual Real GetRandomValueReal( Real lo, Real hi, const char *file, Int line ) const override;
+};
+struct ClientRandomValueClass final : RandomValueClass
+{
+	virtual Int GetRandomValueInt( Int lo, Int hi, const char *file, Int line ) const override;
+	virtual Real GetRandomValueReal( Real lo, Real hi, const char *file, Int line ) const override;
+};
+
+// use these macros to access the random value functions
+#define RandomValueInt(randomValueClass, lo, hi) randomValueClass.GetRandomValueInt( lo, hi, __FILE__, __LINE__ )
+#define RandomValueReal(randomValueClass, lo, hi) randomValueClass.GetRandomValueReal( lo, hi, __FILE__, __LINE__ )
+
 //--------------------------------------------------------------------------------------------------------------

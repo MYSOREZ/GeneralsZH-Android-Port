@@ -253,7 +253,7 @@ void TransitionDamageFX::onDelete()
 /** Given an FXLoc info struct, return the effect position that we are supposed to use.
 	* The position is local to to the object */
 //-------------------------------------------------------------------------------------------------
-static Coord3D getLocalEffectPos( const FXLocInfo *locInfo, Drawable *draw )
+static Coord3D getLocalEffectPos( const FXLocInfo *locInfo, Drawable *draw, const RandomValueClass &random = LogicRandomValueClass() )
 {
 
 	DEBUG_ASSERTCRASH( locInfo, ("getLocalEffectPos: locInfo is null") );
@@ -290,7 +290,7 @@ static Coord3D getLocalEffectPos( const FXLocInfo *locInfo, Drawable *draw )
 				return locInfo->loc;
 
 			// pick one of the bone positions
-			Int pick = GameLogicRandomValue( 0, boneCount - 1 );
+			Int pick = RandomValueInt( random, 0, boneCount - 1 );
 			return positions[ pick ];
 
 		}
@@ -394,7 +394,11 @@ void TransitionDamageFX::onBodyDamageStateChange( const DamageInfo* damageInfo,
 					{
 
 						// get the what is the position we're going to played the effect at
-						pos = getLocalEffectPos( &modData->m_particleSystem[ newState ][ i ].locInfo, draw );
+						// Particle placement is cosmetic, so it must not consume a logic draw: the logic
+						// RNG state is hashed into the lockstep CRC. Under RETAIL_COMPATIBLE_CRC the client
+						// burns a matching logic draw above to stay bit-compatible with retail; that branch
+						// is off in both builds, so neither side draws here.
+						pos = getLocalEffectPos( &modData->m_particleSystem[ newState ][ i ].locInfo, draw, ClientRandomValueClass() );
 
 						//
 						// set position on system given any bone position provided, the bone position is

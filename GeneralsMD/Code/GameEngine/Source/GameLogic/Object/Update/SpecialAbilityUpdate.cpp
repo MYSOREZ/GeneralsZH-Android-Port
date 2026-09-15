@@ -1408,7 +1408,7 @@ void SpecialAbilityUpdate::triggerAbilityEffect()
           if (sys)
           {
             Coord3D offs = {0,0,0};
-            target->getGeometryInfo().makeRandomOffsetWithinFootprint( offs );
+            target->getGeometryInfo().makeRandomOffsetWithinFootprint( offs, ClientRandomValueClass() );
 
             sys->attachToObject(target);
             sys->setPosition( &offs );

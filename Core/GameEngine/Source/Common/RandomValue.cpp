@@ -33,6 +33,8 @@
 #include "Common/crc.h"
 #include "Common/Debug.h"
 #include "GameLogic/GameLogic.h"
+#include "GameLogic/LogicRandomValue.h"
+#include "GameClient/ClientRandomValue.h"
 
 #undef DEBUG_RANDOM_AUDIO
 #undef DEBUG_RANDOM_CLIENT
@@ -464,4 +466,24 @@ Real GameLogicRandomVariable::getValue() const
 			DEBUG_CRASH(("unsupported DistributionType in GameLogicRandomVariable::getValue"));
 			return 0.0f;
 	}
+}
+
+Int LogicRandomValueClass::GetRandomValueInt( Int lo, Int hi, const char *file, Int line ) const
+{
+	return GetGameLogicRandomValue(lo, hi, file, line);
+}
+
+Real LogicRandomValueClass::GetRandomValueReal( Real lo, Real hi, const char *file, Int line ) const
+{
+	return GetGameLogicRandomValueReal(lo, hi, file, line);
+}
+
+Int ClientRandomValueClass::GetRandomValueInt( Int lo, Int hi, const char *file, Int line ) const
+{
+	return GetGameClientRandomValue(lo, hi, file, line);
+}
+
+Real ClientRandomValueClass::GetRandomValueReal( Real lo, Real hi, const char *file, Int line ) const
+{
+	return GetGameClientRandomValueReal(lo, hi, file, line);
 }
