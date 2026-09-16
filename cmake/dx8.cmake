@@ -28,6 +28,25 @@ if(SAGE_USE_DX8)
   FetchContent_MakeAvailable(dx8)
   message(STATUS "Using DirectX 8 SDK (Windows native)")
 
+  # GeneralsX @bugfix Android port 16/09/2026 min-dx8-sdk's own CMakeLists.txt
+  # does `if(MINGW) target_link_libraries(d3d8lib INTERFACE d3dx8d) endif()`,
+  # assuming a MinGW consumer wants its libd3dx8d.a auto-linked. That import
+  # lib's DLL name is literally "d3dx8d.dll" -- the DirectX SDK's debug
+  # redistributable, which no real Windows install ships -- so a build linked
+  # against it fails to start on any real machine. GeneralsMD/Code/CompatLib
+  # already builds a real, from-source d3dx8 implementing everything this
+  # codebase actually calls (see that CMakeLists.txt), so drop min-dx8-sdk's
+  # own d3dx8d from d3d8lib's INTERFACE_LINK_LIBRARIES rather than trying to
+  # out-order or fight the third-party project's own configure logic.
+  if(MINGW AND TARGET d3d8lib)
+    get_target_property(_gx_d3d8lib_libs d3d8lib INTERFACE_LINK_LIBRARIES)
+    if(_gx_d3d8lib_libs)
+      list(REMOVE_ITEM _gx_d3d8lib_libs "d3dx8d")
+      set_target_properties(d3d8lib PROPERTIES INTERFACE_LINK_LIBRARIES "${_gx_d3d8lib_libs}")
+    endif()
+    unset(_gx_d3d8lib_libs)
+  endif()
+
 elseif(APPLE AND SAGE_USE_MOLTENVK)
   # macOS: Build DXVK 2.6 from source using Meson + MoltenVK
   # GeneralsX @build BenderAI 24/02/2026 - Phase 5 macOS port (Session 61)
