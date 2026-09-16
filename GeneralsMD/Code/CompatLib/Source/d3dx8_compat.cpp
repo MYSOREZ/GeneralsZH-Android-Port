@@ -2,6 +2,10 @@
 // Do NOT redefine it here -- that causes -Wmacro-redefined with Clang.
 
 #include "d3dx8core.h"
+#include <cstdint>	// GeneralsX @bugfix Android port 16/09/2026 uint16_t/uint32_t
+						// below (the MinGW/Apple manual box-filter fallback) used to
+						// come in transitively via gli.hpp; the MinGW branch doesn't
+						// include that anymore.
 
 // GeneralsX @build felipebraz 20/06/2025 GLI causes make_vec4 ambiguity with Apple Clang (GLM version mismatch).
 // On macOS, exclude GLI and use stub implementations for the surface scaling path.

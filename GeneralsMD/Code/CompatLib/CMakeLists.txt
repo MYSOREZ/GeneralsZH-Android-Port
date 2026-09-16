@@ -6,19 +6,16 @@
 # GeneralsX @bugfix Android port 16/09/2026 This covered 64-bit Windows,
 # Apple and Linux one at a time as each was brought up, and 32-bit Windows
 # (MinGW i686) was never added -- it fell into the "Linux only" stub below
-# by accident, which does not build d3dx8_compat.cpp/d3dx8math.cpp at all and
-# left cmake/mingw.cmake's separate d3dx8d alias as the only thing standing
-# in for a real d3dx8. Build the real one here instead, like every other
-# platform -- it is plain C++ math/texture code, nothing 64-bit-specific.
-#
-# GeneralsX @bugfix Android port 16/09/2026 Except when SAGE_USE_DX8 is ON:
-# that path fetches the real DirectX 8 SDK (min-dx8-sdk, see cmake/dx8.cmake)
-# and cmake/mingw.cmake already created an IMPORTED d3dx8 -> d3dx8d alias for
-# it further up this same configure. Defining our own d3dx8 STATIC target of
-# the same name right after would collide with that imported target -- this
-# from-source shim exists for the DXVK path, which has no real D3DX8 library
-# to alias to.
-if(NOT TARGET d3dx8 AND (WIN32 OR APPLE OR (UNIX AND NOT APPLE)))
+# by accident. Build the real one here instead, like every other platform --
+# it is plain C++ math/texture code, nothing 64-bit-specific. This also
+# covers SAGE_USE_DX8=ON (the real DirectX 8 SDK path, cmake/dx8.cmake): that
+# SDK's own d3dx8core.h/tex.h/math.h declare the D3DX8 API but implement none
+# of it (no DLL/import-lib shipped for it, unlike the core D3D8 interfaces),
+# so building it ourselves is the only way to get it at all without pulling
+# in an external d3dx8*.dll -- and MinGW-w64's own import lib for one only
+# names the SDK's debug redistributable (d3dx8d.dll), which no real install
+# has (see cmake/mingw.cmake, which used to alias d3dx8 to it).
+if(WIN32 OR APPLE OR (UNIX AND NOT APPLE))
 list(APPEND SOURCE_D3DX_COMPAT
     d3dx8_compat.cpp
     d3dx8math.cpp
@@ -60,15 +57,11 @@ target_include_directories(d3dx8 PUBLIC
 # Link d3dx8 to d3d8lib to get DirectX8 headers (min-dx8-sdk or DXVK)
 target_link_libraries(d3dx8 PUBLIC d3d8lib)
 
-elseif(NOT TARGET d3dx8)
-# Linux only: Create empty d3dx8 stub library to satisfy d3d8lib linkage
-# macOS and Win64 both build real d3dx8 STATIC above; Linux can use the stub for now
+else()
+# Nothing else currently reaches this branch (WIN32/APPLE/UNIX-non-APPLE
+# covers every supported platform), kept as a safety net for any future one.
 add_library(d3dx8 INTERFACE)
 target_link_libraries(d3dx8 INTERFACE d3d8lib)
-else()
-# GeneralsX @bugfix Android port 16/09/2026 d3dx8 already exists -- the
-# cmake/mingw.cmake IMPORTED alias to the real min-dx8-sdk's d3dx8d.a
-# (SAGE_USE_DX8=ON path). Nothing further to configure on it here.
 endif()
 
 # GeneralsX @build BenderAI 10/02/2026
