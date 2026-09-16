@@ -256,6 +256,16 @@ if(WIN32)
         [["wwstring.h"]]
         <windows.h>
     )
+
+    # GeneralsX @bugfix Android port 16/09/2026 FramGrab.cpp (Start_Movie_Capture/
+    # Update_Movie_Capture's FrameGrabClass) is genuinely _WIN32-only -- it wraps
+    # the real Video for Windows AVIFile API -- and was commented out
+    # unconditionally rather than gated, breaking the link once WW3D::
+    # Start_Movie_Capture (ww3d.cpp) was reachable from a real Windows build.
+    target_sources(z_ww3d2 PRIVATE
+        ${CMAKE_SOURCE_DIR}/Core/Libraries/Source/WWVegas/WW3D2/FramGrab.cpp
+        ${CMAKE_SOURCE_DIR}/Core/Libraries/Source/WWVegas/WW3D2/framgrab.h
+    )
 endif()
 
 target_link_libraries(z_ww3d2 PRIVATE

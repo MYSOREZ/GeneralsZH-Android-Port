@@ -69,12 +69,27 @@
 #include "GameNetwork/GeneralsOnline/NGMP_interfaces.h"
 // GeneralsX @bugfix Android port 07/11/2026 - ws2ipdef.h is Windows-only Winsock; nothing below uses its symbols on other platforms
 #if defined(_WIN32)
+// GeneralsX @bugfix Android port 16/09/2026 ws2ipdef.h needs SCOPE_ID/
+// SOCKET_ADDRESS/ADDRESS_FAMILY etc. from winsock2.h, which nothing above
+// this line included.
+#include <winsock2.h>
 #include <ws2ipdef.h>
 #endif
 #include <format>
 #include "GameNetwork/GeneralsOnline/OnlineServices_Init.h"
 #include "GameNetwork/GeneralsOnline/PluginInterfaces.h"
+// GeneralsX @bugfix Android port 16/09/2026 This is the only unconditional
+// P2P-transport dependency in this file -- every actual use of the complete
+// NetworkMesh type below is already gated on GENERALS_ONLINE_ENABLE_P2P_TRANSPORT
+// (pointer-only uses work fine against the forward declaration in
+// NGMP_include.h/OnlineServices_Init.h), but this raw #include still pulled in
+// the real definition -- and with it <steam/isteamnetworkingutils.h> -- on every
+// platform, including the ones where GameNetworkingSockets is never linked
+// (see the CMakeLists.txt if(ANDROID) guard on that library). Gate the include
+// itself the same way.
+#if defined(GENERALS_ONLINE_ENABLE_P2P_TRANSPORT)
 #include "GameNetwork/GeneralsOnline/NetworkMesh.h"
+#endif // GENERALS_ONLINE_ENABLE_P2P_TRANSPORT
 #include "GameLogic/GameLogic.h"
 NGMPGame* TheNGMPGame = NULL;
 

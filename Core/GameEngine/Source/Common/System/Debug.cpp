@@ -882,6 +882,13 @@ void ReleaseCrashLocalized(const AsciiString& p, const AsciiString& m)
 	// Windows: Native MessageBox dialogs
 	// Linux: Console output (crash dialogs would need SDL_ShowSimpleMessageBox)
 	#ifdef _WIN32
+	// GeneralsX @bugfix Android port 16/09/2026 TheSystemIsUnicode is defined
+	// in GeneralsMD/Code/GameEngine/Source/Common/GameEngine.cpp (a
+	// higher-level target this Core/-level file does not otherwise see a
+	// header for) with no matching extern declaration anywhere -- the first
+	// _WIN32 build to actually link this file together with that one.
+	extern const Bool TheSystemIsUnicode;
+
 	if (!DX8Wrapper_IsWindowed) {
 		if (ApplicationHWnd) {
 			ShowWindow(ApplicationHWnd, SW_HIDE);

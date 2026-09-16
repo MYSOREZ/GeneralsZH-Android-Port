@@ -28,8 +28,18 @@
 #include <sys/stat.h>
 
 #ifdef _WIN32
+// GeneralsX @bugfix Android port 16/09/2026 <mmsystem.h> needs DWORD/UINT/etc.
+// from <windows.h>, which this file never included on its own -- it always
+// relied on something upstream having already pulled it in, which stopped
+// being true once WWAudio's own mmsystem.h stopped silently swallowing this
+// include on _WIN32 (see that file's own fix).
+#include <windows.h>
 #include <mmsystem.h>
 #include <direct.h>
+// GeneralsX @bugfix Android port 16/09/2026 strlcpy is a BSD-ism MinGW's libc
+// does not provide; stringex.h is this project's own portable implementation
+// (Core/Libraries/Source/WWVegas/WWLib), already used elsewhere in WWVegas.
+#include "stringex.h"
 #else
 #include <string.h>
 #define SEVERITY_ERROR 1

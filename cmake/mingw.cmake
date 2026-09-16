@@ -33,7 +33,17 @@ if(MINGW)
         __int64=long\ long
         _int64=long\ long
     )
-    
+
+    # GeneralsX @bugfix Android port 16/09/2026 core_wwcommon already carries
+    # NOMINMAX as an INTERFACE define, but that only reaches targets that
+    # link core_wwcommon -- z_gameengine (Recorder.cpp -> NGMPGame.h ->
+    # <chrono>) does not, and <windows.h>'s min/max macros make <bits/chrono.h>
+    # fail to parse at all the moment both get included in the same
+    # translation unit. Make it universal instead of per-target.
+    add_compile_definitions(
+        NOMINMAX
+    )
+
     # Enable math constants in MinGW's <math.h>
     # MinGW provides M_PI, M_E, etc. in <math.h>, but only when -std=c++XX is NOT used (strict ANSI mode),
     # or when _USE_MATH_DEFINES is defined. Since we compile with -std=c++20, we need this define.
@@ -65,6 +75,8 @@ if(MINGW)
         vfw32       # Video for Windows (AVIFile functions)
         d3d8        # Direct3D 8
         dinput8     # DirectInput 8
+        dxguid      # GUID definitions dinput8 needs (IID_IDirectInput8, GUID_SysKeyboard,
+                    # c_dfDIKeyboard, ...) -- dinput.h only declares them extern
         dsound      # DirectSound
         imm32       # Input Method Manager (IME)
     )
@@ -79,7 +91,13 @@ if(MINGW)
     # The min-dx8-sdk (dx8.cmake) handles this correctly via d3d8lib interface target,
     # but for compatibility with direct library references in main executables,
     # we create an alias so that linking to d3dx8 automatically uses d3dx8d
-    if(NOT TARGET d3dx8)
+    # GeneralsX @bugfix Android port 16/09/2026 Only relevant to SAGE_USE_DX8
+    # (the real min-dx8-sdk path, see cmake/dx8.cmake) -- a DXVK build never
+    # fetches that SDK and CompatLib's own CMakeLists.txt builds a real,
+    # from-source d3dx8 for every platform including 32-bit MinGW (matching
+    # 64-bit Windows/macOS/Linux), which collides with this IMPORTED alias if
+    # both try to define the same target name.
+    if(SAGE_USE_DX8 AND NOT TARGET d3dx8)
         add_library(d3dx8 INTERFACE IMPORTED GLOBAL)
         set_target_properties(d3dx8 PROPERTIES
             INTERFACE_LINK_LIBRARIES "d3dx8d"

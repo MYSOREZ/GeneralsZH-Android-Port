@@ -3,7 +3,22 @@
 # GeneralsX @build felipebraz 20/06/2025 - Also build d3dx8 STATIC on macOS (D3DX math/texture stubs required for link)
 # GeneralsX @bugfix felipebraz 02/03/2026 - Build real d3dx8 STATIC on Linux too (D3DXGetFVFVertexSize / D3DXLoadSurfaceFromSurface required for link)
 # d3dx8 is a math/texture helper stub; core game code doesn't require it
-if((WIN32 AND CMAKE_SIZEOF_VOID_P EQUAL 8) OR APPLE OR (UNIX AND NOT APPLE))
+# GeneralsX @bugfix Android port 16/09/2026 This covered 64-bit Windows,
+# Apple and Linux one at a time as each was brought up, and 32-bit Windows
+# (MinGW i686) was never added -- it fell into the "Linux only" stub below
+# by accident, which does not build d3dx8_compat.cpp/d3dx8math.cpp at all and
+# left cmake/mingw.cmake's separate d3dx8d alias as the only thing standing
+# in for a real d3dx8. Build the real one here instead, like every other
+# platform -- it is plain C++ math/texture code, nothing 64-bit-specific.
+#
+# GeneralsX @bugfix Android port 16/09/2026 Except when SAGE_USE_DX8 is ON:
+# that path fetches the real DirectX 8 SDK (min-dx8-sdk, see cmake/dx8.cmake)
+# and cmake/mingw.cmake already created an IMPORTED d3dx8 -> d3dx8d alias for
+# it further up this same configure. Defining our own d3dx8 STATIC target of
+# the same name right after would collide with that imported target -- this
+# from-source shim exists for the DXVK path, which has no real D3DX8 library
+# to alias to.
+if(NOT TARGET d3dx8 AND (WIN32 OR APPLE OR (UNIX AND NOT APPLE)))
 list(APPEND SOURCE_D3DX_COMPAT
     d3dx8_compat.cpp
     d3dx8math.cpp
@@ -27,7 +42,10 @@ find_package(glm CONFIG REQUIRED)
 target_link_libraries(d3dx8 PUBLIC glm::glm)
 
 # GeneralsX @build felipebraz 20/06/2025 GLI causes make_vec4 ambiguity with Apple Clang - only link on Windows
-if(NOT APPLE)
+# GeneralsX @bugfix Android port 16/09/2026 - MinGW-w64/GCC hits the identical
+# ambiguity (see d3dx8_compat.cpp), which now takes the same manual-fallback
+# branch Apple already used, so it does not need gli linked either.
+if(NOT APPLE AND NOT MINGW)
     find_package(gli CONFIG REQUIRED)
     target_link_libraries(d3dx8 PUBLIC gli)
 endif()
@@ -42,11 +60,15 @@ target_include_directories(d3dx8 PUBLIC
 # Link d3dx8 to d3d8lib to get DirectX8 headers (min-dx8-sdk or DXVK)
 target_link_libraries(d3dx8 PUBLIC d3d8lib)
 
-else()
+elseif(NOT TARGET d3dx8)
 # Linux only: Create empty d3dx8 stub library to satisfy d3d8lib linkage
 # macOS and Win64 both build real d3dx8 STATIC above; Linux can use the stub for now
 add_library(d3dx8 INTERFACE)
 target_link_libraries(d3dx8 INTERFACE d3d8lib)
+else()
+# GeneralsX @bugfix Android port 16/09/2026 d3dx8 already exists -- the
+# cmake/mingw.cmake IMPORTED alias to the real min-dx8-sdk's d3dx8d.a
+# (SAGE_USE_DX8=ON path). Nothing further to configure on it here.
 endif()
 
 # GeneralsX @build BenderAI 10/02/2026

@@ -35,10 +35,35 @@
 #endif
 #include <stdlib.h>
 #ifdef _WIN32
+// GeneralsX @bugfix Android port 16/09/2026 winsock.h needs FARPROC/LPOVERLAPPED/
+// LPINT etc. from <windows.h>, which this file never included itself -- same
+// missing-include pattern as Download.cpp's <mmsystem.h> right above.
+#include <windows.h>
 #include <process.h>
 #include <io.h>
 #include "winsock.h"
+// GeneralsX @bugfix Android port 16/09/2026 socklen_t (used a few lines below
+// for getsockname) postdates winsock.h; ws2tcpip.h is where MinGW puts it.
+#include <ws2tcpip.h>
 #include <direct.h>
+#include <time.h>
+// GeneralsX @bugfix Android port 16/09/2026 _S_IWRITE/_S_IREAD are MSVC CRT
+// constants (<sys/stat.h> mode bits for _chmod); MinGW-w64's CRT does not
+// define either name under any spelling. Their values are fixed and
+// documented (MSVC's own sys/stat.h), so define them if missing rather than
+// pull in a whole different CRT mode-bits header for two constants.
+#ifndef _S_IWRITE
+#define _S_IWRITE 0x0080
+#endif
+#ifndef _S_IREAD
+#define _S_IREAD 0x0100
+#endif
+// GeneralsX @bugfix Android port 16/09/2026 strlcpy: see Download.cpp's identical fix.
+#include "stringex.h"
+// GeneralsX @bugfix Android port 16/09/2026 ARRAY_SIZE -- same missing-include
+// pattern as everything else in this file; core_wwlib's own files get it for
+// free through a shared PCH this target does not use.
+#include "WWCommon.h"
 #else
 #include "windows_compat.h"  // Includes socket_compat.h (Winsock → POSIX BSD sockets)
 #include <unistd.h>

@@ -54,7 +54,14 @@
 
 // GeneralsX @bugfix Android port 07/11/2026 - PRIu64 needs <cinttypes>; ShellExecuteA fallback needs SDL_OpenURL
 #include <cinttypes>
+// GeneralsX @bugfix Android port 16/09/2026 SDL_OpenURL is only ever called
+// on the !_WIN32 branch below (real ShellExecuteA covers _WIN32); this
+// include was unconditional, so a build with no SDL3 target (this project's
+// own SAGE_USE_SDL3 option defaults off outside Linux/macOS) fails here on
+// the header alone, never mind linking.
+#ifndef _WIN32
 #include <SDL3/SDL.h>
+#endif
 
 #include "Common/AudioAffect.h"
 #include "Common/AudioEventRTS.h"

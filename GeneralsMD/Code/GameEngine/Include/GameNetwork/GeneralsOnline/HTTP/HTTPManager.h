@@ -6,7 +6,9 @@
 #include <mutex>
 #include <thread>
 #include <atomic>
-#if defined(_WIN32)
+// GeneralsX @bugfix Android port 16/09/2026 See HTTPManager.cpp's
+// DeterminePlatformProxySettings() for why this is not just #if defined(_WIN32).
+#if defined(_WIN32) && defined(GENERALS_ONLINE_USE_WINHTTP_PROXY_DETECTION)
 #include <winhttp.h>
 #pragma comment(lib, "winhttp.lib")
 #endif

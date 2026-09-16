@@ -1,12 +1,37 @@
 #pragma once
 
+// GeneralsX @bugfix Android port 16/09/2026 Every declaration below this
+// #ifdef is a from-scratch, DXVK-mode compat shim -- LPD3DXBUFFER is a mere
+// "typedef struct D3DXBUFFER *LPD3DXBUFFER;" with no struct body, since
+// nothing on the DXVK path calls GetBufferPointer() on it. On a real _WIN32
+// build with SAGE_USE_DX8=ON, the actual DirectX 8 SDK (min-dx8-sdk,
+// cmake/dx8.cmake) provides its own, complete d3dx8core.h with a full
+// ID3DXBuffer interface -- but this file's own directory sits earlier on the
+// include search path (see the identical windows.h/mmsystem.h fixes
+// elsewhere in this port), so #include "d3dx8core.h" from any consumer finds
+// this stub first regardless, leaving LPD3DXBUFFER's pointee permanently
+// incomplete. #include_next reaches the real SDK header instead.
 #ifdef _WIN32
-#include <windows.h>
+
+#include_next <d3dx8core.h>
+
+// GeneralsX @bugfix Android port 16/09/2026 The DXVK-mode shim below folded
+// D3DXFilterTexture/D3DXCreateTexture/D3DXCreateCubeTexture/
+// D3DXCreateVolumeTexture/D3DXLoadSurfaceFromSurface/D3DXIMAGE_INFO (really
+// d3dx8tex.h material) and D3DXGetFVFVertexSize (really d3dx8mesh.h) into one
+// file; the real SDK keeps them split across their own headers the way this
+// project's callers (TerrainTex.cpp, W3DWater.cpp) already #include
+// "d3dx8core.h" expecting to get. #include_next again for d3dx8tex.h since
+// CompatLib has its own same-named shim (-> d3dx8.h -> this file); d3dx8mesh.h
+// has no such shadow, so a plain #include reaches the real one directly.
+#include_next <d3dx8tex.h>
+#include <d3dx8mesh.h>
+
 #else
+
 // CRITICAL: windows_compat must be included BEFORE d3d8.h so Win32 types (DWORD, FLOAT, etc.) are defined
 #include "windows_compat.h"
 #include "com_compat.h"  // COM/DirectX macros (DECLARE_INTERFACE_, STDMETHOD, etc.) - needed for d3d8.h
-#endif
 
 // Now d3d8.h can find DWORD, FLOAT, UINT, etc.
 #include <d3d8.h>
@@ -158,3 +183,5 @@ UINT WINAPI D3DXGetFVFVertexSize(DWORD FVF);
 #ifdef __cplusplus
 }
 #endif
+
+#endif // _WIN32

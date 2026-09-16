@@ -49,10 +49,19 @@
 #include <cstdint>
 
 // GeneralsX @bugfix fbraz 03/02/2026 Use guard macro to prevent typedef conflicts
+// GeneralsX @bugfix Android port 16/09/2026 On _WIN32, __int64/_int64 are
+// already real MSVC keywords, or (on MinGW) cmake/mingw.cmake #defines them
+// as "long long" on the compiler command line -- either way "typedef int64_t
+// __int64;" is not a redeclaration, it is a syntax error once the
+// preprocessor has already substituted __int64 with something else. The
+// _WIN32 branch above already knows this; this block just needs the same
+// guard.
+#ifndef _WIN32
 #ifndef _INT64_TYPES_DEFINED
 	#define _INT64_TYPES_DEFINED
 	typedef int64_t __int64;
 	typedef int64_t _int64;
+#endif
 #endif
 
 /**

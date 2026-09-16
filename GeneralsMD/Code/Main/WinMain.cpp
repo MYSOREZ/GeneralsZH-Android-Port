@@ -795,10 +795,37 @@ static LONG WINAPI UnHandledExceptionFilter( struct _EXCEPTION_POINTERS* e_info 
 // WinMain ====================================================================
 /** Application entry point */
 //=============================================================================
+// GeneralsX @feature Android port 16/09/2026 Give the Windows build somewhere to
+// put its log.
+//
+// Everything this port traces goes to stderr, which on Android is captured into a
+// file the launcher can hand to a tester. A Windows GUI process has no console, so
+// the same output goes nowhere at all -- which makes the desktop build useless as
+// the reference side of a cross-play comparison, the one job it is wanted for.
+// Point stderr at logs/generals-stderr.log next to the executable and turn the net
+// trace on unless the environment explicitly switches it off, so a tester only has
+// to run the game and send the folder.
+static void gxSetUpWindowsLogging( void )
+{
+	CreateDirectoryA( "logs", NULL );
+
+	// isNetEnabled() caches on first use, so this has to happen before anything
+	// traces. "0" still turns it off, for a run that wants the game quiet.
+	if (getenv("GX_NET_TRACE") == NULL)
+	{
+		_putenv("GX_NET_TRACE=1");
+	}
+
+	freopen( "logs\\generals-stderr.log", "w", stderr );
+	setvbuf( stderr, NULL, _IOLBF, 4096 );
+}
+
 Int APIENTRY WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance,
                       LPSTR lpCmdLine, Int nCmdShow )
 {
 	Int exitcode = 1;
+
+	gxSetUpWindowsLogging();
 
 #ifdef RTS_PROFILE_LEGACY
   Profile::StartRange("init");

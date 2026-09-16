@@ -31,6 +31,17 @@
 #include "gamespy/peer/peer.h"
 #include "gamespy/gp/gp.h"
 
+// GeneralsX @bugfix Android port 16/09/2026 gamespy/gsplatformutil.h defines
+// its own function-like min/max macros ("#ifndef max #define max(a,b) ...")
+// -- a pre-<algorithm> C SDK idiom from the original GameSpy release. NOMINMAX
+// only suppresses windows.h's own min/max, so it does nothing here, and every
+// file that (transitively) includes PeerDefs.h before any STL header using
+// std::min/std::max or std::chrono's own min()/max() breaks the moment both
+// land in the same translation unit. Undo the pollution right where it
+// starts, rather than chase it through every consumer.
+#undef max
+#undef min
+
 #include "GameClient/Color.h"
 #include "Common/STLTypedefs.h"
 #include "GameNetwork/GameSpy/StagingRoomGameInfo.h"

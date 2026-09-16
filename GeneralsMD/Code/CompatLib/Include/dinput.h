@@ -1,5 +1,19 @@
 #pragma once
 
+// GeneralsX @bugfix Android port 16/09/2026 Same shadowing issue as
+// windows.h/mmsystem.h/d3dx8core.h/d3dx8math.h: MinGW-w64 ships a real,
+// complete dinput.h (DIERR_*, IDirectInput8, DIDEVICEOBJECTDATA, etc. -- this
+// shim only forward-declares DIRECTINPUT8/DIRECTINPUTDEVICE8 with no bodies),
+// and this shim's directory sits earlier on the include search path, so the
+// real one is never reached on a real _WIN32 build. Win32DIKeyboard.h already
+// does the standard #define DIRECTINPUT_VERSION 0x800 before #include
+// <dinput.h> -- #include_next lets that reach the real header.
+#ifdef _WIN32
+
+#include_next <dinput.h>
+
+#else
+
 enum DInputKeys
 {
   // keypad keys ----------------------------------------------------------------
@@ -113,3 +127,5 @@ enum DInputKeys
 typedef struct DIRECTINPUT8 *LPDIRECTINPUT8;
 typedef struct DIRECTINPUTDEVICE8 *LPDIRECTINPUTDEVICE8;
 typedef struct DIDEVICEOBJECTDATA DIDEVICEOBJECTDATA;
+
+#endif // _WIN32

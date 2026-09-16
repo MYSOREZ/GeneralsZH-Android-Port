@@ -4390,8 +4390,12 @@ UnsignedInt GameLogic::getCRC( Int mode, AsciiString deepCRCFileName )
 	// checksum is generated anyway, and makes the list diffable: an object whose own
 	// number moves between two frames is one that actually evolves, and on an idle
 	// map that is a very short list. Only with the gx_net_trace.txt marker present.
+	// Three hundred lines per checksum is fine for the two checkpoints a short
+	// replay reaches, and ruinous over a real match, which generates one every
+	// hundred frames for its whole length. The comparison this feeds only ever
+	// looks at the start of a game, so stop there.
 	const Bool gxTraceObjects = GXTrace::isNetEnabled() && isInGameLogicUpdate()
-		&& xferCRC->getXferMode() == XFER_CRC;
+		&& xferCRC->getXferMode() == XFER_CRC && m_frame <= 100;
 	for( obj = m_objList; obj; obj=obj->getNextObject() )
 	{
 		xferCRC->xferSnapshot( obj );

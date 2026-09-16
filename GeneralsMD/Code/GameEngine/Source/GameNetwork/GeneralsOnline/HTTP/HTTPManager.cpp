@@ -126,7 +126,7 @@ bool HTTPManager::DeterminePlatformProxySettings()
 {
 	CHECK_MAIN_THREAD;
 
-#if defined(_WIN32)
+#if defined(_WIN32) && defined(GENERALS_ONLINE_USE_WINHTTP_PROXY_DETECTION)
 	WINHTTP_CURRENT_USER_IE_PROXY_CONFIG pProxyConfig;
 	WinHttpGetIEProxyConfigForCurrentUser(&pProxyConfig);
 
@@ -152,6 +152,15 @@ bool HTTPManager::DeterminePlatformProxySettings()
 
 	m_bProxyEnabled = pProxyConfig.lpszProxy != nullptr;
 #else
+	// GeneralsX @bugfix Android port 16/09/2026 <winhttp.h> and <wininet.h>
+	// (the latter pulled in by every translation unit via PreRTS.h) declare
+	// overlapping types (INTERNET_SCHEME, URL_COMPONENTS, HTTP_VERSION_INFO)
+	// with incompatible signatures -- Microsoft's own guidance is not to mix
+	// them in one translation unit, and this is the first _WIN32 build to
+	// actually reach this file. IE-proxy autodetection is a convenience on
+	// top of libcurl, which already honors http_proxy/https_proxy env vars
+	// (see the Android branch's own comment below) -- not something this
+	// port's _WIN32 target has needed to gain yet.
 	// GeneralsX @bugfix Android port 10/07/2026 WinHTTP IE-proxy autodetection
 	// has no Android equivalent worth the complexity (no system-wide IE proxy
 	// concept); libcurl itself already honors http_proxy/https_proxy env vars

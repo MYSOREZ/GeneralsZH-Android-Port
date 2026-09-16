@@ -43,6 +43,10 @@
 #include "wwdebug.h"
 #include "Vector.h"
 #include "FastAllocator.h"
+// GeneralsX @bugfix Android port 16/09/2026 GetCurrentThreadIdAsInt() below
+// needs a real declaration -- this file never included the header providing
+// it and relied on transitive luck.
+#include "thread_compat.h"
 
 #define USE_FAST_ALLOCATOR
 

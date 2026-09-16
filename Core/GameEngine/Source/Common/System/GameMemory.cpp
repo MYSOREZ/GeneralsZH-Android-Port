@@ -88,6 +88,16 @@ DECLARE_PERF_TIMER(MemoryPoolInitFilling)
 	#define MPSB_DLINK
 #endif
 
+// GeneralsX @bugfix Android port 11/07/2026 always-present (not gated by
+// MEMORYPOOL_DEBUG) ownership marker -- see m_ownershipCookie below.
+// GeneralsX @bugfix Android port 16/09/2026 The comment above already said
+// "not gated by MEMORYPOOL_DEBUG", but the declaration itself stayed inside
+// the #ifdef MEMORYPOOL_DEBUG block below -- undeclared on any release build,
+// this project's own RTS_RELEASE included, until the first build that
+// actually needed both m_ownershipCookie's assignment (929) and its check
+// (1012) to compile in the same non-debug configuration.
+static const UnsignedInt OWNERSHIP_COOKIE = 0x47454e58; // 'GENX'
+
 #ifdef MEMORYPOOL_DEBUG
 
 	/**
@@ -111,10 +121,6 @@ DECLARE_PERF_TIMER(MemoryPoolInitFilling)
 	static const char* FREE_SINGLEBLOCK_TAG_STRING			= "FREE_SINGLEBLOCK_TAG_STRING";
 	const Short SINGLEBLOCK_MAGIC_COOKIE								= 12345;
 	const Int GARBAGE_FILL_VALUE												= 0xdeadbeef;
-
-	// GeneralsX @bugfix Android port 11/07/2026 always-present (not gated by
-	// MEMORYPOOL_DEBUG) ownership marker -- see m_ownershipCookie below.
-	static const UnsignedInt OWNERSHIP_COOKIE = 0x47454e58; // 'GENX'
 
 	// flags for m_debugFlags
 	enum

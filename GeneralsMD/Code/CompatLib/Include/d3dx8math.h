@@ -1,5 +1,17 @@
 #pragma once
 
+// GeneralsX @bugfix Android port 16/09/2026 Same shadowing issue as
+// d3dx8core.h in this directory: the real DirectX 8 SDK (min-dx8-sdk,
+// SAGE_USE_DX8=ON) has its own complete d3dx8math.h, and this shim's
+// directory sits earlier on the include search path, so it wins instead and
+// redefines D3DXMATRIX/D3DXVECTOR4/etc. against the real SDK's own
+// (different) definitions of the same names.
+#ifdef _WIN32
+
+#include_next <d3dx8math.h>
+
+#else
+
 // CRITICAL: windows.h MUST come before d3d8.h
 // On Linux: windows.h → windows_base.h (DXVK) → windows_compat.h
 // On Windows: windows.h → Windows SDK
@@ -63,3 +75,5 @@ inline D3DXMATRIX D3DXMATRIX::operator *= (const D3DXMATRIX& other)
 
 }
 #endif
+
+#endif // _WIN32

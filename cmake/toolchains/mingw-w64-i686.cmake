@@ -14,7 +14,14 @@ set(CMAKE_RANLIB i686-w64-mingw32-ranlib)
 set(CMAKE_DLLTOOL i686-w64-mingw32-dlltool)
 
 # Target environment
-set(CMAKE_FIND_ROOT_PATH /usr/i686-w64-mingw32)
+# GeneralsX @bugfix Android port 16/09/2026 A plain set() here discards
+# whatever vcpkg's own toolchain wiring already put in CMAKE_FIND_ROOT_PATH
+# before chainloading this file (the vcpkg triplet's installed dir, added so
+# find_library()/find_path() calls that use CMAKE_FIND_ROOT_PATH_MODE_*=ONLY
+# can still see vcpkg packages). This file predates this preset ever
+# chainloading under vcpkg, so it never needed to compose with that. Append
+# instead of overwriting.
+list(APPEND CMAKE_FIND_ROOT_PATH /usr/i686-w64-mingw32)
 
 # Adjust the default behavior of the FIND_XXX() commands:
 # search programs in the host environment

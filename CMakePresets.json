@@ -168,11 +168,20 @@
             "generator": "Unix Makefiles",
             "hidden": false,
             "binaryDir": "${sourceDir}/build/${presetName}",
-            "toolchainFile": "${sourceDir}/cmake/toolchains/mingw-w64-i686.cmake",
             "cacheVariables": {
                 "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
-                "CMAKE_BUILD_TYPE": "Release"
-            }
+                "CMAKE_BUILD_TYPE": "Release",
+                "VCPKG_TARGET_TRIPLET": "x86-mingw-static",
+                "VCPKG_CHAINLOAD_TOOLCHAIN_FILE": "${sourceDir}/cmake/toolchains/mingw-w64-i686.cmake",
+                "SAGE_UPDATE_CHECK": "OFF",
+                "RTS_BUILD_OPTION_SAGE_PATCH": "OFF",
+                "GENERALS_ONLINE_ENABLE_P2P_TRANSPORT": "OFF",
+                "VCPKG_MANIFEST_MODE": "OFF",
+                "SAGE_USE_GLM": "ON",
+                "SAGE_USE_DX8": "ON"
+            },
+            "inherits": "default-vcpkg",
+            "description": "Cross-compiled Windows diagnostic build: MinGW-w64 32-bit via a classic-mode vcpkg x86-mingw-static triplet (VCPKG_MANIFEST_MODE=OFF -- the project's vcpkg.json declares curl/openal/freetype/fontconfig as \"!windows\", which manifest mode also treats MinGW as, so those never install for this triplet in manifest mode; a handful of packages -- zlib, glm, gli, curl[openssl] -- are classic-mode-installed into /opt/vcpkg for it instead), chainloaded under the MinGW toolchain file. GeneralsOnline's HTTP/auth/lobby layer builds against a real libcurl+OpenSSL this way (small, fast to build); its GameNetworkingSockets-based P2P match transport is switched off (GENERALS_ONLINE_ENABLE_P2P_TRANSPORT=OFF) since it is not needed for solo skirmish/replay diagnostics and would otherwise pull in protobuf/abseil/WebRTC."
         },
         {
             "name": "mingw-w64-i686-debug",

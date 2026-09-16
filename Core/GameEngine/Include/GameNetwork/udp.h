@@ -30,6 +30,10 @@
 
 #ifdef _WIN32
 #include <winsock.h>
+// GeneralsX @bugfix Android port 16/09/2026 socklen_t (used a few lines below,
+// e.g. recvfrom) postdates winsock.h; ws2tcpip.h is where MinGW puts it --
+// same fix as FTP.cpp's identical winsock.h + socklen_t combination.
+#include <ws2tcpip.h>
 #include <io.h>
 //#define close _close
 //#define read  _read

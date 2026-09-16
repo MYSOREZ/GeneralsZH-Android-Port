@@ -33,9 +33,16 @@
 #include <cstdint>
 
 // GeneralsX @bugfix fbraz 03/02/2026 Use guard macro to prevent typedef conflicts
+// GeneralsX @bugfix Android port 16/09/2026 See the identical fix in
+// Core/Libraries/Source/profile/profile_funclevel.h -- on _WIN32, __int64 is
+// already a real MSVC keyword or a "long long" compiler-command-line macro
+// (cmake/mingw.cmake), and "typedef int64_t __int64;" is a syntax error once
+// substituted, not a harmless redeclaration.
+#ifndef _WIN32
 #ifndef _INT64_TYPES_DEFINED
 	#define _INT64_TYPES_DEFINED
 	typedef int64_t __int64;
+#endif
 #endif
 
 #ifndef __forceinline

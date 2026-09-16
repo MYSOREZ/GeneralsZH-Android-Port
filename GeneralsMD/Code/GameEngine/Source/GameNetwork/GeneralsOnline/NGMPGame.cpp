@@ -1,5 +1,16 @@
 #include "GameNetwork/GeneralsOnline/NGMPGame.h"
+// GeneralsX @bugfix Android port 16/09/2026 This is the only unconditional
+// P2P-transport dependency in this file -- every actual use of the complete
+// NetworkMesh type below is already gated on GENERALS_ONLINE_ENABLE_P2P_TRANSPORT
+// (pointer-only uses work fine against the forward declaration in
+// NGMP_include.h/OnlineServices_Init.h), but this raw #include still pulled in
+// the real definition -- and with it <steam/isteamnetworkingutils.h> -- on every
+// platform, including the ones where GameNetworkingSockets is never linked
+// (see the CMakeLists.txt if(ANDROID) guard on that library). Gate the include
+// itself the same way.
+#if defined(GENERALS_ONLINE_ENABLE_P2P_TRANSPORT)
 #include "GameNetwork/GeneralsOnline/NetworkMesh.h"
+#endif // GENERALS_ONLINE_ENABLE_P2P_TRANSPORT
 #include "GameLogic/VictoryConditions.h"
 #include "Common/PlayerList.h"
 #include "GameLogic/GameLogic.h"

@@ -1156,8 +1156,6 @@ set(GAMEENGINE_SRC
     Source/GameNetwork/GeneralsOnline/NGMPGame.cpp
     Source/GameNetwork/GeneralsOnline/NGMP_Helpers.cpp
     Source/GameNetwork/GeneralsOnline/NetworkBitstream.cpp
-    Source/GameNetwork/GeneralsOnline/NetworkMesh.cpp
-    Source/GameNetwork/GeneralsOnline/NextGenTransport.cpp
     Source/GameNetwork/GeneralsOnline/OnlineServices_Auth.cpp
     Source/GameNetwork/GeneralsOnline/OnlineServices_Init.cpp
     Source/GameNetwork/GeneralsOnline/OnlineServices_LobbyInterface.cpp
@@ -1186,6 +1184,25 @@ set(GAMEENGINE_SRC
 #    Source/GameNetwork/WOLBrowser/WebBrowser.cpp
     Source/Precompiled/PreRTS.cpp
 )
+
+# GeneralsX @bugfix Android port 16/09/2026 GameNetworkingSockets (Valve) is only
+# ever vcpkg-wired and linked under if(ANDROID) below; these two files are the
+# whole implementation of the P2P match transport built on it and have no internal
+# guard of their own (unlike their callers -- see OnlineServices_RoomsInterface.cpp
+# etc., where every use of the complete NetworkMesh type is already gated on this
+# same variable). Compiling them anywhere GameNetworkingSockets isn't linked fails
+# on the very first #include. GENERALS_ONLINE_ENABLE_P2P_TRANSPORT defaults to
+# whatever if(ANDROID) already meant, and a preset for another platform (a Windows
+# diagnostic build, say) can turn it on for real once GNS is wired there too.
+if(NOT DEFINED GENERALS_ONLINE_ENABLE_P2P_TRANSPORT)
+    set(GENERALS_ONLINE_ENABLE_P2P_TRANSPORT ${ANDROID})
+endif()
+if(GENERALS_ONLINE_ENABLE_P2P_TRANSPORT)
+    list(APPEND GAMEENGINE_SRC
+        Source/GameNetwork/GeneralsOnline/NetworkMesh.cpp
+        Source/GameNetwork/GeneralsOnline/NextGenTransport.cpp
+    )
+endif()
 
 if(RTS_GAMEMEMORY_ENABLE)
     # Uses the original Game Memory implementation.
@@ -1296,9 +1313,13 @@ add_compile_definitions(GENERALS_ONLINE)
 # this workflow's path-filter had skipped the mac/linux desktop build jobs on
 # every commit since P2P transport was turned on; the first commit since then
 # to touch Core/ or GeneralsMD/Code/Main/ actually ran them and hit "fatal
-# error: 'steam/steamnetworkingsockets.h' file not found" on macOS. Match the
-# same if(ANDROID) guard as the library link until GNS is wired for desktop
-# too.
-if(ANDROID)
+# error: 'steam/steamnetworkingsockets.h' file not found" on macOS.
+#
+# GeneralsX @bugfix Android port 16/09/2026 - the if(ANDROID) literal is now
+# GENERALS_ONLINE_ENABLE_P2P_TRANSPORT, set near the top of GAMEENGINE_SRC
+# (defaults to ANDROID, same as before) and shared with the two source files
+# that implement the transport, so the compile definition and their
+# compilation can never drift apart the way this one already did once.
+if(GENERALS_ONLINE_ENABLE_P2P_TRANSPORT)
     add_compile_definitions(GENERALS_ONLINE_ENABLE_P2P_TRANSPORT)
 endif()

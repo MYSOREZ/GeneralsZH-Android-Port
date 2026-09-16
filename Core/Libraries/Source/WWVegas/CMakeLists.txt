@@ -1,8 +1,14 @@
 # Interface libraries to set common defines and includes, avoid duplication later
 add_library(core_wwcommon INTERFACE)
 
+# GeneralsX @bugfix Android port 16/09/2026 NOMINMAX was written here and then
+# commented out. Without it, <windows.h>'s min/max macros collide with
+# std::chrono's own min()/max() static members the moment any translation
+# unit includes both -- <bits/chrono.h> stops parsing entirely ("macro 'max'
+# requires 2 arguments, but only 1 given"). This is the standard, universal
+# fix for mixing windows.h with the C++ standard library.
 target_compile_definitions(core_wwcommon INTERFACE
-    #NOMINMAX
+    NOMINMAX
     WIN32_LEAN_AND_MEAN
 )
 
