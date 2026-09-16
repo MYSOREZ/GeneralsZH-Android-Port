@@ -57,6 +57,22 @@ target_include_directories(d3dx8 PUBLIC
 # Link d3dx8 to d3d8lib to get DirectX8 headers (min-dx8-sdk or DXVK)
 target_link_libraries(d3dx8 PUBLIC d3d8lib)
 
+# GeneralsX @bugfix Android port 16/09/2026 Every consumer of D3DX8 symbols
+# (WW3D2's missingtexture.cpp, surfaceclass.cpp, pointgr.cpp, sortingrenderer.cpp,
+# dx8wrapper.cpp, dx8fvf.cpp, ...) links d3d8lib for its headers but never
+# linked d3dx8 itself -- only z_generals's own top-level target_link_libraries
+# pulled d3dx8 into the final link, at whatever position CMake happened to
+# place it relative to the static libraries that actually need its symbols.
+# GNU ld resolves static archives left-to-right and does not revisit an
+# earlier one once a later one turns out to need it, so those needed-later
+# symbols came up undefined the moment nothing besides the external (and now
+# removed) d3dx8d import lib was around to satisfy them regardless of order.
+# Linking d3dx8 back into d3d8lib's own interface -- circular with the line
+# above, which CMake resolves for static libraries via its own automatic
+# link-group wrapping -- puts d3dx8 next to every one of its consumers
+# instead of only reaching them via z_generals's flat link line.
+target_link_libraries(d3d8lib INTERFACE d3dx8)
+
 else()
 # Nothing else currently reaches this branch (WIN32/APPLE/UNIX-non-APPLE
 # covers every supported platform), kept as a safety net for any future one.
