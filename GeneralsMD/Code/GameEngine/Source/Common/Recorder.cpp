@@ -1368,6 +1368,28 @@ Bool RecorderClass::playbackFile(AsciiString filename)
 		return FALSE;
 	}
 
+	// GeneralsX @feature Android port 16/09/2026 Say out loud what is being compared.
+	//
+	// A replay is only a fair test of the simulation if it was recorded by a build
+	// that simulates the same way. The header carries a version string and two
+	// checksums for exactly that, but the Android port computes neither checksum --
+	// both are zero here and in what it writes -- so the compatibility guard cannot
+	// fire, and nothing in the format records the tick rate at all. A replay taken
+	// at 30 Hz therefore plays back on the 60 Hz engine in silence and reports a
+	// checksum mismatch that says nothing about cross-play. Print both sides so the
+	// log shows whether a mismatch is worth investigating.
+	GX_NET_TRACE("replay header: version='%ls' build='%ls' number=%u exeCRC=%08X iniCRC=%08X\n",
+		header.versionString.str(), header.versionTimeString.str(),
+		(unsigned)header.versionNumber, (unsigned)header.exeCRC, (unsigned)header.iniCRC);
+	GX_NET_TRACE("replay header: this build version='%ls' number=%u exeCRC=%08X iniCRC=%08X tick=%d Hz\n",
+		TheVersion->getUnicodeVersion().str(), (unsigned)TheVersion->getVersionNumber(),
+		(unsigned)TheGlobalData->m_exeCRC, (unsigned)TheGlobalData->m_iniCRC,
+		(int)LOGICFRAMES_PER_SECOND);
+	if (TheGlobalData->m_exeCRC == 0 && header.exeCRC == 0)
+	{
+		GX_NET_TRACE("replay header: both exe checksums are zero, so the compatibility guard cannot tell these builds apart -- a checksum mismatch below may only mean the replay predates this engine\n");
+	}
+
 #ifdef DEBUG_CRASHING
 	Bool versionStringDiff = header.versionString != TheVersion->getUnicodeVersion();
 	Bool versionTimeStringDiff = header.versionTimeString != TheVersion->getUnicodeBuildTime();
