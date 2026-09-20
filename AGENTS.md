@@ -64,10 +64,29 @@ Before starting work, read:
 
 ## Build Commands
 
-### Android (no local toolchain needed)
-Push to a `claude/**` branch or trigger manually: **Actions tab → Build Android →
-Run workflow**. CI builds `libmain.so` + DXVK, packages a signed APK, verifies
-`DT_NEEDED`/ABI. For a local build see `docs/port/ANDROID_PORT.md §3`:
+### Android — build locally, do NOT use CI
+**The repository owner has a limited Actions budget and has asked repeatedly for
+local builds only.** A push does NOT trigger CI (the `push:` trigger was removed
+on 01/08/2026 precisely because unattended builds were burning the budget), so
+the only way to start one is `workflow_dispatch` — do not. Build here and copy
+the APK into `apk/`, then push, so the download link is a raw GitHub URL:
+
+```bash
+./scripts/build/android/build-dual-hz.sh   # both engines: libmain.so 30 Hz + libmain60.so 60 Hz
+cp GeneralsXZH-android-local.apk apk/<name>.apk
+```
+
+Use `build-dual-hz.sh`, not `build-local-sandboxed.sh`: the latter leaves
+`SAGE_HIGH_FPS_SIM` at its OFF default and ships a 30 Hz engine only. Both
+engines must be built from the same working tree — if a source edit lands
+between the two passes, the APK carries two engines that differ in more than
+the tick rate.
+
+**Give the user the APK link first, at the top of the reply, not at the end.**
+
+CI (`Actions tab → Build Android → Run workflow`) still exists for release
+artifacts and the symbol bundle. For a local build's prerequisites see
+`docs/port/ANDROID_PORT.md §3`:
 ```bash
 git submodule update --init references/fbraz3-dxvk
 export ANDROID_NDK_HOME=~/Android/Sdk/ndk/<version>
