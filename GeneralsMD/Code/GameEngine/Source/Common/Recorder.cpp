@@ -1262,8 +1262,18 @@ void RecorderClass::handleCRCMessage(UnsignedInt newCRC, Int playerIndex, Bool f
 		// stock message a few lines down has always said.
 		if (GXTrace::isNetEnabled() && TheGameLogic->getFrame() > 0)
 		{
-			fprintf(stderr, "[GX-NET] replay crc for frame %u: ours=%08X recorded=%08X%s\n",
+			// GeneralsX @feature Android port 20/09/2026 Print the frame the recorded
+			// checksum arrived on, and how many of ours are still queued. Those two
+			// numbers are what say whether the pairing is aligned: a recorded value
+			// that lands on the same frame as the local one it is compared against,
+			// with an empty queue behind it, is like for like. Without them a
+			// mismatch cannot be told apart from a comparison of two different
+			// frames, which is exactly the doubt that cost a round of testing.
+			fprintf(stderr, "[GX-NET] replay crc for frame %u: ours=%08X recorded=%08X"
+				" (recorded arrived on frame %u, ours queued at %u, %d still queued)%s\n",
 				(unsigned)describedFrame, (unsigned)playbackCRC, (unsigned)newCRC,
+				(unsigned)TheGameLogic->getFrame(), (unsigned)localFrame,
+				m_crcInfo->GetQueueSize(),
 				(newCRC == playbackCRC) ? "" : "  <-- DIVERGED");
 			fflush(stderr);
 		}

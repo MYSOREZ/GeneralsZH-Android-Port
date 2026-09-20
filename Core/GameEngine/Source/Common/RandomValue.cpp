@@ -61,6 +61,12 @@ namespace
 	}
 }
 
+void GameLogicRandomTallyReset( void )
+{
+	theLogicDrawTally.clear();
+	theLogicDrawTotal = 0;
+}
+
 void GameLogicRandomTallyDump( UnsignedInt frame )
 {
 	if (!GXTrace::isNetEnabled())
@@ -163,6 +169,10 @@ void InitRandom()
 	seedRandom(seconds, theGameLogicSeed);
 	theGameLogicBaseSeed = seconds;
 #endif
+
+	// GeneralsX @feature Android port 20/09/2026 The tally counts draws since the
+	// logic seed was set, which is the quantity two machines can compare.
+	GameLogicRandomTallyReset();
 }
 
 void InitRandom( UnsignedInt seed )
@@ -175,6 +185,8 @@ void InitRandom( UnsignedInt seed )
 	seedRandom(seed, theGameClientSeed);
 	seedRandom(seed, theGameLogicSeed);
 	theGameLogicBaseSeed = seed;
+
+	GameLogicRandomTallyReset();
 
 #ifdef DEBUG_RANDOM_LOGIC
 	DEBUG_LOG(("InitRandom %08lx", seed));

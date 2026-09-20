@@ -66,6 +66,13 @@ struct ClientRandomValueClass final : RandomValueClass
 // call sites that consumed randomness in between. Recording costs nothing
 // unless the gx_net_trace.txt marker is present.
 extern void GameLogicRandomTallyDump( UnsignedInt frame );
+// GeneralsX @feature Android port 20/09/2026 Clear the tally when a game starts.
+// The count is cumulative between dumps, and nothing cleared it at game start, so
+// draws made by a previous game in the same process were still in the first frame's
+// figure: the same replay reported 1142 draws in one run and 881 in the next while
+// every checksum was identical. A number that changes when the simulation does not
+// is worse than no number.
+extern void GameLogicRandomTallyReset( void );
 
 // use these macros to access the random value functions
 #define RandomValueInt(randomValueClass, lo, hi) randomValueClass.GetRandomValueInt( lo, hi, __FILE__, __LINE__ )
