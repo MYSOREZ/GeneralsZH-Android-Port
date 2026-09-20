@@ -28,6 +28,8 @@
 #include "PreRTS.h"	// This must go first in EVERY cpp file in the GameEngine
 
 #include "Common/CRCDebug.h"
+// GeneralsX @feature Android port 20/09/2026 GX_NET_TRACE for the AI stage split
+#include "GXTrace.h"
 #include "Common/GameState.h"
 #include "Common/PerfTimer.h"
 #include "Common/Player.h"
@@ -1010,20 +1012,44 @@ void TAiData::loadPostProcess()
 //-----------------------------------------------------------------------------
 void AI::crc( Xfer *xfer )
 {
+	// GeneralsX @feature Android port 20/09/2026 Split this stage in the trace.
+	//
+	// Every cross-play replay that diverges has an AI player in it, and the one
+	// that matches for a thousand frames does not -- five recordings, no
+	// exceptions, including one where both sides simply stood still and nothing
+	// was built or ordered. So the AI's own state is the suspect, and this
+	// function is where all of it enters the checksum: the pathfinder, the
+	// TAiData chain and the AI groups, collapsed into the single afterAI number
+	// GameLogic.cpp prints.
+	//
+	// Three numbers instead of one says which. It is the same move that took the
+	// object stage from "somewhere in three hundred objects" to eleven civilian
+	// vehicles, and from there to the real cause.
+	const Bool gxTrace = GXTrace::isNetEnabled() && xfer->getXferMode() == XFER_CRC;
+	const UnsignedInt gxFrame = TheGameLogic ? TheGameLogic->getFrame() : 0;
 
 	xfer->xferSnapshot( m_pathfinder );
 	CRCGEN_LOG(("CRC after AI pathfinder for frame %d is 0x%8.8X", TheGameLogic->getFrame(), ((XferCRC *)xfer)->getCRC()));
+	if (gxTrace)
+		GX_NET_TRACE("crc ai frame %u: afterPathfinder=%08X\n",
+			gxFrame, (unsigned)((XferCRC *)xfer)->getCRC());
 
 	AsciiString marker;
 	TAiData *aiData = m_aiData;
+	Int aiDataCount = 0;
 	while (aiData)
 	{
 		marker = "MARKER:TAiData";
 		xfer->xferAsciiString(&marker);
 		xfer->xferSnapshot( aiData );
 		aiData = aiData->m_next;
+		++aiDataCount;
 	}
+	if (gxTrace)
+		GX_NET_TRACE("crc ai frame %u: afterAiData=%08X  (TAiData: %d)\n",
+			gxFrame, (unsigned)((XferCRC *)xfer)->getCRC(), aiDataCount);
 
+	Int groupCount = 0;
 	for (std::list<AIGroup *>::iterator groupIt = m_groupList.begin(); groupIt != m_groupList.end(); ++groupIt)
 	{
 		if (*groupIt)
@@ -1031,9 +1057,12 @@ void AI::crc( Xfer *xfer )
 			marker = "MARKER:AIGroup";
 			xfer->xferAsciiString(&marker);
 			xfer->xferSnapshot( (*groupIt) );
+			++groupCount;
 		}
 	}
-
+	if (gxTrace)
+		GX_NET_TRACE("crc ai frame %u: afterGroups=%08X  (groups: %d)\n",
+			gxFrame, (unsigned)((XferCRC *)xfer)->getCRC(), groupCount);
 }
 
 //-----------------------------------------------------------------------------
