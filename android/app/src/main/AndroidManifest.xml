@@ -89,9 +89,18 @@
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:preferMinimalPostProcessing="true"
             android:configChanges="layoutDirection|locale|orientation|uiMode|screenLayout|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation">
+            <!-- GeneralsX @tweak Android port 20/09/2026 No LAUNCHER category any
+                 more, so the home screen shows one icon instead of two. Two were
+                 declared, and some OEM launchers collapse them while others do
+                 not, which is why the second icon appeared only on some devices.
+                 The game is started from SetupActivity.onLaunchGame(), which is
+                 the better path anyway: it forces landscape and waits for the OS
+                 to confirm the rotation before starting, so the native
+                 window-size probe in WW3D::Init() cannot run mid-rotation.
+                 Still exported with MAIN, so a shortcut someone already placed
+                 on their home screen keeps resolving instead of dying on update. -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
@@ -113,11 +122,14 @@
              onConfigurationChanged() to actually confirm the rotation
              completed before starting GeneralsZHActivity, rather than
              never rotating in the first place. -->
+        <!-- GeneralsX @tweak Android port 20/09/2026 The single home-screen icon
+             is this one, so it wears the game's name and artwork instead of
+             "GeneralsZH Settings" and the gear: it inherits label and icon from
+             <application>, which is why the overrides that used to sit here are
+             gone. setup_window_title is still the title shown inside the screen. -->
         <activity
             android:name=".SetupActivity"
             android:exported="true"
-            android:label="@string/setup_window_title"
-            android:icon="@mipmap/ic_launcher_setup"
             android:theme="@style/Theme.GeneralsZHSettings"
             android:configChanges="orientation|screenSize|keyboardHidden">
             <intent-filter>
