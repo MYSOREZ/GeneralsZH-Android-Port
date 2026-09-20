@@ -125,6 +125,7 @@ extern NGMPGame* TheNGMPGame;
 
 #include <rts/profile.h>
 #include "GXTrace.h"
+#include "Common/GXCrcStream.h"
 
 struct QuitGameException {};
 
@@ -4371,6 +4372,16 @@ UnsignedInt GameLogic::getCRC( Int mode, AsciiString deepCRCFileName )
 		xferCRC->open(crcName);
 	}
 
+	// GeneralsX @feature Android port 20/09/2026 Record the words this checksum is
+	// built from, so a disagreement with a PC recording can be located rather than
+	// guessed at. Only the whole-state checksum during a logic update; the
+	// per-object ones below open their own XferCRC and leave capture alone.
+	if (isInGameLogicUpdate() && xferCRC->getXferMode() == XFER_CRC)
+	{
+		GXCrcStream::begin( m_frame );
+		xferCRC->gxEnableCapture( TRUE );
+	}
+
 	// calculate CRCs
 	Object *obj;
 	DEBUG_ASSERTCRASH(this == TheGameLogic, ("Not in GameLogic"));
@@ -4379,6 +4390,7 @@ UnsignedInt GameLogic::getCRC( Int mode, AsciiString deepCRCFileName )
 		CRCGEN_LOG(("CRC at start of frame %d is 0x%8.8X", m_frame, xferCRC->getCRC()));
 	}
 
+	GXCrcStream::mark("Objects");
 	marker = "MARKER:Objects";
 	xferCRC->xferAsciiString(&marker);
 	Int objectCountForTrace = 0;
@@ -4417,6 +4429,9 @@ UnsignedInt GameLogic::getCRC( Int mode, AsciiString deepCRCFileName )
 		&& xferCRC->getXferMode() == XFER_CRC && m_frame <= (UnsignedInt)s_objTraceLastFrame;
 	for( obj = m_objList; obj; obj=obj->getNextObject() )
 	{
+		if (GXCrcStream::isCapturing())
+			GXCrcStream::markObject( (UnsignedInt)obj->getID(),
+				obj->getTemplate() ? obj->getTemplate()->getName().str() : nullptr );
 		xferCRC->xferSnapshot( obj );
 		++objectCountForTrace;
 		if (gxTraceObjects)
@@ -4447,6 +4462,7 @@ UnsignedInt GameLogic::getCRC( Int mode, AsciiString deepCRCFileName )
 	{
 		CRCGEN_LOG(("RandomSeed: %d", seed));
 	}
+	GXCrcStream::mark("logic random seed");
 	if (xferCRC->getXferMode() == XFER_CRC)
 	{
 		xferCRC->xferUnsignedInt( &seed );
@@ -4471,6 +4487,7 @@ UnsignedInt GameLogic::getCRC( Int mode, AsciiString deepCRCFileName )
 		GameLogicRandomTallyDump( m_frame );
 	}
 
+	GXCrcStream::mark("ThePartitionManager");
 	marker = "MARKER:ThePartitionManager";
 	xferCRC->xferAsciiString(&marker);
 	xferCRC->xferSnapshot( ThePartitionManager );
@@ -4499,6 +4516,7 @@ UnsignedInt GameLogic::getCRC( Int mode, AsciiString deepCRCFileName )
 			(unsigned)m_frame, (unsigned)xferCRC->getCRC());
 	}
 
+	GXCrcStream::mark("ThePlayerList");
 	marker = "MARKER:ThePlayerList";
 	xferCRC->xferAsciiString(&marker);
 	xferCRC->xferSnapshot( ThePlayerList );
@@ -4513,6 +4531,7 @@ UnsignedInt GameLogic::getCRC( Int mode, AsciiString deepCRCFileName )
 			(unsigned)m_frame, (unsigned)xferCRC->getCRC());
 	}
 
+	GXCrcStream::mark("TheAI");
 	marker = "MARKER:TheAI";
 	xferCRC->xferAsciiString(&marker);
 	xferCRC->xferSnapshot( TheAI );

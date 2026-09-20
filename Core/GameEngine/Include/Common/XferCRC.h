@@ -57,6 +57,13 @@ public:
 	// Xfer CRC methods
 	virtual UnsignedInt getCRC();										///< get computed CRC in network byte order
 
+	// GeneralsX @feature Android port 20/09/2026 Record this instance's input
+	// words so a disagreement with another machine can be located instead of
+	// guessed at. See Common/GXCrcStream.h. Only the whole-state checksum turns
+	// this on; the per-object ones GameLogic computes alongside must not, or they
+	// would interleave into the stream being analysed.
+	void gxEnableCapture( Bool enable ) { m_gxCapture = enable; }
+
 protected:
 
 	virtual void xferImplementation( void *data, Int dataSize ) override;
@@ -64,5 +71,6 @@ protected:
 	inline void addCRC( UnsignedInt val );								///< CRC a 4-byte block
 
 	UnsignedInt m_crc;
+	Bool m_gxCapture = false;
 
 };

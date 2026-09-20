@@ -35,6 +35,7 @@
 
 #include "Common/Recorder.h"
 #include "GXTrace.h"
+#include "Common/GXCrcStream.h"
 #include "Common/file.h"
 #include "Common/FileSystem.h"
 #include "Common/PlayerList.h"
@@ -1276,6 +1277,16 @@ void RecorderClass::handleCRCMessage(UnsignedInt newCRC, Int playerIndex, Bool f
 				m_crcInfo->GetQueueSize(),
 				(newCRC == playbackCRC) ? "" : "  <-- DIVERGED");
 			fflush(stderr);
+		}
+
+		// GeneralsX @feature Android port 20/09/2026 A mismatch used to be the end of
+		// the information: two numbers, and weeks of diffing candidate subsystems.
+		// The checksum's own arithmetic is invertible, so the recording's number can
+		// be walked backwards through our word stream to say which field of which
+		// object the two machines first disagree about. See Common/GXCrcStream.h.
+		if (TheGameLogic->getFrame() > 0 && newCRC != playbackCRC)
+		{
+			GXCrcStream::report( newCRC, playbackCRC );
 		}
 
 		if (TheGameLogic->getFrame() > 0 && newCRC != playbackCRC && !m_crcInfo->sawCRCMismatch())

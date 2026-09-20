@@ -33,6 +33,7 @@
 #include "Common/XferCRC.h"
 #include "Common/XferDeepCRC.h"
 #include "Common/crc.h"
+#include "Common/GXCrcStream.h"
 #include "Common/Snapshot.h"
 #include "Utility/endian_compat.h"
 
@@ -95,7 +96,11 @@ void XferCRC::endBlock()
 void XferCRC::addCRC( UnsignedInt val )
 {
 
-	m_crc = (m_crc << 1) + htobe(val) + ((m_crc >> 31) & 0x01);
+	const UnsignedInt word = htobe(val);
+	m_crc = (m_crc << 1) + word + ((m_crc >> 31) & 0x01);
+
+	if (m_gxCapture)
+		GXCrcStream::push(word, m_crc);
 
 }
 
@@ -146,6 +151,8 @@ void XferCRC::xferImplementation( void *data, Int dataSize )
 	case 1:
 		val += c[0];
 		m_crc = (m_crc << 1) + val + ((m_crc >> 31) & 0x01);
+		if (m_gxCapture)
+			GXCrcStream::push(val, m_crc);
 		FALLTHROUGH;
 	default:
 		break;

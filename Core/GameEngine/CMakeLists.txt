@@ -137,6 +137,7 @@ set(GAMEENGINE_SRC
 #    Include/Common/WellKnownKeys.h
     Include/Common/WorkerProcess.h
     Include/Common/Xfer.h
+    Include/Common/GXCrcStream.h
     Include/Common/XferCRC.h
     Include/Common/XferDeepCRC.h
     Include/Common/XferLoad.h
@@ -678,6 +679,7 @@ set(GAMEENGINE_SRC
     Source/Common/System/UnicodeString.cpp
 #    Source/Common/System/Upgrade.cpp
     Source/Common/System/Xfer.cpp
+    Source/Common/System/GXCrcStream.cpp
     Source/Common/System/XferCRC.cpp
     Source/Common/System/XferLoad.cpp
     Source/Common/System/XferSave.cpp
