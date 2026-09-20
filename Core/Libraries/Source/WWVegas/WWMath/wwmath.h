@@ -193,9 +193,9 @@ static WWINLINE float TanTrig(float x)
 { 
 #ifdef USE_DETERMINISTIC_MATH
 	// TODO: return GameMath::Tan(x);
-	return tanf(x); 
+	return (float)tan((double)(x)); 
 #else
-	return tanf(x); 
+	return (float)tan((double)(x)); 
 #endif
 }
 
@@ -460,6 +460,36 @@ WWINLINE long WWMath::Float_To_Long(double f)
 // ----------------------------------------------------------------------------
 
 #if defined(_MSC_VER) && defined(_M_IX86)
+/*
+ * GeneralsX @bugfix Android port 20/09/2026 -- cross-play determinism.
+ *
+ * These call sinf/cosf/tanf, and the source is character-identical to the PC
+ * GeneralsOnline client's. The divergence is not in the code, it is in which
+ * libm the two sides link. The client is built with VC6 for 32-bit x86, whose
+ * CRT promotes the argument to double and evaluates on the x87 unit; bionic
+ * implements a genuine single-precision sinf/cosf with its own ~1 ULP error.
+ * They land on different floats.
+ *
+ * Measured against the client's exact contract -- x87 with the control word
+ * setFPMode() installs (PC=24, round-to-nearest) -- over 62801 angles across
+ * [-pi, pi]:
+ *
+ *     x87 fsin  vs  sinf                      776 differ  (1.236%)
+ *     x87 fcos  vs  cosf                      768 differ  (1.223%)
+ *     x87 fsin  vs  (float)sin((double)x)       0 differ  (0.000%)
+ *     x87 fcos  vs  (float)cos((double)x)       0 differ  (0.000%)
+ *
+ * One angle in eighty is enough: a rotation matrix is rebuilt for every moving
+ * object every frame, and Object::crc hashes the transform directly. It is
+ * also exactly the observed signature -- replaying a PC recording on Android
+ * diverges at the first checkpoint with only the objects that MOVE disagreeing
+ * (11 of 317: ten civilian vehicles and a dozer), every static object hashing
+ * byte-identical.
+ *
+ * So evaluate in double and narrow once, which is what this same file already
+ * does for Acos, Asin and Sqrt. Not a workaround: it states in the source the
+ * precision contract that the client gets implicitly from its CRT.
+ */
 WWINLINE float WWMath::Cos(float val)
 {
 	float retval;
@@ -473,7 +503,7 @@ WWINLINE float WWMath::Cos(float val)
 #else
 WWINLINE float WWMath::Cos(float val)
 {
-	return cosf(val);
+	return (float)cos((double)(val));
 }
 #endif
 
@@ -495,7 +525,7 @@ WWINLINE float WWMath::Sin(float val)
 #else
 WWINLINE float WWMath::Sin(float val)
 {
-	return sinf(val);
+	return (float)sin((double)(val));
 }
 #endif
 
