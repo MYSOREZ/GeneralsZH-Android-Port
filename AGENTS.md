@@ -153,6 +153,19 @@ cmake --build build/macos-vulkan --target z_generals
   port came from exactly this -- read
   `docs/WORKDIR/lessons/LESSON-d3d-state-value-semantics.md`, which also records which
   diagnostics were blind to it and why.
+- **Lockstep CRC desync against the PC client**: do NOT start from floating-point
+  theory, and do NOT build a Windows or x86 reference binary -- one was brought up
+  for this and abandoned. The PC client's full source is on the dev machine at
+  `/home/user/generalsonlinedevelopmentteam/gameclient`, so this is a *diff*, and a
+  `.rep` recorded on the PC carries the x86 checksums inside it, so a phone alone
+  can compare frame by frame. The architecture is already measured innocent
+  (aarch64 and x86_64 agree bit-for-bit); what actually differs is the **libm
+  behind identical source** -- the client's VC6 CRT promotes `sinf` to double and
+  evaluates on x87, bionic does not. Read
+  `docs/WORKDIR/lessons/LESSON-cross-play-desync-method.md` **before** forming a
+  hypothesis: it lists what is already ruled out with measurements, which files are
+  audited clean, how to aim the per-object CRC trace (it cut 317 objects to 11),
+  and which replays to ask for.
 - **Slow/stuttering on the native GLES backend**: check the D3D8 **lock/usage flags** before
   anything else. `D3DLOCK_DISCARD`/`D3DLOCK_NOOVERWRITE` and the lock's `offset`/`size` are a
   synchronization contract; dropping them turns every dynamic-buffer update into a GPU stall,
