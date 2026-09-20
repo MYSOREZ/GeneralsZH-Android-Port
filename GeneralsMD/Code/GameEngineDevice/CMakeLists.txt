@@ -92,14 +92,6 @@ set(GAMEENGINEDEVICE_SRC
     # Linux SDL3 input devices (Phase 1.5 - TheSuperHackers @build 10/02/2026 Bender)
     Include/SDL3Device/GameClient/SDL3Mouse.h
     Include/SDL3Device/GameClient/SDL3Keyboard.h
-    # GeneralsX @bugfix Android port 16/09/2026 Both genuinely needed on
-    # _WIN32 -- Win32GameEngine::createAudioManager()/createVideoPlayer()
-    # call into them directly, confirmed by undefined-reference link errors.
-    # MilesAudioManager.cpp only exists under Core/GameEngineDevice/ (same
-    # situation as Win32Mouse.cpp/Win32DIKeyboard.cpp, see the if(WIN32) block
-    # below); BinkVideoPlayer.cpp has its own local copy right here.
-    ${CMAKE_SOURCE_DIR}/Core/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp
-    Source/VideoDevice/Bink/BinkVideoPlayer.cpp
     Source/W3DDevice/Common/System/W3DFunctionLexicon.cpp
 #    Source/W3DDevice/Common/System/W3DRadar.cpp
     Source/W3DDevice/Common/Thing/W3DModuleFactory.cpp
@@ -222,6 +214,25 @@ if(WIN32)
         ${CMAKE_SOURCE_DIR}/Core/GameEngineDevice/Source/Win32Device/GameClient/Win32DIKeyboard.cpp
         ${CMAKE_SOURCE_DIR}/Core/GameEngineDevice/Source/Win32Device/GameClient/Win32Mouse.cpp
     )
+
+    # GeneralsX @bugfix Android port 16/09/2026 Both genuinely needed on _WIN32 --
+    # Win32GameEngine::createAudioManager()/createVideoPlayer() call into them
+    # directly, confirmed by undefined-reference link errors. MilesAudioManager.cpp
+    # only exists under Core/GameEngineDevice/, like the two files above;
+    # BinkVideoPlayer.cpp has its own local copy right here.
+    # GeneralsX @bugfix Android port 20/09/2026 They were added to the
+    # unconditional source list, which built them on every platform: Android
+    # died with "'mss/mss.h' file not found" 873 objects in. Miles and Bink are
+    # third-party Windows SDKs and the top-level CMakeLists only fetches them
+    # under this same condition, so anything else has neither header to compile
+    # against -- non-Windows already has BinkVideoPlayerStub.cpp in the else
+    # branch below and gets its audio from OpenAL.
+    if(${CMAKE_SIZEOF_VOID_P} EQUAL 4)
+        list(APPEND GAMEENGINEDEVICE_SRC
+            ${CMAKE_SOURCE_DIR}/Core/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp
+            Source/VideoDevice/Bink/BinkVideoPlayer.cpp
+        )
+    endif()
 else()
     # Linux-specific files (SDL3, OpenAL+FFmpeg audio, DXVK)
     list(APPEND GAMEENGINEDEVICE_SRC
