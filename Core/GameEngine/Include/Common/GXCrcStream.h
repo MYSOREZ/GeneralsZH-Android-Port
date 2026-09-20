@@ -69,6 +69,11 @@ namespace GXCrcStream
 	// byte swap, the same form ours is compared in.
 	void report( UnsignedInt theirCRC, UnsignedInt ourCRC );
 
+	// For the live path, where the two values being compared are two players'
+	// checksums and which one is this machine's is not to hand. Whichever a
+	// captured stream ends on is ours; this works that out and reports once.
+	void reportEither( UnsignedInt crcA, UnsignedInt crcB );
+
 	// True while capture is armed, so callers can skip building labels.
 	Bool isCapturing();
 }

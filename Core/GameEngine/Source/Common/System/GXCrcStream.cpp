@@ -62,7 +62,14 @@ namespace
 	// words, so a few hundred KB. The cap exists only so that a pathological map
 	// cannot exhaust a phone's memory; being told the cap was hit beats being
 	// handed a silently truncated answer.
-	const size_t MAX_WORDS = 4u * 1024u * 1024u;
+	const size_t MAX_WORDS = 1024u * 1024u;
+
+	// Why a ring and not one buffer: in a live network game the other machine's
+	// checksum for frame N does not arrive until a few frames later, by which time
+	// a single buffer would already hold a different frame's words and the locator
+	// would have to decline. Keeping the last few snapshots costs a megabyte or so
+	// at real map sizes and makes the tool work in a match, not only in a replay.
+	const size_t RING = 4;
 
 	// How many candidates to print. The true position has ranked first or third
 	// in every synthetic test; a dozen is room to spare without burying the log.
@@ -74,19 +81,55 @@ namespace
 		std::string label;
 	};
 
+	// What kind of difference a position would have to be. Ordered by how
+	// distinctive it is: a random 32-bit number has a 32-in-2^32 chance of sitting
+	// one bit away from ours, so over eighty thousand positions a bit-flip hit is
+	// essentially never a coincidence. Float rounding is the loosest of the four
+	// and so comes last.
+	enum CandidateKind
+	{
+		KIND_BIT_FLIP = 0,       // a status bit, a flag, a mask
+		KIND_SMALL_INT,          // a counter, a frame number, an object id
+		KIND_ZERO_ONE_SIDE,      // a field set on one machine and not the other
+		KIND_FLOAT_ROUNDING,     // platform arithmetic
+		KIND_COUNT
+	};
+
+	const char *kindName( Int kind )
+	{
+		switch (kind)
+		{
+			case KIND_BIT_FLIP:      return "one bit apart (a flag or status bit)";
+			case KIND_SMALL_INT:     return "a small integer apart (a counter, frame or id)";
+			case KIND_ZERO_ONE_SIDE: return "zero on one machine only";
+			case KIND_FLOAT_ROUNDING:return "float rounding";
+			default:                 return "?";
+		}
+	}
+
 	struct Candidate
 	{
 		size_t index;
 		UnsignedInt impliedWord;
-		Int mantissaDelta;
+		Int kind;
+		Int distance;            // bits, or integer delta, or mantissa delta
 	};
 
-	std::vector<UnsignedInt> theWords;   // the operand fed in at each step
-	std::vector<UnsignedInt> theCrcs;    // our running value after each step
-	std::vector<Mark> theMarks;
+	struct CrcSnapshot
+	{
+		std::vector<UnsignedInt> words;   // the operand fed in at each step
+		std::vector<UnsignedInt> crcs;    // our running value after each step
+		std::vector<Mark> marks;
+		UnsignedInt frame = 0;
+		Bool truncated = false;
+		Bool complete = false;
+	};
+
+	CrcSnapshot theRing[RING];
+	size_t theCurrent = 0;
 	Bool theCapturing = false;
-	Bool theTruncated = false;
-	UnsignedInt theFrame = 0;
+
+	inline CrcSnapshot &cur() { return theRing[theCurrent]; }
 
 	inline UnsignedInt rol1( UnsignedInt x )
 	{
@@ -112,13 +155,13 @@ namespace
 		return f;
 	}
 
-	const char *labelForPosition( size_t pos, size_t *offsetWithin )
+	const char *labelForPosition( const CrcSnapshot &snap, size_t pos, size_t *offsetWithin )
 	{
 		const Mark *best = nullptr;
-		for (size_t i = 0; i < theMarks.size(); ++i)
+		for (size_t i = 0; i < snap.marks.size(); ++i)
 		{
-			if (theMarks[i].pos <= pos && (best == nullptr || theMarks[i].pos >= best->pos))
-				best = &theMarks[i];
+			if (snap.marks[i].pos <= pos && (best == nullptr || snap.marks[i].pos >= best->pos))
+				best = &snap.marks[i];
 		}
 		if (best == nullptr)
 		{
@@ -162,10 +205,62 @@ namespace
 		return true;
 	}
 
-	Bool byMantissaDelta( const Candidate &a, const Candidate &b )
+	inline Int popcount32( UnsignedInt x )
 	{
-		if (a.mantissaDelta != b.mantissaDelta)
-			return a.mantissaDelta < b.mantissaDelta;
+		Int n = 0;
+		while (x) { x &= (x - 1); ++n; }
+		return n;
+	}
+
+	// Classify the one word that would reconcile our stream with theirs. Returns
+	// false when it looks like nothing in particular, which is what an arbitrary
+	// 32-bit number does and therefore what almost every position does.
+	Bool classify( UnsignedInt ourBits, UnsignedInt theirBits, Int *kind, Int *distance )
+	{
+		if (ourBits == theirBits)
+			return false;
+
+		const Int bits = popcount32(ourBits ^ theirBits);
+		if (bits <= 4)
+		{
+			*kind = KIND_BIT_FLIP;
+			*distance = bits;
+			return true;
+		}
+
+		if (ourBits == 0u || theirBits == 0u)
+		{
+			*kind = KIND_ZERO_ONE_SIDE;
+			*distance = 0;
+			return true;
+		}
+
+		const UnsignedInt diff = (ourBits > theirBits)
+			? (ourBits - theirBits) : (theirBits - ourBits);
+		if (diff <= 4096u)
+		{
+			*kind = KIND_SMALL_INT;
+			*distance = (Int)diff;
+			return true;
+		}
+
+		Int mantissaDelta = 0;
+		if (looksLikeRounding(ourBits, theirBits, &mantissaDelta))
+		{
+			*kind = KIND_FLOAT_ROUNDING;
+			*distance = mantissaDelta;
+			return true;
+		}
+
+		return false;
+	}
+
+	Bool byDistinctiveness( const Candidate &a, const Candidate &b )
+	{
+		if (a.kind != b.kind)
+			return a.kind < b.kind;
+		if (a.distance != b.distance)
+			return a.distance < b.distance;
 		return a.index < b.index;
 	}
 }
@@ -186,16 +281,21 @@ void begin( UnsignedInt frame )
 		return;
 	}
 
-	theWords.clear();
-	theCrcs.clear();
-	theMarks.clear();
-	theTruncated = false;
-	theFrame = frame;
+	theCurrent = (theCurrent + 1) % RING;
+	CrcSnapshot &snap = cur();
+	snap.words.clear();
+	snap.crcs.clear();
+	snap.marks.clear();
+	snap.truncated = false;
+	snap.complete = false;
+	snap.frame = frame;
 	theCapturing = true;
 }
 
 void end()
 {
+	if (theCapturing)
+		cur().complete = true;
 	theCapturing = false;
 }
 
@@ -204,14 +304,15 @@ void push( UnsignedInt word, UnsignedInt crcAfter )
 	if (!theCapturing)
 		return;
 
-	if (theWords.size() >= MAX_WORDS)
+	CrcSnapshot &snap = cur();
+	if (snap.words.size() >= MAX_WORDS)
 	{
-		theTruncated = true;
+		snap.truncated = true;
 		return;
 	}
 
-	theWords.push_back(word);
-	theCrcs.push_back(crcAfter);
+	snap.words.push_back(word);
+	snap.crcs.push_back(crcAfter);
 }
 
 void mark( const char *label )
@@ -219,10 +320,11 @@ void mark( const char *label )
 	if (!theCapturing || label == nullptr)
 		return;
 
+	CrcSnapshot &snap = cur();
 	Mark m;
-	m.pos = theWords.size();
+	m.pos = snap.words.size();
 	m.label = label;
-	theMarks.push_back(m);
+	snap.marks.push_back(m);
 }
 
 void markObject( UnsignedInt objectId, const char *templateName )
@@ -236,79 +338,139 @@ void markObject( UnsignedInt objectId, const char *templateName )
 	mark(buf);
 }
 
-void report( UnsignedInt theirCRC, UnsignedInt ourCRC )
+namespace
+{
+	Bool haveStreamEndingIn( UnsignedInt crcAsReported )
+	{
+		const UnsignedInt internalValue = htobe(crcAsReported);
+		for (size_t k = 0; k < RING; ++k)
+		{
+			if (!theRing[k].crcs.empty() && theRing[k].crcs.back() == internalValue)
+				return true;
+		}
+		return false;
+	}
+}
+
+void reportEither( UnsignedInt crcA, UnsignedInt crcB )
 {
 	if (!GXTrace::isNetEnabled())
 		return;
 
-	if (theWords.empty())
-	{
-		GX_NET_TRACE("crc locate frame %u: nothing captured -- the compared checksum"
-			" was generated before capture was armed\n", (unsigned)theFrame);
-		return;
-	}
+	if (haveStreamEndingIn(crcA))
+		report(crcB, crcA);
+	else if (haveStreamEndingIn(crcB))
+		report(crcA, crcB);
+	else
+		GX_NET_TRACE("crc locate: neither %08X nor %08X ends a captured stream, so"
+			" the compared checksums were generated outside the last %u captures.\n",
+			(unsigned)crcA, (unsigned)crcB, (unsigned)RING);
+}
 
-	if (theTruncated)
-	{
-		GX_NET_TRACE("crc locate frame %u: capture hit its %u-word cap, so this"
-			" covers only the first part of the checksum\n",
-			(unsigned)theFrame, (unsigned)MAX_WORDS);
-	}
+void report( UnsignedInt theirCRC, UnsignedInt ourCRC )
+{
+	if (!GXTrace::isNetEnabled())
+		return;
 
 	// getCRC() byte-swaps on the way out; the walk works on the accumulator's own
 	// value, so undo it.
 	const UnsignedInt theirInternal = htobe(theirCRC);
 	const UnsignedInt ourInternal = htobe(ourCRC);
 
-	if (theCrcs.back() != ourInternal)
+	// Find the snapshot that produced the value being compared. In a replay that
+	// is almost always the newest one; in a live match the peer's checksum for
+	// frame N arrives a few frames later, which is the reason for the ring.
+	const CrcSnapshot *found = nullptr;
+	for (size_t k = 0; k < RING; ++k)
 	{
-		GX_NET_TRACE("crc locate frame %u: the captured stream ends at %08X but the"
-			" checksum compared was %08X, so the capture belongs to a different"
-			" computation. Not locating.\n",
-			(unsigned)theFrame, (unsigned)htobe(theCrcs.back()), (unsigned)ourCRC);
+		const CrcSnapshot &snap = theRing[k];
+		if (!snap.crcs.empty() && snap.crcs.back() == ourInternal)
+		{
+			found = &snap;
+			break;
+		}
+	}
+
+	if (found == nullptr)
+	{
+		GX_NET_TRACE("crc locate: no captured stream ends at %08X, so the checksum"
+			" being compared was generated outside the last %u captures. Nothing to"
+			" locate against.\n", (unsigned)ourCRC, (unsigned)RING);
 		return;
 	}
 
-	const size_t n = theWords.size();
+	const CrcSnapshot &snap = *found;
+	const size_t n = snap.words.size();
+
+	if (snap.truncated)
+	{
+		GX_NET_TRACE("crc locate frame %u: capture hit its %u-word cap, so this"
+			" covers only the first part of the checksum\n",
+			(unsigned)snap.frame, (unsigned)MAX_WORDS);
+	}
 
 	// Inverse walk from their final value, using our words.
 	std::vector<UnsignedInt> back(n + 1, 0);
 	back[n] = theirInternal;
 	for (size_t i = n; i > 0; --i)
-		back[i - 1] = ror1(back[i] - theWords[i - 1]);
+		back[i - 1] = ror1(back[i] - snap.words[i - 1]);
 
 	std::vector<Candidate> cands;
 	for (size_t i = 0; i < n; ++i)
 	{
-		const UnsignedInt ourPrev = (i >= 1) ? theCrcs[i - 1] : 0u;
+		const UnsignedInt ourPrev = (i >= 1) ? snap.crcs[i - 1] : 0u;
 		const UnsignedInt implied = back[i + 1] - rol1(ourPrev);
 
-		Int delta = 0;
-		if (looksLikeRounding(fieldBits(theWords[i]), fieldBits(implied), &delta))
+		Int kind = 0, distance = 0;
+		if (classify(fieldBits(snap.words[i]), fieldBits(implied), &kind, &distance))
 		{
 			Candidate c;
 			c.index = i;
 			c.impliedWord = implied;
-			c.mantissaDelta = delta;
+			c.kind = kind;
+			c.distance = distance;
 			cands.push_back(c);
 		}
 	}
 
+	Int perKind[KIND_COUNT] = { 0 };
+	for (size_t k = 0; k < cands.size(); ++k)
+		++perKind[cands[k].kind];
+
 	GX_NET_TRACE("crc locate frame %u: ours=%08X theirs=%08X over %u words;"
-		" %u positions could be a rounding difference\n",
-		(unsigned)theFrame, (unsigned)ourCRC, (unsigned)theirCRC,
-		(unsigned)n, (unsigned)cands.size());
+		" %u positions could be a single-word difference"
+		" (%d bit-flip, %d small-int, %d zero-one-side, %d float-rounding)\n",
+		(unsigned)snap.frame, (unsigned)ourCRC, (unsigned)theirCRC,
+		(unsigned)n, (unsigned)cands.size(),
+		(int)perKind[KIND_BIT_FLIP], (int)perKind[KIND_SMALL_INT],
+		(int)perKind[KIND_ZERO_ONE_SIDE], (int)perKind[KIND_FLOAT_ROUNDING]);
+
+	// The section layout is worth having either way: it says how the words are
+	// distributed, which is the first thing to compare against the other machine
+	// when the difference turns out to be structural rather than one word.
+	for (size_t k = 0; k < snap.marks.size(); ++k)
+	{
+		// Objects get one mark each and there can be hundreds; the named sections
+		// are the useful skeleton.
+		if (snap.marks[k].label.compare(0, 7, "object ") == 0)
+			continue;
+		const size_t endPos = (k + 1 < snap.marks.size()) ? snap.marks[k + 1].pos : n;
+		GX_NET_TRACE("crc locate frame %u: section %-22s words %u..%u (%u)\n",
+			(unsigned)snap.frame, snap.marks[k].label.c_str(),
+			(unsigned)snap.marks[k].pos, (unsigned)endPos,
+			(unsigned)(endPos - snap.marks[k].pos));
+	}
 
 	if (cands.empty())
 	{
-		GX_NET_TRACE("crc locate frame %u: none. So the difference is not a rounded"
-			" float -- an integer field, a status bit, a different object count, or"
-			" more than one word apart. The stream length itself is the next thing"
-			" to check against the other machine.\n", (unsigned)theFrame);
+		GX_NET_TRACE("crc locate frame %u: no single word reconciles the two. So more"
+			" than one word differs -- a Coord3D or a transform, a field block, or a"
+			" different number of objects. The word count above is what to compare"
+			" against the other machine next.\n", (unsigned)snap.frame);
 		return;
 	}
 
-	std::sort(cands.begin(), cands.end(), byMantissaDelta);
+	std::sort(cands.begin(), cands.end(), byDistinctiveness);
 
 	size_t lo = cands.front().index;
 	size_t hi = cands.front().index;
@@ -318,28 +480,28 @@ void report( UnsignedInt theirCRC, UnsignedInt ourCRC )
 		hi = std::max(hi, cands[k].index);
 	}
 	size_t offLo = 0, offHi = 0;
-	const char *labelLo = labelForPosition(lo, &offLo);
-	const char *labelHi = labelForPosition(hi, &offHi);
+	const char *labelLo = labelForPosition(snap, lo, &offLo);
+	const char *labelHi = labelForPosition(snap, hi, &offHi);
 	GX_NET_TRACE("crc locate frame %u: they all fall between word %u (%s +%u) and"
 		" word %u (%s +%u)\n",
-		(unsigned)theFrame, (unsigned)lo, labelLo, (unsigned)offLo,
+		(unsigned)snap.frame, (unsigned)lo, labelLo, (unsigned)offLo,
 		(unsigned)hi, labelHi, (unsigned)offHi);
 
 	const size_t show = std::min(cands.size(), MAX_REPORTED);
 	for (size_t k = 0; k < show; ++k)
 	{
 		const Candidate &c = cands[k];
-		const UnsignedInt ourBits = fieldBits(theWords[c.index]);
+		const UnsignedInt ourBits = fieldBits(snap.words[c.index]);
 		const UnsignedInt theirBits = fieldBits(c.impliedWord);
 		size_t offsetWithin = 0;
-		const char *label = labelForPosition(c.index, &offsetWithin);
-		GX_NET_TRACE("crc locate frame %u:   #%u word %u  %s +%u  ours=%08X %.9g"
-			"  theirs=%08X %.9g  mantissa %d apart\n",
-			(unsigned)theFrame, (unsigned)(k + 1), (unsigned)c.index,
+		const char *label = labelForPosition(snap, c.index, &offsetWithin);
+		GX_NET_TRACE("crc locate frame %u:   #%u word %u  %s +%u  ours=%08X (%d, %.9g)"
+			"  theirs=%08X (%d, %.9g)  %s, distance %d\n",
+			(unsigned)snap.frame, (unsigned)(k + 1), (unsigned)c.index,
 			label, (unsigned)offsetWithin,
-			(unsigned)ourBits, asFloat(ourBits),
-			(unsigned)theirBits, asFloat(theirBits),
-			(int)c.mantissaDelta);
+			(unsigned)ourBits, (int)ourBits, asFloat(ourBits),
+			(unsigned)theirBits, (int)theirBits, asFloat(theirBits),
+			kindName(c.kind), (int)c.distance);
 	}
 }
 

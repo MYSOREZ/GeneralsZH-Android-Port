@@ -2815,6 +2815,11 @@ void GameLogic::processCommandList( CommandList *list )
 					{
 						DEBUG_CRASH(("CRC mismatch!"));
 						sawCRCMismatch = TRUE;
+
+						// GeneralsX @feature Android port 20/09/2026 Say where, not just
+						// that. One of these two is this machine's -- whichever a captured
+						// stream ends on -- and reportEither works that out itself.
+						GXCrcStream::reportEither( referenceCRC, crc );
 					}
 				}
 			}
@@ -4554,6 +4559,11 @@ UnsignedInt GameLogic::getCRC( Int mode, AsciiString deepCRCFileName )
 	}
 
 	xferCRC->close();
+
+	// GeneralsX @feature Android port 20/09/2026 Seal this frame's capture. It stays
+	// in the ring for a few more checksums, because a peer's value for this frame
+	// does not reach us until several frames later in a live match.
+	GXCrcStream::end();
 
 	UnsignedInt theCRC = xferCRC->getCRC();
 
