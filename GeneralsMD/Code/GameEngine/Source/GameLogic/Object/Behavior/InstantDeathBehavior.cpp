@@ -124,14 +124,23 @@ void InstantDeathBehavior::onDie( const DamageInfo *damageInfo )
 	if (!isDieApplicable(damageInfo))
 		return;
 
-	AIUpdateInterface* ai = getObject()->getAIUpdateInterface();
-	if (ai)
-	{
-		// has another AI already handled us. (hopefully another InstantDeathBehavior)
-		if (ai->isAiInDeadState())
-			return;
-		ai->markAsDead();
-	}
+	// GeneralsX @bugfix Android port 20/09/2026 Matched to the GeneralsOnline PC
+	// client, whose source is the authority for cross-play. Two divergences here,
+	// both of which move the logic RNG stream -- the quantity a lockstep desync
+	// amplifies fastest.
+	//
+	// The dead-state check used to run FIRST. The client runs it LAST (its copy
+	// is under #if !RETAIL_COMPATIBLE_CRC, and that macro is 0 on both sides), so
+	// when an object with AI is already dead the client still draws for the fx and
+	// ocl lists and only then returns -- while we returned having drawn nothing.
+	// Two machines disagreeing about how many numbers were taken from the logic
+	// RNG cannot stay in sync for long.
+	//
+	// And the weapon list is only fired when the object is not a scaffold under
+	// construction. Without that, we fire death weapons on cancelled buildings
+	// that the client leaves alone: extra damage, extra objects, another draw.
+	// Cancelling a building is something players do in the first seconds of a
+	// match. Upstream fixes, TheSuperHackers @bugfix Stubbjax 21 & 23/07/2026.
 
 	const InstantDeathBehaviorModuleData* d = getInstantDeathBehaviorModuleData();
 
@@ -157,17 +166,29 @@ void InstantDeathBehavior::onDie( const DamageInfo *damageInfo )
 		ObjectCreationList::create(ocl, getObject(), nullptr);
 	}
 
-	listSize = d->m_weapons.size();
-	if (listSize > 0)
+	if (!getObject()->getStatusBits().test(OBJECT_STATUS_UNDER_CONSTRUCTION))
 	{
-		idx = (size_t)GameLogicRandomValue(0, listSize-1);
-		const WeaponTemplateVec& v = d->m_weapons;
-		DEBUG_ASSERTCRASH(idx>=0&&idx<v.size(),("bad idx"));
-		const WeaponTemplate* wt = v[idx];
-		if (wt)
+		listSize = d->m_weapons.size();
+		if (listSize > 0)
 		{
-			TheWeaponStore->createAndFireTempWeapon(wt, getObject(), getObject()->getPosition());
+			idx = (size_t)GameLogicRandomValue(0, listSize-1);
+			const WeaponTemplateVec& v = d->m_weapons;
+			DEBUG_ASSERTCRASH(idx>=0&&idx<v.size(),("bad idx"));
+			const WeaponTemplate* wt = v[idx];
+			if (wt)
+			{
+				TheWeaponStore->createAndFireTempWeapon(wt, getObject(), getObject()->getPosition());
+			}
 		}
+	}
+
+	AIUpdateInterface* ai = getObject()->getAIUpdateInterface();
+	if (ai)
+	{
+		// has another AI already handled us. (hopefully another InstantDeathBehavior)
+		if (ai->isAiInDeadState())
+			return;
+		ai->markAsDead();
 	}
 
 	TheGameLogic->destroyObject(getObject());

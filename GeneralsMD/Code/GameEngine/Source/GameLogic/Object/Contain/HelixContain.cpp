@@ -284,10 +284,21 @@ void HelixContain::removeFromContain( Object *obj, Bool exposeStealthUnits )
 	{
     Object *portable = getPortableStructure();
     if ( portable )
+    {
+      // GeneralsX @bugfix Android port 20/09/2026 Stripping the client's
+      // #if RETAIL_COMPATIBLE_CRC / #else / #endif here took the braces and the
+      // body with it, leaving a brace-less `if` guarding only the assignment
+      // below and no call at all. So the portable structure kept a dangling
+      // m_containedBy, and m_containedByFrame was never cleared -- and
+      // m_containedByFrame is hashed by Object::crc (Object.cpp:4328), so the
+      // two sides disagreed about the checksum from the moment a Helix dropped
+      // its portable structure. The client takes the #else arm, since
+      // RETAIL_COMPATIBLE_CRC is 0 on both sides.
+      portable->friend_setContainedBy(nullptr);
 
       m_portableStructureID = INVALID_ID;
       //portable->kill();
-
+    }
   }
   else
   {

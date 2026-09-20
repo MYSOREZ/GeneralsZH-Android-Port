@@ -242,7 +242,16 @@ void EMPUpdate::doDisableAttack()
 						{
 							Coord3D offs = {0,0,0};
 							curVictim->getGeometryInfo().makeRandomOffsetWithinFootprint( offs );
-							offs.z = GameLogicRandomValue(3, victimHeight);
+							// GeneralsX @bugfix Android port 20/09/2026 Was GameLogicRandomValue. The PC
+							// client draws this from the CLIENT stream, and this is purely a particle
+							// offset -- nothing about where a spark appears belongs in the lockstep
+							// simulation. emitterCount is at least 15, so every EMP-disabled victim
+							// pulled fifteen-plus extra numbers out of the logic RNG on our side and
+							// none on theirs, shifting every subsequent draw in the match.
+							// The comment further down about the streams differing describes the
+							// setInitialDelay line below it, which already matches -- it reads as
+							// though it covers this line too, and that is likely why this was missed.
+							offs.z = GameClientRandomValue(3, victimHeight);
 
 							//This puts all the sparks within a quadrahemicycloid (rectangular dome) volume
 							//The same shape as a four cornered camping dome tent, for those with less Greek
