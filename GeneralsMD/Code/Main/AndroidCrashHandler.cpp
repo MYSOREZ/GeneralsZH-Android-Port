@@ -48,6 +48,13 @@
 #include <stdio.h>
 #include <time.h>
 #include <stdint.h>
+#include <dlfcn.h>
+// GeneralsX @bugfix Android port 19/09/2026 ANDROID_CI_BUILD_NUMBER, so the
+// crash log names the CI run whose artifact its offsets belong to. See the
+// stamp at the bottom of this file.
+#include "GeneratedVersion.h"
+#include <elf.h>
+#include <link.h>
 #if defined(__aarch64__)
 #include <ucontext.h>
 #endif
@@ -185,6 +192,75 @@ bool findLibraryForAddress(uintptr_t pc, char *outName, size_t outNameLen, uintp
 // real user id from getuid() instead of assuming user 0.
 char s_crashLogPath[256];
 
+// GeneralsX @bugfix Android port 19/09/2026 __DATE__/__TIME__ cannot be
+// trusted to identify a build. ccache replays a cached object file complete
+// with the preprocessor date baked into it, which GameEngine.cpp:858-867
+// already warns about -- and a report received on 19/09/2026 proved it the
+// expensive way: its stamp read "compiled Aug 30 2026 16:38:03", but the only
+// libmain.so whose code layout matched the addresses in the very same log was
+// built on 06/09/2026. Symbolizing it meant searching every historical APK in
+// the repository for one whose symbol table agreed with an unrelated
+// diagnostic line that happened to name a function.
+//
+// The linker's build id settles that in one field: it is a hash of the linked
+// output, so it changes when and only when the binary does, and CI already
+// records it next to the symbol table it collects
+// (.github/workflows/build-android.yml). Read it out of our own mapped ELF
+// image -- program headers are part of the first PT_LOAD segment, so they are
+// in memory at dli_fbase and need no file I/O. Done once at load, not in a
+// signal handler.
+char s_buildIdHex[48];
+
+void computeBuildId() {
+	s_buildIdHex[0] = '\0';
+
+	Dl_info info;
+	memset(&info, 0, sizeof(info));
+	// Any address inside this library will do; take this function's own.
+	if (!dladdr((void *)&computeBuildId, &info) || info.dli_fbase == nullptr) {
+		return;
+	}
+
+	const unsigned char *base = (const unsigned char *)info.dli_fbase;
+	const ElfW(Ehdr) *ehdr = (const ElfW(Ehdr) *)base;
+	if (memcmp(ehdr->e_ident, ELFMAG, SELFMAG) != 0) {
+		return;
+	}
+
+	const ElfW(Phdr) *phdr = (const ElfW(Phdr) *)(base + ehdr->e_phoff);
+	for (int i = 0; i < (int)ehdr->e_phnum; ++i) {
+		if (phdr[i].p_type != PT_NOTE) {
+			continue;
+		}
+		const unsigned char *note = base + phdr[i].p_vaddr;
+		const unsigned char *noteEnd = note + phdr[i].p_memsz;
+		while (note + sizeof(ElfW(Nhdr)) <= noteEnd) {
+			const ElfW(Nhdr) *nhdr = (const ElfW(Nhdr) *)note;
+			const unsigned char *name = note + sizeof(ElfW(Nhdr));
+			const unsigned char *desc = name + ((nhdr->n_namesz + 3) & ~3u);
+			if (desc + nhdr->n_descsz > noteEnd) {
+				break;
+			}
+			if (nhdr->n_type == NT_GNU_BUILD_ID && nhdr->n_namesz == 4 &&
+			    memcmp(name, "GNU", 4) == 0) {
+				static const char hex[] = "0123456789abcdef";
+				// Truncate rather than overflow: the leading bytes of a SHA-1
+				// build id are already far more than enough to pick one build
+				// out of a repository's worth of them.
+				size_t maxBytes = (sizeof(s_buildIdHex) - 1) / 2;
+				size_t count = nhdr->n_descsz < maxBytes ? nhdr->n_descsz : maxBytes;
+				for (size_t b = 0; b < count; ++b) {
+					s_buildIdHex[b * 2]     = hex[desc[b] >> 4];
+					s_buildIdHex[b * 2 + 1] = hex[desc[b] & 0x0F];
+				}
+				s_buildIdHex[count * 2] = '\0';
+				return;
+			}
+			note = desc + ((nhdr->n_descsz + 3) & ~3u);
+		}
+	}
+}
+
 void computeCrashLogPath() {
 	int userId = (int)(getuid() / 100000);
 	snprintf(s_crashLogPath, sizeof(s_crashLogPath),
@@ -285,6 +361,41 @@ void logResolvedAddress(const char *label, uintptr_t addr) {
 	if (len > 0) {
 		appendCrashLog(buf, (size_t)len < sizeof(buf) ? (size_t)len : sizeof(buf) - 1);
 	}
+
+	// GeneralsX @bugfix Android port 19/09/2026 A "library+offset" line is only
+	// useful to whoever still has that exact build's .so; a tester's report
+	// reaches us as bare numbers and someone has to go find the artifact and
+	// run addr2line before the report says anything at all. A crash sent in on
+	// 19/09/2026 (SIGSEGV, fault_addr=0x8, on pressing "create game" in the LAN
+	// lobby) cost exactly that round trip. The process can already name these
+	// addresses: the texture-churn diagnostic in
+	// Core/Libraries/Source/WWVegas/WW3D2/texture.cpp:663-672 prints
+	// nearest_sym= from dladdr() and resolves ordinary engine symbols
+	// (_ZN21Render2DSentenceClass14Build_TexturesEv) in the shipped release
+	// library, because stripping removes .symtab but leaves .dynsym, where the
+	// engine's non-static functions live -- LanGameOptionsMenuInit and
+	// InitLanGameGadgets among them, verified with nm -D on a shipped
+	// libmain.so. So ask dladdr for a name here too.
+	//
+	// Deliberately AFTER the line above has been written. Everything else in
+	// this handler is raw-syscall-only and async-signal-safe on purpose;
+	// dladdr() is not -- it takes the dynamic linker's lock, so a crash raised
+	// from inside the linker itself could deadlock here. That risk is accepted
+	// in exchange for a self-explaining report, and it is bounded: the
+	// library+offset line for this frame, and every frame before it, is
+	// already on disk (appendCrashLog writes immediately and unbuffered), so
+	// the worst case loses only the names, never the report. This is the same
+	// trade the frame-pointer walk below already makes for a corrupted fp.
+	Dl_info symInfo;
+	memset(&symInfo, 0, sizeof(symInfo));
+	if (dladdr((void *)addr, &symInfo) && symInfo.dli_sname != nullptr && symInfo.dli_saddr != nullptr) {
+		int slen = snprintf(buf, sizeof(buf), "  -> %s+0x%lx\n",
+			symInfo.dli_sname,
+			(unsigned long)((uintptr_t)addr - (uintptr_t)symInfo.dli_saddr));
+		if (slen > 0) {
+			appendCrashLog(buf, (size_t)slen < sizeof(buf) ? (size_t)slen : sizeof(buf) - 1);
+		}
+	}
 }
 
 void androidCrashHandler(int sig, siginfo_t *info, void *ucontext) {
@@ -371,6 +482,7 @@ char s_altStack[64 * 1024];
 __attribute__((constructor))
 void installAndroidCrashHandler() {
 	computeCrashLogPath();
+	computeBuildId();
 	rotatePrevCrashLog();
 
 	stack_t ss;
@@ -405,13 +517,20 @@ void installAndroidCrashHandler() {
 	// -- and that ambiguity made it impossible to trust whether a diagnostic
 	// change was actually in the tested binary. __DATE__/__TIME__ uniquely
 	// identify each CI build.
+	// GeneralsX @bugfix Android port 19/09/2026 __DATE__/__TIME__ identify a
+	// build only to whoever can match them against a CI run, and ccache can
+	// carry a stale pair into a fresh binary (noted above). The CI run number
+	// is what actually names the artifact -- GeneralsXZH-android-run<N>.apk --
+	// so print it here too: a tester's crash log then points straight at the
+	// unstripped .so whose offsets it carries. 0 means a local build.
 	int len = snprintf(stamp, sizeof(stamp),
-		"\n=== libmain.so loaded, crash handler installed (t=%ld) [build compiled %s %s] ===\n",
-		(long)now, __DATE__, __TIME__);
+		"\n=== libmain.so loaded, crash handler installed (t=%ld) [build compiled %s %s, CI run %d, build id %s] ===\n",
+		(long)now, __DATE__, __TIME__, (int)ANDROID_CI_BUILD_NUMBER,
+		s_buildIdHex[0] ? s_buildIdHex : "unknown");
 	if (len > 0) {
 		appendCrashLog(stamp, (size_t)len < sizeof(stamp) ? (size_t)len : sizeof(stamp) - 1);
 	}
-	fprintf(stderr, "[GX-BUILD] libmain.so compiled %s %s\n", __DATE__, __TIME__);
+	fprintf(stderr, "[GX-BUILD] libmain.so compiled %s %s, CI run %d, build id %s\n", __DATE__, __TIME__, (int)ANDROID_CI_BUILD_NUMBER, s_buildIdHex[0] ? s_buildIdHex : "unknown");
 	fflush(stderr);
 }
 

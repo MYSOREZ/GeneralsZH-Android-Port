@@ -516,7 +516,15 @@ jobs:
         with:
           name: android-symbols-run${{ github.run_number }}
           path: symbols/
-          retention-days: 7
+          # GeneralsX @bugfix Android CI 19/09/2026 was 7, copied from the APK
+          # above -- but the quota argument there does not apply here: an APK is
+          # ~110 MB, this is a gzipped text symbol table of a few MB. Seven days
+          # is shorter than the round trip on a tester report, and that is not
+          # hypothetical: a crash reported on 19/09/2026 came from a build whose
+          # symbol bundle had already expired, so symbolizing it meant searching
+          # every historical APK committed under apk/ for one whose symbol table
+          # agreed with the log. Keep these for the full 90 days.
+          retention-days: 90
 
       # GeneralsX @feature Android port 09/07/2026 Actions artifacts expire
       # (30 days) and require a GitHub login to download -- not a real "here,

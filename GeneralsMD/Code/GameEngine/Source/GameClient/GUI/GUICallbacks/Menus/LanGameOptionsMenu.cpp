@@ -59,6 +59,7 @@
 #include "Common/MultiplayerSettings.h"
 #include "GameClient/GameText.h"
 #include "GameNetwork/GUIUtil.h"
+#include <cstdio>
 
 
 extern char *LANnextScreen;
@@ -672,8 +673,28 @@ void lanUpdateSlotList()
 //-------------------------------------------------------------------------------------------------
 /** Initialize the Gadgets Options Menu */
 //-------------------------------------------------------------------------------------------------
-void InitLanGameGadgets()
+// GeneralsX @bugfix Android port 19/09/2026 Was void, and every one of the
+// lookups below was guarded only by DEBUG_ASSERTCRASH -- which Debug.h:206
+// compiles to ((void)0) in the shipped build, so a control missing from the
+// layout became a null pointer that the very next line dereferenced. A tester
+// reported the game closing instantly on "create game" in the LAN lobby;
+// the log ends between "winCreateLayout returned: 0xb4...", i.e. the layout
+// loaded fine, and Shell::doPush()'s "completed successfully", so the crash is
+// inside this screen's init, and fault_addr=0x8 is GameWindow::m_status --
+// the first member after the vptr, and the only thing winEnable/winGetEnabled
+// touch. winCreateLayout can return a valid layout with individual controls
+// missing: GameWindowManagerScript.cpp:2899-2905 stores whatever parseWindow
+// returned, nullptr included, and carries on to the next control.
+//
+// So: look everything up FIRST, report every control that is missing by name,
+// and only then touch any of it. Returns FALSE if the screen cannot be opened
+// safely, and the caller declines to open it instead of taking the process
+// down. Fixing the individual pointer this tester happened to hit would just
+// move the crash to the next unguarded line; there are more than twenty here.
+Bool InitLanGameGadgets()
 {
+	Bool missing = FALSE;
+
 	//Initialize the gadget IDs
 	parentLanGameOptionsID = TheNameKeyGenerator->nameToKey( "LanGameOptionsMenu.wnd:LanGameOptionsMenuParent" );
 	buttonBackID = TheNameKeyGenerator->nameToKey( "LanGameOptionsMenu.wnd:ButtonBack" );
@@ -689,29 +710,81 @@ void InitLanGameGadgets()
 
 	// Initialize the pointers to our gadgets
 	parentLanGameOptions = TheWindowManager->winGetWindowFromId( nullptr, parentLanGameOptionsID );
-	DEBUG_ASSERTCRASH(parentLanGameOptions, ("Could not find the parentLanGameOptions"));
-	buttonEmote = TheWindowManager->winGetWindowFromId( parentLanGameOptions,buttonEmoteID  );
-	DEBUG_ASSERTCRASH(buttonEmote, ("Could not find the buttonEmote"));
-	buttonSelectMap = TheWindowManager->winGetWindowFromId( parentLanGameOptions,buttonSelectMapID  );
-	DEBUG_ASSERTCRASH(buttonSelectMap, ("Could not find the buttonSelectMap"));
-	buttonStart = TheWindowManager->winGetWindowFromId( parentLanGameOptions,buttonStartID  );
-	DEBUG_ASSERTCRASH(buttonStart, ("Could not find the buttonStart"));
-	buttonBack = TheWindowManager->winGetWindowFromId( parentLanGameOptions,  buttonBackID);
-	DEBUG_ASSERTCRASH(buttonBack, ("Could not find the buttonBack"));
-	listboxChatWindowLanGame = TheWindowManager->winGetWindowFromId( parentLanGameOptions, listboxChatWindowLanGameID );
-	DEBUG_ASSERTCRASH(listboxChatWindowLanGame, ("Could not find the listboxChatWindowLanGame"));
-	textEntryChat = TheWindowManager->winGetWindowFromId( parentLanGameOptions, textEntryChatID );
-	DEBUG_ASSERTCRASH(textEntryChat, ("Could not find the textEntryChat"));
-	textEntryMapDisplay = TheWindowManager->winGetWindowFromId( parentLanGameOptions, textEntryMapDisplayID );
-	DEBUG_ASSERTCRASH(textEntryMapDisplay, ("Could not find the textEntryMapDisplay"));
-  checkboxLimitSuperweapons = TheWindowManager->winGetWindowFromId( parentLanGameOptions, checkboxLimitSuperweaponsID );
-  DEBUG_ASSERTCRASH(checkboxLimitSuperweapons, ("Could not find the checkboxLimitSuperweapons"));
-  comboBoxStartingCash = TheWindowManager->winGetWindowFromId( parentLanGameOptions, comboBoxStartingCashID );
-  DEBUG_ASSERTCRASH(comboBoxStartingCash, ("Could not find the comboBoxStartingCash"));
-	PopulateStartingCashComboBox(comboBoxStartingCash, TheLAN->GetMyGame());
+	if (!gxRequireControl( parentLanGameOptions, "LanGameOptionsMenu.wnd:LanGameOptionsMenuParent", &missing ))
+	{
+		// Without the parent every lookup below would search the whole window
+		// list and report nonsense, so stop here rather than produce a misleading
+		// list of "missing" controls.
+		return FALSE;
+	}
 
+	buttonEmote = TheWindowManager->winGetWindowFromId( parentLanGameOptions,buttonEmoteID  );
+	gxRequireControl( buttonEmote, "LanGameOptionsMenu.wnd:ButtonEmote", &missing );
+	buttonSelectMap = TheWindowManager->winGetWindowFromId( parentLanGameOptions,buttonSelectMapID  );
+	gxRequireControl( buttonSelectMap, "LanGameOptionsMenu.wnd:ButtonSelectMap", &missing );
+	buttonStart = TheWindowManager->winGetWindowFromId( parentLanGameOptions,buttonStartID  );
+	gxRequireControl( buttonStart, "LanGameOptionsMenu.wnd:ButtonStart", &missing );
+	buttonBack = TheWindowManager->winGetWindowFromId( parentLanGameOptions,  buttonBackID);
+	gxRequireControl( buttonBack, "LanGameOptionsMenu.wnd:ButtonBack", &missing );
+	listboxChatWindowLanGame = TheWindowManager->winGetWindowFromId( parentLanGameOptions, listboxChatWindowLanGameID );
+	gxRequireControl( listboxChatWindowLanGame, "LanGameOptionsMenu.wnd:ListboxChatWindowLanGame", &missing );
+	textEntryChat = TheWindowManager->winGetWindowFromId( parentLanGameOptions, textEntryChatID );
+	gxRequireControl( textEntryChat, "LanGameOptionsMenu.wnd:TextEntryChat", &missing );
+	textEntryMapDisplay = TheWindowManager->winGetWindowFromId( parentLanGameOptions, textEntryMapDisplayID );
+	gxRequireControl( textEntryMapDisplay, "LanGameOptionsMenu.wnd:TextEntryMapDisplay", &missing );
+  checkboxLimitSuperweapons = TheWindowManager->winGetWindowFromId( parentLanGameOptions, checkboxLimitSuperweaponsID );
+  gxRequireControl( checkboxLimitSuperweapons, "LanGameOptionsMenu.wnd:CheckboxLimitSuperweapons", &missing );
+  comboBoxStartingCash = TheWindowManager->winGetWindowFromId( parentLanGameOptions, comboBoxStartingCashID );
+  gxRequireControl( comboBoxStartingCash, "LanGameOptionsMenu.wnd:ComboBoxStartingCash", &missing );
 	windowMap = TheWindowManager->winGetWindowFromId( parentLanGameOptions,windowMapID  );
-	DEBUG_ASSERTCRASH(windowMap, ("Could not find the LanGameOptionsMenu.wnd:MapWindow" ));
+	gxRequireControl( windowMap, "LanGameOptionsMenu.wnd:MapWindow", &missing );
+
+	for (Int i = 0; i < MAX_SLOTS; i++)
+	{
+		AsciiString tmpString;
+
+		tmpString.format("LanGameOptionsMenu.wnd:ComboBoxPlayer%d", i);
+		comboBoxPlayerID[i] = TheNameKeyGenerator->nameToKey( tmpString );
+		comboBoxPlayer[i] = TheWindowManager->winGetWindowFromId( parentLanGameOptions, comboBoxPlayerID[i] );
+		gxRequireControl( comboBoxPlayer[i], tmpString.str(), &missing );
+
+		tmpString.format("LanGameOptionsMenu.wnd:ComboBoxColor%d", i);
+		comboBoxColorID[i] = TheNameKeyGenerator->nameToKey( tmpString );
+		comboBoxColor[i] = TheWindowManager->winGetWindowFromId( parentLanGameOptions, comboBoxColorID[i] );
+		gxRequireControl( comboBoxColor[i], tmpString.str(), &missing );
+
+		tmpString.format("LanGameOptionsMenu.wnd:ComboBoxPlayerTemplate%d", i);
+		comboBoxPlayerTemplateID[i] = TheNameKeyGenerator->nameToKey( tmpString );
+		comboBoxPlayerTemplate[i] = TheWindowManager->winGetWindowFromId( parentLanGameOptions, comboBoxPlayerTemplateID[i] );
+		gxRequireControl( comboBoxPlayerTemplate[i], tmpString.str(), &missing );
+
+		tmpString.format("LanGameOptionsMenu.wnd:ComboBoxTeam%d", i);
+		comboBoxTeamID[i] = TheNameKeyGenerator->nameToKey( tmpString );
+		comboBoxTeam[i] = TheWindowManager->winGetWindowFromId( parentLanGameOptions, comboBoxTeamID[i] );
+		gxRequireControl( comboBoxTeam[i], tmpString.str(), &missing );
+
+		tmpString.format("LanGameOptionsMenu.wnd:ButtonAccept%d", i);
+		buttonAcceptID[i] = TheNameKeyGenerator->nameToKey( tmpString );
+		buttonAccept[i] = TheWindowManager->winGetWindowFromId( parentLanGameOptions, buttonAcceptID[i] );
+		gxRequireControl( buttonAccept[i], tmpString.str(), &missing );
+
+		tmpString.format("LanGameOptionsMenu.wnd:ButtonMapStartPosition%d", i);
+		buttonMapStartPositionID[i] = TheNameKeyGenerator->nameToKey( tmpString );
+		buttonMapStartPosition[i] = TheWindowManager->winGetWindowFromId( parentLanGameOptions, buttonMapStartPositionID[i] );
+		gxRequireControl( buttonMapStartPosition[i], tmpString.str(), &missing );
+	}
+
+	if (missing)
+	{
+		// Every missing control has already named itself above. Refusing the
+		// screen keeps the game running and, unlike a crash, leaves the log
+		// where the player can still reach it.
+		return FALSE;
+	}
+
+	// Everything the rest of this function and LanGameOptionsMenuInit touch is
+	// now known to exist, so the original code below dereferences freely.
+	PopulateStartingCashComboBox(comboBoxStartingCash, TheLAN->GetMyGame());
 
 	Int localSlotNum = TheLAN->GetMyGame()->getLocalSlotNum();
 	DEBUG_ASSERTCRASH(localSlotNum >= 0, ("Bad slot number!"));
@@ -721,10 +794,6 @@ void InitLanGameGadgets()
 
 	for (Int i = 0; i < MAX_SLOTS; i++)
 	{
-		AsciiString tmpString;
-		tmpString.format("LanGameOptionsMenu.wnd:ComboBoxPlayer%d", i);
-		comboBoxPlayerID[i] = TheNameKeyGenerator->nameToKey( tmpString );
-		comboBoxPlayer[i] = TheWindowManager->winGetWindowFromId( parentLanGameOptions, comboBoxPlayerID[i] );
 		GadgetComboBoxReset(comboBoxPlayer[i]);
 		GadgetComboBoxGetEditBox(comboBoxPlayer[i])->winSetTooltipFunc(playerTooltip);
 
@@ -737,59 +806,26 @@ void InitLanGameGadgets()
 			GadgetComboBoxAddEntry(comboBoxPlayer[i],TheGameText->fetch("GUI:HardAI"),white);
 			GadgetComboBoxSetSelectedPos(comboBoxPlayer[i],0);
 		}
-		/*
-		if(i != 0)
-		{
-			TheLAN->GetMyGame()->getLANSlot(i)->setState(SLOT_OPEN);
-		}
-		*/
 
-		tmpString.format("LanGameOptionsMenu.wnd:ComboBoxColor%d", i);
-		comboBoxColorID[i] = TheNameKeyGenerator->nameToKey( tmpString );
-		comboBoxColor[i] = TheWindowManager->winGetWindowFromId( parentLanGameOptions, comboBoxColorID[i] );
-		DEBUG_ASSERTCRASH(comboBoxColor[i], ("Could not find the comboBoxColor[%d]",i ));
 		PopulateColorComboBox(i, comboBoxColor, TheLAN->GetMyGame());
 		GadgetComboBoxSetSelectedPos(comboBoxColor[i], 0);
 
-		tmpString.format("LanGameOptionsMenu.wnd:ComboBoxPlayerTemplate%d", i);
-		comboBoxPlayerTemplateID[i] = TheNameKeyGenerator->nameToKey( tmpString );
-		comboBoxPlayerTemplate[i] = TheWindowManager->winGetWindowFromId( parentLanGameOptions, comboBoxPlayerTemplateID[i] );
-		DEBUG_ASSERTCRASH(comboBoxPlayerTemplate[i], ("Could not find the comboBoxPlayerTemplate[%d]",i ));
 		PopulatePlayerTemplateComboBox(i, comboBoxPlayerTemplate, TheLAN->GetMyGame(), TRUE);
 
 		// add tooltips to the player template combobox and listbox
 		comboBoxPlayerTemplate[i]->winSetTooltipFunc(playerTemplateComboBoxTooltip);
 		GadgetComboBoxGetListBox(comboBoxPlayerTemplate[i])->winSetTooltipFunc(playerTemplateListBoxTooltip);
 
-		tmpString.format("LanGameOptionsMenu.wnd:ComboBoxTeam%d", i);
-		comboBoxTeamID[i] = TheNameKeyGenerator->nameToKey( tmpString );
-		comboBoxTeam[i] = TheWindowManager->winGetWindowFromId( parentLanGameOptions, comboBoxTeamID[i] );
-		DEBUG_ASSERTCRASH(comboBoxTeam[i], ("Could not find the comboBoxTeam[%d]",i ));
 		PopulateTeamComboBox(i, comboBoxTeam, TheLAN->GetMyGame());
 
-		tmpString.clear();
-		tmpString.format("LanGameOptionsMenu.wnd:ButtonAccept%d", i);
-		buttonAcceptID[i] = TheNameKeyGenerator->nameToKey( tmpString );
-		buttonAccept[i] = TheWindowManager->winGetWindowFromId( parentLanGameOptions, buttonAcceptID[i] );
-		DEBUG_ASSERTCRASH(buttonAccept[i], ("Could not find the buttonAccept[%d]",i ));
 		buttonAccept[i]->winSetTooltipFunc(gameAcceptTooltip);
-//
-//		tmpString.format("LanGameOptionsMenu.wnd:ButtonStartPosition%d", i);
-//		buttonStartPositionID[i] = TheNameKeyGenerator->nameToKey( tmpString );
-//		buttonStartPosition[i] = TheWindowManager->winGetWindowFromId( parentLanGameOptions, buttonStartPositionID[i] );
-//		DEBUG_ASSERTCRASH(buttonStartPosition[i], ("Could not find the ButtonStartPosition[%d]",i ));
 
-		tmpString.format("LanGameOptionsMenu.wnd:ButtonMapStartPosition%d", i);
-		buttonMapStartPositionID[i] = TheNameKeyGenerator->nameToKey( tmpString );
-		buttonMapStartPosition[i] = TheWindowManager->winGetWindowFromId( parentLanGameOptions, buttonMapStartPositionID[i] );
-		DEBUG_ASSERTCRASH(buttonMapStartPosition[i], ("Could not find the ButtonMapStartPosition[%d]",i ));
-
-		if(i !=0 && buttonAccept[i])
+		if(i != 0)
 			buttonAccept[i]->winHide(TRUE);
 	}
-	if( buttonAccept[0] )
-		GadgetButtonSetEnabledColor(buttonAccept[0], acceptTrueColor );
+	GadgetButtonSetEnabledColor(buttonAccept[0], acceptTrueColor );
 
+	return TRUE;
 }
 
 void DeinitLanGameGadgets()
@@ -841,8 +877,25 @@ void LanGameOptionsMenuInit( WindowLayout *layout, void *userData )
 
 	//initialize the gadgets
 	EnableSlotListUpdates(FALSE);
-	InitLanGameGadgets();
+	// GeneralsX @bugfix Android port 19/09/2026 InitLanGameGadgets now reports
+	// which controls its layout is missing and answers FALSE instead of leaving
+	// null pointers behind for the rest of this function to walk into. Go back
+	// to the lobby rather than continue -- the screen genuinely cannot be shown,
+	// and the player keeps a running game and a readable log either way. This is
+	// the same bail-out Shell::doPush() already does when winCreateLayout itself
+	// returns nothing (Shell.cpp:706-711); that guard did not cover a layout
+	// that loads with individual controls missing, which is what a tester hit.
+	const Bool lanGadgetsReady = InitLanGameGadgets();
 	EnableSlotListUpdates(TRUE);
+	if (!lanGadgetsReady)
+	{
+		fprintf(stderr, "ERROR: LanGameOptionsMenuInit - LanGameOptionsMenu.wnd is missing controls this screen needs (named above); returning to the LAN lobby\n");
+		fflush(stderr);
+		s_isIniting = FALSE;
+		DeinitLanGameGadgets();
+		TheShell->popImmediate();
+		return;
+	}
 	Int start = 0;
 
 	// Make sure the text fields are clear

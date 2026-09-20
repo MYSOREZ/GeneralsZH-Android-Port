@@ -64,6 +64,7 @@
 #include "GameNetwork/GameSpyOverlay.h"
 #include "GameNetwork/NAT.h"
 #include "GameNetwork/GUIUtil.h"
+#include <cstdio>
 #include "GameNetwork/GameSpy/GSConfig.h"
 
 #include "GameNetwork/GeneralsOnline/NGMP_interfaces.h"
@@ -1527,8 +1528,23 @@ void WOLDisplaySlotList(void)
 //-------------------------------------------------------------------------------------------------
 /** Initialize the Gadgets Options Menu */
 //-------------------------------------------------------------------------------------------------
-void InitWOLGameGadgets()
+// GeneralsX @bugfix Android port 19/09/2026 Was void. Same defect as the LAN
+// screen's InitLanGameGadgets (see LanGameOptionsMenu.cpp): every lookup below
+// was guarded only by DEBUG_ASSERTCRASH, which Debug.h:206 compiles away in the
+// shipped build, so a control missing from GameSpyGameOptionsMenu.wnd became a
+// null pointer that the next winEnable() dereferenced at +0x8. A tester
+// reported the LAN and the online "create game" buttons closing the game
+// identically; the LAN one was symbolized to exactly that, and this screen
+// reaches the same shared helper (PopulateStartingCashComboBox) the same way.
+// Report the names, then decline the screen rather than take the process down.
+//
+// Three of the asserts below also checked the wrong pointer -- windowMap was
+// asserted four times in a row, for checkBoxLimitSuperweapons, comboBoxStartingCash
+// and checkBoxLimitArmies too -- so even a debug build never caught those.
+Bool InitWOLGameGadgets()
 {
+	Bool missing = FALSE;
+
 	ClearGSMessageBoxes();
 
 	NGMP_OnlineServices_LobbyInterface* pLobbyInterface = NGMP_OnlineServicesManager::GetInterface<NGMP_OnlineServices_LobbyInterface>();
@@ -1536,7 +1552,7 @@ void InitWOLGameGadgets()
 
 	if (theGameInfo == nullptr || pLobbyInterface == nullptr)
 	{
-		return;
+		return FALSE;
 	}
 
 	pingImages[0] = TheMappedImageCollection->findImageByName("Ping03");
@@ -1569,18 +1585,19 @@ void InitWOLGameGadgets()
 	buttonEmote = TheWindowManager->winGetWindowFromId( parentWOLGameSetup,buttonEmoteID  );
 	buttonSelectMap = TheWindowManager->winGetWindowFromId( parentWOLGameSetup,buttonSelectMapID  );
 	checkBoxUseStats = TheWindowManager->winGetWindowFromId( parentWOLGameSetup, checkBoxUseStatsID );
+	gxRequireControl( checkBoxUseStats, "GameSpyGameOptionsMenu.wnd:CheckBoxUseStats", &missing );
 	buttonStart = TheWindowManager->winGetWindowFromId( parentWOLGameSetup,buttonStartID  );
 	buttonBack = TheWindowManager->winGetWindowFromId( parentWOLGameSetup,  buttonBackID);
 	listboxGameSetupChat = TheWindowManager->winGetWindowFromId( parentWOLGameSetup, listboxGameSetupChatID );
 	textEntryChat = TheWindowManager->winGetWindowFromId( parentWOLGameSetup, textEntryChatID );
 	textEntryMapDisplay = TheWindowManager->winGetWindowFromId( parentWOLGameSetup, textEntryMapDisplayID );
 	windowMap = TheWindowManager->winGetWindowFromId( parentWOLGameSetup,windowMapID  );
-  DEBUG_ASSERTCRASH(windowMap, ("Could not find the parentWOLGameSetup.wnd:MapWindow" ));
+  gxRequireControl( windowMap, "GameSpyGameOptionsMenu.wnd:MapWindow", &missing );
 
   checkBoxLimitSuperweapons = TheWindowManager->winGetWindowFromId( parentWOLGameSetup, checkBoxLimitSuperweaponsID );
-  DEBUG_ASSERTCRASH(windowMap, ("Could not find the GameSpyGameOptionsMenu.wnd:CheckboxLimitSuperweapons" ));
+  gxRequireControl( checkBoxLimitSuperweapons, "GameSpyGameOptionsMenu.wnd:CheckboxLimitSuperweapons", &missing );
   comboBoxStartingCash = TheWindowManager->winGetWindowFromId( parentWOLGameSetup, comboBoxStartingCashID );
-  DEBUG_ASSERTCRASH(windowMap, ("Could not find the GameSpyGameOptionsMenu.wnd:ComboBoxStartingCash" ));
+  gxRequireControl( comboBoxStartingCash, "GameSpyGameOptionsMenu.wnd:ComboBoxStartingCash", &missing );
 
 #if defined(GENERALS_ONLINE)
   PopulateStartingCashComboBox(comboBoxStartingCash, theGameInfo);
@@ -1588,7 +1605,14 @@ void InitWOLGameGadgets()
   PopulateStartingCashComboBox( comboBoxStartingCash, TheGameSpyGame );
 #endif
   checkBoxLimitArmies = TheWindowManager->winGetWindowFromId( parentWOLGameSetup, checkBoxLimitArmiesID );
-  DEBUG_ASSERTCRASH(windowMap, ("Could not find the GameSpyGameOptionsMenu.wnd:CheckBoxLimitArmies" ));
+  gxRequireControl( checkBoxLimitArmies, "GameSpyGameOptionsMenu.wnd:CheckBoxLimitArmies", &missing );
+
+  // Every control this function goes on to dereference has now been looked up
+  // and named if absent, so stop here rather than walk into a null.
+  if (missing)
+  {
+    return FALSE;
+  }
 
   // Limit Armies can ONLY be set in the Host Game window (PopupHostGame.wnd)
   checkBoxLimitArmies->winEnable( false );
@@ -1613,8 +1637,13 @@ void InitWOLGameGadgets()
   {
     checkBoxLimitSuperweapons->winEnable( false );
     comboBoxStartingCash->winEnable( false );
-		NameKeyType labelID = TheNameKeyGenerator->nameToKey("GameSpyGameOptionsMenu.wnd:StartingCashLabel");
-		TheWindowManager->winGetWindowFromId(parentWOLGameSetup, labelID)->winEnable( FALSE );
+		// GeneralsX @bugfix Android port 19/09/2026 Looked up and dereferenced in
+		// one expression, with nothing in between to notice a null. Disabling a
+		// label is cosmetic, so a missing one is worth a line in the log, not a
+		// refused screen.
+		GameWindow *startingCashLabel = gxFindControl( parentWOLGameSetup, "GameSpyGameOptionsMenu.wnd:StartingCashLabel", nullptr );
+		if (startingCashLabel != nullptr)
+			startingCashLabel->winEnable( FALSE );
   }
 #if defined(GENERALS_ONLINE)
   else
@@ -1633,8 +1662,9 @@ void InitWOLGameGadgets()
 		checkBoxLimitSuperweapons->winEnable( FALSE );
 		comboBoxStartingCash->winEnable( FALSE );
 		checkBoxLimitArmies->winEnable( FALSE );
-		NameKeyType labelID = TheNameKeyGenerator->nameToKey("GameSpyGameOptionsMenu.wnd:StartingCashLabel");
-		TheWindowManager->winGetWindowFromId(parentWOLGameSetup, labelID)->winEnable( FALSE );
+		GameWindow *startingCashLabel = gxFindControl( parentWOLGameSetup, "GameSpyGameOptionsMenu.wnd:StartingCashLabel", nullptr );
+		if (startingCashLabel != nullptr)
+			startingCashLabel->winEnable( FALSE );
 	}
 #endif
 
@@ -1653,7 +1683,7 @@ void InitWOLGameGadgets()
 	if (!theGameInfo)
 	{
 		DEBUG_CRASH(("No staging room!"));
-		return;
+		return FALSE;
 	}
 
 	for (Int i = 0; i < MAX_SLOTS; i++)
@@ -1766,6 +1796,8 @@ void InitWOLGameGadgets()
 		handlePlayerTemplateSelection(i, true);
 	}
 #endif
+
+	return TRUE;
 }
 
 void DeinitWOLGameGadgets()
@@ -2027,9 +2059,21 @@ void WOLGameSetupMenuInit( WindowLayout *layout, void *userData )
 	launchGameNext = FALSE;
 
 	//initialize the gadgets
+	// GeneralsX @bugfix Android port 19/09/2026 InitWOLGameGadgets now names the
+	// controls its layout is missing and answers FALSE instead of leaving nulls
+	// for the rest of this function. Go back rather than crash -- same bail-out
+	// the LAN screen now does, and the same one Shell::doPush() already does
+	// when winCreateLayout returns nothing (Shell.cpp:706-711).
 	EnableSlotListUpdates(FALSE);
-	InitWOLGameGadgets();
+	const Bool wolGadgetsReady = InitWOLGameGadgets();
 	EnableSlotListUpdates(TRUE);
+	if (!wolGadgetsReady)
+	{
+		fprintf(stderr, "ERROR: WOLGameSetupMenuInit - GameSpyGameOptionsMenu.wnd is missing controls this screen needs (named above), or there is no current online game; returning\n");
+		fflush(stderr);
+		TheShell->popImmediate();
+		return;
+	}
 	// TODO_NGMP
 	//TheGameSpyInfo->registerTextWindow(listboxGameSetupChat);
 

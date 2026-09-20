@@ -46,6 +46,7 @@
 #include "GameNetwork/LANAPICallbacks.h" // for acceptTrueColor, etc
 #include "GameClient/ChallengeGenerals.h"
 #include <cstdint>
+#include <cstdio>
 
 
 // -----------------------------------------------------------------------------
@@ -328,9 +329,53 @@ static UnicodeString formatMoneyForStartingCashComboBox( const Money & moneyAmou
   return rtn;
 }
 
+// GeneralsX @bugfix Android port 19/09/2026 See GUIUtil.h for why these exist.
+// stderr rather than DEBUG_LOG because this has to survive into the shipped
+// build -- that is the whole point -- and stderr is what the Android launcher
+// captures into generals-stderr.log and shows under "View Logs".
+Bool gxRequireControl( const GameWindow *control, const char *controlName, Bool *missingFlag )
+{
+	if (control != nullptr)
+		return TRUE;
+
+	fprintf(stderr, "ERROR: layout control not found: '%s' -- this screen cannot be opened safely\n",
+		controlName ? controlName : "?");
+	fflush(stderr);
+	if (missingFlag != nullptr)
+		*missingFlag = TRUE;
+	return FALSE;
+}
+
+GameWindow *gxFindControl( GameWindow *parent, const char *controlName, Bool *missingFlag )
+{
+	GameWindow *control = TheWindowManager->winGetWindowFromId(
+		parent, TheNameKeyGenerator->nameToKey(AsciiString(controlName)) );
+	gxRequireControl( control, controlName, missingFlag );
+	return control;
+}
+
 void PopulateStartingCashComboBox(GameWindow *comboBox, GameInfo *myGame)
 {
-  GadgetComboBoxReset(comboBox);
+	// GeneralsX @bugfix Android port 19/09/2026 This is the first line of every
+	// multiplayer setup screen's init that dereferences a control pointer at
+	// all (the lookups before it only ever store what winGetWindowFromId
+	// returned), and it is shared by the LAN screen, the online screen and
+	// skirmish -- LanGameOptionsMenu.cpp, WOLGameSetupMenu.cpp and
+	// SkirmishGameOptionsMenu.cpp all call it right after their own
+	// compiled-out assert. comboBox->winGetEnabled() below reads m_status at
+	// +0x8, which is exactly the fault_addr a tester reported on 19/09/2026.
+	// Callers are expected to check first and not open the screen; this guard
+	// is here because "a null here takes the whole game down" should not
+	// depend on every caller remembering to.
+	if (comboBox == nullptr || myGame == nullptr)
+	{
+		fprintf(stderr, "ERROR: PopulateStartingCashComboBox called with %s -- starting-cash list left empty\n",
+			comboBox == nullptr ? "no ComboBoxStartingCash control" : "no game");
+		fflush(stderr);
+		return;
+	}
+
+	GadgetComboBoxReset(comboBox);
 
 	const MultiplayerStartingMoneyList & startingCashMap = TheMultiplayerSettings->getStartingMoneyList();
 	Int currentSelectionIndex = -1;

@@ -54,6 +54,8 @@
 #include <cwchar>
 
 #include "Common/GlobalData.h"
+// GeneralsX @bugfix Android port 19/09/2026 gxRequireControl
+#include "GameNetwork/GUIUtil.h"
 #include "Common/NameKeyGenerator.h"
 #include "Common/version.h"
 #include "GameClient/WindowLayout.h"
@@ -392,8 +394,15 @@ void PopupHostGameInit( WindowLayout *layout, void *userData )
 	
 #if !defined(GENERALS_ONLINE_ALLOW_ALL_SETTINGS_FOR_STATS_MATCHES)
   // limit armies is disallowed in "use stats" games
+  // GeneralsX @bugfix Android port 19/09/2026 winEnable reads m_status at
+  // +0x8, so a checkbox missing from PopupHostGame.wnd closes the game here
+  // the same way one missing from the LAN screen did in a tester's report.
+  // GadgetCheckBox* already tolerates a null; winEnable does not.
+  if (gxRequireControl( checkBoxLimitArmies, "PopupHostGame.wnd:CheckBoxLimitArmies", nullptr ))
+  {
 	checkBoxLimitArmies->winEnable(! usingStats );
-  GadgetCheckBoxSetChecked( checkBoxLimitArmies, usingStats? FALSE : customPref.getFactionsLimited() );
+	GadgetCheckBoxSetChecked( checkBoxLimitArmies, usingStats? FALSE : customPref.getFactionsLimited() );
+  }
 #endif
 
 	TheWindowManager->winSetFocus(textEntryGameName);
