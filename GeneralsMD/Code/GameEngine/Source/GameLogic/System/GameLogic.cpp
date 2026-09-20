@@ -4392,10 +4392,29 @@ UnsignedInt GameLogic::getCRC( Int mode, AsciiString deepCRCFileName )
 	// map that is a very short list. Only with the gx_net_trace.txt marker present.
 	// Three hundred lines per checksum is fine for the two checkpoints a short
 	// replay reaches, and ruinous over a real match, which generates one every
-	// hundred frames for its whole length. The comparison this feeds only ever
-	// looks at the start of a game, so stop there.
+	// hundred frames for its whole length.
+	//
+	// GeneralsX @tweak Android port 20/09/2026 The cap was frame 100, chosen when
+	// every divergence we had seen was at the first checkpoint. It stopped being
+	// the right number the moment one was not: a replay with two AI opponents
+	// matched at frame 100 and diverged at 200, and the window where it went wrong
+	// was the one window the trace did not cover. A cap that hides exactly the
+	// interesting frames is worse than no cap.
+	//
+	// Default raised to 500 -- five checkpoints, about fifteen hundred lines, still
+	// nothing next to the megabyte of stderr a session produces -- and settable
+	// with GX_TRACE_OBJ_FRAMES for a longer hunt. Read once; 0 turns per-object
+	// tracing off while leaving the stage and RNG traces alone.
+	static const Int s_objTraceLastFrame = []() -> Int {
+		const char *env = getenv("GX_TRACE_OBJ_FRAMES");
+		if (env == nullptr || *env == '\0')
+			return 500;
+		const Int v = atoi(env);
+		return v < 0 ? 0 : v;
+	}();
+
 	const Bool gxTraceObjects = GXTrace::isNetEnabled() && isInGameLogicUpdate()
-		&& xferCRC->getXferMode() == XFER_CRC && m_frame <= 100;
+		&& xferCRC->getXferMode() == XFER_CRC && m_frame <= (UnsignedInt)s_objTraceLastFrame;
 	for( obj = m_objList; obj; obj=obj->getNextObject() )
 	{
 		xferCRC->xferSnapshot( obj );
