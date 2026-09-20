@@ -569,9 +569,19 @@ void SidesList::prepareForMP_or_Skirmish()
 						continue;
 					}
 
-					deleteInstance(getSkirmishSideInfo(curSide)->getScriptList());
+					// GeneralsX @bugfix Android port 20/09/2026 Order matched to the PC
+					// client, which installs the new script list first and only then
+					// frees the old one, and null-checks before freeing. We released
+					// the old list while the side still pointed at it -- a window
+					// where getScriptList() hands back freed memory, and an unguarded
+					// deleteInstance on a side that had no list yet. This function
+					// decides which scripts each side runs on a skirmish map, so a
+					// wrong list here is a different simulation, not a leak.
+					ScriptList *pOldScriptList = getSkirmishSideInfo(curSide)->getScriptList();
 					getSkirmishSideInfo(curSide)->setScriptList(scripts[i]);
 					scripts[i] = nullptr;
+					if (pOldScriptList)
+						deleteInstance(pOldScriptList);
 				}
 				for (i=0; i<MAX_PLAYER_COUNT; i++) {
 					static_readPlayerNames[i].clear();

@@ -1103,7 +1103,7 @@ public:
 	//
 	// Frames are already known on both sides, so nothing has to be assumed.
 	void addCRC(UnsignedInt frame, UnsignedInt val);
-	Bool readCRC(UnsignedInt notAfterFrame, UnsignedInt& out, UnsignedInt& outFrame);
+	Bool readCRC(UnsignedInt& out, UnsignedInt& outFrame);
 
 	int GetQueueSize() const { return m_data.size(); }
 
@@ -1115,6 +1115,7 @@ public:
 protected:
 
 	Bool m_sawCRCMismatch;
+	Bool m_skippedOne;
 	std::list< std::pair<UnsignedInt, UnsignedInt> > m_data;   // frame, crc
 	UnsignedInt m_localPlayer;
 };
@@ -1123,48 +1124,51 @@ CRCInfo::CRCInfo(UnsignedInt localPlayer, Bool isMultiplayer)
 {
 	m_localPlayer = localPlayer;
 	m_sawCRCMismatch = FALSE;
+
+	// GeneralsX @bugfix Android port 20/09/2026 Restored from the GeneralsOnline
+	// PC client, which is the authority on what a recording means: in a
+	// multiplayer game the first MSG_LOGIC_CRC never reaches the network, so the
+	// recording's checksum stream starts one interval later than this device's
+	// local one. The client therefore drops the first local checksum for
+	// multiplayer replays -- and comparing without that drop is off by exactly
+	// one checkpoint, which reads as a desync at the very first comparison on any
+	// map whose state changes between checkpoints, and as a perfect match on a map
+	// where nothing moves. Both of those are what this port has been reporting.
+	m_skippedOne = !isMultiplayer;
 }
 
 void CRCInfo::addCRC(UnsignedInt frame, UnsignedInt val)
 {
-	m_data.push_back(std::make_pair(frame, val));
-
-	// A recording that ends before its checksums are consumed would otherwise
-	// grow this without limit; nothing needs more than a few intervals of slack.
-	while (m_data.size() > 16)
+	if (!m_skippedOne)
 	{
-		m_data.pop_front();
+		m_skippedOne = TRUE;
+		if (GXTrace::isNetEnabled())
+		{
+			fprintf(stderr, "[GX-NET] replay crc: dropping this device's first checksum"
+				" (frame %u, %08X) -- multiplayer recording, its own first one was"
+				" never transmitted\n", (unsigned)frame, (unsigned)val);
+			fflush(stderr);
+		}
+		return;
 	}
+
+	m_data.push_back(std::make_pair(frame, val));
 }
 
-Bool CRCInfo::readCRC(UnsignedInt notAfterFrame, UnsignedInt& out, UnsignedInt& outFrame)
+Bool CRCInfo::readCRC(UnsignedInt& out, UnsignedInt& outFrame)
 {
-	// GeneralsX @bugfix Android port 13/09/2026 Take the newest local checksum
-	// that is not from the future, rather than one at an exact frame.
+	// GeneralsX @bugfix Android port 20/09/2026 Pair by arrival order, exactly as
+	// the GeneralsOnline PC client does, instead of searching the queue by frame.
 	//
-	// Exact matching works for a solo replay, where a checksum is recorded on the
-	// frame after the one it describes, and fails for a multiplayer one, where the
-	// message travelled over the network first and lands several frames later --
-	// recorded at 105 against a local entry queued at 101. Pairing them by order
-	// alone, which is what this did originally, needs a guess about whether the
-	// recording's first checksum survived, and both available guesses have now
-	// been wrong on some replay.
-	//
-	// The frame is in the queue, so neither guess is needed: a recorded checksum
-	// covers the most recent interval that had already happened when it was
-	// written, which is exactly the newest entry at or before this frame.
-	if (m_data.empty() || m_data.front().first > notAfterFrame)
+	// The frame-matching rule this replaced was written to avoid guessing whether
+	// the recording's first checksum survived. The guess was never needed: the
+	// recording says so itself, in the game mode stored in its header, and the
+	// constructor now reads it. Searching by frame quietly consumed the wrong
+	// entry whenever a checksum message arrived later than its own interval --
+	// which is the normal case for a recording made over a network.
+	if (m_data.empty())
 	{
 		return FALSE;
-	}
-
-	while (m_data.size() > 1 && m_data.begin()->first <= notAfterFrame)
-	{
-		std::list< std::pair<UnsignedInt, UnsignedInt> >::iterator next = m_data.begin();
-		++next;
-		if (next->first > notAfterFrame)
-			break;
-		m_data.pop_front();
 	}
 
 	outFrame = m_data.front().first;
@@ -1214,7 +1218,7 @@ void RecorderClass::handleCRCMessage(UnsignedInt newCRC, Int playerIndex, Bool f
 		// and was the comparison being switched off.
 		UnsignedInt playbackCRC = 0;
 		UnsignedInt localFrame = 0;
-		const Bool haveLocalCRC = m_crcInfo->readCRC(TheGameLogic->getFrame(), playbackCRC, localFrame);
+		const Bool haveLocalCRC = m_crcInfo->readCRC(playbackCRC, localFrame);
 		const UnsignedInt describedFrame = localFrame > 0 ? localFrame - 1 : 0;
 
 		if (!haveLocalCRC)
@@ -1448,10 +1452,7 @@ Bool RecorderClass::playbackFile(AsciiString filename)
 	}
 #endif
 
-	Bool isMultiplayer = m_gameInfo.getSlot(header.localPlayerIndex)->getIP() != 0;
-	m_crcInfo = NEW CRCInfo(header.localPlayerIndex, isMultiplayer);
 	REPLAY_CRC_INTERVAL = m_gameInfo.getCRCInterval();
-	DEBUG_LOG(("Player index is %d, replay CRC interval is %d", m_crcInfo->getLocalPlayer(), REPLAY_CRC_INTERVAL));
 
 	Int difficulty = 0;
 	m_file->read(&difficulty, sizeof(difficulty));
@@ -1463,6 +1464,27 @@ Bool RecorderClass::playbackFile(AsciiString filename)
 
 	Int maxFPS = 0;
 	m_file->read(&maxFPS, sizeof(maxFPS));
+
+	// GeneralsX @bugfix Android port 20/09/2026 Decide "was this a multiplayer
+	// game?" from the mode the recording stores, as the PC client does, not from
+	// whether the local slot carries an IP.
+	//
+	// The checksum queue needs this answer to know whether the recording is
+	// missing its own first checksum, and the construction used to happen before
+	// these header fields were read, so the mode was not available yet and a slot
+	// IP stood in for it. A PC-recorded skirmish has no IP and an online game may
+	// report one either way, so the stand-in decided the pairing wrongly and the
+	// comparison was off by one checkpoint.
+	const Bool isMultiplayer = (m_originalGameMode == GAME_INTERNET || m_originalGameMode == GAME_LAN);
+	m_crcInfo = NEW CRCInfo(header.localPlayerIndex, isMultiplayer);
+	DEBUG_LOG(("Player index is %d, replay CRC interval is %d, isMultiplayer is %d",
+		m_crcInfo->getLocalPlayer(), REPLAY_CRC_INTERVAL, isMultiplayer));
+	if (GXTrace::isNetEnabled())
+	{
+		fprintf(stderr, "[GX-NET] replay header: originalGameMode=%d isMultiplayer=%d crcInterval=%d localPlayer=%d\n",
+			(int)m_originalGameMode, (int)isMultiplayer, (int)REPLAY_CRC_INTERVAL, (int)header.localPlayerIndex);
+		fflush(stderr);
+	}
 
 	DEBUG_LOG(("RecorderClass::playbackFile() - original game was mode %d", m_originalGameMode));
 
