@@ -15,6 +15,68 @@ This is not a numerical-analysis problem. It is a diff. Every divergence found
 so far was found by diffing our simulation against that tree, not by reasoning
 about floating point.
 
+## Before you trust a single number: check the pairing rule
+
+**Read this section first. It invalidated months of readings.**
+
+A replay's checksums have to be paired with the locally computed ones, and the
+pairing is not "same frame". `RecorderClass::CRCInfo` in `Recorder.cpp` is a
+queue, and the PC client empties it with two rules that are easy to lose:
+
+```cpp
+m_skippedOne = !isMultiplayer;                         // constructor
+if (!m_skippedOne) { m_skippedOne = TRUE; return; }    // addCRC drops the first
+```
+
+In a network game the first `MSG_LOGIC_CRC` never reaches the wire, so a
+multiplayer recording's checksum stream starts one interval later than the local
+stream during playback, and the client discards this device's first local
+checksum to compensate. `isMultiplayer` comes from the mode stored in the
+recording's own header:
+
+```cpp
+Bool isMultiplayer = (m_originalGameMode == GAME_INTERNET || m_originalGameMode == GAME_LAN);
+```
+
+which is read *after* `difficulty`, `m_originalGameMode`, `rankPoints` and
+`maxFPS`, so `CRCInfo` must be constructed after those reads, not before.
+
+Get this wrong by one interval and the log lies in a way that looks exactly like
+a real bug:
+
+- a map whose state changes between checkpoints reports a mismatch at the very
+  first comparison, always at frame 100;
+- a map where nothing moves reports ten consecutive perfect matches, because
+  consecutive checkpoints hold the same value.
+
+This port had both of those for weeks, from a frame-matching scheme written to
+avoid guessing whether the recording's first checksum survived — a guess that was
+never needed, because the recording says so itself. Fixed 20/09/2026. If you are
+reading an older log, or any log whose header line does not print
+`originalGameMode=` and `isMultiplayer=`, treat its verdicts as unmeasured.
+
+## A map is not a neutral test harness
+
+Before concluding "this map desyncs", read the map's scripts. They are easy to
+read: a `.map` is an `EAR\0` header, a RefPack stream, then the `CkMp` chunk tree
+whose layout is written out plainly in `Common/System/DataChunk.cpp`
+(`DataChunkTableOfContents::read`, `openDataChunk`, `readDict`) and
+`ScriptEngine/Scripts.cpp` (`Script::ParseScript`, `ScriptAction::ParseAction`,
+`Parameter::ReadParameter`). The chunk-name table at the front of the file is
+already a summary: it lists every script action the map uses.
+
+The `Casino - Resurrection` pack, which is where this port's desync reports came
+from, holds a group called `CounterRandom` with two non-one-shot scripts that
+each call `SET_RANDOM_TIMER` on both branches. They run every logic frame, so the
+map draws from the shared logic RNG twice per frame from frame 0. That is what
+`ScriptEngine.cpp:6769 drew 200` means in a frame-100 tally: two draws times a
+hundred frames, not an anomaly.
+
+A map like that amplifies any divergence into the checksum immediately. A still
+map hides one for a thousand frames. So "it desyncs on this map and not that one"
+is usually a statement about how hard the map leans on the RNG, not about the
+map needing its own fix. Check the script tally before promising a per-map hunt.
+
 ## The reference is the replay, not a Windows build
 
 A `.rep` recorded on the PC **carries the x86 checksums inside it**. Playing it

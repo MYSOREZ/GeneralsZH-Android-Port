@@ -1838,7 +1838,11 @@ StateReturnType AIInternalMoveToState::update()
 			obj->clearModelConditionState( MODELCONDITION_RAPPELLING );
 		}
 	}
-	if (ai->getNumFramesBlocked()>static_cast<float>(LOGICFRAMES_PER_SECOND)/4)
+	// GeneralsX @bugfix Android port 20/09/2026 Integer division, as on the PC
+	// client. The cast made this 7.5 where the client has 7 on the 30 Hz engine,
+	// so a unit blocked for exactly 7 frames gave up climbing on one side and not
+	// the other. At 60 Hz both are 15, which is why it never showed up.
+	if (ai->getNumFramesBlocked()>LOGICFRAMES_PER_SECOND/4)
 	{
 		obj->clearModelConditionState( MODELCONDITION_MOVING );
 	}
