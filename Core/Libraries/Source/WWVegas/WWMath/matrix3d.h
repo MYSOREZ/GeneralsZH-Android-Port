@@ -564,40 +564,10 @@ WWINLINE void Matrix3D::Set(		const Vector3	&x,		// x-axis unit vector
  * HISTORY:                                                                                    *
  *   2/24/98    GTH : Created.                                                                 *
  *=============================================================================================*/
-/*
- * GeneralsX @bugfix Android port 20/09/2026 -- cross-play determinism.
- *
- * These call sinf/cosf/tanf, and the source is character-identical to the PC
- * GeneralsOnline client's. The divergence is not in the code, it is in which
- * libm the two sides link. The client is built with VC6 for 32-bit x86, whose
- * CRT promotes the argument to double and evaluates on the x87 unit; bionic
- * implements a genuine single-precision sinf/cosf with its own ~1 ULP error.
- * They land on different floats.
- *
- * Measured against the client's exact contract -- x87 with the control word
- * setFPMode() installs (PC=24, round-to-nearest) -- over 62801 angles across
- * [-pi, pi]:
- *
- *     x87 fsin  vs  sinf                      776 differ  (1.236%)
- *     x87 fcos  vs  cosf                      768 differ  (1.223%)
- *     x87 fsin  vs  (float)sin((double)x)       0 differ  (0.000%)
- *     x87 fcos  vs  (float)cos((double)x)       0 differ  (0.000%)
- *
- * One angle in eighty is enough: a rotation matrix is rebuilt for every moving
- * object every frame, and Object::crc hashes the transform directly. It is
- * also exactly the observed signature -- replaying a PC recording on Android
- * diverges at the first checkpoint with only the objects that MOVE disagreeing
- * (11 of 317: ten civilian vehicles and a dozer), every static object hashing
- * byte-identical.
- *
- * So evaluate in double and narrow once, which is what this same file already
- * does for Acos, Asin and Sqrt. Not a workaround: it states in the source the
- * precision contract that the client gets implicitly from its CRT.
- */
 WWINLINE void Matrix3D::Set(const Vector3 & axis,float angle)
 {
-	float c = (float)cos((double)(angle));
-	float s = (float)sin((double)(angle));
+	float c = cosf(angle);
+	float s = sinf(angle);
 
 	Set(axis,s,c);
 }
@@ -798,8 +768,8 @@ WWINLINE void Matrix3D::Rotate_X(float theta)
 	float tmp1,tmp2;
 	float s,c;
 
-	s = (float)sin((double)(theta));
-	c = (float)cos((double)(theta));
+	s = sinf(theta);
+	c = cosf(theta);
 
 	tmp1 = Row[0][1]; tmp2 = Row[0][2];
 	Row[0][1] = (float)( c*tmp1 + s*tmp2);
@@ -866,8 +836,8 @@ WWINLINE void Matrix3D::Rotate_Y(float theta)
 	float tmp1,tmp2;
 	float s,c;
 
-	s = (float)sin((double)(theta));
-	c = (float)cos((double)(theta));
+	s = sinf(theta);
+	c = cosf(theta);
 
 	tmp1 = Row[0][0]; tmp2 = Row[0][2];
 	Row[0][0] = (float)(c*tmp1 - s*tmp2);
@@ -933,8 +903,8 @@ WWINLINE void Matrix3D::Rotate_Z(float theta)
 	float tmp1,tmp2;
 	float c,s;
 
-	c = (float)cos((double)(theta));
-	s = (float)sin((double)(theta));
+	c = cosf(theta);
+	s = sinf(theta);
 
 	tmp1 = Row[0][0]; tmp2 = Row[0][1];
 	Row[0][0] = (float)( c*tmp1 + s*tmp2);
@@ -1085,8 +1055,8 @@ WWINLINE void Matrix3D::Pre_Rotate_X(float theta)
 	float tmp1,tmp2;
 	float c,s;
 
-	c = (float)cos((double)(theta));
-	s = (float)sin((double)(theta));
+	c = cosf(theta);
+	s = sinf(theta);
 
 	tmp1 = Row[1][0]; tmp2 = Row[2][0];
 	Row[1][0] = (float)(c*tmp1 - s*tmp2);
@@ -1123,8 +1093,8 @@ WWINLINE void Matrix3D::Pre_Rotate_Y(float theta)
 	float tmp1,tmp2;
 	float c,s;
 
-	c = (float)cos((double)(theta));
-	s = (float)sin((double)(theta));
+	c = cosf(theta);
+	s = sinf(theta);
 
 	tmp1 = Row[0][0]; tmp2 = Row[2][0];
 	Row[0][0] = (float)( c*tmp1 + s*tmp2);
@@ -1161,8 +1131,8 @@ WWINLINE void Matrix3D::Pre_Rotate_Z(float theta)
 	float tmp1,tmp2;
 	float c,s;
 
-	c = (float)cos((double)(theta));
-	s = (float)sin((double)(theta));
+	c = cosf(theta);
+	s = sinf(theta);
 
 	tmp1 = Row[0][0]; tmp2 = Row[1][0];
 	Row[0][0] = (float)(c*tmp1 - s*tmp2);
@@ -1304,8 +1274,8 @@ WWINLINE void Matrix3D::In_Place_Pre_Rotate_X(float theta)
 	float tmp1,tmp2;
 	float c,s;
 
-	c = (float)cos((double)(theta));
-	s = (float)sin((double)(theta));
+	c = cosf(theta);
+	s = sinf(theta);
 
 	tmp1 = Row[1][0]; tmp2 = Row[2][0];
 	Row[1][0] = (float)(c*tmp1 - s*tmp2);
@@ -1338,8 +1308,8 @@ WWINLINE void Matrix3D::In_Place_Pre_Rotate_Y(float theta)
 	float tmp1,tmp2;
 	float c,s;
 
-	c = (float)cos((double)(theta));
-	s = (float)sin((double)(theta));
+	c = cosf(theta);
+	s = sinf(theta);
 
 	tmp1 = Row[0][0]; tmp2 = Row[2][0];
 	Row[0][0] = (float)( c*tmp1 + s*tmp2);
@@ -1372,8 +1342,8 @@ WWINLINE void Matrix3D::In_Place_Pre_Rotate_Z(float theta)
 	float tmp1,tmp2;
 	float c,s;
 
-	c = (float)cos((double)(theta));
-	s = (float)sin((double)(theta));
+	c = cosf(theta);
+	s = sinf(theta);
 
 	tmp1 = Row[0][0]; tmp2 = Row[1][0];
 	Row[0][0] = (float)(c*tmp1 - s*tmp2);

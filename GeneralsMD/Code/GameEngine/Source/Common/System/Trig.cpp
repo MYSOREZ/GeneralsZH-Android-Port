@@ -48,36 +48,78 @@
 #define INT_HALFPI 						6434
 
 // These five feed object orientation and the transform matrix, which the lockstep
-// CRC hashes raw. They must be the exact same operations the client we play against
-// performs, so they call the single-precision CRT entry points directly rather than
-// routing through the WWMath gateways. SinTrig/CosTrig/TanTrig happen to resolve to
-// sinf/cosf/tanf off MSVC anyway, but ACosTrig/ASinTrig land on WWMath::Acos/Asin,
-// which compute in double and round once more on the way out - that extra rounding
-// step can differ from acosf/asinf in the last bit.
+// CRC hashes raw, so they must be the exact same operations the client we play
+// against performs.
+//
+// GeneralsX @bugfix Android port 20/09/2026 They used to call sinf/cosf/tanf/
+// acosf/asinf, on the reasoning that the client calls those too. The source
+// does -- but the source is not what decides the answer, the C runtime behind
+// it is. The client is VC6 for 32-bit x86, whose CRT has no genuine
+// single-precision transcendentals: sinf promotes to double and evaluates on
+// the x87 unit. bionic does have real single-precision implementations, with
+// their own error, so the same source line lands on a different float.
+//
+// Measured against the client's exact contract -- x87 with the control word
+// setFPMode() installs (PC=24, round-to-nearest) -- over 62801 angles across
+// [-pi, pi]:
+//
+//     x87 fsin  vs  sinf                      776 differ  (1.236%)
+//     x87 fcos  vs  cosf                      768 differ  (1.223%)
+//     x87 fsin  vs  (float)sin((double)x)       0 differ
+//     x87 fcos  vs  (float)cos((double)x)       0 differ
+//
+// One angle in eighty, on a function that rebuilds the rotation matrix of every
+// moving object every frame (Thing::setOrientation -> Cos/Sin -> m_transform,
+// which Object::crc hashes). That is the observed signature of the cross-play
+// desync: replaying a PC recording on Android diverges at the first checkpoint
+// with only the objects that MOVE disagreeing, every static one byte-identical.
+//
+// So evaluate in double and narrow once. Off MSVC only: a VC6 build must keep
+// calling the CRT entry points, because there they already are this.
 
 Real Sin(Real x)
 {
+#if defined(_MSC_VER) && defined(_M_IX86)
 	return sinf(x);
+#else
+	return (Real)sin((double)x);
+#endif
 }
 
 Real Cos(Real x)
 {
+#if defined(_MSC_VER) && defined(_M_IX86)
 	return cosf(x);
+#else
+	return (Real)cos((double)x);
+#endif
 }
 
 Real Tan(Real x)
 {
+#if defined(_MSC_VER) && defined(_M_IX86)
 	return tanf(x);
+#else
+	return (Real)tan((double)x);
+#endif
 }
 
 Real ACos(Real x)
 {
+#if defined(_MSC_VER) && defined(_M_IX86)
 	return acosf(x);
+#else
+	return (Real)acos((double)x);
+#endif
 }
 
 Real ASin(Real x)
 {
+#if defined(_MSC_VER) && defined(_M_IX86)
 	return asinf(x);
+#else
+	return (Real)asin((double)x);
+#endif
 }
 
 double Sqrt(double x)
