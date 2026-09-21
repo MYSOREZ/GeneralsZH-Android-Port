@@ -228,7 +228,16 @@ namespace
 			return true;
 		}
 
-		if (ourBits == 0u || theirBits == 0u)
+		// GeneralsX @bugfix Android port 21/09/2026 Only the direction that is rare.
+		//
+		// This was `ourBits == 0 || theirBits == 0`, and the checksum stream is full
+		// of zero words -- unset fields, padding, empty shroud. Wherever ours was a
+		// zero, ANY implied value satisfied the test, so on the first real log the
+		// category claimed 7665 of 85538 positions and drowned the report. Ours
+		// non-zero against an implied zero is the informative direction and is as
+		// rare as any other single value: a field this machine set and the other
+		// did not.
+		if (theirBits == 0u && ourBits != 0u)
 		{
 			*kind = KIND_ZERO_ONE_SIDE;
 			*distance = 0;
@@ -452,9 +461,22 @@ void report( UnsignedInt theirCRC, UnsignedInt ourCRC )
 	{
 		// Objects get one mark each and there can be hundreds; the named sections
 		// are the useful skeleton.
-		if (snap.marks[k].label.compare(0, 7, "object ") == 0)
+		if (snap.marks[k].label.compare(0, 7, "object ") == 0
+			|| snap.marks[k].label.compare(0, 6, "cells ") == 0)
 			continue;
-		const size_t endPos = (k + 1 < snap.marks.size()) ? snap.marks[k + 1].pos : n;
+		// GeneralsX @bugfix Android port 21/09/2026 End at the next NAMED section, not
+		// at the next mark. The next mark after "Objects" is the first object's, so
+		// the objects section reported four words instead of six thousand.
+		size_t endPos = n;
+		for (size_t j = k + 1; j < snap.marks.size(); ++j)
+		{
+			if (snap.marks[j].label.compare(0, 7, "object ") != 0
+				&& snap.marks[j].label.compare(0, 6, "cells ") != 0)
+			{
+				endPos = snap.marks[j].pos;
+				break;
+			}
+		}
 		GX_NET_TRACE("crc locate frame %u: section %-22s words %u..%u (%u)\n",
 			(unsigned)snap.frame, snap.marks[k].label.c_str(),
 			(unsigned)snap.marks[k].pos, (unsigned)endPos,

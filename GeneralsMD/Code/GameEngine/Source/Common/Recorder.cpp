@@ -1320,9 +1320,23 @@ void RecorderClass::handleCRCMessage(UnsignedInt newCRC, Int playerIndex, Bool f
 				mismatchFrame, playbackCRC, newCRC);
 			fprintf(stderr, "[GeneralsX] This replay is incompatible with the current map/game-code state.\n");
 
-			// TheSuperHackers @tweak Pause the game on mismatch.
-			// But not when a window with focus is opened, because that can make resuming difficult.
-			if (TheWindowManager->winGetFocus() == nullptr)
+			// GeneralsX @feature Android port 21/09/2026 Keep playing when tracing.
+			//
+			// The stock behaviour pauses on the first mismatch and latches
+			// sawCRCMismatch, so a diverging replay only ever reports one checkpoint.
+			// That is right for a player -- there is nothing to watch after the
+			// simulation has parted -- and wrong for this investigation: every
+			// checkpoint after the first says whether the difference stays the same
+			// size or grows, which separates a one-off (a reveal that happened on one
+			// machine only) from drift (a value that keeps being recomputed wrongly).
+			// Each later checkpoint is also another chance for the locator.
+			if (GXTrace::isNetEnabled())
+			{
+				fprintf(stderr, "[GX-NET] replay crc: continuing past the mismatch so the"
+					" later checkpoints are reported too\n");
+				fflush(stderr);
+			}
+			else if (TheWindowManager->winGetFocus() == nullptr)
 			{
 				Bool pause = TRUE;
 				Bool pauseMusic = FALSE;

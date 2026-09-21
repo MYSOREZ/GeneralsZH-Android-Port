@@ -49,6 +49,8 @@
 //-----------------------------------------------------------------------------
 #include "PreRTS.h"	// This must go first in EVERY cpp file in the GameEngine
 
+#include "Common/GXCrcStream.h"
+
 #include "Common/ActionManager.h"
 #include "Common/DiscreteCircle.h"
 #include "Common/GameEngine.h"
@@ -4655,8 +4657,26 @@ Bool PartitionManager::isClearLineOfSightTerrain(const Object* obj, const Coord3
 void PartitionManager::crc( Xfer *xfer )
 {
 
+	// GeneralsX @feature Android port 21/09/2026 Label this loop for the checksum
+	// locator. The cells are 92% of the whole lockstep checksum on a normal map --
+	// 78415 of 85538 words on the one under investigation -- and each holds only
+	// m_shroudLevel per player plus its own grid coordinates. The coordinates are
+	// constants, identical on every machine, so a difference in this section can
+	// only be a shroud level. A mark every block turns "somewhere in the partition
+	// manager" into a cell range. Marks do not enter the checksum.
+	const Int CELLS_PER_MARK = 128;
+	char label[64];
+
 	for (Int i=0; i<m_totalCellCount; ++i)
 	{
+		if (GXCrcStream::isCapturing() && (i % CELLS_PER_MARK) == 0)
+		{
+			const Int last = (i + CELLS_PER_MARK - 1 < m_totalCellCount)
+				? i + CELLS_PER_MARK - 1 : m_totalCellCount - 1;
+			snprintf(label, sizeof(label), "cells %d..%d of %d", (int)i, (int)last,
+				(int)m_totalCellCount);
+			GXCrcStream::mark(label);
+		}
 		m_cells[i].crc(xfer);
 	}
 
