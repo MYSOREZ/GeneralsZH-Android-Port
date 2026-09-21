@@ -28,6 +28,8 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 #include "PreRTS.h"	// This must go first in EVERY cpp file in the GameEngine
 
+#include "GXTrace.h"
+
 #include "Common/DataChunk.h"
 #include "Common/file.h"
 #include "Common/FileSystem.h"
@@ -6210,18 +6212,40 @@ void ScriptEngine::doNamedMapReveal(const AsciiString& revealName)
 		return;
 	}
 
+	// GeneralsX @feature Android port 21/09/2026 Show what a map reveal actually did.
+	//
+	// The lockstep checksum is 92% fog of war -- 78415 of 85538 words on the map
+	// under investigation -- and this map rewrites it wholesale on the first frame:
+	// its 'Map Reveal' script is active, one-shot and CONDITION_TRUE, and fires 36
+	// of these at radius 450 for player0 through player5 on a map that has four
+	// players. Which of them apply, to which player index, decides thousands of
+	// shroud cells, and none of it was visible in a log.
 	Waypoint *way = TheTerrainLogic->getWaypointByName(reveal->m_waypointName);
 	if (!way) {
+		if (GXTrace::isNetEnabled())
+			GX_NET_TRACE("map reveal '%s': waypoint '%s' does not exist -- skipped\n",
+				revealName.str(), reveal->m_waypointName.str());
 		return;
 	}
 
 	Player *player = getPlayerFromAsciiString(reveal->m_playerName);
 	if (!player) {
+		if (GXTrace::isNetEnabled())
+			GX_NET_TRACE("map reveal '%s': player '%s' does not exist -- skipped\n",
+				revealName.str(), reveal->m_playerName.str());
 		return;
 	}
 
 	Coord3D pos;
 	pos = *way->getLocation();
+
+	if (GXTrace::isNetEnabled())
+		GX_NET_TRACE("map reveal '%s' frame %u: waypoint '%s' at %.6f,%.6f radius %.6f"
+			" -> player '%s' index %d mask %08X\n",
+			revealName.str(), (unsigned)(TheGameLogic ? TheGameLogic->getFrame() : 0),
+			reveal->m_waypointName.str(), pos.x, pos.y, reveal->m_radiusToReveal,
+			reveal->m_playerName.str(), (int)player->getPlayerIndex(),
+			(unsigned)player->getPlayerMask());
 
 	ThePartitionManager->doShroudReveal(pos.x, pos.y, reveal->m_radiusToReveal, player->getPlayerMask());
 }

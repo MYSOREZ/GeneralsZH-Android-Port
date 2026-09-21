@@ -99,7 +99,7 @@ namespace
 	{
 		switch (kind)
 		{
-			case KIND_BIT_FLIP:      return "one bit apart (a flag or status bit)";
+			case KIND_BIT_FLIP:      return "up to four bits apart (a flag or status bit)";
 			case KIND_SMALL_INT:     return "a small integer apart (a counter, frame or id)";
 			case KIND_ZERO_ONE_SIDE: return "zero on one machine only";
 			case KIND_FLOAT_ROUNDING:return "float rounding";

@@ -4521,6 +4521,30 @@ UnsignedInt GameLogic::getCRC( Int mode, AsciiString deepCRCFileName )
 			(unsigned)m_frame, (unsigned)xferCRC->getCRC());
 	}
 
+	// GeneralsX @feature Android port 21/09/2026 Name the players once per checkpoint.
+	//
+	// Every map-reveal action resolves a player by name, and the shroud slots it
+	// writes are indexed by player. If this device built a different player list
+	// from the recording's slots than the machine that recorded it, the reveals land
+	// in different slots and the fog of war -- 92% of this checksum -- parts
+	// wholesale. None of that was visible in a log.
+	if (gxTraceParts && ThePlayerList != nullptr)
+	{
+		AsciiString players;
+		for (Int pi = 0; pi < ThePlayerList->getPlayerCount(); ++pi)
+		{
+			Player *p = ThePlayerList->getNthPlayer(pi);
+			if (p == nullptr)
+				continue;
+			AsciiString one;
+			one.format(" %d:%ls%s", pi, p->getPlayerDisplayName().str(),
+				p->isLocalPlayer() ? "(local)" : "");
+			players.concat(one);
+		}
+		GX_NET_TRACE("crc players frame %u: count=%d%s\n",
+			(unsigned)m_frame, (int)ThePlayerList->getPlayerCount(), players.str());
+	}
+
 	GXCrcStream::mark("ThePlayerList");
 	marker = "MARKER:ThePlayerList";
 	xferCRC->xferAsciiString(&marker);
