@@ -50,6 +50,7 @@
 #include "PreRTS.h"	// This must go first in EVERY cpp file in the GameEngine
 
 #include "Common/GXCrcStream.h"
+#include "GXTrace.h"
 
 #include "Common/ActionManager.h"
 #include "Common/DiscreteCircle.h"
@@ -4666,6 +4667,36 @@ void PartitionManager::crc( Xfer *xfer )
 	// manager" into a cell range. Marks do not enter the checksum.
 	const Int CELLS_PER_MARK = 128;
 	char label[64];
+
+	// GeneralsX @feature Android port 21/09/2026 Summarise the fog of war per player.
+	//
+	// The engine reveals whole shroud slots before frame 0 -- the replay observer's
+	// permanently, observer slots permanently, and every player's slot when shroud is
+	// off in multiplayer -- so a slot is usually either entirely clear or entirely
+	// shrouded. Three counts per player say which, and that is checkable on its own:
+	// an observer slot that is not clear, or a playing slot that is, is wrong without
+	// needing the other machine's numbers.
+	if (GXTrace::isNetEnabled() && xfer->getXferMode() == XFER_CRC)
+	{
+		for (Int p = 0; p < MAX_PLAYER_COUNT; ++p)
+		{
+			Int clear = 0, fogged = 0, shrouded = 0;
+			for (Int i = 0; i < m_totalCellCount; ++i)
+			{
+				switch (m_cells[i].getShroudStatusForPlayer(p))
+				{
+					case CELLSHROUD_CLEAR:    ++clear; break;
+					case CELLSHROUD_FOGGED:   ++fogged; break;
+					default:                  ++shrouded; break;
+				}
+			}
+			if (clear != 0 || fogged != 0)
+				GX_NET_TRACE("crc shroud frame %u: player %d of %d cells:"
+					" clear=%d fogged=%d shrouded=%d\n",
+					(unsigned)(TheGameLogic ? TheGameLogic->getFrame() : 0),
+					(int)p, (int)m_totalCellCount, (int)clear, (int)fogged, (int)shrouded);
+		}
+	}
 
 	for (Int i=0; i<m_totalCellCount; ++i)
 	{
