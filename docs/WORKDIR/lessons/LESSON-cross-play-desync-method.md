@@ -542,6 +542,84 @@ checksum.** `AI::crc` is the one `crc()` function that differs from the client's
 and the diff is trace lines and counters only -- no `xfer` call added, removed or
 reordered.
 
+## Three checkpoints prove where the difference is not
+
+Dumping the whole stream at frames 100, 200 and 300 of the same replay gave the
+strongest result so far, and it came from an observation about **our** side first:
+between those frames exactly **one** word of our 85538 changes -- word 6402, the
+logic RNG state. Everything else is static: the dozer has arrived, nothing moves.
+
+That makes a proof available. Walk each of the PC's three checkpoint values back
+through our words, stopping at the end of the objects section. The walk crosses
+79135 suffix words (fog of war, player list, AI) plus a *different* RNG word on
+every frame. If anything in that suffix, or the RNG, differed from the PC, the
+three walks would land on three unrelated values. They land on the same one:
+
+```
+frame 100: their value at end of Objects = 3091A52B   ours = 3091963C
+frame 200: their value at end of Objects = 3091A52B   ours = 3091963C
+frame 300: their value at end of Objects = 3091A52B   ours = 3091963C
+walked-back values over the whole Objects section identical on all three: True
+```
+
+So, as a measurement rather than an inference:
+
+- **the fog of war, the player list and the AI are identical to the PC's** -- 92%
+  of the checksum, cleared;
+- **the RNG state matches the PC's on all three frames**, including the two draws
+  per frame the map's `CounterRandom` group makes; our own RNG word is reached from
+  the replay's seed after exactly 310, 510 and 710 draws;
+- **the difference is entirely inside the 6402-word objects section**, and that
+  section does not change between frames 100 and 300.
+
+The same numbers show up another way: the word the PC would need at 6402 is ours
+plus the constant `0x1DDE` on all three frames, which is what a difference before
+6402 looks like when everything after it agrees. Note that "the top 18 bits agree"
+argument earlier in this file reached this same conclusion from bad reasoning; the
+conclusion has now been earned.
+
+**A blind spot this exposed.** Before this, the one hypothesis nothing had tested
+was "the PC made a different number of RNG draws". Both filters were blind to it
+by construction: the frame-independence filter demands the same implied word on
+every checkpoint, and an RNG word legitimately changes every frame; the
+plausibility classifier looks for fields that differ by a few units, and an RNG
+state CRC is an arbitrary 32-bit value. Tested directly now -- the word the PC
+would need is not a reachable RNG state within 20 million draws of its seed -- and
+closed. **When a filter rejects a candidate, check that it could have accepted the
+right answer.**
+
+## Inside a static section, more checkpoints add nothing
+
+The objects section is identical on all three frames, so all three give the same
+single equation for it: forward from 0 over their 6402 words must reach
+`3091A52B`. One 32-bit constraint cannot localise a difference of two or more
+words, and more checkpoints of a *static* section do not add constraints. What was
+tested against that one equation, exactly (window tests, no assumptions):
+
+| hypothesis | tests | hits |
+|---|---|---|
+| any integer-valued word in any object, any delta up to +/-100000 | part of 3.3G | aliasing only (below) |
+| two integer words of one object moved by the same delta (two stamps of one late event), up to +/-3600 frames | part of 3.3G | aliasing only |
+| two integer words of one object, independent deltas +/-64 | part of 3.3G | aliasing only |
+| three integer words of one object, same delta up to +/-600 | part of 3.3G | aliasing only |
+
+376 "hits" against 0.78 expected, every one of them in the last ~35 objects of the
+section and none in the first 130 -- including none in the dozer at word 256. That
+is the period-32 aliasing again: near the end of the section the walked-back
+difference is small and nearly unrotated, so a small change almost anywhere nearby
+"explains" it. A hit deep in the section would mean something; there are none.
+
+**The end difference being small is weak evidence, measured.** Their and our
+end-of-objects values differ by 3823 -- twelve bits. Perturbing one random word
+deep in the section lands within 3823 in 0.1% of trials; perturbing one of the last
+22 words, in 0.6%. A factor of six, not a localisation.
+
+**Checked and closed on the way:** `Object::crc` feeds
+`m_objectUpgradesCompleted` into the checksum as raw memory of size
+`sizeof(BitFlags<512>)`, which is exactly the kind of line that differs between a
+32-bit MSVC and a 64-bit libc++ build. It does not here: `std::bitset<512>` is
+64 bytes, sixteen words, on both.
+
 ## Where it stands (22/09/2026)
 
 **The single-number method is now exhausted, and that is a measurement, not a
@@ -566,21 +644,20 @@ at least two non-adjacent words, or they are longer — and a difference where t
 carry words we do not is the one case this method cannot compute, because the
 content of those words is exactly what we do not have.
 
-**So stop asking the checksum and go get more input.** In order of value:
+**The next input has to be a different replay, not a different instrument.** The
+objects section is static from frame 100 on, so this replay has given everything
+it can: one equation. Two short recordings on the same map, made on the PC, split
+the remaining space in half each:
 
-1. ~~**The `.rep` file itself.**~~ Read — see the section above. The recorded
-   game had one participant, the seed reaches our RNG intact, and the setup path
-   matches. It did not find the bug, but it removed the largest remaining unknown
-   and it cost no build.
-1. **Full dumps at three checkpoints instead of one.** A single dump cannot judge
-   a two-word hypothesis: one equation, two unknowns, so a solution exists almost
-   everywhere. An exact sweep over the whole stream (window tests, see below)
-   returned 23 such "hits" where chance predicts 0.05 -- and every one of them
-   needed a structurally-zero word to become `0xFFFFFFFC` or a byte inside a
-   weapon's name to change. With the plausibility filter on, zero. Three dumps let
-   the frame-independence filter apply to multi-word hypotheses, which is the same
-   filter that took twelve single-word candidates to three. Shipped; `GX_CRC_DUMPS`
-   sets the count.
-2. A `DEBUG_CRC` build of the PC client, for `CRCGEN_LOG` or `XferDeepCRC`. Worth
-   more than any tool on this side, and currently out of reach.
-3. Nothing else. More instrumentation on this side measures the same 32 bits again.
+1. **Solo, no commands at all**, run for a minute. If it matches, every object's
+   initial state is right and the difference comes from something that moved --
+   in this replay, only the dozer, 56 words at 256..312. If it diverges, movement
+   is irrelevant and the difference is in the initial state the map and its 852
+   scripts produce.
+2. **Solo, one short dozer move at the start, nothing else.** Pairs with (1): the
+   difference between the two is exactly what one move leaves behind.
+
+Anything that changes the objects section *between* checkpoints turns more
+checkpoints back into more equations, which is what a multi-word hypothesis needs.
+A `DEBUG_CRC` build of the PC client would still beat all of this, and is still
+out of reach.
