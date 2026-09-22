@@ -1287,6 +1287,12 @@ void RecorderClass::handleCRCMessage(UnsignedInt newCRC, Int playerIndex, Bool f
 		if (TheGameLogic->getFrame() > 0 && newCRC != playbackCRC)
 		{
 			GXCrcStream::report( newCRC, playbackCRC );
+
+			// Once per session, hand over the objects section's words so the search
+			// for a multi-word difference can happen off the phone. Twelve words of a
+			// transform differing by a rounding step is invisible to a single-word
+			// test, which is all the locator above can do.
+			GXCrcStream::dumpSection( "Objects", newCRC, playbackCRC );
 		}
 
 		if (TheGameLogic->getFrame() > 0 && newCRC != playbackCRC && !m_crcInfo->sawCRCMismatch())

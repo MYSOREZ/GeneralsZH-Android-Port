@@ -361,6 +361,101 @@ namespace
 	}
 }
 
+void dumpSection( const char *sectionLabel, UnsignedInt theirCRC, UnsignedInt ourCRC )
+{
+	if (!GXTrace::isNetEnabled() || sectionLabel == nullptr)
+		return;
+
+	// Once per session: the point is to get the words off the phone, not to fill
+	// the log on every checkpoint.
+	static Bool alreadyDumped = false;
+	if (alreadyDumped)
+		return;
+
+	const UnsignedInt ourInternal = htobe(ourCRC);
+	const CrcSnapshot *found = nullptr;
+	for (size_t k = 0; k < RING; ++k)
+	{
+		if (!theRing[k].crcs.empty() && theRing[k].crcs.back() == ourInternal)
+		{
+			found = &theRing[k];
+			break;
+		}
+	}
+	if (found == nullptr)
+		return;
+
+	const CrcSnapshot &snap = *found;
+	const size_t n = snap.words.size();
+
+	// Locate the named section: from its mark to the next named one.
+	size_t from = n, to = n;
+	for (size_t k = 0; k < snap.marks.size(); ++k)
+	{
+		if (snap.marks[k].label != sectionLabel)
+			continue;
+		from = snap.marks[k].pos;
+		to = n;
+		for (size_t j = k + 1; j < snap.marks.size(); ++j)
+		{
+			if (snap.marks[j].label.compare(0, 7, "object ") != 0
+				&& snap.marks[j].label.compare(0, 6, "cells ") != 0)
+			{
+				to = snap.marks[j].pos;
+				break;
+			}
+		}
+		break;
+	}
+	if (from >= to)
+		return;
+
+	// The inverse walk of their checksum back to the section's end. Everything
+	// inside the section is then reconstructable from this and our words.
+	UnsignedInt theirs = htobe(theirCRC);
+	for (size_t i = n; i > to; --i)
+		theirs = ror1(theirs - snap.words[i - 1]);
+
+	const UnsignedInt ourAtFrom = (from >= 1) ? snap.crcs[from - 1] : 0u;
+	const UnsignedInt ourAtTo = (to >= 1) ? snap.crcs[to - 1] : 0u;
+
+	GX_NET_TRACE("crc dump frame %u: section '%s' words %u..%u count=%u\n",
+		(unsigned)snap.frame, sectionLabel, (unsigned)from, (unsigned)to,
+		(unsigned)(to - from));
+	GX_NET_TRACE("crc dump frame %u: ourAtStart=%08X ourAtEnd=%08X theirAtEnd=%08X"
+		" (accumulator values, not byte-swapped)\n",
+		(unsigned)snap.frame, (unsigned)ourAtFrom, (unsigned)ourAtTo, (unsigned)theirs);
+
+	// The object and cell marks inside the section, so an offset can be named.
+	for (size_t k = 0; k < snap.marks.size(); ++k)
+	{
+		if (snap.marks[k].pos < from || snap.marks[k].pos >= to)
+			continue;
+		if (snap.marks[k].label.compare(0, 7, "object ") != 0)
+			continue;
+		GX_NET_TRACE("crc dump frame %u: mark %u %s\n", (unsigned)snap.frame,
+			(unsigned)(snap.marks[k].pos - from), snap.marks[k].label.c_str());
+	}
+
+	// The words themselves, as fed to the accumulator, sixteen to a line.
+	char line[16 * 9 + 8];
+	size_t col = 0;
+	size_t len = 0;
+	for (size_t i = from; i < to; ++i)
+	{
+		len += snprintf(line + len, sizeof(line) - len, "%08X ", (unsigned)snap.words[i]);
+		if (++col == 16 || i + 1 == to)
+		{
+			GX_NET_TRACE("crc dump frame %u: w %u %s\n", (unsigned)snap.frame,
+				(unsigned)(i + 1 - col - from), line);
+			col = 0;
+			len = 0;
+		}
+	}
+
+	alreadyDumped = true;
+}
+
 void reportEither( UnsignedInt crcA, UnsignedInt crcB )
 {
 	if (!GXTrace::isNetEnabled())

@@ -74,6 +74,18 @@ namespace GXCrcStream
 	// captured stream ends on is ours; this works that out and reports once.
 	void reportEither( UnsignedInt crcA, UnsignedInt crcB );
 
+	// Dump one named section's words, once, so the analysis can move off the phone.
+	//
+	// A single-word test is all the locator can do, and a rounding difference inside
+	// a transform touches twelve words at once, so it cannot see one. Searching for a
+	// multi-word difference needs the words themselves. This prints the section's
+	// words in hex, its start and end running values, and -- the part that makes the
+	// rest computable -- the inverse walk of the OTHER machine's checksum back to the
+	// section's end. From those, every intermediate value on both sides inside the
+	// section can be reconstructed offline, and any hypothesis about a run of words
+	// tested without another build.
+	void dumpSection( const char *sectionLabel, UnsignedInt theirCRC, UnsignedInt ourCRC );
+
 	// True while capture is armed, so callers can skip building labels.
 	Bool isCapturing();
 }
