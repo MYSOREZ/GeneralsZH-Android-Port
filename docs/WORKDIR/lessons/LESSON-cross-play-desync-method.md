@@ -300,6 +300,44 @@ Now `theirs == 0 && ours != 0`. And the section printer took each section's end 
 the next mark, which is an object's, so the objects section reported four words
 instead of six thousand.
 
+**A single difference shows up many times over, 32 positions apart.** The implied
+delta at position `i` is exactly `D[i+1] - C[i+1]`, and going backwards that
+difference is rotated right one bit per word. Thirty-two words later the rotation
+has come full circle, so wherever the words in between are static the *same* delta
+reappears. Measured on the objects dump: positions 5650, 5682, 5714 and 5746 all
+carry delta `5B030000` — the same `+859` after the byte swap — and the locator duly
+printed four separate "small integer apart" candidates for what is one hypothesis.
+**Count families, not candidates.** (The rotation is not exact: `delta[i] ==
+ror1(delta[i+1])` held at 2212 of 6402 positions, the rest being the carry term,
+which is why the walk still depends on the words.)
+
+**Therefore a small delta at a section boundary says nothing about where the
+difference is.** The walk rotates a difference rather than shrinking it, so "their
+walked-back value and ours agree in the top 18 bits at the end of the objects
+section" is just as consistent with one small word difference anywhere in the 79136
+words after it. This was briefly believed and is wrong; it is the reason the dump is
+now the whole stream rather than one section.
+
+**The filter that is actually strong: the same implied word at every checkpoint.**
+At the true position the implied delta is frame-independent — both machines agree up
+to it, so the delta *is* the word difference, whatever frame it is measured on. At
+every other position the implied value is built from that frame's words and moves.
+Eleven checkpoints of one replay, 10-12 candidates each, intersected on
+(position, our word, implied word):
+
+```
+3 positions survive all eleven
+  word 5992  object id=11 AmericaInfantryBiohazardTech +8   1980.27917 -> -982.014587
+  word 6188  object id=6  GuardTower +2                    -0.499999821 -> -0.241668612
+  word 6368  object id=1  GuardTower +2                    -0.819152057 -> 1.29759892e-05
+```
+
+Offsets `+1..+12` of an object are its transform and `+2` and `+8` are elements of
+it, which cannot differ on their own: change one element of a rotation and the other
+five change with it. **So no single static word difference explains this mismatch.**
+The intersection costs one `grep` over a log that already exists — do it before any
+multi-word search.
+
 **Past that limit, move the search off the phone.** On the first mismatch the engine
 dumps one named section's words in hex, its start and end running values, and the
 inverse walk of the recording's checksum back to the section's end. That last number
@@ -308,6 +346,28 @@ machines inside the section can be reconstructed offline and any multi-word
 hypothesis tested without another build. For a twelve-word transform with each
 element within one rounding step, fixing eleven determines the twelfth — 3^11 per
 object, 172 objects, minutes of search.
+
+## What an object looks like in the stream
+
+Worked out from the dump and verified against all 166 objects, because every offline
+hypothesis needs it:
+
+```
+mark +0        one word, zero on everything seen
+mark +1..+12   Matrix3D, row-major 3x4: m00 m01 m02 x | m10 m11 m12 y | m20 m21 m22 z
+mark +13       object id          (checked: matches the traced id for all 166)
+then           module state, variable length -- 36 words for scenery, 56-87 for units
+```
+
+Words are stored byte-swapped (`htobe`), so `0000803F` is `1.0f` and `0020EE44` is
+`1905.0f`. Strings go in as raw characters: the section markers the client writes
+(`"MARKER:Objects"`, `"MARKER:ThePartitionManager"`) are the first words of each
+section, which is a free check that a dump is aligned, and a weapon template name
+appears in the middle of an object as plain ASCII.
+
+`TheModuleFactory` is xferred only under `DEBUG_CRC` and contributes nothing, which
+the arithmetic confirms: the partition section's 78415 words are exactly 7 marker
+words plus 4356 cells x 18.
 
 ## Where the checksum actually lives
 
@@ -399,36 +459,55 @@ ate a function call and its braces (`HelixContain::removeFromContain`), and
 proven aligned from the log itself; playback no longer stops at the first mismatch,
 so a diverging replay reports every checkpoint instead of one.
 
-**The failing case**, Casino 2v2 Resurrection Four v3, a PC-recorded online replay
-(`originalGameMode=5`), played on the 60 Hz engine:
+**Two failing replays, two different maps** — Casino 2v2 Resurrection Four v3 and
+`[Rank] AKAs Magic ZH v1` — both PC-recorded online (`originalGameMode=5`), both
+played on the 60 Hz engine, both diverging at frame 100 and at every checkpoint
+after, never healing.
 
-- diverges at frame 100 and at every checkpoint to 1100; never heals
-- the divergence spans **more than one word** — the surviving single-word candidates
-  are at chance level for their thresholds, and two of them are the same value seen
-  twice, 32 positions apart with an identical delta, which is what the one-bit
-  rotation does to a single underlying difference
-- of 172 objects, **exactly one changes** between frames 0 and 100: the dozer,
-  1903.041260,1849.648438 → 1905.000000,1845.000000, both exact pathfind cell
-  centres, angle 0 throughout. Six map-placed `SupplyPileSmall` are deleted by the
-  map's own `Supply Remove` script; nothing is created
-- the map is not a neutral harness: `'Map Reveal'` is active, one-shot and
-  `CONDITION_TRUE`, so 36 reveals of radius 450 fire on the first frame (four apply,
-  twenty skipped for players that do not exist on a four-player map, twelve for
-  missing waypoints), and group `CounterRandom` draws from the logic RNG twice every
-  frame from frame 0
+**What the offline searches exclude.** All of these assume the words after the
+objects section are identical on both machines, which is an assumption, not a
+measurement — it is why the dump is now the whole stream:
 
-**Open, and the leading hypothesis:** a multi-word difference in an object's hashed
-state — the dozer's transform is twelve words and is the only thing that moved. That
-is consistent with every measurement, including the zero float-rounding candidates,
-which only exclude a *single*-word rounding difference.
+| hypothesis | search | result |
+|---|---|---|
+| one static word anywhere | intersect candidates over 11 checkpoints | 3 survivors, all single transform elements — impossible alone |
+| a transform rounded differently | all 12 elements, +/-1, +/-2, +/-3 ULP on arithmetically-derived elements | 0 hits (1.37M combinations, 0.001 expected false) |
+| any 3-word field | every run of 3, +/-1, +/-2, +/-4 | 0 hits |
+| the same field off by a constant in every object | all 36 offsets x deltas +/-1..8 | 0 hits |
+| object ids shifted (a creation we do and they do not) | every threshold x -12..+12 | 0 hits, but see below |
 
-**Next step is the offline search, not another guess.** The engine now hands over the
-Objects section's words; the 3^11-per-object transform search runs here in minutes.
-If the objects section comes back clean, ask for the partition dump — same principle,
-78415 words.
+The earlier two hits on `ChainLinkFence01` at +/-1 ULP were rejected as numerology:
+the winning deltas required NaN in two structurally-zero matrix elements.
+
+**The id-shift search deserves a second look with the full dump.** On `AKAs Magic`
+there are 172 objects at frame 0 and 166 from frame 100 on, and the six that go are
+exact positional duplicates of six survivors: the twelve `SupplyPileSmall` are six
+pairs sharing coordinates to the last bit, four of them sitting at (0,0,0). They are
+created *after* the multiplayer starting units, so scripts made them, on frame 0. If
+the map's scripts create six and this client runs them twice, every object created
+afterwards carries an id the PC never used — a handful of scattered single words,
+which is exactly the shape every search above failed to find, and the id-shift test
+could not confirm it because it can only touch the objects section.
+
+Two traces were added for this and nothing else:
+
+```
+[GX-NET] obj create frame N: id=.. tmpl=.. by=<script name|engine>   (frames 0-2)
+[GX-NET] obj destroy frame N: id=.. tmpl=.. pos=.. by=<script name|engine>
+```
+
+On Casino the equivalent question already has an answer — the map's own
+`Supply Remove` script deletes six piles — so the trace is there to say whether
+`AKAs Magic` is the same story or a duplicate-creation bug on our side.
+
+**Closed this round, do not re-open:** the twelve skipped map reveals on `AKAs
+Magic` are `Player_5_Start` and `Player_6_Start` on a four-player map, and the
+twenty skipped ones are players that do not exist in a 1v1. The PC client skips them
+too. Reveals are not the problem on that map.
 
 **What would make all of this much faster, and is not available:** any second value
 per checkpoint from the PC side. One 32-bit number per 100 frames is the whole
-external anchor, and every limit above follows from it. If a way is ever found to
-get the PC client to print more — a debug build, a `DEBUG_CRC` build, anything — take
-it; it is worth more than any tool on this side.
+external anchor, and every limit above follows from it. The client does carry
+`XferDeepCRC` and a `CRCGEN_LOG` trace of the checksum after each stage, but both
+are behind `DEBUG_CRC` in a debug build. If a way is ever found to get the PC client
+to print more, take it; it is worth more than any tool on this side.

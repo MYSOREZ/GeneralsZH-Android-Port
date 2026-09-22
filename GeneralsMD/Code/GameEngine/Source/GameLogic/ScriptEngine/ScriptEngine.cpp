@@ -6983,8 +6983,50 @@ void ScriptEngine::checkConditionsForTeamNames(Script *pScript)
 //-------------------------------------------------------------------------------------------------
 /** Executes a script. */
 //-------------------------------------------------------------------------------------------------
+// GeneralsX @feature Android port 22/09/2026 Name the script that is running.
+//
+// Objects created during a logic update reach GameLogic::registerObject from
+// three different places -- the map's object list, the multiplayer starting
+// units, and script actions -- and by the time they arrive the caller is gone.
+// Parking the running script's name for the duration of its execution lets a
+// creation or a destruction trace say which script did it, which is the whole
+// difference between "twelve supply piles appeared on frame 0" and a script
+// name to look up in the map. The name is copied, because Script::getName
+// returns by value.
+namespace
+{
+	class GXScriptNameLatch
+	{
+	public:
+		GXScriptNameLatch( const AsciiString &name )
+			: m_name(name), m_previous(GXTrace::currentScriptSlot())
+		{
+			GXTrace::setCurrentScript( m_name.str() );
+		}
+		~GXScriptNameLatch() { GXTrace::setCurrentScript( m_previous ); }
+	private:
+		AsciiString m_name;
+		const char *m_previous;
+	};
+}
+
 void ScriptEngine::executeScript( Script *pScript )
 {
+	GXScriptNameLatch gxScriptName( pScript ? pScript->getName() : AsciiString::TheEmptyString );
+
+	// GeneralsX @feature Android port 22/09/2026 One line per script evaluation on
+	// the opening frames. A creation trace alone cannot tell "one script with twelve
+	// actions" from "one script with six, run twice" -- which is the difference
+	// between a map doing what it says and a side list this client walks twice. Two
+	// frames of this is about eighty lines.
+	if (GXTrace::isNetEnabled() && TheGameLogic->getFrame() <= 2)
+	{
+		GX_NET_TRACE("script eval frame %u: '%s' active=%d oneshot=%d\n",
+			(unsigned)TheGameLogic->getFrame(),
+			pScript ? pScript->getName().str() : "(null)",
+			pScript ? (int)pScript->isActive() : -1,
+			pScript ? (int)pScript->isOneShot() : -1);
+	}
 
 	pScript->setCurTime(0);
 	// If script is not active, return.

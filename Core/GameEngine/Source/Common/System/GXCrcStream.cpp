@@ -388,9 +388,20 @@ void dumpSection( const char *sectionLabel, UnsignedInt theirCRC, UnsignedInt ou
 	const CrcSnapshot &snap = *found;
 	const size_t n = snap.words.size();
 
+	// GeneralsX @tweak Android port 22/09/2026 "*" dumps the whole stream.
+	//
+	// Dumping one section assumes the difference is inside it, and the evidence
+	// for that assumption turned out to be worth less than it looked: the inverse
+	// walk rotates a difference rather than shrinking it, so a small difference at
+	// the section's end is equally consistent with one small word difference
+	// anywhere in the eighty thousand words after it. Every word costs nine bytes
+	// of log, the whole stream is under a megabyte, and having all of it removes
+	// the assumption instead of arguing about it.
+	const Bool whole = (strcmp(sectionLabel, "*") == 0);
+
 	// Locate the named section: from its mark to the next named one.
-	size_t from = n, to = n;
-	for (size_t k = 0; k < snap.marks.size(); ++k)
+	size_t from = whole ? 0 : n, to = n;
+	for (size_t k = 0; !whole && k < snap.marks.size(); ++k)
 	{
 		if (snap.marks[k].label != sectionLabel)
 			continue;
@@ -431,7 +442,7 @@ void dumpSection( const char *sectionLabel, UnsignedInt theirCRC, UnsignedInt ou
 	{
 		if (snap.marks[k].pos < from || snap.marks[k].pos >= to)
 			continue;
-		if (snap.marks[k].label.compare(0, 7, "object ") != 0)
+		if (!whole && snap.marks[k].label.compare(0, 7, "object ") != 0)
 			continue;
 		GX_NET_TRACE("crc dump frame %u: mark %u %s\n", (unsigned)snap.frame,
 			(unsigned)(snap.marks[k].pos - from), snap.marks[k].label.c_str());

@@ -171,6 +171,31 @@ namespace GXTrace
 		return enabled;
 	}
 
+	// GeneralsX @feature Android port 22/09/2026 Who is running right now.
+	//
+	// An object appearing out of nowhere on frame 0 is only diagnosable if the
+	// log says what put it there. The map objects, the multiplayer starting
+	// units and the map's own scripts all reach GameLogic::registerObject
+	// through the same door, and by the time it is reached the call stack no
+	// longer says which one. ScriptEngine parks the running script's name here
+	// for the duration of its execution and clears it afterwards, so a creation
+	// or a destruction can name the script responsible, or say "engine" when no
+	// script was running. Trace-only, single-threaded logic thread, and the
+	// pointer is owned by the script that is still alive for the call's extent.
+	inline const char *&currentScriptSlot()
+	{
+		static const char *name = nullptr;
+		return name;
+	}
+
+	inline void setCurrentScript( const char *name ) { currentScriptSlot() = name; }
+
+	inline const char *currentScript()
+	{
+		const char *name = currentScriptSlot();
+		return (name != nullptr && name[0] != '\0') ? name : "engine";
+	}
+
 }  // namespace GXTrace
 
 // Usage: GX_TRACE("Some_Function: about to do the thing x=%d\n", x);

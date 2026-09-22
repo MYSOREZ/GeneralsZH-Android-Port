@@ -1288,11 +1288,13 @@ void RecorderClass::handleCRCMessage(UnsignedInt newCRC, Int playerIndex, Bool f
 		{
 			GXCrcStream::report( newCRC, playbackCRC );
 
-			// Once per session, hand over the objects section's words so the search
-			// for a multi-word difference can happen off the phone. Twelve words of a
+			// Once per session, hand over the whole word stream so the search for a
+			// multi-word difference can happen off the phone. Twelve words of a
 			// transform differing by a rounding step is invisible to a single-word
-			// test, which is all the locator above can do.
-			GXCrcStream::dumpSection( "Objects", newCRC, playbackCRC );
+			// test, which is all the locator above can do -- and dumping only the
+			// objects section assumed the difference was inside it, which the
+			// backward walk does not actually establish.
+			GXCrcStream::dumpSection( "*", newCRC, playbackCRC );
 		}
 
 		if (TheGameLogic->getFrame() > 0 && newCRC != playbackCRC && !m_crcInfo->sawCRCMismatch())

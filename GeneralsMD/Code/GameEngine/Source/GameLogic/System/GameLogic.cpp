@@ -4214,6 +4214,23 @@ void GameLogic::removeObjectFromLookupTable( Object *obj )
 // ------------------------------------------------------------------------------------------------
 void GameLogic::registerObject( Object *obj )
 {
+	// GeneralsX @feature Android port 22/09/2026 Say where each object came from.
+	//
+	// A replay of a PC-recorded match showed twelve SupplyPileSmall on frame 0
+	// where the map holds six, six of them gone again by frame 100, and nothing
+	// in the log said who made them or who took them away. Object identity is
+	// part of the lockstep checksum, so a creation this client performs and the
+	// PC client does not moves every later object's id and cannot be seen in the
+	// checksum's single number. The first two frames are where map objects,
+	// starting units and the map's scripts all run, and they are the only frames
+	// worth this much log.
+	if (GXTrace::isNetEnabled() && m_frame <= 2)
+	{
+		GX_NET_TRACE("obj create frame %u: id=%u tmpl=%s by=%s\n",
+			(unsigned)m_frame, (unsigned)obj->getID(),
+			obj->getTemplate() ? obj->getTemplate()->getName().str() : "(none)",
+			GXTrace::currentScript());
+	}
 
 	// add the object to the global list
 	obj->prependToList(&m_objList);
@@ -4291,6 +4308,20 @@ void GameLogic::destroyObject( Object *obj )
 	// if already flagged for destruction, ignore
 	if (!obj || obj->isDestroyed())
 		return;
+
+	// GeneralsX @feature Android port 22/09/2026 And say who took it away again.
+	// Traced for the whole replay, not just the opening frames: an object that
+	// disappears on one machine and not the other is a divergence whenever it
+	// happens, and destruction is rare enough to afford a line each.
+	if (GXTrace::isNetEnabled())
+	{
+		const Coord3D *objPos = obj->getPosition();
+		GX_NET_TRACE("obj destroy frame %u: id=%u tmpl=%s pos=%.6f,%.6f by=%s\n",
+			(unsigned)m_frame, (unsigned)obj->getID(),
+			obj->getTemplate() ? obj->getTemplate()->getName().str() : "(none)",
+			objPos ? objPos->x : 0.0f, objPos ? objPos->y : 0.0f,
+			GXTrace::currentScript());
+	}
 
 	// run the object onDestroy event if provided
 	for (BehaviorModule** m = obj->getBehaviorModules(); *m; ++m)
