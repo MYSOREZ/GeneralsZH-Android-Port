@@ -912,3 +912,23 @@ New trace line, printed on every tier change:
    place one structure with the dozer, cancel it, wait a minute. That isolates
    debris and slow death from three AIs. If it matches, the debris path is clean
    and the cause lies with the AIs; if it diverges, it is the debris path.
+
+**Cancelling a building is destroying it.** `onDozerCancelConstruct`
+(`GameLogicDispatch.cpp`) refunds the cost and calls `building->kill()`, and
+`Object::kill` (`Object.cpp`) is an ordinary `attemptDamage` for the full max health
+with `m_kill = TRUE`. From there it is the same death any destroyed structure goes
+through: the die modules, the debris OCL, `SlowDeathBehavior`, debris physics until
+each piece rests and dies. So:
+
+- The frame-rate LOD pin covers every destroyed building and dying unit, not only
+  cancellations. Wherever a fight's desync came from FPS-dependent debris or slow
+  deaths, this build fixes it.
+- Whatever else broke `1.rep` sits on the same path, and would show up just the same
+  when a building is destroyed in combat. A cancellation is simply the cheapest way
+  to trigger it on purpose, so a "place and cancel" recording is the right test for
+  destruction in general.
+- The difference that remains is the death type. A cancellation dies with
+  `DAMAGE_UNRESISTABLE` / `DEATH_NORMAL` and no source object. Combat supplies its
+  own damage and death types, and those choose which die modules and OCLs run. If
+  the cancel recording matches, also ask for one with a building destroyed by
+  weapons.
