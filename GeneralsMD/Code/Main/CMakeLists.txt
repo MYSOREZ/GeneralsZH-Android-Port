@@ -128,7 +128,12 @@ target_sources(z_generals PRIVATE
 
 if(NOT MSVC)
     # Keep the compiler from rewriting "(float)sin((double)x)" back into sinf inside sinf.
-    set_source_files_properties(ReferenceFloatMath.cpp PROPERTIES COMPILE_OPTIONS "-fno-builtin")
+    # And keep the target's inherited precompiled header out of it: the PCH brings in <math.h>,
+    # whose default-visibility declarations are exactly what these definitions must not inherit,
+    # and a PCH built without -fno-builtin cannot be used by a file compiled with it.
+    set_source_files_properties(ReferenceFloatMath.cpp PROPERTIES
+        COMPILE_OPTIONS "-fno-builtin"
+        SKIP_PRECOMPILE_HEADERS ON)
 endif()
 
 # RC files optional for MinGW builds
