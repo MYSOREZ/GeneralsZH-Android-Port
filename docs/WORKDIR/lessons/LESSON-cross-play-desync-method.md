@@ -357,6 +357,21 @@ five change with it. **So no single static word difference explains this mismatc
 The intersection costs one `grep` over a log that already exists — do it before any
 multi-word search.
 
+**With the whole stream in hand, a windowed hypothesis costs its own width, not
+the stream's.** If a difference is confined to `[a, b)`, then everything after `b`
+is shared, so their value at `b` is already known from the inverse walk, and the
+test is: start at our value at `a`, apply the candidate words, compare with
+`back[b]`. Twelve steps for a transform, not eighty-five thousand -- and it needs
+no assumption about the rest of the stream. That is what made these exhaustive:
+
+```
+every object's 12 transform words, each element +/-1..3 ULP   4 783 637 tests, 0 hits
+every plausibly-perturbable pair within 32 words, +/-1..4   171 692 437 tests, 0 hits
+```
+
+The same identity makes a deletion an O(1) test rather than a search: if the
+streams agree from `j` on, their value at `j` must equal ours at `p`.
+
 **Past that limit, move the search off the phone.** On the first mismatch the engine
 dumps one named section's words in hex, its start and end running values, and the
 inverse walk of the recording's checksum back to the section's end. That last number
@@ -488,6 +503,45 @@ Validated against the independent shroud counters in the same log: reading the
 words gives player 8 exactly 2368 zeros and 1988 negatives, and the counters say
 `fogged=2368 clear=1988`. Player 9, the replay observer, is -1 in all 4356 cells.
 
+## The replay header, and what it settles
+
+`.rep` files carry their `GameInfo` as readable text near the start. One `strings`
+or `head` is enough, and it closes several arguments at once:
+
+```
+M=...casino 2v2 - resurrection four v3;  MC=4518BD2D;  MS=132597;
+SD=976636386;  C=100;  SR=0;  SC=20000;  O=N;
+S=HMYSOREZ,0,0,TT,-1,2,-1,0,1:X:X:X:X:X:X:X:;
+```
+
+Slot fields after the name are ip, port, two flags, then colour, playerTemplate,
+startPos, team, NAT (`GameInfo.cpp` around the `case 'H'` parse). So: **one human,
+seven closed slots, no AI, colour and startPos both unassigned (-1), 20000
+starting cash, seed 976636386, CRC interval 100.** The recording had exactly one
+participant, which retires "the PC hashed other players' buildings and fog"
+without a build.
+
+**The seed is verifiable offline, and it verifies.** `seedRandom` and the draw
+ladder in `RandomValue.cpp` are twenty lines of portable integer arithmetic, and
+`GetGameLogicRandomSeedCRC` is a byte-wise CRC over the six-word state. Port both
+to a script, seed with the replay's `SD`, and step:
+
+```
+seedRandom(976636386) then 109 draws -> CRC DA7DB690
+the log's own frame-0 value          -> DA7DB690      and its RNG tally says draws=109
+```
+
+So the replay's seed reaches the logic RNG intact, the generator is bit-exact
+against the PC's, and no hidden draw happens before frame 0. `startPos = -1` is
+resolved by the block in `GameLogic.cpp` around lines 900-1140, which is identical
+to the client's modulo whitespace -- and in this game it takes the branch that
+draws nothing, which the tally confirms (no `GameLogic.cpp` call site appears).
+
+**Also verified rather than assumed: my own instrumentation is not in the
+checksum.** `AI::crc` is the one `crc()` function that differs from the client's,
+and the diff is trace lines and counters only -- no `xfer` call added, removed or
+reordered.
+
 ## Where it stands (22/09/2026)
 
 **The single-number method is now exhausted, and that is a measurement, not a
@@ -514,14 +568,19 @@ content of those words is exactly what we do not have.
 
 **So stop asking the checksum and go get more input.** In order of value:
 
-1. **The `.rep` file itself.** It carries the recorded game's slot list —
-   players, factions, teams, start positions — and the commands. Nothing has ever
-   verified that the game we construct for playback matches the game that was
-   recorded, and the current playback builds exactly **one** real player plus the
-   observer (`0: 1:PlyrCivilian 2..7:CasinoP0..P5 8:MYSOREZ 9:Observer`) with one
-   command centre and one dozer. If the recording had more players, their starting
-   units and their reveals are words we do not have, which is precisely the
-   uncomputable case above. This needs no build: the header parses offline.
+1. ~~**The `.rep` file itself.**~~ Read — see the section above. The recorded
+   game had one participant, the seed reaches our RNG intact, and the setup path
+   matches. It did not find the bug, but it removed the largest remaining unknown
+   and it cost no build.
+1. **Full dumps at three checkpoints instead of one.** A single dump cannot judge
+   a two-word hypothesis: one equation, two unknowns, so a solution exists almost
+   everywhere. An exact sweep over the whole stream (window tests, see below)
+   returned 23 such "hits" where chance predicts 0.05 -- and every one of them
+   needed a structurally-zero word to become `0xFFFFFFFC` or a byte inside a
+   weapon's name to change. With the plausibility filter on, zero. Three dumps let
+   the frame-independence filter apply to multi-word hypotheses, which is the same
+   filter that took twelve single-word candidates to three. Shipped; `GX_CRC_DUMPS`
+   sets the count.
 2. A `DEBUG_CRC` build of the PC client, for `CRCGEN_LOG` or `XferDeepCRC`. Worth
    more than any tool on this side, and currently out of reach.
 3. Nothing else. More instrumentation on this side measures the same 32 bits again.

@@ -52,6 +52,7 @@
 #include <algorithm>
 #include <cmath>
 #include <cstdio>
+#include <cstdlib>
 #include <cstring>
 #include <string>
 #include <vector>
@@ -366,10 +367,30 @@ void dumpSection( const char *sectionLabel, UnsignedInt theirCRC, UnsignedInt ou
 	if (!GXTrace::isNetEnabled() || sectionLabel == nullptr)
 		return;
 
-	// Once per session: the point is to get the words off the phone, not to fill
-	// the log on every checkpoint.
-	static Bool alreadyDumped = false;
-	if (alreadyDumped)
+	// GeneralsX @tweak Android port 22/09/2026 Three checkpoints, not one.
+	//
+	// One dump settles every hypothesis about a single word, because the implied
+	// word at the true position is the same at every checkpoint while everywhere
+	// else it moves -- that filter cut twelve candidates to three. A hypothesis
+	// about two words has one equation and two unknowns, so a single dump admits
+	// a solution almost everywhere and the surviving candidates are numerology:
+	// 23 came back on the last sweep, all of them requiring a structurally-zero
+	// word to become 0xFFFFFFFC or a byte inside a weapon's name to change.
+	//
+	// Three dumps make that filter available to multi-word hypotheses too: a real
+	// static difference holds at the same positions with the same deltas on every
+	// checkpoint, and three independent 32-bit constraints are more than a pair of
+	// positions and deltas has freedom to fake. Each dump is about 770 KB of log
+	// against a session that already produces megabytes.
+	static Int dumpsLeft = -1;
+	if (dumpsLeft < 0)
+	{
+		const char *env = getenv("GX_CRC_DUMPS");
+		dumpsLeft = (env != nullptr && *env != '\0') ? atoi(env) : 3;
+		if (dumpsLeft < 0)
+			dumpsLeft = 0;
+	}
+	if (dumpsLeft == 0)
 		return;
 
 	const UnsignedInt ourInternal = htobe(ourCRC);
@@ -464,7 +485,7 @@ void dumpSection( const char *sectionLabel, UnsignedInt theirCRC, UnsignedInt ou
 		}
 	}
 
-	alreadyDumped = true;
+	--dumpsLeft;
 }
 
 void reportEither( UnsignedInt crcA, UnsignedInt crcB )
