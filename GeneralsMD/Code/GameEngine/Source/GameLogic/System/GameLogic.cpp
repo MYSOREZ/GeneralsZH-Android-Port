@@ -4226,8 +4226,12 @@ void GameLogic::registerObject( Object *obj )
 	// worth this much log.
 	if (GXTrace::isNetEnabled() && m_frame <= 2)
 	{
-		GX_NET_TRACE("obj create frame %u: id=%u tmpl=%s by=%s\n",
-			(unsigned)m_frame, (unsigned)obj->getID(),
+		// The frame number alone is ambiguous: the shell map behind the main menu
+		// is itself a running game with its own frame 0, and reading one game's
+		// opening frames as another's is a mistake this trace has already caused
+		// once. Every line says which game it belongs to.
+		GX_NET_TRACE("obj create mode %d frame %u: id=%u tmpl=%s by=%s\n",
+			(int)m_gameMode, (unsigned)m_frame, (unsigned)obj->getID(),
 			obj->getTemplate() ? obj->getTemplate()->getName().str() : "(none)",
 			GXTrace::currentScript());
 	}
@@ -4316,8 +4320,8 @@ void GameLogic::destroyObject( Object *obj )
 	if (GXTrace::isNetEnabled())
 	{
 		const Coord3D *objPos = obj->getPosition();
-		GX_NET_TRACE("obj destroy frame %u: id=%u tmpl=%s pos=%.6f,%.6f by=%s\n",
-			(unsigned)m_frame, (unsigned)obj->getID(),
+		GX_NET_TRACE("obj destroy mode %d frame %u: id=%u tmpl=%s pos=%.6f,%.6f by=%s\n",
+			(int)m_gameMode, (unsigned)m_frame, (unsigned)obj->getID(),
 			obj->getTemplate() ? obj->getTemplate()->getName().str() : "(none)",
 			objPos ? objPos->x : 0.0f, objPos ? objPos->y : 0.0f,
 			GXTrace::currentScript());

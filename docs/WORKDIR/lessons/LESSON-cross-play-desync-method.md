@@ -241,6 +241,25 @@ assigns `TheGameInfo = game = ...` in every branch, including
 
 ## Claims made here and then disproved
 
+**"Twelve supply piles on frame 0 where the map holds six, so a script runs
+twice."** The map holds twelve. Its own scripts do all of it, on frame 0:
+`Setup Scripts` creates six, `Supply Spawn` creates six more at the same
+coordinates, `Supply Remove` destroys the first six. The PC client runs the same
+three scripts. Measured with the creation/destruction attribution trace, which
+exists because of this question.
+
+**"The shell map's scripts leak into the game and spawn 44 phantom objects."**
+They do not. The shell map behind the main menu is itself a running game with
+its own frame 0, 1, 2, so a trace keyed on the frame number alone emits the shell
+map's opening frames and the replay's opening frames under the same label. I
+segmented one log's "frame 0" into blocks and read three different games as one.
+Scoped to the replay's own run, its frame 0 evaluates 869 scripts: the map's 852
+plus 4, plus 86 from `SkirmishScripts.scb` / `MultiplayerScripts.scb` that the
+engine loads by design, and **zero** from the shell map. The traces now print
+`mode <GameMode>` alongside the frame for exactly this reason. **Any
+frame-numbered trace in this engine must say which game the frame belongs to.**
+
+
 Keep this list. Each was asserted with apparent evidence and then killed by a
 measurement, and each is the sort of thing that gets re-derived.
 
@@ -453,61 +472,56 @@ ate a function call and its braces (`HelixContain::removeFromContain`), and
   gen_online_60hz` must be in the log. A 30 Hz engine cannot match a 60 Hz
   recording, for reasons that have nothing to do with the bug you are chasing.
 
+## The shroud, decoded
+
+Needed for any hypothesis about the 78408 words that are fog of war. Per cell,
+18 words: 16 shroud entries indexed by player, then two coordinate words (those
+two are **not** byte-swapped, unlike everything else -- read them raw).
+
+| value | meaning |
+|---|---|
+| > 0 | shrouded: never seen |
+| 0 | fogged: seen once, nobody looking now |
+| < 0 | clear: -n means n things are looking |
+
+Validated against the independent shroud counters in the same log: reading the
+words gives player 8 exactly 2368 zeros and 1988 negatives, and the counters say
+`fogged=2368 clear=1988`. Player 9, the replay observer, is -1 in all 4356 cells.
+
 ## Where it stands (22/09/2026)
 
-**The instrument is trustworthy now, and that took several corrections.** Pairing is
-proven aligned from the log itself; playback no longer stops at the first mismatch,
-so a diverging replay reports every checkpoint instead of one.
+**The single-number method is now exhausted, and that is a measurement, not a
+mood.** The whole 85538-word stream for the first diverging checkpoint is dumped
+and reparses exactly (our forward walk reproduces `ourAtEnd` to the bit). Every
+hypothesis a single checksum per checkpoint can decide has been decided:
 
-**Two failing replays, two different maps** — Casino 2v2 Resurrection Four v3 and
-`[Rank] AKAs Magic ZH v1` — both PC-recorded online (`originalGameMode=5`), both
-played on the 60 Hz engine, both diverging at frame 100 and at every checkpoint
-after, never healing.
-
-**What the offline searches exclude.** All of these assume the words after the
-objects section are identical on both machines, which is an assumption, not a
-measurement — it is why the dump is now the whole stream:
-
-| hypothesis | search | result |
+| hypothesis | how it was tested | result |
 |---|---|---|
-| one static word anywhere | intersect candidates over 11 checkpoints | 3 survivors, all single transform elements — impossible alone |
-| a transform rounded differently | all 12 elements, +/-1, +/-2, +/-3 ULP on arithmetically-derived elements | 0 hits (1.37M combinations, 0.001 expected false) |
-| any 3-word field | every run of 3, +/-1, +/-2, +/-4 | 0 hits |
-| the same field off by a constant in every object | all 36 offsets x deltas +/-1..8 | 0 hits |
-| object ids shifted (a creation we do and they do not) | every threshold x -12..+12 | 0 hits, but see below |
+| one static word anywhere | implied word must be frame-independent; intersect 11 checkpoints | 3 survivors, all single elements of a rotation matrix — impossible alone |
+| a transform rounded differently | all 12 elements, +/-1..3 ULP, arithmetically-derived elements only | 0 hits in 1.37M combinations |
+| any 3-word field | every run of 3 in the objects section, +/-1, +/-2, +/-4 | 0 hits |
+| the same field off by a constant in every object | 36 offsets x deltas +/-1..8 | 0 hits |
+| object ids shifted by a creation we do and they do not | every threshold x -12..+12 | 0 hits |
+| **we carry words they do not** — any contiguous run, any position, any length | our value at p must equal their walked-back value at j; hash join over all 85538 positions | **1 candidate, chance level (0.85 expected), and it spans 71067 words from inside a rock to inside the fog — meaningless** |
 
-The earlier two hits on `ChainLinkFence01` at +/-1 ULP were rejected as numerology:
-the winning deltas required NaN in two structurally-zero matrix elements.
+That last row is the important one, and it is exhaustive rather than sampled: a
+deletion hypothesis is an O(1) test, not a search, because if the streams agree
+from `j` onwards then their value at `j` must equal ours at `p`. **So the streams
+are not our stream minus anything.** Either they are the same length and differ in
+at least two non-adjacent words, or they are longer — and a difference where they
+carry words we do not is the one case this method cannot compute, because the
+content of those words is exactly what we do not have.
 
-**The id-shift search deserves a second look with the full dump.** On `AKAs Magic`
-there are 172 objects at frame 0 and 166 from frame 100 on, and the six that go are
-exact positional duplicates of six survivors: the twelve `SupplyPileSmall` are six
-pairs sharing coordinates to the last bit, four of them sitting at (0,0,0). They are
-created *after* the multiplayer starting units, so scripts made them, on frame 0. If
-the map's scripts create six and this client runs them twice, every object created
-afterwards carries an id the PC never used — a handful of scattered single words,
-which is exactly the shape every search above failed to find, and the id-shift test
-could not confirm it because it can only touch the objects section.
+**So stop asking the checksum and go get more input.** In order of value:
 
-Two traces were added for this and nothing else:
-
-```
-[GX-NET] obj create frame N: id=.. tmpl=.. by=<script name|engine>   (frames 0-2)
-[GX-NET] obj destroy frame N: id=.. tmpl=.. pos=.. by=<script name|engine>
-```
-
-On Casino the equivalent question already has an answer — the map's own
-`Supply Remove` script deletes six piles — so the trace is there to say whether
-`AKAs Magic` is the same story or a duplicate-creation bug on our side.
-
-**Closed this round, do not re-open:** the twelve skipped map reveals on `AKAs
-Magic` are `Player_5_Start` and `Player_6_Start` on a four-player map, and the
-twenty skipped ones are players that do not exist in a 1v1. The PC client skips them
-too. Reveals are not the problem on that map.
-
-**What would make all of this much faster, and is not available:** any second value
-per checkpoint from the PC side. One 32-bit number per 100 frames is the whole
-external anchor, and every limit above follows from it. The client does carry
-`XferDeepCRC` and a `CRCGEN_LOG` trace of the checksum after each stage, but both
-are behind `DEBUG_CRC` in a debug build. If a way is ever found to get the PC client
-to print more, take it; it is worth more than any tool on this side.
+1. **The `.rep` file itself.** It carries the recorded game's slot list —
+   players, factions, teams, start positions — and the commands. Nothing has ever
+   verified that the game we construct for playback matches the game that was
+   recorded, and the current playback builds exactly **one** real player plus the
+   observer (`0: 1:PlyrCivilian 2..7:CasinoP0..P5 8:MYSOREZ 9:Observer`) with one
+   command centre and one dozer. If the recording had more players, their starting
+   units and their reveals are words we do not have, which is precisely the
+   uncomputable case above. This needs no build: the header parses offline.
+2. A `DEBUG_CRC` build of the PC client, for `CRCGEN_LOG` or `XferDeepCRC`. Worth
+   more than any tool on this side, and currently out of reach.
+3. Nothing else. More instrumentation on this side measures the same 32 bits again.

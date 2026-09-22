@@ -7021,8 +7021,8 @@ void ScriptEngine::executeScript( Script *pScript )
 	// frames of this is about eighty lines.
 	if (GXTrace::isNetEnabled() && TheGameLogic->getFrame() <= 2)
 	{
-		GX_NET_TRACE("script eval frame %u: '%s' active=%d oneshot=%d\n",
-			(unsigned)TheGameLogic->getFrame(),
+		GX_NET_TRACE("script eval mode %d frame %u: '%s' active=%d oneshot=%d\n",
+			(int)TheGameLogic->getGameMode(), (unsigned)TheGameLogic->getFrame(),
 			pScript ? pScript->getName().str() : "(null)",
 			pScript ? (int)pScript->isActive() : -1,
 			pScript ? (int)pScript->isOneShot() : -1);
