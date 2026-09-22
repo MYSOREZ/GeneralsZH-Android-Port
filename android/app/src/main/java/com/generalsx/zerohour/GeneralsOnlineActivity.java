@@ -69,7 +69,6 @@ public class GeneralsOnlineActivity extends Activity {
     // broke that July sign-in was the client id itself; see
     // GeneralsOnlineSession.CLIENT_ID.
     private static final String LOGIN_URL_FMT = "https://www.playgenerals.online/login/?gamecode=%s";
-    private static final String CLIENT_ID = GeneralsOnlineSession.CLIENT_ID;
 
     private static final String PREFS_NAME = GeneralsOnlineSession.PREFS_NAME;
     private static final String PREF_SESSION_TOKEN = GeneralsOnlineSession.PREF_SESSION_TOKEN;
@@ -725,7 +724,7 @@ public class GeneralsOnlineActivity extends Activity {
         JSONObject body = new JSONObject();
         try {
             body.put("code", code);
-            body.put("client_id", CLIENT_ID);
+            body.put("client_id", GeneralsOnlineSession.clientId(this));
             body.put("machine_guid", NetworkDiagnostics.installId(this));
             body.put("mac_addr", NetworkDiagnostics.syntheticMac(this));
             body.put("vol_serial", NetworkDiagnostics.syntheticVolumeSerial(this));

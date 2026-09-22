@@ -387,7 +387,7 @@ final class NetworkDiagnostics {
         JSONObject body = new JSONObject();
         try {
             body.put("code", throwaway);
-            body.put("client_id", GeneralsOnlineSession.CLIENT_ID);
+            body.put("client_id", GeneralsOnlineSession.clientId(ctx));
             body.put("machine_guid", installId(ctx));
             body.put("mac_addr", syntheticMac(ctx));
             body.put("vol_serial", syntheticVolumeSerial(ctx));

@@ -96,13 +96,38 @@ final class GeneralsOnlineSession {
     // was refused. The user saw "Welcome Back" on the site and "not signed
     // in" in the launcher, for as long as they cared to wait.
     //
-    // GENERALS_ONLINE_CLIENT_ID in NextGenMP_defines.h is "gen_online_30hz"
-    // and the engine has always sent exactly that, so this is not the
-    // launcher claiming to be something it is not -- it is the launcher
-    // finally agreeing with the game it launches. A session obtained under
-    // one client id and then used by a process announcing another was never
-    // going to be sound anyway.
+    // GENERALS_ONLINE_CLIENT_ID in NextGenMP_defines.h is whichever of
+    // "gen_online_30hz" / "gen_online_60hz" that engine was built for, and the
+    // engine sends exactly that, so this is not the launcher claiming to be
+    // something it is not -- it is the launcher agreeing with the game it
+    // launches. A session obtained under one client id and then used by a
+    // process announcing another was never going to be sound anyway. Which of
+    // the two applies is a runtime question now; see clientId() below, and use
+    // it rather than this constant.
     static final String CLIENT_ID = "gen_online_30hz";
+
+    // GeneralsX @bugfix Android port 22/09/2026 The id has to follow the engine
+    // that will actually run, not the one that existed when this was written.
+    //
+    // The constant above was correct while libmain.so was the only engine. Since
+    // the APK started carrying both, the launcher has been announcing 30 Hz to
+    // the auth API while the game process announced 60 Hz, and the two logs sat
+    // side by side in every bug report saying different things. That cost a
+    // reader of one report a wrong conclusion -- that a 60 Hz recording had been
+    // replayed on a 30 Hz simulation -- which the engine's own banner disproves.
+    //
+    // This mirrors GeneralsZHActivity.getLibraries() exactly, including the check
+    // that the 60 Hz engine is really in the APK, so launcher and engine cannot
+    // disagree even in a build that ships only one of them.
+    static String clientId( Context ctx ) {
+        if (ctx != null
+                && SetupActivity.getSimHz(ctx) == SetupActivity.SIM_HZ_CROSSPLAY
+                && new java.io.File(ctx.getApplicationInfo().nativeLibraryDir,
+                        "libmain60.so").isFile()) {
+            return "gen_online_60hz";
+        }
+        return CLIENT_ID;
+    }
 
     static class AuthResult {
         int state = -1;
