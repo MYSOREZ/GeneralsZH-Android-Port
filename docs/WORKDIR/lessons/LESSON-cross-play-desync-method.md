@@ -532,10 +532,14 @@ the log's own frame-0 value          -> DA7DB690      and its RNG tally says dra
 ```
 
 So the replay's seed reaches the logic RNG intact, the generator is bit-exact
-against the PC's, and no hidden draw happens before frame 0. `startPos = -1` is
-resolved by the block in `GameLogic.cpp` around lines 900-1140, which is identical
-to the client's modulo whitespace -- and in this game it takes the branch that
-draws nothing, which the tally confirms (no `GameLogic.cpp` call site appears).
+against the PC's, and no hidden draw happens before frame 0. `startPos = -1` and
+`colour = -1` are resolved by the block in `GameLogic.cpp` around lines 830-1140,
+identical to the client's modulo whitespace; it draws one integer for the colour
+(`GameLogic.cpp:843`) and one for the start position (`:1036`), both inside the 109.
+
+*Correction:* an earlier version of this paragraph said the block draws nothing
+"which the tally confirms". The tally lists eleven call sites and I had printed
+the first seven. Read the whole list before citing it.
 
 **Also verified rather than assumed: my own instrumentation is not in the
 checksum.** `AI::crc` is the one `crc()` function that differs from the client's,
@@ -619,6 +623,66 @@ deep in the section lands within 3823 in 0.1% of trials; perturbing one of the l
 `sizeof(BitFlags<512>)`, which is exactly the kind of line that differs between a
 32-bit MSVC and a 64-bit libc++ build. It does not here: `std::bitset<512>` is
 64 bytes, sixteen words, on both.
+
+## Two recordings of one map: two equations
+
+A second PC recording on the same map (seed 1816235999; the dozer drives and
+builds) behaves the same way: the three-checkpoint proof holds again, their
+end-of-objects value is `70C9ACB0` against our `70C99DFD`, and the difference is
+again inside the objects section. At frame 100 the two recordings' objects
+sections differ in exactly **two** words -- the dozer's X and Y -- so any static
+explanation has to satisfy both recordings at once. That is the second equation
+the static section could not give on its own.
+
+**What two equations excluded, exactly:**
+
+| hypothesis | result |
+|---|---|
+| the dozer's transform alone: X, Y, Z within +/-200 ULP; another pathfind cell +/-60 with Z free within +/-4096 ULP; a facing angle up to +/-0.2 rad | 370M tests, **0 hits in either recording** |
+| any static single word, required delta equal in both recordings | only in the last ~900 words |
+| any static pair within 256 words, deltas +/-4096 | **none in words 0..5500**; tens of thousands after |
+
+The dozer row matters twice. It retires the terrain-height hypothesis properly --
+and it exposed that my earlier transform sweep never tested it: X = 1905, Y = 1845
+and Z = 30 are exact integers, and the "only perturb arithmetically-derived
+elements" filter excluded them. **The plausibility filter excluded the one
+hypothesis an outside reviewer asked about.**
+
+**Where two recordings stop helping.** A static change produces the same end
+difference in both recordings only when it sits in the last few hundred words;
+anywhere earlier, carries through the high bit make the propagation depend on the
+running values, which differ after the dozer's X and Y. Measured on random
+single-word changes: equal end differences in 0/200 trials for words 0..6000,
+35/200 for 6000..6300, 162/200 for 6300..6402. So the two-recording filter is sharp
+over the first ~6000 words and blunt over the tail -- which is why the pair hits
+pile up there. (An earlier reading of "the end differences are 3823 and 3763, so
+the cause must be the dozer" was wrong for the same reason.)
+
+**The candidate.** Restricting to one natural family -- the same field of every
+object of one template shifted by the same amount -- left exactly two hypotheses
+out of 406016, both on the two `AmericaCheckpoint` objects and both reproducing
+**both** recordings to the bit:
+
+```
+AmericaCheckpoint +11 (m22)  field -1   -> 1.0 becomes 0.99999994   physically natural
+AmericaCheckpoint +27        field -2   -> a zero mask word becomes 0xFFFFFFFE   the alias
+```
+
+Both checkpoints are quarter-turned (m00 = `(float)cos(PI/2)` = -4.37e-08), and a
+one-ULP difference in a computed rotation element is the textbook x87-versus-ARM
+result. But the alias fits too, and other quarter-turned objects exist
+(`SecretResearchLab` x2, `ToxicSupplyTruck` x2) without needing the same patch, so
+this is a candidate, not a finding.
+
+**How it gets decided, with no new recording.** The second recording creates a
+building at frame ~400, and from then on the objects section differs -- every
+running value through the checkpoints changes. A real explanation keeps matching;
+an alias stops. So the engine now applies each hypothesis to its own captured
+words at every mismatching checkpoint and prints
+`crc hyp frame N: <hypothesis> ... -> MATCHES THE PC | no`. Replay the same
+recording, read seventeen post-build verdicts. It also dumps the whole stream
+once more whenever the object list changes, so the offline tools get a
+different-list checkpoint too.
 
 ## Where it stands (22/09/2026)
 

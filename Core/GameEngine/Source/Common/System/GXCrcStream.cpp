@@ -390,8 +390,27 @@ void dumpSection( const char *sectionLabel, UnsignedInt theirCRC, UnsignedInt ou
 		if (dumpsLeft < 0)
 			dumpsLeft = 0;
 	}
+	// A checkpoint whose object list differs from every dumped one is worth a dump
+	// of its own, whatever the count says: a different list means different running
+	// values through the objects section, which is a new equation rather than the
+	// same one measured again. Two of those on top of the regular three.
+	static size_t lastDumpedWords = 0;
+	static Int listChangeDumpsLeft = 2;
+	Bool listChanged = FALSE;
 	if (dumpsLeft == 0)
-		return;
+	{
+		const UnsignedInt ourNow = htobe(ourCRC);
+		for (size_t k = 0; k < RING; ++k)
+		{
+			if (!theRing[k].crcs.empty() && theRing[k].crcs.back() == ourNow)
+			{
+				listChanged = lastDumpedWords != 0 && theRing[k].words.size() != lastDumpedWords;
+				break;
+			}
+		}
+		if (!listChanged || listChangeDumpsLeft == 0)
+			return;
+	}
 
 	const UnsignedInt ourInternal = htobe(ourCRC);
 	const CrcSnapshot *found = nullptr;
@@ -485,7 +504,11 @@ void dumpSection( const char *sectionLabel, UnsignedInt theirCRC, UnsignedInt ou
 		}
 	}
 
-	--dumpsLeft;
+	lastDumpedWords = n;
+	if (listChanged)
+		--listChangeDumpsLeft;
+	else
+		--dumpsLeft;
 }
 
 void reportEither( UnsignedInt crcA, UnsignedInt crcB )
@@ -501,6 +524,92 @@ void reportEither( UnsignedInt crcA, UnsignedInt crcB )
 		GX_NET_TRACE("crc locate: neither %08X nor %08X ends a captured stream, so"
 			" the compared checksums were generated outside the last %u captures.\n",
 			(unsigned)crcA, (unsigned)crcB, (unsigned)RING);
+}
+
+// GeneralsX @feature Android port 22/09/2026 Test a hypothesis at every checkpoint.
+//
+// Two PC recordings of the same map pin the lockstep difference to the objects
+// section, and within it one family of explanation reproduces both recordings
+// exactly: both AmericaCheckpoint objects carrying m22 = 0.99999994 on the PC
+// where we have 1.0 -- a one-ULP difference in a computed rotation element, the
+// signature of x87 against ARM float. Two recordings are not a proof, though: an
+// aliased variant (a zero word two units low, sixteen words further on) fits them
+// just as well, because in that stretch of the stream both recordings impose
+// nearly the same equation.
+//
+// What separates a real explanation from its alias is a checkpoint whose object
+// list is different -- a building placed, a unit created -- because that changes
+// every running value the difference passes through. So instead of asking for
+// more dumps, the engine applies each hypothesis to its own captured words at
+// every mismatching checkpoint and says whether the result is the PC's number.
+// The real one matches everywhere; an alias falls apart the first time the list
+// changes. Each test is one pass over the captured words, a few per checkpoint.
+namespace
+{
+	struct GXCrcHypothesis
+	{
+		const char *description;
+		const char *templateName;   // nullptr: any template
+		size_t      offset;         // word offset from the object's mark
+		Int         fieldDelta;     // added to the field value (after the byte swap)
+		Bool        onlyQuarterTurns; // only objects whose m00 is float cos(90 deg)
+	};
+
+	const GXCrcHypothesis kHypotheses[] =
+	{
+		{ "AmericaCheckpoint m22 -1 ulp",         "AmericaCheckpoint", 11, -1, FALSE },
+		{ "AmericaCheckpoint +27 -2 (the alias)", "AmericaCheckpoint", 27, -2, FALSE },
+		{ "every quarter-turned object m22 -1 ulp", nullptr,           11, -1, TRUE  },
+	};
+
+	Bool markIsObjectOf( const std::string &label, const char *templateName )
+	{
+		if (label.compare(0, 10, "object id=") != 0)
+			return FALSE;
+		if (templateName == nullptr)
+			return TRUE;
+		const size_t space = label.find(' ', 10);
+		return space != std::string::npos && label.compare(space + 1, std::string::npos, templateName) == 0;
+	}
+
+	void testHypotheses( const CrcSnapshot &snap, UnsignedInt theirInternal )
+	{
+		const size_t n = snap.words.size();
+		const UnsignedInt kQuarterTurnCos = 0xB33BBD2Eu; // (float)cos(PI/2)
+		for (size_t h = 0; h < sizeof(kHypotheses) / sizeof(kHypotheses[0]); ++h)
+		{
+			const GXCrcHypothesis &hyp = kHypotheses[h];
+			std::vector<size_t> patch;
+			for (size_t k = 0; k < snap.marks.size(); ++k)
+			{
+				const size_t at = snap.marks[k].pos + hyp.offset;
+				if (!markIsObjectOf(snap.marks[k].label, hyp.templateName) || at >= n)
+					continue;
+				if (hyp.onlyQuarterTurns && fieldBits(snap.words[snap.marks[k].pos + 1]) != kQuarterTurnCos)
+					continue;
+				patch.push_back(at);
+			}
+			std::sort(patch.begin(), patch.end());
+
+			UnsignedInt crc = 0;
+			size_t next = 0;
+			for (size_t i = 0; i < n; ++i)
+			{
+				UnsignedInt word = snap.words[i];
+				if (next < patch.size() && patch[next] == i)
+				{
+					word = htobe(htobe(word) + (UnsignedInt)hyp.fieldDelta);
+					++next;
+				}
+				crc = rol1(crc) + word;
+			}
+
+			GX_NET_TRACE("crc hyp frame %u: %-40s patched %2u words over %u -> %s"
+				" (%08X, theirs %08X)\n",
+				(unsigned)snap.frame, hyp.description, (unsigned)patch.size(), (unsigned)n,
+				crc == theirInternal ? "MATCHES THE PC" : "no", (unsigned)crc, (unsigned)theirInternal);
+		}
+	}
 }
 
 void report( UnsignedInt theirCRC, UnsignedInt ourCRC )
@@ -652,6 +761,8 @@ void report( UnsignedInt theirCRC, UnsignedInt ourCRC )
 			(unsigned)theirBits, (int)theirBits, asFloat(theirBits),
 			kindName(c.kind), (int)c.distance);
 	}
+
+	testHypotheses(snap, theirInternal);
 }
 
 } // namespace GXCrcStream
