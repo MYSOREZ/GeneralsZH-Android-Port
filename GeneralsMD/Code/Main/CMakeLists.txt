@@ -121,7 +121,15 @@ target_sources(z_generals PRIVATE
     # dlopen'd (ELF constructor), before any engine code — captures crashes that
     # happen before SDL3Main.cpp's own logging is ready.
     $<$<BOOL:${ANDROID}>:AndroidCrashHandler.cpp>
+    # GeneralsX @bugfix Android port 22/09/2026 Float transcendentals with the reference
+    # client's semantics (double, rounded once), bound inside this binary. See the file.
+    $<$<NOT:$<BOOL:${MSVC}>>:ReferenceFloatMath.cpp>
 )
+
+if(NOT MSVC)
+    # Keep the compiler from rewriting "(float)sin((double)x)" back into sinf inside sinf.
+    set_source_files_properties(ReferenceFloatMath.cpp PROPERTIES COMPILE_OPTIONS "-fno-builtin")
+endif()
 
 # RC files optional for MinGW builds
 # Icon: LoadIcon() handles missing resource gracefully (uses default system icon)

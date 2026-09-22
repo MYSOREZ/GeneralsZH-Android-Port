@@ -759,7 +759,34 @@ expected to leave the PC within a few dozen frames -- exactly the window between
 300 and 400. Fixed by routing them through `WWMath::Sin/Cos` (double, rounded once),
 plus `TanTrig` and two calls in `DynamicShroudClearingRangeUpdate`. Not verified
 before building the way the first fix was: there is no single frozen value to
-compare, because the effect compounds along the dozer's path. The replay decides.
+compare, because the effect compounds along the dozer's path. The replay decided:
+**it changed nothing.** Our checksums at 400, 500 and 600 came out identical to the
+previous build's, bit for bit, so those rotation helpers either did not run in that
+window or bionic happened to agree on every call. The change is still correct and
+stays, but it was not the cause. **An identical checksum after a fix is a
+measurement, and a cheap one: always compare the new build's numbers with the old
+build's before reading the PC comparison.**
+
+**The real second cause: C++ overloads hide the float calls.** The first sweep
+grepped for `sinf(`. But in C++ a plain `atan2(dy, dx)` with `Real` arguments
+resolves to the float overload, and the compiler emits `atan2f` -- checked on the
+NDK's clang: `atan2(float, float)` compiles to `b atan2f`, `sin(float)` to
+`b sinf`, and only `(float)atan2((double)y,(double)x)` calls the double `atan2`.
+None of those call sites say `atan2f`. There are 59 in `GameLogic` and `Common`
+alone, eight of them in `Locomotor`, which steers every moving unit every frame.
+The replay's own commands (parsed from `8.rep`) put the dozer's build order at
+frame 342, so it drove for 58 frames before the first mismatch.
+
+Rather than edit every site and hope none is hidden behind an overload or a
+template, `GeneralsMD/Code/Main/ReferenceFloatMath.cpp` gives the binary its own
+`sinf`, `cosf`, `tanf`, `asinf`, `acosf`, `atanf`, `atan2f`, `sinhf`, `coshf`,
+`tanhf`, `expf`, `logf`, `log10f` and `powf` -- each "double, then round once",
+which is what 32-bit MSVC's CRT does -- with hidden visibility, so every call inside
+the binary binds to them at link time. Compiled with `-fno-builtin` so the compiler
+cannot turn a body back into a call to itself; the object file shows `sinf`
+calling `sin` and `atan2f` calling `atan2`. `sqrtf` and `fmodf` are left to the
+platform: both are correctly rounded everywhere. Check after building:
+`readelf --dyn-syms libmain.so` must no longer import those names from `LIBC`.
 
 Searched and clean for this class: every float transcendental reachable from
 logic is now in `Trig.cpp` (fixed earlier) or goes through `WWMath`; the remaining
