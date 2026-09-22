@@ -706,9 +706,17 @@ WWINLINE void Vector3::Scale(const Vector3 & scale)
  * HISTORY:                                                                                    *
  *   10/18/99   gth : Created.                                                                 *
  *=============================================================================================*/
+// GeneralsX @bugfix Android port 22/09/2026 Every sinf/cosf in this file now goes through
+// WWMath::Sin/Cos. The reference client is 32-bit MSVC, whose CRT has no float variants of
+// the transcendentals: sinf(x) there is an inline (float)sin((double)x). bionic's sinf is a
+// separate single-precision algorithm that differs in the last bit on about 1.2% of angles,
+// and these rotations run every frame for a moving unit (PhysicsUpdate's Rotate_X/Y/Z, the
+// locomotor's In_Place_Pre_Rotate_Z), so a turning vehicle drifted off the PC within about a
+// hundred frames. WWMath::Sin/Cos evaluate in double and round once, which is what the
+// reference does.
 WWINLINE void Vector3::Rotate_X(float angle)
 {
-	Rotate_X(sinf(angle),cosf(angle));
+	Rotate_X(WWMath::Sin(angle),WWMath::Cos(angle));
 }
 
 
@@ -748,7 +756,7 @@ WWINLINE void Vector3::Rotate_X(float s_angle,float c_angle)
  *=============================================================================================*/
 WWINLINE void Vector3::Rotate_Y(float angle)
 {
-	Rotate_Y(sinf(angle),cosf(angle));
+	Rotate_Y(WWMath::Sin(angle),WWMath::Cos(angle));
 }
 
 
@@ -788,7 +796,7 @@ WWINLINE void Vector3::Rotate_Y(float s_angle,float c_angle)
  *=============================================================================================*/
 WWINLINE void Vector3::Rotate_Z(float angle)
 {
-	Rotate_Z(sinf(angle),cosf(angle));
+	Rotate_Z(WWMath::Sin(angle),WWMath::Cos(angle));
 }
 
 

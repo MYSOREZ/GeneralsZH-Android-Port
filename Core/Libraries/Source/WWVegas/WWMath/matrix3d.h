@@ -564,10 +564,18 @@ WWINLINE void Matrix3D::Set(		const Vector3	&x,		// x-axis unit vector
  * HISTORY:                                                                                    *
  *   2/24/98    GTH : Created.                                                                 *
  *=============================================================================================*/
+// GeneralsX @bugfix Android port 22/09/2026 Every sinf/cosf in this file now goes through
+// WWMath::Sin/Cos. The reference client is 32-bit MSVC, whose CRT has no float variants of
+// the transcendentals: sinf(x) there is an inline (float)sin((double)x). bionic's sinf is a
+// separate single-precision algorithm that differs in the last bit on about 1.2% of angles,
+// and these rotations run every frame for a moving unit (PhysicsUpdate's Rotate_X/Y/Z, the
+// locomotor's In_Place_Pre_Rotate_Z), so a turning vehicle drifted off the PC within about a
+// hundred frames. WWMath::Sin/Cos evaluate in double and round once, which is what the
+// reference does.
 WWINLINE void Matrix3D::Set(const Vector3 & axis,float angle)
 {
-	float c = cosf(angle);
-	float s = sinf(angle);
+	float c = WWMath::Cos(angle);
+	float s = WWMath::Sin(angle);
 
 	Set(axis,s,c);
 }
@@ -768,8 +776,8 @@ WWINLINE void Matrix3D::Rotate_X(float theta)
 	float tmp1,tmp2;
 	float s,c;
 
-	s = sinf(theta);
-	c = cosf(theta);
+	s = WWMath::Sin(theta);
+	c = WWMath::Cos(theta);
 
 	tmp1 = Row[0][1]; tmp2 = Row[0][2];
 	Row[0][1] = (float)( c*tmp1 + s*tmp2);
@@ -836,8 +844,8 @@ WWINLINE void Matrix3D::Rotate_Y(float theta)
 	float tmp1,tmp2;
 	float s,c;
 
-	s = sinf(theta);
-	c = cosf(theta);
+	s = WWMath::Sin(theta);
+	c = WWMath::Cos(theta);
 
 	tmp1 = Row[0][0]; tmp2 = Row[0][2];
 	Row[0][0] = (float)(c*tmp1 - s*tmp2);
@@ -903,8 +911,8 @@ WWINLINE void Matrix3D::Rotate_Z(float theta)
 	float tmp1,tmp2;
 	float c,s;
 
-	c = cosf(theta);
-	s = sinf(theta);
+	c = WWMath::Cos(theta);
+	s = WWMath::Sin(theta);
 
 	tmp1 = Row[0][0]; tmp2 = Row[0][1];
 	Row[0][0] = (float)( c*tmp1 + s*tmp2);
@@ -1055,8 +1063,8 @@ WWINLINE void Matrix3D::Pre_Rotate_X(float theta)
 	float tmp1,tmp2;
 	float c,s;
 
-	c = cosf(theta);
-	s = sinf(theta);
+	c = WWMath::Cos(theta);
+	s = WWMath::Sin(theta);
 
 	tmp1 = Row[1][0]; tmp2 = Row[2][0];
 	Row[1][0] = (float)(c*tmp1 - s*tmp2);
@@ -1093,8 +1101,8 @@ WWINLINE void Matrix3D::Pre_Rotate_Y(float theta)
 	float tmp1,tmp2;
 	float c,s;
 
-	c = cosf(theta);
-	s = sinf(theta);
+	c = WWMath::Cos(theta);
+	s = WWMath::Sin(theta);
 
 	tmp1 = Row[0][0]; tmp2 = Row[2][0];
 	Row[0][0] = (float)( c*tmp1 + s*tmp2);
@@ -1131,8 +1139,8 @@ WWINLINE void Matrix3D::Pre_Rotate_Z(float theta)
 	float tmp1,tmp2;
 	float c,s;
 
-	c = cosf(theta);
-	s = sinf(theta);
+	c = WWMath::Cos(theta);
+	s = WWMath::Sin(theta);
 
 	tmp1 = Row[0][0]; tmp2 = Row[1][0];
 	Row[0][0] = (float)(c*tmp1 - s*tmp2);
@@ -1274,8 +1282,8 @@ WWINLINE void Matrix3D::In_Place_Pre_Rotate_X(float theta)
 	float tmp1,tmp2;
 	float c,s;
 
-	c = cosf(theta);
-	s = sinf(theta);
+	c = WWMath::Cos(theta);
+	s = WWMath::Sin(theta);
 
 	tmp1 = Row[1][0]; tmp2 = Row[2][0];
 	Row[1][0] = (float)(c*tmp1 - s*tmp2);
@@ -1308,8 +1316,8 @@ WWINLINE void Matrix3D::In_Place_Pre_Rotate_Y(float theta)
 	float tmp1,tmp2;
 	float c,s;
 
-	c = cosf(theta);
-	s = sinf(theta);
+	c = WWMath::Cos(theta);
+	s = WWMath::Sin(theta);
 
 	tmp1 = Row[0][0]; tmp2 = Row[2][0];
 	Row[0][0] = (float)( c*tmp1 + s*tmp2);
@@ -1342,8 +1350,8 @@ WWINLINE void Matrix3D::In_Place_Pre_Rotate_Z(float theta)
 	float tmp1,tmp2;
 	float c,s;
 
-	c = cosf(theta);
-	s = sinf(theta);
+	c = WWMath::Cos(theta);
+	s = WWMath::Sin(theta);
 
 	tmp1 = Row[0][0]; tmp2 = Row[1][0];
 	Row[0][0] = (float)(c*tmp1 - s*tmp2);

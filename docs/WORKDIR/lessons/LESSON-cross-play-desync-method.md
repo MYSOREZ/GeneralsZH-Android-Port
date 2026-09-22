@@ -741,9 +741,37 @@ locomotor, physics, dozer AI, missiles and production exits normalise.
 guarded by `_MSC_VER < 1300` (VC6), so the modern-MSVC PC client uses the same
 `lroundf` we do.
 
-**The general lesson.** Any `#if defined(_MSC_VER) && defined(_M_IX86)` in code the
-simulation calls is a place where the reference platform runs different code. Grep
-for it before assuming "identical source" means identical results.
+**Confirmed on the device.** With the `wwmath.h` fix, the idle Casino recording
+(`7.rep`) matches the PC at all eleven checkpoints, and the driving one (`8.rep`)
+matches at 100, 200 and 300 -- it diverged at 100 before. It still diverges from
+400, which is when its dozer starts to drive and turn.
+
+**The second cause is the same shape: float CRT transcendentals.** The reference
+is 32-bit MSVC built `/arch:SSE2`, so ordinary float and double arithmetic is IEEE
+SSE on both sides; only explicit x87 assembly differs. But 32-bit MSVC's CRT has
+**no float variants** of the transcendentals: `sinf(x)` there is an inline
+`(float)sin((double)x)`. bionic's `sinf` is its own single-precision algorithm,
+different in the last bit on about 1.2% of angles. `matrix3d.h`, `matrix3.h` and
+`vector3.h` call `sinf`/`cosf` directly in every rotation helper (20 sites), and
+those run every frame for a moving unit: `PhysicsUpdate`'s `Rotate_X/Y/Z`, the
+locomotor's `In_Place_Pre_Rotate_Z`. At ~1% per call a turning vehicle is
+expected to leave the PC within a few dozen frames -- exactly the window between
+300 and 400. Fixed by routing them through `WWMath::Sin/Cos` (double, rounded once),
+plus `TanTrig` and two calls in `DynamicShroudClearingRangeUpdate`. Not verified
+before building the way the first fix was: there is no single frozen value to
+compare, because the effect compounds along the dozer's path. The replay decides.
+
+Searched and clean for this class: every float transcendental reachable from
+logic is now in `Trig.cpp` (fixed earlier) or goes through `WWMath`; the remaining
+hits are diagnostics (`SimulationMathCrc`), Intel-compiler-only code (`vp.cpp`) and
+network latency maths (`NetworkMesh.cpp`). Every other `__asm` in Core is dead code
+(`#if 0`, VC6-only, or `__ICL`-only).
+
+**The general lesson.** "Identical source" is not identical code when the
+reference is 32-bit MSVC. Two things run differently there: every
+`#if defined(_MSC_VER) && defined(_M_IX86)` branch, and every float CRT
+transcendental, which that CRT silently implements as the double function rounded
+to float. Grep for both in anything the simulation calls before hunting elsewhere.
 
 ## Where it stands (22/09/2026)
 

@@ -190,13 +190,15 @@ static WWINLINE float CosTrig(float x)
 #endif
 }
 
+// GeneralsX @bugfix Android port 22/09/2026 tanf -> (float)tan((double)x), the reference
+// client's tanf on 32-bit MSVC; see the note on WWMath::Sin/Cos.
 static WWINLINE float TanTrig(float x) 
 { 
 #ifdef USE_DETERMINISTIC_MATH
 	// TODO: return GameMath::Tan(x);
-	return tanf(x); 
+	return (float)tan((double)x); 
 #else
-	return tanf(x); 
+	return (float)tan((double)x); 
 #endif
 }
 

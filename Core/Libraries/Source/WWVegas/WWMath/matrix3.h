@@ -359,9 +359,17 @@ WWINLINE Matrix3x3::Matrix3x3(const Vector3 & axis,float s_angle,float c_angle)
 	Set(axis,s_angle,c_angle);
 }
 
+// GeneralsX @bugfix Android port 22/09/2026 Every sinf/cosf in this file now goes through
+// WWMath::Sin/Cos. The reference client is 32-bit MSVC, whose CRT has no float variants of
+// the transcendentals: sinf(x) there is an inline (float)sin((double)x). bionic's sinf is a
+// separate single-precision algorithm that differs in the last bit on about 1.2% of angles,
+// and these rotations run every frame for a moving unit (PhysicsUpdate's Rotate_X/Y/Z, the
+// locomotor's In_Place_Pre_Rotate_Z), so a turning vehicle drifted off the PC within about a
+// hundred frames. WWMath::Sin/Cos evaluate in double and round once, which is what the
+// reference does.
 WWINLINE void Matrix3x3::Set(const Vector3 & axis,float angle)
 {
-	Set(axis,sinf(angle),cosf(angle));
+	Set(axis,WWMath::Sin(angle),WWMath::Cos(angle));
 }
 
 WWINLINE void Matrix3x3::Set(const Vector3 & axis,float s,float c)
@@ -775,7 +783,7 @@ WWINLINE int operator != (const Matrix3x3 & a, const Matrix3x3 & b)
  *=============================================================================================*/
 WWINLINE void Matrix3x3::Rotate_X(float theta)
 {
-	Rotate_X(sinf(theta),cosf(theta));
+	Rotate_X(WWMath::Sin(theta),WWMath::Cos(theta));
 }
 
 WWINLINE void Matrix3x3::Rotate_X(float s,float c)
@@ -809,7 +817,7 @@ WWINLINE void Matrix3x3::Rotate_X(float s,float c)
  *=============================================================================================*/
 WWINLINE void Matrix3x3::Rotate_Y(float theta)
 {
-	Rotate_Y(sinf(theta),cosf(theta));
+	Rotate_Y(WWMath::Sin(theta),WWMath::Cos(theta));
 }
 
 WWINLINE void Matrix3x3::Rotate_Y(float s,float c)
@@ -844,7 +852,7 @@ WWINLINE void Matrix3x3::Rotate_Y(float s,float c)
  *=============================================================================================*/
 WWINLINE void Matrix3x3::Rotate_Z(float theta)
 {
-	Rotate_Z(sinf(theta),cosf(theta));
+	Rotate_Z(WWMath::Sin(theta),WWMath::Cos(theta));
 }
 
 WWINLINE void Matrix3x3::Rotate_Z(float s,float c)
@@ -898,7 +906,7 @@ WWINLINE Matrix3x3 Create_X_Rotation_Matrix3(float s,float c)
 
 WWINLINE Matrix3x3 Create_X_Rotation_Matrix3(float rad)
 {
-	return Create_X_Rotation_Matrix3(sinf(rad),cosf(rad));
+	return Create_X_Rotation_Matrix3(WWMath::Sin(rad),WWMath::Cos(rad));
 }
 
 /***********************************************************************************************
@@ -934,7 +942,7 @@ WWINLINE Matrix3x3 Create_Y_Rotation_Matrix3(float s,float c)
 
 WWINLINE Matrix3x3 Create_Y_Rotation_Matrix3(float rad)
 {
-	return Create_Y_Rotation_Matrix3(sinf(rad),cosf(rad));
+	return Create_Y_Rotation_Matrix3(WWMath::Sin(rad),WWMath::Cos(rad));
 }
 
 /***********************************************************************************************
@@ -970,7 +978,7 @@ WWINLINE Matrix3x3 Create_Z_Rotation_Matrix3(float s,float c)
 
 WWINLINE Matrix3x3 Create_Z_Rotation_Matrix3(float rad)
 {
-	return Create_Z_Rotation_Matrix3(sinf(rad),cosf(rad));
+	return Create_Z_Rotation_Matrix3(WWMath::Sin(rad),WWMath::Cos(rad));
 }
 
 WWINLINE void Matrix3x3::Rotate_Vector(const Matrix3x3 & A,const Vector3 & in,Vector3 * out)
