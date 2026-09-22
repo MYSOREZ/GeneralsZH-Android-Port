@@ -41,6 +41,8 @@
 #define DEFINE_PARTICLE_SYSTEM_NAMES
 #include "GameClient/ParticleSys.h"
 #include "GameLogic/GameLogic.h"
+#include "Common/Recorder.h"
+#include "GXTrace.h"
 
 
 #define PROFILE_ERROR_LIMIT	0.94f	//fraction of profiled result needed to get a match.  Allows some room for error/fluctuation.
@@ -764,10 +766,29 @@ DynamicGameLODLevel GameLODManager::findDynamicLODLevel(Real averageFPS)
 }
 
 /**Set all game systems to match the desired LOD level.*/
+Bool GameLODManager::isLogicLODPinned() const
+{
+	// Every peer, and every later playback, must compute the same simulation: that is a
+	// multiplayer game while it is played and any replay while it is watched.
+	return TheRecorder != nullptr && (TheRecorder->isMultiplayer() || TheRecorder->isPlaybackMode());
+}
+
 Bool GameLODManager::setDynamicLODLevel(DynamicGameLODLevel level)
 {
 	if (level == DYNAMIC_GAME_LOD_UNKNOWN || m_currentDynamicLOD == level)
 		return FALSE;
+
+	// GeneralsX @feature Android port 22/09/2026 A frame-rate-driven tier change used to be
+	// invisible in the log, yet before isLogicLODPinned() it changed how many debris objects the
+	// logic spawned. Say when it happens, what the tier would do to the logic, and whether the
+	// logic is listening.
+	GX_NET_TRACE("lod frame %u: dynamic LOD %s -> %s (debrisSkipMask=%d slowDeathScale=%.2f)%s\n",
+		TheGameLogic ? (unsigned)TheGameLogic->getFrame() : 0u,
+		m_currentDynamicLOD == DYNAMIC_GAME_LOD_UNKNOWN ? "UNKNOWN" : DynamicGameLODNames[m_currentDynamicLOD],
+		DynamicGameLODNames[level],
+		m_dynamicGameLODInfo[level].m_dynamicDebrisSkipMask,
+		(double)m_dynamicGameLODInfo[level].m_slowDeathScale,
+		isLogicLODPinned() ? " -- logic stays on VeryHigh (lockstep game or replay)" : "");
 
 	m_currentDynamicLOD = level;
 

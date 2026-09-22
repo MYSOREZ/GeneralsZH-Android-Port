@@ -841,3 +841,74 @@ Anything that changes the objects section *between* checkpoints turns more
 checkpoints back into more equations, which is what a multi-word hypothesis needs.
 A `DEBUG_CRC` build of the PC client would still beat all of this, and is still
 out of reach.
+
+## After both fixes: 7 and 8 match, 1.rep breaks at a cancelled building (22/09/2026)
+
+With `Inv_Sqrt` and `ReferenceFloatMath` in, `7.rep` (idle) and `8.rep` (dozer
+driving and building) match the PC at every checkpoint. `1.rep` -- Tournament B,
+the user against three easy AIs -- matches for 19 checkpoints and diverges at
+2000. The replay's own commands (`repparse.py 1.rep 1850 2120`) say what is new in
+that window: at 1908 the user cancels a barracks under construction
+(`MSG_DOZER_CANCEL_CONSTRUCT`), at 1954 the dozer drives into the site. The RNG
+tally shows what that set off -- `ObjectCreationList.cpp:1355/1159-1161/1177-1179`
+39 times each (39 `GenericDebris` thrown out with random spin and force), then
+`SlowDeathBehavior.cpp:258/512` once per piece as each one comes to rest and dies
+(`KillWhenRestingOnGround`). Frame 1900's tally had zero draws; nothing like this
+happened in the 1900 frames that matched.
+
+What is established:
+
+- `onDozerCancelConstruct`, `ObjectCreationList`, `PhysicsUpdate`,
+  `SlowDeathBehavior`, `LifetimeUpdate`, `DestroyDie`, `CreateObjectDie` and
+  `Object` differ from the client only in whitespace, logging, or code that is
+  equivalent.
+- **It is not rounding noise in one object.** `deb3.c` perturbed every object's
+  transform in the 2000 dump: any 3 of the 12 matrix words by +/-8 ULP, and the
+  position by +/-64 ULP per axis -- 1.2 billion window tests, 0 hits. `sweep2.c`
+  (any two words within 32, +/-4) also 0. So either several objects differ, or the
+  object set differs, or the RNG was drawn a different number of times -- and a
+  different draw count moves the seed word, which leaves the objects section
+  unconstrained. One equation per checkpoint cannot go further here.
+- **Uninitialised members are not the explanation, though one exists.**
+  `PhysicsBehavior::m_originalAllowBounce` is never initialised, in the client
+  too, and `handleBounce` reads it. It is zero on both sides: the PC's pool
+  allocator zeroes blocks, and Android builds with `RTS_GAMEMEMORY_ENABLE=OFF`,
+  whose `GameMemoryNull.cpp` `operator new` zeroes as well. Check that it is really
+  the one in use: `libmain.so` neither imports nor exports `_Znwm`, and the
+  `GameMemoryNull.cpp.o` in the build defines it, so every allocation in the binary
+  binds to the zeroing one.
+- **The static LOD reaches logic too, harmlessly.** `GameLogic.cpp` turns "fluff"
+  map objects into client-only props when the static LOD is below High -- and
+  Android defaults to Low -- but a multiplayer game or replay forces
+  `forceFluffToProp = TRUE` regardless.
+
+**Found on the way: the simulation reads the frame rate.** `isDebrisSkipped()`
+(the debris OCL) and `getSlowDeathScale()` (every slow death, at its start and on
+each update) come from the *dynamic* LOD tier, and `W3DDisplay::draw` resets that
+tier from the measured average FPS every frame. The GeneralsOnline client does the
+same, plus `updateGraphicsQualityState`. So on either machine, rendering below the
+VeryHigh tier's `MinimumFPS` changes how many debris objects exist and how long
+dying things stay. That is a desync between any two peers whose frame rates fall on
+different sides of a threshold -- and phones are the peers that fall. Fixed in
+`GameLOD.h`: `isLogicLODPinned()` is true in a multiplayer game or any replay, and
+then both functions read the VeryHigh tier (what a PC rendering at full speed uses);
+particles and shadows still follow the frame rate. **This is a real fix but not
+shown to be this replay's cause:** the device played `1.rep` at 57-60 fps, so it was
+almost certainly on VeryHigh already (the tier thresholds live in `GameLOD.ini`, which
+is not in the tree -- the new trace line prints the tier and settles it), and then the
+pin changes nothing there. What it would explain is the
+PC having dipped during the recording, and that the next step can test.
+
+New trace line, printed on every tier change:
+`lod frame N: dynamic LOD High -> VeryHigh (debrisSkipMask=0 slowDeathScale=1.00) -- logic stays on VeryHigh (lockstep game or replay)`.
+
+**Ask for these next:**
+
+1. **Play `1.rep` on the PC itself.** If the PC also reports a mismatch at 2000, the
+   recording cannot be reproduced even by the machine that made it, and the cause
+   is on the recording side (a frame-rate-dependent tier during the live game). If
+   the PC replays it cleanly, the difference is ours.
+2. **A quiet recording of the same event:** Casino (where `7.rep` matches), solo,
+   place one structure with the dozer, cancel it, wait a minute. That isolates
+   debris and slow death from three AIs. If it matches, the debris path is clean
+   and the cause lies with the AIs; if it diverges, it is the debris path.

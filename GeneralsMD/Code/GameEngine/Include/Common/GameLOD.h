@@ -179,6 +179,7 @@ public:
 	inline Bool isParticleSkipped();
 	inline Bool isDebrisSkipped();
 	inline Real getSlowDeathScale();
+	Bool isLogicLODPinned() const;	///< lockstep game or replay: logic reads the VeryHigh tier, not the frame-rate one.
 	inline ParticlePriorityType getMinDynamicParticlePriority();		///<priority at which particles will still render at current FPS.
 	inline ParticlePriorityType	getMinDynamicParticleSkipPriority();	///<priority at which particles will never be skipped at any FPS.
 	Int getRecommendedTextureReduction();	///<return the optimal texture reduction for the system.
@@ -263,14 +264,26 @@ Bool GameLODManager::isParticleSkipped()
 	return (++m_numParticleGenerations & m_dynamicParticleSkipMask) != m_dynamicParticleSkipMask;
 }
 
+// GeneralsX @bugfix Android port 22/09/2026 These two are read by game LOGIC (the debris
+// ObjectCreationList and SlowDeathBehavior), yet the dynamic LOD behind them follows this
+// machine's frame rate. In a lockstep game, or a replay of one, that made the simulation depend
+// on how fast each peer happened to render: a device below the "High" FPS threshold spawned
+// fewer debris objects and shortened slow deaths, and fell out of sync with every peer that did
+// not. There, the logic reads the VeryHigh tier -- what a peer rendering at full speed uses --
+// while particles and shadows keep following the frame rate. See isLogicLODPinned().
 Bool GameLODManager::isDebrisSkipped()
 {
-	return (++m_numDebrisGenerations & m_dynamicDebrisSkipMask) != m_dynamicDebrisSkipMask;
+	const Int mask = isLogicLODPinned()
+		? m_dynamicGameLODInfo[DYNAMIC_GAME_LOD_VERY_HIGH].m_dynamicDebrisSkipMask
+		: m_dynamicDebrisSkipMask;
+	return (++m_numDebrisGenerations & mask) != mask;
 }
 
 Real GameLODManager::getSlowDeathScale()
 {
-	return m_slowDeathScale;
+	return isLogicLODPinned()
+		? m_dynamicGameLODInfo[DYNAMIC_GAME_LOD_VERY_HIGH].m_slowDeathScale
+		: m_slowDeathScale;
 }
 
 ParticlePriorityType GameLODManager::getMinDynamicParticlePriority()
