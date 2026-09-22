@@ -684,6 +684,67 @@ recording, read seventeen post-build verdicts. It also dumps the whole stream
 once more whenever the object list changes, so the offline tools get a
 different-list checkpoint too.
 
+## Found: WWMath::Inv_Sqrt is an x87 approximation on the PC
+
+**The cause of the Casino desync, proven from both ends.** `wwmath.h` has a
+`#if defined(_MSC_VER) && defined(_M_IX86)` branch for `Inv_Sqrt`: a magic-constant
+first guess (`0xBE6EB508`) refined by three Newton-Raphson steps in inline x87
+assembly. The PC client is 32-bit MSVC, so it takes that branch. Every other build
+took the `#else`: an exact `1.0f / sqrt()`. Same source line, different number.
+
+It reaches the checksum through `Vector3::Normalize()` and
+`Normalized_Cross_Product()`: the terrain normal in
+`BaseHeightMapRenderObjClass::getHeightMapHeight`, and every direction the
+locomotor, physics, dozer AI, missiles and production exits normalise.
+
+**How it was found, which is the reusable part:**
+
+1. Three full dumps of a static stretch proved the difference was in the objects
+   section and nowhere else (see "Three checkpoints prove...").
+2. A second recording of the same map gave a second equation, and the only
+   natural family of multi-object difference that fit both was "both
+   `AmericaCheckpoint` objects carry m22 = `0x3F7FFFFF` on the PC where we have
+   `0x3F800000`".
+3. A stock map where the player stands still matched the PC at every checkpoint.
+   It had no `AmericaCheckpoint`. The dozer's own start-of-game snap to a cell
+   centre happened there too, and matched -- so movement was not it.
+4. The data said why only those two objects: `AmericaCheckpoint` is the one
+   quarter-turned object on the map with `KindOf = ... STICK_TO_TERRAIN_SLOPE`, so
+   `Thing::setOrientation` builds its matrix with `alignOnTerrain`, whose third
+   column **is** the terrain normal. `SecretResearchLab` and `ToxicSupplyTruck`,
+   also quarter-turned, lack the flag -- which is why "every quarter-turned object"
+   had been rejected.
+5. Flat ground gives the cross product `(0, 0, 1024)`. Exact normalisation gives
+   `1.0`. The x86 routine, emulated step by step under the client's
+   `setFPMode()` (`_PC_24`, `_RC_NEAR`), gives `0.99999994` = `0x3F7FFFFF`: the
+   number the checksum demanded.
+
+**Verified before building:**
+
+- the portable replacement against real x87 arithmetic on this machine (x87 with
+  the control word set as `setFPMode()` sets it): 6 918 440 inputs from 2^-40 to
+  2^40, **0 differences**; the checkpoint case gives `3F7FFFFF` on both;
+- a full emulation of `makeAlignToNormalMatrix` for both checkpoints: the old code
+  reproduces our dump exactly, including a `-0`; the new code reproduces exactly
+  the matrix the PC's checksum requires, with only m22 changed.
+
+**The same branch hid three more functions**, all fixed together:
+
+| function | PC (`_M_IX86`) | was here | now |
+|---|---|---|---|
+| `Inv_Sqrt` | magic constant + 3 Newton steps, x87 at `_PC_24` | exact `1/sqrt` | the same algorithm in float, bit-exact |
+| `Float_To_Long` | `fld`/`fistp` under `_RC_NEAR`: rounds | C cast: truncates (2.7 -> 2) | `lrintf` / `lrint` |
+| `Sin`, `Cos` | `fsin`/`fcos`, full internal precision, rounded once | `sinf`/`cosf` | `(float)sin((double)x)`; 20M angles, 0 differ from `fsin`/`fcos` (`sinf` differs on 1.3%) |
+| `Sqrt` | `fsqrt` | `sqrt` | unchanged: both correctly rounded |
+
+`BaseType.h`'s `fast_float2long_round` and friends were checked too: their asm is
+guarded by `_MSC_VER < 1300` (VC6), so the modern-MSVC PC client uses the same
+`lroundf` we do.
+
+**The general lesson.** Any `#if defined(_MSC_VER) && defined(_M_IX86)` in code the
+simulation calls is a place where the reference platform runs different code. Grep
+for it before assuming "identical source" means identical results.
+
 ## Where it stands (22/09/2026)
 
 **The single-number method is now exhausted, and that is a measurement, not a

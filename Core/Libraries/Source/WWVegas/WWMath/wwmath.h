@@ -40,6 +40,7 @@
 #include <math.h>
 #include <float.h>
 #include <assert.h>
+#include <string.h>
 
 /*
 ** Some global constants.
@@ -435,9 +436,14 @@ WWINLINE long WWMath::Float_To_Long(float f)
 	return i;
 }
 #else
+// GeneralsX @bugfix Android port 22/09/2026 Round, as the reference client does.
+// The _M_IX86 branch is fld/fistp, which rounds by the x87 rounding mode, and the game
+// runs with setFPMode() selecting _RC_NEAR. A C cast truncates instead, so 2.7 became 3
+// on the PC and 2 here. lrintf rounds to nearest-even under the default mode, which is
+// what fistp does under _RC_NEAR.
 WWINLINE long WWMath::Float_To_Long(float f)
 {
-	return (long) f;
+	return (long) lrintf(f);
 }
 #endif
 
@@ -451,7 +457,8 @@ WWINLINE long WWMath::Float_To_Long(double f)
 	}
 	return retval;
 #else
-	return (long) f;
+	// GeneralsX @bugfix Android port 22/09/2026 Round-to-nearest like fistp; see the float overload.
+	return (long) lrint(f);
 #endif
 }
 
@@ -471,9 +478,15 @@ WWINLINE float WWMath::Cos(float val)
 	return retval;
 }
 #else
+// GeneralsX @bugfix Android port 22/09/2026 Evaluate like fcos, not like bionic's cosf.
+// The _M_IX86 branch is fld/fcos/fstp: the transcendental is computed at the x87's full
+// internal precision (precision control does not apply to FSIN/FCOS) and rounded to float
+// once. Computing in double and rounding once gives the same float; cosf is a separate
+// single-precision algorithm that differs in the last bit on about one argument in a
+// hundred. Trig.cpp made the same change for Sin/Cos after measuring it over 62801 angles.
 WWINLINE float WWMath::Cos(float val)
 {
-	return cosf(val);
+	return (float)cos((double)val);
 }
 #endif
 
@@ -493,9 +506,10 @@ WWINLINE float WWMath::Sin(float val)
 	return retval;
 }
 #else
+// GeneralsX @bugfix Android port 22/09/2026 Evaluate like fsin; see WWMath::Cos above.
 WWINLINE float WWMath::Sin(float val)
 {
-	return sinf(val);
+	return (float)sin((double)val);
 }
 #endif
 
@@ -771,9 +785,46 @@ WWINLINE float WWMath::Inv_Sqrt(float a)
 	return retval;
 }
 #else
-WWINLINE float WWMath::Inv_Sqrt(float val)
+// GeneralsX @bugfix Android port 22/09/2026 Reproduce the reference client's Inv_Sqrt bit for bit.
+//
+// The PC client is 32-bit MSVC, so it takes the _M_IX86 branch above: a magic-constant
+// first guess refined by three Newton-Raphson steps on the x87 stack. That is an
+// approximation, not 1/sqrt, and every Vector3::Normalize() in the simulation goes
+// through it -- terrain normals for STICK_TO_TERRAIN_SLOPE objects, and every direction
+// the locomotor, physics and AI normalise while units move. This branch used the exact
+// 1.0f / sqrt(), so the two machines normalised the same vector to different floats.
+//
+// Found from a PC-recorded replay that diverged at every checkpoint: the lockstep
+// checksum could only be reconciled by both AmericaCheckpoint objects (the only
+// quarter-turned STICK_TO_TERRAIN_SLOPE objects on the map) carrying m22 = 0.99999994
+// on the PC where we had 1.0. Their third column is the terrain normal, flat ground gives
+// the cross product (0,0,1024), and this routine turns 1/sqrt(1048576) into a value that
+// makes 1024 * it round to exactly 0x3F7FFFFF -- the number the checksum demanded.
+//
+// The reference runs under setFPMode(): _PC_24 precision and _RC_NEAR rounding, so every
+// fmul and fsub in the asm is rounded to a float. Plain float arithmetic in the same order
+// reproduces it exactly, provided nothing contracts it into FMA (-ffp-contract=off is set
+// for every Android translation unit) or reassociates it (no -ffast-math anywhere).
+WWINLINE float WWMath::Inv_Sqrt(float a)
 {
-	return 1.0f / (float)sqrt(val);
+	unsigned int bitsA;
+	memcpy(&bitsA, &a, sizeof(bitsA));
+
+	const unsigned int bitsR0 = (0xBE6EB508u - bitsA) >> 1;   // sub eax,[a] ; shr eax,1
+	const unsigned int bitsY0 = bitsA - 0x800000u;           // a/2, by the exponent
+	float x1, y0;
+	memcpy(&x1, &bitsR0, sizeof(x1));
+	memcpy(&y0, &bitsY0, sizeof(y0));
+
+	const float y1 = (x1 * x1) * y0;
+	const float r1 = 1.5f - y1;
+	const float y2 = (y1 * r1) * r1;
+	const float x2 = x1 * r1;
+	const float r2 = 1.5f - y2;
+	const float y3 = (y2 * r2) * r2;
+	const float x3 = x2 * r2;
+	const float r3 = 1.5f - y3;
+	return x3 * r3;
 }
 #endif
 
