@@ -49,11 +49,29 @@ a real bug:
 - a map where nothing moves reports ten consecutive perfect matches, because
   consecutive checkpoints hold the same value.
 
-This port had both of those for weeks, from a frame-matching scheme written to
+This port had that rule wrong for weeks, from a frame-matching scheme written to
 avoid guessing whether the recording's first checksum survived — a guess that was
-never needed, because the recording says so itself. Fixed 20/09/2026. If you are
-reading an older log, or any log whose header line does not print
-`originalGameMode=` and `isMultiplayer=`, treat its verdicts as unmeasured.
+never needed, because the recording says so itself. Fixed 20/09/2026.
+
+**But fixing it changed nothing, and that matters.** The same replay still reported
+`ours=EEE6D2B8 recorded=2B2071D1` at frame 100: the frame-matching rule it replaced
+happened to select the same queue entry on this recording. So the off-by-one was a
+real defect in the rule and **not** the cause of the symptoms. The divergence is
+genuine — do not re-explain it as a pairing artefact.
+
+**Alignment is now provable from the log, so prove it instead of assuming.** Every
+comparison prints the frame the recorded value arrived on, the frame ours was
+queued at, and how many of ours remain queued:
+
+```
+replay crc for frame 100: ours=... recorded=... (recorded arrived on frame 101, ours queued at 101, 0 still queued)
+```
+
+Two things follow. "Ours queued at 101" means the drop happened — without it the
+first entry would be the frame-0 one, queued at 1. And the recorded value arriving
+at 101, with no comparison at frame 1, means the recording holds no CRC message at
+frame 1: the PC's frame-0 checksum was never transmitted, so dropping ours is
+right. Like compared with like.
 
 ## A map is not a neutral test harness
 
@@ -172,6 +190,158 @@ these are `static_cast<float>(LOGICFRAMES_PER_SECOND)` (no-ops: the operand is
 already float), null guards before `deleteInstance`, `nullptr`, and 64-bit
 pointer casts.
 
+**The game data. Compute it, do not ask for hashes.** `exe_crc` on Android is
+`CRC(version) + CRC(SkirmishScripts.scb) + CRC(MultiplayerScripts.scb)` — the
+executable is not hashed on this platform. Recomputing that from the data
+repository with the engine's own algorithm (`crc.cpp`: `crc = ROL(crc,1) + byte`)
+gives **4265514697**, exactly what the device reports before `gx_pc_compat.txt`
+overrides it. So the `.scb` files are byte-identical to the repository's, and the
+root Zero Hour set is the one in use (the `ZH_Generals` base-game set would give
+3727096529). `ini_crc` matches the PC GeneralsOnline value **genuinely**, with no
+override, so the INI data is identical too — including `Multiplayer.ini`, since
+`TheMultiplayerSettings` is initialised at `GameEngine.cpp:645`, inside the
+`xferCRC.open(510)..close(815)` window and passed `&xferCRC`.
+
+**Every behaviour switch.** Preprocess both trees' `GameDefines.h` with the same
+defines and diff the resulting macro *values* rather than reading them: 21 shared
+`RETAIL_COMPATIBLE_*` / `PRESERVE_*` macros, all identical. The two we define that
+the client does not — `RETAIL_COMPATIBLE_NETWORKING` and
+`RETAIL_COMPATIBLE_PATHFINDING`, both `(0)` — are undefined there, which evaluates
+the same in every `#if`. `RETAIL_COMPATIBLE_PATHFINDING` being `(1)` here *was* a
+real bug once (it changed the A* start cell) and is fixed; do not re-open it.
+
+**What gets hashed.** All 370 `crc()` functions in the simulation tree are
+byte-identical to the client's after comment and whitespace normalisation, bar
+`AI::crc` (our trace counters; the xfer stream is unchanged) and
+`ReplaceObjectUpgrade::crc` (whitespace). A difference in *what* is hashed is
+invisible to every behavioural audit, so it was worth checking once. Clean.
+
+**Object destruction.** `destroyObject`, `processDestroyList`, `registerObject` and
+`removeObjectFromLookupTable` differ from the client only in `nullptr`-versus-`NULL`
+and spacing. Worth checking because destruction is the one thing the failing map
+does that the thousand-frame map does not.
+
+**The frame order.** `GameLogic::update` is behaviourally identical; only formatting
+and two divide-by-zero guards differ.
+
+**The fog of war, code and state.** Every function in `PartitionManager.cpp` matches
+after normalisation. `MAX_PLAYER_COUNT` is 16 and `ShroudLevel` is two `Short`s on
+both sides, so the stream has the same shape: 4356 cells of 18 words.
+`RETAIL_COMPATIBLE_CIRCLE_FILL_ALGORITHM` is `(1)` on both. The shroud and
+map-reveal script actions are identical, and `doNamedMapReveal`,
+`doRevealMapAtWaypointPermanent` and `getPlayerFromAsciiString` differ only in
+`nullptr`/`NULL`. The measured state is sane too — see below.
+
+**The player list and the replay observer.** The observer is added unconditionally
+by the same code in both trees, so the recording machine had it. During playback it
+is the *local* player, which is expected. The client reads slots from a local
+`game` where we read the global `TheGameInfo`; that is an alias — the client
+assigns `TheGameInfo = game = ...` in every branch, including
+`TheRecorder->getGameInfo()` for playback, and our replay path sets it the same way.
+
+## Claims made here and then disproved
+
+Keep this list. Each was asserted with apparent evidence and then killed by a
+measurement, and each is the sort of thing that gets re-derived.
+
+**"The pairing is off by one, and that explains it."** The rule was wrong and is
+fixed. It explained nothing — the numbers did not move.
+
+**"A candidate whose implied word is identical at every checkpoint must be the real
+one."** Plausible: a spurious candidate should move as both checksums move. Three
+were stable across all eleven checkpoints. Tested on a synthetic stream with one
+known difference and an evolving region *before* reporting it: **9000 positions**
+showed an identical implied value across all eleven, every one ahead of the part
+that changed. Stability locates "before the changing region", nothing more.
+
+**"Arithmetic is excluded — zero float-rounding candidates out of 85538, twice."**
+Zero does not mean that. The locator tests **one word at a time**, and a rounding
+difference inside a transform moves up to twelve words at once (a `Matrix3D` is
+twelve words here). A multi-word rounding difference gives exactly the observed
+result: no single word reconciles the two, and no float candidate. Platform
+arithmetic is **not** excluded for a multi-word field.
+
+**"`RETAIL_COMPATIBLE_PATHFINDING_ALLOCATION` differs."** It does not; the client
+defines `(0)` under `GENERALS_ONLINE`, which is defined.
+
+**"`if (game)` versus `if (TheGameInfo)` is a real difference."** An alias.
+
+## The locator: what it can and cannot do
+
+`Common/GXCrcStream.{h,cpp}`. The checksum takes one 32-bit word at a time and the
+step is invertible, so the recording's single number can be walked backwards
+through our words:
+
+```
+forward:     C[i] = ROL(C[i-1], 1) + W[i-1]      (mod 2^32)
+inverse:     C[i-1] = ROR(C[i] - W[i-1], 1)
+implied[i] = D[i+1] - ROL(C[i-1], 1)
+```
+
+`implied[i]` is the one word that would reconcile our stream with theirs if the
+difference were at `i` alone. At the true position it **is** their word; elsewhere
+it is arbitrary. Candidates are filtered by what a real difference looks like: a few
+bits apart (a flag), a small integer apart (a counter or id), zero on one side, or a
+rounded float.
+
+**Verified before use** on synthetic streams of twenty thousand words in the
+simulation's value ranges: a single one-ULP difference leaves about twenty-five
+candidates and the true one ranks first or third, across five positions and deltas.
+
+**Its limit, and it is hard: one word.** It cannot localise a difference spanning
+several words and says so (`no single word reconciles the two`). A `Coord3D` is
+three words, a transform twelve, a differing object count changes the length
+outright.
+
+**Two of its filters were wrong and are fixed.** The zero test was
+`ours == 0 || theirs == 0`, and the stream is full of zero words, so wherever ours
+was zero *any* implied value passed — the category claimed 7665 of 85538 positions.
+Now `theirs == 0 && ours != 0`. And the section printer took each section's end from
+the next mark, which is an object's, so the objects section reported four words
+instead of six thousand.
+
+**Past that limit, move the search off the phone.** On the first mismatch the engine
+dumps one named section's words in hex, its start and end running values, and the
+inverse walk of the recording's checksum back to the section's end. That last number
+makes the rest computable: with it and our words, every intermediate value on *both*
+machines inside the section can be reconstructed offline and any multi-word
+hypothesis tested without another build. For a twelve-word transform with each
+element within one rounding step, fixing eleven determines the twelfth — 3^11 per
+object, 172 objects, minutes of search.
+
+## Where the checksum actually lives
+
+Measure this before theorising. On the failing map, frame 100:
+
+```
+Objects                words 0..6402      (6402, for 172 objects)
+logic random seed      word  6402
+ThePartitionManager    words 6403..84818  (78415)
+ThePlayerList          words 84818..84854 (36)
+TheAI                  words 84854..85538 (684)
+```
+
+**92% of the lockstep checksum is fog of war.** `PartitionCell::crc` hashes
+`m_shroudLevel` per player plus the cell's grid coordinates, and those coordinates
+are constants every machine computes alike — so a difference in that section can
+only be a shroud level.
+
+The shroud reports itself now, three counts per player per checkpoint. On the
+failing map it is sane, which is how that lead was closed:
+
+```
+frame 0    p1 clear=991  shrouded=3365 | p8 clear=232  fogged=4124 | p9 clear=4356
+frame 100  p1 clear=1028 shrouded=3328 | p8 clear=1988 fogged=2368 | p9 clear=4356
+```
+
+Slot 9 is the replay observer, permanently revealed, entirely clear. Slot 8 is the
+playing human: `shrouded=0` because `revealMapForPlayer` ran for its occupied slot,
+which also proves the slot loop executed and `TheGameInfo` was set; its clear count
+grows 232 → 1988 between frames 0 and 100, which is the four radius-450 map reveals
+firing at frame 2. Slot 1 is the civilians — vision but no whole-map reveal, correct
+for a map side rather than an occupied slot. Slots 0 and 2..7 print nothing, being
+fully shrouded.
+
 ## What was actually wrong, and the shape of it
 
 **The libm behind the source, not the source.** `Thing::setOrientation` builds
@@ -223,14 +393,42 @@ ate a function call and its braces (`HelixContain::removeFromContain`), and
   gen_online_60hz` must be in the log. A 30 Hz engine cannot match a 60 Hz
   recording, for reasons that have nothing to do with the bug you are chasing.
 
-## Where it stands
+## Where it stands (22/09/2026)
 
-Closed: ambient traffic and general movement. An idle-map PC replay matches for
-1000 frames, ten consecutive checkpoints.
+**The instrument is trustworthy now, and that took several corrections.** Pairing is
+proven aligned from the log itself; playback no longer stops at the first mismatch,
+so a diverging replay reports every checkpoint instead of one.
 
-Open: a dozer driving. With two AI opponents, frame 100 matches and frame 200
-does not, and in that window **exactly two objects of 324 change — both
-`AmericaVehicleDozer`, moving**. Civilian vehicles reach identical coordinates
-in both replays, so it is not general movement. The obvious suspects on that
-path are all audited clean, so the next step is data: a replay of one bot doing
-nothing but drive, and one doing nothing but build.
+**The failing case**, Casino 2v2 Resurrection Four v3, a PC-recorded online replay
+(`originalGameMode=5`), played on the 60 Hz engine:
+
+- diverges at frame 100 and at every checkpoint to 1100; never heals
+- the divergence spans **more than one word** — the surviving single-word candidates
+  are at chance level for their thresholds, and two of them are the same value seen
+  twice, 32 positions apart with an identical delta, which is what the one-bit
+  rotation does to a single underlying difference
+- of 172 objects, **exactly one changes** between frames 0 and 100: the dozer,
+  1903.041260,1849.648438 → 1905.000000,1845.000000, both exact pathfind cell
+  centres, angle 0 throughout. Six map-placed `SupplyPileSmall` are deleted by the
+  map's own `Supply Remove` script; nothing is created
+- the map is not a neutral harness: `'Map Reveal'` is active, one-shot and
+  `CONDITION_TRUE`, so 36 reveals of radius 450 fire on the first frame (four apply,
+  twenty skipped for players that do not exist on a four-player map, twelve for
+  missing waypoints), and group `CounterRandom` draws from the logic RNG twice every
+  frame from frame 0
+
+**Open, and the leading hypothesis:** a multi-word difference in an object's hashed
+state — the dozer's transform is twelve words and is the only thing that moved. That
+is consistent with every measurement, including the zero float-rounding candidates,
+which only exclude a *single*-word rounding difference.
+
+**Next step is the offline search, not another guess.** The engine now hands over the
+Objects section's words; the 3^11-per-object transform search runs here in minutes.
+If the objects section comes back clean, ask for the partition dump — same principle,
+78415 words.
+
+**What would make all of this much faster, and is not available:** any second value
+per checkpoint from the PC side. One 32-bit number per 100 frames is the whole
+external anchor, and every limit above follows from it. If a way is ever found to
+get the PC client to print more — a debug build, a `DEBUG_CRC` build, anything — take
+it; it is worth more than any tool on this side.
