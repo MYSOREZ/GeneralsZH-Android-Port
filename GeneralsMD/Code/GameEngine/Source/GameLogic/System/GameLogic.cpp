@@ -3870,6 +3870,10 @@ extern __int64 Total_Load_3D_Assets;
 // ------------------------------------------------------------------------------------------------
 /** Update all objects in the world by invoking their update() methods. */
 // ------------------------------------------------------------------------------------------------
+#if !(defined(_MSC_VER) && defined(_M_IX86))
+extern "C" __attribute__((weak)) void gxMathTraceFrame(unsigned frame);
+#endif
+
 void GameLogic::update()
 {
 	USE_PERF_TIMER(GameLogic_update)
@@ -3887,6 +3891,14 @@ void GameLogic::update()
 #endif
 
 	setFPMode();
+
+#if !(defined(_MSC_VER) && defined(_M_IX86))
+	// GeneralsX @feature Android port 23/09/2026 Tell the math trace (ReferenceFloatMath.cpp)
+	// which logic frame is being simulated, so it can count libm calls by call site for a
+	// window of frames. Weak: targets without that file link and simply skip it.
+	if (GXTrace::isNetEnabled() && gxMathTraceFrame != nullptr)
+		gxMathTraceFrame(m_frame);
+#endif
 
 	/// @todo remove this hack
 	if ( m_startNewGame && !TheDisplay->isMoviePlaying())

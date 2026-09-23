@@ -60,27 +60,249 @@
 
 #if !(defined(_MSC_VER) && defined(_M_IX86))
 
-// Deliberately no <math.h>: the definitions below must not inherit the default
-// visibility of the platform's declarations.
-extern "C"
+#include <dlfcn.h>
+#include <pthread.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unwind.h>
+
+// GeneralsX @feature Android port 23/09/2026 Who calls the maths, and where it could have
+// rounded the other way. The double libm functions below are defined here too, as thin
+// forwarders to the platform's own, so every call from inside this binary -- a plain
+// sin(), the double inside sinf(), a merged sincos() -- passes through one place. For a
+// window of logic frames (gxMathTraceFrame(), driven by GameLogic::update) each call is
+// counted against its three innermost callers, and flagged "fragile" when the exact double
+// result sits within a few double ULPs of a float rounding midpoint: that is the only way a
+// different libm (the PC client's MSVC CRT) could give the simulation a different float.
+// At the end of the window the sites are printed with their addresses in this binary;
+// a copy of libmain with its symbol table turns them into function names.
+
+namespace
 {
-	double sin(double);
-	double cos(double);
-	double tan(double);
-	double asin(double);
-	double acos(double);
-	double atan(double);
-	double atan2(double, double);
-	double sinh(double);
-	double cosh(double);
-	double tanh(double);
-	double exp(double);
-	double log(double);
-	double log10(double);
-	double pow(double, double);
+	typedef double (*Fn1)(double);
+	typedef double (*Fn2)(double, double);
+
+	void *realSym(const char *name)
+	{
+		void *p = dlsym(RTLD_NEXT, name);
+		if (p == nullptr)
+		{
+			void *libm = dlopen("libm.so", RTLD_NOW);
+			if (libm != nullptr)
+				p = dlsym(libm, name);
+		}
+		if (p == nullptr)
+		{
+			fprintf(stderr, "[GX-NET] math trace: cannot resolve libm %s, aborting\n", name);
+			abort();
+		}
+		return p;
+	}
+
+	enum { MF_SIN, MF_COS, MF_TAN, MF_ASIN, MF_ACOS, MF_ATAN, MF_ATAN2, MF_SINH, MF_COSH, MF_TANH,
+		MF_EXP, MF_LOG, MF_LOG10, MF_POW, MF_COUNT };
+	const char *const kFnName[MF_COUNT] = { "sin", "cos", "tan", "asin", "acos", "atan", "atan2",
+		"sinh", "cosh", "tanh", "exp", "log", "log10", "pow" };
+
+	const int kDepth = 3;
+	const int kSlots = 4096;
+	struct Site
+	{
+		int fn;
+		unsigned long pc[kDepth];
+		unsigned calls;
+		unsigned fragile;
+		double lastFragileArg;
+	};
+	Site g_sites[kSlots];
+	int g_siteCount = 0;
+	unsigned g_overflow = 0;
+
+	volatile int g_active = 0;
+	pthread_t g_thread;
+	unsigned g_from = 1900, g_to = 2000;
+	int g_configured = 0;
+	int g_dumped = 0;
+	unsigned long g_base = 0;
+
+	struct Walk { unsigned long pc[kDepth + 2]; int n; };
+	_Unwind_Reason_Code walkCb(struct _Unwind_Context *ctx, void *arg)
+	{
+		Walk *w = static_cast<Walk *>(arg);
+		if (w->n >= kDepth + 2)
+			return _URC_END_OF_STACK;
+		w->pc[w->n++] = (unsigned long)_Unwind_GetIP(ctx);
+		return _URC_NO_REASON;
+	}
+
+	// Within a few double ULPs of the midpoint between the two floats around d.
+	bool fragile(double d)
+	{
+		if (!(d == d) || d == 0.0)
+			return false;
+		const float f = (float)d;
+		double lo, hi;
+		if ((double)f <= d) { lo = f; hi = (double)__builtin_nextafterf(f, 3.4e38f); }
+		else                { hi = f; lo = (double)__builtin_nextafterf(f, -3.4e38f); }
+		const double mid = lo + (hi - lo) * 0.5;
+		double ulp = __builtin_nextafter(d, 1e308) - d;
+		if (ulp < 0) ulp = -ulp;
+		double dist = d - mid;
+		if (dist < 0) dist = -dist;
+		return dist <= 4.0 * ulp;
+	}
+
+	void record(int fn, double arg, double result)
+	{
+		if (!g_active || !pthread_equal(pthread_self(), g_thread))
+			return;
+		Walk w; w.n = 0;
+		_Unwind_Backtrace(walkCb, &w);
+		// frame 0 is record(), frame 1 the forwarder; the callers start at 2
+		unsigned long pc[kDepth] = { 0, 0, 0 };
+		for (int i = 0; i < kDepth; ++i)
+			if (i + 2 < w.n) pc[i] = w.pc[i + 2];
+		unsigned h = (unsigned)fn * 2654435761u;
+		for (int i = 0; i < kDepth; ++i) h ^= (unsigned)(pc[i] * 0x9E3779B1u) + (h << 6) + (h >> 2);
+		const bool frag = fragile(result);
+		for (int probe = 0; probe < kSlots; ++probe)
+		{
+			Site &s = g_sites[(h + probe) % kSlots];
+			if (s.calls == 0)
+			{
+				s.fn = fn;
+				memcpy(s.pc, pc, sizeof(pc));
+				s.calls = 1;
+				s.fragile = frag ? 1 : 0;
+				if (frag) s.lastFragileArg = arg;
+				++g_siteCount;
+				return;
+			}
+			if (s.fn == fn && memcmp(s.pc, pc, sizeof(pc)) == 0)
+			{
+				++s.calls;
+				if (frag) { ++s.fragile; s.lastFragileArg = arg; }
+				return;
+			}
+		}
+		++g_overflow;
+	}
+
+	void dump()
+	{
+		Site *order[kSlots];
+		int n = 0;
+		unsigned total = 0, totalFragile = 0;
+		for (int i = 0; i < kSlots; ++i)
+			if (g_sites[i].calls) { order[n++] = &g_sites[i]; total += g_sites[i].calls; totalFragile += g_sites[i].fragile; }
+		for (int i = 1; i < n; ++i)
+			for (int j = i; j > 0 && (order[j]->fragile > order[j-1]->fragile ||
+				(order[j]->fragile == order[j-1]->fragile && order[j]->calls > order[j-1]->calls)); --j)
+			{ Site *t = order[j]; order[j] = order[j-1]; order[j-1] = t; }
+		fprintf(stderr, "[GX-NET] math trace frames %u..%u: %u libm calls on the logic thread, %d call sites, "
+			"%u fragile (a different libm could round the float the other way), %u unrecorded\n",
+			g_from, g_to - 1, total, n, totalFragile, g_overflow);
+		for (int i = 0; i < n && i < 120; ++i)
+		{
+			const Site &s = *order[i];
+			fprintf(stderr, "[GX-NET] math site %-5s calls=%u fragile=%u callers=libmain+0x%lx < 0x%lx < 0x%lx",
+				kFnName[s.fn], s.calls, s.fragile,
+				s.pc[0] ? s.pc[0] - g_base : 0, s.pc[1] ? s.pc[1] - g_base : 0, s.pc[2] ? s.pc[2] - g_base : 0);
+			if (s.fragile)
+				fprintf(stderr, " lastFragileArg=%.17g", s.lastFragileArg);
+			fprintf(stderr, "\n");
+		}
+		fflush(stderr);
+	}
+
+	void configure()
+	{
+		g_configured = 1;
+		FILE *f = fopen("gx_math_trace.txt", "r");
+		if (f != nullptr)
+		{
+			unsigned a = 0, b = 0;
+			if (fscanf(f, "%u %u", &a, &b) == 2 && b > a) { g_from = a; g_to = b; }
+			fclose(f);
+		}
+		Dl_info info;
+		if (dladdr((const void *)&configure, &info) != 0)
+			g_base = (unsigned long)info.dli_fbase;
+		fprintf(stderr, "[GX-NET] math trace armed for logic frames %u..%u (gx_math_trace.txt \"FROM TO\" moves it), "
+			"image base %p\n", g_from, g_to - 1, (void *)g_base);
+		fflush(stderr);
+	}
+}
+
+// Called by GameLogic::update once per logic frame, on the logic thread, when the network
+// trace is on.
+extern "C" __attribute__((visibility("hidden"))) void gxMathTraceFrame(unsigned frame)
+{
+	if (!g_configured)
+		configure();
+	if (frame == 0)
+	{
+		// a new game: forget the previous one
+		memset(g_sites, 0, sizeof(g_sites));
+		g_siteCount = 0; g_overflow = 0; g_dumped = 0; g_active = 0;
+		return;
+	}
+	if (frame >= g_from && frame < g_to)
+	{
+		g_thread = pthread_self();
+		g_active = 1;
+	}
+	else
+	{
+		g_active = 0;
+		if (frame >= g_to && !g_dumped && g_siteCount > 0)
+		{
+			g_dumped = 1;
+			dump();
+		}
+	}
 }
 
 #define GX_REFERENCE_FLOAT_MATH extern "C" __attribute__((visibility("hidden")))
+
+#define GX_FORWARD1(NAME, ID) \
+	GX_REFERENCE_FLOAT_MATH double NAME(double x) \
+	{ \
+		static Fn1 real = (Fn1)realSym(#NAME); \
+		const double r = real(x); \
+		if (g_active) record(ID, x, r); \
+		return r; \
+	}
+
+GX_FORWARD1(sin, MF_SIN)
+GX_FORWARD1(cos, MF_COS)
+GX_FORWARD1(tan, MF_TAN)
+GX_FORWARD1(asin, MF_ASIN)
+GX_FORWARD1(acos, MF_ACOS)
+GX_FORWARD1(atan, MF_ATAN)
+GX_FORWARD1(sinh, MF_SINH)
+GX_FORWARD1(cosh, MF_COSH)
+GX_FORWARD1(tanh, MF_TANH)
+GX_FORWARD1(exp, MF_EXP)
+GX_FORWARD1(log, MF_LOG)
+GX_FORWARD1(log10, MF_LOG10)
+
+GX_REFERENCE_FLOAT_MATH double atan2(double y, double x)
+{
+	static Fn2 real = (Fn2)realSym("atan2");
+	const double r = real(y, x);
+	if (g_active) record(MF_ATAN2, y, r);
+	return r;
+}
+
+GX_REFERENCE_FLOAT_MATH double pow(double x, double y)
+{
+	static Fn2 real = (Fn2)realSym("pow");
+	const double r = real(x, y);
+	if (g_active) record(MF_POW, x, r);
+	return r;
+}
 
 GX_REFERENCE_FLOAT_MATH float sinf(float x)            { return (float)sin((double)x); }
 GX_REFERENCE_FLOAT_MATH float cosf(float x)            { return (float)cos((double)x); }

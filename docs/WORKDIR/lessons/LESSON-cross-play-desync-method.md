@@ -1042,3 +1042,33 @@ and `mapper.cpp` (rendering, not simulation).
 The general lesson extends the previous one. Wrapping the functions the source calls is
 not enough. The compiler emits libm calls of its own (`sincosf`, and on other targets
 `__sincosf_stret`, `exp10f`), so verify against the binary's imports, not the source.
+
+### Instrument: who calls libm, and where a different libm could matter
+
+Fixing `sincosf` left `1.rep`'s checksum at 2000 bit-for-bit unchanged (`6AD123D1`), so
+nothing on that path produced a different bit in this window. Rather than audit more
+source, the binary now reports what it actually calls.
+`ReferenceFloatMath.cpp` defines the double libm entry points (`sin`, `cos`, `tan`,
+`asin`, `acos`, `atan`, `atan2`, `sinh`, `cosh`, `tanh`, `exp`, `log`, `log10`, `pow`) as
+hidden forwarders to the platform's own (`dlsym(RTLD_NEXT)`). Every call from the binary
+passes through them: plain double calls, the double inside our `sinf`, and merged
+`sincos`. `GameLogic::update` passes the frame number in. For a window of logic frames
+(default 1900..1999; a file `gx_math_trace.txt` with "FROM TO" moves it), each call on the
+logic thread is counted against its three innermost return addresses. A call is flagged
+**fragile** when the exact double result lies within 4 double ULPs of a float rounding
+midpoint. Only then can the PC's CRT, which is also within a fraction of an ULP, round the
+float the other way. At the end of the window:
+
+```
+[GX-NET] math trace frames 1900..1999: N libm calls on the logic thread, S call sites, F fragile ...
+[GX-NET] math site cos   calls=... fragile=... callers=libmain+0x... < 0x... < 0x...
+```
+
+Addresses are file offsets in `libmain60.so` (or `libmain.so` for the 30 Hz engine). Build
+with `GX_KEEP_SYMBOLS_DIR=<dir> ./scripts/build/android/build-dual-hz.sh` to keep a copy
+with the symbol table (`libmain60.sym.so`, same `.text` as the shipped library, checked).
+Then `llvm-symbolizer --obj=libmain60.sym.so 0x...` names each site.
+
+Reading it: **zero fragile calls in the window acquits libm for this divergence**, and
+the hunt moves to non-maths state. A non-zero count names the exact sites to compare
+against the client.

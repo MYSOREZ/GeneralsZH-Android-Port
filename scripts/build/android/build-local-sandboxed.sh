@@ -157,6 +157,19 @@ echo "Artifacts verified: AArch64 libmain.so + DXVK with SDL3 WSI"
 # reason ("Unable to strip ... packaging them as they are"), so an unstripped
 # libmain.so alone (282MB) otherwise ships straight into the APK.
 STRIP="${ANDROID_NDK_HOME}/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-strip"
+# GeneralsX @feature Android port 23/09/2026 Keep the symbol table (not the DWARF) of the
+# game library before stripping it, when asked, so addresses printed by a device log
+# (the "[GX-NET] math site" lines) can be turned back into function names. One copy per
+# engine: the 60 Hz pass is the one built with SAGE_HIGH_FPS_SIM=ON.
+if [ -n "${GX_KEEP_SYMBOLS_DIR:-}" ] && [ -f "$GAME_LIB" ]; then
+  mkdir -p "$GX_KEEP_SYMBOLS_DIR"
+  case "${GX_EXTRA_CMAKE:-}" in
+    *SAGE_HIGH_FPS_SIM=ON*) SYM_NAME="libmain60.sym.so" ;;
+    *) SYM_NAME="libmain.sym.so" ;;
+  esac
+  "$STRIP" --strip-debug -o "$GX_KEEP_SYMBOLS_DIR/$SYM_NAME" "$GAME_LIB"
+  echo "Kept symbol table: $GX_KEEP_SYMBOLS_DIR/$SYM_NAME"
+fi
 for lib in "$GAME_LIB" \
            "build/${PRESET}/_deps/sdl3-build/libSDL3.so" \
            "build/${PRESET}/_deps/sdl3_image-build/libSDL3_image.so" \
