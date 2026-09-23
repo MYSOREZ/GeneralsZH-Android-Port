@@ -1287,6 +1287,7 @@ void RecorderClass::handleCRCMessage(UnsignedInt newCRC, Int playerIndex, Bool f
 		if (TheGameLogic->getFrame() > 0 && newCRC != playbackCRC)
 		{
 			GXCrcStream::report( newCRC, playbackCRC );
+			GXCrcStream::diffAgainstPrevious( newCRC, playbackCRC );
 
 			// Once per session, hand over the whole word stream so the search for a
 			// multi-word difference can happen off the phone. Twelve words of a

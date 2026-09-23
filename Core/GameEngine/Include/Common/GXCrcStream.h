@@ -86,6 +86,11 @@ namespace GXCrcStream
 	// tested without another build.
 	void dumpSection( const char *sectionLabel, UnsignedInt theirCRC, UnsignedInt ourCRC );
 
+	// At the first mismatch, list what changed since the previous captured
+	// checkpoint (which matched), object by object, with the words, and test
+	// whether undoing any one change or pair of changes gives the other checksum.
+	void diffAgainstPrevious( UnsignedInt theirCRC, UnsignedInt ourCRC );
+
 	// True while capture is armed, so callers can skip building labels.
 	Bool isCapturing();
 }

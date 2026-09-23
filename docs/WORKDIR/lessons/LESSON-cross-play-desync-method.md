@@ -1349,3 +1349,60 @@ the fastest way on from here, as with `7.rep`/`8.rep`: the same solo start with 
 input for the first 200 frames**. If it matches at 100 and 200, the selection (or what
 the live client does around it) is the trigger. If it does not, the difference is in
 the solo start itself, and one AI added would say whether empty slots matter.
+
+## One log, five replays: which ones match, and what the client update did (23/09/2026)
+
+To tell runs apart in a log that holds several replays, use the
+`crc players frame 100` line (the player list). The replay header does not help, since
+every Tournament B recording has the same one. Results: `3.rep` (solo) and `4.rep`
+(1 AI, **8500 frames**) match to the end; `5.rep` (2 hard AIs) diverges at 3700;
+`1.rep` diverges at 4400; `USA.rep` diverges at 100.
+
+**`USA.rep` goes with the client version, not with the map or the solo start.** `3.rep`
+has the same map and the same solo start from the 28 August client, and it matches.
+`USA.rep` is the 23 September client. What is known about that update:
+
+- The client history was squashed on 12/09 into a commit titled "optimized target". It
+  adds `win32-vcpkg-optimized` (`/O2 /Ob3 /Oi /Ot /Gy /Gw /GL /arch:SSE2`, `/LTCG`,
+  optional PGO) with `RTS_MEMORYPOOL_DEBUG` off. The code changed between 28/08 and 12/09
+  is invisible.
+- Everything after 12/09 (`1f9491c`) is lobby, score screen, list box, stats, and a
+  `GameInfo` destructor that clears `TheGameInfo`. None of it runs in the simulation.
+- **Memory-pool debug is not it.** The init filler (`s_initFillerValue`) exists only when
+  `MEMORYPOOL_DEBUG` is defined, and `GameMemory.h` defines that only under `RTS_DEBUG`.
+  Release builds never had it, on either side. Pool blocks and global `new` are zeroed
+  anyway; only `malloc` is not.
+- An uninitialised-variable sweep (`-Wuninitialized -Wsometimes-uninitialized
+  -Wconditional-uninitialized` over all 428 simulation files) found 14 warnings. Each is
+  a false positive or sits on a path not taken here: `Weapon::onWeaponBonusChange` is
+  guarded by `needUpdate`, and the rest are closest-distance loops and bezier or
+  stealth code.
+
+The fastest next step is one recording from the **new** client: solo, Tournament B,
+**no input at all** for ~15 seconds. If it diverges at 100, the build itself computes
+differently and the difference is in the solo start. If it matches, the dozer selection
+at frame 61 is the trigger.
+
+**`5.rep` at 3700: an AI group appears on the checkpoint, and it is not the whole
+difference.** `afterGroups` went from 1 group to 2 exactly at the diverging checkpoint.
+The new group (id 63) holds one USA AI's command center, barracks, power plant and dozer.
+In the same frame two `SpySatellitePing` objects were created (a satellite scan fired by
+the AIs; `AIPlayer.cpp:1214`, the `computeSuperweaponTarget` grid direction, drew twice
+on frame 3700). The AI section is the last thing in the stream, so a groups-only
+difference can be tested exhaustively. Tested and rejected: no second group; any
+ordered subset of its four members; any id from 55 to 99; either dirty flag, on either
+group. So the difference lies (at least also) earlier in the stream.
+
+Why a single dump cannot settle a multi-word difference: 1418 positions each reconcile
+alone (the checksum difference behaves like one power of two), because a delta `d` at
+word `i` equals `2d` at word `i+1`. Rank candidates by what changed, not by the
+arithmetic.
+
+**Instrument: `crc since frame P`.** At the first mismatch the engine takes the previous
+snapshot from the capture ring (`RING = 4`), which is the last checkpoint that
+*matched*: both machines held exactly those words. Any difference now must lie among
+words that changed in between. It pairs spans (objects by id, sections by label) and
+prints every `new`, `gone`, `resized` or `changed` span with `+offset old>new` words. It
+tests whether undoing each single change, and each pair, gives the PC's checksum
+(`<== UNDOING THIS ALONE GIVES THE PC's CHECKSUM`). The printed words allow any partial
+hypothesis offline, such as "the PC moved this unit, but to a different place".

@@ -765,4 +765,312 @@ void report( UnsignedInt theirCRC, UnsignedInt ourCRC )
 	testHypotheses(snap, theirInternal);
 }
 
+
+// GeneralsX @feature Android port 23/09/2026 Compare against the last checkpoint that matched.
+//
+// The backward walk gives one equation per checkpoint, and a difference that spans
+// several words -- a unit that moved to a slightly different place, a group with
+// other members -- has more unknowns than that. What narrows it is the previous
+// checkpoint: it matched, so there both machines had exactly the words we captured.
+// Everything that differs at this checkpoint therefore lies among the words that
+// changed in the hundred frames between, on one machine or the other. Printing
+// those words, object by object, turns "somewhere in 150000 words" into a short list
+// that can be tested offline. The engine also runs the cheapest tests itself: for
+// each object that changed, would our stream end on the PC's number if that object
+// had NOT changed (a unit the PC did not move, an object it did not create)? And
+// the same for every pair of such objects.
+namespace
+{
+	struct Span
+	{
+		size_t pos;
+		size_t len;
+		UnsignedInt id;       // object id, or 0 for a section
+		std::string label;
+	};
+
+	UnsignedInt objectIdOf( const std::string &label )
+	{
+		if (label.compare(0, 10, "object id=") != 0)
+			return 0;
+		return (UnsignedInt)strtoul(label.c_str() + 10, nullptr, 10);
+	}
+
+	// Split a snapshot into its labelled spans: each object, and the non-object
+	// sections between them. Cell marks inside the partition section are folded
+	// into it, because one span per 16 cells would bury the report.
+	std::vector<Span> spansOf( const CrcSnapshot &snap )
+	{
+		std::vector<Span> out;
+		std::vector<const Mark *> ms;
+		for (size_t k = 0; k < snap.marks.size(); ++k)
+		{
+			if (snap.marks[k].label.compare(0, 6, "cells ") == 0)
+				continue;
+			ms.push_back(&snap.marks[k]);
+		}
+		for (size_t k = 0; k < ms.size(); ++k)
+		{
+			const size_t from = ms[k]->pos;
+			const size_t to = (k + 1 < ms.size()) ? ms[k + 1]->pos : snap.words.size();
+			if (to < from)
+				continue;
+			Span sp;
+			sp.pos = from;
+			sp.len = to - from;
+			sp.label = ms[k]->label;
+			sp.id = objectIdOf(sp.label);
+			out.push_back(sp);
+		}
+		return out;
+	}
+
+	inline UnsignedInt forwardOver( UnsignedInt c, const UnsignedInt *w, size_t n )
+	{
+		for (size_t i = 0; i < n; ++i)
+			c = rol1(c) + w[i];
+		return c;
+	}
+
+	struct Change
+	{
+		size_t curIndex;          // index into the current spans, or SIZE_MAX if removed here
+		const Span *prev;         // the span at the matching checkpoint, or nullptr if new
+		const char *what;
+	};
+}
+
+void diffAgainstPrevious( UnsignedInt theirCRC, UnsignedInt ourCRC )
+{
+	if (!GXTrace::isNetEnabled())
+		return;
+
+	static Bool done = false;
+	if (done)
+		return;
+
+	const UnsignedInt theirInternal = htobe(theirCRC);
+	const UnsignedInt ourInternal = htobe(ourCRC);
+
+	const CrcSnapshot *cs = nullptr;
+	for (size_t k = 0; k < RING; ++k)
+	{
+		if (!theRing[k].crcs.empty() && theRing[k].crcs.back() == ourInternal)
+		{
+			cs = &theRing[k];
+			break;
+		}
+	}
+	if (cs == nullptr || cs->truncated)
+		return;
+
+	const CrcSnapshot *ps = nullptr;
+	for (size_t k = 0; k < RING; ++k)
+	{
+		const CrcSnapshot &s = theRing[k];
+		if (&s == cs || !s.complete || s.truncated || s.words.empty() || s.frame >= cs->frame)
+			continue;
+		if (ps == nullptr || s.frame > ps->frame)
+			ps = &s;
+	}
+	if (ps == nullptr)
+	{
+		GX_NET_TRACE("crc since: no earlier checkpoint captured before frame %u\n", (unsigned)cs->frame);
+		return;
+	}
+	done = true;
+
+	const CrcSnapshot &cur = *cs;
+	const CrcSnapshot &prev = *ps;
+	const size_t n = cur.words.size();
+
+	// back[i]: the value the PC's accumulator must hold after word i-1, given our
+	// words from i on.
+	std::vector<UnsignedInt> back(n + 1);
+	back[n] = theirInternal;
+	for (size_t i = n; i > 0; --i)
+		back[i - 1] = ror1(back[i] - cur.words[i - 1]);
+	const std::vector<UnsignedInt> &fwd = cur.crcs;   // fwd[i] = after word i
+	#define GX_PREFIX(i) ((i) == 0 ? 0u : fwd[(i) - 1])
+
+	const std::vector<Span> cspans = spansOf(cur);
+	const std::vector<Span> pspans = spansOf(prev);
+
+	GX_NET_TRACE("crc since frame %u -> %u: %u words then, %u now, %u objects then, compared by object id\n",
+		(unsigned)prev.frame, (unsigned)cur.frame, (unsigned)prev.words.size(), (unsigned)n,
+		(unsigned)std::count_if(pspans.begin(), pspans.end(), [](const Span &s) { return s.id != 0; }));
+
+	// Pair the spans: objects by id, sections by label.
+	std::vector<Change> changes;
+	std::vector<Bool> prevUsed(pspans.size(), false);
+	for (size_t c = 0; c < cspans.size(); ++c)
+	{
+		const Span &a = cspans[c];
+		const Span *match = nullptr;
+		for (size_t p = 0; p < pspans.size(); ++p)
+		{
+			if (prevUsed[p])
+				continue;
+			if ((a.id != 0 && pspans[p].id == a.id) || (a.id == 0 && pspans[p].id == 0 && pspans[p].label == a.label))
+			{
+				match = &pspans[p];
+				prevUsed[p] = true;
+				break;
+			}
+		}
+		if (match == nullptr)
+		{
+			Change ch = { c, nullptr, "new" };
+			changes.push_back(ch);
+			continue;
+		}
+		if (match->len != a.len)
+		{
+			Change ch = { c, match, "resized" };
+			changes.push_back(ch);
+			continue;
+		}
+		if (memcmp(&cur.words[a.pos], &prev.words[match->pos], a.len * sizeof(UnsignedInt)) != 0)
+		{
+			Change ch = { c, match, "changed" };
+			changes.push_back(ch);
+		}
+	}
+	for (size_t p = 0; p < pspans.size(); ++p)
+	{
+		if (!prevUsed[p])
+		{
+			Change ch = { (size_t)-1, &pspans[p], "gone" };
+			changes.push_back(ch);
+		}
+	}
+
+	// The replacement a single change stands for: the previous words (or nothing,
+	// for an object that is new here).
+	struct Alt
+	{
+		size_t from, to;                       // replaced range in the current stream
+		const UnsignedInt *words;
+		size_t count;
+	};
+	std::vector<Alt> alts;
+	std::vector<size_t> altOf(changes.size(), (size_t)-1);
+	for (size_t k = 0; k < changes.size(); ++k)
+	{
+		const Change &ch = changes[k];
+		if (ch.curIndex == (size_t)-1)
+			continue;   // an insertion needs a position; see the offline data
+		const Span &a = cspans[ch.curIndex];
+		Alt alt;
+		alt.from = a.pos;
+		alt.to = a.pos + a.len;
+		alt.words = ch.prev ? &prev.words[ch.prev->pos] : nullptr;
+		alt.count = ch.prev ? ch.prev->len : 0;
+		altOf[k] = alts.size();
+		alts.push_back(alt);
+	}
+
+	Int lines = 0;
+	const Int MAX_LINES = 400;
+	for (size_t k = 0; k < changes.size() && lines < MAX_LINES; ++k)
+	{
+		const Change &ch = changes[k];
+		const Span *a = ch.curIndex != (size_t)-1 ? &cspans[ch.curIndex] : nullptr;
+		const char *label = a ? a->label.c_str() : ch.prev->label.c_str();
+
+		const char *verdict = "";
+		if (altOf[k] != (size_t)-1)
+		{
+			const Alt &alt = alts[altOf[k]];
+			const UnsignedInt c = forwardOver(GX_PREFIX(alt.from), alt.words, alt.count);
+			verdict = (c == back[alt.to]) ? "  <== UNDOING THIS ALONE GIVES THE PC's CHECKSUM" : "";
+		}
+
+		size_t differing = 0;
+		if (a && ch.prev && ch.prev->len == a->len)
+		{
+			for (size_t i = 0; i < a->len; ++i)
+				if (cur.words[a->pos + i] != prev.words[ch.prev->pos + i])
+					++differing;
+		}
+		GX_NET_TRACE("crc since frame %u: %-7s %s at word %u, %u words then %u now, %u differ%s\n",
+			(unsigned)prev.frame, ch.what, label, (unsigned)(a ? a->pos : ch.prev->pos),
+			(unsigned)(ch.prev ? ch.prev->len : 0), (unsigned)(a ? a->len : 0),
+			(unsigned)differing, verdict);
+		++lines;
+
+		// The words themselves, for offline tests: previous>current at each offset
+		// that differs (same length), or the whole previous block otherwise. The
+		// partition section is summarised, it is shroud and would run to thousands.
+		const Bool isPartition = strcmp(label, "ThePartitionManager") == 0;
+		if (a && ch.prev && ch.prev->len == a->len)
+		{
+			char line[1024];
+			Int len = 0;
+			Int printed = 0;
+			for (size_t i = 0; i < a->len && printed < (isPartition ? 24 : 96); ++i)
+			{
+				const UnsignedInt was = prev.words[ch.prev->pos + i];
+				const UnsignedInt now = cur.words[a->pos + i];
+				if (was == now)
+					continue;
+				len += snprintf(line + len, sizeof(line) - len, "+%u %08X>%08X ", (unsigned)i, (unsigned)was, (unsigned)now);
+				++printed;
+				if (len > 900)
+				{
+					GX_NET_TRACE("crc since frame %u:   %s\n", (unsigned)prev.frame, line);
+					len = 0;
+					line[0] = '\0';
+				}
+			}
+			if (len > 0)
+				GX_NET_TRACE("crc since frame %u:   %s\n", (unsigned)prev.frame, line);
+		}
+		else if (ch.prev && !isPartition)
+		{
+			char line[1024];
+			Int len = 0;
+			for (size_t i = 0; i < ch.prev->len && i < 200; ++i)
+			{
+				len += snprintf(line + len, sizeof(line) - len, "%08X ", (unsigned)prev.words[ch.prev->pos + i]);
+				if (len > 900)
+				{
+					GX_NET_TRACE("crc since frame %u:   then %s\n", (unsigned)prev.frame, line);
+					len = 0;
+					line[0] = '\0';
+				}
+			}
+			if (len > 0)
+				GX_NET_TRACE("crc since frame %u:   then %s\n", (unsigned)prev.frame, line);
+		}
+	}
+
+	// Every pair of undone changes. Cheap: the words between two changes are ours
+	// on both machines, so each test is a forward run over one stretch.
+	Int pairHits = 0;
+	for (size_t x = 0; x < alts.size() && pairHits < 20; ++x)
+	{
+		for (size_t y = x + 1; y < alts.size() && pairHits < 20; ++y)
+		{
+			const Alt &A = alts[x];
+			const Alt &B = alts[y];
+			if (B.from < A.to)
+				continue;
+			UnsignedInt c = forwardOver(GX_PREFIX(A.from), A.words, A.count);
+			c = forwardOver(c, &cur.words[A.to], B.from - A.to);
+			c = forwardOver(c, B.words, B.count);
+			if (c == back[B.to])
+			{
+				size_t offA = 0, offB = 0;
+				GX_NET_TRACE("crc since frame %u: undoing both %s and %s gives the PC's checksum\n",
+					(unsigned)prev.frame, labelForPosition(cur, A.from, &offA), labelForPosition(cur, B.from, &offB));
+				++pairHits;
+			}
+		}
+	}
+	#undef GX_PREFIX
+	GX_NET_TRACE("crc since frame %u: %u changes listed, %d pair tests matched\n",
+		(unsigned)prev.frame, (unsigned)changes.size(), pairHits);
+}
+
 } // namespace GXCrcStream
