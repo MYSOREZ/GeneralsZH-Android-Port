@@ -1861,3 +1861,10 @@ shows `InGame:… Replay:… Frame:N`. So:
 3. First play OUT.rep on the phone. It must match itself at every frame, which proves
    the alignment. Then play it on the **PC**: the PC pauses at the first frame where
    it disagrees with the phone.
+4. Read `Frame:N` correctly. The checksum of frame N is taken after scripts and terrain
+   but **before** the objects update, so a mismatch at N was made while objects updated
+   in frame N-1. First use (USA_Supply_Clear): the PC stopped at 3594, which puts the
+   difference in the Chinook's first step toward the dock point at 3593.
+5. To get the word stream of that one frame, rewrite the phone copy once more with the
+   PC's value (`InGame:`) at frame N only. The phone then mismatches there alone and
+   dumps exactly that frame for the locator and the model.
