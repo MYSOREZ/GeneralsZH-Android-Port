@@ -1319,3 +1319,33 @@ in `libmain60.so`). The handler in `ReferenceFloatMath.cpp` prints each site onc
 That separates a harmful NaN conversion, where x86 gives 0x80000000 and ARM gives
 0/saturation, from the harmless comparisons the `invalid` flag also reports. The
 handler is reachable only from `libmain`; third-party libraries are not instrumented.
+
+**`USA.rep`, measured with the float-cast detector:** in frames 0..99 the only NaN or
+out-of-range float-to-int conversions are client-side (`W3DParticleSys.cpp:236`, a
+colour to `unsigned char`, and `GadgetVerticalSlider.cpp:387/388` in the UI). Nothing
+in the simulation. That class is out for this divergence too.
+
+More hypotheses for `USA.rep` at frame 100, each tested against the PC checksum over the
+full dump and rejected:
+
+- **Shroud layout.** Each partition cell is 16 player words plus X, Y. Our replay
+  observer is player 3 (`FFFF0000` in every cell); players 4..15 hold the default
+  `01000000`. Moving the observer's column to any index 4..15, duplicating it, or
+  removing it: no match at 100 or 200.
+- **Player count.** `ThePlayerList` is the count followed by 3 words per player
+  (battle-plan bool, skill points, science purchase points). Counts 2..9, with any one
+  player dropped or default players added: no match at 100, 200 or 300.
+- **The dozer's start position, jointly with the RNG.** The starting dozer appears at
+  different places in the two recordings (`1.rep` (1408.82, 739.92), `USA.rep`
+  (1427.03, 784.97), with the same command centre), so its placement is computed. Every
+  position within ±300 on a 2.5 grid, combined with the seed after 0..400 draws
+  (required state computed backwards from the PC checksum through the known words):
+  no match.
+
+What is known about the first 100 frames of `USA.rep`: 11 objects change (the dozer and
+10 civilian cars snap to pathfind cells, identically to `1.rep`), 81 logic draws in
+total, and the one player action is the dozer selection at 61. A targeted recording is
+the fastest way on from here, as with `7.rep`/`8.rep`: the same solo start with **no
+input for the first 200 frames**. If it matches at 100 and 200, the selection (or what
+the live client does around it) is the trigger. If it does not, the difference is in
+the solo start itself, and one AI added would say whether empty slots matter.
