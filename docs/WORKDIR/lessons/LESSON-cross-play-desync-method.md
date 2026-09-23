@@ -1267,3 +1267,55 @@ goes through `lroundf`. For NaN or infinity, 32-bit MSVC's 32-bit `long` gives
 (`AI state <id that ran>`), after the path/turret bookkeeping (`AI misc`) and after
 `doLocomotor` (`AI locomotor`), through `gxFpCheckpoint()` in `GameLogic.cpp`. The
 per-window kind table therefore names the AI state or the locomotor.
+
+**`1.rep` at 4400, measured further:** inside `AIUpdateInterface::update`, the Rangers
+raise `invalid` in the **locomotor** and the GLA workers in **AI state 14**, in the
+diverging window and in the matching ones alike. The flag cannot say whether that is a
+harmless ordered comparison with a NaN (same `false` on both machines) or a NaN
+converted to an integer (different integers).
+
+### `USA.rep`: a second, early divergence (23/09/2026)
+
+A new recording, solo on Tournament B, diverges already at **frame 100**. It was made
+by a **newer PC client** (`build='Sep 23 2026 00:07:44'`, exe CRC `FBA615FA`, against
+`Aug 28` / `B9DB8815` for `1.rep`), but that is not the cause. The client's `main`
+(fetched: `1f9491c`, 22/09) differs from the 12/09 snapshot only in lobby, score screen,
+list box and stats code. The repository history was squashed on 12/09
+("networking.cmake / optimized target"), and the optimized preset is
+`/O2 /Ob3 /Oi /Ot /GL /LTCG /arch:SSE2` with no `/fp` change, so the float semantics are
+the same.
+
+What was ruled out for frames 0..99 of `USA.rep`:
+
+- no `invalid`, no denormal, zero fragile libm calls;
+- **not an extra or missing logic random draw.** The RNG was rebuilt from the replay
+  header's `SD=1018613559` (`rngsim.py`: `seedRandom`, `randomValue`, the byte-wise seed
+  CRC). It reproduces our seed CRCs exactly (80 draws at frame 0, 81 at frame 100).
+  Substituting the seed after any of 0..400 draws does not produce the PC's checksum
+  with everything else equal;
+- no single static word, frame-consistent across the dumps at 100/200/300/600 (words
+  aligned by object id, and the tail from the end);
+- not the pathfinder snap of the 10 civilian cars and the dozer to cell centres (the
+  same objects snap identically in `1.rep`, which matches at 100). Moving any of them
+  by multiples of half a cell, or leaving it unsnapped, does not reconcile;
+- not the sign of zero in the car matrices (155 `-0.0` words, flipped all together or
+  by matrix offset).
+
+The only player action before 100 is selecting the dozer at 61 (plus retaliation mode,
+which `1.rep` also has). Selection creates a temporary `AIGroup` that is freed before
+the checksum, identical to the client.
+
+### Instrument: every NaN or out-of-range float-to-integer conversion, by file and line
+
+`-fsanitize=float-cast-overflow -fsanitize-recover=float-cast-overflow` on the engine's
+own targets (`core_config` in `cmake/config-build.cmake`; 1410 instrumented conversions
+in `libmain60.so`). The handler in `ReferenceFloatMath.cpp` prints each site once:
+
+```
+[GX-NET] float->int out of range frame N (logic): Locomotor.cpp:1234:17 float nan -> int
+[GX-NET] float->int window frames 4300..4399: Locomotor.cpp:1234 x36
+```
+
+That separates a harmful NaN conversion, where x86 gives 0x80000000 and ARM gives
+0/saturation, from the harmless comparisons the `invalid` flag also reports. The
+handler is reachable only from `libmain`; third-party libraries are not instrumented.

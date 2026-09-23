@@ -84,6 +84,18 @@ if(NOT IS_VS6_BUILD)
     target_compile_features(core_config INTERFACE cxx_std_20)
 endif()
 
+# GeneralsX @feature Android port 23/09/2026 Report every float-to-integer conversion of a NaN
+# or an out-of-range value, with its file and line. That is where x86 (0x80000000) and ARM
+# (saturation) produce different integers from the same source -- the cause of the debris
+# desync -- and the fp "invalid" flag cannot tell it apart from a harmless NaN comparison.
+# The check is clang's; the handler that logs it lives in GeneralsMD/Code/Main/
+# ReferenceFloatMath.cpp, so this is limited to the engine's own targets (core_config) and
+# never reaches third-party libraries that would not link it. Recoverable: the conversion
+# still happens as before, it is only reported.
+if(ANDROID)
+    target_compile_options(core_config INTERFACE -fsanitize=float-cast-overflow -fsanitize-recover=float-cast-overflow)
+endif()
+
 if(IS_VS6_BUILD AND RTS_BUILD_OPTION_VC6_FULL_DEBUG)
     target_compile_options(core_config INTERFACE ${RTS_FLAGS} /Zi)
 else()

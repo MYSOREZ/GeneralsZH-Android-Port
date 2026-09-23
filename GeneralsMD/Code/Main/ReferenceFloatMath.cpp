@@ -81,6 +81,18 @@
 
 namespace
 {
+	bool GXTraceNetEnabled()
+	{
+		static int state = -1;
+		if (state < 0)
+		{
+			const char *env = getenv("GX_NET_TRACE");
+			if (env != nullptr && env[0] != '\0' && env[0] != '0') state = 1;
+			else { FILE *m = fopen("gx_net_trace.txt", "r"); state = m ? 1 : 0; if (m) fclose(m); }
+		}
+		return state == 1;
+	}
+
 	typedef double (*Fn1)(double);
 	typedef double (*Fn2)(double, double);
 
@@ -272,6 +284,79 @@ namespace
 	}
 }
 
+// GeneralsX @feature Android port 23/09/2026 Float-to-integer conversions of a NaN or an
+// out-of-range value, reported by clang's -fsanitize=float-cast-overflow (enabled for the
+// engine's targets in cmake/config-build.cmake). These give 0x80000000 on the reference PC
+// client's x86 and a saturated value (or 0 for NaN) on ARM, so each one is a place where the
+// same source computes a different integer. Every site is printed once with its file, line,
+// value and whether it ran on the logic thread; the logic-thread ones are also counted per
+// 100-frame window next to the math window.
+namespace
+{
+	struct UbsanLoc { const char *file; unsigned line; unsigned column; };
+	struct UbsanType { unsigned short kind; unsigned short info; char name[1]; };
+	struct UbsanFloatCastData { UbsanLoc loc; const UbsanType *from; const UbsanType *to; };
+
+	const int kCastSites = 512;
+	const void *g_castSite[kCastSites];
+	unsigned g_castCount[kCastSites];
+	unsigned g_castWindow[kCastSites];
+	int g_castSites = 0;
+	volatile int g_castLock = 0;
+	unsigned g_winCasts = 0;
+
+	void noteFloatCast(const UbsanFloatCastData *d, unsigned long bits)
+	{
+		if (!GXTraceNetEnabled())
+			return;
+		fexcept_t saved;
+		fegetexceptflag(&saved, FE_ALL_EXCEPT);
+		while (__sync_lock_test_and_set(&g_castLock, 1)) {}
+		const bool logic = g_active && pthread_equal(pthread_self(), g_thread);
+		int idx = -1;
+		for (int i = 0; i < g_castSites; ++i)
+			if (g_castSite[i] == d) { idx = i; break; }
+		bool first = false;
+		if (idx < 0 && g_castSites < kCastSites)
+		{
+			idx = g_castSites++;
+			g_castSite[idx] = d;
+			g_castCount[idx] = 0;
+			g_castWindow[idx] = 0;
+			first = true;
+		}
+		if (idx >= 0)
+		{
+			++g_castCount[idx];
+			if (logic) { ++g_castWindow[idx]; ++g_winCasts; }
+		}
+		__sync_lock_release(&g_castLock);
+		if (first)
+		{
+			double v = 0.0;
+			const unsigned width = d->from ? d->from->info : 0;
+			if (width == 32) { unsigned u = (unsigned)bits; float f; memcpy(&f, &u, 4); v = f; }
+			else if (width == 64) { memcpy(&v, &bits, 8); }
+			const char *file = d->loc.file ? d->loc.file : "?";
+			const char *slash = strrchr(file, '/');
+			fprintf(stderr, "[GX-NET] float->int out of range frame %u%s: %s:%u:%u %s %.9g -> %s\n",
+				g_frame, logic ? " (logic)" : " (other thread)", slash ? slash + 1 : file, d->loc.line, d->loc.column,
+				d->from ? d->from->name : "?", v, d->to ? d->to->name : "?");
+			fflush(stderr);
+		}
+		fesetexceptflag(&saved, FE_ALL_EXCEPT);
+	}
+}
+
+extern "C" void __ubsan_handle_float_cast_overflow(void *data, unsigned long from)
+{
+	noteFloatCast(static_cast<const UbsanFloatCastData *>(data), from);
+}
+extern "C" void __ubsan_handle_float_cast_overflow_abort(void *data, unsigned long from)
+{
+	noteFloatCast(static_cast<const UbsanFloatCastData *>(data), from);
+}
+
 // Called by GameLogic::update once per logic frame, on the logic thread, when the network
 // trace is on.
 extern "C" __attribute__((visibility("hidden"))) void gxMathTraceFrame(unsigned frame)
@@ -297,8 +382,22 @@ extern "C" __attribute__((visibility("hidden"))) void gxMathTraceFrame(unsigned 
 				e.frame, kFnName[e.fn], e.arg, e.result,
 				e.pc[0] ? e.pc[0] - g_base : 0, e.pc[1] ? e.pc[1] - g_base : 0, e.pc[2] ? e.pc[2] - g_base : 0);
 		}
+		if (g_winCasts > 0)
+		{
+			for (int i = 0; i < g_castSites; ++i)
+			{
+				if (g_castWindow[i] == 0)
+					continue;
+				const UbsanFloatCastData *d = static_cast<const UbsanFloatCastData *>(g_castSite[i]);
+				const char *file = d->loc.file ? d->loc.file : "?";
+				const char *slash = strrchr(file, '/');
+				fprintf(stderr, "[GX-NET] float->int window frames %u..%u: %s:%u x%u\n", frame - 100, frame - 1,
+					slash ? slash + 1 : file, d->loc.line, g_castWindow[i]);
+				g_castWindow[i] = 0;
+			}
+		}
 		fflush(stderr);
-		g_winCalls = g_winFragile = 0; g_eventCount = 0;
+		g_winCalls = g_winFragile = 0; g_eventCount = 0; g_winCasts = 0;
 	}
 	g_frame = frame;
 	g_thread = pthread_self();
