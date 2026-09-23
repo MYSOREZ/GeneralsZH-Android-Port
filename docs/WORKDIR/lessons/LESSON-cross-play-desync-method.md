@@ -1441,3 +1441,42 @@ preset). The most useful artefact now is **the new `generalszh.exe` itself**. It
 PE32, and disassembling it answers what reading the source cannot: whether
 `sin`/`cos`/`atan2` go to `__libm_sse2_*` or x87, whether `WWMath::Inv_Sqrt` is still
 the x87 asm, and whether float code is SSE2 or x87.
+
+## Found: the new client appends a logic-CRC revision tag (23/09/2026)
+
+The 23 September divergence was never in the simulation. Here is how it was found.
+
+1. **The data pack is not it.** The GeneralsOnline data pack is a public zip listed
+   in `https://cdn.playgenerals.online/manifest.json`. Comparing the old one
+   (`082826_QFE1`) with the new one (`092226_QFE1`): all 174 data files are
+   byte-identical. Only the exe and its DLLs changed. So "update the data pack on the
+   phone" is not the fix, even though the phone was on the old one.
+2. **Both exes are PE32 with no symbols**, so they can be compared directly. Both are
+   linked with MSVC 14.51 and import the same `_libm_sse2_*_precise`, `_CIatan2` and
+   `_ftol`. `WWMath::Inv_Sqrt` is the same x87 asm, inlined in 212 places in each.
+   Float codegen statistics are nearly equal. The new exe does route indirect calls
+   through Control Flow Guard (`call [__guard_check_icall_fptr]`).
+3. **The checksum function is found by its strings.** `push offset "MARKER:Objects"`
+   appears in exactly one function. Diffing that function's normalised instructions
+   between the two exes shows one real change. After `MARKER:TheAI`/`TheAI` and the
+   `GameSave` block, the new exe does
+   `xferAsciiString("MARKER:OfficialLogicCRCRevision")` followed by
+   `xferUnsignedInt(0x474F0001)` ("GO", revision 1), on every checksum.
+4. **Verified offline to the bit.** Appending those words to our own captured stream
+   reproduces the PC's recorded checksum exactly: `075B2848` for the no-input
+   `New_clear.rep` and `737E0FCA` for `USA.rep`.
+
+So the port simulated the new client's game correctly all along. It just did not tag
+the checksum. `GameLogic::getCRC` now appends the tag (`GO_LOGIC_CRC_REVISION`) and
+keeps both variants of the last 8 checkpoints. During playback,
+`RecorderClass::handleCRCMessage` adopts whichever variant the recording uses at the
+first checkpoint, so replays from the 28/08 client still compare correctly.
+`GameLogic::reset` restores the tag for the next game, so live matches always send it.
+
+**Lesson:** when a new client version diverges on the *first* checkpoint of a
+*no-input* game and stays at a constant pair of checksums, suspect *what* is hashed
+before *what* is simulated. And when the other side's binary is available, the checksum
+function is the first thing to diff: it is easy to find through its `MARKER:` strings.
+The rest of the tool chain (`crc since`, the two-replay test, the shroud footprint
+model) ruled out the state and pointed away from the simulation, which is what made
+the binary worth reading.

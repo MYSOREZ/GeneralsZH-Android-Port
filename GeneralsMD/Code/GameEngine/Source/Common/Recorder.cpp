@@ -1234,6 +1234,24 @@ void RecorderClass::handleCRCMessage(UnsignedInt newCRC, Int playerIndex, Bool f
 			}
 			return;
 		}
+		// GeneralsX @bugfix Android port 23/09/2026 Follow the recording's CRC revision.
+		// The 23/09 GeneralsOnline client ends every checksum with a revision tag the
+		// 28/08 client did not have (GameLogic::getCRC). Which one recorded this replay
+		// is settled by the first checkpoint: if the recorded value is our own checksum
+		// with the tag switched the other way, adopt that setting for the rest of the
+		// playback. A real divergence matches neither variant and is reported as before.
+		if (newCRC != playbackCRC && TheGameLogic->adoptLogicCRCRevisionFrom(newCRC, &playbackCRC))
+		{
+			if (GXTrace::isNetEnabled())
+			{
+				fprintf(stderr, "[GX-NET] replay crc: recording uses logic CRC revision %s;"
+					" switching to it (frame %u)\n",
+					GameLogic::getLogicCRCRevision() ? "0x474F0001 (GeneralsOnline 23/09 and later)"
+						: "none (GeneralsOnline 28/08 and earlier)",
+					(unsigned)describedFrame);
+				fflush(stderr);
+			}
+		}
 		//DEBUG_LOG(("RecorderClass::handleCRCMessage() - Comparing CRCs of InGame:%8.8X Replay:%8.8X Frame:%d from Player %d",
 		//	playbackCRC, newCRC, TheGameLogic->getFrame()-m_crcInfo->GetQueueSize()-1, playerIndex));
 		// GeneralsX @feature Android port 13/09/2026 Report every comparison, not a

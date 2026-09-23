@@ -283,6 +283,12 @@ GameLogic::GameLogic()
 {
 	m_background = nullptr;
 	m_CRC = 0;
+	for (Int gxv = 0; gxv < CRC_VARIANT_RING; ++gxv)
+	{
+		m_crcWithRevision[gxv] = 0;
+		m_crcWithoutRevision[gxv] = 0;
+	}
+	m_crcVariantNext = 0;
 	m_isInUpdate = FALSE;
 
 	m_rankPointsToAddAtGameStart = 0;
@@ -492,6 +498,15 @@ void GameLogic::reset()
 	TheScriptEngine->reset();
 
 	m_CRC = 0;
+	for (Int gxv = 0; gxv < CRC_VARIANT_RING; ++gxv)
+	{
+		m_crcWithRevision[gxv] = 0;
+		m_crcWithoutRevision[gxv] = 0;
+	}
+	m_crcVariantNext = 0;
+	// Every game starts on the current GeneralsOnline revision; only a replay from an
+	// older client switches it off, and that must not carry into the next match.
+	s_logicCRCRevision = GO_LOGIC_CRC_REVISION;
 	for(Int i = 0; i < MAX_SLOTS; ++i)
 	{
 		m_progressComplete[i] = FALSE;
@@ -4518,6 +4533,8 @@ UnsignedInt GameLogic::getCRC( Int mode, AsciiString deepCRCFileName )
 
 	XferCRC *xferCRC;
 	AsciiString marker;
+	UnsignedInt gxRevisionResult = 0;
+	Bool gxRevisionResultValid = FALSE;
 	if (deepCRCFileName.isNotEmpty())
 	{
 		xferCRC = NEW XferDeepCRC;
@@ -4746,6 +4763,41 @@ UnsignedInt GameLogic::getCRC( Int mode, AsciiString deepCRCFileName )
 		TheGameState->friend_xferSaveDataForCRC(xferCRC, SNAPSHOT_DEEPCRC_LOGICONLY);
 	}
 
+	// GeneralsX @bugfix Android port 23/09/2026 End with the GeneralsOnline revision tag.
+	//
+	// Found by disassembling GeneralsOnlineZH_60.exe from the 22/09 data pack
+	// (092226_QFE1): after the GameSave block its getCRC xfers one more marker,
+	// "MARKER:OfficialLogicCRCRevision", and the UnsignedInt 0x474F0001 -- on every
+	// checksum, whatever the mode. The 28/08 exe (082826_QFE1) ends at TheAI. Nothing
+	// in the simulation changed: appending exactly those words to this device's stream
+	// reproduces the new client's recorded checksums bit for bit (a no-input solo
+	// start and USA.rep), where every hypothesis about the game state had failed.
+	//
+	// Both variants are kept for the last few checkpoints, so a replay from either
+	// client is compared correctly (see adoptLogicCRCRevisionFrom), and the stream
+	// capture only records the tail when it is part of the checksum we report.
+	{
+		const UnsignedInt withoutRevision = xferCRC->getCRC();
+		const Bool captureTail = s_logicCRCRevision != 0;
+		if (!captureTail)
+			xferCRC->gxEnableCapture( FALSE );
+		GXCrcStream::mark("OfficialLogicCRCRevision");
+		marker = "MARKER:OfficialLogicCRCRevision";
+		xferCRC->xferAsciiString(&marker);
+		UnsignedInt revision = GO_LOGIC_CRC_REVISION;
+		xferCRC->xferUnsignedInt(&revision);
+		const UnsignedInt withRevision = xferCRC->getCRC();
+
+		if (isInGameLogicUpdate() && xferCRC->getXferMode() == XFER_CRC)
+		{
+			m_crcWithRevision[m_crcVariantNext] = withRevision;
+			m_crcWithoutRevision[m_crcVariantNext] = withoutRevision;
+			m_crcVariantNext = (m_crcVariantNext + 1) % CRC_VARIANT_RING;
+		}
+		gxRevisionResult = captureTail ? withRevision : withoutRevision;
+		gxRevisionResultValid = TRUE;
+	}
+
 	if (gxTraceParts)
 	{
 		GX_NET_TRACE("crc parts frame %u: afterAI=%08X  (objects counted: %d)\n",
@@ -4759,7 +4811,7 @@ UnsignedInt GameLogic::getCRC( Int mode, AsciiString deepCRCFileName )
 	// does not reach us until several frames later in a live match.
 	GXCrcStream::end();
 
-	UnsignedInt theCRC = xferCRC->getCRC();
+	UnsignedInt theCRC = gxRevisionResultValid ? gxRevisionResult : xferCRC->getCRC();
 
 	delete xferCRC;
 	xferCRC = nullptr;
@@ -4769,6 +4821,28 @@ UnsignedInt GameLogic::getCRC( Int mode, AsciiString deepCRCFileName )
 		CRCGEN_LOG(("CRC for frame %d is 0x%8.8X", m_frame, theCRC));
 	}
 	return theCRC;
+}
+
+// ------------------------------------------------------------------------------------------------
+UnsignedInt GameLogic::s_logicCRCRevision = GameLogic::GO_LOGIC_CRC_REVISION;
+
+// ------------------------------------------------------------------------------------------------
+Bool GameLogic::adoptLogicCRCRevisionFrom( UnsignedInt recorded, UnsignedInt *ours )
+{
+	for (Int i = 0; i < CRC_VARIANT_RING; ++i)
+	{
+		const UnsignedInt current = s_logicCRCRevision ? m_crcWithRevision[i] : m_crcWithoutRevision[i];
+		const UnsignedInt other = s_logicCRCRevision ? m_crcWithoutRevision[i] : m_crcWithRevision[i];
+		if (ours != nullptr && current != *ours)
+			continue;
+		if (other != recorded || other == current)
+			continue;
+		s_logicCRCRevision = s_logicCRCRevision ? 0 : (UnsignedInt)GO_LOGIC_CRC_REVISION;
+		if (ours != nullptr)
+			*ours = other;
+		return TRUE;
+	}
+	return FALSE;
 }
 
 // ------------------------------------------------------------------------------------------------

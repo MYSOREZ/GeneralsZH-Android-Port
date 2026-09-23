@@ -141,6 +141,19 @@ public:
 	UnsignedInt getFrame();										///< Returns the current simulation frame number
 	UnsignedInt getCRC( Int mode = CRC_CACHED, AsciiString deepCRCFileName = AsciiString::TheEmptyString );		///< Returns the CRC
 
+	// GeneralsX @bugfix Android port 23/09/2026 The GeneralsOnline logic-CRC revision tag.
+	// The 23/09/2026 GeneralsOnline client ends every logic CRC with the string
+	// "MARKER:OfficialLogicCRCRevision" and the word 0x474F0001 ("GO", revision 1);
+	// the 28/08/2026 client did not. 0 means "append nothing". See getCRC().
+	enum { GO_LOGIC_CRC_REVISION = 0x474F0001 };
+	static void setLogicCRCRevision( UnsignedInt revision ) { s_logicCRCRevision = revision; }
+	static UnsignedInt getLogicCRCRevision() { return s_logicCRCRevision; }
+	// For a replay: if 'recorded' is what one of our recent checksums would have been
+	// with the revision tag switched the other way, adopt that setting and return the
+	// matching value through *ours. Lets one build play back recordings from both
+	// clients without being told which one made them.
+	Bool adoptLogicCRCRevisionFrom( UnsignedInt recorded, UnsignedInt *ours );
+
 	void setObjectIDCounter( ObjectID nextObjID ) { m_nextObjID = nextObjID; }
 	ObjectID getObjectIDCounter() { return m_nextObjID; }
 #if defined(GENERALS_ONLINE_HIGH_FPS_SERVER)
@@ -399,6 +412,12 @@ private:
 
 	// CRC cache system -----------------------------------------------------------------------------
 	UnsignedInt	m_CRC;																			///< Cache of previous CRC value
+	static UnsignedInt s_logicCRCRevision;
+	// Recent checksums with and without the revision tag, for adoptLogicCRCRevisionFrom().
+	enum { CRC_VARIANT_RING = 8 };
+	UnsignedInt m_crcWithRevision[CRC_VARIANT_RING];
+	UnsignedInt m_crcWithoutRevision[CRC_VARIANT_RING];
+	Int m_crcVariantNext;
 	typedef std::map<Int, UnsignedInt> CachedCRCMap;
 	CachedCRCMap m_cachedCRCs;															///< CRCs we've seen this frame
 	Bool m_shouldValidateCRCs;															///< Should we validate CRCs this frame?
