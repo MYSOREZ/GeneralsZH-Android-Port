@@ -1115,3 +1115,33 @@ is not necessarily different behaviour. The flags are now global for non-MSVC bu
 (`cmake/compilers.cmake`), which makes the port's semantics the reference compiler's.
 `1.rep` decides whether any of it ran in the diverging window: if the checksum at 2000
 changes, it did.
+
+**Measured: compiler assumptions acquitted too.** With
+`-fno-strict-aliasing -fwrapv -fno-delete-null-pointer-checks` the checksum at 2000 was
+still `6AD123D1`. None of the 276 changed files changed behaviour in the window. The
+flags stay: they are the reference compiler's semantics.
+
+### Instrument: floating-point exception flags per logic frame
+
+What remains is where x86 and ARM differ **with identical instructions**:
+
+- denormals, if either machine runs with flush-to-zero. Drivers and audio mixers set
+  it; debris spin rates decay geometrically towards zero every frame and cross into
+  the denormal range;
+- converting NaN or an out-of-range float to an integer: 0x80000000 on x86 SSE,
+  saturated or 0 on ARM64.
+
+The CRC dump cannot show these. The spin rates are not hashed, and the object words
+that looked denormal turned out to be IDs and frame numbers. So `GameLogic::update` now
+reads `fetestexcept` at the end of every logic frame. `setFPMode()` clears the flags at
+the start, so the reading covers exactly one frame of simulation. It prints
+
+```
+[GX-NET] fp flags frame N: underflow(denormal) invalid(NaN) divbyzero(inf) overflow(inf)
+[GX-NET] fp flags frames A..B: underflow in U frames, NaN in V, div-by-zero in W, overflow in X
+```
+
+The math trace saves and restores the flags around its own bookkeeping, so it does not
+pollute the reading. A frame in the diverging window that raises `invalid` or
+`underflow` names the class; if nothing is raised in 1900..1999 while earlier windows
+are equally clean, this class is out too.

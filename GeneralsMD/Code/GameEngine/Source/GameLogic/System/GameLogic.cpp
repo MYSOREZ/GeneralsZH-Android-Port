@@ -4135,6 +4135,48 @@ void GameLogic::update()
 
 
 
+#if !(defined(_MSC_VER) && defined(_M_IX86))
+	// GeneralsX @feature Android port 23/09/2026 Which logic frames produced a denormal, a NaN
+	// or an infinity. Those are where x86 and ARM part ways even with identical arithmetic:
+	// flush-to-zero may be on on one machine and not the other, and converting NaN or an
+	// out-of-range float to an integer gives 0x80000000 on x86 but a saturated value on
+	// ARM. setFPMode() clears the flags at the top of every logic update, so what is raised
+	// here was raised by this frame's simulation.
+	if (GXTrace::isNetEnabled())
+	{
+		static UnsignedInt s_fpLines = 0;
+		static UnsignedInt s_fpFrames[4] = { 0, 0, 0, 0 };
+		static UnsignedInt s_fpWindowStart = 0;
+		if (m_frame == 0)
+		{
+			s_fpLines = 0;
+			s_fpFrames[0] = s_fpFrames[1] = s_fpFrames[2] = s_fpFrames[3] = 0;
+			s_fpWindowStart = 0;
+		}
+		const int raised = fetestexcept(FE_UNDERFLOW | FE_INVALID | FE_DIVBYZERO | FE_OVERFLOW);
+		if (raised & FE_UNDERFLOW) ++s_fpFrames[0];
+		if (raised & FE_INVALID) ++s_fpFrames[1];
+		if (raised & FE_DIVBYZERO) ++s_fpFrames[2];
+		if (raised & FE_OVERFLOW) ++s_fpFrames[3];
+		if (raised != 0 && s_fpLines < 400)
+		{
+			++s_fpLines;
+			GX_NET_TRACE("fp flags frame %u:%s%s%s%s\n", (unsigned)m_frame,
+				(raised & FE_UNDERFLOW) ? " underflow(denormal)" : "",
+				(raised & FE_INVALID) ? " invalid(NaN)" : "",
+				(raised & FE_DIVBYZERO) ? " divbyzero(inf)" : "",
+				(raised & FE_OVERFLOW) ? " overflow(inf)" : "");
+		}
+		if (m_frame % 100 == 99)
+		{
+			GX_NET_TRACE("fp flags frames %u..%u: underflow in %u frames, NaN in %u, div-by-zero in %u, overflow in %u\n",
+				(unsigned)s_fpWindowStart, (unsigned)m_frame, s_fpFrames[0], s_fpFrames[1], s_fpFrames[2], s_fpFrames[3]);
+			s_fpFrames[0] = s_fpFrames[1] = s_fpFrames[2] = s_fpFrames[3] = 0;
+			s_fpWindowStart = m_frame + 1;
+		}
+	}
+#endif
+
 	// increment world time
 	if (!m_startNewGame)
 	{

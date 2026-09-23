@@ -61,6 +61,7 @@
 #if !(defined(_MSC_VER) && defined(_M_IX86))
 
 #include <dlfcn.h>
+#include <fenv.h>
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -153,10 +154,20 @@ namespace
 		return dist <= 4.0 * ulp;
 	}
 
+	void recordInner(int fn, double arg, double result);
 	void record(int fn, double arg, double result)
 	{
 		if (!g_active || !pthread_equal(pthread_self(), g_thread))
 			return;
+		// the bookkeeping below does float arithmetic of its own; keep it out of the
+		// exception flags the simulation's own fp-flags trace reads
+		fexcept_t saved;
+		fegetexceptflag(&saved, FE_ALL_EXCEPT);
+		recordInner(fn, arg, result);
+		fesetexceptflag(&saved, FE_ALL_EXCEPT);
+	}
+	void recordInner(int fn, double arg, double result)
+	{
 		Walk w; w.n = 0;
 		_Unwind_Backtrace(walkCb, &w);
 		// frame 0 is record(), frame 1 the forwarder; the callers start at 2
