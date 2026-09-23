@@ -166,14 +166,40 @@ namespace
 		recordInner(fn, arg, result);
 		fesetexceptflag(&saved, FE_ALL_EXCEPT);
 	}
+	// Whole-game watch: every call is checked for fragility, and the fragile ones -- the
+	// only calls where a different libm could hand the simulation a different float -- are
+	// kept with their frame and callers and printed per 100-frame window.
+	unsigned g_frame = 0;
+	unsigned g_winCalls = 0, g_winFragile = 0;
+	const int kEvents = 12;
+	struct FragileEvent { int fn; unsigned frame; double arg; double result; unsigned long pc[kDepth]; };
+	FragileEvent g_events[kEvents];
+	int g_eventCount = 0;
+
 	void recordInner(int fn, double arg, double result)
 	{
+		++g_winCalls;
+		if (fragile(result))
+		{
+			++g_winFragile;
+			if (g_eventCount < kEvents)
+			{
+				Walk ew; ew.n = 0;
+				_Unwind_Backtrace(walkCb, &ew);
+				FragileEvent &e = g_events[g_eventCount++];
+				e.fn = fn; e.frame = g_frame; e.arg = arg; e.result = result;
+				for (int i = 0; i < kDepth; ++i)
+					e.pc[i] = (i + 3 < ew.n) ? ew.pc[i + 3] : 0;	// + recordInner, record, forwarder
+			}
+		}
+		if (!(g_frame >= g_from && g_frame < g_to))
+			return;
 		Walk w; w.n = 0;
 		_Unwind_Backtrace(walkCb, &w);
-		// frame 0 is record(), frame 1 the forwarder; the callers start at 2
+		// frames: recordInner, record, the forwarder; the callers start at 3
 		unsigned long pc[kDepth] = { 0, 0, 0 };
 		for (int i = 0; i < kDepth; ++i)
-			if (i + 2 < w.n) pc[i] = w.pc[i + 2];
+			if (i + 3 < w.n) pc[i] = w.pc[i + 3];
 		unsigned h = (unsigned)fn * 2654435761u;
 		for (int i = 0; i < kDepth; ++i) h ^= (unsigned)(pc[i] * 0x9E3779B1u) + (h << 6) + (h >> 2);
 		const bool frag = fragile(result);
@@ -257,21 +283,30 @@ extern "C" __attribute__((visibility("hidden"))) void gxMathTraceFrame(unsigned 
 		// a new game: forget the previous one
 		memset(g_sites, 0, sizeof(g_sites));
 		g_siteCount = 0; g_overflow = 0; g_dumped = 0; g_active = 0;
+		g_winCalls = g_winFragile = 0; g_eventCount = 0;
 		return;
 	}
-	if (frame >= g_from && frame < g_to)
+	if (frame % 100 == 0 && g_winCalls > 0)
 	{
-		g_thread = pthread_self();
-		g_active = 1;
-	}
-	else
-	{
-		g_active = 0;
-		if (frame >= g_to && !g_dumped && g_siteCount > 0)
+		fprintf(stderr, "[GX-NET] math window frames %u..%u: %u libm calls on the logic thread, %u fragile\n",
+			frame - 100, frame - 1, g_winCalls, g_winFragile);
+		for (int i = 0; i < g_eventCount; ++i)
 		{
-			g_dumped = 1;
-			dump();
+			const FragileEvent &e = g_events[i];
+			fprintf(stderr, "[GX-NET] math fragile frame %u: %s(%.17g) = %.17g callers=libmain+0x%lx < 0x%lx < 0x%lx\n",
+				e.frame, kFnName[e.fn], e.arg, e.result,
+				e.pc[0] ? e.pc[0] - g_base : 0, e.pc[1] ? e.pc[1] - g_base : 0, e.pc[2] ? e.pc[2] - g_base : 0);
 		}
+		fflush(stderr);
+		g_winCalls = g_winFragile = 0; g_eventCount = 0;
+	}
+	g_frame = frame;
+	g_thread = pthread_self();
+	g_active = 1;
+	if (frame >= g_to && !g_dumped && g_siteCount > 0)
+	{
+		g_dumped = 1;
+		dump();
 	}
 }
 

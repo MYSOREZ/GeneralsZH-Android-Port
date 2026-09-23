@@ -1229,3 +1229,24 @@ count**:
 
 Comparing the diverging window's list with the matching windows before it names the
 new kind.
+
+**4400: not a NaN.** The per-window table shows no new kind in 4300..4399. The only
+kinds raising `invalid` there are `AIUpdateInterface` on `AmericaInfantryRanger` and
+`WorkerAIUpdate` on `GLAInfantryWorker`, and both did the same in the matching windows
+3600..4299. The user watched it happen: the mismatch comes when a Chinook has loaded
+its supply boxes and turns back to base, not while it is loading. The supply code
+(`SupplyTruckAIUpdate`, `ChinookAIUpdate`, the dock updates, `Money`) is identical to
+the client's, and the deposit arithmetic is `UnsignedInt`. What is new in that window
+is **helicopter flight** (the hover/thrust locomotor: `acos`, `atan2`, `tan`), and the
+math trace had only covered 1900..1999, when no helicopter existed.
+
+The math trace now runs **for the whole game**. Every libm call on the logic thread is
+checked for fragility, and the fragile ones are kept with frame, argument and callers.
+Every 100 frames:
+
+```
+[GX-NET] math window frames 4300..4399: N libm calls on the logic thread, F fragile
+[GX-NET] math fragile frame 4371: acos(0.99999...) = ... callers=libmain+0x... < ...
+```
+
+The detailed per-site table for `gx_math_trace.txt`'s window is still printed as before.
