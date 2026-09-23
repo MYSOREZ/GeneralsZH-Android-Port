@@ -290,4 +290,6 @@
     <string name="replaycheck_need_frame">فریمی را که باید تا آن جلو رفت وارد کنید.</string>
     <string name="replaycheck_trace_enabled">ردیابی شبکه برای بررسی روشن شد.</string>
     <string name="replaycheck_trace_failed">روشن کردن ردیابی شبکه ممکن نشد؛ گزارش جزئیات مجموع‌های بررسی را نخواهد داشت.</string>
+    <string name="replaycheck_crc_every_frame">مجموع بررسی هر فریم</string>
+    <string name="replaycheck_crc_every_frame_help">مجموع بررسی منطق هر فریم را هم در گزارش می‌نویسد. برای ساختن نسخه‌ای از بازپخش که کلاینت رایانه فریم‌به‌فریم بررسی می‌کند. کندتر.</string>
 </resources>

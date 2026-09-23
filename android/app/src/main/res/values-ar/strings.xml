@@ -290,4 +290,6 @@
     <string name="replaycheck_need_frame">أدخل الإطار المراد التقديم إليه.</string>
     <string name="replaycheck_trace_enabled">تم تشغيل تتبّع الشبكة للفحص.</string>
     <string name="replaycheck_trace_failed">تعذّر تشغيل تتبّع الشبكة؛ لن يتضمن السجل تفاصيل مجاميع التحقق.</string>
+    <string name="replaycheck_crc_every_frame">مجموع التحقق لكل إطار</string>
+    <string name="replaycheck_crc_every_frame_help">يكتب أيضاً في السجل مجموع تحقق المنطق لكل إطار. يُستخدم لبناء نسخة من الإعادة يفحصها عميل الحاسوب إطاراً بإطار. أبطأ.</string>
 </resources>

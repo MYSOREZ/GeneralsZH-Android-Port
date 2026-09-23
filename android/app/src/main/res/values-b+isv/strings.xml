@@ -290,4 +290,6 @@
     <string name="replaycheck_need_frame">Vpišite kadr, do kotorogo prěmotati.</string>
     <string name="replaycheck_trace_enabled">Dlja provrky je vključeno mrěžno slědženje.</string>
     <string name="replaycheck_trace_failed">Ne udalo se vključiti mrěžno slědženje; v logu ne bude podrobnostij o kontrolnyh sumah.</string>
+    <string name="replaycheck_crc_every_frame">Kontrolna suma každogo kadra</string>
+    <string name="replaycheck_crc_every_frame_help">Dodatno piše v log kontrolnu sumu logiky na každom kadru. Treba, da sobrati kopiju replaja, ktoru klient PK prověri po kadram. Počasněje.</string>
 </resources>

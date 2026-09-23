@@ -29,6 +29,12 @@
 //   -gxAutoQuit         when the replay ends, or some frames after the first
 //                       checksum mismatch, write gx_replay_check_result.txt in
 //                       the user-data folder and quit back to the launcher
+//   -gxCrcEveryFrame    also compute the logic checksum on every frame and print it
+//                       ("crc every frame N: X"). The recording only carries one per
+//                       hundred frames; scripts/tooling/replay/rep_crc_every_frame.py
+//                       writes these into a copy of the replay (header C=001), and the
+//                       PC client, playing that copy, stops at the first frame where it
+//                       disagrees with this device
 //
 // Fast-forward runs extra logic frames between rendered ones, exactly what the
 // engine's headless replay simulation does per frame (particles, then logic), so
@@ -41,6 +47,8 @@ namespace GXReplayCheck
 {
 	void setFastForwardTo( Int frame );
 	void setAutoQuit( Bool autoQuit );
+	void setCrcEveryFrame( Bool everyFrame );
+	Bool crcEveryFrame();
 	Bool isActive();
 
 	// GameEngine::update, after the regular logic update.

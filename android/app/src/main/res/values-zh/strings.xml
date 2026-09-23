@@ -290,4 +290,6 @@
     <string name="replaycheck_need_frame">请输入要快进到的帧。</string>
     <string name="replaycheck_trace_enabled">已为本次检查开启网络跟踪。</string>
     <string name="replaycheck_trace_failed">无法开启网络跟踪；日志中将缺少校验和细节。</string>
+    <string name="replaycheck_crc_every_frame">每帧校验和</string>
+    <string name="replaycheck_crc_every_frame_help">同时把每一帧的逻辑校验和写入日志。用于生成一份回放副本，让 PC 客户端逐帧校验。速度较慢。</string>
 </resources>

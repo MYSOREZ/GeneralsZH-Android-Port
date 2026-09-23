@@ -449,6 +449,12 @@ Int parseGxAutoQuit(char *args[], int num)
 	return 1;
 }
 
+Int parseGxCrcEveryFrame(char *args[], int num)
+{
+	GXReplayCheck::setCrcEveryFrame(TRUE);
+	return 1;
+}
+
 Int parseReplay(char *args[], int num)
 {
 	if (num > 1)
@@ -1185,6 +1191,7 @@ static CommandLineParam paramsForStartup[] =
 	// whole replay) and quit with a result file; used by the launcher's Replay check screen.
 	{ "-gxFastTo", parseGxFastTo },
 	{ "-gxAutoQuit", parseGxAutoQuit },
+	{ "-gxCrcEveryFrame", parseGxCrcEveryFrame },
 };
 
 // These Params are parsed during Engine Init before INI data is loaded

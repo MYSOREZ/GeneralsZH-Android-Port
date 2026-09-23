@@ -38,6 +38,7 @@ namespace
 {
 	Int s_fastTo = 0;              // 0: off, -1: whole replay, N: until frame N
 	Bool s_autoQuit = FALSE;
+	Bool s_crcEveryFrame = FALSE;
 	Bool s_sawPlayback = FALSE;
 	Bool s_statsStarted = FALSE;
 	Bool s_done = FALSE;
@@ -126,6 +127,8 @@ namespace GXReplayCheck
 
 void setFastForwardTo( Int frame ) { s_fastTo = frame; }
 void setAutoQuit( Bool autoQuit ) { s_autoQuit = autoQuit; }
+void setCrcEveryFrame( Bool everyFrame ) { s_crcEveryFrame = everyFrame; }
+Bool crcEveryFrame() { return s_crcEveryFrame; }
 Bool isActive() { return s_fastTo != 0 || s_autoQuit; }
 
 void noteCheckpoint( UnsignedInt frame, Bool matched, UnsignedInt ours, UnsignedInt recorded )

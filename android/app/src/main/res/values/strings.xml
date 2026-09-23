@@ -297,4 +297,6 @@
     <string name="replaycheck_need_frame">Enter the frame to fast-forward to.</string>
     <string name="replaycheck_trace_enabled">Network trace switched on for the check.</string>
     <string name="replaycheck_trace_failed">Could not switch the network trace on; the log will lack the checksum details.</string>
+    <string name="replaycheck_crc_every_frame">Checksum of every frame</string>
+    <string name="replaycheck_crc_every_frame_help">Also writes the logic checksum of every frame to the log. Used to build a copy of a replay that the PC client checks frame by frame. Slower.</string>
 </resources>

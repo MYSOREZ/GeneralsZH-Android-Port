@@ -129,6 +129,7 @@ extern NGMPGame* TheNGMPGame;
 
 #include <rts/profile.h>
 #include "GXTrace.h"
+#include "Common/GXReplayCheck.h"
 #include "Common/GXCrcStream.h"
 
 struct QuitGameException {};
@@ -4221,6 +4222,15 @@ void GameLogic::update()
 		messageList->appendMessage(msg);
 
 		DEBUG_LOG(("Appended %sCRC on frame %d: %8.8X", isPlayback ? "Playback " : "", m_frame, m_CRC));
+	}
+
+	// GeneralsX @feature Android port 23/09/2026 The checksum of every frame, for a
+	// frame-exact comparison with the PC (see Common/GXReplayCheck.h). Computed at the
+	// same instant as the recorded ones, printed only; nothing is sent or compared.
+	if (isSoloGameOrReplay && GXReplayCheck::crcEveryFrame())
+	{
+		const UnsignedInt gxFrameCRC = (generateForSolo || generateForMP) ? m_CRC : getCRC( CRC_RECALC );
+		GX_NET_TRACE("crc every frame %u: %08X\n", (unsigned)m_frame, (unsigned)gxFrameCRC);
 	}
 
 	// collect stats

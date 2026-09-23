@@ -58,6 +58,7 @@ public class GeneralsZHActivity extends SDLActivity {
     static final String EXTRA_REPLAY = "gx_replay";
     static final String EXTRA_FAST_TO = "gx_fast_to";
     static final String EXTRA_AUTO_QUIT = "gx_auto_quit";
+    static final String EXTRA_CRC_EVERY_FRAME = "gx_crc_every_frame";
 
     @Override
     protected String[] getArguments() {
@@ -76,6 +77,9 @@ public class GeneralsZHActivity extends SDLActivity {
         }
         if (intent.getBooleanExtra(EXTRA_AUTO_QUIT, false)) {
             args.add("-gxAutoQuit");
+        }
+        if (intent.getBooleanExtra(EXTRA_CRC_EVERY_FRAME, false)) {
+            args.add("-gxCrcEveryFrame");
         }
         Log.i(TAG, "Replay check launch: " + args);
         return args.toArray(new String[0]);

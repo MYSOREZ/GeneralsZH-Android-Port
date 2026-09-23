@@ -68,6 +68,7 @@ public class ReplayCheckActivity extends Activity {
     private LinearLayout frameRow;
     private LinearLayout replayList;
     private Intent pendingLaunch;
+    private com.google.android.material.materialswitch.MaterialSwitch crcEveryFrameSwitch;
 
     @Override
     protected void attachBaseContext(android.content.Context newBase) {
@@ -116,6 +117,8 @@ public class ReplayCheckActivity extends Activity {
         frameInput.setInputType(InputType.TYPE_CLASS_NUMBER);
         frameInput.setHint("3400");
         frameRow.addView(frameInput);
+        crcEveryFrameSwitch = UiKit.switchRow(modeCard, getString(R.string.replaycheck_crc_every_frame),
+            getString(R.string.replaycheck_crc_every_frame_help));
 
         LinearLayout listCard = UiKit.card(page);
         UiKit.sectionHeader(listCard, R.drawable.ic_gzh_play,
@@ -235,6 +238,8 @@ public class ReplayCheckActivity extends Activity {
         intent.putExtra(GeneralsZHActivity.EXTRA_REPLAY, replay.getName());
         intent.putExtra(GeneralsZHActivity.EXTRA_FAST_TO, fastTo);
         intent.putExtra(GeneralsZHActivity.EXTRA_AUTO_QUIT, autoQuit);
+        intent.putExtra(GeneralsZHActivity.EXTRA_CRC_EVERY_FRAME,
+            crcEveryFrameSwitch != null && crcEveryFrameSwitch.isChecked());
 
         // Same as SetupActivity.onLaunchGame(): rotate first, start once the OS has
         // confirmed landscape, so the game's window-size probe never sees portrait.

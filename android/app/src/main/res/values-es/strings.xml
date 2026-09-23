@@ -290,4 +290,6 @@
     <string name="replaycheck_need_frame">Introduce el fotograma hasta el que avanzar.</string>
     <string name="replaycheck_trace_enabled">Rastreo de red activado para la comprobación.</string>
     <string name="replaycheck_trace_failed">No se pudo activar el rastreo de red; el registro no tendrá los detalles de las sumas de control.</string>
+    <string name="replaycheck_crc_every_frame">Suma de control de cada fotograma</string>
+    <string name="replaycheck_crc_every_frame_help">Además escribe en el registro la suma de control de la lógica de cada fotograma. Sirve para crear una copia de la repetición que el cliente de PC comprueba fotograma a fotograma. Más lento.</string>
 </resources>

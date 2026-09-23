@@ -292,4 +292,6 @@
     <string name="replaycheck_need_frame">Введите кадр, до которого перемотать.</string>
     <string name="replaycheck_trace_enabled">Для проверки включена сетевая трассировка.</string>
     <string name="replaycheck_trace_failed">Не удалось включить сетевую трассировку; в логе не будет подробностей по контрольным суммам.</string>
+    <string name="replaycheck_crc_every_frame">Контрольная сумма каждого кадра</string>
+    <string name="replaycheck_crc_every_frame_help">Дополнительно пишет в лог контрольную сумму логики на каждом кадре. Нужна, чтобы собрать копию реплея, которую клиент ПК проверит покадрово. Медленнее.</string>
 </resources>

@@ -290,4 +290,6 @@
     <string name="replaycheck_need_frame">Digite o quadro até onde avançar.</string>
     <string name="replaycheck_trace_enabled">Rastreamento de rede ativado para a verificação.</string>
     <string name="replaycheck_trace_failed">Não foi possível ativar o rastreamento de rede; o registro não terá os detalhes das somas de verificação.</string>
+    <string name="replaycheck_crc_every_frame">Soma de verificação de cada quadro</string>
+    <string name="replaycheck_crc_every_frame_help">Também grava no registro a soma de verificação da lógica de cada quadro. Serve para montar uma cópia do replay que o cliente de PC verifica quadro a quadro. Mais lento.</string>
 </resources>

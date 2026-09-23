@@ -1818,3 +1818,39 @@ constants). Identical to the public source:
 read: `moveTowardsPositionOther`, `rotateObjAroundLocoPivot`/`normalizeAngle`,
 `Thing::setOrientation`, `Matrix3D::Get_Z_Rotation`, `applyFrictionalForces`/
 `applyForce`, `calcSlowDownDist`.
+
+**The rest of the Chinook's path in the new client's machine code.** Also identical to the
+source:
+- `rotateTowardsPosition`/`rotateObjAroundLocoPivot` (the turn rate is doubled only
+  under `ULTRA_ACCURATE`);
+- `normalizeAngle`;
+- `applyFrictionalForces` (YPR damping 0.85; lateral friction projected, with the
+  factors commuted);
+- `applyForce` (the contained-items mass added; the lateral projection while motive).
+
+Every libm result on the approach (487 `atan2`, the cached-angle `cos`/`sin`) was checked
+with 200-bit arithmetic. The closest one to a float rounding boundary is 1.2·10⁻⁴ ULP
+away, far outside any libm's error, so **no libm difference can act here**. The code is
+the same and the arithmetic is the same, so the PC's difference must come from an
+**input**. Checkpoints 100 frames apart cannot say which.
+
+## Tool: a frame-exact comparison run by the PC itself (23/09/2026)
+
+The replay header's `C=` field is the checksum interval the **player** uses. The recorder
+writes the checksum of frame F as a `MSG_LOGIC_CRC` (type 1095, arguments: integer and
+boolean) at frame F+1. While playing, the client queues each recorded checksum and
+compares it with its own one at every C-th frame. At the first mismatch it pauses and
+shows `InGame:… Replay:… Frame:N`. So:
+1. The launcher's Replay check screen has a switch, **Checksum of every frame**
+   (`-gxCrcEveryFrame`). With it, the engine also computes the checksum on every frame,
+   at the recorder's instant, and prints `crc every frame N: X`. Nothing is sent or
+   compared.
+2. `scripts/tooling/replay/rep_crc_every_frame.py IN.rep generals-stderr.log OUT.rep`
+   rewrites the recording:
+   - the header gets `C=001` (same length, `atoi` reads 1);
+   - every checksum record is replaced by this device's checksum of every frame.
+
+   `--roundtrip` checks the parser: it rewrites the original byte for byte.
+3. First play OUT.rep on the phone. It must match itself at every frame, which proves
+   the alignment. Then play it on the **PC**: the PC pauses at the first frame where
+   it disagrees with the phone.

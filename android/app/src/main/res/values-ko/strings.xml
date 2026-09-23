@@ -290,4 +290,6 @@
     <string name="replaycheck_need_frame">빨리 감을 프레임을 입력하세요.</string>
     <string name="replaycheck_trace_enabled">검사를 위해 네트워크 추적을 켰습니다.</string>
     <string name="replaycheck_trace_failed">네트워크 추적을 켤 수 없습니다. 로그에 체크섬 세부 정보가 없습니다.</string>
+    <string name="replaycheck_crc_every_frame">매 프레임 체크섬</string>
+    <string name="replaycheck_crc_every_frame_help">매 프레임의 로직 체크섬도 로그에 기록합니다. PC 클라이언트가 프레임 단위로 검사할 리플레이 사본을 만드는 데 씁니다. 느려집니다.</string>
 </resources>

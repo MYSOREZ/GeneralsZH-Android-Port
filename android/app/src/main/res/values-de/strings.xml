@@ -290,4 +290,6 @@
     <string name="replaycheck_need_frame">Gib den Frame ein, bis zu dem vorgespult werden soll.</string>
     <string name="replaycheck_trace_enabled">Netzwerk-Trace für die Prüfung eingeschaltet.</string>
     <string name="replaycheck_trace_failed">Netzwerk-Trace konnte nicht eingeschaltet werden; im Log fehlen die Prüfsummen-Details.</string>
+    <string name="replaycheck_crc_every_frame">Prüfsumme jedes Frames</string>
+    <string name="replaycheck_crc_every_frame_help">Schreibt zusätzlich die Logik-Prüfsumme jedes Frames ins Log. Damit lässt sich eine Kopie des Replays bauen, die der PC-Client Frame für Frame prüft. Langsamer.</string>
 </resources>

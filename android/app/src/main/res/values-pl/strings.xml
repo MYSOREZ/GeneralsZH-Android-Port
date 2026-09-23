@@ -290,4 +290,6 @@
     <string name="replaycheck_need_frame">Podaj klatkę, do której przewinąć.</string>
     <string name="replaycheck_trace_enabled">Włączono śledzenie sieci na potrzeby sprawdzania.</string>
     <string name="replaycheck_trace_failed">Nie udało się włączyć śledzenia sieci; w dzienniku zabraknie szczegółów sum kontrolnych.</string>
+    <string name="replaycheck_crc_every_frame">Suma kontrolna każdej klatki</string>
+    <string name="replaycheck_crc_every_frame_help">Dodatkowo zapisuje w dzienniku sumę kontrolną logiki dla każdej klatki. Służy do zbudowania kopii powtórki, którą klient PC sprawdzi klatka po klatce. Wolniej.</string>
 </resources>

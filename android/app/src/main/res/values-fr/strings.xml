@@ -290,4 +290,6 @@
     <string name="replaycheck_need_frame">Saisissez l\'image jusqu\'à laquelle avancer.</string>
     <string name="replaycheck_trace_enabled">Trace réseau activée pour la vérification.</string>
     <string name="replaycheck_trace_failed">Impossible d\'activer la trace réseau ; le journal n\'aura pas le détail des sommes de contrôle.</string>
+    <string name="replaycheck_crc_every_frame">Somme de contrôle de chaque image</string>
+    <string name="replaycheck_crc_every_frame_help">Écrit aussi dans le journal la somme de contrôle de la logique à chaque image. Sert à construire une copie du replay que le client PC vérifie image par image. Plus lent.</string>
 </resources>
