@@ -1868,3 +1868,13 @@ shows `InGame:… Replay:… Frame:N`. So:
 5. To get the word stream of that one frame, rewrite the phone copy once more with the
    PC's value (`InGame:`) at frame N only. The phone then mismatches there alone and
    dumps exactly that frame for the locator and the model.
+   `scripts/tooling/replay/rep_set_crc.py IN.rep OUT.rep N=HEX ...` does the rewrite.
+6. The **same** file, played on the PC, gets past N and stops at N+1 with the PC's value
+   for that frame. Repeat to collect the PC's checksums frame by frame. One frame gives one
+   32-bit equation. Velocity is not in the checksum, so position alone is underdetermined.
+   First use: at 3594 the difference is exactly `15*2^k` along the Chinook's words
+   (y +30 ULP, or x and y together on the line `16dx+dy = 30`). At 3600 the same line
+   says 10. A fixed position offset would stay at 30, so the PC also moves differently
+   after 3593. No single intermediate of the model's step 3593, over a range of ±2^22
+   ULP, satisfies both 3594 and 3600. A z-only difference does not fit the pattern.
+   3700 is not a valid filter: after docking, more than the Chinook differs.
