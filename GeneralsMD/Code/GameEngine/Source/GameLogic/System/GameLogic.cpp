@@ -32,6 +32,7 @@
 #ifndef _WIN32
 #include <fenv.h>
 #include <map>
+#include <vector>
 #include <string>
 #if defined(__SSE__) || defined(__x86_64__)
 #include <xmmintrin.h>
@@ -3945,6 +3946,79 @@ void gxFpCheckpoint(const char *where, const Object *obj, Int detail)
 	gxFpBlame(TheGameLogic->getFrame(), phase, obj, nullptr);
 }
 #define GX_FP_BLAME(phase, obj, u) do { if (GXTrace::isNetEnabled()) gxFpBlame(m_frame, (phase), (obj), (u)); } while (0)
+
+// GeneralsX @feature Android port 23/09/2026 The last hundred frames of movement, kept in
+// memory and printed at the first replay mismatch.
+//
+// A replay carries the PC's checksum only every hundred frames, and the checkpoint before a
+// divergence matched -- so whatever differs came from those hundred frames. The "crc since"
+// listing says which objects changed between the two checkpoints; this says how, frame by
+// frame: every object whose transform changed, with the twelve matrix words, plus the logic
+// seed. Offline, that turns "Ranger 368 is somewhere else on the PC" into testable
+// hypotheses -- one frame early or late, a different step on its path -- using this
+// device's own intermediate states instead of guesses.
+namespace
+{
+	struct GxObjState { UnsignedInt id; UnsignedInt m[12]; };
+	struct GxFrameRec { UnsignedInt frame; UnsignedInt seed; std::vector<GxObjState> moved; };
+	const Int GX_OBJ_RING = 101;
+	GxFrameRec s_gxObjRing[GX_OBJ_RING];
+	Int s_gxObjRingNext = 0;
+	std::map<UnsignedInt, GxObjState> s_gxObjLast;
+
+	void gxObjTraceFrame(UnsignedInt frame)
+	{
+		if (frame == 0)
+		{
+			s_gxObjLast.clear();
+			for (Int i = 0; i < GX_OBJ_RING; ++i) { s_gxObjRing[i].moved.clear(); s_gxObjRing[i].frame = 0; }
+			s_gxObjRingNext = 0;
+		}
+		GxFrameRec &rec = s_gxObjRing[s_gxObjRingNext];
+		s_gxObjRingNext = (s_gxObjRingNext + 1) % GX_OBJ_RING;
+		rec.frame = frame;
+		rec.seed = GetGameLogicRandomSeedCRC();
+		rec.moved.clear();
+		for (Object *obj = TheGameLogic->getFirstObject(); obj != nullptr; obj = obj->getNextObject())
+		{
+			GxObjState st;
+			st.id = (UnsignedInt)obj->getID();
+			memcpy(st.m, obj->getTransformMatrix(), sizeof(st.m));
+			std::map<UnsignedInt, GxObjState>::iterator it = s_gxObjLast.find(st.id);
+			if (it == s_gxObjLast.end() || memcmp(it->second.m, st.m, sizeof(st.m)) != 0)
+			{
+				rec.moved.push_back(st);
+				s_gxObjLast[st.id] = st;
+			}
+		}
+	}
+}
+
+// Printed once, by the replay checker at the first mismatch. Each line is the state at the
+// START of that logic frame, i.e. after the previous frame's update.
+void gxObjTraceDump()
+{
+	static Bool done = FALSE;
+	if (done || !GXTrace::isNetEnabled())
+		return;
+	done = TRUE;
+	for (Int k = 0; k < GX_OBJ_RING; ++k)
+	{
+		const GxFrameRec &rec = s_gxObjRing[(s_gxObjRingNext + k) % GX_OBJ_RING];
+		if (rec.frame == 0 && rec.moved.empty())
+			continue;
+		GX_NET_TRACE("obj trace frame %u: seed=%08X moved=%u\n", (unsigned)rec.frame, (unsigned)rec.seed, (unsigned)rec.moved.size());
+		for (size_t i = 0; i < rec.moved.size(); ++i)
+		{
+			const GxObjState &st = rec.moved[i];
+			const Object *obj = TheGameLogic->findObjectByID((ObjectID)st.id);
+			GX_NET_TRACE("obj trace frame %u: id=%u %s m=%08X %08X %08X %08X %08X %08X %08X %08X %08X %08X %08X %08X\n",
+				(unsigned)rec.frame, (unsigned)st.id,
+				(obj && obj->getTemplate()) ? obj->getTemplate()->getName().str() : "(gone)",
+				st.m[0], st.m[1], st.m[2], st.m[3], st.m[4], st.m[5], st.m[6], st.m[7], st.m[8], st.m[9], st.m[10], st.m[11]);
+		}
+	}
+}
 #else
 #define GX_FP_BLAME(phase, obj, u) do {} while (0)
 #endif
@@ -3973,6 +4047,8 @@ void GameLogic::update()
 	// window of frames. Weak: targets without that file link and simply skip it.
 	if (GXTrace::isNetEnabled() && gxMathTraceFrame != nullptr)
 		gxMathTraceFrame(m_frame);
+	if (GXTrace::isNetEnabled() && isInGame() && !m_startNewGame)
+		gxObjTraceFrame(m_frame);
 #endif
 
 	/// @todo remove this hack

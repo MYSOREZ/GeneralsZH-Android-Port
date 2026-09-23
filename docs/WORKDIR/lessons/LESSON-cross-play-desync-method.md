@@ -1510,3 +1510,31 @@ test (`fast_float_trunc/floor/ceil`, `WWMath::Fast_Is_Float_Positive`,
 returning 0 outside the 32-bit range, and reports each call site once:
 `[GX-NET] lround out of range frame N (logic): ... from libmain+0x...`, which can be
 symbolised with the kept `.sym.so`.
+
+### The NaN-bits fix was not live; per-frame movement ring (23/09/2026)
+
+On the next run no `lround out of range` line was printed, and `USA.rep` still diverges
+at 3600, so the NaN-bits fix, while correct, did not act here. The 3500..3599 window
+also raises no invalid flag. Between 3500 (matched) and 3600 the player issued no
+command. Barracks production made Ranger 368 at frame **3595** (its weapon timestamps
+read 3595), and Rangers 366 and 367 walked towards the rally point. Tested and
+rejected: ±64 ULP on either Ranger's x/y; ±16 ULP on their rotation; the pathfinder
+queue counters (AI +523/+524) at any value 0..63; Ranger 368's weapon timestamps at any
+pair of frames 3500..3600.
+
+Also checked, as possible ARM-vs-x86 differences at the C++ level:
+
+- `char` is unsigned on Android and no `-fsigned-char` is set, while `Byte` is
+  `typedef char` (formerly `SignedByte`). In the simulation it only holds 0/1 flags
+  (`DataChunkInput::readByte` for build lists, scripts, triggers) and small template
+  bytes, so it is not live here. It is not changed globally either: port code that
+  treats `char` as unsigned for UTF-8 would break.
+- A search of the logic for `std::sort` and pointer-ordered containers found only
+  sorts in `PartitionSolver` and `MultiplayerSettings`. The pointer-keyed maps
+  (`AttackPriorityMap`, `ScoreKeeper`) are used for lookup or statistics only.
+
+New instrument: `gxObjTraceFrame` keeps, in memory, the last 101 frames of every object
+whose transform changed, plus the seed per frame. `gxObjTraceDump` prints them at the
+first mismatch (`[GX-NET] obj trace frame N: id=... m=<12 words>`, the state at the
+start of frame N). This allows offline tests such as "368 left the barracks d frames
+earlier or later on the PC", using this device's own intermediate states.

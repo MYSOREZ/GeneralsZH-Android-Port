@@ -54,6 +54,9 @@
 #include "GameNetwork/GameSpy/PeerDefs.h"
 #include "GameNetwork/networkutil.h"
 #include "GameLogic/GameLogic.h"
+#if !(defined(_MSC_VER) && defined(_M_IX86))
+void gxObjTraceDump();
+#endif
 #if defined(GENERALS_ONLINE)
 #include "GameNetwork/GeneralsOnline/NGMPGame.h"
 extern NGMPGame* TheNGMPGame;
@@ -1306,6 +1309,9 @@ void RecorderClass::handleCRCMessage(UnsignedInt newCRC, Int playerIndex, Bool f
 		{
 			GXCrcStream::report( newCRC, playbackCRC );
 			GXCrcStream::diffAgainstPrevious( newCRC, playbackCRC );
+#if !(defined(_MSC_VER) && defined(_M_IX86))
+			gxObjTraceDump();
+#endif
 
 			// Once per session, hand over the whole word stream so the search for a
 			// multi-word difference can happen off the phone. Twelve words of a
