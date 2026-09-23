@@ -56,6 +56,7 @@
 #include "Common/MiscAudio.h"
 #include "Common/PerfTimer.h"
 #include "Common/Player.h"
+#include "Common/StatsExporter.h"
 #include "Common/PlayerList.h"
 #include "Common/PlayerTemplate.h"
 #include "Common/ProductionPrerequisite.h"
@@ -1569,6 +1570,10 @@ void Player::onUnitCreated( Object *factory, Object *unit )
 	// end-of-game statistics were concerned. The client charges both.
 	m_scoreKeeper.addMoneySpent(unit->getTemplate()->calcCostToBuild(this));
 
+	// GeneralsX @feature Android port 23/09/2026 Replay check event record (StatsExporter.h),
+	// where the client records it; a no-op unless a replay check started it.
+	StatsExporterRecordBuild(factory, unit);
+
 	// ai notification callback
 	if( m_ai )
 		m_ai->onUnitProduced( factory, unit );
@@ -1657,6 +1662,7 @@ void Player::onStructureConstructionComplete( Object *builder, Object *structure
 	if (isRebuild == FALSE) {
 		m_scoreKeeper.addObjectBuilt(structure);
 		m_scoreKeeper.addMoneySpent(structure->getTemplate()->calcCostToBuild(this));
+		StatsExporterRecordBuild(builder, structure);
 	}
 
 	structure->friend_adjustPowerForPlayer(TRUE);

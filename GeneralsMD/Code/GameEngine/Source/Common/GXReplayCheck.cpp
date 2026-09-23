@@ -27,6 +27,7 @@
 #include "Common/MessageStream.h"
 #include "Common/Recorder.h"
 #include "Common/ReplaySimulation.h"
+#include "Common/StatsExporter.h"
 #include "GameClient/GameClient.h"
 #include "GameLogic/GameLogic.h"
 
@@ -38,6 +39,7 @@ namespace
 	Int s_fastTo = 0;              // 0: off, -1: whole replay, N: until frame N
 	Bool s_autoQuit = FALSE;
 	Bool s_sawPlayback = FALSE;
+	Bool s_statsStarted = FALSE;
 	Bool s_done = FALSE;
 	UnsignedInt s_checkpoints = 0;
 	UnsignedInt s_matched = 0;
@@ -105,6 +107,10 @@ namespace
 			return;
 		s_done = TRUE;
 		writeResult(status);
+		// The same event record the PC client writes with -headless -replay -exportStats,
+		// as Replays/<name>.gamestats.json, for a frame-accurate comparison.
+		if (s_statsStarted && TheRecorder != nullptr)
+			ExportGameStatsJSON(TheRecorder->getReplayDir(), replayName());
 		if (s_autoQuit)
 		{
 			ReplaySimulation::stop();
@@ -145,6 +151,15 @@ void update()
 	if (!isActive() || s_done)
 		return;
 
+	// Before the game starts, so the starting buildings and units are recorded too.
+	if (!s_statsStarted)
+	{
+		s_statsStarted = TRUE;
+		StatsExporterBeginRecording();
+	}
+	if (playbackRunning())
+		StatsExporterCollectSnapshot();
+
 	if (playbackRunning())
 	{
 		if (!s_sawPlayback)
@@ -174,6 +189,7 @@ void update()
 				TheGameClient->updateHeadless();
 				TheMessageStream->propagateMessages();
 				TheGameLogic->UPDATE();
+				StatsExporterCollectSnapshot();
 				if (s_autoQuit && s_firstMismatch != 0 && TheGameLogic->getFrame() >= s_firstMismatch + FRAMES_AFTER_MISMATCH)
 					break;
 			}

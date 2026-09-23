@@ -100,6 +100,7 @@
 #include "GameLogic/Module/UpgradeModule.h"
 
 #include "GameLogic/Object.h"
+#include "Common/StatsExporter.h"
 #include "GameLogic/PartitionManager.h"
 #include "GameLogic/PolygonTrigger.h"
 #include "GameLogic/ScriptEngine.h"
@@ -3038,6 +3039,12 @@ void Object::scoreTheKill( const Object *victim )
 		controller->getScoreKeeper()->addObjectDestroyed(victim);
 		controller->addSkillPointsForKill(this, victim);
 		controller->doBountyForKill(this, victim);
+
+		// GeneralsX @feature Android port 23/09/2026 Replay check event record (StatsExporter.h).
+		{
+			const DamageInfo *damageInfo = victim->getBodyModule() ? victim->getBodyModule()->getLastDamageInfo() : nullptr;
+			StatsExporterRecordKill(this, victim, damageInfo);
+		}
 	}
 
 	// Now handle experience, if we can gain any
@@ -4651,6 +4658,7 @@ void Object::onCapture( Player *oldOwner, Player *newOwner )
 
 	// this gets the new owner some points
 	newOwner->getScoreKeeper()->addObjectCaptured(this);
+	StatsExporterRecordCapture(this, oldOwner, newOwner);
 
 	// rip through the behavior modules and call the onCapture for any modules that care
 	for( BehaviorModule **module = m_behaviors; *module; ++module )

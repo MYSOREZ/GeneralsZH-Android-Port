@@ -1592,3 +1592,23 @@ propagates before each logic frame. The fast-forward loop skipped
 (`GameLogic` routes them straight into `TheCommandList` only in
 `RECORDERMODETYPE_SIMULATION_PLAYBACK`.) The loop now runs `updateHeadless()`,
 `propagateMessages()`, then `GameLogic::UPDATE()`, the same order the engine uses.
+
+## The PC's own event record: `-headless -replay <rep> -exportStats` (23/09/2026)
+
+The replay gives one PC checksum per 100 frames, and the release exe has no
+`-ReplayCRCInterval` (it is in a debug-only block). But the GeneralsOnline client can
+simulate a replay headless and write `Replays/<name>.gamestats.json.gz`
+(`StatsExporter.cpp`). The file holds every build with **frame and x/y**, every kill
+and capture with frame and position, energy, rank, skill and science events, and each
+player's money every 30 frames. It is the PC's *own* simulation, observed. This is not
+"replaying on the PC to see whether it desyncs" (it cannot); the output is data to diff
+against ours.
+
+This port now writes the same record: `StatsExporter.cpp` is ported (uncompressed
+`.gamestats.json`, no upload), hooked where the client hooks it (`Player::onUnitCreated`,
+`onStructureConstructionComplete`, `Object::scoreTheKill`, `Object::onCapture`), and
+driven by the Replay check (begin before the game starts, a snapshot after every logic
+frame, export at the end). The log-share zip includes it.
+`scripts/tooling/replay/compare_gamestats.py PC.json.gz ANDROID.json` prints the first
+frame at which the two records differ, for example Ranger 368 built on another frame or
+at another spot, or money diverging at a snapshot because a Chinook delivered earlier.
