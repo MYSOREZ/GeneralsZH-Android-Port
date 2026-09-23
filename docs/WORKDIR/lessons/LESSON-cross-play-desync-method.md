@@ -1612,3 +1612,30 @@ frame, export at the end). The log-share zip includes it.
 `scripts/tooling/replay/compare_gamestats.py PC.json.gz ANDROID.json` prints the first
 frame at which the two records differ, for example Ranger 368 built on another frame or
 at another spot, or money diverging at a snapshot because a Chinook delivered earlier.
+
+## Isolated: supply, and a purchased Chinook's first delivery (23/09/2026)
+
+The user recorded two targeted replays on the new client. **Barracks only** (Rangers
+walking to a far rally point) matches to the end. **Supply only** diverges at 5900
+(matches to 5800) and runs through in 3.3 s. The event record dates the deliveries:
+money earned rises at 3900 and 5160 (the free Chinook 323 that comes with the supply
+centre) and at 5940. The last one is Chinook 324, **bought** at 4576 and produced at the
+supply centre, making its **first** delivery. The divergence falls inside that delivery.
+In `USA.rep` the diverging window (3500..3600) is likewise a Chinook's first loading,
+at the warehouse.
+
+Between 5800 and 5900 only three things change on our side: Chinook 324's y moves by
+one ULP (0x442D0314 → 0x442D0315, at frame 5801/5802, as it lands at the dock), the spy
+drone bobs, and the shroud changes in 952 words (some cells lose up to 4 lookers at
+once). There are no draws, no NaN and no fragile libm calls in the window. Tested and
+rejected:
+- Chinook 324 x/y ±64 ULP;
+- x, y and rotation jointly ±8 ULP;
+- either Chinook at any of our own states 5800..6444 (the PC leaving earlier or later);
+- the spy drone's shroud radius ±1 or ±2 cells, for every player column.
+
+Next instrument: every shroud look and unlook (`doShroudReveal`/`undoShroudReveal`/
+`doShroudCover`/`undoShroudCover`) goes into an 8192-event ring with frame, world x/y,
+radius, cell, cell radius and player mask. `gxShroudTraceDump` prints the last 110
+frames at the first mismatch, and `crc since` now prints every changed partition word,
+up to 6000. Together they say whose look changed the fog, and with what numbers.

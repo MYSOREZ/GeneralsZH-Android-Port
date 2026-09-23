@@ -1001,14 +1001,16 @@ void diffAgainstPrevious( UnsignedInt theirCRC, UnsignedInt ourCRC )
 
 		// The words themselves, for offline tests: previous>current at each offset
 		// that differs (same length), or the whole previous block otherwise. The
-		// partition section is summarised, it is shroud and would run to thousands.
+		// partition section is printed in full too (up to 6000 words): which cells
+		// changed, for which player and by how many lookers, is what a shroud
+		// hypothesis is tested against.
 		const Bool isPartition = strcmp(label, "ThePartitionManager") == 0;
 		if (a && ch.prev && ch.prev->len == a->len)
 		{
 			char line[1024];
 			Int len = 0;
 			Int printed = 0;
-			for (size_t i = 0; i < a->len && printed < (isPartition ? 24 : 96); ++i)
+			for (size_t i = 0; i < a->len && printed < (isPartition ? 6000 : 96); ++i)
 			{
 				const UnsignedInt was = prev.words[ch.prev->pos + i];
 				const UnsignedInt now = cur.words[a->pos + i];

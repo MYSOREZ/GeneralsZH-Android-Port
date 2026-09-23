@@ -58,6 +58,7 @@
 #if !(defined(_MSC_VER) && defined(_M_IX86))
 void gxObjTraceDump();
 #endif
+void gxShroudTraceDump(UnsignedInt fromFrame);
 #if defined(GENERALS_ONLINE)
 #include "GameNetwork/GeneralsOnline/NGMPGame.h"
 extern NGMPGame* TheNGMPGame;
@@ -1314,6 +1315,7 @@ void RecorderClass::handleCRCMessage(UnsignedInt newCRC, Int playerIndex, Bool f
 #if !(defined(_MSC_VER) && defined(_M_IX86))
 			gxObjTraceDump();
 #endif
+			gxShroudTraceDump(describedFrame >= 110 ? describedFrame - 110 : 0);
 
 			// Once per session, hand over the whole word stream so the search for a
 			// multi-word difference can happen off the phone. Twelve words of a
