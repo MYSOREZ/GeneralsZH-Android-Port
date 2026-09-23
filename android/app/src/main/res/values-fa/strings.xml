@@ -272,4 +272,22 @@
     <string name="online_crossplay_patch_missing">وصله داده‌های انجمن نیست — «به‌روزرسانی» را بزنید</string>
     <string name="online_switch_crossplay">بازی با بازیکنان رایانه</string>
     <string name="online_switch_crossplay_desc">مجموع کنترلی EXE کلاینت ویندوز را گزارش می‌کند تا بازی‌هایش شما را بپذیرند. این مجموع ضدتقلب نیست: جلوی هم‌بازی شدن دستگاه‌هایی را می‌گیرد که بازی را متفاوت محاسبه می‌کنند، پس می‌تواند بازی را برای همهٔ افراد لابی خراب کند. برای رایانهٔ خودتان و فقط پس از کپی‌کردن داده‌های INI آن به این پوشهٔ بازی روشن کنید.</string>
+    <string name="replaycheck_title">بررسی بازپخش</string>
+    <string name="replaycheck_row_note">یک بازپخش رایانه را روی این نسخه بدون تماشا اجرا کنید یا به یک فریم بروید و ببینید مجموع‌های بررسی از کجا از هم جدا می‌شوند.</string>
+    <string name="replaycheck_refresh">تازه‌سازی</string>
+    <string name="replaycheck_last_result">آخرین نتیجه</string>
+    <string name="replaycheck_no_result">هنوز هیچ بررسی‌ای اجرا نشده است.</string>
+    <string name="replaycheck_result_match">%1$s: در همهٔ %2$s از %3$s نقطهٔ بررسی با ضبط یکسان است (%4$s فریم، %5$s ثانیه).</string>
+    <string name="replaycheck_result_mismatch">%1$s: اولین ناهمخوانی در فریم %2$s، آخرین همخوانی در %3$s. %4$s از %5$s نقطهٔ بررسی یکسان بود (%6$s فریم، %7$s ثانیه). گزارش‌ها را بفرستید.</string>
+    <string name="replaycheck_mode">حالت</string>
+    <string name="replaycheck_mode_run">اجرای کامل</string>
+    <string name="replaycheck_mode_watch">تماشا از فریم</string>
+    <string name="replaycheck_mode_help">اجرای کامل: بازپخش با بیشترین سرعتی که گوشی اجازه می‌دهد شبیه‌سازی می‌شود، کمی پس از اولین ناهمخوانی یا در پایان متوقف می‌شود و با نتیجه به اینجا برمی‌گردد. تماشا از فریم: جلو زدن سریع تا آن فریم و سپس پخش عادی.</string>
+    <string name="replaycheck_frame_label">فریم</string>
+    <string name="replaycheck_pick">بازپخش‌ها (برای شروع لمس کنید)</string>
+    <string name="replaycheck_none">هیچ فایل ‎.rep در %1$s نیست</string>
+    <string name="replaycheck_no_game_folder">ابتدا پوشهٔ بازی را در لانچر انتخاب کنید.</string>
+    <string name="replaycheck_need_frame">فریمی را که باید تا آن جلو رفت وارد کنید.</string>
+    <string name="replaycheck_trace_enabled">ردیابی شبکه برای بررسی روشن شد.</string>
+    <string name="replaycheck_trace_failed">روشن کردن ردیابی شبکه ممکن نشد؛ گزارش جزئیات مجموع‌های بررسی را نخواهد داشت.</string>
 </resources>

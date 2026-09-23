@@ -272,4 +272,22 @@
     <string name="online_crossplay_patch_missing">Falta el parche de la comunidad: pulse Actualizar</string>
     <string name="online_switch_crossplay">Jugar con jugadores de PC</string>
     <string name="online_switch_crossplay_desc">Informa la suma de comprobación EXE del cliente de Windows para que sus partidas te acepten. Esa suma no es un antitrampas: impide que jueguen juntas máquinas que calcularían la partida de forma distinta, así que esto puede desincronizar la partida para toda la sala. Actívalo para un PC tuyo y solo tras copiar sus datos INI a esta carpeta del juego.</string>
+    <string name="replaycheck_title">Comprobar repetición</string>
+    <string name="replaycheck_row_note">Reproduce una repetición del PC con esta compilación sin mirarla, o salta a un fotograma, y ve dónde se separan las sumas de control.</string>
+    <string name="replaycheck_refresh">Actualizar</string>
+    <string name="replaycheck_last_result">Último resultado</string>
+    <string name="replaycheck_no_result">Todavía no se ha ejecutado ninguna comprobación.</string>
+    <string name="replaycheck_result_match">%1$s: coincide con la grabación en los %2$s de %3$s puntos de control (%4$s fotogramas, %5$s s).</string>
+    <string name="replaycheck_result_mismatch">%1$s: primera discrepancia en el fotograma %2$s, última coincidencia en %3$s. Coincidieron %4$s de %5$s puntos de control (%6$s fotogramas, %7$s s). Envía los registros.</string>
+    <string name="replaycheck_mode">Modo</string>
+    <string name="replaycheck_mode_run">Ejecutar completa</string>
+    <string name="replaycheck_mode_watch">Ver desde fotograma</string>
+    <string name="replaycheck_mode_help">Ejecutar completa: la repetición se simula tan rápido como permite el teléfono, se detiene poco después de la primera discrepancia o al final y vuelve aquí con el resultado. Ver desde fotograma: avanza rápido hasta el fotograma y luego se reproduce normalmente.</string>
+    <string name="replaycheck_frame_label">Fotograma</string>
+    <string name="replaycheck_pick">Repeticiones (toca para iniciar)</string>
+    <string name="replaycheck_none">No hay archivos .rep en %1$s</string>
+    <string name="replaycheck_no_game_folder">Primero elige la carpeta del juego en el lanzador.</string>
+    <string name="replaycheck_need_frame">Introduce el fotograma hasta el que avanzar.</string>
+    <string name="replaycheck_trace_enabled">Rastreo de red activado para la comprobación.</string>
+    <string name="replaycheck_trace_failed">No se pudo activar el rastreo de red; el registro no tendrá los detalles de las sumas de control.</string>
 </resources>

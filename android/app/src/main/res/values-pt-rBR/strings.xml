@@ -272,4 +272,22 @@
     <string name="online_crossplay_patch_missing">Falta o patch da comunidade — toque em Atualizar</string>
     <string name="online_switch_crossplay">Jogar com jogadores de PC</string>
     <string name="online_switch_crossplay_desc">Informa a soma de verificação EXE do cliente Windows para que suas partidas aceitem você. Essa soma não é anticheat — ela impede que máquinas que calculariam a partida de formas diferentes joguem juntas, então isso pode dessincronizar a partida para todos no lobby. Ative para um PC seu e somente após copiar os dados INI dele para esta pasta do jogo.</string>
+    <string name="replaycheck_title">Verificar replay</string>
+    <string name="replaycheck_row_note">Rode um replay do PC nesta versão sem assistir, ou pule para um quadro, e veja onde as somas de verificação divergem.</string>
+    <string name="replaycheck_refresh">Atualizar</string>
+    <string name="replaycheck_last_result">Último resultado</string>
+    <string name="replaycheck_no_result">Nenhuma verificação foi executada ainda.</string>
+    <string name="replaycheck_result_match">%1$s: corresponde à gravação em todos os %2$s de %3$s pontos de verificação (%4$s quadros, %5$s s).</string>
+    <string name="replaycheck_result_mismatch">%1$s: primeira divergência no quadro %2$s, última correspondência em %3$s. %4$s de %5$s pontos de verificação corresponderam (%6$s quadros, %7$s s). Envie os registros.</string>
+    <string name="replaycheck_mode">Modo</string>
+    <string name="replaycheck_mode_run">Rodar inteiro</string>
+    <string name="replaycheck_mode_watch">Assistir a partir do quadro</string>
+    <string name="replaycheck_mode_help">Rodar inteiro: o replay é simulado o mais rápido que o celular permitir, para pouco depois da primeira divergência ou no final e volta aqui com o resultado. Assistir a partir do quadro: avança rápido até o quadro e depois reproduz normalmente.</string>
+    <string name="replaycheck_frame_label">Quadro</string>
+    <string name="replaycheck_pick">Replays (toque para iniciar)</string>
+    <string name="replaycheck_none">Nenhum arquivo .rep em %1$s</string>
+    <string name="replaycheck_no_game_folder">Escolha primeiro a pasta do jogo no inicializador.</string>
+    <string name="replaycheck_need_frame">Digite o quadro até onde avançar.</string>
+    <string name="replaycheck_trace_enabled">Rastreamento de rede ativado para a verificação.</string>
+    <string name="replaycheck_trace_failed">Não foi possível ativar o rastreamento de rede; o registro não terá os detalhes das somas de verificação.</string>
 </resources>

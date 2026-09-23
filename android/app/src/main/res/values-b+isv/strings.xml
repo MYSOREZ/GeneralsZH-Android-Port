@@ -272,4 +272,22 @@
     <string name="online_crossplay_patch_missing">Nema zajedničej zaplaty — pritisnite «Obnoviti»</string>
     <string name="online_switch_crossplay">Igrati s igračami na PC</string>
     <string name="online_switch_crossplay_desc">Soobčaje kontrolnu sumu EXE Windows-klienta, aby jego igry vas puščali. Ta suma ne jest antičit — ona ne dozvoljaje igrati vmeste mašinam, ktore bi sčitali meč različno, tako to može razvaliti igru vsem v lobby. Vključite za svoj PC i samo poslě kopirovanja jego INI-dannyh v tu papku igry.</string>
+    <string name="replaycheck_title">Provrka replaja</string>
+    <string name="replaycheck_row_note">Prognati replaj s PK na tutoj versiji bez gledanja ili skočiti do kadra i viděti, kde se razhodet kontrolne sumy.</string>
+    <string name="replaycheck_refresh">Obnoviti</string>
+    <string name="replaycheck_last_result">Poslědnji rezultat</string>
+    <string name="replaycheck_no_result">Provrka ješče ne byla zapuščena.</string>
+    <string name="replaycheck_result_match">%1$s: sovpada s zapisom na vsih %2$s iz %3$s kontrolnyh točkah (%4$s kadrov, %5$s s).</string>
+    <string name="replaycheck_result_mismatch">%1$s: prvy rozsinhron na kadru %2$s, poslědnje sovpadenje na %3$s. Sovpalo %4$s iz %5$s kontrolnyh točok (%6$s kadrov, %7$s s). Pošljite logi.</string>
+    <string name="replaycheck_mode">Režim</string>
+    <string name="replaycheck_mode_run">Prognati cělo</string>
+    <string name="replaycheck_mode_watch">Gledati od kadra</string>
+    <string name="replaycheck_mode_help">Prognati cělo: replaj se računaje tako hitro, kako dozvoljaje telefon, zastavjaje se malo po prvom rozsinhronu ili na koncu i vraćaje sjuda s rezultatom. Gledati od kadra: prěmotka do kadra, potom običajno gledanje.</string>
+    <string name="replaycheck_frame_label">Kadr</string>
+    <string name="replaycheck_pick">Replaji (tisnite, da zapustiti)</string>
+    <string name="replaycheck_none">V %1$s nema datotek .rep</string>
+    <string name="replaycheck_no_game_folder">Najprvo izberite papku igry v lanćeru.</string>
+    <string name="replaycheck_need_frame">Vpišite kadr, do kotorogo prěmotati.</string>
+    <string name="replaycheck_trace_enabled">Dlja provrky je vključeno mrěžno slědženje.</string>
+    <string name="replaycheck_trace_failed">Ne udalo se vključiti mrěžno slědženje; v logu ne bude podrobnostij o kontrolnyh sumah.</string>
 </resources>

@@ -272,4 +272,22 @@
     <string name="online_crossplay_patch_missing">Brak łatki społecznościowej — naciśnij Aktualizuj</string>
     <string name="online_switch_crossplay">Graj z graczami na PC</string>
     <string name="online_switch_crossplay_desc">Zgłasza sumę kontrolną EXE klienta Windows, aby jego gry cię przyjmowały. Ta suma nie jest antycheatem — nie pozwala grać razem maszynom, które policzyłyby mecz inaczej, więc może to rozsypać grę wszystkim w poczekalni. Włącz dla własnego PC i dopiero po skopiowaniu z niego danych INI do tego folderu gry.</string>
+    <string name="replaycheck_title">Sprawdzanie powtórki</string>
+    <string name="replaycheck_row_note">Przepuść powtórkę z PC przez tę wersję bez oglądania albo przeskocz do klatki i zobacz, gdzie rozchodzą się sumy kontrolne.</string>
+    <string name="replaycheck_refresh">Odśwież</string>
+    <string name="replaycheck_last_result">Ostatni wynik</string>
+    <string name="replaycheck_no_result">Nie uruchomiono jeszcze żadnego sprawdzania.</string>
+    <string name="replaycheck_result_match">%1$s: zgodne z nagraniem we wszystkich %2$s z %3$s punktów kontrolnych (%4$s klatek, %5$s s).</string>
+    <string name="replaycheck_result_mismatch">%1$s: pierwsza rozbieżność w klatce %2$s, ostatnia zgodność w %3$s. Zgodnych %4$s z %5$s punktów kontrolnych (%6$s klatek, %7$s s). Wyślij dzienniki.</string>
+    <string name="replaycheck_mode">Tryb</string>
+    <string name="replaycheck_mode_run">Przepuść całą</string>
+    <string name="replaycheck_mode_watch">Oglądaj od klatki</string>
+    <string name="replaycheck_mode_help">Przepuść całą: powtórka jest symulowana tak szybko, jak pozwala telefon, zatrzymuje się krótko po pierwszej rozbieżności lub na końcu i wraca tutaj z wynikiem. Oglądaj od klatki: przewija do klatki, a potem odtwarza normalnie.</string>
+    <string name="replaycheck_frame_label">Klatka</string>
+    <string name="replaycheck_pick">Powtórki (dotknij, aby uruchomić)</string>
+    <string name="replaycheck_none">Brak plików .rep w %1$s</string>
+    <string name="replaycheck_no_game_folder">Najpierw wybierz folder gry w programie uruchamiającym.</string>
+    <string name="replaycheck_need_frame">Podaj klatkę, do której przewinąć.</string>
+    <string name="replaycheck_trace_enabled">Włączono śledzenie sieci na potrzeby sprawdzania.</string>
+    <string name="replaycheck_trace_failed">Nie udało się włączyć śledzenia sieci; w dzienniku zabraknie szczegółów sum kontrolnych.</string>
 </resources>

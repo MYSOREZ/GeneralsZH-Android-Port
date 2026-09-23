@@ -272,4 +272,22 @@
     <string name="online_crossplay_patch_missing">缺少社区数据补丁 — 请点击“更新”</string>
     <string name="online_switch_crossplay">与 PC 玩家一起游戏</string>
     <string name="online_switch_crossplay_desc">上报 Windows 客户端的 EXE 校验和，好让它的游戏接纳你。该校验和不是反作弊：它的作用是阻止运算结果会不同的两台机器一起游戏，所以这样做可能让大厅里所有人掉线不同步。请只为自己的 PC 开启，并且要先把那台 PC 的 INI 数据复制到本游戏文件夹。</string>
+    <string name="replaycheck_title">回放检查</string>
+    <string name="replaycheck_row_note">在此版本上直接跑完一个 PC 回放而无需观看，或跳到指定帧，查看校验和从哪里开始分歧。</string>
+    <string name="replaycheck_refresh">刷新</string>
+    <string name="replaycheck_last_result">上次结果</string>
+    <string name="replaycheck_no_result">尚未运行过检查。</string>
+    <string name="replaycheck_result_match">%1$s：在 %3$s 个检查点中的全部 %2$s 个与录像一致（%4$s 帧，%5$s 秒）。</string>
+    <string name="replaycheck_result_mismatch">%1$s：首次不同步在第 %2$s 帧，最后一次一致在 %3$s。%5$s 个检查点中有 %4$s 个一致（%6$s 帧，%7$s 秒）。请发送日志。</string>
+    <string name="replaycheck_mode">模式</string>
+    <string name="replaycheck_mode_run">完整跑完</string>
+    <string name="replaycheck_mode_watch">从指定帧观看</string>
+    <string name="replaycheck_mode_help">完整跑完：以手机能达到的最快速度模拟回放，在首次不同步后不久或结束时停止，并带着结果返回此处。从指定帧观看：快进到该帧，然后正常播放。</string>
+    <string name="replaycheck_frame_label">帧</string>
+    <string name="replaycheck_pick">回放（点击开始）</string>
+    <string name="replaycheck_none">%1$s 中没有 .rep 文件</string>
+    <string name="replaycheck_no_game_folder">请先在启动器中选择游戏文件夹。</string>
+    <string name="replaycheck_need_frame">请输入要快进到的帧。</string>
+    <string name="replaycheck_trace_enabled">已为本次检查开启网络跟踪。</string>
+    <string name="replaycheck_trace_failed">无法开启网络跟踪；日志中将缺少校验和细节。</string>
 </resources>

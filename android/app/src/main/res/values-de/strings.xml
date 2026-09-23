@@ -272,4 +272,22 @@
     <string name="online_crossplay_patch_missing">Community-Datenpatch fehlt — auf Aktualisieren tippen</string>
     <string name="online_switch_crossplay">Mit PC-Spielern spielen</string>
     <string name="online_switch_crossplay_desc">Meldet die EXE-Prüfsumme des Windows-Clients, damit dessen Spiele dich annehmen. Diese Prüfsumme ist kein Anti-Cheat — sie verhindert, dass Maschinen zusammen spielen, die das Match unterschiedlich berechnen würden; das kann die Partie für alle in der Lobby zerstören. Aktiviere es für einen eigenen PC, und erst nachdem dessen INI-Daten in diesen Spielordner kopiert wurden.</string>
+    <string name="replaycheck_title">Replay-Prüfung</string>
+    <string name="replaycheck_row_note">Ein PC-Replay mit diesem Build durchlaufen lassen, ohne zuzusehen, oder zu einem Frame springen, und sehen, wo die Prüfsummen auseinandergehen.</string>
+    <string name="replaycheck_refresh">Aktualisieren</string>
+    <string name="replaycheck_last_result">Letztes Ergebnis</string>
+    <string name="replaycheck_no_result">Es wurde noch keine Prüfung ausgeführt.</string>
+    <string name="replaycheck_result_match">%1$s: stimmt an allen %2$s von %3$s Prüfpunkten mit der Aufnahme überein (%4$s Frames, %5$s s).</string>
+    <string name="replaycheck_result_mismatch">%1$s: erste Abweichung bei Frame %2$s, letzte Übereinstimmung bei %3$s. %4$s von %5$s Prüfpunkten stimmen überein (%6$s Frames, %7$s s). Bitte die Logs senden.</string>
+    <string name="replaycheck_mode">Modus</string>
+    <string name="replaycheck_mode_run">Durchlaufen lassen</string>
+    <string name="replaycheck_mode_watch">Ab Frame ansehen</string>
+    <string name="replaycheck_mode_help">Durchlaufen lassen: Das Replay wird so schnell simuliert, wie das Telefon es erlaubt, stoppt kurz nach der ersten Abweichung oder am Ende und kehrt mit dem Ergebnis hierher zurück. Ab Frame ansehen: spult bis zum Frame vor und spielt dann normal weiter.</string>
+    <string name="replaycheck_frame_label">Frame</string>
+    <string name="replaycheck_pick">Replays (zum Starten antippen)</string>
+    <string name="replaycheck_none">Keine .rep-Dateien in %1$s</string>
+    <string name="replaycheck_no_game_folder">Wähle zuerst den Spielordner im Launcher.</string>
+    <string name="replaycheck_need_frame">Gib den Frame ein, bis zu dem vorgespult werden soll.</string>
+    <string name="replaycheck_trace_enabled">Netzwerk-Trace für die Prüfung eingeschaltet.</string>
+    <string name="replaycheck_trace_failed">Netzwerk-Trace konnte nicht eingeschaltet werden; im Log fehlen die Prüfsummen-Details.</string>
 </resources>

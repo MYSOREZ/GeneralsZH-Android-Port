@@ -272,4 +272,22 @@
     <string name="online_crossplay_patch_missing">حزمة بيانات المجتمع مفقودة — اضغط «تحديث»</string>
     <string name="online_switch_crossplay">اللعب مع لاعبي الحاسوب</string>
     <string name="online_switch_crossplay_desc">يُبلغ عن مجموع تحقّق EXE الخاص بعميل ويندوز كي تقبلك مبارياته. هذا المجموع ليس مضادًا للغش: وظيفته منع جهازين يحسبان المباراة بطريقتين مختلفتين من اللعب معًا، لذا قد يُفسد ذلك المباراة على الجميع في الردهة. فعّله لحاسوب تملكه، وبعد نسخ بيانات INI منه إلى مجلد اللعبة هذا فقط.</string>
+    <string name="replaycheck_title">فحص الإعادة</string>
+    <string name="replaycheck_row_note">شغّل إعادة من الحاسوب على هذا الإصدار دون مشاهدتها، أو انتقل إلى إطار معيّن، واعرف أين تفترق مجاميع التحقق.</string>
+    <string name="replaycheck_refresh">تحديث</string>
+    <string name="replaycheck_last_result">آخر نتيجة</string>
+    <string name="replaycheck_no_result">لم يتم تشغيل أي فحص بعد.</string>
+    <string name="replaycheck_result_match">%1$s: مطابقة للتسجيل في جميع نقاط التحقق الـ %2$s من %3$s (%4$s إطار، %5$s ث).</string>
+    <string name="replaycheck_result_mismatch">%1$s: أول عدم تطابق عند الإطار %2$s، وآخر تطابق عند %3$s. تطابقت %4$s من %5$s نقاط تحقق (%6$s إطار، %7$s ث). أرسل السجلات.</string>
+    <string name="replaycheck_mode">الوضع</string>
+    <string name="replaycheck_mode_run">تشغيل كامل</string>
+    <string name="replaycheck_mode_watch">المشاهدة من إطار</string>
+    <string name="replaycheck_mode_help">تشغيل كامل: تُحاكى الإعادة بأسرع ما يسمح به الهاتف، وتتوقف بعد أول عدم تطابق بقليل أو عند النهاية، وتعود إلى هنا مع النتيجة. المشاهدة من إطار: تقديم سريع حتى الإطار ثم تشغيل عادي.</string>
+    <string name="replaycheck_frame_label">الإطار</string>
+    <string name="replaycheck_pick">الإعادات (المس للبدء)</string>
+    <string name="replaycheck_none">لا توجد ملفات ‎.rep في %1$s</string>
+    <string name="replaycheck_no_game_folder">اختر مجلد اللعبة في المشغّل أولاً.</string>
+    <string name="replaycheck_need_frame">أدخل الإطار المراد التقديم إليه.</string>
+    <string name="replaycheck_trace_enabled">تم تشغيل تتبّع الشبكة للفحص.</string>
+    <string name="replaycheck_trace_failed">تعذّر تشغيل تتبّع الشبكة؛ لن يتضمن السجل تفاصيل مجاميع التحقق.</string>
 </resources>

@@ -272,4 +272,22 @@
     <string name="online_crossplay_patch_missing">커뮤니티 데이터 패치 없음 — 업데이트를 누르세요</string>
     <string name="online_switch_crossplay">PC 플레이어와 함께 플레이</string>
     <string name="online_switch_crossplay_desc">Windows 클라이언트의 EXE 체크섬을 보고해 해당 게임이 참가를 허용하게 합니다. 이 체크섬은 안티치트가 아니라, 경기를 다르게 계산할 기기끼리 함께 플레이하지 못하게 막는 장치입니다. 따라서 로비의 모든 사람에게 동기화 오류를 낼 수 있습니다. 본인 소유의 PC를 상대할 때, 그 PC의 INI 데이터를 이 게임 폴더에 복사한 뒤에만 켜세요.</string>
+    <string name="replaycheck_title">리플레이 검사</string>
+    <string name="replaycheck_row_note">PC 리플레이를 이 빌드에서 보지 않고 끝까지 돌리거나 특정 프레임으로 건너뛰어, 체크섬이 어디서 갈라지는지 확인합니다.</string>
+    <string name="replaycheck_refresh">새로 고침</string>
+    <string name="replaycheck_last_result">마지막 결과</string>
+    <string name="replaycheck_no_result">아직 검사를 실행하지 않았습니다.</string>
+    <string name="replaycheck_result_match">%1$s: %3$s개 체크포인트 중 %2$s개 모두 녹화와 일치합니다 (%4$s 프레임, %5$s초).</string>
+    <string name="replaycheck_result_mismatch">%1$s: 첫 불일치 프레임 %2$s, 마지막 일치 %3$s. %5$s개 체크포인트 중 %4$s개 일치 (%6$s 프레임, %7$s초). 로그를 보내 주세요.</string>
+    <string name="replaycheck_mode">모드</string>
+    <string name="replaycheck_mode_run">끝까지 실행</string>
+    <string name="replaycheck_mode_watch">프레임부터 보기</string>
+    <string name="replaycheck_mode_help">끝까지 실행: 휴대폰이 허용하는 최대 속도로 리플레이를 시뮬레이션하고, 첫 불일치 직후나 끝에서 멈춘 뒤 결과와 함께 이 화면으로 돌아옵니다. 프레임부터 보기: 해당 프레임까지 빨리 감은 뒤 정상 재생합니다.</string>
+    <string name="replaycheck_frame_label">프레임</string>
+    <string name="replaycheck_pick">리플레이 (눌러서 시작)</string>
+    <string name="replaycheck_none">%1$s에 .rep 파일이 없습니다</string>
+    <string name="replaycheck_no_game_folder">먼저 런처에서 게임 폴더를 선택하세요.</string>
+    <string name="replaycheck_need_frame">빨리 감을 프레임을 입력하세요.</string>
+    <string name="replaycheck_trace_enabled">검사를 위해 네트워크 추적을 켰습니다.</string>
+    <string name="replaycheck_trace_failed">네트워크 추적을 켤 수 없습니다. 로그에 체크섬 세부 정보가 없습니다.</string>
 </resources>

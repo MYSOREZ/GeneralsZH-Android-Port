@@ -272,4 +272,22 @@
     <string name="online_crossplay_patch_missing">Correctif communautaire manquant — appuyez sur Mettre à jour</string>
     <string name="online_switch_crossplay">Jouer avec des joueurs PC</string>
     <string name="online_switch_crossplay_desc">Annonce la somme de contrôle EXE du client Windows pour que ses parties vous acceptent. Cette somme n\'est pas un anti-triche : elle empêche deux machines qui calculeraient la partie différemment de jouer ensemble, donc cela peut désynchroniser la partie pour tout le salon. À activer pour un PC vous appartenant, et seulement après avoir copié ses données INI dans ce dossier de jeu.</string>
+    <string name="replaycheck_title">Vérification de replay</string>
+    <string name="replaycheck_row_note">Faire tourner un replay PC sur cette version sans le regarder, ou sauter à une image, et voir où les sommes de contrôle divergent.</string>
+    <string name="replaycheck_refresh">Actualiser</string>
+    <string name="replaycheck_last_result">Dernier résultat</string>
+    <string name="replaycheck_no_result">Aucune vérification n\'a encore été lancée.</string>
+    <string name="replaycheck_result_match">%1$s : correspond à l\'enregistrement aux %2$s points de contrôle sur %3$s (%4$s images, %5$s s).</string>
+    <string name="replaycheck_result_mismatch">%1$s : première divergence à l\'image %2$s, dernière correspondance à %3$s. %4$s points de contrôle sur %5$s correspondent (%6$s images, %7$s s). Envoyez les journaux.</string>
+    <string name="replaycheck_mode">Mode</string>
+    <string name="replaycheck_mode_run">Tout exécuter</string>
+    <string name="replaycheck_mode_watch">Regarder depuis l\'image</string>
+    <string name="replaycheck_mode_help">Tout exécuter : le replay est simulé aussi vite que le téléphone le permet, s\'arrête peu après la première divergence ou à la fin et revient ici avec le résultat. Regarder depuis l\'image : avance rapide jusqu\'à l\'image, puis lecture normale.</string>
+    <string name="replaycheck_frame_label">Image</string>
+    <string name="replaycheck_pick">Replays (touchez pour lancer)</string>
+    <string name="replaycheck_none">Aucun fichier .rep dans %1$s</string>
+    <string name="replaycheck_no_game_folder">Choisissez d\'abord le dossier du jeu dans le lanceur.</string>
+    <string name="replaycheck_need_frame">Saisissez l\'image jusqu\'à laquelle avancer.</string>
+    <string name="replaycheck_trace_enabled">Trace réseau activée pour la vérification.</string>
+    <string name="replaycheck_trace_failed">Impossible d\'activer la trace réseau ; le journal n\'aura pas le détail des sommes de contrôle.</string>
 </resources>
