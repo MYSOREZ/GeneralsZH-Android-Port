@@ -1786,3 +1786,15 @@ The `docktrace` build logged the dock bones and every movement decision. What it
 So the PC is not "our dynamics with one different number". Either its rules differ
 somewhere in this flight in a way not yet modelled, or something besides the Chinook
 differs at 3700.
+
+**Dock bones verified from the model file (23/09/2026).** The user published the model
+archives as a GitHub release (`MYSOREZ/Generals-ZeroHour`, tag `assaets-v1`; the assets
+download through the API URL with `Accept: application/octet-stream`, because the
+browser URL returns 404 through the proxy). `ABSUPPLYCT.W3D` is in the **base-game**
+`W3D.big` (Zero Hour's `W3DZH.big` only has the `_A2*` variants). Its hierarchy has the
+dock bones as plain children of the root (`DOCKACTION`, `DOCKSTART`, `DOCKEND`,
+`DOCKWAITING01..09`). The animation (`ABSUPPLYCT`, 41 frames at 30 fps) only rotates
+three fans. `scripts/tooling/replay/w3d_pristine_bones.py` rebuilds the pristine pose in
+float32, exactly as `HTreeClass::read_pivots`, `Build_Matrix3D` and
+`Anim_Update_Without_Interpolation` do. **Every dock bone equals the device's logged
+value bit for bit.** The docking geometry is closed as a suspect.
