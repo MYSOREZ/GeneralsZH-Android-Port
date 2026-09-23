@@ -103,14 +103,21 @@ def main():
         raise SystemExit('header has no ;C=100; field')
     header = header[:i] + b';C=001;' + header[i + 7:]
     last_frame = max(f for f, *_ in recs)
+    # A multiplayer recording never carries the checksum of frame 0 (the recording
+    # machine's first one is not transmitted), and its player drops its own first one
+    # to match, then pairs the rest by arrival order. Mirror the recording: frame 0 goes
+    # in only if the original has it, or every later pair is off by one frame.
+    has_frame0 = any(f == 1 for f, t, p, r in recs if t == mtype)
     body = [r for r in recs if r[1] != mtype]
     for f, c in ours.items():
+        if f == 0 and not has_frame0:
+            continue
         if f + 1 <= last_frame:
             body.append((f + 1, mtype, player, crc_record(f + 1, mtype, player, c)))
     body.sort(key=lambda r: (r[0], 0 if r[1] == mtype else 1))
     open(outp, 'wb').write(header + b''.join(r[3] for r in body))
     print('wrote', outp, 'with', sum(1 for r in body if r[1] == mtype), 'checksum records, frames',
-          min(ours), '..', min(max(ours), last_frame - 1))
+          min(f for f in ours if f > 0 or has_frame0), '..', min(max(ours), last_frame - 1))
 
 if __name__ == '__main__':
     main()

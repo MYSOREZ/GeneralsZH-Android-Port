@@ -1851,7 +1851,11 @@ shows `InGame:… Replay:… Frame:N`. So:
 2. `scripts/tooling/replay/rep_crc_every_frame.py IN.rep generals-stderr.log OUT.rep`
    rewrites the recording:
    - the header gets `C=001` (same length, `atoi` reads 1);
-   - every checksum record is replaced by this device's checksum of every frame.
+   - every checksum record is replaced by this device's checksum of every frame;
+   - frame 0 is left out when the original has no record for it. A multiplayer
+     recording never has one, and its player drops its own first checksum and pairs
+     the rest by arrival order. With frame 0 included, every pair is off by one frame
+     and the replay "desyncs" at frame 2 on any machine.
 
    `--roundtrip` checks the parser: it rewrites the original byte for byte.
 3. First play OUT.rep on the phone. It must match itself at every frame, which proves
