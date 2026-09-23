@@ -1798,3 +1798,23 @@ three fans. `scripts/tooling/replay/w3d_pristine_bones.py` rebuilds the pristine
 float32, exactly as `HTreeClass::read_pivots`, `Build_Matrix3D` and
 `Anim_Update_Without_Interpolation` do. **Every dock bone equals the device's logged
 value bit for bit.** The docking geometry is closed as a suspect.
+
+**The new client's machine code checked against the source for the Chinook's path
+(23/09/2026).** The 23 September exe is built from a non-public branch: the revision
+tag is not in the public source. So each function on the Chinook's flight was read in
+its disassembly (`/tmp/claude-0/goexe/dis.txt`, located via unique `.rdata`
+constants). Identical to the public source:
+- the braking "exact movement" (MIN_VEL at `0x9efd64`; `inv = 1/dist`,
+  `pos += dx·inv·vel`, `vel = clamp(|fwd|, MIN_VEL, dist)`);
+- `maintainCurrentPositionHover` (1e−10 at `0x9efd54`);
+- `getForwardSpeed2D` (same odd per-axis formula);
+- `applyMotiveForce` (expiry = frame + 20);
+- `PhysicsBehavior::update`'s integration and velocity clamp (the x/y clamp is skipped
+  while motive, exactly as in the source's 60 Hz branch);
+- `Thing::getUnitDirectionVector2D` (`(float)cos/sin((double)θ)` through
+  `_libm_sse2_cos/sin_precise`).
+
+`atan2` on the PC goes through `_CIatan2` (x87 `fpatan`), not an SSE2 routine. Not yet
+read: `moveTowardsPositionOther`, `rotateObjAroundLocoPivot`/`normalizeAngle`,
+`Thing::setOrientation`, `Matrix3D::Get_Z_Rotation`, `applyFrictionalForces`/
+`applyForce`, `calcSlowDownDist`.
