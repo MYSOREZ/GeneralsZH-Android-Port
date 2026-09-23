@@ -1003,3 +1003,42 @@ here:
 (where `7.rep` and `8.rep` match): place one structure with the dozer, cancel it at
 once, then do nothing for a minute. A second recording with the structure sold
 instead of cancelled splits "the death itself" from "the debris it throws".
+
+## Found: the compiler merged sin/cos pairs into bionic's sincosf (23/09/2026)
+
+`ReferenceFloatMath.cpp` gives the binary its own `sinf`, `cosf` and the rest. But the
+check that should have followed it was never run: **list what `libmain.so` still
+imports from libm.**
+
+```
+llvm-nm -D --undefined-only libmain.so | grep -E 'sin|cos|tan|exp|log|pow'
+  ... sin@LIBC  cos@LIBC  sincos@LIBC  sincosf@LIBC  exp2f@LIBC  log2f@LIBC ...
+```
+
+`sincosf` appears nowhere in the source. When clang sees `sin(a)` and `cos(a)` of the
+same float argument, it merges them into a single `sincosf` call. That call goes to the
+platform libm, whose single-precision routine is exactly what `ReferenceFloatMath`
+exists to avoid. Finding the objects that ask for it takes one loop over the build tree
+(`llvm-nm --undefined-only` on every `.o`). Four are simulation code:
+
+| object | code | what it decides |
+|---|---|---|
+| `Geometry.cpp` | `GeometryInfo::get2DBounds`, box case | which partition cells a box-shaped object (building, construction site, many vehicles) occupies |
+| `BuildAssistant.cpp` | `(Real)cos(angle)` / `(Real)sin(angle)` twice | whether a structure may be placed there, where its factory exit is |
+| `AISkirmishPlayer.cpp` | base-defence placement, twice | where the skirmish AI puts buildings |
+| `AIGroup.cpp` | formation offset | where a group's members are sent |
+
+`1.rep` is the first recording with an AI building a base, a structure placed and then
+removed, and objects entering and leaving the partition around a building footprint.
+All of it runs through these calls.
+
+Fix: `ReferenceFloatMath.cpp` now also defines `sincosf` (double, then round once, like
+`sinf`/`cosf`) and `sincos` (plain `sin` + `cos`). Every merge the compiler makes, now or
+in future, lands on the reference semantics. **After every build, the import list is
+the check:** no float transcendental other than the ones that are correctly rounded
+everywhere may be imported from `LIBC`. `exp2f`/`log2f` remain, from `d3dx8_compat.cpp`
+and `mapper.cpp` (rendering, not simulation).
+
+The general lesson extends the previous one. Wrapping the functions the source calls is
+not enough. The compiler emits libm calls of its own (`sincosf`, and on other targets
+`__sincosf_stret`, `exp10f`), so verify against the binary's imports, not the source.

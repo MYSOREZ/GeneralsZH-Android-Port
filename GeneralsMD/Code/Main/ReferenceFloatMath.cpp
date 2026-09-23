@@ -42,6 +42,19 @@
 // affected. sqrtf and fmodf are deliberately absent: both are correctly rounded on
 // every platform, so there is nothing to reproduce.
 //
+// GeneralsX @bugfix Android port 23/09/2026 sincosf, which no source file calls. When
+// clang sees sin(a) and cos(a) of the same float argument it merges them into ONE call
+// to sincosf -- and bionic's sincosf is its own single-precision routine. So every such
+// pair went straight past the definitions below, into the platform libm. libmain.so
+// imported sincosf@LIBC, and the objects that asked for it were Geometry.cpp
+// (GeometryInfo::get2DBounds, i.e. which partition cells a box-shaped object touches),
+// BuildAssistant.cpp (whether a building may be placed and where its exit is),
+// AISkirmishPlayer.cpp (where the AI puts its base defences) and AIGroup.cpp. Defining
+// it here, with the same "double, then round once" as sinf and cosf, catches every merge
+// the compiler makes now or later. The double pair is merged the same way, into sincos;
+// that one is defined here too, as plain sin() and cos(), so a merged pair can never
+// return anything the two separate calls would not.
+//
 // This file is compiled with -fno-builtin, so the compiler cannot recognise the pattern
 // "(float)sin((double)x)" inside sinf and turn it back into a call to sinf.
 
@@ -83,5 +96,15 @@ GX_REFERENCE_FLOAT_MATH float expf(float x)            { return (float)exp((doub
 GX_REFERENCE_FLOAT_MATH float logf(float x)            { return (float)log((double)x); }
 GX_REFERENCE_FLOAT_MATH float log10f(float x)          { return (float)log10((double)x); }
 GX_REFERENCE_FLOAT_MATH float powf(float x, float y)   { return (float)pow((double)x, (double)y); }
+GX_REFERENCE_FLOAT_MATH void sincos(double x, double* s, double* c)
+{
+	*s = sin(x);
+	*c = cos(x);
+}
+GX_REFERENCE_FLOAT_MATH void sincosf(float x, float* s, float* c)
+{
+	*s = (float)sin((double)x);
+	*c = (float)cos((double)x);
+}
 
 #endif
