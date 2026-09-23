@@ -1844,7 +1844,10 @@ shows `InGame:… Replay:… Frame:N`. So:
 1. The launcher's Replay check screen has a switch, **Checksum of every frame**
    (`-gxCrcEveryFrame`). With it, the engine also computes the checksum on every frame,
    at the recorder's instant, and prints `crc every frame N: X`. Nothing is sent or
-   compared.
+   compared. The launcher also writes a `gx_crc_every_frame.txt` marker in the game
+   folder, because the launch argument was once lost on the way to the engine.
+   Check the log's `replay check …: started` line: it must end with
+   `checksum of every frame on`. If it says `off`, the log is useless for step 2.
 2. `scripts/tooling/replay/rep_crc_every_frame.py IN.rep generals-stderr.log OUT.rep`
    rewrites the recording:
    - the header gets `C=001` (same length, `atoi` reads 1);
