@@ -1072,3 +1072,26 @@ Then `llvm-symbolizer --obj=libmain60.sym.so 0x...` names each site.
 Reading it: **zero fragile calls in the window acquits libm for this divergence**, and
 the hunt moves to non-maths state. A non-zero count names the exact sites to compare
 against the client.
+
+**Measured on `1.rep` (23/09/2026): libm is acquitted.** Frames 1900..1999 made 52,824
+libm calls on the logic thread from 123 call sites: `Locomotor`, `PhysicsBehavior`
+(`update`, `setAngles`, `handleBounce`), `Thing::setTransformMatrix`, the collision
+tests (`collideTest_Box_Box`, `xy_collideTest_Rect_Rect`/`Circle_Rect`),
+`PartitionManager::findPositionAround`, `Pathfinder::classifyObjectFootprint`, the
+debris OCL, plus client-side drawing and audio on the same thread. **None was
+fragile.** No result came within 4 double ULPs of a float rounding midpoint, so no
+libm that is accurate to within an ULP, the PC's included, can round any of those floats
+differently. The checksum at 2000 was `6AD123D1` again.
+
+Also cleared this round, by normalised diff against the client (whitespace,
+`NULL`/`nullptr`, brace style and trace lines removed): all of `GameLogic` and `Common`,
+the device-side terrain height path (`W3DTerrainLogic` → `BaseHeightMap`; the
+`m_useHalfHeightMap` terrain LOD only affects tree panels), the legacy-frame (30 Hz)
+logic, and the contact list (hashed by object ID). Local-player checks in the
+simulation only drive UI: EVA sounds, marking the control bar dirty, and the
+retaliation-mode message, which is itself recorded.
+
+With both the arithmetic and the code measured equal, the one input not yet measured
+is the recording itself: **whether the PC reproduces its own recording.** A replay
+records the checksums of a live game, where frame pacing, input timing and the local
+player differ from playback. One PC playback of `1.rep` answers it.
