@@ -1095,3 +1095,23 @@ With both the arithmetic and the code measured equal, the one input not yet meas
 is the recording itself: **whether the PC reproduces its own recording.** A replay
 records the checksums of a live game, where frame pacing, input timing and the local
 player differ from playback. One PC playback of `1.rep` answers it.
+
+### Compiler assumptions: strict aliasing, signed overflow, null checks (23/09/2026)
+
+With libm measured innocent and the source identical, the remaining difference
+between "the same source on both machines" is what each **compiler assumes about
+undefined behaviour**. MSVC performs no type-based alias analysis, lets signed integers
+wrap in practice, and keeps a null check that follows a dereference. clang at `-O2`
+assumes the opposite on all three. This engine reads floats through
+`*(unsigned *)&f` (`BaseType.h`: `fast_float_floor`/`fast_float_trunc` behind
+`REAL_TO_INT_FLOOR`/`CEIL`, used by terrain lookups and partition cells), hashes with
+`Int` arithmetic, and tests pointers after using them.
+
+Measured first: every simulation file was compiled twice, with and without
+`-fno-strict-aliasing -fwrapv -fno-delete-null-pointer-checks`, and the disassembly
+compared with addresses and symbol names removed. **276 of 441 files produced
+different machine code**, so clang does act on those assumptions here. Different code
+is not necessarily different behaviour. The flags are now global for non-MSVC builds
+(`cmake/compilers.cmake`), which makes the port's semantics the reference compiler's.
+`1.rep` decides whether any of it ran in the diverging window: if the checksum at 2000
+changes, it did.

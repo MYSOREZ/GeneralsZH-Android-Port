@@ -56,6 +56,17 @@ if (NOT IS_VS6_BUILD)
         # Upstream reference: Okladnoj, PR #2670
         # https://github.com/TheSuperHackers/GeneralsGameCode/pull/2670
         add_compile_options(-ffp-contract=off)
+        # GeneralsX @bugfix Android port 23/09/2026 Give the simulation the semantics of the
+        # compiler it has to agree with. The GeneralsOnline PC client is built by MSVC, which
+        # never uses type-based alias analysis, lets signed integers wrap, and keeps null
+        # checks that follow a dereference. clang at -O2 assumes the opposite on all three --
+        # and this 2003 engine reads floats through `*(unsigned*)&f` (BaseType.h's
+        # fast_float_floor/trunc behind REAL_TO_INT_FLOOR), hashes with Int arithmetic that
+        # overflows, and tests `this`/members after using them. Compiling the simulation
+        # sources both ways changed the machine code of 276 of 441 files, so clang is acting
+        # on those assumptions; with these flags it may not, and the same source means the
+        # same thing on both machines.
+        add_compile_options(-fno-strict-aliasing -fwrapv -fno-delete-null-pointer-checks)
     endif()
 else()
     if(RTS_BUILD_OPTION_VC6_FULL_DEBUG)
