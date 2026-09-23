@@ -31,6 +31,8 @@
 
 #ifndef _WIN32
 #include <fenv.h>
+#include <map>
+#include <string>
 #if defined(__SSE__) || defined(__x86_64__)
 #include <xmmintrin.h>
 #endif
@@ -3872,6 +3874,48 @@ extern __int64 Total_Load_3D_Assets;
 // ------------------------------------------------------------------------------------------------
 #if !(defined(_MSC_VER) && defined(_M_IX86))
 extern "C" __attribute__((weak)) void gxMathTraceFrame(unsigned frame);
+
+// GeneralsX @feature Android port 23/09/2026 Who raises the "invalid" floating-point flag.
+// The per-frame fp-flags trace showed it raised in many frames, in windows that match the
+// PC and in the one that does not. It is raised by a NaN, an ordered comparison with a
+// NaN, or a float converted to an integer out of range -- the last being exactly where
+// x86 (0x80000000) and ARM (saturation) produce different integers. GameLogic::update
+// checks the flag after every phase and after every module update, names the culprit and
+// clears it, so each report is one module on one object.
+namespace
+{
+	Bool s_gxFpInvalidThisFrame = FALSE;
+	UnsignedInt s_gxFpBlameLines = 0;
+	std::map<std::string, UnsignedInt> s_gxFpBlameCounts;
+
+	void gxFpBlame(UnsignedInt frame, const char *phase, const Object *obj, const UpdateModule *u)
+	{
+		if (!fetestexcept(FE_INVALID))
+			return;
+		feclearexcept(FE_INVALID);
+		s_gxFpInvalidThisFrame = TRUE;
+
+		AsciiString moduleName;
+		if (u != nullptr)
+			moduleName = TheNameKeyGenerator->keyToName(u->getModuleNameKey());
+		const char *tmpl = (obj != nullptr && obj->getTemplate() != nullptr) ? obj->getTemplate()->getName().str() : "-";
+		std::string key = std::string(phase) + " " + moduleName.str() + " " + tmpl;
+		UnsignedInt &count = s_gxFpBlameCounts[key];
+		++count;
+		// every occurrence around the diverging window, and the first of each kind elsewhere
+		const Bool inWindow = frame >= 1880 && frame <= 2010;
+		if ((inWindow || count == 1) && s_gxFpBlameLines < 600)
+		{
+			++s_gxFpBlameLines;
+			GX_NET_TRACE("fp invalid frame %u: %s %s on %s id=%u%s\n", (unsigned)frame, phase,
+				moduleName.isEmpty() ? "-" : moduleName.str(), tmpl,
+				obj != nullptr ? (unsigned)obj->getID() : 0u, count == 1 ? " (first of this kind)" : "");
+		}
+	}
+}
+#define GX_FP_BLAME(phase, obj, u) do { if (GXTrace::isNetEnabled()) gxFpBlame(m_frame, (phase), (obj), (u)); } while (0)
+#else
+#define GX_FP_BLAME(phase, obj, u) do {} while (0)
 #endif
 
 void GameLogic::update()
@@ -3944,6 +3988,7 @@ void GameLogic::update()
 	{
 		TheScriptEngine->UPDATE();
 	}
+	GX_FP_BLAME("ScriptEngine", nullptr, nullptr);
 
 	// TheSuperHackers @info Updates the frozen time status because it may have changed after the script engine update.
 	TheFramePacer->setTimeFrozen(TheGameEngine->isTimeFrozen());
@@ -3956,6 +4001,7 @@ void GameLogic::update()
 	{
 		TheTerrainLogic->UPDATE();
 	}
+	GX_FP_BLAME("TerrainLogic", nullptr, nullptr);
 
 	// force CRC calculation, so we can keep a cache of the last N CRCs.  We do this right where the recorder
 	// would be getting the CRC anyway, so replays can get the CRCs from the exact instant in time as the original.
@@ -4004,6 +4050,7 @@ void GameLogic::update()
 	{
 		processCommandList( TheCommandList );
 	}
+	GX_FP_BLAME("Commands", nullptr, nullptr);
 
 #ifdef ALLOW_NONSLEEPY_UPDATES
 	{
@@ -4031,6 +4078,7 @@ void GameLogic::update()
 				#else
 					u->update();
 				#endif
+				GX_FP_BLAME("update", u->friend_getObject(), u);
 
 				m_curUpdateModule = nullptr;
 			}
@@ -4075,6 +4123,7 @@ void GameLogic::update()
 				m_curUpdateModule = u;
 
 				sleepLen = u->update();
+				GX_FP_BLAME("update", u->friend_getObject(), u);
 				DEBUG_ASSERTCRASH(sleepLen > 0, ("you may not return 0 from update"));
 				if (sleepLen < 1)
 					sleepLen = UPDATE_SLEEP_NONE;
@@ -4095,16 +4144,19 @@ void GameLogic::update()
 	{
 		TheAI->UPDATE();
 	}
+	GX_FP_BLAME("AI", nullptr, nullptr);
 
 	// production updates
 	{
 		TheBuildAssistant->UPDATE();
 	}
+	GX_FP_BLAME("BuildAssistant", nullptr, nullptr);
 
 	// update partition info
 	{
 		ThePartitionManager->UPDATE();
 	}
+	GX_FP_BLAME("PartitionManager", nullptr, nullptr);
 
 	//
 	// End of frame clean-up
@@ -4112,6 +4164,7 @@ void GameLogic::update()
 
 	// destroy all pending objects
 	processDestroyList();
+	GX_FP_BLAME("DestroyList", nullptr, nullptr);
 
 	// reset the command list, destroying all messages
 	TheCommandList->reset();
@@ -4119,6 +4172,7 @@ void GameLogic::update()
 	TheWeaponStore->UPDATE();
 	TheLocomotorStore->UPDATE();
 	TheVictoryConditions->UPDATE();
+	GX_FP_BLAME("Stores", nullptr, nullptr);
 
 	{
 		//Handle disabled statii (and re-enable objects once frame matches)
@@ -4130,6 +4184,7 @@ void GameLogic::update()
 			}
 		}
 	}
+	GX_FP_BLAME("DisabledStatus", nullptr, nullptr);
 
 
 
@@ -4150,10 +4205,15 @@ void GameLogic::update()
 		if (m_frame == 0)
 		{
 			s_fpLines = 0;
+			s_gxFpBlameLines = 0;
+			s_gxFpBlameCounts.clear();
 			s_fpFrames[0] = s_fpFrames[1] = s_fpFrames[2] = s_fpFrames[3] = 0;
 			s_fpWindowStart = 0;
 		}
-		const int raised = fetestexcept(FE_UNDERFLOW | FE_INVALID | FE_DIVBYZERO | FE_OVERFLOW);
+		int raised = fetestexcept(FE_UNDERFLOW | FE_INVALID | FE_DIVBYZERO | FE_OVERFLOW);
+		if (s_gxFpInvalidThisFrame)
+			raised |= FE_INVALID;
+		s_gxFpInvalidThisFrame = FALSE;
 		if (raised & FE_UNDERFLOW) ++s_fpFrames[0];
 		if (raised & FE_INVALID) ++s_fpFrames[1];
 		if (raised & FE_DIVBYZERO) ++s_fpFrames[2];

@@ -1145,3 +1145,24 @@ The math trace saves and restores the flags around its own bookkeeping, so it do
 pollute the reading. A frame in the diverging window that raises `invalid` or
 `underflow` names the class; if nothing is raised in 1900..1999 while earlier windows
 are equally clean, this class is out too.
+
+**Measured on `1.rep`:** no denormal in any frame of the replay, so the flush-to-zero
+theory is out. `invalid` is raised often: in 16 frames of 1900..1999, and also in
+windows that match the PC (35 frames of 400..499, 40 of 900..999, and more). `invalid`
+means a NaN, an ordered comparison with a NaN, or a float converted to an integer out of
+range. The last is where x86 and ARM produce **different integers from the same
+instruction**. That it also happens in matching windows does not clear it: the result
+may be unused there and used here.
+
+Next instrument: `GameLogic::update` checks the flag after every phase (scripts,
+terrain, commands, AI, build assistant, partition, destroy list, stores, disabled
+status) and after **every module update**, then names the module and the object and
+clears the flag:
+
+```
+[GX-NET] fp invalid frame N: update PhysicsBehavior on GenericDebris id=351
+[GX-NET] fp invalid frame N: AI - on - id=0 (first of this kind)
+```
+
+Every occurrence in 1880..2010 is printed, and elsewhere the first of each
+(phase, module, template) kind.
