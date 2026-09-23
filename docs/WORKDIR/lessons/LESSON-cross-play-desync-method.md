@@ -968,3 +968,38 @@ Also checked and clean this round:
 
 Nothing on the phone side is left that one checkpoint's checksum can decide. The two
 PC-side inputs above are now the only way forward.
+
+### Compiler differences on the death path, checked (23/09/2026)
+
+Once the libm functions agree, two IEEE machines doing the same float operations
+agree. `-ffp-contract=off` is set here, and the client's `/arch:SSE2 /fp:precise` does
+no contraction. So the remaining candidates are the places where **MSVC and clang
+are allowed to compile the same source differently**:
+
+| candidate | how it was checked | result |
+|---|---|---|
+| order of evaluating arguments / operands with two logic RNG draws in one statement (MSVC tends right-to-left, clang left-to-right) | every statement, across line breaks, in `GameEngine` sources with two `GameLogicRandomValue*` calls | none |
+| uninitialised locals (stack garbage differs per compiler) | every simulation TU recompiled from `compile_commands.json` with `-Wuninitialized -Wsometimes-uninitialized -Wconditional-uninitialized` (442 files) | 14 hits, none on the debris/death/physics path; the "closest distance" loops are safe (first iteration assigns) |
+| `WWMath` headers vs the client | full diff | only the intentional `Inv_Sqrt`/`Sin`/`Cos`/`Tan`/`Float_To_Long` fixes, plus `Inverse_Lerp` guarding `a == b` (no simulation caller) |
+
+**Port changes that moved enum numbering.** Both are real, and neither has a CRC path
+here:
+
+- `DAMAGE_FLESHY_SNIPER` is compiled into Zero Hour here, while the client keeps it
+  under `#if RTS_GENERALS`. So every damage type from `DAMAGE_SUBDUAL_MISSILE` on is
+  one higher here (client 31, here 32). `KINDOF_AIRFIELD` plus
+  `KINDOF_RESERVED_SPARE_1` shift the `KindOf` bits the same way. Behaviour goes
+  through names parsed from INI and is unaffected. The object checksum carries no
+  damage type or `KindOf` mask. Revisit if a checksum ever differs in a word holding
+  one.
+- `ThingTemplate.cpp`'s legacy shim, which is dead in the client's Zero Hour build,
+  runs here. Every `DRONE` gets `NO_SELECT`, and `AIRFIELD` implies `FS_AIRFIELD`.
+  `NO_SELECT` is only read by `CommandXlat` (what a click turns into). A replay
+  replays recorded commands, so it cannot desync one. In a live game it makes the
+  phone's player issue different commands than a PC player would for the same click,
+  which is a behaviour difference, not a desync.
+
+**Next, as with the dozer:** a PC recording that isolates the event. On Casino, solo
+(where `7.rep` and `8.rep` match): place one structure with the dozer, cancel it at
+once, then do nothing for a minute. A second recording with the structure sold
+instead of cancelled splits "the death itself" from "the debris it throws".
