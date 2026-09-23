@@ -3916,6 +3916,19 @@ namespace
 		}
 	}
 }
+// Finer attribution from inside a module (AIUpdateInterface::update calls this between its
+// steps); `detail` is appended to the phase, e.g. the AI state id that just ran.
+void gxFpCheckpoint(const char *where, const Object *obj, Int detail)
+{
+	if (!GXTrace::isNetEnabled() || TheGameLogic == nullptr)
+		return;
+	char phase[64];
+	if (detail >= 0)
+		snprintf(phase, sizeof(phase), "%s %d", where, (int)detail);
+	else
+		snprintf(phase, sizeof(phase), "%s", where);
+	gxFpBlame(TheGameLogic->getFrame(), phase, obj, nullptr);
+}
 #define GX_FP_BLAME(phase, obj, u) do { if (GXTrace::isNetEnabled()) gxFpBlame(m_frame, (phase), (obj), (u)); } while (0)
 #else
 #define GX_FP_BLAME(phase, obj, u) do {} while (0)

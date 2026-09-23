@@ -1015,6 +1015,10 @@ void AIUpdateInterface::friend_notifyStateMachineChanged()
  * The "main loop" of the AI subsystem
  */
 DECLARE_PERF_TIMER(AIUpdateInterface_update)
+#if !(defined(_MSC_VER) && defined(_M_IX86))
+extern void gxFpCheckpoint(const char *where, const Object *obj, Int detail);
+#endif
+
 UpdateSleepTime AIUpdateInterface::update()
 {
 	//DEBUG_LOG(("AIUpdateInterface frame %d: %08lx",TheGameLogic->getFrame(),getObject()));
@@ -1028,7 +1032,17 @@ UpdateSleepTime AIUpdateInterface::update()
 	// assume we can sleep forever, unless the state machine (or turret, etc) demand otherwise
 	UpdateSleepTime subMachineSleep = UPDATE_SLEEP_FOREVER;
 
+#if !(defined(_MSC_VER) && defined(_M_IX86))
+	// GeneralsX @feature Android port 23/09/2026 Split the "invalid" fp-flag attribution
+	// (see gxFpCheckpoint in GameLogic.cpp) inside the AI update: the state that ran, and
+	// the locomotor, separately.
+	gxFpCheckpoint("before AI", getObject(), -1);
+	const Int gxStateBefore = (Int)getStateMachine()->getCurrentStateID();
+#endif
 	StateReturnType stRet = getStateMachine()->updateStateMachine();
+#if !(defined(_MSC_VER) && defined(_M_IX86))
+	gxFpCheckpoint("AI state", getObject(), gxStateBefore);
+#endif
 
 	if (IS_STATE_SLEEP(stRet))
 	{
@@ -1126,8 +1140,14 @@ UpdateSleepTime AIUpdateInterface::update()
 		subMachineSleep = UPDATE_SLEEP_NONE;
 	}
 
+#if !(defined(_MSC_VER) && defined(_M_IX86))
+	gxFpCheckpoint("AI misc", getObject(), -1);
+#endif
 	// do this objects movement
 	UpdateSleepTime tmp = doLocomotor();
+#if !(defined(_MSC_VER) && defined(_M_IX86))
+	gxFpCheckpoint("AI locomotor", getObject(), -1);
+#endif
 	if (tmp < subMachineSleep)
 		subMachineSleep = tmp;
 

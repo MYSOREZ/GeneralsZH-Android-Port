@@ -1250,3 +1250,20 @@ Every 100 frames:
 ```
 
 The detailed per-site table for `gx_math_trace.txt`'s window is still printed as before.
+
+**Measured: libm is clean for the whole of `1.rep`.** Every 100-frame window, 0..5199,
+had zero fragile calls, including 4300..4399 with the Chinooks flying. Helicopter
+flight maths is not the cause.
+
+That leaves the kinds that raise `invalid` in the diverging window: `AIUpdateInterface`
+on `AmericaInfantryRanger` (36 frames) and `WorkerAIUpdate` on `GLAInfantryWorker`. That
+they also raised it in matching windows does not clear them; the debris NaN also only
+mattered once `total` was used. One conversion is a particular suspect: `REAL_TO_INT`
+goes through `lroundf`. For NaN or infinity, 32-bit MSVC's 32-bit `long` gives
+0x80000000, while bionic's `long` is 64 bits, so after truncation to `Int` it gives
+**0**.
+
+`AIUpdateInterface::update` now reports the flag separately after the state machine
+(`AI state <id that ran>`), after the path/turret bookkeeping (`AI misc`) and after
+`doLocomotor` (`AI locomotor`), through `gxFpCheckpoint()` in `GameLogic.cpp`. The
+per-window kind table therefore names the AI state or the locomotor.
