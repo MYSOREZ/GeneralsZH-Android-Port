@@ -1406,3 +1406,38 @@ prints every `new`, `gone`, `resized` or `changed` span with `+offset old>new` w
 tests whether undoing each single change, and each pair, gives the PC's checksum
 (`<== UNDOING THIS ALONE GIVES THE PC's CHECKSUM`). The printed words allow any partial
 hypothesis offline, such as "the PC moved this unit, but to a different place".
+
+### `New_clear.rep`: the new client diverges with no input at all (23/09/2026)
+
+The user recorded on the 23 September client: solo, Tournament B, start 3, **no input**.
+It diverges at frame 100. Ours is `C09877CC` at 100, 200, 300, 400 and 500; the PC's is
+`075B2848` at all five. Both states freeze after frame 100 (no draws, no movement), so
+the difference is static and is set up during frames 0..100, or already at frame 0.
+Together with `3.rep` (the same setup on the 28 August client, which matches), this
+settles it: **the new client build computes a solo start differently.** It is not the
+dozer selection and not the map.
+
+The `crc since` instrument listed everything that changes on our side between frame 0
+and frame 100: the dozer and 10 civilian cars snapping to cell centres (x and y, one z),
+plus the seed. Tested against the PC checksum and rejected:
+
+- undoing any subset of those 12 changes (all 4096 combinations);
+- the seed after any number of draws 0..2999 from `SD=894280602`, alone or combined
+  with any subset of the snaps (all draw counts up to 600);
+- a single-word difference common to `New_clear.rep` and `USA.rep`. These are the same
+  client and start with different seeds; 151453 of their 151538 words are identical,
+  and they differ only in the dozer's spawn, the shroud around it and the seed. No
+  position has the same implied word, or the same delta, in both;
+- whole-column shroud variants: human player not revealed, observer not revealed,
+  civilian fogged, unused players fogged.
+
+A search for arguments or operands evaluated in an unspecified order (two
+`GameLogicRandomValue` or two `getValue()` in one statement), where MSVC and clang could
+draw in a different order, found none.
+
+What the client update contains is not visible in its repository: history before
+12/09 is squashed, and releases are built by hand (no workflow builds the release
+preset). The most useful artefact now is **the new `generalszh.exe` itself**. It is
+PE32, and disassembling it answers what reading the source cannot: whether
+`sin`/`cos`/`atan2` go to `__libm_sse2_*` or x87, whether `WWMath::Inv_Sqrt` is still
+the x87 asm, and whether float code is SSE2 or x87.
