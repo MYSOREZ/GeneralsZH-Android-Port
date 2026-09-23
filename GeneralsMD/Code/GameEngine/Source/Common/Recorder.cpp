@@ -57,6 +57,7 @@
 #include "Common/GXReplayCheck.h"
 #if !(defined(_MSC_VER) && defined(_M_IX86))
 void gxObjTraceDump();
+void gxCommandTraceDump(UnsignedInt fromFrame);
 #endif
 void gxShroudTraceDump(UnsignedInt fromFrame);
 #if defined(GENERALS_ONLINE)
@@ -1314,6 +1315,7 @@ void RecorderClass::handleCRCMessage(UnsignedInt newCRC, Int playerIndex, Bool f
 			GXCrcStream::diffAgainstPrevious( newCRC, playbackCRC );
 #if !(defined(_MSC_VER) && defined(_M_IX86))
 			gxObjTraceDump();
+			gxCommandTraceDump(describedFrame >= 400 ? describedFrame - 400 : 0);
 #endif
 			gxShroudTraceDump(describedFrame >= 110 ? describedFrame - 110 : 0);
 

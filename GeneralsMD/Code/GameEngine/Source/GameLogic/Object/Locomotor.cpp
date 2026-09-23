@@ -44,6 +44,10 @@
 #include "GameLogic/AI.h"
 #include "GameLogic/AIPathfind.h"
 #include "GameLogic/Module/PhysicsUpdate.h"
+
+#if !(defined(_MSC_VER) && defined(_M_IX86))
+void gxPhysNote(Char kind, UnsignedInt id, const Real *values, Int count);
+#endif
 #include "GameLogic/Module/BodyModule.h"
 #include "GameLogic/Module/AIUpdate.h"
 
@@ -2286,6 +2290,17 @@ Bool Locomotor::handleBehaviorZ(Object* obj, PhysicsBehavior *physics, const Coo
 					preferredHeight = pos.z + delta;
 
 					Real liftToUse = calcLiftToUseAtPt(obj, physics, pos.z, surfaceHt, preferredHeight);
+#if !(defined(_MSC_VER) && defined(_M_IX86))
+					{
+						// GeneralsX @feature Android port 23/09/2026 Lift inputs for the replay-mismatch trace.
+						const Real gxValues[12] = {
+							pos.z, surfaceHt, preferredHeight, physics->getVelocity()->z, liftToUse,
+							physics->getMass(), getMaxLift(obj->getBodyModule()->getDamageState()),
+							TheGlobalData->m_gravity, m_template->m_speedLimitZ, getPreferredHeightDamping(),
+							getFlag(ULTRA_ACCURATE) ? 1.0f : 0.0f, (Real)m_template->m_behaviorZ };
+						gxPhysNote('L', (UnsignedInt)obj->getID(), gxValues, 12);
+					}
+#endif
 
 					//DEBUG_LOG(("HandleBZ %d LiftToUse %f",TheGameLogic->getFrame(),liftToUse));
 					if (liftToUse != 0.0f)
@@ -2319,6 +2334,17 @@ Bool Locomotor::handleBehaviorZ(Object* obj, PhysicsBehavior *physics, const Coo
 					preferredHeight = pos.z + delta;
 
 					Real liftToUse = calcLiftToUseAtPt(obj, physics, pos.z, surfaceHt, preferredHeight);
+#if !(defined(_MSC_VER) && defined(_M_IX86))
+					{
+						// GeneralsX @feature Android port 23/09/2026 Lift inputs for the replay-mismatch trace.
+						const Real gxValues[12] = {
+							pos.z, surfaceHt, preferredHeight, physics->getVelocity()->z, liftToUse,
+							physics->getMass(), getMaxLift(obj->getBodyModule()->getDamageState()),
+							TheGlobalData->m_gravity, m_template->m_speedLimitZ, getPreferredHeightDamping(),
+							getFlag(ULTRA_ACCURATE) ? 1.0f : 0.0f, (Real)m_template->m_behaviorZ };
+						gxPhysNote('L', (UnsignedInt)obj->getID(), gxValues, 12);
+					}
+#endif
 
 					//DEBUG_LOG(("HandleBZ %d LiftToUse %f",TheGameLogic->getFrame(),liftToUse));
 					if (liftToUse != 0.0f)

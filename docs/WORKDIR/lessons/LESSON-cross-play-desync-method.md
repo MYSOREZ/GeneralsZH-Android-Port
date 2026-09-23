@@ -1639,3 +1639,60 @@ Next instrument: every shroud look and unlook (`doShroudReveal`/`undoShroudRevea
 radius, cell, cell radius and player mask. `gxShroudTraceDump` prints the last 110
 frames at the first mismatch, and `crc since` now prints every changed partition word,
 up to 6000. Together they say whose look changed the fog, and with what numbers.
+
+### `USA_Supply.rep` at 5900: it is the spy drone's height, not the Chinook (23/09/2026)
+
+The shroud trace closed the fog question. In 5800..5900 there are no looks at all, only
+six queued unlooks (radius 600, player 2), all around the warehouse where the Chinooks
+flew earlier. Applying them as full circles reproduces every one of the 952 changed
+partition words exactly. So the fog changes are fully explained, and removing any subset
+of the unlooks does not give the PC's number.
+
+The explanation comes from the rest of the dump at 5900, **6000 and 6100**. At each of
+the three checkpoints the PC's checksum is exactly ours with **one word changed: the spy
+drone's z translation**, by −2, −6 and +6 ULP. Everything else matches the PC at
+6000 and 6100, including both Chinooks flying off after the delivery. The Chinook was a
+red herring. It was simply the only other thing moving.
+
+**Beware the checksum's equivalence classes.** The checksum is `ROL1(crc) + word`, and
+ROL1 is multiplication by 2 modulo 2^32−1. So a change of δ in word j is almost
+indistinguishable from δ·2^k in word j+k, and the pattern repeats every 32 words. A
+single-word scan at 5900 therefore "hits" in about 250 places: "−1 at word 155", "−2^25
+at word 180" (the drone's z, −2 ULP), and so on. One checkpoint cannot tell them apart.
+What settles it is intersecting the **natural** candidates (small integer or ULP steps
+of a field, or of either 16-bit half) over several checkpoints. Only word 180 (drone z)
+survives all three, plus two nonsense words (the drone's id and a power plant's y).
+Tools: `natcand.c` (natural-delta scan, filtered by the equivalence class so a full dump
+takes 0.1 s) and `oneword.c`.
+
+**The drone's height is fully modelled offline.** `AmericaVehicleSpyDrone`:
+`SpyDroneLocomtor` (sic), `Lift 120`, `PreferredHeight 90`, `SURFACE_RELATIVE_HEIGHT`,
+`HOVER`, `Apply2DFrictionWhenAirborne`, `Mass 50`, and `Gravity −64` at 60 Hz. The model is
+`Locomotor::calcLiftToUseAtPt`, then `applyMotiveForce`, gravity, the velocity clamp
+(`|v| < 0.001 → 0`) and `z += v`. With the terrain height fitted
+(`S = 15.6249962`, 0x4179FFFC), it reproduces **all 697** traced frames (5801..6500)
+bit for bit. On our side the height is a **period-78 limit cycle**: frame 5879 repeats
+5801 exactly.
+
+What the model rules out, starting from our state at every frame 5804..5899:
+- a one-off z/v nudge (±64 ULP each), a skipped clamp, or no clamp from then on;
+- a persistent change of the terrain height (±20000 ULP), lift, gravity, preferred
+  height or mass (±2000 ULP), or the damaged lift;
+- any hidden velocity at any frame (grid 1e−7 over ±0.03);
+- arithmetic variants: `dz` without the `z + (P−z) − z` round trip, doubles in the brake
+  test and the lift, `2dz − 2v`, the mass cancelled out. All of these give our exact
+  trajectory, because the dynamics saturate: the lift is 0 or maximal almost every frame.
+
+A −2 ULP nudge at 5900 grows to +894 ULP by 6000, while the PC stays within 6 ULP for 200
+frames. So the PC is not our dynamics plus a perturbation. Its drone follows the same
+cycle, and the checkpoints see a height that differs by a few ULP. Whatever does that
+acts on the height the checksum reads, not (or not visibly) on the dynamics.
+
+Next instruments, in the build after `shroudtrace-i18n`:
+- `phys trace` ('P': height before, acceleration, velocity before and after the clamp,
+  height after, motive, braking; 'L': the lift inputs and output), per object per frame;
+- `cmd trace`: every network command the replay executes, with its group's object ids
+  and raw arguments, for the last 400 frames before the mismatch. This is in case the
+  recording orders the drone (or a building next to it) and this build resolves the
+  selection differently;
+- the movement ring is widened to 400 frames.

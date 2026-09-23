@@ -70,6 +70,10 @@ const Real STUN_RELIEF_EPSILON = 0.5f;
 
 #include "Common/CRCDebug.h"
 
+#if !(defined(_MSC_VER) && defined(_M_IX86))
+void gxPhysNote(Char kind, UnsignedInt id, const Real *values, Int count);
+#endif
+
 const Int MOTIVE_FRAMES = static_cast<float>(LOGICFRAMES_PER_SECOND) / 3;
 
 #define SLEEPY_PHYSICS
@@ -663,10 +667,19 @@ UpdateSleepTime PhysicsBehavior::update()
 		applyGravitationalForces();
 		applyFrictionalForces();
 
+#if !(defined(_MSC_VER) && defined(_M_IX86))
+		const Coord3D gxAccel = m_accel;
+		const Coord3D gxVelBefore = m_vel;
+#endif
+
 		// integrate acceleration into velocity
 		m_vel.x += m_accel.x;
 		m_vel.y += m_accel.y;
 		m_vel.z += m_accel.z;
+
+#if !(defined(_MSC_VER) && defined(_M_IX86))
+		const Coord3D gxVelUnclamped = m_vel;
+#endif
 
 		// when vel gets tiny, just clamp to zero
 		const Real THRESH = 0.001f;
@@ -703,6 +716,21 @@ UpdateSleepTime PhysicsBehavior::update()
 			mtx.Adjust_Y_Translation(m_vel.y);
 			mtx.Adjust_Z_Translation(m_vel.z);
 		}
+
+#if !(defined(_MSC_VER) && defined(_M_IX86))
+		// GeneralsX @feature Android port 23/09/2026 Replay-mismatch physics trace, see
+		// gxPhysNote in GameLogic.cpp. Only objects with something acting on them.
+		if (gxAccel.x != 0.0f || gxAccel.y != 0.0f || gxAccel.z != 0.0f
+			|| gxVelBefore.x != 0.0f || gxVelBefore.y != 0.0f || gxVelBefore.z != 0.0f)
+		{
+			const Real gxValues[12] = {
+				oldPosZ, gxAccel.x, gxAccel.y, gxAccel.z,
+				gxVelBefore.z, gxVelUnclamped.x, gxVelUnclamped.y, gxVelUnclamped.z,
+				m_vel.z, mtx.Get_Z_Translation(),
+				isMotive() ? 1.0f : 0.0f, obj->testStatus(OBJECT_STATUS_BRAKING) ? 1.0f : 0.0f };
+			gxPhysNote('P', (UnsignedInt)obj->getID(), gxValues, 12);
+		}
+#endif
 
 		if (_isnan(mtx.Get_X_Translation()) || _isnan(mtx.Get_Y_Translation()) ||
 			_isnan(mtx.Get_Z_Translation())) {

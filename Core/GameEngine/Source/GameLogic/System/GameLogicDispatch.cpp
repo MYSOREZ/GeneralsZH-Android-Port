@@ -31,6 +31,7 @@
 #include "PreRTS.h"	// This must go first in EVERY cpp file in the GameEngine
 
 #include "Common/CRCDebug.h"
+#include "GXTrace.h"
 #include "Common/FramePacer.h"
 #include "Common/GameAudio.h"
 #include "Common/GameEngine.h"
@@ -363,6 +364,84 @@ void GameLogic::prepareNewGame( GameMode gameMode, GameDifficulty diff, Int rank
   * appropriate objects.
 	* @todo Rename this to "CommandProcessor", or similar. */
 //-------------------------------------------------------------------------------------------------
+// GeneralsX @feature Android port 23/09/2026 The commands a replay executed, kept in memory
+// and printed at the first replay mismatch (gxCommandTraceDump, called by the recorder).
+//
+// The movement and physics traces show what an object did; this shows what it was told to
+// do. A command whose selection this build resolves differently from the PC (an object it
+// filters out of the group, say) would change one unit's behaviour without any arithmetic
+// being involved, and nothing else in the log would say so.
+#if !(defined(_MSC_VER) && defined(_M_IX86))
+namespace
+{
+	struct GxCmdRec
+	{
+		UnsignedInt frame;
+		Int type;
+		Int player;
+		Int argCount;
+		Int argType[4];
+		UnsignedInt arg[4][3];
+		Int groupCount;
+		ObjectID ids[8];
+	};
+	const Int GX_CMD_RING = 2048;
+	GxCmdRec s_gxCmdRing[GX_CMD_RING];
+	Int s_gxCmdNext = 0;
+	Int s_gxCmdCount = 0;
+
+	void gxCommandNote(UnsignedInt frame, const GameMessage *msg, Int player, AIGroup *group)
+	{
+		GxCmdRec &r = s_gxCmdRing[s_gxCmdNext];
+		s_gxCmdNext = (s_gxCmdNext + 1) % GX_CMD_RING;
+		if (s_gxCmdCount < GX_CMD_RING)
+			++s_gxCmdCount;
+		memset(&r, 0, sizeof(r));
+		r.frame = frame;
+		r.type = (Int)msg->getType();
+		r.player = player;
+		r.argCount = msg->getArgumentCount();
+		for (Int i = 0; i < r.argCount && i < 4; ++i)
+		{
+			r.argType[i] = (Int)msg->getArgumentDataType(i);
+			memcpy(r.arg[i], msg->getArgument(i), sizeof(r.arg[i]));
+		}
+		r.groupCount = 0;
+		if (group != nullptr)
+		{
+			const VecObjectID &ids = group->getAllIDs();
+			r.groupCount = (Int)ids.size();
+			for (Int i = 0; i < r.groupCount && i < 8; ++i)
+				r.ids[i] = ids[i];
+		}
+	}
+}
+
+void gxCommandTraceDump(UnsignedInt fromFrame)
+{
+	static Bool done = FALSE;
+	if (done || !GXTrace::isNetEnabled())
+		return;
+	done = TRUE;
+	const Int start = (s_gxCmdNext - s_gxCmdCount + GX_CMD_RING) % GX_CMD_RING;
+	for (Int k = 0; k < s_gxCmdCount; ++k)
+	{
+		const GxCmdRec &r = s_gxCmdRing[(start + k) % GX_CMD_RING];
+		if (r.frame < fromFrame)
+			continue;
+		char text[512];
+		Int len = snprintf(text, sizeof(text), "cmd trace frame %u: type=%d player=%d group=%d ids=",
+			(unsigned)r.frame, (int)r.type, (int)r.player, (int)r.groupCount);
+		for (Int i = 0; i < r.groupCount && i < 8 && len < (Int)sizeof(text); ++i)
+			len += snprintf(text + len, sizeof(text) - len, "%s%u", i ? "," : "", (unsigned)r.ids[i]);
+		for (Int i = 0; i < r.argCount && i < 4 && len < (Int)sizeof(text); ++i)
+			len += snprintf(text + len, sizeof(text) - len, " arg%d(t%d)=%08X,%08X,%08X", (int)i, (int)r.argType[i],
+				(unsigned)r.arg[i][0], (unsigned)r.arg[i][1], (unsigned)r.arg[i][2]);
+		GX_NET_TRACE("%s\n", text);
+	}
+}
+#endif
+
 void GameLogic::logicMessageDispatcher( GameMessage *msg, void *userData )
 {
 #ifdef RTS_DEBUG
@@ -434,6 +513,19 @@ void GameLogic::logicMessageDispatcher( GameMessage *msg, void *userData )
 	}
 #endif
 #endif // DEBUG_LOGGING
+
+#if !(defined(_MSC_VER) && defined(_M_IX86))
+	if (GXTrace::isNetEnabled() && isInGame()
+		&& msg->getType() > GameMessage::MSG_BEGIN_NETWORK_MESSAGES && msg->getType() <= GameMessage::MSG_END_NETWORK_MESSAGES
+		&& msg->getType() != GameMessage::MSG_LOGIC_CRC && msg->getType() != GameMessage::MSG_SET_REPLAY_CAMERA)
+	{
+#if RETAIL_COMPATIBLE_AIGROUP
+		gxCommandNote(getFrame(), msg, msgPlayer->getPlayerIndex(), currentlySelectedGroup);
+#else
+		gxCommandNote(getFrame(), msg, msgPlayer->getPlayerIndex(), currentlySelectedGroup.Peek());
+#endif
+	}
+#endif
 
 	// process the message
 	GameMessage::Type msgType = msg->getType();

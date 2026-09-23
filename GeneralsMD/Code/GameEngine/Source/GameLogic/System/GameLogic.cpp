@@ -3948,7 +3948,7 @@ void gxFpCheckpoint(const char *where, const Object *obj, Int detail)
 }
 #define GX_FP_BLAME(phase, obj, u) do { if (GXTrace::isNetEnabled()) gxFpBlame(m_frame, (phase), (obj), (u)); } while (0)
 
-// GeneralsX @feature Android port 23/09/2026 The last hundred frames of movement, kept in
+// GeneralsX @feature Android port 23/09/2026 The last four hundred frames of movement, kept in
 // memory and printed at the first replay mismatch.
 //
 // A replay carries the PC's checksum only every hundred frames, and the checkpoint before a
@@ -3962,12 +3962,29 @@ namespace
 {
 	struct GxObjState { UnsignedInt id; UnsignedInt m[12]; Int aiState; Int boxes; };
 	struct GxFrameRec { UnsignedInt frame; UnsignedInt seed; std::vector<GxObjState> moved; };
-	const Int GX_OBJ_RING = 101;
+	const Int GX_OBJ_RING = 401;
 	GxFrameRec s_gxObjRing[GX_OBJ_RING];
 	Int s_gxObjRingNext = 0;
 	std::map<UnsignedInt, GxObjState> s_gxObjLast;
 	const Int GX_OBJ_POST = 600;
 	Int s_gxObjPostFrames = 0;
+
+	// Physics and hover-lift inputs, per object per frame (gxPhysNote below).
+	struct GxPhysRec { UnsignedInt frame; UnsignedInt id; Char kind; Int n; UnsignedInt v[12]; };
+	const Int GX_PHYS_RING = 32768;
+	GxPhysRec s_gxPhysRing[GX_PHYS_RING];
+	Int s_gxPhysNext = 0;
+	Int s_gxPhysCount = 0;
+
+	void gxPhysPrint(const GxPhysRec &r)
+	{
+		char words[12 * 9 + 1];
+		Int len = 0;
+		for (Int i = 0; i < r.n; ++i)
+			len += snprintf(words + len, sizeof(words) - len, " %08X", (unsigned)r.v[i]);
+		words[len] = '\0';
+		GX_NET_TRACE("phys trace frame %u: %c id=%u%s\n", (unsigned)r.frame, r.kind, (unsigned)r.id, words);
+	}
 
 	void gxObjTracePrint(const GxFrameRec &rec)
 	{
@@ -4047,7 +4064,41 @@ void gxObjTraceDump()
 			continue;
 		gxObjTracePrint(rec);
 	}
+	const UnsignedInt oldest = s_gxObjRing[s_gxObjRingNext].frame;
+	const Int start = (s_gxPhysNext - s_gxPhysCount + GX_PHYS_RING) % GX_PHYS_RING;
+	for (Int k = 0; k < s_gxPhysCount; ++k)
+	{
+		const GxPhysRec &r = s_gxPhysRing[(start + k) % GX_PHYS_RING];
+		if (r.frame >= oldest)
+			gxPhysPrint(r);
+	}
 	s_gxObjPostFrames = GX_OBJ_POST;
+}
+
+// GeneralsX @feature Android port 23/09/2026 What moved an object, not only where it went.
+//
+// USA_Supply.rep parts from the PC at frame 5900 because one spy drone, hovering in place,
+// is two ULPs lower there than here. Its height follows a 78-frame limit cycle driven by the
+// hover lift and the velocity clamp, none of which is in the checksum. Called from
+// PhysicsBehavior::update ('P': height before, acceleration, velocity before and after the
+// clamp, height after, motive) and from Locomotor::handleBehaviorZ ('L': the lift
+// calculation's inputs and output), with the raw float bits, so each rule the PC could be
+// running differently can be replayed offline against the recorded checksum.
+void gxPhysNote(Char kind, UnsignedInt id, const Real *values, Int count)
+{
+	if (!GXTrace::isNetEnabled() || TheGameLogic == nullptr)
+		return;
+	GxPhysRec &r = s_gxPhysRing[s_gxPhysNext];
+	s_gxPhysNext = (s_gxPhysNext + 1) % GX_PHYS_RING;
+	if (s_gxPhysCount < GX_PHYS_RING)
+		++s_gxPhysCount;
+	r.frame = TheGameLogic->getFrame();
+	r.id = id;
+	r.kind = kind;
+	r.n = count < 12 ? count : 12;
+	memcpy(r.v, values, sizeof(Real) * r.n);
+	if (s_gxObjPostFrames > 0)
+		gxPhysPrint(r);
 }
 #else
 #define GX_FP_BLAME(phase, obj, u) do {} while (0)
