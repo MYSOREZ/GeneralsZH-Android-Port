@@ -24,6 +24,7 @@
 #include "Common/GXReplayCheck.h"
 #include "Common/GameEngine.h"
 #include "Common/GlobalData.h"
+#include "Common/MessageStream.h"
 #include "Common/Recorder.h"
 #include "Common/ReplaySimulation.h"
 #include "GameClient/GameClient.h"
@@ -156,8 +157,14 @@ void update()
 			fflush(stderr);
 		}
 
-		// Extra logic frames for up to ~40 ms per rendered frame. The engine's own
-		// headless simulation does exactly this per frame: particles, then logic.
+		// Extra logic frames for up to ~40 ms per rendered frame, in the order
+		// GameEngine::update uses: client-side bookkeeping, then the message stream,
+		// then logic. The message stream is not optional: during a watched playback
+		// the local checksum travels as MSG_LOGIC_CRC through TheMessageStream
+		// (GameLogic.cpp only bypasses it in headless simulation), so skipping
+		// propagateMessages() delayed our checksums by a checkpoint and paired each
+		// with the next recorded one -- the first run reported 0/5 matched on a
+		// replay that matches to 3500.
 		if (fastForwarding())
 		{
 			const std::chrono::steady_clock::time_point until =
@@ -165,6 +172,7 @@ void update()
 			while (fastForwarding() && !s_done && std::chrono::steady_clock::now() < until)
 			{
 				TheGameClient->updateHeadless();
+				TheMessageStream->propagateMessages();
 				TheGameLogic->UPDATE();
 				if (s_autoQuit && s_firstMismatch != 0 && TheGameLogic->getFrame() >= s_firstMismatch + FRAMES_AFTER_MISMATCH)
 					break;

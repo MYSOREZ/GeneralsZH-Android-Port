@@ -1582,3 +1582,13 @@ starts the game with the engine's own `-replay <name>` plus two options
 switch `gx_net_trace.txt` on. The engine's true `-headless` mode is deliberately not
 used: it has never been brought up on Android, while the windowed path is the one
 every replay here has already used.
+
+First run of Replay check: `USA.rep`, 812 frames in 2.6 s (about 310 logic frames per
+second, roughly 5x real time). But it reported "0/5 matched, first mismatch at 112",
+and every "ours" equalled the *previous* checkpoint's recorded value. The local checksum
+travels as `MSG_LOGIC_CRC` through `TheMessageStream`, which `GameEngine::update`
+propagates before each logic frame. The fast-forward loop skipped
+`propagateMessages()`, so our checksums reached the comparison one checkpoint late.
+(`GameLogic` routes them straight into `TheCommandList` only in
+`RECORDERMODETYPE_SIMULATION_PLAYBACK`.) The loop now runs `updateHeadless()`,
+`propagateMessages()`, then `GameLogic::UPDATE()`, the same order the engine uses.
