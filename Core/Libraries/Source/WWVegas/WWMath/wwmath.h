@@ -289,7 +289,17 @@ WWINLINE float WWMath::Sign(float val)
 
 WWINLINE bool WWMath::Fast_Is_Float_Positive(const float & val)
 {
+#if defined(_MSC_VER) && defined(_M_IX86)
 	return !((*(int *)(&val)) & 0x80000000);
+#else
+	// GeneralsX @bugfix Android port 23/09/2026 ARM's default NaN is positive, x86's
+	// negative; answer as the reference client does. See refFloatBits in BaseType.h.
+	unsigned bits;
+	memcpy(&bits, &val, sizeof(bits));
+	if (bits == 0x7FC00000u)
+		bits = 0xFFC00000u;
+	return !(bits & 0x80000000u);
+#endif
 }
 
 WWINLINE bool WWMath::Is_Power_Of_2(const unsigned int val)
@@ -707,7 +717,12 @@ WWINLINE float WWMath::Sqrt(float val)
 
 WWINLINE int WWMath::Float_To_Int_Chop(const float& f)
 {
-    int a	= *reinterpret_cast<const int*>(&f);				// take bit pattern of float into a register
+    int a	= *reinterpret_cast<const int*>(&f);
+#if !(defined(_MSC_VER) && defined(_M_IX86))
+	// GeneralsX @bugfix Android port 23/09/2026 x86's default NaN sign; see Fast_Is_Float_Positive.
+	if (a == 0x7FC00000)
+		a = (int)0xFFC00000u;
+#endif				// take bit pattern of float into a register
     int sign	= (a>>31);												// sign = 0xFFFFFFFF if original value is negative, 0 if positive
     int mantissa	= (a&((1<<23)-1))|(1<<23);						// extract mantissa and add the hidden bit
     int exponent	= ((a&0x7fffffff)>>23)-127;					// extract the exponent
@@ -717,7 +732,12 @@ WWINLINE int WWMath::Float_To_Int_Chop(const float& f)
 
 WWINLINE int WWMath::Float_To_Int_Floor (const float& f)
 {
-	int a			= *reinterpret_cast<const int*>(&f);			// take bit pattern of float into a register
+	int a			= *reinterpret_cast<const int*>(&f);
+#if !(defined(_MSC_VER) && defined(_M_IX86))
+	// GeneralsX @bugfix Android port 23/09/2026 x86's default NaN sign; see Fast_Is_Float_Positive.
+	if (a == 0x7FC00000)
+		a = (int)0xFFC00000u;
+#endif			// take bit pattern of float into a register
 	int sign		= (a>>31);												// sign = 0xFFFFFFFF if original value is negative, 0 if positive
 	a&=0x7fffffff;															// we don't need the sign any more
 

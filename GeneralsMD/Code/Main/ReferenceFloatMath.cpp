@@ -357,6 +357,30 @@ extern "C" void __ubsan_handle_float_cast_overflow_abort(void *data, unsigned lo
 	noteFloatCast(static_cast<const UbsanFloatCastData *>(data), from);
 }
 
+// GeneralsX @feature Android port 23/09/2026 fast_float2long_round (REAL_TO_INT_FLOOR/CEIL)
+// hit a NaN, an infinity or a value outside the 32-bit range, where the reference CRT returns
+// 0 and bionic did not. Each call site is printed once, with the value and whether it came
+// from the logic thread, so a replay says whether this was live where it diverged.
+extern "C" __attribute__((visibility("default"))) void gxRefRoundOutOfRange(float f, const void *caller)
+{
+	if (!GXTraceNetEnabled())
+		return;
+	static const void *s_seen[128];
+	static int s_seenCount = 0;
+	for (int i = 0; i < s_seenCount; ++i)
+		if (s_seen[i] == caller)
+			return;
+	if (s_seenCount < 128)
+		s_seen[s_seenCount++] = caller;
+	unsigned bits;
+	memcpy(&bits, &f, sizeof(bits));
+	const bool logic = g_active && pthread_equal(pthread_self(), g_thread);
+	fprintf(stderr, "[GX-NET] lround out of range frame %u (%s): %g (%08X) -> 0 as on the PC, from libmain+0x%lx\n",
+		g_frame, logic ? "logic" : "other thread", (double)f, bits,
+		(unsigned long)caller - g_base);
+	fflush(stderr);
+}
+
 // Called by GameLogic::update once per logic frame, on the logic thread, when the network
 // trace is on.
 extern "C" __attribute__((visibility("hidden"))) void gxMathTraceFrame(unsigned frame)

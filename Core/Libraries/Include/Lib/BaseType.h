@@ -31,6 +31,8 @@
 
 #include "Lib/BaseTypeCore.h"
 #include "Lib/trig.h"
+#include <string.h>
+#include <math.h>
 
 //-----------------------------------------------------------------------------
 typedef wchar_t WideChar;  ///< multi-byte character representations
@@ -148,6 +150,33 @@ inline Real deg2rad(Real rad) { return rad * (PI/180); }
 // note, this function depends on the cpu rounding mode, which we set to CHOP every frame,
 // but apparently tends to be left in unpredictable modes by various system bits of
 // code, so use this function with caution -- it might not round in the way you want.
+#if !(defined(_MSC_VER) && defined(_M_IX86))
+// GeneralsX @bugfix Android port 23/09/2026 Report a rounding the reference CRT
+// answers differently; defined in Main/ReferenceFloatMath.cpp, absent in tools.
+#ifdef __cplusplus
+extern "C"
+#endif
+void gxRefRoundOutOfRange(float f, const void *caller) __attribute__((weak));
+#endif
+
+// GeneralsX @bugfix Android port 23/09/2026 The float bit pattern the reference
+// client would see. An invalid operation (0/0, inf-inf, sqrt(-1)) produces the
+// "default NaN", and the two CPUs disagree on its sign: x86 SSE gives 0xFFC00000,
+// ARM64 gives 0x7FC00000. Arithmetic cannot tell them apart, but the bit-level
+// helpers below read the sign bit directly -- fast_float_floor subtracts or not,
+// fast_float_trunc masks it into -inf or +inf -- so the same NaN became different
+// integers here and on the PC. Map ARM's default NaN to x86's before looking at bits.
+__forceinline unsigned refFloatBits(float f)
+{
+	unsigned x;
+	memcpy(&x, &f, sizeof(x));
+#if !(defined(_MSC_VER) && defined(_M_IX86))
+	if (x == 0x7FC00000u)
+		x = 0xFFC00000u;
+#endif
+	return x;
+}
+
 __forceinline long fast_float2long_round(float f)
 {
 	long i;
@@ -157,8 +186,26 @@ __forceinline long fast_float2long_round(float f)
 		fld [f]
 		fistp [i]
 	}
-#else
+#elif defined(_MSC_VER) && defined(_M_IX86)
 	i = lroundf(f);
+#else
+	// GeneralsX @bugfix Android port 23/09/2026 lroundf as the reference client's CRT
+	// computes it. The GeneralsOnline PC client imports lroundf from the Windows UCRT,
+	// where long is 32 bits and a NaN, an infinity or a result outside that range
+	// returns 0 (EDOM). bionic's long is 64 bits and it saturates instead, so after
+	// the Int narrowing every caller does, the PC saw 0 where this saw -1 or a
+	// truncated large value. REAL_TO_INT_FLOOR/CEIL feed cell and grid indices, and
+	// fast_float_floor/ceil turn a NaN into an infinity, which is how one NaN in a
+	// unit's locomotion reached this.
+	const float r = roundf(f);
+	if (r >= -2147483648.0f && r < 2147483648.0f)
+		i = (long)(int)r;
+	else
+	{
+		if (gxRefRoundOutOfRange)
+			gxRefRoundOutOfRange(f, __builtin_return_address(0));
+		i = 0;
+	}
 #endif
 
 	return i;
@@ -182,7 +229,7 @@ __forceinline float fast_float_trunc(float f)
   }
   return f;
 #else
-  unsigned x = *(unsigned *)&f;
+  unsigned x = refFloatBits(f);
   unsigned char exp = x >> 23;
   int mask = exp < 127 ? 0 : 0xff800000;
   exp -= 127;
@@ -214,7 +261,7 @@ inline Int realToIntTruncRef(Real f)
 __forceinline float fast_float_floor(float f)
 {
   static unsigned almost1=(126<<23)|0x7fffff;
-  if (*(unsigned *)&f &0x80000000)
+  if (refFloatBits(f) &0x80000000)
     f-=*(float *)&almost1;
   return fast_float_trunc(f);
 }
@@ -223,7 +270,7 @@ __forceinline float fast_float_floor(float f)
 __forceinline float fast_float_ceil(float f)
 {
   static unsigned almost1=(126<<23)|0x7fffff;
-  if ( (*(unsigned *)&f &0x80000000)==0)
+  if ( (refFloatBits(f) &0x80000000)==0)
     f+=*(float *)&almost1;
   return fast_float_trunc(f);
 }

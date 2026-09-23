@@ -1480,3 +1480,33 @@ function is the first thing to diff: it is easy to find through its `MARKER:` st
 The rest of the tool chain (`crc since`, the two-replay test, the shroud footprint
 model) ruled out the state and pointed away from the simulation, which is what made
 the binary worth reading.
+
+### After the revision tag: `USA.rep` matches to 3500; the next class is NaN bits (23/09/2026)
+
+With the revision tag in place, `New_clear.rep` matches to its end (500) and `USA.rep`
+matches up to 3500 (it used to break at 100). At 3600, `crc since` names two Rangers
+(366, 367) walking, a new Ranger (368), the seed, 476 shroud cells and the AI group
+counter. No single undo or pair of undos reconciles. In every diverging window of
+`1.rep`, `5.rep` and `USA.rep`, the fp trace attributes the invalid flag to
+`AI locomotor AmericaInfantryRanger`.
+
+That points to a class the float-cast sanitizer cannot see: **code that reads a NaN's
+bits, or rounds through the CRT.**
+
+- `REAL_TO_INT_FLOOR/CEIL(x)` is `fast_float2long_round(fast_float_floor/ceil(x))`.
+  `fast_float_floor` tests the sign *bit*, and `fast_float_trunc` masks the exponent,
+  which turns a NaN into -inf or +inf depending on that bit. The default NaN of an
+  invalid operation is `0xFFC00000` on x86 SSE and `0x7FC00000` on ARM64, so the same
+  source line gets -inf on the PC and +inf here.
+- `fast_float2long_round` is `lroundf` on both sides, but the client's comes from the
+  Windows UCRT (imported by `GeneralsOnlineZH_60.exe`). There `long` is 32-bit, and
+  NaN, infinities and out-of-range results return 0. bionic's `long` is 64-bit and it
+  saturates, so after the `Int` narrowing every caller performs, the result is -1 or a
+  truncated value rather than 0.
+
+Fix: `refFloatBits` (BaseType.h) maps ARM's default NaN to x86's before any sign-bit
+test (`fast_float_trunc/floor/ceil`, `WWMath::Fast_Is_Float_Positive`,
+`Float_To_Int_Chop/Floor`). `fast_float2long_round` now follows the UCRT contract,
+returning 0 outside the 32-bit range, and reports each call site once:
+`[GX-NET] lround out of range frame N (logic): ... from libmain+0x...`, which can be
+symbolised with the kept `.sym.so`.
