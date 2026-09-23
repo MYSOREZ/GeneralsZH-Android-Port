@@ -932,3 +932,39 @@ each piece rests and dies. So:
   own damage and death types, and those choose which die modules and OCLs run. If
   the cancel recording matches, also ask for one with a building destroyed by
   weapons.
+
+**Measured the next day: the LOD pin is a no-op with this data, and the theory is
+dead.** The trace line printed the tiers as the game walked through them at start-up:
+`Low`, `Medium`, `High` and `VeryHigh` all carry `debrisSkipMask=0
+slowDeathScale=1.00`. `GameLOD.ini` is part of the checksummed INI set and the INI
+CRC matches the PC's (`81FB5632`), so the PC has the same table. **With that data
+the frame rate cannot change the simulation on either machine.** Our checksum at
+2000 came out `6AD123D1` again, identical to the build before, as it had to. The pin
+stays because it costs nothing and protects against a mod whose `GameLOD.ini` does
+skip debris. It explains nothing here. Lesson: the per-tier values were
+the first thing to print, one line, before reasoning about thresholds.
+
+Also checked and clean this round:
+
+- **Where the client defines its switches.** In the client,
+  `GENERALS_ONLINE_HIGH_FPS_SERVER` and `GENERALS_ONLINE_COMMUNITY_PATCH_CHANGES`
+  come from `NextGenMP_defines.h`, not CMake. A header define only reaches the
+  files that include it, so this had to be checked. It turns out to be harmless:
+  `Core/GameEngine/Include/Common/GameCommon.h` includes that header right after
+  `GameDefines.h`, and every simulation file includes `GameCommon.h` through
+  `PreRTS.h`. So the 60 Hz arms are live across the client's simulation, as ours
+  are. The only `.cpp` use of `COMMUNITY_PATCH_CHANGES` is the community INI BIG in
+  `ArchiveFileSystem::loadMods`, which this port loads too (hence the matching INI
+  CRC).
+- **`GENERALS_ONLINE` in the client.** `add_compile_definitions` in
+  `GeneralsMD/Code/GameEngine/CMakeLists.txt` also reaches the Core simulation
+  sources, because the client compiles them inside `z_gameengine`
+  (`corei_gameengine_private` is an INTERFACE library). So its
+  `RETAIL_COMPATIBLE_*` resolve to 0 there, the same as ours. The Core targets that
+  miss the define (`Lib/BaseType.h`, `W3D*`) use the switches only in rendering or
+  save-game code.
+- The 60 Hz macro usage counts, file by file, match the client everywhere except
+  networking, UI and rendering files.
+
+Nothing on the phone side is left that one checkpoint's checksum can decide. The two
+PC-side inputs above are now the only way forward.
