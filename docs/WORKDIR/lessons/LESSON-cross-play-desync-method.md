@@ -1739,3 +1739,50 @@ Next build (`docktrace`):
   distance vs slow-down distance, speeds, heading, force direction);
 - 'T' records each heading step (goal, position, current and desired angle, turn amount,
   maximum turn rate).
+
+### `USA_Supply_Clear.rep` at 3600: an exact model of the Chinook's approach (23/09/2026)
+
+The user confirmed that the game files are identical on the PC and the phone (same
+archive sizes, same builds), so **"different data" is ruled out. Do not ask again.**
+
+The `docktrace` build logged the dock bones and every movement decision. What it showed:
+- **The dock point is not the cause.** The world dock point (1538.5306, 694.0756) is
+  `supplyCenter.transform × bone(DockAction)`. Recomputing it in float32 from the logged
+  bone and the checksummed building matrix gives the same bits. The bone is read once, at
+  frame 3374, from the model's pristine pose. The files are the same and the float code
+  is the same, so it is the same on the PC.
+- **atan2/sin/cos all go through double here, as on the PC.** Every logged heading and
+  cached angle (487 frames) equals `(float)atan2((double)y, (double)x)`, not `atan2f`
+  (which differs in 103 of them). Every rotation matrix is `(float)cos/sin((double)θ)`.
+- **The Chinook's flight is now modelled exactly.** `chinook_approach_model.c` (in
+  `scripts/tooling/replay/`) reproduces **every** frame 3501..3700 bit for bit (position,
+  heading, velocity, acceleration). It is built from the traced inputs plus these rules:
+  - `locoUpdate_moveTowardsPosition`;
+  - `moveTowardsPositionOther` (the force uses the heading **before** the turn);
+  - the braking "exact movement" (`pos += dir·|forwardSpeed2D|` while
+    `OBJECT_STATUS_BRAKING`, with physics then leaving x/y alone);
+  - `maintainCurrentPositionHover` on the one idle frame (3592, between approach and
+    dock);
+  - 2D lateral friction projected by `applyForce` while motive;
+  - the 60 Hz rule that skips the x/y velocity clamp while motive;
+  - the cached angle re-derived by `Get_Z_Rotation` after every physics step.
+
+  The maximum turn rate must be computed exactly as `ConvertAngularVelocity…`
+  (`180·(SPF·RPD)` = 0x3D567750, not π/60 = 0x3D567751). One ULP there already breaks
+  the model within two frames.
+- **What the PC checksum is consistent with.** At 3600 it equals ours with the Chinook
+  offset in position only (class `16·dx + dy = 10` ULP), from the start of frame 3592 on.
+  None of these reproduce 3600 and 3700 **together**:
+  - a single perturbation of position or velocity at any frame 3501..3599 (±64 ULP);
+  - a different constant (braking, acceleration, turn rate, minimum velocity, slow-down
+    fudge, lateral friction; ±64 ULP);
+  - a different approach or dock goal (±300 ULP);
+  - one frame of timing at the approach→dock hand-over (3591..3593);
+  - a flipped braking status at any frame.
+
+  One approach-goal offset (−16, −132 ULP) matched 3600 alone and failed at 3700: a
+  coincidence, which is why any hypothesis must now pass two checkpoints.
+
+So the PC is not "our dynamics with one different number". Either its rules differ
+somewhere in this flight in a way not yet modelled, or something besides the Chinook
+differs at 3700.
