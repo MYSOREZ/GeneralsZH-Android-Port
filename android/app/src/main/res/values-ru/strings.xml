@@ -274,4 +274,22 @@
     <string name="online_crossplay_patch_missing">Нет патча данных сообщества — нажмите «Обновить»</string>
     <string name="online_switch_crossplay">Играть с игроками на ПК</string>
     <string name="online_switch_crossplay_desc">Сообщает контрольную сумму EXE Windows-клиента, чтобы его игры вас пускали. Эта сумма не античит — она не даёт играть вместе машинам, которые посчитали бы матч по-разному, поэтому так можно развалить игру всем в лобби. Включайте для своего же ПК и только скопировав с него INI-данные в папку с игрой, чтобы они действительно совпали.</string>
+    <string name="replaycheck_title">Проверка реплея</string>
+    <string name="replaycheck_row_note">Прогнать реплей с ПК на этой сборке без просмотра или перемотать к нужному кадру и увидеть, где расходятся контрольные суммы.</string>
+    <string name="replaycheck_refresh">Обновить</string>
+    <string name="replaycheck_last_result">Последний результат</string>
+    <string name="replaycheck_no_result">Проверка ещё не запускалась.</string>
+    <string name="replaycheck_result_match">%1$s: совпадает с записью на всех %2$s из %3$s контрольных точках (%4$s кадров, %5$s с).</string>
+    <string name="replaycheck_result_mismatch">%1$s: первый рассинхрон на кадре %2$s, последнее совпадение на %3$s. Совпало %4$s из %5$s контрольных точек (%6$s кадров, %7$s с). Пришлите логи.</string>
+    <string name="replaycheck_mode">Режим</string>
+    <string name="replaycheck_mode_run">Прогнать целиком</string>
+    <string name="replaycheck_mode_watch">Смотреть с кадра</string>
+    <string name="replaycheck_mode_help">Прогнать целиком: реплей считается так быстро, как может телефон, останавливается чуть после первого рассинхрона или в конце и возвращает сюда с итогом. Смотреть с кадра: перемотка до кадра, дальше обычный просмотр.</string>
+    <string name="replaycheck_frame_label">Кадр</string>
+    <string name="replaycheck_pick">Реплеи (нажмите, чтобы запустить)</string>
+    <string name="replaycheck_none">В %1$s нет файлов .rep</string>
+    <string name="replaycheck_no_game_folder">Сначала выберите папку с игрой в лаунчере.</string>
+    <string name="replaycheck_need_frame">Введите кадр, до которого перемотать.</string>
+    <string name="replaycheck_trace_enabled">Для проверки включена сетевая трассировка.</string>
+    <string name="replaycheck_trace_failed">Не удалось включить сетевую трассировку; в логе не будет подробностей по контрольным суммам.</string>
 </resources>

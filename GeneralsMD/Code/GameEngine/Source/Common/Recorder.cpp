@@ -54,6 +54,7 @@
 #include "GameNetwork/GameSpy/PeerDefs.h"
 #include "GameNetwork/networkutil.h"
 #include "GameLogic/GameLogic.h"
+#include "Common/GXReplayCheck.h"
 #if !(defined(_MSC_VER) && defined(_M_IX86))
 void gxObjTraceDump();
 #endif
@@ -1255,6 +1256,7 @@ void RecorderClass::handleCRCMessage(UnsignedInt newCRC, Int playerIndex, Bool f
 				fflush(stderr);
 			}
 		}
+		GXReplayCheck::noteCheckpoint(describedFrame, newCRC == playbackCRC, playbackCRC, newCRC);
 		//DEBUG_LOG(("RecorderClass::handleCRCMessage() - Comparing CRCs of InGame:%8.8X Replay:%8.8X Frame:%d from Player %d",
 		//	playbackCRC, newCRC, TheGameLogic->getFrame()-m_crcInfo->GetQueueSize()-1, playerIndex));
 		// GeneralsX @feature Android port 13/09/2026 Report every comparison, not a

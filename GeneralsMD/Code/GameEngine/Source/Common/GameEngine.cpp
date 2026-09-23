@@ -44,6 +44,7 @@
 #include "Common/PlayerList.h"
 #include "Common/GameAudio.h"
 #include "Common/GameEngine.h"
+#include "Common/GXReplayCheck.h"
 #include "Common/INI.h"
 #include "Common/INIException.h"
 #include "Common/MessageStream.h"
@@ -1265,6 +1266,10 @@ void GameEngine::update()
 				stepUs = std::chrono::duration<double, std::micro>(gxT6 - gxT5).count();
 			}
 		}
+
+		// GeneralsX @feature Android port 23/09/2026 Replay check: fast-forward extra
+		// logic frames and quit with a result file when asked to (GXReplayCheck.h).
+		GXReplayCheck::update();
 
 		if (gxPerfTrace)
 		{

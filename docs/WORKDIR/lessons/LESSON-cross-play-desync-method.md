@@ -1558,3 +1558,27 @@ AI/supply-truck state (neither is hashed) until the Chinook moves. The ring now 
 records each object's AI state id and, for supply gatherers, the boxes carried. It keeps
 printing live for 600 frames after the first mismatch, so our own Chinook's departure
 and route can be replayed as "the PC left k frames earlier".
+
+## Tool: the launcher's Replay check screen (23/09/2026)
+
+A replay holds commands, not state, so it cannot be cut to start at a later frame.
+Resuming from a save game is no substitute: loading is not bit-exact for every
+cache, so it would create desyncs of its own. What can be done is to get to the frame
+faster. **Launcher → Logs → Replay check** lists `Replays/*.rep`, newest first, and
+starts the game with the engine's own `-replay <name>` plus two options
+(`GXReplayCheck.h`):
+
+- `-gxFastTo <frame|-1>`: between rendered frames the engine runs extra logic frames
+  for up to 40 ms, doing exactly what the headless simulation does per frame
+  (`updateHeadless()` then `GameLogic::UPDATE()`). It does this until the frame, or to
+  the end with -1. Checksums and every trace are those of a normal playback.
+- `-gxAutoQuit`: stops 700 frames after the first mismatch (enough for the 600-frame
+  movement trace) or at the end. It then writes `gx_replay_check_result.txt`
+  (`status`, `frames`, `checkpoints`, `matched`, `last_matched`, `first_mismatch`,
+  `seconds`) to the user-data folder and quits back to the launcher, which shows the
+  summary.
+
+"Run through" = `-gxFastTo -1 -gxAutoQuit`. "Watch from frame N" = `-gxFastTo N`. Both
+switch `gx_net_trace.txt` on. The engine's true `-headless` mode is deliberately not
+used: it has never been brought up on Android, while the windowed path is the one
+every replay here has already used.

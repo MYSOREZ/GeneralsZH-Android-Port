@@ -279,4 +279,22 @@
     <string name="setup_render_backend_vulkan_short">Vulkan</string>
     <string name="online_status_requesting_code">Requesting a login code from the server…</string>
     <string name="online_status_no_login_code">The server would not issue a login code. Check your connection and try again, or run Network diagnostics in Tools.</string>
+    <string name="replaycheck_title">Replay check</string>
+    <string name="replaycheck_row_note">Run a PC replay through this build without watching it, or jump to a frame, and see where the checksums part.</string>
+    <string name="replaycheck_refresh">Refresh</string>
+    <string name="replaycheck_last_result">Last result</string>
+    <string name="replaycheck_no_result">No check has been run yet.</string>
+    <string name="replaycheck_result_match">%1$s: matched the recording at all %2$s of %3$s checkpoints (%4$s frames, %5$s s).</string>
+    <string name="replaycheck_result_mismatch">%1$s: first mismatch at frame %2$s, last match at %3$s. %4$s of %5$s checkpoints matched (%6$s frames, %7$s s). Send the logs.</string>
+    <string name="replaycheck_mode">Mode</string>
+    <string name="replaycheck_mode_run">Run through</string>
+    <string name="replaycheck_mode_watch">Watch from frame</string>
+    <string name="replaycheck_mode_help">Run through: the replay is simulated as fast as the phone allows, stops a little after the first mismatch or at the end, and returns here with the result. Watch from frame: fast-forwards to the frame, then plays normally.</string>
+    <string name="replaycheck_frame_label">Frame</string>
+    <string name="replaycheck_pick">Replays (tap to start)</string>
+    <string name="replaycheck_none">No .rep files in %1$s</string>
+    <string name="replaycheck_no_game_folder">Choose the game folder in the launcher first.</string>
+    <string name="replaycheck_need_frame">Enter the frame to fast-forward to.</string>
+    <string name="replaycheck_trace_enabled">Network trace switched on for the check.</string>
+    <string name="replaycheck_trace_failed">Could not switch the network trace on; the log will lack the checksum details.</string>
 </resources>

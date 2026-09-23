@@ -484,6 +484,12 @@ public class SetupActivity extends Activity {
             getString(R.string.netdiag_title),
             getString(R.string.netdiag_row_note),
             this::onNetworkDiagnostics);
+        UiKit.divider(card);
+        // GeneralsX @feature Android port 23/09/2026 Replay check (ReplayCheckActivity).
+        UiKit.listRow(card, R.drawable.ic_gzh_play,
+            getString(R.string.replaycheck_title),
+            getString(R.string.replaycheck_row_note),
+            () -> startActivity(new Intent(this, ReplayCheckActivity.class)));
     }
 
     // GeneralsX @feature Android port 13/07/2026 GitHub issue #4: in-app

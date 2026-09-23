@@ -1,0 +1,191 @@
+/*
+**	Command & Conquer Generals Zero Hour(tm)
+**	Copyright 2025 Electronic Arts Inc.
+**
+**	This program is free software: you can redistribute it and/or modify
+**	it under the terms of the GNU General Public License as published by
+**	the Free Software Foundation, either version 3 of the License, or
+**	(at your option) any later version.
+**
+**	This program is distributed in the hope that it will be useful,
+**	but WITHOUT ANY WARRANTY; without even the implied warranty of
+**	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+**	GNU General Public License for more details.
+**
+**	You should have received a copy of the GNU General Public License
+**	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+// GXReplayCheck.cpp /////////////////////////////////////////////////////////
+// See GXReplayCheck.h.
+
+#include "PreRTS.h"
+
+#include "Common/GXReplayCheck.h"
+#include "Common/GameEngine.h"
+#include "Common/GlobalData.h"
+#include "Common/Recorder.h"
+#include "Common/ReplaySimulation.h"
+#include "GameClient/GameClient.h"
+#include "GameLogic/GameLogic.h"
+
+#include <chrono>
+#include <cstdio>
+
+namespace
+{
+	Int s_fastTo = 0;              // 0: off, -1: whole replay, N: until frame N
+	Bool s_autoQuit = FALSE;
+	Bool s_sawPlayback = FALSE;
+	Bool s_done = FALSE;
+	UnsignedInt s_checkpoints = 0;
+	UnsignedInt s_matched = 0;
+	UnsignedInt s_lastMatched = 0;
+	UnsignedInt s_firstMismatch = 0;
+	UnsignedInt s_firstOurs = 0, s_firstRecorded = 0;
+	UnsignedInt s_lastCheckpoint = 0;
+	UnsignedInt s_lastProgress = 0;
+	std::chrono::steady_clock::time_point s_start;
+
+	// After the first mismatch, keep going long enough for the per-frame movement trace
+	// (GameLogic.cpp, 600 frames) and a few more checkpoints, then stop.
+	const UnsignedInt FRAMES_AFTER_MISMATCH = 700;
+
+	Bool playbackRunning()
+	{
+		return TheRecorder != nullptr && TheRecorder->isPlaybackInProgress()
+			&& TheGameLogic != nullptr && TheGameLogic->isInGame();
+	}
+
+	Bool fastForwarding()
+	{
+		if (s_fastTo == 0 || !playbackRunning())
+			return FALSE;
+		if (s_fastTo < 0)
+			return TRUE;
+		return TheGameLogic->getFrame() < (UnsignedInt)s_fastTo;
+	}
+
+	AsciiString replayName()
+	{
+		if (TheGlobalData != nullptr && !TheGlobalData->m_simulateReplays.empty())
+			return TheGlobalData->m_simulateReplays[0];
+		return AsciiString("?");
+	}
+
+	void writeResult(const char *status)
+	{
+		AsciiString path = TheGlobalData->getPath_UserData();
+		path.concat("gx_replay_check_result.txt");
+		FILE *f = fopen(path.str(), "w");
+		const double seconds = std::chrono::duration<double>(std::chrono::steady_clock::now() - s_start).count();
+		const UnsignedInt frame = TheGameLogic ? TheGameLogic->getFrame() : 0;
+		if (f != nullptr)
+		{
+			fprintf(f, "replay=%s\n", replayName().str());
+			fprintf(f, "status=%s\n", status);
+			fprintf(f, "frames=%u\n", (unsigned)frame);
+			fprintf(f, "checkpoints=%u\n", (unsigned)s_checkpoints);
+			fprintf(f, "matched=%u\n", (unsigned)s_matched);
+			fprintf(f, "last_matched=%u\n", (unsigned)s_lastMatched);
+			fprintf(f, "first_mismatch=%u\n", (unsigned)s_firstMismatch);
+			fprintf(f, "seconds=%.1f\n", seconds);
+			fclose(f);
+		}
+		fprintf(stderr, "[GX-NET] replay check %s: %s, %u frames, %u/%u checkpoints matched, last match %u, first mismatch %u (ours %08X, recorded %08X), %.1f s\n",
+			replayName().str(), status, (unsigned)frame, (unsigned)s_matched, (unsigned)s_checkpoints,
+			(unsigned)s_lastMatched, (unsigned)s_firstMismatch, (unsigned)s_firstOurs, (unsigned)s_firstRecorded, seconds);
+		fflush(stderr);
+	}
+
+	void finish(const char *status)
+	{
+		if (s_done)
+			return;
+		s_done = TRUE;
+		writeResult(status);
+		if (s_autoQuit)
+		{
+			ReplaySimulation::stop();
+			if (TheGameLogic != nullptr && TheGameLogic->isInGame())
+				TheGameLogic->exitGame();
+			TheGameEngine->setQuitting(TRUE);
+		}
+	}
+}
+
+namespace GXReplayCheck
+{
+
+void setFastForwardTo( Int frame ) { s_fastTo = frame; }
+void setAutoQuit( Bool autoQuit ) { s_autoQuit = autoQuit; }
+Bool isActive() { return s_fastTo != 0 || s_autoQuit; }
+
+void noteCheckpoint( UnsignedInt frame, Bool matched, UnsignedInt ours, UnsignedInt recorded )
+{
+	++s_checkpoints;
+	s_lastCheckpoint = frame;
+	if (matched)
+	{
+		++s_matched;
+		if (s_firstMismatch == 0)
+			s_lastMatched = frame;
+	}
+	else if (s_firstMismatch == 0)
+	{
+		s_firstMismatch = frame;
+		s_firstOurs = ours;
+		s_firstRecorded = recorded;
+	}
+}
+
+void update()
+{
+	if (!isActive() || s_done)
+		return;
+
+	if (playbackRunning())
+	{
+		if (!s_sawPlayback)
+		{
+			s_sawPlayback = TRUE;
+			s_start = std::chrono::steady_clock::now();
+			fprintf(stderr, "[GX-NET] replay check %s: started, fast-forward %s%d, auto-quit %s\n",
+				replayName().str(), s_fastTo < 0 ? "to the end " : "to frame ", (int)s_fastTo,
+				s_autoQuit ? "on" : "off");
+			fflush(stderr);
+		}
+
+		// Extra logic frames for up to ~40 ms per rendered frame. The engine's own
+		// headless simulation does exactly this per frame: particles, then logic.
+		if (fastForwarding())
+		{
+			const std::chrono::steady_clock::time_point until =
+				std::chrono::steady_clock::now() + std::chrono::milliseconds(40);
+			while (fastForwarding() && !s_done && std::chrono::steady_clock::now() < until)
+			{
+				TheGameClient->updateHeadless();
+				TheGameLogic->UPDATE();
+				if (s_autoQuit && s_firstMismatch != 0 && TheGameLogic->getFrame() >= s_firstMismatch + FRAMES_AFTER_MISMATCH)
+					break;
+			}
+			const UnsignedInt frame = TheGameLogic->getFrame();
+			if (frame >= s_lastProgress + 1000)
+			{
+				s_lastProgress = frame - frame % 1000;
+				fprintf(stderr, "[GX-NET] replay check: fast-forward at frame %u\n", (unsigned)frame);
+				fflush(stderr);
+			}
+		}
+
+		if (s_autoQuit && s_firstMismatch != 0 && TheGameLogic->getFrame() >= s_firstMismatch + FRAMES_AFTER_MISMATCH)
+			finish("mismatch");
+	}
+	else if (s_sawPlayback)
+	{
+		// The replay ran out (or the player left it).
+		finish(s_firstMismatch != 0 ? "mismatch" : "match");
+	}
+}
+
+} // namespace GXReplayCheck

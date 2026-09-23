@@ -150,6 +150,14 @@
             android:theme="@style/Theme.GeneralsZHSettings"
             android:configChanges="orientation|screenSize|keyboardHidden" />
 
+        <!-- GeneralsX @feature Android port 23/09/2026 Replay check: pick a replay and
+             run it through fast (or fast-forward to a frame) with a result summary. -->
+        <activity
+            android:name=".ReplayCheckActivity"
+            android:exported="false"
+            android:theme="@style/Theme.GeneralsZHSettings"
+            android:configChanges="orientation|screenSize|keyboardHidden" />
+
         <activity
             android:name=".NetworkDiagnosticsActivity"
             android:exported="false"

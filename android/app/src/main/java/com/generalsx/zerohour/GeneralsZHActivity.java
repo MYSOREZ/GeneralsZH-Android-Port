@@ -51,6 +51,36 @@ public class GeneralsZHActivity extends SDLActivity {
 
     private static final String TAG = "GeneralsZH";
 
+    // GeneralsX @feature Android port 23/09/2026 Launch options from the Replay check
+    // screen (ReplayCheckActivity): play one replay, optionally fast-forwarded to a frame
+    // or through to the end, and quit with a result file. A normal launch carries none
+    // of these extras and gets the usual empty argument list.
+    static final String EXTRA_REPLAY = "gx_replay";
+    static final String EXTRA_FAST_TO = "gx_fast_to";
+    static final String EXTRA_AUTO_QUIT = "gx_auto_quit";
+
+    @Override
+    protected String[] getArguments() {
+        Intent intent = getIntent();
+        String replay = intent != null ? intent.getStringExtra(EXTRA_REPLAY) : null;
+        if (replay == null || replay.isEmpty()) {
+            return new String[0];
+        }
+        java.util.ArrayList<String> args = new java.util.ArrayList<>();
+        args.add("-replay");
+        args.add(replay);
+        int fastTo = intent.getIntExtra(EXTRA_FAST_TO, 0);
+        if (fastTo != 0) {
+            args.add("-gxFastTo");
+            args.add(Integer.toString(fastTo));
+        }
+        if (intent.getBooleanExtra(EXTRA_AUTO_QUIT, false)) {
+            args.add("-gxAutoQuit");
+        }
+        Log.i(TAG, "Replay check launch: " + args);
+        return args.toArray(new String[0]);
+    }
+
     @Override
     protected String[] getLibraries() {
         // GeneralsX @feature Android port 15/09/2026 The APK carries two builds of the

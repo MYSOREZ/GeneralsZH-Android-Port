@@ -27,6 +27,7 @@
 
 #include "Common/ArchiveFileSystem.h"
 #include "Common/CommandLine.h"
+#include "Common/GXReplayCheck.h"
 #include "Common/CRCDebug.h"
 #include "Common/LocalFileSystem.h"
 #include "Common/Recorder.h"
@@ -428,6 +429,23 @@ Int parseHeadless(char *args[], int num)
 	extern bool DX8Wrapper_IsWindowed;
 	DX8Wrapper_IsWindowed = false;
 
+	return 1;
+}
+
+// GeneralsX @feature Android port 23/09/2026 Replay check options; see Common/GXReplayCheck.h.
+Int parseGxFastTo(char *args[], int num)
+{
+	if (num > 1)
+	{
+		GXReplayCheck::setFastForwardTo(atoi(args[1]));
+		return 2;
+	}
+	return 1;
+}
+
+Int parseGxAutoQuit(char *args[], int num)
+{
+	GXReplayCheck::setAutoQuit(TRUE);
 	return 1;
 }
 
@@ -1162,6 +1180,11 @@ static CommandLineParam paramsForStartup[] =
 	// (If you have 4 cores, call it with -jobs 4)
 	// If you do not call this, all replays will be simulated in sequence in the same process.
 	{ "-jobs", parseJobs },
+
+	// GeneralsX @feature Android port 23/09/2026 Fast-forward a -replay to a frame (-1: the
+	// whole replay) and quit with a result file; used by the launcher's Replay check screen.
+	{ "-gxFastTo", parseGxFastTo },
+	{ "-gxAutoQuit", parseGxAutoQuit },
 };
 
 // These Params are parsed during Engine Init before INI data is loaded
