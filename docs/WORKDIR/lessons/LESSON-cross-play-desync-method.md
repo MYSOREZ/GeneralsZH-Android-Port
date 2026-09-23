@@ -1696,3 +1696,46 @@ Next instruments, in the build after `shroudtrace-i18n`:
   recording orders the drone (or a building next to it) and this build resolves the
   selection differently;
 - the movement ring is widened to 400 frames.
+
+### Correction: it is supply after all; the drone was an artefact (23/09/2026)
+
+The user disagreed with the drone reading and recorded two control replays on the PC:
+- **`USA_Drone_Clear.rep`**: a spy drone and nothing else, 14500 frames. It **matches at
+  all 145 checkpoints**.
+- **`USA_Supply_Clear.rep`**: supply only, no drone. It diverges at **3600** and matches
+  to 3500.
+
+So the drone hovers identically on both machines, and the "drone z −2/−6/+6 ULP" reading
+was wrong. How it went wrong is the lesson. The natural-candidate intersection only
+considers **single-word** changes, and the checksum's equivalence classes (see above)
+let a multi-word difference, such as a Chinook a few ULP off in x, y and heading, alias
+onto a small change in some unrelated word. Consistency over three checkpoints did not
+protect against that, because the true difference was a slowly evolving multi-word one.
+**Treat a single-word explanation as proven only when the model behind it reproduces
+the values.** Here it could not: the drone's exact hover model reached none of the PC
+values, and that should have ended the drone hypothesis.
+
+`USA_Supply_Clear.rep`, 3500..3600: the only moving object is the free Chinook 321, which
+carries 8 boxes from the warehouse to the supply centre. In the window it turns onto its
+final approach, brakes, and then alternates between accelerating and braking every frame
+(3593, 3597, 3601..3605), because its distance to the goal hovers around the slow-down
+distance. The replay executes **no commands** in the window. Searching the Chinook's
+heading (float angle ± a few ULP, with `cos`/`sin` recomputed) together with x/y offsets
+gives the PC's checksum at every checkpoint with the heading unchanged and a small x/y
+offset. But the x/y class is ambiguous (`dy + 16·dx` is what the checksum sees), so
+this only says "the Chinook's position, not its heading", not by how much.
+
+Where a first delivery can differ: `DockUpdate::loadDockPositions` reads the docking
+positions (`DockStart`/`DockAction`/`DockEnd`/`DockWaiting`) **once, on first use**, from
+the building model's pristine bones through the W3D render object. That is render-side
+code feeding the logic (TheSuperHackers left a note there: "We shouldn't depend on bones
+of a drawable here!"). A one-bit difference in a bone position would change every later
+approach path, and would first show exactly at a first delivery.
+
+Next build (`docktrace`):
+- `dock trace` prints the bone positions when loaded and each computed approach position,
+  as raw bits;
+- `phys trace` 'M' records each hover/other movement decision (position, goal, on-path
+  distance vs slow-down distance, speeds, heading, force direction);
+- 'T' records each heading step (goal, position, current and desired angle, turn amount,
+  maximum turn rate).

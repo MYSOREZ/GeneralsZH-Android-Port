@@ -35,6 +35,9 @@
 #include "GameLogic/Object.h"
 #include "GameLogic/PartitionManager.h"
 #include "GameLogic/Module/DockUpdate.h"
+#include "GXTrace.h"
+
+#include <string.h>
 
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
@@ -444,6 +447,32 @@ UpdateSleepTime DockUpdate::update()
 	return UPDATE_SLEEP_NONE;
 }
 
+
+// GeneralsX @feature Android port 23/09/2026 Dock geometry for the replay-mismatch trace.
+// Every docking position comes from the building model's pristine bones, read once, the
+// first time anything docks, from the W3D render object (the render side, not the logic).
+// If those numbers differ from the PC's by a bit, every first delivery follows a slightly
+// different path -- which is what the supply replays show. Printed as raw float bits.
+namespace
+{
+	unsigned gxDockBits(Real value)
+	{
+		unsigned bits;
+		memcpy(&bits, &value, sizeof(bits));
+		return bits;
+	}
+
+	void gxDockTracePoint(const char *what, const Object *obj, Int index, const Coord3D &p)
+	{
+		if (!GXTrace::isNetEnabled())
+			return;
+		GX_NET_TRACE("dock trace frame %u: %s id=%u %s idx=%d pos=%08X %08X %08X (%.6f %.6f %.6f)\n",
+			(unsigned)(TheGameLogic ? TheGameLogic->getFrame() : 0), what, (unsigned)obj->getID(),
+			obj->getTemplate() ? obj->getTemplate()->getName().str() : "?", (int)index,
+			gxDockBits(p.x), gxDockBits(p.y), gxDockBits(p.z), (double)p.x, (double)p.y, (double)p.z);
+	}
+}
+
 Coord3D DockUpdate::computeApproachPosition( Int positionIndex, Object *forWhom )
 {
 	// load dock positions if not loaded yet
@@ -480,6 +509,10 @@ Coord3D DockUpdate::computeApproachPosition( Int positionIndex, Object *forWhom 
 		fpOptions.ignoreObject = getObject();// Flyers can ignore us, so they can approach right over us if they want.
 
 	Bool spotFound = ThePartitionManager->findPositionAround( &workingPosition, &fpOptions, &bestPosition );
+
+	gxDockTracePoint("approach-bone-world", us, positionIndex, workingPosition);
+	if( spotFound)
+		gxDockTracePoint("approach-found", us, positionIndex, bestPosition);
 
 	if( spotFound)
 		return bestPosition;
@@ -530,6 +563,12 @@ void DockUpdate::loadDockPositions()
 				m_numberApproachPositionBones = 0;
 
 			m_positionsLoaded = TRUE;
+
+			gxDockTracePoint("bone-enter", obj, 0, m_enterPosition);
+			gxDockTracePoint("bone-dock", obj, 0, m_dockPosition);
+			gxDockTracePoint("bone-exit", obj, 0, m_exitPosition);
+			for( Int gxIndex = 0; gxIndex < m_numberApproachPositionBones && gxIndex < (Int)m_approachPositions.size(); ++gxIndex )
+				gxDockTracePoint("bone-approach", obj, gxIndex, m_approachPositions[gxIndex]);
 		}
 		else
 		{
