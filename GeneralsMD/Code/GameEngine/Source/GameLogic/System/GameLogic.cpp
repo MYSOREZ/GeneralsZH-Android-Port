@@ -98,6 +98,7 @@
 #include "GameLogic/Locomotor.h"
 #include "GameLogic/Object.h"
 #include "GameLogic/Module/AIUpdate.h"
+#include "GameLogic/Module/SupplyTruckAIUpdate.h"
 #include "GameLogic/Module/BodyModule.h"
 #include "GameLogic/Module/CreateModule.h"
 #include "GameLogic/Module/DestroyModule.h"
@@ -3959,12 +3960,29 @@ void gxFpCheckpoint(const char *where, const Object *obj, Int detail)
 // device's own intermediate states instead of guesses.
 namespace
 {
-	struct GxObjState { UnsignedInt id; UnsignedInt m[12]; };
+	struct GxObjState { UnsignedInt id; UnsignedInt m[12]; Int aiState; Int boxes; };
 	struct GxFrameRec { UnsignedInt frame; UnsignedInt seed; std::vector<GxObjState> moved; };
 	const Int GX_OBJ_RING = 101;
 	GxFrameRec s_gxObjRing[GX_OBJ_RING];
 	Int s_gxObjRingNext = 0;
 	std::map<UnsignedInt, GxObjState> s_gxObjLast;
+	const Int GX_OBJ_POST = 600;
+	Int s_gxObjPostFrames = 0;
+
+	void gxObjTracePrint(const GxFrameRec &rec)
+	{
+		GX_NET_TRACE("obj trace frame %u: seed=%08X moved=%u\n", (unsigned)rec.frame, (unsigned)rec.seed, (unsigned)rec.moved.size());
+		for (size_t i = 0; i < rec.moved.size(); ++i)
+		{
+			const GxObjState &st = rec.moved[i];
+			const Object *obj = TheGameLogic->findObjectByID((ObjectID)st.id);
+			GX_NET_TRACE("obj trace frame %u: id=%u %s ai=%d boxes=%d m=%08X %08X %08X %08X %08X %08X %08X %08X %08X %08X %08X %08X\n",
+				(unsigned)rec.frame, (unsigned)st.id,
+				(obj && obj->getTemplate()) ? obj->getTemplate()->getName().str() : "(gone)",
+				(int)st.aiState, (int)st.boxes,
+				st.m[0], st.m[1], st.m[2], st.m[3], st.m[4], st.m[5], st.m[6], st.m[7], st.m[8], st.m[9], st.m[10], st.m[11]);
+		}
+	}
 
 	void gxObjTraceFrame(UnsignedInt frame)
 	{
@@ -3984,18 +4002,38 @@ namespace
 			GxObjState st;
 			st.id = (UnsignedInt)obj->getID();
 			memcpy(st.m, obj->getTransformMatrix(), sizeof(st.m));
+			// The AI state and, for supply gatherers, the boxes carried: neither is in the
+			// checksum, but a gatherer that finishes loading a few frames earlier on one
+			// machine only shows in the checksum once it moves -- this says when it decided.
+			const AIUpdateInterface *ai = obj->getAI();
+			st.aiState = (ai != nullptr) ? (Int)ai->getCurrentStateID() : -1;
+			st.boxes = -1;
+			if (ai != nullptr)
+			{
+				const SupplyTruckAIInterface *truck = ai->getSupplyTruckAIInterface();
+				if (truck != nullptr)
+					st.boxes = truck->getNumberBoxes();
+			}
 			std::map<UnsignedInt, GxObjState>::iterator it = s_gxObjLast.find(st.id);
-			if (it == s_gxObjLast.end() || memcmp(it->second.m, st.m, sizeof(st.m)) != 0)
+			if (it == s_gxObjLast.end() || memcmp(it->second.m, st.m, sizeof(st.m)) != 0
+				|| it->second.aiState != st.aiState || it->second.boxes != st.boxes)
 			{
 				rec.moved.push_back(st);
 				s_gxObjLast[st.id] = st;
 			}
 		}
+		if (s_gxObjPostFrames > 0)
+		{
+			--s_gxObjPostFrames;
+			gxObjTracePrint(rec);
+		}
 	}
 }
 
 // Printed once, by the replay checker at the first mismatch. Each line is the state at the
-// START of that logic frame, i.e. after the previous frame's update.
+// START of that logic frame, i.e. after the previous frame's update. After the dump the
+// trace keeps printing live for another GX_OBJ_POST frames, so what a unit does after the
+// checkpoint -- a Chinook leaving the warehouse -- is on record too.
 void gxObjTraceDump()
 {
 	static Bool done = FALSE;
@@ -4007,17 +4045,9 @@ void gxObjTraceDump()
 		const GxFrameRec &rec = s_gxObjRing[(s_gxObjRingNext + k) % GX_OBJ_RING];
 		if (rec.frame == 0 && rec.moved.empty())
 			continue;
-		GX_NET_TRACE("obj trace frame %u: seed=%08X moved=%u\n", (unsigned)rec.frame, (unsigned)rec.seed, (unsigned)rec.moved.size());
-		for (size_t i = 0; i < rec.moved.size(); ++i)
-		{
-			const GxObjState &st = rec.moved[i];
-			const Object *obj = TheGameLogic->findObjectByID((ObjectID)st.id);
-			GX_NET_TRACE("obj trace frame %u: id=%u %s m=%08X %08X %08X %08X %08X %08X %08X %08X %08X %08X %08X %08X\n",
-				(unsigned)rec.frame, (unsigned)st.id,
-				(obj && obj->getTemplate()) ? obj->getTemplate()->getName().str() : "(gone)",
-				st.m[0], st.m[1], st.m[2], st.m[3], st.m[4], st.m[5], st.m[6], st.m[7], st.m[8], st.m[9], st.m[10], st.m[11]);
-		}
+		gxObjTracePrint(rec);
 	}
+	s_gxObjPostFrames = GX_OBJ_POST;
 }
 #else
 #define GX_FP_BLAME(phase, obj, u) do {} while (0)

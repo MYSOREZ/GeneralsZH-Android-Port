@@ -1538,3 +1538,23 @@ whose transform changed, plus the seed per frame. `gxObjTraceDump` prints them a
 first mismatch (`[GX-NET] obj trace frame N: id=... m=<12 words>`, the state at the
 start of frame N). This allows offline tests such as "368 left the barracks d frames
 earlier or later on the PC", using this device's own intermediate states.
+
+### `USA.rep` at 3600: the Rangers are not the explanation; watch the Chinook (23/09/2026)
+
+The movement ring shows the whole 3500..3600 window. Ranger 366 stopped at 3513 (a seed
+change at 3514 is its idle-state draw). Ranger 367 walked every frame. Ranger 368 was
+created at 3596. The CRC at frame N equals the ring's state at the start of frame N,
+i.e. before that frame's update. Tested against the PC checksum and rejected: Ranger
+367 at any of our own states from frame 3560 to 3601, combined with Ranger 368 created
+0..5 frames earlier or 1 frame later (matrix and weapon timestamps), combined with the
+seed ±12 draws.
+
+The user's screenshots of this moment show the Chinook hovering over the supply dock,
+loading. In our run it does not move at all in 3500..3600, so it is absent from the
+`crc since` list. That is the same situation as `1.rep` ("it took the money and was
+about to fly home") and `5.rep` (a supply centre and a Chinook just created). If the
+PC's Chinook finishes loading and leaves earlier, the difference exists as
+AI/supply-truck state (neither is hashed) until the Chinook moves. The ring now also
+records each object's AI state id and, for supply gatherers, the boxes carried. It keeps
+printing live for 600 frames after the first mismatch, so our own Chinook's departure
+and route can be replayed as "the PC left k frames earlier".
