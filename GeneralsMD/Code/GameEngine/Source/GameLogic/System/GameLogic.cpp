@@ -3887,6 +3887,8 @@ namespace
 	Bool s_gxFpInvalidThisFrame = FALSE;
 	UnsignedInt s_gxFpBlameLines = 0;
 	std::map<std::string, UnsignedInt> s_gxFpBlameCounts;
+	// per 100-frame window, so the kinds that are new in a diverging window stand out
+	std::map<std::string, UnsignedInt> s_gxFpBlameWindow;
 
 	void gxFpBlame(UnsignedInt frame, const char *phase, const Object *obj, const UpdateModule *u)
 	{
@@ -3902,6 +3904,7 @@ namespace
 		std::string key = std::string(phase) + " " + moduleName.str() + " " + tmpl;
 		UnsignedInt &count = s_gxFpBlameCounts[key];
 		++count;
+		++s_gxFpBlameWindow[key];
 		// every occurrence around the diverging window, and the first of each kind elsewhere
 		const Bool inWindow = frame >= 1880 && frame <= 2010;
 		if ((inWindow || count == 1) && s_gxFpBlameLines < 600)
@@ -4207,6 +4210,7 @@ void GameLogic::update()
 			s_fpLines = 0;
 			s_gxFpBlameLines = 0;
 			s_gxFpBlameCounts.clear();
+			s_gxFpBlameWindow.clear();
 			s_fpFrames[0] = s_fpFrames[1] = s_fpFrames[2] = s_fpFrames[3] = 0;
 			s_fpWindowStart = 0;
 		}
@@ -4231,6 +4235,10 @@ void GameLogic::update()
 		{
 			GX_NET_TRACE("fp flags frames %u..%u: underflow in %u frames, NaN in %u, div-by-zero in %u, overflow in %u\n",
 				(unsigned)s_fpWindowStart, (unsigned)m_frame, s_fpFrames[0], s_fpFrames[1], s_fpFrames[2], s_fpFrames[3]);
+			for (std::map<std::string, UnsignedInt>::const_iterator it = s_gxFpBlameWindow.begin(); it != s_gxFpBlameWindow.end(); ++it)
+				GX_NET_TRACE("fp invalid frames %u..%u: %s x%u\n", (unsigned)s_fpWindowStart, (unsigned)m_frame,
+					it->first.c_str(), (unsigned)it->second);
+			s_gxFpBlameWindow.clear();
 			s_fpFrames[0] = s_fpFrames[1] = s_fpFrames[2] = s_fpFrames[3] = 0;
 			s_fpWindowStart = m_frame + 1;
 		}

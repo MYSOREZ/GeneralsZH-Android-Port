@@ -1209,3 +1209,23 @@ once in this replay (`WorkerAIUpdate`, `DozerAIUpdate`, `AIUpdateInterface` on s
 units, `SupplyTruckAIUpdate`, `DynamicShroudClearingRangeUpdate`) did not change the
 checksum here. They are the next candidates if a later replay diverges during combat
 or economy.
+
+**Confirmed on the device (23/09/2026):** with `realToIntTruncRef` in
+`getProbabilityModifier`, `1.rep` matches the PC through the debris window and up to
+**4300**. The NaN-to-int conversion was the cause. The next divergence is at **4400**.
+The replay's commands in that window: at 4109 and 4170 the user queues units at their
+`AmericaSupplyCenter` (id 381, i.e. Chinooks), and at 4188 sets its rally point to
+(1413.22, 729.77). New objects around then are Chinooks (390, 391, 398), a supply truck,
+Rangers and war factories.
+
+`invalid` is raised in 36 frames of 4300..4399. The attribution trace printed only the
+first of each kind outside 1880..2010, so it cannot say which kind is new there. It now
+also prints **per 100-frame window, every (phase, module, template) kind with its
+count**:
+
+```
+[GX-NET] fp invalid frames 4300..4399: update ChinookAIUpdate AmericaVehicleChinook x36
+```
+
+Comparing the diverging window's list with the matching windows before it names the
+new kind.
