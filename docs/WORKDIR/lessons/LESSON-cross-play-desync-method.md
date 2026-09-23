@@ -1166,3 +1166,46 @@ clears the flag:
 
 Every occurrence in 1880..2010 is printed, and elsewhere the first of each
 (phase, module, template) kind.
+
+## Found: NaN converted to an integer when debris comes to rest (23/09/2026)
+
+The attribution trace answered it. In `1.rep`, `invalid` came from **`PhysicsBehavior`
+on `GenericDebris`, exactly once per piece**, from frame 1951 on: the frame each piece
+came to rest and `KillWhenRestingOnGround` killed it. That matches the user's
+observation that the mismatch appears when the debris lands, not when the building
+breaks. Every other module appeared once in the whole game, in windows that match.
+
+The chain: `obj->kill()` → `SlowDeathBehavior::onDie` sums
+`getProbabilityModifier()` over the applicable slow-death modules, then calls
+`GameLogicRandomValue(1, total)`. `getProbabilityModifier` does
+
+```cpp
+Int  overkillDamage   = dealt - clipped;                    // 0
+Real overkillPercent  = (float)overkillDamage / maxHealth;  // debris: 0/0 = NaN
+Int  overkillModifier = overkillPercent * bonus;            // NaN -> Int
+return max(m_probabilityModifier + overkillModifier, 1);
+```
+
+- **PC (32-bit MSVC, SSE2 `CVTTSS2SI`):** NaN becomes 0x80000000, the sum is negative
+  and clamps to 1, and `GameLogicRandomValue(1, 1)` returns at `lo >= hi` **without
+  drawing**.
+- **ARM64 (`FCVTZS`):** NaN becomes 0, the sum stays at `m_probabilityModifier`, and
+  the call **draws one logic random value**.
+
+Every resting piece of debris drew one extra value on the phone. From the first one the
+seeds diverged, and everything random afterwards differed. The tally had shown it all
+along (`SlowDeathBehavior.cpp:512 drew 18`), but a draw count of our own proves nothing
+without the PC's to compare.
+
+Fix: `realToIntTruncRef()` in `Lib/BaseType.h` truncates with the reference's
+semantics: in-range values truncate, NaN or out-of-range give 0x80000000. Both
+conversions in `getProbabilityModifier` use it.
+
+**The general lesson:** any float-to-integer conversion that can see a NaN or an
+out-of-range value is platform-dependent, even with identical arithmetic before it. It
+is invisible to libm checks and compiler flags, and appears in no CRC word. The way to
+find one is the `invalid` flag, attributed per module. The other modules that raised it
+once in this replay (`WorkerAIUpdate`, `DozerAIUpdate`, `AIUpdateInterface` on several
+units, `SupplyTruckAIUpdate`, `DynamicShroudClearingRangeUpdate`) did not change the
+checksum here. They are the next candidates if a later replay diverges during combat
+or economy.

@@ -192,6 +192,24 @@ __forceinline float fast_float_trunc(float f)
 #endif
 }
 
+// GeneralsX @bugfix Android port 23/09/2026 Truncate a float to an Int the way the
+// reference client's hardware does. The GeneralsOnline PC client is 32-bit MSVC with SSE2,
+// where (Int)f is CVTTSS2SI: a NaN, or a value outside the Int range, becomes 0x80000000
+// ("integer indefinite"). ARM64's FCVTZS turns NaN into 0 and saturates out-of-range
+// values instead, so the same source produced a different integer. For in-range values
+// both are plain truncation. Use it wherever the simulation can convert a NaN or an
+// out-of-range float to an integer.
+inline Int realToIntTruncRef(Real f)
+{
+#if defined(_MSC_VER) && defined(_M_IX86)
+  return (Int)f;
+#else
+  if (f >= -2147483648.0f && f < 2147483648.0f)
+    return (Int)f;
+  return (Int)0x80000000u;
+#endif
+}
+
 // same here, fast floor function
 __forceinline float fast_float_floor(float f)
 {

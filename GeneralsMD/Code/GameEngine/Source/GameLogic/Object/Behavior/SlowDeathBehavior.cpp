@@ -178,9 +178,18 @@ Int SlowDeathBehavior::getProbabilityModifier( const DamageInfo *damageInfo ) co
 	// Calculating how far past dead we were allows us to pick more spectacular deaths when
 	// severely killed, and more sedate ones when only slightly killed.
 	// eg ( 200 hp max, had 10 left, took 50 damage, 40 overkill, (40/200) * 100 = 20 overkill %)
-	Int overkillDamage = damageInfo->out.m_actualDamageDealt - damageInfo->out.m_actualDamageClipped;
+	//
+	// GeneralsX @bugfix Android port 23/09/2026 An object with 0 max health -- the GenericDebris
+	// a destroyed or cancelled building throws out, killed by KillWhenRestingOnGround -- makes
+	// overkillPercent 0/0 = NaN, and NaN is then converted to an Int. On the reference PC
+	// client (32-bit MSVC, SSE2) that gives 0x80000000, the sum below goes negative and is
+	// clamped to 1, so the caller's GameLogicRandomValue(1, total) returns without drawing.
+	// On ARM64 it gave 0, the sum stayed at m_probabilityModifier, and every piece of debris
+	// that came to rest drew one extra logic random value -- desynchronising a cross-play
+	// game from the first one that landed. realToIntTruncRef() converts as the PC does.
+	Int overkillDamage = realToIntTruncRef(damageInfo->out.m_actualDamageDealt - damageInfo->out.m_actualDamageClipped);
 	Real overkillPercent = (float)overkillDamage / (float)getObject()->getBodyModule()->getMaxHealth();
-	Int overkillModifier = overkillPercent * getSlowDeathBehaviorModuleData()->m_modifierBonusPerOverkillPercent;
+	Int overkillModifier = realToIntTruncRef(overkillPercent * getSlowDeathBehaviorModuleData()->m_modifierBonusPerOverkillPercent);
 
 	return max( getSlowDeathBehaviorModuleData()->m_probabilityModifier + overkillModifier, 1 );
 }
