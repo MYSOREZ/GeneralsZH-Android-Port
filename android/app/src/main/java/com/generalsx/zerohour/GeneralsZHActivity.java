@@ -60,6 +60,14 @@ public class GeneralsZHActivity extends SDLActivity {
     static final String EXTRA_AUTO_QUIT = "gx_auto_quit";
     static final String EXTRA_CRC_EVERY_FRAME = "gx_crc_every_frame";
 
+    // singleInstance: a relaunch from the Replay check screen can arrive here instead of
+    // creating a new activity; keep the newest launch's extras for getArguments().
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+    }
+
     @Override
     protected String[] getArguments() {
         Intent intent = getIntent();

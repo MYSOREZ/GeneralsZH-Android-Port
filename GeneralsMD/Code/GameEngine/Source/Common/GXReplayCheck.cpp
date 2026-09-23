@@ -128,7 +128,18 @@ namespace GXReplayCheck
 void setFastForwardTo( Int frame ) { s_fastTo = frame; }
 void setAutoQuit( Bool autoQuit ) { s_autoQuit = autoQuit; }
 void setCrcEveryFrame( Bool everyFrame ) { s_crcEveryFrame = everyFrame; }
-Bool crcEveryFrame() { return s_crcEveryFrame; }
+Bool crcEveryFrame()
+{
+	// The launcher also drops a marker file in the game folder (the working directory),
+	// so the option survives a launch whose arguments were lost on the way.
+	static const Bool marker = []() {
+		FILE *f = fopen("gx_crc_every_frame.txt", "r");
+		if (f != nullptr)
+			fclose(f);
+		return f != nullptr;
+	}();
+	return s_crcEveryFrame || marker;
+}
 Bool isActive() { return s_fastTo != 0 || s_autoQuit; }
 
 void noteCheckpoint( UnsignedInt frame, Bool matched, UnsignedInt ours, UnsignedInt recorded )
@@ -169,9 +180,9 @@ void update()
 		{
 			s_sawPlayback = TRUE;
 			s_start = std::chrono::steady_clock::now();
-			fprintf(stderr, "[GX-NET] replay check %s: started, fast-forward %s%d, auto-quit %s\n",
+			fprintf(stderr, "[GX-NET] replay check %s: started, fast-forward %s%d, auto-quit %s, checksum of every frame %s\n",
 				replayName().str(), s_fastTo < 0 ? "to the end " : "to frame ", (int)s_fastTo,
-				s_autoQuit ? "on" : "off");
+				s_autoQuit ? "on" : "off", crcEveryFrame() ? "on" : "off");
 			fflush(stderr);
 		}
 

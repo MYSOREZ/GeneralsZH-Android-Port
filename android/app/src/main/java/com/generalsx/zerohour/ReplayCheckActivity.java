@@ -58,6 +58,9 @@ public class ReplayCheckActivity extends Activity {
 
     private static final String RESULT_FILE = "gx_replay_check_result.txt";
     private static final String NET_TRACE_MARKER = "gx_net_trace.txt";
+    private static final String CRC_EVERY_FRAME_MARKER = "gx_crc_every_frame.txt";
+    private static final String PREFS = "replay_check";
+    private static final String PREF_CRC_EVERY_FRAME = "crc_every_frame";
 
     private static final int MODE_RUN_THROUGH = 0;
     private static final int MODE_WATCH_FROM = 1;
@@ -119,6 +122,11 @@ public class ReplayCheckActivity extends Activity {
         frameRow.addView(frameInput);
         crcEveryFrameSwitch = UiKit.switchRow(modeCard, getString(R.string.replaycheck_crc_every_frame),
             getString(R.string.replaycheck_crc_every_frame_help));
+        // Kept across launches: this screen can be recreated while the game runs.
+        crcEveryFrameSwitch.setChecked(getSharedPreferences(PREFS, MODE_PRIVATE)
+            .getBoolean(PREF_CRC_EVERY_FRAME, false));
+        crcEveryFrameSwitch.setOnCheckedChangeListener((button, checked) ->
+            getSharedPreferences(PREFS, MODE_PRIVATE).edit().putBoolean(PREF_CRC_EVERY_FRAME, checked).apply());
 
         LinearLayout listCard = UiKit.card(page);
         UiKit.sectionHeader(listCard, R.drawable.ic_gzh_play,
@@ -231,6 +239,19 @@ public class ReplayCheckActivity extends Activity {
                 Toast.makeText(this, R.string.replaycheck_trace_failed, Toast.LENGTH_LONG).show();
             }
         }
+        // The engine also reads this marker, in case the launch argument is lost.
+        boolean everyFrame = crcEveryFrameSwitch != null && crcEveryFrameSwitch.isChecked();
+        File everyFrameMarker = new File(gamePath, CRC_EVERY_FRAME_MARKER);
+        if (everyFrame) {
+            try {
+                everyFrameMarker.createNewFile();
+            } catch (IOException e) {
+                Toast.makeText(this, R.string.replaycheck_trace_failed, Toast.LENGTH_LONG).show();
+            }
+        } else {
+            everyFrameMarker.delete();
+        }
+
         // A stale result must not be mistaken for this run's.
         new File(DataPackInstaller.userDataDir(), RESULT_FILE).delete();
 
@@ -238,8 +259,7 @@ public class ReplayCheckActivity extends Activity {
         intent.putExtra(GeneralsZHActivity.EXTRA_REPLAY, replay.getName());
         intent.putExtra(GeneralsZHActivity.EXTRA_FAST_TO, fastTo);
         intent.putExtra(GeneralsZHActivity.EXTRA_AUTO_QUIT, autoQuit);
-        intent.putExtra(GeneralsZHActivity.EXTRA_CRC_EVERY_FRAME,
-            crcEveryFrameSwitch != null && crcEveryFrameSwitch.isChecked());
+        intent.putExtra(GeneralsZHActivity.EXTRA_CRC_EVERY_FRAME, everyFrame);
 
         // Same as SetupActivity.onLaunchGame(): rotate first, start once the OS has
         // confirmed landscape, so the game's window-size probe never sees portrait.
