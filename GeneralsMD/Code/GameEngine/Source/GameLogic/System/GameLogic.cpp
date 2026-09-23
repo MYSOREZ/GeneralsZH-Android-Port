@@ -4227,7 +4227,8 @@ void GameLogic::update()
 	// GeneralsX @feature Android port 23/09/2026 The checksum of every frame, for a
 	// frame-exact comparison with the PC (see Common/GXReplayCheck.h). Computed at the
 	// same instant as the recorded ones, printed only; nothing is sent or compared.
-	if (isSoloGameOrReplay && GXReplayCheck::crcEveryFrame())
+	// Multiplayer recordings too: those are the ones compared with the PC.
+	if ((isSoloGameOrReplay || isMPGameOrReplay) && GXReplayCheck::crcEveryFrame())
 	{
 		const UnsignedInt gxFrameCRC = (generateForSolo || generateForMP) ? m_CRC : getCRC( CRC_RECALC );
 		GX_NET_TRACE("crc every frame %u: %08X\n", (unsigned)m_frame, (unsigned)gxFrameCRC);
