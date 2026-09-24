@@ -642,6 +642,8 @@ void GameEngine::init()
 			TheNameKeyGenerator->verifyNameKeyID(1);
 #endif
 
+		// GeneralsX @feature Android port 24/09/2026 See NameKeyGenerator::gxReportKeys.
+		TheNameKeyGenerator->gxReportKeys("before sciences", FALSE);
 		initSubsystem(TheScienceStore,"TheScienceStore", MSGNEW("GameEngineSubsystem") ScienceStore(), &xferCRC, "Data\\INI\\Default\\Science", "Data\\INI\\Science");
 		initSubsystem(TheMultiplayerSettings,"TheMultiplayerSettings", MSGNEW("GameEngineSubsystem") MultiplayerSettings(), &xferCRC, "Data\\INI\\Default\\Multiplayer", "Data\\INI\\Multiplayer");
 		initSubsystem(TheTerrainTypes,"TheTerrainTypes", MSGNEW("GameEngineSubsystem") TerrainTypeCollection(), &xferCRC, "Data\\INI\\Default\\Terrain", "Data\\INI\\Terrain");
@@ -740,7 +742,18 @@ void GameEngine::init()
 			TheNameKeyGenerator->verifyNameKeyID(2265);
 #endif
 
+		TheNameKeyGenerator->gxReportKeys("before upgrades", TRUE);
 		initSubsystem(TheUpgradeCenter,"TheUpgradeCenter", MSGNEW("GameEngineSubsystem") UpgradeCenter, &xferCRC, "Data\\INI\\Default\\Upgrade", "Data\\INI\\Upgrade");
+		{
+			// The GeneralsOnline PC client numbers this upgrade 2265 (read from a PC replay).
+			const UpgradeTemplate *gxRods = TheUpgradeCenter->findUpgrade("Upgrade_AmericaAdvancedControlRods");
+			fprintf(stderr, "[GX-NET] namekeys after upgrades: Upgrade_AmericaAdvancedControlRods=%d (PC client: 2265)\n",
+				gxRods ? (int)gxRods->getUpgradeNameKey() : -1);
+			TheNameKeyGenerator->gxReportKeys("after upgrades", FALSE);
+		}
+		// GeneralsX @bugfix Android port 24/09/2026 Only now, with the stores whose keys travel
+		// in lockstep commands numbered as on the PC, and before any window is loaded.
+		TheFunctionLexicon->gxKeyPortOnlyEntries();
 		initSubsystem(TheGameClient,"TheGameClient", createGameClient(), nullptr);
 
 

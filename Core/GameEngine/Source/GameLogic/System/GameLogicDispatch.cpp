@@ -1870,6 +1870,10 @@ bool GameLogic::onDoForceAttackGround(MAYBE_UNUSED GameMessage *msg, AIGroupPtr 
 bool GameLogic::onQueueUpgrade(MAYBE_UNUSED GameMessage *msg, AIGroupPtr &currentlySelectedGroup)
 {
 	const UpgradeTemplate *upgradeT = TheUpgradeCenter->findUpgradeByKey( (NameKeyType)(msg->getArgument( 1 )->integer) );
+	// GeneralsX @feature Android port 24/09/2026 The key is a number assigned by whichever
+	// client sent it; see NameKeyGenerator::gxReportKeys.
+	GX_NET_TRACE("queue upgrade frame %u: key %d -> %s\n", (unsigned)getFrame(),
+		(int)msg->getArgument( 1 )->integer, upgradeT ? upgradeT->getUpgradeName().str() : "(no such upgrade)");
 	if (!upgradeT)	// sanity
 		return false;
 

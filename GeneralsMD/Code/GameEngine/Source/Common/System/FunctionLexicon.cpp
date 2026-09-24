@@ -390,6 +390,37 @@ FunctionLexicon *TheFunctionLexicon = nullptr;  ///< the function dictionary
 	* components we might want to add to the table, such as generating
 	* a key based off the name supplied in the table for faster access */
 //-------------------------------------------------------------------------------------------------
+// GeneralsX @bugfix Android port 24/09/2026 GUI functions this port has and the
+// GeneralsOnline client does not. See FunctionLexicon::gxKeyPortOnlyEntries().
+static const char *const GX_PORT_ONLY_FUNCTIONS[] =
+{
+	"ExtrasMenuSystem", "ExtrasMenuInput", "ExtrasMenuInit", "ExtrasMenuUpdate", "ExtrasMenuShutdown",
+	"GroupPanelSystem", "GroupPanelInit", "GroupPanelUpdate", "GroupPanelShutdown",
+	"W3DGeneralsXCreditDraw",
+};
+
+static Bool gxIsPortOnlyFunction( const char *name )
+{
+	for (const char *portOnly : GX_PORT_ONLY_FUNCTIONS)
+		if (strcmp(name, portOnly) == 0)
+			return TRUE;
+	return FALSE;
+}
+
+// Placeholder key for a port-only entry until it is keyed: never handed out by the
+// generator, and not NAMEKEY_INVALID, which would end the table for keyToFunc().
+static const NameKeyType GX_UNKEYED = NAMEKEY_MAX;
+
+//-------------------------------------------------------------------------------------------------
+void FunctionLexicon::gxKeyPortOnlyEntries()
+{
+	m_gxPortOnlyKeyed = TRUE;
+	for (Int i = 0; i < MAX_FUNCTION_TABLES; ++i)
+		for (TableEntry *entry = m_tables[ i ]; entry && entry->name; ++entry)
+			if (entry->key == GX_UNKEYED)
+				entry->key = TheNameKeyGenerator->nameToKey( entry->name );
+}
+
 void FunctionLexicon::loadTable( TableEntry *table,
 																 TableIndex tableIndex )
 {
@@ -404,7 +435,10 @@ void FunctionLexicon::loadTable( TableEntry *table,
 	{
 
 		// assign key from name key based on name provided in table
-		entry->key = TheNameKeyGenerator->nameToKey( entry->name );
+		if (!m_gxPortOnlyKeyed && gxIsPortOnlyFunction( entry->name ))
+			entry->key = GX_UNKEYED;
+		else
+			entry->key = TheNameKeyGenerator->nameToKey( entry->name );
 
 		// next table entry please
 		entry++;
@@ -525,6 +559,8 @@ FunctionLexicon::FunctionLexicon()
 	// empty the tables
 	for( i = 0; i < MAX_FUNCTION_TABLES; i++ )
 		m_tables[ i ] = nullptr;
+
+	m_gxPortOnlyKeyed = FALSE;
 
 }
 

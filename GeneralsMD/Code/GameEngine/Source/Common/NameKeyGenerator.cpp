@@ -30,6 +30,10 @@
 
 #include "PreRTS.h"	// This must go first in EVERY cpp file in the GameEngine
 
+#include <vector>
+#include <algorithm>
+#include "GXTrace.h"
+
 // Public Data ////////////////////////////////////////////////////////////////////////////////////
 NameKeyGenerator *TheNameKeyGenerator = nullptr;  ///< name key gen. singleton
 
@@ -143,6 +147,23 @@ void NameKeyGenerator::verifyNameKeyID(UnsignedInt expectedNextID) const
 		("Retail client expects items to start with name key ID %d for unmodded files, but starts with %d", expectedNextID, m_nextID));
 }
 #endif
+
+//-------------------------------------------------------------------------------------------------
+void NameKeyGenerator::gxReportKeys( const char *stage, Bool listAll )
+{
+	fprintf(stderr, "[GX-NET] namekeys %s: next key %u\n", stage, (unsigned)m_nextID);
+	if (listAll && GXTrace::isNetEnabled())
+	{
+		std::vector<const Bucket *> all;
+		for (Int i = 0; i < SOCKET_COUNT; ++i)
+			for (const Bucket *b = m_sockets[i]; b; b = b->m_nextInSocket)
+				all.push_back(b);
+		std::sort(all.begin(), all.end(), [](const Bucket *a, const Bucket *b) { return a->m_key < b->m_key; });
+		for (const Bucket *b : all)
+			fprintf(stderr, "[GX-NET] namekey %u %s\n", (unsigned)b->m_key, b->m_nameString.str());
+	}
+	fflush(stderr);
+}
 
 //-------------------------------------------------------------------------------------------------
 NameKeyType NameKeyGenerator::nameToKey(const AsciiString& name)

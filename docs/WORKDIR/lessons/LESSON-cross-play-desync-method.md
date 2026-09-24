@@ -1878,3 +1878,42 @@ shows `InGame:… Replay:… Frame:N`. So:
    after 3593. No single intermediate of the model's step 3593, over a range of ±2^22
    ULP, satisfies both 3594 and 3600. A z-only difference does not fit the pattern.
    3700 is not a valid filter: after docking, more than the Chinook differs.
+7. **Two consecutive dumps give a static-difference filter.** Compute the implied
+   single-word difference at every position in both frames. Where it is the *same* in
+   both, the discrepancy is a field that did not change between the frames. A moving
+   object between the true position and the end breaks the equality, so the equal
+   region brackets the culprit. At 3594/3595 the region was words 83..167 (dozer 319
+   after its matrix, and power plant 318). The Chinook reading from step 5 was an alias.
+   Among the aliases in that region, the natural one was **one bit in power plant 318's
+   upgrade mask**. The bit index maps to the upgrade table:
+   - 0..2 are the veterancy upgrades made in code;
+   - 3 is `DefaultUpgrade` from `Default\Upgrade.ini`;
+   - after that, `Upgrade.ini` in file order.
+
+   Bit 7 is `Upgrade_AmericaAdvancedControlRods`.
+8. **Read the command stream before the physics.** The replay queued that upgrade at
+   frame 1794 (`MSG_QUEUE_UPGRADE`, argument key 2265). 30 s at 60 Hz is 1800 frames, so
+   the PC finished it at exactly 3593. The phone never finished it, as its dumps at
+   3600/3700/3800 show. Money is not in the checksum, so nothing was visible for 1800
+   frames. The key in that message is a **name key**. Name keys are numbered in the order
+   names are first registered, so a client that registers one extra name before
+   `TheUpgradeCenter` loads resolves the PC's key to a different upgrade, or to none.
+   Upstream knows this: see `verifyNameKeyID(2265)` and `syncNameKeyID()` in
+   `GameEngine::init`. Both are compiled only with `RETAIL_COMPATIBLE_CRC`, which is off
+   for both this port and the GeneralsOnline client. The same applies to anything else
+   sent by name key (sciences, for example). The startup lines `[GX-NET] namekeys …` and
+   the replay line `queue upgrade frame N: key K -> name` show this device's numbering.
+9. **Where the numbering diverged.** The GeneralsOnline client source is on the dev
+   machine, so the name tables can simply be diffed. `TheFunctionLexicon` is loaded
+   before sciences, objects and upgrades, and this port's tables had ten GUI function
+   names the PC client lacks:
+   - `ExtrasMenu*` (five);
+   - `GroupPanel*` (four);
+   - `W3DGeneralsXCreditDraw`.
+
+   Apart from those, both tables have the same names in the same order. The fix keeps
+   the port's menus. Those names get a placeholder at load time and are keyed only after
+   `TheUpgradeCenter`, before `TheGameClient` loads any window
+   (`FunctionLexicon::gxKeyPortOnlyEntries`). Any new GUI function must go into
+   `GX_PORT_ONLY_FUNCTIONS`. To check a build, the startup line must read
+   `Upgrade_AmericaAdvancedControlRods=2265`.

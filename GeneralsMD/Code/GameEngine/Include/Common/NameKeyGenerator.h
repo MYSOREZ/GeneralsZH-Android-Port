@@ -106,6 +106,14 @@ public:
 	// Get a string out of the INI. Store it into a NameKeyType
 	static void parseStringAsNameKeyType( INI *ini, void *instance, void *store, const void* userData );
 
+	// GeneralsX @feature Android port 24/09/2026 Name keys are handed out in the order names
+	// are first seen, and lockstep commands carry them as numbers (MSG_QUEUE_UPGRADE sends
+	// the upgrade's key). Two clients that registered even one name differently before a
+	// store was loaded disagree about what every later key means. This prints how many keys
+	// exist at a stage and, with the gx_net_trace.txt marker, every key and its name, so the
+	// numbering can be compared with the other client's.
+	void gxReportKeys( const char *stage, Bool listAll );
+
 #if RETAIL_COMPATIBLE_CRC
 #if RTS_ZEROHOUR
 	void syncNameKeyID();
