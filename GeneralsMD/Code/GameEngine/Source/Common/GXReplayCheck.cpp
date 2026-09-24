@@ -287,7 +287,7 @@ void update()
 			fflush(stderr);
 		}
 
-		// Extra logic frames for up to ~40 ms per rendered frame, in the order
+		// Extra logic frames for up to ~250 ms per rendered frame, in the order
 		// GameEngine::update uses: client-side bookkeeping, then the message stream,
 		// then logic. The message stream is not optional: during a watched playback
 		// the local checksum travels as MSG_LOGIC_CRC through TheMessageStream
@@ -295,10 +295,15 @@ void update()
 		// propagateMessages() delayed our checksums by a checkpoint and paired each
 		// with the next recorded one -- the first run reported 0/5 matched on a
 		// replay that matches to 3500.
+		//
+		// GeneralsX @performance Android port 24/09/2026 The budget was 40 ms, so a
+		// rendered frame (tens of ms on a phone) came after every 40 ms of logic and took a
+		// large share of a run that nobody watches. 250 ms keeps the screen alive at about
+		// four frames a second and spends the rest on logic.
 		if (fastForwarding())
 		{
 			const std::chrono::steady_clock::time_point until =
-				std::chrono::steady_clock::now() + std::chrono::milliseconds(40);
+				std::chrono::steady_clock::now() + std::chrono::milliseconds(250);
 			while (fastForwarding() && !s_done && std::chrono::steady_clock::now() < until)
 			{
 				TheGameClient->updateHeadless();

@@ -2166,8 +2166,11 @@ void Object::setDisabledUntil( DisabledType type, UnsignedInt frame )
 
 	// GeneralsX @feature Android port 24/09/2026 A disabled object skips its updates (a
 	// factory stops producing), and the disabled state is not in the lockstep checksum.
-	GX_NET_TRACE("disable frame %u: id=%u %s type %d until %u\n", (unsigned)TheGameLogic->getFrame(),
-		(unsigned)getID(), getTemplate()->getName().str(), (int)type, (unsigned)frame);
+	// Logged only when it changes: dead hulks and debris re-assert DISABLED_HELD every
+	// frame, which was 94% of a replay check's log and a real share of its run time.
+	if( type >= 0 && type < DISABLED_COUNT && m_disabledTillFrame[ type ] != frame )
+		GX_NET_TRACE("disable frame %u: id=%u %s type %d until %u\n", (unsigned)TheGameLogic->getFrame(),
+			(unsigned)getID(), getTemplate()->getName().str(), (int)type, (unsigned)frame);
 
 	if( type < 0 || type >= DISABLED_COUNT )
 	{
