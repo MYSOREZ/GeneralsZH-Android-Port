@@ -82,6 +82,9 @@ engines must be built from the same working tree — if a source edit lands
 between the two passes, the APK carries two engines that differ in more than
 the tick rate.
 
+Keep only the current build in `apk/`: `git rm` the previous APK when adding a new one. Every
+APK is ~60 MB of permanent git history.
+
 **Give the user the APK link first, at the top of the reply, not at the end.**
 
 CI (`Actions tab → Build Android → Run workflow`) still exists for release
