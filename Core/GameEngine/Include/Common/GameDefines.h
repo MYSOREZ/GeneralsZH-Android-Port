@@ -47,25 +47,28 @@
 #define PRESERVE_NO_XP_FROM_OCL_KILLS (1)
 #endif
 
-// GeneralsX @note Android port 15/09/2026 Three of the switches below are written
-// in the client as a choice between (0) and (1) on
-// defined(GENERALS_ONLINE) && defined(GENERALS_ONLINE_COMMUNITY_PATCH_CHANGES),
-// and are flattened to (1) here. That is not a simplification of the behaviour, it
-// is the behaviour: the client defines GENERALS_ONLINE from CMake but
-// GENERALS_ONLINE_COMMUNITY_PATCH_CHANGES only inside NextGenMP_defines.h, and this
-// file is reached through PreRTS.h -> Common/GameCommon.h long before any
-// translation unit includes that header. The second condition is therefore always
-// false where it is evaluated, so the client compiles the (1) arm every time.
-// Two of the three feed the lockstep checksum -- experience from poison kills and
-// the Battle Bus death frame -- so if that macro ever does reach this file, these
-// must move with it or cross-play desynchronises.
-
+// GeneralsX @bugfix Android port 24/09/2026 Three of the switches below follow the
+// GeneralsOnline client's community-patch arm. The client writes them as a choice on
+// defined(GENERALS_ONLINE) && defined(GENERALS_ONLINE_COMMUNITY_PATCH_CHANGES), and that
+// macro IS visible here: Common/GameCommon.h includes WWLib/WWCommon.h (which includes
+// NextGenMP_defines.h, where it is defined to 1) before this file. A 15/09/2026 note
+// claimed the opposite and flattened all three to (1); Global_War2.rep then diverged on the
+// first poison kill (5771), because the PC credits experience for it. Zero Hour takes the
+// (0) arm like the client; the base game keeps retail behaviour.
 #ifndef PRESERVE_NO_XP_FROM_POISON_KILLS
+#if RTS_GENERALS
 #define PRESERVE_NO_XP_FROM_POISON_KILLS (1)
+#else
+#define PRESERVE_NO_XP_FROM_POISON_KILLS (0)
+#endif
 #endif
 
 #ifndef PRESERVE_OCCUPANT_DETECTION_VIA_DRAG_SELECTION
+#if RTS_GENERALS
 #define PRESERVE_OCCUPANT_DETECTION_VIA_DRAG_SELECTION (1)
+#else
+#define PRESERVE_OCCUPANT_DETECTION_VIA_DRAG_SELECTION (0)
+#endif
 #endif
 
 #ifndef PRESERVE_PERPETUAL_HORDE_BONUS
@@ -73,7 +76,11 @@
 #endif
 
 #ifndef PRESERVE_PREMATURE_BATTLE_BUS_DEATH
+#if RTS_GENERALS
 #define PRESERVE_PREMATURE_BATTLE_BUS_DEATH (1)
+#else
+#define PRESERVE_PREMATURE_BATTLE_BUS_DEATH (0)
+#endif
 #endif
 
 #ifndef PRESERVE_RADAR_WARNING_SUPPRESSION

@@ -73,10 +73,9 @@ const char* const DamageTypeFlags::s_bitNameList[] =
 	"STEALTHJET_MISSILES",
 	"MOLOTOV_COCKTAIL",
 	"COMANCHE_VULCAN",
-	// GeneralsX @bugfix Android port 11/07/2026 keep in sync with
-	// DAMAGE_FLESHY_SNIPER in Damage.h no longer being RTS_GENERALS-only --
-	// see comment there.
+#if RTS_GENERALS
 	"FLESHY_SNIPER",
+#endif
 	"SUBDUAL_MISSILE",
 	"SUBDUAL_VEHICLE",
 	"SUBDUAL_BUILDING",

@@ -77,14 +77,15 @@ enum DamageType CPP_11(: Int)
 	DAMAGE_STEALTHJET_MISSILES		= 28,
 	DAMAGE_MOLOTOV_COCKTAIL				= 29,
 	DAMAGE_COMANCHE_VULCAN				= 30,
-	// GeneralsX @bugfix Android port 11/07/2026 was `#if RTS_GENERALS`-only:
-	// Zero Hour's Weapon.ini also references DamageType=FLESHY_SNIPER (e.g.
-	// CINE_USAPathfinderSniperRifle, inherited from base Generals weapon
-	// data) -- excluding it from ZH builds left INI's scanIndexList() unable
-	// to find the token, throwing and aborting the whole engine init. Retail
-	// Zero Hour has this constant; keep it compiled for both games.
+	// GeneralsX @bugfix Android port 24/09/2026 Generals-only again, as in the GeneralsOnline
+	// client. A 11/07/2026 change enabled it for Zero Hour to load data that named it; retail
+	// Zero Hour data does not (CINE_USAPathfinderSniperRifle uses SNIPER; only the base game's
+	// ZH_Generals/INI.big has FLESHY_SNIPER), and the extra value moved every later damage
+	// type one index up relative to the PC client -- the same mistake KindOf.h had.
+#if RTS_GENERALS
 	DAMAGE_FLESHY_SNIPER					= 31,		// like DAMAGE_SNIPER, but (generally) does no damage to vehicles.
-	DAMAGE_SUBDUAL_MISSILE				/*= 32*/,	///< Damage that does not kill you, but produces some special effect based on your Body Module. Separate HP from normal damage.
+#endif
+	DAMAGE_SUBDUAL_MISSILE				/*= 31*/,	///< Damage that does not kill you, but produces some special effect based on your Body Module. Separate HP from normal damage.
 	DAMAGE_SUBDUAL_VEHICLE				/*= 32*/,
 	DAMAGE_SUBDUAL_BUILDING				/*= 33*/,
 	DAMAGE_SUBDUAL_UNRESISTABLE		/*= 34*/,

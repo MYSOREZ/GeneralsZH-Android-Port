@@ -2489,3 +2489,38 @@ are iterated only when saving a game.
 
 Everything else is diagnostics, refactors with the same behavior, client-only code, or
 `RETAIL_COMPATIBLE_CRC` blocks that are off in both builds.
+
+## `Global_War2.rep` 5771: the community-patch switches were wrong (24/09/2026)
+
+`Global_War2.rep` is the largest recording so far, with every faction and every superweapon.
+It diverged at the PC's 5771. In the phone's 5770 update a GLA rebel died of poison
+(`Demo_GLAInfantryRebel` 593 turned into `ToxicInfantryBeta` 725). Nothing else happened that
+frame. The dump had no single-word explanation, and object 725 had no natural value. The
+seed alone did not explain it either: `rngahead5770` gave the seed after 0..60 draws, and
+none of them matched. The new `slow death` trace showed one applicable module with modifier
+10, so the roll legitimately drew.
+
+The cause was the build configuration, not the death code. `GameDefines.h` has three
+switches that the client sets on `defined(GENERALS_ONLINE) &&
+defined(GENERALS_ONLINE_COMMUNITY_PATCH_CHANGES)`:
+- `PRESERVE_NO_XP_FROM_POISON_KILLS`;
+- `PRESERVE_PREMATURE_BATTLE_BUS_DEATH`;
+- `PRESERVE_OCCUPANT_DETECTION_VIA_DRAG_SELECTION`.
+
+A 15/09/2026 note claimed the second macro could never be seen there and flattened all three to
+(1). That note is wrong. The client's `Common/GameCommon.h` includes `WWLib/WWCommon.h`, which
+includes `NextGenMP_defines.h`, before `Common/GameDefines.h`. So the PC takes the (0) arm:
+**a poison kill gives the killer experience**, which the checksum hashes. `Global_War.rep` had
+no GLA and no poison kills, which is why it matched to the end anyway.
+
+**Rule: compare the effective configuration, not only the source.** The same pass found two
+more build-configuration differences:
+- The client defines `GENERALS_ONLINE_DISABLE_STD_FROM_CHARS_PARSING` and parses INI
+  numbers with `sscanf`. The port used `std::from_chars`, and on Android `strtod` then a cast
+  to float for reals, which is double rounding. It now uses `sscanf` like the client.
+- `DAMAGE_FLESHY_SNIPER` had been enabled for Zero Hour on 11/07/2026, which shifted every
+  later damage type by one, as `KINDOF_AIRFIELD` did. Retail Zero Hour data never names it:
+  only the base game's `ZH_Generals/INI.big` does. It is Generals-only again.
+
+To find such differences, diff the `#define`s of the client's `NextGenMP_defines.h` against
+the port's, and check each conditional in `GameDefines.h` against the client's include order.

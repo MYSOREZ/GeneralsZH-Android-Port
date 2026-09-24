@@ -61,11 +61,12 @@
 #include "GameLogic/Weapon.h"
 #include "GXTrace.h"
 
-#if __cplusplus >= 201611L && !defined(__APPLE__)
-#define USE_STD_FROM_CHARS_PARSING 1
-#else
+// GeneralsX @bugfix Android port 24/09/2026 The GeneralsOnline client defines
+// GENERALS_ONLINE_DISABLE_STD_FROM_CHARS_PARSING and so parses INI numbers with sscanf.
+// This port used std::from_chars, and on Android strtod-then-float for reals: a string
+// rounded to double and then to float, which is not always the float sscanf("%f") gives.
+// INI values feed the simulation, so parse them the way the PC does.
 #define USE_STD_FROM_CHARS_PARSING 0
-#endif
 
 #if USE_STD_FROM_CHARS_PARSING
 #include <charconv>
