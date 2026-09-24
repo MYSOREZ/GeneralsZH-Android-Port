@@ -80,16 +80,14 @@ enum KindOfType CPP_11(: Int)
 	KINDOF_STEALTH_GARRISON,				/** enemy teams can't tell that unit is in building.. and if they
 																		garrison that building, they stealth unit will eject. */
 	KINDOF_CASH_GENERATOR,					///< used to check if the unit generates cash... checked by cash hackers and whatever else comes up
-	// GeneralsX @bugfix Android port 11/07/2026 was `#if RTS_GENERALS`-only,
-	// same bug class as DAMAGE_FLESHY_SNIPER: ThingTemplate.cpp's
-	// parseKindOfFromINI() has a dedicated backward-compat shim translating
-	// legacy `KindOf = AIRFIELD` into KINDOF_FS_AIRFIELD specifically for
-	// Zero Hour data (its own comment says so), but that shim itself was
-	// ALSO `#if RTS_GENERALS`-gated, so it could never run in this
-	// (RTS_ZEROHOUR-only) build -- the legacy token wouldn't resolve at all
-	// if retail ZH data still uses it anywhere. Keep this enum value
-	// compiled for both games; see the matching fix in ThingTemplate.cpp.
+	// GeneralsX @bugfix Android port 24/09/2026 Back to Generals-only, as in the
+	// GeneralsOnline client. Enabling it for Zero Hour (11/07/2026) inserted a bit in the
+	// middle of this enum, so every later KindOf had a different index from the PC's.
+	// Masks are hashed raw into the lockstep checksum (a player's battle-plan bonus
+	// carries two), so a PC replay desynced as soon as a Strategy Center plan came up.
+#if RTS_GENERALS
 	KINDOF_AIRFIELD,								///< unit has a runway that planes can takeoff/land on
+#endif
 	KINDOF_DRAWABLE_ONLY,						///< template is used only to create drawables (not Objects)
 	KINDOF_MP_COUNT_FOR_VICTORY,		///< If a player loses all his buildings that have this kindof in a multiplayer game, he loses.
 	KINDOF_REBUILD_HOLE,						///< a GLA rebuild hole
@@ -178,19 +176,6 @@ enum KindOfType CPP_11(: Int)
 	KINDOF_DEMOTRAP,								///< Added strictly only for disarming purposes. They don't act like mines which have rendering and selection implications!
 	KINDOF_CONSERVATIVE_BUILDING,		///< Conservative structures aren't considered part of your base for sneak attack boundary calculations...
 	KINDOF_IGNORE_DOCKING_BONES,		///< Structure will not look up docking bones. Patch 1.03 hack.
-
-	// GeneralsX @bugfix Android port 11/07/2026 reserved/unused -- exists
-	// purely to keep KindOfMaskType's total bit count (and therefore its
-	// underlying BitFlags<N> instantiation) from colliding with
-	// ModelConditionFlags, which is ALSO BitFlags<117> in this codebase.
-	// BitFlags<N> is parameterized only by bit count with no distinguishing
-	// tag, so two unrelated flag types landing on the same N become the
-	// literal same C++ type, and both providing a full specialization of
-	// its static s_bitNameList is an ODR violation (confirmed via a real
-	// "duplicate symbol: BitFlags<117ul>::s_bitNameList" linker error after
-	// adding KINDOF_AIRFIELD back bumped this enum from 116 to 117 entries).
-	// Not parseable from INI -- see KindOf.cpp's matching name-list entry.
-	KINDOF_RESERVED_SPARE_1,
 
 	KINDOF_COUNT,										// total number of kindofs
 	KINDOF_FIRST = 0,

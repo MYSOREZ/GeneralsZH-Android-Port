@@ -2106,3 +2106,31 @@ is unreachable with the add/remove arithmetic in `Player::changeBattlePlan`. So 
 equation is an alias. The likely truth is that the PC removed Hold the Line on a
 different frame. `BattlePlanUpdate.cpp` is identical to the PC client's. Next step: an
 every-frame run of `USA.rep` with the fixed build, so the PC names the frame.
+
+## Found: an extra KindOf bit shifted every later KindOf index (24/09/2026)
+
+The PC stopped at 27260 on the every-frame copy (`8E73C910` against `8E734903`), then at
+27261 with a single-bit difference. On the phone, Hold the Line was active from 27259
+(armor 0.9, counter 1). No battle-plan field value matched. The natural reading was in the
+player's plan bonus masks. `BitFlags::xfer` in CRC mode hashes a version byte and then the
+raw bitset, so the bits sit at their enum index. In `invalidKindOf`, word 2, the phone had
+bit 5 and the PC bit 4: **the same KindOf one index lower on the PC.**
+
+Diffing `KindOf.h` against the PC client found it. On 11/07/2026 this port enabled
+`KINDOF_AIRFIELD` for Zero Hour: it is `#if RTS_GENERALS` upstream and in the PC client.
+It sits in the middle of the enum, so every later KindOf moved up by one. A spare entry
+`KINDOF_RESERVED_SPARE_1` was then added to dodge an ODR clash between `BitFlags<117>`
+instantiations; upstream separates those with a tag template parameter instead. The same
+change also ungated the Zero Hour shim in `parseKindOfFromINI` that makes every DRONE
+`NO_SELECT`, which is a gameplay difference in its own right. All three are back to the PC
+client's form, and the enum and name table now match it entry for entry.
+
+**Why it stayed hidden until 27259.** KindOf masks reach the checksum raw only through a
+player's battle-plan bonuses, and those exist only after a Strategy Center activates a plan.
+
+**General rule.** Every enum whose values cross the network or enter the checksum raw must
+match the PC client's entry for entry. A quick sweep compared the enum entries of every
+header in `GeneralsMD/Code/GameEngine/Include` and `Core/GameEngine/Include` with the PC
+client. The remaining differences are UI-only (meta messages before
+`MSG_BEGIN_NETWORK_MESSAGES = 1000`, UI gadgets) or network-layer. Repeat that sweep after
+any upstream merge.

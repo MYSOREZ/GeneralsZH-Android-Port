@@ -88,17 +88,10 @@ static void parseKindOfFromINI(INI* ini, void* instance, void *store, const void
 {
 	KindOfMaskType::parseFromINI(ini, instance, store, userData);
 
-	// GeneralsX @bugfix Android port 11/07/2026 this whole block was wrapped
-	// in `#if RTS_GENERALS`, but this file (GeneralsMD/Code/.../ThingTemplate.cpp)
-	// only ever compiles as part of the Zero Hour build (RTS_GENERALS is never
-	// defined here) -- the guard made this backward-compat shim permanently
-	// dead code, exactly contradicting its own comments below, which describe
-	// translating legacy Generals-era INI tokens for Zero Hour. Object INI
-	// data inherited from base Generals (the same layering that caused the
-	// DAMAGE_FLESHY_SNIPER Weapon.ini crash) can still use the old `KindOf =
-	// AIRFIELD`/DRONE-implies-NO_SELECT conventions; without this shim ever
-	// running, objects using them would silently end up with the wrong
-	// KindOf flags instead of the intended Zero Hour equivalents.
+	// GeneralsX @bugfix Android port 24/09/2026 Generals-only again, as in the GeneralsOnline
+	// client: in Zero Hour it made drones NO_SELECT and needed an extra KindOf bit, and both
+	// changed the simulation relative to the PC (see KindOf.h).
+#if RTS_GENERALS
 	KindOfMaskType* kindOf = reinterpret_cast<KindOfMaskType*>(store);
 
 	if (kindOf->test(KINDOF_AIRFIELD))
@@ -112,6 +105,7 @@ static void parseKindOfFromINI(INI* ini, void* instance, void *store, const void
 		// KINDOF_DRONE was implicitly KINDOF_NO_SELECT in Generals.
 		kindOf->set(KINDOF_NO_SELECT);
 	}
+#endif
 }
 
 /*
