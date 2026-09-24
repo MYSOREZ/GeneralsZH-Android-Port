@@ -2337,6 +2337,19 @@ objects and a uniform change does not match, try every subset of the objects tha
 have changed. That is 2^8 = 256 checksums here, which is instant. It names the one object
 whose history differs, and that object's own trace then says what was special about it.
 
+**Confirmed with three PC values.** A phone run where plant 864 never finishes
+(`upgshift5000at19250id864`) matches the PC at 19251, 19252 and 19253: its 19253 accumulator
+`BC4211DF` is the PC's `InGame:DF1142BC` byte-swapped. Finishing it one frame late does not
+match at 19252. So the research that the AI queued on an unfinished building never completes on
+the PC, at least not in this window, while on the phone it runs the full 1800 frames. The queue
+trace says the research was queued by the skirmish script `USA Power Critical - H1`, on a plant
+that was `UNDER_CONSTRUCTION` at 0.0%. No team-owner fallback fired in this replay.
+
+The code that queues and runs production (`doTeamPartialUseCommandButton`,
+`CommandButton::isValidToUseOn`, `Object::doCommandButton`, `ProductionUpdate`, the sleepy update
+loop and its disabled-mask gate) is identical to the PC client's. The next step is a phone run
+of the PC's own recording with the knob, to see how far "never" matches.
+
 Next: `upgshift<N>at19250id864` runs (N = 1, and 5000 for "not in this window") against the
 PC's 19252 value, and the PC's 19253 value, to find out whether the PC never queued the
 research on the unfinished plant or merely ran it more slowly. The upgrade-queue trace now
