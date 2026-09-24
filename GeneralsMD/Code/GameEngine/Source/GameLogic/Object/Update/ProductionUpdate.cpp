@@ -318,10 +318,12 @@ Bool ProductionUpdate::queueUpgrade( const UpgradeTemplate *upgrade )
 
 	// GeneralsX @feature Android port 24/09/2026 The AI queues upgrades without a network
 	// message, so this is the only record of when (and with how much money) it did.
-	GX_NET_TRACE("upgrade queue frame %u: factory id=%u %s player %d upgrade=%s build frames %d money left %u\n",
+	GX_NET_TRACE("upgrade queue frame %u: factory id=%u %s player %d upgrade=%s build frames %d money left %u%s construction %.1f%% by=%s\n",
 		(unsigned)TheGameLogic->getFrame(), (unsigned)getObject()->getID(), getObject()->getTemplate()->getName().str(),
 		(int)player->getPlayerIndex(), upgrade->getUpgradeName().str(), (int)upgrade->calcTimeToBuild( player ),
-		(unsigned)money->countMoney());
+		(unsigned)money->countMoney(),
+		getObject()->getStatusBits().test( OBJECT_STATUS_UNDER_CONSTRUCTION ) ? " UNDER_CONSTRUCTION" : "",
+		getObject()->getConstructionPercent(), GXTrace::currentScript());
 
 
 	return TRUE;  // queued
@@ -728,7 +730,7 @@ UpdateSleepTime ProductionUpdate::update()
 
 	// GeneralsX @feature Android port 24/09/2026 Diagnostic only, see GXReplayCheck::upgradeShiftFrames.
 	if( production->m_type == PRODUCTION_UPGRADE )
-		totalProductionFrames += GXReplayCheck::upgradeShiftFrames( now + totalProductionFrames - production->m_framesUnderConstruction );
+		totalProductionFrames += GXReplayCheck::upgradeShiftFrames( now + totalProductionFrames - production->m_framesUnderConstruction, (UnsignedInt)us->getID() );
 
 	// figure out our percent complete
 	production->m_percentComplete = INT_TO_REAL( production->m_framesUnderConstruction ) /

@@ -60,6 +60,8 @@ diff against `/home/user/generalsonlinedevelopmentteam/gameclient` found each of
    hypothesis testable on the phone alone:
    - `doordelay<N>at<F>` delays factory doors;
    - `rngahead<F>` logs seed checksums after 0..60 extra draws.
+   - `upgshift<N>at<F>[id<ID>]` makes an upgrade that would finish at frame F finish N
+     frames later (`m<N>` is negative), optionally on one object only.
 
    Each check logs what it did, and the phone's own values must reproduce as a
    self-check (for example, +11 draws gives the phone's seed).
@@ -2304,3 +2306,40 @@ against the PC client before trusting it. A sweep on 24/09/2026 found:
 finds it, test "one moving object is a frame ahead or behind". It needs only the phone's
 own per-frame object trace. It turns a timing difference (a state that lasts one frame
 longer) into an exact match and names the object.
+
+## `Global_War.rep` 19251: five power plants, not six (24/09/2026)
+
+After the runway fix the phone matched the PC up to 19250. In frame 19250 AI player 3
+finishes `SupW_Upgrade_AmericaAdvancedControlRods` on six power plants at once: +15 energy
+each, the power shortage ends, and the Patriots and particle cannons are re-enabled.
+
+What the dumps said, in order:
+- **No single word** explains the PC value at 19251, in the normal dump or in a run where the
+  upgrade finishes one frame later.
+- **What the completion changes in the checksum.** Diffing the 19251 dump with and without
+  the completion (the `upgshift1at19250` run) shows exactly six words: bit 8 of the upgrade
+  mask (`+14` in each object block) of the six plants. Energy, player upgrades and the
+  enabled state are not hashed.
+- **Shifting all six** by -2, -1, +1 or +2 frames never matches. Moving the bit to any other
+  position of the mask in all six does not match either.
+- **Any subset of the player's eight power plants with bit 8.** One subset matches the PC
+  exactly: every plant **except id 864**. So on the PC, plant 864 had not finished the
+  research at 19250.
+
+Plant 864 was placed at 17450 and never finished building: it never added its own +5
+energy. The AI queued the research on it at 17451 anyway, through a team command button.
+That path (`Object::doCommandButton`) does not check `OBJECT_STATUS_UNDER_CONSTRUCTION`.
+On the phone, research on the unfinished building ran for the full 1800 frames. On the PC,
+it did not finish at 19250.
+
+**Method note: the subset search.** When one event changes the same field in several
+objects and a uniform change does not match, try every subset of the objects that could
+have changed. That is 2^8 = 256 checksums here, which is instant. It names the one object
+whose history differs, and that object's own trace then says what was special about it.
+
+Next: `upgshift<N>at19250id864` runs (N = 1, and 5000 for "not in this window") against the
+PC's 19252 value, and the PC's 19253 value, to find out whether the PC never queued the
+research on the unfinished plant or merely ran it more slowly. The upgrade-queue trace now
+says whether the building was under construction and which script queued it. A new trace
+also reports every team whose owner is resolved only by `TeamFactory::initTeam`'s port-only
+name fallback: the PC client gives such a team to the neutral player.

@@ -70,8 +70,9 @@ namespace GXReplayCheck
 	// Diagnostic: "upgshift<N>at<F>" in the replay's file name (N may be negative, written
 	// "upgshiftm2at19250" for -2). An upgrade whose research would finish at frame F finishes
 	// N frames later instead, to test "the PC finished it on another frame" against the PC's
-	// own checksums. Returns the shift for an upgrade that would finish at naturalDoneFrame.
-	Int upgradeShiftFrames( UnsignedInt naturalDoneFrame );
+	// own checksums. "..._upgshift<N>at<F>id<ID>.rep" limits it to the object with that id.
+	// Returns the shift for an upgrade that would finish at naturalDoneFrame.
+	Int upgradeShiftFrames( UnsignedInt naturalDoneFrame, UnsignedInt objectID );
 
 	// GameEngine::update, after the regular logic update.
 	void update();

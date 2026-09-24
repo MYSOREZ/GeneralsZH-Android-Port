@@ -30,6 +30,7 @@
 // INCLUDES ///////////////////////////////////////////////////////////////////////////////////////
 #include "PreRTS.h"	// This must go first in EVERY cpp file in the GameEngine
 #include "Common/GameState.h"
+#include "GXTrace.h"
 #include "Common/Team.h"
 #include "Common/ThingFactory.h"
 #include "Common/PerfTimer.h"
@@ -244,6 +245,10 @@ void TeamFactory::initTeam(const AsciiString& name, const AsciiString& owner, Bo
 		// owner (e.g. "PlyrChina0") therefore fails the nameKey lookup and must be resolved by
 		// comparing m_playerName directly.
 		pOwner = ThePlayerList->findPlayerWithName(owner);
+		// GeneralsX @feature Android port 24/09/2026 The PC client has no such fallback and gives
+		// the team to the neutral player, so every team this rescues is owned differently there.
+		GX_NET_TRACE("team owner fallback: team '%s' owner '%s' -> player %d (the PC client gives it to the neutral player)\n",
+			name.str(), owner.str(), pOwner ? (int)pOwner->getPlayerIndex() : -1);
 	}
 	DEBUG_ASSERTCRASH(pOwner, ("no owner found for team %s (%s)",name.str(),owner.str()));
 	if (!pOwner)

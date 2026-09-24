@@ -170,11 +170,12 @@ UnsignedInt rngAheadFrame()
 	return (UnsignedInt)frame;
 }
 
-Int upgradeShiftFrames( UnsignedInt naturalDoneFrame )
+Int upgradeShiftFrames( UnsignedInt naturalDoneFrame, UnsignedInt objectID )
 {
 	static Bool parsed = FALSE;
 	static Int shift = 0;
 	static UnsignedInt atFrame = 0;
+	static UnsignedInt onlyID = 0;
 	if (!parsed)
 	{
 		parsed = TRUE;
@@ -193,11 +194,15 @@ Int upgradeShiftFrames( UnsignedInt naturalDoneFrame )
 			shift = sign * atoi(num);
 			const char *at = strstr(num, "at");
 			atFrame = at != nullptr ? (UnsignedInt)atoi(at + 2) : 0;
-			fprintf(stderr, "[GX-NET] replay check: upgrades that would finish at frame %u finish %+d frames later (diagnostic, from the file name)\n",
-				(unsigned)atFrame, (int)shift);
+			const char *id = at != nullptr ? strstr(at, "id") : nullptr;
+			onlyID = id != nullptr ? (UnsignedInt)atoi(id + 2) : 0;
+			fprintf(stderr, "[GX-NET] replay check: upgrades that would finish at frame %u finish %+d frames later, object id %u (0 = any) (diagnostic, from the file name)\n",
+				(unsigned)atFrame, (int)shift, (unsigned)onlyID);
 			fflush(stderr);
 		}
 	}
+	if (onlyID != 0 && objectID != onlyID)
+		return 0;
 	return naturalDoneFrame == atFrame ? shift : 0;
 }
 
