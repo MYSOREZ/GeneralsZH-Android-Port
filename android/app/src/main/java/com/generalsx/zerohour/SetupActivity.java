@@ -2665,6 +2665,19 @@ public class SetupActivity extends Activity {
             boolean granted = grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED;
             if (granted) {
                 startActivityForResult(new Intent(this, FolderPickerActivity.class), 1001);
+            } else if (!ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                // GeneralsX @bugfix Android port 24/09/2026 Issue #22: after "Don't ask again" the
+                // system denies without showing a prompt, so retrying from here can never work.
+                // Send the user to this app's settings page, where the Storage permission lives.
+                Toast.makeText(this, R.string.folderpicker_toast_cant_read_legacy, Toast.LENGTH_LONG).show();
+                try {
+                    Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                    intent.setData(Uri.parse("package:" + getPackageName()));
+                    startActivity(intent);
+                } catch (Exception e) {
+                    // Some OEM builds lack the per-app page; the app list is the next best thing.
+                    startActivity(new Intent(Settings.ACTION_MANAGE_APPLICATIONS_SETTINGS));
+                }
             } else {
                 Toast.makeText(this, R.string.setup_toast_storage_permission_denied, Toast.LENGTH_LONG).show();
             }

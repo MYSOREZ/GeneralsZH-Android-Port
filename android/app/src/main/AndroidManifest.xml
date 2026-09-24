@@ -71,6 +71,11 @@
          show that system prompt. -->
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
 
+    <!-- GeneralsX @bugfix Android port 24/09/2026 Issue #22 (Android 10): with targetSdk 29+
+         Android 10 applies scoped storage unless requestLegacyExternalStorage is true, so even
+         with READ_EXTERNAL_STORAGE granted, File.listFiles() cannot see the game's .big files in
+         shared storage. The flag only has an effect on Android 10; Android 11+ ignores it and
+         uses MANAGE_EXTERNAL_STORAGE ("All files access") as before. -->
     <application
         android:label="@string/app_name"
         android:icon="@mipmap/ic_launcher"
@@ -79,7 +84,7 @@
         android:appCategory="game"
         android:hardwareAccelerated="true"
         android:supportsRtl="true"
-        android:requestLegacyExternalStorage="false">
+        android:requestLegacyExternalStorage="true">
 
         <activity
             android:name=".GeneralsZHActivity"

@@ -155,6 +155,7 @@
     <string name="folderpicker_hint_valid">✓ يحتوي هذا المجلد على INIZH.big/INI.big — يبدو صحيحًا.</string>
     <string name="folderpicker_hint_invalid">انتقل إلى مجلد اللعبة، ثم اضغط على \"استخدام هذا المجلد\".</string>
     <string name="folderpicker_toast_cant_read">تعذر قراءة هذا المجلد. إذا بدت القوائم فارغة في كل مكان، امنح أولًا إذن \"الوصول إلى جميع الملفات\" من شاشة الإعدادات.</string>
+    <string name="folderpicker_toast_cant_read_legacy">تعذّرت قراءة هذا المجلد. على Android 9–10، امنح التطبيق إذن التخزين (الإعدادات ← التطبيقات ← GeneralsZH ← الأذونات ← التخزين) ثم حاول مرة أخرى.</string>
 
     <!-- LogViewerActivity -->
     <string name="logviewer_title">السجلات</string>

@@ -155,6 +155,7 @@
     <string name="folderpicker_hint_valid">✓ Esta pasta contém INIZH.big/INI.big — parece correta.</string>
     <string name="folderpicker_hint_invalid">Navegue até a pasta do jogo e toque em \"Usar esta pasta\".</string>
     <string name="folderpicker_toast_cant_read">Não é possível ler esta pasta. Se a navegação parecer vazia em todo lugar, conceda primeiro \"Acesso a todos os arquivos\" na tela de Configurações.</string>
+    <string name="folderpicker_toast_cant_read_legacy">Não é possível ler esta pasta. No Android 9–10, conceda ao app a permissão de Armazenamento (Configurações → Apps → GeneralsZH → Permissões → Armazenamento) e tente novamente.</string>
 
     <!-- LogViewerActivity -->
     <string name="logviewer_title">Registros</string>

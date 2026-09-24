@@ -155,6 +155,7 @@
     <string name="folderpicker_hint_valid">✓ 此文件夹包含 INIZH.big/INI.big —— 看起来正确。</string>
     <string name="folderpicker_hint_invalid">请进入你的游戏文件夹，然后点击「使用此文件夹」。</string>
     <string name="folderpicker_toast_cant_read">无法读取此文件夹。如果到处都显示为空，请先在设置界面中授予「所有文件的访问权限」。</string>
+    <string name="folderpicker_toast_cant_read_legacy">无法读取此文件夹。在 Android 9–10 上，请为本应用授予存储权限（设置 → 应用 → GeneralsZH → 权限 → 存储），然后重试。</string>
 
     <!-- LogViewerActivity -->
     <string name="logviewer_title">日志</string>

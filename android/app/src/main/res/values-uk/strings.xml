@@ -155,6 +155,7 @@
     <string name="folderpicker_hint_valid">✓ У цій папці є INIZH.big/INI.big — схоже на правильну.</string>
     <string name="folderpicker_hint_invalid">Перейдіть у папку з грою і натисніть «Використати цю папку».</string>
     <string name="folderpicker_toast_cant_read">Не вдається прочитати цю папку. Якщо списки скрізь порожні, спершу надайте «Доступ до всіх файлів» на екрані налаштувань.</string>
+    <string name="folderpicker_toast_cant_read_legacy">Не вдається прочитати цю папку. На Android 9–10 дозвольте застосунку доступ до сховища (Налаштування → Застосунки → GeneralsZH → Дозволи → Сховище) і спробуйте знову.</string>
 
     <!-- LogViewerActivity -->
     <string name="logviewer_title">Логи</string>

@@ -155,6 +155,7 @@
     <string name="folderpicker_hint_valid">✓ Esta carpeta contiene INIZH.big/INI.big — parece correcta.</string>
     <string name="folderpicker_hint_invalid">Navega hasta la carpeta del juego y toca \"Usar esta carpeta\".</string>
     <string name="folderpicker_toast_cant_read">No se puede leer esta carpeta. Si las listas aparecen vacías en todas partes, concede primero \"Acceso a todos los archivos\" desde la pantalla de Ajustes.</string>
+    <string name="folderpicker_toast_cant_read_legacy">No se puede leer esta carpeta. En Android 9–10, concede a la aplicación el permiso de Almacenamiento (Ajustes → Aplicaciones → GeneralsZH → Permisos → Almacenamiento) y vuelve a intentarlo.</string>
 
     <!-- LogViewerActivity -->
     <string name="logviewer_title">Registros</string>

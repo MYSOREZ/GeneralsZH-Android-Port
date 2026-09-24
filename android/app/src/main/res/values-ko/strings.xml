@@ -155,6 +155,7 @@
     <string name="folderpicker_hint_valid">✓ 이 폴더에는 INIZH.big/INI.big이 있습니다 — 올바른 것으로 보입니다.</string>
     <string name="folderpicker_hint_invalid">게임 폴더로 이동한 다음 \"이 폴더 사용\"을 누르세요.</string>
     <string name="folderpicker_toast_cant_read">이 폴더를 읽을 수 없습니다. 어디서나 폴더 목록이 비어 있다면 먼저 설정 화면에서 \"모든 파일 접근\"을 허용하세요.</string>
+    <string name="folderpicker_toast_cant_read_legacy">이 폴더를 읽을 수 없습니다. Android 9–10에서는 앱에 저장공간 권한을 허용한 뒤(설정 → 애플리케이션 → GeneralsZH → 권한 → 저장공간) 다시 시도하세요.</string>
 
     <!-- LogViewerActivity -->
     <string name="logviewer_title">로그</string>

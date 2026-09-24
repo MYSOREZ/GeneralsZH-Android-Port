@@ -174,7 +174,11 @@ public class FolderPickerActivity extends Activity {
                 entries.add(d.getName());
             }
         } else {
-            Toast.makeText(this, R.string.folderpicker_toast_cant_read, Toast.LENGTH_LONG).show();
+            // GeneralsX @bugfix Android port 24/09/2026 Issue #22: Android 9-10 has no "All
+            // files access"; there the fix is the Storage runtime permission.
+            Toast.makeText(this, android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R
+                    ? R.string.folderpicker_toast_cant_read
+                    : R.string.folderpicker_toast_cant_read_legacy, Toast.LENGTH_LONG).show();
         }
 
         // Framework list rows on a near-black ground default to a light-theme

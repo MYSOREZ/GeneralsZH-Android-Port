@@ -168,6 +168,7 @@
     <string name="folderpicker_hint_valid">✓ This folder contains INIZH.big/INI.big — looks correct.</string>
     <string name="folderpicker_hint_invalid">Navigate into your game folder, then tap \"Use This Folder\".</string>
     <string name="folderpicker_toast_cant_read">Can\'t read this folder. If browsing looks empty everywhere, grant \"All files access\" from the Setup screen first.</string>
+    <string name="folderpicker_toast_cant_read_legacy">Can\'t read this folder. On Android 9–10, allow the Storage permission for this app (Settings → Apps → GeneralsZH → Permissions → Storage), then try again.</string>
 
     <!-- NetworkDiagnosticsActivity -->
     <string name="netdiag_title">Network diagnostics</string>
