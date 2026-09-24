@@ -2266,3 +2266,41 @@ the `invalid` flag is raised by:
 Next run: the file name `..._fpwin19150to19160` logs every `invalid` event in that window
 with its module and object (`GXReplayCheck::fpWindow`). The file also carries the PC's
 values at 19158 and 19159, so the phone dumps both frames for the static filter.
+
+## Found: an upstream runway tweak the PC client does not have (24/09/2026)
+
+`Global_War.rep` diverged at the PC's 19158. None of the numeric searches on the dump
+found anything:
+- positions of every object;
+- any two matrix words of any object;
+- headings of upright units;
+- one missing object;
+- plausible health values;
+- NaN-to-int conversions (the float-cast sanitizer is compiled in and stayed silent).
+
+Two consecutive dumps had no equal region either, so the difference was live, a moving
+thing. What worked was the **lag/lead test**. The object trace logs each moving object's
+matrix per frame. Put an object's matrix from the *previous or next* frame into the
+dump and compare with the PC. One object matched exactly: the stealth fighter 962. At
+19158 and again at 19159 the PC had it one frame further along its takeoff taxi.
+
+Its AI states on the phone: taxi from hangar (1001) until 19153, then orient (1009), reload
+(1010), await runway clearance (1002), then taxi to takeoff (1003) moving from 19159. The
+PC started moving at 19158. `ParkingPlaceBehavior.cpp` carried TheSuperHackers #1297
+(2025-08, "make aircraft takeoff order deterministic"). It makes a jet on an upper parking
+space **skip its first runway reservation attempt**, which is one frame. The GeneralsOnline
+client does not include it. Both files are back to the PC client's version.
+
+**Rule: upstream merges are a source of divergence too.** The PC client is built from its
+own, older upstream base. Diff every `TheSuperHackers @bugfix/@tweak` block in game logic
+against the PC client before trusting it. A sweep on 24/09/2026 found:
+- `ParkingPlaceBehavior` (fixed here);
+- `InstantDeathBehavior` and `Weapon.cpp` (already aligned on 20/09);
+- `FireWeaponPower.cpp`: it passes the caster's position instead of `NULL` to
+  `aiAttackPosition`. This is a crash fix and "position should be irrelevant". It is the
+  next suspect if a fire-weapon special power ever diverges.
+
+**Method note: the lag/lead test.** When a divergence is live and no numeric search
+finds it, test "one moving object is a frame ahead or behind". It needs only the phone's
+own per-frame object trace. It turns a timing difference (a state that lasts one frame
+longer) into an exact match and names the object.

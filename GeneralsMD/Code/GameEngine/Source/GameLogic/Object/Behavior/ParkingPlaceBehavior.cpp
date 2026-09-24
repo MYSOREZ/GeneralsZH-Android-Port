@@ -152,7 +152,6 @@ void ParkingPlaceBehavior::purgeDead()
 				{
 					it->m_objectInSpace = INVALID_ID;
 					it->m_reservedForExit = false;
-					it->m_postponedRunwayReservationForTakeoff = false;
 					if (pu)
 						pu->setHoldDoorOpen(it->m_door, false);
 				}
@@ -428,7 +427,6 @@ void ParkingPlaceBehavior::releaseSpace(ObjectID id)
 		{
 			it->m_objectInSpace = INVALID_ID;
 			it->m_reservedForExit = false;
-			it->m_postponedRunwayReservationForTakeoff = false;
 			if (pu)
 				pu->setHoldDoorOpen(it->m_door, false);
 			break;
@@ -488,45 +486,23 @@ void ParkingPlaceBehavior::transferRunwayReservationToNextInLineForTakeoff(Objec
 }
 
 //-------------------------------------------------------------------------------------------------
-Bool ParkingPlaceBehavior::postponeRunwayReservation(UnsignedInt spaceIndex, Bool forLanding)
-{
-	// TheSuperHackers @tweak Block the first attempt to reserve a runway for 'upper' space indices.
-	// This allows 'lower' space indices to reserve a runway first to ensure deterministic takeoff ordering.
-
-	if (m_spaces.size() > m_runways.size() && spaceIndex >= m_runways.size())
-	{
-		Bool& postponed = m_spaces[spaceIndex].m_postponedRunwayReservationForTakeoff;
-		if (forLanding)
-		{
-			postponed = false;
-		}
-		else if (!postponed)
-		{
-			postponed = true;
-			return true;
-		}
-	}
-
-	return false;
-}
-
-//-------------------------------------------------------------------------------------------------
+// GeneralsX @bugfix Android port 24/09/2026 Without TheSuperHackers' postponed runway
+// reservation (#1297), as in the GeneralsOnline client. It made an aircraft on an upper
+// parking space skip its first reservation attempt, so on the phone every such jet started
+// taxiing to takeoff one frame after the PC's, and a PC replay desynced right there (the
+// checksum dump matched the PC's with the jet one frame further along). This file and its
+// header are again identical to the PC client's.
 Bool ParkingPlaceBehavior::reserveRunway(ObjectID id, Bool forLanding)
 {
 	buildInfo();
 	purgeDead();
 
 	Int runway = -1;
-	for (UnsignedInt i = 0; i < m_spaces.size(); ++i)
+	for (std::vector<ParkingPlaceInfo>::iterator it = m_spaces.begin(); it != m_spaces.end(); ++it)
 	{
-		if (m_spaces[i].m_objectInSpace == id)
+		if (it->m_objectInSpace == id)
 		{
-#if !RETAIL_COMPATIBLE_CRC
-			if (postponeRunwayReservation(i, forLanding))
-				return false;
-#endif
-
-			runway = m_spaces[i].m_runway;
+			runway = it->m_runway;
 			break;
 		}
 	}
