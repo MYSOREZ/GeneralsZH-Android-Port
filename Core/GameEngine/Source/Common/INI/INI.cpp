@@ -36,6 +36,8 @@
 #include "Common/MemoryDiagnostics.h"
 
 #include "Common/DamageFX.h"
+#include "Common/KindOf.h"
+#include "GameLogic/Damage.h"
 #include "Common/file.h"
 #include "Common/FileSystem.h"
 #include "Common/GameAudio.h"
@@ -1906,6 +1908,46 @@ Type scanType(std::string_view token)
 			return count;
 		}
 	}
+
+#if !RTS_GENERALS
+	// GeneralsX @bugfix Android port 24/09/2026 Base-game tokens in Zero Hour data.
+	//
+	// Some retail Zero Hour installs (the EA Deluxe Edition in issue #2) name DamageType
+	// FLESHY_SNIPER and KindOf AIRFIELD, which exist only in the base game. The GeneralsOnline
+	// client does not know them either (it throws here), and adding them to the Zero Hour enums
+	// -- which this port did in July -- shifts every later index away from the PC's and breaks
+	// cross-play. Read them as their Zero Hour equivalents instead, so such data still loads
+	// and the indices stay the client's.
+	{
+		struct IndexAlias { ConstCharPtrArray list; const char *alias; const char *target; };
+		static const IndexAlias aliases[] =
+		{
+			{ DamageTypeFlags::s_bitNameList, "FLESHY_SNIPER", "SNIPER" },
+			{ KindOfMaskType::s_bitNameList, "AIRFIELD", "FS_AIRFIELD" },
+		};
+		for (const IndexAlias &a : aliases)
+		{
+			if (nameList != a.list || stricmp(token, a.alias) != 0)
+				continue;
+			Int index = 0;
+			for (ConstCharPtrArray name = nameList; *name; name++, index++)
+			{
+				if (stricmp(*name, a.target) == 0)
+				{
+					static Bool warned[ARRAY_SIZE(aliases)] = { FALSE };
+					const size_t which = &a - aliases;
+					if (!warned[which])
+					{
+						warned[which] = TRUE;
+						fprintf(stderr, "WARNING: INI token %s is base-game only; read as %s\n", a.alias, a.target);
+						fflush(stderr);
+					}
+					return index;
+				}
+			}
+		}
+	}
+#endif
 
 	DEBUG_CRASH(("token %s is not a valid member of the index list",token));
 	throw INI_INVALID_DATA;

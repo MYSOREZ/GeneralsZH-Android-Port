@@ -2529,3 +2529,8 @@ more build-configuration differences:
 
 To find such differences, diff the `#define`s of the client's `NextGenMP_defines.h` against
 the port's, and check each conditional in `GameDefines.h` against the client's include order.
+
+**Follow-up (24/09/2026): data compatibility without enum changes.** The EA Deluxe Edition data
+in issue #2 names `FLESHY_SNIPER` and `AIRFIELD`. `INI::scanIndexList` maps them to `SNIPER` and
+`FS_AIRFIELD` for Zero Hour. When data needs a token the client does not have, alias it at
+parse time; never add it to an enum.
