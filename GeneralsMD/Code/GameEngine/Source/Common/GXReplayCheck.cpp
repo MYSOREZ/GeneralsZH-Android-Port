@@ -170,6 +170,29 @@ UnsignedInt rngAheadFrame()
 	return (UnsignedInt)frame;
 }
 
+Bool fpWindow( UnsignedInt &from, UnsignedInt &to )
+{
+	static Int state = -1;
+	static UnsignedInt a = 0, b = 0;
+	if (state < 0)
+	{
+		state = 0;
+		AsciiString name = replayName();
+		name.toLower();
+		const char *tag = strstr(name.str(), "fpwin");
+		if (tag != nullptr)
+		{
+			a = (UnsignedInt)atoi(tag + 5);
+			const char *sep = strstr(tag, "to");
+			b = sep != nullptr ? (UnsignedInt)atoi(sep + 2) : a;
+			state = 1;
+		}
+	}
+	from = a;
+	to = b;
+	return state == 1;
+}
+
 Bool crcEveryFrame()
 {
 	// The launcher also drops a marker file in the game folder (the working directory),

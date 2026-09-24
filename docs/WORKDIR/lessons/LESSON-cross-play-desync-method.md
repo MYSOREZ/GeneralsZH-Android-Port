@@ -2244,3 +2244,25 @@ recordings made with the current client. Make them long matches that exercise:
 - Strategy Center plans;
 - combat;
 - supply.
+
+## `Global_War.rep`: a fresh recording from the current client (24/09/2026)
+
+This is a long match: the user (USA Superweapon general) against China bots, recorded by
+the current PC client. It matches to 19100. The every-frame copy matched itself on the phone;
+the PC stopped at `Frame:19158` (`EE1F79D0`) and then at `Frame:19159` (`D5D68244`).
+
+The 19158 dump has no single-word explanation. The following all came back empty:
+- small position offsets on every object;
+- any two words changed together inside any object's matrix;
+- removing any one object.
+
+A likely category is the one recorded under the debris NaN finding. In frames 19100..19199
+the `invalid` flag is raised by:
+- `PhysicsBehavior` on `GenericDebris` (x2);
+- `PartitionManager` (x2);
+- Battlemaster locomotor and AI states;
+- the stealth fighter's AI states.
+
+Next run: the file name `..._fpwin19150to19160` logs every `invalid` event in that window
+with its module and object (`GXReplayCheck::fpWindow`). The file also carries the PC's
+values at 19158 and 19159, so the phone dumps both frames for the static filter.

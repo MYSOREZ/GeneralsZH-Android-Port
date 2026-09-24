@@ -3923,9 +3923,11 @@ namespace
 		UnsignedInt &count = s_gxFpBlameCounts[key];
 		++count;
 		++s_gxFpBlameWindow[key];
-		// every occurrence around the diverging window, and the first of each kind elsewhere
-		const Bool inWindow = frame >= 1880 && frame <= 2010;
-		if ((inWindow || count == 1) && s_gxFpBlameLines < 600)
+		// every occurrence in the window named by the replay (GXReplayCheck::fpWindow), and
+		// the first of each kind elsewhere
+		UnsignedInt winFrom = 0, winTo = 0;
+		const Bool inWindow = GXReplayCheck::fpWindow(winFrom, winTo) && frame >= winFrom && frame <= winTo;
+		if ((inWindow || count == 1) && s_gxFpBlameLines < 4000)
 		{
 			++s_gxFpBlameLines;
 			GX_NET_TRACE("fp invalid frame %u: %s %s on %s id=%u%s\n", (unsigned)frame, phase,

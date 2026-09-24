@@ -62,6 +62,11 @@ namespace GXReplayCheck
 	// frame's checksum the log lists the logic seed checksum after 0..60 extra draws.
 	UnsignedInt rngAheadFrame();
 
+	// Diagnostic: "fpwin<A>to<B>" in the replay's file name. Every floating-point "invalid"
+	// event in frames A..B is logged with its module and object, not only the first of each
+	// kind. Returns FALSE when the name carries no window.
+	Bool fpWindow( UnsignedInt &from, UnsignedInt &to );
+
 	// GameEngine::update, after the regular logic update.
 	void update();
 
