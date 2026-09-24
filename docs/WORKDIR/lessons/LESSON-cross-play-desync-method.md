@@ -5,6 +5,95 @@ read this before forming a hypothesis. Most of the obvious theories have been
 tested and killed with measurements, and the instrument that actually finds
 these is already built.
 
+## The playbook that works (24/09/2026): read this first
+
+On 24/09/2026 the full `USA.rep`, a 30800-frame PC recording, matched the PC on all
+308 checkpoints. The last three divergences, found in order with the loop below, were:
+
+| First diverging frame | What the PC had | Root cause in this port | Fix |
+|---|---|---|---|
+| 3594 (`USA_Supply_Clear.rep`) | Advanced Control Rods finished on a power plant | 10 extra GUI function names registered before the upgrade store, so every upgrade/science **name key** was shifted | `FunctionLexicon::gxKeyPortOnlyEntries` |
+| 16746 (`USA.rep`) | Avenger's laser turret at its bone | port-only `OverlordContain` overrides pinned riders to the host's position | file restored to the PC client's |
+| 27260 (`USA.rep`) | battle-plan KindOf mask bit one lower | `KINDOF_AIRFIELD` enabled mid-enum for Zero Hour, shifting every later **KindOf index** | enum, names and shim restored |
+
+None of them was floating point. All three were **this port differing from the PC
+client's source**: two in how things are numbered, one a symptom patch. A dump plus a
+diff against `/home/user/generalsonlinedevelopmentteam/gameclient` found each of them.
+
+### The loop
+
+1. **Checkpoint result.** Run the PC `.rep` through the launcher's Replay check. It gives
+   the first mismatching checkpoint, 100 frames wide.
+2. **Frame-exact from the PC.** Run it once more with *Checksum of every frame* on (the log
+   must say `checksum of every frame on`). Then
+   `scripts/tooling/replay/rep_crc_every_frame.py PC.rep generals-stderr.log OUT_F1.rep`
+   writes a `C=001` copy that carries the phone's checksum for every frame.
+   - Play `OUT_F1.rep` on the phone first. It must match itself on every frame.
+   - Then play it on the PC, which stops at `Frame:N` with `InGame:X`.
+   - A multiplayer copy omits frame 0, or every pair is off by one (the script handles it).
+3. **Read N correctly.** The checksum of N is taken before the objects update, so the
+   divergence was made while objects updated in N-1. Look at what the phone logged for N-1:
+   `obj create/destroy`, `production`, `queue upgrade`, `energy`, `disable/enable`,
+   `crc rng`, and the phys trace.
+4. **Get the words.** `scripts/tooling/replay/rep_set_crc.py OUT_F1.rep OUT_PCN.rep N=X`
+   puts the PC's value at N. One file does two jobs:
+   - on the **phone** it mismatches exactly at N and dumps the checksum's words;
+   - on the **PC** it gets past N and stops at N+1, which gives a second equation.
+
+   Repeat for N+1 if needed.
+5. **Read the dump for the natural reading, not the first candidate.** Every single-word
+   explanation aliases along the stream (`δ·2^k`), so:
+   - **Static filter.** With two consecutive frames, the positions where the implied
+     difference is equal in both bracket a field that did not change. Moving objects end
+     that region.
+   - **Natural values:** +1 on a counter, one bit in a mask or bitset, a bit moved by one
+     position (an enum index), exactly 0.5/2.0 on a scalar.
+   - **Structure:** two objects with identical matrices, a section that grew (battle-plan
+     block 18 to 33 words), an extra object. These said more than any numeric search.
+   - Map a bit to a name through the source's own numbering: the upgrade mask is
+     veterancy 0..2, `DefaultUpgrade` 3, then `Upgrade.ini`; KindOf follows `KindOf.h`.
+6. **Diff exactly the code that the dump points to** against the PC client. That means
+   the new object's modules from its INI `Object` block, the enum behind a mask, or the
+   table that assigns a number. Ignore cosmetic diffs (`static_cast`, `nullptr`, GX
+   traces).
+7. **Verify with a phone run before asking the PC again.** File-name-gated knobs make a
+   hypothesis testable on the phone alone:
+   - `doordelay<N>at<F>` delays factory doors;
+   - `rngahead<F>` logs seed checksums after 0..60 extra draws.
+
+   Each check logs what it did, and the phone's own values must reproduce as a
+   self-check (for example, +11 draws gives the phone's seed).
+
+### What not to do (each cost real time here)
+
+- **Do not model the physics first.** Two days went into an exact Chinook flight model
+  that could not explain a single frame. If a bit-exact model explains nothing, the
+  question is wrong.
+- **Do not ask the PC for `-headless -replay … -exportStats`.** It crashes the
+  GeneralsOnline client.
+- **Do not scope a hypothesis wider than its event.** A door delay applied from frame 0
+  broke an unrelated production at 850.
+- **Do not treat a numbering as local.** Name keys, template ids and enum indices cross
+  the network or enter the checksum raw.
+- **Check the numbering on every log:**
+  - the startup line `Upgrade_AmericaAdvancedControlRods=2265 (PC client: 2265)` must hold;
+  - `queue upgrade frame N: key K -> name` must name the right upgrade.
+
+  After an upstream merge, redo the enum sweep against the PC client.
+- **Do not "fix" a POSIX symptom in simulation code** (the Overlord case). Anything that
+  writes a position, a flag or a counter is in the checksum.
+
+### Tools, all in the tree
+
+| Tool | Purpose |
+|---|---|
+| `scripts/tooling/replay/rep_crc_every_frame.py` | every-frame copy (`C=001`), `--roundtrip` self-test |
+| `scripts/tooling/replay/rep_set_crc.py` | put PC values at chosen frames |
+| Replay check switch *Checksum of every frame* (marker `gx_crc_every_frame.txt`) | phone logs every frame's checksum |
+| `[GX-NET] crc dump/locate` | word stream and single-word candidates at a mismatch |
+| `[GX-NET] namekeys …`, `queue upgrade …`, `production queue/done`, `energy`, `disable/enable`, `obj create/destroy` | the silent state around a divergence |
+| `GXReplayCheck::doorDelayFrames`, `rngAheadFrame` (from the replay file name) | test a hypothesis about the PC on the phone |
+
 ## The one fact that reframes everything
 
 **The PC client's full source is on the dev machine**, at
