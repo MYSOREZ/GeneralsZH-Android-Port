@@ -74,6 +74,10 @@ namespace GXReplayCheck
 	// Returns the shift for an upgrade that would finish at naturalDoneFrame.
 	Int upgradeShiftFrames( UnsignedInt naturalDoneFrame, UnsignedInt objectID );
 
+	// Diagnostic: "ucnoqueue" in the replay's file name. Upgrades cannot be queued on a building
+	// that is still under construction, to test that reading of the PC's behavior.
+	Bool noUpgradeQueueUnderConstruction();
+
 	// GameEngine::update, after the regular logic update.
 	void update();
 

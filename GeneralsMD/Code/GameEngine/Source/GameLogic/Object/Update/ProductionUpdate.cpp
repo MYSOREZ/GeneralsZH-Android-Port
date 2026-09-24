@@ -279,6 +279,16 @@ Bool ProductionUpdate::queueUpgrade( const UpgradeTemplate *upgrade )
 	if( isUpgradeInQueue( upgrade ) == TRUE )
 		return FALSE;
 
+	// GeneralsX @feature Android port 24/09/2026 Diagnostic only, see GXReplayCheck.h.
+	if( getObject()->getStatusBits().test( OBJECT_STATUS_UNDER_CONSTRUCTION ) &&
+			GXReplayCheck::noUpgradeQueueUnderConstruction() )
+	{
+		GX_NET_TRACE("upgrade queue frame %u: factory id=%u %s upgrade=%s refused, UNDER_CONSTRUCTION (diagnostic)\n",
+			(unsigned)TheGameLogic->getFrame(), (unsigned)getObject()->getID(),
+			getObject()->getTemplate()->getName().str(), upgrade->getUpgradeName().str());
+		return FALSE;
+	}
+
 	// STOP cheaters by making sure they can actually build this
 	if( !getObject()->canProduceUpgrade(upgrade) )
 		return FALSE;

@@ -2356,3 +2356,38 @@ research on the unfinished plant or merely ran it more slowly. The upgrade-queue
 says whether the building was under construction and which script queued it. A new trace
 also reports every team whose owner is resolved only by `TeamFactory::initTeam`'s port-only
 name fallback: the PC client gives such a team to the neutral player.
+
+### The PC's own recording agrees, to 24200 (24/09/2026)
+
+The PC's original `Global_War.rep` (a checksum every 100 frames) with `upgshift5000at19250id864`
+matched on 242 of 249 checkpoints, up to 24200, against 19200 without the knob. The first
+mismatch, 24300, is the knob itself: it finished the research at 24250. The phone's own
+locator says so: `crc since frame 24200: changed object id=864 ... UNDOING THIS ALONE GIVES THE
+PC's CHECKSUM`. So on the PC, plant 864 never gets the upgrade in the whole match.
+
+What that rules out:
+- **"Research is paused while the building is unfinished."** Plant 864 finished building at
+  18779: its +5 energy appears there, and the six +15 at 19250 include it, because
+  `updateUpgradeModules` skips unfinished buildings. Research that resumed at 18779 would have
+  finished around 20579, and the PC has no such bit.
+- **Data problems.** The phone logs no unknown-upgrade or unknown-locomotor warnings; the
+  port's "skip instead of throw" INI fallbacks did not fire.
+
+What the script is, decoded from `Data/Scripts/SkirmishScripts.scb` with
+`scripts/tooling/replay/scb_dump.py`: `USA Power Critical - H`, condition `PLAYER_HAS_NO_POWER`, action
+`TEAM_USE_COMMANDBUTTON_ABILITY` on `teamSkirmishAmericaSuperWeaponGeneral` with
+`SupW_Command_UpgradeAmericaAdvancedControlRods`. The path is `doTeamUseCommandButtonAbility`,
+`Team::getTeamAsAIGroup`, `AIGroup::groupDoCommandButton`, `Object::doCommandButton`, then
+`ProductionUpdate::queueUpgrade`. Every function on it is identical to the PC client's, and
+so are the build assistant, the sleepy-update loop, `giveUpgrade`, `wouldUpgrade`, and the
+`RETAIL_COMPATIBLE_*` switches (both builds have CRC, AIGROUP and XFER_SAVE off).
+
+A normalized sweep of every game-logic file against the PC client (whitespace, `NULL`, casts
+and GX traces removed; `/tmp/claude-0/normdiff.py`) found one more real divergence:
+**TheSuperHackers #2129** changed sequential-script spin detection from the script pointer to
+the vector index. The PC client does not have it. It is reverted to the pointer. It is not
+the cause of plant 864.
+
+Open: the source says the PC should have queued the research. Two phone runs of the PC's
+recording separate the remaining readings: `ucnoqueue` (never queued, no money charged) and
+`upgshift99999at19250id864` (queued and paid for, never finished).

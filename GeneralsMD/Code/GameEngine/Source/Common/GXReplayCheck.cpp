@@ -206,6 +206,23 @@ Int upgradeShiftFrames( UnsignedInt naturalDoneFrame, UnsignedInt objectID )
 	return naturalDoneFrame == atFrame ? shift : 0;
 }
 
+Bool noUpgradeQueueUnderConstruction()
+{
+	static Int state = -1;
+	if (state < 0)
+	{
+		AsciiString name = replayName();
+		name.toLower();
+		state = strstr(name.str(), "ucnoqueue") != nullptr ? 1 : 0;
+		if (state)
+		{
+			fprintf(stderr, "[GX-NET] replay check: upgrades are not queued on buildings under construction (diagnostic, from the file name)\n");
+			fflush(stderr);
+		}
+	}
+	return state == 1;
+}
+
 Bool fpWindow( UnsignedInt &from, UnsignedInt &to )
 {
 	static Int state = -1;

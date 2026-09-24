@@ -7962,13 +7962,16 @@ void ScriptEngine::setSequentialTimer(Team *team, Int frameCount)
 void ScriptEngine::evaluateAndProgressAllSequentialScripts()
 {
 	VecSequentialScriptPtrIt it;
-	size_t currIndex = 0;
-	size_t prevIndex = ~0u;
+	// GeneralsX @bugfix Android port 24/09/2026 Spin detection compares the script pointer, as the
+	// GeneralsOnline client does. TheSuperHackers #2129 switched it to the vector index, which counts
+	// a script that replaced the previous one in the same slot as a spin; the PC client does not
+	// have that change, and which sequential scripts run in a frame is part of the lockstep state.
+	SequentialScript *lastScript = nullptr;
 	Bool itAdvanced = false;
 
 	Int spinCount = 0;
 	for (it = m_sequentialScripts.begin(); it != m_sequentialScripts.end(); /* empty */) {
-		if (currIndex == prevIndex) {
+		if ((*it) == lastScript) {
 			++spinCount;
 		} else {
 			spinCount = 0;
@@ -7981,11 +7984,11 @@ void ScriptEngine::evaluateAndProgressAllSequentialScripts()
 					seqScript->m_scriptToExecuteSequentially->getName().str()));
 			}
 			++it;
-			++currIndex;
 			continue;
 		}
 
-		prevIndex = currIndex;
+		lastScript = (*it);
+
 		itAdvanced = false;
 
 		SequentialScript *seqScript = (*it);
@@ -8093,7 +8096,6 @@ void ScriptEngine::evaluateAndProgressAllSequentialScripts()
 					// Check to see if executing our action told us to wait. If so, skip to the next Sequential script
 					if (seqScript->m_dontAdvanceInstruction) {
 						++it;
-						++currIndex;
 						itAdvanced = true;
 						continue;
 					}
@@ -8147,7 +8149,6 @@ void ScriptEngine::evaluateAndProgressAllSequentialScripts()
 
 		if (!itAdvanced) {
 			++it;
-			++currIndex;
 		}
 	}
 	m_currentPlayer = nullptr;
