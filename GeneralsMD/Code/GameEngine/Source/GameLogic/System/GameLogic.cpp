@@ -4542,7 +4542,12 @@ void GameLogic::registerObject( Object *obj )
 	// checksum's single number. The first two frames are where map objects,
 	// starting units and the map's scripts all run, and they are the only frames
 	// worth this much log.
-	if (GXTrace::isNetEnabled() && m_frame <= 2)
+	//
+	// GeneralsX @tweak Android port 24/09/2026 Whole replay. A match against the PC
+	// desynced at 16800 right after a factory produced an Avenger, and the destroy
+	// trace alone could not say when it appeared. A long match creates a few hundred
+	// objects after the opening, which is cheap next to the checksum trace.
+	if (GXTrace::isNetEnabled())
 	{
 		// The frame number alone is ambiguous: the shell map behind the main menu
 		// is itself a running game with its own frame 0, and reading one game's

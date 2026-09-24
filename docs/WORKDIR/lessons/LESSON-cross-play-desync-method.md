@@ -1917,3 +1917,67 @@ shows `InGame:… Replay:… Frame:N`. So:
    (`FunctionLexicon::gxKeyPortOnlyEntries`). Any new GUI function must go into
    `GX_PORT_ONLY_FUNCTIONS`. To check a build, the startup line must read
    `Upgrade_AmericaAdvancedControlRods=2265`.
+
+## Solved: supply "desync" was an upgrade the phone never researched (24/09/2026)
+
+**Result.**
+
+| Replay | Before the fix | After the fix |
+|---|---|---|
+| `USA_Supply_Clear.rep` | 35/42, broke at 3600 | **88/88**, the whole recording |
+| `USA.rep` | broke at 3600 | matches to 16700 (next divergence at 16800, still open) |
+
+The phone's startup log reads `Upgrade_AmericaAdvancedControlRods=2265 (PC client: 2265)`,
+and every queued upgrade in `USA.rep` resolves to the right name.
+
+**The cause.** `MSG_QUEUE_UPGRADE` names the upgrade by its name key. Name keys are
+numbered in the order names are first registered. This port's GUI function tables had
+ten names the GeneralsOnline client does not:
+- `ExtrasMenu*` (five);
+- `GroupPanel*` (four);
+- `W3DGeneralsXCreditDraw`.
+
+They are registered before the science and upgrade stores, so every upgrade and science
+key here was shifted from the PC's. The PC's key for Advanced Control Rods meant nothing
+useful on the phone. The upgrade was never researched, and the checksum only showed it
+1800 frames later, when it completed on the PC. Money is not in the checksum, so the
+missing 500 was invisible. The fix is `FunctionLexicon::gxKeyPortOnlyEntries`: the port's
+own names are keyed after the stores and before any window loads.
+
+**How it was found. The order matters: every step removed a whole class of guesses.**
+1. **Frame-exact from the PC.** The launcher logs this device's checksum for every
+   frame. `rep_crc_every_frame.py` writes a copy with interval `C=001`, and the PC client
+   stops at the first frame it disagrees with (`Frame:3594`). One pitfall: a multiplayer
+   copy must omit frame 0, or every pair is off by one.
+2. **Frame N means objects updated in N-1.** The checksum is taken before the object
+   update, so 3594 pointed at frame 3593. This first pointed at the Chinook, which in that
+   frame starts its approach to the dock.
+3. **The PC's values for the following frames.** `rep_set_crc.py` writes the PC's own
+   value for a frame into the copy. The PC then gets one frame further, and the phone
+   mismatches exactly there and dumps the checksum words. One file serves both.
+4. **The Chinook model said no.** It reproduces the phone bit for bit, and no rounding,
+   velocity or position change in it explains two consecutive frames. Two days had
+   already gone into the helicopter at this point. Stop there: a model that can explain
+   nothing means the question is wrong.
+5. **The static-difference filter.** Compute the implied difference at every stream
+   position in two consecutive frames. Where it is equal, the culprit is a field that did
+   not change between them, and a moving object ends the equal region. That bracketed
+   dozer 319 and power plant 318. The only natural reading there was one bit in the power
+   plant's upgrade mask. The bit maps to the upgrade table: veterancy 0..2, `DefaultUpgrade`
+   3, then `Upgrade.ini` in file order.
+6. **Read the command stream.** One `MSG_QUEUE_UPGRADE` at 1794, with key 2265. Build time
+   30 s at 60 Hz gives 1800 frames, so the PC finished at exactly 3593, and the phone
+   never did.
+7. **Diff against the PC client's source.** Upstream already warns about name keys
+   (`verifyNameKeyID(2265)` in `GameEngine::init`). Diffing the name tables loaded before
+   the stores found the ten extra names in minutes.
+
+**What to reuse.**
+- A number that crosses the network (a name key, a template id, a science type) is only
+  meaningful if both clients assign it identically. Check that before the physics.
+- `[GX-NET] namekeys …` at startup, and `queue upgrade frame N: key K -> name` during a
+  replay, verify it on every log.
+- Template ids in `MSG_QUEUE_UNIT_CREATE` and `MSG_DOZER_CONSTRUCT` have the same property.
+  In `USA.rep` every id used before 16700 behaved. The one new id, 228 at 15950, built an
+  Avenger on the phone, and the next divergence follows its production. That is the next
+  lead. Object creation is now traced for the whole replay (`obj create`).
