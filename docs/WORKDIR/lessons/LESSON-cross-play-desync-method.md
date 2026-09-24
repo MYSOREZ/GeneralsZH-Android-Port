@@ -1996,3 +1996,12 @@ difference is in the inputs. Every change to a player's energy is now logged
 (`energy frame N: player P production|consumption ±X -> production A consumption B`).
 Pair that with the `obj create`/`obj destroy` lines, and with the PC's frame from an
 every-frame copy.
+
+**Checked and ruled out (same day).** The energy trace for `USA.rep` shows production 10
+against consumption 5 from frame 7341 to the end. The player was never underpowered, so
+the Avenger's 795 frames are not the low-power penalty. Other candidates remain:
+- a blocked factory exit (a finished unit waits for its door);
+- a production pause;
+- a build-time modifier.
+
+The every-frame copy `USA_F1.rep` was sent to the PC to name the frame.
