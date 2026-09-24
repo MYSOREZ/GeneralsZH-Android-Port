@@ -155,6 +155,21 @@ Int doorDelayFrames( UnsignedInt doorOpenedFrame )
 	return doorOpenedFrame >= fromFrame ? delay : 0;
 }
 
+UnsignedInt rngAheadFrame()
+{
+	static Int frame = -1;
+	if (frame < 0)
+	{
+		frame = 0;
+		AsciiString name = replayName();
+		name.toLower();
+		const char *tag = strstr(name.str(), "rngahead");
+		if (tag != nullptr)
+			frame = atoi(tag + 8);
+	}
+	return (UnsignedInt)frame;
+}
+
 Bool crcEveryFrame()
 {
 	// The launcher also drops a marker file in the game folder (the working directory),

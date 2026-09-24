@@ -34,6 +34,7 @@ extern void InitRandom();
 extern void InitRandom( UnsignedInt seed );
 extern UnsignedInt GetGameLogicRandomSeed();   ///< Get the seed (used for replays)
 extern UnsignedInt GetGameLogicRandomSeedCRC();///< Get the seed (used for CRCs)
+extern UnsignedInt GXGameLogicRandomSeedCRCAfter( Int draws );///< GeneralsX diagnostic, see RandomValue.cpp
 
 // Lets a helper be told which stream to draw from instead of hardcoding one. The client uses
 // this to keep purely cosmetic draws (particle placement) off the logic stream: the logic RNG

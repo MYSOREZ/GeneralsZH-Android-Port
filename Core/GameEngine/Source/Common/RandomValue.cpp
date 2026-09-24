@@ -240,6 +240,23 @@ static UnsignedInt randomValue(UnsignedInt (&seed)[6])
 	return ax;
 }
 
+// GeneralsX @feature Android port 24/09/2026 Diagnostic: the seed checksum the logic
+// generator would have after `draws` more values, computed on a copy (the real state is
+// untouched). The lockstep checksum carries only this CRC, so a client that drew a
+// different number of values in a frame is identified by comparing these with the other
+// client's checksum.
+UnsignedInt GXGameLogicRandomSeedCRCAfter( Int draws )
+{
+	UnsignedInt copy[6];
+	for (Int i = 0; i < 6; ++i)
+		copy[i] = theGameLogicSeed[i];
+	for (Int i = 0; i < draws; ++i)
+		randomValue(copy);
+	CRC c;
+	c.computeCRC(copy, sizeof(copy));
+	return c.get();
+}
+
 //
 // It is necessary to separate the GameClient and GameLogic usage of random
 // values to ensure that the GameLogic remains deterministic, regardless

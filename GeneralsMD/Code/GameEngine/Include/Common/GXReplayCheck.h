@@ -58,6 +58,10 @@ namespace GXReplayCheck
 	// PC's own checksums, which the PC cannot be asked for any other way.
 	Int doorDelayFrames( UnsignedInt doorOpenedFrame );
 
+	// Diagnostic: the frame named by "rngahead<F>" in the replay's file name, or 0. At that
+	// frame's checksum the log lists the logic seed checksum after 0..60 extra draws.
+	UnsignedInt rngAheadFrame();
+
 	// GameEngine::update, after the regular logic update.
 	void update();
 

@@ -2043,3 +2043,19 @@ to the event it is about
 If the phone, running late by N, matches both PC values and first mismatches at 16748,
 then the PC differs only in when the unit left the factory. After 16747 the records are
 the undelayed phone's, so the mismatch at 16748 is expected.
+
+**The door delay is not the whole difference.** With `USA_doordelay10at16500.rep`, the
+phone's Avenger left at 16755 and everything up to 16745 still matched. But 16746 was
+`A544B482`, not the PC's `EA8D2CFC`. So the PC did something else in 16745 as well.
+Diffing the phone's two 16746 dumps (with and without the Avenger) shows what the
+unit's appearance changes:
+- its own two object blocks;
+- about 220 shroud counters;
+- **the logic random seed** (word 13101).
+
+On the phone, creating it draws 11 values: `AIIdleState::onEnter` eight times, and the
+locomotor's wander offsets three times. Those call sites match the PC's source. The
+next test is a replay-check file named `rngahead<F>`. At frame F it logs the seed
+checksum after 0..60 extra draws, computed on a copy (`GXGameLogicRandomSeedCRCAfter`).
+`/tmp/claude-0/sc/rngtest.py` substitutes each value into both dumps and compares the
+result with the PC.

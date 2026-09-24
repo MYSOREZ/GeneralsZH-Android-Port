@@ -4234,6 +4234,15 @@ void GameLogic::update()
 		GX_NET_TRACE("crc every frame %u: %08X\n", (unsigned)m_frame, (unsigned)gxFrameCRC);
 	}
 
+	// GeneralsX @feature Android port 24/09/2026 See GXGameLogicRandomSeedCRCAfter().
+	if (GXReplayCheck::rngAheadFrame() != 0 && m_frame == GXReplayCheck::rngAheadFrame())
+	{
+		for (Int k = 0; k <= 60; ++k)
+			fprintf(stderr, "[GX-NET] rng ahead frame %u: +%d draws seed crc %08X\n",
+				(unsigned)m_frame, (int)k, (unsigned)GXGameLogicRandomSeedCRCAfter(k));
+		fflush(stderr);
+	}
+
 	// collect stats
 	if(TheStatsCollector)
 	{
