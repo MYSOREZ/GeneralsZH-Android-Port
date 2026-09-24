@@ -113,6 +113,11 @@ public:
 	virtual GameMessage::Type evaluateContextCommand( Drawable *draw,
 																										const Coord3D *pos,
 																										CommandTranslator::CommandEvaluateType cmdType );
+	// GeneralsX @feature Android port 24/09/2026 What a Ctrl+click at this point issues, for
+	// the touch force-attack button (TouchInput.cpp), which has no Ctrl key to send.
+	GameMessage::Type evaluateForceAttack( Drawable *draw,
+																				 const Coord3D *pos,
+																				 CommandTranslator::CommandEvaluateType cmdType );
 	void addTextBearingDrawable( Drawable *tbd );
 	void flushTextBearingDrawables();
 	void updateFakeDrawables();

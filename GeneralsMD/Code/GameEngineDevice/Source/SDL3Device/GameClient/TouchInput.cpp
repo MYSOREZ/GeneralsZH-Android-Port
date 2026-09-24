@@ -150,6 +150,10 @@ namespace
 			case GameMessage::MSG_INVALID:
 			case GameMessage::MSG_DO_MOVETO:
 			case GameMessage::MSG_DO_ATTACKMOVETO:
+			// GeneralsX @feature Android port 24/09/2026 Waypoint mode (the touch Alt button,
+			// issue #25) turns every order into a waypoint, so a tap on your own unit would
+			// always "interact". With Alt held, a click on your own unit still selects it.
+			case GameMessage::MSG_ADD_WAYPOINT:
 				return FALSE;
 			default:
 				return TRUE;
@@ -162,12 +166,46 @@ namespace
 		if (TheGameClient == nullptr || TheInGameUI == nullptr)
 			return;
 
-		// No force-attack branch: force attack is the Ctrl modifier on a click, and a
-		// finger has no modifier keys. If a keyboard is ever attached, its own click path
-		// still handles it -- this module only ever sees touches.
+		// Force attack is answered in tap() before this is reached (forceAttackTap).
 		TheGameClient->evaluateContextCommand(draw, &pos, CommandTranslator::DO_COMMAND);
 
 		TheInGameUI->clearAttackMoveToMode();
+	}
+
+	/**
+		GeneralsX @feature Android port 24/09/2026 The tap after the force-attack button was
+		pressed (issue #25).
+
+		A mouse player force-attacks by clicking with Ctrl held, and CommandXlat answers that
+		click with evaluateForceAttack() instead of evaluateContextCommand()
+		(CommandXlat.cpp, the MSG_MOUSE_RIGHT_CLICK case) -- which is what lets the target be
+		your own unit or bare ground. Do exactly that, with the same pick. Then disarm: the
+		button arms one order, as asked for in the issue, where Ctrl stays down only as long as
+		the key is held.
+
+		Returns FALSE when the mode is not armed, or armed with nothing controllable selected --
+		then there is nothing to order, the mode is dropped, and the tap is an ordinary one.
+	*/
+	Bool forceAttackTap(const ICoord2D &pixel)
+	{
+		if (TheInGameUI == nullptr || !TheInGameUI->isInForceAttackMode())
+			return FALSE;
+
+		if (!TheInGameUI->areSelectedObjectsControllable())
+		{
+			TheInGameUI->setForceAttackMode(FALSE);
+			return FALSE;
+		}
+
+		Coord3D pos;
+		if (TheTacticalView != nullptr && TheGameClient != nullptr &&
+				TheTacticalView->screenToTerrain(&pixel, &pos))
+		{
+			TheGameClient->evaluateForceAttack(pickForOrder(pixel), &pos, CommandTranslator::DO_COMMAND);
+			TheInGameUI->setForceAttackMode(FALSE);
+		}
+		// Off the terrain: keep the mode armed, the player simply missed the map.
+		return TRUE;
 	}
 
 }  // anonymous namespace
@@ -254,6 +292,11 @@ namespace TouchInput
 		if (hasArmedCommand())
 			return;
 
+		// 1b. The force-attack button owns the next tap the same way: whatever is under the
+		//     finger, your own units included, is the target -- never a selection.
+		if (forceAttackTap(pixel))
+			return;
+
 		Coord3D pos;
 		const Bool onTerrain = TheTacticalView->screenToTerrain(&pixel, &pos);
 
@@ -307,6 +350,15 @@ namespace TouchInput
 
 		if (hasArmedCommand())
 			return;
+
+		// GeneralsX @feature Android port 24/09/2026 With a touch modifier mode on (issue #25)
+		// the second tap is just another tap: a force attack, or one more waypoint -- not a
+		// select-all-of-type or a guard order that the mode was never asked for.
+		if (TheInGameUI->isInForceAttackMode() || TheInGameUI->isInWaypointMode())
+		{
+			tap(x, y);
+			return;
+		}
 
 		ICoord2D pixel;
 		pixel.x = x;
@@ -414,6 +466,15 @@ namespace TouchInput
 		if (TheInGameUI->getGUICommand() != nullptr)
 		{
 			TheInGameUI->setGUICommand(nullptr);
+			return;
+		}
+
+		// GeneralsX @feature Android port 24/09/2026 The touch modifier modes (issue #25) are a
+		// commitment of the same kind: back out of them before touching the selection.
+		if (TheInGameUI->isInForceAttackMode() || TheInGameUI->isInWaypointMode())
+		{
+			TheInGameUI->setForceAttackMode(FALSE);
+			TheInGameUI->setWaypointMode(FALSE);
 			return;
 		}
 

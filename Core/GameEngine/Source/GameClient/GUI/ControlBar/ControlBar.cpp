@@ -905,6 +905,8 @@ ControlBar::ControlBar()
 	m_showBuildToolTipLayout = FALSE;
 	m_touchHoldActive = FALSE;
 	m_touchHoldPoint.x = m_touchHoldPoint.y = 0;
+	m_touchForceAttackButton = nullptr;
+	m_touchWaypointButton = nullptr;
 
 	m_animateDownWin1Pos.x = m_animateDownWin1Pos.y = 0;
 	m_animateDownWin1Size.x = m_animateDownWin1Size.y = 0;
@@ -1097,6 +1099,7 @@ void ControlBar::init()
 
 	// post process step after loading the command buttons and command sets
 	postProcessCommands();
+	initTouchModeButtons();
 
 	// Init the scheme manager, this will call its own INI init function.
 	m_controlBarSchemeManager = NEW ControlBarSchemeManager;
@@ -2539,6 +2542,7 @@ void ControlBar::switchToContext( ControlBarContext context, Drawable *draw )
 
 			// fill the specific UI info
 			populateMultiSelect();
+			addTouchModeButtons( nullptr );
 
 			break;
 
@@ -2712,6 +2716,65 @@ void CommandButton::cacheButtonImage()
 		DEBUG_ASSERTCRASH( m_buttonImage, ("CommandButton: %s is looking for button image %s but can't find it. Skipping...", m_name.str(), m_buttonImageName.str() ) );
 		m_buttonImageName.clear();	// we're done with this, so nuke it
 	}
+}
+
+//-------------------------------------------------------------------------------------------------
+void CommandButton::initTouchModeButton( GUICommandType command, const char *textLabel,
+																				 const char *descriptionLabel, const char *buttonImageName )
+{
+	m_command = command;
+	// CHECK_LIKE: the button stays drawn pressed while its mode is on, driven every frame
+	// by getCommandAvailability() returning COMMAND_ACTIVE -- the mechanism the game already
+	// uses for Overcharge. OK_FOR_MULTI_SELECT: both modes apply to whatever is selected.
+	m_options = CHECK_LIKE | OK_FOR_MULTI_SELECT;
+	m_textLabel = textLabel;
+	m_descriptionLabel = descriptionLabel;
+	m_buttonImageName = buttonImageName;
+	m_commandButtonBorder = COMMAND_BUTTON_BORDER_ACTION;
+	cacheButtonImage();
+}
+
+//-------------------------------------------------------------------------------------------------
+/** GeneralsX @feature Android port 24/09/2026 The two touch modifier buttons (issue #25).
+
+	Only on touch platforms: everywhere else Ctrl and Alt already do this, and the buttons
+	would only take room on the bar.
+
+	The pictures are the game's own. SCCAttack is the art of the attack cursor (Mouse.ini's
+	AttackObj, ForceAttackObj and ForceAttackGround all name it), which is what the player
+	sees when a force attack is about to happen; SSRally is the flag the game puts on a
+	rally point, the closest thing it has to "a point to go through". The waypoint strings
+	are the game's own too -- CONTROLBAR:Waypoints and CONTROLBAR:ToolTipWayPoints exist in
+	every language it shipped in, left over from a waypoint button that never made it into
+	a CommandSet. Force attack never had strings; GameText.cpp carries GX:ForceAttack. */
+//-------------------------------------------------------------------------------------------------
+void ControlBar::initTouchModeButtons()
+{
+#if defined(__ANDROID__) || (defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE)
+	CommandButton *forceAttack = newCommandButton( "GX_Command_TouchForceAttack" );
+	forceAttack->initTouchModeButton( GUI_COMMAND_GX_FORCE_ATTACK,
+																		"GX:ForceAttack", "GX:ToolTipForceAttack", "SCCAttack" );
+	m_touchForceAttackButton = forceAttack;
+
+	CommandButton *waypoints = newCommandButton( "GX_Command_TouchWaypoints" );
+	waypoints->initTouchModeButton( GUI_COMMAND_WAYPOINTS,
+																	"CONTROLBAR:Waypoints", "CONTROLBAR:ToolTipWayPoints", "SSRally" );
+	m_touchWaypointButton = waypoints;
+
+	// A button with no picture would keep showing the previous command's art in its slot
+	// (setControlCommand only ever sets an image, never clears one), which is worse than no
+	// button at all. So an install missing either picture simply does not get that button.
+	if( m_touchForceAttackButton->getButtonImage() == nullptr )
+	{
+		fprintf(stderr, "[touchmodes] SCCAttack image missing; no force-attack button\n");
+		m_touchForceAttackButton = nullptr;
+	}
+	if( m_touchWaypointButton->getButtonImage() == nullptr )
+	{
+		fprintf(stderr, "[touchmodes] SSRally image missing; no waypoint button\n");
+		m_touchWaypointButton = nullptr;
+	}
+#endif
 }
 
 //-------------------------------------------------------------------------------------------------

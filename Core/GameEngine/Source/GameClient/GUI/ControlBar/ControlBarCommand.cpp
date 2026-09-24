@@ -497,12 +497,88 @@ void ControlBar::populateCommand( Object *obj )
 
 	}
 
+	addTouchModeButtons( commandSet );
+
 	//
 	// to avoid a one frame delay where windows may become enabled/disabled, run the update
 	// at once to get it all in the correct state immediately
 	//
 	updateContextCommand();
 
+}
+
+//-------------------------------------------------------------------------------------------------
+/** GeneralsX @feature Android port 24/09/2026 Put the touch force-attack and waypoint buttons
+	(see initTouchModeButtons) into free slots of the command bar that was just populated.
+
+	commandSet is the single selected object's set, or null for a multi-selection, where the
+	common-command table says which slots are taken.
+
+	A slot is free only if the SET leaves it empty, not merely if its window is hidden right
+	now: a transport's passenger slots are hidden while nobody is inside, and a button parked
+	there would be displaced the moment someone boards. Slot 12 first -- in 123 of the 137
+	stock sets that carry Attack Move it is the one empty cell of the bottom row, between
+	Attack Move (11) and Guard (13) -- then leftwards from 10. A set with no room gets no
+	button; nothing already on the bar is ever covered. */
+//-------------------------------------------------------------------------------------------------
+void ControlBar::addTouchModeButtons( const CommandSet *commandSet )
+{
+	if( TheInGameUI == nullptr )
+		return;
+	if( m_touchForceAttackButton == nullptr && m_touchWaypointButton == nullptr )
+		return;
+
+	// Which of the two the selection can use at all. Only the local player's own objects
+	// count: an order is only ever given to those.
+	Bool canAttack = FALSE;
+	Bool canMove = FALSE;
+	const DrawableList *selected = TheInGameUI->getAllSelectedDrawables();
+	for( DrawableListCIt it = selected->begin(); it != selected->end(); ++it )
+	{
+		const Object *obj = (*it)->getObject();
+		if( obj == nullptr || !obj->isLocallyControlled() || obj->isKindOf( KINDOF_IGNORED_IN_GUI ) )
+			continue;
+		if( obj->isAbleToAttack() )
+			canAttack = TRUE;
+		if( obj->isMobile() && !obj->isKindOf( KINDOF_STRUCTURE ) )
+			canMove = TRUE;
+	}
+
+	const CommandButton *wanted[ 2 ];
+	wanted[ 0 ] = canAttack ? m_touchForceAttackButton : nullptr;
+	wanted[ 1 ] = canMove ? m_touchWaypointButton : nullptr;
+
+	// Zero-based window indices: slot 12, then 10, 9, ... 1.
+	static const Int preferredSlots[] = { 11, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+	size_t next = 0;
+	for( Int b = 0; b < 2; ++b )
+	{
+		if( wanted[ b ] == nullptr )
+			continue;
+
+		for( ; next < ARRAY_SIZE( preferredSlots ); ++next )
+		{
+			const Int i = preferredSlots[ next ];
+			GameWindow *win = m_commandWindows[ i ];
+			if( win == nullptr )
+				continue;
+
+			const Bool slotTaken = commandSet
+				? ( commandSet->getCommandButton( i ) != nullptr )
+				: ( m_commonCommands[ i ] != nullptr );
+			if( slotTaken )
+				continue;
+
+			win->winHide( FALSE );
+			win->winEnable( TRUE );
+			setControlCommand( win, wanted[ b ] );
+			if( commandSet == nullptr )
+				m_commonCommands[ i ] = wanted[ b ];
+
+			++next;
+			break;
+		}
+	}
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -1019,6 +1095,16 @@ CommandAvailability ControlBar::getCommandAvailability( const CommandButton *com
 		else
 			obj = nullptr;
 	}
+
+	// GeneralsX @feature Android port 24/09/2026 The touch modifier buttons (issue #25) show a
+	// mode of the UI, not an ability of any one object, so none of the per-object tests below
+	// apply to them: pressed while the mode is on, available otherwise. Answered before those
+	// tests because in a multi-selection this runs once per selected object, and one disabled
+	// unit hiding the button would take the mode away from every other one.
+	if( command == m_touchForceAttackButton && command != nullptr )
+		return ( TheInGameUI && TheInGameUI->isInForceAttackMode() ) ? COMMAND_ACTIVE : COMMAND_AVAILABLE;
+	if( command == m_touchWaypointButton && command != nullptr )
+		return ( TheInGameUI && TheInGameUI->isInWaypointMode() ) ? COMMAND_ACTIVE : COMMAND_AVAILABLE;
 
 	//If we modify the button (like a gadget clock overlay), then sometimes we may wish to apply it to a specific different button.
 	//But if we don't specify anything (default), then make them the same.

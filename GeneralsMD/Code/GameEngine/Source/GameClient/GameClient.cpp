@@ -1278,6 +1278,16 @@ GameMessage::Type GameClient::evaluateContextCommand( Drawable *draw,
 
 }
 
+// ------------------------------------------------------------------------------------------------
+GameMessage::Type GameClient::evaluateForceAttack( Drawable *draw,
+																									 const Coord3D *pos,
+																									 CommandTranslator::CommandEvaluateType cmdType )
+{
+	if( m_commandTranslator )
+		return m_commandTranslator->evaluateForceAttack( draw, pos, cmdType );
+	return GameMessage::MSG_INVALID;
+}
+
 //-------------------------------------------------------------------------------------------------
 /** Get the ray effect data for a drawable */
 void GameClient::getRayEffectData( Drawable *draw, RayEffectData *effectData )

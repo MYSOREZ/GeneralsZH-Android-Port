@@ -215,6 +215,13 @@ enum GUICommandType CPP_11(: Int)
 
 	GUI_COMMAND_SELECT_ALL_UNITS_OF_TYPE,
 
+	// GeneralsX @feature Android port 24/09/2026 Force attack as a button, for a touchscreen
+	// that has no Ctrl key (issue #25). Never parsed from the game's own INI -- the button is
+	// built in code (ControlBar::initTouchModeButtons) -- and never sent anywhere: it only
+	// switches InGameUI's force-attack mode, and the order it leads to is the ordinary
+	// MSG_DO_FORCE_ATTACK_* a Ctrl+click sends. Appended last so no existing value moves.
+	GUI_COMMAND_GX_FORCE_ATTACK,
+
 	// add more commands here, don't forget to update the string command list below too ...
 
 	GUI_COMMAND_NUM_COMMANDS
@@ -268,6 +275,7 @@ static const char *const TheGuiCommandNames[] =
 	"SPECIAL_POWER_CONSTRUCT",
 	"SPECIAL_POWER_CONSTRUCT_FROM_SHORTCUT",
 	"SELECT_ALL_UNITS_OF_TYPE",
+	"GX_FORCE_ATTACK",
 
 	nullptr
 };
@@ -366,6 +374,11 @@ public:
 
 	// bleah. shouldn't be const, but is. sue me. (srj)
 	void setFlashCount(Int c) const { m_flashCount = c; }
+
+	// GeneralsX @feature Android port 24/09/2026 Fill in a button built in code rather than
+	// parsed from INI -- see ControlBar::initTouchModeButtons for the two that exist.
+	void initTouchModeButton( GUICommandType command, const char *textLabel,
+														const char *descriptionLabel, const char *buttonImageName );
 
 	// only for ControlBar!
 	void friend_addToList(CommandButton** list) {	m_next = *list;	*list = this; }
@@ -994,6 +1007,16 @@ protected:
 	// point stays true and can simply be hit-tested again each frame.
 	Bool m_touchHoldActive;
 	ICoord2D m_touchHoldPoint;
+
+	// GeneralsX @feature Android port 24/09/2026 Ctrl and Alt for a touchscreen (issue #25).
+	// A mouse player holds Ctrl to force-attack and Alt to queue waypoints; a finger has no
+	// modifier keys, so these two buttons switch the same InGameUI modes instead. Built in
+	// code, never part of a CommandSet from the game's INI, and placed into a free command
+	// slot on top of whatever the selection's own set shows (addTouchModeButtons).
+	const CommandButton *m_touchForceAttackButton;
+	const CommandButton *m_touchWaypointButton;
+	void initTouchModeButtons();
+	void addTouchModeButtons( const CommandSet *commandSet );
 public:
 	void setTouchHoldPoint( Int x, Int y, Bool held )
 	{

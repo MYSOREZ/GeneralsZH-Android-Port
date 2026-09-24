@@ -202,6 +202,28 @@ keyed on the `GameWindow*` captured at touch-down, or on that window's
 reports the **hold point** (`ControlBar::setTouchHoldPoint`), and the control
 bar hit-tests it again each frame.
 
+### 4. Modifier keys become modes, and the mode is the engine's own
+
+Ctrl (force attack) and Alt (waypoints) are not gestures: on a mouse they are held
+while clicking, and the engine keeps them as plain flags on InGameUI
+(`isInForceAttackMode()`, `isInWaypointMode()`) that `evaluateContextCommand` already
+reads. A finger cannot hold a key, so since 24/09/2026 (issue #25) two command-bar
+buttons flip those same flags (`ControlBar::initTouchModeButtons`,
+`GUI_COMMAND_GX_FORCE_ATTACK`, and the long-unused `GUI_COMMAND_WAYPOINTS`).
+Nothing new is invented below that line:
+
+- **Force attack** arms one order. `TouchInput::tap` sees the flag first and answers
+  with `evaluateForceAttack(pickForOrder(), pos, DO_COMMAND)`, which is exactly what
+  CommandXlat does for a Ctrl+click, then clears the flag. Own units and bare ground
+  are valid targets, so the selection branch must not run while it is armed.
+- **Waypoints** stay on until pressed again; `evaluateContextCommand` turns every order
+  into `MSG_ADD_WAYPOINT`. A tap on your own unit still selects, as an Alt+click does,
+  which is why `selectionInteractsWith` counts `MSG_ADD_WAYPOINT` as "just a move".
+- The button's pressed look is driven every frame from the flag
+  (`getCommandAvailability` → `COMMAND_ACTIVE` → `CHECK_LIKE`), not remembered by the
+  button, so `setInputEnabled(FALSE)` or a new game clearing the flag also un-presses it.
+  This is pattern 2 again: re-derive from engine state, do not keep a second copy.
+
 ---
 
 ## How to add a new gesture

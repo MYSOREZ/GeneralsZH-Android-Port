@@ -665,7 +665,33 @@ CBCommandStatus ControlBar::processCommandUI( GameWindow *control,
 
 		//---------------------------------------------------------------------------------------------
 		case GUI_COMMAND_WAYPOINTS:
+		{
+			// GeneralsX @feature Android port 24/09/2026 The touch waypoint button (issue #25) is
+			// Alt for a finger: it holds InGameUI's waypoint mode on until pressed again, and every
+			// order given meanwhile is MSG_ADD_WAYPOINT, exactly as while Alt is held. Only that
+			// button: GUI_COMMAND_WAYPOINTS was never given behaviour for a button from the INI.
+			if( commandButton != m_touchWaypointButton )
+				break;
+			const Bool enable = !TheInGameUI->isInWaypointMode();
+			TheInGameUI->setWaypointMode( enable );
+			if( enable )
+				TheInGameUI->setForceAttackMode( FALSE );
 			break;
+		}
+
+		//---------------------------------------------------------------------------------------------
+		case GUI_COMMAND_GX_FORCE_ATTACK:
+		{
+			// GeneralsX @feature Android port 24/09/2026 Ctrl for a finger (issue #25). Arms
+			// InGameUI's force-attack mode for the next order; the touch layer turns the next tap
+			// into the MSG_DO_FORCE_ATTACK_* a Ctrl+click sends and then disarms it
+			// (TouchInput.cpp). Pressing the button again disarms it without an order.
+			const Bool enable = !TheInGameUI->isInForceAttackMode();
+			TheInGameUI->setForceAttackMode( enable );
+			if( enable )
+				TheInGameUI->setWaypointMode( FALSE );
+			break;
+		}
 
 		//-------------------------------------------------------------------------------------------------
 		case GUI_COMMAND_EXIT_CONTAINER:

@@ -1710,6 +1710,11 @@ InGameUI::TouchOrderMarker InGameUI::computeTouchOrderMarker( const Drawable *ta
 		return TOUCHMARKER_NONE;
 	if( obj->isLocallyControlled() && isInPreferSelectionMode() )
 		return TOUCHMARKER_NONE;
+	// GeneralsX @feature Android port 24/09/2026 Waypoint mode turns every order into a
+	// waypoint (evaluateContextCommand returns before any of the chain below), so there is no
+	// order on the object to advertise.
+	if( isInWaypointMode() )
+		return TOUCHMARKER_NONE;
 
 	const Bool forceAttack = isInForceAttackMode();
 
