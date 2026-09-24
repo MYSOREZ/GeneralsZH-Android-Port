@@ -2396,3 +2396,41 @@ the cause of plant 864.
 Open: the source says the PC should have queued the research. Two phone runs of the PC's
 recording separate the remaining readings: `ucnoqueue` (never queued, no money charged) and
 `upgshift99999at19250id864` (queued and paid for, never finished).
+
+## Found: `itoa` wrote nothing on Android (24/09/2026)
+
+Both plant-864 readings (`ucnoqueue` and `upgshift99999at19250id864`) matched the PC's
+`Global_War.rep` to **27400** and diverged at 27500, with different values from each other.
+Their event traces were identical except for one thing: at 27496 two
+`ChinaTankOverlordGattlingCannon` objects were created and put on two `Tank_ChinaTankEmperor`
+tanks, and their destroy positions were `(-0, -1.2e22)` in one run and `(-0, -0)` in the other.
+
+Their matrices in the 27500 dump were not matrices: the first row was pieces of an Android
+tagged heap pointer (`...720000B4`), and the other rows were stack leftovers (the tank's
+position, a heading). The CRC hashes that. So it was uninitialized memory, different on every
+run.
+
+The chain:
+1. `OpenContain::putObjAtNextFirePoint` (passengers in turret) builds the bone name
+   `"FIREPOINT0" + itoa(n)` and asks `getSingleLogicalBonePositionOnTurret` for it, into a
+   `Matrix3D matrix;` that is not initialized.
+2. The port's `itoa` (`GeneralsMD/Code/CompatLib/Source/string_compat.cpp`) streamed the number
+   into a `std::stringbuf` pointed at `str` with `pubsetbuf()`. Under **libc++,
+   `basic_stringbuf` does not override `setbuf`**, so `pubsetbuf` is a no-op. The digits went
+   into the stringbuf's own storage and `str` kept the caller's stack contents.
+3. The bone name was garbage, the lookup failed and returned FALSE, and the rider got the
+   uninitialized matrix.
+
+The same `itoa` names exit-path bones (`OpenContain.cpp` lines 1020 and 1139), so units leaving
+garrisons and transports by exit path were affected too. The fix is a plain MSVC-compatible
+`itoa`.
+
+**Lesson: a compat shim is game logic when the game builds names with it.** Any
+`#ifdef`-free helper the port supplies for a Win32 CRT function (`itoa`, `_strlwr`, `_strupr`,
+`_vsnwprintf`, ...) runs inside the simulation as soon as a bone, template or script name is
+built with it. Test such shims on the target's C++ library, not on the desktop one: libstdc++
+does honour `pubsetbuf` on a stringbuf, so this looked correct on Linux.
+
+**Method note.** Two runs that differ only by a knob and then disagree with *each other* at a
+checkpoint point to nondeterminism, not to the knob. Diff their event traces: the one field
+that differs between two runs of the same input is uninitialized memory.

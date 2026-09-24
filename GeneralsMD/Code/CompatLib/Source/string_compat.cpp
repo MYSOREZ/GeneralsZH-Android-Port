@@ -4,13 +4,43 @@
 #include <streambuf>
 #include <ostream>
 
+// GeneralsX @bugfix Android port 24/09/2026 itoa wrote nothing on Android.
+//
+// The previous version pointed a std::stringbuf at str with pubsetbuf() and streamed
+// the number into it. Under libc++ basic_stringbuf does not override setbuf(), so
+// pubsetbuf() is a no-op, the digits went into the stringbuf's own storage, and str
+// kept whatever the caller's stack held. The game builds bone names with it
+// (OpenContain: "FIREPOINT" + itoa(n), "ExitStart" + itoa(n), ...), so every such
+// lookup failed on Android and left an uninitialized Matrix3D in a rider's transform,
+// which is hashed into the lockstep checksum. This matches the MSVC CRT: base 10
+// writes a sign for negative values, other bases treat the value as unsigned.
 char* itoa(int value, char* str, int base)
 {
-  // Create stringbuf from str
-  std::stringbuf buf;
-  buf.pubsetbuf(str, 33);
-  std::ostream os(&buf);
-  os << value << '\0';
+  if (str == nullptr)
+    return str;
+  if (base < 2 || base > 36)
+  {
+    str[0] = '\0';
+    return str;
+  }
+
+  char digits[34];
+  int count = 0;
+  const bool negative = (base == 10 && value < 0);
+  unsigned int magnitude = negative ? 0u - (unsigned int)value : (unsigned int)value;
+  do
+  {
+    const unsigned int digit = magnitude % (unsigned int)base;
+    digits[count++] = (char)(digit < 10 ? '0' + digit : 'a' + (digit - 10));
+    magnitude /= (unsigned int)base;
+  } while (magnitude != 0);
+
+  int out = 0;
+  if (negative)
+    str[out++] = '-';
+  while (count > 0)
+    str[out++] = digits[--count];
+  str[out] = '\0';
   return str;
 }
 
