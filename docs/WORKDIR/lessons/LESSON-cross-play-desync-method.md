@@ -21,6 +21,11 @@ On 24/09/2026 the full `USA.rep`, a 30800-frame PC recording, matched the PC on 
 
 After those, `Global_War.rep` (a real match against three AI players, 81100 frames) matched the
 PC on **all 811 checkpoints** (24/09/2026).
+| 5771 (`Global_War2.rep`) | the poison killer's experience | community-patch switches in `GameDefines.h` flattened to retail (1); the client compiles the (0) arm | Zero Hour takes the client's arm; INI parsing and damage-type indices aligned too |
+
+`Global_War2.rep` has every faction and every superweapon: 194600 frames, about 54 minutes. It
+matched the PC on **all 1946 checkpoints** (24/09/2026). The replay check took 497 s on the
+phone.
 
 None of them was floating point. All three were **this port differing from the PC
 client's source**: two in how things are numbered, one a symptom patch. A dump plus a
