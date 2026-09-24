@@ -82,6 +82,10 @@ engines must be built from the same working tree — if a source edit lands
 between the two passes, the APK carries two engines that differ in more than
 the tick rate.
 
+Work and push on the diagnostics branch (`claude/network-diagnostics`), never directly on
+`main`: `main` only accumulates confirmed results, and is fast-forwarded to the branch when the
+repository owner says so.
+
 Keep only the current build in `apk/`: `git rm` the previous APK when adding a new one. Every
 APK is ~60 MB of permanent git history.
 
