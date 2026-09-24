@@ -52,10 +52,11 @@ namespace GXReplayCheck
 	Bool isActive();
 
 	// GeneralsX @feature Android port 24/09/2026 Diagnostic only: extra frames a factory door
-	// takes to open, read from the replay's file name ("..._doordelay<N>.rep"), 0 otherwise.
+	// takes to open, read from the replay's file name ("..._doordelay<N>at<F>.rep": doors that
+	// start opening at frame F or later), 0 otherwise.
 	// It lets one phone run test "the PC's unit left the factory N frames later" against the
 	// PC's own checksums, which the PC cannot be asked for any other way.
-	Int doorDelayFrames();
+	Int doorDelayFrames( UnsignedInt doorOpenedFrame );
 
 	// GameEngine::update, after the regular logic update.
 	void update();

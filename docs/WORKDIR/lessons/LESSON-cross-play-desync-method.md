@@ -2032,7 +2032,10 @@ GeneralsOnline client (access violation reading address 0; seen twice). The PC o
 gives what its mismatch overlay shows.
 
 **Testing a hypothesis about the PC on the phone.** A replay-check file whose name
-contains `doordelay<N>` makes factory doors open N frames late
+contains `doordelay<N>at<F>` makes factory doors that start opening at frame F or later
+open N frames late. The first version delayed every door from frame 0, and the phone
+then parted from the recording at frame 850, at an early production. Scope a hypothesis
+to the event it is about
 (`GXReplayCheck::doorDelayFrames`, diagnostic only). The test file carries:
 - the PC's values at 16746 and 16747;
 - the phone's values everywhere else.

@@ -552,7 +552,7 @@ void ProductionUpdate::updateDoors()
 		if( m_doors[i].m_doorOpenedFrame )
 		{
 
-			if( now - m_doors[i].m_doorOpenedFrame > d->m_doorOpeningTime + (UnsignedInt)GXReplayCheck::doorDelayFrames() )
+			if( now - m_doors[i].m_doorOpenedFrame > d->m_doorOpeningTime + (UnsignedInt)GXReplayCheck::doorDelayFrames( m_doors[i].m_doorOpenedFrame ) )
 			{
 
 				// set our frame markers for door states

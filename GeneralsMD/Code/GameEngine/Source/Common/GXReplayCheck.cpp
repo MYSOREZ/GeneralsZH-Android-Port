@@ -128,9 +128,10 @@ namespace GXReplayCheck
 void setFastForwardTo( Int frame ) { s_fastTo = frame; }
 void setAutoQuit( Bool autoQuit ) { s_autoQuit = autoQuit; }
 void setCrcEveryFrame( Bool everyFrame ) { s_crcEveryFrame = everyFrame; }
-Int doorDelayFrames()
+Int doorDelayFrames( UnsignedInt doorOpenedFrame )
 {
 	static Int delay = -1;
+	static UnsignedInt fromFrame = 0;
 	if (delay < 0)
 	{
 		delay = 0;
@@ -138,14 +139,20 @@ Int doorDelayFrames()
 		name.toLower();
 		const char *tag = strstr(name.str(), "doordelay");
 		if (tag != nullptr)
+		{
 			delay = atoi(tag + 9);
+			const char *at = strstr(tag, "at");
+			if (at != nullptr)
+				fromFrame = (UnsignedInt)atoi(at + 2);
+		}
 		if (delay > 0)
 		{
-			fprintf(stderr, "[GX-NET] replay check: factory doors open %d frames late (diagnostic, from the file name)\n", (int)delay);
+			fprintf(stderr, "[GX-NET] replay check: factory doors that start opening from frame %u open %d frames late (diagnostic, from the file name)\n",
+				(unsigned)fromFrame, (int)delay);
 			fflush(stderr);
 		}
 	}
-	return delay;
+	return doorOpenedFrame >= fromFrame ? delay : 0;
 }
 
 Bool crcEveryFrame()
