@@ -2027,7 +2027,16 @@ checksums. The INI duration parser, `ConvertDurationFromMsecsToFrames`,
 `ProductionUpdate.cpp` and `calcTimeToBuild` match the PC client's source. The only file
 with a 60 Hz branch the PC has and this port lacks is `seglinerenderer.cpp` (rendering).
 Removing the Avenger and its turret from the 16746 stream does not give the PC's value,
-because the new unit also changes other sections. Next step: take the PC's own build
-frame from its event record, `GeneralsOnlineZH_60.exe -headless -replay USA.rep
--exportStats`, and diff it with the phone's `.gamestats.json` using
-`compare_gamestats.py`.
+because the new unit also changes other sections. **Do not ask for `-headless -replay … -exportStats` on the PC.** It crashes the
+GeneralsOnline client (access violation reading address 0; seen twice). The PC only
+gives what its mismatch overlay shows.
+
+**Testing a hypothesis about the PC on the phone.** A replay-check file whose name
+contains `doordelay<N>` makes factory doors open N frames late
+(`GXReplayCheck::doorDelayFrames`, diagnostic only). The test file carries:
+- the PC's values at 16746 and 16747;
+- the phone's values everywhere else.
+
+If the phone, running late by N, matches both PC values and first mismatches at 16748,
+then the PC differs only in when the unit left the factory. After 16747 the records are
+the undelayed phone's, so the mismatch at 16748 is expected.

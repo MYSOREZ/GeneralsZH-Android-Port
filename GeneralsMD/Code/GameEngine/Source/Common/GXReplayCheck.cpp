@@ -128,6 +128,26 @@ namespace GXReplayCheck
 void setFastForwardTo( Int frame ) { s_fastTo = frame; }
 void setAutoQuit( Bool autoQuit ) { s_autoQuit = autoQuit; }
 void setCrcEveryFrame( Bool everyFrame ) { s_crcEveryFrame = everyFrame; }
+Int doorDelayFrames()
+{
+	static Int delay = -1;
+	if (delay < 0)
+	{
+		delay = 0;
+		AsciiString name = replayName();
+		name.toLower();
+		const char *tag = strstr(name.str(), "doordelay");
+		if (tag != nullptr)
+			delay = atoi(tag + 9);
+		if (delay > 0)
+		{
+			fprintf(stderr, "[GX-NET] replay check: factory doors open %d frames late (diagnostic, from the file name)\n", (int)delay);
+			fflush(stderr);
+		}
+	}
+	return delay;
+}
+
 Bool crcEveryFrame()
 {
 	// The launcher also drops a marker file in the game folder (the working directory),

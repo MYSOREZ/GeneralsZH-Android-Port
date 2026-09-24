@@ -55,6 +55,7 @@
 #include "GameLogic/Object.h"
 #include "GameLogic/ScriptEngine.h"
 #include "GXTrace.h"
+#include "Common/GXReplayCheck.h"
 
 
 // PUBLIC /////////////////////////////////////////////////////////////////////////////////////////
@@ -551,7 +552,7 @@ void ProductionUpdate::updateDoors()
 		if( m_doors[i].m_doorOpenedFrame )
 		{
 
-			if( now - m_doors[i].m_doorOpenedFrame > d->m_doorOpeningTime )
+			if( now - m_doors[i].m_doorOpenedFrame > d->m_doorOpeningTime + (UnsignedInt)GXReplayCheck::doorDelayFrames() )
 			{
 
 				// set our frame markers for door states
