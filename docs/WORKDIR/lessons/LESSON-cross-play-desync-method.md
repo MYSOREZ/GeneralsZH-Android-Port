@@ -2091,3 +2091,18 @@ diff exactly those modules' source against the PC client.
 **Verify.** `USA.rep` must pass 16800. Also watch China Overlord upgrades (Gatling,
 Propaganda Tower, Bunker) on the phone. If the original POSIX symptom comes back, the fix
 belongs in bone evaluation, not in the container.
+
+**After the Overlord fix `USA.rep` matches to 27200** (was 16700). The next divergence is
+at 27300: `330D8FB7` against `330D0FB6`, only two bits apart. It falls at the end of the
+stream, in `ThePlayerList`. That section grew from 18 to 33 words because the player
+now has battle-plan bonuses: a Strategy Center was built at 26288 and got
+`MSG_DO_SPECIAL_POWER` (id 55) at 26839 and again at 27298. The phone's event record has
+Hold the Line active at 27270 and gone by 27300.
+
+In the dump, the only natural single-field reading is the player's plan
+`armorScalar = 0.5` on the PC and 1.0 on the phone, with the plan counters equal (a
+brute force over armor, sight and three counters gave exactly that one hit). That state
+is unreachable with the add/remove arithmetic in `Player::changeBattlePlan`. So the
+equation is an alias. The likely truth is that the PC removed Hold the Line on a
+different frame. `BattlePlanUpdate.cpp` is identical to the PC client's. Next step: an
+every-frame run of `USA.rep` with the fixed build, so the PC names the frame.
