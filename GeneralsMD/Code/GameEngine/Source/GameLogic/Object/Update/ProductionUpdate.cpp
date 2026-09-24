@@ -279,11 +279,22 @@ Bool ProductionUpdate::queueUpgrade( const UpgradeTemplate *upgrade )
 	if( isUpgradeInQueue( upgrade ) == TRUE )
 		return FALSE;
 
-	// GeneralsX @feature Android port 24/09/2026 Diagnostic only, see GXReplayCheck.h.
-	if( getObject()->getStatusBits().test( OBJECT_STATUS_UNDER_CONSTRUCTION ) &&
-			GXReplayCheck::noUpgradeQueueUnderConstruction() )
+	// GeneralsX @bugfix Android port 24/09/2026 No upgrade research on an unfinished building.
+	//
+	// Measured against the GeneralsOnline PC client, not derived from its source. In
+	// Global_War.rep the skirmish AI script "USA Power Critical - H" pressed Advanced
+	// Control Rods on its whole team (TEAM_USE_COMMANDBUTTON_ABILITY) while one power plant
+	// was still a 0% foundation. This port queued and finished the research there too; the
+	// PC never gave that plant the upgrade, which the plant's upgrade mask in the checksum
+	// shows. Refusing the queue on a building under construction matches the PC's recording
+	// on all 811 checkpoints, to the end of the match. Every function on this path reads the
+	// same in the client source we have, so the client binary is the reference here. A player
+	// cannot reach this through the UI, whose command set for an unfinished building has no
+	// upgrade buttons; only scripts and the AI can.
+	// See docs/WORKDIR/lessons/LESSON-cross-play-desync-method.md.
+	if( getObject()->getStatusBits().test( OBJECT_STATUS_UNDER_CONSTRUCTION ) )
 	{
-		GX_NET_TRACE("upgrade queue frame %u: factory id=%u %s upgrade=%s refused, UNDER_CONSTRUCTION (diagnostic)\n",
+		GX_NET_TRACE("upgrade queue frame %u: factory id=%u %s upgrade=%s refused, UNDER_CONSTRUCTION\n",
 			(unsigned)TheGameLogic->getFrame(), (unsigned)getObject()->getID(),
 			getObject()->getTemplate()->getName().str(), upgrade->getUpgradeName().str());
 		return FALSE;

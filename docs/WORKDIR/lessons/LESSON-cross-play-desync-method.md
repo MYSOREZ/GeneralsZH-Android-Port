@@ -15,6 +15,12 @@ On 24/09/2026 the full `USA.rep`, a 30800-frame PC recording, matched the PC on 
 | 3594 (`USA_Supply_Clear.rep`) | Advanced Control Rods finished on a power plant | 10 extra GUI function names registered before the upgrade store, so every upgrade/science **name key** was shifted | `FunctionLexicon::gxKeyPortOnlyEntries` |
 | 16746 (`USA.rep`) | Avenger's laser turret at its bone | port-only `OverlordContain` overrides pinned riders to the host's position | file restored to the PC client's |
 | 27260 (`USA.rep`) | battle-plan KindOf mask bit one lower | `KINDOF_AIRFIELD` enabled mid-enum for Zero Hour, shifting every later **KindOf index** | enum, names and shim restored |
+| 19158 (`Global_War.rep`) | stealth fighter one frame further along its takeoff | upstream TheSuperHackers #1297 runway tweak the PC client lacks | `ParkingPlaceBehavior` restored |
+| 19251 (`Global_War.rep`) | one power plant without Advanced Control Rods | AI script queued research on a 0% foundation; the PC never completes it | queue refused on buildings under construction (measured rule) |
+| 27500 (`Global_War.rep`) | deterministic matrices for two turret riders | CompatLib `itoa` wrote nothing under libc++, so FIREPOINT bone names were garbage and riders got an uninitialized `Matrix3D` | MSVC-compatible `itoa` |
+
+After those, `Global_War.rep` (a real match against three AI players, 81100 frames) matched the
+PC on **all 811 checkpoints** (24/09/2026).
 
 None of them was floating point. All three were **this port differing from the PC
 client's source**: two in how things are numbered, one a symptom patch. A dump plus a
@@ -2398,6 +2404,13 @@ recording separate the remaining readings: `ucnoqueue` (never queued, no money c
 `upgshift99999at19250id864` (queued and paid for, never finished).
 
 ## Found: `itoa` wrote nothing on Android (24/09/2026)
+
+Result: with this fix and the plant-864 rule, `Global_War.rep` matches the PC on 811/811
+checkpoints, to frame 81100. The rule is now permanent in `ProductionUpdate::queueUpgrade`:
+an upgrade is not queued on a building under construction. It is a measured rule: the client
+source we have does not show why the PC behaves this way, and the comment in the code says
+so. `ucnoqueue` (never queued, not paid for) is the reading that was verified to the end; the
+`upgshift99999` reading (paid for, never finished) was only verified to 27400.
 
 Both plant-864 readings (`ucnoqueue` and `upgshift99999at19250id864`) matched the PC's
 `Global_War.rep` to **27400** and diverged at 27500, with different values from each other.
