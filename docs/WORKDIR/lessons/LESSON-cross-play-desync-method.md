@@ -2005,3 +2005,13 @@ the Avenger's 795 frames are not the low-power penalty. Other candidates remain:
 - a build-time modifier.
 
 The every-frame copy `USA_F1.rep` was sent to the PC to name the frame.
+
+**The PC names the frame: 16746.** `USA_F1.rep` matched itself on the phone at all 17499
+frames. The PC stopped at `Frame:16746` (`InGame:EA8D2CFC Replay:BCDE2B36`). The phone
+creates the Avenger and its laser turret while objects update in 16745, and the checksum
+of 16746 is the first to include them. So the two clients agree on everything until
+that unit leaves the factory. Production state (queue, frames under construction, doors)
+is not in the checksum. New traces: `production queue`, and `production done`, which
+gives frames under construction against the formula and the door state; the factory
+waits for its door animation. Also `disable`/`enable` for every object, since a disabled
+factory stops counting.

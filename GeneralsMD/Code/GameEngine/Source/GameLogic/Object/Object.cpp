@@ -99,6 +99,7 @@
 #include "GameLogic/Module/UpdateModule.h"
 #include "GameLogic/Module/UpgradeModule.h"
 
+#include "GXTrace.h"
 #include "GameLogic/Object.h"
 #include "Common/StatsExporter.h"
 #include "GameLogic/PartitionManager.h"
@@ -2163,6 +2164,11 @@ void Object::setDisabledUntil( DisabledType type, UnsignedInt frame )
 {
 	Bool edgeCase = !isDisabled();
 
+	// GeneralsX @feature Android port 24/09/2026 A disabled object skips its updates (a
+	// factory stops producing), and the disabled state is not in the lockstep checksum.
+	GX_NET_TRACE("disable frame %u: id=%u %s type %d until %u\n", (unsigned)TheGameLogic->getFrame(),
+		(unsigned)getID(), getTemplate()->getName().str(), (int)type, (unsigned)frame);
+
 	if( type < 0 || type >= DISABLED_COUNT )
 	{
 		DEBUG_CRASH( ("Invalid disabled type value %d specified -- doesn't not exist!", type ) );
@@ -2336,6 +2342,9 @@ Bool Object::clearDisabled( DisabledType type )
 	if (!isDisabledByType(type)) {
 		return FALSE;
 	}
+
+	GX_NET_TRACE("enable frame %u: id=%u %s type %d\n", (unsigned)TheGameLogic->getFrame(),
+		(unsigned)getID(), getTemplate()->getName().str(), (int)type);
 
 	if( type == DISABLED_UNDERPOWERED || type == DISABLED_EMP || type == DISABLED_SUBDUED || type == DISABLED_HACKED )
 	{

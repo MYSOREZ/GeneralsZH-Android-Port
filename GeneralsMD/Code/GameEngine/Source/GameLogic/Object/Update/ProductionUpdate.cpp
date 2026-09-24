@@ -54,6 +54,7 @@
 #include "GameLogic/Module/ProductionUpdate.h"
 #include "GameLogic/Object.h"
 #include "GameLogic/ScriptEngine.h"
+#include "GXTrace.h"
 
 
 // PUBLIC /////////////////////////////////////////////////////////////////////////////////////////
@@ -451,6 +452,13 @@ Bool ProductionUpdate::queueCreateUnit( const ThingTemplate *unitType, Productio
 	// tie to the end of the production queue
 	addToProductionQueue( production );
 
+	// GeneralsX @feature Android port 24/09/2026 Production state is not in the lockstep
+	// checksum, so a unit that leaves its factory on a different frame is the first thing
+	// either client can see. Queue and completion are logged to measure what delayed it.
+	GX_NET_TRACE("production queue frame %u: factory id=%u %s unit=%s production id=%d\n",
+		(unsigned)TheGameLogic->getFrame(), (unsigned)getObject()->getID(),
+		getObject()->getTemplate()->getName().str(), unitType->getName().str(), (int)productionID);
+
 	return TRUE;  // unit queued
 
 }
@@ -814,6 +822,14 @@ UpdateSleepTime ProductionUpdate::update()
 						{
 							Object *newObj = TheThingFactory->newObject( production->m_objectToProduce,
 																	creationBuilding->getControllingPlayer()->getDefaultTeam() );
+
+							GX_NET_TRACE("production done frame %u: factory id=%u unit=%s new id=%u frames under construction %d of %d (%.6f%%) door %d opened %u wait-open %u closed %u\n",
+								(unsigned)TheGameLogic->getFrame(), (unsigned)creationBuilding->getID(),
+								production->m_objectToProduce->getName().str(), (unsigned)newObj->getID(),
+								(int)production->m_framesUnderConstruction, (int)totalProductionFrames,
+								production->m_percentComplete, (int)exitDoor,
+								door ? (unsigned)door->m_doorOpenedFrame : 0u, door ? (unsigned)door->m_doorWaitOpenFrame : 0u,
+								door ? (unsigned)door->m_doorClosedFrame : 0u);
 
 							newObj->setProducer(creationBuilding);
 
