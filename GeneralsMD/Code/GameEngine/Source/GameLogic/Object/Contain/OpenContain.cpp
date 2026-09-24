@@ -33,6 +33,7 @@
 // INCLUDES ///////////////////////////////////////////////////////////////////////////////////////
 #include "PreRTS.h"	// This must go first in EVERY cpp file in the GameEngine
 
+#include "GXTrace.h"
 #include "Common/BitFlagsIO.h"
 #include "Common/GameAudio.h"
 #include "Common/GameState.h"
@@ -1029,8 +1030,14 @@ void OpenContain::exitObjectViaDoor( Object *exitObj, ExitDoorType exitDoor )
 			startBone.concat(suffix);
 			endBone.concat(suffix);
 		}
-		me->getSingleLogicalBonePosition( startBone.str(), &startPosition, nullptr );
-		me->getSingleLogicalBonePosition( endBone.str(), &endPosition, nullptr );
+		// GeneralsX @feature Android port 24/09/2026 A failed lookup leaves these positions as
+		// stack garbage, which the PC and this port cannot agree on; say so in the trace.
+		if( !me->getSingleLogicalBonePosition( startBone.str(), &startPosition, nullptr ) )
+			GX_NET_TRACE("bone missing frame %u: id=%u %s bone %s (exit start position left uninitialized)\n",
+				(unsigned)TheGameLogic->getFrame(), (unsigned)me->getID(), me->getTemplate()->getName().str(), startBone.str());
+		if( !me->getSingleLogicalBonePosition( endBone.str(), &endPosition, nullptr ) )
+			GX_NET_TRACE("bone missing frame %u: id=%u %s bone %s (exit end position left uninitialized)\n",
+				(unsigned)TheGameLogic->getFrame(), (unsigned)me->getID(), me->getTemplate()->getName().str(), endBone.str());
 
 		//startPosition.x = startPosition.y = 0;
 		Real exitAngle = me->getOrientation();
@@ -1148,8 +1155,14 @@ void OpenContain::exitObjectInAHurry( Object *exitObj )
 			startBone.concat(suffix);
 			endBone.concat(suffix);
 		}
-		me->getSingleLogicalBonePosition( startBone.str(), &startPosition, nullptr );
-		me->getSingleLogicalBonePosition( endBone.str(), &endPosition, nullptr );
+		// GeneralsX @feature Android port 24/09/2026 A failed lookup leaves these positions as
+		// stack garbage, which the PC and this port cannot agree on; say so in the trace.
+		if( !me->getSingleLogicalBonePosition( startBone.str(), &startPosition, nullptr ) )
+			GX_NET_TRACE("bone missing frame %u: id=%u %s bone %s (exit start position left uninitialized)\n",
+				(unsigned)TheGameLogic->getFrame(), (unsigned)me->getID(), me->getTemplate()->getName().str(), startBone.str());
+		if( !me->getSingleLogicalBonePosition( endBone.str(), &endPosition, nullptr ) )
+			GX_NET_TRACE("bone missing frame %u: id=%u %s bone %s (exit end position left uninitialized)\n",
+				(unsigned)TheGameLogic->getFrame(), (unsigned)me->getID(), me->getTemplate()->getName().str(), endBone.str());
 
 		//startPosition.x = startPosition.y = 0;
 		Real exitAngle = me->getOrientation();
@@ -1324,7 +1337,10 @@ void OpenContain::putObjAtNextFirePoint( Object *obj )
 		}
 		firepoint.concat(suffix);
 
-		getObject()->getSingleLogicalBonePositionOnTurret(TURRET_MAIN, firepoint.str(), nullptr, &matrix );
+		if( !getObject()->getSingleLogicalBonePositionOnTurret(TURRET_MAIN, firepoint.str(), nullptr, &matrix ) )
+			GX_NET_TRACE("bone missing frame %u: id=%u %s turret bone %s (rider id=%u gets an uninitialized matrix)\n",
+				(unsigned)TheGameLogic->getFrame(), (unsigned)getObject()->getID(), getObject()->getTemplate()->getName().str(),
+				firepoint.str(), (unsigned)obj->getID());
 	}
 	else
 	{

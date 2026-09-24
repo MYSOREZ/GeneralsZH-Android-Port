@@ -52,10 +52,22 @@ Some info about partitioning problems:
 #include "PreRTS.h"	// This must go first in EVERY cpp file in the GameEngine
 
 #include "Common/PartitionSolver.h"
+#include <algorithm>
+#include "GameLogic/GameLogic.h"
+#include "GXTrace.h"
 
 static Bool greater_than(PairObjectIDAndUInt a, PairObjectIDAndUInt b)
 {
 	return a.second > b.second;
+}
+
+static void gxSortLikeMsvc(std::vector<PairObjectIDAndUInt> &v, const char *what)
+{
+	const size_t MSVC_INSERTION_SORT_MAX = 32;
+	if (v.size() > MSVC_INSERTION_SORT_MAX)
+		GX_NET_TRACE("partition solver frame %u: %u %s to sort, above MSVC's insertion-sort size; order of equal sizes may differ from the PC\n",
+			(unsigned)TheGameLogic->getFrame(), (unsigned)v.size(), what);
+	std::stable_sort(v.begin(), v.end(), greater_than);
 }
 
 PartitionSolver::PartitionSolver(const EntriesVec& elements, const SpacesVec& spaces, SolutionType solveHow)
@@ -88,10 +100,19 @@ void PartitionSolver::solve()
 	// we want to attempt to place the largest things first. This allows us to throw
 	// out whole classes of solutions
 
-	std::sort(m_data.begin(), m_data.end(), greater_than);
+	// GeneralsX @bugfix Android port 24/09/2026 Sort like the PC client's STL.
+	//
+	// greater_than compares sizes only, so units (and transports) of equal size keep an
+	// order that std::sort leaves unspecified, and that order decides which unit boards
+	// which transport. The GeneralsOnline client is built with MSVC, whose std::sort is a
+	// plain insertion sort for up to 32 elements: stable. libc++ sorts small ranges with
+	// sorting networks that may reorder equal elements. std::stable_sort gives MSVC's order
+	// exactly up to 32 elements; beyond that MSVC switches to an unstable quicksort, which
+	// the trace flags because the phone cannot promise the PC's order there.
+	gxSortLikeMsvc(m_data, "units");
 
 	// Also make the largest partition first.
-	std::sort(m_spacesForData.begin(), m_spacesForData.end(), greater_than);
+	gxSortLikeMsvc(m_spacesForData, "transports");
 
 	// work in our temporary vector.
 	SpacesVec spacesStillAvailable = m_spacesForData;

@@ -279,36 +279,41 @@ void MinefieldBehavior::detonateOnce(const Coord3D& position)
 	if (m_virtualMinesRemaining > 0)
 		--m_virtualMinesRemaining;
 
+	// GeneralsX @bugfix Android port 24/09/2026 As in the GeneralsOnline PC client: a minefield
+	// that does not regenerate and has no mines left is damaged to zero health and dies through
+	// its normal death path. This port destroyed the object outright, which skips the die
+	// modules (and whatever they create), so the two clients diverged the moment such a
+	// minefield ran out.
+	// Calculate the desired health based on remaining virtual mines
+	Real percent = (Real)m_virtualMinesRemaining / (Real)d->m_numVirtualMines;
+	BodyModuleInterface* body = getObject()->getBodyModule();
+	Real health = body->getHealth();
+	Real desired = percent * body->getMaxHealth();
+
+	// If we don't regenerate and have no mines left, health should go to 0 to trigger natural death
+	// Otherwise, keep a minimum health for regenerating minefields
 	if (!m_regenerates && m_virtualMinesRemaining == 0)
+		desired = 0.0f;
+	else if (desired < MIN_HEALTH)
+		desired = MIN_HEALTH;
+
+	Real amount = health - desired;
+
+	if (amount > 0.0f)
 	{
-		TheGameLogic->destroyObject(getObject());
-	}
-	else
-	{
-		Real percent = (Real)m_virtualMinesRemaining / (Real)d->m_numVirtualMines;
-		BodyModuleInterface* body = getObject()->getBodyModule();
-		Real health = body->getHealth();
-		Real desired = percent * body->getMaxHealth();
-		if (desired < MIN_HEALTH)
-			desired = MIN_HEALTH;
-		Real amount = health - desired;
+		m_ignoreDamage = true;
 
-		if (amount > 0.0f)
-		{
-			m_ignoreDamage = true;
+		//body->internalChangeHealth(desired - health);
+		//can't use this, AutoHeal won't work unless we go thru normal damage stuff
 
-			//body->internalChangeHealth(desired - health);
-			//can't use this, AutoHeal won't work unless we go thru normal damage stuff
+		DamageInfo extraDamageInfo;
+		extraDamageInfo.in.m_damageType = DAMAGE_UNRESISTABLE;
+		extraDamageInfo.in.m_deathType = DEATH_NONE;
+		extraDamageInfo.in.m_sourceID = getObject()->getID();
+		extraDamageInfo.in.m_amount = amount;
+		getObject()->attemptDamage(&extraDamageInfo);
 
-			DamageInfo extraDamageInfo;
-			extraDamageInfo.in.m_damageType = DAMAGE_UNRESISTABLE;
-			extraDamageInfo.in.m_deathType = DEATH_NONE;
-			extraDamageInfo.in.m_sourceID = getObject()->getID();
-			extraDamageInfo.in.m_amount = amount;
-			getObject()->attemptDamage(&extraDamageInfo);
-
-			m_ignoreDamage = false;
-		}
+		m_ignoreDamage = false;
 	}
 
 	if (m_virtualMinesRemaining == 0)

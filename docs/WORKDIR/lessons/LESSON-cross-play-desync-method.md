@@ -2447,3 +2447,45 @@ does honour `pubsetbuf` on a stringbuf, so this looked correct on Linux.
 **Method note.** Two runs that differ only by a knob and then disagree with *each other* at a
 checkpoint point to nondeterminism, not to the knob. Diff their event traces: the one field
 that differs between two runs of the same input is uninitialized memory.
+
+## Proactive audit after `Global_War.rep` (24/09/2026)
+
+With `Global_War.rep` matching end to end, the remaining sources of divergence were searched
+for by class instead of waiting for a replay to hit them.
+
+**Compat shims (the `itoa` class).** `GeneralsMD/Code/CompatLib` supplies `itoa`, `_strlwr`,
+`_strupr`, `_wtoi`, `_vsnwprintf`, time functions and `__max`/`__min`. Only `itoa` is called
+from game logic (OpenContain bone names). `_wtoi` would leave its result uninitialized on
+non-numeric input (MSVC returns 0), but nothing in logic calls it. `__max`/`__min` are the MSVC
+macros.
+
+**Allocator zeroing.** On Android `RTS_GAMEMEMORY_ENABLE` is OFF, so `GameMemoryNull.cpp` is
+used. Its global `operator new`/`new[]` do `malloc` + `memset(0)` (checked in the disassembly
+of `_Znwm`). On the PC the engine's pools zero blocks too. So an uninitialized *member* reads 0
+on both sides (for example `WeaponTemplate::m_dieOnDetonate`, which the client never
+initializes). Uninitialized *stack* values are the dangerous class: they are garbage on both
+sides and never equal. The known sites (`OpenContain::putObjAtNextFirePoint` and the two exit
+paths) now log `bone missing frame ...` when their bone lookup fails.
+
+**Unstable sorts.** `std::sort` with a comparator that ties decides the order of equal
+elements differently in MSVC and libc++. The only such sort in logic is `PartitionSolver`
+(which units board which transport, `greater_than` compares sizes only). MSVC's `std::sort`
+is an insertion sort up to 32 elements, which is stable. `std::stable_sort` reproduces it
+exactly, and a trace flags any larger input. `SimpleObjectIterator::sort` is the engine's own
+merge sort, which is deterministic.
+
+**Hash and pointer-keyed containers.** None is iterated where order reaches the checksum or
+the simulation. `ScoreKeeper` sums, `AttackPriorityMap` only looks up, and the relation maps
+are iterated only when saving a game.
+
+**Normalized diff of every logic file against the PC client.** Real differences found:
+- `MinefieldBehavior::detonateOnce`: the client damages a spent, non-regenerating minefield to
+  zero health so it dies through its die modules. The port destroyed it outright. Restored
+  to the client's version.
+- `DumbProjectileBehavior`: the client null-checks `m_detonationWeaponTmpl`. Restored.
+- `FireWeaponPower`: the client passes `NULL` to `aiAttackPosition`, which dereferences it, so
+  that path crashes the PC. There is nothing to match, and the port's upstream crash fix
+  stays.
+
+Everything else is diagnostics, refactors with the same behavior, client-only code, or
+`RETAIL_COMPATIBLE_CRC` blocks that are off in both builds.
