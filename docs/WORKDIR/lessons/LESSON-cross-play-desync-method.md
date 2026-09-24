@@ -68,9 +68,10 @@ diff against `/home/user/generalsonlinedevelopmentteam/gameclient` found each of
 
 ### What not to do (each cost real time here)
 
-- **Do not send several files per round.** The person running the tests asked for one
-  universal file per round (24/09/2026). Pick the single most informative hypothesis, and put
-  every PC value and knob it needs into one `.rep`. A second file waits for the next round.
+- **Prefer one universal file per round.** The person running the tests asked for this
+  (24/09/2026): put every PC value and knob a round needs into one `.rep`. Send several only
+  when one run genuinely cannot answer the question (mutually exclusive knobs, for example),
+  and say why.
 
 - **Do not model the physics first.** Two days went into an exact Chinook flight model
   that could not explain a single frame. If a bit-exact model explains nothing, the
