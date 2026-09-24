@@ -170,6 +170,37 @@ UnsignedInt rngAheadFrame()
 	return (UnsignedInt)frame;
 }
 
+Int upgradeShiftFrames( UnsignedInt naturalDoneFrame )
+{
+	static Bool parsed = FALSE;
+	static Int shift = 0;
+	static UnsignedInt atFrame = 0;
+	if (!parsed)
+	{
+		parsed = TRUE;
+		AsciiString name = replayName();
+		name.toLower();
+		const char *tag = strstr(name.str(), "upgshift");
+		if (tag != nullptr)
+		{
+			const char *num = tag + 8;
+			Int sign = 1;
+			if (*num == 'm')
+			{
+				sign = -1;
+				++num;
+			}
+			shift = sign * atoi(num);
+			const char *at = strstr(num, "at");
+			atFrame = at != nullptr ? (UnsignedInt)atoi(at + 2) : 0;
+			fprintf(stderr, "[GX-NET] replay check: upgrades that would finish at frame %u finish %+d frames later (diagnostic, from the file name)\n",
+				(unsigned)atFrame, (int)shift);
+			fflush(stderr);
+		}
+	}
+	return naturalDoneFrame == atFrame ? shift : 0;
+}
+
 Bool fpWindow( UnsignedInt &from, UnsignedInt &to )
 {
 	static Int state = -1;

@@ -67,6 +67,12 @@ namespace GXReplayCheck
 	// kind. Returns FALSE when the name carries no window.
 	Bool fpWindow( UnsignedInt &from, UnsignedInt &to );
 
+	// Diagnostic: "upgshift<N>at<F>" in the replay's file name (N may be negative, written
+	// "upgshiftm2at19250" for -2). An upgrade whose research would finish at frame F finishes
+	// N frames later instead, to test "the PC finished it on another frame" against the PC's
+	// own checksums. Returns the shift for an upgrade that would finish at naturalDoneFrame.
+	Int upgradeShiftFrames( UnsignedInt naturalDoneFrame );
+
 	// GameEngine::update, after the regular logic update.
 	void update();
 

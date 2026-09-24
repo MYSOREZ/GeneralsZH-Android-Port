@@ -316,6 +316,12 @@ Bool ProductionUpdate::queueUpgrade( const UpgradeTemplate *upgrade )
 	// add this upgrade as in progress in the player
 	player->addUpgrade( upgrade, UPGRADE_STATUS_IN_PRODUCTION );
 
+	// GeneralsX @feature Android port 24/09/2026 The AI queues upgrades without a network
+	// message, so this is the only record of when (and with how much money) it did.
+	GX_NET_TRACE("upgrade queue frame %u: factory id=%u %s player %d upgrade=%s build frames %d money left %u\n",
+		(unsigned)TheGameLogic->getFrame(), (unsigned)getObject()->getID(), getObject()->getTemplate()->getName().str(),
+		(int)player->getPlayerIndex(), upgrade->getUpgradeName().str(), (int)upgrade->calcTimeToBuild( player ),
+		(unsigned)money->countMoney());
 
 
 	return TRUE;  // queued
@@ -720,6 +726,10 @@ UpdateSleepTime ProductionUpdate::update()
 	else
 		totalProductionFrames = production->m_upgradeToResearch->calcTimeToBuild( player );
 
+	// GeneralsX @feature Android port 24/09/2026 Diagnostic only, see GXReplayCheck::upgradeShiftFrames.
+	if( production->m_type == PRODUCTION_UPGRADE )
+		totalProductionFrames += GXReplayCheck::upgradeShiftFrames( now + totalProductionFrames - production->m_framesUnderConstruction );
+
 	// figure out our percent complete
 	production->m_percentComplete = INT_TO_REAL( production->m_framesUnderConstruction ) /
 																	INT_TO_REAL( totalProductionFrames ) *
@@ -909,6 +919,10 @@ UpdateSleepTime ProductionUpdate::update()
 		else if( production->m_type == PRODUCTION_UPGRADE )
 		{
 			const UpgradeTemplate *upgrade = production->m_upgradeToResearch;
+
+			GX_NET_TRACE("upgrade done frame %u: factory id=%u %s player %d upgrade=%s frames under construction %d of %d\n",
+				(unsigned)now, (unsigned)us->getID(), us->getTemplate()->getName().str(), (int)player->getPlayerIndex(),
+				upgrade->getUpgradeName().str(), (int)production->m_framesUnderConstruction, (int)totalProductionFrames);
 
 			// we finished an upgrade, lets add that money spent on it to the scorekeeper
 			player->getScoreKeeper()->addMoneySpent(upgrade->calcCostToBuild(player));
