@@ -52,6 +52,7 @@
 
 #include "GameLogic/GameLogic.h"
 #include "GameLogic/Object.h"
+#include "GXTrace.h"
 
 
 //-----------------------------------------------------------------------------
@@ -232,6 +233,14 @@ void Energy::addProduction(Int amt)
 {
 	m_energyProduction += amt;
 
+	// GeneralsX @feature Android port 24/09/2026 Energy is not in the lockstep checksum, yet
+	// it sets every unit's build time (ThingTemplate::calcTimeToBuild). A difference here
+	// stays silent until a unit leaves its factory on a different frame, so every change
+	// is logged with the totals it leaves behind.
+	GX_NET_TRACE("energy frame %u: player %d production %+d -> production %d consumption %d\n",
+		(unsigned)TheGameLogic->getFrame(), m_owner ? (int)m_owner->getPlayerIndex() : -1, (int)amt,
+		(int)m_energyProduction, (int)m_energyConsumption);
+
 	if( m_owner == nullptr )
 		return;
 
@@ -244,6 +253,10 @@ void Energy::addProduction(Int amt)
 void Energy::addConsumption(Int amt)
 {
 	m_energyConsumption += amt;
+
+	GX_NET_TRACE("energy frame %u: player %d consumption %+d -> production %d consumption %d\n",
+		(unsigned)TheGameLogic->getFrame(), m_owner ? (int)m_owner->getPlayerIndex() : -1, (int)amt,
+		(int)m_energyProduction, (int)m_energyConsumption);
 
 	if( m_owner == nullptr )
 		return;

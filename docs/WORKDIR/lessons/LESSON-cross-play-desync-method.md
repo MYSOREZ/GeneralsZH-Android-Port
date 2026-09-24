@@ -1981,3 +1981,18 @@ own names are keyed after the stores and before any window loads.
   In `USA.rep` every id used before 16700 behaved. The one new id, 228 at 15950, built an
   Avenger on the phone, and the next divergence follows its production. That is the next
   lead. Object creation is now traced for the whole replay (`obj create`).
+
+### Next lead in `USA.rep`: a unit's build time (24/09/2026)
+
+The phone's first divergence is between 16700 and 16800. The Avenger ordered at 15950
+(template id 228) left the factory there, at 16745. Its INI build time is 10 s (600
+frames), and it took 795. That factor, 0.755, is the low-power production penalty of
+`ThingTemplate::calcTimeToBuild`. The player's energy ratio sets every unit's build time
+each frame, and **energy is not in the checksum**. So a difference in who produces or
+consumes power stays silent until a unit leaves its factory on a different frame. This is
+the same shape as the Control Rods case. `Energy.cpp`, `ProductionUpdate.cpp`, the
+power-plant modules and `calcTimeToBuild` are identical to the PC client's source, so any
+difference is in the inputs. Every change to a player's energy is now logged
+(`energy frame N: player P production|consumption ±X -> production A consumption B`).
+Pair that with the `obj create`/`obj destroy` lines, and with the PC's frame from an
+every-frame copy.
