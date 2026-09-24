@@ -36,7 +36,6 @@
 #include "Common/MemoryDiagnostics.h"
 
 #include "Common/DamageFX.h"
-#include "Common/KindOf.h"
 #include "GameLogic/Damage.h"
 #include "Common/file.h"
 #include "Common/FileSystem.h"
@@ -1912,18 +1911,17 @@ Type scanType(std::string_view token)
 #if !RTS_GENERALS
 	// GeneralsX @bugfix Android port 24/09/2026 Base-game tokens in Zero Hour data.
 	//
-	// Some retail Zero Hour installs (the EA Deluxe Edition in issue #2) name DamageType
-	// FLESHY_SNIPER and KindOf AIRFIELD, which exist only in the base game. The GeneralsOnline
-	// client does not know them either (it throws here), and adding them to the Zero Hour enums
-	// -- which this port did in July -- shifts every later index away from the PC's and breaks
-	// cross-play. Read them as their Zero Hour equivalents instead, so such data still loads
-	// and the indices stay the client's.
+	// The EA Deluxe Edition data in issue #2 names DamageType FLESHY_SNIPER, which exists only
+	// in the base game (its tester confirmed in July that Weapon.ini loads once the token is
+	// known). The GeneralsOnline client does not know it either (it throws here), and adding it
+	// to the Zero Hour enum -- which this port did in July -- shifts every later index away from
+	// the PC's and breaks cross-play. Read it as SNIPER instead, so that data still loads and the
+	// indices stay the client's. Only tokens a real install is known to need belong here.
 	{
 		struct IndexAlias { ConstCharPtrArray list; const char *alias; const char *target; };
 		static const IndexAlias aliases[] =
 		{
 			{ DamageTypeFlags::s_bitNameList, "FLESHY_SNIPER", "SNIPER" },
-			{ KindOfMaskType::s_bitNameList, "AIRFIELD", "FS_AIRFIELD" },
 		};
 		for (const IndexAlias &a : aliases)
 		{
