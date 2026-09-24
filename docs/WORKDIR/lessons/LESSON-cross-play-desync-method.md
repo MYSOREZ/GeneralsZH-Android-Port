@@ -2234,3 +2234,13 @@ so it predates the current PC client. Before chasing it on the phone, check that
 **current PC client** plays the original `5.rep` to the end without its own mismatch
 message. A recording from an older client can diverge on a newer one, and then there is
 nothing to find here. If the PC plays it cleanly, continue with the loop at the top.
+
+**Checked: the current PC client desyncs on `5.rep` itself.** An old-client recording is no
+reference, and nothing on the phone can be judged against it. Rule: a replay is usable only
+if the current PC client plays it to the end without a mismatch message. Ask for fresh
+recordings made with the current client. Make them long matches that exercise:
+- upgrades and general's powers;
+- Avenger and Overlord riders;
+- Strategy Center plans;
+- combat;
+- supply.
