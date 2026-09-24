@@ -2223,3 +2223,14 @@ header in `GeneralsMD/Code/GameEngine/Include` and `Core/GameEngine/Include` wit
 client. The remaining differences are UI-only (meta messages before
 `MSG_BEGIN_NETWORK_MESSAGES = 1000`, UI gadgets) or network-layer. Repeat that sweep after
 any upstream merge.
+
+## Replay 5: a real match against two bots (24/09/2026)
+
+With all three fixes, `5.rep` (the user against two China bots, recorded by the
+GeneralsOnline client dated Aug 28 2026) matches to 28500: 285/292. It diverges at 28600,
+in the middle of a fight (Humvee missiles, tank shells), and no single word explains it.
+The recording carries no logic-CRC revision tag (`OfficialLogicCRCRevision` has 0 words),
+so it predates the current PC client. Before chasing it on the phone, check that the
+**current PC client** plays the original `5.rep` to the end without its own mismatch
+message. A recording from an older client can diverge on a newer one, and then there is
+nothing to find here. If the PC plays it cleanly, continue with the loop at the top.
