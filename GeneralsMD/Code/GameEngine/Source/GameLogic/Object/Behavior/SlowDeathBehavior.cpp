@@ -31,6 +31,8 @@
 // INCLUDES ///////////////////////////////////////////////////////////////////////////////////////
 #include "PreRTS.h"	// This must go first in EVERY cpp file in the GameEngine
 #define DEFINE_SLOWDEATHPHASE_NAMES
+#include "Common/NameKeyGenerator.h"
+#include "GXTrace.h"
 #include "Common/GameLOD.h"
 #include "Common/INI.h"
 #include "Common/RandomValue.h"
@@ -516,6 +518,29 @@ void SlowDeathBehavior::onDie( const DamageInfo *damageInfo )
 	}
 	DEBUG_ASSERTCRASH(total > 0, ("Hmm, this is wrong"));
 
+
+	// GeneralsX @feature Android port 24/09/2026 The death roll draws a logic random value only
+	// when total > 1, so every input to total decides whether the RNG advances. Log them exactly.
+	if (GXTrace::isNetEnabled())
+	{
+		const Real dealt = damageInfo->out.m_actualDamageDealt;
+		const Real clipped = damageInfo->out.m_actualDamageClipped;
+		UnsignedInt dealtBits, clippedBits;
+		memcpy(&dealtBits, &dealt, sizeof(dealtBits));
+		memcpy(&clippedBits, &clipped, sizeof(clippedBits));
+		GX_NET_TRACE("slow death frame %u: id=%u %s total %d dealt %08X (%g) clipped %08X (%g) max health %g damage type %d death type %d\n",
+			(unsigned)TheGameLogic->getFrame(), (unsigned)obj->getID(), obj->getTemplate()->getName().str(), (int)total,
+			(unsigned)dealtBits, (double)dealt, (unsigned)clippedBits, (double)clipped,
+			(double)obj->getBodyModule()->getMaxHealth(), (int)damageInfo->in.m_damageType, (int)damageInfo->in.m_deathType);
+		for (BehaviorModule** m = obj->getBehaviorModules(); *m; ++m)
+		{
+			SlowDeathBehaviorInterface* sdu = (*m)->getSlowDeathBehaviorInterface();
+			if (sdu != nullptr)
+				GX_NET_TRACE("slow death frame %u:   module %s applicable %d modifier %d\n",
+					(unsigned)TheGameLogic->getFrame(), TheNameKeyGenerator->keyToName((*m)->getModuleNameKey()).str(),
+					(int)sdu->isDieApplicable(damageInfo), sdu->isDieApplicable(damageInfo) ? (int)sdu->getProbabilityModifier(damageInfo) : 0);
+		}
+	}
 
 	// this returns a value from 1...total, inclusive
 	Int roll = GameLogicRandomValue(1, total);
