@@ -209,6 +209,97 @@ static int __cdecl			compareLUT ( const void *,  const void*);
 //         Private Data
 //----------------------------------------------------------------------------
 
+// GeneralsX @feature Android port 24/09/2026 Strings the installed game data does not have.
+//
+// Two sources of labels reach fetch() with no entry in any generals.csf:
+//   - the Steam release's patch archives: PatchWindow.big adds a "Custom Mission" button
+//     labelled GUI:CustomMission and a menu whose start button is GUI:StartCustomMission,
+//     and the only text for them is PatchData.big's Data\Patch.str -- English, and read by
+//     nothing but the executable that shipped with it. On any other language the player
+//     saw "MISSING: 'GUI:CustomMission'";
+//   - buttons this port adds itself (the touch force-attack button, issue #25).
+//
+// Consulted only after every loaded table has missed, so a language pack that does carry
+// one of these labels always wins. Where the game already says the same thing under
+// another label, the label is aliased to it instead of translated again here: that text
+// exists in every language the game ships in, and in every pack made for it.
+static AsciiString s_gxTextLanguage;
+
+struct GXLabelAlias
+{
+	const char *label;
+	const char *existingLabel;
+};
+
+static const GXLabelAlias s_gxLabelAliases[] =
+{
+	// The patch's "START GAME" on its map-select screen is the skirmish menu's "PLAY GAME".
+	{ "GUI:StartCustomMission", "GUI:StartGame" },
+};
+
+struct GXBuiltinString
+{
+	const char *label;
+	const char *language;		// the engine's text-language token, as GENERALSX_TEXT_LANGUAGE carries it
+	const wchar_t *text;
+};
+
+static const GXBuiltinString s_gxBuiltinStrings[] =
+{
+	{ "GUI:CustomMission", "english",   L"CUSTOM MISSION" },
+	{ "GUI:CustomMission", "german",    L"EIGENE MISSION" },
+	{ "GUI:CustomMission", "french",    L"MISSION PERSONNALISÉE" },
+	{ "GUI:CustomMission", "spanish",   L"MISIÓN PERSONALIZADA" },
+	{ "GUI:CustomMission", "italian",   L"MISSIONE PERSONALIZZATA" },
+	{ "GUI:CustomMission", "polish",    L"WŁASNA MISJA" },
+	{ "GUI:CustomMission", "brazilian", L"MISSÃO PERSONALIZADA" },
+	{ "GUI:CustomMission", "russian",   L"СВОЯ МИССИЯ" },
+	{ "GUI:CustomMission", "ukrainian", L"ВЛАСНА МІСІЯ" },
+	{ "GUI:CustomMission", "korean",    L"사용자 지정 임무" },
+	{ "GUI:CustomMission", "chinese",   L"自定义任务" },
+
+	{ "GX:ForceAttack", "english",   L"Force Attack" },
+	{ "GX:ForceAttack", "german",    L"Angriff erzwingen" },
+	{ "GX:ForceAttack", "french",    L"Attaque forcée" },
+	{ "GX:ForceAttack", "spanish",   L"Ataque forzado" },
+	{ "GX:ForceAttack", "italian",   L"Attacco forzato" },
+	{ "GX:ForceAttack", "polish",    L"Wymuszony atak" },
+	{ "GX:ForceAttack", "brazilian", L"Ataque forçado" },
+	{ "GX:ForceAttack", "russian",   L"Принудительная атака" },
+	{ "GX:ForceAttack", "ukrainian", L"Примусова атака" },
+	{ "GX:ForceAttack", "korean",    L"강제 공격" },
+	{ "GX:ForceAttack", "chinese",   L"强制攻击" },
+
+	{ "GX:ToolTipForceAttack", "english",   L"Attack the next target you tap, even your own units or empty ground" },
+	{ "GX:ToolTipForceAttack", "german",    L"Das nächste angetippte Ziel angreifen, auch eigene Einheiten oder leeren Boden" },
+	{ "GX:ToolTipForceAttack", "french",    L"Attaquer la prochaine cible touchée, même vos propres unités ou un sol vide" },
+	{ "GX:ToolTipForceAttack", "spanish",   L"Atacar el siguiente objetivo que toques, incluso tus propias unidades o el suelo vacío" },
+	{ "GX:ToolTipForceAttack", "italian",   L"Attacca il prossimo bersaglio toccato, anche le tue unità o il terreno vuoto" },
+	{ "GX:ToolTipForceAttack", "polish",    L"Zaatakuj następny dotknięty cel, nawet własne jednostki lub pusty teren" },
+	{ "GX:ToolTipForceAttack", "brazilian", L"Atacar o próximo alvo tocado, mesmo suas próprias unidades ou o chão vazio" },
+	{ "GX:ToolTipForceAttack", "russian",   L"Атаковать следующую цель, которой вы коснётесь, даже свои войска или пустую землю" },
+	{ "GX:ToolTipForceAttack", "ukrainian", L"Атакувати наступну ціль, якої ви торкнетеся, навіть свої війська чи порожню землю" },
+	{ "GX:ToolTipForceAttack", "korean",    L"다음에 터치한 대상을 공격합니다. 아군 유닛이나 빈 땅도 공격합니다" },
+	{ "GX:ToolTipForceAttack", "chinese",   L"攻击下一个点击的目标，即使是己方单位或空地" },
+};
+
+/// The built-in text for a label in the current text language, falling back to English.
+static const wchar_t *findGXBuiltinString( const char *label )
+{
+	const wchar_t *english = nullptr;
+	for( size_t i = 0; i < ARRAY_SIZE(s_gxBuiltinStrings); ++i )
+	{
+		const GXBuiltinString &entry = s_gxBuiltinStrings[i];
+		if( strcmp( entry.label, label ) != 0 )
+			continue;
+		if( s_gxTextLanguage.compareNoCase( entry.language ) == 0 )
+			return entry.text;
+		if( strcmp( entry.language, "english" ) == 0 )
+			english = entry.text;
+	}
+	return english;
+}
+
 
 
 //----------------------------------------------------------------------------
@@ -312,6 +403,8 @@ void GameTextManager::init()
 			? AsciiString(packLanguage)
 			: GetRegistryLanguage();
 	}
+
+	s_gxTextLanguage = textLanguage;
 
 	AsciiString csfFile;
 	csfFile.format(g_csfFile, textLanguage.str());
@@ -1510,6 +1603,23 @@ UnicodeString GameTextManager::fetch( const Char *label, Bool *exists )
 	if ( lookUp == nullptr && m_fallbackStringLUT && m_fallbackTextCount )
 	{
 		lookUp = (StringLookUp *) bsearch( &key, (void*) m_fallbackStringLUT, m_fallbackTextCount, sizeof(StringLookUp), compareLUT );
+	}
+
+	if( lookUp == nullptr )
+	{
+		for( size_t i = 0; i < ARRAY_SIZE(s_gxLabelAliases); ++i )
+		{
+			if( strcmp( s_gxLabelAliases[i].label, label ) == 0 )
+				return fetch( s_gxLabelAliases[i].existingLabel, exists );
+		}
+
+		const wchar_t *builtin = findGXBuiltinString( label );
+		if( builtin != nullptr )
+		{
+			if( exists )
+				*exists = TRUE;
+			return UnicodeString( builtin );
+		}
 	}
 
 	if( lookUp == nullptr )

@@ -509,6 +509,16 @@ void GameWindowTransitionsHandler::setGroup(AsciiString groupName, Bool immediat
 void GameWindowTransitionsHandler::reverse( AsciiString groupName )
 {
 	TransitionGroup *g = findGroup(groupName);
+	// GeneralsX @bugfix Android port 24/09/2026 A group the loaded WindowTransitions.ini does
+	// not define used to become m_currentGroup and be dereferenced two lines further down.
+	// That is reachable: the Steam release's "Custom Mission" button lives in PatchWindow.big
+	// and its transitions in PatchINI.big, and an install can carry one without the other.
+	// Reversing an animation that does not exist has nothing to do.
+	if( g == nullptr )
+	{
+		fprintf(stderr, "[transitions] reverse: no group '%s', skipped\n", groupName.str());
+		return;
+	}
 	if( m_currentGroup == g )
 	{
 		m_currentGroup->reverse();

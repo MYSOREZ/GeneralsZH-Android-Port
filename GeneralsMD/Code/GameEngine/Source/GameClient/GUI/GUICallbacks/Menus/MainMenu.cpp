@@ -115,6 +115,11 @@ void DoCompressTest();
 // window ids -------------------------------------------------------------------------------------
 static NameKeyType mainMenuID = NAMEKEY_INVALID;
 static NameKeyType skirmishID = NAMEKEY_INVALID;
+// GeneralsX @feature Android port 24/09/2026 The Steam release's "Custom Mission" button.
+// It exists only in that release's PatchWindow.big (MainMenu.wnd:ButtonCustomMission, with
+// its transitions in PatchINI.big), and the executable that shipped with it is the only
+// thing that ever handled it -- so on this engine the button did nothing when pressed.
+static NameKeyType customMissionID = NAMEKEY_INVALID;
 static NameKeyType onlineID = NAMEKEY_INVALID;
 static NameKeyType networkID = NAMEKEY_INVALID;
 static NameKeyType optionsID = NAMEKEY_INVALID;
@@ -546,6 +551,7 @@ void MainMenuInit( WindowLayout *layout, void *userData )
 	mainMenuID = TheNameKeyGenerator->nameToKey( "MainMenu.wnd:MainMenuParent" );
 //	campaignID = TheNameKeyGenerator->nameToKey( "MainMenu.wnd:ButtonCampaign" );
 	skirmishID = TheNameKeyGenerator->nameToKey( "MainMenu.wnd:ButtonSkirmish" );
+	customMissionID = TheNameKeyGenerator->nameToKey( "MainMenu.wnd:ButtonCustomMission" );
 	onlineID = TheNameKeyGenerator->nameToKey( "MainMenu.wnd:ButtonOnline" );
 	networkID = TheNameKeyGenerator->nameToKey( "MainMenu.wnd:ButtonNetwork" );
 	optionsID = TheNameKeyGenerator->nameToKey( "MainMenu.wnd:ButtonOptions" );
@@ -1590,6 +1596,22 @@ WindowMsgHandledType MainMenuSystem( GameWindow *window, UnsignedInt msg,
 #endif
 				TheShell->push( "Menus/SkirmishGameOptionsMenu.wnd" );
 				TheScriptEngine->signalUIInteract(TheShellHookNames[SHELL_SCRIPT_HOOK_MAIN_MENU_SKIRMISH_SELECTED]);
+			}
+			else if( controlID == customMissionID )
+			{
+				// GeneralsX @feature Android port 24/09/2026 Same path as Skirmish just above, into
+				// the menu the Steam patch built this button for: its own MapSelectMenu.wnd (single-
+				// player maps, AI difficulty, "START GAME"), whose callbacks this engine has always
+				// had (MapSelectMenu.cpp). The transition group is the patch's own, the counterpart
+				// of MainMenuSinglePlayerMenuBackSkirmish. Only reachable when that patch is
+				// installed, since without it there is no window with this id to press.
+				if(campaignSelected || dontAllowTransitions)
+					break;
+				buttonPushed = TRUE;
+				campaignSelected = TRUE;
+				dropDownWindows[DROPDOWN_SINGLE]->winHide(FALSE);
+				TheTransitionHandler->reverse("MainMenuSinglePlayerMenuBackCustomMission");
+				TheShell->push( "Menus/MapSelectMenu.wnd" );
 			}
 			else if( controlID == onlineID )
 			{
