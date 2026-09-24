@@ -2059,3 +2059,35 @@ next test is a replay-check file named `rngahead<F>`. At frame F it logs the see
 checksum after 0..60 extra draws, computed on a copy (`GXGameLogicRandomSeedCRCAfter`).
 `/tmp/claude-0/sc/rngtest.py` substitutes each value into both dumps and compares the
 result with the PC.
+
+## Found: a port-only "fix" pinned the Avenger's turret to the tank (24/09/2026)
+
+The RNG look-ahead ruled out a seed-only difference. No count of extra draws, 0..60, in
+either 16746 dump gives the PC's value. Moving the Avenger and its turret together, and
+combining that with every seed, gave no match either. The dump showed why that search
+could never work: **the turret's matrix was bit-for-bit the tank's matrix.** On the PC a
+rider sits at its bone.
+
+Diffing the Avenger's modules against the PC client's source found it at once.
+`OverlordContain.cpp`/`.h` carried this port's overrides from 19-20/04/2026 ("copilot",
+upstream PR #96):
+- `update()` and `containReactToTransformChange()` set every portable rider's position
+  and orientation to the host's own, every frame;
+- `redeployOccupants()` skipped bone placement;
+- `exitObjectViaDoor()` and `isSpecificRiderFreeToExit()` were blocked for portables.
+
+The reason given was that W3D bone queries returned wrong world coordinates on POSIX. That
+is a symptom patch (Golden Rule 8). The positions it writes are in the lockstep checksum,
+so every PC match with an Avenger (or an Overlord upgrade) desynced when the unit
+appeared. Android's bone positions now match the model files bit for bit (the Chinook
+dock bones above). The Zero Hour files are restored to the GeneralsOnline client's
+version. The base game's copy is untouched, since it has no cross-play.
+
+**Method note.** When a hypothesis search over plausible numbers finds nothing, look at
+what the dump says *structurally*. Two objects with identical transforms was the tell.
+Then list the new object's modules from INI (`Behavior = …` in its `Object` block), and
+diff exactly those modules' source against the PC client.
+
+**Verify.** `USA.rep` must pass 16800. Also watch China Overlord upgrades (Gatling,
+Propaganda Tower, Bunker) on the phone. If the original POSIX symptom comes back, the fix
+belongs in bone evaluation, not in the container.
