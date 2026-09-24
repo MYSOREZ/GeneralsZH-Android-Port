@@ -2015,3 +2015,19 @@ is not in the checksum. New traces: `production queue`, and `production done`, w
 gives frames under construction against the formula and the door state; the factory
 waits for its door animation. Also `disable`/`enable` for every object, since a disabled
 factory stops counting.
+
+**Frame 16747 and the factory door.** The PC's value at 16747 is `CC9C0265`. The user's
+screenshot shows the War Factory's door still opening on the PC at that frame. The
+phone's production trace for the Avenger reads:
+`frames under construction 796 of 600 (132.67%) ... wait-open 16745`.
+So the unit was finished at 600 frames (16549). It then waited for the door:
+`DoorOpeningTime = 3250` ms, which is 195 frames at 60 Hz, and the door opened fully at
+16745. The Humvee and the Crusader left the same factory earlier with matching
+checksums. The INI duration parser, `ConvertDurationFromMsecsToFrames`,
+`ProductionUpdate.cpp` and `calcTimeToBuild` match the PC client's source. The only file
+with a 60 Hz branch the PC has and this port lacks is `seglinerenderer.cpp` (rendering).
+Removing the Avenger and its turret from the 16746 stream does not give the PC's value,
+because the new unit also changes other sections. Next step: take the PC's own build
+frame from its event record, `GeneralsOnlineZH_60.exe -headless -replay USA.rep
+-exportStats`, and diff it with the phone's `.gamestats.json` using
+`compare_gamestats.py`.
