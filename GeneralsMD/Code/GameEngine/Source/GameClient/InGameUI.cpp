@@ -29,6 +29,7 @@
 
 #include "PreRTS.h"	// This must go first in EVERY cpp file in the GameEngine
 
+#include "Common/GXSafeArea.h"
 #include <stdio.h>
 
 #define DEFINE_SHADOW_NAMES
@@ -4190,8 +4191,10 @@ void InGameUI::disregardDrawable( Drawable *draw )
 //-------------------------------------------------------------------------------------------------
 void InGameUI::postWindowDraw()
 {
-	Int hudOffsetX = 0;
-	Int hudOffsetY = 0;
+	// GeneralsX @bugfix Android port 24/09/2026 Start the corner HUD inside the screen's safe
+	// area, so a cutout or rounded corner does not clip it (issue #20; see Common/GXSafeArea.h).
+	Int hudOffsetX = GXSafeArea::leftPx();
+	Int hudOffsetY = GXSafeArea::topPx();
 
 	if (m_networkLatencyPointSize > 0 && TheGameLogic->isInMultiplayerGame())
 	{
@@ -6888,11 +6891,14 @@ void InGameUI::drawGameTime()
     m_gameTimeFrameString->setText(gameTimeFrameString);
 
 	// TheSuperHackers @info this implicitly offsets the game timer from the right instead of left of the screen
-	int horizontalTimerOffset = TheDisplay->getWidth() - (Int)m_gameTimePosition.x - m_gameTimeString->getWidth() - m_gameTimeFrameString->getWidth();
-	int horizontalFrameOffset = TheDisplay->getWidth() - (Int)m_gameTimePosition.x - m_gameTimeFrameString->getWidth();
+	// GeneralsX @bugfix Android port 24/09/2026 Keep the timer inside the screen's safe area (issue #20).
+	const Int safeRight = GXSafeArea::rightPx();
+	const Int safeTop = GXSafeArea::topPx();
+	int horizontalTimerOffset = TheDisplay->getWidth() - safeRight - (Int)m_gameTimePosition.x - m_gameTimeString->getWidth() - m_gameTimeFrameString->getWidth();
+	int horizontalFrameOffset = TheDisplay->getWidth() - safeRight - (Int)m_gameTimePosition.x - m_gameTimeFrameString->getWidth();
 
-	m_gameTimeString->draw(horizontalTimerOffset, m_gameTimePosition.y, m_gameTimeColor, m_gameTimeDropColor);
-	m_gameTimeFrameString->draw(horizontalFrameOffset, m_gameTimePosition.y, GameMakeColor(180,180,180,255), m_gameTimeDropColor);
+	m_gameTimeString->draw(horizontalTimerOffset, m_gameTimePosition.y + safeTop, m_gameTimeColor, m_gameTimeDropColor);
+	m_gameTimeFrameString->draw(horizontalFrameOffset, m_gameTimePosition.y + safeTop, GameMakeColor(180,180,180,255), m_gameTimeDropColor);
 }
 
 void InGameUI::drawPlayerInfoList()

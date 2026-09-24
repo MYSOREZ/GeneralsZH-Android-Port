@@ -33,6 +33,13 @@ package com.generalsx.zerohour;
 
 import android.content.Intent;
 import android.content.res.AssetManager;
+import android.graphics.Rect;
+import android.os.Build;
+import android.view.Display;
+import android.view.DisplayCutout;
+import android.view.RoundedCorner;
+import android.view.WindowInsets;
+import android.view.WindowMetrics;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -70,12 +77,17 @@ public class GeneralsZHActivity extends SDLActivity {
 
     @Override
     protected String[] getArguments() {
+        java.util.ArrayList<String> args = new java.util.ArrayList<>();
+        String safeInsets = computeSafeInsetsArgument();
+        if (safeInsets != null) {
+            args.add("-gxSafeInsets");
+            args.add(safeInsets);
+        }
         Intent intent = getIntent();
         String replay = intent != null ? intent.getStringExtra(EXTRA_REPLAY) : null;
         if (replay == null || replay.isEmpty()) {
-            return new String[0];
+            return args.toArray(new String[0]);
         }
-        java.util.ArrayList<String> args = new java.util.ArrayList<>();
         args.add("-replay");
         args.add(replay);
         int fastTo = intent.getIntExtra(EXTRA_FAST_TO, 0);
@@ -91,6 +103,72 @@ public class GeneralsZHActivity extends SDLActivity {
         }
         Log.i(TAG, "Replay check launch: " + args);
         return args.toArray(new String[0]);
+    }
+
+    // GeneralsX @feature Android port 24/09/2026 Issue #20: the engine's corner HUD (FPS,
+    // clock, match timer, credit line) was clipped by display cutouts and rounded corners.
+    // Measure the safe insets of this window -- the cutout's safe insets, and on Android 12+
+    // the part of each rounded corner a line of text at the edge would run into -- and pass
+    // them as fractions of the window, "left,top,right,bottom", for Common/GXSafeArea.h.
+    // Returns null when nothing is known (Android 9, or no cutout and square corners).
+    private String computeSafeInsetsArgument() {
+        try {
+            int width;
+            int height;
+            int left = 0, top = 0, right = 0, bottom = 0;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                WindowMetrics metrics = getWindowManager().getCurrentWindowMetrics();
+                Rect bounds = metrics.getBounds();
+                width = bounds.width();
+                height = bounds.height();
+                android.graphics.Insets cut = metrics.getWindowInsets()
+                    .getInsetsIgnoringVisibility(WindowInsets.Type.displayCutout());
+                left = cut.left; top = cut.top; right = cut.right; bottom = cut.bottom;
+            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                android.util.DisplayMetrics dm = new android.util.DisplayMetrics();
+                getWindowManager().getDefaultDisplay().getRealMetrics(dm);
+                width = dm.widthPixels;
+                height = dm.heightPixels;
+                DisplayCutout cutout = getWindowManager().getDefaultDisplay().getCutout();
+                if (cutout != null) {
+                    left = cutout.getSafeInsetLeft(); top = cutout.getSafeInsetTop();
+                    right = cutout.getSafeInsetRight(); bottom = cutout.getSafeInsetBottom();
+                }
+            } else {
+                return null;
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                // A text line hugging an edge meets the corner arc about 0.3 of the radius in
+                // (1 - cos 45 degrees); apply that to both sides of every corner.
+                Display display = getDisplay();
+                int[][] corners = {
+                    { RoundedCorner.POSITION_TOP_LEFT, 1, 1, 0, 0 },
+                    { RoundedCorner.POSITION_TOP_RIGHT, 0, 1, 1, 0 },
+                    { RoundedCorner.POSITION_BOTTOM_RIGHT, 0, 0, 1, 1 },
+                    { RoundedCorner.POSITION_BOTTOM_LEFT, 1, 0, 0, 1 },
+                };
+                for (int[] c : corners) {
+                    RoundedCorner corner = display != null ? display.getRoundedCorner(c[0]) : null;
+                    if (corner == null) continue;
+                    int inset = (int) Math.ceil(corner.getRadius() * 0.3);
+                    if (c[1] == 1) left = Math.max(left, inset);
+                    if (c[2] == 1) top = Math.max(top, inset);
+                    if (c[3] == 1) right = Math.max(right, inset);
+                    if (c[4] == 1) bottom = Math.max(bottom, inset);
+                }
+            }
+            if (width <= 0 || height <= 0 || (left | top | right | bottom) == 0) {
+                return null;
+            }
+            String arg = String.format(java.util.Locale.ROOT, "%.4f,%.4f,%.4f,%.4f",
+                (double) left / width, (double) top / height, (double) right / width, (double) bottom / height);
+            Log.i(TAG, "HUD safe insets px l=" + left + " t=" + top + " r=" + right + " b=" + bottom
+                + " of " + width + "x" + height + " -> " + arg);
+            return arg;
+        } catch (RuntimeException e) {
+            Log.w(TAG, "could not measure the safe insets; the HUD keeps its default corners", e);
+            return null;
+        }
     }
 
     @Override

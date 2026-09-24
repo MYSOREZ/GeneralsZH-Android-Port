@@ -28,6 +28,7 @@
 #include "Common/ArchiveFileSystem.h"
 #include "Common/CommandLine.h"
 #include "Common/GXReplayCheck.h"
+#include "Common/GXSafeArea.h"
 #include "Common/CRCDebug.h"
 #include "Common/LocalFileSystem.h"
 #include "Common/Recorder.h"
@@ -438,6 +439,19 @@ Int parseGxFastTo(char *args[], int num)
 	if (num > 1)
 	{
 		GXReplayCheck::setFastForwardTo(atoi(args[1]));
+		return 2;
+	}
+	return 1;
+}
+
+// GeneralsX @feature Android port 24/09/2026 HUD safe insets from the launcher; see Common/GXSafeArea.h.
+Int parseGxSafeInsets(char *args[], int num)
+{
+	if (num > 1)
+	{
+		float left = 0.0f, top = 0.0f, right = 0.0f, bottom = 0.0f;
+		if (sscanf(args[1], "%f,%f,%f,%f", &left, &top, &right, &bottom) == 4)
+			GXSafeArea::setFractions(left, top, right, bottom);
 		return 2;
 	}
 	return 1;
@@ -1192,6 +1206,7 @@ static CommandLineParam paramsForStartup[] =
 	{ "-gxFastTo", parseGxFastTo },
 	{ "-gxAutoQuit", parseGxAutoQuit },
 	{ "-gxCrcEveryFrame", parseGxCrcEveryFrame },
+	{ "-gxSafeInsets", parseGxSafeInsets },
 };
 
 // These Params are parsed during Engine Init before INI data is loaded

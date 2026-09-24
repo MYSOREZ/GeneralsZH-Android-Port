@@ -57,6 +57,7 @@
 #include "Lib/BaseType.h"
 #include "W3DDevice/GameClient/W3DGameWindow.h"
 #include "Common/GlobalData.h"
+#include "Common/GXSafeArea.h"
 #include "GameClient/Display.h"
 #include "GameLogic/GameLogic.h"
 #include "GameClient/Shell.h"
@@ -474,9 +475,10 @@ void W3DGeneralsXCreditDraw( GameWindow *window, WinInstanceData *instData )
 
 	// GeneralsX @bugfix BenderAI 31/03/2026 Use display coordinates to avoid clipping in narrow callback windows.
 	// bottom-left with small margin
+	// GeneralsX @bugfix Android port 24/09/2026 ...inside the screen's safe area (issue #20).
 	const Int MARGIN = 4;
-	textPos.x = MARGIN;
-	textPos.y = displayHeight - textHeight - MARGIN;
+	textPos.x = MARGIN + GXSafeArea::leftPx();
+	textPos.y = displayHeight - textHeight - MARGIN - GXSafeArea::bottomPx();
 
 	dString->setClipRegion(&clipRegion);
 	dString->draw(textPos.x, textPos.y, GameMakeColor(255,255,255,255), GameMakeColor(0,0,0,255));
