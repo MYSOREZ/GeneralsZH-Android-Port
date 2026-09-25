@@ -186,17 +186,6 @@ class GameTextManager : public GameTextInterface
 		StringLookUp		*m_mapStringLUT;
 		Int							m_mapTextCount;
 
-		// GeneralsX @feature Android port 24/09/2026 data/<language>/generalsx.str and
-		// data/english/generalsx.str -- see s_gxPortStringFile.
-		StringInfo			*m_portStringInfo;
-		StringLookUp		*m_portStringLUT;
-		Int							m_portTextCount;
-		StringInfo			*m_portEnglishStringInfo;
-		StringLookUp		*m_portEnglishStringLUT;
-		Int							m_portEnglishTextCount;
-		void						loadPortStringFile( const char *language, StringInfo *&info, StringLookUp *&lut, Int &count );
-		void						freePortStringFile( StringInfo *&info, StringLookUp *&lut, Int &count );
-
 		/// m_asciiStringVec will be altered every time that getStringsWithLabelPrefix is called,
 		/// so don't simply store a pointer to it.
 		AsciiStringVec			m_asciiStringVec;
@@ -210,7 +199,7 @@ class GameTextManager : public GameTextInterface
 		Bool						getCSFInfo ( const Char *filename, Int& textCount, LanguageID& language, FileInstance instance = 0 );
 		Bool						parseCSF(  const Char *filename, StringInfo *stringInfo, Int textCount, Int& maxLabelLen, FileInstance instance = 0 );
 		Bool						parseStringFile( const char *filename );
-		Bool						parseMapStringFile( const char *filename, StringInfo *stringInfo );
+		Bool						parseMapStringFile( const char *filename );
 		Bool						readLine( char *buffer, Int max, File *file );
 		Char						readChar( File *file );
 };
@@ -229,12 +218,11 @@ static int __cdecl			compareLUT ( const void *,  const void*);
 //     nothing but the executable that shipped with it;
 //   - buttons this port adds itself (the touch force-attack button, issue #25).
 //
-// Their text lives where every other translation in this project lives, as plain files a
-// translator can edit and send as a pull request: languages/<language>/generalsx.str
-// (see languages/README.md), shipped in the APK and installed as
-// data/<language>/generalsx.str next to the game's own text. They are read after every
-// table the game loads, so a full language pack that carries one of these labels still
-// wins, and data/english/generalsx.str answers for a language nobody has translated yet.
+// Translations of these labels belong in the language packs, like every other string:
+// languages/<language>/generals.str carries them, one file per language
+// (languages/README.md). What is here is only the English text, answered last, after every
+// table the game loaded has missed -- so an English game, or an official non-English .csf
+// that no pack replaces, still shows words instead of "MISSING".
 //
 // One label is not given text at all: the patch's "START GAME" is the skirmish menu's
 // own "PLAY GAME", which already exists in every language the game ships in and in every
@@ -250,7 +238,18 @@ static const GXLabelAlias s_gxLabelAliases[] =
 	{ "GUI:StartCustomMission", "GUI:StartGame" },
 };
 
-static const char *const s_gxPortStringFile = "data/%s/generalsx.str";
+struct GXEnglishDefault
+{
+	const char *label;
+	const wchar_t *text;
+};
+
+static const GXEnglishDefault s_gxEnglishDefaults[] =
+{
+	{ "GUI:CustomMission",     L"CUSTOM MISSION" },
+	{ "GX:ForceAttack",        L"Force Attack" },
+	{ "GX:ToolTipForceAttack", L"Attack the next target you tap, even your own units or empty ground" },
+};
 
 
 
@@ -309,12 +308,6 @@ GameTextManager::GameTextManager()
 #endif
 	m_mapStringInfo(nullptr),
 	m_mapStringLUT(nullptr),
-	m_portStringInfo(nullptr),
-	m_portStringLUT(nullptr),
-	m_portTextCount(0),
-	m_portEnglishStringInfo(nullptr),
-	m_portEnglishStringLUT(nullptr),
-	m_portEnglishTextCount(0),
 	m_failed(L"***FATAL*** String Manager failed to initialize properly")
 {
 	for(Int i=0; i < MAX_UITEXT_LENGTH; i++)
@@ -392,13 +385,6 @@ void GameTextManager::init()
 	m_initialized = TRUE;
 
 	m_maxLabelLen = 0;
-
-	// GeneralsX @feature Android port 24/09/2026 The port's own strings (s_gxPortStringFile).
-	// Loaded first and independently of the game's table: they are consulted only after it,
-	// so the order of loading does not matter, and a failure below must not take them along.
-	loadPortStringFile( textLanguage.str(), m_portStringInfo, m_portStringLUT, m_portTextCount );
-	if( textLanguage.compareNoCase( "english" ) != 0 )
-		loadPortStringFile( "english", m_portEnglishStringInfo, m_portEnglishStringLUT, m_portEnglishTextCount );
 #if defined(RTS_DEBUG)
 	if(TheGlobalData)
 	{
@@ -548,9 +534,6 @@ void GameTextManager::deinit()
 
 	m_textCount = 0;
 	m_fallbackTextCount = 0;
-
-	freePortStringFile( m_portStringInfo, m_portStringLUT, m_portTextCount );
-	freePortStringFile( m_portEnglishStringInfo, m_portEnglishStringLUT, m_portEnglishTextCount );
 
 	NoString *noString = m_noStringList;
 
@@ -1412,7 +1395,7 @@ void GameTextManager::initMapStringFile( const AsciiString& filename )
 
 	m_mapStringInfo = NEW StringInfo[m_mapTextCount];
 
-	parseMapStringFile( filename.str(), m_mapStringInfo );
+	parseMapStringFile( filename.str() );
 
 	m_mapStringLUT = NEW StringLookUp[m_mapTextCount];
 
@@ -1431,65 +1414,10 @@ void GameTextManager::initMapStringFile( const AsciiString& filename )
 }
 
 //============================================================================
-// GameTextManager::loadPortStringFile
-//============================================================================
-
-void GameTextManager::loadPortStringFile( const char *language, StringInfo *&info, StringLookUp *&lut, Int &count )
-{
-	freePortStringFile( info, lut, count );
-
-	AsciiString filename;
-	filename.format( s_gxPortStringFile, language );
-
-	Int labels = 0;
-	if( !getStringCount( filename.str(), labels ) || labels <= 0 )
-		return;	// not installed for this language: fine, English or the label itself answers
-
-	info = NEW StringInfo[labels];
-	if( !parseMapStringFile( filename.str(), info ) )
-	{
-		fprintf( stderr, "[GameText] %s: parse failed, ignored\n", filename.str() );
-		delete [] info;
-		info = nullptr;
-		return;
-	}
-
-	// getStringCount() pads its answer by 500 for the map-string path; the parser fills
-	// entries from the front, so the real ones are the leading non-empty labels.
-	Int parsed = 0;
-	while( parsed < labels && info[parsed].label.isNotEmpty() )
-		++parsed;
-
-	lut = NEW StringLookUp[parsed > 0 ? parsed : 1];
-	for( Int i = 0; i < parsed; i++ )
-	{
-		lut[i].info = &info[i];
-		lut[i].label = &info[i].label;
-	}
-	qsort( lut, parsed, sizeof(StringLookUp), compareLUT );
-	count = parsed;
-	labels = parsed;
-	fprintf( stderr, "[GameText] %s: %d port strings\n", filename.str(), labels );
-}
-
-//============================================================================
-// GameTextManager::freePortStringFile
-//============================================================================
-
-void GameTextManager::freePortStringFile( StringInfo *&info, StringLookUp *&lut, Int &count )
-{
-	delete [] info;
-	info = nullptr;
-	delete [] lut;
-	lut = nullptr;
-	count = 0;
-}
-
-//============================================================================
 // GameTextManager::parseMapStringFile
 //============================================================================
 
-Bool GameTextManager::parseMapStringFile( const char *filename, StringInfo *stringInfo )
+Bool GameTextManager::parseMapStringFile( const char *filename )
 {
 	Int listCount = 0;
 	Int ok = TRUE;
@@ -1519,13 +1447,13 @@ Bool GameTextManager::parseMapStringFile( const char *filename, StringInfo *stri
 
 		for ( Int i = 0; i < listCount; i++ )
 		{
-			if ( stricmp ( stringInfo[i].label.str(), m_buffer ) == 0)
+			if ( stricmp ( m_mapStringInfo[i].label.str(), m_buffer ) == 0)
 			{
 				DEBUG_CRASH ( ("String label '%s' multiply defined!", m_buffer ));
 			}
 		}
 
-		stringInfo[listCount].label = m_buffer;
+		m_mapStringInfo[listCount].label = m_buffer;
 		len = strlen ( m_buffer );
 
 
@@ -1569,8 +1497,8 @@ Bool GameTextManager::parseMapStringFile( const char *filename, StringInfo *stri
 					if (TheLanguageFilter)
 						TheLanguageFilter->filterLine(text);
 
-					stringInfo[listCount].text = text;
-					stringInfo[listCount].speech = m_buffer3;
+					m_mapStringInfo[listCount].text = text;
+					m_mapStringInfo[listCount].speech = m_buffer3;
 					readString = TRUE;
 				}
 			}
@@ -1626,23 +1554,22 @@ UnicodeString GameTextManager::fetch( const Char *label, Bool *exists )
 		lookUp = (StringLookUp *) bsearch( &key, (void*) m_fallbackStringLUT, m_fallbackTextCount, sizeof(StringLookUp), compareLUT );
 	}
 
-	// GeneralsX @feature Android port 24/09/2026 The port's own strings, after everything the
-	// game loads (see s_gxPortStringFile): the text language first, then English.
-	if ( lookUp == nullptr && m_portStringLUT && m_portTextCount )
-	{
-		lookUp = (StringLookUp *) bsearch( &key, (void*) m_portStringLUT, m_portTextCount, sizeof(StringLookUp), compareLUT );
-	}
-	if ( lookUp == nullptr && m_portEnglishStringLUT && m_portEnglishTextCount )
-	{
-		lookUp = (StringLookUp *) bsearch( &key, (void*) m_portEnglishStringLUT, m_portEnglishTextCount, sizeof(StringLookUp), compareLUT );
-	}
-
 	if( lookUp == nullptr )
 	{
 		for( size_t i = 0; i < ARRAY_SIZE(s_gxLabelAliases); ++i )
 		{
 			if( strcmp( s_gxLabelAliases[i].label, label ) == 0 )
 				return fetch( s_gxLabelAliases[i].existingLabel, exists );
+		}
+
+		for( size_t i = 0; i < ARRAY_SIZE(s_gxEnglishDefaults); ++i )
+		{
+			if( strcmp( s_gxEnglishDefaults[i].label, label ) == 0 )
+			{
+				if( exists )
+					*exists = TRUE;
+				return UnicodeString( s_gxEnglishDefaults[i].text );
+			}
 		}
 	}
 

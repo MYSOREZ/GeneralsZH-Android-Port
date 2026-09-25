@@ -387,10 +387,6 @@ public class GeneralsZHActivity extends SDLActivity {
     // install. Always overwrite this one subtree; everything else keeps the
     // normal "leave it alone if it already exists" behavior.
     private static final String ALWAYS_OVERWRITE_PREFIX = "Window/";
-    // GeneralsX @feature Android port 24/09/2026 Same reasoning for the port's own strings,
-    // data/<language>/generalsx.str: ours, never the player's, and a stale copy would keep an
-    // old translation forever.
-    private static final String ALWAYS_OVERWRITE_PORT_STRINGS = "data/";
 
     private void copyAssetTree(String assetPath, File destRoot) {
         AssetManager assets = getAssets();
@@ -402,8 +398,7 @@ public class GeneralsZHActivity extends SDLActivity {
                 if (rel.startsWith("/")) rel = rel.substring(1);
                 if (rel.isEmpty()) return;
                 File dest = new File(destRoot, rel);
-                boolean alwaysOverwrite = rel.startsWith(ALWAYS_OVERWRITE_PREFIX)
-                    || (rel.startsWith(ALWAYS_OVERWRITE_PORT_STRINGS) && rel.endsWith("/generalsx.str"));
+                boolean alwaysOverwrite = rel.startsWith(ALWAYS_OVERWRITE_PREFIX);
                 if (dest.exists() && !alwaysOverwrite) return;
                 File parent = dest.getParentFile();
                 if (parent != null && !parent.exists() && !parent.mkdirs()) {

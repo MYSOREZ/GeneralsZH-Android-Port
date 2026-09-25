@@ -15969,3 +15969,21 @@ END
 CONTROLBAR:AirF_ToolTipUSAScienceCarpetBomb
 "Позволит Вам вызывать бомбардировщиу B2 для ковровой бомбардировки местности  \n  \n Управление из: Стратегического центра"
 END
+
+// ---------------------------------------------------------------------------
+// Labels the GeneralsX port adds, which no original generals.csf has.
+// Their English text is built into the engine; a pack translates them here.
+
+// Steam release "Custom Mission" button (PatchWindow.big, MainMenu.wnd)
+GUI:CustomMission
+"СВОЯ МИССИЯ"
+END
+
+// Touch force-attack button on the command bar (issue #25)
+GX:ForceAttack
+"Принудительная атака"
+END
+
+GX:ToolTipForceAttack
+"Атаковать следующую цель, которой вы коснётесь, даже свои войска или пустую землю"
+END

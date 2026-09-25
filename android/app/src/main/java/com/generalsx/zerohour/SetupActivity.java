@@ -2049,10 +2049,9 @@ public class SetupActivity extends Activity {
             final java.util.List<String> failed = new java.util.ArrayList<>();
             if (indexError == null) {
                 for (String token : tokens) {
-                    final String result = downloadLanguagePack(token, gamePath);
-                    if (result == null) {
+                    if (downloadLanguagePack(token, gamePath) == null) {
                         installed.add(token);
-                    } else if (result != LANGPACK_NOT_A_PACK) {
+                    } else {
                         failed.add(token);
                     }
                 }
@@ -2128,54 +2127,30 @@ public class SetupActivity extends Activity {
         }
     }
 
-    // GeneralsX @feature Android port 24/09/2026 A languages/<token>/ folder can now hold two
-    // files: generals.str, the whole game's text (a "pack"), and generalsx.str, the few strings
-    // the port itself adds (the Steam "Custom Mission" button, the touch force-attack button).
-    // Every language has a generalsx.str, most do not have a full pack yet -- so a folder
-    // without generals.str is not a failed download, it is simply not a pack.
-    //
-    // generalsx.str is NOT downloaded here. It ships inside the APK and is installed on every
-    // launch (syncEnginePortStrings): its labels only exist together with the code that uses
-    // them, so the APK is the one place it can be current, and a second source would only
-    // ever be overwritten by the first.
-    private static final String LANGPACK_NOT_A_PACK = new String("not a pack");
-
-    /**
-     * @return null when the full pack was installed, LANGPACK_NOT_A_PACK when this language
-     * has no full pack (only the port's strings), else a short reason for the user.
-     */
+    /** @return null on success, else a short reason to put in front of the user. */
     private String downloadLanguagePack(String token, String gamePath) {
-        final String result = downloadLanguageFile(token, "generals.str", gamePath);
-        return (result == LANGPACK_NOT_FOUND) ? LANGPACK_NOT_A_PACK : result;
-    }
-
-    private static final String LANGPACK_NOT_FOUND = new String("404");
-
-    /** @return null on success, LANGPACK_NOT_FOUND on 404, else a short reason. */
-    private String downloadLanguageFile(String token, String leaf, String gamePath) {
         HttpURLConnection conn = null;
         // Written beside the real file and renamed at the end: a half-downloaded
         // generals.str in place would leave the game with a truncated string table, which
         // fails in a far more confusing way than not having the file at all.
         File dir = new File(gamePath, "data/" + token);
-        File tmp = new File(dir, leaf + ".part");
-        File dest = new File(dir, leaf);
+        File tmp = new File(dir, "generals.str.part");
+        File dest = new File(dir, "generals.str");
         try {
-            URL url = new URL(LANGUAGE_PACK_BASE + token + "/" + leaf);
+            if (!dir.isDirectory() && !dir.mkdirs()) {
+                return getString(R.string.setup_langpack_err_mkdir);
+            }
+            URL url = new URL(LANGUAGE_PACK_BASE + token + "/generals.str");
             conn = (HttpURLConnection) url.openConnection();
             conn.setConnectTimeout(15000);
             conn.setReadTimeout(30000);
             conn.setRequestProperty("Accept", "text/plain");
             final int status = conn.getResponseCode();
             if (status == 404) {
-                return LANGPACK_NOT_FOUND;
+                return getString(R.string.setup_langpack_err_none_yet);
             }
             if (status < 200 || status >= 300) {
                 return "HTTP " + status;
-            }
-            // Only now: a 404 must not leave an empty data/<token>/ behind.
-            if (!dir.isDirectory() && !dir.mkdirs()) {
-                return getString(R.string.setup_langpack_err_mkdir);
             }
             byte[] buf = new byte[16 * 1024];
             long total = 0;
@@ -2817,29 +2792,32 @@ public class SetupActivity extends Activity {
         copyFileIfMissing(new File(bundledRoot, "DefaultOptions.ini"), new File(gameFolderPath, "DefaultOptions.ini"));
         copyDirIfMissing(new File(bundledRoot, "fonts"), new File(gameFolderPath, "fonts"));
         syncEngineWindowOverrides(bundledRoot, gameFolderPath);
-        syncEnginePortStrings(bundledRoot, gameFolderPath);
+        removeRetiredPortStringFiles(new File(gameFolderPath, "data"));
+        removeRetiredPortStringFiles(new File(bundledRoot, "data"));
     }
 
-    // GeneralsX @feature Android port 24/09/2026 The port's own strings,
-    // data/<language>/generalsx.str (languages/README.md). Ours, like GroupPanel.wnd below,
-    // so always overwritten: a translation fixed in a new APK must reach an existing install.
-    // Only generalsx.str is touched -- data/<language>/generals.str is a player-installed
-    // language pack and is never written here.
-    private static void syncEnginePortStrings(File bundledRoot, String gameFolderPath) {
-        File[] languages = new File(bundledRoot, "data").listFiles();
+    // GeneralsX @bugfix Android port 25/09/2026 One build (24-25/09/2026) installed a second
+    // text file per language, data/<language>/generalsx.str, and created data/<language>/
+    // folders for eleven languages to hold them. A language is one file again --
+    // data/<language>/generals.str (languages/README.md) -- so take back exactly what that
+    // build put there: every generalsx.str, and a folder only if that left it empty. A
+    // player's generals.str/.csf, and any folder with anything else in it, is never touched.
+    private static void removeRetiredPortStringFiles(File dataDir) {
+        File[] languages = dataDir.listFiles();
         if (languages == null) {
             return;
         }
         for (File language : languages) {
-            File src = new File(language, "generalsx.str");
-            if (!language.isDirectory() || !src.isFile()) {
+            if (!language.isDirectory()) {
                 continue;
             }
-            File destDir = new File(gameFolderPath, "data/" + language.getName());
-            if (!destDir.isDirectory() && !destDir.mkdirs()) {
-                continue;
+            File retired = new File(language, "generalsx.str");
+            if (retired.isFile() && retired.delete()) {
+                String[] left = language.list();
+                if (left != null && left.length == 0) {
+                    language.delete();
+                }
             }
-            copyFileOverwrite(src, new File(destDir, "generalsx.str"));
         }
     }
 

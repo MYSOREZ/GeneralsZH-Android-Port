@@ -25693,3 +25693,21 @@ END
 CONTROLBAR:AirF_ToolTipUSAScienceCarpetBomb
 "Дозволяє викликати бомбардувальник-невидимку B2 для килимового бомбардування території\n \n  Викликається з: Стратегічного центру"
 END
+
+// ---------------------------------------------------------------------------
+// Labels the GeneralsX port adds, which no original generals.csf has.
+// Their English text is built into the engine; a pack translates them here.
+
+// Steam release "Custom Mission" button (PatchWindow.big, MainMenu.wnd)
+GUI:CustomMission
+"ВЛАСНА МІСІЯ"
+END
+
+// Touch force-attack button on the command bar (issue #25)
+GX:ForceAttack
+"Примусова атака"
+END
+
+GX:ToolTipForceAttack
+"Атакувати наступну ціль, якої ви торкнетеся, навіть свої війська чи порожню землю"
+END
