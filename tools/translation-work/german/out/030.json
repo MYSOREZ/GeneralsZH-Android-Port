@@ -1,0 +1,802 @@
+[
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle073Subtitle",
+  "text": "*So viele Soldaten, General. Sie wollten mich doch nicht etwa damit überrennen?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle074Subtitle",
+  "text": "*Da haben Sie ja eine ordentliche Basis aufgebaut, General. Sie haben doch daran gedacht, Ihre Gebäude weit genug auseinanderzustellen, um Waffenangriffen zu entgehen, oder?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle075Subtitle",
+  "text": "*Wissen Sie, wie lange es dauert, das wieder sauber zu machen?!?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle076Subtitle",
+  "text": "*Schaffen Sie diese ekelhafte Strahlung aus meiner Basis!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle077Subtitle",
+  "text": "*He, das ist meine Partikelkanone! Sie sind nicht befugt, sie zu benutzen!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle078Subtitle",
+  "text": "*Ist das ein taktisches Manöver, oder verstecken Sie sich nur?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle079Subtitle",
+  "text": "*Colonel Burton? Wirklich? Glauben Sie, dass er Ihnen helfen wird?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle080Subtitle",
+  "text": "*Black Lotus? Dann wird das wohl ein Duell unter Frauen, was?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle081Subtitle",
+  "text": "*Jarmen Kell! Der soll sich lieber von meinen Panzern fernhalten!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle082Subtitle",
+  "text": "*Schönes Flugfeld, General – halten Sie diese Flugzeuge nur von meiner Partikelkanone fern"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle083Subtitle",
+  "text": "*Eine Waffenfabrik? Sie wollen mich tatsächlich angreifen, was? Wurde auch Zeit"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle084Subtitle",
+  "text": "*Gratuliere – Sie können eine Kaserne bauen"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle085Subtitle",
+  "text": "*Sie verkaufen Ihre Gebäude? Ist das Ihr Räumungsverkauf wegen Geschäftsaufgabe?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle086Subtitle",
+  "text": "*Warum geben Sie nicht einfach auf? Ich hätte heute Besseres zu tun"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle087Subtitle",
+  "text": "*Warum finde ich nie einen, der länger als 5 Minuten durchhält"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle088Subtitle",
+  "text": "*Sieht aus, als würden Sie verlieren, General. Was habe ich noch mal über das Planen des Scheiterns gesagt?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle089Subtitle",
+  "text": "*Da kassieren Sie ja ganz schön Prügel, General. Bereit für mehr?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle090Subtitle",
+  "text": "*Ich würde gern „guter Kampf“ sagen, aber offensichtlich waren Sie nicht bei der Sache, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle091Subtitle",
+  "text": "*Ich kann nicht glauben, dass Sie ein Mädchen so verprügeln"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle092Subtitle",
+  "text": "*Ich brauche Zeit zum Nachdenken. Gehen Sie weg, General!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle093Subtitle",
+  "text": "*Ihre Taktik ist alles andere als sportlich, General. Spielen Sie fair!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle094Subtitle",
+  "text": "*General, sehen Sie mal dort! Jemand nimmt Ihre Gebäude ein! Nicht drauf reingefallen, was?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle095Subtitle",
+  "text": "*Wissen Sie, wenn Sie ein Gentleman wären, würden Sie mir fünf Minuten geben, um meine Verteidigung wieder aufzubauen"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle096Subtitle",
+  "text": "*Was?! Es ist vorbei? Nun, es war nett, mit Ihnen zu tanzen, General. Vielleicht führe ich nächstes Mal"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle097Subtitle",
+  "text": "*Meine Superwaffen sind bereit ... und Sie?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle098Subtitle",
+  "text": "*Meine Verteidigung knacken Sie nie, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle099Subtitle",
+  "text": "*Ihre Sturmtaktik funktioniert bei mir nicht"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle100Subtitle",
+  "text": "*Das ist nicht fair! Noch eine Superwaffe, und ich hätte Sie geschlagen, General. Fordern Sie mich noch einmal heraus, wenn Sie sich trauen"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle101Subtitle",
+  "text": "*Ich habe Ihnen doch gesagt, dass Sie meine Superwaffen nie schlagen, General. Wollen Sie es noch mal versuchen?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle102Subtitle",
+  "text": "*Willkommen, General. Sind Sie bereit anzufangen?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle103Subtitle",
+  "text": "*Oh, was ist das für ein Geräusch? Jetzt sehe ich ein Licht am Himmel ... Hm …"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle104Subtitle",
+  "text": "*Oje!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle106Subtitle",
+  "text": "*… oh je … tut mir leid, General, aber so sage ich eben gern „Hallo“. Nun, viel Glück, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle107Subtitle",
+  "text": "*Nun, viel Glück, General"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina001Subtitle",
+  "text": "*Die Amerikaner nutzen die Wachdrohne als Frühwarnsystem gegen Feinde. Die Drohne wird unsichtbar, wenn sie sich nicht bewegt, und manche haben wir schon mit Maschinengewehren aufgerüstet gesehen. Panzern ist sie nicht gewachsen, aber Fußsoldaten kann sie Probleme bereiten"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina002Subtitle",
+  "text": "*Der amerikanische Mikrowellenpanzer ist eine große Mikrowellenkanone, die Gebäude und Fahrzeuge lahmlegt. Seine Strahlung verletzt auch Infanterie, also halten Sie unsere Männer auf Abstand"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina003Subtitle",
+  "text": "*Der Avenger ist ein amerikanisches Laser-Flugabwehrfahrzeug, das Raketen und Flugzeuge abschießen kann. Er hilft außerdem anderen US-Einheiten, unsere Flugzeuge anzuvisieren, und sollte in einer Kampfgruppe vorrangig ausgeschaltet werden"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina004Subtitle",
+  "text": "*Das Spectre-Kanonenboot ist ein großes Düsenflugzeug mit mehreren seitlich montierten Waffensystemen, mit denen es über einem Zielgebiet kreist und Tod von oben regnen lässt. Typisch amerikanische Ingenieurskunst – mit der Schrotflinte auf Fliegen schießen"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina005Subtitle",
+  "text": "*Das Upgrade Chemikalienschutzanzüge macht Infanterie widerstandsfähiger gegen Toxine und Strahlung"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina006Subtitle",
+  "text": "*Das US-Upgrade Gegenmaßnahmen verringert die Wirkung feindlichen Feuers auf ihre Lufteinheiten. Raketen verfehlen oft ihr Ziel, und Kugeln richten weniger Schaden an"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina007Subtitle",
+  "text": "*Das US-Upgrade Hellfire-Drohne erzeugt eine ferngesteuerte Flugdrohne, die ihr Mutterfahrzeug mit einem automatischen Hellfire-Raketensystem verteidigt"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina008Subtitle",
+  "text": "*Der Bunkerbrecher ist ein Upgrade für den US-Tarnkappenjäger und die Aurora, das besetzte Gebäude durchschlagen soll"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina009Subtitle",
+  "text": "*Das Upgrade Nachschublinien erhöht die Rate, mit der die USA Ressourcen aus Versorgungsdepots, Versorgungsabwürfen und Bohrtürmen sammeln"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina010Subtitle",
+  "text": "*Die US-Generäle haben den Wert von Propaganda erkannt. Mit einem Flugblattabwurf können sie Einheiten vorübergehend lahmlegen, während diese stehen bleiben, um die Propaganda zu lesen"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina011Subtitle",
+  "text": "*Die MOAB ist ein Upgrade der US-Aerosolbombe mit „Betäubungs“-Wirkung, die überlebende Einheiten und Gebäude vorübergehend ausschaltet"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina012Subtitle",
+  "text": "*Die US-Feuerbasis ist eine von Sandsäcken umgebene Verteidigungsstellung mit einer Haubitze und 4 Feuerstellungen"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina013Subtitle",
+  "text": "*Die Napalmbombe ist ein Upgrade für unseren Helix, mit dem er zwei Bomben abwerfen kann, die einen großen Feuersturm erzeugen"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina014Subtitle",
+  "text": "*Unser Horchposten ist ein langsames, getarntes Fahrzeug mit großem Sichtradius, das 2 Infanteristen als Wachen aufnehmen kann. Neben dem Aufdecken getarnter Objekte lassen sich damit die Ziele feindlicher Einheiten in Reichweite ermitteln, indem man sie anklickt"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina015Subtitle",
+  "text": "*Unser Helix 2 ist ein langsamer Transporthubschrauber, der Infanterie oder ein einzelnes Fahrzeug tragen kann. Er ist mit einem leichten Maschinengewehr bewaffnet, lässt sich aber mit Gatling-Kanone, Propagandaturm oder Kampfbunker aufrüsten. Außerdem kann er eine große Napalmbombe tragen"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina016Subtitle",
+  "text": "*Der ECM-Panzer stört elektronische Zielsysteme und lenkt feindliche Raketen ab. Mit seinem elektromagnetischen Impuls kann er ein einzelnes feindliches Fahrzeug lahmlegen. Außerdem erzeugt er ein Radarstörfeld, das alle Drohnen in seiner Reichweite ausschaltet"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina017Subtitle",
+  "text": "*Die Neutronengranate ist ein Upgrade für unsere Atomkanone, mit dem sie Neutronengranaten verschießen kann. Diese Granaten töten alle Infanteristen und Fahrzeugbesatzungen im Explosionsradius"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina018Subtitle",
+  "text": "*Mit dem System-Hack können Ihre Hacker dem Feind eine zufällige Generalsfähigkeit stehlen. Stufe 1 erlaubt den Diebstahl einer 1- oder 3-Sterne-Fähigkeit, Stufe 2 den einer 5-Sterne-Fähigkeit"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina019Subtitle",
+  "text": "*Unser neuer Flächenbomber wirft entlang eines Zielpfads eine Reihe von Bomben ab und vernichtet alle feindlichen Truppen"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina020Subtitle",
+  "text": "*Unsere Neutronenminen sind eine Alternative zu normalen Sprengminen. Neutronenminen legen Fahrzeuge sofort lahm und töten Infanterie in der Nähe"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina021Subtitle",
+  "text": "*Unsere Hacker, einst angreifbar, finden in unserer neuen Internetzentrale Schutz und hacken dort effektiver"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina022Subtitle",
+  "text": "*Satelliten-Hack I ist ein Upgrade der Internetzentrale, das die Umgebung jeder gegnerischen Kommandozentrale aufdeckt"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina023Subtitle",
+  "text": "*Satelliten-Hack II ist ein Upgrade der Internetzentrale, das vorübergehend die gesamte Karte aufdeckt, einschließlich getarnter feindlicher Truppen"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina024Subtitle",
+  "text": "*Der GBA-Saboteur ist ein getarnter Infanterist, der Klippen erklettern und feindliche Gebäude beeinflussen kann, indem er sie betritt. Betritt er ein Kraftwerk, fällt vorübergehend der Strom aus; betritt er eine Superwaffe, wird ihr Zähler zurückgesetzt. Ein Saboteur, der eine feindliche Kommandozentrale betritt, setzt die Zähler aller feindlichen Generalsfähigkeiten zurück"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina025Subtitle",
+  "text": "*Das Kampfmotorrad hat anfangs einen GBA-Rebellen als Fahrer und ein montiertes Maschinengewehr. Der Rebell kann durch jeden anderen GBA-Infanteristen ersetzt werden, der dem Motorrad dann seine besonderen Fähigkeiten verleiht"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina026Subtitle",
+  "text": "*Der GBA-Kampfbus fasst bis zu 8 Infanteristen, die aus den Fenstern feuern. Wird er zerstört, bleibt die schwere Stahlkabine wie ein Bunker stehen"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina027Subtitle",
+  "text": "*Die GBA hat ihren Arbeitern Schuhe gegeben, um noch mehr Zwangsarbeit aus ihren Bauern herauszupressen"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina028Subtitle",
+  "text": "*Das Tarnnetz ist ein Upgrade für die Verteidigungsanlagen der GBA-Basis, das sie für normale Aufklärung unsichtbar macht"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina029Subtitle",
+  "text": "*Die GBA stationiert jetzt in all ihren Gebäuden Elitewachen mit RPGs. Seien Sie vorsichtig, wenn Sie in GBA-Basen eindringen"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina030Subtitle",
+  "text": "*Mit dem GBA-Upgrade Sprengfalle kann der Rebell Gebäude und Zivilfahrzeuge verminen, die explodieren, wenn der Feind sie einnehmen oder besetzen will. Achten Sie auf Rebellen, die sich in Ihrem Gebiet um Gebäude herumtreiben"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina031Subtitle",
+  "text": "*Die Tricks der GBA haben eine neue Stufe erreicht. Sie bauen jetzt falsche Gebäude, die wie echte aussehen, aber nur verminte Fassaden sind. Zerstören Sie alles aus der Ferne, um Überraschungen der GBA zu vermeiden"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina032Subtitle",
+  "text": "*Der GPS-Störsender wirkt auf Einheiten in einem Zielgebiet und macht sie für normale Aufklärung unsichtbar"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina033Subtitle",
+  "text": "*Mit der Fähigkeit Überraschungsangriff können GBA-Generäle überall, wo sie erkundet haben, ein wehrloses Tunnelnetz errichten. Es ist etwas schwächer als ein normaler Tunnel, aber mit dem Hauptnetz verbunden"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina034Subtitle",
+  "text": "*Die Artillerieplattform ist eine fest stehende Kanone, die im Alleingang ein Gebiet gegen feindliche Angriffe halten kann. Auf jedem Schlachtfeld sollte sie vorrangig eingenommen werden"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina035Subtitle",
+  "text": "*Eine Verstärkungsplattform liefert regelmäßig kostenlose Panzer per Luftabwurf. Kostenlose Battlemaster können jede Schlacht entscheiden"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina036Subtitle",
+  "text": "*Eine eingenommene Reparaturwerkstatt erlaubt die Reparatur aller Bodenfahrzeuge auf dem Schlachtfeld. Die Reparatur beschädigter Panzer an der Front kann über Sieg und Niederlage entscheiden"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA001Subtitle",
+  "text": "*Vorsicht vor der amerikanischen Wachdrohne, General; sie sieht getarnte Einheiten und hat oft ein Geschütz"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA002Subtitle",
+  "text": "*Der US-Mikrowellenpanzer hat einen Strahl, der Gebäude und Einheiten lahmlegt. Er sollte nur von großen Gruppen angegriffen werden"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA003Subtitle",
+  "text": "*Der US-Warlock-Panzer hat einen Strahl, der Gebäude und Einheiten lahmlegt. Er sollte nur von großen Gruppen angegriffen werden"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA004Subtitle",
+  "text": "*Der US-Avenger ist ein starkes Laser-Flugabwehrfahrzeug … aber wir haben keine Flugzeuge, also ist die Gefahr gering"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA005Subtitle",
+  "text": "*Das amerikanische Spectre-Kanonenboot ist ein großes Flugzeug mit großen Kanonen. Greifen Sie es nicht an – suchen Sie unter der Erde Schutz, bis es das Gebiet verlässt"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA006Subtitle",
+  "text": "*Mit dem Upgrade Chemikalienschutzanzüge wird feindliche Infanterie widerstandsfähiger gegen unsere Toxine. Aber gegen unsere Kugeln hilft das nicht, oder?"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA007Subtitle",
+  "text": "*Das Upgrade Gegenmaßnahmen verringert die Wirkung feindlichen Feuers auf US-Lufteinheiten. Raketen verfehlen oft ihr Ziel, und Kugeln richten weniger Schaden an"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA008Subtitle",
+  "text": "*Das US-Upgrade Hellfire-Drohne ist ein kleines Spielzeugflugzeug mit einer Rakete dran. Ein weiteres Beispiel für die feige Taktik der Amerikaner"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA009Subtitle",
+  "text": "*Die Bunkerbrecher-Bombe ist ein Upgrade für den US-Tarnkappenjäger und die Aurora. Damit versuchen sie, unsere Bunker anzugreifen"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA010Subtitle",
+  "text": "*Das Upgrade Nachschublinien erhöht die Rate, mit der die USA Ressourcen aus Versorgungsdepots, Versorgungsabwürfen und Bohrtürmen sammeln"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA011Subtitle",
+  "text": "*Der US-Flugblattabwurf legt unsere Einheiten vorübergehend lahm, während sie stehen bleiben, um die Propaganda zu lesen"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA012Subtitle",
+  "text": "*Die MOAB ist ein Upgrade der Aerosolbombe mit „Betäubungs“-Wirkung, die überlebende Einheiten und Gebäude vorübergehend ausschaltet"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA013Subtitle",
+  "text": "*Die Feuerbasis ist die amerikanische Antwort auf unsere Stinger-Stellungen … aber Vorsicht vor der großen Kanone in der Mitte"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA014Subtitle",
+  "text": "*Chinas Napalmbombe ist ein Helix-Upgrade, mit dem er zwei Bomben abwerfen kann, die einen großen Feuersturm erzeugen"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA015Subtitle",
+  "text": "*Der Horchposten ist ein langsames, getarntes Fahrzeug, mit dem China unsere getarnten Einheiten aufspürt. Meiden Sie ihn, um versteckt zu bleiben"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA016Subtitle",
+  "text": "*Chinas Helix 2 ist ein langsamer Transporthubschrauber, der Infanterie oder ein einzelnes Fahrzeug tragen kann"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA017Subtitle",
+  "text": "*Der chinesische ECM-Panzer ist ein Fahrzeug, das elektronische Zielsysteme stört und feindliche Raketen ablenkt"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA018Subtitle",
+  "text": "*Die Neutronengranate ist ein Upgrade für die chinesische Atomkanone, mit dem sie Neutronengranaten verschießen kann. Diese Granaten töten alle Infanteristen und Fahrzeugbesatzungen im Explosionsradius"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA019Subtitle",
+  "text": "*Mit Chinas neuer System-Hack-Technik können Hacker ihren Feinden eine zufällige Fähigkeit stehlen. So rächt es sich, sich im Krieg auf Fähigkeiten zu verlassen"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA020Subtitle",
+  "text": "*Der Flächenbomber ist ein Flugzeug, das entlang eines Zielpfads eine Reihe von Bomben abwirft und den Feind vernichtet"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA021Subtitle",
+  "text": "*Neutronenminen sind eine Alternative zu normalen chinesischen Minen und legen Fahrzeuge lahm. Infanterie töten die Minen weiterhin"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA022Subtitle",
+  "text": "*Die Internetzentrale steigert die Effektivität der chinesischen Hacker"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA023Subtitle",
+  "text": "*Satelliten-Hack I ist ein Upgrade der Internetzentrale, mit dem China jede gegnerische Kommandozentrale sehen kann"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA024Subtitle",
+  "text": "*Satelliten-Hack II ist ein Upgrade der chinesischen Internetzentrale, das vorübergehend die gesamte Karte und getarnte Objekte aufdeckt"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA025Subtitle",
+  "text": "*Der Saboteur ist eine getarnte Einheit, die Klippen erklettern und feindliche Gebäude beeinflussen kann, indem sie sie betritt"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA026Subtitle",
+  "text": "*Unser neues Kampfmotorrad hat montierte Maschinengewehre und wird durch die Fähigkeiten jedes Infanteristen verstärkt, der darauf fährt"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA027Subtitle",
+  "text": "*Der Kampfbus ist ein langsamer Transporter, der bis zu 8 Infanteristen fasst, die aus dem Bus feuern können. Wird er zerstört, bleibt der Rumpf des Kampfbusses übrig und dient als Bunker"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA028Subtitle",
+  "text": "*Das Upgrade Arbeiterschuhe erhöht Geschwindigkeit und Sammeleffizienz all unserer treuen Arbeiter"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA029Subtitle",
+  "text": "*Das Tarnnetz ist ein Upgrade für unsere Basisverteidigung, das sie tarnt"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA030Subtitle",
+  "text": "*Das Upgrade Elitewache ist eine Gebäudefähigkeit, die das Gebäude mit 4 RPG-Soldaten besetzt"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA031Subtitle",
+  "text": "*Die Sprengfalle ist ein Upgrade für den Rebellen, mit dem er Gebäude und Zivilfahrzeuge verminen kann, die explodieren, wenn der Feind sie einnehmen oder besetzen will. Eingenommene Gebäude werden automatisch vermint"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA032Subtitle",
+  "text": "*Falsche Gebäude lassen sich deutlich günstiger bauen. Anfangs sind sie nur verminte Fassaden, können aber zu voll funktionsfähigen Versionen des Gebäudes aufgerüstet werden"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA033Subtitle",
+  "text": "*Unser neu erworbener GPS-Störsender wirkt auf Einheiten in einem Zielgebiet und macht sie für Feinde unsichtbar"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA034Subtitle",
+  "text": "*Mit dem Überraschungsangriff kann in jedem erkundeten Gebiet ein wehrloses Tunnelnetz errichtet werden. Es ist etwas schwächer als ein normaler Tunnel, aber mit dem Hauptnetz verbunden"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA035Subtitle",
+  "text": "*Die Artillerieplattform feuert eine Waffe, die in Reichweite und Schaden der US-Strategiezentrale ähnelt. Nehmen Sie sie ein oder meiden Sie ihre tödliche Kanone"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA036Subtitle",
+  "text": "*Die Verstärkungsplattform liefert regelmäßig eine Gruppe Scorpion-Panzer für unsere Sache"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA037Subtitle",
+  "text": "*Die Reparaturwerkstatt ist eine Reparatureinrichtung für Fahrzeuge an der Front. Sie repariert Fahrzeuge wie ein Waffenhändler"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA001Subtitle",
+  "text": "*Die Wachdrohne ist eine mobile Einheit, die feindliche Bewegungen verfolgen kann, auch getarnte. Sie ist selbst getarnt, wenn sie stillsteht, und kann in der Strategiezentrale mit einem Anti-Infanterie-Maschinengewehr aufgerüstet werden"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA002Subtitle",
+  "text": "*Der Mikrowellenpanzer ist mit einer Mikrowellen-Direktenergieplatte bewaffnet, die anvisierte Gebäude und Fahrzeuge lahmlegt. Außerdem strahlt er ein dauerhaftes Mikrowellenfeld aus, das Infanterie schadet"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA003Subtitle",
+  "text": "*Der Warlock-Panzer ist mit einer Mikrowellen-Direktenergieplatte bewaffnet, die anvisierte Gebäude und Fahrzeuge lahmlegt. Außerdem strahlt er ein dauerhaftes Mikrowellenfeld aus, das Infanterie schadet"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA004Subtitle",
+  "text": "*Der Avenger ist ein Laser-Flugabwehrfahrzeug, das Raketen und Flugzeuge abschießen kann. Außerdem verschafft er Einheiten Boni, die sein „markiertes“ Ziel angreifen"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA005Subtitle",
+  "text": "*Das Spectre-Kanonenboot ist ein großes Düsenflugzeug mit mehreren an den Flügeln montierten Waffensystemen. Während es über dem Ziel kreist, erfasst es Feinde automatisch. Manuelle Zielwahl ist möglich, und es kann mit Gegenmaßnahmen aufgerüstet werden"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA006Subtitle",
+  "text": "*Mit dem Upgrade Chemikalienschutzanzüge wird Infanterie widerstandsfähiger gegen Toxine und Strahlung"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA007Subtitle",
+  "text": "*Das Upgrade Gegenmaßnahmen verringert die Wirkung feindlichen Feuers auf US-Lufteinheiten. Raketen verfehlen oft ihr Ziel, und Kugeln richten weniger Schaden an"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA008Subtitle",
+  "text": "*Das Upgrade Hellfire-Drohne stattet das Mutterfahrzeug mit einer Drohne aus, die eine einzelne Rakete abfeuern kann. Die Drohnen erfassen Ziele automatisch und brauchen Zeit zum Nachladen"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA009Subtitle",
+  "text": "*Der Bunkerbrecher ist ein Upgrade für den Tarnkappenjäger und die Aurora. Zusätzlich zu ihrer normalen Wirkung schädigen und töten diese verbesserten Raketen sogar Einheiten in Gebäuden, darunter der GBA-Palast, das Tunnelnetz und der chinesische Kampfbunker"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA010Subtitle",
+  "text": "*Das Upgrade Nachschublinien erhöht die Geldmenge aus Versorgungsdepots, Versorgungsabwürfen und Bohrtürmen"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA011Subtitle",
+  "text": "*Der Flugblattabwurf legt Einheiten vorübergehend lahm, während sie stehen bleiben, um die Propaganda zu lesen. Das Flugzeug wirft Flugblätter über dem Zielgebiet ab, die Wirkung hält nur kurz an"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA012Subtitle",
+  "text": "*Die MOAB ist ein Upgrade der Aerosolbombe mit „Betäubungs“-Wirkung, die überlebende Einheiten und Gebäude vorübergehend ausschaltet"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA013Subtitle",
+  "text": "*Die Feuerbasis ist von Sandsäcken umgeben und hat eine Haubitze und 4 Feuerstellungen. Infanterie, die die Feuerbasis betritt, bezieht Feuerstellungen hinter den Sandsäcken"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA014Subtitle",
+  "text": "*Die Napalmbombe ist ein Helix-Upgrade, mit dem er zwei Bomben abwerfen kann, die einen großen Feuersturm erzeugen"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA015Subtitle",
+  "text": "*Der Horchposten ist ein langsames, getarntes Fahrzeug mit großem Sichtradius, das 2 Infanteristen als Wachen aufnehmen kann. Neben dem Aufdecken getarnter Objekte lassen sich damit die Ziele feindlicher Einheiten in Reichweite ermitteln, indem man sie anklickt"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA016Subtitle",
+  "text": "*Der Helix 2 ist ein langsamer Transporthubschrauber, der Infanterie oder ein einzelnes Fahrzeug tragen kann. Er ist mit einem leichten Maschinengewehr bewaffnet, lässt sich aber mit Gatling-Kanone, Propagandaturm oder Kampfbunker aufrüsten. Außerdem kann er eine große Napalmbombe tragen"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA017Subtitle",
+  "text": "*Der ECM-Panzer ist ein Fahrzeug, das elektronische Zielsysteme stört und feindliche Raketen ablenkt. Mit seinem ECM-Impuls kann er einzelne feindliche Fahrzeuge lahmlegen. Außerdem erzeugt er ein Radarstörfeld, das alle Drohnen in seiner Reichweite ausschaltet"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA018Subtitle",
+  "text": "*Die Neutronengranate ist ein Upgrade für die chinesische Atomkanone, mit dem sie Neutronengranaten verschießen kann. Diese Granaten töten alle Infanteristen und Fahrzeugbesatzungen im Explosionsradius"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA019Subtitle",
+  "text": "*Mit dem System-Hack können Ihre Hacker Ihren Feinden eine zufällige Fähigkeit stehlen. Stufe 1 erlaubt den Diebstahl einer Fähigkeit der Stufe 1 oder 3, Stufe 2 den einer 5-Sterne-Fähigkeit"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA020Subtitle",
+  "text": "*Der Flächenbomber ist ein Flugzeug, das entlang eines Zielpfads eine Reihe von Bomben abwirft und den Feind vernichtet"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA021Subtitle",
+  "text": "*Neutronenminen sind eine Alternative zu normalen chinesischen Minen und legen Fahrzeuge lahm. Infanterie töten die Minen weiterhin"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA022Subtitle",
+  "text": "*Die Internetzentrale steigert die Effektivität der Hacker beim Geldbeschaffen und ermöglicht Satelliten-Hack I und II"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA023Subtitle",
+  "text": "*Satelliten-Hack I ist ein Upgrade der Internetzentrale, das die Umgebung jeder gegnerischen Kommandozentrale aufdeckt"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA024Subtitle",
+  "text": "*Satelliten-Hack II ist ein Upgrade der Internetzentrale, das vorübergehend die gesamte Karte und getarnte Objekte aufdeckt"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA025Subtitle",
+  "text": "*Der Saboteur ist eine getarnte Einheit, die Klippen erklettern und feindliche Gebäude beeinflussen kann, indem sie sie betritt. Betritt er ein Kraftwerk, fällt vorübergehend der Strom aus; betritt er eine Superwaffe, wird ihr Zähler zurückgesetzt. Ein Saboteur, der eine feindliche Kommandozentrale betritt, setzt die Zähler aller feindlichen Generalsfähigkeiten zurück"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA026Subtitle",
+  "text": "*Das Kampfmotorrad hat anfangs einen Rebellen als Fahrer und ein montiertes Maschinengewehr. Ersetzt man ihn durch einen RPG-Soldaten, kann das Motorrad Raketen abfeuern. Ein Terrorist macht daraus ein Selbstmord-Motorrad. Auch Jarmen Kell, Entführer und Saboteure können fahren, dann ist das Motorrad getarnt"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA027Subtitle",
+  "text": "*Der Kampfbus ist ein langsamer Transporter, der bis zu 8 Infanteristen fasst, die aus dem Bus feuern können. Wird er zerstört, bleibt der Rumpf übrig und dient als Bunker. Wird auch der zerstört, sterben alle darin"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA028Subtitle",
+  "text": "*Das Upgrade Arbeiterschuhe erhöht Geschwindigkeit und Sammeleffizienz aller GBA-Arbeiter"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA029Subtitle",
+  "text": "*Das Tarnnetz ist ein Upgrade für die Verteidigungsanlagen der GBA-Basis, das sie tarnt"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA030Subtitle",
+  "text": "*Das Upgrade Elitewache ist eine Gebäudefähigkeit, die das Gebäude mit 4 RPG-Soldaten besetzt"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA031Subtitle",
+  "text": "*Die Sprengfalle ist ein Upgrade für den Rebellen, mit dem er Gebäude und Zivilfahrzeuge verminen kann, die explodieren, wenn der Feind sie einnehmen oder besetzen will. Die Explosion beschädigt alles in einem kleinen Radius. Von einem aufgerüsteten Rebellen eingenommene Gebäude werden automatisch vermint"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA032Subtitle",
+  "text": "*Falsche Gebäude lassen sich deutlich günstiger bauen. Anfangs sind sie nur verminte Fassaden, können aber zu voll funktionsfähigen Versionen des Gebäudes aufgerüstet werden"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA033Subtitle",
+  "text": "*Der GPS-Störsender wirkt auf Einheiten in einem Zielgebiet und tarnt sie vor Feinden"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA034Subtitle",
+  "text": "*Mit dem Überraschungsangriff kann in jedem erkundeten Gebiet ein wehrloses Tunnelnetz errichtet werden. Es ist etwas schwächer als ein normaler Tunnel, aber mit dem Hauptnetz verbunden"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA035Subtitle",
+  "text": "*Die Artillerieplattform ist mit einer großkalibrigen Haubitze bewaffnet. Sie ist eine hervorragende Waffe für Niederhaltefeuer und ein guter Sammelpunkt für einen Angriff"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA036Subtitle",
+  "text": "*Die Verstärkungsplattform verstärkt den Spieler regelmäßig mit einem Hauptkampfpanzer seiner Seite (Scorpion, Battlemaster, Crusader)"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA037Subtitle",
+  "text": "*Die Reparaturwerkstatt ist eine Reparatureinrichtung für Fahrzeuge. Fahrzeuge müssen dort genauso „andocken“ wie an der Waffenfabrik"
+ },
+ {
+  "label": "TOOLTIP:Community",
+  "text": "Siegquoten jeder Armee auf Grundlage aller gespielten Online-Spiele"
+ },
+ {
+  "label": "CONTROLBAR:Nuke_ToolTipChinaBuildHelix",
+  "text": "Schwerer Transporthubschrauber \n aufrüstbar mit Basisverteidigung und Atombombe \n \n Stark gegen Panzer, leichte Fahrzeuge \n Schwach gegen Raketeninfanterie, Luftabwehr"
+ },
+ {
+  "label": "MAP:CHI01xListeningPostHint01",
+  "text": "TIPP: \n Versteckte Sprengfallen werden sichtbar, sobald sie in Sichtweite des Horchpostens sind"
+ },
+ {
+  "label": "OBJECT:SupW_PatriotBattery",
+  "text": "EMP-Patriot-System"
+ },
+ {
+  "label": "CONTROLBAR:SupW_ConstructAmericaPatriotBattery",
+  "text": "E&MP-Patriot-System"
+ },
+ {
+  "label": "CONTROLBAR:SupW_ToolTipUSABuildPatriotBattery",
+  "text": "Boden- und Luftverteidigung. Kann die Feindposition an nahe Patriots weitergeben \n \n Benötigte Energie: 3"
+ },
+ {
+  "label": "MAP:USA03xBurtonSurvive",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Colonel Burton muss überleben"
+ },
+ {
+  "label": "MAP:MD_GLA04_GatherHint",
+  "text": "TIPP: \n Wählen Sie die Transportlaster aus und lassen Sie sie Ressourcen in der Toxinanlage sammeln"
+ },
+ {
+  "label": "MAP:MD_GLA04_HospitalHint",
+  "text": "TIPP: \n Das Krankenhaus heilt Ihre Einheiten automatisch"
+ },
+ {
+  "label": "MAP:MD_GLA04_TractorsHint",
+  "text": "TIPP: \n Toxin-Traktoren können Einheiten in besetzten Gebäuden töten"
+ },
+ {
+  "label": "OBJECT:AssaultTroopTransport",
+  "text": "Sturmtruppentransporter"
+ },
+ {
+  "label": "OBJECT:AssaultListeningOutpost",
+  "text": "Angriffs-Außenposten"
+ },
+ {
+  "label": "UPGRADE:IsotopeStability",
+  "text": "Isotopenstabilität"
+ },
+ {
+  "label": "CONTROLBAR:Infa_ToolTipChinaUpgradeRedGuardCaptureBuilding",
+  "text": "Ermöglicht Minigunnern, feindliche und Technologiegebäude einzunehmen"
+ },
+ {
+  "label": "OBJECT:Lazr_PatriotBattery",
+  "text": "Laser-Abwehrgeschütz"
+ },
+ {
+  "label": "SCIENCE:Infa_ChinaRedGuardTraining",
+  "text": "Minigunner-Ausbildung"
+ },
+ {
+  "label": "CONTROLBAR:Infa_ToolTipChinaScienceRedGuardTraining",
+  "text": "Alle Minigunner werden als Elite ausgebildet"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildNuclearMissileLauncherBoss",
+  "text": "Startet eine Atomrakete. Baut wichtige chinesische Upgrades \n \n Benötigte Energie: 10 \n Countdown: 6:00"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildParticleCannonBoss",
+  "text": "Feuert einen Partikelstrahl auf jeden Punkt der Karte \n \n Benötigte Energie: 10 \n Countdown: 4:00"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildCombatBikeTerrorist",
+  "text": "Schnell und vielseitig \n Mit Terrorist \n Schwach gegen Flugzeuge"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildSuperHacker",
+  "text": "Kann feindliche Gebäude und Fahrzeuge mit einem Computervirus lahmlegen oder sich ins Internet hacken, um Geld zu stehlen. Getarnt \n \n Stark gegen Gebäude \n Schwach gegen Infanterie, Fahrzeuge"
+ },
+ {
+  "label": "UPGRADE:Demo_SuicideBomb",
+  "text": "Sprengstoff"
+ },
+ {
+  "label": "UPGRADE:AirF_StealthComanche",
+  "text": "Tarnkappen-Comanche"
+ },
+ {
+  "label": "UPGRADE:HighExplosiveTrap",
+  "text": "Hochexplosive Sprengfalle"
+ },
+ {
+  "label": "CAMPAIGN:CHALLENGE_0",
+  "text": "Herausforderung: Luftwaffengeneral"
+ },
+ {
+  "label": "CAMPAIGN:CHALLENGE_1",
+  "text": "Herausforderung: Toxingeneral"
+ },
+ {
+  "label": "CAMPAIGN:CHALLENGE_2",
+  "text": "Herausforderung: Atomgeneral"
+ },
+ {
+  "label": "CAMPAIGN:CHALLENGE_3",
+  "text": "Herausforderung: Superwaffengeneral"
+ },
+ {
+  "label": "CAMPAIGN:CHALLENGE_4",
+  "text": "Herausforderung: Panzergeneral"
+ },
+ {
+  "label": "CAMPAIGN:CHALLENGE_5",
+  "text": "Herausforderung: Lasergeneral"
+ },
+ {
+  "label": "CAMPAIGN:CHALLENGE_6",
+  "text": "Herausforderung: Tarngeneral"
+ },
+ {
+  "label": "CAMPAIGN:CHALLENGE_7",
+  "text": "Herausforderung: Infanteriegeneral"
+ },
+ {
+  "label": "CAMPAIGN:CHALLENGE_8",
+  "text": "Herausforderung: Sprenggeneral"
+ },
+ {
+  "label": "OBJECT:RocketDrop",
+  "text": "Rakete"
+ },
+ {
+  "label": "OBJECT:RocketBomb",
+  "text": "Rakete"
+ },
+ {
+  "label": "OBJECT:PTBoat",
+  "text": "Schnellboot"
+ },
+ {
+  "label": "OBJECT:ShiekLimo",
+  "text": "Limousine"
+ },
+ {
+  "label": "OBJECT:Dock",
+  "text": "Anlegestelle"
+ },
+ {
+  "label": "OBJECT:RailroadBridgeH",
+  "text": "Eisenbahnbrücke"
+ },
+ {
+  "label": "OBJECT:RepairDrone",
+  "text": "Reparaturdrohne"
+ },
+ {
+  "label": "OBJECT:CINE_Carrier",
+  "text": "Flugzeugträger"
+ },
+ {
+  "label": "OBJECT:SpectreGunship",
+  "text": "Spectre-Kanonenboot"
+ },
+ {
+  "label": "SCIENCE:LaserCannon",
+  "text": "Laserkanone"
+ },
+ {
+  "label": "OBJECT:LaserCannon",
+  "text": "Laserkanone"
+ },
+ {
+  "label": "UPGRADE:TacticalNukeMig",
+  "text": "Taktische Atom-MiG"
+ },
+ {
+  "label": "OBJECT:FuelAirBomb",
+  "text": "Aerosolbombe"
+ },
+ {
+  "label": "OBJECT:CruiseMissile",
+  "text": "Marschflugkörper"
+ },
+ {
+  "label": "OBJECT:Ox",
+  "text": "Ochse"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUpgradeChinaTacticalNukeMig",
+  "text": "Rüstet die MiG mit einer kleinen Atombombe aus"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaTacticalNukeMig",
+  "text": "Taktische Atom-Mi&G"
+ },
+ {
+  "label": "CONTROLBAR:Boss_ToolTipChinaBuildBarracks",
+  "text": "Bildet Soldaten aus"
+ },
+ {
+  "label": "CONTROLBAR:Boss_ToolTipChinaBuildAirField",
+  "text": "Baut Flugzeuge \n \n Benötigte Energie: 1"
+ },
+ {
+  "label": "CONTROLBAR:Boss_ToolTipChinaBuildBunker",
+  "text": "Fasst 5 Soldaten"
+ },
+ {
+  "label": "CONTROLBAR:Boss_ToolTipChinaBuildWarFactory",
+  "text": "Baut Fahrzeuge \n \n Benötigte Energie: 1"
+ },
+ {
+  "label": "CONTROLBAR:Boss_ToolTipChinaBuildSupplyCenter",
+  "text": "Abladepunkt für Versorgungssammler \n \n Benötigte Energie: 1"
+ },
+ {
+  "label": "CONTROLBAR:Infa_TooltipParaDrop",
+  "text": "Wirft Minigunner per Flugzeug ab \n \n Countdown: 4:00"
+ }
+]

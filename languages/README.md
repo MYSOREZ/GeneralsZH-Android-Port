@@ -99,3 +99,11 @@ the mission subtitles it was missing (campaign dialogue, general taunts, unit de
 were translated with the pack's own unit names, and the 22 legacy labels were added, so it
 has the same 6447 labels as the Russian pack. The faction is "GLA" throughout (the pack had
 "ГВА" in some places), matching the Russian pack.
+
+## German
+
+`languages/german/generals.str` is a new translation from the English original. It uses the
+names of the official German release rather than the English ones: the faction is "GBA",
+units and buildings are "Kommandozentrale", "Vierlingskanone", "Horchposten", "Tarnkappenjäger"
+and so on. Multiplayer map names stay in English. Jokes, ad parodies and idioms in the
+generals' taunts are carried over as German ones rather than word for word.

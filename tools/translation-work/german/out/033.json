@@ -1,0 +1,90 @@
+[
+ {
+  "label": "GUI:LoadReplayLong",
+  "text": "WIEDERHOLUNG LADEN"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak5",
+  "text": "Serien-Ehrung \n Der Spieler hat 5 Online-Spiele in Folge gewonnen"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak20",
+  "text": "Serien-Ehrung \n Der Spieler hat 20 Online-Spiele in Folge gewonnen"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAUpgradeBuggyAmmor",
+  "text": "+25 % Munition für Raketenbuggys"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak3Disabled",
+  "text": "Serien-Ehrung \n Gewinnen Sie 3 oder mehr Spiele in Folge, um diese Medaille zu erhalten"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorBlitz10Disabled",
+  "text": "Blitz-Ehrung \n Besiegen Sie Computergegner in höchstens 10 Minuten, um diese Medaille zu erhalten"
+ },
+ {
+  "label": "GUI:CÀontrolBarBack",
+  "text": "ZURÜCK"
+ },
+ {
+  "label": "GUI:BuddyAddReqMessageSent",
+  "text": "Freundschaftsanfrage gesendet"
+ },
+ {
+  "label": "GUI:BuddyAddReqMessageRejected",
+  "text": "Freundschaftsanfrage abgelehnt"
+ },
+ {
+  "label": "GUI:BuddyAddReqMessageAccepted",
+  "text": "Freundschaftsanfrage angenommen"
+ },
+ {
+  "label": "TOOLTIP:RefreshGamePlayerList",
+  "text": "Spiele- und Spielerlisten aktualisieren"
+ },
+ {
+  "label": "TOOLTIP:CommunicatorBuddyRadioButton",
+  "text": "Rechtsklick auf einen Namen in der Spielerliste, um eine Freundschaftsanfrage zu senden"
+ },
+ {
+  "label": "TOOLTIP:CommunicatorIgnoreRadioButton",
+  "text": "Rechtsklick auf einen Namen in der Spielerliste, um diesen Spieler zu ignorieren"
+ },
+ {
+  "label": "GUI:GroupRoom15",
+  "text": "3 gegen 3"
+ },
+ {
+  "label": "GUI:GroupRoom16",
+  "text": "4 gegen 4"
+ },
+ {
+  "label": "GUI:GroupRoom17",
+  "text": "Neulinge"
+ },
+ {
+  "label": "GUI:GroupRoom18",
+  "text": "Mods"
+ },
+ {
+  "label": "GUI:GroupRoom19",
+  "text": "Rangliste"
+ },
+ {
+  "label": "GUI:GroupRoom20",
+  "text": "Deutschland"
+ },
+ {
+  "label": "GUI:GroupRoom21",
+  "text": "USA"
+ },
+ {
+  "label": "GUI:GroupRoom22",
+  "text": "Korea"
+ },
+ {
+  "label": "GUI:BeaconClear",
+  "text": "Löschen"
+ }
+]
