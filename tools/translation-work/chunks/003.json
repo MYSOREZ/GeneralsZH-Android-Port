@@ -1,0 +1,802 @@
+[
+ {
+  "label": "WOL:NoMatchbot",
+  "text": "No MatchMaker found"
+ },
+ {
+  "label": "WOL:BadMatchParams",
+  "text": "Bad match parameters"
+ },
+ {
+  "label": "WOL:ChatErrorNickInUse",
+  "text": "That nickname is already in use"
+ },
+ {
+  "label": "WOL:ChatErrorBadPass",
+  "text": "Incorrect password for that name"
+ },
+ {
+  "label": "WOL:ChatErrorNoneSuch",
+  "text": "No such user or channel"
+ },
+ {
+  "label": "WOL:ChatErrorConNetDown",
+  "text": "Network connection is down"
+ },
+ {
+  "label": "WOL:ChatErrorConLookupFailed",
+  "text": "DNS lookup failed"
+ },
+ {
+  "label": "WOL:ChatErrorConError",
+  "text": "Fatal network error occurred"
+ },
+ {
+  "label": "WOL:ChatErrorTimeout",
+  "text": "Timeout occurred"
+ },
+ {
+  "label": "WOL:ChatErrorMustPatch",
+  "text": "You must get the latest Update before joining C&C Generals Zero Hour Online"
+ },
+ {
+  "label": "WOL:ChatErrorStatusError",
+  "text": "Internal status error"
+ },
+ {
+  "label": "WOL:ChatErrorUnknownResponse",
+  "text": "Unknown response"
+ },
+ {
+  "label": "WOL:ChatErrorChannelFull",
+  "text": "Channel is full"
+ },
+ {
+  "label": "WOL:ChatErrorChannelExists",
+  "text": "Channel already exists"
+ },
+ {
+  "label": "WOL:ChatErrorChannelDoesNotExist",
+  "text": "Channel does not exist"
+ },
+ {
+  "label": "WOL:ChatErrorBadChannelPassword",
+  "text": "Bad channel password"
+ },
+ {
+  "label": "WOL:ChatErrorBanned",
+  "text": "Sorry, you've been banned from C&C Generals Zero Hour Online. Please review the Service Terms"
+ },
+ {
+  "label": "WOL:ChatErrorNotOper",
+  "text": "Cannot perform that operation"
+ },
+ {
+  "label": "WOL:ChatErrorAccountDisabled",
+  "text": "Your account has been disabled"
+ },
+ {
+  "label": "WOL:ChatErrorSerialBanned",
+  "text": "Your serial number has been banned. Please review the Service Terms"
+ },
+ {
+  "label": "WOL:ChatErrorSerialDup",
+  "text": "Your serial is already in use"
+ },
+ {
+  "label": "WOL:ChatErrorSerialUnknown",
+  "text": "Your serial is invalid"
+ },
+ {
+  "label": "WOL:NetUtilErrorGeneric",
+  "text": "Generic NetUtil error"
+ },
+ {
+  "label": "WOL:NetUtilErrorBusy",
+  "text": "Busy"
+ },
+ {
+  "label": "WOL:NetUtilErrorTimeout",
+  "text": "Timeout"
+ },
+ {
+  "label": "WOL:NetUtilErrorInvalidField",
+  "text": "Invalid field"
+ },
+ {
+  "label": "WOL:NetUtilErrorCantVerify",
+  "text": "Can't verify"
+ },
+ {
+  "label": "WOL:NetUtilFinished",
+  "text": "Finished"
+ },
+ {
+  "label": "WOL:UnknownError",
+  "text": "Unknown error"
+ },
+ {
+  "label": "WOL:CouldNotCreateChannel",
+  "text": "Could not create channel"
+ },
+ {
+  "label": "WOL:ErrorTitle",
+  "text": "C&C Generals Zero Hour Online Error"
+ },
+ {
+  "label": "WOL:LoginErrorTitle",
+  "text": "Login Error"
+ },
+ {
+  "label": "WOL:CreatingChannel",
+  "text": "Creating channel"
+ },
+ {
+  "label": "WOL:ChannelClosed",
+  "text": "Channel has closed"
+ },
+ {
+  "label": "WOL:BadChannelPassword",
+  "text": "Bad channel password"
+ },
+ {
+  "label": "WOL:ChannelFull",
+  "text": "Channel full"
+ },
+ {
+  "label": "WOL:BannedFromChannel",
+  "text": "You've been banned from the channel"
+ },
+ {
+  "label": "WOL:CannotJoinChannel",
+  "text": "Cannot join channel"
+ },
+ {
+  "label": "WOL:NoWOLAPI",
+  "text": "Shared Internet Components have not been installed"
+ },
+ {
+  "label": "WOL:OldWOLAPI",
+  "text": "Shared Internet Components need to be updated. Please install from the C&C Generals Zero Hour disc"
+ },
+ {
+  "label": "WOL:BadRegistry",
+  "text": "C&C Generals Zero Hour Registry is corrupt"
+ },
+ {
+  "label": "WOL:GotPing",
+  "text": "Received ping of %dms. The lower the ping, the better the connection"
+ },
+ {
+  "label": "WOL:ServerListAndVersion",
+  "text": "Fetching server list"
+ },
+ {
+  "label": "WOL:GettingPings",
+  "text": "Getting pings. The lower the ping, the better the connection"
+ },
+ {
+  "label": "WOL:Connecting",
+  "text": "Connecting"
+ },
+ {
+  "label": "WOL:JoinedChannel",
+  "text": "You joined %ls"
+ },
+ {
+  "label": "WOL:LeftChannel",
+  "text": "You left %ls"
+ },
+ {
+  "label": "WOL:UserKicked",
+  "text": "%ls kicked %ls out of %ls"
+ },
+ {
+  "label": "WOL:BeginIgnoreList",
+  "text": "Begin Ignore List"
+ },
+ {
+  "label": "WOL:IgnoredUser",
+  "text": "%ls"
+ },
+ {
+  "label": "WOL:EndIgnoreList",
+  "text": "End Ignore List"
+ },
+ {
+  "label": "WOL:DownloadPatchNow",
+  "text": "Would you like to download the Update at this time?"
+ },
+ {
+  "label": "WOL:FindInChannel",
+  "text": "%ls is in %s"
+ },
+ {
+  "label": "WOL:FindInChannelOtherServer",
+  "text": "%ls is in %s on %s"
+ },
+ {
+  "label": "WOL:FindOffline",
+  "text": "%ls is not logged in"
+ },
+ {
+  "label": "WOL:FindHiding",
+  "text": "%ls is not responding to search"
+ },
+ {
+  "label": "WOL:FindNotInChannel",
+  "text": "%ls is not in a channel"
+ },
+ {
+  "label": "WOL:FindNotInChannelOtherServer",
+  "text": "%ls is on %s"
+ },
+ {
+  "label": "WOL:Lob_49_0",
+  "text": "Main Lobby"
+ },
+ {
+  "label": "WOL:Lob_49_1",
+  "text": "Alternate"
+ },
+ {
+  "label": "WOL:Lob_49_2",
+  "text": "Reality"
+ },
+ {
+  "label": "WOL:Lob_41_0",
+  "text": "QuickMatch"
+ },
+ {
+  "label": "WOL:UnknownServer",
+  "text": "unknown server"
+ },
+ {
+  "label": "WOL:UnknownChannel",
+  "text": "unknown channel"
+ },
+ {
+  "label": "WOL:BuddyMatching",
+  "text": "%ls is QuickMatching"
+ },
+ {
+  "label": "WOL:BuddyNotInChan",
+  "text": "%ls is online"
+ },
+ {
+  "label": "WOL:BuddyInGame",
+  "text": "%ls is playing a game"
+ },
+ {
+  "label": "WOL:BuddyInChat",
+  "text": "%ls is chatting in %ls"
+ },
+ {
+  "label": "WOL:BuddyGameSetup",
+  "text": "%ls is in %ls"
+ },
+ {
+  "label": "WOL:BuddyMatchingOtherServer",
+  "text": "%ls is QuickMatching on %ls"
+ },
+ {
+  "label": "WOL:BuddyNotInChanOtherServer",
+  "text": "%ls is online on %ls"
+ },
+ {
+  "label": "WOL:BuddyInGameOtherServer",
+  "text": "%ls is playing a game on %ls"
+ },
+ {
+  "label": "WOL:BuddyInChatOtherServer",
+  "text": "%ls is chatting in %ls on %ls"
+ },
+ {
+  "label": "WOL:BuddyGameSetupOtherServer",
+  "text": "%ls is in %ls on %ls"
+ },
+ {
+  "label": "WOL:BuddyHiding",
+  "text": "%ls is hiding"
+ },
+ {
+  "label": "Chat:Everyone",
+  "text": "Everyone Views"
+ },
+ {
+  "label": "Chat:Allies",
+  "text": "Only Allies View"
+ },
+ {
+  "label": "GUI:Clear",
+  "text": "CLEAR"
+ },
+ {
+  "label": "LAN:GameStartTimerPlural",
+  "text": "Game will start in %d seconds"
+ },
+ {
+  "label": "LAN:GameStartTimerSingular",
+  "text": "Game will start in %d second"
+ },
+ {
+  "label": "LAN:HostNotResponding",
+  "text": "Game exited; the host was not responding"
+ },
+ {
+  "label": "LAN:PlayerDropped",
+  "text": "%ls dropped; player was not responding"
+ },
+ {
+  "label": "LAN:NeedMorePlayers",
+  "text": "You need more than %d player(s) to start a game"
+ },
+ {
+  "label": "LAN:NeedMoreTeams",
+  "text": "You need more than 1 team to start a game"
+ },
+ {
+  "label": "LAN:TooManyPlayers",
+  "text": "This map only supports up to %d players"
+ },
+ {
+  "label": "LAN:OK",
+  "text": "OK"
+ },
+ {
+  "label": "LAN:ErrorNoGameSelected",
+  "text": "Please select a game first"
+ },
+ {
+  "label": "LAN:ErrorTimeout",
+  "text": "Connection timed out"
+ },
+ {
+  "label": "LAN:ErrorGameFull",
+  "text": "This game is full"
+ },
+ {
+  "label": "LAN:ErrorDuplicateName",
+  "text": "Duplicate name already in game"
+ },
+ {
+  "label": "LAN:ErrorCRCMismatch",
+  "text": "Game has detected a mismatch. This means the multiplayer game has lost synchronization data between the players. It is possible that your opponent has modified his version and you may want to include him on your Ignore List"
+ },
+ {
+  "label": "LAN:ErrorGameStarted",
+  "text": "Sorry, this game has already started"
+ },
+ {
+  "label": "LAN:ErrorGameExists",
+  "text": "A game of the same name already exists"
+ },
+ {
+  "label": "LAN:ErrorGameGone",
+  "text": "Game has dissappeared"
+ },
+ {
+  "label": "LAN:ErrorBusy",
+  "text": "Another operation is pending"
+ },
+ {
+  "label": "LAN:ErrorUnknown",
+  "text": "Unknown error"
+ },
+ {
+  "label": "LAN:JoinFailed",
+  "text": "JOIN FAILED"
+ },
+ {
+  "label": "Network:PlayerLeft",
+  "text": "%ls left the game"
+ },
+ {
+  "label": "INI:MissingDisplayName",
+  "text": "MISSING DisplayName for Object '%S'"
+ },
+ {
+  "label": "INI:FactionDefault",
+  "text": "Default Army"
+ },
+ {
+  "label": "INI:FactionObserver",
+  "text": "Observer"
+ },
+ {
+  "label": "INI:FactionCivilian",
+  "text": "Civilian"
+ },
+ {
+  "label": "INI:FactionAmerica",
+  "text": "USA"
+ },
+ {
+  "label": "INI:FactionChina",
+  "text": "China"
+ },
+ {
+  "label": "INI:FactionGLA",
+  "text": "GLA"
+ },
+ {
+  "label": "INI:FactionChinaHacker",
+  "text": "Chinese Hacker"
+ },
+ {
+  "label": "SIDE:America",
+  "text": "USA"
+ },
+ {
+  "label": "SIDE:China",
+  "text": "China"
+ },
+ {
+  "label": "SIDE:GLA",
+  "text": "GLA"
+ },
+ {
+  "label": "INI:RankLevel1",
+  "text": "1 Star General"
+ },
+ {
+  "label": "INI:RankLevel2",
+  "text": "2 Star General"
+ },
+ {
+  "label": "INI:RankLevel3",
+  "text": "3 Star General"
+ },
+ {
+  "label": "INI:RankLevel4",
+  "text": "4 Star General"
+ },
+ {
+  "label": "INI:RankLevel5",
+  "text": "5 Star General"
+ },
+ {
+  "label": "INI:RankLevel6",
+  "text": "Mr. Bad Dude (Rank 6)"
+ },
+ {
+  "label": "INI:RankLevel7",
+  "text": "Dr. Death (Rank 7)"
+ },
+ {
+  "label": "INI:RankLevel8",
+  "text": "Ultimate Deadly Dude (Rank 8)"
+ },
+ {
+  "label": "TOOLTIP:MyInfo",
+  "text": "Click to explore your Persona Information. You may view your rank, points, wins, losses, Battle Honors, etc"
+ },
+ {
+  "label": "TOOLTIP:CustomMatch",
+  "text": "Click to join the Custom Match Lobby to meet and chat with other players"
+ },
+ {
+  "label": "TOOLTIP:SelectAll",
+  "text": "QuickMatch on all available maps"
+ },
+ {
+  "label": "TOOLTIP:SelectNone",
+  "text": "QuickMatch on no maps"
+ },
+ {
+  "label": "TOOLTIP:EnterPassword",
+  "text": "Please enter a password"
+ },
+ {
+  "label": "TOOLTIP:Quickmatch",
+  "text": "Click to begin QuickMatch. QuickMatch will attempt to automatically match you with your closest skill level and preferences"
+ },
+ {
+  "label": "TOOLTIP:GameLobbys",
+  "text": "."
+ },
+ {
+  "label": "TOOLTIP:ClearButton",
+  "text": "Clear the chat text window"
+ },
+ {
+  "label": "TOOLTIP:Disconnectbutton",
+  "text": "Click to disconnect from your current game. Disconnect will be counted toward your overall total"
+ },
+ {
+  "label": "TOOLTIP:playersonline",
+  "text": "List of players currently on C&C Generals Zero Hour Online"
+ },
+ {
+  "label": "TOOLTIP:WidenSearch",
+  "text": "Click to widen your opponent search criteria. The more specific your criteria is, the more difficult it can be to find an opponent"
+ },
+ {
+  "label": "TOOLTIP:Emote",
+  "text": "."
+ },
+ {
+  "label": "TOOLTIP:JoinGame",
+  "text": "Click to join the selected game"
+ },
+ {
+  "label": "TOOLTIP:BuddyButton",
+  "text": "Sort game list by Buddies"
+ },
+ {
+  "label": "TOOLTIP:matchingprogress",
+  "text": "You can watch as QuickMatch searches for your best match. Keep your fingers crossed!"
+ },
+ {
+  "label": "TOOLTIP:CancelButton",
+  "text": "Click to cancel the current operation"
+ },
+ {
+  "label": "TOOLTIP:resizewindows",
+  "text": "Click and drag vertically to change the size of your Game List window vs. your Chat window"
+ },
+ {
+  "label": "TOOLTIP:CreateGame",
+  "text": "Create a new game. The game will be displayed in the Game List window for other players to join"
+ },
+ {
+  "label": "TOOLTIP:ChatWindow",
+  "text": "Type and press Enter in the Text Entry box below to send messages to this Chat window. Other players can read and respond"
+ },
+ {
+  "label": "TOOLTIP:StopSearch",
+  "text": "Abort your current search"
+ },
+ {
+  "label": "TOOLTIP:StartSearch",
+  "text": "Begin searching"
+ },
+ {
+  "label": "TOOLTIP:UnknownGame",
+  "text": "Unknown game"
+ },
+ {
+  "label": "TOOLTIP:textentrybox",
+  "text": "Type and press Enter in this Text Entry box to send messages to the Chat window above"
+ },
+ {
+  "label": "TOOLTIP:PlayersInLobby",
+  "text": "Current players in your lobby"
+ },
+ {
+  "label": "TOOLTIP:LocalPlayer",
+  "text": "Current player %s"
+ },
+ {
+  "label": "TOOLTIP:BuddyPlayer",
+  "text": "Your buddy %s"
+ },
+ {
+  "label": "TOOLTIP:ProfiledPlayer",
+  "text": "%s"
+ },
+ {
+  "label": "TOOLTIP:GenericPlayer",
+  "text": "%s"
+ },
+ {
+  "label": "TOOLTIP:IgnoredModifier",
+  "text": "(ignored)"
+ },
+ {
+  "label": "TOOLTIP:PlayerInfo",
+  "text": "\n Region: %s \n %d wins/%d losses"
+ },
+ {
+  "label": "TOOLTIP:GameInfoGameName",
+  "text": "Game Name: %s"
+ },
+ {
+  "label": "TOOLTIP:GameInfoLadderName",
+  "text": "\n Ladder: %s"
+ },
+ {
+  "label": "TOOLTIP:LadderName",
+  "text": "Ladder: %s"
+ },
+ {
+  "label": "TOOLTIP:UnknownLadder",
+  "text": "\n Unknown ladder"
+ },
+ {
+  "label": "TOOLTIP:NoLadder",
+  "text": "\n No ladder"
+ },
+ {
+  "label": "TOOLTIP:InvalidGameVersionSingleLine",
+  "text": "This game version is different"
+ },
+ {
+  "label": "TOOLTIP:InvalidGameVersion",
+  "text": ""
+ },
+ {
+  "label": "TOOLTIP:GameInfoMap",
+  "text": "\n Map: %s \n Players:"
+ },
+ {
+  "label": "TOOLTIP:GameInfoPlayer",
+  "text": "\n %s (%d/%d)"
+ },
+ {
+  "label": "TOOLTIP:FreeForAll",
+  "text": "Free For All. No teams/allies allowed"
+ },
+ {
+  "label": "TOOLTIP:ListOfPlayers",
+  "text": "Players in the current game"
+ },
+ {
+  "label": "TOOLTIP:MapName",
+  "text": "Currently selected map"
+ },
+ {
+  "label": "TOOLTIP:GameName",
+  "text": "Name of the game"
+ },
+ {
+  "label": "TOOLTIP:StartGame",
+  "text": "Begin a multiplayer game"
+ },
+ {
+  "label": "TOOLTIP:IgnoreButton",
+  "text": "Ignore player"
+ },
+ {
+  "label": "TOOLTIP:closeButton",
+  "text": "."
+ },
+ {
+  "label": "TOOLTIP:GameOptions",
+  "text": "Options currently enabled in the game"
+ },
+ {
+  "label": "TOOLTIP:Crates",
+  "text": "Bonus crates"
+ },
+ {
+  "label": "TOOLTIP:SuperWeapons",
+  "text": "Super Weapons. Particle Cannon, Nuclear Missile, etc"
+ },
+ {
+  "label": "DOZER:ConstructionComplete",
+  "text": "Construction Complete: %s"
+ },
+ {
+  "label": "DOZER:RepairComplete",
+  "text": "Repair Operation Complete"
+ },
+ {
+  "label": "UPGRADE:UpgradeComplete",
+  "text": "Upgrade Complete: %s"
+ },
+ {
+  "label": "GUI:CantBuildRestrictedTerrain",
+  "text": "The terrain prevents you from building here"
+ },
+ {
+  "label": "GUI:CantBuildNotFlatEnough",
+  "text": "The terrain is not flat enough to build here"
+ },
+ {
+  "label": "GUI:CantBuildObjectsInTheWay",
+  "text": "You cannot build there because there are obstacles in the way"
+ },
+ {
+  "label": "GUI:CantBuildNoClearPath",
+  "text": "Unit cannot reach construction site"
+ },
+ {
+  "label": "GUI:CantBuildShroud",
+  "text": "You must explore there before building"
+ },
+ {
+  "label": "GUI:CantBuildThere",
+  "text": "You can't build here"
+ },
+ {
+  "label": "GUI:RallyPointObjectsInTheWay",
+  "text": "Unable to set rally point, object(s) are in the way of the destination"
+ },
+ {
+  "label": "GUI:RallyPointNoPath",
+  "text": "Unable to set rally point"
+ },
+ {
+  "label": "GUI:RallyPointSet",
+  "text": "%s rally point set"
+ },
+ {
+  "label": "GUI:MouseType",
+  "text": "Mouse Type"
+ },
+ {
+  "label": "GUI:Com",
+  "text": "EAPIM"
+ },
+ {
+  "label": "GUI:CONTROL",
+  "text": "Control"
+ },
+ {
+  "label": "GUI:INFORMATION",
+  "text": "Information"
+ },
+ {
+  "label": "GUI:INTERFACE",
+  "text": "Interface"
+ },
+ {
+  "label": "GUI:SELECTION",
+  "text": "Selection"
+ },
+ {
+  "label": "GUI:TAUNT",
+  "text": "Taunt"
+ },
+ {
+  "label": "GUI:MISC",
+  "text": "Misc"
+ },
+ {
+  "label": "GUI:DEBUG",
+  "text": "Debug"
+ },
+ {
+  "label": "GUI:Cheer",
+  "text": "Cheer"
+ },
+ {
+  "label": "GUI:CheerDescription",
+  "text": "Commands your forces to exult over your great deeds"
+ },
+ {
+  "label": "GUI:Deploy",
+  "text": "Deploy Object"
+ },
+ {
+  "label": "GUI:DeployDescription",
+  "text": "Deploy selected object(s)"
+ },
+ {
+  "label": "GUI:Guard",
+  "text": "Guard"
+ },
+ {
+  "label": "GUI:GuardDescription",
+  "text": "Set the selected object(s) into 'guard area' mode"
+ },
+ {
+  "label": "GUI:CreateFormation",
+  "text": "Create Formation"
+ },
+ {
+  "label": "GUI:Follow",
+  "text": "Follow"
+ },
+ {
+  "label": "GUI:FollowDescription",
+  "text": "Toggle follow state of selected object(s)"
+ },
+ {
+  "label": "GUI:ToggleControlBar",
+  "text": "Toggle Control Bar"
+ },
+ {
+  "label": "GUI:ToggleControlBarDescription",
+  "text": "Toggles the In Game Control Bar on/off"
+ },
+ {
+  "label": "GUI:ToggleLetterbox",
+  "text": "Toggle Letter Box"
+ },
+ {
+  "label": "GUI:ToggleLetterboxDescription",
+  "text": "Toggles Letterbox Mode on/off"
+ }
+]

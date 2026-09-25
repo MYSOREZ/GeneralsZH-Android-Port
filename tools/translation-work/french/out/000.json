@@ -1,0 +1,802 @@
+[
+ {
+  "label": "GUI:GameOptions",
+  "text": "OPTIONS DE JEU"
+ },
+ {
+  "label": "GUI:SinglePlayer",
+  "text": "PARTIE SOLO"
+ },
+ {
+  "label": "GUI:Network",
+  "text": "RÉSEAU"
+ },
+ {
+  "label": "GUI:Options",
+  "text": "OPTIONS"
+ },
+ {
+  "label": "GUI:Skirmish",
+  "text": "ESCARMOUCHE"
+ },
+ {
+  "label": "GUI:Back",
+  "text": "RETOUR"
+ },
+ {
+  "label": "GUI:StartGame",
+  "text": "JOUER"
+ },
+ {
+  "label": "GUI:Color",
+  "text": "Couleur"
+ },
+ {
+  "label": "GUI:Slower",
+  "text": "Plus lent"
+ },
+ {
+  "label": "GUI:Faster",
+  "text": "Plus rapide"
+ },
+ {
+  "label": "GUI:Low",
+  "text": "Faible"
+ },
+ {
+  "label": "GUI:Medium",
+  "text": "Moyen"
+ },
+ {
+  "label": "GUI:High",
+  "text": "Élevé"
+ },
+ {
+  "label": "GUI:None",
+  "text": "Aucun"
+ },
+ {
+  "label": "GUI:Random",
+  "text": "Aléatoire"
+ },
+ {
+  "label": "GUI:Cancel",
+  "text": "ANNULER"
+ },
+ {
+  "label": "GUI:Ok",
+  "text": "OK"
+ },
+ {
+  "label": "GUI:Delete",
+  "text": "Supprimer"
+ },
+ {
+  "label": "GUI:Description",
+  "text": "Description"
+ },
+ {
+  "label": "GUI:Load",
+  "text": "CHARGER"
+ },
+ {
+  "label": "GUI:Progress",
+  "text": "Progression"
+ },
+ {
+  "label": "GUI:Assign",
+  "text": "Attribuer"
+ },
+ {
+  "label": "GUI:CustomizeKeyboard",
+  "text": "Personnaliser le clavier"
+ },
+ {
+  "label": "GUI:Category",
+  "text": "Catégorie"
+ },
+ {
+  "label": "GUI:Commands",
+  "text": "Commandes"
+ },
+ {
+  "label": "GUI:ResetAll",
+  "text": "Tout réinitialiser"
+ },
+ {
+  "label": "GUI:DisplayOptions",
+  "text": "OPTIONS D'AFFICHAGE"
+ },
+ {
+  "label": "GUI:KeyboardOptions",
+  "text": "Options du clavier"
+ },
+ {
+  "label": "GUI:MainMenu",
+  "text": "QUITTER"
+ },
+ {
+  "label": "GUI:Units",
+  "text": "Unités"
+ },
+ {
+  "label": "GUI:Buildings",
+  "text": "Bâtiments"
+ },
+ {
+  "label": "GUI:Players",
+  "text": "Joueurs"
+ },
+ {
+  "label": "GUI:Preview",
+  "text": "Aperçu de la carte"
+ },
+ {
+  "label": "GUI:Save",
+  "text": "Enregistrer"
+ },
+ {
+  "label": "GUI:Side",
+  "text": "Armée"
+ },
+ {
+  "label": "GUI:Accept",
+  "text": "ACCEPTER"
+ },
+ {
+  "label": "GUI:Games",
+  "text": "Parties"
+ },
+ {
+  "label": "GUI:Join",
+  "text": "REJOINDRE"
+ },
+ {
+  "label": "GUI:LoadGame",
+  "text": "CHARGER UNE PARTIE"
+ },
+ {
+  "label": "GUI:SaveGame",
+  "text": "SAUVEGARDER"
+ },
+ {
+  "label": "GUI:Score",
+  "text": "Score"
+ },
+ {
+  "label": "GUI:Add",
+  "text": "Ajouter"
+ },
+ {
+  "label": "GUI:MusicVolume",
+  "text": "Volume de la musique"
+ },
+ {
+  "label": "GUI:VoiceVolume",
+  "text": "Volume des voix"
+ },
+ {
+  "label": "GUI:Play",
+  "text": "Jouer"
+ },
+ {
+  "label": "GUI:Stop",
+  "text": "STOP"
+ },
+ {
+  "label": "GUI:Continue",
+  "text": "CONTINUER"
+ },
+ {
+  "label": "GUI:MaxPing",
+  "text": "Ping max. autorisé :"
+ },
+ {
+  "label": "GUI:Ladder",
+  "text": "Classement"
+ },
+ {
+  "label": "GUI:Close",
+  "text": "Fermer"
+ },
+ {
+  "label": "GUI:Help",
+  "text": "Aide"
+ },
+ {
+  "label": "GUI:Rank",
+  "text": "Rang"
+ },
+ {
+  "label": "GUI:Password",
+  "text": "Mot de passe"
+ },
+ {
+  "label": "GUI:Disconnect",
+  "text": "DÉCONNEXION"
+ },
+ {
+  "label": "GUI:No",
+  "text": "NON"
+ },
+ {
+  "label": "GUI:Yes",
+  "text": "OUI"
+ },
+ {
+  "label": "GUI:Blank",
+  "text": "."
+ },
+ {
+  "label": "GUI:Open",
+  "text": "Ouverte"
+ },
+ {
+  "label": "GUI:Closed",
+  "text": "Fermée"
+ },
+ {
+  "label": "GUI:Login",
+  "text": "CONNEXION"
+ },
+ {
+  "label": "GUI:WOLWelcome",
+  "text": "Bienvenue, général %hs"
+ },
+ {
+  "label": "GUI:QuickMatch",
+  "text": "PARTIE RAPIDE"
+ },
+ {
+  "label": "GUI:CustomMatch",
+  "text": "PARTIE PERSONNALISÉE"
+ },
+ {
+  "label": "GUI:LadderRank",
+  "text": "Rang au classement"
+ },
+ {
+  "label": "GUI:Disconnects",
+  "text": "Déconnexions"
+ },
+ {
+  "label": "GUI:CreateGame",
+  "text": "CRÉER UNE PARTIE"
+ },
+ {
+  "label": "GUI:AutoLogin",
+  "text": "Connexion automatique à l'avenir"
+ },
+ {
+  "label": "GUI:AddBuddy",
+  "text": "Ajouter un ami"
+ },
+ {
+  "label": "GUI:RemoveBuddy",
+  "text": "Retirer un ami"
+ },
+ {
+  "label": "GUI:AudioOptions",
+  "text": "OPTIONS AUDIO"
+ },
+ {
+  "label": "GUI:LadderWins",
+  "text": "Victoires classées"
+ },
+ {
+  "label": "GUI:LadderLosses",
+  "text": "Défaites classées"
+ },
+ {
+  "label": "GUI:LadderPoints",
+  "text": "Points de classement"
+ },
+ {
+  "label": "WOL:BuddyOffline",
+  "text": "%ls est hors ligne"
+ },
+ {
+  "label": "WOL:Locale00",
+  "text": "Inconnu"
+ },
+ {
+  "label": "WOL:Locale01",
+  "text": "Autre pays"
+ },
+ {
+  "label": "WOL:Locale02",
+  "text": "États-Unis"
+ },
+ {
+  "label": "WOL:Locale03",
+  "text": "Canada"
+ },
+ {
+  "label": "WOL:Locale04",
+  "text": "Royaume-Uni"
+ },
+ {
+  "label": "WOL:Locale05",
+  "text": "Allemagne"
+ },
+ {
+  "label": "WOL:Locale06",
+  "text": "France"
+ },
+ {
+  "label": "WOL:Locale07",
+  "text": "Espagne"
+ },
+ {
+  "label": "WOL:Locale08",
+  "text": "Pays-Bas"
+ },
+ {
+  "label": "WOL:Locale09",
+  "text": "Belgique"
+ },
+ {
+  "label": "WOL:Locale10",
+  "text": "Autriche"
+ },
+ {
+  "label": "WOL:Locale11",
+  "text": "Suisse"
+ },
+ {
+  "label": "WOL:Locale12",
+  "text": "Italie"
+ },
+ {
+  "label": "WOL:Locale13",
+  "text": "Danemark"
+ },
+ {
+  "label": "WOL:Locale14",
+  "text": "Suède"
+ },
+ {
+  "label": "WOL:Locale15",
+  "text": "Norvège"
+ },
+ {
+  "label": "WOL:Locale16",
+  "text": "Finlande"
+ },
+ {
+  "label": "WOL:Locale17",
+  "text": "Israël"
+ },
+ {
+  "label": "WOL:Locale18",
+  "text": "Afrique du Sud"
+ },
+ {
+  "label": "WOL:Locale19",
+  "text": "Japon"
+ },
+ {
+  "label": "WOL:Locale20",
+  "text": "Corée"
+ },
+ {
+  "label": "WOL:Locale21",
+  "text": "Chine"
+ },
+ {
+  "label": "WOL:Locale22",
+  "text": "Singapour"
+ },
+ {
+  "label": "WOL:Locale23",
+  "text": "Taïwan"
+ },
+ {
+  "label": "WOL:Locale24",
+  "text": "Malaisie"
+ },
+ {
+  "label": "WOL:Locale25",
+  "text": "Australie"
+ },
+ {
+  "label": "WOL:Locale26",
+  "text": "Nouvelle-Zélande"
+ },
+ {
+  "label": "WOL:Locale27",
+  "text": "Brésil"
+ },
+ {
+  "label": "WOL:Locale28",
+  "text": "Thaïlande"
+ },
+ {
+  "label": "WOL:Locale29",
+  "text": "Argentine"
+ },
+ {
+  "label": "WOL:Locale30",
+  "text": "Philippines"
+ },
+ {
+  "label": "WOL:Locale31",
+  "text": "Grèce"
+ },
+ {
+  "label": "WOL:Locale32",
+  "text": "Irlande"
+ },
+ {
+  "label": "WOL:Locale33",
+  "text": "Pologne"
+ },
+ {
+  "label": "WOL:Locale34",
+  "text": "Portugal"
+ },
+ {
+  "label": "WOL:Locale35",
+  "text": "Mexique"
+ },
+ {
+  "label": "WOL:Locale36",
+  "text": "Russie"
+ },
+ {
+  "label": "WOL:Locale37",
+  "text": "Turquie"
+ },
+ {
+  "label": "GUI:Observer",
+  "text": "Observateur"
+ },
+ {
+  "label": "GUI:Team",
+  "text": "Équipe"
+ },
+ {
+  "label": "LETTER:G",
+  "text": "G"
+ },
+ {
+  "label": "LETTER:L",
+  "text": "L"
+ },
+ {
+  "label": "LETTER:M",
+  "text": "M"
+ },
+ {
+  "label": "LETTER:S",
+  "text": "S"
+ },
+ {
+  "label": "LETTER:O",
+  "text": "O"
+ },
+ {
+  "label": "NUMBER:1",
+  "text": "1"
+ },
+ {
+  "label": "NUMBER:2",
+  "text": "2"
+ },
+ {
+  "label": "NUMBER:3",
+  "text": "3"
+ },
+ {
+  "label": "NUMBER:4",
+  "text": "4"
+ },
+ {
+  "label": "NUMBER:5",
+  "text": "5"
+ },
+ {
+  "label": "NUMBER:6",
+  "text": "6"
+ },
+ {
+  "label": "NUMBER:7",
+  "text": "7"
+ },
+ {
+  "label": "NUMBER:8",
+  "text": "8"
+ },
+ {
+  "label": "NUMBER:9",
+  "text": "9"
+ },
+ {
+  "label": "NUMBER:0",
+  "text": "0"
+ },
+ {
+  "label": "Color:Gold",
+  "text": "Or"
+ },
+ {
+  "label": "Color:Red",
+  "text": "Rouge"
+ },
+ {
+  "label": "Color:Blue",
+  "text": "Bleu"
+ },
+ {
+  "label": "Color:Green",
+  "text": "Vert"
+ },
+ {
+  "label": "Color:Orange",
+  "text": "Orange"
+ },
+ {
+  "label": "Color:SkyBlue",
+  "text": "Cyan"
+ },
+ {
+  "label": "Color:Purple",
+  "text": "Violet"
+ },
+ {
+  "label": "Color:Pink",
+  "text": "Rose"
+ },
+ {
+  "label": "MSG:Testing",
+  "text": "Marie avait un petit agneau, sa toison était blanche comme neige"
+ },
+ {
+  "label": "MSG:Test2",
+  "text": "Et partout où Marie allait, l'agneau la suivait sûrement"
+ },
+ {
+  "label": "GUI:ShowBehindBuildings",
+  "text": "Signature thermique derrière les bâtiments ACTIVÉE"
+ },
+ {
+  "label": "GUI:HideBehindBuildings",
+  "text": "Signature thermique derrière les bâtiments DÉSACTIVÉE"
+ },
+ {
+  "label": "GUI:DetailsSetToLowest",
+  "text": "Détails graphiques faibles"
+ },
+ {
+  "label": "GUI:ReturnGraphicsToPreviousSettings",
+  "text": "Rétablissement de vos réglages graphiques précédents"
+ },
+ {
+  "label": "GUI:BeaconLabel",
+  "text": "Tapez le message :"
+ },
+ {
+  "label": "GUI:Beacon",
+  "text": "Balise"
+ },
+ {
+  "label": "GUI:EACopyright",
+  "text": "© 2003 ELECTRONIC ARTS INC. TOUS DROITS RÉSERVÉS"
+ },
+ {
+  "label": "GUI:DeleteBeacon",
+  "text": "Supprimer \n balise"
+ },
+ {
+  "label": "GUI:BeaconPlaced",
+  "text": "Une balise a été placée par %ls"
+ },
+ {
+  "label": "GUI:BeaconPlacementFailed",
+  "text": "Impossible de placer une balise ici"
+ },
+ {
+  "label": "GUI:TooManyBeacons",
+  "text": "Désolé, vous ne pouvez plus placer de balises"
+ },
+ {
+  "label": "GUI:EA",
+  "text": "EA"
+ },
+ {
+  "label": "GUI:TestBrowser",
+  "text": "Tester le navigateur"
+ },
+ {
+  "label": "GUI:Multiplayer",
+  "text": "MULTIJOUEUR"
+ },
+ {
+  "label": "GUI:GameName",
+  "text": "Nom de la partie :"
+ },
+ {
+  "label": "GUI:NoFileSelected",
+  "text": "VEUILLEZ SÉLECTIONNER UN FICHIER"
+ },
+ {
+  "label": "GUI:PleaseSelectAFile",
+  "text": "Veuillez sélectionner un fichier"
+ },
+ {
+  "label": "GUI:DeleteFile",
+  "text": "SUPPRIMER LE FICHIER ?"
+ },
+ {
+  "label": "GUI:AreYouSureDelete",
+  "text": "Voulez-vous vraiment supprimer le fichier sélectionné ?"
+ },
+ {
+  "label": "GUI:CopyFileToDesktop",
+  "text": "COPIER LE REPLAY SUR LE BUREAU ?"
+ },
+ {
+  "label": "GUI:AreYouSureCopy",
+  "text": "Voulez-vous vraiment copier ce fichier sur le Bureau ? Tout fichier portant le même nom sera écrasé"
+ },
+ {
+  "label": "GUI:ErrorCopyingFile",
+  "text": "UNE ERREUR S'EST PRODUITE LORS DE LA COPIE DU FICHIER"
+ },
+ {
+  "label": "GUI:LoadReplay",
+  "text": "CHARGER LE REPLAY"
+ },
+ {
+  "label": "GUI:DeleteReplay",
+  "text": "SUPPRIMER LE REPLAY"
+ },
+ {
+  "label": "GUI:CopyReplay",
+  "text": "COPIER LE REPLAY"
+ },
+ {
+  "label": "GUI:ErrorDeletingFile",
+  "text": "UNE ERREUR S'EST PRODUITE LORS DE LA SUPPRESSION DU FICHIER"
+ },
+ {
+  "label": "GUI:ShortDescription",
+  "text": "Brève description de la partie :"
+ },
+ {
+  "label": "GUI:LadderName",
+  "text": "Nom du classement :"
+ },
+ {
+  "label": "GUI:LadderPassword",
+  "text": "Mot de passe du classement"
+ },
+ {
+  "label": "GUI:LadderURL",
+  "text": "Page d'accueil : %hs"
+ },
+ {
+  "label": "GUI:LadderHasPassword",
+  "text": "Ce classement est protégé par mot de passe"
+ },
+ {
+  "label": "GUI:LadderMinWins",
+  "text": "Victoires minimum requises : %d"
+ },
+ {
+  "label": "GUI:LadderMaxWins",
+  "text": "Victoires maximum autorisées : %d"
+ },
+ {
+  "label": "GUI:LadderFactions",
+  "text": "Factions autorisées :"
+ },
+ {
+  "label": "GUI:LadderRandomFactions",
+  "text": "Factions aléatoires :"
+ },
+ {
+  "label": "GUI:LadderMaps",
+  "text": "Cartes autorisées :"
+ },
+ {
+  "label": "GUI:LadderRandomMaps",
+  "text": "Cartes aléatoires :"
+ },
+ {
+  "label": "GUI:AllowObservers",
+  "text": "Autoriser les observateurs"
+ },
+ {
+  "label": "GUI:USA",
+  "text": "USA"
+ },
+ {
+  "label": "GUI:China",
+  "text": "Chine"
+ },
+ {
+  "label": "GUI:GLA",
+  "text": "GLA"
+ },
+ {
+  "label": "GUI:AmericaAllies",
+  "text": "Alliés des USA"
+ },
+ {
+  "label": "GUI:ChinaAllies",
+  "text": "Alliés de la Chine"
+ },
+ {
+  "label": "GUI:GLAAllies",
+  "text": "Alliés de la GLA"
+ },
+ {
+  "label": "GUI:AmericaEnemies",
+  "text": "Ennemis des USA"
+ },
+ {
+  "label": "GUI:ChinaEnemies",
+  "text": "Ennemis de la Chine"
+ },
+ {
+  "label": "GUI:GLAEnemies",
+  "text": "Ennemis de la GLA"
+ },
+ {
+  "label": "GUI:EndCampaign",
+  "text": "FIN DE LA CAMPAGNE"
+ },
+ {
+  "label": "GUI:Retry",
+  "text": "REJOUER ?"
+ },
+ {
+  "label": "GUI:RecentSave",
+  "text": "Sauvegarde récente"
+ },
+ {
+  "label": "GUI:GetUpdate",
+  "text": "Obtenir la mise à jour"
+ },
+ {
+  "label": "GUI:DirectConnect",
+  "text": "CONNEXION DIRECTE"
+ },
+ {
+  "label": "GUI:WorldBuilder",
+  "text": "WORLD BUILDER"
+ },
+ {
+  "label": "GUI:WorldBuilderLoadFailed",
+  "text": "Échec du chargement de World Builder"
+ },
+ {
+  "label": "GUI:DontUseAccount",
+  "text": "Ne pas utiliser de compte"
+ },
+ {
+  "label": "GUI:UseAccount",
+  "text": "Utiliser un compte"
+ },
+ {
+  "label": "GUI:ScoreScreen",
+  "text": "Écran des scores"
+ },
+ {
+  "label": "GUI:Rehost",
+  "text": "REJOUER ?"
+ },
+ {
+  "label": "GUI:UnitsBuilt",
+  "text": "Unités \n créées"
+ },
+ {
+  "label": "GUI:UnitsLost",
+  "text": "Unités \n perdues"
+ },
+ {
+  "label": "GUI:UnitsKilled",
+  "text": "Unités \n détruites"
+ }
+]

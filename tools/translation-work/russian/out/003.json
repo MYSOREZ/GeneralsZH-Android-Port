@@ -1,0 +1,802 @@
+[
+ {
+  "label": "WOL:NoMatchbot",
+  "text": "Создатель матча не найден"
+ },
+ {
+  "label": "WOL:BadMatchParams",
+  "text": "Неверные параметры матча"
+ },
+ {
+  "label": "WOL:ChatErrorNickInUse",
+  "text": "Это имя уже используется"
+ },
+ {
+  "label": "WOL:ChatErrorBadPass",
+  "text": "Неверный пароль для этого имени"
+ },
+ {
+  "label": "WOL:ChatErrorNoneSuch",
+  "text": "Нет такого пользователя или канала"
+ },
+ {
+  "label": "WOL:ChatErrorConNetDown",
+  "text": "Сетевое соединение потеряно"
+ },
+ {
+  "label": "WOL:ChatErrorConLookupFailed",
+  "text": "Ошибка DNS-запроса"
+ },
+ {
+  "label": "WOL:ChatErrorConError",
+  "text": "Произошла критическая сетевая ошибка"
+ },
+ {
+  "label": "WOL:ChatErrorTimeout",
+  "text": "Время вышло."
+ },
+ {
+  "label": "WOL:ChatErrorMustPatch",
+  "text": "Вы должны скачать последнее Обновление до присоединения к C&C Generals Zero Hour Online"
+ },
+ {
+  "label": "WOL:ChatErrorStatusError",
+  "text": "Внутренняя ошибка статуса"
+ },
+ {
+  "label": "WOL:ChatErrorUnknownResponse",
+  "text": "Неизвестный ответ"
+ },
+ {
+  "label": "WOL:ChatErrorChannelFull",
+  "text": "Канал полный"
+ },
+ {
+  "label": "WOL:ChatErrorChannelExists",
+  "text": "Канал уже существует"
+ },
+ {
+  "label": "WOL:ChatErrorChannelDoesNotExist",
+  "text": "Канала не существует"
+ },
+ {
+  "label": "WOL:ChatErrorBadChannelPassword",
+  "text": "Неверный пароль канала"
+ },
+ {
+  "label": "WOL:ChatErrorBanned",
+  "text": "Извините, но Вы были заблокированы в C&C Generals Zero Hour Online. Пожалуйста, ознакомьтесь с соглашением о предоставляемых услугах"
+ },
+ {
+  "label": "WOL:ChatErrorNotOper",
+  "text": "Невозможно осуществить эту операцию"
+ },
+ {
+  "label": "WOL:ChatErrorAccountDisabled",
+  "text": "Ваша учетная запись отключена."
+ },
+ {
+  "label": "WOL:ChatErrorSerialBanned",
+  "text": "Ваш серийный номер заблокирован. Пожалуйста, перечитайте соглашение о предоставляемых услугах"
+ },
+ {
+  "label": "WOL:ChatErrorSerialDup",
+  "text": "Ваш серийный номер уже используется"
+ },
+ {
+  "label": "WOL:ChatErrorSerialUnknown",
+  "text": "Ваш серийный номер неправильный"
+ },
+ {
+  "label": "WOL:NetUtilErrorGeneric",
+  "text": "Ошибка Generic NetUtil"
+ },
+ {
+  "label": "WOL:NetUtilErrorBusy",
+  "text": "Занято"
+ },
+ {
+  "label": "WOL:NetUtilErrorTimeout",
+  "text": "Время вышло"
+ },
+ {
+  "label": "WOL:NetUtilErrorInvalidField",
+  "text": "Неверное поле"
+ },
+ {
+  "label": "WOL:NetUtilErrorCantVerify",
+  "text": "Нет подтверждения"
+ },
+ {
+  "label": "WOL:NetUtilFinished",
+  "text": "Завершено"
+ },
+ {
+  "label": "WOL:UnknownError",
+  "text": "Неизвестная ошибка"
+ },
+ {
+  "label": "WOL:CouldNotCreateChannel",
+  "text": "Нельзя создать канал"
+ },
+ {
+  "label": "WOL:ErrorTitle",
+  "text": "Ошибка C&C Generals Zero Hour Online"
+ },
+ {
+  "label": "WOL:LoginErrorTitle",
+  "text": "Ошибка входа"
+ },
+ {
+  "label": "WOL:CreatingChannel",
+  "text": "Создание канала"
+ },
+ {
+  "label": "WOL:ChannelClosed",
+  "text": "Канал закрыт"
+ },
+ {
+  "label": "WOL:BadChannelPassword",
+  "text": "Неверный пароль канала"
+ },
+ {
+  "label": "WOL:ChannelFull",
+  "text": "Канал полный"
+ },
+ {
+  "label": "WOL:BannedFromChannel",
+  "text": "Вы были заблокированы на канале"
+ },
+ {
+  "label": "WOL:CannotJoinChannel",
+  "text": "Невозможно присоединиться к каналу"
+ },
+ {
+  "label": "WOL:NoWOLAPI",
+  "text": "Общие интернет-компоненты не установлены"
+ },
+ {
+  "label": "WOL:OldWOLAPI",
+  "text": "Нужно обновить общие интернет-компоненты. Пожалуйста, установите их с диска C&C Generals Zero Hour"
+ },
+ {
+  "label": "WOL:BadRegistry",
+  "text": "Данные C&C Generals Zero Hour в реестре повреждены"
+ },
+ {
+  "label": "WOL:GotPing",
+  "text": "Получен пинг %dms. Чем меньше пинг, тем лучше связь"
+ },
+ {
+  "label": "WOL:ServerListAndVersion",
+  "text": "Получение списка серверов"
+ },
+ {
+  "label": "WOL:GettingPings",
+  "text": "Получение пинга. Маленький пинг, залог успешной связи"
+ },
+ {
+  "label": "WOL:Connecting",
+  "text": "Соединение"
+ },
+ {
+  "label": "WOL:JoinedChannel",
+  "text": "Вы присоединились к %ls"
+ },
+ {
+  "label": "WOL:LeftChannel",
+  "text": "Вы покинули %ls"
+ },
+ {
+  "label": "WOL:UserKicked",
+  "text": "%ls выпнул(а) %ls из %ls"
+ },
+ {
+  "label": "WOL:BeginIgnoreList",
+  "text": "Начало списка игнорирования"
+ },
+ {
+  "label": "WOL:IgnoredUser",
+  "text": "%ls"
+ },
+ {
+  "label": "WOL:EndIgnoreList",
+  "text": "Конец списка игнорирования"
+ },
+ {
+  "label": "WOL:DownloadPatchNow",
+  "text": "Вы хотите скачать Обновление прямо сейчас?"
+ },
+ {
+  "label": "WOL:FindInChannel",
+  "text": "%ls на %s"
+ },
+ {
+  "label": "WOL:FindInChannelOtherServer",
+  "text": "%ls в %s на %s"
+ },
+ {
+  "label": "WOL:FindOffline",
+  "text": "%ls не вошел"
+ },
+ {
+  "label": "WOL:FindHiding",
+  "text": "%ls не отвечает на запросы поиска"
+ },
+ {
+  "label": "WOL:FindNotInChannel",
+  "text": "%ls не на канале"
+ },
+ {
+  "label": "WOL:FindNotInChannelOtherServer",
+  "text": "%ls на %s"
+ },
+ {
+  "label": "WOL:Lob_49_0",
+  "text": "Главная прихожая"
+ },
+ {
+  "label": "WOL:Lob_49_1",
+  "text": "Альтернатива"
+ },
+ {
+  "label": "WOL:Lob_49_2",
+  "text": "Реальность"
+ },
+ {
+  "label": "WOL:Lob_41_0",
+  "text": "Быстрый Матч"
+ },
+ {
+  "label": "WOL:UnknownServer",
+  "text": "неизвестный сервер"
+ },
+ {
+  "label": "WOL:UnknownChannel",
+  "text": "неизвестный канал"
+ },
+ {
+  "label": "WOL:BuddyMatching",
+  "text": "%ls играет быстрый матч"
+ },
+ {
+  "label": "WOL:BuddyNotInChan",
+  "text": "%ls в сети"
+ },
+ {
+  "label": "WOL:BuddyInGame",
+  "text": "%ls играет"
+ },
+ {
+  "label": "WOL:BuddyInChat",
+  "text": "%ls разговаривает на %ls"
+ },
+ {
+  "label": "WOL:BuddyGameSetup",
+  "text": "%ls на %ls"
+ },
+ {
+  "label": "WOL:BuddyMatchingOtherServer",
+  "text": "%ls играет быстрый матч на %ls"
+ },
+ {
+  "label": "WOL:BuddyNotInChanOtherServer",
+  "text": "%ls в сети на %ls"
+ },
+ {
+  "label": "WOL:BuddyInGameOtherServer",
+  "text": "%ls играет на %ls"
+ },
+ {
+  "label": "WOL:BuddyInChatOtherServer",
+  "text": "%ls разговаривает в %ls на %ls"
+ },
+ {
+  "label": "WOL:BuddyGameSetupOtherServer",
+  "text": "%ls в %ls на %ls"
+ },
+ {
+  "label": "WOL:BuddyHiding",
+  "text": "%ls скрывается"
+ },
+ {
+  "label": "Chat:Everyone",
+  "text": "Показывать всех"
+ },
+ {
+  "label": "Chat:Allies",
+  "text": "Показывать только союзников"
+ },
+ {
+  "label": "GUI:Clear",
+  "text": "ОЧИСТИТЬ"
+ },
+ {
+  "label": "LAN:GameStartTimerPlural",
+  "text": "Игра начнется через %d секунд."
+ },
+ {
+  "label": "LAN:GameStartTimerSingular",
+  "text": "Игра начнется через %d секунду."
+ },
+ {
+  "label": "LAN:HostNotResponding",
+  "text": "Игра окончена; сервер не отвечает."
+ },
+ {
+  "label": "LAN:PlayerDropped",
+  "text": "%ls выброшен(а); игрок не отвечает."
+ },
+ {
+  "label": "LAN:NeedMorePlayers",
+  "text": "Вам нужно больше чем %d игрок(ов) для начала игры."
+ },
+ {
+  "label": "LAN:NeedMoreTeams",
+  "text": "Нужно больше 1 команды для начала игры."
+ },
+ {
+  "label": "LAN:TooManyPlayers",
+  "text": "Эта карта вмещает только %d игроков."
+ },
+ {
+  "label": "LAN:OK",
+  "text": "OK"
+ },
+ {
+  "label": "LAN:ErrorNoGameSelected",
+  "text": "Пожалуйста, выберите сначала игру."
+ },
+ {
+  "label": "LAN:ErrorTimeout",
+  "text": "Время соединения вышло."
+ },
+ {
+  "label": "LAN:ErrorGameFull",
+  "text": "Эта игра полная."
+ },
+ {
+  "label": "LAN:ErrorDuplicateName",
+  "text": "Такое же имя уже в игре."
+ },
+ {
+  "label": "LAN:ErrorCRCMismatch",
+  "text": "Игра обнаружила несоответствие. Это значит, что коллективная игра потеряла синхронизацию данных игроков. Возможно это из-за того, что Ваш оппонент изменил свою версию и если хотите, то можете включить его в свой список игнорирования."
+ },
+ {
+  "label": "LAN:ErrorGameStarted",
+  "text": "Извините, но эта игра уже началась."
+ },
+ {
+  "label": "LAN:ErrorGameExists",
+  "text": "Игра с таким названием уже существует."
+ },
+ {
+  "label": "LAN:ErrorGameGone",
+  "text": "Игра исчезла."
+ },
+ {
+  "label": "LAN:ErrorBusy",
+  "text": "Ожидается другая операция."
+ },
+ {
+  "label": "LAN:ErrorUnknown",
+  "text": "Неизвестная ошибка"
+ },
+ {
+  "label": "LAN:JoinFailed",
+  "text": "СОЕД. НЕВОЗМОЖНО"
+ },
+ {
+  "label": "Network:PlayerLeft",
+  "text": "%ls покинул(а) игру."
+ },
+ {
+  "label": "INI:MissingDisplayName",
+  "text": "НЕ НАЙДЕНО название (DisplayName) для объекта '%S'"
+ },
+ {
+  "label": "INI:FactionDefault",
+  "text": "Армия по умолчанию"
+ },
+ {
+  "label": "INI:FactionObserver",
+  "text": "Наблюдатель"
+ },
+ {
+  "label": "INI:FactionCivilian",
+  "text": "Гражданские"
+ },
+ {
+  "label": "INI:FactionAmerica",
+  "text": "США"
+ },
+ {
+  "label": "INI:FactionChina",
+  "text": "Китай"
+ },
+ {
+  "label": "INI:FactionGLA",
+  "text": "МАО"
+ },
+ {
+  "label": "INI:FactionChinaHacker",
+  "text": "Китайский хакер"
+ },
+ {
+  "label": "SIDE:America",
+  "text": "США"
+ },
+ {
+  "label": "SIDE:China",
+  "text": "Китай"
+ },
+ {
+  "label": "SIDE:GLA",
+  "text": "МАО"
+ },
+ {
+  "label": "INI:RankLevel1",
+  "text": "Генерал 1 ранга"
+ },
+ {
+  "label": "INI:RankLevel2",
+  "text": "Генерал 2 ранга"
+ },
+ {
+  "label": "INI:RankLevel3",
+  "text": "Генерал 3 ранга"
+ },
+ {
+  "label": "INI:RankLevel4",
+  "text": "Генерал 4 ранга"
+ },
+ {
+  "label": "INI:RankLevel5",
+  "text": "Генерал 5 ранга"
+ },
+ {
+  "label": "INI:RankLevel6",
+  "text": "Г-н плохой чел (Звание 6)"
+ },
+ {
+  "label": "INI:RankLevel7",
+  "text": "Д-р смерть (Звание 7)"
+ },
+ {
+  "label": "INI:RankLevel8",
+  "text": "Самый смертоносный чел (Звание 8)"
+ },
+ {
+  "label": "TOOLTIP:MyInfo",
+  "text": "Нажмите для обзора информации о Вашей личности. Вы можете посмотреть Ваше звание, очки, победы, поражения, боевые награды и т.д."
+ },
+ {
+  "label": "TOOLTIP:CustomMatch",
+  "text": "Нажмите, чтобы присоединиться к прихожей матча, для беседы с игроками"
+ },
+ {
+  "label": "TOOLTIP:SelectAll",
+  "text": "Быстрый матч на всех доступных картах"
+ },
+ {
+  "label": "TOOLTIP:SelectNone",
+  "text": "Быстрый матч ни на одной карте"
+ },
+ {
+  "label": "TOOLTIP:EnterPassword",
+  "text": "Пожалуйста, введите пароль"
+ },
+ {
+  "label": "TOOLTIP:Quickmatch",
+  "text": "Нажмите, чтобы начать быстрый матч. Быстрый матч автоматически будет максимально соответствовать Вашим умениям и предпочтениям"
+ },
+ {
+  "label": "TOOLTIP:GameLobbys",
+  "text": "."
+ },
+ {
+  "label": "TOOLTIP:ClearButton",
+  "text": "Очистить окно с текстом разговора"
+ },
+ {
+  "label": "TOOLTIP:Disconnectbutton",
+  "text": "Нажмите для отсоединения от этой игры. Отсоединение прибавится к Вашему количеству отсоединений"
+ },
+ {
+  "label": "TOOLTIP:playersonline",
+  "text": "Список игроков, которые сейчас в C&C Generals Zero Hour Online"
+ },
+ {
+  "label": "TOOLTIP:WidenSearch",
+  "text": "Нажмите для расширенного поиска оппонентов по Вашим критериям. Чем точнее Ваши критерии, тем сложнее найти Вам оппонента"
+ },
+ {
+  "label": "TOOLTIP:Emote",
+  "text": "."
+ },
+ {
+  "label": "TOOLTIP:JoinGame",
+  "text": "Нажмите для присоединения к выбранной игре"
+ },
+ {
+  "label": "TOOLTIP:BuddyButton",
+  "text": "Сортировать список игр по друзьям"
+ },
+ {
+  "label": "TOOLTIP:matchingprogress",
+  "text": "Вы можете увидеть, как быстрый матч ищет для Вас наиболее подходящий матч. Скрестите Ваши пальцы!"
+ },
+ {
+  "label": "TOOLTIP:CancelButton",
+  "text": "Нажмите, чтобы отменить данную операцию"
+ },
+ {
+  "label": "TOOLTIP:resizewindows",
+  "text": "Нажмите и потащите по вертикали, чтобы изменить размер Вашего окна списка игр возле окна чата"
+ },
+ {
+  "label": "TOOLTIP:CreateGame",
+  "text": "Создать новую игру. Игра будет отображаться в списке игр, чтобы другие игроки смогли присоединиться"
+ },
+ {
+  "label": "TOOLTIP:ChatWindow",
+  "text": "Напишите и нажмите Enter в пустом текстовом поле для отправки сообщения в окно этого чата. Другие игроки смогут прочесть и ответить"
+ },
+ {
+  "label": "TOOLTIP:StopSearch",
+  "text": "Прервать Ваш поиск"
+ },
+ {
+  "label": "TOOLTIP:StartSearch",
+  "text": "Начать поиск"
+ },
+ {
+  "label": "TOOLTIP:UnknownGame",
+  "text": "Неизвестная игра"
+ },
+ {
+  "label": "TOOLTIP:textentrybox",
+  "text": "Напишите и нажмите Enter в пустом текстовом поле для отправки сообщения в верхнее окно чата"
+ },
+ {
+  "label": "TOOLTIP:PlayersInLobby",
+  "text": "Игроки в Вашей прихожей"
+ },
+ {
+  "label": "TOOLTIP:LocalPlayer",
+  "text": "Текущий игрок %s"
+ },
+ {
+  "label": "TOOLTIP:BuddyPlayer",
+  "text": "Ваш друг %s"
+ },
+ {
+  "label": "TOOLTIP:ProfiledPlayer",
+  "text": "%s"
+ },
+ {
+  "label": "TOOLTIP:GenericPlayer",
+  "text": "%s"
+ },
+ {
+  "label": "TOOLTIP:IgnoredModifier",
+  "text": "(игнорируется)"
+ },
+ {
+  "label": "TOOLTIP:PlayerInfo",
+  "text": "    \n Регион: %s  \n %d побед/%d поражений"
+ },
+ {
+  "label": "TOOLTIP:GameInfoGameName",
+  "text": "Название игры: %s"
+ },
+ {
+  "label": "TOOLTIP:GameInfoLadderName",
+  "text": "    \n Доска почета: %s"
+ },
+ {
+  "label": "TOOLTIP:LadderName",
+  "text": "Доска почета: %s"
+ },
+ {
+  "label": "TOOLTIP:UnknownLadder",
+  "text": "    \n Неизвестная доска почета"
+ },
+ {
+  "label": "TOOLTIP:NoLadder",
+  "text": "    \n Без доски почета"
+ },
+ {
+  "label": "TOOLTIP:InvalidGameVersionSingleLine",
+  "text": "У игры другая версия"
+ },
+ {
+  "label": "TOOLTIP:InvalidGameVersion",
+  "text": ""
+ },
+ {
+  "label": "TOOLTIP:GameInfoMap",
+  "text": "    \n Карта: %s  \n Игроки:"
+ },
+ {
+  "label": "TOOLTIP:GameInfoPlayer",
+  "text": "    \n %s (%d/%d)"
+ },
+ {
+  "label": "TOOLTIP:FreeForAll",
+  "text": "Каждый сам за себя. Без команд и союзников"
+ },
+ {
+  "label": "TOOLTIP:ListOfPlayers",
+  "text": "Игроки в этой игре"
+ },
+ {
+  "label": "TOOLTIP:MapName",
+  "text": "Выбранная карта"
+ },
+ {
+  "label": "TOOLTIP:GameName",
+  "text": "Название игры"
+ },
+ {
+  "label": "TOOLTIP:StartGame",
+  "text": "Начать коллективную игру"
+ },
+ {
+  "label": "TOOLTIP:IgnoreButton",
+  "text": "Игнорировать игрока"
+ },
+ {
+  "label": "TOOLTIP:closeButton",
+  "text": "."
+ },
+ {
+  "label": "TOOLTIP:GameOptions",
+  "text": "Опции, включённые в этой игре"
+ },
+ {
+  "label": "TOOLTIP:Crates",
+  "text": "Премиальные ящики"
+ },
+ {
+  "label": "TOOLTIP:SuperWeapons",
+  "text": "Супероружие. Молекулярная пушка, ядерная ракета и т.п."
+ },
+ {
+  "label": "DOZER:ConstructionComplete",
+  "text": "Строительство завершено: %s"
+ },
+ {
+  "label": "DOZER:RepairComplete",
+  "text": "Ремонтная операция завершена."
+ },
+ {
+  "label": "UPGRADE:UpgradeComplete",
+  "text": "Улучшение завершено: %s"
+ },
+ {
+  "label": "GUI:CantBuildRestrictedTerrain",
+  "text": "Эта местность не подходит для строительства здесь."
+ },
+ {
+  "label": "GUI:CantBuildNotFlatEnough",
+  "text": "Эта местность не достаточно ровная для строительства здесь"
+ },
+ {
+  "label": "GUI:CantBuildObjectsInTheWay",
+  "text": "Вы не можете строить здесь потому, что мешают посторонние объекты."
+ },
+ {
+  "label": "GUI:CantBuildNoClearPath",
+  "text": "Подразделение не может добраться до заданного места строительства."
+ },
+ {
+  "label": "GUI:CantBuildShroud",
+  "text": "Вы должны разведать эти места перед строительством."
+ },
+ {
+  "label": "GUI:CantBuildThere",
+  "text": "Вы не можете строить здесь."
+ },
+ {
+  "label": "GUI:RallyPointObjectsInTheWay",
+  "text": "Невозможно установить точку сбора, объект(ы) на пути к точке назначения."
+ },
+ {
+  "label": "GUI:RallyPointNoPath",
+  "text": "Невозможно установить точку сбора."
+ },
+ {
+  "label": "GUI:RallyPointSet",
+  "text": "Точка сбора для %s установлена."
+ },
+ {
+  "label": "GUI:MouseType",
+  "text": "Тип мыши"
+ },
+ {
+  "label": "GUI:Com",
+  "text": "EAPIM"
+ },
+ {
+  "label": "GUI:CONTROL",
+  "text": "Управление"
+ },
+ {
+  "label": "GUI:INFORMATION",
+  "text": "Информация"
+ },
+ {
+  "label": "GUI:INTERFACE",
+  "text": "Интерфейс"
+ },
+ {
+  "label": "GUI:SELECTION",
+  "text": "Выделение"
+ },
+ {
+  "label": "GUI:TAUNT",
+  "text": "Насмешки"
+ },
+ {
+  "label": "GUI:MISC",
+  "text": "Прочее"
+ },
+ {
+  "label": "GUI:DEBUG",
+  "text": "Отладка"
+ },
+ {
+  "label": "GUI:Cheer",
+  "text": "Ликование"
+ },
+ {
+  "label": "GUI:CheerDescription",
+  "text": "Приказать Вашим войскам ликовать по поводу Ваших великих подвигов."
+ },
+ {
+  "label": "GUI:Deploy",
+  "text": "Развернуть объект"
+ },
+ {
+  "label": "GUI:DeployDescription",
+  "text": "Развернуть выделенный(ые) объект(ы)."
+ },
+ {
+  "label": "GUI:Guard",
+  "text": "Охрана"
+ },
+ {
+  "label": "GUI:GuardDescription",
+  "text": "Установить выделенный объект(ы) в режим 'охраны местности'."
+ },
+ {
+  "label": "GUI:CreateFormation",
+  "text": "Создать построение"
+ },
+ {
+  "label": "GUI:Follow",
+  "text": "Следовать"
+ },
+ {
+  "label": "GUI:FollowDescription",
+  "text": "Переключить режим следования для выделенного объекта(ов)."
+ },
+ {
+  "label": "GUI:ToggleControlBar",
+  "text": "Переключатель панели управления"
+ },
+ {
+  "label": "GUI:ToggleControlBarDescription",
+  "text": "Убрать/показать игровую панель управления."
+ },
+ {
+  "label": "GUI:ToggleLetterbox",
+  "text": "Переключить кинорежим"
+ },
+ {
+  "label": "GUI:ToggleLetterboxDescription",
+  "text": "Включить/выключить кинорежим."
+ }
+]

@@ -1,0 +1,802 @@
+[
+ {
+  "label": "CONTROLBAR:TempDescription",
+  "text": "Пожалуйста, как-нибудь на досуге пропишите мое описание в файле CommandButton.ini! Заранее благодарен."
+ },
+ {
+  "label": "CONTROLBAR:CleanupAreaDescription",
+  "text": "Автоматическая очистка окружающей местности от био-токсинов и радиации."
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaCommandCenter",
+  "text": "Командный центр [&C]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaPowerPlant",
+  "text": "Термоядерный реактор [&R]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaBarracks",
+  "text": "Казарма [&B]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaSupplyCenter",
+  "text": "Центр снабжения [&U]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaWall",
+  "text": "Защитное заграждение [&F]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaWarFactory",
+  "text": "Военный завод [&A]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaGuardianControlCenter",
+  "text": "Центр \n стражей"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaPatriotBattery",
+  "text": "Зенитно-ракетный комплекс \"Патриот\" [&M]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaParticleCannonUplink",
+  "text": "Молекулярная пушка [&P]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaStrategyCenter",
+  "text": "Стратегический центр [&Y]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaSupplyDropZone",
+  "text": "Зона доставки снабжения [&Z]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaDetentionCamp",
+  "text": "Лагерь разведчиков [&D]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaTankCrusader",
+  "text": "Танк Рыцарь [&C]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaTankPaladin",
+  "text": "Танк Паладин [&P]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaInfantryRanger",
+  "text": "Рейнджер [&A]"
+ },
+ {
+  "label": "CONTROLBAR:Evacuate",
+  "text": "Эвакуация [&V]"
+ },
+ {
+  "label": "CONTROLBAR:ExecuteRailedTransport",
+  "text": "Транспорт"
+ },
+ {
+  "label": "CONTROLBAR:TransportExit",
+  "text": "Выход из транспорта"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLACommandCenter",
+  "text": "Командный центр [&C]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLADemoTrap",
+  "text": "Фугас [&D]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLABarracks",
+  "text": "Казарма [&B]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLASupplyStash",
+  "text": "Склад снабжения [&U]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLABurningBarricade",
+  "text": "Горящая баррикада [&B]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAArmsDealer",
+  "text": "Продавец оружия [&A]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaCommandCenter",
+  "text": "Командный центр [&C]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaPowerPlant",
+  "text": "Ядерный реактор [&R]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaBarracks",
+  "text": "Казарма [&B]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaSupplyCenter",
+  "text": "Центр снабжения [&U]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaConcreteWall",
+  "text": "Бетонная стена [&W]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaWarFactory",
+  "text": "Военный завод [&A]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaDozer",
+  "text": "Строительный бульдозер [&D]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAWorker",
+  "text": "Рабочий [&W]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaDozer",
+  "text": "Строительный бульдозер [&D]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLATankScorpion",
+  "text": "Танк Скорпион [&S]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLATankMarauder",
+  "text": "Танк Мародёр [&M]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAVehicleRocketBuggy",
+  "text": "Ракетный багги [&B]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAVehicleRadarVan",
+  "text": "Радарный фургон [&V]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaTankOverlord",
+  "text": "Владыка [&O]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaTankGattling",
+  "text": "Пулемётный танк [&G]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAInfantryRebel",
+  "text": "Повстанец [&B]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaInfantryRedguard",
+  "text": "Красногвардеец [&G]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaVehicleChinook",
+  "text": "Чинук [&C]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAVehicleSupplyTruck",
+  "text": "Грузовик снабжения [&T]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaVehicleSupplyTruck",
+  "text": "Грузовик снабжения [&T]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaJetRaptor",
+  "text": "Раптор [&T]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaJetAurora",
+  "text": "Бомбардировщик Аврора [&A]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaJetStealthFighter",
+  "text": "Истребитель Стелс [&F]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaVehicleStarlifter",
+  "text": "Старлифтер"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaVehicleComanche",
+  "text": "Команч [&C]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaInfantryMissileDefender",
+  "text": "Ракетный защитник [&M]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaInfantryPathfinder",
+  "text": "Следопыт [&P]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaInfantryColonelBurton",
+  "text": "Полковник Бартон [&B]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaInfantryBiohazardTech",
+  "text": "Спец. по биозащите"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaVehicleTomahawk",
+  "text": "Томагавк [&T]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaVehicleMedic",
+  "text": "Скорая помощь[&A]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaVehicleHumvee",
+  "text": "Джип Хаммер [&V]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaVehicleBattleDrone",
+  "text": "Боевой беспилотный аппарат [&B]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaVehicleScoutDrone",
+  "text": "Разведывательный беспилотный аппарат [&D]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaJetMIG",
+  "text": "МиГ [&G]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaInfantryBlackLotus",
+  "text": "Чёрный лотос [&B]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaInfantryTankHunter",
+  "text": "Охотник за танками [&T]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaInfantrySecretPolice",
+  "text": "Тайная \n полиция"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaInfantryHacker",
+  "text": "Хакер [&A]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaBunker",
+  "text": "Бункер [&K]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaPropagandaCenter",
+  "text": "Центр пропаганды [&P]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaAirfield",
+  "text": "Аэродром [&F]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaAirfield",
+  "text": "Аэродром [&F]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaGattlingCannon",
+  "text": "Пулемётная пушка [&G]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaNuclearMissileLauncher",
+  "text": "Ракетная шахта [&M]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaSpeakerTower",
+  "text": "Башня пропаганды [&T]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaVehicleInfernoCannon",
+  "text": "Самоходный миномет Инферно [&I]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaVehicleNukeLauncher",
+  "text": "Самоходная ядерная пушка [&U]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaVehicleTroopCrawler",
+  "text": "Бронетранспортёр [&T]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaTankSeismic",
+  "text": "Сейсмический \n танк"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaTankDragon",
+  "text": "Танк Дракон [&D]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaVehiclePropagandaBlimp",
+  "text": "Агит. \n дирижабль"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAInfantryTerrorist",
+  "text": "Террорист [&T]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAInfantryRPGTrooper",
+  "text": "Гранатомётчик [&G]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLATunnelNetwork",
+  "text": "Сеть туннелей [&N]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAPalace",
+  "text": "Дворец [&P]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLABlackMarket",
+  "text": "Чёрный рынок [&M]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAStingerSite",
+  "text": "Гнездо стингеров [&T]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAScudStorm",
+  "text": "Залповая установка ракет Р-17М [&O]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAPrison",
+  "text": "Тюрьма [&R]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAVehicleToxinTruck",
+  "text": "Химический трактор [&A]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLATankBattleMaster",
+  "text": "Мастер боя [&B]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAVehicleTechnical",
+  "text": "Техник [&T]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAInfantryHijacker",
+  "text": "Угонщик [&I]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAInfantryJarmenKell",
+  "text": "Джармен Келл [&J]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAInfantryAngryMob",
+  "text": "Разъярённая толпа [&A]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAVehicleQuadCannon",
+  "text": "Самоходная зенитка [&U]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAVehicleBombTruck",
+  "text": "Грузовик со взрывчаткой [&O]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAVehicleScudLauncher",
+  "text": "Эльбрус [&L]"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaAdvancedTraining",
+  "text": "Дополнительное обучение [&A]"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaDroneArmor",
+  "text": "Броня беспилотных аппаратов [&R]"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaMines",
+  "text": "Заминировать [&M]"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaRadar",
+  "text": "Радар [&R]"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaScoutDrones",
+  "text": "Разведывательные беспилотные аппараты [&C]"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaAdvancedControlRods",
+  "text": "Графитовые стержни [&C]"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaLaserMissiles",
+  "text": "Ракеты лазерного наведения [&L]"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaExtraFuel",
+  "text": "Дополнительное горючее [&F]"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaFlashBangGrenade",
+  "text": "Световая граната [&F]"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaCompositeArmor",
+  "text": "Композитная броня [&C]"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaTomahawkRemoteControl",
+  "text": "Пути ракеты [&M]"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaAircraftFuel",
+  "text": "Авиационное топливо"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaTOWMissile",
+  "text": "Ракета ТОУ [&W]"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeComancheRocketPods",
+  "text": "Контейнеры для ракет [&P]"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaRailGun",
+  "text": "Рельсовая \n пушка"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaRadar",
+  "text": "Радар [&A]"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaNationalism",
+  "text": "Национализм [&N]"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaAntiTankGrenade",
+  "text": "Противотанковые гранаты [&A]"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaVehicleHack",
+  "text": "Взлом техники [&V]"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaIRGoggles",
+  "text": "Прибор инфракрасного зрения [&I]"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaBlackNapalm",
+  "text": "Чёрный напалм [&N]"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaChainGuns",
+  "text": "Пулемёты [&C]"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaSubliminalMessaging",
+  "text": "Подсознательное вещание [&U]"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaUraniumShells",
+  "text": "Урановые снаряды [&U]"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaNuclearTanks",
+  "text": "Атомоходные танки [&T]"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaStunBullets",
+  "text": "Оглушающие пули [&B]"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLARadar",
+  "text": "Радар[&R]"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLARadarVanScan",
+  "text": "Сканирование радара [&C]"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLAScorpionRocket",
+  "text": "Ракета Скорпиона [&K]"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLABuggyAmmo",
+  "text": "Боеприпасы багги [&A]"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLABombTruckBioBomb",
+  "text": "Биологическая бомба [&B]"
+ },
+ {
+  "label": "CONTROLBAR:DisguiseAsVehicle",
+  "text": "Замаскироваться под другую технику [&D]"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLABombTruckHighExplosiveBomb",
+  "text": "Увеличить мощность взрывчатки [&O]"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLAAnthraxBeta",
+  "text": "Сибирская язва бета [&A]"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLAToxinShells",
+  "text": "Химические снаряды [&T]"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLAJunkRepair",
+  "text": "Ремонт обломками [&J]"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLAAPBullets",
+  "text": "Бронебойные патроны [&B]"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLAAPRockets",
+  "text": "Бронебойные ракеты [&R]"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLACamouflage",
+  "text": "Камуфляж [&C]"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLATranqDarts",
+  "text": "Транквилизирующие дротики [&T]"
+ },
+ {
+  "label": "CONTROLBAR:SetRallyPoint",
+  "text": "Точка сбора [&R]"
+ },
+ {
+  "label": "CONTROLBAR:Sell",
+  "text": "Продать"
+ },
+ {
+  "label": "CONTROLBAR:Overcharge",
+  "text": "Перегрузка [&O]"
+ },
+ {
+  "label": "CONTROLBAR:DragonFlame",
+  "text": "Пламя [&L]"
+ },
+ {
+  "label": "CONTROLBAR:PickUpPrisoner",
+  "text": "Забрать \n пленного [&P]"
+ },
+ {
+  "label": "CONTROLBAR:ReturnToPrison",
+  "text": "Возврат [&R]"
+ },
+ {
+  "label": "CONTROLBAR:FireRocket",
+  "text": "Стрелять ракетой [&F]"
+ },
+ {
+  "label": "CONTROLBAR:AnthraxWarhead",
+  "text": "Боеголовка с сибирской язвой [&N]"
+ },
+ {
+  "label": "CONTROLBAR:ExplosiveWarhead",
+  "text": "Обычная боеголовка [&P]"
+ },
+ {
+  "label": "CONTROLBAR:Fire20mmCannon",
+  "text": "Стрелять из 20мм пушки [&F]"
+ },
+ {
+  "label": "CONTROLBAR:FireAntiTankMissiles",
+  "text": "Стрелять ракетой [&M]"
+ },
+ {
+  "label": "CONTROLBAR:FireRocketPods",
+  "text": "Заградительный огонь ракетами [&R]"
+ },
+ {
+  "label": "CONTROLBAR:FireNapalmMissile",
+  "text": "Стрелять напалмом [&N]"
+ },
+ {
+  "label": "CONTROLBAR:DaisyCutter",
+  "text": "Бомба с напалмом [&F]"
+ },
+ {
+  "label": "CONTROLBAR:NeutronMissile",
+  "text": "Удар ядерной ракетой [&N]"
+ },
+ {
+  "label": "CONTROLBAR:ScudStorm",
+  "text": "Залп ракетами Р-17М [&U]"
+ },
+ {
+  "label": "CONTROLBAR:NapalmStrike",
+  "text": "Удар напалмом [&N]"
+ },
+ {
+  "label": "CONTROLBAR:A10ThunderboltMissileStrike",
+  "text": "Ракетный удар штурмовиком А10 [&A]"
+ },
+ {
+  "label": "CONTROLBAR:CashHack",
+  "text": "Взлом денег [&C]"
+ },
+ {
+  "label": "CONTROLBAR:Ambush",
+  "text": "Ополчение [&A]"
+ },
+ {
+  "label": "CONTROLBAR:BlackMarketNuke",
+  "text": "Ядерная бомба \n чёрного рынка"
+ },
+ {
+  "label": "CONTROLBAR:AnthraxBomb",
+  "text": "Бомба с сибирской язвой [&B]"
+ },
+ {
+  "label": "CONTROLBAR:Paradrop",
+  "text": "Парашютный десант [&P]"
+ },
+ {
+  "label": "CONTROLBAR:CarpetBomb",
+  "text": "Ковровая бомбардировка [&C]"
+ },
+ {
+  "label": "CONTROLBAR:ClusterMines",
+  "text": "Осколочные бомбы [&L]"
+ },
+ {
+  "label": "CONTROLBAR:EMPPulse",
+  "text": "Электромагнитный импульс [&P]"
+ },
+ {
+  "label": "CONTROLBAR:ArtilleryBarrage",
+  "text": "Заградительный огонь артиллерии [&B]"
+ },
+ {
+  "label": "CONTROLBAR:CrateDrop",
+  "text": "Сброс \n ящиков"
+ },
+ {
+  "label": "CONTROLBAR:SpySatellite",
+  "text": "Спутник шпион [&S]"
+ },
+ {
+  "label": "CONTROLBAR:SpyDrone",
+  "text": "Беспилотный аппарат шпион [&Y]"
+ },
+ {
+  "label": "CONTROLBAR:RadarVanScan",
+  "text": "Сканирование радара [&C]"
+ },
+ {
+  "label": "CONTROLBAR:Defector",
+  "text": "Дезертир [&D]"
+ },
+ {
+  "label": "CONTROLBAR:Bayonet",
+  "text": "Штык [&B]"
+ },
+ {
+  "label": "CONTROLBAR:SniperAttack",
+  "text": "Снайперская атака [&N]"
+ },
+ {
+  "label": "CONTROLBAR:CaptureBuilding",
+  "text": "Захват здания [&C]"
+ },
+ {
+  "label": "CONTROLBAR:DisableVehicleHack",
+  "text": "Взлом техники [&V]"
+ },
+ {
+  "label": "CONTROLBAR:StealCashHack",
+  "text": "Взлом денег [&K]"
+ },
+ {
+  "label": "CONTROLBAR:InternetHack",
+  "text": "Взлом через интернет [&I]"
+ },
+ {
+  "label": "CONTROLBAR:DisableBuildingHack",
+  "text": "Вывести здание из строя [&D]"
+ },
+ {
+  "label": "CONTROLBAR:CarBomb",
+  "text": "Автомобиль с бомбой [&C]"
+ },
+ {
+  "label": "CONTROLBAR:Hijack",
+  "text": "Угнать [&J]"
+ },
+ {
+  "label": "CONTROLBAR:TNTAttack",
+  "text": "Атака ТНТ [&T]"
+ },
+ {
+  "label": "CONTROLBAR:Requirements",
+  "text": "Требуется: %s"
+ },
+ {
+  "label": "CONTROLBAR:LaserMissileAttack",
+  "text": "Атака ракетами лазерного наведения [&L]"
+ },
+ {
+  "label": "CONTROLBAR:KnifeAttack",
+  "text": "Атака ножом [&K]"
+ },
+ {
+  "label": "CONTROLBAR:ClimbCliff",
+  "text": "Взобраться на скалу [&C]"
+ },
+ {
+  "label": "CONTROLBAR:TimedDemoCharge",
+  "text": "Заряд с часовым механизмом [&T]"
+ },
+ {
+  "label": "CONTROLBAR:RemoteDemoCharge",
+  "text": "Заряд радиоуправляемой взрывчатки [&R]"
+ },
+ {
+  "label": "CONTROLBAR:DetonateCharges",
+  "text": "Взорвать заряды [&D]"
+ },
+ {
+  "label": "CONTROLBAR:DetonateNuke",
+  "text": "Взорвать ядерную бомбу [&N]"
+ },
+ {
+  "label": "CONTROLBAR:ManualControl",
+  "text": "Ручное управление [&M]"
+ },
+ {
+  "label": "CONTROLBAR:ProximityFuse",
+  "text": "Неконтактный взрыватель [&P]"
+ },
+ {
+  "label": "CONTROLBAR:Detonate",
+  "text": "Взорвать! [&D]"
+ },
+ {
+  "label": "CONTROLBAR:EmergencyRepair",
+  "text": "Немедленный ремонт [&E]"
+ },
+ {
+  "label": "CONTROLBAR:FireParticleUplinkCannon",
+  "text": "Выстрел молекулярной пушки [&P]"
+ },
+ {
+  "label": "CONTROLBAR:Options",
+  "text": "Игровое меню"
+ },
+ {
+  "label": "CONTROLBAR:OptionsDescription",
+  "text": "Открыть игровое меню."
+ },
+ {
+  "label": "CONTROLBAR:IdleWorker",
+  "text": "Свободный рабочий"
+ },
+ {
+  "label": "CONTROLBAR:IdleWorkerDescription",
+  "text": "Нажмите для выделения следующего свободного рабочего."
+ },
+ {
+  "label": "CONTROLBAR:Beacon",
+  "text": "Маяк"
+ },
+ {
+  "label": "CONTROLBAR:BeaconDescription",
+  "text": "Нажмите для установки маяка."
+ },
+ {
+  "label": "CONTROLBAR:Communicator",
+  "text": "Коммуникатор"
+ },
+ {
+  "label": "CONTROLBAR:CommunicatorDescription",
+  "text": "Нажмите для открытия генеральского коммуникатора."
+ },
+ {
+  "label": "CONTROLBAR:AmbulanceCleanupArea",
+  "text": "Очистить от токсинов [&C]"
+ },
+ {
+  "label": "RADAR:UnitUnderAttack",
+  "text": "Подразделение атаковано."
+ }
+]

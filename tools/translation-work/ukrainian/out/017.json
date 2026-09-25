@@ -1,0 +1,802 @@
+[
+ {
+  "label": "MAP:MD-CHI05_PartCannon_Detected",
+  "text": "УВАГА:\n  Виявлена молекулярна гармата"
+ },
+ {
+  "label": "MAP:MD-CHI05_Hint01",
+  "text": "ПІДКАЗКА:\n  Ми повинні зосередити нашу атаку на базі США\n  Ми повинні знищити їхні Молекулярні гармати"
+ },
+ {
+  "label": "MAP:MD-CHI05_Hint02",
+  "text": "ВХІДНА ПЕРЕДАЧА:\n  Знищити командний центр США, щоб припинити їх підтримку з повітря"
+ },
+ {
+  "label": "MAP:MD-CHI05_Hint05",
+  "text": "ВХІДНА ПЕРЕДАЧА:\n  Вбивайте ворожих викрадачів, щоб захистити нашу техніку"
+ },
+ {
+  "label": "MAP:MD-CHI05_Hint08",
+  "text": "ВХІДНА ПЕРЕДАЧА:\n  Джармен Келл може переховуватися в цьому селі"
+ },
+ {
+  "label": "MAP:MD-CHI05_Hint10",
+  "text": "ВХІДНА ПЕРЕДАЧА:\n  Не дозвольте бойовим автобусам дістатися до нашої бази"
+ },
+ {
+  "label": "MAP:MD-CHI05_Hint13",
+  "text": "ВХІДНА ПЕРЕДАЧА:\n  База США знеструмлена. Бийте швидко"
+ },
+ {
+  "label": "MAP:MD-CHI05_Hint15",
+  "text": "ВХІДНА ПЕРЕДАЧА:\n  Використовуйте аванпости прослуховування, щоб зупинити\n  Джармен Келла від снайперського обстрілу нашої техніки"
+ },
+ {
+  "label": "MAP:MD-CHI05_Hint16",
+  "text": "ВХІДНА ПЕРЕДАЧА:\n  Використовуйте піхоту, щоб забрати нашу нейтралізовану техніку"
+ },
+ {
+  "label": "MAP:MD-CHI05_InternetCenter02",
+  "text": "ПІДКАЗКА:\n  Заповніть Інтернет-центр хакерами для додаткового прибутку"
+ },
+ {
+  "label": "MAP:ChemGeneral",
+  "text": "Доктор Тракс"
+ },
+ {
+  "label": "GC_CHINABOSS:Loc",
+  "text": "Десь біля кордону Китай/Тибет\n  «Лігво тигра»"
+ },
+ {
+  "label": "GC_CHINABOSS:Hint",
+  "text": "ВХІДНА ПЕРЕДАЧА:\n  Знищення ворожих бункерів скине таймери на всій суперзброї"
+ },
+ {
+  "label": "GC_CHINABOSS:Reset",
+  "text": "\nСкидання таймерів суперзброї"
+ },
+ {
+  "label": "GC_CHINABOSS:Strike",
+  "text": "\nСуперзбройний удар неминучий"
+ },
+ {
+  "label": "GC_CHINABOSS:Resources",
+  "text": "ПІДКАЗКА:\n  Ресурси тут обмежені. Вам доведеться швидко знайти додаткові запаси"
+ },
+ {
+  "label": "CONTROLBAR:TooltipMOAB",
+  "text": "Сила проти будівель\n  Приголомшує одиниці в радіусі вибуху\n \n  Таймер зворотного відліку: 6:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipLeafletDrop",
+  "text": "Сила проти піхоти\n \n  Таймер зворотного відліку: 6:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipTankParaDrop",
+  "text": "Скидає Майстрів бою з літака\n \n  Таймер зворотного відліку: 4:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipNukeDrop",
+  "text": "Скидає тактичну ядерну боєголовку з літака\n \n  Таймер зворотного відліку: 4:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipSuitcaseNuke",
+  "text": "Хакер має ядерну зброю у своїй валізі\n"
+ },
+ {
+  "label": "CONTROLBAR:TooltipSpectreGunship",
+  "text": "Сила проти транспортних засобів\n \n  Таймер зворотного відліку: 4:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipFireICBM",
+  "text": "Сила проти будівель, піхоти\n \n  Таймер зворотного відліку: 6:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipFireTomahawkStorm",
+  "text": "Сила проти будівель, транспортних засобів\n \n  Таймер зворотного відліку: 5:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipFrenzy",
+  "text": "Змушує ваші підрозділи завдавати більше шкоди протягом обмеженого часу\n \n  Таймер зворотного відліку: 4:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipFireGPSScrambler",
+  "text": "Шифратор GPS\n  Таймер зворотного відліку: 4:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipCommunicationsDownload",
+  "text": "Завантажте інформацію про місцезнаходження всіх сил противника"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUSAUpgradeSentryDroneGun",
+  "text": "Сторожові дрони отримують кулемет"
+ },
+ {
+  "label": "CONTROLBAR:TooltipGLAUpgradeQuadCannonSnipe",
+  "text": "Гармати Квад отримують можливість вбивати піхоту одним пострілом"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUSAUpgradeSupplyLines",
+  "text": "Механізми збору ресурсів приносять додаткові 10%"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUSAUpgradeMOAB",
+  "text": "Паливна авіабомба покращується до Матері всіх бомб"
+ },
+ {
+  "label": "CONTROLBAR:TooltipBecomeRealBuilding",
+  "text": "Покращити цю підроблену будівлю до повнофункціональної версії"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUSAUpgradeChemicalSuits",
+  "text": "Піхота стане більш стійкою до ураження токсинами та радіацією"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUSAUpgradeBunkerBusters",
+  "text": "Ракети Літака-невидимки уражають гарнізони в будівлях"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUSAUpgradeCountermeasures",
+  "text": "Усі літаки здатні ухилитися від 50% випущених по них ракет"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUpgradeChinaHelixGattlingCannon",
+  "text": "Побудуйте гармату Гатлінга на цьому Хеліксі"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUpgradeChinaHelixPropagandaTower",
+  "text": "Побудуйте пропагандистську вежу на цьому Хеліксі"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUpgradeChinaHelixBattleBunker",
+  "text": "Побудуйте бункер на цьому Хеліксі. Бункери можуть бути зайняті військами. Війська можуть вести вогонь з бункерів"
+ },
+ {
+  "label": "CONTROLBAR:TooltipChinaUpgradeSatelliteHackOne",
+  "text": "Зламати супутник, щоб розкрити командні центри супротивників"
+ },
+ {
+  "label": "CONTROLBAR:TooltipChinaUpgradeSatelliteHackTwo",
+  "text": "Зламати супутник, щоб періодично відкривати територію всіх супротивників"
+ },
+ {
+  "label": "CONTROLBAR:TooltipChinaUpgradeFanaticism",
+  "text": "Додатково +25% до бонусу Орди"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUpgradeChinaWGUraniumShells",
+  "text": "+25% шкоди від пострілу Майстра бою і Повелителя"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUpgradeChinaTankAutoLoader",
+  "text": "Майстер бою отримує підвищену скорострільність"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUpgradeChinaNeutronShells",
+  "text": "Покращує Ядерну гармату, щоб стріляти нейтронними снарядами\n  Нейтронні снаряди вбиватимуть піхоту в транспортних засобах"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUpgradeChinaEMPMines",
+  "text": "Під час спрацьовування міни випускають нейтронний вибух"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUpgradeChinaFusionReactors",
+  "text": "Покращує швидкість Імператора та Майстра бою"
+ },
+ {
+  "label": "CONTROLBAR:TooltipDetonateFakebuilding",
+  "text": "Наказати негайно підірвати фальшиву будівлю"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUpgradeGLAWorkerFakeCommandSet",
+  "text": "Перемикайте панель команд, щоб будувати фальшиві будівлі"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUpgradeGLAWorkerRealCommandSet",
+  "text": "Перемикайте панель команд, щоб будувати справжні будівлі"
+ },
+ {
+  "label": "CONTROLBAR:Demo_ToolTipGLAUpgradeHEBomb",
+  "text": "На 100% більше шкоди для всіх вибухових пасток"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLACamoNetting",
+  "text": "Ця конструкція отримає камуфляж"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAUpgradeFortifiedStructure",
+  "text": "Будівлі отримують додатковий броньовий захист від атак"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAUpgradeBoobyTrap",
+  "text": "Повстанці можуть розміщувати міни-пастки на будівлях і нейтральних одиницях"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAUpgradeWorkerShoes",
+  "text": "Дає Робітникам нове взуття, яке вони просили, покращуючи їх рухливість"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAUpgradeAnthraxGamma",
+  "text": "+50% бонусу до шкоди всім токсинним одиницям"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipSaboteur",
+  "text": "Відключає будівлі. Скидає таймери суперзброї"
+ },
+ {
+  "label": "CONTROLBAR:DropNapalmBomb",
+  "text": "Скинути напалмову бомбу (&D)"
+ },
+ {
+  "label": "CONTROLBAR:DropNukeBomb",
+  "text": "Скинути ядерну бомбу (&D)"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipDropNukeBomb",
+  "text": "Кинути тактичну ядерну зброю на цільову область"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipDropNapalmBomb",
+  "text": "Сила проти більшості наземних цілей\n  Слабкість проти вогняної техніки"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaNukeWarhead",
+  "text": "Зарядити ядерні снаряди"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaNeutronWarhead",
+  "text": "Зарядити нейтронні снаряди"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipFireBattleship",
+  "text": "Виклик бомбардування з морського лінкора"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipFireAircraftCarrier",
+  "text": "Запустити в атаку винищувачі з авіаносця"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipECMDisableVehicle",
+  "text": "Відключити ворожу техніку"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaFireRebelBoobyTrapAttack",
+  "text": "Розмістити міну-пастку"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildFireBase",
+  "text": "Наземна оборона. Гарнізон із чотирьох піхотинців"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildArtilleryPlatform",
+  "text": "Будує артилерійську платформу великої дальності для захисту\n \n  Потрібна енергія: 4"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipFakeGLABuilding",
+  "text": "Фальшиві будівлі можна підірвати або модернізувати до справжніх"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildInternetCenter",
+  "text": "Допомагає хакерам заробляти гроші. Можна покращити, щоб шпигувати за супротивниками"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipAmericaICBMLauncher",
+  "text": "Запускає міжконтинентальну балістичну ракету\n  Потрібна енергія: 10"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipAmericaBuildTomahawkStorm",
+  "text": "Пускає залп ракетами Томагавк\n \n  Таймер зворотного відліку: 5:00"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildCombatBike",
+  "text": "Швидкий і універсальний\n  Слабкість проти танків, авіації"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildSaboteur",
+  "text": "Підрозділ небойового проникнення. Може тимчасово виводити з ладу ворожі будівлі"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildPropagandaTrooper",
+  "text": "Виробляє пропаганду для лікування сусідніх одиниць"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildMiniGunner",
+  "text": "Сила проти піхоти, авіації\n  Слабкість проти танків"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildAvenger",
+  "text": "Використовує лазер для знищення ракет і літаків\n \n  Сила проти ракет, літаків\n  Слабкість проти техніки, піхоти"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildKingRaptor",
+  "text": "Може вражати наземні або повітряні цілі. Оснащений захисним лазером\n  Більше боєзапасу. Виявляє невидимі одиниці\n \n  Сила проти літаків, танків, легкої техніки\n  Слабкість проти піхоти з ракетами, протиповітряної оборони"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildFuelAirAurora",
+  "text": "Надзвукова атака робить Аврору невразливою до ворожого вогню під час скидання невеликої паливної авіабомби. Після надзвукової атаки швидкість Аврори знижується до 50%\n \n  Сила проти будівель\n  Слабкість проти винищувачів, протиповітряних підрозділів"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildHyersonicAurora",
+  "text": "Гіперзвукова атака робить Аврору невразливою до ворожого вогню. Після гіперзвукової атаки швидкість Аврори знижується до 50%\n \n  Сила проти будівель\n  Слабкість проти винищувачів, протиповітряних підрозділів"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildSniper",
+  "text": "Закамуфльований, поки не рухається і не стріляє. Виявляє невидимих ворогів\n \n  Сила проти піхоти\n  Слабкість проти легкої техніки, розвідників"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildMicrowave",
+  "text": "Сила проти захисту бази\n  Слабкість проти танків, авіації, легкої техніки"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildSentryDrone",
+  "text": "Виявляє прихованих ворогів\n \nСила проти піхоти\n  Слабкість проти танків"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildHellfireDrone",
+  "text": "Випускає ракету Hellfire\n \n  Сила проти транспортних засобів\n  Слабкість проти піхоти"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildPointDefenseDrone",
+  "text": "Стріляє протиракетним лазером"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildHelix",
+  "text": "Вантажний транспорт\n  Покращується оборонними спорудами та напалмовою бомбою\n \n  Сила проти танків, легкої техніки\n  Слабкість проти озброєної ракетами піхоти, протиповітряної оборони"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildListeningOutpost",
+  "text": "Транспорт. Виявляє стелс-юніти\n \n  Слабкість проти танків, авіації"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildECM",
+  "text": "Сила проти танків, техніки\n  Слабкість проти піхоти, авіації"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildBattleBus",
+  "text": "Можна завантажити 8 піхотинців\n \n  Сила проти піхоти, будівель"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSAScienceSpectreGunship",
+  "text": "Бойові літаки Привид кружляють по полю бою та вбивають сили ворога гаубицями та гарматами Гатлінга\n \n  Викликається з: командного центру"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSAScienceLeafletDrop",
+  "text": "Листівки паралізують скупчення ворожих військ, поки ті обмірковують свої варіанти\n \n  Викликається з: командного центру"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaScienceTankHunterTraining",
+  "text": "Усі Мисливці на танки будуть створені як ветерани"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaScienceBattlemasterTraining",
+  "text": "Усі Майстри бою будуть створені як елітні"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaScienceOverlordTraining",
+  "text": "Усі Повелителі будуть створені як елітні"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaScienceGattlingTankTraining",
+  "text": "Усі танки Гатлінг будуть створені як елітні"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaScienceNukeDrop",
+  "text": "Тактична ядерна зброя скидається з повітря\n \n  Викликається з: командного центру"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaScienceFrenzy",
+  "text": "Примушує ваших підрозділів завдавати більшої шкоди протягом деякого часу, коли вони потрапили в ціль\n \n  Ранг 1: 10 відсотків протягом 10 секунд\n  Ранг 2: 20 відсотків протягом 20 секунд\n  Ранг 3: 30 відсотків протягом 30 секунд\n \n  Викликається з: командного центру"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaScienceCarpetBomb",
+  "text": "Дозволяє викликати важкий бомбардувальник для килимового бомбардування території\n \n  Викликається з: командного центру"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipScienceGPSScrambler",
+  "text": "Приховує одиниці у зоні дії\n \nВикликається з: командного центру"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLASneakAttack",
+  "text": "Війська можуть створити тунель будь-де на карті\n \n  Викликається з: командного центру"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipSelectAircraftCarriers",
+  "text": "Виберіть авіаносець(-ці), щоб зручно запускати атаки"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipSelectBattleships",
+  "text": "Виклик бомбардування з морського лінкора"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaScienceTankParadrop",
+  "text": "Скинути Майстрів бою з повітря\n \n  Ранг 1: 1 Майстер бою\n  Ранг 2: 2 Майстри бою\n  Ранг 3: 4 Майстри бою\n \n Викликається з: командного центру"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaScienceInfantryParadrop",
+  "text": "Скинути Червоногвардійців з повітря\n \n  Ранг 1: 5 Червоногвардійців\n  Ранг 2: 10 Червоногвардійців\n  Ранг 3: 15 Червоногвардійців\n \n Викликається з: командного центру"
+ },
+ {
+  "label": "TOOLTIP:ChallengeButton",
+  "text": "Виклик генералів"
+ },
+ {
+  "label": "GUI:GeneralsChallenge",
+  "text": "ОБЕРІТЬ СВОГО ГЕНЕРАЛА"
+ },
+ {
+  "label": "GUI:Biography",
+  "text": "Біографія"
+ },
+ {
+  "label": "GUI:BioName",
+  "text": "Ім'я:"
+ },
+ {
+  "label": "GUI:BioDOB",
+  "text": "Вік:"
+ },
+ {
+  "label": "GUI:BioBirthplace",
+  "text": "Розташований:"
+ },
+ {
+  "label": "GUI:BioStrategy",
+  "text": "Тактика:"
+ },
+ {
+  "label": "GUI:BioRank",
+  "text": "Ранг:"
+ },
+ {
+  "label": "GUI:BioBranch",
+  "text": "Відділення:"
+ },
+ {
+  "label": "GUI:BioNameEntry_Pos0",
+  "text": "Генерал Грейнджер"
+ },
+ {
+  "label": "GUI:BioDOBEntry_Pos0",
+  "text": "62"
+ },
+ {
+  "label": "GUI:BioBirthplaceEntry_Pos0",
+  "text": "Форт \"Белмонт\", Х'юстон, Техас, США"
+ },
+ {
+  "label": "GUI:BioStrategyEntry_Pos0",
+  "text": "Повітряна сила"
+ },
+ {
+  "label": "GUI:BioRankEntry_Pos0",
+  "text": "4 зірковий генерал"
+ },
+ {
+  "label": "GUI:BioBranchEntry_Pos0",
+  "text": "ВПС США"
+ },
+ {
+  "label": "GUI:BioClassNumber_Pos0",
+  "text": "07121969-HB"
+ },
+ {
+  "label": "TOOLTIP:BioStrategyLong_Pos0",
+  "text": "Генерал Малькольм «Ейс» Грейнджер вважає за краще використовувати максимальну доступну повітряну силу, щоб перемогти своїх ворогів"
+ },
+ {
+  "label": "GUI:BioDefeatedEntry_Pos0",
+  "text": "Мабуть, мені пора шукати хорошу роботу в авіакомпанії."
+ },
+ {
+  "label": "GUI:BioVictoriousEntry_Pos0",
+  "text": "Я виграю, ти програв. Що тут ще сказати?"
+ },
+ {
+  "label": "GUI:BioNameEntry_Pos1",
+  "text": "Доктор Тракс"
+ },
+ {
+  "label": "GUI:BioDOBEntry_Pos1",
+  "text": "Невідомий"
+ },
+ {
+  "label": "GUI:BioBirthplaceEntry_Pos1",
+  "text": "Невідомо"
+ },
+ {
+  "label": "GUI:BioStrategyEntry_Pos1",
+  "text": "Токсична зброя"
+ },
+ {
+  "label": "GUI:BioRankEntry_Pos1",
+  "text": "Невідомий"
+ },
+ {
+  "label": "GUI:BioBranchEntry_Pos1",
+  "text": "Невідомий"
+ },
+ {
+  "label": "TOOLTIP:BioStrategyLong_Pos1",
+  "text": "Доктор Тракс вважає за краще змішувати смертельні токсини, щоб перемогти своїх ворогів"
+ },
+ {
+  "label": "GUI:BioClassNumber_Pos1",
+  "text": "Невідомий"
+ },
+ {
+  "label": "GUI:BioDefeatedEntry_Pos1",
+  "text": "Можливо, мені не варто було здобувати диплом у коледжі по пошті."
+ },
+ {
+  "label": "GUI:BioVictoriousEntry_Pos1",
+  "text": "Ти думав, що мої токсини неефективні, а тепер подивись, що з тобою сталося, генерале."
+ },
+ {
+  "label": "GUI:BioNameEntry_Pos2",
+  "text": "Генерал Тао"
+ },
+ {
+  "label": "GUI:BioDOBEntry_Pos2",
+  "text": "50"
+ },
+ {
+  "label": "GUI:BioBirthplaceEntry_Pos2",
+  "text": "База \"Ох\", Ченду, Китай"
+ },
+ {
+  "label": "GUI:BioStrategyEntry_Pos2",
+  "text": "Ядерна зброя"
+ },
+ {
+  "label": "GUI:BioRankEntry_Pos2",
+  "text": "Генерал класу ААА"
+ },
+ {
+  "label": "GUI:BioBranchEntry_Pos2",
+  "text": "Народно-визвольна армія"
+ },
+ {
+  "label": "TOOLTIP:BioStrategyLong_Pos2",
+  "text": "Генерал Цін Ши Тао вважає за краще використовувати ядерне випромінювання, щоб перемогти своїх ворогів"
+ },
+ {
+  "label": "GUI:BioClassNumber_Pos2",
+  "text": "Не застосовується"
+ },
+ {
+  "label": "GUI:BioDefeatedEntry_Pos2",
+  "text": "Ще мить, і я перетворив би тебе на порох."
+ },
+ {
+  "label": "GUI:BioVictoriousEntry_Pos2",
+  "text": "Тобі пощастило, що ти пережив цю битву неушкодженим. Кинь мені виклик знову, якщо наважишся."
+ },
+ {
+  "label": "GUI:BioNameEntry_Pos3",
+  "text": "Генерал Александр"
+ },
+ {
+  "label": "GUI:BioDOBEntry_Pos3",
+  "text": "42"
+ },
+ {
+  "label": "GUI:BioBirthplaceEntry_Pos3",
+  "text": "Табір \"Франклін\", Белфаст, Мен, США"
+ },
+ {
+  "label": "GUI:BioStrategyEntry_Pos3",
+  "text": "Зброя масового ураження"
+ },
+ {
+  "label": "GUI:BioRankEntry_Pos3",
+  "text": "4 зірковий генерал"
+ },
+ {
+  "label": "GUI:BioBranchEntry_Pos3",
+  "text": "Морська піхота США"
+ },
+ {
+  "label": "TOOLTIP:BioStrategyLong_Pos3",
+  "text": "Генерал Алексіс Александер вважає за краще будувати потужну оборонну базу та створювати суперзброю, щоб перемогти своїх ворогів"
+ },
+ {
+  "label": "GUI:BioClassNumber_Pos3",
+  "text": "178923478-HBGB"
+ },
+ {
+  "label": "GUI:BioDefeatedEntry_Pos3",
+  "text": "Це не справедливо! Ще одна суперзброя, і я б тебе знищила, генерале. Кинь мені виклик знову, я викликаю тебе."
+ },
+ {
+  "label": "GUI:BioVictoriousEntry_Pos3",
+  "text": "Я сказала тобі, що ти ніколи не переможеш мою суперзброю, генерале. Бажаєш спробувати ще раз?"
+ },
+ {
+  "label": "GUI:BioNameEntry_Pos4",
+  "text": "Генерал Квай"
+ },
+ {
+  "label": "GUI:BioDOBEntry_Pos4",
+  "text": "51"
+ },
+ {
+  "label": "GUI:BioBirthplaceEntry_Pos4",
+  "text": "База \"Щур\", Джинан, Китай"
+ },
+ {
+  "label": "GUI:BioStrategyEntry_Pos4",
+  "text": "Покращені танкові дивізії"
+ },
+ {
+  "label": "GUI:BioRankEntry_Pos4",
+  "text": "Генерал класу ААА"
+ },
+ {
+  "label": "GUI:BioBranchEntry_Pos4",
+  "text": "Народно-визвольна армія"
+ },
+ {
+  "label": "TOOLTIP:BioStrategyLong_Pos4",
+  "text": "Генерал Та Хун Квай віддає перевагу будувати гарні танки, щоб перемогти своїх ворогів"
+ },
+ {
+  "label": "GUI:BioClassNumber_Pos4",
+  "text": "9999-3224536-5"
+ },
+ {
+  "label": "GUI:BioDefeatedEntry_Pos4",
+  "text": "Можливо, ви й перемогли мої танки, генерале, але Тигриця роздавить вас, як комаху."
+ },
+ {
+  "label": "GUI:BioVictoriousEntry_Pos4",
+  "text": "Танки - запорука будь-якої перемоги... як ти добре знаєш."
+ },
+ {
+  "label": "GUI:BioNameEntry_Pos5",
+  "text": "Генерал Таунс"
+ },
+ {
+  "label": "GUI:BioDOBEntry_Pos5",
+  "text": "Уточнюється"
+ },
+ {
+  "label": "GUI:BioBirthplaceEntry_Pos5",
+  "text": "Форт \"Юніон\", Редвуд Шорс, Каліфорнія, США"
+ },
+ {
+  "label": "GUI:BioStrategyEntry_Pos5",
+  "text": "Лазерна зброя"
+ },
+ {
+  "label": "GUI:BioRankEntry_Pos5",
+  "text": "4 зірковий генерал"
+ },
+ {
+  "label": "GUI:BioBranchEntry_Pos5",
+  "text": "Армія США"
+ },
+ {
+  "label": "TOOLTIP:BioStrategyLong_Pos5",
+  "text": "\"Точковий\" Таунс вважає за краще використовувати передові лазерні технології, щоб перемогти своїх ворогів"
+ },
+ {
+  "label": "GUI:BioClassNumber_Pos5",
+  "text": "00010204-01KE0"
+ },
+ {
+  "label": "GUI:BioDefeatedEntry_Pos5",
+  "text": "Ви перемогли мене, генерале, але я проаналізую вашу тактику і розроблю кращу стратегію."
+ },
+ {
+  "label": "GUI:BioVictoriousEntry_Pos5",
+  "text": "Твої слабкі сторони стали очевидними, коли я проаналізував твою тактику."
+ },
+ {
+  "label": "GUI:BioNameEntry_Pos6",
+  "text": "Принц Кассад"
+ },
+ {
+  "label": "GUI:BioDOBEntry_Pos6",
+  "text": "34"
+ },
+ {
+  "label": "GUI:BioBirthplaceEntry_Pos6",
+  "text": "Тріполі, Лівія"
+ },
+ {
+  "label": "GUI:BioStrategyEntry_Pos6",
+  "text": "Засідки і камуфляж"
+ },
+ {
+  "label": "GUI:BioRankEntry_Pos6",
+  "text": "Не застосовується"
+ },
+ {
+  "label": "GUI:BioBranchEntry_Pos6",
+  "text": "ГВА Підрозділ Кобра"
+ },
+ {
+  "label": "TOOLTIP:BioStrategyLong_Pos6",
+  "text": "Принц Кассад вважає за краще використовувати камуфляж і таємні операції, щоб перемогти своїх ворогів"
+ },
+ {
+  "label": "GUI:BioClassNumber_Pos6",
+  "text": "Не застосовується"
+ },
+ {
+  "label": "GUI:BioDefeatedEntry_Pos6",
+  "text": "Мої люди не пробачать своєму лідерові цієї поразки, генерале. Своєю кращою тактикою ви підписали мені смертний вирок..."
+ },
+ {
+  "label": "GUI:BioVictoriousEntry_Pos6",
+  "text": "Прийми свою гірку поразку і забирайся з моїх очей, генерале."
+ },
+ {
+  "label": "GUI:BioNameEntry_Pos7",
+  "text": "Генерал Фай"
+ },
+ {
+  "label": "GUI:BioDOBEntry_Pos7",
+  "text": "57"
+ },
+ {
+  "label": "GUI:BioBirthplaceEntry_Pos7",
+  "text": "База \"Змія\", Пекін, Китай"
+ },
+ {
+  "label": "GUI:BioStrategyEntry_Pos7",
+  "text": "Покращені піхотні дивізії"
+ },
+ {
+  "label": "GUI:BioRankEntry_Pos7",
+  "text": "Генерал класу ААА"
+ },
+ {
+  "label": "GUI:BioBranchEntry_Pos7",
+  "text": "Народно-визвольна армія"
+ },
+ {
+  "label": "TOOLTIP:BioStrategyLong_Pos7",
+  "text": "Генерал «Анвіл» Шін Фай вважає за краще залучати високопідготовлених солдатів для перемоги над ворогами"
+ },
+ {
+  "label": "GUI:BioClassNumber_Pos7",
+  "text": "2030-200403-1"
+ },
+ {
+  "label": "GUI:BioDefeatedEntry_Pos7",
+  "text": "Уточнюється"
+ },
+ {
+  "label": "GUI:BioVictoriousEntry_Pos7",
+  "text": "Уточнюється"
+ },
+ {
+  "label": "GUI:BioNameEntry_Pos8",
+  "text": "Генерал Джазиз"
+ },
+ {
+  "label": "GUI:BioDOBEntry_Pos8",
+  "text": "36"
+ },
+ {
+  "label": "GUI:BioBirthplaceEntry_Pos8",
+  "text": "Невідомо"
+ },
+ {
+  "label": "GUI:BioStrategyEntry_Pos8",
+  "text": "Вибухівка і бомби"
+ },
+ {
+  "label": "GUI:BioRankEntry_Pos8",
+  "text": "Не застосовується"
+ },
+ {
+  "label": "GUI:BioBranchEntry_Pos8",
+  "text": "ГВА Підрозділ Скорпіон"
+ },
+ {
+  "label": "TOOLTIP:BioStrategyLong_Pos8",
+  "text": "Генерал Родалл \"Демо\" Джазіз вважає за краще використовувати потужну вибухівку, щоб перемогти своїх ворогів"
+ }
+]

@@ -1,0 +1,802 @@
+[
+ {
+  "label": "GUI:BuildingsBuilt",
+  "text": "Buildings \n Constructed"
+ },
+ {
+  "label": "GUI:BuildingsLost",
+  "text": "Buildings \n Lost"
+ },
+ {
+  "label": "GUI:BuildingsKilled",
+  "text": "Buildings \n Destroyed"
+ },
+ {
+  "label": "GUI:ResourcesCollected",
+  "text": "Supplies \n Collected"
+ },
+ {
+  "label": "GUI:QuitPopupTitle",
+  "text": "EXIT?"
+ },
+ {
+  "label": "GUI:QuitPopupMessage",
+  "text": "Are you sure you want to exit?"
+ },
+ {
+  "label": "GUI:MaxSelectionSize",
+  "text": "You can only select %d units at one time"
+ },
+ {
+  "label": "GUI:MessagesOn",
+  "text": "Messages Enabled"
+ },
+ {
+  "label": "GUI:MissionDescription",
+  "text": "Mission Description"
+ },
+ {
+  "label": "GUI:MOTD",
+  "text": "Message Of The Day"
+ },
+ {
+  "label": "GUI:DesyncTitle",
+  "text": "Out of Synch"
+ },
+ {
+  "label": "GUI:DesyncText",
+  "text": "C&C Generals Zero Hour has gone out of synch with the other game participants. It is possible that the other participants have modified their versions. C&C Generals Zero Hour cannot continue, however, you may add players to your Ignore List from your Communicator if you choose not to play with them in the future"
+ },
+ {
+  "label": "GUI:LadderDetails",
+  "text": "Ladder Info"
+ },
+ {
+  "label": "GUI:SystemMaps",
+  "text": "Official Maps"
+ },
+ {
+  "label": "GUI:UserMaps",
+  "text": "Unofficial Maps"
+ },
+ {
+  "label": "GUI:WaitingToBeginConnection",
+  "text": "Waiting to begin"
+ },
+ {
+  "label": "GUI:NetgearDelay",
+  "text": "Send Delay"
+ },
+ {
+  "label": "GUI:WaitingForManglerResponse",
+  "text": "Waiting for external Internet Provider response"
+ },
+ {
+  "label": "GUI:WaitingForMangledPort",
+  "text": "Waiting for port number"
+ },
+ {
+  "label": "GUI:WaitingForResponse",
+  "text": "Waiting for probe response"
+ },
+ {
+  "label": "GUI:ConnectionDone",
+  "text": "Connection is completed"
+ },
+ {
+  "label": "GUI:ConnectionFailed",
+  "text": "Connection has failed"
+ },
+ {
+  "label": "GUI:UnknownConnectionState",
+  "text": "Status of NAT/Firewall is unknown"
+ },
+ {
+  "label": "GUI:Logout",
+  "text": "MAIN MENU"
+ },
+ {
+  "label": "GUI:CancelMapSelect",
+  "text": "CANCEL"
+ },
+ {
+  "label": "GUI:Deny",
+  "text": "Reject"
+ },
+ {
+  "label": "GUI:Victory",
+  "text": "Victory"
+ },
+ {
+  "label": "GUI:Ignore",
+  "text": "IGNORE"
+ },
+ {
+  "label": "GUI:Unignore",
+  "text": "Unignore"
+ },
+ {
+  "label": "GUI:Stats",
+  "text": "Persona"
+ },
+ {
+  "label": "GUI:GetMapPack",
+  "text": "Download Map Pack"
+ },
+ {
+  "label": "GUI:Defeat",
+  "text": "Defeat"
+ },
+ {
+  "label": "GUI:YouAreVictorious",
+  "text": "You are Victorious!"
+ },
+ {
+  "label": "GUI:YouHaveBeenDefeated",
+  "text": "You have been Defeated"
+ },
+ {
+  "label": "GUI:PlayerAlive",
+  "text": "Playing"
+ },
+ {
+  "label": "GUI:PlayerDead",
+  "text": "Defeated"
+ },
+ {
+  "label": "GUI:PlayerObserver",
+  "text": "Observing"
+ },
+ {
+  "label": "GUI:PlayerObserverGone",
+  "text": "AWOL"
+ },
+ {
+  "label": "GUI:PlayerGone",
+  "text": "AWOL"
+ },
+ {
+  "label": "GUI:PlayerName",
+  "text": "Player Name"
+ },
+ {
+  "label": "GUI:Info",
+  "text": "Player Info"
+ },
+ {
+  "label": "GUI:Players:",
+  "text": "Players:"
+ },
+ {
+  "label": "GUI:GameOptions:",
+  "text": "Game Options:"
+ },
+ {
+  "label": "GUI:GameName:",
+  "text": "Game:"
+ },
+ {
+  "label": "GUI:MapName:",
+  "text": "Map:"
+ },
+ {
+  "label": "GUI:SelectMap",
+  "text": "SELECT MAP"
+ },
+ {
+  "label": "GUI:SelectAMap",
+  "text": "SELECT MAP"
+ },
+ {
+  "label": "GUI:SelectAGame",
+  "text": "SELECT GAME"
+ },
+ {
+  "label": "GUI:Start",
+  "text": "PLAY GAME"
+ },
+ {
+  "label": "GUI:Host",
+  "text": "CREATE GAME"
+ },
+ {
+  "label": "GUI:LocaleSelect",
+  "text": "SELECT YOUR LOCALE"
+ },
+ {
+  "label": "GUI:Command&ConquerGenerals",
+  "text": "Command & Conquer (TM) Generals Zero Hour"
+ },
+ {
+  "label": "GUI:Command&Conquer",
+  "text": "Command & Conquer (TM)"
+ },
+ {
+  "label": "GUI:Generals",
+  "text": "Generals Zero Hour"
+ },
+ {
+  "label": "GUI:GeneralsOnline",
+  "text": "ONLINE"
+ },
+ {
+  "label": "GUI:SendDelay",
+  "text": "Send Delay"
+ },
+ {
+  "label": "GUI:FirewallRefresh",
+  "text": "Refresh NAT"
+ },
+ {
+  "label": "GUI:Exit",
+  "text": "EXIT GAME"
+ },
+ {
+  "label": "GUI:X",
+  "text": "X"
+ },
+ {
+  "label": "GUI:Campaign",
+  "text": "CAMPAIGN"
+ },
+ {
+  "label": "GUI:WestwoodPacific",
+  "text": "EA Pacific"
+ },
+ {
+  "label": "GUI:ClickToDisplayGameInfo",
+  "text": "Click to display game info"
+ },
+ {
+  "label": "GUI:GameInfo",
+  "text": "Game Info"
+ },
+ {
+  "label": "GUI:OptionsDescription",
+  "text": "Display Game Options Dialog"
+ },
+ {
+  "label": "GUI:SFXVolume",
+  "text": "Sound FX Volume"
+ },
+ {
+  "label": "GUI:3DSound",
+  "text": "3D Sound"
+ },
+ {
+  "label": "GUI:ScrollSpeed",
+  "text": "Scroll Speed"
+ },
+ {
+  "label": "GUI:Resolution",
+  "text": "Resolution"
+ },
+ {
+  "label": "GUI:Resolution0",
+  "text": "1024x768"
+ },
+ {
+  "label": "GUI:Resolution1",
+  "text": "800x600"
+ },
+ {
+  "label": "GUI:Resolution2",
+  "text": "640x480"
+ },
+ {
+  "label": "GUI:Detail",
+  "text": "Detail"
+ },
+ {
+  "label": "GUI:???",
+  "text": "???"
+ },
+ {
+  "label": "GUI:Faction",
+  "text": "Army"
+ },
+ {
+  "label": "GUI:AntiAliasing0",
+  "text": "Off"
+ },
+ {
+  "label": "GUI:AntiAliasing1",
+  "text": "Low"
+ },
+ {
+  "label": "GUI:AntiAliasing2",
+  "text": "High"
+ },
+ {
+  "label": "GUI:IPAddresses",
+  "text": "LAN IP:"
+ },
+ {
+  "label": "GUI:MinPointPercent",
+  "text": "Min Win Percent Required:"
+ },
+ {
+  "label": "GUI:MaxPointPercent",
+  "text": "Max Win Percent Allowed:"
+ },
+ {
+  "label": "GUI:NumPlayers",
+  "text": "Players:"
+ },
+ {
+  "label": "GUI:PlayersVersusPlayers",
+  "text": "%dv%d"
+ },
+ {
+  "label": "GUI:TimeInMilliseconds",
+  "text": "%d ms"
+ },
+ {
+  "label": "GUI:MaxDisconnects",
+  "text": "Max Disconnects Allowed:"
+ },
+ {
+  "label": "GUI:Confirm",
+  "text": "Are you sure?"
+ },
+ {
+  "label": "GUI:NothingSelected",
+  "text": "Nothing selected"
+ },
+ {
+  "label": "GUI:SelectedAcrossScreen",
+  "text": "Selected across screen"
+ },
+ {
+  "label": "GUI:SelectedAcrossMap",
+  "text": "Selected across map"
+ },
+ {
+  "label": "KEYBOARD:Shift+",
+  "text": "Shift+"
+ },
+ {
+  "label": "KEYBOARD:Alt+",
+  "text": "Alt+"
+ },
+ {
+  "label": "KEYBOARD:Ctrl+",
+  "text": "Ctrl+"
+ },
+ {
+  "label": "TOOLTIP:ScienceCost",
+  "text": "Cost: %d"
+ },
+ {
+  "label": "TOOLTIP:Cost",
+  "text": "Cost: %d"
+ },
+ {
+  "label": "TOOLTIP:SupplyWarehouse",
+  "text": "\n $%d remain"
+ },
+ {
+  "label": "TOOLTIP:LobbyPlayers",
+  "text": "Players currently in the Game Lobby"
+ },
+ {
+  "label": "TOOLTIP:StartWorldBuilder",
+  "text": "Start the World Builder editor"
+ },
+ {
+  "label": "TOOLTIP:GetUpdate",
+  "text": "Download game update"
+ },
+ {
+  "label": "TOOLTIP:GetMapPack",
+  "text": "Download new map pack"
+ },
+ {
+  "label": "TOOLTIP:Skirmish",
+  "text": "Enter Skirmish setup menu"
+ },
+ {
+  "label": "TOOLTIP:Online",
+  "text": "Click to join C&C Generals Zero Hour Online. Test your skills against opponents from around the world!"
+ },
+ {
+  "label": "TOOLTIP:Network",
+  "text": "Click to Join the Network Lobby. Test your mettle against your friends over a Local Area Network"
+ },
+ {
+  "label": "TOOLTIP:Options",
+  "text": "Click to modify the game options. You may adjust your video, audio and game preferences"
+ },
+ {
+  "label": "TOOLTIP:Exit",
+  "text": "Exit C&C Generals Zero Hour. Good luck in the field, Commander"
+ },
+ {
+  "label": "TOOLTIP:ExitGame",
+  "text": "Exit C&C Generals Zero Hour. Good luck in the field, Commander"
+ },
+ {
+  "label": "TOOLTIP:LoadGame",
+  "text": "Click to load the selected game"
+ },
+ {
+  "label": "TOOLTIP:MapPreviewWindow",
+  "text": "Map previews can give you a leg up on the battle to come. Make sure to look for your Supply Docks & Tech Buildings. You may also choose your starting point"
+ },
+ {
+  "label": "TOOLTIP:SaveGame",
+  "text": "Click to save your game in progress"
+ },
+ {
+  "label": "TOOLTIP:AcceptButton",
+  "text": "Accept your current choice"
+ },
+ {
+  "label": "TOOLTIP:CopyReplayToDesktop",
+  "text": "Copy selected Replay file to your Desktop"
+ },
+ {
+  "label": "TOOLTIP:ProviderType",
+  "text": "Select your Audio Provider"
+ },
+ {
+  "label": "TOOLTIP:SpeakerType",
+  "text": "Select your Speaker Configuration"
+ },
+ {
+  "label": "TOOLTIP:LANPlayer",
+  "text": "%ls@%ls"
+ },
+ {
+  "label": "TOOLTIP:Resolution",
+  "text": "Pick a screen resolution for your game. The higher the resolution, the slower your game is likely to play"
+ },
+ {
+  "label": "TOOLTIP:CommandCategory",
+  "text": "Pick a category of keyboard command"
+ },
+ {
+  "label": "TOOLTIP:CommandDescription",
+  "text": "The description of your selected command"
+ },
+ {
+  "label": "TOOLTIP:StartPosition",
+  "text": "Starting Position"
+ },
+ {
+  "label": "TOOLTIP:SelectMap",
+  "text": "Select the battlefield you would like to use"
+ },
+ {
+  "label": "TOOLTIP:Vote",
+  "text": "Click to vote player out of game in order for you to continue"
+ },
+ {
+  "label": "TOOLTIP:NumberOfVotes",
+  "text": "Votes cast to remove player"
+ },
+ {
+  "label": "TOOLTIP:QuitMultiplayerGame",
+  "text": "Exit to game menus"
+ },
+ {
+  "label": "TOOLTIP:RestartGame",
+  "text": "Restart game with same preferences"
+ },
+ {
+  "label": "TOOLTIP:Help",
+  "text": "."
+ },
+ {
+  "label": "TOOLTIP:StartLocation",
+  "text": "Starting position"
+ },
+ {
+  "label": "TOOLTIP:ReturnToGame",
+  "text": "RETURN TO GAME"
+ },
+ {
+  "label": "TOOLTIP:CommandList",
+  "text": "Available commands for the current category"
+ },
+ {
+  "label": "TOOLTIP:CurrentHotkey",
+  "text": "Displays the current Hotkey for this command"
+ },
+ {
+  "label": "TOOLTIP:AssignHotkey",
+  "text": "Enter your new command Hotkey here"
+ },
+ {
+  "label": "TOOLTIP:AssignHotkeyCurrent",
+  "text": "The command this Hotkey is currently assigned to"
+ },
+ {
+  "label": "TOOLTIP:AssignButton",
+  "text": "Assigns your chosen Hotkey command"
+ },
+ {
+  "label": "TOOLTIP:ResetAll",
+  "text": "Resets all of your keyboard Hotkeys to default"
+ },
+ {
+  "label": "TOOLTIP:BackButton",
+  "text": "Return to previous menu"
+ },
+ {
+  "label": "TOOLTIP:ProviderSelect",
+  "text": "Select the 3-D Audio Provider. The game has already chosen your optimal set up but you may manually change if you prefer"
+ },
+ {
+  "label": "TOOLTIP:SpeakerSelect",
+  "text": "Select your speaker setup. The game has already chosen your optimal set up but you may manually change if you prefer"
+ },
+ {
+  "label": "TOOLTIP:DontUseAccount",
+  "text": "Log in without using your C&C Generals Zero Hour Online Account. You will not be able to access your Player Persona or Communicator"
+ },
+ {
+  "label": "TOOLTIP:CommunicatorButton",
+  "text": "Contact your buddies"
+ },
+ {
+  "label": "TOOLTIP:NameButton",
+  "text": "Sort by game name"
+ },
+ {
+  "label": "TOOLTIP:PingButton",
+  "text": "Sort by Ping"
+ },
+ {
+  "label": "TOOLTIP:UseAccount",
+  "text": "Join C&C Generals Zero Hour Online"
+ },
+ {
+  "label": "TOOLTIP:Login",
+  "text": "Join C&C Generals Zero Hour Online"
+ },
+ {
+  "label": "TOOLTIP:CreateAccount",
+  "text": "Create a new C&C Generals Zero Hour Online account"
+ },
+ {
+  "label": "TOOLTIP:TOS",
+  "text": "View the Service Terms agreement"
+ },
+ {
+  "label": "TOOLTIP:RememberInfo",
+  "text": "Remember login info. Not recommended for computers with multiple users"
+ },
+ {
+  "label": "TOOLTIP:Back",
+  "text": "Return to previous screen"
+ },
+ {
+  "label": "TOOLTIP:BattleHonors",
+  "text": "The Battle Honors a player has received \n Battle Honors are won by achieving certain goals in solo or multiplay"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak3",
+  "text": "Streak Honor \n Player has won 3 Skirmish games in a row \n Earn a new medal for 3, 10, 25, 100, 500 & 1000 consecutive wins"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak10",
+  "text": "Streak Honor \n Player has won 10 Skirmish games in a row \n Earn a new medal for 3, 10, 25, 100, 500 & 1000 consecutive wins"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorLoyaltyUSA",
+  "text": "USA Loyalty Honor \n Player has played 20+ games in a row as the USA"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorLoyaltyChina",
+  "text": "China Loyalty Honor \n Player has played 20+ games in a row as China"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorLoyaltyGLA",
+  "text": "GLA Loyalty Honor \n Player has played 20+ games in a row as the GLA"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorBattleTank",
+  "text": "Battle Tank Honor \n Player has built 50+ tanks in a solo or multiplayer online game"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorAirWing",
+  "text": "Air Wing Honor \n Player has built 20+ aircraft in a solo or multiplayer online game"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorEndurance",
+  "text": "Endurance Honor \n Beat every map to earn a Bronze, Silver, or Gold medal"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorCampaignUSA",
+  "text": "USA Campaign Honor \n Complete the USA Campaign to earn this honor \n Beat the campaign on Hard difficulty to achieve the highest honor"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorCampaignChina",
+  "text": "China Campaign Honor \n Complete the China Campaign to earn this honor \n Beat the campaign on Hard difficulty to achieve the highest honor"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorCampaignGLA",
+  "text": "GLA Campaign Honor \n Complete the GLA Campaign to earn this honor \n Beat the campaign on Hard difficulty to achieve the highest honor"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorChallenge",
+  "text": "Challenge Honor \n Player has defeated a Hard computer opponent"
+ },
+ {
+  "label": "TOOLTIP:ProgressToNextRank",
+  "text": "Progress until the next rank is acheived"
+ },
+ {
+  "label": "TOOLTIP:SetLocale",
+  "text": "Change your current Locale selection"
+ },
+ {
+  "label": "TOOLTIP:DeleteAccount",
+  "text": "Delete your current account"
+ },
+ {
+  "label": "TOOLTIP:AsianText",
+  "text": "Click to toggle Asian chat, etc"
+ },
+ {
+  "label": "TOOLTIP:NonAsianText",
+  "text": "Click to toggle Non Asian chat, etc"
+ },
+ {
+  "label": "GUI:AreYouSureDeleteAccount",
+  "text": "Are you sure you want to permanently delete your account and all your saved statistics?"
+ },
+ {
+  "label": "GUI:NonAsianText",
+  "text": "Non-Asian Text"
+ },
+ {
+  "label": "GUI:AsianText",
+  "text": "Asian Text"
+ },
+ {
+  "label": "GUI:DeleteAccount",
+  "text": "DELETE ACCOUNT"
+ },
+ {
+  "label": "GUI:SetLocale",
+  "text": "SET LOCALE"
+ },
+ {
+  "label": "GUI:WinLoss",
+  "text": "Win/Loss"
+ },
+ {
+  "label": "GUI:FavSide",
+  "text": "Favorite Army"
+ },
+ {
+  "label": "GUI:Discons",
+  "text": "Disconnects"
+ },
+ {
+  "label": "GUI:BattleHonors",
+  "text": "Battle Honors"
+ },
+ {
+  "label": "GUI:TotalBuddys",
+  "text": "Total Buddys"
+ },
+ {
+  "label": "GUI:PlayerStatistics",
+  "text": "%hs, from %ls"
+ },
+ {
+  "label": "GUI:TotalBuilt",
+  "text": "Total Built"
+ },
+ {
+  "label": "GUI:TotalDeaths",
+  "text": "Total Deaths"
+ },
+ {
+  "label": "GUI:TotalKills",
+  "text": "Total Kills"
+ },
+ {
+  "label": "GUI:FavoriteUnit",
+  "text": "Favorite Unit"
+ },
+ {
+  "label": "GUI:FavoriteSide",
+  "text": "Favorite Army"
+ },
+ {
+  "label": "GUI:Loses",
+  "text": "Losses"
+ },
+ {
+  "label": "GUI:Wins",
+  "text": "Wins"
+ },
+ {
+  "label": "GUI:TotalDesyncs",
+  "text": "Desyncs"
+ },
+ {
+  "label": "GUI:TotalDisconnects",
+  "text": "Disconnects"
+ },
+ {
+  "label": "GUI:GamesPlayed",
+  "text": "Games Played"
+ },
+ {
+  "label": "GUI:TOS",
+  "text": "SERVICE TERMS"
+ },
+ {
+  "label": "GUI:RememberInfo",
+  "text": "Remember my Info"
+ },
+ {
+  "label": "GUI:HostWantsToStart",
+  "text": "The Host wants to start. Press the Accept button"
+ },
+ {
+  "label": "GUI:PlayerNoMap",
+  "text": "%ls does not have the map %ls"
+ },
+ {
+  "label": "GUI:LocalPlayerNoMap",
+  "text": "You do not have the map %ls"
+ },
+ {
+  "label": "GUI:NeedMorePlayers",
+  "text": "You need more player(s) to start the game"
+ },
+ {
+  "label": "GUI:NotifiedStartIntent",
+  "text": "The other players have been notified that you want to start the game"
+ },
+ {
+  "label": "GUI:HostLeft",
+  "text": "The host left the game but C&C Generals Zero Hour will continue"
+ },
+ {
+  "label": "GUI:HostLeftTitle",
+  "text": "HOST HAS LEFT"
+ },
+ {
+  "label": "GUI:WidenSearch",
+  "text": "WIDEN SEARCH"
+ },
+ {
+  "label": "GUI:QMAborted",
+  "text": "Matching aborted"
+ },
+ {
+  "label": "GUI:DrawScrollAnchor",
+  "text": "Draw scroll anchor"
+ },
+ {
+  "label": "GUI:MoveScrollAnchor",
+  "text": "Move scroll anchor"
+ },
+ {
+  "label": "GUI:GroupRoom1",
+  "text": "1 vs 1"
+ },
+ {
+  "label": "GUI:GroupRoom2",
+  "text": "2 vs 2"
+ },
+ {
+  "label": "GUI:GroupRoom3",
+  "text": "3 vs 3"
+ },
+ {
+  "label": "GUI:Email",
+  "text": "Email"
+ },
+ {
+  "label": "GUI:NoLadder",
+  "text": "No Ladder"
+ }
+]

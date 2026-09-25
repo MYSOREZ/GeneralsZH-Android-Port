@@ -1,0 +1,802 @@
+[
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry088Subtitle",
+  "text": "*Если вы сейчас же не отступите, я спущу орду, и она сотрёт вас с нашей земли"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry089Subtitle",
+  "text": "*Чувствуете, что конец близок, генерал?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry090Subtitle",
+  "text": "*Ха-ха! Я вас победил. Теперь выбирайте: вступить в мою орду или умереть"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry091Subtitle",
+  "text": "*Пора выпустить орду!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry092Subtitle",
+  "text": "*Выходите против меня и падите, как остальные"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry093Subtitle",
+  "text": "*Мои люди раздавят вас"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry094Subtitle",
+  "text": "*Мы пройдём сквозь вас, как саранча"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry095Subtitle",
+  "text": "*Люди? Где мои люди? Вы ведь не подумаете меня отпустить? Пожалуйста, не трогайте меня"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry096Subtitle",
+  "text": "*У нас в орде красивая форма… всё не так уж плохо… вам может даже понравиться. Хотя вряд ли"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry097Subtitle",
+  "text": "*Вы готовы встретиться с моей ордой, генерал?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry098Subtitle",
+  "text": "*И подумайте, это лишь первая волна"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser001Subtitle",
+  "text": "*Теперь вы у меня на прицеле, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser002Subtitle",
+  "text": "*Начинаю точечную атаку"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser003Subtitle",
+  "text": "* (войска игрока уничтожены) Интересный выбор тактики, моему прошлому противнику она тоже не помогла"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser004Subtitle",
+  "text": "*Я собираюсь атаковать, подумал, что вам пригодится предупреждение"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser005Subtitle",
+  "text": "*Может, вам стоит пересмотреть свои стратегии, они явно не работают"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser006Subtitle",
+  "text": "*Как вам мои новые игрушки, генерал?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser007Subtitle",
+  "text": "*Приготовьтесь, генерал, сейчас вы получите урок военного дела"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser008Subtitle",
+  "text": "*Легко пришло, легко ушло"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser009Subtitle",
+  "text": "*Может, это не ваше призвание? Попробуйте живопись"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser010Subtitle",
+  "text": "*Красота, правда, генерал?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser011Subtitle",
+  "text": "*Мои лазеры пройдут сквозь вашу оборону, как горячий нож сквозь масло"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser012Subtitle",
+  "text": "*Шах и мат"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser013Subtitle",
+  "text": "*Это совершенно новая эпоха войны, генерал, и она уже на вашем пороге"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser014Subtitle",
+  "text": "*Цель подсвечена, всем силам начать атаку"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser015Subtitle",
+  "text": "*Изначально у всего моего оружия было лазерное наведение, но мои враги запутались"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser016Subtitle",
+  "text": "*Не смотрите прямо на лазер, можно выжечь себе затылок"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser017Subtitle",
+  "text": "*Заряжаю лазеры… подождите, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser018Subtitle",
+  "text": "*Для максимального эффекта лазеры нужно точно откалибровать"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser019Subtitle",
+  "text": "*Бульдозеры, стройте больше реакторов, лазерам нужно много энергии"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser020Subtitle",
+  "text": "*Сможете сравниться с пятьюдесятью миллионами мегаджоулей лазерной мощности, генерал?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser021Subtitle",
+  "text": "*Похоже на большую космическую битву, правда?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser022Subtitle",
+  "text": "*Мои лазеры превратят вашу броню в пар"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser023Subtitle",
+  "text": "*Генерал, вам правда стоит согласовывать свои атаки, всё это было для меня слишком просто"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser024Subtitle",
+  "text": "*Не отвлекайтесь на красивые огоньки, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser025Subtitle",
+  "text": "*Хотите, я вас «телепортирую», генерал?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser026Subtitle",
+  "text": "*Ваше оружие не сравнится с моей точностью, генерал. Почему бы просто не сдаться?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser027Subtitle",
+  "text": "*Почему бы вам не построить ещё одну казарму, генерал? С удовольствием уничтожу и её"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser028Subtitle",
+  "text": "*Если вы не можете защитить свой военный завод, насколько в безопасности ваш командный центр?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser029Subtitle",
+  "text": "*Ваши самолёты не защищены от моих лазеров, особенно без аэродрома"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser030Subtitle",
+  "text": "*Оборона вашей базы против меня бесполезна"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser031Subtitle",
+  "text": "*А, командный центр — ферзь на этой шахматной доске. Партия почти окончена, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser032Subtitle",
+  "text": "*Мои лазеры уничтожили столько ваших зданий… как вы ещё держитесь?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser033Subtitle",
+  "text": "*Генерал, не уничтожайте мои технологические здания, они мне нужны"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser034Subtitle",
+  "text": "*Прочь от моей казармы!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser035Subtitle",
+  "text": "*Мой военный завод! Неееет!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser036Subtitle",
+  "text": "*Как вы посмели уничтожить мой аэродром!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser037Subtitle",
+  "text": "*Они уничтожают нашу оборону! Всем силам: защищать базу!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser038Subtitle",
+  "text": "*Генерал, такие потери недопустимы. Я отплачу вам за уничтожение моих зданий"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser039Subtitle",
+  "text": "*Нет! Быстро, бульдозеры, восстановить командный центр!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser040Subtitle",
+  "text": "*Генерал, если вы собьёте ещё хоть один мой самолёт, я пущу в ход всё своё супероружие, чтобы вас уничтожить!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser041Subtitle",
+  "text": "*Оставьте мою технику в покое, генерал!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser042Subtitle",
+  "text": "*Вы ведь нарочно охотитесь на моих людей, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser043Subtitle",
+  "text": "*Пользуйтесь этой нефтяной вышкой, пока можете, скоро мы её заберём"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser044Subtitle",
+  "text": "*Этой артиллерийской платформе не тягаться с моими воздушными лазерами"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser045Subtitle",
+  "text": "*Вы знали, что этот нефтяной завод позволит вам строить технику быстрее и выгоднее? Ой, наверное, не стоило мне этого говорить"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser046Subtitle",
+  "text": "*Вы задели наши лазеры внешнего периметра, генерал. Теперь мы знаем, что вы здесь"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser047Subtitle",
+  "text": "*Я вижу, как вы приближаетесь к моей базе, генерал. Не советую подходить ближе"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser048Subtitle",
+  "text": "*Враг на нашей базе! Всем силам вернуться и развернуть лазеры!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser049Subtitle",
+  "text": "*Прочь от моих реакторов, генерал!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser050Subtitle",
+  "text": "*Генерал, эти ресурсы для меня, держитесь от них подальше"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser051Subtitle",
+  "text": "*Атакуете с флангов, да? Чтобы победить меня, нужны не только тактические уловки"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser052Subtitle",
+  "text": "*Атаки с флангов?! Какой вы коварный, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser053Subtitle",
+  "text": "*Да, входите прямо через парадную дверь, генерал… если осмелитесь"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser054Subtitle",
+  "text": "*Осторожнее, генерал, тыл моей базы не так беззащитен, как кажется"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser055Subtitle",
+  "text": "*Глупо было приходить сюда, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser056Subtitle",
+  "text": "*Этих ресурсов не хватит, чтобы спасти вашу провальную стратегию, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser057Subtitle",
+  "text": "*Нет! Не подходите! Мне нужны эти реакторы для питания лазеров!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser058Subtitle",
+  "text": "*Нет энергии?! Как вы допустили, что на вашей базе кончилась энергия?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser059Subtitle",
+  "text": "*Остаться без энергии — роковая ошибка, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser060Subtitle",
+  "text": "*У вас кончились ресурсы, генерал. Вы не успеете оправиться, прежде чем мы вас сомнём"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser061Subtitle",
+  "text": "*Кончились ресурсы?! Это недопустимо! Чинуки, собирайте быстрее!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser062Subtitle",
+  "text": "*Продайте эту залповую установку ракет Р-17М, генерал, или я уничтожу её за вас"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser063Subtitle",
+  "text": "*Эта ракетная шахта меня не остановит, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser064Subtitle",
+  "text": "*Если вы построите молекулярную пушку, а я уничтожу её молекулярным лучом… это ирония?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser065Subtitle",
+  "text": "*Такое обилие обороны лишь немного задержит мой лазер, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser066Subtitle",
+  "text": "*Вашим обычным танкам не тягаться с моими лазерными боевыми платформами, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser067Subtitle",
+  "text": "*Многовато самолётов, генерал. Вы устраиваете авиашоу?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser068Subtitle",
+  "text": "*Немало же пехоты вы обучили, генерал. Не терпится увидеть этот безумный план"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser069Subtitle",
+  "text": "*Ваша база начинает походить на жилой квартал, генерал. Может, мне поиграть в «соедини точки» молекулярной пушкой, чтобы вас немного проредить"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser070Subtitle",
+  "text": "*Я собью эти ракеты, генерал. А потом вы заплатите"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser071Subtitle",
+  "text": "*Мои лазеры собьют эту ядерную ракету, генерал. Радиоактивные осадки будут на вашей совести"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser072Subtitle",
+  "text": "*Молекулярная пушка?! Интересно, что будет, если скрестить лучи"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser073Subtitle",
+  "text": "*Генерал, не занимайте это здание, выходите поиграть"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser074Subtitle",
+  "text": "*Генерал, полковник Бартон — неуклюжий болван"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser075Subtitle",
+  "text": "*Чёрный Лотос не невидима для моих лазеров, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser076Subtitle",
+  "text": "*Надеюсь, у Джармена Келла на винтовке не лазерный прицел… против меня он не сработает"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser077Subtitle",
+  "text": "*Постройка аэродрома лишь даст моим лазерам воздушные мишени, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser078Subtitle",
+  "text": "*Вам понадобится много танков, чтобы добраться до меня, генерал. Удачи"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser079Subtitle",
+  "text": "*Постройка казармы лишь подставит ваших людей, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser080Subtitle",
+  "text": "*Распродаёте здания, да? Первая ошибка отчаявшегося генерала"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser081Subtitle",
+  "text": "*Что?! Не может быть, чтобы вы меня побеждали! Одна ваша неточность должна гарантировать мне победу"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser082Subtitle",
+  "text": "*Я не могу проиграть вам, вы же неуклюжий болван!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser083Subtitle",
+  "text": "*Как вы можете выигрывать? В симуляции всё было иначе"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser084Subtitle",
+  "text": "*Я учёл все переменные, и всё же вы побеждаете… как это возможно?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser085Subtitle",
+  "text": "*Нет! Это не может быть конец! Каким обманом вы меня победили?!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser086Subtitle",
+  "text": "*Моё планирование и подготовка ведут меня к явной победе"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser087Subtitle",
+  "text": "*Точность всегда одолеет грубую силу, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser088Subtitle",
+  "text": "*Для вас это, наверное, как ночной кошмар, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser089Subtitle",
+  "text": "*Вы уже решили, как примете это поражение, генерал?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser090Subtitle",
+  "text": "*Вы побеждены, генерал. Впрочем, в этом никто и не сомневался, верно?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser091Subtitle",
+  "text": "*Лазеры заряжены, веду цели"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser092Subtitle",
+  "text": "*Вы не моего уровня, генерал, найдите противника попроще"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser093Subtitle",
+  "text": "*По моим расчётам, вы проиграете эту битву, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser094Subtitle",
+  "text": "*Лазеры — превосходное оружие"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser095Subtitle",
+  "text": "*Вы победили меня, генерал, но я проанализирую вашу тактику и разработаю лучшую стратегию"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser096Subtitle",
+  "text": "*Ваши слабости стали очевидны, когда я проанализировал вашу тактику"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser097Subtitle",
+  "text": "*Ну вот, генерал, я провёл черту на песке"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser098Subtitle",
+  "text": "*А теперь попробуйте её пересечь. Идите ко мне, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke001Subtitle",
+  "text": "*Зато жара сухая, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke002Subtitle",
+  "text": "*Скоро ваша база будет сиять, как солнце"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke003Subtitle",
+  "text": "*И как вы собираетесь с этим бороться, генерал?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke004Subtitle",
+  "text": "*Вашему оружию не сравниться с моей мощью!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke005Subtitle",
+  "text": "*Плавьтесь! Всё должно расплавиться!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke006Subtitle",
+  "text": "* Сияние! Чудесное сияние! Разве вы не видите его, генерал?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke007Subtitle",
+  "text": "*Похоже, в этом году будет ядерная зима, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke008Subtitle",
+  "text": "*Конец близок, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke009Subtitle",
+  "text": "*Это только начало, генерал. Начало конца"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke010Subtitle",
+  "text": "*Не волнуйтесь, генерал, боеголовки уже в пути"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke011Subtitle",
+  "text": "*Простите за задержку, генерал, собираю войска"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke012Subtitle",
+  "text": "*Жара вас допекает, генерал?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke013Subtitle",
+  "text": "*Расплавились, генерал?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke014Subtitle",
+  "text": "*Всем силам приготовиться к следующему штурму"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke015Subtitle",
+  "text": "*И куда же я дел коды запуска?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke016Subtitle",
+  "text": "*Готовы к добавке, генерал?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke017Subtitle",
+  "text": "*Кажется, это ваш период полураспада, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke018Subtitle",
+  "text": "*Надеюсь, ваш радар работает, генерал, не хотелось бы, чтобы вы пропустили то, что будет дальше"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke019Subtitle",
+  "text": "*Теперь я знаю ваши слабые места, генерал. Следующую атаку будет не остановить"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke020Subtitle",
+  "text": "*Скоро вы познаете славу моего ядерного арсенала"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke021Subtitle",
+  "text": "*На вашем месте я бы запасся солнцезащитным кремом, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke022Subtitle",
+  "text": "*\"    Ne"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke023Subtitle",
+  "text": "*Рано или поздно кто-то должен выиграть гонку вооружений, иначе зачем вообще гоняться?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke024Subtitle",
+  "text": "*Пора надевать свинцовые трусы"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke025Subtitle",
+  "text": "*Помните: не смотрите прямо на взрыв, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke026Subtitle",
+  "text": "*Похоже, вы обучили своих людей только умирать, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke027Subtitle",
+  "text": "*Теперь ваш военный завод — светящийся кратер. Чудесно"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke028Subtitle",
+  "text": "*Ваша оборона трескается, как яичная скорлупа, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke029Subtitle",
+  "text": "*Ой, вы ведь не были в том командном центре, генерал?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke030Subtitle",
+  "text": "*Зачем вы уничтожаете мою казарму, генерал? Бояться нужно не моих людей"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke031Subtitle",
+  "text": "*Мой военный завод! Что вы наделали?! Мои драгоценные танки… пропали..."
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke032Subtitle",
+  "text": "*Оставьте меня в покое! Что я вам сделал?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke033Subtitle",
+  "text": "*Мой командный центр! Нет!!! Я не лишусь командования! Ни за что!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke034Subtitle",
+  "text": "*Не могу поверить, что вы меня побеждаете! Может, дадите мне минутку отстроиться?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke035Subtitle",
+  "text": "*Мы понесли от вас большие потери, генерал, но это ещё не конец"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke036Subtitle",
+  "text": "*Генерал, можете забрать эту нефтяную вышку, но остановить меня она вам не поможет"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke037Subtitle",
+  "text": "*Вон с моей базы, генерал! Дважды просить не буду"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke038Subtitle",
+  "text": "*Долго вы собираетесь торчать на моей базе, генерал? Может, приготовить вам койку?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke039Subtitle",
+  "text": "*Покиньте мою базу, генерал, или я буду вынужден взорвать свои боеголовки"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke040Subtitle",
+  "text": "*Нравится моя деревня, генерал? Прошу, будьте как дома"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke041Subtitle",
+  "text": "*Пришли осмотреть ядерное оружие, генерал? Смотреть можно, трогать нельзя"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke042Subtitle",
+  "text": "*Я бы на вашем месте был осторожнее, генерал, эти ядерные склады имеют привычку протекать"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke043Subtitle",
+  "text": "*Прочь от моего снабжения, генерал!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke044Subtitle",
+  "text": "*Генерал, на вашем месте я бы не захватывал эту нефтяную вышку, я её просто уничтожу"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke045Subtitle",
+  "text": "*Прочь от моих шахт, генерал!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke046Subtitle",
+  "text": "*Вижу, у вас отключилась энергия, генерал. Прислать вам немного ядерной энергии?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke047Subtitle",
+  "text": "*Уже кончились деньги? Разве вы не знаете, что война — дорогое удовольствие, генерал?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke048Subtitle",
+  "text": "*Прошу, стройте больше танков, генерал, даже они расплавятся… со временем"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke049Subtitle",
+  "text": "*Держите эти самолёты подальше от моих шахт!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke050Subtitle",
+  "text": "*Столько солдат, генерал. Они надели свои противорадиационные костюмы?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke051Subtitle",
+  "text": "*Как думаете, сколько ядерных ракет мне понадобится, чтобы уничтожить это новое оружие, генерал?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke052Subtitle",
+  "text": "*Как думаете, сколько ядерных ракет мне понадобится, чтобы уничтожить это новое оружие, генерал?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke053Subtitle",
+  "text": "*Распродаёте здания? Генерал, если вы хотели расчистить этот участок, я мог бы сделать это за вас"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke054Subtitle",
+  "text": "*Вам не устоять против моей мощи, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke055Subtitle",
+  "text": "*Сдавайтесь! Или вы хотите, чтобы бомбардировка продолжилась?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke056Subtitle",
+  "text": "*Вы проигрываете эту войну, генерал. Ещё несколько бомб, и ваша база падёт!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke057Subtitle",
+  "text": "*Сила есть право. Не согласны, генерал?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke058Subtitle",
+  "text": "*А теперь моя последняя атака. Держитесь, генерал, вам понравится… хотя нет, не понравится"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke059Subtitle",
+  "text": "*Никто не устоит перед нашим ядерным арсеналом"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke060Subtitle",
+  "text": "*Бросьте мне вызов, и ваша база засияет, как солнце"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke061Subtitle",
+  "text": "*Скоро от вас останутся только ядерные отходы"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke062Subtitle",
+  "text": "*Ещё мгновение, и я бы стёр вас в пыль"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke063Subtitle",
+  "text": "*Вам повезло пережить эту битву невредимым. Бросьте мне вызов снова, если осмелитесь"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke064Subtitle",
+  "text": "*Добро пожаловать на вечеринку, генерал. Простите за беспорядок"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke065Subtitle",
+  "text": "*Теперь, генерал, вы понимаете, почему меня прозвали Мао Ядерный"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke066Subtitle",
+  "text": "*Мы вас ждали, генерал. Примите наши подарки"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke067Subtitle",
+  "text": "*Ещё подарки, генерал. Наша щедрость безгранична"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke068Subtitle",
+  "text": "*Теперь битва начинается всерьёз. Приготовьтесь, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke069Subtitle",
+  "text": "*Холодный синтез — не способ получать энергию, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke070Subtitle",
+  "text": "*Мне больно уничтожать ваши реакторы, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke071Subtitle",
+  "text": "*И это вы называете «супероружием», генерал? Ломается, как игрушка"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke072Subtitle",
+  "text": "*Нет! Мои боеголовки! Мои прекрасные боеголовки! Вы заплатите, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke073Subtitle",
+  "text": "*Ничего, генерал, у меня для вас есть ещё ядерные ракеты"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke074Subtitle",
+  "text": "*Эй, вы знаете, сколько стоит эта ракетная шахта?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke075Subtitle",
+  "text": "*Ладно, генерал, хватит, у меня кончаются ядерные ракеты!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke076Subtitle",
+  "text": "*И вообще, зачем вам взрывать мои ядерные ракеты, генерал?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke077Subtitle",
+  "text": "*Нет! Это была моя последняя ракетная шахта! Почему, генерал… почему?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke078Subtitle",
+  "text": "*(враг потерял все шахты) Вы уничтожили все мои шахты… почему, генерал? Почему?!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke079Subtitle",
+  "text": "*(враг захватил казарму игрока) Я захватил вашу казарму, генерал. Пожалуй, я её продам"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke080Subtitle",
+  "text": "*(враг захватил военный завод игрока) Мои люди захватили ваш военный завод. Вам правда стоило лучше его охранять"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke081Subtitle",
+  "text": "*(база игрока) Ваша оборона слаба, генерал, мы вошли на вашу базу"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke082Subtitle",
+  "text": "*(зона боёв) Мои войска на поле, генерал. Скоро они ворвутся на вашу базу"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke083Subtitle",
+  "text": "*(район доков снабжения) А, мы нашли снабжение. Скоро мы будем контролировать все ресурсы!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke084Subtitle",
+  "text": "*(второй район доков снабжения) Ещё снабжение для нас. А на что вы содержите свои войска, генерал?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke085Subtitle",
+  "text": "*(район нефтяной вышки) Красногвардейцы, захватить эту нефтяную вышку!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke086Subtitle",
+  "text": "*Похоже, мы израсходовали всё снабжение в этом районе. Надеюсь, вы нашли другие источники, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke087Subtitle",
+  "text": "*(у врага нет энергии) Что?! У меня нет энергии? Как у меня может не быть энергии? Дайте мне ещё энергии! Немедленно!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke088Subtitle",
+  "text": "*(скорая помощь) Эта скорая помощь не спасёт ваших людей от радиации"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke089Subtitle",
+  "text": "*(стратегический центр) Стратегический центр? Какую стратегию вы можете придумать, чтобы бороться со мной?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke090Subtitle",
+  "text": "*(чёрный рынок) Чёрный рынок не продаст вам ничего достаточно мощного, чтобы остановить меня, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke091Subtitle",
+  "text": "*(центр пропаганды) Ваша пропаганда никого не настроит против моей ядерной мощи, генерал"
+ }
+]

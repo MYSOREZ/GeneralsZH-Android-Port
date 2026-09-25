@@ -1,0 +1,2190 @@
+[
+ {
+  "label": "GUI:Random",
+  "text": "Zufall"
+ },
+ {
+  "label": "GUI:Observer",
+  "text": "Beobachter"
+ },
+ {
+  "label": "GUI:USA",
+  "text": "USA"
+ },
+ {
+  "label": "GUI:China",
+  "text": "China"
+ },
+ {
+  "label": "GUI:GLA",
+  "text": "GBA"
+ },
+ {
+  "label": "UPGRADE:UpgradeComplete",
+  "text": "Upgrade abgeschlossen: %s"
+ },
+ {
+  "label": "SCIENCE:GeneralName",
+  "text": "<Name eingeben>"
+ },
+ {
+  "label": "SCIENCE:SkillPoints",
+  "text": "Beförderungspunkte: %d"
+ },
+ {
+  "label": "SCIENCE:Rank",
+  "text": "Stufe %d"
+ },
+ {
+  "label": "SCIENCE:TempName",
+  "text": "Gib meiner Fähigkeit einen Namen"
+ },
+ {
+  "label": "SCIENCE:USAPaladin",
+  "text": "Paladin-Panzer"
+ },
+ {
+  "label": "SCIENCE:USAPathFinder",
+  "text": "Pathfinder"
+ },
+ {
+  "label": "SCIENCE:USAStealthFighter",
+  "text": "Tarnkappenjäger"
+ },
+ {
+  "label": "SCIENCE:USASpyDrone",
+  "text": "Spionagedrohne"
+ },
+ {
+  "label": "SCIENCE:USAParaDrop1",
+  "text": "Fallschirmabwurf 1"
+ },
+ {
+  "label": "SCIENCE:USAParaDrop2",
+  "text": "Fallschirmabwurf 2"
+ },
+ {
+  "label": "SCIENCE:USAParaDrop3",
+  "text": "Fallschirmabwurf 3"
+ },
+ {
+  "label": "SCIENCE:USAA10Strike1",
+  "text": "A10-Angriff 1"
+ },
+ {
+  "label": "SCIENCE:USAA10Strike2",
+  "text": "A10-Angriff 2"
+ },
+ {
+  "label": "SCIENCE:USAA10Strike3",
+  "text": "A10-Angriff 3"
+ },
+ {
+  "label": "SCIENCE:USADaisyCutter",
+  "text": "Aerosolbombe"
+ },
+ {
+  "label": "SCIENCE:ChinaNukeLauncher",
+  "text": "Atomkanone"
+ },
+ {
+  "label": "SCIENCE:ChinaRedGuardTraining",
+  "text": "Rotgardisten-Ausbildung"
+ },
+ {
+  "label": "SCIENCE:ChinaClusterMines",
+  "text": "Streuminen"
+ },
+ {
+  "label": "SCIENCE:ChinaArtilleryTraining",
+  "text": "Artillerie-Ausbildung"
+ },
+ {
+  "label": "SCIENCE:ChinaArtilleryBarrage",
+  "text": "Artilleriesperrfeuer 1"
+ },
+ {
+  "label": "SCIENCE:ChinaArtilleryBarrage2",
+  "text": "Artilleriesperrfeuer 2"
+ },
+ {
+  "label": "SCIENCE:ChinaArtilleryBarrage3",
+  "text": "Artilleriesperrfeuer 3"
+ },
+ {
+  "label": "SCIENCE:ChinaCashHack1",
+  "text": "Geld-Hack 1"
+ },
+ {
+  "label": "SCIENCE:ChinaCashHack2",
+  "text": "Geld-Hack 2"
+ },
+ {
+  "label": "SCIENCE:ChinaCashHack3",
+  "text": "Geld-Hack 3"
+ },
+ {
+  "label": "SCIENCE:ChinaEMPPulse",
+  "text": "EMP-Impuls"
+ },
+ {
+  "label": "SCIENCE:GLAHijacker",
+  "text": "Entführer"
+ },
+ {
+  "label": "SCIENCE:GLASCUDLauncher",
+  "text": "SCUD-Werfer"
+ },
+ {
+  "label": "SCIENCE:GLAMaruaderTank",
+  "text": "Marodeur-Panzer"
+ },
+ {
+  "label": "SCIENCE:GLATechnicalTraining",
+  "text": "Technical-Ausbildung"
+ },
+ {
+  "label": "SCIENCE:GLARebelAmbush1",
+  "text": "Rebellenhinterhalt 1"
+ },
+ {
+  "label": "SCIENCE:GLARebelAmbush2",
+  "text": "Rebellenhinterhalt 2"
+ },
+ {
+  "label": "SCIENCE:GLARebelAmbush3",
+  "text": "Rebellenhinterhalt 3"
+ },
+ {
+  "label": "SCIENCE:GLACashBounty1",
+  "text": "Kopfgeld 1"
+ },
+ {
+  "label": "SCIENCE:GLACashBounty2",
+  "text": "Kopfgeld 2"
+ },
+ {
+  "label": "SCIENCE:GLACashBounty3",
+  "text": "Kopfgeld 3"
+ },
+ {
+  "label": "SCIENCE:GLAAnthraxBomb",
+  "text": "Anthrax-Bombe"
+ },
+ {
+  "label": "UPGRADE:AdvancedTraining",
+  "text": "Erweitertes Training"
+ },
+ {
+  "label": "UPGRADE:AmericaLaserMissiles",
+  "text": "Amerikanische Laserraketen"
+ },
+ {
+  "label": "UPGRADE:Mines",
+  "text": "Landminen"
+ },
+ {
+  "label": "UPGRADE:Radar",
+  "text": "Radar"
+ },
+ {
+  "label": "UPGRADE:OverlordGattlingCannon",
+  "text": "Overlord-Gatling-Kanone"
+ },
+ {
+  "label": "UPGRADE:OverlordPropagandaTower",
+  "text": "Overlord-Propagandaturm"
+ },
+ {
+  "label": "UPGRADE:OverlordBattleBunker",
+  "text": "Overlord-Kampfbunker"
+ },
+ {
+  "label": "UPGRADE:ControlRods",
+  "text": "Steuerstäbe"
+ },
+ {
+  "label": "UPGRADE:ScoutDrone",
+  "text": "Aufklärungsdrohne"
+ },
+ {
+  "label": "UPGRADE:BattleDrone",
+  "text": "Kampfdrohne"
+ },
+ {
+  "label": "UPGRADE:RangerFlashBangGrenade",
+  "text": "Ranger-Blendgranaten"
+ },
+ {
+  "label": "UPGRADE:HoverTank",
+  "text": "Schwebepanzer"
+ },
+ {
+  "label": "UPGRADE:TomahawkRemoteControl",
+  "text": "Marschflugkörper"
+ },
+ {
+  "label": "UPGRADE:AircraftFuel",
+  "text": "Flugzeugtreibstoff"
+ },
+ {
+  "label": "UPGRADE:LaserMissiles",
+  "text": "Laserraketen"
+ },
+ {
+  "label": "UPGRADE:TOWMissile",
+  "text": "TOW-Rakete"
+ },
+ {
+  "label": "UPGRADE:ComancheRocketPods",
+  "text": "Comanche-Raketenwerfer"
+ },
+ {
+  "label": "UPGRADE:RailGun",
+  "text": "Railgun"
+ },
+ {
+  "label": "UPGRADE:Nationalism",
+  "text": "Nationalismus"
+ },
+ {
+  "label": "UPGRADE:AntiTankGrenade",
+  "text": "Panzerabwehrgranaten"
+ },
+ {
+  "label": "UPGRADE:VehicleHack",
+  "text": "Fahrzeug-Hack"
+ },
+ {
+  "label": "UPGRADE:IRGoggles",
+  "text": "Infrarotbrillen"
+ },
+ {
+  "label": "UPGRADE:BlackNapalm",
+  "text": "Schwarzes Napalm"
+ },
+ {
+  "label": "UPGRADE:ChainGuns",
+  "text": "Kettenkanonen"
+ },
+ {
+  "label": "UPGRADE:SubliminalMessaging",
+  "text": "Unterschwellige Botschaften"
+ },
+ {
+  "label": "UPGRADE:UraniumShells",
+  "text": "Uranmunition"
+ },
+ {
+  "label": "UPGRADE:NuclearTanks",
+  "text": "Atompanzer"
+ },
+ {
+  "label": "UPGRADE:StunBullets",
+  "text": "Betäubungsgeschosse"
+ },
+ {
+  "label": "UPGRADE:TranqDarts",
+  "text": "Betäubungspfeile"
+ },
+ {
+  "label": "UPGRADE:APBullets",
+  "text": "Panzerbrechende Geschosse"
+ },
+ {
+  "label": "UPGRADE:BioBomb",
+  "text": "Bio-Bombe"
+ },
+ {
+  "label": "UPGRADE:HighExplosiveBomb",
+  "text": "Sprengbombe"
+ },
+ {
+  "label": "UPGRADE:ArmTheMob",
+  "text": "Bewaffnet den Mob"
+ },
+ {
+  "label": "UPGRADE:ScorpionRocket",
+  "text": "Scorpion-Rakete"
+ },
+ {
+  "label": "UPGRADE:SCUDLauncherExplosiveWarhead",
+  "text": "Explosivsprengkopf"
+ },
+ {
+  "label": "UPGRADE:SCUDLauncherAnthraxWarhead",
+  "text": "Anthrax-Sprengkopf"
+ },
+ {
+  "label": "UPGRADE:BuggyAmmo",
+  "text": "Raketenbuggy-Munition"
+ },
+ {
+  "label": "UPGRADE:AnthraxBeta",
+  "text": "Anthrax Beta"
+ },
+ {
+  "label": "UPGRADE:ToxinShells",
+  "text": "Toxingranaten"
+ },
+ {
+  "label": "UPGRADE:JunkRepair",
+  "text": "Schrottreparatur"
+ },
+ {
+  "label": "UPGRADE:Camouflage",
+  "text": "Tarnung"
+ },
+ {
+  "label": "UPGRADE:CompositeArmor",
+  "text": "Verbundpanzerung"
+ },
+ {
+  "label": "OBJECT:Beacon",
+  "text": "Signalfeuer"
+ },
+ {
+  "label": "OBJECT:Dam",
+  "text": "Staudamm"
+ },
+ {
+  "label": "OBJECT:CommandCenter",
+  "text": "Kommandozentrale"
+ },
+ {
+  "label": "OBJECT:ColdFusionReactor",
+  "text": "Kaltfusionsreaktor"
+ },
+ {
+  "label": "OBJECT:NuclearReactor",
+  "text": "Atomreaktor"
+ },
+ {
+  "label": "OBJECT:DemoTrap",
+  "text": "Sprengfalle"
+ },
+ {
+  "label": "OBJECT:PowerPlant",
+  "text": "Kraftwerk"
+ },
+ {
+  "label": "OBJECT:DetentionCamp",
+  "text": "Gefangenenlager"
+ },
+ {
+  "label": "OBJECT:StrategyCenter",
+  "text": "Strategiezentrale"
+ },
+ {
+  "label": "OBJECT:Airfield",
+  "text": "Flugfeld"
+ },
+ {
+  "label": "OBJECT:SupplyCenter",
+  "text": "Versorgungszentrum"
+ },
+ {
+  "label": "OBJECT:AmericaSupplyDropZone",
+  "text": "Versorgungsabwurfzone"
+ },
+ {
+  "label": "OBJECT:SupplyStash",
+  "text": "Versorgungslager"
+ },
+ {
+  "label": "OBJECT:Barracks",
+  "text": "Kaserne"
+ },
+ {
+  "label": "OBJECT:BlackMarket",
+  "text": "Schwarzmarkt"
+ },
+ {
+  "label": "OBJECT:WarFactory",
+  "text": "Waffenfabrik"
+ },
+ {
+  "label": "OBJECT:ArmsDealer",
+  "text": "Waffenhändler"
+ },
+ {
+  "label": "OBJECT:AmmoCache",
+  "text": "Munitionsversteck"
+ },
+ {
+  "label": "OBJECT:AmphibiousTransport",
+  "text": "Amphibientransporter"
+ },
+ {
+  "label": "OBJECT:AutoFerry",
+  "text": "Autofähre"
+ },
+ {
+  "label": "OBJECT:TrainGuide",
+  "text": "Zugführer"
+ },
+ {
+  "label": "OBJECT:AngryMob",
+  "text": "Wütender Mob"
+ },
+ {
+  "label": "OBJECT:TankHunter",
+  "text": "Panzerjäger"
+ },
+ {
+  "label": "OBJECT:Apartment",
+  "text": "Wohnung"
+ },
+ {
+  "label": "OBJECT:ChemicalFactory",
+  "text": "Chemiefabrik"
+ },
+ {
+  "label": "OBJECT:GovBuilding",
+  "text": "Regierungsgebäude"
+ },
+ {
+  "label": "OBJECT:ApartmentComplex",
+  "text": "Wohnkomplex"
+ },
+ {
+  "label": "OBJECT:SpyPost",
+  "text": "Spähposten"
+ },
+ {
+  "label": "OBJECT:SupplyPile",
+  "text": "Versorgungshaufen"
+ },
+ {
+  "label": "OBJECT:TrainStation",
+  "text": "Bahnhof"
+ },
+ {
+  "label": "OBJECT:TechRadioStation",
+  "text": "Radiosender"
+ },
+ {
+  "label": "OBJECT:Arcade",
+  "text": "Spielhalle"
+ },
+ {
+  "label": "OBJECT:Aurora",
+  "text": "Aurora-Bomber"
+ },
+ {
+  "label": "OBJECT:A10Thunderbolt",
+  "text": "A10 Thunderbolt"
+ },
+ {
+  "label": "OBJECT:AVPOWTRUCK",
+  "text": "Gefangenentransporter"
+ },
+ {
+  "label": "OBJECT:B52",
+  "text": "B52"
+ },
+ {
+  "label": "OBJECT:BMW",
+  "text": "Auto"
+ },
+ {
+  "label": "OBJECT:Bank",
+  "text": "Bank"
+ },
+ {
+  "label": "OBJECT:BarnCoop",
+  "text": "Hühnerstall"
+ },
+ {
+  "label": "OBJECT:BarnShed",
+  "text": "Scheune"
+ },
+ {
+  "label": "OBJECT:Barrel",
+  "text": "Fass"
+ },
+ {
+  "label": "OBJECT:BattleMaster",
+  "text": "Battlemaster"
+ },
+ {
+  "label": "OBJECT:Battleship",
+  "text": "Schlachtschiff"
+ },
+ {
+  "label": "OBJECT:BigRig",
+  "text": "Sattelzug"
+ },
+ {
+  "label": "OBJECT:BikeRack",
+  "text": "Fahrradständer"
+ },
+ {
+  "label": "OBJECT:Billboard",
+  "text": "Werbetafel"
+ },
+ {
+  "label": "OBJECT:Bird",
+  "text": "Vogel"
+ },
+ {
+  "label": "OBJECT:BombTruck",
+  "text": "Bombenlaster"
+ },
+ {
+  "label": "OBJECT:Boulders",
+  "text": "Felsbrocken"
+ },
+ {
+  "label": "OBJECT:Boxes",
+  "text": "Kisten"
+ },
+ {
+  "label": "OBJECT:BrickWall",
+  "text": "Ziegelmauer"
+ },
+ {
+  "label": "OBJECT:BrokenWall",
+  "text": "Zerstörte Mauer"
+ },
+ {
+  "label": "OBJECT:Bunker",
+  "text": "Bunker"
+ },
+ {
+  "label": "OBJECT:BurningBarricade",
+  "text": "Brennende Barrikade"
+ },
+ {
+  "label": "OBJECT:Checkpoint",
+  "text": "Kontrollpunkt"
+ },
+ {
+  "label": "OBJECT:BusStop",
+  "text": "Bushaltestelle"
+ },
+ {
+  "label": "OBJECT:Bush",
+  "text": "Busch"
+ },
+ {
+  "label": "OBJECT:CargoLoadingCranes",
+  "text": "Verladekräne"
+ },
+ {
+  "label": "OBJECT:CargoNet",
+  "text": "Frachtnetz"
+ },
+ {
+  "label": "OBJECT:Cart",
+  "text": "Karren"
+ },
+ {
+  "label": "OBJECT:ChainLinkFence",
+  "text": "Maschendrahtzaun"
+ },
+ {
+  "label": "OBJECT:Chalet",
+  "text": "Chalet"
+ },
+ {
+  "label": "OBJECT:Chinook",
+  "text": "Chinook"
+ },
+ {
+  "label": "OBJECT:Church",
+  "text": "Kirche"
+ },
+ {
+  "label": "OBJECT:Clete",
+  "text": "Poller"
+ },
+ {
+  "label": "OBJECT:ClothesLine",
+  "text": "Wäscheleine"
+ },
+ {
+  "label": "OBJECT:Comanche",
+  "text": "Comanche"
+ },
+ {
+  "label": "OBJECT:ComancheHull",
+  "text": "Comanche-Rumpf"
+ },
+ {
+  "label": "OBJECT:CompactCar",
+  "text": "Kleinwagen"
+ },
+ {
+  "label": "OBJECT:Ambassador",
+  "text": "Botschafter"
+ },
+ {
+  "label": "OBJECT:Redguard",
+  "text": "Rotgardist"
+ },
+ {
+  "label": "OBJECT:ConstructionBarricade",
+  "text": "Baustellenabsperrung"
+ },
+ {
+  "label": "OBJECT:ConvenienceStore",
+  "text": "Gemischtwarenladen"
+ },
+ {
+  "label": "OBJECT:ConvoyTruck",
+  "text": "Konvoi-Lkw"
+ },
+ {
+  "label": "OBJECT:Cottage",
+  "text": "Landhaus"
+ },
+ {
+  "label": "OBJECT:Crate",
+  "text": "Kiste"
+ },
+ {
+  "label": "OBJECT:CrossingGuard",
+  "text": "Schülerlotse"
+ },
+ {
+  "label": "OBJECT:Crusader",
+  "text": "Crusader"
+ },
+ {
+  "label": "OBJECT:Paladin",
+  "text": "Paladin"
+ },
+ {
+  "label": "OBJECT:BlackMarketNuke",
+  "text": "Schwarzmarkt-Atombombe"
+ },
+ {
+  "label": "OBJECT:ToxinTank",
+  "text": "Toxinpanzer"
+ },
+ {
+  "label": "OBJECT:CarpetBomb",
+  "text": "Flächenbombardement"
+ },
+ {
+  "label": "OBJECT:NeutronMissile",
+  "text": "Atomrakete"
+ },
+ {
+  "label": "OBJECT:Dealership",
+  "text": "Autohaus"
+ },
+ {
+  "label": "OBJECT:Dirt",
+  "text": "Erde"
+ },
+ {
+  "label": "OBJECT:Docks",
+  "text": "Hafenanlagen"
+ },
+ {
+  "label": "OBJECT:DogwoodTree",
+  "text": "Baum"
+ },
+ {
+  "label": "OBJECT:Dozer",
+  "text": "Bulldozer"
+ },
+ {
+  "label": "OBJECT:Dragon",
+  "text": "Drache-Panzer"
+ },
+ {
+  "label": "OBJECT:ElectricRetail",
+  "text": "Elektrogeschäft"
+ },
+ {
+  "label": "OBJECT:ElectricalTransformer",
+  "text": "Transformator"
+ },
+ {
+  "label": "OBJECT:FireHydrant",
+  "text": "Hydrant"
+ },
+ {
+  "label": "OBJECT:StructureMine",
+  "text": "Mine"
+ },
+ {
+  "label": "OBJECT:FireStorm",
+  "text": "Feuersturm"
+ },
+ {
+  "label": "OBJECT:FlamingInfantry",
+  "text": "Brennende Infanterie"
+ },
+ {
+  "label": "OBJECT:ToxicInfantry",
+  "text": "Vergiftete Infanterie"
+ },
+ {
+  "label": "OBJECT:FoodCart",
+  "text": "Imbisswagen"
+ },
+ {
+  "label": "OBJECT:Fountain",
+  "text": "Brunnen"
+ },
+ {
+  "label": "OBJECT:FruitStand",
+  "text": "Obststand"
+ },
+ {
+  "label": "OBJECT:Gargoyle",
+  "text": "Wasserspeier"
+ },
+ {
+  "label": "OBJECT:GasStation",
+  "text": "Tankstelle"
+ },
+ {
+  "label": "OBJECT:GasStorageFacility",
+  "text": "Gaslager"
+ },
+ {
+  "label": "OBJECT:GattlingTank",
+  "text": "Gatling-Panzer"
+ },
+ {
+  "label": "OBJECT:GrassHut",
+  "text": "Grashütte"
+ },
+ {
+  "label": "OBJECT:Gravel",
+  "text": "Kies"
+ },
+ {
+  "label": "OBJECT:FlashBangGrenade",
+  "text": "Blendgranate"
+ },
+ {
+  "label": "OBJECT:TankShell",
+  "text": "Panzergranate"
+ },
+ {
+  "label": "OBJECT:Rebel",
+  "text": "Rebell"
+ },
+ {
+  "label": "OBJECT:JarmenKell",
+  "text": "Jarmen Kell"
+ },
+ {
+  "label": "OBJECT:GuardTower",
+  "text": "Wachturm"
+ },
+ {
+  "label": "OBJECT:GuardianControlCenter",
+  "text": "Guardian-Kontrollzentrum"
+ },
+ {
+  "label": "OBJECT:GuardianDrone",
+  "text": "Guardian-Drohne"
+ },
+ {
+  "label": "OBJECT:BlackLotus",
+  "text": "Black Lotus"
+ },
+ {
+  "label": "OBJECT:Hanger",
+  "text": "Hangar"
+ },
+ {
+  "label": "OBJECT:HarvardsOffice",
+  "text": "Mülltonne"
+ },
+ {
+  "label": "OBJECT:Hedge",
+  "text": "Hecke"
+ },
+ {
+  "label": "OBJECT:HighwaySign",
+  "text": "Autobahnschild"
+ },
+ {
+  "label": "OBJECT:AngryMobNexus",
+  "text": "<<WÜTENDER M0B>>"
+ },
+ {
+  "label": "OBJECT:Hotel",
+  "text": "Hotel"
+ },
+ {
+  "label": "OBJECT:Humvee",
+  "text": "Humvee"
+ },
+ {
+  "label": "OBJECT:IndustrialBuilding",
+  "text": "Industriegebäude"
+ },
+ {
+  "label": "OBJECT:InfernoCannon",
+  "text": "Inferno-Kanone"
+ },
+ {
+  "label": "OBJECT:JapaneseLantern",
+  "text": "Japanische Laterne"
+ },
+ {
+  "label": "OBJECT:JunkCar",
+  "text": "Schrottauto"
+ },
+ {
+  "label": "OBJECT:Limo",
+  "text": "Limousine"
+ },
+ {
+  "label": "OBJECT:Lumber",
+  "text": "Bauholz"
+ },
+ {
+  "label": "OBJECT:MIG",
+  "text": "MiG"
+ },
+ {
+  "label": "OBJECT:MailBox",
+  "text": "Briefkasten"
+ },
+ {
+  "label": "OBJECT:ManHoleCover",
+  "text": "Kanaldeckel"
+ },
+ {
+  "label": "OBJECT:MarketVendor",
+  "text": "Markthändler"
+ },
+ {
+  "label": "OBJECT:Medic",
+  "text": "Sanitätswagen"
+ },
+ {
+  "label": "OBJECT:MegaMall",
+  "text": "Einkaufszentrum"
+ },
+ {
+  "label": "OBJECT:Missile",
+  "text": "Rakete"
+ },
+ {
+  "label": "OBJECT:MissileTeam",
+  "text": "Raketenwerfer-Soldat"
+ },
+ {
+  "label": "OBJECT:Moat",
+  "text": "Burggraben"
+ },
+ {
+  "label": "OBJECT:MogadishuHighrise",
+  "text": "Hochhaus"
+ },
+ {
+  "label": "OBJECT:NewsStand",
+  "text": "Zeitungsstand"
+ },
+ {
+  "label": "OBJECT:NightClub",
+  "text": "Nachtclub"
+ },
+ {
+  "label": "OBJECT:NotAMosque",
+  "text": "Kuppel"
+ },
+ {
+  "label": "OBJECT:ParticleCannon",
+  "text": "Partikelkanone"
+ },
+ {
+  "label": "OBJECT:Office",
+  "text": "Büro"
+ },
+ {
+  "label": "OBJECT:OilDepot",
+  "text": "Öldepot"
+ },
+ {
+  "label": "OBJECT:OilRefinery",
+  "text": "Ölraffinerie"
+ },
+ {
+  "label": "OBJECT:OilTank",
+  "text": "Öltank"
+ },
+ {
+  "label": "OBJECT:OldWoodenTelephonePole",
+  "text": "Telefonmast"
+ },
+ {
+  "label": "OBJECT:Outpost",
+  "text": "Außenposten"
+ },
+ {
+  "label": "OBJECT:Overlord",
+  "text": "Overlord"
+ },
+ {
+  "label": "OBJECT:Palace",
+  "text": "Palast"
+ },
+ {
+  "label": "OBJECT:ParkBench",
+  "text": "Parkbank"
+ },
+ {
+  "label": "OBJECT:ParkGazebo",
+  "text": "Pavillon"
+ },
+ {
+  "label": "OBJECT:ParkPavillion",
+  "text": "Parkpavillon"
+ },
+ {
+  "label": "OBJECT:ParkingGarage",
+  "text": "Parkhaus"
+ },
+ {
+  "label": "OBJECT:ParkingMeter",
+  "text": "Parkuhr"
+ },
+ {
+  "label": "OBJECT:PatriotBattery",
+  "text": "Patriot-Raketensystem"
+ },
+ {
+  "label": "OBJECT:GattlingCannon",
+  "text": "Gatling-Kanone"
+ },
+ {
+  "label": "OBJECT:PhoneBooth",
+  "text": "Telefonzelle"
+ },
+ {
+  "label": "OBJECT:PoliceCar",
+  "text": "Polizeiwagen"
+ },
+ {
+  "label": "OBJECT:Prison",
+  "text": "Gefängnis"
+ },
+ {
+  "label": "OBJECT:PropagandaBlimp",
+  "text": "Prop.-Luftschiff"
+ },
+ {
+  "label": "OBJECT:PropagandaCenter",
+  "text": "Propagandazentrale"
+ },
+ {
+  "label": "OBJECT:Pub",
+  "text": "Wasserloch"
+ },
+ {
+  "label": "OBJECT:QuadCannon",
+  "text": "Vierlingskanone"
+ },
+ {
+  "label": "OBJECT:QuonsetHut",
+  "text": "Wellblechhütte"
+ },
+ {
+  "label": "OBJECT:RailTie",
+  "text": "Bahnschwelle"
+ },
+ {
+  "label": "OBJECT:Ranger",
+  "text": "Ranger"
+ },
+ {
+  "label": "OBJECT:Raptor",
+  "text": "Raptor"
+ },
+ {
+  "label": "OBJECT:RaptorPilot",
+  "text": "Pilot"
+ },
+ {
+  "label": "OBJECT:Restaurant",
+  "text": "Restaurant"
+ },
+ {
+  "label": "OBJECT:RetailStore",
+  "text": "Einzelhandelsgeschäft"
+ },
+ {
+  "label": "OBJECT:RiverHouse",
+  "text": "Flusshaus"
+ },
+ {
+  "label": "OBJECT:RoadCone",
+  "text": "Leitkegel"
+ },
+ {
+  "label": "OBJECT:RocketBuggy",
+  "text": "Raketenbuggy"
+ },
+ {
+  "label": "OBJECT:RadarVan",
+  "text": "Radarwagen"
+ },
+ {
+  "label": "OBJECT:RocketBuggyDebris",
+  "text": "Raketenbuggy-Trümmer"
+ },
+ {
+  "label": "OBJECT:RocketBuggyMissile",
+  "text": "Raketenbuggy-Rakete"
+ },
+ {
+  "label": "OBJECT:TomahawkMissile",
+  "text": "Tomahawk-Rakete"
+ },
+ {
+  "label": "OBJECT:SCUDMissile",
+  "text": "SCUD-Rakete"
+ },
+ {
+  "label": "OBJECT:RangerTeamMissile",
+  "text": "Ranger-Teamrakete"
+ },
+ {
+  "label": "OBJECT:Rocks",
+  "text": "Felsen"
+ },
+ {
+  "label": "OBJECT:RopeCoil",
+  "text": "Seilrolle"
+ },
+ {
+  "label": "OBJECT:Rubble",
+  "text": "Schutt"
+ },
+ {
+  "label": "OBJECT:ColonelBurton",
+  "text": "Colonel Burton"
+ },
+ {
+  "label": "OBJECT:SUV",
+  "text": "SUV"
+ },
+ {
+  "label": "OBJECT:Schoolhouse",
+  "text": "Schulhaus"
+ },
+ {
+  "label": "OBJECT:Scorpion",
+  "text": "Scorpion"
+ },
+ {
+  "label": "OBJECT:ScrapCar",
+  "text": "Schrottwagen"
+ },
+ {
+  "label": "OBJECT:ScudStorm",
+  "text": "SCUD-Sturm"
+ },
+ {
+  "label": "OBJECT:SecretLab",
+  "text": "Geheimlabor"
+ },
+ {
+  "label": "OBJECT:SecretPolice",
+  "text": "Geheimpolizei"
+ },
+ {
+  "label": "OBJECT:SecurityFence",
+  "text": "Sicherheitszaun"
+ },
+ {
+  "label": "OBJECT:Hacker",
+  "text": "Hacker"
+ },
+ {
+  "label": "OBJECT:Officer",
+  "text": "Offizier"
+ },
+ {
+  "label": "OBJECT:Agent",
+  "text": "Agent"
+ },
+ {
+  "label": "OBJECT:Sedan",
+  "text": "Limousine"
+ },
+ {
+  "label": "OBJECT:SeismicTank",
+  "text": "Seismischer Panzer"
+ },
+ {
+  "label": "OBJECT:Shack",
+  "text": "Baracke"
+ },
+ {
+  "label": "OBJECT:ShippingContainer",
+  "text": "Frachtcontainer"
+ },
+ {
+  "label": "OBJECT:ShippingCrate",
+  "text": "Transportkiste"
+ },
+ {
+  "label": "OBJECT:SignalLights",
+  "text": "Signalleuchten"
+ },
+ {
+  "label": "OBJECT:Slide",
+  "text": "Rutsche"
+ },
+ {
+  "label": "OBJECT:SovietBuilding",
+  "text": "Altes Bürogebäude"
+ },
+ {
+  "label": "OBJECT:SovietGovtBuildingSmall",
+  "text": "Altes Regierungsgebäude"
+ },
+ {
+  "label": "OBJECT:SovietRadioBuilding",
+  "text": "Altes Radiogebäude"
+ },
+ {
+  "label": "OBJECT:SpeakerTower",
+  "text": "Lautsprecherturm"
+ },
+ {
+  "label": "OBJECT:SportCar",
+  "text": "Sportwagen"
+ },
+ {
+  "label": "OBJECT:Sprinkler",
+  "text": "Rasensprenger"
+ },
+ {
+  "label": "OBJECT:StanTallTower",
+  "text": "Hoher Turm"
+ },
+ {
+  "label": "OBJECT:Starlifter",
+  "text": "Starlifter2"
+ },
+ {
+  "label": "OBJECT:StatueAngel",
+  "text": "Engelsstatue"
+ },
+ {
+  "label": "OBJECT:StatueLenin",
+  "text": "Statue"
+ },
+ {
+  "label": "OBJECT:StatueRoman",
+  "text": "Römische Statue"
+ },
+ {
+  "label": "OBJECT:StingerSite",
+  "text": "Stinger-Stellung"
+ },
+ {
+  "label": "OBJECT:StoneArch",
+  "text": "Steinbogen"
+ },
+ {
+  "label": "OBJECT:StoneWall",
+  "text": "Steinmauer"
+ },
+ {
+  "label": "OBJECT:PicketFence",
+  "text": "Lattenzaun"
+ },
+ {
+  "label": "OBJECT:StopLight",
+  "text": "Ampel"
+ },
+ {
+  "label": "OBJECT:StreetLamp",
+  "text": "Straßenlaterne"
+ },
+ {
+  "label": "OBJECT:StreetLight",
+  "text": "Straßenbeleuchtung"
+ },
+ {
+  "label": "OBJECT:StreetSign",
+  "text": "Straßenschild"
+ },
+ {
+  "label": "OBJECT:SupplyTruck",
+  "text": "Versorgungslaster"
+ },
+ {
+  "label": "OBJECT:SupplyWarehouse",
+  "text": "Versorgungsdepot"
+ },
+ {
+  "label": "OBJECT:Swing",
+  "text": "Schaukel"
+ },
+ {
+  "label": "OBJECT:TVStation",
+  "text": "Fernsehsender"
+ },
+ {
+  "label": "OBJECT:TankTrap",
+  "text": "Panzersperre"
+ },
+ {
+  "label": "OBJECT:TankerTruck",
+  "text": "Tanklaster"
+ },
+ {
+  "label": "OBJECT:TaxiCab",
+  "text": "Taxi"
+ },
+ {
+  "label": "OBJECT:Technical",
+  "text": "Technical"
+ },
+ {
+  "label": "OBJECT:Tent",
+  "text": "Zelt"
+ },
+ {
+  "label": "OBJECT:Terrorist",
+  "text": "Terrorist"
+ },
+ {
+  "label": "OBJECT:Tire",
+  "text": "Reifen"
+ },
+ {
+  "label": "OBJECT:TireObstacle",
+  "text": "Reifenbarriere"
+ },
+ {
+  "label": "OBJECT:Tollbooth",
+  "text": "Mautstelle"
+ },
+ {
+  "label": "OBJECT:Tomahawk",
+  "text": "Tomahawk"
+ },
+ {
+  "label": "OBJECT:TownHouse",
+  "text": "Reihenhaus"
+ },
+ {
+  "label": "OBJECT:ToxinTruck",
+  "text": "Toxin-Traktor"
+ },
+ {
+  "label": "OBJECT:TrashCan",
+  "text": "Mülleimer"
+ },
+ {
+  "label": "OBJECT:TrashPaper",
+  "text": "Altpapier"
+ },
+ {
+  "label": "OBJECT:TrashPile",
+  "text": "Müllhaufen"
+ },
+ {
+  "label": "OBJECT:TreeStump",
+  "text": "Baumstumpf"
+ },
+ {
+  "label": "OBJECT:TroopCrawler",
+  "text": "Truppentransporter"
+ },
+ {
+  "label": "OBJECT:TunnelDefender",
+  "text": "RPG-Soldat"
+ },
+ {
+  "label": "OBJECT:TunnelNetwork",
+  "text": "Tunnelnetz"
+ },
+ {
+  "label": "OBJECT:Cave",
+  "text": "Höhle"
+ },
+ {
+  "label": "OBJECT:GLAHole",
+  "text": "GBA-Loch"
+ },
+ {
+  "label": "OBJECT:GLARock",
+  "text": "GBA-Fels"
+ },
+ {
+  "label": "OBJECT:UNHumvee",
+  "text": "UN-Humvee"
+ },
+ {
+  "label": "OBJECT:UNSoldier",
+  "text": "UN-Soldat"
+ },
+ {
+  "label": "OBJECT:VendingMachine",
+  "text": "Verkaufsautomat"
+ },
+ {
+  "label": "OBJECT:Wall",
+  "text": "Mauer"
+ },
+ {
+  "label": "OBJECT:ConcreteWall",
+  "text": "Betonmauer"
+ },
+ {
+  "label": "OBJECT:WatchTower",
+  "text": "Wachturm"
+ },
+ {
+  "label": "OBJECT:WaterPlant",
+  "text": "Wasserwerk"
+ },
+ {
+  "label": "OBJECT:WindMill",
+  "text": "Windmühle"
+ },
+ {
+  "label": "OBJECT:WoodBeams",
+  "text": "Holzbalken"
+ },
+ {
+  "label": "OBJECT:WoodTower",
+  "text": "Holzturm"
+ },
+ {
+  "label": "OBJECT:WoodWall",
+  "text": "Holzwand"
+ },
+ {
+  "label": "OBJECT:WoodenBarrels",
+  "text": "Holzfässer"
+ },
+ {
+  "label": "OBJECT:Worker",
+  "text": "Arbeiter"
+ },
+ {
+  "label": "OBJECT:Building",
+  "text": "Gebäude"
+ },
+ {
+  "label": "OBJECT:Cathedral",
+  "text": "Kathedrale"
+ },
+ {
+  "label": "OBJECT:FarmHouse",
+  "text": "Bauernhaus"
+ },
+ {
+  "label": "OBJECT:Garage",
+  "text": "Garage"
+ },
+ {
+  "label": "OBJECT:OscarTheGrouch",
+  "text": "Schrotthändler"
+ },
+ {
+  "label": "OBJECT:Pump",
+  "text": "Pumpe"
+ },
+ {
+  "label": "OBJECT:Shop",
+  "text": "Laden"
+ },
+ {
+  "label": "OBJECT:StingerMissile",
+  "text": "Stinger-Rakete"
+ },
+ {
+  "label": "OBJECT:StingerSoldier",
+  "text": "Stinger-Soldat"
+ },
+ {
+  "label": "OBJECT:StorageTank",
+  "text": "Lagertank"
+ },
+ {
+  "label": "OBJECT:Well",
+  "text": "Brunnen"
+ },
+ {
+  "label": "OBJECT:WineVat",
+  "text": "Bottich"
+ },
+ {
+  "label": "OBJECT:GenericMale",
+  "text": "Zivilist"
+ },
+ {
+  "label": "OBJECT:Crane",
+  "text": "Kran"
+ },
+ {
+  "label": "OBJECT:OceanCenter",
+  "text": "Kongresszentrum"
+ },
+ {
+  "label": "OBJECT:SoccerStadium",
+  "text": "Fußballstadion"
+ },
+ {
+  "label": "OBJECT:Backhoe",
+  "text": "Bagger"
+ },
+ {
+  "label": "OBJECT:LargeForklift",
+  "text": "Großer Gabelstapler"
+ },
+ {
+  "label": "OBJECT:SmallForklift",
+  "text": "Gabelstapler"
+ },
+ {
+  "label": "OBJECT:CropDuster",
+  "text": "Sprühflugzeug"
+ },
+ {
+  "label": "OBJECT:Cessna",
+  "text": "Flugzeug"
+ },
+ {
+  "label": "OBJECT:ChickenTruck",
+  "text": "Hühnertransporter"
+ },
+ {
+  "label": "OBJECT:Combine",
+  "text": "Mähdrescher"
+ },
+ {
+  "label": "OBJECT:Eurovan",
+  "text": "Kleinbus"
+ },
+ {
+  "label": "OBJECT:EuroPoliceVan",
+  "text": "Polizeibus"
+ },
+ {
+  "label": "OBJECT:Firetruck",
+  "text": "Feuerwehrauto"
+ },
+ {
+  "label": "OBJECT:FarmerTruck",
+  "text": "Bauernlaster"
+ },
+ {
+  "label": "OBJECT:AsianFishingBoat",
+  "text": "Fischerboot"
+ },
+ {
+  "label": "OBJECT:TourBus",
+  "text": "Reisebus"
+ },
+ {
+  "label": "OBJECT:FishingTrowler",
+  "text": "Fischtrawler"
+ },
+ {
+  "label": "OBJECT:WorkTruck",
+  "text": "Arbeitslaster"
+ },
+ {
+  "label": "OBJECT:TugBoat",
+  "text": "Schlepper"
+ },
+ {
+  "label": "OBJECT:BioHazardTech",
+  "text": "Bio-Gefahrentechniker"
+ },
+ {
+  "label": "OBJECT:MilitiaTank",
+  "text": "Milizpanzer"
+ },
+ {
+  "label": "SCIENCE:Rank1",
+  "text": "1-Sterne-General"
+ },
+ {
+  "label": "SCIENCE:Rank2",
+  "text": "2-Sterne-General"
+ },
+ {
+  "label": "SCIENCE:Rank3",
+  "text": "3-Sterne-General"
+ },
+ {
+  "label": "SCIENCE:Rank4",
+  "text": "4-Sterne-General"
+ },
+ {
+  "label": "SCIENCE:Rank5",
+  "text": "5-Sterne-General"
+ },
+ {
+  "label": "SCIENCE:Rank6",
+  "text": "Generalmajor"
+ },
+ {
+  "label": "SCIENCE:Rank7",
+  "text": "Generalleutnant"
+ },
+ {
+  "label": "SCIENCE:Rank8",
+  "text": "General"
+ },
+ {
+  "label": "UPGRADE:AircraftArmor",
+  "text": "Flugzeugpanzerung"
+ },
+ {
+  "label": "SCIENCE:EmergencyRepair1",
+  "text": "Notreparatur 1"
+ },
+ {
+  "label": "SCIENCE:EmergencyRepair2",
+  "text": "Notreparatur 2"
+ },
+ {
+  "label": "SCIENCE:EmergencyRepair3",
+  "text": "Notreparatur 3"
+ },
+ {
+  "label": "UPGRADE:RadarVanScan",
+  "text": "Radarwagen-Scan"
+ },
+ {
+  "label": "UPGRADE:RangerCaptureBuilding",
+  "text": "Gebäude einnehmen"
+ },
+ {
+  "label": "UPGRADE:AmericaDroneARmor",
+  "text": "Drohnenpanzerung"
+ },
+ {
+  "label": "UPGRADE:APRockets",
+  "text": "Panzerbrechende Raketen"
+ },
+ {
+  "label": "OBJECT:Frosty",
+  "text": "Schneemann"
+ },
+ {
+  "label": "OBJECT:Prop",
+  "text": "."
+ },
+ {
+  "label": "OBJECT:BigGate",
+  "text": "Tor"
+ },
+ {
+  "label": "OBJECT:TownHall",
+  "text": "Rathaus"
+ },
+ {
+  "label": "OBJECT:RailroadBridge",
+  "text": "Eisenbahnbrücke"
+ },
+ {
+  "label": "OBJECT:TheLoo",
+  "text": "Plumpsklo"
+ },
+ {
+  "label": "OBJECT:TrainCar",
+  "text": "Waggon"
+ },
+ {
+  "label": "OBJECT:SandBagWall",
+  "text": "Sandsackwall"
+ },
+ {
+  "label": "OBJECT:Structure",
+  "text": "Zivilgebäude"
+ },
+ {
+  "label": "OBJECT:Airport",
+  "text": "Ziviler Flughafen"
+ },
+ {
+  "label": "OBJECT:BridgeTower",
+  "text": "Brückenturm"
+ },
+ {
+  "label": "OBJECT:Field",
+  "text": "Spielfeld"
+ },
+ {
+  "label": "OBJECT:SoccerStadiumGoal",
+  "text": "Tor"
+ },
+ {
+  "label": "OBJECT:BigLightpost",
+  "text": "Laternenmast"
+ },
+ {
+  "label": "OBJECT:Monument",
+  "text": "Denkmal"
+ },
+ {
+  "label": "OBJECT:TrainWreckBridge",
+  "text": "Zugwrack-Brücke"
+ },
+ {
+  "label": "OBJECT:PharmaceuticalFactory",
+  "text": "Pharmafabrik"
+ },
+ {
+  "label": "OBJECT:CargoPlane",
+  "text": "Frachtflugzeug"
+ },
+ {
+  "label": "OBJECT:HuNanProvince",
+  "text": "Peking"
+ },
+ {
+  "label": "OBJECT:HongKong",
+  "text": "Hongkong"
+ },
+ {
+  "label": "OBJECT:HubeiProvince",
+  "text": "Drei-Schluchten-Damm"
+ },
+ {
+  "label": "OBJECT:Tangula",
+  "text": "Tanggula-Gebirge"
+ },
+ {
+  "label": "OBJECT:Balykchy",
+  "text": "Balyktschy"
+ },
+ {
+  "label": "OBJECT:Bishkek",
+  "text": "Bischkek"
+ },
+ {
+  "label": "OBJECT:Dushanbe",
+  "text": "Duschanbe"
+ },
+ {
+  "label": "OBJECT:Shymkent",
+  "text": "Schymkent"
+ },
+ {
+  "label": "OBJECT:Almaty",
+  "text": "Almaty"
+ },
+ {
+  "label": "OBJECT:Zambul",
+  "text": "Schambyl"
+ },
+ {
+  "label": "OBJECT:Astana",
+  "text": "Astana"
+ },
+ {
+  "label": "OBJECT:Incirlik",
+  "text": "Incirlik"
+ },
+ {
+  "label": "OBJECT:AralSea",
+  "text": "Aralsee"
+ },
+ {
+  "label": "OBJECT:Lenger",
+  "text": "Lenger"
+ },
+ {
+  "label": "OBJECT:Baikonur",
+  "text": "Baikonur"
+ },
+ {
+  "label": "OBJECT:Mazar",
+  "text": "Masar"
+ },
+ {
+  "label": "OBJECT:Baghdad",
+  "text": "Bagdad"
+ },
+ {
+  "label": "OBJECT:AlHanad",
+  "text": "Al Hanad"
+ },
+ {
+  "label": "OBJECT:NorthKazakhstan",
+  "text": "Nordkasachstan"
+ },
+ {
+  "label": "OBJECT:KazakhstanCoast",
+  "text": "Kasachische Küste"
+ },
+ {
+  "label": "OBJECT:KazakhstanDMZ",
+  "text": "Kasachische DMZ"
+ },
+ {
+  "label": "OBJECT:SouthKazkahstan",
+  "text": "Südostkasachstan"
+ },
+ {
+  "label": "OBJECT:Akmola",
+  "text": "Akmola"
+ },
+ {
+  "label": "SCIENCE:USASpectreGunship1",
+  "text": "Spectre-Kanonenboot"
+ },
+ {
+  "label": "SCIENCE:USALeafletDrop",
+  "text": "Flugblattabwurf"
+ },
+ {
+  "label": "SCIENCE:ChinaTankHunterTraining",
+  "text": "Panzerjäger-Ausbildung"
+ },
+ {
+  "label": "SCIENCE:ChinaBattleMasterTraining",
+  "text": "Battlemaster-Ausbildung"
+ },
+ {
+  "label": "SCIENCE:ChinaOverlordTraining",
+  "text": "Overlord-Ausbildung"
+ },
+ {
+  "label": "SCIENCE:ChinaGattlingTankTraining",
+  "text": "Gatling-Panzer-Ausbildung"
+ },
+ {
+  "label": "SCIENCE:ChinaNukeDrop",
+  "text": "Atombombenabwurf"
+ },
+ {
+  "label": "SCIENCE:ChinaFrenzy",
+  "text": "Raserei 1"
+ },
+ {
+  "label": "SCIENCE:ChinaFrenzy2",
+  "text": "Raserei 2"
+ },
+ {
+  "label": "SCIENCE:ChinaFrenzy3",
+  "text": "Raserei 3"
+ },
+ {
+  "label": "SCIENCE:GPSScrambler",
+  "text": "GPS-Störsender"
+ },
+ {
+  "label": "SCIENCE:GLASneakAttack",
+  "text": "Überraschungsangriff"
+ },
+ {
+  "label": "SCIENCE:ChinaTankParadrop1",
+  "text": "Panzerabwurf 1"
+ },
+ {
+  "label": "SCIENCE:ChinaTankParadrop2",
+  "text": "Panzerabwurf 2"
+ },
+ {
+  "label": "SCIENCE:ChinaTankParadrop3",
+  "text": "Panzerabwurf 3"
+ },
+ {
+  "label": "SCIENCE:ChinaInfantryParadrop1",
+  "text": "Infanterie-Fallschirmabwurf 1"
+ },
+ {
+  "label": "SCIENCE:ChinaInfantryParadrop2",
+  "text": "Infanterie-Fallschirmabwurf 2"
+ },
+ {
+  "label": "SCIENCE:ChinaInfantryParadrop3",
+  "text": "Infanterie-Fallschirmabwurf 3"
+ },
+ {
+  "label": "UPGRADE:AmericaSentryDroneGun",
+  "text": "Wachdrohnen-Geschütz"
+ },
+ {
+  "label": "UPGRADE:AmericaMOAB",
+  "text": "MOAB: Mutter aller Bomben"
+ },
+ {
+  "label": "UPGRADE:AmericaBunkerBusters",
+  "text": "Bunkerbrecher-Raketen"
+ },
+ {
+  "label": "UPGRADE:SatelliteHackOne",
+  "text": "Satelliten-Hack I"
+ },
+ {
+  "label": "UPGRADE:SatelliteHackTwo",
+  "text": "Satelliten-Hack II"
+ },
+ {
+  "label": "UPGRADE:HelixGattlingCannon",
+  "text": "Helix-Gatling-Kanone"
+ },
+ {
+  "label": "UPGRADE:HelixPropagandaTower",
+  "text": "Helix-Propagandaturm"
+ },
+ {
+  "label": "UPGRADE:HelixBattleBunker",
+  "text": "Helix-Kampfbunker"
+ },
+ {
+  "label": "UPGRADE:SupplyLines",
+  "text": "Nachschublinien"
+ },
+ {
+  "label": "UPGRADE:PointDefenseDrone",
+  "text": "Punktverteidigungsdrohne"
+ },
+ {
+  "label": "UPGRADE:QuadCannonSnipe",
+  "text": "Vierlingskanonen-Scharfschützenmunition"
+ },
+ {
+  "label": "UPGRADE:HellfireDrone",
+  "text": "Hellfire-Drohne"
+ },
+ {
+  "label": "UPGRADE:Fanaticism",
+  "text": "Patriotismus"
+ },
+ {
+  "label": "UPGRADE:EMPMine",
+  "text": "Neutronenminen"
+ },
+ {
+  "label": "UPGRADE:ChinaHelixNapalmBomb",
+  "text": "Napalmbombe"
+ },
+ {
+  "label": "UPGRADE:ChinaHelixNukeBomb",
+  "text": "Atombombe"
+ },
+ {
+  "label": "UPGRADE:WGUraniumShells",
+  "text": "Waffenfähige Uranmunition"
+ },
+ {
+  "label": "UPGRADE:TankAutoLoader",
+  "text": "Ladeautomatik"
+ },
+ {
+  "label": "UPGRADE:NeutronShells",
+  "text": "Neutronengranaten"
+ },
+ {
+  "label": "UPGRADE:BecomeRealGLACommandCenter",
+  "text": "Echte Kommandozentrale"
+ },
+ {
+  "label": "UPGRADE:BecomeRealGLABarracks",
+  "text": "Echte Kaserne"
+ },
+ {
+  "label": "UPGRADE:BecomeRealGLAArmsDealer",
+  "text": "Echter Waffenhändler"
+ },
+ {
+  "label": "UPGRADE:BecomeRealGLASupplyStash",
+  "text": "Echtes Versorgungslager"
+ },
+ {
+  "label": "UPGRADE:BecomeRealGLABlackMarket",
+  "text": "Echter Schwarzmarkt"
+ },
+ {
+  "label": "UPGRADE:FusionReactors",
+  "text": "Fusionsreaktoren"
+ },
+ {
+  "label": "UPGRADE:CamoNetting",
+  "text": "Tarnnetze"
+ },
+ {
+  "label": "UPGRADE:FortifiedStructure",
+  "text": "Befestigte Struktur"
+ },
+ {
+  "label": "UPGRADE:BoobyTrap",
+  "text": "Sprengfalle"
+ },
+ {
+  "label": "UPGRADE:AnthraxGamma",
+  "text": "Anthrax Gamma"
+ },
+ {
+  "label": "UPGRADE:WorkerShoes",
+  "text": "Arbeiterschuhe"
+ },
+ {
+  "label": "UPGRADE:ChemicalSuits",
+  "text": "Chemieanzüge"
+ },
+ {
+  "label": "UPGRADE:AmericaCountermeasures",
+  "text": "Gegenmaßnahmen"
+ },
+ {
+  "label": "UPGRADE:UpgradeChinaIsotopeStability",
+  "text": "&Isotopenstabilität"
+ },
+ {
+  "label": "OBJECT:SecretResearchLab",
+  "text": "Geheimes Forschungslabor"
+ },
+ {
+  "label": "OBJECT:InternetCenter",
+  "text": "Internetzentrale"
+ },
+ {
+  "label": "OBJECT:AircraftCarrier",
+  "text": "Flugzeugträger"
+ },
+ {
+  "label": "OBJECT:NukeHunter",
+  "text": "Atomjäger"
+ },
+ {
+  "label": "OBJECT:AirF_Aurora",
+  "text": "Aerosol-Aurora-Bomber"
+ },
+ {
+  "label": "OBJECT:SupW_Aurora",
+  "text": "Aurora-Alpha-Bomber"
+ },
+ {
+  "label": "OBJECT:BattleBus",
+  "text": "Kampfbus"
+ },
+ {
+  "label": "OBJECT:Helix",
+  "text": "Helix"
+ },
+ {
+  "label": "OBJECT:PropagandaTrooper",
+  "text": "Propagandasoldat"
+ },
+ {
+  "label": "OBJECT:Avenger",
+  "text": "Avenger"
+ },
+ {
+  "label": "OBJECT:Microwave",
+  "text": "Mikrowellenpanzer"
+ },
+ {
+  "label": "OBJECT:MOAB",
+  "text": "Mutter aller Bomben"
+ },
+ {
+  "label": "OBJECT:SuitcaseNuke",
+  "text": "Kofferbombe"
+ },
+ {
+  "label": "OBJECT:StructureEMPMine",
+  "text": "Neutronenmine"
+ },
+ {
+  "label": "OBJECT:ECMTank",
+  "text": "ECM-Panzer"
+ },
+ {
+  "label": "OBJECT:Saboteur",
+  "text": "Saboteur"
+ },
+ {
+  "label": "OBJECT:Sniper",
+  "text": "Scharfschütze"
+ },
+ {
+  "label": "OBJECT:FireBase",
+  "text": "Feuerbasis"
+ },
+ {
+  "label": "OBJECT:KingRaptor",
+  "text": "King Raptor"
+ },
+ {
+  "label": "OBJECT:CombatBike",
+  "text": "Kampfmotorrad"
+ },
+ {
+  "label": "OBJECT:SentryDrone",
+  "text": "Wachdrohne"
+ },
+ {
+  "label": "OBJECT:TomahawkStorm",
+  "text": "Tomahawk-Sturm"
+ },
+ {
+  "label": "OBJECT:ListeningOutpost",
+  "text": "Horchposten"
+ },
+ {
+  "label": "OBJECT:TrainDepot",
+  "text": "Zugdepot"
+ },
+ {
+  "label": "OBJECT:TrainLoading",
+  "text": "Bahnsteig"
+ },
+ {
+  "label": "OBJECT:GLALeader",
+  "text": "GBA-Anführer"
+ },
+ {
+  "label": "OBJECT:SupW_PatriotBattery",
+  "text": "EMP-Patriot-System"
+ },
+ {
+  "label": "OBJECT:AssaultTroopTransport",
+  "text": "Sturmtruppentransporter"
+ },
+ {
+  "label": "OBJECT:AssaultListeningOutpost",
+  "text": "Angriffs-Außenposten"
+ },
+ {
+  "label": "UPGRADE:IsotopeStability",
+  "text": "Isotopenstabilität"
+ },
+ {
+  "label": "OBJECT:Lazr_PatriotBattery",
+  "text": "Laser-Abwehrgeschütz"
+ },
+ {
+  "label": "SCIENCE:Infa_ChinaRedGuardTraining",
+  "text": "Minigunner-Ausbildung"
+ },
+ {
+  "label": "UPGRADE:Demo_SuicideBomb",
+  "text": "Sprengstoff"
+ },
+ {
+  "label": "UPGRADE:AirF_StealthComanche",
+  "text": "Tarnkappen-Comanche"
+ },
+ {
+  "label": "UPGRADE:HighExplosiveTrap",
+  "text": "Hochexplosive Sprengfalle"
+ },
+ {
+  "label": "OBJECT:RocketDrop",
+  "text": "Rakete"
+ },
+ {
+  "label": "OBJECT:PTBoat",
+  "text": "Schnellboot"
+ },
+ {
+  "label": "OBJECT:Dock",
+  "text": "Anlegestelle"
+ },
+ {
+  "label": "OBJECT:RepairDrone",
+  "text": "Reparaturdrohne"
+ },
+ {
+  "label": "SCIENCE:LaserCannon",
+  "text": "Laserkanone"
+ },
+ {
+  "label": "UPGRADE:TacticalNukeMig",
+  "text": "Taktische Atom-MiG"
+ },
+ {
+  "label": "OBJECT:CruiseMissile",
+  "text": "Marschflugkörper"
+ },
+ {
+  "label": "OBJECT:Ox",
+  "text": "Ochse"
+ },
+ {
+  "label": "OBJECT:Infa_Helix",
+  "text": "Sturm-Helix"
+ },
+ {
+  "label": "OBJECT:MiniGunner",
+  "text": "Minigunner"
+ },
+ {
+  "label": "OBJECT:AirF_Chinook",
+  "text": "Kampf-Chinook"
+ },
+ {
+  "label": "OBJECT:Infa_Bunker",
+  "text": "Befestigter Bunker"
+ },
+ {
+  "label": "OBJECT:Chem_Rebel",
+  "text": "Toxin-Rebell"
+ },
+ {
+  "label": "OBJECT:Chem_Terrorist",
+  "text": "Toxin-Terrorist"
+ },
+ {
+  "label": "OBJECT:Chem_TunnelNetwork",
+  "text": "Toxin-Netz"
+ },
+ {
+  "label": "OBJECT:Entrance",
+  "text": "Eingang"
+ },
+ {
+  "label": "OBJECT:Lazr_Tank",
+  "text": "Laserpanzer"
+ },
+ {
+  "label": "OBJECT:ValveStation",
+  "text": "Ventilstation"
+ },
+ {
+  "label": "OBJECT:MissileSilo",
+  "text": "Raketensilo"
+ },
+ {
+  "label": "OBJECT:ScudLauncherHiDef",
+  "text": "Scud-Werfer"
+ },
+ {
+  "label": "OBJECT:CINE_SnowyMountainScrollingSnow",
+  "text": "Schnee"
+ },
+ {
+  "label": "OBJECT:CINE_SnowyMountainStatic",
+  "text": "Berg"
+ },
+ {
+  "label": "OBJECT:CINE_TreeBirds",
+  "text": "Vögel"
+ },
+ {
+  "label": "OBJECT:Tank_Overlord",
+  "text": "Emperor"
+ },
+ {
+  "label": "SCIENCE:Nuke_ChinaCarpetBomb",
+  "text": "Atombomber"
+ },
+ {
+  "label": "OBJECT:Nuke_NuclearReactor",
+  "text": "Verbesserter Atomreaktor"
+ },
+ {
+  "label": "OBJECT:Demo_DemoTrap",
+  "text": "Verbesserte Sprengfalle"
+ }
+]

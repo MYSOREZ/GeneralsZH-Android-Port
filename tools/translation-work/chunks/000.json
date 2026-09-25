@@ -1,0 +1,802 @@
+[
+ {
+  "label": "GUI:GameOptions",
+  "text": "GAME OPTIONS"
+ },
+ {
+  "label": "GUI:SinglePlayer",
+  "text": "SOLO PLAY"
+ },
+ {
+  "label": "GUI:Network",
+  "text": "NETWORK"
+ },
+ {
+  "label": "GUI:Options",
+  "text": "OPTIONS"
+ },
+ {
+  "label": "GUI:Skirmish",
+  "text": "SKIRMISH"
+ },
+ {
+  "label": "GUI:Back",
+  "text": "BACK"
+ },
+ {
+  "label": "GUI:StartGame",
+  "text": "PLAY GAME"
+ },
+ {
+  "label": "GUI:Color",
+  "text": "Color"
+ },
+ {
+  "label": "GUI:Slower",
+  "text": "Slower"
+ },
+ {
+  "label": "GUI:Faster",
+  "text": "Faster"
+ },
+ {
+  "label": "GUI:Low",
+  "text": "Low"
+ },
+ {
+  "label": "GUI:Medium",
+  "text": "Medium"
+ },
+ {
+  "label": "GUI:High",
+  "text": "High"
+ },
+ {
+  "label": "GUI:None",
+  "text": "None"
+ },
+ {
+  "label": "GUI:Random",
+  "text": "Random"
+ },
+ {
+  "label": "GUI:Cancel",
+  "text": "CANCEL"
+ },
+ {
+  "label": "GUI:Ok",
+  "text": "OK"
+ },
+ {
+  "label": "GUI:Delete",
+  "text": "Remove"
+ },
+ {
+  "label": "GUI:Description",
+  "text": "Description"
+ },
+ {
+  "label": "GUI:Load",
+  "text": "LOAD"
+ },
+ {
+  "label": "GUI:Progress",
+  "text": "Progress"
+ },
+ {
+  "label": "GUI:Assign",
+  "text": "Assign"
+ },
+ {
+  "label": "GUI:CustomizeKeyboard",
+  "text": "Customize Keyboard"
+ },
+ {
+  "label": "GUI:Category",
+  "text": "Category"
+ },
+ {
+  "label": "GUI:Commands",
+  "text": "Commands"
+ },
+ {
+  "label": "GUI:ResetAll",
+  "text": "Reset All"
+ },
+ {
+  "label": "GUI:DisplayOptions",
+  "text": "DISPLAY OPTIONS"
+ },
+ {
+  "label": "GUI:KeyboardOptions",
+  "text": "Keyboard Options"
+ },
+ {
+  "label": "GUI:MainMenu",
+  "text": "EXIT"
+ },
+ {
+  "label": "GUI:Units",
+  "text": "Units"
+ },
+ {
+  "label": "GUI:Buildings",
+  "text": "Buildings"
+ },
+ {
+  "label": "GUI:Players",
+  "text": "Players"
+ },
+ {
+  "label": "GUI:Preview",
+  "text": "Map Preview"
+ },
+ {
+  "label": "GUI:Save",
+  "text": "Save"
+ },
+ {
+  "label": "GUI:Side",
+  "text": "Army"
+ },
+ {
+  "label": "GUI:Accept",
+  "text": "ACCEPT"
+ },
+ {
+  "label": "GUI:Games",
+  "text": "Games"
+ },
+ {
+  "label": "GUI:Join",
+  "text": "JOIN GAME"
+ },
+ {
+  "label": "GUI:LoadGame",
+  "text": "LOAD GAME"
+ },
+ {
+  "label": "GUI:SaveGame",
+  "text": "SAVE GAME"
+ },
+ {
+  "label": "GUI:Score",
+  "text": "Score"
+ },
+ {
+  "label": "GUI:Add",
+  "text": "Add"
+ },
+ {
+  "label": "GUI:MusicVolume",
+  "text": "Music Volume"
+ },
+ {
+  "label": "GUI:VoiceVolume",
+  "text": "Voice Volume"
+ },
+ {
+  "label": "GUI:Play",
+  "text": "Play Game"
+ },
+ {
+  "label": "GUI:Stop",
+  "text": "STOP"
+ },
+ {
+  "label": "GUI:Continue",
+  "text": "CONTINUE"
+ },
+ {
+  "label": "GUI:MaxPing",
+  "text": "Max Ping Allowed:"
+ },
+ {
+  "label": "GUI:Ladder",
+  "text": "Ladder"
+ },
+ {
+  "label": "GUI:Close",
+  "text": "Close"
+ },
+ {
+  "label": "GUI:Help",
+  "text": "Help"
+ },
+ {
+  "label": "GUI:Rank",
+  "text": "Rank"
+ },
+ {
+  "label": "GUI:Password",
+  "text": "Password"
+ },
+ {
+  "label": "GUI:Disconnect",
+  "text": "DISCONNECT"
+ },
+ {
+  "label": "GUI:No",
+  "text": "NO"
+ },
+ {
+  "label": "GUI:Yes",
+  "text": "YES"
+ },
+ {
+  "label": "GUI:Blank",
+  "text": "."
+ },
+ {
+  "label": "GUI:Open",
+  "text": "Open"
+ },
+ {
+  "label": "GUI:Closed",
+  "text": "Closed"
+ },
+ {
+  "label": "GUI:Login",
+  "text": "LOGIN"
+ },
+ {
+  "label": "GUI:WOLWelcome",
+  "text": "Welcome General %hs"
+ },
+ {
+  "label": "GUI:QuickMatch",
+  "text": "QUICKMATCH"
+ },
+ {
+  "label": "GUI:CustomMatch",
+  "text": "CUSTOM MATCH"
+ },
+ {
+  "label": "GUI:LadderRank",
+  "text": "Ladder Rank"
+ },
+ {
+  "label": "GUI:Disconnects",
+  "text": "Disconnects"
+ },
+ {
+  "label": "GUI:CreateGame",
+  "text": "CREATE GAME"
+ },
+ {
+  "label": "GUI:AutoLogin",
+  "text": "Auto Login in the Future"
+ },
+ {
+  "label": "GUI:AddBuddy",
+  "text": "Add Buddy"
+ },
+ {
+  "label": "GUI:RemoveBuddy",
+  "text": "Remove Buddy"
+ },
+ {
+  "label": "GUI:AudioOptions",
+  "text": "AUDIO OPTIONS"
+ },
+ {
+  "label": "GUI:LadderWins",
+  "text": "Ladder Wins"
+ },
+ {
+  "label": "GUI:LadderLosses",
+  "text": "Ladder Losses"
+ },
+ {
+  "label": "GUI:LadderPoints",
+  "text": "Ladder Points"
+ },
+ {
+  "label": "WOL:BuddyOffline",
+  "text": "%ls is offline"
+ },
+ {
+  "label": "WOL:Locale00",
+  "text": "Unknown"
+ },
+ {
+  "label": "WOL:Locale01",
+  "text": "Other Location"
+ },
+ {
+  "label": "WOL:Locale02",
+  "text": "United States"
+ },
+ {
+  "label": "WOL:Locale03",
+  "text": "Canada"
+ },
+ {
+  "label": "WOL:Locale04",
+  "text": "United Kingdom"
+ },
+ {
+  "label": "WOL:Locale05",
+  "text": "Germany"
+ },
+ {
+  "label": "WOL:Locale06",
+  "text": "France"
+ },
+ {
+  "label": "WOL:Locale07",
+  "text": "Spain"
+ },
+ {
+  "label": "WOL:Locale08",
+  "text": "Netherlands"
+ },
+ {
+  "label": "WOL:Locale09",
+  "text": "Belgium"
+ },
+ {
+  "label": "WOL:Locale10",
+  "text": "Austria"
+ },
+ {
+  "label": "WOL:Locale11",
+  "text": "Switzerland"
+ },
+ {
+  "label": "WOL:Locale12",
+  "text": "Italy"
+ },
+ {
+  "label": "WOL:Locale13",
+  "text": "Denmark"
+ },
+ {
+  "label": "WOL:Locale14",
+  "text": "Sweden"
+ },
+ {
+  "label": "WOL:Locale15",
+  "text": "Norway"
+ },
+ {
+  "label": "WOL:Locale16",
+  "text": "Finland"
+ },
+ {
+  "label": "WOL:Locale17",
+  "text": "Israel"
+ },
+ {
+  "label": "WOL:Locale18",
+  "text": "South Africa"
+ },
+ {
+  "label": "WOL:Locale19",
+  "text": "Japan"
+ },
+ {
+  "label": "WOL:Locale20",
+  "text": "Korea"
+ },
+ {
+  "label": "WOL:Locale21",
+  "text": "China"
+ },
+ {
+  "label": "WOL:Locale22",
+  "text": "Singapore"
+ },
+ {
+  "label": "WOL:Locale23",
+  "text": "Taiwan"
+ },
+ {
+  "label": "WOL:Locale24",
+  "text": "Malaysia"
+ },
+ {
+  "label": "WOL:Locale25",
+  "text": "Australia"
+ },
+ {
+  "label": "WOL:Locale26",
+  "text": "New Zealand"
+ },
+ {
+  "label": "WOL:Locale27",
+  "text": "Brazil"
+ },
+ {
+  "label": "WOL:Locale28",
+  "text": "Thailand"
+ },
+ {
+  "label": "WOL:Locale29",
+  "text": "Argentina"
+ },
+ {
+  "label": "WOL:Locale30",
+  "text": "Philippines"
+ },
+ {
+  "label": "WOL:Locale31",
+  "text": "Greece"
+ },
+ {
+  "label": "WOL:Locale32",
+  "text": "Ireland"
+ },
+ {
+  "label": "WOL:Locale33",
+  "text": "Poland"
+ },
+ {
+  "label": "WOL:Locale34",
+  "text": "Portugal"
+ },
+ {
+  "label": "WOL:Locale35",
+  "text": "Mexico"
+ },
+ {
+  "label": "WOL:Locale36",
+  "text": "Russia"
+ },
+ {
+  "label": "WOL:Locale37",
+  "text": "Turkey"
+ },
+ {
+  "label": "GUI:Observer",
+  "text": "Observer"
+ },
+ {
+  "label": "GUI:Team",
+  "text": "Team"
+ },
+ {
+  "label": "LETTER:G",
+  "text": "G"
+ },
+ {
+  "label": "LETTER:L",
+  "text": "L"
+ },
+ {
+  "label": "LETTER:M",
+  "text": "M"
+ },
+ {
+  "label": "LETTER:S",
+  "text": "S"
+ },
+ {
+  "label": "LETTER:O",
+  "text": "O"
+ },
+ {
+  "label": "NUMBER:1",
+  "text": "1"
+ },
+ {
+  "label": "NUMBER:2",
+  "text": "2"
+ },
+ {
+  "label": "NUMBER:3",
+  "text": "3"
+ },
+ {
+  "label": "NUMBER:4",
+  "text": "4"
+ },
+ {
+  "label": "NUMBER:5",
+  "text": "5"
+ },
+ {
+  "label": "NUMBER:6",
+  "text": "6"
+ },
+ {
+  "label": "NUMBER:7",
+  "text": "7"
+ },
+ {
+  "label": "NUMBER:8",
+  "text": "8"
+ },
+ {
+  "label": "NUMBER:9",
+  "text": "9"
+ },
+ {
+  "label": "NUMBER:0",
+  "text": "0"
+ },
+ {
+  "label": "Color:Gold",
+  "text": "Gold"
+ },
+ {
+  "label": "Color:Red",
+  "text": "Red"
+ },
+ {
+  "label": "Color:Blue",
+  "text": "Blue"
+ },
+ {
+  "label": "Color:Green",
+  "text": "Green"
+ },
+ {
+  "label": "Color:Orange",
+  "text": "Orange"
+ },
+ {
+  "label": "Color:SkyBlue",
+  "text": "Cyan"
+ },
+ {
+  "label": "Color:Purple",
+  "text": "Purple"
+ },
+ {
+  "label": "Color:Pink",
+  "text": "Pink"
+ },
+ {
+  "label": "MSG:Testing",
+  "text": "Mary had a little lamb, it's fleece as white as snow"
+ },
+ {
+  "label": "MSG:Test2",
+  "text": "And everywhere that Mary when, the lamb was sure to go"
+ },
+ {
+  "label": "GUI:ShowBehindBuildings",
+  "text": "Heat signature behind buildings ON"
+ },
+ {
+  "label": "GUI:HideBehindBuildings",
+  "text": "Heat signature behind buildings OFF"
+ },
+ {
+  "label": "GUI:DetailsSetToLowest",
+  "text": "Low graphics detail"
+ },
+ {
+  "label": "GUI:ReturnGraphicsToPreviousSettings",
+  "text": "Setting your graphic details to their previous settings"
+ },
+ {
+  "label": "GUI:BeaconLabel",
+  "text": "Type message:"
+ },
+ {
+  "label": "GUI:Beacon",
+  "text": "Beacon"
+ },
+ {
+  "label": "GUI:EACopyright",
+  "text": "© 2003 ELECTRONIC ARTS INC. ALL RIGHTS RESERVED"
+ },
+ {
+  "label": "GUI:DeleteBeacon",
+  "text": "Delete \n Beacon"
+ },
+ {
+  "label": "GUI:BeaconPlaced",
+  "text": "A Beacon was placed by %ls"
+ },
+ {
+  "label": "GUI:BeaconPlacementFailed",
+  "text": "Cannot place Beacon here"
+ },
+ {
+  "label": "GUI:TooManyBeacons",
+  "text": "Sorry, you can't place any more Beacons"
+ },
+ {
+  "label": "GUI:EA",
+  "text": "EA"
+ },
+ {
+  "label": "GUI:TestBrowser",
+  "text": "Test Browser"
+ },
+ {
+  "label": "GUI:Multiplayer",
+  "text": "MULTIPLAYER"
+ },
+ {
+  "label": "GUI:GameName",
+  "text": "Game Name:"
+ },
+ {
+  "label": "GUI:NoFileSelected",
+  "text": "PLEASE SELECT A FILE"
+ },
+ {
+  "label": "GUI:PleaseSelectAFile",
+  "text": "Please select a file"
+ },
+ {
+  "label": "GUI:DeleteFile",
+  "text": "DELETE FILE?"
+ },
+ {
+  "label": "GUI:AreYouSureDelete",
+  "text": "Are you sure you would like to delete the selected file?"
+ },
+ {
+  "label": "GUI:CopyFileToDesktop",
+  "text": "COPY REPLAY TO DESKTOP?"
+ },
+ {
+  "label": "GUI:AreYouSureCopy",
+  "text": "Are you sure you want to copy this file to the Desktop? This will overwrite any file with the same name"
+ },
+ {
+  "label": "GUI:ErrorCopyingFile",
+  "text": "THERE WAS AN ERROR COPYING THE FILE"
+ },
+ {
+  "label": "GUI:LoadReplay",
+  "text": "LOAD REPLAY"
+ },
+ {
+  "label": "GUI:DeleteReplay",
+  "text": "DELETE REPLAY"
+ },
+ {
+  "label": "GUI:CopyReplay",
+  "text": "COPY REPLAY"
+ },
+ {
+  "label": "GUI:ErrorDeletingFile",
+  "text": "THERE WAS AN ERROR DELETING THE FILE"
+ },
+ {
+  "label": "GUI:ShortDescription",
+  "text": "Short description of the game:"
+ },
+ {
+  "label": "GUI:LadderName",
+  "text": "Ladder Name:"
+ },
+ {
+  "label": "GUI:LadderPassword",
+  "text": "Ladder Password"
+ },
+ {
+  "label": "GUI:LadderURL",
+  "text": "Homepage: %hs"
+ },
+ {
+  "label": "GUI:LadderHasPassword",
+  "text": "This Ladder is password protected"
+ },
+ {
+  "label": "GUI:LadderMinWins",
+  "text": "Minimum wins required: %d"
+ },
+ {
+  "label": "GUI:LadderMaxWins",
+  "text": "Maximum wins allowed: %d"
+ },
+ {
+  "label": "GUI:LadderFactions",
+  "text": "Allowed army factions:"
+ },
+ {
+  "label": "GUI:LadderRandomFactions",
+  "text": "Random army factions:"
+ },
+ {
+  "label": "GUI:LadderMaps",
+  "text": "Allowed maps:"
+ },
+ {
+  "label": "GUI:LadderRandomMaps",
+  "text": "Random maps:"
+ },
+ {
+  "label": "GUI:AllowObservers",
+  "text": "Allow Observers"
+ },
+ {
+  "label": "GUI:USA",
+  "text": "USA"
+ },
+ {
+  "label": "GUI:China",
+  "text": "China"
+ },
+ {
+  "label": "GUI:GLA",
+  "text": "GLA"
+ },
+ {
+  "label": "GUI:AmericaAllies",
+  "text": "USA Allies"
+ },
+ {
+  "label": "GUI:ChinaAllies",
+  "text": "China Allies"
+ },
+ {
+  "label": "GUI:GLAAllies",
+  "text": "GLA Allies"
+ },
+ {
+  "label": "GUI:AmericaEnemies",
+  "text": "USA Enemies"
+ },
+ {
+  "label": "GUI:ChinaEnemies",
+  "text": "China Enemies"
+ },
+ {
+  "label": "GUI:GLAEnemies",
+  "text": "GLA Enemies"
+ },
+ {
+  "label": "GUI:EndCampaign",
+  "text": "END CAMPAIGN"
+ },
+ {
+  "label": "GUI:Retry",
+  "text": "PLAY AGAIN?"
+ },
+ {
+  "label": "GUI:RecentSave",
+  "text": "Recent Save"
+ },
+ {
+  "label": "GUI:GetUpdate",
+  "text": "Get Update"
+ },
+ {
+  "label": "GUI:DirectConnect",
+  "text": "DIRECT CONNECT"
+ },
+ {
+  "label": "GUI:WorldBuilder",
+  "text": "WORLD BUILDER"
+ },
+ {
+  "label": "GUI:WorldBuilderLoadFailed",
+  "text": "World Builder failed to load"
+ },
+ {
+  "label": "GUI:DontUseAccount",
+  "text": "Don't Use Account"
+ },
+ {
+  "label": "GUI:UseAccount",
+  "text": "Use Account"
+ },
+ {
+  "label": "GUI:ScoreScreen",
+  "text": "Score Screen"
+ },
+ {
+  "label": "GUI:Rehost",
+  "text": "PLAY AGAIN?"
+ },
+ {
+  "label": "GUI:UnitsBuilt",
+  "text": "Units \n Created"
+ },
+ {
+  "label": "GUI:UnitsLost",
+  "text": "Units \n Lost"
+ },
+ {
+  "label": "GUI:UnitsKilled",
+  "text": "Units \n Destroyed"
+ }
+]

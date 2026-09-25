@@ -1,0 +1,802 @@
+[
+ {
+  "label": "DIALOGEVENT:MisUSA03xEva04Subtitle",
+  "text": "*General, it appears that there are several GLA Radar Vans in the area, if your forces get to close, they will be detected"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xEva05Subtitle",
+  "text": "*Excellent job, General. Now you only need to worry about GLA forces on this side of the river"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xEva06Subtitle",
+  "text": "*The GLA have a POW camp along the route Col Burton must take to the GLA Lab. If you free the men held there, Col Burton will have an easier time getting to the Lab"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xEva07Subtitle",
+  "text": "*General, intel suggests you free the men at the POW camp before you send Col Burton too far away"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xEva08Subtitle",
+  "text": "*Congratulations, General, I'm sure the families of those men will be happy to hear they've been rescued"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xEva09Subtitle",
+  "text": "*General, the GLA's Lab is directly north of your current position. There are a number of GLA defenses still along your routebe careful"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xEva10Subtitle",
+  "text": "*It appears that those Oil Derricks are the only source of income for the GLA base. If you can destroy them you will cripple the GLA here"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xEva11Subtitle",
+  "text": "*General, I'm patching through Black Lotus"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xEva12Subtitle",
+  "text": "*General, the men you just rescued are driving our newest vehicle, the Microwave Tank"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xEva13Subtitle",
+  "text": "*This vehicle has two modes: The first generates a continuous microwave field in front of the vehicle - very lethal to all infantry. The second allows it to disrupt the functions of any targeted building"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xEva14Subtitle",
+  "text": "*General, the GLA know we are here and appear to be on heightened alert. Be careful when moving Col Burton into position above their Secret Lab"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xEva15Subtitle",
+  "text": "*General, the GLA have upgraded their tank shells to contain poisons. Be careful."
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xEva16Subtitle",
+  "text": "*I'm showing a GLA patrol in that village, Generalas well as a number of enemy forces garrisoned throughout the village"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xEva17Subtitle",
+  "text": "*Maybe Black Lotus can find out more Intel about who is behind the GLA WMD program"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xEva18Subtitle",
+  "text": "*That was incredible General. Looks like the GLA won't be using that facility anymoreand it seems Black Lotus downloaded some vital info about the source of this lab. For now, let's regroup and see what she was able to find out. Great work"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xLotus01Subtitle",
+  "text": "*The scorpion is disabledI will take care of matters across the river. Wait until I am across and then destroy the bridge"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xLotus02Subtitle",
+  "text": "*It is now. Don't worry, I'll wait for you at the labdo hurry"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xLotus03Subtitle",
+  "text": "*General, I am in a position to help free your forces held prisoner. Perhaps Col. Burton would like to help?"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xLotus04Subtitle",
+  "text": "*General, could you ask Col Burton to please hurry to the POW campI'm tired of waiting on him"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xLotus05Subtitle",
+  "text": "*I will draw the camp guards attention to this side of the river. That should let you and your pet robots handle the Tunnel and free your captured men"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xLotus06Subtitle",
+  "text": "*Generalmy forces are moving on the final GLA positions this side of the river. Please inform Col Burton that he should hurryI would prefer not to wait too long for him to catch up"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xLotus07Subtitle",
+  "text": "*Please inform Col Burton that I shall be waiting for HIM at the Lab"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xLotus08Subtitle",
+  "text": "*I'm here, Colonelyou win. The GLA put up a stronger fight than I had anticipated. Beginning download"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xLotus09Subtitle",
+  "text": "*I have the data! Now, Colonel!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xLotus10Subtitle",
+  "text": "*General. I am ready and waiting at the Labwhenever the Colonel would like to arrive and finish this mission"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xLotus11Subtitle",
+  "text": "*It is cold out here. You are coming aren't you Burton?"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xLotus12Subtitle",
+  "text": "*Downloading the information now"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xRngr01Subtitle",
+  "text": "*Thanks for the rescue, Sir"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xRngr02Subtitle",
+  "text": "*A couple of our men broke off to check out the village east of here before we were captured. They may still be over there"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xRngr03Subtitle",
+  "text": "*Good to see you, General, we thought we were going to end up captured"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xRngr04Subtitle",
+  "text": "*The rest of our team was captured just after we got to the village. General, we'd like to volunteer to rescue them"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xRngr05Subtitle",
+  "text": "*General, a squad of vehicles was captured just after we were taken. The GLA are holding them in a camp just north of here"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04Eva02Subtitle",
+  "text": "*Reinforcements arrived"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04Eva07Subtitle",
+  "text": "*We need to clear out these Stinger Sites before we can bring in our bombers to clear the GLA from the area"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04Eva08Subtitle",
+  "text": "*Construction crews have arrived sir. You'll need to get our base setup before we're overrun by the GLA"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04Eva09Subtitle",
+  "text": "*Our final objective is this GLA base here, in the hills. Take it out, and the operation is complete"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04Officer03Subtitle",
+  "text": "*Terrorists detected. All units be on the alert"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04Ranger01Subtitle",
+  "text": "*Calling in GLA bunker location at grid square Beta Charlie 6-8-9er-4-4"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04Transport01Subtitle",
+  "text": "*Transport teams 1 and 2 approaching the landing zone"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04Transport03Subtitle",
+  "text": "*Transport Team 1 reporting! Mission completed! I'm pulling out!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xBrf01Subtitle",
+  "text": "*General, intelligence reports that the rogue forces behind this GLA splinter cell are commanded by Dr. Thrax"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xBrf02Subtitle",
+  "text": "*Dr. Thrax is a wanted criminalresponsible for notorious terror crimes against the US military. He must be brought to justice"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xBrf03Subtitle",
+  "text": "*Dr. Thrax was developing a brand new toxin at his secret mountain lab. Thank goodness Lotus and Burton were there to stop him"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xBrf04Subtitle",
+  "text": "*Dr. Thrax is receiving his funding from his oil fields. We must cut off his flow of oil"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xBrf05Subtitle",
+  "text": "*The Intel we retrieved from the Secret Lab proves the GLA have seized these oil fields to help fund the nefarious Dr. Thrax. They may destroy them, rather then let you recapture them. Beware General, the GLA have started using Booby Trapsuse Dozers to remove BOOBY TRAPS safely"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xChat01Subtitle",
+  "text": "*Sir! Toxin Tractors are eating us up! Send help!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xChat02Subtitle",
+  "text": "*Toxin Tractors! Pull your infantry back!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xChat03Subtitle",
+  "text": "*Quad Cannons spotted sir!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xChat04Subtitle",
+  "text": "*We're losing units to Quad Cannons, sir! Send armor!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xChat05Subtitle",
+  "text": "* NO! Bravo Three was killed by a Quad Cannon, Sir!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xChat06Subtitle",
+  "text": "*The enemy has started sending tanks, sir! Send Missile defenders!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xChat07Subtitle",
+  "text": "*Ha! GLA tanks are no match for us!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xChat08Subtitle",
+  "text": "*Sir, we're losing units to enemy Tanks!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xChat09Subtitle",
+  "text": "*What's the enemy doing with those radar vans?"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xChat10Subtitle",
+  "text": "*Was that a car bomb?"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xChat11Subtitle",
+  "text": "*Where are those car bombs coming from?"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xChat12Subtitle",
+  "text": "*Sir, we need more defenses out here! Car Bombs are tearing us up!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xChat13Subtitle",
+  "text": "*Bomb trucks?! That's not fair!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xChat14Subtitle",
+  "text": "*Sir, we need better defenses against these Bomb Trucks!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xChat15Subtitle",
+  "text": "*Sir, we've engaged angry mobs! Send anti-personnel units!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xChat16Subtitle",
+  "text": "*Angry mobs are destroying us! Send some snipers out here!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xChat17Subtitle",
+  "text": "*Sir, we need to do something about these ANGRY MOBS!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xChat18Subtitle",
+  "text": "*Sir, we're losing units to Terrorists, can we get a sniper out here?"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xChat19Subtitle",
+  "text": "*Sir, these Terrorists are chewing us up! Send support!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xChat20Subtitle",
+  "text": "*Geez! What's with all these demo traps!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xChat21Subtitle",
+  "text": "*Sir, this field is littered with Demo Traps! We need to clear them out!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xChat22Subtitle",
+  "text": "*What?! We've lost a structure to a CAR BOMBER!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xChat23Subtitle",
+  "text": "*Car Bombers are attacking us! The appear to be coming from the local town"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xChat24Subtitle",
+  "text": "*Whoa! Those bomb trucks pack a punch!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xChat25Subtitle",
+  "text": "*Ouch! That one hurt!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xChat26Subtitle",
+  "text": "*Sir, build more defenses to protect against the BOMB TRUCKS!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xChat27Subtitle",
+  "text": "*Whoa! Those mobs are ANGRY!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xChat28Subtitle",
+  "text": "*Sir, we need a Pathfinder to deal with those ANGRY MOBS!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xChat29Subtitle",
+  "text": "*Sir, we need anti-personnel out here NOW! These angry mobs are chewing us up!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xChat30Subtitle",
+  "text": "*Sir, we've lost a building to a car bomb"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xChat31Subtitle",
+  "text": "*Terrorists are destroying our buildings! Call in snipers!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xChat32Subtitle",
+  "text": "*Sir! Their Bomb Trucks are destroying our base!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xCIA01Subtitle",
+  "text": "*Good to see some friendlies! Let's rock!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xCIA02Subtitle",
+  "text": "*Following your lead, General"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xCIA03Subtitle",
+  "text": "*Here I am, lead on"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xCin01Subtitle",
+  "text": "*Satcom, this is Charlie 5. Approaching TARGET, no hostiles sightedwaitTARGET is in sight, Satcomover"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xCin02Subtitle",
+  "text": "*Roger that 5You are a go, over"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xCin03Subtitle",
+  "text": "*Roger Satcompayload is awayleaving hotzone! Over"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xCin04Subtitle",
+  "text": "*Roger that 5, out. Victor 3 you are go for IMMEDIATE dropover"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xCin05Subtitle",
+  "text": "*Roger Satcomapproaching target area"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xCin06Subtitle",
+  "text": "*Lock and Load!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xCin07Subtitle",
+  "text": "*Jump! Jump!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xCin08Subtitle",
+  "text": "*Careful not to get slimed, boyschem weapons sighted"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xCin09Subtitle",
+  "text": "*This is no MILK RUN, boys! Keep your heads!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xCin10Subtitle",
+  "text": "*Stay in formation!! No Cowboys!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xCin11Subtitle",
+  "text": "*Goats are away. Retuning to barn. Out"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xCin12Subtitle",
+  "text": "*Bravo team, your primary objective is the small airstrip to your South. Secure it for incoming reinforcements. Out"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xCin13Subtitle",
+  "text": "*Roger Satcom, moving out. Listen up kids! This is a FREE FIRE ZONE! Watch for ROACHES! If it moves kill it"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xCin14Subtitle",
+  "text": "*Airstrip secured, GeneralReinforcements en route"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xEva01Subtitle",
+  "text": "*The GLA has started using BOOBY-TRAPS on structures in this area. They will explode if you try to capture or garrison them. Use Dozers to remove them"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xEva02Subtitle",
+  "text": "*The GLA has seized the nearby oil fields. Protect the derricks and destroy the GLA base"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xEva03Subtitle",
+  "text": "*BE CAREFUL, General; the enemy may have set up traps in the oil field"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xEva04Subtitle",
+  "text": "*Good news, General. Colonel Burton knows several covert operatives in this area. Lead Burton to the ops to solicit their help"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xEva05Subtitle",
+  "text": "*Good news, General. There are several covert operatives in this area. Find them to solicit their help"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xEva06Subtitle",
+  "text": "*Well done General, this region is now free of GLA troublemakers"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xEva07Subtitle",
+  "text": "*Well done, General. This area has been secured"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xEva08Subtitle",
+  "text": "*General, Your ultimate objective is to destroy the GLA base in this area. Your main source of funding will be the oil derricks. You must secure and protect them!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xEva09Subtitle",
+  "text": "*Well done, General. Your mission is a success"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xEva10Subtitle",
+  "text": "*General, the local town is being poisoned by GLA propaganda and are launching attacks against us. Destroy the GLA radio station to quell the uprising"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xEva11Subtitle",
+  "text": "*Destroy the GLA radio-station in the city to quell the uprising"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xEva12Subtitle",
+  "text": "*Well done, General. The GLA propaganda machine has been destroyed"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xEva13Subtitle",
+  "text": "*Destroy the GLA RADIO STATION in the city to stop the car-bomb attacks"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xEva14Subtitle",
+  "text": "*Destroy the GLA RADIO STATION in the city to stop the bomb-truck attacks"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xEva15Subtitle",
+  "text": "*Destroy the GLA RADIO STATION in the city to stop the suicide attacks"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xEva16Subtitle",
+  "text": "*General, there are several ARTILLERY PLATFORMS in the area. Capture them for suppression fire"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xEva17Subtitle",
+  "text": "*General, There is a REPAIR PAD in the area. Capture it to help heal our vehicles"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xEva18Subtitle",
+  "text": "*Sir, please build more defenses to protect against the car bombers"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xEva19Subtitle",
+  "text": "*Sir, the enemy has started deploying Radar Vans, they can spot our pathfinders!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xEva20Subtitle",
+  "text": "*Sir, the enemy's Radar Vans are sweeping for our pathfindersbe careful"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xEva21Subtitle",
+  "text": "*Sir, we should build Patriots to counter the bomb trucks"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xEva22Subtitle",
+  "text": "*Sir, Enemy Terrorists are proving highly effective. I suggest you send Pathfinders"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xEva23Subtitle",
+  "text": "*Sir! We're losing units to Demo Traps, please be more careful!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xEva24Subtitle",
+  "text": "*General, There is an OIL REFINERY in the area. Capture it to reduce vehicle cost"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xEva25Subtitle",
+  "text": "*Sir, the enemy has begun attacking the OIL FIELDS"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xEva26Subtitle",
+  "text": "*WARNING: OIL derrick DESTROYED! \n Only 1 derrick remains!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xEva27Subtitle",
+  "text": "*WARNING: OIL derrick DESTROYED! \n Only 5 derricks remain"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xEva28Subtitle",
+  "text": "*WARNING: OIL derrick DESTROYED! \n Only 10 derricks remain"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xEva29Subtitle",
+  "text": "*WARNING: OIL derrick DESTROYED! \n 15 derricks remain"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xEva30Subtitle",
+  "text": "*General, our cash reserves are running low -- capture oil derricks for needed cash"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xEva31Subtitle",
+  "text": "*WARNING: SCUDSTORM DETECTED!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xEva32Subtitle",
+  "text": "*General! Colonel Burton is down!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xEva33Subtitle",
+  "text": "*All the oil derricks have been DESTROYED! Your mission is a failure"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xEva34Subtitle",
+  "text": "*Your base has been destroyed! Your mission is a failure"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xEva35Subtitle",
+  "text": "*Good luck, sir"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xChat01Subtitle",
+  "text": "*Our base is being attacked sir. They built a tunnel network inside our base without us knowing"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xChat02Subtitle",
+  "text": "*Those buses are loaded with hostiles sir! Watch out!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xChat03Subtitle",
+  "text": "*Our base is being attacked sir. They built a tunnel network inside our base without us knowing"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xChat04Subtitle",
+  "text": "*We offer you our assistance to rid us of this Toxin Monger. His obsession will kill us all and that we cannot allow"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xChat05Subtitle",
+  "text": "*Death to the Devil of Disease!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xChat06Subtitle",
+  "text": "*Help! Over here, please release me"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xChat07Subtitle",
+  "text": "*Thank you for releasing me. Transport me to my base in the East and I can help you"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xCin01Subtitle",
+  "text": "*Sat-Com A4 has confirmation on base location. Visuals are uploading now"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xCin02Subtitle",
+  "text": "*Field, please verify status of Toxin Production facilities"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xCin03Subtitle",
+  "text": "*Then we have a go upon presentation of final clearance code"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xCin04Subtitle",
+  "text": "*Roger that, Alpha Whiskey Echo, the birds are in the air"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xCin05Subtitle",
+  "text": "*Toxin Production Facilities confirmed sir"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xCin06Subtitle",
+  "text": "*Clearance code is Sierra, Hotel, Oscar, Charlie Kilo"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xEva01Subtitle",
+  "text": "*Phase one of our operation has been completed General. Our Tomahawk Missile strike was successful in destroying all of GLA's Toxin production facilities. Only their main base and Toxin Missile silo's remain to be eliminated"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xEva02Subtitle",
+  "text": "*General, we've tracked Dr. Thrax to this remote location. He is in possession of chemical tipped missiles, and has them prepped for launch. Destroying his toxin storage tanks has slowed him down, but we must move in and secure those missiles before they can be launched"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xEva03Subtitle",
+  "text": "*General, Dr. Thrax was able to develop small quantities of his new toxin. Make sure your forces are on high alert"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xEva04Subtitle",
+  "text": "*General, due to the civilian presence in this location you will need to use ground forces to assault the final base and capture the 4 toxin missile sites in the area. Our successful liberation of the oil sites in Amisbad has provided us with additional resources for this operation"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xEva05Subtitle",
+  "text": "*Dr. Thrax must be defeated so he can't inflict further terror on the world. General, you must stop him"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xEva06Subtitle",
+  "text": "*Our Intel indicates that this is the best area to build your base. Local unrest may be in your favor. Good luck"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xEva07Subtitle",
+  "text": "*General, the local GLA have responded to your rescue and have given us control of their base. You may now use their forces in your attack"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xEva08Subtitle",
+  "text": "*General, your main objective is to capture the 4 Toxin Missile Silo's targeted on US major metropolitan areas before they launch"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xEva09Subtitle",
+  "text": "*General, infrared scans of the area indicate that they are preparing to launch the Toxin Missiles"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xEva10Subtitle",
+  "text": "*Missile launch in 5 minutes Your final offensive should commence now"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xEva11Subtitle",
+  "text": "*Missile launch in 4 minutes"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xEva12Subtitle",
+  "text": "*Missile launch in 3 minutes"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xEva13Subtitle",
+  "text": "*Missile launch in 2 minutes"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xEva14Subtitle",
+  "text": "*Missile launch in 1 minute We must move in now!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xEva15Subtitle",
+  "text": "*30 seconds until missile launch It's almost too late General!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xEva16Subtitle",
+  "text": "*10 seconds until missile launch"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xEva17Subtitle",
+  "text": "*5 4 3 2 1 (gasp) Toxin Missile Launch detected General"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xEva18Subtitle",
+  "text": "*Toxin Missile Impact has been detected and Hot Zone is now confirmed. The casualties are incalculable General, we have failed"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xEva19Subtitle",
+  "text": "*The first Missile Silo has been captured and the HazMat decontamination team is en-route. One to go Commander"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xEva20Subtitle",
+  "text": "*Good job, sir. The second Missile Silo has been captured. Two to go"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xEva21Subtitle",
+  "text": "*Good job, sir. The third Missile Silo has been captured. One to go"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xEva22Subtitle",
+  "text": "*Great work, General. We now have control of all 4 Toxin Missile silo's. The operation is a success"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xEva23Subtitle",
+  "text": "*Toxin breach, you have 2 minutes to guide the Bio-engineer to the hot zone to neutralize the threat"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xEva24Subtitle",
+  "text": "*We have a green light for the operation. Launch the attack on GLA's perimeter base"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xEva25Subtitle",
+  "text": "*Intel says that the Missile Sites we are looking for are in this region. Use caution and make sure those toxins aren't released"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xEva26Subtitle",
+  "text": "*Infantry won't work well here, General. Our enemy is using toxins in almost every weapon that they throw at us"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xEva27Subtitle",
+  "text": "*General, your objective is to capture this structure, not destroy it! If those toxins are released then the region will be contaminated for 100 square miles!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xEva28Subtitle",
+  "text": "*General, our intel indicates that if we can leak the napalm in those tanks into those nearby tunnels exits we can flood their whole system"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xEva29Subtitle",
+  "text": "*Congratulations General. Dr. Thrax won't be poisoning the world with his creations any longer"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xEva30Subtitle",
+  "text": "*Now that Dr. Thrax is defeated we can finally bring our boys home. Good work, General"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xEva31Subtitle",
+  "text": "*We have a green light on Operation: Eagle's Strike. Launch the attack on Toxin Production facilities"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xEva32Subtitle",
+  "text": "*General, your orders are to build a base to attack the Toxin General. As your forces are ready then capture the enemies 4 Toxin Missile sites before they can launch"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xEva33Subtitle",
+  "text": "*General, the GLA base to the east has decided to Rebel against the Toxin General and his mass use of toxins. They wish to aid us in our attack against the General by giving us use of their base"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xEva34Subtitle",
+  "text": "*General, the enemy has detected our presence in their main base and have begun launch preparations for the Toxin Missiles. The should have launch capability in approximately 30 minutes. Intel has located and revealed the 4 missile sites on your radar screen"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xEva35Subtitle",
+  "text": "*General, Intel puts some of the Missiles in this region. Take care not to release the toxin!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xThrax01Subtitle",
+  "text": "*You are too late infidel, the launch is commencing to cleanse your lands in pestilence. Hahahaha"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xThrax02Subtitle",
+  "text": "*Your betrayal has not gone unnoticed. You will burn with the infidels you now assist. May your sons camels swell with virulence!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xThrax03Subtitle",
+  "text": "*My reach is long and now you will feel my wrath! Die infidel dogs, die!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA06Crusader101Subtitle",
+  "text": "*Enemy sighted!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA06Crusader102Subtitle",
+  "text": "*More GLA. Lock and load"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA06Crusader202Subtitle",
+  "text": "*They're too well dug in! We need reinforcements!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA06Crusader206Subtitle",
+  "text": "*Stop those Tractors!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA06Officer05Subtitle",
+  "text": "*Concentrate your fire, men!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA07Crusader204Subtitle",
+  "text": "*We've broken through to the north! Send reinforcements"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA07Crusader205Subtitle",
+  "text": "*They're everywhere!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA07Crusader301Subtitle",
+  "text": "*Be advised, car bombs in the area"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA07Crusader303Subtitle",
+  "text": "*We've crossed the bridge. Sweep and clear"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA07Crusader306Subtitle",
+  "text": "*Heeelp!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA07Officer01Subtitle",
+  "text": "*We've got to clear the area! Destroy everything!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA07Officer02Subtitle",
+  "text": "*Destroy everything not American. Leave nothing behind!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA07Officer03Subtitle",
+  "text": "*Copy that Delta two. Your orders are to fall back. Over"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA08Chatter06Subtitle",
+  "text": "*This is Echo one rolling into hot zone. Everyone keep your eyes open"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA08Chatter10Subtitle",
+  "text": "*Car Bomb! Car Bomb!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA08Chatter12Subtitle",
+  "text": "*Car bomb! Open fire!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA08Chatter14Subtitle",
+  "text": "*Alright boyslet's go!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA08Cin03Subtitle",
+  "text": "*Looks like the whole GLA is lining up for us today"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSAChatter01Subtitle",
+  "text": "*Get in formation, right now!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi001Subtitle",
+  "text": "*So, I see you have decided to stay and stand against me. You will regret that decision, General. Prepare to meet your end!"
+ }
+]

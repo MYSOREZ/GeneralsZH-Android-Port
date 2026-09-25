@@ -1,0 +1,802 @@
+[
+ {
+  "label": "GUI:LimitSuperweapons",
+  "text": "Предел супероружия"
+ },
+ {
+  "label": "TOOLTIP:LimitSuperweapons",
+  "text": "Поставить предел на молекулярные пушки, залповые установки ракетами Р-17М и т.п. на одного игрока"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak100",
+  "text": "Медаль за Стойкость  \n Игрок победил в 100 схватках подряд  \n Заработайте новую медаль за 3, 10, 25, 100, 500 и 1000 побед подряд"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak500",
+  "text": "Медаль за Стойкость  \n Игрок победил в 500 схватках подряд  \n Заработайте новую медаль за 3, 10, 25, 100, 500 и 1000 побед подряд"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak1000",
+  "text": "Медаль за Стойкость  \n Игрок победил в 1000 схватках подряд"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak3Online",
+  "text": "Медаль за Стойкость  \n Игрок победил в 3 коллективных играх подряд  \n Заработайте новую медаль за 3, 10, 25, 100, 500 и 1000 побед подряд"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak10Online",
+  "text": "Медаль за Стойкость  \n Игрок победил в 10 коллективных играх подряд  \n Заработайте новую медаль за 3, 10, 25, 100, 500 и 1000 побед подряд"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak25Online",
+  "text": "Медаль за Стойкость  \n Игрок победил в 25 коллективных играх подряд  \n Заработайте новую медаль за 3, 10, 25, 100, 500 и 1000 побед подряд"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak100Online",
+  "text": "Медаль за Стойкость  \n Игрок победил в 100 коллективных играх подряд  \n Заработайте новую медаль за 3, 10, 25, 100, 500 и 1000 побед подряд"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak500Online",
+  "text": "Медаль за Стойкость  \n Игрок победил в 500 коллективных играх подряд  \n Заработайте новую медаль за 3, 10, 25, 100, 500 и 1000 побед подряд"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak1000Online",
+  "text": "Медаль за Стойкость  \n Игрок победил в 1000 коллективных играх подряд"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorDomination100",
+  "text": "Медаль за Превосходство  \n Игрок победил в более чем 100 схваток  \n Заработайте новую медаль за 100, 500, 1000 и 10000 побед"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorDomination500",
+  "text": "Медаль за Превосходство  \n Игрок победил в более чем 500 схваток  \n Заработайте новую медаль за 100, 500, 1000 и 10000 побед"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorDomination1000",
+  "text": "Медаль за Превосходство  \n Игрок победил в более чем 1,000 схваток  \n Заработайте новую медаль за 100, 500, 1000 и 10000 побед"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorDomination10000",
+  "text": "Медаль за Превосходство  \n Игрок победил в более чем 10,000 схваток"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorDomination100Online",
+  "text": "Медаль за Превосходство  \n Игрок победил в более чем 100 коллективных играх  \n Заработайте новую медаль за 100, 500, 1000 и 10000 побед"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorDomination500Online",
+  "text": "Медаль за Превосходство  \n Игрок победил в более чем 500 коллективных играх  \n Заработайте новую медаль за 100, 500, 1000 и 10000 побед"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorDomination1000Online",
+  "text": "Медаль за Превосходство  \n Игрок победил в более чем 1,000 коллективных играх  \n Заработайте новую медаль за 100, 500, 1000 и 10000 побед"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorDomination10000Online",
+  "text": "Медаль за Превосходство  \n Игрок победил в более чем 10,000 коллективных играх"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorCampaignChallenge",
+  "text": "Медаль Кампании поединков  \n Завершите кампанию поединков между генералами, чтобы получить эту медаль  \n Пройдите кампанию на невыносимой сложности, чтобы получить высшую награду"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorUltimate",
+  "text": "Медаль за Окончание  \n Победите на всех картах в схватке против максимального количества грозных оппонентов, чтобы получить эту медаль"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorGlobalGeneral",
+  "text": "Медаль Всемирного генерала  \n Одержите победу в коллективной игре за каждого из генералов"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreakDisabled",
+  "text": "Медаль за Стойкость  \n Заработайте новую медаль за 3, 10, 25, 100, 500 и 1000 последних побед"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreakOnlineDisabled",
+  "text": "Медаль за Стойкость  \n Заработайте новую медаль за 3, 10, 25, 100, 500 и 1000 последних побед"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorCampaignChallengeDisabled",
+  "text": "Медаль Кампании поединков  \n Завершите кампанию поединков между генералами, чтобы получить эту медаль  \n Пройдите кампанию на Невыносимой сложности, чтобы получить высшую награду"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorUltimateDisabled",
+  "text": "Медаль за Окончание  \n Победите на всех картах в схватке против максимального количества грозных оппонентов, чтобы получить эту медаль"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorDominationDisabled",
+  "text": "Медаль за Превосходство  \n Заработайте новую медаль за 100, 500, 1000 и 10000 побед"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorDominationOnlineDisabled",
+  "text": "Медаль за Превосходство  \n Заработайте новую медаль за 100, 500, 1000 и 10000 побед"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorGlobalGeneralDisabled",
+  "text": "Медаль Всемирного генерала  \n Одержите победу в коллективной игре за каждого из генералов"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorBlitzDisabled",
+  "text": "Медаль за Блитц  \n Победите оппонента(ов) за 10 минут или быстрее, чтобы получить эту медаль"
+ },
+ {
+  "label": "GUI:SuperweaponSpectreGunship",
+  "text": "Самолёт огневой поддержки"
+ },
+ {
+  "label": "GUI:Nuke_SuperweaponNeutronMissile",
+  "text": "Удар ядерной ракетой"
+ },
+ {
+  "label": "GUI:SuperweaponGPSScrambler",
+  "text": "Скрытие от СВМ"
+ },
+ {
+  "label": "GUI:SupW_SuperweaponParticleUplinkCannon",
+  "text": "Молекулярная пушка"
+ },
+ {
+  "label": "GUI:SuperweaponTankParadrop",
+  "text": "Десантирование танков"
+ },
+ {
+  "label": "GUI:SupW_SuperweaponTomahawkStorm",
+  "text": "Залповая установка ракет томагавк"
+ },
+ {
+  "label": "GUI:SupW_SuperweaponNeutronMissile",
+  "text": "Межконтинентальная баллистическая ракета"
+ },
+ {
+  "label": "INI:FactionAmericaSuperWeaponGeneral",
+  "text": "Супероружейный генерал США"
+ },
+ {
+  "label": "INI:FactionAmericaLaserGeneral",
+  "text": "Лазерный генерал США"
+ },
+ {
+  "label": "INI:FactionAmericaAirForceGeneral",
+  "text": "Авиационный генерал США"
+ },
+ {
+  "label": "INI:FactionAmericaCommanderInChief",
+  "text": "Главнокомандующий США"
+ },
+ {
+  "label": "INI:FactionChinaTankGeneral",
+  "text": "Танковый китайский генерал"
+ },
+ {
+  "label": "INI:FactionChinaInfantryGeneral",
+  "text": "Пехотный китайский генерал"
+ },
+ {
+  "label": "INI:FactionChinaNukeGeneral",
+  "text": "Ядерный китайский генерал"
+ },
+ {
+  "label": "INI:FactionChinaCommanderInChief",
+  "text": "Главнокомандующий Китая"
+ },
+ {
+  "label": "INI:FactionGLAToxinGeneral",
+  "text": "Химический генерал МАО"
+ },
+ {
+  "label": "INI:FactionGLADemolitionGeneral",
+  "text": "Подрывной генерал МАО"
+ },
+ {
+  "label": "INI:FactionGLAStealthGeneral",
+  "text": "Скрытный генерал МАО"
+ },
+ {
+  "label": "INI:FactionGLACommanderInChief",
+  "text": "Главнокомандующий МАО"
+ },
+ {
+  "label": "INI:FactionBossGeneral",
+  "text": "Главный генерал"
+ },
+ {
+  "label": "SIDE:AmericaSuperWeaponGeneral",
+  "text": "Супероружейный генерал США"
+ },
+ {
+  "label": "SIDE:AmericaLaserGeneral",
+  "text": "Лазерный генерал США"
+ },
+ {
+  "label": "SIDE:AmericaAirForceGeneral",
+  "text": "Авиационный генерал США"
+ },
+ {
+  "label": "SIDE:ChinaTankGeneral",
+  "text": "Танковый китайский генерал"
+ },
+ {
+  "label": "SIDE:ChinaInfantryGeneral",
+  "text": "Пехотный китайский генерал"
+ },
+ {
+  "label": "SIDE:ChinaNukeGeneral",
+  "text": "Ядерный китайский генерал"
+ },
+ {
+  "label": "SIDE:GLAToxinGeneral",
+  "text": "Химический генерал МАО"
+ },
+ {
+  "label": "SIDE:GLADemolitionGeneral",
+  "text": "Подрывной генерал МАО"
+ },
+ {
+  "label": "SIDE:GLAStealthGeneral",
+  "text": "Скрытный генерал МАО"
+ },
+ {
+  "label": "SIDE:Boss",
+  "text": "Главный генерал"
+ },
+ {
+  "label": "GUI:SelectAllAircraft",
+  "text": "Выбор всей авиации"
+ },
+ {
+  "label": "GUI:SelectAllAircraftDescription",
+  "text": "Выбрать всю авиацию"
+ },
+ {
+  "label": "SCIENCE:USASpectreGunship1",
+  "text": "Самолёт огневой поддержки"
+ },
+ {
+  "label": "SCIENCE:USALeafletDrop",
+  "text": "Сброс листовок"
+ },
+ {
+  "label": "SCIENCE:ChinaTankHunterTraining",
+  "text": "Обучение Охотника за танками"
+ },
+ {
+  "label": "SCIENCE:ChinaBattleMasterTraining",
+  "text": "Обучение Мастера боя"
+ },
+ {
+  "label": "SCIENCE:ChinaOverlordTraining",
+  "text": "Обучение Владыки"
+ },
+ {
+  "label": "SCIENCE:ChinaGattlingTankTraining",
+  "text": "Обучение пулемётного танка"
+ },
+ {
+  "label": "SCIENCE:ChinaNukeDrop",
+  "text": "Ядерная бомбардировка"
+ },
+ {
+  "label": "SCIENCE:ChinaFrenzy",
+  "text": "Ярость 1"
+ },
+ {
+  "label": "SCIENCE:ChinaFrenzy2",
+  "text": "Ярость 2"
+ },
+ {
+  "label": "SCIENCE:ChinaFrenzy3",
+  "text": "Ярость 3"
+ },
+ {
+  "label": "SCIENCE:ChinaCarpetBomb",
+  "text": "Ковровая бомбардировка"
+ },
+ {
+  "label": "SCIENCE:GPSScrambler",
+  "text": "Скрытие от СВМ"
+ },
+ {
+  "label": "SCIENCE:GLASneakAttack",
+  "text": "Внезапная атака"
+ },
+ {
+  "label": "SCIENCE:ChinaTankParadrop1",
+  "text": "Десантирование танков 1"
+ },
+ {
+  "label": "SCIENCE:ChinaTankParadrop2",
+  "text": "Десантирование танков 2"
+ },
+ {
+  "label": "SCIENCE:ChinaTankParadrop3",
+  "text": "Десантирование танков 3"
+ },
+ {
+  "label": "SCIENCE:ChinaInfantryParadrop1",
+  "text": "Десантирование парашютистов 1"
+ },
+ {
+  "label": "SCIENCE:ChinaInfantryParadrop2",
+  "text": "Десантирование парашютистов 2"
+ },
+ {
+  "label": "SCIENCE:ChinaInfantryParadrop3",
+  "text": "Десантирование парашютистов 3"
+ },
+ {
+  "label": "CONTROLBAR:NoHotKeyFrenzy",
+  "text": "Ярость"
+ },
+ {
+  "label": "CONTROLBAR:CIAIntelligenceShortcut",
+  "text": "Разведка и слежка"
+ },
+ {
+  "label": "CONTROLBAR:CommunicationsDownload",
+  "text": "Загрузка &связи"
+ },
+ {
+  "label": "CONTROLBAR:CommunicationsDownloadShortcut",
+  "text": "Загрузка &связи"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaHelixPropagandaTower",
+  "text": "Башня пропаганды [&T]"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaHelixBattleBunker",
+  "text": "Боевой бункер [&B]"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaHelixGattlingCannon",
+  "text": "Пулемётная пушка [&C]"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeHelixNukeBomb",
+  "text": "Ядерная бомба [&N]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaFireBase",
+  "text": "Защитная пушка [&I]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaArtilleryPlatform",
+  "text": "&Артиллерийская платформа"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaTankAvenger",
+  "text": "Мститель [&G]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaTankMicrowave",
+  "text": "Микроволновый танк [&M]"
+ },
+ {
+  "label": "CONTROLBAR:BunkerExit",
+  "text": "Выйти из бункера"
+ },
+ {
+  "label": "CONTROLBAR:FireBaseExit",
+  "text": "Выйти из защитной пушки"
+ },
+ {
+  "label": "CONTROLBAR:ConstructFakeGLACommandCenter",
+  "text": "Фальшивый командный центр [&C]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructFakeGLABarracks",
+  "text": "Фальшивая казарма [&B]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructFakeGLASupplyStash",
+  "text": "Фальшивый склад снабжения [&U]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructFakeGLAArmsDealer",
+  "text": "Фальшивый продавец оружия [&A]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaInternetCenter",
+  "text": "Центр интернет [&I]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAVehicleCombatBike",
+  "text": "Боевой мотоцикл [&Y]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaTankEmperor",
+  "text": "Имперский Владыка [&O]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAInfantrySaboteur",
+  "text": "Саботажник [&S]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaInfantryPropagandaTrooper",
+  "text": "&Пропагандист"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaInfantryMiniGunner",
+  "text": "Пулемётчик [&I]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaJetKingRaptor",
+  "text": "Королевский Раптор [&T]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaJetFuelAirAurora",
+  "text": "Бомбардировщик Аврора альфа [&B]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaJetHypersonicAurora",
+  "text": "Аврора Альфа [&A]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAInfantrySniper",
+  "text": "Снайпер [&S]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaVehicleSentryDrone",
+  "text": "Сторожевой беспилотный аппарат [&S]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaVehicleHellfireDrone",
+  "text": "Ракетный беспилотный аппарат [&F]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaVehiclePointDefenseDrone",
+  "text": "&Дрон точечной обороны"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaVehicleHelix",
+  "text": "Улитка [&X]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaInfantryNukeHunter",
+  "text": "Ядерный Охотник за танками [&U]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaICBMLauncher",
+  "text": "МКБЛ [&I]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaVehicleListeningOutpost",
+  "text": "Передвижной радар [&S]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructFakeGLABlackMarket",
+  "text": "Фальшивый чёрный рынок [&M]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaTomahawkStorm",
+  "text": "Залповая установка ракет томагавк [&T]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaTankECM",
+  "text": "Электромагнитный танк [&E]"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAVehicleBattleBus",
+  "text": "Боевой автобус [&E]"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaSentryDroneGun",
+  "text": "Пушка сторожевого бесп. аппарата [&N]"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLAQuadCannonSnipe",
+  "text": "Стрельба самоходной зенитки [&C]"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaSupplyLines",
+  "text": "Поставка снабжения [&U]"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaMOAB",
+  "text": "Мать всех бомб [&M]"
+ },
+ {
+  "label": "CONTROLBAR:BecomeRealGLACommandCenter",
+  "text": "Построить настоящий командный центр [&B]"
+ },
+ {
+  "label": "CONTROLBAR:BecomeRealGLABarracks",
+  "text": "Построить настоящую казарму [&B]"
+ },
+ {
+  "label": "CONTROLBAR:BecomeRealGLAArmsDealer",
+  "text": "Построить настоящего торговца оружием [&B]"
+ },
+ {
+  "label": "CONTROLBAR:BecomeRealGLASupplyStash",
+  "text": "Построить настоящий склад снабжения [&B]"
+ },
+ {
+  "label": "CONTROLBAR:BecomeRealGLABlackMarket",
+  "text": "Построить настоящий чёрный рынок [&B]"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaBunkerBusters",
+  "text": "Противобункерные ракеты [&U]"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaCountermeasures",
+  "text": "Тепловые ракеты [&O]"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaChemicalSuits",
+  "text": "Костюмы химической защиты [&I]"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaSatelliteHackOne",
+  "text": "Взлом спутника I [&S]"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaSatelliteHackTwo",
+  "text": "Взлом спутника II [&S]"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaFanaticism",
+  "text": "Национализм [&P]"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaWGUraniumShells",
+  "text": "Поставить на вооружение урановые снаряды [&U]"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaTankAutoLoader",
+  "text": "Автоматическая перезарядка [&A]"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaNeutronShells",
+  "text": "Нейтронные снаряды [&S]"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaFusionReactors",
+  "text": "&Термоядерные реакторы"
+ },
+ {
+  "label": "CONTROLBAR:ChinaUpgradeHelixNapalmBomb",
+  "text": "Возможность сбросить бомбу с напалмом с этой Улитки"
+ },
+ {
+  "label": "CONTROLBAR:ChinaUpgradeHelixNukeBomb",
+  "text": "Возможность сбросить ядерную бомбу с этой Улитки"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeHelixNapalmBomb",
+  "text": "Бомба с напалмом [&N]"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLAFortifiedStructure",
+  "text": "Укрепить здания [&E]"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLABoobyTrap",
+  "text": "Растяжка [&O]"
+ },
+ {
+  "label": "CONTROLBAR:DetonateFakeBuilding",
+  "text": "Взорвать сейчас! [&N]"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLAWorkerFakeCommandSet",
+  "text": "Переключить на фальшивые здания [&F]"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLAWorkerRealCommandSet",
+  "text": "Переключить на настоящие здания [&R]"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLAHighExplosiveDemoTraps",
+  "text": "Фугас большой мощности [&D]"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLACamoNetting",
+  "text": "Маскировочная сетка [&N]"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLAAnthraxGamma",
+  "text": "Сибирская язва гамма [&X]"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLAWorkerShoes",
+  "text": "Обувь рабочего [&S]"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeEMPMines",
+  "text": "Нейтронные мины [&M]"
+ },
+ {
+  "label": "CONTROLBAR:NukeWarhead",
+  "text": "Ядерные снаряды [&N]"
+ },
+ {
+  "label": "CONTROLBAR:NeutronWarhead",
+  "text": "Нейтронные снаряды [&E]"
+ },
+ {
+  "label": "CONTROLBAR:LeafletDrop",
+  "text": "Сброс листовок [&L]"
+ },
+ {
+  "label": "CONTROLBAR:SuitcaseNuke",
+  "text": "Ядерный &чемоданчик"
+ },
+ {
+  "label": "CONTROLBAR:NeutronMissileShortcut",
+  "text": "Удар чдерной ракетой"
+ },
+ {
+  "label": "CONTROLBAR:ICBM",
+  "text": "МКБЛ [&I]"
+ },
+ {
+  "label": "CONTROLBAR:ICBMShortcut",
+  "text": "МКБЛ"
+ },
+ {
+  "label": "CONTROLBAR:ScudStormShortcut",
+  "text": "Залп ракетами Р-17М"
+ },
+ {
+  "label": "CONTROLBAR:TomahawkStorm",
+  "text": "Залп ракетами Томагавк [&T]"
+ },
+ {
+  "label": "CONTROLBAR:TomahawkStormShortcut",
+  "text": "Залп ракетами Томагавк"
+ },
+ {
+  "label": "CONTROLBAR:SpectreGunship",
+  "text": "Самолёт огневой поддержки [&G]"
+ },
+ {
+  "label": "CONTROLBAR:SpectreGunshipFromShortcut",
+  "text": "Самолёт огневой поддержки"
+ },
+ {
+  "label": "CONTROLBAR:SneakAttack",
+  "text": "Внезапная атака [&T]"
+ },
+ {
+  "label": "CONTROLBAR:TankParadrop",
+  "text": "Десантирование танков [&P]"
+ },
+ {
+  "label": "CONTROLBAR:NukeDrop",
+  "text": "Бомбардировка ядерными бомбами[&U]"
+ },
+ {
+  "label": "CONTROLBAR:Frenzy",
+  "text": "Ярость [&Y]"
+ },
+ {
+  "label": "CONTROLBAR:RadarVanScanShortcut",
+  "text": "Сканирование радара"
+ },
+ {
+  "label": "CONTROLBAR:SelectAircraftCarriersFromShortcut",
+  "text": "Выбрать авианосец"
+ },
+ {
+  "label": "CONTROLBAR:SelectBattleshipsFromShortcut",
+  "text": "Обстрел с боевых кораблей"
+ },
+ {
+  "label": "CONTROLBAR:BattleshipFire",
+  "text": "Обстрел с боевых кораблей"
+ },
+ {
+  "label": "CONTROLBAR:AircraftCarrierFire",
+  "text": "Атака Рапторами с авианосца"
+ },
+ {
+  "label": "CONTROLBAR:ECMDisableVehicle",
+  "text": "Вывести из строя технику [&D]"
+ },
+ {
+  "label": "CONTROLBAR:BoobyTrapAttack",
+  "text": "Установить растяжку[&B]"
+ },
+ {
+  "label": "CONTROLBAR:GPSScrambler",
+  "text": "Скрытие от СВМ [&G]"
+ },
+ {
+  "label": "CONTROLBAR:FireParticleUplinkCannonShortcut",
+  "text": "Молекулярная пушка"
+ },
+ {
+  "label": "UPGRADE:AmericaSentryDroneGun",
+  "text": "Пушка сторожевого бесп. аппарата"
+ },
+ {
+  "label": "UPGRADE:AmericaMOAB",
+  "text": "МВБ: Мать всех бомб"
+ },
+ {
+  "label": "UPGRADE:AmericaBunkerBusters",
+  "text": "Противобункерные ракеты"
+ },
+ {
+  "label": "UPGRADE:SatelliteHackOne",
+  "text": "Взлом спутника I"
+ },
+ {
+  "label": "UPGRADE:SatelliteHackTwo",
+  "text": "Взлом спутника II"
+ },
+ {
+  "label": "UPGRADE:HelixGattlingCannon",
+  "text": "Пулемётная пушка для Улитки"
+ },
+ {
+  "label": "UPGRADE:HelixPropagandaTower",
+  "text": "Вышка пропаганды для Улитки"
+ },
+ {
+  "label": "UPGRADE:HelixBattleBunker",
+  "text": "Боевой бункер для Улитки"
+ },
+ {
+  "label": "UPGRADE:SupplyLines",
+  "text": "Поставка снабжения"
+ },
+ {
+  "label": "UPGRADE:PointDefenseDrone",
+  "text": "Дрон точечной обороны"
+ },
+ {
+  "label": "UPGRADE:QuadCannonSnipe",
+  "text": "Стрельба самоходной зенитки"
+ },
+ {
+  "label": "UPGRADE:HellfireDrone",
+  "text": "Ракетный беспилотный аппарат"
+ },
+ {
+  "label": "UPGRADE:Fanaticism",
+  "text": "Национализм"
+ },
+ {
+  "label": "UPGRADE:EMPMine",
+  "text": "Нейтронные мины"
+ },
+ {
+  "label": "UPGRADE:ChinaHelixNapalmBomb",
+  "text": "Бомба с напалмом"
+ },
+ {
+  "label": "UPGRADE:ChinaHelixNukeBomb",
+  "text": "Ядерная бомба"
+ },
+ {
+  "label": "UPGRADE:WGUraniumShells",
+  "text": "Поставить на вооружение урановые снаряды"
+ },
+ {
+  "label": "UPGRADE:TankAutoLoader",
+  "text": "Автоматическая перезарядка"
+ },
+ {
+  "label": "UPGRADE:NeutronShells",
+  "text": "Нейтронные снаряды"
+ },
+ {
+  "label": "UPGRADE:BecomeRealGLACommandCenter",
+  "text": "Настоящий командный центр"
+ },
+ {
+  "label": "UPGRADE:BecomeRealGLABarracks",
+  "text": "Настоящая казарма"
+ },
+ {
+  "label": "UPGRADE:BecomeRealGLAArmsDealer",
+  "text": "Настоящий продавец оружия"
+ },
+ {
+  "label": "UPGRADE:BecomeRealGLASupplyStash",
+  "text": "Настоящий склад снабжения"
+ }
+]

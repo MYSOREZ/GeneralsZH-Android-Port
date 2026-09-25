@@ -1,0 +1,802 @@
+[
+ {
+  "label": "GUI:BioClassNumber_Pos8",
+  "text": "Не застосовується"
+ },
+ {
+  "label": "GUI:BioDefeatedEntry_Pos8",
+  "text": "Уточнюється"
+ },
+ {
+  "label": "GUI:BioVictoriousEntry_Pos8",
+  "text": "Уточнюється"
+ },
+ {
+  "label": "GUI:BioNameEntry_Pos9",
+  "text": "Генерал Леанг"
+ },
+ {
+  "label": "GUI:BioDOBEntry_Pos9",
+  "text": "Уточнюється"
+ },
+ {
+  "label": "GUI:BioBirthplaceEntry_Pos9",
+  "text": "База \"Дракон\", Ланджоу, Китай"
+ },
+ {
+  "label": "GUI:BioStrategyEntry_Pos9",
+  "text": "Невідомо"
+ },
+ {
+  "label": "GUI:BioRankEntry_Pos9",
+  "text": "Генерал-дракон, клас АААА"
+ },
+ {
+  "label": "GUI:BioBranchEntry_Pos9",
+  "text": "НВА — елітні сили"
+ },
+ {
+  "label": "TOOLTIP:BioStrategyLong_Pos9",
+  "text": "Генерал «Тигриця» Лейонг Леанг вимагає використання всіх технологій, щоб перемогти своїх ворогів"
+ },
+ {
+  "label": "GUI:BioClassNumber_Pos9",
+  "text": "Невідомий"
+ },
+ {
+  "label": "GUI:BioDefeatedEntry_Pos9",
+  "text": "Це було цікаве змагання. Можливо, ви знову кинете мені виклик."
+ },
+ {
+  "label": "GUI:BioVictoriousEntry_Pos9",
+  "text": "Удоскональ свої навички та кинь мені виклик знову."
+ },
+ {
+  "label": "GUI:BioNameEntry_Pos10",
+  "text": "Уточнюється"
+ },
+ {
+  "label": "GUI:BioDOBEntry_Pos10",
+  "text": "33"
+ },
+ {
+  "label": "GUI:BioBirthplaceEntry_Pos10",
+  "text": "Уточнюється"
+ },
+ {
+  "label": "GUI:BioStrategyEntry_Pos10",
+  "text": "Уточнюється"
+ },
+ {
+  "label": "GUI:BioRankEntry_Pos10",
+  "text": "."
+ },
+ {
+  "label": "GUI:BioBranchEntry_Pos10",
+  "text": "."
+ },
+ {
+  "label": "TOOLTIP:BioStrategyLong_Pos10",
+  "text": "."
+ },
+ {
+  "label": "GUI:BioClassNumber_Pos10",
+  "text": "."
+ },
+ {
+  "label": "GUI:BioDefeatedEntry_Pos10",
+  "text": "Уточнюється"
+ },
+ {
+  "label": "GUI:BioVictoriousEntry_Pos10",
+  "text": "Уточнюється"
+ },
+ {
+  "label": "GUI:BioNameEntry_Pos11",
+  "text": "Уточнюється"
+ },
+ {
+  "label": "GUI:BioDOBEntry_Pos11",
+  "text": "Уточнюється"
+ },
+ {
+  "label": "GUI:BioBirthplaceEntry_Pos11",
+  "text": "Уточнюється"
+ },
+ {
+  "label": "GUI:BioStrategyEntry_Pos11",
+  "text": "Уточнюється"
+ },
+ {
+  "label": "GUI:BioRankEntry_Pos11",
+  "text": "."
+ },
+ {
+  "label": "GUI:BioBranchEntry_Pos11",
+  "text": "."
+ },
+ {
+  "label": "TOOLTIP:BioStrategyLong_Pos11",
+  "text": "."
+ },
+ {
+  "label": "GUI:BioClassNumber_Pos11",
+  "text": "."
+ },
+ {
+  "label": "GUI:BioDefeatedEntry_Pos11",
+  "text": "Уточнюється"
+ },
+ {
+  "label": "GUI:BioVictoriousEntry_Pos11",
+  "text": "Уточнюється"
+ },
+ {
+  "label": "TOOLTIP:BioStrategyLong_GLA",
+  "text": "Глобальна визвольна армія віддає перевагу підступній тактиці, щоб перемогти своїх ворогів"
+ },
+ {
+  "label": "TOOLTIP:BioStrategyLong_China",
+  "text": "Китай використовує вогонь і переважну кількість, щоб перемогти своїх ворогів"
+ },
+ {
+  "label": "TOOLTIP:BioStrategyLong_USA",
+  "text": "США використовують високотехнологічну зброю та вміння, щоб перемогти своїх ворогів"
+ },
+ {
+  "label": "TOOLTIP:BioStrategyLong_Random",
+  "text": "Цей вибір випадково визначить фракцію"
+ },
+ {
+  "label": "GUI:ChallengeWinText",
+  "text": "Вітаємо, ви перемогли %s"
+ },
+ {
+  "label": "GUI:ChallengeLossText",
+  "text": "Ви зазнали поразки від %s"
+ },
+ {
+  "label": "CREDITS:DevelopmentDirector",
+  "text": "Директор з розробки"
+ },
+ {
+  "label": "CREDITS:GeneralManager",
+  "text": "Генеральний менеджер EALA"
+ },
+ {
+  "label": "CREDITS:LeadArtist",
+  "text": "Провідний художник"
+ },
+ {
+  "label": "CREDITS:QADirector",
+  "text": "Директор із контролю якості"
+ },
+ {
+  "label": "CREDITS:SrTestLead",
+  "text": "Старший керівник тестування"
+ },
+ {
+  "label": "CREDITS:AssistantMultiplayerTestLead",
+  "text": "Помічник керівника тестування мультиплеєра"
+ },
+ {
+  "label": "CREDITS:TestAnalyst",
+  "text": "Аналітик-тестувальник"
+ },
+ {
+  "label": "CREDITS:AssistantProducer",
+  "text": "Помічник продюсера"
+ },
+ {
+  "label": "CREDITS:CameoPhotoshootStudio",
+  "text": "Фотозйомка: Out West Studio"
+ },
+ {
+  "label": "CREDITS:Models",
+  "text": "Моделі"
+ },
+ {
+  "label": "CREDITS:Actors",
+  "text": "Актори"
+ },
+ {
+  "label": "CREDITS:VisualEffectsAndEditing",
+  "text": "Візуальні ефекти та монтаж"
+ },
+ {
+  "label": "CREDITS:NewsReporterVideos",
+  "text": "Відео з репортажами новин"
+ },
+ {
+  "label": "CREDITS:DirectorOfProductLocalization",
+  "text": "Директор з локалізації продукту, EALA"
+ },
+ {
+  "label": "CREDITS:LocalizationAssistance",
+  "text": "Допомога з локалізацією"
+ },
+ {
+  "label": "ACADEMY:Eva",
+  "text": "Тактичний аналіз"
+ },
+ {
+  "label": "ACADEMY:BuildAllStructures",
+  "text": "Коли ви на полі бою, важливо використовувати всі доступні вам засоби, генерале. Переконайтеся, що ви побудували всі споруди. Ви повинні підтримувати потужну армію"
+ },
+ {
+  "label": "ACADEMY:BuildSupplyCenterEarlier",
+  "text": "Генерале, одне з найважливіших завдань сильного лідера — подбати, щоб солдати мали вдосталь припасів. Радимо на початку кожної місії обов’язково будувати Ресурсний центр або Схованку припасів. Припаси приносять гроші, а гроші приносять перемогу"
+ },
+ {
+  "label": "ACADEMY:TryBuildingRadar",
+  "text": "Туман війни оточує нас усіх. Одним із корисних способів побачити крізь нього є радар. Кожна фракція унікальна тим, як вона отримує око в небі. Командний центр США автоматично постачається з радаром, китайський командний центр має бути покращений, а ГВА має купити радарний фургон у свого торговця зброєю"
+ },
+ {
+  "label": "ACADEMY:BuildMorePeons",
+  "text": "Спитайте будь-якого іншого генерала, і він підтвердить просте правило: армію роблять рядові. Щоб побудувати базу, вам доведеться запрягти до роботи свої бульдозери або робітників. Ці хлопці — запорука вашого майбутнього успіху, тож не забувайте про них!"
+ },
+ {
+  "label": "ACADEMY:TryCapturingStructures",
+  "text": "Генерале, іноді легше взяти те, що хочеш, ніж працювати заради цього. Якщо ви придбаєте покращення «Захоплення» у своїй казармі, то зможете захоплювати ворожі споруди. Також на полі бою розкидані технічні будівлі, які можуть ще більше посилити вашу армію"
+ },
+ {
+  "label": "ACADEMY:SpendGeneralsPoints",
+  "text": "Війна приносить трофеї. Щоразу, знищуючи ворога, ви наближаєтеся до нових очок генерала. Їх можна витратити, натиснувши кнопку «зірочка» праворуч на панелі команд. Просто відкрийте меню очок генерала й витратьте важко зароблені очки на нові військові іграшки"
+ },
+ {
+  "label": "ACADEMY:TryUsingSuperweapons",
+  "text": "Яка користь від збору очок генерала, якщо ви їх не використовуєте? Якщо ви придбали генеральські здібності за свої очки, праворуч на екрані з’явиться значок. Просто натисніть його й дивіться, як починається феєрверк. Чим більше очок ви витратите, тим потужніша здібність"
+ },
+ {
+  "label": "ACADEMY:TryGarrisoningAStructure",
+  "text": "Солдати можуть бути ефективними на відкритій місцевості, але вони ще смертоносніші в гарнізонах цивільних будівель. Виберіть своїх солдатів і відправте їх у порожню споруду. Стіни захищатимуть їх — якщо тільки на них не наткнеться світлошумова граната, Токсиновий трактор або Танк Дракон"
+ },
+ {
+  "label": "ACADEMY:IdleBuildingUnits",
+  "text": "Генерале, вашою найвищою метою має бути створення і керування великою армією. Переконайтеся, що ви виробляєте бойові одиниці: натисніть на казарму, військовий завод, аеродром тощо, а потім на відповідне зображення в нижній панелі команд. Ці гроші буде витрачено недаремно, і вони допоможуть вам здобути перемогу"
+ },
+ {
+  "label": "ACADEMY:TryDragSelectingUnits",
+  "text": "Керування армією — одна з найскладніших речей, яких має навчитися генерал. Хоча можна натискати на кожну одиницю окремо, зазвичай швидше «заарканити» групу одиниць. Просто натисніть і протягніть рамку навколо одиниць. Тепер вони під вашим контролем. Якщо ви натиснете на іншу ділянку, одиниці перемістяться туди"
+ },
+ {
+  "label": "ACADEMY:ResearchUpgrades",
+  "text": "Великий генерал може зробити багато танків, але ще більший генерал може зробити багато кращих танків. Майже кожна одиниця має якесь покращення. Часто найкраще витрачати гроші на вдосконалення того, що у вас уже є"
+ },
+ {
+  "label": "ACADEMY:RanOutOfPower",
+  "text": "Хоча ГВА не потребує енергії, Китай і США поглинають її, як попкорн. Щоб база працювала на повну, генералу потрібно вкладати гроші у достатню кількість енергії для живлення воєнної машини. Обов’язково побудуйте реактор холодного синтезу або ядерний реактор для максимальної потужності. Мало енергії — мало шансів на успіх"
+ },
+ {
+  "label": "ACADEMY:BuildMoreGatherers",
+  "text": "Генерале, переконайтеся, що ви виробляєте достатньо робітників, ресурсних вантажівок або Чинуків, щоб прибуток не припинявся. Додаткових збирачів можна створити, натиснувши на зображення збирача ресурсів у Ресурсному центрі або Схованці припасів. Не соромтеся використати свій ресурсний потенціал на максимум"
+ },
+ {
+  "label": "ACADEMY:BuildAHero",
+  "text": "Джармен Келл, полковник Бартон і Чорний Лотос можуть стати неоціненними для вашої стратегії. Ці герої здатні переломити хід битви й невидимі для ворога. Щоб знайти свого героя на радарі, шукайте значок у вигляді перехрестя прицілу. Хоча водночас можна мати лише одного, не недооцінюйте їхню важливість"
+ },
+ {
+  "label": "ACADEMY:PickStrategyCenterPlan",
+  "text": "Стратегічний центр США є дуже корисною структурою. Не забувайте вибирати стратегію, яка найкраще відповідає вашому ігровому плану. Пошук і знищення, бомбардування та утримання лінії — чудові способи дати вам перевагу, яка вам потрібна. Разом із цими загальними стратегіями ви можете придбати багато покращень у цій будівлі"
+ },
+ {
+  "label": "ACADEMY:UseTunnelNetwork",
+  "text": "Коли справа доходить до ГВА, мобільність на полі бою є їх візитною карткою. Мережі тунелів пропонують захисні можливості, але вони також дозволяють гравцеві швидко пересуватися. Просто побудуйте кілька мереж тунелів і надішліть свої підрозділи всередину. Натисніть на структуру, і ви зможете вигнати їх з будь-якої іншої мережі тунелів будь-де на карті. Вони є ключовими для загальної стратегії ГВА"
+ },
+ {
+  "label": "ACADEMY:UseControlGroups",
+  "text": "Керувати великою армією іноді буває непросто. Один зі способів легко керувати багатьма одиницями — створити «контрольну групу». Просто виберіть потрібну групу одиниць і одночасно натисніть «Ctrl» і цифру. Відтепер щоразу, коли ви натискаєте цю цифру, буде вибрано цю групу. Двічі швидко натисніть цифру — і камера наведеться на групу"
+ },
+ {
+  "label": "ACADEMY:UseSecondaryIncomeMethods",
+  "text": "Генерале, пізніше в місії добувати припаси буває важко. Кожна фракція має власний спосіб отримувати кошти під час тривалих битв. Китай може створювати хакерів та Інтернет-центр. Можна наказати хакерам зламувати Інтернет заради коштів будь-де або просто відправити їх в Інтернет-центр, щоб заробляти ще швидше. ГВА покладається на Чорний ринок, а США — на скидання припасів. Якщо не планувати наперед, можуть виникнути нестачі"
+ },
+ {
+  "label": "ACADEMY:ClearBuildings",
+  "text": "Будівлі з гарнізонами бувають міцним горішком — якщо не знати кількох хитрощів. Покращте своїх рейнджерів США світлошумовими гранатами, створюйте Токсинові трактори ГВА або китайські Танки Дракон, щоб швидко вибити ворога з цих укріплених пунктів. США також можуть отримати покращення «Убивці бункерів», щоб зачищати навіть тунельні мережі!"
+ },
+ {
+  "label": "ACADEMY:PickUpSalvage",
+  "text": "ГВА — підступна банда, але й винахідлива. Щоразу, коли одиниці ГВА знищують ворожу техніку, лишаються уламки для трофеїв. Проїдьте по уламках, щоб покращити свої одиниці, отримати ветеранство або трохи грошей. У тривалому бою трофеї можуть багато чого змінити, тож не залишайте їх просто так"
+ },
+ {
+  "label": "ACADEMY:UseGuardAbility",
+  "text": "Іноді важливо, щоб підрозділи залишалися на місці та охороняли певну територію. Просто виберіть одиницю та натисніть кнопку «щит» або клавішу «G», а потім виберіть зону, яку потрібно охороняти. Підрозділ буде атакувати будь-яких ворогів, які потраплять у радіус його охорони"
+ },
+ {
+  "label": "ACADEMY:MultipleSupplyCenters",
+  "text": "Припаси — головне в цій грі, генерале. Їх можна збирати в доках постачання, розкиданих по полю бою. На початку одного доку може бути досить, але зазвичай краще розширюватися й під час місії знайти ще кілька. Щоб збір був ефективним, вам доведеться будувати Ресурсний центр або Схованку припасів поблизу доку постачання"
+ },
+ {
+  "label": "ACADEMY:GarrionVehicle",
+  "text": "Деякі одиниці можуть сідати в іншу техніку або викрадати її. Викрадаючи техніку за допомогою викрадачів або терористів, можна непомітно проникнути на територію ворога"
+ },
+ {
+  "label": "ACADEMY:UseSelectionHotkeys",
+  "text": "Генерале, гарячі клавіші — чудовий спосіб покращити контроль над своїми силами. «E» вибирає всі одиниці того самого типу на екрані. Якщо двічі швидко натиснути «E», буде вибрано всі одиниці цього типу на всьому полі бою. «Q» вибирає всі ваші бойові одиниці на карті. «W» вибирає всю вашу авіацію на карті. Спробуйте — вони вам допоможуть"
+ },
+ {
+  "label": "ACADEMY:AlternateMouseInterface",
+  "text": "Одним із нових доповнень є опція «Альтернативний інтерфейс миші», розташована в меню параметрів. Якщо ви звикли керувати армією, клацаючи правою кнопкою миші як кнопкою дії, це може допомогти вам краще керувати своєю армією"
+ },
+ {
+  "label": "ACADEMY:DoubleClickAttackMoveGuard",
+  "text": "Генерале, ми створили новий спосіб керування вашою армією. Просто виберіть одиниці та двічі клацніть область призначення. Ваші загони будуть атакувати ворога по дорозі до місця, а потім охороняти його. Ви можете ввімкнути це через меню параметрів"
+ },
+ {
+  "label": "ACADEMY:BuildBarracksSooner",
+  "text": "Щоб створити добре збалансовану силу, ви повинні побудувати казарму на початку місії. Піхота може змінити або порушити ваш ігровий план, тому краще не забувати про неї"
+ },
+ {
+  "label": "ACADEMY:BuildWarFactorySooner",
+  "text": "Хоча піхота й авіація можуть бути цінними силами, ніщо не зрівняється з добрим танком. Не забудьте збудувати військовий завод або торговця зброєю раніше в місії"
+ },
+ {
+  "label": "ACADEMY:BuildTechStructureSooner",
+  "text": "Для передового озброєння ніщо не замінить Стратегічний центр, Центр пропаганди або Палац. Не забудьте будувати їх трохи раніше в місіях, щоб забезпечити успіх"
+ },
+ {
+  "label": "ACADEMY:NoIncome",
+  "text": "Генерале, для вашого успіху життєво важливо, щоб прибуток надходив протягом усієї місії. Надто часті перебої призводять до втрати переваги. Стежте, щоб припаси надходили без перерв"
+ },
+ {
+  "label": "ACADEMY:ClearMines",
+  "text": "Міни-пастки та міни справді можуть зіпсувати вам день. Проти цієї підступної тактики допомагають бульдозери або робітники, які розчищають такі небезпечні ділянки"
+ },
+ {
+  "label": "ACADEMY:UnmannedVehicles",
+  "text": "Генерале, деякі одиниці можуть застрелити або прибрати ворожих водіїв техніки. Коли це стається, техніка стає нейтральною, і її можна «позичити» у ворога. Сміливо покатайтеся за рахунок противника"
+ },
+ {
+  "label": "ACADEMY:DisguisedUnits",
+  "text": "Деякі одиниці можуть маскуватися під інші одиниці. Немає нічого приємнішого, ніж непомітно вкотити Вантажівку з бомбою ГВА на ворожу базу й влаштувати там справжній хаос. Обов’язково використовуйте цю ключову тактику для свого бойового плану"
+ },
+ {
+  "label": "ACADEMY:StealthUpgrade",
+  "text": "Деякі споруди можна покращити камуфляжем, як-от Тунельну мережу ГВА або Позиції Стингерів. Вони будуть невидимі для ворога, доки не стане надто пізно. Сюрприз!"
+ },
+ {
+  "label": "ACADEMY:Firestorm",
+  "text": "Китай має унікальну здатність створювати вогняну бурю, коли кілька МіГів або гармат Інферно націлені на одного ворога чи територію. Обов’язково координуйте свої атаки для досягнення максимального ефекту"
+ },
+ {
+  "label": "GUI:HeatEffects",
+  "text": "Теплові ефекти"
+ },
+ {
+  "label": "TOOLTIP:HeatEffects",
+  "text": "Перемкнути відображення ефектів теплового спотворення. Вимкніть для кращої продуктивності"
+ },
+ {
+  "label": "GUI:WeatherEffects",
+  "text": "Погодні ефекти"
+ },
+ {
+  "label": "TOOLTIP:WeatherEffects",
+  "text": "Перемикання відображення погодних ефектів, наприклад снігу. Вимкніть для кращої продуктивності"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_AllyUnderAttackSubtitle",
+  "text": "*Наш союзник під атакою"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_BaseDefensesOffLineSubtitle",
+  "text": "*Оборону нашої бази знешкоджено"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_BeaconDetectedSubtitle",
+  "text": "*Встановлено маяк"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_BlackLotusEnemySubtitle",
+  "text": "*Виявлено ворожого Чорного Лотоса"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_BlackLotusOursSubtitle",
+  "text": "*Чорного Лотоса викрито"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_BuildingBeingCapturedSubtitle",
+  "text": "*Нашу будівлю захоплюють"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_BuildingDisabledSubtitle",
+  "text": "*Будівлю виведено з ладу"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_BuildingEnabledSubtitle",
+  "text": "*Будівлю знову введено в дію"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_BuildingStolenSubtitle",
+  "text": "*Ворог захопив одну з наших будівель"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_CashStolenSubtitle",
+  "text": "*Генерале, вони крадуть наші гроші"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_ColonelBurtonEnemySubtitle",
+  "text": "*Виявлено ворожого полковника Бартона"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_ColonelBurtonOursSubtitle",
+  "text": "*Полковника Бартона викрито"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_DefeatSubtitle",
+  "text": "*Ми зазнали поразки"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_DetectedNukeSubtitle",
+  "text": "*Увага: виявлено шахту ядерних ракет"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_DetectedParticleCannonSubtitle",
+  "text": "*Увага: виявлено Молекулярну гармату"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_DetectedScudStormSubtitle",
+  "text": "*Увага: виявлено СКАД Шторм"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_FundsReceivedSubtitle",
+  "text": "*Ми отримали кошти від союзника"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_FundsRequestedSubtitle",
+  "text": "*Ви запросили кошти в союзника"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_FundsRequestedAllySubtitle",
+  "text": "*Ваш союзник просить кошти"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_FundsTransferredSubtitle",
+  "text": "*Ми передали кошти союзнику"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_GeneralLevelUpSubtitle",
+  "text": "*Вітаю, генерале. Вас підвищено у званні"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_GPSScramblerLaunchedSubtitle",
+  "text": "*Увага. Активовано Шифратор GPS"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_IncomingAnthraxSubtitle",
+  "text": "*Увага: запущено бомбу з сибірською виразкою"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_IncomingDaisyCutterSubtitle",
+  "text": "*Увага: скинуто бомбу «Дейзі Каттер»"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_IncomingEmpPulseSubtitle",
+  "text": "*Увага: скинуто бомбу ЕМІ Імпульс"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_IncomingFuelAirBombSubtitle",
+  "text": "*Увага: скинуто паливну авіабомбу"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_InsufficientFundsSubtitle",
+  "text": "*Нам потрібно більше коштів"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_JarmenKellEnemySubtitle",
+  "text": "*Виявлено ворожого Джармена Келла"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_JarmenKellOursSubtitle",
+  "text": "*Джармена Келла викрито"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_LaserDefenseSpeechSubtitle",
+  "text": "*Генерале, противник має укріплений опорний пункт у центрі міста. Його лазерна система оборони нищівна, але потребує багато енергії. Він буде змушений спрямовувати енергію лише на одну точку оборони за раз. Використайте це на свою користь"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_LaunchedNukeSubtitle",
+  "text": "*Увага: запущено ядерну ракету"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_LaunchedParticleCannonSubtitle",
+  "text": "*Увага: виявлено Молекулярну гармату"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_LaunchedScudStormSubtitle",
+  "text": "*Увага: запущено СКАД Шторм"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_LowPowerSubtitle",
+  "text": "*У нас мало енергії"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_NuclearMissileDetectedAllySubtitle",
+  "text": "*Наш союзник збудував шахту ядерних ракет"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_NuclearMissileLaunchedAllySubtitle",
+  "text": "*Наш союзник запустив ядерну ракету"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_NuclearMissileLaunchedOursSubtitle",
+  "text": "*Ми запустили нашу ядерну ракету"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_NuclearMissileReadySubtitle",
+  "text": "*Наша ядерна ракета готова, генерале"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_OpinionCivilianStructures01Subtitle",
+  "text": "*Генерале. Стежте, щоб цивільні споруди не були зруйновані"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_OpinionCivilianStructures02Subtitle",
+  "text": "*Руйнування цивільних споруд погіршить нашу міжнародну репутацію!"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_OpinionDestroyStatuesSubtitle",
+  "text": "*Знищуйте статуї ГВА, щоб покращити міжнародну репутацію, сер"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_OpinionDestroyStructuresSubtitle",
+  "text": "*Сер. Знищення ворожих споруд покращить нашу міжнародну репутацію"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_OpinionDestroyTroopsSubtitle",
+  "text": "*Знищуйте більше ворожих військ, щоб покращити міжнародну репутацію"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_OpinionFallingSubtitle",
+  "text": "*Наша міжнародна репутація падає!"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_OpinionLowSubtitle",
+  "text": "*Наша міжнародна репутація погіршується"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_OpinionLowCriticalSubtitle",
+  "text": "*Наша міжнародна репутація критично низька!"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_OpinionLowVerySubtitle",
+  "text": "*Наша міжнародна репутація дуже низька"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_OpinionProtectCivilianSubtitle",
+  "text": "*Захищайте цивільне майно від шкоди"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_OpinionRisingSubtitle",
+  "text": "*Наша міжнародна репутація зростає!"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_ParticleCannonDetectedAllySubtitle",
+  "text": "*Наш союзник збудував Молекулярну гармату"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_ParticleCannonLaunchedAllySubtitle",
+  "text": "*Наш союзник активував свою Молекулярну гармату"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_ParticleCannonLaunchedOursSubtitle",
+  "text": "*Нашу Молекулярну гармату активовано"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_ParticleCannonReadySubtitle",
+  "text": "*Наша Молекулярна гармата готова, генерале"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_ReinforcementsHaveArrivedSubtitle",
+  "text": "*Прибуло підкріплення"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_ScudStormDetectedAllySubtitle",
+  "text": "*Наш союзник збудував СКАД Шторм"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_ScudStormLaunchedAllySubtitle",
+  "text": "*Наш союзник запустив свій СКАД Шторм"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_ScudStormLaunchedOursSubtitle",
+  "text": "*Наш СКАД Шторм запущено"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_ScudStormReadySubtitle",
+  "text": "*Наш СКАД Шторм готовий, генерале"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_SelectTargetSubtitle",
+  "text": "*Виберіть ціль"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_SneakAttackLaunchedSubtitle",
+  "text": "*Увага. Виявлено Приховану атаку"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_UnitLostSubtitle",
+  "text": "*Одиницю втрачено"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_UpgradeCompleteSubtitle",
+  "text": "*Покращення завершено"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_UpgradeEMPminesSubtitle",
+  "text": "*Покращення «Нейтронні міни» завершено"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_UpgradeNeutronShellSubtitle",
+  "text": "*Покращення «Нейтронні снаряди» завершено"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_VehicleStolenSubtitle",
+  "text": "*Техніку викрадено"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_VictorySubtitle",
+  "text": "*Ми перемогли"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_AllyUnderAttackSubtitle",
+  "text": "*Наш союзник під атакою"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_BaseDefensesOffLineSubtitle",
+  "text": "*Оборона нашої бази не працює"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_BeaconDetectedSubtitle",
+  "text": "*Встановлено маяк"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_BlackLotusEnemySubtitle",
+  "text": "*Виявлено ворожого Чорного Лотоса"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_BlackLotusOursSubtitle",
+  "text": "*Ворог помітив нашого Джармена Келла"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_BuildingBeingCapturedSubtitle",
+  "text": "*Генерале, вони крадуть наші гроші"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_BuildingDisabledSubtitle",
+  "text": "*Будівля перестала працювати"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_BuildingEnabledSubtitle",
+  "text": "*Наша будівля знову працює"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_BuildingStolenSubtitle",
+  "text": "*Вони захопили контроль над нашою будівлею"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_CashStolenSubtitle",
+  "text": "*Генерале, вони крадуть наші гроші"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_ColonelBurtonEnemySubtitle",
+  "text": "*Виявлено ворожого полковника Бартона"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_ColonelBurtonOursSubtitle",
+  "text": "*Ворог помітив нашого полковника Бартона"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_DefeatSubtitle",
+  "text": "*Ми зазнали поразки"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_DetectedNukeSubtitle",
+  "text": "*Обережно, ми помітили шахту ядерних ракет"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_DetectedParticleCannonSubtitle",
+  "text": "*Будьте насторожі, ми викрили ворожу Молекулярну гармату"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_DetectedScudStormSubtitle",
+  "text": "*Обережно, ворог збудував СКАД Шторм"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_EliteGuardUpgrade01Subtitle",
+  "text": "*Тепер наші споруди будуть під охороною"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_EliteGuardUpgrade02Subtitle",
+  "text": "*Ми переходимо на Елітну варту"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_EliteGuardUpgrade03Subtitle",
+  "text": "*Тепер наші будівлі захищає Елітна варта"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_FundsReceivedSubtitle",
+  "text": "*Ми отримали кошти від союзника"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_FundsRequestedSubtitle",
+  "text": "*Ви запросили кошти в союзника"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_FundsRequestedAllySubtitle",
+  "text": "*Ваш союзник просить кошти"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_FundsTransferredSubtitle",
+  "text": "*Ми передали кошти союзнику"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_GeneralLevelUpSubtitle",
+  "text": "*Чудова робота, генерале. Ви досягли вищого звання"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_GPSScramblerLaunchedSubtitle",
+  "text": "*Генерале, ворог використовує свій Шифратор GPS"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_IncomingAnthraxSubtitle",
+  "text": "*Будьте напоготові, може наближатися бомба з сибірською виразкою"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_IncomingDaisyCutterSubtitle",
+  "text": "*Будьте напоготові. Може наближатися бомба «Дейзі Каттер»"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_IncomingEmpPulseSubtitle",
+  "text": "*Будьте напоготові. Може наближатися бомба ЕМІ Імпульс"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_IncomingFuelAirBombSubtitle",
+  "text": "*Будьте напоготові. Може наближатися паливна авіабомба"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_InsufficientFundsSubtitle",
+  "text": "*Нам знадобиться більше коштів, генерале"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_JarmenKellEnemySubtitle",
+  "text": "*Виявлено ворожого Джармена Келла"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_JarmenKellOursSubtitle",
+  "text": "*Ворог помітив нашого Чорного Лотоса"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_LaserDefenseSpeechSubtitle",
+  "text": "*Генерале, противник має укріплений опорний пункт у центрі міста. Його лазерна система оборони нищівна, але потребує багато енергії. Він буде змушений спрямовувати енергію лише на одну точку оборони за раз. Використайте це на свою користь"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_LaunchedNukeSubtitle",
+  "text": "*Генерале, випущено ядерну ракету!"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_LaunchedParticleCannonSubtitle",
+  "text": "*Генерале, ворог використовує свою Молекулярну гармату"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_LaunchedScudStormSubtitle",
+  "text": "*Генерале, запущено СКАД Шторм"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_LowPowerSubtitle",
+  "text": "*У нас мало енергії"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_NuclearMissileDetectedAllySubtitle",
+  "text": "*Наш союзник збудував шахту ядерних ракет"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_NuclearMissileLaunchedAllySubtitle",
+  "text": "*Наш союзник запустив ядерну ракету"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_NuclearMissileLaunchedOursSubtitle",
+  "text": "*Запускаємо ядерну ракету"
+ }
+]

@@ -1,0 +1,802 @@
+[
+ {
+  "label": "RADAR:StructureUnderAttack",
+  "text": "Здание атаковано."
+ },
+ {
+  "label": "RADAR:UnderAttack",
+  "text": "Нас атакуют."
+ },
+ {
+  "label": "RADAR:Infiltration",
+  "text": "Обнаружено проникновение врага."
+ },
+ {
+  "label": "UPGRADE:AdvancedTraining",
+  "text": "Дополнительное обучение"
+ },
+ {
+  "label": "UPGRADE:AmericaLaserMissiles",
+  "text": "Американские ракеты лазерного наведения"
+ },
+ {
+  "label": "UPGRADE:Mines",
+  "text": "Заминировать"
+ },
+ {
+  "label": "UPGRADE:Radar",
+  "text": "Радар"
+ },
+ {
+  "label": "UPGRADE:OverlordGattlingCannon",
+  "text": "Пулемётная пушка для Владыки"
+ },
+ {
+  "label": "UPGRADE:OverlordPropagandaTower",
+  "text": "Башня пропаганды для Владыки"
+ },
+ {
+  "label": "UPGRADE:OverlordBattleBunker",
+  "text": "Боевой бункер для Владыки"
+ },
+ {
+  "label": "UPGRADE:ControlRods",
+  "text": "Графитовые стержни"
+ },
+ {
+  "label": "UPGRADE:ScoutDrone",
+  "text": "Разведывательный беспилотный аппарат"
+ },
+ {
+  "label": "UPGRADE:BattleDrone",
+  "text": "Боевой беспилотный аппарат"
+ },
+ {
+  "label": "UPGRADE:RangerFlashBangGrenade",
+  "text": "Световые гранаты для рейнджеров"
+ },
+ {
+  "label": "UPGRADE:HoverTank",
+  "text": "Танк на воздушной подушке"
+ },
+ {
+  "label": "UPGRADE:TomahawkRemoteControl",
+  "text": "Пути ракеты"
+ },
+ {
+  "label": "UPGRADE:AircraftFuel",
+  "text": "Авиационное топливо"
+ },
+ {
+  "label": "UPGRADE:LaserMissiles",
+  "text": "Ракеты лазерного наведения"
+ },
+ {
+  "label": "UPGRADE:TOWMissile",
+  "text": "Ракета ТОУ"
+ },
+ {
+  "label": "UPGRADE:ComancheRocketPods",
+  "text": "Контейнеры для ракет команча"
+ },
+ {
+  "label": "UPGRADE:RailGun",
+  "text": "Рельсовая пушка"
+ },
+ {
+  "label": "UPGRADE:Nationalism",
+  "text": "Национализм"
+ },
+ {
+  "label": "UPGRADE:AntiTankGrenade",
+  "text": "Противотанковые гранаты"
+ },
+ {
+  "label": "UPGRADE:VehicleHack",
+  "text": "Взлом техники"
+ },
+ {
+  "label": "UPGRADE:IRGoggles",
+  "text": "Прибор инфракрасного зрения"
+ },
+ {
+  "label": "UPGRADE:BlackNapalm",
+  "text": "Чёрный напалм"
+ },
+ {
+  "label": "UPGRADE:ChainGuns",
+  "text": "Пулемёты"
+ },
+ {
+  "label": "UPGRADE:SubliminalMessaging",
+  "text": "Подсознательное вещание"
+ },
+ {
+  "label": "UPGRADE:UraniumShells",
+  "text": "Урановые снаряды"
+ },
+ {
+  "label": "UPGRADE:NuclearTanks",
+  "text": "Атомоходные танки"
+ },
+ {
+  "label": "UPGRADE:StunBullets",
+  "text": "Оглушающие пули"
+ },
+ {
+  "label": "UPGRADE:TranqDarts",
+  "text": "Транквилизирующие дротики"
+ },
+ {
+  "label": "UPGRADE:APBullets",
+  "text": "Бронебойные патроны"
+ },
+ {
+  "label": "UPGRADE:BioBomb",
+  "text": "Биологическая бомба"
+ },
+ {
+  "label": "UPGRADE:HighExplosiveBomb",
+  "text": "Увеличение мощности взрывчатки"
+ },
+ {
+  "label": "UPGRADE:ArmTheMob",
+  "text": "Вооружение толпы"
+ },
+ {
+  "label": "UPGRADE:ScorpionRocket",
+  "text": "Ракета Скорпиона"
+ },
+ {
+  "label": "UPGRADE:SCUDLauncherExplosiveWarhead",
+  "text": "Фугасная боеголовка"
+ },
+ {
+  "label": "UPGRADE:SCUDLauncherAnthraxWarhead",
+  "text": "Химическая боеголовка с сибирской язвой"
+ },
+ {
+  "label": "UPGRADE:BuggyAmmo",
+  "text": "Боеприпасы ракетного багги"
+ },
+ {
+  "label": "UPGRADE:AnthraxBeta",
+  "text": "Сибирская язва бета"
+ },
+ {
+  "label": "UPGRADE:ToxinShells",
+  "text": "Химические снаряды"
+ },
+ {
+  "label": "UPGRADE:JunkRepair",
+  "text": "Ремонт обломками"
+ },
+ {
+  "label": "UPGRADE:Camouflage",
+  "text": "Камуфляж"
+ },
+ {
+  "label": "UPGRADE:CompositeArmor",
+  "text": "Композитная броня"
+ },
+ {
+  "label": "OBJECT:Beacon",
+  "text": "Маяк"
+ },
+ {
+  "label": "OBJECT:Dam",
+  "text": "Дамба"
+ },
+ {
+  "label": "OBJECT:CommandCenter",
+  "text": "Командный центр"
+ },
+ {
+  "label": "OBJECT:ColdFusionReactor",
+  "text": "Термоядерный реактор"
+ },
+ {
+  "label": "OBJECT:NuclearReactor",
+  "text": "Ядерный реактор"
+ },
+ {
+  "label": "OBJECT:DemoTrap",
+  "text": "Фугас"
+ },
+ {
+  "label": "OBJECT:PowerPlant",
+  "text": "Электростанция"
+ },
+ {
+  "label": "OBJECT:DetentionCamp",
+  "text": "Лагерь разведчиков"
+ },
+ {
+  "label": "OBJECT:StrategyCenter",
+  "text": "Стратегический центр"
+ },
+ {
+  "label": "OBJECT:Airfield",
+  "text": "Аэродром"
+ },
+ {
+  "label": "OBJECT:SupplyCenter",
+  "text": "Центр снабжения"
+ },
+ {
+  "label": "OBJECT:AmericaSupplyDropZone",
+  "text": "Зона доставки снабжения"
+ },
+ {
+  "label": "OBJECT:SupplyStash",
+  "text": "Склад снабжения"
+ },
+ {
+  "label": "OBJECT:Barracks",
+  "text": "Казарма"
+ },
+ {
+  "label": "OBJECT:BlackMarket",
+  "text": "Чёрный рынок"
+ },
+ {
+  "label": "OBJECT:WarFactory",
+  "text": "Военный завод"
+ },
+ {
+  "label": "OBJECT:ArmsDealer",
+  "text": "Продавец оружия"
+ },
+ {
+  "label": "OBJECT:AmmoCache",
+  "text": "Склад боеприпасов"
+ },
+ {
+  "label": "OBJECT:AmphibiousTransport",
+  "text": "Транспорт амфибия"
+ },
+ {
+  "label": "OBJECT:AutoFerry",
+  "text": "Грузовой паром"
+ },
+ {
+  "label": "OBJECT:TrainGuide",
+  "text": "Направляющая поезда"
+ },
+ {
+  "label": "OBJECT:AngryMob",
+  "text": "Разъярённая толпа"
+ },
+ {
+  "label": "OBJECT:TankHunter",
+  "text": "Охотник за танками"
+ },
+ {
+  "label": "OBJECT:Apartment",
+  "text": "Жилое помещение"
+ },
+ {
+  "label": "OBJECT:ChemicalFactory",
+  "text": "Химический завод"
+ },
+ {
+  "label": "OBJECT:GovBuilding",
+  "text": "Государственное здание"
+ },
+ {
+  "label": "OBJECT:TechHospital",
+  "text": "Госпиталь -- захватите для автоматического лечения всей пехоты"
+ },
+ {
+  "label": "OBJECT:ApartmentComplex",
+  "text": "Жилой дом"
+ },
+ {
+  "label": "OBJECT:SpyPost",
+  "text": "Шпионский пост"
+ },
+ {
+  "label": "OBJECT:SupplyPile",
+  "text": "Куча снабжения"
+ },
+ {
+  "label": "OBJECT:TrainStation",
+  "text": "Железнодорожная станция"
+ },
+ {
+  "label": "OBJECT:TechRadioStation",
+  "text": "Радиостанция"
+ },
+ {
+  "label": "OBJECT:TechOilDerrick",
+  "text": "Нефтяная вышка -- захватите для получения дополнительных финансов"
+ },
+ {
+  "label": "OBJECT:Arcade",
+  "text": "Игровой зал"
+ },
+ {
+  "label": "OBJECT:Aurora",
+  "text": "Бомбардировщик Аврора"
+ },
+ {
+  "label": "OBJECT:A10Thunderbolt",
+  "text": "Штурмовик A10 Thunderbolt"
+ },
+ {
+  "label": "OBJECT:AVPOWTRUCK",
+  "text": "Тюремный грузовик"
+ },
+ {
+  "label": "OBJECT:B52",
+  "text": "Боинг 52"
+ },
+ {
+  "label": "OBJECT:BMW",
+  "text": "Автомобиль"
+ },
+ {
+  "label": "OBJECT:Bank",
+  "text": "Банк"
+ },
+ {
+  "label": "OBJECT:BarnCoop",
+  "text": "Курятник"
+ },
+ {
+  "label": "OBJECT:BarnShed",
+  "text": "Сарай"
+ },
+ {
+  "label": "OBJECT:Barrel",
+  "text": "Бочка"
+ },
+ {
+  "label": "OBJECT:BattleDrone",
+  "text": "Боевой беспилотный аппарат"
+ },
+ {
+  "label": "OBJECT:BattleMaster",
+  "text": "Мастер боя"
+ },
+ {
+  "label": "OBJECT:Battleship",
+  "text": "Боевой корабль"
+ },
+ {
+  "label": "OBJECT:BigRig",
+  "text": "Тягач"
+ },
+ {
+  "label": "OBJECT:BikeRack",
+  "text": "Велопарковка"
+ },
+ {
+  "label": "OBJECT:Billboard",
+  "text": "Рекламный щит"
+ },
+ {
+  "label": "OBJECT:Bird",
+  "text": "Птица"
+ },
+ {
+  "label": "OBJECT:BombTruck",
+  "text": "Грузовик со взрывчаткой"
+ },
+ {
+  "label": "OBJECT:Boulders",
+  "text": "Валуны"
+ },
+ {
+  "label": "OBJECT:Boxes",
+  "text": "Ящики"
+ },
+ {
+  "label": "OBJECT:BrickWall",
+  "text": "Кирпичная стена"
+ },
+ {
+  "label": "OBJECT:BrokenWall",
+  "text": "Разрушенная стена"
+ },
+ {
+  "label": "OBJECT:Bunker",
+  "text": "Бункер"
+ },
+ {
+  "label": "OBJECT:BurningBarricade",
+  "text": "Горящая баррикада"
+ },
+ {
+  "label": "OBJECT:Checkpoint",
+  "text": "КПП"
+ },
+ {
+  "label": "OBJECT:BusStop",
+  "text": "Автобусная остановка"
+ },
+ {
+  "label": "OBJECT:Bush",
+  "text": "Куст"
+ },
+ {
+  "label": "OBJECT:Camaro",
+  "text": "Автомобиль"
+ },
+ {
+  "label": "OBJECT:CarBug",
+  "text": "Автомобиль"
+ },
+ {
+  "label": "OBJECT:CarSwatchEuro",
+  "text": "Автомобиль"
+ },
+ {
+  "label": "OBJECT:CargoLoadingCranes",
+  "text": "Погрузочные краны"
+ },
+ {
+  "label": "OBJECT:CargoNet",
+  "text": "Грузовая сетка"
+ },
+ {
+  "label": "OBJECT:Cart",
+  "text": "Тележка"
+ },
+ {
+  "label": "OBJECT:ChainLinkFence",
+  "text": "Забор из металлической сетки"
+ },
+ {
+  "label": "OBJECT:Chalet",
+  "text": "Шале"
+ },
+ {
+  "label": "OBJECT:CheckPointCrossingGuard",
+  "text": "КПП"
+ },
+ {
+  "label": "OBJECT:Chinook",
+  "text": "Чинук"
+ },
+ {
+  "label": "OBJECT:Church",
+  "text": "Церковь"
+ },
+ {
+  "label": "OBJECT:Clete",
+  "text": "Кнехт"
+ },
+ {
+  "label": "OBJECT:ClothesLine",
+  "text": "Бельевая верёвка"
+ },
+ {
+  "label": "OBJECT:Comanche",
+  "text": "Команч"
+ },
+ {
+  "label": "OBJECT:ComancheHull",
+  "text": "Корпус Команча"
+ },
+ {
+  "label": "OBJECT:CompactCar",
+  "text": "Малолитражка"
+ },
+ {
+  "label": "OBJECT:Ambassador",
+  "text": "Посол"
+ },
+ {
+  "label": "OBJECT:Redguard",
+  "text": "Красногвардеец"
+ },
+ {
+  "label": "OBJECT:ConstructionBarricade",
+  "text": "Строительное заграждение"
+ },
+ {
+  "label": "OBJECT:ConvenienceStore",
+  "text": "Продуктовый магазин"
+ },
+ {
+  "label": "OBJECT:ConvoyTruck",
+  "text": "Конвойный грузовик"
+ },
+ {
+  "label": "OBJECT:Cottage",
+  "text": "Коттедж"
+ },
+ {
+  "label": "OBJECT:Crate",
+  "text": "Ящик"
+ },
+ {
+  "label": "OBJECT:CrossingGuard",
+  "text": "Регулировщик"
+ },
+ {
+  "label": "OBJECT:Crusader",
+  "text": "Танк Рыцарь"
+ },
+ {
+  "label": "OBJECT:Paladin",
+  "text": "Танк Паладин"
+ },
+ {
+  "label": "OBJECT:DaisyCutterBomb",
+  "text": "Бомба с напалмом"
+ },
+ {
+  "label": "OBJECT:BlackMarketNuke",
+  "text": "Ядерная бомба чёрного рынка"
+ },
+ {
+  "label": "OBJECT:ToxinTank",
+  "text": "Цистерна с химикатами"
+ },
+ {
+  "label": "OBJECT:AnthraxBomb",
+  "text": "Бомба с сибирской язвой"
+ },
+ {
+  "label": "OBJECT:CarpetBomb",
+  "text": "Ковровая бомбардировка"
+ },
+ {
+  "label": "OBJECT:ClusterMinesBomb",
+  "text": "Осколочные бомбы"
+ },
+ {
+  "label": "OBJECT:EMPPulseBomb",
+  "text": "Электромагнитный импульс"
+ },
+ {
+  "label": "OBJECT:NeutronMissile",
+  "text": "Ядерная ракета"
+ },
+ {
+  "label": "OBJECT:Dealership",
+  "text": "Автосалон"
+ },
+ {
+  "label": "OBJECT:Dirt",
+  "text": "Грязь"
+ },
+ {
+  "label": "OBJECT:Docks",
+  "text": "Доки"
+ },
+ {
+  "label": "OBJECT:DogwoodTree",
+  "text": "Дерево"
+ },
+ {
+  "label": "OBJECT:Dozer",
+  "text": "Строительный бульдозер"
+ },
+ {
+  "label": "OBJECT:Dragon",
+  "text": "Танк Дракон"
+ },
+ {
+  "label": "OBJECT:ElectricRetail",
+  "text": "Магазин электроники"
+ },
+ {
+  "label": "OBJECT:ElectricalTransformer",
+  "text": "Трансформатор"
+ },
+ {
+  "label": "OBJECT:FireHydrant",
+  "text": "Пожарный гидрант"
+ },
+ {
+  "label": "OBJECT:StructureMine",
+  "text": "Мина"
+ },
+ {
+  "label": "OBJECT:ClusterMine",
+  "text": "Мина"
+ },
+ {
+  "label": "OBJECT:FireStorm",
+  "text": "Огненный шторм"
+ },
+ {
+  "label": "OBJECT:FlamingInfantry",
+  "text": "Горящая пехота"
+ },
+ {
+  "label": "OBJECT:ToxicInfantry",
+  "text": "Отравленная пехота"
+ },
+ {
+  "label": "OBJECT:FoodCart",
+  "text": "Тележка с едой"
+ },
+ {
+  "label": "OBJECT:Fountain",
+  "text": "Фонтан"
+ },
+ {
+  "label": "OBJECT:FruitStand",
+  "text": "Прилавок с фруктами"
+ },
+ {
+  "label": "OBJECT:Gargoyle",
+  "text": "Горгулья"
+ },
+ {
+  "label": "OBJECT:GasStation",
+  "text": "Бензоколонка"
+ },
+ {
+  "label": "OBJECT:GasStorageFacility",
+  "text": "Газохранилище"
+ },
+ {
+  "label": "OBJECT:GattlingTank",
+  "text": "Пулемётный танк"
+ },
+ {
+  "label": "OBJECT:GrassHut",
+  "text": "Соломенная хижина"
+ },
+ {
+  "label": "OBJECT:Gravel",
+  "text": "Гравий"
+ },
+ {
+  "label": "OBJECT:FlashBangGrenade",
+  "text": "Световая граната"
+ },
+ {
+  "label": "OBJECT:TankShell",
+  "text": "Танковый снаряд"
+ },
+ {
+  "label": "OBJECT:Rebel",
+  "text": "Повстанец"
+ },
+ {
+  "label": "OBJECT:JarmenKell",
+  "text": "Джармен Келл"
+ },
+ {
+  "label": "OBJECT:GuardTower",
+  "text": "Сторожевая вышка"
+ },
+ {
+  "label": "OBJECT:GuardianControlCenter",
+  "text": "Центр управления стражами"
+ },
+ {
+  "label": "OBJECT:GuardianDrone",
+  "text": "Беспилотник-страж"
+ },
+ {
+  "label": "OBJECT:BlackLotus",
+  "text": "Чёрный Лотос"
+ },
+ {
+  "label": "OBJECT:Hanger",
+  "text": "Ангар"
+ },
+ {
+  "label": "OBJECT:HarvardsOffice",
+  "text": "Мусорная корзина"
+ },
+ {
+  "label": "OBJECT:Hedge",
+  "text": "Живая изгородь"
+ },
+ {
+  "label": "OBJECT:HighwaySign",
+  "text": "Дорожный знак"
+ },
+ {
+  "label": "OBJECT:Hijacker",
+  "text": "Угонщик"
+ },
+ {
+  "label": "OBJECT:AngryMobNexus",
+  "text": "<<РАЗЪЯРЁННАЯ ТОЛПА>>"
+ },
+ {
+  "label": "OBJECT:Hotel",
+  "text": "Отель"
+ },
+ {
+  "label": "OBJECT:Humvee",
+  "text": "Джип Хаммер"
+ },
+ {
+  "label": "OBJECT:POWTruck",
+  "text": "Тюремный грузовик"
+ },
+ {
+  "label": "OBJECT:IndustrialBuilding",
+  "text": "Заводское здание"
+ },
+ {
+  "label": "OBJECT:InfernoCannon",
+  "text": "Самоходный миномет Инферно"
+ },
+ {
+  "label": "OBJECT:JapaneseLantern",
+  "text": "Японский фонарик"
+ },
+ {
+  "label": "OBJECT:JunkCar",
+  "text": "Разбитый(ые) автомобиль(и)"
+ },
+ {
+  "label": "OBJECT:Limo",
+  "text": "Лимузин"
+ },
+ {
+  "label": "OBJECT:Lumber",
+  "text": "Пиломатериалы"
+ },
+ {
+  "label": "OBJECT:MIG",
+  "text": "МиГ"
+ },
+ {
+  "label": "OBJECT:MailBox",
+  "text": "Почтовый ящик"
+ },
+ {
+  "label": "OBJECT:ManHoleCover",
+  "text": "Крышка люка"
+ },
+ {
+  "label": "OBJECT:MapleTree",
+  "text": "Дерево"
+ },
+ {
+  "label": "OBJECT:MarketVendor",
+  "text": "Торговец"
+ },
+ {
+  "label": "OBJECT:Medic",
+  "text": "Скорая помощь"
+ },
+ {
+  "label": "OBJECT:MegaMall",
+  "text": "Торговый центр"
+ },
+ {
+  "label": "OBJECT:Missile",
+  "text": "Ракета"
+ },
+ {
+  "label": "OBJECT:MissileTeam",
+  "text": "Ракетный защитник"
+ },
+ {
+  "label": "OBJECT:Moat",
+  "text": "Ров"
+ },
+ {
+  "label": "OBJECT:MogadishuHighrise",
+  "text": "Высотка"
+ },
+ {
+  "label": "OBJECT:NewsStand",
+  "text": "Газетный киоск"
+ },
+ {
+  "label": "OBJECT:NightClub",
+  "text": "Ночной клуб"
+ },
+ {
+  "label": "OBJECT:NotAMosque",
+  "text": "Купол"
+ },
+ {
+  "label": "OBJECT:NuclearMissile",
+  "text": "Ракетная шахта"
+ }
+]

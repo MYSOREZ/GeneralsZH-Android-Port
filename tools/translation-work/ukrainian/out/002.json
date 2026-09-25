@@ -1,0 +1,802 @@
+[
+ {
+  "label": "GUI:ChooseLadder",
+  "text": "ВИБЕРІТЬ РЕЙТИНГ"
+ },
+ {
+  "label": "GUI:UnknownLadder",
+  "text": "Невідомий рейтинг"
+ },
+ {
+  "label": "GUI:WOLLogin",
+  "text": "GENERALS ONLINE ВХІД"
+ },
+ {
+  "label": "GUI:PleaseEnterWOLInfo",
+  "text": "Будь ласка, введіть інформацію"
+ },
+ {
+  "label": "GUI:Username",
+  "text": "Нікнейм"
+ },
+ {
+  "label": "GUI:Server",
+  "text": "Сервер"
+ },
+ {
+  "label": "GUI:RememberPassword",
+  "text": "Запам'ятати мій пароль"
+ },
+ {
+  "label": "GUI:CreateAccount",
+  "text": "СТВОРИТИ ОБЛІКОВИЙ ЗАПИС"
+ },
+ {
+  "label": "GUI:TryAgain",
+  "text": "Спробувати знову"
+ },
+ {
+  "label": "GUI:NetworkOptions",
+  "text": "ПАРАМЕТРИ МЕРЕЖІ"
+ },
+ {
+  "label": "GUI:GammaAdjustment",
+  "text": "Яскравість"
+ },
+ {
+  "label": "GUI:HelpDescription",
+  "text": "Відобразити діалог довідки"
+ },
+ {
+  "label": "GUI:ReturnToGame",
+  "text": "ПОВЕРНУТИСЯ ДО ГРИ"
+ },
+ {
+  "label": "GUI:NewGame",
+  "text": "Нова гра"
+ },
+ {
+  "label": "GUI:RestartGame",
+  "text": "ПЕРЕЗАПУСТИТИ ГРУ"
+ },
+ {
+  "label": "GUI:MatchingProgress",
+  "text": "Прогрес швидкого матчу"
+ },
+ {
+  "label": "GUI:Player'sName",
+  "text": "Ім'я опонента"
+ },
+ {
+  "label": "GUI:AllTimeWins",
+  "text": "Перемоги за весь час"
+ },
+ {
+  "label": "GUI:AllTimeLosses",
+  "text": "Програші за весь час"
+ },
+ {
+  "label": "GUI:AllTimePoints",
+  "text": "Рейтингові очки за весь час"
+ },
+ {
+  "label": "GUI:AllTimeDisconnects",
+  "text": "Відключення за весь час"
+ },
+ {
+  "label": "GUI:HighestRank",
+  "text": "Найвище звання за весь час"
+ },
+ {
+  "label": "GUI:Honor",
+  "text": "Бойові відзнаки"
+ },
+ {
+  "label": "GUI:LastUpdated",
+  "text": "Останнє оновлення профілю гравця"
+ },
+ {
+  "label": "GUI:WOLIconKey",
+  "text": "Легенда значків"
+ },
+ {
+  "label": "GUI:MyInfo",
+  "text": "МОЯ ПЕРСОНА"
+ },
+ {
+  "label": "GUI:Buddies",
+  "text": "КОМУНІКАТОР"
+ },
+ {
+  "label": "GUI:Community",
+  "text": "Щоденний відсоток перемог армії"
+ },
+ {
+  "label": "GUI:SortAlpha",
+  "text": "Ім'я"
+ },
+ {
+  "label": "GUI:SortPing",
+  "text": "Підключення"
+ },
+ {
+  "label": "GUI:SortBuddies",
+  "text": "Друзі"
+ },
+ {
+  "label": "GUI:GSRank0",
+  "text": "Рядовий"
+ },
+ {
+  "label": "GUI:GSRank1",
+  "text": "Капрал"
+ },
+ {
+  "label": "GUI:GSRank2",
+  "text": "Сержант"
+ },
+ {
+  "label": "GUI:GSRank3",
+  "text": "Лейтенант"
+ },
+ {
+  "label": "GUI:GSRank4",
+  "text": "Капітан"
+ },
+ {
+  "label": "GUI:GSRank5",
+  "text": "Майор"
+ },
+ {
+  "label": "GUI:GSRank6",
+  "text": "Полковник"
+ },
+ {
+  "label": "GUI:GSRank7",
+  "text": "Бригадний генерал"
+ },
+ {
+  "label": "GUI:GSRank8",
+  "text": "Генерал"
+ },
+ {
+  "label": "GUI:GSRank9",
+  "text": "Головнокомандувач"
+ },
+ {
+  "label": "GUI:GSErrorTitle",
+  "text": "Сповіщення"
+ },
+ {
+  "label": "GUI:GSDisconnected",
+  "text": "Ви були відключені від сервера чату"
+ },
+ {
+  "label": "GUI:GSDisconReason1",
+  "text": "Цей псевдонім уже використано. Виберіть інший"
+ },
+ {
+  "label": "GUI:GSDisconReason2",
+  "text": "Цей псевдонім недійсний. Виберіть інший"
+ },
+ {
+  "label": "GUI:GSDisconReason3",
+  "text": "Втрачено з’єднання з C&C Generals Zero Hour Online"
+ },
+ {
+  "label": "GUI:GSDisconReason4",
+  "text": "Не вдалося підключитися до C&C Generals Zero Hour Online"
+ },
+ {
+  "label": "GUI:GSDisconReason5",
+  "text": "Час очікування процесу входу минув. Перевірте підключення до Інтернету"
+ },
+ {
+  "label": "GUI:GSDisconReason6",
+  "text": "Такого псевдоніма та електронної пошти не існує. Якщо ви хочете створити обліковий запис, натисніть «Створити обліковий запис»."
+ },
+ {
+  "label": "GUI:GSDisconReason7",
+  "text": "Ця електронна адреса недійсна"
+ },
+ {
+  "label": "GUI:GSDisconReason8",
+  "text": "Цей пароль неправильний. Будь ласка спробуйте ще раз"
+ },
+ {
+  "label": "GUI:GSDisconReason9",
+  "text": "Поганий профіль"
+ },
+ {
+  "label": "GUI:GSDisconReason10",
+  "text": "Профіль видалено"
+ },
+ {
+  "label": "GUI:GSDisconReason11",
+  "text": "Відмовлено в підключенні до сервера друзів"
+ },
+ {
+  "label": "GUI:GSDisconReason12",
+  "text": "Помилка авторизації сервера друзів"
+ },
+ {
+  "label": "GUI:GSDisconReason13",
+  "text": "Серійний номер недійсний. Спробуйте інший"
+ },
+ {
+  "label": "GUI:GSDisconReason14",
+  "text": "Реєстр пошкоджений і був змінений"
+ },
+ {
+  "label": "GUI:GSDisconReason15",
+  "text": "Серійний номер заборонений"
+ },
+ {
+  "label": "GUI:GSGroupRoomJoinFail",
+  "text": "Не вдалося приєднатися до чату"
+ },
+ {
+  "label": "GUI:JoinFailedRoomFull",
+  "text": "Не вдалося приєднатися – кімната заповнена"
+ },
+ {
+  "label": "GUI:JoinFailedInviteOnly",
+  "text": "Не вдалося приєднатися – кімната доступна лише за запрошеннями"
+ },
+ {
+  "label": "GUI:JoinFailedBannedFromRoom",
+  "text": "Не вдалося приєднатися – вас заблокували в кімнаті"
+ },
+ {
+  "label": "GUI:JoinFailedBadPassword",
+  "text": "Не вдалося приєднатися - неправильний пароль"
+ },
+ {
+  "label": "GUI:JoinFailedAlreadyInRoom",
+  "text": "Не вдалося приєднатися – ви вже в кімнаті"
+ },
+ {
+  "label": "GUI:JoinFailedNoConnection",
+  "text": "Не вдалося приєднатися – немає з’єднання з сервером чату"
+ },
+ {
+  "label": "GUI:JoinFailedCRCMismatch",
+  "text": "Не вдалося приєднатися - гра в іншій версії"
+ },
+ {
+  "label": "GUI:JoinFailedUnknownLadder",
+  "text": "Не вдалося приєднатися – гра використовує невідомий рейтинг"
+ },
+ {
+  "label": "GUI:JoinFailedDefault",
+  "text": "НЕ ВДАЛОСЯ ПРИЄДНАТИСЯ ДО КІМНАТИ"
+ },
+ {
+  "label": "GUI:GSKicked",
+  "text": "Вас вигнали з кімнати"
+ },
+ {
+  "label": "GUI:NATNegotiationFailed",
+  "text": "Неможливо підключитися до іншого гравця(ів)"
+ },
+ {
+  "label": "GUI:GPErrorTitle",
+  "text": "ПОМИЛКА СЕРВЕРА ДРУЗІВ"
+ },
+ {
+  "label": "GUI:GPDisconnected",
+  "text": "Ви були відключені від сервера друзів. Хочете підключитися знову?"
+ },
+ {
+  "label": "GUI:GPNoProfile",
+  "text": "Ви не ввійшли за допомогою профілю. Інформація про друзів недоступна"
+ },
+ {
+  "label": "GUI:PSErrorTitle",
+  "text": "ПОМИЛКА ПОСТІЙНОГО ЗБЕРІГАННЯ"
+ },
+ {
+  "label": "GUI:PSCannotConnect",
+  "text": "Не вдалося підключитися до сервера постійного зберігання"
+ },
+ {
+  "label": "Buddy:Offline",
+  "text": "Не в мережі"
+ },
+ {
+  "label": "Buddy:Online",
+  "text": "В мережі"
+ },
+ {
+  "label": "Buddy:Chatting",
+  "text": "Спілкується в %ls"
+ },
+ {
+  "label": "Buddy:Staging",
+  "text": "Готується в %ls"
+ },
+ {
+  "label": "Buddy:Loading",
+  "text": "Завантажується в %ls"
+ },
+ {
+  "label": "Buddy:Playing",
+  "text": "Грає в %ls"
+ },
+ {
+  "label": "Buddy:Matching",
+  "text": "Швидкий матч"
+ },
+ {
+  "label": "Buddy:OnlineNotification",
+  "text": "%hs тепер в мережі"
+ },
+ {
+  "label": "Buddy:OfflineNotification",
+  "text": "%hs тепер не в мережі"
+ },
+ {
+  "label": "Buddy:AddNotification",
+  "text": "Запит на додавання в друзі від %hs"
+ },
+ {
+  "label": "Buddy:MessageNotification",
+  "text": "%hs каже: \n '%s...'"
+ },
+ {
+  "label": "GUI:Com/Tac",
+  "text": "Ком/Такт"
+ },
+ {
+  "label": "GUI:MoneySymbol",
+  "text": "$"
+ },
+ {
+  "label": "GUI:$$$",
+  "text": "$$$"
+ },
+ {
+  "label": "GUI:OverchargeExhausted",
+  "text": "Перевантаження вичерпано"
+ },
+ {
+  "label": "GUI:NotEnoughMoneyToBuild",
+  "text": "У вас не вистачає грошей, щоб це побудувати"
+ },
+ {
+  "label": "GUI:NotEnoughMoneyToUpgrade",
+  "text": "У вас недостатньо грошей, щоб зробити покращення"
+ },
+ {
+  "label": "GUI:Level",
+  "text": "Рівень"
+ },
+ {
+  "label": "GUI:Tac",
+  "text": "Такт"
+ },
+ {
+  "label": "GUI:Strat",
+  "text": "Страт"
+ },
+ {
+  "label": "GUI:Struct",
+  "text": "Структура"
+ },
+ {
+  "label": "GUI:Waypt",
+  "text": "Точка шляху"
+ },
+ {
+  "label": "GUI:WOLStatus",
+  "text": "Статус C&C Generals Zero Hour Online"
+ },
+ {
+  "label": "GUI:AIDifficulty",
+  "text": "Складність комп'ютера"
+ },
+ {
+  "label": "GUI:EasyAI",
+  "text": "Легка армія"
+ },
+ {
+  "label": "GUI:MediumAI",
+  "text": "Середня армія"
+ },
+ {
+  "label": "GUI:HardAI",
+  "text": "Важка армія"
+ },
+ {
+  "label": "GUI:Hide",
+  "text": "НАЗАД"
+ },
+ {
+  "label": "GUI:Pause",
+  "text": "Пауза"
+ },
+ {
+  "label": "GUI:NextFrame",
+  "text": "Наступний кадр"
+ },
+ {
+  "label": "GUI:ReplayMenu",
+  "text": "ЗАВАНТАЖИТИ"
+ },
+ {
+  "label": "GUI:AntiAliasing",
+  "text": "Згладжування"
+ },
+ {
+  "label": "GUI:ScreenCapture",
+  "text": "Знімок екрана збережено в '%s'"
+ },
+ {
+  "label": "GUI:ScreenshotCapture",
+  "text": "Захоплення екрану"
+ },
+ {
+  "label": "GUI:ScreenshotCaptureDescription",
+  "text": "Зробити знімок екрану гри"
+ },
+ {
+  "label": "GUI:Null",
+  "text": "."
+ },
+ {
+  "label": "GUI:CRCMismatch",
+  "text": "Гра виявила невідповідність. Це означає, що багатокористувацька гра втратила дані синхронізації між гравцями"
+ },
+ {
+  "label": "GUI:CurrentHotkey",
+  "text": "Поточна гаряча клавіша"
+ },
+ {
+  "label": "GUI:AssignNewHotkey",
+  "text": "Призначити нову гарячу клавішу"
+ },
+ {
+  "label": "GUI:CurrentlyAssignedTo",
+  "text": "Наразі призначено"
+ },
+ {
+  "label": "GUI:Reset",
+  "text": "Скинути"
+ },
+ {
+  "label": "QM:JOININGQMCHANNEL",
+  "text": "Приєднання до швидкого матчу..."
+ },
+ {
+  "label": "QM:WORKING",
+  "text": "Зараз %d гравців шукають суперника..."
+ },
+ {
+  "label": "QM:POOLSIZE",
+  "text": "Зараз %d гравців шукають суперника..."
+ },
+ {
+  "label": "QM:LOOKINGFORBOT",
+  "text": "Пошук матчмейкера C&C Generals Zero Hour Online..."
+ },
+ {
+  "label": "QM:SENTINFO",
+  "text": "Інформацію про гру надіслано..."
+ },
+ {
+  "label": "QM:WIDENINGSEARCH",
+  "text": "Розширення пошуку опонентів, найближчих до ваших уподобань..."
+ },
+ {
+  "label": "QM:MATCHED",
+  "text": "Чудово, матч знайдено..."
+ },
+ {
+  "label": "QM:INCHANNEL",
+  "text": "В каналі..."
+ },
+ {
+  "label": "QM:NEGOTIATINGFIREWALLS",
+  "text": "Узгодження брандмауерів..."
+ },
+ {
+  "label": "QM:STARTINGGAME",
+  "text": "Початок гри..."
+ },
+ {
+  "label": "QM:COULDNOTFINDBOT",
+  "text": "Не вдалося знайти Матчмейкер"
+ },
+ {
+  "label": "QM:COULDNOTFINDCHANNEL",
+  "text": "Не вдалося знайти канал швидких матчів"
+ },
+ {
+  "label": "QM:COULDNOTNEGOTIATEFIREWALLS",
+  "text": "Не вдалося узгодити брандмауери"
+ },
+ {
+  "label": "QM:STOPPED",
+  "text": "Швидкий матч відмінено"
+ },
+ {
+  "label": "QM:WaitingForPlayerToJoin",
+  "text": "Чекаємо на приєднання суперника"
+ },
+ {
+  "label": "QM:FindingGameChannel",
+  "text": "Пошук гри суперника"
+ },
+ {
+  "label": "QM:JoinedGameChannel",
+  "text": "Приєднався до гри суперника"
+ },
+ {
+  "label": "QM:PlayerJoined",
+  "text": "Приєднався опонент"
+ },
+ {
+  "label": "QM:LookingForMatchChannel",
+  "text": "Пошук каналу швидких матчів"
+ },
+ {
+  "label": "QM:NoMatchChannel",
+  "text": "Не знайдено каналу швидких матчів"
+ },
+ {
+  "label": "QM:JoinedMatchChannel",
+  "text": "Під'єднано до каналу швидкого матчу"
+ },
+ {
+  "label": "QM:NoMatchingBot",
+  "text": "Матчмейкер не знайдено"
+ },
+ {
+  "label": "QM:GameNotFound",
+  "text": "Швидкому матчу не вдалося знайти гру вашого суперника"
+ },
+ {
+  "label": "QM:TimeoutOtherPlayer",
+  "text": "Швидкий матч: минув час очікування приєднання суперника до гри"
+ },
+ {
+  "label": "Version:Format4",
+  "text": "%d.%02d.%d, збірка %d %c%c"
+ },
+ {
+  "label": "Version:Format3",
+  "text": "Версія %d.%02d.%d"
+ },
+ {
+  "label": "Version:Format2",
+  "text": "Версія %d.%02d"
+ },
+ {
+  "label": "Version:BuildTime",
+  "text": "%ls %ls"
+ },
+ {
+  "label": "Version:BuildMachine",
+  "text": "Машина збірки: %ls"
+ },
+ {
+  "label": "Version:BuildUser",
+  "text": "Автор: %ls"
+ },
+ {
+  "label": "GUI:SuperweaponDaisyCutter",
+  "text": "Паливна авіабомба"
+ },
+ {
+  "label": "GUI:SuperweaponParadropAmerica",
+  "text": "Десант"
+ },
+ {
+  "label": "GUI:SuperweaponClusterMines",
+  "text": "Касетні міни"
+ },
+ {
+  "label": "GUI:SuperweaponEMPPulse",
+  "text": "ЕМІ Імпульс"
+ },
+ {
+  "label": "GUI:SuperweaponA10ThunderboltMissileStrike",
+  "text": "Ракетний удар A10"
+ },
+ {
+  "label": "GUI:SuperweaponCrateDrop",
+  "text": "Скид ящиків"
+ },
+ {
+  "label": "GUI:SuperweaponCarpetBomb",
+  "text": "Килимове бомбардування"
+ },
+ {
+  "label": "GUI:SuperweaponNapalmStrike",
+  "text": "Напалмовий удар"
+ },
+ {
+  "label": "GUI:SuperweaponCashHack",
+  "text": "Злам грошей"
+ },
+ {
+  "label": "GUI:SuperweaponNeutronMissile",
+  "text": "Ядерна ракета"
+ },
+ {
+  "label": "GUI:SuperweaponScudStorm",
+  "text": "СКАД Шторм"
+ },
+ {
+  "label": "GUI:SuperweaponTerrorCell",
+  "text": "Терористичне угрупування"
+ },
+ {
+  "label": "GUI:SuperweaponRebelAmbush",
+  "text": "Засідка"
+ },
+ {
+  "label": "GUI:SuperweaponBlackMarketNuke",
+  "text": "Ядерна бомба чорного ринку"
+ },
+ {
+  "label": "GUI:SuperweaponAnthraxBomb",
+  "text": "Бомба з сибірською виразкою"
+ },
+ {
+  "label": "GUI:SuperweaponDemoralize",
+  "text": "Деморалізація"
+ },
+ {
+  "label": "GUI:SpecialAbilityGuidedMissiles",
+  "text": "Ракети з лазерним наведенням"
+ },
+ {
+  "label": "GUI:SpecialAbilityDetonateCharges",
+  "text": "Підірвати заряди"
+ },
+ {
+  "label": "GUI:SuperweaponParticleUplinkCannon",
+  "text": "Молекулярна гармата"
+ },
+ {
+  "label": "GUI:PatchAvailable",
+  "text": "ДОСТУПНЕ ОНОВЛЕННЯ"
+ },
+ {
+  "label": "GUI:MustPatchForOnline",
+  "text": "Ви повинні завантажити оновлення, щоб грати в C&C Generals Zero Hour онлайн"
+ },
+ {
+  "label": "GUI:CanPatchForOnline",
+  "text": "Бажаєте завантажити оновлення?"
+ },
+ {
+  "label": "GUI:CheckingForPatches",
+  "text": "Перевірка оновлень"
+ },
+ {
+  "label": "GUI:DownloadErrorTitle",
+  "text": "ПОМИЛКА ЗАВАНТАЖЕННЯ"
+ },
+ {
+  "label": "GUI:DownloadSuccessTitle",
+  "text": "ЗАВАНТАЖЕННЯ УСПІШНЕ"
+ },
+ {
+  "label": "GUI:DownloadSuccess",
+  "text": "Завантаження завершено без помилок"
+ },
+ {
+  "label": "GUI:DownloadSuccessMustQuit",
+  "text": "Натисніть OK, щоб вийти з Command & Conquer Generals Zero Hour і встановити оновлення"
+ },
+ {
+  "label": "GUI:DownloadBytesRatio",
+  "text": "%d / %d байт"
+ },
+ {
+  "label": "GUI:DownloadTimeLeft",
+  "text": "%d:%02d:%02d залишилося"
+ },
+ {
+  "label": "GUI:DownloadUnknownTime",
+  "text": "???"
+ },
+ {
+  "label": "FTP:StatusIdle",
+  "text": "Очікування"
+ },
+ {
+  "label": "FTP:UnknownError",
+  "text": "Невідома помилка"
+ },
+ {
+  "label": "FTP:NoSuchServer",
+  "text": "Немає такого серверу"
+ },
+ {
+  "label": "FTP:CouldNotConnect",
+  "text": "Не вдалося підключитися"
+ },
+ {
+  "label": "FTP:LoginFailed",
+  "text": "Помилка входу"
+ },
+ {
+  "label": "FTP:NoSuchFile",
+  "text": "Немає такого файлу"
+ },
+ {
+  "label": "FTP:LocalFileOpenFailed",
+  "text": "Не вдалося відкрити локальний файл"
+ },
+ {
+  "label": "FTP:TCPError",
+  "text": "Помилка TCP"
+ },
+ {
+  "label": "FTP:DisconnectError",
+  "text": "Помилка відключення"
+ },
+ {
+  "label": "FTP:StatusConnecting",
+  "text": "Підключення"
+ },
+ {
+  "label": "FTP:StatusLoggingIn",
+  "text": "Вхід"
+ },
+ {
+  "label": "FTP:StatusFindingFile",
+  "text": "Пошук файлу"
+ },
+ {
+  "label": "FTP:StatusQueryingResume",
+  "text": "Запит на відновлення завантаження"
+ },
+ {
+  "label": "FTP:StatusDownloading",
+  "text": "Завантаження"
+ },
+ {
+  "label": "FTP:StatusDisconnecting",
+  "text": "Відключення"
+ },
+ {
+  "label": "FTP:StatusFinishing",
+  "text": "Завершення"
+ },
+ {
+  "label": "FTP:StatusDone",
+  "text": "Виконано"
+ },
+ {
+  "label": "FTP:StatusNone",
+  "text": "Нема"
+ },
+ {
+  "label": "WOL:InternalError",
+  "text": "Внутрішня помилка C&C Generals Zero Hour Online"
+ },
+ {
+  "label": "WOL:ServerBan",
+  "text": "Вибачте, вас заблокували в C&C Generals Zero Hour Online. Ознайомтеся з Умовами обслуговування"
+ },
+ {
+  "label": "WOL:DisconnectedError",
+  "text": "Вибачте, вас заблокували в C&C Generals Zero Hour Online. Ознайомтеся з Умовами обслуговування"
+ },
+ {
+  "label": "WOL:NoServers",
+  "text": "Не знайдено C&C Generals Zero Hour Online"
+ },
+ {
+  "label": "WOL:LoginTimeout",
+  "text": "Минув час очікування на приєднання до C&C Generals Zero Hour Online"
+ },
+ {
+  "label": "WOL:NoMatchChannel",
+  "text": "Канал матчу не знайдено"
+ }
+]

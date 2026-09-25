@@ -1,0 +1,802 @@
+[
+ {
+  "label": "GUI:Scatter",
+  "text": "Zerstreuen"
+ },
+ {
+  "label": "GUI:StopObject",
+  "text": "Objekt anhalten"
+ },
+ {
+  "label": "GUI:StopObjectDescription",
+  "text": "Ausgewählte Objekte anhalten"
+ },
+ {
+  "label": "GUI:GoToRadarEvent",
+  "text": "Zum Radarereignis"
+ },
+ {
+  "label": "GUI:GoToRadarEventDescription",
+  "text": "Taktische Ansicht auf das letzte Radarereignis zentrieren"
+ },
+ {
+  "label": "GUI:SaveView1",
+  "text": "Lesezeichen 1 setzen"
+ },
+ {
+  "label": "GUI:SaveView1Description",
+  "text": "Lesezeichen für Kartenposition 1 setzen"
+ },
+ {
+  "label": "GUI:SaveView2",
+  "text": "Lesezeichen 2 setzen"
+ },
+ {
+  "label": "GUI:SaveView2Description",
+  "text": "Lesezeichen für Kartenposition 2 setzen"
+ },
+ {
+  "label": "GUI:SaveView3",
+  "text": "Lesezeichen 3 setzen"
+ },
+ {
+  "label": "GUI:SaveView3Description",
+  "text": "Lesezeichen für Kartenposition 3 setzen"
+ },
+ {
+  "label": "GUI:SaveView4",
+  "text": "Lesezeichen 4 setzen"
+ },
+ {
+  "label": "GUI:SaveView4Description",
+  "text": "Lesezeichen für Kartenposition 4 setzen"
+ },
+ {
+  "label": "GUI:ViewView1",
+  "text": "Lesezeichen 1 ansehen"
+ },
+ {
+  "label": "GUI:ViewView1Description",
+  "text": "Gespeicherte Kartenposition 1 ansehen"
+ },
+ {
+  "label": "GUI:ViewView2",
+  "text": "Lesezeichen 2 ansehen"
+ },
+ {
+  "label": "GUI:ViewView2Description",
+  "text": "Gespeicherte Kartenposition 2 ansehen"
+ },
+ {
+  "label": "GUI:ViewView3",
+  "text": "Lesezeichen 3 ansehen"
+ },
+ {
+  "label": "GUI:ViewView3Description",
+  "text": "Gespeicherte Kartenposition 3 ansehen"
+ },
+ {
+  "label": "GUI:ViewView4",
+  "text": "Lesezeichen 4 ansehen"
+ },
+ {
+  "label": "GUI:ViewView4Description",
+  "text": "Gespeicherte Kartenposition 4 ansehen"
+ },
+ {
+  "label": "GUI:CenterBase",
+  "text": "Basis zentrieren"
+ },
+ {
+  "label": "GUI:CenterBaseDescription",
+  "text": "Ansicht auf die Basis des Spielers zentrieren"
+ },
+ {
+  "label": "GUI:SelectNone",
+  "text": "Nichts auswählen"
+ },
+ {
+  "label": "GUI:SelectAll",
+  "text": "Alle auswählen"
+ },
+ {
+  "label": "GUI:SelectAllDescription",
+  "text": "Wählt alle Militäreinheiten aus"
+ },
+ {
+  "label": "GUI:SelectNextUnit",
+  "text": "Nächstes Objekt"
+ },
+ {
+  "label": "GUI:SelectNextUnitDescription",
+  "text": "Nächstes Objekt auswählen"
+ },
+ {
+  "label": "GUI:SelectPrevUnit",
+  "text": "Vorheriges Objekt"
+ },
+ {
+  "label": "GUI:SelectPrevUnitDescription",
+  "text": "Vorherige Einheit auswählen"
+ },
+ {
+  "label": "GUI:SelectNextWorker",
+  "text": "Nächster Arbeiter"
+ },
+ {
+  "label": "GUI:SelectNextWorkerDescription",
+  "text": "Nächsten Arbeiter auswählen"
+ },
+ {
+  "label": "GUI:SelectPrevWorker",
+  "text": "Vorheriger Arbeiter"
+ },
+ {
+  "label": "GUI:SelectPrevWorkerDescription",
+  "text": "Vorherigen Arbeiter auswählen"
+ },
+ {
+  "label": "GUI:TypeSelect",
+  "text": "Typauswahl"
+ },
+ {
+  "label": "GUI:TypeSelectDescription",
+  "text": "Wählt Einheiten nach Typ aus. Doppelklicken Sie mit der linken Maustaste auf eine Einheit, um alle desselben Typs auszuwählen"
+ },
+ {
+  "label": "GUI:CreateTeam0",
+  "text": "Team 0 erstellen"
+ },
+ {
+  "label": "GUI:CreateTeam0Description",
+  "text": "Erstellt Team 0 aus den ausgewählten Einheiten"
+ },
+ {
+  "label": "GUI:CreateTeam1",
+  "text": "Team 1 erstellen"
+ },
+ {
+  "label": "GUI:CreateTeam1Description",
+  "text": "Erstellt Team 1 aus den ausgewählten Einheiten"
+ },
+ {
+  "label": "GUI:CreateTeam2",
+  "text": "Team 2 erstellen"
+ },
+ {
+  "label": "GUI:CreateTeam2Description",
+  "text": "Erstellt Team 2 aus den ausgewählten Einheiten"
+ },
+ {
+  "label": "GUI:CreateTeam3",
+  "text": "Team 3 erstellen"
+ },
+ {
+  "label": "GUI:CreateTeam3Description",
+  "text": "Erstellt Team 3 aus den ausgewählten Einheiten"
+ },
+ {
+  "label": "GUI:CreateTeam4",
+  "text": "Team 4 erstellen"
+ },
+ {
+  "label": "GUI:CreateTeam4Description",
+  "text": "Erstellt Team 4 aus den ausgewählten Einheiten"
+ },
+ {
+  "label": "GUI:CreateTeam5",
+  "text": "Team 5 erstellen"
+ },
+ {
+  "label": "GUI:CreateTeam5Description",
+  "text": "Erstellt Team 5 aus den ausgewählten Einheiten"
+ },
+ {
+  "label": "GUI:CreateTeam6",
+  "text": "Team 6 erstellen"
+ },
+ {
+  "label": "GUI:CreateTeam6Description",
+  "text": "Erstellt Team 6 aus den ausgewählten Einheiten"
+ },
+ {
+  "label": "GUI:CreateTeam7",
+  "text": "Team 7 erstellen"
+ },
+ {
+  "label": "GUI:CreateTeam7Description",
+  "text": "Erstellt Team 7 aus den ausgewählten Einheiten"
+ },
+ {
+  "label": "GUI:CreateTeam8",
+  "text": "Team 8 erstellen"
+ },
+ {
+  "label": "GUI:CreateTeam8Description",
+  "text": "Erstellt Team 8 aus den ausgewählten Einheiten"
+ },
+ {
+  "label": "GUI:CreateTeam9",
+  "text": "Team 9 erstellen"
+ },
+ {
+  "label": "GUI:CreateTeam9Description",
+  "text": "Erstellt Team 9 aus den ausgewählten Einheiten"
+ },
+ {
+  "label": "GUI:SelectTeam0",
+  "text": "Team 0 auswählen"
+ },
+ {
+  "label": "GUI:SelectTeam0Description",
+  "text": "Mitglieder von Team 0 auswählen"
+ },
+ {
+  "label": "GUI:SelectTeam1",
+  "text": "Team 1 auswählen"
+ },
+ {
+  "label": "GUI:SelectTeam1Description",
+  "text": "Mitglieder von Team 1 auswählen"
+ },
+ {
+  "label": "GUI:SelectTeam2",
+  "text": "Team 2 auswählen"
+ },
+ {
+  "label": "GUI:SelectTeam2Description",
+  "text": "Mitglieder von Team 2 auswählen"
+ },
+ {
+  "label": "GUI:SelectTeam3",
+  "text": "Team 3 auswählen"
+ },
+ {
+  "label": "GUI:SelectTeam3Description",
+  "text": "Mitglieder von Team 3 auswählen"
+ },
+ {
+  "label": "GUI:SelectTeam4",
+  "text": "Team 4 auswählen"
+ },
+ {
+  "label": "GUI:SelectTeam4Description",
+  "text": "Mitglieder von Team 4 auswählen"
+ },
+ {
+  "label": "GUI:SelectTeam5",
+  "text": "Team 5 auswählen"
+ },
+ {
+  "label": "GUI:SelectTeam5Description",
+  "text": "Mitglieder von Team 5 auswählen"
+ },
+ {
+  "label": "GUI:SelectTeam6",
+  "text": "Team 6 auswählen"
+ },
+ {
+  "label": "GUI:SelectTeam6Description",
+  "text": "Mitglieder von Team 6 auswählen"
+ },
+ {
+  "label": "GUI:SelectTeam7",
+  "text": "Team 7 auswählen"
+ },
+ {
+  "label": "GUI:SelectTeam7Description",
+  "text": "Mitglieder von Team 7 auswählen"
+ },
+ {
+  "label": "GUI:SelectTeam8",
+  "text": "Team 8 auswählen"
+ },
+ {
+  "label": "GUI:SelectTeam8Description",
+  "text": "Mitglieder von Team 8 auswählen"
+ },
+ {
+  "label": "GUI:SelectTeam9",
+  "text": "Team 9 auswählen"
+ },
+ {
+  "label": "GUI:SelectTeam9Description",
+  "text": "Mitglieder von Team 9 auswählen"
+ },
+ {
+  "label": "GUI:ViewTeam0",
+  "text": "Team 0 zentrieren"
+ },
+ {
+  "label": "GUI:ViewTeam0Description",
+  "text": "Team 0 auswählen und Ansicht darauf zentrieren"
+ },
+ {
+  "label": "GUI:ViewTeam1",
+  "text": "Team 1 zentrieren"
+ },
+ {
+  "label": "GUI:ViewTeam1Description",
+  "text": "Team 1 auswählen und Ansicht darauf zentrieren"
+ },
+ {
+  "label": "GUI:ViewTeam2",
+  "text": "Team 2 zentrieren"
+ },
+ {
+  "label": "GUI:ViewTeam2Description",
+  "text": "Team 2 auswählen und Ansicht darauf zentrieren"
+ },
+ {
+  "label": "GUI:ViewTeam3",
+  "text": "Team 3 zentrieren"
+ },
+ {
+  "label": "GUI:ViewTeam3Description",
+  "text": "Team 3 auswählen und Ansicht darauf zentrieren"
+ },
+ {
+  "label": "GUI:ViewTeam4",
+  "text": "Team 4 zentrieren"
+ },
+ {
+  "label": "GUI:ViewTeam4Description",
+  "text": "Team 4 auswählen und Ansicht darauf zentrieren"
+ },
+ {
+  "label": "GUI:ViewTeam5",
+  "text": "Team 5 zentrieren"
+ },
+ {
+  "label": "GUI:ViewTeam5Description",
+  "text": "Team 5 auswählen und Ansicht darauf zentrieren"
+ },
+ {
+  "label": "GUI:ViewTeam6",
+  "text": "Team 6 zentrieren"
+ },
+ {
+  "label": "GUI:ViewTeam6Description",
+  "text": "Team 6 auswählen und Ansicht darauf zentrieren"
+ },
+ {
+  "label": "GUI:ViewTeam7",
+  "text": "Team 7 zentrieren"
+ },
+ {
+  "label": "GUI:ViewTeam7Description",
+  "text": "Team 7 auswählen und Ansicht darauf zentrieren"
+ },
+ {
+  "label": "GUI:ViewTeam8",
+  "text": "Team 8 zentrieren"
+ },
+ {
+  "label": "GUI:ViewTeam8Description",
+  "text": "Team 8 auswählen und Ansicht darauf zentrieren"
+ },
+ {
+  "label": "GUI:ViewTeam9",
+  "text": "Team 9 zentrieren"
+ },
+ {
+  "label": "GUI:ViewTeam9Description",
+  "text": "Team 9 auswählen und Ansicht darauf zentrieren"
+ },
+ {
+  "label": "GUI:LocalIPDesc",
+  "text": "Lokale IP"
+ },
+ {
+  "label": "GUI:RemoteIPDesc",
+  "text": "Entfernte IP"
+ },
+ {
+  "label": "GUI:SaveCamera",
+  "text": "Kamera in Wiederholungen speichern"
+ },
+ {
+  "label": "GUI:UseCamera",
+  "text": "Gespeicherte Kamera in Wiederholungen verwenden"
+ },
+ {
+  "label": "Mouse:Windows",
+  "text": "Windows-Mauszeiger"
+ },
+ {
+  "label": "Mouse:W3D",
+  "text": "W3D-Mauszeiger"
+ },
+ {
+  "label": "Mouse:Poly",
+  "text": "Polygon-Mauszeiger"
+ },
+ {
+  "label": "Mouse:DX8",
+  "text": "DX8-Mauszeiger"
+ },
+ {
+  "label": "Mouse:Heal",
+  "text": "Heilen lassen"
+ },
+ {
+  "label": "Mouse:GetRepaired",
+  "text": "Reparieren lassen"
+ },
+ {
+  "label": "Mouse:Dock",
+  "text": "Andocken"
+ },
+ {
+  "label": "Mouse:DoRepair",
+  "text": "Reparieren"
+ },
+ {
+  "label": "Mouse:ResumeConstruction",
+  "text": "Bau fortsetzen"
+ },
+ {
+  "label": "Mouse:Enter",
+  "text": "Betreten"
+ },
+ {
+  "label": "Mouse:SetRallyPoint",
+  "text": "Sammelpunkt setzen"
+ },
+ {
+  "label": "Mouse:DisguiseAsVehicle",
+  "text": "Hierzu tarnen!"
+ },
+ {
+  "label": "Mouse:Invalid",
+  "text": "UNGÜLTIG"
+ },
+ {
+  "label": "Mouse:FireFlame",
+  "text": "Verbrennen"
+ },
+ {
+  "label": "Mouse:FireFlashBang",
+  "text": "Blendgranate"
+ },
+ {
+  "label": "Mouse:FireTranqDarts",
+  "text": "Betäubungspfeile"
+ },
+ {
+  "label": "Mouse:FireStunBullets",
+  "text": "Betäubungsgeschosse"
+ },
+ {
+  "label": "Mouse:MakeCarBomb",
+  "text": "Autobombe bauen"
+ },
+ {
+  "label": "Mouse:Hijack",
+  "text": "Entführen"
+ },
+ {
+  "label": "Mouse:FireBomb",
+  "text": "Brand- \n bombe"
+ },
+ {
+  "label": "Mouse:Defector",
+  "text": "Zum Überläufer \n machen"
+ },
+ {
+  "label": "Mouse:CaptureBuilding",
+  "text": "Gebäude einnehmen"
+ },
+ {
+  "label": "Mouse:DisableVehicleHack",
+  "text": "Fahrzeug lahmlegen"
+ },
+ {
+  "label": "Mouse:StealCashHack",
+  "text": "Geld stehlen"
+ },
+ {
+  "label": "Mouse:SnipeVehicle",
+  "text": "Fahrzeug ausschalten"
+ },
+ {
+  "label": "Mouse:DisableBuildingHack",
+  "text": "Gebäude lahmlegen"
+ },
+ {
+  "label": "Mouse:LaserGuidedMissiles",
+  "text": "Laserraketen"
+ },
+ {
+  "label": "Mouse:TankHunterTNTAttack",
+  "text": "TNT-Angriff"
+ },
+ {
+  "label": "Mouse:A10ThunderboltStrike",
+  "text": "Ziel für A10-Angriff"
+ },
+ {
+  "label": "Mouse:StabAttack",
+  "text": "Zustechen"
+ },
+ {
+  "label": "Mouse:PlaceRemoteCharge",
+  "text": "Fernzündladung platzieren"
+ },
+ {
+  "label": "Mouse:PlaceTimedCharge",
+  "text": "Zeitzünderladung platzieren"
+ },
+ {
+  "label": "Mouse:RepairVehicles",
+  "text": "&Notreparatur"
+ },
+ {
+  "label": "Mouse:Demoralize",
+  "text": "Demoralisieren"
+ },
+ {
+  "label": "Mouse:PickUpPrisoner",
+  "text": "Gefangenen aufnehmen"
+ },
+ {
+  "label": "Mouse:Return",
+  "text": "Zurückkehren"
+ },
+ {
+  "label": "Mouse:PlaceBeacon",
+  "text": "Signalfeuer setzen"
+ },
+ {
+  "label": "SCRIPT:TestString",
+  "text": "Das ist so eine Art Teststring, Alter"
+ },
+ {
+  "label": "SCRIPT:LongTestString",
+  "text": "Das ist so eine Art echt langer Teststring, Alter. Damit wird geprüft, ob Zeilenumbruch und Abstände funktionieren"
+ },
+ {
+  "label": "SCIENCE:GeneralName",
+  "text": "<Name eingeben>"
+ },
+ {
+  "label": "SCIENCE:SkillPoints",
+  "text": "Beförderungspunkte: %d"
+ },
+ {
+  "label": "SCIENCE:Rank",
+  "text": "Stufe %d"
+ },
+ {
+  "label": "SCIENCE:TempName",
+  "text": "Gib meiner Fähigkeit einen Namen"
+ },
+ {
+  "label": "SCIENCE:TempDescription",
+  "text": "Bitte nimm dir die Zeit, meine Beschreibung in Science.ini auszufüllen! Vielen Dank"
+ },
+ {
+  "label": "SCIENCE:USAPaladin",
+  "text": "Paladin-Panzer"
+ },
+ {
+  "label": "SCIENCE:USAPathFinder",
+  "text": "Pathfinder"
+ },
+ {
+  "label": "SCIENCE:USAStealthFighter",
+  "text": "Tarnkappenjäger"
+ },
+ {
+  "label": "SCIENCE:USASpyDrone",
+  "text": "Spionagedrohne"
+ },
+ {
+  "label": "SCIENCE:USAParaDrop1",
+  "text": "Fallschirmabwurf 1"
+ },
+ {
+  "label": "SCIENCE:USAParaDrop2",
+  "text": "Fallschirmabwurf 2"
+ },
+ {
+  "label": "SCIENCE:USAParaDrop3",
+  "text": "Fallschirmabwurf 3"
+ },
+ {
+  "label": "SCIENCE:USAA10Strike1",
+  "text": "A10-Angriff 1"
+ },
+ {
+  "label": "SCIENCE:USAA10Strike2",
+  "text": "A10-Angriff 2"
+ },
+ {
+  "label": "SCIENCE:USAA10Strike3",
+  "text": "A10-Angriff 3"
+ },
+ {
+  "label": "SCIENCE:USADaisyCutter",
+  "text": "Aerosolbombe"
+ },
+ {
+  "label": "SCIENCE:ChinaNukeLauncher",
+  "text": "Atomkanone"
+ },
+ {
+  "label": "SCIENCE:ChinaRedGuardTraining",
+  "text": "Rotgardisten-Ausbildung"
+ },
+ {
+  "label": "SCIENCE:ChinaClusterMines",
+  "text": "Streuminen"
+ },
+ {
+  "label": "SCIENCE:ChinaArtilleryTraining",
+  "text": "Artillerie-Ausbildung"
+ },
+ {
+  "label": "SCIENCE:ChinaArtilleryBarrage",
+  "text": "Artilleriesperrfeuer 1"
+ },
+ {
+  "label": "SCIENCE:ChinaArtilleryBarrage2",
+  "text": "Artilleriesperrfeuer 2"
+ },
+ {
+  "label": "SCIENCE:ChinaArtilleryBarrage3",
+  "text": "Artilleriesperrfeuer 3"
+ },
+ {
+  "label": "SCIENCE:ChinaCashHack1",
+  "text": "Geld-Hack 1"
+ },
+ {
+  "label": "SCIENCE:ChinaCashHack2",
+  "text": "Geld-Hack 2"
+ },
+ {
+  "label": "SCIENCE:ChinaCashHack3",
+  "text": "Geld-Hack 3"
+ },
+ {
+  "label": "SCIENCE:ChinaEMPPulse",
+  "text": "EMP-Impuls"
+ },
+ {
+  "label": "SCIENCE:GLAHijacker",
+  "text": "Entführer"
+ },
+ {
+  "label": "SCIENCE:GLASCUDLauncher",
+  "text": "SCUD-Werfer"
+ },
+ {
+  "label": "SCIENCE:GLAMaruaderTank",
+  "text": "Marodeur-Panzer"
+ },
+ {
+  "label": "SCIENCE:GLATechnicalTraining",
+  "text": "Technical-Ausbildung"
+ },
+ {
+  "label": "SCIENCE:GLARebelAmbush1",
+  "text": "Rebellenhinterhalt 1"
+ },
+ {
+  "label": "SCIENCE:GLARebelAmbush2",
+  "text": "Rebellenhinterhalt 2"
+ },
+ {
+  "label": "SCIENCE:GLARebelAmbush3",
+  "text": "Rebellenhinterhalt 3"
+ },
+ {
+  "label": "SCIENCE:GLACashBounty1",
+  "text": "Kopfgeld 1"
+ },
+ {
+  "label": "SCIENCE:GLACashBounty2",
+  "text": "Kopfgeld 2"
+ },
+ {
+  "label": "SCIENCE:GLACashBounty3",
+  "text": "Kopfgeld 3"
+ },
+ {
+  "label": "SCIENCE:GLAAnthraxBomb",
+  "text": "Anthrax-Bombe"
+ },
+ {
+  "label": "CONTROLBAR:Demoralize",
+  "text": "Demoralisieren"
+ },
+ {
+  "label": "CONTROLBAR:CIAIntelligence",
+  "text": "Geheimdiens&t"
+ },
+ {
+  "label": "CONTROLBAR:CombatDrop",
+  "text": "&Kampfabwurf"
+ },
+ {
+  "label": "CONTROLBAR:Guard",
+  "text": "&Bewachen"
+ },
+ {
+  "label": "CONTROLBAR:GuardWithoutPursuit",
+  "text": "&Nah bewachen"
+ },
+ {
+  "label": "CONTROLBAR:GuardFlyingUnitsOnly",
+  "text": "&Luft bewachen"
+ },
+ {
+  "label": "CONTROLBAR:AttackMove",
+  "text": "&Angriffsbewegung"
+ },
+ {
+  "label": "CONTROLBAR:Stop",
+  "text": "&Stopp"
+ },
+ {
+  "label": "CONTROLBAR:Waypoints",
+  "text": "&Wegpunkt"
+ },
+ {
+  "label": "CONTROLBAR:CancelBuild",
+  "text": "Bau a&bbrechen"
+ },
+ {
+  "label": "CONTROLBAR:Contaminate",
+  "text": "&Kontaminieren"
+ },
+ {
+  "label": "CONTROLBAR:FireWall",
+  "text": "&Feuerwand"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLAArmTheMob",
+  "text": "Bewaffnet den &Mob"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaOverlordGattlingCannon",
+  "text": "Gatling-&Kanone"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaOverlordPropagandaTower",
+  "text": "Propaganda&turm"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaOverlordBattleBunker",
+  "text": "Kampf&bunker"
+ },
+ {
+  "label": "CONTROLBAR:FireBomb",
+  "text": "&Brandbombe"
+ },
+ {
+  "label": "CONTROLBAR:UnderConstructionDesc",
+  "text": "Bau: %.0f%%"
+ },
+ {
+  "label": "CONTROLBAR:OCLTimerDesc",
+  "text": "Zeit bis zum nächsten Abwurf: %d:%d"
+ },
+ {
+  "label": "CONTROLBAR:OCLTimerDescWithPadding",
+  "text": "Zeit bis zum nächsten Abwurf: %d:0%d"
+ },
+ {
+  "label": "CONTROLBAR:InitiateBattlePlanBombardment",
+  "text": "Schlachtplan: &Bombardement"
+ },
+ {
+  "label": "CONTROLBAR:InitiateBattlePlanHoldTheLine",
+  "text": "Schlachtplan: &Linie halten"
+ },
+ {
+  "label": "CONTROLBAR:InitiateBattlePlanSearchAndDestroy",
+  "text": "Plan: &Suchen und Zerstören"
+ }
+]

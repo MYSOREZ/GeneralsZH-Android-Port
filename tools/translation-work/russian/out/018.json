@@ -1,0 +1,802 @@
+[
+ {
+  "label": "GUI:BioClassNumber_Pos8",
+  "text": "Не применимо"
+ },
+ {
+  "label": "GUI:BioDefeatedEntry_Pos8",
+  "text": "TBD"
+ },
+ {
+  "label": "GUI:BioVictoriousEntry_Pos8",
+  "text": "TBD"
+ },
+ {
+  "label": "GUI:BioNameEntry_Pos9",
+  "text": "Генерал Линг"
+ },
+ {
+  "label": "GUI:BioDOBEntry_Pos9",
+  "text": "TBD"
+ },
+ {
+  "label": "GUI:BioBirthplaceEntry_Pos9",
+  "text": "База \"Дракон\", Ланчоу, Китай"
+ },
+ {
+  "label": "GUI:BioStrategyEntry_Pos9",
+  "text": "Неизвестно"
+ },
+ {
+  "label": "GUI:BioRankEntry_Pos9",
+  "text": "Генерал Дракон, класса AAAA"
+ },
+ {
+  "label": "GUI:BioBranchEntry_Pos9",
+  "text": "НОА - Элитные войска"
+ },
+ {
+  "label": "TOOLTIP:BioStrategyLong_Pos9",
+  "text": "Генерал \"Тигрица\" Лейонг Линг использует все доступные технологии для поражения врага"
+ },
+ {
+  "label": "GUI:BioClassNumber_Pos9",
+  "text": "Неизвестно"
+ },
+ {
+  "label": "GUI:BioDefeatedEntry_Pos9",
+  "text": "Это было интересным сражением. Может, Вы вызовите меня еще раз на поединок."
+ },
+ {
+  "label": "GUI:BioVictoriousEntry_Pos9",
+  "text": "Повысьте свои навыки и вызовите меня на поединок снова."
+ },
+ {
+  "label": "GUI:BioNameEntry_Pos10",
+  "text": "TBD"
+ },
+ {
+  "label": "GUI:BioDOBEntry_Pos10",
+  "text": "33"
+ },
+ {
+  "label": "GUI:BioBirthplaceEntry_Pos10",
+  "text": "TBD"
+ },
+ {
+  "label": "GUI:BioStrategyEntry_Pos10",
+  "text": "TBD"
+ },
+ {
+  "label": "GUI:BioRankEntry_Pos10",
+  "text": "."
+ },
+ {
+  "label": "GUI:BioBranchEntry_Pos10",
+  "text": "."
+ },
+ {
+  "label": "TOOLTIP:BioStrategyLong_Pos10",
+  "text": "."
+ },
+ {
+  "label": "GUI:BioClassNumber_Pos10",
+  "text": "."
+ },
+ {
+  "label": "GUI:BioDefeatedEntry_Pos10",
+  "text": "TBD"
+ },
+ {
+  "label": "GUI:BioVictoriousEntry_Pos10",
+  "text": "TBD"
+ },
+ {
+  "label": "GUI:BioNameEntry_Pos11",
+  "text": "TBD"
+ },
+ {
+  "label": "GUI:BioDOBEntry_Pos11",
+  "text": "TBD"
+ },
+ {
+  "label": "GUI:BioBirthplaceEntry_Pos11",
+  "text": "TBD"
+ },
+ {
+  "label": "GUI:BioStrategyEntry_Pos11",
+  "text": "TBD"
+ },
+ {
+  "label": "GUI:BioRankEntry_Pos11",
+  "text": "."
+ },
+ {
+  "label": "GUI:BioBranchEntry_Pos11",
+  "text": "."
+ },
+ {
+  "label": "TOOLTIP:BioStrategyLong_Pos11",
+  "text": "."
+ },
+ {
+  "label": "GUI:BioClassNumber_Pos11",
+  "text": "."
+ },
+ {
+  "label": "GUI:BioDefeatedEntry_Pos11",
+  "text": "TBD"
+ },
+ {
+  "label": "GUI:BioVictoriousEntry_Pos11",
+  "text": "TBD"
+ },
+ {
+  "label": "TOOLTIP:BioStrategyLong_GLA",
+  "text": "Международная армия освобождения предпочитает скрытную тактику для поражения врагов"
+ },
+ {
+  "label": "TOOLTIP:BioStrategyLong_China",
+  "text": "Китай использует огневую мощь и количественное превосходство для поражения своих врагов"
+ },
+ {
+  "label": "TOOLTIP:BioStrategyLong_USA",
+  "text": "США использует высокотехнологическое оружие и опыт для поражения своего врага"
+ },
+ {
+  "label": "TOOLTIP:BioStrategyLong_Random",
+  "text": "Армия будет выбрана случайным образом"
+ },
+ {
+  "label": "GUI:ChallengeWinText",
+  "text": "Поздравляем, Вы нанесли поражение %s"
+ },
+ {
+  "label": "GUI:ChallengeLossText",
+  "text": "%s нанёс Вам поражение"
+ },
+ {
+  "label": "CREDITS:DevelopmentDirector",
+  "text": "Руководитель разработки"
+ },
+ {
+  "label": "CREDITS:GeneralManager",
+  "text": "Генеральный управляющий Electronic Arts Los Angeles"
+ },
+ {
+  "label": "CREDITS:LeadArtist",
+  "text": "Главный художник"
+ },
+ {
+  "label": "CREDITS:QADirector",
+  "text": "Начальник отдела контроля качества"
+ },
+ {
+  "label": "CREDITS:SrTestLead",
+  "text": "Старший ведущий тестировщик"
+ },
+ {
+  "label": "CREDITS:AssistantMultiplayerTestLead",
+  "text": "Помощник ведущего тестировщика сетевой игры"
+ },
+ {
+  "label": "CREDITS:TestAnalyst",
+  "text": "Аналитик-тестировщик"
+ },
+ {
+  "label": "CREDITS:AssistantProducer",
+  "text": "Помощник продюсера"
+ },
+ {
+  "label": "CREDITS:CameoPhotoshootStudio",
+  "text": "Фотосъёмка в Out West Studio"
+ },
+ {
+  "label": "CREDITS:Models",
+  "text": "Натурщики"
+ },
+ {
+  "label": "CREDITS:Actors",
+  "text": "Актёры"
+ },
+ {
+  "label": "CREDITS:VisualEffectsAndEditing",
+  "text": "Видеоэффекты и монтаж"
+ },
+ {
+  "label": "CREDITS:NewsReporterVideos",
+  "text": "Новостные видеоролики"
+ },
+ {
+  "label": "CREDITS:DirectorOfProductLocalization",
+  "text": "Руководитель локализации продукта, EALA"
+ },
+ {
+  "label": "CREDITS:LocalizationAssistance",
+  "text": "Помощь в локализации"
+ },
+ {
+  "label": "ACADEMY:Eva",
+  "text": "Тактический анализ"
+ },
+ {
+  "label": "ACADEMY:BuildAllStructures",
+  "text": "Генерал, когда Вы на поле боя, используйте для победы все доступные Вам средства. Убедитесь, что Вы построили все доступные здания. Вы должны иметь под рукой мощные военные силы"
+ },
+ {
+  "label": "ACADEMY:BuildSupplyCenterEarlier",
+  "text": "Генерал, одна из важных основ могучего лидера является своевременные поставки снабжения солдатам. Мы надеемся Вы не забываете строить центр или склад снабжения в самом начале миссии. Снабжение приносит наличные, а наличные в свое время победу"
+ },
+ {
+  "label": "ACADEMY:TryBuildingRadar",
+  "text": "Туман войны окружает нас всех. Разглядеть что-то в этой мгле поможет радар. Каждая фракция обзаводится своим глазом в небе по-своему. Командный центр США сразу оснащён радаром, командный центр Китая нужно улучшить, а МАО должна построить радарный фургон у продавца оружия"
+ },
+ {
+  "label": "ACADEMY:BuildMorePeons",
+  "text": "Если Вы спросите у любого другого генерала, то он скажет Вам одно простое правило: армия держится на простых работягах. Чтобы построить Вашу базу Вам потребуются Ваши бульдозеры или рабочие. Эти парни являются ключом к Вашему успеху, так что не забывайте о них!"
+ },
+ {
+  "label": "ACADEMY:TryCapturingStructures",
+  "text": "Генерал, иногда проще взять то, что Вам нужно, чем добиваться этого трудом. Если Вы проведёте улучшение \"Захват зданий\" в Вашей казарме, то сможете захватывать вражеские здания. Кроме того, по всему полю боя разбросаны технологические здания, которые могут ещё больше усилить Вашу армию"
+ },
+ {
+  "label": "ACADEMY:SpendGeneralsPoints",
+  "text": "Война приносит трофеи. Каждый раз, уничтожая врага, Вы приближаетесь к получению новых очков генерала. Их можно потратить, нажав кнопку со \"звёздочкой\" на правой стороне панели управления. Просто откройте меню очков генерала и потратьте заработанные потом и кровью очки на новые военные игрушки"
+ },
+ {
+  "label": "ACADEMY:TryUsingSuperweapons",
+  "text": "Зачем получать очки опыта генерала, если Вы их не используете? Когда Вы получили способность генерала, потратив Ваши очки опыта, появится иконка на правой стороне экрана. Просто нажмите на неё и задайте всем жару. Чем больше очков Вы тратите, тем сильнее будут умения генерала"
+ },
+ {
+  "label": "ACADEMY:TryGarrisoningAStructure",
+  "text": "Солдаты могут быть эффективны на открытой местности, но гораздо опаснее, когда занимают гражданские здания. Выделите своих солдат и отправьте их в свободное здание. Стены защитят их, если только к ним не пожалуют световые гранаты, химический трактор или танк Дракон"
+ },
+ {
+  "label": "ACADEMY:IdleBuildingUnits",
+  "text": "Генерал, создание и командование великой армией должно быть Вашей высшей целью. Убедитесь, что Вы строите боевые подразделения: нажмите на казарму, военный завод, аэродром и т.п., а затем на соответствующее изображение на панели управления внизу. Эти деньги будут потрачены с пользой и помогут Вам одержать победу"
+ },
+ {
+  "label": "ACADEMY:TryDragSelectingUnits",
+  "text": "Правильная манипуляция своей армией, одна из главных вещей, которыми должен владеть Генерал. Быстро выделить группу подразделений можно набросив на них \"лассо\", это гораздо быстрее, чем выделение каждого подразделения по отдельности. Просто зажмите кнопку и двигайте мышь, обводя подразделения четырехугольником. Теперь они будут ждать получения Вашего приказа. Если Вы нажмете по другому месту, то подразделения начнут движение к нему"
+ },
+ {
+  "label": "ACADEMY:ResearchUpgrades",
+  "text": "Хороший генерал может построить много танков, но опытный генерал может создать много хороших танков. Почти все подразделения могут быть улучшены. Улучшение уже имеющихся войск - хороший способ потрать свои деньги"
+ },
+ {
+  "label": "ACADEMY:RanOutOfPower",
+  "text": "Международная армия освобождения не нуждается в электроэнергии, в то время как Китай и США потребляют её в огромном количестве. Чтобы держать свою базу в работоспособном состоянии, генерал должен тратить деньги на снабжение электроэнергии своего военного аппарата. Стройте термоядерные реакторы или ядерные реакторы для максимально выхода энергии. Мало электроэнергии - мало шансов на успех"
+ },
+ {
+  "label": "ACADEMY:BuildMoreGatherers",
+  "text": "Генерал, убедитесь достаточно ли Вы создали рабочих или грузовиков снабжения или Чинуков для поддержки постоянного дохода. Вы можете создать дополнительного сборщика ресурсов, нажав по соответствующему изображению в Центре или Складе снабжения. Не бойтесь увеличивать поток доходов"
+ },
+ {
+  "label": "ACADEMY:BuildAHero",
+  "text": "Джармен Келл, полковник Бартон и Чёрный Лотос могут оказаться бесценными для Вашей стратегии. Эти герои способны переломить ход битвы и невидимы для врага. Чтобы найти своего героя на радаре, ищите значок прицела. Хотя одновременно можно иметь только одного такого героя, не стоит недооценивать их значение"
+ },
+ {
+  "label": "ACADEMY:PickStrategyCenterPlan",
+  "text": "Стратегический центр это очень полезное здание. Вы недолжны забывать выбирать стратегию лучшую для ситуации. Найти и ликвидировать, Бомбардировка и Держать линию - все они помогут Вам добиться нужного результата. Кроме стратегий это здание даст Вам доступ к большому количеству улучшениям"
+ },
+ {
+  "label": "ACADEMY:UseTunnelNetwork",
+  "text": "Визитная карточка Международной армии освобождения это быстрое и незаметное перемещение по полю боя. У сети туннелей не только оборонительные функции, она также может позволить игроку быстро перемещаться. Просто постройте несколько сетей туннелей и отправляйте в них свои подразделения. Вы можете приказать им выйти из другой сети туннелей в любом месте на карте. Это основа всей стратегии МАО"
+ },
+ {
+  "label": "ACADEMY:UseControlGroups",
+  "text": "Иногда бывает очень сложно управлять огромной армией. Есть только один способ управлять большим количеством подразделений - создание \"управляемой группы\". Просто выделите группу подразделений и нажмите одновременно \"Ctrl\" и цифру на клавиатуре. Теперь в любой момент можно выбрать эту группу подразделений простым нажатием цифры. Быстро нажав цифру дважды, камера переместится к этой группе подразделений"
+ },
+ {
+  "label": "ACADEMY:UseSecondaryIncomeMethods",
+  "text": "Генерал, добывать снабжение в конце миссии бывает непросто. У каждой фракции есть свой уникальный способ получать средства в долгих сражениях. Китай может нанять хакеров и построить Центр Интернет. Вы можете приказать хакерам добывать деньги через интернет в любом месте или просто отправить их в Центр Интернет, чтобы зарабатывать ещё быстрее. МАО полагается на чёрный рынок, а США — на сброс снабжения. Если не планировать заранее, может возникнуть нехватка средств"
+ },
+ {
+  "label": "ACADEMY:ClearBuildings",
+  "text": "Оккупированные здания не всегда можно взять быстро, конечно, если не знаете некоторых хитростей. Улучшите Ваших рейнджеров США с помощью световых гранат, постройте химические тракторы МАО или китайские танки Драконы для быстрой зачистки укрепленных позиций. США может произвести улучшение до противобункерных ракет для зачистки сетей туннелей!"
+ },
+ {
+  "label": "ACADEMY:PickUpSalvage",
+  "text": "Бойцы МАО — народ коварный, но и находчивый. Каждый раз, когда подразделение МАО уничтожает технику, после неё остаются обломки. Проехав по обломкам, Ваши подразделения получат улучшения, повысят ранг или принесут немного денег. В долгом бою обломки могут сыграть большую роль, так что не оставляйте их валяться без дела"
+ },
+ {
+  "label": "ACADEMY:UseGuardAbility",
+  "text": "Иногда важно, чтобы подразделение стояло и охраняло определенную местность. Просто выделите подразделение и нажмите по кнопке с изображение \"щита\" или клавишу \"G\", а затем выберите местность для охраны. Подразделение будет атаковать любого врага, который попадет в радиус охраняемой местности"
+ },
+ {
+  "label": "ACADEMY:MultipleSupplyCenters",
+  "text": "Генерал, снабжение является основой игры. Оно может быть собрано из доков снабжения, находящихся на поле боя. Одного дока хватит только вначале и лучше найти еще несколько в течении миссии. Вы должны построить центр или склад снабжения в непосредственной близости с доком снабжения для эффективного сбора снабжения"
+ },
+ {
+  "label": "ACADEMY:GarrionVehicle",
+  "text": "Некоторые подразделения могут садиться или угонять технику. Угон техники, с помощью угонщика или террориста поможет Вам незаметно проникнуть на вражескую территорию"
+ },
+ {
+  "label": "ACADEMY:UseSelectionHotkeys",
+  "text": "Генерал, горячие клавиши могут Вам сильно помочь в управлении Вашими войсками. Нажатие \"E\" выделит все подразделения определенного типа на экрана. При двойном нажатии \"E\" будут выделены подразделения определенного типа на всем поле боя. Нажатие \"Q\" выделит все Ваши боевые подразделения на карте. Нажатие \"W\" выделит все Ваши воздушные подразделения на карте. Попробуйте раз и Вы будите пользоваться горячими клавишами всегда"
+ },
+ {
+  "label": "ACADEMY:AlternateMouseInterface",
+  "text": "Одно из нововведений это опция \"Альтернативная настройка мыши\", находящиеся в Меню Опций. Если Вы привыкли отдавать приказы своей армии правой кнопкой мыши, то эта опция может Вам помочь управлять армией привычным образом"
+ },
+ {
+  "label": "ACADEMY:DoubleClickAttackMoveGuard",
+  "text": "Генерал, мы создали новый способ управления Вашей армией. Просто выделите Ваши подразделения и отдайте приказ передвигаться двойным нажатием по месту назначения. Ваши подразделения будут двигаться в режиме атаки в движении и по прибытии на место назначение встанут в режим охраны. Вы можете включить эту опции в меню опций"
+ },
+ {
+  "label": "ACADEMY:BuildBarracksSooner",
+  "text": "Для создания сбалансированных сил Вы должны строить Казарму в начале миссии. Пехота может осуществить или разрушить Ваш план, и Вы недолжны забывать об этом"
+ },
+ {
+  "label": "ACADEMY:BuildWarFactorySooner",
+  "text": "Ни пехота, ни авиации не может сравнится с хорошим танком. Убедитесь, что построили военный завод или продавца оружия в начале миссии"
+ },
+ {
+  "label": "ACADEMY:BuildTechStructureSooner",
+  "text": "Для доступа к более совершенному вооружению стройте стратегический центр, центр пропаганды или дворец. Не забывайте, чем раньше Вы построите такое здание, тем больше у Вас шансов на успех"
+ },
+ {
+  "label": "ACADEMY:NoIncome",
+  "text": "Генерал, для Вашего успеха жизненно необходимо поставлять снабжение на протяжении всей миссии. Большие паузы в поставке снабжения ведут к Вашему поражению. Убедитесь, что снабжение поставляется вовремя"
+ },
+ {
+  "label": "ACADEMY:ClearMines",
+  "text": "Фугасы и мины могут действительно испортить настроение. Этой тактике можно противостоять, только используя бульдозеры или рабочих для зачистки местности от этих опасных находок"
+ },
+ {
+  "label": "ACADEMY:UnmannedVehicles",
+  "text": "Генерал, некоторые подразделения могут отстреливать или устранять водителей техники. Когда это происходит, техника становится нейтральной и её можно \"позаимствовать\" у врага. Не стесняйтесь приобретать технику за деньги врага"
+ },
+ {
+  "label": "ACADEMY:DisguisedUnits",
+  "text": "Некоторые подразделения умеют маскироваться под другие. Нет ничего приятнее, чем незаметно пригнать грузовик со взрывчаткой МАО на вражескую базу и устроить там хаос. Обязательно используйте эту важную тактику в своём плане сражения"
+ },
+ {
+  "label": "ACADEMY:StealthUpgrade",
+  "text": "Некоторые здания могут быть улучшены с помощью маскировочной сеткой, например сеть туннелей МАО или гнездо стингеров. Они будут незаметны для врага пока не станет слишком поздно. Сюрприз!"
+ },
+ {
+  "label": "ACADEMY:Firestorm",
+  "text": "Китай имеют уникальную способность для создания огненной бури, когда множество МИГов или самоходных минометов Инферно ведут огонь по одному врагу или местности. Не забывайте координировать Ваши атаки для максимального эффекта"
+ },
+ {
+  "label": "GUI:HeatEffects",
+  "text": "Оптические эффекты"
+ },
+ {
+  "label": "TOOLTIP:HeatEffects",
+  "text": "Включение и выключение эффектов теплового искажения. Выключите для повышения производительности"
+ },
+ {
+  "label": "GUI:WeatherEffects",
+  "text": "Погодные эффекты"
+ },
+ {
+  "label": "TOOLTIP:WeatherEffects",
+  "text": "Выключатель погодных эффектов, таких как снег. Выключите для повышения производительности"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_AllyUnderAttackSubtitle",
+  "text": "*Наш союзник атакован"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_BaseDefensesOffLineSubtitle",
+  "text": "*Оборона нашей базы отключена"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_BeaconDetectedSubtitle",
+  "text": "*Установлен маяк"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_BlackLotusEnemySubtitle",
+  "text": "*Обнаружен вражеский Чёрный Лотос"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_BlackLotusOursSubtitle",
+  "text": "*Чёрный Лотос обнаружен"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_BuildingBeingCapturedSubtitle",
+  "text": "*Наше здание захватывают"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_BuildingDisabledSubtitle",
+  "text": "*Здание выведено из строя"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_BuildingEnabledSubtitle",
+  "text": "*Здание снова в строю"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_BuildingStolenSubtitle",
+  "text": "*Враг захватил одно из наших зданий"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_CashStolenSubtitle",
+  "text": "*Генерал, у нас крадут деньги"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_ColonelBurtonEnemySubtitle",
+  "text": "*Обнаружен вражеский полковник Бартон"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_ColonelBurtonOursSubtitle",
+  "text": "*Полковник Бартон обнаружен"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_DefeatSubtitle",
+  "text": "*Мы потерпели поражение"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_DetectedNukeSubtitle",
+  "text": "*Внимание: обнаружена ракетная шахта"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_DetectedParticleCannonSubtitle",
+  "text": "*Внимание: обнаружена молекулярная пушка"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_DetectedScudStormSubtitle",
+  "text": "*Внимание: обнаружена залповая установка ракет Р-17М"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_FundsReceivedSubtitle",
+  "text": "*Мы получили средства от союзника"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_FundsRequestedSubtitle",
+  "text": "*Вы запросили средства у союзника"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_FundsRequestedAllySubtitle",
+  "text": "*Союзник запрашивает средства"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_FundsTransferredSubtitle",
+  "text": "*Мы перевели средства союзнику"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_GeneralLevelUpSubtitle",
+  "text": "*Поздравляем, генерал. Вы получили повышение"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_GPSScramblerLaunchedSubtitle",
+  "text": "*Внимание. Активировано скрытие от СВМ"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_IncomingAnthraxSubtitle",
+  "text": "*Внимание: сброшена бомба с сибирской язвой"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_IncomingDaisyCutterSubtitle",
+  "text": "*Внимание: сброшена бомба \"Дэйзи Каттер\""
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_IncomingEmpPulseSubtitle",
+  "text": "*Внимание: сброшена электромагнитная бомба"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_IncomingFuelAirBombSubtitle",
+  "text": "*Внимание: сброшена бомба с напалмом"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_InsufficientFundsSubtitle",
+  "text": "*Нам нужно больше средств"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_JarmenKellEnemySubtitle",
+  "text": "*Обнаружен вражеский Джармен Келл"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_JarmenKellOursSubtitle",
+  "text": "*Джармен Келл обнаружен"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_LaserDefenseSpeechSubtitle",
+  "text": "*Генерал, у противника укреплённая позиция в центре города. Его лазерная система обороны разрушительна, но требует много энергии. Ему придётся перебрасывать энергию поочерёдно с одной точки обороны на другую. Используйте это"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_LaunchedNukeSubtitle",
+  "text": "*Внимание: запущена ядерная ракета"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_LaunchedParticleCannonSubtitle",
+  "text": "*Внимание: обнаружен залп молекулярной пушки"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_LaunchedScudStormSubtitle",
+  "text": "*Внимание: запущена залповая установка ракет Р-17М"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_LowPowerSubtitle",
+  "text": "*У нас мало энергии"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_NuclearMissileDetectedAllySubtitle",
+  "text": "*Наш союзник построил ракетную шахту"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_NuclearMissileLaunchedAllySubtitle",
+  "text": "*Наш союзник запустил ядерную ракету"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_NuclearMissileLaunchedOursSubtitle",
+  "text": "*Мы запустили ядерную ракету"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_NuclearMissileReadySubtitle",
+  "text": "*Наша ядерная ракета готова, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_OpinionCivilianStructures01Subtitle",
+  "text": "*Генерал, следите, чтобы гражданские здания не были разрушены"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_OpinionCivilianStructures02Subtitle",
+  "text": "*Разрушение гражданских зданий ухудшит мировое общественное мнение о нас!"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_OpinionDestroyStatuesSubtitle",
+  "text": "*Уничтожайте статуи МАО, чтобы улучшить мировое общественное мнение, сэр"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_OpinionDestroyStructuresSubtitle",
+  "text": "*Сэр, уничтожение вражеских зданий улучшит мировое общественное мнение о нас"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_OpinionDestroyTroopsSubtitle",
+  "text": "*Уничтожайте больше вражеских войск, чтобы улучшить мировое общественное мнение"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_OpinionFallingSubtitle",
+  "text": "*Мировое общественное мнение о нас ухудшается!"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_OpinionLowSubtitle",
+  "text": "*Мировое общественное мнение о нас становится низким"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_OpinionLowCriticalSubtitle",
+  "text": "*Мировое общественное мнение о нас критически низкое!"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_OpinionLowVerySubtitle",
+  "text": "*Мировое общественное мнение о нас очень низкое"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_OpinionProtectCivilianSubtitle",
+  "text": "*Защищайте гражданское имущество от ущерба"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_OpinionRisingSubtitle",
+  "text": "*Мировое общественное мнение о нас улучшается!"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_ParticleCannonDetectedAllySubtitle",
+  "text": "*Наш союзник построил молекулярную пушку"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_ParticleCannonLaunchedAllySubtitle",
+  "text": "*Наш союзник активировал молекулярную пушку"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_ParticleCannonLaunchedOursSubtitle",
+  "text": "*Наша молекулярная пушка активирована"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_ParticleCannonReadySubtitle",
+  "text": "*Наша молекулярная пушка готова, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_ReinforcementsHaveArrivedSubtitle",
+  "text": "*Прибыло подкрепление"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_ScudStormDetectedAllySubtitle",
+  "text": "*Наш союзник построил залповую установку ракет Р-17М"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_ScudStormLaunchedAllySubtitle",
+  "text": "*Наш союзник запустил залповую установку ракет Р-17М"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_ScudStormLaunchedOursSubtitle",
+  "text": "*Наша залповая установка ракет Р-17М запущена"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_ScudStormReadySubtitle",
+  "text": "*Наша залповая установка ракет Р-17М готова, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_SelectTargetSubtitle",
+  "text": "*Выберите цель"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_SneakAttackLaunchedSubtitle",
+  "text": "*Внимание. Обнаружена внезапная атака"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_UnitLostSubtitle",
+  "text": "*Подразделение потеряно"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_UpgradeCompleteSubtitle",
+  "text": "*Улучшение завершено"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_UpgradeEMPminesSubtitle",
+  "text": "*Улучшение \"Нейтронные мины\" завершено"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_UpgradeNeutronShellSubtitle",
+  "text": "*Улучшение \"Нейтронные снаряды\" завершено"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_VehicleStolenSubtitle",
+  "text": "*Угнана техника"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_VictorySubtitle",
+  "text": "*Мы победили"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_AllyUnderAttackSubtitle",
+  "text": "*Наш союзник атакован"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_BaseDefensesOffLineSubtitle",
+  "text": "*Оборона нашей базы не работает"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_BeaconDetectedSubtitle",
+  "text": "*Установлен маяк"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_BlackLotusEnemySubtitle",
+  "text": "*Обнаружен вражеский Чёрный Лотос"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_BlackLotusOursSubtitle",
+  "text": "*Враг заметил нашего Джармена Келла"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_BuildingBeingCapturedSubtitle",
+  "text": "*Генерал, у нас крадут деньги"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_BuildingDisabledSubtitle",
+  "text": "*Здание перестало работать"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_BuildingEnabledSubtitle",
+  "text": "*Наше здание снова работает"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_BuildingStolenSubtitle",
+  "text": "*Враг захватил наше здание"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_CashStolenSubtitle",
+  "text": "*Генерал, у нас крадут деньги"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_ColonelBurtonEnemySubtitle",
+  "text": "*Обнаружен вражеский полковник Бартон"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_ColonelBurtonOursSubtitle",
+  "text": "*Враг заметил нашего полковника Бартона"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_DefeatSubtitle",
+  "text": "*Мы потерпели поражение"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_DetectedNukeSubtitle",
+  "text": "*Осторожно, мы заметили ракетную шахту"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_DetectedParticleCannonSubtitle",
+  "text": "*Будьте начеку, мы обнаружили вражескую молекулярную пушку"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_DetectedScudStormSubtitle",
+  "text": "*Осторожно, враг построил залповую установку ракет Р-17М"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_EliteGuardUpgrade01Subtitle",
+  "text": "*Теперь наши здания будут под охраной"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_EliteGuardUpgrade02Subtitle",
+  "text": "*Мы переходим на элитную охрану"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_EliteGuardUpgrade03Subtitle",
+  "text": "*Теперь элитная охрана защищает наши здания"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_FundsReceivedSubtitle",
+  "text": "*Мы получили средства от союзника"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_FundsRequestedSubtitle",
+  "text": "*Вы запросили средства у союзника"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_FundsRequestedAllySubtitle",
+  "text": "*Союзник запрашивает средства"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_FundsTransferredSubtitle",
+  "text": "*Мы перевели средства союзнику"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_GeneralLevelUpSubtitle",
+  "text": "*Отлично, генерал. Вы получили новое звание"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_GPSScramblerLaunchedSubtitle",
+  "text": "*Генерал, враг использует скрытие от СВМ"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_IncomingAnthraxSubtitle",
+  "text": "*Будьте начеку, возможно, приближается бомба с сибирской язвой"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_IncomingDaisyCutterSubtitle",
+  "text": "*Будьте начеку. Возможно, приближается бомба \"Дэйзи Каттер\""
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_IncomingEmpPulseSubtitle",
+  "text": "*Будьте начеку. Возможно, приближается электромагнитная бомба"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_IncomingFuelAirBombSubtitle",
+  "text": "*Будьте начеку. Возможно, приближается бомба с напалмом"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_InsufficientFundsSubtitle",
+  "text": "*Нам понадобится больше средств, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_JarmenKellEnemySubtitle",
+  "text": "*Обнаружен вражеский Джармен Келл"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_JarmenKellOursSubtitle",
+  "text": "*Враг заметил наш Чёрный Лотос"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_LaserDefenseSpeechSubtitle",
+  "text": "*Генерал, у противника укреплённая позиция в центре города. Его лазерная система обороны разрушительна, но требует много энергии. Ему придётся перебрасывать энергию поочерёдно с одной точки обороны на другую. Используйте это"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_LaunchedNukeSubtitle",
+  "text": "*Генерал, запущена ядерная ракета!"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_LaunchedParticleCannonSubtitle",
+  "text": "*Генерал, враг применяет молекулярную пушку"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_LaunchedScudStormSubtitle",
+  "text": "*Генерал, запущена залповая установка ракет Р-17М"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_LowPowerSubtitle",
+  "text": "*У нас мало энергии"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_NuclearMissileDetectedAllySubtitle",
+  "text": "*Наш союзник построил ракетную шахту"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_NuclearMissileLaunchedAllySubtitle",
+  "text": "*Наш союзник запустил ядерную ракету"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_NuclearMissileLaunchedOursSubtitle",
+  "text": "*Запускаем ядерную ракету"
+ }
+]

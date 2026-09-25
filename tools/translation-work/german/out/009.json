@@ -1,0 +1,802 @@
+[
+ {
+  "label": "CONTROLBAR:ToolTipUSARangerCaptureBuilding",
+  "text": "Ausgewähltes feindliches Gebäude einnehmen"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSAFire20mmCannon",
+  "text": "20-mm-Kanone auf das Ziel abfeuern"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSAFireAntiTankMissiles",
+  "text": "Panzerabwehrraketen auf das Ziel abfeuern"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSAFireRocketPods",
+  "text": "Raketensalve auf den Zielbereich abfeuern"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAFireScorpionRocket",
+  "text": "Eine einzelne schwere Rakete auf das Ziel abfeuern"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLASCUDHEWarhead",
+  "text": "Die SCUD-Rakete mit Sprengstoff laden"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLASCUDAnthraxWarhead",
+  "text": "Die SCUD-Rakete mit Anthrax laden"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAFireToxinTractorSlime",
+  "text": "Das Gebiet mit Toxinen besprühen"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLARebelCaptureBuilding",
+  "text": "Ausgewähltes feindliches Gebäude einnehmen"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLATerroristMakeCarBomb",
+  "text": "In ein ziviles Auto steigen und es mit Sprengstoff füllen"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAFireFireBomb",
+  "text": "Brandbomben auf das Ziel einsetzen"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAHijackerHijack",
+  "text": "Ausgewähltes feindliches Fahrzeug kapern"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAFireJarmenKellVehicleSnipe",
+  "text": "Fahrzeugbesatzung ausschalten"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaFireMIG",
+  "text": "Feuer"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaRedGuardCaptureBuilding",
+  "text": "Ausgewähltes feindliches Gebäude einnehmen"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaRedGuardFireStunBullets",
+  "text": "Ausgewählten feindlichen Soldaten gefangen nehmen"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaRedGuardFireBayonet",
+  "text": "Bajonett gegen ausgewählten feindlichen Soldaten einsetzen"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaFireBlackLotusCaptureHack",
+  "text": "Feindliches Gebäude einnehmen"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaFireBlackLotusVehicleHack",
+  "text": "Feindliches Fahrzeug lahmlegen"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaFireBlackLotusCashHack",
+  "text": "Geld aus dem ausgewählten feindlichen Versorgungszentrum stehlen"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaFireHackerInternetHack",
+  "text": "Ins Internet eindringen, um Geld zu stehlen"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaHackerBuildingHack",
+  "text": "Feindliches Gebäude mit einem mächtigen Computervirus lahmlegen"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaDragonTankFire",
+  "text": "Feuer"
+ },
+ {
+  "label": "CONTROLBAR:TooltipFireWall",
+  "text": "Einen Feuerbogen über den Zielbereich legen"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipPickUpPrisoner",
+  "text": "Feindlichen Gefangenen aufnehmen, um ihn zu deiner Basis zu bringen"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipReturnToPrison",
+  "text": "Zum Gefangenenlager zurückkehren"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaFireTankHunterTNTAttack",
+  "text": "Eine TNT-Sprengladung anbringen"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSAFireBurtonKnifeAttack",
+  "text": "Messer lautlos gegen ausgewählten feindlichen Soldaten einsetzen"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSAFireBurtonTimedDemo",
+  "text": "Eine Sprengladung mit Zeitzünder anbringen"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABurtonPlaceRemoteCharge",
+  "text": "Eine ferngezündete Sprengladung anbringen, die du jederzeit zünden kannst"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABurtonDetonateCharges",
+  "text": "Alle ferngezündeten Ladungen zünden"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipCancelConstruction",
+  "text": "Bau abbrechen"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildCommandCenter",
+  "text": "Steuert Spezialwaffen. Erstellt Bulldozer. Liefert Radar"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildPowerPlant",
+  "text": "Liefert Strom für USA-Basen \n \n Stromerzeugung: 5"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildBarracks",
+  "text": "Bildet USA-Soldaten für den Kampf aus"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildSupplyCenter",
+  "text": "Abladepunkt für Chinook-Versorgungshubschrauber der USA \n \n Strombedarf: 1"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildWall",
+  "text": "Zaunsystem der USA. Lasersensoren melden feindliche Truppen, die den Zaun durchqueren. Der Zaun blockiert feindliche Fahrzeuge"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildWarFactory",
+  "text": "Baut alle Bodenfahrzeuge der USA \n \n Strombedarf: 1"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildPatriotBattery",
+  "text": "Boden- und Luftabwehr. Kann Feindpositionen an Patriot-Raketensysteme in der Nähe weitergeben \n \n Strombedarf: 3"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildAirField",
+  "text": "Baut Flugzeuge der USA \n \n Strombedarf: 1"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildParticleCannon",
+  "text": "Feuert einen Partikelstrahl auf jeden Punkt der Karte \n \n Strombedarf: 10"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildStrategyCenter",
+  "text": "Alle USA-Streitkräfte können einen gemeinsamen Schlachtplan nutzen \n \n Bombardement \n Suchen und Zerstören \n Stellung halten \n \n Strombedarf: 2"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildDetentionCamp",
+  "text": "Ermöglicht das Ausspionieren von Feinden"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildSupplyDropZone",
+  "text": "Fordert alle 2 Minuten einen Fallschirmabwurf mit Nachschub an \n \n Strombedarf: 4"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildCommandCenter",
+  "text": "Steuert Spezialwaffen. Bildet Arbeiter aus"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABUildDemoTrap",
+  "text": "Getarnter Sprengsatz"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildBarracks",
+  "text": "Bildet GBA-Soldaten aus"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildSupplyStash",
+  "text": "Sammelt Nachschub"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildArmsDealer",
+  "text": "Baut Fahrzeuge"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildCommandCenter",
+  "text": "Steuert Spezialwaffen. Erstellt Bulldozer"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildPowerPlant",
+  "text": "Chinesisches Kraftwerk. Kann überlastet werden: +50% produzierter Strom \n \n Stromerzeugung: 10"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildBarracks",
+  "text": "Bildet chinesische Soldaten aus"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildSupplyCenter",
+  "text": "Abladepunkt für chinesische Versorgungslaster \n \n Strombedarf: 1"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildWarFactory",
+  "text": "Baut chinesische Fahrzeuge \n \n Strombedarf: 1"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildBunker",
+  "text": "Bietet Platz für 5 chinesische Soldaten"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildPropagandaCenter",
+  "text": "Baut wichtige chinesische Technologien \n \n Strombedarf: 2"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildAirField",
+  "text": "Baut chinesische Flugzeuge \n \n Strombedarf: 1"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildGattlingCannon",
+  "text": "Starke Flugabwehr zur Basisverteidigung \n \n Strombedarf: 3"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildNuclearMissileLauncher",
+  "text": "Startet eine Atomrakete. Baut wichtige chinesische Upgrades \n \n Strombedarf: 10"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildSpeakerTower",
+  "text": "Heilt deine Truppen und erhöht die Feuergeschwindigkeit \n \n Strombedarf: 1"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildTunnelNetwork",
+  "text": "Basisverteidigung und unterirdischer Tunnel. Einheiten können ein Tunnelnetz betreten und bei jedem anderen Tunnelnetz wieder verlassen"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildPalace",
+  "text": "Beherbergt wichtige GBA-Technologien. Kann von GBA-Truppen besetzt werden"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildBlackMarket",
+  "text": "Beherbergt wichtige GBA-Technologien. Liefert dem GBA-Spieler kostenlosen Nachschub"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildStingerSite",
+  "text": "Basisverteidigung gegen Luft- und Bodenfahrzeuge"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildScudStorm",
+  "text": "Feuert eine Salve von SCUD-Raketen ab \n \n Countdown: 5:00"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildPrison",
+  "text": "Dient zur Unterbringung gefangener feindlicher Soldaten"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildRanger",
+  "text": "Stark gegen Infanterie \n Schwach gegen leichte Fahrzeuge"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildDozer",
+  "text": "Baut alle Gebäude der USA und repariert Gebäude"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildWorker",
+  "text": "Baut alle Gebäude der GBA. Repariert Gebäude und sammelt Nachschub"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildDozer",
+  "text": "Baut alle chinesischen Gebäude und repariert Gebäude"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildScorpion",
+  "text": "Stark gegen leichte Fahrzeuge \n Schwach gegen Raketensoldaten, Flugzeuge"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildRocketBuggy",
+  "text": "Stark gegen Gebäude \n Schwach gegen Panzer, Flugzeuge"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildRadarVan",
+  "text": "Liefert Radar. Kann getarnte feindliche Einheiten aufspüren"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildOverlord",
+  "text": "Stark gegen Fahrzeuge, Gebäude \n Schwach gegen raketenbewaffnete Infanterie, Flugzeuge"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildGattlingTank",
+  "text": "Stark gegen Infanterie, Flugzeuge \n Schwach gegen Panzer"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildRebel",
+  "text": "Stark gegen Infanterie \n Schwach gegen Panzer, leichte Fahrzeuge"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildRedguard",
+  "text": "Erhält Hordenbonus in Gruppen ab 5 Einheiten \n \nStark gegen Infanterie \n Schwach gegen Fahrzeuge"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildHacker",
+  "text": "Kann feindliche Gebäude mit einem Computervirus lahmlegen oder ins Internet eindringen, um Geld zu stehlen \n \n Stark gegen Gebäude \n Schwach gegen Infanterie, Fahrzeuge"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABUildChinook",
+  "text": "Transporthubschrauber. Sammelt Nachschub. Führt mit Rangern Luftlandeangriffe durch"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildSupplyTruck",
+  "text": "Sammelt Nachschub"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildPaladin",
+  "text": "Zerstört Raketen und feindliche Infanterie mit einem Laser \n \n Stark gegen Panzer, Gebäude und Raketen \n Schwach gegen Flugzeuge"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildRaptor",
+  "text": "Kann Boden- und Luftziele bekämpfen \n \n Stark gegen Flugzeuge, Panzer, leichte Fahrzeuge \n Schwach gegen raketenbewaffnete Infanterie, Flugabwehr"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildAurora",
+  "text": "Der Überschallangriff macht den Aurora-Bomber immun gegen feindliches Feuer. Danach sinkt seine Geschwindigkeit auf 50% \n \n Stark gegen Gebäude \n Schwach gegen Jäger, Flugabwehreinheiten"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildStealthFighter",
+  "text": "Getarnt, während er sich bewegt \n \n Stark gegen feindliche Basisverteidigung \n Schwach gegen feindliche Jäger"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildComanche",
+  "text": "Feuert Raketen und Kanone. Munitioniert in der Luft auf \n \n Stark gegen Panzer, leichte Fahrzeuge, Infanterie \n Schwach gegen raketenbewaffnete Infanterie, Flugabwehr"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildMissileDefender",
+  "text": "Setzt einen speziellen lasergelenkten Angriff für Schnellfeuerraketen ein \n \n Stark gegen Panzer, Flugzeuge \n Schwach gegen Infanterie"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildPathFinder",
+  "text": "Getarnt, solange er sich nicht bewegt oder schießt. Spürt getarnte Feinde auf \n \n Stark gegen Infanterie \n Schwach gegen leichte Fahrzeuge, Späher"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildColonelBurton",
+  "text": "Getarnt. Enttarnt sich, wenn er schießt oder eine Bombe legt \n \n Baulimit: 1 \n Stark gegen Infanterie \n Schwach gegen Späher"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildTomahawk",
+  "text": "Stark gegen Basisverteidigung \n Schwach gegen Panzer, Flugzeuge, leichte Fahrzeuge"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildHumvee",
+  "text": "Transporter. Infanterie im Inneren kann durch Schießscharten auf den Feind feuern \n \n Stark gegen Infanterie \n Schwach gegen Panzer"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildMedic",
+  "text": "Heilt Fahrzeuge und Soldaten. Beseitigt Strahlung und Toxine"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildScoutDrone",
+  "text": "Erweitert die Sichtweite und enthüllt getarnte Feinde"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildBattleDrone",
+  "text": "Feuert ein kleines Maschinengewehr und repariert sein Trägerfahrzeug \n \n Stark gegen Infanterie \n Schwach gegen raketenbewaffnete Infanterie"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildMIG",
+  "text": "Erzeugt in großen Gruppen einen Feuersturm \n \n Stark gegen Panzer, leichte Fahrzeuge \n Schwach gegen raketenbewaffnete Infanterie, Flugabwehr"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildBlackLotus",
+  "text": "Nimmt feindliche Gebäude ein, stiehlt Geld aus feindlichen Versorgungszentren und legt feindliche Fahrzeuge lahm. Getarnt, solange sie keine Fähigkeit einsetzt \n \n Stark gegen Gebäude, Fahrzeuge \n Schwach gegen Späheinheiten"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildTankHunter",
+  "text": "Spezieller TNT-Angriff \n Erhält Hordenbonus in Gruppen ab 5 Einheiten \n \n Stark gegen Panzer \n Schwach gegen Infanterie"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildInfernoCannon",
+  "text": "Erzeugt in großen Gruppen einen Feuersturm \n \n Stark gegen Basisverteidigung, Infanterie \n Schwach gegen Panzer, Flugzeuge"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildNukeLauncher",
+  "text": "Stark gegen Gebäude, Infanterie \n Schwach gegen Panzer, Flugzeuge"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildTroopCrawler",
+  "text": "Transporter. Kommt mit 8 Rotgardisten. Spürt getarnte Einheiten auf \n \n Stark gegen Infanterie, Gebäude \n Schwach gegen Panzer, Flugzeuge"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildDragonTank",
+  "text": "Kann Soldaten aus Gebäuden ausräuchern. Kann eine Feuerwand erzeugen \n \n Stark gegen Infanterie, Gebäude \n Schwach gegen Panzer, Flugzeuge"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildTerrorist",
+  "text": "Selbstmordsoldat \n \n Stark gegen Panzer, Gebäude \n Schwach gegen Infanterie, leichte Fahrzeuge"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildRPGTrooper",
+  "text": "Stark gegen Panzer \n Schwach gegen Infanterie"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildAngryMob",
+  "text": "Stark gegen Infanterie, Fahrzeuge \n Schwach gegen Feuer, Toxine, Blendgranaten"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildHijacker",
+  "text": "Kann jedes feindliche Fahrzeug kapern. Getarnt \n \n Stark gegen Panzer, Fahrzeuge \n Schwach gegen Infanterie, Späher"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildJarmenKell",
+  "text": "Ist getarnt. Kann sich in zivilen Gebäuden verstecken, um feindliche Soldaten aus dem Hinterhalt zu erschießen. Kann die Besatzung feindlicher Fahrzeuge ausschalten, sodass diese gekapert werden können \n \n Stark gegen Infanterie, Fahrzeuge \n Schwach gegen Späher"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildToxinTruck",
+  "text": "Räumt Gebäude von feindlichen Soldaten. Verseucht das Gelände \n Kann die Waffe mit erbeuteten Teilen zerstörter Feinde verbessern \n Stark gegen Infanterie \n Schwach gegen Panzer, Flugzeuge, Basisverteidigung"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildBattlemaster",
+  "text": "Erhält Hordenbonus in Gruppen ab 5 Einheiten \n \n Stark gegen Panzer, Gebäude \n Schwach gegen Infanterie, Flugzeuge"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildMarauder",
+  "text": "Kann die Waffe mit erbeuteten Teilen zerstörter Feinde verbessern \n \n Stark gegen Gebäude, leichte Fahrzeuge \n Schwach gegen Raketensoldaten, Flugzeuge"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildTechnical",
+  "text": "Kann die Waffe mit erbeuteten Teilen zerstörter Feinde verbessern \n \n Stark gegen Infanterie \n Schwach gegen Panzer, Flugzeuge"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildQuadCannon",
+  "text": "Kann die Waffe mit erbeuteten Teilen zerstörter Feinde verbessern \n \n Stark gegen Infanterie, Flugzeuge \n Schwach gegen Panzer"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildBombTruck",
+  "text": "Kann sich als beliebiges Fahrzeug tarnen, ob Freund oder Feind \n \n Stark gegen Infanterie, Gebäude \n Schwach gegen Späher"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildSCUDLauncher",
+  "text": "Kann mit einem Spreng- oder einem biologischen Sprengkopf ausgerüstet werden \n \n Stark gegen Gebäude, Infanterie \n Schwach gegen Panzer, Flugzeuge"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildCrusader",
+  "text": "Stark gegen Fahrzeuge, Gebäude \n Schwach gegen Flugzeuge, raketenbewaffnete Infanterie"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSASciencePaladin",
+  "text": "Paladin-Panzer können feindliche Raketen mit einem modernen Laserabwehrsystem abschießen \n \n Bauort: Waffenfabrik"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSASciencePathFinder",
+  "text": "Pathfinder sind getarnte Elite-Scharfschützen \n \n Bauort: Kaserne"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSAScienceStealthFighter",
+  "text": "Getarnt, während er sich bewegt \n \n Bauort: Flugfeld"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSAScienceSpyDrone",
+  "text": "Spionagedrohnen sind vor feindlicher Sicht und Radar getarnt und enthüllen feindliche Positionen \n \n Einsatz von: Kommandozentrale"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSAScienceParaDrop",
+  "text": "Ranger aus der Luft abwerfen \n \n Rang 1: 5 Ranger \n Rang 2: 10 Ranger \n Rang 3: 20 Ranger \n \n Einsatz von: Kommandozentrale"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSAScienceA10Strike",
+  "text": "A10 Thunderbolts zerstören Gebäude, Fahrzeuge und Infanterie \n \n Rang 1: 1 A10 Thunderbolt \n Rang 2: 2 A10 Thunderbolts \n Rang 3: 3 A10 Thunderbolts \n \n Einsatz von: Kommandozentrale"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSAScienceDaisyCutter",
+  "text": "Aerosolbomben zerstören Gebäude und feindliche Truppenansammlungen \n \n Einsatz von: Kommandozentrale"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaScienceNukeCannon",
+  "text": "Atomkanonen feuern kleine taktische Atomgranaten über große Entfernungen \n \n Bauort: Waffenfabrik \n Voraussetzung: Propagandazentrale"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaScienceRedGuardTraining",
+  "text": "Alle Rotgardisten werden als Veteranen ausgebildet"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaScienceClusterMines",
+  "text": "Streuminen werden aus der Luft abgeworfen \n \n Einsatz von: Kommandozentrale"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaScienceARtilleryTraining",
+  "text": "Atomkanonen und Inferno-Kanonen werden als Veteranen gebaut"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaScienceArtilleryBarrage",
+  "text": "Fordert Artillerie von außerhalb der Karte an, um dein Ziel zu beschießen \n \n Rang 1: 12 Granaten \n Rang 2: 24 Granaten \n Rang 3: 36 Granaten \n \n Einsatz von: Kommandozentrale"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaScienceEMPPulse",
+  "text": "Ermöglicht es dir, einen schweren Bomber anzufordern, der eine EMP-Impuls-Bombe abwirft. Der EMP-Impuls legt feindliche Fahrzeuge und Gebäude lahm \n \n Einsatz von: Kommandozentrale"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAScienceHijacker",
+  "text": "Entführer sind getarnt und können feindliche Fahrzeuge stehlen \n \n Bauort: Kaserne"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAScienceSCUDLauncher",
+  "text": "Feuert eine Langstreckenrakete ab, die mit Sprengstoff oder tödlichem Anthrax bestückt werden kann \n \n Bauort: Waffenhändler"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLaScienceMarauderTank",
+  "text": "Marodeur-Panzer können erbeutete Teile zerstörter Feinde nutzen, um ihre Hauptkanone zu verbessern \n \n Bauort: Waffenhändler"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAScienceTechnicalTraining",
+  "text": "Alle Technicals werden als Veteranen gebaut"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAScienceRebelAmbush",
+  "text": "Ermöglicht es dir, überall einen Überraschungshinterhalt von Rebellen zu legen \n \n Rang 1: 4 Rebellen \n Rang 2: 8 Rebellen \n Rang 3: 16 Rebellen \n \n Einsatz von: Kommandozentrale"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAScienceCashBounty",
+  "text": "Erhalte ein Kopfgeld für jede zerstörte feindliche Einheit und jedes zerstörte feindliche Gebäude \n \n Rang 1: 5% eines feindlichen Werts \n Rang 2: 10% eines feindlichen Werts \n Rang 3: 20% eines feindlichen Werts"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAScienceAnthraxBomb",
+  "text": "Anthrax ist tödlich gegen feindliche Truppenansammlungen \n \n Einsatz von: Kommandozentrale"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildSecurityFence",
+  "text": "Sicherheitszaun bauen, der Fahrzeuge aufhält und vor durchquerender feindlicher Infanterie warnt"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildConcreteWall",
+  "text": "Betonmauer bauen, die keine Bodeneinheit passieren lässt"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildBurningBarricade",
+  "text": "Brennende Barrikade bauen, die Einheiten verbrennt, die sie überqueren wollen"
+ },
+ {
+  "label": "GUI:QuitToDesktop",
+  "text": "ZURÜCK ZUM DESKTOP"
+ },
+ {
+  "label": "GUI:QuitToDesktopConf",
+  "text": "Möchtest du wirklich zum Desktop zurückkehren?"
+ },
+ {
+  "label": "GUI:NewSaveGame",
+  "text": "***** NEUES SPIEL *****"
+ },
+ {
+  "label": "GUI:TimeAM",
+  "text": "vorm."
+ },
+ {
+  "label": "GUI:TimePM",
+  "text": "nachm."
+ },
+ {
+  "label": "GUI:OverwriteSaveConfirmation",
+  "text": "Vorhandene Datei überschreiben?"
+ },
+ {
+  "label": "GUI:LoadGameConfirmation",
+  "text": "Aktuelle Spieldaten gehen verloren. Gespeichertes Spiel laden?"
+ },
+ {
+  "label": "GUI:Rank1Required",
+  "text": "RANG ERFORDERLICH - 1-Sterne-General"
+ },
+ {
+  "label": "GUI:Rank3Required",
+  "text": "RANG ERFORDERLICH - 3-Sterne-General"
+ },
+ {
+  "label": "GUI:Rank8Required",
+  "text": "RANG ERFORDERLICH - 5-Sterne-General"
+ },
+ {
+  "label": "GUI:Experience",
+  "text": "Erfahrung"
+ },
+ {
+  "label": "GUI:RemainingSkillPoints",
+  "text": "Punkte"
+ },
+ {
+  "label": "TOOLTIP:ExperienceToLevel",
+  "text": "Erfahrung bis zur nächsten Stufe"
+ },
+ {
+  "label": "GUI:SaveAndLoad",
+  "text": "SPEICHERN/LADEN"
+ },
+ {
+  "label": "GUI:SaveTime",
+  "text": "Zeit"
+ },
+ {
+  "label": "GUI:SaveDate",
+  "text": "Datum"
+ },
+ {
+  "label": "SCIENCE:Rank1",
+  "text": "1-Sterne-General"
+ },
+ {
+  "label": "SCIENCE:Rank2",
+  "text": "2-Sterne-General"
+ },
+ {
+  "label": "SCIENCE:Rank3",
+  "text": "3-Sterne-General"
+ },
+ {
+  "label": "SCIENCE:Rank4",
+  "text": "4-Sterne-General"
+ },
+ {
+  "label": "SCIENCE:Rank5",
+  "text": "5-Sterne-General"
+ },
+ {
+  "label": "SCIENCE:Rank6",
+  "text": "Generalmajor"
+ },
+ {
+  "label": "SCIENCE:Rank7",
+  "text": "Generalleutnant"
+ },
+ {
+  "label": "SCIENCE:Rank8",
+  "text": "General"
+ },
+ {
+  "label": "CONTROLBAR:StructureExit",
+  "text": "Gebäude verlassen"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaAircraftArmor",
+  "text": "MiG-&Panzerung"
+ },
+ {
+  "label": "CONTROLBAR:RangerMachineGun",
+  "text": "&Maschinengewehr"
+ },
+ {
+  "label": "CONTROLBAR:RedguardMachineGun",
+  "text": "&Maschinengewehr"
+ },
+ {
+  "label": "CONTROLBAR:RebelMachineGun",
+  "text": "&Maschinengewehr"
+ },
+ {
+  "label": "CONTROLBAR:FlashBangGrenadeMode",
+  "text": "&Blendgranate"
+ },
+ {
+  "label": "CONTROLBAR:TranqDartsMode",
+  "text": "&Betäubungspfeil-Modus"
+ },
+ {
+  "label": "CONTROLBAR:StunBulletsMode",
+  "text": "&Gefangennahme-Modus"
+ },
+ {
+  "label": "UPGRADE:AircraftArmor",
+  "text": "Flugzeugpanzerung"
+ },
+ {
+  "label": "MAP:USA03Open",
+  "text": "Nordkasachstan. US-Streitkräfte auf vollem Rückzug \n Operation: Schutzengel"
+ },
+ {
+  "label": "CONTROLBAR:TooltipChinaUpgradeAircraftArmor",
+  "text": "+25% MiG-Lebenspunkte"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipSwitchToRangerMachineGun",
+  "text": "Wechselt in den Maschinengewehr-Modus für Angriffe aller Art"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipSwitchToRedguardMachineGun",
+  "text": "Wechselt in den Maschinengewehr-Modus für Angriffe aller Art"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipSwitchToRebelMachineGun",
+  "text": "Wechselt in den Maschinengewehr-Modus für Angriffe aller Art"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipSwitchToUSAFlashBang",
+  "text": "Blendgranaten einsetzen"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipSwitchToChinaStunBullets",
+  "text": "Wechselt zu Betäubungsgeschossen, um feindliche Soldaten im offenen Gelände gefangen zu nehmen"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipSwitchToGLATranqDarts",
+  "text": "Wechselt zu Betäubungspfeilen, um feindliche Soldaten im offenen Gelände gefangen zu nehmen"
+ },
+ {
+  "label": "GUI:ProductionQueueFull",
+  "text": "Die Produktionswarteschlange der Einheit ist voll"
+ },
+ {
+  "label": "GUI:ParkingPlacesFull",
+  "text": "Alle Parkplätze sind belegt"
+ },
+ {
+  "label": "GUI:UnitMaxedOut",
+  "text": "Du hast bereits die maximale Anzahl dieser Einheit"
+ },
+ {
+  "label": "CONTROLBAR:FireTomahawkAtPosition",
+  "text": "&Tomahawk-Bombardement"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipFireTomahawkAtPosition",
+  "text": "Tomahawks auf einen Ort abfeuern"
+ },
+ {
+  "label": "GUI:SurrenderConfirmation",
+  "text": "Möchtest du wirklich kapitulieren?"
+ },
+ {
+  "label": "GUI:GameOver",
+  "text": "Spiel vorbei"
+ },
+ {
+  "label": "TOOLTIP:RefreshNat",
+  "text": "Nach Änderung der Firewall-Einstellungen oder des Providers klicken"
+ },
+ {
+  "label": "GUI:Surrender",
+  "text": "KAPITULIEREN"
+ },
+ {
+  "label": "GUI:SuperweaponEmergencyRepair",
+  "text": "Notreparatur"
+ },
+ {
+  "label": "CONTROLBAR:FireNukeCannonAtPosition",
+  "text": "Atom-&Bombardement"
+ },
+ {
+  "label": "CONTROLBAR:FireInfernoCannonAtPosition",
+  "text": "Inferno-&Bombardement"
+ },
+ {
+  "label": "CONTROLBAR:FireScudExplosiveAtPosition",
+  "text": "Spreng-&Bombardement"
+ },
+ {
+  "label": "CONTROLBAR:FireScudAnthraxAtPosition",
+  "text": "Anthrax-B&ombardement"
+ },
+ {
+  "label": "MAP:USA04Objective1Text",
+  "text": "MISSIONSZIEL: \n Säubere den Strand von GBA-Truppen"
+ },
+ {
+  "label": "MAP:USA04Objective2Text",
+  "text": "MISSIONSZIEL: \n Zerstöre die Stinger-Stellungen"
+ },
+ {
+  "label": "MAP:USA04Objective3Text",
+  "text": "MISSIONSZIEL: \n Zerstöre die GBA-Basis"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipFireNukeCannonAtPosition",
+  "text": "Einen Ort mit Atomkanonengranaten bombardieren"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipFireInfernoCannonAtPosition",
+  "text": "Einen Ort mit Inferno-Kanonengranaten bombardieren"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipFireScudExplosiveAtPosition",
+  "text": "Einen Ort mit Sprengköpfen bombardieren"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipFireScudAnthraxAtPosition",
+  "text": "Den angegebenen Ort mit Anthrax-Sprengköpfen bombardieren"
+ },
+ {
+  "label": "TOOLTIP:Brightness",
+  "text": "Helligkeit des Spiels anpassen"
+ },
+ {
+  "label": "TOOLTIP:ScrollSpeed",
+  "text": "Scrollgeschwindigkeit der Karte anpassen"
+ }
+]

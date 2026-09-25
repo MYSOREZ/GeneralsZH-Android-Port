@@ -1,0 +1,802 @@
+[
+ {
+  "label": "GUI:GameOptions",
+  "text": "ПАРАМЕТРИ ГРИ"
+ },
+ {
+  "label": "GUI:SinglePlayer",
+  "text": "ГРА НАОДИНЦІ"
+ },
+ {
+  "label": "GUI:Network",
+  "text": "МЕРЕЖА"
+ },
+ {
+  "label": "GUI:Options",
+  "text": "ОПЦІЇ"
+ },
+ {
+  "label": "GUI:Skirmish",
+  "text": "СУТИЧКА"
+ },
+ {
+  "label": "GUI:Back",
+  "text": "НАЗАД"
+ },
+ {
+  "label": "GUI:StartGame",
+  "text": "ГРАТИ"
+ },
+ {
+  "label": "GUI:Color",
+  "text": "Колір"
+ },
+ {
+  "label": "GUI:Slower",
+  "text": "Повільніше"
+ },
+ {
+  "label": "GUI:Faster",
+  "text": "Швидше"
+ },
+ {
+  "label": "GUI:Low",
+  "text": "Низько"
+ },
+ {
+  "label": "GUI:Medium",
+  "text": "Середнє"
+ },
+ {
+  "label": "GUI:High",
+  "text": "Високо"
+ },
+ {
+  "label": "GUI:None",
+  "text": "Нема"
+ },
+ {
+  "label": "GUI:Random",
+  "text": "Випадково"
+ },
+ {
+  "label": "GUI:Cancel",
+  "text": "СКАСУВАТИ"
+ },
+ {
+  "label": "GUI:Ok",
+  "text": "OK"
+ },
+ {
+  "label": "GUI:Delete",
+  "text": "Видалити"
+ },
+ {
+  "label": "GUI:Description",
+  "text": "Опис"
+ },
+ {
+  "label": "GUI:Load",
+  "text": "ЗАВАНТАЖИТИ"
+ },
+ {
+  "label": "GUI:Progress",
+  "text": "Прогрес"
+ },
+ {
+  "label": "GUI:Assign",
+  "text": "Призначити"
+ },
+ {
+  "label": "GUI:CustomizeKeyboard",
+  "text": "Налаштувати клавіатуру"
+ },
+ {
+  "label": "GUI:Category",
+  "text": "Категорія"
+ },
+ {
+  "label": "GUI:Commands",
+  "text": "Команди"
+ },
+ {
+  "label": "GUI:ResetAll",
+  "text": "Скинути все"
+ },
+ {
+  "label": "GUI:DisplayOptions",
+  "text": "ВІДОБРАЖЕННЯ"
+ },
+ {
+  "label": "GUI:KeyboardOptions",
+  "text": "Параметри клавіатури"
+ },
+ {
+  "label": "GUI:MainMenu",
+  "text": "ВИХІД"
+ },
+ {
+  "label": "GUI:Units",
+  "text": "Одиниці"
+ },
+ {
+  "label": "GUI:Buildings",
+  "text": "Будівлі"
+ },
+ {
+  "label": "GUI:Players",
+  "text": "Гравці"
+ },
+ {
+  "label": "GUI:Preview",
+  "text": "Попередній перегляд карти"
+ },
+ {
+  "label": "GUI:Save",
+  "text": "Зберегти"
+ },
+ {
+  "label": "GUI:Side",
+  "text": "Армія"
+ },
+ {
+  "label": "GUI:Accept",
+  "text": "ПРИЙНЯТИ"
+ },
+ {
+  "label": "GUI:Games",
+  "text": "Ігри"
+ },
+ {
+  "label": "GUI:Join",
+  "text": "ПРИЄДНАТИСЯ ДО ГРИ"
+ },
+ {
+  "label": "GUI:LoadGame",
+  "text": "ЗАВАНТАЖИТИ ГРУ"
+ },
+ {
+  "label": "GUI:SaveGame",
+  "text": "ЗБЕРЕГТИ ГРУ"
+ },
+ {
+  "label": "GUI:Score",
+  "text": "Результати"
+ },
+ {
+  "label": "GUI:Add",
+  "text": "Додати"
+ },
+ {
+  "label": "GUI:MusicVolume",
+  "text": "Гучність музики"
+ },
+ {
+  "label": "GUI:VoiceVolume",
+  "text": "Гучність голосу"
+ },
+ {
+  "label": "GUI:Play",
+  "text": "Грати"
+ },
+ {
+  "label": "GUI:Stop",
+  "text": "СТОП"
+ },
+ {
+  "label": "GUI:Continue",
+  "text": "ПРОДОВЖИТИ"
+ },
+ {
+  "label": "GUI:MaxPing",
+  "text": "Максимальна дозволена затримка:"
+ },
+ {
+  "label": "GUI:Ladder",
+  "text": "Рейтинг"
+ },
+ {
+  "label": "GUI:Close",
+  "text": "Закрити"
+ },
+ {
+  "label": "GUI:Help",
+  "text": "Довідка"
+ },
+ {
+  "label": "GUI:Rank",
+  "text": "Звання"
+ },
+ {
+  "label": "GUI:Password",
+  "text": "Пароль"
+ },
+ {
+  "label": "GUI:Disconnect",
+  "text": "ВІД'ЄДНАТИ"
+ },
+ {
+  "label": "GUI:No",
+  "text": "НІ"
+ },
+ {
+  "label": "GUI:Yes",
+  "text": "ТАК"
+ },
+ {
+  "label": "GUI:Blank",
+  "text": "."
+ },
+ {
+  "label": "GUI:Open",
+  "text": "Відкрито"
+ },
+ {
+  "label": "GUI:Closed",
+  "text": "Закрито"
+ },
+ {
+  "label": "GUI:Login",
+  "text": "ВХІД"
+ },
+ {
+  "label": "GUI:WOLWelcome",
+  "text": "Ласкаво просимо, генерале %hs"
+ },
+ {
+  "label": "GUI:QuickMatch",
+  "text": "ШВИДКИЙ МАТЧ"
+ },
+ {
+  "label": "GUI:CustomMatch",
+  "text": "КОРИСТУВАЦЬКИЙ МАТЧ"
+ },
+ {
+  "label": "GUI:LadderRank",
+  "text": "Звання у рейтингу"
+ },
+ {
+  "label": "GUI:Disconnects",
+  "text": "Від'єднання"
+ },
+ {
+  "label": "GUI:CreateGame",
+  "text": "СТВОРИТИ ГРУ"
+ },
+ {
+  "label": "GUI:AutoLogin",
+  "text": "Автоматичний вхід у майбутньому"
+ },
+ {
+  "label": "GUI:AddBuddy",
+  "text": "Додати друга"
+ },
+ {
+  "label": "GUI:RemoveBuddy",
+  "text": "Видалити друга"
+ },
+ {
+  "label": "GUI:AudioOptions",
+  "text": "АУДІО"
+ },
+ {
+  "label": "GUI:LadderWins",
+  "text": "Перемоги у рейтингу"
+ },
+ {
+  "label": "GUI:LadderLosses",
+  "text": "Поразки в рейтингу"
+ },
+ {
+  "label": "GUI:LadderPoints",
+  "text": "Очки рейтингу"
+ },
+ {
+  "label": "WOL:BuddyOffline",
+  "text": "%ls офлайн"
+ },
+ {
+  "label": "WOL:Locale00",
+  "text": "Невідомо"
+ },
+ {
+  "label": "WOL:Locale01",
+  "text": "Інше місце"
+ },
+ {
+  "label": "WOL:Locale02",
+  "text": "США"
+ },
+ {
+  "label": "WOL:Locale03",
+  "text": "Канада"
+ },
+ {
+  "label": "WOL:Locale04",
+  "text": "Велика Британія"
+ },
+ {
+  "label": "WOL:Locale05",
+  "text": "Німеччина"
+ },
+ {
+  "label": "WOL:Locale06",
+  "text": "Франція"
+ },
+ {
+  "label": "WOL:Locale07",
+  "text": "Іспанія"
+ },
+ {
+  "label": "WOL:Locale08",
+  "text": "Нідерланди"
+ },
+ {
+  "label": "WOL:Locale09",
+  "text": "Бельгія"
+ },
+ {
+  "label": "WOL:Locale10",
+  "text": "Австрія"
+ },
+ {
+  "label": "WOL:Locale11",
+  "text": "Швейцарія"
+ },
+ {
+  "label": "WOL:Locale12",
+  "text": "Італія"
+ },
+ {
+  "label": "WOL:Locale13",
+  "text": "Данія"
+ },
+ {
+  "label": "WOL:Locale14",
+  "text": "Швеція"
+ },
+ {
+  "label": "WOL:Locale15",
+  "text": "Норвегія"
+ },
+ {
+  "label": "WOL:Locale16",
+  "text": "Фінляндія"
+ },
+ {
+  "label": "WOL:Locale17",
+  "text": "Ізраїль"
+ },
+ {
+  "label": "WOL:Locale18",
+  "text": "Південна Африка"
+ },
+ {
+  "label": "WOL:Locale19",
+  "text": "Японія"
+ },
+ {
+  "label": "WOL:Locale20",
+  "text": "Корея"
+ },
+ {
+  "label": "WOL:Locale21",
+  "text": "Китай"
+ },
+ {
+  "label": "WOL:Locale22",
+  "text": "Сінгапур"
+ },
+ {
+  "label": "WOL:Locale23",
+  "text": "Тайвань"
+ },
+ {
+  "label": "WOL:Locale24",
+  "text": "Малайзія"
+ },
+ {
+  "label": "WOL:Locale25",
+  "text": "Австралія"
+ },
+ {
+  "label": "WOL:Locale26",
+  "text": "Нова Зеландія"
+ },
+ {
+  "label": "WOL:Locale27",
+  "text": "Бразилія"
+ },
+ {
+  "label": "WOL:Locale28",
+  "text": "Таїланд"
+ },
+ {
+  "label": "WOL:Locale29",
+  "text": "Аргентина"
+ },
+ {
+  "label": "WOL:Locale30",
+  "text": "Філіппіни"
+ },
+ {
+  "label": "WOL:Locale31",
+  "text": "Греція"
+ },
+ {
+  "label": "WOL:Locale32",
+  "text": "Ірландія"
+ },
+ {
+  "label": "WOL:Locale33",
+  "text": "Польща"
+ },
+ {
+  "label": "WOL:Locale34",
+  "text": "Португалія"
+ },
+ {
+  "label": "WOL:Locale35",
+  "text": "Мексика"
+ },
+ {
+  "label": "WOL:Locale36",
+  "text": "Росія"
+ },
+ {
+  "label": "WOL:Locale37",
+  "text": "Туреччина"
+ },
+ {
+  "label": "GUI:Observer",
+  "text": "Спостерігач"
+ },
+ {
+  "label": "GUI:Team",
+  "text": "Команда"
+ },
+ {
+  "label": "LETTER:G",
+  "text": "G"
+ },
+ {
+  "label": "LETTER:L",
+  "text": "L"
+ },
+ {
+  "label": "LETTER:M",
+  "text": "M"
+ },
+ {
+  "label": "LETTER:S",
+  "text": "S"
+ },
+ {
+  "label": "LETTER:O",
+  "text": "O"
+ },
+ {
+  "label": "NUMBER:1",
+  "text": "1"
+ },
+ {
+  "label": "NUMBER:2",
+  "text": "2"
+ },
+ {
+  "label": "NUMBER:3",
+  "text": "3"
+ },
+ {
+  "label": "NUMBER:4",
+  "text": "4"
+ },
+ {
+  "label": "NUMBER:5",
+  "text": "5"
+ },
+ {
+  "label": "NUMBER:6",
+  "text": "6"
+ },
+ {
+  "label": "NUMBER:7",
+  "text": "7"
+ },
+ {
+  "label": "NUMBER:8",
+  "text": "8"
+ },
+ {
+  "label": "NUMBER:9",
+  "text": "9"
+ },
+ {
+  "label": "NUMBER:0",
+  "text": "0"
+ },
+ {
+  "label": "Color:Gold",
+  "text": "Золотий"
+ },
+ {
+  "label": "Color:Red",
+  "text": "Червоний"
+ },
+ {
+  "label": "Color:Blue",
+  "text": "Синій"
+ },
+ {
+  "label": "Color:Green",
+  "text": "Зелений"
+ },
+ {
+  "label": "Color:Orange",
+  "text": "Помаранчевий"
+ },
+ {
+  "label": "Color:SkyBlue",
+  "text": "Блакитний"
+ },
+ {
+  "label": "Color:Purple",
+  "text": "Фіолетовий"
+ },
+ {
+  "label": "Color:Pink",
+  "text": "Рожевий"
+ },
+ {
+  "label": "MSG:Testing",
+  "text": "У Мері було ягнятко, біле, наче сніг"
+ },
+ {
+  "label": "MSG:Test2",
+  "text": "І куди б Мері не йшла, ягнятко йшло за нею"
+ },
+ {
+  "label": "GUI:ShowBehindBuildings",
+  "text": "Теплові сигнатури за будівлями УВІМКНЕНО"
+ },
+ {
+  "label": "GUI:HideBehindBuildings",
+  "text": "Теплові сигнатури за будівлями ВИМКНЕНО"
+ },
+ {
+  "label": "GUI:DetailsSetToLowest",
+  "text": "Низька деталізація графіки"
+ },
+ {
+  "label": "GUI:ReturnGraphicsToPreviousSettings",
+  "text": "Повернення налаштувань графіки до попередніх значень"
+ },
+ {
+  "label": "GUI:BeaconLabel",
+  "text": "Введіть повідомлення:"
+ },
+ {
+  "label": "GUI:Beacon",
+  "text": "Маяк"
+ },
+ {
+  "label": "GUI:EACopyright",
+  "text": "© 2003 ELECTRONIC ARTS INC. УСІ ПРАВА ЗАХИЩЕНО"
+ },
+ {
+  "label": "GUI:DeleteBeacon",
+  "text": "Видалити \n маяк"
+ },
+ {
+  "label": "GUI:BeaconPlaced",
+  "text": "%ls встановив маяк"
+ },
+ {
+  "label": "GUI:BeaconPlacementFailed",
+  "text": "Неможливо розмістити маяк тут"
+ },
+ {
+  "label": "GUI:TooManyBeacons",
+  "text": "Вибачте, ви не можете розмістити більше маяків"
+ },
+ {
+  "label": "GUI:EA",
+  "text": "EA"
+ },
+ {
+  "label": "GUI:TestBrowser",
+  "text": "Тестовий браузер"
+ },
+ {
+  "label": "GUI:Multiplayer",
+  "text": "МЕРЕЖЕВА ГРА"
+ },
+ {
+  "label": "GUI:GameName",
+  "text": "Назва гри:"
+ },
+ {
+  "label": "GUI:NoFileSelected",
+  "text": "БУДЬ ЛАСКА, ОБЕРІТЬ ФАЙЛ"
+ },
+ {
+  "label": "GUI:PleaseSelectAFile",
+  "text": "Виберіть файл"
+ },
+ {
+  "label": "GUI:DeleteFile",
+  "text": "ВИДАЛИТИ ФАЙЛ?"
+ },
+ {
+  "label": "GUI:AreYouSureDelete",
+  "text": "Ви впевнені, що хочете видалити вибраний файл?"
+ },
+ {
+  "label": "GUI:CopyFileToDesktop",
+  "text": "КОПІЮВАТИ ПОВТОР НА РОБОЧИЙ СТІЛ?"
+ },
+ {
+  "label": "GUI:AreYouSureCopy",
+  "text": "Ви впевнені, що бажаєте скопіювати цей файл на робочий стіл? Це перезапише будь-який файл із такою ж назвою"
+ },
+ {
+  "label": "GUI:ErrorCopyingFile",
+  "text": "ПІД ЧАС КОПІЮВАННЯ ФАЙЛУ СТАЛАСЯ ПОМИЛКА"
+ },
+ {
+  "label": "GUI:LoadReplay",
+  "text": "ЗАВАНТАЖИТИ ПОВТОР"
+ },
+ {
+  "label": "GUI:DeleteReplay",
+  "text": "ВИДАЛИТИ ПОВТОР"
+ },
+ {
+  "label": "GUI:CopyReplay",
+  "text": "КОПІЮВАТИ ПОВТОР"
+ },
+ {
+  "label": "GUI:ErrorDeletingFile",
+  "text": "ПІД ЧАС ВИДАЛЕННЯ ФАЙЛУ СТАЛАСЯ ПОМИЛКА"
+ },
+ {
+  "label": "GUI:ShortDescription",
+  "text": "Короткий опис гри:"
+ },
+ {
+  "label": "GUI:LadderName",
+  "text": "Ім'я у рейтингу:"
+ },
+ {
+  "label": "GUI:LadderPassword",
+  "text": "Пароль рейтингу"
+ },
+ {
+  "label": "GUI:LadderURL",
+  "text": "Домашня сторінка: %hs"
+ },
+ {
+  "label": "GUI:LadderHasPassword",
+  "text": "Цей рейтинг захищений паролем"
+ },
+ {
+  "label": "GUI:LadderMinWins",
+  "text": "Потрібна мінімальна кількість перемог: %d"
+ },
+ {
+  "label": "GUI:LadderMaxWins",
+  "text": "Максимально дозволена кількість перемог: %d"
+ },
+ {
+  "label": "GUI:LadderFactions",
+  "text": "Дозволені армії:"
+ },
+ {
+  "label": "GUI:LadderRandomFactions",
+  "text": "Випадкові армії:"
+ },
+ {
+  "label": "GUI:LadderMaps",
+  "text": "Дозволені карти:"
+ },
+ {
+  "label": "GUI:LadderRandomMaps",
+  "text": "Випадкові карти:"
+ },
+ {
+  "label": "GUI:AllowObservers",
+  "text": "Дозволити спостерігачів"
+ },
+ {
+  "label": "GUI:USA",
+  "text": "США"
+ },
+ {
+  "label": "GUI:China",
+  "text": "Китай"
+ },
+ {
+  "label": "GUI:GLA",
+  "text": "ГВА"
+ },
+ {
+  "label": "GUI:AmericaAllies",
+  "text": "Союзники США"
+ },
+ {
+  "label": "GUI:ChinaAllies",
+  "text": "Союзники Китаю"
+ },
+ {
+  "label": "GUI:GLAAllies",
+  "text": "Союзники ГВА"
+ },
+ {
+  "label": "GUI:AmericaEnemies",
+  "text": "Вороги США"
+ },
+ {
+  "label": "GUI:ChinaEnemies",
+  "text": "Вороги Китаю"
+ },
+ {
+  "label": "GUI:GLAEnemies",
+  "text": "Вороги ГВА"
+ },
+ {
+  "label": "GUI:EndCampaign",
+  "text": "ЗАВЕРШИТИ КАМПАНІЮ"
+ },
+ {
+  "label": "GUI:Retry",
+  "text": "ГРАТИ ЗНОВУ?"
+ },
+ {
+  "label": "GUI:RecentSave",
+  "text": "Недавнє збереження"
+ },
+ {
+  "label": "GUI:GetUpdate",
+  "text": "Отримати оновлення"
+ },
+ {
+  "label": "GUI:DirectConnect",
+  "text": "ПРЯМЕ ПІДКЛЮЧЕННЯ"
+ },
+ {
+  "label": "GUI:WorldBuilder",
+  "text": "РЕДАКТОР КАРТ"
+ },
+ {
+  "label": "GUI:WorldBuilderLoadFailed",
+  "text": "Не вдалося завантажити редактор карт"
+ },
+ {
+  "label": "GUI:DontUseAccount",
+  "text": "Не використовувати обліковий запис"
+ },
+ {
+  "label": "GUI:UseAccount",
+  "text": "Використовувати обліковий запис"
+ },
+ {
+  "label": "GUI:ScoreScreen",
+  "text": "Екран результатів"
+ },
+ {
+  "label": "GUI:Rehost",
+  "text": "ГРАТИ ЗНОВУ?"
+ },
+ {
+  "label": "GUI:UnitsBuilt",
+  "text": "Одиниць \n створено"
+ },
+ {
+  "label": "GUI:UnitsLost",
+  "text": "Одиниць \n втрачено"
+ },
+ {
+  "label": "GUI:UnitsKilled",
+  "text": "Одиниць \n знищено"
+ }
+]

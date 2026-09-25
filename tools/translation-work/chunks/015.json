@@ -1,0 +1,802 @@
+[
+ {
+  "label": "UPGRADE:BecomeRealGLABlackMarket",
+  "text": "Real Black Market"
+ },
+ {
+  "label": "UPGRADE:FusionReactors",
+  "text": "Fusion Reactors"
+ },
+ {
+  "label": "UPGRADE:CamoNetting",
+  "text": "Camo Netting"
+ },
+ {
+  "label": "UPGRADE:FortifiedStructure",
+  "text": "Fortified Structure"
+ },
+ {
+  "label": "UPGRADE:BoobyTrap",
+  "text": "Booby Trap"
+ },
+ {
+  "label": "UPGRADE:AnthraxGamma",
+  "text": "Anthrax Gamma"
+ },
+ {
+  "label": "UPGRADE:WorkerShoes",
+  "text": "Worker Shoes"
+ },
+ {
+  "label": "UPGRADE:ChemicalSuits",
+  "text": "Chemical Suits"
+ },
+ {
+  "label": "UPGRADE:AmericaCountermeasures",
+  "text": "Countermeasures"
+ },
+ {
+  "label": "UPGRADE:UpgradeChinaIsotopeStability",
+  "text": "&Isotope Stability"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUpgradeChinaIsotopeStability",
+  "text": "Prevents most collateral radiation from harming friendly units when vehicles are destroyed"
+ },
+ {
+  "label": "OBJECT:SecretResearchLab",
+  "text": "Secret Research Lab"
+ },
+ {
+  "label": "OBJECT:InternetCenter",
+  "text": "Internet Center"
+ },
+ {
+  "label": "OBJECT:AircraftCarrier",
+  "text": "Aircraft Carrier"
+ },
+ {
+  "label": "OBJECT:TechArtilleryPlatform",
+  "text": "Artillery Platform -- Capture to bombard land based enemies"
+ },
+ {
+  "label": "OBJECT:NukeHunter",
+  "text": "Nuke Hunter"
+ },
+ {
+  "label": "OBJECT:TechRepairPad",
+  "text": "Repair Pad -- Capture to allow vehicles to repair at this facility"
+ },
+ {
+  "label": "OBJECT:AirF_Aurora",
+  "text": "Fuel-Air Aurora Bomber"
+ },
+ {
+  "label": "OBJECT:SupW_Aurora",
+  "text": "Aurora Alpha Bomber"
+ },
+ {
+  "label": "OBJECT:BattleBus",
+  "text": "Battle Bus"
+ },
+ {
+  "label": "OBJECT:Helix",
+  "text": "Helix"
+ },
+ {
+  "label": "OBJECT:PropagandaTrooper",
+  "text": "Propaganda Trooper"
+ },
+ {
+  "label": "OBJECT:HellfireDrone",
+  "text": "Hellfire Drone"
+ },
+ {
+  "label": "OBJECT:Avenger",
+  "text": "Avenger"
+ },
+ {
+  "label": "OBJECT:Microwave",
+  "text": "Microwave Tank"
+ },
+ {
+  "label": "OBJECT:MOAB",
+  "text": "Mother Of All Bombs"
+ },
+ {
+  "label": "OBJECT:NukeDrop",
+  "text": "Nuke Drop"
+ },
+ {
+  "label": "OBJECT:SuitcaseNuke",
+  "text": "Suitcase Nuke"
+ },
+ {
+  "label": "OBJECT:StructureEMPMine",
+  "text": "Neutron Mine"
+ },
+ {
+  "label": "OBJECT:ECMTank",
+  "text": "ECM Tank"
+ },
+ {
+  "label": "OBJECT:Saboteur",
+  "text": "Saboteur"
+ },
+ {
+  "label": "OBJECT:TechRepairBay",
+  "text": "Tech Repair Bay -- Capture to repair vehicles across battlefield"
+ },
+ {
+  "label": "OBJECT:TechReinforcementPad",
+  "text": "Reinforcement Pad -- Capture to receive additional vehicles"
+ },
+ {
+  "label": "OBJECT:Sniper",
+  "text": "Sniper"
+ },
+ {
+  "label": "OBJECT:FireBase",
+  "text": "Fire Base"
+ },
+ {
+  "label": "OBJECT:KingRaptor",
+  "text": "King Raptor"
+ },
+ {
+  "label": "OBJECT:CombatBike",
+  "text": "Combat Cycle"
+ },
+ {
+  "label": "OBJECT:SentryDrone",
+  "text": "Sentry Drone"
+ },
+ {
+  "label": "OBJECT:TomahawkStorm",
+  "text": "Tomahawk Storm"
+ },
+ {
+  "label": "OBJECT:ListeningOutpost",
+  "text": "Listening Outpost"
+ },
+ {
+  "label": "Map:LeipzigLowlands",
+  "text": "Leipzig Lowlands"
+ },
+ {
+  "label": "Map:BombardmentBeach",
+  "text": "Bombardment Beach"
+ },
+ {
+  "label": "Map:BearTownBeatdown",
+  "text": "Bear Town Beatdown"
+ },
+ {
+  "label": "MAP:RiverSnakes",
+  "text": "Winding River"
+ },
+ {
+  "label": "MAP:KillingFields",
+  "text": "Killing Fields"
+ },
+ {
+  "label": "MAP:ThinIce",
+  "text": "Thin Ice"
+ },
+ {
+  "label": "MAP:ElScorcho",
+  "text": "El Scorcho"
+ },
+ {
+  "label": "MAP:GreenPastures",
+  "text": "Green Pastures"
+ },
+ {
+  "label": "MAP:FreeFireZone",
+  "text": "Free Fire Zone"
+ },
+ {
+  "label": "MAP:DestructionStation",
+  "text": "Destruction Station"
+ },
+ {
+  "label": "MAP:PolarStorm",
+  "text": "Polar Storm"
+ },
+ {
+  "label": "MAP:BitterWinter",
+  "text": "Bitter Winter"
+ },
+ {
+  "label": "MAP:CitySweep",
+  "text": "City Sweep"
+ },
+ {
+  "label": "MAP:FrozenPlains",
+  "text": "Frozen Plains"
+ },
+ {
+  "label": "MAP:RoadRage",
+  "text": "Road Rage"
+ },
+ {
+  "label": "HELP:SentryDrone-01",
+  "text": "HINT: \n The Sentry Drone can detect camouflaged enemy units"
+ },
+ {
+  "label": "HELP:SentryDrone-02",
+  "text": "HINT: \n Purchase the Sentry Done gun from the Strategy Center"
+ },
+ {
+  "label": "HELP:MicrowaveTank-01",
+  "text": "HINT: \n The Microwave Tank can disable structures"
+ },
+ {
+  "label": "HELP:MicrowaveTank-02",
+  "text": "HINT: \n The Microwave Tank's microwaves injure nearby infantry"
+ },
+ {
+  "label": "HELP:Avenger-01",
+  "text": "HINT: \n The Avenger laser can 'paint' enemy targets \n Firing at painted targets inflicts more damage"
+ },
+ {
+  "label": "HELP:Avenger-02",
+  "text": "HINT: \n Avengers are support units that can also attack aircraft"
+ },
+ {
+  "label": "HELP:FireBase-01",
+  "text": "HINT: \n Man the Fire Base with Missile Defenders \n to provide both air and ground defense"
+ },
+ {
+  "label": "HELP:SpectreGunship-01",
+  "text": "HINT: \n Select an area for the Spectre Gunship to attack, \n then manually target enemies"
+ },
+ {
+  "label": "HELP:LeafletDrop-01",
+  "text": "HINT: \n Use the Leaflet Drop to disable enemy infantry"
+ },
+ {
+  "label": "HELP:MOAB-01",
+  "text": "HINT: \n MOABs are effective against vehicles and \n will stun any survivors"
+ },
+ {
+  "label": "HELP:Countermeasures-01",
+  "text": "HINT: \n Upgrade to Countermeasures to help air units evade attacks"
+ },
+ {
+  "label": "HELP:HellfireDrone-01",
+  "text": "HINT: \n Upgrade your vehicles with Hellfire Drones \n to increase effectiveness against armored forces"
+ },
+ {
+  "label": "HELP:ChemicalSuit-01",
+  "text": "HINT: \n Utilize the Chemical Suit upgrade to protect infantry \n from deadly toxins and radiation"
+ },
+ {
+  "label": "HELP:BunkerBuster-01",
+  "text": "HINT: \n The Stealth Bomber's Bunker Buster upgrade \n can damage garrisoned enemies"
+ },
+ {
+  "label": "HELP:BunkerBuster-02",
+  "text": "HINT: \n Bunker Busters can kill units inside of Bunkers"
+ },
+ {
+  "label": "HELP:SupplyLines-01",
+  "text": "HINT: \n The Supply Lines upgrade improves income"
+ },
+ {
+  "label": "HELP:SupplyLines-02",
+  "text": "HINT: \n Upgrade Supply Lines to increase \n the efficiency of Chinooks"
+ },
+ {
+  "label": "HELP:ListeningOutpost-01",
+  "text": "HINT: \n Listening Outposts are stealthed and will detect \n camouflaged units"
+ },
+ {
+  "label": "HELP:ListeningOutpost-02",
+  "text": "HINT: \n Listening Outposts have a very large sight radius"
+ },
+ {
+  "label": "HELP:Helix-01",
+  "text": "HINT: \n Upgrade a Helix with a Propaganda Tower to \n repair and heal your nearby units"
+ },
+ {
+  "label": "HELP:Helix-02",
+  "text": "HINT: \n The Helix can be upgraded to drop napalm bombs \n These can be dropped on targets beneath the Helix"
+ },
+ {
+  "label": "HELP:Helix-03",
+  "text": "HINT: \n You can upgrade a Helix with a Battle Bunker, \n Propaganda Tower, or Gattling Cannon"
+ },
+ {
+  "label": "HELP:ECMTank-01",
+  "text": "HINT: \n Use the ECM Tank to disrupt enemy missile and rocket fire"
+ },
+ {
+  "label": "HELP:Frenzy-01",
+  "text": "HINT: \n Use the Frenzy Generals Power to increase the \n firepower and armor of your units"
+ },
+ {
+  "label": "HELP:InternetCenter-01",
+  "text": "HINT: \n Place Hackers in the Internet Center \n to increase money collection rate"
+ },
+ {
+  "label": "HELP:InternetCenter-02",
+  "text": "HINT: \n Build an Internet Center and upgrade to \n Satellite Hack 1 and 2"
+ },
+ {
+  "label": "HELP:SatelliteHack1-01",
+  "text": "HINT: \n Satellite Hack 1 reveals all enemy Command Centers"
+ },
+ {
+  "label": "HELP:SatelliteHack2-01",
+  "text": "HINT: \n Satellite Hack 2 reveals all that enemy units can see"
+ },
+ {
+  "label": "HELP:EMPMines-01",
+  "text": "HINT: \n Mines can be upgraded to Neutron Mines, which will \n disrupt enemy vehicles"
+ },
+ {
+  "label": "HELP:NeutronShell-01",
+  "text": "HINT: \n Neutron Shell attacks from the Nuke Cannon neutralize \n vehicles, allowing any infantry to capture them"
+ },
+ {
+  "label": "HELP:CombatCycle-01",
+  "text": "HINT: \n Combat Cycles can jump off of cliffs"
+ },
+ {
+  "label": "HELP:CombatCycle-02",
+  "text": "HINT: \n Place a Tunnel Defender on a Combat Cycle to \n allow it to fire rockets"
+ },
+ {
+  "label": "HELP:CombatCycle-03",
+  "text": "HINT: \n Place a Terrorist on a Combat Cycle to \n produce a Suicide Bike"
+ },
+ {
+  "label": "HELP:CombatCycle-04",
+  "text": "HINT: \n Jarmen Kell can snipe from a Combat Cycle"
+ },
+ {
+  "label": "HELP:CombatCycle-05",
+  "text": "HINT: \n Workers can use Combat Cycles to travel quickly"
+ },
+ {
+  "label": "HELP:Saboteur-01",
+  "text": "HINT: \n The Saboteur disrupts the abilities of enemy structures"
+ },
+ {
+  "label": "HELP:Saboteur-02",
+  "text": "HINT: \n Direct the Saboteur into an enemy Command Center \n to reset their Generals Powers timers"
+ },
+ {
+  "label": "HELP:FakeStructures-01",
+  "text": "HINT: \n Build Fake Structures to fool your enemies"
+ },
+ {
+  "label": "HELP:SneakAttack-01",
+  "text": "HINT: \n Use Sneak Attack to instantly build a Tunnel Network \n anywhere you can see"
+ },
+ {
+  "label": "HELP:GPSScramble-01",
+  "text": "HINT: \n Use the GPS Scrambler Generals Power to \n camouflage friendly units"
+ },
+ {
+  "label": "HELP:WorkerShoes-01",
+  "text": "HINT: \n Purchase Worker Shoes to increase the speed Workers \n travel and collect resources"
+ },
+ {
+  "label": "HELP:CamoNetting-01",
+  "text": "HINT: \n Camo-Netting camouflages your Stinger Sites \n and Tunnel Networks"
+ },
+ {
+  "label": "HELP:FortifiedStructures-01",
+  "text": "HINT: \n Fortified Structures are harder to destroy"
+ },
+ {
+  "label": "HELP:BoobyTrap-01",
+  "text": "HINT: \n Booby Traps will detonate when an enemy tries \n to garrison or capture the trapped structure"
+ },
+ {
+  "label": "HELP:KingRaptor-01",
+  "text": "HINT: \n King Raptors carry extra ammo and have more armor"
+ },
+ {
+  "label": "HELP:CombatChinooks-01",
+  "text": "HINT: \n Infantry inside of a Combat Chinook can fire in flight"
+ },
+ {
+  "label": "HELP:AuroraAlpha-01",
+  "text": "HINT: \n The Aurora Alpha is equipped with a small \n but devastating Fuel Air Bomb"
+ },
+ {
+  "label": "HELP:MicrowavePatriot-01",
+  "text": "HINT: \n The EMP Patriot's Rockets are effective \n against both vehicles and infantry"
+ },
+ {
+  "label": "HELP:AdvancedRods-01",
+  "text": "HINT: \n Advanced Rods provide more power than normal Control Rods"
+ },
+ {
+  "label": "HELP:LaserTank-01",
+  "text": "HINT: \n Build extra Power Plants when using Laser Tanks \n They cannot move or fire when power is low"
+ },
+ {
+  "label": "HELP:LaserDefenseTurret-01",
+  "text": "HINT: \n Laser Defense Turrets are strong but require extra power"
+ },
+ {
+  "label": "HELP:AssaultTroopTransport-01",
+  "text": "HINT: \n Units can fire out of the Assault Troop Transport"
+ },
+ {
+  "label": "HELP:AttackOutpost-01",
+  "text": "HINT: \n The Attack Outpost can hold extra infantry and \n can detect stealthed units"
+ },
+ {
+  "label": "HELP:FortifiedBunkers-01",
+  "text": "HINT: \n The Fortified Bunkers come with Mines and \n stronger armor and can hold extra infantry"
+ },
+ {
+  "label": "HELP:Mini-Gunner-01",
+  "text": "HINT: \n Mini-Gunners carry a personal Gattling Gun"
+ },
+ {
+  "label": "HELP:InfantryBlackLotus-01",
+  "text": "HINT: \n Your Black Lotus units have improved abilities"
+ },
+ {
+  "label": "HELP:InfantryBlackLotus-02",
+  "text": "HINT: \n You can build multiple Black Lotus units"
+ },
+ {
+  "label": "HELP:InfantryHacker-01",
+  "text": "HINT: \n The Infantry General's Hacker hack money faster"
+ },
+ {
+  "label": "HELP:ChineseParadrop-01",
+  "text": "HINT: \n The Chinese Paradrop parachutes Red Guard anywhere"
+ },
+ {
+  "label": "HELP:EmperorTank-01",
+  "text": "HINT: \n Emperor Tanks are the ultimate tank, \n effective against both vehicles and infantry"
+ },
+ {
+  "label": "HELP:EmperorTank-02",
+  "text": "HINT: \n The Emperor Tank can be upgraded with a Gattling Cannon"
+ },
+ {
+  "label": "HELP:EmperorTank-03",
+  "text": "HINT: \n Emperor Tanks come equipped with Propaganda Towers"
+ },
+ {
+  "label": "HELP:TankDrop-01",
+  "text": "HINT: \n The Tank Drop allows you to parachute Battlemasters"
+ },
+ {
+  "label": "HELP:TacticalNuke-01",
+  "text": "HINT: \n Your Airfield can upgrade MiGs to carry Tactical Nukes"
+ },
+ {
+  "label": "HELP:IsotopeStability-01",
+  "text": "HINT: \n Isotope Stability will reduce the damage done to friendly \n units when Nuclear Tanks are destroyed"
+ },
+ {
+  "label": "HELP:AdvancedNuclearPower-01",
+  "text": "HINT: \n Advanced Nuclear Power Plants generate more power than normal Nuclear Plans"
+ },
+ {
+  "label": "HELP:ToxinRebels-01",
+  "text": "HINT: \n Toxin Rebels shoot a stream of highly poisonous toxins"
+ },
+ {
+  "label": "HELP:ToxinRebels-02",
+  "text": "HINT: \n Toxin Rebels are resistant to toxin attacks"
+ },
+ {
+  "label": "HELP:ToxinRebels-03",
+  "text": "HINT: \n Use Toxin Rebels to quickly clear out garrisoned structures"
+ },
+ {
+  "label": "HELP:ToxinNetworks-01",
+  "text": "HINT: \n Toxin Networks fire streams of toxin from their cannons"
+ },
+ {
+  "label": "HELP:ToxinTerrorists-01",
+  "text": "HINT: \n Toxin Terrorists explode in a cloud of toxin"
+ },
+ {
+  "label": "HELP:ToxinTerrorists-02",
+  "text": "HINT: \n Use Toxin Terrorists to attack large groups of infantry"
+ },
+ {
+  "label": "HELP:AnthraxGamma-01",
+  "text": "HINT: \n Anthrax Gamma increases the damage of all toxin attacks"
+ },
+ {
+  "label": "HELP:AnthraxGamma-02",
+  "text": "HINT: \n Anthrax Gamma is even more potent than Anthrax Beta"
+ },
+ {
+  "label": "HELP:AdvancedTrap-01",
+  "text": "HINT: \n Advanced Traps are more powerful than normal Demo Traps"
+ },
+ {
+  "label": "HELP:Demolitions-01",
+  "text": "HINT: \n The Demolitions upgrade gives units the ability to detonate"
+ },
+ {
+  "label": "GENERIC:MissionObjectiveCompleted-01",
+  "text": "MISSION OBJECTIVE #1: \n Accomplished"
+ },
+ {
+  "label": "GENERIC:MissionObjectiveCompleted-02",
+  "text": "MISSION OBJECTIVE #2: \n Accomplished"
+ },
+ {
+  "label": "GENERIC:MissionObjectiveCompleted-03",
+  "text": "MISSION OBJECTIVE #3: \n Accomplished"
+ },
+ {
+  "label": "GENERIC:MissionObjectiveCompleted-04",
+  "text": "MISSION OBJECTIVE #4: \n Accomplished"
+ },
+ {
+  "label": "GENERIC:MissionObjectiveCompleted-05",
+  "text": "MISSION OBJECTIVE #5: \n Accomplished"
+ },
+ {
+  "label": "LOSE:AllUnits",
+  "text": "INCOMING TRANSMISSION: \n All of our units have been destroyed \n We have been defeated, General. This time"
+ },
+ {
+  "label": "LOSE:AllBuildings",
+  "text": "INCOMING TRANSMISSION: \n All of our buildings have been destroyed \n We have been defeated, General. This time"
+ },
+ {
+  "label": "LOSE:AllUnitsAndBuildings",
+  "text": "INCOMING TRANSMISSION: \n All of our units and buildings have been destroyed \n We have been defeated, General. This time"
+ },
+ {
+  "label": "HELP:OilRefinery-01",
+  "text": "HINT: \n Capture Oil Refineries to reduce the cost of vehicles"
+ },
+ {
+  "label": "HELP:ReinforcementPad-01",
+  "text": "HINT: \n Capture Reinforcement Pads to gain tank reinforcements"
+ },
+ {
+  "label": "HELP:OilDerrick-01",
+  "text": "HINT: \n Capture Oil Derricks to gain extra money"
+ },
+ {
+  "label": "HELP:RepairBay-01",
+  "text": "HINT: \n Capture Repair Bays to repair vehicles anywhere"
+ },
+ {
+  "label": "HELP:ArtilleryPlatform-01",
+  "text": "HINT: \n Capture Artillery Platforms to control key regions"
+ },
+ {
+  "label": "MAP:MD_USA01Objective1",
+  "text": "MISSION OBJECTIVE: \n Secure the train depot and destroy surrounding GLA base"
+ },
+ {
+  "label": "MAP:MD_USA01Objective1a",
+  "text": "MISSION OBJECTIVE #1: \n Secure the train depot and destroy surrounding GLA base"
+ },
+ {
+  "label": "MAP:MD_USA01ObjectiveAccomplished",
+  "text": "MISSION OBJECTIVE ACCOMPLISHED"
+ },
+ {
+  "label": "MAP:MD_USA01ObjectiveAccomplisheda",
+  "text": "MISSION OBJECTIVE #1 Accomplished"
+ },
+ {
+  "label": "MAP:MD_USA01Objective2",
+  "text": "INCOMING TRANSMISSION: \n Move units into the train cars"
+ },
+ {
+  "label": "MAP:MD_USA01Objective2a",
+  "text": "INCOMING TRANSMISSION: \n Move units into the train cars"
+ },
+ {
+  "label": "MAP:MD_USA01Objective3",
+  "text": "MISSION OBJECTIVE: \n Destroy the GLA base"
+ },
+ {
+  "label": "MAP:MD_USA01Objective3a",
+  "text": "MISSION OBJECTIVE #2: \n Destroy the GLA base"
+ },
+ {
+  "label": "MAP:MD_USA01Hint1",
+  "text": "HINT: \n Infantry can enter the abandoned vehicles in the Northeast"
+ },
+ {
+  "label": "MAP:MD_USA01Hint1a",
+  "text": "HINT: \n Infantry can enter the abandoned vehicles in the Northeast"
+ },
+ {
+  "label": "MAP:MD_USA01Hint2",
+  "text": "HINT: \n Garrison infantry into radio station to call in A-10s"
+ },
+ {
+  "label": "MAP:MD_USA01Hint2a",
+  "text": "HINT: \n Garrison infantry into radio station to call in A-10s"
+ },
+ {
+  "label": "OBJECT:TrainDepot",
+  "text": "Train Depot"
+ },
+ {
+  "label": "OBJECT:TrainLoading",
+  "text": "Boarding Platform"
+ },
+ {
+  "label": "MAP:MD_USA01Title",
+  "text": "Baikonur Cosmodrome, Southern Kazakhstan \n 'Operation Global Security'"
+ },
+ {
+  "label": "MAP:MD_USA01CINELocation02",
+  "text": "U.S. Naval Base \n Northern Europe"
+ },
+ {
+  "label": "MAP:Intro_Breifing_01",
+  "text": "U.S. Recon Base outside Baikonur \n Southern Kazakhstan"
+ },
+ {
+  "label": "MAP:MD_USA01CINELocation01",
+  "text": "Somewhere in Southern Kazakhstan \n En route to Baikonur"
+ },
+ {
+  "label": "MAP:USAX02MissionINtro",
+  "text": "Off the coast of Somalia"
+ },
+ {
+  "label": "MAP:USAX02MissionStart",
+  "text": "Berbera, Somalia \n 'Operation: Helping Hand'"
+ },
+ {
+  "label": "MAP:USAX02NavyHint",
+  "text": "INCOMING TRANSMISSION: \n Naval fleet available to soften resistance"
+ },
+ {
+  "label": "MAP:USAX02ConvoyHint",
+  "text": "INCOMING TRANSMISSION: \n Convoy will begin when 10 Supply Trucks have arrived"
+ },
+ {
+  "label": "MAP:USAX02ConvoyArrived",
+  "text": "MISSION OBJECTIVE #1: \n Accomplished"
+ },
+ {
+  "label": "MAP:USAX02objectives3a",
+  "text": "MISSION OBJECTIVE #2: \n Destroy GLA Base"
+ },
+ {
+  "label": "MAP:USAX02Objectives1",
+  "text": "MISSION OBJECTIVE #1: \n Protect incoming Supply Trucks and secure Supply Warehouse"
+ },
+ {
+  "label": "MAP:USAX02Objectives2",
+  "text": "MISSION OBJECTIVE: \n Defend the docks \n Protect the incoming supply trucks \n Secure the warehouse"
+ },
+ {
+  "label": "MAP:USAX02Objectives3",
+  "text": "MISSION OBJECTIVE: \n Find and Destroy the GLA structures in the mountains"
+ },
+ {
+  "label": "MAP:USAX02Ships",
+  "text": "Available Support: \n Aircraft Carrier, CVN-88 Daedalus \n Battleship Escort Group, Dreadnought"
+ },
+ {
+  "label": "MAP:USAX02Truck1Arrived",
+  "text": "Supply Truck 1 of 10 has arrived"
+ },
+ {
+  "label": "MAP:USAX02Truck2Arrived",
+  "text": "Supply Truck 2 of 10 has arrived"
+ },
+ {
+  "label": "MAP:USAX02Truck3Arrived",
+  "text": "Supply Truck 3 of 10 has arrived"
+ },
+ {
+  "label": "MAP:USAX02Truck4Arrived",
+  "text": "Supply Truck 4 of 10 has arrived"
+ },
+ {
+  "label": "MAP:USAX02Truck5Arrived",
+  "text": "Supply Truck 5 of 10 has arrived"
+ },
+ {
+  "label": "MAP:USAX02Truck6Arrived",
+  "text": "Supply Truck 6 of 10 has arrived"
+ },
+ {
+  "label": "MAP:USAX02Truck7Arrived",
+  "text": "Supply Truck 7 of 10 has arrived"
+ },
+ {
+  "label": "MAP:USAX02Truck8Arrived",
+  "text": "Supply Truck 8 of 10 has arrived"
+ },
+ {
+  "label": "MAP:USAX02Truck9Arrived",
+  "text": "Supply Truck 9 of 10 has arrived"
+ },
+ {
+  "label": "MAP:USAX02Truck10Arrived",
+  "text": "Supply Truck 10 has arrived \n The convoy is preparing to depart for the warehouse"
+ },
+ {
+  "label": "MAP:USAX02ConvoyToWarehouse",
+  "text": "Escort the convoy to the warehouse"
+ },
+ {
+  "label": "MAP:USAX02Dozer",
+  "text": "A dozer has arrived at the docks \n Commence base construction"
+ },
+ {
+  "label": "MAP:USAX02Dozerb",
+  "text": "A Dozer has arrived"
+ },
+ {
+  "label": "MAP:USAX02Dozer2",
+  "text": "A new dozer has arrived at the docks"
+ },
+ {
+  "label": "MAP:USA03xMapName",
+  "text": "Last Call"
+ },
+ {
+  "label": "MAP:USA03xOpen",
+  "text": "Mount Elbrus, Georgia \n 'Operation: Snow Fall'"
+ },
+ {
+  "label": "MAP:USA03xOpenAlt",
+  "text": "Mount Elbrus, Russia \n 'Operation: Snow Fall'"
+ },
+ {
+  "label": "MAP:USA03xObjective02",
+  "text": "MISSION OBJECTIVE #1: \n Destroy the GLA POW camp and rescue the POWs \n Col. Burton must survive"
+ },
+ {
+  "label": "MAP:USA03xObjective03",
+  "text": "MISSION OBJECTIVE #2: \n Move Col. Burton to the rally point"
+ },
+ {
+  "label": "MAP:USA03xObjectiveCompleted",
+  "text": "MISSION OBJECTIVE #1: \n Accomplished"
+ },
+ {
+  "label": "MAP:USA03xTownHallHint",
+  "text": "INCOMING TRANSMISSION: \n Search the village for MIA soldiers"
+ },
+ {
+  "label": "MAP:USA03xToxinNetworksWarning",
+  "text": "WARNING: \n Watch out for Toxin Networks and Stinger Sites"
+ },
+ {
+  "label": "MAP:USA03xPOWCamp02Hint",
+  "text": "HINT: \n Eliminate the GLA structures guarding this camp \n to liberate the prisoners held here"
+ },
+ {
+  "label": "MAP:USA03xBurtonWarning",
+  "text": "WARNING: \n Colonel Burton is severely wounded \n He must survive this mission"
+ },
+ {
+  "label": "MAP:USA03xChemWarning02",
+  "text": "WARNING: \n These defenses have been modified to fire chemicals \n They will kill any infantry that get too close"
+ },
+ {
+  "label": "MAP:USA03xLoseReason01",
+  "text": "INCOMING TRANSMISSION: \n Colonel Burton has been killed \n You have been defeated, General. This time"
+ },
+ {
+  "label": "MAP:MD-USA04_LOCALE",
+  "text": "Amisbad Oil Fields, Iran \n 'Operation: Black Gold'"
+ },
+ {
+  "label": "MAP:MD-USA04_Start02",
+  "text": "INCOMING TRANSMISSION: \n Reinforcements have arrived"
+ }
+]

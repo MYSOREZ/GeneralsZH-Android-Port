@@ -1,0 +1,802 @@
+[
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle073Subtitle",
+  "text": "*So many troops, General. You weren't actually planning to rush me with them were you?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle074Subtitle",
+  "text": "*That's quite a base you have going there, General. You did remember to space out your buildings to avoid weapon strikes, right?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle075Subtitle",
+  "text": "*Do you know how long it's going to take to clean that up?!?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle076Subtitle",
+  "text": "*Get that disgusting radiation out of my base!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle077Subtitle",
+  "text": "*Hey, that's my Particle Cannon! You're not authorized to use it!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle078Subtitle",
+  "text": "*Is that a tactical move, or are you just hiding?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle079Subtitle",
+  "text": "*Colonel Burton? Really? Do you think he's going to help you?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle080Subtitle",
+  "text": "*Black Lotus? I guess it's just a girl-power showdown, isn't it?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle081Subtitle",
+  "text": "*Jarmen Kell! He better stay away from my tanks!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle082Subtitle",
+  "text": "*Nice Air Field, General--just keep those planes away from my Particle Cannon"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle083Subtitle",
+  "text": "*A War Factory? You're seriously going to attack me, aren't you? It's about time"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle084Subtitle",
+  "text": "*Good for you - you can build a barracks"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle085Subtitle",
+  "text": "*Selling your buildings? Is that part of your going out of business sale?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle086Subtitle",
+  "text": "*Why don't you just give up? I have better things I could be doing today"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle087Subtitle",
+  "text": "*Why can't I ever find one that lasts more than 5 minutes"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle088Subtitle",
+  "text": "*Looks like you're losing, General. Now what did I say about planning to fail?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle089Subtitle",
+  "text": "*That's quite a beating you're taking, General. Are you ready for more?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle090Subtitle",
+  "text": "*I'd like to say, \"good fight,\" but clearly your mind wasn't in it, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle091Subtitle",
+  "text": "*I can't believe you would beat-up on a girl like this"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle092Subtitle",
+  "text": "*I need time to think. Go away, General!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle093Subtitle",
+  "text": "*Your tactics are hardly sporting, General. Play nice!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle094Subtitle",
+  "text": "*General, look over there! Someone is capturing your buildings! Didn't buy it, huh?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle095Subtitle",
+  "text": "*You know, if you were a gentleman, you'd give me five minutes to rebuild my defenses"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle096Subtitle",
+  "text": "*What?! It's over? Well, it was nice dancing with you, General. Maybe next time I'll lead"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle097Subtitle",
+  "text": "*My Super Weapons are ready... are you?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle098Subtitle",
+  "text": "*You'll never crack my defenses, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle099Subtitle",
+  "text": "*Your rush tactics won't work on me"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle100Subtitle",
+  "text": "*It's not fair! One more Super Weapon and I would have beaten you, General. Challenge me again, I dare you"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle101Subtitle",
+  "text": "*I told you you'd never beat my Super Weapons, General. Care to try again?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle102Subtitle",
+  "text": "*Welcome, General. Are you ready to begin?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle103Subtitle",
+  "text": "*Oh, what's that sound? Now I see a light in the sky... Hmm"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle104Subtitle",
+  "text": "*Oh my!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle106Subtitle",
+  "text": "*oh dearI'm sorry, General, but that's just how I like to say, \"hello.\" Well, good luck, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle107Subtitle",
+  "text": "*Well, good luck, General"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina001Subtitle",
+  "text": "*The Americans use the Sentry Drone as an early warning enemy detection system. The drone becomes invisible when it is not moving, and we've seen some of them upgraded with machine guns. Though no match for tanks, the drone can cause problems for foot soldiers"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina002Subtitle",
+  "text": "*The American Microwave Tank is a big microwave gun that disables structures and vehicles. The radiation from the tank can also hurt infantry, so keep our men at a safe distance"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina003Subtitle",
+  "text": "*The Avenger is an American laser based anti-air vehicle able to shoot down missiles and aircraft. It also helps other US units target our planes, so they should be considered high priority targets when encountered within a battle group"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina004Subtitle",
+  "text": "*The Specter Gunship is a large jet powered aircraft with multiple weapon systems fixed to its side enabling it to circle a target area and rain death from above. Typical American engineering--using a shotgun to swat a fly"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina005Subtitle",
+  "text": "*The Chemical Suit upgrade, makes infantry more resistant to toxins and radiation"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina006Subtitle",
+  "text": "*The US Countermeasures upgrade reduces the effectiveness of enemy fire against their air units. Missiles will often miss, and bullets do less damage"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina007Subtitle",
+  "text": "*The US Hellfire Drone upgrade creates an remote air drone that defends the parent vehicle with an automated hellfire missile system"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina008Subtitle",
+  "text": "*The Bunker Buster is an upgrade to the US Stealth Fighter and the Aurora designed to penetrate garrisoned buildings"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina009Subtitle",
+  "text": "*The Supply Lines Upgrade increases the rate that the US gathers resources from supply docks, supply drops, and oil derricks"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina010Subtitle",
+  "text": "*The US Generals have seen the wisdom of propaganda. By using a Leaflet Drop they are able to temporarily disable units while they stop to read the propaganda"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina011Subtitle",
+  "text": "*The MOAB is an upgrade to the US Fuel Air Bomb that includes a stun ability, temporarily shutting down surviving units and structures"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina012Subtitle",
+  "text": "*The US Fire Base structure is a defensive position surrounded by sandbags and includes a howitzer and 4 firing positions"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina013Subtitle",
+  "text": "*The Napalm Bomb is an upgrade to our Helix airship, allowing it to drop a pair of bombs which create a large firestorm effect"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina014Subtitle",
+  "text": "*Our Listening Outpost is a slow, stealthed vehicle with a large sight radius, that can be garrisoned with 2 infantry as guards. Besides uncovering stealthed objects, it can be used to determine enemy destinations by clicking on units in range"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina015Subtitle",
+  "text": "*Our Helix 2 airship is a slow transport helicopter that can carry infantry or a single vehicle. Although armed with a light machine gun, it can be upgraded with the Gattling Cannon, Propaganda Tower, or Battle Bunker. It can also be upgraded to carry a large napalm bomb"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina016Subtitle",
+  "text": "*The ECM Tank disrupts electronic tracking systems, diverting enemy missile fire. It's electro-magnetic pulse can be used to disable a single enemy vehicle. It also creates a radar jamming field that disables all drones within its range"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina017Subtitle",
+  "text": "*The Neutron Shell is an upgrade to our Nuclear Cannon, allowing it to fire neutron shells. These shells kill all infantry, and vehicle pilots inside the blast radius"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina018Subtitle",
+  "text": "*The Systems Hack allows your hackers to steal a random Generals power from our enemies. Level 1 allows theft of a 1-star or 3-star power, while level 2 allows theft of a 5-star power"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina019Subtitle",
+  "text": "*Our new Carpet Bomber plane drops a series of bombs along a targeted path, decimating all enemy forces"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina020Subtitle",
+  "text": "*Our Neutron Mines are an alternative to standard explosive mines. Neutron Mines instantly disable vehicles and kill any nearby infantry"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina021Subtitle",
+  "text": "*Our hackers, once vulnerable to attack, will find safety and increased hacking ability in our new Internet Center"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina022Subtitle",
+  "text": "*The Satellite Hack I is an internet Center upgrade that allows a reveal around every opponent's Command Center"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina023Subtitle",
+  "text": "*The Satellite Hack II is an Internet Center upgrade that grants a temporarily reveals the entire map, including stealthed enemy forces"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina024Subtitle",
+  "text": "*The GLA Saboteur is a stealth infantry unit that can climb cliffs and effect enemy buildings by entering them. Entering a power plant will temporarily cut power, while entering a superweapon will reset the timer. A saboteur who enters an enemy command center will reset the timers on all enemy General's Powers"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina025Subtitle",
+  "text": "*The Combat Cycle initially comes with a GLA Rebel driver and a mounted machine gun. The Rebel can be replaced with any other GLA infantry, granting the cycle their unique powers"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina026Subtitle",
+  "text": "*The GLA Battle Bus can hold up to 8 infantry, who fire out windows. If destroyed, the heavy steel cabin remains like a bunker"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina027Subtitle",
+  "text": "*The GLA have upgraded their Workers with Shoes to squeeze even more forced labor from their peasants"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina028Subtitle",
+  "text": "*The Camo Netting is an upgrade to GLA base defense structures, making them invisible to normal detection"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina029Subtitle",
+  "text": "*The GLA have begun garrisoning Elite Guard troops equipped with RPGs in all their structures. Use caution when infiltrating any GLA bases"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina030Subtitle",
+  "text": "*The GLA Booby Trap upgrade enables the rebel to wire structures and civilian vehicles to explode when the enemy attempts to capture or garrison them. Watch for Rebels lurking around buildings in your area"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina031Subtitle",
+  "text": "*The GLA tricks have reached a new level. They are now building Fake Structures that look like their real buildings, but are only booby-trapped facades. Destroy everything from range to avoid any GLA surprises"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina032Subtitle",
+  "text": "*The GPS Scrambler targets an area of units and makes them invisible to normal detection"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina033Subtitle",
+  "text": "*The Sneak Attack power allows GLA Generals to place a defenseless tunnel network anywhere they have explored. Although slightly weaker than a normal tunnel, it is connected to the main network"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina034Subtitle",
+  "text": "*The Artillery Platform is a fixed-position cannon capable of single-handedly controlling an area from enemy assault. It should be a priority capture on any battlefield"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina035Subtitle",
+  "text": "*A Reinforcement Pad allows a free periodic armor airdrop. Free Battlemasters can turn the tide of any battle"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina036Subtitle",
+  "text": "*The Repair Bay tech building, when captured, allows battlefield repairs for any ground vehicles. Repairs for damaged armor in a forward position can make the difference between victory and defeat"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA001Subtitle",
+  "text": "*Be careful of the American Sentry Drone, General; it can see stealthed units and often has a mounted gun"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA002Subtitle",
+  "text": "*The US Microwave Tank has a beam that disables structures and units. It should be attacked by large groups only"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA003Subtitle",
+  "text": "*The US Warlock Tank has a beam that disables structures and units. It should be attacked by large groups only"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA004Subtitle",
+  "text": "*The US Avenger is a powerful laser-base anti-air vehiclebut we have no planes, so the danger from it is minimal"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA005Subtitle",
+  "text": "*The American Specter Gunship is a large plane with big guns. Do not engage it--seek refuge underground until it leaves the area"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA006Subtitle",
+  "text": "*With the Chemical Suit upgrade, enemy infantry become more resistant to our toxins. But that won't stop our bullets, will it?"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA007Subtitle",
+  "text": "*The Countermeasures upgrade reduces the effect of enemy fire against US air units. Missiles will often miss, and bullets do less damage"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA008Subtitle",
+  "text": "*The US Hellfire Drone upgrade is a little toy plane with a missile attached. Another example of American's cowardly tactics"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA009Subtitle",
+  "text": "*The Bunker Buster Bomb is an upgrade to the US Stealth Fighter and the Aurora. They use it to try to attack our bunkers"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA010Subtitle",
+  "text": "*The Supply Lines Upgrade increases the rate that the US gathers resources from supply docks, supply drops, and oil derricks"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA011Subtitle",
+  "text": "*The US Leaflet Drop temporarily disables our units as they stop to read the propaganda"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA012Subtitle",
+  "text": "*The MOAB is an upgrade to the Fuel Air Bomb that includes a stun ability, temporarily shutting down surviving units and structures"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA013Subtitle",
+  "text": "*The Fire Base is the American answer to our Stinger sites...but watch out for the big cannon in the middle"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA014Subtitle",
+  "text": "*China's Napalm Bomb is a Helix upgrade, allowing it to drop a pair of bombs which create a large firestorm"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA015Subtitle",
+  "text": "*The Listening Outpost is a slow, stealthed vehicle the China uses to find our stealthed units. Avoid them to remain hidden"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA016Subtitle",
+  "text": "*China's Helix 2 is a slow transport helicopter that can carry infantry or a single vehicle"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA017Subtitle",
+  "text": "*The Chinese ECM Tank is a vehicle which disrupts electronic tracking systems, diverting enemy missile fire"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA018Subtitle",
+  "text": "*The Neutron Shell is an upgrade to the Chinese Nuke Cannon, allowing it to fire neutron shells. These shells kill all infantry, and vehicle pilots inside the blast radius"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA019Subtitle",
+  "text": "*China's new Systems Hack technique allows hackers to steal a random power from their enemies. Such is the downfall of depending on power to fight wars"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA020Subtitle",
+  "text": "*The Carpet Bomber is a plane that drops a series of bombs along a targeted path, decimating the enemy"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA021Subtitle",
+  "text": "*The Neutron Mines are an alternative to standard Chinese Mines which disable vehicles. The mines still kill infantry as well"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA022Subtitle",
+  "text": "*The Internet Center allows China's hackers to increase their effectiveness"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA023Subtitle",
+  "text": "*The Satellite Hack I is an internet Center upgrade that allows China to see every opponent's Command Center"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA024Subtitle",
+  "text": "*The Satellite Hack II is a Chinese Internet Center upgrade that grants a temporary reveal of the entire map, as well as revealing stealthed objects"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA025Subtitle",
+  "text": "*The Saboteur is a stealth unit that can climb cliffs and effect enemy buildings by entering them"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA026Subtitle",
+  "text": "*Our new Combat Cycle has mounted machine guns and is enhanced by the abilities of any infantry riding it"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA027Subtitle",
+  "text": "*The Battle Bus is a slow moving transport that can hold up to 8 infantry, who may fire out of the bus. If destroyed, the hull of the Battle Bus remains and functions like a bunker"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA028Subtitle",
+  "text": "*The Worker Shoes upgrade increase speed and gathering efficiency for all our loyal workers"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA029Subtitle",
+  "text": "*The Camo Netting is an upgrade to our base defense structures, allowing them to be stealthed"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA030Subtitle",
+  "text": "*The Elite Guard Upgrade is a structure ability, garrisoning the structure with 4 RPG Troopers"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA031Subtitle",
+  "text": "*The Booby Trap is an upgrade to the rebel, allowing the unit to wire structures and civilian vehicles to explode when the enemy attempts to capture or garrison them. Captured structures are automatically booby trapped"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA032Subtitle",
+  "text": "*Fake Structures can be built for a greatly reduced cost. These buildings are initially a booby-trapped façade, but can be upgraded to fully functional versions of the structure"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA033Subtitle",
+  "text": "*Our newly acquired GPS Scrambler targets an area of units and renders them invisible to enemies"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA034Subtitle",
+  "text": "*Our Sneak Attack allows placement of a defenseless tunnel network at any area that has been explored. Although slightly weaker than a normal tunnel, it is connected to the main network"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA035Subtitle",
+  "text": "*The Artillery Platform fires a weapon similar to the US Strategy Center in terms of range and damage. Capture or avoid its deadly cannon"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA036Subtitle",
+  "text": "*The Reinforcement Pad periodically delivers a group of Scorpion tanks for our cause"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA037Subtitle",
+  "text": "*The Repair Bay is a front-line repair facility for vehicles. It repairs vehicles like an Arms Dealer"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA001Subtitle",
+  "text": "*The Sentry Drone is a mobile unit capable of tracking enemy movements, including those that are camouflaged. The Sentry Drone itself is also capable of stealth when not moving, and may be upgraded with an anti-personnel machine gun from the strategy center"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA002Subtitle",
+  "text": "*The Microwave Tank is armed with a Direct-Energy microwave panel that disables targeted structures and vehicles. It also emits a continuous microwave field which damages infantry"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA003Subtitle",
+  "text": "*The Warlock tank is armed with a Direct-Energy microwave panel that disables targeted structures and vehicles. It also emits a continuous microwave field which damages infantry"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA004Subtitle",
+  "text": "*The Avenger is a laser based anti-air vehicle able to shoot down missiles and aircraft. It can also award bonuses to units attacking it's \"painted\" target"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA005Subtitle",
+  "text": "*The Specter Gunship is a large jet powered aircraft with multiple weapon systems fixed to it's wings. While it circles the target, it auto-acquires enemies. Manual targeting is allowed, and it can upgrade to deploy countermeasures"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA006Subtitle",
+  "text": "*With the Chemical Suit upgrade, infantry become more resistant to toxins and radiation"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA007Subtitle",
+  "text": "*The Countermeasures upgrade reduces the effect of enemy fire against US air units. Missiles will often miss, and bullets do less damage"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA008Subtitle",
+  "text": "*The Hellfire Drone upgrade equips the parent vehicle with a drone capable of firing a single missile. The drones auto-acquire and require time to reload"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA009Subtitle",
+  "text": "*The Bunker Buster is an upgrade to the Stealth Fighter and the Aurora. In addition to their normal effects, these upgraded missiles damage and even kill units garrisoned within structures, including the GLA Palace, Tunnel Network, and the Chinese Battle Bunker"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA010Subtitle",
+  "text": "*The Supply Lines Upgrade increases the amount of money gathered from supply docks, supply drops, and oil derricks"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA011Subtitle",
+  "text": "*The Leaflet Drop temporarily disables units as they stop to read the propaganda. The plane dispenses leaflets over the targeted area and the effect only lasts a short time"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA012Subtitle",
+  "text": "*The MOAB is an upgrade to the Fuel Air Bomb that includes a stun ability, temporarily shutting down surviving units and structures"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA013Subtitle",
+  "text": "*The Fire Base is surrounded by sandbags and includes a howitzer and 4 firing positions. Infantry entering the Fire Base will take firing positions behind the sandbags"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA014Subtitle",
+  "text": "*The Napalm Bomb is a Helix upgrade, allowing it to drop a pair of bombs which create a large firestorm"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA015Subtitle",
+  "text": "*The Listening Outpost is a slow, stealthed vehicle with a large sight radius, and can be garrisoned with 2 infantry as guards. Besides uncovering stealthed objects, it can be used to determine enemy destinations by clicking on units in range"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA016Subtitle",
+  "text": "*The Helix 2 is a slow transport helicopter that can carry infantry or a single vehicle. Although armed with a light machine gun, it can be upgraded with the Gattling Cannon, Propaganda Tower, or Battle Bunker. It can also be upgraded to carry a large napalm bomb"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA017Subtitle",
+  "text": "*The ECM Tank is a vehicle which disrupts electronic tracking systems, diverting enemy missile fire. It's ECM pulse can be used to disable single enemy vehicles. Finally, it creates a radar jamming field, disabling all drones within its range"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA018Subtitle",
+  "text": "*The Neutron Shell is an upgrade to the Chinese Nuke Cannon, allowing it to fire neutron shells. These shells kill all infantry, and vehicle pilots inside the blast radius"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA019Subtitle",
+  "text": "*The Systems Hack allows your hackers to steal a random power from your enemies. Level 1 allows theft of a tier 1 or 3 power, while level 2 allows theft of a 5-star power"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA020Subtitle",
+  "text": "*The Carpet Bomber is a plane that drops a series of bombs along a targeted path, decimating the enemy"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA021Subtitle",
+  "text": "*The Neutron Mines are an alternative to standard Chinese Mines which disable vehicles. The mines still kill infantry as well"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA022Subtitle",
+  "text": "*The Internet Center allows hackers to increase their effectiveness at generating money, and allows the use of Satellite Hacks I & II"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA023Subtitle",
+  "text": "*The Satellite Hack I is an internet Center upgrade that allows a reveal around every opponent's Command Center"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA024Subtitle",
+  "text": "*The Satellite Hack II is an internet Center upgrade that grants a temporary reveal of the entire map, as well as revealing stealthed objects"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA025Subtitle",
+  "text": "*The Saboteur is a stealth unit that can climb cliffs and effect enemy buildings by entering them. Entering a power plant will temporarily cut power, while entering a superweapon will reset the timer. A saboteur who enters an enemy command center will reset the timers on all enemy General's Powers"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA026Subtitle",
+  "text": "*The Combat Cycle initially comes with a Rebel driver and a mounted machine gun. Replacing him with a RPG Trooper will allow the bike to fire missiles. A Terrorist will create a suicide bike. Jarmen Kell, Hijackers, and Saboteurs can also ride, making the bike stealthed"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA027Subtitle",
+  "text": "*The Battle Van is a slow moving transport that can hold up to 8 infantry, who may fire out of the bus. If destroyed, the hull of the Battle Van remains and functions like a bunker. If it is destroyed, anyone inside is also killed"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA028Subtitle",
+  "text": "*The Worker Shoes upgrade increase speed and gathering efficiency for all GLA workers"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA029Subtitle",
+  "text": "*The Camo Netting is an upgrade to GLA base defense structures, allowing them to be stealthed"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA030Subtitle",
+  "text": "*The Elite Guard Upgrade is an structure ability, garrisoning the structure with 4 RPG Troopers"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA031Subtitle",
+  "text": "*The Booby Trap is an upgrade to the rebel, allowing the unit to wire structures and civilian vehicles to explode when the enemy attempts to capture or garrison them. The explosion damages everything within a small radius. Structures captured by an upgraded rebel are automatically booby trapped"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA032Subtitle",
+  "text": "*Fake Structures can be built for a greatly reduced cost. These buildings are initially a booby-trapped façade, but can be upgraded to fully functional versions of the structure"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA033Subtitle",
+  "text": "*The GPS Scrambler targets an area of units and renders them stealthed to enemies"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA034Subtitle",
+  "text": "*The Sneak Attack allows placement of a defenseless tunnel network at any area that has been explored. Although slightly weaker than a normal tunnel, it is connected to the main network"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA035Subtitle",
+  "text": "*The artillery platform is armed with a large caliber howitzer. It is an excellent suppression weapon. It is also a good gathering point from which to launch an assault"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA036Subtitle",
+  "text": "*The Reinforcement Pad Periodically reinforces the player with one of his side's main battle tank (Scorpion, Battlemaster, Crusader)"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA037Subtitle",
+  "text": "*The Repair Bay is a repair facility for vehicles. Vehicles must dock with the structure in the same way that they must dock with the war factory"
+ },
+ {
+  "label": "TOOLTIP:Community",
+  "text": "Win percentages for each army based on all online games played"
+ },
+ {
+  "label": "CONTROLBAR:Nuke_ToolTipChinaBuildHelix",
+  "text": "Heavy lift transport \n upgrades with base defense structures and Nuke Bomb \n \n Strong vs. tanks, light vehicles \n Weak vs. missile armed infantry, anti-air defenses"
+ },
+ {
+  "label": "MAP:CHI01xListeningPostHint01",
+  "text": "HINT: \n Hidden Demo Traps will be revealed when in sight range of the Listening Post"
+ },
+ {
+  "label": "OBJECT:SupW_PatriotBattery",
+  "text": "EMP Patriot System"
+ },
+ {
+  "label": "CONTROLBAR:SupW_ConstructAmericaPatriotBattery",
+  "text": "E&MP Patriot System"
+ },
+ {
+  "label": "CONTROLBAR:SupW_ToolTipUSABuildPatriotBattery",
+  "text": "Ground and air defense. Can relay position of enemy to nearby Patriots \n \n Power Required: 3"
+ },
+ {
+  "label": "MAP:USA03xBurtonSurvive",
+  "text": "INCOMING TRANSMISSION: \n Col. Burton must survive"
+ },
+ {
+  "label": "MAP:MD_GLA04_GatherHint",
+  "text": "HINT: \n Select the transport trucks and order them to gather resources from the Toxin Facility"
+ },
+ {
+  "label": "MAP:MD_GLA04_HospitalHint",
+  "text": "HINT: \n The hospital will cause your units to auto heal"
+ },
+ {
+  "label": "MAP:MD_GLA04_TractorsHint",
+  "text": "HINT: \n Toxin Tractors can kill units inside garrisoned buildings"
+ },
+ {
+  "label": "OBJECT:AssaultTroopTransport",
+  "text": "Assault Troop Transport"
+ },
+ {
+  "label": "OBJECT:AssaultListeningOutpost",
+  "text": "Attack Outpost"
+ },
+ {
+  "label": "UPGRADE:IsotopeStability",
+  "text": "Isotope Stability"
+ },
+ {
+  "label": "CONTROLBAR:Infa_ToolTipChinaUpgradeRedGuardCaptureBuilding",
+  "text": "Enables Mini-Gunners to capture enemy and tech buildings"
+ },
+ {
+  "label": "OBJECT:Lazr_PatriotBattery",
+  "text": "Laser Defense Turret"
+ },
+ {
+  "label": "SCIENCE:Infa_ChinaRedGuardTraining",
+  "text": "Mini-Gunner Training"
+ },
+ {
+  "label": "CONTROLBAR:Infa_ToolTipChinaScienceRedGuardTraining",
+  "text": "All Mini-Gunners will be built as Elite"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildNuclearMissileLauncherBoss",
+  "text": "Launches a nuclear missile. Builds important Chinese upgrades \n \n Power Required: 10 \n Countdown Timer: 6:00"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildParticleCannonBoss",
+  "text": "Fires a particle beam anywhere on the map \n \n Power Required: 10 \n Countdown Timer: 4:00"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildCombatBikeTerrorist",
+  "text": "Fast and versatile \n Comes with a terrorist \n Weak vs. aircraft"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildSuperHacker",
+  "text": "Can disable enemy buildings and vehicles with a computer virus or can hack into the internet to steal money. Camouflaged \n \n Strong vs. buildings \n Weak vs. infantry, vehicles"
+ },
+ {
+  "label": "UPGRADE:Demo_SuicideBomb",
+  "text": "Demolitions"
+ },
+ {
+  "label": "UPGRADE:AirF_StealthComanche",
+  "text": "Stealth Comanche"
+ },
+ {
+  "label": "UPGRADE:HighExplosiveTrap",
+  "text": "High-Explosive Demo Trap"
+ },
+ {
+  "label": "CAMPAIGN:CHALLENGE_0",
+  "text": "Air Force General Challenge"
+ },
+ {
+  "label": "CAMPAIGN:CHALLENGE_1",
+  "text": "Toxin General Challenge"
+ },
+ {
+  "label": "CAMPAIGN:CHALLENGE_2",
+  "text": "Nuke General Challenge"
+ },
+ {
+  "label": "CAMPAIGN:CHALLENGE_3",
+  "text": "Superweapon General Challenge"
+ },
+ {
+  "label": "CAMPAIGN:CHALLENGE_4",
+  "text": "Tank General Challenge"
+ },
+ {
+  "label": "CAMPAIGN:CHALLENGE_5",
+  "text": "Laser General Challenge"
+ },
+ {
+  "label": "CAMPAIGN:CHALLENGE_6",
+  "text": "Stealth General Challenge"
+ },
+ {
+  "label": "CAMPAIGN:CHALLENGE_7",
+  "text": "Infantry General Challenge"
+ },
+ {
+  "label": "CAMPAIGN:CHALLENGE_8",
+  "text": "Demolitions General Challenge"
+ },
+ {
+  "label": "OBJECT:RocketDrop",
+  "text": "Rocket"
+ },
+ {
+  "label": "OBJECT:RocketBomb",
+  "text": "Rocket"
+ },
+ {
+  "label": "OBJECT:PTBoat",
+  "text": "PT Boat"
+ },
+ {
+  "label": "OBJECT:ShiekLimo",
+  "text": "Limo"
+ },
+ {
+  "label": "OBJECT:Dock",
+  "text": "Dock"
+ },
+ {
+  "label": "OBJECT:RailroadBridgeH",
+  "text": "Railroad Bridge"
+ },
+ {
+  "label": "OBJECT:RepairDrone",
+  "text": "Repair Drone"
+ },
+ {
+  "label": "OBJECT:CINE_Carrier",
+  "text": "Aircraft Carrier"
+ },
+ {
+  "label": "OBJECT:SpectreGunship",
+  "text": "Spectre Gunship"
+ },
+ {
+  "label": "SCIENCE:LaserCannon",
+  "text": "Laser Cannon"
+ },
+ {
+  "label": "OBJECT:LaserCannon",
+  "text": "Laser Cannon"
+ },
+ {
+  "label": "UPGRADE:TacticalNukeMig",
+  "text": "Tactical Nuke MiG"
+ },
+ {
+  "label": "OBJECT:FuelAirBomb",
+  "text": "Fuel Air Bomb"
+ },
+ {
+  "label": "OBJECT:CruiseMissile",
+  "text": "Cruise Missile"
+ },
+ {
+  "label": "OBJECT:Ox",
+  "text": "Ox"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUpgradeChinaTacticalNukeMig",
+  "text": "Upgrades Mig to fire a small nuke"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaTacticalNukeMig",
+  "text": "Tactical Nuke Mi&G"
+ },
+ {
+  "label": "CONTROLBAR:Boss_ToolTipChinaBuildBarracks",
+  "text": "Trains soldiers"
+ },
+ {
+  "label": "CONTROLBAR:Boss_ToolTipChinaBuildAirField",
+  "text": "Builds aircraft \n \n Power Required: 1"
+ },
+ {
+  "label": "CONTROLBAR:Boss_ToolTipChinaBuildBunker",
+  "text": "Can hold 5 soldiers"
+ },
+ {
+  "label": "CONTROLBAR:Boss_ToolTipChinaBuildWarFactory",
+  "text": "Builds vehicles \n \n Power Required: 1"
+ },
+ {
+  "label": "CONTROLBAR:Boss_ToolTipChinaBuildSupplyCenter",
+  "text": "Drop-off point for supply gatherers \n \n Power Required: 1"
+ },
+ {
+  "label": "CONTROLBAR:Infa_TooltipParaDrop",
+  "text": "Drops Mini-Gunners by plane \n \n Countdown Timer: 4:00"
+ }
+]

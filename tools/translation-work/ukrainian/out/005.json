@@ -1,0 +1,802 @@
+[
+ {
+  "label": "CONTROLBAR:TempDescription",
+  "text": "Будь ласка, знайдіть час, щоб заповнити мій опис, розміщений у CommandButton.ini! Дуже дякую"
+ },
+ {
+  "label": "CONTROLBAR:CleanupAreaDescription",
+  "text": "Автоматично очищає біотоксини та радіацію в області навколо цільового місця"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaCommandCenter",
+  "text": "Командний центр (&C)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaPowerPlant",
+  "text": "Реактор холодного синтезу (&R)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaBarracks",
+  "text": "Казарма (&B)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaSupplyCenter",
+  "text": "Ресурсний центр (&U)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaWall",
+  "text": "Захисний паркан (&F)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaWarFactory",
+  "text": "Військовий завод (&A)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaGuardianControlCenter",
+  "text": "Охоронний\n Центр"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaPatriotBattery",
+  "text": "Ракетна система Патріот (&M)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaParticleCannonUplink",
+  "text": "Молекулярна гармата (&P)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaStrategyCenter",
+  "text": "Стратегічний центр (&Y)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaSupplyDropZone",
+  "text": "Зона доставки припасів (&Z)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaDetentionCamp",
+  "text": "Табір розвідників (&D)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaTankCrusader",
+  "text": "Хрестоносець (&C)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaTankPaladin",
+  "text": "Паладин (&P)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaInfantryRanger",
+  "text": "Рейнджер (&G)"
+ },
+ {
+  "label": "CONTROLBAR:Evacuate",
+  "text": "Евакуація (&V)"
+ },
+ {
+  "label": "CONTROLBAR:ExecuteRailedTransport",
+  "text": "Транспорт"
+ },
+ {
+  "label": "CONTROLBAR:TransportExit",
+  "text": "Вийти з транспорту"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLACommandCenter",
+  "text": "Командний центр (&C)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLADemoTrap",
+  "text": "Міна-пастка (&D)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLABarracks",
+  "text": "Казарма (&B)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLASupplyStash",
+  "text": "Схованка припасів (&U)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLABurningBarricade",
+  "text": "Палаюча барикада (&B)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAArmsDealer",
+  "text": "Торговець зброєю (&A)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaCommandCenter",
+  "text": "Командний центр (&C)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaPowerPlant",
+  "text": "Ядерний реактор (&R)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaBarracks",
+  "text": "Казарма (&B)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaSupplyCenter",
+  "text": "Ресурсний центр (&U)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaConcreteWall",
+  "text": "Бетонна стіна (&L)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaWarFactory",
+  "text": "Військовий завод (&A)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaDozer",
+  "text": "Бульдозер (&D)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAWorker",
+  "text": "Робітник (&K)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaDozer",
+  "text": "Бульдозер (&D)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLATankScorpion",
+  "text": "Скорпіон (&S)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLATankMarauder",
+  "text": "Танк Мародер (&M)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAVehicleRocketBuggy",
+  "text": "Ракетний баггі (&B)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAVehicleRadarVan",
+  "text": "Радарний фургон (&V)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaTankOverlord",
+  "text": "Повелитель (&O)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaTankGattling",
+  "text": "Танк Гатлінг (&G)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAInfantryRebel",
+  "text": "Повстанець (&B)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaInfantryRedguard",
+  "text": "Червоногвардієць (&G)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaVehicleChinook",
+  "text": "Чинук (&C)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAVehicleSupplyTruck",
+  "text": "Ресурсна вантажівка (&T)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaVehicleSupplyTruck",
+  "text": "Ресурсна вантажівка (&T)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaJetRaptor",
+  "text": "Раптор (&T)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaJetAurora",
+  "text": "Бомбардувальник Аврора (&B)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaJetStealthFighter",
+  "text": "Літак-невидимка (&F)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaVehicleStarlifter",
+  "text": "Старліфтер"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaVehicleComanche",
+  "text": "Команч (&C)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaInfantryMissileDefender",
+  "text": "Ракетний захисник (&M)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaInfantryPathfinder",
+  "text": "Слідознавець (&P)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaInfantryColonelBurton",
+  "text": "Полковник Бартон (&N)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaInfantryBiohazardTech",
+  "text": "Технік з біологічної небезпеки"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaVehicleTomahawk",
+  "text": "Томагавк (&T)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaVehicleMedic",
+  "text": "Швидка допомога (&A)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaVehicleHumvee",
+  "text": "Хаммер (&V)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaVehicleBattleDrone",
+  "text": "Бойовий дрон (&B)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaVehicleScoutDrone",
+  "text": "Дрон-розвідник (&D)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaJetMIG",
+  "text": "МІГ (&G)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaInfantryBlackLotus",
+  "text": "Чорний лотос (&B)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaInfantryTankHunter",
+  "text": "Мисливець на танки (&T)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaInfantrySecretPolice",
+  "text": "Секретна \n поліція"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaInfantryHacker",
+  "text": "Хакер (&A)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaBunker",
+  "text": "Бункер (&K)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaPropagandaCenter",
+  "text": "Центр пропаганди (&P)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaAirfield",
+  "text": "Аеродром (&F)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaAirfield",
+  "text": "Аеродром (&F)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaGattlingCannon",
+  "text": "Гармата Гатлінга (&G)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaNuclearMissileLauncher",
+  "text": "Ядерна ракета (&M)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaSpeakerTower",
+  "text": "Гучномовець (&T)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaVehicleInfernoCannon",
+  "text": "Гармата Інферно (&I)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaVehicleNukeLauncher",
+  "text": "Ядерна гармата (&U)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaVehicleTroopCrawler",
+  "text": "Бронетранспортер (&T)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaTankSeismic",
+  "text": "Сейсмічний \n танк"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaTankDragon",
+  "text": "Танк Дракон (&D)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaVehiclePropagandaBlimp",
+  "text": "Проп. \n дирижабль"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAInfantryTerrorist",
+  "text": "Терорист (&T)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAInfantryRPGTrooper",
+  "text": "Солдат з РПГ (&G)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLATunnelNetwork",
+  "text": "Мережа тунелів (&N)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAPalace",
+  "text": "Палац (&P)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLABlackMarket",
+  "text": "Чорний ринок (&M)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAStingerSite",
+  "text": "Позиція Стінгерів (&T)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAScudStorm",
+  "text": "СКАД Шторм (&O)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAPrison",
+  "text": "Тюрма (&R)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAVehicleToxinTruck",
+  "text": "Токсиновий трактор (&A)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLATankBattleMaster",
+  "text": "Майстер бою (&B)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAVehicleTechnical",
+  "text": "Технік (&T)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAInfantryHijacker",
+  "text": "Викрадач (&I)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAInfantryJarmenKell",
+  "text": "Джармен Келл (&J)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAInfantryAngryMob",
+  "text": "Розлючений натовп (&Y)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAVehicleQuadCannon",
+  "text": "Гармата КВАД (&U)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAVehicleBombTruck",
+  "text": "Вантажівка з бомбою (&O)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAVehicleScudLauncher",
+  "text": "Пускова установка СКАД (&L)"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaAdvancedTraining",
+  "text": "Покращена підготовка (&A)"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaDroneArmor",
+  "text": "Броня дронів (&R)"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaMines",
+  "text": "Міни (&L)"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaRadar",
+  "text": "Радар (&R)"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaScoutDrones",
+  "text": "Дрони-розвідники (&C)"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaAdvancedControlRods",
+  "text": "Стрижні керування (&C)"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaLaserMissiles",
+  "text": "Ракети з лазерним наведенням (&L)"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaExtraFuel",
+  "text": "Додаткове паливо (&F)"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaFlashBangGrenade",
+  "text": "Світлошумові гранати (&F)"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaCompositeArmor",
+  "text": "Композитна броня (&P)"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaTomahawkRemoteControl",
+  "text": "Ракети з самонаведенням (&M)"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaAircraftFuel",
+  "text": "Авіаційне паливо"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaTOWMissile",
+  "text": "Ракети TOW (&I)"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeComancheRocketPods",
+  "text": "Ракетні контейнери (&P)"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaRailGun",
+  "text": "Рейкова \n гармата"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaRadar",
+  "text": "Радар (&A)"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaNationalism",
+  "text": "Націоналізм (&N)"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaAntiTankGrenade",
+  "text": "Протитанкові гранати (&A)"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaVehicleHack",
+  "text": "Злам транспорту (&V)"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaIRGoggles",
+  "text": "ІЧ-окуляри (&I)"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaBlackNapalm",
+  "text": "Чорний напалм (&N)"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaChainGuns",
+  "text": "Ланцюгові гармати (&C)"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaSubliminalMessaging",
+  "text": "Підсвідомі повідомлення (&B)"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaUraniumShells",
+  "text": "Уранові снаряди (&U)"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaNuclearTanks",
+  "text": "Ядерні танки (&T)"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaStunBullets",
+  "text": "Оглушаючі кулі (&B)"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLARadar",
+  "text": "Радар (&R)"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLARadarVanScan",
+  "text": "Радарне сканування (&C)"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLAScorpionRocket",
+  "text": "Ракети скорпіона (&K)"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLABuggyAmmo",
+  "text": "Боєприпаси для баггі (&A)"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLABombTruckBioBomb",
+  "text": "Біобомби (&B)"
+ },
+ {
+  "label": "CONTROLBAR:DisguiseAsVehicle",
+  "text": "Маскування під транспорт (&D)"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLABombTruckHighExplosiveBomb",
+  "text": "Посилена бомба (&O)"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLAAnthraxBeta",
+  "text": "Сибірська виразка бета (&A)"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLAToxinShells",
+  "text": "Токсинові снаряди (&T)"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLAJunkRepair",
+  "text": "Ремонт сміттям (&J)"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLAAPBullets",
+  "text": "Бронебійні патрони (&B)"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLAAPRockets",
+  "text": "Бронебійні ракети (&R)"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLACamouflage",
+  "text": "Камуфляж (&C)"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLATranqDarts",
+  "text": "Дротики з транквілізатором (&T)"
+ },
+ {
+  "label": "CONTROLBAR:SetRallyPoint",
+  "text": "Точка збору (&R)"
+ },
+ {
+  "label": "CONTROLBAR:Sell",
+  "text": "Продати"
+ },
+ {
+  "label": "CONTROLBAR:Overcharge",
+  "text": "Перевантаження (&O)"
+ },
+ {
+  "label": "CONTROLBAR:DragonFlame",
+  "text": "Вогонь (&L)"
+ },
+ {
+  "label": "CONTROLBAR:PickUpPrisoner",
+  "text": "Підібрати \n полоненого (&P)"
+ },
+ {
+  "label": "CONTROLBAR:ReturnToPrison",
+  "text": "Повернути (&R)"
+ },
+ {
+  "label": "CONTROLBAR:FireRocket",
+  "text": "Випустити ракету (&F)"
+ },
+ {
+  "label": "CONTROLBAR:AnthraxWarhead",
+  "text": "Боєголовка з сибірською виразкою (&N)"
+ },
+ {
+  "label": "CONTROLBAR:ExplosiveWarhead",
+  "text": "Вибухова боєголовка (&P)"
+ },
+ {
+  "label": "CONTROLBAR:Fire20mmCannon",
+  "text": "Вогонь з 20-мм гармати (&F)"
+ },
+ {
+  "label": "CONTROLBAR:FireAntiTankMissiles",
+  "text": "Вогонь ракетами (&M)"
+ },
+ {
+  "label": "CONTROLBAR:FireRocketPods",
+  "text": "Випустити ракети (&R)"
+ },
+ {
+  "label": "CONTROLBAR:FireNapalmMissile",
+  "text": "Вогонь напалмом (&N)"
+ },
+ {
+  "label": "CONTROLBAR:DaisyCutter",
+  "text": "Паливна авіабомба (&B)"
+ },
+ {
+  "label": "CONTROLBAR:NeutronMissile",
+  "text": "Ядерна ракета (&N)"
+ },
+ {
+  "label": "CONTROLBAR:ScudStorm",
+  "text": "СКАД Шторм (&U)"
+ },
+ {
+  "label": "CONTROLBAR:NapalmStrike",
+  "text": "Напалмовий удар (&N)"
+ },
+ {
+  "label": "CONTROLBAR:A10ThunderboltMissileStrike",
+  "text": "Ракетний удар A10 (&A)"
+ },
+ {
+  "label": "CONTROLBAR:CashHack",
+  "text": "Злам грошей (&C)"
+ },
+ {
+  "label": "CONTROLBAR:Ambush",
+  "text": "Засідка (&A)"
+ },
+ {
+  "label": "CONTROLBAR:BlackMarketNuke",
+  "text": "Ядерна бомба \n чорного ринку"
+ },
+ {
+  "label": "CONTROLBAR:AnthraxBomb",
+  "text": "Бомба з сибірською виразкою (&B)"
+ },
+ {
+  "label": "CONTROLBAR:Paradrop",
+  "text": "Десант (&O)"
+ },
+ {
+  "label": "CONTROLBAR:CarpetBomb",
+  "text": "Килимове бомбардування (&T)"
+ },
+ {
+  "label": "CONTROLBAR:ClusterMines",
+  "text": "Касетні міни (&I)"
+ },
+ {
+  "label": "CONTROLBAR:EMPPulse",
+  "text": "ЕМІ імпульс (&U)"
+ },
+ {
+  "label": "CONTROLBAR:ArtilleryBarrage",
+  "text": "Артилерійський обстріл (&B)"
+ },
+ {
+  "label": "CONTROLBAR:CrateDrop",
+  "text": "Скидання \n ящиків"
+ },
+ {
+  "label": "CONTROLBAR:SpySatellite",
+  "text": "Супутник-шпигун (&S)"
+ },
+ {
+  "label": "CONTROLBAR:SpyDrone",
+  "text": "Дрон-шпигун (&Y)"
+ },
+ {
+  "label": "CONTROLBAR:RadarVanScan",
+  "text": "Радарне сканування (&C)"
+ },
+ {
+  "label": "CONTROLBAR:Defector",
+  "text": "Перебіжчик (&D)"
+ },
+ {
+  "label": "CONTROLBAR:Bayonet",
+  "text": "Багнет (&B)"
+ },
+ {
+  "label": "CONTROLBAR:SniperAttack",
+  "text": "Снайперська атака (&N)"
+ },
+ {
+  "label": "CONTROLBAR:CaptureBuilding",
+  "text": "Захопити будівлю (&C)"
+ },
+ {
+  "label": "CONTROLBAR:DisableVehicleHack",
+  "text": "Злам транспорту (&V)"
+ },
+ {
+  "label": "CONTROLBAR:StealCashHack",
+  "text": "Злам грошей (&K)"
+ },
+ {
+  "label": "CONTROLBAR:InternetHack",
+  "text": "Злам інтернету (&I)"
+ },
+ {
+  "label": "CONTROLBAR:DisableBuildingHack",
+  "text": "Відключити будівлю (&D)"
+ },
+ {
+  "label": "CONTROLBAR:CarBomb",
+  "text": "Автомобіль-бомба (&C)"
+ },
+ {
+  "label": "CONTROLBAR:Hijack",
+  "text": "Викрасти (&J)"
+ },
+ {
+  "label": "CONTROLBAR:TNTAttack",
+  "text": "Атака тротилом (&T)"
+ },
+ {
+  "label": "CONTROLBAR:Requirements",
+  "text": "Потребує: %s"
+ },
+ {
+  "label": "CONTROLBAR:LaserMissileAttack",
+  "text": "Лазерна ракетна атака (&L)"
+ },
+ {
+  "label": "CONTROLBAR:KnifeAttack",
+  "text": "Атака ножем (&K)"
+ },
+ {
+  "label": "CONTROLBAR:ClimbCliff",
+  "text": "Піднятися на скелю (&C)"
+ },
+ {
+  "label": "CONTROLBAR:TimedDemoCharge",
+  "text": "Заряд із таймером (&T)"
+ },
+ {
+  "label": "CONTROLBAR:RemoteDemoCharge",
+  "text": "Заряд з дистанційним підривом (&R)"
+ },
+ {
+  "label": "CONTROLBAR:DetonateCharges",
+  "text": "Підірвати заряди (&D)"
+ },
+ {
+  "label": "CONTROLBAR:DetonateNuke",
+  "text": "Підірвати ядерну бомбу (&N)"
+ },
+ {
+  "label": "CONTROLBAR:ManualControl",
+  "text": "Ручне управління (&M)"
+ },
+ {
+  "label": "CONTROLBAR:ProximityFuse",
+  "text": "Безконтактний запобіжник (&P)"
+ },
+ {
+  "label": "CONTROLBAR:Detonate",
+  "text": "Підірвати! (&D)"
+ },
+ {
+  "label": "CONTROLBAR:EmergencyRepair",
+  "text": "Аварійний ремонт (&E)"
+ },
+ {
+  "label": "CONTROLBAR:FireParticleUplinkCannon",
+  "text": "Молекулярна гармата (&P)"
+ },
+ {
+  "label": "CONTROLBAR:Options",
+  "text": "Меню гри"
+ },
+ {
+  "label": "CONTROLBAR:OptionsDescription",
+  "text": "Це відкриє меню гри"
+ },
+ {
+  "label": "CONTROLBAR:IdleWorker",
+  "text": "Вільний робітник"
+ },
+ {
+  "label": "CONTROLBAR:IdleWorkerDescription",
+  "text": "Натисніть, щоб вибрати наступного вільного робітника"
+ },
+ {
+  "label": "CONTROLBAR:Beacon",
+  "text": "Маяк"
+ },
+ {
+  "label": "CONTROLBAR:BeaconDescription",
+  "text": "Натисніть, щоб розмістити маяк"
+ },
+ {
+  "label": "CONTROLBAR:Communicator",
+  "text": "Комунікатор"
+ },
+ {
+  "label": "CONTROLBAR:CommunicatorDescription",
+  "text": "Натисніть, щоб відкрити комунікатор Generals"
+ },
+ {
+  "label": "CONTROLBAR:AmbulanceCleanupArea",
+  "text": "Очистити токсини (&C)"
+ },
+ {
+  "label": "RADAR:UnitUnderAttack",
+  "text": "Одиниця під атакою"
+ }
+]

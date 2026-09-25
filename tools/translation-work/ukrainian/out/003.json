@@ -1,0 +1,802 @@
+[
+ {
+  "label": "WOL:NoMatchbot",
+  "text": "Матчмейкер не знайдено"
+ },
+ {
+  "label": "WOL:BadMatchParams",
+  "text": "Невідповідність параметрів"
+ },
+ {
+  "label": "WOL:ChatErrorNickInUse",
+  "text": "Цей псевдонім уже використовується"
+ },
+ {
+  "label": "WOL:ChatErrorBadPass",
+  "text": "Неправильний пароль для цього імені"
+ },
+ {
+  "label": "WOL:ChatErrorNoneSuch",
+  "text": "Немає такого користувача чи каналу"
+ },
+ {
+  "label": "WOL:ChatErrorConNetDown",
+  "text": "З’єднання з мережею не працює"
+ },
+ {
+  "label": "WOL:ChatErrorConLookupFailed",
+  "text": "Помилка пошуку DNS"
+ },
+ {
+  "label": "WOL:ChatErrorConError",
+  "text": "Сталася критична помилка мережі"
+ },
+ {
+  "label": "WOL:ChatErrorTimeout",
+  "text": "Минув час очікування"
+ },
+ {
+  "label": "WOL:ChatErrorMustPatch",
+  "text": "Ви повинні отримати останнє оновлення, перш ніж приєднатися до C&C Generals Zero Hour Online"
+ },
+ {
+  "label": "WOL:ChatErrorStatusError",
+  "text": "Внутрішня помилка стану"
+ },
+ {
+  "label": "WOL:ChatErrorUnknownResponse",
+  "text": "Невідома відповідь"
+ },
+ {
+  "label": "WOL:ChatErrorChannelFull",
+  "text": "Канал заповнений"
+ },
+ {
+  "label": "WOL:ChatErrorChannelExists",
+  "text": "Канал вже існує"
+ },
+ {
+  "label": "WOL:ChatErrorChannelDoesNotExist",
+  "text": "Канал не існує"
+ },
+ {
+  "label": "WOL:ChatErrorBadChannelPassword",
+  "text": "Неправильний пароль каналу"
+ },
+ {
+  "label": "WOL:ChatErrorBanned",
+  "text": "Вибачте, вас заблокували в C&C Generals Zero Hour Online. Ознайомтеся з Умовами обслуговування"
+ },
+ {
+  "label": "WOL:ChatErrorNotOper",
+  "text": "Неможливо виконати цю операцію"
+ },
+ {
+  "label": "WOL:ChatErrorAccountDisabled",
+  "text": "Ваш обліковий запис вимкнено"
+ },
+ {
+  "label": "WOL:ChatErrorSerialBanned",
+  "text": "Ваш серійний номер заборонено. Ознайомтеся з Умовами обслуговування"
+ },
+ {
+  "label": "WOL:ChatErrorSerialDup",
+  "text": "Ваш серійний номер уже використовується"
+ },
+ {
+  "label": "WOL:ChatErrorSerialUnknown",
+  "text": "Ваш серійний номер недійсний"
+ },
+ {
+  "label": "WOL:NetUtilErrorGeneric",
+  "text": "Загальна помилка NetUtil"
+ },
+ {
+  "label": "WOL:NetUtilErrorBusy",
+  "text": "Зайнятий"
+ },
+ {
+  "label": "WOL:NetUtilErrorTimeout",
+  "text": "Час вийшов"
+ },
+ {
+  "label": "WOL:NetUtilErrorInvalidField",
+  "text": "Недійсне поле"
+ },
+ {
+  "label": "WOL:NetUtilErrorCantVerify",
+  "text": "Неможливо перевірити"
+ },
+ {
+  "label": "WOL:NetUtilFinished",
+  "text": "Готово"
+ },
+ {
+  "label": "WOL:UnknownError",
+  "text": "Невідома помилка"
+ },
+ {
+  "label": "WOL:CouldNotCreateChannel",
+  "text": "Не вдалося створити канал"
+ },
+ {
+  "label": "WOL:ErrorTitle",
+  "text": "Помилка C&C Generals Zero Hour Online"
+ },
+ {
+  "label": "WOL:LoginErrorTitle",
+  "text": "Помилка входу"
+ },
+ {
+  "label": "WOL:CreatingChannel",
+  "text": "Створення каналу"
+ },
+ {
+  "label": "WOL:ChannelClosed",
+  "text": "Канал закрито"
+ },
+ {
+  "label": "WOL:BadChannelPassword",
+  "text": "Неправильний пароль каналу"
+ },
+ {
+  "label": "WOL:ChannelFull",
+  "text": "Канал повний"
+ },
+ {
+  "label": "WOL:BannedFromChannel",
+  "text": "Вас заблокували на каналі"
+ },
+ {
+  "label": "WOL:CannotJoinChannel",
+  "text": "Неможливо приєднатися до каналу"
+ },
+ {
+  "label": "WOL:NoWOLAPI",
+  "text": "Спільні компоненти Інтернету не встановлено"
+ },
+ {
+  "label": "WOL:OldWOLAPI",
+  "text": "Необхідно оновити спільні компоненти Інтернету. Установіть із диска C&C Generals Zero Hour"
+ },
+ {
+  "label": "WOL:BadRegistry",
+  "text": "Реєстр C&C Generals Zero Hour пошкоджено"
+ },
+ {
+  "label": "WOL:GotPing",
+  "text": "Отримано пінг %d мс. Чим нижчий пінг, тим краще з'єднання"
+ },
+ {
+  "label": "WOL:ServerListAndVersion",
+  "text": "Отримання списку серверів"
+ },
+ {
+  "label": "WOL:GettingPings",
+  "text": "Отримання пінгів. Чим нижчий пінг, тим краще з'єднання"
+ },
+ {
+  "label": "WOL:Connecting",
+  "text": "Підключення"
+ },
+ {
+  "label": "WOL:JoinedChannel",
+  "text": "Ви приєдналися до %ls"
+ },
+ {
+  "label": "WOL:LeftChannel",
+  "text": "Ви залишили %ls"
+ },
+ {
+  "label": "WOL:UserKicked",
+  "text": "%ls вигнав %ls з %ls"
+ },
+ {
+  "label": "WOL:BeginIgnoreList",
+  "text": "Почати список ігнорування"
+ },
+ {
+  "label": "WOL:IgnoredUser",
+  "text": "%ls"
+ },
+ {
+  "label": "WOL:EndIgnoreList",
+  "text": "Завершити список ігнорування"
+ },
+ {
+  "label": "WOL:DownloadPatchNow",
+  "text": "Бажаєте завантажити оновлення зараз?"
+ },
+ {
+  "label": "WOL:FindInChannel",
+  "text": "%ls знаходиться в %s"
+ },
+ {
+  "label": "WOL:FindInChannelOtherServer",
+  "text": "%ls знаходиться в %s на %s"
+ },
+ {
+  "label": "WOL:FindOffline",
+  "text": "%ls не ввійшов у систему"
+ },
+ {
+  "label": "WOL:FindHiding",
+  "text": "%ls не відповідає на пошук"
+ },
+ {
+  "label": "WOL:FindNotInChannel",
+  "text": "%ls не в каналі"
+ },
+ {
+  "label": "WOL:FindNotInChannelOtherServer",
+  "text": "%ls на %s"
+ },
+ {
+  "label": "WOL:Lob_49_0",
+  "text": "Головне лобі"
+ },
+ {
+  "label": "WOL:Lob_49_1",
+  "text": "Альтернатива"
+ },
+ {
+  "label": "WOL:Lob_49_2",
+  "text": "Реальність"
+ },
+ {
+  "label": "WOL:Lob_41_0",
+  "text": "Швидкий матч"
+ },
+ {
+  "label": "WOL:UnknownServer",
+  "text": "невідомий сервер"
+ },
+ {
+  "label": "WOL:UnknownChannel",
+  "text": "невідомий канал"
+ },
+ {
+  "label": "WOL:BuddyMatching",
+  "text": "%ls у швидкому матчі"
+ },
+ {
+  "label": "WOL:BuddyNotInChan",
+  "text": "%ls онлайн"
+ },
+ {
+  "label": "WOL:BuddyInGame",
+  "text": "%ls грає в гру"
+ },
+ {
+  "label": "WOL:BuddyInChat",
+  "text": "%ls спілкується в %ls"
+ },
+ {
+  "label": "WOL:BuddyGameSetup",
+  "text": "%ls знаходиться в %ls"
+ },
+ {
+  "label": "WOL:BuddyMatchingOtherServer",
+  "text": "%ls у швидкому матчі на %ls"
+ },
+ {
+  "label": "WOL:BuddyNotInChanOtherServer",
+  "text": "%ls онлайн на %ls"
+ },
+ {
+  "label": "WOL:BuddyInGameOtherServer",
+  "text": "%ls грає в гру на %ls"
+ },
+ {
+  "label": "WOL:BuddyInChatOtherServer",
+  "text": "%ls спілкується в %ls на %ls"
+ },
+ {
+  "label": "WOL:BuddyGameSetupOtherServer",
+  "text": "%ls знаходиться в %ls на %ls"
+ },
+ {
+  "label": "WOL:BuddyHiding",
+  "text": "%ls ховається"
+ },
+ {
+  "label": "Chat:Everyone",
+  "text": "Бачать всі"
+ },
+ {
+  "label": "Chat:Allies",
+  "text": "Бачать лише союзники"
+ },
+ {
+  "label": "GUI:Clear",
+  "text": "ОЧИСТИТИ"
+ },
+ {
+  "label": "LAN:GameStartTimerPlural",
+  "text": "Гра почнеться через %d секунд"
+ },
+ {
+  "label": "LAN:GameStartTimerSingular",
+  "text": "Гра почнеться через %d секунду"
+ },
+ {
+  "label": "LAN:HostNotResponding",
+  "text": "Гру завершено: хост не відповідав"
+ },
+ {
+  "label": "LAN:PlayerDropped",
+  "text": "%ls відключено: гравець не відповідав"
+ },
+ {
+  "label": "LAN:NeedMorePlayers",
+  "text": "Вам потрібно більше ніж %d гравця(ів), щоб почати гру"
+ },
+ {
+  "label": "LAN:NeedMoreTeams",
+  "text": "Щоб розпочати гру, потрібно більше ніж 1 команду"
+ },
+ {
+  "label": "LAN:TooManyPlayers",
+  "text": "Ця карта підтримує лише %d гравців"
+ },
+ {
+  "label": "LAN:OK",
+  "text": "OK"
+ },
+ {
+  "label": "LAN:ErrorNoGameSelected",
+  "text": "Спочатку виберіть гру"
+ },
+ {
+  "label": "LAN:ErrorTimeout",
+  "text": "Час очікування вийшов"
+ },
+ {
+  "label": "LAN:ErrorGameFull",
+  "text": "Гра заповнена"
+ },
+ {
+  "label": "LAN:ErrorDuplicateName",
+  "text": "Гравець із таким іменем уже є в грі"
+ },
+ {
+  "label": "LAN:ErrorCRCMismatch",
+  "text": "Гра виявила невідповідність. Це означає, що багатокористувацька гра втратила дані синхронізації між гравцями. Можливо, ваш опонент змінив свою версію, і ви можете включити його до свого списку ігнорування"
+ },
+ {
+  "label": "LAN:ErrorGameStarted",
+  "text": "Вибачте, ця гра вже почалася"
+ },
+ {
+  "label": "LAN:ErrorGameExists",
+  "text": "Гра з такою ж назвою вже існує"
+ },
+ {
+  "label": "LAN:ErrorGameGone",
+  "text": "Гра зникла"
+ },
+ {
+  "label": "LAN:ErrorBusy",
+  "text": "Очікується інша операція"
+ },
+ {
+  "label": "LAN:ErrorUnknown",
+  "text": "Невідома помилка"
+ },
+ {
+  "label": "LAN:JoinFailed",
+  "text": "ПОМИЛКА ПРИЄДНАННЯ"
+ },
+ {
+  "label": "Network:PlayerLeft",
+  "text": "%ls залишив(ла) гру"
+ },
+ {
+  "label": "INI:MissingDisplayName",
+  "text": "ВІДСУТНЄ DisplayName для об'єкта '%S'"
+ },
+ {
+  "label": "INI:FactionDefault",
+  "text": "Армія за замовчуванням"
+ },
+ {
+  "label": "INI:FactionObserver",
+  "text": "Спостерігач"
+ },
+ {
+  "label": "INI:FactionCivilian",
+  "text": "Цивільні"
+ },
+ {
+  "label": "INI:FactionAmerica",
+  "text": "США"
+ },
+ {
+  "label": "INI:FactionChina",
+  "text": "Китай"
+ },
+ {
+  "label": "INI:FactionGLA",
+  "text": "ГВА"
+ },
+ {
+  "label": "INI:FactionChinaHacker",
+  "text": "Китайський хакер"
+ },
+ {
+  "label": "SIDE:America",
+  "text": "США"
+ },
+ {
+  "label": "SIDE:China",
+  "text": "Китай"
+ },
+ {
+  "label": "SIDE:GLA",
+  "text": "ГВА"
+ },
+ {
+  "label": "INI:RankLevel1",
+  "text": "1 зірковий генерал"
+ },
+ {
+  "label": "INI:RankLevel2",
+  "text": "2 зірковий генерал"
+ },
+ {
+  "label": "INI:RankLevel3",
+  "text": "3 зірковий генерал"
+ },
+ {
+  "label": "INI:RankLevel4",
+  "text": "4 зірковий генерал"
+ },
+ {
+  "label": "INI:RankLevel5",
+  "text": "5 зірковий генерал"
+ },
+ {
+  "label": "INI:RankLevel6",
+  "text": "Містер Крутий Хлопець (ранг 6)"
+ },
+ {
+  "label": "INI:RankLevel7",
+  "text": "Доктор Смерть (ранг 7)"
+ },
+ {
+  "label": "INI:RankLevel8",
+  "text": "Найсмертоносніший тип (ранг 8)"
+ },
+ {
+  "label": "TOOLTIP:MyInfo",
+  "text": "Натисніть, щоб переглянути інформацію своєї персони. Ви можете переглянути свій ранг, очки, перемоги, поразки, бойові відзнаки тощо"
+ },
+ {
+  "label": "TOOLTIP:CustomMatch",
+  "text": "Натисніть, щоб приєднатися до лобі користувацьких матчів, щоб зустрітися та поспілкуватися з іншими гравцями"
+ },
+ {
+  "label": "TOOLTIP:SelectAll",
+  "text": "Швидкий матч на всіх доступних картах"
+ },
+ {
+  "label": "TOOLTIP:SelectNone",
+  "text": "Швидкий матч без карт"
+ },
+ {
+  "label": "TOOLTIP:EnterPassword",
+  "text": "Будь ласка, введіть пароль"
+ },
+ {
+  "label": "TOOLTIP:Quickmatch",
+  "text": "Натисніть, щоб почати швидкий матч. Швидкий матч спробує автоматично зіставити вас із вашим найближчим рівнем навичок і вподобаннями"
+ },
+ {
+  "label": "TOOLTIP:GameLobbys",
+  "text": "."
+ },
+ {
+  "label": "TOOLTIP:ClearButton",
+  "text": "Очистити текстове вікно чату"
+ },
+ {
+  "label": "TOOLTIP:Disconnectbutton",
+  "text": "Натисніть, щоб відключитися від поточної гри. Відключення буде зараховано до загальної суми"
+ },
+ {
+  "label": "TOOLTIP:playersonline",
+  "text": "Список гравців на C&C Generals Zero Hour Online"
+ },
+ {
+  "label": "TOOLTIP:WidenSearch",
+  "text": "Натисніть, щоб розширити критерії пошуку опонента. Чим точніші ваші критерії, тим важче буде знайти суперника"
+ },
+ {
+  "label": "TOOLTIP:Emote",
+  "text": "."
+ },
+ {
+  "label": "TOOLTIP:JoinGame",
+  "text": "Натисніть, щоб приєднатися до вибраної гри"
+ },
+ {
+  "label": "TOOLTIP:BuddyButton",
+  "text": "Сортувати список ігор за друзями"
+ },
+ {
+  "label": "TOOLTIP:matchingprogress",
+  "text": "Ви можете спостерігати, як швидкий матч шукає найкращу пару. Тримайте кулачки!"
+ },
+ {
+  "label": "TOOLTIP:CancelButton",
+  "text": "Натисніть, щоб скасувати поточну операцію"
+ },
+ {
+  "label": "TOOLTIP:resizewindows",
+  "text": "Натисніть і перетягніть вертикально, щоб змінити розмір вікна списку ігор порівняно з вікном чату"
+ },
+ {
+  "label": "TOOLTIP:CreateGame",
+  "text": "Створіть нову гру. Гра буде відображена у вікні списку ігор, щоб інші гравці могли приєднатися"
+ },
+ {
+  "label": "TOOLTIP:ChatWindow",
+  "text": "Введіть і натисніть Enter у полі введення тексту нижче, щоб надіслати повідомлення в це вікно чату. Інші гравці можуть читати та відповідати"
+ },
+ {
+  "label": "TOOLTIP:StopSearch",
+  "text": "Скасувати поточний пошук"
+ },
+ {
+  "label": "TOOLTIP:StartSearch",
+  "text": "Почати пошук"
+ },
+ {
+  "label": "TOOLTIP:UnknownGame",
+  "text": "Невідома гра"
+ },
+ {
+  "label": "TOOLTIP:textentrybox",
+  "text": "Введіть і натисніть Enter у цьому полі введення тексту, щоб надіслати повідомлення у вікно чату вище"
+ },
+ {
+  "label": "TOOLTIP:PlayersInLobby",
+  "text": "Поточні гравці у вашому лобі"
+ },
+ {
+  "label": "TOOLTIP:LocalPlayer",
+  "text": "Поточний гравець %s"
+ },
+ {
+  "label": "TOOLTIP:BuddyPlayer",
+  "text": "Ваш друг %s"
+ },
+ {
+  "label": "TOOLTIP:ProfiledPlayer",
+  "text": "%s"
+ },
+ {
+  "label": "TOOLTIP:GenericPlayer",
+  "text": "%s"
+ },
+ {
+  "label": "TOOLTIP:IgnoredModifier",
+  "text": "(ігнорується)"
+ },
+ {
+  "label": "TOOLTIP:PlayerInfo",
+  "text": "\n  Регіон: %s \n  %d перемог/%d поразок"
+ },
+ {
+  "label": "TOOLTIP:GameInfoGameName",
+  "text": "Назва гри: %s"
+ },
+ {
+  "label": "TOOLTIP:GameInfoLadderName",
+  "text": "\n Рейтинг: %s"
+ },
+ {
+  "label": "TOOLTIP:LadderName",
+  "text": "Рейтинг: %s"
+ },
+ {
+  "label": "TOOLTIP:UnknownLadder",
+  "text": "\n Невідомий рейтинг"
+ },
+ {
+  "label": "TOOLTIP:NoLadder",
+  "text": "\n Без рейтингу"
+ },
+ {
+  "label": "TOOLTIP:InvalidGameVersionSingleLine",
+  "text": "Ця версія гри відрізняється"
+ },
+ {
+  "label": "TOOLTIP:InvalidGameVersion",
+  "text": ""
+ },
+ {
+  "label": "TOOLTIP:GameInfoMap",
+  "text": "\n  Карта: %s\n  Гравці:"
+ },
+ {
+  "label": "TOOLTIP:GameInfoPlayer",
+  "text": "\n %s (%d/%d)"
+ },
+ {
+  "label": "TOOLTIP:FreeForAll",
+  "text": "Кожен сам за себе. Команди/союзники заборонені"
+ },
+ {
+  "label": "TOOLTIP:ListOfPlayers",
+  "text": "Гравці в поточній грі"
+ },
+ {
+  "label": "TOOLTIP:MapName",
+  "text": "Вибрана карта"
+ },
+ {
+  "label": "TOOLTIP:GameName",
+  "text": "Назва гри"
+ },
+ {
+  "label": "TOOLTIP:StartGame",
+  "text": "Розпочати гру для кількох гравців"
+ },
+ {
+  "label": "TOOLTIP:IgnoreButton",
+  "text": "Ігнорувати гравця"
+ },
+ {
+  "label": "TOOLTIP:closeButton",
+  "text": "."
+ },
+ {
+  "label": "TOOLTIP:GameOptions",
+  "text": "Параметри, увімкнені в грі"
+ },
+ {
+  "label": "TOOLTIP:Crates",
+  "text": "Бонусні ящики"
+ },
+ {
+  "label": "TOOLTIP:SuperWeapons",
+  "text": "Суперзброя. Молекулярна гармата, ядерна ракета тощо"
+ },
+ {
+  "label": "DOZER:ConstructionComplete",
+  "text": "Будівництво завершено: %s"
+ },
+ {
+  "label": "DOZER:RepairComplete",
+  "text": "Операцію ремонту завершено"
+ },
+ {
+  "label": "UPGRADE:UpgradeComplete",
+  "text": "Покращення завершено: %s"
+ },
+ {
+  "label": "GUI:CantBuildRestrictedTerrain",
+  "text": "Місцевість заважає будувати тут"
+ },
+ {
+  "label": "GUI:CantBuildNotFlatEnough",
+  "text": "Місцевість недостатньо рівна для будівництва"
+ },
+ {
+  "label": "GUI:CantBuildObjectsInTheWay",
+  "text": "Ви не можете будувати там, тому що на шляху є перешкоди"
+ },
+ {
+  "label": "GUI:CantBuildNoClearPath",
+  "text": "Будівельник не може дістатися до будівельного майданчика"
+ },
+ {
+  "label": "GUI:CantBuildShroud",
+  "text": "Ви повинні дослідити там перед будівництвом"
+ },
+ {
+  "label": "GUI:CantBuildThere",
+  "text": "Тут будувати не можна"
+ },
+ {
+  "label": "GUI:RallyPointObjectsInTheWay",
+  "text": "Неможливо встановити точку збору, перешкоди знаходяться на шляху до пункту призначення"
+ },
+ {
+  "label": "GUI:RallyPointNoPath",
+  "text": "Не вдалося встановити точку збору"
+ },
+ {
+  "label": "GUI:RallyPointSet",
+  "text": "Точку збору %s встановлено"
+ },
+ {
+  "label": "GUI:MouseType",
+  "text": "Тип миші"
+ },
+ {
+  "label": "GUI:Com",
+  "text": "EAPIM"
+ },
+ {
+  "label": "GUI:CONTROL",
+  "text": "Керування"
+ },
+ {
+  "label": "GUI:INFORMATION",
+  "text": "Інформація"
+ },
+ {
+  "label": "GUI:INTERFACE",
+  "text": "Інтерфейс"
+ },
+ {
+  "label": "GUI:SELECTION",
+  "text": "Вибір"
+ },
+ {
+  "label": "GUI:TAUNT",
+  "text": "Глузування"
+ },
+ {
+  "label": "GUI:MISC",
+  "text": "Різне"
+ },
+ {
+  "label": "GUI:DEBUG",
+  "text": "Відлагодження"
+ },
+ {
+  "label": "GUI:Cheer",
+  "text": "Радіти"
+ },
+ {
+  "label": "GUI:CheerDescription",
+  "text": "Наказує вашим силам радіти вашим великим справам"
+ },
+ {
+  "label": "GUI:Deploy",
+  "text": "Розмістити об'єкт"
+ },
+ {
+  "label": "GUI:DeployDescription",
+  "text": "Розмістити вибраний об’єкт(и)"
+ },
+ {
+  "label": "GUI:Guard",
+  "text": "Охорона"
+ },
+ {
+  "label": "GUI:GuardDescription",
+  "text": "Перевести вибрані об'єкти в режим «охорона зони»"
+ },
+ {
+  "label": "GUI:CreateFormation",
+  "text": "Створити стрій"
+ },
+ {
+  "label": "GUI:Follow",
+  "text": "Слідувати"
+ },
+ {
+  "label": "GUI:FollowDescription",
+  "text": "Перемкнути режим слідування для вибраних об'єктів"
+ },
+ {
+  "label": "GUI:ToggleControlBar",
+  "text": "Перемкнути панель керування"
+ },
+ {
+  "label": "GUI:ToggleControlBarDescription",
+  "text": "Вмикає/вимикає панель керування в грі"
+ },
+ {
+  "label": "GUI:ToggleLetterbox",
+  "text": "Перемкнути широкоекранний режим"
+ },
+ {
+  "label": "GUI:ToggleLetterboxDescription",
+  "text": "Вмикає/вимикає широкоекранний режим"
+ }
+]

@@ -1,0 +1,90 @@
+[
+ {
+  "label": "GUI:LoadReplayLong",
+  "text": "LOAD REPLAY"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak5",
+  "text": "Streak Honor \n Player has won 5 Online games in a row"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak20",
+  "text": "Streak Honor \n Player has won 20 Online games in a row"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAUpgradeBuggyAmmor",
+  "text": "+25% Rocket Buggy ammo"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak3Disabled",
+  "text": "Streak Honor \n Win 3 or more games in a row to earn this medal"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorBlitz10Disabled",
+  "text": "Blitz Honor \n Beat computer opponent(s) in 10 minutes or less to earn this medal"
+ },
+ {
+  "label": "GUI:CÀontrolBarBack",
+  "text": "BACK"
+ },
+ {
+  "label": "GUI:BuddyAddReqMessageSent",
+  "text": "Buddy request sent"
+ },
+ {
+  "label": "GUI:BuddyAddReqMessageRejected",
+  "text": "Buddy request rejected"
+ },
+ {
+  "label": "GUI:BuddyAddReqMessageAccepted",
+  "text": "Buddy request accepted"
+ },
+ {
+  "label": "TOOLTIP:RefreshGamePlayerList",
+  "text": "Refresh the game and player lists"
+ },
+ {
+  "label": "TOOLTIP:CommunicatorBuddyRadioButton",
+  "text": "Right-click a name in the player list to send a buddy request"
+ },
+ {
+  "label": "TOOLTIP:CommunicatorIgnoreRadioButton",
+  "text": "Right-click a name in the player list to ignore that player"
+ },
+ {
+  "label": "GUI:GroupRoom15",
+  "text": "3 vs 3"
+ },
+ {
+  "label": "GUI:GroupRoom16",
+  "text": "4 vs 4"
+ },
+ {
+  "label": "GUI:GroupRoom17",
+  "text": "Newbies"
+ },
+ {
+  "label": "GUI:GroupRoom18",
+  "text": "Mods"
+ },
+ {
+  "label": "GUI:GroupRoom19",
+  "text": "Ladder"
+ },
+ {
+  "label": "GUI:GroupRoom20",
+  "text": "Germany"
+ },
+ {
+  "label": "GUI:GroupRoom21",
+  "text": "USA"
+ },
+ {
+  "label": "GUI:GroupRoom22",
+  "text": "Korea"
+ },
+ {
+  "label": "GUI:BeaconClear",
+  "text": "Clear"
+ }
+]

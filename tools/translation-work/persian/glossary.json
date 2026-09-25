@@ -1,0 +1,2190 @@
+[
+ {
+  "label": "GUI:Random",
+  "text": "تصادفی"
+ },
+ {
+  "label": "GUI:Observer",
+  "text": "ناظر"
+ },
+ {
+  "label": "GUI:USA",
+  "text": "آمریکا"
+ },
+ {
+  "label": "GUI:China",
+  "text": "چین"
+ },
+ {
+  "label": "GUI:GLA",
+  "text": "GLA"
+ },
+ {
+  "label": "UPGRADE:UpgradeComplete",
+  "text": "ارتقا کامل شد: %s"
+ },
+ {
+  "label": "SCIENCE:GeneralName",
+  "text": "<نام را وارد کنید>"
+ },
+ {
+  "label": "SCIENCE:SkillPoints",
+  "text": "امتیاز مهارت: %d"
+ },
+ {
+  "label": "SCIENCE:Rank",
+  "text": "سطح %d"
+ },
+ {
+  "label": "SCIENCE:TempName",
+  "text": "برای دانش من نامی بگذار"
+ },
+ {
+  "label": "SCIENCE:USAPaladin",
+  "text": "تانک پالادین"
+ },
+ {
+  "label": "SCIENCE:USAPathFinder",
+  "text": "پث‌فایندر"
+ },
+ {
+  "label": "SCIENCE:USAStealthFighter",
+  "text": "جنگنده رادارگریز"
+ },
+ {
+  "label": "SCIENCE:USASpyDrone",
+  "text": "پهپاد جاسوسی"
+ },
+ {
+  "label": "SCIENCE:USAParaDrop1",
+  "text": "فرود چتری ۱"
+ },
+ {
+  "label": "SCIENCE:USAParaDrop2",
+  "text": "فرود چتری ۲"
+ },
+ {
+  "label": "SCIENCE:USAParaDrop3",
+  "text": "فرود چتری ۳"
+ },
+ {
+  "label": "SCIENCE:USAA10Strike1",
+  "text": "حمله A10 ۱"
+ },
+ {
+  "label": "SCIENCE:USAA10Strike2",
+  "text": "حمله A10 ۲"
+ },
+ {
+  "label": "SCIENCE:USAA10Strike3",
+  "text": "حمله A10 ۳"
+ },
+ {
+  "label": "SCIENCE:USADaisyCutter",
+  "text": "بمب سوخت-هوا"
+ },
+ {
+  "label": "SCIENCE:ChinaNukeLauncher",
+  "text": "توپ هسته‌ای"
+ },
+ {
+  "label": "SCIENCE:ChinaRedGuardTraining",
+  "text": "آموزش گارد سرخ"
+ },
+ {
+  "label": "SCIENCE:ChinaClusterMines",
+  "text": "مین‌های خوشه‌ای"
+ },
+ {
+  "label": "SCIENCE:ChinaArtilleryTraining",
+  "text": "آموزش توپخانه"
+ },
+ {
+  "label": "SCIENCE:ChinaArtilleryBarrage",
+  "text": "آتش توپخانه ۱"
+ },
+ {
+  "label": "SCIENCE:ChinaArtilleryBarrage2",
+  "text": "آتش توپخانه ۲"
+ },
+ {
+  "label": "SCIENCE:ChinaArtilleryBarrage3",
+  "text": "آتش توپخانه ۳"
+ },
+ {
+  "label": "SCIENCE:ChinaCashHack1",
+  "text": "هک پول ۱"
+ },
+ {
+  "label": "SCIENCE:ChinaCashHack2",
+  "text": "هک پول ۲"
+ },
+ {
+  "label": "SCIENCE:ChinaCashHack3",
+  "text": "هک پول ۳"
+ },
+ {
+  "label": "SCIENCE:ChinaEMPPulse",
+  "text": "پالس EMP"
+ },
+ {
+  "label": "SCIENCE:GLAHijacker",
+  "text": "هایجکر"
+ },
+ {
+  "label": "SCIENCE:GLASCUDLauncher",
+  "text": "پرتابگر اسکاد"
+ },
+ {
+  "label": "SCIENCE:GLAMaruaderTank",
+  "text": "تانک ماراودر"
+ },
+ {
+  "label": "SCIENCE:GLATechnicalTraining",
+  "text": "آموزش تکنیکال"
+ },
+ {
+  "label": "SCIENCE:GLARebelAmbush1",
+  "text": "کمین شورشیان ۱"
+ },
+ {
+  "label": "SCIENCE:GLARebelAmbush2",
+  "text": "کمین شورشیان ۲"
+ },
+ {
+  "label": "SCIENCE:GLARebelAmbush3",
+  "text": "کمین شورشیان ۳"
+ },
+ {
+  "label": "SCIENCE:GLACashBounty1",
+  "text": "جایزه نقدی ۱"
+ },
+ {
+  "label": "SCIENCE:GLACashBounty2",
+  "text": "جایزه نقدی ۲"
+ },
+ {
+  "label": "SCIENCE:GLACashBounty3",
+  "text": "جایزه نقدی ۳"
+ },
+ {
+  "label": "SCIENCE:GLAAnthraxBomb",
+  "text": "بمب سیاه‌زخم"
+ },
+ {
+  "label": "UPGRADE:AdvancedTraining",
+  "text": "آموزش پیشرفته"
+ },
+ {
+  "label": "UPGRADE:AmericaLaserMissiles",
+  "text": "موشک‌های لیزری آمریکا"
+ },
+ {
+  "label": "UPGRADE:Mines",
+  "text": "مین زمینی"
+ },
+ {
+  "label": "UPGRADE:Radar",
+  "text": "رادار"
+ },
+ {
+  "label": "UPGRADE:OverlordGattlingCannon",
+  "text": "توپ گاتلینگ اورلورد"
+ },
+ {
+  "label": "UPGRADE:OverlordPropagandaTower",
+  "text": "برج تبلیغات اورلورد"
+ },
+ {
+  "label": "UPGRADE:OverlordBattleBunker",
+  "text": "سنگر نبرد اورلورد"
+ },
+ {
+  "label": "UPGRADE:ControlRods",
+  "text": "میله‌های کنترل"
+ },
+ {
+  "label": "UPGRADE:ScoutDrone",
+  "text": "پهپاد شناسایی"
+ },
+ {
+  "label": "UPGRADE:BattleDrone",
+  "text": "پهپاد رزمی"
+ },
+ {
+  "label": "UPGRADE:RangerFlashBangGrenade",
+  "text": "نارنجک صوتی-نوری رنجر"
+ },
+ {
+  "label": "UPGRADE:HoverTank",
+  "text": "تانک هاور"
+ },
+ {
+  "label": "UPGRADE:TomahawkRemoteControl",
+  "text": "موشک‌های کروز"
+ },
+ {
+  "label": "UPGRADE:AircraftFuel",
+  "text": "سوخت هواپیما"
+ },
+ {
+  "label": "UPGRADE:LaserMissiles",
+  "text": "موشک‌های لیزری"
+ },
+ {
+  "label": "UPGRADE:TOWMissile",
+  "text": "موشک TOW"
+ },
+ {
+  "label": "UPGRADE:ComancheRocketPods",
+  "text": "غلاف راکت کومانچی"
+ },
+ {
+  "label": "UPGRADE:RailGun",
+  "text": "ریل‌گان"
+ },
+ {
+  "label": "UPGRADE:Nationalism",
+  "text": "ملی‌گرایی"
+ },
+ {
+  "label": "UPGRADE:AntiTankGrenade",
+  "text": "نارنجک ضدتانک"
+ },
+ {
+  "label": "UPGRADE:VehicleHack",
+  "text": "هک خودرو"
+ },
+ {
+  "label": "UPGRADE:IRGoggles",
+  "text": "عینک مادون قرمز"
+ },
+ {
+  "label": "UPGRADE:BlackNapalm",
+  "text": "ناپالم سیاه"
+ },
+ {
+  "label": "UPGRADE:ChainGuns",
+  "text": "مسلسل زنجیری"
+ },
+ {
+  "label": "UPGRADE:SubliminalMessaging",
+  "text": "پیام‌رسانی ناخودآگاه"
+ },
+ {
+  "label": "UPGRADE:UraniumShells",
+  "text": "گلوله‌های اورانیومی"
+ },
+ {
+  "label": "UPGRADE:NuclearTanks",
+  "text": "تانک‌های هسته‌ای"
+ },
+ {
+  "label": "UPGRADE:StunBullets",
+  "text": "گلوله‌های بیهوش‌کننده"
+ },
+ {
+  "label": "UPGRADE:TranqDarts",
+  "text": "دارت آرام‌بخش"
+ },
+ {
+  "label": "UPGRADE:APBullets",
+  "text": "گلوله‌های زره‌شکن"
+ },
+ {
+  "label": "UPGRADE:BioBomb",
+  "text": "بمب زیستی"
+ },
+ {
+  "label": "UPGRADE:HighExplosiveBomb",
+  "text": "بمب انفجاری قوی"
+ },
+ {
+  "label": "UPGRADE:ArmTheMob",
+  "text": "مسلح کردن اوباش"
+ },
+ {
+  "label": "UPGRADE:ScorpionRocket",
+  "text": "راکت اسکورپیون"
+ },
+ {
+  "label": "UPGRADE:SCUDLauncherExplosiveWarhead",
+  "text": "کلاهک انفجاری"
+ },
+ {
+  "label": "UPGRADE:SCUDLauncherAnthraxWarhead",
+  "text": "کلاهک سیاه‌زخم"
+ },
+ {
+  "label": "UPGRADE:BuggyAmmo",
+  "text": "مهمات باگی راکت‌انداز"
+ },
+ {
+  "label": "UPGRADE:AnthraxBeta",
+  "text": "سیاه‌زخم بتا"
+ },
+ {
+  "label": "UPGRADE:ToxinShells",
+  "text": "گلوله‌های سمی"
+ },
+ {
+  "label": "UPGRADE:JunkRepair",
+  "text": "تعمیر با قراضه"
+ },
+ {
+  "label": "UPGRADE:Camouflage",
+  "text": "استتار"
+ },
+ {
+  "label": "UPGRADE:CompositeArmor",
+  "text": "زره کامپوزیت"
+ },
+ {
+  "label": "OBJECT:Beacon",
+  "text": "نشانگر"
+ },
+ {
+  "label": "OBJECT:Dam",
+  "text": "سد"
+ },
+ {
+  "label": "OBJECT:CommandCenter",
+  "text": "مرکز فرماندهی"
+ },
+ {
+  "label": "OBJECT:ColdFusionReactor",
+  "text": "رآکتور همجوشی سرد"
+ },
+ {
+  "label": "OBJECT:NuclearReactor",
+  "text": "رآکتور هسته‌ای"
+ },
+ {
+  "label": "OBJECT:DemoTrap",
+  "text": "تله انفجاری"
+ },
+ {
+  "label": "OBJECT:PowerPlant",
+  "text": "نیروگاه"
+ },
+ {
+  "label": "OBJECT:DetentionCamp",
+  "text": "اردوگاه بازداشت"
+ },
+ {
+  "label": "OBJECT:StrategyCenter",
+  "text": "مرکز استراتژی"
+ },
+ {
+  "label": "OBJECT:Airfield",
+  "text": "فرودگاه نظامی"
+ },
+ {
+  "label": "OBJECT:SupplyCenter",
+  "text": "مرکز تدارکات"
+ },
+ {
+  "label": "OBJECT:AmericaSupplyDropZone",
+  "text": "منطقه پرتاب تدارکات"
+ },
+ {
+  "label": "OBJECT:SupplyStash",
+  "text": "انبار تدارکات"
+ },
+ {
+  "label": "OBJECT:Barracks",
+  "text": "پادگان"
+ },
+ {
+  "label": "OBJECT:BlackMarket",
+  "text": "بازار سیاه"
+ },
+ {
+  "label": "OBJECT:WarFactory",
+  "text": "کارخانه جنگ‌افزار"
+ },
+ {
+  "label": "OBJECT:ArmsDealer",
+  "text": "دلال اسلحه"
+ },
+ {
+  "label": "OBJECT:AmmoCache",
+  "text": "انبار مهمات"
+ },
+ {
+  "label": "OBJECT:AmphibiousTransport",
+  "text": "ترابری آبی-خاکی"
+ },
+ {
+  "label": "OBJECT:AutoFerry",
+  "text": "کشتی خودروبر"
+ },
+ {
+  "label": "OBJECT:TrainGuide",
+  "text": "راهنمای قطار"
+ },
+ {
+  "label": "OBJECT:AngryMob",
+  "text": "اوباش خشمگین"
+ },
+ {
+  "label": "OBJECT:TankHunter",
+  "text": "شکارچی تانک"
+ },
+ {
+  "label": "OBJECT:Apartment",
+  "text": "آپارتمان"
+ },
+ {
+  "label": "OBJECT:ChemicalFactory",
+  "text": "کارخانه شیمیایی"
+ },
+ {
+  "label": "OBJECT:GovBuilding",
+  "text": "ساختمان دولتی"
+ },
+ {
+  "label": "OBJECT:ApartmentComplex",
+  "text": "مجتمع آپارتمانی"
+ },
+ {
+  "label": "OBJECT:SpyPost",
+  "text": "پاسگاه جاسوسی"
+ },
+ {
+  "label": "OBJECT:SupplyPile",
+  "text": "انبوه تدارکات"
+ },
+ {
+  "label": "OBJECT:TrainStation",
+  "text": "ایستگاه قطار"
+ },
+ {
+  "label": "OBJECT:TechRadioStation",
+  "text": "ایستگاه رادیو"
+ },
+ {
+  "label": "OBJECT:Arcade",
+  "text": "گیم‌نت"
+ },
+ {
+  "label": "OBJECT:Aurora",
+  "text": "بمب‌افکن آرورا"
+ },
+ {
+  "label": "OBJECT:A10Thunderbolt",
+  "text": "A10 تاندربولت"
+ },
+ {
+  "label": "OBJECT:AVPOWTRUCK",
+  "text": "کامیون اسرا"
+ },
+ {
+  "label": "OBJECT:B52",
+  "text": "B52"
+ },
+ {
+  "label": "OBJECT:BMW",
+  "text": "خودرو"
+ },
+ {
+  "label": "OBJECT:Bank",
+  "text": "بانک"
+ },
+ {
+  "label": "OBJECT:BarnCoop",
+  "text": "مرغدانی"
+ },
+ {
+  "label": "OBJECT:BarnShed",
+  "text": "انبار علوفه"
+ },
+ {
+  "label": "OBJECT:Barrel",
+  "text": "بشکه"
+ },
+ {
+  "label": "OBJECT:BattleMaster",
+  "text": "بتل‌مستر"
+ },
+ {
+  "label": "OBJECT:Battleship",
+  "text": "ناو جنگی"
+ },
+ {
+  "label": "OBJECT:BigRig",
+  "text": "تریلی"
+ },
+ {
+  "label": "OBJECT:BikeRack",
+  "text": "پایه دوچرخه"
+ },
+ {
+  "label": "OBJECT:Billboard",
+  "text": "بیلبورد"
+ },
+ {
+  "label": "OBJECT:Bird",
+  "text": "پرنده"
+ },
+ {
+  "label": "OBJECT:BombTruck",
+  "text": "کامیون بمب"
+ },
+ {
+  "label": "OBJECT:Boulders",
+  "text": "تخته‌سنگ‌ها"
+ },
+ {
+  "label": "OBJECT:Boxes",
+  "text": "جعبه‌ها"
+ },
+ {
+  "label": "OBJECT:BrickWall",
+  "text": "دیوار آجری"
+ },
+ {
+  "label": "OBJECT:BrokenWall",
+  "text": "دیوار شکسته"
+ },
+ {
+  "label": "OBJECT:Bunker",
+  "text": "سنگر"
+ },
+ {
+  "label": "OBJECT:BurningBarricade",
+  "text": "مانع شعله‌ور"
+ },
+ {
+  "label": "OBJECT:Checkpoint",
+  "text": "ایست بازرسی"
+ },
+ {
+  "label": "OBJECT:BusStop",
+  "text": "ایستگاه اتوبوس"
+ },
+ {
+  "label": "OBJECT:Bush",
+  "text": "بوته"
+ },
+ {
+  "label": "OBJECT:CargoLoadingCranes",
+  "text": "جرثقیل‌های بارگیری"
+ },
+ {
+  "label": "OBJECT:CargoNet",
+  "text": "تور بار"
+ },
+ {
+  "label": "OBJECT:Cart",
+  "text": "گاری"
+ },
+ {
+  "label": "OBJECT:ChainLinkFence",
+  "text": "حصار توری"
+ },
+ {
+  "label": "OBJECT:Chalet",
+  "text": "کلبه کوهستانی"
+ },
+ {
+  "label": "OBJECT:Chinook",
+  "text": "شینوک"
+ },
+ {
+  "label": "OBJECT:Church",
+  "text": "کلیسا"
+ },
+ {
+  "label": "OBJECT:Clete",
+  "text": "مهاربند"
+ },
+ {
+  "label": "OBJECT:ClothesLine",
+  "text": "بند رخت"
+ },
+ {
+  "label": "OBJECT:Comanche",
+  "text": "کومانچی"
+ },
+ {
+  "label": "OBJECT:ComancheHull",
+  "text": "بدنه کومانچی"
+ },
+ {
+  "label": "OBJECT:CompactCar",
+  "text": "خودروی کوچک"
+ },
+ {
+  "label": "OBJECT:Ambassador",
+  "text": "سفیر"
+ },
+ {
+  "label": "OBJECT:Redguard",
+  "text": "گارد سرخ"
+ },
+ {
+  "label": "OBJECT:ConstructionBarricade",
+  "text": "مانع ساختمانی"
+ },
+ {
+  "label": "OBJECT:ConvenienceStore",
+  "text": "سوپرمارکت"
+ },
+ {
+  "label": "OBJECT:ConvoyTruck",
+  "text": "کامیون کاروان"
+ },
+ {
+  "label": "OBJECT:Cottage",
+  "text": "کلبه"
+ },
+ {
+  "label": "OBJECT:Crate",
+  "text": "جعبه"
+ },
+ {
+  "label": "OBJECT:CrossingGuard",
+  "text": "مأمور گذرگاه"
+ },
+ {
+  "label": "OBJECT:Crusader",
+  "text": "کروسیدر"
+ },
+ {
+  "label": "OBJECT:Paladin",
+  "text": "پالادین"
+ },
+ {
+  "label": "OBJECT:BlackMarketNuke",
+  "text": "بمب هسته‌ای بازار سیاه"
+ },
+ {
+  "label": "OBJECT:ToxinTank",
+  "text": "تانک سمی"
+ },
+ {
+  "label": "OBJECT:CarpetBomb",
+  "text": "بمباران فرشی"
+ },
+ {
+  "label": "OBJECT:NeutronMissile",
+  "text": "موشک هسته‌ای"
+ },
+ {
+  "label": "OBJECT:Dealership",
+  "text": "نمایشگاه خودرو"
+ },
+ {
+  "label": "OBJECT:Dirt",
+  "text": "خاک"
+ },
+ {
+  "label": "OBJECT:Docks",
+  "text": "اسکله‌ها"
+ },
+ {
+  "label": "OBJECT:DogwoodTree",
+  "text": "درخت"
+ },
+ {
+  "label": "OBJECT:Dozer",
+  "text": "بولدوزر ساختمانی"
+ },
+ {
+  "label": "OBJECT:Dragon",
+  "text": "تانک دراگون"
+ },
+ {
+  "label": "OBJECT:ElectricRetail",
+  "text": "فروشگاه لوازم برقی"
+ },
+ {
+  "label": "OBJECT:ElectricalTransformer",
+  "text": "ترانسفورماتور برق"
+ },
+ {
+  "label": "OBJECT:FireHydrant",
+  "text": "شیر آتش‌نشانی"
+ },
+ {
+  "label": "OBJECT:StructureMine",
+  "text": "مین"
+ },
+ {
+  "label": "OBJECT:FireStorm",
+  "text": "طوفان آتش"
+ },
+ {
+  "label": "OBJECT:FlamingInfantry",
+  "text": "پیاده‌نظام شعله‌ور"
+ },
+ {
+  "label": "OBJECT:ToxicInfantry",
+  "text": "پیاده‌نظام مسموم"
+ },
+ {
+  "label": "OBJECT:FoodCart",
+  "text": "گاری غذا"
+ },
+ {
+  "label": "OBJECT:Fountain",
+  "text": "فواره"
+ },
+ {
+  "label": "OBJECT:FruitStand",
+  "text": "دکه میوه"
+ },
+ {
+  "label": "OBJECT:Gargoyle",
+  "text": "گارگویل"
+ },
+ {
+  "label": "OBJECT:GasStation",
+  "text": "پمپ بنزین"
+ },
+ {
+  "label": "OBJECT:GasStorageFacility",
+  "text": "تأسیسات ذخیره گاز"
+ },
+ {
+  "label": "OBJECT:GattlingTank",
+  "text": "تانک گاتلینگ"
+ },
+ {
+  "label": "OBJECT:GrassHut",
+  "text": "کلبه حصیری"
+ },
+ {
+  "label": "OBJECT:Gravel",
+  "text": "شن"
+ },
+ {
+  "label": "OBJECT:FlashBangGrenade",
+  "text": "نارنجک صوتی-نوری"
+ },
+ {
+  "label": "OBJECT:TankShell",
+  "text": "گلوله تانک"
+ },
+ {
+  "label": "OBJECT:Rebel",
+  "text": "شورشی"
+ },
+ {
+  "label": "OBJECT:JarmenKell",
+  "text": "جارمن کل"
+ },
+ {
+  "label": "OBJECT:GuardTower",
+  "text": "برج نگهبانی"
+ },
+ {
+  "label": "OBJECT:GuardianControlCenter",
+  "text": "مرکز کنترل محافظ"
+ },
+ {
+  "label": "OBJECT:GuardianDrone",
+  "text": "پهپاد محافظ"
+ },
+ {
+  "label": "OBJECT:BlackLotus",
+  "text": "نیلوفر سیاه"
+ },
+ {
+  "label": "OBJECT:Hanger",
+  "text": "آشیانه"
+ },
+ {
+  "label": "OBJECT:HarvardsOffice",
+  "text": "سطل زباله"
+ },
+ {
+  "label": "OBJECT:Hedge",
+  "text": "پرچین"
+ },
+ {
+  "label": "OBJECT:HighwaySign",
+  "text": "تابلوی بزرگراه"
+ },
+ {
+  "label": "OBJECT:AngryMobNexus",
+  "text": "<<اوباش خشمگین>>"
+ },
+ {
+  "label": "OBJECT:Hotel",
+  "text": "هتل"
+ },
+ {
+  "label": "OBJECT:Humvee",
+  "text": "هاموی"
+ },
+ {
+  "label": "OBJECT:IndustrialBuilding",
+  "text": "ساختمان صنعتی"
+ },
+ {
+  "label": "OBJECT:InfernoCannon",
+  "text": "توپ جهنمی"
+ },
+ {
+  "label": "OBJECT:JapaneseLantern",
+  "text": "فانوس ژاپنی"
+ },
+ {
+  "label": "OBJECT:JunkCar",
+  "text": "ماشین قراضه"
+ },
+ {
+  "label": "OBJECT:Limo",
+  "text": "لیموزین"
+ },
+ {
+  "label": "OBJECT:Lumber",
+  "text": "الوار"
+ },
+ {
+  "label": "OBJECT:MIG",
+  "text": "میگ"
+ },
+ {
+  "label": "OBJECT:MailBox",
+  "text": "صندوق پست"
+ },
+ {
+  "label": "OBJECT:ManHoleCover",
+  "text": "درپوش فاضلاب"
+ },
+ {
+  "label": "OBJECT:MarketVendor",
+  "text": "فروشنده بازار"
+ },
+ {
+  "label": "OBJECT:Medic",
+  "text": "آمبولانس"
+ },
+ {
+  "label": "OBJECT:MegaMall",
+  "text": "مرکز خرید بزرگ"
+ },
+ {
+  "label": "OBJECT:Missile",
+  "text": "موشک"
+ },
+ {
+  "label": "OBJECT:MissileTeam",
+  "text": "مدافع موشکی"
+ },
+ {
+  "label": "OBJECT:Moat",
+  "text": "خندق"
+ },
+ {
+  "label": "OBJECT:MogadishuHighrise",
+  "text": "برج مسکونی"
+ },
+ {
+  "label": "OBJECT:NewsStand",
+  "text": "دکه روزنامه"
+ },
+ {
+  "label": "OBJECT:NightClub",
+  "text": "کلوپ شبانه"
+ },
+ {
+  "label": "OBJECT:NotAMosque",
+  "text": "گنبد"
+ },
+ {
+  "label": "OBJECT:ParticleCannon",
+  "text": "توپ ذره‌ای"
+ },
+ {
+  "label": "OBJECT:Office",
+  "text": "دفتر"
+ },
+ {
+  "label": "OBJECT:OilDepot",
+  "text": "انبار نفت"
+ },
+ {
+  "label": "OBJECT:OilRefinery",
+  "text": "پالایشگاه نفت"
+ },
+ {
+  "label": "OBJECT:OilTank",
+  "text": "مخزن نفت"
+ },
+ {
+  "label": "OBJECT:OldWoodenTelephonePole",
+  "text": "تیر تلفن"
+ },
+ {
+  "label": "OBJECT:Outpost",
+  "text": "پاسگاه"
+ },
+ {
+  "label": "OBJECT:Overlord",
+  "text": "اورلورد"
+ },
+ {
+  "label": "OBJECT:Palace",
+  "text": "کاخ"
+ },
+ {
+  "label": "OBJECT:ParkBench",
+  "text": "نیمکت پارک"
+ },
+ {
+  "label": "OBJECT:ParkGazebo",
+  "text": "آلاچیق پارک"
+ },
+ {
+  "label": "OBJECT:ParkPavillion",
+  "text": "سایبان پارک"
+ },
+ {
+  "label": "OBJECT:ParkingGarage",
+  "text": "پارکینگ طبقاتی"
+ },
+ {
+  "label": "OBJECT:ParkingMeter",
+  "text": "پارکومتر"
+ },
+ {
+  "label": "OBJECT:PatriotBattery",
+  "text": "سامانه موشکی پاتریوت"
+ },
+ {
+  "label": "OBJECT:GattlingCannon",
+  "text": "توپ گاتلینگ"
+ },
+ {
+  "label": "OBJECT:PhoneBooth",
+  "text": "باجه تلفن"
+ },
+ {
+  "label": "OBJECT:PoliceCar",
+  "text": "ماشین پلیس"
+ },
+ {
+  "label": "OBJECT:Prison",
+  "text": "زندان"
+ },
+ {
+  "label": "OBJECT:PropagandaBlimp",
+  "text": "بالن تبلیغات"
+ },
+ {
+  "label": "OBJECT:PropagandaCenter",
+  "text": "مرکز تبلیغات"
+ },
+ {
+  "label": "OBJECT:Pub",
+  "text": "قهوه‌خانه"
+ },
+ {
+  "label": "OBJECT:QuadCannon",
+  "text": "توپ چهارلول"
+ },
+ {
+  "label": "OBJECT:QuonsetHut",
+  "text": "سوله"
+ },
+ {
+  "label": "OBJECT:RailTie",
+  "text": "تراورس ریل"
+ },
+ {
+  "label": "OBJECT:Ranger",
+  "text": "رنجر"
+ },
+ {
+  "label": "OBJECT:Raptor",
+  "text": "رپتور"
+ },
+ {
+  "label": "OBJECT:RaptorPilot",
+  "text": "خلبان"
+ },
+ {
+  "label": "OBJECT:Restaurant",
+  "text": "رستوران"
+ },
+ {
+  "label": "OBJECT:RetailStore",
+  "text": "فروشگاه"
+ },
+ {
+  "label": "OBJECT:RiverHouse",
+  "text": "خانه کنار رود"
+ },
+ {
+  "label": "OBJECT:RoadCone",
+  "text": "مخروط ترافیکی"
+ },
+ {
+  "label": "OBJECT:RocketBuggy",
+  "text": "باگی راکت‌انداز"
+ },
+ {
+  "label": "OBJECT:RadarVan",
+  "text": "ون رادار"
+ },
+ {
+  "label": "OBJECT:RocketBuggyDebris",
+  "text": "لاشه باگی راکت‌انداز"
+ },
+ {
+  "label": "OBJECT:RocketBuggyMissile",
+  "text": "موشک باگی راکت‌انداز"
+ },
+ {
+  "label": "OBJECT:TomahawkMissile",
+  "text": "موشک تاماهاک"
+ },
+ {
+  "label": "OBJECT:SCUDMissile",
+  "text": "موشک اسکاد"
+ },
+ {
+  "label": "OBJECT:RangerTeamMissile",
+  "text": "موشک تیم رنجر"
+ },
+ {
+  "label": "OBJECT:Rocks",
+  "text": "سنگ‌ها"
+ },
+ {
+  "label": "OBJECT:RopeCoil",
+  "text": "حلقه طناب"
+ },
+ {
+  "label": "OBJECT:Rubble",
+  "text": "آوار"
+ },
+ {
+  "label": "OBJECT:ColonelBurton",
+  "text": "سرهنگ برتون"
+ },
+ {
+  "label": "OBJECT:SUV",
+  "text": "شاسی‌بلند"
+ },
+ {
+  "label": "OBJECT:Schoolhouse",
+  "text": "مدرسه"
+ },
+ {
+  "label": "OBJECT:Scorpion",
+  "text": "اسکورپیون"
+ },
+ {
+  "label": "OBJECT:ScrapCar",
+  "text": "ماشین اسقاطی"
+ },
+ {
+  "label": "OBJECT:ScudStorm",
+  "text": "طوفان اسکاد"
+ },
+ {
+  "label": "OBJECT:SecretLab",
+  "text": "آزمایشگاه مخفی"
+ },
+ {
+  "label": "OBJECT:SecretPolice",
+  "text": "پلیس مخفی"
+ },
+ {
+  "label": "OBJECT:SecurityFence",
+  "text": "حصار امنیتی"
+ },
+ {
+  "label": "OBJECT:Hacker",
+  "text": "هکر"
+ },
+ {
+  "label": "OBJECT:Officer",
+  "text": "افسر"
+ },
+ {
+  "label": "OBJECT:Agent",
+  "text": "مأمور"
+ },
+ {
+  "label": "OBJECT:Sedan",
+  "text": "سدان"
+ },
+ {
+  "label": "OBJECT:SeismicTank",
+  "text": "تانک لرزه‌ای"
+ },
+ {
+  "label": "OBJECT:Shack",
+  "text": "آلونک"
+ },
+ {
+  "label": "OBJECT:ShippingContainer",
+  "text": "کانتینر حمل بار"
+ },
+ {
+  "label": "OBJECT:ShippingCrate",
+  "text": "جعبه حمل بار"
+ },
+ {
+  "label": "OBJECT:SignalLights",
+  "text": "چراغ‌های علامت"
+ },
+ {
+  "label": "OBJECT:Slide",
+  "text": "سرسره"
+ },
+ {
+  "label": "OBJECT:SovietBuilding",
+  "text": "ساختمان اداری قدیمی"
+ },
+ {
+  "label": "OBJECT:SovietGovtBuildingSmall",
+  "text": "ساختمان دولتی قدیمی"
+ },
+ {
+  "label": "OBJECT:SovietRadioBuilding",
+  "text": "ساختمان رادیوی قدیمی"
+ },
+ {
+  "label": "OBJECT:SpeakerTower",
+  "text": "برج بلندگو"
+ },
+ {
+  "label": "OBJECT:SportCar",
+  "text": "خودروی اسپرت"
+ },
+ {
+  "label": "OBJECT:Sprinkler",
+  "text": "آب‌پاش"
+ },
+ {
+  "label": "OBJECT:StanTallTower",
+  "text": "برج بلند"
+ },
+ {
+  "label": "OBJECT:Starlifter",
+  "text": "استارلیفتر ۲"
+ },
+ {
+  "label": "OBJECT:StatueAngel",
+  "text": "مجسمه فرشته"
+ },
+ {
+  "label": "OBJECT:StatueLenin",
+  "text": "مجسمه"
+ },
+ {
+  "label": "OBJECT:StatueRoman",
+  "text": "مجسمه رومی"
+ },
+ {
+  "label": "OBJECT:StingerSite",
+  "text": "سایت استینگر"
+ },
+ {
+  "label": "OBJECT:StoneArch",
+  "text": "طاق سنگی"
+ },
+ {
+  "label": "OBJECT:StoneWall",
+  "text": "دیوار سنگی"
+ },
+ {
+  "label": "OBJECT:PicketFence",
+  "text": "حصار چوبی"
+ },
+ {
+  "label": "OBJECT:StopLight",
+  "text": "چراغ راهنمایی"
+ },
+ {
+  "label": "OBJECT:StreetLamp",
+  "text": "چراغ خیابان"
+ },
+ {
+  "label": "OBJECT:StreetLight",
+  "text": "تیر چراغ برق"
+ },
+ {
+  "label": "OBJECT:StreetSign",
+  "text": "تابلوی خیابان"
+ },
+ {
+  "label": "OBJECT:SupplyTruck",
+  "text": "کامیون تدارکات"
+ },
+ {
+  "label": "OBJECT:SupplyWarehouse",
+  "text": "انبار تدارکات اصلی"
+ },
+ {
+  "label": "OBJECT:Swing",
+  "text": "تاب"
+ },
+ {
+  "label": "OBJECT:TVStation",
+  "text": "ایستگاه تلویزیون"
+ },
+ {
+  "label": "OBJECT:TankTrap",
+  "text": "تله تانک"
+ },
+ {
+  "label": "OBJECT:TankerTruck",
+  "text": "تانکر"
+ },
+ {
+  "label": "OBJECT:TaxiCab",
+  "text": "تاکسی"
+ },
+ {
+  "label": "OBJECT:Technical",
+  "text": "تکنیکال"
+ },
+ {
+  "label": "OBJECT:Tent",
+  "text": "چادر"
+ },
+ {
+  "label": "OBJECT:Terrorist",
+  "text": "تروریست"
+ },
+ {
+  "label": "OBJECT:Tire",
+  "text": "لاستیک"
+ },
+ {
+  "label": "OBJECT:TireObstacle",
+  "text": "مانع لاستیکی"
+ },
+ {
+  "label": "OBJECT:Tollbooth",
+  "text": "باجه عوارض"
+ },
+ {
+  "label": "OBJECT:Tomahawk",
+  "text": "تاماهاک"
+ },
+ {
+  "label": "OBJECT:TownHouse",
+  "text": "خانه شهری"
+ },
+ {
+  "label": "OBJECT:ToxinTruck",
+  "text": "تراکتور سمی"
+ },
+ {
+  "label": "OBJECT:TrashCan",
+  "text": "سطل آشغال"
+ },
+ {
+  "label": "OBJECT:TrashPaper",
+  "text": "کاغذ باطله"
+ },
+ {
+  "label": "OBJECT:TrashPile",
+  "text": "تل زباله"
+ },
+ {
+  "label": "OBJECT:TreeStump",
+  "text": "کنده درخت"
+ },
+ {
+  "label": "OBJECT:TroopCrawler",
+  "text": "نفربر خزنده"
+ },
+ {
+  "label": "OBJECT:TunnelDefender",
+  "text": "سرباز آرپی‌جی"
+ },
+ {
+  "label": "OBJECT:TunnelNetwork",
+  "text": "شبکه تونل"
+ },
+ {
+  "label": "OBJECT:Cave",
+  "text": "غار"
+ },
+ {
+  "label": "OBJECT:GLAHole",
+  "text": "حفره GLA"
+ },
+ {
+  "label": "OBJECT:GLARock",
+  "text": "صخره GLA"
+ },
+ {
+  "label": "OBJECT:UNHumvee",
+  "text": "هاموی سازمان ملل"
+ },
+ {
+  "label": "OBJECT:UNSoldier",
+  "text": "سرباز سازمان ملل"
+ },
+ {
+  "label": "OBJECT:VendingMachine",
+  "text": "دستگاه فروش خودکار"
+ },
+ {
+  "label": "OBJECT:Wall",
+  "text": "دیوار"
+ },
+ {
+  "label": "OBJECT:ConcreteWall",
+  "text": "دیوار بتنی"
+ },
+ {
+  "label": "OBJECT:WatchTower",
+  "text": "برج دیده‌بانی"
+ },
+ {
+  "label": "OBJECT:WaterPlant",
+  "text": "تصفیه‌خانه آب"
+ },
+ {
+  "label": "OBJECT:WindMill",
+  "text": "آسیاب بادی"
+ },
+ {
+  "label": "OBJECT:WoodBeams",
+  "text": "تیرهای چوبی"
+ },
+ {
+  "label": "OBJECT:WoodTower",
+  "text": "برج چوبی"
+ },
+ {
+  "label": "OBJECT:WoodWall",
+  "text": "دیوار چوبی"
+ },
+ {
+  "label": "OBJECT:WoodenBarrels",
+  "text": "بشکه‌های چوبی"
+ },
+ {
+  "label": "OBJECT:Worker",
+  "text": "کارگر"
+ },
+ {
+  "label": "OBJECT:Building",
+  "text": "ساختمان"
+ },
+ {
+  "label": "OBJECT:Cathedral",
+  "text": "کلیسای جامع"
+ },
+ {
+  "label": "OBJECT:FarmHouse",
+  "text": "خانه روستایی"
+ },
+ {
+  "label": "OBJECT:Garage",
+  "text": "گاراژ"
+ },
+ {
+  "label": "OBJECT:OscarTheGrouch",
+  "text": "فروشنده قراضه"
+ },
+ {
+  "label": "OBJECT:Pump",
+  "text": "پمپ"
+ },
+ {
+  "label": "OBJECT:Shop",
+  "text": "مغازه"
+ },
+ {
+  "label": "OBJECT:StingerMissile",
+  "text": "موشک استینگر"
+ },
+ {
+  "label": "OBJECT:StingerSoldier",
+  "text": "سرباز استینگر"
+ },
+ {
+  "label": "OBJECT:StorageTank",
+  "text": "مخزن ذخیره"
+ },
+ {
+  "label": "OBJECT:Well",
+  "text": "چاه"
+ },
+ {
+  "label": "OBJECT:WineVat",
+  "text": "خمره"
+ },
+ {
+  "label": "OBJECT:GenericMale",
+  "text": "غیرنظامی"
+ },
+ {
+  "label": "OBJECT:Crane",
+  "text": "جرثقیل"
+ },
+ {
+  "label": "OBJECT:OceanCenter",
+  "text": "مرکز همایش‌ها"
+ },
+ {
+  "label": "OBJECT:SoccerStadium",
+  "text": "ورزشگاه فوتبال"
+ },
+ {
+  "label": "OBJECT:Backhoe",
+  "text": "بیل مکانیکی"
+ },
+ {
+  "label": "OBJECT:LargeForklift",
+  "text": "لیفتراک بزرگ"
+ },
+ {
+  "label": "OBJECT:SmallForklift",
+  "text": "لیفتراک"
+ },
+ {
+  "label": "OBJECT:CropDuster",
+  "text": "هواپیمای سم‌پاش"
+ },
+ {
+  "label": "OBJECT:Cessna",
+  "text": "هواپیما"
+ },
+ {
+  "label": "OBJECT:ChickenTruck",
+  "text": "کامیون مرغ"
+ },
+ {
+  "label": "OBJECT:Combine",
+  "text": "کمباین"
+ },
+ {
+  "label": "OBJECT:Eurovan",
+  "text": "ون"
+ },
+ {
+  "label": "OBJECT:EuroPoliceVan",
+  "text": "ون پلیس"
+ },
+ {
+  "label": "OBJECT:Firetruck",
+  "text": "ماشین آتش‌نشانی"
+ },
+ {
+  "label": "OBJECT:FarmerTruck",
+  "text": "وانت کشاورز"
+ },
+ {
+  "label": "OBJECT:AsianFishingBoat",
+  "text": "قایق ماهیگیری"
+ },
+ {
+  "label": "OBJECT:TourBus",
+  "text": "اتوبوس توریستی"
+ },
+ {
+  "label": "OBJECT:FishingTrowler",
+  "text": "کشتی صیادی"
+ },
+ {
+  "label": "OBJECT:WorkTruck",
+  "text": "کامیون کار"
+ },
+ {
+  "label": "OBJECT:TugBoat",
+  "text": "یدک‌کش"
+ },
+ {
+  "label": "OBJECT:BioHazardTech",
+  "text": "تکنسین خطر زیستی"
+ },
+ {
+  "label": "OBJECT:MilitiaTank",
+  "text": "تانک شبه‌نظامی"
+ },
+ {
+  "label": "SCIENCE:Rank1",
+  "text": "ژنرال ۱ ستاره"
+ },
+ {
+  "label": "SCIENCE:Rank2",
+  "text": "ژنرال ۲ ستاره"
+ },
+ {
+  "label": "SCIENCE:Rank3",
+  "text": "ژنرال ۳ ستاره"
+ },
+ {
+  "label": "SCIENCE:Rank4",
+  "text": "ژنرال ۴ ستاره"
+ },
+ {
+  "label": "SCIENCE:Rank5",
+  "text": "ژنرال ۵ ستاره"
+ },
+ {
+  "label": "SCIENCE:Rank6",
+  "text": "سرلشکر"
+ },
+ {
+  "label": "SCIENCE:Rank7",
+  "text": "سپهبد"
+ },
+ {
+  "label": "SCIENCE:Rank8",
+  "text": "ارتشبد"
+ },
+ {
+  "label": "UPGRADE:AircraftArmor",
+  "text": "زره هواپیما"
+ },
+ {
+  "label": "SCIENCE:EmergencyRepair1",
+  "text": "تعمیر اضطراری ۱"
+ },
+ {
+  "label": "SCIENCE:EmergencyRepair2",
+  "text": "تعمیر اضطراری ۲"
+ },
+ {
+  "label": "SCIENCE:EmergencyRepair3",
+  "text": "تعمیر اضطراری ۳"
+ },
+ {
+  "label": "UPGRADE:RadarVanScan",
+  "text": "اسکن ون رادار"
+ },
+ {
+  "label": "UPGRADE:RangerCaptureBuilding",
+  "text": "تصرف ساختمان"
+ },
+ {
+  "label": "UPGRADE:AmericaDroneARmor",
+  "text": "زره پهپاد"
+ },
+ {
+  "label": "UPGRADE:APRockets",
+  "text": "راکت‌های زره‌شکن"
+ },
+ {
+  "label": "OBJECT:Frosty",
+  "text": "آدم‌برفی"
+ },
+ {
+  "label": "OBJECT:Prop",
+  "text": "."
+ },
+ {
+  "label": "OBJECT:BigGate",
+  "text": "دروازه"
+ },
+ {
+  "label": "OBJECT:TownHall",
+  "text": "شهرداری"
+ },
+ {
+  "label": "OBJECT:RailroadBridge",
+  "text": "پل راه‌آهن"
+ },
+ {
+  "label": "OBJECT:TheLoo",
+  "text": "توالت صحرایی"
+ },
+ {
+  "label": "OBJECT:TrainCar",
+  "text": "واگن قطار"
+ },
+ {
+  "label": "OBJECT:SandBagWall",
+  "text": "دیوار کیسه شنی"
+ },
+ {
+  "label": "OBJECT:Structure",
+  "text": "ساختمان غیرنظامی"
+ },
+ {
+  "label": "OBJECT:Airport",
+  "text": "فرودگاه غیرنظامی"
+ },
+ {
+  "label": "OBJECT:BridgeTower",
+  "text": "برج پل"
+ },
+ {
+  "label": "OBJECT:Field",
+  "text": "زمین بازی"
+ },
+ {
+  "label": "OBJECT:SoccerStadiumGoal",
+  "text": "دروازه فوتبال"
+ },
+ {
+  "label": "OBJECT:BigLightpost",
+  "text": "تیر چراغ"
+ },
+ {
+  "label": "OBJECT:Monument",
+  "text": "بنای یادبود"
+ },
+ {
+  "label": "OBJECT:TrainWreckBridge",
+  "text": "پل قطار واژگون"
+ },
+ {
+  "label": "OBJECT:PharmaceuticalFactory",
+  "text": "کارخانه داروسازی"
+ },
+ {
+  "label": "OBJECT:CargoPlane",
+  "text": "هواپیمای باری"
+ },
+ {
+  "label": "OBJECT:HuNanProvince",
+  "text": "پکن"
+ },
+ {
+  "label": "OBJECT:HongKong",
+  "text": "هنگ کنگ"
+ },
+ {
+  "label": "OBJECT:HubeiProvince",
+  "text": "سد سه دره"
+ },
+ {
+  "label": "OBJECT:Tangula",
+  "text": "کوه‌های تانگولا"
+ },
+ {
+  "label": "OBJECT:Balykchy",
+  "text": "بالیکچی"
+ },
+ {
+  "label": "OBJECT:Bishkek",
+  "text": "بیشکک"
+ },
+ {
+  "label": "OBJECT:Dushanbe",
+  "text": "دوشنبه"
+ },
+ {
+  "label": "OBJECT:Shymkent",
+  "text": "شیمکنت"
+ },
+ {
+  "label": "OBJECT:Almaty",
+  "text": "آلماتی"
+ },
+ {
+  "label": "OBJECT:Zambul",
+  "text": "ژامبیل"
+ },
+ {
+  "label": "OBJECT:Astana",
+  "text": "آستانه"
+ },
+ {
+  "label": "OBJECT:Incirlik",
+  "text": "اینجرلیک"
+ },
+ {
+  "label": "OBJECT:AralSea",
+  "text": "دریاچه آرال"
+ },
+ {
+  "label": "OBJECT:Lenger",
+  "text": "لنگر"
+ },
+ {
+  "label": "OBJECT:Baikonur",
+  "text": "بایکونور"
+ },
+ {
+  "label": "OBJECT:Mazar",
+  "text": "مزار"
+ },
+ {
+  "label": "OBJECT:Baghdad",
+  "text": "بغداد"
+ },
+ {
+  "label": "OBJECT:AlHanad",
+  "text": "الهناد"
+ },
+ {
+  "label": "OBJECT:NorthKazakhstan",
+  "text": "شمال قزاقستان"
+ },
+ {
+  "label": "OBJECT:KazakhstanCoast",
+  "text": "ساحل قزاقستان"
+ },
+ {
+  "label": "OBJECT:KazakhstanDMZ",
+  "text": "منطقه غیرنظامی قزاقستان"
+ },
+ {
+  "label": "OBJECT:SouthKazkahstan",
+  "text": "جنوب شرقی قزاقستان"
+ },
+ {
+  "label": "OBJECT:Akmola",
+  "text": "آکمولا"
+ },
+ {
+  "label": "SCIENCE:USASpectreGunship1",
+  "text": "هواپیمای توپدار اسپکتر"
+ },
+ {
+  "label": "SCIENCE:USALeafletDrop",
+  "text": "پخش اعلامیه"
+ },
+ {
+  "label": "SCIENCE:ChinaTankHunterTraining",
+  "text": "آموزش شکارچی تانک"
+ },
+ {
+  "label": "SCIENCE:ChinaBattleMasterTraining",
+  "text": "آموزش بتل‌مستر"
+ },
+ {
+  "label": "SCIENCE:ChinaOverlordTraining",
+  "text": "آموزش اورلورد"
+ },
+ {
+  "label": "SCIENCE:ChinaGattlingTankTraining",
+  "text": "آموزش تانک گاتلینگ"
+ },
+ {
+  "label": "SCIENCE:ChinaNukeDrop",
+  "text": "بمباران هسته‌ای"
+ },
+ {
+  "label": "SCIENCE:ChinaFrenzy",
+  "text": "جنون جنگی ۱"
+ },
+ {
+  "label": "SCIENCE:ChinaFrenzy2",
+  "text": "جنون جنگی ۲"
+ },
+ {
+  "label": "SCIENCE:ChinaFrenzy3",
+  "text": "جنون جنگی ۳"
+ },
+ {
+  "label": "SCIENCE:GPSScrambler",
+  "text": "مختل‌کننده GPS"
+ },
+ {
+  "label": "SCIENCE:GLASneakAttack",
+  "text": "حمله غافلگیرانه"
+ },
+ {
+  "label": "SCIENCE:ChinaTankParadrop1",
+  "text": "فرود تانک ۱"
+ },
+ {
+  "label": "SCIENCE:ChinaTankParadrop2",
+  "text": "فرود تانک ۲"
+ },
+ {
+  "label": "SCIENCE:ChinaTankParadrop3",
+  "text": "فرود تانک ۳"
+ },
+ {
+  "label": "SCIENCE:ChinaInfantryParadrop1",
+  "text": "فرود چتری پیاده‌نظام ۱"
+ },
+ {
+  "label": "SCIENCE:ChinaInfantryParadrop2",
+  "text": "فرود چتری پیاده‌نظام ۲"
+ },
+ {
+  "label": "SCIENCE:ChinaInfantryParadrop3",
+  "text": "فرود چتری پیاده‌نظام ۳"
+ },
+ {
+  "label": "UPGRADE:AmericaSentryDroneGun",
+  "text": "سلاح پهپاد نگهبان"
+ },
+ {
+  "label": "UPGRADE:AmericaMOAB",
+  "text": "MOAB: مادر همه بمب‌ها"
+ },
+ {
+  "label": "UPGRADE:AmericaBunkerBusters",
+  "text": "موشک‌های سنگرشکن"
+ },
+ {
+  "label": "UPGRADE:SatelliteHackOne",
+  "text": "هک ماهواره I"
+ },
+ {
+  "label": "UPGRADE:SatelliteHackTwo",
+  "text": "هک ماهواره II"
+ },
+ {
+  "label": "UPGRADE:HelixGattlingCannon",
+  "text": "توپ گاتلینگ هلیکس"
+ },
+ {
+  "label": "UPGRADE:HelixPropagandaTower",
+  "text": "برج تبلیغات هلیکس"
+ },
+ {
+  "label": "UPGRADE:HelixBattleBunker",
+  "text": "سنگر نبرد هلیکس"
+ },
+ {
+  "label": "UPGRADE:SupplyLines",
+  "text": "خطوط تدارکات"
+ },
+ {
+  "label": "UPGRADE:PointDefenseDrone",
+  "text": "پهپاد دفاع نقطه‌ای"
+ },
+ {
+  "label": "UPGRADE:QuadCannonSnipe",
+  "text": "گلوله‌های تک‌تیرانداز توپ چهارلول"
+ },
+ {
+  "label": "UPGRADE:HellfireDrone",
+  "text": "پهپاد هل‌فایر"
+ },
+ {
+  "label": "UPGRADE:Fanaticism",
+  "text": "میهن‌پرستی"
+ },
+ {
+  "label": "UPGRADE:EMPMine",
+  "text": "مین‌های نوترونی"
+ },
+ {
+  "label": "UPGRADE:ChinaHelixNapalmBomb",
+  "text": "بمب ناپالم"
+ },
+ {
+  "label": "UPGRADE:ChinaHelixNukeBomb",
+  "text": "بمب هسته‌ای"
+ },
+ {
+  "label": "UPGRADE:WGUraniumShells",
+  "text": "گلوله‌های اورانیوم غنی‌شده"
+ },
+ {
+  "label": "UPGRADE:TankAutoLoader",
+  "text": "خودکارگذار"
+ },
+ {
+  "label": "UPGRADE:NeutronShells",
+  "text": "گلوله‌های نوترونی"
+ },
+ {
+  "label": "UPGRADE:BecomeRealGLACommandCenter",
+  "text": "مرکز فرماندهی واقعی"
+ },
+ {
+  "label": "UPGRADE:BecomeRealGLABarracks",
+  "text": "پادگان واقعی"
+ },
+ {
+  "label": "UPGRADE:BecomeRealGLAArmsDealer",
+  "text": "دلال اسلحه واقعی"
+ },
+ {
+  "label": "UPGRADE:BecomeRealGLASupplyStash",
+  "text": "انبار تدارکات واقعی"
+ },
+ {
+  "label": "UPGRADE:BecomeRealGLABlackMarket",
+  "text": "بازار سیاه واقعی"
+ },
+ {
+  "label": "UPGRADE:FusionReactors",
+  "text": "رآکتورهای همجوشی"
+ },
+ {
+  "label": "UPGRADE:CamoNetting",
+  "text": "تور استتار"
+ },
+ {
+  "label": "UPGRADE:FortifiedStructure",
+  "text": "سازه مستحکم"
+ },
+ {
+  "label": "UPGRADE:BoobyTrap",
+  "text": "تله انفجاری پنهان"
+ },
+ {
+  "label": "UPGRADE:AnthraxGamma",
+  "text": "سیاه‌زخم گاما"
+ },
+ {
+  "label": "UPGRADE:WorkerShoes",
+  "text": "کفش کارگر"
+ },
+ {
+  "label": "UPGRADE:ChemicalSuits",
+  "text": "لباس ضدشیمیایی"
+ },
+ {
+  "label": "UPGRADE:AmericaCountermeasures",
+  "text": "پادکارها"
+ },
+ {
+  "label": "UPGRADE:UpgradeChinaIsotopeStability",
+  "text": "پایداری ایزوتوپ (&I)"
+ },
+ {
+  "label": "OBJECT:SecretResearchLab",
+  "text": "آزمایشگاه تحقیقاتی مخفی"
+ },
+ {
+  "label": "OBJECT:InternetCenter",
+  "text": "مرکز اینترنت"
+ },
+ {
+  "label": "OBJECT:AircraftCarrier",
+  "text": "ناو هواپیمابر"
+ },
+ {
+  "label": "OBJECT:NukeHunter",
+  "text": "شکارچی هسته‌ای"
+ },
+ {
+  "label": "OBJECT:AirF_Aurora",
+  "text": "بمب‌افکن آرورا سوخت-هوا"
+ },
+ {
+  "label": "OBJECT:SupW_Aurora",
+  "text": "بمب‌افکن آرورا آلفا"
+ },
+ {
+  "label": "OBJECT:BattleBus",
+  "text": "اتوبوس جنگی"
+ },
+ {
+  "label": "OBJECT:Helix",
+  "text": "هلیکس"
+ },
+ {
+  "label": "OBJECT:PropagandaTrooper",
+  "text": "سرباز تبلیغاتی"
+ },
+ {
+  "label": "OBJECT:Avenger",
+  "text": "اونجر"
+ },
+ {
+  "label": "OBJECT:Microwave",
+  "text": "تانک مایکروویو"
+ },
+ {
+  "label": "OBJECT:MOAB",
+  "text": "مادر همه بمب‌ها"
+ },
+ {
+  "label": "OBJECT:SuitcaseNuke",
+  "text": "بمب هسته‌ای چمدانی"
+ },
+ {
+  "label": "OBJECT:StructureEMPMine",
+  "text": "مین نوترونی"
+ },
+ {
+  "label": "OBJECT:ECMTank",
+  "text": "تانک جنگ الکترونیک"
+ },
+ {
+  "label": "OBJECT:Saboteur",
+  "text": "خرابکار"
+ },
+ {
+  "label": "OBJECT:Sniper",
+  "text": "تک‌تیرانداز"
+ },
+ {
+  "label": "OBJECT:FireBase",
+  "text": "پایگاه آتش"
+ },
+ {
+  "label": "OBJECT:KingRaptor",
+  "text": "کینگ رپتور"
+ },
+ {
+  "label": "OBJECT:CombatBike",
+  "text": "موتورسیکلت رزمی"
+ },
+ {
+  "label": "OBJECT:SentryDrone",
+  "text": "پهپاد نگهبان"
+ },
+ {
+  "label": "OBJECT:TomahawkStorm",
+  "text": "طوفان تاماهاک"
+ },
+ {
+  "label": "OBJECT:ListeningOutpost",
+  "text": "پاسگاه شنود"
+ },
+ {
+  "label": "OBJECT:TrainDepot",
+  "text": "انبار قطار"
+ },
+ {
+  "label": "OBJECT:TrainLoading",
+  "text": "سکوی سوار شدن"
+ },
+ {
+  "label": "OBJECT:GLALeader",
+  "text": "رهبر GLA"
+ },
+ {
+  "label": "OBJECT:SupW_PatriotBattery",
+  "text": "سامانه پاتریوت EMP"
+ },
+ {
+  "label": "OBJECT:AssaultTroopTransport",
+  "text": "نفربر تهاجمی"
+ },
+ {
+  "label": "OBJECT:AssaultListeningOutpost",
+  "text": "پاسگاه تهاجمی"
+ },
+ {
+  "label": "UPGRADE:IsotopeStability",
+  "text": "پایداری ایزوتوپ"
+ },
+ {
+  "label": "OBJECT:Lazr_PatriotBattery",
+  "text": "برجک دفاع لیزری"
+ },
+ {
+  "label": "SCIENCE:Infa_ChinaRedGuardTraining",
+  "text": "آموزش مینی‌گانر"
+ },
+ {
+  "label": "UPGRADE:Demo_SuicideBomb",
+  "text": "تخریب"
+ },
+ {
+  "label": "UPGRADE:AirF_StealthComanche",
+  "text": "کومانچی رادارگریز"
+ },
+ {
+  "label": "UPGRADE:HighExplosiveTrap",
+  "text": "تله انفجاری قوی"
+ },
+ {
+  "label": "OBJECT:RocketDrop",
+  "text": "راکت"
+ },
+ {
+  "label": "OBJECT:PTBoat",
+  "text": "قایق تندرو"
+ },
+ {
+  "label": "OBJECT:Dock",
+  "text": "اسکله"
+ },
+ {
+  "label": "OBJECT:RepairDrone",
+  "text": "پهپاد تعمیر"
+ },
+ {
+  "label": "SCIENCE:LaserCannon",
+  "text": "توپ لیزری"
+ },
+ {
+  "label": "UPGRADE:TacticalNukeMig",
+  "text": "میگ هسته‌ای تاکتیکی"
+ },
+ {
+  "label": "OBJECT:CruiseMissile",
+  "text": "موشک کروز"
+ },
+ {
+  "label": "OBJECT:Ox",
+  "text": "گاو"
+ },
+ {
+  "label": "OBJECT:Infa_Helix",
+  "text": "هلیکس تهاجمی"
+ },
+ {
+  "label": "OBJECT:MiniGunner",
+  "text": "مینی‌گانر"
+ },
+ {
+  "label": "OBJECT:AirF_Chinook",
+  "text": "شینوک رزمی"
+ },
+ {
+  "label": "OBJECT:Infa_Bunker",
+  "text": "سنگر مستحکم"
+ },
+ {
+  "label": "OBJECT:Chem_Rebel",
+  "text": "شورشی سمی"
+ },
+ {
+  "label": "OBJECT:Chem_Terrorist",
+  "text": "تروریست سمی"
+ },
+ {
+  "label": "OBJECT:Chem_TunnelNetwork",
+  "text": "شبکه سمی"
+ },
+ {
+  "label": "OBJECT:Entrance",
+  "text": "ورودی"
+ },
+ {
+  "label": "OBJECT:Lazr_Tank",
+  "text": "تانک لیزری"
+ },
+ {
+  "label": "OBJECT:ValveStation",
+  "text": "ایستگاه شیر"
+ },
+ {
+  "label": "OBJECT:MissileSilo",
+  "text": "سیلوی موشک"
+ },
+ {
+  "label": "OBJECT:ScudLauncherHiDef",
+  "text": "پرتابگر اسکاد"
+ },
+ {
+  "label": "OBJECT:CINE_SnowyMountainScrollingSnow",
+  "text": "برف"
+ },
+ {
+  "label": "OBJECT:CINE_SnowyMountainStatic",
+  "text": "کوه"
+ },
+ {
+  "label": "OBJECT:CINE_TreeBirds",
+  "text": "پرندگان"
+ },
+ {
+  "label": "OBJECT:Tank_Overlord",
+  "text": "امپراتور"
+ },
+ {
+  "label": "SCIENCE:Nuke_ChinaCarpetBomb",
+  "text": "بمب‌افکن هسته‌ای"
+ },
+ {
+  "label": "OBJECT:Nuke_NuclearReactor",
+  "text": "رآکتور هسته‌ای پیشرفته"
+ },
+ {
+  "label": "OBJECT:Demo_DemoTrap",
+  "text": "تله انفجاری پیشرفته"
+ }
+]

@@ -1,0 +1,802 @@
+[
+ {
+  "label": "MAP:MD-CHI05_PartCannon_Detected",
+  "text": "WARNUNG: \n Partikelkanone entdeckt"
+ },
+ {
+  "label": "MAP:MD-CHI05_Hint01",
+  "text": "HINWEIS: \n Wir sollten unseren Angriff auf die USA-Basis konzentrieren \n Wir müssen ihre Partikelkanonen ausschalten"
+ },
+ {
+  "label": "MAP:MD-CHI05_Hint02",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Zerstört die USA-Kommandozentrale, um ihre Luftunterstützung zu beenden"
+ },
+ {
+  "label": "MAP:MD-CHI05_Hint05",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Tötet die feindlichen Entführer, um unsere Fahrzeuge zu schützen"
+ },
+ {
+  "label": "MAP:MD-CHI05_Hint08",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Jarmen Kell könnte sich in diesem Dorf verstecken"
+ },
+ {
+  "label": "MAP:MD-CHI05_Hint10",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Verhindert, dass die Kampfbusse unsere Basis erreichen"
+ },
+ {
+  "label": "MAP:MD-CHI05_Hint13",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Die USA-Basis hat keinen Strom. Schlagt schnell zu"
+ },
+ {
+  "label": "MAP:MD-CHI05_Hint15",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Setzt Horchposten ein, um zu verhindern, \n dass Jarmen Kell unsere Fahrzeuge aus dem Hinterhalt ausschaltet"
+ },
+ {
+  "label": "MAP:MD-CHI05_Hint16",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Setzt Infanterie ein, um unsere neutralisierten Fahrzeuge zurückzuerobern"
+ },
+ {
+  "label": "MAP:MD-CHI05_InternetCenter02",
+  "text": "HINWEIS: \n Besetzt die Internetzentrale mit Hackern für zusätzliches Einkommen"
+ },
+ {
+  "label": "MAP:ChemGeneral",
+  "text": "Dr. Thrax"
+ },
+ {
+  "label": "GC_CHINABOSS:Loc",
+  "text": "Irgendwo nahe der chinesisch-tibetischen Grenze \n „Die Höhle des Tigers“"
+ },
+ {
+  "label": "GC_CHINABOSS:Hint",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Die Zerstörung feindlicher Waffenbunker setzt die Timer aller Superwaffen zurück"
+ },
+ {
+  "label": "GC_CHINABOSS:Reset",
+  "text": "\n Superwaffen-Timer zurückgesetzt"
+ },
+ {
+  "label": "GC_CHINABOSS:Strike",
+  "text": "\n Superwaffenangriff steht unmittelbar bevor"
+ },
+ {
+  "label": "GC_CHINABOSS:Resources",
+  "text": "HINWEIS: \n Die Ressourcen hier sind begrenzt. Ihr müsst schnell weitere Vorräte finden"
+ },
+ {
+  "label": "CONTROLBAR:TooltipMOAB",
+  "text": "Stark gegen Gebäude \n Betäubt Einheiten im Explosionsradius \n \n Countdown: 6:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipLeafletDrop",
+  "text": "Stark gegen Infanterie \n \n Countdown: 6:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipTankParaDrop",
+  "text": "Wirft Battlemaster per Flugzeug ab \n \n Countdown: 4:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipNukeDrop",
+  "text": "Wirft einen taktischen Atomsprengkopf per Flugzeug ab \n \n Countdown: 4:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipSuitcaseNuke",
+  "text": "Hacker hat eine Atomwaffe in seinem Koffer \n"
+ },
+ {
+  "label": "CONTROLBAR:TooltipSpectreGunship",
+  "text": "Stark gegen Fahrzeuge \n \n Countdown: 4:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipFireICBM",
+  "text": "Stark gegen Gebäude, Infanterie \n \n Countdown: 6:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipFireTomahawkStorm",
+  "text": "Stark gegen Gebäude, Fahrzeuge \n \n Countdown: 5:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipFrenzy",
+  "text": "Eure Einheiten verursachen für begrenzte Zeit mehr Schaden \n \n Countdown: 4:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipFireGPSScrambler",
+  "text": "GPS-Störsender \n Countdown: 4:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipCommunicationsDownload",
+  "text": "Positionsdaten aller feindlichen Streitkräfte herunterladen"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUSAUpgradeSentryDroneGun",
+  "text": "Wachdrohnen erhalten ein Maschinengewehr"
+ },
+ {
+  "label": "CONTROLBAR:TooltipGLAUpgradeQuadCannonSnipe",
+  "text": "Vierlingskanonen können Infanterie mit einem einzigen Schuss töten"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUSAUpgradeSupplyLines",
+  "text": "Der Ertrag der Ressourcensammler steigt um zusätzliche 10%"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUSAUpgradeMOAB",
+  "text": "Aerosolbombe wird zur Mutter aller Bomben aufgerüstet"
+ },
+ {
+  "label": "CONTROLBAR:TooltipBecomeRealBuilding",
+  "text": "Dieses Scheingebäude zu einer voll funktionsfähigen Version aufrüsten"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUSAUpgradeChemicalSuits",
+  "text": "Infanterie wird widerstandsfähiger gegen Toxin- und Strahlenschaden"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUSAUpgradeBunkerBusters",
+  "text": "Raketen der Tarnkappenjäger schädigen einquartierte Truppen"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUSAUpgradeCountermeasures",
+  "text": "Alle Flugzeuge können den auf sie abgefeuerten Raketen ausweichen: 50% ohne Treffer"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUpgradeChinaHelixGattlingCannon",
+  "text": "Eine Gatling-Kanone auf diesem Helix errichten"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUpgradeChinaHelixPropagandaTower",
+  "text": "Einen Propagandaturm auf diesem Helix errichten"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUpgradeChinaHelixBattleBunker",
+  "text": "Einen Bunker auf diesem Helix errichten. Bunker können von Truppen besetzt werden. Truppen können aus Bunkern heraus feuern"
+ },
+ {
+  "label": "CONTROLBAR:TooltipChinaUpgradeSatelliteHackOne",
+  "text": "Aktiviert den Satelliten-Hack, der die Kommandozentralen der Gegner aufdeckt"
+ },
+ {
+  "label": "CONTROLBAR:TooltipChinaUpgradeSatelliteHackTwo",
+  "text": "Aktiviert den Satelliten-Hack, der zeitweise das Gebiet aller Gegner aufdeckt"
+ },
+ {
+  "label": "CONTROLBAR:TooltipChinaUpgradeFanaticism",
+  "text": "Zusätzlich +25 % auf den Hordenbonus"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUpgradeChinaWGUraniumShells",
+  "text": "+25% stärkere Schüsse für Battlemaster und Overlord"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUpgradeChinaTankAutoLoader",
+  "text": "Battlemaster erhält eine höhere Feuerrate"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUpgradeChinaNeutronShells",
+  "text": "Rüstet die Atomkanone auf Neutronengranaten um \n Neutronengranaten töten Infanterie in Fahrzeugen"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUpgradeChinaEMPMines",
+  "text": "Minen setzen beim Auslösen eine Neutronenexplosion frei"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUpgradeChinaFusionReactors",
+  "text": "Erhöht die Geschwindigkeit von Emperor und Battlemaster"
+ },
+ {
+  "label": "CONTROLBAR:TooltipDetonateFakebuilding",
+  "text": "Befiehlt dem Scheingebäude, sofort zu detonieren"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUpgradeGLAWorkerFakeCommandSet",
+  "text": "Befehlsleiste auf den Bau von Scheingebäuden umschalten"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUpgradeGLAWorkerRealCommandSet",
+  "text": "Befehlsleiste auf den Bau echter Gebäude umschalten"
+ },
+ {
+  "label": "CONTROLBAR:Demo_ToolTipGLAUpgradeHEBomb",
+  "text": "100 % mehr Schaden für alle Sprengfallen"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLACamoNetting",
+  "text": "Dieses Gebäude erhält Tarnung"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAUpgradeFortifiedStructure",
+  "text": "Gebäude erhalten zusätzlichen Panzerschutz gegen Angriffe"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAUpgradeBoobyTrap",
+  "text": "Rebellen können Sprengfallen an Gebäuden und neutralen Einheiten anbringen"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAUpgradeWorkerShoes",
+  "text": "Gibt den Arbeitern die neuen Schuhe, um die sie gebeten haben, und erhöht ihre Geschwindigkeit"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAUpgradeAnthraxGamma",
+  "text": "+50% des Grundschadens als Bonus für alle Toxin-Einheiten"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipSaboteur",
+  "text": "Legt Gebäude lahm. Setzt Superwaffen-Timer zurück"
+ },
+ {
+  "label": "CONTROLBAR:DropNapalmBomb",
+  "text": "Napalmbombe &abwerfen"
+ },
+ {
+  "label": "CONTROLBAR:DropNukeBomb",
+  "text": "Atombombe a&bwerfen"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipDropNukeBomb",
+  "text": "Wirft eine taktische Atombombe auf das Zielgebiet ab"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipDropNapalmBomb",
+  "text": "Stark gegen die meisten Bodenziele \n Schwach gegen Flammenfahrzeuge"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaNukeWarhead",
+  "text": "Atomgranaten laden"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaNeutronWarhead",
+  "text": "Neutronengranaten laden"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipFireBattleship",
+  "text": "Bombardement vom Schlachtschiff vor der Küste anfordern"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipFireAircraftCarrier",
+  "text": "Startet die Angriffsflugzeuge des Flugzeugträgers"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipECMDisableVehicle",
+  "text": "Feindliches Fahrzeug lahmlegen"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaFireRebelBoobyTrapAttack",
+  "text": "Eine Sprengfalle anbringen"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildFireBase",
+  "text": "Bodenverteidigung. Kann von vier Infanteristen besetzt werden"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildArtilleryPlatform",
+  "text": "Baut eine weitreichende Artillerieplattform zur Verteidigung \n \n Benötigte Energie: 4"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipFakeGLABuilding",
+  "text": "Scheingebäude können gesprengt oder zu echten Gebäuden aufgerüstet werden"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildInternetCenter",
+  "text": "Hilft Hackern, Geld einzubringen. Kann aufgerüstet werden, um Gegner auszuspionieren"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipAmericaICBMLauncher",
+  "text": "Startet eine Interkontinentalrakete \n Benötigte Energie: 10"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipAmericaBuildTomahawkStorm",
+  "text": "Startet eine Salve Tomahawk-Raketen \n \n Countdown: 5:00"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildCombatBike",
+  "text": "Schnell und vielseitig \n Schwach gegen Panzer, Flugzeuge"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildSaboteur",
+  "text": "Infiltrationseinheit ohne Kampfkraft. Kann feindliche Gebäude vorübergehend lahmlegen"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildPropagandaTrooper",
+  "text": "Verbreitet Propaganda, die Einheiten in der Nähe heilt"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildMiniGunner",
+  "text": "Stark gegen Infanterie, Luft \n Schwach gegen Panzer"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildAvenger",
+  "text": "Zerstört Raketen und Flugzeuge mit einem Laser \n \n Stark gegen Raketen, Flugzeuge \n Schwach gegen Fahrzeuge, Infanterie"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildKingRaptor",
+  "text": "Kann Boden- oder Luftziele bekämpfen. Mit Punktverteidigungslaser ausgestattet \n Größere Nutzlast. Entdeckt Tarnung \n \n Stark gegen Flugzeuge, Panzer, leichte Fahrzeuge \n Schwach gegen raketenbewaffnete Infanterie, Luftabwehr"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildFuelAirAurora",
+  "text": "Überschallangriff macht die Aurora immun gegen feindliches Feuer, während sie eine kleine Aerosolbombe abwirft. Nach dem Überschallangriff sinkt die Geschwindigkeit der Aurora auf 50 % \n \n Stark gegen Gebäude \n Schwach gegen Jäger, Flugabwehreinheiten"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildHyersonicAurora",
+  "text": "Hyperschallangriff macht die Aurora immun gegen feindliches Feuer. Nach dem Hyperschallangriff sinkt die Geschwindigkeit der Aurora auf 50 % \n \n Stark gegen Gebäude \n Schwach gegen Jäger, Flugabwehreinheiten"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildSniper",
+  "text": "Getarnt, solange er sich nicht bewegt oder schießt. Entdeckt versteckte Feinde \n \n Stark gegen Infanterie \n Schwach gegen leichte Fahrzeuge, Späher"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildMicrowave",
+  "text": "Stark gegen Basisverteidigung \n Schwach gegen Panzer, Flugzeuge, leichte Fahrzeuge"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildSentryDrone",
+  "text": "Entdeckt Tarnung \n \nStark gegen Infanterie \n Schwach gegen Panzer"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildHellfireDrone",
+  "text": "Feuert eine Hellfire-Rakete \n \n Stark gegen Fahrzeuge \n Schwach gegen Infanterie"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildPointDefenseDrone",
+  "text": "Feuert einen Raketenabwehrlaser"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildHelix",
+  "text": "Schwerer Transporthubschrauber \n aufrüstbar mit Basisverteidigungsanlagen und Napalmbombe \n \n Stark gegen Panzer, leichte Fahrzeuge \n Schwach gegen raketenbewaffnete Infanterie, Luftabwehr"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildListeningOutpost",
+  "text": "Transporter. Entdeckt getarnte Einheiten \n \n Schwach gegen Panzer, Flugzeuge"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildECM",
+  "text": "Stark gegen Panzer, Fahrzeuge \n Schwach gegen Infanterie, Flugzeuge"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildBattleBus",
+  "text": "Kann 8 Infanteristen aufnehmen \n \n Stark gegen Infanterie, Gebäude"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSAScienceSpectreGunship",
+  "text": "Spectre-Kanonenboote kreisen über dem Schlachtfeld und nehmen feindliche Truppen mit Haubitzen und Gatling-Kanonen unter Beschuss \n \n Einsatz von: Kommandozentrale"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSAScienceLeafletDrop",
+  "text": "Flugblätter legen feindliche Truppenansammlungen lahm, während sie ihre Möglichkeiten abwägen \n \n Einsatz von: Kommandozentrale"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaScienceTankHunterTraining",
+  "text": "Alle Panzerjäger werden als Veteranen ausgebildet"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaScienceBattlemasterTraining",
+  "text": "Alle Battlemaster werden als Elite gebaut"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaScienceOverlordTraining",
+  "text": "Alle Overlords werden als Elite gebaut"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaScienceGattlingTankTraining",
+  "text": "Alle Gatling-Panzer werden als Elite gebaut"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaScienceNukeDrop",
+  "text": "Taktische Atomwaffe wird aus der Luft abgeworfen \n \n Einsatz von: Kommandozentrale"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaScienceFrenzy",
+  "text": "Eure Einheiten verursachen im Zielgebiet eine Zeit lang mehr Schaden \n \n Stufe 1: 10 Prozent für 10 Sekunden \n Stufe 2: 20 Prozent für 20 Sekunden \n Stufe 3: 30 Prozent für 30 Sekunden \n \n Einsatz von: Kommandozentrale"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaScienceCarpetBomb",
+  "text": "Ermöglicht es, einen schweren Bomber für ein Flächenbombardement anzufordern \n \n Einsatz von: Kommandozentrale"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipScienceGPSScrambler",
+  "text": "Tarnt Einheiten in seinem Wirkungsbereich \n \nEinsatz von: Kommandozentrale"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLASneakAttack",
+  "text": "Truppen können überall auf der Karte einen Tunnel anlegen \n \n Einsatz von: Kommandozentrale"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipSelectAircraftCarriers",
+  "text": "Flugzeugträger auswählen, um bequem Angriffe zu starten"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipSelectBattleships",
+  "text": "Bombardement vom Schlachtschiff vor der Küste anfordern"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaScienceTankParadrop",
+  "text": "Battlemaster aus der Luft abwerfen \n \n Stufe 1: 1 Battlemaster \n Stufe 2: 2 Battlemaster \n Stufe 3: 4 Battlemaster \n \n Einsatz von: Kommandozentrale"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaScienceInfantryParadrop",
+  "text": "Rotgardisten aus der Luft abwerfen \n \n Stufe 1: 5 Rotgardisten \n Stufe 2: 10 Rotgardisten \n Stufe 3: 15 Rotgardisten \n \n Einsatz von: Kommandozentrale"
+ },
+ {
+  "label": "TOOLTIP:ChallengeButton",
+  "text": "Herausforderung der Generäle"
+ },
+ {
+  "label": "GUI:GeneralsChallenge",
+  "text": "WÄHLT EUREN GENERAL"
+ },
+ {
+  "label": "GUI:Biography",
+  "text": "Biografie"
+ },
+ {
+  "label": "GUI:BioName",
+  "text": "Name:"
+ },
+ {
+  "label": "GUI:BioDOB",
+  "text": "Alter:"
+ },
+ {
+  "label": "GUI:BioBirthplace",
+  "text": "Stationiert:"
+ },
+ {
+  "label": "GUI:BioStrategy",
+  "text": "Taktik:"
+ },
+ {
+  "label": "GUI:BioRank",
+  "text": "Rang:"
+ },
+ {
+  "label": "GUI:BioBranch",
+  "text": "Truppengattung:"
+ },
+ {
+  "label": "GUI:BioNameEntry_Pos0",
+  "text": "General Granger"
+ },
+ {
+  "label": "GUI:BioDOBEntry_Pos0",
+  "text": "62"
+ },
+ {
+  "label": "GUI:BioBirthplaceEntry_Pos0",
+  "text": "Fort Belmont, Houston, Texas, USA"
+ },
+ {
+  "label": "GUI:BioStrategyEntry_Pos0",
+  "text": "Luftmacht"
+ },
+ {
+  "label": "GUI:BioRankEntry_Pos0",
+  "text": "4-Sterne-General"
+ },
+ {
+  "label": "GUI:BioBranchEntry_Pos0",
+  "text": "US Air Force"
+ },
+ {
+  "label": "GUI:BioClassNumber_Pos0",
+  "text": "07121969-HB"
+ },
+ {
+  "label": "TOOLTIP:BioStrategyLong_Pos0",
+  "text": "General Malcolm „Ace“ Grainger setzt bevorzugt die maximal verfügbare Luftmacht ein, um seine Feinde zu besiegen"
+ },
+ {
+  "label": "GUI:BioDefeatedEntry_Pos0",
+  "text": "Ich schätze, es ist Zeit, mir einen guten Job bei einer Fluglinie zu suchen."
+ },
+ {
+  "label": "GUI:BioVictoriousEntry_Pos0",
+  "text": "Ich gewinne, Sie verlieren. Was gibt es da noch zu sagen?"
+ },
+ {
+  "label": "GUI:BioNameEntry_Pos1",
+  "text": "Dr. Thrax"
+ },
+ {
+  "label": "GUI:BioDOBEntry_Pos1",
+  "text": "Unbekannt"
+ },
+ {
+  "label": "GUI:BioBirthplaceEntry_Pos1",
+  "text": "Unbekannt"
+ },
+ {
+  "label": "GUI:BioStrategyEntry_Pos1",
+  "text": "Giftwaffen"
+ },
+ {
+  "label": "GUI:BioRankEntry_Pos1",
+  "text": "Unbekannt"
+ },
+ {
+  "label": "GUI:BioBranchEntry_Pos1",
+  "text": "Unbekannt"
+ },
+ {
+  "label": "TOOLTIP:BioStrategyLong_Pos1",
+  "text": "Dr. Thrax mischt bevorzugt tödliche Toxine, um seine Feinde zu besiegen"
+ },
+ {
+  "label": "GUI:BioClassNumber_Pos1",
+  "text": "Unbekannt"
+ },
+ {
+  "label": "GUI:BioDefeatedEntry_Pos1",
+  "text": "Vielleicht hätte ich meinen Abschluss nicht an einer Fernuni machen sollen."
+ },
+ {
+  "label": "GUI:BioVictoriousEntry_Pos1",
+  "text": "Sie dachten, meine Toxine seien wirkungslos, und jetzt sehen Sie, was mit Ihnen geschehen ist, General."
+ },
+ {
+  "label": "GUI:BioNameEntry_Pos2",
+  "text": "General Tao"
+ },
+ {
+  "label": "GUI:BioDOBEntry_Pos2",
+  "text": "50"
+ },
+ {
+  "label": "GUI:BioBirthplaceEntry_Pos2",
+  "text": "Basis Ochse, Chengdu, China"
+ },
+ {
+  "label": "GUI:BioStrategyEntry_Pos2",
+  "text": "Atomwaffen"
+ },
+ {
+  "label": "GUI:BioRankEntry_Pos2",
+  "text": "General, Klasse AAA"
+ },
+ {
+  "label": "GUI:BioBranchEntry_Pos2",
+  "text": "VBA"
+ },
+ {
+  "label": "TOOLTIP:BioStrategyLong_Pos2",
+  "text": "General Tsing Shi Tao setzt bevorzugt nukleare Strahlung ein, um seine Feinde zu besiegen"
+ },
+ {
+  "label": "GUI:BioClassNumber_Pos2",
+  "text": "Nicht zutreffend"
+ },
+ {
+  "label": "GUI:BioDefeatedEntry_Pos2",
+  "text": "Noch einen Augenblick, und ich hätte Sie zu Staub zermalmt."
+ },
+ {
+  "label": "GUI:BioVictoriousEntry_Pos2",
+  "text": "Sie haben Glück, diese Schlacht unversehrt überstanden zu haben. Fordern Sie mich erneut heraus, wenn Sie es wagen."
+ },
+ {
+  "label": "GUI:BioNameEntry_Pos3",
+  "text": "General Alexander"
+ },
+ {
+  "label": "GUI:BioDOBEntry_Pos3",
+  "text": "42"
+ },
+ {
+  "label": "GUI:BioBirthplaceEntry_Pos3",
+  "text": "Camp Franklin, Belfast, Maine, USA"
+ },
+ {
+  "label": "GUI:BioStrategyEntry_Pos3",
+  "text": "Massenvernichtungswaffen"
+ },
+ {
+  "label": "GUI:BioRankEntry_Pos3",
+  "text": "4-Sterne-General"
+ },
+ {
+  "label": "GUI:BioBranchEntry_Pos3",
+  "text": "US Marines"
+ },
+ {
+  "label": "TOOLTIP:BioStrategyLong_Pos3",
+  "text": "General Alexis Alexander errichtet bevorzugt schwere Basisverteidigungen und Superwaffen, um ihre Feinde zu besiegen"
+ },
+ {
+  "label": "GUI:BioClassNumber_Pos3",
+  "text": "178923478-HBGB"
+ },
+ {
+  "label": "GUI:BioDefeatedEntry_Pos3",
+  "text": "Das ist nicht fair! Eine Superwaffe mehr und ich hätte Sie geschlagen, General. Fordern Sie mich erneut heraus, wenn Sie sich trauen."
+ },
+ {
+  "label": "GUI:BioVictoriousEntry_Pos3",
+  "text": "Ich sagte doch, Sie würden meine Superwaffen niemals schlagen, General. Wollen Sie es noch einmal versuchen?"
+ },
+ {
+  "label": "GUI:BioNameEntry_Pos4",
+  "text": "General Kwai"
+ },
+ {
+  "label": "GUI:BioDOBEntry_Pos4",
+  "text": "51"
+ },
+ {
+  "label": "GUI:BioBirthplaceEntry_Pos4",
+  "text": "Basis Ratte, Jinan, China"
+ },
+ {
+  "label": "GUI:BioStrategyEntry_Pos4",
+  "text": "Fortschrittliche Panzerdivisionen"
+ },
+ {
+  "label": "GUI:BioRankEntry_Pos4",
+  "text": "General, Klasse AAA"
+ },
+ {
+  "label": "GUI:BioBranchEntry_Pos4",
+  "text": "VBA"
+ },
+ {
+  "label": "TOOLTIP:BioStrategyLong_Pos4",
+  "text": "General Ta Hun Kwai baut bevorzugt solide Panzer, um seine Feinde zu besiegen"
+ },
+ {
+  "label": "GUI:BioClassNumber_Pos4",
+  "text": "9999-3224536-5"
+ },
+ {
+  "label": "GUI:BioDefeatedEntry_Pos4",
+  "text": "Sie mögen meine Panzer besiegt haben, General, aber die Tigerin wird Sie wie ein Insekt zerquetschen."
+ },
+ {
+  "label": "GUI:BioVictoriousEntry_Pos4",
+  "text": "Panzer sind der Schlüssel zu jedem Sieg ... wie Sie genau wissen."
+ },
+ {
+  "label": "GUI:BioNameEntry_Pos5",
+  "text": "General Townes"
+ },
+ {
+  "label": "GUI:BioDOBEntry_Pos5",
+  "text": "Noch offen"
+ },
+ {
+  "label": "GUI:BioBirthplaceEntry_Pos5",
+  "text": "Fort Union, Redwood Shores, Kalifornien, USA"
+ },
+ {
+  "label": "GUI:BioStrategyEntry_Pos5",
+  "text": "Laserwaffen"
+ },
+ {
+  "label": "GUI:BioRankEntry_Pos5",
+  "text": "4-Sterne-General"
+ },
+ {
+  "label": "GUI:BioBranchEntry_Pos5",
+  "text": "US Army"
+ },
+ {
+  "label": "TOOLTIP:BioStrategyLong_Pos5",
+  "text": "„Pinpoint“ Townes setzt bevorzugt modernste Lasertechnologie ein, um seine Feinde zu besiegen"
+ },
+ {
+  "label": "GUI:BioClassNumber_Pos5",
+  "text": "00010204-01KE0"
+ },
+ {
+  "label": "GUI:BioDefeatedEntry_Pos5",
+  "text": "Sie haben mich besiegt, General, aber ich werde Ihre Taktik analysieren und eine überlegene Strategie entwickeln."
+ },
+ {
+  "label": "GUI:BioVictoriousEntry_Pos5",
+  "text": "Ihre Schwächen wurden offensichtlich, als ich Ihre Taktik analysierte."
+ },
+ {
+  "label": "GUI:BioNameEntry_Pos6",
+  "text": "Prinz Kassad"
+ },
+ {
+  "label": "GUI:BioDOBEntry_Pos6",
+  "text": "34"
+ },
+ {
+  "label": "GUI:BioBirthplaceEntry_Pos6",
+  "text": "Tripolis, Libyen"
+ },
+ {
+  "label": "GUI:BioStrategyEntry_Pos6",
+  "text": "Hinterhalt und Tarnung"
+ },
+ {
+  "label": "GUI:BioRankEntry_Pos6",
+  "text": "Nicht zutreffend"
+ },
+ {
+  "label": "GUI:BioBranchEntry_Pos6",
+  "text": "GBA-Zelle Kobra"
+ },
+ {
+  "label": "TOOLTIP:BioStrategyLong_Pos6",
+  "text": "Prinz Kassad setzt bevorzugt Tarnung und verdeckte Operationen ein, um seine Feinde zu besiegen"
+ },
+ {
+  "label": "GUI:BioClassNumber_Pos6",
+  "text": "Nicht zutreffend"
+ },
+ {
+  "label": "GUI:BioDefeatedEntry_Pos6",
+  "text": "Meine Männer werden diese Niederlage ihres Anführers nicht hinnehmen, General. Mit Ihrer überlegenen Taktik haben Sie mein Todesurteil unterzeichnet ..."
+ },
+ {
+  "label": "GUI:BioVictoriousEntry_Pos6",
+  "text": "Akzeptieren Sie Ihre bittere Niederlage und gehen Sie mir aus den Augen, General."
+ },
+ {
+  "label": "GUI:BioNameEntry_Pos7",
+  "text": "General Fai"
+ },
+ {
+  "label": "GUI:BioDOBEntry_Pos7",
+  "text": "57"
+ },
+ {
+  "label": "GUI:BioBirthplaceEntry_Pos7",
+  "text": "Basis Schlange, Peking, China"
+ },
+ {
+  "label": "GUI:BioStrategyEntry_Pos7",
+  "text": "Fortschrittliche Infanteriedivisionen"
+ },
+ {
+  "label": "GUI:BioRankEntry_Pos7",
+  "text": "General, Klasse AAA"
+ },
+ {
+  "label": "GUI:BioBranchEntry_Pos7",
+  "text": "VBA"
+ },
+ {
+  "label": "TOOLTIP:BioStrategyLong_Pos7",
+  "text": "General „Amboss“ Shin Fai setzt bevorzugt hervorragend ausgebildete Soldaten ein, um seine Feinde zu besiegen"
+ },
+ {
+  "label": "GUI:BioClassNumber_Pos7",
+  "text": "2030-200403-1"
+ },
+ {
+  "label": "GUI:BioDefeatedEntry_Pos7",
+  "text": "Noch offen"
+ },
+ {
+  "label": "GUI:BioVictoriousEntry_Pos7",
+  "text": "Noch offen"
+ },
+ {
+  "label": "GUI:BioNameEntry_Pos8",
+  "text": "General Juhziz"
+ },
+ {
+  "label": "GUI:BioDOBEntry_Pos8",
+  "text": "36"
+ },
+ {
+  "label": "GUI:BioBirthplaceEntry_Pos8",
+  "text": "Unbekannt"
+ },
+ {
+  "label": "GUI:BioStrategyEntry_Pos8",
+  "text": "Sprengstoffe und Bomben"
+ },
+ {
+  "label": "GUI:BioRankEntry_Pos8",
+  "text": "Nicht zutreffend"
+ },
+ {
+  "label": "GUI:BioBranchEntry_Pos8",
+  "text": "GBA-Zelle Skorpion"
+ },
+ {
+  "label": "TOOLTIP:BioStrategyLong_Pos8",
+  "text": "General Rodall „Demo“ Juhziz verkabelt bevorzugt starke Sprengstoffe, um seine Feinde zu besiegen"
+ }
+]

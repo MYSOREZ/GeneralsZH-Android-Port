@@ -1,0 +1,802 @@
+[
+ {
+  "label": "GUI:Scatter",
+  "text": "Разойтись"
+ },
+ {
+  "label": "GUI:StopObject",
+  "text": "Остановить объект"
+ },
+ {
+  "label": "GUI:StopObjectDescription",
+  "text": "Остановить выделенный(ые) объект(ы)."
+ },
+ {
+  "label": "GUI:GoToRadarEvent",
+  "text": "Перейти к событию на радаре"
+ },
+ {
+  "label": "GUI:GoToRadarEventDescription",
+  "text": "Поместить событие с радара в центр экрана."
+ },
+ {
+  "label": "GUI:SaveView1",
+  "text": "Установить закладку 1"
+ },
+ {
+  "label": "GUI:SaveView1Description",
+  "text": "Установить закладку 1 места на карте."
+ },
+ {
+  "label": "GUI:SaveView2",
+  "text": "Установить закладку 2"
+ },
+ {
+  "label": "GUI:SaveView2Description",
+  "text": "Установить закладку 2 места на карте."
+ },
+ {
+  "label": "GUI:SaveView3",
+  "text": "Установить закладку 3"
+ },
+ {
+  "label": "GUI:SaveView3Description",
+  "text": "Установить закладку 3 места на карте."
+ },
+ {
+  "label": "GUI:SaveView4",
+  "text": "Установить закладку 4"
+ },
+ {
+  "label": "GUI:SaveView4Description",
+  "text": "Установить закладку 4 места на карте."
+ },
+ {
+  "label": "GUI:ViewView1",
+  "text": "Просмотреть закладку 1"
+ },
+ {
+  "label": "GUI:ViewView1Description",
+  "text": "Просмотреть закладку 1 места на карте."
+ },
+ {
+  "label": "GUI:ViewView2",
+  "text": "Просмотреть закладку 2"
+ },
+ {
+  "label": "GUI:ViewView2Description",
+  "text": "Просмотреть закладку 2 места на карте."
+ },
+ {
+  "label": "GUI:ViewView3",
+  "text": "Просмотреть закладку 3"
+ },
+ {
+  "label": "GUI:ViewView3Description",
+  "text": "Просмотреть закладку 3 места на карте."
+ },
+ {
+  "label": "GUI:ViewView4",
+  "text": "Просмотреть закладку 4"
+ },
+ {
+  "label": "GUI:ViewView4Description",
+  "text": "Просмотреть закладку 4 места на карте."
+ },
+ {
+  "label": "GUI:CenterBase",
+  "text": "Базу в центр"
+ },
+ {
+  "label": "GUI:CenterBaseDescription",
+  "text": "Поместить базу игрока в центр игрового экрана."
+ },
+ {
+  "label": "GUI:SelectNone",
+  "text": "Снять выделение"
+ },
+ {
+  "label": "GUI:SelectAll",
+  "text": "Выделить всех"
+ },
+ {
+  "label": "GUI:SelectAllDescription",
+  "text": "Выделить все вооруженные подразделения."
+ },
+ {
+  "label": "GUI:SelectNextUnit",
+  "text": "Следующий объект"
+ },
+ {
+  "label": "GUI:SelectNextUnitDescription",
+  "text": "Выделить следующее подразделение."
+ },
+ {
+  "label": "GUI:SelectPrevUnit",
+  "text": "Предыдущий объект"
+ },
+ {
+  "label": "GUI:SelectPrevUnitDescription",
+  "text": "Выделить предыдущее подразделение."
+ },
+ {
+  "label": "GUI:SelectNextWorker",
+  "text": "Следующий рабочий"
+ },
+ {
+  "label": "GUI:SelectNextWorkerDescription",
+  "text": "Выделить следующего рабочего."
+ },
+ {
+  "label": "GUI:SelectPrevWorker",
+  "text": "Предыдущий рабочий"
+ },
+ {
+  "label": "GUI:SelectPrevWorkerDescription",
+  "text": "Выделить предыдущего рабочего."
+ },
+ {
+  "label": "GUI:TypeSelect",
+  "text": "Выделить по типу"
+ },
+ {
+  "label": "GUI:TypeSelectDescription",
+  "text": "Выделить подразделения по типу. Двойное нажатие левой кнопки мыши по подразделению, что бы выделить все такие подразделения."
+ },
+ {
+  "label": "GUI:CreateTeam0",
+  "text": "Создать отряд 0"
+ },
+ {
+  "label": "GUI:CreateTeam0Description",
+  "text": "Создать отряд 0 из выделенных подразделений."
+ },
+ {
+  "label": "GUI:CreateTeam1",
+  "text": "Создать отряд 1"
+ },
+ {
+  "label": "GUI:CreateTeam1Description",
+  "text": "Создать отряд 1 из выделенных подразделений."
+ },
+ {
+  "label": "GUI:CreateTeam2",
+  "text": "Создать отряд 2"
+ },
+ {
+  "label": "GUI:CreateTeam2Description",
+  "text": "Создать отряд 2 из выделенных подразделений."
+ },
+ {
+  "label": "GUI:CreateTeam3",
+  "text": "Создать отряд 3"
+ },
+ {
+  "label": "GUI:CreateTeam3Description",
+  "text": "Создать отряд 3 из выделенных подразделений."
+ },
+ {
+  "label": "GUI:CreateTeam4",
+  "text": "Создать отряд 4"
+ },
+ {
+  "label": "GUI:CreateTeam4Description",
+  "text": "Создать отряд 4 из выделенных подразделений."
+ },
+ {
+  "label": "GUI:CreateTeam5",
+  "text": "Создать отряд 5"
+ },
+ {
+  "label": "GUI:CreateTeam5Description",
+  "text": "Создать отряд 5 из выделенных подразделений."
+ },
+ {
+  "label": "GUI:CreateTeam6",
+  "text": "Создать отряд 6"
+ },
+ {
+  "label": "GUI:CreateTeam6Description",
+  "text": "Создать отряд 6 из выделенных подразделений."
+ },
+ {
+  "label": "GUI:CreateTeam7",
+  "text": "Создать отряд 7"
+ },
+ {
+  "label": "GUI:CreateTeam7Description",
+  "text": "Создать отряд 7 из выделенных подразделений."
+ },
+ {
+  "label": "GUI:CreateTeam8",
+  "text": "Создать отряд 8"
+ },
+ {
+  "label": "GUI:CreateTeam8Description",
+  "text": "Создать отряд 8 из выделенных подразделений."
+ },
+ {
+  "label": "GUI:CreateTeam9",
+  "text": "Создать отряд 9"
+ },
+ {
+  "label": "GUI:CreateTeam9Description",
+  "text": "Создать отряд 9 из выделенных подразделений."
+ },
+ {
+  "label": "GUI:SelectTeam0",
+  "text": "Выделить отряд 0"
+ },
+ {
+  "label": "GUI:SelectTeam0Description",
+  "text": "Выделить членов отряда 0."
+ },
+ {
+  "label": "GUI:SelectTeam1",
+  "text": "Выделить отряд 1"
+ },
+ {
+  "label": "GUI:SelectTeam1Description",
+  "text": "Выделить членов отряда 1."
+ },
+ {
+  "label": "GUI:SelectTeam2",
+  "text": "Выделить отряд 2"
+ },
+ {
+  "label": "GUI:SelectTeam2Description",
+  "text": "Выделить членов отряда 2."
+ },
+ {
+  "label": "GUI:SelectTeam3",
+  "text": "Выделить отряд 3"
+ },
+ {
+  "label": "GUI:SelectTeam3Description",
+  "text": "Выделить членов отряда 3."
+ },
+ {
+  "label": "GUI:SelectTeam4",
+  "text": "Выделить отряд 4"
+ },
+ {
+  "label": "GUI:SelectTeam4Description",
+  "text": "Выделить членов отряда 4."
+ },
+ {
+  "label": "GUI:SelectTeam5",
+  "text": "Выделить отряд 5"
+ },
+ {
+  "label": "GUI:SelectTeam5Description",
+  "text": "Выделить членов отряда 5."
+ },
+ {
+  "label": "GUI:SelectTeam6",
+  "text": "Выделить отряд 6"
+ },
+ {
+  "label": "GUI:SelectTeam6Description",
+  "text": "Выделить членов отряда 6."
+ },
+ {
+  "label": "GUI:SelectTeam7",
+  "text": "Выделить отряд 7"
+ },
+ {
+  "label": "GUI:SelectTeam7Description",
+  "text": "Выделить членов отряда 7."
+ },
+ {
+  "label": "GUI:SelectTeam8",
+  "text": "Выделить отряд 8"
+ },
+ {
+  "label": "GUI:SelectTeam8Description",
+  "text": "Выделить членов отряда 8."
+ },
+ {
+  "label": "GUI:SelectTeam9",
+  "text": "Выделить отряд 9"
+ },
+ {
+  "label": "GUI:SelectTeam9Description",
+  "text": "Выделить членов отряда 9."
+ },
+ {
+  "label": "GUI:ViewTeam0",
+  "text": "Отряд 0 в центр"
+ },
+ {
+  "label": "GUI:ViewTeam0Description",
+  "text": "Выделить и поместить в центр игрового экрана отряд 0."
+ },
+ {
+  "label": "GUI:ViewTeam1",
+  "text": "Отряд 1 в центр"
+ },
+ {
+  "label": "GUI:ViewTeam1Description",
+  "text": "Выделить и поместить в центр игрового экрана отряд 1."
+ },
+ {
+  "label": "GUI:ViewTeam2",
+  "text": "Отряд 2 в центр"
+ },
+ {
+  "label": "GUI:ViewTeam2Description",
+  "text": "Выделить и поместить в центр игрового экрана отряд 2."
+ },
+ {
+  "label": "GUI:ViewTeam3",
+  "text": "Отряд 3 в центр"
+ },
+ {
+  "label": "GUI:ViewTeam3Description",
+  "text": "Выделить и поместить в центр игрового экрана отряд 3."
+ },
+ {
+  "label": "GUI:ViewTeam4",
+  "text": "Отряд 4 в центр"
+ },
+ {
+  "label": "GUI:ViewTeam4Description",
+  "text": "Выделить и поместить в центр игрового экрана отряд 4."
+ },
+ {
+  "label": "GUI:ViewTeam5",
+  "text": "Отряд 5 в центр"
+ },
+ {
+  "label": "GUI:ViewTeam5Description",
+  "text": "Выделить и поместить в центр игрового экрана отряд 5."
+ },
+ {
+  "label": "GUI:ViewTeam6",
+  "text": "Отряд 6 в центр"
+ },
+ {
+  "label": "GUI:ViewTeam6Description",
+  "text": "Выделить и поместить в центр игрового экрана отряд 6."
+ },
+ {
+  "label": "GUI:ViewTeam7",
+  "text": "Отряд 7 в центр"
+ },
+ {
+  "label": "GUI:ViewTeam7Description",
+  "text": "Выделить и поместить в центр игрового экрана отряд 7."
+ },
+ {
+  "label": "GUI:ViewTeam8",
+  "text": "Отряд 8 в центр"
+ },
+ {
+  "label": "GUI:ViewTeam8Description",
+  "text": "Выделить и поместить в центр игрового экрана отряд 8."
+ },
+ {
+  "label": "GUI:ViewTeam9",
+  "text": "Отряд 9 в центр"
+ },
+ {
+  "label": "GUI:ViewTeam9Description",
+  "text": "Выделить и поместить в центр игрового экрана отряд 9."
+ },
+ {
+  "label": "GUI:LocalIPDesc",
+  "text": "IP этого компьютера"
+ },
+ {
+  "label": "GUI:RemoteIPDesc",
+  "text": "IP другого компьютера"
+ },
+ {
+  "label": "GUI:SaveCamera",
+  "text": "Сохранять камеру в повторах"
+ },
+ {
+  "label": "GUI:UseCamera",
+  "text": "Использовать сохраненную камеру в повторах"
+ },
+ {
+  "label": "Mouse:Windows",
+  "text": "Курсор Windows"
+ },
+ {
+  "label": "Mouse:W3D",
+  "text": "Курсор W3D"
+ },
+ {
+  "label": "Mouse:Poly",
+  "text": "Полигональный курсор"
+ },
+ {
+  "label": "Mouse:DX8",
+  "text": "Курсор DX8"
+ },
+ {
+  "label": "Mouse:Heal",
+  "text": "Лечиться"
+ },
+ {
+  "label": "Mouse:GetRepaired",
+  "text": "Ремонтироваться"
+ },
+ {
+  "label": "Mouse:Dock",
+  "text": "Док"
+ },
+ {
+  "label": "Mouse:DoRepair",
+  "text": "Ремонт"
+ },
+ {
+  "label": "Mouse:ResumeConstruction",
+  "text": "Вернуться к строительству"
+ },
+ {
+  "label": "Mouse:Enter",
+  "text": "Войти"
+ },
+ {
+  "label": "Mouse:SetRallyPoint",
+  "text": "Установка точки сбора"
+ },
+ {
+  "label": "Mouse:DisguiseAsVehicle",
+  "text": "Замаскироваться под это!"
+ },
+ {
+  "label": "Mouse:Invalid",
+  "text": "НЕВЕРНО"
+ },
+ {
+  "label": "Mouse:FireFlame",
+  "text": "Огонь"
+ },
+ {
+  "label": "Mouse:FireFlashBang",
+  "text": "Световая граната"
+ },
+ {
+  "label": "Mouse:FireTranqDarts",
+  "text": "Транквилизирующие дротики"
+ },
+ {
+  "label": "Mouse:FireStunBullets",
+  "text": "Оглушающие пули"
+ },
+ {
+  "label": "Mouse:MakeCarBomb",
+  "text": "Заминировать машину"
+ },
+ {
+  "label": "Mouse:Hijack",
+  "text": "Угнать"
+ },
+ {
+  "label": "Mouse:FireBomb",
+  "text": "Огненная \n бомба"
+ },
+ {
+  "label": "Mouse:Defector",
+  "text": "Сделать \n перебежчиком"
+ },
+ {
+  "label": "Mouse:CaptureBuilding",
+  "text": "Захват здания"
+ },
+ {
+  "label": "Mouse:DisableVehicleHack",
+  "text": "Вывести технику из строя"
+ },
+ {
+  "label": "Mouse:StealCashHack",
+  "text": "Украсть деньги"
+ },
+ {
+  "label": "Mouse:SnipeVehicle",
+  "text": "Снайперский выстрел по технике"
+ },
+ {
+  "label": "Mouse:DisableBuildingHack",
+  "text": "Вывести здание из строя"
+ },
+ {
+  "label": "Mouse:LaserGuidedMissiles",
+  "text": "Ракеты лазерного наведения"
+ },
+ {
+  "label": "Mouse:TankHunterTNTAttack",
+  "text": "Подрыв динамитом"
+ },
+ {
+  "label": "Mouse:A10ThunderboltStrike",
+  "text": "Цель удара A10"
+ },
+ {
+  "label": "Mouse:StabAttack",
+  "text": "Удар ножом"
+ },
+ {
+  "label": "Mouse:PlaceRemoteCharge",
+  "text": "Установить радиоуправляемый заряд"
+ },
+ {
+  "label": "Mouse:PlaceTimedCharge",
+  "text": "Установить заряд с таймером"
+ },
+ {
+  "label": "Mouse:RepairVehicles",
+  "text": "Немедленный ремонт [&E]"
+ },
+ {
+  "label": "Mouse:Demoralize",
+  "text": "Деморализация"
+ },
+ {
+  "label": "Mouse:PickUpPrisoner",
+  "text": "Забрать пленного"
+ },
+ {
+  "label": "Mouse:Return",
+  "text": "Вернуться"
+ },
+ {
+  "label": "Mouse:PlaceBeacon",
+  "text": "Установить маяк"
+ },
+ {
+  "label": "SCRIPT:TestString",
+  "text": "Чувак, это тестовая строка."
+ },
+ {
+  "label": "SCRIPT:LongTestString",
+  "text": "Чувак, это внатуре длинная тестовая строка. Она проверяет, что перенос слов и интервалы работают."
+ },
+ {
+  "label": "SCIENCE:GeneralName",
+  "text": "<Введите имя>"
+ },
+ {
+  "label": "SCIENCE:SkillPoints",
+  "text": "Очки умений: %d"
+ },
+ {
+  "label": "SCIENCE:Rank",
+  "text": "Уровень %d"
+ },
+ {
+  "label": "SCIENCE:TempName",
+  "text": "Дайте название моему умению"
+ },
+ {
+  "label": "SCIENCE:TempDescription",
+  "text": "Пожалуйста, как-нибудь на досуге пропишите описание моего умения в файле Science.ini! Заранее благодарен"
+ },
+ {
+  "label": "SCIENCE:USAPaladin",
+  "text": "Танк Паладин"
+ },
+ {
+  "label": "SCIENCE:USAPathFinder",
+  "text": "Следопыт"
+ },
+ {
+  "label": "SCIENCE:USAStealthFighter",
+  "text": "Истребитель Стелс"
+ },
+ {
+  "label": "SCIENCE:USASpyDrone",
+  "text": "Беспилотный аппарат шпион"
+ },
+ {
+  "label": "SCIENCE:USAParaDrop1",
+  "text": "Парашютный десант 1"
+ },
+ {
+  "label": "SCIENCE:USAParaDrop2",
+  "text": "Парашютный десант 2"
+ },
+ {
+  "label": "SCIENCE:USAParaDrop3",
+  "text": "Парашютный десант 3"
+ },
+ {
+  "label": "SCIENCE:USAA10Strike1",
+  "text": "Удар штурмовиком A10 1"
+ },
+ {
+  "label": "SCIENCE:USAA10Strike2",
+  "text": "Удар штурмовиками A10 2"
+ },
+ {
+  "label": "SCIENCE:USAA10Strike3",
+  "text": "Удар штурмовиками A10 3"
+ },
+ {
+  "label": "SCIENCE:USADaisyCutter",
+  "text": "Бомба с напалмом"
+ },
+ {
+  "label": "SCIENCE:ChinaNukeLauncher",
+  "text": "Самоходная ядерная пушка"
+ },
+ {
+  "label": "SCIENCE:ChinaRedGuardTraining",
+  "text": "Обучение красногвардейцев"
+ },
+ {
+  "label": "SCIENCE:ChinaClusterMines",
+  "text": "Осколочные бомбы"
+ },
+ {
+  "label": "SCIENCE:ChinaArtilleryTraining",
+  "text": "Обучение артиллерии"
+ },
+ {
+  "label": "SCIENCE:ChinaArtilleryBarrage",
+  "text": "Заградительный огонь артиллерии 1"
+ },
+ {
+  "label": "SCIENCE:ChinaArtilleryBarrage2",
+  "text": "Заградительный огонь артиллерии 2"
+ },
+ {
+  "label": "SCIENCE:ChinaArtilleryBarrage3",
+  "text": "Заградительный огонь артиллерии 3"
+ },
+ {
+  "label": "SCIENCE:ChinaCashHack1",
+  "text": "Взлом денег 1"
+ },
+ {
+  "label": "SCIENCE:ChinaCashHack2",
+  "text": "Взлом денег 2"
+ },
+ {
+  "label": "SCIENCE:ChinaCashHack3",
+  "text": "Взлом денег 3"
+ },
+ {
+  "label": "SCIENCE:ChinaEMPPulse",
+  "text": "Электромагнитный импульс"
+ },
+ {
+  "label": "SCIENCE:GLAHijacker",
+  "text": "Угонщик"
+ },
+ {
+  "label": "SCIENCE:GLASCUDLauncher",
+  "text": "Эльбрус"
+ },
+ {
+  "label": "SCIENCE:GLAMaruaderTank",
+  "text": "Танк Мародёр"
+ },
+ {
+  "label": "SCIENCE:GLATechnicalTraining",
+  "text": "Обучение техников"
+ },
+ {
+  "label": "SCIENCE:GLARebelAmbush1",
+  "text": "Ополчение повстанцев 1"
+ },
+ {
+  "label": "SCIENCE:GLARebelAmbush2",
+  "text": "Ополчение повстанцев 2"
+ },
+ {
+  "label": "SCIENCE:GLARebelAmbush3",
+  "text": "Ополчение повстанцев 3"
+ },
+ {
+  "label": "SCIENCE:GLACashBounty1",
+  "text": "Щедрость смерти 1"
+ },
+ {
+  "label": "SCIENCE:GLACashBounty2",
+  "text": "Щедрость смерти 2"
+ },
+ {
+  "label": "SCIENCE:GLACashBounty3",
+  "text": "Щедрость смерти 3"
+ },
+ {
+  "label": "SCIENCE:GLAAnthraxBomb",
+  "text": "Бомба с сибирской язвой"
+ },
+ {
+  "label": "CONTROLBAR:Demoralize",
+  "text": "Деморализация"
+ },
+ {
+  "label": "CONTROLBAR:CIAIntelligence",
+  "text": "Разведка и слежка [&C]"
+ },
+ {
+  "label": "CONTROLBAR:CombatDrop",
+  "text": "Боевое десантирование [&C]"
+ },
+ {
+  "label": "CONTROLBAR:Guard",
+  "text": "Охрана [&G]"
+ },
+ {
+  "label": "CONTROLBAR:GuardWithoutPursuit",
+  "text": "Охрана вблизи [&C]"
+ },
+ {
+  "label": "CONTROLBAR:GuardFlyingUnitsOnly",
+  "text": "Охрана воздушного пространства [&R]"
+ },
+ {
+  "label": "CONTROLBAR:AttackMove",
+  "text": "Атака в движении [&A]"
+ },
+ {
+  "label": "CONTROLBAR:Stop",
+  "text": "Стоп [&S]"
+ },
+ {
+  "label": "CONTROLBAR:Waypoints",
+  "text": "Точка пути [&T]"
+ },
+ {
+  "label": "CONTROLBAR:CancelBuild",
+  "text": "Отменить строительство [&C]"
+ },
+ {
+  "label": "CONTROLBAR:Contaminate",
+  "text": "Заразить [&C]"
+ },
+ {
+  "label": "CONTROLBAR:FireWall",
+  "text": "Стена Огня[&F]"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLAArmTheMob",
+  "text": "Вооружение толпы [&M]"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaOverlordGattlingCannon",
+  "text": "Пулемётная пушка [&C]"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaOverlordPropagandaTower",
+  "text": "Башня пропаганды [&T]"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaOverlordBattleBunker",
+  "text": "Боевой бункер [&B]"
+ },
+ {
+  "label": "CONTROLBAR:FireBomb",
+  "text": "Огненная бомба [&F]"
+ },
+ {
+  "label": "CONTROLBAR:UnderConstructionDesc",
+  "text": "Строительство: %.0f%%"
+ },
+ {
+  "label": "CONTROLBAR:OCLTimerDesc",
+  "text": "Время до след. сброса: %d:%d"
+ },
+ {
+  "label": "CONTROLBAR:OCLTimerDescWithPadding",
+  "text": "Время до след. сброса: %d:0%d"
+ },
+ {
+  "label": "CONTROLBAR:InitiateBattlePlanBombardment",
+  "text": "Боевой план 'Бомбардировка' [&B]"
+ },
+ {
+  "label": "CONTROLBAR:InitiateBattlePlanHoldTheLine",
+  "text": "Боевой план 'Держать линию' [&O]"
+ },
+ {
+  "label": "CONTROLBAR:InitiateBattlePlanSearchAndDestroy",
+  "text": "Боевой план 'Найти и ликвидировать' [&D]"
+ }
+]

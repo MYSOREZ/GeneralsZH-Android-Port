@@ -1,0 +1,802 @@
+[
+ {
+  "label": "GUI:GameOptions",
+  "text": "ОПЦИИ ИГРЫ"
+ },
+ {
+  "label": "GUI:SinglePlayer",
+  "text": "ИНДИВИДУАЛЬНАЯ ИГРА"
+ },
+ {
+  "label": "GUI:Network",
+  "text": "ЛОКАЛЬНАЯ СЕТЬ"
+ },
+ {
+  "label": "GUI:Options",
+  "text": "ОПЦИИ"
+ },
+ {
+  "label": "GUI:Skirmish",
+  "text": "СХВАТКА"
+ },
+ {
+  "label": "GUI:Back",
+  "text": "НАЗАД"
+ },
+ {
+  "label": "GUI:StartGame",
+  "text": "ИГРАТЬ"
+ },
+ {
+  "label": "GUI:Color",
+  "text": "Цвет"
+ },
+ {
+  "label": "GUI:Slower",
+  "text": "Медленнее"
+ },
+ {
+  "label": "GUI:Faster",
+  "text": "Быстрее"
+ },
+ {
+  "label": "GUI:Low",
+  "text": "Низкая"
+ },
+ {
+  "label": "GUI:Medium",
+  "text": "Средняя"
+ },
+ {
+  "label": "GUI:High",
+  "text": "Высокая"
+ },
+ {
+  "label": "GUI:None",
+  "text": "Нету"
+ },
+ {
+  "label": "GUI:Random",
+  "text": "Случайно"
+ },
+ {
+  "label": "GUI:Cancel",
+  "text": "ОТМЕНА"
+ },
+ {
+  "label": "GUI:Ok",
+  "text": "OK"
+ },
+ {
+  "label": "GUI:Delete",
+  "text": "Удалить"
+ },
+ {
+  "label": "GUI:Description",
+  "text": "Описание"
+ },
+ {
+  "label": "GUI:Load",
+  "text": "ЗАГРУЗИТЬ"
+ },
+ {
+  "label": "GUI:Progress",
+  "text": "Прогресс"
+ },
+ {
+  "label": "GUI:Assign",
+  "text": "Назначить"
+ },
+ {
+  "label": "GUI:CustomizeKeyboard",
+  "text": "Настроить клавиатуру"
+ },
+ {
+  "label": "GUI:Category",
+  "text": "Категория"
+ },
+ {
+  "label": "GUI:Commands",
+  "text": "Команды"
+ },
+ {
+  "label": "GUI:ResetAll",
+  "text": "Восстановить всё"
+ },
+ {
+  "label": "GUI:DisplayOptions",
+  "text": "ОПЦИИ ЭКРАНА"
+ },
+ {
+  "label": "GUI:KeyboardOptions",
+  "text": "Опции клавиатуры"
+ },
+ {
+  "label": "GUI:MainMenu",
+  "text": "ВЫХОД"
+ },
+ {
+  "label": "GUI:Units",
+  "text": "Подразделения"
+ },
+ {
+  "label": "GUI:Buildings",
+  "text": "Здания"
+ },
+ {
+  "label": "GUI:Players",
+  "text": "Игроки"
+ },
+ {
+  "label": "GUI:Preview",
+  "text": "Просмотр карты"
+ },
+ {
+  "label": "GUI:Save",
+  "text": "Сохр."
+ },
+ {
+  "label": "GUI:Side",
+  "text": "Армия"
+ },
+ {
+  "label": "GUI:Accept",
+  "text": "ПРИМЕНИТЬ"
+ },
+ {
+  "label": "GUI:Games",
+  "text": "Игры"
+ },
+ {
+  "label": "GUI:Join",
+  "text": "ПРИСОЕДИНИТЬСЯ"
+ },
+ {
+  "label": "GUI:LoadGame",
+  "text": "ЗАГР. ИГРУ"
+ },
+ {
+  "label": "GUI:SaveGame",
+  "text": "СОХР. ИГРУ"
+ },
+ {
+  "label": "GUI:Score",
+  "text": "Очки"
+ },
+ {
+  "label": "GUI:Add",
+  "text": "Добавить"
+ },
+ {
+  "label": "GUI:MusicVolume",
+  "text": "Громкость музыки"
+ },
+ {
+  "label": "GUI:VoiceVolume",
+  "text": "Громкость голоса"
+ },
+ {
+  "label": "GUI:Play",
+  "text": "Играть"
+ },
+ {
+  "label": "GUI:Stop",
+  "text": "СТОП"
+ },
+ {
+  "label": "GUI:Continue",
+  "text": "Продолжить"
+ },
+ {
+  "label": "GUI:MaxPing",
+  "text": "Максимальный пинг:"
+ },
+ {
+  "label": "GUI:Ladder",
+  "text": "Доска почета"
+ },
+ {
+  "label": "GUI:Close",
+  "text": "Закрыть"
+ },
+ {
+  "label": "GUI:Help",
+  "text": "Помощь"
+ },
+ {
+  "label": "GUI:Rank",
+  "text": "Звание"
+ },
+ {
+  "label": "GUI:Password",
+  "text": "Пароль"
+ },
+ {
+  "label": "GUI:Disconnect",
+  "text": "ОТСОЕДИНЕНИЕ"
+ },
+ {
+  "label": "GUI:No",
+  "text": "НЕТ"
+ },
+ {
+  "label": "GUI:Yes",
+  "text": "ДА"
+ },
+ {
+  "label": "GUI:Blank",
+  "text": "."
+ },
+ {
+  "label": "GUI:Open",
+  "text": "Открыто"
+ },
+ {
+  "label": "GUI:Closed",
+  "text": "Закрыто"
+ },
+ {
+  "label": "GUI:Login",
+  "text": "ВОЙТИ"
+ },
+ {
+  "label": "GUI:WOLWelcome",
+  "text": "Добро пожаловать, генерал %hs"
+ },
+ {
+  "label": "GUI:QuickMatch",
+  "text": "БЫСТРЫЙ МАТЧ"
+ },
+ {
+  "label": "GUI:CustomMatch",
+  "text": "СВОЙ МАТЧ"
+ },
+ {
+  "label": "GUI:LadderRank",
+  "text": "Звание на доске почета"
+ },
+ {
+  "label": "GUI:Disconnects",
+  "text": "Отсоединений"
+ },
+ {
+  "label": "GUI:CreateGame",
+  "text": "СОЗДАТЬ ИГРУ"
+ },
+ {
+  "label": "GUI:AutoLogin",
+  "text": "Всегда автоматический вход"
+ },
+ {
+  "label": "GUI:AddBuddy",
+  "text": "Добавить друга"
+ },
+ {
+  "label": "GUI:RemoveBuddy",
+  "text": "Удалить друга"
+ },
+ {
+  "label": "GUI:AudioOptions",
+  "text": "ОПЦИИ ЗВУКА"
+ },
+ {
+  "label": "GUI:LadderWins",
+  "text": "Побед на доске почета"
+ },
+ {
+  "label": "GUI:LadderLosses",
+  "text": "Поражений на доске почета"
+ },
+ {
+  "label": "GUI:LadderPoints",
+  "text": "Очки на доске почета"
+ },
+ {
+  "label": "WOL:BuddyOffline",
+  "text": "%ls вне сети"
+ },
+ {
+  "label": "WOL:Locale00",
+  "text": "Неизвестно"
+ },
+ {
+  "label": "WOL:Locale01",
+  "text": "Другая страна"
+ },
+ {
+  "label": "WOL:Locale02",
+  "text": "США"
+ },
+ {
+  "label": "WOL:Locale03",
+  "text": "Канада"
+ },
+ {
+  "label": "WOL:Locale04",
+  "text": "Великобритания"
+ },
+ {
+  "label": "WOL:Locale05",
+  "text": "Германия"
+ },
+ {
+  "label": "WOL:Locale06",
+  "text": "Франция"
+ },
+ {
+  "label": "WOL:Locale07",
+  "text": "Испания"
+ },
+ {
+  "label": "WOL:Locale08",
+  "text": "Нидерланды"
+ },
+ {
+  "label": "WOL:Locale09",
+  "text": "Бельгия"
+ },
+ {
+  "label": "WOL:Locale10",
+  "text": "Австрия"
+ },
+ {
+  "label": "WOL:Locale11",
+  "text": "Швейцария"
+ },
+ {
+  "label": "WOL:Locale12",
+  "text": "Италия"
+ },
+ {
+  "label": "WOL:Locale13",
+  "text": "Дания"
+ },
+ {
+  "label": "WOL:Locale14",
+  "text": "Швеция"
+ },
+ {
+  "label": "WOL:Locale15",
+  "text": "Норвегия"
+ },
+ {
+  "label": "WOL:Locale16",
+  "text": "Финляндия"
+ },
+ {
+  "label": "WOL:Locale17",
+  "text": "Израиль"
+ },
+ {
+  "label": "WOL:Locale18",
+  "text": "Южная Африка"
+ },
+ {
+  "label": "WOL:Locale19",
+  "text": "Япония"
+ },
+ {
+  "label": "WOL:Locale20",
+  "text": "Корея"
+ },
+ {
+  "label": "WOL:Locale21",
+  "text": "Китай"
+ },
+ {
+  "label": "WOL:Locale22",
+  "text": "Сингапур"
+ },
+ {
+  "label": "WOL:Locale23",
+  "text": "Тайвань"
+ },
+ {
+  "label": "WOL:Locale24",
+  "text": "Малайзия"
+ },
+ {
+  "label": "WOL:Locale25",
+  "text": "Австралия"
+ },
+ {
+  "label": "WOL:Locale26",
+  "text": "Новая Зеландия"
+ },
+ {
+  "label": "WOL:Locale27",
+  "text": "Бразилия"
+ },
+ {
+  "label": "WOL:Locale28",
+  "text": "Таиланд"
+ },
+ {
+  "label": "WOL:Locale29",
+  "text": "Аргентина"
+ },
+ {
+  "label": "WOL:Locale30",
+  "text": "Филиппины"
+ },
+ {
+  "label": "WOL:Locale31",
+  "text": "Греция"
+ },
+ {
+  "label": "WOL:Locale32",
+  "text": "Ирландия"
+ },
+ {
+  "label": "WOL:Locale33",
+  "text": "Польша"
+ },
+ {
+  "label": "WOL:Locale34",
+  "text": "Португалия"
+ },
+ {
+  "label": "WOL:Locale35",
+  "text": "Мексика"
+ },
+ {
+  "label": "WOL:Locale36",
+  "text": "Россия"
+ },
+ {
+  "label": "WOL:Locale37",
+  "text": "Турция"
+ },
+ {
+  "label": "GUI:Observer",
+  "text": "Наблюдатель"
+ },
+ {
+  "label": "GUI:Team",
+  "text": "Команда"
+ },
+ {
+  "label": "LETTER:G",
+  "text": "G"
+ },
+ {
+  "label": "LETTER:L",
+  "text": "L"
+ },
+ {
+  "label": "LETTER:M",
+  "text": "M"
+ },
+ {
+  "label": "LETTER:S",
+  "text": "S"
+ },
+ {
+  "label": "LETTER:O",
+  "text": "O"
+ },
+ {
+  "label": "NUMBER:1",
+  "text": "1"
+ },
+ {
+  "label": "NUMBER:2",
+  "text": "2"
+ },
+ {
+  "label": "NUMBER:3",
+  "text": "3"
+ },
+ {
+  "label": "NUMBER:4",
+  "text": "4"
+ },
+ {
+  "label": "NUMBER:5",
+  "text": "5"
+ },
+ {
+  "label": "NUMBER:6",
+  "text": "6"
+ },
+ {
+  "label": "NUMBER:7",
+  "text": "7"
+ },
+ {
+  "label": "NUMBER:8",
+  "text": "8"
+ },
+ {
+  "label": "NUMBER:9",
+  "text": "9"
+ },
+ {
+  "label": "NUMBER:0",
+  "text": "0"
+ },
+ {
+  "label": "Color:Gold",
+  "text": "Золотой"
+ },
+ {
+  "label": "Color:Red",
+  "text": "Красный"
+ },
+ {
+  "label": "Color:Blue",
+  "text": "Синий"
+ },
+ {
+  "label": "Color:Green",
+  "text": "Зеленый"
+ },
+ {
+  "label": "Color:Orange",
+  "text": "Оранжевый"
+ },
+ {
+  "label": "Color:SkyBlue",
+  "text": "Голубой"
+ },
+ {
+  "label": "Color:Purple",
+  "text": "Фиолетовый"
+ },
+ {
+  "label": "Color:Pink",
+  "text": "Розовый"
+ },
+ {
+  "label": "MSG:Testing",
+  "text": "У Мэри был ягнёнок, белый, словно снег"
+ },
+ {
+  "label": "MSG:Test2",
+  "text": "И куда бы Мэри ни пошла, ягнёнок шёл за ней"
+ },
+ {
+  "label": "GUI:ShowBehindBuildings",
+  "text": "Выделение объектов за зданиями ВК"
+ },
+ {
+  "label": "GUI:HideBehindBuildings",
+  "text": "Выделение объектов за зданиями ВЫК"
+ },
+ {
+  "label": "GUI:DetailsSetToLowest",
+  "text": "Низкая детализация графики"
+ },
+ {
+  "label": "GUI:ReturnGraphicsToPreviousSettings",
+  "text": "Вернуть предыдущие настройки детализации графики"
+ },
+ {
+  "label": "GUI:BeaconLabel",
+  "text": "Введите сообщение:"
+ },
+ {
+  "label": "GUI:Beacon",
+  "text": "Маяк"
+ },
+ {
+  "label": "GUI:EACopyright",
+  "text": "© 2003 ELECTRONIC ARTS INC. ВСЕ ПРАВА ЗАЩИЩЕНЫ."
+ },
+ {
+  "label": "GUI:DeleteBeacon",
+  "text": "Удалить  \n маяк"
+ },
+ {
+  "label": "GUI:BeaconPlaced",
+  "text": "%ls установил(а) маяк."
+ },
+ {
+  "label": "GUI:BeaconPlacementFailed",
+  "text": "Невозможно установить маяк здесь"
+ },
+ {
+  "label": "GUI:TooManyBeacons",
+  "text": "Извините, но Вы не можете ставить больше маяков"
+ },
+ {
+  "label": "GUI:EA",
+  "text": "EA"
+ },
+ {
+  "label": "GUI:TestBrowser",
+  "text": "Проверить обозреватель"
+ },
+ {
+  "label": "GUI:Multiplayer",
+  "text": "КОЛЛЕКТИВНАЯ ИГРА"
+ },
+ {
+  "label": "GUI:GameName",
+  "text": "Название игры:"
+ },
+ {
+  "label": "GUI:NoFileSelected",
+  "text": "ПОЖАЛУЙСТА, ВЫБЕРИТЕ ФАЙЛ"
+ },
+ {
+  "label": "GUI:PleaseSelectAFile",
+  "text": "Пожалуйста, выберите файл."
+ },
+ {
+  "label": "GUI:DeleteFile",
+  "text": "УДАЛИТЬ ФАЙЛ?"
+ },
+ {
+  "label": "GUI:AreYouSureDelete",
+  "text": "Вы действительно хотите удалить выбранный файл?"
+ },
+ {
+  "label": "GUI:CopyFileToDesktop",
+  "text": "КОПИРОВАТЬ ПОВТОР НА РАБОЧИЙ СТОЛ?"
+ },
+ {
+  "label": "GUI:AreYouSureCopy",
+  "text": "Вы действительно хотите копировать этот файл на рабочий стол? Файл с таким именем будет перезаписан."
+ },
+ {
+  "label": "GUI:ErrorCopyingFile",
+  "text": "ПРОИЗОШЛА ОШИБКА ПРИ КОПИРОВАНИИ ФАЙЛА."
+ },
+ {
+  "label": "GUI:LoadReplay",
+  "text": "ЗАГР. ПОВТОР"
+ },
+ {
+  "label": "GUI:DeleteReplay",
+  "text": "УДАЛИТЬ ПОВТОР"
+ },
+ {
+  "label": "GUI:CopyReplay",
+  "text": "КОПИРОВАТЬ ПОВТОР"
+ },
+ {
+  "label": "GUI:ErrorDeletingFile",
+  "text": "ПРОИЗОШЛА ОШИБКА ПРИ УДАЛЕНИИ ФАЙЛА."
+ },
+ {
+  "label": "GUI:ShortDescription",
+  "text": "Короткое описание игры:"
+ },
+ {
+  "label": "GUI:LadderName",
+  "text": "Название доски почета:"
+ },
+ {
+  "label": "GUI:LadderPassword",
+  "text": "Пароль доски почета"
+ },
+ {
+  "label": "GUI:LadderURL",
+  "text": "Страничка: %hs"
+ },
+ {
+  "label": "GUI:LadderHasPassword",
+  "text": "Эта доска почета защищена паролем."
+ },
+ {
+  "label": "GUI:LadderMinWins",
+  "text": "Требуемое минимально кол-во побед: %d"
+ },
+ {
+  "label": "GUI:LadderMaxWins",
+  "text": "Разрешенное максимальное кол-во побед: %d"
+ },
+ {
+  "label": "GUI:LadderFactions",
+  "text": "Доступные военные фракции:"
+ },
+ {
+  "label": "GUI:LadderRandomFactions",
+  "text": "Случайные военные фракции:"
+ },
+ {
+  "label": "GUI:LadderMaps",
+  "text": "Доступные карты:"
+ },
+ {
+  "label": "GUI:LadderRandomMaps",
+  "text": "Случайные карты:"
+ },
+ {
+  "label": "GUI:AllowObservers",
+  "text": "Наблюдатели разрешены"
+ },
+ {
+  "label": "GUI:USA",
+  "text": "США"
+ },
+ {
+  "label": "GUI:China",
+  "text": "Китай"
+ },
+ {
+  "label": "GUI:GLA",
+  "text": "МАО"
+ },
+ {
+  "label": "GUI:AmericaAllies",
+  "text": "США - союзники"
+ },
+ {
+  "label": "GUI:ChinaAllies",
+  "text": "Китай - союзники"
+ },
+ {
+  "label": "GUI:GLAAllies",
+  "text": "МАО - союзники"
+ },
+ {
+  "label": "GUI:AmericaEnemies",
+  "text": "США - враги"
+ },
+ {
+  "label": "GUI:ChinaEnemies",
+  "text": "Китай - враги"
+ },
+ {
+  "label": "GUI:GLAEnemies",
+  "text": "МАО - враги"
+ },
+ {
+  "label": "GUI:EndCampaign",
+  "text": "Законч. кампанию"
+ },
+ {
+  "label": "GUI:Retry",
+  "text": "ПЕРЕИГРАТЬ?"
+ },
+ {
+  "label": "GUI:RecentSave",
+  "text": "Последнее сохранение"
+ },
+ {
+  "label": "GUI:GetUpdate",
+  "text": "Получить обновление"
+ },
+ {
+  "label": "GUI:DirectConnect",
+  "text": "ПРЯМОЕ СОЕД."
+ },
+ {
+  "label": "GUI:WorldBuilder",
+  "text": "МИРО СТРОЕЦ"
+ },
+ {
+  "label": "GUI:WorldBuilderLoadFailed",
+  "text": "Не удалось запустить редактор Миро Строец."
+ },
+ {
+  "label": "GUI:DontUseAccount",
+  "text": "Не использовать уч. запись"
+ },
+ {
+  "label": "GUI:UseAccount",
+  "text": "Использовать уч. запись"
+ },
+ {
+  "label": "GUI:ScoreScreen",
+  "text": "Экран результатов"
+ },
+ {
+  "label": "GUI:Rehost",
+  "text": "ЕЩЕ РАЗ?"
+ },
+ {
+  "label": "GUI:UnitsBuilt",
+  "text": "Войск  \n создано"
+ },
+ {
+  "label": "GUI:UnitsLost",
+  "text": "Войск  \n потеряно"
+ },
+ {
+  "label": "GUI:UnitsKilled",
+  "text": "Войск  \n уничтожено"
+ }
+]

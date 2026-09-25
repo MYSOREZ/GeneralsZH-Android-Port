@@ -1,0 +1,802 @@
+[
+ {
+  "label": "OBJECT:NukeLauncher",
+  "text": "Ядерна гармата"
+ },
+ {
+  "label": "OBJECT:ParticleCannon",
+  "text": "Молекулярна гармата"
+ },
+ {
+  "label": "OBJECT:OakTree",
+  "text": "Дерево"
+ },
+ {
+  "label": "OBJECT:Office",
+  "text": "Офіс"
+ },
+ {
+  "label": "OBJECT:OilDepot",
+  "text": "Нафтобаза"
+ },
+ {
+  "label": "OBJECT:OilRefinery",
+  "text": "Нафтопереробний завод"
+ },
+ {
+  "label": "OBJECT:OilTank",
+  "text": "Нафтовий бак"
+ },
+ {
+  "label": "OBJECT:OldWoodenTelephonePole",
+  "text": "Телефонний стовп"
+ },
+ {
+  "label": "OBJECT:Outpost",
+  "text": "Аванпост"
+ },
+ {
+  "label": "OBJECT:Overlord",
+  "text": "Повелитель"
+ },
+ {
+  "label": "OBJECT:Palace",
+  "text": "Палац"
+ },
+ {
+  "label": "OBJECT:PalmTree",
+  "text": "Дерево"
+ },
+ {
+  "label": "OBJECT:ParkBench",
+  "text": "Паркова лавка"
+ },
+ {
+  "label": "OBJECT:ParkGazebo",
+  "text": "Паркова альтанка"
+ },
+ {
+  "label": "OBJECT:ParkPavillion",
+  "text": "Парковий павільйон"
+ },
+ {
+  "label": "OBJECT:ParkingGarage",
+  "text": "Гараж"
+ },
+ {
+  "label": "OBJECT:ParkingMeter",
+  "text": "Паркувальний лічильник"
+ },
+ {
+  "label": "OBJECT:Pathfinder",
+  "text": "Слідознавець"
+ },
+ {
+  "label": "OBJECT:PatriotBattery",
+  "text": "Ракетна система Патріот"
+ },
+ {
+  "label": "OBJECT:GattlingCannon",
+  "text": "Гармата Гатлінга"
+ },
+ {
+  "label": "OBJECT:PatriotMissile",
+  "text": "Ракетна система Патріот"
+ },
+ {
+  "label": "OBJECT:PhoneBooth",
+  "text": "Телефонна будка"
+ },
+ {
+  "label": "OBJECT:PineTree",
+  "text": "Дерево"
+ },
+ {
+  "label": "OBJECT:PoliceCar",
+  "text": "Поліцейський автомобіль"
+ },
+ {
+  "label": "OBJECT:Prison",
+  "text": "Тюрма"
+ },
+ {
+  "label": "OBJECT:PropagandaBlimp",
+  "text": "Проп. дирижабль"
+ },
+ {
+  "label": "OBJECT:PropagandaCenter",
+  "text": "Центр пропаганди"
+ },
+ {
+  "label": "OBJECT:Pub",
+  "text": "Паб"
+ },
+ {
+  "label": "OBJECT:QuadCannon",
+  "text": "Гармата КВАД"
+ },
+ {
+  "label": "OBJECT:QuonsetHut",
+  "text": "Хатина Куонсет"
+ },
+ {
+  "label": "OBJECT:RailTie",
+  "text": "Залізнична стяжка"
+ },
+ {
+  "label": "OBJECT:Ranger",
+  "text": "Рейнджер"
+ },
+ {
+  "label": "OBJECT:Raptor",
+  "text": "Раптор"
+ },
+ {
+  "label": "OBJECT:RaptorPilot",
+  "text": "Пілот"
+ },
+ {
+  "label": "OBJECT:Restaurant",
+  "text": "Ресторан"
+ },
+ {
+  "label": "OBJECT:RetailStore",
+  "text": "Роздрібний магазин"
+ },
+ {
+  "label": "OBJECT:RiverHouse",
+  "text": "Будинок на річці"
+ },
+ {
+  "label": "OBJECT:RoadCone",
+  "text": "Дорожній конус"
+ },
+ {
+  "label": "OBJECT:RocketBuggy",
+  "text": "Ракетний баггі"
+ },
+ {
+  "label": "OBJECT:RadarVan",
+  "text": "Радарний фургон"
+ },
+ {
+  "label": "OBJECT:RocketBuggyDebris",
+  "text": "Уламки ракетного баггі"
+ },
+ {
+  "label": "OBJECT:RocketBuggyMissile",
+  "text": "Ракета ракетного баггі"
+ },
+ {
+  "label": "OBJECT:TomahawkMissile",
+  "text": "Ракета Томагавк"
+ },
+ {
+  "label": "OBJECT:SCUDMissile",
+  "text": "Ракета СКАД"
+ },
+ {
+  "label": "OBJECT:RangerTeamMissile",
+  "text": "Ракета команди рейнджерів"
+ },
+ {
+  "label": "OBJECT:Rocks",
+  "text": "Камені"
+ },
+ {
+  "label": "OBJECT:RopeCoil",
+  "text": "Котушка мотузки"
+ },
+ {
+  "label": "OBJECT:Rubble",
+  "text": "Щебінь"
+ },
+ {
+  "label": "OBJECT:ColonelBurton",
+  "text": "Полковник Бартон"
+ },
+ {
+  "label": "OBJECT:SUV",
+  "text": "Позашляховик"
+ },
+ {
+  "label": "OBJECT:Schoolhouse",
+  "text": "Школа"
+ },
+ {
+  "label": "OBJECT:Scorpion",
+  "text": "Скорпіон"
+ },
+ {
+  "label": "OBJECT:Marauder",
+  "text": "Танк Мародер"
+ },
+ {
+  "label": "OBJECT:ScoutDrone",
+  "text": "Дрон-розвідник"
+ },
+ {
+  "label": "OBJECT:SpyDrone",
+  "text": "Дрон-шпигун"
+ },
+ {
+  "label": "OBJECT:ScrapCar",
+  "text": "Лом автомобіля"
+ },
+ {
+  "label": "OBJECT:ScudLauncher",
+  "text": "Пускова установка СКАД"
+ },
+ {
+  "label": "OBJECT:ScudStorm",
+  "text": "СКАД Шторм"
+ },
+ {
+  "label": "OBJECT:SecretLab",
+  "text": "Секретна лабораторія"
+ },
+ {
+  "label": "OBJECT:SecretPolice",
+  "text": "Секретна поліція"
+ },
+ {
+  "label": "OBJECT:SecurityFence",
+  "text": "Захисний паркан"
+ },
+ {
+  "label": "OBJECT:Hacker",
+  "text": "Хакер"
+ },
+ {
+  "label": "OBJECT:Officer",
+  "text": "Офіцер"
+ },
+ {
+  "label": "OBJECT:Agent",
+  "text": "Агент"
+ },
+ {
+  "label": "OBJECT:Sedan",
+  "text": "Седан"
+ },
+ {
+  "label": "OBJECT:SeismicTank",
+  "text": "Сейсмічний танк"
+ },
+ {
+  "label": "OBJECT:Shack",
+  "text": "Халупа"
+ },
+ {
+  "label": "OBJECT:ShippingContainer",
+  "text": "Вантажний контейнер"
+ },
+ {
+  "label": "OBJECT:ShippingCrate",
+  "text": "Транспортний ящик"
+ },
+ {
+  "label": "OBJECT:SignalLights",
+  "text": "Сигнальні вогні"
+ },
+ {
+  "label": "OBJECT:Slide",
+  "text": "Слайд"
+ },
+ {
+  "label": "OBJECT:SovietBuilding",
+  "text": "Стара офісна будівля"
+ },
+ {
+  "label": "OBJECT:SovietGovtBuildingSmall",
+  "text": "Стара урядова будівля"
+ },
+ {
+  "label": "OBJECT:SovietRadioBuilding",
+  "text": "Будівля старого радіо"
+ },
+ {
+  "label": "OBJECT:SpeakerTower",
+  "text": "Гучномовець"
+ },
+ {
+  "label": "OBJECT:SportCar",
+  "text": "Спортивний автомобіль"
+ },
+ {
+  "label": "OBJECT:Sprinkler",
+  "text": "Розбрискувач"
+ },
+ {
+  "label": "OBJECT:SpruceTree",
+  "text": "Дерево"
+ },
+ {
+  "label": "OBJECT:StanTallTower",
+  "text": "Висока вежа"
+ },
+ {
+  "label": "OBJECT:Starlifter",
+  "text": "Старліфтер2"
+ },
+ {
+  "label": "OBJECT:StatueAngel",
+  "text": "Статуя ангела"
+ },
+ {
+  "label": "OBJECT:StatueLenin",
+  "text": "Статуя"
+ },
+ {
+  "label": "OBJECT:StatueRoman",
+  "text": "Римська статуя"
+ },
+ {
+  "label": "OBJECT:StealthFighter",
+  "text": "Літак-невидимка"
+ },
+ {
+  "label": "OBJECT:StingerSite",
+  "text": "Позиція Стингерів"
+ },
+ {
+  "label": "OBJECT:StoneArch",
+  "text": "Кам'яна арка"
+ },
+ {
+  "label": "OBJECT:StoneWall",
+  "text": "Кам'яна стіна"
+ },
+ {
+  "label": "OBJECT:PicketFence",
+  "text": "Паркан"
+ },
+ {
+  "label": "OBJECT:StopLight",
+  "text": "Стоп світло"
+ },
+ {
+  "label": "OBJECT:StreetLamp",
+  "text": "Вулична лампа"
+ },
+ {
+  "label": "OBJECT:StreetLight",
+  "text": "Вуличне світло"
+ },
+ {
+  "label": "OBJECT:StreetSign",
+  "text": "Вуличний знак"
+ },
+ {
+  "label": "OBJECT:SupplyTruck",
+  "text": "Ресурсна вантажівка"
+ },
+ {
+  "label": "OBJECT:SupplyWarehouse",
+  "text": "Док постачання"
+ },
+ {
+  "label": "OBJECT:Swing",
+  "text": "Гойдалка"
+ },
+ {
+  "label": "OBJECT:TVStation",
+  "text": "Станція телебачення"
+ },
+ {
+  "label": "OBJECT:TankTrap",
+  "text": "Протитанкова пастка"
+ },
+ {
+  "label": "OBJECT:TankerTruck",
+  "text": "Автоцистерна"
+ },
+ {
+  "label": "OBJECT:TaxiCab",
+  "text": "Таксі"
+ },
+ {
+  "label": "OBJECT:Technical",
+  "text": "Технік"
+ },
+ {
+  "label": "OBJECT:Tent",
+  "text": "Намет"
+ },
+ {
+  "label": "OBJECT:Terrorist",
+  "text": "Терорист"
+ },
+ {
+  "label": "OBJECT:Tire",
+  "text": "Шина"
+ },
+ {
+  "label": "OBJECT:TireObstacle",
+  "text": "Перешкода з шин"
+ },
+ {
+  "label": "OBJECT:Tollbooth",
+  "text": "Платний пункт"
+ },
+ {
+  "label": "OBJECT:Tomahawk",
+  "text": "Томагавк"
+ },
+ {
+  "label": "OBJECT:TownHouse",
+  "text": "Таунхаус"
+ },
+ {
+  "label": "OBJECT:ToxinTruck",
+  "text": "Токсиновий трактор"
+ },
+ {
+  "label": "OBJECT:TrashCan",
+  "text": "Смітник"
+ },
+ {
+  "label": "OBJECT:TrashDumpster",
+  "text": "Смітник"
+ },
+ {
+  "label": "OBJECT:TrashPaper",
+  "text": "Сміттєвий папір"
+ },
+ {
+  "label": "OBJECT:TrashPile",
+  "text": "Купа сміття"
+ },
+ {
+  "label": "OBJECT:TreeStump",
+  "text": "Пень"
+ },
+ {
+  "label": "OBJECT:TroopCrawler",
+  "text": "Бронетранспортер"
+ },
+ {
+  "label": "OBJECT:TunnelDefender",
+  "text": "Солдат з РПГ"
+ },
+ {
+  "label": "OBJECT:TunnelNetwork",
+  "text": "Тунельна мережа"
+ },
+ {
+  "label": "OBJECT:Cave",
+  "text": "Печера"
+ },
+ {
+  "label": "OBJECT:GLAHole",
+  "text": "Діра ГВА"
+ },
+ {
+  "label": "OBJECT:GLARock",
+  "text": "Скеля ГВА"
+ },
+ {
+  "label": "OBJECT:UNHumvee",
+  "text": "Хаммер ООН"
+ },
+ {
+  "label": "OBJECT:UNSoldier",
+  "text": "Солдат ООН"
+ },
+ {
+  "label": "OBJECT:VendingMachine",
+  "text": "Торговий автомат"
+ },
+ {
+  "label": "OBJECT:Wall",
+  "text": "Стіна"
+ },
+ {
+  "label": "OBJECT:ConcreteWall",
+  "text": "Бетонна стіна"
+ },
+ {
+  "label": "OBJECT:WatchTower",
+  "text": "Сторожова вежа"
+ },
+ {
+  "label": "OBJECT:WaterPlant",
+  "text": "Водний завод"
+ },
+ {
+  "label": "OBJECT:WindMill",
+  "text": "Вітряний млин"
+ },
+ {
+  "label": "OBJECT:WoodBeams",
+  "text": "Дерев'яні балки"
+ },
+ {
+  "label": "OBJECT:WoodTower",
+  "text": "Дерев'яна вежа"
+ },
+ {
+  "label": "OBJECT:WoodWall",
+  "text": "Дерев'яна стіна"
+ },
+ {
+  "label": "OBJECT:WoodenBarrels",
+  "text": "Дерев'яні бочки"
+ },
+ {
+  "label": "OBJECT:Worker",
+  "text": "Робітник"
+ },
+ {
+  "label": "OBJECT:Birch",
+  "text": "Дерево"
+ },
+ {
+  "label": "OBJECT:Building",
+  "text": "Будівля"
+ },
+ {
+  "label": "OBJECT:Cathedral",
+  "text": "Собор"
+ },
+ {
+  "label": "OBJECT:FarmHouse",
+  "text": "Будинок фермера"
+ },
+ {
+  "label": "OBJECT:Fir",
+  "text": "Дерево"
+ },
+ {
+  "label": "OBJECT:Garage",
+  "text": "Гараж"
+ },
+ {
+  "label": "OBJECT:OscarTheGrouch",
+  "text": "Продавець сміття"
+ },
+ {
+  "label": "OBJECT:Pilot",
+  "text": "Пілот"
+ },
+ {
+  "label": "OBJECT:Pump",
+  "text": "Насос"
+ },
+ {
+  "label": "OBJECT:Shop",
+  "text": "Магазин"
+ },
+ {
+  "label": "OBJECT:StingerMissile",
+  "text": "Ракета Стінгер"
+ },
+ {
+  "label": "OBJECT:StingerSoldier",
+  "text": "Солдат Стінгер"
+ },
+ {
+  "label": "OBJECT:StorageTank",
+  "text": "Бак"
+ },
+ {
+  "label": "OBJECT:Well",
+  "text": "Басейн"
+ },
+ {
+  "label": "OBJECT:WineVat",
+  "text": "Чан"
+ },
+ {
+  "label": "OBJECT:GenericMale",
+  "text": "Цивільна особа"
+ },
+ {
+  "label": "OBJECT:GenericFemale",
+  "text": "Цивільна особа"
+ },
+ {
+  "label": "OBJECT:MogadishuFemaleCivilian",
+  "text": "Цивільна особа"
+ },
+ {
+  "label": "OBJECT:MogadishuMaleCivilian",
+  "text": "Цивільна особа"
+ },
+ {
+  "label": "OBJECT:Crane",
+  "text": "Кран"
+ },
+ {
+  "label": "OBJECT:OceanCenter",
+  "text": "Конференц-центр"
+ },
+ {
+  "label": "OBJECT:SoccerStadium",
+  "text": "Футбольний стадіон"
+ },
+ {
+  "label": "OBJECT:Ambulance",
+  "text": "Швидка допомога"
+ },
+ {
+  "label": "OBJECT:AsianCar",
+  "text": "Автомобіль"
+ },
+ {
+  "label": "OBJECT:Backhoe",
+  "text": "Екскаватор"
+ },
+ {
+  "label": "OBJECT:LargeForklift",
+  "text": "Великий навантажувач"
+ },
+ {
+  "label": "OBJECT:SmallForklift",
+  "text": "Навантажувач"
+ },
+ {
+  "label": "OBJECT:CropDuster",
+  "text": "Кукурузник"
+ },
+ {
+  "label": "OBJECT:Cessna",
+  "text": "Літак"
+ },
+ {
+  "label": "OBJECT:ChickenTruck",
+  "text": "Вантажівка з куркою"
+ },
+ {
+  "label": "OBJECT:Combine",
+  "text": "Комбайн"
+ },
+ {
+  "label": "OBJECT:Eurovan",
+  "text": "Фургон"
+ },
+ {
+  "label": "OBJECT:EuroPoliceVan",
+  "text": "Поліцейський фургон"
+ },
+ {
+  "label": "OBJECT:Firetruck",
+  "text": "Пожежний автомобіль"
+ },
+ {
+  "label": "OBJECT:FarmerTruck",
+  "text": "Вантажівка фермера"
+ },
+ {
+  "label": "OBJECT:AsianFishingBoat",
+  "text": "Риболовне судно"
+ },
+ {
+  "label": "OBJECT:TourBus",
+  "text": "Туристичний автобус"
+ },
+ {
+  "label": "OBJECT:FishingTrowler",
+  "text": "Риболовний траулер"
+ },
+ {
+  "label": "OBJECT:WorkTruck",
+  "text": "Вантажівка робітників"
+ },
+ {
+  "label": "OBJECT:TugBoat",
+  "text": "Буксир"
+ },
+ {
+  "label": "OBJECT:BioHazardTech",
+  "text": "Технік з біологічної небезпеки"
+ },
+ {
+  "label": "OBJECT:MilitiaTank",
+  "text": "Танк ополчення"
+ },
+ {
+  "label": "Network:PlayerDisconnected",
+  "text": "%s було відключено"
+ },
+ {
+  "label": "Network:PlayerLeftGame",
+  "text": "%s покинув(ла) гру"
+ },
+ {
+  "label": "Network:Vote",
+  "text": "Голос"
+ },
+ {
+  "label": "Network:QuitGame",
+  "text": "ВИЙТИ З ГРИ"
+ },
+ {
+  "label": "MAP:AlpineAssault",
+  "text": "Альпійський штурм"
+ },
+ {
+  "label": "MAP:AustrianAmbush",
+  "text": "Ринковий сад"
+ },
+ {
+  "label": "MAP:Badlands",
+  "text": "Лютість пустелі"
+ },
+ {
+  "label": "MAP:BridgeBusters",
+  "text": "Залізний дракон"
+ },
+ {
+  "label": "MAP:KashmarKlash",
+  "text": "Генерали пустошей"
+ },
+ {
+  "label": "MAP:Oasis",
+  "text": "Золотий Оазис"
+ },
+ {
+  "label": "MAP:ScorchedEarth",
+  "text": "Випалена земля"
+ },
+ {
+  "label": "MAP:SleepyHollow",
+  "text": "Хартлендський щит"
+ },
+ {
+  "label": "MAP:SmalltownUSA",
+  "text": "Альянс Батьківщини"
+ },
+ {
+  "label": "MAP:TampicoTrauma",
+  "text": "Тиха річка"
+ },
+ {
+  "label": "MAP:WoodcrestCircle",
+  "text": "Останній хрестоносець"
+ },
+ {
+  "label": "MAP:XinjiangBang",
+  "text": "Зимовий вовк"
+ },
+ {
+  "label": "Audio:Speakers0",
+  "text": "2 динаміки"
+ },
+ {
+  "label": "Audio:Speakers1",
+  "text": "Навушники"
+ },
+ {
+  "label": "Audio:Speakers2",
+  "text": "Об'ємний звук"
+ },
+ {
+  "label": "Audio:Speakers3",
+  "text": "4 динаміки"
+ },
+ {
+  "label": "Audio:Speakers4",
+  "text": "Об'ємний звук 5.1"
+ },
+ {
+  "label": "Audio:Speakers5",
+  "text": "Об'ємний звук 7.1"
+ },
+ {
+  "label": "MAP:CHI01ObjectiveText",
+  "text": "МЕТА МІСІЇ\n  Знищити сховище ядерних боєголовок"
+ },
+ {
+  "label": "MAP:CHI02Open",
+  "text": "Гонконг, Китай\n  Гонконгська криза"
+ },
+ {
+  "label": "SCRIPT:CHI02AudioHolder01",
+  "text": "<Говорить червоногвардієць> \n 'Генерале, від штурмових сил залишилися тільки ми! Треба збудувати командний центр і запустити радар, щоб отримати нові накази'"
+ },
+ {
+  "label": "SCRIPT:CHI02AudioHolder02",
+  "text": "<Говорить червоногвардієць> \n 'Генерале, без радара ми не отримаємо розвідданих про позиції ворога. Нам потрібен цей радар'"
+ }
+]

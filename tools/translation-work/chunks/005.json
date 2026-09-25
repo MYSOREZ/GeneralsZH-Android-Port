@@ -1,0 +1,802 @@
+[
+ {
+  "label": "CONTROLBAR:TempDescription",
+  "text": "Please take the time to fill out my description located in CommandButton.ini! Thanks a bunch"
+ },
+ {
+  "label": "CONTROLBAR:CleanupAreaDescription",
+  "text": "Automatically cleans up bio toxins and radiation in area surrounding target location"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaCommandCenter",
+  "text": "&Command Center"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaPowerPlant",
+  "text": "Cold Fusion &Reactor"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaBarracks",
+  "text": "&Barracks"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaSupplyCenter",
+  "text": "S&upply Center"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaWall",
+  "text": "Security &Fence"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaWarFactory",
+  "text": "W&ar Factory"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaGuardianControlCenter",
+  "text": "Guardian \n Center"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaPatriotBattery",
+  "text": "Patriot &Missile System"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaParticleCannonUplink",
+  "text": "&Particle Cannon"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaStrategyCenter",
+  "text": "Strateg&y Center"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaSupplyDropZone",
+  "text": "Supply Drop &Zone"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaDetentionCamp",
+  "text": "&Detention Camp"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaTankCrusader",
+  "text": "&Crusader"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaTankPaladin",
+  "text": "&Paladin"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaInfantryRanger",
+  "text": "Ran&ger"
+ },
+ {
+  "label": "CONTROLBAR:Evacuate",
+  "text": "E&vacuate"
+ },
+ {
+  "label": "CONTROLBAR:ExecuteRailedTransport",
+  "text": "Transport"
+ },
+ {
+  "label": "CONTROLBAR:TransportExit",
+  "text": "Exit Transport"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLACommandCenter",
+  "text": "&Command Center"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLADemoTrap",
+  "text": "&Demo Trap"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLABarracks",
+  "text": "&Barracks"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLASupplyStash",
+  "text": "S&upply Stash"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLABurningBarricade",
+  "text": "&Burning Barricade"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAArmsDealer",
+  "text": "&Arms Dealer"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaCommandCenter",
+  "text": "&Command Center"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaPowerPlant",
+  "text": "Nuclear &Reactor"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaBarracks",
+  "text": "&Barracks"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaSupplyCenter",
+  "text": "S&upply Center"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaConcreteWall",
+  "text": "Concrete Wa&ll"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaWarFactory",
+  "text": "W&ar Factory"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaDozer",
+  "text": "Construction &Dozer"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAWorker",
+  "text": "Wor&ker"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaDozer",
+  "text": "Construction &Dozer"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLATankScorpion",
+  "text": "&Scorpion"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLATankMarauder",
+  "text": "&Marauder Tank"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAVehicleRocketBuggy",
+  "text": "Rocket &Buggy"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAVehicleRadarVan",
+  "text": "Radar &Van"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaTankOverlord",
+  "text": "&Overlord"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaTankGattling",
+  "text": "&Gattling Tank"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAInfantryRebel",
+  "text": "Re&bel"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaInfantryRedguard",
+  "text": "Red &Guard"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaVehicleChinook",
+  "text": "&Chinook"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAVehicleSupplyTruck",
+  "text": "Supply &Truck"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaVehicleSupplyTruck",
+  "text": "Supply &Truck"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaJetRaptor",
+  "text": "Rap&tor"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaJetAurora",
+  "text": "Aurora &Bomber"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaJetStealthFighter",
+  "text": "Stealth &Fighter"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaVehicleStarlifter",
+  "text": "Starlifter"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaVehicleComanche",
+  "text": "&Comanche"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaInfantryMissileDefender",
+  "text": "&Missile Defender"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaInfantryPathfinder",
+  "text": "&Pathfinder"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaInfantryColonelBurton",
+  "text": "Colonel Burto&n"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaInfantryBiohazardTech",
+  "text": "Biohazard Tech"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaVehicleTomahawk",
+  "text": "&Tomahawk"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaVehicleMedic",
+  "text": "&Ambulance"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaVehicleHumvee",
+  "text": "Hum&vee"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaVehicleBattleDrone",
+  "text": "&Battle Drone"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaVehicleScoutDrone",
+  "text": "Scout &Drone"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaJetMIG",
+  "text": "Mi&G"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaInfantryBlackLotus",
+  "text": "&Black Lotus"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaInfantryTankHunter",
+  "text": "&Tank Hunter"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaInfantrySecretPolice",
+  "text": "Secret \n Police"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaInfantryHacker",
+  "text": "H&acker"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaBunker",
+  "text": "Bun&ker"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaPropagandaCenter",
+  "text": "&Propaganda Center"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaAirfield",
+  "text": "Air &Field"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaAirfield",
+  "text": "Air &Field"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaGattlingCannon",
+  "text": "&Gattling Cannon"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaNuclearMissileLauncher",
+  "text": "Nuclear &Missile"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaSpeakerTower",
+  "text": "Speaker &Tower"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaVehicleInfernoCannon",
+  "text": "&Inferno Cannon"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaVehicleNukeLauncher",
+  "text": "N&uke Cannon"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaVehicleTroopCrawler",
+  "text": "&Troop Crawler"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaTankSeismic",
+  "text": "Seismic \n Tank"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaTankDragon",
+  "text": "&Dragon Tank"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaVehiclePropagandaBlimp",
+  "text": "Prop \n Blimp"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAInfantryTerrorist",
+  "text": "&Terrorist"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAInfantryRPGTrooper",
+  "text": "RP&G Trooper"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLATunnelNetwork",
+  "text": "Tunnel &Network"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAPalace",
+  "text": "&Palace"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLABlackMarket",
+  "text": "Black &Market"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAStingerSite",
+  "text": "S&tinger Site"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAScudStorm",
+  "text": "SCUD St&orm"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAPrison",
+  "text": "P&rison"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAVehicleToxinTruck",
+  "text": "Toxin Tr&actor"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLATankBattleMaster",
+  "text": "&Battlemaster"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAVehicleTechnical",
+  "text": "&Technical"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAInfantryHijacker",
+  "text": "H&ijacker"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAInfantryJarmenKell",
+  "text": "&Jarmen Kell"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAInfantryAngryMob",
+  "text": "Angr&y Mob"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAVehicleQuadCannon",
+  "text": "Q&uad Cannon"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAVehicleBombTruck",
+  "text": "B&omb Truck"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAVehicleScudLauncher",
+  "text": "SCUD &Launcher"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaAdvancedTraining",
+  "text": "&Advanced Training"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaDroneArmor",
+  "text": "D&rone Armor"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaMines",
+  "text": "&Land Mines"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaRadar",
+  "text": "&Radar"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaScoutDrones",
+  "text": "S&cout Drones"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaAdvancedControlRods",
+  "text": "&Control Rods"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaLaserMissiles",
+  "text": "&Laser Missiles"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaExtraFuel",
+  "text": "Extra &Fuel"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaFlashBangGrenade",
+  "text": "&Flash-Bang Grenades"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaCompositeArmor",
+  "text": "Com&posite Armor"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaTomahawkRemoteControl",
+  "text": "Cruise &Missiles"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaAircraftFuel",
+  "text": "Air Fuel"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaTOWMissile",
+  "text": "TOW M&issile"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeComancheRocketPods",
+  "text": "Rocket &Pods"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaRailGun",
+  "text": "Rail \n Gun"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaRadar",
+  "text": "R&adar"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaNationalism",
+  "text": "&Nationalism"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaAntiTankGrenade",
+  "text": "&Anti-Tank Grenades"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaVehicleHack",
+  "text": "&Vehicle Hack"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaIRGoggles",
+  "text": "&IR Goggles"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaBlackNapalm",
+  "text": "Black &Napalm"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaChainGuns",
+  "text": "&Chain Guns"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaSubliminalMessaging",
+  "text": "Su&bliminal Messaging"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaUraniumShells",
+  "text": "&Uranium Shells"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaNuclearTanks",
+  "text": "Nuclear &Tanks"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaStunBullets",
+  "text": "Stun &Bullets"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLARadar",
+  "text": "&Radar"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLARadarVanScan",
+  "text": "Radar S&can"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLAScorpionRocket",
+  "text": "Scorpion Roc&ket"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLABuggyAmmo",
+  "text": "Buggy &Ammo"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLABombTruckBioBomb",
+  "text": "&BioBombs"
+ },
+ {
+  "label": "CONTROLBAR:DisguiseAsVehicle",
+  "text": "&Disguise as Vehicle"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLABombTruckHighExplosiveBomb",
+  "text": "High Explosive B&omb"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLAAnthraxBeta",
+  "text": "&Anthrax Beta"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLAToxinShells",
+  "text": "&Toxin Shells"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLAJunkRepair",
+  "text": "&Junk Repair"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLAAPBullets",
+  "text": "AP &Bullets"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLAAPRockets",
+  "text": "AP &Rockets"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLACamouflage",
+  "text": "&Camouflage"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLATranqDarts",
+  "text": "&Tranq Darts"
+ },
+ {
+  "label": "CONTROLBAR:SetRallyPoint",
+  "text": "&Rally Point"
+ },
+ {
+  "label": "CONTROLBAR:Sell",
+  "text": "Sell"
+ },
+ {
+  "label": "CONTROLBAR:Overcharge",
+  "text": "&Overcharge"
+ },
+ {
+  "label": "CONTROLBAR:DragonFlame",
+  "text": "F&lame"
+ },
+ {
+  "label": "CONTROLBAR:PickUpPrisoner",
+  "text": "&Pick Up \n Prisoner"
+ },
+ {
+  "label": "CONTROLBAR:ReturnToPrison",
+  "text": "&Return"
+ },
+ {
+  "label": "CONTROLBAR:FireRocket",
+  "text": "&Fire Rocket"
+ },
+ {
+  "label": "CONTROLBAR:AnthraxWarhead",
+  "text": "A&nthrax Warhead"
+ },
+ {
+  "label": "CONTROLBAR:ExplosiveWarhead",
+  "text": "Ex&plosive Warhead"
+ },
+ {
+  "label": "CONTROLBAR:Fire20mmCannon",
+  "text": "&Fire 20mm Cannon"
+ },
+ {
+  "label": "CONTROLBAR:FireAntiTankMissiles",
+  "text": "Fire &Missiles"
+ },
+ {
+  "label": "CONTROLBAR:FireRocketPods",
+  "text": "Fire &Rockets"
+ },
+ {
+  "label": "CONTROLBAR:FireNapalmMissile",
+  "text": "Fire &Napalm"
+ },
+ {
+  "label": "CONTROLBAR:DaisyCutter",
+  "text": "Fuel Air &Bomb"
+ },
+ {
+  "label": "CONTROLBAR:NeutronMissile",
+  "text": "&Nuclear Missile"
+ },
+ {
+  "label": "CONTROLBAR:ScudStorm",
+  "text": "SC&UD Storm"
+ },
+ {
+  "label": "CONTROLBAR:NapalmStrike",
+  "text": "&Napalm Strike"
+ },
+ {
+  "label": "CONTROLBAR:A10ThunderboltMissileStrike",
+  "text": "&A10 Missile Strike"
+ },
+ {
+  "label": "CONTROLBAR:CashHack",
+  "text": "&Cash Hack"
+ },
+ {
+  "label": "CONTROLBAR:Ambush",
+  "text": "&Ambush"
+ },
+ {
+  "label": "CONTROLBAR:BlackMarketNuke",
+  "text": "Black Market \n Nuke"
+ },
+ {
+  "label": "CONTROLBAR:AnthraxBomb",
+  "text": "Anthrax &Bomb"
+ },
+ {
+  "label": "CONTROLBAR:Paradrop",
+  "text": "Paradr&op"
+ },
+ {
+  "label": "CONTROLBAR:CarpetBomb",
+  "text": "Carpe&t Bomb"
+ },
+ {
+  "label": "CONTROLBAR:ClusterMines",
+  "text": "Cluster M&ines"
+ },
+ {
+  "label": "CONTROLBAR:EMPPulse",
+  "text": "EMP P&ulse"
+ },
+ {
+  "label": "CONTROLBAR:ArtilleryBarrage",
+  "text": "Artillery &Barrage"
+ },
+ {
+  "label": "CONTROLBAR:CrateDrop",
+  "text": "Crate \n Drop"
+ },
+ {
+  "label": "CONTROLBAR:SpySatellite",
+  "text": "&Spy Satellite"
+ },
+ {
+  "label": "CONTROLBAR:SpyDrone",
+  "text": "Sp&y Drone"
+ },
+ {
+  "label": "CONTROLBAR:RadarVanScan",
+  "text": "Radar S&can"
+ },
+ {
+  "label": "CONTROLBAR:Defector",
+  "text": "&Defector"
+ },
+ {
+  "label": "CONTROLBAR:Bayonet",
+  "text": "&Bayonet"
+ },
+ {
+  "label": "CONTROLBAR:SniperAttack",
+  "text": "S&niper Attack"
+ },
+ {
+  "label": "CONTROLBAR:CaptureBuilding",
+  "text": "&Capture Building"
+ },
+ {
+  "label": "CONTROLBAR:DisableVehicleHack",
+  "text": "&Vehicle Hack"
+ },
+ {
+  "label": "CONTROLBAR:StealCashHack",
+  "text": "Cash Hac&k"
+ },
+ {
+  "label": "CONTROLBAR:InternetHack",
+  "text": "Hack &Internet"
+ },
+ {
+  "label": "CONTROLBAR:DisableBuildingHack",
+  "text": "&Disable Building"
+ },
+ {
+  "label": "CONTROLBAR:CarBomb",
+  "text": "&Car Bomb"
+ },
+ {
+  "label": "CONTROLBAR:Hijack",
+  "text": "Hi&jack"
+ },
+ {
+  "label": "CONTROLBAR:TNTAttack",
+  "text": "&TNT Attack"
+ },
+ {
+  "label": "CONTROLBAR:Requirements",
+  "text": "Requires: %s"
+ },
+ {
+  "label": "CONTROLBAR:LaserMissileAttack",
+  "text": "&Laser Missile Attack"
+ },
+ {
+  "label": "CONTROLBAR:KnifeAttack",
+  "text": "&Knife Attack"
+ },
+ {
+  "label": "CONTROLBAR:ClimbCliff",
+  "text": "&Climb Cliff"
+ },
+ {
+  "label": "CONTROLBAR:TimedDemoCharge",
+  "text": "&Timed Demo Charge"
+ },
+ {
+  "label": "CONTROLBAR:RemoteDemoCharge",
+  "text": "&Remote Demo Charge"
+ },
+ {
+  "label": "CONTROLBAR:DetonateCharges",
+  "text": "&Detonate Charges"
+ },
+ {
+  "label": "CONTROLBAR:DetonateNuke",
+  "text": "Detonate &Nuke"
+ },
+ {
+  "label": "CONTROLBAR:ManualControl",
+  "text": "&Manual Control"
+ },
+ {
+  "label": "CONTROLBAR:ProximityFuse",
+  "text": "&Proximity Fuse"
+ },
+ {
+  "label": "CONTROLBAR:Detonate",
+  "text": "&Detonate!"
+ },
+ {
+  "label": "CONTROLBAR:EmergencyRepair",
+  "text": "&Emergency Repair"
+ },
+ {
+  "label": "CONTROLBAR:FireParticleUplinkCannon",
+  "text": "&Particle Cannon"
+ },
+ {
+  "label": "CONTROLBAR:Options",
+  "text": "In-Game Menu"
+ },
+ {
+  "label": "CONTROLBAR:OptionsDescription",
+  "text": "This will open up the In-Game Menu"
+ },
+ {
+  "label": "CONTROLBAR:IdleWorker",
+  "text": "Idle Worker"
+ },
+ {
+  "label": "CONTROLBAR:IdleWorkerDescription",
+  "text": "Click to select the next idle worker"
+ },
+ {
+  "label": "CONTROLBAR:Beacon",
+  "text": "Beacon"
+ },
+ {
+  "label": "CONTROLBAR:BeaconDescription",
+  "text": "Click to place a beacon"
+ },
+ {
+  "label": "CONTROLBAR:Communicator",
+  "text": "Communicator"
+ },
+ {
+  "label": "CONTROLBAR:CommunicatorDescription",
+  "text": "Click to open the Generals Communicator"
+ },
+ {
+  "label": "CONTROLBAR:AmbulanceCleanupArea",
+  "text": "&Clean Toxins"
+ },
+ {
+  "label": "RADAR:UnitUnderAttack",
+  "text": "Unit under attack"
+ }
+]

@@ -1,0 +1,802 @@
+[
+ {
+  "label": "MAP:NoMansLand",
+  "text": "Ничейные земли"
+ },
+ {
+  "label": "MAP:OverlandOffensive",
+  "text": "Наступление по суше"
+ },
+ {
+  "label": "MAP:RockyRampage",
+  "text": "Буйство в скалах"
+ },
+ {
+  "label": "MAP:SnowblindStrike",
+  "text": "Удар в снежной мгле"
+ },
+ {
+  "label": "MAP:UrbanUnderground",
+  "text": "Городская подземка"
+ },
+ {
+  "label": "MAP:VictoryValley",
+  "text": "Победоносная долина"
+ },
+ {
+  "label": "MAP:WastelandWarfare",
+  "text": "Война на пустоши"
+ },
+ {
+  "label": "MAP:RogueAgent",
+  "text": "Агент-отступник"
+ },
+ {
+  "label": "MAP:DesertEagle",
+  "text": "Пустынный орёл"
+ },
+ {
+  "label": "MAP:FlashFire",
+  "text": "Вспышка пламени"
+ },
+ {
+  "label": "MAP:MountainGuns",
+  "text": "Горные пушки"
+ },
+ {
+  "label": "MAP:FlashEffect",
+  "text": "Эффект вспышки"
+ },
+ {
+  "label": "MAP:LightsOut",
+  "text": "Затмение"
+ },
+ {
+  "label": "MAP:SteelTrap",
+  "text": "Стальная ловушка"
+ },
+ {
+  "label": "MAP:ArmoredFury",
+  "text": "Бронированная ярость"
+ },
+ {
+  "label": "MAP:InfiniteJustice",
+  "text": "Каирские коммандос"
+ },
+ {
+  "label": "MAP:Whiteout",
+  "text": "Белая мгла"
+ },
+ {
+  "label": "MAP:FalloutEffect",
+  "text": "Радиоактивные осадки"
+ },
+ {
+  "label": "MAP:FloodedPlains",
+  "text": "Затопленные равнины"
+ },
+ {
+  "label": "MAP:TournamentContinent",
+  "text": "Турнирный континент"
+ },
+ {
+  "label": "MAP:TournamentCity",
+  "text": "Турнирный город"
+ },
+ {
+  "label": "MAP:TournamentLadder01",
+  "text": "Турнирная лестница 01"
+ },
+ {
+  "label": "MAP:TournamentLadder02",
+  "text": "Турнирная лестница 02"
+ },
+ {
+  "label": "MAP:TournamentLadder03",
+  "text": "Турнирная лестница 03"
+ },
+ {
+  "label": "MAP:TournamentLadder04",
+  "text": "Турнирная лестница 04"
+ },
+ {
+  "label": "MAP:TrainingGLAHole",
+  "text": "Здания МАО имеют подземную площадь, которая позволяет прятаться их рабочим. После уничтожения здания МАО останется берлога. Рабочие, спрятавшиеся в этой берлоге, позже отстроят это здание заново. Атакуйте берлогу, чтобы устранить угрозу со стороны МАО."
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak25",
+  "text": "Медаль за Серию побед \n Игрок победил в 25 схватках подряд \n Новая медаль за 3, 10, 25, 100, 500 и 1000 побед подряд"
+ },
+ {
+  "label": "GUI:InsertCDPrompt",
+  "text": "Диск не найден"
+ },
+ {
+  "label": "GUI:InsertCDMessage",
+  "text": "Пожалуйста, вставьте первый игровой ДИСК."
+ },
+ {
+  "label": "CONTROLBAR:OrRequirement",
+  "text": "или"
+ },
+ {
+  "label": "SCRIPT:USA02RescueCounter",
+  "text": "Пилотов осталось:"
+ },
+ {
+  "label": "GUI:AddCash",
+  "text": "$%d"
+ },
+ {
+  "label": "GUI:LoseCash",
+  "text": "-$%d"
+ },
+ {
+  "label": "RADAR:HarvesterUnderAttack",
+  "text": "Сборщик ресурсов атакован."
+ },
+ {
+  "label": "OBJECT:PharmaceuticalFactory",
+  "text": "Фармацевтический завод"
+ },
+ {
+  "label": "GUI:CareerWins",
+  "text": "Победы за карьеру"
+ },
+ {
+  "label": "GUI:CareerLosses",
+  "text": "Поражения за карьеру"
+ },
+ {
+  "label": "GUI:CurrentWinStreak",
+  "text": "Текущая серия побед"
+ },
+ {
+  "label": "GUI:CarrerWinPercent",
+  "text": "Процент побед за карьеру"
+ },
+ {
+  "label": "TOOLTIP:NumberOfPlayers",
+  "text": "Количество игроков сейчас в этой игре"
+ },
+ {
+  "label": "TOOTIP:Password",
+  "text": "Требуется пароль для присоединения к этой игре"
+ },
+ {
+  "label": "TOOLTIP:PingInfo",
+  "text": "Качество соединения с хостом"
+ },
+ {
+  "label": "TOOLTIP:LobbyOfficersClub",
+  "text": "Офицерский клуб: Один из основателей сообщества Генералов"
+ },
+ {
+  "label": "GUI:Display",
+  "text": "ОПЦИИ"
+ },
+ {
+  "label": "GUI:Audio",
+  "text": "ЗВУК"
+ },
+ {
+  "label": "GUI:LANLobby",
+  "text": "ЛОББИ ЛОКАЛЬНОЙ СЕТИ"
+ },
+ {
+  "label": "GUI:Mute",
+  "text": "Без звука"
+ },
+ {
+  "label": "GUI:NeedHumanPlayers",
+  "text": "Для начала игры нужен хотя бы один игрок-человек, не являющийся наблюдателем."
+ },
+ {
+  "label": "GUI:MediumDifficulty",
+  "text": "Средняя"
+ },
+ {
+  "label": "CONTROLBAR:ObsPlayerLabel",
+  "text": "%ls (Команда %ls)"
+ },
+ {
+  "label": "GUI:LowTextureDetail",
+  "text": "Маленькие размеры текстур"
+ },
+ {
+  "label": "TOOLTIP:LowTextureDetail",
+  "text": "Использовать маленькие размеры текстур"
+ },
+ {
+  "label": "GUI:QuickMatch800x600",
+  "text": "Пожалуйста, измените разрешение экрана на 800 x 600 для игры в быстром матче."
+ },
+ {
+  "label": "OBJECT:CargoPlane",
+  "text": "Грузовой самолёт"
+ },
+ {
+  "label": "OBJECT:HuNanProvince",
+  "text": "Пекин"
+ },
+ {
+  "label": "OBJECT:HongKong",
+  "text": "Гонконг"
+ },
+ {
+  "label": "OBJECT:HubeiProvince",
+  "text": "Дамба трёх ущелий"
+ },
+ {
+  "label": "OBJECT:Tangula",
+  "text": "Горы Танггула"
+ },
+ {
+  "label": "OBJECT:Balykchy",
+  "text": "Балакчи"
+ },
+ {
+  "label": "OBJECT:Bishkek",
+  "text": "Бишкек"
+ },
+ {
+  "label": "OBJECT:Dushanbe",
+  "text": "Душанбе"
+ },
+ {
+  "label": "OBJECT:Shymkent",
+  "text": "Чимкент"
+ },
+ {
+  "label": "OBJECT:Almaty",
+  "text": "г. Алма-Ата"
+ },
+ {
+  "label": "OBJECT:Zambul",
+  "text": "Замбул"
+ },
+ {
+  "label": "OBJECT:Astana",
+  "text": "Астана"
+ },
+ {
+  "label": "OBJECT:Incirlik",
+  "text": "Инсирлик"
+ },
+ {
+  "label": "OBJECT:AralSea",
+  "text": "Аральское море"
+ },
+ {
+  "label": "OBJECT:Lenger",
+  "text": "Ленгер"
+ },
+ {
+  "label": "OBJECT:Baikonur",
+  "text": "Байконур"
+ },
+ {
+  "label": "OBJECT:Mazar",
+  "text": "Мазар"
+ },
+ {
+  "label": "OBJECT:Baghdad",
+  "text": "Багдад"
+ },
+ {
+  "label": "OBJECT:AlHanad",
+  "text": "Аль-Ханад"
+ },
+ {
+  "label": "OBJECT:NorthKazakhstan",
+  "text": "Северный Казахстан"
+ },
+ {
+  "label": "OBJECT:KazakhstanCoast",
+  "text": "Побережье Казахстана"
+ },
+ {
+  "label": "OBJECT:KazakhstanDMZ",
+  "text": "Демилитаризованная зона Казахстана"
+ },
+ {
+  "label": "OBJECT:SouthKazkahstan",
+  "text": "Южный Казахстан"
+ },
+ {
+  "label": "OBJECT:Akmola",
+  "text": "Акмола"
+ },
+ {
+  "label": "SCRIPT:GLA03Objective01a",
+  "text": "ЦЕЛИ МИССИИ:  \n Захватить командный центр на востоке для начала производства.  \n Убить 200 предателей."
+ },
+ {
+  "label": "SCRIPT:GLA03Objective02a",
+  "text": "ЦЕЛЬ МИССИИ: \n Используя химические тракторы, убить 200 предателей."
+ },
+ {
+  "label": "TOOLTIP:Campaign1",
+  "text": "Кампания 3"
+ },
+ {
+  "label": "TOOLTIP:Campaign2",
+  "text": "Кампания 2"
+ },
+ {
+  "label": "TOOLTIP:Campaign3",
+  "text": "Кампания 1"
+ },
+ {
+  "label": "GUI:Setup",
+  "text": "НАСТРОЙКИ"
+ },
+ {
+  "label": "GUI:PlayerInfo",
+  "text": "ИНФОРМАЦИЯ ОБ ИГРОКЕ"
+ },
+ {
+  "label": "GUI:Persona",
+  "text": "ЛИЧНОСТЬ"
+ },
+ {
+  "label": "GUI:TextureHigh",
+  "text": "Высокое качество (медленно)"
+ },
+ {
+  "label": "GUI:TextureMedium",
+  "text": "Среднее качество"
+ },
+ {
+  "label": "GUI:TextureLow",
+  "text": "Низкое качество (быстро)"
+ },
+ {
+  "label": "GUI:GameSpeed",
+  "text": "Скорость игры"
+ },
+ {
+  "label": "GUI:SlowGameSpeed",
+  "text": "Медленная"
+ },
+ {
+  "label": "GUI:MediumGameSpeed",
+  "text": "Средняя"
+ },
+ {
+  "label": "GUI:FastGameSpeed",
+  "text": "Быстрая"
+ },
+ {
+  "label": "GUI:RestartConfirmationTitle",
+  "text": "ПЕРЕИГРАТЬ?"
+ },
+ {
+  "label": "GUI:SurrenderConfirmationTitle",
+  "text": "СДАТЬСЯ?"
+ },
+ {
+  "label": "TOOLTIP:StartPositionN",
+  "text": "Начальная Точка для игрока %d"
+ },
+ {
+  "label": "LABEL:FORMATION",
+  "text": "F"
+ },
+ {
+  "label": "GUI:IgnoreSm",
+  "text": "Игнорировать"
+ },
+ {
+  "label": "GUI:AcceptSm",
+  "text": "ПРИНЯТЬ"
+ },
+ {
+  "label": "GUI:EasyCaps",
+  "text": "ЛЁГКАЯ"
+ },
+ {
+  "label": "GUI:MediumDifficultyCaps",
+  "text": "СРЕДНЯЯ"
+ },
+ {
+  "label": "GUI:HardCaps",
+  "text": "СЛОЖНАЯ"
+ },
+ {
+  "label": "TOOLTIP:AdvanceOptionsAccept",
+  "text": "Применить изменения сделанные в меню дополнительных настроек экрана"
+ },
+ {
+  "label": "TOOLTIP:AdvanceOptionsCancel",
+  "text": "Выйти из меню дополнительных настроек экрана без применения изменений"
+ },
+ {
+  "label": "GUI:AdvanceDisplayOptions",
+  "text": "ДОПОЛНИТЕЛЬНЫЕ НАСТРОЙКИ ЭКРАНА"
+ },
+ {
+  "label": "GUI:Shadows",
+  "text": "Тени"
+ },
+ {
+  "label": "TOOLTIP:Shadows",
+  "text": "Включение/выключение теней в игре. Выключение повысит скорость игры"
+ },
+ {
+  "label": "GUI:BehindBuilding",
+  "text": "За зданиями"
+ },
+ {
+  "label": "TOOLTIP:BehindBuilding",
+  "text": "Включение/выключение показа подразделений за зданиями. Выключение повысит скорость игры"
+ },
+ {
+  "label": "GUI:ShowProps",
+  "text": "Показывать объекты"
+ },
+ {
+  "label": "TOOLTIP:ShowProps",
+  "text": "Включение/выключение показа игровых объектов. Выключение повысит скорость игры"
+ },
+ {
+  "label": "GUI:LowResSlider",
+  "text": "РАЗМЕРЫ ТЕКСТУР"
+ },
+ {
+  "label": "GUI:HighResSlower",
+  "text": "Большие размеры (медленно)"
+ },
+ {
+  "label": "GUI:LowResFaster",
+  "text": "Маленькие размеры (быстро)"
+ },
+ {
+  "label": "TOOLTIP:LowResSlider",
+  "text": "Большие размеры текстур могут замедлить игру"
+ },
+ {
+  "label": "GUI:ParticleCap",
+  "text": "КОЛИЧЕСТВО ЧАСТИЦ"
+ },
+ {
+  "label": "GUI:MoreParticlesSlower",
+  "text": "Максимум частиц (медленно)"
+ },
+ {
+  "label": "GUI:LessParticlesFaster",
+  "text": "Минимум частиц (быстро)"
+ },
+ {
+  "label": "TOOLTIP:ParticleCapSlider",
+  "text": "Много частиц может замедлить игру"
+ },
+ {
+  "label": "GUI:CurrentLossStreak",
+  "text": "Текущая серия поражений"
+ },
+ {
+  "label": "GUI:Custom",
+  "text": "Своя"
+ },
+ {
+  "label": "GUI:ToggleOnOff",
+  "text": "Визуальные эффекты"
+ },
+ {
+  "label": "GUI:RestartMission",
+  "text": "ПЕРЕИГРАТЬ МИССИЮ"
+ },
+ {
+  "label": "GUI:ExitMission",
+  "text": "ВЫЙТИ ИЗ МИССИИ"
+ },
+ {
+  "label": "GUI:OlderReplayVersionTitle",
+  "text": "СТАРАЯ ВЕРСИЯ ПОВТОРА"
+ },
+ {
+  "label": "GUI:OlderReplayVersion",
+  "text": "После загрузки повтор может неправильно отображаться, продолжить загрузку?"
+ },
+ {
+  "label": "GUI:Shadows2D",
+  "text": "Двухмерные тени"
+ },
+ {
+  "label": "TOOLTIP:Shadows2D",
+  "text": "Переключатель показа двухмерных теней в игре. Выключение повысит скорость игры"
+ },
+ {
+  "label": "GUI:Shadows3D",
+  "text": "Трёхмерные тени"
+ },
+ {
+  "label": "TOOLTIP:Shadows3D",
+  "text": "Переключатель показа трёхмерных теней в игре. Выключение повысит скорость игры"
+ },
+ {
+  "label": "GUI:CloudShadows",
+  "text": "Тени от облаков"
+ },
+ {
+  "label": "TOOLTIP:CloudShadows",
+  "text": "Переключатель показа теней от облаков на земле. Выключение повысит скорость игры"
+ },
+ {
+  "label": "GUI:GroundLighting",
+  "text": "Доп. освещение поверхности"
+ },
+ {
+  "label": "TOOLTIP:GroundLighting",
+  "text": "Переключатель показа детализованного освещения на земле. Выключение повысит скорость игры"
+ },
+ {
+  "label": "GUI:SmoothWater",
+  "text": "Сглаживать водные края"
+ },
+ {
+  "label": "TOOLTIP:SmoothWater",
+  "text": "Переключатель сглаживания водных краев. Выключение повысит скорость игры"
+ },
+ {
+  "label": "GUI:ExtraAnimations",
+  "text": "Дополнительная анимация"
+ },
+ {
+  "label": "TOOLTIP:ExtraAnimations",
+  "text": "Переключатель отображения необязательной анимации, например качание деревьев на ветру. Выключение повысит скорость игры"
+ },
+ {
+  "label": "GUI:NoDynamicLOD",
+  "text": "Выкл. динамическую детализацию"
+ },
+ {
+  "label": "TOOLTIP:NoDynamicLOD",
+  "text": "Выключить автоматическое изменение детализации. Выключение повысит скорость игры"
+ },
+ {
+  "label": "GUI:UnlockMaxFPS",
+  "text": "Нефиксированное кол-во кадров"
+ },
+ {
+  "label": "TOOLTIP:UnlockMaxFPS",
+  "text": "Разрешить частоту кадров выше 30. Влияет на скорость игры, поэтому рекомендуется только для тестирования производительности"
+ },
+ {
+  "label": "GUI:TreeSway",
+  "text": "Анимация деревьев"
+ },
+ {
+  "label": "TOOLTIP:TreeSway",
+  "text": "Переключатель анимации деревьев. Выключение повысит скорость игры"
+ },
+ {
+  "label": "GUI:TankTreads",
+  "text": "Следы от колёс/гусениц"
+ },
+ {
+  "label": "TOOLTIP:TankTreads",
+  "text": "Переключатель следов, оставляемых техникой. Выключение повысит скорость игры"
+ },
+ {
+  "label": "GUI:WaterWaves",
+  "text": "Волны на воде"
+ },
+ {
+  "label": "TOOLTIP:WaterWaves",
+  "text": "Включить анимацию волн на берегу. Выключение повысит скорость игры"
+ },
+ {
+  "label": "GUI:BuildupAnimations",
+  "text": "Анимация строительства"
+ },
+ {
+  "label": "TOOLTIP:BuildupAnimations",
+  "text": "Показывать дополнительную анимацию при постройке здания. Выключение повысит скорость игры"
+ },
+ {
+  "label": "GUI:AdvancedOptionsToggleOnOff",
+  "text": "Переключатель вк/вык - вык. повысит скорость"
+ },
+ {
+  "label": "GUI:PerformanceTestingMessage",
+  "text": "Пожалуйста, подождите пока мы проверим возможности Вашей системы для установки оптимальных параметров."
+ },
+ {
+  "label": "GUI:PerformanceTestingTitle",
+  "text": "Проверка возможностей системы"
+ },
+ {
+  "label": "GUI:ReducedColor",
+  "text": "16-битный цвет"
+ },
+ {
+  "label": "TOOLTIP:ReducedColor",
+  "text": "Увеличивает скорость, но уменьшает качество"
+ },
+ {
+  "label": "GUI:SelectAMapLowerCase",
+  "text": "Выбор карты"
+ },
+ {
+  "label": "GUI:SaveAndExit",
+  "text": "СОХРАНИТЬ И ВЫЙТИ"
+ },
+ {
+  "label": "GUI:PerSideWinPercentage",
+  "text": "%d%% %ls"
+ },
+ {
+  "label": "GUI:WinnersToday",
+  "text": "СЕГОДНЯШНИЕ ПОБЕДИТЕЛИ"
+ },
+ {
+  "label": "GUI:WinnersLastWeek",
+  "text": "ПОБЕДИТЕЛИ ПРОШЛОЙ НЕДЕЛИ"
+ },
+ {
+  "label": "MOTD:NumPlayersHeading",
+  "text": "Добро пожаловать в Generals Zero Hour Online."
+ },
+ {
+  "label": "TOOLTIP:GameAcceptance",
+  "text": "Принять игру"
+ },
+ {
+  "label": "TOOLTIP:ConnectionSpeed",
+  "text": "Скорость соединения"
+ },
+ {
+  "label": "CONTROLBAR:NoHotKeyArtilleryBarrage",
+  "text": "Заградительный огонь артиллерии"
+ },
+ {
+  "label": "CONTROLBAR:NoHotKeySpySatellite",
+  "text": "Спутник шпион"
+ },
+ {
+  "label": "GUI:FetchingPlayerInfo",
+  "text": "Обновление..."
+ },
+ {
+  "label": "CREDITS:EALosAngelesFieldRecordingsTeam",
+  "text": "Команда EA Los Angeles по полевой звукозаписи"
+ },
+ {
+  "label": "CREDITS:TiburonQualityAssuranceSeniorLead",
+  "text": "Старший руководитель отдела контроля качества EA Tiburon"
+ },
+ {
+  "label": "CREDITS:TiburonQualityAssuranceProjectLead",
+  "text": "Руководитель проекта отдела контроля качества EA Tiburon"
+ },
+ {
+  "label": "CREDITS:TiburonAssociateQualityAssuranceLeads",
+  "text": "Помощники руководителя отдела контроля качества EA Tiburon"
+ },
+ {
+  "label": "CREDITS:TiburonQualityAssuranceSeniorTesters",
+  "text": "Старшие тестеры отдела контроля качества EA Tiburon"
+ },
+ {
+  "label": "CREDITS:TiburonQualityAssuranceTesters",
+  "text": "Тестеры отдела контроля качества EA Tiburon"
+ },
+ {
+  "label": "CREDITS:EAUKAdditionalQualityAssurance",
+  "text": "Дополнительный контроль качества EAUK"
+ },
+ {
+  "label": "CREDITS:MultiplayerTestParticipants",
+  "text": "Участники тестирования коллективной игры"
+ },
+ {
+  "label": "CREDITS:FocusTesters",
+  "text": "Фокус-тестеры"
+ },
+ {
+  "label": "CREDITS:NorthAmericaMarketingPartners",
+  "text": "Партнёры по маркетингу в Северной Америке"
+ },
+ {
+  "label": "CREDITS:ManagingDirectorEurope",
+  "text": "Управляющий директор (Европа)"
+ },
+ {
+  "label": "CREDITS:EuropeanMarketingPartners",
+  "text": "Партнёры по маркетингу в Европе"
+ },
+ {
+  "label": "CREDITS:AsiaPacificPresidentandCoach",
+  "text": "EA Asia Pacific, президент и наставник"
+ },
+ {
+  "label": "CREDITS:AsiaPacificMarketingPartners",
+  "text": "Партнёры EA Asia Pacific по маркетингу"
+ },
+ {
+  "label": "CREDITS:GamingCommunityPartners",
+  "text": "Партнёры в игровом сообществе"
+ },
+ {
+  "label": "CREDITS:EADevelopmentExecutives",
+  "text": "Руководители разработок EA"
+ },
+ {
+  "label": "CREDITS:SpecialThankstotheMaxiscrew",
+  "text": "Особая благодарность команде Maxis"
+ },
+ {
+  "label": "CREDITS:VerySpecialThanks",
+  "text": "Огромная благодарность"
+ },
+ {
+  "label": "CREDITS:DevelopmentTitle",
+  "text": "Command & Conquer (TM) Generals Zero Hour разработана"
+ },
+ {
+  "label": "CREDITS:EAPacificDevTeam",
+  "text": "Electronic Arts Los Angeles"
+ },
+ {
+  "label": "CREDITS:ExecutiveInCharge",
+  "text": "Исполнительный продюсер"
+ },
+ {
+  "label": "CREDITS:Producer",
+  "text": "Продюсер"
+ },
+ {
+  "label": "CREDITS:LeadDesigner",
+  "text": "Главный дизайнер"
+ },
+ {
+  "label": "CREDITS:TechnicalDirector",
+  "text": "Технический директор"
+ },
+ {
+  "label": "CREDITS:ArtDirector",
+  "text": "Художественный директор"
+ },
+ {
+  "label": "CREDITS:ArtProducer",
+  "text": "Художественный продюсер"
+ },
+ {
+  "label": "CREDITS:SeniorProducer",
+  "text": "Старший продюсер"
+ },
+ {
+  "label": "CREDITS:AssociateProducers",
+  "text": "Помощник продюсера"
+ },
+ {
+  "label": "CREDITS:MultiplayerTestProducer",
+  "text": "Продюсер тестирования коллективной игры"
+ },
+ {
+  "label": "CREDITS:SeniorEngineers",
+  "text": "Старшие инженеры"
+ },
+ {
+  "label": "CREDITS:Engineers",
+  "text": "Инженеры"
+ },
+ {
+  "label": "CREDITS:AdditionalEngineering",
+  "text": "Дополнительная разработка"
+ },
+ {
+  "label": "CREDITS:Designers",
+  "text": "Дизайнеры"
+ },
+ {
+  "label": "CREDITS:AdditionalDesignInspirationandSupport",
+  "text": "Дополнительный дизайн, идеи и поддержка"
+ },
+ {
+  "label": "CREDITS:AdditionalDesign",
+  "text": "Дополнительный дизайн"
+ }
+]

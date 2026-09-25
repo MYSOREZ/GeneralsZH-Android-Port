@@ -1,0 +1,802 @@
+[
+ {
+  "label": "DIALOGEVENT:EvaGLA_NuclearMissileReadySubtitle",
+  "text": "*Наша ядерна ракета готова до запуску"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_OpinionCivilianStructures01Subtitle",
+  "text": "*Генерале. Стежте, щоб цивільні споруди не були зруйновані"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_OpinionCivilianStructures02Subtitle",
+  "text": "*Руйнування цивільних споруд погіршить нашу міжнародну репутацію!"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_OpinionDestroyStatuesSubtitle",
+  "text": "*Знищуйте статуї ГВА, щоб покращити нашу міжнародну репутацію, сер"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_OpinionDestroyStructuresSubtitle",
+  "text": "*Сер. Знищення ворожих споруд покращить нашу міжнародну репутацію"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_OpinionDestroyTroopsSubtitle",
+  "text": "*Знищуйте більше ворожих військ, щоб покращити міжнародну репутацію"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_OpinionFallingSubtitle",
+  "text": "*Наша міжнародна репутація падає!"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_OpinionLowSubtitle",
+  "text": "*Наша міжнародна репутація погіршується"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_OpinionLowCriticalSubtitle",
+  "text": "*Наша міжнародна репутація критично низька!"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_OpinionLowVerySubtitle",
+  "text": "*Наша міжнародна репутація дуже низька"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_OpinionProtectCivilianSubtitle",
+  "text": "*Захищайте цивільне майно від шкоди"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_OpinionRisingSubtitle",
+  "text": "*Наша міжнародна репутація зростає!"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_ParticleCannonDetectedAllySubtitle",
+  "text": "*Наш союзник збудував Молекулярну гармату"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_ParticleCannonLaunchedAllySubtitle",
+  "text": "*Наш союзник використовує свою Молекулярну гармату"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_ParticleCannonLaunchedOursSubtitle",
+  "text": "*Задіюємо Молекулярну гармату"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_ParticleCannonReadySubtitle",
+  "text": "*Наша Молекулярна гармата готова"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_ReinforcementsHaveArrivedSubtitle",
+  "text": "*Нам на допомогу прийшли нові воїни"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_ScudStormDetectedAllySubtitle",
+  "text": "*Наш союзник збудував СКАД Шторм"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_ScudStormLaunchedAllySubtitle",
+  "text": "*Наш союзник запустив СКАД Шторм"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_ScudStormLaunchedOursSubtitle",
+  "text": "*Запускаємо СКАД Шторм"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_ScudStormReadySubtitle",
+  "text": "*Тепер ми можемо використати наш СКАД Шторм"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_SelectTargetSubtitle",
+  "text": "*Куди завдамо удару?"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_SneakAttackLaunchedSubtitle",
+  "text": "*Генерале, ворог застосовує Приховану атаку"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_UnitLostSubtitle",
+  "text": "*Воїн загинув"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_UpgradeCompleteSubtitle",
+  "text": "*Покращення завершено"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_VehicleStolenSubtitle",
+  "text": "*Вони викрали техніку"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_VictorySubtitle",
+  "text": "*Ми перемогли"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_AllyUnderAttackSubtitle",
+  "text": "*Наш союзник під атакою"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_BaseDefensesOffLineSubtitle",
+  "text": "*Оборона бази не працює"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_BeaconDetectedSubtitle",
+  "text": "*Виявлено маяк"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_BlackLotusEnemySubtitle",
+  "text": "*Виявлено ворожого Джармена Келла"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_BlackLotusOursSubtitle",
+  "text": "*Нашого Джармена Келла виявлено"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_BuildingBeingCapturedSubtitle",
+  "text": "*Нашу будівлю захоплюють"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_BuildingDisabledSubtitle",
+  "text": "*Будівлю відключено"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_BuildingEnabledSubtitle",
+  "text": "*Будівля знову працює"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_BuildingStolenSubtitle",
+  "text": "*Будівлю захоплено"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_CashStolenSubtitle",
+  "text": "*Генерале, вони крадуть наші гроші"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_ColonelBurtonEnemySubtitle",
+  "text": "*Виявлено ворожого полковника Бартона"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_ColonelBurtonOursSubtitle",
+  "text": "*Нашого полковника Бартона виявлено"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_DefeatSubtitle",
+  "text": "*Ви зазнали поразки"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_DetectedNukeSubtitle",
+  "text": "*Увага: виявлено шахту ядерних ракет"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_DetectedParticleCannonSubtitle",
+  "text": "*Увага: виявлено Молекулярну гармату"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_DetectedScudStormSubtitle",
+  "text": "*Увага: виявлено СКАД Шторм"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_FundsReceivedSubtitle",
+  "text": "*Ми отримали кошти від союзника"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_FundsRequestedSubtitle",
+  "text": "*Ви запросили кошти в союзника"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_FundsRequestedAllySubtitle",
+  "text": "*Ваш союзник просить кошти"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_FundsTransferredSubtitle",
+  "text": "*Ми передали кошти союзнику"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_GeneralLevelUpSubtitle",
+  "text": "*Вітаю, генерале. Вас підвищено у званні"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_GPSScramblerLaunchedSubtitle",
+  "text": "*Увага. Виявлено Шифратор GPS"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_HeroDiscoveredEnemySubtitle",
+  "text": "*Виявлено ворожого героя"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_HeroDiscoveredOursSubtitle",
+  "text": "*Одного з наших героїв виявлено"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_IncomingAnthraxSubtitle",
+  "text": "*Виявлено бомбу з сибірською виразкою"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_IncomingDaisyCutterSubtitle",
+  "text": "*Виявлено бомбу «Дейзі Каттер»"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_IncomingEmpPulseSubtitle",
+  "text": "*Виявлено бомбу ЕМІ Імпульс"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_IncomingFuelAirBombSubtitle",
+  "text": "*Виявлено паливну авіабомбу"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_InsufficientFundsSubtitle",
+  "text": "*Недостатньо коштів"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_JarmenKellEnemySubtitle",
+  "text": "*Виявлено ворожого Чорного Лотоса"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_JarmenKellOursSubtitle",
+  "text": "*Нашого Чорного Лотоса виявлено"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_LaserDefenseSpeechSubtitle",
+  "text": "*Генерале, противник має укріплений опорний пункт у центрі міста. Його лазерна система оборони нищівна, але потребує багато енергії. Він буде змушений спрямовувати енергію лише на одну точку оборони за раз. Використайте це на свою користь"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_LaunchedNukeSubtitle",
+  "text": "*Увага: запущено ядерну ракету"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_LaunchedParticleCannonSubtitle",
+  "text": "*Увага: Молекулярну гармату активовано"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_LaunchedScudStormSubtitle",
+  "text": "*Увага: запущено СКАД Шторм"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_LowPowerSubtitle",
+  "text": "*Мало енергії"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_NuclearMissileDetectedAllySubtitle",
+  "text": "*Виявлено ядерну шахту союзника"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_NuclearMissileLaunchedAllySubtitle",
+  "text": "*Союзник запустив ядерну ракету"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_NuclearMissileLaunchedOursSubtitle",
+  "text": "*Ядерну ракету запущено"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_NuclearMissileReadySubtitle",
+  "text": "*Ядерна ракета готова"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_OpinionCivilianStructures01Subtitle",
+  "text": "*Генерале. Стежте, щоб цивільні споруди не були зруйновані"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_OpinionCivilianStructures02Subtitle",
+  "text": "*Руйнування цивільних споруд погіршить нашу міжнародну репутацію!"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_OpinionDestroyStatuesSubtitle",
+  "text": "*Знищуйте статуї ГВА, щоб покращити міжнародну репутацію, сер"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_OpinionDestroyStructuresSubtitle",
+  "text": "*Сер. Знищення ворожих споруд покращить нашу міжнародну репутацію"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_OpinionDestroyTroopsSubtitle",
+  "text": "*Знищуйте більше ворожих військ, щоб покращити міжнародну репутацію"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_OpinionFallingSubtitle",
+  "text": "*Наша міжнародна репутація падає!"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_OpinionLowSubtitle",
+  "text": "*Наша міжнародна репутація погіршується"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_OpinionLowCriticalSubtitle",
+  "text": "*Наша міжнародна репутація критично низька!"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_OpinionLowVerySubtitle",
+  "text": "*Наша міжнародна репутація дуже низька"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_OpinionProtectCivilianSubtitle",
+  "text": "*Захищайте цивільне майно від шкоди"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_OpinionRisingSubtitle",
+  "text": "*Наша міжнародна репутація зростає!"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_ParticleCannonDetectedAllySubtitle",
+  "text": "*Виявлено Молекулярну гармату союзника"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_ParticleCannonLaunchedAllySubtitle",
+  "text": "*Молекулярну гармату союзника активовано"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_ParticleCannonLaunchedOursSubtitle",
+  "text": "*Молекулярну гармату активовано"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_ParticleCannonReadySubtitle",
+  "text": "*Молекулярна гармата готова"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_ReinforcementsHaveArrivedSubtitle",
+  "text": "*Прибуло підкріплення"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_ScudStormDetectedAllySubtitle",
+  "text": "*Виявлено СКАД Шторм союзника"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_ScudStormLaunchedAllySubtitle",
+  "text": "*Союзник запустив СКАД Шторм"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_ScudStormLaunchedOursSubtitle",
+  "text": "*СКАД Шторм запущено"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_ScudStormReadySubtitle",
+  "text": "*СКАД Шторм готовий"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_SelectTargetSubtitle",
+  "text": "*Виберіть ціль"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_SneakAttackLaunchedSubtitle",
+  "text": "*Увага. Виявлено Приховану атаку"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_UnitLostSubtitle",
+  "text": "*Одиницю втрачено"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_UpgradeCompleteSubtitle",
+  "text": "*Покращення завершено"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_UpgradeControlRodSubtitle",
+  "text": "*Покращення «Стрижні керування» завершено"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_UpgradeControlRodAdvancedSubtitle",
+  "text": "*Покращення «Покращені стрижні керування» завершено"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_UpgradeMoabSubtitle",
+  "text": "*Покращення «МВБ» завершено"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_UpgradeSentryDroneSubtitle",
+  "text": "*Покращення Сторожового дрона завершено"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_VehicleStolenSubtitle",
+  "text": "*Техніку викрадено"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_VictorySubtitle",
+  "text": "*Ви перемогли"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xBrf01Subtitle",
+  "text": "*Генерале, ГВА вдалося розгромити сили США в цьому районі. Ми завдали нищівного контрудару, але вони, як таргани, досі живі"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xBrf02Subtitle",
+  "text": "*Навіть зараз уцілілі бійці ГВА відбудовуються"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xBrf03Subtitle",
+  "text": "*Щоб остаточно знищити ГВА, ми маємо ввести свої сили й викурити їх з кожного темного закутка, де вони ховаються"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xBrf04Subtitle",
+  "text": "*Генерале, в цьому районі розміщено наші нові Аванпости прослуховування. Вони у вашому розпорядженні"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xBrf05Subtitle",
+  "text": "*Сам Аванпост прослуховування не озброєний, але його пасажири можуть вести вогонь по ворогах, що підійдуть надто близько. Його велика дальність огляду та здатність до маскування значно покращують обізнаність на полі бою"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xChat01Subtitle",
+  "text": "*Жоден бойовик ГВА не проскочить повз наш гарнізон"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xChat02Subtitle",
+  "text": "*Токсинові трактори! Вони хочуть нас усіх отруїти…нам потрібна підтримка!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xChat03Subtitle",
+  "text": "*Дивіться…нафтові вишки…захопимо їх?"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xChat04Subtitle",
+  "text": "*ГВА у вашому домі? Додайте трохи вогню…і ГВА більше немає"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xChat05Subtitle",
+  "text": "*ГВА там відбудовується…будьте готові до атаки"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xChat06Subtitle",
+  "text": "*Цей день буде нашим…усім вперед…"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xCin01aSubtitle",
+  "text": "*Я не думав, що Сполучені Штати зазнають поразки так легко"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xCin01bSubtitle",
+  "text": "*Я не розумію, чому Сполучені Штати допустили таке"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xCin01cSubtitle",
+  "text": "*Цього не можна так залишити. Китай усе виправить"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xCin01dSubtitle",
+  "text": "*Підступне використання ГВА наших ресурсів проти американців завдало Китаю великої ганьби. Вони мусять заплатити за своє нахабство"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xCin02Subtitle",
+  "text": "*Ракети підготовлено й готово до запуску…розпочато остаточний відлік"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xCin03Subtitle",
+  "text": "*3…2…1… Ракети пішли"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xCin04Subtitle",
+  "text": "*Вони думають, що перемогли, але радіють зарано"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xCin05Subtitle",
+  "text": "*Це гарно, коли застосовується з правильних причин…"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xCin06Subtitle",
+  "text": "*Уцілілі бійці ГВА тікають до міста в пошуках укриття…їх треба зупинити!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xCin07Subtitle",
+  "text": "*Ми на позиції…бомболюки відкрито…"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xCin08Subtitle",
+  "text": "*Ми помітили уцілілих. Знадобиться наземний штурм"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xXO01Subtitle",
+  "text": "*Генерале, нашу колишню базу в регіоні захопили ГВА. Вам доведеться збудувати нову базу, перш ніж вступати в бій з ворогом"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xXO02Subtitle",
+  "text": "*Дозвольте запропонувати розмістити гарнізони в кількох найближчих будівлях, щоб захистити нашу базу"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xXO03Subtitle",
+  "text": "*Генерале, ГВА розмістила гарнізони в кількох будівлях по всьому місту. Можливо, варто застосувати Танк Дракон, щоб вибити ці гарнізони"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xXO04Subtitle",
+  "text": "*Генерале, ГВА веде Токсинові трактори до наших будівель з гарнізонами. Якщо ці трактори атакують будівлі, усі, хто всередині, загинуть"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xXO05Subtitle",
+  "text": "*ГВА використовує ці нафтові вишки для фінансування своїх сил. Хтось із наших Червоногвардійців міг би захопити ці вишки. Прибуток допоможе перемогти ГВА"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xXO06Subtitle",
+  "text": "*Генерале, чи розумно знищувати ці нафтові вишки? Вони дали б нам цінні ресурси. Хтось із наших Червоногвардійців міг би їх захопити"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xXO07Subtitle",
+  "text": "*Ви застали їх зненацька, генерале. Хтось із ваших Червоногвардійців міг би захопити їхні будівлі, перш ніж вони встигнуть відреагувати"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xXO08Subtitle",
+  "text": "*Тепер, коли ви відновили нашу операційну базу, час викорінити всі сили ГВА, що залишилися в районі"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xXO09Subtitle",
+  "text": "*Вітаю, генерале. Ви звільнили місто від усіх сил ГВА. Щойно ви знищите їхню останню базу, місію буде виконано"
+ },
+ {
+  "label": "DIALOGEVENT:MisChi02Lin13Subtitle",
+  "text": "*Терористичну загрозу ліквідовано. Гарна робота, генерале"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xBrf01Subtitle",
+  "text": "*Генерале, ГВА намагається викрасти ядерні боєголовки, що зберігаються на цьому об’єкті"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xBrf01aSubtitle",
+  "text": "*Генерале, ГВА намагається знищити нашу головну атомну електростанцію"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xBrf02Subtitle",
+  "text": "*Наші хоробрі солдати відбили їхню атаку, але дорогою ціною, а ГВА досі десь поруч"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xBrf03Subtitle",
+  "text": "*Ви маєте стримати ГВА й забезпечити захист кожного з наших бункерів"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xBrf03aSubtitle",
+  "text": "*Ви маєте стримати ГВА, щоб об’єкт не було знищено"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xBrf04Subtitle",
+  "text": "*У нас є кілька нових технологій, які мають стати в великій пригоді у вашій місії, генерале"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xBrf05Subtitle",
+  "text": "*Наші Ядерні гармати тепер покращено для стрільби нейтронними снарядами. Ці нові снаряди ефективно знищують солдатів і водіїв техніки. Щойно радіація розсіється, хтось із наших піхотинців зможе захопити вцілілу техніку"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xBrf06Subtitle",
+  "text": "*Наші будівлі тепер можна покращити Нейтронними мінами. Вони й далі ефективні проти піхоти, а також тимчасово виводять з ладу ворожу техніку"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xBrf07aSubtitle",
+  "text": "*Генерале, ваше підкріплення прибуде за 15 хвилин"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xBrf07bSubtitle",
+  "text": "*Генерале, ваше підкріплення прибуде за 10 хвилин"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xBrf07cSubtitle",
+  "text": "*Генерале, ваше підкріплення прибуде за 5 хвилин"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xBrf07dSubtitle",
+  "text": "*Генерале, ваше підкріплення незабаром прибуде"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat01Subtitle",
+  "text": "*Помічено ворожі сили. Ми їх стримаємо"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat02Subtitle",
+  "text": "*Нас обстрілюють на правому фланзі…тут потрібна підтримка"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat03Subtitle",
+  "text": "*Вони позаду нас…весь вогонь на південь!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat04Subtitle",
+  "text": "*База ГВА в зоні досяжності…усі загони готові до атаки, генерале"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat05Subtitle",
+  "text": "*На тому хребті ворожі будівлі. Лише накажіть, генерале, і ми їх розчавимо"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat06Subtitle",
+  "text": "*Стережіться солдатів з РПГ! Нам потрібна допомога!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat07Subtitle",
+  "text": "*Генерале, ми над районом цілі й почали бомбардування"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat08Subtitle",
+  "text": "*Розстеляємо килим…з бомб. Хе-хе"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat09Subtitle",
+  "text": "*Тут щільна ворожа ППО…ми зазнаємо важких пошкоджень"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat10Subtitle",
+  "text": "*Позиції Стингерів взяли нас на приціл…у нас проблеми!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat11Subtitle",
+  "text": "*Зупиніть того повстанця, він намагається захопити наш бункер!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat12Subtitle",
+  "text": "*Це не Майстер бою, але доведеться обійтися цим"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat13Subtitle",
+  "text": "*Я волію свій танк Гатлінг"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat14Subtitle",
+  "text": "*Ще одна хвиля ГВА!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat15Subtitle",
+  "text": "*Ми мусимо захистити наші бункери!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat15aSubtitle",
+  "text": "*Ми мусимо захистити ядерний реактор!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat16Subtitle",
+  "text": "*Тепер ми покажемо їм, як атакувати базу!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat17Subtitle",
+  "text": "*Підкріплення! Ми раді вас бачити!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat18Subtitle",
+  "text": "*Чекаємо ваших наказів, генерале. Куди нас направити?"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xCin01Subtitle",
+  "text": "*Будьмо напоготові. Повідомляють, що ГВА може атакувати на помсту за наш вступ у війну"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xCin01aSubtitle",
+  "text": "*Мені неспокійно охороняти цю атомну станцію"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xCin01bSubtitle",
+  "text": "*Ага. Краще б я пішов служити до повітряних сил"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xCin01dSubtitle",
+  "text": "*Після нашої недавньої перемоги вони, звісно, не посміють атакувати нас тут"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xCin01cSubtitle",
+  "text": "*У них їжа значно краща. І ще вони носять ті модні шоломи"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xCin02Subtitle",
+  "text": "*Сили ГВА! Нас атакують!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xCin03Subtitle",
+  "text": "*Вони всюди! Нас зминають"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xCin04Subtitle",
+  "text": "*Ще одна хвиля! Нам потрібне підкріплення!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xCin04aSubtitle",
+  "text": "*Ще одна хвиля! У них вантажівки з бомбами й терористи! Нам потрібне підкріплення!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xCin04bSubtitle",
+  "text": "*Ще одна хвиля! Вони застосовують тактику смертників! Де те підкріплення?!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xCin05Subtitle",
+  "text": "*Ми втратили аеродром!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xCin06Subtitle",
+  "text": "*Вони пробиваються до бункерів-сховищ! Захистіть їх за будь-яку ціну!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xCin06aSubtitle",
+  "text": "*Вони пробиваються до головного реактора! Захистіть його за будь-яку ціну!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xCin07Subtitle",
+  "text": "*Командний центр…вони знищили Командний центр"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xCin08Subtitle",
+  "text": "*Ми вистояли… …уцілілим силам доповісти…"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xCin09Subtitle",
+  "text": "*Залишилося небагато. Нам знадобиться підкріплення"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xCin10Subtitle",
+  "text": "*Повідомлення дійшло, але нам доведеться протриматися, доки вони прибудуть"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xXO01Subtitle",
+  "text": "*Генерале, наше підкріплення прибуло!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xXO02Subtitle",
+  "text": "*Генерале, сили ГВА атакують бункери"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xXO02aSubtitle",
+  "text": "*Генерале, сили ГВА атакують атомну станцію!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xXO03Subtitle",
+  "text": "*ГВА намагається захопити один з наших бункерів"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xXO04Subtitle",
+  "text": "*Генерале, цей бункер сильно пошкоджено. Раджу відремонтувати його до наступної атаки ГВА"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xXO04aSubtitle",
+  "text": "*Генерале, нашу атомну станцію сильно пошкоджено. Раджу відремонтувати її до наступної атаки ГВА"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xXO05Subtitle",
+  "text": "*Генерале, остання атака сильно ослабила кілька бункерів. Якщо один з них буде знищено, ГВА переможе в цьому бою"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xXO05aSubtitle",
+  "text": "*Генерале, остання атака сильно ослабила атомну станцію. Якщо її буде знищено, ми провалимо місію!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xXO06Subtitle",
+  "text": "*Увага…сили ГВА рухаються до бункерів"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xXO06aSubtitle",
+  "text": "*Увага…сили ГВА рухаються до електростанції!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xXO07Subtitle",
+  "text": "*Генерале, я встановив зв’язок з одним з наших шпигунських аванпостів. Вони під атакою ГВА. Якщо ми їх врятуємо, я зможу підключитися до їхньої системи, і ми зможемо викликати килимові бомбардувальники"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xXO08Subtitle",
+  "text": "*Генерале, якщо ви убезпечите той шпигунський аванпост, то зможете спрямовувати килимові бомбардування на сили ГВА"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xXO09Subtitle",
+  "text": "*Генерале, тепер, коли прибуло наше підкріплення, час вибити ГВА з цього району"
+ },
+ {
+  "label": "DIALOGEVENT:MisChi03RedChat12Subtitle",
+  "text": "*До бою!"
+ },
+ {
+  "label": "DIALOGEVENT:MisChi03RedChat19Subtitle",
+  "text": "*Введіть танки! Зрівняйте їх із землею!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xBrf01Subtitle",
+  "text": "*Вітаю, командире. Тепер, коли ми зірвали контратаку ГВА, час розвинути нашу перевагу!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xBrf02Subtitle",
+  "text": "*Ми маємо звільнити це місто з лап ГВА"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xBrf03Subtitle",
+  "text": "*На північ від річки є дуже добре захищена база ГВА. Ми маємо її знищити, але це буде нелегко"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xBrf04Subtitle",
+  "text": "*Наші операції привернули значну увагу решти світу, і за нами уважно стежитимуть. Що довше триватиме цей бій, то нижче впаде наша міжнародна репутація"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xBrf05Subtitle",
+  "text": "*Слід уникати шкоди цивільному майну. Наша операція має бути точною і швидкою. Знищення сил ГВА покращить міжнародну репутацію на нашу користь"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xBrf09Subtitle",
+  "text": "*Якщо наша міжнародна репутація буде достатньо високою, жителі міста можуть приєднатися до нашої справи"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xBrf10Subtitle",
+  "text": "*Тоді буде легко знищити оборону ГВА"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xChat01Subtitle",
+  "text": "*Десь тут у них має бути замаскована Тунельна мережа…"
+ }
+]

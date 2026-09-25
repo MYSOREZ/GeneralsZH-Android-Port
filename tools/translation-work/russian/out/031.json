@@ -1,0 +1,802 @@
+[
+ {
+  "label": "CONTROLBAR:Infa_ConstructChinaInfantryHacker",
+  "text": "Супер хакер [&A]"
+ },
+ {
+  "label": "CONTROLBAR:Infa_ToolTipChinaBuildHacker",
+  "text": "Невидем. Может вывести из строя здания и технику с помощью компьютерного вируса или может взломать и выкрасть деньги через интернет  \n  \n Силён против зданий  \n Слаб против пехоты и техники"
+ },
+ {
+  "label": "CONTROLBAR:Infa_ConstructChinaInfantryBlackLotus",
+  "text": "Супер лотос [&S]"
+ },
+ {
+  "label": "CONTROLBAR:Infa_ConstructChinaVehicleListeningOutpost",
+  "text": "Боевой передвижной радар [&O]"
+ },
+ {
+  "label": "CONTROLBAR:Infa_ConstructChinaVehicleTroopCrawler",
+  "text": "Штурмовой бронетранспортёр [&A]"
+ },
+ {
+  "label": "CONTROLBAR:Infa_ConstructChinaVehicleHelix",
+  "text": "Штурмовая Улитка [&X]"
+ },
+ {
+  "label": "CONTROLBAR:Infa_ToolTipChinaBuildHelix",
+  "text": "Тяжёлый штурмовой транспорт  \n улучшается с помощью оборонных сооружений и бомбы с напалмом  \n  \n Сильна против танков и лёгкой техники  \n Слаба против пехоты вооруженной ракетами и систем ПВО базы"
+ },
+ {
+  "label": "OBJECT:Infa_Helix",
+  "text": "Штурмовая Улитка"
+ },
+ {
+  "label": "CONTROLBAR:Infa_ToolTipChinaScienceInfantryParadrop",
+  "text": "Десантирование пулемётчиков с воздуха  \n  \n Уровень 1: 5 пулемётчиков  \n Уровень 2: 10 пулемётчиков  \n Уровень 3: 15 пулемётчиков  \n  \n Управление из: Командного центра"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeSuicideBomb",
+  "text": "Способность подрыва [&D]"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAUpgradeSuicideBomb",
+  "text": "Позволяет всем подразделениям,  \n и обороне базы использовать  \n способность подрыва"
+ },
+ {
+  "label": "OBJECT:MiniGunner",
+  "text": "Пулемётчик"
+ },
+ {
+  "label": "OBJECT:AirF_Chinook",
+  "text": "Боевой Чинук"
+ },
+ {
+  "label": "CONTROLBAR:AirF_ConstructAmericaVehicleChinook",
+  "text": "Боевой Чинук [&T]"
+ },
+ {
+  "label": "CONTROLBAR:AirF_ToolTipUSABUildChinook",
+  "text": "Боевой транспортный вертолёт. Собирает снабжение. Служит хорошим транспортом для боевого десантирования рейнджеров"
+ },
+ {
+  "label": "CONTROLBAR:SuicideAttack",
+  "text": "Самоубийство [&I]"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLASuicideAttack",
+  "text": "Взорвать"
+ },
+ {
+  "label": "CONTROLBAR:Tank_TooltipUpgradeChinaNuclearTanks",
+  "text": "+25% к скорости Императора и Мастера боя"
+ },
+ {
+  "label": "CONTROLBAR:Boss_ToolTipUSABuildPowerPlant",
+  "text": "Производство энергии для баз  \n  \n Выход энергии : 5"
+ },
+ {
+  "label": "CONTROLBAR:Nuke_ToolTipChinaBuildListeningOutpost",
+  "text": "Штурмовой транспорт. Обнаруживает невидимые подразделения  \n  \n Силён против пехоты и зданий  \n Слаб против танков и авиации"
+ },
+ {
+  "label": "CONTROLBAR:Nuke_ConstructChinaVehicleListeningOutpost",
+  "text": "Боевой передвижной радар [&S]"
+ },
+ {
+  "label": "CONTROLBAR:Infa_ToolTipChinaBuildTroopCrawler",
+  "text": "Штурмовой транспорт. Содержит 8 пулемётчиков. Обнаруживает невидимые подразделения  \n  \n Силён против пехоты и зданий  \n Слаб против танков и аиации"
+ },
+ {
+  "label": "CONTROLBAR:Infa_ToolTipChinaBuildListeningOutpost",
+  "text": "Транспорт. Содержит 10 пехотинцев. Обнаруживает невидимые подразделения  \n  \n Силён против пехоты и зданий  \n Слаб против танков и авиации"
+ },
+ {
+  "label": "CONTROLBAR:Infa_ConstructChinaBunker",
+  "text": "Укреплённый бункер [&K]"
+ },
+ {
+  "label": "CONTROLBAR:Infa_ToolTipChinaBuildBunker",
+  "text": "Может вместить 10 китайских солдат  \n Строится сразу с минным полем"
+ },
+ {
+  "label": "OBJECT:Infa_Bunker",
+  "text": "Укреплённый бункер"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAScienceSneakAttack",
+  "text": "Войска могут создать туннель в любом месте на карте  \n  \n Управление из: Командного центра"
+ },
+ {
+  "label": "CONTROLBAR:Chem_ConstructGLAInfantryRebel",
+  "text": "Химический повстанец [&B]"
+ },
+ {
+  "label": "CONTROLBAR:Chem_ToolTipGLABuildRebel",
+  "text": "Стреляет ядовитым токсином  \n Силён против пехоты  \n Слаб против танков и лёгкой техники"
+ },
+ {
+  "label": "OBJECT:Chem_Rebel",
+  "text": "Химический повстанец"
+ },
+ {
+  "label": "OBJECT:Chem_Terrorist",
+  "text": "Химический террорист"
+ },
+ {
+  "label": "CONTROLBAR:Chem_ConstructGLAInfantryTerrorist",
+  "text": "Химический террорист [&T]"
+ },
+ {
+  "label": "CONTROLBAR:Chem_ToolTipGLABuildTerrorist",
+  "text": "Солдат самоубийца с бомбой начинённой токсинами"
+ },
+ {
+  "label": "CONTROLBAR:Chem_ConstructGLATunnelNetwork",
+  "text": "Химическая сеть туннелей [&N]"
+ },
+ {
+  "label": "OBJECT:Chem_TunnelNetwork",
+  "text": "Химическая сеть туннелей"
+ },
+ {
+  "label": "CONTROLBAR:Chem_ToolTipGLABuildTunnelNetwork",
+  "text": "Защита базы и подземный туннель. Стреляет ядовитым токсином. Подразделения могут войти в сеть туннелей и выйти из другой сети туннелей"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeStealthComanche",
+  "text": "Улучшение - невидимость [&S]"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipAirFUpgradeComancheStealth",
+  "text": "Команчи станут невидимыми"
+ },
+ {
+  "label": "OBJECT:Entrance",
+  "text": "Вход"
+ },
+ {
+  "label": "CONTROLBAR:Boss_TooltipChinaUpgradeNationalism",
+  "text": "+25% к бонусу Орды для Охотника за танками"
+ },
+ {
+  "label": "CONTROLBAR:Lazr_ToolTipUSABuildPowerPlant",
+  "text": "Производство энергии для баз США.  \n  \n Выход энергии: 8"
+ },
+ {
+  "label": "GUI:DoubleClickAttackMove",
+  "text": "Охрана по двойному клику"
+ },
+ {
+  "label": "TOOLTIP:DoubleClickAttackMove",
+  "text": "Подразделения игрока будут перемещаться и охранять точку назначения при двойном клике кнопки"
+ },
+ {
+  "label": "DIALOGEVENT:01_AllCheerSoundSubtitle",
+  "text": "<Ликование>"
+ },
+ {
+  "label": "CONTROLBAR:Lazr_ToolTipUSABuildPatriotBattery",
+  "text": "Наземная и воздушная оборона. Может передавать местоположения врага, расположенным рядом, пушкам  \n  \n Потребление энергии: 3"
+ },
+ {
+  "label": "CONTROLBAR:Lazr_ConstructAmericaPatriotBattery",
+  "text": "Лазерная пушка [&T]"
+ },
+ {
+  "label": "CONTROLBAR:Lazr_ConstructAmericaTankCrusader",
+  "text": "Лазерный танк [&T]"
+ },
+ {
+  "label": "OBJECT:Lazr_Tank",
+  "text": "Лазерный танк"
+ },
+ {
+  "label": "CONTROLBAR:Lazr_ToolTipUSABuildCrusader",
+  "text": "Силён против техники и зданий  \n Слаб против авиации и пехоты вооруженной ракетами"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildEmperor",
+  "text": "Силён против техники и зданий  \n Слаб против ракет и авиации"
+ },
+ {
+  "label": "CONTROLBAR:AirF_ToolTipUSAScienceSpectreGunship",
+  "text": "Самолёт огневой поддержки кружит над полем боя и ведет огонь по врагам из гаубиц и пулемётов  \n  \n Уровень 1: 10 секунд  \n Уровень 2: 15 секунд  \n Уровень 3: 30 секунд  \n  \n Управление из: Командного центра"
+ },
+ {
+  "label": "OBJECT:ValveStation",
+  "text": "Насосная станция"
+ },
+ {
+  "label": "HELP:Hijacker-01",
+  "text": "ПОДСКАЗКА:  \n Отправьте угонщика во вражескую технику для её угона"
+ },
+ {
+  "label": "MAP:MD-USA04_Hint08",
+  "text": "ПОДСКАЗКА:  \n Стройте защитные пушки для обороны Вашей базы"
+ },
+ {
+  "label": "MAP:MD-USA04_Hint09",
+  "text": "ВХОДЯЩИЕ СООБЩЕНИЕ:  \n Найден сотрудник ЦРУ"
+ },
+ {
+  "label": "MAP:MD-USA04_Hint10",
+  "text": "ПОДСКАЗКА:  \n Стройте защитные сооружения возле нефтяных месторождений для их защиты"
+ },
+ {
+  "label": "MAP:MD-USA04_Hint11",
+  "text": "ВХОДЯЩИЕ СООБЩЕНИЕ:  \n Радиостанция МАО уничтожена"
+ },
+ {
+  "label": "MAP:MD-USA06Warning17",
+  "text": "ВНИМАНИЕ:  \n Доктор Тракс любит использовать внезапную атаку и  \n сеть туннелей, чтобы застать врага врасплох"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_1",
+  "text": "Атака на китайскую базу уже началась  \n Их база скоро будет наша"
+ },
+ {
+  "label": "MAP:MD_CHI03-Title-01",
+  "text": "Кобург, Германия  \n 'Освобождение'"
+ },
+ {
+  "label": "MAP:MD_CHI03-Info-MissionObjective-01",
+  "text": "ЦЕЛЬ МИССИИ:  \n Уничтожить памятники МАО для освобождения города  \n Наш международный статус будет падать, пока мы бездействуем"
+ },
+ {
+  "label": "MAP:MD_CHI03-Info-MissionObjective-02",
+  "text": "ВХОДЯЩИЕ СООБЩЕНИЕ:  \n Если наш международный статус опустится до 0, мы потерпим поражение"
+ },
+ {
+  "label": "MAP:MD_CHI03-Info-MissionObjective-03",
+  "text": "ВХОДЯЩИЕ СООБЩЕНИЕ:  \n Уничтожайте памятники МАО для повышения нашего международного статуса"
+ },
+ {
+  "label": "MAP:MD_CHI03-Info-MissionObjective-10",
+  "text": "ВХОДЯЩИЕ СООБЩЕНИЕ:  \n Мы освободили город  \n Теперь уничтожьте базу МАО на Северной стороне реки"
+ },
+ {
+  "label": "MAP:MD_CHI03-Event-Built-SpeakerTower-01",
+  "text": "ВХОДЯЩИЕ СООБЩЕНИЕ:  \n Эта башня пропаганды повышает наш международный статус"
+ },
+ {
+  "label": "CONTROLBAR:Tank_TooltipUpgradeChinaUraniumShells",
+  "text": "+25% к огневой мощи Мастера боя и Императора"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAUpgradeBuggyAmmo",
+  "text": "+100% к броне ракетного багги"
+ },
+ {
+  "label": "CONTROLBAR:Chem_ToolTipGLAUpgradeAPBullets",
+  "text": "+25% к огневой мощи подразделений с огнестрельным оружием"
+ },
+ {
+  "label": "GUI:BioFeatures_USA",
+  "text": "МВБ  \n Тепловые ракеты  \n Противобункерные ракеты  \n Ракетный беспилотный аппарат  \n Самолёт огневой поддержки  \n Защитный беспилотный аппарат  \n Микроволновый танк  \n Мститель  \n Защитная пушка"
+ },
+ {
+  "label": "GUI:BioFeatures_GLA",
+  "text": "Внезапная атака  \n Скрытие от СВМ  \n Саботажник  \n Растяжка  \n Маскировочная сетка  \n Фальшивые здания  \n Укреплённые здания  \n Боевые мотоцыклы  \n Боевой автобус"
+ },
+ {
+  "label": "GUI:BioFeatures_China",
+  "text": "Улитка  \n Передвижной радар  \n Нейтронные мины  \n Ярость  \n Центр Интернет  \n Ковровый бомбардировщик  \n Электромагнитный танк"
+ },
+ {
+  "label": "GUI:BioFeatures_Pos0",
+  "text": "Королевские Рапторы  \n Боевой Чинук  \n Лазерная защита  \n Улучшение - Невидимый Команч  \n Низкая стоимость авиации  \n Самолёт огневой поддержки с младшего звания  \n Истребитель Стелс доступен с начала  \n Нет танков"
+ },
+ {
+  "label": "GUI:BioFeatures_Pos1",
+  "text": "Химические повстанцы  \n Химическая сеть туннелей  \n Химические террористы  \n Сибирская язва гамма  \n Танки начинают с химическими зарядами  \n Токсины начинают с сибирской язвы бета"
+ },
+ {
+  "label": "GUI:BioFeatures_Pos2",
+  "text": "Танки с урановыми снарядами  \n Ядерный МиГ  \n Устойчивость изотопов  \n Улучшенный ядерный реактор  \n Ядерный бомбардировщик  \n Сразу доступны ядерные пушки"
+ },
+ {
+  "label": "GUI:BioFeatures_Pos3",
+  "text": "Аврора Альфа  \n ЗРК ЭМИ \"Патриот\"  \n Улучшенное управление стрежнями  \n Молекулярные пушки стоят дешевле  \n Техника стоит дороже  \n Нет танков"
+ },
+ {
+  "label": "GUI:BioFeatures_Pos4",
+  "text": "Танк Император  \n Десантирование танков  \n Все танки выпускаются ветеранами  \n Танки стоят дешевле  \n Авиация стоит дороже  \n Нет самоходной ядерной пушки и самоходного миномета Инферно"
+ },
+ {
+  "label": "GUI:BioFeatures_Pos5",
+  "text": "Лазерный Танк  \n Лазерная защитная пушка  \n Мстители стоят дешевле  \n Улучшенные термоядерные реакторы  \n Нет Томагавков"
+ },
+ {
+  "label": "GUI:BioFeatures_Pos6",
+  "text": "На все здания может быть установлена маскеровочная сетка  \n Маскирующиеся повстанцы  \n Оборонительные сооружения с маскировочной сеткой  \n Угонщик доступен в начале  \n Угонщик всегда незаметен  \n Быстрая готовность скрытия от СВМ  \n Более частое скрытие от СВМ"
+ },
+ {
+  "label": "GUI:BioFeatures_Pos7",
+  "text": "Штурмовой бронетранспортёр  \n Штурмовая Улитка  \n Боевой передвижной радар  \n Укреплённые бункеры  \n Пулемётчики  \n Чёрный лотос взламывает быстрее  \n Хакеры взламывают быстрее  \n Десантирование пулемётчиков  \n Вся пехота начинает ветеранами"
+ },
+ {
+  "label": "GUI:BioFeatures_Pos8",
+  "text": "Улучшенный фугас  \n Улучшение - Бомба самоубийц  \n Террористы наносят больше урона  \n Растяжки доступны в начале  \n Боевые мотоциклы с террористами  \n Нет маскирующихся подразделений  \n Грузовики со взрывчаткой стоят дешевле"
+ },
+ {
+  "label": "GUI:BioFeatures_Pos9",
+  "text": "Использует лучшее из лучшего  \n Все герои  \n Всё супероружие  \n Способности диверсионного генерала  \n Подразделения всех фракций  \n Улучшенная оборона базы"
+ },
+ {
+  "label": "GUI:BioFeatures_Pos10",
+  "text": "не реализовано"
+ },
+ {
+  "label": "GUI:BioFeatures_Pos11",
+  "text": "не реализовано"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_AirTrafficControl01Subtitle",
+  "text": "***"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth107Subtitle",
+  "text": "***"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth105Subtitle",
+  "text": "***"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth106Subtitle",
+  "text": "***"
+ },
+ {
+  "label": "GUI:GroupRoom14",
+  "text": "Только обычные армии"
+ },
+ {
+  "label": "OBJECT:MissileSilo",
+  "text": "Ракетное хранилище"
+ },
+ {
+  "label": "OBJECT:ScudLauncherHiDef",
+  "text": "Эльбрус"
+ },
+ {
+  "label": "OBJECT:CINE_SnowyMountainParticleBones",
+  "text": "."
+ },
+ {
+  "label": "OBJECT:CINE_SnowyMountainScrollingSnow",
+  "text": "Снег"
+ },
+ {
+  "label": "OBJECT:CINE_SnowyMountainStatic",
+  "text": "Гора"
+ },
+ {
+  "label": "OBJECT:CINE_TreeBirds",
+  "text": "Птицы"
+ },
+ {
+  "label": "TOOLTIP:NoUserMaps",
+  "text": "Нельзя записывать статистику игр на неофициальных картах"
+ },
+ {
+  "label": "GUI:FireWallPort",
+  "text": "Регулировка порта брандмауэра:"
+ },
+ {
+  "label": "TOOLTIP:FireWallPort",
+  "text": "Открыть номер порта брандмауэра"
+ },
+ {
+  "label": "CONTROLBAR:Tank_TooltipUpgradeChinaOverlordGattlingCannon",
+  "text": "Построить пулемётную пушку на этом Императоре"
+ },
+ {
+  "label": "OBJECT:Tank_Overlord",
+  "text": "Император"
+ },
+ {
+  "label": "GUI:USAAllies",
+  "text": "США - Союзники"
+ },
+ {
+  "label": "GUI:USAEnemies",
+  "text": "США - Враги"
+ },
+ {
+  "label": "OBJECT:BigNuclearReactor",
+  "text": "Ядерный реактор"
+ },
+ {
+  "label": "CONTROLBAR:SabotageBuilding",
+  "text": "Саботировать здание [&B]"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLASabotageBuilding",
+  "text": "Может на время вывести из строя вражеское здание  \n  \n Силён против вражеских зданий  \n Слаб против пехоты и разведчиков"
+ },
+ {
+  "label": "SCIENCE:Nuke_ChinaCarpetBomb",
+  "text": "Ядерный бомбардировщик"
+ },
+ {
+  "label": "CONTROLBAR:Demo_ConstructGLADemoTrap",
+  "text": "Улучшенный фугас [&D]"
+ },
+ {
+  "label": "CONTROLBAR:Nuke_ConstructChinaPowerPlant",
+  "text": "Улучшенный ядерный реактор [&R]"
+ },
+ {
+  "label": "CONTROLBAR:SupW_UpgradeAmericaAdvancedControlRods",
+  "text": "Улучшенные графитовые стержни [&C]"
+ },
+ {
+  "label": "CONTROLBAR:Nuke_CarpetBomb",
+  "text": "Ядерный бомбардировщик [&K]"
+ },
+ {
+  "label": "OBJECT:Nuke_NuclearReactor",
+  "text": "Улучшенный ядерный реактор"
+ },
+ {
+  "label": "OBJECT:Demo_DemoTrap",
+  "text": "Улучшенный фФугас"
+ },
+ {
+  "label": "CONTROLBAR:Nuke_ToolTipChinaBuildPowerPlant",
+  "text": "Улучшенный ядерный реактор. Может быть перегружен для выработки большего количества энергии  \n  \n Выход энергии: 18"
+ },
+ {
+  "label": "CONTROLBAR:Nuke_ToolTipChinaScienceCarpetBomb",
+  "text": "Позволит Вам вызвать тяжелый бомбардировщик для ковровой бомбардировки ядерными бомбами  \n  \n Управление из: Командного центра"
+ },
+ {
+  "label": "CONTROLBAR:Nuke_TooltipCarpetBomb",
+  "text": "Бомбардировка ядерными бомбами выбранной местности  \n  \n Время для готовности: 2:30"
+ },
+ {
+  "label": "GUI:FastForwardInstructions",
+  "text": "Нажмите F, чтобы включить или выключить ускорение"
+ },
+ {
+  "label": "GUI:FF_ON",
+  "text": "Ускорение включено"
+ },
+ {
+  "label": "GUI:FF_OFF",
+  "text": "Ускорение выключено"
+ },
+ {
+  "label": "CONTROLBAR:LeafletDropShort",
+  "text": "Сброс листовок"
+ },
+ {
+  "label": "CONTROLBAR:SneakAttackShort",
+  "text": "Внезапная атака"
+ },
+ {
+  "label": "CONTROLBAR:TankParadropShort",
+  "text": "Десантирование танков"
+ },
+ {
+  "label": "OBJECT:Nuke_CarpetBomb",
+  "text": "Ядерный бомбардировщик"
+ },
+ {
+  "label": "CONTROLBAR:Slth_ConstructGLAInfantryRebel",
+  "text": "Невидимый повстанец [&B]"
+ },
+ {
+  "label": "GUI:AdjustGameSpeed",
+  "text": "Изменить скорость игры"
+ },
+ {
+  "label": "GUI:SkirmishLower",
+  "text": "Схватка"
+ },
+ {
+  "label": "GUI:Refresh",
+  "text": "Обновить"
+ },
+ {
+  "label": "CONTROLBAR:MOAB",
+  "text": "Мать всех бомб [&B]"
+ },
+ {
+  "label": "MAP:TournamentPlains",
+  "text": "Турнир на равнине"
+ },
+ {
+  "label": "MAP:DarkNight",
+  "text": "Тёмная ночь"
+ },
+ {
+  "label": "MAP:TournamentUrban",
+  "text": "Турнир в городе"
+ },
+ {
+  "label": "MAP:TwoRoads",
+  "text": "Две дороги"
+ },
+ {
+  "label": "CONTROLBAR:Chem_TooltipFireRebelAmbush",
+  "text": "Создание химических повстанцев  \n  \n Время для готовности: 4:00"
+ },
+ {
+  "label": "CONTROLBAR:AirF_ToolTipUSABuildAurora",
+  "text": "Сверхзвуковая атака делает Аврору недоступной для вражеского огня. После сверхзвуковой атаки скорость Авроры падает на 50%  \n  \n Силбна против зданий  \n Слаба против истребителей и противовоздушной обороны"
+ },
+ {
+  "label": "CONTROLBAR:Chem_ToolTipGLAScienceRebelAmbush",
+  "text": "Позволяет Вам создавать неожиданное ополчение, состоящие из химических повстанцев в любом месте карты.  \n  \n Уровень 1: 4 Химических повстанцев  \n Уровень 2: 8 Химических повстанцев  \n Уровень 3: 16 Химических повстанцев  \n  \n Управление из: Командного центра"
+ },
+ {
+  "label": "CREDITS:PackagingProjectManager",
+  "text": "Руководитель проекта по упаковке продукта"
+ },
+ {
+  "label": "CREDITS:PackagingDesign",
+  "text": "Дизайн упаковки"
+ },
+ {
+  "label": "CREDITS:DocumentationLayout",
+  "text": "Разработка документации"
+ },
+ {
+  "label": "CREDITS:DocumentationEditor",
+  "text": "Редактор документации"
+ },
+ {
+  "label": "CREDITS:Writer",
+  "text": "Автор"
+ },
+ {
+  "label": "CREDITS:Studio",
+  "text": "Студия"
+ },
+ {
+  "label": "CREDITS:ChineseLanguageTester",
+  "text": "Проверяющий китайского языка"
+ },
+ {
+  "label": "CREDITS:Marketing",
+  "text": "Маркетинг"
+ },
+ {
+  "label": "CREDITS:QuotedTraducoes",
+  "text": "Quoted Traducoes"
+ },
+ {
+  "label": "CREDITS:ClementDuval",
+  "text": "Clement Duval"
+ },
+ {
+  "label": "CREDITS:JoseLuisRovira",
+  "text": "Jose Luis Rovira"
+ },
+ {
+  "label": "CREDITS:ExecutiveProducer",
+  "text": "Исполнительный продюсер"
+ },
+ {
+  "label": "CREDITS:TechnicalDirection",
+  "text": "Технический директор"
+ },
+ {
+  "label": "CREDITS:LeadArtists",
+  "text": "Ведущие художники"
+ },
+ {
+  "label": "CREDITS:QualityAssurance",
+  "text": "Контроль качества"
+ },
+ {
+  "label": "CREDITS:TestAnalysts",
+  "text": "Аналитики"
+ },
+ {
+  "label": "CREDITS:TiburonAdditionalQualityAssurance",
+  "text": "Дополнительные сотрудники контроля качества из EA Tiburon"
+ },
+ {
+  "label": "CREDITS:LocalizationBrazil",
+  "text": "Бразильская локализация"
+ },
+ {
+  "label": "CREDITS:TranslationServices",
+  "text": "Услуги по переводу"
+ },
+ {
+  "label": "CREDITS:TranslationCoordinator",
+  "text": "Координатор перевода"
+ },
+ {
+  "label": "CREDITS:LTCoordinator",
+  "text": "Координатор тестирования локализованного программного продукта"
+ },
+ {
+  "label": "CREDITS:RecordingStudio",
+  "text": "Студия звукозаписи"
+ },
+ {
+  "label": "CREDITS:EAWorldwideDevelopmentExecutives",
+  "text": "Руководитель разработок EA в других странах"
+ },
+ {
+  "label": "CREDITS:SpecialThanks",
+  "text": "Особая благодарность"
+ },
+ {
+  "label": "CREDITS:EAPacificDevTeam3",
+  "text": "Команда разработчиков"
+ },
+ {
+  "label": "CREDITS:NACustomerQualityControl",
+  "text": "Контроль качества для клиентов (Северная Америка)"
+ },
+ {
+  "label": "CONTROLBAR:SupW_TooltipUSAUpgradeAdvancedControlRods",
+  "text": "Реактор вырабатывает на 300% больше энергии"
+ },
+ {
+  "label": "CONTROLBAR:AirF_ToolTipUSABuildStealthFighter",
+  "text": "Незаметен, пока перемещается  \n Оборудован защитным лазером  \n  \n Силён против вражеской обороны базы  \n Слаб против вражеских истребителей"
+ },
+ {
+  "label": "GUI:RetaliationTitle",
+  "text": "Ответный огонь"
+ },
+ {
+  "label": "GUI:Retaliation",
+  "text": "Выключите этот переключатель для отключения автоматического ответа огнем Вашими подразделениями на атаки врага"
+ },
+ {
+  "label": "CREDITS:LocalizationChinese",
+  "text": "Китайская локализация"
+ },
+ {
+  "label": "MAP:Breakdown",
+  "text": "Поломка"
+ },
+ {
+  "label": "MAP:BulletMassacre",
+  "text": "Шквал огня"
+ },
+ {
+  "label": "MAP:CarnageCityLimits",
+  "text": "Резня в пределах города"
+ },
+ {
+  "label": "MAP:Cityscape",
+  "text": "Городской пейзаж"
+ },
+ {
+  "label": "MAP:CivilUnrest",
+  "text": "Гражданское восстание"
+ },
+ {
+  "label": "MAP:CottageCheese",
+  "text": "Творог"
+ },
+ {
+  "label": "MAP:DeathValley",
+  "text": "Долина смерти"
+ },
+ {
+  "label": "MAP:DogsOfWar",
+  "text": "Псы войны"
+ },
+ {
+  "label": "MAP:DoorToDoor",
+  "text": "Туды-сюды"
+ },
+ {
+  "label": "MAP:FarmersFrenzy",
+  "text": "Безумие фермеров"
+ },
+ {
+  "label": "MAP:Firestorm",
+  "text": "Огненная буря"
+ },
+ {
+  "label": "MAP:FlakAttack",
+  "text": "Атака ПВО"
+ },
+ {
+  "label": "MAP:FlankTown",
+  "text": "Городской фланг"
+ },
+ {
+  "label": "MAP:Flashbang",
+  "text": "Вспышка"
+ },
+ {
+  "label": "MAP:FoxHunt",
+  "text": "Лисиная охота"
+ },
+ {
+  "label": "MAP:GhostTown",
+  "text": "Заброшенный город"
+ },
+ {
+  "label": "MAP:HighRoad",
+  "text": "Шоссе"
+ },
+ {
+  "label": "MAP:HighlandHunt",
+  "text": "Горная охота"
+ },
+ {
+  "label": "MAP:HostileDawn",
+  "text": "Враждебный рассвет"
+ },
+ {
+  "label": "MAP:IslandInTheZone",
+  "text": "Остров в зоне"
+ },
+ {
+  "label": "MAP:JungleRebellion",
+  "text": "Восстание в джунглях"
+ },
+ {
+  "label": "MAP:LARiot",
+  "text": "Бунт в Лос-Анджелесе"
+ },
+ {
+  "label": "MAP:Liberation",
+  "text": "Освобождение"
+ },
+ {
+  "label": "MAP:LongNight",
+  "text": "Долгая ночь"
+ },
+ {
+  "label": "MAP:ManicAggression",
+  "text": "Безумная агрессия"
+ },
+ {
+  "label": "MAP:Marshland",
+  "text": "Болото"
+ },
+ {
+  "label": "MAP:Mirage",
+  "text": "Мираж"
+ },
+ {
+  "label": "MAP:PanicDemise",
+  "text": "Паника"
+ },
+ {
+  "label": "MAP:PowerPlay",
+  "text": "Игра мускул"
+ },
+ {
+  "label": "MAP:RedRock",
+  "text": "Красная скала"
+ },
+ {
+  "label": "MAP:RubbleTown",
+  "text": "Щебень"
+ },
+ {
+  "label": "MAP:SeasideMutiny",
+  "text": "Приморский мятеж"
+ },
+ {
+  "label": "MAP:ShellShocker",
+  "text": "Снарядом в лоб"
+ },
+ {
+  "label": "MAP:Shellshock",
+  "text": "Удар снаряда"
+ },
+ {
+  "label": "MAP:ShockAndAwe",
+  "text": "Страх"
+ },
+ {
+  "label": "MAP:Shockwave",
+  "text": "Ударная волна"
+ }
+]

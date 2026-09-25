@@ -1,0 +1,802 @@
+[
+ {
+  "label": "SCRIPT:CHI02AudioHolder03",
+  "text": "<'EVA' speaking>  \n 'General, you're alive!?! We thought we lost you when the bridge went down. Well, you're not out of danger yet, so let's get started.'"
+ },
+ {
+  "label": "SCRIPT:CHI02AudioHolder04",
+  "text": "<'EVA' speaking>  \n 'First, you're going to need to finish your base. The barracks, reactor, and supply center are all essential to your survival, so finish constructing them immediately. I'll contact you again once your base is complete.'"
+ },
+ {
+  "label": "SCRIPT:CHI02AudioHolder05",
+  "text": "<'EVA' speaking>  \n 'Excellent, your base is complete?except for a War Factory. We need to get you one now. There should be a surplus base--with a War Factory--here?'"
+ },
+ {
+  "label": "SCRIPT:CHI02AudioHolder06",
+  "text": "<'EVA' speaking>  \n 'I don't know what condition the base is in, but it should allow you to build armored units to help your fight. Get there as soon as possible, General.'"
+ },
+ {
+  "label": "SCRIPT:CHI02AudioHolder07",
+  "text": "<'EVA' speaking>  \n 'Now we know the GLA's reason for coming to Hong Kong: They're targeting key buildings around the city. Our main objective is to destroy all of the GLA's forces, but if we can also keep them from destroying those buildings, our leaders would be most grateful.'"
+ },
+ {
+  "label": "SCRIPT:CHI02AudioHolder08",
+  "text": "<'EVA' speaking>  \n 'If you can keep your radar operating, I can track the Terrorists for you and give you their possible targets.'"
+ },
+ {
+  "label": "SCRIPT:CHI02AudioHolder09",
+  "text": "<'EVA' speaking>  \n 'General, a Terrorist is leaving the Convention Center, and he's strapped with enough explosives to bring down a building! I'll mark the Terrorist in red on your radar. I'll mark his possible targets in yellow. Stop him before he reaches one of those targets!'"
+ },
+ {
+  "label": "SCRIPT:CHI02AudioHolder10",
+  "text": "<'EVA' speaking>  \n 'Another Terrorist has left the Convention Center! I'll mark his location in red. His possible targets are marked in yellow. Stop him, General.'"
+ },
+ {
+  "label": "SCRIPT:CHI02AudioHolder11",
+  "text": "<'EVA' speaking>  \n 'General, this building is a Terrorist target--we must protect it!'"
+ },
+ {
+  "label": "SCRIPT:CHI02AudioHolder12",
+  "text": "<'EVA' speaking>  \n 'General, the Terrorists have taken over the Convention Center! You're going to have to destroy the Convention Center and the attached parking structures to stop the Terrorist threat.'"
+ },
+ {
+  "label": "SCRIPT:CHI02AudioHolder13",
+  "text": "<'EVA' speaking>  \n 'Excellent, you've reached the surplus base. Hmm?it's not much to look at, but it will allow you to build tanks?and more War Factories, if you need.'"
+ },
+ {
+  "label": "SCRIPT:CHI02AudioHolder14",
+  "text": "<'EVA' speaking>  \n 'The Terroist threat is finished. Good work, General.'"
+ },
+ {
+  "label": "SCRIPT:CHI02AudioHolder15",
+  "text": "<'EVA' speaking>  \n 'General, I've detected GLA armored units on the move. They didn't come from the Convention Center, so the GLA must have another base somewhere in Hong Kong. Find that base and destroy it!'"
+ },
+ {
+  "label": "SCRIPT:CHI02AudioHolder16",
+  "text": "<'EVA' speaking>  \n 'General, the GLA have brought their Toxin Tractors with them. You'll know them by the green ooze they spray. Keep your infantry units away from them and use your tanks to deal with this new threat.'"
+ },
+ {
+  "label": "SCRIPT:CHI02AudioHolder17",
+  "text": "<'EVA' speaking>  \n 'Good work, General, you've destroyed the Toxin base. Now they shouldn't be able to build any more Toxin Tractors.'"
+ },
+ {
+  "label": "SCRIPT:CHI02AudioHolder18",
+  "text": "<'EVA' speaking>  \n 'Wait, General, there is a large force up ahead. I'll call for an EMP strike to clear the area?standby?'"
+ },
+ {
+  "label": "SCRIPT:CHI02AudioHolder19",
+  "text": "<'EVA' speaking>  \n 'That should give you a clear path to their base. Let's finish this, General.'"
+ },
+ {
+  "label": "SCRIPT:CHI02AudioHolder20",
+  "text": "<AutoFerry Capt. speaking>  \n 'Finally, the military is here! Those Terrorists are ruining my business! If you put your forces aboard I'll take you out to the Convention Center. You can sneak in the backdoor and catch them by surprize. Jut hit the Transport button when you're ready.'"
+ },
+ {
+  "label": "SCRIPT:CHI02Box01",
+  "text": "Используйте БУЛЬДОЗЕР, чтобы построить КОМАНДНЫЙ ЦЕНТР.  \n Когда КОМАНДНЫЙ ЦЕНТР будет готов,  \n выделите его и постройте РАДАР.  \n Когда постройка завершится, появится экран радара  \n в левой части панели управления."
+ },
+ {
+  "label": "SCRIPT:CHI02Box02",
+  "text": "НОВОЕ ПОДРАЗДЕЛЕНИЕ: ТАНК ДРАКОН  \n ТАНК ДРАКОН дышит огнем и может в одно мгновение испепелить вражескую пехоту,  \n даже если они окопались внутри здания."
+ },
+ {
+  "label": "MAP:CHI02Obj01",
+  "text": "Цель миссии:  \n Уничтожить центр съездов  \n и находящиеся рядом многоэтажные парковки,  \n чтобы остановить террористическую угрозу."
+ },
+ {
+  "label": "MAP:CHI02Obj02",
+  "text": "Цель миссии:  \n Уничтожить базу МАО."
+ },
+ {
+  "label": "MAP:CHI02SecondaryObj01",
+  "text": "Вторая цель:  \n Остановите террористов МАО, уничтожающих  \n здания в деловом районе Гонконга."
+ },
+ {
+  "label": "MAP:CHI02SecondaryObj02",
+  "text": "Вторая цель:  \n Уничтожить завод по производству химических тракторов."
+ },
+ {
+  "label": "MAP:CHI03Open",
+  "text": "Дамба трех ущелий...Провинция Хубей, Китай  \n Наводнение насилия"
+ },
+ {
+  "label": "MAP:CHI03Obj1",
+  "text": "Цель миссии:  \n Уничтожить дамбу"
+ },
+ {
+  "label": "MAP:CHI03Obj2",
+  "text": "Цель миссии:  \n Уничтожить базу МАО"
+ },
+ {
+  "label": "MAP:CHI03Obj3",
+  "text": "Цель миссии:  \n Уничтожить все оставшиеся силы МАО"
+ },
+ {
+  "label": "MAP:CHI03AudioHolder01",
+  "text": "<Красная гвардия> «Генерал, уровень воды упал! Войска GLA переходят реку!»"
+ },
+ {
+  "label": "MAP:CHI06Open",
+  "text": "Бишкек, столица Киргизии  \n Смерть придет к ним в дороге"
+ },
+ {
+  "label": "MAP:CHI06Obj1",
+  "text": "Цель миссии:  \n Отправить Чёрного лотоса на середину железнодорожного моста"
+ },
+ {
+  "label": "MAP:CHI07Open",
+  "text": "Душанбе, столица Таджикистана  \n Ядерная зима"
+ },
+ {
+  "label": "MAP:Demo58Open",
+  "text": "Казахстан  \n Операция: Голубой орёл"
+ },
+ {
+  "label": "MAP:Demo58End1",
+  "text": "Управление полем боя отключено..."
+ },
+ {
+  "label": "MAP:Demo58End2",
+  "text": "COMMAND AND CONQUER ГЕНЕРАЛЫ  \n ЖДИТЕ: РОЖДЕСТВО 2002"
+ },
+ {
+  "label": "MAP:Demo48Open",
+  "text": "Мазар. Зона боевых действий  \n Операция: Белый рыцарь"
+ },
+ {
+  "label": "MAP:GLA02MapName",
+  "text": "Ограбление деревни"
+ },
+ {
+  "label": "MAP:GLA02Open",
+  "text": "Деревни около г. Алма-Аты, Казахстан  \n Зона сброса гуманитарной помощи"
+ },
+ {
+  "label": "MAP:GLA02ObjectiveText01",
+  "text": "ЦЕЛЬ МИССИИ  \n Собрать $40,000 из украденной гуманитарной помощи"
+ },
+ {
+  "label": "MAP:GLA021stThirdObjective",
+  "text": "Первая цель:  \n Собрать $20,000 из конвоев ООН"
+ },
+ {
+  "label": "MAP:GLA022ndThirdObjective",
+  "text": "Вторая цель:  \n Собрать $30,000 из ящиков сброшенных самолётами США"
+ },
+ {
+  "label": "MAP:GLA023rdThirdObjective",
+  "text": "Последняя цель: Собрать $40,000 из снабжения базы США"
+ },
+ {
+  "label": "MAP:GLA02CivBuildingHint",
+  "text": "Деревенские жители хранят гуманитарную помощь в своих домах.  \n Уничтожьте их дома и заберите гуманитарную помощь, спрятанную в них"
+ },
+ {
+  "label": "MAP:GLA02CivKillHint",
+  "text": "Деревенские жители собираю нашу гуманитарную помощь. ОСТАНОВИТЕ ИХ!"
+ },
+ {
+  "label": "MAP:GLA02QuadsArrival",
+  "text": "Подкрепление прибудет:  \n Используйте самоходные зенитки, чтобы сбивать вражескую авиацию"
+ },
+ {
+  "label": "MAP:GLA02CrateReminder",
+  "text": "Собирайте ящики для достижения Вашей цели."
+ },
+ {
+  "label": "MAP:GLA02MonkeyReminder",
+  "text": "Вы не достигните нашей цели, если Вы потратите все Ваши деньги."
+ },
+ {
+  "label": "MAP:GLA06MapName",
+  "text": "Нужные химикаты"
+ },
+ {
+  "label": "MAP:GLA06Open",
+  "text": "Западные берега Аральского моря, Казахстан  \n Район хранения токсинов и их утилизации"
+ },
+ {
+  "label": "MAP:GLA06MissionObjective",
+  "text": "ЦЕЛЬ МИССИИ:  \n Захватить 4 бункера и стереть в порошок американских защитников"
+ },
+ {
+  "label": "MAP:GLA06BunkerWarning",
+  "text": "ВНИМАНИЕ:  \n Бункеры не очень прочные и взорвутся при разрушении"
+ },
+ {
+  "label": "MAP:GLA06BunkerDestroyed",
+  "text": "ВНИМАНИЕ:  \n Тупые американцы пытаются остановить нас, уничтожая бункеры!"
+ },
+ {
+  "label": "MAP:GLA06BunkerRetaken",
+  "text": "Американцы отбили наш бункер. Немедленно верните его!"
+ },
+ {
+  "label": "MAP:GLA06BunkerObjective",
+  "text": "Вы должные завладеть 4 бункерами, чтобы завершить Вашу миссию"
+ },
+ {
+  "label": "MAP:GLA06KillEnemies",
+  "text": "Вы обладаете необходимым количеством бункеров.  \n Теперь сотрите американцев, что обеспечит Вашу победу!"
+ },
+ {
+  "label": "MAP:GLA06ScoutsInBase",
+  "text": "Американские разведчики обнаружили нас!  \n Будьте готовы к сражению с американцами"
+ },
+ {
+  "label": "MAP:GLA06Only8Bunkers",
+  "text": "Вы должны быть впредь осторожны с бункерами!  \n Вы должны завладеть 4 бункерами для завершения Вашей миссии"
+ },
+ {
+  "label": "MAP:GLA06Only6Bunkers",
+  "text": "Осталось всего 6 Бункеров!  \n Если будет уничтожено более 3, то Ваша миссия будет провалена!"
+ },
+ {
+  "label": "MAP:GLA06Only4Bunkers",
+  "text": "ВНИМАНИЕ:  \n Если хоть один бункер будет уничтожен, то Ваша миссия будет провалена."
+ },
+ {
+  "label": "MAP:GLA07MapName",
+  "text": "Троянский конь"
+ },
+ {
+  "label": "MAP:GLA07Open",
+  "text": "Где-то рядом с Ленгером, Казахстан  \n Регион контролируемый подпольной группировкой"
+ },
+ {
+  "label": "SCRIPT:GLA07ChnTmr",
+  "text": "Китайские силы прибудут через:"
+ },
+ {
+  "label": "MAP:GLA07ChineseArrival",
+  "text": "ВНИМАНИЕ: Китайские силы вошли в район."
+ },
+ {
+  "label": "MAP:GLA07MissionObjective",
+  "text": "ЦЕЛЬ МИССИИ  \n Уничтожить всех предателей"
+ },
+ {
+  "label": "MAP:GLA07ConvoyHint01",
+  "text": "Проведите угнанные грузовики на базу предателей  \n Попав внутрь, взорвите грузовики, чтобы уничтожить предателей"
+ },
+ {
+  "label": "MAP:GLA07ConvoyHint02",
+  "text": "ВНИМАНИЕ:  \n Если предатели увидят угнанные грузовики с Вашими силами,  \n то поймут, что они принадлежат Вам"
+ },
+ {
+  "label": "MAP:GLA07ConvoyHint03",
+  "text": "ВНИМАНИЕ: Эта местность является пределом для угнанных грузовиков  \n Если предатели обнаружат их здесь, то немедленно уничтожат их"
+ },
+ {
+  "label": "MAP:GLA07ConvoyHint04",
+  "text": "Прикажите грузовикам взорвать заряды рядом со зданиями  \n для максимальной эффективности."
+ },
+ {
+  "label": "MAP:GLA07BaseKIACleanUp",
+  "text": "База предателей уничтожена!  \n Уничтожьте их оставшиеся силы для полной Вашей победы"
+ },
+ {
+  "label": "MAP:GLA07ConvoyDetected",
+  "text": "ТРЕВОГА!  \n Предатели знают, что конвой принадлежит нам!  \n Теперь предатели будут атаковать конвой!"
+ },
+ {
+  "label": "MAP:GLA03Open",
+  "text": "Замбул, Казахстан  \n Населённый центр, контролируемый китайцами"
+ },
+ {
+  "label": "MAP:USA01Open",
+  "text": "Мазар. зона боевых действий  \n Операция: Тихий рассвет"
+ },
+ {
+  "label": "SCRIPT:TrainingMove",
+  "text": "Нажмите левой кнопкой мыши по подразделению, чтобы выделить его. Выделенным подразделениям можно отдавать приказы. Выделив подразделение, Вы можете нажать по земле, чтобы отдать ему приказ перемещаться. Нажмите по вражескому солдату, чтобы приказать Вашему выделенному подразделению атаковать."
+ },
+ {
+  "label": "SCRIPT:TrainingCommand",
+  "text": "Вы освободили командный центр США. Здесь Вы сможете использовать многие свои возможности. Для выбора технологий и специального оружия нажмите на мигающую кнопку."
+ },
+ {
+  "label": "SCRIPT:TrainingExplor",
+  "text": "Туман войны вокруг Ваших подразделений может быть рассеян при движении в неисследованную местность. Туман находится там, где Вы уже были и там, где еще нет. Исследуйте неизвестную местность, чтобы найти ресурсы и вражеские силы."
+ },
+ {
+  "label": "SCRIPT:TrainingBarracks",
+  "text": "Вы освободили казарму США. Это и подобные здания позволяют Вам тренировать новую пехоту. В Казарме тренируются солдаты. Выделите Вашу новую Казарму, чтобы узнать каких солдат Вы можете тренировать. Нажмите левой кнопкой мыши по иконки с изображением солдата, чтобы выделить деньги на его тренировку."
+ },
+ {
+  "label": "SCRIPT:TrainingPilots",
+  "text": "Вы освободили несколько пилотов. Пилоты США являются ветеранами, повидавшими много сражений, которые могут сесть в Вашу технику, чтобы придать экипажу умения и мастерства. Техника с золотыми шевронами более опытна и эффективна в бою."
+ },
+ {
+  "label": "SCRIPT:TrainingSupply",
+  "text": "Вы освободили центр снабжения США. Центры снабжения принимают снабжение, которое потом будет потрачено Вами на строительство зданий и подразделений. С каждым центром снабжения появляется один вертолёт Чинук, который будет собирать снабжение для вас."
+ },
+ {
+  "label": "SCRIPT:TrainingDozer",
+  "text": "Вы освободили строительный бульдозер США. Нажмите левой кнопкой мыши по Вашему новому строительному бульдозеру, чтобы узнать какие здания он может строить. Выберите военный завод и место для его размещения и начните строительство. Когда строительство военного завода будет завершено, бульдозер будет доступен для других строительных работ."
+ },
+ {
+  "label": "SCRIPT:TrainingUnits",
+  "text": "Ваш новый военный завод может использоваться для производства техники типа танка Рыцаря. Нажмите левой кнопкой мыши по танку Рыцарю для начала его производства. Вы можете нажать по нему несколько раз, чтобы произвести несколько танков."
+ },
+ {
+  "label": "SCRIPT:TrainingPower",
+  "text": "Вы освободили термоядерный реактор. Реакторы используются американцами и китайцами для обеспечения энергией их баз. Ваш индикатор энергии показывает сколько энергии имеет Ваша база. Если Вашей базе не хватит энергии, то оборонные системы и радар отключатся."
+ },
+ {
+  "label": "SCRIPT:TrainingAbilities",
+  "text": "Некоторые подразделения имеют специальные способности. Выделите подразделение, чтобы узнать какие специальные способности он имеет. Нажмите левой кнопкой мыши по способности, чтобы задействовать её. Например, танк Рыцарь может создавать один боевой беспилотный аппарат. Боевые беспилотные аппараты это маленькие роботы, которые автоматически нападают на врагов и ремонтируют танк Рыцарь, если он повреждён вражеским огнём."
+ },
+ {
+  "label": "SCRIPT:TrainingObjective",
+  "text": "Вы освободили всю базу США, и теперь Вы готовы сражаться с врагом. Каждая миссия имеет свою цель, которую Вы должны достигнуть, чтобы завершить миссию и не стоять на месте в войне с врагом. Следуйте цели миссии для её завершения."
+ },
+ {
+  "label": "SCRIPT:TrainingUrban",
+  "text": "Гражданские здания могут быть оккупированы солдатами. Прикажите Вашим солдатам войти в гражданское здание, чтобы получить преимущество в защити. Оккупированные гражданские здания являются мощными опорными точками, они могут использоваться для защиты важных путей или подступов к Вашей базе."
+ },
+ {
+  "label": "SCRIPT:TrainingTech",
+  "text": "Гражданские промышленные здания могут быть захвачены Вашими рейнджерами. Захват этих зданий даст Вам преимущество перед Вашими врагами. Захватите нефтяную вышку, выделением рейнджера и нажатием левой кнопки мыши по самой нефтяной вышке. Нефтяная вышка будет качать нефть, которая будет переходить Вам в виде денег."
+ },
+ {
+  "label": "SCRIPT:TrainingCrate",
+  "text": "Премиальные ящики содержат вещи повышающие способности Ваших подразделений. Дополнительные патроны, броню и другие предметы можно найти в ящиках. Прикажите Вашим солдатам или технике двинуться к ящику, чтобы открыть его и взять содержимое."
+ },
+ {
+  "label": "SCRIPT:TrainingMissionObjective",
+  "text": "ЦЕЛЬ МИССИИ  \n Уничтожить завод МАО по производству   \n Биологического оружия"
+ },
+ {
+  "label": "SCRIPT:TrainingOpeningObjective",
+  "text": "ЦЕЛЬ МИССИИ  \n Освободить базу США"
+ },
+ {
+  "label": "MAP:USA01Opening",
+  "text": "Иракская военная зона  \n Операция: Последнее правосудие"
+ },
+ {
+  "label": "MAP:USA01BahdadText",
+  "text": "Осада Багдада  \n День третий"
+ },
+ {
+  "label": "MAP:USA01ObjectiveText",
+  "text": "ЦЕЛЬ МИССИИ  \n Уничтожить залповую установку ракет Р-17М"
+ },
+ {
+  "label": "MAP:USA02Open",
+  "text": "Аль-Ханад, Йемен  \n Операция: Охота"
+ },
+ {
+  "label": "MAP:USA02Objective1Text",
+  "text": "ЦЕЛЬ МИССИИ  \n Спасти захваченных пилотов"
+ },
+ {
+  "label": "MAP:USA02Objective2Text",
+  "text": "ЦЕЛЬ МИССИИ  \n Вернуть последнего пилота на базу для завершения миссии."
+ },
+ {
+  "label": "MAP:USA03Objective1Text",
+  "text": "ЦЕЛЬ МИССИИ  \n Обеспечить выход 100 подразделениям сил США"
+ },
+ {
+  "label": "SCRIPT:USA03RescueCounter",
+  "text": "Вышедшие подразделения Сил США:"
+ },
+ {
+  "label": "MAP:USA04Open",
+  "text": "Побережье Казахстана, 1400 часов  \n Операция: Несущий бурю"
+ },
+ {
+  "label": "SCRIPT:USA04BomberTimer",
+  "text": "Прибытие бомбардировщиков через:"
+ },
+ {
+  "label": "MAP:USA06Objective1Text",
+  "text": "ЦЕЛЬ МИССИИ:  \n Помешать МАО построить речную базу"
+ },
+ {
+  "label": "MAP:USA06Objective2Text",
+  "text": "ЦЕЛЬ МИССИИ:  \n Уничтожить главную базу МАО"
+ },
+ {
+  "label": "SCRIPT:GLA03CivCounter",
+  "text": "Предателей убито:"
+ },
+ {
+  "label": "SCRIPT:GLA03Objective01",
+  "text": "ЦЕЛЬ МИССИИ:  \n Захватить командный центр на востоке для начала производства.  \n Убить 300 предателей."
+ },
+ {
+  "label": "SCRIPT:GLA03Objective02",
+  "text": "ЦЕЛЬ МИССИИ:  \n Использовать химические тракторы для убийства 300 предателей."
+ },
+ {
+  "label": "SCRIPT:GLA03Objective03",
+  "text": "Уничтожьте фармацевтический завод на севере."
+ },
+ {
+  "label": "MAP:GLA03Objective04",
+  "text": "Освободите заключенных!"
+ },
+ {
+  "label": "MAP:GLA03Objective05",
+  "text": "Убейте 300 предателей."
+ },
+ {
+  "label": "MAP:GLA03Objective06",
+  "text": "Уничтожьте фармацевтический завод."
+ },
+ {
+  "label": "SCRIPT:GLA04Objective01",
+  "text": "ЦЕЛЬ МИССИИ:  \n Уничтожить гражданские здания для получения $40,000."
+ },
+ {
+  "label": "SCRIPT:GLA04Objective02",
+  "text": "Внимание:  \n Трата денег на подразделения отдалит Вас от Вашей цели - $40,000.  \n Убедитесь, что не тратите деньги почем зря."
+ },
+ {
+  "label": "SCRIPT:GLA04Objective03",
+  "text": "Внимание:  \n Американцы используют аэродром как перевальную базу.  \n Пересеките реку и уничтожьте его."
+ },
+ {
+  "label": "SCRIPT:GLA04Objective04",
+  "text": "Внимание:  \n Американские самолёты эффективны против тяжелой техники.  \n Советуем использовать только техников и разъярённые толпы."
+ },
+ {
+  "label": "SCRIPT:GLA05Objective01",
+  "text": "ЦЕЛЬ МИССИИ:  \n Уничтожить военно-воздушную базу американцев."
+ },
+ {
+  "label": "SCRIPT:GLA05Objective02",
+  "text": "ЦЕЛЬ МИССИИ:  \n Уничтожить американскую военно-воздушную базу на западе."
+ },
+ {
+  "label": "MAP:GLA01Open",
+  "text": "Демилитаризованная зона Чимкента  \n Операция: Чёрный дождь"
+ },
+ {
+  "label": "MAP:GLA01ObjectiveText",
+  "text": "ЦЕЛЬ МИССИИ: Уничтожить дамбу"
+ },
+ {
+  "label": "MAP:USA07Open",
+  "text": "Юго-восток Казахстана  \n Операция: Отчаянный союз"
+ },
+ {
+  "label": "MAP:USA07Objective1",
+  "text": "ЦЕЛЬ МИССИИ:  \n Уничтожить МАО на северо-востоке."
+ },
+ {
+  "label": "MAP:USA07General",
+  "text": "Прибытие генерала"
+ },
+ {
+  "label": "MAP:USA07Objective2",
+  "text": "ЦЕЛЬ МИССИИ:  \n Уничтожить китайский командный центр  \n и ракетную шахту."
+ },
+ {
+  "label": "MAP:GLA08Temp",
+  "text": "GLA Mission 8 - Southern Kazakhstan  \n Baikonur Cosmodrome"
+ },
+ {
+  "label": "MAP:CHI08Temp",
+  "text": "China Mission 8 - Last China Mission  \n Status: Incomplete"
+ },
+ {
+  "label": "MAP:CHI07Temp",
+  "text": "China Mission 7 - Nuke-O-Rama  \n Status: Incomplete"
+ },
+ {
+  "label": "MAP:CHI05Temp",
+  "text": "China Mission 5 - Firebomb GLA  \n Status: Incomplete"
+ },
+ {
+  "label": "MAP:USA08Temp",
+  "text": "USA Mission 8 - Devastate GLA  \n Status: Incomplete"
+ },
+ {
+  "label": "MAP:USA06Temp",
+  "text": "USA Mission 6 - E3 Revamp  \n Status: Incomplete"
+ },
+ {
+  "label": "MAP:USA05Temp",
+  "text": "USA Mission 5 - River Raid  \n Status: Incomplete"
+ },
+ {
+  "label": "CONTROLBAR:TooltipDaisyCutter",
+  "text": "Сильна против зданий  \n  \n Время для готовности: 6:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipFireParticleUplinkCannon",
+  "text": "Сильна против зданий  \n  \n Время для готовности: 4:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipParaDrop",
+  "text": "Десантирование рейнджеров с самолёта.  \n  \n Время для готовности: 4:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipClusterMines",
+  "text": "Сброс бомб с самолёта.  \n  \n Время для готовности: 4:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipEMPPulse",
+  "text": "Силён против техники  \n  \n Время для готовности: 6:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipA10Strike",
+  "text": "Силён против зданий  \n  \n Время для готовности: 4:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipFireNukeMissile",
+  "text": "Силён против зданий и пехоты  \n  \n Время для готовности: 6:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipFireSCUDStorm",
+  "text": "Силён против зданий и пехоты  \n  \n Время для готовности: 5:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipFireArtilleryBarrage",
+  "text": "Силён против зданий и больших скоплений врагов  \n  \n Время для готовности: 5:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipFireSuperWeaponCashHack",
+  "text": "Кража денег из вражеских центров снабжения.  \n  \n Время для готовности: 4:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipFireSpySatScan",
+  "text": "Открывает выбранную местность. Обнаруживает скрытные подразделения.  \n  \n Время для готовности: 1:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipFireSpyDrone",
+  "text": "Создается беспилотный аппарат шпион возле цели.  \n  \n Время для готовности: 1:30"
+ },
+ {
+  "label": "CONTROLBAR:TooltipFireRadarVanScan",
+  "text": "Открывает выбранную местность. Обнаруживает скрытных врагов.  \n  \n Время для готовности: 0:30"
+ },
+ {
+  "label": "CONTROLBAR:TooltipFireRadioJam",
+  "text": "Вырубает вражескую связь.  \n  \n Время для готовности: 4:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipFireEmergencyRepair",
+  "text": "Немедленный ремонт.  \n  \n Время для готовности: 4:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipFireRebelAmbush",
+  "text": "Создает повстанцев.  \n  \n Время для готовности: 4:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipFireAnthraxBomb",
+  "text": "Сильна против пехоты  \n  \n Время для готовности: 6:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipCIAIntelligence",
+  "text": "Слежка за вражескими силами.  \n  \n Время для готовности: 2:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipDemoTrapProxy",
+  "text": "Взорвать когда враг приблизится"
+ },
+ {
+  "label": "CONTROLBAR:TooltipDemoTrapManual",
+  "text": "Взорвать по Вашей команде"
+ },
+ {
+  "label": "CONTROLBAR:TooltipDemoTrapDetonate",
+  "text": "Взорвать фугас"
+ },
+ {
+  "label": "CONTROLBAR:TooltipMissileDefenderLaser",
+  "text": "Лазерное наведение ракеты увеличивает точность огня"
+ },
+ {
+  "label": "CONTROLBAR:TooltipBattlePlansBombardment",
+  "text": "Развернуть пушку.  \n Все подразделения: Дополнительно 20% огневой мощи"
+ },
+ {
+  "label": "CONTROLBAR:TooltipBattlePlansHoldTheLine",
+  "text": "Развернуть стены.  \n Все подразделения: Дополнительно 10% брони"
+ },
+ {
+  "label": "CONTROLBAR:TooltipBattlePlansSearchAndDestroy",
+  "text": "Развернуть сканеры.  \n Все подразделения: Дополнительно 20% радиуса ведения огня"
+ },
+ {
+  "label": "CONTROLBAR:TooltipSetRallyPoint",
+  "text": "Установить точку сбора для здания"
+ },
+ {
+  "label": "CONTROLBAR:TooltipSell",
+  "text": "Продать здание за 50% от его стоимости"
+ },
+ {
+  "label": "CONTROLBAR:TooltipNukeReactorOverCharge",
+  "text": "Повреждает реактор для выхода на 50% больше энергии"
+ },
+ {
+  "label": "CONTROLBAR:TooltipCancelUpgrade",
+  "text": "Отменить улучшение"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUSAUpgradeAdvancedTraining",
+  "text": "Подразделения получаю статус ветерана в два раза быстрее"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUSAUpgradeDroneARmor",
+  "text": "Все беспилотные аппараты получают +25% брони"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUSAUpgradeAdvancedControlRods",
+  "text": "Реактор вырабатывает на 100% больше энергии"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUSAUpgradeFlashBangGrenades",
+  "text": "Световая граната рейнджеров хороша для зачистки гражданских зданий от вражеских солдат"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUSAUpgradeCompositeArmor",
+  "text": "Танки Рыцари и танки Паладины получают +25% брони"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUSAUpgradeCruiseMissile",
+  "text": "Томагавкам можно будет задавать траекторию полета"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUSAUpgradeTOW",
+  "text": "Вооружить Хаммер ракетой. Можно будет сбивать воздушные цели"
+ },
+ {
+  "label": "CONTROLBAR:USAUpgradeRocketPods",
+  "text": "Каманчи смогут использовать заградительный огонь ракетами"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUSAUpgradeLaserMissiles",
+  "text": "Ракеты истребителей Раптор и Стелс получат +25% дополнительного наносимого ущерба"
+ },
+ {
+  "label": "CONTROLBAR:TooltipChinaUpgradeMines",
+  "text": "Установить мины вокруг здания"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUpgradeChinaOverlordGattlingCannon",
+  "text": "Построить пулемётную пушку на этом Владыке"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUpgradeChinaOverlordPropagandaTower",
+  "text": "Построить башню пропаганды на этом Владыке"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUpgradeChinaOverlordBattleBunker",
+  "text": "Построить бункер на этом Владыке. Бункер может вместить в себя несколько солдат"
+ },
+ {
+  "label": "CONTROLBAR:TooltipChinaUpgradeRadar",
+  "text": "Построить радар для этого командного центра"
+ },
+ {
+  "label": "CONTROLBAR:TooltipChinaUpgradeNationalism",
+  "text": "+25% к бонусы Орды для красногвардейцев, Охотников за танками и Мастеров боя"
+ },
+ {
+  "label": "CONTROLBAR:TooltipChinaUpgradeBlackNapalm",
+  "text": "+25% повреждений от всех огнемётных вооружений"
+ },
+ {
+  "label": "CONTROLBAR:TooltipChinaUpgradeChainGuns",
+  "text": "+25% повреждений для всех пулемётных вооружений"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUpgradeChinaSubliminal",
+  "text": "+25% дополнительной мощности для башни пропаганды"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUpgradeChinaUraniumShells",
+  "text": "+25% повреждений от выстрелов Владык и Мастеров боя"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUpgradeChinaNuclearTanks",
+  "text": "+25% к скорости Владык и Мастеров боя"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUpgradeChinaStunBullets",
+  "text": "Красногвардейцы могут попробовать захватить вражеского солдата"
+ },
+ {
+  "label": "CONTROLBAR:TooltipDisguiseAsVehicle",
+  "text": "Замаскировать грузовик со взрывчаткой под выбранную технику"
+ },
+ {
+  "label": "CONTROLBAR:TooltipGLAUpgradeBioBomb",
+  "text": "Грузовик со взрывчаткой получит биологическое оружие"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAUpgradeHEBomb",
+  "text": "+100% огневой мощи для этого грузовика со взрывчаткой"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAUpgradeRadarVanScan",
+  "text": "Радарный фургон сможет сканировать карту для поиска вражеских сил"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAUpgradeScorpionRocket",
+  "text": "Танк Скорпион получает ракету"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAUpgradeAPRockets",
+  "text": "+25% к наносимому ущербу от всех ракетных атак"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAUpgradeToxinShells",
+  "text": "Снаряды Скорпионов и Мародёров несут немного сибирской язвы"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAUpgradeAnthraxBeta",
+  "text": "+25% дополнительного повреждения для всех химических подразделений"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAUpgradeAPBullets",
+  "text": "+25% повреждений для атак повстанцев, техников, самоходных зениток и Джармена Келла"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAUpgradeJunkRepair",
+  "text": "Автоматический ремонт всей техники"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAUpgradeCamouflage",
+  "text": "Повстанцы не заметны, если не стреляют"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAUpgradeTranqDarts",
+  "text": "Повстанцы могут попробовать захватить вражеского солдата"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAUpgradeArmTheMob",
+  "text": "Вооружить разъярённые толпы автоматами АК-47"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipStructureExit",
+  "text": "Приказать этому подразделению выйти"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipTransportExit",
+  "text": "Приказать этому подразделению выйти"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipEvacuate",
+  "text": "Приказать всем подразделениям выйти"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipRailedTransport",
+  "text": "Вперёд"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSACombatDrop",
+  "text": "Приказать рейнджерам спуститься по веревке на вражескую цель. Используйте на оккупированных зданиях, чтобы убить внутри всех вражеских солдат"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGuard",
+  "text": "Приказать подразделению передвигаться по назначенной местности и преследовать, цели если это необходимо"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGuardWithoutPursuit",
+  "text": "Приказать подразделению(ям) передвигаться по назначенной местности и не преследовать цели за границами назначенной местности"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGuardFlyingUnitsOnly",
+  "text": "Приказать подразделению(ям) передвигаться и атаковать воздушные цели, рядом с назначенной местности"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipAttackMove",
+  "text": "Приказать подразделению двигаться к точке назначения и уничтожать всех врагов по пути"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipCommandStop",
+  "text": "Приказать подразделению(ям) остановить свои действия"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipWayPoints",
+  "text": "Нажмите на земле, чтобы установить точку сбора"
+ }
+]

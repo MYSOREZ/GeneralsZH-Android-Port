@@ -1,0 +1,802 @@
+[
+ {
+  "label": "GUI:BuildingsBuilt",
+  "text": "Зданий  \n построено"
+ },
+ {
+  "label": "GUI:BuildingsLost",
+  "text": "Зданий  \n потеряно"
+ },
+ {
+  "label": "GUI:BuildingsKilled",
+  "text": "Зданий  \n уничтожено"
+ },
+ {
+  "label": "GUI:ResourcesCollected",
+  "text": "Снабжения  \n собрано"
+ },
+ {
+  "label": "GUI:QuitPopupTitle",
+  "text": "ВЫХОД?"
+ },
+ {
+  "label": "GUI:QuitPopupMessage",
+  "text": "Вы действительно хотите выйти из игры?"
+ },
+ {
+  "label": "GUI:MaxSelectionSize",
+  "text": "Сейчас Вы можете выделить только %d подразделений."
+ },
+ {
+  "label": "GUI:MessagesOn",
+  "text": "Сообщения разрешены."
+ },
+ {
+  "label": "GUI:MissionDescription",
+  "text": "Описание миссии"
+ },
+ {
+  "label": "GUI:MOTD",
+  "text": "Сообщение дня"
+ },
+ {
+  "label": "GUI:DesyncTitle",
+  "text": "Потеря синхронизации"
+ },
+ {
+  "label": "GUI:DesyncText",
+  "text": "Игра C&C Generals Zero Hour потеряла синхронизацию с другими участниками. Возможно, другие участники изменили свои версии игры. Игра C&C Generals Zero Hour не может быть продолжена, однако Вы можете добавить игроков в список игнорирования в коммуникаторе, если не хотите играть с ними в будущем"
+ },
+ {
+  "label": "GUI:LadderDetails",
+  "text": "Информация доски почета"
+ },
+ {
+  "label": "GUI:SystemMaps",
+  "text": "Официальные карты"
+ },
+ {
+  "label": "GUI:UserMaps",
+  "text": "Неофициальные карты"
+ },
+ {
+  "label": "GUI:WaitingToBeginConnection",
+  "text": "Ожидание начала"
+ },
+ {
+  "label": "GUI:NetgearDelay",
+  "text": "Задержка"
+ },
+ {
+  "label": "GUI:WaitingForManglerResponse",
+  "text": "Ожидание ответа от внешнего интернет провайдера"
+ },
+ {
+  "label": "GUI:WaitingForMangledPort",
+  "text": "Ожидание номера порта"
+ },
+ {
+  "label": "GUI:WaitingForResponse",
+  "text": "Ожидание ответа"
+ },
+ {
+  "label": "GUI:ConnectionDone",
+  "text": "Соединение установлено"
+ },
+ {
+  "label": "GUI:ConnectionFailed",
+  "text": "Не удалось установить соединение"
+ },
+ {
+  "label": "GUI:UnknownConnectionState",
+  "text": "Статус брандмауэра/NAT неизвестен"
+ },
+ {
+  "label": "GUI:Logout",
+  "text": "ГЛАВНОЕ МЕНЮ"
+ },
+ {
+  "label": "GUI:CancelMapSelect",
+  "text": "ОТМЕНА"
+ },
+ {
+  "label": "GUI:Deny",
+  "text": "Отказ"
+ },
+ {
+  "label": "GUI:Victory",
+  "text": "Победа"
+ },
+ {
+  "label": "GUI:Ignore",
+  "text": "ИГНОРИРОВАТЬ"
+ },
+ {
+  "label": "GUI:Unignore",
+  "text": "Не игнорировать"
+ },
+ {
+  "label": "GUI:Stats",
+  "text": "Личность"
+ },
+ {
+  "label": "GUI:GetMapPack",
+  "text": "Скачать пакет карт"
+ },
+ {
+  "label": "GUI:Defeat",
+  "text": "Поражение"
+ },
+ {
+  "label": "GUI:YouAreVictorious",
+  "text": "Вы победитель!"
+ },
+ {
+  "label": "GUI:YouHaveBeenDefeated",
+  "text": "Вы потерпели поражение"
+ },
+ {
+  "label": "GUI:PlayerAlive",
+  "text": "Играет"
+ },
+ {
+  "label": "GUI:PlayerDead",
+  "text": "Потерпел(а) поражение"
+ },
+ {
+  "label": "GUI:PlayerObserver",
+  "text": "Наблюдает"
+ },
+ {
+  "label": "GUI:PlayerObserverGone",
+  "text": "AWOL"
+ },
+ {
+  "label": "GUI:PlayerGone",
+  "text": "AWOL"
+ },
+ {
+  "label": "GUI:PlayerName",
+  "text": "Имя игрока"
+ },
+ {
+  "label": "GUI:Info",
+  "text": "Информация о игроке"
+ },
+ {
+  "label": "GUI:Players:",
+  "text": "Игроки:"
+ },
+ {
+  "label": "GUI:GameOptions:",
+  "text": "Опции игры:"
+ },
+ {
+  "label": "GUI:GameName:",
+  "text": "Игра:"
+ },
+ {
+  "label": "GUI:MapName:",
+  "text": "Карта:"
+ },
+ {
+  "label": "GUI:SelectMap",
+  "text": "ВЫБОР КАРТЫ"
+ },
+ {
+  "label": "GUI:SelectAMap",
+  "text": "ВЫБОР КАРТЫ"
+ },
+ {
+  "label": "GUI:SelectAGame",
+  "text": "ВЫБОР ИГРЫ"
+ },
+ {
+  "label": "GUI:Start",
+  "text": "ИГРАТЬ"
+ },
+ {
+  "label": "GUI:Host",
+  "text": "СОЗДАТЬ ИГРУ"
+ },
+ {
+  "label": "GUI:LocaleSelect",
+  "text": "ВЫБОР МЕСТОПОЛОЖЕНИЯ"
+ },
+ {
+  "label": "GUI:Command&ConquerGenerals",
+  "text": "Command & Conquer (TM) Generals Zero Hour"
+ },
+ {
+  "label": "GUI:Command&Conquer",
+  "text": "Command & Conquer (TM)"
+ },
+ {
+  "label": "GUI:Generals",
+  "text": "Generals Zero Hour"
+ },
+ {
+  "label": "GUI:GeneralsOnline",
+  "text": "ИНТЕРНЕТ"
+ },
+ {
+  "label": "GUI:SendDelay",
+  "text": "Задержка"
+ },
+ {
+  "label": "GUI:FirewallRefresh",
+  "text": "Обновление NAT"
+ },
+ {
+  "label": "GUI:Exit",
+  "text": "ВЫХОД ИЗ ИГРЫ"
+ },
+ {
+  "label": "GUI:X",
+  "text": "X"
+ },
+ {
+  "label": "GUI:Campaign",
+  "text": "КАМПАНИЯ"
+ },
+ {
+  "label": "GUI:WestwoodPacific",
+  "text": "EA Pacific"
+ },
+ {
+  "label": "GUI:ClickToDisplayGameInfo",
+  "text": "Нажмите, чтобы показать информацию об игре"
+ },
+ {
+  "label": "GUI:GameInfo",
+  "text": "Информация о игре"
+ },
+ {
+  "label": "GUI:OptionsDescription",
+  "text": "Показать окно опций игры"
+ },
+ {
+  "label": "GUI:SFXVolume",
+  "text": "Громкость эффектов"
+ },
+ {
+  "label": "GUI:3DSound",
+  "text": "Трёхмерный звук"
+ },
+ {
+  "label": "GUI:ScrollSpeed",
+  "text": "Скорость прокрутки"
+ },
+ {
+  "label": "GUI:Resolution",
+  "text": "Разрешение"
+ },
+ {
+  "label": "GUI:Resolution0",
+  "text": "1024x768"
+ },
+ {
+  "label": "GUI:Resolution1",
+  "text": "800x600"
+ },
+ {
+  "label": "GUI:Resolution2",
+  "text": "640x480"
+ },
+ {
+  "label": "GUI:Detail",
+  "text": "Детализация"
+ },
+ {
+  "label": "GUI:???",
+  "text": "???"
+ },
+ {
+  "label": "GUI:Faction",
+  "text": "Армия"
+ },
+ {
+  "label": "GUI:AntiAliasing0",
+  "text": "Выкл."
+ },
+ {
+  "label": "GUI:AntiAliasing1",
+  "text": "Низкий"
+ },
+ {
+  "label": "GUI:AntiAliasing2",
+  "text": "Высокий"
+ },
+ {
+  "label": "GUI:IPAddresses",
+  "text": "IP локал. сети:"
+ },
+ {
+  "label": "GUI:MinPointPercent",
+  "text": "Требуемый мин. процент побед:"
+ },
+ {
+  "label": "GUI:MaxPointPercent",
+  "text": "Разрешенный макс. процент побед:"
+ },
+ {
+  "label": "GUI:NumPlayers",
+  "text": "Игроки:"
+ },
+ {
+  "label": "GUI:PlayersVersusPlayers",
+  "text": "%dv%d"
+ },
+ {
+  "label": "GUI:TimeInMilliseconds",
+  "text": "%d мс"
+ },
+ {
+  "label": "GUI:MaxDisconnects",
+  "text": "Разрешенный макс. отсоединений:"
+ },
+ {
+  "label": "GUI:Confirm",
+  "text": "Вы уверены?"
+ },
+ {
+  "label": "GUI:NothingSelected",
+  "text": "Ничего не выбрано."
+ },
+ {
+  "label": "GUI:SelectedAcrossScreen",
+  "text": "Выбрано на экране."
+ },
+ {
+  "label": "GUI:SelectedAcrossMap",
+  "text": "Выбрано на карте."
+ },
+ {
+  "label": "KEYBOARD:Shift+",
+  "text": "Shift+"
+ },
+ {
+  "label": "KEYBOARD:Alt+",
+  "text": "Alt+"
+ },
+ {
+  "label": "KEYBOARD:Ctrl+",
+  "text": "Ctrl+"
+ },
+ {
+  "label": "TOOLTIP:ScienceCost",
+  "text": "Цена: %d"
+ },
+ {
+  "label": "TOOLTIP:Cost",
+  "text": "Цена: %d"
+ },
+ {
+  "label": "TOOLTIP:SupplyWarehouse",
+  "text": "    \n осталось $%d"
+ },
+ {
+  "label": "TOOLTIP:LobbyPlayers",
+  "text": "Игроки, находящиеся сейчас в прихожей игры"
+ },
+ {
+  "label": "TOOLTIP:StartWorldBuilder",
+  "text": "Запустить редактор Миро Строец"
+ },
+ {
+  "label": "TOOLTIP:GetUpdate",
+  "text": "Скачать обновление игры"
+ },
+ {
+  "label": "TOOLTIP:GetMapPack",
+  "text": "Скачать новый пакет карт"
+ },
+ {
+  "label": "TOOLTIP:Skirmish",
+  "text": "Войти в меню настроек схватки"
+ },
+ {
+  "label": "TOOLTIP:Online",
+  "text": "Нажмите для подключения к C&C Generals Zero Hour Online. Померьтесь силой с противниками со всего света!"
+ },
+ {
+  "label": "TOOLTIP:Network",
+  "text": "Нажмите для присоединения к прихожей локальной сети. Померьтесь силой с друзьями через локальную сеть"
+ },
+ {
+  "label": "TOOLTIP:Options",
+  "text": "Нажмите для изменения опций игры. Вы можете настроить параметры видео, звука и игры"
+ },
+ {
+  "label": "TOOLTIP:Exit",
+  "text": "Выход из C&C Generals Zero Hour. Удачи на поле боя, командир"
+ },
+ {
+  "label": "TOOLTIP:ExitGame",
+  "text": "Выход из C&C Generals Zero Hour. Удачи на поле боя, командир"
+ },
+ {
+  "label": "TOOLTIP:LoadGame",
+  "text": "Нажмите для загрузки выбранной игры"
+ },
+ {
+  "label": "TOOLTIP:MapPreviewWindow",
+  "text": "Предварительный просмотр карты поможет Вам сориентироваться. Узнать где находятся доки снабжения и технологические здания. Вы можете выбрать Вашу начальную точку"
+ },
+ {
+  "label": "TOOLTIP:SaveGame",
+  "text": "Нажмите для сохранения игры"
+ },
+ {
+  "label": "TOOLTIP:AcceptButton",
+  "text": "Принять Ваш выбор/изменения"
+ },
+ {
+  "label": "TOOLTIP:CopyReplayToDesktop",
+  "text": "Копировать выбранный файл повтора на рабочий стол"
+ },
+ {
+  "label": "TOOLTIP:ProviderType",
+  "text": "Выберите звуковые настройки"
+ },
+ {
+  "label": "TOOLTIP:SpeakerType",
+  "text": "Настройте Ваши колонки"
+ },
+ {
+  "label": "TOOLTIP:LANPlayer",
+  "text": "%ls@%ls"
+ },
+ {
+  "label": "TOOLTIP:Resolution",
+  "text": "Выберите разрешение экрана для игры. Высокое разрешение, замедляет игру"
+ },
+ {
+  "label": "TOOLTIP:CommandCategory",
+  "text": "Выберите категорию команд клавиатуры"
+ },
+ {
+  "label": "TOOLTIP:CommandDescription",
+  "text": "Описание выбранной Вами команды"
+ },
+ {
+  "label": "TOOLTIP:StartPosition",
+  "text": "Начальная точка"
+ },
+ {
+  "label": "TOOLTIP:SelectMap",
+  "text": "Выберите поле боя, которое Вам больше нравится"
+ },
+ {
+  "label": "TOOLTIP:Vote",
+  "text": "Нажмите, чтобы проголосовать за игрока для удаления из игры и для Вашего продолжения"
+ },
+ {
+  "label": "TOOLTIP:NumberOfVotes",
+  "text": "Голоса за удаление игрока"
+ },
+ {
+  "label": "TOOLTIP:QuitMultiplayerGame",
+  "text": "Выход в меню"
+ },
+ {
+  "label": "TOOLTIP:RestartGame",
+  "text": "Переиграть игру с теми же настройками"
+ },
+ {
+  "label": "TOOLTIP:Help",
+  "text": "."
+ },
+ {
+  "label": "TOOLTIP:StartLocation",
+  "text": "Начальная точка"
+ },
+ {
+  "label": "TOOLTIP:ReturnToGame",
+  "text": "ВОЗВРАТ В ИГРУ"
+ },
+ {
+  "label": "TOOLTIP:CommandList",
+  "text": "Доступные команды в этой категории"
+ },
+ {
+  "label": "TOOLTIP:CurrentHotkey",
+  "text": "Горячая клавиша для этой команды"
+ },
+ {
+  "label": "TOOLTIP:AssignHotkey",
+  "text": "Введите здесь новую горячую клавишу для команды"
+ },
+ {
+  "label": "TOOLTIP:AssignHotkeyCurrent",
+  "text": "Команда привязанная к этой горячей клавише"
+ },
+ {
+  "label": "TOOLTIP:AssignButton",
+  "text": "Привязать команду к выбранной горячей клавише"
+ },
+ {
+  "label": "TOOLTIP:ResetAll",
+  "text": "Восстановить все горячие клавиши по умолчанию"
+ },
+ {
+  "label": "TOOLTIP:BackButton",
+  "text": "Возврат в предыдущее меню"
+ },
+ {
+  "label": "TOOLTIP:ProviderSelect",
+  "text": "Выберите настройки трёхмерного звука. Игра уже выбрала оптимальные для Вас настройки, но Вы можете изменить их вручную по своему усмотрению"
+ },
+ {
+  "label": "TOOLTIP:SpeakerSelect",
+  "text": "Выберите настройки Ваших колонок. Игра уже выбрала оптимальные для Вас настройки, но Вы можете изменить их вручную по своему усмотрению"
+ },
+ {
+  "label": "TOOLTIP:DontUseAccount",
+  "text": "Входить без использования Вашей учётной записи C&C Generals Zero Hour Online. Вы не сможете получить доступ к Вашей личности игрока и коммуникатору"
+ },
+ {
+  "label": "TOOLTIP:CommunicatorButton",
+  "text": "Связаться с Вашими друзьями"
+ },
+ {
+  "label": "TOOLTIP:NameButton",
+  "text": "Сортировать по имени игры"
+ },
+ {
+  "label": "TOOLTIP:PingButton",
+  "text": "Сортировать по пингу"
+ },
+ {
+  "label": "TOOLTIP:UseAccount",
+  "text": "Присоединиться к C&C Generals Zero Hour Online"
+ },
+ {
+  "label": "TOOLTIP:Login",
+  "text": "Присоединиться к C&C Generals Zero Hour Online"
+ },
+ {
+  "label": "TOOLTIP:CreateAccount",
+  "text": "Создать новую учётную запись C&C Generals Zero Hour Online"
+ },
+ {
+  "label": "TOOLTIP:TOS",
+  "text": "Просмотреть соглашение о условиях предоставляемых услуг"
+ },
+ {
+  "label": "TOOLTIP:RememberInfo",
+  "text": "Запомнить информацию для входа. Не рекомендуется для компьютеров с несколькими пользователями"
+ },
+ {
+  "label": "TOOLTIP:Back",
+  "text": "Вернуться в предыдущее меню"
+ },
+ {
+  "label": "TOOLTIP:BattleHonors",
+  "text": "Медали за боевые заслуги, полученные игроком \n Медали выдаются за достижение определенных целей в одиночной и коллективной игре"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak3",
+  "text": "Медаль за стойкость \n Игрок победил в 3 схватках подряд \n Новые медали выдаются за 3, 10, 25, 100, 500 и 1000 побед подряд"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak10",
+  "text": "Медаль за стойкость \n Игрок победил в 10 схватках подряд \n Новые медали выдаются за 3, 10, 25, 100, 500 и 1000 побед подряд"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorLoyaltyUSA",
+  "text": "Медаль за верность США  \n Игрок сыграл 20+ игр подряд за США"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorLoyaltyChina",
+  "text": "Медаль за верность Китаю  \n Игрок сыграл 20+ игр подряд за Китай"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorLoyaltyGLA",
+  "text": "Медаль за верность МАО  \n Игрок сыграл 20+ игр подряд за Международную Армию Освобождения"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorBattleTank",
+  "text": "Медаль боевого танка  \n Игрок построил 50+ танков в одиночной или коллективной игре через интернет"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorAirWing",
+  "text": "Медаль воздушного крыла  \n Игрок построил 20+ единиц авиации в одиночной или коллективной игре через интернет"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorEndurance",
+  "text": "Медаль за выносливость \n Победите на каждой карте, чтобы получить бронзовую, серебряную или золотую медаль"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorCampaignUSA",
+  "text": "Медаль кампании США \n Завершите кампанию за США, чтобы получить эту медаль \n Пройдите кампанию на высокой сложности, чтобы получить высшую награду"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorCampaignChina",
+  "text": "Медаль кампании Китая \n Завершите кампанию за Китай, чтобы получить эту медаль \n Пройдите кампанию на высокой сложности, чтобы получить высшую награду"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorCampaignGLA",
+  "text": "Медаль кампании МАО \n Завершите кампанию за МАО, чтобы получить эту медаль \n Пройдите кампанию на высокой сложности, чтобы получить высшую награду"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorChallenge",
+  "text": "Медаль за храбрость  \n Игрок победил Грозного компьютерного оппонента"
+ },
+ {
+  "label": "TOOLTIP:ProgressToNextRank",
+  "text": "Прогресс до получения следующего звания"
+ },
+ {
+  "label": "TOOLTIP:SetLocale",
+  "text": "Выберите Ваше местоположение"
+ },
+ {
+  "label": "TOOLTIP:DeleteAccount",
+  "text": "Удалить Вашу учетную запись"
+ },
+ {
+  "label": "TOOLTIP:AsianText",
+  "text": "Нажмите для включения чата с иероглифами и т.п."
+ },
+ {
+  "label": "TOOLTIP:NonAsianText",
+  "text": "Нажмите для выключения чата с иероглифами и т.п."
+ },
+ {
+  "label": "GUI:AreYouSureDeleteAccount",
+  "text": "Вы действительно хотите удалить Вашу учетную запись и всю сохраненную статистику?"
+ },
+ {
+  "label": "GUI:NonAsianText",
+  "text": "Без иероглифов"
+ },
+ {
+  "label": "GUI:AsianText",
+  "text": "Иероглифы"
+ },
+ {
+  "label": "GUI:DeleteAccount",
+  "text": "УДАЛИТЬ УЧ. ЗАПИСЬ"
+ },
+ {
+  "label": "GUI:SetLocale",
+  "text": "ИЗМЕНИТЬ МЕСТОП."
+ },
+ {
+  "label": "GUI:WinLoss",
+  "text": "Побед/Поражений"
+ },
+ {
+  "label": "GUI:FavSide",
+  "text": "Любимая армия"
+ },
+ {
+  "label": "GUI:Discons",
+  "text": "Отсоединений"
+ },
+ {
+  "label": "GUI:BattleHonors",
+  "text": "Боевые награды"
+ },
+ {
+  "label": "GUI:TotalBuddys",
+  "text": "Всего друзей"
+ },
+ {
+  "label": "GUI:PlayerStatistics",
+  "text": "%hs, из %ls"
+ },
+ {
+  "label": "GUI:TotalBuilt",
+  "text": "Всего построено"
+ },
+ {
+  "label": "GUI:TotalDeaths",
+  "text": "Всего смертей"
+ },
+ {
+  "label": "GUI:TotalKills",
+  "text": "Всего убийств"
+ },
+ {
+  "label": "GUI:FavoriteUnit",
+  "text": "Любимое подразделение"
+ },
+ {
+  "label": "GUI:FavoriteSide",
+  "text": "Любимая армия"
+ },
+ {
+  "label": "GUI:Loses",
+  "text": "Поражений"
+ },
+ {
+  "label": "GUI:Wins",
+  "text": "Побед"
+ },
+ {
+  "label": "GUI:TotalDesyncs",
+  "text": "Рассинхронизаций"
+ },
+ {
+  "label": "GUI:TotalDisconnects",
+  "text": "Отсоединений"
+ },
+ {
+  "label": "GUI:GamesPlayed",
+  "text": "Игр сыграно"
+ },
+ {
+  "label": "GUI:TOS",
+  "text": "СОГЛАШЕНИЕ"
+ },
+ {
+  "label": "GUI:RememberInfo",
+  "text": "Запомнить мою инф."
+ },
+ {
+  "label": "GUI:HostWantsToStart",
+  "text": "Сервер хочет начать. Нажмите кнопку Принять."
+ },
+ {
+  "label": "GUI:PlayerNoMap",
+  "text": "%ls не имеет карты %ls."
+ },
+ {
+  "label": "GUI:LocalPlayerNoMap",
+  "text": "Вы не имеете карту %ls."
+ },
+ {
+  "label": "GUI:NeedMorePlayers",
+  "text": "Вам нужно больше игроков для начала игры."
+ },
+ {
+  "label": "GUI:NotifiedStartIntent",
+  "text": "Другие игроки уведомлены, что Вы хотите начать игру."
+ },
+ {
+  "label": "GUI:HostLeft",
+  "text": "Сервер вышел, но игра C&C Generals Zero Hour продолжается."
+ },
+ {
+  "label": "GUI:HostLeftTitle",
+  "text": "СЕРВЕР ВЫШЕЛ"
+ },
+ {
+  "label": "GUI:WidenSearch",
+  "text": "РАСШИР. ПОИСК"
+ },
+ {
+  "label": "GUI:QMAborted",
+  "text": "Поиск соперника прерван"
+ },
+ {
+  "label": "GUI:DrawScrollAnchor",
+  "text": "Показать якорь прокрутки"
+ },
+ {
+  "label": "GUI:MoveScrollAnchor",
+  "text": "Переместить якорь прокрутки"
+ },
+ {
+  "label": "GUI:GroupRoom1",
+  "text": "1 на 1"
+ },
+ {
+  "label": "GUI:GroupRoom2",
+  "text": "2 на 2"
+ },
+ {
+  "label": "GUI:GroupRoom3",
+  "text": "3 на 3"
+ },
+ {
+  "label": "GUI:Email",
+  "text": "Адрес эл. почты"
+ },
+ {
+  "label": "GUI:NoLadder",
+  "text": "Без доски почета"
+ }
+]

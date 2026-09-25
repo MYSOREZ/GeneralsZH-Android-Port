@@ -1,0 +1,802 @@
+[
+ {
+  "label": "GUI:ChooseLadder",
+  "text": "Выбор доски почета"
+ },
+ {
+  "label": "GUI:UnknownLadder",
+  "text": "Неизвестная доска почета"
+ },
+ {
+  "label": "GUI:WOLLogin",
+  "text": "ВХОД В GENERALS ONLINE"
+ },
+ {
+  "label": "GUI:PleaseEnterWOLInfo",
+  "text": "Пожалуйста, введите информацию"
+ },
+ {
+  "label": "GUI:Username",
+  "text": "Имя"
+ },
+ {
+  "label": "GUI:Server",
+  "text": "Сервер"
+ },
+ {
+  "label": "GUI:RememberPassword",
+  "text": "Запомнить мой пароль"
+ },
+ {
+  "label": "GUI:CreateAccount",
+  "text": "СОЗДАТЬ УЧ. ЗАПИСЬ"
+ },
+ {
+  "label": "GUI:TryAgain",
+  "text": "Попытаться еще раз"
+ },
+ {
+  "label": "GUI:NetworkOptions",
+  "text": "ОПЦИИ СЕТИ"
+ },
+ {
+  "label": "GUI:GammaAdjustment",
+  "text": "Яркость"
+ },
+ {
+  "label": "GUI:HelpDescription",
+  "text": "Показать экран помощи"
+ },
+ {
+  "label": "GUI:ReturnToGame",
+  "text": "ВОЗВРАТ В ИГРУ"
+ },
+ {
+  "label": "GUI:NewGame",
+  "text": "Новая игра"
+ },
+ {
+  "label": "GUI:RestartGame",
+  "text": "ПЕРЕИГРАТЬ ИГРУ"
+ },
+ {
+  "label": "GUI:MatchingProgress",
+  "text": "Прогресс быстрого матча"
+ },
+ {
+  "label": "GUI:Player'sName",
+  "text": "Имя оппонента"
+ },
+ {
+  "label": "GUI:AllTimeWins",
+  "text": "Побед за все время"
+ },
+ {
+  "label": "GUI:AllTimeLosses",
+  "text": "Поражений за все время"
+ },
+ {
+  "label": "GUI:AllTimePoints",
+  "text": "Очков звания за все время"
+ },
+ {
+  "label": "GUI:AllTimeDisconnects",
+  "text": "Отсоединений за все время"
+ },
+ {
+  "label": "GUI:HighestRank",
+  "text": "Высшее звание за все время"
+ },
+ {
+  "label": "GUI:Honor",
+  "text": "Боевые заслуги"
+ },
+ {
+  "label": "GUI:LastUpdated",
+  "text": "Последнее обновление профиля игрока"
+ },
+ {
+  "label": "GUI:WOLIconKey",
+  "text": "Обозначения значков"
+ },
+ {
+  "label": "GUI:MyInfo",
+  "text": "МОЯ ЛИЧНОСТЬ"
+ },
+ {
+  "label": "GUI:Buddies",
+  "text": "КОММУНИКАТОР"
+ },
+ {
+  "label": "GUI:Community",
+  "text": "Ежедневный процент побед армий"
+ },
+ {
+  "label": "GUI:SortAlpha",
+  "text": "Имя"
+ },
+ {
+  "label": "GUI:SortPing",
+  "text": "Связь"
+ },
+ {
+  "label": "GUI:SortBuddies",
+  "text": "Друзья"
+ },
+ {
+  "label": "GUI:GSRank0",
+  "text": "Рядовой"
+ },
+ {
+  "label": "GUI:GSRank1",
+  "text": "Капрал"
+ },
+ {
+  "label": "GUI:GSRank2",
+  "text": "Сержант"
+ },
+ {
+  "label": "GUI:GSRank3",
+  "text": "Лейтенант"
+ },
+ {
+  "label": "GUI:GSRank4",
+  "text": "Капитан"
+ },
+ {
+  "label": "GUI:GSRank5",
+  "text": "Майор"
+ },
+ {
+  "label": "GUI:GSRank6",
+  "text": "Полковник"
+ },
+ {
+  "label": "GUI:GSRank7",
+  "text": "Бригадный генерал"
+ },
+ {
+  "label": "GUI:GSRank8",
+  "text": "Генерал"
+ },
+ {
+  "label": "GUI:GSRank9",
+  "text": "Главнокомандующий"
+ },
+ {
+  "label": "GUI:GSErrorTitle",
+  "text": "Уведомление"
+ },
+ {
+  "label": "GUI:GSDisconnected",
+  "text": "Вы были отсоединены от сервера чата"
+ },
+ {
+  "label": "GUI:GSDisconReason1",
+  "text": "Это имя уже зарегистрировано. Пожалуйста, выберите другое"
+ },
+ {
+  "label": "GUI:GSDisconReason2",
+  "text": "Это имя неправильное. Пожалуйста, выберите другое"
+ },
+ {
+  "label": "GUI:GSDisconReason3",
+  "text": "Потеряно соединение с C&C Generals Zero Hour Online"
+ },
+ {
+  "label": "GUI:GSDisconReason4",
+  "text": "Невозможно соединиться с C&C Generals Zero Hour Online"
+ },
+ {
+  "label": "GUI:GSDisconReason5",
+  "text": "Вышло время для процесса входа. Пожалуйста, проверьте Вашу связь с интернетом"
+ },
+ {
+  "label": "GUI:GSDisconReason6",
+  "text": "Это имя/адрес электронной почты не существует. Если Вы хотите создать учетную запись, то нажмите на Создать Уч. Запись."
+ },
+ {
+  "label": "GUI:GSDisconReason7",
+  "text": "Неправильный адрес электронной почты"
+ },
+ {
+  "label": "GUI:GSDisconReason8",
+  "text": "Этот пароль неверен. Пожалуйста попробуйте еще раз"
+ },
+ {
+  "label": "GUI:GSDisconReason9",
+  "text": "Плохой профиль."
+ },
+ {
+  "label": "GUI:GSDisconReason10",
+  "text": "Профиль удален."
+ },
+ {
+  "label": "GUI:GSDisconReason11",
+  "text": "Сервер друзей отклонил соединение"
+ },
+ {
+  "label": "GUI:GSDisconReason12",
+  "text": "Ошибка авторизации на сервере друзей"
+ },
+ {
+  "label": "GUI:GSDisconReason13",
+  "text": "Серийный номер неправильный. Пожалуйста, попробуйте другой"
+ },
+ {
+  "label": "GUI:GSDisconReason14",
+  "text": "Реестр поврежден или изменен"
+ },
+ {
+  "label": "GUI:GSDisconReason15",
+  "text": "Серийный номер заблокирован"
+ },
+ {
+  "label": "GUI:GSGroupRoomJoinFail",
+  "text": "Невозможно присоединиться к комнате чата"
+ },
+ {
+  "label": "GUI:JoinFailedRoomFull",
+  "text": "Невозможно присоединиться - комната полная"
+ },
+ {
+  "label": "GUI:JoinFailedInviteOnly",
+  "text": "Невозможно присоединиться - комната только для приглашенных."
+ },
+ {
+  "label": "GUI:JoinFailedBannedFromRoom",
+  "text": "Невозможно присоединиться - Вам было запрещено заходить в эту комнату"
+ },
+ {
+  "label": "GUI:JoinFailedBadPassword",
+  "text": "Невозможно присоединиться - неправильный пароль"
+ },
+ {
+  "label": "GUI:JoinFailedAlreadyInRoom",
+  "text": "Невозможно присоединиться - Вы уже в комнате"
+ },
+ {
+  "label": "GUI:JoinFailedNoConnection",
+  "text": "Невозможно присоединиться - нет соединения с сервером чата"
+ },
+ {
+  "label": "GUI:JoinFailedCRCMismatch",
+  "text": "Невозможно присоединиться - игра другой версии"
+ },
+ {
+  "label": "GUI:JoinFailedUnknownLadder",
+  "text": "Невозможно присоединиться - игра использует неизвестную доску почета"
+ },
+ {
+  "label": "GUI:JoinFailedDefault",
+  "text": "НЕВОЗМОЖНО ПРИСОЕДИНИТЬСЯ К КОМНАТЕ"
+ },
+ {
+  "label": "GUI:GSKicked",
+  "text": "Вас выпнули из комнаты"
+ },
+ {
+  "label": "GUI:NATNegotiationFailed",
+  "text": "Невозможно соединиться с другим игроком (игроками)"
+ },
+ {
+  "label": "GUI:GPErrorTitle",
+  "text": "ОШИБКА ДРУГА"
+ },
+ {
+  "label": "GUI:GPDisconnected",
+  "text": "Вы были отсоединены от сервера друзей. Вы хотите присоединиться заново?"
+ },
+ {
+  "label": "GUI:GPNoProfile",
+  "text": "Вы не использовали Профиль. Информация по друзьям недоступна"
+ },
+ {
+  "label": "GUI:PSErrorTitle",
+  "text": "ОШИБКА ПОСТОЯННОГО ХРАНИЛИЩА"
+ },
+ {
+  "label": "GUI:PSCannotConnect",
+  "text": "Невозможно соединиться с сервером постоянного хранилища"
+ },
+ {
+  "label": "Buddy:Offline",
+  "text": "Вне сети"
+ },
+ {
+  "label": "Buddy:Online",
+  "text": "В сети"
+ },
+ {
+  "label": "Buddy:Chatting",
+  "text": "Разговаривает в %ls"
+ },
+ {
+  "label": "Buddy:Staging",
+  "text": "Готовится к игре в %ls"
+ },
+ {
+  "label": "Buddy:Loading",
+  "text": "Загружается в %ls"
+ },
+ {
+  "label": "Buddy:Playing",
+  "text": "Играет в %ls"
+ },
+ {
+  "label": "Buddy:Matching",
+  "text": "Играет быстрый матч"
+ },
+ {
+  "label": "Buddy:OnlineNotification",
+  "text": "%hs сейчас в сети"
+ },
+ {
+  "label": "Buddy:OfflineNotification",
+  "text": "%hs сейчас вне сети"
+ },
+ {
+  "label": "Buddy:AddNotification",
+  "text": "Получен запрос от %hs добавить Вас в список друзей"
+ },
+ {
+  "label": "Buddy:MessageNotification",
+  "text": "%hs сказал(а):    \n '%s...'"
+ },
+ {
+  "label": "GUI:Com/Tac",
+  "text": "Com/Tac"
+ },
+ {
+  "label": "GUI:MoneySymbol",
+  "text": "$"
+ },
+ {
+  "label": "GUI:$$$",
+  "text": "$$$"
+ },
+ {
+  "label": "GUI:OverchargeExhausted",
+  "text": "Перегрузка исчерпана."
+ },
+ {
+  "label": "GUI:NotEnoughMoneyToBuild",
+  "text": "У Вас недостаточно денег для постройки этого"
+ },
+ {
+  "label": "GUI:NotEnoughMoneyToUpgrade",
+  "text": "У Вас недостаточно денег для проведения улучшения"
+ },
+ {
+  "label": "GUI:Level",
+  "text": "Уровень"
+ },
+ {
+  "label": "GUI:Tac",
+  "text": "Tac"
+ },
+ {
+  "label": "GUI:Strat",
+  "text": "Strat"
+ },
+ {
+  "label": "GUI:Struct",
+  "text": "Struct"
+ },
+ {
+  "label": "GUI:Waypt",
+  "text": "Waypt"
+ },
+ {
+  "label": "GUI:WOLStatus",
+  "text": "Статус C&C Generals Zero Hour Online"
+ },
+ {
+  "label": "GUI:AIDifficulty",
+  "text": "Уровень компьютера"
+ },
+ {
+  "label": "GUI:EasyAI",
+  "text": "Стандартная армия"
+ },
+ {
+  "label": "GUI:MediumAI",
+  "text": "Опытная армия"
+ },
+ {
+  "label": "GUI:HardAI",
+  "text": "Грозная армия"
+ },
+ {
+  "label": "GUI:Hide",
+  "text": "НАЗАД"
+ },
+ {
+  "label": "GUI:Pause",
+  "text": "Пауза"
+ },
+ {
+  "label": "GUI:NextFrame",
+  "text": "Следующий кадр"
+ },
+ {
+  "label": "GUI:ReplayMenu",
+  "text": "ЗАГРУЗИТЬ"
+ },
+ {
+  "label": "GUI:AntiAliasing",
+  "text": "Анти-Альязинг"
+ },
+ {
+  "label": "GUI:ScreenCapture",
+  "text": "Снимок экрана записан в '%s'"
+ },
+ {
+  "label": "GUI:ScreenshotCapture",
+  "text": "Снимок экрана"
+ },
+ {
+  "label": "GUI:ScreenshotCaptureDescription",
+  "text": "Записать картинку с игрового экрана в файл"
+ },
+ {
+  "label": "GUI:Null",
+  "text": "."
+ },
+ {
+  "label": "GUI:CRCMismatch",
+  "text": "Игра обнаружила несоответствие. Это значит, что коллективная игра потеряла данные синхронизации между игроками"
+ },
+ {
+  "label": "GUI:CurrentHotkey",
+  "text": "Горячая клавиша"
+ },
+ {
+  "label": "GUI:AssignNewHotkey",
+  "text": "Новая клавиша"
+ },
+ {
+  "label": "GUI:CurrentlyAssignedTo",
+  "text": "Используется командой"
+ },
+ {
+  "label": "GUI:Reset",
+  "text": "Вернуть"
+ },
+ {
+  "label": "QM:JOININGQMCHANNEL",
+  "text": "Присоединение к быстрому матчу..."
+ },
+ {
+  "label": "QM:WORKING",
+  "text": "Сейчас есть %d игроков, пытающихся сыграть матч..."
+ },
+ {
+  "label": "QM:POOLSIZE",
+  "text": "Сейчас есть %d игроков, пытающихся сыграть матч..."
+ },
+ {
+  "label": "QM:LOOKINGFORBOT",
+  "text": "Поиск создателя матча C&C Generals Zero Hour Online..."
+ },
+ {
+  "label": "QM:SENTINFO",
+  "text": "Информация о игре отправлена..."
+ },
+ {
+  "label": "QM:WIDENINGSEARCH",
+  "text": "Расширенный поиск оппонентов, наиболее подходящих Вам по параметрам..."
+ },
+ {
+  "label": "QM:MATCHED",
+  "text": "Отлично, матч найден..."
+ },
+ {
+  "label": "QM:INCHANNEL",
+  "text": "На канале..."
+ },
+ {
+  "label": "QM:NEGOTIATINGFIREWALLS",
+  "text": "Согласование брандмауэров..."
+ },
+ {
+  "label": "QM:STARTINGGAME",
+  "text": "Начало игры..."
+ },
+ {
+  "label": "QM:COULDNOTFINDBOT",
+  "text": "Невозможно найти создателя матча"
+ },
+ {
+  "label": "QM:COULDNOTFINDCHANNEL",
+  "text": "Невозможно найти канал быстрого матча"
+ },
+ {
+  "label": "QM:COULDNOTNEGOTIATEFIREWALLS",
+  "text": "Невозможно согласовать брандмауэры"
+ },
+ {
+  "label": "QM:STOPPED",
+  "text": "Быстрый матч прерван"
+ },
+ {
+  "label": "QM:WaitingForPlayerToJoin",
+  "text": "Ожидание присоединение оппонентов"
+ },
+ {
+  "label": "QM:FindingGameChannel",
+  "text": "Поиск игры оппонента"
+ },
+ {
+  "label": "QM:JoinedGameChannel",
+  "text": "Произошло присоединение к игре оппонента"
+ },
+ {
+  "label": "QM:PlayerJoined",
+  "text": "Оппонент присоединился"
+ },
+ {
+  "label": "QM:LookingForMatchChannel",
+  "text": "Поиск каналов быстрого матча"
+ },
+ {
+  "label": "QM:NoMatchChannel",
+  "text": "Ни одного канала быстрого матча не найдено"
+ },
+ {
+  "label": "QM:JoinedMatchChannel",
+  "text": "Произошло присоединение к каналу быстрого матча"
+ },
+ {
+  "label": "QM:NoMatchingBot",
+  "text": "Создатель матча не найден"
+ },
+ {
+  "label": "QM:GameNotFound",
+  "text": "Быстрый матч не нашел игру Вашего оппонента"
+ },
+ {
+  "label": "QM:TimeoutOtherPlayer",
+  "text": "Время ожидание оппонента к игре быстрого матча вышло"
+ },
+ {
+  "label": "Version:Format4",
+  "text": "%d.%02d.%d Сборка %d %c%c"
+ },
+ {
+  "label": "Version:Format3",
+  "text": "Версия %d.%02d.%d"
+ },
+ {
+  "label": "Version:Format2",
+  "text": "Версия %d.%02d"
+ },
+ {
+  "label": "Version:BuildTime",
+  "text": "%ls %ls"
+ },
+ {
+  "label": "Version:BuildMachine",
+  "text": "Машина сборки: %ls"
+ },
+ {
+  "label": "Version:BuildUser",
+  "text": "От %ls"
+ },
+ {
+  "label": "GUI:SuperweaponDaisyCutter",
+  "text": "Бомба с напалмом"
+ },
+ {
+  "label": "GUI:SuperweaponParadropAmerica",
+  "text": "Парашютный десант"
+ },
+ {
+  "label": "GUI:SuperweaponClusterMines",
+  "text": "Осколочные бомбы"
+ },
+ {
+  "label": "GUI:SuperweaponEMPPulse",
+  "text": "Электромагнитный импульс"
+ },
+ {
+  "label": "GUI:SuperweaponA10ThunderboltMissileStrike",
+  "text": "Ракетный удар штурмовиком A10"
+ },
+ {
+  "label": "GUI:SuperweaponCrateDrop",
+  "text": "Сброс ящиков"
+ },
+ {
+  "label": "GUI:SuperweaponCarpetBomb",
+  "text": "Ковровая бомбардировка"
+ },
+ {
+  "label": "GUI:SuperweaponNapalmStrike",
+  "text": "Удар напалмом"
+ },
+ {
+  "label": "GUI:SuperweaponCashHack",
+  "text": "Взлом денег"
+ },
+ {
+  "label": "GUI:SuperweaponNeutronMissile",
+  "text": "Удар ядерной ракетой"
+ },
+ {
+  "label": "GUI:SuperweaponScudStorm",
+  "text": "Залп ракетами Р-17М"
+ },
+ {
+  "label": "GUI:SuperweaponTerrorCell",
+  "text": "Террористическая группировка"
+ },
+ {
+  "label": "GUI:SuperweaponRebelAmbush",
+  "text": "Ополчение"
+ },
+ {
+  "label": "GUI:SuperweaponBlackMarketNuke",
+  "text": "Ядерная бомба чёрного рынка"
+ },
+ {
+  "label": "GUI:SuperweaponAnthraxBomb",
+  "text": "Бомба с сибирской язвой"
+ },
+ {
+  "label": "GUI:SuperweaponDemoralize",
+  "text": "Деморализация"
+ },
+ {
+  "label": "GUI:SpecialAbilityGuidedMissiles",
+  "text": "Ракеты лазерного наведения"
+ },
+ {
+  "label": "GUI:SpecialAbilityDetonateCharges",
+  "text": "Взорвать заряды"
+ },
+ {
+  "label": "GUI:SuperweaponParticleUplinkCannon",
+  "text": "Молекулярная пушка"
+ },
+ {
+  "label": "GUI:PatchAvailable",
+  "text": "ОБНОВЛЕНИЕ ДОСТУПНО"
+ },
+ {
+  "label": "GUI:MustPatchForOnline",
+  "text": "Вы должны скачать обновление для игры в C&C Generals Zero Hour Online"
+ },
+ {
+  "label": "GUI:CanPatchForOnline",
+  "text": "Вы хотите скачать Обновление?"
+ },
+ {
+  "label": "GUI:CheckingForPatches",
+  "text": "Проверка обновлений"
+ },
+ {
+  "label": "GUI:DownloadErrorTitle",
+  "text": "ОШИБКА СКАЧИВАНИЯ"
+ },
+ {
+  "label": "GUI:DownloadSuccessTitle",
+  "text": "СКАЧИВАНИЕ УСПЕШНО ЗАВЕРШЕНО"
+ },
+ {
+  "label": "GUI:DownloadSuccess",
+  "text": "Скачивание завершено без ошибок"
+ },
+ {
+  "label": "GUI:DownloadSuccessMustQuit",
+  "text": "Нажмите OK для выхода из Command & Conquer Generals Zero Hour и применения Обновления"
+ },
+ {
+  "label": "GUI:DownloadBytesRatio",
+  "text": "%d / %d байт"
+ },
+ {
+  "label": "GUI:DownloadTimeLeft",
+  "text": "%d:%02d:%02d осталось"
+ },
+ {
+  "label": "GUI:DownloadUnknownTime",
+  "text": "???"
+ },
+ {
+  "label": "FTP:StatusIdle",
+  "text": "Свободен"
+ },
+ {
+  "label": "FTP:UnknownError",
+  "text": "Неизвестная ошибка"
+ },
+ {
+  "label": "FTP:NoSuchServer",
+  "text": "Нет такого сервера"
+ },
+ {
+  "label": "FTP:CouldNotConnect",
+  "text": "Нет соединения"
+ },
+ {
+  "label": "FTP:LoginFailed",
+  "text": "Вход не выполнен"
+ },
+ {
+  "label": "FTP:NoSuchFile",
+  "text": "Нет такого файла"
+ },
+ {
+  "label": "FTP:LocalFileOpenFailed",
+  "text": "Невозможно открыть локальный файл"
+ },
+ {
+  "label": "FTP:TCPError",
+  "text": "Ошибка протокола TCP"
+ },
+ {
+  "label": "FTP:DisconnectError",
+  "text": "Ошибка отсоединения"
+ },
+ {
+  "label": "FTP:StatusConnecting",
+  "text": "Соединение"
+ },
+ {
+  "label": "FTP:StatusLoggingIn",
+  "text": "Вход"
+ },
+ {
+  "label": "FTP:StatusFindingFile",
+  "text": "Поиск файла"
+ },
+ {
+  "label": "FTP:StatusQueryingResume",
+  "text": "Ожидание разрешения для возврата к скачиванию"
+ },
+ {
+  "label": "FTP:StatusDownloading",
+  "text": "Скачивание"
+ },
+ {
+  "label": "FTP:StatusDisconnecting",
+  "text": "Отсоединение"
+ },
+ {
+  "label": "FTP:StatusFinishing",
+  "text": "Завершение"
+ },
+ {
+  "label": "FTP:StatusDone",
+  "text": "Готово"
+ },
+ {
+  "label": "FTP:StatusNone",
+  "text": "Нету"
+ },
+ {
+  "label": "WOL:InternalError",
+  "text": "Внутренняя ошибка C&C Generals Zero Hour Online"
+ },
+ {
+  "label": "WOL:ServerBan",
+  "text": "Извините, но Вы были заблокированы в C&C Generals Zero Hour Online. Пожалуйста, ознакомьтесь с соглашением о предоставляемых услугах"
+ },
+ {
+  "label": "WOL:DisconnectedError",
+  "text": "Извините, но Вы были заблокированы в C&C Generals Zero Hour Online. Пожалуйста, ознакомьтесь с соглашением о предоставляемых услугах"
+ },
+ {
+  "label": "WOL:NoServers",
+  "text": "C&C Generals Zero Hour Online не найден"
+ },
+ {
+  "label": "WOL:LoginTimeout",
+  "text": "Вышло время присоединения к C&C Generals Zero Hour Online"
+ },
+ {
+  "label": "WOL:NoMatchChannel",
+  "text": "Ни одного канала не найдено"
+ }
+]

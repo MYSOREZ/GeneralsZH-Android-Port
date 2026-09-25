@@ -1,0 +1,802 @@
+[
+ {
+  "label": "GUI:Any",
+  "text": "Будь-який"
+ },
+ {
+  "label": "GUI:GSNoLoginInfoNicknamePassword",
+  "text": "Будь ласка, введіть свій нік і пароль. Потім натисніть «Увійти» або «Створити обліковий запис»."
+ },
+ {
+  "label": "GUI:GSNoLoginInfoEmail",
+  "text": "Будь ласка, введіть свою електронну адресу. Потім натисніть «Увійти» або «Створити обліковий запис»."
+ },
+ {
+  "label": "GUI:GSNoLoginInfoNickname",
+  "text": "Будь ласка, введіть свій псевдонім. Потім натисніть «Увійти» або «Створити обліковий запис»."
+ },
+ {
+  "label": "GUI:GSNoLoginInfoPassword",
+  "text": "Будь ласка, введіть свій пароль. Потім натисніть «Увійти» або «Створити обліковий запис»."
+ },
+ {
+  "label": "Buddy:MultipleOnlineNotification",
+  "text": "У вас є друзі онлайн"
+ },
+ {
+  "label": "GUI:ResetHonors",
+  "text": "Скинути відзнаки"
+ },
+ {
+  "label": "Chat:Observers",
+  "text": "Бачать спостерігачі"
+ },
+ {
+  "label": "TOOLTIP:buddies",
+  "text": "Сортувати список ігор за друзями"
+ },
+ {
+  "label": "TOOLTIP:AddToBuddies",
+  "text": "Додати гравця до свого списку друзів"
+ },
+ {
+  "label": "TOOLTIP:StagingPlayerInfo",
+  "text": "\n  Регіон: %ls\n  Пінг: %d мс\n  %d перемог/%d поразок\n  %d від’єднань\n  Улюблена армія: %ls"
+ },
+ {
+  "label": "GUI:CantBuildTooCloseToSupplies",
+  "text": "Ви не можете будувати там, тому що це надто близько до джерела ресурсів"
+ },
+ {
+  "label": "OBJECT:Frosty",
+  "text": "Сніговик"
+ },
+ {
+  "label": "OBJECT:Prop",
+  "text": "."
+ },
+ {
+  "label": "OBJECT:BigGate",
+  "text": "Ворота"
+ },
+ {
+  "label": "OBJECT:TownHall",
+  "text": "Мерія"
+ },
+ {
+  "label": "OBJECT:RailroadBridge",
+  "text": "Залізничний міст"
+ },
+ {
+  "label": "OBJECT:TheLoo",
+  "text": "Туалет"
+ },
+ {
+  "label": "OBJECT:TrainCar",
+  "text": "Потяг"
+ },
+ {
+  "label": "OBJECT:SandBagWall",
+  "text": "Мішки з піском"
+ },
+ {
+  "label": "OBJECT:Structure",
+  "text": "Цивільна будівля"
+ },
+ {
+  "label": "OBJECT:Airport",
+  "text": "Цивільний аеропорт"
+ },
+ {
+  "label": "OBJECT:Highrise",
+  "text": "Висотний"
+ },
+ {
+  "label": "OBJECT:BridgeTower",
+  "text": "Мостова вежа"
+ },
+ {
+  "label": "OBJECT:Field",
+  "text": "Поле"
+ },
+ {
+  "label": "OBJECT:SoccerStadiumGoal",
+  "text": "Ворота"
+ },
+ {
+  "label": "OBJECT:BigLightpost",
+  "text": "Ліхтарний стовп"
+ },
+ {
+  "label": "MAP:BigRivers",
+  "text": "Гірська лисиця"
+ },
+ {
+  "label": "MAP:CHI01Open",
+  "text": "Китайський військовий парад, Пекін\n  Дракон прокидається"
+ },
+ {
+  "label": "MAP:CHI03Obj1Done",
+  "text": "МЕТА МІСІЇ Виконана"
+ },
+ {
+  "label": "MAP:CHI07Obj1",
+  "text": "МЕТА МІСІЇ:\n  Створіть базу та знайдіть ресурси"
+ },
+ {
+  "label": "MAP:CHI07Obj2",
+  "text": "МЕТА МІСІЇ:\n  Перемогти ГВА"
+ },
+ {
+  "label": "MAP:GLA02OpenAlt2",
+  "text": "Села під Алмати, Казахстан\n  Захопіть іноземні припаси для нашої справи"
+ },
+ {
+  "label": "MAP:GLA02OpenAlt1",
+  "text": "Села під Алмати, Казахстан\n  Операція: Пограбування села"
+ },
+ {
+  "label": "MAP:GLA06OpenAlt2",
+  "text": "Західне узбережжя Аральського моря, Казахстан\n  Вкрадіть отрути Заходу, щоб використати їх проти нього"
+ },
+ {
+  "label": "MAP:GLA06OpenAlt1",
+  "text": "Західне узбережжя Аральського моря, Казахстан\n  Операція: Привласнення отрут"
+ },
+ {
+  "label": "MAP:GLA07OpenAlt2",
+  "text": "Десь біля Ленгера, Казахстан\n  Покажіть світові, що відбувається зі зрадниками"
+ },
+ {
+  "label": "MAP:GLA07OpenAlt",
+  "text": "Десь біля Ленгера, Казахстан\n  Операція: Троянський кінь"
+ },
+ {
+  "label": "MAP:GLA03Open02",
+  "text": "Окупований Китаєм Жамбул, Казахстан\n  Операція: Праведний вогонь"
+ },
+ {
+  "label": "MAP:GLA03Directive",
+  "text": "Звіт інформатора:\n  Знищити фармацевтичну фабрику, щоб отримати бомбу з сибірською виразкою"
+ },
+ {
+  "label": "MAP:USA02Hint1Text",
+  "text": "Використовуйте пілотів, щоб надати своїм транспортним засобам додаткові ветеранські якості"
+ },
+ {
+  "label": "MAP:USA02Hint2Text",
+  "text": "Використовуйте покращення рейнджера світлошумові гранати, щоб розчистити гарнізонні структури"
+ },
+ {
+  "label": "MAP:USA03Hint1Text",
+  "text": "Створюйте ракетні системи Патріот для захисту своєї бази"
+ },
+ {
+  "label": "MAP:USA04Hint1Text",
+  "text": "Використовуйте ракетні установки Томагавк, щоб знищити опорні пункти ГВА"
+ },
+ {
+  "label": "MAP:NVIDIATEXT",
+  "text": "Command & Conquer Generals \n Незабаром: лютий 2003"
+ },
+ {
+  "label": "MAP:USA06ObjHint2",
+  "text": "ПІДКАЗКА:\n  Захопіть цей об'єкт"
+ },
+ {
+  "label": "MAP:USA06ObjHint1",
+  "text": "ПІДКАЗКА:\n  Тут є важливі цивільні будівлі"
+ },
+ {
+  "label": "MAP:GLA03Objective07",
+  "text": "Мета виконана:\n  Ліквідовано 300 зрадників"
+ },
+ {
+  "label": "MAP:GLA03Objective08",
+  "text": "Мета виконана:\n  Фармацевтична фабрика зруйнована"
+ },
+ {
+  "label": "MAP:GLA05Open",
+  "text": "Адана, Туреччина\n  Авіабаза Інджирлік"
+ },
+ {
+  "label": "SCRIPT:GLA05Directive03",
+  "text": "УВАГА:\n  Наближаються американські ВПС\n  Будуйте позиції Стінгер, щоб захистити свою базу"
+ },
+ {
+  "label": "SCRIPT:GLA05Directive04",
+  "text": "Додаткова мета:\n  Знищити китайський шпигунський форпост"
+ },
+ {
+  "label": "SCRIPT:GLA05Directive05",
+  "text": "УВАГА:\n  Наближаються американські ВПС\n  Використовуйте позиції Стінгер і гармати КВАД, щоб збивати ворожі літаки"
+ },
+ {
+  "label": "MAP:GLA08Open",
+  "text": "Космодром Байконур, Південний Казахстан\n  Ракетний пусковий комплекс радянських часів"
+ },
+ {
+  "label": "MAP:GLA08Open02",
+  "text": "Південний Казахстан\n  Космодром Байконур"
+ },
+ {
+  "label": "SCRIPT:GLA08Objective01",
+  "text": "ЦІЛІ МІСІЇ:\n  Захопіть будівлю наземного управління\n  Захопіть пускову платформу ракети"
+ },
+ {
+  "label": "SCRIPT:GLA08Objective02",
+  "text": "МЕТА МІСІЇ:\n  Захопіть будівлю наземного управління"
+ },
+ {
+  "label": "SCRIPT:GLA08Objective03",
+  "text": "МЕТА МІСІЇ:\n  Захопіть пускову платформу ракети"
+ },
+ {
+  "label": "SCRIPT:GLA08Directive04",
+  "text": "УВАГА:\n  Наближається удар суперзброї противника"
+ },
+ {
+  "label": "MAP:USA07hint1",
+  "text": "ПІДКАЗКА:\n  Використовуйте цей док постачання"
+ },
+ {
+  "label": "MAP:CHI05ObjInit",
+  "text": "МЕТА МІСІЇ:\n  Знищити 3 табори ГВА\n  і основну базу ГВА"
+ },
+ {
+  "label": "MAP:CHI05Obj4",
+  "text": "Залишилося 4 цілі"
+ },
+ {
+  "label": "MAP:CHI05Obj3",
+  "text": "Залишилося 3 цілі"
+ },
+ {
+  "label": "MAP:CHI05Obj2",
+  "text": "Залишилося 2 цілі"
+ },
+ {
+  "label": "MAP:CHI05Obj1",
+  "text": "Залишилася лише 1 ціль"
+ },
+ {
+  "label": "MAP:CHI05Objhint1",
+  "text": "ПІДКАЗКА:\n  Використовуйте цей док постачання"
+ },
+ {
+  "label": "MAP:CHI05Objhint2",
+  "text": "ПІДКАЗКА:\n  Захопіть ці об'єкти"
+ },
+ {
+  "label": "MAP:CHI05ObjCBReady",
+  "text": "ПІДКАЗКА:\n  Килимове бомбардування вже доступне"
+ },
+ {
+  "label": "MAP:USA08MapName",
+  "text": "Останній дзвінок"
+ },
+ {
+  "label": "MAP:USA08Open",
+  "text": "Столиця ГВА, Алдастан\n  Операція: Останній дзвінок"
+ },
+ {
+  "label": "MAP:USA08OpenAlt",
+  "text": "Акмола, Казахстан\n  Операція: Останній дзвінок"
+ },
+ {
+  "label": "MAP:USA08Objective01",
+  "text": "МЕТА МІСІЇ:\n  Знищити всі сили та структури ГВА"
+ },
+ {
+  "label": "MAP:USA08WallGarWarning",
+  "text": "УВАГА:\n  ГВА зайняла стіну гарнізоном\n  Рейнджери повинні використовувати світлошумові гранати, щоб знищити війська ГВА в гарнізоні"
+ },
+ {
+  "label": "MAP:USA08ChinaHint",
+  "text": "Захопіть китайські будівлі\n  Створіть об’єднані сили США та Китаю, щоб знищити ГВА"
+ },
+ {
+  "label": "MAP:USA08SCUDStormWarn",
+  "text": "УВАГА:\n  ГВА побудували СКАД Шторм"
+ },
+ {
+  "label": "MAP:USA08MineWarn",
+  "text": "УВАГА:\n  Виявлено вибухові пастки ГВА"
+ },
+ {
+  "label": "MAP:USA08GLABaseKIA",
+  "text": "Бази ГВА зруйновано\n  Ліквідуйте сили ГВА, що залишилися, щоб виграти війну"
+ },
+ {
+  "label": "CONTROLBAR:TooltipCarpetBomb",
+  "text": "Килимове бомбардування вказаної зони\n \n Таймер зворотного відліку: 2:30"
+ },
+ {
+  "label": "CONTROLBAR:TooltipCrateDrop",
+  "text": "Скинути ящики з припасами"
+ },
+ {
+  "label": "CONTROLBAR:TooltipDetonateNuke",
+  "text": "Підірвати прихований ядерний заряд"
+ },
+ {
+  "label": "MAP:GLA01Objective",
+  "text": "МЕТА МІСІЇ\n  Знищити дамбу"
+ },
+ {
+  "label": "MAP:GLA01Objective2",
+  "text": "МЕТА МІСІЇ\n  Знищити китайську базу"
+ },
+ {
+  "label": "MAP:TrainingGenerals",
+  "text": "Клацніть лівою кнопкою миші на кнопці генералів у нижньому правому куті екрана, щоб вибрати нову здатність для свого генерала. Коли вас підвищать, ваш генерал отримає доступ до нових здібностей. Деякі здібності дозволять вам створювати нові спеціальні підрозділи, тоді як інші нададуть вам спеціальні повноваження, які використовуються з вашого командного центру"
+ },
+ {
+  "label": "MAP:TrainingSalvage",
+  "text": "Ви створили купу уламків. Щоразу, коли машини ГВА знищують ворожу техніку, залишаються уламки. Техніка ГВА може підбирати уламки, проїжджаючи по них. Уламки можуть дати гроші або досвід. Техніки, гармати КВАД та мародери можуть покращувати свою зброю за допомогою уламків"
+ },
+ {
+  "label": "MAP:TrainingUpgrade",
+  "text": "Покращення купуються в різних структурах вашої бази. Вони покращують ваші підрозділи. Клацніть лівою кнопкою миші на казармах, а потім клацніть лівою кнопкою миші на піктограмі захоплення будівлі, щоб покращити своїх рейнджерів, щоб вони могли захоплювати ворожі будівлі"
+ },
+ {
+  "label": "GUI:SaveAndContinue",
+  "text": "ПРОДОВЖИТИ"
+ },
+ {
+  "label": "TOOLTIP:PlayerSetting",
+  "text": "Виберіть гру 1 проти 1 або командну гру"
+ },
+ {
+  "label": "TOOLTIP:Ping",
+  "text": "Виберіть свою терпимість до швидкості з’єднання опонента"
+ },
+ {
+  "label": "TOOLTIP:Disconnect",
+  "text": "Виберіть терпимість до повного відключення опонента"
+ },
+ {
+  "label": "TOOLTIP:Ladder",
+  "text": "Виберіть рейтинг, на якому ви б хотіли грати"
+ },
+ {
+  "label": "TOOLTIP:QuickMatchStatus",
+  "text": "Швидкий матч спробує підібрати вас на основі рівня навичок, специфікації ПК тощо"
+ },
+ {
+  "label": "TOOLTIP:OnlineIP",
+  "text": "IP-адреса, яка використовується для підключення до C&C Generals Zero Hour Online"
+ },
+ {
+  "label": "TOOLTIP:LanIP",
+  "text": "IP-адреса, яка використовується для підключення до гравців у мережевих іграх"
+ },
+ {
+  "label": "TOOLTIP:GamesBeingformed",
+  "text": "Швидкість підключення до гравців цієї гри"
+ },
+ {
+  "label": "TOOLTIP:EmoteText",
+  "text": "Клацніть лівою кнопкою миші, щоб ввести текст"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaScienceCashHack",
+  "text": "Викрадайте гроші з ворожих ресурсних центрів. Не можна вкрасти більше грошей, ніж є у ворога\n \n  Ранг 1: $1000\n  Ранг 2: $2000\n  Ранг 3: $4000\n \n  Викликається з: командного центру"
+ },
+ {
+  "label": "GUI:TRAINING",
+  "text": "НАВЧАННЯ"
+ },
+ {
+  "label": "GUI:CHINA_Caps",
+  "text": "КИТАЙ"
+ },
+ {
+  "label": "TOOLTIP:SupplyDock",
+  "text": "Ресурси"
+ },
+ {
+  "label": "TOOLTIP:TechBuilding",
+  "text": "Технологічна будівля"
+ },
+ {
+  "label": "TOOLTIP:Mission1",
+  "text": "."
+ },
+ {
+  "label": "TOOLTIP:Mission2_8",
+  "text": "Кампанія перша"
+ },
+ {
+  "label": "TOOLTIP:Mission9_16",
+  "text": "Кампанія друга"
+ },
+ {
+  "label": "TOOLTIP:Mission17_23",
+  "text": "Кампанія третя"
+ },
+ {
+  "label": "TOOLTIP:ButtonClear",
+  "text": "Очистіть текстове поле імені гравця"
+ },
+ {
+  "label": "GUI:Objectives:",
+  "text": "Підсумок:"
+ },
+ {
+  "label": "GUI:WinStreak",
+  "text": "Серія перемог"
+ },
+ {
+  "label": "GUI:LossStreak",
+  "text": "Серія поразок"
+ },
+ {
+  "label": "GUI:PlayerNoMapWillTransfer",
+  "text": "%ls не має карти %ls. Її буде передано на початку гри"
+ },
+ {
+  "label": "GUI:LocalPlayerNoMapWillTransfer",
+  "text": "У вас немає карти %ls. Її буде передано вам на початку гри"
+ },
+ {
+  "label": "GUI:CouldNotTransferMap",
+  "text": "Неможливо передати карту. Гра не може початися"
+ },
+ {
+  "label": "GUI:Status",
+  "text": "Статус"
+ },
+ {
+  "label": "MapTransfer:CurrentFile",
+  "text": "Поточний файл: %ls"
+ },
+ {
+  "label": "MapTransfer:Timeout",
+  "text": "Скасування через %d:%2.2d"
+ },
+ {
+  "label": "MapTransfer:Preparing",
+  "text": "Підготовка..."
+ },
+ {
+  "label": "MapTransfer:Sending",
+  "text": "Відправка..."
+ },
+ {
+  "label": "MapTransfer:Recieving",
+  "text": "Приймання..."
+ },
+ {
+  "label": "MapTransfer:Done",
+  "text": "Готово"
+ },
+ {
+  "label": "ThingTemplate:SalvageCrate",
+  "text": "Ящик з уламками"
+ },
+ {
+  "label": "ThingTemplate:IndustrialBridgeTower01",
+  "text": "Міст"
+ },
+ {
+  "label": "ThingTemplate:Crypt01",
+  "text": "Склеп"
+ },
+ {
+  "label": "ThingTemplate:AsianAartmentSingle01",
+  "text": "Квартира"
+ },
+ {
+  "label": "CONTROLBAR:RadioJam",
+  "text": "Радіоглушіння"
+ },
+ {
+  "label": "MAP:USA01OBJOpen",
+  "text": "МЕТА МІСІЇ\n  Знищити всі ворожі сили"
+ },
+ {
+  "label": "MAP:TrainingWarFactory",
+  "text": "МЕТА МІСІЇ\n  Використайте свій БУЛЬДОЗЕР, щоб побудувати ВІЙСЬКОВИЙ ЗАВОД"
+ },
+ {
+  "label": "TOOLTIP:MapNoSuccess",
+  "text": "Переможіть на цій карті легкого суперника!"
+ },
+ {
+  "label": "TOOLTIP:MapEasySuccess",
+  "text": "Переможіть на цій карті середнього суперника!"
+ },
+ {
+  "label": "TOOLTIP:MapMediumSuccess",
+  "text": "Переможіть на цій карті важкого суперника!"
+ },
+ {
+  "label": "TOOLTIP:MapHardSuccess",
+  "text": "Переможіть на цій карті максимальну кількість важких суперників!"
+ },
+ {
+  "label": "Buddy:CantTalkToIngameBuddy",
+  "text": "Ви не можете надсилати повідомлення друзям у вашій грі, якщо ви спостерігач"
+ },
+ {
+  "label": "MAP:Bavarian",
+  "text": "Останній хрестовий похід"
+ },
+ {
+  "label": "MAP:CLake",
+  "text": "Турнірне озеро"
+ },
+ {
+  "label": "MAP:SBlast",
+  "text": "Піщаний змій"
+ },
+ {
+  "label": "MAP:SleepingGiant",
+  "text": "Темна гора"
+ },
+ {
+  "label": "MAP:SwissMP",
+  "text": "Самотній орел"
+ },
+ {
+  "label": "MAP:KandaharHighlands",
+  "text": "Сутінкове полум'я"
+ },
+ {
+  "label": "MAP:BoraBora",
+  "text": "Турнірний острів"
+ },
+ {
+  "label": "MAP:PrecipicePass",
+  "text": "Фортеця Лавина"
+ },
+ {
+  "label": "MAP:TTourney",
+  "text": "Турнірна Тундра"
+ },
+ {
+  "label": "MAP:Gwall",
+  "text": "Занепала імперія"
+ },
+ {
+  "label": "GUI:HTTPProxy",
+  "text": "Проксі HTTP:"
+ },
+ {
+  "label": "GUI:WinPercent",
+  "text": "%d%%"
+ },
+ {
+  "label": "TOOLTIP:PlayerCreatedName",
+  "text": "Ім'я гравця, який створив гру"
+ },
+ {
+  "label": "TOOLTIP:HTTPProxy",
+  "text": "Встановіть проксі-сервер HTTP для C&C Generals Zero Hour Online"
+ },
+ {
+  "label": "CONTROLBAR:BriefingHistory",
+  "text": "Брифінги місії"
+ },
+ {
+  "label": "CONTROLBAR:BriefingHistoryDescription",
+  "text": "Натисніть, щоб переглянути брифінги місії"
+ },
+ {
+  "label": "MAP:CHI04Objective1Text",
+  "text": "МЕТА МІСІЇ\n  Знищити позиції Стінгерів ГВА"
+ },
+ {
+  "label": "MAP:CHI04Objective2Text",
+  "text": "МЕТА МІСІЇ\n  Використайте Чорний Лотос, щоб захопити китайський військовий завод"
+ },
+ {
+  "label": "MAP:CHI04Objective3Text",
+  "text": "МЕТА МІСІЇ\n  Знищити позиції Стінгерів навколо хімічного заводу"
+ },
+ {
+  "label": "MAP:CHI04Hint1Text",
+  "text": "ПІДКАЗКА: використовуйте Чорний Лотос, щоб вивести з ладу ворожу техніку"
+ },
+ {
+  "label": "MAP:CHI04Hint2Text",
+  "text": "ПІДКАЗКА: використовуйте хакерів для отримання додаткового доходу"
+ },
+ {
+  "label": "MAP:CHI04Hint3Text",
+  "text": "ПІДКАЗКА: використовуйте Чорний Лотос, щоб зламати ворожий ресурсний центр і викачати додаткові ресурси"
+ },
+ {
+  "label": "GUI:GotoMainMenu",
+  "text": "ГОЛОВНЕ МЕНЮ"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorFairPlay",
+  "text": "Відзнака чесної гри\n  Відключайтеся менш ніж у 10% oнлайн-ігор (зігравши щонайменше 10 ігор), щоб отримати цю медаль"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorApocalypse",
+  "text": "Відзнака Апокаліпсису\n  Гравець побудував Молекулярну гармату, Ядерну ракету та СКАД Шторм в одиночній або мережевій онлайн-грі"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorFairPlayDisabled",
+  "text": "Відзнака чесної гри\n  Відключайтеся менш ніж у 10% oнлайн-ігор (зігравши щонайменше 10 ігор), щоб отримати цю медаль"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorApocalypseDisabled",
+  "text": "Медаль Апокаліпсису\n Побудуйте Молекулярну гармату, Ядерну ракету та СКАД Шторм, щоб отримати цю медаль"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorPreorder",
+  "text": "Відзнака офіцерського клубу\n  Гравець є одним із засновників спільноти Generals"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorPreorderDisabled",
+  "text": "Медаль офіцерського клубу\n  Гравець не зробив попереднього замовлення Generals"
+ },
+ {
+  "label": "GUI:Credits",
+  "text": "АВТОРИ"
+ },
+ {
+  "label": "ERROR:D3DFailurePrompt",
+  "text": "Помилка DirectX"
+ },
+ {
+  "label": "ERROR:D3DFailureMessage",
+  "text": "Будь ласка, переконайтеся, що у вас встановлено DirectX 8.1 або новішу версію. Також переконайтеся, що ваша відеокарта відповідає мінімальним вимогам"
+ },
+ {
+  "label": "GUI:AudioHardware",
+  "text": "Апаратне прискорення звуку"
+ },
+ {
+  "label": "GUI:AudioSurround",
+  "text": "Об'ємний звук"
+ },
+ {
+  "label": "TOOLTIP:CheckAudioHardware",
+  "text": "Установіть цей прапорець, щоб увімкнути апаратне прискорення для аудіо"
+ },
+ {
+  "label": "TOOLTIP:AudioSurround",
+  "text": "Поставте цей прапорець, якщо у вас є динаміки об’ємного звуку"
+ },
+ {
+  "label": "CAMPAIGN:TRAINING",
+  "text": "Тренування"
+ },
+ {
+  "label": "GUI:WinPercentLabel",
+  "text": "Відсоток перемог"
+ },
+ {
+  "label": "GUI:BestWinStreak",
+  "text": "Найкраща серія перемог"
+ },
+ {
+  "label": "Buddy:MatchingNotification",
+  "text": "%hs шукає швидкий матч"
+ },
+ {
+  "label": "Buddy:StagingNotification",
+  "text": "%hs налаштовує гру"
+ },
+ {
+  "label": "Buddy:LoadingNotification",
+  "text": "%hs починає гру"
+ },
+ {
+  "label": "Buddy:PlayingNotification",
+  "text": "%hs грає"
+ },
+ {
+  "label": "CONTROLBAR:GeneralsPromotion",
+  "text": "Підвищення генерала"
+ },
+ {
+  "label": "CONTROLBAR:GeneralsExp",
+  "text": "Досвід генерала"
+ },
+ {
+  "label": "CONTROLBAR:GeneralsExpDescription",
+  "text": "Цей індикатор показує, наскільки ви близькі до наступного рівня генерала"
+ },
+ {
+  "label": "TOOLTIP:TooltipNukeReactorOverChargeIsOn",
+  "text": "Перевантаження наразі УВІМКНЕНО"
+ },
+ {
+  "label": "TOOLTIP:TooltipNukeReactorOverChargeIsOff",
+  "text": "Перевантаження наразі ВИМКНЕНО"
+ },
+ {
+  "label": "GUI:ESRB_Top",
+  "text": "Повідомлення ESRB:"
+ },
+ {
+  "label": "GUI:ESRB_Bottom",
+  "text": "Ігровий досвід може\n змінюватися під час гри онлайн"
+ },
+ {
+  "label": "GUI:ReplaySaved",
+  "text": "Повтор збережено"
+ },
+ {
+  "label": "OBJECT:Monument",
+  "text": "Монумент"
+ },
+ {
+  "label": "TOOLTIP:TooltipNotEnoughMoneyToBuild",
+  "text": "Недостатньо коштів"
+ },
+ {
+  "label": "TOOLTIP:TooltipCannotPurchaseBecauseQueueFull",
+  "text": "Черга будівництва повна"
+ },
+ {
+  "label": "TOOLTIP:TooltipCannotBuildUnitBecauseParkingFull",
+  "text": "Аеродром заповнений"
+ },
+ {
+  "label": "TOOLTIP:TooltipCannotBuildUnitBecauseMaximumNumber",
+  "text": "Підрозділ уже існує"
+ },
+ {
+  "label": "GUI:SocketError",
+  "text": "Не вдалося з’єднатися з мережею, перевірте з’єднання"
+ },
+ {
+  "label": "GUI:NetworkError",
+  "text": "ПОМИЛКА МЕРЕЖІ"
+ },
+ {
+  "label": "GUI:BuddiesTab",
+  "text": "Друзі"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorOfficersClub",
+  "text": "Відзнака офіцерського клубу\n  Член-засновник спільноти Generals"
+ },
+ {
+  "label": "GUI:CreateFormationDescription",
+  "text": "Створіть стрій з вибраних підрозділів, і вони зберігатимуть його під час руху"
+ },
+ {
+  "label": "GUI:ScatterDescription",
+  "text": "Розсіяти вибрані об’єкти"
+ },
+ {
+  "label": "OBJECT:TrainWreckBridge",
+  "text": "Уламки залізничного мосту"
+ },
+ {
+  "label": "MAP:BarrenBadlands",
+  "text": "Безплідні землі"
+ },
+ {
+  "label": "MAP:CraterCanyon",
+  "text": "Каньйон кратерів"
+ },
+ {
+  "label": "MAP:DustDevil",
+  "text": "Піщаний диявол"
+ },
+ {
+  "label": "MAP:EasternEverglades",
+  "text": "Східний Еверглейдс"
+ },
+ {
+  "label": "MAP:ForgottenForest",
+  "text": "Забутий ліс"
+ },
+ {
+  "label": "MAP:InterstateInferno",
+  "text": "Міждержавне пекло"
+ },
+ {
+  "label": "MAP:MountainMayhem",
+  "text": "Гірський хаос"
+ }
+]

@@ -1,0 +1,802 @@
+[
+ {
+  "label": "TOOLTIP:SendDelay",
+  "text": "Лише для користувачів брандмауера. (Будь ласка, зверніться до посібника)"
+ },
+ {
+  "label": "GUI:GSFailedToHost",
+  "text": "Не вдалося створити гру"
+ },
+ {
+  "label": "Buddy:SelectBuddyToChat",
+  "text": "Виберіть друга для спілкування"
+ },
+ {
+  "label": "GUI:CannotConnectToServservTitle",
+  "text": "НЕМОЖЛИВО ПІДКЛЮЧИТИСЯ"
+ },
+ {
+  "label": "GUI:CannotConnectToServserv",
+  "text": "Не вдалося встановити з’єднання із серверами Command and Conquer Generals Zero Hour. Перевірте підключення до Інтернету"
+ },
+ {
+  "label": "MESSAGE:BattlePlanBombardmentInitiated",
+  "text": "Запущено стратегію \"Бомбардування\""
+ },
+ {
+  "label": "MESSAGE:BattlePlanHoldTheLineInitiated",
+  "text": "Запущено стратегію \"Утримувати лінію\""
+ },
+ {
+  "label": "MESSAGE:BattlePlanSearchAndDestroyInitiated",
+  "text": "Запущено стратегію \"Пошук і знищення\""
+ },
+ {
+  "label": "OBJECT:TechOilRefinery",
+  "text": "Нафтопереробний завод -- захопити для зменшення вартості транспортних засобів"
+ },
+ {
+  "label": "OBJECT:SupplyDock",
+  "text": "Док постачання"
+ },
+ {
+  "label": "GUI:InGameDiplomacy",
+  "text": "Дипломатія"
+ },
+ {
+  "label": "GUI:MapPreview",
+  "text": "Перегляд карти"
+ },
+ {
+  "label": "GUI:Error",
+  "text": "Помилка"
+ },
+ {
+  "label": "Buddy:Disconnected",
+  "text": "Ви були відключені\n  зі списку друзів"
+ },
+ {
+  "label": "GUI:SandboxMode",
+  "text": "Перехід у режим пісочниці..."
+ },
+ {
+  "label": "GUI:BookmarkXSet",
+  "text": "Закладку #%d встановлено"
+ },
+ {
+  "label": "SCIENCE:EmergencyRepair1",
+  "text": "Аварійний ремонт 1"
+ },
+ {
+  "label": "SCIENCE:EmergencyRepair2",
+  "text": "Аварійний ремонт 2"
+ },
+ {
+  "label": "SCIENCE:EmergencyRepair3",
+  "text": "Аварійний ремонт 3"
+ },
+ {
+  "label": "MAP:CHI05Open",
+  "text": "Баликчи, Киргизстан\n  Випалена земля"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipScienceEmergencyRepair",
+  "text": "Ремонтує техніку на території\n \n  Ранг 1: Легкий ремонт\n  Ранг 2: Середній ремонт\n  Ранг 3: Серйозний ремонт\n \n  Викликається з: командного центру"
+ },
+ {
+  "label": "GUI:MinSpecFailedTitle",
+  "text": "УВАГА"
+ },
+ {
+  "label": "GUI:MinSpecFailedMessage",
+  "text": "Ваша система не відповідає мінімальним вимогам до обладнання. Частота кадрів у багатокористувацьких іграх може бути нижчою за звичайну"
+ },
+ {
+  "label": "TOOLTIP:AlreadyUpgradedDefault",
+  "text": "Це оновлення вже придбано"
+ },
+ {
+  "label": "TOOLTIP:HasConflictingUpgradeDefault",
+  "text": "Конфліктне оновлення не можна придбати"
+ },
+ {
+  "label": "GUI:NoGameSelected",
+  "text": "Спочатку виберіть гру, щоб приєднатися"
+ },
+ {
+  "label": "GUI:CloseExpScreen",
+  "text": "Готово"
+ },
+ {
+  "label": "TOOLTIP:CloseExpScreen",
+  "text": "Повернутися до гри"
+ },
+ {
+  "label": "GUI:GPNoCommunicator",
+  "text": "Комунікатор недоступний у багатокористувацькому тесті"
+ },
+ {
+  "label": "GUI:GSKickedGameStarted",
+  "text": "Гра почалася"
+ },
+ {
+  "label": "GUI:GSKickedGameFull",
+  "text": "Гра заповнена"
+ },
+ {
+  "label": "Network:PacketRouterTimeout",
+  "text": "Тайм-аут маршрутизатора пакетів"
+ },
+ {
+  "label": "GUI:EstablishingConnectionPaths",
+  "text": "ВСТАНОВЛЕННЯ ШЛЯХІВ З'ЄДНАННЯ"
+ },
+ {
+  "label": "UPGRADE:RadarVanScan",
+  "text": "Сканування радарним фургоном"
+ },
+ {
+  "label": "MAP:CHI04Open",
+  "text": "Гори Тангула, Китай\n  Розбиті альянси"
+ },
+ {
+  "label": "MAP:GLA04Open",
+  "text": "Місто Астана\n  Окупована Китаєм столиця Казахстану"
+ },
+ {
+  "label": "MAP:USA07NewObjective2",
+  "text": "НОВА МЕТА МІСІЇ:\n  Знищити китайський командний центр\n  і шахту ядерних ракет"
+ },
+ {
+  "label": "MAP:USA07GotObjective1",
+  "text": "МЕТА ВИКОНАНА:\n  Знищити ГВА на північному сході"
+ },
+ {
+  "label": "MAP:USA07GotObjective2",
+  "text": "МЕТА ВИКОНАНА:\n  Знищити китайський командний центр\n  і шахту ядерних ракет"
+ },
+ {
+  "label": "GUI:Defaults",
+  "text": "ЗА ЗАМОВЧУВАННЯМ"
+ },
+ {
+  "label": "TOOLTIP:OptionsAccept",
+  "text": "Прийміть внесені зміни та вийдіть з меню параметрів"
+ },
+ {
+  "label": "TOOLTIP:OptionsCancel",
+  "text": "Вийдіть із меню параметрів, не вносячи змін"
+ },
+ {
+  "label": "TOOLTIP:OptionsDefaults",
+  "text": "Скиньте параметри до налаштувань за замовчуванням"
+ },
+ {
+  "label": "MESSAGE:StealthDiscovered",
+  "text": "Виявлено ворожий невидимий підрозділ"
+ },
+ {
+  "label": "MESSAGE:StealthNeutralized",
+  "text": "Невидимість нейтралізовано"
+ },
+ {
+  "label": "TOOLTIP:SortBuddies",
+  "text": "Відсортуйте друзів у верхній частині списку ігор"
+ },
+ {
+  "label": "CONTROLBAR:GeneralsExperienceMenu",
+  "text": "Меню досвіду генерала"
+ },
+ {
+  "label": "CONTROLBAR:GeneralsExperienceMenuDescription",
+  "text": "Показати меню досвіду, де можна витратити очки досвіду, отримані в битвах, на різні здібності генерала"
+ },
+ {
+  "label": "CONTROLBAR:UpDown",
+  "text": "Перемикач показу/приховування"
+ },
+ {
+  "label": "CONTROLBAR:UpDownDescription",
+  "text": "Перемикає, чи буде панель керування показана чи прихована"
+ },
+ {
+  "label": "CONTROLBAR:DisarmMinesAtPosition",
+  "text": "Очистити міни (&L)"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipDisarmMinesAtPosition",
+  "text": "Очистити міни і невеликі заряди у вказаній місцевості"
+ },
+ {
+  "label": "TOOLTIP:ScienceCostUnavailable",
+  "text": "Вартість: недоступна"
+ },
+ {
+  "label": "GUI:OnlineIPAddresses",
+  "text": "IP в мережі:"
+ },
+ {
+  "label": "GUI:GSDisconReason16",
+  "text": "Профіль із таким псевдонімом уже існує"
+ },
+ {
+  "label": "GUI:GSDisconReason17",
+  "text": "Цей пароль неправильний. Будь ласка спробуйте ще раз"
+ },
+ {
+  "label": "GUI:GSDisconReason18",
+  "text": "Профіль із таким псевдонімом уже існує"
+ },
+ {
+  "label": "GUI:GSDisconReason19",
+  "text": "Помилка сервера - неможливо створити обліковий запис"
+ },
+ {
+  "label": "Buddy:MessageDisconnected",
+  "text": "Ви були відключені\nвід списку друзів"
+ },
+ {
+  "label": "GUI:PlayerHasBeenDefeated",
+  "text": "%ls зазнав(ла) поразки"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaRangerCaptureBuilding",
+  "text": "Захоплення будівель (&C)"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaRedguardCaptureBuilding",
+  "text": "Захоплення будівель (&C)"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLARebelCaptureBuilding",
+  "text": "Захоплення будівель (&C)"
+ },
+ {
+  "label": "CONTROLBAR:DetonateBombTruck",
+  "text": "Підірвати зараз (&N)"
+ },
+ {
+  "label": "UPGRADE:RangerCaptureBuilding",
+  "text": "Захоплення будівель"
+ },
+ {
+  "label": "UPGRADE:RedguardCaptureBuilding",
+  "text": "Захоплення будівель"
+ },
+ {
+  "label": "UPGRADE:RebelCaptureBuilding",
+  "text": "Захоплення будівель"
+ },
+ {
+  "label": "CONTROLBAR:TooltipDetonateBombTruck",
+  "text": "Наказує вантажівці з бомбою негайно вибухнути на поточному місці"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSAUpgradeRangerCaptureBuilding",
+  "text": "Дозволяє рейнджерам захоплювати ворожі та технічні будівлі"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaUpgradeRedGuardCaptureBuilding",
+  "text": "Дозволяє червоногвардійцям захоплювати ворожі та технічні будівлі"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAUpgradeRebelCaptureBuilding",
+  "text": "Дозволяє повстанцям захоплювати ворожі та технічні будівлі"
+ },
+ {
+  "label": "GUI:Loading",
+  "text": "ЗАВАНТАЖЕННЯ"
+ },
+ {
+  "label": "TOOLTIP:EmoteButton",
+  "text": "Емоції"
+ },
+ {
+  "label": "CONTROLBAR:Power",
+  "text": "Енергія"
+ },
+ {
+  "label": "CONTROLBAR:PowerDescription",
+  "text": "Поточна енергія: %d \n Потрібна енергія: %d"
+ },
+ {
+  "label": "CONTROLBAR:Money",
+  "text": "Гроші"
+ },
+ {
+  "label": "CONTROLBAR:MoneyDescription",
+  "text": "Це сума грошей, яка у вас є"
+ },
+ {
+  "label": "MAP:TourneyArena",
+  "text": "Турнірна пустеля"
+ },
+ {
+  "label": "UPGRADE:AmericaDroneARmor",
+  "text": "Броня дронів"
+ },
+ {
+  "label": "UPGRADE:APRockets",
+  "text": "Бронебійні ракети"
+ },
+ {
+  "label": "ThingTemplate:EuropeanTowerBridge01",
+  "text": "Міст"
+ },
+ {
+  "label": "ThingTemplate:BridgeTowerConcreteRight02",
+  "text": "Міст"
+ },
+ {
+  "label": "Team:0",
+  "text": "Немає"
+ },
+ {
+  "label": "Team:1",
+  "text": "1"
+ },
+ {
+  "label": "Team:2",
+  "text": "2"
+ },
+ {
+  "label": "Team:3",
+  "text": "3"
+ },
+ {
+  "label": "Team:4",
+  "text": "4"
+ },
+ {
+  "label": "Team:AI",
+  "text": "ЦП"
+ },
+ {
+  "label": "GUI:RestartConfirmation",
+  "text": "Ви впевнені, що хочете перезапустити?"
+ },
+ {
+  "label": "GUI:ErrorStartingGame",
+  "text": "ПОМИЛКА ПОЧАТКУ ГРИ"
+ },
+ {
+  "label": "GUI:TooManyPlayers",
+  "text": "Ця карта підтримує лише %d гравців"
+ },
+ {
+  "label": "GUI:SandboxWarning",
+  "text": "Повторне натискання «Пуск» запускає гру в пісочниці"
+ },
+ {
+  "label": "GUI:CantFindMap",
+  "text": "Не можу знайти карту. Вона пошкоджена?"
+ },
+ {
+  "label": "GUI:EnterSaveDesc",
+  "text": "Введіть опис гри"
+ },
+ {
+  "label": "GUI:MissionSave",
+  "text": "Початок місії - %s %d"
+ },
+ {
+  "label": "GUI:SaveReplay",
+  "text": "ЗБЕРЕГТИ ПОВТОР"
+ },
+ {
+  "label": "GUI:OverwriteReplayTitle",
+  "text": "ПЕРЕЗАПИСАТИ ПОВТОР"
+ },
+ {
+  "label": "GUI:OverwriteReplay",
+  "text": "Перезаписати повтор?"
+ },
+ {
+  "label": "GUI:ConfirmDelete",
+  "text": "Ви впевнені, що хочете видалити цю гру?"
+ },
+ {
+  "label": "GUI:DeleteGame",
+  "text": "ВИДАЛИТИ"
+ },
+ {
+  "label": "GUI:GameSaveComplete",
+  "text": "*** Гра збережена ***"
+ },
+ {
+  "label": "CAMPAIGN:USA",
+  "text": "США"
+ },
+ {
+  "label": "CAMPAIGN:GLA",
+  "text": "ГВА"
+ },
+ {
+  "label": "CAMPAIGN:China",
+  "text": "Китай"
+ },
+ {
+  "label": "GUI:Easy",
+  "text": "Легко"
+ },
+ {
+  "label": "GUI:Hard",
+  "text": "Важко"
+ },
+ {
+  "label": "GUI:SelectDifficulty",
+  "text": "ВИБІР СКЛАДНОСТІ"
+ },
+ {
+  "label": "GUI:NumPlayersOnline",
+  "text": "Загальна кількість гравців онлайн: %d"
+ },
+ {
+  "label": "GUI:AllowableMaps",
+  "text": "Дозволені карти"
+ },
+ {
+  "label": "GUI:QuickMatchTitle",
+  "text": "Швидкий матч"
+ },
+ {
+  "label": "LOAD:TRAINING_1",
+  "text": "- ГВА контролює завод з виробництва хімічної зброї"
+ },
+ {
+  "label": "LOAD:TRAINING_2",
+  "text": "- Знищте завод хімічної зброї"
+ },
+ {
+  "label": "LOAD:TRAINING_3",
+  "text": "- Усуньте загрозу"
+ },
+ {
+  "label": "LOAD:USA01_1",
+  "text": "- ГВА має СКАД Шторм"
+ },
+ {
+  "label": "LOAD:USA01_2",
+  "text": "- Вони базуються в Багдаді"
+ },
+ {
+  "label": "LOAD:USA01_3",
+  "text": "- Усуньте цю загрозу"
+ },
+ {
+  "label": "LOAD:USA02_1",
+  "text": "- Лідерів ГВА вистежено в Ємені"
+ },
+ {
+  "label": "LOAD:USA02_2",
+  "text": "- Команчі розшукують злочинців"
+ },
+ {
+  "label": "LOAD:USA02_3",
+  "text": "- Врятуйте полонених льотчиків"
+ },
+ {
+  "label": "LOAD:USA03_1",
+  "text": "- Сили США повністю відступають"
+ },
+ {
+  "label": "LOAD:USA03_2",
+  "text": "- ГВА переслідує"
+ },
+ {
+  "label": "LOAD:USA03_3",
+  "text": "- Забезпечте прикриття відступаючих сил"
+ },
+ {
+  "label": "LOAD:USA04_1",
+  "text": "- Виявлено тренувальний табір ГВА"
+ },
+ {
+  "label": "LOAD:USA04_2",
+  "text": "- Усуньте цю загрозу"
+ },
+ {
+  "label": "LOAD:USA06_1",
+  "text": "- Мирна конференція в місті Кабара"
+ },
+ {
+  "label": "LOAD:USA06_2",
+  "text": "- ГВА не можна довіряти"
+ },
+ {
+  "label": "LOAD:USA06_3",
+  "text": "- Будьте напоготові"
+ },
+ {
+  "label": "LOAD:USA07_1",
+  "text": "- Китайський генерал-відступник приєднався до ГВА"
+ },
+ {
+  "label": "LOAD:USA07_2",
+  "text": "- Ворог покладається на тунельні мережі"
+ },
+ {
+  "label": "LOAD:USA07_3",
+  "text": "- Атака повинна бути розпочата негайно"
+ },
+ {
+  "label": "LOAD:USA08_1",
+  "text": "- Війська США оточили столицю ГВА"
+ },
+ {
+  "label": "LOAD:USA08_2",
+  "text": "- ГВА має біологічну зброю"
+ },
+ {
+  "label": "LOAD:USA08_3",
+  "text": "- Китайці пообіцяли підтримку США"
+ },
+ {
+  "label": "LOAD:USA08_4",
+  "text": "- ГВА необхідно знищити"
+ },
+ {
+  "label": "LOAD:China01_1",
+  "text": "- Могутність Китаю на параді"
+ },
+ {
+  "label": "LOAD:China01_2",
+  "text": "- Захистіть військовий парад Китаю"
+ },
+ {
+  "label": "LOAD:China01_3",
+  "text": "- Усунути будь-яку загрозу в районі Пекіна"
+ },
+ {
+  "label": "LOAD:China02_1",
+  "text": "- У Гонконзі виявлено осередок ГВА"
+ },
+ {
+  "label": "LOAD:China02_2",
+  "text": "- Терористи використовують конференц-центр як базу"
+ },
+ {
+  "label": "LOAD:China02_3",
+  "text": "- Осередок треба знищити"
+ },
+ {
+  "label": "LOAD:China03_1",
+  "text": "- ГВА заполонила район дамби Три ущелини"
+ },
+ {
+  "label": "LOAD:China03_2",
+  "text": "- Підкріплення ворога тепер загрожують нашим силам"
+ },
+ {
+  "label": "LOAD:China03_3",
+  "text": "- Затопіть ГВА китайськими військами"
+ },
+ {
+  "label": "LOAD:China04_1",
+  "text": "- ГВА побудувала фабрику біотоксинів"
+ },
+ {
+  "label": "LOAD:China04_2",
+  "text": "- Знайдіть фабрику за допомогою оперативниці Чорний Лотос"
+ },
+ {
+  "label": "LOAD:China04_3",
+  "text": "- Авіаудар допоможе її знищити"
+ },
+ {
+  "label": "LOAD:China05_1",
+  "text": "- ГВА захопила Баликчи"
+ },
+ {
+  "label": "LOAD:China05_2",
+  "text": "- Сили США нададуть підтримку з повітря"
+ },
+ {
+  "label": "LOAD:China05_3",
+  "text": "- Викличте Килимове бомбардування і знищіть ГВА"
+ },
+ {
+  "label": "LOAD:China06_1",
+  "text": "- ГВА заволоділа однією з китайських залізниць"
+ },
+ {
+  "label": "LOAD:China06_2",
+  "text": "- ГВА збирається в Бішкеку, Алдастан"
+ },
+ {
+  "label": "LOAD:China06_3",
+  "text": "- Використайте Чорний Лотос, щоб знищити залізничний міст"
+ },
+ {
+  "label": "LOAD:China07_1",
+  "text": "- У Таджикистані виявлено азіатський терористичний осередок ГВА"
+ },
+ {
+  "label": "LOAD:China07_2",
+  "text": "- Ви уповноважені використовувати ядерний арсенал"
+ },
+ {
+  "label": "LOAD:GLA01_1",
+  "text": "- Багато братів загинуло"
+ },
+ {
+  "label": "LOAD:GLA01_2",
+  "text": "- Оборона Китаю розпорошена"
+ },
+ {
+  "label": "LOAD:GLA01_3",
+  "text": "- Знищте китайські сили"
+ },
+ {
+  "label": "LOAD:GLA02_1",
+  "text": "- Вантажі ООН прямують до регіону Алма-Ати"
+ },
+ {
+  "label": "LOAD:GLA02_2",
+  "text": "- Перехопіть ці поставки для нашої справи"
+ },
+ {
+  "label": "LOAD:GLA02_3",
+  "text": "- Збирайте припаси, щоб наповнити ГВА коштами"
+ },
+ {
+  "label": "LOAD:GLA03_1",
+  "text": "- Гнобителі зіпсували народ Жамбула"
+ },
+ {
+  "label": "LOAD:GLA03_2",
+  "text": "- Їхня єдина справжня свобода полягає в смерті"
+ },
+ {
+  "label": "LOAD:GLA03_3",
+  "text": "- Використовуйте токсинові трактори для їх усунення"
+ },
+ {
+  "label": "LOAD:GLA04_1",
+  "text": "- Ми знайшли нових союзників в Астані"
+ },
+ {
+  "label": "LOAD:GLA04_2",
+  "text": "- Ми можемо використовувати їх, щоб надокучувати ворогу"
+ },
+ {
+  "label": "LOAD:GLA04_3",
+  "text": "- Поки Астана горить, грабуйте місто заради припасів"
+ },
+ {
+  "label": "LOAD:GLA05_1",
+  "text": "- Нахабство США не може залишитися без відповіді"
+ },
+ {
+  "label": "LOAD:GLA05_2",
+  "text": "- Не віддайте регіон у їхні імперіалістичні лапи"
+ },
+ {
+  "label": "LOAD:GLA05_3",
+  "text": "- Знищити їхні «вищі» повітряні сили"
+ },
+ {
+  "label": "LOAD:GLA06_1",
+  "text": "- Погані новини з Аральського моря"
+ },
+ {
+  "label": "LOAD:GLA06_2",
+  "text": "- Сили США контролюють наше сховище токсинів"
+ },
+ {
+  "label": "LOAD:GLA06_3",
+  "text": "- Відбийте бункери-сховища"
+ },
+ {
+  "label": "LOAD:GLA07_1",
+  "text": "- Перебіжчики ГВА об'єдналися з Китаєм"
+ },
+ {
+  "label": "LOAD:GLA07_2",
+  "text": "- Штурмуйте конвої та переривайте їх лінії постачання"
+ },
+ {
+  "label": "LOAD:GLA07_3",
+  "text": "- Знищте зрадників та їхніх китайських союзників"
+ },
+ {
+  "label": "LOAD:GLA08_1",
+  "text": "- Візьміть під контроль космодром"
+ },
+ {
+  "label": "LOAD:GLA08_2",
+  "text": "- Ракети там доставлять нашим ворогам смертоносний токсин"
+ },
+ {
+  "label": "LOAD:GLA08_3",
+  "text": "- Наша доля вже близько"
+ },
+ {
+  "label": "TOOLTIP:DownloadProgress",
+  "text": "Хід завантаження"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorBlitz10",
+  "text": "Бліц відзнака \n  Перемагайте суперників за 10 хвилин або менше, щоб отримати цю медаль"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorBlitz5",
+  "text": "Бліц відзнака \n  Перемагайте суперників за 5 хвилин або менше, щоб отримати цю відзнаку"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorLoyaltyUSADisabled",
+  "text": "Відзнака вірності США\n  Зіграйте понад 20 ігор поспіль за США, щоб отримати цю медаль"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorLoyaltyChinaDisabled",
+  "text": "Відзнака вірності Китаю\n  Зіграйте понад 20 ігор поспіль за Китай, щоб отримати цю медаль"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorLoyaltyGLADisabled",
+  "text": "Відзнака вірності ГВА\n  Зіграйте понад 20 ігор поспіль за ГВА, щоб отримати цю медаль"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorBattleTankDisabled",
+  "text": "Танкова відзнака \n  Побудуйте понад 50 танків проти комп’ютерних супротивників, щоб заробити цю медаль"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorAirWingDisabled",
+  "text": "Відзнака авіації\n  Побудуйте понад 20 літальних апаратів проти комп’ютерних супротивників, щоб заробити цю медаль"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorEnduranceDisabled",
+  "text": "Відзнака витривалості\n  Пройдіть кожну карту, щоб отримати бронзову, срібну або золоту відзнаку"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorCampaignUSADisabled",
+  "text": "Відзнака кампанії США\n  Завершіть кампанію США, щоб отримати цю відзнаку\n  Пройдіть кампанію на важкому рівні складності, щоб отримати найвищу нагороду"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorCampaignChinaDisabled",
+  "text": "Відзнака китайської кампанії\n  Завершіть китайську кампанію, щоб отримати цю відзнаку\n  Пройдіть кампанію на важкому рівні складності, щоб отримати найвищу нагороду"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorCampaignGLADisabled",
+  "text": "Відзнака кампанії ГВА\n  Завершіть кампанію ГВА, щоб отримати цю відзнаку\n  Пройдіть кампанію на важкому рівні складності, щоб отримати найвищу нагороду"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorChallengeDisabled",
+  "text": "Відзнака виклику\n  Переможіть від 1 до 7 складних комп’ютерних суперників, щоб отримати цю медаль"
+ },
+ {
+  "label": "GUI:BuildingsKilledStat",
+  "text": "Будівель знищено"
+ },
+ {
+  "label": "GUI:BuildingsBuiltStat",
+  "text": "Будівель побудовано"
+ },
+ {
+  "label": "GUI:BuildingsLostStat",
+  "text": "Будівель втрачено"
+ },
+ {
+  "label": "GUI:QMWinStreak",
+  "text": "Серія перемог у швидкому матчі"
+ },
+ {
+  "label": "GUI:LastLadder",
+  "text": "Останній рейтинг"
+ },
+ {
+  "label": "GUI:LobbyJoined",
+  "text": "Ви приєдналися до %ls"
+ },
+ {
+  "label": "GUI:GSNoLoginInfoAll",
+  "text": "Введіть свою електронну пошту, псевдонім і пароль. Потім натисніть «Увійти» або «Створити обліковий запис»."
+ },
+ {
+  "label": "GUI:GSNoLoginInfoEmailNickname",
+  "text": "Будь ласка, введіть свою електронну адресу та псевдонім. Потім натисніть «Увійти» або «Створити обліковий запис»."
+ },
+ {
+  "label": "GUI:GSNoLoginInfoEmailPassword",
+  "text": "Будь ласка, введіть свою електронну адресу та пароль. Потім натисніть «Увійти» або «Створити обліковий запис»."
+ }
+]

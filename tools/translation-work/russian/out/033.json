@@ -1,0 +1,90 @@
+[
+ {
+  "label": "GUI:LoadReplayLong",
+  "text": "ЗАГРУЗИТЬ ПОВТОР"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak5",
+  "text": "Медаль за стойкость(5)  \n Игрок победил 5 раз подряд в одиночных или коллективных играх через инртернет"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak20",
+  "text": "Медаль за стойкость(20)  \n Игрок победил 20 раз подряд в одиночных или коллективных играх через инртернет"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAUpgradeBuggyAmmor",
+  "text": "+25% боеприпасов для ракетного багги"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak3Disabled",
+  "text": "Медаль за Стойкость  \n Выиграйте 3 или более игр подряд, чтобы получить эту медаль"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorBlitz10Disabled",
+  "text": "Медаль за Блиц  \n Победите компьютерного(ых) оппонента(ов) за 10 минут, чтобы получить эту медаль"
+ },
+ {
+  "label": "GUI:CÀontrolBarBack",
+  "text": "НАЗАД"
+ },
+ {
+  "label": "GUI:BuddyAddReqMessageSent",
+  "text": "Был послан запрос друга"
+ },
+ {
+  "label": "GUI:BuddyAddReqMessageRejected",
+  "text": "Запрос друга был отклонён"
+ },
+ {
+  "label": "GUI:BuddyAddReqMessageAccepted",
+  "text": "Запрос друга был принят"
+ },
+ {
+  "label": "TOOLTIP:RefreshGamePlayerList",
+  "text": "Обновить список игр и игроков"
+ },
+ {
+  "label": "TOOLTIP:CommunicatorBuddyRadioButton",
+  "text": "Нажатие правой кнопкой мыши по имени в списке игроков для отправки запроса друга"
+ },
+ {
+  "label": "TOOLTIP:CommunicatorIgnoreRadioButton",
+  "text": "Нажатие правой кнопкой мыши по имени в списке игроков для игнорирования игрока"
+ },
+ {
+  "label": "GUI:GroupRoom15",
+  "text": "3 на 3"
+ },
+ {
+  "label": "GUI:GroupRoom16",
+  "text": "4 на 4"
+ },
+ {
+  "label": "GUI:GroupRoom17",
+  "text": "Новички"
+ },
+ {
+  "label": "GUI:GroupRoom18",
+  "text": "Модификации"
+ },
+ {
+  "label": "GUI:GroupRoom19",
+  "text": "С доской почета"
+ },
+ {
+  "label": "GUI:GroupRoom20",
+  "text": "Германия"
+ },
+ {
+  "label": "GUI:GroupRoom21",
+  "text": "США"
+ },
+ {
+  "label": "GUI:GroupRoom22",
+  "text": "Корея"
+ },
+ {
+  "label": "GUI:BeaconClear",
+  "text": "Очистить"
+ }
+]

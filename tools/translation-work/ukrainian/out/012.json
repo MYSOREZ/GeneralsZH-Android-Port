@@ -1,0 +1,802 @@
+[
+ {
+  "label": "MAP:NoMansLand",
+  "text": "Нічия земля"
+ },
+ {
+  "label": "MAP:OverlandOffensive",
+  "text": "Сухопутний наступ"
+ },
+ {
+  "label": "MAP:RockyRampage",
+  "text": "Гірське буйство"
+ },
+ {
+  "label": "MAP:SnowblindStrike",
+  "text": "Сліпучий сніговий удар"
+ },
+ {
+  "label": "MAP:UrbanUnderground",
+  "text": "Міське підпілля"
+ },
+ {
+  "label": "MAP:VictoryValley",
+  "text": "Долина Перемоги"
+ },
+ {
+  "label": "MAP:WastelandWarfare",
+  "text": "Війна на пустищі"
+ },
+ {
+  "label": "MAP:RogueAgent",
+  "text": "Агент-відступник"
+ },
+ {
+  "label": "MAP:DesertEagle",
+  "text": "Пустельний Орел"
+ },
+ {
+  "label": "MAP:FlashFire",
+  "text": "Спалах вогню"
+ },
+ {
+  "label": "MAP:MountainGuns",
+  "text": "Гірські гармати"
+ },
+ {
+  "label": "MAP:FlashEffect",
+  "text": "Ефект спалаху"
+ },
+ {
+  "label": "MAP:LightsOut",
+  "text": "Затемнення"
+ },
+ {
+  "label": "MAP:SteelTrap",
+  "text": "Сталева пастка"
+ },
+ {
+  "label": "MAP:ArmoredFury",
+  "text": "Броньована лють"
+ },
+ {
+  "label": "MAP:InfiniteJustice",
+  "text": "Каїрські командоси"
+ },
+ {
+  "label": "MAP:Whiteout",
+  "text": "Біла мла"
+ },
+ {
+  "label": "MAP:FalloutEffect",
+  "text": "Ефект радіоактивних опадів"
+ },
+ {
+  "label": "MAP:FloodedPlains",
+  "text": "Затоплені рівнини"
+ },
+ {
+  "label": "MAP:TournamentContinent",
+  "text": "Турнірний континент"
+ },
+ {
+  "label": "MAP:TournamentCity",
+  "text": "Турнірне місто"
+ },
+ {
+  "label": "MAP:TournamentLadder01",
+  "text": "Турнірний рейтинг 01"
+ },
+ {
+  "label": "MAP:TournamentLadder02",
+  "text": "Турнірний рейтинг 02"
+ },
+ {
+  "label": "MAP:TournamentLadder03",
+  "text": "Турнірний рейтинг 03"
+ },
+ {
+  "label": "MAP:TournamentLadder04",
+  "text": "Турнірний рейтинг 04"
+ },
+ {
+  "label": "MAP:TrainingGLAHole",
+  "text": "Будівлі ГВА мають глибокі підземні приміщення, у яких їхні робітники залишаються захищеними. Після знищення будівлі ГВА на її місці залишається діра. Робітники, що сховалися в цій дірі, з часом відбудують споруду. Атакуйте діру, щоб усунути загрозу ГВА"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak25",
+  "text": "Відзнака серії\n  Гравець виграв 25 сутичок поспіль\n  Отримайте нову відзнаку за 3, 10, 25, 100, 500 і 1000 перемог поспіль"
+ },
+ {
+  "label": "GUI:InsertCDPrompt",
+  "text": "Відсутній CD"
+ },
+ {
+  "label": "GUI:InsertCDMessage",
+  "text": "Будь ласка, вставте перший CD з грою"
+ },
+ {
+  "label": "CONTROLBAR:OrRequirement",
+  "text": "або"
+ },
+ {
+  "label": "SCRIPT:USA02RescueCounter",
+  "text": "Пілотів залишилось:"
+ },
+ {
+  "label": "GUI:AddCash",
+  "text": "$%d"
+ },
+ {
+  "label": "GUI:LoseCash",
+  "text": "-$%d"
+ },
+ {
+  "label": "RADAR:HarvesterUnderAttack",
+  "text": "Збирач ресурсів під атакою"
+ },
+ {
+  "label": "OBJECT:PharmaceuticalFactory",
+  "text": "Фармацевтичний завод"
+ },
+ {
+  "label": "GUI:CareerWins",
+  "text": "Перемоги за кар'єру"
+ },
+ {
+  "label": "GUI:CareerLosses",
+  "text": "Поразки за кар'єру"
+ },
+ {
+  "label": "GUI:CurrentWinStreak",
+  "text": "Поточна серія перемог"
+ },
+ {
+  "label": "GUI:CarrerWinPercent",
+  "text": "Відсоток перемог у кар'єрі"
+ },
+ {
+  "label": "TOOLTIP:NumberOfPlayers",
+  "text": "Кількість гравців у цій грі"
+ },
+ {
+  "label": "TOOTIP:Password",
+  "text": "Щоб приєднатися до гри, потрібен пароль"
+ },
+ {
+  "label": "TOOLTIP:PingInfo",
+  "text": "Якість швидкості з'єднання з хостом"
+ },
+ {
+  "label": "TOOLTIP:LobbyOfficersClub",
+  "text": "Офіцерський клуб: член-засновник спільноти Generals"
+ },
+ {
+  "label": "GUI:Display",
+  "text": "ОПЦІЇ"
+ },
+ {
+  "label": "GUI:Audio",
+  "text": "АУДІО"
+ },
+ {
+  "label": "GUI:LANLobby",
+  "text": "ЛОБІ ЛОКАЛЬНОЇ МЕРЕЖІ"
+ },
+ {
+  "label": "GUI:Mute",
+  "text": "Вимкнути звук"
+ },
+ {
+  "label": "GUI:NeedHumanPlayers",
+  "text": "Вам потрібен гравець, який не є спостерігачем, щоб почати гру"
+ },
+ {
+  "label": "GUI:MediumDifficulty",
+  "text": "Середнє"
+ },
+ {
+  "label": "CONTROLBAR:ObsPlayerLabel",
+  "text": "%ls (Команда %ls)"
+ },
+ {
+  "label": "GUI:LowTextureDetail",
+  "text": "Низька деталізація текстури"
+ },
+ {
+  "label": "TOOLTIP:LowTextureDetail",
+  "text": "Використовуйте текстури низької роздільної здатності"
+ },
+ {
+  "label": "GUI:QuickMatch800x600",
+  "text": "Змініть роздільну здатність на 800 x 600, щоб грати у швидкий матч"
+ },
+ {
+  "label": "OBJECT:CargoPlane",
+  "text": "Вантажний літак"
+ },
+ {
+  "label": "OBJECT:HuNanProvince",
+  "text": "Пекін"
+ },
+ {
+  "label": "OBJECT:HongKong",
+  "text": "Гонконг"
+ },
+ {
+  "label": "OBJECT:HubeiProvince",
+  "text": "Гребля Три ущелини"
+ },
+ {
+  "label": "OBJECT:Tangula",
+  "text": "Гори Тангула"
+ },
+ {
+  "label": "OBJECT:Balykchy",
+  "text": "Балакчі"
+ },
+ {
+  "label": "OBJECT:Bishkek",
+  "text": "Бішкек"
+ },
+ {
+  "label": "OBJECT:Dushanbe",
+  "text": "Душанбе"
+ },
+ {
+  "label": "OBJECT:Shymkent",
+  "text": "Шимкент"
+ },
+ {
+  "label": "OBJECT:Almaty",
+  "text": "м. Алма-Ата"
+ },
+ {
+  "label": "OBJECT:Zambul",
+  "text": "Замбул"
+ },
+ {
+  "label": "OBJECT:Astana",
+  "text": "Астана"
+ },
+ {
+  "label": "OBJECT:Incirlik",
+  "text": "Інджирлік"
+ },
+ {
+  "label": "OBJECT:AralSea",
+  "text": "Аральське море"
+ },
+ {
+  "label": "OBJECT:Lenger",
+  "text": "Ленгер"
+ },
+ {
+  "label": "OBJECT:Baikonur",
+  "text": "Байконур"
+ },
+ {
+  "label": "OBJECT:Mazar",
+  "text": "Мазар"
+ },
+ {
+  "label": "OBJECT:Baghdad",
+  "text": "Багдад"
+ },
+ {
+  "label": "OBJECT:AlHanad",
+  "text": "Аль-ханад"
+ },
+ {
+  "label": "OBJECT:NorthKazakhstan",
+  "text": "Північний Казахстан"
+ },
+ {
+  "label": "OBJECT:KazakhstanCoast",
+  "text": "Узбережжя Казахстану"
+ },
+ {
+  "label": "OBJECT:KazakhstanDMZ",
+  "text": "Демілітаризована зона Казахстану"
+ },
+ {
+  "label": "OBJECT:SouthKazkahstan",
+  "text": "Південно-Східний Казахстан"
+ },
+ {
+  "label": "OBJECT:Akmola",
+  "text": "Акмола"
+ },
+ {
+  "label": "SCRIPT:GLA03Objective01a",
+  "text": "МЕТА МІСІЇ: \n Захопити командний центр на сході, щоб почати виробництво\n  Убити 200 зрадників"
+ },
+ {
+  "label": "SCRIPT:GLA03Objective02a",
+  "text": "МЕТА МІСІЇ: \n Використати токсинові трактори для знищення 200 зрадників"
+ },
+ {
+  "label": "TOOLTIP:Campaign1",
+  "text": "Кампанія 3"
+ },
+ {
+  "label": "TOOLTIP:Campaign2",
+  "text": "Кампанія 2"
+ },
+ {
+  "label": "TOOLTIP:Campaign3",
+  "text": "Кампанія 1"
+ },
+ {
+  "label": "GUI:Setup",
+  "text": "НАЛАШТУВАННЯ"
+ },
+ {
+  "label": "GUI:PlayerInfo",
+  "text": "ІНФОРМАЦІЯ ПРО ГРАВЦЯ"
+ },
+ {
+  "label": "GUI:Persona",
+  "text": "ПЕРСОНА"
+ },
+ {
+  "label": "GUI:TextureHigh",
+  "text": "Висока якість (повільніше)"
+ },
+ {
+  "label": "GUI:TextureMedium",
+  "text": "Середня якість"
+ },
+ {
+  "label": "GUI:TextureLow",
+  "text": "Низька якість (швидше)"
+ },
+ {
+  "label": "GUI:GameSpeed",
+  "text": "Швидкість гри"
+ },
+ {
+  "label": "GUI:SlowGameSpeed",
+  "text": "Повільно"
+ },
+ {
+  "label": "GUI:MediumGameSpeed",
+  "text": "Середня"
+ },
+ {
+  "label": "GUI:FastGameSpeed",
+  "text": "Швидко"
+ },
+ {
+  "label": "GUI:RestartConfirmationTitle",
+  "text": "ПЕРЕЗАПУСТИТИ?"
+ },
+ {
+  "label": "GUI:SurrenderConfirmationTitle",
+  "text": "ЗДАТИСЯ?"
+ },
+ {
+  "label": "TOOLTIP:StartPositionN",
+  "text": "Початкова позиція гравця %d"
+ },
+ {
+  "label": "LABEL:FORMATION",
+  "text": "С"
+ },
+ {
+  "label": "GUI:IgnoreSm",
+  "text": "Ігнорувати"
+ },
+ {
+  "label": "GUI:AcceptSm",
+  "text": "ПРИЙНЯТИ"
+ },
+ {
+  "label": "GUI:EasyCaps",
+  "text": "ЛЕГКО"
+ },
+ {
+  "label": "GUI:MediumDifficultyCaps",
+  "text": "СЕРЕДНЄ"
+ },
+ {
+  "label": "GUI:HardCaps",
+  "text": "ВАЖКО"
+ },
+ {
+  "label": "TOOLTIP:AdvanceOptionsAccept",
+  "text": "Прийняти зміни, внесені до додаткових параметрів відображення"
+ },
+ {
+  "label": "TOOLTIP:AdvanceOptionsCancel",
+  "text": "Вийти із меню додаткових параметрів відображення, не вносячи змін"
+ },
+ {
+  "label": "GUI:AdvanceDisplayOptions",
+  "text": "РОЗШИРЕНІ ПАРАМЕТРИ ВІДОБРАЖЕННЯ"
+ },
+ {
+  "label": "GUI:Shadows",
+  "text": "Тіні"
+ },
+ {
+  "label": "TOOLTIP:Shadows",
+  "text": "Увімкнути/вимкнути показ тіней у грі. Вимкніть для кращої продуктивності"
+ },
+ {
+  "label": "GUI:BehindBuilding",
+  "text": "За будівлями"
+ },
+ {
+  "label": "TOOLTIP:BehindBuilding",
+  "text": "Увімкнути/вимкнути показ підрозділів за будівлями. Вимкніть для кращої продуктивності"
+ },
+ {
+  "label": "GUI:ShowProps",
+  "text": "Показати реквізит"
+ },
+ {
+  "label": "TOOLTIP:ShowProps",
+  "text": "Перемкнути відображення ігрового реквізиту. Вимкніть для кращої продуктивності"
+ },
+ {
+  "label": "GUI:LowResSlider",
+  "text": "РОЗДІЛЬНІСТЬ ТЕКСТУР"
+ },
+ {
+  "label": "GUI:HighResSlower",
+  "text": "Висока роздільність (повільніше)"
+ },
+ {
+  "label": "GUI:LowResFaster",
+  "text": "Низька роздільність (швидше)"
+ },
+ {
+  "label": "TOOLTIP:LowResSlider",
+  "text": "Текстури з вищою роздільною здатністю можуть уповільнити гру"
+ },
+ {
+  "label": "GUI:ParticleCap",
+  "text": "КІЛЬКІСТЬ ЧАСТИНОК"
+ },
+ {
+  "label": "GUI:MoreParticlesSlower",
+  "text": "Максимум частинок (повільніше)"
+ },
+ {
+  "label": "GUI:LessParticlesFaster",
+  "text": "Мінімум частинок (швидше)"
+ },
+ {
+  "label": "TOOLTIP:ParticleCapSlider",
+  "text": "Більше частинок може сповільнити гру"
+ },
+ {
+  "label": "GUI:CurrentLossStreak",
+  "text": "Поточна серія поразок"
+ },
+ {
+  "label": "GUI:Custom",
+  "text": "Власні"
+ },
+ {
+  "label": "GUI:ToggleOnOff",
+  "text": "Візуальні ефекти"
+ },
+ {
+  "label": "GUI:RestartMission",
+  "text": "ПЕРЕЗАПУСТИТИ МІСІЮ"
+ },
+ {
+  "label": "GUI:ExitMission",
+  "text": "ВИЙТИ З МІСІЇ"
+ },
+ {
+  "label": "GUI:OlderReplayVersionTitle",
+  "text": "СТАРІША ВЕРСІЯ ПОВТОРУ"
+ },
+ {
+  "label": "GUI:OlderReplayVersion",
+  "text": "Завантаження може не відображати повтор належним чином, продовжити завантаження?"
+ },
+ {
+  "label": "GUI:Shadows2D",
+  "text": "2D тіні"
+ },
+ {
+  "label": "TOOLTIP:Shadows2D",
+  "text": "Увімкнути показ 2D тіней у грі. Вимкніть для кращої продуктивності"
+ },
+ {
+  "label": "GUI:Shadows3D",
+  "text": "3D тіні"
+ },
+ {
+  "label": "TOOLTIP:Shadows3D",
+  "text": "Увімкнути показ 3D-тіней у грі. Вимкніть для кращої продуктивності"
+ },
+ {
+  "label": "GUI:CloudShadows",
+  "text": "Тіні від хмар"
+ },
+ {
+  "label": "TOOLTIP:CloudShadows",
+  "text": "Увімкнути відображення тіней від хмар на місцевості. Вимкніть для кращої продуктивності"
+ },
+ {
+  "label": "GUI:GroundLighting",
+  "text": "Додаткове наземне освітлення"
+ },
+ {
+  "label": "TOOLTIP:GroundLighting",
+  "text": "Перемкнути показ детального освітлення на місцевості. Вимкніть для кращої продуктивності"
+ },
+ {
+  "label": "GUI:SmoothWater",
+  "text": "Гладкі межі води"
+ },
+ {
+  "label": "TOOLTIP:SmoothWater",
+  "text": "Увімкнути/вимкнути згладжування меж води. Вимкніть для кращої продуктивності"
+ },
+ {
+  "label": "GUI:ExtraAnimations",
+  "text": "Додаткові анімації"
+ },
+ {
+  "label": "TOOLTIP:ExtraAnimations",
+  "text": "Увімкнути/вимкнути додаткові анімації, як-от коливання дерев. Вимкніть для кращої продуктивності"
+ },
+ {
+  "label": "GUI:NoDynamicLOD",
+  "text": "Вимкнути динамічний рівень деталізації"
+ },
+ {
+  "label": "TOOLTIP:NoDynamicLOD",
+  "text": "Вимкнути автоматичне налаштування деталей. Вимкніть для кращої продуктивності"
+ },
+ {
+  "label": "GUI:UnlockMaxFPS",
+  "text": "Необмежений FPS"
+ },
+ {
+  "label": "TOOLTIP:UnlockMaxFPS",
+  "text": "Дозволяє частоту кадрів вище 30. Впливає на швидкість гри, тому рекомендується лише для контрольних тестів"
+ },
+ {
+  "label": "GUI:TreeSway",
+  "text": "Анімації дерев"
+ },
+ {
+  "label": "TOOLTIP:TreeSway",
+  "text": "Увімкнути анімацію дерев. Вимкніть для кращої продуктивності"
+ },
+ {
+  "label": "GUI:TankTreads",
+  "text": "Сліди техніки"
+ },
+ {
+  "label": "TOOLTIP:TankTreads",
+  "text": "Увімкнути/вимкнути сліди, що їх залишає техніка. Вимкніть для кращої продуктивності"
+ },
+ {
+  "label": "GUI:WaterWaves",
+  "text": "Водні хвилі"
+ },
+ {
+  "label": "TOOLTIP:WaterWaves",
+  "text": "Увімкнути анімацію хвиль на берегових лініях. Вимкніть для кращої продуктивності"
+ },
+ {
+  "label": "GUI:BuildupAnimations",
+  "text": "Анімація зведення"
+ },
+ {
+  "label": "TOOLTIP:BuildupAnimations",
+  "text": "Показувати додаткові анімації під час будівництва споруд. Вимкніть для кращої продуктивності"
+ },
+ {
+  "label": "GUI:AdvancedOptionsToggleOnOff",
+  "text": "Увімкнути/вимкнути – Вимкніть, щоб покращити продуктивність"
+ },
+ {
+  "label": "GUI:PerformanceTestingMessage",
+  "text": "Зачекайте, поки ми перевіримо продуктивність вашої системи, щоб визначити оптимальні налаштування"
+ },
+ {
+  "label": "GUI:PerformanceTestingTitle",
+  "text": "Тестування продуктивності системи"
+ },
+ {
+  "label": "GUI:ReducedColor",
+  "text": "16-бітний колір"
+ },
+ {
+  "label": "TOOLTIP:ReducedColor",
+  "text": "Покращує продуктивність, але знижує якість зображення"
+ },
+ {
+  "label": "GUI:SelectAMapLowerCase",
+  "text": "Вибрати карту"
+ },
+ {
+  "label": "GUI:SaveAndExit",
+  "text": "ЗБЕРЕГТИ ТА ВИЙТИ"
+ },
+ {
+  "label": "GUI:PerSideWinPercentage",
+  "text": "%d%% %ls"
+ },
+ {
+  "label": "GUI:WinnersToday",
+  "text": "СЬОГОДНІШНІ ПЕРЕМОЖЦІ"
+ },
+ {
+  "label": "GUI:WinnersLastWeek",
+  "text": "ПЕРЕМОЖЦІ МИНУЛОГО ТИЖНЯ"
+ },
+ {
+  "label": "MOTD:NumPlayersHeading",
+  "text": "Вітаємо в Generals Zero Hour Online."
+ },
+ {
+  "label": "TOOLTIP:GameAcceptance",
+  "text": "Прийняття гри"
+ },
+ {
+  "label": "TOOLTIP:ConnectionSpeed",
+  "text": "Швидкість з'єднання"
+ },
+ {
+  "label": "CONTROLBAR:NoHotKeyArtilleryBarrage",
+  "text": "Артилерійський обстріл"
+ },
+ {
+  "label": "CONTROLBAR:NoHotKeySpySatellite",
+  "text": "Шпигунський супутник"
+ },
+ {
+  "label": "GUI:FetchingPlayerInfo",
+  "text": "Оновлення..."
+ },
+ {
+  "label": "CREDITS:EALosAngelesFieldRecordingsTeam",
+  "text": "Команда польового звукозапису EA Los Angeles"
+ },
+ {
+  "label": "CREDITS:TiburonQualityAssuranceSeniorLead",
+  "text": "Старший керівник контролю якості EA Tiburon"
+ },
+ {
+  "label": "CREDITS:TiburonQualityAssuranceProjectLead",
+  "text": "Керівник проєкту з контролю якості EA Tiburon"
+ },
+ {
+  "label": "CREDITS:TiburonAssociateQualityAssuranceLeads",
+  "text": "Помічники керівника контролю якості EA Tiburon"
+ },
+ {
+  "label": "CREDITS:TiburonQualityAssuranceSeniorTesters",
+  "text": "Старші тестувальники контролю якості EA Tiburon"
+ },
+ {
+  "label": "CREDITS:TiburonQualityAssuranceTesters",
+  "text": "Тестувальники контролю якості EA Tiburon"
+ },
+ {
+  "label": "CREDITS:EAUKAdditionalQualityAssurance",
+  "text": "Додатковий контроль якості EAUK"
+ },
+ {
+  "label": "CREDITS:MultiplayerTestParticipants",
+  "text": "Учасники тестування мережевої гри"
+ },
+ {
+  "label": "CREDITS:FocusTesters",
+  "text": "Фокус-тестувальники"
+ },
+ {
+  "label": "CREDITS:NorthAmericaMarketingPartners",
+  "text": "Маркетингові партнери в Північній Америці"
+ },
+ {
+  "label": "CREDITS:ManagingDirectorEurope",
+  "text": "Керуючий директор, Європа"
+ },
+ {
+  "label": "CREDITS:EuropeanMarketingPartners",
+  "text": "Маркетингові партнери в Європі"
+ },
+ {
+  "label": "CREDITS:AsiaPacificPresidentandCoach",
+  "text": "EA Asia Pacific, президент і наставник"
+ },
+ {
+  "label": "CREDITS:AsiaPacificMarketingPartners",
+  "text": "Маркетингові партнери EA Asia Pacific"
+ },
+ {
+  "label": "CREDITS:GamingCommunityPartners",
+  "text": "Партнери з ігрової спільноти"
+ },
+ {
+  "label": "CREDITS:EADevelopmentExecutives",
+  "text": "Керівники розробки EA"
+ },
+ {
+  "label": "CREDITS:SpecialThankstotheMaxiscrew",
+  "text": "Особлива подяка команді Maxis"
+ },
+ {
+  "label": "CREDITS:VerySpecialThanks",
+  "text": "Найособливіша подяка"
+ },
+ {
+  "label": "CREDITS:DevelopmentTitle",
+  "text": "Command & Conquer (TM) Generals Zero Hour розроблено"
+ },
+ {
+  "label": "CREDITS:EAPacificDevTeam",
+  "text": "Electronic Arts Los Angeles"
+ },
+ {
+  "label": "CREDITS:ExecutiveInCharge",
+  "text": "Виконавчий керівник виробництва"
+ },
+ {
+  "label": "CREDITS:Producer",
+  "text": "Продюсер"
+ },
+ {
+  "label": "CREDITS:LeadDesigner",
+  "text": "Провідний дизайнер"
+ },
+ {
+  "label": "CREDITS:TechnicalDirector",
+  "text": "Технічний директор"
+ },
+ {
+  "label": "CREDITS:ArtDirector",
+  "text": "Арт-директор"
+ },
+ {
+  "label": "CREDITS:ArtProducer",
+  "text": "Арт-продюсер"
+ },
+ {
+  "label": "CREDITS:SeniorProducer",
+  "text": "Старший продюсер"
+ },
+ {
+  "label": "CREDITS:AssociateProducers",
+  "text": "Асоційований продюсер"
+ },
+ {
+  "label": "CREDITS:MultiplayerTestProducer",
+  "text": "Продюсер тестування мережевої гри"
+ },
+ {
+  "label": "CREDITS:SeniorEngineers",
+  "text": "Старші інженери"
+ },
+ {
+  "label": "CREDITS:Engineers",
+  "text": "Інженери"
+ },
+ {
+  "label": "CREDITS:AdditionalEngineering",
+  "text": "Додаткове програмування"
+ },
+ {
+  "label": "CREDITS:Designers",
+  "text": "Дизайнери"
+ },
+ {
+  "label": "CREDITS:AdditionalDesignInspirationandSupport",
+  "text": "Додатковий дизайн, натхнення та підтримка"
+ },
+ {
+  "label": "CREDITS:AdditionalDesign",
+  "text": "Додатковий дизайн"
+ }
+]

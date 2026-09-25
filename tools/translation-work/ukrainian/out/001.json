@@ -1,0 +1,802 @@
+[
+ {
+  "label": "GUI:BuildingsBuilt",
+  "text": "Будівель\n  Побудовано"
+ },
+ {
+  "label": "GUI:BuildingsLost",
+  "text": "Будівель\n Втрачено"
+ },
+ {
+  "label": "GUI:BuildingsKilled",
+  "text": "Будівель \n Знищено"
+ },
+ {
+  "label": "GUI:ResourcesCollected",
+  "text": "Ресурси\n  Зібрано"
+ },
+ {
+  "label": "GUI:QuitPopupTitle",
+  "text": "ВИЙТИ?"
+ },
+ {
+  "label": "GUI:QuitPopupMessage",
+  "text": "Ви впевнені, що хочете вийти?"
+ },
+ {
+  "label": "GUI:MaxSelectionSize",
+  "text": "Одночасно можна вибрати лише %d одиниць"
+ },
+ {
+  "label": "GUI:MessagesOn",
+  "text": "Повідомлення ввімкнено"
+ },
+ {
+  "label": "GUI:MissionDescription",
+  "text": "Опис місії"
+ },
+ {
+  "label": "GUI:MOTD",
+  "text": "Повідомлення дня"
+ },
+ {
+  "label": "GUI:DesyncTitle",
+  "text": "Не синхронізовано"
+ },
+ {
+  "label": "GUI:DesyncText",
+  "text": "C&C Generals Zero Hour розсинхронізувалася з іншими учасниками гри. Можливо, інші учасники змінили свої версії. C&C Generals Zero Hour не може продовжуватися, однак ви можете додати гравців до свого списку ігнорування зі свого комунікатора, якщо ви вирішите не грати з ними в майбутньому"
+ },
+ {
+  "label": "GUI:LadderDetails",
+  "text": "Інформація рейтингу"
+ },
+ {
+  "label": "GUI:SystemMaps",
+  "text": "Офіційні карти"
+ },
+ {
+  "label": "GUI:UserMaps",
+  "text": "Неофіційні карти"
+ },
+ {
+  "label": "GUI:WaitingToBeginConnection",
+  "text": "Очікування початку"
+ },
+ {
+  "label": "GUI:NetgearDelay",
+  "text": "Затримка надсилання"
+ },
+ {
+  "label": "GUI:WaitingForManglerResponse",
+  "text": "Очікування відповіді зовнішнього інтернет-провайдера"
+ },
+ {
+  "label": "GUI:WaitingForMangledPort",
+  "text": "Очікування номера порту"
+ },
+ {
+  "label": "GUI:WaitingForResponse",
+  "text": "Очікування відповіді зонда"
+ },
+ {
+  "label": "GUI:ConnectionDone",
+  "text": "Підключення завершено"
+ },
+ {
+  "label": "GUI:ConnectionFailed",
+  "text": "Помилка підключення"
+ },
+ {
+  "label": "GUI:UnknownConnectionState",
+  "text": "Статус NAT/брандмауера невідомий"
+ },
+ {
+  "label": "GUI:Logout",
+  "text": "ГОЛОВНЕ МЕНЮ"
+ },
+ {
+  "label": "GUI:CancelMapSelect",
+  "text": "СКАСУВАТИ"
+ },
+ {
+  "label": "GUI:Deny",
+  "text": "Відхилити"
+ },
+ {
+  "label": "GUI:Victory",
+  "text": "Перемога"
+ },
+ {
+  "label": "GUI:Ignore",
+  "text": "ІГНОРУВАТИ"
+ },
+ {
+  "label": "GUI:Unignore",
+  "text": "Скасувати ігнорування"
+ },
+ {
+  "label": "GUI:Stats",
+  "text": "Персона"
+ },
+ {
+  "label": "GUI:GetMapPack",
+  "text": "Завантажити пакет карт"
+ },
+ {
+  "label": "GUI:Defeat",
+  "text": "Поразка"
+ },
+ {
+  "label": "GUI:YouAreVictorious",
+  "text": "Ви переможець!"
+ },
+ {
+  "label": "GUI:YouHaveBeenDefeated",
+  "text": "Ви зазнали поразки"
+ },
+ {
+  "label": "GUI:PlayerAlive",
+  "text": "Грає"
+ },
+ {
+  "label": "GUI:PlayerDead",
+  "text": "Переможений"
+ },
+ {
+  "label": "GUI:PlayerObserver",
+  "text": "Спостерігає"
+ },
+ {
+  "label": "GUI:PlayerObserverGone",
+  "text": "Вийшов"
+ },
+ {
+  "label": "GUI:PlayerGone",
+  "text": "Вийшов"
+ },
+ {
+  "label": "GUI:PlayerName",
+  "text": "Ім'я гравця"
+ },
+ {
+  "label": "GUI:Info",
+  "text": "Інформація про гравця"
+ },
+ {
+  "label": "GUI:Players:",
+  "text": "Гравці:"
+ },
+ {
+  "label": "GUI:GameOptions:",
+  "text": "Параметри гри:"
+ },
+ {
+  "label": "GUI:GameName:",
+  "text": "Гра:"
+ },
+ {
+  "label": "GUI:MapName:",
+  "text": "Карта:"
+ },
+ {
+  "label": "GUI:SelectMap",
+  "text": "ВИБРАТИ КАРТУ"
+ },
+ {
+  "label": "GUI:SelectAMap",
+  "text": "ВИБРАТИ КАРТУ"
+ },
+ {
+  "label": "GUI:SelectAGame",
+  "text": "ВИБРАТИ ГРУ"
+ },
+ {
+  "label": "GUI:Start",
+  "text": "ГРАТИ"
+ },
+ {
+  "label": "GUI:Host",
+  "text": "СТВОРИТИ ГРУ"
+ },
+ {
+  "label": "GUI:LocaleSelect",
+  "text": "ОБЕРІТЬ СВІЙ РЕГІОН"
+ },
+ {
+  "label": "GUI:Command&ConquerGenerals",
+  "text": "Command & Conquer (TM) Generals Zero Hour"
+ },
+ {
+  "label": "GUI:Command&Conquer",
+  "text": "Command & Conquer (TM)"
+ },
+ {
+  "label": "GUI:Generals",
+  "text": "Generals Zero Hour"
+ },
+ {
+  "label": "GUI:GeneralsOnline",
+  "text": "ОНЛАЙН"
+ },
+ {
+  "label": "GUI:SendDelay",
+  "text": "Затримка надсилання"
+ },
+ {
+  "label": "GUI:FirewallRefresh",
+  "text": "Оновити NAT"
+ },
+ {
+  "label": "GUI:Exit",
+  "text": "ВИХІД З ГРИ"
+ },
+ {
+  "label": "GUI:X",
+  "text": "X"
+ },
+ {
+  "label": "GUI:Campaign",
+  "text": "КАМПАНІЯ"
+ },
+ {
+  "label": "GUI:WestwoodPacific",
+  "text": "EA Pacific"
+ },
+ {
+  "label": "GUI:ClickToDisplayGameInfo",
+  "text": "Натисніть, щоб відобразити інформацію про гру"
+ },
+ {
+  "label": "GUI:GameInfo",
+  "text": "Інформація про гру"
+ },
+ {
+  "label": "GUI:OptionsDescription",
+  "text": "Відображення діалогового вікна параметрів гри"
+ },
+ {
+  "label": "GUI:SFXVolume",
+  "text": "Гучність звукових ефектів"
+ },
+ {
+  "label": "GUI:3DSound",
+  "text": "Об'ємний звук"
+ },
+ {
+  "label": "GUI:ScrollSpeed",
+  "text": "Швидкість прокручування"
+ },
+ {
+  "label": "GUI:Resolution",
+  "text": "Роздільна здатність"
+ },
+ {
+  "label": "GUI:Resolution0",
+  "text": "1024x768"
+ },
+ {
+  "label": "GUI:Resolution1",
+  "text": "800x600"
+ },
+ {
+  "label": "GUI:Resolution2",
+  "text": "640x480"
+ },
+ {
+  "label": "GUI:Detail",
+  "text": "Деталі"
+ },
+ {
+  "label": "GUI:???",
+  "text": "???"
+ },
+ {
+  "label": "GUI:Faction",
+  "text": "Армія"
+ },
+ {
+  "label": "GUI:AntiAliasing0",
+  "text": "Вимкнено"
+ },
+ {
+  "label": "GUI:AntiAliasing1",
+  "text": "Низьке"
+ },
+ {
+  "label": "GUI:AntiAliasing2",
+  "text": "Високе"
+ },
+ {
+  "label": "GUI:IPAddresses",
+  "text": "IP у LAN:"
+ },
+ {
+  "label": "GUI:MinPointPercent",
+  "text": "Необхідний мінімальний відсоток виграшу:"
+ },
+ {
+  "label": "GUI:MaxPointPercent",
+  "text": "Максимально допустимий відсоток виграшу:"
+ },
+ {
+  "label": "GUI:NumPlayers",
+  "text": "Гравці:"
+ },
+ {
+  "label": "GUI:PlayersVersusPlayers",
+  "text": "%d на %d"
+ },
+ {
+  "label": "GUI:TimeInMilliseconds",
+  "text": "%d мс"
+ },
+ {
+  "label": "GUI:MaxDisconnects",
+  "text": "Максимально допустимі відключення:"
+ },
+ {
+  "label": "GUI:Confirm",
+  "text": "Ви впевнені?"
+ },
+ {
+  "label": "GUI:NothingSelected",
+  "text": "Нічого не вибрано"
+ },
+ {
+  "label": "GUI:SelectedAcrossScreen",
+  "text": "Вибрано на екрані"
+ },
+ {
+  "label": "GUI:SelectedAcrossMap",
+  "text": "Вибрано на карті"
+ },
+ {
+  "label": "KEYBOARD:Shift+",
+  "text": "Shift+"
+ },
+ {
+  "label": "KEYBOARD:Alt+",
+  "text": "Alt+"
+ },
+ {
+  "label": "KEYBOARD:Ctrl+",
+  "text": "Ctrl+"
+ },
+ {
+  "label": "TOOLTIP:ScienceCost",
+  "text": "Вартість: %d"
+ },
+ {
+  "label": "TOOLTIP:Cost",
+  "text": "Вартість: %d"
+ },
+ {
+  "label": "TOOLTIP:SupplyWarehouse",
+  "text": "\n $%d залишилось"
+ },
+ {
+  "label": "TOOLTIP:LobbyPlayers",
+  "text": "Гравці в ігровому лобі"
+ },
+ {
+  "label": "TOOLTIP:StartWorldBuilder",
+  "text": "Запустити редактор карт World Builder"
+ },
+ {
+  "label": "TOOLTIP:GetUpdate",
+  "text": "Завантажити оновлення гри"
+ },
+ {
+  "label": "TOOLTIP:GetMapPack",
+  "text": "Завантажити новий пакет карт"
+ },
+ {
+  "label": "TOOLTIP:Skirmish",
+  "text": "Увійти в меню налаштування сутички"
+ },
+ {
+  "label": "TOOLTIP:Online",
+  "text": "Натисніть, щоб приєднатися до C&C Generals Zero Hour Online. Перевірте свої навички проти суперників з усього світу!"
+ },
+ {
+  "label": "TOOLTIP:Network",
+  "text": "Натисніть, щоб приєднатися до мережевого лобі. Перевірте свою мужність проти друзів через локальну мережу"
+ },
+ {
+  "label": "TOOLTIP:Options",
+  "text": "Натисніть, щоб змінити параметри гри. Ви можете налаштувати параметри відео, аудіо та ігор"
+ },
+ {
+  "label": "TOOLTIP:Exit",
+  "text": "Вийти з C&C Generals Zero Hour. Успіхів на полі бою, командире"
+ },
+ {
+  "label": "TOOLTIP:ExitGame",
+  "text": "Вийти з C&C Generals Zero Hour. Успіхів на полі бою, командире"
+ },
+ {
+  "label": "TOOLTIP:LoadGame",
+  "text": "Натисніть, щоб завантажити вибрану гру"
+ },
+ {
+  "label": "TOOLTIP:MapPreviewWindow",
+  "text": "Попередній перегляд карти може дати вам перевагу в майбутній битві. Обов’язково знайдіть свої доки та технічні будівлі. Ви також можете вибрати початкову точку"
+ },
+ {
+  "label": "TOOLTIP:SaveGame",
+  "text": "Натисніть, щоб зберегти поточну гру"
+ },
+ {
+  "label": "TOOLTIP:AcceptButton",
+  "text": "Прийняти свій поточний вибір"
+ },
+ {
+  "label": "TOOLTIP:CopyReplayToDesktop",
+  "text": "Скопіювати вибраний файл повтору на робочий стіл"
+ },
+ {
+  "label": "TOOLTIP:ProviderType",
+  "text": "Виберіть свого аудіопровайдера"
+ },
+ {
+  "label": "TOOLTIP:SpeakerType",
+  "text": "Виберіть конфігурацію динаміка"
+ },
+ {
+  "label": "TOOLTIP:LANPlayer",
+  "text": "%ls@%ls"
+ },
+ {
+  "label": "TOOLTIP:Resolution",
+  "text": "Виберіть роздільну здатність екрана для своєї гри. Чим вища роздільна здатність, тим повільніше гратиме ваша гра"
+ },
+ {
+  "label": "TOOLTIP:CommandCategory",
+  "text": "Виберіть категорію команд клавіатури"
+ },
+ {
+  "label": "TOOLTIP:CommandDescription",
+  "text": "Опис обраної команди"
+ },
+ {
+  "label": "TOOLTIP:StartPosition",
+  "text": "Початкова позиція"
+ },
+ {
+  "label": "TOOLTIP:SelectMap",
+  "text": "Виберіть поле бою, яке ви хочете використовувати"
+ },
+ {
+  "label": "TOOLTIP:Vote",
+  "text": "Натисніть, щоб проголосувати за виключення гравця з гри та продовжити"
+ },
+ {
+  "label": "TOOLTIP:NumberOfVotes",
+  "text": "Віддані голоси за видалення гравця"
+ },
+ {
+  "label": "TOOLTIP:QuitMultiplayerGame",
+  "text": "Вихід до меню гри"
+ },
+ {
+  "label": "TOOLTIP:RestartGame",
+  "text": "Перезапустити гру з тими самими параметрами"
+ },
+ {
+  "label": "TOOLTIP:Help",
+  "text": "."
+ },
+ {
+  "label": "TOOLTIP:StartLocation",
+  "text": "Початкове положення"
+ },
+ {
+  "label": "TOOLTIP:ReturnToGame",
+  "text": "ПОВЕРНУТИСЯ ДО ГРИ"
+ },
+ {
+  "label": "TOOLTIP:CommandList",
+  "text": "Доступні команди для поточної категорії"
+ },
+ {
+  "label": "TOOLTIP:CurrentHotkey",
+  "text": "Відображає поточну гарячу клавішу для цієї команди"
+ },
+ {
+  "label": "TOOLTIP:AssignHotkey",
+  "text": "Введіть тут свою нову гарячу клавішу команди"
+ },
+ {
+  "label": "TOOLTIP:AssignHotkeyCurrent",
+  "text": "Команда, якій наразі призначена ця гаряча клавіша"
+ },
+ {
+  "label": "TOOLTIP:AssignButton",
+  "text": "Призначає вибрану команду гарячої клавіші"
+ },
+ {
+  "label": "TOOLTIP:ResetAll",
+  "text": "Скидає всі гарячі клавіші клавіатури до стандартних"
+ },
+ {
+  "label": "TOOLTIP:BackButton",
+  "text": "Повернення до попереднього меню"
+ },
+ {
+  "label": "TOOLTIP:ProviderSelect",
+  "text": "Виберіть постачальника 3-D аудіо. Гра вже вибрала оптимальне налаштування, але ви можете змінити його вручну, якщо хочете"
+ },
+ {
+  "label": "TOOLTIP:SpeakerSelect",
+  "text": "Виберіть налаштування динаміків. Гра вже вибрала оптимальне налаштування, але ви можете змінити його вручну, якщо хочете"
+ },
+ {
+  "label": "TOOLTIP:DontUseAccount",
+  "text": "Увійдіть, не використовуючи обліковий запис C&C Generals Zero Hour Online. Ви не зможете отримати доступ до свого профілю або комунікатора"
+ },
+ {
+  "label": "TOOLTIP:CommunicatorButton",
+  "text": "Зв'яжіться зі своїми друзями"
+ },
+ {
+  "label": "TOOLTIP:NameButton",
+  "text": "Сортувати за назвою гри"
+ },
+ {
+  "label": "TOOLTIP:PingButton",
+  "text": "Сортувати за пінгом"
+ },
+ {
+  "label": "TOOLTIP:UseAccount",
+  "text": "Приєднатися до C&C Generals Zero Hour Online"
+ },
+ {
+  "label": "TOOLTIP:Login",
+  "text": "Приєднатися до C&C Generals Zero Hour Online"
+ },
+ {
+  "label": "TOOLTIP:CreateAccount",
+  "text": "Створити новий обліковий запис C&C Generals Zero Hour Online"
+ },
+ {
+  "label": "TOOLTIP:TOS",
+  "text": "Переглянути Умови надання послуг"
+ },
+ {
+  "label": "TOOLTIP:RememberInfo",
+  "text": "Запам'ятати дані для входу. Не рекомендується для комп'ютерів з кількома користувачами"
+ },
+ {
+  "label": "TOOLTIP:Back",
+  "text": "Повернення до попереднього екрана"
+ },
+ {
+  "label": "TOOLTIP:BattleHonors",
+  "text": "Бойові нагороди, які отримав гравець\n  Бойові нагороди можна отримати, досягнувши певних цілей в одиночній або груповій грі"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak3",
+  "text": "Відзнака серії\n  Гравець виграв 3 сутички поспіль\n  Отримайте нову відзнаку за 3, 10, 25, 100, 500 і 1000 перемог поспіль"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak10",
+  "text": "Відзнака серії\n  Гравець виграв 10 сутичок поспіль\n  Отримайте нову відзнаку за 3, 10, 25, 100, 500 і 1000 перемог поспіль"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorLoyaltyUSA",
+  "text": "Медаль вірності США\n  Гравець зіграв понад 20 ігор поспіль за США"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorLoyaltyChina",
+  "text": "Медаль вірності Китаю\n  Гравець зіграв понад 20 ігор поспіль за Китай"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorLoyaltyGLA",
+  "text": "Медаль вірності ГВА\n  Гравець зіграв понад 20 ігор поспіль за ГВА"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorBattleTank",
+  "text": "Танкова відзнака \n  Гравець побудував понад 50 танків в одиночній або багатокористувацькій онлайн-грі"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorAirWing",
+  "text": "Відзнака авіації\n  Гравець побудував понад 20 літальних апаратів в одиночній або багатокористувацькій онлайн-грі"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorEndurance",
+  "text": "Відзнака витривалості\n  Пройдіть кожну карту, щоб отримати бронзову, срібну або золоту відзнаку"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorCampaignUSA",
+  "text": "Відзнака кампанії США\n  Завершіть кампанію США, щоб отримати цю відзнаку\n  Пройдіть кампанію на важкому рівні складності, щоб отримати найвищу нагороду"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorCampaignChina",
+  "text": "Відзнака китайської кампанії\n  Завершіть китайську кампанію, щоб отримати цю відзнаку\n  Пройдіть кампанію на важкому рівні складності, щоб отримати найвищу нагороду"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorCampaignGLA",
+  "text": "Відзнака кампанії ГВА\n  Завершіть кампанію ГВА, щоб отримати цю відзнаку\n  Пройдіть кампанію на важкому рівні складності, щоб отримати найвищу нагороду"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorChallenge",
+  "text": "Відзнака виклику\n  Гравець переміг важкого комп'ютерного суперника"
+ },
+ {
+  "label": "TOOLTIP:ProgressToNextRank",
+  "text": "Прогрес до досягнення наступного рангу"
+ },
+ {
+  "label": "TOOLTIP:SetLocale",
+  "text": "Змінити поточний регіон"
+ },
+ {
+  "label": "TOOLTIP:DeleteAccount",
+  "text": "Видалити поточний обліковий запис"
+ },
+ {
+  "label": "TOOLTIP:AsianText",
+  "text": "Натисніть, щоб увімкнути азіатський чат тощо"
+ },
+ {
+  "label": "TOOLTIP:NonAsianText",
+  "text": "Натисніть, щоб увімкнути неазіатський чат тощо"
+ },
+ {
+  "label": "GUI:AreYouSureDeleteAccount",
+  "text": "Ви впевнені, що бажаєте остаточно видалити свій обліковий запис і всю збережену статистику?"
+ },
+ {
+  "label": "GUI:NonAsianText",
+  "text": "Неазіатський текст"
+ },
+ {
+  "label": "GUI:AsianText",
+  "text": "Азіатський текст"
+ },
+ {
+  "label": "GUI:DeleteAccount",
+  "text": "ВИДАЛИТИ ОБЛІКОВИЙ ЗАПИС"
+ },
+ {
+  "label": "GUI:SetLocale",
+  "text": "ВИБРАТИ РЕГІОН"
+ },
+ {
+  "label": "GUI:WinLoss",
+  "text": "Перемоги/Поразки"
+ },
+ {
+  "label": "GUI:FavSide",
+  "text": "Улюблена армія"
+ },
+ {
+  "label": "GUI:Discons",
+  "text": "Від'єднання"
+ },
+ {
+  "label": "GUI:BattleHonors",
+  "text": "Бойові відзнаки"
+ },
+ {
+  "label": "GUI:TotalBuddys",
+  "text": "Всього друзів"
+ },
+ {
+  "label": "GUI:PlayerStatistics",
+  "text": "%hs, з %ls"
+ },
+ {
+  "label": "GUI:TotalBuilt",
+  "text": "Всього побудовано"
+ },
+ {
+  "label": "GUI:TotalDeaths",
+  "text": "Загальна кількість смертей"
+ },
+ {
+  "label": "GUI:TotalKills",
+  "text": "Всього вбивств"
+ },
+ {
+  "label": "GUI:FavoriteUnit",
+  "text": "Улюблена одиниця"
+ },
+ {
+  "label": "GUI:FavoriteSide",
+  "text": "Улюблена армія"
+ },
+ {
+  "label": "GUI:Loses",
+  "text": "Поразки"
+ },
+ {
+  "label": "GUI:Wins",
+  "text": "Перемоги"
+ },
+ {
+  "label": "GUI:TotalDesyncs",
+  "text": "Розсинхронізації"
+ },
+ {
+  "label": "GUI:TotalDisconnects",
+  "text": "Відключень"
+ },
+ {
+  "label": "GUI:GamesPlayed",
+  "text": "Зіграні ігри"
+ },
+ {
+  "label": "GUI:TOS",
+  "text": "УМОВИ НАДАННЯ ПОСЛУГ"
+ },
+ {
+  "label": "GUI:RememberInfo",
+  "text": "Запам'ятати мою інформацію"
+ },
+ {
+  "label": "GUI:HostWantsToStart",
+  "text": "Творець хоче почати. Натисніть кнопку Прийняти"
+ },
+ {
+  "label": "GUI:PlayerNoMap",
+  "text": "%ls не має карти %ls"
+ },
+ {
+  "label": "GUI:LocalPlayerNoMap",
+  "text": "У вас немає карти %ls"
+ },
+ {
+  "label": "GUI:NeedMorePlayers",
+  "text": "Вам потрібно більше гравців, щоб почати гру"
+ },
+ {
+  "label": "GUI:NotifiedStartIntent",
+  "text": "Інші гравці отримали сповіщення про те, що ви хочете почати гру"
+ },
+ {
+  "label": "GUI:HostLeft",
+  "text": "Творець покинув гру, але C&C Generals Zero Hour продовжиться"
+ },
+ {
+  "label": "GUI:HostLeftTitle",
+  "text": "ТВОРЕЦЬ ВИЙШОВ"
+ },
+ {
+  "label": "GUI:WidenSearch",
+  "text": "РОЗШИРИТИ ПОШУК"
+ },
+ {
+  "label": "GUI:QMAborted",
+  "text": "Підбір суперників перервано"
+ },
+ {
+  "label": "GUI:DrawScrollAnchor",
+  "text": "Показувати якір прокручування"
+ },
+ {
+  "label": "GUI:MoveScrollAnchor",
+  "text": "Переміщувати якір прокручування"
+ },
+ {
+  "label": "GUI:GroupRoom1",
+  "text": "1 на 1"
+ },
+ {
+  "label": "GUI:GroupRoom2",
+  "text": "2 на 2"
+ },
+ {
+  "label": "GUI:GroupRoom3",
+  "text": "3 на 3"
+ },
+ {
+  "label": "GUI:Email",
+  "text": "Електронна пошта"
+ },
+ {
+  "label": "GUI:NoLadder",
+  "text": "Без рейтингу"
+ }
+]

@@ -1,0 +1,802 @@
+[
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA090Subtitle",
+  "text": "* Я чувствую, что час вашей гибели близок, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA091Subtitle",
+  "text": "*Ваши войска начинают сдавать позиции, генерал. Скоро они станут моими пленниками"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA092Subtitle",
+  "text": "*Мы пинаем вас, как раненую козу, генерал. Признайте поражение и избавьте себя от мучений"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA093Subtitle",
+  "text": "*Вы побеждены. Так бывает со всеми, кто встаёт у меня на пути, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA094Subtitle",
+  "text": "*Вы глупец, раз бросили мне вызов, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA095Subtitle",
+  "text": "*Вся мощь МАО в моём распоряжении"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA096Subtitle",
+  "text": "*Я опаснее всех трёх моих генералов вместе взятых"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA097Subtitle",
+  "text": "*Вы победили, генерал. Зачем вы продолжаете мучить меня, разглядывая эту статистику?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA098Subtitle",
+  "text": "*Да, теперь вы видите, почему проиграли… цифры говорят сами за себя"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA099Subtitle",
+  "text": "*Вы проделали долгий путь и одолели многих противников, чтобы добраться до меня, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA100Subtitle",
+  "text": "*Я отдаю должное вашим усилиям, но они ничуть не подготовили вас к тому, что вас ждёт"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA101Subtitle",
+  "text": "*Вы сражались с отравленными воинами доктора Тракса, невидимыми легионами Кассада и подрывниками Джухзиза, но всех их искусству войны научил я"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA102Subtitle",
+  "text": "*Это будет ваша последняя битва, генерал. Да смилуются над вами боги, которым вы молитесь… потому что я не смилуюсь"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA103Subtitle",
+  "text": "*Это будет ваша последняя битва, генерал. Помолитесь и приготовьтесь к концу"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA001Subtitle",
+  "text": "*Ну вот и ты. Бежать уже поздно, парень"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA002Subtitle",
+  "text": "*Надеюсь, ты готов, потому что мы идём за тобой"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA003Subtitle",
+  "text": "*Накрывай на стол, малыш, мы идём к тебе на ужин"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA004Subtitle",
+  "text": "*Я научу тебя трём вещам, малыш: как проигрывать, как плакать и как умирать"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA005Subtitle",
+  "text": "*Мы скоро атакуем, так что доставай все свои белые флаги"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA006Subtitle",
+  "text": "*Мы идём, малыш… постарайся не намочить штаны, ладно?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA007Subtitle",
+  "text": "*Что из слова «сдохни» тебе непонятно?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA008Subtitle",
+  "text": "*Ох, сейчас тебе достанется, малыш"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA009Subtitle",
+  "text": "*Готов? Сейчас будет тактика, которую ты, может, проходил в школе. Готов вернуться за парту?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA010Subtitle",
+  "text": "*Пора мне преподать тебе пару уроков тыльной стороной ладони"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA011Subtitle",
+  "text": "*Надо было бежать, пока была возможность. Теперь я научу тебя, что такое уважение"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA012Subtitle",
+  "text": "*Так, насчёт твоих похорон… гроб открытый или закрытый?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA013Subtitle",
+  "text": "*Я войду на твою базу и дам тебе пинка под зад, <sarcastic> «генерал»."
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA014Subtitle",
+  "text": "*Мы идём, сопляк. Уйди с дороги, или тебя растопчут"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA015Subtitle",
+  "text": "*Ты называешь себя «генералом»? А я называю тебя занозой в заднице, вот как я тебя называю"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA016Subtitle",
+  "text": "*Это и есть твоя стратегия? Твоя тактика? «Куча танков» — это лучшее, что ты смог придумать? Жалко… просто жалко…"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA017Subtitle",
+  "text": "*Да, я тоже читал Сунь-цзы, дружок: «Враг сильнее — отступай. Враг слабее — атакуй». Это всё, что у тебя есть?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA018Subtitle",
+  "text": "*Ну и где твоя армия, парень? Или ты решил драться на кулаках? Я и голыми руками тебя уложу, если хочешь. Хочешь попробовать, парень?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA019Subtitle",
+  "text": "*Ты поднял меня с постели ради этого? Надо бы прямо сейчас задать тебе хорошую порку"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA020Subtitle",
+  "text": "*У меня медалей больше, чем у тебя зубов, парень… впрочем, это немного, после того как я тебе их повыбиваю"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA021Subtitle",
+  "text": "*Ты ставишь всю оборону перед базой? Думаешь, мы не сможем её обойти? А, думаешь?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA022Subtitle",
+  "text": "*Парень, думаешь, я с тобой играю? Подумай ещё раз"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA023Subtitle",
+  "text": "*Проверь-ка свои фланги, приятель. Похоже, мои ребята только что пробрались на твою базу"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA024Subtitle",
+  "text": "*Думаешь, это игра? А, думаешь? Стой, не отвечай"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA025Subtitle",
+  "text": "*Малыш, кто учил тебя тактике? А? Сходи и врежь ему как следует по зубам, говорю тебе"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA026Subtitle",
+  "text": "*За мной вся армия Соединённых Штатов, сынок, и я только что решил, что ты нам не нравишься"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA027Subtitle",
+  "text": "*Эта твоя тактика — какая-то шутка, которую я не понял?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA028Subtitle",
+  "text": "*Так ты не настоящий генерал, да? Ты вроде как главный санитарный врач или что-то такое, верно?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA029Subtitle",
+  "text": "*Мамочка знает, что ты гуляешь один?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA030Subtitle",
+  "text": "*Можешь мне сказать… Мы тут все генералы… Твои люди знают, что ты бездарь?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA031Subtitle",
+  "text": "*Ты в курсе, что только что лишился технологического здания, дружок?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA032Subtitle",
+  "text": "*Только что взорвал твою казарму, сопляк. И что ты с этим сделаешь?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA033Subtitle",
+  "text": "*Вот и нет твоего военного завода. Ты уже злишься, парень?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA034Subtitle",
+  "text": "*Не знаю, зачем ты построил этот аэродром, если не собираешься его защищать"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA035Subtitle",
+  "text": "*Кто так расставил оборону базы? Так она ничего не защитит"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA036Subtitle",
+  "text": "*Надо бы дать тебе построить ещё один командный центр, чтобы снести его снова"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA037Subtitle",
+  "text": "*Как будто песочные замки пинаю. Сколько ещё зданий ты дашь мне разрушить, дружок?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA038Subtitle",
+  "text": "*Я уступил тебе это технологическое здание, парень. Мне оно не нужно, чтобы тебя победить"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA039Subtitle",
+  "text": "*Малыш, эта казарма не была военной целью. Сделаешь так ещё раз — и всё станет очень некрасиво"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA040Subtitle",
+  "text": "*Лучше отступи, сынок. Я не позволю тебе взрывать мои военные заводы, слышишь?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA041Subtitle",
+  "text": "*Ты знаешь, сколько стоят эти самолёты? На то, что ты только что уничтожил, я мог бы накормить весь мир"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA042Subtitle",
+  "text": "*Взламываешь мою оборону, да? Давай-давай — как раз хватит времени, чтобы захватить твою базу"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA043Subtitle",
+  "text": "*Хватит с тебя зданий, сынок. Попробуй-ка теперь атаковать мои войска"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA044Subtitle",
+  "text": "*Мой командный центр?! Думаешь, я буду сидеть сложа руки и терпеть это?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA045Subtitle",
+  "text": "*Оставь моих пилотов в покое, парень. Самолёты — это одно, а пилотов отпусти домой целыми, слышишь?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA046Subtitle",
+  "text": "*Хитрый ты чертёнок, а? Но, по-моему, хватит уже уничтожать мою технику, не думаешь?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA047Subtitle",
+  "text": "*Отправьте туда бронетехнику и авиацию — нашу пехоту рвут на части!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA048Subtitle",
+  "text": "*Оставь эту нефтяную вышку, парень. Эта война не из-за цен на бензин, знаешь ли"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA049Subtitle",
+  "text": "*Думаешь, умеешь пользоваться этой артиллерийской платформой, сынок?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA050Subtitle",
+  "text": "*Этот нефтяной завод — не цель, сынок. И он не твой, так что мы идём его возвращать"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA051Subtitle",
+  "text": "*Надо же, ты добрался до моей половины карты. Не думал, что ты на это способен"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA052Subtitle",
+  "text": "*Ты собираешься атаковать или будешь весь день там стоять?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA053Subtitle",
+  "text": "*Убирайся с моей базы, парень, если знаешь, что для тебя лучше"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA054Subtitle",
+  "text": "*Враг на нашем периметре. Всем силам отразить нападение"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA055Subtitle",
+  "text": "*Это не твоё снабжение, дружок. Лучше отойди, пока цел"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA056Subtitle",
+  "text": "*Атака с фланга?! Не смеши меня, парень"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA057Subtitle",
+  "text": "*Пытаешься зайти с чёрного хода? Ну, удачи"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA058Subtitle",
+  "text": "*Идёшь на меня в атаку, парень? Приятно видеть, что у тебя есть характер"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA059Subtitle",
+  "text": "*Держись подальше от моих технологических зданий, если знаешь, что для тебя лучше"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA060Subtitle",
+  "text": "*Мои войска уже видят твою базу, малыш. Что будешь делать?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA061Subtitle",
+  "text": "*Вот и молот, сопляк, и тебе не захочется быть гвоздём"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA062Subtitle",
+  "text": "*Тук-тук, мы входим!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA063Subtitle",
+  "text": "*Сейчас тебе станет очень худо, дружок. Не говори, что я не предупреждал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA064Subtitle",
+  "text": "*Так вот где ты прячешь свои ресурсы. Не возражаешь, если я возьму немного?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA065Subtitle",
+  "text": "*У тебя фланг совсем открыт, дружок"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA066Subtitle",
+  "text": "*Может, мы зайдём с чёрного хода. Что скажешь?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA067Subtitle",
+  "text": "*Берегись, мы входим через парадную дверь!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA068Subtitle",
+  "text": "*Так-так, что тут у нас?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA069Subtitle",
+  "text": "*Ну-ка, посмотрите-ка"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA070Subtitle",
+  "text": "*И что ты собирался делать без энергии? Не терпится увидеть эту стратегию"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA071Subtitle",
+  "text": "*Лучше оплати счёт за электричество, иначе придётся отложить этот бой"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA072Subtitle",
+  "text": "*У тебя кончились ресурсы? Парень, не начинай танцы, если не можешь заплатить по счёту"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA073Subtitle",
+  "text": "*Ой-ой, похоже, придётся потратиться в долг"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA074Subtitle",
+  "text": "*Построил себе залповую установку ракет Р-17М? Да ты этими ракетами и в сарай не попадёшь, неужели не знаешь?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA075Subtitle",
+  "text": "*Достаёшь ядерное оружие, да? Если бы Вашингтон не связал мне руки, я бы показал тебе ядерное оружие, говорю тебе"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA076Subtitle",
+  "text": "*Откуда у тебя молекулярная пушка, сынок? Это же должно быть совершенно секретно"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA077Subtitle",
+  "text": "*Сколько обороны. Я прямо чую, как от тебя несёт страхом, парень"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA078Subtitle",
+  "text": "*О, гляньте-ка… вот и куча танков. Против меня это не сработает, сынок"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA079Subtitle",
+  "text": "*Многовато дорогих самолётов ты поднимаешь в воздух, малыш. Уверен, что хочешь тратить эти деньги?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA080Subtitle",
+  "text": "*Надеюсь, вся эта пехота знает, во что ты её втягиваешь"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA081Subtitle",
+  "text": "*Многовато зданий, сынок. Ты ведь знаешь, что здания за тебя воевать не будут?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA082Subtitle",
+  "text": "*Давай свои ракеты, сопляк, — я покажу тебе, что такое залп"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA083Subtitle",
+  "text": "*Ты пожалеешь, что ударил по мне ядерной бомбой, малыш. Я такого не прощаю"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA084Subtitle",
+  "text": "*Молекулярная пушка, да? Лучше прикончи меня ею, потому что моя контратака тебе не понравится"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA085Subtitle",
+  "text": "*Знаешь, только трус воюет, прячась в зданиях. Ты ведь это знаешь?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA086Subtitle",
+  "text": "*Добро пожаловать, полковник Бартон. Жаль, что вы оказались в это втянуты. Без обид"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA087Subtitle",
+  "text": "*Чёрный Лотос тебя не спасёт, парень. Она и близко не подойдёт к моей базе"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA088Subtitle",
+  "text": "*Джармен Келл — всего лишь очередной снайпер, сопляк. У меня снайперов десятки"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA089Subtitle",
+  "text": "*Да, строй свой аэродром, поднимай птичек в воздух. Может, это твой единственный шанс меня остановить"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA090Subtitle",
+  "text": "*Всего один военный завод? Чтобы меня остановить, понадобится не меньше полудюжины, малыш"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA091Subtitle",
+  "text": "*Не слишком ли близко к передовой эта казарма, малыш? Трудно спать, когда в казарме свистят пули"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA092Subtitle",
+  "text": "*Не продавай одно здание, парень, продай все и надейся, что я всё равно за тобой не приду"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA093Subtitle",
+  "text": "*Не зазнавайся, парень, это ещё не конец"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA094Subtitle",
+  "text": "*Может, ты думаешь, что у тебя преимущество, но у меня в запасе ещё есть пара фокусов. Вот увидишь"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA095Subtitle",
+  "text": "*Я выбирался и не из таких ям, сопляк. Так просто ты не победишь"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA096Subtitle",
+  "text": "*Думаешь, ты меня побеждаешь? Подумай ещё раз"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA097Subtitle",
+  "text": "*Хм… кажется, всё кончено. Отличная работа, малыш. Похоже, ты сбил с меня спесь"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA098Subtitle",
+  "text": "*Чувствуешь, как мой кулак сжимается на твоей шее, сопляк?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA099Subtitle",
+  "text": "*Не расстраивайся, что проиграл мне. Мне все проигрывают, малыш"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA100Subtitle",
+  "text": "*Дай мне секунду собрать танки, и я закончу эту маленькую стычку"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA101Subtitle",
+  "text": "*Почему бы тебе просто не сдаться, <sarcastic> «генерал»."
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA102Subtitle",
+  "text": "*Парень, я отделал тебя, как старый барабан. Кто дал тебе командование? Мне есть что им сказать"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA103Subtitle",
+  "text": "*Не нажимай эту кнопку, если не настроен серьёзно, парень"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA104Subtitle",
+  "text": "*Хочешь со мной связаться? Лучше подумай ещё раз, малыш"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA105Subtitle",
+  "text": "*Не приходи сюда с таким гонором, если не можешь за него ответить, сопляк"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA106Subtitle",
+  "text": "*Покажи, на что ты способен"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA107Subtitle",
+  "text": "*Может, подзаработаешь, начищая мне сапоги, потому что генерал из тебя никакой"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA108Subtitle",
+  "text": "*Отличная работа, генерал. Отдаю вам честь"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA109Subtitle",
+  "text": "*Речей толкать не буду, так что давай начнём"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo001Subtitle",
+  "text": "*У меня для вас есть сюрпризы, генерал. Может, выйдете поиграть?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo002Subtitle",
+  "text": "*Теперь, когда поле усеяно взрывчаткой, полагаю, можно и атаковать"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo003Subtitle",
+  "text": "*Генерал, у меня для вас посылка… распишитесь в получении, хорошо?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo004Subtitle",
+  "text": "*Осторожнее, кто знает, когда Джармен Келл проберётся на вашу базу"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo005Subtitle",
+  "text": "*Ваше здание только что взорвалось? Хм… интересно, как это случилось?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo006Subtitle",
+  "text": "*Все мои войска начинены взрывчаткой, генерал. На вашем месте я бы по ним не стрелял"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo007Subtitle",
+  "text": "*Мои террористы научились маскироваться под… ой, я сказал лишнее?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo008Subtitle",
+  "text": "*Вы, наверное, заметили, что моя взрывчатка стала бить сильнее… Надеюсь, вы цените наше внимание к качеству"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo009Subtitle",
+  "text": "*Посмотрите, как быстро теперь Эльбрус разрушает здание… погодите, это потрясающе"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo010Subtitle",
+  "text": "*Сначала полная тишина… потом «бум!»… ах… разве это не прекрасно, генерал?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo011Subtitle",
+  "text": "*Я редко атакую, так что можете гордиться"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo012Subtitle",
+  "text": "*Вот и новая атака, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo013Subtitle",
+  "text": "*Мои войска идут штурмовать вашу базу… встречайте их радушно"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo014Subtitle",
+  "text": "*Не обращайте внимания на моих рабочих, генерал, они просто закапывают для меня кое-какой… эмм… мусор"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo015Subtitle",
+  "text": "*О, генерал, вы должны это увидеть… это просто бомба. <childish laugh>"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo016Subtitle",
+  "text": "*Мы отлучимся за взрывчаткой, генерал. Скоро вернёмся"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo017Subtitle",
+  "text": "*Там тихо, генерал. Вы ведь знаете, что означает тишина? БУМ!!!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo018Subtitle",
+  "text": "*Я мастер взрывчатки, генерал. Вам нечем от меня защититься"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo019Subtitle",
+  "text": "*Ваша база намечена под снос"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo020Subtitle",
+  "text": "*Боитесь моей следующей атаки, генерал? И правильно"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo021Subtitle",
+  "text": "*Пока мы говорим, мои агенты пробираются на вашу базу и закладывают взрывчатку"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo022Subtitle",
+  "text": "*Ваше здание, возможно, уже заминировано. Вы узнаете об этом, только когда будет слишком поздно"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo023Subtitle",
+  "text": "*Лишь немногие войска способны обнаружить мою взрывчатку… вы знаете, какие именно?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo024Subtitle",
+  "text": "*Фугасы непросто собрать, генерал. Чтобы оценить их красоту, нужно увидеть их вблизи"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo025Subtitle",
+  "text": "*Как вам пока нравятся мои фокусы и ловушки?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo026Subtitle",
+  "text": "*Ой… ваше технологическое здание сказало «бум»"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo027Subtitle",
+  "text": "*Мы уничтожили вашу казарму… Надеюсь, там никого не было"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo028Subtitle",
+  "text": "*Ваш военный завод пал, генерал. Постройте новый, чтобы мы снова его снесли"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo029Subtitle",
+  "text": "*Аэродромы такие хрупкие, их даже уничтожать неинтересно"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo030Subtitle",
+  "text": "*Оборона вашей базы не выдержит моей взрывчатки, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo031Subtitle",
+  "text": "*Ах, ничто не сравнится с уничтожением командного центра"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo032Subtitle",
+  "text": "*Мы уничтожили столько ваших зданий, генерал… Я ценю, что вы строите новые нам на потеху"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo033Subtitle",
+  "text": "*Вы уничтожили нашу нефтяную вышку. Вот теперь вы проникаетесь духом происходящего"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo034Subtitle",
+  "text": "*Моя казарма! Там было много моих подрывников, генерал. Вы за это заплатите"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo035Subtitle",
+  "text": "*Только не мой военный завод! Генерал, с этой вашей раздражающей привычкой пора кончать"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo036Subtitle",
+  "text": "*Не беспокойтесь, оборона моей базы — лишь система раннего оповещения. Теперь вам предстоит пройти через мою настоящую оборону"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo037Subtitle",
+  "text": "*Слишком много! Вы уничтожили слишком много моих зданий, генерал. Теперь борьба пойдёт без правил"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo038Subtitle",
+  "text": "*Мы отстроим этот командный центр, генерал, а вы заплатите за это преступление"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo039Subtitle",
+  "text": "*Генерал, как же я вас одолею, если вы продолжаете уничтожать мою технику?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo040Subtitle",
+  "text": "*Вы убиваете моих людей раньше, чем они успевают заложить взрывчатку… это как-то нечестно, правда, генерал?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo041Subtitle",
+  "text": "*Ах да, захватите эту нефтяную вышку, генерал. Тогда нам будет что ещё уничтожить"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo042Subtitle",
+  "text": "*Генерал, зачем вам эта артиллерийская платформа?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo043Subtitle",
+  "text": "*Хорошо, генерал, захватите нефтяной завод… они так эффектно взрываются"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo044Subtitle",
+  "text": "*Осторожнее, генерал, ваши люди только что вошли в опасную зону вокруг моей базы. Даже я не помню, где там расставлены все ловушки"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo045Subtitle",
+  "text": "*Генерал, ваши люди опасно приблизились к моей базе. На вашем месте я бы повернул назад"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo046Subtitle",
+  "text": "*Убирайтесь с моей базы, генерал. Вся эта территория заминирована, и я не побоюсь пустить взрывчатку в ход"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo047Subtitle",
+  "text": "*Глупец! Вы знаете, сколько взрывчатки сейчас вокруг ваших людей?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo048Subtitle",
+  "text": "*Атака с фланга, генерал? Обороны там, может, и немного, но как насчёт ловушек?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo049Subtitle",
+  "text": "*Тыл моей базы особенно коварен, генерал. Я бы не советовал штурмовать оттуда"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo050Subtitle",
+  "text": "*Лобовая атака?! Вы ещё глупее, чем я думал, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo051Subtitle",
+  "text": "*В этой долине вас не ждёт ничего, кроме смерти"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo052Subtitle",
+  "text": "*Осторожнее, генерал, отличное место для засады… ой, поздно"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo053Subtitle",
+  "text": "*Думаете, я не подготовился к вашему приходу, генерал? Глупец"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo054Subtitle",
+  "text": "*Это мои ресурсы, генерал. Найдите себе свои"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo055Subtitle",
+  "text": "*Генерал, вы вошли на мой склад взрывчатки. Одно неверное движение — и мы все погибнем"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo056Subtitle",
+  "text": "*А, вижу, мы задели одну из ваших линий электропередачи. Надеюсь, энергии не будет недолго"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo057Subtitle",
+  "text": "*Ваша зависимость от электричества вас погубит, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo058Subtitle",
+  "text": "*Ваши ресурсы истощены, генерал. Мои войска кружат, готовясь добить вас"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo059Subtitle",
+  "text": "*У меня мало ресурсов, генерал. Не возражаете, если мы возьмём немного ваших?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo060Subtitle",
+  "text": "*Залповая установка ракет Р-17М… понятно… Что ж, пожалуй, пора построить свою"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo061Subtitle",
+  "text": "*Интересно, сколько взрывчатки понадобится, чтобы уничтожить эту ракетную шахту?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo062Subtitle",
+  "text": "*Ну зачем вам строить молекулярную пушку? Мы ведь только начали веселиться, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo063Subtitle",
+  "text": "*Столько обороны, генерал. Как же теперь мои подрывники проникнут на вашу базу?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo064Subtitle",
+  "text": "*Танки… столько танков. С удовольствием посмотрю, как ваши танки напорются на мои ловушки, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo065Subtitle",
+  "text": "*Хватит строить самолёты, генерал… вы пропустите гениальность моих ловушек"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo066Subtitle",
+  "text": "*С такой толпой пехоты вы наверняка подорвёте мои фугасы. Я бы велел им рассредоточиться, пересекая поле, генерал… а может, и нет"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo067Subtitle",
+  "text": "*Столько зданий… Ваша база — идеальная цель для моей взрывчатки, генерал. Спасибо"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo068Subtitle",
+  "text": "*Глупый ход, генерал. Ваша залповая установка ракет Р-17М меня не остановит"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo069Subtitle",
+  "text": "*Ядерная ракета! Вы за это заплатите, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo070Subtitle",
+  "text": "*Нет! Молекулярный луч подорвёт мою взрывчатку!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo071Subtitle",
+  "text": "*Да, займите это здание, генерал, наверняка к нему не прикреплена взрывчатка"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo072Subtitle",
+  "text": "*Здравствуйте, полковник Бартон. Постарайтесь не наступить на ловушки"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo073Subtitle",
+  "text": "*Чёрный Лотос… то, что вы видите мои ловушки, ещё не значит, что я стал уязвим"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo074Subtitle",
+  "text": "*Зачем вы послали против меня Джармена Келла, генерал?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo075Subtitle",
+  "text": "*Не стройте больше аэродромов, генерал… они мне не нравятся"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo076Subtitle",
+  "text": "*Военный завод строит технику… технику, которая подорвёт мои фугасы"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo077Subtitle",
+  "text": "*Вы считаете, что строить казарму разумно, генерал?"
+ }
+]

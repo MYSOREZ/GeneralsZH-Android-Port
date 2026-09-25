@@ -1,0 +1,802 @@
+[
+ {
+  "label": "CONTROLBAR:ToolTipUSARangerCaptureBuilding",
+  "text": "Захопити ворожу будівлю"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSAFire20mmCannon",
+  "text": "Стріляти по цілі з 20-мм гармати"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSAFireAntiTankMissiles",
+  "text": "Стріляти по цілі протитанковими ракетами"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSAFireRocketPods",
+  "text": "Випустіть шквал ракет по цільовій області"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAFireScorpionRocket",
+  "text": "Випустити одну важку ракету по цілі"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLASCUDHEWarhead",
+  "text": "Зарядити ракету СКАД з вибухівкою"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLASCUDAnthraxWarhead",
+  "text": "Зарядити ракету СКАД з сибірською виразкою"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAFireToxinTractorSlime",
+  "text": "Обприскати область токсинами"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLARebelCaptureBuilding",
+  "text": "Захопити ворожу будівлю"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLATerroristMakeCarBomb",
+  "text": "Зайти в цивільний автомобіль і начинити його вибухівкою"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAFireFireBomb",
+  "text": "Використовувати вогняні бомби на ціль"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAHijackerHijack",
+  "text": "Викрасти ворожу машину"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAFireJarmenKellVehicleSnipe",
+  "text": "Убити екіпаж машини"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaFireMIG",
+  "text": "Вогонь"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaRedGuardCaptureBuilding",
+  "text": "Захопити вказану ворожу будівлю"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaRedGuardFireStunBullets",
+  "text": "Захопити ворожого солдата"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaRedGuardFireBayonet",
+  "text": "Використати багнет на вибраному ворожому солдаті"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaFireBlackLotusCaptureHack",
+  "text": "Захопити ворожу будівлю"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaFireBlackLotusVehicleHack",
+  "text": "Відключити ворожу техніку"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaFireBlackLotusCashHack",
+  "text": "Викрасти гроші з вибраного ресурсного центру ворога"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaFireHackerInternetHack",
+  "text": "Зламати Інтернет, щоб вкрасти гроші"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaHackerBuildingHack",
+  "text": "Відключити ворожу будівлю потужним комп'ютерним вірусом"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaDragonTankFire",
+  "text": "Вогонь"
+ },
+ {
+  "label": "CONTROLBAR:TooltipFireWall",
+  "text": "Створити дугу вогню в цільовій області"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipPickUpPrisoner",
+  "text": "Візьміть ворожого полоненого, щоб повернути його на свою базу"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipReturnToPrison",
+  "text": "Повернутися до місця утримання полонених"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaFireTankHunterTNTAttack",
+  "text": "Розмістити заряд тротилу"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSAFireBurtonKnifeAttack",
+  "text": "Використовуйте ніж на ворожому солдаті, щоб здійснити тиху атаку"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSAFireBurtonTimedDemo",
+  "text": "Розмістити заряд з годинниковим механізмом"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABurtonPlaceRemoteCharge",
+  "text": "Розмістити підривний заряд із дистанційним керуванням, який можна підірвати в будь-який момент"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABurtonDetonateCharges",
+  "text": "Підірвати всі заряди з дистанційним керуванням"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipCancelConstruction",
+  "text": "Відмінити будівництво"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildCommandCenter",
+  "text": "Керує спеціальною зброєю. Створює будівельні бульдозери. Забезпечує радар"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildPowerPlant",
+  "text": "Забезпечує живлення для баз США\n \n  Енергія: 5"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildBarracks",
+  "text": "Тренує солдат США для використання в боях"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildSupplyCenter",
+  "text": "Пункт розвантаження чинуків США\n \n  Потрібна потужність: 1"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildWall",
+  "text": "Система огорож США. Лазерні датчики сповіщають про те, що ворожі війська пересуваються через паркан. Огорожа блокує рух ворожої техніки"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildWarFactory",
+  "text": "Будує всю наземну техніку США\n \n  Потрібна енергія: 1"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildPatriotBattery",
+  "text": "Наземна та протиповітряна оборона. Може передавати позицію ворога Патріотам поблизу\n \n  Потрібна енергія: 3"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildAirField",
+  "text": "Будує літаки США\n \n  Потрібна енергія: 1"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildParticleCannon",
+  "text": "Випускає промінь частинок у будь-яке місце на карті\n \n  Потрібна енергія: 10"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildStrategyCenter",
+  "text": "Усі сили США можуть використовувати єдиний план бою\n \n  Бомбардування\n  Пошук і знищення\n  Тримати лінію\n \n  Потрібна енергія: 2"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildDetentionCamp",
+  "text": "Надає можливість шпигувати за ворогами"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildSupplyDropZone",
+  "text": "Кожні 2 хвилини отримує припаси з літака\n \n  Потрібна енергія: 4"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildCommandCenter",
+  "text": "Керує спеціальною зброєю. Тренує робітників"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABUildDemoTrap",
+  "text": "Невидимий вибуховий пристрій"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildBarracks",
+  "text": "Тренує солдат ГВА"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildSupplyStash",
+  "text": "Збирає ресурси"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildArmsDealer",
+  "text": "Будує техніку"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildCommandCenter",
+  "text": "Керує спеціальною зброєю. Створює будівельні бульдозери"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildPowerPlant",
+  "text": "Китайська електростанція. Можна перевантажити, щоб отримати +50% pобочої потужності\n \n  Енергія: 10"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildBarracks",
+  "text": "Тренує китайських солдатів"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildSupplyCenter",
+  "text": "Пункт розвантаження для збирачів ресурсів Китаю\n \n  Потрібна потужність: 1"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildWarFactory",
+  "text": "Виготовляє китайську техніку\n \n  Потрібна потужність: 1"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildBunker",
+  "text": "Вміщує 5 китайських солдатів"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildPropagandaCenter",
+  "text": "Будує важливі китайські технології\n \n  Потрібна енергія: 2"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildAirField",
+  "text": "Будує китайські літаки\n \n  Потрібна енергія: 1"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildGattlingCannon",
+  "text": "Потужна протиповітряна оборона бази\n \n  Потрібна енергія: 3"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildNuclearMissileLauncher",
+  "text": "Запускає ядерну ракету. Створює важливі китайські оновлення\n \n  Потрібна енергія: 10"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildSpeakerTower",
+  "text": "Лікує ваші війська та збільшує швидкість стрільби\n \n  Потрібна потужність: 1"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildTunnelNetwork",
+  "text": "Захист бази і підземний тунель. Підрозділи можуть входити в тунельну мережу та виходити з будь-якої іншої тунельної мережі"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildPalace",
+  "text": "Містить важливі технології ГВА. Може бути зайнятий гарнізоном військ ГВА"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildBlackMarket",
+  "text": "Містить важливі технології ГВА. Надає гравцеві ГВА безкоштовні ресурси"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildStingerSite",
+  "text": "Протиповітряна і протитанкова оборона бази"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildScudStorm",
+  "text": "Пускає залп ракетами СКАД\n \n  Таймер зворотного відліку: 5:00"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildPrison",
+  "text": "Використовується для утримання полонених ворожих солдатів"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildRanger",
+  "text": "Сила проти піхоти\n  Слабкість проти легкої техніки"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildDozer",
+  "text": "Будує всі споруди США та ремонтує будівлі"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildWorker",
+  "text": "Будує всі структури ГВА. Ремонтує будівлі та збирає припаси"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildDozer",
+  "text": "Будує всі китайські споруди та ремонтує будівлі"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildScorpion",
+  "text": "Сила проти легких транспортних засобів\n  Слабкість проти ракетних солдатів, літаків"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildRocketBuggy",
+  "text": "Сила проти будівель\n  Слабкість проти танків, авіації"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildRadarVan",
+  "text": "Забезпечує радар. Може виявити приховані ворожі одиниці"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildOverlord",
+  "text": "Сила проти транспортних засобів, будівель\n  Слабкість проти озброєної ракетами піхоти, авіації"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildGattlingTank",
+  "text": "Сила проти піхоти, авіації\n  Слабкість проти танків"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildRebel",
+  "text": "Сила проти піхоти\n  Слабкість проти танків, легкої техніки"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildRedguard",
+  "text": "Отримує бонус Орди в групах по 5 і більше\n \nСила проти піхоти\n  Слабкість проти транспортних засобів"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildHacker",
+  "text": "Може вивести з ладу ворожі будівлі за допомогою комп’ютерного вірусу або зламати Інтернет, щоб вкрасти гроші\n \n  Сила проти будівель\n  Слабкість проти піхоти, техніки"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABUildChinook",
+  "text": "Транспортний вертоліт. Збирає припаси. Разом із рейнджерами виконує бойове десантування"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildSupplyTruck",
+  "text": "Збирає ресурси"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildPaladin",
+  "text": "Використовує лазер для знищення ракет і піхоти противника\n \n  Сила проти танків, будівель і ракет\n  Слабкість проти літаків"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildRaptor",
+  "text": "Може вражати наземні або повітряні цілі\n \n  Сила проти літаків, танків, легкої техніки\n  Слабкість проти піхоти, озброєної ракетами, протиповітряної оборони"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildAurora",
+  "text": "Надзвукова атака робить Аврору несприйнятливою до ворожого вогню. Після надзвукової атаки швидкість Аврори знижується до 50%\n \n  Сила проти будівель\n  Слабкість проти винищувачів, протиповітряних підрозділів"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildStealthFighter",
+  "text": "Невидимий під час руху\n \n  Сила проти захисту бази ворога\n  Слабкість проти ворожих винищувачів"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildComanche",
+  "text": "Стріляє ракетами і з гармати. Перезаряджає озброєння в повітрі\n \n  Сила проти танків, легкої техніки, піхоти\n  Слабкість проти піхоти, озброєної ракетами, протиповітряної оборони"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildMissileDefender",
+  "text": "Використовує спеціальну атаку з лазерним наведенням для швидкого пуску ракет\n \n  Сила проти танків, літаків\n  Слабкість проти піхоти"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildPathFinder",
+  "text": "Закамуфльований, поки не рухається і не стріляє. Виявляє прихованих ворогів\n \n  Сила проти піхоти\n  Слабкість проти легкої техніки, розвідників"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildColonelBurton",
+  "text": "Камуфльований. Видимий, коли стріляє або закладає бомбу\n \n  Обмеження створення: 1\n  Сила проти піхоти\n  Слабкість проти розвідки"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildTomahawk",
+  "text": "Сила проти захисту бази\n  Слабкість проти танків, авіації, легкої техніки"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildHumvee",
+  "text": "Транспорт. Піхота всередині може використовувати бійниці для ураження ворога\n \n  Сила проти піхоти\n  Слабкість проти танків"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildMedic",
+  "text": "Лікує техніку та солдатів. Очищає радіацію та токсини"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildScoutDrone",
+  "text": "Збільшує дальність огляду та розкриває прихованих ворогів"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildBattleDrone",
+  "text": "Стріляє з невеликого кулемета та ремонтує базову машину\n \n  Сила проти піхоти\n  Слабкість проти озброєної ракетами піхоти"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildMIG",
+  "text": "Створює вогняну бурю великими групами\n \n  Сила проти танків, легкої техніки\n  Слабкість проти озброєної ракетами піхоти, протиповітряної оборони"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildBlackLotus",
+  "text": "Захоплює ворожі будівлі, краде готівку з ворожих центрів постачання та виводить з ладу техніку противника. Закамуфльовано, якщо не використовується здібність\n \n  Сила проти будівель, транспортних засобів\n  Слабкість проти підрозділів розвідників"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildTankHunter",
+  "text": "Спеціальна атака тротилом\n  Отримує бонус Орди в групах по 5 і більше\n \n  Сила проти танків\n  Слабкість проти піхоти"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildInfernoCannon",
+  "text": "Створює вогняну бурю великими групами\n \n  Сила проти оборони бази, піхоти\n  Слабкість проти танків, авіації"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildNukeLauncher",
+  "text": "Сила проти будівель, піхоти\n  Слабкість проти танків, авіації"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildTroopCrawler",
+  "text": "Транспорт. Поставляється з 8 червоногвардійцями. Виявляє невидимі підрозділи\n \n  Сила проти піхоти, будівель\n  Слабкість проти танків, авіації"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildDragonTank",
+  "text": "Може спалювати солдатів з будівель. Може створити стіну полум'я\n \n  Сила проти піхоти, будівель\n  Слабкість проти танків, авіації"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildTerrorist",
+  "text": "Солдат-смертник\n \n  Сила проти танків, будівель\n  Слабкість проти піхоти, легкої техніки"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildRPGTrooper",
+  "text": "Сила проти танків\n  Слабкість проти піхоти"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildAngryMob",
+  "text": "Сила проти піхоти, техніки\n  Слабкість проти полум'я, токсинів, світлошумових гранат"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildHijacker",
+  "text": "Може захопити будь-яку машину противника. Камуфльований\n \n  Сила проти танків, техніки\n  Слабкість проти піхоти, розвідників"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildJarmenKell",
+  "text": "Камуфльований. Може ховатися в цивільних будівлях, щоб обстрілювати ворожих солдатів. Може вбити екіпаж ворожих машин, що робить їх вразливими для захоплення\n \n  Сила проти піхоти, техніки\n  Слабкість проти розвідки"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildToxinTruck",
+  "text": "Очищає будівлі від ворожих солдатів. Забруднює місцевість\n  Можна покращувати зброю за допомогою частин, отриманих від убитих ворогів\n  Сила проти піхоти\n  Слабкість проти танків, літаків, оборони бази"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildBattlemaster",
+  "text": "Отримує бонус Орди в групах по 5 і більше\n \n  Сила проти танків, будівель\n  Слабкість проти піхоти, авіації"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildMarauder",
+  "text": "Може покращувати зброю за допомогою частин, отриманих від убитих ворогів\n \n  Сила проти будівель, легких транспортних засобів\n  Слабкість проти ракетних солдатів, літаків"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildTechnical",
+  "text": "Можна покращувати зброю за допомогою частин, отриманих від убитих ворогів\n \n  Сила проти піхоти\n  Слабкість проти танків, авіації"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildQuadCannon",
+  "text": "Можна покращувати зброю за допомогою частин, отриманих від убитих ворогів\n \n  Сила проти піхоти, авіації\n  Слабкість проти танків"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildBombTruck",
+  "text": "Може маскуватися під будь-яку техніку, свою чи ворожу\n \n  Сила проти піхоти, будівель\n  Слабкість проти розвідників"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildSCUDLauncher",
+  "text": "Може бути оснащений як вибуховою, так і біологічною боєголовкою\n \n  Сила проти будівель, піхоти\n  Слабкість проти танків, авіації"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildCrusader",
+  "text": "Сила проти техніки, будівель\n  Слабкість проти авіації, піхоти, озброєної ракетами"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSASciencePaladin",
+  "text": "Паладини можуть збивати ворожі ракети за допомогою вдосконаленої захисної лазерної системи\n \n  Створюється на: Військовий завод"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSASciencePathFinder",
+  "text": "Слідознавці — це елітні закамуфльовані снайпери\n \n  Створюється в: казарма"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSAScienceStealthFighter",
+  "text": "Невидимий під час руху\n \n  Створюється на: Аеродром"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSAScienceSpyDrone",
+  "text": "Дрони-шпигуни закамуфльовані від погляду та радарів ворога і виявляють ворожі позиції\n \n  Викликається з: командного центру"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSAScienceParaDrop",
+  "text": "Десант рейнджерів з літака\n \n  Ранг 1: 5 рейнджерів\n  Ранг 2: 10 рейнджерів\n  Ранг 3: 20 рейнджерів\n \n  Викликається з: командного центру"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSAScienceA10Strike",
+  "text": "Штурмовики А10 руйнують будівлі, транспортні засоби та піхоту\n \n  Ранг 1: 1 Штурмовик А10\n  Ранг 2: 2 Штурмовики А10\n  Ранг 3: 3 Штурмовики А10\n \n  Викликається з: командного центру"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSAScienceDaisyCutter",
+  "text": "Паливні авіабомби знищують будівлі та скупчення ворожих військ\n \n  Викликається з: командного центру"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaScienceNukeCannon",
+  "text": "Ядерні гармати закидають невеликі тактичні ядерні заряди на великі відстані\n \n  Будується на: Військовий завод\n  Потребує: Центр пропаганди"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaScienceRedGuardTraining",
+  "text": "Всі червоногвардійці будуть створені як ветерани"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaScienceClusterMines",
+  "text": "Касетні міни скидаються з літака\n \n  Викликається з: командного центру"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaScienceARtilleryTraining",
+  "text": "Ядерні гармати та гармати Інферно будуються як ветерани"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaScienceArtilleryBarrage",
+  "text": "Викличте артилерію поза картою, щоб вразити ціль\n \n  Ранг 1: 12 снарядів\n  Ранг 2: 24 снаряди\n  Ранг 3: 36 снарядів\n \n  Викликається з: командного центру"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaScienceEMPPulse",
+  "text": "Дозволяє викликати важкий бомбардувальник, щоб скинути імпульсну бомбу ЕМІ. ЕМІ виводить з ладу техніку та будівлі противника\n \n  Викликається з: командного центру"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAScienceHijacker",
+  "text": "Викрадачі мають камуфляж і можуть викрадати ворожу техніку\n \n  Створюється в: казарма"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAScienceSCUDLauncher",
+  "text": "Випускає далекобійну ракету, яка може бути оснащена вибухівкою або сибірською виразкою\n \n  Створюється в: Торговець зброєю"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLaScienceMarauderTank",
+  "text": "Танки Мародер можуть знімати деталі з вбитих ворогів, щоб покращити свою основну гармату\n \n  Створюється в: Торговець зброєю"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAScienceTechnicalTraining",
+  "text": "Усі техніки будуть створені як ветерани"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAScienceRebelAmbush",
+  "text": "Дозволяє влаштувати несподівану засідку повстанців у будь-якому місці\n \n  Ранг 1: 4 повстанці\n  Ранг 2: 8 повстанців\n  Ранг 3: 16 повстанців\n \n  Викликається з: командного центру"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAScienceCashBounty",
+  "text": "Отримуйте грошову винагороду за кожну знищену ворожу одиницю або будівлю\n \n  Ранг 1: 5% eквіваленту вартості ворога\n  Ранг 2: 10% eквіваленту вартості ворога\n  Ранг 3: 20% eквіваленту вартості ворога"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAScienceAnthraxBomb",
+  "text": "Сибірська виразка смертельна проти скупчення ворожих військ\n \n Викликається з: командного центру"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildSecurityFence",
+  "text": "Побудувати паркан безпеки, який перешкоджає проїзду транспортних засобів і сповіщає про будь-яку ворожу піхоту, яка проходить через нього"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildConcreteWall",
+  "text": "Побудуйте бетонну стіну, яка запобігає проходженню будь-якої наземної одиниці"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildBurningBarricade",
+  "text": "Побудувати палаючу барикаду яка підпалить підрозділи, які намагаються пройти через неї"
+ },
+ {
+  "label": "GUI:QuitToDesktop",
+  "text": "ВИЙТИ НА РОБОЧИЙ СТІЛ"
+ },
+ {
+  "label": "GUI:QuitToDesktopConf",
+  "text": "Ви впевнені, що хочете повернутися до робочого столу?"
+ },
+ {
+  "label": "GUI:NewSaveGame",
+  "text": "***** НОВА ГРА *****"
+ },
+ {
+  "label": "GUI:TimeAM",
+  "text": "дп"
+ },
+ {
+  "label": "GUI:TimePM",
+  "text": "пп"
+ },
+ {
+  "label": "GUI:OverwriteSaveConfirmation",
+  "text": "Перезаписати наявний файл?"
+ },
+ {
+  "label": "GUI:LoadGameConfirmation",
+  "text": "Дані поточної гри буде втрачено. Завантажити збережену гру?"
+ },
+ {
+  "label": "GUI:Rank1Required",
+  "text": "НЕОБХІДНЕ ЗВАННЯ - 1 зірковий генерал"
+ },
+ {
+  "label": "GUI:Rank3Required",
+  "text": "НЕОБХІДНЕ ЗВАННЯ - 3 зірковий генерал"
+ },
+ {
+  "label": "GUI:Rank8Required",
+  "text": "НЕОБХІДНЕ ЗВАННЯ - 5 зірковий генерал"
+ },
+ {
+  "label": "GUI:Experience",
+  "text": "Досвід"
+ },
+ {
+  "label": "GUI:RemainingSkillPoints",
+  "text": "Очки"
+ },
+ {
+  "label": "TOOLTIP:ExperienceToLevel",
+  "text": "Досвід до нового рівня"
+ },
+ {
+  "label": "GUI:SaveAndLoad",
+  "text": "ЗБЕРЕГТИ/ЗАВАНТАЖИТИ"
+ },
+ {
+  "label": "GUI:SaveTime",
+  "text": "Час"
+ },
+ {
+  "label": "GUI:SaveDate",
+  "text": "Дата"
+ },
+ {
+  "label": "SCIENCE:Rank1",
+  "text": "1 зірковий генерал"
+ },
+ {
+  "label": "SCIENCE:Rank2",
+  "text": "2 зірковий генерал"
+ },
+ {
+  "label": "SCIENCE:Rank3",
+  "text": "3 зірковий генерал"
+ },
+ {
+  "label": "SCIENCE:Rank4",
+  "text": "4 зірковий генерал"
+ },
+ {
+  "label": "SCIENCE:Rank5",
+  "text": "5 зірковий генерал"
+ },
+ {
+  "label": "SCIENCE:Rank6",
+  "text": "Генерал-майор"
+ },
+ {
+  "label": "SCIENCE:Rank7",
+  "text": "Генерал-лейтенант"
+ },
+ {
+  "label": "SCIENCE:Rank8",
+  "text": "Генерал"
+ },
+ {
+  "label": "CONTROLBAR:StructureExit",
+  "text": "Вийти зі споруди"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaAircraftArmor",
+  "text": "Броня МІГ (&A)"
+ },
+ {
+  "label": "CONTROLBAR:RangerMachineGun",
+  "text": "Автомат (&M)"
+ },
+ {
+  "label": "CONTROLBAR:RedguardMachineGun",
+  "text": "Автомат (&M)"
+ },
+ {
+  "label": "CONTROLBAR:RebelMachineGun",
+  "text": "Автомат (&M)"
+ },
+ {
+  "label": "CONTROLBAR:FlashBangGrenadeMode",
+  "text": "Світлошумова граната (&F)"
+ },
+ {
+  "label": "CONTROLBAR:TranqDartsMode",
+  "text": "Режим дротиків з транквілізатором (&T)"
+ },
+ {
+  "label": "CONTROLBAR:StunBulletsMode",
+  "text": "Режим захоплення в'язня (&P)"
+ },
+ {
+  "label": "UPGRADE:AircraftArmor",
+  "text": "Авіаційна броня"
+ },
+ {
+  "label": "MAP:USA03Open",
+  "text": "Північний Казахстан. Збройні сили США повністю відступають\n  Операція: Ангел-охоронець"
+ },
+ {
+  "label": "CONTROLBAR:TooltipChinaUpgradeAircraftArmor",
+  "text": "+25% здоров'я літаків МІГ"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipSwitchToRangerMachineGun",
+  "text": "Перемикається в режим автомата для будь-якої атаки"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipSwitchToRedguardMachineGun",
+  "text": "Перемикається в режим автомата для будь-якої атаки"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipSwitchToRebelMachineGun",
+  "text": "Перемикається в режим автомата для будь-якої атаки"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipSwitchToUSAFlashBang",
+  "text": "Використовувати світлошумові гранати"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipSwitchToChinaStunBullets",
+  "text": "Перемикається в режим стрільби оглушаючими кулями для захоплення ворожих солдатів"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipSwitchToGLATranqDarts",
+  "text": "Перемикається на дротики з транквілізатором для захоплення ворожих солдатів на відкритій місцевості"
+ },
+ {
+  "label": "GUI:ProductionQueueFull",
+  "text": "Виробнича черга підрозділу заповнена"
+ },
+ {
+  "label": "GUI:ParkingPlacesFull",
+  "text": "Усі місця стоянки зайняті"
+ },
+ {
+  "label": "GUI:UnitMaxedOut",
+  "text": "Ви вже маєте максимум для цієї одиниці"
+ },
+ {
+  "label": "CONTROLBAR:FireTomahawkAtPosition",
+  "text": "Бомбардування томагавками (&T)"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipFireTomahawkAtPosition",
+  "text": "Вогонь томагавками по позиції"
+ },
+ {
+  "label": "GUI:SurrenderConfirmation",
+  "text": "Ви впевнені, що хочете здатися?"
+ },
+ {
+  "label": "GUI:GameOver",
+  "text": "Гра завершена"
+ },
+ {
+  "label": "TOOLTIP:RefreshNat",
+  "text": "Натисніть після зміни налаштувань брандмауера або провайдера"
+ },
+ {
+  "label": "GUI:Surrender",
+  "text": "ЗДАТИСЯ"
+ },
+ {
+  "label": "GUI:SuperweaponEmergencyRepair",
+  "text": "Аварійний ремонт"
+ },
+ {
+  "label": "CONTROLBAR:FireNukeCannonAtPosition",
+  "text": "Ядерне бомбардування (&B)"
+ },
+ {
+  "label": "CONTROLBAR:FireInfernoCannonAtPosition",
+  "text": "Бомбардування Інферно (&B)"
+ },
+ {
+  "label": "CONTROLBAR:FireScudExplosiveAtPosition",
+  "text": "Обстріл вибухівкою (&B)"
+ },
+ {
+  "label": "CONTROLBAR:FireScudAnthraxAtPosition",
+  "text": "Обстріл сибірською виразкою (&O)"
+ },
+ {
+  "label": "MAP:USA04Objective1Text",
+  "text": "МЕТА МІСІЇ:\n   Очистити пляж від сил ГВА"
+ },
+ {
+  "label": "MAP:USA04Objective2Text",
+  "text": "МЕТА МІСІЇ:\n  Знищити позиції Стінгерів"
+ },
+ {
+  "label": "MAP:USA04Objective3Text",
+  "text": "МЕТА МІСІЇ:\n  Знищити базу ГВА"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipFireNukeCannonAtPosition",
+  "text": "Обстрілювати локацію снарядами з ядерної гармати"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipFireInfernoCannonAtPosition",
+  "text": "Обстрілювати локацію снарядами з гармат Інферно"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipFireScudExplosiveAtPosition",
+  "text": "Бомбардуйте локацію вибуховими боєголовками"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipFireScudAnthraxAtPosition",
+  "text": "Бомбардувати вказане місце боєголовками з сибірською виразкою"
+ },
+ {
+  "label": "TOOLTIP:Brightness",
+  "text": "Налаштування яскравості гри"
+ },
+ {
+  "label": "TOOLTIP:ScrollSpeed",
+  "text": "Відрегулюйте швидкість прокручування карти"
+ }
+]

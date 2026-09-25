@@ -1,0 +1,802 @@
+[
+ {
+  "label": "MAP:MD-USA04_Objective01",
+  "text": "MISSION OBJECTIVE: \n Destroy the GLA base"
+ },
+ {
+  "label": "MAP:MD-USA04_Objective02_Reminder",
+  "text": "INCOMING TRANSMISSION: \n Destroy the Radio Station to the Northeast to stop Bomb Trucks"
+ },
+ {
+  "label": "MAP:MD-USA04_Hint01",
+  "text": "MISSION OBJECTIVE: \n Destroy the GLA base"
+ },
+ {
+  "label": "MAP:MD-USA04_Hint04",
+  "text": "HINT: \n Find the 3 CIA operatives to solicit their help"
+ },
+ {
+  "label": "MAP:MD-USA04_Hint05",
+  "text": "INCOMING TRANSMISSION: \n Secure the oil fields to the West to gain money"
+ },
+ {
+  "label": "MAP:MD-USA04_Hint06",
+  "text": "HINT: \n Pathfinders can reveal camouflaged units and demo traps"
+ },
+ {
+  "label": "MAP:MD-USA04_Hint07",
+  "text": "HINT: \n Dozers can remove Booby Traps"
+ },
+ {
+  "label": "MAP:MD-USA04_Reonforcements",
+  "text": "INCOMING TRANSMISSION: \n Reinforcements have arrived"
+ },
+ {
+  "label": "MAP:MD_USA06Open",
+  "text": "Al Habad, Syria \n 'Operation: Eagle's Strike'"
+ },
+ {
+  "label": "MAP:MD-USA06Objective01",
+  "text": "MISSION OBJECTIVE: \n Capture the 4 Toxin Missile Silos before they launch"
+ },
+ {
+  "label": "MAP:MD-USA06Objective02",
+  "text": "INCOMING TRANSMISSION: \n Rebel GLA forces have joined you"
+ },
+ {
+  "label": "MAP:MD-USA06Objective03",
+  "text": "INCOMING TRANSMISSION: \n Capture the 4 Toxin Missile Silos before they can launch"
+ },
+ {
+  "label": "MAP:MD-USA06Objective04",
+  "text": "Missile Silo 3 of 4 captured"
+ },
+ {
+  "label": "MAP:MD-USA06Objective05",
+  "text": "Missile Silo 4 of 4 captured"
+ },
+ {
+  "label": "MAP:MD-USA06Objective06",
+  "text": "Missile Silo 1 of 4 captured"
+ },
+ {
+  "label": "MAP:MD-USA06Objective07",
+  "text": "Missile Silo 2 of 4 captured"
+ },
+ {
+  "label": "MAP:MD-USA06Objective14",
+  "text": "HINT: \n Intel puts some of the Missiles in this region \n Take care not to release the toxin"
+ },
+ {
+  "label": "MAP:MD-USA06Objective15",
+  "text": "WARNING: \n Dr. Thrax is utilizing more potent toxins. Protect our infantry"
+ },
+ {
+  "label": "MAP:MD-USA06Objective16",
+  "text": "INCOMING TRANSMISSION: \n Our base is under attack sir \n They built a tunnel network without us knowing it"
+ },
+ {
+  "label": "MAP:MD-USA06CivilianMessage01",
+  "text": "INCOMING TRANSMISSION: \n GLA Rebels to the East may aid our effort"
+ },
+ {
+  "label": "MAP:MD-USA06Hint01",
+  "text": "HINT: \n More supplies are located to the Southwest"
+ },
+ {
+  "label": "MAP:MD-USA06Hint02",
+  "text": "WARNING: \n They are using the Sneak Attack Tunnel to attack our base"
+ },
+ {
+  "label": "MAP:MD-USA06Hint03",
+  "text": "HINT: \n GLA Generals Powers are available at the GLA Command Center"
+ },
+ {
+  "label": "MAP:MD-USA06Warning01",
+  "text": "WARNING: \n Missile Launch countdown has begun"
+ },
+ {
+  "label": "MAP:MD-USA06Warning02",
+  "text": "WARNING: \n Launch in 5 minutes"
+ },
+ {
+  "label": "MAP:MD-USA06Warning03",
+  "text": "WARNING: \n Launch in 4 minutes"
+ },
+ {
+  "label": "MAP:MD-USA06Warning04",
+  "text": "WARNING: \n Launch in 3 minutes"
+ },
+ {
+  "label": "MAP:MD-USA06Warning05",
+  "text": "WARNING: \n Launch in 2 minutes"
+ },
+ {
+  "label": "MAP:MD-USA06Warning06",
+  "text": "WARNING: \n Launch in 1 minute"
+ },
+ {
+  "label": "MAP:MD-USA06Warning07",
+  "text": "WARNING: \n Launch in 30 seconds"
+ },
+ {
+  "label": "MAP:MD-USA06Warning08",
+  "text": "WARNING: \n Launch in 10 seconds"
+ },
+ {
+  "label": "MAP:MD-USA06Warning09",
+  "text": "WARNING: \n 5... 4... 3... 2... 1... Launch detected"
+ },
+ {
+  "label": "MAP:MD-USA06Failure01",
+  "text": "WARNING: \n Impact detected. You have failed, General"
+ },
+ {
+  "label": "MAP:MD-USA06Imperative01",
+  "text": "WARNING: \n Do not destroy this structure. Capture it with Rangers"
+ },
+ {
+  "label": "SCRIPT:MD-USA06MissileTimer",
+  "text": "Toxin Missile Launch In:"
+ },
+ {
+  "label": "MAP:MD-USA06Warning10",
+  "text": "WARNING: \n Launch in 10 minutes"
+ },
+ {
+  "label": "MAP:MD-USA06Warning11",
+  "text": "WARNING: \n Launch in 15 minutes"
+ },
+ {
+  "label": "MAP:MD-USA06Intro1",
+  "text": "Earth Orbit: \n USA Spy Satellite Codename:Powers"
+ },
+ {
+  "label": "MAP:MD-USA06Intro2",
+  "text": "Data Uplink: \n Dr. Thrax's Toxin Facilities"
+ },
+ {
+  "label": "MAP:MD-USA06Warning15",
+  "text": "INCOMING TRANSMISSION: \n General, the GLA base to the East has \n decided to rebel against the Toxin General and \n his mass use of toxins"
+ },
+ {
+  "label": "MAP:MD-USA06Warning16",
+  "text": "INCOMING TRANSMISSION: \n They wish to aid us in our attack against \n the General by giving us use of their base"
+ },
+ {
+  "label": "MAP:MD_GLA01Objective6",
+  "text": "HINT: Use Combat Cycles to enter the USA base from another direction"
+ },
+ {
+  "label": "MAP:MD_GLA01Message01",
+  "text": "WARNING: USA Fire Base detected"
+ },
+ {
+  "label": "MAP:MD_GLA01Message02",
+  "text": "WARNING: Sentry Drones discovered"
+ },
+ {
+  "label": "MAP:MD_GLA01Message03",
+  "text": "HINT: \n Upgrade GLA units by moving them onto salvage crates"
+ },
+ {
+  "label": "OBJECT:GLALeader",
+  "text": "GLA Leader"
+ },
+ {
+  "label": "MAP:Intro_Title",
+  "text": "Al Safir, Syria \n 'The Exodus'"
+ },
+ {
+  "label": "MAP:Intro_Title2",
+  "text": "Halib, Sudan \n 'The Great Escape'"
+ },
+ {
+  "label": "MAP:Intro_Loc",
+  "text": "Outside the city..."
+ },
+ {
+  "label": "MAP:Intro_MO_1",
+  "text": "MISSION OBJECTIVE #1: \n Find the abandoned GLA base"
+ },
+ {
+  "label": "MAP:Intro_MO_2",
+  "text": "MISSION OBJECTIVE #2: \n Transport our leader safely to the airstrip"
+ },
+ {
+  "label": "MAP:Intro_MO_2b",
+  "text": "INCOMING TRANSMISSION: \n Bring the GLA leader to the airstrip in the Northwest"
+ },
+ {
+  "label": "MAP:Intro_MO_1a",
+  "text": "MISSION OBJECTIVE: \n Escort GLA leader to airstrip \n GLA leader must survive"
+ },
+ {
+  "label": "MAP:Intro_MO_2a",
+  "text": "INCOMING TRANSMISSION: \n An abandoned GLA base is in this region. Reclaim it"
+ },
+ {
+  "label": "MDGLA02:TITLE",
+  "text": "Somewhere near Cairo, Egypt \n 'Hidden Agenda'"
+ },
+ {
+  "label": "MDGLA02:Hint1",
+  "text": "WARNING: \n Prince Kassad's forces are camouflaged"
+ },
+ {
+  "label": "MDGLA02:Hint2",
+  "text": "HINT: \n Radar Vans, Tunnel Networks, and \n Stinger Sites reveal camouflaged units"
+ },
+ {
+  "label": "MDGLA02:Hint3",
+  "text": "HINT: \n More Supplies located in the Southwest"
+ },
+ {
+  "label": "MDGLA02:OBJ1",
+  "text": "\n MISSION OBJECTIVE #1: \n Capture the Command Center in the city"
+ },
+ {
+  "label": "MDGLA02:OBJ2",
+  "text": "\n MISSION OBJECTIVE #2: \n Capture the Command Center across the river"
+ },
+ {
+  "label": "MDGLA02:Expansion_2",
+  "text": "INCOMING TRANSMISSION: \n Potential expansion location discovered"
+ },
+ {
+  "label": "MDGLA02:Oil_Well",
+  "text": "HINT: \n Capture oil wells to maintain steady income"
+ },
+ {
+  "label": "MDGLA02:Bridge",
+  "text": "HINT: \n GPS Scramble will make it easier to cross this bridge"
+ },
+ {
+  "label": "MDGLA02:Damage_warn",
+  "text": "INCOMING TRANSMISSION: \n Protect the Command Center"
+ },
+ {
+  "label": "MDGLA02:Capture_CC_scram",
+  "text": "HINT: \n Capture the Command Center to gain GPS scramble ability"
+ },
+ {
+  "label": "MDGLA02:Scram_captured",
+  "text": "INCOMING TRANSMISSION: \n GPS Scramble ability obtained \n Use it on your troops to cloak them"
+ },
+ {
+  "label": "MDGLA02:Capture_CC_sneak",
+  "text": "HINT: \n Capture this Command Center to gain Sneak Attack ability"
+ },
+ {
+  "label": "MDGLA02:Sneak_captured",
+  "text": "INCOMING TRANSMISSION: \n Sneak Attack ability obtained \n Use it to create a Tunnel Network anywhere you can see"
+ },
+ {
+  "label": "MDGLA02:Final",
+  "text": "MISSION OBJECTIVE #3: \n Destroy or capture Kassad's main Command Center"
+ },
+ {
+  "label": "MDGLA03:Title-01",
+  "text": "USA Mediterranean Fleet, Matala, Crete \n 'On the Waterfront'"
+ },
+ {
+  "label": "MDGLA03:InfoMissionObjective01",
+  "text": "MISSION OBJECTIVE #1: \n Capture the USA Particle Cannon to the East"
+ },
+ {
+  "label": "MDGLA03:Info-MissionObjectiveAccomplished-01",
+  "text": "MISSION OBJECTIVE #1: \n Accomplished"
+ },
+ {
+  "label": "MDGLA03:Info-MissionObjective-02",
+  "text": "MISSION OBJECTIVE #2: \n Capture the USA Power Plants"
+ },
+ {
+  "label": "MDGLA03:Info-MissionObjectiveAccomplished-02",
+  "text": "MISSION OBJECTIVE #2: \n Accomplished"
+ },
+ {
+  "label": "MDGLA03:Info-MissionObjective-03",
+  "text": "MISSION OBJECTIVE #3: \n Locate the Aircraft Carrier in the Southeast"
+ },
+ {
+  "label": "MDGLA03:Info-GotParticleCannon-01",
+  "text": "HINT: \n Now we must secure some Power Plants \n We can use the Tunnel Network to reach the next island"
+ },
+ {
+  "label": "MDGLA03:Info-SneakAttack-01",
+  "text": "INCOMING TRANSMISSION: \n Use Sneak Attack to create Tunnel Networks on nearby islands"
+ },
+ {
+  "label": "MDGLA03:Info-GotPowerPlants-01",
+  "text": "INCOMING TRANSMISSION: \n The Particle Cannon is now online \n We must defend it and our Power Plants"
+ },
+ {
+  "label": "MDGLA03:Info-Goodies-01",
+  "text": "HINT: \n Explore islands to find salvage crates and vehicles"
+ },
+ {
+  "label": "MDGLA03:Lose-NoUnitsOrStructures-01",
+  "text": "INCOMING TRANSMISSION: \n All of your units and buildings have been destroyed \n You have been defeated, General. This time"
+ },
+ {
+  "label": "MDGLA03:Lose-ParticleCannonDestroyed-01",
+  "text": "INCOMING TRANSMISSION: \n Without the Particle Cannon, you cannot destroy the Carrier \n You have been defeated, General. This time"
+ },
+ {
+  "label": "MDGLA03:Lose-PowerPlantsDestroyed-01",
+  "text": "INCOMING TRANSMISSION: \n All of the power plants have been destroyed \n You have been defeated, General. This time"
+ },
+ {
+  "label": "MDGLA03:Help-UseParticleCannon-01",
+  "text": "WARNING: \n This area looks well defended \n The Particle Cannon might help us penetrate"
+ },
+ {
+  "label": "MDGLA03:Help-A10Warning-01",
+  "text": "WARNING: \n A10s are en route against us"
+ },
+ {
+  "label": "MDGLA03:Help-LeaveISLAND-01",
+  "text": "HINT: \n We can use Sneak Attack or our Tunnel Networks \n to reach a nearby island"
+ },
+ {
+  "label": "MDGLA03:Help-LeaveISLAND-02",
+  "text": "HINT: \n If we can scout out an area on a nearby island, \n we can use our Sneak Attack there"
+ },
+ {
+  "label": "MDGLA03:Info-DisabledSupplyDropZones-01",
+  "text": "INCOMING TRANSMISSION: \n We have disabled the enemy's Supply Drop Zones \n They will soon be unable to build new units"
+ },
+ {
+  "label": "MDGLA03:Help-FoundSupplyPlanes-01",
+  "text": "INCOMING TRANSMISSION: \n Destroy the USA Supply Drop Zones to cripple their production"
+ },
+ {
+  "label": "MDGLA03:Help-FewPowerPlants-02",
+  "text": "WARNING: \n Almost all of the Power Plants have been destroyed \n Be careful to secure one to fire the Particle Cannon"
+ },
+ {
+  "label": "MDGLA03:Help-AttackingParticleCannon-01",
+  "text": "INCOMING TRANSMISSION: \n We need this Particle Cannon to destroy the carrier \n Do not let it be destroyed"
+ },
+ {
+  "label": "MDGLA03:Help-FindParticleCannon-01",
+  "text": "HINT: \n Capture the Particle Cannon"
+ },
+ {
+  "label": "MDGLA03:Help-LostIsland-01",
+  "text": "HINT: \n They destroyed our Tunnel Network \n Use the Sneak Attack to return to that island"
+ },
+ {
+  "label": "MDGLA03:Help-ArmsDealer-01",
+  "text": "INCOMING TRANSMISSION: \n Liberate the Arms Dealer on the West side of this island"
+ },
+ {
+  "label": "MDGLA03:Help-JarmenKell-01",
+  "text": "HINT: \n Jarmen Kell's snipe ability can neutralize enemy \n vehicles, allowing our infantry to capture them"
+ },
+ {
+  "label": "MAP:MD_GLA03_CINELocation01",
+  "text": "USS Reagan"
+ },
+ {
+  "label": "MAP:MD_GLA04Objective1",
+  "text": "MISSION OBJECTIVE: \n Team 1: Take the ferry to the beach"
+ },
+ {
+  "label": "MAP:MD_GLA04Objective2",
+  "text": "MISSION OBJECTIVE: \n Team 2: Obtain a Radar Van"
+ },
+ {
+  "label": "MAP:MD_GLA04Objective3",
+  "text": "MISSION OBJECTIVE: \n Team 2: Garrison the Valve Station"
+ },
+ {
+  "label": "MAP:MD_GLA04Objective4",
+  "text": "MISSION OBJECTIVE: \n Team 1: Destroy the Airfield"
+ },
+ {
+  "label": "MAP:MD_GLA04Objective5",
+  "text": "MISSION OBJECTIVE: \n Team 2: Destroy the Power Plants"
+ },
+ {
+  "label": "MAP:MD_GLA04Objective6",
+  "text": "MISSION OBJECTIVE: \n Capture the Toxin Facility"
+ },
+ {
+  "label": "MAP:MD_GLA04Objective7",
+  "text": "MISSION OBJECTIVE: \n Transport the Toxins to the Airport"
+ },
+ {
+  "label": "SCRIPT:MD_GLA04Toxin_Counter",
+  "text": "Toxins Remaining:"
+ },
+ {
+  "label": "MAP:MD_GLA04Title",
+  "text": "Western USA Coastal Toxic Facility \n 'Jarmen Kell and the Forty Thieves'"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_2",
+  "text": "MISSION OBJECTIVE: \n Destroy US European Central Command in the Northeast"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_3",
+  "text": "INCOMING TRANSMISSION: \n Rescue the POWs and bring them back here \n The Terror Cell will awaken to assist you against the US"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_4",
+  "text": "HINT: \n Move the POWs to their village \n in the North and they will assist us"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_5",
+  "text": "INCOMING TRANSMISSION: \n Remove the American threat to \n free the POWs from their captors"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_6",
+  "text": "INCOMING TRANSMISSION: \n We are ready to return to our village in the North"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_7",
+  "text": "INCOMING TRANSMISSION: \n You have rescued the POWs and returned them home \n The Terror Cell will activate and begin to assault the US"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_8",
+  "text": "HINT: \n Capture the remaining US structures \n and build a second base here"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_9",
+  "text": "WARNING: \n Time is running out. Rescue the POWs"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_10",
+  "text": "WARNING: \n We must eliminate the enemy's Southern \n support base before they become too powerful"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_11",
+  "text": "INCOMING TRANSMISSION: \n The Terror Cell has been eliminated \n Do not let their deaths go unpunished"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_12",
+  "text": "INCOMING TRANSMISSION: \n We have beaten the enemy. Victory is ours"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_13",
+  "text": "INCOMING TRANSMISSION: \n The enemy is holding our brothers captive \n Free them and they will assist us against the US"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_14",
+  "text": "INCOMING TRANSMISSION: \n Intel has reported that the POWs will be moved soon \n Infiltrate the US base to rescue them"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_15",
+  "text": "HINT: \n Upgrade the China Command Center with Radar"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_16",
+  "text": "INCOMING TRANSMISSION: \n Protect the GLA Terror Cell from US attacks \n and secure the area"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_17",
+  "text": "HINT: \n Build a GLA Command Center to use your Generals Powers"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_18",
+  "text": "INCOMING TRANSMISSION: \n Our base is under attack"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_19",
+  "text": "WARNING: \n The POWs are being attacked. Defend them"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_20",
+  "text": "INCOMING TRANSMISSION: \n The POWs have all been killed \n The Terror Cell joins us to avenge their deaths"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_21",
+  "text": "INCOMING TRANSMISSION: \n The enemy has spread out to secure more resources \n Remove them and use the resources for ourselves"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_22",
+  "text": "HINT: \n Their base is massive \n Perhaps Sneak Attacks will help us infiltrate it"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_23",
+  "text": "INCOMING TRANSMISSION: \n With the small base neutralized, we can focus on \n the US European Central Command base"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_24",
+  "text": "\n We have a plan... \n We shall move in and capture the Chinese Base \n and use it to drive the USA out of Europe"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_25",
+  "text": "The U.S. European Central Command base must fall"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_26",
+  "text": "INCOMING TRANSMISSION: \n We are being attacked from the East \n Eliminate the southern US Support base"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_27",
+  "text": "INCOMING TRANSMISSION: \n The Terror Cell is being attacked by the US \n Assist them in repulsing our foes"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_28",
+  "text": "INCOMING TRANSMISSION: \n Rescue the POWs from the US support base before \n they are transferred to a new location"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_29",
+  "text": "MISSION OBJECTIVE: \n Destroy US European Central Command in the Northeast"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_30",
+  "text": "US Central Command, Stuttgart-Vaihingen, Germany \n 'Sneak Attack'"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_31",
+  "text": "US Central Command, Stuttgart-Vaihingen, Germany \n 'Sneak Attack'"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_32",
+  "text": "HINT: Remove the Americans from the area \n then secure the supplies"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_33",
+  "text": "HINT: \n Finish off the Central Command Base"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_34",
+  "text": "HINT: \n Capture Oil Derricks and secure additional supplies \n Capture Artillery Platforms to control key areas"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_35",
+  "text": "HINT: \n Upgrade the Cash Bounty \n Generals Power to increase income"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_36",
+  "text": "HINT: \n Use the Sneak Attack ability to \n launch an attack against the US base"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_37",
+  "text": "INCOMING TRANSMISSION: \n The POWs have been moved away \n Despite our failure, the Terror Cell pledges their support"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_38",
+  "text": "US Central Command, Stuttgart-Vaihingen, Germany \n 'Sneak Attack'"
+ },
+ {
+  "label": "SCRIPT:POWCOUNTDOWN",
+  "text": "POWs Transfer In:"
+ },
+ {
+  "label": "MAP:CHI01xMapName",
+  "text": "The Dragon Unleashed"
+ },
+ {
+  "label": "MAP:CHI01xOpen",
+  "text": "Stuttgart-Vaihingen, Germany \n 'The Dragon Unleashed'"
+ },
+ {
+  "label": "MAP:CHI01xOpenAlt",
+  "text": "Remains of USA Command Base, Germany \n The Dragon Unleashed"
+ },
+ {
+  "label": "MAP:CHI01xObjective01",
+  "text": "MISSION OBJECTIVE: \n Eliminate all GLA forces in this region"
+ },
+ {
+  "label": "MAP:CHI01xObjective01Alt",
+  "text": "MISSION OBJECTIVE: \n Eliminate all GLA structures in this region"
+ },
+ {
+  "label": "MAP:CHI01xTechBldgHint",
+  "text": "HINT: \n The Red Guard can be used to capture buildings"
+ },
+ {
+  "label": "MAP:CHI01xOilDerrickHint",
+  "text": "HINT: \n Capture Oil Derricks to gain extra money"
+ },
+ {
+  "label": "MAP:CHI01xOilRefineryHint",
+  "text": "HINT: \n Capture the Oil Refineries to reduce cost of vehicles"
+ },
+ {
+  "label": "MAP:CHI01xGarrisonHint",
+  "text": "HINT: \n Garrisoning Red Guard and Tank Hunters inside buildings \n increases their firepower and range"
+ },
+ {
+  "label": "MAP:CHI01xGarrisonClrHint01",
+  "text": "HINT: \n The Toxin Tractor will kill garrisoned infantry instantly \n Do not let it approach your garrisoned structures"
+ },
+ {
+  "label": "MAP:CHI01xGarrisonClrHint02",
+  "text": "HINT: \n The Dragon Tank will kill infantry in garrisoned buildings"
+ },
+ {
+  "label": "MAP:CHI01xPerimeterWarn01",
+  "text": "WARNING: \n GLA forces are attacking our base"
+ },
+ {
+  "label": "MAP:CHI01xPerimeterWarn02",
+  "text": "WARNING: \n The enemy is preparing to attack our base"
+ },
+ {
+  "label": "MAP:CHI02xMapName",
+  "text": "Defending the Fire"
+ },
+ {
+  "label": "MAP:CHI02xOpen",
+  "text": "Weapons Production Facility, China \n 'Defending the Fire'"
+ },
+ {
+  "label": "SCRIPT:CHI02xReinforcementTimer",
+  "text": "Reinforcements Arrive In:"
+ },
+ {
+  "label": "MAP:CHI02xObjective01",
+  "text": "MISSION OBJECTIVE #1: \n Defend the Reactor and Storage Bunkers \n They must not be captured or destroyed"
+ },
+ {
+  "label": "MAP:CHI02xObjective02",
+  "text": "MISSION OBJECTIVE #2: \n Destroy all GLA forces in the region"
+ },
+ {
+  "label": "MAP:CHI02xObjective02Alt",
+  "text": "MISSION OBJECTIVE #2: \n Destroy all GLA structures in the region"
+ },
+ {
+  "label": "MAP:CHI02xReactorKIAWarn",
+  "text": "INCOMING TRANSMISSION: \n Protect the Nuclear Reactor"
+ },
+ {
+  "label": "MAP:CHI02xReactorCaptureWarn",
+  "text": "WARNING: \n Do not let the enemy capture \n the Nuclear Reactor and both bunkers"
+ },
+ {
+  "label": "MAP:CHI02xBunkerKIAWarn",
+  "text": "INCOMING TRANSMISSION: \n Protect the Storage Bunkers"
+ },
+ {
+  "label": "MAP:CHI02xBadPlayerReactorWarn",
+  "text": "INCOMING TRANSMISSION: \n We need this Nuclear Reactor \n Do not let it be destroyed"
+ },
+ {
+  "label": "MAP:CHI02xBadPlayerBunkerWarn",
+  "text": "INCOMING TRANSMISSION: \n We need these Storage Bunkers \n Do not let them be destroyed"
+ },
+ {
+  "label": "MAP:CHI02xSpyPostHint01",
+  "text": "HINT: \n Capture the spy post to call in Carpet Bombers"
+ },
+ {
+  "label": "MAP:CHI02xPerimeterWarn",
+  "text": "WARNING: \n Enemy forces are preparing to attack"
+ },
+ {
+  "label": "MAP:CHI02xPerimeterEasyWarn",
+  "text": "WARNING: \n Enemy forces are preparing to attack"
+ },
+ {
+  "label": "MAP:CHI02xNeutronHint01",
+  "text": "HINT: \n Use the Neutron Shell ability of Nuke Cannons to kill \n infantry and neutralize enemy vehicles"
+ },
+ {
+  "label": "MAP:CHI02xNeutronHint02",
+  "text": "HINT: \n Your infantry can enter and control any neutralized vehicle"
+ },
+ {
+  "label": "MAP:CHI02xEMPMineHint01",
+  "text": "HINT: \n Upgrade our buildings with Neutron Mines to disable vehicles \n Then Neutron Shells can neutralize them"
+ },
+ {
+  "label": "MAP:CHI02xCarpetBombReminder",
+  "text": "INCOMING TRANSMISSION: \n Carpet Bombers are ready"
+ },
+ {
+  "label": "MAP:CHI02xInfo1",
+  "text": "INCOMING TRANSMISSION: \n Reinforcements will arrive in 10 minutes"
+ },
+ {
+  "label": "MAP:CHI02xInfo2",
+  "text": "INCOMING TRANSMISSION: \n Reinforcements will arrive in 5 minutes"
+ },
+ {
+  "label": "SCRIPT:CHI02timer",
+  "text": "Reinforcements Arrive In:"
+ },
+ {
+  "label": "MAP:MD_CHI03-Event-AngryMob-01",
+  "text": "INCOMING TRANSMISSION: \n The people rise up to serve us"
+ },
+ {
+  "label": "MAP:MD_CHI03-Help-IOLow-01",
+  "text": "INCOMING TRANSMISSION: \n Our International Opinion is becoming low \n Destroy more GLA statues"
+ },
+ {
+  "label": "MAP:MD_CHI03-Help-IOVeryLow-01",
+  "text": "INCOMING TRANSMISSION: \n Our International Opinion is very low \n Destroy GLA statues found throughout the city"
+ },
+ {
+  "label": "MAP:MD_CHI03-Help-IOExtremelyLow-01",
+  "text": "HINT: \n Our International Opinion is critically low \n Destroy another GLA statue or all is lost"
+ },
+ {
+  "label": "SCRIPT:MD_CHI03InternationalOpinion",
+  "text": "International Opinion:"
+ },
+ {
+  "label": "MAP:MD_CHI04Open",
+  "text": "Halberstadt, Germany \n 'Burning Skies'"
+ },
+ {
+  "label": "MAP:MD_CHI04MissionState0",
+  "text": "MISSION OBJECTIVE: \n Eliminate all waves of retreating GLA forces"
+ },
+ {
+  "label": "MAP:MD_CHI04MissionState1",
+  "text": "INCOMING TRANSMISSION: \n Wave 1 has been defeated"
+ },
+ {
+  "label": "MAP:MD_CHI04MissionState2",
+  "text": "INCOMING TRANSMISSION: \n Wave 2 has been defeated"
+ },
+ {
+  "label": "MAP:MD_CHI04MissionState3",
+  "text": "INCOMING TRANSMISSION: \n Wave 3 has been defeated"
+ },
+ {
+  "label": "MAP:MD_CHI04MissionState4",
+  "text": "INCOMING TRANSMISSION: \n Wave 4 has been defeated"
+ },
+ {
+  "label": "MAP:MD_CHI04MissionState5",
+  "text": "INCOMING TRANSMISSION: \n Wave 5 has been defeated"
+ },
+ {
+  "label": "MAP:MD_CHI04MissionState6",
+  "text": "INCOMING TRANSMISSION: \n Wave 6 has been defeated"
+ },
+ {
+  "label": "MAP:MD_CHI04MissionInfo1",
+  "text": "INCOMING TRANSMISSION: \n Wave 1 has entered the region \n Their path is shown on the radar"
+ },
+ {
+  "label": "MAP:MD_CHI04MissionInfo2",
+  "text": "INCOMING TRANSMISSION: \n Wave 2 has entered the region \n Their path is shown on the radar"
+ },
+ {
+  "label": "MAP:MD_CHI04MissionInfo3",
+  "text": "INCOMING TRANSMISSION: \n Wave 3 has entered the region \n Their path is shown on the radar"
+ },
+ {
+  "label": "MAP:MD_CHI04MissionInfo4",
+  "text": "INCOMING TRANSMISSION: \n Wave 4 has entered the region \n Their path is shown on the radar"
+ },
+ {
+  "label": "MAP:MD_CHI04MissionInfo5",
+  "text": "INCOMING TRANSMISSION: \n Wave 5 has entered the region \n Their path is shown on the radar"
+ },
+ {
+  "label": "MAP:MD_CHI04MissionInfo6",
+  "text": "INCOMING TRANSMISSION: \n Our Intel has been jammed. New waves are arriving \n from 2 directions, but their location is unknown"
+ },
+ {
+  "label": "MAP:MD_CHI04MissionFinaleText",
+  "text": "INCOMING TRANSMISSION: \n Our forces have arrived from the South \n Your mission is complete"
+ },
+ {
+  "label": "MAP:MD_CHI04MissionLoseText",
+  "text": "INCOMING TRANSMISSION: \n The GLA forces have escaped to the North \n You have been defeated, General. This time"
+ },
+ {
+  "label": "MAP:MD-CHI05_LOCALE",
+  "text": "Near Hamburg, Germany \n 'The Dragon's Destiny'"
+ },
+ {
+  "label": "MAP:MD-CHI05_USBaseDestroyedFirst",
+  "text": "MISSION OBJECTIVE: \n Destroy the GLA base to achieve victory"
+ },
+ {
+  "label": "MAP:MD-CHI05_GLABaseDestroyedFirst",
+  "text": "MISSION OBJECTIVE: \n Destroy the USA base to achieve victory"
+ }
+]

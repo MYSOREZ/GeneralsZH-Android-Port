@@ -1,0 +1,802 @@
+[
+ {
+  "label": "CREDITS:ExternalMultiplayMapCreators",
+  "text": "Сторонние создатели карт для коллективной игры"
+ },
+ {
+  "label": "CREDITS:Artists",
+  "text": "Художники"
+ },
+ {
+  "label": "CREDITS:AdditionalArt",
+  "text": "Дополнительная графика"
+ },
+ {
+  "label": "CREDITS:DirectorofAudio",
+  "text": "Звукорежиссёр"
+ },
+ {
+  "label": "CREDITS:SoundDesignandVoiceDirection",
+  "text": "Звуковой дизайн и режиссура озвучивания"
+ },
+ {
+  "label": "CREDITS:Composers",
+  "text": "Композиторы"
+ },
+ {
+  "label": "CREDITS:Composer1",
+  "text": "Музыку написали и спродюсировали"
+ },
+ {
+  "label": "CREDITS:Additionalsoundsanddialogueprocessing",
+  "text": "Дополнительные звуки и дополнительная обработка диалогов"
+ },
+ {
+  "label": "CREDITS:ScriptWriters",
+  "text": "Авторы сценария"
+ },
+ {
+  "label": "CREDITS:SoundEffectsFieldRecordings",
+  "text": "Запись звуковых эффектов"
+ },
+ {
+  "label": "CREDITS:SoundEffectsFieldRecordings1",
+  "text": "Jacques Littlefield и Military Vehicle Technology Foundation"
+ },
+ {
+  "label": "CREDITS:SoundEffectsFieldRecordings2",
+  "text": "SPEC Samuel H. Cho"
+ },
+ {
+  "label": "CREDITS:SoundEffectsFieldRecordings3",
+  "text": "Штаб-сержант Scott McClane, отряд C 1/18 Cav"
+ },
+ {
+  "label": "CREDITS:SoundEffectsFieldRecordings4",
+  "text": "Mary Beth McFadden и Francisco Mendozo из Adam's Steel - Anaheim"
+ },
+ {
+  "label": "CREDITS:CinematicCutSceneDirector",
+  "text": "Режиссёр игровых видеороликов"
+ },
+ {
+  "label": "CREDITS:CinematicCutSceneArtists",
+  "text": "Художники игровых видеороликов"
+ },
+ {
+  "label": "CREDITS:ProductionAssistance",
+  "text": "Дополнительное управление производством"
+ },
+ {
+  "label": "CREDITS:AdditionalProductionManagement",
+  "text": "Дополнительное управление производством"
+ },
+ {
+  "label": "CREDITS:CameoProduction",
+  "text": "Создание Иконок"
+ },
+ {
+  "label": "CREDITS:Casting",
+  "text": "Подбор актёров Deborah German Casting"
+ },
+ {
+  "label": "CREDITS:Wardrobe",
+  "text": "Костюмы: Jodi DeMarco"
+ },
+ {
+  "label": "CREDITS:HairandMakeUp",
+  "text": "Причёски и грим: Jodi DeMarco"
+ },
+ {
+  "label": "CREDITS:EngineeringInterns",
+  "text": "Инженеры-стажёры"
+ },
+ {
+  "label": "CREDITS:ArtIntern",
+  "text": "Художник-стажёр"
+ },
+ {
+  "label": "CREDITS:EAPacificQualityAssurance",
+  "text": "Контроль качества EA Pacific"
+ },
+ {
+  "label": "CREDITS:EAPacificOperations",
+  "text": "Операционный отдел EA Pacific"
+ },
+ {
+  "label": "CREDITS:VoiceActors",
+  "text": "Актёры озвучивания"
+ },
+ {
+  "label": "CREDITS:CameoPhotos",
+  "text": "Фотографии для иконок и генералов"
+ },
+ {
+  "label": "CREDITS:AdditionalModels",
+  "text": "Дополнительные модели: Mythos Studios"
+ },
+ {
+  "label": "CREDITS:CinematicIntroandFinaleMovies",
+  "text": "Вступительный ролик: Mondo Media"
+ },
+ {
+  "label": "CREDITS:MotionCapture",
+  "text": "Westwood Motion Capture"
+ },
+ {
+  "label": "CREDITS:MilitarypropsThanx",
+  "text": "Военный реквизит предоставили David Hsu & Specialized Distribution"
+ },
+ {
+  "label": "CREDITS:SpecialThanx1",
+  "text": "Спасибо и любовь Daisy & Freeman Gushee, маме, папе и Ike! - Harvard"
+ },
+ {
+  "label": "CREDITS:SpecialThanx2",
+  "text": "Любовь и благодарность Laura, Ben, Jack, Sam и Sophie"
+ },
+ {
+  "label": "CREDITS:SpecialThanx3",
+  "text": "Спасибо команде поддержки семьи Brown - Robin, Josh, Beth и Meeskite"
+ },
+ {
+  "label": "CREDITS:SpecialThanx4",
+  "text": "Спасибо моему сыну Colin Moore за то, что позволил мне играть на его компьютере"
+ },
+ {
+  "label": "CREDITS:SpecialThanx5",
+  "text": "Крепко обнимаю моего новоиспечённого мужа Joji за любовь и поддержку -Jill"
+ },
+ {
+  "label": "CREDITS:SpecialThanx7",
+  "text": "Спасибо DMP, Jenny и Elizabeth"
+ },
+ {
+  "label": "CREDITS:SpecialThanx8",
+  "text": "Спасибо моему отцу. - Mark Lorenzen"
+ },
+ {
+  "label": "CREDITS:SpecialThanx9",
+  "text": "Море любви Madison, Reece, Melissa, папе и моим братьям! - Randy Greenback"
+ },
+ {
+  "label": "CREDITS:SpecialThanx10",
+  "text": "Спасибо Maha, Ramzi, & Brooke за поддержку. Респект ребятам из 415-Amer"
+ },
+ {
+  "label": "CREDITS:SpecialThanx11",
+  "text": "Мама&папа, Bry,Kev,Dan&Mel,Aaron&Kelsey,Mikki,Adam,Kev,Jay,James - SCC"
+ },
+ {
+  "label": "CREDITS:SpecialThanx12",
+  "text": "Brenda и Nero за их замечательную поддержку - Eric Kearns"
+ },
+ {
+  "label": "CREDITS:SpecialThanx13",
+  "text": "Спасибо Gibson, Vinge, Mieville, Bear, Hebert, LeGuin - RN Smith"
+ },
+ {
+  "label": "CREDITS:SpecialThanx14",
+  "text": "Deborah, Stephen и Alan - спасибо, что терпели меня - Ian Barkley-Yeung"
+ },
+ {
+  "label": "CREDITS:SpecialThanx15",
+  "text": "Спасибо Cristi за понимание и поддержку - John"
+ },
+ {
+  "label": "CREDITS:SpecialThanx16",
+  "text": "Спасибо April Wesley Kelly & Chelsie - Scott Bowen"
+ },
+ {
+  "label": "CREDITS:SpecialThanx17",
+  "text": "Спасибо друзьям, семье, Choo Choo Bear и трудолюбивой команде ZH! -JB"
+ },
+ {
+  "label": "CREDITS:SpecialThanx18",
+  "text": "Спасибо Junko за твою любовь. -Robert Minsk"
+ },
+ {
+  "label": "CREDITS:SpecialThanx19",
+  "text": "Спасибо Carina, Kat и Brandon за понимание-David Wainstain"
+ },
+ {
+  "label": "CREDITS:SpecialThanx20",
+  "text": "Спасибо моей семье, Cheryl и Brandon Burtis за их любовь и поддержку"
+ },
+ {
+  "label": "CREDITS:SpecialThanx21",
+  "text": "Спасибо друзьям и семье, особенно Jeannie. Я всех вас люблю - KDS"
+ },
+ {
+  "label": "CREDITS:SpecialThanx22",
+  "text": "Спасибо моему замечательному мужу Roman - Samm"
+ },
+ {
+  "label": "CREDITS:SpecialThanx23",
+  "text": "Спасибо Ari за всю твою любовь, поддержку и понимание - Jose"
+ },
+ {
+  "label": "CREDITS:SpecialThanx24",
+  "text": "Rebecca - единственному, что имеет значение, единственному, что вечно"
+ },
+ {
+  "label": "CREDITS:SpecialThanx25",
+  "text": "Спасибо моей любящей жене за вдохновение и поддержку - Chris Rubyor"
+ },
+ {
+  "label": "CREDITS:SpecialThanx26",
+  "text": "Спасибо моей жене, отдавшей мне наше время. Я люблю тебя. - Jeff Stewart"
+ },
+ {
+  "label": "CREDITS:SpecialThanx27",
+  "text": "Спасибо маме, BruceLauraDasmoMikeyTedoTrevor и всем моим друзьям в The OC"
+ },
+ {
+  "label": "CREDITS:SpecialThanx28",
+  "text": "Я хотел бы поблагодарить мою семью и Amy Ritchie"
+ },
+ {
+  "label": "CREDITS:SpecialThanx29",
+  "text": "NazBoniadiArtRasoulZohreRahimiAliLeilaTabaFamilyP,T,KMLoBobWindDrFrost"
+ },
+ {
+  "label": "CREDITS:SpecialThanx31",
+  "text": "Спасибо Ben Calmer & Laura Miele"
+ },
+ {
+  "label": "CREDITS:SpecialThanx33",
+  "text": "Особая благодарность сообществу фанатов Command & Conquer."
+ },
+ {
+  "label": "CREDITS:SpecialThanx34",
+  "text": "Безумная благодарность моей дорогой Joji и моему ребенку Sparky."
+ },
+ {
+  "label": "CREDITS:SpecialThanx35",
+  "text": "Спасибо семье, Cheryl и Brandon Burtis за их любовь и поддержку."
+ },
+ {
+  "label": "CREDITS:SpecialThanx36",
+  "text": "Я хочу поблагодарить мою жену за понимание моей работы."
+ },
+ {
+  "label": "CREDITS:SpecialThanx37",
+  "text": "Bjorn Muller Спасибо: Маме, Папе, семье и друзьям."
+ },
+ {
+  "label": "CREDITS:SpecialThanx38",
+  "text": "Я хочу поблагодарить мою семью и Amy за их поддержку."
+ },
+ {
+  "label": "CREDITS:SpecialThanx39",
+  "text": "Особая благодарность: Маме, Папе, Bohdi, Willie и всем, читающим это."
+ },
+ {
+  "label": "CREDITS:SpecialThanx40",
+  "text": "Спасибо всем друзьям и семье за перенос Рождества на Февраль."
+ },
+ {
+  "label": "CREDITS:SpecialThanx41",
+  "text": "Спасибо Bing, твоя поддержка была неоценимой."
+ },
+ {
+  "label": "GUI:GameSaved",
+  "text": "Игра сохранена"
+ },
+ {
+  "label": "GUI:ErrorSavingGame",
+  "text": "Ошибка сохранения игры '%s'"
+ },
+ {
+  "label": "GUI:ErrorLoadingGame",
+  "text": "Ошибка загрузки игры '%s'"
+ },
+ {
+  "label": "CREDITS:InspiredByLine1",
+  "text": "Command & Conquer (TM) Generals Zero Hour вдохновлена оригинальной игрой"
+ },
+ {
+  "label": "CREDITS:InspiredByLine2",
+  "text": "Command & Conquer (TM), созданной Westwood Studios"
+ },
+ {
+  "label": "CREDITS:MultiplayerTestParticipantThanxMessageLine1",
+  "text": "Спасибо всем замечательным участникам тестирования коллективной игры,"
+ },
+ {
+  "label": "CREDITS:MultiplayerTestParticipantThanxMessageLine2",
+  "text": "которые помогли нам как следует испытать игру. Ваша помощь"
+ },
+ {
+  "label": "CREDITS:MultiplayerTestParticipantThanxMessageLine3",
+  "text": "была неоценима, и мы надеемся, что вам понравилось"
+ },
+ {
+  "label": "CREDITS:SpecialThanxKeyMessage1",
+  "text": "Огромная благодарность всем нашим семьям за то, что позволяете нам делать то,"
+ },
+ {
+  "label": "CREDITS:SpecialThanxKeyMessage2",
+  "text": "что мы любим: создавать игры. Мы не можем в полной мере отблагодарить вас за поддержку"
+ },
+ {
+  "label": "CREDITS:SpecialThanxKeyMessage3",
+  "text": "Но мы попытаемся..."
+ },
+ {
+  "label": "CREDITS:SpecialThanx6Line1",
+  "text": "Спасибо моей семье и друзьям в Chilliwack, BC, Canada! - Kris Morness"
+ },
+ {
+  "label": "CREDITS:SpecialThanx6Line2",
+  "text": "& поддержка были неоценимы. Я очень тебя люблю"
+ },
+ {
+  "label": "CREDITS:SpecialThanx30Line1",
+  "text": "Спасибо Jane,George,David,Sophia,Audrey,Shannon,Johan & agavenectar"
+ },
+ {
+  "label": "CREDITS:SpecialThanx30Line2",
+  "text": "за то, что были рядом, даже когда я не мог"
+ },
+ {
+  "label": "CREDITS:SpecialThanx32Line1",
+  "text": "Спасибо Bing Gordon, ваша неизменная поддержка была неоценима."
+ },
+ {
+  "label": "CREDITS:SpecialThanx32Line2",
+  "text": "которые сделают почти всё за доллар"
+ },
+ {
+  "label": "GUI:ControlBarBack",
+  "text": "НАЗАД"
+ },
+ {
+  "label": "GUI:MainMenuLoadGame",
+  "text": "ЗАГРУЗИТЬ ИГРУ"
+ },
+ {
+  "label": "GUI:MainMenuLoadReplay",
+  "text": "ЗАГРУЗИТЬ ПОВТОР"
+ },
+ {
+  "label": "GUI:LastReplay",
+  "text": "Последний повтор"
+ },
+ {
+  "label": "GUI:ControlBarMoneyDisplay",
+  "text": "$ %d"
+ },
+ {
+  "label": "GUI:Player",
+  "text": "Игрок"
+ },
+ {
+  "label": "CREDITS:UliLachelet",
+  "text": "Uli Lächelt"
+ },
+ {
+  "label": "CREDITS:JorgLindner",
+  "text": "Jörg Lindner"
+ },
+ {
+  "label": "CREDITS:LOCALIZATION",
+  "text": "Локализация"
+ },
+ {
+  "label": "CREDITS:EALocalisationManager",
+  "text": "Менеджер EA по европейской локализации"
+ },
+ {
+  "label": "CREDITS:EALocalisationProjectManager",
+  "text": "Менеджер проекта EA по европейской локализации"
+ },
+ {
+  "label": "CREDITS:EuropeanIntegrationTeam",
+  "text": "Команда европейской интеграции"
+ },
+ {
+  "label": "CREDITS:IntegrationEngineerManager",
+  "text": "Руководитель инженеров по интеграции"
+ },
+ {
+  "label": "CREDITS:IntegrationProgrammer",
+  "text": "Программисты интеграции"
+ },
+ {
+  "label": "CREDITS:AudioPostproduction",
+  "text": "Постобработка звука"
+ },
+ {
+  "label": "CREDITS:SpanishLocalizationTeam",
+  "text": "Команда испанской локализации"
+ },
+ {
+  "label": "CREDITS:LocalizationManagerEAIberia",
+  "text": "Менеджер локализации EA Iberia"
+ },
+ {
+  "label": "CREDITS:QAnLTSupervisor",
+  "text": "Руководитель контроля качества и лингвистического тестирования"
+ },
+ {
+  "label": "CREDITS:QALead",
+  "text": "Ведущий тестер КК"
+ },
+ {
+  "label": "CREDITS:QATesters",
+  "text": "Тестеры КК"
+ },
+ {
+  "label": "CREDITS:LocalizationSupervisorEAIberia",
+  "text": "Руководитель локализации EA Iberia"
+ },
+ {
+  "label": "CREDITS:LocalizationCoordinator",
+  "text": "Координатор локализации"
+ },
+ {
+  "label": "CREDITS:Translations",
+  "text": "Переводы"
+ },
+ {
+  "label": "CREDITS:DTPSupervisor",
+  "text": "Руководитель вёрстки (DTP)"
+ },
+ {
+  "label": "CREDITS:LayoutDesign",
+  "text": "Дизайн макета"
+ },
+ {
+  "label": "CREDITS:Documentation",
+  "text": "Документация"
+ },
+ {
+  "label": "CREDITS:JoseMaria",
+  "text": "José María García"
+ },
+ {
+  "label": "CREDITS:AndresGine",
+  "text": "Andrés Giné"
+ },
+ {
+  "label": "CREDITS:JoseRamon",
+  "text": "José Ramón Sagarna"
+ },
+ {
+  "label": "CREDITS:DavidSuarez",
+  "text": "David Suárez"
+ },
+ {
+  "label": "CREDITS:AlejandroGomez",
+  "text": "Alejandro Gómez"
+ },
+ {
+  "label": "CREDITS:IsmaeLDuran",
+  "text": "Ismael Durán"
+ },
+ {
+  "label": "CREDITS:JoseLuis",
+  "text": "José Luis Rovira"
+ },
+ {
+  "label": "CREDITS:JavierMartinez",
+  "text": "Javier Martínez"
+ },
+ {
+  "label": "CREDITS:LuisPines",
+  "text": "Luis Pinés"
+ },
+ {
+  "label": "CREDITS:EAItalyLocalization",
+  "text": "Локализация EA - Италия"
+ },
+ {
+  "label": "CREDITS:LocalisationManager",
+  "text": "Менеджер по локализации"
+ },
+ {
+  "label": "CREDITS:TranslationSupervisor",
+  "text": "Руководитель перевода"
+ },
+ {
+  "label": "CREDITS:LTSupervisor",
+  "text": "Руководитель лингвистического тестирования"
+ },
+ {
+  "label": "CREDITS:LocalisationCoordinator",
+  "text": "Координатор локализации"
+ },
+ {
+  "label": "CREDITS:LocalisationGermany",
+  "text": "Локализация EA - Германия"
+ },
+ {
+  "label": "CREDITS:RobertBock",
+  "text": "Robert Böck"
+ },
+ {
+  "label": "CREDITS:TestCoordination",
+  "text": "Координация тестирования"
+ },
+ {
+  "label": "CREDITS:LanguageTester",
+  "text": "Тестер локализации"
+ },
+ {
+  "label": "CREDITS:LocalisationFrance",
+  "text": "Локализация EA - Франция"
+ },
+ {
+  "label": "CREDITS:TestManager",
+  "text": "Менеджер тестирования"
+ },
+ {
+  "label": "CREDITS:FrenchLanguageTestingCoordinator",
+  "text": "Координатор лингвистического тестирования"
+ },
+ {
+  "label": "CREDITS:StephaneTachon",
+  "text": "Stéphane Tachon"
+ },
+ {
+  "label": "CREDITS:LanguageTesters",
+  "text": "Тестеры локализации"
+ },
+ {
+  "label": "CREDITS:LocalisationBrazil",
+  "text": "Локализация EA - Бразилия"
+ },
+ {
+  "label": "CREDITS:TranslationAndTesting",
+  "text": "Перевод и тестирование"
+ },
+ {
+  "label": "CREDITS:LocalisationPoland",
+  "text": "Локализация - Польша"
+ },
+ {
+  "label": "GUI:LadderNameAndSize",
+  "text": "%ls (%dv%d)"
+ },
+ {
+  "label": "GUI:InvalidLadderPassword",
+  "text": "Неверный пароль доски почёта"
+ },
+ {
+  "label": "GUI:EnterLadderPassword",
+  "text": "Введите пароль доски почёта:"
+ },
+ {
+  "label": "GUI:InternetDisconnectionMenuHeader",
+  "text": "Меню отсоединения"
+ },
+ {
+  "label": "GUI:InternetDisconnectionMenuHeaderCaps",
+  "text": "МЕНЮ ОТСОЕДИНЕНИЯ"
+ },
+ {
+  "label": "GUI:InternetDisconnectionMenuBody1",
+  "text": "Один или более игроков отсоединились от игры. Если Вы хотите проголосовать за игрока, которого надо выгнать, нажмите кнопку ГОЛОС рядом с этим игроком. Когда время дойдет до 0, этот игрок будет удален из игры и битва продолжится."
+ },
+ {
+  "label": "GUI:InternetDisconnectionMenuBody2",
+  "text": "Возможно, этот игрок пытается переподключиться, поэтому Вы можете подождать, пока не истечёт его время. Когда время дойдёт до 0, этот игрок будет удалён из игры и битва продолжится."
+ },
+ {
+  "label": "CREDITS:EAKoreaLocalisationTeam",
+  "text": "Команда EA Korea"
+ },
+ {
+  "label": "CREDITS:BusinessDevelopmentManager",
+  "text": "Менеджер делового сотрудничества"
+ },
+ {
+  "label": "CREDITS:LocalisationProducer",
+  "text": "Продюсер локализации"
+ },
+ {
+  "label": "CREDITS:EAKoreaMarketingTeam",
+  "text": "Команда маркетинга EA Korea"
+ },
+ {
+  "label": "CREDITS:MarketingManager",
+  "text": "Менеджер по маркетингу"
+ },
+ {
+  "label": "CREDITS:ProductManager",
+  "text": "Менеджер продукта"
+ },
+ {
+  "label": "CREDITS:PublicRelations",
+  "text": "Связь с общественностью"
+ },
+ {
+  "label": "CREDITS:ProductPromotion",
+  "text": "Реклама продукта"
+ },
+ {
+  "label": "CREDITS:EATaiwanLocalisationTeam",
+  "text": "Команда локализации EA Taiwan"
+ },
+ {
+  "label": "CREDITS:EAAsiaPacificLocalisationProjectManager",
+  "text": "Менеджер проекта локализации EA Asia Pacific"
+ },
+ {
+  "label": "CREDITS:AdditionalStoryInspiration",
+  "text": "Дополнительные идеи по сюжету"
+ },
+ {
+  "label": "GUI:RandomSide",
+  "text": "Случайно"
+ },
+ {
+  "label": "GUI:Age",
+  "text": "Возраст"
+ },
+ {
+  "label": "GUI:Month",
+  "text": "Месяц (ММ)"
+ },
+ {
+  "label": "GUI:Day",
+  "text": "День (ДД)"
+ },
+ {
+  "label": "GUI:Year",
+  "text": "Год (ГГГГ)"
+ },
+ {
+  "label": "CREDITS:DevelopmentTitle2",
+  "text": "компанией Electronic Arts Los Angeles"
+ },
+ {
+  "label": "CREDITS:EAPacificDevTeam2",
+  "text": "Command & Conquer (TM) Generals Zero Hour"
+ },
+ {
+  "label": "GUI:MustHaveAdminRights",
+  "text": "Вы должны обладать правами администратора, чтобы установить обновление."
+ },
+ {
+  "label": "GUI:BuddyAddReq",
+  "text": "Пользователь хочет добавить Вас в друзья"
+ },
+ {
+  "label": "GUI:AgeFailedTitle",
+  "text": "Возрастное ограничение"
+ },
+ {
+  "label": "GUI:AgeFailed",
+  "text": "Вам должно быть не менее 13 лет, чтобы играть в эту игру через интернет."
+ },
+ {
+  "label": "GUI:AdditionalLocalizationManagement",
+  "text": "Дополнительный менеджмент по локализации"
+ },
+ {
+  "label": "GUI:GroupRoom4",
+  "text": "4 на 4"
+ },
+ {
+  "label": "GUI:GroupRoom5",
+  "text": "Азия"
+ },
+ {
+  "label": "GUI:GroupRoom6",
+  "text": "Европа"
+ },
+ {
+  "label": "GUI:GroupRoom7",
+  "text": "Северная Америка"
+ },
+ {
+  "label": "GUI:GroupRoom8",
+  "text": "Великобритания"
+ },
+ {
+  "label": "GUI:GroupRoom9",
+  "text": "Германия"
+ },
+ {
+  "label": "GUI:GroupRoom10",
+  "text": "Корея"
+ },
+ {
+  "label": "GUI:GroupRoom11",
+  "text": "Все против всех"
+ },
+ {
+  "label": "GUI:GroupRoom12",
+  "text": "Без статистики"
+ },
+ {
+  "label": "GUI:GroupRoom13",
+  "text": "Карты модов"
+ },
+ {
+  "label": "GUI:ControlOptions",
+  "text": "НАСТРОЙКИ УПРАВЛЕНИЯ"
+ },
+ {
+  "label": "GUI:ClassicMouse",
+  "text": "Классическая"
+ },
+ {
+  "label": "GUI:AlternateMouse",
+  "text": "Альтер. настройка мыши"
+ },
+ {
+  "label": "TOOLTIP:AlternateMouse",
+  "text": "Правая кнопка мыши выполняет действия над подразделениями на поле боя (атака, перемещение и т.п.)"
+ },
+ {
+  "label": "GUI:Generals_Challenge",
+  "text": "ПОЕДИНОК"
+ },
+ {
+  "label": "GUI:Generals_Challenge_Title",
+  "text": "Поединок между генералами"
+ },
+ {
+  "label": "GUI:DemoMD_USA01ButtonTitle",
+  "text": "США 01"
+ },
+ {
+  "label": "GUI:DemoMD_USA02ButtonTitle",
+  "text": "США 02"
+ },
+ {
+  "label": "GUI:DemoMD_GLA03ButtonTitle",
+  "text": "МАО 03"
+ },
+ {
+  "label": "GUI:DemoMD_CampEADemoTitle",
+  "text": "ДЕМО"
+ },
+ {
+  "label": "TOOLTIP:TooltipCannotBuildBuildingBecauseMaximumNumber",
+  "text": "Здание уже построено"
+ },
+ {
+  "label": "TOOLTIP:MapMaxBrutalSuccess",
+  "text": "Поздравляем! Вы одержали победу на этой карте против максимального количества сложных оппонентов!"
+ },
+ {
+  "label": "GUI:LimitArmies",
+  "text": "Предел армий"
+ },
+ {
+  "label": "TOOLTIP:LimitArmies",
+  "text": "Ограничить армии традиционными фракциями США, МАО и Китая и запретить армии генералов-отступников"
+ },
+ {
+  "label": "GUI:UseStats",
+  "text": "Запись статистики"
+ },
+ {
+  "label": "TOOLTIP:UseStats",
+  "text": "Включить/выключить запись статистики этой игры на официальном сервере C&C Generals Zero Hour"
+ },
+ {
+  "label": "TOOLTIP:UseStatsOn",
+  "text": "Статистика этой игры БУДЕТ записана на официальном сервере C&C Generals Zero Hour"
+ },
+ {
+  "label": "TOOLTIP:UseStatsOff",
+  "text": "Статистика этой игры НЕ БУДЕТ записана на официальном сервере C&C Generals Zero Hour"
+ },
+ {
+  "label": "GUI:StartingMoney",
+  "text": "Начальные финансы"
+ },
+ {
+  "label": "GUI:StartingMoneyFormat",
+  "text": "$%u"
+ },
+ {
+  "label": "TOOLTIP:StartingMoney",
+  "text": "Настроить начальные финансы для всех игроков"
+ }
+]

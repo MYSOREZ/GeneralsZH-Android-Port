@@ -1,0 +1,802 @@
+[
+ {
+  "label": "GUI:Scatter",
+  "text": "Розсіювання"
+ },
+ {
+  "label": "GUI:StopObject",
+  "text": "Зупинити об'єкт"
+ },
+ {
+  "label": "GUI:StopObjectDescription",
+  "text": "Зупинити вибрані об'єкт(и)"
+ },
+ {
+  "label": "GUI:GoToRadarEvent",
+  "text": "Перейти до події на радарі"
+ },
+ {
+  "label": "GUI:GoToRadarEventDescription",
+  "text": "Центрувати тактичне зображення на останній події на радарі"
+ },
+ {
+  "label": "GUI:SaveView1",
+  "text": "Встановити закладку 1"
+ },
+ {
+  "label": "GUI:SaveView1Description",
+  "text": "Встановити закладку позиції карти 1"
+ },
+ {
+  "label": "GUI:SaveView2",
+  "text": "Встановити закладку 2"
+ },
+ {
+  "label": "GUI:SaveView2Description",
+  "text": "Встановити закладку позиції карти 2"
+ },
+ {
+  "label": "GUI:SaveView3",
+  "text": "Встановити закладку 3"
+ },
+ {
+  "label": "GUI:SaveView3Description",
+  "text": "Встановити закладку позиції карти 3"
+ },
+ {
+  "label": "GUI:SaveView4",
+  "text": "Встановити закладку 4"
+ },
+ {
+  "label": "GUI:SaveView4Description",
+  "text": "Встановити закладку позиції карти 4"
+ },
+ {
+  "label": "GUI:ViewView1",
+  "text": "Перейти до закладки 1"
+ },
+ {
+  "label": "GUI:ViewView1Description",
+  "text": "Перейти до збереженої позиції карти 1"
+ },
+ {
+  "label": "GUI:ViewView2",
+  "text": "Перейти до закладки 2"
+ },
+ {
+  "label": "GUI:ViewView2Description",
+  "text": "Перейти до збереженої позиції карти 2"
+ },
+ {
+  "label": "GUI:ViewView3",
+  "text": "Перейти до закладки 3"
+ },
+ {
+  "label": "GUI:ViewView3Description",
+  "text": "Перейти до збереженої позиції карти 3"
+ },
+ {
+  "label": "GUI:ViewView4",
+  "text": "Перейти до закладки 4"
+ },
+ {
+  "label": "GUI:ViewView4Description",
+  "text": "Перейти до збереженої позиції карти 4"
+ },
+ {
+  "label": "GUI:CenterBase",
+  "text": "Центр бази"
+ },
+ {
+  "label": "GUI:CenterBaseDescription",
+  "text": "Центрувати перегляд на базі гравця"
+ },
+ {
+  "label": "GUI:SelectNone",
+  "text": "Зняти вибір"
+ },
+ {
+  "label": "GUI:SelectAll",
+  "text": "Вибрати все"
+ },
+ {
+  "label": "GUI:SelectAllDescription",
+  "text": "Вибирає всі військові одиниці"
+ },
+ {
+  "label": "GUI:SelectNextUnit",
+  "text": "Наступний об'єкт"
+ },
+ {
+  "label": "GUI:SelectNextUnitDescription",
+  "text": "Вибрати наступний об'єкт"
+ },
+ {
+  "label": "GUI:SelectPrevUnit",
+  "text": "Попередній об'єкт"
+ },
+ {
+  "label": "GUI:SelectPrevUnitDescription",
+  "text": "Вибрати попередню одиницю"
+ },
+ {
+  "label": "GUI:SelectNextWorker",
+  "text": "Наступний робітник"
+ },
+ {
+  "label": "GUI:SelectNextWorkerDescription",
+  "text": "Вибрати наступного робітника"
+ },
+ {
+  "label": "GUI:SelectPrevWorker",
+  "text": "Попередній робітник"
+ },
+ {
+  "label": "GUI:SelectPrevWorkerDescription",
+  "text": "Вибрати попереднього робітника"
+ },
+ {
+  "label": "GUI:TypeSelect",
+  "text": "Вибір типу"
+ },
+ {
+  "label": "GUI:TypeSelectDescription",
+  "text": "Вибирає одиниці за типом. Двічі клацніть одиницю лівою кнопкою миші, щоб вибрати всі одиниці одного типу"
+ },
+ {
+  "label": "GUI:CreateTeam0",
+  "text": "Створити команду 0"
+ },
+ {
+  "label": "GUI:CreateTeam0Description",
+  "text": "Створює команду 0 із поточних вибраних підрозділів"
+ },
+ {
+  "label": "GUI:CreateTeam1",
+  "text": "Створити команду 1"
+ },
+ {
+  "label": "GUI:CreateTeam1Description",
+  "text": "Створює команду 1 із поточних вибраних підрозділів"
+ },
+ {
+  "label": "GUI:CreateTeam2",
+  "text": "Створити команду 2"
+ },
+ {
+  "label": "GUI:CreateTeam2Description",
+  "text": "Створює команду 2 із поточних вибраних підрозділів"
+ },
+ {
+  "label": "GUI:CreateTeam3",
+  "text": "Створити команду 3"
+ },
+ {
+  "label": "GUI:CreateTeam3Description",
+  "text": "Створює команду 3 із поточних вибраних підрозділів"
+ },
+ {
+  "label": "GUI:CreateTeam4",
+  "text": "Створити команду 4"
+ },
+ {
+  "label": "GUI:CreateTeam4Description",
+  "text": "Створює команду 4 із поточних вибраних підрозділів"
+ },
+ {
+  "label": "GUI:CreateTeam5",
+  "text": "Створити команду 5"
+ },
+ {
+  "label": "GUI:CreateTeam5Description",
+  "text": "Створює команду 5 із поточних вибраних підрозділів"
+ },
+ {
+  "label": "GUI:CreateTeam6",
+  "text": "Створити команду 6"
+ },
+ {
+  "label": "GUI:CreateTeam6Description",
+  "text": "Створює команду 6 із поточних вибраних підрозділів"
+ },
+ {
+  "label": "GUI:CreateTeam7",
+  "text": "Створити команду 7"
+ },
+ {
+  "label": "GUI:CreateTeam7Description",
+  "text": "Створює команду 7 із поточних вибраних підрозділів"
+ },
+ {
+  "label": "GUI:CreateTeam8",
+  "text": "Створити команду 8"
+ },
+ {
+  "label": "GUI:CreateTeam8Description",
+  "text": "Створює команду 8 із поточних вибраних підрозділів"
+ },
+ {
+  "label": "GUI:CreateTeam9",
+  "text": "Створити команду 9"
+ },
+ {
+  "label": "GUI:CreateTeam9Description",
+  "text": "Створює команду 9 із поточних вибраних підрозділів"
+ },
+ {
+  "label": "GUI:SelectTeam0",
+  "text": "Вибрати команду 0"
+ },
+ {
+  "label": "GUI:SelectTeam0Description",
+  "text": "Вибрати членів команди 0"
+ },
+ {
+  "label": "GUI:SelectTeam1",
+  "text": "Вибрати команду 1"
+ },
+ {
+  "label": "GUI:SelectTeam1Description",
+  "text": "Вибрати членів команди 1"
+ },
+ {
+  "label": "GUI:SelectTeam2",
+  "text": "Вибрати команду 2"
+ },
+ {
+  "label": "GUI:SelectTeam2Description",
+  "text": "Вибрати членів команди 2"
+ },
+ {
+  "label": "GUI:SelectTeam3",
+  "text": "Вибрати команду 3"
+ },
+ {
+  "label": "GUI:SelectTeam3Description",
+  "text": "Вибрати членів команди 3"
+ },
+ {
+  "label": "GUI:SelectTeam4",
+  "text": "Вибрати команду 4"
+ },
+ {
+  "label": "GUI:SelectTeam4Description",
+  "text": "Вибрати членів команди 4"
+ },
+ {
+  "label": "GUI:SelectTeam5",
+  "text": "Вибрати команду 5"
+ },
+ {
+  "label": "GUI:SelectTeam5Description",
+  "text": "Вибрати членів команди 5"
+ },
+ {
+  "label": "GUI:SelectTeam6",
+  "text": "Вибрати команду 6"
+ },
+ {
+  "label": "GUI:SelectTeam6Description",
+  "text": "Вибрати членів команди 6"
+ },
+ {
+  "label": "GUI:SelectTeam7",
+  "text": "Вибрати команду 7"
+ },
+ {
+  "label": "GUI:SelectTeam7Description",
+  "text": "Вибрати членів команди 7"
+ },
+ {
+  "label": "GUI:SelectTeam8",
+  "text": "Вибрати команду 8"
+ },
+ {
+  "label": "GUI:SelectTeam8Description",
+  "text": "Вибрати членів команди 8"
+ },
+ {
+  "label": "GUI:SelectTeam9",
+  "text": "Вибрати команду 9"
+ },
+ {
+  "label": "GUI:SelectTeam9Description",
+  "text": "Вибрати членів команди 9"
+ },
+ {
+  "label": "GUI:ViewTeam0",
+  "text": "Перейти до команди 0"
+ },
+ {
+  "label": "GUI:ViewTeam0Description",
+  "text": "Вибрати та центрувати огляд на команді 0"
+ },
+ {
+  "label": "GUI:ViewTeam1",
+  "text": "Перейти до команди 1"
+ },
+ {
+  "label": "GUI:ViewTeam1Description",
+  "text": "Вибрати та центрувати огляд на команді 1"
+ },
+ {
+  "label": "GUI:ViewTeam2",
+  "text": "Перейти до команди 2"
+ },
+ {
+  "label": "GUI:ViewTeam2Description",
+  "text": "Вибрати та центрувати огляд на команді 2"
+ },
+ {
+  "label": "GUI:ViewTeam3",
+  "text": "Перейти до команди 3"
+ },
+ {
+  "label": "GUI:ViewTeam3Description",
+  "text": "Вибрати та центрувати огляд на команді 3"
+ },
+ {
+  "label": "GUI:ViewTeam4",
+  "text": "Перейти до команди 4"
+ },
+ {
+  "label": "GUI:ViewTeam4Description",
+  "text": "Вибрати та центрувати огляд на команді 4"
+ },
+ {
+  "label": "GUI:ViewTeam5",
+  "text": "Перейти до команди 5"
+ },
+ {
+  "label": "GUI:ViewTeam5Description",
+  "text": "Вибрати та центрувати огляд на команді 5"
+ },
+ {
+  "label": "GUI:ViewTeam6",
+  "text": "Перейти до команди 6"
+ },
+ {
+  "label": "GUI:ViewTeam6Description",
+  "text": "Вибрати та центрувати огляд на команді 6"
+ },
+ {
+  "label": "GUI:ViewTeam7",
+  "text": "Перейти до команди 7"
+ },
+ {
+  "label": "GUI:ViewTeam7Description",
+  "text": "Вибрати та центрувати огляд на команді 7"
+ },
+ {
+  "label": "GUI:ViewTeam8",
+  "text": "Перейти до команди 8"
+ },
+ {
+  "label": "GUI:ViewTeam8Description",
+  "text": "Вибрати та центрувати огляд на команді 8"
+ },
+ {
+  "label": "GUI:ViewTeam9",
+  "text": "Перейти до команди 9"
+ },
+ {
+  "label": "GUI:ViewTeam9Description",
+  "text": "Вибрати та центрувати огляд на команді 9"
+ },
+ {
+  "label": "GUI:LocalIPDesc",
+  "text": "Локальний IP"
+ },
+ {
+  "label": "GUI:RemoteIPDesc",
+  "text": "Віддалений IP"
+ },
+ {
+  "label": "GUI:SaveCamera",
+  "text": "Зберігати камеру в повторах"
+ },
+ {
+  "label": "GUI:UseCamera",
+  "text": "Використовувати збережену камеру в повторах"
+ },
+ {
+  "label": "Mouse:Windows",
+  "text": "Курсор Windows"
+ },
+ {
+  "label": "Mouse:W3D",
+  "text": "Курсор W3D"
+ },
+ {
+  "label": "Mouse:Poly",
+  "text": "Полігональний курсор"
+ },
+ {
+  "label": "Mouse:DX8",
+  "text": "Курсор DX8"
+ },
+ {
+  "label": "Mouse:Heal",
+  "text": "Лікуватися"
+ },
+ {
+  "label": "Mouse:GetRepaired",
+  "text": "Ремонтуватися"
+ },
+ {
+  "label": "Mouse:Dock",
+  "text": "Причалити"
+ },
+ {
+  "label": "Mouse:DoRepair",
+  "text": "Ремонтувати"
+ },
+ {
+  "label": "Mouse:ResumeConstruction",
+  "text": "Продовжити будівництво"
+ },
+ {
+  "label": "Mouse:Enter",
+  "text": "Увійти"
+ },
+ {
+  "label": "Mouse:SetRallyPoint",
+  "text": "Встановити точку збору"
+ },
+ {
+  "label": "Mouse:DisguiseAsVehicle",
+  "text": "Замаскуватися під це!"
+ },
+ {
+  "label": "Mouse:Invalid",
+  "text": "НЕДОСТУПНО"
+ },
+ {
+  "label": "Mouse:FireFlame",
+  "text": "Спалити"
+ },
+ {
+  "label": "Mouse:FireFlashBang",
+  "text": "Світлошумова граната"
+ },
+ {
+  "label": "Mouse:FireTranqDarts",
+  "text": "Дротики з транквілізатором"
+ },
+ {
+  "label": "Mouse:FireStunBullets",
+  "text": "Оглушаючі кулі"
+ },
+ {
+  "label": "Mouse:MakeCarBomb",
+  "text": "Зробити бомбу в авто"
+ },
+ {
+  "label": "Mouse:Hijack",
+  "text": "Викрасти"
+ },
+ {
+  "label": "Mouse:FireBomb",
+  "text": "Запалювальна \n бомба"
+ },
+ {
+  "label": "Mouse:Defector",
+  "text": "Зробити \n перебіжчиком"
+ },
+ {
+  "label": "Mouse:CaptureBuilding",
+  "text": "Захопити будівлю"
+ },
+ {
+  "label": "Mouse:DisableVehicleHack",
+  "text": "Вимкнути транспорт"
+ },
+ {
+  "label": "Mouse:StealCashHack",
+  "text": "Вкрасти гроші"
+ },
+ {
+  "label": "Mouse:SnipeVehicle",
+  "text": "Зняти водія"
+ },
+ {
+  "label": "Mouse:DisableBuildingHack",
+  "text": "Вимкнути будівлю"
+ },
+ {
+  "label": "Mouse:LaserGuidedMissiles",
+  "text": "Ракети з лазерним наведенням"
+ },
+ {
+  "label": "Mouse:TankHunterTNTAttack",
+  "text": "Атака тротилом"
+ },
+ {
+  "label": "Mouse:A10ThunderboltStrike",
+  "text": "Ціль удару A10"
+ },
+ {
+  "label": "Mouse:StabAttack",
+  "text": "Удар ножем"
+ },
+ {
+  "label": "Mouse:PlaceRemoteCharge",
+  "text": "Встановити дистанційний заряд"
+ },
+ {
+  "label": "Mouse:PlaceTimedCharge",
+  "text": "Встановити заряд із таймером"
+ },
+ {
+  "label": "Mouse:RepairVehicles",
+  "text": "Аварійний ремонт (&E)"
+ },
+ {
+  "label": "Mouse:Demoralize",
+  "text": "Деморалізувати"
+ },
+ {
+  "label": "Mouse:PickUpPrisoner",
+  "text": "Забрати полоненого"
+ },
+ {
+  "label": "Mouse:Return",
+  "text": "Повернутися"
+ },
+ {
+  "label": "Mouse:PlaceBeacon",
+  "text": "Встановити маяк"
+ },
+ {
+  "label": "SCRIPT:TestString",
+  "text": "Це типу тестовий рядок, чуваче"
+ },
+ {
+  "label": "SCRIPT:LongTestString",
+  "text": "Це типу дуже довгий тестовий рядок, чуваче. Він перевіряє, чи працюють перенесення слів і відступи"
+ },
+ {
+  "label": "SCIENCE:GeneralName",
+  "text": "<Введіть ім'я>"
+ },
+ {
+  "label": "SCIENCE:SkillPoints",
+  "text": "Очки навичок: %d"
+ },
+ {
+  "label": "SCIENCE:Rank",
+  "text": "Рівень %d"
+ },
+ {
+  "label": "SCIENCE:TempName",
+  "text": "Дайте моїй науці ім'я"
+ },
+ {
+  "label": "SCIENCE:TempDescription",
+  "text": "Будь ласка, знайдіть час, щоб заповнити мій опис у Science.ini! Дуже дякую"
+ },
+ {
+  "label": "SCIENCE:USAPaladin",
+  "text": "Танк Паладин"
+ },
+ {
+  "label": "SCIENCE:USAPathFinder",
+  "text": "Слідознавець"
+ },
+ {
+  "label": "SCIENCE:USAStealthFighter",
+  "text": "Літак-невидимка"
+ },
+ {
+  "label": "SCIENCE:USASpyDrone",
+  "text": "Дрон-шпигун"
+ },
+ {
+  "label": "SCIENCE:USAParaDrop1",
+  "text": "Десант 1"
+ },
+ {
+  "label": "SCIENCE:USAParaDrop2",
+  "text": "Десант 2"
+ },
+ {
+  "label": "SCIENCE:USAParaDrop3",
+  "text": "Десант 3"
+ },
+ {
+  "label": "SCIENCE:USAA10Strike1",
+  "text": "Удар А10 1"
+ },
+ {
+  "label": "SCIENCE:USAA10Strike2",
+  "text": "Удар А10 2"
+ },
+ {
+  "label": "SCIENCE:USAA10Strike3",
+  "text": "Удар А10 3"
+ },
+ {
+  "label": "SCIENCE:USADaisyCutter",
+  "text": "Паливна авіабомба"
+ },
+ {
+  "label": "SCIENCE:ChinaNukeLauncher",
+  "text": "Ядерна гармата"
+ },
+ {
+  "label": "SCIENCE:ChinaRedGuardTraining",
+  "text": "Підготовка Червоногвардійців"
+ },
+ {
+  "label": "SCIENCE:ChinaClusterMines",
+  "text": "Касетні міни"
+ },
+ {
+  "label": "SCIENCE:ChinaArtilleryTraining",
+  "text": "Артилерійська підготовка"
+ },
+ {
+  "label": "SCIENCE:ChinaArtilleryBarrage",
+  "text": "Артилерійський обстріл 1"
+ },
+ {
+  "label": "SCIENCE:ChinaArtilleryBarrage2",
+  "text": "Артилерійський обстріл 2"
+ },
+ {
+  "label": "SCIENCE:ChinaArtilleryBarrage3",
+  "text": "Артилерійський обстріл 3"
+ },
+ {
+  "label": "SCIENCE:ChinaCashHack1",
+  "text": "Злам грошей 1"
+ },
+ {
+  "label": "SCIENCE:ChinaCashHack2",
+  "text": "Злам грошей 2"
+ },
+ {
+  "label": "SCIENCE:ChinaCashHack3",
+  "text": "Злам грошей 3"
+ },
+ {
+  "label": "SCIENCE:ChinaEMPPulse",
+  "text": "ЕМІ Імпульс"
+ },
+ {
+  "label": "SCIENCE:GLAHijacker",
+  "text": "Викрадач"
+ },
+ {
+  "label": "SCIENCE:GLASCUDLauncher",
+  "text": "Пускова установка СКАД"
+ },
+ {
+  "label": "SCIENCE:GLAMaruaderTank",
+  "text": "Танк Мародер"
+ },
+ {
+  "label": "SCIENCE:GLATechnicalTraining",
+  "text": "Підготовка техніків"
+ },
+ {
+  "label": "SCIENCE:GLARebelAmbush1",
+  "text": "Засідка повстанців 1"
+ },
+ {
+  "label": "SCIENCE:GLARebelAmbush2",
+  "text": "Засідка повстанців 2"
+ },
+ {
+  "label": "SCIENCE:GLARebelAmbush3",
+  "text": "Засідка повстанців 3"
+ },
+ {
+  "label": "SCIENCE:GLACashBounty1",
+  "text": "Грошова винагорода 1"
+ },
+ {
+  "label": "SCIENCE:GLACashBounty2",
+  "text": "Грошова винагорода 2"
+ },
+ {
+  "label": "SCIENCE:GLACashBounty3",
+  "text": "Грошова винагорода 3"
+ },
+ {
+  "label": "SCIENCE:GLAAnthraxBomb",
+  "text": "Бомба з сибірською виразкою"
+ },
+ {
+  "label": "CONTROLBAR:Demoralize",
+  "text": "Деморалізувати"
+ },
+ {
+  "label": "CONTROLBAR:CIAIntelligence",
+  "text": "Розвідка (&C)"
+ },
+ {
+  "label": "CONTROLBAR:CombatDrop",
+  "text": "Бойове десантування (&C)"
+ },
+ {
+  "label": "CONTROLBAR:Guard",
+  "text": "Охорона (&G)"
+ },
+ {
+  "label": "CONTROLBAR:GuardWithoutPursuit",
+  "text": "Охорона без переслідування (&C)"
+ },
+ {
+  "label": "CONTROLBAR:GuardFlyingUnitsOnly",
+  "text": "Охорона повітря (&R)"
+ },
+ {
+  "label": "CONTROLBAR:AttackMove",
+  "text": "Атака у русі (&A)"
+ },
+ {
+  "label": "CONTROLBAR:Stop",
+  "text": "Стоп (&S)"
+ },
+ {
+  "label": "CONTROLBAR:Waypoints",
+  "text": "Точка шляху (&T)"
+ },
+ {
+  "label": "CONTROLBAR:CancelBuild",
+  "text": "Скасувати будівництво (&C)"
+ },
+ {
+  "label": "CONTROLBAR:Contaminate",
+  "text": "Забруднити (&C)"
+ },
+ {
+  "label": "CONTROLBAR:FireWall",
+  "text": "Стіна вогню (&F)"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLAArmTheMob",
+  "text": "Озброїти натовп (&M)"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaOverlordGattlingCannon",
+  "text": "Гармата Гатлінга (&C)"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaOverlordPropagandaTower",
+  "text": "Пропагандиська вежа (&T)"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaOverlordBattleBunker",
+  "text": "Бойовий бункер (&B)"
+ },
+ {
+  "label": "CONTROLBAR:FireBomb",
+  "text": "Запалювальна бомба (&F)"
+ },
+ {
+  "label": "CONTROLBAR:UnderConstructionDesc",
+  "text": "Будівництво: %.0f%%"
+ },
+ {
+  "label": "CONTROLBAR:OCLTimerDesc",
+  "text": "Час до наступного скидання: %d:%d"
+ },
+ {
+  "label": "CONTROLBAR:OCLTimerDescWithPadding",
+  "text": "Час до наступного скидання: %d:0%d"
+ },
+ {
+  "label": "CONTROLBAR:InitiateBattlePlanBombardment",
+  "text": "Бойовий план \"Бомбардування\" (&B)"
+ },
+ {
+  "label": "CONTROLBAR:InitiateBattlePlanHoldTheLine",
+  "text": "Бойовий план \"Тримати лінію\" (&O)"
+ },
+ {
+  "label": "CONTROLBAR:InitiateBattlePlanSearchAndDestroy",
+  "text": "Бойовий план \"Пошук та знищення\" (&D)"
+ }
+]

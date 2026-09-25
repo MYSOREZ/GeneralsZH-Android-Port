@@ -1,0 +1,802 @@
+[
+ {
+  "label": "UPGRADE:BecomeRealGLABlackMarket",
+  "text": "Настоящий чёрный рынок"
+ },
+ {
+  "label": "UPGRADE:FusionReactors",
+  "text": "Реакторы холодного синтеза"
+ },
+ {
+  "label": "UPGRADE:CamoNetting",
+  "text": "Маскировочная сетка"
+ },
+ {
+  "label": "UPGRADE:FortifiedStructure",
+  "text": "Укрепить здания"
+ },
+ {
+  "label": "UPGRADE:BoobyTrap",
+  "text": "Растяжка"
+ },
+ {
+  "label": "UPGRADE:AnthraxGamma",
+  "text": "Сибирская язва гамма"
+ },
+ {
+  "label": "UPGRADE:WorkerShoes",
+  "text": "Обувь рабочего"
+ },
+ {
+  "label": "UPGRADE:ChemicalSuits",
+  "text": "Костюмы чимической защиты"
+ },
+ {
+  "label": "UPGRADE:AmericaCountermeasures",
+  "text": "Тепловые ракеты"
+ },
+ {
+  "label": "UPGRADE:UpgradeChinaIsotopeStability",
+  "text": "Устойчивость изотопов [&I]"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUpgradeChinaIsotopeStability",
+  "text": "При уничтожении техники на радиоактивном топливе не будет исходить радиоактивное излучение"
+ },
+ {
+  "label": "OBJECT:SecretResearchLab",
+  "text": "Секретная исследовательская лаборатория"
+ },
+ {
+  "label": "OBJECT:InternetCenter",
+  "text": "Центр Интернет"
+ },
+ {
+  "label": "OBJECT:AircraftCarrier",
+  "text": "Авианосец"
+ },
+ {
+  "label": "OBJECT:TechArtilleryPlatform",
+  "text": "Артиллерийская платформа -- Захватите для обстрела наземных подразделений врага"
+ },
+ {
+  "label": "OBJECT:NukeHunter",
+  "text": "Ядерный Охотник за танками"
+ },
+ {
+  "label": "OBJECT:TechRepairPad",
+  "text": "Ремонтная площадка -- Захватите для ремонта техники здесь"
+ },
+ {
+  "label": "OBJECT:AirF_Aurora",
+  "text": "Бомбардировщик «Аврора» с объёмно-детонирующими бомбами"
+ },
+ {
+  "label": "OBJECT:SupW_Aurora",
+  "text": "Бомбардировщик Аврора альфа"
+ },
+ {
+  "label": "OBJECT:BattleBus",
+  "text": "Боевой автобус"
+ },
+ {
+  "label": "OBJECT:Helix",
+  "text": "Улитка"
+ },
+ {
+  "label": "OBJECT:PropagandaTrooper",
+  "text": "Башня пропаганды"
+ },
+ {
+  "label": "OBJECT:HellfireDrone",
+  "text": "Ракетный беспилотный аппарат"
+ },
+ {
+  "label": "OBJECT:Avenger",
+  "text": "Мститель"
+ },
+ {
+  "label": "OBJECT:Microwave",
+  "text": "Микроволновый танк"
+ },
+ {
+  "label": "OBJECT:MOAB",
+  "text": "Мать всех бомб"
+ },
+ {
+  "label": "OBJECT:NukeDrop",
+  "text": "Ядерная бомбардировка"
+ },
+ {
+  "label": "OBJECT:SuitcaseNuke",
+  "text": "Ядерный чемоданчик"
+ },
+ {
+  "label": "OBJECT:StructureEMPMine",
+  "text": "Нейтронные мины"
+ },
+ {
+  "label": "OBJECT:ECMTank",
+  "text": "Электромагнитный танк"
+ },
+ {
+  "label": "OBJECT:Saboteur",
+  "text": "Саботажник"
+ },
+ {
+  "label": "OBJECT:TechRepairBay",
+  "text": "Гражданская ремонтная мастерская -- Захватите для ремонта техника на всем поле боя"
+ },
+ {
+  "label": "OBJECT:TechReinforcementPad",
+  "text": "Площадка подкрепления -- Захватите для прибытия дополнительной техники"
+ },
+ {
+  "label": "OBJECT:Sniper",
+  "text": "Снайпер"
+ },
+ {
+  "label": "OBJECT:FireBase",
+  "text": "Защитная пушка"
+ },
+ {
+  "label": "OBJECT:KingRaptor",
+  "text": "Королевский Раптор"
+ },
+ {
+  "label": "OBJECT:CombatBike",
+  "text": "Боевой мотоцикл"
+ },
+ {
+  "label": "OBJECT:SentryDrone",
+  "text": "Сторожевой беспилотный аппарат"
+ },
+ {
+  "label": "OBJECT:TomahawkStorm",
+  "text": "Залповая установка ракет Томагавк"
+ },
+ {
+  "label": "OBJECT:ListeningOutpost",
+  "text": "Передвижной радар"
+ },
+ {
+  "label": "Map:LeipzigLowlands",
+  "text": "Лейпцигские низменности"
+ },
+ {
+  "label": "Map:BombardmentBeach",
+  "text": "Бомбардировка пляжа"
+ },
+ {
+  "label": "Map:BearTownBeatdown",
+  "text": "Медведь в городе"
+ },
+ {
+  "label": "MAP:RiverSnakes",
+  "text": "Извилистая река"
+ },
+ {
+  "label": "MAP:KillingFields",
+  "text": "Смертельные равнины"
+ },
+ {
+  "label": "MAP:ThinIce",
+  "text": "Тонкий лёд"
+ },
+ {
+  "label": "MAP:ElScorcho",
+  "text": "Эль скорчо"
+ },
+ {
+  "label": "MAP:GreenPastures",
+  "text": "Пастбище"
+ },
+ {
+  "label": "MAP:FreeFireZone",
+  "text": "Зона свободного огня"
+ },
+ {
+  "label": "MAP:DestructionStation",
+  "text": "Станция разрушения"
+ },
+ {
+  "label": "MAP:PolarStorm",
+  "text": "Полярная буря"
+ },
+ {
+  "label": "MAP:BitterWinter",
+  "text": "Горькая зима"
+ },
+ {
+  "label": "MAP:CitySweep",
+  "text": "Городская развертка"
+ },
+ {
+  "label": "MAP:FrozenPlains",
+  "text": "Замороженные равнины"
+ },
+ {
+  "label": "MAP:RoadRage",
+  "text": "Дорожный гнев"
+ },
+ {
+  "label": "HELP:SentryDrone-01",
+  "text": "ПОДСКАЗКА:  \n Сторожевой беспилотный аппарат может обнаружить замаскированные вражеские подразделения"
+ },
+ {
+  "label": "HELP:SentryDrone-02",
+  "text": "ПОДСКАЗКА:  \n Купите пушку для сторожевого беспилотного аппарата в стратегическом центре"
+ },
+ {
+  "label": "HELP:MicrowaveTank-01",
+  "text": "ПОДСКАЗКА:  \n Микроволновый танк может вывести из строя здания"
+ },
+ {
+  "label": "HELP:MicrowaveTank-02",
+  "text": "ПОДСКАЗКА:  \n Волны микроволнового танка наносят повреждение, близко находящейся, пехоте"
+ },
+ {
+  "label": "HELP:Avenger-01",
+  "text": "ПОДСКАЗКА:  \n Лазер мстителя может пометить вражеские цели  \n Ведение огня по меченным целям наносит дополнительный урон"
+ },
+ {
+  "label": "HELP:Avenger-02",
+  "text": "ПОДСКАЗКА:  \n Мститель может защитить подразделение от воздушных атак"
+ },
+ {
+  "label": "HELP:FireBase-01",
+  "text": "ПОДСКАЗКА:  \n Отправьте ракетных защитников в защитную пушку  \n для воздушной и наземной обороны одновременно"
+ },
+ {
+  "label": "HELP:SpectreGunship-01",
+  "text": "ПОДСКАЗКА:  \n Выберите местность для атаки самолёта огневой поддержки,  \n потом вручную задавайте ему цели"
+ },
+ {
+  "label": "HELP:LeafletDrop-01",
+  "text": "ПОДСКАЗКА:  \n Используйте сброс листовок для деморализации вражеской пехоты"
+ },
+ {
+  "label": "HELP:MOAB-01",
+  "text": "HINT:  \n MOABs are effective against vehicles and  \n will stun any survivors"
+ },
+ {
+  "label": "HELP:Countermeasures-01",
+  "text": "ПОДСКАЗКА:  \n Установка тепловых ракет поможет воздушным подразделения уходить от атак"
+ },
+ {
+  "label": "HELP:HellfireDrone-01",
+  "text": "HINT:  \n Upgrade your vehicles with Hellfire Drones  \n to increase effectiveness against armored forces"
+ },
+ {
+  "label": "HELP:ChemicalSuit-01",
+  "text": "ПОДСКАЗКА:  \n Используйте костюмы химической защиты для защиты  \n солдат от смертоносных токсинов и радиации"
+ },
+ {
+  "label": "HELP:BunkerBuster-01",
+  "text": "ПОДСКАЗКА:  \n Улучшение истребителей Стелс с помощью противобункерных ракет  \n позволит им поражать оккупировавшихся врагов"
+ },
+ {
+  "label": "HELP:BunkerBuster-02",
+  "text": "ПОДСКАЗКА:  \n Противобункерные ракеты могут убивать подразделения внутри Бункеров"
+ },
+ {
+  "label": "HELP:SupplyLines-01",
+  "text": "HINT:  \n The Supply Lines upgrade improves income"
+ },
+ {
+  "label": "HELP:SupplyLines-02",
+  "text": "HINT:  \n Upgrade Supply Lines to increase  \n the efficiency of Chinooks"
+ },
+ {
+  "label": "HELP:ListeningOutpost-01",
+  "text": "ПОДСКАЗКА:  \n Передвижной радар невидим и может обнаружить  \n замаскированные подразделения"
+ },
+ {
+  "label": "HELP:ListeningOutpost-02",
+  "text": "ПОДСКАЗКА:  \n Передвижной радар имеет очень большой радиус обзора"
+ },
+ {
+  "label": "HELP:Helix-01",
+  "text": "ПОДСКАЗКА:  \n Улучшение Улитки с помощью башни пропаганды будет  \n ремонтировать и лечить ближайших Ваших подразделений"
+ },
+ {
+  "label": "HELP:Helix-02",
+  "text": "ПОДСКАЗКА:  \n Улитку можно улучшить для сброса бомб с напалмом  \n Их можно будет сбрасывать на цель по Улиткой"
+ },
+ {
+  "label": "HELP:Helix-03",
+  "text": "ПОДСКАЗКА:  \n Вы можете улучшить Улитку с помощью боевого бункера,  \n башни пропаганды или пулемётной пушки"
+ },
+ {
+  "label": "HELP:ECMTank-01",
+  "text": "ПОДСКАЗКА:  \n Используйте электромагнитный танк против вражеских ракет"
+ },
+ {
+  "label": "HELP:Frenzy-01",
+  "text": "Подсказка:  \n Используйте способность генерала - Ярость увеличения  \n огневой мощи и брони Ваших подразделений"
+ },
+ {
+  "label": "HELP:InternetCenter-01",
+  "text": "HINT:  \n Place Hackers in the Internet Center  \n to increase money collection rate"
+ },
+ {
+  "label": "HELP:InternetCenter-02",
+  "text": "HINT:  \n Build an Internet Center and upgrade to  \n Satellite Hack 1 and 2"
+ },
+ {
+  "label": "HELP:SatelliteHack1-01",
+  "text": "HINT:  \n Satellite Hack 1 reveals all enemy Command Centers"
+ },
+ {
+  "label": "HELP:SatelliteHack2-01",
+  "text": "HINT:  \n Satellite Hack 2 reveals all that enemy units can see"
+ },
+ {
+  "label": "HELP:EMPMines-01",
+  "text": "HINT:  \n Mines can be upgraded to Neutron Mines, which will  \n disrupt enemy vehicles"
+ },
+ {
+  "label": "HELP:NeutronShell-01",
+  "text": "HINT:  \n Neutron Shell attacks from the Nuke Cannon neutralize  \n vehicles, allowing any infantry to capture them"
+ },
+ {
+  "label": "HELP:CombatCycle-01",
+  "text": "HINT:  \n Combat Cycles can jump off of cliffs"
+ },
+ {
+  "label": "HELP:CombatCycle-02",
+  "text": "HINT:  \n Place a Tunnel Defender on a Combat Cycle to  \n allow it to fire rockets"
+ },
+ {
+  "label": "HELP:CombatCycle-03",
+  "text": "HINT:  \n Place a Terrorist on a Combat Cycle to  \n produce a Suicide Bike"
+ },
+ {
+  "label": "HELP:CombatCycle-04",
+  "text": "ПОДСКАЗКА:  \n Джармен Келл может стрелять из винтовки с боевого мотоцикла"
+ },
+ {
+  "label": "HELP:CombatCycle-05",
+  "text": "HINT:  \n Workers can use Combat Cycles to travel quickly"
+ },
+ {
+  "label": "HELP:Saboteur-01",
+  "text": "HINT:  \n The Saboteur disrupts the abilities of enemy structures"
+ },
+ {
+  "label": "HELP:Saboteur-02",
+  "text": "HINT:  \n Direct the Saboteur into an enemy Command Center  \n to reset their Generals Powers timers"
+ },
+ {
+  "label": "HELP:FakeStructures-01",
+  "text": "ПОДСКАЗКА:  \n Стройте фальшивые здания для обмана противника"
+ },
+ {
+  "label": "HELP:SneakAttack-01",
+  "text": "ПОДСКАЗКА:  \n Используйте внезапную атаку для немедленного строительства  \n сети туннелей на любом месте на карте"
+ },
+ {
+  "label": "HELP:GPSScramble-01",
+  "text": "ПОДСКАЗКА:  \n Используйте умение генерала - Скрытие от СВМ  \n для того чтобы скрыть дружественные подразделения"
+ },
+ {
+  "label": "HELP:WorkerShoes-01",
+  "text": "HINT:  \n Purchase Worker Shoes to increase the speed Workers  \n travel and collect resources"
+ },
+ {
+  "label": "HELP:CamoNetting-01",
+  "text": "HINT:  \n Camo-Netting camouflages your Stinger Sites  \n and Tunnel Networks"
+ },
+ {
+  "label": "HELP:FortifiedStructures-01",
+  "text": "HINT:  \n Fortified Structures are harder to destroy"
+ },
+ {
+  "label": "HELP:BoobyTrap-01",
+  "text": "ПОДСКАЗКА:  \n Растяжки взрываются, когда враг пытается  \n оккупировать или захватить заминированное здание"
+ },
+ {
+  "label": "HELP:KingRaptor-01",
+  "text": "ПОДСКАЗКА:  \n Королевские Рапторы несут больше ракет и белее бронированы"
+ },
+ {
+  "label": "HELP:CombatChinooks-01",
+  "text": "ПОДСКАЗКА:  \n Пехота, находящаяся внутри Боевого Чинука, может стрелять во время полёта"
+ },
+ {
+  "label": "HELP:AuroraAlpha-01",
+  "text": "HINT:  \n The Aurora Alpha is equipped with a small  \n but devastating Fuel Air Bomb"
+ },
+ {
+  "label": "HELP:MicrowavePatriot-01",
+  "text": "HINT:  \n The EMP Patriot's Rockets are effective  \n against both vehicles and infantry"
+ },
+ {
+  "label": "HELP:AdvancedRods-01",
+  "text": "HINT:  \n Advanced Rods provide more power than normal Control Rods"
+ },
+ {
+  "label": "HELP:LaserTank-01",
+  "text": "ПОДСКАЗКА:  \n Стройте больше электростанций, когда используете лазерные танки  \n Они не смогут двигаться и стрелять когда не хватает электроэнергии"
+ },
+ {
+  "label": "HELP:LaserDefenseTurret-01",
+  "text": "ПОДСКАЗКА:  \n Лазерные пушки очень мощные но требуют много электроэнергии"
+ },
+ {
+  "label": "HELP:AssaultTroopTransport-01",
+  "text": "ПОДСКАЗКА:  \n Подразделения могут стрелять из штурмового бронетранспортёра"
+ },
+ {
+  "label": "HELP:AttackOutpost-01",
+  "text": "ПОДСКАЗКА:  \n Боевой передвижной радар вмещает больше солдат  \n и может обнаружить невидимые подразделения"
+ },
+ {
+  "label": "HELP:FortifiedBunkers-01",
+  "text": "ПОДСКАЗКА:  \n Укреплённые бункеры строятся с минами,  \n мощьной броней и вмещают больше солдат"
+ },
+ {
+  "label": "HELP:Mini-Gunner-01",
+  "text": "ПОДСКАЗКА:  \n Пулемётчики носят с собой собственный Пулемёт"
+ },
+ {
+  "label": "HELP:InfantryBlackLotus-01",
+  "text": "HINT:  \n Your Black Lotus units have improved abilities"
+ },
+ {
+  "label": "HELP:InfantryBlackLotus-02",
+  "text": "HINT:  \n You can build multiple Black Lotus units"
+ },
+ {
+  "label": "HELP:InfantryHacker-01",
+  "text": "HINT:  \n The Infantry General's Hacker hack money faster"
+ },
+ {
+  "label": "HELP:ChineseParadrop-01",
+  "text": "HINT:  \n The Chinese Paradrop parachutes Red Guard anywhere"
+ },
+ {
+  "label": "HELP:EmperorTank-01",
+  "text": "HINT:  \n Emperor Tanks are the ultimate tank,  \n effective against both vehicles and infantry"
+ },
+ {
+  "label": "HELP:EmperorTank-02",
+  "text": "ПОДСКАЗКА:  \n На танк Император может быть установлен пулемёт"
+ },
+ {
+  "label": "HELP:EmperorTank-03",
+  "text": "ПОДСКАЗКА:  \n На танк Император может быть установлена башня пропаганды"
+ },
+ {
+  "label": "HELP:TankDrop-01",
+  "text": "ПОДСКАЗКА:  \n Десантирование танков позволит Вам сбросить Мастеров боя на парашюте"
+ },
+ {
+  "label": "HELP:TacticalNuke-01",
+  "text": "HINT:  \n Your Airfield can upgrade MiGs to carry Tactical Nukes"
+ },
+ {
+  "label": "HELP:IsotopeStability-01",
+  "text": "HINT:  \n Isotope Stability will reduce the damage done to friendly  \n units when Nuclear Tanks are destroyed"
+ },
+ {
+  "label": "HELP:AdvancedNuclearPower-01",
+  "text": "ПОДСКАЗКА:  \n Улучшенная ядерная электростанция вырабатывает больше энергии чем обычная ядерная электростанция"
+ },
+ {
+  "label": "HELP:ToxinRebels-01",
+  "text": "ПОДСКАЗКА:  \n Химические повстанцы стреляют сверхъядовитыми токсинами"
+ },
+ {
+  "label": "HELP:ToxinRebels-02",
+  "text": "ПОДСКАЗКА:  \n Химическим повстанцем токсины не наносят вреда"
+ },
+ {
+  "label": "HELP:ToxinRebels-03",
+  "text": "HINT:  \n Use Toxin Rebels to quickly clear out garrisoned structures"
+ },
+ {
+  "label": "HELP:ToxinNetworks-01",
+  "text": "HINT:  \n Toxin Networks fire streams of toxin from their cannons"
+ },
+ {
+  "label": "HELP:ToxinTerrorists-01",
+  "text": "HINT:  \n Toxin Terrorists explode in a cloud of toxin"
+ },
+ {
+  "label": "HELP:ToxinTerrorists-02",
+  "text": "HINT:  \n Use Toxin Terrorists to attack large groups of infantry"
+ },
+ {
+  "label": "HELP:AnthraxGamma-01",
+  "text": "HINT:  \n Anthrax Gamma increases the damage of all toxin attacks"
+ },
+ {
+  "label": "HELP:AnthraxGamma-02",
+  "text": "HINT:  \n Anthrax Gamma is even more potent than Anthrax Beta"
+ },
+ {
+  "label": "HELP:AdvancedTrap-01",
+  "text": "HINT:  \n Advanced Traps are more powerful than normal Demo Traps"
+ },
+ {
+  "label": "HELP:Demolitions-01",
+  "text": "HINT:  \n The Demolitions upgrade gives units the ability to detonate"
+ },
+ {
+  "label": "GENERIC:MissionObjectiveCompleted-01",
+  "text": "ПЕРВАЯ ЦЕЛЬ МИССИИ:  \n Достигнута"
+ },
+ {
+  "label": "GENERIC:MissionObjectiveCompleted-02",
+  "text": "ВТОРАЯ ЦЕЛЬ МИССИИ:  \n Достигнута"
+ },
+ {
+  "label": "GENERIC:MissionObjectiveCompleted-03",
+  "text": "ТРЕТЬЯ ЦЕЛЬ МИССИИ:  \n Достигнута"
+ },
+ {
+  "label": "GENERIC:MissionObjectiveCompleted-04",
+  "text": "ЧЕТВЕРТАЯ ЦЕЛЬ МИССИИ:  \n Достигнута"
+ },
+ {
+  "label": "GENERIC:MissionObjectiveCompleted-05",
+  "text": "ПЯТАЯ ЦЕЛЬ МИССИИ:  \n Достигнута"
+ },
+ {
+  "label": "LOSE:AllUnits",
+  "text": "ВХОДЯЩИЕ СООБЩЕНИЕ:  \n Все Ваши подразделения были уничтожены  \n Вы потерпели поражение, Генерал. В этот раз"
+ },
+ {
+  "label": "LOSE:AllBuildings",
+  "text": "ВХОДЯЩИЕ СООБЩЕНИЕ:  \n Все Ваши здания были уничтожены  \n Вы потерпели поражение, Генерал. В этот раз"
+ },
+ {
+  "label": "LOSE:AllUnitsAndBuildings",
+  "text": "ВХОДЯЩИЕ СООБЩЕНИЕ:  \n Все Ваши подразделения и здания были уничтожены  \n Вы потерпели поражение, Генерал. В этот раз"
+ },
+ {
+  "label": "HELP:OilRefinery-01",
+  "text": "ПОДСКАЗКА:  \n Захватите нефтяной завод для понижения цен на технику"
+ },
+ {
+  "label": "HELP:ReinforcementPad-01",
+  "text": "ПОДСКАЗКА:  \n Захватите площадку подкрепления для прибытия дополнительного подкрепления"
+ },
+ {
+  "label": "HELP:OilDerrick-01",
+  "text": "ПОДСКАЗКА:  \n Захватывайте нефтяные вышки для получения дополнительных финансов"
+ },
+ {
+  "label": "HELP:RepairBay-01",
+  "text": "ПОДСКАЗКА:  \n Захватите ремонтную площадку для ремонта всей техники в любом местоположении"
+ },
+ {
+  "label": "HELP:ArtilleryPlatform-01",
+  "text": "ПОДСКАЗКА:  \n Захватите артиллерийскую платформу для контролирования региона"
+ },
+ {
+  "label": "MAP:MD_USA01Objective1",
+  "text": "ЦЕЛЬ МИССИИ:  \n Захватить ж/д станцию и уничтожить базу МАО рядом с ж/д станцией"
+ },
+ {
+  "label": "MAP:MD_USA01Objective1a",
+  "text": "ПЕРВАЯ ЦЕЛЬ МИССИИ:  \n Захватить ж/д станцию и уничтожить базу МАО рядом с ж/д станцией"
+ },
+ {
+  "label": "MAP:MD_USA01ObjectiveAccomplished",
+  "text": "ЦЕЛЬ МИССИИ ДОСТИГНУТА"
+ },
+ {
+  "label": "MAP:MD_USA01ObjectiveAccomplisheda",
+  "text": "ПЕРВАЯ ЦЕЛЬ МИССИИ Достигнута"
+ },
+ {
+  "label": "MAP:MD_USA01Objective2",
+  "text": "ВХОДЯЩИЕ СООБЩЕНИЯ:  \n Посадите подразделения в грузовые вагоны"
+ },
+ {
+  "label": "MAP:MD_USA01Objective2a",
+  "text": "ВХОДЯЩИЕ СООБЩЕНИЯ:  \n Посадите подразделения в грузовые вагоны"
+ },
+ {
+  "label": "MAP:MD_USA01Objective3",
+  "text": "ЦЕЛЬ МИССИИ:  \n Уничтожить базу МАО"
+ },
+ {
+  "label": "MAP:MD_USA01Objective3a",
+  "text": "ВТОРАЯ ЦЕЛЬ МИССИИ:  \n Уничтожить базу МАО"
+ },
+ {
+  "label": "MAP:MD_USA01Hint1",
+  "text": "ПОДСКАЗКА:  \n Пехота может сесть в брошенную технику на северо-востоке"
+ },
+ {
+  "label": "MAP:MD_USA01Hint1a",
+  "text": "ПОДСКАЗКА:  \n Пехота может сесть в брошенную технику на северо-востоке"
+ },
+ {
+  "label": "MAP:MD_USA01Hint2",
+  "text": "ПОДСКАЗКА:  \n Отправьте пехоту в радиостанцию для вызова бомбардировщиков A-10"
+ },
+ {
+  "label": "MAP:MD_USA01Hint2a",
+  "text": "ПОДСКАЗКА:  \n Отправьте пехоту в радиостанцию для вызова бомбардировщиков A-10"
+ },
+ {
+  "label": "OBJECT:TrainDepot",
+  "text": "Железнодорожная станция"
+ },
+ {
+  "label": "OBJECT:TrainLoading",
+  "text": "Посадочная платформа"
+ },
+ {
+  "label": "MAP:MD_USA01Title",
+  "text": "Космодром Байконур, Южный Казахстан  \n 'Операция: Всемирная Безопасность'"
+ },
+ {
+  "label": "MAP:MD_USA01CINELocation02",
+  "text": "Военно-морская база США  \n Северная Европа"
+ },
+ {
+  "label": "MAP:Intro_Breifing_01",
+  "text": "Разведовательная база США в дали от Байконура  \n Южный Казахстан"
+ },
+ {
+  "label": "MAP:MD_USA01CINELocation01",
+  "text": "Где-то в южном Казахстане  \n По пути на Байконур"
+ },
+ {
+  "label": "MAP:USAX02MissionINtro",
+  "text": "У берегов Сомали"
+ },
+ {
+  "label": "MAP:USAX02MissionStart",
+  "text": "Бербера, Сомали  \n 'Операция: Рука Помощи'"
+ },
+ {
+  "label": "MAP:USAX02NavyHint",
+  "text": "ВХОДЯЩИЕ СООБЩЕНИЕ:  \n Военно-морской флот доступен для ослабления сопротивления"
+ },
+ {
+  "label": "MAP:USAX02ConvoyHint",
+  "text": "ВХОДЯЩИЕ СООБЩЕНИЕ:  \n Конвой пойдет, когда прибудут 10 грузовиков снабжения"
+ },
+ {
+  "label": "MAP:USAX02ConvoyArrived",
+  "text": "ПЕРВАЯ ЦЕЛЬ МИССИИ:  \n Достигнута"
+ },
+ {
+  "label": "MAP:USAX02objectives3a",
+  "text": "ВТОРАЯ ЦЕЛЬ МИССИИ:  \n Уничтожить Базу МАО"
+ },
+ {
+  "label": "MAP:USAX02Objectives1",
+  "text": "ПЕРВАЯ ЦЕЛЬ МИССИИ:  \n Защитить прибывающие грузовики снабжения и защитить склад снабжения"
+ },
+ {
+  "label": "MAP:USAX02Objectives2",
+  "text": "ЦЕЛЬ МИССИИ:  \n Защитить доки  \n Защитить прибывающие грузовики снабжения  \n Защитить склад"
+ },
+ {
+  "label": "MAP:USAX02Objectives3",
+  "text": "ЦЕЛЬ МИССИИ:  \n Найти и уничтожить здания МАО в горах"
+ },
+ {
+  "label": "MAP:USAX02Ships",
+  "text": "Доступная поддержка:  \n Авианосец, CVN-88 Daedalus  \n Группа сопровождения из боевых кораблей, Неустрашимый"
+ },
+ {
+  "label": "MAP:USAX02Truck1Arrived",
+  "text": "Прибыл 1 из 10 грузовиков снабжения"
+ },
+ {
+  "label": "MAP:USAX02Truck2Arrived",
+  "text": "Прибыло 2 из 10 грузовиков снабжения"
+ },
+ {
+  "label": "MAP:USAX02Truck3Arrived",
+  "text": "Прибыло 3 из 10 грузовиков снабжения"
+ },
+ {
+  "label": "MAP:USAX02Truck4Arrived",
+  "text": "Прибыло 4 из 10 грузовиков снабжения"
+ },
+ {
+  "label": "MAP:USAX02Truck5Arrived",
+  "text": "Прибыло 5 из 10 грузовиков снабжения"
+ },
+ {
+  "label": "MAP:USAX02Truck6Arrived",
+  "text": "Прибыло 6 из 10 грузовиков снабжения"
+ },
+ {
+  "label": "MAP:USAX02Truck7Arrived",
+  "text": "Прибыло 7 из 10 грузовиков снабжения"
+ },
+ {
+  "label": "MAP:USAX02Truck8Arrived",
+  "text": "Прибыло 8 из 10 грузовиков снабжения"
+ },
+ {
+  "label": "MAP:USAX02Truck9Arrived",
+  "text": "Прибыло 9 из 10 грузовиков снабжения"
+ },
+ {
+  "label": "MAP:USAX02Truck10Arrived",
+  "text": "Прибыли все 10 грузовиков снабжения  \n Конвой готовиться отправится к складу"
+ },
+ {
+  "label": "MAP:USAX02ConvoyToWarehouse",
+  "text": "Сопроводите конвой до склада"
+ },
+ {
+  "label": "MAP:USAX02Dozer",
+  "text": "Бульдозер прибыл в доки  \n Начинайте строительство базы"
+ },
+ {
+  "label": "MAP:USAX02Dozerb",
+  "text": "Бульдозер прибыл"
+ },
+ {
+  "label": "MAP:USAX02Dozer2",
+  "text": "Новый бульдозер прибыл в доки"
+ },
+ {
+  "label": "MAP:USA03xMapName",
+  "text": "Последний вызов"
+ },
+ {
+  "label": "MAP:USA03xOpen",
+  "text": "Гора Эльбрус, Грузия  \n 'Операция: Снегопад'"
+ },
+ {
+  "label": "MAP:USA03xOpenAlt",
+  "text": "Гора Эльбрус, Россия  \n 'Операция: Снегопад'"
+ },
+ {
+  "label": "MAP:USA03xObjective02",
+  "text": "ПЕРВАЯ ЦЕЛЬ МИССИИ:  \n Уничтожить лагерь заключенных МАО и спасти заключенных  \n Полковник Бартон должен выжить"
+ },
+ {
+  "label": "MAP:USA03xObjective03",
+  "text": "ВТОРАЯ ЦЕЛЬ МИССИИ:  \n Доставить полковника Бартона в точку назначения"
+ },
+ {
+  "label": "MAP:USA03xObjectiveCompleted",
+  "text": "ПЕРВАЯ ЦЕЛЬ МИССИИ:  \n Достигнута"
+ },
+ {
+  "label": "MAP:USA03xTownHallHint",
+  "text": "ВХОДЯЩИЕ СООБЩЕНИЕ:  \n Search the village for MIA soldiers"
+ },
+ {
+  "label": "MAP:USA03xToxinNetworksWarning",
+  "text": "ВНИМАНИЕ:  \n Остерегайтесь химических сетей туннелей и гнёзд стингеров"
+ },
+ {
+  "label": "MAP:USA03xPOWCamp02Hint",
+  "text": "ПОДСКАЗКА:  \n Уничтожьте здания МАО, охраняющие этот лагерь  \n для освобождения пленников, содержащихся здесь"
+ },
+ {
+  "label": "MAP:USA03xBurtonWarning",
+  "text": "ВНИМАНИЕ:  \n Полковник Бартон серьезно ранен  \n Он должен выжить в этой миссии"
+ },
+ {
+  "label": "MAP:USA03xChemWarning02",
+  "text": "ВНИМАНИЕ:  \n Это защитное сооружение переделано для стрельбы химическим оружием  \n Оно убьет любую пехоту, которая подошла слишком близко"
+ },
+ {
+  "label": "MAP:USA03xLoseReason01",
+  "text": "ВХОДЯЩИЕ СООБЩЕНИЕ:  \n Полковник Бартон был убит  \n Генерал, Вы потерпели поражение. В этот раз"
+ },
+ {
+  "label": "MAP:MD-USA04_LOCALE",
+  "text": "Нефтедобывающий район, Амисбад, Иран  \n 'Операция: Чёрное золото'"
+ },
+ {
+  "label": "MAP:MD-USA04_Start02",
+  "text": "ВХОДЯЩИЕ СООБЩЕНИЕ:  \n Подкрепление прибыло"
+ }
+]

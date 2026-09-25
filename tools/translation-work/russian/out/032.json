@@ -1,0 +1,102 @@
+[
+ {
+  "label": "MAP:SniperDuel",
+  "text": "Дуэль снайперов"
+ },
+ {
+  "label": "MAP:TheFrontline",
+  "text": "Линия фронта"
+ },
+ {
+  "label": "MAP:TournamentBeach",
+  "text": "Турнир на пляже"
+ },
+ {
+  "label": "MAP:TournamentCanyon",
+  "text": "Турнир в каньоне"
+ },
+ {
+  "label": "MAP:TournamentDesolate",
+  "text": "Турнир в пустыни"
+ },
+ {
+  "label": "MAP:TournamentForest",
+  "text": "Турнир в лесах"
+ },
+ {
+  "label": "MAP:TournamentIceStorm",
+  "text": "Турнир в снежную бурю"
+ },
+ {
+  "label": "MAP:TournamentTactics",
+  "text": "Турнир на тактику"
+ },
+ {
+  "label": "MAP:TournamentTown",
+  "text": "Турнир в городе"
+ },
+ {
+  "label": "MAP:TournamentValley",
+  "text": "Турнир в долине"
+ },
+ {
+  "label": "MAP:UnholyWar",
+  "text": "Безобразная война"
+ },
+ {
+  "label": "MAP:Unstable",
+  "text": "Нестабильность"
+ },
+ {
+  "label": "MAP:UrbanUprising",
+  "text": "Городское восстание"
+ },
+ {
+  "label": "MAP:VictoryOutlook",
+  "text": "Перспектива победы"
+ },
+ {
+  "label": "MAP:VictoryRoad",
+  "text": "Путь к победе"
+ },
+ {
+  "label": "MAP:NorthAmerica",
+  "text": "Северная америка"
+ },
+ {
+  "label": "MAP:Floodplains",
+  "text": "Наводнение"
+ },
+ {
+  "label": "MAP:TournamentA",
+  "text": "Турнир А"
+ },
+ {
+  "label": "MAP:TournamentB",
+  "text": "Турнир Б"
+ },
+ {
+  "label": "MAP:Defcon6",
+  "text": "Обороноспособность 6"
+ },
+ {
+  "label": "CONTROLBAR:AirF_TooltipUSAUpgradeLaserMissiles",
+  "text": "Ракеты истребителей Раптор и Стелс получат +12% дополнительного наносимого ущерба"
+ },
+ {
+  "label": "CONTROLBAR:AirF_ToolTipUSAScienceCarpetBomb",
+  "text": "Позволит Вам вызывать бомбардировщиу B2 для ковровой бомбардировки местности  \n  \n Управление из: Стратегического центра"
+ },
+ {
+  "label": "GUI:CustomMission",
+  "text": "СВОЯ МИССИЯ"
+ },
+ {
+  "label": "GX:ForceAttack",
+  "text": "Принудительная атака"
+ },
+ {
+  "label": "GX:ToolTipForceAttack",
+  "text": "Атаковать следующую цель, которой вы коснётесь, даже свои войска или пустую землю"
+ }
+]
