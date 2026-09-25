@@ -337,7 +337,7 @@
  },
  {
   "label": "CONTROLBAR:ConstructGLAScudStorm",
-  "text": "Залповая установка Скад [&O]"
+  "text": "Залповая установка ракет Р-17М [&O]"
  },
  {
   "label": "CONTROLBAR:ConstructGLAPrison",
@@ -601,7 +601,7 @@
  },
  {
   "label": "CONTROLBAR:ScudStorm",
-  "text": "Залп ракетами Скад [&U]"
+  "text": "Залп ракетами Р-17М [&U]"
  },
  {
   "label": "CONTROLBAR:NapalmStrike",

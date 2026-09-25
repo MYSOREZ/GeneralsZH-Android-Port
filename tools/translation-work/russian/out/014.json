@@ -5,7 +5,7 @@
  },
  {
   "label": "TOOLTIP:LimitSuperweapons",
-  "text": "Поставить предел на молекулярные пушки, залповые установки Скад и т.п. на одного игрока"
+  "text": "Поставить предел на молекулярные пушки, залповые установки ракетами Р-17М и т.п. на одного игрока"
  },
  {
   "label": "TOOLTIP:BattleHonorStreak100",
@@ -637,7 +637,7 @@
  },
  {
   "label": "CONTROLBAR:ScudStormShortcut",
-  "text": "Залп ракетами Скад"
+  "text": "Залп ракетами Р-17М"
  },
  {
   "label": "CONTROLBAR:TomahawkStorm",

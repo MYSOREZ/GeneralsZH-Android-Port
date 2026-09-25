@@ -21,11 +21,11 @@
  },
  {
   "label": "CONTROLBAR:ToolTipGLASCUDHEWarhead",
-  "text": "Использовать ракеты Скад с фугасной боеголовкой"
+  "text": "Использовать ракеты Р-17М с фугасной боеголовкой"
  },
  {
   "label": "CONTROLBAR:ToolTipGLASCUDAnthraxWarhead",
-  "text": "Использовать ракеты Скад с химической боеголовкой"
+  "text": "Использовать ракеты Р-17М с химической боеголовкой"
  },
  {
   "label": "CONTROLBAR:ToolTipGLAFireToxinTractorSlime",
@@ -257,7 +257,7 @@
  },
  {
   "label": "CONTROLBAR:ToolTipGLABuildScudStorm",
-  "text": "Запуск залпом нескольких ракет Скад  \n  \n Время для готовности: 5:00"
+  "text": "Запуск залпом нескольких ракет Р-17М  \n  \n Время для готовности: 5:00"
  },
  {
   "label": "CONTROLBAR:ToolTipGLABuildPrison",

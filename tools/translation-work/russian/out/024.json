@@ -289,7 +289,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_BossChi074Subtitle",
-  "text": "*Залповая установка Скад — оружие трусов, генерал. Я был о вас лучшего мнения"
+  "text": "*Залповая установка ракет Р-17М — оружие трусов, генерал. Я был о вас лучшего мнения"
  },
  {
   "label": "DIALOGEVENT:Taunts_BossChi075Subtitle",
@@ -321,7 +321,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_BossChi082Subtitle",
-  "text": "*Красногвардейцы, рассредоточиться! Летят ракеты Скад!"
+  "text": "*Красногвардейцы, рассредоточиться! Летят ракеты Р-17М!"
  },
  {
   "label": "DIALOGEVENT:Taunts_BossChi083Subtitle",
@@ -701,7 +701,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_BossGLA065Subtitle",
-  "text": "*Залповая установка Скад?! Вы украли нашу технологию! Вы за это заплатите, генерал"
+  "text": "*Залповая установка ракет Р-17М?! Вы украли нашу технологию! Вы за это заплатите, генерал"
  },
  {
   "label": "DIALOGEVENT:Taunts_BossGLA066Subtitle",
