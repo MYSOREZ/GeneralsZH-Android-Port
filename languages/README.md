@@ -76,13 +76,13 @@ Nothing else is needed: the output is the pack.
 
 ## Russian
 
-`languages/russian/generals.str` was produced from the community `00RussianZH.big`
-translation, whose `Data\English\generals.csf` was decompiled back to text: 3991
-labels, 3602 of them carrying Cyrillic. It is now maintained here as source
-rather than as a binary nobody can read.
-
-One inherited quirk is preserved deliberately: the pack contains a label
-`GUI:CÀontrolBarBack` with a stray byte in it. The game looks up
-`GUI:ControlBarBack`, so that entry never applied in the original pack either.
-It is kept verbatim rather than silently "corrected", because correcting it is a
-translation change and belongs in a pull request that says so.
+`languages/russian/generals.str` started as the community `00RussianZH.big` translation
+(3991 labels, decompiled back to text). On 25/09/2026 it was reviewed line by line against
+the English original of the current game data (`EnglishZH.big`): the 2458 labels it lacked
+(nearly all mission subtitles) were translated, lines still in English were translated,
+lines that said something the English does not (the "ЛОКАЛИЗАЦИЯ 2003 SIBERIAN STUDIO"
+on the loading screen, the translator's own `CREDITS:SSDevTeam1-3`) were brought back to
+the English, and good existing lines were kept as they were. 6447 labels now: the full
+English set plus 22 legacy labels from older game data (`GUI:GroupRoom15-22`,
+`GUI:BuddyAddReqMessage*`, the misspelled `GUI:CÀontrolBarBack`, ...), kept so the pack
+works with both. Work files: `tools/translation-work/`.

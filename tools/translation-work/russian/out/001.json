@@ -149,11 +149,11 @@
  },
  {
   "label": "GUI:PlayerObserverGone",
-  "text": "AWOL"
+  "text": "ВЫШЕЛ"
  },
  {
   "label": "GUI:PlayerGone",
-  "text": "AWOL"
+  "text": "ВЫШЕЛ"
  },
  {
   "label": "GUI:PlayerName",
