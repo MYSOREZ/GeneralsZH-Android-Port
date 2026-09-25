@@ -2233,7 +2233,7 @@ GUI:SuperweaponNeutronMissile
 END
 
 GUI:SuperweaponScudStorm
-"Залп ракетами Р-17М"
+"Залп ракетами Скад"
 END
 
 GUI:SuperweaponTerrorCell
@@ -4345,7 +4345,7 @@ CONTROLBAR:ConstructGLAStingerSite
 END
 
 CONTROLBAR:ConstructGLAScudStorm
-"Залповая установка ракет Р-17М [&O]"
+"Залповая установка Скад [&O]"
 END
 
 CONTROLBAR:ConstructGLAPrison
@@ -4609,7 +4609,7 @@ CONTROLBAR:NeutronMissile
 END
 
 CONTROLBAR:ScudStorm
-"Залп ракетами Р-17М [&U]"
+"Залп ракетами Скад [&U]"
 END
 
 CONTROLBAR:NapalmStrike
@@ -5781,7 +5781,7 @@ OBJECT:TomahawkMissile
 END
 
 OBJECT:SCUDMissile
-"Ракета Р-17М"
+"Ракета Скад"
 END
 
 OBJECT:RangerTeamMissile
@@ -5837,7 +5837,7 @@ OBJECT:ScudLauncher
 END
 
 OBJECT:ScudStorm
-"Залповая установка ракет Р-17М"
+"Залповая установка Скад"
 END
 
 OBJECT:SecretLab
@@ -6769,7 +6769,7 @@ MAP:USA01BahdadText
 END
 
 MAP:USA01ObjectiveText
-"ЦЕЛЬ МИССИИ  \n Уничтожить залповую установку ракет Р-17М"
+"ЦЕЛЬ МИССИИ  \n Уничтожить залповую установку Скад"
 END
 
 MAP:USA02Open
@@ -7229,11 +7229,11 @@ CONTROLBAR:ToolTipGLAFireScorpionRocket
 END
 
 CONTROLBAR:ToolTipGLASCUDHEWarhead
-"Использовать ракеты Р-17М с фугасной боеголовкой"
+"Использовать ракеты Скад с фугасной боеголовкой"
 END
 
 CONTROLBAR:ToolTipGLASCUDAnthraxWarhead
-"Использовать ракеты Р-17М с химической боеголовкой"
+"Использовать ракеты Скад с химической боеголовкой"
 END
 
 CONTROLBAR:ToolTipGLAFireToxinTractorSlime
@@ -7465,7 +7465,7 @@ CONTROLBAR:ToolTipGLABuildStingerSite
 END
 
 CONTROLBAR:ToolTipGLABuildScudStorm
-"Запуск залпом нескольких ракет Р-17М  \n  \n Время для готовности: 5:00"
+"Запуск залпом нескольких ракет Скад  \n  \n Время для готовности: 5:00"
 END
 
 CONTROLBAR:ToolTipGLABuildPrison
@@ -8461,7 +8461,7 @@ LOAD:TRAINING_3
 END
 
 LOAD:USA01_1
-"- GLA имеет залповую установку ракет Р-17М"
+"- GLA имеет залповую установку Скад"
 END
 
 LOAD:USA01_2
@@ -9105,7 +9105,7 @@ MAP:USA08ChinaHint
 END
 
 MAP:USA08SCUDStormWarn
-"ВНИМАНИЕ:  \n GLA построила залповую установку ракет Р-17М."
+"ВНИМАНИЕ:  \n GLA построила залповую установку Скад."
 END
 
 MAP:USA08MineWarn
@@ -9425,7 +9425,7 @@ TOOLTIP:BattleHonorFairPlay
 END
 
 TOOLTIP:BattleHonorApocalypse
-"Медаль Апокалипсиса  \n Игрок построил молекулярную пушку, ракетную шахту и залповую установку ракет Р-17М в одиночной или коллективной игре через интернет"
+"Медаль Апокалипсиса  \n Игрок построил молекулярную пушку, ракетную шахту и залповую установку Скад в одиночной или коллективной игре через интернет"
 END
 
 TOOLTIP:BattleHonorFairPlayDisabled
@@ -9433,7 +9433,7 @@ TOOLTIP:BattleHonorFairPlayDisabled
 END
 
 TOOLTIP:BattleHonorApocalypseDisabled
-"Медаль Апокалипсиса  \n Постройте молекулярную пушку, ракетную шахту и залповую установку ракет Р-17М, чтобы получить эту медаль"
+"Медаль Апокалипсиса  \n Постройте молекулярную пушку, ракетную шахту и залповую установку Скад, чтобы получить эту медаль"
 END
 
 TOOLTIP:BattleHonorPreorder
@@ -11213,7 +11213,7 @@ GUI:LimitSuperweapons
 END
 
 TOOLTIP:LimitSuperweapons
-"Поставить предел на молекулярные пушки, залповые установки ракетами Р-17М и т.п. на одного игрока"
+"Поставить предел на молекулярные пушки, залповые установки Скад и т.п. на одного игрока"
 END
 
 TOOLTIP:BattleHonorStreak100
@@ -11845,7 +11845,7 @@ CONTROLBAR:ICBMShortcut
 END
 
 CONTROLBAR:ScudStormShortcut
-"Залп ракетами Р-17М"
+"Залп ракетами Скад"
 END
 
 CONTROLBAR:TomahawkStorm
@@ -14845,7 +14845,7 @@ DIALOGEVENT:EvaChina_DetectedParticleCannonSubtitle
 END
 
 DIALOGEVENT:EvaChina_DetectedScudStormSubtitle
-"*Внимание: обнаружена залповая установка ракет Р-17М"
+"*Внимание: обнаружена залповая установка Скад"
 END
 
 DIALOGEVENT:EvaChina_FundsReceivedSubtitle
@@ -14913,7 +14913,7 @@ DIALOGEVENT:EvaChina_LaunchedParticleCannonSubtitle
 END
 
 DIALOGEVENT:EvaChina_LaunchedScudStormSubtitle
-"*Внимание: запущена залповая установка ракет Р-17М"
+"*Внимание: запущена залповая установка Скад"
 END
 
 DIALOGEVENT:EvaChina_LowPowerSubtitle
@@ -15001,19 +15001,19 @@ DIALOGEVENT:EvaChina_ReinforcementsHaveArrivedSubtitle
 END
 
 DIALOGEVENT:EvaChina_ScudStormDetectedAllySubtitle
-"*Наш союзник построил залповую установку ракет Р-17М"
+"*Наш союзник построил залповую установку Скад"
 END
 
 DIALOGEVENT:EvaChina_ScudStormLaunchedAllySubtitle
-"*Наш союзник запустил залповую установку ракет Р-17М"
+"*Наш союзник запустил залповую установку Скад"
 END
 
 DIALOGEVENT:EvaChina_ScudStormLaunchedOursSubtitle
-"*Наша залповая установка ракет Р-17М запущена"
+"*Наша залповая установка Скад запущена"
 END
 
 DIALOGEVENT:EvaChina_ScudStormReadySubtitle
-"*Наша залповая установка ракет Р-17М готова, генерал"
+"*Наша залповая установка Скад готова, генерал"
 END
 
 DIALOGEVENT:EvaChina_SelectTargetSubtitle
@@ -15109,7 +15109,7 @@ DIALOGEVENT:EvaGLA_DetectedParticleCannonSubtitle
 END
 
 DIALOGEVENT:EvaGLA_DetectedScudStormSubtitle
-"*Осторожно, враг построил залповую установку ракет Р-17М"
+"*Осторожно, враг построил залповую установку Скад"
 END
 
 DIALOGEVENT:EvaGLA_EliteGuardUpgrade01Subtitle
@@ -15189,7 +15189,7 @@ DIALOGEVENT:EvaGLA_LaunchedParticleCannonSubtitle
 END
 
 DIALOGEVENT:EvaGLA_LaunchedScudStormSubtitle
-"*Генерал, запущена залповая установка ракет Р-17М"
+"*Генерал, запущена залповая установка Скад"
 END
 
 DIALOGEVENT:EvaGLA_LowPowerSubtitle
@@ -15277,19 +15277,19 @@ DIALOGEVENT:EvaGLA_ReinforcementsHaveArrivedSubtitle
 END
 
 DIALOGEVENT:EvaGLA_ScudStormDetectedAllySubtitle
-"*Наш союзник построил залповую установку ракет Р-17М"
+"*Наш союзник построил залповую установку Скад"
 END
 
 DIALOGEVENT:EvaGLA_ScudStormLaunchedAllySubtitle
-"*Наш союзник запустил залповую установку ракет Р-17М"
+"*Наш союзник запустил залповую установку Скад"
 END
 
 DIALOGEVENT:EvaGLA_ScudStormLaunchedOursSubtitle
-"*Запускаем залповую установку ракет Р-17М"
+"*Запускаем залповую установку Скад"
 END
 
 DIALOGEVENT:EvaGLA_ScudStormReadySubtitle
-"*Теперь мы можем применить залповую установку ракет Р-17М"
+"*Теперь мы можем применить залповую установку Скад"
 END
 
 DIALOGEVENT:EvaGLA_SelectTargetSubtitle
@@ -15377,7 +15377,7 @@ DIALOGEVENT:EvaUSA_DetectedParticleCannonSubtitle
 END
 
 DIALOGEVENT:EvaUSA_DetectedScudStormSubtitle
-"*Внимание: обнаружена залповая установка ракет Р-17М"
+"*Внимание: обнаружена залповая установка Скад"
 END
 
 DIALOGEVENT:EvaUSA_FundsReceivedSubtitle
@@ -15453,7 +15453,7 @@ DIALOGEVENT:EvaUSA_LaunchedParticleCannonSubtitle
 END
 
 DIALOGEVENT:EvaUSA_LaunchedScudStormSubtitle
-"*Внимание: запущена залповая установка ракет Р-17М"
+"*Внимание: запущена залповая установка Скад"
 END
 
 DIALOGEVENT:EvaUSA_LowPowerSubtitle
@@ -15541,19 +15541,19 @@ DIALOGEVENT:EvaUSA_ReinforcementsHaveArrivedSubtitle
 END
 
 DIALOGEVENT:EvaUSA_ScudStormDetectedAllySubtitle
-"*Обнаружена союзная залповая установка ракет Р-17М"
+"*Обнаружена союзная залповая установка Скад"
 END
 
 DIALOGEVENT:EvaUSA_ScudStormLaunchedAllySubtitle
-"*Союзная залповая установка ракет Р-17М запущена"
+"*Союзная залповая установка Скад запущена"
 END
 
 DIALOGEVENT:EvaUSA_ScudStormLaunchedOursSubtitle
-"*Залповая установка ракет Р-17М запущена"
+"*Залповая установка Скад запущена"
 END
 
 DIALOGEVENT:EvaUSA_ScudStormReadySubtitle
-"*Залповая установка ракет Р-17М готова"
+"*Залповая установка Скад готова"
 END
 
 DIALOGEVENT:EvaUSA_SelectTargetSubtitle
@@ -16221,7 +16221,7 @@ DIALOGEVENT:MisCHI04xXO06Subtitle
 END
 
 DIALOGEVENT:MisCHI04xXO07Subtitle
-"*Генерал, у них залповая установка ракет Р-17М! Нужно рассредоточить войска, чтобы не дать им цель!"
+"*Генерал, у них залповая установка Скад! Нужно рассредоточить войска, чтобы не дать им цель!"
 END
 
 DIALOGEVENT:MisCHI04xXO08Subtitle
@@ -16285,7 +16285,7 @@ DIALOGEVENT:MisCHI04xXO22Subtitle
 END
 
 DIALOGEVENT:MisCHI04xXO23Subtitle
-"*Обнаружено несколько запусков залповой установки ракет Р-17М"
+"*Обнаружено несколько запусков залповой установки Скад"
 END
 
 DIALOGEVENT:MisCHI04xXO24Subtitle
@@ -17641,7 +17641,7 @@ DIALOGEVENT:MisGLA05xKen16Subtitle
 END
 
 DIALOGEVENT:MisGLA05xKen17Subtitle
-"*Мой генерал, нам нужно построить залповую установку ракет Р-17М"
+"*Мой генерал, нам нужно построить залповую установку Скад"
 END
 
 DIALOGEVENT:MisGLA05xKen18Subtitle
@@ -18905,7 +18905,7 @@ DIALOGEVENT:MisUSA04xEva30Subtitle
 END
 
 DIALOGEVENT:MisUSA04xEva31Subtitle
-"*ВНИМАНИЕ: ОБНАРУЖЕНА ЗАЛПОВАЯ УСТАНОВКА РАКЕТ Р-17М!"
+"*ВНИМАНИЕ: ОБНАРУЖЕНА ЗАЛПОВАЯ УСТАНОВКА СКАД!"
 END
 
 DIALOGEVENT:MisUSA04xEva32Subtitle
@@ -19497,7 +19497,7 @@ DIALOGEVENT:Taunts_BossChi073Subtitle
 END
 
 DIALOGEVENT:Taunts_BossChi074Subtitle
-"*Залповая установка ракет Р-17М — оружие трусов, генерал. Я был о вас лучшего мнения"
+"*Залповая установка Скад — оружие трусов, генерал. Я был о вас лучшего мнения"
 END
 
 DIALOGEVENT:Taunts_BossChi075Subtitle
@@ -19529,7 +19529,7 @@ DIALOGEVENT:Taunts_BossChi081Subtitle
 END
 
 DIALOGEVENT:Taunts_BossChi082Subtitle
-"*Красногвардейцы, рассредоточиться! Летят ракеты Р-17М!"
+"*Красногвардейцы, рассредоточиться! Летят ракеты Скад!"
 END
 
 DIALOGEVENT:Taunts_BossChi083Subtitle
@@ -19909,7 +19909,7 @@ DIALOGEVENT:Taunts_BossGLA064Subtitle
 END
 
 DIALOGEVENT:Taunts_BossGLA065Subtitle
-"*Залповая установка ракет Р-17М?! Вы украли нашу технологию! Вы за это заплатите, генерал"
+"*Залповая установка Скад?! Вы украли нашу технологию! Вы за это заплатите, генерал"
 END
 
 DIALOGEVENT:Taunts_BossGLA066Subtitle
@@ -20357,7 +20357,7 @@ DIALOGEVENT:Taunts_BossUSA073Subtitle
 END
 
 DIALOGEVENT:Taunts_BossUSA074Subtitle
-"*Построил себе залповую установку ракет Р-17М? Да ты этими ракетами и в сарай не попадёшь, неужели не знаешь?"
+"*Построил себе залповую установку Скад? Да ты этими ракетами и в сарай не попадёшь, неужели не знаешь?"
 END
 
 DIALOGEVENT:Taunts_BossUSA075Subtitle
@@ -20737,7 +20737,7 @@ DIALOGEVENT:Taunts_Demo059Subtitle
 END
 
 DIALOGEVENT:Taunts_Demo060Subtitle
-"*Залповая установка ракет Р-17М… понятно… Что ж, пожалуй, пора построить свою"
+"*Залповая установка Скад… понятно… Что ж, пожалуй, пора построить свою"
 END
 
 DIALOGEVENT:Taunts_Demo061Subtitle
@@ -20769,7 +20769,7 @@ DIALOGEVENT:Taunts_Demo067Subtitle
 END
 
 DIALOGEVENT:Taunts_Demo068Subtitle
-"*Глупый ход, генерал. Ваша залповая установка ракет Р-17М меня не остановит"
+"*Глупый ход, генерал. Ваша залповая установка Скад меня не остановит"
 END
 
 DIALOGEVENT:Taunts_Demo069Subtitle
@@ -21089,7 +21089,7 @@ DIALOGEVENT:Taunts_Grainger050Subtitle
 END
 
 DIALOGEVENT:Taunts_Grainger051Subtitle
-"*Итак, вы построили залповую установку ракет Р-17М. Думаете, сможете её защитить?"
+"*Итак, вы построили залповую установку Скад. Думаете, сможете её защитить?"
 END
 
 DIALOGEVENT:Taunts_Grainger052Subtitle
@@ -21197,11 +21197,11 @@ DIALOGEVENT:Taunts_Grainger077Subtitle
 END
 
 DIALOGEVENT:Taunts_Grainger078Subtitle
-"*Вы же не думаете, что я позволю вам оставить эту залповую установку ракет Р-17М?"
+"*Вы же не думаете, что я позволю вам оставить эту залповую установку Скад?"
 END
 
 DIALOGEVENT:Taunts_Grainger079Subtitle
-"*Ещё одна залповая установка ракет Р-17М? Похоже, пора поднажать"
+"*Ещё одна залповая установка Скад? Похоже, пора поднажать"
 END
 
 DIALOGEVENT:Taunts_Grainger080Subtitle
@@ -21505,7 +21505,7 @@ DIALOGEVENT:Taunts_Infantry061Subtitle
 END
 
 DIALOGEVENT:Taunts_Infantry062Subtitle
-"*Стройте свою залповую установку ракет Р-17М — она заденет лишь нескольких моих людей… остальные вас уничтожат"
+"*Стройте свою залповую установку Скад — она заденет лишь нескольких моих людей… остальные вас уничтожат"
 END
 
 DIALOGEVENT:Taunts_Infantry063Subtitle
@@ -21537,7 +21537,7 @@ DIALOGEVENT:Taunts_Infantry069Subtitle
 END
 
 DIALOGEVENT:Taunts_Infantry070Subtitle
-"*Залповая установка ракет Р-17М! Рассредоточиться!"
+"*Залповая установка Скад! Рассредоточиться!"
 END
 
 DIALOGEVENT:Taunts_Infantry071Subtitle
@@ -21897,7 +21897,7 @@ DIALOGEVENT:Taunts_Laser061Subtitle
 END
 
 DIALOGEVENT:Taunts_Laser062Subtitle
-"*Продайте эту залповую установку ракет Р-17М, генерал, или я уничтожу её за вас"
+"*Продайте эту залповую установку Скад, генерал, или я уничтожу её за вас"
 END
 
 DIALOGEVENT:Taunts_Laser063Subtitle
@@ -22697,7 +22697,7 @@ DIALOGEVENT:Taunts_Stealth066Subtitle
 END
 
 DIALOGEVENT:Taunts_Stealth067Subtitle
-"*Итак, вы построили залповую установку ракет Р-17М. Придётся разобраться с этой новой угрозой"
+"*Итак, вы построили залповую установку Скад. Придётся разобраться с этой новой угрозой"
 END
 
 DIALOGEVENT:Taunts_Stealth068Subtitle
@@ -22729,7 +22729,7 @@ DIALOGEVENT:Taunts_Stealth074Subtitle
 END
 
 DIALOGEVENT:Taunts_Stealth075Subtitle
-"*Вы произвели пуск! Вы пожалеете, что применили залповую установку ракет Р-17М, генерал"
+"*Вы произвели пуск! Вы пожалеете, что применили залповую установку Скад, генерал"
 END
 
 DIALOGEVENT:Taunts_Stealth076Subtitle
@@ -23097,7 +23097,7 @@ DIALOGEVENT:Taunts_Tank062Subtitle
 END
 
 DIALOGEVENT:Taunts_Tank063Subtitle
-"*И что вы собираетесь делать с этой залповой установкой ракет Р-17М, генерал?"
+"*И что вы собираетесь делать с этой залповой установкой Скад, генерал?"
 END
 
 DIALOGEVENT:Taunts_Tank064Subtitle
@@ -23129,7 +23129,7 @@ DIALOGEVENT:Taunts_Tank070Subtitle
 END
 
 DIALOGEVENT:Taunts_Tank071Subtitle
-"*Ваша залповая установка ракет Р-17М навредит нам, но теперь вы меня разозлили, генерал"
+"*Ваша залповая установка Скад навредит нам, но теперь вы меня разозлили, генерал"
 END
 
 DIALOGEVENT:Taunts_Tank072Subtitle
@@ -23465,7 +23465,7 @@ DIALOGEVENT:Taunts_Toxin053Subtitle
 END
 
 DIALOGEVENT:Taunts_Toxin054Subtitle
-"*Держитесь подальше от моих ракет Р-17М! Я отдам их вам, когда буду готов!"
+"*Держитесь подальше от моих ракет Скад! Я отдам их вам, когда буду готов!"
 END
 
 DIALOGEVENT:Taunts_Toxin055Subtitle
@@ -23513,7 +23513,7 @@ DIALOGEVENT:Taunts_Toxin065Subtitle
 END
 
 DIALOGEVENT:Taunts_Toxin066Subtitle
-"*Вы смеете строить залповую установку ракет Р-17М в моём присутствии! Вы ведь знаете, что у нас иммунитет к её токсинам, не так ли, генерал?"
+"*Вы смеете строить залповую установку Скад в моём присутствии! Вы ведь знаете, что у нас иммунитет к её токсинам, не так ли, генерал?"
 END
 
 DIALOGEVENT:Taunts_Toxin067Subtitle
@@ -23541,11 +23541,11 @@ DIALOGEVENT:Taunts_Toxin072Subtitle
 END
 
 DIALOGEVENT:Taunts_Toxin073Subtitle
-"*Ваша база разрослась, генерал… идеальная цель для моей залповой установки ракет Р-17М"
+"*Ваша база разрослась, генерал… идеальная цель для моей залповой установки Скад"
 END
 
 DIALOGEVENT:Taunts_Toxin074Subtitle
-"*Да, стреляйте из своей залповой установки ракет Р-17М… обрушьте на мою базу свои бесполезные токсины"
+"*Да, стреляйте из своей залповой установки Скад… обрушьте на мою базу свои бесполезные токсины"
 END
 
 DIALOGEVENT:Taunts_Toxin075Subtitle
@@ -23985,7 +23985,7 @@ DIALOGEVENT:Taunts_Turtle066Subtitle
 END
 
 DIALOGEVENT:Taunts_Turtle067Subtitle
-"*Думаете, я боюсь вашей маленькой залповой установки ракет Р-17М?"
+"*Думаете, я боюсь вашей маленькой залповой установки Скад?"
 END
 
 DIALOGEVENT:Taunts_Turtle068Subtitle

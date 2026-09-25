@@ -69,19 +69,19 @@
  },
  {
   "label": "DIALOGEVENT:EvaGLA_ScudStormDetectedAllySubtitle",
-  "text": "*Наш союзник построил залповую установку ракет Р-17М"
+  "text": "*Наш союзник построил залповую установку Скад"
  },
  {
   "label": "DIALOGEVENT:EvaGLA_ScudStormLaunchedAllySubtitle",
-  "text": "*Наш союзник запустил залповую установку ракет Р-17М"
+  "text": "*Наш союзник запустил залповую установку Скад"
  },
  {
   "label": "DIALOGEVENT:EvaGLA_ScudStormLaunchedOursSubtitle",
-  "text": "*Запускаем залповую установку ракет Р-17М"
+  "text": "*Запускаем залповую установку Скад"
  },
  {
   "label": "DIALOGEVENT:EvaGLA_ScudStormReadySubtitle",
-  "text": "*Теперь мы можем применить залповую установку ракет Р-17М"
+  "text": "*Теперь мы можем применить залповую установку Скад"
  },
  {
   "label": "DIALOGEVENT:EvaGLA_SelectTargetSubtitle",
@@ -169,7 +169,7 @@
  },
  {
   "label": "DIALOGEVENT:EvaUSA_DetectedScudStormSubtitle",
-  "text": "*Внимание: обнаружена залповая установка ракет Р-17М"
+  "text": "*Внимание: обнаружена залповая установка Скад"
  },
  {
   "label": "DIALOGEVENT:EvaUSA_FundsReceivedSubtitle",
@@ -245,7 +245,7 @@
  },
  {
   "label": "DIALOGEVENT:EvaUSA_LaunchedScudStormSubtitle",
-  "text": "*Внимание: запущена залповая установка ракет Р-17М"
+  "text": "*Внимание: запущена залповая установка Скад"
  },
  {
   "label": "DIALOGEVENT:EvaUSA_LowPowerSubtitle",
@@ -333,19 +333,19 @@
  },
  {
   "label": "DIALOGEVENT:EvaUSA_ScudStormDetectedAllySubtitle",
-  "text": "*Обнаружена союзная залповая установка ракет Р-17М"
+  "text": "*Обнаружена союзная залповая установка Скад"
  },
  {
   "label": "DIALOGEVENT:EvaUSA_ScudStormLaunchedAllySubtitle",
-  "text": "*Союзная залповая установка ракет Р-17М запущена"
+  "text": "*Союзная залповая установка Скад запущена"
  },
  {
   "label": "DIALOGEVENT:EvaUSA_ScudStormLaunchedOursSubtitle",
-  "text": "*Залповая установка ракет Р-17М запущена"
+  "text": "*Залповая установка Скад запущена"
  },
  {
   "label": "DIALOGEVENT:EvaUSA_ScudStormReadySubtitle",
-  "text": "*Залповая установка ракет Р-17М готова"
+  "text": "*Залповая установка Скад готова"
  },
  {
   "label": "DIALOGEVENT:EvaUSA_SelectTargetSubtitle",
