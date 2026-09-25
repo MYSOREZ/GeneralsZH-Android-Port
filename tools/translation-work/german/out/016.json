@@ -1,0 +1,802 @@
+[
+ {
+  "label": "MAP:MD-USA04_Objective01",
+  "text": "MISSIONSZIEL: \n Zerstören Sie die GBA-Basis"
+ },
+ {
+  "label": "MAP:MD-USA04_Objective02_Reminder",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Zerstören Sie den Radiosender im Nordosten, um die Bombenlaster aufzuhalten"
+ },
+ {
+  "label": "MAP:MD-USA04_Hint01",
+  "text": "MISSIONSZIEL: \n Zerstören Sie die GBA-Basis"
+ },
+ {
+  "label": "MAP:MD-USA04_Hint04",
+  "text": "TIPP: \n Finden Sie die 3 CIA-Agenten, um ihre Hilfe zu gewinnen"
+ },
+ {
+  "label": "MAP:MD-USA04_Hint05",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Sichern Sie die Ölfelder im Westen, um Geld zu verdienen"
+ },
+ {
+  "label": "MAP:MD-USA04_Hint06",
+  "text": "TIPP: \n Pathfinder können getarnte Einheiten und Sprengfallen aufdecken"
+ },
+ {
+  "label": "MAP:MD-USA04_Hint07",
+  "text": "TIPP: \n Bulldozer können Sprengfallen entfernen"
+ },
+ {
+  "label": "MAP:MD-USA04_Reonforcements",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Verstärkung ist eingetroffen"
+ },
+ {
+  "label": "MAP:MD_USA06Open",
+  "text": "Al Habad, Syrien \n 'Operation: Adlerschlag'"
+ },
+ {
+  "label": "MAP:MD-USA06Objective01",
+  "text": "MISSIONSZIEL: \n Nehmen Sie die 4 Toxinraketensilos ein, bevor sie starten"
+ },
+ {
+  "label": "MAP:MD-USA06Objective02",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Abtrünnige GBA-Truppen haben sich Ihnen angeschlossen"
+ },
+ {
+  "label": "MAP:MD-USA06Objective03",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Nehmen Sie die 4 Toxinraketensilos ein, bevor sie starten können"
+ },
+ {
+  "label": "MAP:MD-USA06Objective04",
+  "text": "Raketensilo 3 von 4 eingenommen"
+ },
+ {
+  "label": "MAP:MD-USA06Objective05",
+  "text": "Raketensilo 4 von 4 eingenommen"
+ },
+ {
+  "label": "MAP:MD-USA06Objective06",
+  "text": "Raketensilo 1 von 4 eingenommen"
+ },
+ {
+  "label": "MAP:MD-USA06Objective07",
+  "text": "Raketensilo 2 von 4 eingenommen"
+ },
+ {
+  "label": "MAP:MD-USA06Objective14",
+  "text": "TIPP: \n Laut Geheimdienst befinden sich einige Raketen in dieser Region \n Achten Sie darauf, das Toxin nicht freizusetzen"
+ },
+ {
+  "label": "MAP:MD-USA06Objective15",
+  "text": "WARNUNG: \n Dr. Thrax setzt stärkere Toxine ein. Schützen Sie unsere Infanterie"
+ },
+ {
+  "label": "MAP:MD-USA06Objective16",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Unsere Basis wird angegriffen, Sir \n Sie haben unbemerkt ein Tunnelnetz gebaut"
+ },
+ {
+  "label": "MAP:MD-USA06CivilianMessage01",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n GBA-Rebellen im Osten könnten uns helfen"
+ },
+ {
+  "label": "MAP:MD-USA06Hint01",
+  "text": "TIPP: \n Weitere Vorräte befinden sich im Südwesten"
+ },
+ {
+  "label": "MAP:MD-USA06Hint02",
+  "text": "WARNUNG: \n Sie greifen unsere Basis durch einen Überraschungsangriff-Tunnel an"
+ },
+ {
+  "label": "MAP:MD-USA06Hint03",
+  "text": "TIPP: \n GBA-Generalsfähigkeiten sind in der GBA-Kommandozentrale verfügbar"
+ },
+ {
+  "label": "MAP:MD-USA06Warning01",
+  "text": "WARNUNG: \n Der Countdown zum Raketenstart hat begonnen"
+ },
+ {
+  "label": "MAP:MD-USA06Warning02",
+  "text": "WARNUNG: \n Start in 5 Minuten"
+ },
+ {
+  "label": "MAP:MD-USA06Warning03",
+  "text": "WARNUNG: \n Start in 4 Minuten"
+ },
+ {
+  "label": "MAP:MD-USA06Warning04",
+  "text": "WARNUNG: \n Start in 3 Minuten"
+ },
+ {
+  "label": "MAP:MD-USA06Warning05",
+  "text": "WARNUNG: \n Start in 2 Minuten"
+ },
+ {
+  "label": "MAP:MD-USA06Warning06",
+  "text": "WARNUNG: \n Start in 1 Minute"
+ },
+ {
+  "label": "MAP:MD-USA06Warning07",
+  "text": "WARNUNG: \n Start in 30 Sekunden"
+ },
+ {
+  "label": "MAP:MD-USA06Warning08",
+  "text": "WARNUNG: \n Start in 10 Sekunden"
+ },
+ {
+  "label": "MAP:MD-USA06Warning09",
+  "text": "WARNUNG: \n 5 ... 4 ... 3 ... 2 ... 1 ... Start registriert"
+ },
+ {
+  "label": "MAP:MD-USA06Failure01",
+  "text": "WARNUNG: \n Einschlag registriert. Sie haben versagt, General"
+ },
+ {
+  "label": "MAP:MD-USA06Imperative01",
+  "text": "WARNUNG: \n Zerstören Sie dieses Gebäude nicht. Nehmen Sie es mit Rangern ein"
+ },
+ {
+  "label": "SCRIPT:MD-USA06MissileTimer",
+  "text": "Start der Toxinrakete in:"
+ },
+ {
+  "label": "MAP:MD-USA06Warning10",
+  "text": "WARNUNG: \n Start in 10 Minuten"
+ },
+ {
+  "label": "MAP:MD-USA06Warning11",
+  "text": "WARNUNG: \n Start in 15 Minuten"
+ },
+ {
+  "label": "MAP:MD-USA06Intro1",
+  "text": "Erdumlaufbahn: \n US-Spionagesatellit, Codename: Powers"
+ },
+ {
+  "label": "MAP:MD-USA06Intro2",
+  "text": "Datenverbindung: \n Toxinanlagen von Dr. Thrax"
+ },
+ {
+  "label": "MAP:MD-USA06Warning15",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n General, die GBA-Basis im Osten hat \n beschlossen, sich gegen den Toxingeneral und \n seinen massiven Einsatz von Toxinen aufzulehnen"
+ },
+ {
+  "label": "MAP:MD-USA06Warning16",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Sie wollen uns beim Angriff auf \n den General helfen und stellen uns ihre Basis zur Verfügung"
+ },
+ {
+  "label": "MAP:MD_GLA01Objective6",
+  "text": "TIPP: Dringen Sie mit Kampfmotorrädern aus einer anderen Richtung in die US-Basis ein"
+ },
+ {
+  "label": "MAP:MD_GLA01Message01",
+  "text": "WARNUNG: US-Feuerbasis entdeckt"
+ },
+ {
+  "label": "MAP:MD_GLA01Message02",
+  "text": "WARNUNG: Wachdrohnen entdeckt"
+ },
+ {
+  "label": "MAP:MD_GLA01Message03",
+  "text": "TIPP: \n Rüsten Sie GBA-Einheiten auf, indem Sie sie über Schrottkisten fahren"
+ },
+ {
+  "label": "OBJECT:GLALeader",
+  "text": "GBA-Anführer"
+ },
+ {
+  "label": "MAP:Intro_Title",
+  "text": "Al Safir, Syrien \n 'Der Exodus'"
+ },
+ {
+  "label": "MAP:Intro_Title2",
+  "text": "Halib, Sudan \n 'Die große Flucht'"
+ },
+ {
+  "label": "MAP:Intro_Loc",
+  "text": "Außerhalb der Stadt ..."
+ },
+ {
+  "label": "MAP:Intro_MO_1",
+  "text": "MISSIONSZIEL Nr. 1: \n Finden Sie die verlassene GBA-Basis"
+ },
+ {
+  "label": "MAP:Intro_MO_2",
+  "text": "MISSIONSZIEL Nr. 2: \n Bringen Sie unseren Anführer sicher zur Landebahn"
+ },
+ {
+  "label": "MAP:Intro_MO_2b",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Bringen Sie den GBA-Anführer zur Landebahn im Nordwesten"
+ },
+ {
+  "label": "MAP:Intro_MO_1a",
+  "text": "MISSIONSZIEL: \n Eskortieren Sie den GBA-Anführer zur Landebahn \n Der GBA-Anführer muss überleben"
+ },
+ {
+  "label": "MAP:Intro_MO_2a",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n In dieser Region gibt es eine verlassene GBA-Basis. Holen Sie sie sich zurück"
+ },
+ {
+  "label": "MDGLA02:TITLE",
+  "text": "Irgendwo bei Kairo, Ägypten \n 'Versteckte Absichten'"
+ },
+ {
+  "label": "MDGLA02:Hint1",
+  "text": "WARNUNG: \n Prinz Kassads Truppen sind getarnt"
+ },
+ {
+  "label": "MDGLA02:Hint2",
+  "text": "TIPP: \n Radarwagen, Tunnelnetze und \n Stinger-Stellungen decken getarnte Einheiten auf"
+ },
+ {
+  "label": "MDGLA02:Hint3",
+  "text": "TIPP: \n Weitere Vorräte befinden sich im Südwesten"
+ },
+ {
+  "label": "MDGLA02:OBJ1",
+  "text": "\n MISSIONSZIEL Nr. 1: \n Nehmen Sie die Kommandozentrale in der Stadt ein"
+ },
+ {
+  "label": "MDGLA02:OBJ2",
+  "text": "\n MISSIONSZIEL Nr. 2: \n Nehmen Sie die Kommandozentrale jenseits des Flusses ein"
+ },
+ {
+  "label": "MDGLA02:Expansion_2",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Möglicher Standort für eine Erweiterung entdeckt"
+ },
+ {
+  "label": "MDGLA02:Oil_Well",
+  "text": "TIPP: \n Nehmen Sie Ölquellen ein, um ein stetiges Einkommen zu sichern"
+ },
+ {
+  "label": "MDGLA02:Bridge",
+  "text": "TIPP: \n Mit dem GPS-Störsender lässt sich diese Brücke leichter überqueren"
+ },
+ {
+  "label": "MDGLA02:Damage_warn",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Schützen Sie die Kommandozentrale"
+ },
+ {
+  "label": "MDGLA02:Capture_CC_scram",
+  "text": "TIPP: \n Nehmen Sie die Kommandozentrale ein, um den GPS-Störsender zu erhalten"
+ },
+ {
+  "label": "MDGLA02:Scram_captured",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n GPS-Störsender erhalten \n Setzen Sie ihn auf Ihre Truppen ein, um sie zu tarnen"
+ },
+ {
+  "label": "MDGLA02:Capture_CC_sneak",
+  "text": "TIPP: \n Nehmen Sie diese Kommandozentrale ein, um den Überraschungsangriff zu erhalten"
+ },
+ {
+  "label": "MDGLA02:Sneak_captured",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Überraschungsangriff erhalten \n Errichten Sie damit überall, wo Sie sehen können, ein Tunnelnetz"
+ },
+ {
+  "label": "MDGLA02:Final",
+  "text": "MISSIONSZIEL Nr. 3: \n Zerstören oder erobern Sie Kassads Haupt-Kommandozentrale"
+ },
+ {
+  "label": "MDGLA03:Title-01",
+  "text": "US-Mittelmeerflotte, Matala, Kreta \n 'Die Faust im Nacken'"
+ },
+ {
+  "label": "MDGLA03:InfoMissionObjective01",
+  "text": "MISSIONSZIEL Nr. 1: \n Nehmen Sie die US-Partikelkanone im Osten ein"
+ },
+ {
+  "label": "MDGLA03:Info-MissionObjectiveAccomplished-01",
+  "text": "MISSIONSZIEL Nr. 1: \n Erfüllt"
+ },
+ {
+  "label": "MDGLA03:Info-MissionObjective-02",
+  "text": "MISSIONSZIEL Nr. 2: \n Nehmen Sie die US-Kraftwerke ein"
+ },
+ {
+  "label": "MDGLA03:Info-MissionObjectiveAccomplished-02",
+  "text": "MISSIONSZIEL Nr. 2: \n Erfüllt"
+ },
+ {
+  "label": "MDGLA03:Info-MissionObjective-03",
+  "text": "MISSIONSZIEL Nr. 3: \n Finden Sie den Flugzeugträger im Südosten"
+ },
+ {
+  "label": "MDGLA03:Info-GotParticleCannon-01",
+  "text": "TIPP: \n Jetzt müssen wir einige Kraftwerke sichern \n Über das Tunnelnetz erreichen wir die nächste Insel"
+ },
+ {
+  "label": "MDGLA03:Info-SneakAttack-01",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Errichten Sie mit dem Überraschungsangriff Tunnelnetze auf nahen Inseln"
+ },
+ {
+  "label": "MDGLA03:Info-GotPowerPlants-01",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Die Partikelkanone ist jetzt einsatzbereit \n Wir müssen sie und unsere Kraftwerke verteidigen"
+ },
+ {
+  "label": "MDGLA03:Info-Goodies-01",
+  "text": "TIPP: \n Erkunden Sie die Inseln, um Schrottkisten und Fahrzeuge zu finden"
+ },
+ {
+  "label": "MDGLA03:Lose-NoUnitsOrStructures-01",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Alle Ihre Einheiten und Gebäude wurden vernichtet \n Sie sind besiegt, General. Diesmal"
+ },
+ {
+  "label": "MDGLA03:Lose-ParticleCannonDestroyed-01",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Ohne die Partikelkanone können Sie den Träger nicht zerstören \n Sie sind besiegt, General. Diesmal"
+ },
+ {
+  "label": "MDGLA03:Lose-PowerPlantsDestroyed-01",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Alle Kraftwerke wurden zerstört \n Sie sind besiegt, General. Diesmal"
+ },
+ {
+  "label": "MDGLA03:Help-UseParticleCannon-01",
+  "text": "WARNUNG: \n Dieses Gebiet wirkt gut verteidigt \n Die Partikelkanone könnte uns beim Durchbruch helfen"
+ },
+ {
+  "label": "MDGLA03:Help-A10Warning-01",
+  "text": "WARNUNG: \n A10 sind gegen uns im Anflug"
+ },
+ {
+  "label": "MDGLA03:Help-LeaveISLAND-01",
+  "text": "TIPP: \n Mit Überraschungsangriff oder unseren Tunnelnetzen \n erreichen wir eine nahe Insel"
+ },
+ {
+  "label": "MDGLA03:Help-LeaveISLAND-02",
+  "text": "TIPP: \n Wenn wir ein Gebiet auf einer nahen Insel auskundschaften, \n können wir dort unseren Überraschungsangriff einsetzen"
+ },
+ {
+  "label": "MDGLA03:Info-DisabledSupplyDropZones-01",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Wir haben die Versorgungsabwurfzonen des Feindes ausgeschaltet \n Bald kann er keine neuen Einheiten mehr bauen"
+ },
+ {
+  "label": "MDGLA03:Help-FoundSupplyPlanes-01",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Zerstören Sie die Versorgungsabwurfzonen der USA, um ihre Produktion lahmzulegen"
+ },
+ {
+  "label": "MDGLA03:Help-FewPowerPlants-02",
+  "text": "WARNUNG: \n Fast alle Kraftwerke wurden zerstört \n Sichern Sie unbedingt eines, um die Partikelkanone abzufeuern"
+ },
+ {
+  "label": "MDGLA03:Help-AttackingParticleCannon-01",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Wir brauchen diese Partikelkanone, um den Träger zu zerstören \n Lassen Sie nicht zu, dass sie zerstört wird"
+ },
+ {
+  "label": "MDGLA03:Help-FindParticleCannon-01",
+  "text": "TIPP: \n Nehmen Sie die Partikelkanone ein"
+ },
+ {
+  "label": "MDGLA03:Help-LostIsland-01",
+  "text": "TIPP: \n Sie haben unser Tunnelnetz zerstört \n Kehren Sie mit dem Überraschungsangriff auf diese Insel zurück"
+ },
+ {
+  "label": "MDGLA03:Help-ArmsDealer-01",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Befreien Sie den Waffenhändler auf der Westseite dieser Insel"
+ },
+ {
+  "label": "MDGLA03:Help-JarmenKell-01",
+  "text": "TIPP: \n Mit seinem Präzisionsschuss kann Jarmen Kell feindliche \n Fahrzeuge neutralisieren, sodass unsere Infanterie sie einnehmen kann"
+ },
+ {
+  "label": "MAP:MD_GLA03_CINELocation01",
+  "text": "USS Reagan"
+ },
+ {
+  "label": "MAP:MD_GLA04Objective1",
+  "text": "MISSIONSZIEL: \n Team 1: Fahren Sie mit der Fähre zum Strand"
+ },
+ {
+  "label": "MAP:MD_GLA04Objective2",
+  "text": "MISSIONSZIEL: \n Team 2: Besorgen Sie einen Radarwagen"
+ },
+ {
+  "label": "MAP:MD_GLA04Objective3",
+  "text": "MISSIONSZIEL: \n Team 2: Besetzen Sie die Ventilstation"
+ },
+ {
+  "label": "MAP:MD_GLA04Objective4",
+  "text": "MISSIONSZIEL: \n Team 1: Zerstören Sie das Flugfeld"
+ },
+ {
+  "label": "MAP:MD_GLA04Objective5",
+  "text": "MISSIONSZIEL: \n Team 2: Zerstören Sie die Kraftwerke"
+ },
+ {
+  "label": "MAP:MD_GLA04Objective6",
+  "text": "MISSIONSZIEL: \n Nehmen Sie die Toxinanlage ein"
+ },
+ {
+  "label": "MAP:MD_GLA04Objective7",
+  "text": "MISSIONSZIEL: \n Bringen Sie die Toxine zum Flughafen"
+ },
+ {
+  "label": "SCRIPT:MD_GLA04Toxin_Counter",
+  "text": "Verbleibende Toxine:"
+ },
+ {
+  "label": "MAP:MD_GLA04Title",
+  "text": "Toxinanlage an der US-Westküste \n 'Jarmen Kell und die vierzig Räuber'"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_2",
+  "text": "MISSIONSZIEL: \n Zerstören Sie das Europa-Zentralkommando der USA im Nordosten"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_3",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Retten Sie die Kriegsgefangenen und bringen Sie sie hierher \n Die Terrorzelle wird erwachen und Ihnen gegen die USA helfen"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_4",
+  "text": "TIPP: \n Bringen Sie die Kriegsgefangenen in ihr Dorf \n im Norden, dann helfen sie uns"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_5",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Beseitigen Sie die amerikanische Bedrohung, um \n die Kriegsgefangenen aus der Gewalt ihrer Wächter zu befreien"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_6",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Wir sind bereit, in unser Dorf im Norden zurückzukehren"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_7",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Sie haben die Kriegsgefangenen gerettet und heimgebracht \n Die Terrorzelle wird aktiv und greift die USA an"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_8",
+  "text": "TIPP: \n Nehmen Sie die restlichen US-Gebäude ein \n und errichten Sie hier eine zweite Basis"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_9",
+  "text": "WARNUNG: \n Die Zeit läuft ab. Retten Sie die Kriegsgefangenen"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_10",
+  "text": "WARNUNG: \n Wir müssen die südliche Unterstützungsbasis \n des Feindes vernichten, bevor sie zu stark wird"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_11",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Die Terrorzelle wurde ausgelöscht \n Ihr Tod darf nicht ungesühnt bleiben"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_12",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Wir haben den Feind geschlagen. Der Sieg ist unser"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_13",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Der Feind hält unsere Brüder gefangen \n Befreien Sie sie, dann helfen sie uns gegen die USA"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_14",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Laut Geheimdienst werden die Kriegsgefangenen bald verlegt \n Dringen Sie in die US-Basis ein, um sie zu retten"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_15",
+  "text": "TIPP: \n Rüsten Sie die chinesische Kommandozentrale mit Radar auf"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_16",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Schützen Sie die GBA-Terrorzelle vor US-Angriffen \n und sichern Sie das Gebiet"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_17",
+  "text": "TIPP: \n Bauen Sie eine GBA-Kommandozentrale, um Ihre Generalsfähigkeiten einzusetzen"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_18",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Unsere Basis wird angegriffen"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_19",
+  "text": "WARNUNG: \n Die Kriegsgefangenen werden angegriffen. Verteidigen Sie sie"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_20",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Alle Kriegsgefangenen wurden getötet \n Die Terrorzelle schließt sich uns an, um ihren Tod zu rächen"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_21",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Der Feind hat sich verteilt, um mehr Ressourcen zu sichern \n Vertreiben Sie ihn und nutzen Sie die Ressourcen selbst"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_22",
+  "text": "TIPP: \n Ihre Basis ist riesig \n Vielleicht helfen uns Überraschungsangriffe beim Eindringen"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_23",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Da die kleine Basis ausgeschaltet ist, können wir uns auf \n das Europa-Zentralkommando der USA konzentrieren"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_24",
+  "text": "\n Wir haben einen Plan ... \n Wir rücken vor, nehmen die chinesische Basis ein \n und vertreiben mit ihr die USA aus Europa"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_25",
+  "text": "Das Europa-Zentralkommando der USA muss fallen"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_26",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Wir werden aus dem Osten angegriffen \n Vernichten Sie die südliche US-Unterstützungsbasis"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_27",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Die Terrorzelle wird von den USA angegriffen \n Helfen Sie ihr, unsere Feinde zurückzuschlagen"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_28",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Retten Sie die Kriegsgefangenen aus der US-Unterstützungsbasis, bevor \n sie an einen neuen Ort verlegt werden"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_29",
+  "text": "MISSIONSZIEL: \n Zerstören Sie das Europa-Zentralkommando der USA im Nordosten"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_30",
+  "text": "US-Zentralkommando, Stuttgart-Vaihingen, Deutschland \n 'Überraschungsangriff'"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_31",
+  "text": "US-Zentralkommando, Stuttgart-Vaihingen, Deutschland \n 'Überraschungsangriff'"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_32",
+  "text": "TIPP: Vertreiben Sie die Amerikaner aus dem Gebiet \n und sichern Sie dann die Vorräte"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_33",
+  "text": "TIPP: \n Erledigen Sie die Zentralkommando-Basis endgültig"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_34",
+  "text": "TIPP: \n Nehmen Sie Bohrtürme ein und sichern Sie zusätzliche Vorräte \n Nehmen Sie Artillerieplattformen ein, um Schlüsselgebiete zu kontrollieren"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_35",
+  "text": "TIPP: \n Rüsten Sie die Generalsfähigkeit \n Kopfgeld auf, um das Einkommen zu erhöhen"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_36",
+  "text": "TIPP: \n Starten Sie mit dem Überraschungsangriff \n einen Angriff auf die US-Basis"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_37",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Die Kriegsgefangenen wurden weggebracht \n Trotz unseres Scheiterns sagt uns die Terrorzelle ihre Unterstützung zu"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_38",
+  "text": "US-Zentralkommando, Stuttgart-Vaihingen, Deutschland \n 'Überraschungsangriff'"
+ },
+ {
+  "label": "SCRIPT:POWCOUNTDOWN",
+  "text": "Verlegung der Kriegsgefangenen in:"
+ },
+ {
+  "label": "MAP:CHI01xMapName",
+  "text": "Der entfesselte Drache"
+ },
+ {
+  "label": "MAP:CHI01xOpen",
+  "text": "Stuttgart-Vaihingen, Deutschland \n 'Der entfesselte Drache'"
+ },
+ {
+  "label": "MAP:CHI01xOpenAlt",
+  "text": "Überreste der US-Kommandobasis, Deutschland \n Der entfesselte Drache"
+ },
+ {
+  "label": "MAP:CHI01xObjective01",
+  "text": "MISSIONSZIEL: \n Vernichten Sie alle GBA-Streitkräfte in dieser Region"
+ },
+ {
+  "label": "MAP:CHI01xObjective01Alt",
+  "text": "MISSIONSZIEL: \n Vernichten Sie alle GBA-Gebäude in dieser Region"
+ },
+ {
+  "label": "MAP:CHI01xTechBldgHint",
+  "text": "TIPP: \n Mit Rotgardisten können Sie Gebäude einnehmen"
+ },
+ {
+  "label": "MAP:CHI01xOilDerrickHint",
+  "text": "TIPP: \n Nehmen Sie Bohrtürme ein, um zusätzliches Geld zu erhalten"
+ },
+ {
+  "label": "MAP:CHI01xOilRefineryHint",
+  "text": "TIPP: \n Nehmen Sie die Ölraffinerien ein, um Fahrzeuge zu verbilligen"
+ },
+ {
+  "label": "MAP:CHI01xGarrisonHint",
+  "text": "TIPP: \n In Gebäuden verschanzte Rotgardisten und Panzerjäger \n haben mehr Feuerkraft und Reichweite"
+ },
+ {
+  "label": "MAP:CHI01xGarrisonClrHint01",
+  "text": "TIPP: \n Der Toxin-Traktor tötet verschanzte Infanterie sofort \n Lassen Sie ihn nicht an Ihre besetzten Gebäude heran"
+ },
+ {
+  "label": "MAP:CHI01xGarrisonClrHint02",
+  "text": "TIPP: \n Der Drache-Panzer tötet Infanterie in besetzten Gebäuden"
+ },
+ {
+  "label": "MAP:CHI01xPerimeterWarn01",
+  "text": "WARNUNG: \n GBA-Truppen greifen unsere Basis an"
+ },
+ {
+  "label": "MAP:CHI01xPerimeterWarn02",
+  "text": "WARNUNG: \n Der Feind bereitet einen Angriff auf unsere Basis vor"
+ },
+ {
+  "label": "MAP:CHI02xMapName",
+  "text": "Verteidigung des Feuers"
+ },
+ {
+  "label": "MAP:CHI02xOpen",
+  "text": "Waffenproduktionsanlage, China \n 'Verteidigung des Feuers'"
+ },
+ {
+  "label": "SCRIPT:CHI02xReinforcementTimer",
+  "text": "Verstärkung trifft ein in:"
+ },
+ {
+  "label": "MAP:CHI02xObjective01",
+  "text": "MISSIONSZIEL Nr. 1: \n Verteidigen Sie den Reaktor und die Lagerbunker \n Sie dürfen weder eingenommen noch zerstört werden"
+ },
+ {
+  "label": "MAP:CHI02xObjective02",
+  "text": "MISSIONSZIEL Nr. 2: \n Vernichten Sie alle GBA-Streitkräfte in der Region"
+ },
+ {
+  "label": "MAP:CHI02xObjective02Alt",
+  "text": "MISSIONSZIEL Nr. 2: \n Vernichten Sie alle GBA-Gebäude in der Region"
+ },
+ {
+  "label": "MAP:CHI02xReactorKIAWarn",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Schützen Sie den Atomreaktor"
+ },
+ {
+  "label": "MAP:CHI02xReactorCaptureWarn",
+  "text": "WARNUNG: \n Lassen Sie nicht zu, dass der Feind \n den Atomreaktor und beide Bunker einnimmt"
+ },
+ {
+  "label": "MAP:CHI02xBunkerKIAWarn",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Schützen Sie die Lagerbunker"
+ },
+ {
+  "label": "MAP:CHI02xBadPlayerReactorWarn",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Wir brauchen diesen Atomreaktor \n Lassen Sie nicht zu, dass er zerstört wird"
+ },
+ {
+  "label": "MAP:CHI02xBadPlayerBunkerWarn",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Wir brauchen diese Lagerbunker \n Lassen Sie nicht zu, dass sie zerstört werden"
+ },
+ {
+  "label": "MAP:CHI02xSpyPostHint01",
+  "text": "TIPP: \n Nehmen Sie den Spähposten ein, um Flächenbomber anzufordern"
+ },
+ {
+  "label": "MAP:CHI02xPerimeterWarn",
+  "text": "WARNUNG: \n Feindliche Truppen bereiten einen Angriff vor"
+ },
+ {
+  "label": "MAP:CHI02xPerimeterEasyWarn",
+  "text": "WARNUNG: \n Feindliche Truppen bereiten einen Angriff vor"
+ },
+ {
+  "label": "MAP:CHI02xNeutronHint01",
+  "text": "TIPP: \n Töten Sie mit Neutronengranaten der Atomkanonen \n Infanterie und neutralisieren Sie feindliche Fahrzeuge"
+ },
+ {
+  "label": "MAP:CHI02xNeutronHint02",
+  "text": "TIPP: \n Ihre Infanterie kann jedes neutralisierte Fahrzeug besteigen und steuern"
+ },
+ {
+  "label": "MAP:CHI02xEMPMineHint01",
+  "text": "TIPP: \n Rüsten Sie unsere Gebäude mit Neutronenminen aus, um Fahrzeuge lahmzulegen \n Dann können Neutronengranaten sie neutralisieren"
+ },
+ {
+  "label": "MAP:CHI02xCarpetBombReminder",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Flächenbomber sind bereit"
+ },
+ {
+  "label": "MAP:CHI02xInfo1",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Verstärkung trifft in 10 Minuten ein"
+ },
+ {
+  "label": "MAP:CHI02xInfo2",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Verstärkung trifft in 5 Minuten ein"
+ },
+ {
+  "label": "SCRIPT:CHI02timer",
+  "text": "Verstärkung trifft ein in:"
+ },
+ {
+  "label": "MAP:MD_CHI03-Event-AngryMob-01",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Das Volk erhebt sich, um uns zu dienen"
+ },
+ {
+  "label": "MAP:MD_CHI03-Help-IOLow-01",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Unser internationales Ansehen sinkt \n Zerstören Sie weitere GBA-Statuen"
+ },
+ {
+  "label": "MAP:MD_CHI03-Help-IOVeryLow-01",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Unser internationales Ansehen ist sehr gering \n Zerstören Sie die GBA-Statuen in der ganzen Stadt"
+ },
+ {
+  "label": "MAP:MD_CHI03-Help-IOExtremelyLow-01",
+  "text": "TIPP: \n Unser internationales Ansehen ist kritisch gering \n Zerstören Sie eine weitere GBA-Statue, sonst ist alles verloren"
+ },
+ {
+  "label": "SCRIPT:MD_CHI03InternationalOpinion",
+  "text": "Internationales Ansehen:"
+ },
+ {
+  "label": "MAP:MD_CHI04Open",
+  "text": "Halberstadt, Deutschland \n 'Brennender Himmel'"
+ },
+ {
+  "label": "MAP:MD_CHI04MissionState0",
+  "text": "MISSIONSZIEL: \n Vernichten Sie alle Wellen der fliehenden GBA-Streitkräfte"
+ },
+ {
+  "label": "MAP:MD_CHI04MissionState1",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Welle 1 wurde besiegt"
+ },
+ {
+  "label": "MAP:MD_CHI04MissionState2",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Welle 2 wurde besiegt"
+ },
+ {
+  "label": "MAP:MD_CHI04MissionState3",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Welle 3 wurde besiegt"
+ },
+ {
+  "label": "MAP:MD_CHI04MissionState4",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Welle 4 wurde besiegt"
+ },
+ {
+  "label": "MAP:MD_CHI04MissionState5",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Welle 5 wurde besiegt"
+ },
+ {
+  "label": "MAP:MD_CHI04MissionState6",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Welle 6 wurde besiegt"
+ },
+ {
+  "label": "MAP:MD_CHI04MissionInfo1",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Welle 1 ist in die Region eingedrungen \n Ihr Weg wird auf dem Radar angezeigt"
+ },
+ {
+  "label": "MAP:MD_CHI04MissionInfo2",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Welle 2 ist in die Region eingedrungen \n Ihr Weg wird auf dem Radar angezeigt"
+ },
+ {
+  "label": "MAP:MD_CHI04MissionInfo3",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Welle 3 ist in die Region eingedrungen \n Ihr Weg wird auf dem Radar angezeigt"
+ },
+ {
+  "label": "MAP:MD_CHI04MissionInfo4",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Welle 4 ist in die Region eingedrungen \n Ihr Weg wird auf dem Radar angezeigt"
+ },
+ {
+  "label": "MAP:MD_CHI04MissionInfo5",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Welle 5 ist in die Region eingedrungen \n Ihr Weg wird auf dem Radar angezeigt"
+ },
+ {
+  "label": "MAP:MD_CHI04MissionInfo6",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Unser Geheimdienst wird gestört. Neue Wellen kommen \n aus 2 Richtungen, ihr Standort ist unbekannt"
+ },
+ {
+  "label": "MAP:MD_CHI04MissionFinaleText",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Unsere Truppen sind aus dem Süden eingetroffen \n Ihre Mission ist erfüllt"
+ },
+ {
+  "label": "MAP:MD_CHI04MissionLoseText",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Die GBA-Truppen sind nach Norden entkommen \n Sie sind besiegt, General. Diesmal"
+ },
+ {
+  "label": "MAP:MD-CHI05_LOCALE",
+  "text": "Bei Hamburg, Deutschland \n 'Das Schicksal des Drachen'"
+ },
+ {
+  "label": "MAP:MD-CHI05_USBaseDestroyedFirst",
+  "text": "MISSIONSZIEL: \n Zerstören Sie die GBA-Basis, um den Sieg zu erringen"
+ },
+ {
+  "label": "MAP:MD-CHI05_GLABaseDestroyedFirst",
+  "text": "MISSIONSZIEL: \n Zerstören Sie die US-Basis, um den Sieg zu erringen"
+ }
+]
