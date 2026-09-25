@@ -186,6 +186,17 @@ class GameTextManager : public GameTextInterface
 		StringLookUp		*m_mapStringLUT;
 		Int							m_mapTextCount;
 
+		// GeneralsX @feature Android port 24/09/2026 data/<language>/generalsx.str and
+		// data/english/generalsx.str -- see s_gxPortStringFile.
+		StringInfo			*m_portStringInfo;
+		StringLookUp		*m_portStringLUT;
+		Int							m_portTextCount;
+		StringInfo			*m_portEnglishStringInfo;
+		StringLookUp		*m_portEnglishStringLUT;
+		Int							m_portEnglishTextCount;
+		void						loadPortStringFile( const char *language, StringInfo *&info, StringLookUp *&lut, Int &count );
+		void						freePortStringFile( StringInfo *&info, StringLookUp *&lut, Int &count );
+
 		/// m_asciiStringVec will be altered every time that getStringsWithLabelPrefix is called,
 		/// so don't simply store a pointer to it.
 		AsciiStringVec			m_asciiStringVec;
@@ -199,7 +210,7 @@ class GameTextManager : public GameTextInterface
 		Bool						getCSFInfo ( const Char *filename, Int& textCount, LanguageID& language, FileInstance instance = 0 );
 		Bool						parseCSF(  const Char *filename, StringInfo *stringInfo, Int textCount, Int& maxLabelLen, FileInstance instance = 0 );
 		Bool						parseStringFile( const char *filename );
-		Bool						parseMapStringFile( const char *filename );
+		Bool						parseMapStringFile( const char *filename, StringInfo *stringInfo );
 		Bool						readLine( char *buffer, Int max, File *file );
 		Char						readChar( File *file );
 };
@@ -215,16 +226,19 @@ static int __cdecl			compareLUT ( const void *,  const void*);
 //   - the Steam release's patch archives: PatchWindow.big adds a "Custom Mission" button
 //     labelled GUI:CustomMission and a menu whose start button is GUI:StartCustomMission,
 //     and the only text for them is PatchData.big's Data\Patch.str -- English, and read by
-//     nothing but the executable that shipped with it. On any other language the player
-//     saw "MISSING: 'GUI:CustomMission'";
+//     nothing but the executable that shipped with it;
 //   - buttons this port adds itself (the touch force-attack button, issue #25).
 //
-// Consulted only after every loaded table has missed, so a language pack that does carry
-// one of these labels always wins. Where the game already says the same thing under
-// another label, the label is aliased to it instead of translated again here: that text
-// exists in every language the game ships in, and in every pack made for it.
-static AsciiString s_gxTextLanguage;
-
+// Their text lives where every other translation in this project lives, as plain files a
+// translator can edit and send as a pull request: languages/<language>/generalsx.str
+// (see languages/README.md), shipped in the APK and installed as
+// data/<language>/generalsx.str next to the game's own text. They are read after every
+// table the game loads, so a full language pack that carries one of these labels still
+// wins, and data/english/generalsx.str answers for a language nobody has translated yet.
+//
+// One label is not given text at all: the patch's "START GAME" is the skirmish menu's
+// own "PLAY GAME", which already exists in every language the game ships in and in every
+// pack made for it. Pointing at it is better than translating it a second time.
 struct GXLabelAlias
 {
 	const char *label;
@@ -233,72 +247,10 @@ struct GXLabelAlias
 
 static const GXLabelAlias s_gxLabelAliases[] =
 {
-	// The patch's "START GAME" on its map-select screen is the skirmish menu's "PLAY GAME".
 	{ "GUI:StartCustomMission", "GUI:StartGame" },
 };
 
-struct GXBuiltinString
-{
-	const char *label;
-	const char *language;		// the engine's text-language token, as GENERALSX_TEXT_LANGUAGE carries it
-	const wchar_t *text;
-};
-
-static const GXBuiltinString s_gxBuiltinStrings[] =
-{
-	{ "GUI:CustomMission", "english",   L"CUSTOM MISSION" },
-	{ "GUI:CustomMission", "german",    L"EIGENE MISSION" },
-	{ "GUI:CustomMission", "french",    L"MISSION PERSONNALISÉE" },
-	{ "GUI:CustomMission", "spanish",   L"MISIÓN PERSONALIZADA" },
-	{ "GUI:CustomMission", "italian",   L"MISSIONE PERSONALIZZATA" },
-	{ "GUI:CustomMission", "polish",    L"WŁASNA MISJA" },
-	{ "GUI:CustomMission", "brazilian", L"MISSÃO PERSONALIZADA" },
-	{ "GUI:CustomMission", "russian",   L"СВОЯ МИССИЯ" },
-	{ "GUI:CustomMission", "ukrainian", L"ВЛАСНА МІСІЯ" },
-	{ "GUI:CustomMission", "korean",    L"사용자 지정 임무" },
-	{ "GUI:CustomMission", "chinese",   L"自定义任务" },
-
-	{ "GX:ForceAttack", "english",   L"Force Attack" },
-	{ "GX:ForceAttack", "german",    L"Angriff erzwingen" },
-	{ "GX:ForceAttack", "french",    L"Attaque forcée" },
-	{ "GX:ForceAttack", "spanish",   L"Ataque forzado" },
-	{ "GX:ForceAttack", "italian",   L"Attacco forzato" },
-	{ "GX:ForceAttack", "polish",    L"Wymuszony atak" },
-	{ "GX:ForceAttack", "brazilian", L"Ataque forçado" },
-	{ "GX:ForceAttack", "russian",   L"Принудительная атака" },
-	{ "GX:ForceAttack", "ukrainian", L"Примусова атака" },
-	{ "GX:ForceAttack", "korean",    L"강제 공격" },
-	{ "GX:ForceAttack", "chinese",   L"强制攻击" },
-
-	{ "GX:ToolTipForceAttack", "english",   L"Attack the next target you tap, even your own units or empty ground" },
-	{ "GX:ToolTipForceAttack", "german",    L"Das nächste angetippte Ziel angreifen, auch eigene Einheiten oder leeren Boden" },
-	{ "GX:ToolTipForceAttack", "french",    L"Attaquer la prochaine cible touchée, même vos propres unités ou un sol vide" },
-	{ "GX:ToolTipForceAttack", "spanish",   L"Atacar el siguiente objetivo que toques, incluso tus propias unidades o el suelo vacío" },
-	{ "GX:ToolTipForceAttack", "italian",   L"Attacca il prossimo bersaglio toccato, anche le tue unità o il terreno vuoto" },
-	{ "GX:ToolTipForceAttack", "polish",    L"Zaatakuj następny dotknięty cel, nawet własne jednostki lub pusty teren" },
-	{ "GX:ToolTipForceAttack", "brazilian", L"Atacar o próximo alvo tocado, mesmo suas próprias unidades ou o chão vazio" },
-	{ "GX:ToolTipForceAttack", "russian",   L"Атаковать следующую цель, которой вы коснётесь, даже свои войска или пустую землю" },
-	{ "GX:ToolTipForceAttack", "ukrainian", L"Атакувати наступну ціль, якої ви торкнетеся, навіть свої війська чи порожню землю" },
-	{ "GX:ToolTipForceAttack", "korean",    L"다음에 터치한 대상을 공격합니다. 아군 유닛이나 빈 땅도 공격합니다" },
-	{ "GX:ToolTipForceAttack", "chinese",   L"攻击下一个点击的目标，即使是己方单位或空地" },
-};
-
-/// The built-in text for a label in the current text language, falling back to English.
-static const wchar_t *findGXBuiltinString( const char *label )
-{
-	const wchar_t *english = nullptr;
-	for( size_t i = 0; i < ARRAY_SIZE(s_gxBuiltinStrings); ++i )
-	{
-		const GXBuiltinString &entry = s_gxBuiltinStrings[i];
-		if( strcmp( entry.label, label ) != 0 )
-			continue;
-		if( s_gxTextLanguage.compareNoCase( entry.language ) == 0 )
-			return entry.text;
-		if( strcmp( entry.language, "english" ) == 0 )
-			english = entry.text;
-	}
-	return english;
-}
+static const char *const s_gxPortStringFile = "data/%s/generalsx.str";
 
 
 
@@ -357,6 +309,12 @@ GameTextManager::GameTextManager()
 #endif
 	m_mapStringInfo(nullptr),
 	m_mapStringLUT(nullptr),
+	m_portStringInfo(nullptr),
+	m_portStringLUT(nullptr),
+	m_portTextCount(0),
+	m_portEnglishStringInfo(nullptr),
+	m_portEnglishStringLUT(nullptr),
+	m_portEnglishTextCount(0),
 	m_failed(L"***FATAL*** String Manager failed to initialize properly")
 {
 	for(Int i=0; i < MAX_UITEXT_LENGTH; i++)
@@ -404,8 +362,6 @@ void GameTextManager::init()
 			: GetRegistryLanguage();
 	}
 
-	s_gxTextLanguage = textLanguage;
-
 	AsciiString csfFile;
 	csfFile.format(g_csfFile, textLanguage.str());
 
@@ -436,6 +392,13 @@ void GameTextManager::init()
 	m_initialized = TRUE;
 
 	m_maxLabelLen = 0;
+
+	// GeneralsX @feature Android port 24/09/2026 The port's own strings (s_gxPortStringFile).
+	// Loaded first and independently of the game's table: they are consulted only after it,
+	// so the order of loading does not matter, and a failure below must not take them along.
+	loadPortStringFile( textLanguage.str(), m_portStringInfo, m_portStringLUT, m_portTextCount );
+	if( textLanguage.compareNoCase( "english" ) != 0 )
+		loadPortStringFile( "english", m_portEnglishStringInfo, m_portEnglishStringLUT, m_portEnglishTextCount );
 #if defined(RTS_DEBUG)
 	if(TheGlobalData)
 	{
@@ -585,6 +548,9 @@ void GameTextManager::deinit()
 
 	m_textCount = 0;
 	m_fallbackTextCount = 0;
+
+	freePortStringFile( m_portStringInfo, m_portStringLUT, m_portTextCount );
+	freePortStringFile( m_portEnglishStringInfo, m_portEnglishStringLUT, m_portEnglishTextCount );
 
 	NoString *noString = m_noStringList;
 
@@ -1446,7 +1412,7 @@ void GameTextManager::initMapStringFile( const AsciiString& filename )
 
 	m_mapStringInfo = NEW StringInfo[m_mapTextCount];
 
-	parseMapStringFile( filename.str() );
+	parseMapStringFile( filename.str(), m_mapStringInfo );
 
 	m_mapStringLUT = NEW StringLookUp[m_mapTextCount];
 
@@ -1465,10 +1431,65 @@ void GameTextManager::initMapStringFile( const AsciiString& filename )
 }
 
 //============================================================================
+// GameTextManager::loadPortStringFile
+//============================================================================
+
+void GameTextManager::loadPortStringFile( const char *language, StringInfo *&info, StringLookUp *&lut, Int &count )
+{
+	freePortStringFile( info, lut, count );
+
+	AsciiString filename;
+	filename.format( s_gxPortStringFile, language );
+
+	Int labels = 0;
+	if( !getStringCount( filename.str(), labels ) || labels <= 0 )
+		return;	// not installed for this language: fine, English or the label itself answers
+
+	info = NEW StringInfo[labels];
+	if( !parseMapStringFile( filename.str(), info ) )
+	{
+		fprintf( stderr, "[GameText] %s: parse failed, ignored\n", filename.str() );
+		delete [] info;
+		info = nullptr;
+		return;
+	}
+
+	// getStringCount() pads its answer by 500 for the map-string path; the parser fills
+	// entries from the front, so the real ones are the leading non-empty labels.
+	Int parsed = 0;
+	while( parsed < labels && info[parsed].label.isNotEmpty() )
+		++parsed;
+
+	lut = NEW StringLookUp[parsed > 0 ? parsed : 1];
+	for( Int i = 0; i < parsed; i++ )
+	{
+		lut[i].info = &info[i];
+		lut[i].label = &info[i].label;
+	}
+	qsort( lut, parsed, sizeof(StringLookUp), compareLUT );
+	count = parsed;
+	labels = parsed;
+	fprintf( stderr, "[GameText] %s: %d port strings\n", filename.str(), labels );
+}
+
+//============================================================================
+// GameTextManager::freePortStringFile
+//============================================================================
+
+void GameTextManager::freePortStringFile( StringInfo *&info, StringLookUp *&lut, Int &count )
+{
+	delete [] info;
+	info = nullptr;
+	delete [] lut;
+	lut = nullptr;
+	count = 0;
+}
+
+//============================================================================
 // GameTextManager::parseMapStringFile
 //============================================================================
 
-Bool GameTextManager::parseMapStringFile( const char *filename )
+Bool GameTextManager::parseMapStringFile( const char *filename, StringInfo *stringInfo )
 {
 	Int listCount = 0;
 	Int ok = TRUE;
@@ -1498,13 +1519,13 @@ Bool GameTextManager::parseMapStringFile( const char *filename )
 
 		for ( Int i = 0; i < listCount; i++ )
 		{
-			if ( stricmp ( m_mapStringInfo[i].label.str(), m_buffer ) == 0)
+			if ( stricmp ( stringInfo[i].label.str(), m_buffer ) == 0)
 			{
 				DEBUG_CRASH ( ("String label '%s' multiply defined!", m_buffer ));
 			}
 		}
 
-		m_mapStringInfo[listCount].label = m_buffer;
+		stringInfo[listCount].label = m_buffer;
 		len = strlen ( m_buffer );
 
 
@@ -1548,8 +1569,8 @@ Bool GameTextManager::parseMapStringFile( const char *filename )
 					if (TheLanguageFilter)
 						TheLanguageFilter->filterLine(text);
 
-					m_mapStringInfo[listCount].text = text;
-					m_mapStringInfo[listCount].speech = m_buffer3;
+					stringInfo[listCount].text = text;
+					stringInfo[listCount].speech = m_buffer3;
 					readString = TRUE;
 				}
 			}
@@ -1605,20 +1626,23 @@ UnicodeString GameTextManager::fetch( const Char *label, Bool *exists )
 		lookUp = (StringLookUp *) bsearch( &key, (void*) m_fallbackStringLUT, m_fallbackTextCount, sizeof(StringLookUp), compareLUT );
 	}
 
+	// GeneralsX @feature Android port 24/09/2026 The port's own strings, after everything the
+	// game loads (see s_gxPortStringFile): the text language first, then English.
+	if ( lookUp == nullptr && m_portStringLUT && m_portTextCount )
+	{
+		lookUp = (StringLookUp *) bsearch( &key, (void*) m_portStringLUT, m_portTextCount, sizeof(StringLookUp), compareLUT );
+	}
+	if ( lookUp == nullptr && m_portEnglishStringLUT && m_portEnglishTextCount )
+	{
+		lookUp = (StringLookUp *) bsearch( &key, (void*) m_portEnglishStringLUT, m_portEnglishTextCount, sizeof(StringLookUp), compareLUT );
+	}
+
 	if( lookUp == nullptr )
 	{
 		for( size_t i = 0; i < ARRAY_SIZE(s_gxLabelAliases); ++i )
 		{
 			if( strcmp( s_gxLabelAliases[i].label, label ) == 0 )
 				return fetch( s_gxLabelAliases[i].existingLabel, exists );
-		}
-
-		const wchar_t *builtin = findGXBuiltinString( label );
-		if( builtin != nullptr )
-		{
-			if( exists )
-				*exists = TRUE;
-			return UnicodeString( builtin );
 		}
 	}
 

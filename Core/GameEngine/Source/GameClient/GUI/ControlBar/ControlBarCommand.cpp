@@ -508,6 +508,37 @@ void ControlBar::populateCommand( Object *obj )
 }
 
 //-------------------------------------------------------------------------------------------------
+/** Can this object be given a force-attack order at all?
+
+	Not Object::isAbleToAttack() on its own: that answers "is anything stopping it from
+	attacking right now" and is TRUE for an object with no weapon whatsoever, which put the
+	button on a dozer (seen on a device, 24/09/2026). A real weapon is required -- on the
+	object, or on a passenger its container lets fire out (a garrisoned building, an Overlord
+	bunker, a Humvee with infantry in it). */
+//-------------------------------------------------------------------------------------------------
+static Bool canBeOrderedToForceAttack( const Object *obj )
+{
+	if( !obj->isAbleToAttack() )
+		return FALSE;
+	if( obj->hasAnyDamageWeapon() )
+		return TRUE;
+
+	const ContainModuleInterface *contain = obj->getContain();
+	if( contain == nullptr || contain->getContainCount() == 0 )
+		return FALSE;
+	const ContainedItemsList *passengers = contain->getContainedItemsList();
+	if( passengers == nullptr )
+		return FALSE;
+	for( ContainedItemsList::const_iterator it = passengers->begin(); it != passengers->end(); ++it )
+	{
+		const Object *passenger = *it;
+		if( passenger && passenger->hasAnyDamageWeapon() && contain->isPassengerAllowedToFire( passenger->getID() ) )
+			return TRUE;
+	}
+	return FALSE;
+}
+
+//-------------------------------------------------------------------------------------------------
 /** GeneralsX @feature Android port 24/09/2026 Put the touch force-attack and waypoint buttons
 	(see initTouchModeButtons) into free slots of the command bar that was just populated.
 
@@ -538,7 +569,7 @@ void ControlBar::addTouchModeButtons( const CommandSet *commandSet )
 		const Object *obj = (*it)->getObject();
 		if( obj == nullptr || !obj->isLocallyControlled() || obj->isKindOf( KINDOF_IGNORED_IN_GUI ) )
 			continue;
-		if( obj->isAbleToAttack() )
+		if( canBeOrderedToForceAttack( obj ) )
 			canAttack = TRUE;
 		if( obj->isMobile() && !obj->isKindOf( KINDOF_STRUCTURE ) )
 			canMove = TRUE;

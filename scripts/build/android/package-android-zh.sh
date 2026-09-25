@@ -226,6 +226,17 @@ fi
 rm -rf "${ASSETS}/fonts"
 cp -R "${STAGING}/fonts" "${ASSETS}/fonts"
 
+# The port's own strings, one plain-text file per language (languages/README.md).
+# Installed as data/<language>/generalsx.str next to the game's text; the engine
+# reads them after the game's own tables (GameText.cpp, s_gxPortStringFile).
+rm -rf "${ASSETS}/data"
+for f in "${PROJECT_ROOT}"/languages/*/generalsx.str; do
+    [[ -f "$f" ]] || continue
+    lang="$(basename "$(dirname "$f")")"
+    mkdir -p "${ASSETS}/data/${lang}"
+    cp "$f" "${ASSETS}/data/${lang}/generalsx.str"
+done
+
 # dxvk.conf — tuned translation-layer defaults (16x aniso, quiet logs).
 if [[ -f "${STAGING}/dxvk.conf" ]]; then
     cp "${STAGING}/dxvk.conf" "${ASSETS}/dxvk.conf"

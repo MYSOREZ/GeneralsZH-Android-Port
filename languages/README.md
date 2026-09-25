@@ -18,6 +18,22 @@ with `//` are comments. Escapes are `\n`, `\t`, `\"` and `\\`. Leave the label
 lines exactly as they are — the game looks strings up by label, so a changed
 label is a string the game can no longer find.
 
+## Two files per language: `generals.str` and `generalsx.str`
+
+- **`generals.str`** is a full language pack: the whole game's text. The launcher's
+  "Download language pack" button fetches every `languages/<language>/generals.str` on
+  `main`, and the game-text picker then offers each language found in the game folder.
+- **`generalsx.str`** holds only the few strings the GeneralsX port adds that the game never
+  had: the Steam release's "Custom Mission" button (`GUI:CustomMission`) and the touch
+  force-attack button (`GX:ForceAttack`, `GX:ToolTipForceAttack`). It is bundled in the APK
+  and installed as `data/<language>/generalsx.str` on every launch; the launcher does not
+  download it. A language without one shows `languages/english/generalsx.str`.
+
+The game looks a label up in the full pack first and in `generalsx.str` only after, so a
+translator who adds those labels to their `generals.str` gets them to players through the
+launcher right away, without waiting for a new APK. A folder with only `generalsx.str` is
+not a pack; the launcher skips it without reporting an error.
+
 ## Why a .str and not a .csf
 
 The engine has always read both: a compiled binary `.csf`, and this plain-text

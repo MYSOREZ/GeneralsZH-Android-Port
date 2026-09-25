@@ -1,0 +1,18 @@
+// Strings the GeneralsX port adds to the game, in german.
+// Same format as generals.str (languages/README.md). Read after the game's own text,
+// so a full language pack that defines one of these labels takes precedence.
+// A language without this file shows the English one from languages/english/.
+
+// Steam release "Custom Mission" button (PatchWindow.big, MainMenu.wnd)
+GUI:CustomMission
+"EIGENE MISSION"
+END
+
+// Touch force-attack button on the command bar (issue #25)
+GX:ForceAttack
+"Angriff erzwingen"
+END
+
+GX:ToolTipForceAttack
+"Das nächste angetippte Ziel angreifen, auch eigene Einheiten oder leeren Boden"
+END
