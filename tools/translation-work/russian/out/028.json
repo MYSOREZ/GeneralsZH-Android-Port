@@ -1,0 +1,802 @@
+[
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke092Subtitle",
+  "text": "*О, смотрите — у меня для вас готова ядерная бомба"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke093Subtitle",
+  "text": "*Ого, две ядерные бомбы! Я доволен"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke094Subtitle",
+  "text": "*Три ядерные бомбы?!? Втрое больше веселья!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke095Subtitle",
+  "text": "*Четыре ядерные бомбы? Невероятно!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke096Subtitle",
+  "text": "*Пять ядерных бомб? Может, прислать вам чистые штаны?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke097Subtitle",
+  "text": "*(игрок продаёт здание) Генерал, если продадите ещё хоть одно здание, я выиграю без боя"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth001Subtitle",
+  "text": "*Смотрите, что я нашёл"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth002Subtitle",
+  "text": "*Вот и моя следующая атака… постарайтесь на этот раз подготовиться, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth003Subtitle",
+  "text": "*Нельзя убить то, чего не видишь"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth004Subtitle",
+  "text": "*Эти солдаты вам всё равно были не нужны"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth005Subtitle",
+  "text": "*Опять спите на посту?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth006Subtitle",
+  "text": "*Спасибо за новые подразделения. Они пригодятся, чтобы вас уничтожить"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth007Subtitle",
+  "text": "*Смотрите! Ах да, вы же не можете"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth008Subtitle",
+  "text": "*Тепловизор захватили?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth009Subtitle",
+  "text": "*Думаю, пора обзавестись новой базой"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth010Subtitle",
+  "text": "*Не судьба, генерал. Прощайте!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth011Subtitle",
+  "text": "*Если закрыть глаза, горечь поражения не станет легче"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth012Subtitle",
+  "text": "*Мои невидимые убийцы быстро расправятся с вашими силами, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth013Subtitle",
+  "text": "*Мы ударим, как змея — быстро и незаметно"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth014Subtitle",
+  "text": "*Вам не выстоять против этой атаки, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth015Subtitle",
+  "text": "*Красивые генералы всегда выигрывают битвы"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth016Subtitle",
+  "text": "*Вы не увидите меня, пока не станет слишком поздно, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth017Subtitle",
+  "text": "*Генерал, может, познакомите меня с Чёрным Лотосом? Я большой поклонник её… э-э… работы"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth018Subtitle",
+  "text": "*Когда тихо, меня стоит бояться больше всего"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth019Subtitle",
+  "text": "*Не терпится увидеть вашу следующую атаку, генерал. Ждать её сегодня?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth020Subtitle",
+  "text": "*Не теряйте бдительности, генерал — моя атака может начаться в любой момент"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth021Subtitle",
+  "text": "*Вам меня не победить, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth022Subtitle",
+  "text": "*Я ударю, когда вы меньше всего будете ждать, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth023Subtitle",
+  "text": "*Мои люди по всему полю боя, генерал… скрыты от глаз… готовы ударить"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth024Subtitle",
+  "text": "*Скрытность — мой союзник… и ваш враг"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth025Subtitle",
+  "text": "*Вы потеряли своё техническое здание, генерал. Что потеряете следующим?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth026Subtitle",
+  "text": "*Вы не смогли помешать мне разрушить вашу казарму, генерал. Что вам дорого, если не ваши люди?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth027Subtitle",
+  "text": "*Уничтожить ваш военный завод было детской забавой. Командный центр — следующий"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth028Subtitle",
+  "text": "*Ваши самолёты лишились аэродрома, а вы — преимущества, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth029Subtitle",
+  "text": "*В вашей обороне теперь брешь, генерал. Кто знает, сколько моих людей уже на вашей базе"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth030Subtitle",
+  "text": "*Ваш командный центр уничтожен, генерал. Моя победа практически обеспечена"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth031Subtitle",
+  "text": "*Мне не доставляет удовольствия разрушать ваши здания, генерал, но вы не оставляете мне выбора"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth032Subtitle",
+  "text": "*Вы бьёте по моим техническим зданиям, потому что не надеетесь добраться до моей базы"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth033Subtitle",
+  "text": "*Вы разрушили мою казарму, но мы отстроимся, и за этих людей отомстят"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth034Subtitle",
+  "text": "*Мой продавец оружия будет недоволен, что вы уничтожили его склад, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth035Subtitle",
+  "text": "*Вы уничтожили это оборонительное сооружение, генерал, но, возможно, тем самым дали моим людям время обойти вас с фланга"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth036Subtitle",
+  "text": "*Вы разрушили много моих зданий, но, пока у меня остаётся хоть один завод, я опасный противник, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth037Subtitle",
+  "text": "*Хорошо сыграно, генерал; вы уничтожили мой командный центр. Теперь мне придётся играть грязно"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth038Subtitle",
+  "text": "*Вы ловко находите мою замаскированную технику, генерал. Придётся подумать о новой тактике"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth039Subtitle",
+  "text": "*Ваша грубая тактика стоит мне людей, генерал. Пересмотрю свою тактику, раз уж у вас её нет"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth040Subtitle",
+  "text": "*Теперь, когда я захватил эту нефтяную вышку, мои силы будут расти ещё быстрее"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth041Subtitle",
+  "text": "*Артиллерийские платформы так грубы, но я же не могу отдать её вам, правда?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth042Subtitle",
+  "text": "*Этот нефтеперерабатывающий завод теперь мой, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth043Subtitle",
+  "text": "*Генерал, вы опасно приблизились к моей базе"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth044Subtitle",
+  "text": "*Вижу, к моей базе приближаются войска, генерал. Вы ведь не собираетесь вторгаться?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth045Subtitle",
+  "text": "*Вы испытываете моё терпение, генерал. Уберите свои войска с моей базы"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth046Subtitle",
+  "text": "*Если вы не уберёте свои войска с моей базы, я уберу их навсегда"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth047Subtitle",
+  "text": "*Значит, пытаетесь зайти на мою базу с фланга. Мы это пресечём"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth048Subtitle",
+  "text": "*Атака с чёрного хода? Не думал, что вы так коварны, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth049Subtitle",
+  "text": "*Лобовой штурм? Это будет роковой ошибкой, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth050Subtitle",
+  "text": "*Это мои ресурсы, генерал — ищите свои"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth051Subtitle",
+  "text": "*Почему вы упорно подходите к моей базе этим путём, генерал?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth052Subtitle",
+  "text": "*Этот путь не так уж беззащитен, как кажется, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth053Subtitle",
+  "text": "*Здесь вы найдёте лишь собственную гибель, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth054Subtitle",
+  "text": "*Чем вас так манит этот район, генерал?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth055Subtitle",
+  "text": "*Мы приближаемся к вашей базе, генерал. Возможно, на вас уже нацелен прицел"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth056Subtitle",
+  "text": "*Ваша внешняя оборона слаба, генерал. Будем надеяться, база защищена лучше"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth057Subtitle",
+  "text": "*Мы на вашей базе, генерал. Не обращайте на нас внимания — на свой страх и риск"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth058Subtitle",
+  "text": "*Ваша оборона сломлена, генерал. Как вы теперь нас отразите?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth059Subtitle",
+  "text": "*Вам стоило бы защищать эти ресурсы, генерал, иначе битва будет очень короткой"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth060Subtitle",
+  "text": "*Я нашёл ваши технические здания, генерал. Что мне с ними сделать?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth061Subtitle",
+  "text": "*Я нашёл чёрный ход на вашу базу, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth062Subtitle",
+  "text": "*Отразите ли вы мою фланговую атаку, генерал? Давайте выясним"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth063Subtitle",
+  "text": "*Только беспечный генерал допустит отключение энергии"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth064Subtitle",
+  "text": "*У вас нет энергии, генерал. Вы плохо спланировали инфраструктуру. Будем надеяться, эта ошибка не роковая"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth065Subtitle",
+  "text": "*Генерал, без ресурсов не повоюешь. Что будете делать теперь?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth066Subtitle",
+  "text": "*Вы лишили меня ресурсов, генерал. Теперь я отвечу вам тем же"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth067Subtitle",
+  "text": "*Итак, вы построили залповую установку ракет Р-17М. Придётся разобраться с этой новой угрозой"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth068Subtitle",
+  "text": "*Ядерному оружию не место в этой битве, генерал. Зачем вы упорно его строите?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth069Subtitle",
+  "text": "*Вы ударите по мне из космоса своей трусливой молекулярной пушкой? Я разочарован, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth070Subtitle",
+  "text": "*Столько обороны, генерал. Чего вы боитесь?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth071Subtitle",
+  "text": "*Строите танки, значит. Что ж, ещё несколько снайперов с этим справятся"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth072Subtitle",
+  "text": "*Ещё самолёты? Зачем так много, генерал? Боитесь спуститься и сразиться со мной?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth073Subtitle",
+  "text": "*Позвольте дать совет, генерал. Эта толпа пехоты моим снайперам не соперник"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth074Subtitle",
+  "text": "*Ваша база так разрослась, генерал. Думаете, сможете уберечь все здания от захвата?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth075Subtitle",
+  "text": "*Вы произвели пуск! Вы пожалеете, что применили залповую установку ракет Р-17М, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth076Subtitle",
+  "text": "*Ядерные ракеты! Я думал, вы блефуете, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth077Subtitle",
+  "text": "*Да, полюбуйтесь трусливым молекулярным лучом. Наслаждайтесь, генерал — мой ответ будет быстрым и жестоким"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth078Subtitle",
+  "text": "*Непременно займите это здание, генерал… мои снайперы вполне достанут их и там"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth079Subtitle",
+  "text": "*Полковник Бартон, генерал? Может, сделать генералом его; вы лишь приведёте его к ранней могиле"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth080Subtitle",
+  "text": "*А, прекрасная Чёрный Лотос. Возможно, после вашего поражения, генерал, она согласится присоединиться ко мне"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth081Subtitle",
+  "text": "*Джармен Келл?! Всем снайперам осторожно: Джармен Келл на поле боя"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth082Subtitle",
+  "text": "*Мудрый выбор — построить аэродром, но одних самолётов не хватит, чтобы победить меня, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth083Subtitle",
+  "text": "*Мои шпионы доносят, что вы наконец построили военный завод, генерал. Теперь готовы сражаться?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth084Subtitle",
+  "text": "*Обучайте в этой казарме сколько угодно солдат, генерал; моим снайперам они не соперники"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth085Subtitle",
+  "text": "*Вы продали одно из своих зданий. Такая тактика ведёт к поражению, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth086Subtitle",
+  "text": "*Как вы побеждаете мои силы?! Это невозможно!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth087Subtitle",
+  "text": "*Возможно, сейчас у вас преимущество, но ваша отчаянная тактика долго не продержится, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth088Subtitle",
+  "text": "*Мои силы восстанут против вашего гнёта, и мы вас победим, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth089Subtitle",
+  "text": "*Наслаждайтесь преимуществом, пока можете, генерал… скоро вы ошибётесь, и я переломлю ход битвы"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth090Subtitle",
+  "text": "*Вот и конец… вы победили меня, генерал, но однажды я отомщу. Берегите спину, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth091Subtitle",
+  "text": "*Ваши силы слабеют, генерал. Признайте поражение, и я буду к вам снисходителен"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth092Subtitle",
+  "text": "*Ваши атаки против меня бесполезны, генерал. Скоро мы нагрянем и уничтожим вас"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth093Subtitle",
+  "text": "*Мне нравится эта маленькая игра, генерал, но ваши жалкие атаки начинают меня утомлять"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth094Subtitle",
+  "text": "*Я думал, вы окажете больше сопротивления, генерал. Видимо, я вас переоценил"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth095Subtitle",
+  "text": "*Вы пали перед Кассадом, как и все до вас"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth096Subtitle",
+  "text": "*Мы ударим, как змея — незаметно и смертельно"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth097Subtitle",
+  "text": "*Вы меня видите — вы мертвы"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth098Subtitle",
+  "text": "*Я — Кассад"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth099Subtitle",
+  "text": "*Для вас это плохо кончится, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth100Subtitle",
+  "text": "*Мои люди не простят своему вождю этого поражения, генерал. Своей превосходной тактикой вы подписали мне смертный приговор"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth101Subtitle",
+  "text": "*Примите горькое поражение и уйдите с глаз моих, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth102Subtitle",
+  "text": "*И ещё один, кто выступил против меня, пал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth103Subtitle",
+  "text": "*Так будет и с вами, генерал — без предупреждения, без пощады"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth104Subtitle",
+  "text": "*У вас ещё есть время спастись бегством, генерал. <зловещий смех, стихающий в тишину>"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank001Subtitle",
+  "text": "*Вижу, вы не сбежали в страхе, генерал. Скоро пожалеете, что не сбежали"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank002Subtitle",
+  "text": "*Мои силы у вашего порога, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank003Subtitle",
+  "text": "*Железный дракон шагает сквозь вашу жалкую оборону"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank004Subtitle",
+  "text": "*Боюсь, это ваш конец, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank005Subtitle",
+  "text": "*М-м-м… слышите громовую песнь приближающейся брони, генерал?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank006Subtitle",
+  "text": "*Ваши фланги прикрыты, генерал? Давайте посмотрим"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank007Subtitle",
+  "text": "*Как вам доработки моих танков, генерал?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank008Subtitle",
+  "text": "*Броня… раздавить их"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank009Subtitle",
+  "text": "*Скоро поле заполнится танками… моими танками"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank010Subtitle",
+  "text": "*Всем подразделениям… в атаку"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank011Subtitle",
+  "text": "*Хорошая база, генерал… не желаете сдать её?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank012Subtitle",
+  "text": "*Это ваш конец, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank013Subtitle",
+  "text": "*Мы на вашей базе, генерал; ваша оборона оказалась недостаточной"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank014Subtitle",
+  "text": "*Вы посмели атаковать мой военный завод! Всем силам — уничтожить эту букашку!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank015Subtitle",
+  "text": "*Танки… стройте больше танков"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank016Subtitle",
+  "text": "*Ещё один батальон в пути, генерал, пожалуйста, встретьте их радушно"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank017Subtitle",
+  "text": "*А, эту часть битвы я люблю больше всего… ту, что прямо перед тем, как я добиваю врага"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank018Subtitle",
+  "text": "*Танки, быстрее… пока противник не задумал настоящую атаку"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank019Subtitle",
+  "text": "*Там тихо, генерал. Наверняка к вашей базе катится много танков, не находите?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank020Subtitle",
+  "text": "*Воспользуюсь моментом, чтобы построить больше обороны… нет, постойте, лучше построю больше танков"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank021Subtitle",
+  "text": "*Когда-то здесь были плодородные поля. Скоро ваша кровь снова сделает их плодородными"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank022Subtitle",
+  "text": "*Ваша тактика меня забавляет, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank023Subtitle",
+  "text": "*Отдыхайте, генерал — скоро атаки начнутся снова"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank024Subtitle",
+  "text": "*Мы ждём вашего штурма, генерал, но я начинаю сомневаться, что он вообще будет"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank025Subtitle",
+  "text": "*Наши военные заводы трудятся не покладая рук, выпуская танки — специально для вас, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank026Subtitle",
+  "text": "*Долго ли вы ещё выдержите такие потери, генерал? Может, пора подумать о сдаче"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank027Subtitle",
+  "text": "*На нашей базе собираются танки для последнего штурма. Выдержит ли на этот раз ваша оборона?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank028Subtitle",
+  "text": "*Скоро мы выгоним вас с наших земель"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank029Subtitle",
+  "text": "*Это ваш последний шанс показать себя, генерал. Скоро мои танки покончат с вашей жалкой армией"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank030Subtitle",
+  "text": "*Вы же не думаете, что удача будет долго вам сопутствовать… правда, генерал?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank031Subtitle",
+  "text": "*Вам ведь не нужно было это техническое здание, правда?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank032Subtitle",
+  "text": "*Ваша казарма пала под моими танками, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank033Subtitle",
+  "text": "*Вот и нет вашего завода, генерал. Чем вы теперь ответите моей броне?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank034Subtitle",
+  "text": "*Без аэродрома вы потеряли единственный шанс против меня, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank035Subtitle",
+  "text": "*Ваша оборона падает перед моей бронёй, как игрушки"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank036Subtitle",
+  "text": "*Потеряв командный центр, вы потеряли и всякую надежду победить меня, генерал. Жду вашей капитуляции"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank037Subtitle",
+  "text": "*Вы потеряли много зданий, генерал… не пора ли сдаться?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank038Subtitle",
+  "text": "*Это техническое здание было моим, генерал; вы пожалеете, что разрушили его"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank039Subtitle",
+  "text": "*Итак, вы разрушили мою казарму — да будет так. Теперь я разрушу вашу"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank040Subtitle",
+  "text": "*Мы отстроим этот военный завод. Скоро танки снова хлынут к вашей базе, как вода"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank041Subtitle",
+  "text": "*Разрушив мой аэродром, вы меня не остановите, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank042Subtitle",
+  "text": "*Уничтожая мою оборону, вы лишь выдаёте мне, где находитесь, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank043Subtitle",
+  "text": "*Генерал, вы разрушаете недопустимо много моих зданий. Это нужно прекратить"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank044Subtitle",
+  "text": "*Вы уничтожили мой командный центр… Я впечатлён, генерал… немногие продержались так долго"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank045Subtitle",
+  "text": "*Вы стреляете по моим самолётам?! Думаете, это лучшая тактика против меня, генерал?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank046Subtitle",
+  "text": "*Довольно! Больше не уничтожайте мои танки, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank047Subtitle",
+  "text": "*Прекрати стрелять по моей пехоте, трус!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank048Subtitle",
+  "text": "*Генерал, мне нужна эта нефтяная вышка для танков. Отдайте её мне или поплатитесь"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank049Subtitle",
+  "text": "*Эта артиллерийская платформа моей броне не соперник, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank050Subtitle",
+  "text": "*А, вижу, вы захватили нефтеперерабатывающий завод. Пожалуй, стоит его у вас отобрать"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank051Subtitle",
+  "text": "*Мы приближаемся к вашей базе, генерал. Приготовьтесь"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank052Subtitle",
+  "text": "*А, мои танки почти на дистанции огня по вашей базе. Скоро всё закончится"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank053Subtitle",
+  "text": "*Мы прорвали вашу оборону, генерал. Теперь начнут падать ваши заводы"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank054Subtitle",
+  "text": "*Спасибо, что пригласили нас на свою базу, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank055Subtitle",
+  "text": "*Вижу, ваш фланг открыт, генерал. Я так и думал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank056Subtitle",
+  "text": "*У вашего чёрного хода нет охраны — роковая ошибка с вашей стороны, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank057Subtitle",
+  "text": "*Вижу, вы построили вторую базу, генерал. Скоро её не станет"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank058Subtitle",
+  "text": "*А, я нашёл ваше техническое здание. Уничтожить его или захватить?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank059Subtitle",
+  "text": "*У вас нет энергии… вашим силам конец"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank060Subtitle",
+  "text": "*Я бы посоветовал восстановить энергию, генерал… пока мы не отключили её навсегда"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank061Subtitle",
+  "text": "*Ваши запасы снабжения на исходе… теперь нас ничто не остановит"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank062Subtitle",
+  "text": "*Снабжение! Мне нужно больше снабжения!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank063Subtitle",
+  "text": "*И что вы собираетесь делать с этой залповой установкой ракет Р-17М, генерал?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank064Subtitle",
+  "text": "*И вот эта война стала ядерной… превосходно"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank065Subtitle",
+  "text": "*Эта молекулярная пушка никогда не успеет по мне выстрелить"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank066Subtitle",
+  "text": "*Столько обороны, генерал… и вся бесполезна"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank067Subtitle",
+  "text": "*Значит, пытаетесь сравняться с моими танками на поле боя. Сомневаюсь в вашей тактике, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank068Subtitle",
+  "text": "*Вижу много самолётов, генерал — как мошкара, которую осталось прихлопнуть"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank069Subtitle",
+  "text": "*Вы обучили слишком много солдат, генерал; все они будут раздавлены моими гусеницами"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank070Subtitle",
+  "text": "*Ваша база слишком разрослась, генерал — моим танкам понравится стрельба по мишеням"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank071Subtitle",
+  "text": "*Ваша залповая установка ракет Р-17М навредит нам, но теперь вы меня разозлили, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank072Subtitle",
+  "text": "*Только неудачник прибегает к ядерным ракетам"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank073Subtitle",
+  "text": "*Этот молекулярный луч нас не победит, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank074Subtitle",
+  "text": "*Да, занимайте свои здания — вы лишь оттягиваете неизбежное"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank075Subtitle",
+  "text": "*Ни один солдат не переломит ход битвы, даже полковник Бартон"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank076Subtitle",
+  "text": "*А, Чёрный Лотос, вы почтили нас своим присутствием. Может, подумаете о том, чтобы сражаться за меня"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank077Subtitle",
+  "text": "*Всем танкам осторожно: Джармен Келл на поле боя"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank078Subtitle",
+  "text": "*Аэродром — мудрый выбор против меня, но он не спасёт вас от поражения, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank079Subtitle",
+  "text": "*Стройте свои военные заводы, генерал; танков, способных остановить мои, они всё равно не выпустят"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank080Subtitle",
+  "text": "*Вижу, вы построили казарму, генерал. Пожалуйста, постарайтесь не пускать своих людей под мои танки"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank081Subtitle",
+  "text": "*Да, продайте все здания и бегите с поля боя, генерал. Эта битва для вас проиграна"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank082Subtitle",
+  "text": "*Вы проигрываете, генерал. Эта битва моя"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank083Subtitle",
+  "text": "*Надежды больше нет, генерал. Сдавайтесь или умрите"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank084Subtitle",
+  "text": "*Генерал, моих сил больше, чем ваших… теперь это лишь вопрос времени"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank085Subtitle",
+  "text": "*Ваша слабая стратегия привела вас сюда, генерал. Теперь вам не победить"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank086Subtitle",
+  "text": "*Моя победа была предрешена с самого начала"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank087Subtitle",
+  "text": "*Ваша тактика дала вам временное преимущество, генерал, но вы его не удержите"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank088Subtitle",
+  "text": "*Нет! Вы не победите, генерал. Мы построим больше танков и разобьём вас"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank089Subtitle",
+  "text": "*Ваша трусливая тактика, может, и довела вас досюда, но этой глупости конец"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank090Subtitle",
+  "text": "*Думаю, я достаточно позволял вам побеждать, генерал. Готовьтесь к концу"
+ }
+]
