@@ -1,0 +1,802 @@
+[
+ {
+  "label": "CREDITS:ExternalMultiplayMapCreators",
+  "text": "Externe Mehrspielerkarten-Ersteller"
+ },
+ {
+  "label": "CREDITS:Artists",
+  "text": "Grafiker"
+ },
+ {
+  "label": "CREDITS:AdditionalArt",
+  "text": "Zusätzliche Grafik"
+ },
+ {
+  "label": "CREDITS:DirectorofAudio",
+  "text": "Leitung Audio"
+ },
+ {
+  "label": "CREDITS:SoundDesignandVoiceDirection",
+  "text": "Sounddesign und Sprachregie"
+ },
+ {
+  "label": "CREDITS:Composers",
+  "text": "Komponisten"
+ },
+ {
+  "label": "CREDITS:Composer1",
+  "text": "Musik komponiert und produziert von"
+ },
+ {
+  "label": "CREDITS:Additionalsoundsanddialogueprocessing",
+  "text": "Zusätzliche Sounds und zusätzliche Dialogbearbeitung"
+ },
+ {
+  "label": "CREDITS:ScriptWriters",
+  "text": "Drehbuchautoren"
+ },
+ {
+  "label": "CREDITS:SoundEffectsFieldRecordings",
+  "text": "Außenaufnahmen der Soundeffekte"
+ },
+ {
+  "label": "CREDITS:SoundEffectsFieldRecordings1",
+  "text": "Jacques Littlefield und die Military Vehicle Technology Foundation"
+ },
+ {
+  "label": "CREDITS:SoundEffectsFieldRecordings2",
+  "text": "SPEC Samuel H. Cho"
+ },
+ {
+  "label": "CREDITS:SoundEffectsFieldRecordings3",
+  "text": "Staff Sergeant Scott McClane, C Troop 1/18 Cav"
+ },
+ {
+  "label": "CREDITS:SoundEffectsFieldRecordings4",
+  "text": "Mary Beth McFadden und Francisco Mendozo bei Adam's Steel - Anaheim"
+ },
+ {
+  "label": "CREDITS:CinematicCutSceneDirector",
+  "text": "Regie Zwischensequenzen"
+ },
+ {
+  "label": "CREDITS:CinematicCutSceneArtists",
+  "text": "Grafiker Zwischensequenzen"
+ },
+ {
+  "label": "CREDITS:ProductionAssistance",
+  "text": "Zusätzliches Produktionsmanagement"
+ },
+ {
+  "label": "CREDITS:AdditionalProductionManagement",
+  "text": "Zusätzliches Produktionsmanagement"
+ },
+ {
+  "label": "CREDITS:CameoProduction",
+  "text": "Cameo-Produktion"
+ },
+ {
+  "label": "CREDITS:Casting",
+  "text": "Casting: Deborah German Casting"
+ },
+ {
+  "label": "CREDITS:Wardrobe",
+  "text": "Kostüme: Jodi DeMarco"
+ },
+ {
+  "label": "CREDITS:HairandMakeUp",
+  "text": "Frisuren und Make-up: Jodi DeMarco"
+ },
+ {
+  "label": "CREDITS:EngineeringInterns",
+  "text": "Praktikanten Programmierung"
+ },
+ {
+  "label": "CREDITS:ArtIntern",
+  "text": "Praktikant Grafik"
+ },
+ {
+  "label": "CREDITS:EAPacificQualityAssurance",
+  "text": "Qualitätssicherung EA Pacific"
+ },
+ {
+  "label": "CREDITS:EAPacificOperations",
+  "text": "EA Pacific Operations"
+ },
+ {
+  "label": "CREDITS:VoiceActors",
+  "text": "Sprecher"
+ },
+ {
+  "label": "CREDITS:CameoPhotos",
+  "text": "Cameo- und Generalsfotos"
+ },
+ {
+  "label": "CREDITS:AdditionalModels",
+  "text": "Zusätzliche Modelle: Mythos Studios"
+ },
+ {
+  "label": "CREDITS:CinematicIntroandFinaleMovies",
+  "text": "Intro-Film: Mondo Media"
+ },
+ {
+  "label": "CREDITS:MotionCapture",
+  "text": "Westwood Motion Capture"
+ },
+ {
+  "label": "CREDITS:MilitarypropsThanx",
+  "text": "Militärische Requisiten von David Hsu & Specialized Distribution"
+ },
+ {
+  "label": "CREDITS:SpecialThanx1",
+  "text": "Dank und Liebe an Daisy & Freeman Gushee, Mom & Dad und Ike! - Harvard"
+ },
+ {
+  "label": "CREDITS:SpecialThanx2",
+  "text": "Liebe und Dank an Laura, Ben, Jack, Sam und Sophie"
+ },
+ {
+  "label": "CREDITS:SpecialThanx3",
+  "text": "Dank an das Brown-Familien-Unterstützungsteam – Robin, Josh, Beth und Meeskite"
+ },
+ {
+  "label": "CREDITS:SpecialThanx4",
+  "text": "Dank an meinen Sohn Colin Moore, dass ich das Spiel auf seinem Rechner spielen durfte"
+ },
+ {
+  "label": "CREDITS:SpecialThanx5",
+  "text": "Eine große Umarmung für meinen frisch angetrauten Mann Joji für seine Liebe und Unterstützung -Jill"
+ },
+ {
+  "label": "CREDITS:SpecialThanx7",
+  "text": "Dank an DMP, Jenny und Elizabeth"
+ },
+ {
+  "label": "CREDITS:SpecialThanx8",
+  "text": "Dank an meinen Vater. - Mark Lorenzen"
+ },
+ {
+  "label": "CREDITS:SpecialThanx9",
+  "text": "Ganz viel Liebe an Madison, Reece, Melissa, Dad und meine Brüder! - Randy Greenback"
+ },
+ {
+  "label": "CREDITS:SpecialThanx10",
+  "text": "Dank an Maha, Ramzi & Brooke für ihre Unterstützung. Grüße an die 415-Kids -Amer"
+ },
+ {
+  "label": "CREDITS:SpecialThanx11",
+  "text": "Mom&Dad, Bry,Kev,Dan&Mel,Aaron&Kelsey,Mikki,Adam,Kev,Jay,James - SCC"
+ },
+ {
+  "label": "CREDITS:SpecialThanx12",
+  "text": "An Brenda und Nero für ihre wunderbare Unterstützung - Eric Kearns"
+ },
+ {
+  "label": "CREDITS:SpecialThanx13",
+  "text": "Dank an Gibson, Vinge, Mieville, Bear, Hebert, LeGuin - RN Smith"
+ },
+ {
+  "label": "CREDITS:SpecialThanx14",
+  "text": "Deborah, Stephen und Alan – danke, dass ihr mich ertragen habt - Ian Barkley-Yeung"
+ },
+ {
+  "label": "CREDITS:SpecialThanx15",
+  "text": "Danke, Cristi, für dein Verständnis und deine Unterstützung - John"
+ },
+ {
+  "label": "CREDITS:SpecialThanx16",
+  "text": "Dank an April Wesley Kelly & Chelsie - Scott Bowen"
+ },
+ {
+  "label": "CREDITS:SpecialThanx17",
+  "text": "Dank an Freunde, Familie, Choo Choo Bear und das fleißige ZH-Team! -JB"
+ },
+ {
+  "label": "CREDITS:SpecialThanx18",
+  "text": "Danke, Junko, für deine Liebe. -Robert Minsk"
+ },
+ {
+  "label": "CREDITS:SpecialThanx19",
+  "text": "Danke, Carina, Kat und Brandon, für euer Verständnis -David Wainstain"
+ },
+ {
+  "label": "CREDITS:SpecialThanx20",
+  "text": "Dank an meine Familie, Cheryl und Brandon Burtis, für ihre Liebe und Unterstützung"
+ },
+ {
+  "label": "CREDITS:SpecialThanx21",
+  "text": "Dank an meine Freunde und Familie, besonders Jeannie. Ich liebe euch alle - KDS"
+ },
+ {
+  "label": "CREDITS:SpecialThanx22",
+  "text": "Dank an meinen wunderbaren Mann Roman - Samm"
+ },
+ {
+  "label": "CREDITS:SpecialThanx23",
+  "text": "Danke, Ari, für all deine Liebe, Unterstützung und dein Verständnis - Jose"
+ },
+ {
+  "label": "CREDITS:SpecialThanx24",
+  "text": "Für Rebecca, das Einzige, was zählt, das Einzige, was bleibt"
+ },
+ {
+  "label": "CREDITS:SpecialThanx25",
+  "text": "Dank an meine liebevolle Frau für Inspiration und Unterstützung - Chris Rubyor"
+ },
+ {
+  "label": "CREDITS:SpecialThanx26",
+  "text": "Dank an meine Frau, die mir unsere Zeit geschenkt hat. Ich liebe dich. - Jeff Stewart"
+ },
+ {
+  "label": "CREDITS:SpecialThanx27",
+  "text": "Dank an Mom BruceLauraDasmoMikeyTedoTrevor und alle meine Kumpels im OC"
+ },
+ {
+  "label": "CREDITS:SpecialThanx28",
+  "text": "Ich möchte meiner Familie und Amy Ritchie danken"
+ },
+ {
+  "label": "CREDITS:SpecialThanx29",
+  "text": "NazBoniadiArtRasoulZohreRahimiAliLeilaTabaFamilyP,T,KMLoBobWindDrFrost"
+ },
+ {
+  "label": "CREDITS:SpecialThanx31",
+  "text": "Dank an Ben Calmer & Laura Miele"
+ },
+ {
+  "label": "CREDITS:SpecialThanx33",
+  "text": "Ganz besonderer Dank an die Command & Conquer-Fangemeinde."
+ },
+ {
+  "label": "CREDITS:SpecialThanx34",
+  "text": "Riesendank an meinen Schatz Joji und mein Baby Sparky"
+ },
+ {
+  "label": "CREDITS:SpecialThanx35",
+  "text": "Dank an meine Familie, Cheryl und Brandon Burtis, für ihre Liebe und Unterstützung"
+ },
+ {
+  "label": "CREDITS:SpecialThanx36",
+  "text": "Ich danke meiner Frau für ihr Verständnis für meine viele Arbeit"
+ },
+ {
+  "label": "CREDITS:SpecialThanx37",
+  "text": "Bjorn Muller dankt: Mom, Dad, Familie & Freunden"
+ },
+ {
+  "label": "CREDITS:SpecialThanx38",
+  "text": "Ich möchte meiner Familie und Amy für all die Unterstützung danken"
+ },
+ {
+  "label": "CREDITS:SpecialThanx39",
+  "text": "Besonderer Dank: Mom, Dad, Bohdi, Willie und allen, die das hier lesen"
+ },
+ {
+  "label": "CREDITS:SpecialThanx40",
+  "text": "Dank an alle Freunde und die Familie, die mit Weihnachten bis Februar gewartet haben"
+ },
+ {
+  "label": "CREDITS:SpecialThanx41",
+  "text": "Danke, Bing, deine Unterstützung war unbezahlbar"
+ },
+ {
+  "label": "GUI:GameSaved",
+  "text": "Spiel gespeichert"
+ },
+ {
+  "label": "GUI:ErrorSavingGame",
+  "text": "Fehler beim Speichern des Spiels '%s'"
+ },
+ {
+  "label": "GUI:ErrorLoadingGame",
+  "text": "Fehler beim Laden des Spiels '%s'"
+ },
+ {
+  "label": "CREDITS:InspiredByLine1",
+  "text": "Command & Conquer (TM) Generals Zero Hour wurde inspiriert vom ursprünglichen"
+ },
+ {
+  "label": "CREDITS:InspiredByLine2",
+  "text": "Command & Conquer (TM) von Westwood Studios"
+ },
+ {
+  "label": "CREDITS:MultiplayerTestParticipantThanxMessageLine1",
+  "text": "Dank an alle großartigen Teilnehmer der Mehrspielertests,"
+ },
+ {
+  "label": "CREDITS:MultiplayerTestParticipantThanxMessageLine2",
+  "text": "die das Spiel auf Herz und Nieren geprüft haben. Eure Hilfe war"
+ },
+ {
+  "label": "CREDITS:MultiplayerTestParticipantThanxMessageLine3",
+  "text": "unbezahlbar, und wir hoffen, es hat euch Spaß gemacht"
+ },
+ {
+  "label": "CREDITS:SpecialThanxKeyMessage1",
+  "text": "Ein ganz besonderer Dank an all unsere Familien, die uns tun lassen,"
+ },
+ {
+  "label": "CREDITS:SpecialThanxKeyMessage2",
+  "text": "was wir lieben: Spiele machen. Wir können euch für eure Unterstützung nicht genug danken"
+ },
+ {
+  "label": "CREDITS:SpecialThanxKeyMessage3",
+  "text": "Aber wir versuchen es ..."
+ },
+ {
+  "label": "CREDITS:SpecialThanx6Line1",
+  "text": "Danke an meine Familie und Freunde in Chilliwack, BC, Kanada! - Kris Morness"
+ },
+ {
+  "label": "CREDITS:SpecialThanx6Line2",
+  "text": "& Unterstützung waren unbezahlbar. Ich liebe euch von Herzen"
+ },
+ {
+  "label": "CREDITS:SpecialThanx30Line1",
+  "text": "Dank an Jane,George,David,Sophia,Audrey,Shannon,Johan & agavenectar"
+ },
+ {
+  "label": "CREDITS:SpecialThanx30Line2",
+  "text": "dafür, dass ihr da wart, auch wenn ich es nicht sein konnte"
+ },
+ {
+  "label": "CREDITS:SpecialThanx32Line1",
+  "text": "Danke, Bing Gordon, deine anhaltende Unterstützung war unbezahlbar."
+ },
+ {
+  "label": "CREDITS:SpecialThanx32Line2",
+  "text": "der für einen Dollar so ziemlich alles tut"
+ },
+ {
+  "label": "GUI:ControlBarBack",
+  "text": "ZURÜCK"
+ },
+ {
+  "label": "GUI:MainMenuLoadGame",
+  "text": "SPIEL LADEN"
+ },
+ {
+  "label": "GUI:MainMenuLoadReplay",
+  "text": "WIEDERHOLUNG LADEN"
+ },
+ {
+  "label": "GUI:LastReplay",
+  "text": "Letzte Wiederholung"
+ },
+ {
+  "label": "GUI:ControlBarMoneyDisplay",
+  "text": "$ %d"
+ },
+ {
+  "label": "GUI:Player",
+  "text": "Spieler"
+ },
+ {
+  "label": "CREDITS:UliLachelet",
+  "text": "Uli Lächelt"
+ },
+ {
+  "label": "CREDITS:JorgLindner",
+  "text": "Jörg Lindner"
+ },
+ {
+  "label": "CREDITS:LOCALIZATION",
+  "text": "Lokalisierung"
+ },
+ {
+  "label": "CREDITS:EALocalisationManager",
+  "text": "European EA Localization Manager"
+ },
+ {
+  "label": "CREDITS:EALocalisationProjectManager",
+  "text": "European EA Localization Project Manager"
+ },
+ {
+  "label": "CREDITS:EuropeanIntegrationTeam",
+  "text": "European Integration Team"
+ },
+ {
+  "label": "CREDITS:IntegrationEngineerManager",
+  "text": "Integration Engineer Manager"
+ },
+ {
+  "label": "CREDITS:IntegrationProgrammer",
+  "text": "Integrationsprogrammierer"
+ },
+ {
+  "label": "CREDITS:AudioPostproduction",
+  "text": "Audio-Postproduktion"
+ },
+ {
+  "label": "CREDITS:SpanishLocalizationTeam",
+  "text": "Spanisches Lokalisierungsteam"
+ },
+ {
+  "label": "CREDITS:LocalizationManagerEAIberia",
+  "text": "Localization Manager EA Iberia"
+ },
+ {
+  "label": "CREDITS:QAnLTSupervisor",
+  "text": "Leitung QA & LT"
+ },
+ {
+  "label": "CREDITS:QALead",
+  "text": "QA-Leitung"
+ },
+ {
+  "label": "CREDITS:QATesters",
+  "text": "QA-Tester"
+ },
+ {
+  "label": "CREDITS:LocalizationSupervisorEAIberia",
+  "text": "Localization Supervisor EA Iberia"
+ },
+ {
+  "label": "CREDITS:LocalizationCoordinator",
+  "text": "Lokalisierungskoordinator"
+ },
+ {
+  "label": "CREDITS:Translations",
+  "text": "Übersetzung"
+ },
+ {
+  "label": "CREDITS:DTPSupervisor",
+  "text": "DTP-Leitung"
+ },
+ {
+  "label": "CREDITS:LayoutDesign",
+  "text": "Layout"
+ },
+ {
+  "label": "CREDITS:Documentation",
+  "text": "Dokumentation"
+ },
+ {
+  "label": "CREDITS:JoseMaria",
+  "text": "José María García"
+ },
+ {
+  "label": "CREDITS:AndresGine",
+  "text": "Andrés Giné"
+ },
+ {
+  "label": "CREDITS:JoseRamon",
+  "text": "José Ramón Sagarna"
+ },
+ {
+  "label": "CREDITS:DavidSuarez",
+  "text": "David Suárez"
+ },
+ {
+  "label": "CREDITS:AlejandroGomez",
+  "text": "Alejandro Gómez"
+ },
+ {
+  "label": "CREDITS:IsmaeLDuran",
+  "text": "Ismael Durán"
+ },
+ {
+  "label": "CREDITS:JoseLuis",
+  "text": "José Luis Rovira"
+ },
+ {
+  "label": "CREDITS:JavierMartinez",
+  "text": "Javier Martínez"
+ },
+ {
+  "label": "CREDITS:LuisPines",
+  "text": "Luis Pinés"
+ },
+ {
+  "label": "CREDITS:EAItalyLocalization",
+  "text": "EA-Lokalisierung – Italien"
+ },
+ {
+  "label": "CREDITS:LocalisationManager",
+  "text": "Lokalisierungsmanager"
+ },
+ {
+  "label": "CREDITS:TranslationSupervisor",
+  "text": "Übersetzungsleitung"
+ },
+ {
+  "label": "CREDITS:LTSupervisor",
+  "text": "LT-Leitung"
+ },
+ {
+  "label": "CREDITS:LocalisationCoordinator",
+  "text": "Lokalisierungskoordinator"
+ },
+ {
+  "label": "CREDITS:LocalisationGermany",
+  "text": "EA-Lokalisierung – Deutschland"
+ },
+ {
+  "label": "CREDITS:RobertBock",
+  "text": "Robert Böck"
+ },
+ {
+  "label": "CREDITS:TestCoordination",
+  "text": "Testkoordination"
+ },
+ {
+  "label": "CREDITS:LanguageTester",
+  "text": "Lokalisierungstester"
+ },
+ {
+  "label": "CREDITS:LocalisationFrance",
+  "text": "EA-Lokalisierung – Frankreich"
+ },
+ {
+  "label": "CREDITS:TestManager",
+  "text": "Testmanager"
+ },
+ {
+  "label": "CREDITS:FrenchLanguageTestingCoordinator",
+  "text": "Koordinator Sprachtests"
+ },
+ {
+  "label": "CREDITS:StephaneTachon",
+  "text": "Stéphane Tachon"
+ },
+ {
+  "label": "CREDITS:LanguageTesters",
+  "text": "Lokalisierungstester"
+ },
+ {
+  "label": "CREDITS:LocalisationBrazil",
+  "text": "EA-Lokalisierung – Brasilien"
+ },
+ {
+  "label": "CREDITS:TranslationAndTesting",
+  "text": "Übersetzung & Test"
+ },
+ {
+  "label": "CREDITS:LocalisationPoland",
+  "text": "Lokalisierung – Polen"
+ },
+ {
+  "label": "GUI:LadderNameAndSize",
+  "text": "%ls (%dv%d)"
+ },
+ {
+  "label": "GUI:InvalidLadderPassword",
+  "text": "Ungültiges Ranglisten-Passwort"
+ },
+ {
+  "label": "GUI:EnterLadderPassword",
+  "text": "Ranglisten-Passwort eingeben:"
+ },
+ {
+  "label": "GUI:InternetDisconnectionMenuHeader",
+  "text": "Verbindungsabbruch-Menü"
+ },
+ {
+  "label": "GUI:InternetDisconnectionMenuHeaderCaps",
+  "text": "VERBINDUNGSABBRUCH-MENÜ"
+ },
+ {
+  "label": "GUI:InternetDisconnectionMenuBody1",
+  "text": "Ein oder mehrere Spieler haben die Verbindung zum Spiel verloren. Wenn Sie einen Spieler aus dem Spiel abwählen möchten, klicken Sie neben dem jeweiligen Spieler auf ABSTIMMEN. Wenn der Zähler 0 erreicht, wird dieser Spieler aus dem Spiel entfernt und die Schlacht geht weiter"
+ },
+ {
+  "label": "GUI:InternetDisconnectionMenuBody2",
+  "text": "Möglicherweise versucht der Spieler, die Verbindung wiederherzustellen, daher können Sie warten, bis sein Zähler abgelaufen ist. Wenn der Zähler 0 erreicht, wird dieser Spieler aus dem Spiel entfernt und die Schlacht geht weiter"
+ },
+ {
+  "label": "CREDITS:EAKoreaLocalisationTeam",
+  "text": "EA-Korea-Team"
+ },
+ {
+  "label": "CREDITS:BusinessDevelopmentManager",
+  "text": "Business Development Manager"
+ },
+ {
+  "label": "CREDITS:LocalisationProducer",
+  "text": "Lokalisierungsproduzent"
+ },
+ {
+  "label": "CREDITS:EAKoreaMarketingTeam",
+  "text": "EA-Korea-Marketingteam"
+ },
+ {
+  "label": "CREDITS:MarketingManager",
+  "text": "Marketingmanager"
+ },
+ {
+  "label": "CREDITS:ProductManager",
+  "text": "Produktmanager"
+ },
+ {
+  "label": "CREDITS:PublicRelations",
+  "text": "Öffentlichkeitsarbeit"
+ },
+ {
+  "label": "CREDITS:ProductPromotion",
+  "text": "Produktwerbung"
+ },
+ {
+  "label": "CREDITS:EATaiwanLocalisationTeam",
+  "text": "EA-Taiwan-Lokalisierungsteam"
+ },
+ {
+  "label": "CREDITS:EAAsiaPacificLocalisationProjectManager",
+  "text": "Lokalisierungs-Projektmanager EA Asia Pacific"
+ },
+ {
+  "label": "CREDITS:AdditionalStoryInspiration",
+  "text": "Zusätzliche Story-Inspiration"
+ },
+ {
+  "label": "GUI:RandomSide",
+  "text": "Zufall"
+ },
+ {
+  "label": "GUI:Age",
+  "text": "Alter"
+ },
+ {
+  "label": "GUI:Month",
+  "text": "Monat (MM)"
+ },
+ {
+  "label": "GUI:Day",
+  "text": "Tag (TT)"
+ },
+ {
+  "label": "GUI:Year",
+  "text": "Jahr (JJJJ)"
+ },
+ {
+  "label": "CREDITS:DevelopmentTitle2",
+  "text": "von Electronic Arts Los Angeles"
+ },
+ {
+  "label": "CREDITS:EAPacificDevTeam2",
+  "text": "Command & Conquer (TM) Generals Zero Hour"
+ },
+ {
+  "label": "GUI:MustHaveAdminRights",
+  "text": "Zum Installieren eines Patches benötigen Sie Administratorrechte"
+ },
+ {
+  "label": "GUI:BuddyAddReq",
+  "text": "Ein Benutzer möchte Sie als Freund hinzufügen"
+ },
+ {
+  "label": "GUI:AgeFailedTitle",
+  "text": "Hinweis zur Altersbeschränkung"
+ },
+ {
+  "label": "GUI:AgeFailed",
+  "text": "Sie müssen mindestens 13 Jahre alt sein, um dieses Spiel online zu spielen"
+ },
+ {
+  "label": "GUI:AdditionalLocalizationManagement",
+  "text": "Zusätzliches Lokalisierungsmanagement"
+ },
+ {
+  "label": "GUI:GroupRoom4",
+  "text": "4 gegen 4"
+ },
+ {
+  "label": "GUI:GroupRoom5",
+  "text": "Asien"
+ },
+ {
+  "label": "GUI:GroupRoom6",
+  "text": "Europa"
+ },
+ {
+  "label": "GUI:GroupRoom7",
+  "text": "Nordamerika"
+ },
+ {
+  "label": "GUI:GroupRoom8",
+  "text": "Großbritannien"
+ },
+ {
+  "label": "GUI:GroupRoom9",
+  "text": "Deutschland"
+ },
+ {
+  "label": "GUI:GroupRoom10",
+  "text": "Korea"
+ },
+ {
+  "label": "GUI:GroupRoom11",
+  "text": "Jeder gegen jeden"
+ },
+ {
+  "label": "GUI:GroupRoom12",
+  "text": "Ohne Statistik"
+ },
+ {
+  "label": "GUI:GroupRoom13",
+  "text": "Mod-Karten"
+ },
+ {
+  "label": "GUI:ControlOptions",
+  "text": "STEUERUNGSOPTIONEN"
+ },
+ {
+  "label": "GUI:ClassicMouse",
+  "text": "Klassisch"
+ },
+ {
+  "label": "GUI:AlternateMouse",
+  "text": "Alternative Maussteuerung"
+ },
+ {
+  "label": "TOOLTIP:AlternateMouse",
+  "text": "Die rechte Maustaste löst Einheitenaktionen auf dem Schlachtfeld aus (Angriff, Bewegung usw.)"
+ },
+ {
+  "label": "GUI:Generals_Challenge",
+  "text": "HERAUSFORDERUNG"
+ },
+ {
+  "label": "GUI:Generals_Challenge_Title",
+  "text": "Herausforderung der Generäle"
+ },
+ {
+  "label": "GUI:DemoMD_USA01ButtonTitle",
+  "text": "USA 01"
+ },
+ {
+  "label": "GUI:DemoMD_USA02ButtonTitle",
+  "text": "USA 02"
+ },
+ {
+  "label": "GUI:DemoMD_GLA03ButtonTitle",
+  "text": "GBA 03"
+ },
+ {
+  "label": "GUI:DemoMD_CampEADemoTitle",
+  "text": "DEMO"
+ },
+ {
+  "label": "TOOLTIP:TooltipCannotBuildBuildingBecauseMaximumNumber",
+  "text": "Gebäude bereits gebaut"
+ },
+ {
+  "label": "TOOLTIP:MapMaxBrutalSuccess",
+  "text": "Glückwunsch! Sie haben diese Karte gegen die maximale Zahl schwerer Gegner gewonnen!"
+ },
+ {
+  "label": "GUI:LimitArmies",
+  "text": "Armeen begrenzen"
+ },
+ {
+  "label": "TOOLTIP:LimitArmies",
+  "text": "Aktivieren, um die Armeen auf die klassischen Fraktionen USA, GBA und China zu beschränken und abtrünnige Generalsarmeen auszuschließen"
+ },
+ {
+  "label": "GUI:UseStats",
+  "text": "Statistik aufzeichnen"
+ },
+ {
+  "label": "TOOLTIP:UseStats",
+  "text": "Wählen Sie, ob die Statistik dieses Spiels auf dem offiziellen Server von C&C Generals Zero Hour aufgezeichnet wird"
+ },
+ {
+  "label": "TOOLTIP:UseStatsOn",
+  "text": "Die Statistik dieses Spiels WIRD auf dem offiziellen Server von C&C Generals Zero Hour aufgezeichnet"
+ },
+ {
+  "label": "TOOLTIP:UseStatsOff",
+  "text": "Die Statistik dieses Spiels wird NICHT auf dem offiziellen Server von C&C Generals Zero Hour aufgezeichnet"
+ },
+ {
+  "label": "GUI:StartingMoney",
+  "text": "Startkapital"
+ },
+ {
+  "label": "GUI:StartingMoneyFormat",
+  "text": "$%u"
+ },
+ {
+  "label": "TOOLTIP:StartingMoney",
+  "text": "Startgeld für alle Spieler anpassen"
+ }
+]

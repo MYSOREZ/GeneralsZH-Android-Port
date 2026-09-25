@@ -1,0 +1,802 @@
+[
+ {
+  "label": "UPGRADE:BecomeRealGLABlackMarket",
+  "text": "Echter Schwarzmarkt"
+ },
+ {
+  "label": "UPGRADE:FusionReactors",
+  "text": "Fusionsreaktoren"
+ },
+ {
+  "label": "UPGRADE:CamoNetting",
+  "text": "Tarnnetze"
+ },
+ {
+  "label": "UPGRADE:FortifiedStructure",
+  "text": "Befestigte Struktur"
+ },
+ {
+  "label": "UPGRADE:BoobyTrap",
+  "text": "Sprengfalle"
+ },
+ {
+  "label": "UPGRADE:AnthraxGamma",
+  "text": "Anthrax Gamma"
+ },
+ {
+  "label": "UPGRADE:WorkerShoes",
+  "text": "Arbeiterschuhe"
+ },
+ {
+  "label": "UPGRADE:ChemicalSuits",
+  "text": "Chemieanzüge"
+ },
+ {
+  "label": "UPGRADE:AmericaCountermeasures",
+  "text": "Gegenmaßnahmen"
+ },
+ {
+  "label": "UPGRADE:UpgradeChinaIsotopeStability",
+  "text": "&Isotopenstabilität"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUpgradeChinaIsotopeStability",
+  "text": "Verhindert, dass beim Zerstören von Fahrzeugen die meiste Strahlung eigene Einheiten schädigt"
+ },
+ {
+  "label": "OBJECT:SecretResearchLab",
+  "text": "Geheimes Forschungslabor"
+ },
+ {
+  "label": "OBJECT:InternetCenter",
+  "text": "Internetzentrale"
+ },
+ {
+  "label": "OBJECT:AircraftCarrier",
+  "text": "Flugzeugträger"
+ },
+ {
+  "label": "OBJECT:TechArtilleryPlatform",
+  "text": "Artillerieplattform -- Einnehmen, um Bodenziele zu beschießen"
+ },
+ {
+  "label": "OBJECT:NukeHunter",
+  "text": "Atomjäger"
+ },
+ {
+  "label": "OBJECT:TechRepairPad",
+  "text": "Reparaturplattform -- Einnehmen, damit Fahrzeuge hier repariert werden können"
+ },
+ {
+  "label": "OBJECT:AirF_Aurora",
+  "text": "Aerosol-Aurora-Bomber"
+ },
+ {
+  "label": "OBJECT:SupW_Aurora",
+  "text": "Aurora-Alpha-Bomber"
+ },
+ {
+  "label": "OBJECT:BattleBus",
+  "text": "Kampfbus"
+ },
+ {
+  "label": "OBJECT:Helix",
+  "text": "Helix"
+ },
+ {
+  "label": "OBJECT:PropagandaTrooper",
+  "text": "Propagandasoldat"
+ },
+ {
+  "label": "OBJECT:HellfireDrone",
+  "text": "Hellfire-Drohne"
+ },
+ {
+  "label": "OBJECT:Avenger",
+  "text": "Avenger"
+ },
+ {
+  "label": "OBJECT:Microwave",
+  "text": "Mikrowellenpanzer"
+ },
+ {
+  "label": "OBJECT:MOAB",
+  "text": "Mutter aller Bomben"
+ },
+ {
+  "label": "OBJECT:NukeDrop",
+  "text": "Atombombenabwurf"
+ },
+ {
+  "label": "OBJECT:SuitcaseNuke",
+  "text": "Kofferbombe"
+ },
+ {
+  "label": "OBJECT:StructureEMPMine",
+  "text": "Neutronenmine"
+ },
+ {
+  "label": "OBJECT:ECMTank",
+  "text": "ECM-Panzer"
+ },
+ {
+  "label": "OBJECT:Saboteur",
+  "text": "Saboteur"
+ },
+ {
+  "label": "OBJECT:TechRepairBay",
+  "text": "Reparaturwerkstatt -- Einnehmen, um Fahrzeuge auf dem ganzen Schlachtfeld zu reparieren"
+ },
+ {
+  "label": "OBJECT:TechReinforcementPad",
+  "text": "Verstärkungsplattform -- Einnehmen, um zusätzliche Fahrzeuge zu erhalten"
+ },
+ {
+  "label": "OBJECT:Sniper",
+  "text": "Scharfschütze"
+ },
+ {
+  "label": "OBJECT:FireBase",
+  "text": "Feuerbasis"
+ },
+ {
+  "label": "OBJECT:KingRaptor",
+  "text": "King Raptor"
+ },
+ {
+  "label": "OBJECT:CombatBike",
+  "text": "Kampfmotorrad"
+ },
+ {
+  "label": "OBJECT:SentryDrone",
+  "text": "Wachdrohne"
+ },
+ {
+  "label": "OBJECT:TomahawkStorm",
+  "text": "Tomahawk-Sturm"
+ },
+ {
+  "label": "OBJECT:ListeningOutpost",
+  "text": "Horchposten"
+ },
+ {
+  "label": "Map:LeipzigLowlands",
+  "text": "Leipzig Lowlands"
+ },
+ {
+  "label": "Map:BombardmentBeach",
+  "text": "Bombardment Beach"
+ },
+ {
+  "label": "Map:BearTownBeatdown",
+  "text": "Bear Town Beatdown"
+ },
+ {
+  "label": "MAP:RiverSnakes",
+  "text": "Winding River"
+ },
+ {
+  "label": "MAP:KillingFields",
+  "text": "Killing Fields"
+ },
+ {
+  "label": "MAP:ThinIce",
+  "text": "Thin Ice"
+ },
+ {
+  "label": "MAP:ElScorcho",
+  "text": "El Scorcho"
+ },
+ {
+  "label": "MAP:GreenPastures",
+  "text": "Green Pastures"
+ },
+ {
+  "label": "MAP:FreeFireZone",
+  "text": "Free Fire Zone"
+ },
+ {
+  "label": "MAP:DestructionStation",
+  "text": "Destruction Station"
+ },
+ {
+  "label": "MAP:PolarStorm",
+  "text": "Polar Storm"
+ },
+ {
+  "label": "MAP:BitterWinter",
+  "text": "Bitter Winter"
+ },
+ {
+  "label": "MAP:CitySweep",
+  "text": "City Sweep"
+ },
+ {
+  "label": "MAP:FrozenPlains",
+  "text": "Frozen Plains"
+ },
+ {
+  "label": "MAP:RoadRage",
+  "text": "Road Rage"
+ },
+ {
+  "label": "HELP:SentryDrone-01",
+  "text": "TIPP: \n Die Wachdrohne kann getarnte feindliche Einheiten aufspüren"
+ },
+ {
+  "label": "HELP:SentryDrone-02",
+  "text": "TIPP: \n Kaufen Sie das Wachdrohnen-Geschütz in der Strategiezentrale"
+ },
+ {
+  "label": "HELP:MicrowaveTank-01",
+  "text": "TIPP: \n Der Mikrowellenpanzer kann Gebäude lahmlegen"
+ },
+ {
+  "label": "HELP:MicrowaveTank-02",
+  "text": "TIPP: \n Die Mikrowellen des Mikrowellenpanzers verletzen Infanterie in der Nähe"
+ },
+ {
+  "label": "HELP:Avenger-01",
+  "text": "TIPP: \n Der Laser des Avenger kann feindliche Ziele markieren \n Beschuss markierter Ziele verursacht mehr Schaden"
+ },
+ {
+  "label": "HELP:Avenger-02",
+  "text": "TIPP: \n Avenger sind Unterstützungseinheiten, die auch Flugzeuge angreifen können"
+ },
+ {
+  "label": "HELP:FireBase-01",
+  "text": "TIPP: \n Besetzen Sie die Feuerbasis mit Raketenwerfer-Soldaten \n für Luft- und Bodenverteidigung zugleich"
+ },
+ {
+  "label": "HELP:SpectreGunship-01",
+  "text": "TIPP: \n Wählen Sie ein Gebiet für den Angriff des Spectre-Kanonenboots \n und wählen Sie dann Feinde manuell als Ziel"
+ },
+ {
+  "label": "HELP:LeafletDrop-01",
+  "text": "TIPP: \n Legen Sie feindliche Infanterie mit dem Flugblattabwurf lahm"
+ },
+ {
+  "label": "HELP:MOAB-01",
+  "text": "TIPP: \n MOABs sind wirksam gegen Fahrzeuge und \n betäuben alle Überlebenden"
+ },
+ {
+  "label": "HELP:Countermeasures-01",
+  "text": "TIPP: \n Mit dem Upgrade Gegenmaßnahmen weichen Lufteinheiten Angriffen besser aus"
+ },
+ {
+  "label": "HELP:HellfireDrone-01",
+  "text": "TIPP: \n Rüsten Sie Ihre Fahrzeuge mit Hellfire-Drohnen auf, \n um sie gegen Panzertruppen zu stärken"
+ },
+ {
+  "label": "HELP:ChemicalSuit-01",
+  "text": "TIPP: \n Schützen Sie Ihre Infanterie mit Chemikalienschutzanzügen \n vor tödlichen Toxinen und Strahlung"
+ },
+ {
+  "label": "HELP:BunkerBuster-01",
+  "text": "TIPP: \n Das Bunkerbrecher-Upgrade des Tarnkappenjägers \n kann verschanzte Feinde verwunden"
+ },
+ {
+  "label": "HELP:BunkerBuster-02",
+  "text": "TIPP: \n Bunkerbrecher können Einheiten in Bunkern töten"
+ },
+ {
+  "label": "HELP:SupplyLines-01",
+  "text": "TIPP: \n Das Upgrade Nachschublinien erhöht das Einkommen"
+ },
+ {
+  "label": "HELP:SupplyLines-02",
+  "text": "TIPP: \n Rüsten Sie Nachschublinien auf, um \n die Effizienz der Chinooks zu steigern"
+ },
+ {
+  "label": "HELP:ListeningOutpost-01",
+  "text": "TIPP: \n Horchposten sind getarnt und spüren \n getarnte Einheiten auf"
+ },
+ {
+  "label": "HELP:ListeningOutpost-02",
+  "text": "TIPP: \n Horchposten haben einen sehr großen Sichtradius"
+ },
+ {
+  "label": "HELP:Helix-01",
+  "text": "TIPP: \n Rüsten Sie einen Helix mit einem Propagandaturm aus, um \n Ihre Einheiten in der Nähe zu reparieren und zu heilen"
+ },
+ {
+  "label": "HELP:Helix-02",
+  "text": "TIPP: \n Der Helix kann Napalmbomben erhalten \n Sie werden auf Ziele unter dem Helix abgeworfen"
+ },
+ {
+  "label": "HELP:Helix-03",
+  "text": "TIPP: \n Sie können einen Helix mit Kampfbunker, \n Propagandaturm oder Gatling-Kanone aufrüsten"
+ },
+ {
+  "label": "HELP:ECMTank-01",
+  "text": "TIPP: \n Stören Sie mit dem ECM-Panzer feindliches Raketenfeuer"
+ },
+ {
+  "label": "HELP:Frenzy-01",
+  "text": "TIPP: \n Steigern Sie mit der Generalsfähigkeit Raserei \n Feuerkraft und Panzerung Ihrer Einheiten"
+ },
+ {
+  "label": "HELP:InternetCenter-01",
+  "text": "TIPP: \n Setzen Sie Hacker in die Internetzentrale, \n um schneller Geld zu sammeln"
+ },
+ {
+  "label": "HELP:InternetCenter-02",
+  "text": "TIPP: \n Bauen Sie eine Internetzentrale und rüsten Sie auf \n Satelliten-Hack I und II auf"
+ },
+ {
+  "label": "HELP:SatelliteHack1-01",
+  "text": "TIPP: \n Satelliten-Hack I zeigt alle feindlichen Kommandozentralen"
+ },
+ {
+  "label": "HELP:SatelliteHack2-01",
+  "text": "TIPP: \n Satelliten-Hack II zeigt alles, was feindliche Einheiten sehen"
+ },
+ {
+  "label": "HELP:EMPMines-01",
+  "text": "TIPP: \n Minen können zu Neutronenminen aufgerüstet werden, \n die feindliche Fahrzeuge lahmlegen"
+ },
+ {
+  "label": "HELP:NeutronShell-01",
+  "text": "TIPP: \n Neutronengranaten der Atomkanone neutralisieren \n Fahrzeuge, sodass jede Infanterie sie einnehmen kann"
+ },
+ {
+  "label": "HELP:CombatCycle-01",
+  "text": "TIPP: \n Kampfmotorräder können von Klippen springen"
+ },
+ {
+  "label": "HELP:CombatCycle-02",
+  "text": "TIPP: \n Setzen Sie einen RPG-Soldaten auf ein Kampfmotorrad, \n damit es Raketen abfeuern kann"
+ },
+ {
+  "label": "HELP:CombatCycle-03",
+  "text": "TIPP: \n Setzen Sie einen Terroristen auf ein Kampfmotorrad, \n um ein Selbstmord-Motorrad zu erhalten"
+ },
+ {
+  "label": "HELP:CombatCycle-04",
+  "text": "TIPP: \n Jarmen Kell kann vom Kampfmotorrad aus schießen"
+ },
+ {
+  "label": "HELP:CombatCycle-05",
+  "text": "TIPP: \n Arbeiter kommen mit Kampfmotorrädern schnell voran"
+ },
+ {
+  "label": "HELP:Saboteur-01",
+  "text": "TIPP: \n Der Saboteur legt die Fähigkeiten feindlicher Gebäude lahm"
+ },
+ {
+  "label": "HELP:Saboteur-02",
+  "text": "TIPP: \n Schicken Sie den Saboteur in eine feindliche Kommandozentrale, \n um die Zähler der feindlichen Generalsfähigkeiten zurückzusetzen"
+ },
+ {
+  "label": "HELP:FakeStructures-01",
+  "text": "TIPP: \n Täuschen Sie Ihre Feinde mit falschen Gebäuden"
+ },
+ {
+  "label": "HELP:SneakAttack-01",
+  "text": "TIPP: \n Bauen Sie mit dem Überraschungsangriff sofort ein Tunnelnetz \n an jedem Ort, den Sie sehen"
+ },
+ {
+  "label": "HELP:GPSScramble-01",
+  "text": "TIPP: \n Tarnen Sie eigene Einheiten mit der \n Generalsfähigkeit GPS-Störsender"
+ },
+ {
+  "label": "HELP:WorkerShoes-01",
+  "text": "TIPP: \n Kaufen Sie Arbeiterschuhe, damit Arbeiter schneller \n laufen und Ressourcen sammeln"
+ },
+ {
+  "label": "HELP:CamoNetting-01",
+  "text": "TIPP: \n Tarnnetze tarnen Ihre Stinger-Stellungen \n und Tunnelnetze"
+ },
+ {
+  "label": "HELP:FortifiedStructures-01",
+  "text": "TIPP: \n Befestigte Gebäude sind schwerer zu zerstören"
+ },
+ {
+  "label": "HELP:BoobyTrap-01",
+  "text": "TIPP: \n Sprengfallen explodieren, wenn ein Feind versucht, \n das präparierte Gebäude zu besetzen oder einzunehmen"
+ },
+ {
+  "label": "HELP:KingRaptor-01",
+  "text": "TIPP: \n King Raptors haben mehr Munition und mehr Panzerung"
+ },
+ {
+  "label": "HELP:CombatChinooks-01",
+  "text": "TIPP: \n Infanterie in einem Kampf-Chinook kann im Flug feuern"
+ },
+ {
+  "label": "HELP:AuroraAlpha-01",
+  "text": "TIPP: \n Die Aurora Alpha trägt eine kleine, \n aber verheerende Aerosolbombe"
+ },
+ {
+  "label": "HELP:MicrowavePatriot-01",
+  "text": "TIPP: \n Die Raketen des EMP-Patriot sind wirksam \n gegen Fahrzeuge und Infanterie"
+ },
+ {
+  "label": "HELP:AdvancedRods-01",
+  "text": "TIPP: \n Verbesserte Steuerstäbe liefern mehr Energie als normale Steuerstäbe"
+ },
+ {
+  "label": "HELP:LaserTank-01",
+  "text": "TIPP: \n Bauen Sie zusätzliche Kraftwerke für Laserpanzer \n Bei Energiemangel können sie weder fahren noch feuern"
+ },
+ {
+  "label": "HELP:LaserDefenseTurret-01",
+  "text": "TIPP: \n Laser-Abwehrgeschütze sind stark, brauchen aber zusätzliche Energie"
+ },
+ {
+  "label": "HELP:AssaultTroopTransport-01",
+  "text": "TIPP: \n Einheiten können aus dem Sturmtruppentransporter feuern"
+ },
+ {
+  "label": "HELP:AttackOutpost-01",
+  "text": "TIPP: \n Der Angriffs-Außenposten fasst mehr Infanterie und \n spürt getarnte Einheiten auf"
+ },
+ {
+  "label": "HELP:FortifiedBunkers-01",
+  "text": "TIPP: \n Befestigte Bunker haben Minen und \n stärkere Panzerung und fassen mehr Infanterie"
+ },
+ {
+  "label": "HELP:Mini-Gunner-01",
+  "text": "TIPP: \n Minigunner tragen eine eigene Gatling-Waffe"
+ },
+ {
+  "label": "HELP:InfantryBlackLotus-01",
+  "text": "TIPP: \n Ihre Black-Lotus-Einheiten haben verbesserte Fähigkeiten"
+ },
+ {
+  "label": "HELP:InfantryBlackLotus-02",
+  "text": "TIPP: \n Sie können mehrere Black-Lotus-Einheiten bauen"
+ },
+ {
+  "label": "HELP:InfantryHacker-01",
+  "text": "TIPP: \n Die Hacker des Infanteriegenerals hacken schneller Geld"
+ },
+ {
+  "label": "HELP:ChineseParadrop-01",
+  "text": "TIPP: \n Der chinesische Fallschirmabwurf setzt Rotgardisten überall ab"
+ },
+ {
+  "label": "HELP:EmperorTank-01",
+  "text": "TIPP: \n Imperator-Panzer sind die ultimativen Panzer, \n wirksam gegen Fahrzeuge und Infanterie"
+ },
+ {
+  "label": "HELP:EmperorTank-02",
+  "text": "TIPP: \n Der Imperator-Panzer kann mit einer Gatling-Kanone aufgerüstet werden"
+ },
+ {
+  "label": "HELP:EmperorTank-03",
+  "text": "TIPP: \n Imperator-Panzer sind mit Propagandatürmen ausgestattet"
+ },
+ {
+  "label": "HELP:TankDrop-01",
+  "text": "TIPP: \n Mit dem Panzerabwurf werfen Sie Battlemaster per Fallschirm ab"
+ },
+ {
+  "label": "HELP:TacticalNuke-01",
+  "text": "TIPP: \n Auf Ihrem Flugfeld können MiGs taktische Atombomben erhalten"
+ },
+ {
+  "label": "HELP:IsotopeStability-01",
+  "text": "TIPP: \n Isotopenstabilität verringert den Schaden an eigenen \n Einheiten, wenn Atompanzer zerstört werden"
+ },
+ {
+  "label": "HELP:AdvancedNuclearPower-01",
+  "text": "TIPP: \n Verbesserte Atomkraftwerke erzeugen mehr Energie als normale Atomkraftwerke"
+ },
+ {
+  "label": "HELP:ToxinRebels-01",
+  "text": "TIPP: \n Toxin-Rebellen verspritzen einen Strahl hochgiftiger Toxine"
+ },
+ {
+  "label": "HELP:ToxinRebels-02",
+  "text": "TIPP: \n Toxin-Rebellen sind resistent gegen Toxinangriffe"
+ },
+ {
+  "label": "HELP:ToxinRebels-03",
+  "text": "TIPP: \n Räumen Sie besetzte Gebäude schnell mit Toxin-Rebellen"
+ },
+ {
+  "label": "HELP:ToxinNetworks-01",
+  "text": "TIPP: \n Toxin-Netze feuern Toxinstrahlen aus ihren Kanonen"
+ },
+ {
+  "label": "HELP:ToxinTerrorists-01",
+  "text": "TIPP: \n Toxin-Terroristen explodieren in einer Toxinwolke"
+ },
+ {
+  "label": "HELP:ToxinTerrorists-02",
+  "text": "TIPP: \n Setzen Sie Toxin-Terroristen gegen große Infanteriegruppen ein"
+ },
+ {
+  "label": "HELP:AnthraxGamma-01",
+  "text": "TIPP: \n Anthrax Gamma erhöht den Schaden aller Toxinangriffe"
+ },
+ {
+  "label": "HELP:AnthraxGamma-02",
+  "text": "TIPP: \n Anthrax Gamma ist noch stärker als Anthrax Beta"
+ },
+ {
+  "label": "HELP:AdvancedTrap-01",
+  "text": "TIPP: \n Verbesserte Fallen sind stärker als normale Sprengfallen"
+ },
+ {
+  "label": "HELP:Demolitions-01",
+  "text": "TIPP: \n Das Upgrade Sprengtechnik ermöglicht es Einheiten, sich selbst zu zünden"
+ },
+ {
+  "label": "GENERIC:MissionObjectiveCompleted-01",
+  "text": "MISSIONSZIEL Nr. 1: \n Erfüllt"
+ },
+ {
+  "label": "GENERIC:MissionObjectiveCompleted-02",
+  "text": "MISSIONSZIEL Nr. 2: \n Erfüllt"
+ },
+ {
+  "label": "GENERIC:MissionObjectiveCompleted-03",
+  "text": "MISSIONSZIEL Nr. 3: \n Erfüllt"
+ },
+ {
+  "label": "GENERIC:MissionObjectiveCompleted-04",
+  "text": "MISSIONSZIEL Nr. 4: \n Erfüllt"
+ },
+ {
+  "label": "GENERIC:MissionObjectiveCompleted-05",
+  "text": "MISSIONSZIEL Nr. 5: \n Erfüllt"
+ },
+ {
+  "label": "LOSE:AllUnits",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Alle unsere Einheiten wurden vernichtet \n Wir sind besiegt, General. Diesmal"
+ },
+ {
+  "label": "LOSE:AllBuildings",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Alle unsere Gebäude wurden zerstört \n Wir sind besiegt, General. Diesmal"
+ },
+ {
+  "label": "LOSE:AllUnitsAndBuildings",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Alle unsere Einheiten und Gebäude wurden vernichtet \n Wir sind besiegt, General. Diesmal"
+ },
+ {
+  "label": "HELP:OilRefinery-01",
+  "text": "TIPP: \n Nehmen Sie Ölraffinerien ein, um Fahrzeuge zu verbilligen"
+ },
+ {
+  "label": "HELP:ReinforcementPad-01",
+  "text": "TIPP: \n Nehmen Sie Verstärkungsplattformen ein, um Panzerverstärkung zu erhalten"
+ },
+ {
+  "label": "HELP:OilDerrick-01",
+  "text": "TIPP: \n Nehmen Sie Bohrtürme ein, um zusätzliches Geld zu erhalten"
+ },
+ {
+  "label": "HELP:RepairBay-01",
+  "text": "TIPP: \n Nehmen Sie Reparaturwerkstätten ein, um Fahrzeuge überall zu reparieren"
+ },
+ {
+  "label": "HELP:ArtilleryPlatform-01",
+  "text": "TIPP: \n Nehmen Sie Artillerieplattformen ein, um Schlüsselregionen zu kontrollieren"
+ },
+ {
+  "label": "MAP:MD_USA01Objective1",
+  "text": "MISSIONSZIEL: \n Sichern Sie den Bahnhof und zerstören Sie die umliegende GBA-Basis"
+ },
+ {
+  "label": "MAP:MD_USA01Objective1a",
+  "text": "MISSIONSZIEL Nr. 1: \n Sichern Sie den Bahnhof und zerstören Sie die umliegende GBA-Basis"
+ },
+ {
+  "label": "MAP:MD_USA01ObjectiveAccomplished",
+  "text": "MISSIONSZIEL ERFÜLLT"
+ },
+ {
+  "label": "MAP:MD_USA01ObjectiveAccomplisheda",
+  "text": "MISSIONSZIEL Nr. 1 erfüllt"
+ },
+ {
+  "label": "MAP:MD_USA01Objective2",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Bringen Sie Einheiten in die Waggons"
+ },
+ {
+  "label": "MAP:MD_USA01Objective2a",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Bringen Sie Einheiten in die Waggons"
+ },
+ {
+  "label": "MAP:MD_USA01Objective3",
+  "text": "MISSIONSZIEL: \n Zerstören Sie die GBA-Basis"
+ },
+ {
+  "label": "MAP:MD_USA01Objective3a",
+  "text": "MISSIONSZIEL Nr. 2: \n Zerstören Sie die GBA-Basis"
+ },
+ {
+  "label": "MAP:MD_USA01Hint1",
+  "text": "TIPP: \n Infanterie kann die verlassenen Fahrzeuge im Nordosten besteigen"
+ },
+ {
+  "label": "MAP:MD_USA01Hint1a",
+  "text": "TIPP: \n Infanterie kann die verlassenen Fahrzeuge im Nordosten besteigen"
+ },
+ {
+  "label": "MAP:MD_USA01Hint2",
+  "text": "TIPP: \n Besetzen Sie den Radiosender mit Infanterie, um A-10 anzufordern"
+ },
+ {
+  "label": "MAP:MD_USA01Hint2a",
+  "text": "TIPP: \n Besetzen Sie den Radiosender mit Infanterie, um A-10 anzufordern"
+ },
+ {
+  "label": "OBJECT:TrainDepot",
+  "text": "Zugdepot"
+ },
+ {
+  "label": "OBJECT:TrainLoading",
+  "text": "Bahnsteig"
+ },
+ {
+  "label": "MAP:MD_USA01Title",
+  "text": "Kosmodrom Baikonur, Südkasachstan \n 'Operation Globale Sicherheit'"
+ },
+ {
+  "label": "MAP:MD_USA01CINELocation02",
+  "text": "US-Marinestützpunkt \n Nordeuropa"
+ },
+ {
+  "label": "MAP:Intro_Breifing_01",
+  "text": "US-Aufklärungsbasis bei Baikonur \n Südkasachstan"
+ },
+ {
+  "label": "MAP:MD_USA01CINELocation01",
+  "text": "Irgendwo in Südkasachstan \n Unterwegs nach Baikonur"
+ },
+ {
+  "label": "MAP:USAX02MissionINtro",
+  "text": "Vor der Küste Somalias"
+ },
+ {
+  "label": "MAP:USAX02MissionStart",
+  "text": "Berbera, Somalia \n 'Operation: Helfende Hand'"
+ },
+ {
+  "label": "MAP:USAX02NavyHint",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Die Flotte steht bereit, um den Widerstand zu schwächen"
+ },
+ {
+  "label": "MAP:USAX02ConvoyHint",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Der Konvoi setzt sich in Bewegung, sobald 10 Versorgungslaster eingetroffen sind"
+ },
+ {
+  "label": "MAP:USAX02ConvoyArrived",
+  "text": "MISSIONSZIEL Nr. 1: \n Erfüllt"
+ },
+ {
+  "label": "MAP:USAX02objectives3a",
+  "text": "MISSIONSZIEL Nr. 2: \n Zerstören Sie die GBA-Basis"
+ },
+ {
+  "label": "MAP:USAX02Objectives1",
+  "text": "MISSIONSZIEL Nr. 1: \n Schützen Sie die ankommenden Versorgungslaster und sichern Sie das Versorgungslager"
+ },
+ {
+  "label": "MAP:USAX02Objectives2",
+  "text": "MISSIONSZIEL: \n Verteidigen Sie die Docks \n Schützen Sie die ankommenden Versorgungslaster \n Sichern Sie das Lagerhaus"
+ },
+ {
+  "label": "MAP:USAX02Objectives3",
+  "text": "MISSIONSZIEL: \n Finden und zerstören Sie die GBA-Gebäude in den Bergen"
+ },
+ {
+  "label": "MAP:USAX02Ships",
+  "text": "Verfügbare Unterstützung: \n Flugzeugträger CVN-88 Daedalus \n Schlachtschiff-Begleitgruppe Dreadnought"
+ },
+ {
+  "label": "MAP:USAX02Truck1Arrived",
+  "text": "Versorgungslaster 1 von 10 ist eingetroffen"
+ },
+ {
+  "label": "MAP:USAX02Truck2Arrived",
+  "text": "Versorgungslaster 2 von 10 ist eingetroffen"
+ },
+ {
+  "label": "MAP:USAX02Truck3Arrived",
+  "text": "Versorgungslaster 3 von 10 ist eingetroffen"
+ },
+ {
+  "label": "MAP:USAX02Truck4Arrived",
+  "text": "Versorgungslaster 4 von 10 ist eingetroffen"
+ },
+ {
+  "label": "MAP:USAX02Truck5Arrived",
+  "text": "Versorgungslaster 5 von 10 ist eingetroffen"
+ },
+ {
+  "label": "MAP:USAX02Truck6Arrived",
+  "text": "Versorgungslaster 6 von 10 ist eingetroffen"
+ },
+ {
+  "label": "MAP:USAX02Truck7Arrived",
+  "text": "Versorgungslaster 7 von 10 ist eingetroffen"
+ },
+ {
+  "label": "MAP:USAX02Truck8Arrived",
+  "text": "Versorgungslaster 8 von 10 ist eingetroffen"
+ },
+ {
+  "label": "MAP:USAX02Truck9Arrived",
+  "text": "Versorgungslaster 9 von 10 ist eingetroffen"
+ },
+ {
+  "label": "MAP:USAX02Truck10Arrived",
+  "text": "Versorgungslaster 10 ist eingetroffen \n Der Konvoi bereitet die Abfahrt zum Lagerhaus vor"
+ },
+ {
+  "label": "MAP:USAX02ConvoyToWarehouse",
+  "text": "Eskortieren Sie den Konvoi zum Lagerhaus"
+ },
+ {
+  "label": "MAP:USAX02Dozer",
+  "text": "Ein Bulldozer ist an den Docks eingetroffen \n Beginnen Sie mit dem Basisbau"
+ },
+ {
+  "label": "MAP:USAX02Dozerb",
+  "text": "Ein Bulldozer ist eingetroffen"
+ },
+ {
+  "label": "MAP:USAX02Dozer2",
+  "text": "Ein neuer Bulldozer ist an den Docks eingetroffen"
+ },
+ {
+  "label": "MAP:USA03xMapName",
+  "text": "Letzte Runde"
+ },
+ {
+  "label": "MAP:USA03xOpen",
+  "text": "Elbrus, Georgien \n 'Operation: Schneefall'"
+ },
+ {
+  "label": "MAP:USA03xOpenAlt",
+  "text": "Elbrus, Russland \n 'Operation: Schneefall'"
+ },
+ {
+  "label": "MAP:USA03xObjective02",
+  "text": "MISSIONSZIEL Nr. 1: \n Zerstören Sie das GBA-Gefangenenlager und retten Sie die Gefangenen \n Colonel Burton muss überleben"
+ },
+ {
+  "label": "MAP:USA03xObjective03",
+  "text": "MISSIONSZIEL Nr. 2: \n Bringen Sie Colonel Burton zum Sammelpunkt"
+ },
+ {
+  "label": "MAP:USA03xObjectiveCompleted",
+  "text": "MISSIONSZIEL Nr. 1: \n Erfüllt"
+ },
+ {
+  "label": "MAP:USA03xTownHallHint",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Durchsuchen Sie das Dorf nach vermissten Soldaten"
+ },
+ {
+  "label": "MAP:USA03xToxinNetworksWarning",
+  "text": "WARNUNG: \n Achten Sie auf Toxin-Netze und Stinger-Stellungen"
+ },
+ {
+  "label": "MAP:USA03xPOWCamp02Hint",
+  "text": "TIPP: \n Beseitigen Sie die GBA-Gebäude, die dieses Lager bewachen, \n um die Gefangenen zu befreien"
+ },
+ {
+  "label": "MAP:USA03xBurtonWarning",
+  "text": "WARNUNG: \n Colonel Burton ist schwer verwundet \n Er muss diese Mission überleben"
+ },
+ {
+  "label": "MAP:USA03xChemWarning02",
+  "text": "WARNUNG: \n Diese Verteidigungsanlagen wurden umgebaut, um Chemikalien zu verschießen \n Sie töten jede Infanterie, die ihnen zu nahe kommt"
+ },
+ {
+  "label": "MAP:USA03xLoseReason01",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Colonel Burton wurde getötet \n Sie sind besiegt, General. Diesmal"
+ },
+ {
+  "label": "MAP:MD-USA04_LOCALE",
+  "text": "Ölfelder von Amisbad, Iran \n 'Operation: Schwarzes Gold'"
+ },
+ {
+  "label": "MAP:MD-USA04_Start02",
+  "text": "EINGEHENDE ÜBERTRAGUNG: \n Verstärkung ist eingetroffen"
+ }
+]
