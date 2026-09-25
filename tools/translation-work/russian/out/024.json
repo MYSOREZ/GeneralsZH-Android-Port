@@ -1,0 +1,802 @@
+[
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi002Subtitle",
+  "text": "*Тигр изготовился к прыжку, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi003Subtitle",
+  "text": "*За Китай! В атаку!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi004Subtitle",
+  "text": "*Мои силы готовы атаковать вашу оборону, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi005Subtitle",
+  "text": "*Почувствуйте поступь моего железного дракона!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi006Subtitle",
+  "text": "*Ваша оборона бесполезна против моих сил"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi007Subtitle",
+  "text": "*Вот мы и встретились на поле чести, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi008Subtitle",
+  "text": "*Мы делаем это во благо Китая"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi009Subtitle",
+  "text": "*Пора проверить вас на прочность, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi010Subtitle",
+  "text": "*Вы атаковали меня в последний раз, генерал. Эта волна сломит вашу оборону и сотрёт вашу жалкую армию в пыль!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi011Subtitle",
+  "text": "*Мощь Китая обрушивается на вас"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi012Subtitle",
+  "text": "*Ваши жалкие силы не станут испытанием для моих воинов"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi013Subtitle",
+  "text": "*Вы начали этот бой, генерал. Нет… я его закончу"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi014Subtitle",
+  "text": "*Атакуйте глупца! Пленных не брать!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi015Subtitle",
+  "text": "*Два воина сходятся на поле боя. Кто скажет, кто победит? Я скажу. Я. Вы падёте, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi016Subtitle",
+  "text": "*В битве, которую нельзя выиграть, не стоит сражаться. Так зачем вы здесь, генерал?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi017Subtitle",
+  "text": "*Одна лишь ярость далеко не уведёт, генерал. А вот ярость и колонна танков… с этим уже можно чего-то добиться"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi018Subtitle",
+  "text": "*Вы дошли до конца верёвки, генерал. И только теперь заметили, что её конец горит"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi019Subtitle",
+  "text": "*Танец битвы странен и краток… и эта битва с вами была странно краткой"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi020Subtitle",
+  "text": "*Вижу, вы не продумали свою стратегию. Жаль"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi021Subtitle",
+  "text": "*Это проигрышная стратегия, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi022Subtitle",
+  "text": "*Вы действуете не во благо своего народа, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi023Subtitle",
+  "text": "*Дам вам минутку, чтобы обдумать следующий ход"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi024Subtitle",
+  "text": "*Мудрец знает, когда отступить. Вы, очевидно, не из таких"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi025Subtitle",
+  "text": "*В конце концов все падают передо мной"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi026Subtitle",
+  "text": "*Вам не устоять перед моей мощью"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi027Subtitle",
+  "text": "*Китай не победить одному человеку"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi028Subtitle",
+  "text": "*Мы поразмыслим и обдумаем следующий ход"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi029Subtitle",
+  "text": "*Не беритесь за тактику, которую не сможете поддержать"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi030Subtitle",
+  "text": "*Самоубийство — не тактика, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi031Subtitle",
+  "text": "*Мы сметаем ваши здания, как ураган бамбук"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi032Subtitle",
+  "text": "*Ваши солдаты бежали из казармы, когда мы сровняли её с землёй"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi033Subtitle",
+  "text": "*Завод не может производить войну, генерал… а теперь ваш военный завод не производит ничего"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi034Subtitle",
+  "text": "*Ваш аэродром больше не взлетит, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi035Subtitle",
+  "text": "*Ваша оборона падает перед нами, как травинки"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi036Subtitle",
+  "text": "*Мы уничтожили ваш командный центр — где же вы теперь прячетесь, генерал?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi037Subtitle",
+  "text": "*Пало столько ваших зданий, что я ожидал, что вы уже сдадитесь"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi038Subtitle",
+  "text": "*Не думайте, что сможете разрушить мою казарму и не испытать моего гнева, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi039Subtitle",
+  "text": "*Теперь мне придётся отстраивать этот военный завод. Вам стоило бы воспользоваться моей временной слабостью… долго она не продлится"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi040Subtitle",
+  "text": "*Бульдозеры: отстройте аэродром, пока не вернулись наши МиГи!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi041Subtitle",
+  "text": "*Наша оборона трещит! Отразите захватчиков!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi042Subtitle",
+  "text": "*Довольно разрушений, генерал. Теперь мой ход"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi043Subtitle",
+  "text": "*Вы можете забрать мой командный центр, но битва ещё не окончена, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi044Subtitle",
+  "text": "*Мы отомстим за все МиГи, которые вы уничтожили, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi045Subtitle",
+  "text": "*Цена этой войны слишком высока, генерал. Теперь платить вам"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi046Subtitle",
+  "text": "*Пехоты у Китая много, но слишком многие принесены в жертву. Теперь я отплачу за вашу жестокость десятикратно"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi047Subtitle",
+  "text": "*Захватывайте сколько угодно нефти — вы не успеете пожать плоды"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi048Subtitle",
+  "text": "*Эту артиллерийскую платформу легко обойти, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi049Subtitle",
+  "text": "*Хотите повысить эффективность с помощью этого нефтеперерабатывающего завода, генерал? Надёжная стратегия послужила бы вам лучше"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi050Subtitle",
+  "text": "*На краю моей базы что-то шевелится"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi051Subtitle",
+  "text": "*Вижу, вы приближаетесь к моей базе, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi052Subtitle",
+  "text": "*Вы не доживёте до того, чтобы пожалеть о вторжении на мою базу, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi053Subtitle",
+  "text": "*Ваши силы могут войти на мою базу, но никогда её не покинут"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi054Subtitle",
+  "text": "*Эти ресурсы под моей защитой, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi055Subtitle",
+  "text": "*Почему вы упорно атакуете с флангов?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi056Subtitle",
+  "text": "*Интересная атака, генерал, но против меня она не сработает"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi057Subtitle",
+  "text": "*Смелая атака, генерал, но одной смелостью меня не победить"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi058Subtitle",
+  "text": "*Это тактика глупца, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi059Subtitle",
+  "text": "*Уходите отсюда, пока не разгневали меня"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi060Subtitle",
+  "text": "*Я вижу, что вы делаете, генерал. Я этого не допущу"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi061Subtitle",
+  "text": "*Бегите отсюда, генерал, пока я не спустил на вас орду"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi062Subtitle",
+  "text": "*Мы приближаемся к вашей базе, генерал. Чем будете обороняться?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi063Subtitle",
+  "text": "*Готовы ли вы к нашей атаке, генерал? Посмотрим"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi064Subtitle",
+  "text": "*Ваша оборона недостаточна, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi065Subtitle",
+  "text": "*Теперь мы начнём ровнять вашу базу с землёй, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi066Subtitle",
+  "text": "*Скоро ваши ресурсы станут моими"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi067Subtitle",
+  "text": "*Я забираю эту нефтяную вышку для Китая"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi068Subtitle",
+  "text": "*Ваши фланги открыты, генерал. Роковая ошибка"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi069Subtitle",
+  "text": "*Вы позволили моим силам подорвать вашу оборону. Теперь мы вас добьём"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi070Subtitle",
+  "text": "*Вы допустили падение энергии, генерал. Молитесь, чтобы эта ошибка не оказалась роковой"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi071Subtitle",
+  "text": "*Без энергии вы не сможете защитить свою базу, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi072Subtitle",
+  "text": "*Вы исчерпали свои ресурсы, генерал. Пора признать поражение"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi073Subtitle",
+  "text": "*Вы истощили мои ресурсы, генерал. Теперь я приду и заберу ваши"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi074Subtitle",
+  "text": "*Залповая установка ракет Р-17М — оружие трусов, генерал. Я был о вас лучшего мнения"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi075Subtitle",
+  "text": "*Вы вынуждаете меня ответить собственной ракетной шахтой, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi076Subtitle",
+  "text": "*Эта молекулярная пушка — грозное оружие, но она не остановит Китай"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi077Subtitle",
+  "text": "*Столько обороны… Вижу, вы должным образом уважаете своего врага"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi078Subtitle",
+  "text": "*Вам не построить больше танков, чем Китай, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi079Subtitle",
+  "text": "*Мы не уступим вам в воздухе, генерал. Ваше превосходство существует только в вашем воображении"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi080Subtitle",
+  "text": "*Ваших солдат меньше, генерал. Не пытайтесь собрать орду больше, чем у Китая"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi081Subtitle",
+  "text": "*Ваша база разрастается, генерал… самое время для ядерного удара"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi082Subtitle",
+  "text": "*Красногвардейцы, рассредоточиться! Летят ракеты Р-17М!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi083Subtitle",
+  "text": "*Ваши ядерные ракеты нам не страшны, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi084Subtitle",
+  "text": "*Нет! Ваш молекулярный луч лишь ранит нас… мы этого не забудем, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi085Subtitle",
+  "text": "*Прячьтесь в этих зданиях, генерал. Может, вас навестит танк Дракон"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi086Subtitle",
+  "text": "*Подвиги полковника Бартона легендарны, но он всего лишь один человек, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi087Subtitle",
+  "text": "*Вижу, вы переманили одну из наших агентов Чёрный Лотос. Её подготовка не переломит битву в вашу пользу, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi088Subtitle",
+  "text": "*Снайпер Келл вступает в бой. Не рассчитывайте, что его скрытность вас спасёт, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi089Subtitle",
+  "text": "*Глупо строить аэродром, генерал. Только танки могут спасти вас от меня"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi090Subtitle",
+  "text": "*Мудро строить военный завод, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi091Subtitle",
+  "text": "*Эта казарма — лишь начало того, что вам понадобится, чтобы победить меня, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi092Subtitle",
+  "text": "*Если вы собираетесь продавать свои здания, зачем вы их вообще строите?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi093Subtitle",
+  "text": "*Так легко вы меня не победите, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi094Subtitle",
+  "text": "*Ваше преимущество не продлится долго"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi095Subtitle",
+  "text": "*Такому, как вы, меня не победить, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi096Subtitle",
+  "text": "*Это не конец, генерал. Я оправлюсь"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi097Subtitle",
+  "text": "*Я вынужден признать это поражение. Вы показали превосходную тактику, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi098Subtitle",
+  "text": "*Моя превосходная тактика ведёт вас к поражению, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi099Subtitle",
+  "text": "*Вы проигрываете эту битву, генерал. Лучше с честью принять поражение, чем продолжать сражаться"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi100Subtitle",
+  "text": "*Ваш конец близок, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi101Subtitle",
+  "text": "*Зачем вы противитесь неизбежному, генерал?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi102Subtitle",
+  "text": "*Тень дракона возвещает начало вашего поражения, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi103Subtitle",
+  "text": "*Пора признать поражение, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi104Subtitle",
+  "text": "*Пришло время дракону восстать вновь"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi105Subtitle",
+  "text": "*Нет позора в признании своей слабости"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi106Subtitle",
+  "text": "*Вы не готовы сразиться со мной. Возвращайтесь, когда закончите обучение"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi107Subtitle",
+  "text": "*Зачем вы бежите навстречу собственной гибели?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi108Subtitle",
+  "text": "*Это было интересное состязание. Возможно, вы ещё бросите мне вызов"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi109Subtitle",
+  "text": "*Отточите мастерство и бросьте мне вызов снова"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi110Subtitle",
+  "text": "*Добро пожаловать, генерал. Надеюсь, вы готовы сразиться со мной"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi111Subtitle",
+  "text": "*Ваши победы говорят о ваших способностях, но моим генералам не хватало моей хитрости и опыта"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi112Subtitle",
+  "text": "*Скоро вы узнаете, каково это — сразиться с драконом"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA001Subtitle",
+  "text": "*Большинство врагов бежали бы при виде моих армий. Возможно, это всё-таки будет стоящим"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA002Subtitle",
+  "text": "*Мои силы обрушиваются на вас, как ветер, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA003Subtitle",
+  "text": "*Ваши солдаты — как овцы перед моими воинами"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA004Subtitle",
+  "text": "*Посмотрите, сколько чудесных игрушек вы мне принесли. В детстве я ломал все свои игрушки, генерал, а теперь сломаю ваши"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA005Subtitle",
+  "text": "*Ваши силы падают, как пшеница под моим мечом"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA006Subtitle",
+  "text": "*Вы неплохо справились с моими генералами, но у меня вся их сила вместе. Что вы на это скажете, генерал?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA007Subtitle",
+  "text": "*Вы даже не увидите моих сил, генерал… пока не станет слишком поздно"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA008Subtitle",
+  "text": "*Мы выметем вас с наших земель, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA009Subtitle",
+  "text": "*Теперь вы увидите, к чему привело ваше бесполезное вторжение, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA010Subtitle",
+  "text": "*Вы посмели бросить мне вызов — теперь пожнёте страшную награду"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA011Subtitle",
+  "text": "*Как вам, генерал, когда всадники уже у вашего порога?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA012Subtitle",
+  "text": "*У вас был шанс отступить, теперь мы вас уничтожим"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA013Subtitle",
+  "text": "*Узрите силу моей воли, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA014Subtitle",
+  "text": "*Моя ярость разнесёт вашу военную машину в пыль"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA015Subtitle",
+  "text": "*Токсины… взрывчатка… скрытность… Каждое из этого вы побеждали, но всё вместе? Всё потеряно, генерал. Вам следует сдаться… ради ваших солдат"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA016Subtitle",
+  "text": "*Ваш мир сделал вас мягким, генерал. Мой сделал меня сильным"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA017Subtitle",
+  "text": "*Вы научитесь уважать мою силу, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA018Subtitle",
+  "text": "*Передохните, пока я готовлю следующую атаку, потом битва продолжится"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA019Subtitle",
+  "text": "*Устали умирать у моей обороны, генерал?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA020Subtitle",
+  "text": "*На поле боя тихо, генерал. Ждёте, пока я всё закончу?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA021Subtitle",
+  "text": "*С нетерпением ждём вашей следующей жалкой атаки"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA022Subtitle",
+  "text": "*И это вся ваша сила, генерал? Поистине жалко"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA023Subtitle",
+  "text": "*Ваши атаки — как жалкие крики среди воя бушующей бури"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA024Subtitle",
+  "text": "*Эта битва начинает меня утомлять, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA025Subtitle",
+  "text": "*Сколько ещё мне позволять вам жить, генерал?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA026Subtitle",
+  "text": "*Генерал, мои подданные требуют внимания… сколько ещё вы собираетесь скакать, как клоун?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA027Subtitle",
+  "text": "*Генерал, ваша тактика напоминает мне ребёнка, который учится играть в шахматы"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA028Subtitle",
+  "text": "*Вы закончили, генерал? Исчерпали свои жалкие ресурсы?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA029Subtitle",
+  "text": "*Генерал, мне стало скучно ещё несколько минут назад — теперь я начинаю засыпать"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA030Subtitle",
+  "text": "*Каково это — бросить вызов настоящему военному гению?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA031Subtitle",
+  "text": "*Всё, что вы получите, я уничтожу"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA032Subtitle",
+  "text": "*Теперь пала ваша казарма — скоро падёт всё"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA033Subtitle",
+  "text": "*Ваш военный завод потерян — отстройте его, и я снова его уничтожу"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA034Subtitle",
+  "text": "*Я избавил вас от аэродрома, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA035Subtitle",
+  "text": "*Ваша оборона не остановит мои силы, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA036Subtitle",
+  "text": "* Генерал, если вы не можете удержать даже командный центр, как вы надеетесь победить меня?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA037Subtitle",
+  "text": "*Пало столько ваших зданий, генерал — почему бы не отступить и не избавить себя от дальнейшего позора?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA038Subtitle",
+  "text": "*Не испытывайте моё терпение, разрушая мои нефтяные вышки, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA039Subtitle",
+  "text": "*Вы посмели разрушить мою казарму, генерал?!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA040Subtitle",
+  "text": "*Генерал, мне нужен продавец оружия для моих дел. Не уничтожайте ещё одного"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA041Subtitle",
+  "text": "*Думаете сокрушить мою оборону, генерал? На её месте поднимется новая"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA042Subtitle",
+  "text": "*Это последнее здание, которое вы разрушили, генерал. Моё терпение не безгранично"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA043Subtitle",
+  "text": "*Мой командный центр! Вы вынудили меня уйти под землю, но это ещё не конец, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA044Subtitle",
+  "text": "*Вы уничтожили много моих машин, генерал. Возможно, я вас недооценил"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA045Subtitle",
+  "text": "*Мои люди — не мишени для ваших тренировок, генерал. Их кровь на ваших руках"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA046Subtitle",
+  "text": "*Оставьте мою нефтяную вышку, или я её сожгу"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA047Subtitle",
+  "text": "*Вижу, вы захватили эту заброшенную артиллерийскую платформу. Удачи в попытках её запустить"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA048Subtitle",
+  "text": "*Этот нефтеперерабатывающий завод не переломит ход битвы в вашу пользу, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA049Subtitle",
+  "text": "*Наглый глупец! Вы и так слишком далеко вторглись в мой дом"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA050Subtitle",
+  "text": "*Вы как жалящее насекомое, генерал, и пора прихлопнуть ваше назойливое присутствие"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA051Subtitle",
+  "text": "*Враг среди нас! Уничтожьте его! Уничтожьте их всех!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA052Subtitle",
+  "text": "*Глупец! Вы перешли черту! Ваши силы обречены!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA053Subtitle",
+  "text": "*А, фланговая атака… грубо, но это хотя бы стратегия"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA054Subtitle",
+  "text": "*Пытаетесь зайти ко мне с чёрного хода, генерал?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA055Subtitle",
+  "text": "*Лобовая атака? Надо было привести больше войск"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA056Subtitle",
+  "text": "*Вижу, вы нашли мои запасы… подчёркиваю, МОИ запасы. Оставьте их немедленно"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA057Subtitle",
+  "text": "*Подход к моей базе этим путём приведёт вас лишь к смерти"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA058Subtitle",
+  "text": "*Держитесь подальше от той деревни, генерал. Я защищаю тех, кто под моей опекой"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA059Subtitle",
+  "text": "*Эти ресурсы — для моего народа, генерал. Не вам их брать"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA060Subtitle",
+  "text": "*Эти здания поставлены здесь не для вас, генерал. Не нарушайте мою инфраструктуру"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA061Subtitle",
+  "text": "*Похоже, аппетиты превысили ваши ресурсы, генерал. Надеюсь, вы восстановите энергию до того, как мы доберёмся до вашей базы"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA062Subtitle",
+  "text": "*Наша земля без электричества… жаль, что ваша база без него не может"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA063Subtitle",
+  "text": "*Кончились средства, генерал?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA064Subtitle",
+  "text": "*Генерал, вы истощаете мои ресурсы. Из-за вашей маленькой войны мой народ будет голодать"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA065Subtitle",
+  "text": "*Залповая установка ракет Р-17М?! Вы украли нашу технологию! Вы за это заплатите, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA066Subtitle",
+  "text": "*Строите ядерное оружие, генерал? Я так и думал, что вы опуститесь до такой трусости"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA067Subtitle",
+  "text": "*Молекулярная пушка? Ваши лучи из космоса не достанут нас под землёй"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA068Subtitle",
+  "text": "*Столько обороны. Вы, должно быть, действительно боитесь моей силы, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA069Subtitle",
+  "text": "*Сколько вам нужно танков, генерал?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA070Subtitle",
+  "text": "*Вы заполонили небо этой назойливой мошкарой. Сейчас мы её прихлопнем"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA071Subtitle",
+  "text": "*Обучайте сколько угодно солдат, генерал, но потери будут расти с каждой минутой"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA072Subtitle",
+  "text": "*Ваша база разрослась, генерал… пожалуй, слишком"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA073Subtitle",
+  "text": "*Запускайте в нас свои токсины, генерал; мы готовились к куда худшему"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA074Subtitle",
+  "text": "*Все под землю! Летят их ядерные ракеты"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA075Subtitle",
+  "text": "*Да, пускайте свой молекулярный луч — покажите миру свою трусость"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA076Subtitle",
+  "text": "*Засядьте в здании, генерал — прячьтесь, как крысы в стене"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA077Subtitle",
+  "text": "*Полковник Бартон вас не спасёт, генерал. Эту войну вам придётся вести самому"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA078Subtitle",
+  "text": "*А, прекрасная Чёрный Лотос. Присоединяйся ко мне, Лотос, и будешь жить как королева"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA079Subtitle",
+  "text": "*Джармен Келл? Он смеет выступить против меня?! Моя месть будет весьма… неприятной"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA080Subtitle",
+  "text": "*Ваш аэродром не устоит перед моим натиском, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA081Subtitle",
+  "text": "*Наконец-то построили военный завод, а, генерал? Что вас так задержало?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA082Subtitle",
+  "text": "*Ваша жалкая казарма вам не поможет, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA083Subtitle",
+  "text": "*Продаёте здания, чтобы содержать армию? Не очень-то логично, не так ли, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA084Subtitle",
+  "text": "*Это невозможно! Вам меня не победить!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA085Subtitle",
+  "text": "*Вы можете думать, что у вас преимущество, но эта битва переменится, как ветер"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA086Subtitle",
+  "text": "*Сейчас ваших солдат больше, но битвы выигрывают не только числом, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA087Subtitle",
+  "text": "*Не могу поверить, что меня побеждает такой недалёкий глупец. Этот позор останется со мной навсегда"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA088Subtitle",
+  "text": "*Побеждён глупцом… унижение невыносимо… оставьте меня наедине с моими муками"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA089Subtitle",
+  "text": "*Генерал, я чую запах страха и отчаяния, исходящий от вашей базы"
+ }
+]
