@@ -105,7 +105,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Grainger007Subtitle",
-  "text": "*Начинается дождь ужаса, генерал"
+  "text": "*А вот и ливень террора, генерал"
  },
  {
   "label": "DIALOGEVENT:Taunts_Grainger008Subtitle",
@@ -121,7 +121,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Grainger011Subtitle",
-  "text": "*Пора снимать вратаря. Всем в атаку!"
+  "text": "*Пора идти ва-банк. Всем в атаку!"
  },
  {
   "label": "DIALOGEVENT:Taunts_Grainger012Subtitle",
@@ -309,7 +309,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Grainger058Subtitle",
-  "text": "*Вам не хватит потерь, генерал?"
+  "text": "*Вам мало потерь, генерал?"
  },
  {
   "label": "DIALOGEVENT:Taunts_Grainger059Subtitle",
@@ -329,11 +329,11 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Grainger063Subtitle",
-  "text": "*Звуковой удар, детка. Давай сделаем это"
+  "text": "*Звуковой удар, детка. Погнали!"
  },
  {
   "label": "DIALOGEVENT:Taunts_Grainger064Subtitle",
-  "text": "*Похоже, мне пора искать хорошую работу в авиакомпании"
+  "text": "*Похоже, пора мне устраиваться пилотом в гражданскую авиацию"
  },
  {
   "label": "DIALOGEVENT:Taunts_Grainger065Subtitle",
@@ -405,7 +405,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Grainger082Subtitle",
-  "text": "*Генерал, знаете, как работает бомба с напалмом? Как насчёт демонстрации?"
+  "text": "*Генерал, знаете, как работает объёмно-детонирующая бомба? Как насчёт наглядной демонстрации?"
  },
  {
   "label": "DIALOGEVENT:Taunts_Grainger083Subtitle",
@@ -413,7 +413,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Grainger084Subtitle",
-  "text": "*Знаете, как остановить A10, генерал? Я тоже не знаю"
+  "text": "*Знаете, как остановить A-10, генерал? Я тоже не знаю"
  },
  {
   "label": "DIALOGEVENT:Taunts_Grainger085Subtitle",
@@ -457,11 +457,11 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Infantry002Subtitle",
-  "text": "*<sarcastic>Чувствуете, что вас задавили числом, генерал?"
+  "text": "*<саркастично> Чувствуете, что вас задавили числом, генерал?"
  },
  {
   "label": "DIALOGEVENT:Taunts_Infantry003Subtitle",
-  "text": "*(гибнет китайская пехота) <angry voice> У нас в запасе ещё миллиард таких"
+  "text": "*(гибнет китайская пехота) <сердито> У нас таких ещё миллиард"
  },
  {
   "label": "DIALOGEVENT:Taunts_Infantry004Subtitle",
@@ -473,7 +473,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Infantry006Subtitle",
-  "text": "*<shouting>Шагом марш!"
+  "text": "*<кричит> Шагом марш!"
  },
  {
   "label": "DIALOGEVENT:Taunts_Infantry007Subtitle",
@@ -533,7 +533,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Infantry021Subtitle",
-  "text": "*<sarcastic> Какой тактикой вы удивите меня теперь, генерал?"
+  "text": "*<саркастично> Какой тактикой вы удивите меня теперь, генерал?"
  },
  {
   "label": "DIALOGEVENT:Taunts_Infantry022Subtitle",
@@ -557,7 +557,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Infantry027Subtitle",
-  "text": "*Ой… мы снесли ваше маленькое технологическое здание. Бу-ху"
+  "text": "*Ой… мы снесли ваше маленькое нейтральное здание. Бу-ху"
  },
  {
   "label": "DIALOGEVENT:Taunts_Infantry028Subtitle",
@@ -585,7 +585,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Infantry034Subtitle",
-  "text": "*Оставьте в покое мои технологические здания, генерал!"
+  "text": "*Оставьте в покое мои нейтральние здания, генерал!"
  },
  {
   "label": "DIALOGEVENT:Taunts_Infantry035Subtitle",
@@ -593,7 +593,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Infantry036Subtitle",
-  "text": "*Мой военный завод не решает исход моей победы, но не смейте уничтожать ещё один"
+  "text": "*Мой военный завод для победы не так уж важен, но не смейте уничтожать ещё один"
  },
  {
   "label": "DIALOGEVENT:Taunts_Infantry037Subtitle",
@@ -633,7 +633,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Infantry046Subtitle",
-  "text": "*Думаете, этим нефтяным заводом может пользоваться кто угодно? Немедленно верните его мне"
+  "text": "*Думаете, этим нефтеперерабатывающим заводом может пользоваться кто угодно? Немедленно верните его мне"
  },
  {
   "label": "DIALOGEVENT:Taunts_Infantry047Subtitle",
@@ -669,7 +669,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Infantry055Subtitle",
-  "text": "*Это мои технологические здания, генерал. Держитесь подальше"
+  "text": "*Это мои нейтральние здания, генерал. Держитесь подальше"
  },
  {
   "label": "DIALOGEVENT:Taunts_Infantry056Subtitle",

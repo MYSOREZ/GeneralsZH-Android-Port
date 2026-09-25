@@ -5,7 +5,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Tank092Subtitle",
-  "text": "*Пора спустить военную машину"
+  "text": "*Пора запустить военную машину"
  },
  {
   "label": "DIALOGEVENT:Taunts_Tank093Subtitle",
@@ -49,11 +49,11 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Toxin002Subtitle",
-  "text": "*Один глоток — и пути назад нет, даже если захочется!"
+  "text": "*Попробуете раз — и уже не откажетесь, даже если очень захочется!"
  },
  {
   "label": "DIALOGEVENT:Taunts_Toxin003Subtitle",
-  "text": "*Отведайте моего лекарства!"
+  "text": "*Отведайте моего фирменного лекарства!"
  },
  {
   "label": "DIALOGEVENT:Taunts_Toxin004Subtitle",
@@ -77,11 +77,11 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Toxin009Subtitle",
-  "text": "*Так трудно найти врача, который приходит на дом, но доктор Тракс приходит"
+  "text": "*Врача с выездом на дом днём с огнём не сыщешь, а доктор Тракс выезжает!"
  },
  {
   "label": "DIALOGEVENT:Taunts_Toxin010Subtitle",
-  "text": "*Разлив в первом ряду!"
+  "text": "*Внимание, разлив в первом отделе!"
  },
  {
   "label": "DIALOGEVENT:Taunts_Toxin011Subtitle",
@@ -101,7 +101,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Toxin015Subtitle",
-  "text": "*Тихо, но смертельно"
+  "text": "*Тихо… но ядрёно"
  },
  {
   "label": "DIALOGEVENT:Taunts_Toxin016Subtitle",
@@ -109,7 +109,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Toxin017Subtitle",
-  "text": "*Напряжение… вас просто убивает!"
+  "text": "*Неизвестность… прямо убивает, правда?"
  },
  {
   "label": "DIALOGEVENT:Taunts_Toxin018Subtitle",
@@ -121,11 +121,11 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Toxin020Subtitle",
-  "text": "*Понятно, что они готовы, когда мясо отходит от костей!"
+  "text": "*Сразу видно, что готово: мясо само отходит от костей!"
  },
  {
   "label": "DIALOGEVENT:Taunts_Toxin021Subtitle",
-  "text": "*Сибирская язва… вредит организму"
+  "text": "*Сибирская язва. Минздрав предупреждает: вредит вашему здоровью"
  },
  {
   "label": "DIALOGEVENT:Taunts_Toxin022Subtitle",
@@ -137,7 +137,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Toxin024Subtitle",
-  "text": "*Хорошо до последней капли!"
+  "text": "*Вкусно до последней капли!"
  },
  {
   "label": "DIALOGEVENT:Taunts_Toxin025Subtitle",
@@ -149,7 +149,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Toxin027Subtitle",
-  "text": "*Придёте за токсином, а останетесь… потому что умрёте!"
+  "text": "*Придёте за токсином, а останетесь… навсегда!"
  },
  {
   "label": "DIALOGEVENT:Taunts_Toxin028Subtitle",
@@ -169,11 +169,11 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Toxin032Subtitle",
-  "text": "*Ваши войска, похоже, отравлены, генерал!"
+  "text": "*Ваши войска, похоже, перебрали, генерал!"
  },
  {
   "label": "DIALOGEVENT:Taunts_Toxin033Subtitle",
-  "text": "*Ох, генерал, похоже, ваши войска плохо переносят токсин"
+  "text": "*Ох, генерал, похоже, ваши войска совсем не умеют пить… токсин"
  },
  {
   "label": "DIALOGEVENT:Taunts_Toxin034Subtitle",
@@ -381,7 +381,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Toxin085Subtitle",
-  "text": "*Сдайтесь сейчас, и, гарантирую, вздохнёте с облегчением"
+  "text": "*Сдайтесь сейчас — лёгкое дыхание гарантировано!"
  },
  {
   "label": "DIALOGEVENT:Taunts_Toxin086Subtitle",
@@ -393,11 +393,11 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Toxin088Subtitle",
-  "text": "*Позвольте утопить ваши печали в хорошем токсине!"
+  "text": "*Позвольте залить ваше горе стаканчиком хорошего токсина!"
  },
  {
   "label": "DIALOGEVENT:Taunts_Toxin089Subtitle",
-  "text": "*Ядовитая смерть"
+  "text": "*Токсичный фаталити"
  },
  {
   "label": "DIALOGEVENT:Taunts_Toxin090Subtitle",
@@ -441,7 +441,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Toxin100Subtitle",
-  "text": "*Пожалуй, не стоило получать диплом заочно по почте"
+  "text": "*Пожалуй, не стоило получать диплом в заочном институте по переписке"
  },
  {
   "label": "DIALOGEVENT:Taunts_Toxin101Subtitle",
@@ -473,11 +473,11 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Toxin108Subtitle",
-  "text": "*Первая проба бесплатно!"
+  "text": "*Первая доза бесплатно!"
  },
  {
   "label": "DIALOGEVENT:Taunts_Toxin109Subtitle",
-  "text": "*Вам зелёный или синий? Оба одинаково хороши!"
+  "text": "*Вам зелёненький или синенький? Оба бодрят одинаково!"
  },
  {
   "label": "DIALOGEVENT:Taunts_Toxin110Subtitle",
@@ -553,7 +553,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Turtle011Subtitle",
-  "text": "*Это моё супероружие готово? Ах нет, мои атаки просто так ощущаются"
+  "text": "*Это моё супероружие выстрелило? Ах нет, это просто мои обычные атаки"
  },
  {
   "label": "DIALOGEVENT:Taunts_Turtle012Subtitle",
@@ -609,7 +609,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Turtle025Subtitle",
-  "text": "*Итак, ваша общая стратегия — довести меня скукой до ухода с поля боя?"
+  "text": "*Итак, ваша стратегия — довести меня до смерти от скуки?"
  },
  {
   "label": "DIALOGEVENT:Taunts_Turtle026Subtitle",
@@ -653,7 +653,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Turtle036Subtitle",
-  "text": "*На вашей базе раньше было слишком тесно"
+  "text": "*Раньше у вас на базе было слишком захламлено"
  },
  {
   "label": "DIALOGEVENT:Taunts_Turtle037Subtitle",
@@ -789,7 +789,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Turtle070Subtitle",
-  "text": "*И это всё, насколько защищена ваша база? Правда?"
+  "text": "*И это предел безопасности вашей базы? Серьёзно?"
  },
  {
   "label": "DIALOGEVENT:Taunts_Turtle071Subtitle",

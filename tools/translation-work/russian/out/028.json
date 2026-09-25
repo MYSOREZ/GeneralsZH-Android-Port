@@ -49,7 +49,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Stealth007Subtitle",
-  "text": "*Смотрите! Ах да, вы же не можете"
+  "text": "*Смотрите! Ах да, вы же не видите"
  },
  {
   "label": "DIALOGEVENT:Taunts_Stealth008Subtitle",
@@ -121,7 +121,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Stealth025Subtitle",
-  "text": "*Вы потеряли своё техническое здание, генерал. Что потеряете следующим?"
+  "text": "*Вы потеряли своё нейтральное здание, генерал. Что потеряете следующим?"
  },
  {
   "label": "DIALOGEVENT:Taunts_Stealth026Subtitle",
@@ -149,7 +149,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Stealth032Subtitle",
-  "text": "*Вы бьёте по моим техническим зданиям, потому что не надеетесь добраться до моей базы"
+  "text": "*Вы бьёте по моим нейтральним зданиям, потому что не надеетесь добраться до моей базы"
  },
  {
   "label": "DIALOGEVENT:Taunts_Stealth033Subtitle",
@@ -261,7 +261,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Stealth060Subtitle",
-  "text": "*Я нашёл ваши технические здания, генерал. Что мне с ними сделать?"
+  "text": "*Я нашёл ваши нейтральние здания, генерал. Что мне с ними сделать?"
  },
  {
   "label": "DIALOGEVENT:Taunts_Stealth061Subtitle",
@@ -337,7 +337,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Stealth079Subtitle",
-  "text": "*Полковник Бартон, генерал? Может, сделать генералом его; вы лишь приведёте его к ранней могиле"
+  "text": "*Полковник Бартон, генерал? Может, сделать генералом его; вы лишь сведёте его в могилу раньше времени"
  },
  {
   "label": "DIALOGEVENT:Taunts_Stealth080Subtitle",
@@ -409,7 +409,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Stealth097Subtitle",
-  "text": "*Вы меня видите — вы мертвы"
+  "text": "*Вот вы меня видите… а вот вы уже мертвы"
  },
  {
   "label": "DIALOGEVENT:Taunts_Stealth098Subtitle",
@@ -485,7 +485,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Tank012Subtitle",
-  "text": "*Это ваш конец, генерал"
+  "text": "*Это предвещает вашу гибель, генерал"
  },
  {
   "label": "DIALOGEVENT:Taunts_Tank013Subtitle",
@@ -561,7 +561,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Tank031Subtitle",
-  "text": "*Вам ведь не нужно было это техническое здание, правда?"
+  "text": "*Вам ведь не нужно было это нейтральное здание, правда?"
  },
  {
   "label": "DIALOGEVENT:Taunts_Tank032Subtitle",
@@ -589,7 +589,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Tank038Subtitle",
-  "text": "*Это техническое здание было моим, генерал; вы пожалеете, что разрушили его"
+  "text": "*Это нейтральное здание было моим, генерал; вы пожалеете, что разрушили его"
  },
  {
   "label": "DIALOGEVENT:Taunts_Tank039Subtitle",
@@ -669,7 +669,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Tank058Subtitle",
-  "text": "*А, я нашёл ваше техническое здание. Уничтожить его или захватить?"
+  "text": "*А, я нашёл ваше нейтральное здание. Уничтожить его или захватить?"
  },
  {
   "label": "DIALOGEVENT:Taunts_Tank059Subtitle",
@@ -725,7 +725,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Tank072Subtitle",
-  "text": "*Только неудачник прибегает к ядерным ракетам"
+  "text": "*Только генерал-неудачник прибегает к ядерным ракетам"
  },
  {
   "label": "DIALOGEVENT:Taunts_Tank073Subtitle",

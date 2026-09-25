@@ -1229,7 +1229,7 @@ TOOLTIP:LoadGame
 END
 
 TOOLTIP:MapPreviewWindow
-"Предварительный просмотр карты поможет Вам сориентироваться. Узнать где находятся доки снабжения и технологические здания. Вы можете выбрать Вашу начальную точку"
+"Предварительный просмотр карты поможет Вам сориентироваться. Узнать где находятся доки снабжения и нейтральние здания. Вы можете выбрать Вашу начальную точку"
 END
 
 TOOLTIP:SaveGame
@@ -14645,7 +14645,7 @@ ACADEMY:BuildMorePeons
 END
 
 ACADEMY:TryCapturingStructures
-"Генерал, иногда проще взять то, что Вам нужно, чем добиваться этого трудом. Если Вы проведёте улучшение \"Захват зданий\" в Вашей казарме, то сможете захватывать вражеские здания. Кроме того, по всему полю боя разбросаны технологические здания, которые могут ещё больше усилить Вашу армию"
+"Генерал, иногда проще взять то, что Вам нужно, чем добиваться этого трудом. Если Вы проведёте улучшение \"Захват зданий\" в Вашей казарме, то сможете захватывать вражеские здания. Кроме того, по всему полю боя разбросаны нейтральние здания, которые могут ещё больше усилить Вашу армию"
 END
 
 ACADEMY:SpendGeneralsPoints
@@ -19253,7 +19253,7 @@ DIALOGEVENT:Taunts_BossChi012Subtitle
 END
 
 DIALOGEVENT:Taunts_BossChi013Subtitle
-"*Вы начали этот бой, генерал. Нет… я его закончу"
+"*Вы начали этот бой, генерал. А закончу его я"
 END
 
 DIALOGEVENT:Taunts_BossChi014Subtitle
@@ -19261,7 +19261,7 @@ DIALOGEVENT:Taunts_BossChi014Subtitle
 END
 
 DIALOGEVENT:Taunts_BossChi015Subtitle
-"*Два воина сходятся на поле боя. Кто скажет, кто победит? Я скажу. Я. Вы падёте, генерал"
+"*Два воина сходятся на поле боя. Кто скажет, кто победит? Я скажу, вот кто. Я. Вы падёте, генерал"
 END
 
 DIALOGEVENT:Taunts_BossChi016Subtitle
@@ -19273,7 +19273,7 @@ DIALOGEVENT:Taunts_BossChi017Subtitle
 END
 
 DIALOGEVENT:Taunts_BossChi018Subtitle
-"*Вы дошли до конца верёвки, генерал. И только теперь заметили, что её конец горит"
+"*Вы на последнем издыхании, генерал. И только теперь поняли, что фитиль уже подожжён"
 END
 
 DIALOGEVENT:Taunts_BossChi019Subtitle
@@ -19313,7 +19313,7 @@ DIALOGEVENT:Taunts_BossChi027Subtitle
 END
 
 DIALOGEVENT:Taunts_BossChi028Subtitle
-"*Мы поразмыслим и обдумаем следующий ход"
+"*Мы помедитируем и обдумаем следующий ход"
 END
 
 DIALOGEVENT:Taunts_BossChi029Subtitle
@@ -19337,7 +19337,7 @@ DIALOGEVENT:Taunts_BossChi033Subtitle
 END
 
 DIALOGEVENT:Taunts_BossChi034Subtitle
-"*Ваш аэродром больше не взлетит, генерал"
+"*Ваш аэродром приземлили, генерал"
 END
 
 DIALOGEVENT:Taunts_BossChi035Subtitle
@@ -19349,7 +19349,7 @@ DIALOGEVENT:Taunts_BossChi036Subtitle
 END
 
 DIALOGEVENT:Taunts_BossChi037Subtitle
-"*Пало столько ваших зданий, что я ожидал, что вы уже сдадитесь"
+"*Пало столько ваших зданий, что я уже давно ждал вашей капитуляции"
 END
 
 DIALOGEVENT:Taunts_BossChi038Subtitle
@@ -19397,7 +19397,7 @@ DIALOGEVENT:Taunts_BossChi048Subtitle
 END
 
 DIALOGEVENT:Taunts_BossChi049Subtitle
-"*Хотите повысить эффективность с помощью этого нефтеперерабатывающего завода, генерал? Надёжная стратегия послужила бы вам лучше"
+"*Решили поднять эффективность нефтеперерабатывающим заводом, генерал? Толковая стратегия помогла бы вам куда больше"
 END
 
 DIALOGEVENT:Taunts_BossChi050Subtitle
@@ -19457,7 +19457,7 @@ DIALOGEVENT:Taunts_BossChi063Subtitle
 END
 
 DIALOGEVENT:Taunts_BossChi064Subtitle
-"*Ваша оборона недостаточна, генерал"
+"*Вашей обороны недостаточно, генерал"
 END
 
 DIALOGEVENT:Taunts_BossChi065Subtitle
@@ -19509,7 +19509,7 @@ DIALOGEVENT:Taunts_BossChi076Subtitle
 END
 
 DIALOGEVENT:Taunts_BossChi077Subtitle
-"*Столько обороны… Вижу, вы должным образом уважаете своего врага"
+"*Столько обороны… Вижу, вы уважаете противника как подобает"
 END
 
 DIALOGEVENT:Taunts_BossChi078Subtitle
@@ -19517,7 +19517,7 @@ DIALOGEVENT:Taunts_BossChi078Subtitle
 END
 
 DIALOGEVENT:Taunts_BossChi079Subtitle
-"*Мы не уступим вам в воздухе, генерал. Ваше превосходство существует только в вашем воображении"
+"*На каждый ваш самолёт найдётся наш, генерал. Ваше превосходство — лишь плод вашего воображения"
 END
 
 DIALOGEVENT:Taunts_BossChi080Subtitle
@@ -19561,7 +19561,7 @@ DIALOGEVENT:Taunts_BossChi089Subtitle
 END
 
 DIALOGEVENT:Taunts_BossChi090Subtitle
-"*Мудро строить военный завод, генерал"
+"*Мудрое решение — построить военный завод, генерал"
 END
 
 DIALOGEVENT:Taunts_BossChi091Subtitle
@@ -19581,7 +19581,7 @@ DIALOGEVENT:Taunts_BossChi094Subtitle
 END
 
 DIALOGEVENT:Taunts_BossChi095Subtitle
-"*Такому, как вы, меня не победить, генерал"
+"*Меня не победит такой, как вы, генерал"
 END
 
 DIALOGEVENT:Taunts_BossChi096Subtitle
@@ -19653,7 +19653,7 @@ DIALOGEVENT:Taunts_BossChi112Subtitle
 END
 
 DIALOGEVENT:Taunts_BossGLA001Subtitle
-"*Большинство врагов бежали бы при виде моих армий. Возможно, это всё-таки будет стоящим"
+"*Большинство врагов бежали бы при виде моих армий. Возможно, будет всё-таки интересно"
 END
 
 DIALOGEVENT:Taunts_BossGLA002Subtitle
@@ -19689,7 +19689,7 @@ DIALOGEVENT:Taunts_BossGLA009Subtitle
 END
 
 DIALOGEVENT:Taunts_BossGLA010Subtitle
-"*Вы посмели бросить мне вызов — теперь пожнёте страшную награду"
+"*Вы посмели бросить мне вызов — теперь пожнёте страшные плоды"
 END
 
 DIALOGEVENT:Taunts_BossGLA011Subtitle
@@ -19725,7 +19725,7 @@ DIALOGEVENT:Taunts_BossGLA018Subtitle
 END
 
 DIALOGEVENT:Taunts_BossGLA019Subtitle
-"*Устали умирать у моей обороны, генерал?"
+"*Не надоело гибнуть о мою оборону, генерал?"
 END
 
 DIALOGEVENT:Taunts_BossGLA020Subtitle
@@ -19897,7 +19897,7 @@ DIALOGEVENT:Taunts_BossGLA061Subtitle
 END
 
 DIALOGEVENT:Taunts_BossGLA062Subtitle
-"*Наша земля без электричества… жаль, что ваша база без него не может"
+"*Наша земля живёт без электричества… жаль, что ваша база без него никак"
 END
 
 DIALOGEVENT:Taunts_BossGLA063Subtitle
@@ -20073,7 +20073,7 @@ DIALOGEVENT:Taunts_BossUSA002Subtitle
 END
 
 DIALOGEVENT:Taunts_BossUSA003Subtitle
-"*Накрывай на стол, малыш, мы идём к тебе на ужин"
+"*Накрывай на стол, малыш, мы идём ужинать"
 END
 
 DIALOGEVENT:Taunts_BossUSA004Subtitle
@@ -20101,7 +20101,7 @@ DIALOGEVENT:Taunts_BossUSA009Subtitle
 END
 
 DIALOGEVENT:Taunts_BossUSA010Subtitle
-"*Пора мне преподать тебе пару уроков тыльной стороной ладони"
+"*Пора познакомить тебя с тыльной стороной моей ладони"
 END
 
 DIALOGEVENT:Taunts_BossUSA011Subtitle
@@ -20113,7 +20113,7 @@ DIALOGEVENT:Taunts_BossUSA012Subtitle
 END
 
 DIALOGEVENT:Taunts_BossUSA013Subtitle
-"*Я войду на твою базу и дам тебе пинка под зад, <sarcastic> «генерал»."
+"*Я войду на твою базу и дам тебе пинка под зад, <саркастично> «генерал»."
 END
 
 DIALOGEVENT:Taunts_BossUSA014Subtitle
@@ -20185,7 +20185,7 @@ DIALOGEVENT:Taunts_BossUSA030Subtitle
 END
 
 DIALOGEVENT:Taunts_BossUSA031Subtitle
-"*Ты в курсе, что только что лишился технологического здания, дружок?"
+"*Ты в курсе, что только что лишился нейтрального здания, дружок?"
 END
 
 DIALOGEVENT:Taunts_BossUSA032Subtitle
@@ -20213,7 +20213,7 @@ DIALOGEVENT:Taunts_BossUSA037Subtitle
 END
 
 DIALOGEVENT:Taunts_BossUSA038Subtitle
-"*Я уступил тебе это технологическое здание, парень. Мне оно не нужно, чтобы тебя победить"
+"*Я уступил тебе это нейтральное здание, парень. Мне оно не нужно, чтобы тебя победить"
 END
 
 DIALOGEVENT:Taunts_BossUSA039Subtitle
@@ -20257,11 +20257,11 @@ DIALOGEVENT:Taunts_BossUSA048Subtitle
 END
 
 DIALOGEVENT:Taunts_BossUSA049Subtitle
-"*Думаешь, умеешь пользоваться этой артиллерийской платформой, сынок?"
+"*Думаешь, справишься с этой артиллерийской платформой, сынок?"
 END
 
 DIALOGEVENT:Taunts_BossUSA050Subtitle
-"*Этот нефтяной завод — не цель, сынок. И он не твой, так что мы идём его возвращать"
+"*Этот нефтеперерабатывающий завод — не цель, сынок. И он не твой, так что мы идём его возвращать"
 END
 
 DIALOGEVENT:Taunts_BossUSA051Subtitle
@@ -20297,7 +20297,7 @@ DIALOGEVENT:Taunts_BossUSA058Subtitle
 END
 
 DIALOGEVENT:Taunts_BossUSA059Subtitle
-"*Держись подальше от моих технологических зданий, если знаешь, что для тебя лучше"
+"*Держись подальше от моих нейтральних зданий, если знаешь, что для тебя лучше"
 END
 
 DIALOGEVENT:Taunts_BossUSA060Subtitle
@@ -20353,7 +20353,7 @@ DIALOGEVENT:Taunts_BossUSA072Subtitle
 END
 
 DIALOGEVENT:Taunts_BossUSA073Subtitle
-"*Ой-ой, похоже, придётся потратиться в долг"
+"*Ой-ой, похоже, придётся жить в долг"
 END
 
 DIALOGEVENT:Taunts_BossUSA074Subtitle
@@ -20389,7 +20389,7 @@ DIALOGEVENT:Taunts_BossUSA081Subtitle
 END
 
 DIALOGEVENT:Taunts_BossUSA082Subtitle
-"*Давай свои ракеты, сопляк, — я покажу тебе, что такое залп"
+"*Давай свои Скады, сопляк, — я покажу тебе настоящий шторм"
 END
 
 DIALOGEVENT:Taunts_BossUSA083Subtitle
@@ -20397,7 +20397,7 @@ DIALOGEVENT:Taunts_BossUSA083Subtitle
 END
 
 DIALOGEVENT:Taunts_BossUSA084Subtitle
-"*Молекулярная пушка, да? Лучше прикончи меня ею, потому что моя контратака тебе не понравится"
+"*Молекулярный луч, да? Лучше добей меня им сразу, потому что моя контратака тебе не понравится"
 END
 
 DIALOGEVENT:Taunts_BossUSA085Subtitle
@@ -20465,11 +20465,11 @@ DIALOGEVENT:Taunts_BossUSA100Subtitle
 END
 
 DIALOGEVENT:Taunts_BossUSA101Subtitle
-"*Почему бы тебе просто не сдаться, <sarcastic> «генерал»."
+"*Почему бы тебе просто не сдаться, <саркастично> «генерал»."
 END
 
 DIALOGEVENT:Taunts_BossUSA102Subtitle
-"*Парень, я отделал тебя, как старый барабан. Кто дал тебе командование? Мне есть что им сказать"
+"*Парень, я отделал тебя, как старый барабан. Кто вообще дал тебе командовать? Хочу им пару ласковых сказать"
 END
 
 DIALOGEVENT:Taunts_BossUSA103Subtitle
@@ -20557,7 +20557,7 @@ DIALOGEVENT:Taunts_Demo014Subtitle
 END
 
 DIALOGEVENT:Taunts_Demo015Subtitle
-"*О, генерал, вы должны это увидеть… это просто бомба. <childish laugh>"
+"*О, генерал, вы должны это увидеть… это просто бомба. <детский смех>"
 END
 
 DIALOGEVENT:Taunts_Demo016Subtitle
@@ -20601,7 +20601,7 @@ DIALOGEVENT:Taunts_Demo025Subtitle
 END
 
 DIALOGEVENT:Taunts_Demo026Subtitle
-"*Ой… ваше технологическое здание сказало «бум»"
+"*Ой… ваше нейтральное здание сделало «бум»"
 END
 
 DIALOGEVENT:Taunts_Demo027Subtitle
@@ -20649,7 +20649,7 @@ DIALOGEVENT:Taunts_Demo037Subtitle
 END
 
 DIALOGEVENT:Taunts_Demo038Subtitle
-"*Мы отстроим этот командный центр, генерал, а вы заплатите за это преступление"
+"*Мы отстроим этот командный центр, генерал, а вы поплатитесь за эту дерзость"
 END
 
 DIALOGEVENT:Taunts_Demo039Subtitle
@@ -20669,7 +20669,7 @@ DIALOGEVENT:Taunts_Demo042Subtitle
 END
 
 DIALOGEVENT:Taunts_Demo043Subtitle
-"*Хорошо, генерал, захватите нефтяной завод… они так эффектно взрываются"
+"*Хорошо, генерал, захватите нефтеперерабатывающий завод… они так эффектно взрываются"
 END
 
 DIALOGEVENT:Taunts_Demo044Subtitle
@@ -20721,7 +20721,7 @@ DIALOGEVENT:Taunts_Demo055Subtitle
 END
 
 DIALOGEVENT:Taunts_Demo056Subtitle
-"*А, вижу, мы задели одну из ваших линий электропередачи. Надеюсь, энергии не будет недолго"
+"*А, вижу, мы задели одну из ваших линий электропередачи. Надеюсь, свет у вас отключили ненадолго"
 END
 
 DIALOGEVENT:Taunts_Demo057Subtitle
@@ -20913,7 +20913,7 @@ DIALOGEVENT:Taunts_Grainger006Subtitle
 END
 
 DIALOGEVENT:Taunts_Grainger007Subtitle
-"*Начинается дождь ужаса, генерал"
+"*А вот и ливень террора, генерал"
 END
 
 DIALOGEVENT:Taunts_Grainger008Subtitle
@@ -20929,7 +20929,7 @@ DIALOGEVENT:Taunts_Grainger010Subtitle
 END
 
 DIALOGEVENT:Taunts_Grainger011Subtitle
-"*Пора снимать вратаря. Всем в атаку!"
+"*Пора идти ва-банк. Всем в атаку!"
 END
 
 DIALOGEVENT:Taunts_Grainger012Subtitle
@@ -21117,7 +21117,7 @@ DIALOGEVENT:Taunts_Grainger057Subtitle
 END
 
 DIALOGEVENT:Taunts_Grainger058Subtitle
-"*Вам не хватит потерь, генерал?"
+"*Вам мало потерь, генерал?"
 END
 
 DIALOGEVENT:Taunts_Grainger059Subtitle
@@ -21137,11 +21137,11 @@ DIALOGEVENT:Taunts_Grainger062Subtitle
 END
 
 DIALOGEVENT:Taunts_Grainger063Subtitle
-"*Звуковой удар, детка. Давай сделаем это"
+"*Звуковой удар, детка. Погнали!"
 END
 
 DIALOGEVENT:Taunts_Grainger064Subtitle
-"*Похоже, мне пора искать хорошую работу в авиакомпании"
+"*Похоже, пора мне устраиваться пилотом в гражданскую авиацию"
 END
 
 DIALOGEVENT:Taunts_Grainger065Subtitle
@@ -21213,7 +21213,7 @@ DIALOGEVENT:Taunts_Grainger081Subtitle
 END
 
 DIALOGEVENT:Taunts_Grainger082Subtitle
-"*Генерал, знаете, как работает бомба с напалмом? Как насчёт демонстрации?"
+"*Генерал, знаете, как работает объёмно-детонирующая бомба? Как насчёт наглядной демонстрации?"
 END
 
 DIALOGEVENT:Taunts_Grainger083Subtitle
@@ -21221,7 +21221,7 @@ DIALOGEVENT:Taunts_Grainger083Subtitle
 END
 
 DIALOGEVENT:Taunts_Grainger084Subtitle
-"*Знаете, как остановить A10, генерал? Я тоже не знаю"
+"*Знаете, как остановить A-10, генерал? Я тоже не знаю"
 END
 
 DIALOGEVENT:Taunts_Grainger085Subtitle
@@ -21265,11 +21265,11 @@ DIALOGEVENT:Taunts_Infantry001Subtitle
 END
 
 DIALOGEVENT:Taunts_Infantry002Subtitle
-"*<sarcastic>Чувствуете, что вас задавили числом, генерал?"
+"*<саркастично> Чувствуете, что вас задавили числом, генерал?"
 END
 
 DIALOGEVENT:Taunts_Infantry003Subtitle
-"*(гибнет китайская пехота) <angry voice> У нас в запасе ещё миллиард таких"
+"*(гибнет китайская пехота) <сердито> У нас таких ещё миллиард"
 END
 
 DIALOGEVENT:Taunts_Infantry004Subtitle
@@ -21281,7 +21281,7 @@ DIALOGEVENT:Taunts_Infantry005Subtitle
 END
 
 DIALOGEVENT:Taunts_Infantry006Subtitle
-"*<shouting>Шагом марш!"
+"*<кричит> Шагом марш!"
 END
 
 DIALOGEVENT:Taunts_Infantry007Subtitle
@@ -21341,7 +21341,7 @@ DIALOGEVENT:Taunts_Infantry020Subtitle
 END
 
 DIALOGEVENT:Taunts_Infantry021Subtitle
-"*<sarcastic> Какой тактикой вы удивите меня теперь, генерал?"
+"*<саркастично> Какой тактикой вы удивите меня теперь, генерал?"
 END
 
 DIALOGEVENT:Taunts_Infantry022Subtitle
@@ -21365,7 +21365,7 @@ DIALOGEVENT:Taunts_Infantry026Subtitle
 END
 
 DIALOGEVENT:Taunts_Infantry027Subtitle
-"*Ой… мы снесли ваше маленькое технологическое здание. Бу-ху"
+"*Ой… мы снесли ваше маленькое нейтральное здание. Бу-ху"
 END
 
 DIALOGEVENT:Taunts_Infantry028Subtitle
@@ -21393,7 +21393,7 @@ DIALOGEVENT:Taunts_Infantry033Subtitle
 END
 
 DIALOGEVENT:Taunts_Infantry034Subtitle
-"*Оставьте в покое мои технологические здания, генерал!"
+"*Оставьте в покое мои нейтральние здания, генерал!"
 END
 
 DIALOGEVENT:Taunts_Infantry035Subtitle
@@ -21401,7 +21401,7 @@ DIALOGEVENT:Taunts_Infantry035Subtitle
 END
 
 DIALOGEVENT:Taunts_Infantry036Subtitle
-"*Мой военный завод не решает исход моей победы, но не смейте уничтожать ещё один"
+"*Мой военный завод для победы не так уж важен, но не смейте уничтожать ещё один"
 END
 
 DIALOGEVENT:Taunts_Infantry037Subtitle
@@ -21441,7 +21441,7 @@ DIALOGEVENT:Taunts_Infantry045Subtitle
 END
 
 DIALOGEVENT:Taunts_Infantry046Subtitle
-"*Думаете, этим нефтяным заводом может пользоваться кто угодно? Немедленно верните его мне"
+"*Думаете, этим нефтеперерабатывающим заводом может пользоваться кто угодно? Немедленно верните его мне"
 END
 
 DIALOGEVENT:Taunts_Infantry047Subtitle
@@ -21477,7 +21477,7 @@ DIALOGEVENT:Taunts_Infantry054Subtitle
 END
 
 DIALOGEVENT:Taunts_Infantry055Subtitle
-"*Это мои технологические здания, генерал. Держитесь подальше"
+"*Это мои нейтральние здания, генерал. Держитесь подальше"
 END
 
 DIALOGEVENT:Taunts_Infantry056Subtitle
@@ -21637,7 +21637,7 @@ DIALOGEVENT:Taunts_Infantry094Subtitle
 END
 
 DIALOGEVENT:Taunts_Infantry095Subtitle
-"*Люди? Где мои люди? Вы ведь не подумаете меня отпустить? Пожалуйста, не трогайте меня"
+"*Люди? Где мои люди? Вы ведь меня отпустите, а? Пожалуйста, не бейте меня"
 END
 
 DIALOGEVENT:Taunts_Infantry096Subtitle
@@ -21649,7 +21649,7 @@ DIALOGEVENT:Taunts_Infantry097Subtitle
 END
 
 DIALOGEVENT:Taunts_Infantry098Subtitle
-"*И подумайте, это лишь первая волна"
+"*И это, заметьте, только первая волна"
 END
 
 DIALOGEVENT:Taunts_Laser001Subtitle
@@ -21781,7 +21781,7 @@ DIALOGEVENT:Taunts_Laser032Subtitle
 END
 
 DIALOGEVENT:Taunts_Laser033Subtitle
-"*Генерал, не уничтожайте мои технологические здания, они мне нужны"
+"*Генерал, не уничтожайте мои нейтральние здания, они мне нужны"
 END
 
 DIALOGEVENT:Taunts_Laser034Subtitle
@@ -21829,7 +21829,7 @@ DIALOGEVENT:Taunts_Laser044Subtitle
 END
 
 DIALOGEVENT:Taunts_Laser045Subtitle
-"*Вы знали, что этот нефтяной завод позволит вам строить технику быстрее и выгоднее? Ой, наверное, не стоило мне этого говорить"
+"*Вы знали, что нефтеперерабатывающий завод позволяет строить технику быстрее и дешевле? Ой, наверное, не стоило мне этого говорить"
 END
 
 DIALOGEVENT:Taunts_Laser046Subtitle
@@ -21937,7 +21937,7 @@ DIALOGEVENT:Taunts_Laser071Subtitle
 END
 
 DIALOGEVENT:Taunts_Laser072Subtitle
-"*Молекулярная пушка?! Интересно, что будет, если скрестить лучи"
+"*Молекулярная пушка?! Интересно, что будет, если скрестить потоки"
 END
 
 DIALOGEVENT:Taunts_Laser073Subtitle
@@ -21949,7 +21949,7 @@ DIALOGEVENT:Taunts_Laser074Subtitle
 END
 
 DIALOGEVENT:Taunts_Laser075Subtitle
-"*Чёрный Лотос не невидима для моих лазеров, генерал"
+"*От моих лазеров Чёрный Лотос не спрячется, генерал"
 END
 
 DIALOGEVENT:Taunts_Laser076Subtitle
@@ -22209,7 +22209,7 @@ DIALOGEVENT:Taunts_Nuke041Subtitle
 END
 
 DIALOGEVENT:Taunts_Nuke042Subtitle
-"*Я бы на вашем месте был осторожнее, генерал, эти ядерные склады имеют привычку протекать"
+"*Я бы на вашем месте был осторожнее, генерал, эти ядерные склады любят подтекать"
 END
 
 DIALOGEVENT:Taunts_Nuke043Subtitle
@@ -22269,7 +22269,7 @@ DIALOGEVENT:Taunts_Nuke056Subtitle
 END
 
 DIALOGEVENT:Taunts_Nuke057Subtitle
-"*Сила есть право. Не согласны, генерал?"
+"*Кто сильнее, тот и прав. Не так ли, генерал?"
 END
 
 DIALOGEVENT:Taunts_Nuke058Subtitle
@@ -22317,7 +22317,7 @@ DIALOGEVENT:Taunts_Nuke068Subtitle
 END
 
 DIALOGEVENT:Taunts_Nuke069Subtitle
-"*Холодный синтез — не способ получать энергию, генерал"
+"*Холодный синтез — несерьёзный способ добывать энергию, генерал"
 END
 
 DIALOGEVENT:Taunts_Nuke070Subtitle
@@ -22457,7 +22457,7 @@ DIALOGEVENT:Taunts_Stealth006Subtitle
 END
 
 DIALOGEVENT:Taunts_Stealth007Subtitle
-"*Смотрите! Ах да, вы же не можете"
+"*Смотрите! Ах да, вы же не видите"
 END
 
 DIALOGEVENT:Taunts_Stealth008Subtitle
@@ -22529,7 +22529,7 @@ DIALOGEVENT:Taunts_Stealth024Subtitle
 END
 
 DIALOGEVENT:Taunts_Stealth025Subtitle
-"*Вы потеряли своё техническое здание, генерал. Что потеряете следующим?"
+"*Вы потеряли своё нейтральное здание, генерал. Что потеряете следующим?"
 END
 
 DIALOGEVENT:Taunts_Stealth026Subtitle
@@ -22557,7 +22557,7 @@ DIALOGEVENT:Taunts_Stealth031Subtitle
 END
 
 DIALOGEVENT:Taunts_Stealth032Subtitle
-"*Вы бьёте по моим техническим зданиям, потому что не надеетесь добраться до моей базы"
+"*Вы бьёте по моим нейтральним зданиям, потому что не надеетесь добраться до моей базы"
 END
 
 DIALOGEVENT:Taunts_Stealth033Subtitle
@@ -22669,7 +22669,7 @@ DIALOGEVENT:Taunts_Stealth059Subtitle
 END
 
 DIALOGEVENT:Taunts_Stealth060Subtitle
-"*Я нашёл ваши технические здания, генерал. Что мне с ними сделать?"
+"*Я нашёл ваши нейтральние здания, генерал. Что мне с ними сделать?"
 END
 
 DIALOGEVENT:Taunts_Stealth061Subtitle
@@ -22745,7 +22745,7 @@ DIALOGEVENT:Taunts_Stealth078Subtitle
 END
 
 DIALOGEVENT:Taunts_Stealth079Subtitle
-"*Полковник Бартон, генерал? Может, сделать генералом его; вы лишь приведёте его к ранней могиле"
+"*Полковник Бартон, генерал? Может, сделать генералом его; вы лишь сведёте его в могилу раньше времени"
 END
 
 DIALOGEVENT:Taunts_Stealth080Subtitle
@@ -22817,7 +22817,7 @@ DIALOGEVENT:Taunts_Stealth096Subtitle
 END
 
 DIALOGEVENT:Taunts_Stealth097Subtitle
-"*Вы меня видите — вы мертвы"
+"*Вот вы меня видите… а вот вы уже мертвы"
 END
 
 DIALOGEVENT:Taunts_Stealth098Subtitle
@@ -22893,7 +22893,7 @@ DIALOGEVENT:Taunts_Tank011Subtitle
 END
 
 DIALOGEVENT:Taunts_Tank012Subtitle
-"*Это ваш конец, генерал"
+"*Это предвещает вашу гибель, генерал"
 END
 
 DIALOGEVENT:Taunts_Tank013Subtitle
@@ -22969,7 +22969,7 @@ DIALOGEVENT:Taunts_Tank030Subtitle
 END
 
 DIALOGEVENT:Taunts_Tank031Subtitle
-"*Вам ведь не нужно было это техническое здание, правда?"
+"*Вам ведь не нужно было это нейтральное здание, правда?"
 END
 
 DIALOGEVENT:Taunts_Tank032Subtitle
@@ -22997,7 +22997,7 @@ DIALOGEVENT:Taunts_Tank037Subtitle
 END
 
 DIALOGEVENT:Taunts_Tank038Subtitle
-"*Это техническое здание было моим, генерал; вы пожалеете, что разрушили его"
+"*Это нейтральное здание было моим, генерал; вы пожалеете, что разрушили его"
 END
 
 DIALOGEVENT:Taunts_Tank039Subtitle
@@ -23077,7 +23077,7 @@ DIALOGEVENT:Taunts_Tank057Subtitle
 END
 
 DIALOGEVENT:Taunts_Tank058Subtitle
-"*А, я нашёл ваше техническое здание. Уничтожить его или захватить?"
+"*А, я нашёл ваше нейтральное здание. Уничтожить его или захватить?"
 END
 
 DIALOGEVENT:Taunts_Tank059Subtitle
@@ -23133,7 +23133,7 @@ DIALOGEVENT:Taunts_Tank071Subtitle
 END
 
 DIALOGEVENT:Taunts_Tank072Subtitle
-"*Только неудачник прибегает к ядерным ракетам"
+"*Только генерал-неудачник прибегает к ядерным ракетам"
 END
 
 DIALOGEVENT:Taunts_Tank073Subtitle
@@ -23213,7 +23213,7 @@ DIALOGEVENT:Taunts_Tank091Subtitle
 END
 
 DIALOGEVENT:Taunts_Tank092Subtitle
-"*Пора спустить военную машину"
+"*Пора запустить военную машину"
 END
 
 DIALOGEVENT:Taunts_Tank093Subtitle
@@ -23257,11 +23257,11 @@ DIALOGEVENT:Taunts_Toxin001Subtitle
 END
 
 DIALOGEVENT:Taunts_Toxin002Subtitle
-"*Один глоток — и пути назад нет, даже если захочется!"
+"*Попробуете раз — и уже не откажетесь, даже если очень захочется!"
 END
 
 DIALOGEVENT:Taunts_Toxin003Subtitle
-"*Отведайте моего лекарства!"
+"*Отведайте моего фирменного лекарства!"
 END
 
 DIALOGEVENT:Taunts_Toxin004Subtitle
@@ -23285,11 +23285,11 @@ DIALOGEVENT:Taunts_Toxin008Subtitle
 END
 
 DIALOGEVENT:Taunts_Toxin009Subtitle
-"*Так трудно найти врача, который приходит на дом, но доктор Тракс приходит"
+"*Врача с выездом на дом днём с огнём не сыщешь, а доктор Тракс выезжает!"
 END
 
 DIALOGEVENT:Taunts_Toxin010Subtitle
-"*Разлив в первом ряду!"
+"*Внимание, разлив в первом отделе!"
 END
 
 DIALOGEVENT:Taunts_Toxin011Subtitle
@@ -23309,7 +23309,7 @@ DIALOGEVENT:Taunts_Toxin014Subtitle
 END
 
 DIALOGEVENT:Taunts_Toxin015Subtitle
-"*Тихо, но смертельно"
+"*Тихо… но ядрёно"
 END
 
 DIALOGEVENT:Taunts_Toxin016Subtitle
@@ -23317,7 +23317,7 @@ DIALOGEVENT:Taunts_Toxin016Subtitle
 END
 
 DIALOGEVENT:Taunts_Toxin017Subtitle
-"*Напряжение… вас просто убивает!"
+"*Неизвестность… прямо убивает, правда?"
 END
 
 DIALOGEVENT:Taunts_Toxin018Subtitle
@@ -23329,11 +23329,11 @@ DIALOGEVENT:Taunts_Toxin019Subtitle
 END
 
 DIALOGEVENT:Taunts_Toxin020Subtitle
-"*Понятно, что они готовы, когда мясо отходит от костей!"
+"*Сразу видно, что готово: мясо само отходит от костей!"
 END
 
 DIALOGEVENT:Taunts_Toxin021Subtitle
-"*Сибирская язва… вредит организму"
+"*Сибирская язва. Минздрав предупреждает: вредит вашему здоровью"
 END
 
 DIALOGEVENT:Taunts_Toxin022Subtitle
@@ -23345,7 +23345,7 @@ DIALOGEVENT:Taunts_Toxin023Subtitle
 END
 
 DIALOGEVENT:Taunts_Toxin024Subtitle
-"*Хорошо до последней капли!"
+"*Вкусно до последней капли!"
 END
 
 DIALOGEVENT:Taunts_Toxin025Subtitle
@@ -23357,7 +23357,7 @@ DIALOGEVENT:Taunts_Toxin026Subtitle
 END
 
 DIALOGEVENT:Taunts_Toxin027Subtitle
-"*Придёте за токсином, а останетесь… потому что умрёте!"
+"*Придёте за токсином, а останетесь… навсегда!"
 END
 
 DIALOGEVENT:Taunts_Toxin028Subtitle
@@ -23377,11 +23377,11 @@ DIALOGEVENT:Taunts_Toxin031Subtitle
 END
 
 DIALOGEVENT:Taunts_Toxin032Subtitle
-"*Ваши войска, похоже, отравлены, генерал!"
+"*Ваши войска, похоже, перебрали, генерал!"
 END
 
 DIALOGEVENT:Taunts_Toxin033Subtitle
-"*Ох, генерал, похоже, ваши войска плохо переносят токсин"
+"*Ох, генерал, похоже, ваши войска совсем не умеют пить… токсин"
 END
 
 DIALOGEVENT:Taunts_Toxin034Subtitle
@@ -23589,7 +23589,7 @@ DIALOGEVENT:Taunts_Toxin084Subtitle
 END
 
 DIALOGEVENT:Taunts_Toxin085Subtitle
-"*Сдайтесь сейчас, и, гарантирую, вздохнёте с облегчением"
+"*Сдайтесь сейчас — лёгкое дыхание гарантировано!"
 END
 
 DIALOGEVENT:Taunts_Toxin086Subtitle
@@ -23601,11 +23601,11 @@ DIALOGEVENT:Taunts_Toxin087Subtitle
 END
 
 DIALOGEVENT:Taunts_Toxin088Subtitle
-"*Позвольте утопить ваши печали в хорошем токсине!"
+"*Позвольте залить ваше горе стаканчиком хорошего токсина!"
 END
 
 DIALOGEVENT:Taunts_Toxin089Subtitle
-"*Ядовитая смерть"
+"*Токсичный фаталити"
 END
 
 DIALOGEVENT:Taunts_Toxin090Subtitle
@@ -23649,7 +23649,7 @@ DIALOGEVENT:Taunts_Toxin099Subtitle
 END
 
 DIALOGEVENT:Taunts_Toxin100Subtitle
-"*Пожалуй, не стоило получать диплом заочно по почте"
+"*Пожалуй, не стоило получать диплом в заочном институте по переписке"
 END
 
 DIALOGEVENT:Taunts_Toxin101Subtitle
@@ -23681,11 +23681,11 @@ DIALOGEVENT:Taunts_Toxin107Subtitle
 END
 
 DIALOGEVENT:Taunts_Toxin108Subtitle
-"*Первая проба бесплатно!"
+"*Первая доза бесплатно!"
 END
 
 DIALOGEVENT:Taunts_Toxin109Subtitle
-"*Вам зелёный или синий? Оба одинаково хороши!"
+"*Вам зелёненький или синенький? Оба бодрят одинаково!"
 END
 
 DIALOGEVENT:Taunts_Toxin110Subtitle
@@ -23761,7 +23761,7 @@ DIALOGEVENT:Taunts_Turtle010Subtitle
 END
 
 DIALOGEVENT:Taunts_Turtle011Subtitle
-"*Это моё супероружие готово? Ах нет, мои атаки просто так ощущаются"
+"*Это моё супероружие выстрелило? Ах нет, это просто мои обычные атаки"
 END
 
 DIALOGEVENT:Taunts_Turtle012Subtitle
@@ -23817,7 +23817,7 @@ DIALOGEVENT:Taunts_Turtle024Subtitle
 END
 
 DIALOGEVENT:Taunts_Turtle025Subtitle
-"*Итак, ваша общая стратегия — довести меня скукой до ухода с поля боя?"
+"*Итак, ваша стратегия — довести меня до смерти от скуки?"
 END
 
 DIALOGEVENT:Taunts_Turtle026Subtitle
@@ -23861,7 +23861,7 @@ DIALOGEVENT:Taunts_Turtle035Subtitle
 END
 
 DIALOGEVENT:Taunts_Turtle036Subtitle
-"*На вашей базе раньше было слишком тесно"
+"*Раньше у вас на базе было слишком захламлено"
 END
 
 DIALOGEVENT:Taunts_Turtle037Subtitle
@@ -23997,7 +23997,7 @@ DIALOGEVENT:Taunts_Turtle069Subtitle
 END
 
 DIALOGEVENT:Taunts_Turtle070Subtitle
-"*И это всё, насколько защищена ваша база? Правда?"
+"*И это предел безопасности вашей базы? Серьёзно?"
 END
 
 DIALOGEVENT:Taunts_Turtle071Subtitle
@@ -24037,7 +24037,7 @@ DIALOGEVENT:Taunts_Turtle079Subtitle
 END
 
 DIALOGEVENT:Taunts_Turtle080Subtitle
-"*Чёрный Лотос? Похоже, у нас девичья дуэль, не так ли?"
+"*Чёрный Лотос? Похоже, у нас чисто женская разборка, не так ли?"
 END
 
 DIALOGEVENT:Taunts_Turtle081Subtitle
@@ -24057,7 +24057,7 @@ DIALOGEVENT:Taunts_Turtle084Subtitle
 END
 
 DIALOGEVENT:Taunts_Turtle085Subtitle
-"*Продаёте здания? Это распродажа по случаю закрытия?"
+"*Продаёте здания? Это у вас распродажа в связи с закрытием?"
 END
 
 DIALOGEVENT:Taunts_Turtle086Subtitle
@@ -25129,7 +25129,7 @@ GUI:BioFeatures_Pos8
 END
 
 GUI:BioFeatures_Pos9
-"Использует лучшее из лучшего  \n Все герои  \n Всё супероружие  \n Способности диверсионного генерала  \n Подразделения всех фракций  \n Улучшенная оборона базы"
+"Использует лучшее из лучшего  \n Все герои  \n Всё супероружие  \n Разнообразные генеральские способности  \n Подразделения всех фракций  \n Улучшенная оборона базы"
 END
 
 GUI:BioFeatures_Pos10

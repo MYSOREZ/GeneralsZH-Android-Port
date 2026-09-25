@@ -29,7 +29,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Infantry095Subtitle",
-  "text": "*Люди? Где мои люди? Вы ведь не подумаете меня отпустить? Пожалуйста, не трогайте меня"
+  "text": "*Люди? Где мои люди? Вы ведь меня отпустите, а? Пожалуйста, не бейте меня"
  },
  {
   "label": "DIALOGEVENT:Taunts_Infantry096Subtitle",
@@ -41,7 +41,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Infantry098Subtitle",
-  "text": "*И подумайте, это лишь первая волна"
+  "text": "*И это, заметьте, только первая волна"
  },
  {
   "label": "DIALOGEVENT:Taunts_Laser001Subtitle",
@@ -173,7 +173,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Laser033Subtitle",
-  "text": "*Генерал, не уничтожайте мои технологические здания, они мне нужны"
+  "text": "*Генерал, не уничтожайте мои нейтральние здания, они мне нужны"
  },
  {
   "label": "DIALOGEVENT:Taunts_Laser034Subtitle",
@@ -221,7 +221,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Laser045Subtitle",
-  "text": "*Вы знали, что этот нефтяной завод позволит вам строить технику быстрее и выгоднее? Ой, наверное, не стоило мне этого говорить"
+  "text": "*Вы знали, что нефтеперерабатывающий завод позволяет строить технику быстрее и дешевле? Ой, наверное, не стоило мне этого говорить"
  },
  {
   "label": "DIALOGEVENT:Taunts_Laser046Subtitle",
@@ -329,7 +329,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Laser072Subtitle",
-  "text": "*Молекулярная пушка?! Интересно, что будет, если скрестить лучи"
+  "text": "*Молекулярная пушка?! Интересно, что будет, если скрестить потоки"
  },
  {
   "label": "DIALOGEVENT:Taunts_Laser073Subtitle",
@@ -341,7 +341,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Laser075Subtitle",
-  "text": "*Чёрный Лотос не невидима для моих лазеров, генерал"
+  "text": "*От моих лазеров Чёрный Лотос не спрячется, генерал"
  },
  {
   "label": "DIALOGEVENT:Taunts_Laser076Subtitle",
@@ -601,7 +601,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Nuke042Subtitle",
-  "text": "*Я бы на вашем месте был осторожнее, генерал, эти ядерные склады имеют привычку протекать"
+  "text": "*Я бы на вашем месте был осторожнее, генерал, эти ядерные склады любят подтекать"
  },
  {
   "label": "DIALOGEVENT:Taunts_Nuke043Subtitle",
@@ -661,7 +661,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Nuke057Subtitle",
-  "text": "*Сила есть право. Не согласны, генерал?"
+  "text": "*Кто сильнее, тот и прав. Не так ли, генерал?"
  },
  {
   "label": "DIALOGEVENT:Taunts_Nuke058Subtitle",
@@ -709,7 +709,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Nuke069Subtitle",
-  "text": "*Холодный синтез — не способ получать энергию, генерал"
+  "text": "*Холодный синтез — несерьёзный способ добывать энергию, генерал"
  },
  {
   "label": "DIALOGEVENT:Taunts_Nuke070Subtitle",

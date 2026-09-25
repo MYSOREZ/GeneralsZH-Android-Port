@@ -45,7 +45,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_BossChi013Subtitle",
-  "text": "*Вы начали этот бой, генерал. Нет… я его закончу"
+  "text": "*Вы начали этот бой, генерал. А закончу его я"
  },
  {
   "label": "DIALOGEVENT:Taunts_BossChi014Subtitle",
@@ -53,7 +53,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_BossChi015Subtitle",
-  "text": "*Два воина сходятся на поле боя. Кто скажет, кто победит? Я скажу. Я. Вы падёте, генерал"
+  "text": "*Два воина сходятся на поле боя. Кто скажет, кто победит? Я скажу, вот кто. Я. Вы падёте, генерал"
  },
  {
   "label": "DIALOGEVENT:Taunts_BossChi016Subtitle",
@@ -65,7 +65,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_BossChi018Subtitle",
-  "text": "*Вы дошли до конца верёвки, генерал. И только теперь заметили, что её конец горит"
+  "text": "*Вы на последнем издыхании, генерал. И только теперь поняли, что фитиль уже подожжён"
  },
  {
   "label": "DIALOGEVENT:Taunts_BossChi019Subtitle",
@@ -105,7 +105,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_BossChi028Subtitle",
-  "text": "*Мы поразмыслим и обдумаем следующий ход"
+  "text": "*Мы помедитируем и обдумаем следующий ход"
  },
  {
   "label": "DIALOGEVENT:Taunts_BossChi029Subtitle",
@@ -129,7 +129,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_BossChi034Subtitle",
-  "text": "*Ваш аэродром больше не взлетит, генерал"
+  "text": "*Ваш аэродром приземлили, генерал"
  },
  {
   "label": "DIALOGEVENT:Taunts_BossChi035Subtitle",
@@ -141,7 +141,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_BossChi037Subtitle",
-  "text": "*Пало столько ваших зданий, что я ожидал, что вы уже сдадитесь"
+  "text": "*Пало столько ваших зданий, что я уже давно ждал вашей капитуляции"
  },
  {
   "label": "DIALOGEVENT:Taunts_BossChi038Subtitle",
@@ -189,7 +189,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_BossChi049Subtitle",
-  "text": "*Хотите повысить эффективность с помощью этого нефтеперерабатывающего завода, генерал? Надёжная стратегия послужила бы вам лучше"
+  "text": "*Решили поднять эффективность нефтеперерабатывающим заводом, генерал? Толковая стратегия помогла бы вам куда больше"
  },
  {
   "label": "DIALOGEVENT:Taunts_BossChi050Subtitle",
@@ -249,7 +249,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_BossChi064Subtitle",
-  "text": "*Ваша оборона недостаточна, генерал"
+  "text": "*Вашей обороны недостаточно, генерал"
  },
  {
   "label": "DIALOGEVENT:Taunts_BossChi065Subtitle",
@@ -301,7 +301,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_BossChi077Subtitle",
-  "text": "*Столько обороны… Вижу, вы должным образом уважаете своего врага"
+  "text": "*Столько обороны… Вижу, вы уважаете противника как подобает"
  },
  {
   "label": "DIALOGEVENT:Taunts_BossChi078Subtitle",
@@ -309,7 +309,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_BossChi079Subtitle",
-  "text": "*Мы не уступим вам в воздухе, генерал. Ваше превосходство существует только в вашем воображении"
+  "text": "*На каждый ваш самолёт найдётся наш, генерал. Ваше превосходство — лишь плод вашего воображения"
  },
  {
   "label": "DIALOGEVENT:Taunts_BossChi080Subtitle",
@@ -353,7 +353,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_BossChi090Subtitle",
-  "text": "*Мудро строить военный завод, генерал"
+  "text": "*Мудрое решение — построить военный завод, генерал"
  },
  {
   "label": "DIALOGEVENT:Taunts_BossChi091Subtitle",
@@ -373,7 +373,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_BossChi095Subtitle",
-  "text": "*Такому, как вы, меня не победить, генерал"
+  "text": "*Меня не победит такой, как вы, генерал"
  },
  {
   "label": "DIALOGEVENT:Taunts_BossChi096Subtitle",
@@ -445,7 +445,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_BossGLA001Subtitle",
-  "text": "*Большинство врагов бежали бы при виде моих армий. Возможно, это всё-таки будет стоящим"
+  "text": "*Большинство врагов бежали бы при виде моих армий. Возможно, будет всё-таки интересно"
  },
  {
   "label": "DIALOGEVENT:Taunts_BossGLA002Subtitle",
@@ -481,7 +481,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_BossGLA010Subtitle",
-  "text": "*Вы посмели бросить мне вызов — теперь пожнёте страшную награду"
+  "text": "*Вы посмели бросить мне вызов — теперь пожнёте страшные плоды"
  },
  {
   "label": "DIALOGEVENT:Taunts_BossGLA011Subtitle",
@@ -517,7 +517,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_BossGLA019Subtitle",
-  "text": "*Устали умирать у моей обороны, генерал?"
+  "text": "*Не надоело гибнуть о мою оборону, генерал?"
  },
  {
   "label": "DIALOGEVENT:Taunts_BossGLA020Subtitle",
@@ -689,7 +689,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_BossGLA062Subtitle",
-  "text": "*Наша земля без электричества… жаль, что ваша база без него не может"
+  "text": "*Наша земля живёт без электричества… жаль, что ваша база без него никак"
  },
  {
   "label": "DIALOGEVENT:Taunts_BossGLA063Subtitle",

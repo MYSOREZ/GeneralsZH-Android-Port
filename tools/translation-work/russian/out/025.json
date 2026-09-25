@@ -65,7 +65,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_BossUSA003Subtitle",
-  "text": "*Накрывай на стол, малыш, мы идём к тебе на ужин"
+  "text": "*Накрывай на стол, малыш, мы идём ужинать"
  },
  {
   "label": "DIALOGEVENT:Taunts_BossUSA004Subtitle",
@@ -93,7 +93,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_BossUSA010Subtitle",
-  "text": "*Пора мне преподать тебе пару уроков тыльной стороной ладони"
+  "text": "*Пора познакомить тебя с тыльной стороной моей ладони"
  },
  {
   "label": "DIALOGEVENT:Taunts_BossUSA011Subtitle",
@@ -105,7 +105,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_BossUSA013Subtitle",
-  "text": "*Я войду на твою базу и дам тебе пинка под зад, <sarcastic> «генерал»."
+  "text": "*Я войду на твою базу и дам тебе пинка под зад, <саркастично> «генерал»."
  },
  {
   "label": "DIALOGEVENT:Taunts_BossUSA014Subtitle",
@@ -177,7 +177,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_BossUSA031Subtitle",
-  "text": "*Ты в курсе, что только что лишился технологического здания, дружок?"
+  "text": "*Ты в курсе, что только что лишился нейтрального здания, дружок?"
  },
  {
   "label": "DIALOGEVENT:Taunts_BossUSA032Subtitle",
@@ -205,7 +205,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_BossUSA038Subtitle",
-  "text": "*Я уступил тебе это технологическое здание, парень. Мне оно не нужно, чтобы тебя победить"
+  "text": "*Я уступил тебе это нейтральное здание, парень. Мне оно не нужно, чтобы тебя победить"
  },
  {
   "label": "DIALOGEVENT:Taunts_BossUSA039Subtitle",
@@ -249,11 +249,11 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_BossUSA049Subtitle",
-  "text": "*Думаешь, умеешь пользоваться этой артиллерийской платформой, сынок?"
+  "text": "*Думаешь, справишься с этой артиллерийской платформой, сынок?"
  },
  {
   "label": "DIALOGEVENT:Taunts_BossUSA050Subtitle",
-  "text": "*Этот нефтяной завод — не цель, сынок. И он не твой, так что мы идём его возвращать"
+  "text": "*Этот нефтеперерабатывающий завод — не цель, сынок. И он не твой, так что мы идём его возвращать"
  },
  {
   "label": "DIALOGEVENT:Taunts_BossUSA051Subtitle",
@@ -289,7 +289,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_BossUSA059Subtitle",
-  "text": "*Держись подальше от моих технологических зданий, если знаешь, что для тебя лучше"
+  "text": "*Держись подальше от моих нейтральних зданий, если знаешь, что для тебя лучше"
  },
  {
   "label": "DIALOGEVENT:Taunts_BossUSA060Subtitle",
@@ -345,7 +345,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_BossUSA073Subtitle",
-  "text": "*Ой-ой, похоже, придётся потратиться в долг"
+  "text": "*Ой-ой, похоже, придётся жить в долг"
  },
  {
   "label": "DIALOGEVENT:Taunts_BossUSA074Subtitle",
@@ -381,7 +381,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_BossUSA082Subtitle",
-  "text": "*Давай свои ракеты, сопляк, — я покажу тебе, что такое залп"
+  "text": "*Давай свои Скады, сопляк, — я покажу тебе настоящий шторм"
  },
  {
   "label": "DIALOGEVENT:Taunts_BossUSA083Subtitle",
@@ -389,7 +389,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_BossUSA084Subtitle",
-  "text": "*Молекулярная пушка, да? Лучше прикончи меня ею, потому что моя контратака тебе не понравится"
+  "text": "*Молекулярный луч, да? Лучше добей меня им сразу, потому что моя контратака тебе не понравится"
  },
  {
   "label": "DIALOGEVENT:Taunts_BossUSA085Subtitle",
@@ -457,11 +457,11 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_BossUSA101Subtitle",
-  "text": "*Почему бы тебе просто не сдаться, <sarcastic> «генерал»."
+  "text": "*Почему бы тебе просто не сдаться, <саркастично> «генерал»."
  },
  {
   "label": "DIALOGEVENT:Taunts_BossUSA102Subtitle",
-  "text": "*Парень, я отделал тебя, как старый барабан. Кто дал тебе командование? Мне есть что им сказать"
+  "text": "*Парень, я отделал тебя, как старый барабан. Кто вообще дал тебе командовать? Хочу им пару ласковых сказать"
  },
  {
   "label": "DIALOGEVENT:Taunts_BossUSA103Subtitle",
@@ -549,7 +549,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo015Subtitle",
-  "text": "*О, генерал, вы должны это увидеть… это просто бомба. <childish laugh>"
+  "text": "*О, генерал, вы должны это увидеть… это просто бомба. <детский смех>"
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo016Subtitle",
@@ -593,7 +593,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo026Subtitle",
-  "text": "*Ой… ваше технологическое здание сказало «бум»"
+  "text": "*Ой… ваше нейтральное здание сделало «бум»"
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo027Subtitle",
@@ -641,7 +641,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo038Subtitle",
-  "text": "*Мы отстроим этот командный центр, генерал, а вы заплатите за это преступление"
+  "text": "*Мы отстроим этот командный центр, генерал, а вы поплатитесь за эту дерзость"
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo039Subtitle",
@@ -661,7 +661,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo043Subtitle",
-  "text": "*Хорошо, генерал, захватите нефтяной завод… они так эффектно взрываются"
+  "text": "*Хорошо, генерал, захватите нефтеперерабатывающий завод… они так эффектно взрываются"
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo044Subtitle",
@@ -713,7 +713,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo056Subtitle",
-  "text": "*А, вижу, мы задели одну из ваших линий электропередачи. Надеюсь, энергии не будет недолго"
+  "text": "*А, вижу, мы задели одну из ваших линий электропередачи. Надеюсь, свет у вас отключили ненадолго"
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo057Subtitle",
