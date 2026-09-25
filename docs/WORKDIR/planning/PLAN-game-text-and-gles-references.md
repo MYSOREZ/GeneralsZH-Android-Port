@@ -67,6 +67,21 @@ Every pack is translated from the **English** original, not from another transla
   - Right-to-left, bidi and Arabic shaping are **not** supported anywhere; confirmed.
     That is the only part that needs new libraries (HarfBuzz-class shaping and a bidi pass)
     or pre-shaped text with its known breakage on wrap.
+- **Known font bug to fix before any pack with combining marks** (Vietnamese, Thai, Arabic
+  harakat, decomposed Cyrillic/Latin accents): `FontCharsClass::Store_Freetype_Char` computes
+  `unsigned int char_width` and compares it with `bitmap.width + bitmap_left`. A combining
+  mark has a zero advance and a negative `bitmap_left`, the sum wraps to a huge unsigned
+  value, and `Update_Current_Buffer()` is asked for that width. Writes are already clamped
+  (`6a51aca37`); the size is not. The same bug was fixed upstream in fbraz3/GeneralsX PR #298
+  ("use signed arithmetic for FreeType combining-mark char width", SIGBUS on combining
+  marks). TheSuperHackers/GeneralsGameCode PR #3268 (merged 12/09/2026) sizes each glyph's
+  buffer to the actual glyph for the Windows path; compare with our clamping when fixing.
+  Both PRs verified to exist on 25/09/2026; implement the fix here, do not copy.
+- **References for the text pipeline**, checked: fbraz3/GeneralsX (the FreeType path this
+  port inherits), TheSuperHackers/GeneralsGameCode (upstream GameFont), OpenSAGE (C#, clean
+  CSF and .wnd format readers). For RTL: HarfBuzz (shaping) + SheenBidi or FriBidi (UAX #9).
+  Community Arabic mods pre-shape to Arabic Presentation Forms-B and reverse each string;
+  that breaks on word wrap and mixed Latin/number text, so it is not the approach here.
 - **Interslavic (`isv`)**: pick one script (Latin or Cyrillic) for the game text.
 - Pack format and delivery: the launcher's existing "download language" path
   (`GENERALSX_TEXT_LANGUAGE`, see `GameText.cpp` and the 09/09/2026 diary entry) should carry
