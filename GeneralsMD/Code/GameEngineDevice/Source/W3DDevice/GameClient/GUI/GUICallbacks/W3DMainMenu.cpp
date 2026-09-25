@@ -480,6 +480,28 @@ void W3DGeneralsXCreditDraw( GameWindow *window, WinInstanceData *instData )
 	textPos.x = MARGIN + GXSafeArea::leftPx();
 	textPos.y = displayHeight - textHeight - MARGIN - GXSafeArea::bottomPx();
 
+	// GeneralsX @diag Android port 25/09/2026 On a 2400x1080 device the watermark shows only
+	// "GeneralsX - Multiplatform C&C", cut through the bottom -- the last word and the lower
+	// half missing -- with no safe-area inset at the bottom to explain it. Two candidates:
+	// the borrowed window string wraps at that window's width (then fullWidth > textWidth and
+	// textHeight is two lines), or the rendered glyphs are taller than getSize() reports.
+	// Log what the engine measured, once per change, instead of guessing.
+	{
+		static Int s_lastW = -1, s_lastH = -1, s_lastDW = -1, s_lastDH = -1;
+		if (textWidth != s_lastW || textHeight != s_lastH || displayWidth != s_lastDW || displayHeight != s_lastDH)
+		{
+			s_lastW = textWidth; s_lastH = textHeight; s_lastDW = displayWidth; s_lastDH = displayHeight;
+			Int winW = 0, winH = 0;
+			if (window)
+				window->winGetSize(&winW, &winH);
+			GameFont *font = dString->getFont();
+			fprintf(stderr, "[credit] size=%dx%d fullWidth=%d display=%dx%d window=%dx%d font=%s/%d h=%d pos=%d,%d\n",
+				textWidth, textHeight, dString->getWidth(-1), displayWidth, displayHeight, winW, winH,
+				font ? font->nameString.str() : "?", font ? font->pointSize : 0, font ? font->height : 0,
+				textPos.x, textPos.y);
+		}
+	}
+
 	dString->setClipRegion(&clipRegion);
 	dString->draw(textPos.x, textPos.y, GameMakeColor(255,255,255,255), GameMakeColor(0,0,0,255));
 
