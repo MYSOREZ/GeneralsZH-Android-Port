@@ -57,7 +57,7 @@
  },
  {
   "label": "CONTROLBAR:ConstructAmericaTankCrusader",
-  "text": "Танк Рыцарь [&C]"
+  "text": "Танк Крестоносец [&C]"
  },
  {
   "label": "CONTROLBAR:ConstructAmericaTankPaladin",
@@ -353,7 +353,7 @@
  },
  {
   "label": "CONTROLBAR:ConstructGLAVehicleTechnical",
-  "text": "Техник [&T]"
+  "text": "Техничка [&T]"
  },
  {
   "label": "CONTROLBAR:ConstructGLAInfantryHijacker",

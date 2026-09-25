@@ -812,7 +812,7 @@
  {
   "label": "OBJECT:Crusader",
   "english": "Crusader",
-  "text": "Танк Рыцарь"
+  "text": "Танк Крестоносец"
  },
  {
   "label": "OBJECT:Paladin",
@@ -1557,7 +1557,7 @@
  {
   "label": "OBJECT:Technical",
   "english": "Technical",
-  "text": "Техник"
+  "text": "Техничка"
  },
  {
   "label": "OBJECT:Tent",
@@ -2462,7 +2462,7 @@
  {
   "label": "OBJECT:Helix",
   "english": "Helix",
-  "text": "Улитка"
+  "text": "Хеликс"
  },
  {
   "label": "OBJECT:PropagandaTrooper",

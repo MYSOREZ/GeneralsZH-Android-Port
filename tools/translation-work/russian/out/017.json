@@ -141,15 +141,15 @@
  },
  {
   "label": "CONTROLBAR:TooltipUpgradeChinaHelixGattlingCannon",
-  "text": "Построить пулемёт на этой Улитке"
+  "text": "Построить пулемёт на этом Хеликсе"
  },
  {
   "label": "CONTROLBAR:TooltipUpgradeChinaHelixPropagandaTower",
-  "text": "Построить башню пропаганды на этой Улитке"
+  "text": "Построить башню пропаганды на этом Хеликсе"
  },
  {
   "label": "CONTROLBAR:TooltipUpgradeChinaHelixBattleBunker",
-  "text": "Построить бункер на этой Улитке. В Бункерах могут находиться солдаты. Солдаты могут стрелять из бункера"
+  "text": "Построить бункер на этом Хеликсе. В Бункерах могут находиться солдаты. Солдаты могут стрелять из бункера"
  },
  {
   "label": "CONTROLBAR:TooltipChinaUpgradeSatelliteHackOne",
