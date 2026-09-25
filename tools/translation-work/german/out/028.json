@@ -1,0 +1,802 @@
+[
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke092Subtitle",
+  "text": "*Oh, sehen Sie – ich habe eine Atombombe für Sie bereit"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke093Subtitle",
+  "text": "*Wow, zwei Atombomben! Ich bin erfreut"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke094Subtitle",
+  "text": "*Drei Atombomben?!? Das ist dreifacher Spaß!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke095Subtitle",
+  "text": "*Vier Atombomben? Unglaublich!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke096Subtitle",
+  "text": "*Fünf Atombomben? Soll ich Ihnen vielleicht gleich eine frische Unterhose schicken?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke097Subtitle",
+  "text": "*(Spieler verkauft Gebäude) General, wenn Sie noch mehr Gebäude verkaufen, gewinne ich kampflos"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth001Subtitle",
+  "text": "*Sehen Sie, was ich gefunden habe"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth002Subtitle",
+  "text": "*Hier kommt mein nächster Angriff … versuchen Sie diesmal, bereit zu sein, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth003Subtitle",
+  "text": "*Man kann nicht töten, was man nicht sieht"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth004Subtitle",
+  "text": "*Die Truppen brauchten Sie ohnehin nicht"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth005Subtitle",
+  "text": "*Schon wieder im Dienst eingeschlafen?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth006Subtitle",
+  "text": "*Danke für die neuen Einheiten. Sie werden mir helfen, Sie zu vernichten"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth007Subtitle",
+  "text": "*Sehen Sie sich das an! Ach nein, Sie können ja nicht"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth008Subtitle",
+  "text": "*Haben Sie Ihre Wärmebildbrille dabei?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth009Subtitle",
+  "text": "*Ich glaube, es ist Zeit, mir eine neue Basis zuzulegen"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth010Subtitle",
+  "text": "*Es sollte einfach nicht sein, General. Leben Sie wohl!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth011Subtitle",
+  "text": "*Die Augen zu schließen macht den Schmerz der Niederlage nicht leichter"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth012Subtitle",
+  "text": "*Meine getarnten Attentäter werden kurzen Prozess mit Ihren Truppen machen, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth013Subtitle",
+  "text": "*Wir schlagen zu wie die Schlange – schnell und unsichtbar"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth014Subtitle",
+  "text": "*Diesem Angriff werden Sie nicht standhalten, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth015Subtitle",
+  "text": "*Gutaussehende Generäle gewinnen immer"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth016Subtitle",
+  "text": "*Sie sehen mich erst, wenn es zu spät ist, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth017Subtitle",
+  "text": "*General, vielleicht könnten Sie mich Black Lotus vorstellen. Ich bin ein großer Bewunderer ihrer … äh … Arbeit"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth018Subtitle",
+  "text": "*Wenn es still ist, sollten Sie mich am meisten fürchten"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth019Subtitle",
+  "text": "*Ich kann Ihren nächsten Angriff kaum erwarten, General. Dürfen wir heute noch damit rechnen?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth020Subtitle",
+  "text": "*Lassen Sie Ihre Sinne nicht abstumpfen, General – mein Angriff kann jeden Moment kommen"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth021Subtitle",
+  "text": "*Sie können mich nicht besiegen, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth022Subtitle",
+  "text": "*Ich greife an, wenn Sie es am wenigsten erwarten, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth023Subtitle",
+  "text": "*Meine Männer sind überall auf dem Schlachtfeld, General ... unsichtbar … bereit zuzuschlagen"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth024Subtitle",
+  "text": "*Tarnung ist mein Verbündeter … und Ihr Feind"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth025Subtitle",
+  "text": "*Sie haben Ihr Technologiegebäude verloren, General. Was verlieren Sie als Nächstes?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth026Subtitle",
+  "text": "*Sie konnten nicht verhindern, dass ich Ihre Kaserne zerstöre, General. Was ist Ihnen wertvoll, wenn nicht Ihre Männer?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth027Subtitle",
+  "text": "*Ihre Waffenfabrik zu zerstören war ein Kinderspiel. Ihre Kommandozentrale ist gleich dran"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth028Subtitle",
+  "text": "*Ihre Flugzeuge haben ihr Flugfeld verloren, und Sie Ihren Vorteil, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth029Subtitle",
+  "text": "*In Ihrer Verteidigung klafft jetzt ein Loch, General. Wer weiß, wie viele meiner Männer schon in Ihrer Basis sind"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth030Subtitle",
+  "text": "*Ihre Kommandozentrale ist weg, General. Mein Sieg ist so gut wie sicher"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth031Subtitle",
+  "text": "*Es bereitet mir keine Freude, Ihre Gebäude zu zerstören, General, aber Sie lassen mir keine Wahl"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth032Subtitle",
+  "text": "*Sie nehmen meine Technologiegebäude ins Visier, weil Sie keine Hoffnung haben, meine Basis zu erreichen"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth033Subtitle",
+  "text": "*Sie haben meine Kaserne zerstört, aber wir bauen neu, und diese Männer werden gerächt"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth034Subtitle",
+  "text": "*Mein Waffenhändler wird nicht erfreut sein, dass Sie sein Lager zerstört haben, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth035Subtitle",
+  "text": "*Sie haben diese Verteidigungsanlage zerstört, General, aber vielleicht hat das meinen Männern gerade die Zeit verschafft, Sie zu umgehen"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth036Subtitle",
+  "text": "*Sie haben viele meiner Gebäude zerstört, aber selbst mit nur einer Fabrik bin ich ein gefährlicher Gegner, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth037Subtitle",
+  "text": "*Gut gespielt, General; Sie haben meine Kommandozentrale zerstört. Jetzt muss ich schmutzig kämpfen"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth038Subtitle",
+  "text": "*Sie sind recht geschickt darin, meine getarnten Fahrzeuge aufzuspüren, General. Ich werde mir eine neue Taktik überlegen"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth039Subtitle",
+  "text": "*Ihre plumpe Taktik kostet mich Männer, General. Ich überdenke meine Taktik, jetzt, da ich weiß, dass Sie keine haben"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth040Subtitle",
+  "text": "*Jetzt, da ich diesen Bohrturm eingenommen habe, wachsen meine Truppen noch schneller"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth041Subtitle",
+  "text": "*Artillerieplattformen sind so plump, aber ich kann sie Ihnen ja nicht überlassen, oder?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth042Subtitle",
+  "text": "*Diese Ölraffinerie gehört jetzt mir, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth043Subtitle",
+  "text": "*General, Sie kommen meiner Basis gefährlich nahe"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth044Subtitle",
+  "text": "*Ich sehe Truppen, die sich meiner Basis nähern, General. Sie wollen doch nicht etwa einmarschieren?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth045Subtitle",
+  "text": "*Sie strapazieren meine Geduld, General. Ziehen Sie Ihre Truppen aus meiner Basis ab"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth046Subtitle",
+  "text": "*Wenn Sie Ihre Truppen nicht aus meiner Basis abziehen, entferne ich sie dauerhaft"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth047Subtitle",
+  "text": "*Sie versuchen also, von der Flanke in meine Basis zu kommen. Dem schieben wir einen Riegel vor"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth048Subtitle",
+  "text": "*Ein Angriff durch die Hintertür? Ich wusste nicht, dass Sie so hinterlistig sind, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth049Subtitle",
+  "text": "*Ein Frontalangriff? Das wird sich als fataler Fehler erweisen, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth050Subtitle",
+  "text": "*Das sind meine Ressourcen, General – suchen Sie sich Ihre eigenen"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth051Subtitle",
+  "text": "*Warum bestehen Sie darauf, sich meiner Basis auf diesem Weg zu nähern, General?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth052Subtitle",
+  "text": "*Dieser Weg ist nicht so unbewacht, wie er scheint, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth053Subtitle",
+  "text": "*Das Einzige, was Sie hier finden, ist Ihr eigener Untergang, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth054Subtitle",
+  "text": "*Was fasziniert Sie so an diesem Gebiet, General?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth055Subtitle",
+  "text": "*Wir nähern uns Ihrer Basis, General. Vielleicht ist gerade jetzt ein Fadenkreuz auf Ihren Kopf gerichtet"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth056Subtitle",
+  "text": "*Ihre äußere Verteidigung ist schwach, General. Hoffen wir, Ihre Basis ist besser geschützt"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth057Subtitle",
+  "text": "*Wir sind in Ihrer Basis, General. Ignorieren Sie uns auf eigene Gefahr"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth058Subtitle",
+  "text": "*Ihre Verteidigung ist gebrochen, General. Wie wollen Sie uns jetzt zurückschlagen?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth059Subtitle",
+  "text": "*Sie sollten diese Ressourcen wirklich verteidigen, General, sonst wird diese Schlacht sehr kurz"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth060Subtitle",
+  "text": "*Ich habe Ihre Technologiegebäude gefunden, General. Was soll ich mit ihnen machen?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth061Subtitle",
+  "text": "*Ich habe die Hintertür zu Ihrer Basis gefunden, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth062Subtitle",
+  "text": "*Können Sie sich gegen meinen Flankenangriff verteidigen, General? Finden wir es heraus"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth063Subtitle",
+  "text": "*Nur ein nachlässiger General lässt die Energie ausfallen"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth064Subtitle",
+  "text": "*Ihre Energie ist weg, General. Sie haben Ihre Infrastruktur nicht richtig geplant. Hoffen wir, dass das kein fataler Fehler ist"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth065Subtitle",
+  "text": "*General, ohne Ressourcen können Sie nicht kämpfen. Was wollen Sie jetzt tun?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth066Subtitle",
+  "text": "*Sie haben mich meiner Ressourcen beraubt, General. Jetzt revanchiere ich mich"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth067Subtitle",
+  "text": "*So, Sie haben einen SCUD-Sturm gebaut. Wir müssen uns mit dieser neuen Bedrohung befassen"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth068Subtitle",
+  "text": "*Atomwaffen haben in dieser Schlacht nichts verloren, General. Warum bestehen Sie darauf, sie zu bauen?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth069Subtitle",
+  "text": "*Sie wollen mich mit Ihrer feigen Partikelkanone aus dem All angreifen? Ich bin enttäuscht, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth070Subtitle",
+  "text": "*So viel Basisverteidigung, General. Wovor haben Sie Angst?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth071Subtitle",
+  "text": "*Sie bauen also Panzer. Nun, ein paar Scharfschützen mehr werden damit fertig"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth072Subtitle",
+  "text": "*Noch mehr Flugzeuge? Warum so viele, General? Angst, herunterzukommen und sich mir zu stellen?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth073Subtitle",
+  "text": "*Lassen Sie mich Ihnen einen Rat geben, General. Diese große Infanteriegruppe ist meinen Scharfschützen nicht gewachsen"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth074Subtitle",
+  "text": "*Ihre Basis ist so groß geworden, General. Glauben Sie, Sie können all Ihre Gebäude vor der Einnahme schützen?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth075Subtitle",
+  "text": "*Sie haben gestartet! Sie werden bereuen, diesen SCUD-Sturm eingesetzt zu haben, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth076Subtitle",
+  "text": "*Atomraketen! Ich dachte, Sie bluffen, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth077Subtitle",
+  "text": "*Ja, bewundern Sie den feigen Partikelstrahl. Genießen Sie es, General – meine Antwort wird schnell und brutal sein"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth078Subtitle",
+  "text": "*Besetzen Sie das Gebäude ruhig, General … meine Scharfschützen erwischen sie wahrscheinlich auch da drin"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth079Subtitle",
+  "text": "*Colonel Burton, General? Vielleicht sollten Sie ihn zum General machen; Sie bringen ihn nur vorzeitig ins Grab"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth080Subtitle",
+  "text": "*Ah … die schöne Black Lotus. Vielleicht schließt sie sich mir an, wenn Sie besiegt sind, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth081Subtitle",
+  "text": "*Jarmen Kell?! Alle Scharfschützen aufgepasst: Jarmen Kell ist im Feld"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth082Subtitle",
+  "text": "*Kluge Wahl, ein Flugfeld zu bauen, aber Flugzeuge allein reichen nicht, um mich zu besiegen, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth083Subtitle",
+  "text": "*Meine Spione melden, dass Sie endlich Ihre Waffenfabrik gebaut haben, General. Sind Sie jetzt kampfbereit?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth084Subtitle",
+  "text": "*Bilden Sie in dieser Kaserne so viele Männer aus, wie Sie wollen, General; meinen Scharfschützen sind sie nicht gewachsen"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth085Subtitle",
+  "text": "*Sie haben eines Ihrer Gebäude verkauft. Solche Taktik führt zur Niederlage, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth086Subtitle",
+  "text": "*Wie können Sie meine Truppen besiegen?! Das ist unmöglich!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth087Subtitle",
+  "text": "*Vielleicht haben Sie jetzt die Oberhand, aber Ihre verzweifelte Taktik wird nicht standhalten, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth088Subtitle",
+  "text": "*Meine Truppen werden sich gegen Ihre Unterdrückung erheben, und wir werden Sie besiegen, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth089Subtitle",
+  "text": "*Genießen Sie Ihren Vorteil fürs Erste, General … bald machen Sie einen Fehler, und ich wende das Blatt"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth090Subtitle",
+  "text": "*So endet es also … Sie haben mich besiegt, General, aber eines Tages räche ich mich. Passen Sie gut auf, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth091Subtitle",
+  "text": "*Ihre Truppen werden schwächer, General. Akzeptieren Sie die Niederlage, und ich schone Sie"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth092Subtitle",
+  "text": "*Ihre Angriffe sind gegen mich wirkungslos, General. Bald fegen wir heran und vernichten Sie"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth093Subtitle",
+  "text": "*Ich genieße dieses kleine Spiel, General, aber Ihre erbärmlichen Angriffe beginnen mich zu langweilen"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth094Subtitle",
+  "text": "*Ich dachte, Sie wären eine größere Herausforderung, General. Da habe ich Sie wohl überschätzt"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth095Subtitle",
+  "text": "*Sie sind vor Kassad gefallen, wie alle vor Ihnen"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth096Subtitle",
+  "text": "*Wir schlagen zu wie die Schlange – ungesehen und tödlich"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth097Subtitle",
+  "text": "*Jetzt sehen Sie mich – jetzt sind Sie tot"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth098Subtitle",
+  "text": "*Ich bin Kassad"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth099Subtitle",
+  "text": "*Das wird für Sie nicht gut ausgehen, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth100Subtitle",
+  "text": "*Meine Männer werden diese Niederlage ihres Anführers nicht hinnehmen, General. Mit Ihrer überlegenen Taktik haben Sie mein Todesurteil unterschrieben"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth101Subtitle",
+  "text": "*Nehmen Sie Ihre bittere Niederlage hin und gehen Sie mir aus den Augen, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth102Subtitle",
+  "text": "*Und wieder fällt einer, der sich gegen mich gestellt hat"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth103Subtitle",
+  "text": "*Und so wird es auch Ihnen ergehen, General – ohne Warnung, ohne Gnade"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth104Subtitle",
+  "text": "*Noch haben Sie Zeit, mit dem Leben davonzukommen, General. <böses Lachen, das in Stille verklingt>"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank001Subtitle",
+  "text": "*Wie ich sehe, sind Sie nicht vor Angst davongelaufen, General. Bald werden Sie sich wünschen, Sie hätten es getan"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank002Subtitle",
+  "text": "*Meine Truppen stehen vor Ihrer Tür, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank003Subtitle",
+  "text": "*Der eiserne Drache marschiert durch Ihre mickrige Verteidigung"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank004Subtitle",
+  "text": "*Ich fürchte, das ist Ihr Ende, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank005Subtitle",
+  "text": "*Mmm … spüren Sie das donnernde Lied der heranrollenden Panzer, General?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank006Subtitle",
+  "text": "*Schützen Sie Ihre Flanken, General? Sehen wir doch mal nach"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank007Subtitle",
+  "text": "*Beeindrucken Sie die Verbesserungen an meinen Panzern, General?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank008Subtitle",
+  "text": "*Panzer … zermalmt sie"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank009Subtitle",
+  "text": "*Bald wird das Feld voller Panzer sein … meiner Panzer"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank010Subtitle",
+  "text": "*Alle Einheiten … Angriff"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank011Subtitle",
+  "text": "*Schöne Basis, General … möchten Sie sie übergeben?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank012Subtitle",
+  "text": "*Das bedeutet Ihren Untergang, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank013Subtitle",
+  "text": "*Wir sind in Ihrer Basis, General; Ihre Verteidigung war unzureichend"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank014Subtitle",
+  "text": "*Sie wagen es, meine Waffenfabrik anzugreifen! Alle Einheiten, beseitigt diese Plage!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank015Subtitle",
+  "text": "*Panzer … baut mehr Panzer …"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank016Subtitle",
+  "text": "*Ein weiteres Bataillon ist unterwegs, General, bitte heißen Sie es willkommen"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank017Subtitle",
+  "text": "*Ah, das ist der Teil der Schlacht, den ich am meisten genieße … kurz bevor ich meinem Feind den Rest gebe"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank018Subtitle",
+  "text": "*Panzer: schneller … bevor unser Gegner über einen echten Angriff nachdenkt"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank019Subtitle",
+  "text": "*Es ist ruhig da draußen, General. Da rollen bestimmt viele Panzer auf Ihre Basis zu, meinen Sie nicht?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank020Subtitle",
+  "text": "*Ich nutze die Zeit, um mehr Verteidigung zu bauen … nein, Moment, ich baue lieber mehr Panzer"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank021Subtitle",
+  "text": "*Dieses Gebiet war einst fruchtbares Ackerland. Bald wird Ihr Blut es wieder fruchtbar machen"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank022Subtitle",
+  "text": "*Ihre Taktik amüsiert mich, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank023Subtitle",
+  "text": "*Genießen Sie die Pause, General – bald beginnen die Angriffe von Neuem"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank024Subtitle",
+  "text": "*Wir erwarten Ihren Angriff, General, aber ich frage mich langsam, ob er je kommt"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank025Subtitle",
+  "text": "*Unsere Waffenfabriken arbeiten hart daran, mehr Panzer zu bauen, nur für Sie, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank026Subtitle",
+  "text": "*Wie lange überstehen Sie solche Verluste noch, General? Vielleicht ist es Zeit, an Kapitulation zu denken"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank027Subtitle",
+  "text": "*In unserer Basis sammeln sich Panzer für den letzten Angriff. Wird Ihre Verteidigung diesmal halten?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank028Subtitle",
+  "text": "*Bald werden wir Sie aus unseren Ländern entfernen"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank029Subtitle",
+  "text": "*Das ist Ihre letzte Chance, sich zu beweisen, General. Bald machen meine Panzer Ihrer erbärmlichen Armee ein Ende"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank030Subtitle",
+  "text": "*Sie glauben doch nicht, dass Ihr Glück noch lange anhält … oder, General?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank031Subtitle",
+  "text": "*Das Technologiegebäude wollten Sie doch nicht, oder?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank032Subtitle",
+  "text": "*Ihre Kaserne ist meinen Panzern zum Opfer gefallen, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank033Subtitle",
+  "text": "*Da geht Ihre Fabrik hin, General. Wie wollen Sie jetzt mit meiner Panzerung mithalten?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank034Subtitle",
+  "text": "*Ohne Flugfeld haben Sie Ihre einzige Chance gegen mich verloren, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank035Subtitle",
+  "text": "*Ihre Verteidigung fällt vor meinen Panzern wie Spielzeug"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank036Subtitle",
+  "text": "*Mit Ihrer Kommandozentrale haben Sie auch jede Hoffnung verloren, mich zu besiegen, General. Ich erwarte Ihre Kapitulation"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank037Subtitle",
+  "text": "*Sie haben viele Gebäude verloren, General … ist es nicht Zeit zu kapitulieren?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank038Subtitle",
+  "text": "*Das Technologiegebäude gehörte mir, General; Sie werden bereuen, es zerstört zu haben"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank039Subtitle",
+  "text": "*Sie haben also meine Kaserne zerstört – sei's drum. Jetzt zerstöre ich Ihre"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank040Subtitle",
+  "text": "*Wir bauen die Waffenfabrik wieder auf. Bald strömen die Panzer wieder wie Wasser zu Ihrer Basis"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank041Subtitle",
+  "text": "*Mein Flugfeld zu zerstören wird mich nicht aufhalten, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank042Subtitle",
+  "text": "*Wenn Sie meine Verteidigung zerstören, verraten Sie mir nur, wo Sie sind, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank043Subtitle",
+  "text": "*General, Sie zerstören eine inakzeptable Zahl meiner Gebäude. Das muss aufhören"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank044Subtitle",
+  "text": "*Sie haben meine Kommandozentrale zerstört … ich bin beeindruckt, General ... nur wenige halten so lange durch"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank045Subtitle",
+  "text": "*Sie schießen auf meine Flugzeuge?! Halten Sie das für die beste Taktik gegen mich, General?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank046Subtitle",
+  "text": "*Genug! Zerstören Sie keine weiteren meiner Panzer, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank047Subtitle",
+  "text": "*Hör auf, auf meine Infanterie zu zielen, du Feigling!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank048Subtitle",
+  "text": "*General, ich brauche diesen Bohrturm für meine Panzer. Geben Sie ihn heraus oder bezahlen Sie dafür"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank049Subtitle",
+  "text": "*Diese Artillerieplattform ist meiner Panzerung nicht gewachsen, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank050Subtitle",
+  "text": "*Ah, Sie haben eine Ölraffinerie eingenommen. Vielleicht sollte ich sie Ihnen abnehmen"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank051Subtitle",
+  "text": "*Wir nähern uns Ihrer Basis, General. Machen Sie sich bereit"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank052Subtitle",
+  "text": "*Ah, meine Panzer sind fast in Reichweite Ihrer Basis. Das sollte bald vorbei sein"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank053Subtitle",
+  "text": "*Wir haben Ihre Verteidigung durchbrochen, General. Jetzt beginnen Ihre Fabriken zu fallen"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank054Subtitle",
+  "text": "*Danke für die Einladung in Ihre Basis, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank055Subtitle",
+  "text": "*Wie ich sehe, ist Ihre Flanke ungeschützt, General. Das habe ich erwartet"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank056Subtitle",
+  "text": "*An Ihrer Hintertür stehen keine Wachen – ein fataler Fehler Ihrerseits, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank057Subtitle",
+  "text": "*Wie ich sehe, haben Sie eine zweite Basis gebaut, General. Sie wird bald beseitigt sein"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank058Subtitle",
+  "text": "*Ah, ich habe Ihr Technologiegebäude gefunden. Soll ich es zerstören oder einnehmen?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank059Subtitle",
+  "text": "*Ihre Energie ist weg – Ihre Truppen sind erledigt"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank060Subtitle",
+  "text": "*Ich würde vorschlagen, Ihre Energie wiederherzustellen, General … bevor wir sie für immer abschalten"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank061Subtitle",
+  "text": "*Ihr Vorratshaufen sieht mager aus … jetzt kann uns nichts mehr aufhalten"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank062Subtitle",
+  "text": "*Vorräte! Ich brauche mehr Vorräte!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank063Subtitle",
+  "text": "*Und was haben Sie mit diesem SCUD-Sturm vor, General?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank064Subtitle",
+  "text": "*Und jetzt ist dieser Krieg nuklear geworden … ausgezeichnet"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank065Subtitle",
+  "text": "*Diese Partikelkanone wird es nie erleben, auf mich zu feuern"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank066Subtitle",
+  "text": "*So viel Basisverteidigung, General … alles so nutzlos"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank067Subtitle",
+  "text": "*Sie versuchen also, auf dem Feld mit meinen Panzern mitzuhalten. Ich zweifle an Ihrer Taktik, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank068Subtitle",
+  "text": "*Ich sehe viele Flugzeuge, General – wie Mücken, die darauf warten, vom Himmel geklatscht zu werden"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank069Subtitle",
+  "text": "*Sie haben zu viele Männer ausgebildet, General; sie werden alle unter meinen Ketten zermalmt"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank070Subtitle",
+  "text": "*Ihre Basis ist zu groß geworden, General – meine Panzer werden die Zielübung genießen"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank071Subtitle",
+  "text": "*Ihr SCUD-Sturm wird uns schaden, aber jetzt haben Sie mich wütend gemacht, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank072Subtitle",
+  "text": "*Nur ein gescheiterter General greift zu Atomraketen"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank073Subtitle",
+  "text": "*Dieser Partikelstrahl wird uns nicht besiegen, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank074Subtitle",
+  "text": "*Ja, besetzen Sie Ihre Gebäude – Sie zögern das Unvermeidliche nur hinaus"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank075Subtitle",
+  "text": "*Kein einzelner Soldat kann das Blatt wenden, nicht einmal Colonel Burton"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank076Subtitle",
+  "text": "*Ah, Black Lotus, Sie beehren uns mit Ihrer Anwesenheit. Vielleicht würden Sie in Erwägung ziehen, für mich zu kämpfen"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank077Subtitle",
+  "text": "*Alle Panzer aufgepasst: Jarmen Kell ist im Feld"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank078Subtitle",
+  "text": "*Ein Flugfeld ist gegen mich eine kluge Wahl, aber es wird Sie nicht vor der Niederlage retten, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank079Subtitle",
+  "text": "*Bauen Sie Ihre Waffenfabriken, General; Panzer, die meine aufhalten, werden sie trotzdem nicht bauen"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank080Subtitle",
+  "text": "*Wie ich sehe, haben Sie eine Kaserne gebaut, General. Bitte halten Sie Ihre Männer unter meinen Panzern weg"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank081Subtitle",
+  "text": "*Ja, verkaufen Sie all Ihre Gebäude und fliehen Sie vom Feld, General. Diese Schlacht ist für Sie verloren"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank082Subtitle",
+  "text": "*Sie verlieren, General. Diese Schlacht gehört mir"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank083Subtitle",
+  "text": "*Jetzt ist alle Hoffnung dahin, General. Kapitulieren Sie oder sterben Sie"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank084Subtitle",
+  "text": "*General, meine Truppen sind Ihren zahlenmäßig überlegen … jetzt ist es nur noch eine Frage der Zeit"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank085Subtitle",
+  "text": "*Ihre unterlegene Strategie hat Sie hierhergeführt, General. Jetzt können Sie nicht mehr gewinnen"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank086Subtitle",
+  "text": "*Mein Sieg stand von Anfang an fest"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank087Subtitle",
+  "text": "*Ihre Taktik hat Ihnen einen kurzen Vorteil verschafft, General, aber den werden Sie nicht halten"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank088Subtitle",
+  "text": "*Nein! Sie werden nicht gewinnen, General. Wir bauen mehr Panzer und besiegen Sie"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank089Subtitle",
+  "text": "*Ihre feige Taktik mag Sie bis hierher gebracht haben, aber mit diesem Unsinn ist jetzt Schluss"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank090Subtitle",
+  "text": "*Ich glaube, ich habe Sie lange genug gewinnen lassen, General. Bereiten Sie sich auf das Ende vor"
+ }
+]
