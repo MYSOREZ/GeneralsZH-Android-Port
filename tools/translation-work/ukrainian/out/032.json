@@ -1,0 +1,102 @@
+[
+ {
+  "label": "MAP:SniperDuel",
+  "text": "Снайперська дуель"
+ },
+ {
+  "label": "MAP:TheFrontline",
+  "text": "Лінія фронту"
+ },
+ {
+  "label": "MAP:TournamentBeach",
+  "text": "Турнірний пляж"
+ },
+ {
+  "label": "MAP:TournamentCanyon",
+  "text": "Турнірний каньйон"
+ },
+ {
+  "label": "MAP:TournamentDesolate",
+  "text": "Турнірна пустеля"
+ },
+ {
+  "label": "MAP:TournamentForest",
+  "text": "Турнірний Ліс"
+ },
+ {
+  "label": "MAP:TournamentIceStorm",
+  "text": "Турнір льодовий шторм"
+ },
+ {
+  "label": "MAP:TournamentTactics",
+  "text": "Турнірна тактика"
+ },
+ {
+  "label": "MAP:TournamentTown",
+  "text": "Турнірне місто"
+ },
+ {
+  "label": "MAP:TournamentValley",
+  "text": "Турнірна долина"
+ },
+ {
+  "label": "MAP:UnholyWar",
+  "text": "Нечестива війна"
+ },
+ {
+  "label": "MAP:Unstable",
+  "text": "Нестабільний"
+ },
+ {
+  "label": "MAP:UrbanUprising",
+  "text": "Міське повстання"
+ },
+ {
+  "label": "MAP:VictoryOutlook",
+  "text": "Перспективи перемоги"
+ },
+ {
+  "label": "MAP:VictoryRoad",
+  "text": "Дорога Перемоги"
+ },
+ {
+  "label": "MAP:NorthAmerica",
+  "text": "Північна Америка"
+ },
+ {
+  "label": "MAP:Floodplains",
+  "text": "Заплави"
+ },
+ {
+  "label": "MAP:TournamentA",
+  "text": "Турнір А"
+ },
+ {
+  "label": "MAP:TournamentB",
+  "text": "Турнір Б"
+ },
+ {
+  "label": "MAP:Defcon6",
+  "text": "Обороноздатність"
+ },
+ {
+  "label": "CONTROLBAR:AirF_TooltipUSAUpgradeLaserMissiles",
+  "text": "Ракети Раптора і Літака-невидимки завдають на +12% більше шкоди"
+ },
+ {
+  "label": "CONTROLBAR:AirF_ToolTipUSAScienceCarpetBomb",
+  "text": "Дозволяє викликати бомбардувальник-невидимку B2 для килимового бомбардування території\n \n  Викликається з: Стратегічного центру"
+ },
+ {
+  "label": "GUI:CustomMission",
+  "text": "ВЛАСНА МІСІЯ"
+ },
+ {
+  "label": "GX:ForceAttack",
+  "text": "Примусова атака"
+ },
+ {
+  "label": "GX:ToolTipForceAttack",
+  "text": "Атакувати наступну ціль, якої ви торкнетеся, навіть свої війська чи порожню землю"
+ }
+]

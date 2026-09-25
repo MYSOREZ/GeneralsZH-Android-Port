@@ -1,0 +1,802 @@
+[
+ {
+  "label": "GUI:LimitSuperweapons",
+  "text": "Обмеження суперзброї"
+ },
+ {
+  "label": "TOOLTIP:LimitSuperweapons",
+  "text": "Поставте прапорець, щоб обмежити молекулярні гармати, СКАД Шторми, тощо до однієї на гравця"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak100",
+  "text": "Відзнака серії\n  Гравець виграв 100 сутичок поспіль\n  Отримайте нову відзнаку за 3, 10, 25, 100, 500 і 1000 перемог поспіль"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak500",
+  "text": "Відзнака серії\n  Гравець виграв 500 сутичок поспіль\n  Отримайте нову відзнаку за 3, 10, 25, 100, 500 і 1000 перемог поспіль"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak1000",
+  "text": "Відзнака серії\n  Гравець виграв 1000 сутичок поспіль\n  Отримайте нову відзнаку за 3, 10, 25, 100, 500 і 1000 перемог поспіль"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak3Online",
+  "text": "Відзнака серії\n  Гравець виграв 3 онлайн-ігор поспіль\n  Отримайте нову медаль за 3, 10, 25, 100, 500 і 1000 перемог поспіль"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak10Online",
+  "text": "Відзнака серії\n  Гравець виграв 10 онлайн-ігор поспіль\n  Отримайте нову медаль за 3, 10, 25, 100, 500 і 1000 перемог поспіль"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak25Online",
+  "text": "Відзнака серії\n  Гравець виграв 25 онлайн-ігор поспіль\n  Отримайте нову медаль за 3, 10, 25, 100, 500 і 1000 перемог поспіль"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak100Online",
+  "text": "Відзнака серії\n  Гравець виграв 100 онлайн-ігор поспіль\n  Отримайте нову медаль за 3, 10, 25, 100, 500 і 1000 перемог поспіль"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak500Online",
+  "text": "Відзнака серії\n  Гравець виграв 500 онлайн-ігор поспіль\n  Отримайте нову медаль за 3, 10, 25, 100, 500 і 1000 перемог поспіль"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak1000Online",
+  "text": "Відзнака серії\n  Гравець виграв 1000 онлайн-ігор поспіль"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorDomination100",
+  "text": "Відзнака панування\n  Гравець виграв понад 100 сутичок\n  Отримайте нову відзнаку за 100, 500, 1000 і 10000 перемог за все життя"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorDomination500",
+  "text": "Відзнака панування\n  Гравець виграв понад 500 сутичок\n  Отримайте нову відзнаку за 100, 500, 1000 і 10000 перемог за все життя"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorDomination1000",
+  "text": "Відзнака панування\n  Гравець виграв понад 1000 сутичок\n  Отримайте нову відзнаку за 100, 500, 1000 і 10000 перемог за все життя"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorDomination10000",
+  "text": "Відзнака панування\n  Гравець виграв понад 10000 сутичок\n  Отримайте нову відзнаку за 100, 500, 1000 і 10000 перемог за все життя"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorDomination100Online",
+  "text": "Відзнака панування\n  Гравець виграв понад 100 онлайн-ігор\n  Отримайте нову відзнаку за 100, 500, 1000 і 10000 перемог за все життя"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorDomination500Online",
+  "text": "Відзнака панування\n  Гравець виграв понад 500 онлайн-ігор\n  Отримайте нову відзнаку за 100, 500, 1000 і 10000 перемог за все життя"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorDomination1000Online",
+  "text": "Відзнака панування\n  Гравець виграв понад 1000 онлайн-ігор\n  Отримайте нову відзнаку за 100, 500, 1000 і 10000 перемог за все життя"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorDomination10000Online",
+  "text": "Відзнака панування\n  Гравець виграв понад 10 000 онлайн-ігор"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorCampaignChallenge",
+  "text": "Відзнака Дуелі\n  Завершіть кампанію генеральських дуелей, щоб отримати цю відзнаку\n  Пройдіть кампанію на важкому рівні складності, щоб отримати найвищу нагороду"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorUltimate",
+  "text": "Найвища відзнака\n  Щоб заробити цю медаль, обіграйте кожну карту Сутички проти максимальної кількості важких супротивників"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorGlobalGeneral",
+  "text": "Глобальний генерал\n  Виграйте принаймні одну онлайн-гру, граючи за кожного генерала, щоб отримати відзнаку"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreakDisabled",
+  "text": "Відзнака серії\n  Отримайте нову відзнаку за 3, 10, 25, 100, 500 і 1000 перемог поспіль"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreakOnlineDisabled",
+  "text": "Відзнака серії\n  Отримайте нову медаль за 3, 10, 25, 100, 500 і 1000 перемог поспіль"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorCampaignChallengeDisabled",
+  "text": "Відзнака Дуелі\n  Завершіть кампанію генеральських дуелей, щоб отримати цю відзнаку\n  Пройдіть кампанію на важкому рівні складності, щоб отримати найвищу нагороду"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorUltimateDisabled",
+  "text": "Найвища відзнака\n  Щоб заробити цю медаль, обіграйте кожну карту Сутички проти максимальної кількості важких супротивників"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorDominationDisabled",
+  "text": "Відзнака панування\n  Отримайте нову відзнаку за 100, 500, 1000 і 10000 перемог за все життя"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorDominationOnlineDisabled",
+  "text": "Відзнака панування\n  Отримайте нову відзнаку за 100, 500, 1000 і 10000 перемог за все життя"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorGlobalGeneralDisabled",
+  "text": "Глобальний генерал\n  Виграйте принаймні одну онлайн-гру, граючи за кожного генерала, щоб отримати відзнаку"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorBlitzDisabled",
+  "text": "Бліц відзнака \n  Перемагайте суперників за 10 хвилин або менше, щоб отримати цю відзнаку"
+ },
+ {
+  "label": "GUI:SuperweaponSpectreGunship",
+  "text": "Штурмавик Привид"
+ },
+ {
+  "label": "GUI:Nuke_SuperweaponNeutronMissile",
+  "text": "Ядерна ракета"
+ },
+ {
+  "label": "GUI:SuperweaponGPSScrambler",
+  "text": "Шифратор GPS"
+ },
+ {
+  "label": "GUI:SupW_SuperweaponParticleUplinkCannon",
+  "text": "Молекулярна гармата"
+ },
+ {
+  "label": "GUI:SuperweaponTankParadrop",
+  "text": "Десантування танків"
+ },
+ {
+  "label": "GUI:SupW_SuperweaponTomahawkStorm",
+  "text": "Томагавк шторм"
+ },
+ {
+  "label": "GUI:SupW_SuperweaponNeutronMissile",
+  "text": "МБР"
+ },
+ {
+  "label": "INI:FactionAmericaSuperWeaponGeneral",
+  "text": "Генерал суперзброї США"
+ },
+ {
+  "label": "INI:FactionAmericaLaserGeneral",
+  "text": "Лазерний генерал США"
+ },
+ {
+  "label": "INI:FactionAmericaAirForceGeneral",
+  "text": "Генерал повітряних сил США"
+ },
+ {
+  "label": "INI:FactionAmericaCommanderInChief",
+  "text": "Головнокомандувач США"
+ },
+ {
+  "label": "INI:FactionChinaTankGeneral",
+  "text": "Китайський танковий генерал"
+ },
+ {
+  "label": "INI:FactionChinaInfantryGeneral",
+  "text": "Китайський піхотний генерал"
+ },
+ {
+  "label": "INI:FactionChinaNukeGeneral",
+  "text": "Китайський ядерний генерал"
+ },
+ {
+  "label": "INI:FactionChinaCommanderInChief",
+  "text": "Головнокомандувач Китаю"
+ },
+ {
+  "label": "INI:FactionGLAToxinGeneral",
+  "text": "Генерал токсинів ГВА"
+ },
+ {
+  "label": "INI:FactionGLADemolitionGeneral",
+  "text": "Підривний генерал ГВА"
+ },
+ {
+  "label": "INI:FactionGLAStealthGeneral",
+  "text": "Потайний генерал ГВА"
+ },
+ {
+  "label": "INI:FactionGLACommanderInChief",
+  "text": "Головнокомандувач ГВА"
+ },
+ {
+  "label": "INI:FactionBossGeneral",
+  "text": "Босс генерал"
+ },
+ {
+  "label": "SIDE:AmericaSuperWeaponGeneral",
+  "text": "Генерал суперзброї США"
+ },
+ {
+  "label": "SIDE:AmericaLaserGeneral",
+  "text": "Лазерний генерал США"
+ },
+ {
+  "label": "SIDE:AmericaAirForceGeneral",
+  "text": "Генерал повітряних сил США"
+ },
+ {
+  "label": "SIDE:ChinaTankGeneral",
+  "text": "Китайський танковий генерал"
+ },
+ {
+  "label": "SIDE:ChinaInfantryGeneral",
+  "text": "Китайський піхотний генерал"
+ },
+ {
+  "label": "SIDE:ChinaNukeGeneral",
+  "text": "Китайський ядерний генерал"
+ },
+ {
+  "label": "SIDE:GLAToxinGeneral",
+  "text": "Генерал токсинів ГВА"
+ },
+ {
+  "label": "SIDE:GLADemolitionGeneral",
+  "text": "Підривний генерал ГВА"
+ },
+ {
+  "label": "SIDE:GLAStealthGeneral",
+  "text": "Потайний генерал ГВА"
+ },
+ {
+  "label": "SIDE:Boss",
+  "text": "Босс генерал"
+ },
+ {
+  "label": "GUI:SelectAllAircraft",
+  "text": "Виберіть усі літаки"
+ },
+ {
+  "label": "GUI:SelectAllAircraftDescription",
+  "text": "Вибирає всі літаки"
+ },
+ {
+  "label": "SCIENCE:USASpectreGunship1",
+  "text": "Штурмовик Привид"
+ },
+ {
+  "label": "SCIENCE:USALeafletDrop",
+  "text": "Скидання листівок"
+ },
+ {
+  "label": "SCIENCE:ChinaTankHunterTraining",
+  "text": "Підготовка Мисливців на танки"
+ },
+ {
+  "label": "SCIENCE:ChinaBattleMasterTraining",
+  "text": "Підготовка Майстрів бою"
+ },
+ {
+  "label": "SCIENCE:ChinaOverlordTraining",
+  "text": "Підготовка Повелителя"
+ },
+ {
+  "label": "SCIENCE:ChinaGattlingTankTraining",
+  "text": "Тренування танка Гатлінга"
+ },
+ {
+  "label": "SCIENCE:ChinaNukeDrop",
+  "text": "Ядерне бомбардування"
+ },
+ {
+  "label": "SCIENCE:ChinaFrenzy",
+  "text": "Безумство 1"
+ },
+ {
+  "label": "SCIENCE:ChinaFrenzy2",
+  "text": "Безумство 2"
+ },
+ {
+  "label": "SCIENCE:ChinaFrenzy3",
+  "text": "Безумство 3"
+ },
+ {
+  "label": "SCIENCE:ChinaCarpetBomb",
+  "text": "Килимове бомбардування"
+ },
+ {
+  "label": "SCIENCE:GPSScrambler",
+  "text": "Шифратор GPS"
+ },
+ {
+  "label": "SCIENCE:GLASneakAttack",
+  "text": "Прихована атака"
+ },
+ {
+  "label": "SCIENCE:ChinaTankParadrop1",
+  "text": "Дестантування танків 1"
+ },
+ {
+  "label": "SCIENCE:ChinaTankParadrop2",
+  "text": "Дестантування танків 2"
+ },
+ {
+  "label": "SCIENCE:ChinaTankParadrop3",
+  "text": "Дестантування танків 3"
+ },
+ {
+  "label": "SCIENCE:ChinaInfantryParadrop1",
+  "text": "Піхотний десант 1"
+ },
+ {
+  "label": "SCIENCE:ChinaInfantryParadrop2",
+  "text": "Піхотний десант 2"
+ },
+ {
+  "label": "SCIENCE:ChinaInfantryParadrop3",
+  "text": "Піхотний десант 3"
+ },
+ {
+  "label": "CONTROLBAR:NoHotKeyFrenzy",
+  "text": "Безумство"
+ },
+ {
+  "label": "CONTROLBAR:CIAIntelligenceShortcut",
+  "text": "Розвідка"
+ },
+ {
+  "label": "CONTROLBAR:CommunicationsDownload",
+  "text": "Завантаження комунакацій (&D)"
+ },
+ {
+  "label": "CONTROLBAR:CommunicationsDownloadShortcut",
+  "text": "Завантаження комунакацій (&D)"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaHelixPropagandaTower",
+  "text": "Пропагандиська вежа (&T)"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaHelixBattleBunker",
+  "text": "Бойовий бункер (&B)"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaHelixGattlingCannon",
+  "text": "Гармата Гатлінга (&C)"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeHelixNukeBomb",
+  "text": "Ядерна бомба (&N)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaFireBase",
+  "text": "Вогнева база (&I)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaArtilleryPlatform",
+  "text": "Артилерійська платформа (&R)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaTankAvenger",
+  "text": "Месник (&G)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaTankMicrowave",
+  "text": "Мікрохвильовий танк (&M)"
+ },
+ {
+  "label": "CONTROLBAR:BunkerExit",
+  "text": "Вихід з бункера"
+ },
+ {
+  "label": "CONTROLBAR:FireBaseExit",
+  "text": "Вихід з вогневої бази"
+ },
+ {
+  "label": "CONTROLBAR:ConstructFakeGLACommandCenter",
+  "text": "Фальшивий командний центр (&C)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructFakeGLABarracks",
+  "text": "Фальшива казарма (&B)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructFakeGLASupplyStash",
+  "text": "Фальшивий склад припасів (&U)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructFakeGLAArmsDealer",
+  "text": "Фальшивий торговець зброєю (&A)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaInternetCenter",
+  "text": "Інтернет центр (&I)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAVehicleCombatBike",
+  "text": "Бойовий мотоцикл (&Y)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaTankEmperor",
+  "text": "Імператор (&O)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAInfantrySaboteur",
+  "text": "Саботажник (&S)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaInfantryPropagandaTrooper",
+  "text": "Пропагандист (&P)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaInfantryMiniGunner",
+  "text": "Кулеметник (&I)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaJetKingRaptor",
+  "text": "Королівський раптор (&T)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaJetFuelAirAurora",
+  "text": "Бомбардувальник Аврора Альфа (&B)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaJetHypersonicAurora",
+  "text": "Аврора Альфа (&A)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAInfantrySniper",
+  "text": "Снайпер (&S)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaVehicleSentryDrone",
+  "text": "Сторожовий дрон (&S)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaVehicleHellfireDrone",
+  "text": "Дрон Хелфайр (&F)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaVehiclePointDefenseDrone",
+  "text": "Дрон лазерного захисту (&P)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaVehicleHelix",
+  "text": "Хелікс (&X)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaInfantryNukeHunter",
+  "text": "Ядерний мисливець (&U)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaICBMLauncher",
+  "text": "МБР (&I)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaVehicleListeningOutpost",
+  "text": "Пост прослуховування (&S)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructFakeGLABlackMarket",
+  "text": "Фальшивий чорний ринок (&M)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaTomahawkStorm",
+  "text": "Томагавк шторм (&T)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaTankECM",
+  "text": "Електромагнітний танк (&E)"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAVehicleBattleBus",
+  "text": "Бойовий автобус (&E)"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaSentryDroneGun",
+  "text": "Кулемет сторожового дрона (&N)"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLAQuadCannonSnipe",
+  "text": "Снайперська гармата КВАД (&C)"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaSupplyLines",
+  "text": "Лінії постачання (&U)"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaMOAB",
+  "text": "Мати всіх бомб (&M)"
+ },
+ {
+  "label": "CONTROLBAR:BecomeRealGLACommandCenter",
+  "text": "Перетворити на справжній командний центр (&B)"
+ },
+ {
+  "label": "CONTROLBAR:BecomeRealGLABarracks",
+  "text": "Перетворити на справжню казарму (&B)"
+ },
+ {
+  "label": "CONTROLBAR:BecomeRealGLAArmsDealer",
+  "text": "Перетворити на справжнього торговця зброєю (&B)"
+ },
+ {
+  "label": "CONTROLBAR:BecomeRealGLASupplyStash",
+  "text": "Перетворити на справжню схованку припасів (&B)"
+ },
+ {
+  "label": "CONTROLBAR:BecomeRealGLABlackMarket",
+  "text": "Перетворити на справжній чорний ринок (&B)"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaBunkerBusters",
+  "text": "Вбивці бункерів (&U)"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaCountermeasures",
+  "text": "Заходи протидії (&O)"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaChemicalSuits",
+  "text": "Хімічні костюми (&I)"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaSatelliteHackOne",
+  "text": "Злам Супутника I (&S)"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaSatelliteHackTwo",
+  "text": "Злам Супутника II (&S)"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaFanaticism",
+  "text": "Патріотизм (&P)"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaWGUraniumShells",
+  "text": "Покращення зброї Уранові снаряди (&U)"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaTankAutoLoader",
+  "text": "Автозаряджання (&A)"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaNeutronShells",
+  "text": "Нейтронні снаряди (&S)"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaFusionReactors",
+  "text": "Реактор синтезу (&F)"
+ },
+ {
+  "label": "CONTROLBAR:ChinaUpgradeHelixNapalmBomb",
+  "text": "Дозволяє цьому Хеліксу скидати напалмові бомби"
+ },
+ {
+  "label": "CONTROLBAR:ChinaUpgradeHelixNukeBomb",
+  "text": "Дозволяє цьому Хеліксу скидати ядерні бомби"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeHelixNapalmBomb",
+  "text": "Напалмова бомба (&N)"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLAFortifiedStructure",
+  "text": "Укріплені будівлі (&E)"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLABoobyTrap",
+  "text": "Міна-пастка (&O)"
+ },
+ {
+  "label": "CONTROLBAR:DetonateFakeBuilding",
+  "text": "Підірвати зараз (&N)"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLAWorkerFakeCommandSet",
+  "text": "Перейти до фальшивих структур (&F)"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLAWorkerRealCommandSet",
+  "text": "Перейти до реальних структкр (&R)"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLAHighExplosiveDemoTraps",
+  "text": "Посилені підривні пастки (&D)"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLACamoNetting",
+  "text": "Маскувальна сітка (&N)"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLAAnthraxGamma",
+  "text": "Сибірська виразка гамма (&X)"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLAWorkerShoes",
+  "text": "Черевики робітника (&S)"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeEMPMines",
+  "text": "Нейтронні міни (&M)"
+ },
+ {
+  "label": "CONTROLBAR:NukeWarhead",
+  "text": "Ядерні снаряди (&N)"
+ },
+ {
+  "label": "CONTROLBAR:NeutronWarhead",
+  "text": "Нейтронні снаряди (&E)"
+ },
+ {
+  "label": "CONTROLBAR:LeafletDrop",
+  "text": "Скидання листівок (&L)"
+ },
+ {
+  "label": "CONTROLBAR:SuitcaseNuke",
+  "text": "Ядерна валіза (&N)"
+ },
+ {
+  "label": "CONTROLBAR:NeutronMissileShortcut",
+  "text": "Ядерна ракета"
+ },
+ {
+  "label": "CONTROLBAR:ICBM",
+  "text": "МБР (&I)"
+ },
+ {
+  "label": "CONTROLBAR:ICBMShortcut",
+  "text": "МБР"
+ },
+ {
+  "label": "CONTROLBAR:ScudStormShortcut",
+  "text": "СКАД Шторм"
+ },
+ {
+  "label": "CONTROLBAR:TomahawkStorm",
+  "text": "Томагавк шторм (&T)"
+ },
+ {
+  "label": "CONTROLBAR:TomahawkStormShortcut",
+  "text": "Томагавк шторм"
+ },
+ {
+  "label": "CONTROLBAR:SpectreGunship",
+  "text": "Штурмовий літак-привид (&G)"
+ },
+ {
+  "label": "CONTROLBAR:SpectreGunshipFromShortcut",
+  "text": "Штурмовий літак-привид"
+ },
+ {
+  "label": "CONTROLBAR:SneakAttack",
+  "text": "Прихована атака (&T)"
+ },
+ {
+  "label": "CONTROLBAR:TankParadrop",
+  "text": "Скидання танків (&P)"
+ },
+ {
+  "label": "CONTROLBAR:NukeDrop",
+  "text": "Скидання ядерної бомби (&U)"
+ },
+ {
+  "label": "CONTROLBAR:Frenzy",
+  "text": "Безумство (&Y)"
+ },
+ {
+  "label": "CONTROLBAR:RadarVanScanShortcut",
+  "text": "Радарне сканування"
+ },
+ {
+  "label": "CONTROLBAR:SelectAircraftCarriersFromShortcut",
+  "text": "Вибрати Авіаносці"
+ },
+ {
+  "label": "CONTROLBAR:SelectBattleshipsFromShortcut",
+  "text": "Бомбардування з лінкора"
+ },
+ {
+  "label": "CONTROLBAR:BattleshipFire",
+  "text": "Обстріл з лінкора"
+ },
+ {
+  "label": "CONTROLBAR:AircraftCarrierFire",
+  "text": "Атака рапторами з авіаносця"
+ },
+ {
+  "label": "CONTROLBAR:ECMDisableVehicle",
+  "text": "Відключити техніку (&D)"
+ },
+ {
+  "label": "CONTROLBAR:BoobyTrapAttack",
+  "text": "Атака міни-пастки (&B)"
+ },
+ {
+  "label": "CONTROLBAR:GPSScrambler",
+  "text": "GPS скремблер (&G)"
+ },
+ {
+  "label": "CONTROLBAR:FireParticleUplinkCannonShortcut",
+  "text": "Молекулярна гармата"
+ },
+ {
+  "label": "UPGRADE:AmericaSentryDroneGun",
+  "text": "Кулемет сторожового дрона"
+ },
+ {
+  "label": "UPGRADE:AmericaMOAB",
+  "text": "МВБ: Мати всіх бомб"
+ },
+ {
+  "label": "UPGRADE:AmericaBunkerBusters",
+  "text": "Убивці бункерів"
+ },
+ {
+  "label": "UPGRADE:SatelliteHackOne",
+  "text": "Злам супутника I"
+ },
+ {
+  "label": "UPGRADE:SatelliteHackTwo",
+  "text": "Злам супутника II"
+ },
+ {
+  "label": "UPGRADE:HelixGattlingCannon",
+  "text": "Гармата Гатлінга"
+ },
+ {
+  "label": "UPGRADE:HelixPropagandaTower",
+  "text": "Пропагандиська вежа"
+ },
+ {
+  "label": "UPGRADE:HelixBattleBunker",
+  "text": "Бойовий бункер"
+ },
+ {
+  "label": "UPGRADE:SupplyLines",
+  "text": "Лінії постачання"
+ },
+ {
+  "label": "UPGRADE:PointDefenseDrone",
+  "text": "Захисний лазер"
+ },
+ {
+  "label": "UPGRADE:QuadCannonSnipe",
+  "text": "Снайперські патрони для гармати КВАД"
+ },
+ {
+  "label": "UPGRADE:HellfireDrone",
+  "text": "Дрон Хелфайр"
+ },
+ {
+  "label": "UPGRADE:Fanaticism",
+  "text": "Патріотизм"
+ },
+ {
+  "label": "UPGRADE:EMPMine",
+  "text": "Нейтронні міни"
+ },
+ {
+  "label": "UPGRADE:ChinaHelixNapalmBomb",
+  "text": "Напалмова бомба"
+ },
+ {
+  "label": "UPGRADE:ChinaHelixNukeBomb",
+  "text": "Ядерна бомба"
+ },
+ {
+  "label": "UPGRADE:WGUraniumShells",
+  "text": "Покращення зброї Уранові снаряди"
+ },
+ {
+  "label": "UPGRADE:TankAutoLoader",
+  "text": "Автозаряджання"
+ },
+ {
+  "label": "UPGRADE:NeutronShells",
+  "text": "Нейтронні снаряди"
+ },
+ {
+  "label": "UPGRADE:BecomeRealGLACommandCenter",
+  "text": "Справжній командний центр"
+ },
+ {
+  "label": "UPGRADE:BecomeRealGLABarracks",
+  "text": "Справжня казарма"
+ },
+ {
+  "label": "UPGRADE:BecomeRealGLAArmsDealer",
+  "text": "Справжній торговець зброєю"
+ },
+ {
+  "label": "UPGRADE:BecomeRealGLASupplyStash",
+  "text": "Справжня схованка припасів"
+ }
+]

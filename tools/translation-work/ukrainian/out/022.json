@@ -1,0 +1,802 @@
+[
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen09Subtitle",
+  "text": "*Новий токсин, який ми «позичили» у США, буде особливо дієвим проти їхніх же військ"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen10Subtitle",
+  "text": "*Спершу флот у Середземному морі, потім удар по території США… а тепер починається наше панування в Європі"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen11Subtitle",
+  "text": "*Нас атакують зі сходу. Покладіть край цим атакам, треба знищити їх, щоб зосередитися на головній базі на півночі"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen12Subtitle",
+  "text": "*Майже на місці… США дорого заплатять за свої злочини проти нашого народу"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen13Subtitle",
+  "text": "*У нас закінчуються кошти. Розвідайте район у пошуках ресурсів, нас не мають зупинити"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen14Subtitle",
+  "text": "*Тепер, коли цей район у безпеці, треба нарощувати сили й почати штурм бази Центрального командування США в Європі"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen15Subtitle",
+  "text": "*Американці сильно покладаються на авіацію. Будуйте більше Позицій Стингерів і Гармат КВАД"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen16Subtitle",
+  "text": "*Вони цілять у нашу оборону, треба замаскувати Позиції Стингерів"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen17Subtitle",
+  "text": "*Мій генерале, нам потрібно збудувати СКАД Шторм"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen18Subtitle",
+  "text": "*Американський генерал застосовує проти нас Молекулярну гармату"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen19Subtitle",
+  "text": "*Треба спробувати іншу тактику. Використайте раптовий удар, щоб закинути підрозділи на базу"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen20Subtitle",
+  "text": "*Захопіть американську базу і розбудуйте її. Ми обернемо їхню ж зброю проти них"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen21Subtitle",
+  "text": "*Ви маєте знищити Молекулярну гармату!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen22Subtitle",
+  "text": "*Тепер вони атакують із землі. Захищайте нашу базу!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen23Subtitle",
+  "text": "*Швидко відбудуйте базу… Треба готуватися до нових атак!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen24Subtitle",
+  "text": "*Чудово, генерале. Завдяки вашій блискучій тактиці ми тепер контролюємо всі три супер-зброї. Американці навіть не зрозуміють, що їх ударило!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen25Subtitle",
+  "text": "*Добийте американців, генерале. Вони довго не протримаються"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen26Subtitle",
+  "text": "*Генерале, ми можемо вдарити по їхніх хімічних бункерах і влаштувати хаос на їхній же базі"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen27Subtitle",
+  "text": "*Їхньої Молекулярної гармати більше немає"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen28Subtitle",
+  "text": "*Американці збудували ще одну Молекулярну гармату. Не можна дати їм застосувати її проти нас"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen29Subtitle",
+  "text": "*Треба негайно знищити південну базу підтримки ворога! Що довше ми чекаємо, то сильніші їхні атаки"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen30Subtitle",
+  "text": "*За даними, полонених на американській базі скоро перевезуть. Треба швидко їх урятувати!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen31Subtitle",
+  "text": "*Щоб звільнити полонених, доведеться повністю зачистити американську базу"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen32Subtitle",
+  "text": "*Швидше, полонених треба рятувати зараз!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen33Subtitle",
+  "text": "*Треба запустити радар, покращивши китайський командний центр"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen34Subtitle",
+  "text": "*Вкрай важливо збудувати командний центр GLA"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen35Subtitle",
+  "text": "*Тепер, коли малої південної бази немає, ми можемо зосередитися на базі Центрального командування США в Європі"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen36Subtitle",
+  "text": "*База Центрального командування США величезна, треба знайти шлях усередину! Можливо, спрацюють раптові удари"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen37Subtitle",
+  "text": "*Треба доставити полонених до їхнього села, щоб вони знову підняли свій бойовий осередок"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen38Subtitle",
+  "text": "*Наших братів атакують! Треба їм допомогти!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen39Subtitle",
+  "text": "*Поверніть полонених до їхнього села — йдіть уздовж річки на північ, доки не дійдете"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen40Subtitle",
+  "text": "*Полонені в безпеці! Треба допомогти їм повернутися до села, щоб вони підтримали нас у боротьбі з США!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen41Subtitle",
+  "text": "*Захопіть ці танки, і ми використаємо їх як свої!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen42Subtitle",
+  "text": "*Захопіть припаси, і ми утримаємо ідеальне місце для штурму американців!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen43Subtitle",
+  "text": "*Солдати в безпеці, а їхні родини сповнені радості! Вони битимуться з нами, і нам дали ще й припаси"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen44Subtitle",
+  "text": "*Ми підвели наших братів, але вони все одно битимуться поруч із нами"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen45Subtitle",
+  "text": "*Наші брати битимуться на нашому боці, щоб помститися за смерть полонених!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen46Subtitle",
+  "text": "*Американці перевезли полонених, але наші брати все одно битимуться з нами проти ворога!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen47Subtitle",
+  "text": "*Європа скоро буде нашою!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xPOW01Subtitle",
+  "text": "*Звільніть нас від наглядачів. Захистіть нас від усіх атак США, і ми вам допоможемо!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xPOW02Subtitle",
+  "text": "*Ми готові вирушати додому, щойно ви будете готові"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xPOW03Subtitle",
+  "text": "*Швидше, часу мало!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xPOW04Subtitle",
+  "text": "*Наш час спливає!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xPOW05Subtitle",
+  "text": "*Будь ласка, врятуйте нас!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xPOW06Subtitle",
+  "text": "*Нам потрібна ваша допомога!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA06Chatter01Subtitle",
+  "text": "*Попереду міст. Схоже, добре захищений"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA06Chatter02Subtitle",
+  "text": "*Наближаємося до мосту. Американців немає"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA06Chatter07Subtitle",
+  "text": "*Смерть американцям!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA06Cin01Subtitle",
+  "text": "*Смерть американцям!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA06General05Subtitle",
+  "text": "*Нас помітили американські розвідники. Будьте готові до бою"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA06General20Subtitle",
+  "text": "*Ви маєте відкинути їх, щоб захопити бункери"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA07Convoy13Subtitle",
+  "text": "*Ми знайшли трохи припасів, можуть знадобитися"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA08Buggy101Subtitle",
+  "text": "*До слави!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA08Kenwar10Subtitle",
+  "text": "*Доведеться вдарити по них усім, що маємо"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA08Kenwar39Subtitle",
+  "text": "*Наші сили готові почати штурм"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01Commander03Subtitle",
+  "text": "*Наближаються швидкі цілі"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01Commander09Subtitle",
+  "text": "*Рото «Ехо», бомбардувальник на підході, ви надто близько, відходьте!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01Echo108Subtitle",
+  "text": "*Ще контакти, дистанція 300"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01Echo201Subtitle",
+  "text": "*Мене влучили!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01Eva02Subtitle",
+  "text": "*Генерале, захопіть ворожі нафтові вишки, щоб отримати більше ресурсів для війни"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01Raptor201Subtitle",
+  "text": "*Підсмажимо їх"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xBrf01Subtitle",
+  "text": "*З поверненням, генерале"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xBrf02Subtitle",
+  "text": "*Сьогодні вранці GLA запустили свою ракету з космодрому Байконур. Розвідка повідомляє, що вони готують другий запуск"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xBrf03Subtitle",
+  "text": "*Застосування цієї ракети серйозно послабить наші позиції в Європі. Вкрай важливо усунути цю загрозу"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xBrf04Subtitle",
+  "text": "*За нашими даними, наступну ракету везуть до стартового комплексу потягом. Ці колії — єдиний шлях до комплексу"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xBrf05Subtitle",
+  "text": "*Якщо ми вчасно перехопимо той потяг, то під його прикриттям проникнемо на базу"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xBrf06Subtitle",
+  "text": "*Перший крок місії — захопити й утримати це залізничне депо"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xBrf07Subtitle",
+  "text": "*Удачі, генерале"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xC+A39hat11Subtitle",
+  "text": "*Ще споруди GLA на сході!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xChat01Subtitle",
+  "text": "*Скорпіони на дев'яту годину!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xChat02Subtitle",
+  "text": "*Усі на борт!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xChat03Subtitle",
+  "text": "*Усі взяли квитки?"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xChat04Subtitle",
+  "text": "*Люба, я вдома! Ха-ха-ха"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xChat05Subtitle",
+  "text": "*Посадіть піхоту в цю техніку! Вона допоможе нам розбити GLA!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xChat06Subtitle",
+  "text": "*Хтось, займіть ту радіостанцію! Нам негайно потрібна авіапідтримка!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xChat07Subtitle",
+  "text": "*Цільтеся в ті бочки! Вони вибухові!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xChat08Subtitle",
+  "text": "*Гаразд, хлопці. Вантажимося і руша-а-аємо!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xChat09Subtitle",
+  "text": "*Позиції Стингерів знищено! Повторюю, Стингери знищено! Усім підрозділам стягуватися до споруд GLA! Рознесемо тут усе!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xChat10Subtitle",
+  "text": "*Ще споруди GLA на заході!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xChat12Subtitle",
+  "text": "*Буде зроблено, штабе! Вони в мене на прицілі"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xChat13Subtitle",
+  "text": "*Скидаю вантаж"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xChat14Subtitle",
+  "text": "*Люблю зранку свіжий запах МОАБ"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xCin01Subtitle",
+  "text": "*Усім підрозділам покинути зону запуску. Запуск через…"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xCin02Subtitle",
+  "text": "*5"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xCin03Subtitle",
+  "text": "*4"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xCin04Subtitle",
+  "text": "*3"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xCin05Subtitle",
+  "text": "*2"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xCin06Subtitle",
+  "text": "*1"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xCin07Subtitle",
+  "text": "*0"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xCin08Subtitle",
+  "text": "*Є запуск"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xCin09Subtitle",
+  "text": "*Запуск дозволено"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xCin10Subtitle",
+  "text": "*Брудні американці. Ми спалимо тут усе, що ваше"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xCin11Subtitle",
+  "text": "*Дурні американські ковбої!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xEva01Subtitle",
+  "text": "*Добра робота, генерале. Депо захоплено"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xEva02Subtitle",
+  "text": "*Тепер треба зібрати ударні сили, достатні, щоб знищити базу GLA"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xEva03Subtitle",
+  "text": "*Завантажте найкращі підрозділи в потяг"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xEva04Subtitle",
+  "text": "*Потяг вирушить, коли буде повністю заповнений"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xEva05Subtitle",
+  "text": "*Добра робота, генерале, потяг заповнено"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xEva06Subtitle",
+  "text": "*Відправте туди Танк Дракон, щоб зачистити ці будівлі"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xEva07Subtitle",
+  "text": "*Будуйте більше підрозділів. Ми не можемо провалити раптовий напад"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xEva08Subtitle",
+  "text": "*Генерале! Виведіть людей з котловану! До нас летять МОАБ, які рознесуть тут усе на шматки"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xEva09Subtitle",
+  "text": "*Треба до кінця знищити цю базу!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xEva10Subtitle",
+  "text": "*МОАБ будуть тут з хвилини на хвилину!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xEva11Subtitle",
+  "text": "*Крило «Альфа»! Район чистий. Можете виконувати"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xEva12Subtitle",
+  "text": "*Добра робота, генерале. Схоже, загрозу GLA нарешті усунуто. Час забути про все це і взятися за пошуки тієї зброї масового знищення"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02Comanche101Subtitle",
+  "text": "*Дякую, що витягли мене, пане! Мені вже ставало гарячувато"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02Comanche204Subtitle",
+  "text": "*Вони обліплюють нас, пане!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xBrf01Subtitle",
+  "text": "*Доки зачищено, генерале. Спершу треба утримати їх, поки підвозять вантажівки з постачанням. Доки не прибудуть бульдозери, доведеться обороняти позицію військами, що прибуватимуть"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xBrf02Subtitle",
+  "text": "*Більша частина нашого флоту пережила атаку GLA на Байконурі. Наш авіаносець і лінкори супроводу у вашому розпорядженні для цієї операції"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xChat01Subtitle",
+  "text": "*Авіаудар завдано"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xChat02Subtitle",
+  "text": "*Лінкор починає обстріл"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xChat03Subtitle",
+  "text": "*Доки чисті. GLA не видно"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xChat04Subtitle",
+  "text": "*Прийнято"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xChat05Subtitle",
+  "text": "*Починаю атаку"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xChat06Subtitle",
+  "text": "*Завдаю авіаудару"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xChat07Subtitle",
+  "text": "*Гармати палають"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xChat08Subtitle",
+  "text": "*Ми їм покажемо червоне сяйво"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xCin01Subtitle",
+  "text": "*Командування авіаносця — флоту. Не припиняйте вогонь, хлопці. GLA підтягують підкріплення"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xCin02Subtitle",
+  "text": "*Прийнято, командування. Продовжуємо вогонь на придушення по доках"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xCin03Subtitle",
+  "text": "*Обережно, куди стріляєте. Нам треба зачистити їх, а не зруйнувати"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xEva01Subtitle",
+  "text": "*Добра робота, пане! Наступне завдання — забезпечити безпечний прохід вантажівкам з постачанням через місто. Вантажівки мають дістатися міського складу. Ми також маємо втримати доки. Удачі, пане"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xEva02Subtitle",
+  "text": "*Вантажівки з постачанням рушають, генерале. Треба прикривати їх на шляху до пункту розвантаження"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xEva03Subtitle",
+  "text": "*Надсилаю вам нові дослідні сторожові дрони. Ворог не бачить їх, поки вони стоять на місці. Дрони також виявляють замасковані підрозділи й міни-пастки GLA. Вони мають стати в пригоді"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xEva04Subtitle",
+  "text": "*Наш бульдозер прибув, пане! Починайте будувати базу. GLA готують нову хвилю атак!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xEva05Subtitle",
+  "text": "*Чудова робота, пане! Жителі міста висловили вдячність за гуманітарну допомогу. Останнє завдання — вигнати GLA з району. Знищіть їхню головну базу над містом, і район буде в безпеці"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xEva06Subtitle",
+  "text": "*Підкріплення на підході, генерале"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xEva07Subtitle",
+  "text": "*Генерале, наші сторожові дрони допоможуть виявити міни-пастки GLA"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xEva08Subtitle",
+  "text": "*Пане, біля складу ще є GLA. Треба негайно їх вибити"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xEva09Subtitle",
+  "text": "*Вантажівки з постачанням атакують!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xEva10Subtitle",
+  "text": "*Добра робота, усі вантажівки в безпеці в доках, тепер доставимо їх у місто"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xEva11Subtitle",
+  "text": "*Намагайтеся уникати жертв серед мирних жителів"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xEva12Subtitle",
+  "text": "*Ви знайшли тренувальний табір GLA, пане. Розвідка вважає, що люди з цього табору причетні до запуску з Байконура. Нам наказано його знищити"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xEva13Subtitle",
+  "text": "*Захопіть склад, щоб вантажівки могли безпечно рушити далі"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xEva14Subtitle",
+  "text": "*Щойно склад буде в безпеці, вантажівки рушать"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xEva15Subtitle",
+  "text": "*Бульдозери прибули, генерале. Можете знищувати GLA на власний розсуд"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xEva16Subtitle",
+  "text": "*Доставте їжу в місто, поки GLA не викрали чи не знищили її"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xEva17Subtitle",
+  "text": "*Генерале, ми зробили це. Місто вільне від тиранії GLA. Схоже, в них є розвіддані, які виведуть нас просто на ту приховану зброю масового знищення"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xEva18Subtitle",
+  "text": "*Для цієї операції доступна повна підтримка флоту"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xEva19Subtitle",
+  "text": "*Використовуйте лінкори й авіаносець на власний розсуд"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xEva20Subtitle",
+  "text": "*Лінкори на дистанції стрільби й чекають на цілі, генерале"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xEva21Subtitle",
+  "text": "*Авіаносець «Дедал» напоготові, літаки готові до вильоту"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xEva22Subtitle",
+  "text": "*Склад треба захопити, але не ставлячи під загрозу безпеку доків"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xEva23Subtitle",
+  "text": "*Наших сил у цьому районі мало. Підкріплення надходитиме в міру можливості"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xEva24Subtitle",
+  "text": "*Захопіть склад, не ставлячи під загрозу безпеку доків"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xEva25Subtitle",
+  "text": "*Конвой поповнив склад"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xEva26Subtitle",
+  "text": "*Наступна ціль — база GLA, генерале"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xSupply01Subtitle",
+  "text": "*Щойно склад буде в безпеці, ми рушимо"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xSupply02Subtitle",
+  "text": "*Дякуємо за вогневе прикриття, генерале! Усі вантажівки завантажені й готові рушати. Тільки зачистіть для нас місто, пане!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xSupply03Subtitle",
+  "text": "*Вулиці всіяні мінами-пастками, пане! Їх треба прибрати!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xSupply04Subtitle",
+  "text": "*Ми дісталися складу, генерале. Дякуємо за супровід!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xSupply05Subtitle",
+  "text": "*Конвой прибув благополучно, пане. Дякуємо за прикриття"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xVillager01Subtitle",
+  "text": "*О, дякую"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xVillager02Subtitle",
+  "text": "*Благослови вас Бог"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xVillager03Subtitle",
+  "text": "*Я так давно не їв"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xVillager04Subtitle",
+  "text": "*А ще буде?"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03Comanche102Subtitle",
+  "text": "*Гармати КВАД розносять нас на шматки, пане"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03Crusader105Subtitle",
+  "text": "*Потрібна підтримка! Вони нас перемелюють!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03Crusader108Subtitle",
+  "text": "*Хтось, приберіть від нас ці баггі!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03Crusader304Subtitle",
+  "text": "*Контакт із ворогом підтверджено! Вони швидко наближаються!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03Crusader307Subtitle",
+  "text": "*Усім підрозділам! Не припиняти вогонь!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xBrf01Subtitle",
+  "text": "*Генерале, полковник Бартон і Чорний Лотос на позиції й чекають ваших наказів"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xBrf02Subtitle",
+  "text": "*Їхня головна ціль — ця таємна лабораторія. Її розташування розкрили документи, захоплені під час вашої минулої місії"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xBrf03Subtitle",
+  "text": "*GLA працюють над новою зброєю масового знищення. Чорний Лотос має скачати ці дані, щоб ми знали, як далеко просунулися їхні дослідження"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xBrf04Subtitle",
+  "text": "*Щойно вона завершить завантаження, полковник Бартон має обвалити схил гори на лабораторію і поховати її назавжди"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xBurton01Subtitle",
+  "text": "*Ми біля мосту. Лотос, займися тим Скорпіоном, а я розберуся з рештою охорони"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xBurton02Subtitle",
+  "text": "*Цього не було в плані, Лотос"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xBurton03Subtitle",
+  "text": "*Ти на мене зачекаєш? Гаразд, Лотос, наввипередки…"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xBurton04Subtitle",
+  "text": "*Уже йду"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xBurton05Subtitle",
+  "text": "*Так, бачу табір полонених… схоже, в них тунельна мережа, що проходить під річкою"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xBurton06Subtitle",
+  "text": "*Добра робота, Лотос… Тут тунелі… розберися з парою охоронців, і я звільню всіх"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xBurton07Subtitle",
+  "text": "*Ця техніка стане в пригоді, якщо розвіддані про оборону в горах правдиві. Генерале, їх теж варто врятувати"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xBurton08Subtitle",
+  "text": "*Генерале, я на позиції біля другого табору полонених… там тунельна мережа і охорона біля входу. Я міг би прослизнути повз них у табір, якщо спущуся скелями з південного краю"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xBurton09Subtitle",
+  "text": "*Не зазнавайся, Лотос, ти ще не виграла перегони"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xBurton10Subtitle",
+  "text": "*Це останні… другий табір полонених звільнено… хай хтось скаже Лотос поквапитися… Не хочу чекати біля лабораторії"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xBurton11Subtitle",
+  "text": "*Оце нова іграшка. Генерале, якщо ви націлите її на Тунельні мережі та Позиції Стингерів, що охороняють гору, я прослизну повз них"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xBurton12Subtitle",
+  "text": "*Схоже на цілу базу GLA. Розвідка нічого про неї не казала"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xBurton13Subtitle",
+  "text": "*Схоже, мене тут не чекали… трохи C4 тут і там, і я швидко з цим місцем покінчу… тільки скажіть, генерале"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xBurton14Subtitle",
+  "text": "*Через село я маю пройти без проблем… тільки треба стерегтися Радарних фургонів, що стежать за районом. Мені б кілька світлошумових гранат"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xBurton15Subtitle",
+  "text": "*Ось і все! Займаю позицію над лабораторією… не змушуй мене чекати, Лотос, тут холодно"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xBurton16Subtitle",
+  "text": "*Заряди встановлено… скажи коли, Лотос"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xBurton17Subtitle",
+  "text": "*Що ж, Лотос, ти швидка… цього в тебе не відняти. Буду там, щойно зможу"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xBurton18Subtitle",
+  "text": "*Гаразд… я біля гори… Скажи, коли завершиш завантаження, Лотос, і я поховаю ту лабораторію там, де її ніхто ніколи не знайде"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xChat01Subtitle",
+  "text": "*Гарнізоне… лови світлошумову"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xChat02Subtitle",
+  "text": "*Ось вони… пам'ятайте, короткі контрольовані черги"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xChat03Subtitle",
+  "text": "*Піхота? Без проблем"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xChat04Subtitle",
+  "text": "*Нас обстрілюють… потрібна підтримка!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xCin01Subtitle",
+  "text": "*Говорить «Спіріт», заходжу на район цілі…"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xCin02Subtitle",
+  "text": "*Прийнято, «Спіріт», місія в силі. Готовий?"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xCin03Subtitle",
+  "text": "*Так, полковнику, почнімо"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xCin04Subtitle",
+  "text": "*Говорить «Спіріт», бомболюки відкрито… …бомби скинуто"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xCin05Subtitle",
+  "text": "*«Спіріт» — «Проникненню», ваша зона висадки чиста… Удачі"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xCin06Subtitle",
+  "text": "*Прийнято, «Спіріт», гарний удар"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xCin07Subtitle",
+  "text": "*На місці… хто лишається — на вихід"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xCin08Subtitle",
+  "text": "*Дякую, що підкинули, хлопці… до зустрічі…"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xCin09Subtitle",
+  "text": "*Ваші маленькі Чинуки ефективні… але я віддаю перевагу силі наших Хеліксів…"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xDrvr01Subtitle",
+  "text": "*Ми вільні! Усі до своєї техніки!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xDrvr02Subtitle",
+  "text": "*Дякуємо, генерале. Ми у вашому розпорядженні"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xEva01Subtitle",
+  "text": "*Генерале, ваше перше завдання — знищити цей міст. Це відріже підкріплення GLA з того боку річки"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xEva02Subtitle",
+  "text": "*Генерале, помічено підкріплення GLA, що переходять міст"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xEva03Subtitle",
+  "text": "*Генерале, в район увійшов ще один загін GLA. Може, час розібратися з тим мостом?"
+ }
+]

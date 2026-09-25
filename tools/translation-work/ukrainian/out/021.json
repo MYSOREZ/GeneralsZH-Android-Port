@@ -1,0 +1,802 @@
+[
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen06Subtitle",
+  "text": "*Ми здобули технологію глушіння GPS! Тепер обернемо хитрощі Кассада проти нього самого!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen07Subtitle",
+  "text": "*Чудово, генерале! Ми здобули здатність раптового удару!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen08Subtitle",
+  "text": "*Захопіть ворожі командні центри"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen09Subtitle",
+  "text": "*Якщо ми захопимо ворожий командний центр, то обернемо їхні технології проти них"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen10Subtitle",
+  "text": "*Генерале, ми маємо захопити їхній командний центр і використати їхні знання, щоб наблизитися до нашої мети — об'єднати GLA під одним прапором"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen11Subtitle",
+  "text": "*У нас закінчуються ресурси. Треба захопити кілька нафтових вишок"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen12Subtitle",
+  "text": "*Ворог атакує наше постачання нафти! Його треба зупинити!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen13Subtitle",
+  "text": "*Використайте глушіння GPS, щоб непомітно пройти повз ворожу оборону!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen14Subtitle",
+  "text": "*Глушіння GPS тут не спрацює, надто багато Позицій Стингерів. Доведеться діяти інакше"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen15Subtitle",
+  "text": "*Можливо, ми знайдемо неохоронювану ділянку для нашого нового раптового удару"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen16Subtitle",
+  "text": "*Не знищуйте командний центр. Треба захопити будівлю і зберегти її цілою"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen17Subtitle",
+  "text": "*Їхні знання треба викрасти. Ми маємо використати їхню передову тактику, щоб їх перемогти!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen18Subtitle",
+  "text": "*Генерале, остерігайтеся снайперів — Кассад їх обожнює"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen19Subtitle",
+  "text": "*Цей міст сильно укріплений. Щоб перейти його, знадобиться допомога"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen20Subtitle",
+  "text": "*Захопіть ворожий командний центр на півночі!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen21Subtitle",
+  "text": "*Захопіть ворожий командний центр на заході!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen22Subtitle",
+  "text": "*Генерале, якщо ми захопимо цю гармату, то зможемо використати її проти сил Кассада!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen23Subtitle",
+  "text": "*Якщо ми захопимо командний центр, то використаємо їхні здібності, щоб переломити хід бою"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen24Subtitle",
+  "text": "*Принца Кассада більше немає. GLA знову єдина проти наших ворогів!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen25Subtitle",
+  "text": "*Тепер, коли в нас є глушіння GPS, ми непомітно пройдемо повз оборону Кассада на мосту!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen26Subtitle",
+  "text": "*Зрадник укріпився на цьому пагорбі й відрізав усі інші підходи. Раптовий удар — єдиний спосіб дістати його головну базу"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen27Subtitle",
+  "text": "*Генерале, цей район контролює принц Кассад. Він відвернувся від своїх братів і не допоможе нам у боротьбі з невірними"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen28Subtitle",
+  "text": "*Кассад — майстер маскування, він ховає свої сили в нас під носом. Він відмовляється ділитися знаннями, тож ми заберемо їх силою"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen29Subtitle",
+  "text": "*Цей район контролює відколота група GLA під проводом принца Кассада. Кассад не дає нам використати його здібності на благо GLA"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen30Subtitle",
+  "text": "*Кассад — майстер маскування, він покладається на кілька прийомів, щоб заскочити й атакувати ворогів"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen31Subtitle",
+  "text": "*Глушіння GPS дає йому змогу будь-яким підрозділом непомітно вдарити по ворогу"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen32Subtitle",
+  "text": "*Раптові удари з тунелів дають додаткові тактичні переваги…"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen33Subtitle",
+  "text": "*Ці технології мають бути нашими. Якщо Кассад не поділиться, ми відберемо їх. Захопіть його командні центри й оберніть його ж здібності проти нього!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03Kenwar03Subtitle",
+  "text": "*Звільніть наших ув'язнених братів"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03Kenwar15Subtitle",
+  "text": "*Ми помітили табір для полонених, наші брати всередині"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xBrf01Subtitle",
+  "text": "*Вітаю, командире!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xBrf02Subtitle",
+  "text": "*Кассад був надто боягузливий, щоб отак виступити проти США. Генерале, ви справжній геній"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xBrf03Subtitle",
+  "text": "*Щойно ми розіб'ємо американський флот у Середземному морі, уся Європа буде в наших руках"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xBrf04Subtitle",
+  "text": "*Тепер, коли ми знову єдині, час показати свою силу!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xBrf05Subtitle",
+  "text": "*США атакували нашу таємну базу в Середземномор'ї"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xBrf06Subtitle",
+  "text": "*Але перш ніж її знищили, ми дізналися, де в регіоні їхня Молекулярна гармата і флот"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xBrf07Subtitle",
+  "text": "*Більшість їхніх кораблів стоїть у порту беззахисна. Ми викрадемо їхню Молекулярну гармату й знищимо нею їхній авіаносець!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xBrf08Subtitle",
+  "text": "*Шукайте нагоду повернути й відбудувати нашу таємну базу"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xChat01Subtitle",
+  "text": "*Ми помремо за вас!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xChat02Subtitle",
+  "text": "*Ще один готовий"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xChat03Subtitle",
+  "text": "*Ще більше жертв для мене"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xChat04Subtitle",
+  "text": "*Косіть їх!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xChat05Subtitle",
+  "text": "*Вони не втечуть від нашого гніву!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xChat06Subtitle",
+  "text": "*Вони там, де ми й хотіли!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xChat07Subtitle",
+  "text": "*Перемога буде нашою!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xChat08Subtitle",
+  "text": "*Оце був сплеск!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xCin01Subtitle",
+  "text": "*Ми помстимося за цей боягузливий напад!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xCin02Subtitle",
+  "text": "*Їхній авіаносець піде на брухт!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xCin03Subtitle",
+  "text": "*Ми довели могутність GLA!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen01Subtitle",
+  "text": "*Наші Викрадачі легко заберуть той танк…"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen02Subtitle",
+  "text": "*Той Рейнджер біжить по допомогу! Не можна дати йому втекти"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen03Subtitle",
+  "text": "*Ця Молекулярна гармата потрібна, щоб потопити ворожий авіаносець. Добре її захищайте!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen04Subtitle",
+  "text": "*Наші повстанці можуть захопити Молекулярну гармату своєю здатністю захоплювати будівлі"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen05Subtitle",
+  "text": "*Раптовим ударом ми можемо створити Тунельні мережі на сусідніх островах"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen06Subtitle",
+  "text": "*Не дайте пілотові дістатися свого Томагавка!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen07Subtitle",
+  "text": "*Вони йдуть по Томагавк!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen08Subtitle",
+  "text": "*Ця Казарма тепер наша"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen09Subtitle",
+  "text": "*Ми звільнили цей Палац"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen10Subtitle",
+  "text": "*Цей Торговець зброєю нам добре послужить"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen11Subtitle",
+  "text": "*Ми повернули наш командний центр!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen12Subtitle",
+  "text": "*Генерале, бачите ті ворожі літаки постачання? Якби ми знищили їхні зони скидання, то паралізували б їхнє виробництво!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen13Subtitle",
+  "text": "*О, цей Токсиновий трактор стане в пригоді"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen14Subtitle",
+  "text": "*Ці Гармати КВАД захистять нас від ворожої авіації"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen15Subtitle",
+  "text": "*Ці Мародери посилять нашу вогневу міць"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen16Subtitle",
+  "text": "*Знищіть ці танки, і ми звільнимо Казарму!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen17Subtitle",
+  "text": "*Якщо ми зачистимо цей район, то безпечно займемо командний центр"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen18Subtitle",
+  "text": "*Убийте цих солдатів, і Торговець зброєю буде нашим!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen19Subtitle",
+  "text": "*Можливо, вони готують на нас напад! Захищайте наші будівлі!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen20Subtitle",
+  "text": "*Команчі! Піднімайте ППО!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen21Subtitle",
+  "text": "*Треба відбитися від цих Команчів!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen22Subtitle",
+  "text": "*Вони намагаються відбити Молекулярну гармату!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen23Subtitle",
+  "text": "*Їхня авіація знищила нашу Тунельну мережу!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen24Subtitle",
+  "text": "*Хитрі негідники! Вони цілять у наші електростанції. Для Молекулярної гармати потрібна енергія"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen25Subtitle",
+  "text": "*Майже всі електростанції знищено. Без енергії Молекулярна гармата не працюватиме!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen26Subtitle",
+  "text": "*Якби ми захопили кілька електростанцій, то могли б ударити по них Молекулярною гарматою"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen27Subtitle",
+  "text": "*О-о… Ми знайшли прихований скарб"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen28Subtitle",
+  "text": "*Цей прохід добре захищений. Треба пробити його Молекулярною гарматою"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen29Subtitle",
+  "text": "*Обережно! Цей прохід сильно охороняється!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen30Subtitle",
+  "text": "*Вони висадили піхоту на острови!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen31Subtitle",
+  "text": "*Їхні гелікоптери везуть підкріплення!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen32Subtitle",
+  "text": "*Вони завдали по нас удару A-10!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen33Subtitle",
+  "text": "*Вони висадили десант на Молекулярну гармату!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen34Subtitle",
+  "text": "*Ми вивели з ладу їхні зони скидання припасів! Їхнє виробництво паралізоване!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen35Subtitle",
+  "text": "*Ваше завдання — знищити ворожий авіаносець Молекулярною гарматою. Доведеться прорватися на їхню базу на материку, щоб побачити авіаносець і навести на нього гармату"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen36Subtitle",
+  "text": "*Чудова робота! Тепер треба захопити кілька електростанцій"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen37Subtitle",
+  "text": "*Тунельна мережа доставить нас на наступний острів"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen38Subtitle",
+  "text": "*Молекулярна гармата працює. Треба захищати її та електростанції"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen39Subtitle",
+  "text": "*Усі наші підрозділи й будівлі знищено!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen40Subtitle",
+  "text": "*Без Молекулярної гармати потопити авіаносець неможливо"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen41Subtitle",
+  "text": "*Тепер американці скуштують гіркої поразки!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen42Subtitle",
+  "text": "*Вони знищили нашу Тунельну мережу! Раптовим ударом поверніть Молекулярну гармату!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen43Subtitle",
+  "text": "*Ми наближаємося до авіаносця. Він трохи південніше"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen44Subtitle",
+  "text": "*Ось авіаносець! Знищіть його Молекулярною гарматою!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen45Subtitle",
+  "text": "*Джармен Келл до наших послуг"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen46Subtitle",
+  "text": "*Його снайперський постріл виводить з ладу ворожу техніку, і наша піхота може її захопити"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen47Subtitle",
+  "text": "*Ці лінкори в доках безпечні"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen48Subtitle",
+  "text": "*Лінкор нас обстрілює! Знищіть його!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen49Subtitle",
+  "text": "*Це, мабуть, головна база ворога"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen50Subtitle",
+  "text": "*Ці фальшиві будівлі обдурять наших ворогів"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen51Subtitle",
+  "text": "*Будуйте ще фальшиві споруди, щоб обманути ворога!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04Dispatcher06Subtitle",
+  "text": "*Американські сили вже в дорозі"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xChat01Subtitle",
+  "text": "*Треба зачистити ці бункери!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xChat02Subtitle",
+  "text": "*У них немає енергії! Патріоти не працюють!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xChat03Subtitle",
+  "text": "*Ламайте паркани і рятуйте наших братів!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xChat04Subtitle",
+  "text": "*Тепер наші брати можуть бути вільні!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xChat05Subtitle",
+  "text": "*Американський Чинук допоміг би перевозити наші війська. Захопіть цей склад постачання, якщо зможете"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xChat06Subtitle",
+  "text": "*Пришліть сюди ППО, генерале! Їхні Команчі розносять нас на шматки!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xChat07Subtitle",
+  "text": "*Генерале, треба якось знищити оборону на мосту!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xChat08Subtitle",
+  "text": "*Генерале, ми по мобільних викликаємо раптову тунельну мережу!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xChat09Subtitle",
+  "text": "*Ці трактори знадобляться, щоб зачищати бункери"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xChat10Subtitle",
+  "text": "*Тепер цей пором під нашим контролем! Ти відвезеш нас, куди ми скажемо!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xChat11Subtitle",
+  "text": "*Так, так. Я зроблю, як ви скажете!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xChat12Subtitle",
+  "text": "*Наших братів звільнено"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xChat13Subtitle",
+  "text": "*І скільки ж тут позашляховиків у цій дивній країні"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xChat14Subtitle",
+  "text": "*У цьому районі є прихильник GLA. Він і його брати погодилися нам допомогти"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xChat15Subtitle",
+  "text": "*Танки! Злітаємо! Швидше, швидше, швидше!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin01Subtitle",
+  "text": "*Говорить перша група. Ми на позиції"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin02Subtitle",
+  "text": "*Браття, будьте обережні, ми ступаємо на ворожу землю. Наше головне завдання — добути хімічні зразки з американського заводу токсинів неподалік"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin03Subtitle",
+  "text": "*Рештки американського флоту перейшли в Середземне море після втрати їхнього командного флоту. Це дало нам змогу прослизнути сюди"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin04Subtitle",
+  "text": "*Ми перемогли їх там і переможемо тут"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin05Subtitle",
+  "text": "*Радійте, браття! Щойно ми добудемо токсини з цього заводу, наші вчені зможуть створити зброю масового зараження"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin06Subtitle",
+  "text": "*Американці надто довго пхали носа в чужі справи. З цією новою зброєю ми вселимо страх у серця наших гнобителів!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin07Subtitle",
+  "text": "*(Дуже зловісний сміх)"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin08Subtitle",
+  "text": "*Перша група, токсини здобуто і завантажено?"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin09Subtitle",
+  "text": "*Зразки в нас"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin10Subtitle",
+  "text": "*Ми готові до зльоту"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin11Subtitle",
+  "text": "*Прийнято. Вантаж у безпеці"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin12Subtitle",
+  "text": "*Можете рушати. Ми прикриємо ваш відхід!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin13Subtitle",
+  "text": "*Генерале, Патріоти увімкнулися!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin14Subtitle",
+  "text": "*Стримуйте їх, поки ми не розчистимо злітну смугу!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin15Subtitle",
+  "text": "*Не пускайте їх нам на хвіст!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin16Subtitle",
+  "text": "*Геть, дурні американці!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin17Subtitle",
+  "text": "*Зустрінемося біля заводу токсинів"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin18Subtitle",
+  "text": "*Американці думають, що вигнали нас"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin19Subtitle",
+  "text": "*Розділяй і володарюй"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin20Subtitle",
+  "text": "*Ми ніщо проти такої авіації!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin21Subtitle",
+  "text": "*Ви ще про нас почуєте!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin22Subtitle",
+  "text": "*Ми помстимося, брудні американці!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin23Subtitle",
+  "text": "*Зробимо свою частину справи й повалимо цих капіталістичних свиней!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin24Subtitle",
+  "text": "*Ці американці заплатять за життя наших братів"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin25Subtitle",
+  "text": "*Підсмажимо цих загарбників з GLA! Пуск першої!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin26Subtitle",
+  "text": "*GLA помічено біля берега! Усім підрозділам на оборонні позиції"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin27Subtitle",
+  "text": "*Проникнення GLA в квадраті 77-Бета-Гамма! Усім вільним підрозділам реагувати!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin28Subtitle",
+  "text": "*На пляжі їх ще більше!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin29Subtitle",
+  "text": "*Помічено диверсантів GLA на скелі!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin30Subtitle",
+  "text": "*GLA в межах міста! Усім підрозділам стягуватися до квадрата 34-Альфа-Альфа"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen01Subtitle",
+  "text": "*Добра робота, генерале! Лишилося добути ще 15 зразків токсинів"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen02Subtitle",
+  "text": "*Добра робота, генерале! Лишилося добути ще 10 зразків токсинів"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen03Subtitle",
+  "text": "*Добра робота, генерале! Лишилося добути ще 5 зразків токсинів"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen04Subtitle",
+  "text": "*Генерале, у нас є план атаки на Центральне командування США в Європі. Але поки що ми не маємо сил ударити по них напряму. Нам потрібна нова токсинова зброя"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen05Subtitle",
+  "text": "*Обидва наші загони на місці. Щоб добути токсини, обидві групи мають діяти разом"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen06Subtitle",
+  "text": "*Наші Викрадачі можуть захоплювати техніку, і їх не видно, поки вони не рухаються"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen07Subtitle",
+  "text": "*Джармен Келл може знімати пілотів з техніки і вбивати піхоту з великої відстані"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen08Subtitle",
+  "text": "*Наші Саботажники можуть проводити таємні операції, наприклад вимикати електростанції"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen09Subtitle",
+  "text": "*Наші повстанці замасковані й можуть захоплювати будівлі на благо нашої справи"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen10Subtitle",
+  "text": "*Удачі, генерале. Хай скритність і хитрість будуть з вами"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen11Subtitle",
+  "text": "*Доброго ранку, генерале"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen12Subtitle",
+  "text": "*Генерале, треба захопити той пором"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen13Subtitle",
+  "text": "*Генерале, тут міни, але ми не можемо їх виявити! Нам потрібен Радарний фургон!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen14Subtitle",
+  "text": "*Генерале, відправте когось на ту насосну станцію біля річки. Якщо злити резервуар з охолоджувачем, наші брати зможуть пройти далі"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen15Subtitle",
+  "text": "*Чудово"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen16Subtitle",
+  "text": "*Добра робота"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen17Subtitle",
+  "text": "*Генерале! Знищіть той аеродром, поки нас не винищили!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen18Subtitle",
+  "text": "*Генерале. Треба знищити їхню енергетику! Тоді американці стануть легкою мішенню!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen19Subtitle",
+  "text": "*Генерале, треба захопити той завод токсинів"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen20Subtitle",
+  "text": "*Чудова робота, генерале. Тепер треба захищати ці вантажівки, поки вони везуть токсини до вантажного літака"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen21Subtitle",
+  "text": "*Почніть збирати вантажівками токсини із заводу"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen22Subtitle",
+  "text": "*Генерале, американці вислали підкріплення!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen23Subtitle",
+  "text": "*На підтримку нашої справи прибула ще одна група Викрадачів"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen24Subtitle",
+  "text": "*На підтримку нашої справи прибула ще одна група повстанців"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen25Subtitle",
+  "text": "*Джармена Келла знайдено, і він повернувся, щоб допомогти нашій справі"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen26Subtitle",
+  "text": "*Наші брати прорвалися й привели нам підкріплення"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen27Subtitle",
+  "text": "*Після нашої перемоги в Греції США не чекатимуть нападу на своїй землі"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen28Subtitle",
+  "text": "*Кассад ніколи б не наважився напасти на територію США"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen29Subtitle",
+  "text": "*Щойно ми викрадемо секретний токсин з американського біоцентру, нас ніхто не зупинить"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05Buggy104Subtitle",
+  "text": "*Остерігайтеся батарей Патріот, вони небезпечні"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05Buggy108Subtitle",
+  "text": "*У могилу, американські покидьки!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05Kenwar02bSubtitle",
+  "text": "*Знищіть американську авіабазу, і вони значною мірою втратять здатність тиснути силою в цьому регіоні"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05Kenwar05Subtitle",
+  "text": "*Американці використають авіацію, щоб нас зупинити"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05Quad201Subtitle",
+  "text": "*Помри, американцю!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05Rebel02Subtitle",
+  "text": "*Ми беззахисні перед американськими авіаударами!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05Scorpion105Subtitle",
+  "text": "*Американські боягузи! Бийтеся на землі, як чоловіки!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xChat01Subtitle",
+  "text": "*Цей регіон контролює генерал ВПС США Грейнджер. Ми можемо застосувати і застосуємо силу, щоб вигнати вас звідси. Наказую вам негайно покинути район"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xCin01Subtitle",
+  "text": "*Нас небагато, але ми використаємо те, що маємо, щоб узяти гору"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xCin02Subtitle",
+  "text": "*У нас немає бази в цьому регіоні, тож ми маємо її захопити!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xCin03Subtitle",
+  "text": "*Китайська база… Треба бити зараз! Їхня база скоро буде нашою!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xJarmen01Subtitle",
+  "text": "*Якщо ви врятуєте наших товаришів із південної американської бази, наші елітні воїни битимуться пліч-о-пліч з вами!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xJarmen02Subtitle",
+  "text": "*Дякуємо, що врятували наших братів! Натомість ми відкриємо для вас ділянку американської бази, щоб ви почали штурм"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xJarmen03Subtitle",
+  "text": "*Хе-хе-хе-хе-хе… (Зловісний сміх) Це їх навчить"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xJarmen04Subtitle",
+  "text": "*Не дайте нашій смерті лишитися безкарною!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xJarmen05Subtitle",
+  "text": "*Разом ми розбили ворога! Перемога за нами!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xJarmen06Subtitle",
+  "text": "*Дякую за допомогу в порятунку моїх солдатів. Ми віддячимо і допоможемо вам знищити базу Центрального командування США"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen01Subtitle",
+  "text": "*Щойно цю базу буде знищено, США побіжать додому, як боягузливі пси. Уся Європа буде нашою"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen02Subtitle",
+  "text": "*Американці тримають наших братів заручниками на своїй базі. Ми маємо їх врятувати"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen03Subtitle",
+  "text": "*Нам вигідно врятувати полонених з лап американців"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen04Subtitle",
+  "text": "*Добра робота! Захопіть або знищіть цю базу, щоб полонені були в безпеці"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen05Subtitle",
+  "text": "*Ми маємо безпечно доставити їх додому, на їхню базу на півночі. З ними нічого не має статися"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen06Subtitle",
+  "text": "*У нас закінчуються припаси. Треба розосередитися і захопити нові ресурси"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen07Subtitle",
+  "text": "*Знову атаки з повітря! Треба будувати більше ППО…"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen08Subtitle",
+  "text": "*Швидко відбудуйте оборону, до наступної атаки лишилося недовго"
+ }
+]
