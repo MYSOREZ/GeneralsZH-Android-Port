@@ -50,6 +50,23 @@ Every pack is translated from the **English** original, not from another transla
   in the pack (fragile: wraps break it). Decide before doing these two.
 - **Korean and Chinese** need fonts with CJK glyphs. Official Korean/Chinese releases shipped
   their own; check what the Android port's bundled fonts (`assets/gamedata/fonts`) cover.
+- **What the text renderer actually does, checked in code on 25/09/2026** (a second-hand
+  summary claimed otherwise on several points):
+  - Glyphs are **not** a fixed-size static atlas. `FontCharsClass::Get_Char_Data`
+    (`WW3D2/render2dsentence.cpp`) rasterises each character on first use (FreeType on
+    Android) into a growing per-font store (`Grow_Unicode_Array`); each sentence is then
+    built into its own texture pages. Thousands of CJK glyphs cost memory, not a crash.
+  - Font fallback **exists**, but per language, not per glyph: every character >= U+0100 is
+    delegated to `AlternateUnicodeFont`, the face named by `Language.ini`'s
+    `UnicodeFontName` (`GlobalLanguage`). EA's own Korean and Chinese releases used exactly
+    this. A CJK pack therefore needs a CJK font installed and `UnicodeFontName` pointing at
+    it -- no engine change for glyphs.
+  - Word wrap **is** space-based (`Render2DSentence`, break on `L' '`), so Chinese and
+    Japanese lines would never wrap. Needs a line-break rule (break between CJK ideographs,
+    not before closing punctuation) -- a contained change in one function.
+  - Right-to-left, bidi and Arabic shaping are **not** supported anywhere; confirmed.
+    That is the only part that needs new libraries (HarfBuzz-class shaping and a bidi pass)
+    or pre-shaped text with its known breakage on wrap.
 - **Interslavic (`isv`)**: pick one script (Latin or Cyrillic) for the game text.
 - Pack format and delivery: the launcher's existing "download language" path
   (`GENERALSX_TEXT_LANGUAGE`, see `GameText.cpp` and the 09/09/2026 diary entry) should carry
