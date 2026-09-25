@@ -437,7 +437,7 @@
  },
  {
   "label": "DIALOGEVENT:EvaChina_DetectedScudStormSubtitle",
-  "text": "*Внимание: обнаружена залповая установка ракет Р-17М"
+  "text": "*Внимание: обнаружена залповая установка Скад"
  },
  {
   "label": "DIALOGEVENT:EvaChina_FundsReceivedSubtitle",
@@ -505,7 +505,7 @@
  },
  {
   "label": "DIALOGEVENT:EvaChina_LaunchedScudStormSubtitle",
-  "text": "*Внимание: запущена залповая установка ракет Р-17М"
+  "text": "*Внимание: запущена залповая установка Скад"
  },
  {
   "label": "DIALOGEVENT:EvaChina_LowPowerSubtitle",
@@ -593,19 +593,19 @@
  },
  {
   "label": "DIALOGEVENT:EvaChina_ScudStormDetectedAllySubtitle",
-  "text": "*Наш союзник построил залповую установку ракет Р-17М"
+  "text": "*Наш союзник построил залповую установку Скад"
  },
  {
   "label": "DIALOGEVENT:EvaChina_ScudStormLaunchedAllySubtitle",
-  "text": "*Наш союзник запустил залповую установку ракет Р-17М"
+  "text": "*Наш союзник запустил залповую установку Скад"
  },
  {
   "label": "DIALOGEVENT:EvaChina_ScudStormLaunchedOursSubtitle",
-  "text": "*Наша залповая установка ракет Р-17М запущена"
+  "text": "*Наша залповая установка Скад запущена"
  },
  {
   "label": "DIALOGEVENT:EvaChina_ScudStormReadySubtitle",
-  "text": "*Наша залповая установка ракет Р-17М готова, генерал"
+  "text": "*Наша залповая установка Скад готова, генерал"
  },
  {
   "label": "DIALOGEVENT:EvaChina_SelectTargetSubtitle",
@@ -701,7 +701,7 @@
  },
  {
   "label": "DIALOGEVENT:EvaGLA_DetectedScudStormSubtitle",
-  "text": "*Осторожно, враг построил залповую установку ракет Р-17М"
+  "text": "*Осторожно, враг построил залповую установку Скад"
  },
  {
   "label": "DIALOGEVENT:EvaGLA_EliteGuardUpgrade01Subtitle",
@@ -781,7 +781,7 @@
  },
  {
   "label": "DIALOGEVENT:EvaGLA_LaunchedScudStormSubtitle",
-  "text": "*Генерал, запущена залповая установка ракет Р-17М"
+  "text": "*Генерал, запущена залповая установка Скад"
  },
  {
   "label": "DIALOGEVENT:EvaGLA_LowPowerSubtitle",

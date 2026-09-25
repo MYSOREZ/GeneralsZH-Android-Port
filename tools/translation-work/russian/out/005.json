@@ -57,7 +57,7 @@
  },
  {
   "label": "CONTROLBAR:ConstructAmericaTankCrusader",
-  "text": "Танк Крестоносец [&C]"
+  "text": "Крестоносец [&C]"
  },
  {
   "label": "CONTROLBAR:ConstructAmericaTankPaladin",
@@ -337,7 +337,7 @@
  },
  {
   "label": "CONTROLBAR:ConstructGLAScudStorm",
-  "text": "Залповая установка ракет Р-17М [&O]"
+  "text": "Залповая установка Скад [&O]"
  },
  {
   "label": "CONTROLBAR:ConstructGLAPrison",
@@ -601,7 +601,7 @@
  },
  {
   "label": "CONTROLBAR:ScudStorm",
-  "text": "Залп ракетами Р-17М [&U]"
+  "text": "Залп ракетами Скад [&U]"
  },
  {
   "label": "CONTROLBAR:NapalmStrike",

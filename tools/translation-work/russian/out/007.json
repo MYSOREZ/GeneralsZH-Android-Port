@@ -173,7 +173,7 @@
  },
  {
   "label": "OBJECT:SCUDMissile",
-  "text": "Ракета Р-17М"
+  "text": "Ракета Скад"
  },
  {
   "label": "OBJECT:RangerTeamMissile",
@@ -229,7 +229,7 @@
  },
  {
   "label": "OBJECT:ScudStorm",
-  "text": "Залповая установка ракет Р-17М"
+  "text": "Залповая установка Скад"
  },
  {
   "label": "OBJECT:SecretLab",
