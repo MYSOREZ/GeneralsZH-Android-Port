@@ -6409,75 +6409,75 @@ SCRIPT:CHI02AudioHolder02
 END
 
 SCRIPT:CHI02AudioHolder03
-"<'EVA' speaking>  \n 'General, you're alive!?! We thought we lost you when the bridge went down. Well, you're not out of danger yet, so let's get started.'"
+"<Говорит EVA> \n 'Генерал, вы живы?! Мы думали, что потеряли вас, когда рухнул мост. Опасность ещё не миновала, так что приступим.'"
 END
 
 SCRIPT:CHI02AudioHolder04
-"<'EVA' speaking>  \n 'First, you're going to need to finish your base. The barracks, reactor, and supply center are all essential to your survival, so finish constructing them immediately. I'll contact you again once your base is complete.'"
+"<Говорит EVA> \n 'Сначала нужно достроить базу. Казармы, реактор и центр снабжения жизненно необходимы, так что достройте их немедленно. Я свяжусь с вами, когда база будет готова.'"
 END
 
 SCRIPT:CHI02AudioHolder05
-"<'EVA' speaking>  \n 'Excellent, your base is complete?except for a War Factory. We need to get you one now. There should be a surplus base--with a War Factory--here?'"
+"<Говорит EVA> \n 'Отлично, база готова — не хватает только военного завода. Он нужен вам сейчас же. Здесь должна быть резервная база — с военным заводом.'"
 END
 
 SCRIPT:CHI02AudioHolder06
-"<'EVA' speaking>  \n 'I don't know what condition the base is in, but it should allow you to build armored units to help your fight. Get there as soon as possible, General.'"
+"<Говорит EVA> \n 'Не знаю, в каком она состоянии, но там можно будет строить бронетехнику. Доберитесь туда как можно скорее, генерал.'"
 END
 
 SCRIPT:CHI02AudioHolder07
-"<'EVA' speaking>  \n 'Now we know the GLA's reason for coming to Hong Kong: They're targeting key buildings around the city. Our main objective is to destroy all of the GLA's forces, but if we can also keep them from destroying those buildings, our leaders would be most grateful.'"
+"<Говорит EVA> \n 'Теперь мы знаем, зачем МАО пришла в Гонконг: их цель — ключевые здания города. Наша главная задача — уничтожить все силы МАО, но если мы ещё и не дадим им разрушить эти здания, руководство будет очень благодарно.'"
 END
 
 SCRIPT:CHI02AudioHolder08
-"<'EVA' speaking>  \n 'If you can keep your radar operating, I can track the Terrorists for you and give you their possible targets.'"
+"<Говорит EVA> \n 'Если радар будет работать, я смогу следить за террористами и сообщать вам их возможные цели.'"
 END
 
 SCRIPT:CHI02AudioHolder09
-"<'EVA' speaking>  \n 'General, a Terrorist is leaving the Convention Center, and he's strapped with enough explosives to bring down a building! I'll mark the Terrorist in red on your radar. I'll mark his possible targets in yellow. Stop him before he reaches one of those targets!'"
+"<Говорит EVA> \n 'Генерал, из конференц-центра выходит террорист, и на нём столько взрывчатки, что хватит обрушить здание! Я отмечу террориста на радаре красным, а его возможные цели — жёлтым. Остановите его, пока он не добрался до одной из них!'"
 END
 
 SCRIPT:CHI02AudioHolder10
-"<'EVA' speaking>  \n 'Another Terrorist has left the Convention Center! I'll mark his location in red. His possible targets are marked in yellow. Stop him, General.'"
+"<Говорит EVA> \n 'Ещё один террорист покинул конференц-центр! Я отмечу его красным. Его возможные цели отмечены жёлтым. Остановите его, генерал.'"
 END
 
 SCRIPT:CHI02AudioHolder11
-"<'EVA' speaking>  \n 'General, this building is a Terrorist target--we must protect it!'"
+"<Говорит EVA> \n 'Генерал, это здание — цель террористов, мы должны его защитить!'"
 END
 
 SCRIPT:CHI02AudioHolder12
-"<'EVA' speaking>  \n 'General, the Terrorists have taken over the Convention Center! You're going to have to destroy the Convention Center and the attached parking structures to stop the Terrorist threat.'"
+"<Говорит EVA> \n 'Генерал, террористы захватили конференц-центр! Чтобы устранить угрозу, придётся уничтожить конференц-центр и примыкающие к нему парковки.'"
 END
 
 SCRIPT:CHI02AudioHolder13
-"<'EVA' speaking>  \n 'Excellent, you've reached the surplus base. Hmm?it's not much to look at, but it will allow you to build tanks?and more War Factories, if you need.'"
+"<Говорит EVA> \n 'Отлично, вы добрались до резервной базы. Хм, смотреть тут особо не на что, но здесь можно строить танки и, если понадобится, новые военные заводы.'"
 END
 
 SCRIPT:CHI02AudioHolder14
-"<'EVA' speaking>  \n 'The Terroist threat is finished. Good work, General.'"
+"<Говорит EVA> \n 'С угрозой террористов покончено. Хорошая работа, генерал.'"
 END
 
 SCRIPT:CHI02AudioHolder15
-"<'EVA' speaking>  \n 'General, I've detected GLA armored units on the move. They didn't come from the Convention Center, so the GLA must have another base somewhere in Hong Kong. Find that base and destroy it!'"
+"<Говорит EVA> \n 'Генерал, я засекла движение бронетехники МАО. Она пришла не из конференц-центра — значит, у МАО есть ещё одна база где-то в Гонконге. Найдите её и уничтожьте!'"
 END
 
 SCRIPT:CHI02AudioHolder16
-"<'EVA' speaking>  \n 'General, the GLA have brought their Toxin Tractors with them. You'll know them by the green ooze they spray. Keep your infantry units away from them and use your tanks to deal with this new threat.'"
+"<Говорит EVA> \n 'Генерал, МАО привела с собой химические тракторы. Их легко узнать по зелёной жиже, которую они разбрызгивают. Держите пехоту подальше от них и боритесь с новой угрозой танками.'"
 END
 
 SCRIPT:CHI02AudioHolder17
-"<'EVA' speaking>  \n 'Good work, General, you've destroyed the Toxin base. Now they shouldn't be able to build any more Toxin Tractors.'"
+"<Говорит EVA> \n 'Хорошая работа, генерал, химическая база уничтожена. Теперь они больше не смогут строить химические тракторы.'"
 END
 
 SCRIPT:CHI02AudioHolder18
-"<'EVA' speaking>  \n 'Wait, General, there is a large force up ahead. I'll call for an EMP strike to clear the area?standby?'"
+"<Говорит EVA> \n 'Стойте, генерал, впереди крупные силы противника. Я вызову ЭМИ-удар, чтобы расчистить путь. Ждите.'"
 END
 
 SCRIPT:CHI02AudioHolder19
-"<'EVA' speaking>  \n 'That should give you a clear path to their base. Let's finish this, General.'"
+"<Говорит EVA> \n 'Теперь путь к их базе свободен. Покончим с этим, генерал.'"
 END
 
 SCRIPT:CHI02AudioHolder20
-"<AutoFerry Capt. speaking>  \n 'Finally, the military is here! Those Terrorists are ruining my business! If you put your forces aboard I'll take you out to the Convention Center. You can sneak in the backdoor and catch them by surprize. Jut hit the Transport button when you're ready.'"
+"<Говорит капитан парома> \n 'Наконец-то пришли военные! Эти террористы губят мне весь бизнес! Грузите войска на борт, и я доставлю вас к конференц-центру. Проберётесь с чёрного хода и застанете их врасплох. Как будете готовы, нажмите кнопку транспорта.'"
 END
 
 SCRIPT:CHI02Box01
@@ -6521,7 +6521,7 @@ MAP:CHI03Obj3
 END
 
 MAP:CHI03AudioHolder01
-"<Красная гвардия> «Генерал, уровень воды упал! Войска GLA переходят реку!»"
+"<Красная гвардия> «Генерал, уровень воды упал! Войска МАО переходят реку!»"
 END
 
 MAP:CHI06Open
@@ -6885,31 +6885,31 @@ MAP:USA07Objective2
 END
 
 MAP:GLA08Temp
-"GLA Mission 8 - Southern Kazakhstan  \n Baikonur Cosmodrome"
+"МАО, миссия 8 — Южный Казахстан \n Космодром Байконур"
 END
 
 MAP:CHI08Temp
-"China Mission 8 - Last China Mission  \n Status: Incomplete"
+"Китай, миссия 8 — Последняя миссия Китая \n Статус: не завершена"
 END
 
 MAP:CHI07Temp
-"China Mission 7 - Nuke-O-Rama  \n Status: Incomplete"
+"Китай, миссия 7 — Ядерный разгул \n Статус: не завершена"
 END
 
 MAP:CHI05Temp
-"China Mission 5 - Firebomb GLA  \n Status: Incomplete"
+"Китай, миссия 5 — Огненный удар по МАО \n Статус: не завершена"
 END
 
 MAP:USA08Temp
-"USA Mission 8 - Devastate GLA  \n Status: Incomplete"
+"США, миссия 8 — Разгром МАО \n Статус: не завершена"
 END
 
 MAP:USA06Temp
-"USA Mission 6 - E3 Revamp  \n Status: Incomplete"
+"США, миссия 6 — Переделка E3 \n Статус: не завершена"
 END
 
 MAP:USA05Temp
-"USA Mission 5 - River Raid  \n Status: Incomplete"
+"США, миссия 5 — Речной рейд \n Статус: не завершена"
 END
 
 CONTROLBAR:TooltipDaisyCutter
@@ -12265,7 +12265,7 @@ HELP:LeafletDrop-01
 END
 
 HELP:MOAB-01
-"HINT:  \n MOABs are effective against vehicles and  \n will stun any survivors"
+"ПОДСКАЗКА: \n Мать всех бомб эффективна против техники и \n оглушает всех выживших"
 END
 
 HELP:Countermeasures-01
@@ -12273,7 +12273,7 @@ HELP:Countermeasures-01
 END
 
 HELP:HellfireDrone-01
-"HINT:  \n Upgrade your vehicles with Hellfire Drones  \n to increase effectiveness against armored forces"
+"ПОДСКАЗКА: \n Установите на технику ракетные беспилотники, \n чтобы усилить её против бронетехники"
 END
 
 HELP:ChemicalSuit-01
@@ -12289,11 +12289,11 @@ HELP:BunkerBuster-02
 END
 
 HELP:SupplyLines-01
-"HINT:  \n The Supply Lines upgrade improves income"
+"ПОДСКАЗКА: \n Улучшение «Поставка снабжения» увеличивает доход"
 END
 
 HELP:SupplyLines-02
-"HINT:  \n Upgrade Supply Lines to increase  \n the efficiency of Chinooks"
+"ПОДСКАЗКА: \n Улучшение «Поставка снабжения» повышает \n эффективность Чинуков"
 END
 
 HELP:ListeningOutpost-01
@@ -12325,39 +12325,39 @@ HELP:Frenzy-01
 END
 
 HELP:InternetCenter-01
-"HINT:  \n Place Hackers in the Internet Center  \n to increase money collection rate"
+"ПОДСКАЗКА: \n Разместите хакеров в Центре Интернет, \n чтобы ускорить добычу денег"
 END
 
 HELP:InternetCenter-02
-"HINT:  \n Build an Internet Center and upgrade to  \n Satellite Hack 1 and 2"
+"ПОДСКАЗКА: \n Постройте Центр Интернет и изучите в нём \n Взлом спутника I и II"
 END
 
 HELP:SatelliteHack1-01
-"HINT:  \n Satellite Hack 1 reveals all enemy Command Centers"
+"ПОДСКАЗКА: \n Взлом спутника I открывает все командные центры противника"
 END
 
 HELP:SatelliteHack2-01
-"HINT:  \n Satellite Hack 2 reveals all that enemy units can see"
+"ПОДСКАЗКА: \n Взлом спутника II показывает всё, что видят войска противника"
 END
 
 HELP:EMPMines-01
-"HINT:  \n Mines can be upgraded to Neutron Mines, which will  \n disrupt enemy vehicles"
+"ПОДСКАЗКА: \n Мины можно улучшить до нейтронных мин, которые \n выводят из строя вражескую технику"
 END
 
 HELP:NeutronShell-01
-"HINT:  \n Neutron Shell attacks from the Nuke Cannon neutralize  \n vehicles, allowing any infantry to capture them"
+"ПОДСКАЗКА: \n Нейтронные снаряды ядерной пушки обезвреживают экипаж \n техники, и её может захватить любая пехота"
 END
 
 HELP:CombatCycle-01
-"HINT:  \n Combat Cycles can jump off of cliffs"
+"ПОДСКАЗКА: \n Боевые мотоциклы могут прыгать с обрывов"
 END
 
 HELP:CombatCycle-02
-"HINT:  \n Place a Tunnel Defender on a Combat Cycle to  \n allow it to fire rockets"
+"ПОДСКАЗКА: \n Посадите гранатомётчика на боевой мотоцикл, \n чтобы тот мог стрелять ракетами"
 END
 
 HELP:CombatCycle-03
-"HINT:  \n Place a Terrorist on a Combat Cycle to  \n produce a Suicide Bike"
+"ПОДСКАЗКА: \n Посадите террориста на боевой мотоцикл, \n чтобы получить мотоцикл-смертник"
 END
 
 HELP:CombatCycle-04
@@ -12365,15 +12365,15 @@ HELP:CombatCycle-04
 END
 
 HELP:CombatCycle-05
-"HINT:  \n Workers can use Combat Cycles to travel quickly"
+"ПОДСКАЗКА: \n Рабочие могут быстро передвигаться на боевых мотоциклах"
 END
 
 HELP:Saboteur-01
-"HINT:  \n The Saboteur disrupts the abilities of enemy structures"
+"ПОДСКАЗКА: \n Саботажник выводит из строя способности вражеских зданий"
 END
 
 HELP:Saboteur-02
-"HINT:  \n Direct the Saboteur into an enemy Command Center  \n to reset their Generals Powers timers"
+"ПОДСКАЗКА: \n Отправьте саботажника во вражеский командный центр, \n чтобы сбросить таймеры генеральских способностей"
 END
 
 HELP:FakeStructures-01
@@ -12389,15 +12389,15 @@ HELP:GPSScramble-01
 END
 
 HELP:WorkerShoes-01
-"HINT:  \n Purchase Worker Shoes to increase the speed Workers  \n travel and collect resources"
+"ПОДСКАЗКА: \n Купите обувь рабочего, чтобы рабочие быстрее \n передвигались и собирали ресурсы"
 END
 
 HELP:CamoNetting-01
-"HINT:  \n Camo-Netting camouflages your Stinger Sites  \n and Tunnel Networks"
+"ПОДСКАЗКА: \n Маскировочная сетка скрывает гнёзда стингеров \n и сети туннелей"
 END
 
 HELP:FortifiedStructures-01
-"HINT:  \n Fortified Structures are harder to destroy"
+"ПОДСКАЗКА: \n Укреплённые здания труднее разрушить"
 END
 
 HELP:BoobyTrap-01
@@ -12413,15 +12413,15 @@ HELP:CombatChinooks-01
 END
 
 HELP:AuroraAlpha-01
-"HINT:  \n The Aurora Alpha is equipped with a small  \n but devastating Fuel Air Bomb"
+"ПОДСКАЗКА: \n Аврора Альфа несёт небольшую, \n но разрушительную объёмно-детонирующую бомбу"
 END
 
 HELP:MicrowavePatriot-01
-"HINT:  \n The EMP Patriot's Rockets are effective  \n against both vehicles and infantry"
+"ПОДСКАЗКА: \n Ракеты ЭМИ «Патриота» эффективны \n и против техники, и против пехоты"
 END
 
 HELP:AdvancedRods-01
-"HINT:  \n Advanced Rods provide more power than normal Control Rods"
+"ПОДСКАЗКА: \n Улучшенные стержни дают больше энергии, чем обычные графитовые"
 END
 
 HELP:LaserTank-01
@@ -12449,23 +12449,23 @@ HELP:Mini-Gunner-01
 END
 
 HELP:InfantryBlackLotus-01
-"HINT:  \n Your Black Lotus units have improved abilities"
+"ПОДСКАЗКА: \n Ваши Чёрные лотосы обладают улучшенными способностями"
 END
 
 HELP:InfantryBlackLotus-02
-"HINT:  \n You can build multiple Black Lotus units"
+"ПОДСКАЗКА: \n Вы можете построить несколько Чёрных лотосов"
 END
 
 HELP:InfantryHacker-01
-"HINT:  \n The Infantry General's Hacker hack money faster"
+"ПОДСКАЗКА: \n Хакеры пехотного генерала взламывают деньги быстрее"
 END
 
 HELP:ChineseParadrop-01
-"HINT:  \n The Chinese Paradrop parachutes Red Guard anywhere"
+"ПОДСКАЗКА: \n Китайский десант сбрасывает красногвардейцев в любую точку"
 END
 
 HELP:EmperorTank-01
-"HINT:  \n Emperor Tanks are the ultimate tank,  \n effective against both vehicles and infantry"
+"ПОДСКАЗКА: \n Имперский Владыка — лучший танк, \n эффективен и против техники, и против пехоты"
 END
 
 HELP:EmperorTank-02
@@ -12481,11 +12481,11 @@ HELP:TankDrop-01
 END
 
 HELP:TacticalNuke-01
-"HINT:  \n Your Airfield can upgrade MiGs to carry Tactical Nukes"
+"ПОДСКАЗКА: \n На аэродроме можно вооружить МиГи тактическими ядерными ракетами"
 END
 
 HELP:IsotopeStability-01
-"HINT:  \n Isotope Stability will reduce the damage done to friendly  \n units when Nuclear Tanks are destroyed"
+"ПОДСКАЗКА: \n Устойчивость изотопов снижает урон своим войскам \n при уничтожении ядерных танков"
 END
 
 HELP:AdvancedNuclearPower-01
@@ -12501,35 +12501,35 @@ HELP:ToxinRebels-02
 END
 
 HELP:ToxinRebels-03
-"HINT:  \n Use Toxin Rebels to quickly clear out garrisoned structures"
+"ПОДСКАЗКА: \n Химические повстанцы быстро выбивают противника из занятых зданий"
 END
 
 HELP:ToxinNetworks-01
-"HINT:  \n Toxin Networks fire streams of toxin from their cannons"
+"ПОДСКАЗКА: \n Химические сети туннелей стреляют из пушек струями токсина"
 END
 
 HELP:ToxinTerrorists-01
-"HINT:  \n Toxin Terrorists explode in a cloud of toxin"
+"ПОДСКАЗКА: \n Химические террористы взрываются облаком токсина"
 END
 
 HELP:ToxinTerrorists-02
-"HINT:  \n Use Toxin Terrorists to attack large groups of infantry"
+"ПОДСКАЗКА: \n Используйте химических террористов против больших групп пехоты"
 END
 
 HELP:AnthraxGamma-01
-"HINT:  \n Anthrax Gamma increases the damage of all toxin attacks"
+"ПОДСКАЗКА: \n Сибирская язва гамма усиливает все химические атаки"
 END
 
 HELP:AnthraxGamma-02
-"HINT:  \n Anthrax Gamma is even more potent than Anthrax Beta"
+"ПОДСКАЗКА: \n Сибирская язва гамма ещё сильнее, чем бета"
 END
 
 HELP:AdvancedTrap-01
-"HINT:  \n Advanced Traps are more powerful than normal Demo Traps"
+"ПОДСКАЗКА: \n Улучшенные фугасы мощнее обычных"
 END
 
 HELP:Demolitions-01
-"HINT:  \n The Demolitions upgrade gives units the ability to detonate"
+"ПОДСКАЗКА: \n Улучшение «Подрыв» даёт подразделениям способность взрываться"
 END
 
 GENERIC:MissionObjectiveCompleted-01
@@ -13689,7 +13689,7 @@ CONTROLBAR:TooltipNukeDrop
 END
 
 CONTROLBAR:TooltipSuitcaseNuke
-"Hacker has a nuclear weapon in his suitcase  \n"
+"У хакера в чемоданчике ядерная бомба \n"
 END
 
 CONTROLBAR:TooltipSpectreGunship
@@ -13877,7 +13877,7 @@ CONTROLBAR:ToolTipUSABuildFireBase
 END
 
 CONTROLBAR:ToolTipUSABuildArtilleryPlatform
-"Builds a large range artillery platform for defenses  \n  \n Power Required: 4"
+"Строит дальнобойную артиллерийскую платформу для обороны \n \n Потребление энергии: 4"
 END
 
 CONTROLBAR:ToolTipFakeGLABuilding
@@ -13893,7 +13893,7 @@ CONTROLBAR:ToolTipAmericaICBMLauncher
 END
 
 CONTROLBAR:ToolTipAmericaBuildTomahawkStorm
-"Launches a volley of Tomahawk missiles  \n  \n Countdown Timer: 5:00"
+"Запускает залп ракет Томагавк \n \n Время для готовности: 5:00"
 END
 
 CONTROLBAR:ToolTipGLABuildCombatBike
@@ -13929,7 +13929,7 @@ CONTROLBAR:ToolTipUSABuildHyersonicAurora
 END
 
 CONTROLBAR:ToolTipGLABuildSniper
-"Camouflaged while not moving or shooting. Spots hidden enemies  \n  \n Strong vs. infantry  \n Weak vs. light vehicles, scouts"
+"Невидим, пока не двигается и не стреляет. Обнаруживает скрытых врагов \n \n Силён против пехоты \n Слаб против лёгкой техники и разведчиков"
 END
 
 CONTROLBAR:ToolTipUSABuildMicrowave
@@ -16061,7 +16061,7 @@ DIALOGEVENT:MisCHI03xXO01Subtitle
 END
 
 DIALOGEVENT:MisCHI03xXO10Subtitle
-"*Генерал, уничтожение статуй GLA крайне важно для роста международного мнения и укрепит поддержку наших усилий среди населения"
+"*Генерал, уничтожение статуй МАО крайне важно для роста международного мнения и укрепит поддержку наших усилий среди населения"
 END
 
 DIALOGEVENT:MisCHI03xXO11Subtitle
@@ -16089,11 +16089,11 @@ DIALOGEVENT:MisCHI03xXO18Subtitle
 END
 
 DIALOGEVENT:MisCHI03xXO19Subtitle
-"*Генерал, GLA хорошо укрепились в городе. Нужно их выбить"
+"*Генерал, МАО хорошо укрепились в городе. Нужно их выбить"
 END
 
 DIALOGEVENT:MisCHI03xXO20Subtitle
-"*Вы хорошо продвигаетесь, командир. Большая часть города уже освобождена от GLA"
+"*Вы хорошо продвигаетесь, командир. Большая часть города уже освобождена от МАО"
 END
 
 DIALOGEVENT:MisCHI03xXO21Subtitle
@@ -16101,7 +16101,7 @@ DIALOGEVENT:MisCHI03xXO21Subtitle
 END
 
 DIALOGEVENT:MisCHI03xXO22Subtitle
-"*Генерал, мы должны зачистить этот район от GLA!"
+"*Генерал, мы должны зачистить этот район от МАО!"
 END
 
 DIALOGEVENT:MisCHI03xXO23Subtitle
@@ -16121,7 +16121,7 @@ DIALOGEVENT:MisCHI04xChat011Subtitle
 END
 
 DIALOGEVENT:MisCHI04xChat012Subtitle
-"*Мы остановили первую волну GLA!"
+"*Мы остановили первую волну МАО!"
 END
 
 DIALOGEVENT:MisCHI04xChat013Subtitle
@@ -16197,7 +16197,7 @@ DIALOGEVENT:MisCHI04xChat16Subtitle
 END
 
 DIALOGEVENT:MisCHI04xXO01Subtitle
-"*GLA посылают ещё одну волну!"
+"*МАО посылают ещё одну волну!"
 END
 
 DIALOGEVENT:MisCHI04xXO02Subtitle
@@ -16213,7 +16213,7 @@ DIALOGEVENT:MisCHI04xXO04Subtitle
 END
 
 DIALOGEVENT:MisCHI04xXO05Subtitle
-"*Европейский союз чрезвычайно доволен нашими действиями, генерал. Нужно продолжать наступать и уничтожить GLA"
+"*Европейский союз чрезвычайно доволен нашими действиями, генерал. Нужно продолжать наступать и уничтожить МАО"
 END
 
 DIALOGEVENT:MisCHI04xXO06Subtitle
@@ -16229,7 +16229,7 @@ DIALOGEVENT:MisCHI04xXO08Subtitle
 END
 
 DIALOGEVENT:MisCHI04xXO09Subtitle
-"*У GLA нет чести! Они уничтожили деревню, чтобы расчистить себе путь!"
+"*У МАО нет чести! Они уничтожили деревню, чтобы расчистить себе путь!"
 END
 
 DIALOGEVENT:MisCHI04xXO10Subtitle
@@ -16245,35 +16245,35 @@ DIALOGEVENT:MisCHI04xXO12Subtitle
 END
 
 DIALOGEVENT:MisCHI04xXO13Subtitle
-"*По последним разведданным, GLA отступают к этой точке. Здесь мы дадим бой. Не позволяйте ни одному подразделению GLA покинуть этот район. Наша новая Улитка обеспечит вам успех. Появление наших войск с юга будет означать выполнение вашей основной задачи"
+"*По последним разведданным, МАО отступают к этой точке. Здесь мы дадим бой. Не позволяйте ни одному подразделению МАО покинуть этот район. Наша новая Улитка обеспечит вам успех. Появление наших войск с юга будет означать выполнение вашей основной задачи"
 END
 
 DIALOGEVENT:MisCHI04xXO14Subtitle
-"*По последним разведданным, GLA отступают к этой точке. Здесь мы дадим бой. Не позволяйте ни одному подразделению GLA покинуть этот район. Если слишком многие уйдут, миссия будет провалена. Наша новая Улитка обеспечит вам успех. Появление наших войск с юга будет означать выполнение вашей основной задачи"
+"*По последним разведданным, МАО отступают к этой точке. Здесь мы дадим бой. Не позволяйте ни одному подразделению МАО покинуть этот район. Если слишком многие уйдут, миссия будет провалена. Наша новая Улитка обеспечит вам успех. Появление наших войск с юга будет означать выполнение вашей основной задачи"
 END
 
 DIALOGEVENT:MisCHI04xXO15Subtitle
-"*С запада приближается волна GLA"
+"*С запада приближается волна МАО"
 END
 
 DIALOGEVENT:MisCHI04xXO16Subtitle
-"*С юга приближается волна GLA"
+"*С юга приближается волна МАО"
 END
 
 DIALOGEVENT:MisCHI04xXO17Subtitle
-"*Замечены силы GLA, приближающиеся с юго-запада"
+"*Замечены силы МАО, приближающиеся с юго-запада"
 END
 
 DIALOGEVENT:MisCHI04xXO18Subtitle
-"*Силы GLA приближаются с юго-востока"
+"*Силы МАО приближаются с юго-востока"
 END
 
 DIALOGEVENT:MisCHI04xXO19Subtitle
-"*С юго-запада приближается волна сил GLA"
+"*С юго-запада приближается волна сил МАО"
 END
 
 DIALOGEVENT:MisCHI04xXO20Subtitle
-"*Приближается ещё одна волна GLA"
+"*Приближается ещё одна волна МАО"
 END
 
 DIALOGEVENT:MisCHI04xXO21Subtitle
@@ -16301,7 +16301,7 @@ DIALOGEVENT:MisCHI04xXO26Subtitle
 END
 
 DIALOGEVENT:MisCHI04xXO27Subtitle
-"*Замечены силы GLA, бегущие через эту точку. Займите оборонительные позиции и ждите контакта с противником"
+"*Замечены силы МАО, бегущие через эту точку. Займите оборонительные позиции и ждите контакта с противником"
 END
 
 DIALOGEVENT:MisCHI04xXO28Subtitle
@@ -16341,15 +16341,15 @@ DIALOGEVENT:MisChi05OfficerC02Subtitle
 END
 
 DIALOGEVENT:MisCHI05xBrf01Subtitle
-"*Благодаря вашим выдающимся действиям в Хальберштадте с GLA почти покончено. Американская разведка обнаружила последний оплот GLA под Гамбургом. К сожалению, мы не успели помочь американцам в этом районе, и GLA захватили их базу. Соберите силы и уничтожьте обе базы — GLA и США"
+"*Благодаря вашим выдающимся действиям в Хальберштадте с МАО почти покончено. Американская разведка обнаружила последний оплот МАО под Гамбургом. К сожалению, мы не успели помочь американцам в этом районе, и МАО захватили их базу. Соберите силы и уничтожьте обе базы — МАО и США"
 END
 
 DIALOGEVENT:MisCHI05xBrf02Subtitle
-"*GLA захватили старую американскую базу в этом районе и наращивают силы. Ваша конечная задача — уничтожить базы США и GLA"
+"*МАО захватили старую американскую базу в этом районе и наращивают силы. Ваша конечная задача — уничтожить базы США и МАО"
 END
 
 DIALOGEVENT:MisCHI05xBrf03Subtitle
-"*GLA усовершенствовали маскировку, генерал. Теперь они могут скрыть почти что угодно. Нужно быть начеку"
+"*МАО усовершенствовали маскировку, генерал. Теперь они могут скрыть почти что угодно. Нужно быть начеку"
 END
 
 DIALOGEVENT:MisCHI05xBrf04Subtitle
@@ -16373,7 +16373,7 @@ DIALOGEVENT:MisCHI05xCin02Subtitle
 END
 
 DIALOGEVENT:MisCHI05xCin03Subtitle
-"*Надеюсь, они скоро будут здесь. Разведка говорит о полномасштабной атаке GLA"
+"*Надеюсь, они скоро будут здесь. Разведка говорит о полномасштабной атаке МАО"
 END
 
 DIALOGEVENT:MisCHI05xCin04Subtitle
@@ -16409,27 +16409,27 @@ DIALOGEVENT:MisCHI05xXO02Subtitle
 END
 
 DIALOGEVENT:MisCHI05xXO03Subtitle
-"*Отлично, генерал. Враг больше не может производить подразделения GLA"
+"*Отлично, генерал. Враг больше не может производить подразделения МАО"
 END
 
 DIALOGEVENT:MisCHI05xXO04Subtitle
-"*Отлично, генерал. База США нейтрализована. Уничтожьте базу GLA, чтобы завершить сражение"
+"*Отлично, генерал. База США нейтрализована. Уничтожьте базу МАО, чтобы завершить сражение"
 END
 
 DIALOGEVENT:MisCHI05xXO05Subtitle
-"*Отлично, генерал. База GLA нейтрализована. Уничтожьте базу США, чтобы завершить сражение"
+"*Отлично, генерал. База МАО нейтрализована. Уничтожьте базу США, чтобы завершить сражение"
 END
 
 DIALOGEVENT:MisCHI05xXO06Subtitle
-"*Мы должны довершить то, что не удалось США. GLA падёт, и в мире наступит покой"
+"*Мы должны довершить то, что не удалось США. МАО падёт, и в мире наступит покой"
 END
 
 DIALOGEVENT:MisCHI05xXO07Subtitle
-"*Если мы сумеем разгромить GLA и вырвать Европу из их лап, нас ждёт великая награда"
+"*Если мы сумеем разгромить МАО и вырвать Европу из их лап, нас ждёт великая награда"
 END
 
 DIALOGEVENT:MisCHI05xXO08Subtitle
-"*Генерал, вы займёте своё место среди величайших героев Китая. GLA повержены, и Китай — сияющий маяк нового мира. Займите почётное место и насладитесь славой Китая"
+"*Генерал, вы займёте своё место среди величайших героев Китая. МАО повержены, и Китай — сияющий маяк нового мира. Займите почётное место и насладитесь славой Китая"
 END
 
 DIALOGEVENT:MisCHI05xXO09Subtitle
@@ -16437,7 +16437,7 @@ DIALOGEVENT:MisCHI05xXO09Subtitle
 END
 
 DIALOGEVENT:MisCHI05xXO10Subtitle
-"*Генерал, у командира GLA не хватает танков. Возможно, мы задавим его числом"
+"*Генерал, у командира МАО не хватает танков. Возможно, мы задавим его числом"
 END
 
 DIALOGEVENT:MisCHI05xXO11Subtitle
@@ -16589,7 +16589,7 @@ DIALOGEVENT:MisGLA01xCin11Subtitle
 END
 
 DIALOGEVENT:MisGLA01xCin12Subtitle
-"*Хе-хе. Генерал, мы ушли… и направляемся к точке встречи. GLA ещё поднимется"
+"*Хе-хе. Генерал, мы ушли… и направляемся к точке встречи. МАО ещё поднимется"
 END
 
 DIALOGEVENT:MisGLA01xCin13Subtitle
@@ -16613,11 +16613,11 @@ DIALOGEVENT:MisGLA01xKen01Subtitle
 END
 
 DIALOGEVENT:MisGLA01xKen02Subtitle
-"*Генерал, вы должны помочь нашему истинному вождю бежать, чтобы GLA продолжила жить"
+"*Генерал, вы должны помочь нашему истинному вождю бежать, чтобы МАО продолжила жить"
 END
 
 DIALOGEVENT:MisGLA01xKen03Subtitle
-"*Доктор Тракс, возможно, погиб за наше дело, но он не так уж важен. Если наш брат спасётся, США ещё не раз услышат о GLA"
+"*Доктор Тракс, возможно, погиб за наше дело, но он не так уж важен. Если наш брат спасётся, США ещё не раз услышат о МАО"
 END
 
 DIALOGEVENT:MisGLA01xKen04Subtitle
@@ -16637,7 +16637,7 @@ DIALOGEVENT:MisGLA01xKen07Subtitle
 END
 
 DIALOGEVENT:MisGLA01xKen08Subtitle
-"*Генерал. Нужно захватить аэродром до прибытия транспортного самолёта. От вашего успеха зависит выживание GLA"
+"*Генерал. Нужно захватить аэродром до прибытия транспортного самолёта. От вашего успеха зависит выживание МАО"
 END
 
 DIALOGEVENT:MisGLA01xKen09Subtitle
@@ -16729,7 +16729,7 @@ DIALOGEVENT:MisGLA02xChat02Subtitle
 END
 
 DIALOGEVENT:MisGLA02xChat03Subtitle
-"*Принца нужно остановить. GLA не должна достаться ему!"
+"*Принца нужно остановить. МАО не должна достаться ему!"
 END
 
 DIALOGEVENT:MisGLA02xChat04Subtitle
@@ -16781,7 +16781,7 @@ DIALOGEVENT:MisGLA02xCin08Subtitle
 END
 
 DIALOGEVENT:MisGLA02xCin09Subtitle
-"*Когда принц Кассад будет устранён, GLA перейдёт под наш контроль. Тогда месть свершится, и американские неверные сгорят"
+"*Когда принц Кассад будет устранён, МАО перейдёт под наш контроль. Тогда месть свершится, и американские неверные сгорят"
 END
 
 DIALOGEVENT:MisGLA02xCin10Subtitle
@@ -16797,7 +16797,7 @@ DIALOGEVENT:MisGLA02xKen02Subtitle
 END
 
 DIALOGEVENT:MisGLA02xKen03Subtitle
-"*Мы должны вновь объединить GLA под одним вождём!"
+"*Мы должны вновь объединить МАО под одним вождём!"
 END
 
 DIALOGEVENT:MisGLA02xKen04Subtitle
@@ -16805,7 +16805,7 @@ DIALOGEVENT:MisGLA02xKen04Subtitle
 END
 
 DIALOGEVENT:MisGLA02xKen05Subtitle
-"*Наши замыслы куда масштабнее, чем у этой крысы Кассада. Мир содрогнётся, когда мы обрушим ярость GLA"
+"*Наши замыслы куда масштабнее, чем у этой крысы Кассада. Мир содрогнётся, когда мы обрушим ярость МАО"
 END
 
 DIALOGEVENT:MisGLA02xKen06Subtitle
@@ -16825,7 +16825,7 @@ DIALOGEVENT:MisGLA02xKen09Subtitle
 END
 
 DIALOGEVENT:MisGLA02xKen10Subtitle
-"*Генерал, нужно захватить их командный центр и использовать их знания, чтобы приблизиться к цели — объединить GLA под одним знаменем"
+"*Генерал, нужно захватить их командный центр и использовать их знания, чтобы приблизиться к цели — объединить МАО под одним знаменем"
 END
 
 DIALOGEVENT:MisGLA02xKen11Subtitle
@@ -16881,7 +16881,7 @@ DIALOGEVENT:MisGLA02xKen23Subtitle
 END
 
 DIALOGEVENT:MisGLA02xKen24Subtitle
-"*С принцем Кассадом покончено. GLA вновь едины против наших врагов!"
+"*С принцем Кассадом покончено. МАО вновь едины против наших врагов!"
 END
 
 DIALOGEVENT:MisGLA02xKen25Subtitle
@@ -16901,7 +16901,7 @@ DIALOGEVENT:MisGLA02xKen28Subtitle
 END
 
 DIALOGEVENT:MisGLA02xKen29Subtitle
-"*Этот район контролирует отколовшаяся ячейка GLA под командованием принца Кассада. Кассад не позволяет нам использовать его способности на благо GLA"
+"*Этот район контролирует отколовшаяся ячейка МАО под командованием принца Кассада. Кассад не позволяет нам использовать его способности на благо МАО"
 END
 
 DIALOGEVENT:MisGLA02xKen30Subtitle
@@ -17001,7 +17001,7 @@ DIALOGEVENT:MisGLA03xCin02Subtitle
 END
 
 DIALOGEVENT:MisGLA03xCin03Subtitle
-"*Мы доказали мощь GLA!"
+"*Мы доказали мощь МАО!"
 END
 
 DIALOGEVENT:MisGLA03xKen01Subtitle
@@ -17265,7 +17265,7 @@ DIALOGEVENT:MisGLA04xChat13Subtitle
 END
 
 DIALOGEVENT:MisGLA04xChat14Subtitle
-"*В этом районе есть сочувствующий GLA. Он и его братья согласились нам помочь"
+"*В этом районе есть сочувствующий МАО. Он и его братья согласились нам помочь"
 END
 
 DIALOGEVENT:MisGLA04xChat15Subtitle
@@ -17369,15 +17369,15 @@ DIALOGEVENT:MisGLA04xCin24Subtitle
 END
 
 DIALOGEVENT:MisGLA04xCin25Subtitle
-"*Поджарим этих лазутчиков GLA! Пуск!"
+"*Поджарим этих лазутчиков МАО! Пуск!"
 END
 
 DIALOGEVENT:MisGLA04xCin26Subtitle
-"*GLA замечены у берега! Всем подразделениям — на оборонительные позиции"
+"*МАО замечены у берега! Всем подразделениям — на оборонительные позиции"
 END
 
 DIALOGEVENT:MisGLA04xCin27Subtitle
-"*Проникновение GLA в квадрате 77-Бета-Гамма! Всем свободным подразделениям — выдвигаться!"
+"*Проникновение МАО в квадрате 77-Бета-Гамма! Всем свободным подразделениям — выдвигаться!"
 END
 
 DIALOGEVENT:MisGLA04xCin28Subtitle
@@ -17385,11 +17385,11 @@ DIALOGEVENT:MisGLA04xCin28Subtitle
 END
 
 DIALOGEVENT:MisGLA04xCin29Subtitle
-"*Лазутчики GLA замечены на уступе!"
+"*Лазутчики МАО замечены на уступе!"
 END
 
 DIALOGEVENT:MisGLA04xCin30Subtitle
-"*GLA в черте города! Всем подразделениям — сходиться к квадрату 34-Альфа-Альфа"
+"*МАО в черте города! Всем подразделениям — сходиться к квадрату 34-Альфа-Альфа"
 END
 
 DIALOGEVENT:MisGLA04xKen01Subtitle
@@ -17709,7 +17709,7 @@ DIALOGEVENT:MisGLA05xKen33Subtitle
 END
 
 DIALOGEVENT:MisGLA05xKen34Subtitle
-"*Крайне важно построить командный центр GLA"
+"*Крайне важно построить командный центр МАО"
 END
 
 DIALOGEVENT:MisGLA05xKen35Subtitle
@@ -17857,7 +17857,7 @@ DIALOGEVENT:MisUSA01xBrf01Subtitle
 END
 
 DIALOGEVENT:MisUSA01xBrf02Subtitle
-"*GLA запустили ракету с космодрома Байконур сегодня рано утром. Разведка докладывает, что они готовят второй пуск"
+"*МАО запустили ракету с космодрома Байконур сегодня рано утром. Разведка докладывает, что они готовят второй пуск"
 END
 
 DIALOGEVENT:MisUSA01xBrf03Subtitle
@@ -17881,7 +17881,7 @@ DIALOGEVENT:MisUSA01xBrf07Subtitle
 END
 
 DIALOGEVENT:MisUSA01xC+A39hat11Subtitle
-"*Ещё здания GLA на востоке!"
+"*Ещё здания МАО на востоке!"
 END
 
 DIALOGEVENT:MisUSA01xChat01Subtitle
@@ -17901,7 +17901,7 @@ DIALOGEVENT:MisUSA01xChat04Subtitle
 END
 
 DIALOGEVENT:MisUSA01xChat05Subtitle
-"*Посадите пехоту в эту технику! Она поможет разбить GLA!"
+"*Посадите пехоту в эту технику! Она поможет разбить МАО!"
 END
 
 DIALOGEVENT:MisUSA01xChat06Subtitle
@@ -17917,11 +17917,11 @@ DIALOGEVENT:MisUSA01xChat08Subtitle
 END
 
 DIALOGEVENT:MisUSA01xChat09Subtitle
-"*Гнёзда стингеров уничтожены! Повторяю, стингеры уничтожены! Всем подразделениям — на здания GLA! Разнесём тут всё!"
+"*Гнёзда стингеров уничтожены! Повторяю, стингеры уничтожены! Всем подразделениям — на здания МАО! Разнесём тут всё!"
 END
 
 DIALOGEVENT:MisUSA01xChat10Subtitle
-"*Ещё здания GLA на западе!"
+"*Ещё здания МАО на западе!"
 END
 
 DIALOGEVENT:MisUSA01xChat12Subtitle
@@ -17985,7 +17985,7 @@ DIALOGEVENT:MisUSA01xEva01Subtitle
 END
 
 DIALOGEVENT:MisUSA01xEva02Subtitle
-"*Теперь нужно собрать ударную группу, достаточную, чтобы уничтожить базу GLA"
+"*Теперь нужно собрать ударную группу, достаточную, чтобы уничтожить базу МАО"
 END
 
 DIALOGEVENT:MisUSA01xEva03Subtitle
@@ -18025,7 +18025,7 @@ DIALOGEVENT:MisUSA01xEva11Subtitle
 END
 
 DIALOGEVENT:MisUSA01xEva12Subtitle
-"*Отличная работа, генерал. Похоже, угроза GLA наконец устранена. Пора оставить всё это позади и заняться поиском оружия массового поражения"
+"*Отличная работа, генерал. Похоже, угроза МАО наконец устранена. Пора оставить всё это позади и заняться поиском оружия массового поражения"
 END
 
 DIALOGEVENT:MisUSA02Comanche101Subtitle
@@ -18041,7 +18041,7 @@ DIALOGEVENT:MisUSA02xBrf01Subtitle
 END
 
 DIALOGEVENT:MisUSA02xBrf02Subtitle
-"*Большая часть нашего флота уцелела после атаки GLA с Байконура. Наш авианосец и сопровождающие боевые корабли в вашем распоряжении для этой операции"
+"*Большая часть нашего флота уцелела после атаки МАО с Байконура. Наш авианосец и сопровождающие боевые корабли в вашем распоряжении для этой операции"
 END
 
 DIALOGEVENT:MisUSA02xChat01Subtitle
@@ -18053,7 +18053,7 @@ DIALOGEVENT:MisUSA02xChat02Subtitle
 END
 
 DIALOGEVENT:MisUSA02xChat03Subtitle
-"*В доках чисто. GLA не видно"
+"*В доках чисто. МАО не видно"
 END
 
 DIALOGEVENT:MisUSA02xChat04Subtitle
@@ -18077,7 +18077,7 @@ DIALOGEVENT:MisUSA02xChat08Subtitle
 END
 
 DIALOGEVENT:MisUSA02xCin01Subtitle
-"*Командование авианосца — флоту. Продолжайте огонь, ребята. GLA подтягивают подкрепление"
+"*Командование авианосца — флоту. Продолжайте огонь, ребята. МАО подтягивают подкрепление"
 END
 
 DIALOGEVENT:MisUSA02xCin02Subtitle
@@ -18097,15 +18097,15 @@ DIALOGEVENT:MisUSA02xEva02Subtitle
 END
 
 DIALOGEVENT:MisUSA02xEva03Subtitle
-"*Отправляю вам новые опытные сторожевые беспилотные аппараты. Враг не видит их, пока они не двигаются. Они также обнаруживают невидимые подразделения и фугасы GLA. Они должны очень пригодиться"
+"*Отправляю вам новые опытные сторожевые беспилотные аппараты. Враг не видит их, пока они не двигаются. Они также обнаруживают невидимые подразделения и фугасы МАО. Они должны очень пригодиться"
 END
 
 DIALOGEVENT:MisUSA02xEva04Subtitle
-"*Наш бульдозер прибыл, сэр! Начинайте строить базу. GLA готовят против нас новую волну атак!"
+"*Наш бульдозер прибыл, сэр! Начинайте строить базу. МАО готовят против нас новую волну атак!"
 END
 
 DIALOGEVENT:MisUSA02xEva05Subtitle
-"*Отличная работа, сэр! Жители города благодарят за гуманитарную помощь. Наша последняя задача — выбить GLA из района. Уничтожьте их главную базу над городом, и район будет в безопасности"
+"*Отличная работа, сэр! Жители города благодарят за гуманитарную помощь. Наша последняя задача — выбить МАО из района. Уничтожьте их главную базу над городом, и район будет в безопасности"
 END
 
 DIALOGEVENT:MisUSA02xEva06Subtitle
@@ -18113,11 +18113,11 @@ DIALOGEVENT:MisUSA02xEva06Subtitle
 END
 
 DIALOGEVENT:MisUSA02xEva07Subtitle
-"*Генерал, наши сторожевые беспилотные аппараты помогут обнаружить фугасы GLA"
+"*Генерал, наши сторожевые беспилотные аппараты помогут обнаружить фугасы МАО"
 END
 
 DIALOGEVENT:MisUSA02xEva08Subtitle
-"*Сэр, у склада ещё остались GLA. Нужно немедленно их выбить"
+"*Сэр, у склада ещё остались МАО. Нужно немедленно их выбить"
 END
 
 DIALOGEVENT:MisUSA02xEva09Subtitle
@@ -18133,7 +18133,7 @@ DIALOGEVENT:MisUSA02xEva11Subtitle
 END
 
 DIALOGEVENT:MisUSA02xEva12Subtitle
-"*Вы обнаружили тренировочный лагерь GLA, сэр. По данным разведки, его члены отчасти причастны к запуску с Байконура. Нам приказано его уничтожить"
+"*Вы обнаружили тренировочный лагерь МАО, сэр. По данным разведки, его члены отчасти причастны к запуску с Байконура. Нам приказано его уничтожить"
 END
 
 DIALOGEVENT:MisUSA02xEva13Subtitle
@@ -18145,15 +18145,15 @@ DIALOGEVENT:MisUSA02xEva14Subtitle
 END
 
 DIALOGEVENT:MisUSA02xEva15Subtitle
-"*Бульдозеры прибыли, генерал. Можете уничтожать GLA по своему усмотрению"
+"*Бульдозеры прибыли, генерал. Можете уничтожать МАО по своему усмотрению"
 END
 
 DIALOGEVENT:MisUSA02xEva16Subtitle
-"*Доставьте продовольствие в город, пока GLA не украли или не уничтожили его"
+"*Доставьте продовольствие в город, пока МАО не украли или не уничтожили его"
 END
 
 DIALOGEVENT:MisUSA02xEva17Subtitle
-"*Генерал, у нас получилось. Город освобождён от тирании GLA. Похоже, у них есть разведданные, которые приведут нас прямо к спрятанному оружию массового поражения"
+"*Генерал, у нас получилось. Город освобождён от тирании МАО. Похоже, у них есть разведданные, которые приведут нас прямо к спрятанному оружию массового поражения"
 END
 
 DIALOGEVENT:MisUSA02xEva18Subtitle
@@ -18189,7 +18189,7 @@ DIALOGEVENT:MisUSA02xEva25Subtitle
 END
 
 DIALOGEVENT:MisUSA02xEva26Subtitle
-"*Следующая цель — база GLA, генерал"
+"*Следующая цель — база МАО, генерал"
 END
 
 DIALOGEVENT:MisUSA02xSupply01Subtitle
@@ -18257,7 +18257,7 @@ DIALOGEVENT:MisUSA03xBrf02Subtitle
 END
 
 DIALOGEVENT:MisUSA03xBrf03Subtitle
-"*GLA работают над новым оружием массового поражения. Чёрный Лотос должна скачать эти данные, чтобы мы узнали, как далеко продвинулись их исследования"
+"*МАО работают над новым оружием массового поражения. Чёрный Лотос должна скачать эти данные, чтобы мы узнали, как далеко продвинулись их исследования"
 END
 
 DIALOGEVENT:MisUSA03xBrf04Subtitle
@@ -18309,7 +18309,7 @@ DIALOGEVENT:MisUSA03xBurton11Subtitle
 END
 
 DIALOGEVENT:MisUSA03xBurton12Subtitle
-"*Похоже, тут целая база GLA. Разведка ничего об этом не говорила"
+"*Похоже, тут целая база МАО. Разведка ничего об этом не говорила"
 END
 
 DIALOGEVENT:MisUSA03xBurton13Subtitle
@@ -18397,27 +18397,27 @@ DIALOGEVENT:MisUSA03xDrvr02Subtitle
 END
 
 DIALOGEVENT:MisUSA03xEva01Subtitle
-"*Генерал, ваша первая задача — уничтожить этот мост. Это отрежет подкрепления GLA с другого берега реки"
+"*Генерал, ваша первая задача — уничтожить этот мост. Это отрежет подкрепления МАО с другого берега реки"
 END
 
 DIALOGEVENT:MisUSA03xEva02Subtitle
-"*Генерал, замечены подкрепления GLA, переходящие мост"
+"*Генерал, замечены подкрепления МАО, переходящие мост"
 END
 
 DIALOGEVENT:MisUSA03xEva03Subtitle
-"*В район вошёл ещё один отряд GLA, генерал. Может, пора разобраться с этим мостом?"
+"*В район вошёл ещё один отряд МАО, генерал. Может, пора разобраться с этим мостом?"
 END
 
 DIALOGEVENT:MisUSA03xEva04Subtitle
-"*Генерал, похоже, в районе несколько радарных фургонов GLA — если ваши войска подойдут слишком близко, их обнаружат"
+"*Генерал, похоже, в районе несколько радарных фургонов МАО — если ваши войска подойдут слишком близко, их обнаружат"
 END
 
 DIALOGEVENT:MisUSA03xEva05Subtitle
-"*Отличная работа, генерал. Теперь вам остаётся беспокоиться только о силах GLA на этом берегу реки"
+"*Отличная работа, генерал. Теперь вам остаётся беспокоиться только о силах МАО на этом берегу реки"
 END
 
 DIALOGEVENT:MisUSA03xEva06Subtitle
-"*На пути полковника Бартона к лаборатории GLA находится лагерь для пленных. Если вы освободите удерживаемых там людей, полковнику Бартону будет легче добраться до лаборатории"
+"*На пути полковника Бартона к лаборатории МАО находится лагерь для пленных. Если вы освободите удерживаемых там людей, полковнику Бартону будет легче добраться до лаборатории"
 END
 
 DIALOGEVENT:MisUSA03xEva07Subtitle
@@ -18429,11 +18429,11 @@ DIALOGEVENT:MisUSA03xEva08Subtitle
 END
 
 DIALOGEVENT:MisUSA03xEva09Subtitle
-"*Генерал, лаборатория GLA находится прямо к северу от вашей позиции. На вашем пути ещё немало обороны GLA… будьте осторожны"
+"*Генерал, лаборатория МАО находится прямо к северу от вашей позиции. На вашем пути ещё немало обороны МАО… будьте осторожны"
 END
 
 DIALOGEVENT:MisUSA03xEva10Subtitle
-"*Похоже, эти нефтяные вышки — единственный источник дохода базы GLA. Если вы их уничтожите, GLA здесь будут обескровлены"
+"*Похоже, эти нефтяные вышки — единственный источник дохода базы МАО. Если вы их уничтожите, МАО здесь будут обескровлены"
 END
 
 DIALOGEVENT:MisUSA03xEva11Subtitle
@@ -18449,23 +18449,23 @@ DIALOGEVENT:MisUSA03xEva13Subtitle
 END
 
 DIALOGEVENT:MisUSA03xEva14Subtitle
-"*Генерал, GLA знают, что мы здесь, и, похоже, в состоянии повышенной готовности. Будьте осторожны, выводя полковника Бартона на позицию над их секретной лабораторией"
+"*Генерал, МАО знают, что мы здесь, и, похоже, в состоянии повышенной готовности. Будьте осторожны, выводя полковника Бартона на позицию над их секретной лабораторией"
 END
 
 DIALOGEVENT:MisUSA03xEva15Subtitle
-"*Генерал, GLA оснастили свои танковые снаряды ядами. Будьте осторожны."
+"*Генерал, МАО оснастили свои танковые снаряды ядами. Будьте осторожны."
 END
 
 DIALOGEVENT:MisUSA03xEva16Subtitle
-"*Вижу патруль GLA в той деревне, генерал… а также множество вражеских сил, засевших по всей деревне"
+"*Вижу патруль МАО в той деревне, генерал… а также множество вражеских сил, засевших по всей деревне"
 END
 
 DIALOGEVENT:MisUSA03xEva17Subtitle
-"*Возможно, Чёрный Лотос сможет узнать больше о том, кто стоит за программой GLA по созданию оружия массового поражения"
+"*Возможно, Чёрный Лотос сможет узнать больше о том, кто стоит за программой МАО по созданию оружия массового поражения"
 END
 
 DIALOGEVENT:MisUSA03xEva18Subtitle
-"*Это было невероятно, генерал. Похоже, GLA больше не воспользуются этим объектом… и, судя по всему, Чёрный Лотос скачала важные сведения о том, откуда эта лаборатория. А пока перегруппируемся и посмотрим, что ей удалось узнать. Отличная работа"
+"*Это было невероятно, генерал. Похоже, МАО больше не воспользуются этим объектом… и, судя по всему, Чёрный Лотос скачала важные сведения о том, откуда эта лаборатория. А пока перегруппируемся и посмотрим, что ей удалось узнать. Отличная работа"
 END
 
 DIALOGEVENT:MisUSA03xLotus01Subtitle
@@ -18489,7 +18489,7 @@ DIALOGEVENT:MisUSA03xLotus05Subtitle
 END
 
 DIALOGEVENT:MisUSA03xLotus06Subtitle
-"*Генерал… мои силы выдвигаются на последние позиции GLA на этом берегу реки. Передайте полковнику Бартону, чтобы поторопился… не хочу слишком долго ждать, пока он нас догонит"
+"*Генерал… мои силы выдвигаются на последние позиции МАО на этом берегу реки. Передайте полковнику Бартону, чтобы поторопился… не хочу слишком долго ждать, пока он нас догонит"
 END
 
 DIALOGEVENT:MisUSA03xLotus07Subtitle
@@ -18497,7 +18497,7 @@ DIALOGEVENT:MisUSA03xLotus07Subtitle
 END
 
 DIALOGEVENT:MisUSA03xLotus08Subtitle
-"*Я здесь, полковник… вы победили. GLA сопротивлялись сильнее, чем я ожидала. Начинаю загрузку"
+"*Я здесь, полковник… вы победили. МАО сопротивлялись сильнее, чем я ожидала. Начинаю загрузку"
 END
 
 DIALOGEVENT:MisUSA03xLotus09Subtitle
@@ -18533,7 +18533,7 @@ DIALOGEVENT:MisUSA03xRngr04Subtitle
 END
 
 DIALOGEVENT:MisUSA03xRngr05Subtitle
-"*Генерал, отряд техники захватили сразу после нас. GLA держат её в лагере к северу отсюда"
+"*Генерал, отряд техники захватили сразу после нас. МАО держат её в лагере к северу отсюда"
 END
 
 DIALOGEVENT:MisUSA04Eva02Subtitle
@@ -18541,15 +18541,15 @@ DIALOGEVENT:MisUSA04Eva02Subtitle
 END
 
 DIALOGEVENT:MisUSA04Eva07Subtitle
-"*Нужно зачистить эти гнёзда стингеров, прежде чем мы сможем вызвать бомбардировщики и очистить район от GLA"
+"*Нужно зачистить эти гнёзда стингеров, прежде чем мы сможем вызвать бомбардировщики и очистить район от МАО"
 END
 
 DIALOGEVENT:MisUSA04Eva08Subtitle
-"*Строительные бригады прибыли, сэр. Нужно развернуть базу, пока нас не смяли GLA"
+"*Строительные бригады прибыли, сэр. Нужно развернуть базу, пока нас не смяли МАО"
 END
 
 DIALOGEVENT:MisUSA04Eva09Subtitle
-"*Наша конечная цель — вот эта база GLA в холмах. Уничтожьте её, и операция будет завершена"
+"*Наша конечная цель — вот эта база МАО в холмах. Уничтожьте её, и операция будет завершена"
 END
 
 DIALOGEVENT:MisUSA04Officer03Subtitle
@@ -18557,7 +18557,7 @@ DIALOGEVENT:MisUSA04Officer03Subtitle
 END
 
 DIALOGEVENT:MisUSA04Ranger01Subtitle
-"*Передаю координаты бункера GLA: квадрат Бета-Чарли 6-8-9-4-4"
+"*Передаю координаты бункера МАО: квадрат Бета-Чарли 6-8-9-4-4"
 END
 
 DIALOGEVENT:MisUSA04Transport01Subtitle
@@ -18569,7 +18569,7 @@ DIALOGEVENT:MisUSA04Transport03Subtitle
 END
 
 DIALOGEVENT:MisUSA04xBrf01Subtitle
-"*Генерал, по данным разведки, отколовшейся ячейкой GLA командует доктор Тракс"
+"*Генерал, по данным разведки, отколовшейся ячейкой МАО командует доктор Тракс"
 END
 
 DIALOGEVENT:MisUSA04xBrf02Subtitle
@@ -18585,7 +18585,7 @@ DIALOGEVENT:MisUSA04xBrf04Subtitle
 END
 
 DIALOGEVENT:MisUSA04xBrf05Subtitle
-"*Разведданные из секретной лаборатории доказывают, что GLA захватили эти нефтяные месторождения, чтобы финансировать злодея доктора Тракса. Они могут скорее уничтожить их, чем позволить вам их отбить. Осторожно, генерал: GLA начали ставить растяжки… используйте бульдозеры, чтобы безопасно снимать РАСТЯЖКИ"
+"*Разведданные из секретной лаборатории доказывают, что МАО захватили эти нефтяные месторождения, чтобы финансировать злодея доктора Тракса. Они могут скорее уничтожить их, чем позволить вам их отбить. Осторожно, генерал: МАО начали ставить растяжки… используйте бульдозеры, чтобы безопасно снимать РАСТЯЖКИ"
 END
 
 DIALOGEVENT:MisUSA04xChat01Subtitle
@@ -18613,7 +18613,7 @@ DIALOGEVENT:MisUSA04xChat06Subtitle
 END
 
 DIALOGEVENT:MisUSA04xChat07Subtitle
-"*Ха! Танкам GLA с нами не тягаться!"
+"*Ха! Танкам МАО с нами не тягаться!"
 END
 
 DIALOGEVENT:MisUSA04xChat08Subtitle
@@ -18785,11 +18785,11 @@ DIALOGEVENT:MisUSA04xCin14Subtitle
 END
 
 DIALOGEVENT:MisUSA04xEva01Subtitle
-"*GLA начали ставить РАСТЯЖКИ на здания в этом районе. Они взорвутся, если вы попытаетесь захватить или занять здание. Снимайте их бульдозерами"
+"*МАО начали ставить РАСТЯЖКИ на здания в этом районе. Они взорвутся, если вы попытаетесь захватить или занять здание. Снимайте их бульдозерами"
 END
 
 DIALOGEVENT:MisUSA04xEva02Subtitle
-"*GLA захватили соседние нефтяные месторождения. Защитите вышки и уничтожьте базу GLA"
+"*МАО захватили соседние нефтяные месторождения. Защитите вышки и уничтожьте базу МАО"
 END
 
 DIALOGEVENT:MisUSA04xEva03Subtitle
@@ -18805,7 +18805,7 @@ DIALOGEVENT:MisUSA04xEva05Subtitle
 END
 
 DIALOGEVENT:MisUSA04xEva06Subtitle
-"*Отличная работа, генерал, этот регион очищен от смутьянов GLA"
+"*Отличная работа, генерал, этот регион очищен от смутьянов МАО"
 END
 
 DIALOGEVENT:MisUSA04xEva07Subtitle
@@ -18813,7 +18813,7 @@ DIALOGEVENT:MisUSA04xEva07Subtitle
 END
 
 DIALOGEVENT:MisUSA04xEva08Subtitle
-"*Генерал, ваша конечная задача — уничтожить базу GLA в этом районе. Основным источником средств будут нефтяные вышки. Вы должны захватить и защитить их!"
+"*Генерал, ваша конечная задача — уничтожить базу МАО в этом районе. Основным источником средств будут нефтяные вышки. Вы должны захватить и защитить их!"
 END
 
 DIALOGEVENT:MisUSA04xEva09Subtitle
@@ -18821,27 +18821,27 @@ DIALOGEVENT:MisUSA04xEva09Subtitle
 END
 
 DIALOGEVENT:MisUSA04xEva10Subtitle
-"*Генерал, местный городок отравлен пропагандой GLA, и жители нападают на нас. Уничтожьте радиостанцию GLA, чтобы подавить восстание"
+"*Генерал, местный городок отравлен пропагандой МАО, и жители нападают на нас. Уничтожьте радиостанцию МАО, чтобы подавить восстание"
 END
 
 DIALOGEVENT:MisUSA04xEva11Subtitle
-"*Уничтожьте радиостанцию GLA в городе, чтобы подавить восстание"
+"*Уничтожьте радиостанцию МАО в городе, чтобы подавить восстание"
 END
 
 DIALOGEVENT:MisUSA04xEva12Subtitle
-"*Отличная работа, генерал. Пропагандистская машина GLA уничтожена"
+"*Отличная работа, генерал. Пропагандистская машина МАО уничтожена"
 END
 
 DIALOGEVENT:MisUSA04xEva13Subtitle
-"*Уничтожьте РАДИОСТАНЦИЮ GLA в городе, чтобы прекратить атаки заминированных автомобилей"
+"*Уничтожьте РАДИОСТАНЦИЮ МАО в городе, чтобы прекратить атаки заминированных автомобилей"
 END
 
 DIALOGEVENT:MisUSA04xEva14Subtitle
-"*Уничтожьте РАДИОСТАНЦИЮ GLA в городе, чтобы прекратить атаки грузовиков со взрывчаткой"
+"*Уничтожьте РАДИОСТАНЦИЮ МАО в городе, чтобы прекратить атаки грузовиков со взрывчаткой"
 END
 
 DIALOGEVENT:MisUSA04xEva15Subtitle
-"*Уничтожьте РАДИОСТАНЦИЮ GLA в городе, чтобы прекратить атаки смертников"
+"*Уничтожьте РАДИОСТАНЦИЮ МАО в городе, чтобы прекратить атаки смертников"
 END
 
 DIALOGEVENT:MisUSA04xEva16Subtitle
@@ -18977,7 +18977,7 @@ DIALOGEVENT:MisUSA05xCin06Subtitle
 END
 
 DIALOGEVENT:MisUSA05xEva01Subtitle
-"*Первый этап операции завершён, генерал. Удар ракетами Томагавк уничтожил все заводы GLA по производству токсинов. Осталось уничтожить только их главную базу и шахты химических ракет"
+"*Первый этап операции завершён, генерал. Удар ракетами Томагавк уничтожил все заводы МАО по производству токсинов. Осталось уничтожить только их главную базу и шахты химических ракет"
 END
 
 DIALOGEVENT:MisUSA05xEva02Subtitle
@@ -19001,7 +19001,7 @@ DIALOGEVENT:MisUSA05xEva06Subtitle
 END
 
 DIALOGEVENT:MisUSA05xEva07Subtitle
-"*Генерал, местные GLA откликнулись на ваше спасение и передали нам контроль над своей базой. Теперь вы можете использовать их силы в атаке"
+"*Генерал, местные МАО откликнулись на ваше спасение и передали нам контроль над своей базой. Теперь вы можете использовать их силы в атаке"
 END
 
 DIALOGEVENT:MisUSA05xEva08Subtitle
@@ -19069,7 +19069,7 @@ DIALOGEVENT:MisUSA05xEva23Subtitle
 END
 
 DIALOGEVENT:MisUSA05xEva24Subtitle
-"*Операция одобрена. Начинайте атаку на базу GLA по периметру"
+"*Операция одобрена. Начинайте атаку на базу МАО по периметру"
 END
 
 DIALOGEVENT:MisUSA05xEva25Subtitle
@@ -19105,7 +19105,7 @@ DIALOGEVENT:MisUSA05xEva32Subtitle
 END
 
 DIALOGEVENT:MisUSA05xEva33Subtitle
-"*Генерал, база GLA на востоке решила восстать против химического генерала и его массового применения токсинов. Они хотят помочь нам в атаке, предоставив свою базу"
+"*Генерал, база МАО на востоке решила восстать против химического генерала и его массового применения токсинов. Они хотят помочь нам в атаке, предоставив свою базу"
 END
 
 DIALOGEVENT:MisUSA05xEva34Subtitle
@@ -19133,7 +19133,7 @@ DIALOGEVENT:MisUSA06Crusader101Subtitle
 END
 
 DIALOGEVENT:MisUSA06Crusader102Subtitle
-"*Ещё GLA. Заряжай"
+"*Ещё МАО. Заряжай"
 END
 
 DIALOGEVENT:MisUSA06Crusader202Subtitle
@@ -19197,7 +19197,7 @@ DIALOGEVENT:MisUSA08Chatter14Subtitle
 END
 
 DIALOGEVENT:MisUSA08Cin03Subtitle
-"*Похоже, сегодня против нас выстроились все GLA"
+"*Похоже, сегодня против нас выстроились все МАО"
 END
 
 DIALOGEVENT:MisUSAChatter01Subtitle
@@ -24237,27 +24237,27 @@ DIALOGEVENT:UnitDescriptXChina023Subtitle
 END
 
 DIALOGEVENT:UnitDescriptXChina024Subtitle
-"*Саботажник GLA — невидимый пехотинец, способный взбираться на скалы и воздействовать на вражеские здания, проникая в них. Проникнув на электростанцию, он временно отключает энергию, а проникнув в супероружие — сбрасывает его таймер. Саботажник, проникший во вражеский командный центр, сбрасывает таймеры всех генеральских способностей противника"
+"*Саботажник МАО — невидимый пехотинец, способный взбираться на скалы и воздействовать на вражеские здания, проникая в них. Проникнув на электростанцию, он временно отключает энергию, а проникнув в супероружие — сбрасывает его таймер. Саботажник, проникший во вражеский командный центр, сбрасывает таймеры всех генеральских способностей противника"
 END
 
 DIALOGEVENT:UnitDescriptXChina025Subtitle
-"*Боевой мотоцикл изначально поставляется с водителем-повстанцем и установленным пулемётом. Повстанца можно заменить любым другим пехотинцем GLA, и мотоцикл получит его особые способности"
+"*Боевой мотоцикл изначально поставляется с водителем-повстанцем и установленным пулемётом. Повстанца можно заменить любым другим пехотинцем МАО, и мотоцикл получит его особые способности"
 END
 
 DIALOGEVENT:UnitDescriptXChina026Subtitle
-"*Боевой автобус GLA вмещает до 8 пехотинцев, стреляющих из окон. После уничтожения его тяжёлый стальной корпус остаётся и служит бункером"
+"*Боевой автобус МАО вмещает до 8 пехотинцев, стреляющих из окон. После уничтожения его тяжёлый стальной корпус остаётся и служит бункером"
 END
 
 DIALOGEVENT:UnitDescriptXChina027Subtitle
-"*GLA снабдили своих рабочих обувью, чтобы выжать из своих крестьян ещё больше принудительного труда"
+"*МАО снабдили своих рабочих обувью, чтобы выжать из своих крестьян ещё больше принудительного труда"
 END
 
 DIALOGEVENT:UnitDescriptXChina028Subtitle
-"*Маскировочная сетка — улучшение оборонительных сооружений GLA, делающее их невидимыми для обычного обнаружения"
+"*Маскировочная сетка — улучшение оборонительных сооружений МАО, делающее их невидимыми для обычного обнаружения"
 END
 
 DIALOGEVENT:UnitDescriptXChina029Subtitle
-"*GLA начали размещать во всех своих зданиях элитную охрану с гранатомётами. Будьте осторожны, проникая на любую базу GLA"
+"*МАО начали размещать во всех своих зданиях элитную охрану с гранатомётами. Будьте осторожны, проникая на любую базу МАО"
 END
 
 DIALOGEVENT:UnitDescriptXChina030Subtitle
@@ -24265,7 +24265,7 @@ DIALOGEVENT:UnitDescriptXChina030Subtitle
 END
 
 DIALOGEVENT:UnitDescriptXChina031Subtitle
-"*Уловки GLA вышли на новый уровень. Теперь они строят ложные здания, похожие на настоящие, но являющиеся лишь заминированными макетами. Уничтожайте всё издалека, чтобы избежать сюрпризов GLA"
+"*Уловки МАО вышли на новый уровень. Теперь они строят ложные здания, похожие на настоящие, но являющиеся лишь заминированными макетами. Уничтожайте всё издалека, чтобы избежать сюрпризов МАО"
 END
 
 DIALOGEVENT:UnitDescriptXChina032Subtitle
@@ -24273,7 +24273,7 @@ DIALOGEVENT:UnitDescriptXChina032Subtitle
 END
 
 DIALOGEVENT:UnitDescriptXChina033Subtitle
-"*Способность «Внезапная атака» позволяет генералам GLA размещать беззащитную сеть туннелей в любом разведанном месте. Хотя она чуть слабее обычного туннеля, она соединена с основной сетью"
+"*Способность «Внезапная атака» позволяет генералам МАО размещать беззащитную сеть туннелей в любом разведанном месте. Хотя она чуть слабее обычного туннеля, она соединена с основной сетью"
 END
 
 DIALOGEVENT:UnitDescriptXChina034Subtitle
@@ -24469,7 +24469,7 @@ DIALOGEVENT:UnitDescriptXUSA008Subtitle
 END
 
 DIALOGEVENT:UnitDescriptXUSA009Subtitle
-"*Противобункерные ракеты — улучшение истребителя Стелс и «Авроры». Помимо обычного действия, эти ракеты ранят и даже убивают подразделения, засевшие в зданиях, включая Дворец GLA, сеть туннелей и китайский боевой бункер"
+"*Противобункерные ракеты — улучшение истребителя Стелс и «Авроры». Помимо обычного действия, эти ракеты ранят и даже убивают подразделения, засевшие в зданиях, включая Дворец МАО, сеть туннелей и китайский боевой бункер"
 END
 
 DIALOGEVENT:UnitDescriptXUSA010Subtitle
@@ -24545,11 +24545,11 @@ DIALOGEVENT:UnitDescriptXUSA027Subtitle
 END
 
 DIALOGEVENT:UnitDescriptXUSA028Subtitle
-"*Улучшение «Обувь рабочего» повышает скорость и эффективность сбора у всех рабочих GLA"
+"*Улучшение «Обувь рабочего» повышает скорость и эффективность сбора у всех рабочих МАО"
 END
 
 DIALOGEVENT:UnitDescriptXUSA029Subtitle
-"*Маскировочная сетка — улучшение оборонительных сооружений GLA, делающее их невидимыми"
+"*Маскировочная сетка — улучшение оборонительных сооружений МАО, делающее их невидимыми"
 END
 
 DIALOGEVENT:UnitDescriptXUSA030Subtitle

@@ -1,75 +1,75 @@
 [
  {
   "label": "SCRIPT:CHI02AudioHolder03",
-  "text": "<'EVA' speaking>  \n 'General, you're alive!?! We thought we lost you when the bridge went down. Well, you're not out of danger yet, so let's get started.'"
+  "text": "<Говорит EVA> \n 'Генерал, вы живы?! Мы думали, что потеряли вас, когда рухнул мост. Опасность ещё не миновала, так что приступим.'"
  },
  {
   "label": "SCRIPT:CHI02AudioHolder04",
-  "text": "<'EVA' speaking>  \n 'First, you're going to need to finish your base. The barracks, reactor, and supply center are all essential to your survival, so finish constructing them immediately. I'll contact you again once your base is complete.'"
+  "text": "<Говорит EVA> \n 'Сначала нужно достроить базу. Казармы, реактор и центр снабжения жизненно необходимы, так что достройте их немедленно. Я свяжусь с вами, когда база будет готова.'"
  },
  {
   "label": "SCRIPT:CHI02AudioHolder05",
-  "text": "<'EVA' speaking>  \n 'Excellent, your base is complete?except for a War Factory. We need to get you one now. There should be a surplus base--with a War Factory--here?'"
+  "text": "<Говорит EVA> \n 'Отлично, база готова — не хватает только военного завода. Он нужен вам сейчас же. Здесь должна быть резервная база — с военным заводом.'"
  },
  {
   "label": "SCRIPT:CHI02AudioHolder06",
-  "text": "<'EVA' speaking>  \n 'I don't know what condition the base is in, but it should allow you to build armored units to help your fight. Get there as soon as possible, General.'"
+  "text": "<Говорит EVA> \n 'Не знаю, в каком она состоянии, но там можно будет строить бронетехнику. Доберитесь туда как можно скорее, генерал.'"
  },
  {
   "label": "SCRIPT:CHI02AudioHolder07",
-  "text": "<'EVA' speaking>  \n 'Now we know the GLA's reason for coming to Hong Kong: They're targeting key buildings around the city. Our main objective is to destroy all of the GLA's forces, but if we can also keep them from destroying those buildings, our leaders would be most grateful.'"
+  "text": "<Говорит EVA> \n 'Теперь мы знаем, зачем МАО пришла в Гонконг: их цель — ключевые здания города. Наша главная задача — уничтожить все силы МАО, но если мы ещё и не дадим им разрушить эти здания, руководство будет очень благодарно.'"
  },
  {
   "label": "SCRIPT:CHI02AudioHolder08",
-  "text": "<'EVA' speaking>  \n 'If you can keep your radar operating, I can track the Terrorists for you and give you their possible targets.'"
+  "text": "<Говорит EVA> \n 'Если радар будет работать, я смогу следить за террористами и сообщать вам их возможные цели.'"
  },
  {
   "label": "SCRIPT:CHI02AudioHolder09",
-  "text": "<'EVA' speaking>  \n 'General, a Terrorist is leaving the Convention Center, and he's strapped with enough explosives to bring down a building! I'll mark the Terrorist in red on your radar. I'll mark his possible targets in yellow. Stop him before he reaches one of those targets!'"
+  "text": "<Говорит EVA> \n 'Генерал, из конференц-центра выходит террорист, и на нём столько взрывчатки, что хватит обрушить здание! Я отмечу террориста на радаре красным, а его возможные цели — жёлтым. Остановите его, пока он не добрался до одной из них!'"
  },
  {
   "label": "SCRIPT:CHI02AudioHolder10",
-  "text": "<'EVA' speaking>  \n 'Another Terrorist has left the Convention Center! I'll mark his location in red. His possible targets are marked in yellow. Stop him, General.'"
+  "text": "<Говорит EVA> \n 'Ещё один террорист покинул конференц-центр! Я отмечу его красным. Его возможные цели отмечены жёлтым. Остановите его, генерал.'"
  },
  {
   "label": "SCRIPT:CHI02AudioHolder11",
-  "text": "<'EVA' speaking>  \n 'General, this building is a Terrorist target--we must protect it!'"
+  "text": "<Говорит EVA> \n 'Генерал, это здание — цель террористов, мы должны его защитить!'"
  },
  {
   "label": "SCRIPT:CHI02AudioHolder12",
-  "text": "<'EVA' speaking>  \n 'General, the Terrorists have taken over the Convention Center! You're going to have to destroy the Convention Center and the attached parking structures to stop the Terrorist threat.'"
+  "text": "<Говорит EVA> \n 'Генерал, террористы захватили конференц-центр! Чтобы устранить угрозу, придётся уничтожить конференц-центр и примыкающие к нему парковки.'"
  },
  {
   "label": "SCRIPT:CHI02AudioHolder13",
-  "text": "<'EVA' speaking>  \n 'Excellent, you've reached the surplus base. Hmm?it's not much to look at, but it will allow you to build tanks?and more War Factories, if you need.'"
+  "text": "<Говорит EVA> \n 'Отлично, вы добрались до резервной базы. Хм, смотреть тут особо не на что, но здесь можно строить танки и, если понадобится, новые военные заводы.'"
  },
  {
   "label": "SCRIPT:CHI02AudioHolder14",
-  "text": "<'EVA' speaking>  \n 'The Terroist threat is finished. Good work, General.'"
+  "text": "<Говорит EVA> \n 'С угрозой террористов покончено. Хорошая работа, генерал.'"
  },
  {
   "label": "SCRIPT:CHI02AudioHolder15",
-  "text": "<'EVA' speaking>  \n 'General, I've detected GLA armored units on the move. They didn't come from the Convention Center, so the GLA must have another base somewhere in Hong Kong. Find that base and destroy it!'"
+  "text": "<Говорит EVA> \n 'Генерал, я засекла движение бронетехники МАО. Она пришла не из конференц-центра — значит, у МАО есть ещё одна база где-то в Гонконге. Найдите её и уничтожьте!'"
  },
  {
   "label": "SCRIPT:CHI02AudioHolder16",
-  "text": "<'EVA' speaking>  \n 'General, the GLA have brought their Toxin Tractors with them. You'll know them by the green ooze they spray. Keep your infantry units away from them and use your tanks to deal with this new threat.'"
+  "text": "<Говорит EVA> \n 'Генерал, МАО привела с собой химические тракторы. Их легко узнать по зелёной жиже, которую они разбрызгивают. Держите пехоту подальше от них и боритесь с новой угрозой танками.'"
  },
  {
   "label": "SCRIPT:CHI02AudioHolder17",
-  "text": "<'EVA' speaking>  \n 'Good work, General, you've destroyed the Toxin base. Now they shouldn't be able to build any more Toxin Tractors.'"
+  "text": "<Говорит EVA> \n 'Хорошая работа, генерал, химическая база уничтожена. Теперь они больше не смогут строить химические тракторы.'"
  },
  {
   "label": "SCRIPT:CHI02AudioHolder18",
-  "text": "<'EVA' speaking>  \n 'Wait, General, there is a large force up ahead. I'll call for an EMP strike to clear the area?standby?'"
+  "text": "<Говорит EVA> \n 'Стойте, генерал, впереди крупные силы противника. Я вызову ЭМИ-удар, чтобы расчистить путь. Ждите.'"
  },
  {
   "label": "SCRIPT:CHI02AudioHolder19",
-  "text": "<'EVA' speaking>  \n 'That should give you a clear path to their base. Let's finish this, General.'"
+  "text": "<Говорит EVA> \n 'Теперь путь к их базе свободен. Покончим с этим, генерал.'"
  },
  {
   "label": "SCRIPT:CHI02AudioHolder20",
-  "text": "<AutoFerry Capt. speaking>  \n 'Finally, the military is here! Those Terrorists are ruining my business! If you put your forces aboard I'll take you out to the Convention Center. You can sneak in the backdoor and catch them by surprize. Jut hit the Transport button when you're ready.'"
+  "text": "<Говорит капитан парома> \n 'Наконец-то пришли военные! Эти террористы губят мне весь бизнес! Грузите войска на борт, и я доставлю вас к конференц-центру. Проберётесь с чёрного хода и застанете их врасплох. Как будете готовы, нажмите кнопку транспорта.'"
  },
  {
   "label": "SCRIPT:CHI02Box01",
@@ -113,7 +113,7 @@
  },
  {
   "label": "MAP:CHI03AudioHolder01",
-  "text": "<Красная гвардия> «Генерал, уровень воды упал! Войска GLA переходят реку!»"
+  "text": "<Красная гвардия> «Генерал, уровень воды упал! Войска МАО переходят реку!»"
  },
  {
   "label": "MAP:CHI06Open",
@@ -477,31 +477,31 @@
  },
  {
   "label": "MAP:GLA08Temp",
-  "text": "GLA Mission 8 - Southern Kazakhstan  \n Baikonur Cosmodrome"
+  "text": "МАО, миссия 8 — Южный Казахстан \n Космодром Байконур"
  },
  {
   "label": "MAP:CHI08Temp",
-  "text": "China Mission 8 - Last China Mission  \n Status: Incomplete"
+  "text": "Китай, миссия 8 — Последняя миссия Китая \n Статус: не завершена"
  },
  {
   "label": "MAP:CHI07Temp",
-  "text": "China Mission 7 - Nuke-O-Rama  \n Status: Incomplete"
+  "text": "Китай, миссия 7 — Ядерный разгул \n Статус: не завершена"
  },
  {
   "label": "MAP:CHI05Temp",
-  "text": "China Mission 5 - Firebomb GLA  \n Status: Incomplete"
+  "text": "Китай, миссия 5 — Огненный удар по МАО \n Статус: не завершена"
  },
  {
   "label": "MAP:USA08Temp",
-  "text": "USA Mission 8 - Devastate GLA  \n Status: Incomplete"
+  "text": "США, миссия 8 — Разгром МАО \n Статус: не завершена"
  },
  {
   "label": "MAP:USA06Temp",
-  "text": "USA Mission 6 - E3 Revamp  \n Status: Incomplete"
+  "text": "США, миссия 6 — Переделка E3 \n Статус: не завершена"
  },
  {
   "label": "MAP:USA05Temp",
-  "text": "USA Mission 5 - River Raid  \n Status: Incomplete"
+  "text": "США, миссия 5 — Речной рейд \n Статус: не завершена"
  },
  {
   "label": "CONTROLBAR:TooltipDaisyCutter",

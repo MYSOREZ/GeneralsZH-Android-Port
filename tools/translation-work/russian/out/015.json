@@ -257,7 +257,7 @@
  },
  {
   "label": "HELP:MOAB-01",
-  "text": "HINT:  \n MOABs are effective against vehicles and  \n will stun any survivors"
+  "text": "ПОДСКАЗКА: \n Мать всех бомб эффективна против техники и \n оглушает всех выживших"
  },
  {
   "label": "HELP:Countermeasures-01",
@@ -265,7 +265,7 @@
  },
  {
   "label": "HELP:HellfireDrone-01",
-  "text": "HINT:  \n Upgrade your vehicles with Hellfire Drones  \n to increase effectiveness against armored forces"
+  "text": "ПОДСКАЗКА: \n Установите на технику ракетные беспилотники, \n чтобы усилить её против бронетехники"
  },
  {
   "label": "HELP:ChemicalSuit-01",
@@ -281,11 +281,11 @@
  },
  {
   "label": "HELP:SupplyLines-01",
-  "text": "HINT:  \n The Supply Lines upgrade improves income"
+  "text": "ПОДСКАЗКА: \n Улучшение «Поставка снабжения» увеличивает доход"
  },
  {
   "label": "HELP:SupplyLines-02",
-  "text": "HINT:  \n Upgrade Supply Lines to increase  \n the efficiency of Chinooks"
+  "text": "ПОДСКАЗКА: \n Улучшение «Поставка снабжения» повышает \n эффективность Чинуков"
  },
  {
   "label": "HELP:ListeningOutpost-01",
@@ -317,39 +317,39 @@
  },
  {
   "label": "HELP:InternetCenter-01",
-  "text": "HINT:  \n Place Hackers in the Internet Center  \n to increase money collection rate"
+  "text": "ПОДСКАЗКА: \n Разместите хакеров в Центре Интернет, \n чтобы ускорить добычу денег"
  },
  {
   "label": "HELP:InternetCenter-02",
-  "text": "HINT:  \n Build an Internet Center and upgrade to  \n Satellite Hack 1 and 2"
+  "text": "ПОДСКАЗКА: \n Постройте Центр Интернет и изучите в нём \n Взлом спутника I и II"
  },
  {
   "label": "HELP:SatelliteHack1-01",
-  "text": "HINT:  \n Satellite Hack 1 reveals all enemy Command Centers"
+  "text": "ПОДСКАЗКА: \n Взлом спутника I открывает все командные центры противника"
  },
  {
   "label": "HELP:SatelliteHack2-01",
-  "text": "HINT:  \n Satellite Hack 2 reveals all that enemy units can see"
+  "text": "ПОДСКАЗКА: \n Взлом спутника II показывает всё, что видят войска противника"
  },
  {
   "label": "HELP:EMPMines-01",
-  "text": "HINT:  \n Mines can be upgraded to Neutron Mines, which will  \n disrupt enemy vehicles"
+  "text": "ПОДСКАЗКА: \n Мины можно улучшить до нейтронных мин, которые \n выводят из строя вражескую технику"
  },
  {
   "label": "HELP:NeutronShell-01",
-  "text": "HINT:  \n Neutron Shell attacks from the Nuke Cannon neutralize  \n vehicles, allowing any infantry to capture them"
+  "text": "ПОДСКАЗКА: \n Нейтронные снаряды ядерной пушки обезвреживают экипаж \n техники, и её может захватить любая пехота"
  },
  {
   "label": "HELP:CombatCycle-01",
-  "text": "HINT:  \n Combat Cycles can jump off of cliffs"
+  "text": "ПОДСКАЗКА: \n Боевые мотоциклы могут прыгать с обрывов"
  },
  {
   "label": "HELP:CombatCycle-02",
-  "text": "HINT:  \n Place a Tunnel Defender on a Combat Cycle to  \n allow it to fire rockets"
+  "text": "ПОДСКАЗКА: \n Посадите гранатомётчика на боевой мотоцикл, \n чтобы тот мог стрелять ракетами"
  },
  {
   "label": "HELP:CombatCycle-03",
-  "text": "HINT:  \n Place a Terrorist on a Combat Cycle to  \n produce a Suicide Bike"
+  "text": "ПОДСКАЗКА: \n Посадите террориста на боевой мотоцикл, \n чтобы получить мотоцикл-смертник"
  },
  {
   "label": "HELP:CombatCycle-04",
@@ -357,15 +357,15 @@
  },
  {
   "label": "HELP:CombatCycle-05",
-  "text": "HINT:  \n Workers can use Combat Cycles to travel quickly"
+  "text": "ПОДСКАЗКА: \n Рабочие могут быстро передвигаться на боевых мотоциклах"
  },
  {
   "label": "HELP:Saboteur-01",
-  "text": "HINT:  \n The Saboteur disrupts the abilities of enemy structures"
+  "text": "ПОДСКАЗКА: \n Саботажник выводит из строя способности вражеских зданий"
  },
  {
   "label": "HELP:Saboteur-02",
-  "text": "HINT:  \n Direct the Saboteur into an enemy Command Center  \n to reset their Generals Powers timers"
+  "text": "ПОДСКАЗКА: \n Отправьте саботажника во вражеский командный центр, \n чтобы сбросить таймеры генеральских способностей"
  },
  {
   "label": "HELP:FakeStructures-01",
@@ -381,15 +381,15 @@
  },
  {
   "label": "HELP:WorkerShoes-01",
-  "text": "HINT:  \n Purchase Worker Shoes to increase the speed Workers  \n travel and collect resources"
+  "text": "ПОДСКАЗКА: \n Купите обувь рабочего, чтобы рабочие быстрее \n передвигались и собирали ресурсы"
  },
  {
   "label": "HELP:CamoNetting-01",
-  "text": "HINT:  \n Camo-Netting camouflages your Stinger Sites  \n and Tunnel Networks"
+  "text": "ПОДСКАЗКА: \n Маскировочная сетка скрывает гнёзда стингеров \n и сети туннелей"
  },
  {
   "label": "HELP:FortifiedStructures-01",
-  "text": "HINT:  \n Fortified Structures are harder to destroy"
+  "text": "ПОДСКАЗКА: \n Укреплённые здания труднее разрушить"
  },
  {
   "label": "HELP:BoobyTrap-01",
@@ -405,15 +405,15 @@
  },
  {
   "label": "HELP:AuroraAlpha-01",
-  "text": "HINT:  \n The Aurora Alpha is equipped with a small  \n but devastating Fuel Air Bomb"
+  "text": "ПОДСКАЗКА: \n Аврора Альфа несёт небольшую, \n но разрушительную объёмно-детонирующую бомбу"
  },
  {
   "label": "HELP:MicrowavePatriot-01",
-  "text": "HINT:  \n The EMP Patriot's Rockets are effective  \n against both vehicles and infantry"
+  "text": "ПОДСКАЗКА: \n Ракеты ЭМИ «Патриота» эффективны \n и против техники, и против пехоты"
  },
  {
   "label": "HELP:AdvancedRods-01",
-  "text": "HINT:  \n Advanced Rods provide more power than normal Control Rods"
+  "text": "ПОДСКАЗКА: \n Улучшенные стержни дают больше энергии, чем обычные графитовые"
  },
  {
   "label": "HELP:LaserTank-01",
@@ -441,23 +441,23 @@
  },
  {
   "label": "HELP:InfantryBlackLotus-01",
-  "text": "HINT:  \n Your Black Lotus units have improved abilities"
+  "text": "ПОДСКАЗКА: \n Ваши Чёрные лотосы обладают улучшенными способностями"
  },
  {
   "label": "HELP:InfantryBlackLotus-02",
-  "text": "HINT:  \n You can build multiple Black Lotus units"
+  "text": "ПОДСКАЗКА: \n Вы можете построить несколько Чёрных лотосов"
  },
  {
   "label": "HELP:InfantryHacker-01",
-  "text": "HINT:  \n The Infantry General's Hacker hack money faster"
+  "text": "ПОДСКАЗКА: \n Хакеры пехотного генерала взламывают деньги быстрее"
  },
  {
   "label": "HELP:ChineseParadrop-01",
-  "text": "HINT:  \n The Chinese Paradrop parachutes Red Guard anywhere"
+  "text": "ПОДСКАЗКА: \n Китайский десант сбрасывает красногвардейцев в любую точку"
  },
  {
   "label": "HELP:EmperorTank-01",
-  "text": "HINT:  \n Emperor Tanks are the ultimate tank,  \n effective against both vehicles and infantry"
+  "text": "ПОДСКАЗКА: \n Имперский Владыка — лучший танк, \n эффективен и против техники, и против пехоты"
  },
  {
   "label": "HELP:EmperorTank-02",
@@ -473,11 +473,11 @@
  },
  {
   "label": "HELP:TacticalNuke-01",
-  "text": "HINT:  \n Your Airfield can upgrade MiGs to carry Tactical Nukes"
+  "text": "ПОДСКАЗКА: \n На аэродроме можно вооружить МиГи тактическими ядерными ракетами"
  },
  {
   "label": "HELP:IsotopeStability-01",
-  "text": "HINT:  \n Isotope Stability will reduce the damage done to friendly  \n units when Nuclear Tanks are destroyed"
+  "text": "ПОДСКАЗКА: \n Устойчивость изотопов снижает урон своим войскам \n при уничтожении ядерных танков"
  },
  {
   "label": "HELP:AdvancedNuclearPower-01",
@@ -493,35 +493,35 @@
  },
  {
   "label": "HELP:ToxinRebels-03",
-  "text": "HINT:  \n Use Toxin Rebels to quickly clear out garrisoned structures"
+  "text": "ПОДСКАЗКА: \n Химические повстанцы быстро выбивают противника из занятых зданий"
  },
  {
   "label": "HELP:ToxinNetworks-01",
-  "text": "HINT:  \n Toxin Networks fire streams of toxin from their cannons"
+  "text": "ПОДСКАЗКА: \n Химические сети туннелей стреляют из пушек струями токсина"
  },
  {
   "label": "HELP:ToxinTerrorists-01",
-  "text": "HINT:  \n Toxin Terrorists explode in a cloud of toxin"
+  "text": "ПОДСКАЗКА: \n Химические террористы взрываются облаком токсина"
  },
  {
   "label": "HELP:ToxinTerrorists-02",
-  "text": "HINT:  \n Use Toxin Terrorists to attack large groups of infantry"
+  "text": "ПОДСКАЗКА: \n Используйте химических террористов против больших групп пехоты"
  },
  {
   "label": "HELP:AnthraxGamma-01",
-  "text": "HINT:  \n Anthrax Gamma increases the damage of all toxin attacks"
+  "text": "ПОДСКАЗКА: \n Сибирская язва гамма усиливает все химические атаки"
  },
  {
   "label": "HELP:AnthraxGamma-02",
-  "text": "HINT:  \n Anthrax Gamma is even more potent than Anthrax Beta"
+  "text": "ПОДСКАЗКА: \n Сибирская язва гамма ещё сильнее, чем бета"
  },
  {
   "label": "HELP:AdvancedTrap-01",
-  "text": "HINT:  \n Advanced Traps are more powerful than normal Demo Traps"
+  "text": "ПОДСКАЗКА: \n Улучшенные фугасы мощнее обычных"
  },
  {
   "label": "HELP:Demolitions-01",
-  "text": "HINT:  \n The Demolitions upgrade gives units the ability to detonate"
+  "text": "ПОДСКАЗКА: \n Улучшение «Подрыв» даёт подразделениям способность взрываться"
  },
  {
   "label": "GENERIC:MissionObjectiveCompleted-01",

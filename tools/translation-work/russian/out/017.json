@@ -81,7 +81,7 @@
  },
  {
   "label": "CONTROLBAR:TooltipSuitcaseNuke",
-  "text": "Hacker has a nuclear weapon in his suitcase  \n"
+  "text": "У хакера в чемоданчике ядерная бомба \n"
  },
  {
   "label": "CONTROLBAR:TooltipSpectreGunship",
@@ -269,7 +269,7 @@
  },
  {
   "label": "CONTROLBAR:ToolTipUSABuildArtilleryPlatform",
-  "text": "Builds a large range artillery platform for defenses  \n  \n Power Required: 4"
+  "text": "Строит дальнобойную артиллерийскую платформу для обороны \n \n Потребление энергии: 4"
  },
  {
   "label": "CONTROLBAR:ToolTipFakeGLABuilding",
@@ -285,7 +285,7 @@
  },
  {
   "label": "CONTROLBAR:ToolTipAmericaBuildTomahawkStorm",
-  "text": "Launches a volley of Tomahawk missiles  \n  \n Countdown Timer: 5:00"
+  "text": "Запускает залп ракет Томагавк \n \n Время для готовности: 5:00"
  },
  {
   "label": "CONTROLBAR:ToolTipGLABuildCombatBike",
@@ -321,7 +321,7 @@
  },
  {
   "label": "CONTROLBAR:ToolTipGLABuildSniper",
-  "text": "Camouflaged while not moving or shooting. Spots hidden enemies  \n  \n Strong vs. infantry  \n Weak vs. light vehicles, scouts"
+  "text": "Невидим, пока не двигается и не стреляет. Обнаруживает скрытых врагов \n \n Силён против пехоты \n Слаб против лёгкой техники и разведчиков"
  },
  {
   "label": "CONTROLBAR:ToolTipUSABuildMicrowave",
