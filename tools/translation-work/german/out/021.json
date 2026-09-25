@@ -1,0 +1,802 @@
+[
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen06Subtitle",
+  "text": "*Wir haben die GPS-Störtechnik erbeutet! Jetzt können wir Kassads Tricks gegen ihn selbst einsetzen!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen07Subtitle",
+  "text": "*Ausgezeichnet, General! Wir haben den Überraschungsangriff gesichert!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen08Subtitle",
+  "text": "*Nehmen Sie die feindlichen Kommandozentralen ein"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen09Subtitle",
+  "text": "*Wenn wir die feindliche Kommandozentrale einnehmen, können wir ihre Technologie gegen sie einsetzen"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen10Subtitle",
+  "text": "*General, wir müssen ihre Kommandozentrale einnehmen und ihr Wissen nutzen, um unserem Ziel näherzukommen: die GBA unter einer Flagge zu vereinen"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen11Subtitle",
+  "text": "*Unsere Ressourcen werden knapp. Wir müssen einige Bohrtürme einnehmen"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen12Subtitle",
+  "text": "*Unser Feind greift unsere Ölversorgung an! Er muss aufgehalten werden!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen13Subtitle",
+  "text": "*Schleichen Sie sich mit dem GPS-Störsender an der feindlichen Verteidigung vorbei!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen14Subtitle",
+  "text": "*Der GPS-Störsender funktioniert hier nicht, es gibt zu viele Stinger-Stellungen. Wir brauchen eine andere Taktik"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen15Subtitle",
+  "text": "*Vielleicht finden wir ein unbewachtes Gebiet für unseren neuen Überraschungsangriff"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen16Subtitle",
+  "text": "*Zerstören Sie die Kommandozentrale nicht. Wir müssen das Gebäude einnehmen und intakt halten"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen17Subtitle",
+  "text": "*Wir müssen ihr Wissen stehlen. Wir brauchen ihre fortschrittliche Taktik, um sie zu besiegen!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen18Subtitle",
+  "text": "*General, Vorsicht vor Scharfschützen – Kassad setzt sie liebend gern ein"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen19Subtitle",
+  "text": "*Diese Brücke ist schwer verteidigt. Wir brauchen Hilfe, um sie zu überqueren"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen20Subtitle",
+  "text": "*Nehmen Sie die feindliche Kommandozentrale im Norden ein!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen21Subtitle",
+  "text": "*Nehmen Sie die feindliche Kommandozentrale im Westen ein!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen22Subtitle",
+  "text": "*General, wenn wir diese Kanone einnehmen, können wir sie gegen Kassads Truppen einsetzen!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen23Subtitle",
+  "text": "*Wenn wir die Kommandozentrale einnehmen, können wir mit ihren Fähigkeiten das Blatt in dieser Schlacht wenden"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen24Subtitle",
+  "text": "*Prinz Kassad ist nicht mehr. Die GBA ist wieder vereint gegen unsere Feinde!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen25Subtitle",
+  "text": "*Jetzt, da wir den GPS-Störsender haben, können wir ungesehen an Kassads Brückenverteidigung vorbei!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen26Subtitle",
+  "text": "*Der Verräter hat sich auf diesem Hügel verschanzt und alle anderen Zugänge abgeschnitten. Der Überraschungsangriff ist unsere einzige Möglichkeit, seine Hauptbasis zu treffen"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen27Subtitle",
+  "text": "*General, dieses Gebiet wird von Prinz Kassad kontrolliert. Er hat seinen Brüdern den Rücken gekehrt und wird uns im Kampf gegen die Ungläubigen nicht helfen"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen28Subtitle",
+  "text": "*Kassad ist ein Meister der Tarnung, er versteckt seine Truppen direkt vor unserer Nase. Er weigert sich, sein Wissen mit uns zu teilen, also nehmen wir es uns"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen29Subtitle",
+  "text": "*Eine GBA-Splittergruppe unter Prinz Kassad kontrolliert dieses Gebiet. Kassad weigert sich, seine Fähigkeiten zum Wohl der GBA einzusetzen"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen30Subtitle",
+  "text": "*Kassad ist ein Meister der Tarnung und setzt auf mehrere Techniken, um seine Feinde zu überraschen und anzugreifen"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen31Subtitle",
+  "text": "*Mit dem GPS-Störsender kann er jede Einheit ungesehen gegen einen Feind zuschlagen lassen"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen32Subtitle",
+  "text": "*Überraschungsangriffe durch Tunnel bieten weitere taktische Vorteile …"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen33Subtitle",
+  "text": "*Wir müssen diese Technologien haben. Wenn Kassad nicht teilen will, nehmen wir sie ihm ab. Nehmen Sie seine Kommandozentralen ein und wenden Sie seine eigenen Fähigkeiten gegen ihn!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03Kenwar03Subtitle",
+  "text": "*Befreit unsere gefangenen Brüder"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03Kenwar15Subtitle",
+  "text": "*Wir haben ein Gefangenenlager entdeckt, unsere Brüder werden darin festgehalten"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xBrf01Subtitle",
+  "text": "*Willkommen, Kommandant!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xBrf02Subtitle",
+  "text": "*Kassad war zu feige, so etwas gegen die USA zu wagen. General, Sie sind wahrlich ein Genie"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xBrf03Subtitle",
+  "text": "*Ist die US-Mittelmeerflotte erst zerschlagen, liegt ganz Europa in unserer Hand"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xBrf04Subtitle",
+  "text": "*Jetzt, da wir wieder vereint sind, ist es Zeit, unsere Stärke zu zeigen!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xBrf05Subtitle",
+  "text": "*Die USA haben unsere geheime Basis im Mittelmeer angegriffen"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xBrf06Subtitle",
+  "text": "*Doch bevor sie ausgelöscht wurde, haben wir erfahren, wo sich ihre Partikelkanone und ihre Flotte in der Region befinden"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xBrf07Subtitle",
+  "text": "*Die meisten ihrer Schiffe liegen im Hafen und sind wehrlos. Wir stehlen ihre Partikelkanone und vernichten damit ihren Flugzeugträger!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xBrf08Subtitle",
+  "text": "*Halten Sie Ausschau nach einer Gelegenheit, unsere geheime Basis zurückzuerobern und wieder aufzubauen"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xChat01Subtitle",
+  "text": "*Wir sterben für Sie!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xChat02Subtitle",
+  "text": "*Wieder einer weniger"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xChat03Subtitle",
+  "text": "*Mehr Opfer für mich"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xChat04Subtitle",
+  "text": "*Mäht sie nieder!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xChat05Subtitle",
+  "text": "*Sie können unserem Zorn nicht entkommen!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xChat06Subtitle",
+  "text": "*Wir haben sie genau da, wo wir sie haben wollen!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xChat07Subtitle",
+  "text": "*Der Sieg wird unser sein!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xChat08Subtitle",
+  "text": "*Das hat ordentlich gespritzt!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xCin01Subtitle",
+  "text": "*Wir werden diesen feigen Angriff rächen!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xCin02Subtitle",
+  "text": "*Ihr Flugzeugträger wird zu Schrott!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xCin03Subtitle",
+  "text": "*Wir haben die Macht der GBA bewiesen!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen01Subtitle",
+  "text": "*Unsere Entführer könnten sich diesen Panzer leicht schnappen …"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen02Subtitle",
+  "text": "*Dieser Ranger läuft Hilfe holen! Wir dürfen ihn nicht entkommen lassen"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen03Subtitle",
+  "text": "*Wir brauchen diese Partikelkanone, um den feindlichen Träger zu versenken. Verteidigen Sie sie gut!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen04Subtitle",
+  "text": "*Unsere Rebellen können die Partikelkanone mit ihrer Fähigkeit „Gebäude einnehmen“ übernehmen"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen05Subtitle",
+  "text": "*Mit dem Überraschungsangriff können wir Tunnelnetze auf nahen Inseln errichten"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen06Subtitle",
+  "text": "*Wir dürfen den Piloten nicht zu seinem Tomahawk lassen!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen07Subtitle",
+  "text": "*Sie wollen an den Tomahawk!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen08Subtitle",
+  "text": "*Diese Kaserne gehört jetzt uns"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen09Subtitle",
+  "text": "*Wir haben diesen Palast befreit"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen10Subtitle",
+  "text": "*Dieser Waffenhändler wird uns gute Dienste leisten"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen11Subtitle",
+  "text": "*Wir haben unsere Kommandozentrale zurückerobert!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen12Subtitle",
+  "text": "*General, sehen Sie diese feindlichen Versorgungsflugzeuge? Wenn wir ihre Abwurfzonen zerstören, legen wir ihre Produktion lahm!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen13Subtitle",
+  "text": "*Ah, dieser Toxin-Traktor wird uns nützlich sein"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen14Subtitle",
+  "text": "*Diese Vierlingskanonen verteidigen uns gegen feindliche Flugzeuge"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen15Subtitle",
+  "text": "*Diese Marodeure verstärken unsere Feuerkraft"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen16Subtitle",
+  "text": "*Zerstört diese Panzer, dann können wir die Kaserne befreien!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen17Subtitle",
+  "text": "*Wenn wir dieses Gebiet räumen, können wir die Kommandozentrale gefahrlos besetzen"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen18Subtitle",
+  "text": "*Tötet diese Soldaten, und der Waffenhändler gehört uns!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen19Subtitle",
+  "text": "*Vielleicht starten sie einen Angriff gegen uns! Verteidigt unsere Gebäude!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen20Subtitle",
+  "text": "*Comanches! Luftabwehr sammeln!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen21Subtitle",
+  "text": "*Wir müssen uns gegen diese Comanches verteidigen!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen22Subtitle",
+  "text": "*Sie versuchen, die Partikelkanone zurückzuerobern!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen23Subtitle",
+  "text": "*Ihre Flugzeuge haben unser Tunnelnetz zerstört!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen24Subtitle",
+  "text": "*Diese gerissenen Schurken! Sie haben es auf unsere Kraftwerke abgesehen. Wir brauchen Energie für die Partikelkanone"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen25Subtitle",
+  "text": "*Fast alle Kraftwerke sind zerstört. Wir brauchen Energie für die Partikelkanone!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen26Subtitle",
+  "text": "*Wenn wir einige Kraftwerke einnehmen, könnten wir die Partikelkanone gegen sie einsetzen"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen27Subtitle",
+  "text": "*Ahh … Wir haben ein paar versteckte Schätze gefunden"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen28Subtitle",
+  "text": "*Dieser Pass ist gut verteidigt. Wir sollten uns mit der Partikelkanone den Weg freischießen"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen29Subtitle",
+  "text": "*Vorsicht! Dieser Pass ist schwer bewacht!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen30Subtitle",
+  "text": "*Sie haben Infanterie auf die Inseln gebracht!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen31Subtitle",
+  "text": "*Ihre Hubschrauber bringen Verstärkung!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen32Subtitle",
+  "text": "*Sie haben einen A10-Angriff gegen uns gestartet!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen33Subtitle",
+  "text": "*Sie haben Fallschirmjäger auf die Partikelkanone abgesetzt!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen34Subtitle",
+  "text": "*Wir haben ihre Versorgungsabwurfzonen ausgeschaltet! Ihre Produktion ist lahmgelegt!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen35Subtitle",
+  "text": "*Ihre Mission ist es, den feindlichen Flugzeugträger mit der Partikelkanone zu zerstören. Sie müssen in ihre Basis auf dem Festland eindringen, um den Träger ins Visier nehmen und zerstören zu können"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen36Subtitle",
+  "text": "*Großartige Arbeit! Jetzt müssen wir einige Kraftwerke sichern"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen37Subtitle",
+  "text": "*Das Tunnelnetz bringt uns zur nächsten Insel"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen38Subtitle",
+  "text": "*Die Partikelkanone ist jetzt einsatzbereit. Wir sollten sie und die Kraftwerke verteidigen"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen39Subtitle",
+  "text": "*Alle unsere Einheiten und Gebäude wurden vernichtet!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen40Subtitle",
+  "text": "*Ohne die Partikelkanone ist es unmöglich, den Träger zu versenken"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen41Subtitle",
+  "text": "*Jetzt sollen die Amerikaner eine bittere Niederlage schmecken!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen42Subtitle",
+  "text": "*Sie haben unser Tunnelnetz zerstört! Holen Sie sich die Partikelkanone mit dem Überraschungsangriff zurück!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen43Subtitle",
+  "text": "*Wir nähern uns dem Flugzeugträger. Er liegt direkt südlich von hier"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen44Subtitle",
+  "text": "*Da ist der Flugzeugträger! Zerstören Sie ihn mit der Partikelkanone!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen45Subtitle",
+  "text": "*Jarmen Kell steht zu unseren Diensten"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen46Subtitle",
+  "text": "*Mit seinem Präzisionsschuss kann er feindliche Fahrzeuge lahmlegen, sodass unsere Infanterie sie einnehmen kann"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen47Subtitle",
+  "text": "*Diese angedockten Schlachtschiffe sind harmlos"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen48Subtitle",
+  "text": "*Das Schlachtschiff beschießt uns! Zerstören Sie es!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen49Subtitle",
+  "text": "*Das muss die Hauptbasis des Feindes sein"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen50Subtitle",
+  "text": "*Diese falschen Gebäude werden unsere Feinde täuschen"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen51Subtitle",
+  "text": "*Bauen Sie mehr falsche Gebäude, um den Feind hereinzulegen!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04Dispatcher06Subtitle",
+  "text": "*Amerikanische Truppen sind unterwegs"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xChat01Subtitle",
+  "text": "*Wir müssen diese Bunker räumen!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xChat02Subtitle",
+  "text": "*Sie haben keinen Strom! Keine Patriots, um die wir uns kümmern müssen!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xChat03Subtitle",
+  "text": "*Reißt die Zäune ein und rettet unsere Brüder!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xChat04Subtitle",
+  "text": "*Jetzt können unsere Brüder frei sein!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xChat05Subtitle",
+  "text": "*Ein amerikanischer Chinook würde beim Transport unserer Truppen helfen. Nehmen Sie dieses Versorgungsdepot ein, wenn Sie können"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xChat06Subtitle",
+  "text": "*Schicken Sie Luftabwehr hierher, General! Ihre Comanches zerfetzen uns!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xChat07Subtitle",
+  "text": "*General, wir müssen irgendwie diese Brückenverteidigung ausschalten!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xChat08Subtitle",
+  "text": "*General, wir rufen per Handy ein Überraschungs-Tunnelnetz herbei!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xChat09Subtitle",
+  "text": "*Diese Traktoren brauchen wir, wenn wir Bunker räumen wollen"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xChat10Subtitle",
+  "text": "*Diese Fähre steht jetzt unter unserer Kontrolle! Du bringst uns, wohin wir wollen!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xChat11Subtitle",
+  "text": "*Ja, ja. Ich tue, was Sie sagen!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xChat12Subtitle",
+  "text": "*Unsere Brüder sind befreit"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xChat13Subtitle",
+  "text": "*In diesem seltsamen Land gibt es wirklich viele Geländewagen"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xChat14Subtitle",
+  "text": "*In diesem Gebiet haben wir einen Sympathisanten der GBA. Er und seine Brüder haben zugestimmt, uns zu helfen"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xChat15Subtitle",
+  "text": "*Panzer! Abheben! Los, los, los!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin01Subtitle",
+  "text": "*Hier Team eins. Wir sind in Position"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin02Subtitle",
+  "text": "*Meine Brüder, seid vorsichtig, wir betreten feindlichen Boden. Unser Hauptziel ist es, chemische Proben aus der nahen amerikanischen Toxinanlage zu beschaffen"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin03Subtitle",
+  "text": "*Die Reste der amerikanischen Flotte sind nach dem Verlust ihrer Kommandoflotte ins Mittelmeer verlegt worden. Dadurch konnten wir hier hereinschlüpfen"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin04Subtitle",
+  "text": "*Wir haben sie dort besiegt, und wir werden auch hier siegen"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin05Subtitle",
+  "text": "*Freut euch, Brüder! Sobald wir die Toxine aus dieser Anlage haben, können unsere Wissenschaftler eine Waffe zur Masseninfektion schmieden"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin06Subtitle",
+  "text": "*Die Amerikaner haben sich zu lange eingemischt. Mit dieser neuen Waffe werden wir unseren Unterdrückern Angst ins Herz jagen!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin07Subtitle",
+  "text": "*(Sehr böses Lachen)"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin08Subtitle",
+  "text": "*Team eins, sind die Toxine gesichert und an Bord?"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin09Subtitle",
+  "text": "*Wir haben die Proben"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin10Subtitle",
+  "text": "*Wir sind bereit zum Start"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin11Subtitle",
+  "text": "*Bestätigt. Die Ladung ist gesichert"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin12Subtitle",
+  "text": "*Sie können starten. Wir decken Ihre Flucht!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin13Subtitle",
+  "text": "*General, die Patriots sind online!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin14Subtitle",
+  "text": "*Haltet sie auf, bis wir die Landebahn geräumt haben!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin15Subtitle",
+  "text": "*Haltet sie uns vom Hals!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin16Subtitle",
+  "text": "*Verschwindet, ihr dummen Amerikaner!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin17Subtitle",
+  "text": "*Wir treffen uns wieder, wenn wir die Toxinanlage erreichen"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin18Subtitle",
+  "text": "*Die Amerikaner glauben, sie hätten uns vertrieben"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin19Subtitle",
+  "text": "*Teile und herrsche"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin20Subtitle",
+  "text": "*Gegen diese Luftmacht sind wir nichts!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin21Subtitle",
+  "text": "*Ihr habt noch nicht das Letzte von uns gesehen!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin22Subtitle",
+  "text": "*Wir werden uns rächen, ihr dreckigen Amerikaner!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin23Subtitle",
+  "text": "*Tun wir unseren Teil, um diese kapitalistischen Schweine zu Fall zu bringen!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin24Subtitle",
+  "text": "*Diese Amerikaner werden für das Leben unserer Brüder bezahlen"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin25Subtitle",
+  "text": "*Rösten wir diese GBA-Eindringlinge! Fox 1!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin26Subtitle",
+  "text": "*GBA vor der Küste gesichtet! Alle Einheiten auf Verteidigungsposition"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin27Subtitle",
+  "text": "*GBA-Infiltration bei Koordinate 77-Beta-Gamma! Alle verfügbaren Einheiten reagieren!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin28Subtitle",
+  "text": "*Am Strand sind noch mehr von ihnen!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin29Subtitle",
+  "text": "*GBA-Eindringlinge auf dem Felsvorsprung gesichtet!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin30Subtitle",
+  "text": "*Die GBA ist innerhalb der Stadtgrenzen! Alle Einheiten zu Koordinate 34-Alpha-Alpha"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen01Subtitle",
+  "text": "*Gute Arbeit, General! Nur noch 15 Toxinproben zu beschaffen"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen02Subtitle",
+  "text": "*Gute Arbeit, General! Nur noch 10 Toxinproben zu beschaffen"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen03Subtitle",
+  "text": "*Gute Arbeit, General! Nur noch 5 Toxinproben zu beschaffen"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen04Subtitle",
+  "text": "*General, wir haben einen Plan, das amerikanische Zentralkommando in Europa anzugreifen. Doch noch fehlt uns die Macht, sie direkt zu treffen. Wir brauchen eine neue Toxinwaffe"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen05Subtitle",
+  "text": "*Unsere beiden Trupps sind in Position. Die beiden Gruppen müssen zusammenarbeiten, wenn wir die Toxine beschaffen wollen"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen06Subtitle",
+  "text": "*Unsere Entführer können Fahrzeuge kapern und sind getarnt, solange sie sich nicht bewegen"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen07Subtitle",
+  "text": "*Jarmen Kell kann Piloten aus Fahrzeugen schießen und Infanterie auf große Entfernung ausschalten"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen08Subtitle",
+  "text": "*Unsere Saboteure können eine Reihe geheimer Operationen durchführen, etwa Kraftwerke lahmlegen"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen09Subtitle",
+  "text": "*Unsere Rebellen sind getarnt und können Gebäude einnehmen, um unserer Sache zu dienen"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen10Subtitle",
+  "text": "*Viel Glück, General. Mögen Tarnung und List Sie auf Ihrer Mission begleiten"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen11Subtitle",
+  "text": "*Guten Morgen, General"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen12Subtitle",
+  "text": "*General, wir müssen diese Fähre einnehmen"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen13Subtitle",
+  "text": "*General, hier liegen Minen, aber wir können sie nicht entdecken! Wir brauchen einen Radarwagen!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen14Subtitle",
+  "text": "*General, schicken Sie jemanden in die Ventilstation am Fluss. Wenn wir das Kühlmittelbecken ablassen, kommen unsere Brüder weiter voran"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen15Subtitle",
+  "text": "*Ausgezeichnet"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen16Subtitle",
+  "text": "*Gute Arbeit"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen17Subtitle",
+  "text": "*General! Zerstören Sie dieses Flugfeld, bevor wir ausgelöscht werden!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen18Subtitle",
+  "text": "*General. Wir müssen ihre Energie zerstören! Dann sind die Amerikaner leichte Beute!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen19Subtitle",
+  "text": "*General, wir müssen diese Toxinanlage einnehmen"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen20Subtitle",
+  "text": "*Ausgezeichnete Arbeit, General. Jetzt müssen wir diese Lastwagen schützen, während sie die Toxine zum Frachtflugzeug bringen"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen21Subtitle",
+  "text": "*Beginnen Sie mit den Lastwagen, Toxine aus der Anlage zu sammeln"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen22Subtitle",
+  "text": "*General, die Amerikaner haben Verstärkung geschickt!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen23Subtitle",
+  "text": "*Eine weitere Entführer-Zelle ist eingetroffen, um unsere Sache zu unterstützen"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen24Subtitle",
+  "text": "*Eine weitere Rebellen-Zelle ist eingetroffen, um unsere Sache zu unterstützen"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen25Subtitle",
+  "text": "*Jarmen Kell wurde gefunden und ist zurückgekehrt, um unserer Sache zu helfen"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen26Subtitle",
+  "text": "*Unsere Brüder sind durchgebrochen und haben uns Verstärkung gebracht"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen27Subtitle",
+  "text": "*Nach unserem Sieg in Griechenland werden die USA keinen Angriff auf eigenem Boden erwarten"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen28Subtitle",
+  "text": "*Kassad hätte nie den Mut gehabt, die USA auf eigenem Boden anzugreifen"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen29Subtitle",
+  "text": "*Sobald wir den geheimen Kampfstoff aus dem US-Biozentrum gestohlen haben, wird uns niemand mehr aufhalten"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05Buggy104Subtitle",
+  "text": "*Vorsicht vor Patriot-Batterien, sie sind gefährlich"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05Buggy108Subtitle",
+  "text": "*Fahrt zur Hölle, amerikanischer Abschaum!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05Kenwar02bSubtitle",
+  "text": "*Zerstören Sie den amerikanischen Luftwaffenstützpunkt, dann verlieren sie einen Großteil ihrer Macht in dieser Region"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05Kenwar05Subtitle",
+  "text": "*Die Amerikaner werden uns mit ihrer Luftwaffe aufhalten wollen"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05Quad201Subtitle",
+  "text": "*Stirb, Amerikaner!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05Rebel02Subtitle",
+  "text": "*Gegen amerikanische Luftangriffe sind wir wehrlos!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05Scorpion105Subtitle",
+  "text": "*Amerikanische Feiglinge! Kämpft am Boden, wie Männer!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xChat01Subtitle",
+  "text": "*Diese Region steht unter der Kontrolle von General Granger von der US-Luftwaffe. Wir können und werden Gewalt anwenden, um Sie aus diesem Gebiet zu entfernen. Sie werden hiermit aufgefordert, sofort abzuziehen"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xCin01Subtitle",
+  "text": "*Wir sind wenige, aber wir nutzen, was wir haben, um die Oberhand zu gewinnen"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xCin02Subtitle",
+  "text": "*Da wir in dieser Region keine Basis haben, müssen wir uns eine nehmen!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xCin03Subtitle",
+  "text": "*Die chinesische Basis … Wir müssen jetzt zuschlagen! Ihre Basis wird bald uns gehören!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xJarmen01Subtitle",
+  "text": "*Wenn Sie unsere Kameraden aus der südlichen US-Basis retten, kämpfen unsere Elitekrieger an Ihrer Seite!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xJarmen02Subtitle",
+  "text": "*Danke, dass Sie unsere Brüder gerettet haben! Im Gegenzug öffnen wir Ihnen einen Bereich der US-Basis, damit Sie Ihren Angriff beginnen können"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xJarmen03Subtitle",
+  "text": "*Hehehehehe … (Finsteres Lachen) Das wird ihnen eine Lehre sein"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xJarmen04Subtitle",
+  "text": "*Lasst unseren Tod nicht ungesühnt!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xJarmen05Subtitle",
+  "text": "*Gemeinsam haben wir den Feind geschlagen! Der Sieg ist unser!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xJarmen06Subtitle",
+  "text": "*Danke für Ihre Hilfe bei der Rettung meiner Soldaten. Wir werden uns revanchieren und Ihnen helfen, die Basis des US-Zentralkommandos auszuschalten"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen01Subtitle",
+  "text": "*Ist diese Basis erst zerstört, rennen die USA wie feige Hunde nach Hause. Ganz Europa wird uns gehören"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen02Subtitle",
+  "text": "*Die Amerikaner halten unsere Brüder in ihrer Basis als Geiseln. Wir müssen sie retten"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen03Subtitle",
+  "text": "*Es liegt in unserem Interesse, die Kriegsgefangenen aus den Klauen der Amerikaner zu retten"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen04Subtitle",
+  "text": "*Gute Arbeit! Nehmen Sie diese Basis ein oder vernichten Sie sie, damit die Kriegsgefangenen sicher sind"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen05Subtitle",
+  "text": "*Wir müssen sie sicher nach Hause zu ihrer Basis im Norden bringen. Ihnen darf nichts geschehen"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen06Subtitle",
+  "text": "*Unsere Vorräte gehen zur Neige. Wir müssen ausschwärmen und neue Ressourcen einnehmen"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen07Subtitle",
+  "text": "*Weitere Luftangriffe! Wir müssen mehr Luftabwehr bauen …"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen08Subtitle",
+  "text": "*Bauen Sie unsere Verteidigung schnell wieder auf, bis zum nächsten Angriff bleibt nicht viel Zeit"
+ }
+]

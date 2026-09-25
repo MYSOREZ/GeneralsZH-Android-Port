@@ -1,0 +1,802 @@
+[
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen09Subtitle",
+  "text": "*Der neue Kampfstoff, den wir uns von den USA „geliehen“ haben, wird gegen ihre eigenen Truppen besonders wirksam sein"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen10Subtitle",
+  "text": "*Erst die Mittelmeerflotte, dann ein Angriff auf US-Boden … und nun beginnt unsere Herrschaft über Europa"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen11Subtitle",
+  "text": "*Wir werden aus dem Osten angegriffen. Beenden Sie die Angriffe jetzt, wir müssen sie vernichten, um uns auf die Hauptbasis im Norden zu konzentrieren"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen12Subtitle",
+  "text": "*Fast geschafft … Die USA werden für ihre Vergehen an unserem Volk teuer bezahlen"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen13Subtitle",
+  "text": "*Unsere Mittel werden knapp. Suchen Sie das Gebiet nach Ressourcen ab, wir dürfen nicht aufgehalten werden"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen14Subtitle",
+  "text": "*Da dieses Gebiet gesichert ist, müssen wir jetzt aufrüsten und einen Angriff auf die Basis des US-Europa-Zentralkommandos starten"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen15Subtitle",
+  "text": "*Die Amerikaner setzen stark auf Lufteinheiten. Bauen Sie mehr Stinger-Stellungen und Vierlingskanonen"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen16Subtitle",
+  "text": "*Sie nehmen unsere Verteidigung ins Visier, wir müssen die Stinger-Stellungen tarnen"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen17Subtitle",
+  "text": "*Mein General, wir müssen einen SCUD-Sturm bauen"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen18Subtitle",
+  "text": "*Der amerikanische General setzt eine Partikelkanone gegen uns ein"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen19Subtitle",
+  "text": "*Wir müssen eine andere Taktik versuchen. Schleusen Sie mit einem Überraschungsangriff Einheiten in die Basis"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen20Subtitle",
+  "text": "*Nehmen Sie die US-Basis ein und bauen Sie sie aus. Wir können ihre Waffen gegen sie einsetzen"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen21Subtitle",
+  "text": "*Sie müssen die Partikelkanone ausschalten!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen22Subtitle",
+  "text": "*Jetzt greifen sie am Boden an. Verteidigt unsere Basis!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen23Subtitle",
+  "text": "*Bauen Sie die Basis schnell wieder auf … Wir müssen uns auf weitere Angriffe vorbereiten!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen24Subtitle",
+  "text": "*Gut gemacht, General. Dank Ihrer überlegenen Taktik kontrollieren wir jetzt alle drei Superwaffen. Die Amerikaner werden nicht wissen, wie ihnen geschieht!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen25Subtitle",
+  "text": "*Machen Sie die Amerikaner fertig, General. Lange halten sie nicht mehr durch"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen26Subtitle",
+  "text": "*General, wir können ihre Chemiebunker ins Visier nehmen und in ihrer eigenen Basis Chaos stiften"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen27Subtitle",
+  "text": "*Ihre Partikelkanone ist Geschichte"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen28Subtitle",
+  "text": "*Die Amerikaner haben eine weitere Partikelkanone gebaut. Wir dürfen nicht zulassen, dass sie sie gegen uns einsetzen"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen29Subtitle",
+  "text": "*Wir müssen die südliche Unterstützungsbasis des Feindes jetzt vernichten! Je länger wir warten, desto stärker werden ihre Angriffe"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen30Subtitle",
+  "text": "*Berichten zufolge werden die in der US-Basis festgehaltenen Kriegsgefangenen bald verlegt. Wir müssen sie schnell retten!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen31Subtitle",
+  "text": "*Sie müssen das Gebiet der US-Basis vollständig räumen, um die Kriegsgefangenen zu befreien"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen32Subtitle",
+  "text": "*Beeilung, die Kriegsgefangenen müssen jetzt gerettet werden!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen33Subtitle",
+  "text": "*Wir müssen das Radar in Betrieb nehmen, indem wir die chinesische Kommandozentrale aufrüsten"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen34Subtitle",
+  "text": "*Es ist unerlässlich, dass Sie eine GBA-Kommandozentrale bauen"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen35Subtitle",
+  "text": "*Da die kleine südliche Basis weg ist, können wir uns auf die Basis des US-Europa-Zentralkommandos konzentrieren"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen36Subtitle",
+  "text": "*Die Basis des US-Zentralkommandos ist riesig, wir müssen einen Weg hinein finden! Vielleicht funktionieren Überraschungsangriffe"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen37Subtitle",
+  "text": "*Wir müssen die Kriegsgefangenen in ihr Dorf bringen, damit sie ihre Terrorzelle wiedererwecken"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen38Subtitle",
+  "text": "*Unsere Brüder werden angegriffen! Wir müssen ihnen helfen!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen39Subtitle",
+  "text": "*Bringen Sie die Kriegsgefangenen in ihr Dorf zurück – folgen Sie dem Fluss nach Norden, bis Sie es erreichen"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen40Subtitle",
+  "text": "*Die Kriegsgefangenen sind in Sicherheit! Wir müssen ihnen helfen, in ihr Dorf zurückzukehren, damit sie uns im Kampf gegen die USA beistehen!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen41Subtitle",
+  "text": "*Nehmt diese Panzer, wir werden sie als unsere eigenen einsetzen!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen42Subtitle",
+  "text": "*Sichern Sie die Vorräte, dann halten wir das perfekte Gebiet, um unsere Angriffe auf die Amerikaner zu starten!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen43Subtitle",
+  "text": "*Die Soldaten sind in Sicherheit, und ihre Familien sind voller Freude! Sie werden mit uns kämpfen, und man hat uns auch weitere Vorräte gegeben"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen44Subtitle",
+  "text": "*Wir haben unsere Brüder im Stich gelassen, aber sie kämpfen trotzdem an unserer Seite"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen45Subtitle",
+  "text": "*Unsere Brüder kämpfen auf unserer Seite, um den Tod der Kriegsgefangenen zu rächen!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen46Subtitle",
+  "text": "*Die Amerikaner haben die Kriegsgefangenen verlegt, aber unsere Brüder kämpfen trotzdem mit uns gegen den Feind!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen47Subtitle",
+  "text": "*Europa wird bald uns gehören!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xPOW01Subtitle",
+  "text": "*Befreit uns von unseren Wächtern. Schützt uns vor allen US-Angriffen, dann helfen wir euch!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xPOW02Subtitle",
+  "text": "*Wir sind bereit, nach Hause zu gehen, sobald Sie es sind"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xPOW03Subtitle",
+  "text": "*Beeilung, es bleibt wenig Zeit!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xPOW04Subtitle",
+  "text": "*Uns läuft die Zeit davon!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xPOW05Subtitle",
+  "text": "*Bitte rettet uns!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xPOW06Subtitle",
+  "text": "*Wir brauchen eure Hilfe!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA06Chatter01Subtitle",
+  "text": "*Brücke voraus. Sieht schwer verteidigt aus"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA06Chatter02Subtitle",
+  "text": "*Wir nähern uns einer Brücke. Keine Amerikaner"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA06Chatter07Subtitle",
+  "text": "*Sterbt, Amerikaner!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA06Cin01Subtitle",
+  "text": "*Sterbt, Amerikaner!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA06General05Subtitle",
+  "text": "*Amerikanische Späher haben uns entdeckt. Seid kampfbereit"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA06General20Subtitle",
+  "text": "*Sie müssen sie zurückdrängen, damit Sie die Bunker übernehmen können"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA07Convoy13Subtitle",
+  "text": "*Wir haben ein paar Vorräte gefunden, könnten nützlich sein"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA08Buggy101Subtitle",
+  "text": "*Zum Ruhm!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA08Kenwar10Subtitle",
+  "text": "*Wir müssen sie mit allem treffen, was wir haben"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA08Kenwar39Subtitle",
+  "text": "*Unsere Truppen sind bereit, den Angriff zu beginnen"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01Commander03Subtitle",
+  "text": "*Schnelle Flieger im Anflug"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01Commander09Subtitle",
+  "text": "*Echo-Kompanie, Bomber im Anflug, ihr seid zu nah dran, zieht euch zurück!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01Echo108Subtitle",
+  "text": "*Weitere Kontakte, Entfernung 300"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01Echo201Subtitle",
+  "text": "*Ich bin getroffen!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01Eva02Subtitle",
+  "text": "*General, nehmen Sie feindliche Bohrtürme ein, um mehr Nachschub für den Krieg zu sichern"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01Raptor201Subtitle",
+  "text": "*Heizen wir ihnen ein"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xBrf01Subtitle",
+  "text": "*Willkommen zurück, General"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xBrf02Subtitle",
+  "text": "*Die GBA hat heute früh ihre Rakete vom Kosmodrom Baikonur gestartet. Laut Geheimdienst bereiten sie einen zweiten Start vor"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xBrf03Subtitle",
+  "text": "*Der Einsatz dieser Rakete würde unsere Position in Europa stark schwächen. Es ist lebenswichtig, diese Bedrohung zu beseitigen"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xBrf04Subtitle",
+  "text": "*Unseren Quellen zufolge wird die nächste Rakete per Zug zur Startanlage gebracht. Diese Gleise sind der einzige Weg in die Anlage"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xBrf05Subtitle",
+  "text": "*Wenn wir diesen Zug rechtzeitig abfangen, können wir ihn als Deckung nutzen, um in die Basis einzudringen"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xBrf06Subtitle",
+  "text": "*Der erste Schritt unserer Mission ist es, diesen Bahnhof zu sichern und zu halten"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xBrf07Subtitle",
+  "text": "*Viel Glück, General"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xC+A39hat11Subtitle",
+  "text": "*Weitere GBA-Gebäude im Osten!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xChat01Subtitle",
+  "text": "*Scorpions auf neun Uhr!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xChat02Subtitle",
+  "text": "*Alles einsteigen!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xChat03Subtitle",
+  "text": "*Haben alle ihre Fahrkarten?"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xChat04Subtitle",
+  "text": "*Schatz, ich bin zu Hause! Hahaha"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xChat05Subtitle",
+  "text": "*Setzt Infanterie in diese Fahrzeuge! Mit ihnen können wir die GBA besiegen!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xChat06Subtitle",
+  "text": "*Jemand soll den Radiosender besetzen! Wir brauchen sofort Luftunterstützung!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xChat07Subtitle",
+  "text": "*Zielt auf die Fässer! Die sind explosiv!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xChat08Subtitle",
+  "text": "*Okay, Jungs. Aufladen und abmaaarsch!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xChat09Subtitle",
+  "text": "*Stinger-Stellungen sind ausgeschaltet! Ich wiederhole, Stinger ausgeschaltet! Alle Einheiten auf die GBA-Gebäude! Machen wir den Laden platt!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xChat10Subtitle",
+  "text": "*Weitere GBA-Gebäude im Westen!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xChat12Subtitle",
+  "text": "*Wird gemacht, Hauptquartier! Hab sie im Visier"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xChat13Subtitle",
+  "text": "*Liefere Nutzlast ab"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xChat14Subtitle",
+  "text": "*Ich liebe den frischen Duft von MOAB am Morgen"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xCin01Subtitle",
+  "text": "*Alle Einheiten die Startzone räumen. Start in T minus …"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xCin02Subtitle",
+  "text": "*5"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xCin03Subtitle",
+  "text": "*4"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xCin04Subtitle",
+  "text": "*3"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xCin05Subtitle",
+  "text": "*2"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xCin06Subtitle",
+  "text": "*1"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xCin07Subtitle",
+  "text": "*0"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xCin08Subtitle",
+  "text": "*Wir haben einen Start"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xCin09Subtitle",
+  "text": "*Start freigegeben"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xCin10Subtitle",
+  "text": "*Dreckige Amerikaner. Wir fackeln hier alles ab, was euch gehört"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xCin11Subtitle",
+  "text": "*Dumme amerikanische Cowboys!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xEva01Subtitle",
+  "text": "*Gute Arbeit, General. Der Bahnhof ist gesichert"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xEva02Subtitle",
+  "text": "*Jetzt müssen wir eine Angriffstruppe aufbauen, die groß genug ist, um die GBA-Basis zu zerstören"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xEva03Subtitle",
+  "text": "*Laden Sie Ihre besten Einheiten in den Zug"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xEva04Subtitle",
+  "text": "*Der Zug fährt ab, sobald er voll ist"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xEva05Subtitle",
+  "text": "*Gute Arbeit, General, der Zug ist voll"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xEva06Subtitle",
+  "text": "*Schicken Sie den Drache-Panzer da rauf, um diese Gebäude auszuräuchern"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xEva07Subtitle",
+  "text": "*Bauen Sie mehr Einheiten. Unser Überraschungsangriff darf nicht scheitern"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xEva08Subtitle",
+  "text": "*General! Holen Sie Ihre Leute aus der Grube! MOABs sind unterwegs und werden hier alles in Stücke sprengen"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xEva09Subtitle",
+  "text": "*Wir müssen diese Basis endgültig zerstören!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xEva10Subtitle",
+  "text": "*Die MOABs sind jeden Moment hier!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xEva11Subtitle",
+  "text": "*Alpha-Staffel! Gebiet ist frei. Sie können loslegen"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA01xEva12Subtitle",
+  "text": "*Gute Arbeit, General. Die Bedrohung durch die GBA scheint endlich beseitigt. Zeit, das alles hinter uns zu lassen und nach den Massenvernichtungswaffen zu suchen"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02Comanche101Subtitle",
+  "text": "*Danke, dass Sie mich rausgeholt haben, Sir! Es wurde ein bisschen brenzlig für mich"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02Comanche204Subtitle",
+  "text": "*Sie schwärmen um uns herum, Sir!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xBrf01Subtitle",
+  "text": "*Die Docks sind geräumt, General. Unsere erste Aufgabe ist es, sie zu halten, während die Versorgungslaster eintreffen. Bis die Bulldozer kommen, müssen wir diese Stellung mit den nach und nach eintreffenden Truppen verteidigen"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xBrf02Subtitle",
+  "text": "*Der Großteil unserer Flotte hat den GBA-Angriff von Baikonur überstanden. Unser Flugzeugträger und die Schlachtschiff-Eskorte stehen Ihnen für diese Operation zur Verfügung"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xChat01Subtitle",
+  "text": "*Luftschlag gestartet"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xChat02Subtitle",
+  "text": "*Schlachtschiff beginnt Bombardement"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xChat03Subtitle",
+  "text": "*Docks sind sauber. Keine GBA in Sicht"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xChat04Subtitle",
+  "text": "*Verstanden"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xChat05Subtitle",
+  "text": "*Beginne Angriff"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xChat06Subtitle",
+  "text": "*Starte Luftschlag"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xChat07Subtitle",
+  "text": "*Aus allen Rohren"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xChat08Subtitle",
+  "text": "*Wir zeigen ihnen den roten Feuerschein, na klar"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xCin01Subtitle",
+  "text": "*Trägerkommando an Flotte. Weiter feuern, Jungs. Die GBA holt Verstärkung"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xCin02Subtitle",
+  "text": "*Verstanden, Trägerkommando. Halten Niederhaltefeuer auf die Docks aufrecht"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xCin03Subtitle",
+  "text": "*Passt auf, was ihr trefft. Wir wollen die Docks räumen, nicht zerstören"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xEva01Subtitle",
+  "text": "*Gute Arbeit, Sir! Unser nächstes Ziel ist es, den Versorgungslastern sicheres Geleit durch die Stadt zu geben. Die Laster müssen das Versorgungslager der Stadt erreichen. Außerdem müssen wir die Docks unter Kontrolle behalten. Viel Glück, Sir"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xEva02Subtitle",
+  "text": "*Die Versorgungslaster setzen sich in Bewegung, General. Wir müssen sie auf dem Weg zum Abladepunkt schützen"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xEva03Subtitle",
+  "text": "*Ich schicke Ihnen neue Wachdrohnen-Prototypen. Der Feind kann sie nicht entdecken, solange sie stillstehen. Die Drohnen spüren außerdem getarnte Einheiten und Sprengfallen der GBA auf. Sie dürften sehr nützlich sein"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xEva04Subtitle",
+  "text": "*Unser Bulldozer ist eingetroffen, Sir! Beginnen Sie mit dem Basisbau. Die GBA bereitet eine neue Angriffswelle gegen uns vor!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xEva05Subtitle",
+  "text": "*Großartige Arbeit, Sir! Die Menschen dieser Stadt sind dankbar für die Hilfsgüter. Unser letztes Ziel ist es, die GBA aus dem Gebiet zu vertreiben. Zerstören Sie ihre Hauptbasis über der Stadt, dann ist das Gebiet gesichert"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xEva06Subtitle",
+  "text": "*Verstärkung im Anmarsch, General"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xEva07Subtitle",
+  "text": "*General, unsere Wachdrohnen können helfen, Sprengfallen der GBA aufzuspüren"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xEva08Subtitle",
+  "text": "*Sir, beim Lagerhaus ist noch GBA. Wir müssen sie sofort vertreiben"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xEva09Subtitle",
+  "text": "*Die Versorgungslaster werden angegriffen!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xEva10Subtitle",
+  "text": "*Gute Arbeit, alle Laster sind sicher an den Docks, jetzt bringen wir sie in die Stadt"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xEva11Subtitle",
+  "text": "*Versuchen Sie, zivile Opfer möglichst gering zu halten"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xEva12Subtitle",
+  "text": "*Sie haben ein Ausbildungslager der GBA entdeckt, Sir. Laut Geheimdienst waren Mitglieder dieses Lagers teilweise für den Start in Baikonur verantwortlich. Wir haben Befehl, es auszuschalten"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xEva13Subtitle",
+  "text": "*Sichern Sie das Lagerhaus, damit die Versorgungslaster gefahrlos weiterfahren können"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xEva14Subtitle",
+  "text": "*Sobald das Lagerhaus gesichert ist, fahren die Versorgungslaster weiter"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xEva15Subtitle",
+  "text": "*Die Bulldozer sind eingetroffen, General. Sie können die GBA nach eigenem Ermessen ausschalten"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xEva16Subtitle",
+  "text": "*Bringen Sie die Lebensmittel in die Stadt, bevor die GBA sie stehlen oder zerstören kann"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xEva17Subtitle",
+  "text": "*General, wir haben es geschafft. Die Stadt ist frei von der Tyrannei der GBA. Anscheinend haben sie Informationen, die uns direkt zu den versteckten Massenvernichtungswaffen führen"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xEva18Subtitle",
+  "text": "*Für diese Operation steht volle Marineunterstützung zur Verfügung"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xEva19Subtitle",
+  "text": "*Setzen Sie die Schlachtschiffe und den Flugzeugträger nach eigenem Ermessen ein"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xEva20Subtitle",
+  "text": "*Die Schlachtschiffe sind in Reichweite und warten auf Ziele, General"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xEva21Subtitle",
+  "text": "*Die CVN Daedalus steht mit startbereiten Flugzeugen bereit"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xEva22Subtitle",
+  "text": "*Das Lagerhaus muss gesichert werden, aber die Sicherheit der Docks darf nicht gefährdet werden"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xEva23Subtitle",
+  "text": "*Unsere Kräfte in diesem Gebiet sind begrenzt. Sie erhalten Verstärkung, sobald welche verfügbar ist"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xEva24Subtitle",
+  "text": "*Sichern Sie das Lagerhaus, ohne die Sicherheit der Docks zu gefährden"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xEva25Subtitle",
+  "text": "*Der Konvoi hat das Lagerhaus wieder aufgefüllt"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xEva26Subtitle",
+  "text": "*Die GBA-Basis ist das nächste Ziel, General"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xSupply01Subtitle",
+  "text": "*Sobald das Lagerhaus sicher ist, rollen wir los"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xSupply02Subtitle",
+  "text": "*Danke für das Deckungsfeuer, General! Alle Laster sind beladen und abfahrbereit. Räumen Sie uns nur noch die Stadt, Sir!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xSupply03Subtitle",
+  "text": "*Die Straßen sind voller Sprengfallen, Sir! Die müssen weg!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xSupply04Subtitle",
+  "text": "*Wir haben das Lagerhaus erreicht, General. Danke für die Eskorte!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xSupply05Subtitle",
+  "text": "*Der Konvoi ist sicher angekommen, Sir. Danke für die Deckung"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xVillager01Subtitle",
+  "text": "*Oh, danke"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xVillager02Subtitle",
+  "text": "*Gott segne Sie"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xVillager03Subtitle",
+  "text": "*Ich habe so lange nichts gegessen"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA02xVillager04Subtitle",
+  "text": "*Gibt es noch mehr?"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03Comanche102Subtitle",
+  "text": "*Die Vierlingskanonen nehmen uns auseinander, Sir"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03Crusader105Subtitle",
+  "text": "*Wir brauchen mehr Unterstützung! Sie machen uns fertig!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03Crusader108Subtitle",
+  "text": "*Schafft uns jemand diese Buggys vom Hals!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03Crusader304Subtitle",
+  "text": "*Feindkontakt bestätigt! Sie rücken schnell vor!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03Crusader307Subtitle",
+  "text": "*Alle Einheiten! Feuer aufrechterhalten!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xBrf01Subtitle",
+  "text": "*General, Colonel Burton und Black Lotus sind in Position und erwarten Ihre Befehle"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xBrf02Subtitle",
+  "text": "*Ihr Hauptziel ist dieses Geheimlabor. Sein Standort ging aus den Dokumenten hervor, die bei Ihrer letzten Mission erbeutet wurden"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xBrf03Subtitle",
+  "text": "*Die GBA arbeitet an einer neuen Massenvernichtungswaffe. Black Lotus muss diese Daten herunterladen, damit wir wissen, wie weit ihre Forschung ist"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xBrf04Subtitle",
+  "text": "*Sobald sie den Download abgeschlossen hat, muss Colonel Burton den Berghang auf das Labor stürzen lassen und es für immer begraben"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xBurton01Subtitle",
+  "text": "*Wir sind an der Brücke. Lotus, kümmere dich um den Scorpion, ich übernehme die anderen Wachen"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xBurton02Subtitle",
+  "text": "*Das war so nicht geplant, Lotus"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xBurton03Subtitle",
+  "text": "*Du wartest auf mich? Na gut, Lotus, wer zuerst da ist …"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xBurton04Subtitle",
+  "text": "*Ich bin unterwegs"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xBurton05Subtitle",
+  "text": "*Gut, ich sehe das Gefangenenlager … sieht aus, als hätten sie ein Tunnelnetz, das unter dem Fluss durchführt"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xBurton06Subtitle",
+  "text": "*Gute Arbeit, Lotus … hier unten sind Tunnel … erledige nur noch ein paar Wachen, dann befreie ich alle"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xBurton07Subtitle",
+  "text": "*Diese Fahrzeuge kämen gelegen, falls die Informationen über die Verteidigung in den Bergen stimmen. General, wir sollten sie auch retten"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xBurton08Subtitle",
+  "text": "*General, ich bin beim zweiten Gefangenenlager in Position … vorn ein Tunnelnetz und Wachen. Ich könnte an ihnen vorbei ins Lager schlüpfen, wenn ich am Südende die Klippen hinunterklettere"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xBurton09Subtitle",
+  "text": "*Werd nicht übermütig, Lotus, das Rennen hast du noch nicht gewonnen"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xBurton10Subtitle",
+  "text": "*Das waren die letzten … zweites Gefangenenlager gesichert … jemand sollte Lotus sagen, dass sie sich beeilen soll … Ich will am Labor nicht warten müssen"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xBurton11Subtitle",
+  "text": "*Das ist ja ein neues Spielzeug. General, wenn Sie es auf die Tunnelnetze und Stinger-Stellungen am Berg richten, schlüpfe ich direkt an ihnen vorbei"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xBurton12Subtitle",
+  "text": "*Sieht aus wie eine ganze GBA-Basis. Davon hat der Geheimdienst nie etwas gesagt"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xBurton13Subtitle",
+  "text": "*Sieht nicht so aus, als hätten sie mich erwartet … ein bisschen C4 hier und da, und ich mache kurzen Prozess mit dem Laden … sagen Sie nur ein Wort, General"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xBurton14Subtitle",
+  "text": "*Durch das Dorf sollte ich sicher kommen … ich muss nur auf Radarwagen achten, die das Gebiet überwachen. Hätte ich doch ein paar Blendgranaten"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xBurton15Subtitle",
+  "text": "*Das ist es! Ich gehe über dem Labor in Position … lass mich nicht warten, Lotus, hier oben ist es kalt"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xBurton16Subtitle",
+  "text": "*Ladungen gesetzt … sag Bescheid, Lotus"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xBurton17Subtitle",
+  "text": "*Na, Lotus, du bist schnell … das muss man dir lassen. Ich bin so schnell wie möglich da"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xBurton18Subtitle",
+  "text": "*Gut … ich bin am Berg … Sag mir, wenn dein Download fertig ist, Lotus, dann begrabe ich das Labor dort, wo es niemand je wieder findet"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xChat01Subtitle",
+  "text": "*Garnison … friss Blendgranate"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xChat02Subtitle",
+  "text": "*Da sind sie … denkt dran, kurze, kontrollierte Feuerstöße"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xChat03Subtitle",
+  "text": "*Infanterie? Kein Problem"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xChat04Subtitle",
+  "text": "*Wir werden beschossen … wir brauchen hier Unterstützung!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xCin01Subtitle",
+  "text": "*Hier Spirit, ich fliege über das Zielgebiet ein …"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xCin02Subtitle",
+  "text": "*Verstanden, Spirit, Mission läuft. Bereit?"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xCin03Subtitle",
+  "text": "*Ja, Colonel, fangen wir an"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xCin04Subtitle",
+  "text": "*Hier Spirit, Bombenschacht offen … … Bomben ausgeklinkt"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xCin05Subtitle",
+  "text": "*Spirit an Infiltrator, Ihre Landezone ist frei … Viel Glück"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xCin06Subtitle",
+  "text": "*Verstanden, Spirit, guter Schuss"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xCin07Subtitle",
+  "text": "*Auf Position … alle raus, die hierbleiben"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xCin08Subtitle",
+  "text": "*Danke fürs Mitnehmen, Jungs … bis bald …"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xCin09Subtitle",
+  "text": "*Eure kleinen Chinooks sind effizient … aber ich bevorzuge die Stärke unserer Helix..."
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xDrvr01Subtitle",
+  "text": "*Wir sind frei! Alle zu den Fahrzeugen!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xDrvr02Subtitle",
+  "text": "*Danke, General. Wir stehen zu Ihrer Verfügung"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xEva01Subtitle",
+  "text": "*General, Ihr erstes Ziel ist die Zerstörung dieser Brücke. Damit schneiden Sie die GBA-Verstärkung vom anderen Flussufer ab"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xEva02Subtitle",
+  "text": "*General, GBA-Verstärkung wurde beim Überqueren der Brücke gesichtet"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xEva03Subtitle",
+  "text": "*Ein weiterer GBA-Trupp ist in das Gebiet eingedrungen, General. Vielleicht sollten wir uns jetzt um die Brücke kümmern?"
+ }
+]

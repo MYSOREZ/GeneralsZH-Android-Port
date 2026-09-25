@@ -1,0 +1,802 @@
+[
+ {
+  "label": "DIALOGEVENT:EvaGLA_NuclearMissileReadySubtitle",
+  "text": "*Unsere Atomrakete ist startbereit"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_OpinionCivilianStructures01Subtitle",
+  "text": "*General. Achten Sie darauf, dass keine zivilen Gebäude zerstört werden"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_OpinionCivilianStructures02Subtitle",
+  "text": "*Die Zerstörung ziviler Gebäude schadet unserem internationalen Ansehen!"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_OpinionDestroyStatuesSubtitle",
+  "text": "*Zerstören Sie die Statuen der GBA, um unser internationales Ansehen zu steigern, Sir"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_OpinionDestroyStructuresSubtitle",
+  "text": "*Sir. Die Zerstörung feindlicher Gebäude steigert unser internationales Ansehen"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_OpinionDestroyTroopsSubtitle",
+  "text": "*Vernichten Sie mehr feindliche Truppen, um das internationale Ansehen zu steigern"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_OpinionFallingSubtitle",
+  "text": "*Unser internationales Ansehen sinkt!"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_OpinionLowSubtitle",
+  "text": "*Unser internationales Ansehen wird gering"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_OpinionLowCriticalSubtitle",
+  "text": "*Unser internationales Ansehen ist kritisch gering!"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_OpinionLowVerySubtitle",
+  "text": "*Unser internationales Ansehen ist sehr gering"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_OpinionProtectCivilianSubtitle",
+  "text": "*Schützen Sie zivilen Besitz vor Schaden"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_OpinionRisingSubtitle",
+  "text": "*Unser internationales Ansehen steigt!"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_ParticleCannonDetectedAllySubtitle",
+  "text": "*Unser Verbündeter hat eine Partikelkanone gebaut"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_ParticleCannonLaunchedAllySubtitle",
+  "text": "*Unser Verbündeter setzt seine Partikelkanone ein"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_ParticleCannonLaunchedOursSubtitle",
+  "text": "*Partikelkanone wird abgefeuert"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_ParticleCannonReadySubtitle",
+  "text": "*Unsere Partikelkanone ist bereit"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_ReinforcementsHaveArrivedSubtitle",
+  "text": "*Weitere Krieger sind uns zu Hilfe gekommen"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_ScudStormDetectedAllySubtitle",
+  "text": "*Unser Verbündeter hat einen SCUD-Sturm gebaut"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_ScudStormLaunchedAllySubtitle",
+  "text": "*Unser Verbündeter hat einen SCUD-Sturm gestartet"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_ScudStormLaunchedOursSubtitle",
+  "text": "*SCUD-Sturm wird gestartet"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_ScudStormReadySubtitle",
+  "text": "*Wir können jetzt unseren SCUD-Sturm einsetzen"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_SelectTargetSubtitle",
+  "text": "*Wo sollen wir zuschlagen?"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_SneakAttackLaunchedSubtitle",
+  "text": "*General, unser Feind setzt seinen Überraschungsangriff ein"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_UnitLostSubtitle",
+  "text": "*Ein Krieger ist gefallen"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_UpgradeCompleteSubtitle",
+  "text": "*Upgrade abgeschlossen"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_VehicleStolenSubtitle",
+  "text": "*Sie haben ein Fahrzeug gestohlen"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_VictorySubtitle",
+  "text": "*Wir haben gesiegt"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_AllyUnderAttackSubtitle",
+  "text": "*Unser Verbündeter wird angegriffen"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_BaseDefensesOffLineSubtitle",
+  "text": "*Basisverteidigung offline"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_BeaconDetectedSubtitle",
+  "text": "*Signalfeuer entdeckt"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_BlackLotusEnemySubtitle",
+  "text": "*Feindlicher Jarmen Kell entdeckt"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_BlackLotusOursSubtitle",
+  "text": "*Unser Jarmen Kell wurde entdeckt"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_BuildingBeingCapturedSubtitle",
+  "text": "*Unser Gebäude wird eingenommen"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_BuildingDisabledSubtitle",
+  "text": "*Gebäude offline"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_BuildingEnabledSubtitle",
+  "text": "*Gebäude wieder online"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_BuildingStolenSubtitle",
+  "text": "*Gebäude gestohlen"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_CashStolenSubtitle",
+  "text": "*General, sie stehlen unser Geld"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_ColonelBurtonEnemySubtitle",
+  "text": "*Feindlicher Colonel Burton entdeckt"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_ColonelBurtonOursSubtitle",
+  "text": "*Unser Colonel Burton wurde entdeckt"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_DefeatSubtitle",
+  "text": "*Sie wurden besiegt"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_DetectedNukeSubtitle",
+  "text": "*Warnung: Atomraketensilo entdeckt"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_DetectedParticleCannonSubtitle",
+  "text": "*Warnung: Partikelkanone entdeckt"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_DetectedScudStormSubtitle",
+  "text": "*Warnung: SCUD-Sturm entdeckt"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_FundsReceivedSubtitle",
+  "text": "*Wir haben Geld von unserem Verbündeten erhalten"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_FundsRequestedSubtitle",
+  "text": "*Sie haben Geld von Ihrem Verbündeten angefordert"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_FundsRequestedAllySubtitle",
+  "text": "*Ihr Verbündeter fordert Geld an"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_FundsTransferredSubtitle",
+  "text": "*Wir haben unserem Verbündeten Geld überwiesen"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_GeneralLevelUpSubtitle",
+  "text": "*Glückwunsch, General. Sie wurden befördert"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_GPSScramblerLaunchedSubtitle",
+  "text": "*Warnung. GPS-Störsender entdeckt"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_HeroDiscoveredEnemySubtitle",
+  "text": "*Ein feindlicher Held wurde entdeckt"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_HeroDiscoveredOursSubtitle",
+  "text": "*Einer unserer Helden wurde entdeckt"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_IncomingAnthraxSubtitle",
+  "text": "*Anthrax-Bombe entdeckt"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_IncomingDaisyCutterSubtitle",
+  "text": "*Daisy-Cutter-Bombe entdeckt"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_IncomingEmpPulseSubtitle",
+  "text": "*EMP-Impulsbombe entdeckt"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_IncomingFuelAirBombSubtitle",
+  "text": "*Aerosolbombe entdeckt"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_InsufficientFundsSubtitle",
+  "text": "*Nicht genug Geld"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_JarmenKellEnemySubtitle",
+  "text": "*Feindliche Black Lotus entdeckt"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_JarmenKellOursSubtitle",
+  "text": "*Unsere Black Lotus wurde entdeckt"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_LaserDefenseSpeechSubtitle",
+  "text": "*General, unser Gegner hat eine Festung mitten in der Stadt. Sein Laser-Abwehrsystem ist verheerend, braucht aber viel Energie. Er muss seine Energie immer auf einen Verteidigungspunkt nach dem anderen umleiten. Nutzen Sie das zu Ihrem Vorteil"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_LaunchedNukeSubtitle",
+  "text": "*Warnung: Atomrakete gestartet"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_LaunchedParticleCannonSubtitle",
+  "text": "*Warnung: Partikelkanone aktiviert"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_LaunchedScudStormSubtitle",
+  "text": "*Warnung: SCUD-Sturm gestartet"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_LowPowerSubtitle",
+  "text": "*Energie knapp"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_NuclearMissileDetectedAllySubtitle",
+  "text": "*Verbündetes Atomsilo entdeckt"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_NuclearMissileLaunchedAllySubtitle",
+  "text": "*Verbündete Atomrakete gestartet"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_NuclearMissileLaunchedOursSubtitle",
+  "text": "*Atomrakete gestartet"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_NuclearMissileReadySubtitle",
+  "text": "*Atomrakete bereit"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_OpinionCivilianStructures01Subtitle",
+  "text": "*General. Achten Sie darauf, dass keine zivilen Gebäude zerstört werden"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_OpinionCivilianStructures02Subtitle",
+  "text": "*Die Zerstörung ziviler Gebäude schadet unserem internationalen Ansehen!"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_OpinionDestroyStatuesSubtitle",
+  "text": "*Zerstören Sie die Statuen der GBA, um das internationale Ansehen zu steigern, Sir"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_OpinionDestroyStructuresSubtitle",
+  "text": "*Sir. Die Zerstörung feindlicher Gebäude steigert unser internationales Ansehen"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_OpinionDestroyTroopsSubtitle",
+  "text": "*Vernichten Sie mehr feindliche Truppen, um das internationale Ansehen zu steigern"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_OpinionFallingSubtitle",
+  "text": "*Unser internationales Ansehen sinkt!"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_OpinionLowSubtitle",
+  "text": "*Unser internationales Ansehen wird gering"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_OpinionLowCriticalSubtitle",
+  "text": "*Unser internationales Ansehen ist kritisch gering!"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_OpinionLowVerySubtitle",
+  "text": "*Unser internationales Ansehen ist sehr gering"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_OpinionProtectCivilianSubtitle",
+  "text": "*Schützen Sie zivilen Besitz vor Schaden"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_OpinionRisingSubtitle",
+  "text": "*Unser internationales Ansehen steigt!"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_ParticleCannonDetectedAllySubtitle",
+  "text": "*Verbündete Partikelkanone entdeckt"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_ParticleCannonLaunchedAllySubtitle",
+  "text": "*Verbündete Partikelkanone aktiviert"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_ParticleCannonLaunchedOursSubtitle",
+  "text": "*Partikelkanone aktiviert"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_ParticleCannonReadySubtitle",
+  "text": "*Partikelkanone bereit"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_ReinforcementsHaveArrivedSubtitle",
+  "text": "*Verstärkung ist eingetroffen"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_ScudStormDetectedAllySubtitle",
+  "text": "*Verbündeter SCUD-Sturm entdeckt"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_ScudStormLaunchedAllySubtitle",
+  "text": "*Verbündeter SCUD-Sturm gestartet"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_ScudStormLaunchedOursSubtitle",
+  "text": "*SCUD-Sturm gestartet"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_ScudStormReadySubtitle",
+  "text": "*SCUD-Sturm bereit"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_SelectTargetSubtitle",
+  "text": "*Ziel wählen"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_SneakAttackLaunchedSubtitle",
+  "text": "*Warnung. Überraschungsangriff entdeckt"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_UnitLostSubtitle",
+  "text": "*Einheit verloren"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_UpgradeCompleteSubtitle",
+  "text": "*Upgrade abgeschlossen"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_UpgradeControlRodSubtitle",
+  "text": "*Steuerstab-Upgrade abgeschlossen"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_UpgradeControlRodAdvancedSubtitle",
+  "text": "*Upgrade für verbesserte Steuerstäbe abgeschlossen"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_UpgradeMoabSubtitle",
+  "text": "*MOAB-Upgrade abgeschlossen"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_UpgradeSentryDroneSubtitle",
+  "text": "*Wachdrohnen-Upgrade abgeschlossen"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_VehicleStolenSubtitle",
+  "text": "*Fahrzeug gestohlen"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_VictorySubtitle",
+  "text": "*Sie haben gesiegt"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xBrf01Subtitle",
+  "text": "*General, die GBA hat die US-Truppen in diesem Gebiet besiegt. Wir haben einen verheerenden Gegenschlag geführt, aber wie Kakerlaken leben sie immer noch"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xBrf02Subtitle",
+  "text": "*Schon jetzt bauen die Überlebenden der GBA wieder auf"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xBrf03Subtitle",
+  "text": "*Um die GBA endgültig auszulöschen, müssen wir unsere Truppen schicken und sie aus jedem dunklen Winkel treiben, in dem sie sich verstecken"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xBrf04Subtitle",
+  "text": "*General, unsere neuen Horchposten sind in der Gegend stationiert. Sie stehen zu Ihrer Verfügung"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xBrf05Subtitle",
+  "text": "*Der Horchposten selbst ist unbewaffnet, doch seine Insassen können auf Feinde feuern, die zu nahe kommen. Seine große Sichtweite und Tarnung verbessern Ihren Überblick über das Schlachtfeld erheblich"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xChat01Subtitle",
+  "text": "*Keine GBA wird an unserer Garnison vorbeischlüpfen"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xChat02Subtitle",
+  "text": "*Toxin-Traktoren! Sie wollen uns alle vergiften … wir brauchen Unterstützung!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xChat03Subtitle",
+  "text": "*Seht … Bohrtürme … sollen wir sie einnehmen?"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xChat04Subtitle",
+  "text": "*GBA im Haus? Ein bisschen Feuer … und keine GBA mehr"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xChat05Subtitle",
+  "text": "*Die GBA baut dort drüben wieder auf … bereithalten zum Angriff"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xChat06Subtitle",
+  "text": "*Heute werden wir siegen … alle vorrücken"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xCin01aSubtitle",
+  "text": "*Ich hätte nicht gedacht, dass die Vereinigten Staaten so leicht besiegt würden"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xCin01bSubtitle",
+  "text": "*Ich verstehe nicht, warum die Vereinigten Staaten das zugelassen haben"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xCin01cSubtitle",
+  "text": "*Das darf nicht so bleiben. China wird die Dinge in Ordnung bringen"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xCin01dSubtitle",
+  "text": "*Dass die GBA unsere Mittel heimtückisch gegen die Amerikaner eingesetzt hat, hat China schwer blamiert. Sie werden für ihre Unverschämtheit bezahlen"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xCin02Subtitle",
+  "text": "*Die Raketen sind startbereit … letzter Countdown läuft"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xCin03Subtitle",
+  "text": "*3 … 2 … 1 … Raketen abgefeuert"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xCin04Subtitle",
+  "text": "*Sie glauben, sie hätten gesiegt, aber sie feiern zu früh"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xCin05Subtitle",
+  "text": "*Es ist schön, wenn es aus den richtigen Gründen eingesetzt wird"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xCin06Subtitle",
+  "text": "*Überlebende der GBA flüchten in die Stadt … sie müssen aufgehalten werden!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xCin07Subtitle",
+  "text": "*Wir sind in Position … Bombenschacht offen"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xCin08Subtitle",
+  "text": "*Wir haben Überlebende gesichtet. Ein Bodenangriff wird nötig sein"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xXO01Subtitle",
+  "text": "*General, unsere frühere Basis in der Region wurde von der GBA überrannt. Sie müssen eine neue Basis bauen, bevor Sie den Feind angreifen können"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xXO02Subtitle",
+  "text": "*Darf ich vorschlagen, einige Gebäude in der Nähe zu besetzen, um unsere Basis zu verteidigen"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xXO03Subtitle",
+  "text": "*General, die GBA hat mehrere Gebäude in der Stadt besetzt. Vielleicht könnten Sie diese Stellungen mit einem Drache-Panzer ausräuchern"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xXO04Subtitle",
+  "text": "*General, die GBA schickt Toxin-Traktoren zu unseren besetzten Gebäuden. Greifen diese Traktoren die Gebäude an, wird jeder darin ausgelöscht"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xXO05Subtitle",
+  "text": "*Die GBA finanziert ihre Truppen mit diesen Bohrtürmen. Einer unserer Rotgardisten könnte sie einnehmen. Der Erlös würde uns helfen, die GBA zu besiegen"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xXO06Subtitle",
+  "text": "*General, ist es klug, diese Bohrtürme zu zerstören? Sie würden uns wertvolle Ressourcen liefern. Einer unserer Rotgardisten könnte sie einnehmen"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xXO07Subtitle",
+  "text": "*Sie haben sie überrumpelt, General. Einer Ihrer Rotgardisten könnte ihre Gebäude einnehmen, bevor sie reagieren können"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xXO08Subtitle",
+  "text": "*Jetzt, da Sie unsere Operationsbasis wiederhergestellt haben, ist es Zeit, alle verbliebenen GBA-Truppen in der Gegend aufzuspüren"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xXO09Subtitle",
+  "text": "*Glückwunsch, General. Sie haben die Stadt von allen GBA-Truppen befreit. Sobald Sie ihre letzte Basis ausgelöscht haben, ist Ihre Mission erfüllt"
+ },
+ {
+  "label": "DIALOGEVENT:MisChi02Lin13Subtitle",
+  "text": "*Die Terrorgefahr ist gebannt. Gute Arbeit, General"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xBrf01Subtitle",
+  "text": "*General, die GBA versucht, die in dieser Anlage gelagerten Atomsprengköpfe zu stehlen"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xBrf01aSubtitle",
+  "text": "*General, die GBA versucht, unser wichtigstes Atomkraftwerk zu zerstören"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xBrf02Subtitle",
+  "text": "*Unsere tapferen Soldaten haben ihren Angriff abgewehrt, aber zu einem hohen Preis, und die GBA ist immer noch da draußen"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xBrf03Subtitle",
+  "text": "*Sie müssen die GBA aufhalten und dafür sorgen, dass jeder unserer Bunker geschützt ist"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xBrf03aSubtitle",
+  "text": "*Sie müssen die GBA aufhalten, damit die Anlage nicht zerstört wird"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xBrf04Subtitle",
+  "text": "*Wir haben einige neue Technologien, die Ihrer Mission sehr nützen dürften, General"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xBrf05Subtitle",
+  "text": "*Unsere Atomkanonen können jetzt Neutronengranaten verschießen. Diese neuen Granaten töten Soldaten und Fahrzeugbesatzungen zuverlässig. Sobald sich die Strahlung verzogen hat, kann einer unserer Infanteristen die übrig gebliebenen Fahrzeuge einnehmen"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xBrf06Subtitle",
+  "text": "*Unsere Gebäude können jetzt Neutronenminen erhalten. Sie wirken weiterhin gegen Infanterie, legen aber auch feindliche Fahrzeuge vorübergehend lahm"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xBrf07aSubtitle",
+  "text": "*General, Ihre Verstärkung trifft in 15 Minuten ein"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xBrf07bSubtitle",
+  "text": "*General, Ihre Verstärkung trifft in 10 Minuten ein"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xBrf07cSubtitle",
+  "text": "*General, Ihre Verstärkung trifft in 5 Minuten ein"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xBrf07dSubtitle",
+  "text": "*General, Ihre Verstärkung trifft bald ein"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat01Subtitle",
+  "text": "*Feindliche Truppen gesichtet. Wir halten sie auf"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat02Subtitle",
+  "text": "*Wir werden an der rechten Flanke beschossen … wir brauchen hier Unterstützung"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat03Subtitle",
+  "text": "*Sie sind hinter uns … alles Feuer nach Süden!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat04Subtitle",
+  "text": "*GBA-Basis in Reichweite … alle Teams bereit zum Angriff, General"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat05Subtitle",
+  "text": "*Feindliche Gebäude auf dem Kamm. Ein Wort von Ihnen, General, und wir walzen sie nieder"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat06Subtitle",
+  "text": "*Vorsicht vor den RPG-Soldaten! Wir brauchen Hilfe!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat07Subtitle",
+  "text": "*General, wir sind jetzt über dem Zielgebiet und haben mit der Bombardierung begonnen"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat08Subtitle",
+  "text": "*Wir rollen den Teppich aus … den Bombenteppich. Hehe"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat09Subtitle",
+  "text": "*Die feindliche Luftabwehr ist hier dicht … wir erleiden schwere Schäden"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat10Subtitle",
+  "text": "*Stinger-Stellungen haben uns erfasst … wir stecken in Schwierigkeiten!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat11Subtitle",
+  "text": "*Haltet den Rebellen auf, er will unseren Bunker einnehmen!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat12Subtitle",
+  "text": "*Das ist kein Battlemaster, aber er wird es tun müssen"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat13Subtitle",
+  "text": "*Mir ist mein Gatling-Panzer lieber"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat14Subtitle",
+  "text": "*Noch eine GBA-Welle!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat15Subtitle",
+  "text": "*Wir müssen unsere Bunker schützen!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat15aSubtitle",
+  "text": "*Wir müssen den Atomreaktor schützen!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat16Subtitle",
+  "text": "*Jetzt zeigen wir ihnen, wie man eine Basis angreift!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat17Subtitle",
+  "text": "*Verstärkung! Wir sind froh, euch zu sehen!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat18Subtitle",
+  "text": "*Wir erwarten Ihre Befehle, General. Wo brauchen Sie uns?"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xCin01Subtitle",
+  "text": "*Wir müssen auf der Hut sein. Berichten zufolge könnte die GBA aus Rache für unseren Kriegseintritt angreifen"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xCin01aSubtitle",
+  "text": "*Ich fühle mich nicht sicher, wenn ich dieses Atomkraftwerk bewache"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xCin01bSubtitle",
+  "text": "*Ja. Ich wünschte, ich wäre zur Luftwaffe gegangen"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xCin01dSubtitle",
+  "text": "*Nach unserem jüngsten Sieg würden sie es doch sicher nicht wagen, uns hier anzugreifen"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xCin01cSubtitle",
+  "text": "*Da ist das Essen viel besser. Und sie dürfen diese schicken Helme tragen"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xCin02Subtitle",
+  "text": "*GBA-Truppen! Wir werden angegriffen!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xCin03Subtitle",
+  "text": "*Sie sind überall! Wir werden überrannt"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xCin04Subtitle",
+  "text": "*Noch eine Welle! Wir brauchen Verstärkung!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xCin04aSubtitle",
+  "text": "*Noch eine Welle! Sie haben Bombenlaster und Terroristen! Wir brauchen Verstärkung!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xCin04bSubtitle",
+  "text": "*Noch eine Welle! Sie setzen Selbstmordtaktiken ein! Wo bleibt die Verstärkung?!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xCin05Subtitle",
+  "text": "*Wir haben das Flugfeld verloren!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xCin06Subtitle",
+  "text": "*Sie wollen an die Lagerbunker! Schützt sie um jeden Preis!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xCin06aSubtitle",
+  "text": "*Sie wollen an den Hauptreaktor! Schützt ihn um jeden Preis!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xCin07Subtitle",
+  "text": "*Die Kommandozentrale … sie haben die Kommandozentrale erwischt"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xCin08Subtitle",
+  "text": "*Wir haben standgehalten … verbliebene Einheiten, Meldung machen"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xCin09Subtitle",
+  "text": "*Nicht mehr viel übrig. Wir werden Verstärkung brauchen"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xCin10Subtitle",
+  "text": "*Die Nachricht ist durchgekommen, aber wir müssen durchhalten, bis sie hier sind"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xXO01Subtitle",
+  "text": "*General, unsere Verstärkung ist eingetroffen!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xXO02Subtitle",
+  "text": "*General, GBA-Truppen greifen die Bunker an"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xXO02aSubtitle",
+  "text": "*General, GBA-Truppen greifen das Atomkraftwerk an!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xXO03Subtitle",
+  "text": "*Die GBA versucht, einen unserer Bunker einzunehmen"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xXO04Subtitle",
+  "text": "*General, dieser Bunker ist schwer beschädigt. Ich schlage vor, ihn vor dem nächsten GBA-Angriff zu reparieren"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xXO04aSubtitle",
+  "text": "*General, unser Atomkraftwerk ist schwer beschädigt. Ich schlage vor, es vor dem nächsten GBA-Angriff zu reparieren"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xXO05Subtitle",
+  "text": "*General, der letzte Angriff hat mehrere Bunker schwer geschwächt. Wird einer davon zerstört, gewinnt die GBA dieses Gefecht"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xXO05aSubtitle",
+  "text": "*General, der letzte Angriff hat das Atomkraftwerk schwer geschwächt. Wird es zerstört, scheitert unsere Mission!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xXO06Subtitle",
+  "text": "*Warnung … GBA-Truppen rücken auf die Bunker vor"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xXO06aSubtitle",
+  "text": "*Warnung … GBA-Truppen rücken auf das Kraftwerk vor!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xXO07Subtitle",
+  "text": "*General, ich habe Kontakt zu einem unserer Spähposten. Er wird von der GBA angegriffen. Wenn wir ihn retten, kann ich mich in sein System einklinken, und wir können Flächenbomber anfordern"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xXO08Subtitle",
+  "text": "*General, wenn Sie diesen Spähposten sichern, können Sie Flächenbombardements auf die GBA-Truppen lenken"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xXO09Subtitle",
+  "text": "*General, jetzt, da unsere Verstärkung eingetroffen ist, ist es Zeit, die GBA aus diesem Gebiet zu vertreiben"
+ },
+ {
+  "label": "DIALOGEVENT:MisChi03RedChat12Subtitle",
+  "text": "*In die Schlacht!"
+ },
+ {
+  "label": "DIALOGEVENT:MisChi03RedChat19Subtitle",
+  "text": "*Holt die Panzer! Macht sie platt!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xBrf01Subtitle",
+  "text": "*Seien Sie gegrüßt, Kommandant. Jetzt, da wir den Gegenangriff der GBA vereitelt haben, müssen wir unseren Vorteil nutzen!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xBrf02Subtitle",
+  "text": "*Wir müssen diese Stadt aus den Klauen der GBA befreien"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xBrf03Subtitle",
+  "text": "*Nördlich des Flusses liegt eine schwer befestigte GBA-Basis. Wir müssen sie zerstören, aber das wird keine leichte Aufgabe"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xBrf04Subtitle",
+  "text": "*Unsere Operationen haben die Aufmerksamkeit der ganzen Welt erregt, man wird uns genau beobachten. Je länger diese Schlacht dauert, desto tiefer sinkt unser internationales Ansehen"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xBrf05Subtitle",
+  "text": "*Schäden an zivilem Eigentum sind zu vermeiden. Unsere Operation muss präzise und schnell sein. Die Vernichtung von GBA-Truppen lässt unser internationales Ansehen steigen"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xBrf09Subtitle",
+  "text": "*Wenn unser internationales Ansehen hoch genug ist, schließen sich die Bewohner der Stadt vielleicht unserer Sache an"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xBrf10Subtitle",
+  "text": "*Dann wird es leicht sein, die Verteidigung der GBA zu vernichten"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xChat01Subtitle",
+  "text": "*Sie müssen hier irgendwo ein getarntes Tunnelnetz haben"
+ }
+]
