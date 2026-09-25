@@ -25,7 +25,7 @@ What check enforces, because the game depends on it rather than because of style
   - the same labels, in the same order, none missing, none added;
   - printf arguments (%s, %d, %ls, %%, ...) identical and in the same order -- a missing or
     reordered one is a crash or garbage on screen;
-  - the same number of line breaks;
+  - the same number of line breaks (reported as a warning only: it is layout);
   - "&" hotkey markers: one where the English has one (on a letter of the translation),
     none where it has none;
   - a leading "*" (subtitle marker) kept;
@@ -38,7 +38,9 @@ import os
 import re
 import sys
 
-PRINTF = re.compile(r"%(?:%|[-+ #0]*\d*(?:\.\d+)?(?:hh|h|ll|l|L|I64)?[sSdiuoxXcCfFeEgGp])")
+# No space flag: in this game's text "+25% Firepower" is a percent sign followed by a word,
+# and reading "% F" as a conversion would demand that every translation keep "% F".
+PRINTF = re.compile(r"%(?:%|[-+#0]*\d*(?:\.\d+)?(?:hh|h|ll|l|L|I64)?[sSdiuoxXcCfFeEgGp])")
 
 
 def unescape(s):
@@ -104,8 +106,10 @@ def hotkeys(s):
     return [i for i in range(len(s) - 1) if s[i] == "&" and s[i + 1].isalnum()]
 
 
-def check_pair(src, dst):
+def check_pair(src, dst, warnings=None):
     problems = []
+    if warnings is None:
+        warnings = []
     if not isinstance(dst, list) or len(dst) != len(src):
         return ["entry count %s, expected %d" % (len(dst) if isinstance(dst, list) else "?", len(src))]
     for i, (s, d) in enumerate(zip(src, dst)):
@@ -122,7 +126,9 @@ def check_pair(src, dst):
         if PRINTF.findall(st) != PRINTF.findall(dt):
             problems.append("%s: printf %s, expected %s" % (where, PRINTF.findall(dt), PRINTF.findall(st)))
         if st.count("\n") != dt.count("\n"):
-            problems.append("%s: %d line breaks, expected %d" % (where, dt.count("\n"), st.count("\n")))
+            # Layout only: a tooltip wrapped differently still works, and established
+            # community translations often break lines where the language needs it.
+            warnings.append("%s: %d line breaks, English has %d" % (where, dt.count("\n"), st.count("\n")))
         hs, hd = len(hotkeys(st)), len(hotkeys(dt))
         if hs != hd:
             problems.append("%s: %d '&' hotkeys, expected %d" % (where, hd, hs))
