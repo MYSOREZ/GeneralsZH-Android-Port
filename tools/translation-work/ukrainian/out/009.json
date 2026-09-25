@@ -185,7 +185,7 @@
  },
  {
   "label": "CONTROLBAR:ToolTipGLABuildBarracks",
-  "text": "Тренує солдат ГВА"
+  "text": "Тренує солдат GLA"
  },
  {
   "label": "CONTROLBAR:ToolTipGLABuildSupplyStash",
@@ -245,11 +245,11 @@
  },
  {
   "label": "CONTROLBAR:ToolTipGLABuildPalace",
-  "text": "Містить важливі технології ГВА. Може бути зайнятий гарнізоном військ ГВА"
+  "text": "Містить важливі технології GLA. Може бути зайнятий гарнізоном військ GLA"
  },
  {
   "label": "CONTROLBAR:ToolTipGLABuildBlackMarket",
-  "text": "Містить важливі технології ГВА. Надає гравцеві ГВА безкоштовні ресурси"
+  "text": "Містить важливі технології GLA. Надає гравцеві GLA безкоштовні ресурси"
  },
  {
   "label": "CONTROLBAR:ToolTipGLABuildStingerSite",
@@ -273,7 +273,7 @@
  },
  {
   "label": "CONTROLBAR:ToolTipGLABuildWorker",
-  "text": "Будує всі структури ГВА. Ремонтує будівлі та збирає припаси"
+  "text": "Будує всі структури GLA. Ремонтує будівлі та збирає припаси"
  },
  {
   "label": "CONTROLBAR:ToolTipChinaBuildDozer",
@@ -765,7 +765,7 @@
  },
  {
   "label": "MAP:USA04Objective1Text",
-  "text": "МЕТА МІСІЇ:\n   Очистити пляж від сил ГВА"
+  "text": "МЕТА МІСІЇ:\n   Очистити пляж від сил GLA"
  },
  {
   "label": "MAP:USA04Objective2Text",
@@ -773,7 +773,7 @@
  },
  {
   "label": "MAP:USA04Objective3Text",
-  "text": "МЕТА МІСІЇ:\n  Знищити базу ГВА"
+  "text": "МЕТА МІСІЇ:\n  Знищити базу GLA"
  },
  {
   "label": "CONTROLBAR:ToolTipFireNukeCannonAtPosition",

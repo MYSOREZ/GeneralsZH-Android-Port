@@ -1,0 +1,90 @@
+[
+ {
+  "label": "GUI:LoadReplayLong",
+  "text": "ЗАВАНТАЖИТИ ПОВТОР"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak5",
+  "text": "Медаль за серію \n Гравець виграв 5 онлайн-ігор поспіль"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak20",
+  "text": "Медаль за серію \n Гравець виграв 20 онлайн-ігор поспіль"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAUpgradeBuggyAmmor",
+  "text": "+25% боєприпасів для Ракетного баггі"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak3Disabled",
+  "text": "Медаль за серію \n Виграйте 3 або більше ігор поспіль, щоб отримати цю медаль"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorBlitz10Disabled",
+  "text": "Медаль за бліц \n Переможіть комп'ютерного(-их) суперника(-ів) за 10 хвилин або швидше, щоб отримати цю медаль"
+ },
+ {
+  "label": "GUI:CÀontrolBarBack",
+  "text": "НАЗАД"
+ },
+ {
+  "label": "GUI:BuddyAddReqMessageSent",
+  "text": "Запит на дружбу надіслано"
+ },
+ {
+  "label": "GUI:BuddyAddReqMessageRejected",
+  "text": "Запит на дружбу відхилено"
+ },
+ {
+  "label": "GUI:BuddyAddReqMessageAccepted",
+  "text": "Запит на дружбу прийнято"
+ },
+ {
+  "label": "TOOLTIP:RefreshGamePlayerList",
+  "text": "Оновити списки ігор і гравців"
+ },
+ {
+  "label": "TOOLTIP:CommunicatorBuddyRadioButton",
+  "text": "Клацніть правою кнопкою на імені в списку гравців, щоб надіслати запит на дружбу"
+ },
+ {
+  "label": "TOOLTIP:CommunicatorIgnoreRadioButton",
+  "text": "Клацніть правою кнопкою на імені в списку гравців, щоб ігнорувати цього гравця"
+ },
+ {
+  "label": "GUI:GroupRoom15",
+  "text": "3 на 3"
+ },
+ {
+  "label": "GUI:GroupRoom16",
+  "text": "4 на 4"
+ },
+ {
+  "label": "GUI:GroupRoom17",
+  "text": "Новачки"
+ },
+ {
+  "label": "GUI:GroupRoom18",
+  "text": "Моди"
+ },
+ {
+  "label": "GUI:GroupRoom19",
+  "text": "Рейтингові"
+ },
+ {
+  "label": "GUI:GroupRoom20",
+  "text": "Німеччина"
+ },
+ {
+  "label": "GUI:GroupRoom21",
+  "text": "США"
+ },
+ {
+  "label": "GUI:GroupRoom22",
+  "text": "Корея"
+ },
+ {
+  "label": "GUI:BeaconClear",
+  "text": "Очистити"
+ }
+]

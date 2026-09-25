@@ -22,7 +22,7 @@
  {
   "label": "GUI:GLA",
   "english": "GLA",
-  "text": "ГВА"
+  "text": "GLA"
  },
  {
   "label": "UPGRADE:UpgradeComplete",
@@ -1642,7 +1642,7 @@
  {
   "label": "OBJECT:GLAHole",
   "english": "GLA Hole",
-  "text": "Діра ГВА"
+  "text": "Діра GLA"
  },
  {
   "label": "OBJECT:GLARock",
@@ -2552,7 +2552,7 @@
  {
   "label": "OBJECT:GLALeader",
   "english": "GLA Leader",
-  "text": "Лідер ГВА"
+  "text": "Лідер GLA"
  },
  {
   "label": "OBJECT:SupW_PatriotBattery",

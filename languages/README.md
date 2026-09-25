@@ -86,3 +86,16 @@ the English, and good existing lines were kept as they were. 6447 labels now: th
 English set plus 22 legacy labels from older game data (`GUI:GroupRoom15-22`,
 `GUI:BuddyAddReqMessage*`, the misspelled `GUI:CÀontrolBarBack`, ...), kept so the pack
 works with both. Work files: `tools/translation-work/`.
+
+Unit and faction names follow the original community translation, never player slang,
+with a few picks by the repository owner: GLA (not "МАО"), Хеликс, Крестоносец, Техничка,
+Залповая установка Скад (the SCUD Launcher stays "Эльбрус").
+
+## Ukrainian
+
+`languages/ukrainian/generals.str` started as the community `00_UA_ZeroHour.big` translation.
+On 25/09/2026 it was checked against the same English original: lines left in English and
+the mission subtitles it was missing (campaign dialogue, general taunts, unit descriptions)
+were translated with the pack's own unit names, and the 22 legacy labels were added, so it
+has the same 6447 labels as the Russian pack. The faction is "GLA" throughout (the pack had
+"ГВА" in some places), matching the Russian pack.

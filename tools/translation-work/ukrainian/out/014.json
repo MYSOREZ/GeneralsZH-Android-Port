@@ -181,19 +181,19 @@
  },
  {
   "label": "INI:FactionGLAToxinGeneral",
-  "text": "Генерал токсинів ГВА"
+  "text": "Генерал токсинів GLA"
  },
  {
   "label": "INI:FactionGLADemolitionGeneral",
-  "text": "Підривний генерал ГВА"
+  "text": "Підривний генерал GLA"
  },
  {
   "label": "INI:FactionGLAStealthGeneral",
-  "text": "Потайний генерал ГВА"
+  "text": "Потайний генерал GLA"
  },
  {
   "label": "INI:FactionGLACommanderInChief",
-  "text": "Головнокомандувач ГВА"
+  "text": "Головнокомандувач GLA"
  },
  {
   "label": "INI:FactionBossGeneral",
@@ -225,15 +225,15 @@
  },
  {
   "label": "SIDE:GLAToxinGeneral",
-  "text": "Генерал токсинів ГВА"
+  "text": "Генерал токсинів GLA"
  },
  {
   "label": "SIDE:GLADemolitionGeneral",
-  "text": "Підривний генерал ГВА"
+  "text": "Підривний генерал GLA"
  },
  {
   "label": "SIDE:GLAStealthGeneral",
-  "text": "Потайний генерал ГВА"
+  "text": "Потайний генерал GLA"
  },
  {
   "label": "SIDE:Boss",

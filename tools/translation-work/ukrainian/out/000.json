@@ -717,7 +717,7 @@
  },
  {
   "label": "GUI:GLA",
-  "text": "ГВА"
+  "text": "GLA"
  },
  {
   "label": "GUI:AmericaAllies",
@@ -729,7 +729,7 @@
  },
  {
   "label": "GUI:GLAAllies",
-  "text": "Союзники ГВА"
+  "text": "Союзники GLA"
  },
  {
   "label": "GUI:AmericaEnemies",
@@ -741,7 +741,7 @@
  },
  {
   "label": "GUI:GLAEnemies",
-  "text": "Вороги ГВА"
+  "text": "Вороги GLA"
  },
  {
   "label": "GUI:EndCampaign",
