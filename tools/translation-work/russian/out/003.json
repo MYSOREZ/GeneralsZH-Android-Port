@@ -417,7 +417,7 @@
  },
  {
   "label": "INI:FactionGLA",
-  "text": "МАО"
+  "text": "GLA"
  },
  {
   "label": "INI:FactionChinaHacker",
@@ -433,7 +433,7 @@
  },
  {
   "label": "SIDE:GLA",
-  "text": "МАО"
+  "text": "GLA"
  },
  {
   "label": "INI:RankLevel1",

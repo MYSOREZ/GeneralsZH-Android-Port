@@ -245,11 +245,11 @@
  },
  {
   "label": "CONTROLBAR:ToolTipGLABuildPalace",
-  "text": "Производство важных технологий МАО. Возможна установка гарнизона из пехоты МАО"
+  "text": "Производство важных технологий GLA. Возможна установка гарнизона из пехоты GLA"
  },
  {
   "label": "CONTROLBAR:ToolTipGLABuildBlackMarket",
-  "text": "Производство важных технологий Международной армии освобождения. Получение бесплатного снабжения для игрока МАО"
+  "text": "Производство важных технологий Международной армии освобождения. Получение бесплатного снабжения для игрока GLA"
  },
  {
   "label": "CONTROLBAR:ToolTipGLABuildStingerSite",
@@ -273,7 +273,7 @@
  },
  {
   "label": "CONTROLBAR:ToolTipGLABuildWorker",
-  "text": "Строит все здания Международной Армии Освобождения. Ремонтирует здания и собирает снабжение"
+  "text": "Строит все здания Глобальной Армии Освобождения. Ремонтирует здания и собирает снабжение"
  },
  {
   "label": "CONTROLBAR:ToolTipChinaBuildDozer",
@@ -765,7 +765,7 @@
  },
  {
   "label": "MAP:USA04Objective1Text",
-  "text": "ЦЕЛЬ МИССИИ:  \n Очистить берег от сил МАО"
+  "text": "ЦЕЛЬ МИССИИ:  \n Очистить берег от сил GLA"
  },
  {
   "label": "MAP:USA04Objective2Text",
@@ -773,7 +773,7 @@
  },
  {
   "label": "MAP:USA04Objective3Text",
-  "text": "ЦЕЛЬ МИССИИ:  \n Уничтожить базу МАО"
+  "text": "ЦЕЛЬ МИССИИ:  \n Уничтожить базу GLA"
  },
  {
   "label": "CONTROLBAR:ToolTipFireNukeCannonAtPosition",

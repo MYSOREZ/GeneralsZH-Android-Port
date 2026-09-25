@@ -717,7 +717,7 @@
  },
  {
   "label": "GUI:GLA",
-  "text": "МАО"
+  "text": "GLA"
  },
  {
   "label": "GUI:AmericaAllies",
@@ -729,7 +729,7 @@
  },
  {
   "label": "GUI:GLAAllies",
-  "text": "МАО - союзники"
+  "text": "GLA - союзники"
  },
  {
   "label": "GUI:AmericaEnemies",
@@ -741,7 +741,7 @@
  },
  {
   "label": "GUI:GLAEnemies",
-  "text": "МАО - враги"
+  "text": "GLA - враги"
  },
  {
   "label": "GUI:EndCampaign",

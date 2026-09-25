@@ -181,19 +181,19 @@
  },
  {
   "label": "INI:FactionGLAToxinGeneral",
-  "text": "Химический генерал МАО"
+  "text": "Химический генерал GLA"
  },
  {
   "label": "INI:FactionGLADemolitionGeneral",
-  "text": "Подрывной генерал МАО"
+  "text": "Подрывной генерал GLA"
  },
  {
   "label": "INI:FactionGLAStealthGeneral",
-  "text": "Скрытный генерал МАО"
+  "text": "Скрытный генерал GLA"
  },
  {
   "label": "INI:FactionGLACommanderInChief",
-  "text": "Главнокомандующий МАО"
+  "text": "Главнокомандующий GLA"
  },
  {
   "label": "INI:FactionBossGeneral",
@@ -225,15 +225,15 @@
  },
  {
   "label": "SIDE:GLAToxinGeneral",
-  "text": "Химический генерал МАО"
+  "text": "Химический генерал GLA"
  },
  {
   "label": "SIDE:GLADemolitionGeneral",
-  "text": "Подрывной генерал МАО"
+  "text": "Подрывной генерал GLA"
  },
  {
   "label": "SIDE:GLAStealthGeneral",
-  "text": "Скрытный генерал МАО"
+  "text": "Скрытный генерал GLA"
  },
  {
   "label": "SIDE:Boss",
