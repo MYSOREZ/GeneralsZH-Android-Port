@@ -1,0 +1,802 @@
+[
+ {
+  "label": "DIALOGEVENT:Taunts_Tank091Subtitle",
+  "text": "*А-а-а-ргх! Не может быть! Как вы победили мои танки?!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank092Subtitle",
+  "text": "*Пора спустить военную машину"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank093Subtitle",
+  "text": "*Ваш танковый натиск — ничто по сравнению с моим"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank094Subtitle",
+  "text": "*Не бросайте вызов моим танкам, генерал — проиграете"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank095Subtitle",
+  "text": "*Моя броня раздавит ваши жалкие силы"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank096Subtitle",
+  "text": "*Может, вы и победили мои танки, генерал, но Тигрица раздавит вас, как букашку"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank097Subtitle",
+  "text": "*Танки — ключ к любой победе, как вам хорошо известно"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank098Subtitle",
+  "text": "*Вижу, вы разбили моих разведчиков, генерал. Думаю, следующая атака пройдёт для вас не так гладко"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank099Subtitle",
+  "text": "*Мы идём, генерал, надеюсь, оборона у вас готова"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank100Subtitle",
+  "text": "*И это лишь мои Мастера боя, генерал… подождите, пока в бой вступят Владыки"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank101Subtitle",
+  "text": "*Я бы поостерёгся, генерал: красногвардейцы любят захватывать здания, пока вы заняты моими танками"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin001Subtitle",
+  "text": "*Я тебя вижу!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin002Subtitle",
+  "text": "*Один глоток — и пути назад нет, даже если захочется!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin003Subtitle",
+  "text": "*Отведайте моего лекарства!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin004Subtitle",
+  "text": "*Долго ли вы можете задерживать дыхание?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin005Subtitle",
+  "text": "*Готовы к очередному уроку химии?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin006Subtitle",
+  "text": "*Не так уж и плохо. После этого вы почувствуете лишь долгое мучительное жжение!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin007Subtitle",
+  "text": "*Химические бойцы, в атаку!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin008Subtitle",
+  "text": "*Мы идём, генерал, как химический разлив"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin009Subtitle",
+  "text": "*Так трудно найти врача, который приходит на дом, но доктор Тракс приходит"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin010Subtitle",
+  "text": "*Разлив в первом ряду!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin011Subtitle",
+  "text": "*Как кислотный дождь, мы обрушиваемся на вашу базу, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin012Subtitle",
+  "text": "*Вперёд, мои химические воины! Несите нашу весть массам!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin013Subtitle",
+  "text": "*О, вам это понравится, генерал. Нет, постойте… не понравится"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin014Subtitle",
+  "text": "*Вы сами навлекли это на себя, генерал. Смотрите, как ваши люди платят за вашу ошибку"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin015Subtitle",
+  "text": "*Тихо, но смертельно"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin016Subtitle",
+  "text": "*Вот так — сидите и отдыхайте! Дайте моим токсинам время подействовать!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin017Subtitle",
+  "text": "*Напряжение… вас просто убивает!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin018Subtitle",
+  "text": "*Пора сварить новую партию!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin019Subtitle",
+  "text": "*С каждой минутой промедления вы умираете понемногу!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin020Subtitle",
+  "text": "*Понятно, что они готовы, когда мясо отходит от костей!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin021Subtitle",
+  "text": "*Сибирская язва… вредит организму"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin022Subtitle",
+  "text": "*Чуете? Нет?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin023Subtitle",
+  "text": "*Вдох… выдох… и ещё раз… легче?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin024Subtitle",
+  "text": "*Хорошо до последней капли!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin025Subtitle",
+  "text": "*Дам вам «передышку» перед следующей атакой"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin026Subtitle",
+  "text": "*У нас засорилось сопло для токсина, генерал… дайте секунду всё исправить"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin027Subtitle",
+  "text": "*Придёте за токсином, а останетесь… потому что умрёте!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin028Subtitle",
+  "text": "*Вы пожалеете, что вмешались в мои эксперименты, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin029Subtitle",
+  "text": "*Вы атакуете меня или боитесь того, что можете найти на моей базе, генерал?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin030Subtitle",
+  "text": "*Под моим ядовитым облаком ничто не выживет, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin031Subtitle",
+  "text": "*Вам это всё равно было не нужно"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin032Subtitle",
+  "text": "*Ваши войска, похоже, отравлены, генерал!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin033Subtitle",
+  "text": "*Ох, генерал, похоже, ваши войска плохо переносят токсин"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin034Subtitle",
+  "text": "*Ваш аэродром уничтожен, генерал. Теперь вам придётся идти пешком сквозь мои облака смерти"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin035Subtitle",
+  "text": "*Заметили, как токсины разъедают всё подряд?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin036Subtitle",
+  "text": "*А-а-ргх! Там была моя коллекция вин!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin037Subtitle",
+  "text": "*Между моими токсинами и вашими войсками определённо есть химия!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin038Subtitle",
+  "text": "*Мне это всё равно было не нужно!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin039Subtitle",
+  "text": "*И откуда теперь возьмутся мои химические солдаты?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin040Subtitle",
+  "text": "*Мои химические грузовики снова поедут!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin041Subtitle",
+  "text": "*Видите, людям не место в воздухе"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin042Subtitle",
+  "text": "*Вы доставляете мне неудобства, генерал!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin043Subtitle",
+  "text": "*Прекратите разрушать мои здания, генерал, или я сделаю вам… неприятно"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin044Subtitle",
+  "text": "*Вы уничтожили мой командный центр! Ну и ладно, я всё равно всегда ненавидел своих командиров… теперь остались только вы и я, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin045Subtitle",
+  "text": "*Генерал, если вы продолжите уничтожать мои машины, как я доставлю вам ваше лекарство?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin046Subtitle",
+  "text": "*Мои храбрые воины! Как вы можете так с ними? Что они вам сделали… а, впрочем, неважно"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin047Subtitle",
+  "text": "*Верните нефтяную вышку! Разве вы не знаете, что нефть — ключевой ингредиент моих токсинов?!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin048Subtitle",
+  "text": "*Эта артиллерийская платформа меня не остановит, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin049Subtitle",
+  "text": "*Генерал, мне нужен этот завод, чтобы очищать токсины. Зачем он вообще вам?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin050Subtitle",
+  "text": "*Я разрешал вам войти?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin051Subtitle",
+  "text": "*Что вы здесь делаете? Рецепты мои!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin052Subtitle",
+  "text": "*Вы глупец, раз пришли на мою базу, генерал!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin053Subtitle",
+  "text": "*Вы слишком близко к моим драгоценным токсинам, генерал. Теперь вы должны умереть"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin054Subtitle",
+  "text": "*Держитесь подальше от моих ракет Р-17М! Я отдам их вам, когда буду готов!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin055Subtitle",
+  "text": "*Не думаю, что вам нужны эти запасы, они ещё не готовы"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin056Subtitle",
+  "text": "*Вижу, вы строите ещё одну базу. Скоро её бросят"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin057Subtitle",
+  "text": "*Убирайтесь из моей деревни, генерал. От неё мало что осталось, но она моя!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin058Subtitle",
+  "text": "*Осторожнее на этом мосту, генерал — вода внизу не для купания"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin059Subtitle",
+  "text": "*Осторожнее, генерал, этот мост может быть небезопасен… впрочем, что здесь безопасно?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin060Subtitle",
+  "text": "*Думаете, вы такой умный, пробираясь через мой чёрный ход?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin061Subtitle",
+  "text": "*Итак, вы перебрались через реку. Теперь битва становится интереснее"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin062Subtitle",
+  "text": "*Похоже, у вас кончилась энергия, генерал. Может, мне атаковать прямо сейчас"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin063Subtitle",
+  "text": "*У вас нет энергии, генерал. Пора мне прийти поиграть"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin064Subtitle",
+  "text": "*Ваши запасы ресурсов оскудели, генерал. Думаю, их не хватит, чтобы остановить мою следующую атаку… превосходно"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin065Subtitle",
+  "text": "*Бюджет?! Не хочу ничего слышать о бюджете!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin066Subtitle",
+  "text": "*Вы смеете строить залповую установку ракет Р-17М в моём присутствии! Вы ведь знаете, что у нас иммунитет к её токсинам, не так ли, генерал?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin067Subtitle",
+  "text": "*Ракетная шахта? Не ожидал, что вы станете использовать ядовитую радиацию… может, как-нибудь поработаем вместе"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin068Subtitle",
+  "text": "*Итак, молекулярная пушка против моих токсинов, а? Ваша технология моим токсинам не соперник, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin069Subtitle",
+  "text": "*Столько обороны, генерал. И ВСЯ БЕСПОЛЕЗНА!!!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin070Subtitle",
+  "text": "*Металл — лишь временная преграда для моих токсинов!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin071Subtitle",
+  "text": "*А — трус! Вашим пилотам тоже нужно дышать!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin072Subtitle",
+  "text": "*Нравится смотреть, как ваши люди светятся в темноте? Тогда стройте больше!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin073Subtitle",
+  "text": "*Ваша база разрослась, генерал… идеальная цель для моей залповой установки ракет Р-17М"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin074Subtitle",
+  "text": "*Да, стреляйте из своей залповой установки ракет Р-17М… обрушьте на мою базу свои бесполезные токсины"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin075Subtitle",
+  "text": "*Ваша ядерная ракета лишь заставит нас мутировать и сделает сильнее, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin076Subtitle",
+  "text": "*Даже не надейтесь очистить мои токсины этим молекулярным лучом, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin077Subtitle",
+  "text": "*Да, займите это здание — уверен, моим химическим тракторам это понравится"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin078Subtitle",
+  "text": "*Если вы втянете в это полковника Бартона, мне придётся выпустить Джармена Келла"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin079Subtitle",
+  "text": "*Чёрный Лотос? Вы ведь знаете, что чёрный лотос — ядовитый цветок… кажется, он есть в одном из моих токсинов… но я отвлёкся"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin080Subtitle",
+  "text": "*Вижу, Джармен Келл присоединился к нашей маленькой войне. Может, моему понравится снайперская дуэль"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin081Subtitle",
+  "text": "*И зачем вам этот аэродром, генерал?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin082Subtitle",
+  "text": "*Итак, наш генерал строит военный завод. Как предсказуемо"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin083Subtitle",
+  "text": "*Да-а-а, стройте казарму… присылайте своих людей ко мне"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin084Subtitle",
+  "text": "*Продайте все… свои здания, генерал… и пришлите своих людей ко мне"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin085Subtitle",
+  "text": "*Сдайтесь сейчас, и, гарантирую, вздохнёте с облегчением"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin086Subtitle",
+  "text": "*Вашим войскам не хватает воздуха, генерал. Сдавайтесь!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin087Subtitle",
+  "text": "*Моё второе дыхание сулит вам гибель, генерал!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin088Subtitle",
+  "text": "*Позвольте утопить ваши печали в хорошем токсине!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin089Subtitle",
+  "text": "*Ядовитая смерть"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin090Subtitle",
+  "text": "*Вы побеждены, генерал. Возможно, это научит вас не перечить доктору Траксу"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin091Subtitle",
+  "text": "*Не рассмотрите ли мирное предложение? Противоядие, например?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin092Subtitle",
+  "text": "*Кажется, я надышался своих же токсинов — не может быть, чтобы вы меня побеждали"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin093Subtitle",
+  "text": "*Прочь от меня! Вам меня не победить, генерал. Вы меня слышите!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin094Subtitle",
+  "text": "*Чем вам не угодили токсины? Вы видели, что сейчас кладут в еду?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin095Subtitle",
+  "text": "*Даже если вы меня победите, мои токсины до вас доберутся — рано или поздно!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin096Subtitle",
+  "text": "*Нет! Нет. Я побеждён. Так, где же моя капсула с цианидом…"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin097Subtitle",
+  "text": "*Эта кнопка была покрыта ядом… вы уже мертвы"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin098Subtitle",
+  "text": "*Вы посмели выбрать доктора Тракса? Вам стоит передумать, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin099Subtitle",
+  "text": "*Вам не победить мои токсины, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin100Subtitle",
+  "text": "*Пожалуй, не стоило получать диплом заочно по почте"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin101Subtitle",
+  "text": "*Вы думали, мои токсины неэффективны, а теперь посмотрите, что с вами стало, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin102Subtitle",
+  "text": "*Здравствуйте, генерал. Не думайте, что я не вижу ваших шпионов над моей базой. Пожалуйста, смотрите сколько угодно — возможно, вы видите мою крепость в последний раз"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin103Subtitle",
+  "text": "*Как видите, моя оборона неприступна… а мои химические системы оружия отравят ваши войска задолго до того, как они до меня доберутся"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin104Subtitle",
+  "text": "*И не беспокойтесь о мирных жителях, генерал; они давно бежали из этой долины ядовитой смерти. Наша маленькая война пройдёт без помех… и ваши нежные чувства не пострадают"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin105Subtitle",
+  "text": "*А, да, а вот и ваша жалкая база. Теперь выступите против меня — доктора Тракса, — и когда ваши войска сделают последний вдох моего ядовитого воздуха, я смогу вернуться к своим экспериментам"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin106Subtitle",
+  "text": "*Доверяете ли вы своим чувствам, генерал? Вступив со мной в бой, вы обрекли себя на долгую мучительную смерть, ведь я — доктор Тракс, и моё оружие бьёт незаметно!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin107Subtitle",
+  "text": "*Дышите свободно, генерал, ведь я — доктор Тракс, и с каждым вдохом вы приближаетесь к поражению!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin108Subtitle",
+  "text": "*Первая проба бесплатно!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin109Subtitle",
+  "text": "*Вам зелёный или синий? Оба одинаково хороши!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin110Subtitle",
+  "text": "*Готовьтесь рассказывать своим трёхглазым внукам о сегодняшнем поражении!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin111Subtitle",
+  "text": "*Мои драгоценные химикаты! Вы знаете, сколько времени уходит на их смешивание?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin112Subtitle",
+  "text": "*Ещё жерт… э-э… добровольцы для моих экспериментов!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin113Subtitle",
+  "text": "*Теперь у меня больше машин, чтобы возить токсины! Как щедро с вашей стороны!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin114Subtitle",
+  "text": "*Ой, я забыл рассказать вам про них? Осторожно, мины, генерал!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin115Subtitle",
+  "text": "*Так, куда же я дел своих химических бойцов?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin117Subtitle",
+  "text": "*Ба! Вы!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin118Subtitle",
+  "text": "*А, да, а вот и ваша жалкая база"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle001Subtitle",
+  "text": "*О, вы всё ещё здесь, генерал. Я впечатлена вашей решимостью. Потанцуем"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle002Subtitle",
+  "text": "*Было ведь не очень больно, правда?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle003Subtitle",
+  "text": "*Поле боя — суровое место, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle004Subtitle",
+  "text": "*Ещё один идеально выполненный удар"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle005Subtitle",
+  "text": "*Всё идёт по плану"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle006Subtitle",
+  "text": "*Похоже, всё складывается в мою пользу"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle007Subtitle",
+  "text": "*Как ощущения, генерал?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle008Subtitle",
+  "text": "*Тактическое превосходство — ключ к успеху, генерал. Сейчас покажу"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle009Subtitle",
+  "text": "*Не думаю, что вы сможете остановить следующую атаку… а вы как думаете?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle010Subtitle",
+  "text": "*А вот и ещё одна атака… о, и почти все мои генеральские способности готовы… какую хотите увидеть первой?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle011Subtitle",
+  "text": "*Это моё супероружие готово? Ах нет, мои атаки просто так ощущаются"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle012Subtitle",
+  "text": "*Всем подразделениям: схема атаки «Альфа»! Шучу… кто вообще называет что-то «Альфой»?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle013Subtitle",
+  "text": "*А вот и мои подразделения, генерал. Не поможете им набраться опыта?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle014Subtitle",
+  "text": "*Я редко посылаю войска, но вы заслуживаете особого внимания, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle015Subtitle",
+  "text": "*Предупреждаю: не недооценивайте меня"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle016Subtitle",
+  "text": "*Вам может казаться, что я прячусь, но на самом деле я планирую"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle017Subtitle",
+  "text": "*Глупцы спешат, генерал. Я не тороплюсь"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle018Subtitle",
+  "text": "*Вы не знаете, чего от меня ждать, правда?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle019Subtitle",
+  "text": "*Кто не планирует, тот планирует провал, генерал. Подумайте об этом"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle020Subtitle",
+  "text": "*Моё величайшее «супероружие» — мой мозг… не согласны, генерал?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle021Subtitle",
+  "text": "*Ну же, генерал, покажите, на что способны"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle022Subtitle",
+  "text": "*Мы ждём вас, генерал. Что вас задерживает?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle023Subtitle",
+  "text": "*Я анализировала вашу тактику и просто поражена… у вас вообще есть тактика, генерал?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle024Subtitle",
+  "text": "*На вашем месте я бы атаковала, генерал. Если будете ждать, у меня появится ещё одно супероружие, чтобы выстрелить по вам"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle025Subtitle",
+  "text": "*Итак, ваша общая стратегия — довести меня скукой до ухода с поля боя?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle026Subtitle",
+  "text": "*Пересматриваете, мудро ли было атаковать меня, генерал?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle027Subtitle",
+  "text": "*Я старалась быть к вам снисходительной, генерал, но вы начинаете меня раздражать"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle028Subtitle",
+  "text": "*Было весело, генерал, но, думаю, пора с этим покончить"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle029Subtitle",
+  "text": "*Может, продолжим в другой раз… когда вы не будете так рассеянны… по крайней мере, надеюсь, дело в этом. Вы ведь говорили, что вы «генерал», правда?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle030Subtitle",
+  "text": "*Вы ведь этим не пользовались, правда?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle031Subtitle",
+  "text": "*Эта казарма мне совсем не понравилась"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle032Subtitle",
+  "text": "*Ваша техника действует мне на нервы"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle033Subtitle",
+  "text": "*Держитесь подальше от неба, генерал — на земле вам будет безопаснее"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle034Subtitle",
+  "text": "*Это должно было не пустить меня на вашу базу, генерал?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle035Subtitle",
+  "text": "*Ого, вы только что потеряли командный центр. Нехорошо, правда?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle036Subtitle",
+  "text": "*На вашей базе раньше было слишком тесно"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle037Subtitle",
+  "text": "*Вы не уважаете чужую собственность!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle038Subtitle",
+  "text": "*Люди, кто должен был охранять казарму!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle039Subtitle",
+  "text": "*Я пользовалась этим военным заводом!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle040Subtitle",
+  "text": "*Неужели так трудно оставить мне мой аэродром"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle041Subtitle",
+  "text": "*Я поставила это туда не просто так!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle042Subtitle",
+  "text": "*Я только-только расставила все эти здания, как хотела"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle043Subtitle",
+  "text": "*Мне не нравится такое неуважение!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle044Subtitle",
+  "text": "*Я построила все эти самолёты не просто так!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle045Subtitle",
+  "text": "*Уничтожайте сколько угодно машин. Мне всё равно"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle046Subtitle",
+  "text": "*Как вы смеете ранить моих солдат!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle047Subtitle",
+  "text": "*Это я вам уступила"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle048Subtitle",
+  "text": "*Мне это всё равно было не нужно"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle049Subtitle",
+  "text": "*Захватываете нефтеперерабатывающий завод? Надо же, генерал, не знала, что вы так печётесь об эффективности"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle050Subtitle",
+  "text": "*Кто вас сюда приглашал?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle051Subtitle",
+  "text": "*Не думаю, что у вас есть допуск, чтобы находиться здесь"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle052Subtitle",
+  "text": "*Какое право вы имеете находиться на моей базе?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle053Subtitle",
+  "text": "*Это моя база, убирайтесь немедленно!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle054Subtitle",
+  "text": "*Не ждите от меня гостеприимства"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle055Subtitle",
+  "text": "*Не люблю незваных гостей, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle056Subtitle",
+  "text": "*Что вы здесь себе позволяете?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle057Subtitle",
+  "text": "*Нарушители!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle058Subtitle",
+  "text": "*Ваше присутствие начинает меня раздражать, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle059Subtitle",
+  "text": "*Кто должен был охранять этот участок?!?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle060Subtitle",
+  "text": "*Итак, вам удалось взломать мою оборону… больше этого не повторится"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle061Subtitle",
+  "text": "*Убирайтесь с моей базы, генерал. Не думайте, что я не опущусь до того, чтобы ударить молекулярной пушкой прямо сюда"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle062Subtitle",
+  "text": "*На вашей базе что-то темновато, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle063Subtitle",
+  "text": "*Кто-то забыл оплатить счёт за электричество?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle064Subtitle",
+  "text": "*Вы не очень мудро распоряжались ресурсами, правда?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle065Subtitle",
+  "text": "*Из-за вас я выхожу за рамки бюджета, генерал"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle066Subtitle",
+  "text": "*Как такое могло случиться! Я так идеально всё спланировала!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle067Subtitle",
+  "text": "*Думаете, я боюсь вашей маленькой залповой установки ракет Р-17М?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle068Subtitle",
+  "text": "*Эта ракетная шахта меня не пугает"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle069Subtitle",
+  "text": "*Ценю ваш выбор оружия, но на этом поле боя молекулярная пушка разрешена только мне"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle070Subtitle",
+  "text": "*И это всё, насколько защищена ваша база? Правда?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle071Subtitle",
+  "text": "*Сколько танков, генерал. Вы видели, что молекулярная пушка делает с кучей танков?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle072Subtitle",
+  "text": "*Все эти самолёты для меня — просто загрязнение воздуха"
+ }
+]
