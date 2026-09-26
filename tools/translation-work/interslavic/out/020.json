@@ -1,0 +1,802 @@
+[
+ {
+  "label": "DIALOGEVENT:MisCHI03xChat02Subtitle",
+  "text": "*Zasada na nas!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xChat03Subtitle",
+  "text": "*Zasada na našu bazu!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xChat04Subtitle",
+  "text": "*My našli ih tajnu bazu!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xChat05Subtitle",
+  "text": "*Oni dohodjat s dalekoj strany jezera"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xChat06Subtitle",
+  "text": "*Ih vojska morajut byti skryta v lěsu"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xChat07Subtitle",
+  "text": "*Zanimljivo, čto je na drugoj straně rěky"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xChat08Subtitle",
+  "text": "*Ih napady-i-běgstvo sę pokazyvaju neudobni"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xChat09Subtitle",
+  "text": "*Bagi sę vratili!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xChat10Subtitle",
+  "text": "*Skryta ataka!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xChat11Subtitle",
+  "text": "*Razdrobi to Dělo Inferno!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xChat12Subtitle",
+  "text": "*Ljudi sut prěmnogo prěplašeni, aby izšli iz svojih domov"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xChat13Subtitle",
+  "text": "*Morame ih oslobiti iz togo ugnjetenja!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xXO01Subtitle",
+  "text": "*Ljudi sę podigaju, aby nas podprěli!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xXO10Subtitle",
+  "text": "*Generale. Uništenje statuj GLA bude kritično za poveličenje našego Meddržavnogo Měnjenja i poveliča podpiru naših naporov mezdu naselenjem"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xXO11Subtitle",
+  "text": "*Oni poslali Toksinny Traktor, aby očistil naše garnizonovane strukture!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xXO12Subtitle",
+  "text": "*Naši Tanky Zmaj budut visoko prioritetna cělj… branite ih dobro"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xXO13Subtitle",
+  "text": "*Dobro učinjeno, pane. Uništenje statuy prinjelo rost světovogo měnjenja"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xXO16Subtitle",
+  "text": "*Ne dozvoli im uništiti zgrady!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xXO17Subtitle",
+  "text": "*Upotrěbi Neutronny Snarjad, aby očistiti zgrady bez ih povrěděnja"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xXO18Subtitle",
+  "text": "*Pazi! Ih obranne strukture sut skryte kamuflažnoju sětju"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xXO19Subtitle",
+  "text": "*Generale, GLA dobro brani grad. Trěba nam ih uklaniti"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xXO20Subtitle",
+  "text": "*Vy dobro napredujete, komandire. Věčina grada je teper svobodna od kontroly GLA"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xXO21Subtitle",
+  "text": "*Pane! Grad sę podiga protiv naših vragov!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xXO22Subtitle",
+  "text": "*Generale, morame uklaniti GLA iz toj oblasti!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xXO23Subtitle",
+  "text": "*Naše Meddržavno Měnjenje je visoko. Otlična rabota!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xChat01Subtitle",
+  "text": "*Oni počti pobegli! Morame ih zaustaviti!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xChat010Subtitle",
+  "text": "*Oni obhodjat jezero. Prěhvati ih!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xChat011Subtitle",
+  "text": "*Oni idut na našu bazu!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xChat012Subtitle",
+  "text": "*My zaustavili prvy val GLA!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xChat013Subtitle",
+  "text": "*Znova sme ih postavili na ih město!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xChat014Subtitle",
+  "text": "*Nikto ne može stati protiv sily Kitaja!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xChat015Subtitle",
+  "text": "*Sunj Tzy bych byl gord"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xChat016Subtitle",
+  "text": "*Poběda je naša!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xChat017Subtitle",
+  "text": "*Nikto ne prějde"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xChat018Subtitle",
+  "text": "*My ih izgnajemo iz nebes!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xChat019Subtitle",
+  "text": "*Naša sila je neprěvazidena!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xChat02Subtitle",
+  "text": "*Odsěci ih pri selě!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xChat020Subtitle",
+  "text": "*Helix nije jedina sila"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xChat03Subtitle",
+  "text": "*Ne smějemo im dozvoliti prějti tu goru"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xChat04Subtitle",
+  "text": "*Oni sigurno prějdu tudy. Morame braniti tu oblast"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xChat05Subtitle",
+  "text": "*Tu je ešče jedno uzko město"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xChat06Subtitle",
+  "text": "*Morame osigurati te zgrady"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xChat07Subtitle",
+  "text": "*Čto oni dělaju?"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xChat08Subtitle",
+  "text": "*Pazi na toksin!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xChat09Subtitle",
+  "text": "*My sme byli v zasadě!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xChat15Subtitle",
+  "text": "*Naše sily sut v poziciji. Sme gotovi na vse"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xChat16Subtitle",
+  "text": "*Oni sut silnějši nego sme mysleli. Trěba nam vozdušnu podpiru. Pošli Helixa sejčas!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO01Subtitle",
+  "text": "*GLA posyla ešče jeden val!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO02Subtitle",
+  "text": "*Tot val otstupaje na sěver"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO03Subtitle",
+  "text": "*Oni otstupaju na sěveroistok"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO04Subtitle",
+  "text": "*Tot val otstupaje na istok"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO05Subtitle",
+  "text": "*Evropska Unija je izvanredno zadovoljna našeju rabotoju, generale. Morame ostati agresivni i uklaniti GLA"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO06Subtitle",
+  "text": "*Ta sila byla samo diverzija!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO07Subtitle",
+  "text": "*Generale, oni imaju Burju SCUD! Morame razmestiti naša vojska, aby im ne dali cělj!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO08Subtitle",
+  "text": "*Čekaj… oni ne cěljaju nas"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO09Subtitle",
+  "text": "*GLA nema čest! Oni uništili selo, aby očistili put!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO10Subtitle",
+  "text": "*Morame sozdati bazu, aby osigurili tot region"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO11Subtitle",
+  "text": "*Naš Helix je Overlord nebes. Postroj věče, aby nam pomogli kontrolirati oblast"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO12Subtitle",
+  "text": "*Pane, sovětuju postaviti Podslušne Posty na ključove pozicije"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO13Subtitle",
+  "text": "*Tekuča razvědka izvěščaje, že GLA otstupaje k tej poziciji. Tu budemo braniti. Ne dozvoli nijednoj jedinicě GLA izniti iz toj oblasti. Naš novy helikopter Helix bude osigurati vaš uspěh. Pojavjenje naših sil s juga bude znamenovati zaveršenje vašego glavnogo objektiva"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO14Subtitle",
+  "text": "*Tekuča razvědka izvěščaje, že GLA otstupaje k tej poziciji. Tu budemo braniti. Ne dozvoli nijednoj jedinicě GLA izniti iz toj oblasti. Ako prěmnogo ih pobegne, naša misija propadne. Naš novy helikopter Helix bude osigurati vaš uspěh. Pojavjenje naših sil s juga bude znamenovati zaveršenje vašego glavnogo objektiva"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO15Subtitle",
+  "text": "*Val GLA sę približuje sa zapada"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO16Subtitle",
+  "text": "*Val GLA sę približuje s juga"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO17Subtitle",
+  "text": "*Sily GLA sut primětene približujuč sę s jugozapada"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO18Subtitle",
+  "text": "*Sily GLA dohodjat s jugoistoka"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO19Subtitle",
+  "text": "*Val sil GLA sę približuje s jugozapada"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO20Subtitle",
+  "text": "*Ešče jeden val GLA sę približuje"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO21Subtitle",
+  "text": "*Otlična rabota, pane. Razvědka potvrdjaje, že ste uništili cěly val"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO22Subtitle",
+  "text": "*Vrag skoro probije našu obranu"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO23Subtitle",
+  "text": "*Věče vypuskov Burje SCUD je otkryto"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO24Subtitle",
+  "text": "*Naša oborona je probijena, komandire, my propali v misiji"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO25Subtitle",
+  "text": "*Komandire, naše sily s juga pridošli. Naša misija byla uspěšna"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO26Subtitle",
+  "text": "*Generale, vražje sily sut opasno blizko svojego pobega. Morame sę s nimi rěšiti bystro!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO27Subtitle",
+  "text": "*Sily GLA sut otkryte, běžuč čerez tu poziciju. Dvigni sę v obranne pozicije i čekaj kontakt s vragom"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO28Subtitle",
+  "text": "*Generale, val 1 vražjego otstuplenja je otkryt vhodeč v oblast, i razvědka ih ima dvigajuč sę po puti pokazanom na vašem radaru"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO29Subtitle",
+  "text": "*Generale, val 2 vražjego otstuplenja je otkryt vhodeč v oblast, i razvědka ih ima dvigajuč sę po puti pokazanom na vašem radaru"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO30Subtitle",
+  "text": "*Generale, val 3 vražjego otstuplenja je otkryt vhodeč v oblast, i razvědka ih ima dvigajuč sę po puti pokazanom na vašem radaru"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO31Subtitle",
+  "text": "*Generale, val 4 vražjego otstuplenja je otkryt vhodeč v oblast, i razvědka ih ima dvigajuč sę po puti pokazanom na vašem radaru"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO32Subtitle",
+  "text": "*Generale, val 5 vražjego otstuplenja je otkryt vhodeč v oblast, i razvědka ih ima dvigajuč sę po puti pokazanom na vašem radaru"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO33Subtitle",
+  "text": "*Naše sily pridošli s juga. Vy uspěšno sprěčili vražje otstuplenje. Dobra rabota, generale"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO34Subtitle",
+  "text": "*Generale, vražje sily pobegli na sěver. My propali v misiji"
+ },
+ {
+  "label": "DIALOGEVENT:MisChi05OfficerC01Subtitle",
+  "text": "*Vrěmja je ispraviti našu grěšku. Ubij ih vse!"
+ },
+ {
+  "label": "DIALOGEVENT:MisChi05OfficerC02Subtitle",
+  "text": "*Izgnajmo te šćury iz ih dir. Smrt kukavicam!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xBrf01Subtitle",
+  "text": "*Blagodarjuč vašim izvanrednym naporam v Halberstadtě, GLA je počti uništena. Razvědka USA lokalizovala poslědnje uporišče GLA izvně Hamburga. Na žalost, my sme prišli prěpozdno, aby pomogli Amerikancam v toj oblasti, i GLA zauzela ih bazu. Postrojite vaše sily i uništite i bazu GLA i bazu USA"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xBrf02Subtitle",
+  "text": "*GLA zauzela staru bazu USA v regionu i sę razviva. Vaš Poslědnji Objektiv je Uništiti i bazu USA i bazu GLA"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xBrf03Subtitle",
+  "text": "*GLA poveličila svoje sposobnosti nevidimosti, generale. Teper mogu skryti počti vse. Trěba nam ostati v pripravnosti"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xBrf04Subtitle",
+  "text": "*Upotrěbi svoje Podslušne Posty, aby otkryl nevidime jedinice"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xBrf05Subtitle",
+  "text": "*Generale, sovětuju prvo koncentrirati vaš napad na bazu USA. Trěba nam uništiti ih Česticove Děla"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xChat01Subtitle",
+  "text": "*Čuje sę, kako da sme na lovu za Velikonočnymi Jajami, generale"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xCin01Subtitle",
+  "text": "*Kapralě! Ima li znak Kitajcev?"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xCin02Subtitle",
+  "text": "*Ne, pane, poslědnje poslanje polučeno bylo v 02:00… ničto poslě togo"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xCin03Subtitle",
+  "text": "*Nu, nadějam sę, že skoro pridut. Naša razvědka ukazuje na polny napad GLA"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xCin04Subtitle",
+  "text": "*Da, pane"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xCin06Subtitle",
+  "text": "*Čto do...!? Kontakt s vragom!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xCin07Subtitle",
+  "text": "*Naša baza je probijena… vse jedinice na svoje pozicije! Gdě sut ti Kitajci, koji nam byli oběčani!?"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xCin08Subtitle",
+  "text": "*Granata! Granata!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xCin09Subtitle",
+  "text": "*Odkud sut sę prišli?!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xCin10Subtitle",
+  "text": "*Zauzimaju naše zgrady! Ne možemo uděržati! Vse jedinice, otstupite! Ponavljam, otstupite!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO01Subtitle",
+  "text": "*Tak! Energija bazy USA je pala! Dokonči ih bystro, prěže nego mogu znova postroiti!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO02Subtitle",
+  "text": "*Dobro učinjeno, generale. Vrag věče ne může proizvoditi jedinice USA"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO03Subtitle",
+  "text": "*Dobro učinjeno, generale. Vrag věče ne može proizvoditi jedinice GLA"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO04Subtitle",
+  "text": "*Dobro učinjeno, generale. Baza USA je neutralizovana. Uništi bazu GLA, aby zaveršiti tu bitku"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO05Subtitle",
+  "text": "*Dobro učinjeno, generale. Baza GLA je neutralizovana. Uništi bazu USA, aby zaveršiti tu bitku"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO06Subtitle",
+  "text": "*Morame dokončiti to, čto USA ne mogla. GLA morat pasti, i svět bude v miru"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO07Subtitle",
+  "text": "*Ako uspěmo poběditi GLA i spasiti Evropu iz jeje kandži, tada nas čekaju velike nagrady"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO08Subtitle",
+  "text": "*Generale, vy zauzmete svoje město mezdu najlěpšimi gerojami Kitaja. GLA je pala, i Kitaj je světleči majak v novom světu. Zauzmi svoje počestno město i uživaj v slavě, koja je Kitaj"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO09Subtitle",
+  "text": "*Generale, vrag poboljšal svoju sposobnost nevidimosti, no ne izgleda, že upotrěbjaju tanky"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO10Subtitle",
+  "text": "*Generale, komandiru GLA nedostaje tankov. Može byti, možemo ga prěplaviti našimi silami"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO11Subtitle",
+  "text": "*Generale, gubime vozila iz-za Jarmena Kella. Morate ga vysledovati, ako hočemo imati šansu"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO12Subtitle",
+  "text": "*Generale, vrag upotrěbjaje OTIMAČEV! Trěba nam ih zaustaviti!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO13Subtitle",
+  "text": "*Generale, vrag postavil SNAJPEROV v mestnyh selah. Morame ih uklaniti"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO14Subtitle",
+  "text": "*Generale, gubime vojska iz-za vražjih Četvornyh Děl, trěba nam tjažka brona tu"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO15Subtitle",
+  "text": "*Generale, tekuča razvědka sugerira, že Jarmen Kell sę može skryvati v tom malom selě"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO16Subtitle",
+  "text": "*Generale, vražja baza izgleda byti na drugoj straně tej rěky. Može byti, možemo ga zaklučiti, postavivši sily blizu mostov"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO17Subtitle",
+  "text": "*Generale, imamo mnogo vozil bez vodičev na poljě… pošli jedinice, aby ih znova zauzeli"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO18Subtitle",
+  "text": "*Pane! Otkryli sme Bojeve Avtobusy v sektoru C. Morame sę s nimi rěšiti, prěže nego dosěgnu našu bazu"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO19Subtitle",
+  "text": "*Generale, vrag prokradl jedinice v našu bazu! Morame poboljšati našu obranu!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO20Subtitle",
+  "text": "*Generale, vrag infiltroval našu bazu!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO21Subtitle",
+  "text": "*Generale! Uništenje amerikanskogo Komandnogo Centra zaustavit jego tjažku vozdušnu podpiru"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO22Subtitle",
+  "text": "*Generale, trěba nam postroiti naš CENTR INTERNET čim skorěje. To nam pomože najti vražje pozicije"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO23Subtitle",
+  "text": "*Generale, vrag ostavil svoj Flank nebranjen! Teper je naša šansa za protivnapad!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO24Subtitle",
+  "text": "*Generale, Amerikanci imaju nadmoćnu tehnologiju detekcije nevidimosti. Može byti, trěba vam zauzeti tu bazu vměsto uništenja"
+ },
+ {
+  "label": "DIALOGEVENT:MisChi07RedGuard108Subtitle",
+  "text": "*Zasada!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01Scorpion105Subtitle",
+  "text": "*Kitajci sut blizko"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01Scorpion108Subtitle",
+  "text": "*My našli tajny put. Je slabo branjen"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01Scorpion109Subtitle",
+  "text": "*My sme pod ognjem!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xChat01Subtitle",
+  "text": "*Vražje obranne strukture primětene, generale"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xChat02Subtitle",
+  "text": "*Vražja pozicija primětena! Morame najti put mimo nih!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xChat03Subtitle",
+  "text": "*Vražja patrola! Vse jedinice, otvorite ogeń!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xChat04Subtitle",
+  "text": "*Amerikanski Stražni Droni! Morame ih bystro uništiti, prěže nego dadut alarm!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xChat05Subtitle",
+  "text": "*Gledaj ih razbegajuč sę! Naš napad byl polna iznenada!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xChat06Subtitle",
+  "text": "*Amerikanski napadatelji sę približuju! Morame uděržati našu poziciju, generale!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xChat07Subtitle",
+  "text": "*Naša iznenada byla polna! Vse jedinice, koncentrirajte sę na ih elektrostancijah!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xChat08Subtitle",
+  "text": "*Generale! Trpime tjažke gubitky!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xCin01Subtitle",
+  "text": "*Patrola bazě: Cělj je lokalizovana, i my sme v pogonu"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xCin02Subtitle",
+  "text": "*Bud izvěščen, bombardovanska kampanja je već začela. Pazi, Patrolo"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xCin03Subtitle",
+  "text": "*Prijeto, bazo. Ja sem na desnoj"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xCin04Subtitle",
+  "text": "*Ja vzemu lěvu"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xCin05Subtitle",
+  "text": "*Ja sem pod ognjem!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xCin06Subtitle",
+  "text": "*Ostań na nih!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xCin07Subtitle",
+  "text": "*Pazi!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xCin08Subtitle",
+  "text": "*Bazo! Charlie tri je pal! Ponavljam: Charlie tri je pal!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xCin09Subtitle",
+  "text": "*Prodolži pogon, Charlie dva! To je naš najlěpši šans na njego!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xCin10Subtitle",
+  "text": "*Eskorta uništena! Imam ga!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xCin11Subtitle",
+  "text": "*Neeeee!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xCin12Subtitle",
+  "text": "*He he. Generale, uspěli sme pobegnuti… i idemo k punktu vstrěči. GLA sę znova podigne"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xCin13Subtitle",
+  "text": "*Potvrdjeno. Razvěduvalna komanda sę dviga"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xCin14Subtitle",
+  "text": "*Ovo je razvěduvalna komanda. Ne otkryjemo vražje prisustvo. Čekaj"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xCin15Subtitle",
+  "text": "*Amerikanska zasada! Oni nas okružili!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xCin16Subtitle",
+  "text": "*Stražni Droni! Ti Amerikanci sut veoma hitri. Ih droni sut skryti, kogda sut nedvižni. Morate postupati oprězno, generale"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen01Subtitle",
+  "text": "*Amerikanci okružili naše uporišče vojenskimi kontrolnymi punktami. Morate očistiti put"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen02Subtitle",
+  "text": "*Generale, morate pomoći našemu istinnomu vodji pobegnuti, aby GLA mogla živěti dalje"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen03Subtitle",
+  "text": "*Dr. Thrax je може byti umrl za sudbinu, no on byl beznačajny. Ako naš brat pobegne, USA ešče ne vidjeli poslědnjeje iz GLA"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen04Subtitle",
+  "text": "*Generale. Oborona Baz Ognja okolo tej amerikanskoj pozicije je prěsilna. Morame izběgnuti direktnu konfrontaciju i najti drugi put v bazu"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen05Subtitle",
+  "text": "*Uděrž svoje sily nazad, generale. Posylame komandu, aby razvědela drugu stranu mosta. Oni javjat o vražjih pozicijah"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen06Subtitle",
+  "text": "*Moj generale. Jedna iz naših komand Bystrogo Udara uspěla izběgnuti amerikanskih gonitelej i soglasila sę pomoći nam v našej misiji. Ih raketne kapsuly bydu veoma polezne protiv vražjej brony"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen07Subtitle",
+  "text": "*My našli jednu iz naših demolicijnyh komand. Oni nam pomogu očistiti put uništivši okolne podpirne bazy USA"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen08Subtitle",
+  "text": "*Generale. Morame osigurati aerodrom, prěže nego transportno letadlo pride. Preživanje GLA zavisi od vašego uspěha"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen09Subtitle",
+  "text": "*Naši Bojevi Motocikly sut veoma mnogostranni. Oni poveličaju sposobnosti našej věrnoj pěhoty i mogu putovati po neravnom terénu. Mogu dažde preživěti skok s klifov. Upotrěbi ih, aby obišli amerikanske oporne punkty i napali ih ranjive strany"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen10Subtitle",
+  "text": "*Generale! Amerikanci poslali drugu grupu gonitelej, aby zauzeli našego vodju. Zaščiti ga za vsaku cěnu!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen11Subtitle",
+  "text": "*Generale, ta skryta baza nam može dati resursy, koje nam trěba, aby probili amerikansku opsadu i dosěgli aerodrom"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen12Subtitle",
+  "text": "*Generale, naš vodja je pod napadom! On ne smět pasti v ruky Amerikancev!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen13Subtitle",
+  "text": "*Generale, vaše sily sę dvigaju prěmnogo naprěd od našego vodji. Zapomni, že on morat dosěgnuti aerodrom, aby naša sudbina preživěla"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen14Subtitle",
+  "text": "*Ešče jedna amerikanska baza. Morat byti uništena. Pazi na ih Baze Ognja, pane"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen15Subtitle",
+  "text": "*Sme v dosegu aerodroma, generale. Uništi amerikanske sily i osiguraj oblast, aby mogli odletěti s našim vodjeju v bezbědnost"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen16Subtitle",
+  "text": "*Dobro učinjeno, generale. S vami na komandě, ne možemo propasti"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen17Subtitle",
+  "text": "*Sme dosěgli aerodrom, pane. Uverte sę, že naš vodja je gotov i čeka na vzletno-pristajnoj poloski, kogda jego letadlo pride"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen18Subtitle",
+  "text": "*Naše letadlo sę približuje, generale! Prosto uděrž svoju poziciju ešče malo. Naš vodja morat preživěti, aby vsel na to letadlo!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen19Subtitle",
+  "text": "*Letadlo pridošlo. Postavi našego vodju vnutri, aby ga mogli odletěti v bezbědnost i znova sę sobrati"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen20Subtitle",
+  "text": "*Letadlo čeka na našego vodju, aby vsel. Pospěš i dovedi ga, generale. Naše sily ne mogu uděržati věčno protiv Amerikancev"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen21Subtitle",
+  "text": "*Naš agent, Jarmen Kell, dražil amerikanske linije snabděnja. On bude velika pomoć našej misiji, generale"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen22Subtitle",
+  "text": "*Otlična rabota, generale. Pokažemo Amerikancam, že ešče imamo silu im sę soprotivjati"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen23Subtitle",
+  "text": "*My otkryli naprednu razvěduvalnu silu, generale. Oni sę oněsili pomoći nam v misiji"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen24Subtitle",
+  "text": "*Generale! Uništi amerikanske elektrostancije, aby ugasil ih obranu bazy!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen25Subtitle",
+  "text": "*Naše sily sut oslabene, generale. Morame mudrěje izbirati naše bitky"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02Chatter04Subtitle",
+  "text": "*Sme tu i gotovi za vašu komandu"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02Chatter18Subtitle",
+  "text": "*Toliko za amerikansku \"nadmoćnost\""
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02General07Subtitle",
+  "text": "*Amerikanske sily dohodjat. Bud gotov!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xChat01Subtitle",
+  "text": "*Vrag, oni napadaju!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xChat02Subtitle",
+  "text": "*Soprotivlenje je prěsilno, morat postojati drugi put"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xChat03Subtitle",
+  "text": "*Princ morat byti zaustavjen. GLA ne smět pasti k njemu!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xChat04Subtitle",
+  "text": "*Naša baza je pod napadom!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xChat05Subtitle",
+  "text": "*Naš Palac je uništen!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xChat06Subtitle",
+  "text": "*My izgubili našu Kasarnu"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xChat07Subtitle",
+  "text": "*Morame bystro znova postroiti našego Torgovca Oružjem"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xCin01Subtitle",
+  "text": "*Ovo je Recon 1 bazě. Zaveršujem svoju patrolu. Sektor je čist"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xCin02Subtitle",
+  "text": "*Ovo je baza. Ste li sigurni, Recon 1? Imamo izvěščenja o dvigenju vojsk povězanyh s Princom Kassadom"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xCin03Subtitle",
+  "text": "*Sem veoma siguren. Ne viděl sem ničto krome prahu i grmov věč časov. Vraćam sę v bazu poslě togo"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xCin04Subtitle",
+  "text": "*Čto do?"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xCin05Subtitle",
+  "text": "*Recon 1 bazě! Kontakt s vragom! Ponavljam, kontakt s vragom!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xCin06Subtitle",
+  "text": "*Recon 1! Kakova je vaša pozicija?"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xCin07Subtitle",
+  "text": "*On sę pripravja strěljati!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xCin08Subtitle",
+  "text": "*Recon 1, kakov je vaš status? Recon 1! Javi sę!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xCin09Subtitle",
+  "text": "*Kogda Princ Kassad bude uklonjen, GLA bude pod našeju kontroloju. Tada osveta bude naša, i amerikanski infidely budut goriti"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xCin10Subtitle",
+  "text": "*Princ Kassad počina zauzimati kontrolu, gdě može. Morame zaveršiti jego borbu za vlast"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen01Subtitle",
+  "text": "*Generale, naši resursy sę isčrpavaju -- morame najti novy izvor snabděnja!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen02Subtitle",
+  "text": "*Kassad pokuša sę zauzeti blizke resursy! Ne smějemo mu dozvoliti vzeti to, čto je pravedno naše!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen03Subtitle",
+  "text": "*Morame znova sjediniti GLA pod jednym vodjeju!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen04Subtitle",
+  "text": "*Pazi! Kassad lansiral skrytu ataku protiv nas!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen05Subtitle",
+  "text": "*Imamo mnogo věče planov nego tot šćur Kassad. Svět bude drhtěti, kogda osvobodime jarost GLA"
+ }
+]
