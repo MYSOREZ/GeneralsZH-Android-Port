@@ -1,0 +1,802 @@
+[
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA090Subtitle",
+  "text": "*Čujem, že vrěme vašego kraja se približaje, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA091Subtitle",
+  "text": "*Vaše sily začinaju byti prěplavleny, generale. Skoro budu moji plenniki"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA092Subtitle",
+  "text": "*My vas kopamo kako ranjenu kozu, generale. Priznajte poraz, aby si spasli od muky"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA093Subtitle",
+  "text": "*Ste pobězeni. To se stavaje vsěm, kotori stanu protiv mene, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA094Subtitle",
+  "text": "*Ste glupec, že me izzvete, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA095Subtitle",
+  "text": "*Vse sily GLA su mi k dispoziciji"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA096Subtitle",
+  "text": "*Jesem opasniji nego vsi moji tri generaly sojedineni"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA097Subtitle",
+  "text": "*Vy pobědili, generale. Začto daljše mučite me, prěgledavajuči te statistiky?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA098Subtitle",
+  "text": "*Da, teper vidite, začto ste izgubili... čisla govoru sama za sebe"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA099Subtitle",
+  "text": "*Prěšli ste dalek put i sustali mnogo protivnikov, aby dostigli do mene, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA100Subtitle",
+  "text": "*Hvalim vaše trudy, no oni vas polnostju ne prigotovili na to, čto vas čeka"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA101Subtitle",
+  "text": "*Sustali ste otrovnyh ratnikov Dr. Thraxa, skryte legiony Kassada i podryvniky Juhziza, no ja jih vsěh naučil iskustvu vojny"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA102Subtitle",
+  "text": "*To bude vaš poslědnji boj, generale. Neka bogovi, kotorym se molite, imaju milost k vam... zašto ja ne budu"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA103Subtitle",
+  "text": "*To bude vaš poslědnji boj, generale. Sdělajte mir sa sobju i prigotovte se na konec"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA001Subtitle",
+  "text": "*Nu, tu ste. Predpozde, aby uběgli, momče"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA002Subtitle",
+  "text": "*Nadam se, že ste gotovi, zašto idemo po vas"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA003Subtitle",
+  "text": "*Postavi stol, sinko, zašto idemo na večeru"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA004Subtitle",
+  "text": "*Imam tri stvari, kotore vas naučim, sinko: kak gubiti, kak plakati, i kak umrěti"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA005Subtitle",
+  "text": "*Skoro napademo, tak vytáhnite vse svoje bele stjagy"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA006Subtitle",
+  "text": "*Tu idemo, sinko... probujte se ne pomočiti, dobro?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA007Subtitle",
+  "text": "*Koju čast slova 'umrěti' niste razuměli?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA008Subtitle",
+  "text": "*Ooh, teper to dobydete, sinko"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA009Subtitle",
+  "text": "*Ste gotovi? Zašto idet taktika, kotoru ste može naučili v školě. Gotovi vrátiti se v školu?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA010Subtitle",
+  "text": "*Vrěme je, aby vas naučil něčto o hărbatě moje ruky"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA011Subtitle",
+  "text": "*Trěbalo by ste uběgnuti, kogda ste imali priliku. Teper vas naučim značenje poštovanja"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA012Subtitle",
+  "text": "*Tak, o vašem pogrebě... otvoreny kovčeg ili zatvoreny?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA013Subtitle",
+  "text": "*Idem marširovati v vašu bazu i postaviti svoju nogu na vašu zadnicu, <sarkastično> 'generale.'"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA014Subtitle",
+  "text": "*Tu idemo, prijatelju -- otstupi se, ili budeš zdepan"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA015Subtitle",
+  "text": "*Vy se nazyvate 'generalom'? Ja vas nazyvam bolju v zadnicě, to vas ja nazyvam"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA016Subtitle",
+  "text": "*To je vaša ideja strategije? Taktiky? 'Grumen tankov' je najlăpše, čto možete izmysliti? Žalko... prosto žalko"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA017Subtitle",
+  "text": "*Da, i ja čital Sun Zi, prijatelju: 'Věčši neprijatel -- otstupi. Menji neprijatel -- napadni.' To je vse, čto imate za mene?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA018Subtitle",
+  "text": "*Tak, gdě je vaša armija, momče? Ili ste hotěli to golymi rukami? Zašto vas mogu shopiti golymi rukami, jesli hočete. Hočete kus tego, momče?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA019Subtitle",
+  "text": "*Zbudili ste me radi tego? Trěbalo by vas prěložiti prěko svojego koljena prjamo teper"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA020Subtitle",
+  "text": "*Imam věče medalej nego vy zubov, momče -- čto ne bude znamenati mnogo, kogda vam jih vse izbijem"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA021Subtitle",
+  "text": "*Stavite vsu svoju obranu na pervoj liniji bazy? Mysite, že to ne možemo obojti? Nu, mysite li?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA022Subtitle",
+  "text": "*Momče, mysite, že se s vami igram? Lăpše promyslite znova"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA023Subtitle",
+  "text": "*Lăpše prověrite svoje boky, prijatelju; myslim, že něktori moji vojaci uže se prokralı v vašu bazu"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA024Subtitle",
+  "text": "*Mysite, že to je igra? Nu, mysite li? Počekajte, ne otgovarajte na to"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA025Subtitle",
+  "text": "*Sinko, kto vas naučil vojenskym taktikam? A? Zašto by ste ga trěbali udariti prjamo v usta, govoru vam"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA026Subtitle",
+  "text": "*Za mnoju stoji cěle vojenstvo Sojedinenyh Štatov, sinko, i toliko jesem rěšil, že vas ne ljubime"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA027Subtitle",
+  "text": "*Trěba li ta vaša taktika byti nekaka šala, kotoru ja ne znaju?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA028Subtitle",
+  "text": "*Tak, vy niste pravy general, ne li? Vy ste kako 'glavny lěkar' ili něčto takoje, tak?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA029Subtitle",
+  "text": "*Znaje li vaša mamka, že ste sami von?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA030Subtitle",
+  "text": "*Možete mi reči.. tu smo samo generaly... znaju li vaši ljudi, že niste sposobny?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA031Subtitle",
+  "text": "*Znaste li, že ste uže izgubili Tehničku budovu, prijatelju?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA032Subtitle",
+  "text": "*Toliko jesem razneslo vašu Kasarnu, momče. Čto s tym budete dělati?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA033Subtitle",
+  "text": "*Tam ide vaša Vojenska Fabrika. Ste uže gněvni, momče?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA034Subtitle",
+  "text": "*Ne znam, začto ste se trudili sgraditi to Vozdušne Polje, jesli go ne budete braniti"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA035Subtitle",
+  "text": "*Kto postavil tu obranu bazy tak? Ona ne može ničego tak braniti"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA036Subtitle",
+  "text": "*Trěbalo by vam dopustiti sgraditi drugy Komandny centr, samo aby ga znova zrušil"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA037Subtitle",
+  "text": "*Čujem se, kako by kopal pěskove zamky. Koliko vašyh budov mi ešče dopustite uništiti, prijatelju?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA038Subtitle",
+  "text": "*Dopustil jesem vam imati tu Tehničku budovu, momče. Ne trěbuju ju, aby vas pobědil"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA039Subtitle",
+  "text": "*Sinko, ta Kasarna ne byla vojenska cěl. Sdělajte to znova, i to stane se ružno"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA040Subtitle",
+  "text": "*Lăpše se povstrăgnite, sinko -- ne budu trpěti, aby ste mi razryvali Vojenske Fabriky, čujete li?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA041Subtitle",
+  "text": "*Znate li, koliko koštaju ti reaktivci? Mogl jesem nakormiti cěly svět s tym, čto ste toliko uništili"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA042Subtitle",
+  "text": "*Razbijate moju obranu, a? Nu, prodălžajte -- to mi dast dovoljno vrěmeni, aby prěplavil vašu bazu"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA043Subtitle",
+  "text": "*To je dovoljno budov, sinko. Začto ne poprobujete teper napasti moje sily"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA044Subtitle",
+  "text": "*Moj Komandny centr?! Mysite, že samo budu tu sěděti i to trpěti?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA045Subtitle",
+  "text": "*Lăpše ostavte moje piloty na miru, momče. Samolety su odno, no dopustite mojim pilotam vrátiti se bezpečno, čujete li?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA046Subtitle",
+  "text": "*Ste malý lukavy prokletnik, ne li? No myslim, že to je dovoljno mojih vozil uništeno, ne mysite li tako i vy?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA047Subtitle",
+  "text": "*Pošlime tam oklopniky i vozdušnu podpordu -- naši pěhoty su razdirani!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA048Subtitle",
+  "text": "*Ostavte tu naftnu vyšku, momče. Tăta vojna ne je o cěně benzina, znate li"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA049Subtitle",
+  "text": "*Mysite, že znate koristiti tu Artiljerijsku platformu, sinko?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA050Subtitle",
+  "text": "*Ta Naftova rafinerija ne je dobra cěl, sinko. I ona ne pripada vam, tak idemo ju vzeti nazad"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA051Subtitle",
+  "text": "*Nu, uspěli ste doći do mojej strany karty. Ne mysleil jesem, že to imate v sebě"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA052Subtitle",
+  "text": "*Planujete napasti, ili budete samo stati tam cěly deň?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA053Subtitle",
+  "text": "*Izydete iz mojej bazy, jesli znate, čto je dobro za vas, momče"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA054Subtitle",
+  "text": "*Neprijatel je v našem perimetru -- vse sily, otbijte napadateljev"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA055Subtitle",
+  "text": "*To nisu vaše snabděnja, prijatelju. Lăpše otstupite teper, prěžde nego vas boli"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA056Subtitle",
+  "text": "*Bokovy napad?! Ne dělajte me smějati se, momče"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA057Subtitle",
+  "text": "*Probujete napasti moja zadnja vrata? Mnogo srěče s tym"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA058Subtitle",
+  "text": "*Idete me napasti, momče? Dobro viděti, že imate malo hrabrosti"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA059Subtitle",
+  "text": "*Otstupite od mojih Tehničkyh budov, jesli znate, čto je dobro za vas"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA060Subtitle",
+  "text": "*Moje sily imaju vašu bazu v vidu, sinko. Čto teper budete dělati?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA061Subtitle",
+  "text": "*Tu ide molotok, prijatelju, i ne hočete byti gvozdem"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA062Subtitle",
+  "text": "*Tuk-tuk, my idemo vnutr!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA063Subtitle",
+  "text": "*Stvari se za vas skoro pogoršaju, prijatelju. Ne recite, že vas ne izvěstil"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA064Subtitle",
+  "text": "*Tak, tu skryvate svoje resursy. Ne vadi vam, jesli malo vozmem?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA065Subtitle",
+  "text": "*Vaš bok je širom otvoren, prijatelju"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA066Subtitle",
+  "text": "*Može přidemo vašimi zadnimi vratami. Čto o tom mysite?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA067Subtitle",
+  "text": "*Pozor, idemo prěko prědnjih vrat!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA068Subtitle",
+  "text": "*Čto tu imamo?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA069Subtitle",
+  "text": "*Nu, pogledajte na to"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA070Subtitle",
+  "text": "*Čto ste planovali dělati bez energije? Ne mogu čekati viděti tătu strategiju"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA071Subtitle",
+  "text": "*Lăpše zaplatite svoj račun za energiju, ili budeme morati odgoditi tăj boj"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA072Subtitle",
+  "text": "*Nemate věče resursov? Momče, ne začinajte tanec, jesli ne možete zaplatiti račun"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA073Subtitle",
+  "text": "*Oh-oh, vygljadaje, že budeme morati potrošiti věče, nego imamo"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA074Subtitle",
+  "text": "*Sgradili ste si Burju SCUD? Ne možete pogoditi daže hlěv skadom, ne znate li to?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA075Subtitle",
+  "text": "*Vytáhujete svoje nuklearne oružja, a? Jesli by mi Vašington ne svjazal ruky, pokazal by jesem vam nuklearne oružja, govoru vam"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA076Subtitle",
+  "text": "*Kak ste dobyli Česticovo dělo, sinko? To trěbalo by byti sasvim tajno"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA077Subtitle",
+  "text": "*Tak mnogo obrany bazy. Mogu prosto počuti strah, kotory od vas dohodi, momče"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA078Subtitle",
+  "text": "*O, pogledajte na to... tu ide grumen tankov. Ne bude rabotati protiv mene, sinko"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA079Subtitle",
+  "text": "*To je mnogo dorogyh samoletov, kotore stavite v vozduh, sinko. Ste sigurni, že hočete potrošiti ty dengi?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA080Subtitle",
+  "text": "*Nadam se, že vsi ty pěhoty znaju, v čto jih vtjagujete"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA081Subtitle",
+  "text": "*To je mnogo budov, sinko. Znate, že budovy ne mogu se biti za vas, tak?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA082Subtitle",
+  "text": "*Donesite skady, prijatelju -- pokažem vam buru"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA083Subtitle",
+  "text": "*Bude vam žal, že ste me nuklearno udarili, sinko. Ne primam to dobro"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA084Subtitle",
+  "text": "*Koristite česticovy luč, a? Lăpše by me tym uklonili, zašto se vam ne bude ljubiti moj protivnapad"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA085Subtitle",
+  "text": "*Znate, samo kukavica se bije iznutr budov. Znate to, tak?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA086Subtitle",
+  "text": "*Dobro došli, Polkovniče Burtone. Žal mi, že ste morali byti vtjagnuti v to. Bez zlyh čuvstv"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA087Subtitle",
+  "text": "*Črny Lotos ne je vaše spasenje, momče. Ona ne přiblíže se k mojej bazě"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA088Subtitle",
+  "text": "*Jarmen Kell je samo ešče jeden snajper, prijatelju. Ja imam desetky snajperov"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA089Subtitle",
+  "text": "*Da, sgradite svoje Vozdušne Polje -- postavte několiko ptic v vozduh. Može byti to je vaš jediny šans, aby me zaustavili"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA090Subtitle",
+  "text": "*Samo jedna Vojenska Fabrika? Bude trěba naimenje šest, aby me zaustavili, sinko"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA091Subtitle",
+  "text": "*Je ta Kasarna malo predbliza prědnjej liniji, sinko? Tăžko spati, kogda su kuli v vašej kasarně"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA092Subtitle",
+  "text": "*Ne prodavajte samo odnu budovu, momče -- prodajte jih vse i nadajte se, že po vas ne prijdu vsě jedno"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA093Subtitle",
+  "text": "*Ne buďte samouvěreni, momče -- to ešče ne je konec"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA094Subtitle",
+  "text": "*Možete mysliti, že imate prevagu, no ja imam ešče několiko trukov v rukavě. Uvidite"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA095Subtitle",
+  "text": "*Vykopal jesem se iz horšyh jam nego tăta, prijatelju. Tak lehko ne pobědite"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA096Subtitle",
+  "text": "*Mysite, že me pobězujete? Lăpše promyslite znova"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA097Subtitle",
+  "text": "*Hm... vygljadaje, že je konec. Dobra rabota, sinko. Vygljadaje, že ste me spustili na zemju malo"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA098Subtitle",
+  "text": "*Čujete li, kak se moja pěst začinaje zatvarjati okolo vašej šeje, prijatelju?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA099Subtitle",
+  "text": "*Ne primajte poraz od mene predtěžko -- vsi gubu ot mene, sinko"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA100Subtitle",
+  "text": "*Dajte mi sekundu, aby sobral několiko tankov, i zaveršim tăj maly boj"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA101Subtitle",
+  "text": "*Začto se prosto ne predajte teper, <sarkastično> 'generale.'"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA102Subtitle",
+  "text": "*Momče, ja vas izbil kako staru barabanu. Kto vam dal komandu? Zašto imam někoje slovo za njih"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA103Subtitle",
+  "text": "*Ne kliknite tăj gumb, jesli niste ozbiljni, momče"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA104Subtitle",
+  "text": "*Hočete se pobiti sa mnoju? Myslim, že lăpše promyslite znova, sinko"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA105Subtitle",
+  "text": "*Ne prinesite tăj stav sjuda, jesli go ne možete podpreti, prijatelju"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA106Subtitle",
+  "text": "*Pokažite mi, čto imate"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA107Subtitle",
+  "text": "*Može byste mogli zaraditi několiko dodatnyh dengeg čistjaci moje čižmy, zašto vy sigurno niste general"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA108Subtitle",
+  "text": "*Dobra rabota, generale. Salutuju vam"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA109Subtitle",
+  "text": "*Ne budu davati govory, tak samo začnimo"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo001Subtitle",
+  "text": "*Imam za vas někoje sjurprizy, generale. Začto ne izydete i ne poigrate?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo002Subtitle",
+  "text": "*Teper, kogda je polje pokryto eksplozivami, predpolagam, že napademo"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo003Subtitle",
+  "text": "*Generale, imam za vas dostavu... podpišete li se za nju?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo004Subtitle",
+  "text": "*Oprezno, kto znaje, kogda se Jarmen Kell prokrade v vašu bazu"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo005Subtitle",
+  "text": "*Vaša budova toliko eksplodovala? Hm... zanimaje me, kak se to stalo?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo006Subtitle",
+  "text": "*Vse moje sily su napolnjene eksplozivami, generale. Ja by v njih ne streljal, byl by jesem na vašem městě"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo007Subtitle",
+  "text": "*Moji Teroristy se naučili maskovati se kako... ups, jesem li rekl predmnogo?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo008Subtitle",
+  "text": "*Može ste zaměčili, že moji eksplozivy udaraju malo silnějše... nadam se, že cěnite našu pozornost ka kvalitetu"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo009Subtitle",
+  "text": "*Pogledajte, kak bystro Lanser Skad teper uništaje budovu... samo počekajte, to je nevěrjatno"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo010Subtitle",
+  "text": "*Najprvo, vse je tiho... potom 'bum!'... ah, ne ljubite li to, generale?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo011Subtitle",
+  "text": "*Rědko napadam, trěbalo by se čujati počašćeni"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo012Subtitle",
+  "text": "*Tu ide ešče jeden napad, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo013Subtitle",
+  "text": "*Moji vojaci idu napasti vašu bazu... učinite jih dobrodošlymi"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo014Subtitle",
+  "text": "*Prošu, ignorujte moje rabotniky, generale; oni samo pohovavaju za mene nekaky... hm... smetje"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo015Subtitle",
+  "text": "*O, generale, morate to viděti... to je bomba. <dětinsky směh>"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo016Subtitle",
+  "text": "*Idemo po věče eksplozivov, generale. Skoro se vrátim"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo017Subtitle",
+  "text": "*Tam je tiho, generale. Znate, čto znamenaje tišina, tak? BUM!!!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo018Subtitle",
+  "text": "*Jesem majstor eksplozivov, generale. Nemate obrany protiv mene"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo019Subtitle",
+  "text": "*Vaša baza je cěljena za rušenje"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo020Subtitle",
+  "text": "*Bojite li se mojego sleduješego napada, generale? Trěbalo by"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo021Subtitle",
+  "text": "*Poka govorimo, moji agenty se prokralaju v vašu bazu i stavjaju eksplozivy"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo022Subtitle",
+  "text": "*Vaša budova može byti uže sada spojena za eksploziju. Nikogda ne uznate, dokla ne bude prekasno"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo023Subtitle",
+  "text": "*Malo je jedinic, kotore mogu otkryti moje eksplozivy... znate li, kotore to su?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo024Subtitle",
+  "text": "*Podryvne pastky su tăžke za graditi, generale. Aby cěnili jich krasu, morate jednu viděti izbliza"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo025Subtitle",
+  "text": "*Kak vam se do teper ljubu moji truky i pastky?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo026Subtitle",
+  "text": "*Aaa... vaša Tehnička budova bumnula"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo027Subtitle",
+  "text": "*Uništili smo vašu Kasarnu... nadam se, že tam nikto ne byl"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo028Subtitle",
+  "text": "*Vaša Vojenska Fabrika je pala, generale. Sgradite drugu, aby ju znova mogli zrušiti"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo029Subtitle",
+  "text": "*Vozdušne Polja su tak krěhka -- edva je zabavno jih uništati"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo030Subtitle",
+  "text": "*Obrana vašej bazy ne može izdăržati moje eksplozivy, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo031Subtitle",
+  "text": "*Ah, něma ničego kako uništenje Komandnogo centra"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo032Subtitle",
+  "text": "*Uništili smo tak mnogo vašyh budov, generale... cěnim, že jih gradite věče za našu zabavu"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo033Subtitle",
+  "text": "*Uništili ste našu naftnu vyšku. Teper vhodite v duh stvari"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo034Subtitle",
+  "text": "*Moja Kasarna! Mnogo mojih eksplozivov bylo tam, generale. Zaplatite mi za to"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo035Subtitle",
+  "text": "*Ne moja Vojenska Fabrika! Generale, ta dosadna navyka, kotoru ste razvili, ne může prodălžiti se"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo036Subtitle",
+  "text": "*Ne brinite se, moja obrana bazy je samo ranji signal upozorenja. Teper morate prohoditi mojoju pravoju obranoju"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo037Subtitle",
+  "text": "*Predmnogo! Uništili ste predmnogo mojih stavb, generale. Teper boj stane pravedno prljavy"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo038Subtitle",
+  "text": "*Obnovime tăj Komandny centr, generale, i vy zaplatite za tăj prěstup"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo039Subtitle",
+  "text": "*Generale, kak očekujete, aby vas ja pobědil, jesli prodălžajete uništati moje vozila?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo040Subtitle",
+  "text": "*Sěčete moje ljudi, prěžde nego mogu postaviti svoje eksplozivy... to ne vygljadaje pravedno, ne li, generale?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo041Subtitle",
+  "text": "*Ah da, zahvatite tu naftnu vyšku, generale. Togda budeme imati věče za uništenje"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo042Subtitle",
+  "text": "*Generale, začto hočete tu Artiljerijsku platformu?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo043Subtitle",
+  "text": "*Dobro, generale, zahvatite Naftovu rafineriju... oni eksplodiraju tak dramatično"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo044Subtitle",
+  "text": "*Buďte oprezni, generale -- vaši ljudi toliko vošli v opasnu zonu okolo mojej bazy. Daže ja ne pomnim, gdě su vse pastky tam postavleny"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo045Subtitle",
+  "text": "*Generale, vaši ljudi se opasno približaju k mojej bazě. Ja by se vrátil, byl by jesem na vašem městě"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo046Subtitle",
+  "text": "*Izydete iz mojej bazy, generale. Tăta cěla oblast je spojena s eksplozivami, i ja se ne bojim jih koristiti"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo047Subtitle",
+  "text": "*Vy glupče! Znate li, koliko eksplozivov okružaje vaše ljudi prjamo teper?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo048Subtitle",
+  "text": "*Napadate s boku, generale? Može tam je malo obrany, no čto o pastkah?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo049Subtitle",
+  "text": "*Zadnja čast mojej bazy je posebno opasna, generale. Ne by preporučil napad otsjuda"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo050Subtitle",
+  "text": "*Frontalny napad?! Ste věčši glupec, nego jesem mysleil, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo051Subtitle",
+  "text": "*V tăj dolině něma za vas ničego, krome smărti"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo052Subtitle",
+  "text": "*Oprezno, generale; to vygljadaje kako dobro město za zasedu... ups, predpozde"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo053Subtitle",
+  "text": "*Mysite, že jesem se ne prigotovil na vaš dohod sjuda, generale? Glupče"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo054Subtitle",
+  "text": "*To su moji resursy, generale. Idite najti svoje vlastne"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo055Subtitle",
+  "text": "*Generale, vošli ste v moj objekt za skladovanje eksplozivov. Odyn nepravilny potez, i vsi umrěme"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo056Subtitle",
+  "text": "*Ah, vidim, že smo pogodili jednu vašu energetsku liniju. Nadam se, že vaša energija ne bude predolgo bez rabote"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo057Subtitle",
+  "text": "*Vaša zavisnost od elektriky bude vaš pad, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo058Subtitle",
+  "text": "*Vaše resursy su iscrpleny, generale. Moje sily kruže za poslědnji udar"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo059Subtitle",
+  "text": "*Moji resursy su nizki, generale. Ne vadi, jesli prijdemo vzeti několiko vaše?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo060Subtitle",
+  "text": "*Burja SCUD... vidim... nu, može je vrěme sgraditi svoju vlastnu"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo061Subtitle",
+  "text": "*Zanimaje me, koliko eksplozivov bude trěba, aby uništili tăj Nuklearny silos?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo062Subtitle",
+  "text": "*Teper začto hočete sgraditi Česticovo dělo? Prosto smo se začeli zabavjati, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo063Subtitle",
+  "text": "*Tak mnogo obrany bazy, generale. Kak očekujete, aby moji bombonoscy teper vošli v vašu bazu?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo064Subtitle",
+  "text": "*Tanky... tak mnogo tankov. Uživam se gledati, kak vaši tanky udaraju o moje pastky, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo065Subtitle",
+  "text": "*Prěstante graditi samolety, generale... propustite genijalnost mojih pastok"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo066Subtitle",
+  "text": "*S tak mnogo pěhoty sigurno aktivirate moje Podryvne pastky. Rekl by jesem im razšíriti se, kogda prěhodu polje, generale... ili ne"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo067Subtitle",
+  "text": "*Tak mnogo budov... vaša baza je idealna cěl za moje eksplozivy, generale. Blagodarju"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo068Subtitle",
+  "text": "*Glupy potez, generale. Vaša Burja SCUD me ne zaustavi"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo069Subtitle",
+  "text": "*Nuklearna raketa! Zaplatite za to, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo070Subtitle",
+  "text": "*Ně! Tăj česticovy luč aktivuje moje eksplozivy!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo071Subtitle",
+  "text": "*Da, zaposedite tu budovu, generale -- vjerojatno nemaje eksplozivov na sebě"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo072Subtitle",
+  "text": "*Zdravo, Polkovniče Burtone. Probujte ne stăpiti na nikaku pastku"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo073Subtitle",
+  "text": "*Črny Lotos... samo zašto možete otkryti moje pastky, ne mysite, že jesem teper ranjivy"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo074Subtitle",
+  "text": "*Začto by ste poslali Jarmena Kella protiv mene, generale?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo075Subtitle",
+  "text": "*Ne gradite věče Vozdušnyh Poljev, generale... ne ljubim jih"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo076Subtitle",
+  "text": "*Vojenska Fabrika gradi vozila... vozila, kotore aktiviraju moje Podryvne pastky"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo077Subtitle",
+  "text": "*Mysite, že je mudro graditi Kasarnu, generale?"
+ }
+]
