@@ -1,0 +1,802 @@
+[
+ {
+  "label": "DIALOGEVENT:EvaGLA_NuclearMissileReadySubtitle",
+  "text": "*Naša Jaderna Raketa je gotova za vypusk"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_OpinionCivilianStructures01Subtitle",
+  "text": "*Generale. Pazi, aby civilne strukture ne byli uništene"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_OpinionCivilianStructures02Subtitle",
+  "text": "*Uništenje civilnyh struktur negativno vliaje na naše Meddržavno Měnjenje!"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_OpinionDestroyStatuesSubtitle",
+  "text": "*Uništi statuje GLA, aby poveličiti naše Meddržavno Měnjenje, pane"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_OpinionDestroyStructuresSubtitle",
+  "text": "*Pane. Uništenje vražjih struktur poveličaje naše Meddržavno Měnjenje"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_OpinionDestroyTroopsSubtitle",
+  "text": "*Uništi věče vražjih vojsk, aby poveličiti Meddržavno Měnjenje"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_OpinionFallingSubtitle",
+  "text": "*Naše Meddržavno Měnjenje pada!"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_OpinionLowSubtitle",
+  "text": "*Naše Meddržavno Měnjenje postaje nizko"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_OpinionLowCriticalSubtitle",
+  "text": "*Naše Meddržavno Měnjenje je kritično nizko!"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_OpinionLowVerySubtitle",
+  "text": "*Naše Meddržavno Měnjenje je veoma nizko"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_OpinionProtectCivilianSubtitle",
+  "text": "*Zaščiti civilne posědy od štety"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_OpinionRisingSubtitle",
+  "text": "*Naše Meddržavno Měnjenje raste!"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_ParticleCannonDetectedAllySubtitle",
+  "text": "*Naš sojuznik postroil Česticovo Dělo"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_ParticleCannonLaunchedAllySubtitle",
+  "text": "*Naš sojuznik upotrěbjaje svoje Česticovo Dělo"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_ParticleCannonLaunchedOursSubtitle",
+  "text": "*Osvobodjenje Česticovogo Děla"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_ParticleCannonReadySubtitle",
+  "text": "*Naše Česticovo Dělo je gotovo"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_ReinforcementsHaveArrivedSubtitle",
+  "text": "*Věče voinov pridošlo nam na pomoć"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_ScudStormDetectedAllySubtitle",
+  "text": "*Naš sojuznik postroil Burju SCUD"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_ScudStormLaunchedAllySubtitle",
+  "text": "*Naš sojuznik vypustil Burju SCUD"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_ScudStormLaunchedOursSubtitle",
+  "text": "*Vypuskanje Burje SCUD"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_ScudStormReadySubtitle",
+  "text": "*Teper možemo upotrěbiti našu Burju SCUD"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_SelectTargetSubtitle",
+  "text": "*Gdě morame udariti?"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_SneakAttackLaunchedSubtitle",
+  "text": "*Generale, naš vrag upotrěbjaje svoju Skrytu Ataku"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_UnitLostSubtitle",
+  "text": "*Voin je pal"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_UpgradeCompleteSubtitle",
+  "text": "*Ulučšenje zaveršeno"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_VehicleStolenSubtitle",
+  "text": "*Oni ukradli vozilo"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_VictorySubtitle",
+  "text": "*My sme pobědili"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_AllyUnderAttackSubtitle",
+  "text": "*Naš sojuznik je pod napadom"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_BaseDefensesOffLineSubtitle",
+  "text": "*Oborona bazy vně sěti"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_BeaconDetectedSubtitle",
+  "text": "*Majak otkryt"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_BlackLotusEnemySubtitle",
+  "text": "*Vražji Jarmen Kell otkryt"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_BlackLotusOursSubtitle",
+  "text": "*Naš Jarmen Kell je otkryt"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_BuildingBeingCapturedSubtitle",
+  "text": "*Naša zgrada je zauzimana"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_BuildingDisabledSubtitle",
+  "text": "*Zgrada Vně Sěti"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_BuildingEnabledSubtitle",
+  "text": "*Zgrada je znova onlajn"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_BuildingStolenSubtitle",
+  "text": "*Zgrada Ukradena"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_CashStolenSubtitle",
+  "text": "*Generale, oni kradut naš novac"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_ColonelBurtonEnemySubtitle",
+  "text": "*Vražji Polkovnik Burton otkryt"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_ColonelBurtonOursSubtitle",
+  "text": "*Naš Polkovnik Burton je otkryt"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_DefeatSubtitle",
+  "text": "*Vy ste poraženi"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_DetectedNukeSubtitle",
+  "text": "*Pozor: silo Jadernyh Raket otkryto"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_DetectedParticleCannonSubtitle",
+  "text": "*Pozor: Česticovo Dělo otkryto"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_DetectedScudStormSubtitle",
+  "text": "*Pozor: Burja SCUD otkryta"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_FundsReceivedSubtitle",
+  "text": "*My polučili sredstva ot našego Sojuznika"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_FundsRequestedSubtitle",
+  "text": "*Vy zaprosili sredstva ot vašego Sojuznika"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_FundsRequestedAllySubtitle",
+  "text": "*Vaš sojuznik zaprošaje sredstva"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_FundsTransferredSubtitle",
+  "text": "*My prěnesli sredstva našemu Sojuzniku"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_GeneralLevelUpSubtitle",
+  "text": "*Čestitke, generale. Vy ste promovirani"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_GPSScramblerLaunchedSubtitle",
+  "text": "*Pozor. GPS-Glušitelj otkryt"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_HeroDiscoveredEnemySubtitle",
+  "text": "*Vražji geroj je otkryt"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_HeroDiscoveredOursSubtitle",
+  "text": "*Jeden iz naših Gerojev je otkryt"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_IncomingAnthraxSubtitle",
+  "text": "*Antraksova bomba otkryta"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_IncomingDaisyCutterSubtitle",
+  "text": "*Vakuumna bomba otkryta"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_IncomingEmpPulseSubtitle",
+  "text": "*Bomba EMP Impulsa otkryta"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_IncomingFuelAirBombSubtitle",
+  "text": "*Vakuumna bomba otkryta"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_InsufficientFundsSubtitle",
+  "text": "*Nedostatočno sredstv"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_JarmenKellEnemySubtitle",
+  "text": "*Vražji Črny Lotos otkryt"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_JarmenKellOursSubtitle",
+  "text": "*Naš Črny Lotos je otkryt"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_LaserDefenseSpeechSubtitle",
+  "text": "*Generale, naš protivnik ima tvrđavu v centru grada. Jego lazerny obranny sistem je razoran, no trěbuje mnogo energije. On bude prinuden prěnesti svoju energiju na jednu točku obrany odrazu. Upotrěbi to za svoje prěimuščstvo"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_LaunchedNukeSubtitle",
+  "text": "*Pozor: Jaderna Raketa vypušena"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_LaunchedParticleCannonSubtitle",
+  "text": "*Pozor: Česticovo Dělo aktivirano"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_LaunchedScudStormSubtitle",
+  "text": "*Pozor: Burja SCUD vypušena"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_LowPowerSubtitle",
+  "text": "*Nizka energija"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_NuclearMissileDetectedAllySubtitle",
+  "text": "*Silo Jadernyh Raket Sojuznika otkryto"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_NuclearMissileLaunchedAllySubtitle",
+  "text": "*Jaderna Raketa Sojuznika vypušena"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_NuclearMissileLaunchedOursSubtitle",
+  "text": "*Jaderna Raketa vypušena"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_NuclearMissileReadySubtitle",
+  "text": "*Jaderna Raketa gotova"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_OpinionCivilianStructures01Subtitle",
+  "text": "*Generale. Pazi, aby civilne strukture ne byli uništene"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_OpinionCivilianStructures02Subtitle",
+  "text": "*Uništenje civilnyh struktur negativno vliaje na naše Meddržavno Měnjenje!"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_OpinionDestroyStatuesSubtitle",
+  "text": "*Uništi statuje GLA, aby poveličiti Meddržavno Měnjenje, pane"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_OpinionDestroyStructuresSubtitle",
+  "text": "*Pane. Uništenje vražjih struktur poveličaje naše Meddržavno Měnjenje"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_OpinionDestroyTroopsSubtitle",
+  "text": "*Uništi věče vražjih vojsk, aby poveličiti Meddržavno Měnjenje"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_OpinionFallingSubtitle",
+  "text": "*Naše Meddržavno Měnjenje pada!"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_OpinionLowSubtitle",
+  "text": "*Naše Meddržavno Měnjenje postaje nizko"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_OpinionLowCriticalSubtitle",
+  "text": "*Naše Meddržavno Měnjenje je kritično nizko!"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_OpinionLowVerySubtitle",
+  "text": "*Naše Meddržavno Měnjenje je veoma nizko"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_OpinionProtectCivilianSubtitle",
+  "text": "*Zaščiti civilne posědy od štety"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_OpinionRisingSubtitle",
+  "text": "*Naše Meddržavno Měnjenje raste!"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_ParticleCannonDetectedAllySubtitle",
+  "text": "*Česticovo Dělo Sojuznika otkryto"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_ParticleCannonLaunchedAllySubtitle",
+  "text": "*Česticovo Dělo Sojuznika aktivirano"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_ParticleCannonLaunchedOursSubtitle",
+  "text": "*Česticovo Dělo aktivirano"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_ParticleCannonReadySubtitle",
+  "text": "*Česticovo Dělo gotovo"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_ReinforcementsHaveArrivedSubtitle",
+  "text": "*Podkrěpljenja pridošli"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_ScudStormDetectedAllySubtitle",
+  "text": "*Burja SCUD Sojuznika otkryta"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_ScudStormLaunchedAllySubtitle",
+  "text": "*Burja SCUD Sojuznika vypušena"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_ScudStormLaunchedOursSubtitle",
+  "text": "*Burja SCUD vypušena"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_ScudStormReadySubtitle",
+  "text": "*Burja SCUD gotova"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_SelectTargetSubtitle",
+  "text": "*Izberi cělj"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_SneakAttackLaunchedSubtitle",
+  "text": "*Pozor. Skryta Ataka otkryta"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_UnitLostSubtitle",
+  "text": "*Jedinica izgubjena"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_UpgradeCompleteSubtitle",
+  "text": "*Ulučšenje zaveršeno"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_UpgradeControlRodSubtitle",
+  "text": "*Ulučšenje Kontrolnyh Strěžnjev zaveršeno"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_UpgradeControlRodAdvancedSubtitle",
+  "text": "*Ulučšenje Naprednyh Kontrolnyh Strěžnjev zaveršeno"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_UpgradeMoabSubtitle",
+  "text": "*Ulučšenje MOAB zaveršeno"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_UpgradeSentryDroneSubtitle",
+  "text": "*Ulučšenje Stražnogo Drona zaveršeno"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_VehicleStolenSubtitle",
+  "text": "*Vozilo Ukradeno"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_VictorySubtitle",
+  "text": "*Vy ste pobědili"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xBrf01Subtitle",
+  "text": "*Generale, GLA uspěla poběditi sily USA v toj oblasti. My lansirali razorajuču protivnapad, no oni sut kako karakoni, ešče živi"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xBrf02Subtitle",
+  "text": "*Dažde teper preživěli GLA sę znova stroje"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xBrf03Subtitle",
+  "text": "*Aby konečno uništili GLA, morame poslati naše sily i izkoreniti ih iz vsakogo tmnogo ugla, gdě sę skryvaju"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xBrf04Subtitle",
+  "text": "*Generale, naši novi Podslušni Posty sut stacionirani v oblasti. Sut vam na razpolaganju"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xBrf05Subtitle",
+  "text": "*Podslušny Post sam po sebě je nevooružen, no jego putniky mogu strěljati na vragov, koji sę prěblizijut. Naidete, že jego dolgy doseg pogleda i nevidimost veoma poveličajut svěst o poljě boja"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xChat01Subtitle",
+  "text": "*Nijedna GLA ne prokrade sę mimo našego garnizona"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xChat02Subtitle",
+  "text": "*Toksinni Traktory! Oni pokušajut otroviti nas vsěh… trěba nam podpira!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xChat03Subtitle",
+  "text": "*Gledaj… naftove vyšky… da li ih zauzmemo?"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xChat04Subtitle",
+  "text": "*GLA v tvojem domu? Prilěpi malo ognja… i věče nema GLA"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xChat05Subtitle",
+  "text": "*GLA sę tam znova stroje… i sut gotovi napasti"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xChat06Subtitle",
+  "text": "*My pobědime tot deń… vsi naprěd"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xCin01aSubtitle",
+  "text": "*Ja ne mysleil, že Sjedinjene Državy budut tako lahko poražene"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xCin01bSubtitle",
+  "text": "*Ja ne razumiem, začto Sjedinjene Državy dozvolili, aby sę to slučilo"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xCin01cSubtitle",
+  "text": "*To ne može ostati tako. Kitaj ispravi to"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xCin01dSubtitle",
+  "text": "*Izdajničsko upotrěbjenje naših resursov ot GLA protiv Amerikancev pričinilo veliky sram Kitaju. Oni morajut platiti za svoju drzost"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xCin02Subtitle",
+  "text": "*Rakety sut pripravjene i gotove za vypusk… poslědnje odbrojavanje začelo"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xCin03Subtitle",
+  "text": "*3… 2… 1… Rakety sut vypušene"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xCin04Subtitle",
+  "text": "*Oni mysljat, že pobědili tot deń, no slaviju prěrano"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xCin05Subtitle",
+  "text": "*Je krasno, kogda sę upotrěbjaje za pravedne pričiny"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xCin06Subtitle",
+  "text": "*Preživěli GLA běžat v grad za skryvanje… morajut byti zaustaveni!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xCin07Subtitle",
+  "text": "*My sme v poziciji… vrata bombovogo otsěka sut otvorene"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xCin08Subtitle",
+  "text": "*My primětili preživělih. Zemny šturm bude neobhoden"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xXO01Subtitle",
+  "text": "*Generale, naša prěžnja baza v regionu je zauzeta GLA. Vam bude trěba postroiti novu bazu, prěže nego možete napasti vraga"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xXO02Subtitle",
+  "text": "*Sovětuju vam garnizonovati někotore blizke zgrady, aby braniti našu bazu"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xXO03Subtitle",
+  "text": "*Generale, GLA garnizonovala někotore zgrady po cělom gradě. Može byti, možete upotrěbiti Tank Zmaj, aby očistili te garnizony"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xXO04Subtitle",
+  "text": "*Generale, GLA dviga Toksinne Traktory k našim garnizonovanym zgradam. Ako ti traktory napadut te zgrady, vsi vnutri budut uništeni"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xXO05Subtitle",
+  "text": "*GLA upotrěbjaje te Naftove Vyšky, aby financovala svoje sily. Jeden iz naših Črvenoj Gvardije bych mogl zauzeti te vyšky. Prihody bych pomogli poběditi GLA"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xXO06Subtitle",
+  "text": "*Generale, je li mudro uništiti te Naftove Vyšky? Oni bych nam dali cěnne resursy. Jeden iz naših Črvenoj Gvardije bych ih mogl zauzeti"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xXO07Subtitle",
+  "text": "*Vy ih zaskočili vrasploh, generale. Jeden iz vaših Črvenoj Gvardije bych mogl zauzeti ih zgrady, prěže nego mogu otgovoriti"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xXO08Subtitle",
+  "text": "*Teper, kogda ste znova ustanovili našu operacijnu bazu, vrěmja je izkoreniti vse ostatne sily GLA v oblasti"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xXO09Subtitle",
+  "text": "*Čestitke, generale. Vy oslobodili grad od vsěh sil GLA. Kogda uništite ih poslědnju bazu, vaša misija bude zaveršena"
+ },
+ {
+  "label": "DIALOGEVENT:MisChi02Lin13Subtitle",
+  "text": "*Teroristička prětnja je zaveršena. Dobra rabota, generale"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xBrf01Subtitle",
+  "text": "*Generale, GLA pokuša sę ukrasti jaderne boglavy sohranjene v tej zgradě"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xBrf01aSubtitle",
+  "text": "*Generale, GLA pokuša sę uništiti našu glavnu jadernu elektrostanciju"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xBrf02Subtitle",
+  "text": "*Naši hrabri soldaty odbili ih napad, no s velikoju cěnoju, i GLA je ešče tam"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xBrf03Subtitle",
+  "text": "*Morate zaustaviti GLA i uveriti sę, že vsaky naš Bunker je zaščiščen"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xBrf03aSubtitle",
+  "text": "*Morate zaustaviti GLA, aby uveriti sę, že zgrada ne bude uništena"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xBrf04Subtitle",
+  "text": "*Imamo někotore nove tehnologije, koje trěba byti veoma polezne za vašu misiju, generale"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xBrf05Subtitle",
+  "text": "*Naša Jaderna Děla sut teper ulučšena, aby strěljala neutronnymi snarjadami. Ti novi snarjady efektivno uništaju soldaty i vodičev vozil. Kogda sę radiacija razčisti, jeden iz naših pěhotincev može tada zauzeti preživěla vozila"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xBrf06Subtitle",
+  "text": "*Naše zgrady mogu sę teper ulučšiti na Neutronne Miny. Dok sut ešče efektivne protiv pěhoty, oni takože vrěmenno onesposobjajut vražje vozila"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xBrf07aSubtitle",
+  "text": "*Generale, vaša podkrěpljenja pridut za 15 minut"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xBrf07bSubtitle",
+  "text": "*Generale, vaša podkrěpljenja pridut za 10 minut"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xBrf07cSubtitle",
+  "text": "*Generale, vaša podkrěpljenja pridut za 5 minut"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xBrf07dSubtitle",
+  "text": "*Generale, vaša podkrěpljenja pridut skoro"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat01Subtitle",
+  "text": "*Vražje sily primětene. My ih zaustavime"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat02Subtitle",
+  "text": "*My sme pod ognjem na desnom flanku… trěba nam podpira tu"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat03Subtitle",
+  "text": "*Oni sut za nami… napravi ves ogeń na jug!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat04Subtitle",
+  "text": "*Baza GLA v dosegu… vse komandy gotove napasti, generale"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat05Subtitle",
+  "text": "*Vražje zgrady na tom grebenu. Daj slovo, generale, i my ih pregazime"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat06Subtitle",
+  "text": "*Pazi na te RPG Boecev! Trěba nam pomoć!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat07Subtitle",
+  "text": "*Generale, my sme teper nad cělovoju oblastju i začeli bombardovati"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat08Subtitle",
+  "text": "*Rastilame kover… iz bomb. Heheh"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat09Subtitle",
+  "text": "*Vražja protivvozdušna oborona je tu gusta… trpime tjažku štetu"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat10Subtitle",
+  "text": "*Pozicije Stinger nas zaklučili… my sme v probleme!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat11Subtitle",
+  "text": "*Zaustavi togo Povstanca, on pokuša sę zauzeti naš bunker!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat12Subtitle",
+  "text": "*To nije Battlemaster, no bude morati stačiti"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat13Subtitle",
+  "text": "*Ja preferuju svoj Gatlingovy Tank"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat14Subtitle",
+  "text": "*Ešče jeden val GLA!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat15Subtitle",
+  "text": "*Morame zaščititi naše bunkery!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat15aSubtitle",
+  "text": "*Morame zaščititi jaderny reaktor!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat16Subtitle",
+  "text": "*Teper my im pokažemo, kako sę napada baza!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat17Subtitle",
+  "text": "*Podkrěpljenja! Radujemo sę, že vas vidime!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat18Subtitle",
+  "text": "*My sme gotovi za vaše prikazy, generale. Gdě nas trěbate?"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xCin01Subtitle",
+  "text": "*Morame byti na straži. Izvěščenja kazuju, že GLA može napasti kako osvětu za naš vstup v vojnu"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xCin01aSubtitle",
+  "text": "*Ne čujem sę bezbědno, branječ tu jadernu elektrostanciju"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xCin01bSubtitle",
+  "text": "*Da. Volil bych, aby sem sę pridružil vozdušnym silam vměsto togo"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xCin01dSubtitle",
+  "text": "*Sigurno poslě naše nedavne pobědy, oni ne bych smeli nas tu napasti"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xCin01cSubtitle",
+  "text": "*Ih hrana je mnogo lěpša. A oni nosjat te elegantne šlemy"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xCin02Subtitle",
+  "text": "*Sily GLA! My sme pod napadom!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xCin03Subtitle",
+  "text": "*Oni sut vsjude! My sme prěplavjeni"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xCin04Subtitle",
+  "text": "*Ešče jeden val! Trěba nam podkrěpljenja!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xCin04aSubtitle",
+  "text": "*Ešče jeden val! Oni imaju kamiony-bomby i teroristov! Trěba nam podkrěpljenja!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xCin04bSubtitle",
+  "text": "*Ešče jeden val! Oni upotrěbjajut samoubijstvene taktiky! Gdě sut ta podkrěpljenja?!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xCin05Subtitle",
+  "text": "*My izgubili aerodrom!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xCin06Subtitle",
+  "text": "*Oni pokušajut dosěgnuti skladišne bunkery! Zaščiti ih za vsaku cěnu!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xCin06aSubtitle",
+  "text": "*Oni pokušajut dosěgnuti glavny reaktor! Zaščiti ga za vsaku cěnu!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xCin07Subtitle",
+  "text": "*Komandny Centr… oni zauzeli Komandny Centr"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xCin08Subtitle",
+  "text": "*My sme uděržali… ostatne sily, javte sę"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xCin09Subtitle",
+  "text": "*Ne mnogo je ostalo. Bude nam trěba podkrěpljenja"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xCin10Subtitle",
+  "text": "*Poslanje je prošlo, no bude nam trěba uděržati, dokud ne pridut sjuda"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xXO01Subtitle",
+  "text": "*Generale, naša podkrěpljenja pridošli!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xXO02Subtitle",
+  "text": "*Generale, sily GLA napadajut bunkery"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xXO02aSubtitle",
+  "text": "*Generale, sily GLA napadajut jadernu elektrostanciju!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xXO03Subtitle",
+  "text": "*GLA pokuša sę zauzeti jeden iz naših bunkerov"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xXO04Subtitle",
+  "text": "*Generale, tot bunker je tjažko povrěžen. Sovětuju popraviti ga prěže slědujučego napada GLA"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xXO04aSubtitle",
+  "text": "*Generale, naša jaderna elektrostancija je tjažko povrěžena. Sovětuju popraviti ju prěže slědujučego napada GLA"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xXO05Subtitle",
+  "text": "*Generale, poslědnji napad tjažko oslabil někotore bunkery. Ako jeden iz nih bude uništen, GLA pobědi v tom sudaru"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xXO05aSubtitle",
+  "text": "*Generale, poslědnji napad tjažko oslabil jadernu elektrostanciju. Ako bude uništena, my provalime našu misiju!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xXO06Subtitle",
+  "text": "*Pozor… sily GLA sę dvigaju k bunkeram"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xXO06aSubtitle",
+  "text": "*Pozor… sily GLA sę dvigaju k elektrostanciji!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xXO07Subtitle",
+  "text": "*Generale, ja sem kontaktoval jeden iz naših špionskih postov. Oni sut pod napadom GLA. Ako ih spasime, ja sę mogu sojediniti s ih sistemom, i budemo moči pozvati bombardirovniky za kovrovo bombardovanje"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xXO08Subtitle",
+  "text": "*Generale, ako osigurate tot špionsky post, to vam dozvoli naprěditi kovrove bombardovanja na sily GLA"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xXO09Subtitle",
+  "text": "*Generale, teper, kogda naša podkrěpljenja pridošli, vrěmja je uklaniti GLA iz toj oblasti"
+ },
+ {
+  "label": "DIALOGEVENT:MisChi03RedChat12Subtitle",
+  "text": "*V boj!"
+ },
+ {
+  "label": "DIALOGEVENT:MisChi03RedChat19Subtitle",
+  "text": "*Dovedi tanky! Sravni ih sa zemloju!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xBrf01Subtitle",
+  "text": "*Pozdravy, komandire. Teper, kogda sme osujetili protivnapad GLA, vrěmja je iskoristiti naše prěimuščstvo!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xBrf02Subtitle",
+  "text": "*Morame oslobiti tot grad ot kandži GLA"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xBrf03Subtitle",
+  "text": "*Postoji veoma tjažko branjena baza GLA na sěver od rěky. Morame ju uništiti, no to ne bude lahka zadača"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xBrf04Subtitle",
+  "text": "*Naše operacije privlekli mnogo pažnje ostatka světa, i budemo pomno nabljudani. Čim dolže ta bitka trvaje, tym niže naše Meddržavno Měnjenje padne"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xBrf05Subtitle",
+  "text": "*Šteta civilnoj imovině morat byti izběgnuta. Naša operacija morat byti precizna i bystra. Uništenje sil GLA prinese rast Meddržavnogo Měnjenja v našu korist"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xBrf09Subtitle",
+  "text": "*Ako naše Meddržavno Měnjenje postane dosta visoko, ljudi grada sę mogu pridružiti našej sudbině"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xBrf10Subtitle",
+  "text": "*Tada bude lahko uništiti obranu GLA"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xChat01Subtitle",
+  "text": "*Oni morajut imati kamuflovanu Tunelnu Sěť blizu tu"
+ }
+]
