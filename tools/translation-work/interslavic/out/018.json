@@ -1,0 +1,802 @@
+[
+ {
+  "label": "GUI:BioClassNumber_Pos8",
+  "text": "Ne Primenjivo"
+ },
+ {
+  "label": "GUI:BioDefeatedEntry_Pos8",
+  "text": "Nespecifikovano"
+ },
+ {
+  "label": "GUI:BioVictoriousEntry_Pos8",
+  "text": "Nespecifikovano"
+ },
+ {
+  "label": "GUI:BioNameEntry_Pos9",
+  "text": "General Leang"
+ },
+ {
+  "label": "GUI:BioDOBEntry_Pos9",
+  "text": "Nespecifikovano"
+ },
+ {
+  "label": "GUI:BioBirthplaceEntry_Pos9",
+  "text": "Baza Dragon, Lanzhou, Kitaj"
+ },
+ {
+  "label": "GUI:BioStrategyEntry_Pos9",
+  "text": "Neznano"
+ },
+ {
+  "label": "GUI:BioRankEntry_Pos9",
+  "text": "General Zmaj, Klasa AAAA"
+ },
+ {
+  "label": "GUI:BioBranchEntry_Pos9",
+  "text": "NOAK - Elitne Sily"
+ },
+ {
+  "label": "TOOLTIP:BioStrategyLong_Pos9",
+  "text": "Generalka \"Tigrica\" Leiong Leang trěbuje upotrěbjenje vsakoj drugoj tehnologije, aby pobědila svoje vragy"
+ },
+ {
+  "label": "GUI:BioClassNumber_Pos9",
+  "text": "Neznano"
+ },
+ {
+  "label": "GUI:BioDefeatedEntry_Pos9",
+  "text": "To byl interesantny izzov. Može byti, vy me izzovete znova."
+ },
+ {
+  "label": "GUI:BioVictoriousEntry_Pos9",
+  "text": "Poboljšaj svoje uměnja i izzovi me znova."
+ },
+ {
+  "label": "GUI:BioNameEntry_Pos10",
+  "text": "Nespecifikovano"
+ },
+ {
+  "label": "GUI:BioDOBEntry_Pos10",
+  "text": "33"
+ },
+ {
+  "label": "GUI:BioBirthplaceEntry_Pos10",
+  "text": "Nespecifikovano"
+ },
+ {
+  "label": "GUI:BioStrategyEntry_Pos10",
+  "text": "Nespecifikovano"
+ },
+ {
+  "label": "GUI:BioRankEntry_Pos10",
+  "text": "."
+ },
+ {
+  "label": "GUI:BioBranchEntry_Pos10",
+  "text": "."
+ },
+ {
+  "label": "TOOLTIP:BioStrategyLong_Pos10",
+  "text": "."
+ },
+ {
+  "label": "GUI:BioClassNumber_Pos10",
+  "text": "."
+ },
+ {
+  "label": "GUI:BioDefeatedEntry_Pos10",
+  "text": "Nespecifikovano"
+ },
+ {
+  "label": "GUI:BioVictoriousEntry_Pos10",
+  "text": "Nespecifikovano"
+ },
+ {
+  "label": "GUI:BioNameEntry_Pos11",
+  "text": "Nespecifikovano"
+ },
+ {
+  "label": "GUI:BioDOBEntry_Pos11",
+  "text": "Nespecifikovano"
+ },
+ {
+  "label": "GUI:BioBirthplaceEntry_Pos11",
+  "text": "Nespecifikovano"
+ },
+ {
+  "label": "GUI:BioStrategyEntry_Pos11",
+  "text": "Nespecifikovano"
+ },
+ {
+  "label": "GUI:BioRankEntry_Pos11",
+  "text": "."
+ },
+ {
+  "label": "GUI:BioBranchEntry_Pos11",
+  "text": "."
+ },
+ {
+  "label": "TOOLTIP:BioStrategyLong_Pos11",
+  "text": "."
+ },
+ {
+  "label": "GUI:BioClassNumber_Pos11",
+  "text": "."
+ },
+ {
+  "label": "GUI:BioDefeatedEntry_Pos11",
+  "text": "Nespecifikovano"
+ },
+ {
+  "label": "GUI:BioVictoriousEntry_Pos11",
+  "text": "Nespecifikovano"
+ },
+ {
+  "label": "TOOLTIP:BioStrategyLong_GLA",
+  "text": "Globalna Osvoboditeljna Armija prěferuje nepoštene i skryte taktiky, aby pobědila svoje vragy"
+ },
+ {
+  "label": "TOOLTIP:BioStrategyLong_China",
+  "text": "Kitaj upotrěbjaje ogeń i prěsilny broj, aby pobědil svoje vragy"
+ },
+ {
+  "label": "TOOLTIP:BioStrategyLong_USA",
+  "text": "USA upotrěbjaje visokotehnologična oružja i uměnje, aby pobědili svoje vragy"
+ },
+ {
+  "label": "TOOLTIP:BioStrategyLong_Random",
+  "text": "Tot izbor slučajno izbere frakciju"
+ },
+ {
+  "label": "GUI:ChallengeWinText",
+  "text": "Čestitke, vy pobědili %s"
+ },
+ {
+  "label": "GUI:ChallengeLossText",
+  "text": "Vy ste poraženi ot %s"
+ },
+ {
+  "label": "CREDITS:DevelopmentDirector",
+  "text": "Direktor Razvoja"
+ },
+ {
+  "label": "CREDITS:GeneralManager",
+  "text": "Generalny Menedžer EALA"
+ },
+ {
+  "label": "CREDITS:LeadArtist",
+  "text": "Vodeči Umětnik"
+ },
+ {
+  "label": "CREDITS:QADirector",
+  "text": "Direktor QA"
+ },
+ {
+  "label": "CREDITS:SrTestLead",
+  "text": "Starši Vodja Testovanja"
+ },
+ {
+  "label": "CREDITS:AssistantMultiplayerTestLead",
+  "text": "Pomoćny Vodja Testa Multiigry"
+ },
+ {
+  "label": "CREDITS:TestAnalyst",
+  "text": "Analitik Testa"
+ },
+ {
+  "label": "CREDITS:AssistantProducer",
+  "text": "Pomoćny Producent"
+ },
+ {
+  "label": "CREDITS:CameoPhotoshootStudio",
+  "text": "Fotografije snimane v Out West Studio"
+ },
+ {
+  "label": "CREDITS:Models",
+  "text": "Modely"
+ },
+ {
+  "label": "CREDITS:Actors",
+  "text": "Glumci"
+ },
+ {
+  "label": "CREDITS:VisualEffectsAndEditing",
+  "text": "Vizualni Efekty i Montaža"
+ },
+ {
+  "label": "CREDITS:NewsReporterVideos",
+  "text": "Videa Novinarskih Reportérov"
+ },
+ {
+  "label": "CREDITS:DirectorOfProductLocalization",
+  "text": "Direktor Lokalizacije Produkta, EALA"
+ },
+ {
+  "label": "CREDITS:LocalizationAssistance",
+  "text": "Pomoć pri Lokalizaciji"
+ },
+ {
+  "label": "ACADEMY:Eva",
+  "text": "Taktička Analiza"
+ },
+ {
+  "label": "ACADEMY:BuildAllStructures",
+  "text": "Kogda ste na poljě boja, važno je upotrěbiti vse instrumenty dostupne vam, generale. Uverte sę, že postrojite vse strukture. Morate uděržavati silnu vojennu silu"
+ },
+ {
+  "label": "ACADEMY:BuildSupplyCenterEarlier",
+  "text": "Generale, jedna iz najvažnějših funkcij silnogo vodji je uverjenje sę, že soldaty imajut dosta snabděnja. Sovětujemo vam postroiti Centr Snabděnja ili Tajny Sklad na počatku vsakoj misije. Snabděnje vam prinosi novac, a novac vam prinosi pobědu"
+ },
+ {
+  "label": "ACADEMY:TryBuildingRadar",
+  "text": "Magla Vojny okružaje nas vsěh. Jeden polezny sposob videti čerez nju je čerez radar. Vsaka frakcija ima svoj vlastny sposob polučenja oka v nebu. Komandny Centr USA automatski dohodit s radarom, Kitajsky Komandny Centr morat byti ulučšen, a GLA morat postroiti Radarny Furgon iz svojego Torgovca Oružjem"
+ },
+ {
+  "label": "ACADEMY:BuildMorePeons",
+  "text": "Ako pytate bilo kojego drugogo Generala, oni potvrdjat prostoje pravilo: Vojaky dělajut armiju. Aby postroiti vašu bazu, trěba vam postaviti vaše Buldozery ili Rabotniky na rabotu. Ti ljudi sut ključ vašego buduščego uspěha, tako ih ne zabudite!"
+ },
+ {
+  "label": "ACADEMY:TryCapturingStructures",
+  "text": "Generale, někogda je lěgše vzeti to, čto hočete, nego raboti za to. Ako postrojite ulučšenje \"Zauzenje\" iz vašej Kasarny, budete moči ukrasti vražje strukture. Postoju takože Tehnologične Zgrady rasprostrěne po poljě boja, koje mogu ešče věče poboljšati vašu armiju"
+ },
+ {
+  "label": "ACADEMY:SpendGeneralsPoints",
+  "text": "S vojnoju dohodjat plěny. Vsaky put, kogda uništite vraga, zarabite sebě puť k věče Točkam Generala. Oni mogu byti potrošene, pritisnuvši gumb \"zvězda\" na desnoj straně Panela Komandy. Prosto otvorite menu Točok Generala i potroste vaše tjažko zaslužene točky na nekih novyh vojennyh igrackah"
+ },
+ {
+  "label": "ACADEMY:TryUsingSuperweapons",
+  "text": "Kaka polza od sobiranja Točok Generala, ako ih ne upotrěbjajete? Ako ste kupili Moći Generala upotrěbivši vaše točky, ikona sę pojavi na desnoj straně ekrana. Prosto ju pritisnite i gledajte, kako počinaje ognjena zabava. Čim věče točok potrošite, tym moćnějša je moć"
+ },
+ {
+  "label": "ACADEMY:TryGarrisoningAStructure",
+  "text": "Soldaty mogu byti efektivni na otvorenom, no sut smrtonosnějši, kogda garnizonovani vnutri civilnyh zgrad. Izberite vaše soldaty i pošlite ih v praznu strukturu. Oni budut zaščiščeni stěnami - krome ako ih ne dosěgne Oslěpljujuča Granata, Toksinny Traktor ili Tank Zmaj"
+ },
+ {
+  "label": "ACADEMY:IdleBuildingUnits",
+  "text": "Generale, sozdanje i vodstvo velikoj armije morat byti vaš najvyši cělj. Uverte sę, že stroite vaše bojeve jedinice, klikajuč na Kasarnu, Vojennu Fabriku, Aerodrom, itd. a potom klikajuč na odgovarajuču sliku v nižnjem Panelu Komandy. To bude dobro potrošeny novac i pomože vam dostignuti pobědu"
+ },
+ {
+  "label": "ACADEMY:TryDragSelectingUnits",
+  "text": "Upravjanje vašeju armijeju je jedna iz najtežših věšči, koje General morat naučiti. Hoč možete kliknuti na vsaku jedinicu odděljno, obyčno je bystrěje \"arkanovati\" grupu jedinic. Prosto kliknite i vlecite okvir okolo jedinic. Oni teper budut pod vašeju kontroloju. Ako kliknite na drugu oblast, jedinice sę dvignu tam"
+ },
+ {
+  "label": "ACADEMY:ResearchUpgrades",
+  "text": "Veliky General može postroiti mnogo tankov, no ešče věči General može postroiti mnogo lěpših tankov. Počti vsaka jedinica ima někaku formu ulučšenja. Často je najlěpše potrošiti vaš novac na poboljšanje togo, čto već imate"
+ },
+ {
+  "label": "ACADEMY:RanOutOfPower",
+  "text": "Dok GLA ne trěbuje energiju, Kitaj i USA ju jedjat kako popkorn. Aby uděržati bazu silno rabotajuču, General morat potrošiti novac na dosta energije, aby snabděl vojennu mašinu. Uverte sę, že postrojite Reaktor Hladnoj Fuzije ili Jaderny Reaktor za maksimalny izhod. Nizka energija može značiti nizky procent uspěha"
+ },
+ {
+  "label": "ACADEMY:BuildMoreGatherers",
+  "text": "Generale, uverte sę, že stroite dosta Rabotnikov, Kamionov Snabděnja ili Chinookov, aby vaš dohod prodolžil tekti. Možete napraviti dodatne sobirateli, klikajuč na sliku sobiratelja resursov v Centru Snabděnja ili Tajnom Skladu. Ne stydite sę maksimizovati vaš potencijal resursov"
+ },
+ {
+  "label": "ACADEMY:BuildAHero",
+  "text": "Jarmen Kell, Polkovnik Burton i Črny Lotos mogu byti neocěnimi za vašu strategiju. Ti geroji mogu izměniti tok bitky i sut nevidimi za vraga. Aby najti svojego geroja na radaru, tražite ikonu s cěljnikom. Hoč možete postroiti samo jednogo odrazu, ne podcěnjujte ih važnost"
+ },
+ {
+  "label": "ACADEMY:PickStrategyCenterPlan",
+  "text": "Strategičny Centr USA je veoma polezna struktura. Trěba vam zapomniti izbrati strategiju, koja najlěpše odgovaraje vašemu planu igry. Iskanje i Uništenje, Bombardovanje i Držanje Linije sut vsi otlične sposoby dati vam prěimuščstvo, koje vam trěba. Uz te obšče strategije, možete kupiti mnogo ulučšenj iz toj zgrady"
+ },
+ {
+  "label": "ACADEMY:UseTunnelNetwork",
+  "text": "Kogda dojde na GLA, prokradanje po poljě boja je ih vizitna kartočka. Tunelne Sěti dajut sposobnosti obrany, no takože dozvoljajut igraču bystro sę dvigati. Prosto postrojite několiko Tunelnyh Sětej i pošlite vaše jedinice vnutri. Kliknite na strukturu i možete ih izgnati iz bilo kojej drugoj Tunelnoj Sěti bilo kde na kartě. Oni sut ključ celkovoj strategije GLA"
+ },
+ {
+  "label": "ACADEMY:UseControlGroups",
+  "text": "Upravjanje velikoju armijeju može byti někogda malo nesposlušno. Jeden sposob lahko upravjati mnogimi jedinicami je sozdanje \"kontrolnoj grupy\". Prosto izberite grupu jedinic v pytanju i pritisnite \"Ctrl\" i broj v tom istom momentě. Teper, vsaky put, kogda pritisnete tot broj, ta grupa jedinic bude izbrana. Pritisnite broj dvakrat bystro, i pogled kamery sę centrira nad grupoju"
+ },
+ {
+  "label": "ACADEMY:UseSecondaryIncomeMethods",
+  "text": "Generale, polučanje snabděnja pozdno v misiji može byti trudno. Vsaka frakcija ima svoj vlastny sposob polučenja novca počas dolgih bitok. Kitaj može postroiti Hakerov i Centr Internet. Možete naprěditi Hakerov, aby hakovali internet za novac bilo kde, ili ih prosto poslati vnutri Centra Internet, aby polučili novac ešče bystrěje. GLA zavisi ot Črnogo Rynka, a USA sę oslanja na Sbros Snabděnja. Ako ne planirate naprěd, možete imati nedostatky"
+ },
+ {
+  "label": "ACADEMY:ClearBuildings",
+  "text": "Garnizonovane zgrady mogu byti težke za rěšenje - krome ako znate někotore trikove. Ulučšite vaše Rangery USA Oslěpljujučimi Granatami, postrojite Toksinne Traktory GLA ili kitajske Tanky Zmaj, aby bystro očistili te oporne punkty. USA takože može ulučšiti na Anti-Bunker Rakety, aby dažde očistili Tunelne Sěti!"
+ },
+ {
+  "label": "ACADEMY:PickUpSalvage",
+  "text": "GLA je hitra skupina, no i vynahodljiva. Vsaky put, kogda jedinice GLA uništajut drugo vozilo, ostaje bonus ostatkov. Prěhodite čerez ostatky, aby ulučšili vaše jedinice, polučili veteranstvo ili dodatny novac. Ostatky mogu napraviti veliku razliku v dolgom boju, tako ih ne ostavjajte prosto ležati okolo"
+ },
+ {
+  "label": "ACADEMY:UseGuardAbility",
+  "text": "Někogda je važno, aby jedinice ostali na městě i branili odrěženu oblast. Prosto izberite jedinicu i pritisnite gumb \"šćit\" ili klavišu \"G\", a potom izberite oblast za branjenje. Jedinica napade bilo kojego vraga, koji vstupi v jeji radius branjenja"
+ },
+ {
+  "label": "ACADEMY:MultipleSupplyCenters",
+  "text": "Snabděnje je imę igry, generale. Ono može byti sobrano v Dokah Snabděnja rasprostrěnyh po poljě boja. Dok jeden dok može byti dosta v počatku, obyčno je najlěpše rasšěriti sę i najti ešče několiko počas misije. Vam bude trěba postroiti Centr Snabděnja ili Tajny Sklad blizu Doka Snabděnja, aby osigurali efektivno sobiranje"
+ },
+ {
+  "label": "ACADEMY:GarrionVehicle",
+  "text": "Někotore jedinice mogu vstupiti v drugi vozila ili ih ukrasti. Krada vozil Otimačami ili Teroristami vam može dozvoliti prokrasti sę v vražju teritoriju"
+ },
+ {
+  "label": "ACADEMY:UseSelectionHotkeys",
+  "text": "Generale, Hotkeys sut otlichny sposob poboljšati vašu kontrolu nad vašimi silami. \"E\" izbere vse jedinice istogo tipa na ekranu pogleda. Ako pritisnete \"E\" dvakrat bystro, izbere vse istogo tipa po cělom poljě boja. \"Q\" izbere vse vaše bojeve jedinice na kartě. \"W\" izbere vse vaše vozdušne jedinice na kartě. Probujte ih, oni vam pomogut"
+ },
+ {
+  "label": "ACADEMY:AlternateMouseInterface",
+  "text": "Jedno novo dodanje je opcija \"Alternativny Interfejs Myši\" v Menu Nastavjenj. Ako ste privykli komandovati armijami upotrěbjajuč desny klik kako gumb dějstvija, to vam može pomoći lěpše upravjati vašeju armijeju"
+ },
+ {
+  "label": "ACADEMY:DoubleClickAttackMoveGuard",
+  "text": "Generale, my sozdali novy sposob upravjanja vašeju armijeju. Prosto izberite vaše jedinice i dvakrat kliknite na cělovu oblast. Vaše jedinice sę dvignu napadajuč do togo města i potom ga branit. Možete to aktivirati čerez menu nastavjenj"
+ },
+ {
+  "label": "ACADEMY:BuildBarracksSooner",
+  "text": "Aby sozdati dobro balansiranu silu, morate postroiti Kasarnu ranije v misiji. Pěhota može učiniti ili razrušiti vaš plan igry, tako je najlěpše ih ne zabyti"
+ },
+ {
+  "label": "ACADEMY:BuildWarFactorySooner",
+  "text": "Dok pěhota i vozdušna sila mogu byti velike prědnosti, ničto ne pobědi dobry tank. Uverte sę, že postrojite Vojennu Fabriku ili Torgovca Oružjem ranije v misiji"
+ },
+ {
+  "label": "ACADEMY:BuildTechStructureSooner",
+  "text": "Za napredna oružja nema zaměny za Strategičny Centr, Centr Propagandy ili Palac. Ne zabudite postroiti jeden malo ranije v misijah, aby osigurali uspěh"
+ },
+ {
+  "label": "ACADEMY:NoIncome",
+  "text": "Generale, vitalno je za vaš uspěh, aby vaš tok dohoda prodolžil čerez celu misiju. Prěmnogo prěryvov vodit k gubjenju vašego prěimuščstva. Uverte sę, že snabděnje postojanno teče"
+ },
+ {
+  "label": "ACADEMY:ClearMines",
+  "text": "Podryvne Pastky i miny mogu opravdu byti počatok lošego dnja. Te hitre taktiky mogu byti prěodolane, upotrěbivši Buldozery ili Rabotniky, aby očistili te opasne oblasti"
+ },
+ {
+  "label": "ACADEMY:UnmannedVehicles",
+  "text": "Generale, někotore jedinice mogu snajperovati ili odstraniti vražjih vodičev vozil. Kogda sę to slučit, vozila postaju neutralna i mogu byti \"posudžena\" ot vraga. Ne stydite sę projti sę na štet vašego vraga"
+ },
+ {
+  "label": "ACADEMY:DisguisedUnits",
+  "text": "Někotore jedinice sę mogu maskirati kako druge jedinice. Nema ničto tako zadovoljujuče, kako vvezti Kamion-Bombu GLA v vražju bazu neotkryto i pričiniti mnogo haosa. Uverte sę, že upotrěbite tu ključovu taktiku, aby napredoval vaš plan boja"
+ },
+ {
+  "label": "ACADEMY:StealthUpgrade",
+  "text": "Někotore strukture mogu byti ulučšene na kamuflaž, kako Tunelna Sěť GLA ili Pozicije Stinger. Oni budut nevidime za vraga, dokud ne bude prěpozdno. Sjurpriz!"
+ },
+ {
+  "label": "ACADEMY:Firestorm",
+  "text": "Kitaj ima jedinstvenu sposobnost sozdati Ognjenu Buru, kogda věče MiGov ili Děl Inferno cěljaju jednogo vraga ili oblast. Uverte sę, že koordinirate vaše napady za maksimalny efekt"
+ },
+ {
+  "label": "GUI:HeatEffects",
+  "text": "Efekty Vročiny"
+ },
+ {
+  "label": "TOOLTIP:HeatEffects",
+  "text": "Prěključi pokazyvanje efektov distorzije vročiny. Vyključi za ulučšenu proizvoditeljnost"
+ },
+ {
+  "label": "GUI:WeatherEffects",
+  "text": "Efekty Pogody"
+ },
+ {
+  "label": "TOOLTIP:WeatherEffects",
+  "text": "Prěključi pokazyvanje efektov pogody kako sněg. Vyključi za ulučšenu proizvoditeljnost"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_AllyUnderAttackSubtitle",
+  "text": "*Naš sojuznik je pod napadom"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_BaseDefensesOffLineSubtitle",
+  "text": "*Naša oborona bazy ne rabotaje"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_BeaconDetectedSubtitle",
+  "text": "*Majak je postavjen"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_BlackLotusEnemySubtitle",
+  "text": "*My otkryli vražjego Črnogo Lotosa"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_BlackLotusOursSubtitle",
+  "text": "*Črny Lotos je otkryt"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_BuildingBeingCapturedSubtitle",
+  "text": "*Naša zgrada je zauzimana"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_BuildingDisabledSubtitle",
+  "text": "*Zgrada je deaktivirana"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_BuildingEnabledSubtitle",
+  "text": "*Zgrada je znova aktivirana"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_BuildingStolenSubtitle",
+  "text": "*Vrag zauzel jednu iz naših zgrad"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_CashStolenSubtitle",
+  "text": "*Generale, oni kradut naš novac"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_ColonelBurtonEnemySubtitle",
+  "text": "*My otkryli vražjego Polkovnika Burtona"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_ColonelBurtonOursSubtitle",
+  "text": "*Polkovnik Burton je otkryt"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_DefeatSubtitle",
+  "text": "*My sme poraženi"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_DetectedNukeSubtitle",
+  "text": "*Pozor: silo Jadernyh Raket je otkryto"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_DetectedParticleCannonSubtitle",
+  "text": "*Pozor: Česticovo Dělo je otkryto"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_DetectedScudStormSubtitle",
+  "text": "*Pozor: Burja SCUD je otkryta"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_FundsReceivedSubtitle",
+  "text": "*My polučili sredstva ot našego Sojuznika"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_FundsRequestedSubtitle",
+  "text": "*Vy zaprosili sredstva ot vašego Sojuznika"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_FundsRequestedAllySubtitle",
+  "text": "*Vaš sojuznik zaprošaje sredstva"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_FundsTransferredSubtitle",
+  "text": "*My prěnesli sredstva našemu Sojuzniku"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_GeneralLevelUpSubtitle",
+  "text": "*Čestitke, generale. Vy ste promovirani"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_GPSScramblerLaunchedSubtitle",
+  "text": "*Pozor. GPS-Glušitelj je aktiviran"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_IncomingAnthraxSubtitle",
+  "text": "*Pozor: Antraksova bomba je vypušena"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_IncomingDaisyCutterSubtitle",
+  "text": "*Pozor: Vakuumna bomba je vypušena"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_IncomingEmpPulseSubtitle",
+  "text": "*Pozor: Bomba EMP Impulsa je vypušena"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_IncomingFuelAirBombSubtitle",
+  "text": "*Pozor: Vakuumna bomba je vypušena"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_InsufficientFundsSubtitle",
+  "text": "*Trěba nam věče sredstv"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_JarmenKellEnemySubtitle",
+  "text": "*My otkryli vražjego Jarmena Kella"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_JarmenKellOursSubtitle",
+  "text": "*Jarmen Kell je otkryt"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_LaserDefenseSpeechSubtitle",
+  "text": "*Generale, naš protivnik ima tvrđavu v centru grada. Jego lazerny obranny sistem je razoran, no trěbuje mnogo energije. On bude prinuden prěnesti svoju energiju na jednu točku obrany odrazu. Upotrěbi to za svoje prěimuščstvo"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_LaunchedNukeSubtitle",
+  "text": "*Pozor: Jaderna Raketa je vypušena"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_LaunchedParticleCannonSubtitle",
+  "text": "*Pozor: Česticovo Dělo otkryto"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_LaunchedScudStormSubtitle",
+  "text": "*Pozor: Burja SCUD je vypušena"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_LowPowerSubtitle",
+  "text": "*Naša energija je nizka"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_NuclearMissileDetectedAllySubtitle",
+  "text": "*Naš sojuznik postroil Silo Jadernyh Raket"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_NuclearMissileLaunchedAllySubtitle",
+  "text": "*Naš sojuznik vypustil Jadernu Raketu"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_NuclearMissileLaunchedOursSubtitle",
+  "text": "*My vypustili našu Jadernu Raketu"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_NuclearMissileReadySubtitle",
+  "text": "*Naša Jaderna Raketa je gotova, generale"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_OpinionCivilianStructures01Subtitle",
+  "text": "*Generale. Pazi, aby civilne strukture ne byli uništene"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_OpinionCivilianStructures02Subtitle",
+  "text": "*Uništenje civilnyh struktur negativno vliaje na naše Meddržavno Měnjenje!"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_OpinionDestroyStatuesSubtitle",
+  "text": "*Uništi statuje GLA, aby poveličiti Meddržavno Měnjenje, pane"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_OpinionDestroyStructuresSubtitle",
+  "text": "*Pane. Uništenje vražjih struktur poveličaje naše Meddržavno Měnjenje"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_OpinionDestroyTroopsSubtitle",
+  "text": "*Uništi věče vražjih vojsk, aby poveličiti Meddržavno Měnjenje"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_OpinionFallingSubtitle",
+  "text": "*Naše Meddržavno Měnjenje pada!"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_OpinionLowSubtitle",
+  "text": "*Naše Meddržavno Měnjenje postaje nizko"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_OpinionLowCriticalSubtitle",
+  "text": "*Naše Meddržavno Měnjenje je kritično nizko!"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_OpinionLowVerySubtitle",
+  "text": "*Naše Meddržavno Měnjenje je veoma nizko"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_OpinionProtectCivilianSubtitle",
+  "text": "*Zaščiti civilne posědy od štety"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_OpinionRisingSubtitle",
+  "text": "*Naše Meddržavno Měnjenje raste!"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_ParticleCannonDetectedAllySubtitle",
+  "text": "*Naš sojuznik postroil Česticovo Dělo"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_ParticleCannonLaunchedAllySubtitle",
+  "text": "*Naš Sojuznik aktiviral svoje Česticovo Dělo"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_ParticleCannonLaunchedOursSubtitle",
+  "text": "*Naše Česticovo Dělo je aktivirano"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_ParticleCannonReadySubtitle",
+  "text": "*Naše Česticovo Dělo je gotovo, generale"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_ReinforcementsHaveArrivedSubtitle",
+  "text": "*Podkrěpljenja pridošli"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_ScudStormDetectedAllySubtitle",
+  "text": "*Naš sojuznik postroil Burju SCUD"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_ScudStormLaunchedAllySubtitle",
+  "text": "*Naš sojuznik vypustil svoju Burju SCUD"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_ScudStormLaunchedOursSubtitle",
+  "text": "*Naša Burja SCUD je vypušena"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_ScudStormReadySubtitle",
+  "text": "*Naša Burja SCUD je gotova, generale"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_SelectTargetSubtitle",
+  "text": "*Izberi cělj"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_SneakAttackLaunchedSubtitle",
+  "text": "*Pozor. Skryta Ataka je otkryta"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_UnitLostSubtitle",
+  "text": "*Jedinica izgubjena"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_UpgradeCompleteSubtitle",
+  "text": "*Ulučšenje zaveršeno"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_UpgradeEMPminesSubtitle",
+  "text": "*Ulučšenje Neutronnyh Min je zaveršeno"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_UpgradeNeutronShellSubtitle",
+  "text": "*Ulučšenje Neutronnyh Snarjadov je zaveršeno"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_VehicleStolenSubtitle",
+  "text": "*Vozilo je ukradeno"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_VictorySubtitle",
+  "text": "*My sme pobědili"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_AllyUnderAttackSubtitle",
+  "text": "*Naš sojuznik je pod napadom"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_BaseDefensesOffLineSubtitle",
+  "text": "*Naša oborona bazy ne rabotaje"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_BeaconDetectedSubtitle",
+  "text": "*Majak je postavjen"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_BlackLotusEnemySubtitle",
+  "text": "*My otkryli vražjego Črnogo Lotosa"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_BlackLotusOursSubtitle",
+  "text": "*Naš Jarmen Kell je viděn ot vraga"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_BuildingBeingCapturedSubtitle",
+  "text": "*Generale, oni kradut naš novac"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_BuildingDisabledSubtitle",
+  "text": "*Zgrada prěstala rabotati"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_BuildingEnabledSubtitle",
+  "text": "*Naša zgrada znova rabotaje"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_BuildingStolenSubtitle",
+  "text": "*Oni zauzeli kontrolu nad našeju zgradoju"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_CashStolenSubtitle",
+  "text": "*Generale, oni kradut naš novac"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_ColonelBurtonEnemySubtitle",
+  "text": "*My otkryli vražjego Polkovnika Burtona"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_ColonelBurtonOursSubtitle",
+  "text": "*Naš Polkovnik Burton je viděn ot vraga"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_DefeatSubtitle",
+  "text": "*My sme poraženi"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_DetectedNukeSubtitle",
+  "text": "*Pazi, my primětili Silo Jadernyh Raket"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_DetectedParticleCannonSubtitle",
+  "text": "*Bud na straži, my otkryli vražje Česticovo Dělo"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_DetectedScudStormSubtitle",
+  "text": "*Pazi, vrag postroil Burju SCUD"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_EliteGuardUpgrade01Subtitle",
+  "text": "*Naše strukture budut teper branjene"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_EliteGuardUpgrade02Subtitle",
+  "text": "*My sę ulučšujemo na Elitnu Gvardiju"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_EliteGuardUpgrade03Subtitle",
+  "text": "*Elitna Gvardija teper brani naše zgrady"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_FundsReceivedSubtitle",
+  "text": "*My polučili sredstva ot našego Sojuznika"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_FundsRequestedSubtitle",
+  "text": "*Vy zaprosili sredstva ot vašego Sojuznika"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_FundsRequestedAllySubtitle",
+  "text": "*Vaš sojuznik zaprošaje sredstva"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_FundsTransferredSubtitle",
+  "text": "*My prěnesli sredstva našemu Sojuzniku"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_GeneralLevelUpSubtitle",
+  "text": "*Dobro učinjeno, generale. Vy dostigli vyši rang"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_GPSScramblerLaunchedSubtitle",
+  "text": "*Generale, naš vrag upotrěbjaje svoj GPS-Glušitelj"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_IncomingAnthraxSubtitle",
+  "text": "*Bud v pripravnosti, Antraksova bomba sę može približavati"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_IncomingDaisyCutterSubtitle",
+  "text": "*Bud v pripravnosti. Vakuumna bomba sę može približavati"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_IncomingEmpPulseSubtitle",
+  "text": "*Bud v pripravnosti. Bomba EMP Impulsa sę može približavati"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_IncomingFuelAirBombSubtitle",
+  "text": "*Bud v pripravnosti. Vakuumna bomba sę može približavati"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_InsufficientFundsSubtitle",
+  "text": "*Trěba nam bude věče sredstv, generale"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_JarmenKellEnemySubtitle",
+  "text": "*My otkryli vražjego Jarmena Kella"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_JarmenKellOursSubtitle",
+  "text": "*Naš Črny Lotos je viděn ot vraga"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_LaserDefenseSpeechSubtitle",
+  "text": "*Generale, naš protivnik ima tvrđavu v centru grada. Jego lazerny obranny sistem je razoran, no trěbuje mnogo energije. On bude prinuden prěnesti svoju energiju na jednu točku obrany odrazu. Upotrěbi to za svoje prěimuščstvo"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_LaunchedNukeSubtitle",
+  "text": "*Generale, Jaderna Raketa je osvobodjena!"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_LaunchedParticleCannonSubtitle",
+  "text": "*Generale, naš vrag upotrěbjaje svoje Česticovo Dělo"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_LaunchedScudStormSubtitle",
+  "text": "*Generale, Burja SCUD je vypušena"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_LowPowerSubtitle",
+  "text": "*Naša energija je nizka"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_NuclearMissileDetectedAllySubtitle",
+  "text": "*Naš sojuznik postroil Silo Jadernyh Raket"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_NuclearMissileLaunchedAllySubtitle",
+  "text": "*Naš sojuznik vypustil Jadernu Raketu"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_NuclearMissileLaunchedOursSubtitle",
+  "text": "*Vypuskanje Jadernoj Rakety"
+ }
+]
