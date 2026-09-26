@@ -1,0 +1,802 @@
+[
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi002Subtitle",
+  "text": "*Tigar stoji gotov udariti, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi003Subtitle",
+  "text": "*Za Kitaj! Napřed!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi004Subtitle",
+  "text": "*Moje sily su gotove napasti vašu obranu, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi005Subtitle",
+  "text": "*Počujte tupanje nog mojego železnogo zmaja!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi006Subtitle",
+  "text": "*Vaša obrana je bezvrědna protiv mojih sil"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi007Subtitle",
+  "text": "*Teper se sretajemo na polju česti, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi008Subtitle",
+  "text": "*To dělamo za dobro Kitaja"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi009Subtitle",
+  "text": "*Vrěme je izprobovati vaš čelik, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi010Subtitle",
+  "text": "*Napali ste me poslědnji raz, generale. Ta volna razbije vašu obranu i razdrobi vašu žalku armiju v prah!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi011Subtitle",
+  "text": "*Moč Kitaja padaje na vas"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi012Subtitle",
+  "text": "*Vaše slabše sily ne budu izzvati nikaky problem mojim ratnikam"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi013Subtitle",
+  "text": "*Vy začeli tăj boj, generale. Teper ja go dokončim"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi014Subtitle",
+  "text": "*Napadnite glupca! Ne berite plennikov!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi015Subtitle",
+  "text": "*Dva ratnika se sretaju na bojišču. Kto može reči, kto pobědi? Ja mogu. Ja. Vy padnete, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi016Subtitle",
+  "text": "*Boj, kotory ne može byti vyigran, ne vrědi biti se. Začto ste tu, generale?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi017Subtitle",
+  "text": "*Gnev vas donese samo do izvěsne granice, generale. No gnev i kolona tankov... to vas donese někamo"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi018Subtitle",
+  "text": "*Nahodite se na kraju svojego uzla, generale. I samo teper ste otkryli, že tăj kraj uzla goraje"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi019Subtitle",
+  "text": "*Tanec boja je čudny i kratky... a tăj boj s vami byl čudno kratky"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi020Subtitle",
+  "text": "*Vidim, že niste dobro promyslili svoju strategiju. Škoda"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi021Subtitle",
+  "text": "*To je prohryvajuča strategija, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi022Subtitle",
+  "text": "*Vy ne dělate za dobro svojego naroda, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi023Subtitle",
+  "text": "*Dam vam moment pauzy, aby promyslili svoj sleduješi potez"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi024Subtitle",
+  "text": "*Mudry čelověk znaje, kogda otstupiti. Vygljadaje, že vy niste taky čelověk"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi025Subtitle",
+  "text": "*Na koncu, vse padaje predo mnoju"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi026Subtitle",
+  "text": "*Ne možete stati protiv mojej moči"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi027Subtitle",
+  "text": "*Kitaj ne može byti pobězen odnym čelověkom"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi028Subtitle",
+  "text": "*Razmyslimo i promyslimo naš sleduješi potez"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi029Subtitle",
+  "text": "*Ne obvezujte se na taktiku, kotoru ne možete podpreti"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi030Subtitle",
+  "text": "*Samoubijstvo ne je taktika, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi031Subtitle",
+  "text": "*My smetamo vaše budovy kako bambus pred uraganom"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi032Subtitle",
+  "text": "*Vaši ljudi utekli iz Kasarny, kogda smo ju sravnili sa zemjoju"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi033Subtitle",
+  "text": "*Fabrika ne može proizvoditi vojnu, generale -- i teper vaša Vojenska Fabrika ne proizvodi ničego"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi034Subtitle",
+  "text": "*Vaše Vozdušne Polje je prizemljeno, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi035Subtitle",
+  "text": "*Obrana vašej bazy padaje pred nami kako stebla travy"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi036Subtitle",
+  "text": "*Uništili smo vaš Komandny centr, tak gdě se skryvate teper, generale?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi037Subtitle",
+  "text": "*Tak mnogo vašyh budov palo, že by jesem očekival vašu predaju uže teper"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi038Subtitle",
+  "text": "*Ne mysli, že možete uništiti moju Kasarnu, ne počujavši moj gnev, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi039Subtitle",
+  "text": "*Budu morati znova sgraditi tu Vojensku Fabriku teper. Bylo by mudro s vaše strany iskoristiti moju vrěmennu slabost... ona ne bude dolgo trajati"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi040Subtitle",
+  "text": "*Buldozery: obnovite Vozdušne Polje, prěžde nego se vrătu naši MiGy!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi041Subtitle",
+  "text": "*Naša obrana se raspukaje! Otbijte napadateljev!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi042Subtitle",
+  "text": "*To je uže dovoljno uništenja, generale. Teper je moj red"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi043Subtitle",
+  "text": "*Možete zahvatiti moj Komandny centr, no tăj boj ešče ne je gotov, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi044Subtitle",
+  "text": "*Otmstimo za vse te MiGy, kotore ste uništili, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi045Subtitle",
+  "text": "*Cěna toj vojny je predoroga, generale. Teper je vrěme, aby vy zaplatili"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi046Subtitle",
+  "text": "*Pěhota Kitaja je obiljna, no predmnogo je bylo žrtvovano. Teper vam vrátim vašu okrutnost desetkrat"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi047Subtitle",
+  "text": "*Zahvatite vsu naftu, kotoru hočete -- ne budete imati vrěme, aby uživali plody"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi048Subtitle",
+  "text": "*Ta Artiljerijska platforma může byti lehko izběgnena, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi049Subtitle",
+  "text": "*Iščete povyšiti svoju effektivnost s toju Naftovoju rafinerijoju, generale? Solidna strategija by vam lăpše poslužila"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi050Subtitle",
+  "text": "*Něčto se dvigaje na kraju mojej bazy"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi051Subtitle",
+  "text": "*Vidim, že se približujete k mojej bazě, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi052Subtitle",
+  "text": "*Ne budete žiti, aby žalili vhoda v moju bazu, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi053Subtitle",
+  "text": "*Vaše sily mogu vojti v moju bazu, no nikogda věče iz nej ne vyjdu"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi054Subtitle",
+  "text": "*Ti resursy su pod mojoju zaščitoju, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi055Subtitle",
+  "text": "*Začto insistujete na napadu s bokov?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi056Subtitle",
+  "text": "*Interesantny napad, generale, no protiv mene ne uspěje"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi057Subtitle",
+  "text": "*Hrabry napad, generale, no sama hrabrost me ne pobědi"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi058Subtitle",
+  "text": "*To je taktika glupca, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi059Subtitle",
+  "text": "*Ostavite to město, prěžde nego me razgnevate"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi060Subtitle",
+  "text": "*Vidim, čto dělate, generale. Ne dopustim to"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi061Subtitle",
+  "text": "*Uběgnite otsjuda, generale, prěžde nego na vas puščam ordu"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi062Subtitle",
+  "text": "*Približajemo se k vašej bazě, generale. Kaka je vaša obrana?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi063Subtitle",
+  "text": "*Ste li prigotovleni na naš napad, generale? Uvidime"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi064Subtitle",
+  "text": "*Vaša obrana je neadekvatna, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi065Subtitle",
+  "text": "*Teper začnemo sravnivati vašu bazu sa zemjoju, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi066Subtitle",
+  "text": "*Vaše resursy skoro budu moje"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi067Subtitle",
+  "text": "*Zahvatam tătu naftnu vyšku za Kitaj"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi068Subtitle",
+  "text": "*Vaši boki su otkryti, generale. Fatalna ošibka"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi069Subtitle",
+  "text": "*Dopustili ste mojim silam podryti vašu obranu. Teper vas dokončimo"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi070Subtitle",
+  "text": "*Dopustili ste, aby vaša energija padla, generale. Molite se, aby to ne byla fatalna ošibka"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi071Subtitle",
+  "text": "*Bez energije ne budete mogli braniti svoju bazu, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi072Subtitle",
+  "text": "*Iscrpali ste svoje resursy, generale. Vrěme je priznati poraz"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi073Subtitle",
+  "text": "*Iscrpali ste moje resursy, generale. Teper prijdu i vozmem vaše"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi074Subtitle",
+  "text": "*Burja SCUD je oružje kukavicy, generale. Mysleil jesem lăpše o vas"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi075Subtitle",
+  "text": "*Prinuždajete me otgovoriti svojim vlastnym Nuklearnym silosom, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi076Subtitle",
+  "text": "*To Česticovo dělo je strašno oružje, no ne može zaustaviti Kitaj"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi077Subtitle",
+  "text": "*Tak mnogo obrany... vidim, že imate pravilno poštovanje k svojemu neprijatelju"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi078Subtitle",
+  "text": "*Ne možete sgraditi věče tankov nego Kitaj, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi079Subtitle",
+  "text": "*Sravnamo se s vašimi samoletami v vozduhu, generale. Vaša prevaga bude samo v vašej głavě"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi080Subtitle",
+  "text": "*Vašich ljudi je manje, generale. Ne probujte sdělati věčšu ordu nego Kitaj"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi081Subtitle",
+  "text": "*Vaša baza raste velika, generale... zrela za nuklearny udar"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi082Subtitle",
+  "text": "*Červena Garda, razběgnite se! Rakety Skad dolětaju!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi083Subtitle",
+  "text": "*My smo imuni na vaše nuklearne rakety, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi084Subtitle",
+  "text": "*Ně! Vaš česticovy luč nas samo poraní -- to ne zabudemo, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi085Subtitle",
+  "text": "*Skryjte se v tyh budovah, generale. Može vas posětit Tank Zmaj"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi086Subtitle",
+  "text": "*Podvigy Polkovnika Burtona su legendarni, no on je samo odyn čelověk, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi087Subtitle",
+  "text": "*Vidim, že ste podkupili jednu iz naših agentov Črnogo Lotosa. Jeje trening ne obrati boj v vašu korist, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi088Subtitle",
+  "text": "*Snajper Kell vhodi v naš boj. Ne računajte na jego skrytost, aby vas spasla, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi089Subtitle",
+  "text": "*Glupo je s vaše strany sgraditi Vozdušne Polje, generale. Samo tanky vas mogu spasti od mene"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi090Subtitle",
+  "text": "*Mudro je s vaše strany sgraditi Vojensku Fabriku, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi091Subtitle",
+  "text": "*Ta Kasarna je samo začatok tego, čto vam bude trěba, aby me pobědili, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi092Subtitle",
+  "text": "*Jesli hočete prodati svoje budovy, začto se trudite jih graditi?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi093Subtitle",
+  "text": "*Ne pobědite me tak lehko, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi094Subtitle",
+  "text": "*Vaša prevaga se ne bude dăržati"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi095Subtitle",
+  "text": "*Ne dam se poběditi takym, kak vy, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi096Subtitle",
+  "text": "*To ne je konec, generale. Vosstanovim se od tego"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi097Subtitle",
+  "text": "*Moram priznati tăj poraz. Pokazali ste vyšu taktiku, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi098Subtitle",
+  "text": "*Moja vyša taktika vodi k vašemu porazu, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi099Subtitle",
+  "text": "*Gubite tăj boj, generale. Lăpše časno priznati poraz, nego se daljše biti"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi100Subtitle",
+  "text": "*Konec se približaje za vas, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi101Subtitle",
+  "text": "*Začto se protivite neizběžnomu, generale?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi102Subtitle",
+  "text": "*Sěn zmaja signalizuje začatok vašego poraza, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi103Subtitle",
+  "text": "*Vrěme je priznati svoj poraz, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi104Subtitle",
+  "text": "*Vrěme je, aby zmaj znova povstal"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi105Subtitle",
+  "text": "*Něma sramu v priznanju svojej slabosti"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi106Subtitle",
+  "text": "*Niste gotovi mne suprotstaviti se. Vrătite se, kogda vaš trening bude dokončen"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi107Subtitle",
+  "text": "*Začto běžite k svojemu vlastnomu kraju?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi108Subtitle",
+  "text": "*To byl interesantny súboj. Može me znova izzvete"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi109Subtitle",
+  "text": "*Poboljšajte svoje sposobnosti i znova me izzvete"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi110Subtitle",
+  "text": "*Dobro došli, generale. Nadam se, že ste prigotovleni mne suprotstaviti se"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi111Subtitle",
+  "text": "*Vaše pobědy dobro govoru o vašej sposobnosti, no moji generaly ne imali moju lukavost ili iskustvo"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi112Subtitle",
+  "text": "*Skoro uvidite, čto značit suprotstaviti se zmaju"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA001Subtitle",
+  "text": "*Věčšina neprijateljev by uběgla od vida mojih armij. Može tăto bude vrědno posle vsego"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA002Subtitle",
+  "text": "*Moje sily se spuskaju na vas kako větr, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA003Subtitle",
+  "text": "*Vaši ljudi su kako ovcy pred mojimi ratnikami"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA004Subtitle",
+  "text": "*Pogledajte na vse te divne igračky, kotore ste mi donesli. Ja polomil vse svoje igračky jako dětě, generale, i teper polomim vaše"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA005Subtitle",
+  "text": "*Vaše sily padaju kako pšenica pred mojim mečom"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA006Subtitle",
+  "text": "*Dobro ste dělali protiv mojih generalov, no ja imam vsu jich moč sojedinenu. Čto dělate protiv togo, generale?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA007Subtitle",
+  "text": "*Nikogda věče ne uvidite moje sily, generale... dokla ne bude prekasno"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA008Subtitle",
+  "text": "*Smetemo vas iz našyh zemel, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA009Subtitle",
+  "text": "*Teper uvidite, čto vam donesla vaša bezkorisna invazija, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA010Subtitle",
+  "text": "*Osmělili ste se me izzvati -- teper požnete strašnu nagradu"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA011Subtitle",
+  "text": "*Kak se čujete, generale, kogda jazdci jaju k vašim vratam?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA012Subtitle",
+  "text": "*Imali ste priliku otstupiti, teper vas uništimo"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA013Subtitle",
+  "text": "*Buďte svědok moči moje volje, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA014Subtitle",
+  "text": "*Moj gnev razdere vašu vojensku mašinu v prah"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA015Subtitle",
+  "text": "*Toksin... eksplozivy... skrytost... Odnu od tyh ste pobědili, no vse tri? Vse je izgubjeno, generale. Trěbalo by vam se predati za dobro vašyh ljudej"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA016Subtitle",
+  "text": "*Vaš svět vas sdělal mekim, generale. Moj sdělal mene silnym"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA017Subtitle",
+  "text": "*Naučite se poštovati moju moč, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA018Subtitle",
+  "text": "*Zastanete se, poka gradim svoj sleduješi napad, potom se boj obnovi"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA019Subtitle",
+  "text": "*Ste li se uže umorili umiraje protiv moje obrany, generale?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA020Subtitle",
+  "text": "*Bojišče je tiho, generale. Čekate li, aby ja to dokončil?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA021Subtitle",
+  "text": "*Čekamo vaš sleduješi žalky napad s velikym iščekivanjem"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA022Subtitle",
+  "text": "*To je bylo vse vaše moč, generale? Zaista žalko"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA023Subtitle",
+  "text": "*Vaši napady byli kako žalki kriky posrěd huka běsneče burje"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA024Subtitle",
+  "text": "*Tăj boj me začinaje dosaditi, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA025Subtitle",
+  "text": "*Kak dolgo vam ešče morati dopustiti žiti, generale?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA026Subtitle",
+  "text": "*Generale, moji podanniky trěbaju moju pozornost... kak dolgo ešče namerjate tancovati okolo kako klovn?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA027Subtitle",
+  "text": "*Generale, vaša taktika me pripominaje na dětě, kotore se uči igrati šah"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA028Subtitle",
+  "text": "*Ste gotovi, generale? Iscrpali ste svoje žalke resursy?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA029Subtitle",
+  "text": "*Generale, bylo mi dosadno pred několiko minutami -- teper začinam usnuti"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA030Subtitle",
+  "text": "*Kak se čuje izzvati pravogo vojenskogo genija?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA031Subtitle",
+  "text": "*Vse, čto dobydete, ja uništim"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA032Subtitle",
+  "text": "*Teper vaša Kasarna padaje -- skoro vse padne"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA033Subtitle",
+  "text": "*Vaša Vojenska Fabrika je izgubjena -- obnovite ju, i ja ju znova uništim"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA034Subtitle",
+  "text": "*Oslobodil jesem vas od vašego Vozdušnogo Polja, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA035Subtitle",
+  "text": "*Obrana vašej bazy ne može zaustaviti moje sily, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA036Subtitle",
+  "text": "*Generale, jesli ne možete daže dăržati svoj Komandny centr, kak se nadate me poběditi?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA037Subtitle",
+  "text": "*Tak mnogo vašyh stavb palo, generale -- začto ne otstupite s polja i ne spasete se od daljšego sramu?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA038Subtitle",
+  "text": "*Ne izprobujte daljše moju trěpelivost, uništivši ešče mojih naftnyh vyšek, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA039Subtitle",
+  "text": "*Osmělite se uništiti moju Kasarnu, generale?!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA040Subtitle",
+  "text": "*Generale, potrěbujem Trgovca Oružjem, aby vodil moje dela. Ne uništite ešče jednogo"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA041Subtitle",
+  "text": "*Mysite razrušiti moju obranu, generale? Věče jich povstane na jich městě"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA042Subtitle",
+  "text": "*To je poslědnja budova, kotoru uništite, generale. Moja trěpelivost imaje granice"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA043Subtitle",
+  "text": "*Moj Komandny centr! Prinudili ste me otstupiti pod zemju, no to ešče ne je konec, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA044Subtitle",
+  "text": "*Uništili ste mnogo mojih mašin, generale. Može jesem vas podcenil"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA045Subtitle",
+  "text": "*Moji ljudi nisu cěle za vašu praktiku, generale. Jich krv je na vašyh rukah"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA046Subtitle",
+  "text": "*Oslobodite moju naftnu vyšku, ili ju sožgem"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA047Subtitle",
+  "text": "*Vidim, že ste zahvatili tu razpadnutu Artiljerijsku platformu. Mnogo srěče, aby ju spravili rabotati"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA048Subtitle",
+  "text": "*Ta Naftova rafinerija ne obrati tok bitvy v vašu korist, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA049Subtitle",
+  "text": "*Bezočny glupec! Uže dovoljno ste vtorgli se v moj dom"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA050Subtitle",
+  "text": "*Vy ste kako žaljajuči insekt, generale, i vrěme je razdrobiti vaše dosadno prisustvo"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA051Subtitle",
+  "text": "*Neprijatel je pred nami! Uništite ga! Uništite jih vsěh!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA052Subtitle",
+  "text": "*Glupče! Prěšli ste granicu! Vaše sily su izgubjene!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA053Subtitle",
+  "text": "*A, bokovy napad... primitivno, no bar to je strategija"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA054Subtitle",
+  "text": "*Probujete napasti moja zadnja vrata, generale?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA055Subtitle",
+  "text": "*Frontalny napad? Trěbalo by vam donesti věče sil"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA056Subtitle",
+  "text": "*Vidim, že ste našli moje dodatne snabděnja... i podčerkuju, moje dodatne snabděnja. Ostavite jih teper"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA057Subtitle",
+  "text": "*Približavanje k mojej bazě tym putem vas dovede samo k smărti"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA058Subtitle",
+  "text": "*Ostajte von od tego sela, generale. Ja branim te, kotori su pod mojoju brigoju"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA059Subtitle",
+  "text": "*Ti resursy su za moj narod, generale. Oni ne su vaši za brati"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA060Subtitle",
+  "text": "*Ti budovy ne byli postavleni tu za vaše koristenje, generale. Ne razstrojte moju infrastrukturu"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA061Subtitle",
+  "text": "*Vygljadaje, že vaš apetit prěrastl vaše resursy, generale. Nadam se, že vratite svoju energiju, prěžde nego dojdemo do vašej bazy"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA062Subtitle",
+  "text": "*Naša zemja je bez energije... škoda, že vaša baza ne može rabotati bez toj zavisnosti"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA063Subtitle",
+  "text": "*Bez dengeg, generale?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA064Subtitle",
+  "text": "*Generale, iscrpavate moje resursy. Vaša mala vojna dovede moj narod do gladu"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA065Subtitle",
+  "text": "*Burja SCUD?! Ukrali ste našu tehnologiju! Zaplatite za to, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA066Subtitle",
+  "text": "*Gradite nuklearne oružja, generale? Mysleil jesem, že se posluvite takoju kukavičnostju"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA067Subtitle",
+  "text": "*Česticovo dělo? Vaši luči iz kosmosa nas ne mogu dosegnuti pod zemjoju"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA068Subtitle",
+  "text": "*Tak mnogo obrany bazy. Morate se zaista bojati moje moči, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA069Subtitle",
+  "text": "*Koliko tankov vam je potrěbno, generale?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA070Subtitle",
+  "text": "*Napolnjajete vozduh tymi dosadnymi mušicami. Teper jih otterem"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA071Subtitle",
+  "text": "*Trenirujte vsěh ljudej, kotoryh hočete, generale, no gubitok žizni bude rasti věče s kăždoju minutoju"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA072Subtitle",
+  "text": "*Vaša baza narastla velika, generale... može predveliku"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA073Subtitle",
+  "text": "*Zapustite vaše toksiny na nas, generale; my smo prigotovleni na mnogo horše"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA074Subtitle",
+  "text": "*Vsi, pod zemju! Jich nuklearne rakety se približaju"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA075Subtitle",
+  "text": "*Da, koristite svoj česticovy luč -- pokažite světu svoju kukavičnost"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA076Subtitle",
+  "text": "*Zaposedite budovu, generale -- skryjte se kako pacovy v zidu"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA077Subtitle",
+  "text": "*Polkovnik Burton vas ne spase, generale. Budete morati sami voditi tătu vojnu"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA078Subtitle",
+  "text": "*A, prekrasny Črny Lotos. Pridružite se mi, Lotos, i moglibyste žiti kako kraljica"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA079Subtitle",
+  "text": "*Jarmen Kell? On se osmělaje mi suprotstaviti se?! Moja osveta bude mnogo neprijatna"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA080Subtitle",
+  "text": "*Vaše Vozdušne Polje ne bude stati protiv mojego napadu, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA081Subtitle",
+  "text": "*Konečno ste sgradili Vojensku Fabriku, a, generale? Čto vam trvalo tak dolgo?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA082Subtitle",
+  "text": "*Vaša žalka Kasarna vam ne bude niš korisna, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA083Subtitle",
+  "text": "*Prodavate svoje budovy, aby financovali svoju armiju? To edva vygljadaje logično, ne li, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA084Subtitle",
+  "text": "*To je nemožno! Ne možete me poběditi!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA085Subtitle",
+  "text": "*Možete mysliti, že imate prevagu, no tăj boj se obrati kako větr"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA086Subtitle",
+  "text": "*Vaši soldati mogu teper prevyšovati moje po čislu, no bitvy se vyigravaju něčim věče nego čislami, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA087Subtitle",
+  "text": "*Ne mogu věriti, že me pobězuje taky slaboumny glupec. Sram me obeleži naveki"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA088Subtitle",
+  "text": "*Pobězen glupcom... poniženje je prevelike, aby ga podnesl... prošu, ostavite me mojej muce"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA089Subtitle",
+  "text": "*Generale, čujem smrad straha i odčajanja, kotory dohodi iz vašej bazy"
+ }
+]
