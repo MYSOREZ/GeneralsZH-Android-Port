@@ -1,0 +1,802 @@
+[
+ {
+  "label": "CONTROLBAR:ToolTipUSARangerCaptureBuilding",
+  "text": "Zauzmi cělovanu vražju zgradu"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSAFire20mmCannon",
+  "text": "Vypusti dělo 20mm na cělj"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSAFireAntiTankMissiles",
+  "text": "Vypusti protivotankove rakety na cělj"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSAFireRocketPods",
+  "text": "Vypusti obstrěl raket na cělovu oblast"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAFireScorpionRocket",
+  "text": "Vypusti jednu tjažku raketu na cělj"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLASCUDHEWarhead",
+  "text": "Napolni raketu SCUD eksplozivom"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLASCUDAnthraxWarhead",
+  "text": "Napolni raketu SCUD Antraksom"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAFireToxinTractorSlime",
+  "text": "Poprskaj oblast toksinami"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLARebelCaptureBuilding",
+  "text": "Zauzmi cělovanu vražju zgradu"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLATerroristMakeCarBomb",
+  "text": "Vstupi v civilno avto i napolni ga eksplozivom"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAFireFireBomb",
+  "text": "Upotrěbi ognjene bomby na cělj"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAHijackerHijack",
+  "text": "Otmi cělovano vražje vozilo"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAFireJarmenKellVehicleSnipe",
+  "text": "Ubi ekipaž vozila"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaFireMIG",
+  "text": "Vypusti"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaRedGuardCaptureBuilding",
+  "text": "Zauzmi cělovanu vražju zgradu"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaRedGuardFireStunBullets",
+  "text": "Zauzmi cělovanogo vražjego soldata"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaRedGuardFireBayonet",
+  "text": "Upotrěbi Bajonet na cělovanom vražjem soldatu"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaFireBlackLotusCaptureHack",
+  "text": "Zauzmi vražju zgradu"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaFireBlackLotusVehicleHack",
+  "text": "Deaktiviraj vražje vozilo"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaFireBlackLotusCashHack",
+  "text": "Ukradi novac iz cělovanogo vražjego Centra Snabděnja"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaFireHackerInternetHack",
+  "text": "Hakuj Internet, aby ukrasti novac"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaHackerBuildingHack",
+  "text": "Deaktiviraj vražju zgradu moćnym kompjuterovym virusom"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaDragonTankFire",
+  "text": "Vypusti"
+ },
+ {
+  "label": "CONTROLBAR:TooltipFireWall",
+  "text": "Postavi luk ognja na cělovanu oblast"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipPickUpPrisoner",
+  "text": "Uzmi vražjego zatvorenika, aby ga vratiti v vašu bazu"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipReturnToPrison",
+  "text": "Vrati sę v zgradu za zatvorenikov"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaFireTankHunterTNTAttack",
+  "text": "Postavi eksplozivny TNT naboj"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSAFireBurtonKnifeAttack",
+  "text": "Upotrěbi nož na cělovanom vražjem soldatu, aby napravil tihy napad"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSAFireBurtonTimedDemo",
+  "text": "Postavi časovany podryvny naboj"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABurtonPlaceRemoteCharge",
+  "text": "Postavi udaljeno-kontrolovany podryvny naboj, koji možete detonirati v vsakoe vrěmja"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABurtonDetonateCharges",
+  "text": "Detoniraj vse udaljene naboje"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipCancelConstruction",
+  "text": "Otkaži stroitelstvo"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildCommandCenter",
+  "text": "Komanduje specijalnymi oružjami. Sozdaje Stroiteljne Buldozery. Daje radar"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildPowerPlant",
+  "text": "Daje energiju za bazy USA \n \n Data Energija: 5"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildBarracks",
+  "text": "Obučaje soldaty USA za upotrěbjenje v boju"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildSupplyCenter",
+  "text": "Město dostavy za Chinooky snabděnja USA \n \n Trěbovana Energija: 1"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildWall",
+  "text": "Sistema ograd USA. Lazerni senzory izvěščajut o vražjih vojskah, koji prěhodjat čerez ogradu. Ograda blokira dvigenje vražjih vozil"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildWarFactory",
+  "text": "Stroji vse zemne vozila USA \n \n Trěbovana Energija: 1"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildPatriotBattery",
+  "text": "Zemna i vozdušna oborona. Može prěnesti poziciju vraga blizkim Patriotam \n \n Trěbovana Energija: 3"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildAirField",
+  "text": "Stroji letadla USA \n \n Trěbovana Energija: 1"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildParticleCannon",
+  "text": "Strěljaje česticovym lučem bilo kde na kartě \n \n Trěbovana Energija: 10"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildStrategyCenter",
+  "text": "Vse sily USA mogu upotrěbiti jeden plan boja \n \n Bombardovanje \n Iskanje i Uništenje \n Držanje Linije \n \n Trěbovana Energija: 2"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildDetentionCamp",
+  "text": "Daje sposobnost špionirati vragy"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildSupplyDropZone",
+  "text": "Prizyva parašutny sbros snabděnja vsake 2 minuty \n \n Trěbovana Energija: 4"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildCommandCenter",
+  "text": "Komanduje specijalnymi oružjami. Obučaje Rabotnikov"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABUildDemoTrap",
+  "text": "Skryto eksplozivno oružje"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildBarracks",
+  "text": "Obučaje soldaty GLA"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildSupplyStash",
+  "text": "Sobira snabděnje"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildArmsDealer",
+  "text": "Stroji vozila"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildCommandCenter",
+  "text": "Komanduje specijalnymi oružjami. Sozdaje Stroiteljne Buldozery"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildPowerPlant",
+  "text": "Kitajska elektrostancija. Može byti prěterežena, aby dala +50% energije \n \n Data Energija: 10"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildBarracks",
+  "text": "Obučaje kitajske soldaty"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildSupplyCenter",
+  "text": "Město dostavy za kitajske sobirateljev snabděnja \n \n Trěbovana Energija: 1"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildWarFactory",
+  "text": "Stroji kitajske vozila \n \n Trěbovana Energija: 1"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildBunker",
+  "text": "Može uděržati 5 kitajskih soldatov"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildPropagandaCenter",
+  "text": "Stroji važne kitajske tehnologije \n \n Trěbovana Energija: 2"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildAirField",
+  "text": "Stroji kitajske letadla \n \n Trěbovana Energija: 1"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildGattlingCannon",
+  "text": "Moćna protivvozdušna oborona bazy \n \n Trěbovana Energija: 3"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildNuclearMissileLauncher",
+  "text": "Vypuskaje jadernu raketu. Stroji važne kitajske ulučšenja \n \n Trěbovana Energija: 10"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildSpeakerTower",
+  "text": "Lěči vaše sily i poveličaje bystrost strělanja \n \n Trěbovana Energija: 1"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildTunnelNetwork",
+  "text": "Oborona bazy i podzemny tunel. Jedinice mogu vstupiti v Tunelnu Sěť i izhoditi v bilo kojej drugoj Tunelnoj Sěti"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildPalace",
+  "text": "Sodrže važne tehnologije GLA. Може byti zauzeta vojskami GLA"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildBlackMarket",
+  "text": "Sodrže važne tehnologije GLA. Daje besplatno snabděnje igraču GLA"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildStingerSite",
+  "text": "Protivvozdušna i protivtankova oborona bazy"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildScudStorm",
+  "text": "Vypuskaje zalp raket SCUD \n \n Odbrojavanje: 5:00"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildPrison",
+  "text": "Upotrěbjaje sę, aby uděržati zahvačenyh vražjih soldatov"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildRanger",
+  "text": "Efektivno protiv: pěhoty \n Slabo protiv: lahkih vozil"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildDozer",
+  "text": "Stroji vse strukture USA i popravja zgrady"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildWorker",
+  "text": "Stroji vse strukture GLA. Popravja zgrady i sobira snabděnje"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildDozer",
+  "text": "Stroji vse kitajske strukture i popravja zgrady"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildScorpion",
+  "text": "Efektivno protiv: lahkih vozil \n Slabo protiv: raketnyh soldatov, letadl"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildRocketBuggy",
+  "text": "Efektivno protiv: zgrad \n Slabo protiv: tankov, letadl"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildRadarVan",
+  "text": "Daje Radar. Može najti skryte vražje jedinice"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildOverlord",
+  "text": "Efektivno protiv: vozil, zgrad \n Slabo protiv: raketno-vooruženoj pěhoty, letadl"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildGattlingTank",
+  "text": "Efektivno protiv: pěhoty, letadl \n Slabo protiv: tankov"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildRebel",
+  "text": "Efektivno protiv: pěhoty \n Slabo protiv: tankov, lahkih vozil"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildRedguard",
+  "text": "Polučaje Bonus Horde v grupah 5 ili věče \n \nEfektivno protiv: pěhoty \n Slabo protiv: vozil"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildHacker",
+  "text": "Može deaktivirati vražje zgrady kompjuterovym virusom ili hakovati Internet, aby ukrasti novac \n \n Efektivno protiv: zgrad \n Slabo protiv: pěhoty, vozil"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABUildChinook",
+  "text": "Transportny helikopter. Sobira snabděnje. Rabotaje s Rangerami, aby izveli napad Bojevogo Desanta"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildSupplyTruck",
+  "text": "Sobira snabděnje"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildPaladin",
+  "text": "Upotrěbjaje lazer, aby uništiti rakety i vražju pěhotu \n \n Efektivno protiv: tankov, zgrad i raket \n Slabo protiv: letadl"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildRaptor",
+  "text": "Može napadati zemne ili vozdušne cěli \n \n Efektivno protiv: letadl, tankov, lahkih vozil \n Slabo protiv: raketno-vooruženoj pěhoty, protivvozdušnoj oborony"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildAurora",
+  "text": "Super-zvukovy napad čini Auroru nevrědimu protiv vražjego ognja. Poslě super-zvukovogo napada, skorost Aurory je snižena na 50% \n \n Efektivno protiv: zgrad \n Slabo protiv: istrěbitelej, protivvozdušnyh jedinic"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildStealthFighter",
+  "text": "Nevidim vo dvigenju \n \n Efektivno protiv: vražjej obrany bazy \n Slabo protiv: vražjih istrěbitelej"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildComanche",
+  "text": "Strěljaje raketami i dělom. Prěvooružaje sę v vozduhu \n \n Efektivno protiv: tankov, lahkih vozil, pěhoty \n Slabo protiv: raketno-vooruženoj pěhoty, protivvozdušnoj oborony"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildMissileDefender",
+  "text": "Upotrěbi specijalny lazerno-navoděny napad za bystro strělanje raket \n \n Efektivno protiv: tankov, letadl \n Slabo protiv: pěhoty"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildPathFinder",
+  "text": "Kamuflovan, kogda ne dviga sę ili ne strělja. Najdi skryte vragy \n \n Efektivno protiv: pěhoty \n Slabo protiv: lahkih vozil, razvědčikov"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildColonelBurton",
+  "text": "Kamuflovan. Otkryva sę, kogda strělja ili postavja bombu \n \n Limit Stroitelstva: 1 \n Efektivno protiv: pěhoty \n Slabo protiv: razvědčikov"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildTomahawk",
+  "text": "Efektivno protiv: obrany bazy \n Slabo protiv: tankov, letadl, lahkih vozil"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildHumvee",
+  "text": "Transport. Pěhota vnutri može upotrěbiti otvory za strělanje, aby napadala vraga \n \n Efektivno protiv: pěhoty \n Slabo protiv: tankov"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildMedic",
+  "text": "Lěči vozila i soldaty. Čisti radiaciju i toksiny"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildScoutDrone",
+  "text": "Rasšěrjaje dosěg pogleda i otkryva skryte vragy"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildBattleDrone",
+  "text": "Strěljaje maloju mitraljezoju i popravja svoje vozilo \n \n Efektivno protiv: pěhoty \n Slabo protiv: raketno-vooruženoj pěhoty"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildMIG",
+  "text": "Sozdaje ognjenu buru v velikih grupah \n \n Efektivno protiv: tankov, lahkih vozil \n Slabo protiv: raketno-vooruženoj pěhoty, protivvozdušnoj oborony"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildBlackLotus",
+  "text": "Zauzimaje vražje zgrady, krade novac iz vražjih Centrov Snabděnja i deaktivira vražje vozila. Kamuflovana, ako ne upotrěbjaje sposobnost \n \n Efektivno protiv: zgrad, vozil \n Slabo protiv: razvědčnyh jedinic"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildTankHunter",
+  "text": "Specijalny TNT napad \n Polučaje Bonus Horde v grupah 5 ili věče \n \n Efektivno protiv: tankov \n Slabo protiv: pěhoty"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildInfernoCannon",
+  "text": "Sozdaje ognjenu buru v velikih grupah \n \n Efektivno protiv: obrany bazy, pěhoty \n Slabo protiv: tankov, letadl"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildNukeLauncher",
+  "text": "Efektivno protiv: zgrad, pěhoty \n Slabo protiv: tankov, letadl"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildTroopCrawler",
+  "text": "Transport. Dohodit s 8 Črvenoj Gvardiej. Otkryva skryte jedinice \n \n Efektivno protiv: pěhoty, zgrad \n Slabo protiv: tankov, letadl"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildDragonTank",
+  "text": "Može spaliti soldaty iz zgrad. Može sozdati stěnu plamena \n \n Efektivno protiv: pěhoty, zgrad \n Slabo protiv: tankov, letadl"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildTerrorist",
+  "text": "Samoubijstveny soldat \n \n Efektivno protiv: tankov, zgrad \n Slabo protiv: pěhoty, lahkih vozil"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildRPGTrooper",
+  "text": "Efektivno protiv: tankov \n Slabo protiv: pěhoty"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildAngryMob",
+  "text": "Efektivno protiv: pěhoty, vozil \n Slabo protiv: plamena, toksinov, oslěpljujučih granat"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildHijacker",
+  "text": "Може zauzeti bilo koje vražje vozilo. Kamuflovan \n \n Efektivno protiv: tankov, vozil \n Slabo protiv: pěhoty, razvědčikov"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildJarmenKell",
+  "text": "Kamuflovan. Может sę skryti vnutri civilnyh zgrad, aby snajperiral vražje soldaty. Može ubiti ekipaž vražjih vozil, čineč ih ranjivymi za zauzenje \n \n Efektivno protiv: pěhoty, vozil \n Slabo protiv: razvědčikov"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildToxinTruck",
+  "text": "Čisti zgrady od vražjih soldatov. Kontaminira terén \n Može ulučšiti oružje sobranymi dělami iz ubityh vragov \n Efektivno protiv: pěhoty \n Slabo protiv: tankov, letadl, obrany bazy"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildBattlemaster",
+  "text": "Polučaje Bonus Horde v grupah 5 ili věče \n \n Efektivno protiv: tankov, zgrad \n Slabo protiv: pěhoty, letadl"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildMarauder",
+  "text": "Može ulučšiti oružje sobranymi dělami iz ubityh vragov \n \n Efektivno protiv: zgrad, lahkih vozil \n Slabo protiv: raketnyh soldatov, letadl"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildTechnical",
+  "text": "Може ulučšiti oružje sobranymi dělami iz ubityh vragov \n \n Efektivno protiv: pěhoty \n Slabo protiv: tankov, letadl"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildQuadCannon",
+  "text": "Može ulučšiti oružje sobranymi dělami iz ubityh vragov \n \n Efektivno protiv: pěhoty, letadl \n Slabo protiv: tankov"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildBombTruck",
+  "text": "Može sę maskirati kako bilo koje vozilo, prijateljsko ili vražje \n \n Efektivno protiv: pěhoty, zgrad \n Slabo protiv: razvědčikov"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildSCUDLauncher",
+  "text": "Može byti oprěmljena eksplozivnoju ili biologičnoju boglavoju \n \n Efektivno protiv: zgrad, pěhoty \n Slabo protiv: tankov, letadl"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildCrusader",
+  "text": "Efektivno protiv: vozil, zgrad \n Slabo protiv: letadl, raketno-vooruženoj pěhoty"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSASciencePaladin",
+  "text": "Paladini mogu srušiti vražje rakety naprednym obrannym lazernym sistemom \n \n Stroji sę v: Vojennoj Fabrikě"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSASciencePathFinder",
+  "text": "Sledopyty sut elitni kamuflovani snajpery \n \n Stroji sę v: Kasarně"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSAScienceStealthFighter",
+  "text": "Nevidim vo dvigenju \n \n Stroji sę v: Aerodromu"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSAScienceSpyDrone",
+  "text": "Špionske Droni sut kamuflovani protiv vražjego pogleda i radara i otkryvajut vražje pozicije \n \n Razverni iz: Komandnogo Centra"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSAScienceParaDrop",
+  "text": "Sbrosi Rangery iz vozduha \n \n Rang 1: 5 Rangerov \n Rang 2: 10 Rangerov \n Rang 3: 20 Rangerov \n \n Razverni iz: Komandnogo Centra"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSAScienceA10Strike",
+  "text": "A10 Thunderbolty uništajut zgrady, vozila i pěhotu \n \n Rang 1: 1 A10 Thunderbolt \n Rang 2: 2 A10 Thunderbolty \n Rang 3: 3 A10 Thunderbolty \n \n Razverni iz: Komandnogo Centra"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSAScienceDaisyCutter",
+  "text": "Vakuumne Bomby uništajut zgrady i koncentracije vražjih vojsk \n \n Razverni iz: Komandnogo Centra"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaScienceNukeCannon",
+  "text": "Jaderna Děla vystrělivajut male taktičske jaderky na velike distancije \n \n Stroji sę v: Vojennoj Fabrikě \n Trěbuje: Centr Propagandy"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaScienceRedGuardTraining",
+  "text": "Vsa Črvena Gvardija bude postroena kako veterani"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaScienceClusterMines",
+  "text": "Kasetne Miny sut razvernute iz vozduha \n \n Razverni iz: Komandnogo Centra"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaScienceARtilleryTraining",
+  "text": "Jaderna Děla i Děla Inferno sut postroeni kako veterani"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaScienceArtilleryBarrage",
+  "text": "Pozovi artileriju izvně karty, aby udarila vašu cělj \n \n Rang 1: 12 Snarjadov \n Rang 2: 24 Snarjadov \n Rang 3: 36 Snarjadov \n \n Razverni iz: Komandnogo Centra"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaScienceEMPPulse",
+  "text": "Dozvoljaje vam pozvati jaderny bombardirovač, aby sbrosil bombu EMP Impulsa. EMP Impuls deaktivira vražje vozila i zgrady \n \n Razverni iz: Komandnogo Centra"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAScienceHijacker",
+  "text": "Otimači sut kamuflovani i mogu ukrasti vražje vozila \n \n Stroji sę v: Kasarně"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAScienceSCUDLauncher",
+  "text": "Strěljaje dalekodosežnoju raketoju, koja može byti oprěmljena eksplozivom ili smrtonosnym Antraksom \n \n Stroji sę v: Torgovca Oružjem"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLaScienceMarauderTank",
+  "text": "Tanky Marauder mogu sobirati děla iz ubityh vragov, aby ulučšili svoje glavno dělo \n \n Stroji sę v: Torgovca Oružjem"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAScienceTechnicalTraining",
+  "text": "Vsi Tehnikaly budut sozdani kako veterani"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAScienceRebelAmbush",
+  "text": "Dozvoljaje vam sozdati iznenadnu zasadu Povstancev bilo kde \n \n Rang 1: 4 Povstanca \n Rang 2: 8 Povstancev \n Rang 3: 16 Povstancev \n \n Razverni iz: Komandnogo Centra"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAScienceCashBounty",
+  "text": "Zarabi novčanu nagradu za vsaku vražju jedinicu ili zgradu, koju uništiš \n \n Rang 1: 5% vrědnosti vraga \n Rang 2: 10% vrědnosti vraga \n Rang 3: 20% vrědnosti vraga"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAScienceAnthraxBomb",
+  "text": "Antraks je smrtonosen protiv koncentracij vražjih vojsk \n \n Razverni iz: Komandnogo Centra"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildSecurityFence",
+  "text": "Postroj bezbědnostnu ogradu, koja prěpřečuje vozilam prěhoditi i izvěščaje o vsakoj vražjej pěhotě, koja prěhodit"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildConcreteWall",
+  "text": "Postroj betonnu stěnu, koja prěpřečuje bilo kojoj zemnoj jedinicě prěhoditi"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildBurningBarricade",
+  "text": "Postroj goreču barikadu, koja pali jedinice, koje pokušajut prěhoditi čerez nju"
+ },
+ {
+  "label": "GUI:QuitToDesktop",
+  "text": "IZHOD NA RABOČY STOL"
+ },
+ {
+  "label": "GUI:QuitToDesktopConf",
+  "text": "Jeste li uverjeni, že hočete izhoditi na Rabočy Stol?"
+ },
+ {
+  "label": "GUI:NewSaveGame",
+  "text": "***** NOVA IGRA *****"
+ },
+ {
+  "label": "GUI:TimeAM",
+  "text": "am"
+ },
+ {
+  "label": "GUI:TimePM",
+  "text": "pm"
+ },
+ {
+  "label": "GUI:OverwriteSaveConfirmation",
+  "text": "Prěpisati postoječi fajl?"
+ },
+ {
+  "label": "GUI:LoadGameConfirmation",
+  "text": "Tekuče dany igry budut izgubjeni. Nagruziti sohranjenu igru?"
+ },
+ {
+  "label": "GUI:Rank1Required",
+  "text": "TRĚBOVAN RANG - General s 1 Zvězdoju"
+ },
+ {
+  "label": "GUI:Rank3Required",
+  "text": "TRĚBOVAN RANG - General s 3 Zvězdami"
+ },
+ {
+  "label": "GUI:Rank8Required",
+  "text": "TRĚBOVAN RANG - General s 5 Zvězdami"
+ },
+ {
+  "label": "GUI:Experience",
+  "text": "Opyt"
+ },
+ {
+  "label": "GUI:RemainingSkillPoints",
+  "text": "Točky"
+ },
+ {
+  "label": "TOOLTIP:ExperienceToLevel",
+  "text": "Opyt do slědujučego urovnja"
+ },
+ {
+  "label": "GUI:SaveAndLoad",
+  "text": "SOHRANI/NAGRUZI"
+ },
+ {
+  "label": "GUI:SaveTime",
+  "text": "Vrěmja"
+ },
+ {
+  "label": "GUI:SaveDate",
+  "text": "Datum"
+ },
+ {
+  "label": "SCIENCE:Rank1",
+  "text": "General s 1 zvězdoju"
+ },
+ {
+  "label": "SCIENCE:Rank2",
+  "text": "General s 2 zvězdami"
+ },
+ {
+  "label": "SCIENCE:Rank3",
+  "text": "General s 3 zvězdami"
+ },
+ {
+  "label": "SCIENCE:Rank4",
+  "text": "General s 4 zvězdami"
+ },
+ {
+  "label": "SCIENCE:Rank5",
+  "text": "General s 5 zvězdami"
+ },
+ {
+  "label": "SCIENCE:Rank6",
+  "text": "General-major"
+ },
+ {
+  "label": "SCIENCE:Rank7",
+  "text": "General-lejtenant"
+ },
+ {
+  "label": "SCIENCE:Rank8",
+  "text": "General"
+ },
+ {
+  "label": "CONTROLBAR:StructureExit",
+  "text": "Izhod iz Struktury"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaAircraftArmor",
+  "text": "&Brona MiGa"
+ },
+ {
+  "label": "CONTROLBAR:RangerMachineGun",
+  "text": "&Mitraljeza"
+ },
+ {
+  "label": "CONTROLBAR:RedguardMachineGun",
+  "text": "&Mitraljeza"
+ },
+ {
+  "label": "CONTROLBAR:RebelMachineGun",
+  "text": "&Mitraljeza"
+ },
+ {
+  "label": "CONTROLBAR:FlashBangGrenadeMode",
+  "text": "&Oslěpljujuča Granata"
+ },
+ {
+  "label": "CONTROLBAR:TranqDartsMode",
+  "text": "&Režim Uspavljujučih Strěl"
+ },
+ {
+  "label": "CONTROLBAR:StunBulletsMode",
+  "text": "Režim &Zauzenja Zatvorenika"
+ },
+ {
+  "label": "UPGRADE:AircraftArmor",
+  "text": "Bronja samoletov"
+ },
+ {
+  "label": "MAP:USA03Open",
+  "text": "Sěverny Kazahstan. Sily USA v Polnom Otstuplenju \n Operacija: Angel Ohranitelj"
+ },
+ {
+  "label": "CONTROLBAR:TooltipChinaUpgradeAircraftArmor",
+  "text": "+25% zdravja MiGa"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipSwitchToRangerMachineGun",
+  "text": "Prěključuje na režim mitraljeza za vsestrany napad"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipSwitchToRedguardMachineGun",
+  "text": "Prěključuje na rěžim mitraljeza za vsestrany napad"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipSwitchToRebelMachineGun",
+  "text": "Prěključuje na rěžim mitraljeza za vsestrany napad"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipSwitchToUSAFlashBang",
+  "text": "Upotrěbi Oslěpljujuče Granaty"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipSwitchToChinaStunBullets",
+  "text": "Prěključuje na rěžim strělanja omamljujučimi kulami, aby zauzeti vražje soldaty na otvorenom"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipSwitchToGLATranqDarts",
+  "text": "Prěključuje na oružje uspavljujučih strěl, aby zauzeti vražje soldaty na otvorenom"
+ },
+ {
+  "label": "GUI:ProductionQueueFull",
+  "text": "Red proizvodstva jedinicy je poln"
+ },
+ {
+  "label": "GUI:ParkingPlacesFull",
+  "text": "Vse parkirne města sut zauzete"
+ },
+ {
+  "label": "GUI:UnitMaxedOut",
+  "text": "Vy već imate maksimum za tu jedinicu"
+ },
+ {
+  "label": "CONTROLBAR:FireTomahawkAtPosition",
+  "text": "&Bombardovanje Tomahawkom"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipFireTomahawkAtPosition",
+  "text": "Vypusti Tomahawky na poziciju"
+ },
+ {
+  "label": "GUI:SurrenderConfirmation",
+  "text": "Jeste li uverjeni, že hočete sę Predati?"
+ },
+ {
+  "label": "GUI:GameOver",
+  "text": "Konec Igry"
+ },
+ {
+  "label": "TOOLTIP:RefreshNat",
+  "text": "Kliknite poslě izměny nastavjenj firewalla ili internetskogo provajdera"
+ },
+ {
+  "label": "GUI:Surrender",
+  "text": "PREDAJ SĘ"
+ },
+ {
+  "label": "GUI:SuperweaponEmergencyRepair",
+  "text": "Hitna Popravka"
+ },
+ {
+  "label": "CONTROLBAR:FireNukeCannonAtPosition",
+  "text": "&Jaderno Bombardovanje"
+ },
+ {
+  "label": "CONTROLBAR:FireInfernoCannonAtPosition",
+  "text": "&Bombardovanje Infernom"
+ },
+ {
+  "label": "CONTROLBAR:FireScudExplosiveAtPosition",
+  "text": "&Eksplozivno Bombardovanje"
+ },
+ {
+  "label": "CONTROLBAR:FireScudAnthraxAtPosition",
+  "text": "Antraksovo B&ombardovanje"
+ },
+ {
+  "label": "MAP:USA04Objective1Text",
+  "text": "OBJEKTIV MISIJE: \n Očisti bereg od sil GLA"
+ },
+ {
+  "label": "MAP:USA04Objective2Text",
+  "text": "OBJEKTIV MISIJE: \n Uništi Pozicije Stinger"
+ },
+ {
+  "label": "MAP:USA04Objective3Text",
+  "text": "OBJEKTIV MISIJE: \n Uništi Bazu GLA"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipFireNukeCannonAtPosition",
+  "text": "Bombarduj poziciju snarjadami jadernogo děla"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipFireInfernoCannonAtPosition",
+  "text": "Bombarduj poziciju snarjadami děla Inferno"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipFireScudExplosiveAtPosition",
+  "text": "Bombarduj poziciju eksplozivnymi boglavami"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipFireScudAnthraxAtPosition",
+  "text": "Bombarduj naznačenu poziciju antraksovymi boglavami"
+ },
+ {
+  "label": "TOOLTIP:Brightness",
+  "text": "Nastroj světlost igry"
+ },
+ {
+  "label": "TOOLTIP:ScrollSpeed",
+  "text": "Nastroj skorost skrolovanja karty"
+ }
+]
