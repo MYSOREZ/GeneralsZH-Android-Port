@@ -1,0 +1,802 @@
+[
+ {
+  "label": "GUI:ChooseLadder",
+  "text": "WYBIERZ RANKING"
+ },
+ {
+  "label": "GUI:UnknownLadder",
+  "text": "Nieznany ranking"
+ },
+ {
+  "label": "GUI:WOLLogin",
+  "text": "LOGOWANIE DO GENERALS ONLINE"
+ },
+ {
+  "label": "GUI:PleaseEnterWOLInfo",
+  "text": "Wprowadź dane"
+ },
+ {
+  "label": "GUI:Username",
+  "text": "Pseudonim"
+ },
+ {
+  "label": "GUI:Server",
+  "text": "Serwer"
+ },
+ {
+  "label": "GUI:RememberPassword",
+  "text": "Zapamiętaj moje hasło"
+ },
+ {
+  "label": "GUI:CreateAccount",
+  "text": "UTWÓRZ KONTO"
+ },
+ {
+  "label": "GUI:TryAgain",
+  "text": "Spróbuj ponownie"
+ },
+ {
+  "label": "GUI:NetworkOptions",
+  "text": "OPCJE SIECI"
+ },
+ {
+  "label": "GUI:GammaAdjustment",
+  "text": "Jasność"
+ },
+ {
+  "label": "GUI:HelpDescription",
+  "text": "Wyświetl okno pomocy"
+ },
+ {
+  "label": "GUI:ReturnToGame",
+  "text": "POWRÓT DO GRY"
+ },
+ {
+  "label": "GUI:NewGame",
+  "text": "Nowa gra"
+ },
+ {
+  "label": "GUI:RestartGame",
+  "text": "ZACZNIJ OD NOWA"
+ },
+ {
+  "label": "GUI:MatchingProgress",
+  "text": "Postęp szybkiego meczu"
+ },
+ {
+  "label": "GUI:Player'sName",
+  "text": "Nazwa przeciwnika"
+ },
+ {
+  "label": "GUI:AllTimeWins",
+  "text": "Zwycięstwa łącznie"
+ },
+ {
+  "label": "GUI:AllTimeLosses",
+  "text": "Porażki łącznie"
+ },
+ {
+  "label": "GUI:AllTimePoints",
+  "text": "Punkty rankingowe łącznie"
+ },
+ {
+  "label": "GUI:AllTimeDisconnects",
+  "text": "Rozłączenia łącznie"
+ },
+ {
+  "label": "GUI:HighestRank",
+  "text": "Najwyższa osiągnięta ranga"
+ },
+ {
+  "label": "GUI:Honor",
+  "text": "Odznaczenia bojowe"
+ },
+ {
+  "label": "GUI:LastUpdated",
+  "text": "Ostatnia aktualizacja profilu"
+ },
+ {
+  "label": "GUI:WOLIconKey",
+  "text": "Legenda ikon"
+ },
+ {
+  "label": "GUI:MyInfo",
+  "text": "MÓJ PROFIL"
+ },
+ {
+  "label": "GUI:Buddies",
+  "text": "KOMUNIKATOR"
+ },
+ {
+  "label": "GUI:Community",
+  "text": "Dzienny procent zwycięstw armii"
+ },
+ {
+  "label": "GUI:SortAlpha",
+  "text": "Nazwa"
+ },
+ {
+  "label": "GUI:SortPing",
+  "text": "Połączenie"
+ },
+ {
+  "label": "GUI:SortBuddies",
+  "text": "Znajomi"
+ },
+ {
+  "label": "GUI:GSRank0",
+  "text": "Szeregowy"
+ },
+ {
+  "label": "GUI:GSRank1",
+  "text": "Kapral"
+ },
+ {
+  "label": "GUI:GSRank2",
+  "text": "Sierżant"
+ },
+ {
+  "label": "GUI:GSRank3",
+  "text": "Porucznik"
+ },
+ {
+  "label": "GUI:GSRank4",
+  "text": "Kapitan"
+ },
+ {
+  "label": "GUI:GSRank5",
+  "text": "Major"
+ },
+ {
+  "label": "GUI:GSRank6",
+  "text": "Pułkownik"
+ },
+ {
+  "label": "GUI:GSRank7",
+  "text": "Generał brygady"
+ },
+ {
+  "label": "GUI:GSRank8",
+  "text": "Generał"
+ },
+ {
+  "label": "GUI:GSRank9",
+  "text": "Naczelny dowódca"
+ },
+ {
+  "label": "GUI:GSErrorTitle",
+  "text": "Powiadomienie"
+ },
+ {
+  "label": "GUI:GSDisconnected",
+  "text": "Rozłączono cię z serwerem czatu"
+ },
+ {
+  "label": "GUI:GSDisconReason1",
+  "text": "Ten pseudonim jest już zajęty. Wybierz inny"
+ },
+ {
+  "label": "GUI:GSDisconReason2",
+  "text": "Ten pseudonim jest nieprawidłowy. Wybierz inny"
+ },
+ {
+  "label": "GUI:GSDisconReason3",
+  "text": "Utracono połączenie z C&C Generals Zero Hour Online"
+ },
+ {
+  "label": "GUI:GSDisconReason4",
+  "text": "Nie można połączyć się z C&C Generals Zero Hour Online"
+ },
+ {
+  "label": "GUI:GSDisconReason5",
+  "text": "Upłynął limit czasu logowania. Sprawdź połączenie z Internetem"
+ },
+ {
+  "label": "GUI:GSDisconReason6",
+  "text": "Taka kombinacja pseudonimu i e-maila nie istnieje. Jeśli chcesz utworzyć konto, kliknij Utwórz konto"
+ },
+ {
+  "label": "GUI:GSDisconReason7",
+  "text": "Ten e-mail jest nieprawidłowy"
+ },
+ {
+  "label": "GUI:GSDisconReason8",
+  "text": "Nieprawidłowe hasło. Spróbuj ponownie"
+ },
+ {
+  "label": "GUI:GSDisconReason9",
+  "text": "Nieprawidłowy profil"
+ },
+ {
+  "label": "GUI:GSDisconReason10",
+  "text": "Profil został usunięty"
+ },
+ {
+  "label": "GUI:GSDisconReason11",
+  "text": "Serwer znajomych odrzucił połączenie"
+ },
+ {
+  "label": "GUI:GSDisconReason12",
+  "text": "Autoryzacja na serwerze znajomych nie powiodła się"
+ },
+ {
+  "label": "GUI:GSDisconReason13",
+  "text": "Nieprawidłowy numer seryjny. Spróbuj innego"
+ },
+ {
+  "label": "GUI:GSDisconReason14",
+  "text": "Rejestr jest uszkodzony i został zmieniony"
+ },
+ {
+  "label": "GUI:GSDisconReason15",
+  "text": "Numer seryjny został zablokowany"
+ },
+ {
+  "label": "GUI:GSGroupRoomJoinFail",
+  "text": "Nie udało się dołączyć do pokoju czatu"
+ },
+ {
+  "label": "GUI:JoinFailedRoomFull",
+  "text": "Nie udało się dołączyć – pokój jest pełny"
+ },
+ {
+  "label": "GUI:JoinFailedInviteOnly",
+  "text": "Nie udało się dołączyć – pokój tylko dla zaproszonych"
+ },
+ {
+  "label": "GUI:JoinFailedBannedFromRoom",
+  "text": "Nie udało się dołączyć – zostałeś zbanowany w tym pokoju"
+ },
+ {
+  "label": "GUI:JoinFailedBadPassword",
+  "text": "Nie udało się dołączyć – nieprawidłowe hasło"
+ },
+ {
+  "label": "GUI:JoinFailedAlreadyInRoom",
+  "text": "Nie udało się dołączyć – jesteś już w pokoju"
+ },
+ {
+  "label": "GUI:JoinFailedNoConnection",
+  "text": "Nie udało się dołączyć – brak połączenia z serwerem czatu"
+ },
+ {
+  "label": "GUI:JoinFailedCRCMismatch",
+  "text": "Nie udało się dołączyć – gra ma inną wersję"
+ },
+ {
+  "label": "GUI:JoinFailedUnknownLadder",
+  "text": "Nie udało się dołączyć – gra używa nieznanego rankingu"
+ },
+ {
+  "label": "GUI:JoinFailedDefault",
+  "text": "NIE UDAŁO SIĘ DOŁĄCZYĆ DO POKOJU"
+ },
+ {
+  "label": "GUI:GSKicked",
+  "text": "Wyrzucono cię z pokoju"
+ },
+ {
+  "label": "GUI:NATNegotiationFailed",
+  "text": "Nie można połączyć się z pozostałymi graczami"
+ },
+ {
+  "label": "GUI:GPErrorTitle",
+  "text": "BŁĄD ZNAJOMYCH"
+ },
+ {
+  "label": "GUI:GPDisconnected",
+  "text": "Rozłączono cię z serwerem znajomych. Połączyć ponownie?"
+ },
+ {
+  "label": "GUI:GPNoProfile",
+  "text": "Nie zalogowałeś się przy użyciu profilu. Informacje o znajomych są niedostępne"
+ },
+ {
+  "label": "GUI:PSErrorTitle",
+  "text": "BŁĄD PAMIĘCI TRWAŁEJ"
+ },
+ {
+  "label": "GUI:PSCannotConnect",
+  "text": "Nie można połączyć się z serwerem pamięci trwałej"
+ },
+ {
+  "label": "Buddy:Offline",
+  "text": "Offline"
+ },
+ {
+  "label": "Buddy:Online",
+  "text": "Online"
+ },
+ {
+  "label": "Buddy:Chatting",
+  "text": "Rozmawia w %ls"
+ },
+ {
+  "label": "Buddy:Staging",
+  "text": "Przygotowuje się w %ls"
+ },
+ {
+  "label": "Buddy:Loading",
+  "text": "Wczytuje w %ls"
+ },
+ {
+  "label": "Buddy:Playing",
+  "text": "Gra w %ls"
+ },
+ {
+  "label": "Buddy:Matching",
+  "text": "W szybkim meczu"
+ },
+ {
+  "label": "Buddy:OnlineNotification",
+  "text": "%hs jest teraz online"
+ },
+ {
+  "label": "Buddy:OfflineNotification",
+  "text": "%hs jest teraz offline"
+ },
+ {
+  "label": "Buddy:AddNotification",
+  "text": "Zaproszenie do znajomych od %hs"
+ },
+ {
+  "label": "Buddy:MessageNotification",
+  "text": "%hs mówi: \n '%s...'"
+ },
+ {
+  "label": "GUI:Com/Tac",
+  "text": "Dow/Tak"
+ },
+ {
+  "label": "GUI:MoneySymbol",
+  "text": "$"
+ },
+ {
+  "label": "GUI:$$$",
+  "text": "$$$"
+ },
+ {
+  "label": "GUI:OverchargeExhausted",
+  "text": "Przeciążenie wyczerpane"
+ },
+ {
+  "label": "GUI:NotEnoughMoneyToBuild",
+  "text": "Nie masz dość pieniędzy, żeby to zbudować"
+ },
+ {
+  "label": "GUI:NotEnoughMoneyToUpgrade",
+  "text": "Nie masz dość pieniędzy na ulepszenie"
+ },
+ {
+  "label": "GUI:Level",
+  "text": "Poziom"
+ },
+ {
+  "label": "GUI:Tac",
+  "text": "Tak"
+ },
+ {
+  "label": "GUI:Strat",
+  "text": "Strat"
+ },
+ {
+  "label": "GUI:Struct",
+  "text": "Bud"
+ },
+ {
+  "label": "GUI:Waypt",
+  "text": "Pkt"
+ },
+ {
+  "label": "GUI:WOLStatus",
+  "text": "Stan C&C Generals Zero Hour Online"
+ },
+ {
+  "label": "GUI:AIDifficulty",
+  "text": "Poziom trudności komputera"
+ },
+ {
+  "label": "GUI:EasyAI",
+  "text": "Łatwa armia"
+ },
+ {
+  "label": "GUI:MediumAI",
+  "text": "Średnia armia"
+ },
+ {
+  "label": "GUI:HardAI",
+  "text": "Trudna armia"
+ },
+ {
+  "label": "GUI:Hide",
+  "text": "WSTECZ"
+ },
+ {
+  "label": "GUI:Pause",
+  "text": "Pauza"
+ },
+ {
+  "label": "GUI:NextFrame",
+  "text": "Następna klatka"
+ },
+ {
+  "label": "GUI:ReplayMenu",
+  "text": "WCZYTAJ"
+ },
+ {
+  "label": "GUI:AntiAliasing",
+  "text": "Wygładzanie krawędzi"
+ },
+ {
+  "label": "GUI:ScreenCapture",
+  "text": "Zapisano zrzut ekranu w '%s'"
+ },
+ {
+  "label": "GUI:ScreenshotCapture",
+  "text": "Zrzut ekranu"
+ },
+ {
+  "label": "GUI:ScreenshotCaptureDescription",
+  "text": "Zrób zdjęcie ekranu gry"
+ },
+ {
+  "label": "GUI:Null",
+  "text": "."
+ },
+ {
+  "label": "GUI:CRCMismatch",
+  "text": "Gra wykryła niezgodność. Oznacza to, że gra wieloosobowa utraciła synchronizację danych między graczami"
+ },
+ {
+  "label": "GUI:CurrentHotkey",
+  "text": "Bieżący skrót"
+ },
+ {
+  "label": "GUI:AssignNewHotkey",
+  "text": "Przypisz nowy skrót"
+ },
+ {
+  "label": "GUI:CurrentlyAssignedTo",
+  "text": "Obecnie przypisany do"
+ },
+ {
+  "label": "GUI:Reset",
+  "text": "Resetuj"
+ },
+ {
+  "label": "QM:JOININGQMCHANNEL",
+  "text": "Dołączanie do szybkiego meczu..."
+ },
+ {
+  "label": "QM:WORKING",
+  "text": "Obecnie %d graczy szuka przeciwnika..."
+ },
+ {
+  "label": "QM:POOLSIZE",
+  "text": "Obecnie %d graczy szuka przeciwnika..."
+ },
+ {
+  "label": "QM:LOOKINGFORBOT",
+  "text": "Szukanie MatchMakera C&C Generals Zero Hour Online..."
+ },
+ {
+  "label": "QM:SENTINFO",
+  "text": "Wysłano informacje o grze..."
+ },
+ {
+  "label": "QM:WIDENINGSEARCH",
+  "text": "Poszerzanie wyszukiwania przeciwników najbliższych twoim preferencjom..."
+ },
+ {
+  "label": "QM:MATCHED",
+  "text": "Świetnie, znaleziono mecz..."
+ },
+ {
+  "label": "QM:INCHANNEL",
+  "text": "Na kanale..."
+ },
+ {
+  "label": "QM:NEGOTIATINGFIREWALLS",
+  "text": "Negocjowanie zapór..."
+ },
+ {
+  "label": "QM:STARTINGGAME",
+  "text": "Rozpoczynanie gry..."
+ },
+ {
+  "label": "QM:COULDNOTFINDBOT",
+  "text": "Nie znaleziono MatchMakera"
+ },
+ {
+  "label": "QM:COULDNOTFINDCHANNEL",
+  "text": "Nie znaleziono kanału szybkiego meczu"
+ },
+ {
+  "label": "QM:COULDNOTNEGOTIATEFIREWALLS",
+  "text": "Nie udało się wynegocjować zapór"
+ },
+ {
+  "label": "QM:STOPPED",
+  "text": "Przerwano szybki mecz"
+ },
+ {
+  "label": "QM:WaitingForPlayerToJoin",
+  "text": "Oczekiwanie na dołączenie przeciwnika"
+ },
+ {
+  "label": "QM:FindingGameChannel",
+  "text": "Szukanie gry przeciwnika"
+ },
+ {
+  "label": "QM:JoinedGameChannel",
+  "text": "Dołączono do gry przeciwnika"
+ },
+ {
+  "label": "QM:PlayerJoined",
+  "text": "Przeciwnik dołączył"
+ },
+ {
+  "label": "QM:LookingForMatchChannel",
+  "text": "Szukanie kanału szybkiego meczu"
+ },
+ {
+  "label": "QM:NoMatchChannel",
+  "text": "Nie znaleziono kanału szybkiego meczu"
+ },
+ {
+  "label": "QM:JoinedMatchChannel",
+  "text": "Dołączono do kanału szybkiego meczu"
+ },
+ {
+  "label": "QM:NoMatchingBot",
+  "text": "Nie znaleziono MatchMakera"
+ },
+ {
+  "label": "QM:GameNotFound",
+  "text": "Szybki mecz nie znalazł gry przeciwnika"
+ },
+ {
+  "label": "QM:TimeoutOtherPlayer",
+  "text": "Upłynął czas oczekiwania na dołączenie przeciwnika do gry"
+ },
+ {
+  "label": "Version:Format4",
+  "text": "%d.%02d.%d Build %d %c%c"
+ },
+ {
+  "label": "Version:Format3",
+  "text": "Wersja %d.%02d.%d"
+ },
+ {
+  "label": "Version:Format2",
+  "text": "Wersja %d.%02d"
+ },
+ {
+  "label": "Version:BuildTime",
+  "text": "%ls %ls"
+ },
+ {
+  "label": "Version:BuildMachine",
+  "text": "Komputer kompilacji: %ls"
+ },
+ {
+  "label": "Version:BuildUser",
+  "text": "Przez %ls"
+ },
+ {
+  "label": "GUI:SuperweaponDaisyCutter",
+  "text": "Bomba paliwowo-powietrzna"
+ },
+ {
+  "label": "GUI:SuperweaponParadropAmerica",
+  "text": "Desant"
+ },
+ {
+  "label": "GUI:SuperweaponClusterMines",
+  "text": "Miny kasetowe"
+ },
+ {
+  "label": "GUI:SuperweaponEMPPulse",
+  "text": "Impuls EMP"
+ },
+ {
+  "label": "GUI:SuperweaponA10ThunderboltMissileStrike",
+  "text": "Nalot rakietowy A10"
+ },
+ {
+  "label": "GUI:SuperweaponCrateDrop",
+  "text": "Zrzut skrzyń"
+ },
+ {
+  "label": "GUI:SuperweaponCarpetBomb",
+  "text": "Bombardowanie dywanowe"
+ },
+ {
+  "label": "GUI:SuperweaponNapalmStrike",
+  "text": "Nalot napalmowy"
+ },
+ {
+  "label": "GUI:SuperweaponCashHack",
+  "text": "Włamanie bankowe"
+ },
+ {
+  "label": "GUI:SuperweaponNeutronMissile",
+  "text": "Pocisk atomowy"
+ },
+ {
+  "label": "GUI:SuperweaponScudStorm",
+  "text": "Burza SCUD"
+ },
+ {
+  "label": "GUI:SuperweaponTerrorCell",
+  "text": "Komórka terrorystyczna"
+ },
+ {
+  "label": "GUI:SuperweaponRebelAmbush",
+  "text": "Zasadzka"
+ },
+ {
+  "label": "GUI:SuperweaponBlackMarketNuke",
+  "text": "Bomba atomowa z czarnego rynku"
+ },
+ {
+  "label": "GUI:SuperweaponAnthraxBomb",
+  "text": "Bomba z wąglikiem"
+ },
+ {
+  "label": "GUI:SuperweaponDemoralize",
+  "text": "Demoralizacja"
+ },
+ {
+  "label": "GUI:SpecialAbilityGuidedMissiles",
+  "text": "Pocisk naprowadzany laserowo"
+ },
+ {
+  "label": "GUI:SpecialAbilityDetonateCharges",
+  "text": "Zdetonuj ładunki"
+ },
+ {
+  "label": "GUI:SuperweaponParticleUplinkCannon",
+  "text": "Działo cząsteczkowe"
+ },
+ {
+  "label": "GUI:PatchAvailable",
+  "text": "DOSTĘPNA AKTUALIZACJA"
+ },
+ {
+  "label": "GUI:MustPatchForOnline",
+  "text": "Musisz pobrać aktualizację, aby grać w C&C Generals Zero Hour Online"
+ },
+ {
+  "label": "GUI:CanPatchForOnline",
+  "text": "Czy chcesz pobrać aktualizację?"
+ },
+ {
+  "label": "GUI:CheckingForPatches",
+  "text": "Szukanie aktualizacji"
+ },
+ {
+  "label": "GUI:DownloadErrorTitle",
+  "text": "BŁĄD POBIERANIA"
+ },
+ {
+  "label": "GUI:DownloadSuccessTitle",
+  "text": "POBIERANIE ZAKOŃCZONE"
+ },
+ {
+  "label": "GUI:DownloadSuccess",
+  "text": "Pobieranie zakończone bez błędów"
+ },
+ {
+  "label": "GUI:DownloadSuccessMustQuit",
+  "text": "Kliknij OK, aby wyjść z Command & Conquer Generals Zero Hour i zastosować aktualizację"
+ },
+ {
+  "label": "GUI:DownloadBytesRatio",
+  "text": "%d / %d bajtów"
+ },
+ {
+  "label": "GUI:DownloadTimeLeft",
+  "text": "Pozostało %d:%02d:%02d"
+ },
+ {
+  "label": "GUI:DownloadUnknownTime",
+  "text": "???"
+ },
+ {
+  "label": "FTP:StatusIdle",
+  "text": "Bezczynny"
+ },
+ {
+  "label": "FTP:UnknownError",
+  "text": "Nieznany błąd"
+ },
+ {
+  "label": "FTP:NoSuchServer",
+  "text": "Serwer nie istnieje"
+ },
+ {
+  "label": "FTP:CouldNotConnect",
+  "text": "Nie można połączyć"
+ },
+ {
+  "label": "FTP:LoginFailed",
+  "text": "Logowanie nie powiodło się"
+ },
+ {
+  "label": "FTP:NoSuchFile",
+  "text": "Plik nie istnieje"
+ },
+ {
+  "label": "FTP:LocalFileOpenFailed",
+  "text": "Nie można otworzyć pliku lokalnego"
+ },
+ {
+  "label": "FTP:TCPError",
+  "text": "Błąd TCP"
+ },
+ {
+  "label": "FTP:DisconnectError",
+  "text": "Błąd rozłączania"
+ },
+ {
+  "label": "FTP:StatusConnecting",
+  "text": "Łączenie"
+ },
+ {
+  "label": "FTP:StatusLoggingIn",
+  "text": "Logowanie"
+ },
+ {
+  "label": "FTP:StatusFindingFile",
+  "text": "Szukanie pliku"
+ },
+ {
+  "label": "FTP:StatusQueryingResume",
+  "text": "Sprawdzanie możliwości wznowienia pobierania"
+ },
+ {
+  "label": "FTP:StatusDownloading",
+  "text": "Pobieranie"
+ },
+ {
+  "label": "FTP:StatusDisconnecting",
+  "text": "Rozłączanie"
+ },
+ {
+  "label": "FTP:StatusFinishing",
+  "text": "Kończenie"
+ },
+ {
+  "label": "FTP:StatusDone",
+  "text": "Gotowe"
+ },
+ {
+  "label": "FTP:StatusNone",
+  "text": "Brak"
+ },
+ {
+  "label": "WOL:InternalError",
+  "text": "Błąd wewnętrzny C&C Generals Zero Hour Online"
+ },
+ {
+  "label": "WOL:ServerBan",
+  "text": "Niestety, zostałeś zbanowany w C&C Generals Zero Hour Online. Zapoznaj się z warunkami korzystania z usługi"
+ },
+ {
+  "label": "WOL:DisconnectedError",
+  "text": "Niestety, zostałeś zbanowany w C&C Generals Zero Hour Online. Zapoznaj się z warunkami korzystania z usługi"
+ },
+ {
+  "label": "WOL:NoServers",
+  "text": "Nie znaleziono C&C Generals Zero Hour Online"
+ },
+ {
+  "label": "WOL:LoginTimeout",
+  "text": "Upłynął czas oczekiwania na dołączenie do C&C Generals Zero Hour Online"
+ },
+ {
+  "label": "WOL:NoMatchChannel",
+  "text": "Nie znaleziono kanału meczu"
+ }
+]
