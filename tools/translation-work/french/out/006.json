@@ -1,0 +1,802 @@
+[
+ {
+  "label": "RADAR:StructureUnderAttack",
+  "text": "Bâtiment attaqué"
+ },
+ {
+  "label": "RADAR:UnderAttack",
+  "text": "Nous sommes attaqués"
+ },
+ {
+  "label": "RADAR:Infiltration",
+  "text": "Infiltration ennemie détectée"
+ },
+ {
+  "label": "UPGRADE:AdvancedTraining",
+  "text": "Entraînement avancé"
+ },
+ {
+  "label": "UPGRADE:AmericaLaserMissiles",
+  "text": "Missiles laser américains"
+ },
+ {
+  "label": "UPGRADE:Mines",
+  "text": "Mines terrestres"
+ },
+ {
+  "label": "UPGRADE:Radar",
+  "text": "Radar"
+ },
+ {
+  "label": "UPGRADE:OverlordGattlingCannon",
+  "text": "Canon Gatling d'Overlord"
+ },
+ {
+  "label": "UPGRADE:OverlordPropagandaTower",
+  "text": "Tour de propagande d'Overlord"
+ },
+ {
+  "label": "UPGRADE:OverlordBattleBunker",
+  "text": "Bunker de combat d'Overlord"
+ },
+ {
+  "label": "UPGRADE:ControlRods",
+  "text": "Barres de contrôle"
+ },
+ {
+  "label": "UPGRADE:ScoutDrone",
+  "text": "Drone de reconnaissance"
+ },
+ {
+  "label": "UPGRADE:BattleDrone",
+  "text": "Drone de combat"
+ },
+ {
+  "label": "UPGRADE:RangerFlashBangGrenade",
+  "text": "Grenades aveuglantes de Ranger"
+ },
+ {
+  "label": "UPGRADE:HoverTank",
+  "text": "Char à coussin d'air"
+ },
+ {
+  "label": "UPGRADE:TomahawkRemoteControl",
+  "text": "Missiles de croisière"
+ },
+ {
+  "label": "UPGRADE:AircraftFuel",
+  "text": "Carburant d'aviation"
+ },
+ {
+  "label": "UPGRADE:LaserMissiles",
+  "text": "Missiles laser"
+ },
+ {
+  "label": "UPGRADE:TOWMissile",
+  "text": "Missile TOW"
+ },
+ {
+  "label": "UPGRADE:ComancheRocketPods",
+  "text": "Lance-roquettes de Comanche"
+ },
+ {
+  "label": "UPGRADE:RailGun",
+  "text": "Canon électrique"
+ },
+ {
+  "label": "UPGRADE:Nationalism",
+  "text": "Nationalisme"
+ },
+ {
+  "label": "UPGRADE:AntiTankGrenade",
+  "text": "Grenades antichars"
+ },
+ {
+  "label": "UPGRADE:VehicleHack",
+  "text": "Piratage de véhicule"
+ },
+ {
+  "label": "UPGRADE:IRGoggles",
+  "text": "Lunettes infrarouges"
+ },
+ {
+  "label": "UPGRADE:BlackNapalm",
+  "text": "Napalm noir"
+ },
+ {
+  "label": "UPGRADE:ChainGuns",
+  "text": "Mitrailleuses rotatives"
+ },
+ {
+  "label": "UPGRADE:SubliminalMessaging",
+  "text": "Messages subliminaux"
+ },
+ {
+  "label": "UPGRADE:UraniumShells",
+  "text": "Obus à l'uranium"
+ },
+ {
+  "label": "UPGRADE:NuclearTanks",
+  "text": "Chars nucléaires"
+ },
+ {
+  "label": "UPGRADE:StunBullets",
+  "text": "Balles paralysantes"
+ },
+ {
+  "label": "UPGRADE:TranqDarts",
+  "text": "Fléchettes tranq."
+ },
+ {
+  "label": "UPGRADE:APBullets",
+  "text": "Balles perforantes"
+ },
+ {
+  "label": "UPGRADE:BioBomb",
+  "text": "Bombe biologique"
+ },
+ {
+  "label": "UPGRADE:HighExplosiveBomb",
+  "text": "Bombe explosive"
+ },
+ {
+  "label": "UPGRADE:ArmTheMob",
+  "text": "Armer la foule"
+ },
+ {
+  "label": "UPGRADE:ScorpionRocket",
+  "text": "Roquette de Scorpion"
+ },
+ {
+  "label": "UPGRADE:SCUDLauncherExplosiveWarhead",
+  "text": "Ogive explosive"
+ },
+ {
+  "label": "UPGRADE:SCUDLauncherAnthraxWarhead",
+  "text": "Ogive à l'anthrax"
+ },
+ {
+  "label": "UPGRADE:BuggyAmmo",
+  "text": "Munitions de buggy"
+ },
+ {
+  "label": "UPGRADE:AnthraxBeta",
+  "text": "Anthrax bêta"
+ },
+ {
+  "label": "UPGRADE:ToxinShells",
+  "text": "Obus toxiques"
+ },
+ {
+  "label": "UPGRADE:JunkRepair",
+  "text": "Réparation de fortune"
+ },
+ {
+  "label": "UPGRADE:Camouflage",
+  "text": "Camouflage"
+ },
+ {
+  "label": "UPGRADE:CompositeArmor",
+  "text": "Blindage composite"
+ },
+ {
+  "label": "OBJECT:Beacon",
+  "text": "Balise"
+ },
+ {
+  "label": "OBJECT:Dam",
+  "text": "Barrage"
+ },
+ {
+  "label": "OBJECT:CommandCenter",
+  "text": "Centre de commandement"
+ },
+ {
+  "label": "OBJECT:ColdFusionReactor",
+  "text": "Réacteur à fusion froide"
+ },
+ {
+  "label": "OBJECT:NuclearReactor",
+  "text": "Réacteur nucléaire"
+ },
+ {
+  "label": "OBJECT:DemoTrap",
+  "text": "Piège explosif"
+ },
+ {
+  "label": "OBJECT:PowerPlant",
+  "text": "Centrale électrique"
+ },
+ {
+  "label": "OBJECT:DetentionCamp",
+  "text": "Camp de détention"
+ },
+ {
+  "label": "OBJECT:StrategyCenter",
+  "text": "Centre de stratégie"
+ },
+ {
+  "label": "OBJECT:Airfield",
+  "text": "Aérodrome"
+ },
+ {
+  "label": "OBJECT:SupplyCenter",
+  "text": "Centre de ravitaillement"
+ },
+ {
+  "label": "OBJECT:AmericaSupplyDropZone",
+  "text": "Zone de largage"
+ },
+ {
+  "label": "OBJECT:SupplyStash",
+  "text": "Réserve de ravitaillement"
+ },
+ {
+  "label": "OBJECT:Barracks",
+  "text": "Caserne"
+ },
+ {
+  "label": "OBJECT:BlackMarket",
+  "text": "Marché noir"
+ },
+ {
+  "label": "OBJECT:WarFactory",
+  "text": "Usine d'armement"
+ },
+ {
+  "label": "OBJECT:ArmsDealer",
+  "text": "Marchand d'armes"
+ },
+ {
+  "label": "OBJECT:AmmoCache",
+  "text": "Cache de munitions"
+ },
+ {
+  "label": "OBJECT:AmphibiousTransport",
+  "text": "Transport amphibie"
+ },
+ {
+  "label": "OBJECT:AutoFerry",
+  "text": "Ferry à voitures"
+ },
+ {
+  "label": "OBJECT:TrainGuide",
+  "text": "Guide de train"
+ },
+ {
+  "label": "OBJECT:AngryMob",
+  "text": "Foule en colère"
+ },
+ {
+  "label": "OBJECT:TankHunter",
+  "text": "Chasseur de chars"
+ },
+ {
+  "label": "OBJECT:Apartment",
+  "text": "Appartement"
+ },
+ {
+  "label": "OBJECT:ChemicalFactory",
+  "text": "Usine chimique"
+ },
+ {
+  "label": "OBJECT:GovBuilding",
+  "text": "Bâtiment gouvernemental"
+ },
+ {
+  "label": "OBJECT:TechHospital",
+  "text": "Hôpital -- À capturer pour que toute l'infanterie se soigne automatiquement"
+ },
+ {
+  "label": "OBJECT:ApartmentComplex",
+  "text": "Complexe d'appartements"
+ },
+ {
+  "label": "OBJECT:SpyPost",
+  "text": "Poste d'espionnage"
+ },
+ {
+  "label": "OBJECT:SupplyPile",
+  "text": "Tas de ravitaillement"
+ },
+ {
+  "label": "OBJECT:TrainStation",
+  "text": "Gare"
+ },
+ {
+  "label": "OBJECT:TechRadioStation",
+  "text": "Station de radio"
+ },
+ {
+  "label": "OBJECT:TechOilDerrick",
+  "text": "Derrick -- À capturer pour obtenir des fonds supplémentaires"
+ },
+ {
+  "label": "OBJECT:Arcade",
+  "text": "Salle d'arcade"
+ },
+ {
+  "label": "OBJECT:Aurora",
+  "text": "Bombardier Aurora"
+ },
+ {
+  "label": "OBJECT:A10Thunderbolt",
+  "text": "A10 Thunderbolt"
+ },
+ {
+  "label": "OBJECT:AVPOWTRUCK",
+  "text": "Camion de prisonniers"
+ },
+ {
+  "label": "OBJECT:B52",
+  "text": "B52"
+ },
+ {
+  "label": "OBJECT:BMW",
+  "text": "Voiture"
+ },
+ {
+  "label": "OBJECT:Bank",
+  "text": "Banque"
+ },
+ {
+  "label": "OBJECT:BarnCoop",
+  "text": "Poulailler"
+ },
+ {
+  "label": "OBJECT:BarnShed",
+  "text": "Grange"
+ },
+ {
+  "label": "OBJECT:Barrel",
+  "text": "Baril"
+ },
+ {
+  "label": "OBJECT:BattleDrone",
+  "text": "Drone de combat"
+ },
+ {
+  "label": "OBJECT:BattleMaster",
+  "text": "Battlemaster"
+ },
+ {
+  "label": "OBJECT:Battleship",
+  "text": "Cuirassé"
+ },
+ {
+  "label": "OBJECT:BigRig",
+  "text": "Semi-remorque"
+ },
+ {
+  "label": "OBJECT:BikeRack",
+  "text": "Râtelier à vélos"
+ },
+ {
+  "label": "OBJECT:Billboard",
+  "text": "Panneau publicitaire"
+ },
+ {
+  "label": "OBJECT:Bird",
+  "text": "Oiseau"
+ },
+ {
+  "label": "OBJECT:BombTruck",
+  "text": "Camion piégé"
+ },
+ {
+  "label": "OBJECT:Boulders",
+  "text": "Rochers"
+ },
+ {
+  "label": "OBJECT:Boxes",
+  "text": "Caisses"
+ },
+ {
+  "label": "OBJECT:BrickWall",
+  "text": "Mur de briques"
+ },
+ {
+  "label": "OBJECT:BrokenWall",
+  "text": "Mur en ruine"
+ },
+ {
+  "label": "OBJECT:Bunker",
+  "text": "Bunker"
+ },
+ {
+  "label": "OBJECT:BurningBarricade",
+  "text": "Barricade en feu"
+ },
+ {
+  "label": "OBJECT:Checkpoint",
+  "text": "Poste de contrôle"
+ },
+ {
+  "label": "OBJECT:BusStop",
+  "text": "Arrêt de bus"
+ },
+ {
+  "label": "OBJECT:Bush",
+  "text": "Buisson"
+ },
+ {
+  "label": "OBJECT:Camaro",
+  "text": "Voiture"
+ },
+ {
+  "label": "OBJECT:CarBug",
+  "text": "Voiture"
+ },
+ {
+  "label": "OBJECT:CarSwatchEuro",
+  "text": "Voiture"
+ },
+ {
+  "label": "OBJECT:CargoLoadingCranes",
+  "text": "Grues de chargement"
+ },
+ {
+  "label": "OBJECT:CargoNet",
+  "text": "Filet de chargement"
+ },
+ {
+  "label": "OBJECT:Cart",
+  "text": "Charrette"
+ },
+ {
+  "label": "OBJECT:ChainLinkFence",
+  "text": "Grillage"
+ },
+ {
+  "label": "OBJECT:Chalet",
+  "text": "Chalet"
+ },
+ {
+  "label": "OBJECT:CheckPointCrossingGuard",
+  "text": "Poste de contrôle"
+ },
+ {
+  "label": "OBJECT:Chinook",
+  "text": "Chinook"
+ },
+ {
+  "label": "OBJECT:Church",
+  "text": "Église"
+ },
+ {
+  "label": "OBJECT:Clete",
+  "text": "Taquet"
+ },
+ {
+  "label": "OBJECT:ClothesLine",
+  "text": "Corde à linge"
+ },
+ {
+  "label": "OBJECT:Comanche",
+  "text": "Comanche"
+ },
+ {
+  "label": "OBJECT:ComancheHull",
+  "text": "Carcasse de Comanche"
+ },
+ {
+  "label": "OBJECT:CompactCar",
+  "text": "Citadine"
+ },
+ {
+  "label": "OBJECT:Ambassador",
+  "text": "Ambassadeur"
+ },
+ {
+  "label": "OBJECT:Redguard",
+  "text": "Garde rouge"
+ },
+ {
+  "label": "OBJECT:ConstructionBarricade",
+  "text": "Barrière de chantier"
+ },
+ {
+  "label": "OBJECT:ConvenienceStore",
+  "text": "Épicerie"
+ },
+ {
+  "label": "OBJECT:ConvoyTruck",
+  "text": "Camion de convoi"
+ },
+ {
+  "label": "OBJECT:Cottage",
+  "text": "Cottage"
+ },
+ {
+  "label": "OBJECT:Crate",
+  "text": "Caisse"
+ },
+ {
+  "label": "OBJECT:CrossingGuard",
+  "text": "Agent de circulation"
+ },
+ {
+  "label": "OBJECT:Crusader",
+  "text": "Crusader"
+ },
+ {
+  "label": "OBJECT:Paladin",
+  "text": "Paladin"
+ },
+ {
+  "label": "OBJECT:DaisyCutterBomb",
+  "text": "Bombe à effet de souffle"
+ },
+ {
+  "label": "OBJECT:BlackMarketNuke",
+  "text": "Bombe nucléaire du marché noir"
+ },
+ {
+  "label": "OBJECT:ToxinTank",
+  "text": "Char toxique"
+ },
+ {
+  "label": "OBJECT:AnthraxBomb",
+  "text": "Bombe à l'anthrax"
+ },
+ {
+  "label": "OBJECT:CarpetBomb",
+  "text": "Tapis de bombes"
+ },
+ {
+  "label": "OBJECT:ClusterMinesBomb",
+  "text": "Mines à dispersion"
+ },
+ {
+  "label": "OBJECT:EMPPulseBomb",
+  "text": "Impulsion IEM"
+ },
+ {
+  "label": "OBJECT:NeutronMissile",
+  "text": "Missile nucléaire"
+ },
+ {
+  "label": "OBJECT:Dealership",
+  "text": "Concessionnaire"
+ },
+ {
+  "label": "OBJECT:Dirt",
+  "text": "Terre"
+ },
+ {
+  "label": "OBJECT:Docks",
+  "text": "Docks"
+ },
+ {
+  "label": "OBJECT:DogwoodTree",
+  "text": "Arbre"
+ },
+ {
+  "label": "OBJECT:Dozer",
+  "text": "Bulldozer"
+ },
+ {
+  "label": "OBJECT:Dragon",
+  "text": "Char Dragon"
+ },
+ {
+  "label": "OBJECT:ElectricRetail",
+  "text": "Magasin d'électronique"
+ },
+ {
+  "label": "OBJECT:ElectricalTransformer",
+  "text": "Transformateur électrique"
+ },
+ {
+  "label": "OBJECT:FireHydrant",
+  "text": "Bouche d'incendie"
+ },
+ {
+  "label": "OBJECT:StructureMine",
+  "text": "Mine"
+ },
+ {
+  "label": "OBJECT:ClusterMine",
+  "text": "Mine"
+ },
+ {
+  "label": "OBJECT:FireStorm",
+  "text": "Tempête de feu"
+ },
+ {
+  "label": "OBJECT:FlamingInfantry",
+  "text": "Infanterie en flammes"
+ },
+ {
+  "label": "OBJECT:ToxicInfantry",
+  "text": "Infanterie contaminée"
+ },
+ {
+  "label": "OBJECT:FoodCart",
+  "text": "Chariot de nourriture"
+ },
+ {
+  "label": "OBJECT:Fountain",
+  "text": "Fontaine"
+ },
+ {
+  "label": "OBJECT:FruitStand",
+  "text": "Étal de fruits"
+ },
+ {
+  "label": "OBJECT:Gargoyle",
+  "text": "Gargouille"
+ },
+ {
+  "label": "OBJECT:GasStation",
+  "text": "Station-service"
+ },
+ {
+  "label": "OBJECT:GasStorageFacility",
+  "text": "Dépôt de gaz"
+ },
+ {
+  "label": "OBJECT:GattlingTank",
+  "text": "Char Gatling"
+ },
+ {
+  "label": "OBJECT:GrassHut",
+  "text": "Hutte de paille"
+ },
+ {
+  "label": "OBJECT:Gravel",
+  "text": "Gravier"
+ },
+ {
+  "label": "OBJECT:FlashBangGrenade",
+  "text": "Grenade aveuglante"
+ },
+ {
+  "label": "OBJECT:TankShell",
+  "text": "Obus de char"
+ },
+ {
+  "label": "OBJECT:Rebel",
+  "text": "Rebelle"
+ },
+ {
+  "label": "OBJECT:JarmenKell",
+  "text": "Jarmen Kell"
+ },
+ {
+  "label": "OBJECT:GuardTower",
+  "text": "Tour de garde"
+ },
+ {
+  "label": "OBJECT:GuardianControlCenter",
+  "text": "Centre de contrôle Gardien"
+ },
+ {
+  "label": "OBJECT:GuardianDrone",
+  "text": "Drone gardien"
+ },
+ {
+  "label": "OBJECT:BlackLotus",
+  "text": "Lotus Noir"
+ },
+ {
+  "label": "OBJECT:Hanger",
+  "text": "Hangar"
+ },
+ {
+  "label": "OBJECT:HarvardsOffice",
+  "text": "Poubelle"
+ },
+ {
+  "label": "OBJECT:Hedge",
+  "text": "Haie"
+ },
+ {
+  "label": "OBJECT:HighwaySign",
+  "text": "Panneau d'autoroute"
+ },
+ {
+  "label": "OBJECT:Hijacker",
+  "text": "Pirate de la route"
+ },
+ {
+  "label": "OBJECT:AngryMobNexus",
+  "text": "<<FOULE EN COLÈRE>>"
+ },
+ {
+  "label": "OBJECT:Hotel",
+  "text": "Hôtel"
+ },
+ {
+  "label": "OBJECT:Humvee",
+  "text": "Humvee"
+ },
+ {
+  "label": "OBJECT:POWTruck",
+  "text": "Camion de prisonniers"
+ },
+ {
+  "label": "OBJECT:IndustrialBuilding",
+  "text": "Bâtiment industriel"
+ },
+ {
+  "label": "OBJECT:InfernoCannon",
+  "text": "Canon Inferno"
+ },
+ {
+  "label": "OBJECT:JapaneseLantern",
+  "text": "Lanterne japonaise"
+ },
+ {
+  "label": "OBJECT:JunkCar",
+  "text": "Épave de voiture"
+ },
+ {
+  "label": "OBJECT:Limo",
+  "text": "Limousine"
+ },
+ {
+  "label": "OBJECT:Lumber",
+  "text": "Bois de charpente"
+ },
+ {
+  "label": "OBJECT:MIG",
+  "text": "MiG"
+ },
+ {
+  "label": "OBJECT:MailBox",
+  "text": "Boîte aux lettres"
+ },
+ {
+  "label": "OBJECT:ManHoleCover",
+  "text": "Plaque d'égout"
+ },
+ {
+  "label": "OBJECT:MapleTree",
+  "text": "Arbre"
+ },
+ {
+  "label": "OBJECT:MarketVendor",
+  "text": "Marchand"
+ },
+ {
+  "label": "OBJECT:Medic",
+  "text": "Ambulance"
+ },
+ {
+  "label": "OBJECT:MegaMall",
+  "text": "Centre commercial"
+ },
+ {
+  "label": "OBJECT:Missile",
+  "text": "Missile"
+ },
+ {
+  "label": "OBJECT:MissileTeam",
+  "text": "Défenseur à missiles"
+ },
+ {
+  "label": "OBJECT:Moat",
+  "text": "Douves"
+ },
+ {
+  "label": "OBJECT:MogadishuHighrise",
+  "text": "Tour d'habitation"
+ },
+ {
+  "label": "OBJECT:NewsStand",
+  "text": "Kiosque à journaux"
+ },
+ {
+  "label": "OBJECT:NightClub",
+  "text": "Boîte de nuit"
+ },
+ {
+  "label": "OBJECT:NotAMosque",
+  "text": "Dôme"
+ },
+ {
+  "label": "OBJECT:NuclearMissile",
+  "text": "Missile nucléaire"
+ }
+]
