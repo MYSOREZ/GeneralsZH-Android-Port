@@ -1,0 +1,102 @@
+[
+ {
+  "label": "MAP:SniperDuel",
+  "text": "Sniper Duel"
+ },
+ {
+  "label": "MAP:TheFrontline",
+  "text": "The Frontline"
+ },
+ {
+  "label": "MAP:TournamentBeach",
+  "text": "Tournament Beach"
+ },
+ {
+  "label": "MAP:TournamentCanyon",
+  "text": "Tournament canyon"
+ },
+ {
+  "label": "MAP:TournamentDesolate",
+  "text": "Tournament Desolate"
+ },
+ {
+  "label": "MAP:TournamentForest",
+  "text": "Tournament Forest"
+ },
+ {
+  "label": "MAP:TournamentIceStorm",
+  "text": "Tournament Ice Storm"
+ },
+ {
+  "label": "MAP:TournamentTactics",
+  "text": "Tournament Tactics"
+ },
+ {
+  "label": "MAP:TournamentTown",
+  "text": "Tournament Town"
+ },
+ {
+  "label": "MAP:TournamentValley",
+  "text": "Tournament Valley"
+ },
+ {
+  "label": "MAP:UnholyWar",
+  "text": "Unholy War"
+ },
+ {
+  "label": "MAP:Unstable",
+  "text": "Unstable"
+ },
+ {
+  "label": "MAP:UrbanUprising",
+  "text": "Urban Uprising"
+ },
+ {
+  "label": "MAP:VictoryOutlook",
+  "text": "Victory Outlook"
+ },
+ {
+  "label": "MAP:VictoryRoad",
+  "text": "Victory Road"
+ },
+ {
+  "label": "MAP:NorthAmerica",
+  "text": "North America"
+ },
+ {
+  "label": "MAP:Floodplains",
+  "text": "Floodplains"
+ },
+ {
+  "label": "MAP:TournamentA",
+  "text": "Tournament A"
+ },
+ {
+  "label": "MAP:TournamentB",
+  "text": "Tournament B"
+ },
+ {
+  "label": "MAP:Defcon6",
+  "text": "Defcon 6"
+ },
+ {
+  "label": "CONTROLBAR:AirF_TooltipUSAUpgradeLaserMissiles",
+  "text": "Los misiles del Raptor y del caza furtivo causan un +12% de daño"
+ },
+ {
+  "label": "CONTROLBAR:AirF_ToolTipUSAScienceCarpetBomb",
+  "text": "Te permite llamar a un bombardero furtivo B2 para bombardear en alfombra una zona \n \n Se despliega desde: centro de estrategia"
+ },
+ {
+  "label": "GUI:CustomMission",
+  "text": "MISIÓN PERSONALIZADA"
+ },
+ {
+  "label": "GX:ForceAttack",
+  "text": "Forzar ataque"
+ },
+ {
+  "label": "GX:ToolTipForceAttack",
+  "text": "Ataca el siguiente objetivo que toques, incluso tus propias unidades o el suelo vacío"
+ }
+]
