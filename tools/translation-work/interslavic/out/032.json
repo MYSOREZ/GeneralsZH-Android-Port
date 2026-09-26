@@ -1,0 +1,102 @@
+[
+ {
+  "label": "MAP:SniperDuel",
+  "text": "Snajpersky Dvoboj"
+ },
+ {
+  "label": "MAP:TheFrontline",
+  "text": "Prědnja Linija"
+ },
+ {
+  "label": "MAP:TournamentBeach",
+  "text": "Turnirna Pláž"
+ },
+ {
+  "label": "MAP:TournamentCanyon",
+  "text": "Turnirny Kanjon"
+ },
+ {
+  "label": "MAP:TournamentDesolate",
+  "text": "Turnirna Pustoš"
+ },
+ {
+  "label": "MAP:TournamentForest",
+  "text": "Turnirny Lěs"
+ },
+ {
+  "label": "MAP:TournamentIceStorm",
+  "text": "Turnirna Ledena Bura"
+ },
+ {
+  "label": "MAP:TournamentTactics",
+  "text": "Turnirna Taktika"
+ },
+ {
+  "label": "MAP:TournamentTown",
+  "text": "Turnirno Město"
+ },
+ {
+  "label": "MAP:TournamentValley",
+  "text": "Turnirna Dolina"
+ },
+ {
+  "label": "MAP:UnholyWar",
+  "text": "Bezbožna Vojna"
+ },
+ {
+  "label": "MAP:Unstable",
+  "text": "Nestabilno"
+ },
+ {
+  "label": "MAP:UrbanUprising",
+  "text": "Gradsky Bunt"
+ },
+ {
+  "label": "MAP:VictoryOutlook",
+  "text": "Pogled na Pobědu"
+ },
+ {
+  "label": "MAP:VictoryRoad",
+  "text": "Put Pobědy"
+ },
+ {
+  "label": "MAP:NorthAmerica",
+  "text": "Sěverna Amerika"
+ },
+ {
+  "label": "MAP:Floodplains",
+  "text": "Poplavne Ravnine"
+ },
+ {
+  "label": "MAP:TournamentA",
+  "text": "Turnir A"
+ },
+ {
+  "label": "MAP:TournamentB",
+  "text": "Turnir B"
+ },
+ {
+  "label": "MAP:Defcon6",
+  "text": "Defcon 6"
+ },
+ {
+  "label": "CONTROLBAR:AirF_TooltipUSAUpgradeLaserMissiles",
+  "text": "Rakety Raptora i Nevidimogo Istrebitelja dělaju +12% věče škody"
+ },
+ {
+  "label": "CONTROLBAR:AirF_ToolTipUSAScienceCarpetBomb",
+  "text": "Dopusti vam pozvati nevidimy bombonosec B2, aby kobercovo bombardoval okolicu \n \n Razvărtaje se iz: Strategičnogo centra"
+ },
+ {
+  "label": "GUI:CustomMission",
+  "text": "PRILAGOŽENA MISIJA"
+ },
+ {
+  "label": "GX:ForceAttack",
+  "text": "Prinudny Napad"
+ },
+ {
+  "label": "GX:ToolTipForceAttack",
+  "text": "Napadni sleduješi objekt, na kotory kliknete, daže vaše vlastne jedinice ili prazdnu zemju"
+ }
+]
