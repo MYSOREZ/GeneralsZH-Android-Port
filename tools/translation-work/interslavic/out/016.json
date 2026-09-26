@@ -1,0 +1,802 @@
+[
+ {
+  "label": "MAP:MD-USA04_Objective01",
+  "text": "OBJEKTIV MISIJE: \n Uništi bazu GLA"
+ },
+ {
+  "label": "MAP:MD-USA04_Objective02_Reminder",
+  "text": "VHODEČA TRANSMISIJA: \n Uništi Radiostanciju na sěveroistoku, aby zaustaviti Kamiony-Bomby"
+ },
+ {
+  "label": "MAP:MD-USA04_Hint01",
+  "text": "OBJEKTIV MISIJE: \n Uništi bazu GLA"
+ },
+ {
+  "label": "MAP:MD-USA04_Hint04",
+  "text": "SOVĚT: \n Najdi 3 agenty CIA, aby polučiti ih pomoć"
+ },
+ {
+  "label": "MAP:MD-USA04_Hint05",
+  "text": "VHODEČA TRANSMISIJA: \n Osiguraj naftna polja na zapadu, aby polučiti novac"
+ },
+ {
+  "label": "MAP:MD-USA04_Hint06",
+  "text": "SOVĚT: \n Sledopyty mogu otkryti kamuflovane jedinice i podryvne pastky"
+ },
+ {
+  "label": "MAP:MD-USA04_Hint07",
+  "text": "SOVĚT: \n Buldozery mogu odstraniti Minne Pastky"
+ },
+ {
+  "label": "MAP:MD-USA04_Reonforcements",
+  "text": "VHODEČA TRANSMISIJA: \n Podkrěpljenja pridošli"
+ },
+ {
+  "label": "MAP:MD_USA06Open",
+  "text": "Al Habad, Sirija \n 'Operacija: Udar Orla'"
+ },
+ {
+  "label": "MAP:MD-USA06Objective01",
+  "text": "OBJEKTIV MISIJE: \n Zauzmi 4 Sila Toksinnyh Raket, prěže nego vypuste"
+ },
+ {
+  "label": "MAP:MD-USA06Objective02",
+  "text": "VHODEČA TRANSMISIJA: \n Buntovne sily GLA sę pridružili vam"
+ },
+ {
+  "label": "MAP:MD-USA06Objective03",
+  "text": "VHODEČA TRANSMISIJA: \n Zauzmi 4 Sila Toksinnyh Raket, prěže nego vypuste"
+ },
+ {
+  "label": "MAP:MD-USA06Objective04",
+  "text": "Silo Raket 3 od 4 zauzeto"
+ },
+ {
+  "label": "MAP:MD-USA06Objective05",
+  "text": "Silo Raket 4 od 4 zauzeto"
+ },
+ {
+  "label": "MAP:MD-USA06Objective06",
+  "text": "Silo Raket 1 od 4 zauzeto"
+ },
+ {
+  "label": "MAP:MD-USA06Objective07",
+  "text": "Silo Raket 2 od 4 zauzeto"
+ },
+ {
+  "label": "MAP:MD-USA06Objective14",
+  "text": "SOVĚT: \n Razvědka postavja někotore Rakety v tomu regionu \n Pazi, aby ne osvoboditi toksin"
+ },
+ {
+  "label": "MAP:MD-USA06Objective15",
+  "text": "POZOR: \n Dr. Thrax upotrěbjaje silnějše toksiny. Zaščiti našu pěhotu"
+ },
+ {
+  "label": "MAP:MD-USA06Objective16",
+  "text": "VHODEČA TRANSMISIJA: \n Naša baza je pod napadom, pane \n Oni postrojili tunelnu sěť bez našego znanja"
+ },
+ {
+  "label": "MAP:MD-USA06CivilianMessage01",
+  "text": "VHODEČA TRANSMISIJA: \n Povstanci GLA na istoku mogu pomoći našemu naporu"
+ },
+ {
+  "label": "MAP:MD-USA06Hint01",
+  "text": "SOVĚT: \n Věče snabděnja sę nahodit na jugozapadu"
+ },
+ {
+  "label": "MAP:MD-USA06Hint02",
+  "text": "POZOR: \n Oni upotrěbjajut Tunel Skrytoj Ataky, aby napasti našu bazu"
+ },
+ {
+  "label": "MAP:MD-USA06Hint03",
+  "text": "SOVĚT: \n Moći Generala GLA sut dostupne v Komandnom Centru GLA"
+ },
+ {
+  "label": "MAP:MD-USA06Warning01",
+  "text": "POZOR: \n Odbrojavanje do vypuska rakety je začeto"
+ },
+ {
+  "label": "MAP:MD-USA06Warning02",
+  "text": "POZOR: \n Vypusk za 5 minut"
+ },
+ {
+  "label": "MAP:MD-USA06Warning03",
+  "text": "POZOR: \n Vypusk za 4 minuty"
+ },
+ {
+  "label": "MAP:MD-USA06Warning04",
+  "text": "POZOR: \n Vypusk za 3 minuty"
+ },
+ {
+  "label": "MAP:MD-USA06Warning05",
+  "text": "POZOR: \n Vypusk za 2 minuty"
+ },
+ {
+  "label": "MAP:MD-USA06Warning06",
+  "text": "POZOR: \n Vypusk za 1 minutu"
+ },
+ {
+  "label": "MAP:MD-USA06Warning07",
+  "text": "POZOR: \n Vypusk za 30 sekund"
+ },
+ {
+  "label": "MAP:MD-USA06Warning08",
+  "text": "POZOR: \n Vypusk za 10 sekund"
+ },
+ {
+  "label": "MAP:MD-USA06Warning09",
+  "text": "POZOR: \n 5... 4... 3... 2... 1... Vypusk otkryt"
+ },
+ {
+  "label": "MAP:MD-USA06Failure01",
+  "text": "POZOR: \n Udar otkryt. Vy propali, generale"
+ },
+ {
+  "label": "MAP:MD-USA06Imperative01",
+  "text": "POZOR: \n Ne uništi tu strukturu. Zauzmi ju Rangerami"
+ },
+ {
+  "label": "SCRIPT:MD-USA06MissileTimer",
+  "text": "Vypusk Toksinnoj Rakety Za:"
+ },
+ {
+  "label": "MAP:MD-USA06Warning10",
+  "text": "POZOR: \n Vypusk za 10 minut"
+ },
+ {
+  "label": "MAP:MD-USA06Warning11",
+  "text": "POZOR: \n Vypusk za 15 minut"
+ },
+ {
+  "label": "MAP:MD-USA06Intro1",
+  "text": "Zemna Orbita: \n Špionsky Satelit USA Kodovo Imę: Powers"
+ },
+ {
+  "label": "MAP:MD-USA06Intro2",
+  "text": "Prěnos Dat: \n Toksinne Zgrady Dr. Thraxa"
+ },
+ {
+  "label": "MAP:MD-USA06Warning15",
+  "text": "VHODEČA TRANSMISIJA: \n Generale, baza GLA na istoku sę \n rěšila buntovati protiv Toksinnogo Generala i \n jego masovogo upotrěbjenja toksinov"
+ },
+ {
+  "label": "MAP:MD-USA06Warning16",
+  "text": "VHODEČA TRANSMISIJA: \n Oni hočut nam pomoći v napadu na \n Generala, davajuč nam upotrěbjenje svoje bazy"
+ },
+ {
+  "label": "MAP:MD_GLA01Objective6",
+  "text": "SOVĚT: \n Upotrěbi Bojeve Motocikly, aby vstupiti v bazu USA iz drugogo pravca"
+ },
+ {
+  "label": "MAP:MD_GLA01Message01",
+  "text": "POZOR: \n Baza Ognja USA otkryta"
+ },
+ {
+  "label": "MAP:MD_GLA01Message02",
+  "text": "POZOR: \n Stražni Droni otkryti"
+ },
+ {
+  "label": "MAP:MD_GLA01Message03",
+  "text": "SOVĚT: \n Ulučši jedinice GLA, dvigajuč ih na jaščiky ostatkov"
+ },
+ {
+  "label": "OBJECT:GLALeader",
+  "text": "Vodja GLA"
+ },
+ {
+  "label": "MAP:Intro_Title",
+  "text": "Al Safir, Sirija \n 'Izhod'"
+ },
+ {
+  "label": "MAP:Intro_Title2",
+  "text": "Halib, Sudan \n 'Veliky Pobeg'"
+ },
+ {
+  "label": "MAP:Intro_Loc",
+  "text": "Izvně grada..."
+ },
+ {
+  "label": "MAP:Intro_MO_1",
+  "text": "OBJEKTIV MISIJE #1: \n Najdi ostavjenu bazu GLA"
+ },
+ {
+  "label": "MAP:Intro_MO_2",
+  "text": "OBJEKTIV MISIJE #2: \n Prěnesi našego vodju bezbědno do vzletno-pristajne poloski"
+ },
+ {
+  "label": "MAP:Intro_MO_2b",
+  "text": "VHODEČA TRANSMISIJA: \n Dovedi vodju GLA do vzletno-pristajne poloski na sěverozapadu"
+ },
+ {
+  "label": "MAP:Intro_MO_1a",
+  "text": "OBJEKTIV MISIJE: \n Eskortuj vodju GLA do vzletno-pristajne poloski \n Vodja GLA morat preživěti"
+ },
+ {
+  "label": "MAP:Intro_MO_2a",
+  "text": "VHODEČA TRANSMISIJA: \n Ostavjena baza GLA je v tom regionu. Znova ju zauzmi"
+ },
+ {
+  "label": "MDGLA02:TITLE",
+  "text": "Gdě-to blizu Kaira, Egipt \n 'Skryty Plan'"
+ },
+ {
+  "label": "MDGLA02:Hint1",
+  "text": "POZOR: \n Sily Princa Kassada sut kamuflovane"
+ },
+ {
+  "label": "MDGLA02:Hint2",
+  "text": "SOVĚT: \n Radarni Furgony, Tunelne Sěti i \n Pozicije Stinger otkryvaju kamuflovane jedinice"
+ },
+ {
+  "label": "MDGLA02:Hint3",
+  "text": "SOVĚT: \n Věče snabděnja sę nahodit na jugozapadu"
+ },
+ {
+  "label": "MDGLA02:OBJ1",
+  "text": "\n OBJEKTIV MISIJE #1: \n Zauzmi Komandny Centr v gradě"
+ },
+ {
+  "label": "MDGLA02:OBJ2",
+  "text": "\n OBJEKTIV MISIJE #2: \n Zauzmi Komandny Centr přěko rěky"
+ },
+ {
+  "label": "MDGLA02:Expansion_2",
+  "text": "VHODEČA TRANSMISIJA: \n Potencijalno město rasšěrjenja otkryto"
+ },
+ {
+  "label": "MDGLA02:Oil_Well",
+  "text": "SOVĚT: \n Zauzmi naftne vyšky, aby uděržati postojany dohod"
+ },
+ {
+  "label": "MDGLA02:Bridge",
+  "text": "SOVĚT: \n GPS-Glušenje olakšaje prěhod čerez tot most"
+ },
+ {
+  "label": "MDGLA02:Damage_warn",
+  "text": "VHODEČA TRANSMISIJA: \n Zaščiti Komandny Centr"
+ },
+ {
+  "label": "MDGLA02:Capture_CC_scram",
+  "text": "SOVĚT: \n Zauzmi Komandny Centr, aby polučiti sposobnost GPS-Glušenja"
+ },
+ {
+  "label": "MDGLA02:Scram_captured",
+  "text": "VHODEČA TRANSMISIJA: \n Sposobnost GPS-Glušenja polučena \n Upotrěbi ju na svojih vojskah, aby ih skryla"
+ },
+ {
+  "label": "MDGLA02:Capture_CC_sneak",
+  "text": "SOVĚT: \n Zauzmi tot Komandny Centr, aby polučiti sposobnost Skrytoj Ataky"
+ },
+ {
+  "label": "MDGLA02:Sneak_captured",
+  "text": "VHODEČA TRANSMISIJA: \n Sposobnost Skrytoj Ataky polučena \n Upotrěbi ju, aby sozdati Tunelnu Sěť bilo kde, gdě vidiš"
+ },
+ {
+  "label": "MDGLA02:Final",
+  "text": "OBJEKTIV MISIJE #3: \n Uništi ili zauzmi glavny Komandny Centr Kassada"
+ },
+ {
+  "label": "MDGLA03:Title-01",
+  "text": "Sredozemna Flota USA, Matala, Krit \n 'Na Nabreženju'"
+ },
+ {
+  "label": "MDGLA03:InfoMissionObjective01",
+  "text": "OBJEKTIV MISIJE #1: \n Zauzmi Česticovo Dělo USA na istoku"
+ },
+ {
+  "label": "MDGLA03:Info-MissionObjectiveAccomplished-01",
+  "text": "OBJEKTIV MISIJE #1: \n Izpolnjen"
+ },
+ {
+  "label": "MDGLA03:Info-MissionObjective-02",
+  "text": "OBJEKTIV MISIJE #2: \n Zauzmi Elektrostancije USA"
+ },
+ {
+  "label": "MDGLA03:Info-MissionObjectiveAccomplished-02",
+  "text": "OBJEKTIV MISIJE #2: \n Izpolnjen"
+ },
+ {
+  "label": "MDGLA03:Info-MissionObjective-03",
+  "text": "OBJEKTIV MISIJE #3: \n Najdi Nosač Letadl na jugoistoku"
+ },
+ {
+  "label": "MDGLA03:Info-GotParticleCannon-01",
+  "text": "SOVĚT: \n Teper morame osigurati někotore Elektrostancije \n Možemo upotrěbiti Tunelnu Sěť, aby dosěgli slědujuči ostrov"
+ },
+ {
+  "label": "MDGLA03:Info-SneakAttack-01",
+  "text": "VHODEČA TRANSMISIJA: \n Upotrěbi Skrytu Ataku, aby sozdati Tunelne Sěti na blizkih ostrovah"
+ },
+ {
+  "label": "MDGLA03:Info-GotPowerPlants-01",
+  "text": "VHODEČA TRANSMISIJA: \n Česticovo Dělo je teper aktivno \n Morame ga braniti, i naše Elektrostancije"
+ },
+ {
+  "label": "MDGLA03:Info-Goodies-01",
+  "text": "SOVĚT: \n Izslědi ostrovy, aby najti jaščiky ostatkov i vozila"
+ },
+ {
+  "label": "MDGLA03:Lose-NoUnitsOrStructures-01",
+  "text": "VHODEČA TRANSMISIJA: \n Vse vaše jedinice i zgrady sut uništene \n Vy ste poraženi, generale. Tot put"
+ },
+ {
+  "label": "MDGLA03:Lose-ParticleCannonDestroyed-01",
+  "text": "VHODEČA TRANSMISIJA: \n Bez Česticovogo Děla, ne možete uništiti Nosač Letadl \n Vy ste poraženi, generale. Tot put"
+ },
+ {
+  "label": "MDGLA03:Lose-PowerPlantsDestroyed-01",
+  "text": "VHODEČA TRANSMISIJA: \n Vse elektrostancije sut uništene \n Vy ste poraženi, generale. Tot put"
+ },
+ {
+  "label": "MDGLA03:Help-UseParticleCannon-01",
+  "text": "POZOR: \n Ta oblast izgleda dobro branjena \n Česticovo Dělo može nam pomoći prodrěti"
+ },
+ {
+  "label": "MDGLA03:Help-A10Warning-01",
+  "text": "POZOR: \n A10 sut na puti protiv nas"
+ },
+ {
+  "label": "MDGLA03:Help-LeaveISLAND-01",
+  "text": "SOVĚT: \n Možemo upotrěbiti Skrytu Ataku ili naše Tunelne Sěti \n aby dosěgli blizky ostrov"
+ },
+ {
+  "label": "MDGLA03:Help-LeaveISLAND-02",
+  "text": "SOVĚT: \n Ako možemo izvěděti oblast na blizkom ostrovu, \n možemo tam upotrěbiti našu Skrytu Ataku"
+ },
+ {
+  "label": "MDGLA03:Info-DisabledSupplyDropZones-01",
+  "text": "VHODEČA TRANSMISIJA: \n My deaktivirali vražje Zony Sbrosa Snabděnja \n Oni skoro ne budut moči postroiti nove jedinice"
+ },
+ {
+  "label": "MDGLA03:Help-FoundSupplyPlanes-01",
+  "text": "VHODEČA TRANSMISIJA: \n Uništi Zony Sbrosa Snabděnja USA, aby oslabil ih proizvodstvo"
+ },
+ {
+  "label": "MDGLA03:Help-FewPowerPlants-02",
+  "text": "POZOR: \n Počti vse Elektrostancije sut uništene \n Pazi, aby osigurati jednu, aby vypustiti Česticovo Dělo"
+ },
+ {
+  "label": "MDGLA03:Help-AttackingParticleCannon-01",
+  "text": "VHODEČA TRANSMISIJA: \n Trěba nam to Česticovo Dělo, aby uništiti Nosač Letadl \n Ne dozvoli, aby bylo uništeno"
+ },
+ {
+  "label": "MDGLA03:Help-FindParticleCannon-01",
+  "text": "SOVĚT: \n Zauzmi Česticovo Dělo"
+ },
+ {
+  "label": "MDGLA03:Help-LostIsland-01",
+  "text": "SOVĚT: \n Oni uništili našu Tunelnu Sěť \n Upotrěbi Skrytu Ataku, aby sę vratiti na tot ostrov"
+ },
+ {
+  "label": "MDGLA03:Help-ArmsDealer-01",
+  "text": "VHODEČA TRANSMISIJA: \n Oslobodi Torgovca Oružjem na zapadnoj straně tego ostrova"
+ },
+ {
+  "label": "MDGLA03:Help-JarmenKell-01",
+  "text": "SOVĚT: \n Sposobnost snajperovanja Jarmena Kella može neutralizovati vražja \n vozila, dozvoljajuč našej pěhotě ih zauzeti"
+ },
+ {
+  "label": "MAP:MD_GLA03_CINELocation01",
+  "text": "USS Reagan"
+ },
+ {
+  "label": "MAP:MD_GLA04Objective1",
+  "text": "OBJEKTIV MISIJE: \n Komanda 1: Vzemi prom do brega"
+ },
+ {
+  "label": "MAP:MD_GLA04Objective2",
+  "text": "OBJEKTIV MISIJE: \n Komanda 2: Polučiti Radarny Furgon"
+ },
+ {
+  "label": "MAP:MD_GLA04Objective3",
+  "text": "OBJEKTIV MISIJE: \n Komanda 2: Zauzmi Ventilnu Stanciju"
+ },
+ {
+  "label": "MAP:MD_GLA04Objective4",
+  "text": "OBJEKTIV MISIJE: \n Komanda 1: Uništi Aerodrom"
+ },
+ {
+  "label": "MAP:MD_GLA04Objective5",
+  "text": "OBJEKTIV MISIJE: \n Komanda 2: Uništi Elektrostancije"
+ },
+ {
+  "label": "MAP:MD_GLA04Objective6",
+  "text": "OBJEKTIV MISIJE: \n Zauzmi Toksinnu Zgradu"
+ },
+ {
+  "label": "MAP:MD_GLA04Objective7",
+  "text": "OBJEKTIV MISIJE: \n Prěnesi Toksiny do Aerodroma"
+ },
+ {
+  "label": "SCRIPT:MD_GLA04Toxin_Counter",
+  "text": "Ostaje Toksinov:"
+ },
+ {
+  "label": "MAP:MD_GLA04Title",
+  "text": "Zapadna Priobrežna Toksinna Zgrada USA \n 'Jarmen Kell i Sorok Razbojnikov'"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_2",
+  "text": "OBJEKTIV MISIJE: \n Uništi Evropsky Centralny Komandny Centr USA na sěveroistoku"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_3",
+  "text": "VHODEČA TRANSMISIJA: \n Spasi plěnnikov i vrati ih sjuda \n Terorna Jačejka sę razbudi, aby vam pomogla protiv USA"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_4",
+  "text": "SOVĚT: \n Dvigni plěnnikov do ih sela \n na sěveru, i oni nam pomogut"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_5",
+  "text": "VHODEČA TRANSMISIJA: \n Uklani amerikansku prětnju, aby \n oslobodil plěnnikov od ih zahvatnikov"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_6",
+  "text": "VHODEČA TRANSMISIJA: \n My sme gotovi vratiti sę v naše selo na sěveru"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_7",
+  "text": "VHODEČA TRANSMISIJA: \n Vy spasili plěnnikov i vratili ih domoj \n Terorna Jačejka sę aktivira i načne napad na USA"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_8",
+  "text": "SOVĚT: \n Zauzmi ostatne strukture USA \n i postroj vtoru bazu tu"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_9",
+  "text": "POZOR: \n Vrěmja ističe. Spasi plěnnikov"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_10",
+  "text": "POZOR: \n Morame uništiti vražju južnu \n podpirnu bazu, prěže nego postane prěsilna"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_11",
+  "text": "VHODEČA TRANSMISIJA: \n Terorna Jačejka je uništena \n Ne dozvoli, aby ih smrt ostala nekaznjena"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_12",
+  "text": "VHODEČA TRANSMISIJA: \n My pobědili vraga. Poběda je naša"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_13",
+  "text": "VHODEČA TRANSMISIJA: \n Vrag drži naših bratov v plěnu \n Oslobodi ih, i oni nam pomogut protiv USA"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_14",
+  "text": "VHODEČA TRANSMISIJA: \n Razvědka izvěstila, že plěnniky budut skoro prěměšeni \n Infiltriraj bazu USA, aby ih spasil"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_15",
+  "text": "SOVĚT: \n Ulučši Kitajsky Komandny Centr Radarom"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_16",
+  "text": "VHODEČA TRANSMISIJA: \n Zaščiti Terornu Jačejku GLA od napadov USA \n i osiguraj oblast"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_17",
+  "text": "SOVĚT: \n Postroj Komandny Centr GLA, aby upotrěbiti svoje Moći Generala"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_18",
+  "text": "VHODEČA TRANSMISIJA: \n Naša baza je pod napadom"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_19",
+  "text": "POZOR: \n Plěnniky sut napadeni. Brani ih"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_20",
+  "text": "VHODEČA TRANSMISIJA: \n Vsi plěnniky sut ubiti \n Terorna Jačejka sę pridružuje nam, aby osvětila ih smrt"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_21",
+  "text": "VHODEČA TRANSMISIJA: \n Vrag sę rasprostrl, aby osigural věče resursov \n Uklani ih i upotrěbi resursy za nas"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_22",
+  "text": "SOVĚT: \n Ih baza je ogromna \n Može byti, že Skryte Ataky nam pomogut ju infiltrirati"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_23",
+  "text": "VHODEČA TRANSMISIJA: \n S malenkoju bazoju neutralizovanoju, možemo sę koncentrirati na \n Evropsku Centralnu Komandnu Bazu USA"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_24",
+  "text": "My imamo plan... \n My sę dvignemo i zauzmemo Kitajsku Bazu \n i upotrěbimo ju, aby izgnati USA iz Evropy"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_25",
+  "text": "Evropska Centralna Komandna Baza USA morat pasti"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_26",
+  "text": "VHODEČA TRANSMISIJA: \n My sme napadeni s istoka \n Uništi južnu podpirnu bazu USA"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_27",
+  "text": "VHODEČA TRANSMISIJA: \n Terorna Jačejka je napadena ot USA \n Pomozi im odbiti naše vragy"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_28",
+  "text": "VHODEČA TRANSMISIJA: \n Spasi plěnnikov iz podpirnoj bazy USA, prěže nego \n budut prěměšeni na novo město"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_29",
+  "text": "OBJEKTIV MISIJE: \n Uništi Evropsky Centralny Komandny Centr USA na sěveroistoku"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_30",
+  "text": "Centralno Komandovanje USA, Stuttgart-Vaihingen, Germanija \n 'Skryta Ataka'"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_31",
+  "text": "Centralno Komandovanje USA, Stuttgart-Vaihingen, Germanija \n 'Skryta Ataka'"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_32",
+  "text": "SOVĚT: \n Uklani Amerikancev iz oblasti \n potom osiguraj snabděnje"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_33",
+  "text": "SOVĚT: \n Dokonči Centralnu Komandnu Bazu"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_34",
+  "text": "SOVĚT: \n Zauzmi Naftove Vyšky i osiguraj dodatno snabděnje \n Zauzmi Artilerijske Platformy, aby kontrolirati ključove oblasti"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_35",
+  "text": "SOVĚT: \n Ulučši Moć Generala Novčana Nagrada, \n aby poveličiti dohod"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_36",
+  "text": "SOVĚT: \n Upotrěbi sposobnost Skrytoj Ataky, aby \n napasti bazu USA"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_37",
+  "text": "VHODEČA TRANSMISIJA: \n Plěnniky sut prěměšeni \n Uprkos našemu neuspěhu, Terorna Jačejka oběčaje svoju podpiru"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_38",
+  "text": "Centralno Komandovanje USA, Stuttgart-Vaihingen, Germanija \n 'Skryta Ataka'"
+ },
+ {
+  "label": "SCRIPT:POWCOUNTDOWN",
+  "text": "Prěměšenje Plěnnikov Za:"
+ },
+ {
+  "label": "MAP:CHI01xMapName",
+  "text": "Zmaj Osvoboden"
+ },
+ {
+  "label": "MAP:CHI01xOpen",
+  "text": "Stuttgart-Vaihingen, Germanija \n 'Zmaj Osvoboden'"
+ },
+ {
+  "label": "MAP:CHI01xOpenAlt",
+  "text": "Ostatky Komandnoj Bazy USA, Germanija \n Zmaj Osvoboden"
+ },
+ {
+  "label": "MAP:CHI01xObjective01",
+  "text": "OBJEKTIV MISIJE: \n Uništi vse sily GLA v tom regionu"
+ },
+ {
+  "label": "MAP:CHI01xObjective01Alt",
+  "text": "OBJEKTIV MISIJE: \n Uništi vse strukture GLA v tom regionu"
+ },
+ {
+  "label": "MAP:CHI01xTechBldgHint",
+  "text": "SOVĚT: \n Črvena Gvardija može byti upotrěbjena, aby zauzeti zgrady"
+ },
+ {
+  "label": "MAP:CHI01xOilDerrickHint",
+  "text": "SOVĚT: \n Zauzmi Naftove Vyšky, aby polučiti dodatny novac"
+ },
+ {
+  "label": "MAP:CHI01xOilRefineryHint",
+  "text": "SOVĚT: \n Zauzmi Naftove Rafinerije, aby snižiti cěnu vozil"
+ },
+ {
+  "label": "MAP:CHI01xGarrisonHint",
+  "text": "SOVĚT: \n Garnizonovanje Črvenoj Gvardije i Lovcev Tankov vnutri zgrad \n poveličaje ih ognjevu silu i doseg"
+ },
+ {
+  "label": "MAP:CHI01xGarrisonClrHint01",
+  "text": "SOVĚT: \n Toksinny Traktor ubijet garnizonovanu pěhotu momentalno \n Ne dozvoli mu sę približiti k vašim garnizonovanym strukturam"
+ },
+ {
+  "label": "MAP:CHI01xGarrisonClrHint02",
+  "text": "SOVĚT: \n Tank Zmaj ubijet pěhotu v garnizonovanyh zgradah"
+ },
+ {
+  "label": "MAP:CHI01xPerimeterWarn01",
+  "text": "POZOR: \n Sily GLA napadajut našu bazu"
+ },
+ {
+  "label": "MAP:CHI01xPerimeterWarn02",
+  "text": "POZOR: \n Vrag sę pripravja napasti našu bazu"
+ },
+ {
+  "label": "MAP:CHI02xMapName",
+  "text": "Braneč Ogeń"
+ },
+ {
+  "label": "MAP:CHI02xOpen",
+  "text": "Zgrada Proizvodstva Oružja, Kitaj \n 'Braneč Ogeń'"
+ },
+ {
+  "label": "SCRIPT:CHI02xReinforcementTimer",
+  "text": "Podkrěpljenja Pridut Za:"
+ },
+ {
+  "label": "MAP:CHI02xObjective01",
+  "text": "OBJEKTIV MISIJE #1: \n Brani Reaktor i Skladišne Bunkery \n Oni ne smějut byti zauzeti ili uništeni"
+ },
+ {
+  "label": "MAP:CHI02xObjective02",
+  "text": "OBJEKTIV MISIJE #2: \n Uništi vse sily GLA v regionu"
+ },
+ {
+  "label": "MAP:CHI02xObjective02Alt",
+  "text": "OBJEKTIV MISIJE #2: \n Uništi vse strukture GLA v regionu"
+ },
+ {
+  "label": "MAP:CHI02xReactorKIAWarn",
+  "text": "VHODEČA TRANSMISIJA: \n Zaščiti Jaderny Reaktor"
+ },
+ {
+  "label": "MAP:CHI02xReactorCaptureWarn",
+  "text": "POZOR: \n Ne dozvoli vragu zauzeti \n Jaderny Reaktor i oba bunkery"
+ },
+ {
+  "label": "MAP:CHI02xBunkerKIAWarn",
+  "text": "VHODEČA TRANSMISIJA: \n Zaščiti Skladišne Bunkery"
+ },
+ {
+  "label": "MAP:CHI02xBadPlayerReactorWarn",
+  "text": "VHODEČA TRANSMISIJA: \n Trěba nam tot Jaderny Reaktor \n Ne dozvoli, aby byl uništen"
+ },
+ {
+  "label": "MAP:CHI02xBadPlayerBunkerWarn",
+  "text": "VHODEČA TRANSMISIJA: \n Trěba nam te Skladišne Bunkery \n Ne dozvoli, aby byli uništeni"
+ },
+ {
+  "label": "MAP:CHI02xSpyPostHint01",
+  "text": "SOVĚT: \n Zauzmi špionsky post, aby prizvati Bombardirovniky"
+ },
+ {
+  "label": "MAP:CHI02xPerimeterWarn",
+  "text": "POZOR: \n Vražje sily sę pripravjajut napasti"
+ },
+ {
+  "label": "MAP:CHI02xPerimeterEasyWarn",
+  "text": "POZOR: \n Vražje sily sę pripravjajut napasti"
+ },
+ {
+  "label": "MAP:CHI02xNeutronHint01",
+  "text": "SOVĚT: \n Upotrěbi sposobnost Neutronnyh Snarjadov Jadernyh Děl, aby ubiti \n pěhotu i neutralizovati vražja vozila"
+ },
+ {
+  "label": "MAP:CHI02xNeutronHint02",
+  "text": "SOVĚT: \n Vaša pěhota može vstupiti i kontrolirati bilo koje neutralizovano vozilo"
+ },
+ {
+  "label": "MAP:CHI02xEMPMineHint01",
+  "text": "SOVĚT: \n Ulučši naše zgrady Neutronnymi Minami, aby deaktivirati vozila \n Potom Neutronni Snarjady mogu ih neutralizovati"
+ },
+ {
+  "label": "MAP:CHI02xCarpetBombReminder",
+  "text": "VHODEČA TRANSMISIJA: \n Bombardirovniky sut gotovi"
+ },
+ {
+  "label": "MAP:CHI02xInfo1",
+  "text": "VHODEČA TRANSMISIJA: \n Podkrěpljenja pridut za 10 minut"
+ },
+ {
+  "label": "MAP:CHI02xInfo2",
+  "text": "VHODEČA TRANSMISIJA: \n Podkrěpljenja pridut za 5 minut"
+ },
+ {
+  "label": "SCRIPT:CHI02timer",
+  "text": "Podkrěpljenja Pridut Za:"
+ },
+ {
+  "label": "MAP:MD_CHI03-Event-AngryMob-01",
+  "text": "VHODEČA TRANSMISIJA: \n Ljudi sę podigaju, aby nam služili"
+ },
+ {
+  "label": "MAP:MD_CHI03-Help-IOLow-01",
+  "text": "VHODEČA TRANSMISIJA: \n Naše Meddržavno Měnjenje postaje nizko \n Uništi věče statuj GLA"
+ },
+ {
+  "label": "MAP:MD_CHI03-Help-IOVeryLow-01",
+  "text": "VHODEČA TRANSMISIJA: \n Naše Meddržavno Měnjenje je veoma nizko \n Uništi statuje GLA po cělom gradu"
+ },
+ {
+  "label": "MAP:MD_CHI03-Help-IOExtremelyLow-01",
+  "text": "SOVĚT: \n Naše Meddržavno Měnjenje je kritično nizko \n Uništi ešče jednu statuju GLA ili vse je izgubjeno"
+ },
+ {
+  "label": "SCRIPT:MD_CHI03InternationalOpinion",
+  "text": "Meddržavno Měnjenje:"
+ },
+ {
+  "label": "MAP:MD_CHI04Open",
+  "text": "Halberstadt, Germanija \n 'Goreče Nebo'"
+ },
+ {
+  "label": "MAP:MD_CHI04MissionState0",
+  "text": "OBJEKTIV MISIJE: \n Uništi vse valy otstupajučih sil GLA"
+ },
+ {
+  "label": "MAP:MD_CHI04MissionState1",
+  "text": "VHODEČA TRANSMISIJA: \n Val 1 je poběden"
+ },
+ {
+  "label": "MAP:MD_CHI04MissionState2",
+  "text": "VHODEČA TRANSMISIJA: \n Val 2 je poběden"
+ },
+ {
+  "label": "MAP:MD_CHI04MissionState3",
+  "text": "VHODEČA TRANSMISIJA: \n Val 3 je poběden"
+ },
+ {
+  "label": "MAP:MD_CHI04MissionState4",
+  "text": "VHODEČA TRANSMISIJA: \n Val 4 je poběden"
+ },
+ {
+  "label": "MAP:MD_CHI04MissionState5",
+  "text": "VHODEČA TRANSMISIJA: \n Val 5 je poběden"
+ },
+ {
+  "label": "MAP:MD_CHI04MissionState6",
+  "text": "VHODEČA TRANSMISIJA: \n Val 6 je poběden"
+ },
+ {
+  "label": "MAP:MD_CHI04MissionInfo1",
+  "text": "VHODEČA TRANSMISIJA: \n Val 1 vstupil v region \n Ih put je pokazan na radaru"
+ },
+ {
+  "label": "MAP:MD_CHI04MissionInfo2",
+  "text": "VHODEČA TRANSMISIJA: \n Val 2 vstupil v region \n Ih put je pokazan na radaru"
+ },
+ {
+  "label": "MAP:MD_CHI04MissionInfo3",
+  "text": "VHODEČA TRANSMISIJA: \n Val 3 vstupil v region \n Ih put je pokazan na radaru"
+ },
+ {
+  "label": "MAP:MD_CHI04MissionInfo4",
+  "text": "VHODEČA TRANSMISIJA: \n Val 4 vstupil v region \n Ih put je pokazan na radaru"
+ },
+ {
+  "label": "MAP:MD_CHI04MissionInfo5",
+  "text": "VHODEČA TRANSMISIJA: \n Val 5 vstupil v region \n Ih put je pokazan na radaru"
+ },
+ {
+  "label": "MAP:MD_CHI04MissionInfo6",
+  "text": "VHODEČA TRANSMISIJA: \n Naša razvědka je zaglušena. Nove valy pridut \n iz 2 pravcov, no ih pozicija je neznana"
+ },
+ {
+  "label": "MAP:MD_CHI04MissionFinaleText",
+  "text": "VHODEČA TRANSMISIJA: \n Naše sily pridošli s juga \n Vaša misija je zaveršena"
+ },
+ {
+  "label": "MAP:MD_CHI04MissionLoseText",
+  "text": "VHODEČA TRANSMISIJA: \n Sily GLA pobegli na sěver \n Vy ste poraženi, generale. Tot put"
+ },
+ {
+  "label": "MAP:MD-CHI05_LOCALE",
+  "text": "Blizu Hamburga, Germanija \n 'Sudbina Zmaja'"
+ },
+ {
+  "label": "MAP:MD-CHI05_USBaseDestroyedFirst",
+  "text": "OBJEKTIV MISIJE: \n Uništi bazu GLA, aby dostigli pobědu"
+ },
+ {
+  "label": "MAP:MD-CHI05_GLABaseDestroyedFirst",
+  "text": "OBJEKTIV MISIJE: \n Uništi bazu USA, aby dostigli pobědu"
+ }
+]
