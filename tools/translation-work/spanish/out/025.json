@@ -1,0 +1,802 @@
+[
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA090Subtitle",
+  "text": "*Presiento que la hora de su final se acerca, general"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA091Subtitle",
+  "text": "*Sus fuerzas empiezan a ser arrolladas, general. Pronto serán mis prisioneros"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA092Subtitle",
+  "text": "*Le estamos pateando como a una cabra herida, general. Admita la derrota y ahórrese la agonía"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA093Subtitle",
+  "text": "*Está derrotado. Esto es lo que les ocurre a todos los que se enfrentan a mí, general"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA094Subtitle",
+  "text": "*Es usted un necio por desafiarme, general"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA095Subtitle",
+  "text": "*Todo el poder del ELG está a mi disposición"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA096Subtitle",
+  "text": "*Soy más peligroso que mis tres generales juntos"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA097Subtitle",
+  "text": "*Ha ganado, general. ¿Por qué sigue torturándome examinando estas estadísticas?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA098Subtitle",
+  "text": "*Sí, ahora puede ver por qué ha perdido... los números hablan por sí solos"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA099Subtitle",
+  "text": "*Ha recorrido un largo camino y se ha enfrentado a muchos rivales para llegar hasta mí, general"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA100Subtitle",
+  "text": "*Elogio sus esfuerzos, pero no le han preparado en absoluto para lo que está a punto de afrontar"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA101Subtitle",
+  "text": "*Se ha enfrentado a los guerreros tóxicos del Dr. Thrax, a las legiones sigilosas de Kassad y a las demoliciones de Juhziz, pero fui yo quien les enseñó a todos el arte de la guerra"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA102Subtitle",
+  "text": "*Esta será su última batalla, general. Que los dioses a los que reza tengan piedad de usted... porque yo no la tendré"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA103Subtitle",
+  "text": "*Esta será su última batalla, general. Haga las paces y prepárese para el final"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA001Subtitle",
+  "text": "*Vaya, ahí estás. Demasiado tarde para huir, chaval"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA002Subtitle",
+  "text": "*Espero que estés listo, porque vamos a por ti"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA003Subtitle",
+  "text": "*Pon la mesa, chaval, que vamos a cenar"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA004Subtitle",
+  "text": "*Tengo tres cosas que enseñarte, chaval: a perder, a llorar y a morir"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA005Subtitle",
+  "text": "*Vamos a atacar pronto, así que ve sacando todas tus banderas blancas"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA006Subtitle",
+  "text": "*Allá vamos, chaval... intenta no mojar los pantalones, ¿vale?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA007Subtitle",
+  "text": "*¿Qué parte de \"muere\" no has entendido?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA008Subtitle",
+  "text": "*Uy, ahora sí que te la vas a ganar, chaval"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA009Subtitle",
+  "text": "*¿Listo? Porque ahí va una táctica que quizá aprendiste en el colegio. ¿Listo para volver al colegio?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA010Subtitle",
+  "text": "*Ha llegado la hora de enseñarte un par de cosas con el revés de mi mano"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA011Subtitle",
+  "text": "*Deberías haber huido cuando tuviste ocasión. Ahora te voy a enseñar lo que significa el respeto"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA012Subtitle",
+  "text": "*Bueno, sobre tu funeral... ¿ataúd abierto o cerrado?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA013Subtitle",
+  "text": "*Voy a entrar en tu base y a darte una patada en el trasero, \"general\""
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA014Subtitle",
+  "text": "*Allá vamos, mocoso... apártate o te pisaremos"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA015Subtitle",
+  "text": "*¿Tú te llamas \"general\"? Yo te llamo grano en el trasero, así te llamo"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA016Subtitle",
+  "text": "*¿Esta es tu idea de estrategia? ¿De táctica? ¿Un \"pelotón de tanques\" es lo mejor que se te ocurre? Patético... simplemente patético"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA017Subtitle",
+  "text": "*Sí, yo también he leído a Sun Tzu, campeón: \"Enemigo mayor: retirada. Enemigo menor: ataque\". ¿Eso es todo lo que tienes?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA018Subtitle",
+  "text": "*Bueno, ¿dónde está tu ejército, chaval? ¿O querías pelear a puñetazo limpio? Porque te tumbo con mis propias manos si quieres. ¿Quieres probar, chaval?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA019Subtitle",
+  "text": "*¿Me has sacado de la cama para esto? Debería darte unos azotes ahora mismo"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA020Subtitle",
+  "text": "*Tengo más medallas que tú dientes, chaval... aunque eso no será mucho decir cuando termine de saltártelos"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA021Subtitle",
+  "text": "*¿Pones todas tus defensas en la parte delantera de la base? ¿No crees que podemos rodearlas? ¿Eh, lo crees?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA022Subtitle",
+  "text": "*Chaval, ¿crees que estoy jugando contigo? Más te vale pensarlo mejor"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA023Subtitle",
+  "text": "*Más te vale vigilar los flancos, compañero; creo que algunas de mis tropas se acaban de colar en tu base"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA024Subtitle",
+  "text": "*¿Crees que esto es un juego? ¿Eh, lo crees? Espera, no contestes"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA025Subtitle",
+  "text": "*Chaval, ¿quién te enseñó táctica militar? ¿Eh? Porque deberías ir a darle un buen bofetón, te lo digo yo"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA026Subtitle",
+  "text": "*Tengo detrás a todo el ejército de los Estados Unidos, hijo, y acabo de decidir que no nos caes bien"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA027Subtitle",
+  "text": "*¿Esta táctica tuya es algún tipo de chiste que no pillo?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA028Subtitle",
+  "text": "*No eres un general de verdad, ¿a que no? Eres como el general de sanidad o algo así, ¿verdad?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA029Subtitle",
+  "text": "*¿Sabe tu mamá que has salido solito?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA030Subtitle",
+  "text": "*Puedes decírmelo... Aquí estamos entre generales... ¿Saben tus hombres que eres un incompetente?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA031Subtitle",
+  "text": "*¿Sabías que acabas de perder un edificio tecnológico, campeón?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA032Subtitle",
+  "text": "*Acabo de volarte el cuartel, novato. ¿Qué vas a hacer al respecto?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA033Subtitle",
+  "text": "*Ahí va tu fábrica de guerra. ¿Ya te has enfadado, chaval?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA034Subtitle",
+  "text": "*No sé para qué te molestaste en construir ese aeródromo si no vas a protegerlo"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA035Subtitle",
+  "text": "*¿Quién ha colocado así estas defensas? Así no pueden defender nada"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA036Subtitle",
+  "text": "*Debería dejarte construir otro centro de mando solo para volver a derribarlo"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA037Subtitle",
+  "text": "*Me siento como si estuviera pisoteando castillos de arena. ¿Cuántos edificios más me vas a dejar destruir, campeón?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA038Subtitle",
+  "text": "*Te dejo quedarte con ese edificio tecnológico, chaval. No lo necesito para ganarte"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA039Subtitle",
+  "text": "*Chaval, ese cuartel no era un objetivo militar. Vuelve a hacerlo y esto se pondrá feo"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA040Subtitle",
+  "text": "*Más te vale retirarte, hijo... no pienso tolerar que me vueles las fábricas de guerra, ¿me oyes?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA041Subtitle",
+  "text": "*¿Sabes lo que cuestan esos cazas? Podría haber dado de comer al mundo entero con lo que acabas de destruir"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA042Subtitle",
+  "text": "*Rompiendo mis defensas, ¿eh? Pues adelante... eso me dará el tiempo justo para arrasar tu base"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA043Subtitle",
+  "text": "*Ya basta de edificios, hijo. ¿Por qué no pruebas a atacar a mis fuerzas?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA044Subtitle",
+  "text": "*¡¿Mi centro de mando?! ¿Crees que me voy a quedar aquí sentado aguantando eso?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA045Subtitle",
+  "text": "*Más te vale dejar en paz a mis pilotos, chaval. Los aviones son una cosa, pero a mis pilotos los dejas volver sanos y salvos, ¿me oyes?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA046Subtitle",
+  "text": "*Eres un bribón escurridizo, ¿eh? Pero creo que ya has destruido bastantes vehículos míos, ¿no te parece?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA047Subtitle",
+  "text": "*¡Mandad blindados y apoyo aéreo ahí fuera! ¡Están despedazando a nuestros soldados!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA048Subtitle",
+  "text": "*Suelta esa torre petrolífera, chaval. Esta guerra no va del precio de la gasolina, ¿sabes?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA049Subtitle",
+  "text": "*¿Crees que sabes usar esa plataforma de artillería, hijo?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA050Subtitle",
+  "text": "*Esa refinería de petróleo no es un objetivo válido, hijo. Y no es tuya, así que vamos a recuperarla"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA051Subtitle",
+  "text": "*Vaya, has conseguido llegar a mi lado del mapa. No te creía capaz"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA052Subtitle",
+  "text": "*¿Piensas atacar o vas a quedarte ahí plantado todo el día?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA053Subtitle",
+  "text": "*Sal de mi base si sabes lo que te conviene, chaval"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA054Subtitle",
+  "text": "*Enemigo dentro del perímetro... todas las fuerzas, rechazad a los invasores"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA055Subtitle",
+  "text": "*Esos suministros no son tuyos, campeón. Mejor apártate ahora, antes de que salgas herido"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA056Subtitle",
+  "text": "*¡¿Un ataque por el flanco?! No me hagas reír, chaval"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA057Subtitle",
+  "text": "*¿Intentas atacar por mi puerta trasera? Buena suerte con eso"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA058Subtitle",
+  "text": "*¿Vienes a atacarme, chaval? Me alegra ver que tienes agallas"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA059Subtitle",
+  "text": "*Aléjate de mis edificios tecnológicos si sabes lo que te conviene"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA060Subtitle",
+  "text": "*Mis fuerzas tienen tu base a la vista, chaval. ¿Qué vas a hacer ahora?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA061Subtitle",
+  "text": "*Ahí viene el martillo, mocoso, y tú no quieres ser el clavo"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA062Subtitle",
+  "text": "*Toc, toc, ¡vamos a entrar!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA063Subtitle",
+  "text": "*La cosa está a punto de ponerse muy fea para ti, campeón. No digas que no te avisé"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA064Subtitle",
+  "text": "*Así que aquí escondes tus recursos. ¿Te importa si me llevo unos cuantos?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA065Subtitle",
+  "text": "*Tienes el flanco completamente abierto, campeón"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA066Subtitle",
+  "text": "*Quizá entremos por tu puerta trasera. ¿Qué te parece?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA067Subtitle",
+  "text": "*¡Cuidado, que entramos por la puerta principal!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA068Subtitle",
+  "text": "*¿Qué tenemos aquí?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA069Subtitle",
+  "text": "*Vaya, mira esto"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA070Subtitle",
+  "text": "*¿Qué pensabas hacer sin energía? Estoy deseando ver esa estrategia"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA071Subtitle",
+  "text": "*Más te vale pagar la factura de la luz o tendremos que aplazar esta pelea"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA072Subtitle",
+  "text": "*¿Te has quedado sin recursos? Chaval, no se sale a bailar si no puedes pagar la cuenta"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA073Subtitle",
+  "text": "*Uy, uy, parece que vamos a tener que tirar de déficit"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA074Subtitle",
+  "text": "*¿Te has construido una Tormenta SCUD? Con un SCUD no le das ni a un pajar, ¿no lo sabías?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA075Subtitle",
+  "text": "*Sacando las armas nucleares, ¿eh? Si Washington no me hubiera atado las manos, te enseñaría yo lo que son armas nucleares, te lo digo yo"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA076Subtitle",
+  "text": "*¿Cómo has conseguido un cañón de partículas, hijo? Se supone que es alto secreto"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA077Subtitle",
+  "text": "*Cuántas defensas en tu base. Huelo tu miedo desde aquí, chaval"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA078Subtitle",
+  "text": "*Oh, mira esto... ahí viene el pelotón de tanques. No va a funcionar conmigo, hijo"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA079Subtitle",
+  "text": "*Estás poniendo en el aire un montón de aviones caros, chaval. ¿Seguro que quieres gastar ese dinero?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA080Subtitle",
+  "text": "*Espero que todos esos soldados sepan en qué lío los estás metiendo"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA081Subtitle",
+  "text": "*Cuántos edificios, hijo. Sabes que los edificios no pueden luchar por ti, ¿verdad?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA082Subtitle",
+  "text": "*Trae los SCUD, mocoso... yo te enseñaré lo que es una tormenta"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA083Subtitle",
+  "text": "*Te vas a arrepentir de haberme lanzado una bomba nuclear, chaval. Eso no me sienta nada bien"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA084Subtitle",
+  "text": "*Usando un rayo de partículas, ¿eh? Más te vale acabar conmigo con eso, porque mi contraataque no te va a gustar"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA085Subtitle",
+  "text": "*¿Sabes? Solo un cobarde lucha desde dentro de los edificios. Lo sabes, ¿verdad?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA086Subtitle",
+  "text": "*Bienvenido, coronel Burton. Siento que haya tenido que verse metido en esto. Sin rencores"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA087Subtitle",
+  "text": "*Loto Negro no es tu salvación, chaval. No se acercará ni de lejos a mi base"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA088Subtitle",
+  "text": "*Jarmen Kell no es más que otro francotirador, mocoso. Yo tengo docenas de francotiradores"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA089Subtitle",
+  "text": "*Sí, construye tu aeródromo... pon unos cuantos pájaros en el aire. Puede que sea tu única opción de detenerme"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA090Subtitle",
+  "text": "*¿Solo una fábrica de guerra? Harán falta al menos media docena para detenerme, chaval"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA091Subtitle",
+  "text": "*¿No está ese cuartel un poco cerca del frente, chaval? Cuesta dormir con balas en el cuartel"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA092Subtitle",
+  "text": "*No vendas solo un edificio, chaval... véndelos todos y reza para que no vaya a por ti de todos modos"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA093Subtitle",
+  "text": "*No te lo creas tanto, chaval... esto aún no ha terminado"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA094Subtitle",
+  "text": "*Puede que creas que llevas ventaja, pero aún me quedan unos cuantos trucos. Ya verás"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA095Subtitle",
+  "text": "*He salido de agujeros peores que este, mocoso. No vas a ganar tan fácilmente"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA096Subtitle",
+  "text": "*¿Crees que me estás ganando? Más te vale pensarlo mejor"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA097Subtitle",
+  "text": "*Vaya... Supongo que se acabó. Buen trabajo, chaval. Parece que me has bajado los humos"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA098Subtitle",
+  "text": "*¿Notas cómo mi puño empieza a cerrarse alrededor de tu cuello, mocoso?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA099Subtitle",
+  "text": "*No te tomes tan a pecho perder contra mí... todo el mundo pierde contra mí, chaval"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA100Subtitle",
+  "text": "*Dame un segundo para reunir unos tanques y acabaré con esta pequeña escaramuza"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA101Subtitle",
+  "text": "*¿Por qué no te rindes ya, \"general\"?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA102Subtitle",
+  "text": "*Chaval, te he zurrado como a un tambor viejo. ¿Quién te dio un mando? Porque tengo unas palabritas para él"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA103Subtitle",
+  "text": "*No pulses ese botón a menos que vayas en serio, chaval"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA104Subtitle",
+  "text": "*¿Quieres meterte conmigo? Creo que más te vale pensarlo mejor, chaval"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA105Subtitle",
+  "text": "*No vengas con esos aires si no puedes respaldarlos, mocoso"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA106Subtitle",
+  "text": "*Enséñame lo que tienes"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA107Subtitle",
+  "text": "*Quizá podrías sacarte unos dólares lustrándome las botas, porque desde luego general no eres"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA108Subtitle",
+  "text": "*Buen trabajo, general. Le saludo"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossUSA109Subtitle",
+  "text": "*No voy a soltar ningún discurso, así que vamos al lío"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo001Subtitle",
+  "text": "*Tengo unas cuantas sorpresas para usted, general. ¿Por qué no sale a jugar?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo002Subtitle",
+  "text": "*Ahora que el campo está cubierto de explosivos, supongo que atacaremos"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo003Subtitle",
+  "text": "*General, tengo una entrega para usted... firme aquí, ¿quiere?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo004Subtitle",
+  "text": "*Cuidado, quién sabe cuándo se colará Jarmen Kell en su base"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo005Subtitle",
+  "text": "*¿Acaba de explotar su edificio? Mmm... ¿cómo habrá pasado?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo006Subtitle",
+  "text": "*Todas mis fuerzas van cargadas de explosivos, general. Yo que usted no les dispararía"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo007Subtitle",
+  "text": "*Mis terroristas han aprendido a disfrazarse de... uy, ¿he hablado demasiado?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo008Subtitle",
+  "text": "*Quizá note que mis explosivos pegan un poco más fuerte... Espero que aprecie nuestra atención a la calidad"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo009Subtitle",
+  "text": "*Mire qué rápido destruye ahora un edificio el lanzador SCUD... espere, es asombroso"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo010Subtitle",
+  "text": "*Primero, todo es silencio... luego, \"¡bum!\"... ahh... ¿no le encanta, general?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo011Subtitle",
+  "text": "*Rara vez ataco; debería sentirse honrado"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo012Subtitle",
+  "text": "*Ahí va otro ataque, general"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo013Subtitle",
+  "text": "*Mis tropas van a asaltar su base... hágales sentir como en casa"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo014Subtitle",
+  "text": "*No haga caso a mis obreros, general; solo están enterrando un poco de... mmm... basura para mí"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo015Subtitle",
+  "text": "*Oh, general, tiene que ver esto... es la bomba. <risa infantil>"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo016Subtitle",
+  "text": "*Salimos a por más explosivos, general. Ahora volvemos"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo017Subtitle",
+  "text": "*Hay mucha calma ahí fuera, general. Ya sabe lo que significa la calma, ¿verdad? ¡¡¡BUM!!!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo018Subtitle",
+  "text": "*Soy el maestro de los explosivos, general. No tiene defensa contra mí"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo019Subtitle",
+  "text": "*Su base ha sido elegida para demolición"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo020Subtitle",
+  "text": "*¿Teme mi próximo ataque, general? Debería"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo021Subtitle",
+  "text": "*Mientras hablamos, mis agentes se cuelan en su base y colocan explosivos"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo022Subtitle",
+  "text": "*Su edificio podría estar ahora mismo cableado para explotar. No lo sabrá hasta que sea demasiado tarde"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo023Subtitle",
+  "text": "*Pocas unidades pueden detectar mis demoliciones... ¿sabe cuáles son?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo024Subtitle",
+  "text": "*Las trampas explosivas son difíciles de construir, general. Para apreciar su belleza, hay que verlas de cerca"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo025Subtitle",
+  "text": "*¿Qué tal está disfrutando de mis trucos y trampas hasta ahora?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo026Subtitle",
+  "text": "*Oooh... su edificio tecnológico ha hecho bum"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo027Subtitle",
+  "text": "*Hemos destruido su cuartel... espero que no hubiera nadie dentro"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo028Subtitle",
+  "text": "*Su fábrica de guerra ha caído, general. Construya otra para que podamos volver a derribarla"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo029Subtitle",
+  "text": "*Los aeródromos son tan frágiles... casi no tiene gracia destruirlos"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo030Subtitle",
+  "text": "*Las defensas de su base no aguantan mis explosivos, general"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo031Subtitle",
+  "text": "*Ah, no hay nada como destruir un centro de mando"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo032Subtitle",
+  "text": "*Hemos destruido tantos edificios suyos, general... Le agradezco que construya más para nuestra diversión"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo033Subtitle",
+  "text": "*Ha destruido nuestra torre petrolífera. Ahora empieza a entrar en el espíritu de la cosa"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo034Subtitle",
+  "text": "*¡Mi cuartel! Muchas de mis demoliciones estaban ahí dentro, general. Me las pagará"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo035Subtitle",
+  "text": "*¡Mi fábrica de guerra no! General, esa molesta costumbre que ha adquirido no puede continuar"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo036Subtitle",
+  "text": "*No se preocupe, las defensas de mi base solo son un sistema de alerta temprana. Ahora tendrá que atravesar mis verdaderas defensas"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo037Subtitle",
+  "text": "*¡Demasiadas! Ha destruido demasiadas estructuras mías, general. Ahora la lucha se pone sucia"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo038Subtitle",
+  "text": "*Reconstruiremos ese centro de mando, general, y usted pagará por esta ofensa"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo039Subtitle",
+  "text": "*General, ¿cómo espera que le derrote si sigue destruyendo mis vehículos?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo040Subtitle",
+  "text": "*Abate a mis hombres antes de que puedan colocar sus explosivos... eso no parece justo, ¿verdad, general?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo041Subtitle",
+  "text": "*Ah, sí, capture esa torre petrolífera, general. Así tendremos más cosas que destruir"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo042Subtitle",
+  "text": "*General, ¿para qué quiere esa plataforma de artillería?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo043Subtitle",
+  "text": "*Bien, general, capture la refinería de petróleo... explotan de una forma tan espectacular"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo044Subtitle",
+  "text": "*Cuidado, general: sus hombres acaban de entrar en la zona de peligro alrededor de mi base. Ni siquiera yo recuerdo dónde están todas las trampas"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo045Subtitle",
+  "text": "*General, sus hombres se están acercando peligrosamente a mi base. Yo que usted daría media vuelta"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo046Subtitle",
+  "text": "*Salga de mi base, general. Toda esta zona está sembrada de explosivos y no me da miedo usarlos"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo047Subtitle",
+  "text": "*¡Necio! ¿Sabe cuántos explosivos rodean ahora mismo a sus hombres?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo048Subtitle",
+  "text": "*¿Atacando por el flanco, general? Puede que ahí haya pocas defensas, pero ¿y las trampas?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo049Subtitle",
+  "text": "*La parte trasera de mi base es especialmente desagradable, general. No le recomiendo un asalto por ahí"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo050Subtitle",
+  "text": "*¡¿Un asalto frontal?! Es usted más necio de lo que pensaba, general"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo051Subtitle",
+  "text": "*En este valle no hay nada para usted salvo la muerte"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo052Subtitle",
+  "text": "*Cuidado, general; esto parece un buen sitio para una emboscada... uy, demasiado tarde"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo053Subtitle",
+  "text": "*¿Creía que no me había preparado para su llegada, general? Necio"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo054Subtitle",
+  "text": "*Esos son mis recursos, general. Busque los suyos"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo055Subtitle",
+  "text": "*General, ha entrado en mi almacén de demoliciones. Un paso en falso y morimos todos"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo056Subtitle",
+  "text": "*Ah, veo que hemos alcanzado uno de sus tendidos eléctricos. Espero que el apagón no dure mucho"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo057Subtitle",
+  "text": "*Su dependencia de la electricidad será su perdición, general"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo058Subtitle",
+  "text": "*Sus recursos se han agotado, general. Mis fuerzas le rodean para darle el golpe de gracia"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo059Subtitle",
+  "text": "*Mis recursos escasean, general. ¿Le importa si vamos a por algunos de los suyos?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo060Subtitle",
+  "text": "*Una Tormenta SCUD... ya veo... Bueno, quizá sea hora de construir una propia"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo061Subtitle",
+  "text": "*¿Cuántos explosivos harán falta para destruir ese silo nuclear?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo062Subtitle",
+  "text": "*¿Y para qué quiere construir un cañón de partículas? Justo empezábamos a divertirnos, general"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo063Subtitle",
+  "text": "*Cuántas defensas en su base, general. ¿Cómo espera ahora que mis bombarderos entren en ella?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo064Subtitle",
+  "text": "*Tanques... cuántos tanques. Disfrutaré viendo cómo caen en mis trampas, general"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo065Subtitle",
+  "text": "*Deje de construir aviones, general... se perderá la genialidad de mis trampas"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo066Subtitle",
+  "text": "*Con tanta infantería seguro que hace saltar mis trampas explosivas. Yo les diría que se dispersen al cruzar el campo, general... o no"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo067Subtitle",
+  "text": "*Cuántos edificios... Su base es un blanco perfecto para mis explosivos, general. Gracias"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo068Subtitle",
+  "text": "*Movimiento necio, general. Su Tormenta SCUD no me detendrá"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo069Subtitle",
+  "text": "*¡Misil nuclear! Pagará por esto, general"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo070Subtitle",
+  "text": "*¡No! ¡Ese rayo de partículas hará estallar mis explosivos!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo071Subtitle",
+  "text": "*Sí, ocupe ese edificio, general... seguramente no tenga explosivos colocados"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo072Subtitle",
+  "text": "*Hola, coronel Burton. Intente no pisar ninguna trampa"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo073Subtitle",
+  "text": "*Loto Negro... que puedas detectar mis trampas no significa que ahora sea vulnerable"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo074Subtitle",
+  "text": "*¿Por qué enviaría a Jarmen Kell contra mí, general?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo075Subtitle",
+  "text": "*No construya más aeródromos, general... no me gustan"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo076Subtitle",
+  "text": "*La fábrica de guerra construye vehículos... vehículos que harán saltar mis trampas explosivas"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo077Subtitle",
+  "text": "*¿Cree que es sensato construir un cuartel, general?"
+ }
+]
