@@ -1,0 +1,802 @@
+[
+ {
+  "label": "MAP:MD-USA04_Objective01",
+  "text": "OBJETIVO DE LA MISIÓN: \n Destruir la base del ELG"
+ },
+ {
+  "label": "MAP:MD-USA04_Objective02_Reminder",
+  "text": "TRANSMISIÓN ENTRANTE: \n Destruir la emisora de radio del noreste para detener a los camiones bomba"
+ },
+ {
+  "label": "MAP:MD-USA04_Hint01",
+  "text": "OBJETIVO DE LA MISIÓN: \n Destruir la base del ELG"
+ },
+ {
+  "label": "MAP:MD-USA04_Hint04",
+  "text": "CONSEJO: \n Encuentra a los 3 agentes de la CIA para pedir su ayuda"
+ },
+ {
+  "label": "MAP:MD-USA04_Hint05",
+  "text": "TRANSMISIÓN ENTRANTE: \n Asegurar los campos petrolíferos del oeste para obtener dinero"
+ },
+ {
+  "label": "MAP:MD-USA04_Hint06",
+  "text": "CONSEJO: \n Los exploradores pueden revelar unidades camufladas y trampas explosivas"
+ },
+ {
+  "label": "MAP:MD-USA04_Hint07",
+  "text": "CONSEJO: \n Las excavadoras pueden retirar las trampas bomba"
+ },
+ {
+  "label": "MAP:MD-USA04_Reonforcements",
+  "text": "TRANSMISIÓN ENTRANTE: \n Han llegado refuerzos"
+ },
+ {
+  "label": "MAP:MD_USA06Open",
+  "text": "Al Habad, Siria \n 'Operación: Golpe del Águila'"
+ },
+ {
+  "label": "MAP:MD-USA06Objective01",
+  "text": "OBJETIVO DE LA MISIÓN: \n Capturar los 4 silos de misiles tóxicos antes de que despeguen"
+ },
+ {
+  "label": "MAP:MD-USA06Objective02",
+  "text": "TRANSMISIÓN ENTRANTE: \n Fuerzas rebeldes del ELG se han unido a usted"
+ },
+ {
+  "label": "MAP:MD-USA06Objective03",
+  "text": "TRANSMISIÓN ENTRANTE: \n Capturar los 4 silos de misiles tóxicos antes de que puedan despegar"
+ },
+ {
+  "label": "MAP:MD-USA06Objective04",
+  "text": "Silo de misiles 3 de 4 capturado"
+ },
+ {
+  "label": "MAP:MD-USA06Objective05",
+  "text": "Silo de misiles 4 de 4 capturado"
+ },
+ {
+  "label": "MAP:MD-USA06Objective06",
+  "text": "Silo de misiles 1 de 4 capturado"
+ },
+ {
+  "label": "MAP:MD-USA06Objective07",
+  "text": "Silo de misiles 2 de 4 capturado"
+ },
+ {
+  "label": "MAP:MD-USA06Objective14",
+  "text": "CONSEJO: \n Según los informes, algunos misiles están en esta zona \n Procura no liberar la toxina"
+ },
+ {
+  "label": "MAP:MD-USA06Objective15",
+  "text": "AVISO: \n El Dr. Thrax está usando toxinas más potentes. Proteja a nuestra infantería"
+ },
+ {
+  "label": "MAP:MD-USA06Objective16",
+  "text": "TRANSMISIÓN ENTRANTE: \n Nuestra base está bajo ataque, señor \n Han construido una red de túneles sin que nos diéramos cuenta"
+ },
+ {
+  "label": "MAP:MD-USA06CivilianMessage01",
+  "text": "TRANSMISIÓN ENTRANTE: \n Los rebeldes del ELG del este podrían ayudarnos"
+ },
+ {
+  "label": "MAP:MD-USA06Hint01",
+  "text": "CONSEJO: \n Hay más suministros al suroeste"
+ },
+ {
+  "label": "MAP:MD-USA06Hint02",
+  "text": "AVISO: \n Están usando el túnel de ataque furtivo para atacar nuestra base"
+ },
+ {
+  "label": "MAP:MD-USA06Hint03",
+  "text": "CONSEJO: \n Los poderes de general del ELG están disponibles en el centro de mando del ELG"
+ },
+ {
+  "label": "MAP:MD-USA06Warning01",
+  "text": "AVISO: \n Ha empezado la cuenta atrás del lanzamiento de misiles"
+ },
+ {
+  "label": "MAP:MD-USA06Warning02",
+  "text": "AVISO: \n Lanzamiento en 5 minutos"
+ },
+ {
+  "label": "MAP:MD-USA06Warning03",
+  "text": "AVISO: \n Lanzamiento en 4 minutos"
+ },
+ {
+  "label": "MAP:MD-USA06Warning04",
+  "text": "AVISO: \n Lanzamiento en 3 minutos"
+ },
+ {
+  "label": "MAP:MD-USA06Warning05",
+  "text": "AVISO: \n Lanzamiento en 2 minutos"
+ },
+ {
+  "label": "MAP:MD-USA06Warning06",
+  "text": "AVISO: \n Lanzamiento en 1 minuto"
+ },
+ {
+  "label": "MAP:MD-USA06Warning07",
+  "text": "AVISO: \n Lanzamiento en 30 segundos"
+ },
+ {
+  "label": "MAP:MD-USA06Warning08",
+  "text": "AVISO: \n Lanzamiento en 10 segundos"
+ },
+ {
+  "label": "MAP:MD-USA06Warning09",
+  "text": "AVISO: \n 5... 4... 3... 2... 1... Lanzamiento detectado"
+ },
+ {
+  "label": "MAP:MD-USA06Failure01",
+  "text": "AVISO: \n Impacto detectado. Ha fracasado, general"
+ },
+ {
+  "label": "MAP:MD-USA06Imperative01",
+  "text": "AVISO: \n No destruya esta estructura. Captúrela con rangers"
+ },
+ {
+  "label": "SCRIPT:MD-USA06MissileTimer",
+  "text": "Lanzamiento del misil tóxico en:"
+ },
+ {
+  "label": "MAP:MD-USA06Warning10",
+  "text": "AVISO: \n Lanzamiento en 10 minutos"
+ },
+ {
+  "label": "MAP:MD-USA06Warning11",
+  "text": "AVISO: \n Lanzamiento en 15 minutos"
+ },
+ {
+  "label": "MAP:MD-USA06Intro1",
+  "text": "Órbita terrestre: \n Satélite espía de EE. UU., nombre en clave: Powers"
+ },
+ {
+  "label": "MAP:MD-USA06Intro2",
+  "text": "Enlace de datos: \n Instalaciones de toxinas del Dr. Thrax"
+ },
+ {
+  "label": "MAP:MD-USA06Warning15",
+  "text": "TRANSMISIÓN ENTRANTE: \n General, la base del ELG del este ha \n decidido rebelarse contra el general de las toxinas y \n su uso masivo de toxinas"
+ },
+ {
+  "label": "MAP:MD-USA06Warning16",
+  "text": "TRANSMISIÓN ENTRANTE: \n Quieren ayudarnos en nuestro ataque contra \n el general cediéndonos su base"
+ },
+ {
+  "label": "MAP:MD_GLA01Objective6",
+  "text": "CONSEJO: usa motos de combate para entrar en la base de EE. UU. desde otra dirección"
+ },
+ {
+  "label": "MAP:MD_GLA01Message01",
+  "text": "AVISO: detectada una base de fuego de EE. UU."
+ },
+ {
+  "label": "MAP:MD_GLA01Message02",
+  "text": "AVISO: descubiertos drones centinela"
+ },
+ {
+  "label": "MAP:MD_GLA01Message03",
+  "text": "CONSEJO: \n Mejora las unidades del ELG haciéndolas pasar por encima de las cajas de chatarra"
+ },
+ {
+  "label": "OBJECT:GLALeader",
+  "text": "Líder del ELG"
+ },
+ {
+  "label": "MAP:Intro_Title",
+  "text": "Al Safir, Siria \n 'El éxodo'"
+ },
+ {
+  "label": "MAP:Intro_Title2",
+  "text": "Halib, Sudán \n 'La gran evasión'"
+ },
+ {
+  "label": "MAP:Intro_Loc",
+  "text": "A las afueras de la ciudad..."
+ },
+ {
+  "label": "MAP:Intro_MO_1",
+  "text": "OBJETIVO DE LA MISIÓN N.º 1: \n Encontrar la base abandonada del ELG"
+ },
+ {
+  "label": "MAP:Intro_MO_2",
+  "text": "OBJETIVO DE LA MISIÓN N.º 2: \n Llevar a nuestro líder sano y salvo a la pista de aterrizaje"
+ },
+ {
+  "label": "MAP:Intro_MO_2b",
+  "text": "TRANSMISIÓN ENTRANTE: \n Lleva al líder del ELG a la pista de aterrizaje del noroeste"
+ },
+ {
+  "label": "MAP:Intro_MO_1a",
+  "text": "OBJETIVO DE LA MISIÓN: \n Escoltar al líder del ELG hasta la pista de aterrizaje \n El líder del ELG debe sobrevivir"
+ },
+ {
+  "label": "MAP:Intro_MO_2a",
+  "text": "TRANSMISIÓN ENTRANTE: \n Hay una base abandonada del ELG en esta zona. Recupérala"
+ },
+ {
+  "label": "MDGLA02:TITLE",
+  "text": "En algún lugar cerca de El Cairo, Egipto \n 'Intenciones ocultas'"
+ },
+ {
+  "label": "MDGLA02:Hint1",
+  "text": "AVISO: \n Las fuerzas del príncipe Kassad están camufladas"
+ },
+ {
+  "label": "MDGLA02:Hint2",
+  "text": "CONSEJO: \n Las furgonetas de radar, las redes de túneles y \n los emplazamientos Stinger revelan las unidades camufladas"
+ },
+ {
+  "label": "MDGLA02:Hint3",
+  "text": "CONSEJO: \n Hay más suministros al suroeste"
+ },
+ {
+  "label": "MDGLA02:OBJ1",
+  "text": "\n OBJETIVO DE LA MISIÓN N.º 1: \n Capturar el centro de mando de la ciudad"
+ },
+ {
+  "label": "MDGLA02:OBJ2",
+  "text": "\n OBJETIVO DE LA MISIÓN N.º 2: \n Capturar el centro de mando del otro lado del río"
+ },
+ {
+  "label": "MDGLA02:Expansion_2",
+  "text": "TRANSMISIÓN ENTRANTE: \n Descubierta una posible zona de expansión"
+ },
+ {
+  "label": "MDGLA02:Oil_Well",
+  "text": "CONSEJO: \n Captura pozos de petróleo para mantener unos ingresos constantes"
+ },
+ {
+  "label": "MDGLA02:Bridge",
+  "text": "CONSEJO: \n El perturbador de GPS hará más fácil cruzar este puente"
+ },
+ {
+  "label": "MDGLA02:Damage_warn",
+  "text": "TRANSMISIÓN ENTRANTE: \n Protege el centro de mando"
+ },
+ {
+  "label": "MDGLA02:Capture_CC_scram",
+  "text": "CONSEJO: \n Captura el centro de mando para obtener la habilidad Perturbador de GPS"
+ },
+ {
+  "label": "MDGLA02:Scram_captured",
+  "text": "TRANSMISIÓN ENTRANTE: \n Obtenida la habilidad Perturbador de GPS \n Úsala en tus tropas para ocultarlas"
+ },
+ {
+  "label": "MDGLA02:Capture_CC_sneak",
+  "text": "CONSEJO: \n Captura este centro de mando para obtener la habilidad Ataque furtivo"
+ },
+ {
+  "label": "MDGLA02:Sneak_captured",
+  "text": "TRANSMISIÓN ENTRANTE: \n Obtenida la habilidad Ataque furtivo \n Úsala para crear una red de túneles en cualquier lugar que puedas ver"
+ },
+ {
+  "label": "MDGLA02:Final",
+  "text": "OBJETIVO DE LA MISIÓN N.º 3: \n Destruir o capturar el centro de mando principal de Kassad"
+ },
+ {
+  "label": "MDGLA03:Title-01",
+  "text": "Flota del Mediterráneo de EE. UU., Matala, Creta \n 'La ley del muelle'"
+ },
+ {
+  "label": "MDGLA03:InfoMissionObjective01",
+  "text": "OBJETIVO DE LA MISIÓN N.º 1: \n Capturar el cañón de partículas de EE. UU. del este"
+ },
+ {
+  "label": "MDGLA03:Info-MissionObjectiveAccomplished-01",
+  "text": "OBJETIVO DE LA MISIÓN N.º 1: \n Cumplido"
+ },
+ {
+  "label": "MDGLA03:Info-MissionObjective-02",
+  "text": "OBJETIVO DE LA MISIÓN N.º 2: \n Capturar las centrales eléctricas de EE. UU."
+ },
+ {
+  "label": "MDGLA03:Info-MissionObjectiveAccomplished-02",
+  "text": "OBJETIVO DE LA MISIÓN N.º 2: \n Cumplido"
+ },
+ {
+  "label": "MDGLA03:Info-MissionObjective-03",
+  "text": "OBJETIVO DE LA MISIÓN N.º 3: \n Localizar el portaaviones al sureste"
+ },
+ {
+  "label": "MDGLA03:Info-GotParticleCannon-01",
+  "text": "CONSEJO: \n Ahora debemos hacernos con algunas centrales eléctricas \n Podemos usar la red de túneles para llegar a la siguiente isla"
+ },
+ {
+  "label": "MDGLA03:Info-SneakAttack-01",
+  "text": "TRANSMISIÓN ENTRANTE: \n Usa el ataque furtivo para crear redes de túneles en las islas cercanas"
+ },
+ {
+  "label": "MDGLA03:Info-GotPowerPlants-01",
+  "text": "TRANSMISIÓN ENTRANTE: \n El cañón de partículas ya está operativo \n Debemos defenderlo, junto con nuestras centrales eléctricas"
+ },
+ {
+  "label": "MDGLA03:Info-Goodies-01",
+  "text": "CONSEJO: \n Explora las islas para encontrar cajas de chatarra y vehículos"
+ },
+ {
+  "label": "MDGLA03:Lose-NoUnitsOrStructures-01",
+  "text": "TRANSMISIÓN ENTRANTE: \n Todas tus unidades y edificios han sido destruidos \n Ha sido derrotado, general. Esta vez"
+ },
+ {
+  "label": "MDGLA03:Lose-ParticleCannonDestroyed-01",
+  "text": "TRANSMISIÓN ENTRANTE: \n Sin el cañón de partículas no puedes destruir el portaaviones \n Ha sido derrotado, general. Esta vez"
+ },
+ {
+  "label": "MDGLA03:Lose-PowerPlantsDestroyed-01",
+  "text": "TRANSMISIÓN ENTRANTE: \n Todas las centrales eléctricas han sido destruidas \n Ha sido derrotado, general. Esta vez"
+ },
+ {
+  "label": "MDGLA03:Help-UseParticleCannon-01",
+  "text": "AVISO: \n Esta zona parece bien defendida \n El cañón de partículas podría ayudarnos a penetrar"
+ },
+ {
+  "label": "MDGLA03:Help-A10Warning-01",
+  "text": "AVISO: \n Los A10 vienen hacia nosotros"
+ },
+ {
+  "label": "MDGLA03:Help-LeaveISLAND-01",
+  "text": "CONSEJO: \n Podemos usar el ataque furtivo o nuestras redes de túneles \n para llegar a una isla cercana"
+ },
+ {
+  "label": "MDGLA03:Help-LeaveISLAND-02",
+  "text": "CONSEJO: \n Si exploramos una zona de una isla cercana, \n podremos usar allí el ataque furtivo"
+ },
+ {
+  "label": "MDGLA03:Info-DisabledSupplyDropZones-01",
+  "text": "TRANSMISIÓN ENTRANTE: \n Hemos inutilizado las zonas de lanzamiento de suministros enemigas \n Pronto no podrán construir nuevas unidades"
+ },
+ {
+  "label": "MDGLA03:Help-FoundSupplyPlanes-01",
+  "text": "TRANSMISIÓN ENTRANTE: \n Destruye las zonas de lanzamiento de suministros de EE. UU. para mermar su producción"
+ },
+ {
+  "label": "MDGLA03:Help-FewPowerPlants-02",
+  "text": "AVISO: \n Casi todas las centrales eléctricas han sido destruidas \n Procura asegurar una para disparar el cañón de partículas"
+ },
+ {
+  "label": "MDGLA03:Help-AttackingParticleCannon-01",
+  "text": "TRANSMISIÓN ENTRANTE: \n Necesitamos este cañón de partículas para destruir el portaaviones \n No dejes que lo destruyan"
+ },
+ {
+  "label": "MDGLA03:Help-FindParticleCannon-01",
+  "text": "CONSEJO: \n Captura el cañón de partículas"
+ },
+ {
+  "label": "MDGLA03:Help-LostIsland-01",
+  "text": "CONSEJO: \n Han destruido nuestra red de túneles \n Usa el ataque furtivo para volver a esa isla"
+ },
+ {
+  "label": "MDGLA03:Help-ArmsDealer-01",
+  "text": "TRANSMISIÓN ENTRANTE: \n Libera al traficante de armas del lado oeste de esta isla"
+ },
+ {
+  "label": "MDGLA03:Help-JarmenKell-01",
+  "text": "CONSEJO: \n El disparo de francotirador de Jarmen Kell puede neutralizar \n vehículos enemigos para que nuestra infantería los capture"
+ },
+ {
+  "label": "MAP:MD_GLA03_CINELocation01",
+  "text": "USS Reagan"
+ },
+ {
+  "label": "MAP:MD_GLA04Objective1",
+  "text": "OBJETIVO DE LA MISIÓN: \n Equipo 1: tomar el transbordador hasta la playa"
+ },
+ {
+  "label": "MAP:MD_GLA04Objective2",
+  "text": "OBJETIVO DE LA MISIÓN: \n Equipo 2: conseguir una furgoneta de radar"
+ },
+ {
+  "label": "MAP:MD_GLA04Objective3",
+  "text": "OBJETIVO DE LA MISIÓN: \n Equipo 2: ocupar la estación de válvulas"
+ },
+ {
+  "label": "MAP:MD_GLA04Objective4",
+  "text": "OBJETIVO DE LA MISIÓN: \n Equipo 1: destruir el aeródromo"
+ },
+ {
+  "label": "MAP:MD_GLA04Objective5",
+  "text": "OBJETIVO DE LA MISIÓN: \n Equipo 2: destruir las centrales eléctricas"
+ },
+ {
+  "label": "MAP:MD_GLA04Objective6",
+  "text": "OBJETIVO DE LA MISIÓN: \n Capturar la instalación de toxinas"
+ },
+ {
+  "label": "MAP:MD_GLA04Objective7",
+  "text": "OBJETIVO DE LA MISIÓN: \n Transportar las toxinas al aeropuerto"
+ },
+ {
+  "label": "SCRIPT:MD_GLA04Toxin_Counter",
+  "text": "Toxinas restantes:"
+ },
+ {
+  "label": "MAP:MD_GLA04Title",
+  "text": "Instalación tóxica de la costa oeste de EE. UU. \n 'Jarmen Kell y los cuarenta ladrones'"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_2",
+  "text": "OBJETIVO DE LA MISIÓN: \n Destruir el Mando Central Europeo de EE. UU. al noreste"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_3",
+  "text": "TRANSMISIÓN ENTRANTE: \n Rescata a los prisioneros y tráelos aquí \n La célula terrorista despertará para ayudarte contra EE. UU."
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_4",
+  "text": "CONSEJO: \n Lleva a los prisioneros a su aldea \n del norte y nos ayudarán"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_5",
+  "text": "TRANSMISIÓN ENTRANTE: \n Elimina la amenaza estadounidense para \n liberar a los prisioneros de sus captores"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_6",
+  "text": "TRANSMISIÓN ENTRANTE: \n Estamos listos para volver a nuestra aldea del norte"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_7",
+  "text": "TRANSMISIÓN ENTRANTE: \n Has rescatado a los prisioneros y los has devuelto a casa \n La célula terrorista se activará y empezará a atacar a EE. UU."
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_8",
+  "text": "CONSEJO: \n Captura las estructuras restantes de EE. UU. \n y construye aquí una segunda base"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_9",
+  "text": "AVISO: \n Se acaba el tiempo. Rescata a los prisioneros"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_10",
+  "text": "AVISO: \n Debemos eliminar la base de apoyo enemiga del sur \n antes de que se haga demasiado fuerte"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_11",
+  "text": "TRANSMISIÓN ENTRANTE: \n La célula terrorista ha sido eliminada \n No dejes que sus muertes queden impunes"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_12",
+  "text": "TRANSMISIÓN ENTRANTE: \n Hemos vencido al enemigo. La victoria es nuestra"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_13",
+  "text": "TRANSMISIÓN ENTRANTE: \n El enemigo tiene cautivos a nuestros hermanos \n Libéralos y nos ayudarán contra EE. UU."
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_14",
+  "text": "TRANSMISIÓN ENTRANTE: \n Según los informes, pronto trasladarán a los prisioneros \n Infíltrate en la base de EE. UU. para rescatarlos"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_15",
+  "text": "CONSEJO: \n Mejora el centro de mando chino con radar"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_16",
+  "text": "TRANSMISIÓN ENTRANTE: \n Protege a la célula terrorista del ELG de los ataques de EE. UU. \n y asegura la zona"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_17",
+  "text": "CONSEJO: \n Construye un centro de mando del ELG para usar tus poderes de general"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_18",
+  "text": "TRANSMISIÓN ENTRANTE: \n Nuestra base está bajo ataque"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_19",
+  "text": "AVISO: \n Están atacando a los prisioneros. Defiéndelos"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_20",
+  "text": "TRANSMISIÓN ENTRANTE: \n Todos los prisioneros han muerto \n La célula terrorista se une a nosotros para vengar sus muertes"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_21",
+  "text": "TRANSMISIÓN ENTRANTE: \n El enemigo se ha dispersado para asegurarse más recursos \n Elimínalos y usa los recursos para nosotros"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_22",
+  "text": "CONSEJO: \n Su base es enorme \n Quizá los ataques furtivos nos ayuden a infiltrarnos"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_23",
+  "text": "TRANSMISIÓN ENTRANTE: \n Con la base pequeña neutralizada, podemos centrarnos en \n la base del Mando Central Europeo de EE. UU."
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_24",
+  "text": "\n Tenemos un plan... \n Entraremos y capturaremos la base china \n y la usaremos para echar a EE. UU. de Europa"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_25",
+  "text": "La base del Mando Central Europeo de EE. UU. debe caer"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_26",
+  "text": "TRANSMISIÓN ENTRANTE: \n Nos atacan desde el este \n Elimina la base de apoyo de EE. UU. del sur"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_27",
+  "text": "TRANSMISIÓN ENTRANTE: \n EE. UU. está atacando a la célula terrorista \n Ayúdalos a rechazar a nuestros enemigos"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_28",
+  "text": "TRANSMISIÓN ENTRANTE: \n Rescata a los prisioneros de la base de apoyo de EE. UU. antes de que \n los trasladen a otro lugar"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_29",
+  "text": "OBJETIVO DE LA MISIÓN: \n Destruir el Mando Central Europeo de EE. UU. al noreste"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_30",
+  "text": "Mando Central de EE. UU., Stuttgart-Vaihingen, Alemania \n 'Ataque furtivo'"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_31",
+  "text": "Mando Central de EE. UU., Stuttgart-Vaihingen, Alemania \n 'Ataque furtivo'"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_32",
+  "text": "CONSEJO: elimina a los estadounidenses de la zona \n y después asegura los suministros"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_33",
+  "text": "CONSEJO: \n Acaba con la base del Mando Central"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_34",
+  "text": "CONSEJO: \n Captura torres petrolíferas y asegura suministros adicionales \n Captura plataformas de artillería para controlar zonas clave"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_35",
+  "text": "CONSEJO: \n Mejora el poder de general \n Recompensa para aumentar los ingresos"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_36",
+  "text": "CONSEJO: \n Usa la habilidad de ataque furtivo para \n lanzar un ataque contra la base de EE. UU."
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_37",
+  "text": "TRANSMISIÓN ENTRANTE: \n Se han llevado a los prisioneros \n Pese a nuestro fracaso, la célula terrorista nos ofrece su apoyo"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_38",
+  "text": "Mando Central de EE. UU., Stuttgart-Vaihingen, Alemania \n 'Ataque furtivo'"
+ },
+ {
+  "label": "SCRIPT:POWCOUNTDOWN",
+  "text": "Traslado de prisioneros en:"
+ },
+ {
+  "label": "MAP:CHI01xMapName",
+  "text": "El dragón desatado"
+ },
+ {
+  "label": "MAP:CHI01xOpen",
+  "text": "Stuttgart-Vaihingen, Alemania \n 'El dragón desatado'"
+ },
+ {
+  "label": "MAP:CHI01xOpenAlt",
+  "text": "Restos de la base de mando de EE. UU., Alemania \n El dragón desatado"
+ },
+ {
+  "label": "MAP:CHI01xObjective01",
+  "text": "OBJETIVO DE LA MISIÓN: \n Eliminar todas las fuerzas del ELG de esta zona"
+ },
+ {
+  "label": "MAP:CHI01xObjective01Alt",
+  "text": "OBJETIVO DE LA MISIÓN: \n Eliminar todas las estructuras del ELG de esta zona"
+ },
+ {
+  "label": "MAP:CHI01xTechBldgHint",
+  "text": "CONSEJO: \n La Guardia Roja puede capturar edificios"
+ },
+ {
+  "label": "MAP:CHI01xOilDerrickHint",
+  "text": "CONSEJO: \n Captura torres petrolíferas para obtener dinero extra"
+ },
+ {
+  "label": "MAP:CHI01xOilRefineryHint",
+  "text": "CONSEJO: \n Captura las refinerías de petróleo para reducir el coste de los vehículos"
+ },
+ {
+  "label": "MAP:CHI01xGarrisonHint",
+  "text": "CONSEJO: \n Meter Guardias Rojos y cazatanques en edificios \n aumenta su potencia de fuego y su alcance"
+ },
+ {
+  "label": "MAP:CHI01xGarrisonClrHint01",
+  "text": "CONSEJO: \n El tractor de toxinas mata al instante a la infantería atrincherada \n No dejes que se acerque a tus estructuras ocupadas"
+ },
+ {
+  "label": "MAP:CHI01xGarrisonClrHint02",
+  "text": "CONSEJO: \n El tanque Dragon mata a la infantería de los edificios ocupados"
+ },
+ {
+  "label": "MAP:CHI01xPerimeterWarn01",
+  "text": "AVISO: \n Las fuerzas del ELG están atacando nuestra base"
+ },
+ {
+  "label": "MAP:CHI01xPerimeterWarn02",
+  "text": "AVISO: \n El enemigo se prepara para atacar nuestra base"
+ },
+ {
+  "label": "MAP:CHI02xMapName",
+  "text": "Defender el fuego"
+ },
+ {
+  "label": "MAP:CHI02xOpen",
+  "text": "Planta de producción de armas, China \n 'Defender el fuego'"
+ },
+ {
+  "label": "SCRIPT:CHI02xReinforcementTimer",
+  "text": "Los refuerzos llegan en:"
+ },
+ {
+  "label": "MAP:CHI02xObjective01",
+  "text": "OBJETIVO DE LA MISIÓN N.º 1: \n Defender el reactor y los búnkeres de almacenamiento \n No pueden ser capturados ni destruidos"
+ },
+ {
+  "label": "MAP:CHI02xObjective02",
+  "text": "OBJETIVO DE LA MISIÓN N.º 2: \n Destruir todas las fuerzas del ELG de la zona"
+ },
+ {
+  "label": "MAP:CHI02xObjective02Alt",
+  "text": "OBJETIVO DE LA MISIÓN N.º 2: \n Destruir todas las estructuras del ELG de la zona"
+ },
+ {
+  "label": "MAP:CHI02xReactorKIAWarn",
+  "text": "TRANSMISIÓN ENTRANTE: \n Protege el reactor nuclear"
+ },
+ {
+  "label": "MAP:CHI02xReactorCaptureWarn",
+  "text": "AVISO: \n No dejes que el enemigo capture \n el reactor nuclear y los dos búnkeres"
+ },
+ {
+  "label": "MAP:CHI02xBunkerKIAWarn",
+  "text": "TRANSMISIÓN ENTRANTE: \n Protege los búnkeres de almacenamiento"
+ },
+ {
+  "label": "MAP:CHI02xBadPlayerReactorWarn",
+  "text": "TRANSMISIÓN ENTRANTE: \n Necesitamos este reactor nuclear \n No dejes que lo destruyan"
+ },
+ {
+  "label": "MAP:CHI02xBadPlayerBunkerWarn",
+  "text": "TRANSMISIÓN ENTRANTE: \n Necesitamos estos búnkeres de almacenamiento \n No dejes que los destruyan"
+ },
+ {
+  "label": "MAP:CHI02xSpyPostHint01",
+  "text": "CONSEJO: \n Captura el puesto de espionaje para pedir bombarderos de alfombra"
+ },
+ {
+  "label": "MAP:CHI02xPerimeterWarn",
+  "text": "AVISO: \n Las fuerzas enemigas se preparan para atacar"
+ },
+ {
+  "label": "MAP:CHI02xPerimeterEasyWarn",
+  "text": "AVISO: \n Las fuerzas enemigas se preparan para atacar"
+ },
+ {
+  "label": "MAP:CHI02xNeutronHint01",
+  "text": "CONSEJO: \n Usa los proyectiles de neutrones de los cañones nucleares para matar \n a la infantería y neutralizar los vehículos enemigos"
+ },
+ {
+  "label": "MAP:CHI02xNeutronHint02",
+  "text": "CONSEJO: \n Tu infantería puede entrar en cualquier vehículo neutralizado y controlarlo"
+ },
+ {
+  "label": "MAP:CHI02xEMPMineHint01",
+  "text": "CONSEJO: \n Mejora nuestros edificios con minas de neutrones para inutilizar vehículos \n Después, los proyectiles de neutrones pueden neutralizarlos"
+ },
+ {
+  "label": "MAP:CHI02xCarpetBombReminder",
+  "text": "TRANSMISIÓN ENTRANTE: \n Los bombarderos de alfombra están listos"
+ },
+ {
+  "label": "MAP:CHI02xInfo1",
+  "text": "TRANSMISIÓN ENTRANTE: \n Los refuerzos llegarán en 10 minutos"
+ },
+ {
+  "label": "MAP:CHI02xInfo2",
+  "text": "TRANSMISIÓN ENTRANTE: \n Los refuerzos llegarán en 5 minutos"
+ },
+ {
+  "label": "SCRIPT:CHI02timer",
+  "text": "Los refuerzos llegan en:"
+ },
+ {
+  "label": "MAP:MD_CHI03-Event-AngryMob-01",
+  "text": "TRANSMISIÓN ENTRANTE: \n El pueblo se alza para servirnos"
+ },
+ {
+  "label": "MAP:MD_CHI03-Help-IOLow-01",
+  "text": "TRANSMISIÓN ENTRANTE: \n Nuestra opinión internacional está bajando \n Destruye más estatuas del ELG"
+ },
+ {
+  "label": "MAP:MD_CHI03-Help-IOVeryLow-01",
+  "text": "TRANSMISIÓN ENTRANTE: \n Nuestra opinión internacional es muy baja \n Destruye las estatuas del ELG repartidas por la ciudad"
+ },
+ {
+  "label": "MAP:MD_CHI03-Help-IOExtremelyLow-01",
+  "text": "CONSEJO: \n Nuestra opinión internacional está en un nivel crítico \n Destruye otra estatua del ELG o todo estará perdido"
+ },
+ {
+  "label": "SCRIPT:MD_CHI03InternationalOpinion",
+  "text": "Opinión internacional:"
+ },
+ {
+  "label": "MAP:MD_CHI04Open",
+  "text": "Halberstadt, Alemania \n 'Cielos en llamas'"
+ },
+ {
+  "label": "MAP:MD_CHI04MissionState0",
+  "text": "OBJETIVO DE LA MISIÓN: \n Eliminar todas las oleadas de fuerzas del ELG en retirada"
+ },
+ {
+  "label": "MAP:MD_CHI04MissionState1",
+  "text": "TRANSMISIÓN ENTRANTE: \n La oleada 1 ha sido derrotada"
+ },
+ {
+  "label": "MAP:MD_CHI04MissionState2",
+  "text": "TRANSMISIÓN ENTRANTE: \n La oleada 2 ha sido derrotada"
+ },
+ {
+  "label": "MAP:MD_CHI04MissionState3",
+  "text": "TRANSMISIÓN ENTRANTE: \n La oleada 3 ha sido derrotada"
+ },
+ {
+  "label": "MAP:MD_CHI04MissionState4",
+  "text": "TRANSMISIÓN ENTRANTE: \n La oleada 4 ha sido derrotada"
+ },
+ {
+  "label": "MAP:MD_CHI04MissionState5",
+  "text": "TRANSMISIÓN ENTRANTE: \n La oleada 5 ha sido derrotada"
+ },
+ {
+  "label": "MAP:MD_CHI04MissionState6",
+  "text": "TRANSMISIÓN ENTRANTE: \n La oleada 6 ha sido derrotada"
+ },
+ {
+  "label": "MAP:MD_CHI04MissionInfo1",
+  "text": "TRANSMISIÓN ENTRANTE: \n La oleada 1 ha entrado en la zona \n Su trayectoria se muestra en el radar"
+ },
+ {
+  "label": "MAP:MD_CHI04MissionInfo2",
+  "text": "TRANSMISIÓN ENTRANTE: \n La oleada 2 ha entrado en la zona \n Su trayectoria se muestra en el radar"
+ },
+ {
+  "label": "MAP:MD_CHI04MissionInfo3",
+  "text": "TRANSMISIÓN ENTRANTE: \n La oleada 3 ha entrado en la zona \n Su trayectoria se muestra en el radar"
+ },
+ {
+  "label": "MAP:MD_CHI04MissionInfo4",
+  "text": "TRANSMISIÓN ENTRANTE: \n La oleada 4 ha entrado en la zona \n Su trayectoria se muestra en el radar"
+ },
+ {
+  "label": "MAP:MD_CHI04MissionInfo5",
+  "text": "TRANSMISIÓN ENTRANTE: \n La oleada 5 ha entrado en la zona \n Su trayectoria se muestra en el radar"
+ },
+ {
+  "label": "MAP:MD_CHI04MissionInfo6",
+  "text": "TRANSMISIÓN ENTRANTE: \n Han interferido nuestra inteligencia. Llegan nuevas oleadas \n desde 2 direcciones, pero se desconoce su posición"
+ },
+ {
+  "label": "MAP:MD_CHI04MissionFinaleText",
+  "text": "TRANSMISIÓN ENTRANTE: \n Nuestras fuerzas han llegado desde el sur \n Su misión ha terminado"
+ },
+ {
+  "label": "MAP:MD_CHI04MissionLoseText",
+  "text": "TRANSMISIÓN ENTRANTE: \n Las fuerzas del ELG han huido hacia el norte \n Ha sido derrotado, general. Esta vez"
+ },
+ {
+  "label": "MAP:MD-CHI05_LOCALE",
+  "text": "Cerca de Hamburgo, Alemania \n 'El destino del dragón'"
+ },
+ {
+  "label": "MAP:MD-CHI05_USBaseDestroyedFirst",
+  "text": "OBJETIVO DE LA MISIÓN: \n Destruir la base del ELG para lograr la victoria"
+ },
+ {
+  "label": "MAP:MD-CHI05_GLABaseDestroyedFirst",
+  "text": "OBJETIVO DE LA MISIÓN: \n Destruir la base de EE. UU. para lograr la victoria"
+ }
+]
