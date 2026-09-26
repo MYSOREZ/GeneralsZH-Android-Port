@@ -1,0 +1,802 @@
+[
+ {
+  "label": "DIALOGEVENT:MisCHI03xChat02Subtitle",
+  "text": "*¡Nos han tendido una emboscada!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xChat03Subtitle",
+  "text": "*¡Han emboscado nuestra base!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xChat04Subtitle",
+  "text": "*¡Hemos encontrado su base secreta!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xChat05Subtitle",
+  "text": "*Vienen desde la otra orilla del lago"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xChat06Subtitle",
+  "text": "*Sus tropas deben de estar escondidas en el bosque"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xChat07Subtitle",
+  "text": "*¿Qué habrá al otro lado del río?"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xChat08Subtitle",
+  "text": "*Sus ataques relámpago empiezan a ser una molestia"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xChat09Subtitle",
+  "text": "*¡Vuelven los buggies!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xChat10Subtitle",
+  "text": "*¡Ataque furtivo!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xChat11Subtitle",
+  "text": "*¡Aplastad ese cañón Infierno!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xChat12Subtitle",
+  "text": "*La gente tiene demasiado miedo para salir de sus casas"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xChat13Subtitle",
+  "text": "*¡Debemos liberarlos de esta opresión!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xXO01Subtitle",
+  "text": "*¡El pueblo se alza para apoyarnos!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xXO10Subtitle",
+  "text": "*General, destruir las estatuas del ELG será clave para mejorar nuestra opinión internacional y aumentará el apoyo de la población a nuestra causa"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xXO11Subtitle",
+  "text": "*¡Han enviado un tractor de toxinas para desalojar nuestras estructuras ocupadas!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xXO12Subtitle",
+  "text": "*Nuestros tanques Dragon serán un objetivo prioritario... protéjalos bien"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xXO13Subtitle",
+  "text": "*Bien hecho, señor. La destrucción de la estatua ha hecho subir la opinión mundial"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xXO16Subtitle",
+  "text": "*¡No deje que destruyan los edificios!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xXO17Subtitle",
+  "text": "*Use los proyectiles de neutrones para desalojar los edificios sin dañarlos"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xXO18Subtitle",
+  "text": "*¡Cuidado! Sus estructuras defensivas están ocultas con redes de camuflaje"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xXO19Subtitle",
+  "text": "*General, el ELG tiene la ciudad bien defendida. Hay que expulsarlos"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xXO20Subtitle",
+  "text": "*Avanza a buen ritmo, comandante. Gran parte de la ciudad ya no está bajo control del ELG"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xXO21Subtitle",
+  "text": "*¡Señor! ¡La ciudad se alza contra nuestros enemigos!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xXO22Subtitle",
+  "text": "*General, ¡debemos expulsar al ELG de esta zona!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xXO23Subtitle",
+  "text": "*Nuestra opinión internacional es alta. ¡Gran trabajo!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xChat01Subtitle",
+  "text": "*¡Casi se han escapado! ¡Hay que detenerlos!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xChat010Subtitle",
+  "text": "*Están rodeando el lago. ¡Interceptadlos!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xChat011Subtitle",
+  "text": "*¡Vienen a por nuestra base!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xChat012Subtitle",
+  "text": "*¡Hemos detenido la primera oleada del ELG!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xChat013Subtitle",
+  "text": "*¡Otra vez los hemos puesto en su sitio!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xChat014Subtitle",
+  "text": "*¡Nadie puede resistir el poderío de China!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xChat015Subtitle",
+  "text": "*Sun Tzu estaría orgulloso"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xChat016Subtitle",
+  "text": "*¡La victoria es nuestra!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xChat017Subtitle",
+  "text": "*¡No pasarán!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xChat018Subtitle",
+  "text": "*¡Los expulsaremos de los cielos!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xChat019Subtitle",
+  "text": "*¡Nuestro poder no tiene rival!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xChat02Subtitle",
+  "text": "*¡Cortadles el paso en la aldea!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xChat020Subtitle",
+  "text": "*El Helix no es el único peso pesado"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xChat03Subtitle",
+  "text": "*No podemos dejar que pasen esa colina"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xChat04Subtitle",
+  "text": "*Seguro que pasan por aquí. Deberíamos defender esta zona"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xChat05Subtitle",
+  "text": "*Aquí hay otro paso estrecho"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xChat06Subtitle",
+  "text": "*Deberíamos asegurar estos edificios"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xChat07Subtitle",
+  "text": "*¿Qué están haciendo?"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xChat08Subtitle",
+  "text": "*¡Cuidado con la toxina!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xChat09Subtitle",
+  "text": "*¡Nos han tendido una emboscada!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xChat15Subtitle",
+  "text": "*Nuestras fuerzas están en posición. Estamos listos para lo que sea"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xChat16Subtitle",
+  "text": "*Son más fuertes de lo que pensábamos. Necesitamos apoyo aéreo. ¡Enviad el Helix ya!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO01Subtitle",
+  "text": "*¡El ELG envía otra oleada!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO02Subtitle",
+  "text": "*Esta oleada se retira hacia el norte"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO03Subtitle",
+  "text": "*Se retiran hacia el noreste"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO04Subtitle",
+  "text": "*Esta oleada se retira hacia el este"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO05Subtitle",
+  "text": "*La Unión Europea está muy satisfecha con nuestra actuación, general. Debemos mantener la ofensiva y eliminar al ELG"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO06Subtitle",
+  "text": "*¡Esta fuerza no era más que una distracción!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO07Subtitle",
+  "text": "*General, ¡tienen una Tormenta SCUD! ¡Debemos dispersar las tropas para no darles un blanco!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO08Subtitle",
+  "text": "*Un momento... no nos apuntan a nosotros"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO09Subtitle",
+  "text": "*¡El ELG no tiene honor! ¡Han arrasado la aldea para abrirse paso!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO10Subtitle",
+  "text": "*Deberíamos levantar una base para asegurar esta zona"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO11Subtitle",
+  "text": "*Nuestro Helix es el Overlord de los cielos. Construya más para ayudarnos a controlar la zona"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO12Subtitle",
+  "text": "*Señor, le recomiendo colocar puestos de escucha en puntos clave"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO13Subtitle",
+  "text": "*Según los últimos informes, el ELG se retira hacia este lugar. Aquí les haremos frente. No permita que ninguna unidad del ELG salga de esta zona. Nuestro nuevo helicóptero Helix debería asegurarle el éxito. La llegada de nuestras fuerzas desde el sur señalará que ha cumplido su objetivo principal"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO14Subtitle",
+  "text": "*Según los últimos informes, el ELG se retira hacia este lugar. Aquí les haremos frente. No permita que ninguna unidad del ELG salga de esta zona. Si escapan demasiados, nuestra misión fracasará. Nuestro nuevo helicóptero Helix debería asegurarle el éxito. La llegada de nuestras fuerzas desde el sur señalará que ha cumplido su objetivo principal"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO15Subtitle",
+  "text": "*Se acerca una oleada del ELG desde el oeste"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO16Subtitle",
+  "text": "*Se acerca una oleada del ELG desde el sur"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO17Subtitle",
+  "text": "*Se han avistado fuerzas del ELG acercándose desde el suroeste"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO18Subtitle",
+  "text": "*Fuerzas del ELG llegando desde el sureste"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO19Subtitle",
+  "text": "*Una oleada de fuerzas del ELG se acerca desde el suroeste"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO20Subtitle",
+  "text": "*Se acerca otra oleada del ELG"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO21Subtitle",
+  "text": "*Excelente trabajo, señor. Los informes confirman que ha destruido toda la oleada"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO22Subtitle",
+  "text": "*El enemigo está a punto de romper nuestras defensas"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO23Subtitle",
+  "text": "*Detectados varios lanzamientos de Tormenta SCUD"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO24Subtitle",
+  "text": "*Han roto nuestras defensas, comandante. Hemos fracasado en la misión"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO25Subtitle",
+  "text": "*Comandante, han llegado nuestras fuerzas del sur. La misión ha sido un éxito"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO26Subtitle",
+  "text": "*General, las fuerzas enemigas están peligrosamente cerca de escapar. ¡Debemos ocuparnos de ellas rápido!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO27Subtitle",
+  "text": "*Se han detectado fuerzas del ELG huyendo por este lugar. Ocupe posiciones defensivas y espere el contacto con el enemigo"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO28Subtitle",
+  "text": "*General, se ha detectado la oleada 1 de la retirada enemiga entrando en la zona y, según los informes, avanza por la ruta que se muestra en su radar"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO29Subtitle",
+  "text": "*General, se ha detectado la oleada 2 de la retirada enemiga entrando en la zona y, según los informes, avanza por la ruta que se muestra en su radar"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO30Subtitle",
+  "text": "*General, se ha detectado la oleada 3 de la retirada enemiga entrando en la zona y, según los informes, avanza por la ruta que se muestra en su radar"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO31Subtitle",
+  "text": "*General, se ha detectado la oleada 4 de la retirada enemiga entrando en la zona y, según los informes, avanza por la ruta que se muestra en su radar"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO32Subtitle",
+  "text": "*General, se ha detectado la oleada 5 de la retirada enemiga entrando en la zona y, según los informes, avanza por la ruta que se muestra en su radar"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO33Subtitle",
+  "text": "*Nuestras fuerzas han llegado desde el sur. Ha logrado impedir la retirada del enemigo. Buen trabajo, general"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO34Subtitle",
+  "text": "*General, las fuerzas enemigas han huido hacia el norte. Hemos fracasado en la misión"
+ },
+ {
+  "label": "DIALOGEVENT:MisChi05OfficerC01Subtitle",
+  "text": "*Es hora de corregir nuestro error. ¡Matadlos a todos!"
+ },
+ {
+  "label": "DIALOGEVENT:MisChi05OfficerC02Subtitle",
+  "text": "*Saquemos a estas ratas de sus madrigueras. ¡Muerte a los cobardes!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xBrf01Subtitle",
+  "text": "*Gracias a sus extraordinarios esfuerzos en Halberstadt, el ELG está casi acabado. La inteligencia de EE. UU. ha localizado el último bastión del ELG a las afueras de Hamburgo. Por desgracia, llegamos demasiado tarde para ayudar a los estadounidenses en esta zona y el ELG capturó su base. Reúna sus fuerzas y destruya tanto la base del ELG como la de EE. UU."
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xBrf02Subtitle",
+  "text": "*El ELG ha capturado una antigua base de EE. UU. en la zona y se está reforzando. Su objetivo final es destruir las bases de EE. UU. y del ELG"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xBrf03Subtitle",
+  "text": "*El ELG ha mejorado su capacidad de sigilo, general. Ahora puede ocultar casi cualquier cosa. Tendremos que estar alerta"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xBrf04Subtitle",
+  "text": "*Use los puestos de escucha para detectar unidades invisibles"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xBrf05Subtitle",
+  "text": "*General, le sugiero que concentre primero el ataque en la base de EE. UU. Hay que acabar con sus cañones de partículas"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xChat01Subtitle",
+  "text": "*Parece que estemos jugando al escondite, general"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xCin01Subtitle",
+  "text": "*¡Cabo! ¿Alguna señal de los chinos?"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xCin02Subtitle",
+  "text": "*No, señor, el último mensaje llegó a las 02:00... nada desde entonces"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xCin03Subtitle",
+  "text": "*Pues espero que lleguen pronto. Según nuestros informes, el ELG prepara un ataque a gran escala"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xCin04Subtitle",
+  "text": "*Sí, señor"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xCin06Subtitle",
+  "text": "*¿¡Pero qué...!? ¡Contacto enemigo!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xCin07Subtitle",
+  "text": "*Han entrado en la base... ¡todas las unidades a sus puestos! ¿¡Dónde están los chinos que nos prometieron!?"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xCin08Subtitle",
+  "text": "*¡Granada! ¡Granada!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xCin09Subtitle",
+  "text": "*¿¡De dónde han salido!?"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xCin10Subtitle",
+  "text": "*¡Están capturando nuestros edificios! ¡No podemos resistir! ¡Todas las unidades, retirada! ¡Repito, retirada!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO01Subtitle",
+  "text": "*¡Ya está! ¡La base de EE. UU. se ha quedado sin energía! ¡Acábelos rápido antes de que la reconstruyan!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO02Subtitle",
+  "text": "*Bien hecho, general. El enemigo ya no puede producir unidades de EE. UU."
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO03Subtitle",
+  "text": "*Bien hecho, general. El enemigo ya no puede producir unidades del ELG"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO04Subtitle",
+  "text": "*Bien hecho, general. La base de EE. UU. ha sido neutralizada. Destruya la base del ELG para terminar esta batalla"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO05Subtitle",
+  "text": "*Bien hecho, general. La base del ELG ha sido neutralizada. Destruya la base de EE. UU. para terminar esta batalla"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO06Subtitle",
+  "text": "*Debemos terminar lo que EE. UU. no pudo hacer. El ELG debe caer, y el mundo vivirá en paz"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO07Subtitle",
+  "text": "*Si logramos derrotar al ELG y salvar a Europa de sus garras, la recompensa será grande"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO08Subtitle",
+  "text": "*General, ocupará su lugar entre los mayores héroes de China. El ELG ha caído y China es el faro que ilumina un nuevo mundo. Ocupe su lugar de honor y disfrute de la gloria de China"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO09Subtitle",
+  "text": "*General, el enemigo ha mejorado su capacidad de sigilo, pero no parece que use tanques"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO10Subtitle",
+  "text": "*General, al comandante del ELG le faltan tanques. Quizá podamos arrollarlo con nuestras fuerzas"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO11Subtitle",
+  "text": "*General, Jarmen Kell nos está dejando sin vehículos. Debe encontrarlo si queremos tener alguna posibilidad"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO12Subtitle",
+  "text": "*General, ¡el enemigo usa SECUESTRADORES! ¡Hay que detenerlos!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO13Subtitle",
+  "text": "*General, el enemigo ha colocado FRANCOTIRADORES en las aldeas de la zona. Debemos desalojarlos"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO14Subtitle",
+  "text": "*General, los cañones cuádruples enemigos nos están causando bajas, necesitamos blindados pesados aquí"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO15Subtitle",
+  "text": "*General, según los últimos informes, Jarmen Kell podría estar atrincherado en esta pequeña aldea"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO16Subtitle",
+  "text": "*General, la base enemiga parece estar al otro lado de este río. Quizá podamos encerrarlo colocando fuerzas junto a los puentes"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO17Subtitle",
+  "text": "*General, tenemos muchos vehículos sin conductor en el campo... envíe unidades a recuperarlos"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO18Subtitle",
+  "text": "*¡Señor! Hemos detectado autobuses de combate en el sector C. Deberíamos ocuparnos de ellos antes de que lleguen a nuestra base"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO19Subtitle",
+  "text": "*General, ¡el enemigo ha colado unidades en nuestra base! ¡Deberíamos mejorar las defensas!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO20Subtitle",
+  "text": "*General, ¡el enemigo se ha infiltrado en nuestra base!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO21Subtitle",
+  "text": "*¡General! Destruir el centro de mando estadounidense acabará con su fuerte apoyo aéreo"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO22Subtitle",
+  "text": "*General, tenemos que construir el CENTRO DE INTERNET cuanto antes. Nos ayudará a localizar las posiciones enemigas"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO23Subtitle",
+  "text": "*General, ¡el enemigo ha dejado su flanco sin vigilancia! ¡Es nuestra oportunidad de contraatacar!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO24Subtitle",
+  "text": "*General, los estadounidenses tienen una tecnología superior para detectar unidades invisibles. Quizá debería capturar esta base en lugar de destruirla"
+ },
+ {
+  "label": "DIALOGEVENT:MisChi07RedGuard108Subtitle",
+  "text": "*¡Emboscada!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01Scorpion105Subtitle",
+  "text": "*Los chinos están cerca"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01Scorpion108Subtitle",
+  "text": "*Hemos encontrado un camino secreto. Está mal vigilado"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01Scorpion109Subtitle",
+  "text": "*¡Nos disparan!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xChat01Subtitle",
+  "text": "*Estructuras defensivas enemigas a la vista, general"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xChat02Subtitle",
+  "text": "*¡Posición enemiga avistada! ¡Tenemos que encontrar la forma de rebasarla!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xChat03Subtitle",
+  "text": "*¡Patrulla enemiga! ¡Todas las unidades, fuego!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xChat04Subtitle",
+  "text": "*¡Drones centinela estadounidenses! ¡Hay que destruirlos rápido antes de que den la alarma!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xChat05Subtitle",
+  "text": "*¡Mirad cómo corren! ¡Nuestro ataque los ha cogido totalmente por sorpresa!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xChat06Subtitle",
+  "text": "*¡Atacantes estadounidenses acercándose! ¡Debemos mantener la posición, general!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xChat07Subtitle",
+  "text": "*¡La sorpresa ha sido total! ¡Todas las unidades, concentraos en sus centrales eléctricas!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xChat08Subtitle",
+  "text": "*¡General! ¡Estamos sufriendo muchas bajas!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xCin01Subtitle",
+  "text": "*Patrulla a base: objetivo localizado, lo estamos persiguiendo"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xCin02Subtitle",
+  "text": "*Atención, el bombardeo ya ha empezado. Tened cuidado, patrulla"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xCin03Subtitle",
+  "text": "*Recibido, base. Voy por la derecha"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xCin04Subtitle",
+  "text": "*Yo voy por la izquierda"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xCin05Subtitle",
+  "text": "*¡Me disparan!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xCin06Subtitle",
+  "text": "*¡No los perdáis!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xCin07Subtitle",
+  "text": "*¡Cuidado!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xCin08Subtitle",
+  "text": "*¡Base! ¡Han derribado a Charlie tres! ¡Repito: han derribado a Charlie tres!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xCin09Subtitle",
+  "text": "*¡Sigue persiguiéndolo, Charlie dos! ¡Es nuestra mejor oportunidad!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xCin10Subtitle",
+  "text": "*¡Escoltas eliminadas! ¡Lo tengo!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xCin11Subtitle",
+  "text": "*¡Nooooo!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xCin12Subtitle",
+  "text": "*Je, je. General, hemos logrado escapar... y nos dirigimos al punto de encuentro. El ELG resurgirá"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xCin13Subtitle",
+  "text": "*Afirmativo. El equipo de reconocimiento se pone en marcha"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xCin14Subtitle",
+  "text": "*Aquí el equipo de reconocimiento. No detectamos presencia enemiga. Un momento..."
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xCin15Subtitle",
+  "text": "*¡Emboscada estadounidense! ¡Nos tienen rodeados!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xCin16Subtitle",
+  "text": "*¡Drones centinela! Estos estadounidenses son muy astutos. Sus drones se ocultan cuando están quietos. Debe avanzar con cautela, general"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen01Subtitle",
+  "text": "*Los estadounidenses han rodeado nuestro bastión con puestos de control militares. Debe abrir camino"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen02Subtitle",
+  "text": "*General, debe ayudar a nuestro verdadero líder a escapar para que el ELG pueda sobrevivir"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen03Subtitle",
+  "text": "*Puede que el Dr. Thrax haya muerto por la causa, pero no tenía importancia. Si nuestro hermano escapa, EE. UU. no habrá visto lo último del ELG"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen04Subtitle",
+  "text": "*General, las defensas de la base de fuego que rodean esta posición estadounidense son demasiado fuertes. Deberíamos evitar el enfrentamiento directo y buscar otra forma de entrar en la base"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen05Subtitle",
+  "text": "*Contenga a sus fuerzas, general. Vamos a enviar un equipo a reconocer el otro lado del puente. Informarán de las posiciones enemigas"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen06Subtitle",
+  "text": "*Mi general, uno de nuestros equipos de ataque rápido ha logrado burlar a sus perseguidores estadounidenses y ha aceptado ayudarnos en la misión. Sus lanzacohetes serán muy útiles contra los blindados enemigos"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen07Subtitle",
+  "text": "*Hemos encontrado a uno de nuestros equipos de demolición. Nos ayudarán a abrir camino destruyendo las bases de apoyo periféricas de EE. UU."
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen08Subtitle",
+  "text": "*General, debemos asegurar el aeródromo antes de que llegue el avión de transporte. La supervivencia del ELG depende de su éxito"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen09Subtitle",
+  "text": "*Nuestras motos de combate son muy versátiles. Potencian las capacidades de nuestra leal infantería y pueden circular por terreno accidentado. Incluso sobreviven a un salto desde un acantilado. Úselas para rodear los puntos fuertes estadounidenses y atacar sus flancos vulnerables"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen10Subtitle",
+  "text": "*¡General! Los estadounidenses han enviado un segundo grupo de perseguidores para capturar a nuestro líder. ¡Protéjalo a toda costa!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen11Subtitle",
+  "text": "*General, esta base oculta puede darnos los recursos necesarios para romper el cerco estadounidense y llegar al aeródromo"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen12Subtitle",
+  "text": "*General, ¡están atacando a nuestro líder! ¡No debe caer en manos de los estadounidenses!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen13Subtitle",
+  "text": "*General, sus fuerzas se están adelantando demasiado a nuestro líder. Recuerde que él debe llegar al aeródromo para que nuestra causa sobreviva"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen14Subtitle",
+  "text": "*Otra base estadounidense. Hay que eliminarla. Cuidado con sus bases de fuego, señor"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen15Subtitle",
+  "text": "*Tenemos el aeródromo al alcance, general. Destruya las fuerzas estadounidenses y asegure la zona para poner a salvo a nuestro líder"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen16Subtitle",
+  "text": "*Bien hecho, general. Con usted al mando, no podemos fallar"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen17Subtitle",
+  "text": "*Hemos llegado al aeródromo, señor. Asegúrese de que nuestro líder esté listo y esperando en la pista cuando llegue su avión"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen18Subtitle",
+  "text": "*¡Nuestro avión se está aproximando, general! Aguante un poco más. ¡Nuestro líder debe sobrevivir para subir a ese avión!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen19Subtitle",
+  "text": "*El avión ha llegado. Suba a nuestro líder para ponerlo a salvo y reagruparnos"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen20Subtitle",
+  "text": "*El avión espera a que suba nuestro líder. Dese prisa y tráigalo, general. Nuestras fuerzas no pueden resistir indefinidamente a los estadounidenses"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen21Subtitle",
+  "text": "*Nuestro agente, Jarmen Kell, ha estado hostigando las líneas de suministro estadounidenses. Nos será de gran ayuda en esta misión, general"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen22Subtitle",
+  "text": "*Excelente trabajo, general. Demostraremos a los estadounidenses que aún tenemos fuerza para resistirles"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen23Subtitle",
+  "text": "*Hemos encontrado una fuerza de reconocimiento avanzada, general. Se han ofrecido a ayudarnos en la misión"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen24Subtitle",
+  "text": "*¡General! ¡Destruya las centrales eléctricas estadounidenses para desactivar las defensas de su base!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen25Subtitle",
+  "text": "*Nuestras fuerzas se han debilitado, general. Debemos elegir mejor nuestras batallas"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02Chatter04Subtitle",
+  "text": "*Estamos aquí y listos para sus órdenes"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02Chatter18Subtitle",
+  "text": "*Menuda 'superioridad' la de los americanos"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02General07Subtitle",
+  "text": "*¡Llegan fuerzas estadounidenses! ¡Preparaos!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xChat01Subtitle",
+  "text": "*¡El enemigo nos ataca!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xChat02Subtitle",
+  "text": "*La resistencia es demasiado fuerte, tiene que haber otro camino"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xChat03Subtitle",
+  "text": "*¡Hay que detener al príncipe! ¡El ELG no debe caer en sus manos!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xChat04Subtitle",
+  "text": "*¡Nuestra base está bajo ataque!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xChat05Subtitle",
+  "text": "*¡Han destruido nuestro palacio!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xChat06Subtitle",
+  "text": "*Hemos perdido el cuartel"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xChat07Subtitle",
+  "text": "*Debemos reconstruir rápido el traficante de armas"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xCin01Subtitle",
+  "text": "*Aquí Reconocimiento 1 a base. Termino la patrulla. El sector está despejado"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xCin02Subtitle",
+  "text": "*Aquí base. ¿Está seguro, Reconocimiento 1? Tenemos informes de movimientos de tropas vinculados al príncipe Kassad"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xCin03Subtitle",
+  "text": "*Totalmente seguro. Llevo horas sin ver más que polvo y matorrales. Vuelvo a la base después de esto"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xCin04Subtitle",
+  "text": "*¿Pero qué...?"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xCin05Subtitle",
+  "text": "*¡Reconocimiento 1 a base! ¡Contacto enemigo! ¡Repito, contacto enemigo!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xCin06Subtitle",
+  "text": "*¡Reconocimiento 1! ¿Cuál es su posición?"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xCin07Subtitle",
+  "text": "*¡Se prepara para disparar!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xCin08Subtitle",
+  "text": "*Reconocimiento 1, ¿cuál es su situación? ¡Reconocimiento 1! ¡Informe!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xCin09Subtitle",
+  "text": "*Cuando el príncipe Kassad desaparezca, el ELG quedará bajo nuestro control. Entonces llegará nuestra venganza y los infieles estadounidenses arderán"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xCin10Subtitle",
+  "text": "*El príncipe Kassad empieza a hacerse con el control allí donde puede. Debemos poner fin a su lucha por el poder"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen01Subtitle",
+  "text": "*General, nos quedamos sin recursos... ¡tenemos que encontrar una nueva fuente de suministros!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen02Subtitle",
+  "text": "*¡Kassad intenta capturar los recursos cercanos! ¡No podemos dejar que se lleve lo que nos pertenece por derecho!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen03Subtitle",
+  "text": "*¡Debemos reunificar el ELG bajo un solo líder!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen04Subtitle",
+  "text": "*¡Cuidado! ¡Kassad nos ha lanzado un ataque furtivo!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen05Subtitle",
+  "text": "*Tenemos planes mucho más grandes que esa rata de Kassad. El mundo temblará cuando desatemos la furia del ELG"
+ }
+]
