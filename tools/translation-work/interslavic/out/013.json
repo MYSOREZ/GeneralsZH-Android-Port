@@ -1,0 +1,802 @@
+[
+ {
+  "label": "CREDITS:ExternalMultiplayMapCreators",
+  "text": "Vnějšni Sozdateli Kart za Multiigru"
+ },
+ {
+  "label": "CREDITS:Artists",
+  "text": "Umětniky"
+ },
+ {
+  "label": "CREDITS:AdditionalArt",
+  "text": "Dodatno Umětničsko Dělo"
+ },
+ {
+  "label": "CREDITS:DirectorofAudio",
+  "text": "Direktor Audije"
+ },
+ {
+  "label": "CREDITS:SoundDesignandVoiceDirection",
+  "text": "Zvukovy Dizajn i Rěžija Glasov"
+ },
+ {
+  "label": "CREDITS:Composers",
+  "text": "Kompozitory"
+ },
+ {
+  "label": "CREDITS:Composer1",
+  "text": "Muzyka Kompozirovana i Producirana ot"
+ },
+ {
+  "label": "CREDITS:Additionalsoundsanddialogueprocessing",
+  "text": "Dodatni Zvuky i Dodatna Obrabotka Dialogov"
+ },
+ {
+  "label": "CREDITS:ScriptWriters",
+  "text": "Scenaristy"
+ },
+ {
+  "label": "CREDITS:SoundEffectsFieldRecordings",
+  "text": "Terenske Zapisy Zvukovyh Efektov"
+ },
+ {
+  "label": "CREDITS:SoundEffectsFieldRecordings1",
+  "text": "Jacques Littlefield and the Military Vehicle Technology Foundation"
+ },
+ {
+  "label": "CREDITS:SoundEffectsFieldRecordings2",
+  "text": "SPEC Samuel H. Cho"
+ },
+ {
+  "label": "CREDITS:SoundEffectsFieldRecordings3",
+  "text": "Staff Sergeant Scott McClane of C troop 1/18 Cav"
+ },
+ {
+  "label": "CREDITS:SoundEffectsFieldRecordings4",
+  "text": "Mary Beth McFadden and Francisco Mendozo at Adam's Steel - Anaheim"
+ },
+ {
+  "label": "CREDITS:CinematicCutSceneDirector",
+  "text": "Rěžiser Kinematičnyh Sceny"
+ },
+ {
+  "label": "CREDITS:CinematicCutSceneArtists",
+  "text": "Umětniky Kinematičnyh Sceny"
+ },
+ {
+  "label": "CREDITS:ProductionAssistance",
+  "text": "Dodatno Upravjenje Produkcijeju"
+ },
+ {
+  "label": "CREDITS:AdditionalProductionManagement",
+  "text": "Dodatno Upravjenje Produkcijeju"
+ },
+ {
+  "label": "CREDITS:CameoProduction",
+  "text": "Produkcija Kameo"
+ },
+ {
+  "label": "CREDITS:Casting",
+  "text": "Kasting ot Deborah German Casting"
+ },
+ {
+  "label": "CREDITS:Wardrobe",
+  "text": "Garderoba ot Jodi DeMarco"
+ },
+ {
+  "label": "CREDITS:HairandMakeUp",
+  "text": "Frizury i Makijaž ot Jodi DeMarco"
+ },
+ {
+  "label": "CREDITS:EngineeringInterns",
+  "text": "Inženěrski Praktikanty"
+ },
+ {
+  "label": "CREDITS:ArtIntern",
+  "text": "Umětničsky Praktikant"
+ },
+ {
+  "label": "CREDITS:EAPacificQualityAssurance",
+  "text": "Kontrola Kačestva EA Pacific"
+ },
+ {
+  "label": "CREDITS:EAPacificOperations",
+  "text": "Operacije EA Pacific"
+ },
+ {
+  "label": "CREDITS:VoiceActors",
+  "text": "Glasovni Glumci"
+ },
+ {
+  "label": "CREDITS:CameoPhotos",
+  "text": "Fotografije Kameo i Generalov"
+ },
+ {
+  "label": "CREDITS:AdditionalModels",
+  "text": "Dodatni Modely ot Mythos Studios"
+ },
+ {
+  "label": "CREDITS:CinematicIntroandFinaleMovies",
+  "text": "Uvodny Film ot Mondo Media"
+ },
+ {
+  "label": "CREDITS:MotionCapture",
+  "text": "Westwood Zahvat Dvigenja"
+ },
+ {
+  "label": "CREDITS:MilitarypropsThanx",
+  "text": "Vojenske rekvizity dostavjene ot David Hsu i Specialized Distribution"
+ },
+ {
+  "label": "CREDITS:SpecialThanx1",
+  "text": "Hvala i Ljubov Daisy i Freeman Gushee, Mamě i Tatě i Ike! - Harvard"
+ },
+ {
+  "label": "CREDITS:SpecialThanx2",
+  "text": "Ljubov i hvala Laurě, Benu, Jacku, Samu i Sophie"
+ },
+ {
+  "label": "CREDITS:SpecialThanx3",
+  "text": "Hvala Komandě Podpiry Semji Brown - Robin, Josh, Beth i Meeskite"
+ },
+ {
+  "label": "CREDITS:SpecialThanx4",
+  "text": "Hvala mojemu synu Colinu Moore, že mi dozvolil igrati igru na svojem kompjuteru"
+ },
+ {
+  "label": "CREDITS:SpecialThanx5",
+  "text": "Veliky objatje mojemu novomu mužu Joji za jego ljubov i podpiru - Jill"
+ },
+ {
+  "label": "CREDITS:SpecialThanx7",
+  "text": "Hvala DMP, Jenny i Elizabeth"
+ },
+ {
+  "label": "CREDITS:SpecialThanx8",
+  "text": "Hvala mojemu Otcu. - Mark Lorenzen"
+ },
+ {
+  "label": "CREDITS:SpecialThanx9",
+  "text": "Mnogo ljubvi Madison, Reece, Melissě, Tatě i mojim bratam! - Randy Greenback"
+ },
+ {
+  "label": "CREDITS:SpecialThanx10",
+  "text": "Hvala Maha, Ramzi i Brooke za ih podpiru. Pozdrav dětem 415 - Amer"
+ },
+ {
+  "label": "CREDITS:SpecialThanx11",
+  "text": "Mama&Tata, Bry,Kev,Dan&Mel,Aaron&Kelsey,Mikki,Adam,Kev,Jay,James - SCC"
+ },
+ {
+  "label": "CREDITS:SpecialThanx12",
+  "text": "Brendě i Nero za ih čudesnu podpiru - Eric Kearns"
+ },
+ {
+  "label": "CREDITS:SpecialThanx13",
+  "text": "Hvala Gibsonu, Vinge, Mieville, Bear, Hebert, LeGuin - RN Smith"
+ },
+ {
+  "label": "CREDITS:SpecialThanx14",
+  "text": "Deborah, Stephen i Alan - hvala, že ste me trpěli - Ian Barkley-Yeung"
+ },
+ {
+  "label": "CREDITS:SpecialThanx15",
+  "text": "Hvala Cristi za tvoje razuměnje i podpiru - John"
+ },
+ {
+  "label": "CREDITS:SpecialThanx16",
+  "text": "Hvala April, Wesley, Kelly i Chelsie - Scott Bowen"
+ },
+ {
+  "label": "CREDITS:SpecialThanx17",
+  "text": "Hvala prijateljam, semji, Choo Choo Bear i těžko-rabotajučej komandě ZH! - JB"
+ },
+ {
+  "label": "CREDITS:SpecialThanx18",
+  "text": "Hvala Junko za tvoju ljubov. - Robert Minsk"
+ },
+ {
+  "label": "CREDITS:SpecialThanx19",
+  "text": "Hvala Carině, Kat i Brandonu za tolko razuměnja - David Wainstain"
+ },
+ {
+  "label": "CREDITS:SpecialThanx20",
+  "text": "Hvala mojej semji, Cheryl i Brandonu Burtis za ih ljubov i podpiru"
+ },
+ {
+  "label": "CREDITS:SpecialThanx21",
+  "text": "Hvala mojim prijateljam i semji, osobno Jeannie. Ljubim vas vsěh - KDS"
+ },
+ {
+  "label": "CREDITS:SpecialThanx22",
+  "text": "Hvala za mojego čudesnogo muža Romana - Samm"
+ },
+ {
+  "label": "CREDITS:SpecialThanx23",
+  "text": "Hvala Ari za vsu tvoju ljubov, podpiru i razuměnje - Jose"
+ },
+ {
+  "label": "CREDITS:SpecialThanx24",
+  "text": "Rebecce, jedinoj věšči, koja ima značenje, jedinoj věšči, koja trvaje"
+ },
+ {
+  "label": "CREDITS:SpecialThanx25",
+  "text": "Hvala mojej ljubjenoj ženě za inspiraciju i podpiru - Chris Rubyor"
+ },
+ {
+  "label": "CREDITS:SpecialThanx26",
+  "text": "Hvala mojej ženě, že mi dala naše vrěmja. Ljubim tę. - Jeff Stewart"
+ },
+ {
+  "label": "CREDITS:SpecialThanx27",
+  "text": "Hvala Mamě, Bruce, Laura, Dasmo, Mikey, Tedo, Trevor i vsěm mojim prijateljam v The OC"
+ },
+ {
+  "label": "CREDITS:SpecialThanx28",
+  "text": "Hočju zahvaliti mojej semji i Amy Ritchie"
+ },
+ {
+  "label": "CREDITS:SpecialThanx29",
+  "text": "NazBoniadiArtRasoulZohreRahimiAliLeilaTabaFamilyP,T,KMLoBobWindDrFrost"
+ },
+ {
+  "label": "CREDITS:SpecialThanx31",
+  "text": "Hvala Ben Calmer i Laura Miele"
+ },
+ {
+  "label": "CREDITS:SpecialThanx33",
+  "text": "Veoma Specijalna Hvala zajednici fanov Command & Conquer."
+ },
+ {
+  "label": "CREDITS:SpecialThanx34",
+  "text": "Velike pozdravy mojej ljubimoj Joji i mojemu malomu Sparky"
+ },
+ {
+  "label": "CREDITS:SpecialThanx35",
+  "text": "Hvala mojej semji, Cheryl i Brandonu Burtis za ih ljubov i podpiru"
+ },
+ {
+  "label": "CREDITS:SpecialThanx36",
+  "text": "Hočju zahvaliti mojej ženě za razuměnje mojej zaposlenosti"
+ },
+ {
+  "label": "CREDITS:SpecialThanx37",
+  "text": "Bjorn Muller Hvala: Mamě, Tatě, semji i prijateljam"
+ },
+ {
+  "label": "CREDITS:SpecialThanx38",
+  "text": "Hočju zahvaliti mojej semji i Amy za vsu podpiru"
+ },
+ {
+  "label": "CREDITS:SpecialThanx39",
+  "text": "Specijalna hvala: Mamě, Tatě, Bohdi, Willie i vsakomu, kto to čita"
+ },
+ {
+  "label": "CREDITS:SpecialThanx40",
+  "text": "Hvala vsěm prijateljam i semji za čekanje na Božič v Fevrualu"
+ },
+ {
+  "label": "CREDITS:SpecialThanx41",
+  "text": "Hvala Bing, tvoja podpira byla neocěnima"
+ },
+ {
+  "label": "GUI:GameSaved",
+  "text": "Igra Sohranjena"
+ },
+ {
+  "label": "GUI:ErrorSavingGame",
+  "text": "Pogreška pri sohranjenju igry '%s'"
+ },
+ {
+  "label": "GUI:ErrorLoadingGame",
+  "text": "Pogreška pri nagruženju igry '%s'"
+ },
+ {
+  "label": "CREDITS:InspiredByLine1",
+  "text": "Command & Conquer (TM) Generals Zero Hour byl inspirovan originalnym"
+ },
+ {
+  "label": "CREDITS:InspiredByLine2",
+  "text": "Command & Conquer (TM) sozdanym ot Westwood Studios"
+ },
+ {
+  "label": "CREDITS:MultiplayerTestParticipantThanxMessageLine1",
+  "text": "Hvala vsěm fantastičnym učestnikam Testa Multiigry"
+ },
+ {
+  "label": "CREDITS:MultiplayerTestParticipantThanxMessageLine2",
+  "text": "koji nam pomogli protestovati igru. Vaša pomoć"
+ },
+ {
+  "label": "CREDITS:MultiplayerTestParticipantThanxMessageLine3",
+  "text": "byla neocěnima, i my nadějemo sę, že vam sę světil opyt"
+ },
+ {
+  "label": "CREDITS:SpecialThanxKeyMessage1",
+  "text": "Veoma specijalna hvala vsěm našim semjam za to, že nam dozvolili dělati to,"
+ },
+ {
+  "label": "CREDITS:SpecialThanxKeyMessage2",
+  "text": "čto ljubimo: dělati igry. Ne možemo vam dosta zahvaliti za vašu podpiru"
+ },
+ {
+  "label": "CREDITS:SpecialThanxKeyMessage3",
+  "text": "No probujemo..."
+ },
+ {
+  "label": "CREDITS:SpecialThanx6Line1",
+  "text": "Hvala mojej semji i prijateljam v Chilliwack, BC, Kanada! - Kris Morness"
+ },
+ {
+  "label": "CREDITS:SpecialThanx6Line2",
+  "text": "Vaša ljubov i podpira byli neocěnimi. Ljubim vas iz srdca"
+ },
+ {
+  "label": "CREDITS:SpecialThanx30Line1",
+  "text": "Hvala Jane, George, David, Sophia, Audrey, Shannon, Johan i agavenectar"
+ },
+ {
+  "label": "CREDITS:SpecialThanx30Line2",
+  "text": "za to, že ste byli tam, hoč ja ne mogl"
+ },
+ {
+  "label": "CREDITS:SpecialThanx32Line1",
+  "text": "Hvala Bing Gordon, tvoja postojanna podpira byla neocěnima."
+ },
+ {
+  "label": "CREDITS:SpecialThanx32Line2",
+  "text": "koji učini bilo čto za dolar"
+ },
+ {
+  "label": "GUI:ControlBarBack",
+  "text": "NAZAD"
+ },
+ {
+  "label": "GUI:MainMenuLoadGame",
+  "text": "NAGRUZITI IGRU"
+ },
+ {
+  "label": "GUI:MainMenuLoadReplay",
+  "text": "NAGRUZITI ZAPIS"
+ },
+ {
+  "label": "GUI:LastReplay",
+  "text": "Poslědnji Zapis"
+ },
+ {
+  "label": "GUI:ControlBarMoneyDisplay",
+  "text": "$ %d"
+ },
+ {
+  "label": "GUI:Player",
+  "text": "Igrač"
+ },
+ {
+  "label": "CREDITS:UliLachelet",
+  "text": "Uli Lächelt"
+ },
+ {
+  "label": "CREDITS:JorgLindner",
+  "text": "Jörg Lindner"
+ },
+ {
+  "label": "CREDITS:LOCALIZATION",
+  "text": "Lokalizacija"
+ },
+ {
+  "label": "CREDITS:EALocalisationManager",
+  "text": "Evropsky Menedžer Lokalizacije EA"
+ },
+ {
+  "label": "CREDITS:EALocalisationProjectManager",
+  "text": "Evropsky Menedžer Projekta Lokalizacije EA"
+ },
+ {
+  "label": "CREDITS:EuropeanIntegrationTeam",
+  "text": "Evropska Komanda Integracije"
+ },
+ {
+  "label": "CREDITS:IntegrationEngineerManager",
+  "text": "Menedžer Inženěrov Integracije"
+ },
+ {
+  "label": "CREDITS:IntegrationProgrammer",
+  "text": "Programeri Integracije"
+ },
+ {
+  "label": "CREDITS:AudioPostproduction",
+  "text": "Audio Postprodukcija"
+ },
+ {
+  "label": "CREDITS:SpanishLocalizationTeam",
+  "text": "Špansky Tim Lokalizacije"
+ },
+ {
+  "label": "CREDITS:LocalizationManagerEAIberia",
+  "text": "Menedžer Lokalizacije EA Iberia"
+ },
+ {
+  "label": "CREDITS:QAnLTSupervisor",
+  "text": "Nadzornik QA i LT"
+ },
+ {
+  "label": "CREDITS:QALead",
+  "text": "Vodja QA"
+ },
+ {
+  "label": "CREDITS:QATesters",
+  "text": "Testeri QA"
+ },
+ {
+  "label": "CREDITS:LocalizationSupervisorEAIberia",
+  "text": "Nadzornik Lokalizacije EA Iberia"
+ },
+ {
+  "label": "CREDITS:LocalizationCoordinator",
+  "text": "Koordinator Lokalizacije"
+ },
+ {
+  "label": "CREDITS:Translations",
+  "text": "Prěvody"
+ },
+ {
+  "label": "CREDITS:DTPSupervisor",
+  "text": "Nadzornik DTP"
+ },
+ {
+  "label": "CREDITS:LayoutDesign",
+  "text": "Dizajn Rasporeda"
+ },
+ {
+  "label": "CREDITS:Documentation",
+  "text": "Dokumentacija"
+ },
+ {
+  "label": "CREDITS:JoseMaria",
+  "text": "José María García"
+ },
+ {
+  "label": "CREDITS:AndresGine",
+  "text": "Andrés Giné"
+ },
+ {
+  "label": "CREDITS:JoseRamon",
+  "text": "José Ramón Sagarna"
+ },
+ {
+  "label": "CREDITS:DavidSuarez",
+  "text": "David Suárez"
+ },
+ {
+  "label": "CREDITS:AlejandroGomez",
+  "text": "Alejandro Gómez"
+ },
+ {
+  "label": "CREDITS:IsmaeLDuran",
+  "text": "Ismael Durán"
+ },
+ {
+  "label": "CREDITS:JoseLuis",
+  "text": "José Luis Rovira"
+ },
+ {
+  "label": "CREDITS:JavierMartinez",
+  "text": "Javier Martínez"
+ },
+ {
+  "label": "CREDITS:LuisPines",
+  "text": "Luis Pinés"
+ },
+ {
+  "label": "CREDITS:EAItalyLocalization",
+  "text": "Lokalizacija EA - Italija"
+ },
+ {
+  "label": "CREDITS:LocalisationManager",
+  "text": "Menedžer Lokalizacije"
+ },
+ {
+  "label": "CREDITS:TranslationSupervisor",
+  "text": "Nadzornik Prěvoda"
+ },
+ {
+  "label": "CREDITS:LTSupervisor",
+  "text": "Nadzornik LT"
+ },
+ {
+  "label": "CREDITS:LocalisationCoordinator",
+  "text": "Koordinator Lokalizacije"
+ },
+ {
+  "label": "CREDITS:LocalisationGermany",
+  "text": "Lokalizacija EA - Germanija"
+ },
+ {
+  "label": "CREDITS:RobertBock",
+  "text": "Robert Böck"
+ },
+ {
+  "label": "CREDITS:TestCoordination",
+  "text": "Koordinacija Testovanja"
+ },
+ {
+  "label": "CREDITS:LanguageTester",
+  "text": "Tester Lokalizacije"
+ },
+ {
+  "label": "CREDITS:LocalisationFrance",
+  "text": "Lokalizacija EA - Francija"
+ },
+ {
+  "label": "CREDITS:TestManager",
+  "text": "Menedžer Testovanja"
+ },
+ {
+  "label": "CREDITS:FrenchLanguageTestingCoordinator",
+  "text": "Koordinator Testovanja Jezyka"
+ },
+ {
+  "label": "CREDITS:StephaneTachon",
+  "text": "Stéphane Tachon"
+ },
+ {
+  "label": "CREDITS:LanguageTesters",
+  "text": "Testeri Lokalizacije"
+ },
+ {
+  "label": "CREDITS:LocalisationBrazil",
+  "text": "Lokalizacija EA - Brazilija"
+ },
+ {
+  "label": "CREDITS:TranslationAndTesting",
+  "text": "Prěvod i Testovanje"
+ },
+ {
+  "label": "CREDITS:LocalisationPoland",
+  "text": "Lokalizacija - Poljska"
+ },
+ {
+  "label": "GUI:LadderNameAndSize",
+  "text": "%ls (%dv%d)"
+ },
+ {
+  "label": "GUI:InvalidLadderPassword",
+  "text": "Nevalidny parol rejtinga"
+ },
+ {
+  "label": "GUI:EnterLadderPassword",
+  "text": "Vpiši parol rejtinga:"
+ },
+ {
+  "label": "GUI:InternetDisconnectionMenuHeader",
+  "text": "Menu Otključenja"
+ },
+ {
+  "label": "GUI:InternetDisconnectionMenuHeaderCaps",
+  "text": "MENU OTKLJUČENJA"
+ },
+ {
+  "label": "GUI:InternetDisconnectionMenuBody1",
+  "text": "Jeden ili věče igračev je otključeno od igry. Ako izberete glasovati za izgnanje osoby iz igry, kliknite gumb GLAS blizu odgovarajučego igrača. Kogda časovnik dojde do 0, ta osoba bude izgnana iz igry i boj prodolži"
+ },
+ {
+  "label": "GUI:InternetDisconnectionMenuBody2",
+  "text": "Može byti, že osoba pokušaje sę znova sojediniti, tako da možete izbrati čekati, dok časovnik toj osoby ne isteče. Kogda časovnik dojde do 0, ta osoba bude izgnana iz igry i boj prodolži"
+ },
+ {
+  "label": "CREDITS:EAKoreaLocalisationTeam",
+  "text": "Tim EA Koreja"
+ },
+ {
+  "label": "CREDITS:BusinessDevelopmentManager",
+  "text": "Menedžer Razvoja Biznesa"
+ },
+ {
+  "label": "CREDITS:LocalisationProducer",
+  "text": "Producent Lokalizacije"
+ },
+ {
+  "label": "CREDITS:EAKoreaMarketingTeam",
+  "text": "Marketingovy Tim EA Koreja"
+ },
+ {
+  "label": "CREDITS:MarketingManager",
+  "text": "Menedžer Marketinga"
+ },
+ {
+  "label": "CREDITS:ProductManager",
+  "text": "Menedžer Produkta"
+ },
+ {
+  "label": "CREDITS:PublicRelations",
+  "text": "Javni Odnosy"
+ },
+ {
+  "label": "CREDITS:ProductPromotion",
+  "text": "Promocija Produkta"
+ },
+ {
+  "label": "CREDITS:EATaiwanLocalisationTeam",
+  "text": "Tim Lokalizacije EA Tajvan"
+ },
+ {
+  "label": "CREDITS:EAAsiaPacificLocalisationProjectManager",
+  "text": "Menedžer Projekta Lokalizacije EA Azija-Pacifik"
+ },
+ {
+  "label": "CREDITS:AdditionalStoryInspiration",
+  "text": "Dodatna Inspiracija Sjuzeta"
+ },
+ {
+  "label": "GUI:RandomSide",
+  "text": "Slučajno"
+ },
+ {
+  "label": "GUI:Age",
+  "text": "Vozrast"
+ },
+ {
+  "label": "GUI:Month",
+  "text": "Měsjac (MM)"
+ },
+ {
+  "label": "GUI:Day",
+  "text": "Deń (DD)"
+ },
+ {
+  "label": "GUI:Year",
+  "text": "Rok (YYYY)"
+ },
+ {
+  "label": "CREDITS:DevelopmentTitle2",
+  "text": "ot Electronic Arts Los Angeles"
+ },
+ {
+  "label": "CREDITS:EAPacificDevTeam2",
+  "text": "Command & Conquer (TM) Generals Zero Hour"
+ },
+ {
+  "label": "GUI:MustHaveAdminRights",
+  "text": "Vam trěba administrativne prava, aby instalirati zaplatu"
+ },
+ {
+  "label": "GUI:BuddyAddReq",
+  "text": "Korisnik hoče dodati prijatelja"
+ },
+ {
+  "label": "GUI:AgeFailedTitle",
+  "text": "Izvěščenje o Trěbovanju Vozrasta"
+ },
+ {
+  "label": "GUI:AgeFailed",
+  "text": "Morate imati 13 ili věče godin, aby igrati tu igru onlajn"
+ },
+ {
+  "label": "GUI:AdditionalLocalizationManagement",
+  "text": "Dodatno Upravjenje Lokalizacijeju"
+ },
+ {
+  "label": "GUI:GroupRoom4",
+  "text": "4 proti 4"
+ },
+ {
+  "label": "GUI:GroupRoom5",
+  "text": "Azija"
+ },
+ {
+  "label": "GUI:GroupRoom6",
+  "text": "Evropa"
+ },
+ {
+  "label": "GUI:GroupRoom7",
+  "text": "Sěverna Amerika"
+ },
+ {
+  "label": "GUI:GroupRoom8",
+  "text": "Vjelika Britanija"
+ },
+ {
+  "label": "GUI:GroupRoom9",
+  "text": "Germanija"
+ },
+ {
+  "label": "GUI:GroupRoom10",
+  "text": "Koreja"
+ },
+ {
+  "label": "GUI:GroupRoom11",
+  "text": "Vsi Protiv Vsěh"
+ },
+ {
+  "label": "GUI:GroupRoom12",
+  "text": "Bez Statistiky"
+ },
+ {
+  "label": "GUI:GroupRoom13",
+  "text": "Karty Modov"
+ },
+ {
+  "label": "GUI:ControlOptions",
+  "text": "NASTAVJENJA KONTROLY"
+ },
+ {
+  "label": "GUI:ClassicMouse",
+  "text": "Klasično"
+ },
+ {
+  "label": "GUI:AlternateMouse",
+  "text": "Alternativna Postavka Myši"
+ },
+ {
+  "label": "TOOLTIP:AlternateMouse",
+  "text": "Desny gumb myši iniciira dějstvje jedinicy na poljě boja (napad, dvigenje, itd.)"
+ },
+ {
+  "label": "GUI:Generals_Challenge",
+  "text": "IZZOV"
+ },
+ {
+  "label": "GUI:Generals_Challenge_Title",
+  "text": "Izzov Generalov"
+ },
+ {
+  "label": "GUI:DemoMD_USA01ButtonTitle",
+  "text": "USA 01"
+ },
+ {
+  "label": "GUI:DemoMD_USA02ButtonTitle",
+  "text": "USA 02"
+ },
+ {
+  "label": "GUI:DemoMD_GLA03ButtonTitle",
+  "text": "GLA 03"
+ },
+ {
+  "label": "GUI:DemoMD_CampEADemoTitle",
+  "text": "DEMO"
+ },
+ {
+  "label": "TOOLTIP:TooltipCannotBuildBuildingBecauseMaximumNumber",
+  "text": "Zgrada već postroena"
+ },
+ {
+  "label": "TOOLTIP:MapMaxBrutalSuccess",
+  "text": "Čestitke! Vy pobědili tu kartu protiv maksimalnogo broja težkih protivnikov!"
+ },
+ {
+  "label": "GUI:LimitArmies",
+  "text": "Ograniči Armije"
+ },
+ {
+  "label": "TOOLTIP:LimitArmies",
+  "text": "Označi, aby ograničiti armije na tradicijne frakcije USA, GLA i Kitaj i zabraniti armije otstupnyh generalov"
+ },
+ {
+  "label": "GUI:UseStats",
+  "text": "Zapisuj Statistiku"
+ },
+ {
+  "label": "TOOLTIP:UseStats",
+  "text": "Izberi, či statistika toj igry bude zapisana na oficijalnom serveru C&C Generals Zero Hour"
+ },
+ {
+  "label": "TOOLTIP:UseStatsOn",
+  "text": "Statistika toj igry BUDE zapisana na oficijalnom serveru C&C Generals Zero Hour"
+ },
+ {
+  "label": "TOOLTIP:UseStatsOff",
+  "text": "Statistika toj igry NE BUDE zapisana na oficijalnom serveru C&C Generals Zero Hour"
+ },
+ {
+  "label": "GUI:StartingMoney",
+  "text": "Startovy Novac"
+ },
+ {
+  "label": "GUI:StartingMoneyFormat",
+  "text": "$%u"
+ },
+ {
+  "label": "TOOLTIP:StartingMoney",
+  "text": "Nastroj startovy novac za vsěh igračev"
+ }
+]
