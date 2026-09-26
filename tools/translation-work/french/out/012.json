@@ -1,0 +1,802 @@
+[
+ {
+  "label": "MAP:NoMansLand",
+  "text": "No Man's Land"
+ },
+ {
+  "label": "MAP:OverlandOffensive",
+  "text": "Overland Offensive"
+ },
+ {
+  "label": "MAP:RockyRampage",
+  "text": "Rocky Rampage"
+ },
+ {
+  "label": "MAP:SnowblindStrike",
+  "text": "Snowblind Strike"
+ },
+ {
+  "label": "MAP:UrbanUnderground",
+  "text": "Urban Underground"
+ },
+ {
+  "label": "MAP:VictoryValley",
+  "text": "Victory Valley"
+ },
+ {
+  "label": "MAP:WastelandWarfare",
+  "text": "Wasteland Warfare"
+ },
+ {
+  "label": "MAP:RogueAgent",
+  "text": "Rogue Agent"
+ },
+ {
+  "label": "MAP:DesertEagle",
+  "text": "Desert Eagle"
+ },
+ {
+  "label": "MAP:FlashFire",
+  "text": "Flash Fire"
+ },
+ {
+  "label": "MAP:MountainGuns",
+  "text": "Mountain Guns"
+ },
+ {
+  "label": "MAP:FlashEffect",
+  "text": "Flash Effect"
+ },
+ {
+  "label": "MAP:LightsOut",
+  "text": "Lights Out"
+ },
+ {
+  "label": "MAP:SteelTrap",
+  "text": "Steel Trap"
+ },
+ {
+  "label": "MAP:ArmoredFury",
+  "text": "Armored Fury"
+ },
+ {
+  "label": "MAP:InfiniteJustice",
+  "text": "Cairo Commandos"
+ },
+ {
+  "label": "MAP:Whiteout",
+  "text": "Whiteout"
+ },
+ {
+  "label": "MAP:FalloutEffect",
+  "text": "Fallout Effect"
+ },
+ {
+  "label": "MAP:FloodedPlains",
+  "text": "Flooded Plains"
+ },
+ {
+  "label": "MAP:TournamentContinent",
+  "text": "Tournament Continent"
+ },
+ {
+  "label": "MAP:TournamentCity",
+  "text": "Tournament City"
+ },
+ {
+  "label": "MAP:TournamentLadder01",
+  "text": "Tournament Ladder 01"
+ },
+ {
+  "label": "MAP:TournamentLadder02",
+  "text": "Tournament Ladder 02"
+ },
+ {
+  "label": "MAP:TournamentLadder03",
+  "text": "Tournament Ladder 03"
+ },
+ {
+  "label": "MAP:TournamentLadder04",
+  "text": "Tournament Ladder 04"
+ },
+ {
+  "label": "MAP:TrainingGLAHole",
+  "text": "Les bâtiments de la GLA ont de profonds sous-sols qui protègent leurs ouvriers. Quand un bâtiment de la GLA est détruit, il reste un trou. Les ouvriers cachés dedans finiront par reconstruire le bâtiment. Attaquez le trou pour éliminer la menace de la GLA"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak25",
+  "text": "Honneur Série \n Le joueur a gagné 25 escarmouches d'affilée \n Nouvelle médaille pour 3, 10, 25, 100, 500 et 1000 victoires consécutives"
+ },
+ {
+  "label": "GUI:InsertCDPrompt",
+  "text": "CD manquant"
+ },
+ {
+  "label": "GUI:InsertCDMessage",
+  "text": "Veuillez insérer le premier CD du jeu"
+ },
+ {
+  "label": "CONTROLBAR:OrRequirement",
+  "text": "ou"
+ },
+ {
+  "label": "SCRIPT:USA02RescueCounter",
+  "text": "Pilotes restants :"
+ },
+ {
+  "label": "GUI:AddCash",
+  "text": "$%d"
+ },
+ {
+  "label": "GUI:LoseCash",
+  "text": "-$%d"
+ },
+ {
+  "label": "RADAR:HarvesterUnderAttack",
+  "text": "Collecteur de ressources attaqué"
+ },
+ {
+  "label": "OBJECT:PharmaceuticalFactory",
+  "text": "Usine pharmaceutique"
+ },
+ {
+  "label": "GUI:CareerWins",
+  "text": "Victoires en carrière"
+ },
+ {
+  "label": "GUI:CareerLosses",
+  "text": "Défaites en carrière"
+ },
+ {
+  "label": "GUI:CurrentWinStreak",
+  "text": "Série de victoires en cours"
+ },
+ {
+  "label": "GUI:CarrerWinPercent",
+  "text": "Pourcentage de victoires en carrière"
+ },
+ {
+  "label": "TOOLTIP:NumberOfPlayers",
+  "text": "Nombre de joueurs actuellement dans cette partie"
+ },
+ {
+  "label": "TOOTIP:Password",
+  "text": "Mot de passe requis pour rejoindre la partie"
+ },
+ {
+  "label": "TOOLTIP:PingInfo",
+  "text": "Qualité de la connexion à l'hôte"
+ },
+ {
+  "label": "TOOLTIP:LobbyOfficersClub",
+  "text": "Club des officiers : membre fondateur de la communauté Generals"
+ },
+ {
+  "label": "GUI:Display",
+  "text": "OPTIONS"
+ },
+ {
+  "label": "GUI:Audio",
+  "text": "AUDIO"
+ },
+ {
+  "label": "GUI:LANLobby",
+  "text": "SALON LAN"
+ },
+ {
+  "label": "GUI:Mute",
+  "text": "Muet"
+ },
+ {
+  "label": "GUI:NeedHumanPlayers",
+  "text": "Il faut un joueur humain non observateur pour lancer la partie"
+ },
+ {
+  "label": "GUI:MediumDifficulty",
+  "text": "Moyen"
+ },
+ {
+  "label": "CONTROLBAR:ObsPlayerLabel",
+  "text": "%ls (Équipe %ls)"
+ },
+ {
+  "label": "GUI:LowTextureDetail",
+  "text": "Textures basse qualité"
+ },
+ {
+  "label": "TOOLTIP:LowTextureDetail",
+  "text": "Utiliser des textures basse résolution"
+ },
+ {
+  "label": "GUI:QuickMatch800x600",
+  "text": "Veuillez passer votre résolution en 800 x 600 pour jouer en QuickMatch"
+ },
+ {
+  "label": "OBJECT:CargoPlane",
+  "text": "Avion cargo"
+ },
+ {
+  "label": "OBJECT:HuNanProvince",
+  "text": "Pékin"
+ },
+ {
+  "label": "OBJECT:HongKong",
+  "text": "Hong Kong"
+ },
+ {
+  "label": "OBJECT:HubeiProvince",
+  "text": "Barrage des Trois-Gorges"
+ },
+ {
+  "label": "OBJECT:Tangula",
+  "text": "Monts Tanggula"
+ },
+ {
+  "label": "OBJECT:Balykchy",
+  "text": "Balykchy"
+ },
+ {
+  "label": "OBJECT:Bishkek",
+  "text": "Bichkek"
+ },
+ {
+  "label": "OBJECT:Dushanbe",
+  "text": "Douchanbé"
+ },
+ {
+  "label": "OBJECT:Shymkent",
+  "text": "Chymkent"
+ },
+ {
+  "label": "OBJECT:Almaty",
+  "text": "Almaty"
+ },
+ {
+  "label": "OBJECT:Zambul",
+  "text": "Jambyl"
+ },
+ {
+  "label": "OBJECT:Astana",
+  "text": "Astana"
+ },
+ {
+  "label": "OBJECT:Incirlik",
+  "text": "Incirlik"
+ },
+ {
+  "label": "OBJECT:AralSea",
+  "text": "Mer d'Aral"
+ },
+ {
+  "label": "OBJECT:Lenger",
+  "text": "Lenger"
+ },
+ {
+  "label": "OBJECT:Baikonur",
+  "text": "Baïkonour"
+ },
+ {
+  "label": "OBJECT:Mazar",
+  "text": "Mazar"
+ },
+ {
+  "label": "OBJECT:Baghdad",
+  "text": "Bagdad"
+ },
+ {
+  "label": "OBJECT:AlHanad",
+  "text": "Al Hanad"
+ },
+ {
+  "label": "OBJECT:NorthKazakhstan",
+  "text": "Nord du Kazakhstan"
+ },
+ {
+  "label": "OBJECT:KazakhstanCoast",
+  "text": "Côte du Kazakhstan"
+ },
+ {
+  "label": "OBJECT:KazakhstanDMZ",
+  "text": "Zone démilitarisée du Kazakhstan"
+ },
+ {
+  "label": "OBJECT:SouthKazkahstan",
+  "text": "Sud-est du Kazakhstan"
+ },
+ {
+  "label": "OBJECT:Akmola",
+  "text": "Akmola"
+ },
+ {
+  "label": "SCRIPT:GLA03Objective01a",
+  "text": "OBJECTIFS DE MISSION : \n Prenez le Centre de commandement à l'est pour lancer la production \n Tuez 200 traîtres"
+ },
+ {
+  "label": "SCRIPT:GLA03Objective02a",
+  "text": "OBJECTIF DE MISSION : \n Tuez 200 traîtres avec les tracteurs toxiques"
+ },
+ {
+  "label": "TOOLTIP:Campaign1",
+  "text": "Campagne 3"
+ },
+ {
+  "label": "TOOLTIP:Campaign2",
+  "text": "Campagne 2"
+ },
+ {
+  "label": "TOOLTIP:Campaign3",
+  "text": "Campagne 1"
+ },
+ {
+  "label": "GUI:Setup",
+  "text": "CONFIGURATION"
+ },
+ {
+  "label": "GUI:PlayerInfo",
+  "text": "INFOS JOUEUR"
+ },
+ {
+  "label": "GUI:Persona",
+  "text": "PROFIL"
+ },
+ {
+  "label": "GUI:TextureHigh",
+  "text": "Haute qualité (plus lent)"
+ },
+ {
+  "label": "GUI:TextureMedium",
+  "text": "Qualité moyenne"
+ },
+ {
+  "label": "GUI:TextureLow",
+  "text": "Basse qualité (plus rapide)"
+ },
+ {
+  "label": "GUI:GameSpeed",
+  "text": "Vitesse de jeu"
+ },
+ {
+  "label": "GUI:SlowGameSpeed",
+  "text": "Lente"
+ },
+ {
+  "label": "GUI:MediumGameSpeed",
+  "text": "Moyenne"
+ },
+ {
+  "label": "GUI:FastGameSpeed",
+  "text": "Rapide"
+ },
+ {
+  "label": "GUI:RestartConfirmationTitle",
+  "text": "RECOMMENCER ?"
+ },
+ {
+  "label": "GUI:SurrenderConfirmationTitle",
+  "text": "SE RENDRE ?"
+ },
+ {
+  "label": "TOOLTIP:StartPositionN",
+  "text": "Position de départ du joueur %d"
+ },
+ {
+  "label": "LABEL:FORMATION",
+  "text": "F"
+ },
+ {
+  "label": "GUI:IgnoreSm",
+  "text": "Ignorer"
+ },
+ {
+  "label": "GUI:AcceptSm",
+  "text": "ACCEPTER"
+ },
+ {
+  "label": "GUI:EasyCaps",
+  "text": "FACILE"
+ },
+ {
+  "label": "GUI:MediumDifficultyCaps",
+  "text": "MOYEN"
+ },
+ {
+  "label": "GUI:HardCaps",
+  "text": "DIFFICILE"
+ },
+ {
+  "label": "TOOLTIP:AdvanceOptionsAccept",
+  "text": "Appliquer les modifications des options d'affichage avancées"
+ },
+ {
+  "label": "TOOLTIP:AdvanceOptionsCancel",
+  "text": "Quitter le menu des options d'affichage avancées sans appliquer les modifications"
+ },
+ {
+  "label": "GUI:AdvanceDisplayOptions",
+  "text": "OPTIONS D'AFFICHAGE AVANCÉES"
+ },
+ {
+  "label": "GUI:Shadows",
+  "text": "Ombres"
+ },
+ {
+  "label": "TOOLTIP:Shadows",
+  "text": "Afficher ou non les ombres en jeu. Désactivez pour de meilleures performances"
+ },
+ {
+  "label": "GUI:BehindBuilding",
+  "text": "Derrière les bâtiments"
+ },
+ {
+  "label": "TOOLTIP:BehindBuilding",
+  "text": "Afficher ou non les unités derrière les bâtiments. Désactivez pour de meilleures performances"
+ },
+ {
+  "label": "GUI:ShowProps",
+  "text": "Afficher les décors"
+ },
+ {
+  "label": "TOOLTIP:ShowProps",
+  "text": "Afficher ou non les éléments de décor. Désactivez pour de meilleures performances"
+ },
+ {
+  "label": "GUI:LowResSlider",
+  "text": "RÉSOLUTION DES TEXTURES"
+ },
+ {
+  "label": "GUI:HighResSlower",
+  "text": "Haute résolution (plus lent)"
+ },
+ {
+  "label": "GUI:LowResFaster",
+  "text": "Basse résolution (plus rapide)"
+ },
+ {
+  "label": "TOOLTIP:LowResSlider",
+  "text": "Les textures haute résolution peuvent ralentir le jeu"
+ },
+ {
+  "label": "GUI:ParticleCap",
+  "text": "LIMITE DE PARTICULES"
+ },
+ {
+  "label": "GUI:MoreParticlesSlower",
+  "text": "Particules max (plus lent)"
+ },
+ {
+  "label": "GUI:LessParticlesFaster",
+  "text": "Particules min (plus rapide)"
+ },
+ {
+  "label": "TOOLTIP:ParticleCapSlider",
+  "text": "Plus de particules peut ralentir le jeu"
+ },
+ {
+  "label": "GUI:CurrentLossStreak",
+  "text": "Série de défaites en cours"
+ },
+ {
+  "label": "GUI:Custom",
+  "text": "Personnalisé"
+ },
+ {
+  "label": "GUI:ToggleOnOff",
+  "text": "Effets visuels"
+ },
+ {
+  "label": "GUI:RestartMission",
+  "text": "RECOMMENCER LA MISSION"
+ },
+ {
+  "label": "GUI:ExitMission",
+  "text": "QUITTER LA MISSION"
+ },
+ {
+  "label": "GUI:OlderReplayVersionTitle",
+  "text": "ANCIENNE VERSION DE REPLAY"
+ },
+ {
+  "label": "GUI:OlderReplayVersion",
+  "text": "Le replay risque de ne pas s'afficher correctement. Le charger quand même ?"
+ },
+ {
+  "label": "GUI:Shadows2D",
+  "text": "Ombres 2D"
+ },
+ {
+  "label": "TOOLTIP:Shadows2D",
+  "text": "Afficher ou non les ombres 2D en jeu. Désactivez pour de meilleures performances"
+ },
+ {
+  "label": "GUI:Shadows3D",
+  "text": "Ombres 3D"
+ },
+ {
+  "label": "TOOLTIP:Shadows3D",
+  "text": "Afficher ou non les ombres 3D en jeu. Désactivez pour de meilleures performances"
+ },
+ {
+  "label": "GUI:CloudShadows",
+  "text": "Ombres des nuages"
+ },
+ {
+  "label": "TOOLTIP:CloudShadows",
+  "text": "Afficher ou non l'ombre des nuages sur le terrain. Désactivez pour de meilleures performances"
+ },
+ {
+  "label": "GUI:GroundLighting",
+  "text": "Éclairage du sol supplémentaire"
+ },
+ {
+  "label": "TOOLTIP:GroundLighting",
+  "text": "Afficher ou non l'éclairage détaillé du terrain. Désactivez pour de meilleures performances"
+ },
+ {
+  "label": "GUI:SmoothWater",
+  "text": "Bords de l'eau lissés"
+ },
+ {
+  "label": "TOOLTIP:SmoothWater",
+  "text": "Activer ou non le lissage des bords de l'eau. Désactivez pour de meilleures performances"
+ },
+ {
+  "label": "GUI:ExtraAnimations",
+  "text": "Animations supplémentaires"
+ },
+ {
+  "label": "TOOLTIP:ExtraAnimations",
+  "text": "Afficher ou non les animations facultatives comme le balancement des arbres. Désactivez pour de meilleures performances"
+ },
+ {
+  "label": "GUI:NoDynamicLOD",
+  "text": "Désactiver le niveau de détail dynamique"
+ },
+ {
+  "label": "TOOLTIP:NoDynamicLOD",
+  "text": "Désactive l'ajustement automatique des détails. Désactivez pour de meilleures performances"
+ },
+ {
+  "label": "GUI:UnlockMaxFPS",
+  "text": "FPS non limités"
+ },
+ {
+  "label": "TOOLTIP:UnlockMaxFPS",
+  "text": "Autorise plus de 30 images par seconde. Affecte la vitesse du jeu, recommandé uniquement pour les tests de performances"
+ },
+ {
+  "label": "GUI:TreeSway",
+  "text": "Animation des arbres"
+ },
+ {
+  "label": "TOOLTIP:TreeSway",
+  "text": "Activer ou non l'animation des arbres. Désactivez pour de meilleures performances"
+ },
+ {
+  "label": "GUI:TankTreads",
+  "text": "Traces des véhicules"
+ },
+ {
+  "label": "TOOLTIP:TankTreads",
+  "text": "Afficher ou non les traces laissées par les véhicules. Désactivez pour de meilleures performances"
+ },
+ {
+  "label": "GUI:WaterWaves",
+  "text": "Vagues"
+ },
+ {
+  "label": "TOOLTIP:WaterWaves",
+  "text": "Activer ou non l'animation des vagues sur les rivages. Désactivez pour de meilleures performances"
+ },
+ {
+  "label": "GUI:BuildupAnimations",
+  "text": "Animations de construction"
+ },
+ {
+  "label": "TOOLTIP:BuildupAnimations",
+  "text": "Affiche des animations supplémentaires pendant la construction des bâtiments. Désactivez pour de meilleures performances"
+ },
+ {
+  "label": "GUI:AdvancedOptionsToggleOnOff",
+  "text": "Activé/Désactivé - désactivez pour de meilleures performances"
+ },
+ {
+  "label": "GUI:PerformanceTestingMessage",
+  "text": "Veuillez patienter pendant le test des performances de votre système pour déterminer les réglages optimaux"
+ },
+ {
+  "label": "GUI:PerformanceTestingTitle",
+  "text": "Test des performances du système"
+ },
+ {
+  "label": "GUI:ReducedColor",
+  "text": "Couleurs 16 bits"
+ },
+ {
+  "label": "TOOLTIP:ReducedColor",
+  "text": "Améliore les performances mais réduit la qualité visuelle"
+ },
+ {
+  "label": "GUI:SelectAMapLowerCase",
+  "text": "Choisir une carte"
+ },
+ {
+  "label": "GUI:SaveAndExit",
+  "text": "SAUVEGARDER ET QUITTER"
+ },
+ {
+  "label": "GUI:PerSideWinPercentage",
+  "text": "%d%% %ls"
+ },
+ {
+  "label": "GUI:WinnersToday",
+  "text": "VAINQUEURS DU JOUR"
+ },
+ {
+  "label": "GUI:WinnersLastWeek",
+  "text": "VAINQUEURS DE LA SEMAINE DERNIÈRE"
+ },
+ {
+  "label": "MOTD:NumPlayersHeading",
+  "text": "Bienvenue sur Generals Zero Hour Online."
+ },
+ {
+  "label": "TOOLTIP:GameAcceptance",
+  "text": "Acceptation de partie"
+ },
+ {
+  "label": "TOOLTIP:ConnectionSpeed",
+  "text": "Vitesse de connexion"
+ },
+ {
+  "label": "CONTROLBAR:NoHotKeyArtilleryBarrage",
+  "text": "Barrage d'artillerie"
+ },
+ {
+  "label": "CONTROLBAR:NoHotKeySpySatellite",
+  "text": "Satellite espion"
+ },
+ {
+  "label": "GUI:FetchingPlayerInfo",
+  "text": "Mise à jour..."
+ },
+ {
+  "label": "CREDITS:EALosAngelesFieldRecordingsTeam",
+  "text": "Équipe d'enregistrement sur le terrain d'EA Los Angeles"
+ },
+ {
+  "label": "CREDITS:TiburonQualityAssuranceSeniorLead",
+  "text": "Responsable principal du contrôle qualité, EA Tiburon"
+ },
+ {
+  "label": "CREDITS:TiburonQualityAssuranceProjectLead",
+  "text": "Chef de projet contrôle qualité, EA Tiburon"
+ },
+ {
+  "label": "CREDITS:TiburonAssociateQualityAssuranceLeads",
+  "text": "Responsables adjoints du contrôle qualité, EA Tiburon"
+ },
+ {
+  "label": "CREDITS:TiburonQualityAssuranceSeniorTesters",
+  "text": "Testeurs principaux du contrôle qualité, EA Tiburon"
+ },
+ {
+  "label": "CREDITS:TiburonQualityAssuranceTesters",
+  "text": "Testeurs du contrôle qualité, EA Tiburon"
+ },
+ {
+  "label": "CREDITS:EAUKAdditionalQualityAssurance",
+  "text": "Contrôle qualité supplémentaire EAUK"
+ },
+ {
+  "label": "CREDITS:MultiplayerTestParticipants",
+  "text": "Participants aux tests multijoueurs"
+ },
+ {
+  "label": "CREDITS:FocusTesters",
+  "text": "Testeurs de groupes cibles"
+ },
+ {
+  "label": "CREDITS:NorthAmericaMarketingPartners",
+  "text": "Partenaires marketing Amérique du Nord"
+ },
+ {
+  "label": "CREDITS:ManagingDirectorEurope",
+  "text": "Directeur général Europe"
+ },
+ {
+  "label": "CREDITS:EuropeanMarketingPartners",
+  "text": "Partenaires marketing européens"
+ },
+ {
+  "label": "CREDITS:AsiaPacificPresidentandCoach",
+  "text": "EA Asia Pacific, président et coach"
+ },
+ {
+  "label": "CREDITS:AsiaPacificMarketingPartners",
+  "text": "Partenaires marketing EA Asia Pacific"
+ },
+ {
+  "label": "CREDITS:GamingCommunityPartners",
+  "text": "Partenaires de la communauté de joueurs"
+ },
+ {
+  "label": "CREDITS:EADevelopmentExecutives",
+  "text": "Direction du développement EA"
+ },
+ {
+  "label": "CREDITS:SpecialThankstotheMaxiscrew",
+  "text": "Remerciements particuliers à l'équipe de Maxis"
+ },
+ {
+  "label": "CREDITS:VerySpecialThanks",
+  "text": "Remerciements très particuliers"
+ },
+ {
+  "label": "CREDITS:DevelopmentTitle",
+  "text": "Command & Conquer (TM) Generals Zero Hour a été développé"
+ },
+ {
+  "label": "CREDITS:EAPacificDevTeam",
+  "text": "Electronic Arts Los Angeles"
+ },
+ {
+  "label": "CREDITS:ExecutiveInCharge",
+  "text": "Directeur de production"
+ },
+ {
+  "label": "CREDITS:Producer",
+  "text": "Producteur"
+ },
+ {
+  "label": "CREDITS:LeadDesigner",
+  "text": "Concepteur principal"
+ },
+ {
+  "label": "CREDITS:TechnicalDirector",
+  "text": "Directeur technique"
+ },
+ {
+  "label": "CREDITS:ArtDirector",
+  "text": "Directeur artistique"
+ },
+ {
+  "label": "CREDITS:ArtProducer",
+  "text": "Producteur artistique"
+ },
+ {
+  "label": "CREDITS:SeniorProducer",
+  "text": "Producteur principal"
+ },
+ {
+  "label": "CREDITS:AssociateProducers",
+  "text": "Producteur associé"
+ },
+ {
+  "label": "CREDITS:MultiplayerTestProducer",
+  "text": "Producteur des tests multijoueurs"
+ },
+ {
+  "label": "CREDITS:SeniorEngineers",
+  "text": "Ingénieurs principaux"
+ },
+ {
+  "label": "CREDITS:Engineers",
+  "text": "Ingénieurs"
+ },
+ {
+  "label": "CREDITS:AdditionalEngineering",
+  "text": "Ingénierie supplémentaire"
+ },
+ {
+  "label": "CREDITS:Designers",
+  "text": "Concepteurs"
+ },
+ {
+  "label": "CREDITS:AdditionalDesignInspirationandSupport",
+  "text": "Conception, inspiration et soutien supplémentaires"
+ },
+ {
+  "label": "CREDITS:AdditionalDesign",
+  "text": "Conception supplémentaire"
+ }
+]
