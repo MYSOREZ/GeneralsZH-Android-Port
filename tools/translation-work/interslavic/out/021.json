@@ -1,0 +1,802 @@
+[
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen06Subtitle",
+  "text": "*My stekli tehnologiju GPS-Glušenja! Teper možemo upotrěbiti trikove Kassada protiv njego!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen07Subtitle",
+  "text": "*Otlično, generale! Osigurili sme sposobnost Skrytoj Ataky!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen08Subtitle",
+  "text": "*Zauzmi vražje Komandne Centry"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen09Subtitle",
+  "text": "*Ako zauzmemo vražji Komandny Centr, možemo upotrěbiti ih tehnologiju protiv nih"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen10Subtitle",
+  "text": "*Generale, morame zauzeti ih Komandny Centr i upotrěbiti ih znanje, aby napredovali k našemu cělju sjedinjenja GLA pod jednym stěgom"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen11Subtitle",
+  "text": "*Naši resursy sę isčrpavaju. Morame zauzeti někotore naftove vyšky"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen12Subtitle",
+  "text": "*Naš vrag napada naše naftove snabděnje! Morajut byti zaustaveni!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen13Subtitle",
+  "text": "*Upotrěbi GPS-Glušenje, aby prokrasti sę mimo vražjej obrany!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen14Subtitle",
+  "text": "*GPS-Glušenje tu ne bude rabotati, je prěmnogo Pozicij Stinger. Trěba nam upotrěbiti drugu taktiku"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen15Subtitle",
+  "text": "*Može byti, možemo najti nebranjenu oblast, aby upotrěbili našu novu sposobnost Skrytoj Ataky"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen16Subtitle",
+  "text": "*Ne uništi Komandny Centr. Trěba nam zauzeti strukturu i uděržati ju cělu"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen17Subtitle",
+  "text": "*Ih znanje morat byti ukradeno. Trěba nam upotrěbiti ih napredne taktiky, aby ih pobědili!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen18Subtitle",
+  "text": "*Generale, pazi na snajperov -- Kassad ih obožaje upotrěbjati"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen19Subtitle",
+  "text": "*Tot most je tjažko branjen. Bude nam trěba pomoć, aby ga prěšli"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen20Subtitle",
+  "text": "*Zauzmi vražji Komandny Centr na sěveru!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen21Subtitle",
+  "text": "*Zauzmi vražji Komandny Centr na zapadu!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen22Subtitle",
+  "text": "*Generale, ako zauzmemo to dělo, možemo ga upotrěbiti protiv sil Kassada!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen23Subtitle",
+  "text": "*Ako zauzmemo Komandny Centr, možemo upotrěbiti ih sposobnosti, aby izměnili tok tej bitky"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen24Subtitle",
+  "text": "*Princ Kassad věče nije. GLA je znova sjedinjena protiv naših vragov!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen25Subtitle",
+  "text": "*Teper, kogda imamo GPS-Glušenje, možemo sę dvigati nevidime mimo obrany mosta Kassada!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen26Subtitle",
+  "text": "*Izdajnik sę utvrdil na tom vrhu gory i prěsěkl vse druge sposoby dostupa. Skryta Ataka je jediny sposob, koji imamo, aby udarili jego glavnu bazu"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen27Subtitle",
+  "text": "*Generale, ta oblast je kontrolirana ot Princa Kassada. On obrnul lěđa svojim bratam i ne pomože nam v našej sudbině protiv infidelej"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen28Subtitle",
+  "text": "*Kassad je majstor nevidimosti, skryvajuč svoje sily na otvorenom pogledu. On otkazyvaje dělitisę svojim znanjem s nami, tako da ga vzemem od njego"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen29Subtitle",
+  "text": "*Otcěpjena jačejka GLA, komandovana Princom Kassadom, kontrolira tu oblast. Kassad otkazyvaje dozvoliti nam upotrěbiti jego sposobnosti za dobro GLA"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen30Subtitle",
+  "text": "*Kassad je majstor nevidimosti, oslanjajuč sę na několiko tehnik, aby iznenadil i napal svoje vragy"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen31Subtitle",
+  "text": "*GPS-Glušenje mu daje moć, aby bilo koja jedinica udarila nevidimo na vraga"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen32Subtitle",
+  "text": "*Skryte ataky čerez tunel dajut dodatne taktičske prěimuščstva"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen33Subtitle",
+  "text": "*Morame imati te tehnologije. Ako Kassad ne dělit, my ih vzemem od njego. Zauzmi jego komandne centry i obrni jego vlastne sposobnosti protiv njego!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03Kenwar03Subtitle",
+  "text": "*Oslobodi naših zatvorenyh bratov"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03Kenwar15Subtitle",
+  "text": "*My primětili Zatvorny Lager, naši bratja sut deržani vnutri"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xBrf01Subtitle",
+  "text": "*Dobrodošli, komandire!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xBrf02Subtitle",
+  "text": "*Kassad byl prěmnogo kukaviczny, aby izveo takovy pokušaj protiv USA. Generale, vy ste opravdu majstor uma"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xBrf03Subtitle",
+  "text": "*Kogda morska sila USA v Sredozemju bude razbita, cěla Evropa bude v našej kandži"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xBrf04Subtitle",
+  "text": "*Teper, kogda sme znova sjedinjeni, vrěmja je pokazati našu silu!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xBrf05Subtitle",
+  "text": "*USA napala našu tajnu bazu v Sredozemju"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xBrf06Subtitle",
+  "text": "*No prěže nego byla uništena, my sę naučili poziciju ih Česticovogo Děla i morskoj floty v regionu"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xBrf07Subtitle",
+  "text": "*Věčina ih korablej sut v portu i bespomočni. My ukrademo ih Česticovo Dělo i upotrěbime ga, aby uništili ih Nosač Letadl!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xBrf08Subtitle",
+  "text": "*Traži priliku, aby znova zauzeli i postrojili našu tajnu bazu"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xChat01Subtitle",
+  "text": "*My umrjeme za vas!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xChat02Subtitle",
+  "text": "*Ešče jeden gryze prah"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xChat03Subtitle",
+  "text": "*Věče žrtav za mene"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xChat04Subtitle",
+  "text": "*Pokosi ih!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xChat05Subtitle",
+  "text": "*Ne mogu izběgnuti naš gněv!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xChat06Subtitle",
+  "text": "*Imamo ih tam, gdě hočemo!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xChat07Subtitle",
+  "text": "*Poběda bude naša!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xChat08Subtitle",
+  "text": "*To napravilo veliky pljusk!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xCin01Subtitle",
+  "text": "*My osvětime tot kukaviczny napad!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xCin02Subtitle",
+  "text": "*Ih nosač letadl bude prěvraten v otpad!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xCin03Subtitle",
+  "text": "*My dokazali silu GLA!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen01Subtitle",
+  "text": "*Naši Otimači bych lahko vzeli tot tank"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen02Subtitle",
+  "text": "*Tot Ranger běži za pomoćju! Ne smějemo mu dozvoliti izbeči"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen03Subtitle",
+  "text": "*Bude nam trěba to Česticovo Dělo, aby potopili vražji Nosač Letadl. Branite ga dobro!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen04Subtitle",
+  "text": "*Naši povstanci mogu upotrěbiti svoju sposobnost Zauzenja Zgrady, aby zauzeli kontrolu nad Česticovym Dělom"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen05Subtitle",
+  "text": "*Možemo upotrěbiti našu Skrytu Ataku, aby sozdali Tunelne Sěti na blizkih ostrovah"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen06Subtitle",
+  "text": "*Ne smějemo dozvoliti pilotu dosěgnuti svoj Tomahawk!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen07Subtitle",
+  "text": "*Oni idut za Tomahawkom!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen08Subtitle",
+  "text": "*Ta Kasarna je teper naša"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen09Subtitle",
+  "text": "*My oslobodili tot Palac"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen10Subtitle",
+  "text": "*Tot Torgovec Oružjem nam dobro poslužit"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen11Subtitle",
+  "text": "*My znova zauzeli naš Komandny Centr!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen12Subtitle",
+  "text": "*Generale, vidiš ta vražja letadla snabděnja? Ako uništime ih zony sbrosa, oslabime ih proizvodstvo!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen13Subtitle",
+  "text": "*Ah, tot toksinny traktor nam bude polezen"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen14Subtitle",
+  "text": "*Ta Četvorna Děla nas branjat od vražjih letadl"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen15Subtitle",
+  "text": "*Ti Marauderi poveličaju našu ognjevu silu"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen16Subtitle",
+  "text": "*Uništi te tanky, i možemo oslobiti Kasarnu!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen17Subtitle",
+  "text": "*Ako očistime tu oblast, možemo bezbědno zauzeti Komandny Centr"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen18Subtitle",
+  "text": "*Ubi ta vojska, i Torgovec Oružjem bude naš!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen19Subtitle",
+  "text": "*Oni može lansirati napad protiv nas! Brani naše zgrady!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen20Subtitle",
+  "text": "*Comanche! Soberi našu protivvozdušnu obranu!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen21Subtitle",
+  "text": "*Morame sę braniti od tyh Comanche!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen22Subtitle",
+  "text": "*Oni pokušajut znova zauzeti Česticovo Dělo!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen23Subtitle",
+  "text": "*Ih letadla uništili našu Tunelnu Sěť!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen24Subtitle",
+  "text": "*Ti hitri zlodeji! Oni cěljaju naše elektrostancije. Trěba nam energija, aby upotrěbili Česticovo Dělo"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen25Subtitle",
+  "text": "*Počti vse elektrostancije sut uništene. Morame imati energiju, aby upotrěbili Česticovo Dělo!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen26Subtitle",
+  "text": "*Ako bychmo zauzeli někotore elektrostancije, mogli bychmo upotrěbiti Česticovo Dělo protiv nih"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen27Subtitle",
+  "text": "*Ah… my našli někotore skryte poklady"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen28Subtitle",
+  "text": "*Tot prohod je dobro branjen. Morame upotrěbiti Česticovo Dělo, aby probili sę čerez"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen29Subtitle",
+  "text": "*Pazi! Tot prohod je tjažko branjen!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen30Subtitle",
+  "text": "*Oni poslali pěhotu na ostrovy!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen31Subtitle",
+  "text": "*Ih helikoptery donosjat podkrěpljenja!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen32Subtitle",
+  "text": "*Oni lansirali Udar A10 protiv nas!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen33Subtitle",
+  "text": "*Oni parašutovali na Česticovo Dělo!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen34Subtitle",
+  "text": "*My deaktivirali ih Zony Sbrosa Snabděnja! Ih proizvodstvo bude oslabjeno!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen35Subtitle",
+  "text": "*Vaša misija je uništiti vražji Nosač Letadl Česticovym Dělom. Bude vam trěba prodrěti v ih bazu na kontinentu, aby polučili vizualny kontakt na Nosač, aby ga mogli uništiti"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen36Subtitle",
+  "text": "*Otlična rabota! Teper morame osigurati někotore elektrostancije"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen37Subtitle",
+  "text": "*Tunelna Sěť nas donese do slědujučego ostrova"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen38Subtitle",
+  "text": "*Česticovo Dělo je teper aktivno. Morame ga braniti, i elektrostancije"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen39Subtitle",
+  "text": "*Vse naše jedinice i zgrady sut uništene!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen40Subtitle",
+  "text": "*Bez Česticovogo Děla, bude nevozmožno potopiti Nosač"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen41Subtitle",
+  "text": "*Teper Amerikanci okusijut gorko poraženje!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen42Subtitle",
+  "text": "*Oni uništili našu Tunelnu Sěť! Upotrěbi skrytu ataku, aby znova zauzeti Česticovo Dělo!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen43Subtitle",
+  "text": "*Približujemo sę Nosaču Letadl. Je prosto na jug otsjuda"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen44Subtitle",
+  "text": "*Tam je Nosač Letadl! Uništi ga upotrěbivši Česticovo Dělo!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen45Subtitle",
+  "text": "*Jarmen Kell je tu, aby nam služil"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen46Subtitle",
+  "text": "*Jego sposobnost snajperovanja može deaktivirati vražja vozila, dozvoljajuč potom našej pěhotě ih zauzeti"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen47Subtitle",
+  "text": "*Ti prištani Linkory sut bezopasni"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen48Subtitle",
+  "text": "*Linkor nas bombarduje! Uništi ga!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen49Subtitle",
+  "text": "*To morat byti glavna baza vraga"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen50Subtitle",
+  "text": "*Te falošne zgrady prěvarjat naše vragy"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen51Subtitle",
+  "text": "*Postroj věče falošnyh struktur, aby prěvariti vraga!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04Dispatcher06Subtitle",
+  "text": "*Amerikanske sily sut na puti"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xChat01Subtitle",
+  "text": "*Morame očistiti te bunkery!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xChat02Subtitle",
+  "text": "*Ih energija je pala! Nema Patriotov, s kojimi trěba sę rěšiti!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xChat03Subtitle",
+  "text": "*Razbi ogrady i spasi naše bratja!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xChat04Subtitle",
+  "text": "*Teper naši bratja mogu byti svobodni!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xChat05Subtitle",
+  "text": "*Amerikansky Chinook bych pomogl transportovati naša vojska. Zauzmi tot depo snabděnja, ako možeš"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xChat06Subtitle",
+  "text": "*Dovedi protivvozdušnu obranu sjuda, generale! Ih Comanche nas trgaju na komadky!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xChat07Subtitle",
+  "text": "*Generale, morame najti sposob uništiti tu obranu mosta!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xChat08Subtitle",
+  "text": "*Generale, upotrěbjajemo naše mobilne telefony, aby prizvali iznenadnu tunelnu sěť!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xChat09Subtitle",
+  "text": "*Bude nam trěba te traktory, ako hočemo očistiti bilo koje bunkery"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xChat10Subtitle",
+  "text": "*Tot prom je teper pod našeju kontroloju! Ty nas otvedeš, kde hočemo!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xChat11Subtitle",
+  "text": "*Da, da. Učinim, čto kažete!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xChat12Subtitle",
+  "text": "*Naši bratja sut oslobodjeni"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xChat13Subtitle",
+  "text": "*Opravdu je mnogo vnedorožnikov v tej stranoj zemji"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xChat14Subtitle",
+  "text": "*Imamo simpatizanta GLA v tej oblasti. On i jego bratja sę soglasili nam pomoći"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xChat15Subtitle",
+  "text": "*Hvala! Vzleti! Idi, idi, idi!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin01Subtitle",
+  "text": "*Ovo je komanda jedan. Sme v poziciji"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin02Subtitle",
+  "text": "*Moji bratja, pazite, dok stupame na vražju zemju. Naš glavny objektiv je polučiti himičske uzorky iz blizkoj amerikanskoj toksinnoj zgrady"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin03Subtitle",
+  "text": "*Ostatky amerikanskoj morskoj sily sę prěměstili v Sredozemje, v otvět na gubjenje ih komandnoj floty. To nam dozvolilo prokrasti sę"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin04Subtitle",
+  "text": "*My ih tam pobědili, i tu bydemo pobědni"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin05Subtitle",
+  "text": "*Bratja, radujte sę! Kogda budemo imati toksiny iz tej zgrady, naši naučniky mogu skovati oružje masovoj infekcije"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin06Subtitle",
+  "text": "*Amerikanci sę věč prěmnogo měšaju. S tym novym oružjem, budemo moči udariti strah v srdca naših ugnjetatelej!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin07Subtitle",
+  "text": "*(Veoma zly směh)"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin08Subtitle",
+  "text": "*Komando jedan, sut toksiny osigurani i na bortu?"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin09Subtitle",
+  "text": "*Imamo uzorky"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin10Subtitle",
+  "text": "*Sme gotovi za vzlet"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin11Subtitle",
+  "text": "*Prověreno. Paket je osiguren"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin12Subtitle",
+  "text": "*Imate zeleno světlo. My branime vaš pobeg!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin13Subtitle",
+  "text": "*Generale, Patrioti sut aktivni!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin14Subtitle",
+  "text": "*Uděrž ih, dokud ne očistime vzletno-pristajnu poloscu!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin15Subtitle",
+  "text": "*Uděrž ih daleko od našego repa!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin16Subtitle",
+  "text": "*Odidi, glupi Amerikanci!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin17Subtitle",
+  "text": "*Vstrětime sę znova, kogda dosěgnemo toksinnu zgradu"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin18Subtitle",
+  "text": "*Amerikanci mysljat, že nas izgnali"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin19Subtitle",
+  "text": "*My sę razdělime i pobědime"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin20Subtitle",
+  "text": "*Sme ničto protiv tej vozdušnoj sily!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin21Subtitle",
+  "text": "*Ešče ste ne vidjeli poslědnjeje iz nas!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin22Subtitle",
+  "text": "*My polučime našu osvětu, gnusni Amerikanci!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin23Subtitle",
+  "text": "*Učinimo naš dio, aby oborili te kapitalističske svinje!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin24Subtitle",
+  "text": "*Ti Amerikanci platjat za žizni naših bratov"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin25Subtitle",
+  "text": "*Osvětime ti napadniky GLA! Fox 1!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin26Subtitle",
+  "text": "*GLA primětena na moru! Vse jedinice na obranne pozicije"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin27Subtitle",
+  "text": "*Imamo infiltraciju GLA na koordinatah 77 Beta Gamma! Vse dostupne jedinice, otgovorite!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin28Subtitle",
+  "text": "*Ima ih věče na berezě!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin29Subtitle",
+  "text": "*Infiltratory GLA primětene na klifu!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin30Subtitle",
+  "text": "*Imamo GLA vnutri granic grada! Vse jedinice, soberite sę na koordinatah 34 Alfa Alfa"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen01Subtitle",
+  "text": "*Dobra rabota, generale! Ostaje samo 15 toksinnyh uzorkov za polučenje"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen02Subtitle",
+  "text": "*Dobra rabota, generale! Ostaje samo 10 toksinnyh uzorkov za polučenje"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen03Subtitle",
+  "text": "*Dobra rabota, generale! Ostaje samo 5 toksinnyh uzorkov za polučenje"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen04Subtitle",
+  "text": "*Generale, imamo plan napasti Centralno Komandovanje Ameriky v Evropě. No ešče nemame silu udariti ih direktno. Trěba nam novo toksinno oružje"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen05Subtitle",
+  "text": "*Obě naše sily sut na městu. Dvě grupy morajut rabotati zajedno, ako hočemo polučiti toksiny"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen06Subtitle",
+  "text": "*Naši Otimači mogu zauzeti vozila i sut nevidimi, krome kogda sę dvigaju"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen07Subtitle",
+  "text": "*Jarmen Kell може snajperovati pilotov iz vozil i takože uništiti pěhotu na dalekom dosegu"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen08Subtitle",
+  "text": "*Naši Saboteri mogu izvesti množstvo tajnyh operacij, kako gašenje elektrostancij"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen09Subtitle",
+  "text": "*Naši povstanci sut kamuflovani i mogu zauzeti zgrady, aby nam pomogli v našej sudbině"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen10Subtitle",
+  "text": "*Sreča, generale. Neka nevidimost i hitrost budut s vami v vašem poduhvatu"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen11Subtitle",
+  "text": "*Dobro jutro, generale"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen12Subtitle",
+  "text": "*Generale, morame zauzeti tot prom"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen13Subtitle",
+  "text": "*Generale, tu sut miny, no ne možemo ih otkryti! Trěba nam Radarny Furgon!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen14Subtitle",
+  "text": "*Generale, pošli kogo v tu Ventilnu Stanciju blizu rěky. Ispraznenje rezervoara hladiva dozvoli našim bratam prodolžiti dalje"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen15Subtitle",
+  "text": "*Otlično"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen16Subtitle",
+  "text": "*Dobra rabota"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen17Subtitle",
+  "text": "*Generale! Uništi tot aerodrom, prěže nego sme uništeni!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen18Subtitle",
+  "text": "*Generale. Morame uništiti ih energiju! Tada Amerikanci bydu lahka cělj sigurno!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen19Subtitle",
+  "text": "*Generale, morame zauzeti tu toksinnu zgradu"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen20Subtitle",
+  "text": "*Otlična rabota, generale. Teper morame zaščititi te kamiony, dok transportuju toksiny do gruzovogo letadla"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen21Subtitle",
+  "text": "*Upotrěbi kamiony, aby počeli sobirati toksiny iz zgrady"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen22Subtitle",
+  "text": "*Generale, Amerikanci poslali podkrěpljenja!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen23Subtitle",
+  "text": "*Ešče jedna jačejka Otimačev pridošla, aby podprěla našu sudbinu"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen24Subtitle",
+  "text": "*Ešče jedna jačejka povstancev pridošla, aby podprěla našu sudbinu"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen25Subtitle",
+  "text": "*Jarmen Kell je najden i vratil sę, aby pomogl našej sudbině"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen26Subtitle",
+  "text": "*Naši bratja probili sę i dali nam podkrěpljenja"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen27Subtitle",
+  "text": "*USA ne bude podozrěvati napad na svoju zemju poslě naše pobědy v Grciji"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen28Subtitle",
+  "text": "*Kassad nikada ne bych imel odvagu napasti domovinu USA"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen29Subtitle",
+  "text": "*Kogda ukrademo tajny toksinny agent iz Bio Centra USA, budemo nezaustavni"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05Buggy104Subtitle",
+  "text": "*Pazi na baterije Patriot, sut opasne"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05Buggy108Subtitle",
+  "text": "*Idite v svoje grobove, amerikanska mrvo!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05Kenwar02bSubtitle",
+  "text": "*Uništi amerikansku vojenno-vozdušnu bazu, i oni izgube věčinu svoje sposobnosti projicirati silu v tom regionu"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05Kenwar05Subtitle",
+  "text": "*Amerikanci upotrěbjajut svoju vozdušnu silu, aby nas zaustavili"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05Quad201Subtitle",
+  "text": "*Umri, Amerikance!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05Rebel02Subtitle",
+  "text": "*Sme bez obrany protiv amerikanskih vozdušnyh napadov!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05Scorpion105Subtitle",
+  "text": "*Amerikanski kukavicy! Boriti sę na zemji, kako muži!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xChat01Subtitle",
+  "text": "*Tot region je pod kontroloju generala Grangera Vozdušnyh Sil Sjedinjenyh Državov. Možemo i upotrěbime silu, aby vas uklonili iz tej oblasti. Vy ste tymto pod prikazom nemedlenno sę uklaniti"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xCin01Subtitle",
+  "text": "*Naše sily sut malo, no možemo upotrěbiti to, čto imamo, aby izšli na vrh"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xCin02Subtitle",
+  "text": "*Poněže nemame bazu v tom regionu, morame jednu vzeti!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xCin03Subtitle",
+  "text": "*Kitajska baza… Morame udariti sejčas! Ih Baza bude skoro naša!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xJarmen01Subtitle",
+  "text": "*Ako spasiš naših sodrugov iz južnoj bazy USA, naši elitni voiny budut sę boriti uz tebe!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xJarmen02Subtitle",
+  "text": "*Hvala, že si spasil naših bratov! V zaměnu otvorime ti oblast bazy USA, aby začel svoj šturm"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xJarmen03Subtitle",
+  "text": "*He he he he he… (Zloveščy směh) To ih naučit"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xJarmen04Subtitle",
+  "text": "*Ne dozvoli, aby naše smrti ostali nekaznjene!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xJarmen05Subtitle",
+  "text": "*Zajedno sme pobědili vraga! Poběda je naša!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xJarmen06Subtitle",
+  "text": "*Hvala za tvoju pomoć v spasenju mojih soldatov. My otplatime uslugu i pomožemo ti uništiti Centralnu Komandnu Bazu USA"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen01Subtitle",
+  "text": "*Kogda ta baza bude uništena, USA poběže domoj kako kukavicznyj pes. Cěla Evropa bude naša"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen02Subtitle",
+  "text": "*Amerikanci deržat naša bratja kako talky v svojej bazě. Morame ih spasti"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen03Subtitle",
+  "text": "*V našem najlěpšem interesu je spasti plěnnikov iz kandži Amerikancev"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen04Subtitle",
+  "text": "*Dobra rabota! Zauzmi ili uništi tu bazu, aby osigurati bezbědnost plěnnikov"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen05Subtitle",
+  "text": "*Morame ih bezbědno prěnesti domoj do ih bazy na sěveru. Nikakva šteta im ne smět sę slučiti"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen06Subtitle",
+  "text": "*Naše snabděnje sę isčrpava. Morame sę rasprostrěti i zauzeti nove resursy"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen07Subtitle",
+  "text": "*Věče napadov iz vozduha! Morame postroiti věče protivvozdušnoj obrany"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen08Subtitle",
+  "text": "*Znova postroj našu obranu bystro, nemame dolgo prěže slědujučego napada"
+ }
+]
