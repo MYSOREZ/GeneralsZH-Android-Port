@@ -1,0 +1,802 @@
+[
+ {
+  "label": "UPGRADE:BecomeRealGLABlackMarket",
+  "text": "Pravy črny rynok"
+ },
+ {
+  "label": "UPGRADE:FusionReactors",
+  "text": "Fuzijne reaktory"
+ },
+ {
+  "label": "UPGRADE:CamoNetting",
+  "text": "Kamuflažna sěť"
+ },
+ {
+  "label": "UPGRADE:FortifiedStructure",
+  "text": "Ukrěpjena zgrada"
+ },
+ {
+  "label": "UPGRADE:BoobyTrap",
+  "text": "Minna pastka"
+ },
+ {
+  "label": "UPGRADE:AnthraxGamma",
+  "text": "Antraks Gamma"
+ },
+ {
+  "label": "UPGRADE:WorkerShoes",
+  "text": "Obuv rabotnikov"
+ },
+ {
+  "label": "UPGRADE:ChemicalSuits",
+  "text": "Himične kombinezony"
+ },
+ {
+  "label": "UPGRADE:AmericaCountermeasures",
+  "text": "Protiměry"
+ },
+ {
+  "label": "UPGRADE:UpgradeChinaIsotopeStability",
+  "text": "&Izotopna stabilnost"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUpgradeChinaIsotopeStability",
+  "text": "Sprěčuje věčinu popratne radiacije od povrěděnja prijateljskih jedinic, kogda sut vozila uništena"
+ },
+ {
+  "label": "OBJECT:SecretResearchLab",
+  "text": "Tajna izslědovateljska laboratorija"
+ },
+ {
+  "label": "OBJECT:InternetCenter",
+  "text": "Internet-centr"
+ },
+ {
+  "label": "OBJECT:AircraftCarrier",
+  "text": "Avianosec"
+ },
+ {
+  "label": "OBJECT:TechArtilleryPlatform",
+  "text": "Artilerijska Platforma -- Zauzmi, aby bombardovati zemnyh vragov"
+ },
+ {
+  "label": "OBJECT:NukeHunter",
+  "text": "Jaderny lovec"
+ },
+ {
+  "label": "OBJECT:TechRepairPad",
+  "text": "Platforma Popravky -- Zauzmi, aby vozila sę mogli popravjati na tej zgradě"
+ },
+ {
+  "label": "OBJECT:AirF_Aurora",
+  "text": "Vakuumny bombardirovač Aurora"
+ },
+ {
+  "label": "OBJECT:SupW_Aurora",
+  "text": "Bombardirovač Aurora Alfa"
+ },
+ {
+  "label": "OBJECT:BattleBus",
+  "text": "Bojevy avtobus"
+ },
+ {
+  "label": "OBJECT:Helix",
+  "text": "Helix"
+ },
+ {
+  "label": "OBJECT:PropagandaTrooper",
+  "text": "Vojak propagandy"
+ },
+ {
+  "label": "OBJECT:HellfireDrone",
+  "text": "Dron Hellfire"
+ },
+ {
+  "label": "OBJECT:Avenger",
+  "text": "Avenger"
+ },
+ {
+  "label": "OBJECT:Microwave",
+  "text": "Mikrovolnovy tank"
+ },
+ {
+  "label": "OBJECT:MOAB",
+  "text": "Mati vsěh bomb"
+ },
+ {
+  "label": "OBJECT:NukeDrop",
+  "text": "Jaderny Desant"
+ },
+ {
+  "label": "OBJECT:SuitcaseNuke",
+  "text": "Jaderny kufer"
+ },
+ {
+  "label": "OBJECT:StructureEMPMine",
+  "text": "Neutronna mina"
+ },
+ {
+  "label": "OBJECT:ECMTank",
+  "text": "Tank ECM"
+ },
+ {
+  "label": "OBJECT:Saboteur",
+  "text": "Saboter"
+ },
+ {
+  "label": "OBJECT:TechRepairBay",
+  "text": "Tehnologična Baza Popravky -- Zauzmi, aby popravjati vozila po cělom poljě boja"
+ },
+ {
+  "label": "OBJECT:TechReinforcementPad",
+  "text": "Platforma Podkrěpljenj -- Zauzmi, aby polučiti dodatna vozila"
+ },
+ {
+  "label": "OBJECT:Sniper",
+  "text": "Snajper"
+ },
+ {
+  "label": "OBJECT:FireBase",
+  "text": "Ognjeva baza"
+ },
+ {
+  "label": "OBJECT:KingRaptor",
+  "text": "King Raptor"
+ },
+ {
+  "label": "OBJECT:CombatBike",
+  "text": "Bojevy motocikl"
+ },
+ {
+  "label": "OBJECT:SentryDrone",
+  "text": "Stražny dron"
+ },
+ {
+  "label": "OBJECT:TomahawkStorm",
+  "text": "Burja Tomahawk"
+ },
+ {
+  "label": "OBJECT:ListeningOutpost",
+  "text": "Podslušny post"
+ },
+ {
+  "label": "Map:LeipzigLowlands",
+  "text": "Nizini Lipska"
+ },
+ {
+  "label": "Map:BombardmentBeach",
+  "text": "Bereg Bombardovanja"
+ },
+ {
+  "label": "Map:BearTownBeatdown",
+  "text": "Razgrom v Medvěd-Gradu"
+ },
+ {
+  "label": "MAP:RiverSnakes",
+  "text": "Vijugava Rěka"
+ },
+ {
+  "label": "MAP:KillingFields",
+  "text": "Polja Ubijstva"
+ },
+ {
+  "label": "MAP:ThinIce",
+  "text": "Tenky Led"
+ },
+ {
+  "label": "MAP:ElScorcho",
+  "text": "El Scorcho"
+ },
+ {
+  "label": "MAP:GreenPastures",
+  "text": "Zelene Pašnjaky"
+ },
+ {
+  "label": "MAP:FreeFireZone",
+  "text": "Zona Slobodnogo Ognja"
+ },
+ {
+  "label": "MAP:DestructionStation",
+  "text": "Stancija Uništenja"
+ },
+ {
+  "label": "MAP:PolarStorm",
+  "text": "Polarna Burja"
+ },
+ {
+  "label": "MAP:BitterWinter",
+  "text": "Gorka Zima"
+ },
+ {
+  "label": "MAP:CitySweep",
+  "text": "Čiščenje Grada"
+ },
+ {
+  "label": "MAP:FrozenPlains",
+  "text": "Zamrznute Ravniny"
+ },
+ {
+  "label": "MAP:RoadRage",
+  "text": "Cestovna Jarost"
+ },
+ {
+  "label": "HELP:SentryDrone-01",
+  "text": "SOVĚT: \n Stražny Dron može otkryti kamuflovane vražje jedinice"
+ },
+ {
+  "label": "HELP:SentryDrone-02",
+  "text": "SOVĚT: \n Kupi oružje Stražnogo Drona v Strategičnom Centru"
+ },
+ {
+  "label": "HELP:MicrowaveTank-01",
+  "text": "SOVĚT: \n Mikrovolnovy Tank može deaktivirati strukture"
+ },
+ {
+  "label": "HELP:MicrowaveTank-02",
+  "text": "SOVĚT: \n Mikrovolny Mikrovolnovogo Tanka vrědjat blizku pěhotu"
+ },
+ {
+  "label": "HELP:Avenger-01",
+  "text": "SOVĚT: \n Lazer Avengera može 'markirovati' vražje cěli \n Strělanje na markirovane cěli nanosi věče štety"
+ },
+ {
+  "label": "HELP:Avenger-02",
+  "text": "SOVĚT: \n Avengery sut podpirne jedinice, koje mogu takože napadati letadla"
+ },
+ {
+  "label": "HELP:FireBase-01",
+  "text": "SOVĚT: \n Zaposedni Bazu Ognja Raketnymi Obraniteljami, \n aby dati i vozdušnu i zemnu obranu"
+ },
+ {
+  "label": "HELP:SpectreGunship-01",
+  "text": "SOVĚT: \n Izberi oblast za napad Spectre, \n potom ručno cěljaj vragov"
+ },
+ {
+  "label": "HELP:LeafletDrop-01",
+  "text": "SOVĚT: \n Upotrěbi Sbros Letakov, aby deaktivirati vražju pěhotu"
+ },
+ {
+  "label": "HELP:MOAB-01",
+  "text": "SOVĚT: \n MOAB sut efektivne protiv vozil \n i omamjajut vsakogo, kto preživi"
+ },
+ {
+  "label": "HELP:Countermeasures-01",
+  "text": "SOVĚT: \n Ulučši na Protivmery, aby vozdušne jedinice izběgli napady"
+ },
+ {
+  "label": "HELP:HellfireDrone-01",
+  "text": "SOVĚT: \n Ulučši svoja vozila Dronami Hellfire, \n aby poveličiti efektivnost protiv oklopljenyh sil"
+ },
+ {
+  "label": "HELP:ChemicalSuit-01",
+  "text": "SOVĚT: \n Upotrěbi ulučšenje Himičskih Kostjumov, aby zaščititi pěhotu \n od smrtonosnyh toksinov i radiacije"
+ },
+ {
+  "label": "HELP:BunkerBuster-01",
+  "text": "SOVĚT: \n Ulučšenje Anti-Bunker Raket Nevidimogo Bombardirovača \n može povrěditi zauzete vragy"
+ },
+ {
+  "label": "HELP:BunkerBuster-02",
+  "text": "SOVĚT: \n Anti-Bunker Rakety mogu ubiti jedinice vnutri Bunkerov"
+ },
+ {
+  "label": "HELP:SupplyLines-01",
+  "text": "SOVĚT: \n Ulučšenje Linij Snabděnja poveličaje dohod"
+ },
+ {
+  "label": "HELP:SupplyLines-02",
+  "text": "SOVĚT: \n Ulučši Linije Snabděnja, aby poveličiti \n efektivnost Chinookov"
+ },
+ {
+  "label": "HELP:ListeningOutpost-01",
+  "text": "SOVĚT: \n Podslušne Posty sut nevidime i otkryjut \n kamuflovane jedinice"
+ },
+ {
+  "label": "HELP:ListeningOutpost-02",
+  "text": "SOVĚT: \n Podslušne Posty imajut veoma veliky radius pogleda"
+ },
+ {
+  "label": "HELP:Helix-01",
+  "text": "SOVĚT: \n Ulučši Helixa Propagandnoju Věžoju, aby \n popravjati i lěčiti blizke jedinice"
+ },
+ {
+  "label": "HELP:Helix-02",
+  "text": "SOVĚT: \n Helix može byti ulučšen, aby sbrasyval napalmove bomby \n Oni mogu byti sbrošeni na cěli pod Helixom"
+ },
+ {
+  "label": "HELP:Helix-03",
+  "text": "SOVĚT: \n Vy možete ulučšiti Helixa Bojevym Bunkerom, \n Propagandnoju Věžoju ili Gatlingovym Dělom"
+ },
+ {
+  "label": "HELP:ECMTank-01",
+  "text": "SOVĚT: \n Upotrěbi Tank ECM, aby narušiti vražje raketne strěly"
+ },
+ {
+  "label": "HELP:Frenzy-01",
+  "text": "SOVĚT: \n Upotrěbi Moć Generala Besnjenje, aby poveličiti \n ognjevu silu i bronu vaših jedinic"
+ },
+ {
+  "label": "HELP:InternetCenter-01",
+  "text": "SOVĚT: \n Postavi Hakerov v Centr Internet, \n aby poveličiti bystrost sobiranja novca"
+ },
+ {
+  "label": "HELP:InternetCenter-02",
+  "text": "SOVĚT: \n Postroj Centr Internet i ulučši na \n Hakovanje Satelita I i II"
+ },
+ {
+  "label": "HELP:SatelliteHack1-01",
+  "text": "SOVĚT: \n Hakovanje Satelita I otkryva vse vražje Komandne Centry"
+ },
+ {
+  "label": "HELP:SatelliteHack2-01",
+  "text": "SOVĚT: \n Hakovanje Satelita II otkryva vse, čto vidjat vražje jedinice"
+ },
+ {
+  "label": "HELP:EMPMines-01",
+  "text": "SOVĚT: \n Miny mogu byti ulučšene na Neutronne Miny, koje \n narušajut vražja vozila"
+ },
+ {
+  "label": "HELP:NeutronShell-01",
+  "text": "SOVĚT: \n Napady Neutronnymi Snarjadami iz Jadernogo Děla neutraliziraju \n vozila, dozvoljajuč pěhotě ih zauzeti"
+ },
+ {
+  "label": "HELP:CombatCycle-01",
+  "text": "SOVĚT: \n Bojeve Motocikly mogu skočiti s klifov"
+ },
+ {
+  "label": "HELP:CombatCycle-02",
+  "text": "SOVĚT: \n Postavi Raketnogo Obranitelja na Bojevy Motocikl, aby \n mu dozvoliti strěljati raketami"
+ },
+ {
+  "label": "HELP:CombatCycle-03",
+  "text": "SOVĚT: \n Postavi Terorista na Bojevy Motocikl, aby \n napraviti Samoubijstveny Motocikl"
+ },
+ {
+  "label": "HELP:CombatCycle-04",
+  "text": "SOVĚT: \n Jarmen Kell može snajperovati iz Bojevogo Motocikla"
+ },
+ {
+  "label": "HELP:CombatCycle-05",
+  "text": "SOVĚT: \n Rabotniky mogu upotrěbiti Bojeve Motocikly, aby putovati bystro"
+ },
+ {
+  "label": "HELP:Saboteur-01",
+  "text": "SOVĚT: \n Saboter narušaje sposobnosti vražjih struktur"
+ },
+ {
+  "label": "HELP:Saboteur-02",
+  "text": "SOVĚT: \n Napravi Sabotera v vražji Komandny Centr, \n aby sbrosil časovnike ih Moćej Generala"
+ },
+ {
+  "label": "HELP:FakeStructures-01",
+  "text": "SOVĚT: \n Postroj Falošne Strukture, aby prěvariti svoje vragy"
+ },
+ {
+  "label": "HELP:SneakAttack-01",
+  "text": "SOVĚT: \n Upotrěbi Skrytu Ataku, aby momentalno postroiti Tunelnu Sěť \n bilo kde, gdě vidiš"
+ },
+ {
+  "label": "HELP:GPSScramble-01",
+  "text": "SOVĚT: \n Upotrěbi Moć Generala GPS-Glušitelj, aby \n kamuflovati prijateljske jedinice"
+ },
+ {
+  "label": "HELP:WorkerShoes-01",
+  "text": "SOVĚT: \n Kupi Obuv Rabotnika, aby poveličiti skorost, kojoju \n Rabotniky putujut i sobirajut resursy"
+ },
+ {
+  "label": "HELP:CamoNetting-01",
+  "text": "SOVĚT: \n Kamuflažna Sěť kamuflira vaše Pozicije Stinger \n i Tunelne Sěti"
+ },
+ {
+  "label": "HELP:FortifiedStructures-01",
+  "text": "SOVĚT: \n Ukrěpjene Strukture sut težše za uništenje"
+ },
+ {
+  "label": "HELP:BoobyTrap-01",
+  "text": "SOVĚT: \n Minne Pastky detoniraju, kogda vrag pokuša sę \n zauzeti ili garnizonovati zaminovanu strukturu"
+ },
+ {
+  "label": "HELP:KingRaptor-01",
+  "text": "SOVĚT: \n King Raptory nosjat dodatnu municiju i imajut věče brony"
+ },
+ {
+  "label": "HELP:CombatChinooks-01",
+  "text": "SOVĚT: \n Pěhota vnutri Bojevogo Chinooka može strěljati v poletu"
+ },
+ {
+  "label": "HELP:AuroraAlpha-01",
+  "text": "SOVĚT: \n Aurora Alpha je oprěmljena maloju \n no razorajučeju Vakuumnoju Bomboju"
+ },
+ {
+  "label": "HELP:MicrowavePatriot-01",
+  "text": "SOVĚT: \n Rakety EMP Patriota sut efektivne \n i protiv vozil i protiv pěhoty"
+ },
+ {
+  "label": "HELP:AdvancedRods-01",
+  "text": "SOVĚT: \n Napredne Strěžni davajut věče energije nego obyčne Kontrolne Strěžni"
+ },
+ {
+  "label": "HELP:LaserTank-01",
+  "text": "SOVĚT: \n Postroj dodatne Elektrostancije, kogda upotrěbjaješ Lazerne Tanky \n Oni ne mogu sę dvigati ili strěljati, kogda je energija nizka"
+ },
+ {
+  "label": "HELP:LaserDefenseTurret-01",
+  "text": "SOVĚT: \n Turelje Lazernoj Obrany sut moćne, no trěbujut dodatnu energiju"
+ },
+ {
+  "label": "HELP:AssaultTroopTransport-01",
+  "text": "SOVĚT: \n Jedinice mogu strěljati iz Šturmovogo Transporta Pěhoty"
+ },
+ {
+  "label": "HELP:AttackOutpost-01",
+  "text": "SOVĚT: \n Avant-Post Napada može uděržati dodatnu pěhotu i \n može otkryti nevidime jedinice"
+ },
+ {
+  "label": "HELP:FortifiedBunkers-01",
+  "text": "SOVĚT: \n Ukrěpjeni Bunkery dohodjat s Minami i \n silnějšeju bronoju i mogu uděržati dodatnu pěhotu"
+ },
+ {
+  "label": "HELP:Mini-Gunner-01",
+  "text": "SOVĚT: \n Mitraljezisty nosjat osobnu Gatlingovu Mitraljezu"
+ },
+ {
+  "label": "HELP:InfantryBlackLotus-01",
+  "text": "SOVĚT: \n Vaše jedinice Črnogo Lotosa imajut ulučšene sposobnosti"
+ },
+ {
+  "label": "HELP:InfantryBlackLotus-02",
+  "text": "SOVĚT: \n Vy možete postroiti věče jedinic Črnogo Lotosa"
+ },
+ {
+  "label": "HELP:InfantryHacker-01",
+  "text": "SOVĚT: \n Haker Pěhotnogo Generala hakuje novac bystrěje"
+ },
+ {
+  "label": "HELP:ChineseParadrop-01",
+  "text": "SOVĚT: \n Kitajsky Parašutny Desant sbrasyvaje Črvenu Gvardiju bilo kde"
+ },
+ {
+  "label": "HELP:EmperorTank-01",
+  "text": "SOVĚT: \n Tanky Imperator sut krajni tank, \n efektivni i protiv vozil i protiv pěhoty"
+ },
+ {
+  "label": "HELP:EmperorTank-02",
+  "text": "SOVĚT: \n Tank Imperator može byti ulučšen Gatlingovym Dělom"
+ },
+ {
+  "label": "HELP:EmperorTank-03",
+  "text": "SOVĚT: \n Tanky Imperator dohodjat oprěmjeni Propagandnymi Věžami"
+ },
+ {
+  "label": "HELP:TankDrop-01",
+  "text": "SOVĚT: \n Desant Tankov dozvoljaje vam sbrasyvati Battlemastery"
+ },
+ {
+  "label": "HELP:TacticalNuke-01",
+  "text": "SOVĚT: \n Vaš Aerodrom može ulučšiti MiGy, aby nosili Taktičske Jaderky"
+ },
+ {
+  "label": "HELP:IsotopeStability-01",
+  "text": "SOVĚT: \n Stabiljnost Izotopov snižaje štetu nanesenu prijateljskim \n jedinicam, kogda sut Jaderne Tanky uništeni"
+ },
+ {
+  "label": "HELP:AdvancedNuclearPower-01",
+  "text": "SOVĚT: \n Napredne Jaderne Elektrostancije generuju věče energije nego obyčne Jaderne Elektrostancije"
+ },
+ {
+  "label": "HELP:ToxinRebels-01",
+  "text": "SOVĚT: \n Toksinni Povstanci strěljajut jetom veoma otrovnyh toksinov"
+ },
+ {
+  "label": "HELP:ToxinRebels-02",
+  "text": "SOVĚT: \n Toksinni Povstanci sut otporni na toksinne napady"
+ },
+ {
+  "label": "HELP:ToxinRebels-03",
+  "text": "SOVĚT: \n Upotrěbi Toksinnyh Povstancev, aby bystro očistiti zauzete strukture"
+ },
+ {
+  "label": "HELP:ToxinNetworks-01",
+  "text": "SOVĚT: \n Toksinne Sěti strěljajut jetami toksina iz svojih děl"
+ },
+ {
+  "label": "HELP:ToxinTerrorists-01",
+  "text": "SOVĚT: \n Toksinni Teroristi eksplodiraju v oblaku toksina"
+ },
+ {
+  "label": "HELP:ToxinTerrorists-02",
+  "text": "SOVĚT: \n Upotrěbi Toksinnyh Teroristov, aby napadati velike grupy pěhoty"
+ },
+ {
+  "label": "HELP:AnthraxGamma-01",
+  "text": "SOVĚT: \n Antraks Gamma poveličaje štetu vsěh toksinnyh napadov"
+ },
+ {
+  "label": "HELP:AnthraxGamma-02",
+  "text": "SOVĚT: \n Antraks Gamma je ešče silnějši nego Antraks Beta"
+ },
+ {
+  "label": "HELP:AdvancedTrap-01",
+  "text": "SOVĚT: \n Napredne Pastky sut moćnějše nego obyčne Podryvne Pastky"
+ },
+ {
+  "label": "HELP:Demolitions-01",
+  "text": "SOVĚT: \n Ulučšenje Demolicij daje jedinicam sposobnost detonirati"
+ },
+ {
+  "label": "GENERIC:MissionObjectiveCompleted-01",
+  "text": "OBJEKTIV MISIJE #1: \n Izpolnjen"
+ },
+ {
+  "label": "GENERIC:MissionObjectiveCompleted-02",
+  "text": "OBJEKTIV MISIJE #2: \n Izpolnjen"
+ },
+ {
+  "label": "GENERIC:MissionObjectiveCompleted-03",
+  "text": "OBJEKTIV MISIJE #3: \n Izpolnjen"
+ },
+ {
+  "label": "GENERIC:MissionObjectiveCompleted-04",
+  "text": "OBJEKTIV MISIJE #4: \n Izpolnjen"
+ },
+ {
+  "label": "GENERIC:MissionObjectiveCompleted-05",
+  "text": "OBJEKTIV MISIJE #5: \n Izpolnjen"
+ },
+ {
+  "label": "LOSE:AllUnits",
+  "text": "VHODEČA TRANSMISIJA: \n Vse naše jedinice sut uništene \n My sme poraženi, generale. Tot put"
+ },
+ {
+  "label": "LOSE:AllBuildings",
+  "text": "VHODEČA TRANSMISIJA: \n Vse naše zgrady sut uništene \n My sme poraženi, generale. Tot put"
+ },
+ {
+  "label": "LOSE:AllUnitsAndBuildings",
+  "text": "VHODEČA TRANSMISIJA: \n Vse naše jedinice i zgrady sut uništene \n My sme poraženi, generale. Tot put"
+ },
+ {
+  "label": "HELP:OilRefinery-01",
+  "text": "SOVĚT: \n Zauzmi Naftove Rafinerije, aby snižiti cěnu vozil"
+ },
+ {
+  "label": "HELP:ReinforcementPad-01",
+  "text": "SOVĚT: \n Zauzmi Platformy Podkrěpljenj, aby polučiti tankova podkrěpljenja"
+ },
+ {
+  "label": "HELP:OilDerrick-01",
+  "text": "SOVĚT: \n Zauzmi Naftove Vyšky, aby polučiti dodatny novac"
+ },
+ {
+  "label": "HELP:RepairBay-01",
+  "text": "SOVĚT: \n Zauzmi Bazy Popravky, aby popravjati vozila bilo kde"
+ },
+ {
+  "label": "HELP:ArtilleryPlatform-01",
+  "text": "SOVĚT: \n Zauzmi Artilerijske Platformy, aby kontrolirati ključove regiony"
+ },
+ {
+  "label": "MAP:MD_USA01Objective1",
+  "text": "OBJEKTIV MISIJE: \n Osiguraj železnodorožny depo i uništi okolnu bazu GLA"
+ },
+ {
+  "label": "MAP:MD_USA01Objective1a",
+  "text": "OBJEKTIV MISIJE #1: \n Osiguraj železnodorožny depo i uništi okolnu bazu GLA"
+ },
+ {
+  "label": "MAP:MD_USA01ObjectiveAccomplished",
+  "text": "OBJEKTIV MISIJE IZPOLNJEN"
+ },
+ {
+  "label": "MAP:MD_USA01ObjectiveAccomplisheda",
+  "text": "OBJEKTIV MISIJE #1 Izpolnjen"
+ },
+ {
+  "label": "MAP:MD_USA01Objective2",
+  "text": "VHODEČA TRANSMISIJA: \n Dvigni jedinice v vagony poezda"
+ },
+ {
+  "label": "MAP:MD_USA01Objective2a",
+  "text": "VHODEČA TRANSMISIJA: \n Dvigni jedinice v vagony poezda"
+ },
+ {
+  "label": "MAP:MD_USA01Objective3",
+  "text": "OBJEKTIV MISIJE: \n Uništi bazu GLA"
+ },
+ {
+  "label": "MAP:MD_USA01Objective3a",
+  "text": "OBJEKTIV MISIJE #2: \n Uništi bazu GLA"
+ },
+ {
+  "label": "MAP:MD_USA01Hint1",
+  "text": "SOVĚT: \n Pěhota može vstupiti v ostavjena vozila na sěveroistoku"
+ },
+ {
+  "label": "MAP:MD_USA01Hint1a",
+  "text": "SOVĚT: \n Pěhota može vstupiti v ostavjena vozila na sěveroistoku"
+ },
+ {
+  "label": "MAP:MD_USA01Hint2",
+  "text": "SOVĚT: \n Zauzmi radiostanciju pěhotoju, aby prizvati A-10"
+ },
+ {
+  "label": "MAP:MD_USA01Hint2a",
+  "text": "SOVĚT: \n Zauzmi radiostanciju pěhotoju, aby prizvati A-10"
+ },
+ {
+  "label": "OBJECT:TrainDepot",
+  "text": "Železnično depo"
+ },
+ {
+  "label": "OBJECT:TrainLoading",
+  "text": "Peron"
+ },
+ {
+  "label": "MAP:MD_USA01Title",
+  "text": "Kosmodrom Bajkonur, Južny Kazahstan \n 'Operacija Globalna Bezbědnost'"
+ },
+ {
+  "label": "MAP:MD_USA01CINELocation02",
+  "text": "Vojenno-Morska Baza USA \n Sěverna Evropa"
+ },
+ {
+  "label": "MAP:Intro_Breifing_01",
+  "text": "Razvědna Baza USA blizu Bajkonura \n Južny Kazahstan"
+ },
+ {
+  "label": "MAP:MD_USA01CINELocation01",
+  "text": "Gdě-to v Južnom Kazahstanu \n Na puti k Bajkonuru"
+ },
+ {
+  "label": "MAP:USAX02MissionINtro",
+  "text": "Nedaleko beregov Somalije"
+ },
+ {
+  "label": "MAP:USAX02MissionStart",
+  "text": "Berbera, Somalija \n 'Operacija: Pomažuča Ruka'"
+ },
+ {
+  "label": "MAP:USAX02NavyHint",
+  "text": "VHODEČA TRANSMISIJA: \n Morska flota dostupna, aby oslabiti soprotivlenje"
+ },
+ {
+  "label": "MAP:USAX02ConvoyHint",
+  "text": "VHODEČA TRANSMISIJA: \n Konvoj načne, kogda 10 Kamionov Snabděnja pridut"
+ },
+ {
+  "label": "MAP:USAX02ConvoyArrived",
+  "text": "OBJEKTIV MISIJE #1: \n Izpolnjen"
+ },
+ {
+  "label": "MAP:USAX02objectives3a",
+  "text": "OBJEKTIV MISIJE #2: \n Uništi Bazu GLA"
+ },
+ {
+  "label": "MAP:USAX02Objectives1",
+  "text": "OBJEKTIV MISIJE #1: \n Zaščiti vhodeče Kamiony Snabděnja i osiguraj Sklad Snabděnja"
+ },
+ {
+  "label": "MAP:USAX02Objectives2",
+  "text": "OBJEKTIV MISIJE: \n Brani doky \n Zaščiti vhodeče kamiony snabděnja \n Osiguraj sklad"
+ },
+ {
+  "label": "MAP:USAX02Objectives3",
+  "text": "OBJEKTIV MISIJE: \n Najdi i Uništi strukture GLA v gorah"
+ },
+ {
+  "label": "MAP:USAX02Ships",
+  "text": "Dostupna Podpira: \n Nosač Letadl, CVN-88 Daedalus \n Grupa Eskorty Linkorov, Dreadnought"
+ },
+ {
+  "label": "MAP:USAX02Truck1Arrived",
+  "text": "Kamion Snabděnja 1 od 10 pridošel"
+ },
+ {
+  "label": "MAP:USAX02Truck2Arrived",
+  "text": "Kamion Snabděnja 2 od 10 pridošel"
+ },
+ {
+  "label": "MAP:USAX02Truck3Arrived",
+  "text": "Kamion Snabděnja 3 od 10 pridošel"
+ },
+ {
+  "label": "MAP:USAX02Truck4Arrived",
+  "text": "Kamion Snabděnja 4 od 10 pridošel"
+ },
+ {
+  "label": "MAP:USAX02Truck5Arrived",
+  "text": "Kamion Snabděnja 5 od 10 pridošel"
+ },
+ {
+  "label": "MAP:USAX02Truck6Arrived",
+  "text": "Kamion Snabděnja 6 od 10 pridošel"
+ },
+ {
+  "label": "MAP:USAX02Truck7Arrived",
+  "text": "Kamion Snabděnja 7 od 10 pridošel"
+ },
+ {
+  "label": "MAP:USAX02Truck8Arrived",
+  "text": "Kamion Snabděnja 8 od 10 pridošel"
+ },
+ {
+  "label": "MAP:USAX02Truck9Arrived",
+  "text": "Kamion Snabděnja 9 od 10 pridošel"
+ },
+ {
+  "label": "MAP:USAX02Truck10Arrived",
+  "text": "Kamion Snabděnja 10 pridošel \n Konvoj sę pripravja otiti k skladu"
+ },
+ {
+  "label": "MAP:USAX02ConvoyToWarehouse",
+  "text": "Eskortuj konvoj do skladu"
+ },
+ {
+  "label": "MAP:USAX02Dozer",
+  "text": "Buldozer pridošel na doky \n Načni stroitelstvo bazy"
+ },
+ {
+  "label": "MAP:USAX02Dozerb",
+  "text": "Buldozer pridošel"
+ },
+ {
+  "label": "MAP:USAX02Dozer2",
+  "text": "Novy buldozer pridošel na doky"
+ },
+ {
+  "label": "MAP:USA03xMapName",
+  "text": "Poslědnji Poziv"
+ },
+ {
+  "label": "MAP:USA03xOpen",
+  "text": "Gora Elbrus, Gruzija \n 'Operacija: Sněžny Pad'"
+ },
+ {
+  "label": "MAP:USA03xOpenAlt",
+  "text": "Gora Elbrus, Rusija \n 'Operacija: Sněžny Pad'"
+ },
+ {
+  "label": "MAP:USA03xObjective02",
+  "text": "OBJEKTIV MISIJE #1: \n Uništi lager plěnnikov GLA i spasi plěnnikov \n Polkovnik Burton morat preživěti"
+ },
+ {
+  "label": "MAP:USA03xObjective03",
+  "text": "OBJEKTIV MISIJE #2: \n Dvigni Polkovnika Burtona do sbornogo punkta"
+ },
+ {
+  "label": "MAP:USA03xObjectiveCompleted",
+  "text": "OBJEKTIV MISIJE #1: \n Izpolnjen"
+ },
+ {
+  "label": "MAP:USA03xTownHallHint",
+  "text": "VHODEČA TRANSMISIJA: \n Pretraži selo za nestalymi soldatami"
+ },
+ {
+  "label": "MAP:USA03xToxinNetworksWarning",
+  "text": "POZOR: \n Pazi na Toksinne Sěti i Pozicije Stinger"
+ },
+ {
+  "label": "MAP:USA03xPOWCamp02Hint",
+  "text": "SOVĚT: \n Uništi strukture GLA, koje branjat tot lager, \n aby oslobodil plěnnikov tu deržanyh"
+ },
+ {
+  "label": "MAP:USA03xBurtonWarning",
+  "text": "POZOR: \n Polkovnik Burton je tjažko ranjen \n On morat preživěti tu misiju"
+ },
+ {
+  "label": "MAP:USA03xChemWarning02",
+  "text": "POZOR: \n Te obrany sut modifikovane, aby strěljali himikaliami \n Oni ubijut vsaku pěhotu, koja sę prěblizi"
+ },
+ {
+  "label": "MAP:USA03xLoseReason01",
+  "text": "VHODEČA TRANSMISIJA: \n Polkovnik Burton je ubit \n Vy ste poraženi, generale. Tot put"
+ },
+ {
+  "label": "MAP:MD-USA04_LOCALE",
+  "text": "Naftna Polja Amisbad, Iran \n 'Operacija: Črno Zlato'"
+ },
+ {
+  "label": "MAP:MD-USA04_Start02",
+  "text": "VHODEČA TRANSMISIJA: \n Podkrěpljenja pridošli"
+ }
+]
