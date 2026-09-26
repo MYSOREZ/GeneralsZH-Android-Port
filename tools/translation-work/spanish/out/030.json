@@ -1,0 +1,802 @@
+[
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle073Subtitle",
+  "text": "*Cuántas tropas, general. No pensaría de verdad lanzarlas en tromba contra mí, ¿no?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle074Subtitle",
+  "text": "*Menuda base se ha montado, general. Se acordó de separar bien los edificios para evitar los ataques con armas, ¿verdad?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle075Subtitle",
+  "text": "*¡¿Sabe cuánto se va a tardar en limpiar eso?!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle076Subtitle",
+  "text": "*¡Saque esa asquerosa radiación de mi base!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle077Subtitle",
+  "text": "*¡Eh, ese es mi cañón de partículas! ¡No tiene autorización para usarlo!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle078Subtitle",
+  "text": "*¿Es un movimiento táctico o simplemente se está escondiendo?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle079Subtitle",
+  "text": "*¿El coronel Burton? ¿En serio? ¿Cree que le va a ayudar?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle080Subtitle",
+  "text": "*¿Loto Negro? Supongo que esto es un duelo de poder femenino, ¿no?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle081Subtitle",
+  "text": "*¡Jarmen Kell! ¡Más le vale mantenerse lejos de mis tanques!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle082Subtitle",
+  "text": "*Bonito aeródromo, general... pero mantenga esos aviones lejos de mi cañón de partículas"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle083Subtitle",
+  "text": "*¿Una fábrica de guerra? Va en serio lo de atacarme, ¿eh? Ya era hora"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle084Subtitle",
+  "text": "*Bien por usted: sabe construir un cuartel"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle085Subtitle",
+  "text": "*¿Vendiendo sus edificios? ¿Es parte de su liquidación por cierre?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle086Subtitle",
+  "text": "*¿Por qué no se rinde sin más? Tengo cosas mejores que hacer hoy"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle087Subtitle",
+  "text": "*¿Por qué nunca encuentro a uno que aguante más de 5 minutos?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle088Subtitle",
+  "text": "*Parece que está perdiendo, general. ¿Qué le dije sobre planificar el fracaso?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle089Subtitle",
+  "text": "*Menuda paliza se está llevando, general. ¿Listo para más?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle090Subtitle",
+  "text": "*Me gustaría decir \"buena pelea\", pero está claro que no tenía la cabeza en ella, general"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle091Subtitle",
+  "text": "*No puedo creer que le pegue así a una chica"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle092Subtitle",
+  "text": "*Necesito tiempo para pensar. ¡Márchese, general!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle093Subtitle",
+  "text": "*Su táctica no es nada deportiva, general. ¡Juegue limpio!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle094Subtitle",
+  "text": "*¡General, mire allí! ¡Alguien está capturando sus edificios! No ha colado, ¿eh?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle095Subtitle",
+  "text": "*¿Sabe? Si fuera un caballero, me daría cinco minutos para reconstruir mis defensas"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle096Subtitle",
+  "text": "*¡¿Qué?! ¿Se acabó? Bueno, ha sido un placer bailar con usted, general. Quizá la próxima vez lleve yo"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle097Subtitle",
+  "text": "*Mis superarmas están listas... ¿y usted?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle098Subtitle",
+  "text": "*Nunca romperá mis defensas, general"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle099Subtitle",
+  "text": "*Su táctica de avalancha no funcionará conmigo"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle100Subtitle",
+  "text": "*¡No es justo! Una superarma más y le habría vencido, general. Vuelva a desafiarme, si se atreve"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle101Subtitle",
+  "text": "*Ya le dije que nunca vencería a mis superarmas, general. ¿Quiere intentarlo otra vez?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle102Subtitle",
+  "text": "*Bienvenido, general. ¿Listo para empezar?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle103Subtitle",
+  "text": "*Oh, ¿qué es ese ruido? Ahora veo una luz en el cielo... Mmm"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle104Subtitle",
+  "text": "*¡Madre mía!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle106Subtitle",
+  "text": "*Vaya por Dios... Lo siento, general, pero es mi forma de decir \"hola\". Bueno, buena suerte, general"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle107Subtitle",
+  "text": "*Bueno, buena suerte, general"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina001Subtitle",
+  "text": "*Los americanos usan el dron centinela como sistema de alerta temprana para detectar al enemigo. El dron se vuelve invisible cuando no se mueve, y hemos visto algunos mejorados con ametralladoras. Aunque no es rival para los tanques, puede dar problemas a la infantería"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina002Subtitle",
+  "text": "*El tanque microondas americano es un gran cañón de microondas que inutiliza estructuras y vehículos. Su radiación también daña a la infantería, así que mantenga a nuestros hombres a una distancia segura"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina003Subtitle",
+  "text": "*El Avenger es un vehículo antiaéreo láser americano capaz de derribar misiles y aviones. También ayuda a otras unidades de EE. UU. a fijar nuestros aviones, así que debe considerarse un objetivo prioritario cuando aparezca en un grupo de combate"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina004Subtitle",
+  "text": "*El cañonero Spectre es un gran avión a reacción con varios sistemas de armas montados en el costado, que le permiten sobrevolar en círculos una zona objetivo y hacer llover la muerte desde el cielo. Ingeniería americana típica: matar moscas a cañonazos"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina005Subtitle",
+  "text": "*La mejora Trajes químicos hace que la infantería resista mejor las toxinas y la radiación"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina006Subtitle",
+  "text": "*La mejora Contramedidas de EE. UU. reduce la eficacia del fuego enemigo contra sus unidades aéreas. Los misiles fallan a menudo y las balas causan menos daño"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina007Subtitle",
+  "text": "*La mejora Dron Hellfire de EE. UU. crea un dron aéreo teledirigido que defiende a su vehículo con un sistema automático de misiles Hellfire"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina008Subtitle",
+  "text": "*Los misiles antibúnker son una mejora del caza furtivo y del Aurora de EE. UU. diseñada para penetrar en edificios ocupados"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina009Subtitle",
+  "text": "*La mejora Líneas de suministro aumenta la velocidad con la que EE. UU. obtiene recursos de depósitos, lanzamientos de suministros y torres petrolíferas"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina010Subtitle",
+  "text": "*Los generales de EE. UU. han comprendido la utilidad de la propaganda. Con el lanzamiento de octavillas inutilizan temporalmente a las unidades mientras se paran a leerla"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina011Subtitle",
+  "text": "*La MOAB es una mejora de la bomba de combustible-aire de EE. UU. con capacidad aturdidora, que desactiva temporalmente las unidades y estructuras supervivientes"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina012Subtitle",
+  "text": "*La base de fuego de EE. UU. es una posición defensiva rodeada de sacos terreros, con un obús y 4 puestos de tiro"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina013Subtitle",
+  "text": "*La bomba de napalm es una mejora de nuestro helicóptero Helix que le permite lanzar un par de bombas que crean una gran tormenta de fuego"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina014Subtitle",
+  "text": "*Nuestro puesto de escucha es un vehículo lento e invisible con un gran radio de visión, que puede alojar a 2 soldados como guardia. Además de descubrir objetos invisibles, permite averiguar el destino del enemigo haciendo clic en unidades a su alcance"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina015Subtitle",
+  "text": "*Nuestro Helix 2 es un helicóptero de transporte lento que puede llevar infantería o un único vehículo. Aunque va armado con una ametralladora ligera, puede mejorarse con el cañón Gatling, la torre de propaganda o el búnker de combate. También puede mejorarse para llevar una gran bomba de napalm"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina016Subtitle",
+  "text": "*El tanque ECM altera los sistemas de seguimiento electrónico y desvía los misiles enemigos. Su pulso electromagnético puede inutilizar un vehículo enemigo. Además, crea un campo de interferencias de radar que inutiliza todos los drones a su alcance"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina017Subtitle",
+  "text": "*Los proyectiles de neutrones son una mejora de nuestro cañón nuclear que le permite disparar proyectiles de neutrones. Estos proyectiles matan a toda la infantería y a los pilotos de vehículos dentro del radio de la explosión"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina018Subtitle",
+  "text": "*El pirateo de sistemas permite a sus hackers robar al azar un poder de general a nuestros enemigos. El nivel 1 permite robar un poder de 1 o 3 estrellas, y el nivel 2, uno de 5 estrellas"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina019Subtitle",
+  "text": "*Nuestro nuevo bombardero de alfombra lanza una serie de bombas a lo largo de una ruta marcada, diezmando a todas las fuerzas enemigas"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina020Subtitle",
+  "text": "*Nuestras minas de neutrones son una alternativa a las minas explosivas normales. Inutilizan al instante los vehículos y matan a la infantería cercana"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina021Subtitle",
+  "text": "*Nuestros hackers, antes vulnerables a los ataques, encontrarán seguridad y mayor capacidad de pirateo en nuestro nuevo centro de Internet"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina022Subtitle",
+  "text": "*El pirateo de satélite I es una mejora del centro de Internet que revela la zona alrededor del centro de mando de cada rival"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina023Subtitle",
+  "text": "*El pirateo de satélite II es una mejora del centro de Internet que revela temporalmente todo el mapa, incluidas las fuerzas enemigas invisibles"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina024Subtitle",
+  "text": "*El saboteador del ELG es una unidad de infantería invisible que puede escalar acantilados y afectar a los edificios enemigos entrando en ellos. Si entra en una central eléctrica, corta temporalmente la energía; si entra en una superarma, reinicia su temporizador. Un saboteador que entre en un centro de mando enemigo reinicia los temporizadores de todos los poderes de general del enemigo"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina025Subtitle",
+  "text": "*La moto de combate viene de serie con un rebelde del ELG como conductor y una ametralladora montada. El rebelde puede sustituirse por cualquier otra infantería del ELG, que otorga a la moto sus poderes únicos"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina026Subtitle",
+  "text": "*El autobús de combate del ELG puede llevar hasta 8 soldados, que disparan por las ventanillas. Si lo destruyen, su pesada cabina de acero permanece como un búnker"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina027Subtitle",
+  "text": "*El ELG ha mejorado a sus trabajadores con calzado para exprimir aún más trabajo forzado a sus campesinos"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina028Subtitle",
+  "text": "*La red de camuflaje es una mejora de las defensas de base del ELG que las hace invisibles a la detección normal"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina029Subtitle",
+  "text": "*El ELG ha empezado a apostar tropas de la guardia de élite armadas con RPG en todos sus edificios. Actúe con cautela al infiltrarse en cualquier base del ELG"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina030Subtitle",
+  "text": "*La mejora Trampa bomba del ELG permite al rebelde cablear estructuras y vehículos civiles para que exploten cuando el enemigo intente capturarlos u ocuparlos. Vigile a los rebeldes que merodeen cerca de los edificios de su zona"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina031Subtitle",
+  "text": "*Los trucos del ELG han alcanzado un nuevo nivel. Ahora construyen estructuras falsas que parecen sus edificios reales, pero no son más que fachadas con trampas bomba. Destrúyalo todo desde lejos para evitar sorpresas del ELG"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina032Subtitle",
+  "text": "*El perturbador de GPS actúa sobre las unidades de una zona y las hace invisibles a la detección normal"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina033Subtitle",
+  "text": "*El poder Ataque furtivo permite a los generales del ELG colocar una red de túneles indefensa en cualquier lugar que hayan explorado. Aunque es algo más débil que un túnel normal, está conectada a la red principal"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina034Subtitle",
+  "text": "*La plataforma de artillería es un cañón fijo capaz de proteger por sí solo una zona del asalto enemigo. Debería ser una captura prioritaria en cualquier campo de batalla"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina035Subtitle",
+  "text": "*Una plataforma de refuerzos proporciona periódicamente un lanzamiento gratuito de blindados. Unos Battlemaster gratis pueden cambiar el curso de cualquier batalla"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina036Subtitle",
+  "text": "*El edificio tecnológico Taller de reparación, una vez capturado, permite reparar en el campo de batalla cualquier vehículo terrestre. Reparar los blindados dañados en una posición avanzada puede marcar la diferencia entre la victoria y la derrota"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA001Subtitle",
+  "text": "*Cuidado con el dron centinela americano, general; puede ver unidades invisibles y a menudo lleva un arma montada"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA002Subtitle",
+  "text": "*El tanque microondas de EE. UU. tiene un rayo que inutiliza estructuras y unidades. Solo debería atacarse con grupos grandes"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA003Subtitle",
+  "text": "*El tanque Warlock de EE. UU. tiene un rayo que inutiliza estructuras y unidades. Solo debería atacarse con grupos grandes"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA004Subtitle",
+  "text": "*El Avenger de EE. UU. es un potente vehículo antiaéreo láser... pero no tenemos aviones, así que el peligro es mínimo"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA005Subtitle",
+  "text": "*El cañonero Spectre americano es un gran avión con grandes cañones. No se enfrente a él: refúgiese bajo tierra hasta que abandone la zona"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA006Subtitle",
+  "text": "*Con la mejora Trajes químicos, la infantería enemiga resiste mejor nuestras toxinas. Pero eso no detendrá nuestras balas, ¿verdad?"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA007Subtitle",
+  "text": "*La mejora Contramedidas reduce el efecto del fuego enemigo contra las unidades aéreas de EE. UU. Los misiles fallan a menudo y las balas causan menos daño"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA008Subtitle",
+  "text": "*La mejora Dron Hellfire de EE. UU. es un avioncito de juguete con un misil. Otro ejemplo de las tácticas cobardes de los americanos"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA009Subtitle",
+  "text": "*La bomba antibúnker es una mejora del caza furtivo y del Aurora de EE. UU. La usan para intentar atacar nuestros búnkeres"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA010Subtitle",
+  "text": "*La mejora Líneas de suministro aumenta la velocidad con la que EE. UU. obtiene recursos de depósitos, lanzamientos de suministros y torres petrolíferas"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA011Subtitle",
+  "text": "*El lanzamiento de octavillas de EE. UU. inutiliza temporalmente a nuestras unidades mientras se paran a leer la propaganda"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA012Subtitle",
+  "text": "*La MOAB es una mejora de la bomba de combustible-aire con capacidad aturdidora, que desactiva temporalmente las unidades y estructuras supervivientes"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA013Subtitle",
+  "text": "*La base de fuego es la respuesta americana a nuestros emplazamientos Stinger... pero cuidado con el gran cañón del centro"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA014Subtitle",
+  "text": "*La bomba de napalm china es una mejora del Helix que le permite lanzar un par de bombas que crean una gran tormenta de fuego"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA015Subtitle",
+  "text": "*El puesto de escucha es un vehículo lento e invisible que China usa para encontrar nuestras unidades invisibles. Evítelos para seguir oculto"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA016Subtitle",
+  "text": "*El Helix 2 de China es un helicóptero de transporte lento que puede llevar infantería o un único vehículo"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA017Subtitle",
+  "text": "*El tanque ECM chino es un vehículo que altera los sistemas de seguimiento electrónico y desvía los misiles enemigos"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA018Subtitle",
+  "text": "*Los proyectiles de neutrones son una mejora del cañón nuclear chino que le permite disparar proyectiles de neutrones. Estos proyectiles matan a toda la infantería y a los pilotos de vehículos dentro del radio de la explosión"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA019Subtitle",
+  "text": "*La nueva técnica de pirateo de sistemas de China permite a los hackers robar al azar un poder a sus enemigos. Esa es la perdición de quien depende del poder para hacer la guerra"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA020Subtitle",
+  "text": "*El bombardero de alfombra es un avión que lanza una serie de bombas a lo largo de una ruta marcada, diezmando al enemigo"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA021Subtitle",
+  "text": "*Las minas de neutrones son una alternativa a las minas chinas normales que inutiliza los vehículos. Estas minas también siguen matando a la infantería"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA022Subtitle",
+  "text": "*El centro de Internet permite a los hackers de China aumentar su eficacia"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA023Subtitle",
+  "text": "*El pirateo de satélite I es una mejora del centro de Internet que permite a China ver el centro de mando de cada rival"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA024Subtitle",
+  "text": "*El pirateo de satélite II es una mejora del centro de Internet chino que revela temporalmente todo el mapa, además de los objetos invisibles"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA025Subtitle",
+  "text": "*El saboteador es una unidad invisible que puede escalar acantilados y afectar a los edificios enemigos entrando en ellos"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA026Subtitle",
+  "text": "*Nuestra nueva moto de combate lleva ametralladoras montadas y se potencia con las habilidades de la infantería que la conduzca"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA027Subtitle",
+  "text": "*El autobús de combate es un transporte lento que puede llevar hasta 8 soldados, que pueden disparar desde el autobús. Si lo destruyen, su casco permanece y funciona como un búnker"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA028Subtitle",
+  "text": "*La mejora Calzado de trabajador aumenta la velocidad y la eficacia de recolección de todos nuestros leales trabajadores"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA029Subtitle",
+  "text": "*La red de camuflaje es una mejora de nuestras defensas de base que las hace invisibles"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA030Subtitle",
+  "text": "*La mejora Guardia de élite es una habilidad de estructura que la ocupa con 4 soldados RPG"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA031Subtitle",
+  "text": "*La trampa bomba es una mejora del rebelde que le permite cablear estructuras y vehículos civiles para que exploten cuando el enemigo intente capturarlos u ocuparlos. Las estructuras capturadas llevan trampa bomba automáticamente"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA032Subtitle",
+  "text": "*Las estructuras falsas pueden construirse a un coste muy reducido. Al principio son fachadas con trampa bomba, pero pueden mejorarse hasta convertirse en versiones plenamente funcionales de la estructura"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA033Subtitle",
+  "text": "*Nuestro recién adquirido perturbador de GPS actúa sobre las unidades de una zona y las hace invisibles para el enemigo"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA034Subtitle",
+  "text": "*Nuestro Ataque furtivo permite colocar una red de túneles indefensa en cualquier zona explorada. Aunque es algo más débil que un túnel normal, está conectada a la red principal"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA035Subtitle",
+  "text": "*La plataforma de artillería dispara un arma similar a la del centro de estrategia de EE. UU. en alcance y daño. Capture su letal cañón o evítelo"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA036Subtitle",
+  "text": "*La plataforma de refuerzos entrega periódicamente un grupo de tanques Scorpion para nuestra causa"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA037Subtitle",
+  "text": "*El taller de reparación es una instalación de reparación de vehículos en primera línea. Repara vehículos como un traficante de armas"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA001Subtitle",
+  "text": "*El dron centinela es una unidad móvil capaz de seguir los movimientos enemigos, incluidos los camuflados. El propio dron también es invisible cuando no se mueve, y puede mejorarse con una ametralladora antipersona en el centro de estrategia"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA002Subtitle",
+  "text": "*El tanque microondas va armado con un panel de microondas de energía dirigida que inutiliza las estructuras y vehículos a los que apunta. También emite un campo de microondas continuo que daña a la infantería"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA003Subtitle",
+  "text": "*El tanque Warlock va armado con un panel de microondas de energía dirigida que inutiliza las estructuras y vehículos a los que apunta. También emite un campo de microondas continuo que daña a la infantería"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA004Subtitle",
+  "text": "*El Avenger es un vehículo antiaéreo láser capaz de derribar misiles y aviones. También otorga bonificaciones a las unidades que atacan el objetivo que ha \"marcado\""
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA005Subtitle",
+  "text": "*El cañonero Spectre es un gran avión a reacción con varios sistemas de armas montados en las alas. Mientras sobrevuela en círculos el objetivo, fija enemigos automáticamente. Admite la selección manual de objetivos y puede mejorarse para desplegar contramedidas"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA006Subtitle",
+  "text": "*Con la mejora Trajes químicos, la infantería resiste mejor las toxinas y la radiación"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA007Subtitle",
+  "text": "*La mejora Contramedidas reduce el efecto del fuego enemigo contra las unidades aéreas de EE. UU. Los misiles fallan a menudo y las balas causan menos daño"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA008Subtitle",
+  "text": "*La mejora Dron Hellfire equipa al vehículo con un dron capaz de disparar un único misil. Los drones fijan objetivos automáticamente y necesitan tiempo para recargar"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA009Subtitle",
+  "text": "*Los misiles antibúnker son una mejora del caza furtivo y del Aurora. Además de sus efectos normales, estos misiles mejorados dañan e incluso matan a las unidades que ocupan estructuras, incluidos el palacio y la red de túneles del ELG y el búnker de combate chino"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA010Subtitle",
+  "text": "*La mejora Líneas de suministro aumenta el dinero obtenido de depósitos, lanzamientos de suministros y torres petrolíferas"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA011Subtitle",
+  "text": "*El lanzamiento de octavillas inutiliza temporalmente a las unidades mientras se paran a leer la propaganda. El avión reparte octavillas sobre la zona marcada y el efecto dura poco tiempo"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA012Subtitle",
+  "text": "*La MOAB es una mejora de la bomba de combustible-aire con capacidad aturdidora, que desactiva temporalmente las unidades y estructuras supervivientes"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA013Subtitle",
+  "text": "*La base de fuego está rodeada de sacos terreros y tiene un obús y 4 puestos de tiro. La infantería que entra en ella ocupa los puestos de tiro tras los sacos terreros"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA014Subtitle",
+  "text": "*La bomba de napalm es una mejora del Helix que le permite lanzar un par de bombas que crean una gran tormenta de fuego"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA015Subtitle",
+  "text": "*El puesto de escucha es un vehículo lento e invisible con un gran radio de visión, que puede alojar a 2 soldados como guardia. Además de descubrir objetos invisibles, permite averiguar el destino del enemigo haciendo clic en unidades a su alcance"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA016Subtitle",
+  "text": "*El Helix 2 es un helicóptero de transporte lento que puede llevar infantería o un único vehículo. Aunque va armado con una ametralladora ligera, puede mejorarse con el cañón Gatling, la torre de propaganda o el búnker de combate. También puede mejorarse para llevar una gran bomba de napalm"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA017Subtitle",
+  "text": "*El tanque ECM es un vehículo que altera los sistemas de seguimiento electrónico y desvía los misiles enemigos. Su pulso ECM puede inutilizar vehículos enemigos de uno en uno. Por último, crea un campo de interferencias de radar que inutiliza todos los drones a su alcance"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA018Subtitle",
+  "text": "*Los proyectiles de neutrones son una mejora del cañón nuclear chino que le permite disparar proyectiles de neutrones. Estos proyectiles matan a toda la infantería y a los pilotos de vehículos dentro del radio de la explosión"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA019Subtitle",
+  "text": "*El pirateo de sistemas permite a sus hackers robar al azar un poder a sus enemigos. El nivel 1 permite robar un poder de nivel 1 o 3, y el nivel 2, uno de 5 estrellas"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA020Subtitle",
+  "text": "*El bombardero de alfombra es un avión que lanza una serie de bombas a lo largo de una ruta marcada, diezmando al enemigo"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA021Subtitle",
+  "text": "*Las minas de neutrones son una alternativa a las minas chinas normales que inutiliza los vehículos. Estas minas también siguen matando a la infantería"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA022Subtitle",
+  "text": "*El centro de Internet permite a los hackers ganar dinero con más eficacia y habilita los pirateos de satélite I y II"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA023Subtitle",
+  "text": "*El pirateo de satélite I es una mejora del centro de Internet que revela la zona alrededor del centro de mando de cada rival"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA024Subtitle",
+  "text": "*El pirateo de satélite II es una mejora del centro de Internet que revela temporalmente todo el mapa, además de los objetos invisibles"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA025Subtitle",
+  "text": "*El saboteador es una unidad invisible que puede escalar acantilados y afectar a los edificios enemigos entrando en ellos. Si entra en una central eléctrica, corta temporalmente la energía; si entra en una superarma, reinicia su temporizador. Un saboteador que entre en un centro de mando enemigo reinicia los temporizadores de todos los poderes de general del enemigo"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA026Subtitle",
+  "text": "*La moto de combate viene de serie con un rebelde como conductor y una ametralladora montada. Si se sustituye por un soldado RPG, la moto podrá disparar misiles. Un terrorista la convierte en una moto suicida. Jarmen Kell, los secuestradores y los saboteadores también pueden conducirla, lo que la hace invisible"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA027Subtitle",
+  "text": "*La furgoneta de combate es un transporte lento que puede llevar hasta 8 soldados, que pueden disparar desde el vehículo. Si la destruyen, su casco permanece y funciona como un búnker. Si el casco es destruido, todos los que estén dentro mueren también"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA028Subtitle",
+  "text": "*La mejora Calzado de trabajador aumenta la velocidad y la eficacia de recolección de todos los trabajadores del ELG"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA029Subtitle",
+  "text": "*La red de camuflaje es una mejora de las defensas de base del ELG que las hace invisibles"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA030Subtitle",
+  "text": "*La mejora Guardia de élite es una habilidad de estructura que la ocupa con 4 soldados RPG"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA031Subtitle",
+  "text": "*La trampa bomba es una mejora del rebelde que le permite cablear estructuras y vehículos civiles para que exploten cuando el enemigo intente capturarlos u ocuparlos. La explosión daña todo lo que haya en un pequeño radio. Las estructuras capturadas por un rebelde mejorado llevan trampa bomba automáticamente"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA032Subtitle",
+  "text": "*Las estructuras falsas pueden construirse a un coste muy reducido. Al principio son fachadas con trampa bomba, pero pueden mejorarse hasta convertirse en versiones plenamente funcionales de la estructura"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA033Subtitle",
+  "text": "*El perturbador de GPS actúa sobre las unidades de una zona y las hace invisibles para el enemigo"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA034Subtitle",
+  "text": "*El Ataque furtivo permite colocar una red de túneles indefensa en cualquier zona explorada. Aunque es algo más débil que un túnel normal, está conectada a la red principal"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA035Subtitle",
+  "text": "*La plataforma de artillería va armada con un obús de gran calibre. Es un arma de supresión excelente y también un buen punto de reunión desde el que lanzar un asalto"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA036Subtitle",
+  "text": "*La plataforma de refuerzos proporciona periódicamente al jugador uno de los carros de combate principales de su bando (Scorpion, Battlemaster, Crusader)"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA037Subtitle",
+  "text": "*El taller de reparación es una instalación de reparación de vehículos. Los vehículos deben acoplarse a la estructura igual que a la fábrica de guerra"
+ },
+ {
+  "label": "TOOLTIP:Community",
+  "text": "Porcentaje de victorias de cada ejército según todas las partidas en línea jugadas"
+ },
+ {
+  "label": "CONTROLBAR:Nuke_ToolTipChinaBuildHelix",
+  "text": "Transporte de carga pesada \n se mejora con defensas de base y bomba nuclear \n \n Eficaz contra: tanques, vehículos ligeros \n Débil contra: infantería con misiles, defensas antiaéreas"
+ },
+ {
+  "label": "MAP:CHI01xListeningPostHint01",
+  "text": "CONSEJO: \n Las trampas explosivas ocultas se revelan dentro del radio de visión del puesto de escucha"
+ },
+ {
+  "label": "OBJECT:SupW_PatriotBattery",
+  "text": "Sistema Patriot PEM"
+ },
+ {
+  "label": "CONTROLBAR:SupW_ConstructAmericaPatriotBattery",
+  "text": "Sistema Patriot P&EM"
+ },
+ {
+  "label": "CONTROLBAR:SupW_ToolTipUSABuildPatriotBattery",
+  "text": "Defensa terrestre y antiaérea. Transmite la posición del enemigo a los Patriot cercanos \n \n Energía necesaria: 3"
+ },
+ {
+  "label": "MAP:USA03xBurtonSurvive",
+  "text": "TRANSMISIÓN ENTRANTE: \n El coronel Burton debe sobrevivir"
+ },
+ {
+  "label": "MAP:MD_GLA04_GatherHint",
+  "text": "CONSEJO: \n Selecciona los camiones de transporte y ordénales recoger recursos de la instalación de toxinas"
+ },
+ {
+  "label": "MAP:MD_GLA04_HospitalHint",
+  "text": "CONSEJO: \n El hospital hace que tus unidades se curen solas"
+ },
+ {
+  "label": "MAP:MD_GLA04_TractorsHint",
+  "text": "CONSEJO: \n Los tractores de toxinas pueden matar a las unidades dentro de edificios ocupados"
+ },
+ {
+  "label": "OBJECT:AssaultTroopTransport",
+  "text": "Transporte de tropas de asalto"
+ },
+ {
+  "label": "OBJECT:AssaultListeningOutpost",
+  "text": "Puesto de ataque"
+ },
+ {
+  "label": "UPGRADE:IsotopeStability",
+  "text": "Estabilidad isotópica"
+ },
+ {
+  "label": "CONTROLBAR:Infa_ToolTipChinaUpgradeRedGuardCaptureBuilding",
+  "text": "Permite a los ametralladores capturar edificios enemigos y tecnológicos"
+ },
+ {
+  "label": "OBJECT:Lazr_PatriotBattery",
+  "text": "Torreta de defensa láser"
+ },
+ {
+  "label": "SCIENCE:Infa_ChinaRedGuardTraining",
+  "text": "Instrucción de ametralladores"
+ },
+ {
+  "label": "CONTROLBAR:Infa_ToolTipChinaScienceRedGuardTraining",
+  "text": "Todos los ametralladores se entrenarán como élite"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildNuclearMissileLauncherBoss",
+  "text": "Lanza un misil nuclear. Construye importantes mejoras chinas \n \n Energía necesaria: 10 \n Tiempo de recarga: 6:00"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildParticleCannonBoss",
+  "text": "Dispara un rayo de partículas a cualquier punto del mapa \n \n Energía necesaria: 10 \n Tiempo de recarga: 4:00"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildCombatBikeTerrorist",
+  "text": "Rápida y versátil \n Viene con un terrorista \n Débil contra: aviones"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildSuperHacker",
+  "text": "Puede inutilizar edificios y vehículos enemigos con un virus informático o piratear Internet para robar dinero. Camuflado \n \n Eficaz contra: edificios \n Débil contra: infantería, vehículos"
+ },
+ {
+  "label": "UPGRADE:Demo_SuicideBomb",
+  "text": "Demoliciones"
+ },
+ {
+  "label": "UPGRADE:AirF_StealthComanche",
+  "text": "Comanche furtivo"
+ },
+ {
+  "label": "UPGRADE:HighExplosiveTrap",
+  "text": "Trampa de alto explosivo"
+ },
+ {
+  "label": "CAMPAIGN:CHALLENGE_0",
+  "text": "Desafío: general de la Fuerza Aérea"
+ },
+ {
+  "label": "CAMPAIGN:CHALLENGE_1",
+  "text": "Desafío: general de las toxinas"
+ },
+ {
+  "label": "CAMPAIGN:CHALLENGE_2",
+  "text": "Desafío: general nuclear"
+ },
+ {
+  "label": "CAMPAIGN:CHALLENGE_3",
+  "text": "Desafío: general de las superarmas"
+ },
+ {
+  "label": "CAMPAIGN:CHALLENGE_4",
+  "text": "Desafío: general de los tanques"
+ },
+ {
+  "label": "CAMPAIGN:CHALLENGE_5",
+  "text": "Desafío: general del láser"
+ },
+ {
+  "label": "CAMPAIGN:CHALLENGE_6",
+  "text": "Desafío: general del sigilo"
+ },
+ {
+  "label": "CAMPAIGN:CHALLENGE_7",
+  "text": "Desafío: general de la infantería"
+ },
+ {
+  "label": "CAMPAIGN:CHALLENGE_8",
+  "text": "Desafío: general de las demoliciones"
+ },
+ {
+  "label": "OBJECT:RocketDrop",
+  "text": "Cohete"
+ },
+ {
+  "label": "OBJECT:RocketBomb",
+  "text": "Cohete"
+ },
+ {
+  "label": "OBJECT:PTBoat",
+  "text": "Lancha torpedera"
+ },
+ {
+  "label": "OBJECT:ShiekLimo",
+  "text": "Limusina"
+ },
+ {
+  "label": "OBJECT:Dock",
+  "text": "Muelle"
+ },
+ {
+  "label": "OBJECT:RailroadBridgeH",
+  "text": "Puente ferroviario"
+ },
+ {
+  "label": "OBJECT:RepairDrone",
+  "text": "Dron de reparación"
+ },
+ {
+  "label": "OBJECT:CINE_Carrier",
+  "text": "Portaaviones"
+ },
+ {
+  "label": "OBJECT:SpectreGunship",
+  "text": "Cañonero Spectre"
+ },
+ {
+  "label": "SCIENCE:LaserCannon",
+  "text": "Cañón láser"
+ },
+ {
+  "label": "OBJECT:LaserCannon",
+  "text": "Cañón láser"
+ },
+ {
+  "label": "UPGRADE:TacticalNukeMig",
+  "text": "MiG nuclear táctico"
+ },
+ {
+  "label": "OBJECT:FuelAirBomb",
+  "text": "Bomba de combustible-aire"
+ },
+ {
+  "label": "OBJECT:CruiseMissile",
+  "text": "Misil de crucero"
+ },
+ {
+  "label": "OBJECT:Ox",
+  "text": "Buey"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUpgradeChinaTacticalNukeMig",
+  "text": "Mejora el MiG para que dispare una pequeña bomba nuclear"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaTacticalNukeMig",
+  "text": "MiG &nuclear táctico"
+ },
+ {
+  "label": "CONTROLBAR:Boss_ToolTipChinaBuildBarracks",
+  "text": "Entrena soldados"
+ },
+ {
+  "label": "CONTROLBAR:Boss_ToolTipChinaBuildAirField",
+  "text": "Construye aviones \n \n Energía necesaria: 1"
+ },
+ {
+  "label": "CONTROLBAR:Boss_ToolTipChinaBuildBunker",
+  "text": "Puede alojar a 5 soldados"
+ },
+ {
+  "label": "CONTROLBAR:Boss_ToolTipChinaBuildWarFactory",
+  "text": "Construye vehículos \n \n Energía necesaria: 1"
+ },
+ {
+  "label": "CONTROLBAR:Boss_ToolTipChinaBuildSupplyCenter",
+  "text": "Punto de entrega para los recolectores de suministros \n \n Energía necesaria: 1"
+ },
+ {
+  "label": "CONTROLBAR:Infa_TooltipParaDrop",
+  "text": "Lanza ametralladores desde un avión \n \n Tiempo de recarga: 4:00"
+ }
+]
