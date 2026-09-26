@@ -1,0 +1,90 @@
+[
+ {
+  "label": "GUI:LoadReplayLong",
+  "text": "WCZYTAJ POWTÓRKĘ"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak5",
+  "text": "Odznaczenie serii \n Gracz wygrał 5 gier online z rzędu"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak20",
+  "text": "Odznaczenie serii \n Gracz wygrał 20 gier online z rzędu"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAUpgradeBuggyAmmor",
+  "text": "+25% amunicji Łazika rakietowego"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak3Disabled",
+  "text": "Odznaczenie serii \n Wygraj 3 lub więcej gier z rzędu, by zdobyć ten medal"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorBlitz10Disabled",
+  "text": "Odznaczenie błyskawicy \n Pokonaj przeciwnika(-ów) komputerowego(-ych) w 10 minut lub krócej, by zdobyć ten medal"
+ },
+ {
+  "label": "GUI:CÀontrolBarBack",
+  "text": "WSTECZ"
+ },
+ {
+  "label": "GUI:BuddyAddReqMessageSent",
+  "text": "Zaproszenie do znajomych wysłane"
+ },
+ {
+  "label": "GUI:BuddyAddReqMessageRejected",
+  "text": "Zaproszenie do znajomych odrzucone"
+ },
+ {
+  "label": "GUI:BuddyAddReqMessageAccepted",
+  "text": "Zaproszenie do znajomych przyjęte"
+ },
+ {
+  "label": "TOOLTIP:RefreshGamePlayerList",
+  "text": "Odśwież listy gier i graczy"
+ },
+ {
+  "label": "TOOLTIP:CommunicatorBuddyRadioButton",
+  "text": "Kliknij prawym przyciskiem nazwę na liście graczy, by wysłać zaproszenie do znajomych"
+ },
+ {
+  "label": "TOOLTIP:CommunicatorIgnoreRadioButton",
+  "text": "Kliknij prawym przyciskiem nazwę na liście graczy, by ignorować tego gracza"
+ },
+ {
+  "label": "GUI:GroupRoom15",
+  "text": "3 na 3"
+ },
+ {
+  "label": "GUI:GroupRoom16",
+  "text": "4 na 4"
+ },
+ {
+  "label": "GUI:GroupRoom17",
+  "text": "Nowicjusze"
+ },
+ {
+  "label": "GUI:GroupRoom18",
+  "text": "Mody"
+ },
+ {
+  "label": "GUI:GroupRoom19",
+  "text": "Ranking"
+ },
+ {
+  "label": "GUI:GroupRoom20",
+  "text": "Niemcy"
+ },
+ {
+  "label": "GUI:GroupRoom21",
+  "text": "USA"
+ },
+ {
+  "label": "GUI:GroupRoom22",
+  "text": "Korea"
+ },
+ {
+  "label": "GUI:BeaconClear",
+  "text": "Wyczyść"
+ }
+]
