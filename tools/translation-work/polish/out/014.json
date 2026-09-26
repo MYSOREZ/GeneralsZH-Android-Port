@@ -1,0 +1,802 @@
+[
+ {
+  "label": "GUI:LimitSuperweapons",
+  "text": "Ogranicz superbronie"
+ },
+ {
+  "label": "TOOLTIP:LimitSuperweapons",
+  "text": "Zaznacz, aby ograniczyć działa cząsteczkowe, Burze SCUD itp. do jednej na gracza"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak100",
+  "text": "Odznaczenie za serię \n Gracz wygrał 100 potyczek z rzędu\n Nowy medal za 3, 10, 25, 100, 500 i 1000 zwycięstw z rzędu"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak500",
+  "text": "Odznaczenie za serię \n Gracz wygrał 500 potyczek z rzędu\n Nowy medal za 3, 10, 25, 100, 500 i 1000 zwycięstw z rzędu"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak1000",
+  "text": "Odznaczenie za serię \n Gracz wygrał 1000 potyczek z rzędu"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak3Online",
+  "text": "Odznaczenie za serię \n Gracz wygrał 3 gry online z rzędu\n Nowy medal za 3, 10, 25, 100, 500 i 1000 zwycięstw z rzędu"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak10Online",
+  "text": "Odznaczenie za serię \n Gracz wygrał 10 gier online z rzędu\n Nowy medal za 3, 10, 25, 100, 500 i 1000 zwycięstw z rzędu"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak25Online",
+  "text": "Odznaczenie za serię \n Gracz wygrał 25 gier online z rzędu\n Nowy medal za 3, 10, 25, 100, 500 i 1000 zwycięstw z rzędu"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak100Online",
+  "text": "Odznaczenie za serię \n Gracz wygrał 100 gier online z rzędu\n Nowy medal za 3, 10, 25, 100, 500 i 1000 zwycięstw z rzędu"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak500Online",
+  "text": "Odznaczenie za serię \n Gracz wygrał 500 gier online z rzędu\n Nowy medal za 3, 10, 25, 100, 500 i 1000 zwycięstw z rzędu"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak1000Online",
+  "text": "Odznaczenie za serię \n Gracz wygrał 1000 gier online z rzędu"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorDomination100",
+  "text": "Odznaczenie za dominację \n Gracz wygrał ponad 100 potyczek\n Nowy medal za 100, 500, 1000 i 10000 zwycięstw łącznie"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorDomination500",
+  "text": "Odznaczenie za dominację \n Gracz wygrał ponad 500 potyczek\n Nowy medal za 100, 500, 1000 i 10000 zwycięstw łącznie"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorDomination1000",
+  "text": "Odznaczenie za dominację \n Gracz wygrał ponad 1000 potyczek\n Nowy medal za 100, 500, 1000 i 10000 zwycięstw łącznie"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorDomination10000",
+  "text": "Odznaczenie za dominację \n Gracz wygrał ponad 10 000 potyczek"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorDomination100Online",
+  "text": "Odznaczenie za dominację \n Gracz wygrał ponad 100 gier online\n Nowy medal za 100, 500, 1000 i 10000 zwycięstw łącznie"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorDomination500Online",
+  "text": "Odznaczenie za dominację \n Gracz wygrał ponad 500 gier online\n Nowy medal za 100, 500, 1000 i 10000 zwycięstw łącznie"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorDomination1000Online",
+  "text": "Odznaczenie za dominację \n Gracz wygrał ponad 1000 gier online\n Nowy medal za 100, 500, 1000 i 10000 zwycięstw łącznie"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorDomination10000Online",
+  "text": "Odznaczenie za dominację \n Gracz wygrał ponad 10 000 gier online"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorCampaignChallenge",
+  "text": "Odznaczenie kampanii wyzwań \n Ukończ kampanię Wyzwanie generałów, aby zdobyć to odznaczenie \n Ukończ ją na poziomie Trudnym, aby zdobyć najwyższe odznaczenie"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorUltimate",
+  "text": "Odznaczenie ostateczne \n Wygraj na każdej mapie potyczki z maksymalną liczbą trudnych przeciwników, aby zdobyć ten medal"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorGlobalGeneral",
+  "text": "Odznaczenie generała globalnego \n Wygraj co najmniej jedną grę online każdym generałem, aby zdobyć medal"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreakDisabled",
+  "text": "Odznaczenie za serię\n Nowy medal za 3, 10, 25, 100, 500 i 1000 zwycięstw z rzędu"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreakOnlineDisabled",
+  "text": "Odznaczenie za serię\n Nowy medal za 3, 10, 25, 100, 500 i 1000 zwycięstw z rzędu"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorCampaignChallengeDisabled",
+  "text": "Odznaczenie kampanii wyzwań \n Ukończ kampanię Wyzwanie generałów, aby zdobyć to odznaczenie \n Ukończ ją na poziomie Trudnym, aby zdobyć najwyższe odznaczenie"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorUltimateDisabled",
+  "text": "Odznaczenie ostateczne \n Wygraj na każdej mapie potyczki z maksymalną liczbą trudnych przeciwników, aby zdobyć ten medal"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorDominationDisabled",
+  "text": "Odznaczenie za dominację\n Nowy medal za 100, 500, 1000 i 10000 zwycięstw łącznie"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorDominationOnlineDisabled",
+  "text": "Odznaczenie za dominację\n Nowy medal za 100, 500, 1000 i 10000 zwycięstw łącznie"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorGlobalGeneralDisabled",
+  "text": "Odznaczenie generała globalnego \n Wygraj co najmniej jedną grę online każdym generałem, aby zdobyć ten medal"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorBlitzDisabled",
+  "text": "Odznaczenie za błyskawiczne zwycięstwo \n Pokonaj przeciwników w 10 minut lub szybciej, aby zdobyć ten medal"
+ },
+ {
+  "label": "GUI:SuperweaponSpectreGunship",
+  "text": "Kanonierka Spectre"
+ },
+ {
+  "label": "GUI:Nuke_SuperweaponNeutronMissile",
+  "text": "Pocisk atomowy"
+ },
+ {
+  "label": "GUI:SuperweaponGPSScrambler",
+  "text": "Zakłócacz GPS"
+ },
+ {
+  "label": "GUI:SupW_SuperweaponParticleUplinkCannon",
+  "text": "Działo cząsteczkowe"
+ },
+ {
+  "label": "GUI:SuperweaponTankParadrop",
+  "text": "Zrzut czołgów"
+ },
+ {
+  "label": "GUI:SupW_SuperweaponTomahawkStorm",
+  "text": "Burza Tomahawków"
+ },
+ {
+  "label": "GUI:SupW_SuperweaponNeutronMissile",
+  "text": "ICBM"
+ },
+ {
+  "label": "INI:FactionAmericaSuperWeaponGeneral",
+  "text": "Generał superbroni USA"
+ },
+ {
+  "label": "INI:FactionAmericaLaserGeneral",
+  "text": "Generał laserowy USA"
+ },
+ {
+  "label": "INI:FactionAmericaAirForceGeneral",
+  "text": "Generał lotnictwa USA"
+ },
+ {
+  "label": "INI:FactionAmericaCommanderInChief",
+  "text": "Naczelny dowódca USA"
+ },
+ {
+  "label": "INI:FactionChinaTankGeneral",
+  "text": "Generał pancerny Chin"
+ },
+ {
+  "label": "INI:FactionChinaInfantryGeneral",
+  "text": "Generał piechoty Chin"
+ },
+ {
+  "label": "INI:FactionChinaNukeGeneral",
+  "text": "Generał atomowy Chin"
+ },
+ {
+  "label": "INI:FactionChinaCommanderInChief",
+  "text": "Naczelny dowódca Chin"
+ },
+ {
+  "label": "INI:FactionGLAToxinGeneral",
+  "text": "Generał toksyn GLA"
+ },
+ {
+  "label": "INI:FactionGLADemolitionGeneral",
+  "text": "Generał wyburzeń GLA"
+ },
+ {
+  "label": "INI:FactionGLAStealthGeneral",
+  "text": "Generał kamuflażu GLA"
+ },
+ {
+  "label": "INI:FactionGLACommanderInChief",
+  "text": "Naczelny dowódca GLA"
+ },
+ {
+  "label": "INI:FactionBossGeneral",
+  "text": "Generał Boss"
+ },
+ {
+  "label": "SIDE:AmericaSuperWeaponGeneral",
+  "text": "Generał superbroni USA"
+ },
+ {
+  "label": "SIDE:AmericaLaserGeneral",
+  "text": "Generał laserowy USA"
+ },
+ {
+  "label": "SIDE:AmericaAirForceGeneral",
+  "text": "Generał lotnictwa USA"
+ },
+ {
+  "label": "SIDE:ChinaTankGeneral",
+  "text": "Generał pancerny Chin"
+ },
+ {
+  "label": "SIDE:ChinaInfantryGeneral",
+  "text": "Generał piechoty Chin"
+ },
+ {
+  "label": "SIDE:ChinaNukeGeneral",
+  "text": "Generał atomowy Chin"
+ },
+ {
+  "label": "SIDE:GLAToxinGeneral",
+  "text": "Generał toksyn GLA"
+ },
+ {
+  "label": "SIDE:GLADemolitionGeneral",
+  "text": "Generał wyburzeń GLA"
+ },
+ {
+  "label": "SIDE:GLAStealthGeneral",
+  "text": "Generał kamuflażu GLA"
+ },
+ {
+  "label": "SIDE:Boss",
+  "text": "Generał Boss"
+ },
+ {
+  "label": "GUI:SelectAllAircraft",
+  "text": "Zaznacz wszystkie samoloty"
+ },
+ {
+  "label": "GUI:SelectAllAircraftDescription",
+  "text": "Zaznacza wszystkie samoloty"
+ },
+ {
+  "label": "SCIENCE:USASpectreGunship1",
+  "text": "Kanonierka Spectre"
+ },
+ {
+  "label": "SCIENCE:USALeafletDrop",
+  "text": "Zrzut ulotek"
+ },
+ {
+  "label": "SCIENCE:ChinaTankHunterTraining",
+  "text": "Szkolenie łowców czołgów"
+ },
+ {
+  "label": "SCIENCE:ChinaBattleMasterTraining",
+  "text": "Szkolenie Battlemasterów"
+ },
+ {
+  "label": "SCIENCE:ChinaOverlordTraining",
+  "text": "Szkolenie Overlordów"
+ },
+ {
+  "label": "SCIENCE:ChinaGattlingTankTraining",
+  "text": "Szkolenie czołgów Gatling"
+ },
+ {
+  "label": "SCIENCE:ChinaNukeDrop",
+  "text": "Zrzut bomby atomowej"
+ },
+ {
+  "label": "SCIENCE:ChinaFrenzy",
+  "text": "Szał 1"
+ },
+ {
+  "label": "SCIENCE:ChinaFrenzy2",
+  "text": "Szał 2"
+ },
+ {
+  "label": "SCIENCE:ChinaFrenzy3",
+  "text": "Szał 3"
+ },
+ {
+  "label": "SCIENCE:ChinaCarpetBomb",
+  "text": "Bombardowanie dywanowe"
+ },
+ {
+  "label": "SCIENCE:GPSScrambler",
+  "text": "Zakłócacz GPS"
+ },
+ {
+  "label": "SCIENCE:GLASneakAttack",
+  "text": "Atak z zaskoczenia"
+ },
+ {
+  "label": "SCIENCE:ChinaTankParadrop1",
+  "text": "Zrzut czołgów 1"
+ },
+ {
+  "label": "SCIENCE:ChinaTankParadrop2",
+  "text": "Zrzut czołgów 2"
+ },
+ {
+  "label": "SCIENCE:ChinaTankParadrop3",
+  "text": "Zrzut czołgów 3"
+ },
+ {
+  "label": "SCIENCE:ChinaInfantryParadrop1",
+  "text": "Desant piechoty 1"
+ },
+ {
+  "label": "SCIENCE:ChinaInfantryParadrop2",
+  "text": "Desant piechoty 2"
+ },
+ {
+  "label": "SCIENCE:ChinaInfantryParadrop3",
+  "text": "Desant piechoty 3"
+ },
+ {
+  "label": "CONTROLBAR:NoHotKeyFrenzy",
+  "text": "Szał"
+ },
+ {
+  "label": "CONTROLBAR:CIAIntelligenceShortcut",
+  "text": "Wywiad"
+ },
+ {
+  "label": "CONTROLBAR:CommunicationsDownload",
+  "text": "Łączność&Dane"
+ },
+ {
+  "label": "CONTROLBAR:CommunicationsDownloadShortcut",
+  "text": "Łączność&Dane"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaHelixPropagandaTower",
+  "text": "Wieża &propagandowa"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaHelixBattleBunker",
+  "text": "&Bunkier bojowy"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaHelixGattlingCannon",
+  "text": "&Działko Gatlinga"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeHelixNukeBomb",
+  "text": "Bomba &atomowa"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaFireBase",
+  "text": "Baza &ogniowa"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaArtilleryPlatform",
+  "text": "Platforma &artyleryjska"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaTankAvenger",
+  "text": "Aven&ger"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaTankMicrowave",
+  "text": "Czołg &mikrofalowy"
+ },
+ {
+  "label": "CONTROLBAR:BunkerExit",
+  "text": "Opuść bunkier"
+ },
+ {
+  "label": "CONTROLBAR:FireBaseExit",
+  "text": "Opuść bazę ogniową"
+ },
+ {
+  "label": "CONTROLBAR:ConstructFakeGLACommandCenter",
+  "text": "Fałszywe &centrum dowodzenia"
+ },
+ {
+  "label": "CONTROLBAR:ConstructFakeGLABarracks",
+  "text": "Fałszywe &koszary"
+ },
+ {
+  "label": "CONTROLBAR:ConstructFakeGLASupplyStash",
+  "text": "Fałszywy skład &zaopatrzenia"
+ },
+ {
+  "label": "CONTROLBAR:ConstructFakeGLAArmsDealer",
+  "text": "Fałszywy &handlarz bronią"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaInternetCenter",
+  "text": "Centrum &internetowe"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAVehicleCombatBike",
+  "text": "Motocykl &bojowy"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaTankEmperor",
+  "text": "&Emperor"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAInfantrySaboteur",
+  "text": "&Sabotażysta"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaInfantryPropagandaTrooper",
+  "text": "Żołnierz &propagandy"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaInfantryMiniGunner",
+  "text": "M&inigunner"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaJetKingRaptor",
+  "text": "King Rap&tor"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaJetFuelAirAurora",
+  "text": "&Bombowiec Aurora Alpha"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaJetHypersonicAurora",
+  "text": "&Aurora Alpha"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAInfantrySniper",
+  "text": "&Snajper"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaVehicleSentryDrone",
+  "text": "Dron &wartowniczy"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaVehicleHellfireDrone",
+  "text": "Dron Hell&fire"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaVehiclePointDefenseDrone",
+  "text": "Dron obrony &punktowej"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaVehicleHelix",
+  "text": "Heli&x"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaInfantryNukeHunter",
+  "text": "Łowca &atomowy"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaICBMLauncher",
+  "text": "&ICBM"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaVehicleListeningOutpost",
+  "text": "Placówka &nasłuchowa"
+ },
+ {
+  "label": "CONTROLBAR:ConstructFakeGLABlackMarket",
+  "text": "Fałszywy czarny &rynek"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaTomahawkStorm",
+  "text": "&Burza Tomahawków"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaTankECM",
+  "text": "&ECM"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAVehicleBattleBus",
+  "text": "Autobus &bojowy"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaSentryDroneGun",
+  "text": "Działko drona &wartowniczego"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLAQuadCannonSnipe",
+  "text": "Pociski &snajperskie działa poczwórnego"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaSupplyLines",
+  "text": "Linie &zaopatrzenia"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaMOAB",
+  "text": "&Matka wszystkich bomb"
+ },
+ {
+  "label": "CONTROLBAR:BecomeRealGLACommandCenter",
+  "text": "&Zmień w prawdziwe centrum dowodzenia"
+ },
+ {
+  "label": "CONTROLBAR:BecomeRealGLABarracks",
+  "text": "&Zmień w prawdziwe koszary"
+ },
+ {
+  "label": "CONTROLBAR:BecomeRealGLAArmsDealer",
+  "text": "&Zmień w prawdziwego handlarza bronią"
+ },
+ {
+  "label": "CONTROLBAR:BecomeRealGLASupplyStash",
+  "text": "&Zmień w prawdziwy skład zaopatrzenia"
+ },
+ {
+  "label": "CONTROLBAR:BecomeRealGLABlackMarket",
+  "text": "&Zmień w prawdziwy czarny rynek"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaBunkerBusters",
+  "text": "Pociski &przeciwbunkrowe"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaCountermeasures",
+  "text": "Środki &przeciwdziałania"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaChemicalSuits",
+  "text": "&Kombinezony ochronne"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaSatelliteHackOne",
+  "text": "&Włamanie satelitarne I"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaSatelliteHackTwo",
+  "text": "&Włamanie satelitarne II"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaFanaticism",
+  "text": "&Patriotyzm"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaWGUraniumShells",
+  "text": "Pociski z &uranu bojowego"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaTankAutoLoader",
+  "text": "&Automat ładujący"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaNeutronShells",
+  "text": "Pociski &neutronowe"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaFusionReactors",
+  "text": "Reaktory &fuzyjne"
+ },
+ {
+  "label": "CONTROLBAR:ChinaUpgradeHelixNapalmBomb",
+  "text": "Pozwala temu Helixowi zrzucać bomby napalmowe"
+ },
+ {
+  "label": "CONTROLBAR:ChinaUpgradeHelixNukeBomb",
+  "text": "Pozwala temu Helixowi zrzucać bomby atomowe"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeHelixNapalmBomb",
+  "text": "Bomba &napalmowa"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLAFortifiedStructure",
+  "text": "&Umocnione budynki"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLABoobyTrap",
+  "text": "Pułapka-&mina"
+ },
+ {
+  "label": "CONTROLBAR:DetonateFakeBuilding",
+  "text": "Zdetonuj &teraz!"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLAWorkerFakeCommandSet",
+  "text": "Przełącz na &fałszywe budynki"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLAWorkerRealCommandSet",
+  "text": "Przełącz na &prawdziwe budynki"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLAHighExplosiveDemoTraps",
+  "text": "Burzące pułapki &wybuchowe"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLACamoNetting",
+  "text": "Siatka &maskująca"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLAAnthraxGamma",
+  "text": "Wąglik &Gamma"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLAWorkerShoes",
+  "text": "&Buty robotników"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeEMPMines",
+  "text": "Miny &neutronowe"
+ },
+ {
+  "label": "CONTROLBAR:NukeWarhead",
+  "text": "Pocisk &atomowy"
+ },
+ {
+  "label": "CONTROLBAR:NeutronWarhead",
+  "text": "Pociski &neutronowe"
+ },
+ {
+  "label": "CONTROLBAR:LeafletDrop",
+  "text": "&Zrzut ulotek"
+ },
+ {
+  "label": "CONTROLBAR:SuitcaseNuke",
+  "text": "Bomba &walizkowa"
+ },
+ {
+  "label": "CONTROLBAR:NeutronMissileShortcut",
+  "text": "Pocisk atomowy"
+ },
+ {
+  "label": "CONTROLBAR:ICBM",
+  "text": "&ICBM"
+ },
+ {
+  "label": "CONTROLBAR:ICBMShortcut",
+  "text": "ICBM"
+ },
+ {
+  "label": "CONTROLBAR:ScudStormShortcut",
+  "text": "Burza SCUD"
+ },
+ {
+  "label": "CONTROLBAR:TomahawkStorm",
+  "text": "&Burza Tomahawków"
+ },
+ {
+  "label": "CONTROLBAR:TomahawkStormShortcut",
+  "text": "Burza Tomahawków"
+ },
+ {
+  "label": "CONTROLBAR:SpectreGunship",
+  "text": "Kanonierka &Spectre"
+ },
+ {
+  "label": "CONTROLBAR:SpectreGunshipFromShortcut",
+  "text": "Kanonierka Spectre"
+ },
+ {
+  "label": "CONTROLBAR:SneakAttack",
+  "text": "A&tak z zaskoczenia"
+ },
+ {
+  "label": "CONTROLBAR:TankParadrop",
+  "text": "Zrzut &czołgów"
+ },
+ {
+  "label": "CONTROLBAR:NukeDrop",
+  "text": "Zrzut bomby &atomowej"
+ },
+ {
+  "label": "CONTROLBAR:Frenzy",
+  "text": "S&zał"
+ },
+ {
+  "label": "CONTROLBAR:RadarVanScanShortcut",
+  "text": "Skan radarowy"
+ },
+ {
+  "label": "CONTROLBAR:SelectAircraftCarriersFromShortcut",
+  "text": "Zaznacz lotniskowce"
+ },
+ {
+  "label": "CONTROLBAR:SelectBattleshipsFromShortcut",
+  "text": "Ostrzał z pancerników"
+ },
+ {
+  "label": "CONTROLBAR:BattleshipFire",
+  "text": "Ostrzał z pancerników"
+ },
+ {
+  "label": "CONTROLBAR:AircraftCarrierFire",
+  "text": "Atak Raptorów z lotniskowca"
+ },
+ {
+  "label": "CONTROLBAR:ECMDisableVehicle",
+  "text": "&Wyłącz pojazd"
+ },
+ {
+  "label": "CONTROLBAR:BoobyTrapAttack",
+  "text": "Atak &pułapką"
+ },
+ {
+  "label": "CONTROLBAR:GPSScrambler",
+  "text": "&Zakłócacz GPS"
+ },
+ {
+  "label": "CONTROLBAR:FireParticleUplinkCannonShortcut",
+  "text": "Działo cząsteczkowe"
+ },
+ {
+  "label": "UPGRADE:AmericaSentryDroneGun",
+  "text": "Działko drona wartowniczego"
+ },
+ {
+  "label": "UPGRADE:AmericaMOAB",
+  "text": "MOAB: Matka wszystkich bomb"
+ },
+ {
+  "label": "UPGRADE:AmericaBunkerBusters",
+  "text": "Pociski przeciwbunkrowe"
+ },
+ {
+  "label": "UPGRADE:SatelliteHackOne",
+  "text": "Włamanie satelitarne I"
+ },
+ {
+  "label": "UPGRADE:SatelliteHackTwo",
+  "text": "Włamanie satelitarne II"
+ },
+ {
+  "label": "UPGRADE:HelixGattlingCannon",
+  "text": "Działko Gatlinga Helixa"
+ },
+ {
+  "label": "UPGRADE:HelixPropagandaTower",
+  "text": "Wieża propagandowa Helixa"
+ },
+ {
+  "label": "UPGRADE:HelixBattleBunker",
+  "text": "Bunkier bojowy Helixa"
+ },
+ {
+  "label": "UPGRADE:SupplyLines",
+  "text": "Linie zaopatrzenia"
+ },
+ {
+  "label": "UPGRADE:PointDefenseDrone",
+  "text": "Dron obrony punktowej"
+ },
+ {
+  "label": "UPGRADE:QuadCannonSnipe",
+  "text": "Pociski snajperskie działa poczwórnego"
+ },
+ {
+  "label": "UPGRADE:HellfireDrone",
+  "text": "Dron Hellfire"
+ },
+ {
+  "label": "UPGRADE:Fanaticism",
+  "text": "Patriotyzm"
+ },
+ {
+  "label": "UPGRADE:EMPMine",
+  "text": "Miny neutronowe"
+ },
+ {
+  "label": "UPGRADE:ChinaHelixNapalmBomb",
+  "text": "Bomba napalmowa"
+ },
+ {
+  "label": "UPGRADE:ChinaHelixNukeBomb",
+  "text": "Bomba atomowa"
+ },
+ {
+  "label": "UPGRADE:WGUraniumShells",
+  "text": "Pociski z uranu bojowego"
+ },
+ {
+  "label": "UPGRADE:TankAutoLoader",
+  "text": "Automat ładujący"
+ },
+ {
+  "label": "UPGRADE:NeutronShells",
+  "text": "Pociski neutronowe"
+ },
+ {
+  "label": "UPGRADE:BecomeRealGLACommandCenter",
+  "text": "Prawdziwe centrum dowodzenia"
+ },
+ {
+  "label": "UPGRADE:BecomeRealGLABarracks",
+  "text": "Prawdziwe koszary"
+ },
+ {
+  "label": "UPGRADE:BecomeRealGLAArmsDealer",
+  "text": "Prawdziwy handlarz bronią"
+ },
+ {
+  "label": "UPGRADE:BecomeRealGLASupplyStash",
+  "text": "Prawdziwy skład zaopatrzenia"
+ }
+]
