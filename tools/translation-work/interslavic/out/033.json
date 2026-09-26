@@ -1,0 +1,90 @@
+[
+ {
+  "label": "GUI:LoadReplayLong",
+  "text": "NAGRUZITI REPLAY"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak5",
+  "text": "Čast Serije \n Igrač pobědil 5 onlajn-igr zaredom"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak20",
+  "text": "Čast Serije \n Igrač pobědil 20 onlajn-igr zaredom"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAUpgradeBuggyAmmor",
+  "text": "+25% municije Raketnogo Bagija"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak3Disabled",
+  "text": "Čast Serije \n Pobědite 3 ili věče igr zaredom, aby zaslužili tăju medalju"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorBlitz10Disabled",
+  "text": "Čast Blica \n Pobědite kompjuterskogo(yh) protivnika(ov) za 10 minut ili menje, aby zaslužili tăju medalju"
+ },
+ {
+  "label": "GUI:CÀontrolBarBack",
+  "text": "NAZAD"
+ },
+ {
+  "label": "GUI:BuddyAddReqMessageSent",
+  "text": "Zaprošenje prijatelja poslano"
+ },
+ {
+  "label": "GUI:BuddyAddReqMessageRejected",
+  "text": "Zaprošenje prijatelja otklonjeno"
+ },
+ {
+  "label": "GUI:BuddyAddReqMessageAccepted",
+  "text": "Zaprošenje prijatelja prijato"
+ },
+ {
+  "label": "TOOLTIP:RefreshGamePlayerList",
+  "text": "Obnoviti listy igr i igračev"
+ },
+ {
+  "label": "TOOLTIP:CommunicatorBuddyRadioButton",
+  "text": "Kliknite desnym gumbom na imja v listě igračev, aby poslali zaprošenje prijatelja"
+ },
+ {
+  "label": "TOOLTIP:CommunicatorIgnoreRadioButton",
+  "text": "Kliknite desnym gumbom na imja v listě igračev, aby ignorovali togo igrača"
+ },
+ {
+  "label": "GUI:GroupRoom15",
+  "text": "3 protiv 3"
+ },
+ {
+  "label": "GUI:GroupRoom16",
+  "text": "4 protiv 4"
+ },
+ {
+  "label": "GUI:GroupRoom17",
+  "text": "Novaki"
+ },
+ {
+  "label": "GUI:GroupRoom18",
+  "text": "Modifikacije"
+ },
+ {
+  "label": "GUI:GroupRoom19",
+  "text": "Rangova Lěstvica"
+ },
+ {
+  "label": "GUI:GroupRoom20",
+  "text": "Germanija"
+ },
+ {
+  "label": "GUI:GroupRoom21",
+  "text": "US"
+ },
+ {
+  "label": "GUI:GroupRoom22",
+  "text": "Koreja"
+ },
+ {
+  "label": "GUI:BeaconClear",
+  "text": "Očistiti"
+ }
+]
