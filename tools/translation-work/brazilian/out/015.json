@@ -1,0 +1,802 @@
+[
+ {
+  "label": "UPGRADE:BecomeRealGLABlackMarket",
+  "text": "Mercado Negro Real"
+ },
+ {
+  "label": "UPGRADE:FusionReactors",
+  "text": "Reatores de Fusão"
+ },
+ {
+  "label": "UPGRADE:CamoNetting",
+  "text": "Rede de Camuflagem"
+ },
+ {
+  "label": "UPGRADE:FortifiedStructure",
+  "text": "Estrutura Fortificada"
+ },
+ {
+  "label": "UPGRADE:BoobyTrap",
+  "text": "Armadilha"
+ },
+ {
+  "label": "UPGRADE:AnthraxGamma",
+  "text": "Antraz Gama"
+ },
+ {
+  "label": "UPGRADE:WorkerShoes",
+  "text": "Calçados de Trabalhador"
+ },
+ {
+  "label": "UPGRADE:ChemicalSuits",
+  "text": "Trajes Químicos"
+ },
+ {
+  "label": "UPGRADE:AmericaCountermeasures",
+  "text": "Contramedidas"
+ },
+ {
+  "label": "UPGRADE:UpgradeChinaIsotopeStability",
+  "text": "&Estabilidade Isotópica"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUpgradeChinaIsotopeStability",
+  "text": "Impede que a maior parte da radiação colateral prejudique unidades aliadas quando veículos são destruídos"
+ },
+ {
+  "label": "OBJECT:SecretResearchLab",
+  "text": "Laboratório de Pesquisa Secreto"
+ },
+ {
+  "label": "OBJECT:InternetCenter",
+  "text": "Centro de Internet"
+ },
+ {
+  "label": "OBJECT:AircraftCarrier",
+  "text": "Porta-Aviões"
+ },
+ {
+  "label": "OBJECT:TechArtilleryPlatform",
+  "text": "Plataforma de Artilharia: capture para bombardear inimigos terrestres"
+ },
+ {
+  "label": "OBJECT:NukeHunter",
+  "text": "Caçador Nuclear"
+ },
+ {
+  "label": "OBJECT:TechRepairPad",
+  "text": "Plataforma de Reparo: capture para que os veículos se reparem nesta instalação"
+ },
+ {
+  "label": "OBJECT:AirF_Aurora",
+  "text": "Bombardeiro Aurora Ar-Combustível"
+ },
+ {
+  "label": "OBJECT:SupW_Aurora",
+  "text": "Bombardeiro Aurora Alfa"
+ },
+ {
+  "label": "OBJECT:BattleBus",
+  "text": "Ônibus de Batalha"
+ },
+ {
+  "label": "OBJECT:Helix",
+  "text": "Helix"
+ },
+ {
+  "label": "OBJECT:PropagandaTrooper",
+  "text": "Soldado de Propaganda"
+ },
+ {
+  "label": "OBJECT:HellfireDrone",
+  "text": "Drone Hellfire"
+ },
+ {
+  "label": "OBJECT:Avenger",
+  "text": "Avenger"
+ },
+ {
+  "label": "OBJECT:Microwave",
+  "text": "Tanque de Micro-ondas"
+ },
+ {
+  "label": "OBJECT:MOAB",
+  "text": "Mãe de Todas as Bombas"
+ },
+ {
+  "label": "OBJECT:NukeDrop",
+  "text": "Lançamento Nuclear"
+ },
+ {
+  "label": "OBJECT:SuitcaseNuke",
+  "text": "Maleta Nuclear"
+ },
+ {
+  "label": "OBJECT:StructureEMPMine",
+  "text": "Mina de Nêutrons"
+ },
+ {
+  "label": "OBJECT:ECMTank",
+  "text": "Tanque ECM"
+ },
+ {
+  "label": "OBJECT:Saboteur",
+  "text": "Sabotador"
+ },
+ {
+  "label": "OBJECT:TechRepairBay",
+  "text": "Oficina de Reparo: capture para reparar veículos em todo o campo de batalha"
+ },
+ {
+  "label": "OBJECT:TechReinforcementPad",
+  "text": "Plataforma de Reforços: capture para receber veículos adicionais"
+ },
+ {
+  "label": "OBJECT:Sniper",
+  "text": "Atirador de Elite"
+ },
+ {
+  "label": "OBJECT:FireBase",
+  "text": "Base de Fogo"
+ },
+ {
+  "label": "OBJECT:KingRaptor",
+  "text": "King Raptor"
+ },
+ {
+  "label": "OBJECT:CombatBike",
+  "text": "Moto de Combate"
+ },
+ {
+  "label": "OBJECT:SentryDrone",
+  "text": "Drone Sentinela"
+ },
+ {
+  "label": "OBJECT:TomahawkStorm",
+  "text": "Tempestade Tomahawk"
+ },
+ {
+  "label": "OBJECT:ListeningOutpost",
+  "text": "Posto de Escuta"
+ },
+ {
+  "label": "Map:LeipzigLowlands",
+  "text": "Leipzig Lowlands"
+ },
+ {
+  "label": "Map:BombardmentBeach",
+  "text": "Bombardment Beach"
+ },
+ {
+  "label": "Map:BearTownBeatdown",
+  "text": "Bear Town Beatdown"
+ },
+ {
+  "label": "MAP:RiverSnakes",
+  "text": "Winding River"
+ },
+ {
+  "label": "MAP:KillingFields",
+  "text": "Killing Fields"
+ },
+ {
+  "label": "MAP:ThinIce",
+  "text": "Thin Ice"
+ },
+ {
+  "label": "MAP:ElScorcho",
+  "text": "El Scorcho"
+ },
+ {
+  "label": "MAP:GreenPastures",
+  "text": "Green Pastures"
+ },
+ {
+  "label": "MAP:FreeFireZone",
+  "text": "Free Fire Zone"
+ },
+ {
+  "label": "MAP:DestructionStation",
+  "text": "Destruction Station"
+ },
+ {
+  "label": "MAP:PolarStorm",
+  "text": "Polar Storm"
+ },
+ {
+  "label": "MAP:BitterWinter",
+  "text": "Bitter Winter"
+ },
+ {
+  "label": "MAP:CitySweep",
+  "text": "City Sweep"
+ },
+ {
+  "label": "MAP:FrozenPlains",
+  "text": "Frozen Plains"
+ },
+ {
+  "label": "MAP:RoadRage",
+  "text": "Road Rage"
+ },
+ {
+  "label": "HELP:SentryDrone-01",
+  "text": "DICA: \n O Drone Sentinela pode detectar unidades inimigas camufladas"
+ },
+ {
+  "label": "HELP:SentryDrone-02",
+  "text": "DICA: \n Compre a arma do Drone Sentinela no Centro de Estratégia"
+ },
+ {
+  "label": "HELP:MicrowaveTank-01",
+  "text": "DICA: \n O Tanque de Micro-ondas pode desativar estruturas"
+ },
+ {
+  "label": "HELP:MicrowaveTank-02",
+  "text": "DICA: \n As micro-ondas do Tanque de Micro-ondas ferem a infantaria próxima"
+ },
+ {
+  "label": "HELP:Avenger-01",
+  "text": "DICA: \n O laser do Avenger pode 'marcar' alvos inimigos \n Atirar em alvos marcados causa mais dano"
+ },
+ {
+  "label": "HELP:Avenger-02",
+  "text": "DICA: \n Os Avengers são unidades de apoio que também atacam aeronaves"
+ },
+ {
+  "label": "HELP:FireBase-01",
+  "text": "DICA: \n Guarneça a Base de Fogo com Defensores de Mísseis \n para ter defesa aérea e terrestre"
+ },
+ {
+  "label": "HELP:SpectreGunship-01",
+  "text": "DICA: \n Selecione uma área para a Canhoneira Spectre atacar \n e depois escolha os inimigos manualmente"
+ },
+ {
+  "label": "HELP:LeafletDrop-01",
+  "text": "DICA: \n Use o Lançamento de Panfletos para desativar a infantaria inimiga"
+ },
+ {
+  "label": "HELP:MOAB-01",
+  "text": "DICA: \n As MOABs são eficazes contra veículos e \n atordoam os sobreviventes"
+ },
+ {
+  "label": "HELP:Countermeasures-01",
+  "text": "DICA: \n Compre as Contramedidas para ajudar as unidades aéreas a evitar ataques"
+ },
+ {
+  "label": "HELP:HellfireDrone-01",
+  "text": "DICA: \n Equipe seus veículos com Drones Hellfire \n para aumentar a eficácia contra forças blindadas"
+ },
+ {
+  "label": "HELP:ChemicalSuit-01",
+  "text": "DICA: \n Use a melhoria Trajes Químicos para proteger a infantaria \n de toxinas mortais e radiação"
+ },
+ {
+  "label": "HELP:BunkerBuster-01",
+  "text": "DICA: \n A melhoria Destruidor de Bunker do bombardeiro furtivo \n pode ferir inimigos entrincheirados"
+ },
+ {
+  "label": "HELP:BunkerBuster-02",
+  "text": "DICA: \n Os Destruidores de Bunker podem matar unidades dentro de bunkers"
+ },
+ {
+  "label": "HELP:SupplyLines-01",
+  "text": "DICA: \n A melhoria Linhas de Suprimento aumenta a renda"
+ },
+ {
+  "label": "HELP:SupplyLines-02",
+  "text": "DICA: \n Compre Linhas de Suprimento para aumentar \n a eficiência dos Chinooks"
+ },
+ {
+  "label": "HELP:ListeningOutpost-01",
+  "text": "DICA: \n Os Postos de Escuta são furtivos e detectam \n unidades camufladas"
+ },
+ {
+  "label": "HELP:ListeningOutpost-02",
+  "text": "DICA: \n Os Postos de Escuta têm um raio de visão muito grande"
+ },
+ {
+  "label": "HELP:Helix-01",
+  "text": "DICA: \n Equipe um Helix com uma Torre de Propaganda para \n reparar e curar suas unidades próximas"
+ },
+ {
+  "label": "HELP:Helix-02",
+  "text": "DICA: \n O Helix pode ser melhorado para lançar bombas de napalm \n Elas podem ser lançadas sobre alvos abaixo do Helix"
+ },
+ {
+  "label": "HELP:Helix-03",
+  "text": "DICA: \n Você pode equipar um Helix com um Bunker de Batalha, \n uma Torre de Propaganda ou um Canhão Gatling"
+ },
+ {
+  "label": "HELP:ECMTank-01",
+  "text": "DICA: \n Use o Tanque ECM para desviar os mísseis e foguetes inimigos"
+ },
+ {
+  "label": "HELP:Frenzy-01",
+  "text": "DICA: \n Use o poder de general Frenesi para aumentar o \n poder de fogo e a blindagem das suas unidades"
+ },
+ {
+  "label": "HELP:InternetCenter-01",
+  "text": "DICA: \n Coloque Hackers no Centro de Internet \n para aumentar a arrecadação de dinheiro"
+ },
+ {
+  "label": "HELP:InternetCenter-02",
+  "text": "DICA: \n Construa um Centro de Internet e compre \n o Hack de Satélite 1 e 2"
+ },
+ {
+  "label": "HELP:SatelliteHack1-01",
+  "text": "DICA: \n O Hack de Satélite 1 revela todos os Centros de Comando inimigos"
+ },
+ {
+  "label": "HELP:SatelliteHack2-01",
+  "text": "DICA: \n O Hack de Satélite 2 revela tudo o que as unidades inimigas veem"
+ },
+ {
+  "label": "HELP:EMPMines-01",
+  "text": "DICA: \n As minas podem ser melhoradas para Minas de Nêutrons, que \n desativam os veículos inimigos"
+ },
+ {
+  "label": "HELP:NeutronShell-01",
+  "text": "DICA: \n Os Projéteis de Nêutrons do Canhão Nuclear neutralizam \n os veículos, permitindo que qualquer infantaria os capture"
+ },
+ {
+  "label": "HELP:CombatCycle-01",
+  "text": "DICA: \n As Motos de Combate podem saltar de penhascos"
+ },
+ {
+  "label": "HELP:CombatCycle-02",
+  "text": "DICA: \n Coloque um Soldado RPG numa Moto de Combate para \n que ela dispare foguetes"
+ },
+ {
+  "label": "HELP:CombatCycle-03",
+  "text": "DICA: \n Coloque um Terrorista numa Moto de Combate para \n criar uma moto suicida"
+ },
+ {
+  "label": "HELP:CombatCycle-04",
+  "text": "DICA: \n Jarmen Kell pode atirar de uma Moto de Combate"
+ },
+ {
+  "label": "HELP:CombatCycle-05",
+  "text": "DICA: \n Os Trabalhadores podem usar Motos de Combate para se deslocar rapidamente"
+ },
+ {
+  "label": "HELP:Saboteur-01",
+  "text": "DICA: \n O Sabotador atrapalha as habilidades das estruturas inimigas"
+ },
+ {
+  "label": "HELP:Saboteur-02",
+  "text": "DICA: \n Mande o Sabotador para um Centro de Comando inimigo \n para reiniciar os cronômetros dos poderes de general dele"
+ },
+ {
+  "label": "HELP:FakeStructures-01",
+  "text": "DICA: \n Construa estruturas falsas para enganar seus inimigos"
+ },
+ {
+  "label": "HELP:SneakAttack-01",
+  "text": "DICA: \n Use o Ataque Furtivo para construir instantaneamente uma Rede de Túneis \n em qualquer lugar que você possa ver"
+ },
+ {
+  "label": "HELP:GPSScramble-01",
+  "text": "DICA: \n Use o poder de general Bloqueador de GPS para \n camuflar unidades aliadas"
+ },
+ {
+  "label": "HELP:WorkerShoes-01",
+  "text": "DICA: \n Compre Calçados de Trabalhador para aumentar a velocidade com que os trabalhadores \n se deslocam e coletam recursos"
+ },
+ {
+  "label": "HELP:CamoNetting-01",
+  "text": "DICA: \n A Rede de Camuflagem camufla suas Bases Stinger \n e Redes de Túneis"
+ },
+ {
+  "label": "HELP:FortifiedStructures-01",
+  "text": "DICA: \n Estruturas Fortificadas são mais difíceis de destruir"
+ },
+ {
+  "label": "HELP:BoobyTrap-01",
+  "text": "DICA: \n As armadilhas detonam quando um inimigo tenta \n ocupar ou capturar a estrutura armadilhada"
+ },
+ {
+  "label": "HELP:KingRaptor-01",
+  "text": "DICA: \n Os King Raptors levam munição extra e têm mais blindagem"
+ },
+ {
+  "label": "HELP:CombatChinooks-01",
+  "text": "DICA: \n A infantaria dentro de um Chinook de Combate pode atirar em voo"
+ },
+ {
+  "label": "HELP:AuroraAlpha-01",
+  "text": "DICA: \n O Aurora Alfa vem equipado com uma pequena \n mas devastadora Bomba Ar-Combustível"
+ },
+ {
+  "label": "HELP:MicrowavePatriot-01",
+  "text": "DICA: \n Os foguetes do Patriot EMP são eficazes \n contra veículos e infantaria"
+ },
+ {
+  "label": "HELP:AdvancedRods-01",
+  "text": "DICA: \n As Barras Avançadas fornecem mais energia que as Barras de Controle normais"
+ },
+ {
+  "label": "HELP:LaserTank-01",
+  "text": "DICA: \n Construa usinas extras quando usar Tanques Laser \n Eles não podem se mover nem atirar com pouca energia"
+ },
+ {
+  "label": "HELP:LaserDefenseTurret-01",
+  "text": "DICA: \n As Torres de Defesa a Laser são fortes, mas exigem energia extra"
+ },
+ {
+  "label": "HELP:AssaultTroopTransport-01",
+  "text": "DICA: \n As unidades podem atirar de dentro do Transporte de Tropas de Assalto"
+ },
+ {
+  "label": "HELP:AttackOutpost-01",
+  "text": "DICA: \n O Posto de Ataque comporta infantaria extra e \n pode detectar unidades furtivas"
+ },
+ {
+  "label": "HELP:FortifiedBunkers-01",
+  "text": "DICA: \n Os Bunkers Fortificados vêm com minas e \n blindagem mais forte, e comportam infantaria extra"
+ },
+ {
+  "label": "HELP:Mini-Gunner-01",
+  "text": "DICA: \n Os Minigunners carregam uma metralhadora Gatling pessoal"
+ },
+ {
+  "label": "HELP:InfantryBlackLotus-01",
+  "text": "DICA: \n Suas unidades Lótus Negra têm habilidades aprimoradas"
+ },
+ {
+  "label": "HELP:InfantryBlackLotus-02",
+  "text": "DICA: \n Você pode construir várias unidades Lótus Negra"
+ },
+ {
+  "label": "HELP:InfantryHacker-01",
+  "text": "DICA: \n Os Hackers do General de Infantaria roubam dinheiro mais rápido"
+ },
+ {
+  "label": "HELP:ChineseParadrop-01",
+  "text": "DICA: \n Os Paraquedistas chineses lançam a Guarda Vermelha em qualquer lugar"
+ },
+ {
+  "label": "HELP:EmperorTank-01",
+  "text": "DICA: \n O Imperador é o tanque supremo, \n eficaz contra veículos e infantaria"
+ },
+ {
+  "label": "HELP:EmperorTank-02",
+  "text": "DICA: \n O Imperador pode ser equipado com um Canhão Gatling"
+ },
+ {
+  "label": "HELP:EmperorTank-03",
+  "text": "DICA: \n Os tanques Imperador já vêm com Torres de Propaganda"
+ },
+ {
+  "label": "HELP:TankDrop-01",
+  "text": "DICA: \n O Lançamento de Tanques permite lançar Battlemasters de paraquedas"
+ },
+ {
+  "label": "HELP:TacticalNuke-01",
+  "text": "DICA: \n Sua Base Aérea pode equipar os MiGs com armas nucleares táticas"
+ },
+ {
+  "label": "HELP:IsotopeStability-01",
+  "text": "DICA: \n A Estabilidade Isotópica reduz o dano causado às unidades \n aliadas quando Tanques Nucleares são destruídos"
+ },
+ {
+  "label": "HELP:AdvancedNuclearPower-01",
+  "text": "DICA: \n As Usinas Nucleares Avançadas geram mais energia que as usinas nucleares normais"
+ },
+ {
+  "label": "HELP:ToxinRebels-01",
+  "text": "DICA: \n Os Rebeldes Tóxicos disparam um jato de toxinas altamente venenosas"
+ },
+ {
+  "label": "HELP:ToxinRebels-02",
+  "text": "DICA: \n Os Rebeldes Tóxicos resistem a ataques de toxina"
+ },
+ {
+  "label": "HELP:ToxinRebels-03",
+  "text": "DICA: \n Use Rebeldes Tóxicos para limpar rapidamente estruturas ocupadas"
+ },
+ {
+  "label": "HELP:ToxinNetworks-01",
+  "text": "DICA: \n As Redes Tóxicas disparam jatos de toxina com seus canhões"
+ },
+ {
+  "label": "HELP:ToxinTerrorists-01",
+  "text": "DICA: \n Os Terroristas Tóxicos explodem numa nuvem de toxina"
+ },
+ {
+  "label": "HELP:ToxinTerrorists-02",
+  "text": "DICA: \n Use Terroristas Tóxicos para atacar grandes grupos de infantaria"
+ },
+ {
+  "label": "HELP:AnthraxGamma-01",
+  "text": "DICA: \n O Antraz Gama aumenta o dano de todos os ataques de toxina"
+ },
+ {
+  "label": "HELP:AnthraxGamma-02",
+  "text": "DICA: \n O Antraz Gama é ainda mais potente que o Antraz Beta"
+ },
+ {
+  "label": "HELP:AdvancedTrap-01",
+  "text": "DICA: \n As armadilhas avançadas são mais poderosas que as Armadilhas Explosivas normais"
+ },
+ {
+  "label": "HELP:Demolitions-01",
+  "text": "DICA: \n A melhoria Demolições dá às unidades a capacidade de detonar"
+ },
+ {
+  "label": "GENERIC:MissionObjectiveCompleted-01",
+  "text": "OBJETIVO DA MISSÃO Nº 1: \n Cumprido"
+ },
+ {
+  "label": "GENERIC:MissionObjectiveCompleted-02",
+  "text": "OBJETIVO DA MISSÃO Nº 2: \n Cumprido"
+ },
+ {
+  "label": "GENERIC:MissionObjectiveCompleted-03",
+  "text": "OBJETIVO DA MISSÃO Nº 3: \n Cumprido"
+ },
+ {
+  "label": "GENERIC:MissionObjectiveCompleted-04",
+  "text": "OBJETIVO DA MISSÃO Nº 4: \n Cumprido"
+ },
+ {
+  "label": "GENERIC:MissionObjectiveCompleted-05",
+  "text": "OBJETIVO DA MISSÃO Nº 5: \n Cumprido"
+ },
+ {
+  "label": "LOSE:AllUnits",
+  "text": "TRANSMISSÃO RECEBIDA: \n Todas as nossas unidades foram destruídas\n Fomos derrotados, General. Desta vez"
+ },
+ {
+  "label": "LOSE:AllBuildings",
+  "text": "TRANSMISSÃO RECEBIDA: \n Todos os nossos prédios foram destruídos\n Fomos derrotados, General. Desta vez"
+ },
+ {
+  "label": "LOSE:AllUnitsAndBuildings",
+  "text": "TRANSMISSÃO RECEBIDA: \n Todas as nossas unidades e prédios foram destruídos\n Fomos derrotados, General. Desta vez"
+ },
+ {
+  "label": "HELP:OilRefinery-01",
+  "text": "DICA: \n Capture Refinarias de Petróleo para reduzir o custo dos veículos"
+ },
+ {
+  "label": "HELP:ReinforcementPad-01",
+  "text": "DICA: \n Capture Plataformas de Reforços para receber reforços de tanques"
+ },
+ {
+  "label": "HELP:OilDerrick-01",
+  "text": "DICA: \n Capture Torres de Petróleo para ganhar dinheiro extra"
+ },
+ {
+  "label": "HELP:RepairBay-01",
+  "text": "DICA: \n Capture Oficinas de Reparo para reparar veículos em qualquer lugar"
+ },
+ {
+  "label": "HELP:ArtilleryPlatform-01",
+  "text": "DICA: \n Capture Plataformas de Artilharia para controlar regiões-chave"
+ },
+ {
+  "label": "MAP:MD_USA01Objective1",
+  "text": "OBJETIVO DA MISSÃO: \n Assegure o depósito ferroviário e destrua a base da GLA ao redor"
+ },
+ {
+  "label": "MAP:MD_USA01Objective1a",
+  "text": "OBJETIVO DA MISSÃO Nº 1: \n Assegure o depósito ferroviário e destrua a base da GLA ao redor"
+ },
+ {
+  "label": "MAP:MD_USA01ObjectiveAccomplished",
+  "text": "OBJETIVO DA MISSÃO CUMPRIDO"
+ },
+ {
+  "label": "MAP:MD_USA01ObjectiveAccomplisheda",
+  "text": "OBJETIVO DA MISSÃO Nº 1 cumprido"
+ },
+ {
+  "label": "MAP:MD_USA01Objective2",
+  "text": "TRANSMISSÃO RECEBIDA: \n Coloque as unidades nos vagões do trem"
+ },
+ {
+  "label": "MAP:MD_USA01Objective2a",
+  "text": "TRANSMISSÃO RECEBIDA: \n Coloque as unidades nos vagões do trem"
+ },
+ {
+  "label": "MAP:MD_USA01Objective3",
+  "text": "OBJETIVO DA MISSÃO: \n Destrua a base da GLA"
+ },
+ {
+  "label": "MAP:MD_USA01Objective3a",
+  "text": "OBJETIVO DA MISSÃO Nº 2: \n Destrua a base da GLA"
+ },
+ {
+  "label": "MAP:MD_USA01Hint1",
+  "text": "DICA: \n A infantaria pode entrar nos veículos abandonados a nordeste"
+ },
+ {
+  "label": "MAP:MD_USA01Hint1a",
+  "text": "DICA: \n A infantaria pode entrar nos veículos abandonados a nordeste"
+ },
+ {
+  "label": "MAP:MD_USA01Hint2",
+  "text": "DICA: \n Coloque infantaria na estação de rádio para chamar os A-10"
+ },
+ {
+  "label": "MAP:MD_USA01Hint2a",
+  "text": "DICA: \n Coloque infantaria na estação de rádio para chamar os A-10"
+ },
+ {
+  "label": "OBJECT:TrainDepot",
+  "text": "Depósito Ferroviário"
+ },
+ {
+  "label": "OBJECT:TrainLoading",
+  "text": "Plataforma de Embarque"
+ },
+ {
+  "label": "MAP:MD_USA01Title",
+  "text": "Cosmódromo de Baikonur, sul do Cazaquistão \n 'Operação Segurança Global'"
+ },
+ {
+  "label": "MAP:MD_USA01CINELocation02",
+  "text": "Base naval dos EUA \n Norte da Europa"
+ },
+ {
+  "label": "MAP:Intro_Breifing_01",
+  "text": "Base de reconhecimento dos EUA perto de Baikonur \n Sul do Cazaquistão"
+ },
+ {
+  "label": "MAP:MD_USA01CINELocation01",
+  "text": "Algum lugar do sul do Cazaquistão \n A caminho de Baikonur"
+ },
+ {
+  "label": "MAP:USAX02MissionINtro",
+  "text": "Na costa da Somália"
+ },
+ {
+  "label": "MAP:USAX02MissionStart",
+  "text": "Berbera, Somália \n 'Operação: Mão Amiga'"
+ },
+ {
+  "label": "MAP:USAX02NavyHint",
+  "text": "TRANSMISSÃO RECEBIDA: \n Frota naval disponível para enfraquecer a resistência"
+ },
+ {
+  "label": "MAP:USAX02ConvoyHint",
+  "text": "TRANSMISSÃO RECEBIDA: \n O comboio partirá quando 10 caminhões de suprimentos tiverem chegado"
+ },
+ {
+  "label": "MAP:USAX02ConvoyArrived",
+  "text": "OBJETIVO DA MISSÃO Nº 1: \n Cumprido"
+ },
+ {
+  "label": "MAP:USAX02objectives3a",
+  "text": "OBJETIVO DA MISSÃO Nº 2: \n Destrua a base da GLA"
+ },
+ {
+  "label": "MAP:USAX02Objectives1",
+  "text": "OBJETIVO DA MISSÃO Nº 1: \n Proteja os caminhões de suprimentos que chegam e assegure o armazém"
+ },
+ {
+  "label": "MAP:USAX02Objectives2",
+  "text": "OBJETIVO DA MISSÃO: \n Defenda as docas \n Proteja os caminhões de suprimentos que chegam \n Assegure o armazém"
+ },
+ {
+  "label": "MAP:USAX02Objectives3",
+  "text": "OBJETIVO DA MISSÃO: \n Encontre e destrua as estruturas da GLA nas montanhas"
+ },
+ {
+  "label": "MAP:USAX02Ships",
+  "text": "Apoio disponível: \n Porta-aviões CVN-88 Daedalus \n Grupo de escolta de encouraçados, Dreadnought"
+ },
+ {
+  "label": "MAP:USAX02Truck1Arrived",
+  "text": "O caminhão de suprimentos 1 de 10 chegou"
+ },
+ {
+  "label": "MAP:USAX02Truck2Arrived",
+  "text": "O caminhão de suprimentos 2 de 10 chegou"
+ },
+ {
+  "label": "MAP:USAX02Truck3Arrived",
+  "text": "O caminhão de suprimentos 3 de 10 chegou"
+ },
+ {
+  "label": "MAP:USAX02Truck4Arrived",
+  "text": "O caminhão de suprimentos 4 de 10 chegou"
+ },
+ {
+  "label": "MAP:USAX02Truck5Arrived",
+  "text": "O caminhão de suprimentos 5 de 10 chegou"
+ },
+ {
+  "label": "MAP:USAX02Truck6Arrived",
+  "text": "O caminhão de suprimentos 6 de 10 chegou"
+ },
+ {
+  "label": "MAP:USAX02Truck7Arrived",
+  "text": "O caminhão de suprimentos 7 de 10 chegou"
+ },
+ {
+  "label": "MAP:USAX02Truck8Arrived",
+  "text": "O caminhão de suprimentos 8 de 10 chegou"
+ },
+ {
+  "label": "MAP:USAX02Truck9Arrived",
+  "text": "O caminhão de suprimentos 9 de 10 chegou"
+ },
+ {
+  "label": "MAP:USAX02Truck10Arrived",
+  "text": "O caminhão de suprimentos 10 chegou \n O comboio está se preparando para partir para o armazém"
+ },
+ {
+  "label": "MAP:USAX02ConvoyToWarehouse",
+  "text": "Escolte o comboio até o armazém"
+ },
+ {
+  "label": "MAP:USAX02Dozer",
+  "text": "Uma escavadeira chegou às docas \n Comece a construir a base"
+ },
+ {
+  "label": "MAP:USAX02Dozerb",
+  "text": "Uma escavadeira chegou"
+ },
+ {
+  "label": "MAP:USAX02Dozer2",
+  "text": "Uma nova escavadeira chegou às docas"
+ },
+ {
+  "label": "MAP:USA03xMapName",
+  "text": "Última Chamada"
+ },
+ {
+  "label": "MAP:USA03xOpen",
+  "text": "Monte Elbrus, Geórgia \n 'Operação: Nevasca'"
+ },
+ {
+  "label": "MAP:USA03xOpenAlt",
+  "text": "Monte Elbrus, Rússia \n 'Operação: Nevasca'"
+ },
+ {
+  "label": "MAP:USA03xObjective02",
+  "text": "OBJETIVO DA MISSÃO Nº 1: \n Destrua o campo de prisioneiros da GLA e resgate os prisioneiros \n O Coronel Burton deve sobreviver"
+ },
+ {
+  "label": "MAP:USA03xObjective03",
+  "text": "OBJETIVO DA MISSÃO Nº 2: \n Leve o Coronel Burton ao ponto de encontro"
+ },
+ {
+  "label": "MAP:USA03xObjectiveCompleted",
+  "text": "OBJETIVO DA MISSÃO Nº 1: \n Cumprido"
+ },
+ {
+  "label": "MAP:USA03xTownHallHint",
+  "text": "TRANSMISSÃO RECEBIDA: \n Procure na vila os soldados desaparecidos em combate"
+ },
+ {
+  "label": "MAP:USA03xToxinNetworksWarning",
+  "text": "ATENÇÃO: \n Cuidado com as Redes Tóxicas e as Bases Stinger"
+ },
+ {
+  "label": "MAP:USA03xPOWCamp02Hint",
+  "text": "DICA: \n Elimine as estruturas da GLA que guardam este campo \n para libertar os prisioneiros"
+ },
+ {
+  "label": "MAP:USA03xBurtonWarning",
+  "text": "ATENÇÃO: \n O Coronel Burton está gravemente ferido \n Ele deve sobreviver a esta missão"
+ },
+ {
+  "label": "MAP:USA03xChemWarning02",
+  "text": "ATENÇÃO: \n Estas defesas foram modificadas para disparar produtos químicos \n Elas matam qualquer infantaria que chegue perto demais"
+ },
+ {
+  "label": "MAP:USA03xLoseReason01",
+  "text": "TRANSMISSÃO RECEBIDA: \n O Coronel Burton foi morto \n Você foi derrotado, General. Desta vez"
+ },
+ {
+  "label": "MAP:MD-USA04_LOCALE",
+  "text": "Campos de petróleo de Amisbad, Irã \n 'Operação: Ouro Negro'"
+ },
+ {
+  "label": "MAP:MD-USA04_Start02",
+  "text": "TRANSMISSÃO RECEBIDA: \n Chegaram reforços"
+ }
+]
