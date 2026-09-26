@@ -1,0 +1,802 @@
+[
+ {
+  "label": "CONTROLBAR:Infa_ConstructChinaInfantryHacker",
+  "text": "&Super Haker"
+ },
+ {
+  "label": "CONTROLBAR:Infa_ToolTipChinaBuildHacker",
+  "text": "Nevidimy. Može onesposobiti neprijateljske budovy i vozila kompjuterskym virusom ili hakovati internet, aby ukrasti dengi \n \n Silno protiv: budovy \n Slabo protiv: pěhota, vozila"
+ },
+ {
+  "label": "CONTROLBAR:Infa_ConstructChinaInfantryBlackLotus",
+  "text": "&Super Lotos"
+ },
+ {
+  "label": "CONTROLBAR:Infa_ConstructChinaVehicleListeningOutpost",
+  "text": "&Napadny Post"
+ },
+ {
+  "label": "CONTROLBAR:Infa_ConstructChinaVehicleTroopCrawler",
+  "text": "&Napadny Transporter pěhoty"
+ },
+ {
+  "label": "CONTROLBAR:Infa_ConstructChinaVehicleHelix",
+  "text": "Napadny &Helix"
+ },
+ {
+  "label": "CONTROLBAR:Infa_ToolTipChinaBuildHelix",
+  "text": "Tăžky napadny transportny podjemnik \n unapreduje se oborambenymi stavbami bazy i Napalmnoju Bomboju \n \n Silno protiv: tanky, legke vozila \n Slabo protiv: pěhota s raketami, protivozdušna obrana"
+ },
+ {
+  "label": "OBJECT:Infa_Helix",
+  "text": "Šturmovy Helix"
+ },
+ {
+  "label": "CONTROLBAR:Infa_ToolTipChinaScienceInfantryParadrop",
+  "text": "Izpuskaje Kulemetčikov iz vozduha \n \n Rang 1: 5 Kulemetčikov \n Rang 2: 10 Kulemetčikov \n Rang 3: 15 Kulemetčikov \n \n Razvărtaje se iz: Komandnogo centra"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeSuicideBomb",
+  "text": "&Sposobnost Podryva"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAUpgradeSuicideBomb",
+  "text": "Dopusti vsěm jedinicam \n i obraně bazy koristiti \n sposobnost podryva"
+ },
+ {
+  "label": "OBJECT:MiniGunner",
+  "text": "Kulemetčik"
+ },
+ {
+  "label": "OBJECT:AirF_Chinook",
+  "text": "Bojevy Chinook"
+ },
+ {
+  "label": "CONTROLBAR:AirF_ConstructAmericaVehicleChinook",
+  "text": "Boje&vy Chinook"
+ },
+ {
+  "label": "CONTROLBAR:AirF_ToolTipUSABUildChinook",
+  "text": "Napadny transportny helikopter. Sbiraje snabděnja. Rabotaje s Rangerami za izvěšenje napada Bojevoj Vysadky"
+ },
+ {
+  "label": "CONTROLBAR:SuicideAttack",
+  "text": "Samoub&ijstvo"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLASuicideAttack",
+  "text": "Detonovati"
+ },
+ {
+  "label": "CONTROLBAR:Tank_TooltipUpgradeChinaNuclearTanks",
+  "text": "+25% brzina Emperora i Battlemastera"
+ },
+ {
+  "label": "CONTROLBAR:Boss_ToolTipUSABuildPowerPlant",
+  "text": "Obezpečuje energiju za bazy \n \n Dostavlena Energija: 5"
+ },
+ {
+  "label": "CONTROLBAR:Nuke_ToolTipChinaBuildListeningOutpost",
+  "text": "Napadny transporter. Otkrivaje nevidime jedinice \n \n Silno protiv: pěhota, budovy \n Slabo protiv: tanky, letadla"
+ },
+ {
+  "label": "CONTROLBAR:Nuke_ConstructChinaVehicleListeningOutpost",
+  "text": "Napadny Podslušny Po&st"
+ },
+ {
+  "label": "CONTROLBAR:Infa_ToolTipChinaBuildTroopCrawler",
+  "text": "Napadny transporter. Prihodi s 8 Kulemetčikami. Otkrivaje nevidime jedinice \n \n Silno protiv: pěhota, budovy \n Slabo protiv: tanky, letadla"
+ },
+ {
+  "label": "CONTROLBAR:Infa_ToolTipChinaBuildListeningOutpost",
+  "text": "Transporter. Dăržit 8 pěhotnyh jedinic. Otkrivaje nevidime jedinice \n \n Silno protiv: pěhota, budovy \n Slabo protiv: tanky, letadla"
+ },
+ {
+  "label": "CONTROLBAR:Infa_ConstructChinaBunker",
+  "text": "Utvrděny Bun&ker"
+ },
+ {
+  "label": "CONTROLBAR:Infa_ToolTipChinaBuildBunker",
+  "text": "Može dăržati 10 kitajskyh soldat \n Prihodi s unapreděnjem minovogo polja"
+ },
+ {
+  "label": "OBJECT:Infa_Bunker",
+  "text": "Ukrěpjeny bunker"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAScienceSneakAttack",
+  "text": "Vojska mogu sozdati tunel bilo gdě na kartě \n \n Razvărtaje se iz: Komandnogo centra"
+ },
+ {
+  "label": "CONTROLBAR:Chem_ConstructGLAInfantryRebel",
+  "text": "Toksinny Pov&stanec"
+ },
+ {
+  "label": "CONTROLBAR:Chem_ToolTipGLABuildRebel",
+  "text": "Streljaje strujoju toksina \n Silno protiv: pěhota \n Slabo protiv: tanky, legke vozila"
+ },
+ {
+  "label": "OBJECT:Chem_Rebel",
+  "text": "Toksinny povstanec"
+ },
+ {
+  "label": "OBJECT:Chem_Terrorist",
+  "text": "Toksinny terorist"
+ },
+ {
+  "label": "CONTROLBAR:Chem_ConstructGLAInfantryTerrorist",
+  "text": "&Toksinny Terorist"
+ },
+ {
+  "label": "CONTROLBAR:Chem_ToolTipGLABuildTerrorist",
+  "text": "Samoubijstveny soldat eksplodiraje v oblaku toksina"
+ },
+ {
+  "label": "CONTROLBAR:Chem_ConstructGLATunnelNetwork",
+  "text": "Toksinna &Sěť"
+ },
+ {
+  "label": "OBJECT:Chem_TunnelNetwork",
+  "text": "Toksinna sěť"
+ },
+ {
+  "label": "CONTROLBAR:Chem_ToolTipGLABuildTunnelNetwork",
+  "text": "Obrana bazy i podzemny tunel. Streljaje strujoju toksina. Jedinice mogu vojti v Tunelnu sěť i izyti v bilo kojoj drugoj Tunelnoj sěti"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeStealthComanche",
+  "text": "&Nevidime Unapreděnje"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipAirFUpgradeComancheStealth",
+  "text": "Comanchi stanu nevidimi"
+ },
+ {
+  "label": "OBJECT:Entrance",
+  "text": "Vhod"
+ },
+ {
+  "label": "CONTROLBAR:Boss_TooltipChinaUpgradeNationalism",
+  "text": "+25% k bonusu Ordy za Lovca Tankov"
+ },
+ {
+  "label": "CONTROLBAR:Lazr_ToolTipUSABuildPowerPlant",
+  "text": "Obezpečuje energiju za bazy US \n \n Dostavlena Energija: 8"
+ },
+ {
+  "label": "GUI:DoubleClickAttackMove",
+  "text": "Dvoklik Straža"
+ },
+ {
+  "label": "TOOLTIP:DoubleClickAttackMove",
+  "text": "Jedinice igrača se pomiknu, a potom budu čuvati svoju cěljevu okolicu, kogda je gumb akcije dvokliknuty"
+ },
+ {
+  "label": "DIALOGEVENT:01_AllCheerSoundSubtitle",
+  "text": "<Radostny klič>"
+ },
+ {
+  "label": "CONTROLBAR:Lazr_ToolTipUSABuildPatriotBattery",
+  "text": "Zemska i vozdušna obrana. Može prěnositi poziciju neprijatelja k blizkym věžam \n \n Potrěbna Energija: 5"
+ },
+ {
+  "label": "CONTROLBAR:Lazr_ConstructAmericaPatriotBattery",
+  "text": "Lazerna Obrambena &Věža"
+ },
+ {
+  "label": "CONTROLBAR:Lazr_ConstructAmericaTankCrusader",
+  "text": "Lazerny &Tank"
+ },
+ {
+  "label": "OBJECT:Lazr_Tank",
+  "text": "Laserny tank"
+ },
+ {
+  "label": "CONTROLBAR:Lazr_ToolTipUSABuildCrusader",
+  "text": "Silno protiv: vozila, budovy \n Slabo protiv: letadla, pěhota s raketami"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildEmperor",
+  "text": "Silno protiv: vozila, budovy \n Slabo protiv: rakety, letadla"
+ },
+ {
+  "label": "CONTROLBAR:AirF_ToolTipUSAScienceSpectreGunship",
+  "text": "Spectre Gunshipy kružu nad bojiščem i biju neprijateljske sily haubicami i Gatlingovymi dělami \n \nUroveň 1: 10 sekund \n Uroveň 2: 15 sekund \n Uroveň 3: 30 sekund \n \n Razvărtaje se iz: Komandnogo centra"
+ },
+ {
+  "label": "OBJECT:ValveStation",
+  "text": "Ventilna stancija"
+ },
+ {
+  "label": "HELP:Hijacker-01",
+  "text": "SOVĚT: \n Pomiknite Otimača v neprijateljsko vozilo, aby go ukral"
+ },
+ {
+  "label": "MAP:MD-USA04_Hint08",
+  "text": "SOVĚT: \n Sgradite Ognjeve Bazy, aby pomogli zaščititi svoju bazu"
+ },
+ {
+  "label": "MAP:MD-USA04_Hint09",
+  "text": "VHODEČA TRANSMISIJA: \n Agent CIA najdjen"
+ },
+ {
+  "label": "MAP:MD-USA04_Hint10",
+  "text": "SOVĚT: \n Sgradite obranu v naftnom polju, aby zaščitili vyšky"
+ },
+ {
+  "label": "MAP:MD-USA04_Hint11",
+  "text": "VHODEČA TRANSMISIJA: \n Radiostanicija GLA je uništena"
+ },
+ {
+  "label": "MAP:MD-USA06Warning17",
+  "text": "POZOR: \n Poznato je, že Dr. Thrax koristi Tunelnu sěť Tihogo Napada, aby iznenadil neprijateljev"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_1",
+  "text": "\n Napad na kitajsku bazu začinaje teper \n Jich baza skoro bude naša"
+ },
+ {
+  "label": "MAP:MD_CHI03-Title-01",
+  "text": "Koburg, Germanija \n 'Oslobozenje'"
+ },
+ {
+  "label": "MAP:MD_CHI03-Info-MissionObjective-01",
+  "text": "OBJEKTIV MISIJE: \n Uništite statuy GLA, aby oslobodili město \n Naše Meddržavno Měnjenje bude padati, dokla ne uspějeme"
+ },
+ {
+  "label": "MAP:MD_CHI03-Info-MissionObjective-02",
+  "text": "VHODEČA TRANSMISIJA: \n Jesli naše Meddržavno Měnjenje dostigne 0, budeme pobězeni"
+ },
+ {
+  "label": "MAP:MD_CHI03-Info-MissionObjective-03",
+  "text": "VHODEČA TRANSMISIJA: \n Uništite statuy GLA, aby povyšili naše Meddržavno Měnjenje"
+ },
+ {
+  "label": "MAP:MD_CHI03-Info-MissionObjective-10",
+  "text": "VHODEČA TRANSMISIJA: \n Oslobodili smo město \n Teper uništite bazu GLA na sěvernoj straně rěky"
+ },
+ {
+  "label": "MAP:MD_CHI03-Event-Built-SpeakerTower-01",
+  "text": "VHODEČA TRANSMISIJA: \n Ta Reproduktorna věža povyšaje naše Meddržavno Měnjenje"
+ },
+ {
+  "label": "CONTROLBAR:Tank_TooltipUpgradeChinaUraniumShells",
+  "text": "+25% škody vystrěla na Battlemasteru i Emperoru"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAUpgradeBuggyAmmo",
+  "text": "+100% municije Raketnogo Bagija"
+ },
+ {
+  "label": "CONTROLBAR:Chem_ToolTipGLAUpgradeAPBullets",
+  "text": "+25% škody jedinic, kotore streljaju kulami"
+ },
+ {
+  "label": "GUI:BioFeatures_USA",
+  "text": "MOAB \n Protivmery \n Razrušitel Bunkerov \n Dron Hellfire \n Spectre Gunship \n Stražny dron \n Mikrovalny Tank \n Avenger \n Ognjeva Baza"
+ },
+ {
+  "label": "GUI:BioFeatures_GLA",
+  "text": "Tihy Napad \n GPS Scrambler \n Saboter \n Minna pastka \n Kamuflažna Sěť \n Falošne Budovy \n Utvrděne Budovy \n Bojevi Motocikly \n Bojevy Avtobus"
+ },
+ {
+  "label": "GUI:BioFeatures_China",
+  "text": "Helix \n Podslušny Post \n Neutronne Miny \n Běsnenje \n Internet-centr \n Kobercovy Bombonosec \n Tank ECM \n"
+ },
+ {
+  "label": "GUI:BioFeatures_Pos0",
+  "text": "King Raptory \n Bojevi Chinooky \n Lazerne Točkove Obrany \n Unapreděnje Nevidimy Comanche \n Snizenje cěny letadel \n Spectre Gunship na nižšem rangu \n Začinaje s Nevidimym Istrebitelem \n Bez tankov"
+ },
+ {
+  "label": "GUI:BioFeatures_Pos1",
+  "text": "Toksinni Povstance \n Toksinne Sěti \n Toksinni Teroristy \n Antraks Gamma \n Tanky začinaju s Toksinnymi Nabojami \n Toksiny začinaju kako Antraks Beta"
+ },
+ {
+  "label": "GUI:BioFeatures_Pos2",
+  "text": "Tanky začinaju s Uranovymi Snarjadami \n Taktična Nuklearna MiG \n Unapreděnje Stabilnost Izotopov \n Napredny Jaderny Reaktor \n Nuklearny Bombonosec \n Začinaje s Nuklearnymi Dělami"
+ },
+ {
+  "label": "GUI:BioFeatures_Pos3",
+  "text": "Aurora Alpha \n Sistem Patriot EMP \n Napredne Prěty \n Česticove Děla koštuju menje \n Vozila koštuju věče \n Bez tankov"
+ },
+ {
+  "label": "GUI:BioFeatures_Pos4",
+  "text": "Tank Emperor \n Vysadka Tankov \n Vse tanky začinaju kako veterany \n Tanky koštuju menje \n Letadla koštuju věče \n Bez Nuklearnyh ili Infernalnyh Děl"
+ },
+ {
+  "label": "GUI:BioFeatures_Pos5",
+  "text": "Lazerny Tank \n Lazerna Obrambena Věža \n Avengery koštuju menje \n Napredne Reaktory Studene Fuzije \n Bez Lanserov Raket Tomahawk"
+ },
+ {
+  "label": "GUI:BioFeatures_Pos6",
+  "text": "Vse Stavby mogu byti pokryte Kamuflažnoju Sěťoju \n Kamuflovani Povstance \n Obrana začinaje s Kamuflažnoju Sěťoju \n Začinaje s Otimačom \n Otimač je vsegda nevidimy \n Dobyva GPS Scrambler ranje \n Može GPS Scramblovati čašćeje"
+ },
+ {
+  "label": "GUI:BioFeatures_Pos7",
+  "text": "Napadny Transporter Pěhoty \n Napadny Helix \n Napadny Post \n Utvrděni Bunkery \n Kulemetčik \n Črny Lotos hakuje bystrěje \n Hakery hakuju bystrěje \n Vysadka Kulemetčikov \n Vsa Pěhota začinaje kako veterany"
+ },
+ {
+  "label": "GUI:BioFeatures_Pos8",
+  "text": "Napredna Podryvna Pastka \n Unapreděnje Samoubijstvena Bomba \n Teroristy dělaju věče škody \n Začinaje s Minnoju Pastkoju \n Bojevi Motocikly začinaju s Teroristom \n Bez kamuflovanyh jedinic \n Kamiony-bomby koštuju menje"
+ },
+ {
+  "label": "GUI:BioFeatures_Pos9",
+  "text": "Koristi najlăpše iz najlăpšego \n Vse geroji \n Vse superoružja \n Raznolike moći generalov \n Jedinice iz vsěh frakcij \n Napredna obrana \n"
+ },
+ {
+  "label": "GUI:BioFeatures_Pos10",
+  "text": "ne implementovano"
+ },
+ {
+  "label": "GUI:BioFeatures_Pos11",
+  "text": "ne implementovano"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_AirTrafficControl01Subtitle",
+  "text": "***"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth107Subtitle",
+  "text": "***"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth105Subtitle",
+  "text": "***"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth106Subtitle",
+  "text": "***"
+ },
+ {
+  "label": "GUI:GroupRoom14",
+  "text": "Samo Originalne Armije"
+ },
+ {
+  "label": "OBJECT:MissileSilo",
+  "text": "Raketna šahta"
+ },
+ {
+  "label": "OBJECT:ScudLauncherHiDef",
+  "text": "Puskovač SCUD"
+ },
+ {
+  "label": "OBJECT:CINE_SnowyMountainParticleBones",
+  "text": "."
+ },
+ {
+  "label": "OBJECT:CINE_SnowyMountainScrollingSnow",
+  "text": "Sněg"
+ },
+ {
+  "label": "OBJECT:CINE_SnowyMountainStatic",
+  "text": "Gora"
+ },
+ {
+  "label": "OBJECT:CINE_TreeBirds",
+  "text": "Pticy"
+ },
+ {
+  "label": "TOOLTIP:NoUserMaps",
+  "text": "Neoficijalne karty nisu dozvoleny v igrah so zapisom statistiky"
+ },
+ {
+  "label": "GUI:FireWallPort",
+  "text": "Prepis Porta Firewall:"
+ },
+ {
+  "label": "TOOLTIP:FireWallPort",
+  "text": "Otvoreny broj porta Firewall"
+ },
+ {
+  "label": "CONTROLBAR:Tank_TooltipUpgradeChinaOverlordGattlingCannon",
+  "text": "Sgradite Gatlingovo dělo na tom Imperatoru"
+ },
+ {
+  "label": "OBJECT:Tank_Overlord",
+  "text": "Imperator"
+ },
+ {
+  "label": "GUI:USAAllies",
+  "text": "Sojuznici US"
+ },
+ {
+  "label": "GUI:USAEnemies",
+  "text": "Neprijatelji US"
+ },
+ {
+  "label": "OBJECT:BigNuclearReactor",
+  "text": "Jaderny Reaktor"
+ },
+ {
+  "label": "CONTROLBAR:SabotageBuilding",
+  "text": "Sabotovati &Budovu"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLASabotageBuilding",
+  "text": "Može vrěmenno onesposobiti neprijateljske budovy \n \n Silno protiv: neprijateljske stavby \n Slabo protiv: pěhota, razvědčiky"
+ },
+ {
+  "label": "SCIENCE:Nuke_ChinaCarpetBomb",
+  "text": "Jaderny bombardirovač"
+ },
+ {
+  "label": "CONTROLBAR:Demo_ConstructGLADemoTrap",
+  "text": "Napredna &Podryvna Pastka"
+ },
+ {
+  "label": "CONTROLBAR:Nuke_ConstructChinaPowerPlant",
+  "text": "Napredny Jaderny &Reaktor"
+ },
+ {
+  "label": "CONTROLBAR:SupW_UpgradeAmericaAdvancedControlRods",
+  "text": "Napredne &Kontrolne Prěty"
+ },
+ {
+  "label": "CONTROLBAR:Nuke_CarpetBomb",
+  "text": "Nu&klearny Bombonosec"
+ },
+ {
+  "label": "OBJECT:Nuke_NuclearReactor",
+  "text": "Napredny jaderny reaktor"
+ },
+ {
+  "label": "OBJECT:Demo_DemoTrap",
+  "text": "Napredna podryvna pastka"
+ },
+ {
+  "label": "CONTROLBAR:Nuke_ToolTipChinaBuildPowerPlant",
+  "text": "Napredny Jaderny Reaktor. Može byti prěopterećen, aby davl věče energije \n \n Dostavlena Energija: 18"
+ },
+ {
+  "label": "CONTROLBAR:Nuke_ToolTipChinaScienceCarpetBomb",
+  "text": "Dopusti vam pozvati tăžky bombonosec, aby kobercovo bombardoval okolicu taktičnymi nuklearnymi bombami \n \n Razvărtaje se iz: Komandnogo centra"
+ },
+ {
+  "label": "CONTROLBAR:Nuke_TooltipCarpetBomb",
+  "text": "Nuklearno udari cěljevu okolicu \n \n Časovnik: 3:00"
+ },
+ {
+  "label": "GUI:FastForwardInstructions",
+  "text": "Stisnite F, aby prěpnuli Bystro Naprěd"
+ },
+ {
+  "label": "GUI:FF_ON",
+  "text": "Bystro Naprěd je vklučeno"
+ },
+ {
+  "label": "GUI:FF_OFF",
+  "text": "Bystro Naprěd je vyklučeno"
+ },
+ {
+  "label": "CONTROLBAR:LeafletDropShort",
+  "text": "Sbros Letakov"
+ },
+ {
+  "label": "CONTROLBAR:SneakAttackShort",
+  "text": "Tihy Napad"
+ },
+ {
+  "label": "CONTROLBAR:TankParadropShort",
+  "text": "Vysadka Tankov"
+ },
+ {
+  "label": "OBJECT:Nuke_CarpetBomb",
+  "text": "Nuklearny Bombonosec"
+ },
+ {
+  "label": "CONTROLBAR:Slth_ConstructGLAInfantryRebel",
+  "text": "Nevidimy Pov&stanec"
+ },
+ {
+  "label": "GUI:AdjustGameSpeed",
+  "text": "Prilagoditi Brzinu Igry"
+ },
+ {
+  "label": "GUI:SkirmishLower",
+  "text": "Skirmiš"
+ },
+ {
+  "label": "GUI:Refresh",
+  "text": "Obnoviti"
+ },
+ {
+  "label": "CONTROLBAR:MOAB",
+  "text": "Mati Vsěh &Bomb"
+ },
+ {
+  "label": "MAP:TournamentPlains",
+  "text": "Turnirna Ravnina"
+ },
+ {
+  "label": "MAP:DarkNight",
+  "text": "Temna Noč"
+ },
+ {
+  "label": "MAP:TournamentUrban",
+  "text": "Turnirno Město"
+ },
+ {
+  "label": "MAP:TwoRoads",
+  "text": "Dva Puti"
+ },
+ {
+  "label": "CONTROLBAR:Chem_TooltipFireRebelAmbush",
+  "text": "Sozdavaje toksinne povstance \n \n Časovnik: 4:00"
+ },
+ {
+  "label": "CONTROLBAR:AirF_ToolTipUSABuildAurora",
+  "text": "Superzvukovy napad sdělaje Auroru imunu na neprijateljsky ogonj. Po superzvukovom napadě, brzina Aurory se snizuje na 50% \n \n Silno protiv: budovy \n Slabo protiv: istrebiteli, protivozdušne jedinice"
+ },
+ {
+  "label": "CONTROLBAR:Chem_ToolTipGLAScienceRebelAmbush",
+  "text": "Dopusti vam sozdati iznenadnu zasedu Toksinnyh Povstancev bilo gdě \n \n Rang 1: 4 Toksinni Povstance \n Rang 2: 8 Toksinnyh Povstancev \n Rang 3: 16 Toksinnyh Povstancev \n \n Razvărtaje se iz: Komandnogo centra"
+ },
+ {
+  "label": "CREDITS:PackagingProjectManager",
+  "text": "Projektny Menedžer Pakovanja"
+ },
+ {
+  "label": "CREDITS:PackagingDesign",
+  "text": "Dizajn Pakovanja"
+ },
+ {
+  "label": "CREDITS:DocumentationLayout",
+  "text": "Rasporjad Dokumentacije"
+ },
+ {
+  "label": "CREDITS:DocumentationEditor",
+  "text": "Redaktor Dokumentacije"
+ },
+ {
+  "label": "CREDITS:Writer",
+  "text": "Pisatel"
+ },
+ {
+  "label": "CREDITS:Studio",
+  "text": "Studio"
+ },
+ {
+  "label": "CREDITS:ChineseLanguageTester",
+  "text": "Testator Kitajskogo Jazyka"
+ },
+ {
+  "label": "CREDITS:Marketing",
+  "text": "Marketing"
+ },
+ {
+  "label": "CREDITS:QuotedTraducoes",
+  "text": "Quoted Traduções"
+ },
+ {
+  "label": "CREDITS:ClementDuval",
+  "text": "Clément Duval"
+ },
+ {
+  "label": "CREDITS:JoseLuisRovira",
+  "text": "José Luis Rovira"
+ },
+ {
+  "label": "CREDITS:ExecutiveProducer",
+  "text": "Izvršny Producent"
+ },
+ {
+  "label": "CREDITS:TechnicalDirection",
+  "text": "Tehničko Rukovoženje"
+ },
+ {
+  "label": "CREDITS:LeadArtists",
+  "text": "Glavni Umětniky"
+ },
+ {
+  "label": "CREDITS:QualityAssurance",
+  "text": "Osiguranje Kvality"
+ },
+ {
+  "label": "CREDITS:TestAnalysts",
+  "text": "Testni Analitiky"
+ },
+ {
+  "label": "CREDITS:TiburonAdditionalQualityAssurance",
+  "text": "Dodatno Osiguranje Kvality Tiburon"
+ },
+ {
+  "label": "CREDITS:LocalizationBrazil",
+  "text": "Lokalizacija Brazilija"
+ },
+ {
+  "label": "CREDITS:TranslationServices",
+  "text": "Prěvodne Služby"
+ },
+ {
+  "label": "CREDITS:TranslationCoordinator",
+  "text": "Koordinator Prěvoda"
+ },
+ {
+  "label": "CREDITS:LTCoordinator",
+  "text": "LT-Koordinator"
+ },
+ {
+  "label": "CREDITS:RecordingStudio",
+  "text": "Studio Snimanja"
+ },
+ {
+  "label": "CREDITS:EAWorldwideDevelopmentExecutives",
+  "text": "EA Worldwide Development Executives"
+ },
+ {
+  "label": "CREDITS:SpecialThanks",
+  "text": "Posebna Blagodarnost"
+ },
+ {
+  "label": "CREDITS:EAPacificDevTeam3",
+  "text": "Razvojny Tim"
+ },
+ {
+  "label": "CREDITS:NACustomerQualityControl",
+  "text": "Kontrola Kvality Zakaznikov Sěverne Ameriky"
+ },
+ {
+  "label": "CONTROLBAR:SupW_TooltipUSAUpgradeAdvancedControlRods",
+  "text": "Reaktor davaje 300% věče energije"
+ },
+ {
+  "label": "CONTROLBAR:AirF_ToolTipUSABuildStealthFighter",
+  "text": "Nevidimy poka se dvigaje \n Opremljeny Točkovym Obrambenym Lazerom \n \n Silno protiv: neprijateljska obrana bazy \n Slabo protiv: neprijateljski istrebiteli"
+ },
+ {
+  "label": "GUI:RetaliationTitle",
+  "text": "Osveta"
+ },
+ {
+  "label": "GUI:Retaliation",
+  "text": "Vyklučite tăj gumb, aby onesposobili vašim jedinicam avtomatično otmščivati napadajučym neprijateljam"
+ },
+ {
+  "label": "CREDITS:LocalizationChinese",
+  "text": "Lokalizacija Kitajski"
+ },
+ {
+  "label": "MAP:Breakdown",
+  "text": "Raspad"
+ },
+ {
+  "label": "MAP:BulletMassacre",
+  "text": "Masakr Kulami"
+ },
+ {
+  "label": "MAP:CarnageCityLimits",
+  "text": "Granice Města Klanja"
+ },
+ {
+  "label": "MAP:Cityscape",
+  "text": "Gradski Vid"
+ },
+ {
+  "label": "MAP:CivilUnrest",
+  "text": "Graždansky Nemir"
+ },
+ {
+  "label": "MAP:CottageCheese",
+  "text": "Tvarog"
+ },
+ {
+  "label": "MAP:DeathValley",
+  "text": "Dolina Smărti"
+ },
+ {
+  "label": "MAP:DogsOfWar",
+  "text": "Psy Vojny"
+ },
+ {
+  "label": "MAP:DoorToDoor",
+  "text": "Vrata do Vrat"
+ },
+ {
+  "label": "MAP:FarmersFrenzy",
+  "text": "Běsnenje Farmerov"
+ },
+ {
+  "label": "MAP:Firestorm",
+  "text": "Ognjeva Bura"
+ },
+ {
+  "label": "MAP:FlakAttack",
+  "text": "Napad Flaka"
+ },
+ {
+  "label": "MAP:FlankTown",
+  "text": "Bokovo Město"
+ },
+ {
+  "label": "MAP:Flashbang",
+  "text": "Světloshumova Granata"
+ },
+ {
+  "label": "MAP:FoxHunt",
+  "text": "Lov na Lisicu"
+ },
+ {
+  "label": "MAP:GhostTown",
+  "text": "Město Duhov"
+ },
+ {
+  "label": "MAP:HighRoad",
+  "text": "Vysoky Put"
+ },
+ {
+  "label": "MAP:HighlandHunt",
+  "text": "Lov na Vysočině"
+ },
+ {
+  "label": "MAP:HostileDawn",
+  "text": "Neprijateljsky Svitanok"
+ },
+ {
+  "label": "MAP:IslandInTheZone",
+  "text": "Ostrov v Zoně"
+ },
+ {
+  "label": "MAP:JungleRebellion",
+  "text": "Bunt v Džungli"
+ },
+ {
+  "label": "MAP:LARiot",
+  "text": "Bunt v L.A."
+ },
+ {
+  "label": "MAP:Liberation",
+  "text": "Oslobozenje"
+ },
+ {
+  "label": "MAP:LongNight",
+  "text": "Dolga Noč"
+ },
+ {
+  "label": "MAP:ManicAggression",
+  "text": "Manična Agresija"
+ },
+ {
+  "label": "MAP:Marshland",
+  "text": "Bagnina"
+ },
+ {
+  "label": "MAP:Mirage",
+  "text": "Miraž"
+ },
+ {
+  "label": "MAP:PanicDemise",
+  "text": "Panična Propast"
+ },
+ {
+  "label": "MAP:PowerPlay",
+  "text": "Igra Moći"
+ },
+ {
+  "label": "MAP:RedRock",
+  "text": "Červena Skala"
+ },
+ {
+  "label": "MAP:RubbleTown",
+  "text": "Město Ruševin"
+ },
+ {
+  "label": "MAP:SeasideMutiny",
+  "text": "Buna na Morju"
+ },
+ {
+  "label": "MAP:ShellShocker",
+  "text": "Šok Naboja"
+ },
+ {
+  "label": "MAP:Shellshock",
+  "text": "Šok Granaty"
+ },
+ {
+  "label": "MAP:ShockAndAwe",
+  "text": "Šok i Strahopočitanje"
+ },
+ {
+  "label": "MAP:Shockwave",
+  "text": "Udarny Val"
+ }
+]
