@@ -1,0 +1,802 @@
+[
+ {
+  "label": "MAP:NoMansLand",
+  "text": "Ničija Zemlja"
+ },
+ {
+  "label": "MAP:OverlandOffensive",
+  "text": "Zemna Ofenziva"
+ },
+ {
+  "label": "MAP:RockyRampage",
+  "text": "Skalny Bijes"
+ },
+ {
+  "label": "MAP:SnowblindStrike",
+  "text": "Sněžno-Slěpy Udar"
+ },
+ {
+  "label": "MAP:UrbanUnderground",
+  "text": "Městsko Podzemje"
+ },
+ {
+  "label": "MAP:VictoryValley",
+  "text": "Dolina Poběd"
+ },
+ {
+  "label": "MAP:WastelandWarfare",
+  "text": "Vojna v Pustoši"
+ },
+ {
+  "label": "MAP:RogueAgent",
+  "text": "Otstupny Agent"
+ },
+ {
+  "label": "MAP:DesertEagle",
+  "text": "Pustynny Orel"
+ },
+ {
+  "label": "MAP:FlashFire",
+  "text": "Bystry Ogeń"
+ },
+ {
+  "label": "MAP:MountainGuns",
+  "text": "Gorska Děla"
+ },
+ {
+  "label": "MAP:FlashEffect",
+  "text": "Efekt Blěska"
+ },
+ {
+  "label": "MAP:LightsOut",
+  "text": "Bez Světel"
+ },
+ {
+  "label": "MAP:SteelTrap",
+  "text": "Stalna Pastka"
+ },
+ {
+  "label": "MAP:ArmoredFury",
+  "text": "Oklopljena Jarost"
+ },
+ {
+  "label": "MAP:InfiniteJustice",
+  "text": "Komandosy Kaira"
+ },
+ {
+  "label": "MAP:Whiteout",
+  "text": "Bela Mgla"
+ },
+ {
+  "label": "MAP:FalloutEffect",
+  "text": "Radioaktivny Efekt"
+ },
+ {
+  "label": "MAP:FloodedPlains",
+  "text": "Zatoplene Ravniny"
+ },
+ {
+  "label": "MAP:TournamentContinent",
+  "text": "Turnirny Kontinent"
+ },
+ {
+  "label": "MAP:TournamentCity",
+  "text": "Turnirny Grad"
+ },
+ {
+  "label": "MAP:TournamentLadder01",
+  "text": "Turnirny Rejting 01"
+ },
+ {
+  "label": "MAP:TournamentLadder02",
+  "text": "Turnirny Rejting 02"
+ },
+ {
+  "label": "MAP:TournamentLadder03",
+  "text": "Turnirny Rejting 03"
+ },
+ {
+  "label": "MAP:TournamentLadder04",
+  "text": "Turnirny Rejting 04"
+ },
+ {
+  "label": "MAP:TrainingGLAHole",
+  "text": "Zgrady GLA imajut hluboke podzemne oblasti, koje dozvoljajut ih rabotnikam ostati zaščiščenymi. Poslě uništenja zgrady GLA ostane dira. Rabotniky skryti v toj dirě konečno znova postrojat strukturu. Napadni diru, aby uklonil prětnju GLA"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak25",
+  "text": "Čast Serii \n Igrač pobědil 25 igr Skirmiša podrjad \n Polučite novu medalju za 3, 10, 25, 100, 500 i 1000 poběd podrjad"
+ },
+ {
+  "label": "GUI:InsertCDPrompt",
+  "text": "Nedostaje CD"
+ },
+ {
+  "label": "GUI:InsertCDMessage",
+  "text": "Prosim, vstavite prvy CD igry"
+ },
+ {
+  "label": "CONTROLBAR:OrRequirement",
+  "text": "ili"
+ },
+ {
+  "label": "SCRIPT:USA02RescueCounter",
+  "text": "Ostaju Piloti:"
+ },
+ {
+  "label": "GUI:AddCash",
+  "text": "$%d"
+ },
+ {
+  "label": "GUI:LoseCash",
+  "text": "-$%d"
+ },
+ {
+  "label": "RADAR:HarvesterUnderAttack",
+  "text": "Sobiratelj resursov pod napadom"
+ },
+ {
+  "label": "OBJECT:PharmaceuticalFactory",
+  "text": "Farmaceutična fabrika"
+ },
+ {
+  "label": "GUI:CareerWins",
+  "text": "Karierne Pobědy"
+ },
+ {
+  "label": "GUI:CareerLosses",
+  "text": "Karierne Poraženja"
+ },
+ {
+  "label": "GUI:CurrentWinStreak",
+  "text": "Tekuča Serija Poběd"
+ },
+ {
+  "label": "GUI:CarrerWinPercent",
+  "text": "Karierny Procent Poběd"
+ },
+ {
+  "label": "TOOLTIP:NumberOfPlayers",
+  "text": "Broj igračev trenutno v toj igrě"
+ },
+ {
+  "label": "TOOTIP:Password",
+  "text": "Parol trěbovan, aby vstupiti v igru"
+ },
+ {
+  "label": "TOOLTIP:PingInfo",
+  "text": "Kačestvo skorosti sojedinjenja s hostom"
+ },
+ {
+  "label": "TOOLTIP:LobbyOfficersClub",
+  "text": "Klub Oficirov: Osnovny člen zajednice Generals"
+ },
+ {
+  "label": "GUI:Display",
+  "text": "NASTAVJENJA"
+ },
+ {
+  "label": "GUI:Audio",
+  "text": "ZVUK"
+ },
+ {
+  "label": "GUI:LANLobby",
+  "text": "LAN LOBI"
+ },
+ {
+  "label": "GUI:Mute",
+  "text": "Utiši"
+ },
+ {
+  "label": "GUI:NeedHumanPlayers",
+  "text": "Vam trěba čelověčesky igrač, koji ne nabljudaje, aby načeti igru"
+ },
+ {
+  "label": "GUI:MediumDifficulty",
+  "text": "Srědnje"
+ },
+ {
+  "label": "CONTROLBAR:ObsPlayerLabel",
+  "text": "%ls (Komanda %ls)"
+ },
+ {
+  "label": "GUI:LowTextureDetail",
+  "text": "Nizka Detaljnost Tekstur"
+ },
+ {
+  "label": "TOOLTIP:LowTextureDetail",
+  "text": "Upotrěbi Teksture Nizkoj Rezolucije"
+ },
+ {
+  "label": "GUI:QuickMatch800x600",
+  "text": "Prosim, izměnite vašu video-rezoluciju na 800 x 600, aby igrati Bystru Igru"
+ },
+ {
+  "label": "OBJECT:CargoPlane",
+  "text": "Gruzovy samolet"
+ },
+ {
+  "label": "OBJECT:HuNanProvince",
+  "text": "Pekin"
+ },
+ {
+  "label": "OBJECT:HongKong",
+  "text": "Hongkong"
+ },
+ {
+  "label": "OBJECT:HubeiProvince",
+  "text": "Brana Trěh klisur"
+ },
+ {
+  "label": "OBJECT:Tangula",
+  "text": "Gory Tanggula"
+ },
+ {
+  "label": "OBJECT:Balykchy",
+  "text": "Balykči"
+ },
+ {
+  "label": "OBJECT:Bishkek",
+  "text": "Biškek"
+ },
+ {
+  "label": "OBJECT:Dushanbe",
+  "text": "Dušanbe"
+ },
+ {
+  "label": "OBJECT:Shymkent",
+  "text": "Šymkent"
+ },
+ {
+  "label": "OBJECT:Almaty",
+  "text": "Almaty"
+ },
+ {
+  "label": "OBJECT:Zambul",
+  "text": "Žambyl"
+ },
+ {
+  "label": "OBJECT:Astana",
+  "text": "Astana"
+ },
+ {
+  "label": "OBJECT:Incirlik",
+  "text": "Incirlik"
+ },
+ {
+  "label": "OBJECT:AralSea",
+  "text": "Aralsko morje"
+ },
+ {
+  "label": "OBJECT:Lenger",
+  "text": "Lenger"
+ },
+ {
+  "label": "OBJECT:Baikonur",
+  "text": "Bajkonur"
+ },
+ {
+  "label": "OBJECT:Mazar",
+  "text": "Mazar"
+ },
+ {
+  "label": "OBJECT:Baghdad",
+  "text": "Bagdad"
+ },
+ {
+  "label": "OBJECT:AlHanad",
+  "text": "Al Hanad"
+ },
+ {
+  "label": "OBJECT:NorthKazakhstan",
+  "text": "Severny Kazahstan"
+ },
+ {
+  "label": "OBJECT:KazakhstanCoast",
+  "text": "Pobrěžje Kazahstana"
+ },
+ {
+  "label": "OBJECT:KazakhstanDMZ",
+  "text": "DMZ Kazahstana"
+ },
+ {
+  "label": "OBJECT:SouthKazkahstan",
+  "text": "Jugovostočny Kazahstan"
+ },
+ {
+  "label": "OBJECT:Akmola",
+  "text": "Akmola"
+ },
+ {
+  "label": "SCRIPT:GLA03Objective01a",
+  "text": "OBJEKTIVY MISIJE: \n Zauzmi Komandny Centr na istoku, aby načeti proizvodstvo \n Ubi 200 izdajnikov"
+ },
+ {
+  "label": "SCRIPT:GLA03Objective02a",
+  "text": "OBJEKTIV MISIJE: \n Upotrěbi Toksinne Traktory, aby ubiti 200 izdajnikov"
+ },
+ {
+  "label": "TOOLTIP:Campaign1",
+  "text": "Kampanja 3"
+ },
+ {
+  "label": "TOOLTIP:Campaign2",
+  "text": "Kampanja 2"
+ },
+ {
+  "label": "TOOLTIP:Campaign3",
+  "text": "Kampanja 1"
+ },
+ {
+  "label": "GUI:Setup",
+  "text": "POSTAVKY"
+ },
+ {
+  "label": "GUI:PlayerInfo",
+  "text": "INFORMACIJE O IGRAČU"
+ },
+ {
+  "label": "GUI:Persona",
+  "text": "PERSONA"
+ },
+ {
+  "label": "GUI:TextureHigh",
+  "text": "Vysoko Kačestvo (medleněje)"
+ },
+ {
+  "label": "GUI:TextureMedium",
+  "text": "Srědnje Kačestvo"
+ },
+ {
+  "label": "GUI:TextureLow",
+  "text": "Nizko Kačestvo (bystrěje)"
+ },
+ {
+  "label": "GUI:GameSpeed",
+  "text": "Skorost Igry"
+ },
+ {
+  "label": "GUI:SlowGameSpeed",
+  "text": "Medlena"
+ },
+ {
+  "label": "GUI:MediumGameSpeed",
+  "text": "Srědnja"
+ },
+ {
+  "label": "GUI:FastGameSpeed",
+  "text": "Bystra"
+ },
+ {
+  "label": "GUI:RestartConfirmationTitle",
+  "text": "RESTARTOVATI?"
+ },
+ {
+  "label": "GUI:SurrenderConfirmationTitle",
+  "text": "PREDATI SĘ?"
+ },
+ {
+  "label": "TOOLTIP:StartPositionN",
+  "text": "Startova Pozicija za igrača %d"
+ },
+ {
+  "label": "LABEL:FORMATION",
+  "text": "F"
+ },
+ {
+  "label": "GUI:IgnoreSm",
+  "text": "Ignoriraj"
+ },
+ {
+  "label": "GUI:AcceptSm",
+  "text": "PRIJMI"
+ },
+ {
+  "label": "GUI:EasyCaps",
+  "text": "LAHKO"
+ },
+ {
+  "label": "GUI:MediumDifficultyCaps",
+  "text": "SRĚDNJE"
+ },
+ {
+  "label": "GUI:HardCaps",
+  "text": "TĚŽKO"
+ },
+ {
+  "label": "TOOLTIP:AdvanceOptionsAccept",
+  "text": "Prijmi izměny napravjene v Naprednyh Nastavjenjah Ekrana"
+ },
+ {
+  "label": "TOOLTIP:AdvanceOptionsCancel",
+  "text": "Izhodi iz Menu Naprednyh Nastavjenj Ekrana bez izměn"
+ },
+ {
+  "label": "GUI:AdvanceDisplayOptions",
+  "text": "NAPREDNE NASTAVJENJA EKRANA"
+ },
+ {
+  "label": "GUI:Shadows",
+  "text": "Sěny"
+ },
+ {
+  "label": "TOOLTIP:Shadows",
+  "text": "Prěključi pokazyvanje sěn v igrě. Vyključi za ulučšenu proizvoditeljnost"
+ },
+ {
+  "label": "GUI:BehindBuilding",
+  "text": "Za Zgradami"
+ },
+ {
+  "label": "TOOLTIP:BehindBuilding",
+  "text": "Prěključi pokazyvanje jedinic za zgradami. Vyključi za ulučšenu proizvoditeljnost"
+ },
+ {
+  "label": "GUI:ShowProps",
+  "text": "Pokaži Rekvizity"
+ },
+ {
+  "label": "TOOLTIP:ShowProps",
+  "text": "Prěključi pokazyvanje rekvizitov igry. Vyključi za ulučšenu proizvoditeljnost"
+ },
+ {
+  "label": "GUI:LowResSlider",
+  "text": "REZOLUCIJA TEKSTUR"
+ },
+ {
+  "label": "GUI:HighResSlower",
+  "text": "Vysoka Rezolucija (Medleněje)"
+ },
+ {
+  "label": "GUI:LowResFaster",
+  "text": "Nizka Rezolucija (Bystrěje)"
+ },
+ {
+  "label": "TOOLTIP:LowResSlider",
+  "text": "Teksture vyšej rezolucije mogu zamedliti igru"
+ },
+ {
+  "label": "GUI:ParticleCap",
+  "text": "LIMIT ČESTIC"
+ },
+ {
+  "label": "GUI:MoreParticlesSlower",
+  "text": "Maks. Čestice (Medleněje)"
+ },
+ {
+  "label": "GUI:LessParticlesFaster",
+  "text": "Min. Čestice (Bystrěje)"
+ },
+ {
+  "label": "TOOLTIP:ParticleCapSlider",
+  "text": "Věče čestic može zamedliti igru"
+ },
+ {
+  "label": "GUI:CurrentLossStreak",
+  "text": "Tekuča Serija Poraženj"
+ },
+ {
+  "label": "GUI:Custom",
+  "text": "Vlastno"
+ },
+ {
+  "label": "GUI:ToggleOnOff",
+  "text": "Vizualni Efekty"
+ },
+ {
+  "label": "GUI:RestartMission",
+  "text": "RESTARTOVATI MISIJU"
+ },
+ {
+  "label": "GUI:ExitMission",
+  "text": "IZHODITI IZ MISIJE"
+ },
+ {
+  "label": "GUI:OlderReplayVersionTitle",
+  "text": "STARIJA VERSIJA ZAPISA"
+ },
+ {
+  "label": "GUI:OlderReplayVersion",
+  "text": "Nagruženje može ne pokazati zapis pravilno, prodolžiti nagruženje?"
+ },
+ {
+  "label": "GUI:Shadows2D",
+  "text": "2D Sěny"
+ },
+ {
+  "label": "TOOLTIP:Shadows2D",
+  "text": "Prěključi pokazyvanje 2D sěn v igrě. Vyključi za ulučšenu proizvoditeljnost"
+ },
+ {
+  "label": "GUI:Shadows3D",
+  "text": "3D Sěny"
+ },
+ {
+  "label": "TOOLTIP:Shadows3D",
+  "text": "Prěključi pokazyvanje 3D sěn v igrě. Vyključi za ulučšenu proizvoditeljnost"
+ },
+ {
+  "label": "GUI:CloudShadows",
+  "text": "Sěny Oblakov"
+ },
+ {
+  "label": "TOOLTIP:CloudShadows",
+  "text": "Prěključi pokazyvanje sěn oblakov na terénu. Vyključi za ulučšenu proizvoditeljnost"
+ },
+ {
+  "label": "GUI:GroundLighting",
+  "text": "Dodatno Osvětlenje Zemli"
+ },
+ {
+  "label": "TOOLTIP:GroundLighting",
+  "text": "Prěključi pokazyvanje detaljnogo osvětlenja na terénu. Vyključi za ulučšenu proizvoditeljnost"
+ },
+ {
+  "label": "GUI:SmoothWater",
+  "text": "Gladke Granice Vody"
+ },
+ {
+  "label": "TOOLTIP:SmoothWater",
+  "text": "Prěključi glaženje granic vody. Vyključi za ulučšenu proizvoditeljnost"
+ },
+ {
+  "label": "GUI:ExtraAnimations",
+  "text": "Dodatne Animacije"
+ },
+ {
+  "label": "TOOLTIP:ExtraAnimations",
+  "text": "Prěključi pokazyvanje neobvěznyh animacij, kako klačenje drěv. Vyključi za ulučšenu proizvoditeljnost"
+ },
+ {
+  "label": "GUI:NoDynamicLOD",
+  "text": "Deaktiviraj Dinamičny Uroveń Detaljov"
+ },
+ {
+  "label": "TOOLTIP:NoDynamicLOD",
+  "text": "Deaktiviraj avtomatsko nastrojenje detaljov. Vyključi za ulučšenu proizvoditeljnost"
+ },
+ {
+  "label": "GUI:UnlockMaxFPS",
+  "text": "Neograničeny FPS"
+ },
+ {
+  "label": "TOOLTIP:UnlockMaxFPS",
+  "text": "Dozvoljaje bystrosti kadrov nad 30. Vlija na skorost igry, tako da je rekomendovano samo za benčmarky"
+ },
+ {
+  "label": "GUI:TreeSway",
+  "text": "Animacija Drěv"
+ },
+ {
+  "label": "TOOLTIP:TreeSway",
+  "text": "Prěključi animacije drěv. Vyključi za ulučšenu proizvoditeljnost"
+ },
+ {
+  "label": "GUI:TankTreads",
+  "text": "Slědy Vozil"
+ },
+ {
+  "label": "TOOLTIP:TankTreads",
+  "text": "Prěključi slědy ostavjene vozilami. Vyključi za ulučšenu proizvoditeljnost"
+ },
+ {
+  "label": "GUI:WaterWaves",
+  "text": "Valy Vody"
+ },
+ {
+  "label": "TOOLTIP:WaterWaves",
+  "text": "Prěključi animacije valov na beregah. Vyključi za ulučšenu proizvoditeljnost"
+ },
+ {
+  "label": "GUI:BuildupAnimations",
+  "text": "Animacije Stroitelstva"
+ },
+ {
+  "label": "TOOLTIP:BuildupAnimations",
+  "text": "Pokaži dodatne animacije počas stroitelstva struktury. Vyključi za ulučšenu proizvoditeljnost"
+ },
+ {
+  "label": "GUI:AdvancedOptionsToggleOnOff",
+  "text": "Prěključi Vključeno/Vyključeno - Vyključeno za ulučšenu proizvoditeljnost"
+ },
+ {
+  "label": "GUI:PerformanceTestingMessage",
+  "text": "Prosim, čekajte, dok testujemo proizvoditeljnost vašego sistema, aby opredělili optimalne nastavjenja"
+ },
+ {
+  "label": "GUI:PerformanceTestingTitle",
+  "text": "Testovanje Proizvoditeljnosti Sistema"
+ },
+ {
+  "label": "GUI:ReducedColor",
+  "text": "16-Bitna Barva"
+ },
+ {
+  "label": "TOOLTIP:ReducedColor",
+  "text": "Ulučšaje proizvoditeljnost, no snižaje vizualno kačestvo"
+ },
+ {
+  "label": "GUI:SelectAMapLowerCase",
+  "text": "Izberi Kartu"
+ },
+ {
+  "label": "GUI:SaveAndExit",
+  "text": "SOHRANI I IZHODI"
+ },
+ {
+  "label": "GUI:PerSideWinPercentage",
+  "text": "%d%% %ls"
+ },
+ {
+  "label": "GUI:WinnersToday",
+  "text": "POBĚDNIKI DNJA"
+ },
+ {
+  "label": "GUI:WinnersLastWeek",
+  "text": "POBĚDNIKI POSLĚDNJEGO TYŽDNJA"
+ },
+ {
+  "label": "MOTD:NumPlayersHeading",
+  "text": "Dobrodošli v Generals Zero Hour Online."
+ },
+ {
+  "label": "TOOLTIP:GameAcceptance",
+  "text": "Prijatje Igry"
+ },
+ {
+  "label": "TOOLTIP:ConnectionSpeed",
+  "text": "Skorost Sojedinjenja"
+ },
+ {
+  "label": "CONTROLBAR:NoHotKeyArtilleryBarrage",
+  "text": "Artilerijsky Obstrěl"
+ },
+ {
+  "label": "CONTROLBAR:NoHotKeySpySatellite",
+  "text": "Špionsky Satelit"
+ },
+ {
+  "label": "GUI:FetchingPlayerInfo",
+  "text": "Obnovljanje..."
+ },
+ {
+  "label": "CREDITS:EALosAngelesFieldRecordingsTeam",
+  "text": "Komanda Terenskih Zapisov EA Los Angeles"
+ },
+ {
+  "label": "CREDITS:TiburonQualityAssuranceSeniorLead",
+  "text": "Starši Vodja Kontroly Kačestva EA Tiburon"
+ },
+ {
+  "label": "CREDITS:TiburonQualityAssuranceProjectLead",
+  "text": "Vodja Projekta Kontroly Kačestva EA Tiburon"
+ },
+ {
+  "label": "CREDITS:TiburonAssociateQualityAssuranceLeads",
+  "text": "Pomoćni Vodji Kontroly Kačestva EA Tiburon"
+ },
+ {
+  "label": "CREDITS:TiburonQualityAssuranceSeniorTesters",
+  "text": "Starši Testeri Kontroly Kačestva EA Tiburon"
+ },
+ {
+  "label": "CREDITS:TiburonQualityAssuranceTesters",
+  "text": "Testeri Kontroly Kačestva EA Tiburon"
+ },
+ {
+  "label": "CREDITS:EAUKAdditionalQualityAssurance",
+  "text": "Dodatna Kontrola Kačestva EAUK"
+ },
+ {
+  "label": "CREDITS:MultiplayerTestParticipants",
+  "text": "Učestniky Testa Multiigry"
+ },
+ {
+  "label": "CREDITS:FocusTesters",
+  "text": "Fokusni Testeri"
+ },
+ {
+  "label": "CREDITS:NorthAmericaMarketingPartners",
+  "text": "Marketingovi Partneri Sěvernoj Ameriky"
+ },
+ {
+  "label": "CREDITS:ManagingDirectorEurope",
+  "text": "Upravjajuči Direktor, Evropa"
+ },
+ {
+  "label": "CREDITS:EuropeanMarketingPartners",
+  "text": "Evropski Marketingovi Partneri"
+ },
+ {
+  "label": "CREDITS:AsiaPacificPresidentandCoach",
+  "text": "EA Azija-Pacifik, Prezident i Trener"
+ },
+ {
+  "label": "CREDITS:AsiaPacificMarketingPartners",
+  "text": "Marketingovi Partneri EA Azija-Pacifik"
+ },
+ {
+  "label": "CREDITS:GamingCommunityPartners",
+  "text": "Partneri Igrovoj Zajednice"
+ },
+ {
+  "label": "CREDITS:EADevelopmentExecutives",
+  "text": "Rukovoditelji Razvoja EA"
+ },
+ {
+  "label": "CREDITS:SpecialThankstotheMaxiscrew",
+  "text": "Specijalna Hvala Komandě Maxis"
+ },
+ {
+  "label": "CREDITS:VerySpecialThanks",
+  "text": "Veoma Specijalna Hvala"
+ },
+ {
+  "label": "CREDITS:DevelopmentTitle",
+  "text": "Command & Conquer (TM) Generals Zero Hour bylo razvito"
+ },
+ {
+  "label": "CREDITS:EAPacificDevTeam",
+  "text": "Electronic Arts Los Angeles"
+ },
+ {
+  "label": "CREDITS:ExecutiveInCharge",
+  "text": "Rukovoditelj Produkcije"
+ },
+ {
+  "label": "CREDITS:Producer",
+  "text": "Producent"
+ },
+ {
+  "label": "CREDITS:LeadDesigner",
+  "text": "Vodeči Dizajner"
+ },
+ {
+  "label": "CREDITS:TechnicalDirector",
+  "text": "Tehničny Direktor"
+ },
+ {
+  "label": "CREDITS:ArtDirector",
+  "text": "Umětničny Direktor"
+ },
+ {
+  "label": "CREDITS:ArtProducer",
+  "text": "Umětničny Producent"
+ },
+ {
+  "label": "CREDITS:SeniorProducer",
+  "text": "Starši Producent"
+ },
+ {
+  "label": "CREDITS:AssociateProducers",
+  "text": "Pomoćny Producent"
+ },
+ {
+  "label": "CREDITS:MultiplayerTestProducer",
+  "text": "Producent Testa Multiigry"
+ },
+ {
+  "label": "CREDITS:SeniorEngineers",
+  "text": "Starši Inženěry"
+ },
+ {
+  "label": "CREDITS:Engineers",
+  "text": "Inženěry"
+ },
+ {
+  "label": "CREDITS:AdditionalEngineering",
+  "text": "Dodatno Inženěrstvo"
+ },
+ {
+  "label": "CREDITS:Designers",
+  "text": "Dizajnery"
+ },
+ {
+  "label": "CREDITS:AdditionalDesignInspirationandSupport",
+  "text": "Dodatny Dizajn, Inspiracija i Podpira"
+ },
+ {
+  "label": "CREDITS:AdditionalDesign",
+  "text": "Dodatny Dizajn"
+ }
+]
