@@ -130,3 +130,15 @@ Battlemaster, Overlord), and generic ones are translated ("Komandny centr", "Če
 and "generale". Unlike the German and French packs, multiplayer map names are translated, as
 in the Russian and Ukrainian ones. The generals' taunts keep their jokes and register (the
 USA general's "momče"/"sinko", the MOAB "in the morning" line) rather than going word for word.
+
+## Spanish
+
+`languages/spanish/generals.str` is a new translation from the English original. It uses the
+names of the official Spanish (Spain) release: the GLA is "ELG", the USA "EE. UU." and
+the PLA "EPL", and units and buildings are "Centro de mando", "Tormenta SCUD", "Cañón de
+partículas", "Red de túneles", "Cañón cuádruple", "Secuestrador", "Loto Negro" and so on. The
+interface talks to the player with "tú"; EVA, officers and the enemy generals use "usted" and
+"general", apart from the USA boss, who calls the player "chaval" and "mocoso" as in English.
+Multiplayer map names stay in English. Jokes and film or ad parodies are carried over as
+Spanish ones ("Otro que muerde el polvo", "Me encanta el olor a MOAB por la mañana", "¡Limpieza
+en el pasillo uno!") rather than word for word.
