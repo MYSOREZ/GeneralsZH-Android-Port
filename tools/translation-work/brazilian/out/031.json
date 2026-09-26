@@ -1,0 +1,802 @@
+[
+ {
+  "label": "CONTROLBAR:Infa_ConstructChinaInfantryHacker",
+  "text": "Super H&acker"
+ },
+ {
+  "label": "CONTROLBAR:Infa_ToolTipChinaBuildHacker",
+  "text": "Furtivo. Pode desativar prédios e veículos inimigos com um vírus de computador ou invadir a Internet para roubar dinheiro \n \n Forte contra: prédios \n Fraco contra: infantaria, veículos"
+ },
+ {
+  "label": "CONTROLBAR:Infa_ConstructChinaInfantryBlackLotus",
+  "text": "&Super Lótus"
+ },
+ {
+  "label": "CONTROLBAR:Infa_ConstructChinaVehicleListeningOutpost",
+  "text": "Posto de &Ataque"
+ },
+ {
+  "label": "CONTROLBAR:Infa_ConstructChinaVehicleTroopCrawler",
+  "text": "Transporte de Tropas de &Assalto"
+ },
+ {
+  "label": "CONTROLBAR:Infa_ConstructChinaVehicleHelix",
+  "text": "Heli&x de Assalto"
+ },
+ {
+  "label": "CONTROLBAR:Infa_ToolTipChinaBuildHelix",
+  "text": "Transporte de assalto de carga pesada \n pode receber defesas de base e bomba de napalm \n \n Forte contra: tanques, veículos leves \n Fraco contra: infantaria com mísseis, defesas antiaéreas"
+ },
+ {
+  "label": "OBJECT:Infa_Helix",
+  "text": "Helix de Assalto"
+ },
+ {
+  "label": "CONTROLBAR:Infa_ToolTipChinaScienceInfantryParadrop",
+  "text": "Lança Minigunners do ar \n \n Nível 1: 5 Minigunners \n Nível 2: 10 Minigunners \n Nível 3: 15 Minigunners \n \n Implantar a partir de: Centro de Comando"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeSuicideBomb",
+  "text": "Habilidade de &Demolição"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAUpgradeSuicideBomb",
+  "text": "Permite que todas as unidades \n e defesas de base usem \n a habilidade de demolição"
+ },
+ {
+  "label": "OBJECT:MiniGunner",
+  "text": "Minigunner"
+ },
+ {
+  "label": "OBJECT:AirF_Chinook",
+  "text": "Chinook de Combate"
+ },
+ {
+  "label": "CONTROLBAR:AirF_ConstructAmericaVehicleChinook",
+  "text": "Chinook de Com&bate"
+ },
+ {
+  "label": "CONTROLBAR:AirF_ToolTipUSABUildChinook",
+  "text": "Helicóptero de transporte de assalto. Coleta suprimentos. Atua com os Rangers no ataque de desembarque de combate"
+ },
+ {
+  "label": "CONTROLBAR:SuicideAttack",
+  "text": "Su&icídio"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLASuicideAttack",
+  "text": "Detonar"
+ },
+ {
+  "label": "CONTROLBAR:Tank_TooltipUpgradeChinaNuclearTanks",
+  "text": "+25% de velocidade para o Imperador e o Battlemaster"
+ },
+ {
+  "label": "CONTROLBAR:Boss_ToolTipUSABuildPowerPlant",
+  "text": "Fornece energia às bases \n \n Energia fornecida: 5"
+ },
+ {
+  "label": "CONTROLBAR:Nuke_ToolTipChinaBuildListeningOutpost",
+  "text": "Transporte de assalto. Detecta unidades furtivas \n \n Forte contra: infantaria, prédios \n Fraco contra: tanques, aeronaves"
+ },
+ {
+  "label": "CONTROLBAR:Nuke_ConstructChinaVehicleListeningOutpost",
+  "text": "Posto de E&scuta de Assalto"
+ },
+ {
+  "label": "CONTROLBAR:Infa_ToolTipChinaBuildTroopCrawler",
+  "text": "Transporte de assalto. Vem com 8 Minigunners. Detecta unidades furtivas \n \n Forte contra: infantaria, prédios \n Fraco contra: tanques, aeronaves"
+ },
+ {
+  "label": "CONTROLBAR:Infa_ToolTipChinaBuildListeningOutpost",
+  "text": "Transporte. Leva 8 unidades de infantaria. Detecta unidades furtivas \n \n Forte contra: infantaria, prédios \n Fraco contra: tanques, aeronaves"
+ },
+ {
+  "label": "CONTROLBAR:Infa_ConstructChinaBunker",
+  "text": "Bun&ker Fortificado"
+ },
+ {
+  "label": "CONTROLBAR:Infa_ToolTipChinaBuildBunker",
+  "text": "Pode abrigar 10 soldados chineses \n Vem com a melhoria de campo minado"
+ },
+ {
+  "label": "OBJECT:Infa_Bunker",
+  "text": "Bunker Fortificado"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAScienceSneakAttack",
+  "text": "As tropas podem criar um túnel em qualquer lugar do mapa \n \n Implantar a partir de: Centro de Comando"
+ },
+ {
+  "label": "CONTROLBAR:Chem_ConstructGLAInfantryRebel",
+  "text": "Re&belde Tóxico"
+ },
+ {
+  "label": "CONTROLBAR:Chem_ToolTipGLABuildRebel",
+  "text": "Dispara um jato de toxina \n Forte contra: infantaria \n Fraco contra: tanques, veículos leves"
+ },
+ {
+  "label": "OBJECT:Chem_Rebel",
+  "text": "Rebelde Tóxico"
+ },
+ {
+  "label": "OBJECT:Chem_Terrorist",
+  "text": "Terrorista Tóxico"
+ },
+ {
+  "label": "CONTROLBAR:Chem_ConstructGLAInfantryTerrorist",
+  "text": "&Terrorista Tóxico"
+ },
+ {
+  "label": "CONTROLBAR:Chem_ToolTipGLABuildTerrorist",
+  "text": "Soldado suicida que explode numa nuvem de toxina"
+ },
+ {
+  "label": "CONTROLBAR:Chem_ConstructGLATunnelNetwork",
+  "text": "&Rede Tóxica"
+ },
+ {
+  "label": "OBJECT:Chem_TunnelNetwork",
+  "text": "Rede Tóxica"
+ },
+ {
+  "label": "CONTROLBAR:Chem_ToolTipGLABuildTunnelNetwork",
+  "text": "Defesa de base e túnel subterrâneo. Dispara um jato de toxina. As unidades podem entrar na Rede de Túneis e sair por qualquer outra Rede de Túneis"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeStealthComanche",
+  "text": "Melhoria &Furtiva"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipAirFUpgradeComancheStealth",
+  "text": "Os Comanches ficam furtivos"
+ },
+ {
+  "label": "OBJECT:Entrance",
+  "text": "Entrada"
+ },
+ {
+  "label": "CONTROLBAR:Boss_TooltipChinaUpgradeNationalism",
+  "text": "+25% no bônus de horda do Caçador de Tanques"
+ },
+ {
+  "label": "CONTROLBAR:Lazr_ToolTipUSABuildPowerPlant",
+  "text": "Fornece energia às bases dos EUA \n \n Energia fornecida: 8"
+ },
+ {
+  "label": "GUI:DoubleClickAttackMove",
+  "text": "Guarda com clique duplo"
+ },
+ {
+  "label": "TOOLTIP:DoubleClickAttackMove",
+  "text": "As unidades do jogador se deslocam e depois guardam a área de destino quando o botão de ação recebe um clique duplo"
+ },
+ {
+  "label": "DIALOGEVENT:01_AllCheerSoundSubtitle",
+  "text": "<Vivas>"
+ },
+ {
+  "label": "CONTROLBAR:Lazr_ToolTipUSABuildPatriotBattery",
+  "text": "Defesa terrestre e antiaérea. Pode transmitir a posição do inimigo às torres próximas \n \n Energia necessária: 5"
+ },
+ {
+  "label": "CONTROLBAR:Lazr_ConstructAmericaPatriotBattery",
+  "text": "&Torre de Defesa a Laser"
+ },
+ {
+  "label": "CONTROLBAR:Lazr_ConstructAmericaTankCrusader",
+  "text": "&Tanque Laser"
+ },
+ {
+  "label": "OBJECT:Lazr_Tank",
+  "text": "Tanque Laser"
+ },
+ {
+  "label": "CONTROLBAR:Lazr_ToolTipUSABuildCrusader",
+  "text": "Forte contra: veículos, prédios \n Fraco contra: aeronaves, infantaria com mísseis"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildEmperor",
+  "text": "Forte contra: veículos, prédios \n Fraco contra: foguetes, aeronaves"
+ },
+ {
+  "label": "CONTROLBAR:AirF_ToolTipUSAScienceSpectreGunship",
+  "text": "As Canhoneiras Spectre circulam sobre o campo de batalha e castigam as forças inimigas com obuseiros e canhões Gatling \n \nNível 1: 10 segundos \n Nível 2: 15 segundos \n Nível 3: 30 segundos \n \n Implantar a partir de: Centro de Comando"
+ },
+ {
+  "label": "OBJECT:ValveStation",
+  "text": "Estação de Válvulas"
+ },
+ {
+  "label": "HELP:Hijacker-01",
+  "text": "DICA: \n Mova um Sequestrador para um veículo inimigo para roubá-lo"
+ },
+ {
+  "label": "MAP:MD-USA04_Hint08",
+  "text": "DICA: \n Construa Bases de Fogo para ajudar a proteger sua base"
+ },
+ {
+  "label": "MAP:MD-USA04_Hint09",
+  "text": "TRANSMISSÃO RECEBIDA: \n Agente da CIA encontrado"
+ },
+ {
+  "label": "MAP:MD-USA04_Hint10",
+  "text": "DICA: \n Construa defesas no campo de petróleo para proteger os poços"
+ },
+ {
+  "label": "MAP:MD-USA04_Hint11",
+  "text": "TRANSMISSÃO RECEBIDA: \n A estação de rádio da GLA foi destruída"
+ },
+ {
+  "label": "MAP:MD-USA06Warning17",
+  "text": "ATENÇÃO: \n O Dr. Thrax costuma usar uma Rede de Túneis \n de Ataque Furtivo para surpreender os inimigos"
+ },
+ {
+  "label": "MD_GLA05-MilitaryBriefing:String_1",
+  "text": "\n O ataque à base chinesa começa agora \n A base deles logo será nossa"
+ },
+ {
+  "label": "MAP:MD_CHI03-Title-01",
+  "text": "Coburgo, Alemanha \n 'Libertação'"
+ },
+ {
+  "label": "MAP:MD_CHI03-Info-MissionObjective-01",
+  "text": "OBJETIVO DA MISSÃO: \n Destrua as estátuas da GLA para libertar a cidade \n Nossa Opinião Internacional cairá até conseguirmos"
+ },
+ {
+  "label": "MAP:MD_CHI03-Info-MissionObjective-02",
+  "text": "TRANSMISSÃO RECEBIDA: \n Se nossa Opinião Internacional chegar a 0, seremos derrotados"
+ },
+ {
+  "label": "MAP:MD_CHI03-Info-MissionObjective-03",
+  "text": "TRANSMISSÃO RECEBIDA: \n Destrua as estátuas da GLA para aumentar nossa Opinião Internacional"
+ },
+ {
+  "label": "MAP:MD_CHI03-Info-MissionObjective-10",
+  "text": "TRANSMISSÃO RECEBIDA: \n Libertamos a cidade \n Agora extermine a base da GLA na margem norte do rio"
+ },
+ {
+  "label": "MAP:MD_CHI03-Event-Built-SpeakerTower-01",
+  "text": "TRANSMISSÃO RECEBIDA: \n Esta Torre de Alto-falantes aumenta nossa Opinião Internacional"
+ },
+ {
+  "label": "CONTROLBAR:Tank_TooltipUpgradeChinaUraniumShells",
+  "text": "+25% de dano por disparo no Battlemaster e no Imperador"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAUpgradeBuggyAmmo",
+  "text": "+100% de munição do Buggy de Foguetes"
+ },
+ {
+  "label": "CONTROLBAR:Chem_ToolTipGLAUpgradeAPBullets",
+  "text": "+25% de dano nas unidades que disparam balas"
+ },
+ {
+  "label": "GUI:BioFeatures_USA",
+  "text": "MOAB \n Contramedidas \n Destruidor de Bunker \n Drone Hellfire \n Canhoneira Spectre \n Drone Sentinela \n Tanque de Micro-ondas \n Avenger \n Base de Fogo"
+ },
+ {
+  "label": "GUI:BioFeatures_GLA",
+  "text": "Ataque Furtivo \n Bloqueador de GPS \n Sabotador \n Armadilha \n Rede de Camuflagem \n Prédios falsos \n Prédios fortificados \n Motos de Combate \n Ônibus de Batalha"
+ },
+ {
+  "label": "GUI:BioFeatures_China",
+  "text": "Helix \n Posto de Escuta \n Minas de Nêutrons \n Frenesi \n Centro de Internet \n Bombardeiro em Tapete \n Tanque ECM \n"
+ },
+ {
+  "label": "GUI:BioFeatures_Pos0",
+  "text": "King Raptors \n Chinooks de Combate \n Defesas laser pontuais \n Melhoria Comanche Furtivo \n Aeronaves mais baratas \n Canhoneira Spectre em nível mais baixo \n Começa com o Caça Furtivo \n Sem tanques"
+ },
+ {
+  "label": "GUI:BioFeatures_Pos1",
+  "text": "Rebeldes Tóxicos \n Redes Tóxicas \n Terroristas Tóxicos \n Antraz Gama \n Os tanques começam com Projéteis de Toxina \n As toxinas começam como Antraz Beta"
+ },
+ {
+  "label": "GUI:BioFeatures_Pos2",
+  "text": "Os tanques começam com Projéteis de Urânio \n MiG Nuclear Tático \n Melhoria Estabilidade Isotópica \n Reator Nuclear Avançado \n Bombardeiro Nuclear \n Começa com Canhões Nucleares"
+ },
+ {
+  "label": "GUI:BioFeatures_Pos3",
+  "text": "Aurora Alfa \n Sistema Patriot EMP \n Barras Avançadas \n Canhões de Partículas mais baratos \n Veículos mais caros \n Sem tanques"
+ },
+ {
+  "label": "GUI:BioFeatures_Pos4",
+  "text": "Tanque Imperador \n Lançamento de Tanques \n Todos os tanques começam como veteranos \n Tanques mais baratos \n Aeronaves mais caras \n Sem Canhões Nucleares nem Inferno"
+ },
+ {
+  "label": "GUI:BioFeatures_Pos5",
+  "text": "Tanque Laser \n Torre de Defesa a Laser \n Avengers mais baratos \n Reatores de Fusão a Frio Avançados \n Sem Lançadores de Mísseis Tomahawk"
+ },
+ {
+  "label": "GUI:BioFeatures_Pos6",
+  "text": "Todas as estruturas podem receber Rede de Camuflagem \n Rebeldes camuflados \n As defesas começam com Rede de Camuflagem \n Começa com o Sequestrador \n O Sequestrador é sempre invisível \n Recebe o Bloqueador de GPS mais cedo \n Pode usar o Bloqueador de GPS com mais frequência"
+ },
+ {
+  "label": "GUI:BioFeatures_Pos7",
+  "text": "Transporte de Tropas de Assalto \n Helix de Assalto \n Posto de Ataque \n Bunkers Fortificados \n Minigunner \n A Lótus Negra invade mais rápido \n Os Hackers invadem mais rápido \n Lançamento de Minigunners \n Toda a infantaria começa como veterana"
+ },
+ {
+  "label": "GUI:BioFeatures_Pos8",
+  "text": "Armadilha Explosiva Avançada \n Melhoria Bomba Suicida \n Os Terroristas causam mais dano \n Começa com a Armadilha \n As Motos de Combate começam com um Terrorista \n Sem unidades camufladas \n Caminhões-Bomba mais baratos"
+ },
+ {
+  "label": "GUI:BioFeatures_Pos9",
+  "text": "Usa o melhor do melhor \n Todos os heróis \n Todas as superarmas \n Poderes de general variados \n Unidades de todas as facções \n Defesas avançadas \n"
+ },
+ {
+  "label": "GUI:BioFeatures_Pos10",
+  "text": "não implementado"
+ },
+ {
+  "label": "GUI:BioFeatures_Pos11",
+  "text": "não implementado"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_AirTrafficControl01Subtitle",
+  "text": "***"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth107Subtitle",
+  "text": "***"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth105Subtitle",
+  "text": "***"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth106Subtitle",
+  "text": "***"
+ },
+ {
+  "label": "GUI:GroupRoom14",
+  "text": "Só exércitos originais"
+ },
+ {
+  "label": "OBJECT:MissileSilo",
+  "text": "Silo de Mísseis"
+ },
+ {
+  "label": "OBJECT:ScudLauncherHiDef",
+  "text": "Lançador Scud"
+ },
+ {
+  "label": "OBJECT:CINE_SnowyMountainParticleBones",
+  "text": "."
+ },
+ {
+  "label": "OBJECT:CINE_SnowyMountainScrollingSnow",
+  "text": "Neve"
+ },
+ {
+  "label": "OBJECT:CINE_SnowyMountainStatic",
+  "text": "Montanha"
+ },
+ {
+  "label": "OBJECT:CINE_TreeBirds",
+  "text": "Pássaros"
+ },
+ {
+  "label": "TOOLTIP:NoUserMaps",
+  "text": "Mapas não oficiais não são permitidos em partidas com registro de estatísticas"
+ },
+ {
+  "label": "GUI:FireWallPort",
+  "text": "Substituir porta do firewall:"
+ },
+ {
+  "label": "TOOLTIP:FireWallPort",
+  "text": "Número da porta aberta do firewall"
+ },
+ {
+  "label": "CONTROLBAR:Tank_TooltipUpgradeChinaOverlordGattlingCannon",
+  "text": "Constrói um Canhão Gatling neste Imperador"
+ },
+ {
+  "label": "OBJECT:Tank_Overlord",
+  "text": "Imperador"
+ },
+ {
+  "label": "GUI:USAAllies",
+  "text": "Aliados dos EUA"
+ },
+ {
+  "label": "GUI:USAEnemies",
+  "text": "Inimigos dos EUA"
+ },
+ {
+  "label": "OBJECT:BigNuclearReactor",
+  "text": "Reator Nuclear"
+ },
+ {
+  "label": "CONTROLBAR:SabotageBuilding",
+  "text": "Sabotar &prédio"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLASabotageBuilding",
+  "text": "Pode desativar temporariamente prédios inimigos \n \n Forte contra: estruturas inimigas \n Fraco contra: infantaria, batedores"
+ },
+ {
+  "label": "SCIENCE:Nuke_ChinaCarpetBomb",
+  "text": "Bombardeiro Nuclear"
+ },
+ {
+  "label": "CONTROLBAR:Demo_ConstructGLADemoTrap",
+  "text": "Armadilha &Explosiva Avançada"
+ },
+ {
+  "label": "CONTROLBAR:Nuke_ConstructChinaPowerPlant",
+  "text": "&Reator Nuclear Avançado"
+ },
+ {
+  "label": "CONTROLBAR:SupW_UpgradeAmericaAdvancedControlRods",
+  "text": "Barras de &Controle Avançadas"
+ },
+ {
+  "label": "CONTROLBAR:Nuke_CarpetBomb",
+  "text": "Bombardeiro Nu&clear"
+ },
+ {
+  "label": "OBJECT:Nuke_NuclearReactor",
+  "text": "Reator Nuclear Avançado"
+ },
+ {
+  "label": "OBJECT:Demo_DemoTrap",
+  "text": "Armadilha Explosiva Avançada"
+ },
+ {
+  "label": "CONTROLBAR:Nuke_ToolTipChinaBuildPowerPlant",
+  "text": "Reator Nuclear Avançado. Pode ser sobrecarregado para fornecer mais energia \n \n Energia fornecida: 18"
+ },
+ {
+  "label": "CONTROLBAR:Nuke_ToolTipChinaScienceCarpetBomb",
+  "text": "Permite chamar um bombardeiro pesado para um bombardeio em tapete numa área com armas nucleares táticas \n \n Implantar a partir de: Centro de Comando"
+ },
+ {
+  "label": "CONTROLBAR:Nuke_TooltipCarpetBomb",
+  "text": "Ataque nuclear numa área-alvo \n \n Tempo de recarga: 3:00"
+ },
+ {
+  "label": "GUI:FastForwardInstructions",
+  "text": "Pressione F para ativar/desativar o avanço rápido"
+ },
+ {
+  "label": "GUI:FF_ON",
+  "text": "Avanço rápido ativado"
+ },
+ {
+  "label": "GUI:FF_OFF",
+  "text": "Avanço rápido desativado"
+ },
+ {
+  "label": "CONTROLBAR:LeafletDropShort",
+  "text": "Panfletos"
+ },
+ {
+  "label": "CONTROLBAR:SneakAttackShort",
+  "text": "Ataque Furtivo"
+ },
+ {
+  "label": "CONTROLBAR:TankParadropShort",
+  "text": "Lançar tanques"
+ },
+ {
+  "label": "OBJECT:Nuke_CarpetBomb",
+  "text": "Bombardeiro Nuclear"
+ },
+ {
+  "label": "CONTROLBAR:Slth_ConstructGLAInfantryRebel",
+  "text": "Re&belde Furtivo"
+ },
+ {
+  "label": "GUI:AdjustGameSpeed",
+  "text": "Ajustar velocidade do jogo"
+ },
+ {
+  "label": "GUI:SkirmishLower",
+  "text": "Escaramuça"
+ },
+ {
+  "label": "GUI:Refresh",
+  "text": "Atualizar"
+ },
+ {
+  "label": "CONTROLBAR:MOAB",
+  "text": "Mãe de Todas as &Bombas"
+ },
+ {
+  "label": "MAP:TournamentPlains",
+  "text": "Tournament Plains"
+ },
+ {
+  "label": "MAP:DarkNight",
+  "text": "Dark Night"
+ },
+ {
+  "label": "MAP:TournamentUrban",
+  "text": "Tournament Urban"
+ },
+ {
+  "label": "MAP:TwoRoads",
+  "text": "Two Roads"
+ },
+ {
+  "label": "CONTROLBAR:Chem_TooltipFireRebelAmbush",
+  "text": "Cria rebeldes tóxicos \n \n Tempo de recarga: 4:00"
+ },
+ {
+  "label": "CONTROLBAR:AirF_ToolTipUSABuildAurora",
+  "text": "O ataque supersônico torna o Aurora imune ao fogo inimigo. Após o ataque supersônico, a velocidade do Aurora cai para 50% \n \n Forte contra: prédios \n Fraco contra: caças, unidades antiaéreas"
+ },
+ {
+  "label": "CONTROLBAR:Chem_ToolTipGLAScienceRebelAmbush",
+  "text": "Permite criar uma emboscada surpresa de Rebeldes Tóxicos em qualquer lugar \n \n Nível 1: 4 Rebeldes Tóxicos \n Nível 2: 8 Rebeldes Tóxicos \n Nível 3: 16 Rebeldes Tóxicos \n \n Implantar a partir de: Centro de Comando"
+ },
+ {
+  "label": "CREDITS:PackagingProjectManager",
+  "text": "Gerente de projeto de embalagem"
+ },
+ {
+  "label": "CREDITS:PackagingDesign",
+  "text": "Design de embalagem"
+ },
+ {
+  "label": "CREDITS:DocumentationLayout",
+  "text": "Diagramação da documentação"
+ },
+ {
+  "label": "CREDITS:DocumentationEditor",
+  "text": "Editor da documentação"
+ },
+ {
+  "label": "CREDITS:Writer",
+  "text": "Roteirista"
+ },
+ {
+  "label": "CREDITS:Studio",
+  "text": "Estúdio"
+ },
+ {
+  "label": "CREDITS:ChineseLanguageTester",
+  "text": "Testador do idioma chinês"
+ },
+ {
+  "label": "CREDITS:Marketing",
+  "text": "Marketing"
+ },
+ {
+  "label": "CREDITS:QuotedTraducoes",
+  "text": "Quoted Traduções"
+ },
+ {
+  "label": "CREDITS:ClementDuval",
+  "text": "Clément Duval"
+ },
+ {
+  "label": "CREDITS:JoseLuisRovira",
+  "text": "José Luis Rovira"
+ },
+ {
+  "label": "CREDITS:ExecutiveProducer",
+  "text": "Produtor executivo"
+ },
+ {
+  "label": "CREDITS:TechnicalDirection",
+  "text": "Direção técnica"
+ },
+ {
+  "label": "CREDITS:LeadArtists",
+  "text": "Artistas-chefes"
+ },
+ {
+  "label": "CREDITS:QualityAssurance",
+  "text": "Controle de qualidade"
+ },
+ {
+  "label": "CREDITS:TestAnalysts",
+  "text": "Analistas de testes"
+ },
+ {
+  "label": "CREDITS:TiburonAdditionalQualityAssurance",
+  "text": "Controle de qualidade adicional da Tiburon"
+ },
+ {
+  "label": "CREDITS:LocalizationBrazil",
+  "text": "Localização no Brasil"
+ },
+ {
+  "label": "CREDITS:TranslationServices",
+  "text": "Serviços de tradução"
+ },
+ {
+  "label": "CREDITS:TranslationCoordinator",
+  "text": "Coordenador de tradução"
+ },
+ {
+  "label": "CREDITS:LTCoordinator",
+  "text": "Coordenador de LT"
+ },
+ {
+  "label": "CREDITS:RecordingStudio",
+  "text": "Estúdio de gravação"
+ },
+ {
+  "label": "CREDITS:EAWorldwideDevelopmentExecutives",
+  "text": "Executivos de desenvolvimento mundial da EA"
+ },
+ {
+  "label": "CREDITS:SpecialThanks",
+  "text": "Agradecimentos especiais"
+ },
+ {
+  "label": "CREDITS:EAPacificDevTeam3",
+  "text": "Equipe de desenvolvimento"
+ },
+ {
+  "label": "CREDITS:NACustomerQualityControl",
+  "text": "Controle de qualidade para o cliente da América do Norte"
+ },
+ {
+  "label": "CONTROLBAR:SupW_TooltipUSAUpgradeAdvancedControlRods",
+  "text": "O reator fornece 300% mais energia"
+ },
+ {
+  "label": "CONTROLBAR:AirF_ToolTipUSABuildStealthFighter",
+  "text": "Furtivo em movimento \n Equipado com laser de defesa pontual \n \n Forte contra: defesas de base inimigas \n Fraco contra: caças inimigos"
+ },
+ {
+  "label": "GUI:RetaliationTitle",
+  "text": "Retaliação"
+ },
+ {
+  "label": "GUI:Retaliation",
+  "text": "Desative este botão para que suas unidades não revidem automaticamente os ataques inimigos"
+ },
+ {
+  "label": "CREDITS:LocalizationChinese",
+  "text": "Localização em chinês"
+ },
+ {
+  "label": "MAP:Breakdown",
+  "text": "Breakdown"
+ },
+ {
+  "label": "MAP:BulletMassacre",
+  "text": "Bullet Massacre"
+ },
+ {
+  "label": "MAP:CarnageCityLimits",
+  "text": "Carnage City Limits"
+ },
+ {
+  "label": "MAP:Cityscape",
+  "text": "Cityscape"
+ },
+ {
+  "label": "MAP:CivilUnrest",
+  "text": "Civil Unrest"
+ },
+ {
+  "label": "MAP:CottageCheese",
+  "text": "Cottage Cheese"
+ },
+ {
+  "label": "MAP:DeathValley",
+  "text": "Death Valley"
+ },
+ {
+  "label": "MAP:DogsOfWar",
+  "text": "Dogs of War"
+ },
+ {
+  "label": "MAP:DoorToDoor",
+  "text": "Door to Door"
+ },
+ {
+  "label": "MAP:FarmersFrenzy",
+  "text": "Farmers Frenzy"
+ },
+ {
+  "label": "MAP:Firestorm",
+  "text": "Firestorm"
+ },
+ {
+  "label": "MAP:FlakAttack",
+  "text": "Flak Attack"
+ },
+ {
+  "label": "MAP:FlankTown",
+  "text": "Flank Town"
+ },
+ {
+  "label": "MAP:Flashbang",
+  "text": "Flash Bang"
+ },
+ {
+  "label": "MAP:FoxHunt",
+  "text": "Fox Hunt"
+ },
+ {
+  "label": "MAP:GhostTown",
+  "text": "Ghost Town"
+ },
+ {
+  "label": "MAP:HighRoad",
+  "text": "High Road"
+ },
+ {
+  "label": "MAP:HighlandHunt",
+  "text": "Highland Hunt"
+ },
+ {
+  "label": "MAP:HostileDawn",
+  "text": "Hostile Dawn"
+ },
+ {
+  "label": "MAP:IslandInTheZone",
+  "text": "Island in the Zone"
+ },
+ {
+  "label": "MAP:JungleRebellion",
+  "text": "Jungle Rebellion"
+ },
+ {
+  "label": "MAP:LARiot",
+  "text": "L.A. Riot"
+ },
+ {
+  "label": "MAP:Liberation",
+  "text": "Liberation"
+ },
+ {
+  "label": "MAP:LongNight",
+  "text": "Long Night"
+ },
+ {
+  "label": "MAP:ManicAggression",
+  "text": "Manic Aggression"
+ },
+ {
+  "label": "MAP:Marshland",
+  "text": "Marshland"
+ },
+ {
+  "label": "MAP:Mirage",
+  "text": "Mirage"
+ },
+ {
+  "label": "MAP:PanicDemise",
+  "text": "Panic Demise"
+ },
+ {
+  "label": "MAP:PowerPlay",
+  "text": "Power Play"
+ },
+ {
+  "label": "MAP:RedRock",
+  "text": "Red Rock"
+ },
+ {
+  "label": "MAP:RubbleTown",
+  "text": "Rubble Town"
+ },
+ {
+  "label": "MAP:SeasideMutiny",
+  "text": "Seaside Mutiny"
+ },
+ {
+  "label": "MAP:ShellShocker",
+  "text": "Shell Shocker"
+ },
+ {
+  "label": "MAP:Shellshock",
+  "text": "Shellshock"
+ },
+ {
+  "label": "MAP:ShockAndAwe",
+  "text": "Shock and Awe"
+ },
+ {
+  "label": "MAP:Shockwave",
+  "text": "Shockwave"
+ }
+]

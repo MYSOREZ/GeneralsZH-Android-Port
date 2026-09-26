@@ -1,0 +1,90 @@
+[
+ {
+  "label": "GUI:LoadReplayLong",
+  "text": "CARREGAR REPLAY"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak5",
+  "text": "Condecoração de Sequência \n O jogador venceu 5 partidas online seguidas"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak20",
+  "text": "Condecoração de Sequência \n O jogador venceu 20 partidas online seguidas"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAUpgradeBuggyAmmor",
+  "text": "+25% de munição do Buggy de Foguetes"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak3Disabled",
+  "text": "Condecoração de Sequência \n Vença 3 ou mais partidas seguidas para ganhar esta medalha"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorBlitz10Disabled",
+  "text": "Condecoração Blitz \n Vença o(s) adversário(s) do computador em 10 minutos ou menos para ganhar esta medalha"
+ },
+ {
+  "label": "GUI:CÀontrolBarBack",
+  "text": "VOLTAR"
+ },
+ {
+  "label": "GUI:BuddyAddReqMessageSent",
+  "text": "Pedido de amizade enviado"
+ },
+ {
+  "label": "GUI:BuddyAddReqMessageRejected",
+  "text": "Pedido de amizade recusado"
+ },
+ {
+  "label": "GUI:BuddyAddReqMessageAccepted",
+  "text": "Pedido de amizade aceito"
+ },
+ {
+  "label": "TOOLTIP:RefreshGamePlayerList",
+  "text": "Atualizar as listas de partidas e jogadores"
+ },
+ {
+  "label": "TOOLTIP:CommunicatorBuddyRadioButton",
+  "text": "Clique com o botão direito num nome da lista de jogadores para enviar um pedido de amizade"
+ },
+ {
+  "label": "TOOLTIP:CommunicatorIgnoreRadioButton",
+  "text": "Clique com o botão direito num nome da lista de jogadores para ignorar esse jogador"
+ },
+ {
+  "label": "GUI:GroupRoom15",
+  "text": "3 contra 3"
+ },
+ {
+  "label": "GUI:GroupRoom16",
+  "text": "4 contra 4"
+ },
+ {
+  "label": "GUI:GroupRoom17",
+  "text": "Novatos"
+ },
+ {
+  "label": "GUI:GroupRoom18",
+  "text": "Mods"
+ },
+ {
+  "label": "GUI:GroupRoom19",
+  "text": "Ranking"
+ },
+ {
+  "label": "GUI:GroupRoom20",
+  "text": "Alemanha"
+ },
+ {
+  "label": "GUI:GroupRoom21",
+  "text": "EUA"
+ },
+ {
+  "label": "GUI:GroupRoom22",
+  "text": "Coreia"
+ },
+ {
+  "label": "GUI:BeaconClear",
+  "text": "Limpar"
+ }
+]
