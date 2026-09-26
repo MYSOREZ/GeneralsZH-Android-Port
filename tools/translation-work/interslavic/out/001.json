@@ -1,0 +1,802 @@
+[
+ {
+  "label": "GUI:BuildingsBuilt",
+  "text": "Zgrady \n Postrojene"
+ },
+ {
+  "label": "GUI:BuildingsLost",
+  "text": "Zgrady \n Izgubjene"
+ },
+ {
+  "label": "GUI:BuildingsKilled",
+  "text": "Zgrady \n Uničtožene"
+ },
+ {
+  "label": "GUI:ResourcesCollected",
+  "text": "Snabděnje \n Sobrano"
+ },
+ {
+  "label": "GUI:QuitPopupTitle",
+  "text": "IZHOD?"
+ },
+ {
+  "label": "GUI:QuitPopupMessage",
+  "text": "Jeste li uverjeni, že hočete izhoditi?"
+ },
+ {
+  "label": "GUI:MaxSelectionSize",
+  "text": "Vy možete izbrati samo %d jedinic odrazu"
+ },
+ {
+  "label": "GUI:MessagesOn",
+  "text": "Poslanja Vključena"
+ },
+ {
+  "label": "GUI:MissionDescription",
+  "text": "Opis Misije"
+ },
+ {
+  "label": "GUI:MOTD",
+  "text": "Poslanje Dnja"
+ },
+ {
+  "label": "GUI:DesyncTitle",
+  "text": "Vně Synhronizacije"
+ },
+ {
+  "label": "GUI:DesyncText",
+  "text": "C&C Generals Zero Hour vyšel iz synhronizacije s drugimi učestnikami igry. Može byti, že drugi učestniki izměnili svoje versije. C&C Generals Zero Hour ne može prodolžiti, no vy možete dodati igračev v vaš Spisok Ignorovanih čerez Komunikator, ako ne hočete igrati s nimi v buduščnosti"
+ },
+ {
+  "label": "GUI:LadderDetails",
+  "text": "Informacije o Rejtingu"
+ },
+ {
+  "label": "GUI:SystemMaps",
+  "text": "Oficijalne Karty"
+ },
+ {
+  "label": "GUI:UserMaps",
+  "text": "Neoficijalne Karty"
+ },
+ {
+  "label": "GUI:WaitingToBeginConnection",
+  "text": "Čekanje na Načelo"
+ },
+ {
+  "label": "GUI:NetgearDelay",
+  "text": "Zaděržka Posylanja"
+ },
+ {
+  "label": "GUI:WaitingForManglerResponse",
+  "text": "Čekanje na otvět vnějšnjego Internet Provajdera"
+ },
+ {
+  "label": "GUI:WaitingForMangledPort",
+  "text": "Čekanje na nomer porta"
+ },
+ {
+  "label": "GUI:WaitingForResponse",
+  "text": "Čekanje na otvět proby"
+ },
+ {
+  "label": "GUI:ConnectionDone",
+  "text": "Sojedinjenje je zaveršeno"
+ },
+ {
+  "label": "GUI:ConnectionFailed",
+  "text": "Sojedinjenje ne uspělo"
+ },
+ {
+  "label": "GUI:UnknownConnectionState",
+  "text": "Status NAT/Firewalla je neznan"
+ },
+ {
+  "label": "GUI:Logout",
+  "text": "GLAVNO MENU"
+ },
+ {
+  "label": "GUI:CancelMapSelect",
+  "text": "OTKAZ"
+ },
+ {
+  "label": "GUI:Deny",
+  "text": "Otkloniti"
+ },
+ {
+  "label": "GUI:Victory",
+  "text": "Poběda"
+ },
+ {
+  "label": "GUI:Ignore",
+  "text": "IGNORIROVATI"
+ },
+ {
+  "label": "GUI:Unignore",
+  "text": "Otměniti Ignorovanje"
+ },
+ {
+  "label": "GUI:Stats",
+  "text": "Persona"
+ },
+ {
+  "label": "GUI:GetMapPack",
+  "text": "Skačati Paket Kart"
+ },
+ {
+  "label": "GUI:Defeat",
+  "text": "Poraženje"
+ },
+ {
+  "label": "GUI:YouAreVictorious",
+  "text": "Vy ste Pobědili!"
+ },
+ {
+  "label": "GUI:YouHaveBeenDefeated",
+  "text": "Vy ste Poraženy"
+ },
+ {
+  "label": "GUI:PlayerAlive",
+  "text": "Igra"
+ },
+ {
+  "label": "GUI:PlayerDead",
+  "text": "Poražen"
+ },
+ {
+  "label": "GUI:PlayerObserver",
+  "text": "Nabljudanje"
+ },
+ {
+  "label": "GUI:PlayerObserverGone",
+  "text": "Odsutny"
+ },
+ {
+  "label": "GUI:PlayerGone",
+  "text": "Odsutny"
+ },
+ {
+  "label": "GUI:PlayerName",
+  "text": "Imę Igrača"
+ },
+ {
+  "label": "GUI:Info",
+  "text": "Informacije o Igraču"
+ },
+ {
+  "label": "GUI:Players:",
+  "text": "Igrači:"
+ },
+ {
+  "label": "GUI:GameOptions:",
+  "text": "Nastavjenja Igry:"
+ },
+ {
+  "label": "GUI:GameName:",
+  "text": "Igra:"
+ },
+ {
+  "label": "GUI:MapName:",
+  "text": "Karta:"
+ },
+ {
+  "label": "GUI:SelectMap",
+  "text": "VYBERI KARTU"
+ },
+ {
+  "label": "GUI:SelectAMap",
+  "text": "VYBERI KARTU"
+ },
+ {
+  "label": "GUI:SelectAGame",
+  "text": "VYBERI IGRU"
+ },
+ {
+  "label": "GUI:Start",
+  "text": "IGRATI IGRU"
+ },
+ {
+  "label": "GUI:Host",
+  "text": "SOZDATI IGRU"
+ },
+ {
+  "label": "GUI:LocaleSelect",
+  "text": "VYBERITE VAŠ REGION"
+ },
+ {
+  "label": "GUI:Command&ConquerGenerals",
+  "text": "Command & Conquer (TM) Generals Zero Hour"
+ },
+ {
+  "label": "GUI:Command&Conquer",
+  "text": "Command & Conquer (TM)"
+ },
+ {
+  "label": "GUI:Generals",
+  "text": "Generals Zero Hour"
+ },
+ {
+  "label": "GUI:GeneralsOnline",
+  "text": "ONLAJN"
+ },
+ {
+  "label": "GUI:SendDelay",
+  "text": "Zaděržka Posylanja"
+ },
+ {
+  "label": "GUI:FirewallRefresh",
+  "text": "Obnoviti NAT"
+ },
+ {
+  "label": "GUI:Exit",
+  "text": "IZHOD IZ IGRY"
+ },
+ {
+  "label": "GUI:X",
+  "text": "X"
+ },
+ {
+  "label": "GUI:Campaign",
+  "text": "KAMPANJA"
+ },
+ {
+  "label": "GUI:WestwoodPacific",
+  "text": "EA Pacific"
+ },
+ {
+  "label": "GUI:ClickToDisplayGameInfo",
+  "text": "Kliknite, aby pokazati informacije o igrě"
+ },
+ {
+  "label": "GUI:GameInfo",
+  "text": "Informacije o Igrě"
+ },
+ {
+  "label": "GUI:OptionsDescription",
+  "text": "Pokazati Dialog Nastavjenj Igry"
+ },
+ {
+  "label": "GUI:SFXVolume",
+  "text": "Gromkost Zvukovyh Efektov"
+ },
+ {
+  "label": "GUI:3DSound",
+  "text": "3D Zvuk"
+ },
+ {
+  "label": "GUI:ScrollSpeed",
+  "text": "Skorost Skrolovanja"
+ },
+ {
+  "label": "GUI:Resolution",
+  "text": "Rezolucija"
+ },
+ {
+  "label": "GUI:Resolution0",
+  "text": "1024x768"
+ },
+ {
+  "label": "GUI:Resolution1",
+  "text": "800x600"
+ },
+ {
+  "label": "GUI:Resolution2",
+  "text": "640x480"
+ },
+ {
+  "label": "GUI:Detail",
+  "text": "Detaljnost"
+ },
+ {
+  "label": "GUI:???",
+  "text": "???"
+ },
+ {
+  "label": "GUI:Faction",
+  "text": "Armija"
+ },
+ {
+  "label": "GUI:AntiAliasing0",
+  "text": "Vyključeno"
+ },
+ {
+  "label": "GUI:AntiAliasing1",
+  "text": "Nizko"
+ },
+ {
+  "label": "GUI:AntiAliasing2",
+  "text": "Visoko"
+ },
+ {
+  "label": "GUI:IPAddresses",
+  "text": "LAN IP:"
+ },
+ {
+  "label": "GUI:MinPointPercent",
+  "text": "Minimalny Procent Poběd Trěbovan:"
+ },
+ {
+  "label": "GUI:MaxPointPercent",
+  "text": "Maksimalny Procent Poběd Dozvoljen:"
+ },
+ {
+  "label": "GUI:NumPlayers",
+  "text": "Igrači:"
+ },
+ {
+  "label": "GUI:PlayersVersusPlayers",
+  "text": "%dv%d"
+ },
+ {
+  "label": "GUI:TimeInMilliseconds",
+  "text": "%d ms"
+ },
+ {
+  "label": "GUI:MaxDisconnects",
+  "text": "Maksimum Otključenj Dozvoljeno:"
+ },
+ {
+  "label": "GUI:Confirm",
+  "text": "Jeste li uverjeni?"
+ },
+ {
+  "label": "GUI:NothingSelected",
+  "text": "Ničto ne izbrano"
+ },
+ {
+  "label": "GUI:SelectedAcrossScreen",
+  "text": "Izbrano na celom ekranu"
+ },
+ {
+  "label": "GUI:SelectedAcrossMap",
+  "text": "Izbrano na celoj karte"
+ },
+ {
+  "label": "KEYBOARD:Shift+",
+  "text": "Shift+"
+ },
+ {
+  "label": "KEYBOARD:Alt+",
+  "text": "Alt+"
+ },
+ {
+  "label": "KEYBOARD:Ctrl+",
+  "text": "Ctrl+"
+ },
+ {
+  "label": "TOOLTIP:ScienceCost",
+  "text": "Cěna: %d"
+ },
+ {
+  "label": "TOOLTIP:Cost",
+  "text": "Cěna: %d"
+ },
+ {
+  "label": "TOOLTIP:SupplyWarehouse",
+  "text": "\n $%d ostaje"
+ },
+ {
+  "label": "TOOLTIP:LobbyPlayers",
+  "text": "Igrači trenutno v Lobiju Igry"
+ },
+ {
+  "label": "TOOLTIP:StartWorldBuilder",
+  "text": "Startovati editor Stroitelja Světa"
+ },
+ {
+  "label": "TOOLTIP:GetUpdate",
+  "text": "Skačati obnovlenje igry"
+ },
+ {
+  "label": "TOOLTIP:GetMapPack",
+  "text": "Skačati novy paket kart"
+ },
+ {
+  "label": "TOOLTIP:Skirmish",
+  "text": "Vstupiti v menu nastavjenj Skirmiša"
+ },
+ {
+  "label": "TOOLTIP:Online",
+  "text": "Kliknite, aby vstupiti v C&C Generals Zero Hour Online. Isprobajte svoje uměnja protiv protivnikov iz cělogo světa!"
+ },
+ {
+  "label": "TOOLTIP:Network",
+  "text": "Kliknite, aby vstupiti v Sětevy Lobi. Isprobajte svoju silu protiv prijateljev čerez lokalnu seť"
+ },
+ {
+  "label": "TOOLTIP:Options",
+  "text": "Kliknite, aby izměniti nastavjenja igry. Vy možete nastroiti video, zvuk i preferencije igry"
+ },
+ {
+  "label": "TOOLTIP:Exit",
+  "text": "Izhoditi iz C&C Generals Zero Hour. Mnogo sreče na poljě boja, Komandire"
+ },
+ {
+  "label": "TOOLTIP:ExitGame",
+  "text": "Izhoditi iz C&C Generals Zero Hour. Mnogo sreče na poljě boja, Komandire"
+ },
+ {
+  "label": "TOOLTIP:LoadGame",
+  "text": "Kliknite, aby nagruziti izbranu igru"
+ },
+ {
+  "label": "TOOLTIP:MapPreviewWindow",
+  "text": "Prědgljady kart mogu vam dati prěimuščstvo v buduščem boju. Ne zabudite pogledati vaše Sklady Snabděnja i Tehnologične Zgrady. Vy takože možete izbrati svoju startovu poziciju"
+ },
+ {
+  "label": "TOOLTIP:SaveGame",
+  "text": "Kliknite, aby sohraniti vašu tekuču igru"
+ },
+ {
+  "label": "TOOLTIP:AcceptButton",
+  "text": "Prijmite vaš tekuči izbor"
+ },
+ {
+  "label": "TOOLTIP:CopyReplayToDesktop",
+  "text": "Kopirujte izbrany fajl Zapisa na vaš Rabočy Stol"
+ },
+ {
+  "label": "TOOLTIP:ProviderType",
+  "text": "Vyberite vaš Zvukovy Provajder"
+ },
+ {
+  "label": "TOOLTIP:SpeakerType",
+  "text": "Vyberite vašu Konfiguraciju Zvučnikov"
+ },
+ {
+  "label": "TOOLTIP:LANPlayer",
+  "text": "%ls@%ls"
+ },
+ {
+  "label": "TOOLTIP:Resolution",
+  "text": "Izberite rezoluciju ekrana za vašu igru. Čim věša rezolucija, tym medleněje běžit igra"
+ },
+ {
+  "label": "TOOLTIP:CommandCategory",
+  "text": "Izberite kategoriju komandy tastatury"
+ },
+ {
+  "label": "TOOLTIP:CommandDescription",
+  "text": "Opis vašej izbranoj komandy"
+ },
+ {
+  "label": "TOOLTIP:StartPosition",
+  "text": "Startova Pozicija"
+ },
+ {
+  "label": "TOOLTIP:SelectMap",
+  "text": "Izberite poljě boja, koje hočete upotrěbiti"
+ },
+ {
+  "label": "TOOLTIP:Vote",
+  "text": "Kliknite, aby glasovati za izgnanje igrača, aby vy mogli prodolžiti"
+ },
+ {
+  "label": "TOOLTIP:NumberOfVotes",
+  "text": "Glasy podani za izgnanje igrača"
+ },
+ {
+  "label": "TOOLTIP:QuitMultiplayerGame",
+  "text": "Izhod v menu igry"
+ },
+ {
+  "label": "TOOLTIP:RestartGame",
+  "text": "Restartovati igru s tymi istymi preferencijami"
+ },
+ {
+  "label": "TOOLTIP:Help",
+  "text": "."
+ },
+ {
+  "label": "TOOLTIP:StartLocation",
+  "text": "Startova pozicija"
+ },
+ {
+  "label": "TOOLTIP:ReturnToGame",
+  "text": "VRATITI SĘ V IGRU"
+ },
+ {
+  "label": "TOOLTIP:CommandList",
+  "text": "Dostupne komandy za tekuču kategoriju"
+ },
+ {
+  "label": "TOOLTIP:CurrentHotkey",
+  "text": "Pokazuje tekuču Hotkey za tutu komandu"
+ },
+ {
+  "label": "TOOLTIP:AssignHotkey",
+  "text": "Vpišite tu vašu novu Hotkey komandy"
+ },
+ {
+  "label": "TOOLTIP:AssignHotkeyCurrent",
+  "text": "Komanda, kojoj je tota Hotkey trenutno naznačena"
+ },
+ {
+  "label": "TOOLTIP:AssignButton",
+  "text": "Naznačuje vašu izbranu Hotkey komandu"
+ },
+ {
+  "label": "TOOLTIP:ResetAll",
+  "text": "Sbrošuje vse vaše Hotkeys tastatury na standardne"
+ },
+ {
+  "label": "TOOLTIP:BackButton",
+  "text": "Vratiti sę v prědhodne menu"
+ },
+ {
+  "label": "TOOLTIP:ProviderSelect",
+  "text": "Izberite 3D Zvukovy Provajder. Igra već izbrala vaš optimalny nastroj, no vy možete ručno izměniti, ako preferujete"
+ },
+ {
+  "label": "TOOLTIP:SpeakerSelect",
+  "text": "Izberite vaš nastroj zvučnikov. Igra već izbrala vaš optimalny nastroj, no vy možete ručno izměniti, ako preferujete"
+ },
+ {
+  "label": "TOOLTIP:DontUseAccount",
+  "text": "Vhodite bez upotrěbjenja vašego Akaunta C&C Generals Zero Hour Online. Vy ne budete moči pristupiti k vašej Personě Igrača ili Komunikatoru"
+ },
+ {
+  "label": "TOOLTIP:CommunicatorButton",
+  "text": "Kontaktujte vaše prijatelje"
+ },
+ {
+  "label": "TOOLTIP:NameButton",
+  "text": "Sortovati po imeni igry"
+ },
+ {
+  "label": "TOOLTIP:PingButton",
+  "text": "Sortovati po Pingu"
+ },
+ {
+  "label": "TOOLTIP:UseAccount",
+  "text": "Vstupite v C&C Generals Zero Hour Online"
+ },
+ {
+  "label": "TOOLTIP:Login",
+  "text": "Vstupite v C&C Generals Zero Hour Online"
+ },
+ {
+  "label": "TOOLTIP:CreateAccount",
+  "text": "Sozdajte novy akaunt C&C Generals Zero Hour Online"
+ },
+ {
+  "label": "TOOLTIP:TOS",
+  "text": "Pogledajte Uslovja Služby"
+ },
+ {
+  "label": "TOOLTIP:RememberInfo",
+  "text": "Zapomniti informacije vhoda. Ne rekomenduje sę za kompjutery s věče korisnikov"
+ },
+ {
+  "label": "TOOLTIP:Back",
+  "text": "Vratiti sę na prědhodny ekran"
+ },
+ {
+  "label": "TOOLTIP:BattleHonors",
+  "text": "Bojeve Časti, koje igrač polučil \n Bojeve Časti sę polučaju dostiženjem někotoryh cělej v solo ili multiigrě"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak3",
+  "text": "Čast Serii \n Igrač pobědil 3 igry Skirmiša podrjad \n Polučite novu medalju za 3, 10, 25, 100, 500 i 1000 poběd podrjad"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak10",
+  "text": "Čast Serii \n Igrač pobědil 10 igr Skirmiša podrjad \n Polučite novu medalju za 3, 10, 25, 100, 500 i 1000 poběd podrjad"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorLoyaltyUSA",
+  "text": "Čast Věrnosti USA \n Igrač igral 20+ igr podrjad kako USA"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorLoyaltyChina",
+  "text": "Čast Věrnosti Kitaja \n Igrač igral 20+ igr podrjad kako Kitaj"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorLoyaltyGLA",
+  "text": "Čast Věrnosti GLA \n Igrač igral 20+ igr podrjad kako GLA"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorBattleTank",
+  "text": "Čast Bojevogo Tanka \n Igrač postroil 50+ tankov v solo ili multiigrě onlajn"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorAirWing",
+  "text": "Čast Zračnogo Kryla \n Igrač postroil 20+ samoletov v solo ili multiigrě onlajn"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorEndurance",
+  "text": "Čast Vytrvalosti \n Pobědite vsaku kartu, aby polučiti Bronzovu, Srebrnu ili Zlatu medalju"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorCampaignUSA",
+  "text": "Čast Kampanje USA \n Zaveršite Kampanju USA, aby polučiti tutu čast \n Pobědite kampanju na Težkoj složnosti, aby dostigli najvyšu čast"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorCampaignChina",
+  "text": "Čast Kampanje Kitaja \n Zaveršite Kampanju Kitaja, aby polučiti tutu čast \n Pobědite kampanju na Težkoj složnosti, aby dostigli najvyšu čast"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorCampaignGLA",
+  "text": "Čast Kampanje GLA \n Zaveršite Kampanju GLA, aby polučiti tutu čast \n Pobědite kampanju na Težkoj složnosti, aby dostigli najvyšu čast"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorChallenge",
+  "text": "Čast Izzova \n Igrač pobědil kompjuterovogo protivnika na Težkoj složnosti"
+ },
+ {
+  "label": "TOOLTIP:ProgressToNextRank",
+  "text": "Napredok do slědujučego ranga"
+ },
+ {
+  "label": "TOOLTIP:SetLocale",
+  "text": "Izměnite vaš tekuči izbor Regiona"
+ },
+ {
+  "label": "TOOLTIP:DeleteAccount",
+  "text": "Odstranite vaš tekuči akaunt"
+ },
+ {
+  "label": "TOOLTIP:AsianText",
+  "text": "Kliknite, aby prěključiti Azijsky čat itd"
+ },
+ {
+  "label": "TOOLTIP:NonAsianText",
+  "text": "Kliknite, aby prěključiti Neazijsky čat itd"
+ },
+ {
+  "label": "GUI:AreYouSureDeleteAccount",
+  "text": "Jeste li uverjeni, že hočete trvalo odstraniti vaš akaunt i vsu vašu sohranjenu statistiku?"
+ },
+ {
+  "label": "GUI:NonAsianText",
+  "text": "Neazijsky Tekst"
+ },
+ {
+  "label": "GUI:AsianText",
+  "text": "Azijsky Tekst"
+ },
+ {
+  "label": "GUI:DeleteAccount",
+  "text": "ODSTRANITI AKAUNT"
+ },
+ {
+  "label": "GUI:SetLocale",
+  "text": "IZBERI REGION"
+ },
+ {
+  "label": "GUI:WinLoss",
+  "text": "Pobědy/Poraženja"
+ },
+ {
+  "label": "GUI:FavSide",
+  "text": "Ljubimna Armija"
+ },
+ {
+  "label": "GUI:Discons",
+  "text": "Otključenja"
+ },
+ {
+  "label": "GUI:BattleHonors",
+  "text": "Bojeve Časti"
+ },
+ {
+  "label": "GUI:TotalBuddys",
+  "text": "Vsego Prijateljev"
+ },
+ {
+  "label": "GUI:PlayerStatistics",
+  "text": "%hs, iz %ls"
+ },
+ {
+  "label": "GUI:TotalBuilt",
+  "text": "Vsego Postrojeno"
+ },
+ {
+  "label": "GUI:TotalDeaths",
+  "text": "Vsego Smrtej"
+ },
+ {
+  "label": "GUI:TotalKills",
+  "text": "Vsego Ubitih"
+ },
+ {
+  "label": "GUI:FavoriteUnit",
+  "text": "Ljubimna Jedinica"
+ },
+ {
+  "label": "GUI:FavoriteSide",
+  "text": "Ljubimna Armija"
+ },
+ {
+  "label": "GUI:Loses",
+  "text": "Poraženja"
+ },
+ {
+  "label": "GUI:Wins",
+  "text": "Pobědy"
+ },
+ {
+  "label": "GUI:TotalDesyncs",
+  "text": "Desinhronizacije"
+ },
+ {
+  "label": "GUI:TotalDisconnects",
+  "text": "Otključenja"
+ },
+ {
+  "label": "GUI:GamesPlayed",
+  "text": "Igranyh Igr"
+ },
+ {
+  "label": "GUI:TOS",
+  "text": "USLOVJA SLUŽBY"
+ },
+ {
+  "label": "GUI:RememberInfo",
+  "text": "Zapomniti moje Informacije"
+ },
+ {
+  "label": "GUI:HostWantsToStart",
+  "text": "Host hoče načeti. Pritisnite gumb Prijati"
+ },
+ {
+  "label": "GUI:PlayerNoMap",
+  "text": "%ls ne ima kartu %ls"
+ },
+ {
+  "label": "GUI:LocalPlayerNoMap",
+  "text": "Vy ne imate kartu %ls"
+ },
+ {
+  "label": "GUI:NeedMorePlayers",
+  "text": "Vam trěba věče igračev, aby načeti igru"
+ },
+ {
+  "label": "GUI:NotifiedStartIntent",
+  "text": "Drugi igrači sut izvěščeni, že vy hočete načeti igru"
+ },
+ {
+  "label": "GUI:HostLeft",
+  "text": "Host pokinul igru, no C&C Generals Zero Hour prodolži"
+ },
+ {
+  "label": "GUI:HostLeftTitle",
+  "text": "HOST JE POKINUL"
+ },
+ {
+  "label": "GUI:WidenSearch",
+  "text": "RAZŠIRITI POISK"
+ },
+ {
+  "label": "GUI:QMAborted",
+  "text": "Poisk sopostavjenja prěkinjen"
+ },
+ {
+  "label": "GUI:DrawScrollAnchor",
+  "text": "Risovati kotvu skrolovanja"
+ },
+ {
+  "label": "GUI:MoveScrollAnchor",
+  "text": "Dvigati kotvu skrolovanja"
+ },
+ {
+  "label": "GUI:GroupRoom1",
+  "text": "1 proti 1"
+ },
+ {
+  "label": "GUI:GroupRoom2",
+  "text": "2 proti 2"
+ },
+ {
+  "label": "GUI:GroupRoom3",
+  "text": "3 proti 3"
+ },
+ {
+  "label": "GUI:Email",
+  "text": "Email"
+ },
+ {
+  "label": "GUI:NoLadder",
+  "text": "Bez Rejtinga"
+ }
+]

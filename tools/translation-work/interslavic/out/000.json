@@ -1,0 +1,802 @@
+[
+ {
+  "label": "GUI:GameOptions",
+  "text": "NASTAVJENJA IGRY"
+ },
+ {
+  "label": "GUI:SinglePlayer",
+  "text": "SOLO IGRA"
+ },
+ {
+  "label": "GUI:Network",
+  "text": "SEŤ"
+ },
+ {
+  "label": "GUI:Options",
+  "text": "NASTAVJENJA"
+ },
+ {
+  "label": "GUI:Skirmish",
+  "text": "SKIRMIŠ"
+ },
+ {
+  "label": "GUI:Back",
+  "text": "NAZAD"
+ },
+ {
+  "label": "GUI:StartGame",
+  "text": "IGRATI"
+ },
+ {
+  "label": "GUI:Color",
+  "text": "Barva"
+ },
+ {
+  "label": "GUI:Slower",
+  "text": "Medleněje"
+ },
+ {
+  "label": "GUI:Faster",
+  "text": "Bystrěje"
+ },
+ {
+  "label": "GUI:Low",
+  "text": "Nizko"
+ },
+ {
+  "label": "GUI:Medium",
+  "text": "Srědnje"
+ },
+ {
+  "label": "GUI:High",
+  "text": "Visoko"
+ },
+ {
+  "label": "GUI:None",
+  "text": "Nijedno"
+ },
+ {
+  "label": "GUI:Random",
+  "text": "Slučajno"
+ },
+ {
+  "label": "GUI:Cancel",
+  "text": "OTKAZ"
+ },
+ {
+  "label": "GUI:Ok",
+  "text": "OK"
+ },
+ {
+  "label": "GUI:Delete",
+  "text": "Odstraniti"
+ },
+ {
+  "label": "GUI:Description",
+  "text": "Opis"
+ },
+ {
+  "label": "GUI:Load",
+  "text": "NAGRUZI"
+ },
+ {
+  "label": "GUI:Progress",
+  "text": "Napredok"
+ },
+ {
+  "label": "GUI:Assign",
+  "text": "Naznačiti"
+ },
+ {
+  "label": "GUI:CustomizeKeyboard",
+  "text": "Nastaviti Tastaturu"
+ },
+ {
+  "label": "GUI:Category",
+  "text": "Kategorija"
+ },
+ {
+  "label": "GUI:Commands",
+  "text": "Komandy"
+ },
+ {
+  "label": "GUI:ResetAll",
+  "text": "Sbrositi Vse"
+ },
+ {
+  "label": "GUI:DisplayOptions",
+  "text": "NASTAVJENJA EKRANA"
+ },
+ {
+  "label": "GUI:KeyboardOptions",
+  "text": "Nastavjenja Tastatury"
+ },
+ {
+  "label": "GUI:MainMenu",
+  "text": "IZHOD"
+ },
+ {
+  "label": "GUI:Units",
+  "text": "Jedinice"
+ },
+ {
+  "label": "GUI:Buildings",
+  "text": "Zgrady"
+ },
+ {
+  "label": "GUI:Players",
+  "text": "Igrači"
+ },
+ {
+  "label": "GUI:Preview",
+  "text": "Prědgljad Karty"
+ },
+ {
+  "label": "GUI:Save",
+  "text": "Sohraniti"
+ },
+ {
+  "label": "GUI:Side",
+  "text": "Armija"
+ },
+ {
+  "label": "GUI:Accept",
+  "text": "PRIJATI"
+ },
+ {
+  "label": "GUI:Games",
+  "text": "Igry"
+ },
+ {
+  "label": "GUI:Join",
+  "text": "VSTUPITI V IGRU"
+ },
+ {
+  "label": "GUI:LoadGame",
+  "text": "NAGRUZITI IGRU"
+ },
+ {
+  "label": "GUI:SaveGame",
+  "text": "SOHRANITI IGRU"
+ },
+ {
+  "label": "GUI:Score",
+  "text": "Rezultat"
+ },
+ {
+  "label": "GUI:Add",
+  "text": "Dodati"
+ },
+ {
+  "label": "GUI:MusicVolume",
+  "text": "Gromkost Muzyky"
+ },
+ {
+  "label": "GUI:VoiceVolume",
+  "text": "Gromkost Golosa"
+ },
+ {
+  "label": "GUI:Play",
+  "text": "Igrati Igru"
+ },
+ {
+  "label": "GUI:Stop",
+  "text": "STOP"
+ },
+ {
+  "label": "GUI:Continue",
+  "text": "PRODOLŽITI"
+ },
+ {
+  "label": "GUI:MaxPing",
+  "text": "Maksimalny Ping:"
+ },
+ {
+  "label": "GUI:Ladder",
+  "text": "Rejting"
+ },
+ {
+  "label": "GUI:Close",
+  "text": "Zatvoriti"
+ },
+ {
+  "label": "GUI:Help",
+  "text": "Pomoč"
+ },
+ {
+  "label": "GUI:Rank",
+  "text": "Rang"
+ },
+ {
+  "label": "GUI:Password",
+  "text": "Parol"
+ },
+ {
+  "label": "GUI:Disconnect",
+  "text": "OTKLJUČITI SĘ"
+ },
+ {
+  "label": "GUI:No",
+  "text": "NE"
+ },
+ {
+  "label": "GUI:Yes",
+  "text": "DA"
+ },
+ {
+  "label": "GUI:Blank",
+  "text": "."
+ },
+ {
+  "label": "GUI:Open",
+  "text": "Otvoriti"
+ },
+ {
+  "label": "GUI:Closed",
+  "text": "Zatvoreno"
+ },
+ {
+  "label": "GUI:Login",
+  "text": "VHOD"
+ },
+ {
+  "label": "GUI:WOLWelcome",
+  "text": "Dobrodošli, Generale %hs"
+ },
+ {
+  "label": "GUI:QuickMatch",
+  "text": "BYSTRA IGRA"
+ },
+ {
+  "label": "GUI:CustomMatch",
+  "text": "VLASTNA IGRA"
+ },
+ {
+  "label": "GUI:LadderRank",
+  "text": "Rang v Rejtingu"
+ },
+ {
+  "label": "GUI:Disconnects",
+  "text": "Otključenja"
+ },
+ {
+  "label": "GUI:CreateGame",
+  "text": "SOZDATI IGRU"
+ },
+ {
+  "label": "GUI:AutoLogin",
+  "text": "Avtomatičny vhod v buduščem"
+ },
+ {
+  "label": "GUI:AddBuddy",
+  "text": "Dodati Prijatelja"
+ },
+ {
+  "label": "GUI:RemoveBuddy",
+  "text": "Odstraniti Prijatelja"
+ },
+ {
+  "label": "GUI:AudioOptions",
+  "text": "ZVUKOVE NASTAVJENJA"
+ },
+ {
+  "label": "GUI:LadderWins",
+  "text": "Pobědy v Rejtingu"
+ },
+ {
+  "label": "GUI:LadderLosses",
+  "text": "Poraženja v Rejtingu"
+ },
+ {
+  "label": "GUI:LadderPoints",
+  "text": "Točky Rejtinga"
+ },
+ {
+  "label": "WOL:BuddyOffline",
+  "text": "%ls je offline"
+ },
+ {
+  "label": "WOL:Locale00",
+  "text": "Neznano"
+ },
+ {
+  "label": "WOL:Locale01",
+  "text": "Drugo Město"
+ },
+ {
+  "label": "WOL:Locale02",
+  "text": "Sjedinjene Državy"
+ },
+ {
+  "label": "WOL:Locale03",
+  "text": "Kanada"
+ },
+ {
+  "label": "WOL:Locale04",
+  "text": "Vjelika Britanija"
+ },
+ {
+  "label": "WOL:Locale05",
+  "text": "Germanija"
+ },
+ {
+  "label": "WOL:Locale06",
+  "text": "Francija"
+ },
+ {
+  "label": "WOL:Locale07",
+  "text": "Špania"
+ },
+ {
+  "label": "WOL:Locale08",
+  "text": "Niderlandy"
+ },
+ {
+  "label": "WOL:Locale09",
+  "text": "Belgija"
+ },
+ {
+  "label": "WOL:Locale10",
+  "text": "Avstrija"
+ },
+ {
+  "label": "WOL:Locale11",
+  "text": "Švicarska"
+ },
+ {
+  "label": "WOL:Locale12",
+  "text": "Italija"
+ },
+ {
+  "label": "WOL:Locale13",
+  "text": "Danija"
+ },
+ {
+  "label": "WOL:Locale14",
+  "text": "Švedija"
+ },
+ {
+  "label": "WOL:Locale15",
+  "text": "Norvegija"
+ },
+ {
+  "label": "WOL:Locale16",
+  "text": "Finlandija"
+ },
+ {
+  "label": "WOL:Locale17",
+  "text": "Izrael"
+ },
+ {
+  "label": "WOL:Locale18",
+  "text": "Južna Afrika"
+ },
+ {
+  "label": "WOL:Locale19",
+  "text": "Japonija"
+ },
+ {
+  "label": "WOL:Locale20",
+  "text": "Koreja"
+ },
+ {
+  "label": "WOL:Locale21",
+  "text": "Kitaj"
+ },
+ {
+  "label": "WOL:Locale22",
+  "text": "Singapur"
+ },
+ {
+  "label": "WOL:Locale23",
+  "text": "Tajvan"
+ },
+ {
+  "label": "WOL:Locale24",
+  "text": "Malezija"
+ },
+ {
+  "label": "WOL:Locale25",
+  "text": "Avstralija"
+ },
+ {
+  "label": "WOL:Locale26",
+  "text": "Novy Zeland"
+ },
+ {
+  "label": "WOL:Locale27",
+  "text": "Brazilija"
+ },
+ {
+  "label": "WOL:Locale28",
+  "text": "Tajland"
+ },
+ {
+  "label": "WOL:Locale29",
+  "text": "Argentina"
+ },
+ {
+  "label": "WOL:Locale30",
+  "text": "Filipiny"
+ },
+ {
+  "label": "WOL:Locale31",
+  "text": "Grcija"
+ },
+ {
+  "label": "WOL:Locale32",
+  "text": "Irska"
+ },
+ {
+  "label": "WOL:Locale33",
+  "text": "Poljska"
+ },
+ {
+  "label": "WOL:Locale34",
+  "text": "Portugalija"
+ },
+ {
+  "label": "WOL:Locale35",
+  "text": "Meksiko"
+ },
+ {
+  "label": "WOL:Locale36",
+  "text": "Rusija"
+ },
+ {
+  "label": "WOL:Locale37",
+  "text": "Turcija"
+ },
+ {
+  "label": "GUI:Observer",
+  "text": "Nabljudatelj"
+ },
+ {
+  "label": "GUI:Team",
+  "text": "Komanda"
+ },
+ {
+  "label": "LETTER:G",
+  "text": "G"
+ },
+ {
+  "label": "LETTER:L",
+  "text": "L"
+ },
+ {
+  "label": "LETTER:M",
+  "text": "M"
+ },
+ {
+  "label": "LETTER:S",
+  "text": "S"
+ },
+ {
+  "label": "LETTER:O",
+  "text": "O"
+ },
+ {
+  "label": "NUMBER:1",
+  "text": "1"
+ },
+ {
+  "label": "NUMBER:2",
+  "text": "2"
+ },
+ {
+  "label": "NUMBER:3",
+  "text": "3"
+ },
+ {
+  "label": "NUMBER:4",
+  "text": "4"
+ },
+ {
+  "label": "NUMBER:5",
+  "text": "5"
+ },
+ {
+  "label": "NUMBER:6",
+  "text": "6"
+ },
+ {
+  "label": "NUMBER:7",
+  "text": "7"
+ },
+ {
+  "label": "NUMBER:8",
+  "text": "8"
+ },
+ {
+  "label": "NUMBER:9",
+  "text": "9"
+ },
+ {
+  "label": "NUMBER:0",
+  "text": "0"
+ },
+ {
+  "label": "Color:Gold",
+  "text": "Zlata"
+ },
+ {
+  "label": "Color:Red",
+  "text": "Červena"
+ },
+ {
+  "label": "Color:Blue",
+  "text": "Modra"
+ },
+ {
+  "label": "Color:Green",
+  "text": "Zelena"
+ },
+ {
+  "label": "Color:Orange",
+  "text": "Oranževa"
+ },
+ {
+  "label": "Color:SkyBlue",
+  "text": "Cijanova"
+ },
+ {
+  "label": "Color:Purple",
+  "text": "Purpurna"
+ },
+ {
+  "label": "Color:Pink",
+  "text": "Rozeva"
+ },
+ {
+  "label": "MSG:Testing",
+  "text": "Marija iměla malogo jagnjenka, jego vlna běla kako sněg"
+ },
+ {
+  "label": "MSG:Test2",
+  "text": "I vsjude kuda Marija šla, jagnjenko obavezno šlo za njeju"
+ },
+ {
+  "label": "GUI:ShowBehindBuildings",
+  "text": "Toplotna signatura za zgradami: VKLJUČENO"
+ },
+ {
+  "label": "GUI:HideBehindBuildings",
+  "text": "Toplotna signatura za zgradami: VYKLJUČENO"
+ },
+ {
+  "label": "GUI:DetailsSetToLowest",
+  "text": "Nizka grafička detaljnost"
+ },
+ {
+  "label": "GUI:ReturnGraphicsToPreviousSettings",
+  "text": "Vraščam vaše grafičke nastavjenja na prědhodne"
+ },
+ {
+  "label": "GUI:BeaconLabel",
+  "text": "Napišite poslanje:"
+ },
+ {
+  "label": "GUI:Beacon",
+  "text": "Majak"
+ },
+ {
+  "label": "GUI:EACopyright",
+  "text": "© 2003 ELECTRONIC ARTS INC. VSE PRAVA REZERVIRANA"
+ },
+ {
+  "label": "GUI:DeleteBeacon",
+  "text": "Odstraniti \n Majak"
+ },
+ {
+  "label": "GUI:BeaconPlaced",
+  "text": "Majak je postavjen ot %ls"
+ },
+ {
+  "label": "GUI:BeaconPlacementFailed",
+  "text": "Nevozmožno postaviti Majak tu"
+ },
+ {
+  "label": "GUI:TooManyBeacons",
+  "text": "Izvinite, vy ne možete postaviti věče Majakov"
+ },
+ {
+  "label": "GUI:EA",
+  "text": "EA"
+ },
+ {
+  "label": "GUI:TestBrowser",
+  "text": "Testovy Brauzer"
+ },
+ {
+  "label": "GUI:Multiplayer",
+  "text": "MULTIIGRA"
+ },
+ {
+  "label": "GUI:GameName",
+  "text": "Imę Igry:"
+ },
+ {
+  "label": "GUI:NoFileSelected",
+  "text": "PROSIM, VYBERITE FAJL"
+ },
+ {
+  "label": "GUI:PleaseSelectAFile",
+  "text": "Prosim, vyberite fajl"
+ },
+ {
+  "label": "GUI:DeleteFile",
+  "text": "ODSTRANITI FAJL?"
+ },
+ {
+  "label": "GUI:AreYouSureDelete",
+  "text": "Jeste li uverjeni, že hočete odstraniti vybrany fajl?"
+ },
+ {
+  "label": "GUI:CopyFileToDesktop",
+  "text": "KOPIROVATI ZAPIS NA RABOČY STOL?"
+ },
+ {
+  "label": "GUI:AreYouSureCopy",
+  "text": "Jeste li uverjeni, že hočete kopirovati tutu fajlu na Rabočy Stol? To prěpiše vsaky fajl s tym istym imenem"
+ },
+ {
+  "label": "GUI:ErrorCopyingFile",
+  "text": "SLUČILA SĘ POGREŠKA PRI KOPIROVANJU FAJLA"
+ },
+ {
+  "label": "GUI:LoadReplay",
+  "text": "NAGRUZITI ZAPIS"
+ },
+ {
+  "label": "GUI:DeleteReplay",
+  "text": "ODSTRANITI ZAPIS"
+ },
+ {
+  "label": "GUI:CopyReplay",
+  "text": "KOPIROVATI ZAPIS"
+ },
+ {
+  "label": "GUI:ErrorDeletingFile",
+  "text": "SLUČILA SĘ POGREŠKA PRI ODSTRANJENJU FAJLA"
+ },
+ {
+  "label": "GUI:ShortDescription",
+  "text": "Kratky opis igry:"
+ },
+ {
+  "label": "GUI:LadderName",
+  "text": "Imę Rejtinga:"
+ },
+ {
+  "label": "GUI:LadderPassword",
+  "text": "Parol Rejtinga"
+ },
+ {
+  "label": "GUI:LadderURL",
+  "text": "Domašnja Stranica: %hs"
+ },
+ {
+  "label": "GUI:LadderHasPassword",
+  "text": "Tot Rejting je zaščiščeny parolom"
+ },
+ {
+  "label": "GUI:LadderMinWins",
+  "text": "Minimalno trěbovanih poběd: %d"
+ },
+ {
+  "label": "GUI:LadderMaxWins",
+  "text": "Maksimalno dozvoljenih poběd: %d"
+ },
+ {
+  "label": "GUI:LadderFactions",
+  "text": "Dozvoljene frakcije armije:"
+ },
+ {
+  "label": "GUI:LadderRandomFactions",
+  "text": "Slučajne frakcije armije:"
+ },
+ {
+  "label": "GUI:LadderMaps",
+  "text": "Dozvoljene karty:"
+ },
+ {
+  "label": "GUI:LadderRandomMaps",
+  "text": "Slučajne karty:"
+ },
+ {
+  "label": "GUI:AllowObservers",
+  "text": "Dozvoliti Nabljudatelej"
+ },
+ {
+  "label": "GUI:USA",
+  "text": "USA"
+ },
+ {
+  "label": "GUI:China",
+  "text": "Kitaj"
+ },
+ {
+  "label": "GUI:GLA",
+  "text": "GLA"
+ },
+ {
+  "label": "GUI:AmericaAllies",
+  "text": "Sojuzniki USA"
+ },
+ {
+  "label": "GUI:ChinaAllies",
+  "text": "Sojuzniki Kitaja"
+ },
+ {
+  "label": "GUI:GLAAllies",
+  "text": "Sojuzniki GLA"
+ },
+ {
+  "label": "GUI:AmericaEnemies",
+  "text": "Vragi USA"
+ },
+ {
+  "label": "GUI:ChinaEnemies",
+  "text": "Vragi Kitaja"
+ },
+ {
+  "label": "GUI:GLAEnemies",
+  "text": "Vragi GLA"
+ },
+ {
+  "label": "GUI:EndCampaign",
+  "text": "KONEC KAMPANJE"
+ },
+ {
+  "label": "GUI:Retry",
+  "text": "IGRATI SNOVA?"
+ },
+ {
+  "label": "GUI:RecentSave",
+  "text": "Nedavno Sohranjenje"
+ },
+ {
+  "label": "GUI:GetUpdate",
+  "text": "Poluči Obnovlenje"
+ },
+ {
+  "label": "GUI:DirectConnect",
+  "text": "PRJAMOE SOJEDINJENJE"
+ },
+ {
+  "label": "GUI:WorldBuilder",
+  "text": "STROITELJ SVĚTA"
+ },
+ {
+  "label": "GUI:WorldBuilderLoadFailed",
+  "text": "Stroitelj Světa ne mogl sę nagruziti"
+ },
+ {
+  "label": "GUI:DontUseAccount",
+  "text": "Ne Upotrěbiti Akaunt"
+ },
+ {
+  "label": "GUI:UseAccount",
+  "text": "Upotrěbiti Akaunt"
+ },
+ {
+  "label": "GUI:ScoreScreen",
+  "text": "Ekran Rezultatov"
+ },
+ {
+  "label": "GUI:Rehost",
+  "text": "IGRATI SNOVA?"
+ },
+ {
+  "label": "GUI:UnitsBuilt",
+  "text": "Jedinice \n Sozdane"
+ },
+ {
+  "label": "GUI:UnitsLost",
+  "text": "Jedinice \n Izgubjene"
+ },
+ {
+  "label": "GUI:UnitsKilled",
+  "text": "Jedinice \n Uničtožene"
+ }
+]
