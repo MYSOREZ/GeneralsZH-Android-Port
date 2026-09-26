@@ -1,0 +1,802 @@
+[
+ {
+  "label": "GUI:Any",
+  "text": "Dowolna"
+ },
+ {
+  "label": "GUI:GSNoLoginInfoNicknamePassword",
+  "text": "Wprowadź pseudonim i hasło, a następnie kliknij Zaloguj lub Utwórz konto"
+ },
+ {
+  "label": "GUI:GSNoLoginInfoEmail",
+  "text": "Wprowadź e-mail, a następnie kliknij Zaloguj lub Utwórz konto"
+ },
+ {
+  "label": "GUI:GSNoLoginInfoNickname",
+  "text": "Wprowadź pseudonim, a następnie kliknij Zaloguj lub Utwórz konto"
+ },
+ {
+  "label": "GUI:GSNoLoginInfoPassword",
+  "text": "Wprowadź hasło, a następnie kliknij Zaloguj lub Utwórz konto"
+ },
+ {
+  "label": "Buddy:MultipleOnlineNotification",
+  "text": "Twoi znajomi są online"
+ },
+ {
+  "label": "GUI:ResetHonors",
+  "text": "Resetuj odznaczenia"
+ },
+ {
+  "label": "Chat:Observers",
+  "text": "Widzą obserwatorzy"
+ },
+ {
+  "label": "TOOLTIP:buddies",
+  "text": "Sortuj listę gier według znajomych"
+ },
+ {
+  "label": "TOOLTIP:AddToBuddies",
+  "text": "Dodaj gracza do listy znajomych"
+ },
+ {
+  "label": "TOOLTIP:StagingPlayerInfo",
+  "text": "\n Region: %ls \n Ping: %d ms \n %d zwycięstw/%d porażek \n %d rozłączeń \n Ulubiona armia: %ls"
+ },
+ {
+  "label": "GUI:CantBuildTooCloseToSupplies",
+  "text": "Nie możesz tam budować, bo to zbyt blisko źródła zaopatrzenia"
+ },
+ {
+  "label": "OBJECT:Frosty",
+  "text": "Bałwan"
+ },
+ {
+  "label": "OBJECT:Prop",
+  "text": "."
+ },
+ {
+  "label": "OBJECT:BigGate",
+  "text": "Brama"
+ },
+ {
+  "label": "OBJECT:TownHall",
+  "text": "Ratusz"
+ },
+ {
+  "label": "OBJECT:RailroadBridge",
+  "text": "Most kolejowy"
+ },
+ {
+  "label": "OBJECT:TheLoo",
+  "text": "Wychodek"
+ },
+ {
+  "label": "OBJECT:TrainCar",
+  "text": "Wagon"
+ },
+ {
+  "label": "OBJECT:SandBagWall",
+  "text": "Wał z worków"
+ },
+ {
+  "label": "OBJECT:Structure",
+  "text": "Budynek cywilny"
+ },
+ {
+  "label": "OBJECT:Airport",
+  "text": "Lotnisko cywilne"
+ },
+ {
+  "label": "OBJECT:Highrise",
+  "text": "Wieżowiec"
+ },
+ {
+  "label": "OBJECT:BridgeTower",
+  "text": "Wieża mostu"
+ },
+ {
+  "label": "OBJECT:Field",
+  "text": "Boisko"
+ },
+ {
+  "label": "OBJECT:SoccerStadiumGoal",
+  "text": "Bramka"
+ },
+ {
+  "label": "OBJECT:BigLightpost",
+  "text": "Słup oświetleniowy"
+ },
+ {
+  "label": "MAP:BigRivers",
+  "text": "Mountain Fox"
+ },
+ {
+  "label": "MAP:CHI01Open",
+  "text": "Chińska defilada wojskowa, Pekin \n Przebudzenie smoka"
+ },
+ {
+  "label": "MAP:CHI03Obj1Done",
+  "text": "CEL MISJI wykonany"
+ },
+ {
+  "label": "MAP:CHI07Obj1",
+  "text": "CEL MISJI: \n Załóż bazę i znajdź zasoby"
+ },
+ {
+  "label": "MAP:CHI07Obj2",
+  "text": "CEL MISJI: \n Pokonaj GLA"
+ },
+ {
+  "label": "MAP:GLA02OpenAlt2",
+  "text": "Wioski pod Ałmaty, Kazachstan \n Przejmij obce zaopatrzenie dla naszej sprawy"
+ },
+ {
+  "label": "MAP:GLA02OpenAlt1",
+  "text": "Wioski pod Ałmaty, Kazachstan \n Operacja: Złupić wioskę"
+ },
+ {
+  "label": "MAP:GLA06OpenAlt2",
+  "text": "Zachodni brzeg Jeziora Aralskiego, Kazachstan \n Ukradnij trucizny Zachodu, by użyć ich przeciwko niemu"
+ },
+ {
+  "label": "MAP:GLA06OpenAlt1",
+  "text": "Zachodni brzeg Jeziora Aralskiego, Kazachstan \n Operacja: Właściwe trucizny"
+ },
+ {
+  "label": "MAP:GLA07OpenAlt2",
+  "text": "Gdzieś pod Lengerem, Kazachstan \n Pokaż światu, co spotyka zdrajców"
+ },
+ {
+  "label": "MAP:GLA07OpenAlt",
+  "text": "Gdzieś pod Lengerem, Kazachstan \n Operacja: Koń trojański"
+ },
+ {
+  "label": "MAP:GLA03Open02",
+  "text": "Okupowany przez Chiny Dżambuł, Kazachstan \n Operacja: Słuszny Ogień"
+ },
+ {
+  "label": "MAP:GLA03Directive",
+  "text": "Raport informatora: \n Zniszcz fabrykę farmaceutyczną, aby zdobyć bombę z wąglikiem"
+ },
+ {
+  "label": "MAP:USA02Hint1Text",
+  "text": "Użyj pilotów, by dać pojazdom dodatkowe doświadczenie"
+ },
+ {
+  "label": "MAP:USA02Hint2Text",
+  "text": "Użyj ulepszenia granatów ogłuszających Rangerów, by oczyszczać zajęte budynki"
+ },
+ {
+  "label": "MAP:USA03Hint1Text",
+  "text": "Buduj systemy rakietowe Patriot do obrony bazy"
+ },
+ {
+  "label": "MAP:USA04Hint1Text",
+  "text": "Użyj wyrzutni pocisków Tomahawk, by rozbić punkty oporu GLA"
+ },
+ {
+  "label": "MAP:NVIDIATEXT",
+  "text": "Command & Conquer Generals \n Już w lutym 2003"
+ },
+ {
+  "label": "MAP:USA06ObjHint2",
+  "text": "WSKAZÓWKA: \n Przejmij ten obiekt"
+ },
+ {
+  "label": "MAP:USA06ObjHint1",
+  "text": "WSKAZÓWKA: \n Są tu ważne budynki cywilne"
+ },
+ {
+  "label": "MAP:GLA03Objective07",
+  "text": "Cel wykonany: \n Zlikwidowano 300 zdrajców"
+ },
+ {
+  "label": "MAP:GLA03Objective08",
+  "text": "Cel wykonany: \n Zniszczono fabrykę farmaceutyczną"
+ },
+ {
+  "label": "MAP:GLA05Open",
+  "text": "Adana, Turcja \n Baza lotnicza Incirlik"
+ },
+ {
+  "label": "SCRIPT:GLA05Directive03",
+  "text": "UWAGA: \n Nadlatuje amerykańskie lotnictwo \n Zbuduj stanowiska Stinger do obrony bazy"
+ },
+ {
+  "label": "SCRIPT:GLA05Directive04",
+  "text": "Cel dodatkowy: \n Zniszcz chińską placówkę szpiegowską"
+ },
+ {
+  "label": "SCRIPT:GLA05Directive05",
+  "text": "UWAGA: \n Nadlatuje amerykańskie lotnictwo \n Użyj stanowisk Stinger i dział poczwórnych do zestrzeliwania samolotów"
+ },
+ {
+  "label": "MAP:GLA08Open",
+  "text": "Kosmodrom Bajkonur, południowy Kazachstan \n Radziecki ośrodek startów rakiet"
+ },
+ {
+  "label": "MAP:GLA08Open02",
+  "text": "Południowy Kazachstan \n Kosmodrom Bajkonur"
+ },
+ {
+  "label": "SCRIPT:GLA08Objective01",
+  "text": "CELE MISJI: \n Przejmij budynek kontroli naziemnej \n Przejmij wieżę startową rakiety"
+ },
+ {
+  "label": "SCRIPT:GLA08Objective02",
+  "text": "CEL MISJI: \n Przejmij budynek kontroli naziemnej"
+ },
+ {
+  "label": "SCRIPT:GLA08Objective03",
+  "text": "CEL MISJI: \n Przejmij wieżę startową rakiety"
+ },
+ {
+  "label": "SCRIPT:GLA08Directive04",
+  "text": "UWAGA: \n Nadciąga uderzenie wrogiej superbroni"
+ },
+ {
+  "label": "MAP:USA07hint1",
+  "text": "WSKAZÓWKA: \n Wykorzystaj ten dok zaopatrzenia"
+ },
+ {
+  "label": "MAP:CHI05ObjInit",
+  "text": "CEL MISJI: \n Zniszcz 3 obozy GLA \n i główną bazę GLA"
+ },
+ {
+  "label": "MAP:CHI05Obj4",
+  "text": "Pozostały 4 cele"
+ },
+ {
+  "label": "MAP:CHI05Obj3",
+  "text": "Pozostały 3 cele"
+ },
+ {
+  "label": "MAP:CHI05Obj2",
+  "text": "Pozostały 2 cele"
+ },
+ {
+  "label": "MAP:CHI05Obj1",
+  "text": "Pozostał tylko 1 cel"
+ },
+ {
+  "label": "MAP:CHI05Objhint1",
+  "text": "WSKAZÓWKA: \n Wykorzystaj ten dok zaopatrzenia"
+ },
+ {
+  "label": "MAP:CHI05Objhint2",
+  "text": "WSKAZÓWKA: \n Przejmij te obiekty"
+ },
+ {
+  "label": "MAP:CHI05ObjCBReady",
+  "text": "WSKAZÓWKA: \n Bombowce dywanowe są już dostępne"
+ },
+ {
+  "label": "MAP:USA08MapName",
+  "text": "Ostatnia runda"
+ },
+ {
+  "label": "MAP:USA08Open",
+  "text": "Stolica GLA, Ałdastan \n Operacja: Ostatnia Runda"
+ },
+ {
+  "label": "MAP:USA08OpenAlt",
+  "text": "Akmoła, Kazachstan \n Operacja: Ostatnia Runda"
+ },
+ {
+  "label": "MAP:USA08Objective01",
+  "text": "CEL MISJI: \n Zniszcz wszystkie siły i budynki GLA"
+ },
+ {
+  "label": "MAP:USA08WallGarWarning",
+  "text": "UWAGA: \n GLA obsadziła mur \n Rangerzy muszą użyć granatów ogłuszających, aby zabić ukryte oddziały GLA"
+ },
+ {
+  "label": "MAP:USA08ChinaHint",
+  "text": "Przejmij chińskie budynki \n Zbuduj połączone siły USA i Chin, aby zmieść GLA"
+ },
+ {
+  "label": "MAP:USA08SCUDStormWarn",
+  "text": "UWAGA: \n GLA zbudowała Burzę SCUD"
+ },
+ {
+  "label": "MAP:USA08MineWarn",
+  "text": "UWAGA: \n Wykryto pułapki wybuchowe GLA"
+ },
+ {
+  "label": "MAP:USA08GLABaseKIA",
+  "text": "Bazy GLA zniszczone \n Zlikwiduj pozostałe siły GLA, aby wygrać wojnę"
+ },
+ {
+  "label": "CONTROLBAR:TooltipCarpetBomb",
+  "text": "Bombardowanie dywanowe wskazanego obszaru \n \n Czas odnowienia: 2:30"
+ },
+ {
+  "label": "CONTROLBAR:TooltipCrateDrop",
+  "text": "Zrzuca skrzynie z zaopatrzeniem"
+ },
+ {
+  "label": "CONTROLBAR:TooltipDetonateNuke",
+  "text": "Zdetonuj ukryty ładunek atomowy"
+ },
+ {
+  "label": "MAP:GLA01Objective",
+  "text": "CEL MISJI \n Zniszcz zaporę"
+ },
+ {
+  "label": "MAP:GLA01Objective2",
+  "text": "CEL MISJI \n Zniszcz chińską bazę"
+ },
+ {
+  "label": "MAP:TrainingGenerals",
+  "text": "Kliknij lewym przyciskiem przycisk generała w prawym dolnym rogu ekranu, aby wybrać nową zdolność generała. Wraz z awansami twój generał zyskuje dostęp do nowych zdolności. Niektóre pozwalają tworzyć nowe jednostki specjalne, inne dają moce specjalne używane z centrum dowodzenia"
+ },
+ {
+  "label": "MAP:TrainingSalvage",
+  "text": "Powstał stos złomu. Gdy pojazdy GLA niszczą wrogie pojazdy, zostaje złom. Pojazdy GLA zbierają go, przejeżdżając po nim. Złom może być wart pieniądze lub doświadczenie. Technicale, działa poczwórne i Marudery mogą ulepszać złomem swoją broń"
+ },
+ {
+  "label": "MAP:TrainingUpgrade",
+  "text": "Ulepszenia kupuje się w różnych budynkach bazy. Poprawiają one twoje jednostki. Kliknij lewym przyciskiem koszary, a potem ikonę przejęcia budynku, aby Rangerzy mogli przejmować wrogie budynki"
+ },
+ {
+  "label": "GUI:SaveAndContinue",
+  "text": "KONTYNUUJ"
+ },
+ {
+  "label": "TOOLTIP:PlayerSetting",
+  "text": "Wybierz mecz 1 na 1 lub drużynowy"
+ },
+ {
+  "label": "TOOLTIP:Ping",
+  "text": "Wybierz tolerancję szybkości połączenia przeciwnika"
+ },
+ {
+  "label": "TOOLTIP:Disconnect",
+  "text": "Wybierz tolerancję liczby rozłączeń przeciwnika"
+ },
+ {
+  "label": "TOOLTIP:Ladder",
+  "text": "Wybierz ranking, w którym chcesz grać"
+ },
+ {
+  "label": "TOOLTIP:QuickMatchStatus",
+  "text": "Szybki mecz spróbuje dobrać przeciwnika na podstawie umiejętności, parametrów komputera itp."
+ },
+ {
+  "label": "TOOLTIP:OnlineIP",
+  "text": "Adres IP używany do łączenia z C&C Generals Zero Hour Online"
+ },
+ {
+  "label": "TOOLTIP:LanIP",
+  "text": "Adres IP używany do łączenia z graczami w grach sieciowych"
+ },
+ {
+  "label": "TOOLTIP:GamesBeingformed",
+  "text": "Szybkość twojego połączenia z graczami w tej grze"
+ },
+ {
+  "label": "TOOLTIP:EmoteText",
+  "text": "Kliknij lewym przyciskiem, aby wpisać tekst"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaScienceCashHack",
+  "text": "Kradnie pieniądze z wrogich centrów zaopatrzenia. Nie można ukraść więcej, niż wróg ma \n \n Poziom 1: 1000 $ \n Poziom 2: 2000 $ \n Poziom 3: 4000 $ \n \n Wezwanie z: centrum dowodzenia"
+ },
+ {
+  "label": "GUI:TRAINING",
+  "text": "SZKOLENIE"
+ },
+ {
+  "label": "GUI:CHINA_Caps",
+  "text": "CHINY"
+ },
+ {
+  "label": "TOOLTIP:SupplyDock",
+  "text": "Zaopatrzenie"
+ },
+ {
+  "label": "TOOLTIP:TechBuilding",
+  "text": "Budynek technologiczny"
+ },
+ {
+  "label": "TOOLTIP:Mission1",
+  "text": "."
+ },
+ {
+  "label": "TOOLTIP:Mission2_8",
+  "text": "Kampania pierwsza"
+ },
+ {
+  "label": "TOOLTIP:Mission9_16",
+  "text": "Kampania druga"
+ },
+ {
+  "label": "TOOLTIP:Mission17_23",
+  "text": "Kampania trzecia"
+ },
+ {
+  "label": "TOOLTIP:ButtonClear",
+  "text": "Wyczyść pole nazwy gracza"
+ },
+ {
+  "label": "GUI:Objectives:",
+  "text": "Podsumowanie:"
+ },
+ {
+  "label": "GUI:WinStreak",
+  "text": "Seria zwycięstw"
+ },
+ {
+  "label": "GUI:LossStreak",
+  "text": "Seria porażek"
+ },
+ {
+  "label": "GUI:PlayerNoMapWillTransfer",
+  "text": "%ls nie ma mapy %ls. Zostanie przesłana na początku gry"
+ },
+ {
+  "label": "GUI:LocalPlayerNoMapWillTransfer",
+  "text": "Nie masz mapy %ls. Zostanie ci przesłana na początku gry"
+ },
+ {
+  "label": "GUI:CouldNotTransferMap",
+  "text": "Nie można przesłać mapy. Gra nie może się rozpocząć"
+ },
+ {
+  "label": "GUI:Status",
+  "text": "Stan"
+ },
+ {
+  "label": "MapTransfer:CurrentFile",
+  "text": "Bieżący plik: %ls"
+ },
+ {
+  "label": "MapTransfer:Timeout",
+  "text": "Przerwanie za %d:%2.2d"
+ },
+ {
+  "label": "MapTransfer:Preparing",
+  "text": "Przygotowywanie..."
+ },
+ {
+  "label": "MapTransfer:Sending",
+  "text": "Wysyłanie..."
+ },
+ {
+  "label": "MapTransfer:Recieving",
+  "text": "Odbieranie..."
+ },
+ {
+  "label": "MapTransfer:Done",
+  "text": "Gotowe"
+ },
+ {
+  "label": "ThingTemplate:SalvageCrate",
+  "text": "Skrzynia ze złomem"
+ },
+ {
+  "label": "ThingTemplate:IndustrialBridgeTower01",
+  "text": "Most"
+ },
+ {
+  "label": "ThingTemplate:Crypt01",
+  "text": "Krypta"
+ },
+ {
+  "label": "ThingTemplate:AsianAartmentSingle01",
+  "text": "Mieszkanie"
+ },
+ {
+  "label": "CONTROLBAR:RadioJam",
+  "text": "Zagłuszanie radia"
+ },
+ {
+  "label": "MAP:USA01OBJOpen",
+  "text": "CEL MISJI \n Zniszcz wszystkie siły wroga"
+ },
+ {
+  "label": "MAP:TrainingWarFactory",
+  "text": "CEL MISJI \n Użyj SPYCHARKI, aby zbudować FABRYKĘ BRONI"
+ },
+ {
+  "label": "TOOLTIP:MapNoSuccess",
+  "text": "Wygraj na tej mapie z łatwym przeciwnikiem!"
+ },
+ {
+  "label": "TOOLTIP:MapEasySuccess",
+  "text": "Wygraj na tej mapie ze średnim przeciwnikiem!"
+ },
+ {
+  "label": "TOOLTIP:MapMediumSuccess",
+  "text": "Wygraj na tej mapie z trudnym przeciwnikiem!"
+ },
+ {
+  "label": "TOOLTIP:MapHardSuccess",
+  "text": "Wygraj na tej mapie z maksymalną liczbą trudnych przeciwników!"
+ },
+ {
+  "label": "Buddy:CantTalkToIngameBuddy",
+  "text": "Obserwując grę, nie możesz wysyłać wiadomości do znajomych w tej grze"
+ },
+ {
+  "label": "MAP:Bavarian",
+  "text": "Final Crusade"
+ },
+ {
+  "label": "MAP:CLake",
+  "text": "Tournament Lake"
+ },
+ {
+  "label": "MAP:SBlast",
+  "text": "Sand Serpent"
+ },
+ {
+  "label": "MAP:SleepingGiant",
+  "text": "Dark Mountain"
+ },
+ {
+  "label": "MAP:SwissMP",
+  "text": "Lone Eagle"
+ },
+ {
+  "label": "MAP:KandaharHighlands",
+  "text": "Twilight Flame"
+ },
+ {
+  "label": "MAP:BoraBora",
+  "text": "Tournament Island"
+ },
+ {
+  "label": "MAP:PrecipicePass",
+  "text": "Fortress Avalanche"
+ },
+ {
+  "label": "MAP:TTourney",
+  "text": "Tournament Tundra"
+ },
+ {
+  "label": "MAP:Gwall",
+  "text": "Fallen Empire"
+ },
+ {
+  "label": "GUI:HTTPProxy",
+  "text": "Serwer proxy HTTP:"
+ },
+ {
+  "label": "GUI:WinPercent",
+  "text": "%d%%"
+ },
+ {
+  "label": "TOOLTIP:PlayerCreatedName",
+  "text": "Nazwa gracza, który utworzył grę"
+ },
+ {
+  "label": "TOOLTIP:HTTPProxy",
+  "text": "Ustaw serwer proxy HTTP dla C&C Generals Zero Hour Online"
+ },
+ {
+  "label": "CONTROLBAR:BriefingHistory",
+  "text": "Odprawy misji"
+ },
+ {
+  "label": "CONTROLBAR:BriefingHistoryDescription",
+  "text": "Kliknij, aby zobaczyć odprawy misji"
+ },
+ {
+  "label": "MAP:CHI04Objective1Text",
+  "text": "CEL MISJI \n Zniszcz stanowiska Stinger GLA"
+ },
+ {
+  "label": "MAP:CHI04Objective2Text",
+  "text": "CEL MISJI \n Użyj Czarnego Lotosa, by przejąć chińską fabrykę broni"
+ },
+ {
+  "label": "MAP:CHI04Objective3Text",
+  "text": "CEL MISJI \n Zniszcz stanowiska Stinger wokół fabryki chemicznej"
+ },
+ {
+  "label": "MAP:CHI04Hint1Text",
+  "text": "WSKAZÓWKA: używaj Czarnego Lotosa do wyłączania wrogich pojazdów"
+ },
+ {
+  "label": "MAP:CHI04Hint2Text",
+  "text": "WSKAZÓWKA: używaj hakerów do zdobywania dodatkowych dochodów"
+ },
+ {
+  "label": "MAP:CHI04Hint3Text",
+  "text": "WSKAZÓWKA: użyj Czarnego Lotosa, by włamać się do wrogiego centrum zaopatrzenia i wyprowadzić dodatkowe środki"
+ },
+ {
+  "label": "GUI:GotoMainMenu",
+  "text": "MENU GŁÓWNE"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorFairPlay",
+  "text": "Odznaczenie za uczciwą grę \n Rozłączaj się w mniej niż 10% gier online (przy co najmniej 10 rozegranych), aby zdobyć ten medal"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorApocalypse",
+  "text": "Odznaczenie apokalipsy \n Gracz zbudował działo cząsteczkowe, pocisk atomowy i Burzę SCUD w grze jedno- lub wieloosobowej online"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorFairPlayDisabled",
+  "text": "Odznaczenie za uczciwą grę \n Rozłączaj się w mniej niż 10% gier online (przy co najmniej 10 rozegranych), aby zdobyć ten medal"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorApocalypseDisabled",
+  "text": "Medal apokalipsy \n Zbuduj działo cząsteczkowe, pocisk atomowy i Burzę SCUD, aby zdobyć ten medal"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorPreorder",
+  "text": "Odznaczenie Klubu Oficerów \n Gracz jest członkiem-założycielem społeczności Generals"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorPreorderDisabled",
+  "text": "Medal Klubu Oficerów \n Gracz nie zamówił Generals w przedsprzedaży"
+ },
+ {
+  "label": "GUI:Credits",
+  "text": "TWÓRCY"
+ },
+ {
+  "label": "ERROR:D3DFailurePrompt",
+  "text": "Błąd DirectX"
+ },
+ {
+  "label": "ERROR:D3DFailureMessage",
+  "text": "Upewnij się, że masz zainstalowany DirectX 8.1 lub nowszy. Sprawdź też, czy karta graficzna spełnia minimalne wymagania"
+ },
+ {
+  "label": "GUI:AudioHardware",
+  "text": "Sprzętowa akceleracja dźwięku"
+ },
+ {
+  "label": "GUI:AudioSurround",
+  "text": "Dźwięk przestrzenny"
+ },
+ {
+  "label": "TOOLTIP:CheckAudioHardware",
+  "text": "Zaznacz, aby włączyć sprzętową akcelerację dźwięku"
+ },
+ {
+  "label": "TOOLTIP:AudioSurround",
+  "text": "Zaznacz, jeśli masz głośniki dźwięku przestrzennego"
+ },
+ {
+  "label": "CAMPAIGN:TRAINING",
+  "text": "Szkolenie"
+ },
+ {
+  "label": "GUI:WinPercentLabel",
+  "text": "Procent zwycięstw"
+ },
+ {
+  "label": "GUI:BestWinStreak",
+  "text": "Najdłuższa seria zwycięstw"
+ },
+ {
+  "label": "Buddy:MatchingNotification",
+  "text": "%hs szuka szybkiego meczu"
+ },
+ {
+  "label": "Buddy:StagingNotification",
+  "text": "%hs przygotowuje grę"
+ },
+ {
+  "label": "Buddy:LoadingNotification",
+  "text": "%hs rozpoczyna grę"
+ },
+ {
+  "label": "Buddy:PlayingNotification",
+  "text": "%hs gra"
+ },
+ {
+  "label": "CONTROLBAR:GeneralsPromotion",
+  "text": "Awans generała"
+ },
+ {
+  "label": "CONTROLBAR:GeneralsExp",
+  "text": "Doświadczenie generała"
+ },
+ {
+  "label": "CONTROLBAR:GeneralsExpDescription",
+  "text": "Ten wskaźnik pokazuje, ile brakuje ci do następnego poziomu generała"
+ },
+ {
+  "label": "TOOLTIP:TooltipNukeReactorOverChargeIsOn",
+  "text": "Przeciążenie jest WŁĄCZONE"
+ },
+ {
+  "label": "TOOLTIP:TooltipNukeReactorOverChargeIsOff",
+  "text": "Przeciążenie jest WYŁĄCZONE"
+ },
+ {
+  "label": "GUI:ESRB_Top",
+  "text": "Informacja ESRB:"
+ },
+ {
+  "label": "GUI:ESRB_Bottom",
+  "text": "Wrażenia z gry mogą \n się zmienić podczas gry online"
+ },
+ {
+  "label": "GUI:ReplaySaved",
+  "text": "Zapisano powtórkę"
+ },
+ {
+  "label": "OBJECT:Monument",
+  "text": "Pomnik"
+ },
+ {
+  "label": "TOOLTIP:TooltipNotEnoughMoneyToBuild",
+  "text": "Za mało środków"
+ },
+ {
+  "label": "TOOLTIP:TooltipCannotPurchaseBecauseQueueFull",
+  "text": "Kolejka budowy pełna"
+ },
+ {
+  "label": "TOOLTIP:TooltipCannotBuildUnitBecauseParkingFull",
+  "text": "Lotnisko pełne"
+ },
+ {
+  "label": "TOOLTIP:TooltipCannotBuildUnitBecauseMaximumNumber",
+  "text": "Jednostka już istnieje"
+ },
+ {
+  "label": "GUI:SocketError",
+  "text": "Nie udało się komunikować z siecią, sprawdź połączenie"
+ },
+ {
+  "label": "GUI:NetworkError",
+  "text": "BŁĄD SIECI"
+ },
+ {
+  "label": "GUI:BuddiesTab",
+  "text": "Znajomi"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorOfficersClub",
+  "text": "Odznaczenie Klubu Oficerów \n Członek-założyciel społeczności Generals"
+ },
+ {
+  "label": "GUI:CreateFormationDescription",
+  "text": "Tworzy szyk z zaznaczonych jednostek, który utrzymają podczas ruchu"
+ },
+ {
+  "label": "GUI:ScatterDescription",
+  "text": "Rozprosz zaznaczone obiekty"
+ },
+ {
+  "label": "OBJECT:TrainWreckBridge",
+  "text": "Most z wrakiem pociągu"
+ },
+ {
+  "label": "MAP:BarrenBadlands",
+  "text": "Barren Badlands"
+ },
+ {
+  "label": "MAP:CraterCanyon",
+  "text": "Crater Canyon"
+ },
+ {
+  "label": "MAP:DustDevil",
+  "text": "Dust Devil"
+ },
+ {
+  "label": "MAP:EasternEverglades",
+  "text": "Eastern Everglades"
+ },
+ {
+  "label": "MAP:ForgottenForest",
+  "text": "Forgotten Forest"
+ },
+ {
+  "label": "MAP:InterstateInferno",
+  "text": "Interstate Inferno"
+ },
+ {
+  "label": "MAP:MountainMayhem",
+  "text": "Mountain Mayhem"
+ }
+]
