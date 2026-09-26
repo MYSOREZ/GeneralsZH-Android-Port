@@ -1,0 +1,802 @@
+[
+ {
+  "label": "OBJECT:NukeLauncher",
+  "text": "Jaderno Dělo"
+ },
+ {
+  "label": "OBJECT:ParticleCannon",
+  "text": "Česticovo dělo"
+ },
+ {
+  "label": "OBJECT:OakTree",
+  "text": "Drěvo"
+ },
+ {
+  "label": "OBJECT:Office",
+  "text": "Kancelarija"
+ },
+ {
+  "label": "OBJECT:OilDepot",
+  "text": "Naftovy sklad"
+ },
+ {
+  "label": "OBJECT:OilRefinery",
+  "text": "Naftova rafinerija"
+ },
+ {
+  "label": "OBJECT:OilTank",
+  "text": "Naftovy rezervuar"
+ },
+ {
+  "label": "OBJECT:OldWoodenTelephonePole",
+  "text": "Telefonny stolp"
+ },
+ {
+  "label": "OBJECT:Outpost",
+  "text": "Forpost"
+ },
+ {
+  "label": "OBJECT:Overlord",
+  "text": "Overlord"
+ },
+ {
+  "label": "OBJECT:Palace",
+  "text": "Palac"
+ },
+ {
+  "label": "OBJECT:PalmTree",
+  "text": "Drěvo"
+ },
+ {
+  "label": "OBJECT:ParkBench",
+  "text": "Parkova lavka"
+ },
+ {
+  "label": "OBJECT:ParkGazebo",
+  "text": "Parkova altanka"
+ },
+ {
+  "label": "OBJECT:ParkPavillion",
+  "text": "Parkovy pavilon"
+ },
+ {
+  "label": "OBJECT:ParkingGarage",
+  "text": "Parkingova garaža"
+ },
+ {
+  "label": "OBJECT:ParkingMeter",
+  "text": "Parkometr"
+ },
+ {
+  "label": "OBJECT:Pathfinder",
+  "text": "Sledopyt"
+ },
+ {
+  "label": "OBJECT:PatriotBattery",
+  "text": "Raketny kompleks Patriot"
+ },
+ {
+  "label": "OBJECT:GattlingCannon",
+  "text": "Gatlingovo dělo"
+ },
+ {
+  "label": "OBJECT:PatriotMissile",
+  "text": "Raketny Kompleks Patriot"
+ },
+ {
+  "label": "OBJECT:PhoneBooth",
+  "text": "Telefonna budka"
+ },
+ {
+  "label": "OBJECT:PineTree",
+  "text": "Drěvo"
+ },
+ {
+  "label": "OBJECT:PoliceCar",
+  "text": "Policijny avto"
+ },
+ {
+  "label": "OBJECT:Prison",
+  "text": "Tjurma"
+ },
+ {
+  "label": "OBJECT:PropagandaBlimp",
+  "text": "Prop. dirižabl"
+ },
+ {
+  "label": "OBJECT:PropagandaCenter",
+  "text": "Centr propagandy"
+ },
+ {
+  "label": "OBJECT:Pub",
+  "text": "Krčma"
+ },
+ {
+  "label": "OBJECT:QuadCannon",
+  "text": "Četvorno dělo"
+ },
+ {
+  "label": "OBJECT:QuonsetHut",
+  "text": "Polukrugly barak"
+ },
+ {
+  "label": "OBJECT:RailTie",
+  "text": "Špala"
+ },
+ {
+  "label": "OBJECT:Ranger",
+  "text": "Ranger"
+ },
+ {
+  "label": "OBJECT:Raptor",
+  "text": "Raptor"
+ },
+ {
+  "label": "OBJECT:RaptorPilot",
+  "text": "Pilot"
+ },
+ {
+  "label": "OBJECT:Restaurant",
+  "text": "Restoran"
+ },
+ {
+  "label": "OBJECT:RetailStore",
+  "text": "Magazin"
+ },
+ {
+  "label": "OBJECT:RiverHouse",
+  "text": "Rěčny dom"
+ },
+ {
+  "label": "OBJECT:RoadCone",
+  "text": "Dorožny konus"
+ },
+ {
+  "label": "OBJECT:RocketBuggy",
+  "text": "Raketny bagi"
+ },
+ {
+  "label": "OBJECT:RadarVan",
+  "text": "Radarny furgon"
+ },
+ {
+  "label": "OBJECT:RocketBuggyDebris",
+  "text": "Oblomky raketnogo bagija"
+ },
+ {
+  "label": "OBJECT:RocketBuggyMissile",
+  "text": "Raketa raketnogo bagija"
+ },
+ {
+  "label": "OBJECT:TomahawkMissile",
+  "text": "Raketa Tomahawk"
+ },
+ {
+  "label": "OBJECT:SCUDMissile",
+  "text": "Raketa SCUD"
+ },
+ {
+  "label": "OBJECT:RangerTeamMissile",
+  "text": "Raketa rangerov"
+ },
+ {
+  "label": "OBJECT:Rocks",
+  "text": "Skaly"
+ },
+ {
+  "label": "OBJECT:RopeCoil",
+  "text": "Motok verevky"
+ },
+ {
+  "label": "OBJECT:Rubble",
+  "text": "Razvaliny"
+ },
+ {
+  "label": "OBJECT:ColonelBurton",
+  "text": "Polkovnik Burton"
+ },
+ {
+  "label": "OBJECT:SUV",
+  "text": "Džip"
+ },
+ {
+  "label": "OBJECT:Schoolhouse",
+  "text": "Škola"
+ },
+ {
+  "label": "OBJECT:Scorpion",
+  "text": "Scorpion"
+ },
+ {
+  "label": "OBJECT:Marauder",
+  "text": "Tank Marauder"
+ },
+ {
+  "label": "OBJECT:ScoutDrone",
+  "text": "Razvěduvalny Dron"
+ },
+ {
+  "label": "OBJECT:SpyDrone",
+  "text": "Špionsky Dron"
+ },
+ {
+  "label": "OBJECT:ScrapCar",
+  "text": "Šrotovy avto"
+ },
+ {
+  "label": "OBJECT:ScudLauncher",
+  "text": "Puskovač SCUD"
+ },
+ {
+  "label": "OBJECT:ScudStorm",
+  "text": "Burja SCUD"
+ },
+ {
+  "label": "OBJECT:SecretLab",
+  "text": "Tajna laboratorija"
+ },
+ {
+  "label": "OBJECT:SecretPolice",
+  "text": "Tajna policija"
+ },
+ {
+  "label": "OBJECT:SecurityFence",
+  "text": "Ohranna ograda"
+ },
+ {
+  "label": "OBJECT:Hacker",
+  "text": "Haker"
+ },
+ {
+  "label": "OBJECT:Officer",
+  "text": "Oficer"
+ },
+ {
+  "label": "OBJECT:Agent",
+  "text": "Agent"
+ },
+ {
+  "label": "OBJECT:Sedan",
+  "text": "Sedan"
+ },
+ {
+  "label": "OBJECT:SeismicTank",
+  "text": "Seizmičny tank"
+ },
+ {
+  "label": "OBJECT:Shack",
+  "text": "Baraka"
+ },
+ {
+  "label": "OBJECT:ShippingContainer",
+  "text": "Transportny kontejner"
+ },
+ {
+  "label": "OBJECT:ShippingCrate",
+  "text": "Transportny jaščik"
+ },
+ {
+  "label": "OBJECT:SignalLights",
+  "text": "Signalne světla"
+ },
+ {
+  "label": "OBJECT:Slide",
+  "text": "Gorka"
+ },
+ {
+  "label": "OBJECT:SovietBuilding",
+  "text": "Stara kancelarijna zgrada"
+ },
+ {
+  "label": "OBJECT:SovietGovtBuildingSmall",
+  "text": "Stara vladna zgrada"
+ },
+ {
+  "label": "OBJECT:SovietRadioBuilding",
+  "text": "Stara radiozgrada"
+ },
+ {
+  "label": "OBJECT:SpeakerTower",
+  "text": "Reproduktorna věža"
+ },
+ {
+  "label": "OBJECT:SportCar",
+  "text": "Sportivny avto"
+ },
+ {
+  "label": "OBJECT:Sprinkler",
+  "text": "Poljevalka"
+ },
+ {
+  "label": "OBJECT:SpruceTree",
+  "text": "Drěvo"
+ },
+ {
+  "label": "OBJECT:StanTallTower",
+  "text": "Vysoka věža"
+ },
+ {
+  "label": "OBJECT:Starlifter",
+  "text": "Starlifter2"
+ },
+ {
+  "label": "OBJECT:StatueAngel",
+  "text": "Statuja angela"
+ },
+ {
+  "label": "OBJECT:StatueLenin",
+  "text": "Statuja"
+ },
+ {
+  "label": "OBJECT:StatueRoman",
+  "text": "Rimska statuja"
+ },
+ {
+  "label": "OBJECT:StealthFighter",
+  "text": "Nevidimy Istrěbitelj"
+ },
+ {
+  "label": "OBJECT:StingerSite",
+  "text": "Pozicija Stinger"
+ },
+ {
+  "label": "OBJECT:StoneArch",
+  "text": "Kamenna arka"
+ },
+ {
+  "label": "OBJECT:StoneWall",
+  "text": "Kamenna stěna"
+ },
+ {
+  "label": "OBJECT:PicketFence",
+  "text": "Štaketnik"
+ },
+ {
+  "label": "OBJECT:StopLight",
+  "text": "Světofor"
+ },
+ {
+  "label": "OBJECT:StreetLamp",
+  "text": "Uličny fonar"
+ },
+ {
+  "label": "OBJECT:StreetLight",
+  "text": "Uličny světilnik"
+ },
+ {
+  "label": "OBJECT:StreetSign",
+  "text": "Uličny znak"
+ },
+ {
+  "label": "OBJECT:SupplyTruck",
+  "text": "Kamion snabděnja"
+ },
+ {
+  "label": "OBJECT:SupplyWarehouse",
+  "text": "Dok snabděnja"
+ },
+ {
+  "label": "OBJECT:Swing",
+  "text": "Kačeli"
+ },
+ {
+  "label": "OBJECT:TVStation",
+  "text": "TV-stancija"
+ },
+ {
+  "label": "OBJECT:TankTrap",
+  "text": "Protitankova pastka"
+ },
+ {
+  "label": "OBJECT:TankerTruck",
+  "text": "Avtocisterna"
+ },
+ {
+  "label": "OBJECT:TaxiCab",
+  "text": "Taksi"
+ },
+ {
+  "label": "OBJECT:Technical",
+  "text": "Tehnikal"
+ },
+ {
+  "label": "OBJECT:Tent",
+  "text": "Šator"
+ },
+ {
+  "label": "OBJECT:Terrorist",
+  "text": "Terorist"
+ },
+ {
+  "label": "OBJECT:Tire",
+  "text": "Šina"
+ },
+ {
+  "label": "OBJECT:TireObstacle",
+  "text": "Prěpona iz šin"
+ },
+ {
+  "label": "OBJECT:Tollbooth",
+  "text": "Mytna budka"
+ },
+ {
+  "label": "OBJECT:Tomahawk",
+  "text": "Tomahawk"
+ },
+ {
+  "label": "OBJECT:TownHouse",
+  "text": "Gradsky dom"
+ },
+ {
+  "label": "OBJECT:ToxinTruck",
+  "text": "Toksinny traktor"
+ },
+ {
+  "label": "OBJECT:TrashCan",
+  "text": "Koš za smeti"
+ },
+ {
+  "label": "OBJECT:TrashDumpster",
+  "text": "Koš za Smeti"
+ },
+ {
+  "label": "OBJECT:TrashPaper",
+  "text": "Papirny smet"
+ },
+ {
+  "label": "OBJECT:TrashPile",
+  "text": "Kupa smeti"
+ },
+ {
+  "label": "OBJECT:TreeStump",
+  "text": "Pěnj"
+ },
+ {
+  "label": "OBJECT:TroopCrawler",
+  "text": "Transporter pěhoty"
+ },
+ {
+  "label": "OBJECT:TunnelDefender",
+  "text": "Vojak s RPG"
+ },
+ {
+  "label": "OBJECT:TunnelNetwork",
+  "text": "Tunelna sěť"
+ },
+ {
+  "label": "OBJECT:Cave",
+  "text": "Pečera"
+ },
+ {
+  "label": "OBJECT:GLAHole",
+  "text": "Jama GLA"
+ },
+ {
+  "label": "OBJECT:GLARock",
+  "text": "Skala GLA"
+ },
+ {
+  "label": "OBJECT:UNHumvee",
+  "text": "Humvee OON"
+ },
+ {
+  "label": "OBJECT:UNSoldier",
+  "text": "Vojak OON"
+ },
+ {
+  "label": "OBJECT:VendingMachine",
+  "text": "Prodajny avtomat"
+ },
+ {
+  "label": "OBJECT:Wall",
+  "text": "Stěna"
+ },
+ {
+  "label": "OBJECT:ConcreteWall",
+  "text": "Betonna stěna"
+ },
+ {
+  "label": "OBJECT:WatchTower",
+  "text": "Nabljudateljna věža"
+ },
+ {
+  "label": "OBJECT:WaterPlant",
+  "text": "Vodna stancija"
+ },
+ {
+  "label": "OBJECT:WindMill",
+  "text": "Větrjany mlin"
+ },
+ {
+  "label": "OBJECT:WoodBeams",
+  "text": "Drevene balky"
+ },
+ {
+  "label": "OBJECT:WoodTower",
+  "text": "Drevena věža"
+ },
+ {
+  "label": "OBJECT:WoodWall",
+  "text": "Drevena stěna"
+ },
+ {
+  "label": "OBJECT:WoodenBarrels",
+  "text": "Drevene bočky"
+ },
+ {
+  "label": "OBJECT:Worker",
+  "text": "Rabotnik"
+ },
+ {
+  "label": "OBJECT:Birch",
+  "text": "Drěvo"
+ },
+ {
+  "label": "OBJECT:Building",
+  "text": "Zgrada"
+ },
+ {
+  "label": "OBJECT:Cathedral",
+  "text": "Katedrala"
+ },
+ {
+  "label": "OBJECT:FarmHouse",
+  "text": "Fermersky dom"
+ },
+ {
+  "label": "OBJECT:Fir",
+  "text": "Drěvo"
+ },
+ {
+  "label": "OBJECT:Garage",
+  "text": "Garaža"
+ },
+ {
+  "label": "OBJECT:OscarTheGrouch",
+  "text": "Torgovec šrotom"
+ },
+ {
+  "label": "OBJECT:Pilot",
+  "text": "Pilot"
+ },
+ {
+  "label": "OBJECT:Pump",
+  "text": "Nasos"
+ },
+ {
+  "label": "OBJECT:Shop",
+  "text": "Prodavnica"
+ },
+ {
+  "label": "OBJECT:StingerMissile",
+  "text": "Raketa Stinger"
+ },
+ {
+  "label": "OBJECT:StingerSoldier",
+  "text": "Vojak so Stingerom"
+ },
+ {
+  "label": "OBJECT:StorageTank",
+  "text": "Rezervuar"
+ },
+ {
+  "label": "OBJECT:Well",
+  "text": "Studnja"
+ },
+ {
+  "label": "OBJECT:WineVat",
+  "text": "Kad"
+ },
+ {
+  "label": "OBJECT:GenericMale",
+  "text": "Civilny žitelj"
+ },
+ {
+  "label": "OBJECT:GenericFemale",
+  "text": "Civil"
+ },
+ {
+  "label": "OBJECT:MogadishuFemaleCivilian",
+  "text": "Civil"
+ },
+ {
+  "label": "OBJECT:MogadishuMaleCivilian",
+  "text": "Civil"
+ },
+ {
+  "label": "OBJECT:Crane",
+  "text": "Kran"
+ },
+ {
+  "label": "OBJECT:OceanCenter",
+  "text": "Kongresny centr"
+ },
+ {
+  "label": "OBJECT:SoccerStadium",
+  "text": "Futbolny stadion"
+ },
+ {
+  "label": "OBJECT:Ambulance",
+  "text": "Ambulancija"
+ },
+ {
+  "label": "OBJECT:AsianCar",
+  "text": "Avto"
+ },
+ {
+  "label": "OBJECT:Backhoe",
+  "text": "Ekskavator"
+ },
+ {
+  "label": "OBJECT:LargeForklift",
+  "text": "Veliky pogruzčik"
+ },
+ {
+  "label": "OBJECT:SmallForklift",
+  "text": "Pogruzčik"
+ },
+ {
+  "label": "OBJECT:CropDuster",
+  "text": "Poljny samolet"
+ },
+ {
+  "label": "OBJECT:Cessna",
+  "text": "Samolet"
+ },
+ {
+  "label": "OBJECT:ChickenTruck",
+  "text": "Kamion s kurami"
+ },
+ {
+  "label": "OBJECT:Combine",
+  "text": "Kombajn"
+ },
+ {
+  "label": "OBJECT:Eurovan",
+  "text": "Furgon"
+ },
+ {
+  "label": "OBJECT:EuroPoliceVan",
+  "text": "Policijny furgon"
+ },
+ {
+  "label": "OBJECT:Firetruck",
+  "text": "Požarny avto"
+ },
+ {
+  "label": "OBJECT:FarmerTruck",
+  "text": "Fermersky kamion"
+ },
+ {
+  "label": "OBJECT:AsianFishingBoat",
+  "text": "Rybarska lodka"
+ },
+ {
+  "label": "OBJECT:TourBus",
+  "text": "Turističny avtobus"
+ },
+ {
+  "label": "OBJECT:FishingTrowler",
+  "text": "Rybarsky trauler"
+ },
+ {
+  "label": "OBJECT:WorkTruck",
+  "text": "Rabotny kamion"
+ },
+ {
+  "label": "OBJECT:TugBoat",
+  "text": "Buksir"
+ },
+ {
+  "label": "OBJECT:BioHazardTech",
+  "text": "Tehnik bio-opasnosti"
+ },
+ {
+  "label": "OBJECT:MilitiaTank",
+  "text": "Tank opolčenja"
+ },
+ {
+  "label": "Network:PlayerDisconnected",
+  "text": "%s je otključen"
+ },
+ {
+  "label": "Network:PlayerLeftGame",
+  "text": "%s pokinul igru"
+ },
+ {
+  "label": "Network:Vote",
+  "text": "Glas"
+ },
+ {
+  "label": "Network:QuitGame",
+  "text": "IZHOD IZ IGRY"
+ },
+ {
+  "label": "MAP:AlpineAssault",
+  "text": "Alpijsky Napad"
+ },
+ {
+  "label": "MAP:AustrianAmbush",
+  "text": "Rynočny Sad"
+ },
+ {
+  "label": "MAP:Badlands",
+  "text": "Pustynna Jarost"
+ },
+ {
+  "label": "MAP:BridgeBusters",
+  "text": "Železny Zmaj"
+ },
+ {
+  "label": "MAP:KashmarKlash",
+  "text": "Vojevody Pustoše"
+ },
+ {
+  "label": "MAP:Oasis",
+  "text": "Zlata Oaza"
+ },
+ {
+  "label": "MAP:ScorchedEarth",
+  "text": "Spaljena Zemlja"
+ },
+ {
+  "label": "MAP:SleepyHollow",
+  "text": "Domovinsky Šćit"
+ },
+ {
+  "label": "MAP:SmalltownUSA",
+  "text": "Domovinsky Sojuz"
+ },
+ {
+  "label": "MAP:TampicoTrauma",
+  "text": "Tiha Rěka"
+ },
+ {
+  "label": "MAP:WoodcrestCircle",
+  "text": "Poslědnji Crusader"
+ },
+ {
+  "label": "MAP:XinjiangBang",
+  "text": "Zimni Vlk"
+ },
+ {
+  "label": "Audio:Speakers0",
+  "text": "2 Zvučniky"
+ },
+ {
+  "label": "Audio:Speakers1",
+  "text": "Slušalky"
+ },
+ {
+  "label": "Audio:Speakers2",
+  "text": "Surround Zvuk"
+ },
+ {
+  "label": "Audio:Speakers3",
+  "text": "4 Zvučniky"
+ },
+ {
+  "label": "Audio:Speakers4",
+  "text": "5.1 Surround"
+ },
+ {
+  "label": "Audio:Speakers5",
+  "text": "7.1 Surround"
+ },
+ {
+  "label": "MAP:CHI01ObjectiveText",
+  "text": "OBJEKTIV MISIJE \n Uništi Skladišče Jadernyh Boglav"
+ },
+ {
+  "label": "MAP:CHI02Open",
+  "text": "Hong Kong, Kitaj \n Kriza v Hong Kongu"
+ },
+ {
+  "label": "SCRIPT:CHI02AudioHolder01",
+  "text": "<Govori Črvena Gvardija> \n 'Generale, my ostajemo vse, što ostalo iz udarnoj sily! My morame postroiti Komandny Centr i podignuti radar, aby polučiti nove prikazy'"
+ },
+ {
+  "label": "SCRIPT:CHI02AudioHolder02",
+  "text": "<Govori Črvena Gvardija> \n 'Generale, ako ne podignemo naš radar, ne budemo moči polučiti razvědovne dany o poziciji vraga. Nam trěba tot radar'"
+ }
+]

@@ -1,0 +1,802 @@
+[
+ {
+  "label": "RADAR:StructureUnderAttack",
+  "text": "Zgrada pod napadom"
+ },
+ {
+  "label": "RADAR:UnderAttack",
+  "text": "Pod napadom"
+ },
+ {
+  "label": "RADAR:Infiltration",
+  "text": "Infiltracija vraga otkryta"
+ },
+ {
+  "label": "UPGRADE:AdvancedTraining",
+  "text": "Napredno obučenje"
+ },
+ {
+  "label": "UPGRADE:AmericaLaserMissiles",
+  "text": "Amerikanske laserne rakety"
+ },
+ {
+  "label": "UPGRADE:Mines",
+  "text": "Pozemne miny"
+ },
+ {
+  "label": "UPGRADE:Radar",
+  "text": "Radar"
+ },
+ {
+  "label": "UPGRADE:OverlordGattlingCannon",
+  "text": "Gatlingovo dělo Overlorda"
+ },
+ {
+  "label": "UPGRADE:OverlordPropagandaTower",
+  "text": "Propagandna věža Overlorda"
+ },
+ {
+  "label": "UPGRADE:OverlordBattleBunker",
+  "text": "Bojevy bunker Overlorda"
+ },
+ {
+  "label": "UPGRADE:ControlRods",
+  "text": "Regulacijne pruty"
+ },
+ {
+  "label": "UPGRADE:ScoutDrone",
+  "text": "Razvědyvateljny dron"
+ },
+ {
+  "label": "UPGRADE:BattleDrone",
+  "text": "Bojevy dron"
+ },
+ {
+  "label": "UPGRADE:RangerFlashBangGrenade",
+  "text": "Oslěpjajuće granaty Rangera"
+ },
+ {
+  "label": "UPGRADE:HoverTank",
+  "text": "Lebdeči tank"
+ },
+ {
+  "label": "UPGRADE:TomahawkRemoteControl",
+  "text": "Krilate rakety"
+ },
+ {
+  "label": "UPGRADE:AircraftFuel",
+  "text": "Aviacijno gorivo"
+ },
+ {
+  "label": "UPGRADE:LaserMissiles",
+  "text": "Laserne rakety"
+ },
+ {
+  "label": "UPGRADE:TOWMissile",
+  "text": "Raketa TOW"
+ },
+ {
+  "label": "UPGRADE:ComancheRocketPods",
+  "text": "Raketne bloky Comanche"
+ },
+ {
+  "label": "UPGRADE:RailGun",
+  "text": "Rělsotron"
+ },
+ {
+  "label": "UPGRADE:Nationalism",
+  "text": "Nacionalizm"
+ },
+ {
+  "label": "UPGRADE:AntiTankGrenade",
+  "text": "Protitankove granaty"
+ },
+ {
+  "label": "UPGRADE:VehicleHack",
+  "text": "Hakovanje vozil"
+ },
+ {
+  "label": "UPGRADE:IRGoggles",
+  "text": "Infračrvene okulary"
+ },
+ {
+  "label": "UPGRADE:BlackNapalm",
+  "text": "Črny napalm"
+ },
+ {
+  "label": "UPGRADE:ChainGuns",
+  "text": "Rotacijne kulemety"
+ },
+ {
+  "label": "UPGRADE:SubliminalMessaging",
+  "text": "Podsvěstne poslanja"
+ },
+ {
+  "label": "UPGRADE:UraniumShells",
+  "text": "Uranove snarjady"
+ },
+ {
+  "label": "UPGRADE:NuclearTanks",
+  "text": "Jaderne tanky"
+ },
+ {
+  "label": "UPGRADE:StunBullets",
+  "text": "Omamljajuće kulje"
+ },
+ {
+  "label": "UPGRADE:TranqDarts",
+  "text": "Usypljajuće strělky"
+ },
+ {
+  "label": "UPGRADE:APBullets",
+  "text": "Bronebojne kulje"
+ },
+ {
+  "label": "UPGRADE:BioBomb",
+  "text": "Bio-bomba"
+ },
+ {
+  "label": "UPGRADE:HighExplosiveBomb",
+  "text": "Fugasna bomba"
+ },
+ {
+  "label": "UPGRADE:ArmTheMob",
+  "text": "Vooruži tolpu"
+ },
+ {
+  "label": "UPGRADE:ScorpionRocket",
+  "text": "Raketa Scorpion"
+ },
+ {
+  "label": "UPGRADE:SCUDLauncherExplosiveWarhead",
+  "text": "Eksplozivna bojeva glava"
+ },
+ {
+  "label": "UPGRADE:SCUDLauncherAnthraxWarhead",
+  "text": "Antraksova bojeva glava"
+ },
+ {
+  "label": "UPGRADE:BuggyAmmo",
+  "text": "Municija raketnogo bagija"
+ },
+ {
+  "label": "UPGRADE:AnthraxBeta",
+  "text": "Antraks Beta"
+ },
+ {
+  "label": "UPGRADE:ToxinShells",
+  "text": "Toksinne snarjady"
+ },
+ {
+  "label": "UPGRADE:JunkRepair",
+  "text": "Šrotova popravka"
+ },
+ {
+  "label": "UPGRADE:Camouflage",
+  "text": "Kamuflaža"
+ },
+ {
+  "label": "UPGRADE:CompositeArmor",
+  "text": "Kompozitna bronja"
+ },
+ {
+  "label": "OBJECT:Beacon",
+  "text": "Majak"
+ },
+ {
+  "label": "OBJECT:Dam",
+  "text": "Brana"
+ },
+ {
+  "label": "OBJECT:CommandCenter",
+  "text": "Komandny centr"
+ },
+ {
+  "label": "OBJECT:ColdFusionReactor",
+  "text": "Reaktor hladnoj fuzije"
+ },
+ {
+  "label": "OBJECT:NuclearReactor",
+  "text": "Jaderny reaktor"
+ },
+ {
+  "label": "OBJECT:DemoTrap",
+  "text": "Podryvna pastka"
+ },
+ {
+  "label": "OBJECT:PowerPlant",
+  "text": "Elektrostancija"
+ },
+ {
+  "label": "OBJECT:DetentionCamp",
+  "text": "Zatvorny lager"
+ },
+ {
+  "label": "OBJECT:StrategyCenter",
+  "text": "Strategičny centr"
+ },
+ {
+  "label": "OBJECT:Airfield",
+  "text": "Aerodrom"
+ },
+ {
+  "label": "OBJECT:SupplyCenter",
+  "text": "Centr snabděnja"
+ },
+ {
+  "label": "OBJECT:AmericaSupplyDropZone",
+  "text": "Zona sbrosa snabděnja"
+ },
+ {
+  "label": "OBJECT:SupplyStash",
+  "text": "Tajny sklad"
+ },
+ {
+  "label": "OBJECT:Barracks",
+  "text": "Kasarna"
+ },
+ {
+  "label": "OBJECT:BlackMarket",
+  "text": "Črny rynok"
+ },
+ {
+  "label": "OBJECT:WarFactory",
+  "text": "Vojenna fabrika"
+ },
+ {
+  "label": "OBJECT:ArmsDealer",
+  "text": "Torgovec oružjem"
+ },
+ {
+  "label": "OBJECT:AmmoCache",
+  "text": "Sklad municije"
+ },
+ {
+  "label": "OBJECT:AmphibiousTransport",
+  "text": "Amfibijny transport"
+ },
+ {
+  "label": "OBJECT:AutoFerry",
+  "text": "Avtomobilny prom"
+ },
+ {
+  "label": "OBJECT:TrainGuide",
+  "text": "Vodič poezda"
+ },
+ {
+  "label": "OBJECT:AngryMob",
+  "text": "Gněvna tolpa"
+ },
+ {
+  "label": "OBJECT:TankHunter",
+  "text": "Lovec tankov"
+ },
+ {
+  "label": "OBJECT:Apartment",
+  "text": "Kvartira"
+ },
+ {
+  "label": "OBJECT:ChemicalFactory",
+  "text": "Himična fabrika"
+ },
+ {
+  "label": "OBJECT:GovBuilding",
+  "text": "Vladna zgrada"
+ },
+ {
+  "label": "OBJECT:TechHospital",
+  "text": "Bolnica -- Zauzmi, aby vsa pěhota avtomatski sę lěčila"
+ },
+ {
+  "label": "OBJECT:ApartmentComplex",
+  "text": "Žilny kompleks"
+ },
+ {
+  "label": "OBJECT:SpyPost",
+  "text": "Špionsky post"
+ },
+ {
+  "label": "OBJECT:SupplyPile",
+  "text": "Kupa snabděnja"
+ },
+ {
+  "label": "OBJECT:TrainStation",
+  "text": "Železnična stancija"
+ },
+ {
+  "label": "OBJECT:TechRadioStation",
+  "text": "Radiostancija"
+ },
+ {
+  "label": "OBJECT:TechOilDerrick",
+  "text": "Naftova Vyška -- Zauzmi, aby polučiti dodatny novac"
+ },
+ {
+  "label": "OBJECT:Arcade",
+  "text": "Arkada"
+ },
+ {
+  "label": "OBJECT:Aurora",
+  "text": "Bombardirovač Aurora"
+ },
+ {
+  "label": "OBJECT:A10Thunderbolt",
+  "text": "A10 Thunderbolt"
+ },
+ {
+  "label": "OBJECT:AVPOWTRUCK",
+  "text": "Kamion za plěnnikov"
+ },
+ {
+  "label": "OBJECT:B52",
+  "text": "B52"
+ },
+ {
+  "label": "OBJECT:BMW",
+  "text": "Avto"
+ },
+ {
+  "label": "OBJECT:Bank",
+  "text": "Bank"
+ },
+ {
+  "label": "OBJECT:BarnCoop",
+  "text": "Kurnik"
+ },
+ {
+  "label": "OBJECT:BarnShed",
+  "text": "Saraj"
+ },
+ {
+  "label": "OBJECT:Barrel",
+  "text": "Bočka"
+ },
+ {
+  "label": "OBJECT:BattleDrone",
+  "text": "Bojevy Dron"
+ },
+ {
+  "label": "OBJECT:BattleMaster",
+  "text": "Battlemaster"
+ },
+ {
+  "label": "OBJECT:Battleship",
+  "text": "Linkor"
+ },
+ {
+  "label": "OBJECT:BigRig",
+  "text": "Tjagač"
+ },
+ {
+  "label": "OBJECT:BikeRack",
+  "text": "Stojalo za velosipedy"
+ },
+ {
+  "label": "OBJECT:Billboard",
+  "text": "Reklamny ščit"
+ },
+ {
+  "label": "OBJECT:Bird",
+  "text": "Ptica"
+ },
+ {
+  "label": "OBJECT:BombTruck",
+  "text": "Kamion-bomba"
+ },
+ {
+  "label": "OBJECT:Boulders",
+  "text": "Valuny"
+ },
+ {
+  "label": "OBJECT:Boxes",
+  "text": "Korobky"
+ },
+ {
+  "label": "OBJECT:BrickWall",
+  "text": "Cěglena stěna"
+ },
+ {
+  "label": "OBJECT:BrokenWall",
+  "text": "Razbita stěna"
+ },
+ {
+  "label": "OBJECT:Bunker",
+  "text": "Bunker"
+ },
+ {
+  "label": "OBJECT:BurningBarricade",
+  "text": "Goreča barikada"
+ },
+ {
+  "label": "OBJECT:Checkpoint",
+  "text": "Kontrolny punkt"
+ },
+ {
+  "label": "OBJECT:BusStop",
+  "text": "Avtobusna ostanovka"
+ },
+ {
+  "label": "OBJECT:Bush",
+  "text": "Kust"
+ },
+ {
+  "label": "OBJECT:Camaro",
+  "text": "Avto"
+ },
+ {
+  "label": "OBJECT:CarBug",
+  "text": "Avto"
+ },
+ {
+  "label": "OBJECT:CarSwatchEuro",
+  "text": "Avto"
+ },
+ {
+  "label": "OBJECT:CargoLoadingCranes",
+  "text": "Gruzove krany"
+ },
+ {
+  "label": "OBJECT:CargoNet",
+  "text": "Gruzova sěť"
+ },
+ {
+  "label": "OBJECT:Cart",
+  "text": "Voziček"
+ },
+ {
+  "label": "OBJECT:ChainLinkFence",
+  "text": "Sětčasta ograda"
+ },
+ {
+  "label": "OBJECT:Chalet",
+  "text": "Šale"
+ },
+ {
+  "label": "OBJECT:CheckPointCrossingGuard",
+  "text": "Kontrolny Punkt"
+ },
+ {
+  "label": "OBJECT:Chinook",
+  "text": "Chinook"
+ },
+ {
+  "label": "OBJECT:Church",
+  "text": "Crkva"
+ },
+ {
+  "label": "OBJECT:Clete",
+  "text": "Pričalna tumba"
+ },
+ {
+  "label": "OBJECT:ClothesLine",
+  "text": "Šnur za bělje"
+ },
+ {
+  "label": "OBJECT:Comanche",
+  "text": "Comanche"
+ },
+ {
+  "label": "OBJECT:ComancheHull",
+  "text": "Korpus Comanche"
+ },
+ {
+  "label": "OBJECT:CompactCar",
+  "text": "Maly avto"
+ },
+ {
+  "label": "OBJECT:Ambassador",
+  "text": "Posol"
+ },
+ {
+  "label": "OBJECT:Redguard",
+  "text": "Črvena gvardija"
+ },
+ {
+  "label": "OBJECT:ConstructionBarricade",
+  "text": "Stroiteljna barikada"
+ },
+ {
+  "label": "OBJECT:ConvenienceStore",
+  "text": "Mala prodavnica"
+ },
+ {
+  "label": "OBJECT:ConvoyTruck",
+  "text": "Konvojny kamion"
+ },
+ {
+  "label": "OBJECT:Cottage",
+  "text": "Domik"
+ },
+ {
+  "label": "OBJECT:Crate",
+  "text": "Jaščik"
+ },
+ {
+  "label": "OBJECT:CrossingGuard",
+  "text": "Stražnik na prěhodu"
+ },
+ {
+  "label": "OBJECT:Crusader",
+  "text": "Crusader"
+ },
+ {
+  "label": "OBJECT:Paladin",
+  "text": "Paladin"
+ },
+ {
+  "label": "OBJECT:DaisyCutterBomb",
+  "text": "Vakuumna Bomba"
+ },
+ {
+  "label": "OBJECT:BlackMarketNuke",
+  "text": "Jaderka s črnogo rynka"
+ },
+ {
+  "label": "OBJECT:ToxinTank",
+  "text": "Toksinny tank"
+ },
+ {
+  "label": "OBJECT:AnthraxBomb",
+  "text": "Antraksova Bomba"
+ },
+ {
+  "label": "OBJECT:CarpetBomb",
+  "text": "Kovrova bomba"
+ },
+ {
+  "label": "OBJECT:ClusterMinesBomb",
+  "text": "Kasetne Miny"
+ },
+ {
+  "label": "OBJECT:EMPPulseBomb",
+  "text": "EMP Impuls"
+ },
+ {
+  "label": "OBJECT:NeutronMissile",
+  "text": "Jaderna raketa"
+ },
+ {
+  "label": "OBJECT:Dealership",
+  "text": "Avtosalon"
+ },
+ {
+  "label": "OBJECT:Dirt",
+  "text": "Grjaz"
+ },
+ {
+  "label": "OBJECT:Docks",
+  "text": "Doky"
+ },
+ {
+  "label": "OBJECT:DogwoodTree",
+  "text": "Drevo"
+ },
+ {
+  "label": "OBJECT:Dozer",
+  "text": "Stroiteljny buldozer"
+ },
+ {
+  "label": "OBJECT:Dragon",
+  "text": "Tank Dragon"
+ },
+ {
+  "label": "OBJECT:ElectricRetail",
+  "text": "Elektrotovary"
+ },
+ {
+  "label": "OBJECT:ElectricalTransformer",
+  "text": "Elektrotransformator"
+ },
+ {
+  "label": "OBJECT:FireHydrant",
+  "text": "Požarny gidrant"
+ },
+ {
+  "label": "OBJECT:StructureMine",
+  "text": "Mina"
+ },
+ {
+  "label": "OBJECT:ClusterMine",
+  "text": "Mina"
+ },
+ {
+  "label": "OBJECT:FireStorm",
+  "text": "Ognjena burja"
+ },
+ {
+  "label": "OBJECT:FlamingInfantry",
+  "text": "Goreča pěhota"
+ },
+ {
+  "label": "OBJECT:ToxicInfantry",
+  "text": "Toksična pěhota"
+ },
+ {
+  "label": "OBJECT:FoodCart",
+  "text": "Voziček s jedlom"
+ },
+ {
+  "label": "OBJECT:Fountain",
+  "text": "Fontana"
+ },
+ {
+  "label": "OBJECT:FruitStand",
+  "text": "Stand s ovočjem"
+ },
+ {
+  "label": "OBJECT:Gargoyle",
+  "text": "Gargulja"
+ },
+ {
+  "label": "OBJECT:GasStation",
+  "text": "Benzostancija"
+ },
+ {
+  "label": "OBJECT:GasStorageFacility",
+  "text": "Skladišče gaza"
+ },
+ {
+  "label": "OBJECT:GattlingTank",
+  "text": "Gatlingovy tank"
+ },
+ {
+  "label": "OBJECT:GrassHut",
+  "text": "Solomjana koliba"
+ },
+ {
+  "label": "OBJECT:Gravel",
+  "text": "Gravij"
+ },
+ {
+  "label": "OBJECT:FlashBangGrenade",
+  "text": "Oslěpjajuća granata"
+ },
+ {
+  "label": "OBJECT:TankShell",
+  "text": "Tankovy snarjad"
+ },
+ {
+  "label": "OBJECT:Rebel",
+  "text": "Povstanec"
+ },
+ {
+  "label": "OBJECT:JarmenKell",
+  "text": "Jarmen Kell"
+ },
+ {
+  "label": "OBJECT:GuardTower",
+  "text": "Stražna věža"
+ },
+ {
+  "label": "OBJECT:GuardianControlCenter",
+  "text": "Centr upravljenja ohrannikami"
+ },
+ {
+  "label": "OBJECT:GuardianDrone",
+  "text": "Dron-ohrannik"
+ },
+ {
+  "label": "OBJECT:BlackLotus",
+  "text": "Črny Lotos"
+ },
+ {
+  "label": "OBJECT:Hanger",
+  "text": "Hangar"
+ },
+ {
+  "label": "OBJECT:HarvardsOffice",
+  "text": "Kontejner za smeti"
+ },
+ {
+  "label": "OBJECT:Hedge",
+  "text": "Živa ograda"
+ },
+ {
+  "label": "OBJECT:HighwaySign",
+  "text": "Znak avtostrady"
+ },
+ {
+  "label": "OBJECT:Hijacker",
+  "text": "Otimač"
+ },
+ {
+  "label": "OBJECT:AngryMobNexus",
+  "text": "<<GNĚVNA TOLPA>>"
+ },
+ {
+  "label": "OBJECT:Hotel",
+  "text": "Hotel"
+ },
+ {
+  "label": "OBJECT:Humvee",
+  "text": "Humvee"
+ },
+ {
+  "label": "OBJECT:POWTruck",
+  "text": "Kamion za Plěnnikov"
+ },
+ {
+  "label": "OBJECT:IndustrialBuilding",
+  "text": "Industrijna zgrada"
+ },
+ {
+  "label": "OBJECT:InfernoCannon",
+  "text": "Dělo Inferno"
+ },
+ {
+  "label": "OBJECT:JapaneseLantern",
+  "text": "Japonsky fonar"
+ },
+ {
+  "label": "OBJECT:JunkCar",
+  "text": "Razbity avto"
+ },
+ {
+  "label": "OBJECT:Limo",
+  "text": "Limuzina"
+ },
+ {
+  "label": "OBJECT:Lumber",
+  "text": "Drevesina"
+ },
+ {
+  "label": "OBJECT:MIG",
+  "text": "MiG"
+ },
+ {
+  "label": "OBJECT:MailBox",
+  "text": "Poštovy jaščik"
+ },
+ {
+  "label": "OBJECT:ManHoleCover",
+  "text": "Kanalizacijny poklop"
+ },
+ {
+  "label": "OBJECT:MapleTree",
+  "text": "Drěvo"
+ },
+ {
+  "label": "OBJECT:MarketVendor",
+  "text": "Prodavec na rynku"
+ },
+ {
+  "label": "OBJECT:Medic",
+  "text": "Ambulancija"
+ },
+ {
+  "label": "OBJECT:MegaMall",
+  "text": "Megacentr"
+ },
+ {
+  "label": "OBJECT:Missile",
+  "text": "Raketa"
+ },
+ {
+  "label": "OBJECT:MissileTeam",
+  "text": "Raketny branitelj"
+ },
+ {
+  "label": "OBJECT:Moat",
+  "text": "Rov"
+ },
+ {
+  "label": "OBJECT:MogadishuHighrise",
+  "text": "Vysotna zgrada"
+ },
+ {
+  "label": "OBJECT:NewsStand",
+  "text": "Kiosk"
+ },
+ {
+  "label": "OBJECT:NightClub",
+  "text": "Nočny klub"
+ },
+ {
+  "label": "OBJECT:NotAMosque",
+  "text": "Kupol"
+ },
+ {
+  "label": "OBJECT:NuclearMissile",
+  "text": "Jaderna Raketa"
+ }
+]

@@ -1,0 +1,802 @@
+[
+ {
+  "label": "SCRIPT:CHI02AudioHolder03",
+  "text": "<'EVA' govori> \n 'Generale, vy ste živy!?! My mysleli, že vas izgubili, kogda most upal. No vy ešče nisu vně opasnosti, tako da načnimo'"
+ },
+ {
+  "label": "SCRIPT:CHI02AudioHolder04",
+  "text": "<'EVA' govori> \n 'Prěže vsego, vam trěba zaveršiti vašu bazu. Kasarna, reaktor i centr snabděnja sut vsi neobhodni za vaše preživanje, tako da ih dokončite nemedlenno. Ja vas znova kontaktuju, kogda vaša baza bude zaveršena'"
+ },
+ {
+  "label": "SCRIPT:CHI02AudioHolder05",
+  "text": "<'EVA' govori> \n 'Otlično, vaša baza je zaveršena, krome Vojennoj Fabriky. Nam trěba dati vam jednu sejčas. Tu bi trěbalo byti zapasnu bazu -- s Vojennoju Fabrikoju'"
+ },
+ {
+  "label": "SCRIPT:CHI02AudioHolder06",
+  "text": "<'EVA' govori> \n 'Ne znaju, v kakom je ona stanju, no ona vam dozvoli postroiti oklopljene jedinice, aby vam pomogli v boju. Idite tam čim skorěje, generale.'"
+ },
+ {
+  "label": "SCRIPT:CHI02AudioHolder07",
+  "text": "<'EVA' govori> \n 'Teper znajemo pričinu, začto GLA prišla v Hong Kong: oni cěljajut ključove zgrady po cělom městu. Naš glavny cělj je uništiti vse sily GLA, no ako takože možemo sprěčiti uništenje tyh zgrad, naši vodi budut vam veoma zahvalni.'"
+ },
+ {
+  "label": "SCRIPT:CHI02AudioHolder08",
+  "text": "<'EVA' govori> \n 'Ako vy uděržite vaš radar dělajuč, ja mogu slěditi Teroristov za vas i dati vam ih moguče cěli.'"
+ },
+ {
+  "label": "SCRIPT:CHI02AudioHolder09",
+  "text": "<'EVA' govori> \n 'Generale, Terorist izhodit iz Kongresnogo Centra, i on je nabit dosta eksploziva, aby srušil zgradu! Ja markiruju Terorista červeno na vašem radarě. Ja markiruju jego moguče cěli žolto. Zaustavite ga, prěže nego dosěgne jednu iz tyh cělej!'"
+ },
+ {
+  "label": "SCRIPT:CHI02AudioHolder10",
+  "text": "<'EVA' govori> \n 'Drugy Terorist izšel iz Kongresnogo Centra! Ja markiruju jego poziciju červeno. Jego moguče cěli sut markirovane žolto. Zaustavite ga, generale.'"
+ },
+ {
+  "label": "SCRIPT:CHI02AudioHolder11",
+  "text": "<'EVA' govori> \n 'Generale, ta zgrada je cělj Terorista -- my morame ju braniti!'"
+ },
+ {
+  "label": "SCRIPT:CHI02AudioHolder12",
+  "text": "<'EVA' govori> \n 'Generale, Teroristi zauzeli Kongresny Centr! Vam bude trěba uništiti Kongresny Centr i prilěgajuče parkirne zgrady, aby zaustaviti terorističnu prětnju.'"
+ },
+ {
+  "label": "SCRIPT:CHI02AudioHolder13",
+  "text": "<'EVA' govori> \n 'Otlično, vy dosěgli zapasnu bazu. Hmm, na pogled ne mnogo, no ona vam dozvoli postroiti tanky, i věče Vojennyh Fabrik, ako trěba.'"
+ },
+ {
+  "label": "SCRIPT:CHI02AudioHolder14",
+  "text": "<'EVA' govori> \n 'Terorističnа prětnja je zaveršena. Dobra rabota, generale.'"
+ },
+ {
+  "label": "SCRIPT:CHI02AudioHolder15",
+  "text": "<'EVA' govori> \n 'Generale, ja otkryla oklopljene jedinice GLA v dvigenju. Oni ne prišli iz Kongresnogo Centra, tako da GLA morat imati drugu bazu gdě-to v Hong Kongu. Najdite tu bazu i uništite ju!'"
+ },
+ {
+  "label": "SCRIPT:CHI02AudioHolder16",
+  "text": "<'EVA' govori> \n 'Generale, GLA privela svoje Toksinne Traktory. Poznajete ih po zelenoj sluzi, koju oni prskajut. Uděržite vašu pěhotu daleko od nih i upotrěbite vaše tanky, aby sę spravili s toju novoju prětnjoju.'"
+ },
+ {
+  "label": "SCRIPT:CHI02AudioHolder17",
+  "text": "<'EVA' govori> \n 'Dobra rabota, generale, vy uništili Toksinnu bazu. Teper oni ne budut moči postroiti věče Toksinnyh Traktorov.'"
+ },
+ {
+  "label": "SCRIPT:CHI02AudioHolder18",
+  "text": "<'EVA' govori> \n 'Čekajte, generale, tam naprjed je velika sila. Ja pozovu udar EMP, aby očistiti oblast, čekajte.'"
+ },
+ {
+  "label": "SCRIPT:CHI02AudioHolder19",
+  "text": "<'EVA' govori> \n 'To vam dolžno dati čisty put do ih bazy. Zaveršimo to, generale.'"
+ },
+ {
+  "label": "SCRIPT:CHI02AudioHolder20",
+  "text": "<Govori Kapitan Avtomobilnogo Proma> \n 'Nakonec, vojsko je tu! Ti Teroristi uništajut moj biznes! Ako vy postavite vaše sily na bort, ja vas otvedu k Kongresnomu Centru. Vy možete sę uvući čerez zadnja vrata i zaskočiti ih vrasploh. Prosto pritisnite gumb Transport, kogda ste gotovi.'"
+ },
+ {
+  "label": "SCRIPT:CHI02Box01",
+  "text": "Upotrěbite BULDOZER, aby postroiti KOMANDNY CENTR \n Kogda je KOMANDNY CENTR zaveršen, \n izberite ga i načnite ulučšenje RADAR \n Kogda ulučšenje je zaveršeno, ekran radara sę pojavi \n v niže-lěvom uglu Komandnogo Interfejsa"
+ },
+ {
+  "label": "SCRIPT:CHI02Box02",
+  "text": "NOVA JEDINICA: TANK ZMAJ \n TANK ZMAJ dyše ognjem, koji može bystro uništiti vražju pěhotu, \n dažde ako je ona v garnizonu vnutri zgrady ili struktury"
+ },
+ {
+  "label": "MAP:CHI02Obj01",
+  "text": "OBJEKTIV MISIJE: \n Uništi Kongresny Centr \n i jego prilěgajuče parkirne zgrady \n aby zaustaviti terorističnu prětnju"
+ },
+ {
+  "label": "MAP:CHI02Obj02",
+  "text": "OBJEKTIV MISIJE: \n Uništi bazu GLA"
+ },
+ {
+  "label": "MAP:CHI02SecondaryObj01",
+  "text": "Vtorostepenny Objektiv: \n Zaustavi Teroristov GLA, aby ne uništili \n cělovane zgrady v centru Hong Konga"
+ },
+ {
+  "label": "MAP:CHI02SecondaryObj02",
+  "text": "Vtorostepenny Objektiv: \n Uništi proizvodstvenu zgradu Toksinnyh Traktorov"
+ },
+ {
+  "label": "MAP:CHI03Open",
+  "text": "Brana Tri Klisur...Provincija Hubei, Kitaj \n Potop Nasilja"
+ },
+ {
+  "label": "MAP:CHI03Obj1",
+  "text": "OBJEKTIV MISIJE: \n Uništi Branu"
+ },
+ {
+  "label": "MAP:CHI03Obj2",
+  "text": "OBJEKTIV MISIJE: \n Uništi bazu GLA"
+ },
+ {
+  "label": "MAP:CHI03Obj3",
+  "text": "OBJEKTIV MISIJE: \n Pobědi vse ostatne sily GLA"
+ },
+ {
+  "label": "MAP:CHI03AudioHolder01",
+  "text": "<Govori Črvena Gvardija> 'Generale, uroveń vody je padnul! Sily GLA prěhodjat rěku!'"
+ },
+ {
+  "label": "MAP:CHI06Open",
+  "text": "Biškek, Podglavny Grad Aldastana \n Mrtvi na Mestu"
+ },
+ {
+  "label": "MAP:CHI06Obj1",
+  "text": "OBJEKTIV MISIJE: \n Dovedi Črnogo Lotosa do serediny železnogo mosta"
+ },
+ {
+  "label": "MAP:CHI07Open",
+  "text": "Dušanbe, Glavny Grad Aldastana \n Jaderna Zima"
+ },
+ {
+  "label": "MAP:Demo58Open",
+  "text": "Demilitarizovana Zona Kazahstana \n Operacija: Modry Orel"
+ },
+ {
+  "label": "MAP:Demo58End1",
+  "text": "Bojeva Kontrola Vně Sěti..."
+ },
+ {
+  "label": "MAP:Demo58End2",
+  "text": "COMMAND AND CONQUER GENERALS \n IDE: BOŽIĆ 2002"
+ },
+ {
+  "label": "MAP:Demo48Open",
+  "text": "Mazar Zona Slobodnogo Ognja \n Operacija: Bely Vitez"
+ },
+ {
+  "label": "MAP:GLA02MapName",
+  "text": "Ograbi Selo"
+ },
+ {
+  "label": "MAP:GLA02Open",
+  "text": "Sela okolo Almaty, Kazahstan \n Zona Sbrosa Pomoćnogo Snabděnja"
+ },
+ {
+  "label": "MAP:GLA02ObjectiveText01",
+  "text": "OBJEKTIV MISIJE \n Soberi $40 000 v ukradenom snabděnju"
+ },
+ {
+  "label": "MAP:GLA021stThirdObjective",
+  "text": "Prvy Cělj: \n Soberi $20 000 vzemši jaščiky UN Konvojev"
+ },
+ {
+  "label": "MAP:GLA022ndThirdObjective",
+  "text": "Drugy Cělj: \n Soberi $30 000 vzemši jaščiky sbrošene amerikanskimi samoletami"
+ },
+ {
+  "label": "MAP:GLA023rdThirdObjective",
+  "text": "Poslědnji Cělj: Soberi $40 000 v snabděnju napadajuč na bazu USA"
+ },
+ {
+  "label": "MAP:GLA02CivBuildingHint",
+  "text": "Selčani imajut snabděnje sohranjeno v svojih domah \n Uništi ih domy i ukradi snabděnje skryto tam"
+ },
+ {
+  "label": "MAP:GLA02CivKillHint",
+  "text": "Selčani berut naše snabděnje. ZAUSTAVI IH"
+ },
+ {
+  "label": "MAP:GLA02QuadsArrival",
+  "text": "Podkrěpljenja prišli: \n Upotrěbi Četvorna Děla, aby srušiti vražje letadla"
+ },
+ {
+  "label": "MAP:GLA02CrateReminder",
+  "text": "Soberi jaščiky, aby dosěgnuti svoj cělj"
+ },
+ {
+  "label": "MAP:GLA02MonkeyReminder",
+  "text": "Ne dosěgneš svoj cělj, ako potrošiš vse svoje novce"
+ },
+ {
+  "label": "MAP:GLA06MapName",
+  "text": "Prisvoji Otrovy"
+ },
+ {
+  "label": "MAP:GLA06Open",
+  "text": "Zapadny Bereg Aralskogo Morja, Kazahstan \n Zgrady za Sderžanje i Uklanjanje Toksičnyh Otpadkov"
+ },
+ {
+  "label": "MAP:GLA06MissionObjective",
+  "text": "OBJEKTIV MISIJE: \n Zauzmi 4 Bunkery i Uništi vse amerikanske obranitelje"
+ },
+ {
+  "label": "MAP:GLA06BunkerWarning",
+  "text": "POZOR: \n Bunkery sut krěhki i eksplodirajut nasilno, kogda sut uništeni"
+ },
+ {
+  "label": "MAP:GLA06BunkerDestroyed",
+  "text": "POZOR: \n Glupi Amerikanci pokušajut sę zaustaviti nas uništivši bunkery"
+ },
+ {
+  "label": "MAP:GLA06BunkerRetaken",
+  "text": "Amerikanci znova zauzeli naš bunker. Vrati ga nazad sejčas"
+ },
+ {
+  "label": "MAP:GLA06BunkerObjective",
+  "text": "Morate imati 4 bunkery, aby zaveršiti svoju misiju"
+ },
+ {
+  "label": "MAP:GLA06KillEnemies",
+  "text": "Vy imate trěbovany broj bunkerov \n Teper uništi Amerikancev, aby osigurati pobědu"
+ },
+ {
+  "label": "MAP:GLA06ScoutsInBase",
+  "text": "Amerikanski razvědčiky nas našli \n Bud gotov boriti sę s Amerikancami"
+ },
+ {
+  "label": "MAP:GLA06Only8Bunkers",
+  "text": "Morate byti prěvažnějši s bunkerami \n Morate imati 4, aby zaveršiti misiju"
+ },
+ {
+  "label": "MAP:GLA06Only6Bunkers",
+  "text": "Ostaje samo 6 Bunkerov \n Ako uništiš ešče 3, misija propadne"
+ },
+ {
+  "label": "MAP:GLA06Only4Bunkers",
+  "text": "POZOR: \n Ako ešče jedan bunker bude uništen, misija propadne"
+ },
+ {
+  "label": "MAP:GLA07MapName",
+  "text": "Trojansky Koń"
+ },
+ {
+  "label": "MAP:GLA07Open",
+  "text": "Gdě-to blizu Lenger, Kazahstan \n Region pod Kontroloju Otcěpjenoj Jačejky"
+ },
+ {
+  "label": "SCRIPT:GLA07ChnTmr",
+  "text": "Kitajske Sily Pridut Za:"
+ },
+ {
+  "label": "MAP:GLA07ChineseArrival",
+  "text": "POZOR: \n Kitajske sily vstupili v oblast"
+ },
+ {
+  "label": "MAP:GLA07MissionObjective",
+  "text": "OBJEKTIV MISIJE \n Uništi vse izdajniky"
+ },
+ {
+  "label": "MAP:GLA07ConvoyHint01",
+  "text": "Prokradi ukradene kamiony v bazu izdajnikov \n Kogda sut vnutri, detoniruj kamiony, aby uništiti izdajnikov"
+ },
+ {
+  "label": "MAP:GLA07ConvoyHint02",
+  "text": "POZOR: \n Ako vaše sily budut vidjeni s ukradenymi kamionami, izdajniki budut znati, že sut vaši"
+ },
+ {
+  "label": "MAP:GLA07ConvoyHint03",
+  "text": "POZOR: \n Ta oblast je zabranjena za ukradene kamiony \n Ako izdajniki ih tu otkryjut, budut napadnuti"
+ },
+ {
+  "label": "MAP:GLA07ConvoyHint04",
+  "text": "Prikaži kamionam detonirati blizu zgrad izdajnikov za maksimalnu efektivnost"
+ },
+ {
+  "label": "MAP:GLA07BaseKIACleanUp",
+  "text": "Baza izdajnikov je uništena \n Uništi ih ostatne sily, aby zaveršiti pobědu"
+ },
+ {
+  "label": "MAP:GLA07ConvoyDetected",
+  "text": "ALARM: \n Izdajniki znajut, že my kontroliramo konvoj \n Konvoj bude teper napadnuty izdajnikami"
+ },
+ {
+  "label": "MAP:GLA03Open",
+  "text": "Žambul, Kazahstan \n Centr Civilnogo Naselenja pod Kitajskoju Kontroloju"
+ },
+ {
+  "label": "MAP:USA01Open",
+  "text": "Mazar Zona Slobodnogo Ognja \n Operacija: Tiha Zora"
+ },
+ {
+  "label": "SCRIPT:TrainingMove",
+  "text": "Kliknite lěvym gumbom na jedinice, aby ih izbrati. Izbranym jedinicam možno dati komandy. S izbranoju jedinicoju možete kliknuti lěvym gumbom na zemju, aby dati im komandu dvigenja. Kliknite lěvym gumbom na vražjih soldatov, aby prikazati vašej izbranoj jedinicě napasti"
+ },
+ {
+  "label": "SCRIPT:TrainingCommand",
+  "text": "Vy oslobodili Komandny Centr USA. Tu možete upotrěbiti mnogo vaših specijalnyh sposobnostej. Aby izbrati tehnologije i specijalne oružja, kliknite na mrkajuči gumb Generala"
+ },
+ {
+  "label": "SCRIPT:TrainingExplor",
+  "text": "Magla Vojny okolo vaših jedinic može byti otisnuta nazad dvigajuč sę v nove i neizslěděne oblasti. Magla pokazuje vam gdě ste izslědili i gdě ne. Izslědite nove oblasti, aby najti vražje sily i resursy za rasšěrjenje vašej armije"
+ },
+ {
+  "label": "SCRIPT:TrainingBarracks",
+  "text": "Vy oslobodili Kasarnu USA. Zgrady kako ta dozvoljajut vam obučiti nove jedinice. Kasarna obučaje soldaty. Kliknite lěvym gumbom na vašu novu Kasarnu, aby videti kojih soldatov možete obučiti. Kliknite lěvym gumbom na jedinicu v Kasarně, aby potrošiti snabděnje na sozdanje toj jedinicy"
+ },
+ {
+  "label": "SCRIPT:TrainingPilots",
+  "text": "Vy oslobodili několiko Pilotov. Piloty USA sut často veterani mnogih boj i mogu vstupiti v vaša vozila, aby dali svoje uměnje i opyt ekipažu vozila. Vozila sa zlatymi znakami blizu njih imajut opytne ekipaže i sut efektivnějše v boju"
+ },
+ {
+  "label": "SCRIPT:TrainingSupply",
+  "text": "Vy oslobodili Centr Snabděnja USA. Centry Snabděnja sobirajut snabděnje, davajuč vam resursy, aby postroiti nove zgrady i jedinice. Vsaky Centr Snabděnja avtomatski sozdaje jeden Chinook, koji vam bude sobirati snabděnje"
+ },
+ {
+  "label": "SCRIPT:TrainingDozer",
+  "text": "Vy oslobodili Stroiteljny Buldozer USA. Kliknite lěvym gumbom na vaš novy Buldozer, aby videti koje zgrady može sozdati. Izberite Vojennu Fabriku i izberite město, gdě ju postroiti. Kogda Vojenna Fabrika je gotova, Buldozer bude dostupny za druge projekty stroitelstva"
+ },
+ {
+  "label": "SCRIPT:TrainingUnits",
+  "text": "Vaša nova Vojenna Fabrika može byti upotrěbjena, aby postroiti vozila kako Tanky Crusader. Kliknite lěvym gumbom na Tank Crusader, aby prikazati jego postroenje. Možete kliknuti věčekrat, aby prikazati postroenje věče tankov"
+ },
+ {
+  "label": "SCRIPT:TrainingPower",
+  "text": "Vy oslobodili Reaktor Hladnoj Fuzije USA. Reaktory upotrěbjajut amerikanske i kitajske sily, aby napajati svoju bazu. Vaša linija energije pokazuje, koliko energije ima vaša baza. Ako vaša baza ima nizku energiju, oborona bazy može prěstati rabotati i vaš radar bude ugasnul"
+ },
+ {
+  "label": "SCRIPT:TrainingAbilities",
+  "text": "Někotore jedinice imajut specijalne sposobnosti. Izberite jedinicu, aby videti koje specijalne moći ona ima. Kliknite lěvym gumbom na moć, aby ju aktivirati. V slučaju Tanka Crusader USA, vsaky tank može postroiti jeden Bojevy Dron. Bojevi Droni sut male robotičeske pomoćniky, koji avtomatski napadajut vragov i popravjajut svoj Tank Crusader, ako je poškoděn vražjim ognjem"
+ },
+ {
+  "label": "SCRIPT:TrainingObjective",
+  "text": "Vy oslobodili celu bazu USA i teper ste gotovi prěnesti boj k vragu. Vsaka misija ima objektivy misije, koje morate slěditi, aby pobědili misiju i napredovali v vašej vojně protiv vaših vragov. Slědite objektiv misije, aby pobědili misiju"
+ },
+ {
+  "label": "SCRIPT:TrainingUrban",
+  "text": "Civilne zgrady mogu byti zauzete soldatami. Prikažite vašim soldatam vstupiti v civilne zgrady, aby polučili obranny bonus. Civilne zgrady zauzete tako sut moćni oporni punkty za vaše vojska i mogu byti upotrěbjene, aby braniti važne puti v vašu bazu i iz nje"
+ },
+ {
+  "label": "SCRIPT:TrainingTech",
+  "text": "Civilne Objektivne Zgrady mogu byti zauzete vašimi Rangerami. Držanje tyh zgrad vam dade prěimuščstva protiv vragov. Zauzmi Naftove Vyšky izberajuč Rangera, kliknuvši lěvym gumbom na gumb zauzenja, a potom kliknuvši lěvym gumbom na samu Naftovu Vyšku. Naftove Vyšky vam davajut dodatne resursy, dok pumpajut naftu"
+ },
+ {
+  "label": "SCRIPT:TrainingCrate",
+  "text": "Jaščiky sodrže bonusne predmety za vaše soldaty, koji poveličajut ih sposobnosti. Dodatna municija, brona i drugi predmety mogu byti najdeni v jaščikah. Prikaži svojim soldatam ili vozilam dvigati sę na jaščik, aby ga otvoriti i sobrati sodrženje"
+ },
+ {
+  "label": "SCRIPT:TrainingMissionObjective",
+  "text": "OBJEKTIV MISIJE \n Uništi Fabriku Bio-Oružja GLA"
+ },
+ {
+  "label": "SCRIPT:TrainingOpeningObjective",
+  "text": "OBJEKTIV MISIJE \n Oslobodi Bazu USA"
+ },
+ {
+  "label": "MAP:USA01Opening",
+  "text": "Iraqska Vojenna Zona \n Operacija: Poslědnja Pravda"
+ },
+ {
+  "label": "MAP:USA01BahdadText",
+  "text": "Opsada Bagdada \n Deń 3"
+ },
+ {
+  "label": "MAP:USA01ObjectiveText",
+  "text": "OBJEKTIV MISIJE \n Uništi Burju SCUD"
+ },
+ {
+  "label": "MAP:USA02Open",
+  "text": "Al Hanad, Jemen \n Operacija: Poisk Blaga"
+ },
+ {
+  "label": "MAP:USA02Objective1Text",
+  "text": "OBJEKTIV MISIJE \n Spasi Zahvačene Pilote"
+ },
+ {
+  "label": "MAP:USA02Objective2Text",
+  "text": "OBJEKTIV MISIJE \n Vrati poslědnjego Pilota v Bazu na razgovor"
+ },
+ {
+  "label": "MAP:USA03Objective1Text",
+  "text": "OBJEKTIV MISIJE \n Osigurajte pobeg 100 sil USA"
+ },
+ {
+  "label": "SCRIPT:USA03RescueCounter",
+  "text": "Pobegle Sily USA:"
+ },
+ {
+  "label": "MAP:USA04Open",
+  "text": "Bereg Kazahstana, 1400 Časov \n Operacija: Prinositelj Burje"
+ },
+ {
+  "label": "SCRIPT:USA04BomberTimer",
+  "text": "Bombardirovniky Pridut Za:"
+ },
+ {
+  "label": "MAP:USA06Objective1Text",
+  "text": "OBJEKTIV MISIJE: \n Sprěči GLA postroiti ih rěčnu bazu"
+ },
+ {
+  "label": "MAP:USA06Objective2Text",
+  "text": "OBJEKTIV MISIJE: \n Uništi Glavnu Bazu GLA"
+ },
+ {
+  "label": "SCRIPT:GLA03CivCounter",
+  "text": "Izdajniki Ubiti:"
+ },
+ {
+  "label": "SCRIPT:GLA03Objective01",
+  "text": "OBJEKTIVY MISIJE: \n Zauzmi Komandny Centr na istoku, aby načeti proizvodstvo \n Ubi 300 izdajnikov"
+ },
+ {
+  "label": "SCRIPT:GLA03Objective02",
+  "text": "OBJEKTIV MISIJE: \n Upotrěbi Toksinne Traktory, aby ubiti 300 izdajnikov"
+ },
+ {
+  "label": "SCRIPT:GLA03Objective03",
+  "text": "Uništi farmacevtsku fabriku na sěveru"
+ },
+ {
+  "label": "MAP:GLA03Objective04",
+  "text": "Oslobodi zatvorenikov"
+ },
+ {
+  "label": "MAP:GLA03Objective05",
+  "text": "Ubi 300 izdajnikov"
+ },
+ {
+  "label": "MAP:GLA03Objective06",
+  "text": "Uništi farmacevtsku fabriku"
+ },
+ {
+  "label": "SCRIPT:GLA04Objective01",
+  "text": "OBJEKTIV MISIJE: \n Uništi civilne zgrady i soberi $40 000"
+ },
+ {
+  "label": "SCRIPT:GLA04Objective02",
+  "text": "POZOR: \n Trošenje novca na jedinice vas udalji od vašego cělja $40 000 \n Budite pažljivi, aby ne prětrošili"
+ },
+ {
+  "label": "SCRIPT:GLA04Objective03",
+  "text": "POZOR: \n Amerikanske sily upotrěbjajut aerodrom kako pripravnu bazu \n Prěhodi rěku i uništi ga"
+ },
+ {
+  "label": "SCRIPT:GLA04Objective04",
+  "text": "POZOR: \n Amerikanska letadla poslana, aby uništila tjažke vozila \n Sovětujemo upotrěbjati samo Gněvne Tolpy i Tehnikaly"
+ },
+ {
+  "label": "SCRIPT:GLA05Objective01",
+  "text": "OBJEKTIV MISIJE: \n Uništi amerikansku vojenno-vozdušnu bazu"
+ },
+ {
+  "label": "SCRIPT:GLA05Objective02",
+  "text": "OBJEKTIV MISIJE: \n Uništi amerikansku vojenno-vozdušnu bazu na zapadu"
+ },
+ {
+  "label": "MAP:GLA01Open",
+  "text": "Demilitarizovana Zona Šymkenta \n Operacija: Črny Dežd"
+ },
+ {
+  "label": "MAP:GLA01ObjectiveText",
+  "text": "OBJEKTIV MISIJE: Uništi Branu"
+ },
+ {
+  "label": "MAP:USA07Open",
+  "text": "Jugoistočny Kazahstan \n Operacija: Očajny Sojuz"
+ },
+ {
+  "label": "MAP:USA07Objective1",
+  "text": "OBJEKTIV MISIJE: \n Uništi GLA na sěveroistoku"
+ },
+ {
+  "label": "MAP:USA07General",
+  "text": "Prihod Generala"
+ },
+ {
+  "label": "MAP:USA07Objective2",
+  "text": "OBJEKTIV MISIJE: \n Uništi Kitajsky Komandny Centr \n i Silo Jadernyh Raket"
+ },
+ {
+  "label": "MAP:GLA08Temp",
+  "text": "Misija GLA 8 - Južny Kazahstan \n Kosmodrom Bajkonur"
+ },
+ {
+  "label": "MAP:CHI08Temp",
+  "text": "Misija Kitaja 8 - Poslědnja Misija Kitaja \n Status: Nedokončeno"
+ },
+ {
+  "label": "MAP:CHI07Temp",
+  "text": "Misija Kitaja 7 - Jaderna Feerija \n Status: Nedokončeno"
+ },
+ {
+  "label": "MAP:CHI05Temp",
+  "text": "Misija Kitaja 5 - Zapali GLA \n Status: Nedokončeno"
+ },
+ {
+  "label": "MAP:USA08Temp",
+  "text": "Misija USA 8 - Razoruj GLA \n Status: Nedokončeno"
+ },
+ {
+  "label": "MAP:USA06Temp",
+  "text": "Misija USA 6 - E3 Obnova \n Status: Nedokončeno"
+ },
+ {
+  "label": "MAP:USA05Temp",
+  "text": "Misija USA 5 - Rěčny Napad \n Status: Nedokončeno"
+ },
+ {
+  "label": "CONTROLBAR:TooltipDaisyCutter",
+  "text": "Efektivno protiv: zgrad \n \n Odbrojavanje: 6:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipFireParticleUplinkCannon",
+  "text": "Efektivno protiv: zgrad \n \n Odbrojavanje: 4:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipParaDrop",
+  "text": "Sbrasyva Rangery iz letadla \n \n Odbrojavanje: 4:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipClusterMines",
+  "text": "Sbrasyva miny iz letadla \n \n Odbrojavanje: 4:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipEMPPulse",
+  "text": "Efektivno protiv: vozil \n \n Odbrojavanje: 6:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipA10Strike",
+  "text": "Efektivno protiv: zgrad \n \n Odbrojavanje: 4:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipFireNukeMissile",
+  "text": "Efektivno protiv: vsego \n \n Odbrojavanje: 6:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipFireSCUDStorm",
+  "text": "Efektivno protiv: vsego \n \n Odbrojavanje: 5:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipFireArtilleryBarrage",
+  "text": "Efektivno protiv: zgrad, velikih grup jedinic \n \n Odbrojavanje: 5:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipFireSuperWeaponCashHack",
+  "text": "Ukradi novac iz vražjih Centrov Snabděnja \n \n Odbrojavanje: 4:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipFireSpySatScan",
+  "text": "Otkryj cělovu oblast. Najdi skryte jedinice \n \n Odbrojavanje: 1:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipFireSpyDrone",
+  "text": "Sozdaj špionsky dron nad cěljom \n \n Odbrojavanje: 1:30"
+ },
+ {
+  "label": "CONTROLBAR:TooltipFireRadarVanScan",
+  "text": "Otkryj cělovu oblast. Najdi skryte vragy \n \n Odbrojavanje: 0:30"
+ },
+ {
+  "label": "CONTROLBAR:TooltipFireRadioJam",
+  "text": "Prěseci vražju komunikaciju \n \n Odbrojavanje: 4:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipFireEmergencyRepair",
+  "text": "Hitna Popravka \n \n Odbrojavanje: 4:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipFireRebelAmbush",
+  "text": "Sozdaje povstancev \n \n Odbrojavanje: 4:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipFireAnthraxBomb",
+  "text": "Efektivno protiv: pěhoty \n \n Odbrojavanje: 6:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipCIAIntelligence",
+  "text": "Špioniraj vražje sily \n \n Odbrojavanje: 5:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipDemoTrapProxy",
+  "text": "Eksplodira, kogda sę vrag približi"
+ },
+ {
+  "label": "CONTROLBAR:TooltipDemoTrapManual",
+  "text": "Eksplodira po vašej komandě"
+ },
+ {
+  "label": "CONTROLBAR:TooltipDemoTrapDetonate",
+  "text": "Eksplodira podryvnu pastku"
+ },
+ {
+  "label": "CONTROLBAR:TooltipMissileDefenderLaser",
+  "text": "Lazersko zaklučenje poveličaje bystrost strělanja raket"
+ },
+ {
+  "label": "CONTROLBAR:TooltipBattlePlansBombardment",
+  "text": "Razverni dělo \n Vse jedinice: +20% Bonus Ognjevoj Sily"
+ },
+ {
+  "label": "CONTROLBAR:TooltipBattlePlansHoldTheLine",
+  "text": "Razverni stěny \n Vse jedinice: +10% Bonus Brony"
+ },
+ {
+  "label": "CONTROLBAR:TooltipBattlePlansSearchAndDestroy",
+  "text": "Razverni skanery \n Vse jedinice: +20% Bonus Dosega Oružja"
+ },
+ {
+  "label": "CONTROLBAR:TooltipSetRallyPoint",
+  "text": "Postavi sborny punkt za tu zgradu"
+ },
+ {
+  "label": "CONTROLBAR:TooltipSell",
+  "text": "Prodaj zgradu za 50% jeje vrědnosti"
+ },
+ {
+  "label": "CONTROLBAR:TooltipNukeReactorOverCharge",
+  "text": "Poškodi reaktor, aby sozdati 50% věče energije"
+ },
+ {
+  "label": "CONTROLBAR:TooltipCancelUpgrade",
+  "text": "Otkaži to ulučšenje"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUSAUpgradeAdvancedTraining",
+  "text": "Jedinice polučajut veteranstvo dvakrat bystrěje nego obyčno"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUSAUpgradeDroneARmor",
+  "text": "Vsi droni polučajut ulučšenu bronu"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUSAUpgradeAdvancedControlRods",
+  "text": "Reaktor daje 100% věče energije"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUSAUpgradeFlashBangGrenades",
+  "text": "Rangery upotrěbjajut Oslěpljujuče Granaty na civilne zgrady, aby očistili vražje soldaty"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUSAUpgradeCompositeArmor",
+  "text": "Tanky polučajut +25% brony"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUSAUpgradeCruiseMissile",
+  "text": "Tomahawkam može byti dan put leta"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUSAUpgradeTOW",
+  "text": "Vooruži Humvee raketoju. Može strěljati na zemne ili vozdušne cěli"
+ },
+ {
+  "label": "CONTROLBAR:USAUpgradeRocketPods",
+  "text": "Comanche strěljajut raketny obstrěl"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUSAUpgradeLaserMissiles",
+  "text": "Rakety Raptora i Nevidimogo Istrěbitelja delajut +25% věče štety"
+ },
+ {
+  "label": "CONTROLBAR:TooltipChinaUpgradeMines",
+  "text": "Sozdaje miny okolo zgrady"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUpgradeChinaOverlordGattlingCannon",
+  "text": "Postroj Gatlingovo Dělo na tom Overlordu"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUpgradeChinaOverlordPropagandaTower",
+  "text": "Postroj Propagandnu Věžu na tom Overlordu"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUpgradeChinaOverlordBattleBunker",
+  "text": "Postroj Bunker na tom Overlordu. Bunker može byti zauzet vašimi soldatami"
+ },
+ {
+  "label": "CONTROLBAR:TooltipChinaUpgradeRadar",
+  "text": "Postroj radar za tot Komandny Centr"
+ },
+ {
+  "label": "CONTROLBAR:TooltipChinaUpgradeNationalism",
+  "text": "+25% k Bonusu Horde za Črvenu Gvardiju, Lovca Tankov i Battlemastera"
+ },
+ {
+  "label": "CONTROLBAR:TooltipChinaUpgradeBlackNapalm",
+  "text": "+25% štety za vse ognjene oružja"
+ },
+ {
+  "label": "CONTROLBAR:TooltipChinaUpgradeChainGuns",
+  "text": "+25% štety za vse gatlingove oružja"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUpgradeChinaSubliminal",
+  "text": "+25% k bonusam Reproduktornoj Věže"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUpgradeChinaUraniumShells",
+  "text": "+25% štety vystrěla na Battlemasteru i Overlordu"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUpgradeChinaNuclearTanks",
+  "text": "Poveličaje skorost Overlorda i Battlemastera"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUpgradeChinaStunBullets",
+  "text": "Črvena Gvardija može pokušati zauzeti vražje soldaty"
+ },
+ {
+  "label": "CONTROLBAR:TooltipDisguiseAsVehicle",
+  "text": "Maskiruj Kamion-Bombu kako cělovano vozilo"
+ },
+ {
+  "label": "CONTROLBAR:TooltipGLAUpgradeBioBomb",
+  "text": "Kamion-Bomba postaje biovojenno oružje"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAUpgradeHEBomb",
+  "text": "100% věče štety za tu Kamion-Bombu"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAUpgradeRadarVanScan",
+  "text": "Radarny Furgon može skanirati kartu, aby iskati vražje sily"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAUpgradeScorpionRocket",
+  "text": "Scorpion polučaje raketny napad"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAUpgradeAPRockets",
+  "text": "+25% bonus štety na vsěh raketnyh napadah"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAUpgradeToxinShells",
+  "text": "Snarjady Scorpiona i Marauder nosjat malu kolikost Antraksa"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAUpgradeAnthraxBeta",
+  "text": "+25% bonus štety za vse toksinne jedinice"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAUpgradeAPBullets",
+  "text": "+25% bonus štety za Povstanca, Tehnikal, Četvorno Dělo i Jarmena Kella"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAUpgradeJunkRepair",
+  "text": "Vse vozila sę avtomatski popravjajut"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAUpgradeCamouflage",
+  "text": "Povstanci sut skryti od vražjego pogleda, kogda ne strěljajut"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAUpgradeTranqDarts",
+  "text": "Povstanci mogu pokušati zauzeti vražje soldaty"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAUpgradeArmTheMob",
+  "text": "Vooruži vse Gněvne Tolpy s AK-47"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipStructureExit",
+  "text": "Prikaži toj jedinicě izhoditi"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipTransportExit",
+  "text": "Prikaži toj jedinicě izhoditi"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipEvacuate",
+  "text": "Prikaži vsěm jedinicam izhoditi"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipRailedTransport",
+  "text": "Idi"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSACombatDrop",
+  "text": "Prikaži Rangeram spustiti sę na vražju cělj. Upotrěbi na zauzetyh zgradah, aby ubiti vse vražje soldaty vnutri"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGuard",
+  "text": "Prikaži jedinicě dvigati sę, aby branila specifičnu poziciju i gonila cěli, ako trěba"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGuardWithoutPursuit",
+  "text": "Prikaži jedinicě dvigati sę, aby branila specifičnu poziciju, no ne gonila cěli vně oblasti"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGuardFlyingUnitsOnly",
+  "text": "Prikaži jedinicě dvigati sę, aby napadala vozdušne jedinice, koje sę približajut k specifičnoj poziciji"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipAttackMove",
+  "text": "Prikaži jedinicě dvigati sę k cělovoj oblasti i zastati, aby napala vragy na puti"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipCommandStop",
+  "text": "Prikaži jedinicě zastati, čto god ona dělaje"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipWayPoints",
+  "text": "Klikni na zemju, aby postaviti točky puti"
+ }
+]
