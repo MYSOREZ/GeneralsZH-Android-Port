@@ -1,0 +1,802 @@
+[
+ {
+  "label": "GUI:Any",
+  "text": "Bilo koje"
+ },
+ {
+  "label": "GUI:GSNoLoginInfoNicknamePassword",
+  "text": "Prosim, vpišite vaš nadimok i parol. Potom kliknite na Vhod ili Sozdati Akaunt"
+ },
+ {
+  "label": "GUI:GSNoLoginInfoEmail",
+  "text": "Prosim, vpišite vaš email. Potom kliknite na Vhod ili Sozdati Akaunt"
+ },
+ {
+  "label": "GUI:GSNoLoginInfoNickname",
+  "text": "Prosim, vpišite vaš nadimok. Potom kliknite na Vhod ili Sozdati Akaunt"
+ },
+ {
+  "label": "GUI:GSNoLoginInfoPassword",
+  "text": "Prosim, vpišite vaš parol. Potom kliknite na Vhod ili Sozdati Akaunt"
+ },
+ {
+  "label": "Buddy:MultipleOnlineNotification",
+  "text": "Vy imate prijateljev onlajn"
+ },
+ {
+  "label": "GUI:ResetHonors",
+  "text": "Sbrosi Časti"
+ },
+ {
+  "label": "Chat:Observers",
+  "text": "Pogled Nabljudatelej"
+ },
+ {
+  "label": "TOOLTIP:buddies",
+  "text": "Sortuj spisok igr po Prijateljah"
+ },
+ {
+  "label": "TOOLTIP:AddToBuddies",
+  "text": "Dodaj igrača v vaš spisok Prijateljev"
+ },
+ {
+  "label": "TOOLTIP:StagingPlayerInfo",
+  "text": "\n Region: %ls \n Ping: %d ms \n %d poběd/%d poraženj \n %d otključenj \n Ljubimna armija: %ls"
+ },
+ {
+  "label": "GUI:CantBuildTooCloseToSupplies",
+  "text": "Vy ne možete tu stroiti, zašto je prěblizko izvoru snabděnja"
+ },
+ {
+  "label": "OBJECT:Frosty",
+  "text": "Sněgovik"
+ },
+ {
+  "label": "OBJECT:Prop",
+  "text": "."
+ },
+ {
+  "label": "OBJECT:BigGate",
+  "text": "Vrata"
+ },
+ {
+  "label": "OBJECT:TownHall",
+  "text": "Ratuša"
+ },
+ {
+  "label": "OBJECT:RailroadBridge",
+  "text": "Železnični most"
+ },
+ {
+  "label": "OBJECT:TheLoo",
+  "text": "Klozet"
+ },
+ {
+  "label": "OBJECT:TrainCar",
+  "text": "Vagon"
+ },
+ {
+  "label": "OBJECT:SandBagWall",
+  "text": "Stěna iz měškov"
+ },
+ {
+  "label": "OBJECT:Structure",
+  "text": "Civilna zgrada"
+ },
+ {
+  "label": "OBJECT:Airport",
+  "text": "Civilny aeroport"
+ },
+ {
+  "label": "OBJECT:Highrise",
+  "text": "Vysoka Zgrada"
+ },
+ {
+  "label": "OBJECT:BridgeTower",
+  "text": "Mostova věža"
+ },
+ {
+  "label": "OBJECT:Field",
+  "text": "Igrišče"
+ },
+ {
+  "label": "OBJECT:SoccerStadiumGoal",
+  "text": "Vrata"
+ },
+ {
+  "label": "OBJECT:BigLightpost",
+  "text": "Fonarny stolp"
+ },
+ {
+  "label": "MAP:BigRivers",
+  "text": "Gorska Lisica"
+ },
+ {
+  "label": "MAP:CHI01Open",
+  "text": "Kitajska Vojenna Parada, Beijing \n Zmaj Sę Budi"
+ },
+ {
+  "label": "MAP:CHI03Obj1Done",
+  "text": "OBJEKTIV MISIJE Zaveršen"
+ },
+ {
+  "label": "MAP:CHI07Obj1",
+  "text": "OBJEKTIV MISIJE: \n Ustanovi bazu i najdi resursy"
+ },
+ {
+  "label": "MAP:CHI07Obj2",
+  "text": "OBJEKTIV MISIJE: \n Pobědi GLA"
+ },
+ {
+  "label": "MAP:GLA02OpenAlt2",
+  "text": "Sela okolo Almaty, Kazahstan \n Zauzmi inostrano snabděnje za našu sudbinu"
+ },
+ {
+  "label": "MAP:GLA02OpenAlt1",
+  "text": "Sela okolo Almaty, Kazahstan \n Operacija: Ograbi Selo"
+ },
+ {
+  "label": "MAP:GLA06OpenAlt2",
+  "text": "Zapadny Bereg Aralskogo Morja, Kazahstan \n Ukradi otrovy Zapada, aby ih upotrěbili protiv nih"
+ },
+ {
+  "label": "MAP:GLA06OpenAlt1",
+  "text": "Zapadny Bereg Aralskogo Morja, Kazahstan \n Operacija: Prisvoji Otrovy"
+ },
+ {
+  "label": "MAP:GLA07OpenAlt2",
+  "text": "Gdě-to blizu Lenger, Kazahstan \n Pokaži světu, čto sę slučaje izdajnikam"
+ },
+ {
+  "label": "MAP:GLA07OpenAlt",
+  "text": "Gdě-to blizu Lenger, Kazahstan \n Operacija: Trojansky Koń"
+ },
+ {
+  "label": "MAP:GLA03Open02",
+  "text": "Kitajski Zauzety Žambul, Kazahstan \n Operacija: Pravedny Ogeń"
+ },
+ {
+  "label": "MAP:GLA03Directive",
+  "text": "Izvěščenje Informatora: \n Uništi farmacevtsku fabriku, aby polučiti Antraksovu Bombu"
+ },
+ {
+  "label": "MAP:USA02Hint1Text",
+  "text": "Upotrěbi pilote, aby dali dodatno veteranstvo vašim vozilam"
+ },
+ {
+  "label": "MAP:USA02Hint2Text",
+  "text": "Upotrěbi ulučšenje Oslěpljujučih Granat Rangera, aby očistiti zauzete strukture"
+ },
+ {
+  "label": "MAP:USA03Hint1Text",
+  "text": "Postroj Raketne Kompleksy Patriot, aby braniti vašu bazu"
+ },
+ {
+  "label": "MAP:USA04Hint1Text",
+  "text": "Upotrěbi Puskovače Raket Tomahawk, aby očistiti oporne punkty GLA"
+ },
+ {
+  "label": "MAP:NVIDIATEXT",
+  "text": "Command & Conquer Generals \n Ide: Fevrual 2003"
+ },
+ {
+  "label": "MAP:USA06ObjHint2",
+  "text": "SOVĚT: \n Zauzmi tu zgradu"
+ },
+ {
+  "label": "MAP:USA06ObjHint1",
+  "text": "SOVĚT: \n Tu sut važne civilne zgrady"
+ },
+ {
+  "label": "MAP:GLA03Objective07",
+  "text": "Objektiv Zaveršen: \n 300 izdajnikov uništeno"
+ },
+ {
+  "label": "MAP:GLA03Objective08",
+  "text": "Objektiv Zaveršen: \n Farmacevtska fabrika uništena"
+ },
+ {
+  "label": "MAP:GLA05Open",
+  "text": "Adana, Turcija \n Vojenno-Vozdušna Baza Incirlik"
+ },
+ {
+  "label": "SCRIPT:GLA05Directive03",
+  "text": "POZOR: \n Amerikanske vozdušne sily pridut \n Postroj Pozicije Stinger, aby braniti vašu bazu"
+ },
+ {
+  "label": "SCRIPT:GLA05Directive04",
+  "text": "Vtorostepenny Objektiv: \n Uništi kitajsky špionsky post"
+ },
+ {
+  "label": "SCRIPT:GLA05Directive05",
+  "text": "POZOR: \n Amerikanske vozdušne sily pridut \n Upotrěbi Pozicije Stinger i Četvorna Děla, aby srušiti vražje letadla"
+ },
+ {
+  "label": "MAP:GLA08Open",
+  "text": "Kosmodrom Bajkonur, Južny Kazahstan \n Zgrada za Vypusk Raket iz Sovětskoj Ery"
+ },
+ {
+  "label": "MAP:GLA08Open02",
+  "text": "Južny Kazahstan \n Kosmodrom Bajkonur"
+ },
+ {
+  "label": "SCRIPT:GLA08Objective01",
+  "text": "OBJEKTIVY MISIJE: \n Zauzmi zgradu zemnoj kontroly \n Zauzmi startovu vežu raket"
+ },
+ {
+  "label": "SCRIPT:GLA08Objective02",
+  "text": "OBJEKTIV MISIJE: \n Zauzmi zgradu zemnoj kontroly"
+ },
+ {
+  "label": "SCRIPT:GLA08Objective03",
+  "text": "OBJEKTIV MISIJE: \n Zauzmi startovu vežu raket"
+ },
+ {
+  "label": "SCRIPT:GLA08Directive04",
+  "text": "POZOR: \n Vražje superoružje pride"
+ },
+ {
+  "label": "MAP:USA07hint1",
+  "text": "SOVĚT: \n Upotrěbi tot Dok Snabděnja"
+ },
+ {
+  "label": "MAP:CHI05ObjInit",
+  "text": "OBJEKTIV MISIJE: \n Uništi 3 lagery GLA \n i glavnu bazu GLA"
+ },
+ {
+  "label": "MAP:CHI05Obj4",
+  "text": "Ostaju 4 cěli"
+ },
+ {
+  "label": "MAP:CHI05Obj3",
+  "text": "Ostaju 3 cěli"
+ },
+ {
+  "label": "MAP:CHI05Obj2",
+  "text": "Ostaju 2 cěli"
+ },
+ {
+  "label": "MAP:CHI05Obj1",
+  "text": "Ostaje samo 1 cělj"
+ },
+ {
+  "label": "MAP:CHI05Objhint1",
+  "text": "SOVĚT: \n Upotrěbi tot Dok Snabděnja"
+ },
+ {
+  "label": "MAP:CHI05Objhint2",
+  "text": "SOVĚT: \n Zauzmi te zgrady"
+ },
+ {
+  "label": "MAP:CHI05ObjCBReady",
+  "text": "SOVĚT: \n Bombardirovniky sut teper dostupni"
+ },
+ {
+  "label": "MAP:USA08MapName",
+  "text": "Poslědnji Poziv"
+ },
+ {
+  "label": "MAP:USA08Open",
+  "text": "Stolica GLA, Aldastan \n Operacija: Poslědnji Poziv"
+ },
+ {
+  "label": "MAP:USA08OpenAlt",
+  "text": "Akmola, Kazahstan \n Operacija: Poslědnji Poziv"
+ },
+ {
+  "label": "MAP:USA08Objective01",
+  "text": "OBJEKTIV MISIJE: \n Uništi vse sily i strukture GLA"
+ },
+ {
+  "label": "MAP:USA08WallGarWarning",
+  "text": "POZOR: \n GLA je zauzela stěnu \n Rangery morajut upotrěbiti Oslěpljujuče Granaty, aby ubili zauzete vojska GLA"
+ },
+ {
+  "label": "MAP:USA08ChinaHint",
+  "text": "Zauzmi kitajske zgrady \n Postroj sjedinjene sily USA i Kitaja, aby uništili GLA"
+ },
+ {
+  "label": "MAP:USA08SCUDStormWarn",
+  "text": "POZOR: \n GLA postroila Burju SCUD"
+ },
+ {
+  "label": "MAP:USA08MineWarn",
+  "text": "POZOR: \n Podryvne pastky GLA otkryte"
+ },
+ {
+  "label": "MAP:USA08GLABaseKIA",
+  "text": "Bazy GLA sut uništene \n Uništi ostatne sily GLA, aby pobědil vojnu"
+ },
+ {
+  "label": "CONTROLBAR:TooltipCarpetBomb",
+  "text": "Kovrova Bomba na cělovu oblast \n \n Odbrojavanje: 2:30"
+ },
+ {
+  "label": "CONTROLBAR:TooltipCrateDrop",
+  "text": "Sbrosi jaščiky snabděnja"
+ },
+ {
+  "label": "CONTROLBAR:TooltipDetonateNuke",
+  "text": "Eksplodiruj skryto jaderno oružje"
+ },
+ {
+  "label": "MAP:GLA01Objective",
+  "text": "OBJEKTIV MISIJE \n Uništi Branu"
+ },
+ {
+  "label": "MAP:GLA01Objective2",
+  "text": "OBJEKTIV MISIJE \n Uništi kitajsku bazu"
+ },
+ {
+  "label": "MAP:TrainingGenerals",
+  "text": "Kliknite lěvym gumbom na gumb generala v niže-desnom uglu vašego ekrana, aby izbrati novu sposobnost za vašego Generala. Kako ste promovirani, vaš General polučit dostup k novym sposobnostam. Někotore sposobnosti vam dozvoljat sozdati nove specijalne jedinice, dok druge dadut vam specijalne moći, koje sę upotrěbjajut iz vašego Komandnogo Centra"
+ },
+ {
+  "label": "MAP:TrainingSalvage",
+  "text": "Vy sozdali kupu ostatkov. Kogda vozila GLA uništajut vražje vozila, ostatky ostaju za nimi. Vozila GLA mogu vzeti ostatky dvigajuč sę čerez nih. Ostatky mogu vrěditi novac ili opyt. Tehnikaly, Četvorna Děla i Marauderi mogu ulučšiti svoje oružja ostatkami"
+ },
+ {
+  "label": "MAP:TrainingUpgrade",
+  "text": "Ulučšenja sę kupuju v različnyh strukturah vašej bazy. Oni ulučšajut vaše jedinice. Kliknite lěvym gumbom na Kasarnu, a potom lěvym gumbom na ikonu Zauzenja Zgrady, aby ulučšiti vaše Rangery, aby mogli zauzimati vražje zgrady"
+ },
+ {
+  "label": "GUI:SaveAndContinue",
+  "text": "PRODOLŽITI"
+ },
+ {
+  "label": "TOOLTIP:PlayerSetting",
+  "text": "Izberi sopostavjenje s igroju 1 protiv 1 ili komandnoju igroju"
+ },
+ {
+  "label": "TOOLTIP:Ping",
+  "text": "Izberi vašu toleranciju za skorost sojedinjenja vašego protivnika"
+ },
+ {
+  "label": "TOOLTIP:Disconnect",
+  "text": "Izberi vašu toleranciju za obščy broj otključenj protivnika"
+ },
+ {
+  "label": "TOOLTIP:Ladder",
+  "text": "Izberi rejting, na kojem hočete igrati"
+ },
+ {
+  "label": "TOOLTIP:QuickMatchStatus",
+  "text": "Bystra Igra pokuša sę sopostaviti vas na osnově urovnja uměnja, specifikacij PC, itd"
+ },
+ {
+  "label": "TOOLTIP:OnlineIP",
+  "text": "IP Adresa upotrěbjena za sojedinjenje s C&C Generals Zero Hour Online"
+ },
+ {
+  "label": "TOOLTIP:LanIP",
+  "text": "IP Adresa upotrěbjena za sojedinjenje s igračami v sětevyh igrah"
+ },
+ {
+  "label": "TOOLTIP:GamesBeingformed",
+  "text": "Vaša skorost sojedinjenja s igračami toj igry"
+ },
+ {
+  "label": "TOOLTIP:EmoteText",
+  "text": "Kliknite lěvym gumbom, aby vpisati tekst"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaScienceCashHack",
+  "text": "Ukradi novac iz vražjih Centrov Snabděnja. Ne možete ukrasti věče novca, nego vrag ima \n \n Rang 1: $1000 \n Rang 2: $2000 \n Rang 3: $4000 \n \n Razverni iz: Komandnogo Centra"
+ },
+ {
+  "label": "GUI:TRAINING",
+  "text": "OBUČENJE"
+ },
+ {
+  "label": "GUI:CHINA_Caps",
+  "text": "KITAJ"
+ },
+ {
+  "label": "TOOLTIP:SupplyDock",
+  "text": "Snabděnje"
+ },
+ {
+  "label": "TOOLTIP:TechBuilding",
+  "text": "Tehnologična Zgrada"
+ },
+ {
+  "label": "TOOLTIP:Mission1",
+  "text": "."
+ },
+ {
+  "label": "TOOLTIP:Mission2_8",
+  "text": "Kampanja Jedna"
+ },
+ {
+  "label": "TOOLTIP:Mission9_16",
+  "text": "Kampanja Dva"
+ },
+ {
+  "label": "TOOLTIP:Mission17_23",
+  "text": "Kampanja Tri"
+ },
+ {
+  "label": "TOOLTIP:ButtonClear",
+  "text": "Očisti polje imena igrača"
+ },
+ {
+  "label": "GUI:Objectives:",
+  "text": "Sažetok:"
+ },
+ {
+  "label": "GUI:WinStreak",
+  "text": "Serija Poběd"
+ },
+ {
+  "label": "GUI:LossStreak",
+  "text": "Serija Poraženj"
+ },
+ {
+  "label": "GUI:PlayerNoMapWillTransfer",
+  "text": "%ls ne ima kartu %ls. Ona bude prěnesena pri načelu igry"
+ },
+ {
+  "label": "GUI:LocalPlayerNoMapWillTransfer",
+  "text": "Vy ne imate kartu %ls. Ona bude vam prěnesena pri načelu igry"
+ },
+ {
+  "label": "GUI:CouldNotTransferMap",
+  "text": "Nevozmožno prěnesti kartu. Igra ne može načeti"
+ },
+ {
+  "label": "GUI:Status",
+  "text": "Status"
+ },
+ {
+  "label": "MapTransfer:CurrentFile",
+  "text": "Tekuči fajl: %ls"
+ },
+ {
+  "label": "MapTransfer:Timeout",
+  "text": "Prěkinutje za %d:%2.2d"
+ },
+ {
+  "label": "MapTransfer:Preparing",
+  "text": "Pripravjanje..."
+ },
+ {
+  "label": "MapTransfer:Sending",
+  "text": "Posylanje..."
+ },
+ {
+  "label": "MapTransfer:Recieving",
+  "text": "Polučanje..."
+ },
+ {
+  "label": "MapTransfer:Done",
+  "text": "Gotovo"
+ },
+ {
+  "label": "ThingTemplate:SalvageCrate",
+  "text": "Jaščik Ostatkov"
+ },
+ {
+  "label": "ThingTemplate:IndustrialBridgeTower01",
+  "text": "Most"
+ },
+ {
+  "label": "ThingTemplate:Crypt01",
+  "text": "Grobnica"
+ },
+ {
+  "label": "ThingTemplate:AsianAartmentSingle01",
+  "text": "Kvartira"
+ },
+ {
+  "label": "CONTROLBAR:RadioJam",
+  "text": "Radio Glušenje"
+ },
+ {
+  "label": "MAP:USA01OBJOpen",
+  "text": "OBJEKTIV MISIJE \n Uništi vse vražje sily"
+ },
+ {
+  "label": "MAP:TrainingWarFactory",
+  "text": "OBJEKTIV MISIJE \n Upotrěbi svoj BULDOZER, aby postroiti VOJENNU FABRIKU"
+ },
+ {
+  "label": "TOOLTIP:MapNoSuccess",
+  "text": "Pobědi tu kartu protiv lahkogo protivnika!"
+ },
+ {
+  "label": "TOOLTIP:MapEasySuccess",
+  "text": "Pobědi tu kartu protiv srědnjego protivnika!"
+ },
+ {
+  "label": "TOOLTIP:MapMediumSuccess",
+  "text": "Pobědi tu kartu protiv težkogo protivnika!"
+ },
+ {
+  "label": "TOOLTIP:MapHardSuccess",
+  "text": "Pobědi tu kartu protiv maksimalnogo broja težkih protivnikov!"
+ },
+ {
+  "label": "Buddy:CantTalkToIngameBuddy",
+  "text": "Vy ne možete poslati poslanja prijateljam v vašej igrě, ako nabljudate"
+ },
+ {
+  "label": "MAP:Bavarian",
+  "text": "Poslědnji Krestonosny Pohod"
+ },
+ {
+  "label": "MAP:CLake",
+  "text": "Turnirno Jezero"
+ },
+ {
+  "label": "MAP:SBlast",
+  "text": "Pěsčana Zmija"
+ },
+ {
+  "label": "MAP:SleepingGiant",
+  "text": "Tmna Gora"
+ },
+ {
+  "label": "MAP:SwissMP",
+  "text": "Samotny Orel"
+ },
+ {
+  "label": "MAP:KandaharHighlands",
+  "text": "Sumračny Plamen"
+ },
+ {
+  "label": "MAP:BoraBora",
+  "text": "Turnirny Ostrov"
+ },
+ {
+  "label": "MAP:PrecipicePass",
+  "text": "Krěpost Lavina"
+ },
+ {
+  "label": "MAP:TTourney",
+  "text": "Turnirna Tundra"
+ },
+ {
+  "label": "MAP:Gwall",
+  "text": "Padla Imperija"
+ },
+ {
+  "label": "GUI:HTTPProxy",
+  "text": "HTTP Proxy:"
+ },
+ {
+  "label": "GUI:WinPercent",
+  "text": "%d%%"
+ },
+ {
+  "label": "TOOLTIP:PlayerCreatedName",
+  "text": "Imę igrača, koji sozdal igru"
+ },
+ {
+  "label": "TOOLTIP:HTTPProxy",
+  "text": "Postavi HTTP Proxy za upotrěbjenje s C&C Generals Zero Hour Online"
+ },
+ {
+  "label": "CONTROLBAR:BriefingHistory",
+  "text": "Instrukcije Misij"
+ },
+ {
+  "label": "CONTROLBAR:BriefingHistoryDescription",
+  "text": "Kliknite, aby videti instrukcije misij"
+ },
+ {
+  "label": "MAP:CHI04Objective1Text",
+  "text": "OBJEKTIV MISIJE \n Uništi Pozicije Stinger GLA"
+ },
+ {
+  "label": "MAP:CHI04Objective2Text",
+  "text": "OBJEKTIV MISIJE \n Upotrěbi Črnogo Lotosa, aby zauzeti kitajsku Vojennu Fabriku"
+ },
+ {
+  "label": "MAP:CHI04Objective3Text",
+  "text": "OBJEKTIV MISIJE \n Uništi Pozicije Stinger okolo Himičnoj Fabriky"
+ },
+ {
+  "label": "MAP:CHI04Hint1Text",
+  "text": "SOVĚT: Upotrěbi Črnogo Lotosa, aby deaktivirati vražje vozila"
+ },
+ {
+  "label": "MAP:CHI04Hint2Text",
+  "text": "SOVĚT: Upotrěbi Hakerov, aby generovati dodatny dohod"
+ },
+ {
+  "label": "MAP:CHI04Hint3Text",
+  "text": "SOVĚT: Upotrěbi Črnogo Lotosa, aby hakovati vražji Centr Snabděnja i ukrasti dodatne resursy"
+ },
+ {
+  "label": "GUI:GotoMainMenu",
+  "text": "GLAVNO MENU"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorFairPlay",
+  "text": "Čast Poštene Igry \n Otključi sę od Onlajn igr měně nego 10% vrěmeni (s najměń 10 igranyh igr), aby zaslužiti tu medalju"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorApocalypse",
+  "text": "Čast Apokalipsy \n Igrač postroil Česticovo Dělo, Jadernu Raketu i Burju SCUD v solo ili multiigrě onlajn"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorFairPlayDisabled",
+  "text": "Čast Poštene Igry \n Otključi sę od Onlajn igr měně nego 10% vrěmeni (s najměń 10 igranyh igr), aby zaslužiti tu medalju"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorApocalypseDisabled",
+  "text": "Medalja Apokalipsy \n Postroj Česticovo Dělo, Jadernu Raketu i Burju SCUD, aby zaslužiti tu medalju"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorPreorder",
+  "text": "Čast Kluba Oficirov \n Igrač je osnovny člen zajednice Generals"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorPreorderDisabled",
+  "text": "Medalja Kluba Oficirov \n Igrač ne prědzakazal Generals"
+ },
+ {
+  "label": "GUI:Credits",
+  "text": "ZASLUGY"
+ },
+ {
+  "label": "ERROR:D3DFailurePrompt",
+  "text": "Pogreška DirectX"
+ },
+ {
+  "label": "ERROR:D3DFailureMessage",
+  "text": "Prosim, uverte sę, že imate instaliran DirectX 8.1 ili vyši. Takože prověrite, že vaša video-karta dosěgaje minimalne trěbovanja"
+ },
+ {
+  "label": "GUI:AudioHardware",
+  "text": "Aparatno Uskorena Audija"
+ },
+ {
+  "label": "GUI:AudioSurround",
+  "text": "Surround Zvuk"
+ },
+ {
+  "label": "TOOLTIP:CheckAudioHardware",
+  "text": "Označite to polje, aby vključiti aparatno uskorenje za Audiju"
+ },
+ {
+  "label": "TOOLTIP:AudioSurround",
+  "text": "Označite to polje, ako imate surround zvučniky"
+ },
+ {
+  "label": "CAMPAIGN:TRAINING",
+  "text": "Obučenje"
+ },
+ {
+  "label": "GUI:WinPercentLabel",
+  "text": "Procent Poběd"
+ },
+ {
+  "label": "GUI:BestWinStreak",
+  "text": "Najlěpša Serija Poběd"
+ },
+ {
+  "label": "Buddy:MatchingNotification",
+  "text": "%hs igraje Bystru Igru"
+ },
+ {
+  "label": "Buddy:StagingNotification",
+  "text": "%hs pripravja igru"
+ },
+ {
+  "label": "Buddy:LoadingNotification",
+  "text": "%hs načinaje igru"
+ },
+ {
+  "label": "Buddy:PlayingNotification",
+  "text": "%hs igraje igru"
+ },
+ {
+  "label": "CONTROLBAR:GeneralsPromotion",
+  "text": "Promocija Generala"
+ },
+ {
+  "label": "CONTROLBAR:GeneralsExp",
+  "text": "Opyt Generala"
+ },
+ {
+  "label": "CONTROLBAR:GeneralsExpDescription",
+  "text": "Tot indikator pokazuje, koliko blizko ste do dostignutja slědujučego urovnja Generala"
+ },
+ {
+  "label": "TOOLTIP:TooltipNukeReactorOverChargeIsOn",
+  "text": "Přeteženje je teper VKLJUČENO"
+ },
+ {
+  "label": "TOOLTIP:TooltipNukeReactorOverChargeIsOff",
+  "text": "Přeteženje je teper VYKLJUČENO"
+ },
+ {
+  "label": "GUI:ESRB_Top",
+  "text": "ESRB Izvěščenje:"
+ },
+ {
+  "label": "GUI:ESRB_Bottom",
+  "text": "Igrovy Opyt Može \n Sę Izměniti Vo Vrěmja Onlajn Igry"
+ },
+ {
+  "label": "GUI:ReplaySaved",
+  "text": "Zapis Sohranjen"
+ },
+ {
+  "label": "OBJECT:Monument",
+  "text": "Pamjatnik"
+ },
+ {
+  "label": "TOOLTIP:TooltipNotEnoughMoneyToBuild",
+  "text": "Nedostatočno novca"
+ },
+ {
+  "label": "TOOLTIP:TooltipCannotPurchaseBecauseQueueFull",
+  "text": "Red stroitelstva poln"
+ },
+ {
+  "label": "TOOLTIP:TooltipCannotBuildUnitBecauseParkingFull",
+  "text": "Aerodrom poln"
+ },
+ {
+  "label": "TOOLTIP:TooltipCannotBuildUnitBecauseMaximumNumber",
+  "text": "Jedinica već postoji"
+ },
+ {
+  "label": "GUI:SocketError",
+  "text": "Ne uspělo komunicirati sa sětoju, prověrite vaše sojedinjenje"
+ },
+ {
+  "label": "GUI:NetworkError",
+  "text": "POGREŠKA SĚTI"
+ },
+ {
+  "label": "GUI:BuddiesTab",
+  "text": "Prijatelji"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorOfficersClub",
+  "text": "Čast Kluba Oficirov \n Osnovny člen zajednice Generals"
+ },
+ {
+  "label": "GUI:CreateFormationDescription",
+  "text": "Sozdaje formaciju izbranyh jedinic, koju oni uděržavajut, dok sę dvigaju"
+ },
+ {
+  "label": "GUI:ScatterDescription",
+  "text": "Razpršiti izbrany(-e) objekt(y)"
+ },
+ {
+  "label": "OBJECT:TrainWreckBridge",
+  "text": "Most s razbitym poezdom"
+ },
+ {
+  "label": "MAP:BarrenBadlands",
+  "text": "Pusta Neplodna Zemlja"
+ },
+ {
+  "label": "MAP:CraterCanyon",
+  "text": "Kaňon Kratera"
+ },
+ {
+  "label": "MAP:DustDevil",
+  "text": "Prašny Vihor"
+ },
+ {
+  "label": "MAP:EasternEverglades",
+  "text": "Vzhodni Močvary"
+ },
+ {
+  "label": "MAP:ForgottenForest",
+  "text": "Zabyty Les"
+ },
+ {
+  "label": "MAP:InterstateInferno",
+  "text": "Meddržavny Inferno"
+ },
+ {
+  "label": "MAP:MountainMayhem",
+  "text": "Gorsky Haos"
+ }
+]
