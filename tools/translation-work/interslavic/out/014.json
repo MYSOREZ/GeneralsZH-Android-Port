@@ -1,0 +1,802 @@
+[
+ {
+  "label": "GUI:LimitSuperweapons",
+  "text": "Ograniči Superoružja"
+ },
+ {
+  "label": "TOOLTIP:LimitSuperweapons",
+  "text": "Označi, aby ograničiti Česticove Děla, Burje SCUD, itd. na jedno na igrača"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak100",
+  "text": "Čast Serii \n Igrač pobědil 100 igr Skirmiša podrjad \n Polučite novu medalju za 3, 10, 25, 100, 500 i 1000 poběd podrjad"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak500",
+  "text": "Čast Serii \n Igrač pobědil 500 igr Skirmiša podrjad \n Polučite novu medalju za 3, 10, 25, 100, 500 i 1000 poběd podrjad"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak1000",
+  "text": "Čast Serii \n Igrač pobědil 1000 igr Skirmiša podrjad"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak3Online",
+  "text": "Čast Serii \n Igrač pobědil 3 onlajn igry podrjad \n Polučite novu medalju za 3, 10, 25, 100, 500 i 1000 poběd podrjad"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak10Online",
+  "text": "Čast Serii \n Igrač pobědil 10 onlajn igr podrjad \n Polučite novu medalju za 3, 10, 25, 100, 500 i 1000 poběd podrjad"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak25Online",
+  "text": "Čast Serii \n Igrač pobědil 25 onlajn igr podrjad \n Polučite novu medalju za 3, 10, 25, 100, 500 i 1000 poběd podrjad"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak100Online",
+  "text": "Čast Serii \n Igrač pobědil 100 onlajn igr podrjad \n Polučite novu medalju za 3, 10, 25, 100, 500 i 1000 poběd podrjad"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak500Online",
+  "text": "Čast Serii \n Igrač pobědil 500 onlajn igr podrjad \n Polučite novu medalju za 3, 10, 25, 100, 500 i 1000 poběd podrjad"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak1000Online",
+  "text": "Čast Serii \n Igrač pobědil 1000 onlajn igr podrjad"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorDomination100",
+  "text": "Čast Dominacije \n Igrač pobědil věče nego 100 igr Skirmiša \n Polučite novu medalju za 100, 500, 1000 i 10000 poběd v karierě"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorDomination500",
+  "text": "Čast Dominacije \n Igrač pobědil věče nego 500 igr Skirmiša \n Polučite novu medalju za 100, 500, 1000 i 10000 poběd v karierě"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorDomination1000",
+  "text": "Čast Dominacije \n Igrač pobědil věče nego 1000 igr Skirmiša \n Polučite novu medalju za 100, 500, 1000 i 10000 poběd v karierě"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorDomination10000",
+  "text": "Čast Dominacije \n Igrač pobědil věče nego 10000 igr Skirmiša"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorDomination100Online",
+  "text": "Čast Dominacije \n Igrač pobědil věče nego 100 onlajn igr \n Polučite novu medalju za 100, 500, 1000 i 10000 poběd v karierě"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorDomination500Online",
+  "text": "Čast Dominacije \n Igrač pobědil věče nego 500 onlajn igr \n Polučite novu medalju za 100, 500, 1000 i 10000 poběd v karierě"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorDomination1000Online",
+  "text": "Čast Dominacije \n Igrač pobědil věče nego 1000 onlajn igr \n Polučite novu medalju za 100, 500, 1000 i 10000 poběd v karierě"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorDomination10000Online",
+  "text": "Čast Dominacije \n Igrač pobědil věče nego 10000 onlajn igr"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorCampaignChallenge",
+  "text": "Čast Kampanje Izzova \n Zaveršite kampanju Izzov Generalov, aby polučiti tu čast \n Pobědite kampanju na Težkoj složnosti, aby polučiti najvyšu čast"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorUltimate",
+  "text": "Čast Krajnosti \n Pobědite vsaku kartu Skirmiša protiv maksimalnogo broja těžkih protivnikov, aby zaslužiti tu medalju"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorGlobalGeneral",
+  "text": "Čast Globalnogo Generala \n Pobědite najměń jednu onlajn igru igrajuč kako vsaky General, aby zaslužiti medalju"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreakDisabled",
+  "text": "Čast Serii \n Polučite novu medalju za 3, 10, 25, 100, 500 i 1000 poběd podrjad"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreakOnlineDisabled",
+  "text": "Čast Serii \n Polučite novu medalju za 3, 10, 25, 100, 500 i 1000 poběd podrjad"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorCampaignChallengeDisabled",
+  "text": "Čast Kampanje Izzova \n Zaveršite kampanju Izzov Generalov, aby polučiti tu čast \n Pobědite kampanju na Težkoj složnosti, aby polučiti najvyšu čast"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorUltimateDisabled",
+  "text": "Čast Krajnosti \n Pobědite vsaku kartu Skirmiša protiv maksimalnogo broja těžkih protivnikov, aby zaslužiti tu medalju"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorDominationDisabled",
+  "text": "Čast Dominacije \n Polučite novu medalju za 100, 500, 1000 i 10000 poběd v karierě"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorDominationOnlineDisabled",
+  "text": "Čast Dominacije \n Polučite novu medalju za 100, 500, 1000 i 10000 poběd v karierě"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorGlobalGeneralDisabled",
+  "text": "Čast Globalnogo Generala \n Pobědite najměń jednu onlajn igru igrajuč kako vsaky General, aby zaslužiti tu medalju"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorBlitzDisabled",
+  "text": "Čast Blitza \n Pobědi protivnika(-ov) za 10 minut ili měně, aby zaslužiti tu medalju"
+ },
+ {
+  "label": "GUI:SuperweaponSpectreGunship",
+  "text": "Spectre"
+ },
+ {
+  "label": "GUI:Nuke_SuperweaponNeutronMissile",
+  "text": "Jaderna Raketa"
+ },
+ {
+  "label": "GUI:SuperweaponGPSScrambler",
+  "text": "GPS-Glušitelj"
+ },
+ {
+  "label": "GUI:SupW_SuperweaponParticleUplinkCannon",
+  "text": "Česticovo Dělo"
+ },
+ {
+  "label": "GUI:SuperweaponTankParadrop",
+  "text": "Desant Tankov"
+ },
+ {
+  "label": "GUI:SupW_SuperweaponTomahawkStorm",
+  "text": "Burja Tomahawk"
+ },
+ {
+  "label": "GUI:SupW_SuperweaponNeutronMissile",
+  "text": "ICBM"
+ },
+ {
+  "label": "INI:FactionAmericaSuperWeaponGeneral",
+  "text": "General Superoružja USA"
+ },
+ {
+  "label": "INI:FactionAmericaLaserGeneral",
+  "text": "Lazerny General USA"
+ },
+ {
+  "label": "INI:FactionAmericaAirForceGeneral",
+  "text": "General Vozdušnyh Sil USA"
+ },
+ {
+  "label": "INI:FactionAmericaCommanderInChief",
+  "text": "Vrhovny Komandujuči USA"
+ },
+ {
+  "label": "INI:FactionChinaTankGeneral",
+  "text": "Tankovy General Kitaja"
+ },
+ {
+  "label": "INI:FactionChinaInfantryGeneral",
+  "text": "Pěhotny General Kitaja"
+ },
+ {
+  "label": "INI:FactionChinaNukeGeneral",
+  "text": "Jaderny General Kitaja"
+ },
+ {
+  "label": "INI:FactionChinaCommanderInChief",
+  "text": "Vrhovny Komandujuči Kitaja"
+ },
+ {
+  "label": "INI:FactionGLAToxinGeneral",
+  "text": "Toksinny General GLA"
+ },
+ {
+  "label": "INI:FactionGLADemolitionGeneral",
+  "text": "General Demolicij GLA"
+ },
+ {
+  "label": "INI:FactionGLAStealthGeneral",
+  "text": "Nevidimy General GLA"
+ },
+ {
+  "label": "INI:FactionGLACommanderInChief",
+  "text": "Vrhovny Komandujuči GLA"
+ },
+ {
+  "label": "INI:FactionBossGeneral",
+  "text": "Šef General"
+ },
+ {
+  "label": "SIDE:AmericaSuperWeaponGeneral",
+  "text": "General Superoružja USA"
+ },
+ {
+  "label": "SIDE:AmericaLaserGeneral",
+  "text": "Lazerny General USA"
+ },
+ {
+  "label": "SIDE:AmericaAirForceGeneral",
+  "text": "General Vozdušnyh Sil USA"
+ },
+ {
+  "label": "SIDE:ChinaTankGeneral",
+  "text": "Tankovy General Kitaja"
+ },
+ {
+  "label": "SIDE:ChinaInfantryGeneral",
+  "text": "Pěhotny General Kitaja"
+ },
+ {
+  "label": "SIDE:ChinaNukeGeneral",
+  "text": "Jaderny General Kitaja"
+ },
+ {
+  "label": "SIDE:GLAToxinGeneral",
+  "text": "Toksinny General GLA"
+ },
+ {
+  "label": "SIDE:GLADemolitionGeneral",
+  "text": "General Demolicij GLA"
+ },
+ {
+  "label": "SIDE:GLAStealthGeneral",
+  "text": "Nevidimy General GLA"
+ },
+ {
+  "label": "SIDE:Boss",
+  "text": "Šef General"
+ },
+ {
+  "label": "GUI:SelectAllAircraft",
+  "text": "Izberi Vsa Letadla"
+ },
+ {
+  "label": "GUI:SelectAllAircraftDescription",
+  "text": "Izbira vsa letadla"
+ },
+ {
+  "label": "SCIENCE:USASpectreGunship1",
+  "text": "Ganšip Spectre"
+ },
+ {
+  "label": "SCIENCE:USALeafletDrop",
+  "text": "Sbros listovok"
+ },
+ {
+  "label": "SCIENCE:ChinaTankHunterTraining",
+  "text": "Obučenje lovcev tankov"
+ },
+ {
+  "label": "SCIENCE:ChinaBattleMasterTraining",
+  "text": "Obučenje Battlemasterov"
+ },
+ {
+  "label": "SCIENCE:ChinaOverlordTraining",
+  "text": "Obučenje Overlordov"
+ },
+ {
+  "label": "SCIENCE:ChinaGattlingTankTraining",
+  "text": "Obučenje Gatlingovyh tankov"
+ },
+ {
+  "label": "SCIENCE:ChinaNukeDrop",
+  "text": "Jaderny sbros"
+ },
+ {
+  "label": "SCIENCE:ChinaFrenzy",
+  "text": "Jarost 1"
+ },
+ {
+  "label": "SCIENCE:ChinaFrenzy2",
+  "text": "Jarost 2"
+ },
+ {
+  "label": "SCIENCE:ChinaFrenzy3",
+  "text": "Jarost 3"
+ },
+ {
+  "label": "SCIENCE:ChinaCarpetBomb",
+  "text": "Kovrova Bomba"
+ },
+ {
+  "label": "SCIENCE:GPSScrambler",
+  "text": "GPS-glušitelj"
+ },
+ {
+  "label": "SCIENCE:GLASneakAttack",
+  "text": "Skryta ataka"
+ },
+ {
+  "label": "SCIENCE:ChinaTankParadrop1",
+  "text": "Tankovy desant 1"
+ },
+ {
+  "label": "SCIENCE:ChinaTankParadrop2",
+  "text": "Tankovy desant 2"
+ },
+ {
+  "label": "SCIENCE:ChinaTankParadrop3",
+  "text": "Tankovy desant 3"
+ },
+ {
+  "label": "SCIENCE:ChinaInfantryParadrop1",
+  "text": "Pěhotny desant 1"
+ },
+ {
+  "label": "SCIENCE:ChinaInfantryParadrop2",
+  "text": "Pěhotny desant 2"
+ },
+ {
+  "label": "SCIENCE:ChinaInfantryParadrop3",
+  "text": "Pěhotny desant 3"
+ },
+ {
+  "label": "CONTROLBAR:NoHotKeyFrenzy",
+  "text": "Besnjenje"
+ },
+ {
+  "label": "CONTROLBAR:CIAIntelligenceShortcut",
+  "text": "Razvědka"
+ },
+ {
+  "label": "CONTROLBAR:CommunicationsDownload",
+  "text": "Komunikacije i &Skačanje"
+ },
+ {
+  "label": "CONTROLBAR:CommunicationsDownloadShortcut",
+  "text": "Komunikacije i &Skačanje"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaHelixPropagandaTower",
+  "text": "Propagandna &Věža"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaHelixBattleBunker",
+  "text": "Bojevy &Bunker"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaHelixGattlingCannon",
+  "text": "Gatlingovo &Dělo"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeHelixNukeBomb",
+  "text": "&Jaderna Bomba"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaFireBase",
+  "text": "&Baza Ognja"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaArtilleryPlatform",
+  "text": "&Artilerijska Platforma"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaTankAvenger",
+  "text": "&Avenger"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaTankMicrowave",
+  "text": "&Mikrovolnovy Tank"
+ },
+ {
+  "label": "CONTROLBAR:BunkerExit",
+  "text": "Izhod iz Bunkera"
+ },
+ {
+  "label": "CONTROLBAR:FireBaseExit",
+  "text": "Izhod iz Baze Ognja"
+ },
+ {
+  "label": "CONTROLBAR:ConstructFakeGLACommandCenter",
+  "text": "&Falošny Komandny Centr"
+ },
+ {
+  "label": "CONTROLBAR:ConstructFakeGLABarracks",
+  "text": "&Falošna Kasarna"
+ },
+ {
+  "label": "CONTROLBAR:ConstructFakeGLASupplyStash",
+  "text": "Falošny Tajny Sk&lad"
+ },
+ {
+  "label": "CONTROLBAR:ConstructFakeGLAArmsDealer",
+  "text": "&Falošny Torgovec Oružjem"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaInternetCenter",
+  "text": "&Centr Internet"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAVehicleCombatBike",
+  "text": "Bojevy &Motocikl"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaTankEmperor",
+  "text": "Imperator &Overlord"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAInfantrySaboteur",
+  "text": "&Saboter"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaInfantryPropagandaTrooper",
+  "text": "&Propagandny Soldat"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaInfantryMiniGunner",
+  "text": "M&itraljezist"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaJetKingRaptor",
+  "text": "King &Raptor"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaJetFuelAirAurora",
+  "text": "Aurora Alpha &Bombardirovač"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaJetHypersonicAurora",
+  "text": "&Aurora Alpha"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAInfantrySniper",
+  "text": "&Snajper"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaVehicleSentryDrone",
+  "text": "&Stražny Dron"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaVehicleHellfireDrone",
+  "text": "Dron &Hellfire"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaVehiclePointDefenseDrone",
+  "text": "Dron &Točkovoj Obrany"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaVehicleHelix",
+  "text": "Heli&x"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaInfantryNukeHunter",
+  "text": "&Lovec Jaderok"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaICBMLauncher",
+  "text": "&ICBM"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaVehicleListeningOutpost",
+  "text": "&Podslušny Post"
+ },
+ {
+  "label": "CONTROLBAR:ConstructFakeGLABlackMarket",
+  "text": "Falošny Črny &Rynok"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaTomahawkStorm",
+  "text": "&Burja Tomahawk"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaTankECM",
+  "text": "&ECM"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAVehicleBattleBus",
+  "text": "&Bojevy Avtobus"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaSentryDroneGun",
+  "text": "Oružje &Stražnogo Drona"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLAQuadCannonSnipe",
+  "text": "Snajperovanje Če&tvornogo Děla"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaSupplyLines",
+  "text": "&Linije Snabděnja"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaMOAB",
+  "text": "&Mati Vsěh Bomb"
+ },
+ {
+  "label": "CONTROLBAR:BecomeRealGLACommandCenter",
+  "text": "&Postani Pravy Komandny Centr"
+ },
+ {
+  "label": "CONTROLBAR:BecomeRealGLABarracks",
+  "text": "&Postani Prava Kasarna"
+ },
+ {
+  "label": "CONTROLBAR:BecomeRealGLAArmsDealer",
+  "text": "&Postani Pravy Torgovec Oružjem"
+ },
+ {
+  "label": "CONTROLBAR:BecomeRealGLASupplyStash",
+  "text": "&Postani Pravy Tajny Sklad"
+ },
+ {
+  "label": "CONTROLBAR:BecomeRealGLABlackMarket",
+  "text": "&Postani Pravy Črny Rynok"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaBunkerBusters",
+  "text": "&Anti-Bunker Rakety"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaCountermeasures",
+  "text": "&Protivmery"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaChemicalSuits",
+  "text": "&Himičske Kostjumy"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaSatelliteHackOne",
+  "text": "&Hakovanje Satelita I"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaSatelliteHackTwo",
+  "text": "&Hakovanje Satelita II"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaFanaticism",
+  "text": "&Patriotizm"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaWGUraniumShells",
+  "text": "Uranove &Snarjady Visokogo Kačestva"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaTankAutoLoader",
+  "text": "&Avtozagruzčik"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaNeutronShells",
+  "text": "&Neutronne Snarjady"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaFusionReactors",
+  "text": "&Fuzijni Reaktory"
+ },
+ {
+  "label": "CONTROLBAR:ChinaUpgradeHelixNapalmBomb",
+  "text": "Dozvoljaje tomu Helixu sbrasyvati napalmove bomby"
+ },
+ {
+  "label": "CONTROLBAR:ChinaUpgradeHelixNukeBomb",
+  "text": "Dozvoljaje tomu Helixu sbrasyvati jaderne bomby"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeHelixNapalmBomb",
+  "text": "&Napalmova Bomba"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLAFortifiedStructure",
+  "text": "&Ukrěpjena Struktura"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLABoobyTrap",
+  "text": "&Minna Pastka"
+ },
+ {
+  "label": "CONTROLBAR:DetonateFakeBuilding",
+  "text": "Detoniraj &Sejčas!"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLAWorkerFakeCommandSet",
+  "text": "Prěključi na &Falošne Strukture"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLAWorkerRealCommandSet",
+  "text": "Prěključi na &Prave Strukture"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLAHighExplosiveDemoTraps",
+  "text": "Visoko Eksplozivne &Podryvne Pastky"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLACamoNetting",
+  "text": "&Kamuflažna Sěť"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLAAnthraxGamma",
+  "text": "&Antraks Gamma"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLAWorkerShoes",
+  "text": "&Obuv Rabotnika"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeEMPMines",
+  "text": "&Neutronne Miny"
+ },
+ {
+  "label": "CONTROLBAR:NukeWarhead",
+  "text": "&Jaderny Snarjad"
+ },
+ {
+  "label": "CONTROLBAR:NeutronWarhead",
+  "text": "&Neutronne Snarjady"
+ },
+ {
+  "label": "CONTROLBAR:LeafletDrop",
+  "text": "&Sbros Letakov"
+ },
+ {
+  "label": "CONTROLBAR:SuitcaseNuke",
+  "text": "&Kufrova Jaderka"
+ },
+ {
+  "label": "CONTROLBAR:NeutronMissileShortcut",
+  "text": "Jaderna Raketa"
+ },
+ {
+  "label": "CONTROLBAR:ICBM",
+  "text": "&ICBM"
+ },
+ {
+  "label": "CONTROLBAR:ICBMShortcut",
+  "text": "ICBM"
+ },
+ {
+  "label": "CONTROLBAR:ScudStormShortcut",
+  "text": "Burja SCUD"
+ },
+ {
+  "label": "CONTROLBAR:TomahawkStorm",
+  "text": "&Burja Tomahawk"
+ },
+ {
+  "label": "CONTROLBAR:TomahawkStormShortcut",
+  "text": "Burja Tomahawk"
+ },
+ {
+  "label": "CONTROLBAR:SpectreGunship",
+  "text": "&Spectre"
+ },
+ {
+  "label": "CONTROLBAR:SpectreGunshipFromShortcut",
+  "text": "Spectre"
+ },
+ {
+  "label": "CONTROLBAR:SneakAttack",
+  "text": "&Skryta Ataka"
+ },
+ {
+  "label": "CONTROLBAR:TankParadrop",
+  "text": "&Desant Tankov"
+ },
+ {
+  "label": "CONTROLBAR:NukeDrop",
+  "text": "&Jaderny Desant"
+ },
+ {
+  "label": "CONTROLBAR:Frenzy",
+  "text": "&Besnjenje"
+ },
+ {
+  "label": "CONTROLBAR:RadarVanScanShortcut",
+  "text": "Radar Skaniranje"
+ },
+ {
+  "label": "CONTROLBAR:SelectAircraftCarriersFromShortcut",
+  "text": "Izberi Nosače Letadl"
+ },
+ {
+  "label": "CONTROLBAR:SelectBattleshipsFromShortcut",
+  "text": "Bombardovanje Linkorom"
+ },
+ {
+  "label": "CONTROLBAR:BattleshipFire",
+  "text": "Bombardovanje Linkorom"
+ },
+ {
+  "label": "CONTROLBAR:AircraftCarrierFire",
+  "text": "Napad Raptora s Nosača Letadl"
+ },
+ {
+  "label": "CONTROLBAR:ECMDisableVehicle",
+  "text": "&Deaktiviraj Vozilo"
+ },
+ {
+  "label": "CONTROLBAR:BoobyTrapAttack",
+  "text": "Napad &Minnoju Pastkoju"
+ },
+ {
+  "label": "CONTROLBAR:GPSScrambler",
+  "text": "&GPS-Glušitelj"
+ },
+ {
+  "label": "CONTROLBAR:FireParticleUplinkCannonShortcut",
+  "text": "Česticovo Dělo"
+ },
+ {
+  "label": "UPGRADE:AmericaSentryDroneGun",
+  "text": "Oružje stražnogo drona"
+ },
+ {
+  "label": "UPGRADE:AmericaMOAB",
+  "text": "MOAB: Mati vsěh bomb"
+ },
+ {
+  "label": "UPGRADE:AmericaBunkerBusters",
+  "text": "Protibunkerne rakety"
+ },
+ {
+  "label": "UPGRADE:SatelliteHackOne",
+  "text": "Hakovanje satelita I"
+ },
+ {
+  "label": "UPGRADE:SatelliteHackTwo",
+  "text": "Hakovanje satelita II"
+ },
+ {
+  "label": "UPGRADE:HelixGattlingCannon",
+  "text": "Gatlingovo dělo Helixa"
+ },
+ {
+  "label": "UPGRADE:HelixPropagandaTower",
+  "text": "Propagandna věža Helixa"
+ },
+ {
+  "label": "UPGRADE:HelixBattleBunker",
+  "text": "Bojevy bunker Helixa"
+ },
+ {
+  "label": "UPGRADE:SupplyLines",
+  "text": "Linije snabděnja"
+ },
+ {
+  "label": "UPGRADE:PointDefenseDrone",
+  "text": "Dron točkovoj oborony"
+ },
+ {
+  "label": "UPGRADE:QuadCannonSnipe",
+  "text": "Snajperske snarjady četvornogo děla"
+ },
+ {
+  "label": "UPGRADE:HellfireDrone",
+  "text": "Dron Hellfire"
+ },
+ {
+  "label": "UPGRADE:Fanaticism",
+  "text": "Patriotizm"
+ },
+ {
+  "label": "UPGRADE:EMPMine",
+  "text": "Neutronne miny"
+ },
+ {
+  "label": "UPGRADE:ChinaHelixNapalmBomb",
+  "text": "Napalmova bomba"
+ },
+ {
+  "label": "UPGRADE:ChinaHelixNukeBomb",
+  "text": "Jaderna bomba"
+ },
+ {
+  "label": "UPGRADE:WGUraniumShells",
+  "text": "Snarjady iz bojevogo urana"
+ },
+ {
+  "label": "UPGRADE:TankAutoLoader",
+  "text": "Avtozarjadčik"
+ },
+ {
+  "label": "UPGRADE:NeutronShells",
+  "text": "Neutronne snarjady"
+ },
+ {
+  "label": "UPGRADE:BecomeRealGLACommandCenter",
+  "text": "Pravy komandny centr"
+ },
+ {
+  "label": "UPGRADE:BecomeRealGLABarracks",
+  "text": "Prava kasarna"
+ },
+ {
+  "label": "UPGRADE:BecomeRealGLAArmsDealer",
+  "text": "Pravy torgovec oružjem"
+ },
+ {
+  "label": "UPGRADE:BecomeRealGLASupplyStash",
+  "text": "Pravy tajny sklad"
+ }
+]
