@@ -1,0 +1,802 @@
+[
+ {
+  "label": "CONTROLBAR:TempDescription",
+  "text": "Prosim, najdite vrěmja, aby napolniti moj opis v CommandButton.ini! Mnogo hvala"
+ },
+ {
+  "label": "CONTROLBAR:CleanupAreaDescription",
+  "text": "Avtomatski čisti biotoksiny i radiaciju v oblasti okolo cělovoj pozicije"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaCommandCenter",
+  "text": "&Komandny Centr"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaPowerPlant",
+  "text": "&Reaktor Hladnoj Fuzije"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaBarracks",
+  "text": "&Kasarna"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaSupplyCenter",
+  "text": "Centr Sna&bděnja"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaWall",
+  "text": "Bezbědnostna &Ograda"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaWarFactory",
+  "text": "Vojenn&a Fabrika"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaGuardianControlCenter",
+  "text": "Centr \n Ohrany"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaPatriotBattery",
+  "text": "Raketny &Kompleks Patriot"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaParticleCannonUplink",
+  "text": "&Česticovo Dělo"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaStrategyCenter",
+  "text": "Strategičn&y Centr"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaSupplyDropZone",
+  "text": "&Zona Sbrosa Snabděnja"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaDetentionCamp",
+  "text": "&Zatvorny Lager"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaTankCrusader",
+  "text": "&Crusader"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaTankPaladin",
+  "text": "&Paladin"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaInfantryRanger",
+  "text": "Ran&ger"
+ },
+ {
+  "label": "CONTROLBAR:Evacuate",
+  "text": "E&vakuiraj"
+ },
+ {
+  "label": "CONTROLBAR:ExecuteRailedTransport",
+  "text": "Transport"
+ },
+ {
+  "label": "CONTROLBAR:TransportExit",
+  "text": "Izhod iz Transporta"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLACommandCenter",
+  "text": "&Komandny Centr"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLADemoTrap",
+  "text": "&Podryvna Pastka"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLABarracks",
+  "text": "&Kasarna"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLASupplyStash",
+  "text": "Tajny &Sklad"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLABurningBarricade",
+  "text": "&Goreča Barikada"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAArmsDealer",
+  "text": "&Torgovec Oružjem"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaCommandCenter",
+  "text": "&Komandny Centr"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaPowerPlant",
+  "text": "&Jaderny Reaktor"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaBarracks",
+  "text": "&Kasarna"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaSupplyCenter",
+  "text": "Centr Sna&bděnja"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaConcreteWall",
+  "text": "Betonna Stě&na"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaWarFactory",
+  "text": "Vojenn&a Fabrika"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaDozer",
+  "text": "Stroiteljny &Buldozer"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAWorker",
+  "text": "Rabo&tnik"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaDozer",
+  "text": "Stroiteljny &Buldozer"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLATankScorpion",
+  "text": "&Scorpion"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLATankMarauder",
+  "text": "&Marauder"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAVehicleRocketBuggy",
+  "text": "Raketny &Bagi"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAVehicleRadarVan",
+  "text": "Radarny &Furgon"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaTankOverlord",
+  "text": "&Overlord"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaTankGattling",
+  "text": "&Gatlingovy Tank"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAInfantryRebel",
+  "text": "Po&vstanec"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaInfantryRedguard",
+  "text": "Črven&a Gvardija"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaVehicleChinook",
+  "text": "&Chinook"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAVehicleSupplyTruck",
+  "text": "Kamion &Snabděnja"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaVehicleSupplyTruck",
+  "text": "Kamion &Snabděnja"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaJetRaptor",
+  "text": "Rap&tor"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaJetAurora",
+  "text": "&Aurora"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaJetStealthFighter",
+  "text": "&Nevidimy Istrěbitelj"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaVehicleStarlifter",
+  "text": "Starlifter"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaVehicleComanche",
+  "text": "&Comanche"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaInfantryMissileDefender",
+  "text": "&Raketny Obranitelj"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaInfantryPathfinder",
+  "text": "&Sledopyt"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaInfantryColonelBurton",
+  "text": "Polkovnik Burto&n"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaInfantryBiohazardTech",
+  "text": "Biohazard Tehnik"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaVehicleTomahawk",
+  "text": "&Tomahawk"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaVehicleMedic",
+  "text": "&Ambulancija"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaVehicleHumvee",
+  "text": "Hum&vee"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaVehicleBattleDrone",
+  "text": "&Bojevy Dron"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaVehicleScoutDrone",
+  "text": "Razvěduvalny &Dron"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaJetMIG",
+  "text": "Mi&G"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaInfantryBlackLotus",
+  "text": "&Črny Lotos"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaInfantryTankHunter",
+  "text": "&Lovec Tankov"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaInfantrySecretPolice",
+  "text": "Tajna \n Policija"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaInfantryHacker",
+  "text": "H&aker"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaBunker",
+  "text": "Bun&ker"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaPropagandaCenter",
+  "text": "&Centr Propagandy"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaAirfield",
+  "text": "&Aerodrom"
+ },
+ {
+  "label": "CONTROLBAR:ConstructAmericaAirfield",
+  "text": "&Aerodrom"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaGattlingCannon",
+  "text": "&Gatlingovo Dělo"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaNuclearMissileLauncher",
+  "text": "&Puskovač Jadernyh Raket"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaSpeakerTower",
+  "text": "&Reproduktorna Věža"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaVehicleInfernoCannon",
+  "text": "&Dělo Inferno"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaVehicleNukeLauncher",
+  "text": "&Jaderno Dělo"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaVehicleTroopCrawler",
+  "text": "&Transporter Pěhoty"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaTankSeismic",
+  "text": "Seizmičny \n Tank"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaTankDragon",
+  "text": "&Tank Zmaj"
+ },
+ {
+  "label": "CONTROLBAR:ConstructChinaVehiclePropagandaBlimp",
+  "text": "Prop. \n Dirižabl"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAInfantryTerrorist",
+  "text": "&Terorist"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAInfantryRPGTrooper",
+  "text": "RP&G Boec"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLATunnelNetwork",
+  "text": "Tunelna &Sěť"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAPalace",
+  "text": "&Palac"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLABlackMarket",
+  "text": "Črny &Rynok"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAStingerSite",
+  "text": "Pozicija S&tinger"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAScudStorm",
+  "text": "Burja SC&UD"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAPrison",
+  "text": "T&jurma"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAVehicleToxinTruck",
+  "text": "Toksinny Tr&aktor"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLATankBattleMaster",
+  "text": "&Battlemaster"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAVehicleTechnical",
+  "text": "&Tehnikal"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAInfantryHijacker",
+  "text": "&Otimač"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAInfantryJarmenKell",
+  "text": "&Jarmen Kell"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAInfantryAngryMob",
+  "text": "Gněvn&a Tolpa"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAVehicleQuadCannon",
+  "text": "Č&etvorno Dělo"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAVehicleBombTruck",
+  "text": "Kami&on-Bomba"
+ },
+ {
+  "label": "CONTROLBAR:ConstructGLAVehicleScudLauncher",
+  "text": "Puskovač SC&UD"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaAdvancedTraining",
+  "text": "&Napredno Obučenje"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaDroneArmor",
+  "text": "Brona D&rona"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaMines",
+  "text": "&Zemne Miny"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaRadar",
+  "text": "&Radar"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaScoutDrones",
+  "text": "Razvěduvalni &Droni"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaAdvancedControlRods",
+  "text": "&Kontrolne Strěžni"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaLaserMissiles",
+  "text": "&Lazerne Rakety"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaExtraFuel",
+  "text": "Extra &Gorivo"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaFlashBangGrenade",
+  "text": "&Oslěpljujuče Granaty"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaCompositeArmor",
+  "text": "Kom&pozitna Brona"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaTomahawkRemoteControl",
+  "text": "Kruzeč&ne Rakety"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaAircraftFuel",
+  "text": "Zračno Gorivo"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaTOWMissile",
+  "text": "TOW &Raketa"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeComancheRocketPods",
+  "text": "Raketne &Kapsuly"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaRailGun",
+  "text": "Rejlgan \n Puška"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaRadar",
+  "text": "R&adar"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaNationalism",
+  "text": "&Nacionalizm"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaAntiTankGrenade",
+  "text": "&Protivotankove Granaty"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaVehicleHack",
+  "text": "&Hakovanje Vozil"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaIRGoggles",
+  "text": "&IR Naočniky"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaBlackNapalm",
+  "text": "Črny &Napalm"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaChainGuns",
+  "text": "&Cěpne Puški"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaSubliminalMessaging",
+  "text": "Su&bliminalna Propaganda"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaUraniumShells",
+  "text": "&Uranove Snarjady"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaNuclearTanks",
+  "text": "Jaderne &Tanky"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaStunBullets",
+  "text": "Omam&ljujuče Kule"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLARadar",
+  "text": "&Radar"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLARadarVanScan",
+  "text": "Radar S&kaniranje"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLAScorpionRocket",
+  "text": "Rak&eta Scorpion"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLABuggyAmmo",
+  "text": "&Municija Bagija"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLABombTruckBioBomb",
+  "text": "&BioBomby"
+ },
+ {
+  "label": "CONTROLBAR:DisguiseAsVehicle",
+  "text": "&Maskiranje kako Vozilo"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLABombTruckHighExplosiveBomb",
+  "text": "Silno Eksplozivna B&omba"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLAAnthraxBeta",
+  "text": "&Antraks Beta"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLAToxinShells",
+  "text": "&Toksinne Snarjady"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLAJunkRepair",
+  "text": "&Popravka iz Otpada"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLAAPBullets",
+  "text": "AP &Kule"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLAAPRockets",
+  "text": "AP &Rakety"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLACamouflage",
+  "text": "&Kamuflaž"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLATranqDarts",
+  "text": "&Uspavljujuče Strěly"
+ },
+ {
+  "label": "CONTROLBAR:SetRallyPoint",
+  "text": "&Sborny Punkt"
+ },
+ {
+  "label": "CONTROLBAR:Sell",
+  "text": "Prodaj"
+ },
+ {
+  "label": "CONTROLBAR:Overcharge",
+  "text": "&Přeteženje"
+ },
+ {
+  "label": "CONTROLBAR:DragonFlame",
+  "text": "P&lamen"
+ },
+ {
+  "label": "CONTROLBAR:PickUpPrisoner",
+  "text": "&Uzmi \n Zatvorenika"
+ },
+ {
+  "label": "CONTROLBAR:ReturnToPrison",
+  "text": "&Vrati"
+ },
+ {
+  "label": "CONTROLBAR:FireRocket",
+  "text": "&Vypusti Raketu"
+ },
+ {
+  "label": "CONTROLBAR:AnthraxWarhead",
+  "text": "A&ntraksova Boglava"
+ },
+ {
+  "label": "CONTROLBAR:ExplosiveWarhead",
+  "text": "Ek&splozivna Boglava"
+ },
+ {
+  "label": "CONTROLBAR:Fire20mmCannon",
+  "text": "&Vypusti Dělo 20mm"
+ },
+ {
+  "label": "CONTROLBAR:FireAntiTankMissiles",
+  "text": "Vypusti &Rakety"
+ },
+ {
+  "label": "CONTROLBAR:FireRocketPods",
+  "text": "Vypusti &Rakety"
+ },
+ {
+  "label": "CONTROLBAR:FireNapalmMissile",
+  "text": "Vypusti &Napalm"
+ },
+ {
+  "label": "CONTROLBAR:DaisyCutter",
+  "text": "Vakuumna &Bomba"
+ },
+ {
+  "label": "CONTROLBAR:NeutronMissile",
+  "text": "&Jaderna Raketa"
+ },
+ {
+  "label": "CONTROLBAR:ScudStorm",
+  "text": "Burja SC&UD"
+ },
+ {
+  "label": "CONTROLBAR:NapalmStrike",
+  "text": "&Napalmovy Udar"
+ },
+ {
+  "label": "CONTROLBAR:A10ThunderboltMissileStrike",
+  "text": "&Udar A10"
+ },
+ {
+  "label": "CONTROLBAR:CashHack",
+  "text": "&Hakovanje Kasy"
+ },
+ {
+  "label": "CONTROLBAR:Ambush",
+  "text": "&Zasada"
+ },
+ {
+  "label": "CONTROLBAR:BlackMarketNuke",
+  "text": "Jaderka s \n Črnogo Rynka"
+ },
+ {
+  "label": "CONTROLBAR:AnthraxBomb",
+  "text": "Antraksova &Bomba"
+ },
+ {
+  "label": "CONTROLBAR:Paradrop",
+  "text": "Parašutny Desa&nt"
+ },
+ {
+  "label": "CONTROLBAR:CarpetBomb",
+  "text": "Kovrov&a Bomba"
+ },
+ {
+  "label": "CONTROLBAR:ClusterMines",
+  "text": "Kasetne M&iny"
+ },
+ {
+  "label": "CONTROLBAR:EMPPulse",
+  "text": "EMP P&ulz"
+ },
+ {
+  "label": "CONTROLBAR:ArtilleryBarrage",
+  "text": "Artilerijsky &Obstrěl"
+ },
+ {
+  "label": "CONTROLBAR:CrateDrop",
+  "text": "Sbros \n Jaščika"
+ },
+ {
+  "label": "CONTROLBAR:SpySatellite",
+  "text": "&Špionsky Satelit"
+ },
+ {
+  "label": "CONTROLBAR:SpyDrone",
+  "text": "Šp&ionsky Dron"
+ },
+ {
+  "label": "CONTROLBAR:RadarVanScan",
+  "text": "Radar S&kaniranje"
+ },
+ {
+  "label": "CONTROLBAR:Defector",
+  "text": "&Dezerter"
+ },
+ {
+  "label": "CONTROLBAR:Bayonet",
+  "text": "&Bajonet"
+ },
+ {
+  "label": "CONTROLBAR:SniperAttack",
+  "text": "S&najpersky Napad"
+ },
+ {
+  "label": "CONTROLBAR:CaptureBuilding",
+  "text": "&Zauzmi Zgradu"
+ },
+ {
+  "label": "CONTROLBAR:DisableVehicleHack",
+  "text": "&Hakovanje Vozila"
+ },
+ {
+  "label": "CONTROLBAR:StealCashHack",
+  "text": "Hakovanje Kas&y"
+ },
+ {
+  "label": "CONTROLBAR:InternetHack",
+  "text": "Hakuj &Internet"
+ },
+ {
+  "label": "CONTROLBAR:DisableBuildingHack",
+  "text": "&Onesposobi Zgradu"
+ },
+ {
+  "label": "CONTROLBAR:CarBomb",
+  "text": "&Avto-Bomba"
+ },
+ {
+  "label": "CONTROLBAR:Hijack",
+  "text": "Otm&i"
+ },
+ {
+  "label": "CONTROLBAR:TNTAttack",
+  "text": "&TNT Napad"
+ },
+ {
+  "label": "CONTROLBAR:Requirements",
+  "text": "Trěbuje: %s"
+ },
+ {
+  "label": "CONTROLBAR:LaserMissileAttack",
+  "text": "&Lazerno-Raketny Napad"
+ },
+ {
+  "label": "CONTROLBAR:KnifeAttack",
+  "text": "&Napad Nožem"
+ },
+ {
+  "label": "CONTROLBAR:ClimbCliff",
+  "text": "&Vzpni sę na Klif"
+ },
+ {
+  "label": "CONTROLBAR:TimedDemoCharge",
+  "text": "&Časovany Podryvny Naboj"
+ },
+ {
+  "label": "CONTROLBAR:RemoteDemoCharge",
+  "text": "&Udaljeny Podryvny Naboj"
+ },
+ {
+  "label": "CONTROLBAR:DetonateCharges",
+  "text": "&Detoniraj Naboje"
+ },
+ {
+  "label": "CONTROLBAR:DetonateNuke",
+  "text": "Detoniraj &Jaderku"
+ },
+ {
+  "label": "CONTROLBAR:ManualControl",
+  "text": "&Ručna Kontrola"
+ },
+ {
+  "label": "CONTROLBAR:ProximityFuse",
+  "text": "&Blizky Vzryvatelj"
+ },
+ {
+  "label": "CONTROLBAR:Detonate",
+  "text": "&Detoniraj!"
+ },
+ {
+  "label": "CONTROLBAR:EmergencyRepair",
+  "text": "&Hitna Popravka"
+ },
+ {
+  "label": "CONTROLBAR:FireParticleUplinkCannon",
+  "text": "&Česticovo Dělo"
+ },
+ {
+  "label": "CONTROLBAR:Options",
+  "text": "Menu v Igrě"
+ },
+ {
+  "label": "CONTROLBAR:OptionsDescription",
+  "text": "Ovo otvorit Menu v Igrě"
+ },
+ {
+  "label": "CONTROLBAR:IdleWorker",
+  "text": "Nedělajuči Rabotnik"
+ },
+ {
+  "label": "CONTROLBAR:IdleWorkerDescription",
+  "text": "Kliknite, aby izbrati slědujučego nedělajučego Rabotnika"
+ },
+ {
+  "label": "CONTROLBAR:Beacon",
+  "text": "Majak"
+ },
+ {
+  "label": "CONTROLBAR:BeaconDescription",
+  "text": "Kliknite, aby postaviti majak"
+ },
+ {
+  "label": "CONTROLBAR:Communicator",
+  "text": "Komunikator"
+ },
+ {
+  "label": "CONTROLBAR:CommunicatorDescription",
+  "text": "Kliknite, aby otvoriti Komunikator Generalov"
+ },
+ {
+  "label": "CONTROLBAR:AmbulanceCleanupArea",
+  "text": "&Očisti Toksiny"
+ },
+ {
+  "label": "RADAR:UnitUnderAttack",
+  "text": "Jedinica pod napadom"
+ }
+]

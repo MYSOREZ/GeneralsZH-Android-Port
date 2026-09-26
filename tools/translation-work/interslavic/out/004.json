@@ -1,0 +1,802 @@
+[
+ {
+  "label": "GUI:Scatter",
+  "text": "Razpršiti Sę"
+ },
+ {
+  "label": "GUI:StopObject",
+  "text": "Zaustaviti Objekt"
+ },
+ {
+  "label": "GUI:StopObjectDescription",
+  "text": "Zaustavja izbrany(-e) objekt(y)"
+ },
+ {
+  "label": "GUI:GoToRadarEvent",
+  "text": "Idi k Radarnomu Sobytju"
+ },
+ {
+  "label": "GUI:GoToRadarEventDescription",
+  "text": "Centrira taktičny pogled na poslědnjem radarnom sobytju"
+ },
+ {
+  "label": "GUI:SaveView1",
+  "text": "Postavi Zakladku 1"
+ },
+ {
+  "label": "GUI:SaveView1Description",
+  "text": "Postavja poziciju karty zakladky 1"
+ },
+ {
+  "label": "GUI:SaveView2",
+  "text": "Postavi Zakladku 2"
+ },
+ {
+  "label": "GUI:SaveView2Description",
+  "text": "Postavja poziciju karty zakladky 2"
+ },
+ {
+  "label": "GUI:SaveView3",
+  "text": "Postavi Zakladku 3"
+ },
+ {
+  "label": "GUI:SaveView3Description",
+  "text": "Postavja poziciju karty zakladky 3"
+ },
+ {
+  "label": "GUI:SaveView4",
+  "text": "Postavi Zakladku 4"
+ },
+ {
+  "label": "GUI:SaveView4Description",
+  "text": "Postavja poziciju karty zakladky 4"
+ },
+ {
+  "label": "GUI:ViewView1",
+  "text": "Pogledaj Zakladku 1"
+ },
+ {
+  "label": "GUI:ViewView1Description",
+  "text": "Pokazuje poziciju karty zakladky 1"
+ },
+ {
+  "label": "GUI:ViewView2",
+  "text": "Pogledaj Zakladku 2"
+ },
+ {
+  "label": "GUI:ViewView2Description",
+  "text": "Pokazuje poziciju karty zakladky 2"
+ },
+ {
+  "label": "GUI:ViewView3",
+  "text": "Pogledaj Zakladku 3"
+ },
+ {
+  "label": "GUI:ViewView3Description",
+  "text": "Pokazuje poziciju karty zakladky 3"
+ },
+ {
+  "label": "GUI:ViewView4",
+  "text": "Pogledaj Zakladku 4"
+ },
+ {
+  "label": "GUI:ViewView4Description",
+  "text": "Pokazuje poziciju karty zakladky 4"
+ },
+ {
+  "label": "GUI:CenterBase",
+  "text": "Centriraj Bazu"
+ },
+ {
+  "label": "GUI:CenterBaseDescription",
+  "text": "Centrira pogled okolo bazy igrača"
+ },
+ {
+  "label": "GUI:SelectNone",
+  "text": "Ne Izbiraj Ničto"
+ },
+ {
+  "label": "GUI:SelectAll",
+  "text": "Izberi Vse"
+ },
+ {
+  "label": "GUI:SelectAllDescription",
+  "text": "Izbira vse vojenne jedinice"
+ },
+ {
+  "label": "GUI:SelectNextUnit",
+  "text": "Slědujuči Objekt"
+ },
+ {
+  "label": "GUI:SelectNextUnitDescription",
+  "text": "Izbira slědujuči objekt"
+ },
+ {
+  "label": "GUI:SelectPrevUnit",
+  "text": "Prědhodny Objekt"
+ },
+ {
+  "label": "GUI:SelectPrevUnitDescription",
+  "text": "Izbira prědhodnu jedinicu"
+ },
+ {
+  "label": "GUI:SelectNextWorker",
+  "text": "Slědujuči Rabotnik"
+ },
+ {
+  "label": "GUI:SelectNextWorkerDescription",
+  "text": "Izbira slědujučego Rabotnika"
+ },
+ {
+  "label": "GUI:SelectPrevWorker",
+  "text": "Prědhodny Rabotnik"
+ },
+ {
+  "label": "GUI:SelectPrevWorkerDescription",
+  "text": "Izbira prědhodnogo Rabotnika"
+ },
+ {
+  "label": "GUI:TypeSelect",
+  "text": "Izbor po Tipu"
+ },
+ {
+  "label": "GUI:TypeSelectDescription",
+  "text": "Izbira jedinice po tipu. Dvakrat kliknite lěvym gumbom na jedinicu, aby izbrati vse istogo tipa"
+ },
+ {
+  "label": "GUI:CreateTeam0",
+  "text": "Sozdaj Komandu 0"
+ },
+ {
+  "label": "GUI:CreateTeam0Description",
+  "text": "Sozdaje komandu 0 iz trenutno izbranyh jedinic"
+ },
+ {
+  "label": "GUI:CreateTeam1",
+  "text": "Sozdaj Komandu 1"
+ },
+ {
+  "label": "GUI:CreateTeam1Description",
+  "text": "Sozdaje komandu 1 iz trenutno izbranyh jedinic"
+ },
+ {
+  "label": "GUI:CreateTeam2",
+  "text": "Sozdaj Komandu 2"
+ },
+ {
+  "label": "GUI:CreateTeam2Description",
+  "text": "Sozdaje komandu 2 iz trenutno izbranyh jedinic"
+ },
+ {
+  "label": "GUI:CreateTeam3",
+  "text": "Sozdaj Komandu 3"
+ },
+ {
+  "label": "GUI:CreateTeam3Description",
+  "text": "Sozdaje komandu 3 iz trenutno izbranyh jedinic"
+ },
+ {
+  "label": "GUI:CreateTeam4",
+  "text": "Sozdaj Komandu 4"
+ },
+ {
+  "label": "GUI:CreateTeam4Description",
+  "text": "Sozdaje komandu 4 iz trenutno izbranyh jedinic"
+ },
+ {
+  "label": "GUI:CreateTeam5",
+  "text": "Sozdaj Komandu 5"
+ },
+ {
+  "label": "GUI:CreateTeam5Description",
+  "text": "Sozdaje komandu 5 iz trenutno izbranyh jedinic"
+ },
+ {
+  "label": "GUI:CreateTeam6",
+  "text": "Sozdaj Komandu 6"
+ },
+ {
+  "label": "GUI:CreateTeam6Description",
+  "text": "Sozdaje komandu 6 iz trenutno izbranyh jedinic"
+ },
+ {
+  "label": "GUI:CreateTeam7",
+  "text": "Sozdaj Komandu 7"
+ },
+ {
+  "label": "GUI:CreateTeam7Description",
+  "text": "Sozdaje komandu 7 iz trenutno izbranyh jedinic"
+ },
+ {
+  "label": "GUI:CreateTeam8",
+  "text": "Sozdaj Komandu 8"
+ },
+ {
+  "label": "GUI:CreateTeam8Description",
+  "text": "Sozdaje komandu 8 iz trenutno izbranyh jedinic"
+ },
+ {
+  "label": "GUI:CreateTeam9",
+  "text": "Sozdaj Komandu 9"
+ },
+ {
+  "label": "GUI:CreateTeam9Description",
+  "text": "Sozdaje komandu 9 iz trenutno izbranyh jedinic"
+ },
+ {
+  "label": "GUI:SelectTeam0",
+  "text": "Izberi Komandu 0"
+ },
+ {
+  "label": "GUI:SelectTeam0Description",
+  "text": "Izbira členov komandy 0"
+ },
+ {
+  "label": "GUI:SelectTeam1",
+  "text": "Izberi Komandu 1"
+ },
+ {
+  "label": "GUI:SelectTeam1Description",
+  "text": "Izbira členov komandy 1"
+ },
+ {
+  "label": "GUI:SelectTeam2",
+  "text": "Izberi Komandu 2"
+ },
+ {
+  "label": "GUI:SelectTeam2Description",
+  "text": "Izbira členov komandy 2"
+ },
+ {
+  "label": "GUI:SelectTeam3",
+  "text": "Izberi Komandu 3"
+ },
+ {
+  "label": "GUI:SelectTeam3Description",
+  "text": "Izbira členov komandy 3"
+ },
+ {
+  "label": "GUI:SelectTeam4",
+  "text": "Izberi Komandu 4"
+ },
+ {
+  "label": "GUI:SelectTeam4Description",
+  "text": "Izbira členov komandy 4"
+ },
+ {
+  "label": "GUI:SelectTeam5",
+  "text": "Izberi Komandu 5"
+ },
+ {
+  "label": "GUI:SelectTeam5Description",
+  "text": "Izbira členov komandy 5"
+ },
+ {
+  "label": "GUI:SelectTeam6",
+  "text": "Izberi Komandu 6"
+ },
+ {
+  "label": "GUI:SelectTeam6Description",
+  "text": "Izbira členov komandy 6"
+ },
+ {
+  "label": "GUI:SelectTeam7",
+  "text": "Izberi Komandu 7"
+ },
+ {
+  "label": "GUI:SelectTeam7Description",
+  "text": "Izbira členov komandy 7"
+ },
+ {
+  "label": "GUI:SelectTeam8",
+  "text": "Izberi Komandu 8"
+ },
+ {
+  "label": "GUI:SelectTeam8Description",
+  "text": "Izbira členov komandy 8"
+ },
+ {
+  "label": "GUI:SelectTeam9",
+  "text": "Izberi Komandu 9"
+ },
+ {
+  "label": "GUI:SelectTeam9Description",
+  "text": "Izbira členov komandy 9"
+ },
+ {
+  "label": "GUI:ViewTeam0",
+  "text": "Centriraj Komandu 0"
+ },
+ {
+  "label": "GUI:ViewTeam0Description",
+  "text": "Izbira i centrira pogled okolo komandy 0"
+ },
+ {
+  "label": "GUI:ViewTeam1",
+  "text": "Centriraj Komandu 1"
+ },
+ {
+  "label": "GUI:ViewTeam1Description",
+  "text": "Izbira i centrira pogled okolo komandy 1"
+ },
+ {
+  "label": "GUI:ViewTeam2",
+  "text": "Centriraj Komandu 2"
+ },
+ {
+  "label": "GUI:ViewTeam2Description",
+  "text": "Izbira i centrira pogled okolo komandy 2"
+ },
+ {
+  "label": "GUI:ViewTeam3",
+  "text": "Centriraj Komandu 3"
+ },
+ {
+  "label": "GUI:ViewTeam3Description",
+  "text": "Izbira i centrira pogled okolo komandy 3"
+ },
+ {
+  "label": "GUI:ViewTeam4",
+  "text": "Centriraj Komandu 4"
+ },
+ {
+  "label": "GUI:ViewTeam4Description",
+  "text": "Izbira i centrira pogled okolo komandy 4"
+ },
+ {
+  "label": "GUI:ViewTeam5",
+  "text": "Centriraj Komandu 5"
+ },
+ {
+  "label": "GUI:ViewTeam5Description",
+  "text": "Izbira i centrira pogled okolo komandy 5"
+ },
+ {
+  "label": "GUI:ViewTeam6",
+  "text": "Centriraj Komandu 6"
+ },
+ {
+  "label": "GUI:ViewTeam6Description",
+  "text": "Izbira i centrira pogled okolo komandy 6"
+ },
+ {
+  "label": "GUI:ViewTeam7",
+  "text": "Centriraj Komandu 7"
+ },
+ {
+  "label": "GUI:ViewTeam7Description",
+  "text": "Izbira i centrira pogled okolo komandy 7"
+ },
+ {
+  "label": "GUI:ViewTeam8",
+  "text": "Centriraj Komandu 8"
+ },
+ {
+  "label": "GUI:ViewTeam8Description",
+  "text": "Izbira i centrira pogled okolo komandy 8"
+ },
+ {
+  "label": "GUI:ViewTeam9",
+  "text": "Centriraj Komandu 9"
+ },
+ {
+  "label": "GUI:ViewTeam9Description",
+  "text": "Izbira i centrira pogled okolo komandy 9"
+ },
+ {
+  "label": "GUI:LocalIPDesc",
+  "text": "Lokalny IP"
+ },
+ {
+  "label": "GUI:RemoteIPDesc",
+  "text": "Udaljeny IP"
+ },
+ {
+  "label": "GUI:SaveCamera",
+  "text": "Sohrani kameru v zapisah"
+ },
+ {
+  "label": "GUI:UseCamera",
+  "text": "Upotrěbi sohranjenu kameru v zapisah"
+ },
+ {
+  "label": "Mouse:Windows",
+  "text": "Windows Kursor"
+ },
+ {
+  "label": "Mouse:W3D",
+  "text": "W3D Kursor"
+ },
+ {
+  "label": "Mouse:Poly",
+  "text": "Poligonalny Kursor"
+ },
+ {
+  "label": "Mouse:DX8",
+  "text": "DX8 Kursor"
+ },
+ {
+  "label": "Mouse:Heal",
+  "text": "Byti Izlěčen"
+ },
+ {
+  "label": "Mouse:GetRepaired",
+  "text": "Byti Popravjen"
+ },
+ {
+  "label": "Mouse:Dock",
+  "text": "Dok"
+ },
+ {
+  "label": "Mouse:DoRepair",
+  "text": "Popraviti"
+ },
+ {
+  "label": "Mouse:ResumeConstruction",
+  "text": "Prodolžiti Stroitelstvo"
+ },
+ {
+  "label": "Mouse:Enter",
+  "text": "Vstupiti"
+ },
+ {
+  "label": "Mouse:SetRallyPoint",
+  "text": "Postavi Sborny Punkt"
+ },
+ {
+  "label": "Mouse:DisguiseAsVehicle",
+  "text": "Maskiraj sę kako Ovo!"
+ },
+ {
+  "label": "Mouse:Invalid",
+  "text": "NEVALIDNO"
+ },
+ {
+  "label": "Mouse:FireFlame",
+  "text": "Paliti"
+ },
+ {
+  "label": "Mouse:FireFlashBang",
+  "text": "Oslěpljujuča Granata"
+ },
+ {
+  "label": "Mouse:FireTranqDarts",
+  "text": "Uspavljujuče Strěly"
+ },
+ {
+  "label": "Mouse:FireStunBullets",
+  "text": "Omamljujuče Kule"
+ },
+ {
+  "label": "Mouse:MakeCarBomb",
+  "text": "Napravi Avto-Bombu"
+ },
+ {
+  "label": "Mouse:Hijack",
+  "text": "Otmi"
+ },
+ {
+  "label": "Mouse:FireBomb",
+  "text": "Zapali \n Bombu"
+ },
+ {
+  "label": "Mouse:Defector",
+  "text": "Napravi \n Dezertera"
+ },
+ {
+  "label": "Mouse:CaptureBuilding",
+  "text": "Zauzmi Zgradu"
+ },
+ {
+  "label": "Mouse:DisableVehicleHack",
+  "text": "Deaktiviraj Vozilo"
+ },
+ {
+  "label": "Mouse:StealCashHack",
+  "text": "Ukradi Novac"
+ },
+ {
+  "label": "Mouse:SnipeVehicle",
+  "text": "Snajperiraj Vozilo"
+ },
+ {
+  "label": "Mouse:DisableBuildingHack",
+  "text": "Deaktiviraj Zgradu"
+ },
+ {
+  "label": "Mouse:LaserGuidedMissiles",
+  "text": "Lazerno Navoděne Rakety"
+ },
+ {
+  "label": "Mouse:TankHunterTNTAttack",
+  "text": "TNT Napad"
+ },
+ {
+  "label": "Mouse:A10ThunderboltStrike",
+  "text": "Město Udara A10"
+ },
+ {
+  "label": "Mouse:StabAttack",
+  "text": "Probodi"
+ },
+ {
+  "label": "Mouse:PlaceRemoteCharge",
+  "text": "Postavi Udaljeny Naboj"
+ },
+ {
+  "label": "Mouse:PlaceTimedCharge",
+  "text": "Postavi Časovany Naboj"
+ },
+ {
+  "label": "Mouse:RepairVehicles",
+  "text": "&Hitna Popravka"
+ },
+ {
+  "label": "Mouse:Demoralize",
+  "text": "Demoraliziraj"
+ },
+ {
+  "label": "Mouse:PickUpPrisoner",
+  "text": "Uzmi Zatvorenika"
+ },
+ {
+  "label": "Mouse:Return",
+  "text": "Vrati Sę"
+ },
+ {
+  "label": "Mouse:PlaceBeacon",
+  "text": "Postavi Majak"
+ },
+ {
+  "label": "SCRIPT:TestString",
+  "text": "To je kako testovy nìz, kolega"
+ },
+ {
+  "label": "SCRIPT:LongTestString",
+  "text": "To je kako opravdu dolgy testovy nìz, kolega. On potvrdjaje, že prěnos slov i razmaky dobro rabotajut"
+ },
+ {
+  "label": "SCIENCE:GeneralName",
+  "text": "<Vpiši imę>"
+ },
+ {
+  "label": "SCIENCE:SkillPoints",
+  "text": "Točky uměnja: %d"
+ },
+ {
+  "label": "SCIENCE:Rank",
+  "text": "Uroveń %d"
+ },
+ {
+  "label": "SCIENCE:TempName",
+  "text": "Daj imę mojej nauke"
+ },
+ {
+  "label": "SCIENCE:TempDescription",
+  "text": "Prosim, najdite vrěmja, aby napolniti moj opis v Science.ini! Mnogo hvala"
+ },
+ {
+  "label": "SCIENCE:USAPaladin",
+  "text": "Tank Paladin"
+ },
+ {
+  "label": "SCIENCE:USAPathFinder",
+  "text": "Sledopyt"
+ },
+ {
+  "label": "SCIENCE:USAStealthFighter",
+  "text": "Nevidimy istrěbitelj"
+ },
+ {
+  "label": "SCIENCE:USASpyDrone",
+  "text": "Špionsky dron"
+ },
+ {
+  "label": "SCIENCE:USAParaDrop1",
+  "text": "Parašutny desant 1"
+ },
+ {
+  "label": "SCIENCE:USAParaDrop2",
+  "text": "Parašutny desant 2"
+ },
+ {
+  "label": "SCIENCE:USAParaDrop3",
+  "text": "Parašutny desant 3"
+ },
+ {
+  "label": "SCIENCE:USAA10Strike1",
+  "text": "Udar A10 1"
+ },
+ {
+  "label": "SCIENCE:USAA10Strike2",
+  "text": "Udar A10 2"
+ },
+ {
+  "label": "SCIENCE:USAA10Strike3",
+  "text": "Udar A10 3"
+ },
+ {
+  "label": "SCIENCE:USADaisyCutter",
+  "text": "Vakuumna bomba"
+ },
+ {
+  "label": "SCIENCE:ChinaNukeLauncher",
+  "text": "Jaderno dělo"
+ },
+ {
+  "label": "SCIENCE:ChinaRedGuardTraining",
+  "text": "Obučenje Črvenoj gvardije"
+ },
+ {
+  "label": "SCIENCE:ChinaClusterMines",
+  "text": "Kasetne miny"
+ },
+ {
+  "label": "SCIENCE:ChinaArtilleryTraining",
+  "text": "Artilerijsko obučenje"
+ },
+ {
+  "label": "SCIENCE:ChinaArtilleryBarrage",
+  "text": "Artilerijsky obstrěl 1"
+ },
+ {
+  "label": "SCIENCE:ChinaArtilleryBarrage2",
+  "text": "Artilerijsky obstrěl 2"
+ },
+ {
+  "label": "SCIENCE:ChinaArtilleryBarrage3",
+  "text": "Artilerijsky obstrěl 3"
+ },
+ {
+  "label": "SCIENCE:ChinaCashHack1",
+  "text": "Hakovanje kasy 1"
+ },
+ {
+  "label": "SCIENCE:ChinaCashHack2",
+  "text": "Hakovanje kasy 2"
+ },
+ {
+  "label": "SCIENCE:ChinaCashHack3",
+  "text": "Hakovanje kasy 3"
+ },
+ {
+  "label": "SCIENCE:ChinaEMPPulse",
+  "text": "EMP impuls"
+ },
+ {
+  "label": "SCIENCE:GLAHijacker",
+  "text": "Otimač"
+ },
+ {
+  "label": "SCIENCE:GLASCUDLauncher",
+  "text": "Puskovač SCUD"
+ },
+ {
+  "label": "SCIENCE:GLAMaruaderTank",
+  "text": "Tank Maroder"
+ },
+ {
+  "label": "SCIENCE:GLATechnicalTraining",
+  "text": "Obučenje tehnikalov"
+ },
+ {
+  "label": "SCIENCE:GLARebelAmbush1",
+  "text": "Zasada povstancev 1"
+ },
+ {
+  "label": "SCIENCE:GLARebelAmbush2",
+  "text": "Zasada povstancev 2"
+ },
+ {
+  "label": "SCIENCE:GLARebelAmbush3",
+  "text": "Zasada povstancev 3"
+ },
+ {
+  "label": "SCIENCE:GLACashBounty1",
+  "text": "Denežna nagrada 1"
+ },
+ {
+  "label": "SCIENCE:GLACashBounty2",
+  "text": "Denežna nagrada 2"
+ },
+ {
+  "label": "SCIENCE:GLACashBounty3",
+  "text": "Denežna nagrada 3"
+ },
+ {
+  "label": "SCIENCE:GLAAnthraxBomb",
+  "text": "Antraksova bomba"
+ },
+ {
+  "label": "CONTROLBAR:Demoralize",
+  "text": "Demoraliziraj"
+ },
+ {
+  "label": "CONTROLBAR:CIAIntelligence",
+  "text": "Razvě&dka"
+ },
+ {
+  "label": "CONTROLBAR:CombatDrop",
+  "text": "&Bojevy Desant"
+ },
+ {
+  "label": "CONTROLBAR:Guard",
+  "text": "&Straža"
+ },
+ {
+  "label": "CONTROLBAR:GuardWithoutPursuit",
+  "text": "Straža &Blizu"
+ },
+ {
+  "label": "CONTROLBAR:GuardFlyingUnitsOnly",
+  "text": "Straža &Vozduha"
+ },
+ {
+  "label": "CONTROLBAR:AttackMove",
+  "text": "&Napadny Dvig"
+ },
+ {
+  "label": "CONTROLBAR:Stop",
+  "text": "&Stop"
+ },
+ {
+  "label": "CONTROLBAR:Waypoints",
+  "text": "&Točka Puti"
+ },
+ {
+  "label": "CONTROLBAR:CancelBuild",
+  "text": "&Otkazati Stroitelstvo"
+ },
+ {
+  "label": "CONTROLBAR:Contaminate",
+  "text": "&Kontaminiraj"
+ },
+ {
+  "label": "CONTROLBAR:FireWall",
+  "text": "&Ognjena Stěna"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLAArmTheMob",
+  "text": "Vooruži &Tolpu"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaOverlordGattlingCannon",
+  "text": "Gatlingovo &Dělo"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaOverlordPropagandaTower",
+  "text": "Propagandna &Věža"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaOverlordBattleBunker",
+  "text": "Bojevy &Bunker"
+ },
+ {
+  "label": "CONTROLBAR:FireBomb",
+  "text": "&Zapali Bombu"
+ },
+ {
+  "label": "CONTROLBAR:UnderConstructionDesc",
+  "text": "Stroitelstvo: %.0f%%"
+ },
+ {
+  "label": "CONTROLBAR:OCLTimerDesc",
+  "text": "Vrěmja do Slědujučego Sbrosa: %d:%d"
+ },
+ {
+  "label": "CONTROLBAR:OCLTimerDescWithPadding",
+  "text": "Vrěmja do Slědujučego Sbrosa: %d:0%d"
+ },
+ {
+  "label": "CONTROLBAR:InitiateBattlePlanBombardment",
+  "text": "&Plan Boja: Bombardovanje"
+ },
+ {
+  "label": "CONTROLBAR:InitiateBattlePlanHoldTheLine",
+  "text": "&Drži Liniju - Plan Boja"
+ },
+ {
+  "label": "CONTROLBAR:InitiateBattlePlanSearchAndDestroy",
+  "text": "Iš&či i Uništi Plan"
+ }
+]
