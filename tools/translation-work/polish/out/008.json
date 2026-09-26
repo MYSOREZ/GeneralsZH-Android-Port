@@ -1,0 +1,802 @@
+[
+ {
+  "label": "SCRIPT:CHI02AudioHolder03",
+  "text": "<Mówi 'EVA'> \n 'Generale, żyjesz?! Myśleliśmy, że straciliśmy cię, kiedy zawalił się most. Cóż, nie jesteś jeszcze bezpieczny, więc zaczynajmy'"
+ },
+ {
+  "label": "SCRIPT:CHI02AudioHolder04",
+  "text": "<Mówi 'EVA'> \n 'Najpierw musisz dokończyć bazę. Koszary, reaktor i centrum zaopatrzenia są niezbędne do przetrwania, więc dokończ je natychmiast. Odezwę się, gdy baza będzie gotowa'"
+ },
+ {
+  "label": "SCRIPT:CHI02AudioHolder05",
+  "text": "<Mówi 'EVA'> \n 'Świetnie, twoja baza jest gotowa, brakuje tylko fabryki broni. Musimy ją teraz zdobyć. Tutaj powinna być nadwyżkowa baza z fabryką broni'"
+ },
+ {
+  "label": "SCRIPT:CHI02AudioHolder06",
+  "text": "<Mówi 'EVA'> \n 'Nie wiem, w jakim stanie jest ta baza, ale powinna pozwolić ci budować jednostki pancerne. Dotrzyj tam jak najszybciej, generale.'"
+ },
+ {
+  "label": "SCRIPT:CHI02AudioHolder07",
+  "text": "<Mówi 'EVA'> \n 'Teraz wiemy, po co GLA przybyła do Hongkongu: atakują kluczowe budynki w mieście. Naszym głównym celem jest zniszczenie wszystkich sił GLA, ale jeśli zdołamy też ochronić te budynki, nasi przywódcy będą bardzo wdzięczni.'"
+ },
+ {
+  "label": "SCRIPT:CHI02AudioHolder08",
+  "text": "<Mówi 'EVA'> \n 'Jeśli utrzymasz radar w działaniu, będę śledzić terrorystów i wskazywać ich możliwe cele.'"
+ },
+ {
+  "label": "SCRIPT:CHI02AudioHolder09",
+  "text": "<Mówi 'EVA'> \n 'Generale, z centrum kongresowego wychodzi terrorysta obładowany materiałami wybuchowymi, które wystarczą, by zburzyć budynek! Oznaczę go na radarze na czerwono, a jego możliwe cele na żółto. Zatrzymaj go, zanim dotrze do celu!'"
+ },
+ {
+  "label": "SCRIPT:CHI02AudioHolder10",
+  "text": "<Mówi 'EVA'> \n 'Kolejny terrorysta opuścił centrum kongresowe! Oznaczę go na czerwono. Jego możliwe cele są oznaczone na żółto. Zatrzymaj go, generale.'"
+ },
+ {
+  "label": "SCRIPT:CHI02AudioHolder11",
+  "text": "<Mówi 'EVA'> \n 'Generale, ten budynek jest celem terrorystów – musimy go chronić!'"
+ },
+ {
+  "label": "SCRIPT:CHI02AudioHolder12",
+  "text": "<Mówi 'EVA'> \n 'Generale, terroryści zajęli centrum kongresowe! Musisz zniszczyć centrum kongresowe i przyległe parkingi, żeby usunąć zagrożenie terrorystyczne.'"
+ },
+ {
+  "label": "SCRIPT:CHI02AudioHolder13",
+  "text": "<Mówi 'EVA'> \n 'Świetnie, dotarłeś do nadwyżkowej bazy. Hmm, nie wygląda imponująco, ale pozwoli ci budować czołgi i w razie potrzeby kolejne fabryki broni.'"
+ },
+ {
+  "label": "SCRIPT:CHI02AudioHolder14",
+  "text": "<Mówi 'EVA'> \n 'Zagrożenie terrorystyczne zażegnane. Dobra robota, generale.'"
+ },
+ {
+  "label": "SCRIPT:CHI02AudioHolder15",
+  "text": "<Mówi 'EVA'> \n 'Generale, wykryłam ruch jednostek pancernych GLA. Nie przyszły z centrum kongresowego, więc GLA musi mieć gdzieś w Hongkongu drugą bazę. Znajdź ją i zniszcz!'"
+ },
+ {
+  "label": "SCRIPT:CHI02AudioHolder16",
+  "text": "<Mówi 'EVA'> \n 'Generale, GLA przyprowadziła swoje ciągniki toksyn. Poznasz je po zielonym szlamie, który rozpylają. Trzymaj od nich piechotę z daleka i użyj czołgów.'"
+ },
+ {
+  "label": "SCRIPT:CHI02AudioHolder17",
+  "text": "<Mówi 'EVA'> \n 'Dobra robota, generale, zniszczyłeś bazę toksyn. Teraz nie powinni móc budować kolejnych ciągników toksyn.'"
+ },
+ {
+  "label": "SCRIPT:CHI02AudioHolder18",
+  "text": "<Mówi 'EVA'> \n 'Czekaj, generale, przed nami duże siły wroga. Wezwę uderzenie EMP, żeby oczyścić teren, czekaj.'"
+ },
+ {
+  "label": "SCRIPT:CHI02AudioHolder19",
+  "text": "<Mówi 'EVA'> \n 'To powinno otworzyć ci drogę do ich bazy. Kończmy z tym, generale.'"
+ },
+ {
+  "label": "SCRIPT:CHI02AudioHolder20",
+  "text": "<Mówi kapitan promu> \n 'Nareszcie wojsko! Ci terroryści rujnują mi interes! Jeśli załadujesz swoje siły, zawiozę was do centrum kongresowego. Wejdziecie od tyłu i zaskoczycie ich. Naciśnij przycisk Transport, kiedy będziesz gotów.'"
+ },
+ {
+  "label": "SCRIPT:CHI02Box01",
+  "text": "Użyj SPYCHARKI, aby zbudować CENTRUM DOWODZENIA \n Gdy CENTRUM DOWODZENIA będzie gotowe, \n zaznacz je i rozpocznij ulepszenie RADAR \n Po ukończeniu ulepszenia w lewym dolnym rogu \n interfejsu dowodzenia pojawi się ekran radaru"
+ },
+ {
+  "label": "SCRIPT:CHI02Box02",
+  "text": "NOWA JEDNOSTKA: CZOŁG DRAGON \n CZOŁG DRAGON zieje ogniem, który szybko eliminuje wrogą piechotę, \n nawet ukrytą w budynku"
+ },
+ {
+  "label": "MAP:CHI02Obj01",
+  "text": "CEL MISJI: \n Zniszcz centrum kongresowe \n i przyległe parkingi, \n aby usunąć zagrożenie terrorystyczne"
+ },
+ {
+  "label": "MAP:CHI02Obj02",
+  "text": "CEL MISJI: \n Zniszcz bazę GLA"
+ },
+ {
+  "label": "MAP:CHI02SecondaryObj01",
+  "text": "Cel dodatkowy: \n Nie pozwól terrorystom GLA zniszczyć \n wybranych budynków w centrum Hongkongu"
+ },
+ {
+  "label": "MAP:CHI02SecondaryObj02",
+  "text": "Cel dodatkowy: \n Zniszcz fabrykę ciągników toksyn"
+ },
+ {
+  "label": "MAP:CHI03Open",
+  "text": "Zapora Trzech Przełomów... prowincja Hubei, Chiny \n Powódź przemocy"
+ },
+ {
+  "label": "MAP:CHI03Obj1",
+  "text": "CEL MISJI: \n Zniszcz zaporę"
+ },
+ {
+  "label": "MAP:CHI03Obj2",
+  "text": "CEL MISJI: \n Zniszcz bazę GLA"
+ },
+ {
+  "label": "MAP:CHI03Obj3",
+  "text": "CEL MISJI: \n Pokonaj pozostałe siły GLA"
+ },
+ {
+  "label": "MAP:CHI03AudioHolder01",
+  "text": "<Mówi Czerwona Gwardia> 'Generale, poziom wody opadł! Siły GLA przekraczają rzekę!'"
+ },
+ {
+  "label": "MAP:CHI06Open",
+  "text": "Biszkek, podstolica Ałdastanu \n Na torach"
+ },
+ {
+  "label": "MAP:CHI06Obj1",
+  "text": "CEL MISJI: \n Doprowadź Czarnego Lotosa na środek mostu kolejowego"
+ },
+ {
+  "label": "MAP:CHI07Open",
+  "text": "Duszanbe, stolica Ałdastanu \n Nuklearna zima"
+ },
+ {
+  "label": "MAP:Demo58Open",
+  "text": "Strefa zdemilitaryzowana Kazachstanu \n Operacja: Niebieski Orzeł"
+ },
+ {
+  "label": "MAP:Demo58End1",
+  "text": "Kontrola bitwy wyłączona..."
+ },
+ {
+  "label": "MAP:Demo58End2",
+  "text": "COMMAND AND CONQUER GENERALS \n JUŻ NA ŚWIĘTA 2002"
+ },
+ {
+  "label": "MAP:Demo48Open",
+  "text": "Strefa wolnego ognia Mazar \n Operacja: Biały Rycerz"
+ },
+ {
+  "label": "MAP:GLA02MapName",
+  "text": "Złupić wioskę"
+ },
+ {
+  "label": "MAP:GLA02Open",
+  "text": "Wioski pod Ałmaty, Kazachstan \n Strefa zrzutu pomocy humanitarnej"
+ },
+ {
+  "label": "MAP:GLA02ObjectiveText01",
+  "text": "CEL MISJI \n Zbierz 40 000 $ w skradzionym zaopatrzeniu"
+ },
+ {
+  "label": "MAP:GLA021stThirdObjective",
+  "text": "Pierwszy cel: \n Zbierz 20 000 $, zabierając skrzynie z konwojów ONZ"
+ },
+ {
+  "label": "MAP:GLA022ndThirdObjective",
+  "text": "Drugi cel: \n Zbierz 30 000 $, zabierając skrzynie zrzucone przez samoloty USA"
+ },
+ {
+  "label": "MAP:GLA023rdThirdObjective",
+  "text": "Cel ostateczny: zbierz 40 000 $ w zaopatrzeniu, napadając na bazę USA"
+ },
+ {
+  "label": "MAP:GLA02CivBuildingHint",
+  "text": "Wieśniacy trzymają zaopatrzenie w domach \n Zniszcz ich domy i ukradnij ukryte zapasy"
+ },
+ {
+  "label": "MAP:GLA02CivKillHint",
+  "text": "Wieśniacy zabierają nasze zaopatrzenie. POWSTRZYMAJ ICH"
+ },
+ {
+  "label": "MAP:GLA02QuadsArrival",
+  "text": "Przybyły posiłki: \n Użyj dział poczwórnych do zestrzeliwania wrogich samolotów"
+ },
+ {
+  "label": "MAP:GLA02CrateReminder",
+  "text": "Zbieraj skrzynie, aby osiągnąć cel"
+ },
+ {
+  "label": "MAP:GLA02MonkeyReminder",
+  "text": "Nie osiągniesz naszego celu, jeśli wydasz wszystkie pieniądze"
+ },
+ {
+  "label": "MAP:GLA06MapName",
+  "text": "Właściwe trucizny"
+ },
+ {
+  "label": "MAP:GLA06Open",
+  "text": "Zachodni brzeg Jeziora Aralskiego, Kazachstan \n Zakłady składowania i utylizacji odpadów toksycznych"
+ },
+ {
+  "label": "MAP:GLA06MissionObjective",
+  "text": "CEL MISJI: \n Przejmij 4 bunkry i wybij wszystkich amerykańskich obrońców"
+ },
+ {
+  "label": "MAP:GLA06BunkerWarning",
+  "text": "UWAGA: \n Bunkry są kruche i gwałtownie wybuchają po zniszczeniu"
+ },
+ {
+  "label": "MAP:GLA06BunkerDestroyed",
+  "text": "UWAGA: \n Głupi Amerykanie próbują nas powstrzymać, niszcząc bunkry"
+ },
+ {
+  "label": "MAP:GLA06BunkerRetaken",
+  "text": "Amerykanie odbili nasz bunkier. Odzyskaj go natychmiast"
+ },
+ {
+  "label": "MAP:GLA06BunkerObjective",
+  "text": "Aby ukończyć misję, musisz posiadać 4 bunkry"
+ },
+ {
+  "label": "MAP:GLA06KillEnemies",
+  "text": "Masz wymaganą liczbę bunkrów \n Teraz wybij Amerykanów, aby zapewnić sobie zwycięstwo"
+ },
+ {
+  "label": "MAP:GLA06ScoutsInBase",
+  "text": "Amerykańscy zwiadowcy nas znaleźli \n Przygotuj się do walki z Amerykanami"
+ },
+ {
+  "label": "MAP:GLA06Only8Bunkers",
+  "text": "Uważaj bardziej na bunkry \n Aby ukończyć misję, musisz posiadać 4"
+ },
+ {
+  "label": "MAP:GLA06Only6Bunkers",
+  "text": "Zostało tylko 6 bunkrów \n Jeśli zniszczone zostaną jeszcze 3, misja się nie powiedzie"
+ },
+ {
+  "label": "MAP:GLA06Only4Bunkers",
+  "text": "UWAGA: \n Jeśli zniszczony zostanie jeszcze jeden bunkier, misja się nie powiedzie"
+ },
+ {
+  "label": "MAP:GLA07MapName",
+  "text": "Koń trojański"
+ },
+ {
+  "label": "MAP:GLA07Open",
+  "text": "Gdzieś pod Lengerem, Kazachstan \n Region kontrolowany przez odłam"
+ },
+ {
+  "label": "SCRIPT:GLA07ChnTmr",
+  "text": "Siły chińskie przybędą za:"
+ },
+ {
+  "label": "MAP:GLA07ChineseArrival",
+  "text": "UWAGA: w rejon weszły siły chińskie"
+ },
+ {
+  "label": "MAP:GLA07MissionObjective",
+  "text": "CEL MISJI \n Zlikwiduj wszystkich zdrajców"
+ },
+ {
+  "label": "MAP:GLA07ConvoyHint01",
+  "text": "Przemyć skradzione ciężarówki do bazy zdrajców \n W środku zdetonuj je, aby zniszczyć zdrajców"
+ },
+ {
+  "label": "MAP:GLA07ConvoyHint02",
+  "text": "UWAGA: \n Jeśli twoje siły zostaną zauważone przy skradzionych ciężarówkach, zdrajcy \n poznają, że są twoje"
+ },
+ {
+  "label": "MAP:GLA07ConvoyHint03",
+  "text": "UWAGA: ten obszar jest zakazany dla skradzionych ciężarówek \n Jeśli zdrajcy je tu odkryją, zostaną zaatakowane"
+ },
+ {
+  "label": "MAP:GLA07ConvoyHint04",
+  "text": "Rozkaż ciężarówkom zdetonować się przy budynkach zdrajców \n dla maksymalnej skuteczności"
+ },
+ {
+  "label": "MAP:GLA07BaseKIACleanUp",
+  "text": "Baza zdrajców zniszczona \n Wybij ich pozostałe siły, aby dopełnić zwycięstwa"
+ },
+ {
+  "label": "MAP:GLA07ConvoyDetected",
+  "text": "ALARM: \n Zdrajcy wiedzą, że kontrolujemy konwój \n Konwój zostanie teraz zaatakowany"
+ },
+ {
+  "label": "MAP:GLA03Open",
+  "text": "Dżambuł, Kazachstan \n Chińskie cywilne skupisko ludności"
+ },
+ {
+  "label": "MAP:USA01Open",
+  "text": "Strefa wolnego ognia Mazar \n Operacja: Cichy Świt"
+ },
+ {
+  "label": "SCRIPT:TrainingMove",
+  "text": "Kliknij lewym przyciskiem jednostki, aby je zaznaczyć. Zaznaczonym jednostkom można wydawać rozkazy. Po zaznaczeniu jednostki kliknij lewym przyciskiem teren, aby wydać rozkaz ruchu. Kliknij lewym przyciskiem wrogich żołnierzy, aby rozkazać zaznaczonej jednostce atak"
+ },
+ {
+  "label": "SCRIPT:TrainingCommand",
+  "text": "Wyzwoliłeś centrum dowodzenia USA. Tutaj możesz używać wielu zdolności specjalnych. Aby wybrać technologie i bronie specjalne, kliknij migający przycisk generała"
+ },
+ {
+  "label": "SCRIPT:TrainingExplor",
+  "text": "Mgłę wojny wokół jednostek można odsunąć, wkraczając na nowe, niezbadane tereny. Mgła pokazuje, gdzie byłeś, a gdzie jeszcze nie. Badaj nowe tereny, aby znaleźć siły wroga i zasoby do rozbudowy armii"
+ },
+ {
+  "label": "SCRIPT:TrainingBarracks",
+  "text": "Wyzwoliłeś koszary USA. Budynki takie jak ten pozwalają szkolić nowe jednostki. Koszary szkolą żołnierzy. Kliknij lewym przyciskiem nowe koszary, aby zobaczyć, kogo możesz wyszkolić. Kliknij lewym przyciskiem jednostkę w koszarach, aby wydać zaopatrzenie na jej stworzenie"
+ },
+ {
+  "label": "SCRIPT:TrainingPilots",
+  "text": "Uwolniłeś kilku pilotów. Piloci USA to często weterani wielu bitew – mogą wsiąść do twoich pojazdów i przekazać załodze swoje umiejętności i doświadczenie. Pojazdy ze złotymi naszywkami mają doświadczone załogi i lepiej walczą"
+ },
+ {
+  "label": "SCRIPT:TrainingSupply",
+  "text": "Wyzwoliłeś centrum zaopatrzenia USA. Centra zaopatrzenia zbierają zaopatrzenie, dając ci środki na nowe budynki i jednostki. Każde centrum zaopatrzenia automatycznie tworzy jeden śmigłowiec Chinook, który zbiera dla ciebie zaopatrzenie"
+ },
+ {
+  "label": "SCRIPT:TrainingDozer",
+  "text": "Wyzwoliłeś spycharkę USA. Kliknij lewym przyciskiem nową spycharkę, aby zobaczyć, co może zbudować. Wybierz fabrykę broni i wskaż miejsce budowy. Po zbudowaniu fabryki spycharka będzie dostępna do innych prac"
+ },
+ {
+  "label": "SCRIPT:TrainingUnits",
+  "text": "Nowa fabryka broni może budować pojazdy, takie jak czołgi Crusader. Kliknij lewym przyciskiem czołg Crusader, aby zlecić jego budowę. Możesz kliknąć wiele razy, aby zlecić budowę wielu czołgów"
+ },
+ {
+  "label": "SCRIPT:TrainingPower",
+  "text": "Wyzwoliłeś reaktor zimnej fuzji USA. Amerykanie i Chińczycy używają reaktorów do zasilania baz. Pasek energii pokazuje, ile energii ma twoja baza. Przy niedoborze energii obrona bazy może się wyłączyć, a radar zgasnąć"
+ },
+ {
+  "label": "SCRIPT:TrainingAbilities",
+  "text": "Niektóre jednostki mają zdolności specjalne. Zaznacz jednostkę, aby zobaczyć jej moce. Kliknij lewym przyciskiem moc, aby ją aktywować. W przypadku czołgu Crusader USA każdy czołg może zbudować jednego drona bojowego. Drony bojowe to małe roboty, które automatycznie atakują wrogów i naprawiają swój czołg, gdy zostanie uszkodzony"
+ },
+ {
+  "label": "SCRIPT:TrainingObjective",
+  "text": "Wyzwoliłeś całą bazę USA i jesteś gotów ponieść walkę do wroga. Każda misja ma cele, które musisz wypełnić, aby wygrać i posuwać się naprzód w wojnie z wrogami. Wypełnij cel misji, aby wygrać"
+ },
+ {
+  "label": "SCRIPT:TrainingUrban",
+  "text": "Budynki cywilne mogą zajmować żołnierze. Rozkaż żołnierzom wejść do budynków cywilnych, aby zyskali premię obronną. Tak zajęte budynki to potężne punkty oporu, którymi możesz bronić ważnych dróg do i z twojej bazy"
+ },
+ {
+  "label": "SCRIPT:TrainingTech",
+  "text": "Cywilne budynki strategiczne mogą przejmować twoi Rangerzy. Utrzymanie ich daje przewagę nad wrogiem. Przejmij szyby naftowe, zaznaczając Rangera, klikając lewym przyciskiem przycisk przejęcia, a potem sam szyb. Szyby naftowe dają dodatkowe zasoby, gdy pompują ropę"
+ },
+ {
+  "label": "SCRIPT:TrainingCrate",
+  "text": "Skrzynie zawierają premie dla żołnierzy, które zwiększają ich możliwości. W skrzyniach można znaleźć dodatkową amunicję, pancerz i inne przedmioty. Rozkaż żołnierzom lub pojazdom wjechać na skrzynię, aby ją otworzyć i zebrać zawartość"
+ },
+ {
+  "label": "SCRIPT:TrainingMissionObjective",
+  "text": "CEL MISJI \n Zniszcz fabrykę broni biologicznej GLA"
+ },
+ {
+  "label": "SCRIPT:TrainingOpeningObjective",
+  "text": "CEL MISJI \n Wyzwól bazę USA"
+ },
+ {
+  "label": "MAP:USA01Opening",
+  "text": "Strefa działań wojennych w Iraku \n Operacja: Ostateczna Sprawiedliwość"
+ },
+ {
+  "label": "MAP:USA01BahdadText",
+  "text": "Oblężenie Bagdadu \n Dzień 3"
+ },
+ {
+  "label": "MAP:USA01ObjectiveText",
+  "text": "CEL MISJI \n Zniszcz Burzę SCUD"
+ },
+ {
+  "label": "MAP:USA02Open",
+  "text": "Al Hanad, Jemen \n Operacja: Poszukiwanie Skarbu"
+ },
+ {
+  "label": "MAP:USA02Objective1Text",
+  "text": "CEL MISJI \n Uratuj pojmanych pilotów"
+ },
+ {
+  "label": "MAP:USA02Objective2Text",
+  "text": "CEL MISJI \n Odstaw ostatniego pilota do bazy na odprawę"
+ },
+ {
+  "label": "MAP:USA03Objective1Text",
+  "text": "CEL MISJI \n Zapewnij ucieczkę 100 żołnierzom USA"
+ },
+ {
+  "label": "SCRIPT:USA03RescueCounter",
+  "text": "Uciekli żołnierze USA:"
+ },
+ {
+  "label": "MAP:USA04Open",
+  "text": "Wybrzeże Kazachstanu, godz. 14:00 \n Operacja: Zwiastun Burzy"
+ },
+ {
+  "label": "SCRIPT:USA04BomberTimer",
+  "text": "Bombowce przybędą za:"
+ },
+ {
+  "label": "MAP:USA06Objective1Text",
+  "text": "CEL MISJI: \n Nie pozwól GLA zbudować bazy nad rzeką"
+ },
+ {
+  "label": "MAP:USA06Objective2Text",
+  "text": "CEL MISJI: \n Zniszcz główną bazę GLA"
+ },
+ {
+  "label": "SCRIPT:GLA03CivCounter",
+  "text": "Zabici zdrajcy:"
+ },
+ {
+  "label": "SCRIPT:GLA03Objective01",
+  "text": "CELE MISJI: \n Przejmij centrum dowodzenia na wschodzie, aby rozpocząć produkcję \n Zabij 300 zdrajców"
+ },
+ {
+  "label": "SCRIPT:GLA03Objective02",
+  "text": "CEL MISJI: \n Użyj ciągników toksyn, aby zabić 300 zdrajców"
+ },
+ {
+  "label": "SCRIPT:GLA03Objective03",
+  "text": "Zniszcz fabrykę farmaceutyczną na północy"
+ },
+ {
+  "label": "MAP:GLA03Objective04",
+  "text": "Uwolnij więźniów"
+ },
+ {
+  "label": "MAP:GLA03Objective05",
+  "text": "Zabij 300 zdrajców"
+ },
+ {
+  "label": "MAP:GLA03Objective06",
+  "text": "Zniszcz fabrykę farmaceutyczną"
+ },
+ {
+  "label": "SCRIPT:GLA04Objective01",
+  "text": "CEL MISJI: \n Zniszcz budynki cywilne i zbierz 40 000 $"
+ },
+ {
+  "label": "SCRIPT:GLA04Objective02",
+  "text": "UWAGA: \n Wydawanie pieniędzy na jednostki oddali cię od celu 40 000 $ \n Uważaj, by nie wydać za dużo"
+ },
+ {
+  "label": "SCRIPT:GLA04Objective03",
+  "text": "UWAGA: \n Siły amerykańskie używają lotniska jako bazy wypadowej \n Przekrocz rzekę i zniszcz je"
+ },
+ {
+  "label": "SCRIPT:GLA04Objective04",
+  "text": "UWAGA: \n Wysłano amerykańskie samoloty do likwidacji ciężkich pojazdów \n Zaleca się używanie wyłącznie wściekłych tłumów i technicali"
+ },
+ {
+  "label": "SCRIPT:GLA05Objective01",
+  "text": "CEL MISJI: \n Zniszcz amerykańską bazę lotniczą"
+ },
+ {
+  "label": "SCRIPT:GLA05Objective02",
+  "text": "CEL MISJI: \n Zniszcz amerykańską bazę lotniczą na zachodzie"
+ },
+ {
+  "label": "MAP:GLA01Open",
+  "text": "Strefa zdemilitaryzowana Szymkent \n Operacja: Czarny Deszcz"
+ },
+ {
+  "label": "MAP:GLA01ObjectiveText",
+  "text": "CEL MISJI: zniszcz zaporę"
+ },
+ {
+  "label": "MAP:USA07Open",
+  "text": "Południowo-wschodni Kazachstan \n Operacja: Rozpaczliwy Sojusz"
+ },
+ {
+  "label": "MAP:USA07Objective1",
+  "text": "CEL MISJI: \n Zniszcz GLA na północnym wschodzie"
+ },
+ {
+  "label": "MAP:USA07General",
+  "text": "Przybycie generała"
+ },
+ {
+  "label": "MAP:USA07Objective2",
+  "text": "CEL MISJI: \n Zniszcz chińskie centrum dowodzenia \n i silos pocisku atomowego"
+ },
+ {
+  "label": "MAP:GLA08Temp",
+  "text": "Misja GLA 8 – południowy Kazachstan \n Kosmodrom Bajkonur"
+ },
+ {
+  "label": "MAP:CHI08Temp",
+  "text": "Misja Chin 8 – ostatnia misja Chin \n Stan: nieukończona"
+ },
+ {
+  "label": "MAP:CHI07Temp",
+  "text": "Misja Chin 7 – Atomowe szaleństwo \n Stan: nieukończona"
+ },
+ {
+  "label": "MAP:CHI05Temp",
+  "text": "Misja Chin 5 – Bomby zapalające na GLA \n Stan: nieukończona"
+ },
+ {
+  "label": "MAP:USA08Temp",
+  "text": "Misja USA 8 – Zniszczyć GLA \n Stan: nieukończona"
+ },
+ {
+  "label": "MAP:USA06Temp",
+  "text": "Misja USA 6 – Przeróbka E3 \n Stan: nieukończona"
+ },
+ {
+  "label": "MAP:USA05Temp",
+  "text": "Misja USA 5 – Rajd na rzece \n Stan: nieukończona"
+ },
+ {
+  "label": "CONTROLBAR:TooltipDaisyCutter",
+  "text": "Skuteczny przeciw: budynkom \n \n Czas odnowienia: 6:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipFireParticleUplinkCannon",
+  "text": "Skuteczny przeciw: budynkom \n \n Czas odnowienia: 4:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipParaDrop",
+  "text": "Zrzuca Rangerów z samolotu \n \n Czas odnowienia: 4:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipClusterMines",
+  "text": "Zrzuca miny z samolotu \n \n Czas odnowienia: 4:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipEMPPulse",
+  "text": "Skuteczny przeciw: pojazdom \n \n Czas odnowienia: 6:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipA10Strike",
+  "text": "Skuteczny przeciw: budynkom \n \n Czas odnowienia: 4:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipFireNukeMissile",
+  "text": "Skuteczny przeciw: wszystkiemu \n \n Czas odnowienia: 6:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipFireSCUDStorm",
+  "text": "Skuteczny przeciw: wszystkiemu \n \n Czas odnowienia: 5:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipFireArtilleryBarrage",
+  "text": "Skuteczny przeciw: budynkom, dużym grupom jednostek \n \n Czas odnowienia: 5:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipFireSuperWeaponCashHack",
+  "text": "Kradnie pieniądze z wrogich centrów zaopatrzenia \n \n Czas odnowienia: 4:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipFireSpySatScan",
+  "text": "Odsłania wskazany obszar. Wykrywa ukryte jednostki \n \n Czas odnowienia: 1:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipFireSpyDrone",
+  "text": "Tworzy drona szpiegowskiego nad celem \n \n Czas odnowienia: 1:30"
+ },
+ {
+  "label": "CONTROLBAR:TooltipFireRadarVanScan",
+  "text": "Odsłania wskazany obszar. Wykrywa ukrytych wrogów \n \n Czas odnowienia: 0:30"
+ },
+ {
+  "label": "CONTROLBAR:TooltipFireRadioJam",
+  "text": "Przerywa łączność wroga \n \n Czas odnowienia: 4:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipFireEmergencyRepair",
+  "text": "Naprawa awaryjna \n \n Czas odnowienia: 4:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipFireRebelAmbush",
+  "text": "Tworzy rebeliantów \n \n Czas odnowienia: 4:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipFireAnthraxBomb",
+  "text": "Skuteczny przeciw: piechocie \n \n Czas odnowienia: 6:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipCIAIntelligence",
+  "text": "Szpieguje siły wroga \n \n Czas odnowienia: 5:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipDemoTrapProxy",
+  "text": "Wybucha, gdy wróg się zbliży"
+ },
+ {
+  "label": "CONTROLBAR:TooltipDemoTrapManual",
+  "text": "Wybucha na twój rozkaz"
+ },
+ {
+  "label": "CONTROLBAR:TooltipDemoTrapDetonate",
+  "text": "Zdetonuj pułapkę wybuchową"
+ },
+ {
+  "label": "CONTROLBAR:TooltipMissileDefenderLaser",
+  "text": "Namierzanie laserowe zwiększa szybkostrzelność pocisków"
+ },
+ {
+  "label": "CONTROLBAR:TooltipBattlePlansBombardment",
+  "text": "Rozkłada działa \n Wszystkie jednostki: +20% siły ognia"
+ },
+ {
+  "label": "CONTROLBAR:TooltipBattlePlansHoldTheLine",
+  "text": "Rozkłada mury \n Wszystkie jednostki: +10% pancerza"
+ },
+ {
+  "label": "CONTROLBAR:TooltipBattlePlansSearchAndDestroy",
+  "text": "Rozkłada skanery \n Wszystkie jednostki: +20% zasięgu broni"
+ },
+ {
+  "label": "CONTROLBAR:TooltipSetRallyPoint",
+  "text": "Ustaw punkt zbiórki dla tego budynku"
+ },
+ {
+  "label": "CONTROLBAR:TooltipSell",
+  "text": "Sprzedaj budynek za 50% jego wartości"
+ },
+ {
+  "label": "CONTROLBAR:TooltipNukeReactorOverCharge",
+  "text": "Uszkadza reaktor, aby wytwarzał o 50% więcej energii"
+ },
+ {
+  "label": "CONTROLBAR:TooltipCancelUpgrade",
+  "text": "Anuluj to ulepszenie"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUSAUpgradeAdvancedTraining",
+  "text": "Jednostki zdobywają doświadczenie dwa razy szybciej"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUSAUpgradeDroneARmor",
+  "text": "Wszystkie drony otrzymują ulepszony pancerz"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUSAUpgradeAdvancedControlRods",
+  "text": "Reaktor dostarcza o 100% więcej energii"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUSAUpgradeFlashBangGrenades",
+  "text": "Rangerzy oczyszczają budynki cywilne z wrogich żołnierzy granatami ogłuszającymi"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUSAUpgradeCompositeArmor",
+  "text": "Czołgi otrzymują +25% pancerza"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUSAUpgradeCruiseMissile",
+  "text": "Tomahawkom można wyznaczyć trasę lotu"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUSAUpgradeTOW",
+  "text": "Uzbraja Humvee w pocisk. Może atakować cele naziemne i powietrzne"
+ },
+ {
+  "label": "CONTROLBAR:USAUpgradeRocketPods",
+  "text": "Comanche odpalają salwy rakiet"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUSAUpgradeLaserMissiles",
+  "text": "Pociski Raptora i Myśliwca Stealth zadają +25% obrażeń"
+ },
+ {
+  "label": "CONTROLBAR:TooltipChinaUpgradeMines",
+  "text": "Tworzy miny wokół budynku"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUpgradeChinaOverlordGattlingCannon",
+  "text": "Zbuduj działko Gatlinga na tym Overlordzie"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUpgradeChinaOverlordPropagandaTower",
+  "text": "Zbuduj wieżę propagandową na tym Overlordzie"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUpgradeChinaOverlordBattleBunker",
+  "text": "Zbuduj bunkier na tym Overlordzie. Bunkier mogą zająć twoi żołnierze"
+ },
+ {
+  "label": "CONTROLBAR:TooltipChinaUpgradeRadar",
+  "text": "Zbuduj radar dla tego centrum dowodzenia"
+ },
+ {
+  "label": "CONTROLBAR:TooltipChinaUpgradeNationalism",
+  "text": "+25% do premii za liczebność dla Czerwonej Gwardii, łowców czołgów i Battlemasterów"
+ },
+ {
+  "label": "CONTROLBAR:TooltipChinaUpgradeBlackNapalm",
+  "text": "+25% obrażeń wszystkich broni ogniowych"
+ },
+ {
+  "label": "CONTROLBAR:TooltipChinaUpgradeChainGuns",
+  "text": "+25% obrażeń wszystkich broni Gatlinga"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUpgradeChinaSubliminal",
+  "text": "+25% do premii wieży głośnikowej"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUpgradeChinaUraniumShells",
+  "text": "+25% obrażeń od strzału Battlemastera i Overlorda"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUpgradeChinaNuclearTanks",
+  "text": "Zwiększa prędkość Overlorda i Battlemastera"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUpgradeChinaStunBullets",
+  "text": "Czerwona Gwardia może próbować brać wrogich żołnierzy do niewoli"
+ },
+ {
+  "label": "CONTROLBAR:TooltipDisguiseAsVehicle",
+  "text": "Przebiera ciężarówkę-bombę za wskazany pojazd"
+ },
+ {
+  "label": "CONTROLBAR:TooltipGLAUpgradeBioBomb",
+  "text": "Ciężarówka-bomba staje się bronią biologiczną"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAUpgradeHEBomb",
+  "text": "O 100% więcej obrażeń tej ciężarówki-bomby"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAUpgradeRadarVanScan",
+  "text": "Wóz radarowy może skanować mapę w poszukiwaniu sił wroga"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAUpgradeScorpionRocket",
+  "text": "Scorpion zyskuje atak rakietowy"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAUpgradeAPRockets",
+  "text": "+25% obrażeń wszystkich ataków rakietowych"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAUpgradeToxinShells",
+  "text": "Pociski Scorpiona i Marudera zawierają niewielką ilość wąglika"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAUpgradeAnthraxBeta",
+  "text": "+25% obrażeń wszystkich jednostek toksycznych"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAUpgradeAPBullets",
+  "text": "+25% obrażeń rebelianta, technicala, działa poczwórnego i Jarmena Kella"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAUpgradeJunkRepair",
+  "text": "Wszystkie pojazdy naprawiają się same"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAUpgradeCamouflage",
+  "text": "Rebelianci są niewidoczni dla wroga, gdy nie strzelają"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAUpgradeTranqDarts",
+  "text": "Rebelianci mogą próbować brać wrogich żołnierzy do niewoli"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAUpgradeArmTheMob",
+  "text": "Uzbraja wszystkie wściekłe tłumy w AK-47"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipStructureExit",
+  "text": "Rozkaż tej jednostce wyjść"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipTransportExit",
+  "text": "Rozkaż tej jednostce wyjść"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipEvacuate",
+  "text": "Rozkaż wszystkim jednostkom wyjść"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipRailedTransport",
+  "text": "Jedź"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSACombatDrop",
+  "text": "Rozkaż Rangerom zjechać na linach na wrogi cel. Użyj na zajętych budynkach, aby zabić wszystkich wrogich żołnierzy w środku"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGuard",
+  "text": "Rozkaż jednostce pilnować wskazanego miejsca i w razie potrzeby ścigać cele"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGuardWithoutPursuit",
+  "text": "Rozkaż jednostce pilnować wskazanego miejsca, ale nie ścigać celów poza obszarem"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGuardFlyingUnitsOnly",
+  "text": "Rozkaż jednostce atakować jednostki powietrzne zbliżające się do wskazanego miejsca"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipAttackMove",
+  "text": "Rozkaż jednostce ruszyć do wskazanego obszaru i po drodze walczyć z wrogami"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipCommandStop",
+  "text": "Rozkaż jednostce przerwać bieżące działanie"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipWayPoints",
+  "text": "Kliknij teren, aby ustawić punkty trasy"
+ }
+]
