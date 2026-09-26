@@ -1,0 +1,802 @@
+[
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke092Subtitle",
+  "text": "*O, gledajte -- imam za vas gotovu nuklearnu raketu"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke093Subtitle",
+  "text": "*Vau, dva nuklearne rakety! Jesem zadovoljny"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke094Subtitle",
+  "text": "*Tri nuklearne rakety?!? To je trikrat věče zabavy!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke095Subtitle",
+  "text": "*Četyri nuklearne rakety? Nevěrjatno!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke096Subtitle",
+  "text": "*Pjat nuklearnyh raket? Može hočete, aby vam poslal čiste gaći?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke097Subtitle",
+  "text": "*(igrač prodaje budovu) Generale, jesli prodate ešče jednu budovu, vyigravam automatično"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth001Subtitle",
+  "text": "*Pogledajte, čto jesem našel"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth002Subtitle",
+  "text": "*Tu ide moj sleduješi napad... poprobujte byti gotovi tăj raz, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth003Subtitle",
+  "text": "*Ne možete ubiti to, čto ne vidite"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth004Subtitle",
+  "text": "*Ne trěbovali ste ty vojska vsě jedno"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth005Subtitle",
+  "text": "*Znova spite na rabotě?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth006Subtitle",
+  "text": "*Blagodarju za nove jedinice. Budu korisne za vaše uništenje"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth007Subtitle",
+  "text": "*Gledajte na to! O počekajte, ne možete"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth008Subtitle",
+  "text": "*Donesli li ste svoje termalne okuljary?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth009Subtitle",
+  "text": "*Myslim, že je vrěme dobyti novu bazu"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth010Subtitle",
+  "text": "*To nikogda ne trěbalo byti, generale. Zbogom!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth011Subtitle",
+  "text": "*Zatvarjanje oči vam ne olehči bol poraza"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth012Subtitle",
+  "text": "*Moji nevidimi ubijcy bystro se upravjatu s vašimi silami, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth013Subtitle",
+  "text": "*Udarime kako zmija -- bystro i nevidimo"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth014Subtitle",
+  "text": "*Ne stanete protiv tego napada, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth015Subtitle",
+  "text": "*Krasni generaly vsegda vyigravaju bitvy"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth016Subtitle",
+  "text": "*Nikogda me ne uvidite, dokla ne bude prekasno, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth017Subtitle",
+  "text": "*Generale, može byste me mogli predstaviti Črnomu Lotosu. Jesem veliky poklonnik jeje... hm... raboty"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth018Subtitle",
+  "text": "*Kogda je tiho, morate se me bojati najviše"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth019Subtitle",
+  "text": "*Ne mogu čekati vaš sleduješi napad, generale. Možemo li ga očekivati danas?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth020Subtitle",
+  "text": "*Ne dopustite, aby vaše čuvstva otupěli, generale -- možete očekivati moj napad v svakom momentu"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth021Subtitle",
+  "text": "*Ne možete me poběditi, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth022Subtitle",
+  "text": "*Napadnem, kogda to najmenje očekujete, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth023Subtitle",
+  "text": "*Moji ljudi su vsjude po bojišču, generale... skryti od pogleda... gotovi udariti"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth024Subtitle",
+  "text": "*Skrytost je moj sojuznik... i vaš neprijatel"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth025Subtitle",
+  "text": "*Izgubili ste svoju Tehničku budovu, generale. Čto izgubite sleduješe?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth026Subtitle",
+  "text": "*Niste me mogli zaustaviti pri uništenju vašej Kasarny, generale. Čto cěnite, jesli ne svojih ljudej?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth027Subtitle",
+  "text": "*Uništenje vašej Vojenskej Fabriky bylo dětinska igra. Vaš Komandny centr ne može byti daleko"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth028Subtitle",
+  "text": "*Vaši samolety izgubili svoje Vozdušne Polje, a vy ste izgubili svoju prevagu, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth029Subtitle",
+  "text": "*Tu je teper dira v vašej obraně, generale. Kto može reči, koliko mojih ljudej je teper v vašej bazě"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth030Subtitle",
+  "text": "*Vaš Komandny centr je izčeznul, generale. Moja poběda je počti garantovana"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth031Subtitle",
+  "text": "*Ne uživam uništenje vašyh budov, generale, no ne ostavljate mi izbora"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth032Subtitle",
+  "text": "*Cěljate na moje Tehničke budovy, zašto nemate nadeju dosegnuti moju bazu"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth033Subtitle",
+  "text": "*Uništili ste moju Kasarnu, no my obnovime, i za ty ljudi bude osveta"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth034Subtitle",
+  "text": "*Moj Trgovec Oružjem ne bude zadovoljny, že ste uništili jego depo, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth035Subtitle",
+  "text": "*Uništili ste tu obranu bazy, generale, no to je može dalo mojim ljudem vrěme, aby vas obošli s boku"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth036Subtitle",
+  "text": "*Uništili ste mnogo mojih budov, no daže s odnoju fabrikoju ostajuč jesem opasny protivnik, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth037Subtitle",
+  "text": "*Dobro odygrano, generale; uništili ste moj Komandny centr. Teper budu prinuždeny se biti prljavo"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth038Subtitle",
+  "text": "*Ste pravedno sposobni v otkryvanju mojih kamuflovanyh vozil, generale. Promyslim novu taktiku"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth039Subtitle",
+  "text": "*Vaša surova taktika me koštuje ljudej, generale. Prěmyslim svoju taktiku, teper kogda znam, že vy nemate nikaku"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth040Subtitle",
+  "text": "*Teper, kogda jesem zahvatil tu naftnu vyšku, moje sily rastu ešče bystrěje"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth041Subtitle",
+  "text": "*Artiljerijske platformy su tak surove, no ne mogu vam dopustiti ju imati, ne li?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth042Subtitle",
+  "text": "*Ta Naftova rafinerija je teper moja, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth043Subtitle",
+  "text": "*Generale, približajete se opasno bliza mojej bazě"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth044Subtitle",
+  "text": "*Vidim sily, kotore se približaju k mojej bazě, generale. Ne mislite li vtorgnuti se, ne li?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth045Subtitle",
+  "text": "*Izprobavate moju trěpelivost, generale. Izvedite svoje sily iz mojej bazy"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth046Subtitle",
+  "text": "*Jesli ne izvedete svoje sily iz mojej bazy, ja jih izvedu naveki"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth047Subtitle",
+  "text": "*Tak, probujete vojti v moju bazu s boku. Tăto zaustavime"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth048Subtitle",
+  "text": "*Napad na zadnja vrata? Ne mysleil jesem, že ste tak lukavi, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth049Subtitle",
+  "text": "*Frontalny napad? To se pokaže fatalnoju ošibkoju, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth050Subtitle",
+  "text": "*To su moji resursy, generale -- idite najti svoje vlastne"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth051Subtitle",
+  "text": "*Začto insistujete približavati se k mojej bazě tym putem, generale?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth052Subtitle",
+  "text": "*Tăj put ne je tak nebranjen, kak vygljadaje, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth053Subtitle",
+  "text": "*Jedina stvar, kotoru tu najdete, je vaše vlastno uništenje, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth054Subtitle",
+  "text": "*Čto vas tak fascinuje v toj okolicě, generale?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth055Subtitle",
+  "text": "*Približajemo se k vašej bazě, generale. Može uže na vašej głavě je nišan"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth056Subtitle",
+  "text": "*Vaša vanjska obrana je slaba, generale. Nadajme se, že vaša baza je lăpše zaščitena"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth057Subtitle",
+  "text": "*Vošli smo v vašu bazu, generale. Ignorujte nas na svoj vlastny risk"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth058Subtitle",
+  "text": "*Vaša obrana je razbita, generale. Kak nas teper otbijete?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth059Subtitle",
+  "text": "*Zaista by ste morali braniti ti resursy, generale, ili tăj boj bude mnogo kratky"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth060Subtitle",
+  "text": "*Našel jesem vaše Tehničke budovy, generale. Čto by jesem s njimi měl sdělati?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth061Subtitle",
+  "text": "*Našel jesem zadnja vrata vašej bazy, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth062Subtitle",
+  "text": "*Možete li se braniti protiv mojego bokovogo napada, generale? Uvidime"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth063Subtitle",
+  "text": "*Samo nepažljivy general by dopustil, aby energija podala"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth064Subtitle",
+  "text": "*Vaša energija je padla, generale. Niste dobro planovali svoju infrastrukturu. Nadajme se, že to ne je fatalna ošibka"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth065Subtitle",
+  "text": "*Generale, ne možete se biti bez resursov. Čto teper budete dělati?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth066Subtitle",
+  "text": "*Okrali ste me o moje resursy, generale. Teper vrátim uslugu"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth067Subtitle",
+  "text": "*Tak, sgradili ste Burju SCUD. Morame se pobriniti o toj novoj ugroze"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth068Subtitle",
+  "text": "*Nuklearne oružja nemaju město v tăj bitvě, generale. Začto insistujete jih graditi?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth069Subtitle",
+  "text": "*Udarili by ste na me iz kosmosa svojim kukavičnym Česticovym dělom? Razočaran jesem, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth070Subtitle",
+  "text": "*Tak mnogo obrany bazy, generale. Čego se bojite?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth071Subtitle",
+  "text": "*Gradite tanky, a? Nu, několiko věče snajperov se pobrinu o tom"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth072Subtitle",
+  "text": "*Ešče samolety? Začto tak mnogo, generale? Bojite se sniti dole i suprotstaviti se mi?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth073Subtitle",
+  "text": "*Dam vam sovět, generale. Ta velika grupa pěhoty ne je ravna mojim snajperam"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth074Subtitle",
+  "text": "*Vaša baza narastla tak velika, generale. Mysite li, že možete braniti vse svoje budovy od zahvata?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth075Subtitle",
+  "text": "*Zapustili ste! Bude vam žal, že ste koristili tu Burju SCUD, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth076Subtitle",
+  "text": "*Nuklearne rakety! Mysleil jesem, že blefujete, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth077Subtitle",
+  "text": "*Da, pogledajte na tăj kukavičny česticovy luč. Uživajte, generale -- moj otgovor bude bystry i surovy"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth078Subtitle",
+  "text": "*Svakako, generale, zaposedite tu budovu... moji snajpery jih tam može dosegnu"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth079Subtitle",
+  "text": "*Polkovnik Burton, generale? Može by ste ga trěbali sdělati generalom; samo ga vodite k ranomu grobu"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth080Subtitle",
+  "text": "*Ah, prekrasny Črny Lotos. Može, kogda budete pobězeni, generale, ona se slaži pridružiti se mi"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth081Subtitle",
+  "text": "*Jarmen Kell?! Vse snajpery, pazite: Jarmen Kell vošel na polje"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth082Subtitle",
+  "text": "*Mudry izbor, gradenje Vozdušnogo Polja, no samo samolety ne budu dovoljno, aby me pobědili, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth083Subtitle",
+  "text": "*Moji spiony mi govoru, že ste konečno sgradili svoju Vojensku Fabriku, generale. Ste li teper gotovi se biti?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth084Subtitle",
+  "text": "*Trenirujte vse ljudi, kotoryh hočete, iz toj Kasarny, generale; oni nisu ravni mojim snajperam"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth085Subtitle",
+  "text": "*Prodali ste odnu iz svojih budov. Taka taktika vodi k porazu, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth086Subtitle",
+  "text": "*Kak pobězujete moje sily?! To ne je možno!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth087Subtitle",
+  "text": "*Može imate teper prevagu, no vaša odčajana taktika ne izdărži, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth088Subtitle",
+  "text": "*Moje sily se dignu protiv vašego ugnětenja, i my vas pobědime, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth089Subtitle",
+  "text": "*Uživajte svoju prevagu za teper, generale... skoro sdělate ošibku, i ja obratim tok tego boja"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth090Subtitle",
+  "text": "*Tak se to konči... pobědili ste me, generale, no jednogo dnja budu imati svoju osvetu. Pazite na svoja pleća, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth091Subtitle",
+  "text": "*Vaše sily slabnu, generale. Primite poraz, i budu blag k vam"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth092Subtitle",
+  "text": "*Vaši napady su neeffektivni protiv mene, generale. Skoro vas smetemo i uništime"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth093Subtitle",
+  "text": "*Uživam tăju malu igru, generale, no vaši žalki napady me začinaju dosaditi"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth094Subtitle",
+  "text": "*Mysleil jesem, že budete věčšim izzovom, generale. Vygljadaje, že jesem vas precenil"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth095Subtitle",
+  "text": "*Padli ste Kassadu, kako vsi pred vami"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth096Subtitle",
+  "text": "*Udarime kako zmija -- neviděni i smrtonosni"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth097Subtitle",
+  "text": "*Teper me vidite -- teper ste mrtvi"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth098Subtitle",
+  "text": "*Jesem Kassad"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth099Subtitle",
+  "text": "*To se za vas ne skonči dobro, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth100Subtitle",
+  "text": "*Moji ljudi ne primu tăj poraz od svojego vodža, generale. Podpisali ste moj smărtny prigovor svojoju vyšoju taktikoju"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth101Subtitle",
+  "text": "*Primite svoj gorky poraz i izydete iz mojego pogleda, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth102Subtitle",
+  "text": "*I ešče jeden, kotory stanul protiv mene, padaje"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth103Subtitle",
+  "text": "*I tak bude i za vas, generale -- bez upozorenja, bez milosti"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Stealth104Subtitle",
+  "text": "*Imate ešče vrěme uběgnuti so svojym životom, generale. <zloben směh, kotory zamiraje v tišině>"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank001Subtitle",
+  "text": "*Vidim, že niste uběgli od straha, generale. Skoro bude vam žal, že niste"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank002Subtitle",
+  "text": "*Moje sily su na vaših vratah, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank003Subtitle",
+  "text": "*Železny zmaj maršira prěko vašej malenkoj obrany"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank004Subtitle",
+  "text": "*Bojim se, že to vas dokonči, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank005Subtitle",
+  "text": "*Mmm... čujete li grmljavu pěsn nadhodečego oklopa, generale?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank006Subtitle",
+  "text": "*Branite li svoje boky, generale? Začto ne pogledame"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank007Subtitle",
+  "text": "*Ste li impresionirani modifikacijami mojih tankov, generale?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank008Subtitle",
+  "text": "*Oklop... razdrobite jih"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank009Subtitle",
+  "text": "*Skoro se polje napolni tankami... mojimi tankami"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank010Subtitle",
+  "text": "*Vse jedinice... napadnite"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank011Subtitle",
+  "text": "*Krasna baza, generale... hočete li ju predati?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank012Subtitle",
+  "text": "*To znamenaje vašu propast, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank013Subtitle",
+  "text": "*Smo v vašej bazě, generale; vaša obrana byla neadekvatna"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank014Subtitle",
+  "text": "*Osmělite se napasti moju Vojensku Fabriku! Vse sily, odstranite togo dosadnika!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank015Subtitle",
+  "text": "*Tanky... sgradite věče tankov"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank016Subtitle",
+  "text": "*Ešče jeden bataljon je na puti, generale, prošu, učinite jih dobrodošlymi"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank017Subtitle",
+  "text": "*Ah, to je čast boja, kotoru najviše uživam... čast prjamo pred tym, kak dokončim svojego neprijatelja"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank018Subtitle",
+  "text": "*Tanky: dvigajte se bystrěje... prěžde nego naš protivnik promysli pravy napad"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank019Subtitle",
+  "text": "*Tam je tiho, generale. Moraje byti mnogo tankov, kotore se kotrljaju k vašej bazě, ne mysite li?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank020Subtitle",
+  "text": "*Iskoristim tăj čas, aby sgradil věče obrany... ně, počekajte, sgradim věče tankov vmesto togo"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank021Subtitle",
+  "text": "*Tăta okolica byla někogda plodna poljodělska zemja. Skoro vaša krv ju znova sdělaje plodnoju"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank022Subtitle",
+  "text": "*Vaša taktika me zabavljaje, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank023Subtitle",
+  "text": "*Uživajte otdyh, generale -- skoro napady začnu znova"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank024Subtitle",
+  "text": "*Čekamo vaš napad, generale, no začinam se pytati, hoče li on kogda priti"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank025Subtitle",
+  "text": "*Naše Vojenske Fabriky tăžko rabotaju, aby sdělali věče tankov, samo za vas, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank026Subtitle",
+  "text": "*Kak dolgo ešče možete prěživěti take gubitky, generale? Može je vrěme promysliti predaju"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank027Subtitle",
+  "text": "*Tanky se sberaju v našej bazě, prigotovljaju se na poslědnji napad. Izdărži li vaša obrana tăj raz?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank028Subtitle",
+  "text": "*Skoro vas odstranime iz našyh zemel"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank029Subtitle",
+  "text": "*To bude vaša poslědnja priliku dokazati se, generale. Skoro moji tanky dokončaju vašu žalku armiju"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank030Subtitle",
+  "text": "*Ne možete věriti, že vaša srěča izdărži mnogo dolže, ne li, generale?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank031Subtitle",
+  "text": "*Niste hotěli tu Tehničku budovu, ne li?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank032Subtitle",
+  "text": "*Vaša Kasarna je pala pred mojimi tankami, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank033Subtitle",
+  "text": "*Tam ide vaša fabrika, generale. Kak teper sravnate moj oklop?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank034Subtitle",
+  "text": "*Bez vašego letišča izgubili ste svoju jedinu šansu protiv mene, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank035Subtitle",
+  "text": "*Vaša obrana padaje kako igračky pred mojim oklopom"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank036Subtitle",
+  "text": "*Ne možete izgubiti svoj Komandny centr i vsě jedno se nadati vyigrati protiv mene, generale. Čekam vašu predaju"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank037Subtitle",
+  "text": "*Izgubili ste mnogo budov, generale... ne je li vrěme se predati?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank038Subtitle",
+  "text": "*Ta tehnička budova byla moja, generale; bude vam žal, že ste ju uništili"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank039Subtitle",
+  "text": "*Tak, uništili ste moju Kasarnu -- neka tak bude. Teper uništim vašu"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank040Subtitle",
+  "text": "*Obnovime tu Vojensku Fabriku. Skoro tanky znova poteku k vašej bazě kako voda"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank041Subtitle",
+  "text": "*Uništenje mojego letišča me ne zaustavi, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank042Subtitle",
+  "text": "*Uništenje moje obrany mi samo kaže, gdě ste, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank043Subtitle",
+  "text": "*Generale, uništate nedopustimo čislo mojih budov. To moraje se zaustaviti"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank044Subtitle",
+  "text": "*Uništili ste moj Komandny centr... impresioniran jesem, generale... malo kto prěživi tak dolgo"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank045Subtitle",
+  "text": "*Streljate na moje samolety?! Mysite, že to je najlăpša taktika protiv mene, generale?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank046Subtitle",
+  "text": "*Dovoljno! Ne uništite věče mojih tankov, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank047Subtitle",
+  "text": "*Prěstante cěljati na moju pěhotu, kukavice!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank048Subtitle",
+  "text": "*Generale, trěbuju tu naftnu vyšku za svoje tanky. Vrátite mi ju, ili zaplatite"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank049Subtitle",
+  "text": "*Ta Artiljerijska platforma ne je ravna mojemu oklopu, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank050Subtitle",
+  "text": "*Ah, vidim, že ste zahvatili Naftovu rafineriju. Može by jesem ju vam trěbal vzeti"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank051Subtitle",
+  "text": "*Približajemo se k vašej bazě, generale. Prigotovte se"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank052Subtitle",
+  "text": "*Ah, moji tanky su počti v dosegu vašej bazy. To se skoro skonči"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank053Subtitle",
+  "text": "*Probili smo vašu obranu, generale. Teper vaše fabriky začnu padati"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank054Subtitle",
+  "text": "*Blagodarju, že ste nas pozvali v svoju bazu, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank055Subtitle",
+  "text": "*Vidim, že vaš bok je otkryty, generale. Očekival jesem tako"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank056Subtitle",
+  "text": "*Něma stražev na vaših zadnih vratah -- fatalna ošibka s vaše strany, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank057Subtitle",
+  "text": "*Vidim, že ste sgradili drugu bazu, generale. Skoro bude odstranjena"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank058Subtitle",
+  "text": "*Ah, našel jesem vašu Tehničku budovu. Nu, morem li ju uništiti ili zahvatiti?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank059Subtitle",
+  "text": "*Vaša energija je padla -- vaše sily su gotove"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank060Subtitle",
+  "text": "*Prědložil by jesem obnoviti svoju energiju, generale... prěžde nego ju vypnemo naveki"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank061Subtitle",
+  "text": "*Vaš kup snabděnj vygljadaje nizko... teper nas ničto ne može zaustaviti"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank062Subtitle",
+  "text": "*Snabděnja! Trěbuju věče snabděnj!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank063Subtitle",
+  "text": "*A čto planujete sdělati s toju Burjoju SCUD, generale?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank064Subtitle",
+  "text": "*A teper tăta vojna postala nuklearna... izvrstno"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank065Subtitle",
+  "text": "*To Česticovo dělo nikogda ne poživi, aby streljalo na mene"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank066Subtitle",
+  "text": "*Tak mnogo obrany bazy, generale... vse tak bezkorisno"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank067Subtitle",
+  "text": "*Tak, probujete sravnati moje tanky na polju. Pytam se o vašej taktikě, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank068Subtitle",
+  "text": "*Vidim mnogo samoletov, generale -- kako mušicy, kotore čekaju byti otterti iz neba"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank069Subtitle",
+  "text": "*Trenirovali ste predmnogo ljudej, generale; vsi budu razdrobleni pod mojimi gusenicami"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank070Subtitle",
+  "text": "*Vaša baza narastla predveliku, generale -- moji tanky uživaju v praktikě strěljanja"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank071Subtitle",
+  "text": "*Vaša Burja SCUD nas poškodi, no teper ste me razgnevali, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank072Subtitle",
+  "text": "*Samo neuspěšny general by pribegl k nuklearnym raketam"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank073Subtitle",
+  "text": "*Tăj česticovy luč nas ne pobědi, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank074Subtitle",
+  "text": "*Da, zaposedite svoje budovy -- samo odgadate neizběžno"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank075Subtitle",
+  "text": "*Ni jeden soldat ne može obratiti tok bitvy, daže ne Polkovnik Burton"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank076Subtitle",
+  "text": "*Ah, Črny Lotos, počašćujete nas svojim prisustvom. Može by promyslili biti se za mene"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank077Subtitle",
+  "text": "*Vse tanky, pazite: Jarmen Kell vošel na polje"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank078Subtitle",
+  "text": "*Vozdušne Polje je mudry izbor protiv mene, no vas ne spase od poraza, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank079Subtitle",
+  "text": "*Gradite svoje Vojenske Fabriky, generale; oni vsě jedno ne proizvedu tanky sposobne zaustaviti moje"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank080Subtitle",
+  "text": "*Vidim, že ste sgradili Kasarnu, generale. Prošu, probujte dăržati svoje ljudi von izpod mojih tankov"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank081Subtitle",
+  "text": "*Da, prodajte vse svoje budovy i uběgnite s polja, generale. Tăj boj je za vas izgubjen"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank082Subtitle",
+  "text": "*Gubite, generale. Tăj boj je moj"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank083Subtitle",
+  "text": "*Vsa nadeja je teper izčeznula, generale. Predajte se ili umrite"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank084Subtitle",
+  "text": "*Generale, moje sily vas prevyšuju po čislu... to je teper samo pitanje vrěmeni"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank085Subtitle",
+  "text": "*Vaša slabša strategija vas dovela sjuda, generale. Ne možete teper vyigrati"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank086Subtitle",
+  "text": "*Moja poběda byla garantovana od začatka"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank087Subtitle",
+  "text": "*Vaša taktika vam dala vrěmennu prevagu, generale, no ju ne budete dăržati"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank088Subtitle",
+  "text": "*Ně! Ne pobědite, generale. Sgradime věče tankov i vas pobědime"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank089Subtitle",
+  "text": "*Vaša kukavična taktika vas može donesla dosjuda, no tăta glupost se teper konči"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank090Subtitle",
+  "text": "*Myslim, že jesem vam dovoljno dolgo dopustil vyigravati, generale. Prigotovte se na konec"
+ }
+]
