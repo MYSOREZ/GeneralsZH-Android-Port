@@ -1,0 +1,802 @@
+[
+ {
+  "label": "MAP:MD-CHI05_PartCannon_Detected",
+  "text": "POZOR: \n Česticovo Dělo otkryto"
+ },
+ {
+  "label": "MAP:MD-CHI05_Hint01",
+  "text": "SOVĚT: \n Morame koncentrirati naš napad na bazu USA \n Morame uništiti ih Česticove Děla"
+ },
+ {
+  "label": "MAP:MD-CHI05_Hint02",
+  "text": "VHODEČA TRANSMISIJA: \n Uništi Komandny Centr USA, aby zaveršiti ih vozdušnu podpiru"
+ },
+ {
+  "label": "MAP:MD-CHI05_Hint05",
+  "text": "VHODEČA TRANSMISIJA: \n Ubi vražjih Otimačev, aby zaščititi naša vozila"
+ },
+ {
+  "label": "MAP:MD-CHI05_Hint08",
+  "text": "VHODEČA TRANSMISIJA: \n Jarmen Kell sę može skryvati v tom selě"
+ },
+ {
+  "label": "MAP:MD-CHI05_Hint10",
+  "text": "VHODEČA TRANSMISIJA: \n Sprěči Bojeve Avtobusy dosěgnuti našu bazu"
+ },
+ {
+  "label": "MAP:MD-CHI05_Hint13",
+  "text": "VHODEČA TRANSMISIJA: \n Baza USA je bez energije. Udari bystro"
+ },
+ {
+  "label": "MAP:MD-CHI05_Hint15",
+  "text": "VHODEČA TRANSMISIJA: \n Upotrěbi Podslušne Posty, aby zaustaviti \n Jarmena Kella ot snajperovanja naših vozil"
+ },
+ {
+  "label": "MAP:MD-CHI05_Hint16",
+  "text": "VHODEČA TRANSMISIJA: \n Upotrěbi pěhotu, aby znova zauzeti naša neutralizovana vozila"
+ },
+ {
+  "label": "MAP:MD-CHI05_InternetCenter02",
+  "text": "SOVĚT: \n Zauzmi Centr Internet Hakerami za dodatny dohod"
+ },
+ {
+  "label": "MAP:ChemGeneral",
+  "text": "Dr. Thrax"
+ },
+ {
+  "label": "GC_CHINABOSS:Loc",
+  "text": "Gdě-to blizu granice Kitaja i Tibeta \n 'Logovo Tigra'"
+ },
+ {
+  "label": "GC_CHINABOSS:Hint",
+  "text": "VHODEČA TRANSMISIJA: \n Uništenje vražjih oružejnyh bunkerov sbrosi časovnike vsěh superoružij"
+ },
+ {
+  "label": "GC_CHINABOSS:Reset",
+  "text": "\n Časovniky superoružij sut sbrošeni"
+ },
+ {
+  "label": "GC_CHINABOSS:Strike",
+  "text": "\n Udar Superoružja je blizko"
+ },
+ {
+  "label": "GC_CHINABOSS:Resources",
+  "text": "SOVĚT: \n Resursy tu sut ograničeni. Vam bude trěba bystro najti věče snabděnja"
+ },
+ {
+  "label": "CONTROLBAR:TooltipMOAB",
+  "text": "Efektivno protiv: zgrad \n Omamit jedinice v radiusu eksplozije \n \n Odbrojavanje: 6:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipLeafletDrop",
+  "text": "Efektivno protiv: pěhoty \n \n Odbrojavanje: 6:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipTankParaDrop",
+  "text": "Sbrasyva Battlemastery iz letadla \n \n Odbrojavanje: 4:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipNukeDrop",
+  "text": "Sbrasyva taktičsku jadernu boglavu iz letadla \n \n Odbrojavanje: 4:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipSuitcaseNuke",
+  "text": "Haker ima jaderno oružje v svojem kufru \n"
+ },
+ {
+  "label": "CONTROLBAR:TooltipSpectreGunship",
+  "text": "Efektivno protiv: vozil \n \n Odbrojavanje: 4:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipFireICBM",
+  "text": "Efektivno protiv: zgrad, pěhoty \n \n Odbrojavanje: 6:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipFireTomahawkStorm",
+  "text": "Efektivno protiv: zgrad, vozil \n \n Odbrojavanje: 5:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipFrenzy",
+  "text": "Čini, že vaše jedinice nanosjat věče štety za ograničeno vrěmja \n \n Odbrojavanje: 4:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipFireGPSScrambler",
+  "text": "GPS-Glušitelj \n Odbrojavanje: 4:00"
+ },
+ {
+  "label": "CONTROLBAR:TooltipCommunicationsDownload",
+  "text": "Skačaj informacije o poziciji vsěh vražjih sil"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUSAUpgradeSentryDroneGun",
+  "text": "Stražni Droni polučaju mitraljezu"
+ },
+ {
+  "label": "CONTROLBAR:TooltipGLAUpgradeQuadCannonSnipe",
+  "text": "Četvorna Děla polučaju sposobnost ubiti pěhotu jednym vystrělom"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUSAUpgradeSupplyLines",
+  "text": "Mehanizmy sobiranja resursov donosjat dodatnyh 10%"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUSAUpgradeMOAB",
+  "text": "Vakuumna Bomba je ulučšena na Mati Vsěh Bomb"
+ },
+ {
+  "label": "CONTROLBAR:TooltipBecomeRealBuilding",
+  "text": "Ulučši tu falošnu zgradu na polnostju funkcionalnu versiju"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUSAUpgradeChemicalSuits",
+  "text": "Pěhota postane otpornějša na štetu ot toksinov i radiacije"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUSAUpgradeBunkerBusters",
+  "text": "Rakety Nevidimogo Istrěbitelja vrědjat garnizonovane vojska"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUSAUpgradeCountermeasures",
+  "text": "Vsa letadla mogu izběgnuti 50% raket vypušenyh na nih"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUpgradeChinaHelixGattlingCannon",
+  "text": "Postroj Gatlingovo Dělo na tom Helixu"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUpgradeChinaHelixPropagandaTower",
+  "text": "Postroj Propagandnu Věžu na tom Helixu"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUpgradeChinaHelixBattleBunker",
+  "text": "Postroj Bunker na tom Helixu. Bunkery mogu byti zauzeti vojskami. Vojska mogu strěljati iz bunkerov"
+ },
+ {
+  "label": "CONTROLBAR:TooltipChinaUpgradeSatelliteHackOne",
+  "text": "Aktiviruj sposobnost Hakovanja Satelita, aby otkryti komandne centry protivnikov"
+ },
+ {
+  "label": "CONTROLBAR:TooltipChinaUpgradeSatelliteHackTwo",
+  "text": "Aktiviruj sposobnost Hakovanja Satelita, aby povrěmenno otkryti teritoriju vsěh protivnikov"
+ },
+ {
+  "label": "CONTROLBAR:TooltipChinaUpgradeFanaticism",
+  "text": "Dodatnyh +25% k Bonusu Horde"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUpgradeChinaWGUraniumShells",
+  "text": "+25% štety vystrěla na Battlemasteru i Overlordu"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUpgradeChinaTankAutoLoader",
+  "text": "Battlemaster polučaje poveličenu bystrost strělanja"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUpgradeChinaNeutronShells",
+  "text": "Ulučšaje Jaderno Dělo, aby strěljalo Neutronnymi Snarjadami \n Neutronni Snarjady ubijut pěhotu v vozilah"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUpgradeChinaEMPMines",
+  "text": "Miny osvobodjajut Neutronny udar, kogda sut aktivirane"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUpgradeChinaFusionReactors",
+  "text": "Poveličaje skorost Imperatora i Battlemastera"
+ },
+ {
+  "label": "CONTROLBAR:TooltipDetonateFakebuilding",
+  "text": "Prikazuje falošnoj zgradě nemedlenno detonirati"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUpgradeGLAWorkerFakeCommandSet",
+  "text": "Prěključi panel komandy, aby stroiti falošne zgrady"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUpgradeGLAWorkerRealCommandSet",
+  "text": "Prěključi panel komandy, aby stroiti prave zgrady"
+ },
+ {
+  "label": "CONTROLBAR:Demo_ToolTipGLAUpgradeHEBomb",
+  "text": "100% věče štety za vse Podryvne Pastky"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLACamoNetting",
+  "text": "Ta struktura polučaje kamuflaž"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAUpgradeFortifiedStructure",
+  "text": "Zgrady polučaju dodatnu obranu brony od napadov"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAUpgradeBoobyTrap",
+  "text": "Povstanci mogu postaviti minne pastky na zgrady i neutralne jedinice"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAUpgradeWorkerShoes",
+  "text": "Daje Rabotnikam nove obuvi, koje su prosili, poveličajuč ih skorost dvigenja"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAUpgradeAnthraxGamma",
+  "text": "+50% bonus štety za vse toksinne jedinice"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipSaboteur",
+  "text": "Deaktivira zgrady. Sbrosuje časovnike superoružij"
+ },
+ {
+  "label": "CONTROLBAR:DropNapalmBomb",
+  "text": "&Sbrosi Napalmovu Bombu"
+ },
+ {
+  "label": "CONTROLBAR:DropNukeBomb",
+  "text": "&Sbrosi Jadernu Bombu"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipDropNukeBomb",
+  "text": "Sbrasyva taktičsku jaderku na cělovu oblast"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipDropNapalmBomb",
+  "text": "Efektivno protiv věčiny zemnyh cělej \n Slabo protiv ognjenyh vozil"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaNukeWarhead",
+  "text": "Napolni Jadernymi Snarjadami"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaNeutronWarhead",
+  "text": "Napolni Neutronnymi Snarjadami"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipFireBattleship",
+  "text": "Pozovi bombardovanje ot morskogo Linkora"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipFireAircraftCarrier",
+  "text": "Vypuskaje napadne letadla Nosača Letadl"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipECMDisableVehicle",
+  "text": "Deaktiviraj vražje vozilo"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaFireRebelBoobyTrapAttack",
+  "text": "Postavi minnu pastku"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildFireBase",
+  "text": "Zemna oborona. Može byti zauzeta četyrmi pěhotami"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildArtilleryPlatform",
+  "text": "Stroji artilerijsku platformu velikogo dosega za obranu \n \n Trěbovana Energija: 4"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipFakeGLABuilding",
+  "text": "Falošne zgrady mogu byti detonirane ili ulučšene na prave zgrady"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildInternetCenter",
+  "text": "Pomaga hakeram donositi novac. Može byti ulučšen, aby špionirati protivnikov"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipAmericaICBMLauncher",
+  "text": "Vypuskaje Meddržavnu Balističku Raketu \n Trěbovana Energija: 10"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipAmericaBuildTomahawkStorm",
+  "text": "Vypuskaje zalp raket Tomahawk \n \n Odbrojavanje: 5:00"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildCombatBike",
+  "text": "Bystry i mnogostranny \n Slabo protiv: tankov, letadl"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildSaboteur",
+  "text": "Nebojeva infiltracijna jedinica. Može vrěmenno deaktivirati vražje zgrady"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildPropagandaTrooper",
+  "text": "Proizvodit propagandu, aby lěčila blizke jedinice"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildMiniGunner",
+  "text": "Efektivno protiv: pěhoty, letadl \n Slabo protiv: tankov"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildAvenger",
+  "text": "Upotrěbjaje lazer, aby uništiti rakety i letadla \n \n Efektivno protiv: raket, letadl \n Slabo protiv: vozil, pěhoty"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildKingRaptor",
+  "text": "Može napadati zemne ili vozdušne cěli. Oprěmjen Točkovym Obrannym Lazerom \n Věčy Naboj. Otkryva Nevidimost \n \n Efektivno protiv: letadl, tankov, lahkih vozil \n Slabo protiv: raketno-vooruženoj pěhoty, protivvozdušnoj oborony"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildFuelAirAurora",
+  "text": "Super-zvukovy napad čini Auroru nevrědimu protiv vražjego ognja, dok sbrasyvaje malu Vakuumnu Bombu. Poslě super-zvukovogo napada, skorost Aurory je snižena na 50% \n \n Efektivno protiv: zgrad \n Slabo protiv: istrěbitelej, protivvozdušnyh jedinic"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildHyersonicAurora",
+  "text": "Hiper-zvukovy napad čini Auroru nevrědimu protiv vražjego ognja. Poslě hiper-zvukovogo napada, skorost Aurory je snižena na 50% \n \n Efektivno protiv: zgrad \n Slabo protiv: istrěbitelej, protivvozdušnyh jedinic"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildSniper",
+  "text": "Kamuflovan, kogda ne dviga sę ili ne strělja. Najdi skryte vragy \n \n Efektivno protiv: pěhoty \n Slabo protiv: lahkih vozil, razvědčikov"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildMicrowave",
+  "text": "Efektivno protiv: obrany bazy \n Slabo protiv: tankov, letadl, lahkih vozil"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildSentryDrone",
+  "text": "Otkryva nevidimost \n \nEfektivno protiv: pěhoty \n Slabo protiv: tankov"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildHellfireDrone",
+  "text": "Strěljaje raketoju Hellfire \n \n Efektivno protiv: vozil \n Slabo protiv: pěhoty"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildPointDefenseDrone",
+  "text": "Strěljaje protivraketnym lazerom"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildHelix",
+  "text": "Tjažky transport \n ulučšaje sę oboranymi strukturami bazy i Napalmovoju Bomboju \n \n Efektivno protiv: tankov, lahkih vozil \n Slabo protiv: raketno-vooruženoj pěhoty, protivvozdušnoj oborony"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildListeningOutpost",
+  "text": "Transport. Otkryva nevidime jedinice \n \n Slabo protiv: tankov, letadl"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildECM",
+  "text": "Efektivno protiv: tankov, vozil \n Slabo protiv: pěhoty, letadl"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildBattleBus",
+  "text": "Može byti napolnjen 8 pěhotami \n \n Efektivno protiv: pěhoty, zgrad"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSAScienceSpectreGunship",
+  "text": "Spectre kruže nad poljem boja i mlate vražje sily Haubicami i Gatlingovymi Dělami \n \n Razverni iz: Komandnogo Centra"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSAScienceLeafletDrop",
+  "text": "Letaky deaktiviraju koncentracije vražjih vojsk, dok razmyšljajut o svojih izborah \n \n Razverni iz: Komandnogo Centra"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaScienceTankHunterTraining",
+  "text": "Vsi Lovci Tankov budut postroeni kako veterani"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaScienceBattlemasterTraining",
+  "text": "Vsi Battlemastery budut postroeni kako elitni"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaScienceOverlordTraining",
+  "text": "Vsi Overlordy budut postroeni kako elitni"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaScienceGattlingTankTraining",
+  "text": "Vsi Gatlingovi Tanky budut postroeni kako elitni"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaScienceNukeDrop",
+  "text": "Taktičsko Jaderno Oružje je razverneno iz vozduha \n \n Razverni iz: Komandnogo Centra"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaScienceFrenzy",
+  "text": "Čini, že vaše cělovane jedinice nanosjat věče štety za vrěmja \n \n Rang 1: 10 procentov za 10 sekund \n Rang 2: 20 procentov za 20 sekund \n Rang 3: 30 procentov za 30 sekund \n \n Razverni iz: Komandnogo Centra"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaScienceCarpetBomb",
+  "text": "Dozvoljaje vam pozvati jaderny bombardirovač, aby kovrovo bombardoval oblast \n \n Razverni iz: Komandnogo Centra"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipScienceGPSScrambler",
+  "text": "Skryva jedinice v svojej oblasti dějstvija \n \nRazverni iz: Komandnogo Centra"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLASneakAttack",
+  "text": "Vojska mogu sozdati tunel bilo kde na kartě \n \n Razverni iz: Komandnogo Centra"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipSelectAircraftCarriers",
+  "text": "Izberi nosač(-e) letadl, aby udobno lansirati napady"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipSelectBattleships",
+  "text": "Pozovi bombardovanje ot morskogo Linkora"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaScienceTankParadrop",
+  "text": "Sbrosi Battlemastery iz vozduha \n \n Rang 1: 1 Battlemaster \n Rang 2: 2 Battlemastery \n Rang 3: 4 Battlemastery \n \n Razverni iz: Komandnogo Centra"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaScienceInfantryParadrop",
+  "text": "Sbrosi Črvenu Gvardiju iz vozduha \n \n Rang 1: 5 Črvenoj Gvardije \n Rang 2: 10 Črvenoj Gvardije \n Rang 3: 15 Črvenoj Gvardije \n \n Razverni iz: Komandnogo Centra"
+ },
+ {
+  "label": "TOOLTIP:ChallengeButton",
+  "text": "Izzov Generalov"
+ },
+ {
+  "label": "GUI:GeneralsChallenge",
+  "text": "IZBERI SVOJEGO GENERALA"
+ },
+ {
+  "label": "GUI:Biography",
+  "text": "Biografija"
+ },
+ {
+  "label": "GUI:BioName",
+  "text": "Imę:"
+ },
+ {
+  "label": "GUI:BioDOB",
+  "text": "Vozrast:"
+ },
+ {
+  "label": "GUI:BioBirthplace",
+  "text": "Stanjen:"
+ },
+ {
+  "label": "GUI:BioStrategy",
+  "text": "Taktika:"
+ },
+ {
+  "label": "GUI:BioRank",
+  "text": "Rang:"
+ },
+ {
+  "label": "GUI:BioBranch",
+  "text": "Odděl:"
+ },
+ {
+  "label": "GUI:BioNameEntry_Pos0",
+  "text": "General Granger"
+ },
+ {
+  "label": "GUI:BioDOBEntry_Pos0",
+  "text": "62"
+ },
+ {
+  "label": "GUI:BioBirthplaceEntry_Pos0",
+  "text": "Fort Belmont, Houston, Teksas, USA"
+ },
+ {
+  "label": "GUI:BioStrategyEntry_Pos0",
+  "text": "Vozdušna Sila"
+ },
+ {
+  "label": "GUI:BioRankEntry_Pos0",
+  "text": "General s 4 Zvězdami"
+ },
+ {
+  "label": "GUI:BioBranchEntry_Pos0",
+  "text": "Vozdušne Sily USA"
+ },
+ {
+  "label": "GUI:BioClassNumber_Pos0",
+  "text": "07121969-HB"
+ },
+ {
+  "label": "TOOLTIP:BioStrategyLong_Pos0",
+  "text": "General Malcolm \"As\" Grainger prěferuje upotrěbiti maksimalnu dostupnu vozdušnu silu, aby pobědil svojih vragov"
+ },
+ {
+  "label": "GUI:BioDefeatedEntry_Pos0",
+  "text": "Mislim, že je vrěmja, aby si našel dobru rabotu v aviokompaniji."
+ },
+ {
+  "label": "GUI:BioVictoriousEntry_Pos0",
+  "text": "Ja pobědim, vy proigrate. Čto ešče trěba kazati?"
+ },
+ {
+  "label": "GUI:BioNameEntry_Pos1",
+  "text": "Dr. Thrax"
+ },
+ {
+  "label": "GUI:BioDOBEntry_Pos1",
+  "text": "Neznano"
+ },
+ {
+  "label": "GUI:BioBirthplaceEntry_Pos1",
+  "text": "Neznano"
+ },
+ {
+  "label": "GUI:BioStrategyEntry_Pos1",
+  "text": "Toksinne oružja"
+ },
+ {
+  "label": "GUI:BioRankEntry_Pos1",
+  "text": "Neznano"
+ },
+ {
+  "label": "GUI:BioBranchEntry_Pos1",
+  "text": "Neznano"
+ },
+ {
+  "label": "TOOLTIP:BioStrategyLong_Pos1",
+  "text": "Dr. Thrax prěferuje měšati smrtonosne toksiny, aby pobědil svojih vragov"
+ },
+ {
+  "label": "GUI:BioClassNumber_Pos1",
+  "text": "Neznano"
+ },
+ {
+  "label": "GUI:BioDefeatedEntry_Pos1",
+  "text": "Može byti, ne trěbalo mi bylo polučiti diplom iz zaočnogo koledža."
+ },
+ {
+  "label": "GUI:BioVictoriousEntry_Pos1",
+  "text": "Vy mysleli, že moji toksiny sut neefektivni, a teper pogledajte, čto sę s vami slučilo, generale."
+ },
+ {
+  "label": "GUI:BioNameEntry_Pos2",
+  "text": "General Tao"
+ },
+ {
+  "label": "GUI:BioDOBEntry_Pos2",
+  "text": "50"
+ },
+ {
+  "label": "GUI:BioBirthplaceEntry_Pos2",
+  "text": "Baza Ox, Chengdu, Kitaj"
+ },
+ {
+  "label": "GUI:BioStrategyEntry_Pos2",
+  "text": "Jaderna Oružja"
+ },
+ {
+  "label": "GUI:BioRankEntry_Pos2",
+  "text": "General, Klasa AAA"
+ },
+ {
+  "label": "GUI:BioBranchEntry_Pos2",
+  "text": "NOAK"
+ },
+ {
+  "label": "TOOLTIP:BioStrategyLong_Pos2",
+  "text": "General Tsing Shi Tao prěferuje upotrěbiti jadernu radiaciju, aby pobědil svojih vragov"
+ },
+ {
+  "label": "GUI:BioClassNumber_Pos2",
+  "text": "Ne primenjivo"
+ },
+ {
+  "label": "GUI:BioDefeatedEntry_Pos2",
+  "text": "Ešče jeden moment, i ja bych vas sveo na prah."
+ },
+ {
+  "label": "GUI:BioVictoriousEntry_Pos2",
+  "text": "Imate sreču, že ste preživěli tu bitku cěli. Izzovi me znova, ako smiješ."
+ },
+ {
+  "label": "GUI:BioNameEntry_Pos3",
+  "text": "General Alexander"
+ },
+ {
+  "label": "GUI:BioDOBEntry_Pos3",
+  "text": "42"
+ },
+ {
+  "label": "GUI:BioBirthplaceEntry_Pos3",
+  "text": "Kamp Franklin, Belfast, Maine, USA"
+ },
+ {
+  "label": "GUI:BioStrategyEntry_Pos3",
+  "text": "Oružja Masovogo Uništenja"
+ },
+ {
+  "label": "GUI:BioRankEntry_Pos3",
+  "text": "General s 4 Zvězdami"
+ },
+ {
+  "label": "GUI:BioBranchEntry_Pos3",
+  "text": "Marinci USA"
+ },
+ {
+  "label": "TOOLTIP:BioStrategyLong_Pos3",
+  "text": "Generalka Alexis Alexander prěferuje stroiti tjažku obranu bazy i superoružja, aby pobědila svoje vragy"
+ },
+ {
+  "label": "GUI:BioClassNumber_Pos3",
+  "text": "178923478-HBGB"
+ },
+ {
+  "label": "GUI:BioDefeatedEntry_Pos3",
+  "text": "To nije pravedno! Ešče jedno Superoružje, i ja bych vas pobědila, generale. Izzovi me znova, izzyvam tę."
+ },
+ {
+  "label": "GUI:BioVictoriousEntry_Pos3",
+  "text": "Rekla sem vam, že nikada ne pobědite moja Superoružja, generale. Hočete li probovati znova?"
+ },
+ {
+  "label": "GUI:BioNameEntry_Pos4",
+  "text": "General Kwai"
+ },
+ {
+  "label": "GUI:BioDOBEntry_Pos4",
+  "text": "51"
+ },
+ {
+  "label": "GUI:BioBirthplaceEntry_Pos4",
+  "text": "Baza Rat, Jinan, Kitaj"
+ },
+ {
+  "label": "GUI:BioStrategyEntry_Pos4",
+  "text": "Napredne Tankove Divizije"
+ },
+ {
+  "label": "GUI:BioRankEntry_Pos4",
+  "text": "General, Klasa AAA"
+ },
+ {
+  "label": "GUI:BioBranchEntry_Pos4",
+  "text": "NOAK"
+ },
+ {
+  "label": "TOOLTIP:BioStrategyLong_Pos4",
+  "text": "General Ta Hun Kwai prěferuje stroiti dobro postroene tanky, aby pobědil svojih vragov"
+ },
+ {
+  "label": "GUI:BioClassNumber_Pos4",
+  "text": "9999-3224536-5"
+ },
+ {
+  "label": "GUI:BioDefeatedEntry_Pos4",
+  "text": "Može byti, vy pobědili moje tanky, generale, no Tigrica vas razdrobi kako insekta."
+ },
+ {
+  "label": "GUI:BioVictoriousEntry_Pos4",
+  "text": "Tanky sut ključ vsakoj poběd... kako dobro znate."
+ },
+ {
+  "label": "GUI:BioNameEntry_Pos5",
+  "text": "General Townes"
+ },
+ {
+  "label": "GUI:BioDOBEntry_Pos5",
+  "text": "Nespecifikovano"
+ },
+ {
+  "label": "GUI:BioBirthplaceEntry_Pos5",
+  "text": "Fort Union, Redwood Shores, Kalifornija, USA"
+ },
+ {
+  "label": "GUI:BioStrategyEntry_Pos5",
+  "text": "Lazerne Oružja"
+ },
+ {
+  "label": "GUI:BioRankEntry_Pos5",
+  "text": "General s 4 Zvězdami"
+ },
+ {
+  "label": "GUI:BioBranchEntry_Pos5",
+  "text": "Armija USA"
+ },
+ {
+  "label": "TOOLTIP:BioStrategyLong_Pos5",
+  "text": "\"Toškovity\" Townes prěferuje upotrěbiti najnovšu lazernu tehnologiju, aby pobědil svojih vragov"
+ },
+ {
+  "label": "GUI:BioClassNumber_Pos5",
+  "text": "00010204-01KE0"
+ },
+ {
+  "label": "GUI:BioDefeatedEntry_Pos5",
+  "text": "Vy me pobědili, generale, no ja skaniruju vašu taktiku i sozdam lěpšu strategiju."
+ },
+ {
+  "label": "GUI:BioVictoriousEntry_Pos5",
+  "text": "Vaše slabosti postali očevidne, kogda ja skanirala vašu taktiku."
+ },
+ {
+  "label": "GUI:BioNameEntry_Pos6",
+  "text": "Princ Kassad"
+ },
+ {
+  "label": "GUI:BioDOBEntry_Pos6",
+  "text": "34"
+ },
+ {
+  "label": "GUI:BioBirthplaceEntry_Pos6",
+  "text": "Tripoli, Libija"
+ },
+ {
+  "label": "GUI:BioStrategyEntry_Pos6",
+  "text": "Zasada i Kamuflaž"
+ },
+ {
+  "label": "GUI:BioRankEntry_Pos6",
+  "text": "Ne Primenjivo"
+ },
+ {
+  "label": "GUI:BioBranchEntry_Pos6",
+  "text": "Jačejka Kobra GLA"
+ },
+ {
+  "label": "TOOLTIP:BioStrategyLong_Pos6",
+  "text": "Princ Kassad prěferuje upotrěbiti kamuflaž i skryte operacije, aby pobědil svojih vragov"
+ },
+ {
+  "label": "GUI:BioClassNumber_Pos6",
+  "text": "Ne Primenjivo"
+ },
+ {
+  "label": "GUI:BioDefeatedEntry_Pos6",
+  "text": "Moji ljudi ne prijmut tu poraženje ot svojego vodji, generale. Vy podpisali moj smrtny prigovor svojeju lěpšeju taktikoju..."
+ },
+ {
+  "label": "GUI:BioVictoriousEntry_Pos6",
+  "text": "Prijmi svoje gorko poraženje i uklani sę iz mojego pogleda, generale."
+ },
+ {
+  "label": "GUI:BioNameEntry_Pos7",
+  "text": "General Fai"
+ },
+ {
+  "label": "GUI:BioDOBEntry_Pos7",
+  "text": "57"
+ },
+ {
+  "label": "GUI:BioBirthplaceEntry_Pos7",
+  "text": "Baza Snake, Beijing, Kitaj"
+ },
+ {
+  "label": "GUI:BioStrategyEntry_Pos7",
+  "text": "Napredne Pěhotne Divizije"
+ },
+ {
+  "label": "GUI:BioRankEntry_Pos7",
+  "text": "General, Klasa AAA"
+ },
+ {
+  "label": "GUI:BioBranchEntry_Pos7",
+  "text": "NOAK"
+ },
+ {
+  "label": "TOOLTIP:BioStrategyLong_Pos7",
+  "text": "General \"Nakovaljna\" Shin Fai prěferuje verbovati visoko obučene soldaty, aby pobědil svojih vragov"
+ },
+ {
+  "label": "GUI:BioClassNumber_Pos7",
+  "text": "2030-200403-1"
+ },
+ {
+  "label": "GUI:BioDefeatedEntry_Pos7",
+  "text": "Nespecifikovano"
+ },
+ {
+  "label": "GUI:BioVictoriousEntry_Pos7",
+  "text": "Nespecifikovano"
+ },
+ {
+  "label": "GUI:BioNameEntry_Pos8",
+  "text": "General Juhziz"
+ },
+ {
+  "label": "GUI:BioDOBEntry_Pos8",
+  "text": "36"
+ },
+ {
+  "label": "GUI:BioBirthplaceEntry_Pos8",
+  "text": "Neznano"
+ },
+ {
+  "label": "GUI:BioStrategyEntry_Pos8",
+  "text": "Eksplozivy i Bomby"
+ },
+ {
+  "label": "GUI:BioRankEntry_Pos8",
+  "text": "Ne Primenjivo"
+ },
+ {
+  "label": "GUI:BioBranchEntry_Pos8",
+  "text": "Jačejka Scorpion GLA"
+ },
+ {
+  "label": "TOOLTIP:BioStrategyLong_Pos8",
+  "text": "General Rodall \"Demo\" Juhziz prěferuje minirati moćnymi eksplozivami, aby pobědil svojih vragov"
+ }
+]
