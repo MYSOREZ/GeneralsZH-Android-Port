@@ -1,0 +1,802 @@
+[
+ {
+  "label": "WOL:NoMatchbot",
+  "text": "Sopostavitelj ne najden"
+ },
+ {
+  "label": "WOL:BadMatchParams",
+  "text": "Nepravilni parametry sopostavjenja"
+ },
+ {
+  "label": "WOL:ChatErrorNickInUse",
+  "text": "Tot nadimok je već v upotrěbě"
+ },
+ {
+  "label": "WOL:ChatErrorBadPass",
+  "text": "Nepravilny parol za to imę"
+ },
+ {
+  "label": "WOL:ChatErrorNoneSuch",
+  "text": "Nema takogo korisnika ili kanala"
+ },
+ {
+  "label": "WOL:ChatErrorConNetDown",
+  "text": "Sětevo sojedinjenje ne rabotaje"
+ },
+ {
+  "label": "WOL:ChatErrorConLookupFailed",
+  "text": "DNS poisk ne uspěl"
+ },
+ {
+  "label": "WOL:ChatErrorConError",
+  "text": "Slučila sę fatalna sětova pogreška"
+ },
+ {
+  "label": "WOL:ChatErrorTimeout",
+  "text": "Vrěmja isteklo"
+ },
+ {
+  "label": "WOL:ChatErrorMustPatch",
+  "text": "Vy morate polučiti najnovšeje Obnovlenje prěd vstupom v C&C Generals Zero Hour Online"
+ },
+ {
+  "label": "WOL:ChatErrorStatusError",
+  "text": "Vnutrěnja pogreška statusa"
+ },
+ {
+  "label": "WOL:ChatErrorUnknownResponse",
+  "text": "Neznan otvět"
+ },
+ {
+  "label": "WOL:ChatErrorChannelFull",
+  "text": "Kanal je poln"
+ },
+ {
+  "label": "WOL:ChatErrorChannelExists",
+  "text": "Kanal već postoji"
+ },
+ {
+  "label": "WOL:ChatErrorChannelDoesNotExist",
+  "text": "Kanal ne postoji"
+ },
+ {
+  "label": "WOL:ChatErrorBadChannelPassword",
+  "text": "Nepravilny parol kanala"
+ },
+ {
+  "label": "WOL:ChatErrorBanned",
+  "text": "Izvinite, vy ste banovani iz C&C Generals Zero Hour Online. Prosim, pregledajte Uslovja Služby"
+ },
+ {
+  "label": "WOL:ChatErrorNotOper",
+  "text": "Nevozmožno izvesti tu operaciju"
+ },
+ {
+  "label": "WOL:ChatErrorAccountDisabled",
+  "text": "Vaš akaunt je blokiran"
+ },
+ {
+  "label": "WOL:ChatErrorSerialBanned",
+  "text": "Vaš serijny nomer je banovan. Prosim, pregledajte Uslovja Služby"
+ },
+ {
+  "label": "WOL:ChatErrorSerialDup",
+  "text": "Vaš serijny nomer je već v upotrěbě"
+ },
+ {
+  "label": "WOL:ChatErrorSerialUnknown",
+  "text": "Vaš serijny nomer je nevalidan"
+ },
+ {
+  "label": "WOL:NetUtilErrorGeneric",
+  "text": "Obšča pogreška NetUtil"
+ },
+ {
+  "label": "WOL:NetUtilErrorBusy",
+  "text": "Zauzeto"
+ },
+ {
+  "label": "WOL:NetUtilErrorTimeout",
+  "text": "Vrěmja Isteklo"
+ },
+ {
+  "label": "WOL:NetUtilErrorInvalidField",
+  "text": "Nevalidno polje"
+ },
+ {
+  "label": "WOL:NetUtilErrorCantVerify",
+  "text": "Ne može sę potvrditi"
+ },
+ {
+  "label": "WOL:NetUtilFinished",
+  "text": "Zaveršeno"
+ },
+ {
+  "label": "WOL:UnknownError",
+  "text": "Neznana pogreška"
+ },
+ {
+  "label": "WOL:CouldNotCreateChannel",
+  "text": "Ne mogl sę sozdati kanal"
+ },
+ {
+  "label": "WOL:ErrorTitle",
+  "text": "Pogreška C&C Generals Zero Hour Online"
+ },
+ {
+  "label": "WOL:LoginErrorTitle",
+  "text": "Pogreška Vhoda"
+ },
+ {
+  "label": "WOL:CreatingChannel",
+  "text": "Sozdavanje kanala"
+ },
+ {
+  "label": "WOL:ChannelClosed",
+  "text": "Kanal je zatvoren"
+ },
+ {
+  "label": "WOL:BadChannelPassword",
+  "text": "Nepravilny parol kanala"
+ },
+ {
+  "label": "WOL:ChannelFull",
+  "text": "Kanal poln"
+ },
+ {
+  "label": "WOL:BannedFromChannel",
+  "text": "Vy ste banovani iz kanala"
+ },
+ {
+  "label": "WOL:CannotJoinChannel",
+  "text": "Nevozmožno vstupiti v kanal"
+ },
+ {
+  "label": "WOL:NoWOLAPI",
+  "text": "Sdělene Internetske Komponenty nisu instalirane"
+ },
+ {
+  "label": "WOL:OldWOLAPI",
+  "text": "Sdělene Internetske Komponenty trěba obnoviti. Prosim, instalirajte s diska C&C Generals Zero Hour"
+ },
+ {
+  "label": "WOL:BadRegistry",
+  "text": "Registr C&C Generals Zero Hour je povrěžden"
+ },
+ {
+  "label": "WOL:GotPing",
+  "text": "Polučen ping %dms. Čim niži ping, tym lěpše sojedinjenje"
+ },
+ {
+  "label": "WOL:ServerListAndVersion",
+  "text": "Polučanje spiska serverov"
+ },
+ {
+  "label": "WOL:GettingPings",
+  "text": "Polučanje pingov. Čim niži ping, tym lěpše sojedinjenje"
+ },
+ {
+  "label": "WOL:Connecting",
+  "text": "Sojedinjuje sę"
+ },
+ {
+  "label": "WOL:JoinedChannel",
+  "text": "Vy vstupili v %ls"
+ },
+ {
+  "label": "WOL:LeftChannel",
+  "text": "Vy pokinuli %ls"
+ },
+ {
+  "label": "WOL:UserKicked",
+  "text": "%ls izgnal %ls iz %ls"
+ },
+ {
+  "label": "WOL:BeginIgnoreList",
+  "text": "Načelo Spiska Ignorovanih"
+ },
+ {
+  "label": "WOL:IgnoredUser",
+  "text": "%ls"
+ },
+ {
+  "label": "WOL:EndIgnoreList",
+  "text": "Konec Spiska Ignorovanih"
+ },
+ {
+  "label": "WOL:DownloadPatchNow",
+  "text": "Hočete li skačati Obnovlenje sejčas?"
+ },
+ {
+  "label": "WOL:FindInChannel",
+  "text": "%ls je v %s"
+ },
+ {
+  "label": "WOL:FindInChannelOtherServer",
+  "text": "%ls je v %s na %s"
+ },
+ {
+  "label": "WOL:FindOffline",
+  "text": "%ls ne je prijavjen"
+ },
+ {
+  "label": "WOL:FindHiding",
+  "text": "%ls ne otgovaraje na poisk"
+ },
+ {
+  "label": "WOL:FindNotInChannel",
+  "text": "%ls ne je v kanalu"
+ },
+ {
+  "label": "WOL:FindNotInChannelOtherServer",
+  "text": "%ls je na %s"
+ },
+ {
+  "label": "WOL:Lob_49_0",
+  "text": "Glavny Lobi"
+ },
+ {
+  "label": "WOL:Lob_49_1",
+  "text": "Alternativny"
+ },
+ {
+  "label": "WOL:Lob_49_2",
+  "text": "Realny"
+ },
+ {
+  "label": "WOL:Lob_41_0",
+  "text": "Bystra Igra"
+ },
+ {
+  "label": "WOL:UnknownServer",
+  "text": "neznany server"
+ },
+ {
+  "label": "WOL:UnknownChannel",
+  "text": "neznany kanal"
+ },
+ {
+  "label": "WOL:BuddyMatching",
+  "text": "%ls Bystro Sopostavljaje"
+ },
+ {
+  "label": "WOL:BuddyNotInChan",
+  "text": "%ls je onlajn"
+ },
+ {
+  "label": "WOL:BuddyInGame",
+  "text": "%ls igraje igru"
+ },
+ {
+  "label": "WOL:BuddyInChat",
+  "text": "%ls čatuje v %ls"
+ },
+ {
+  "label": "WOL:BuddyGameSetup",
+  "text": "%ls je v %ls"
+ },
+ {
+  "label": "WOL:BuddyMatchingOtherServer",
+  "text": "%ls Bystro Sopostavljaje na %ls"
+ },
+ {
+  "label": "WOL:BuddyNotInChanOtherServer",
+  "text": "%ls je onlajn na %ls"
+ },
+ {
+  "label": "WOL:BuddyInGameOtherServer",
+  "text": "%ls igraje igru na %ls"
+ },
+ {
+  "label": "WOL:BuddyInChatOtherServer",
+  "text": "%ls čatuje v %ls na %ls"
+ },
+ {
+  "label": "WOL:BuddyGameSetupOtherServer",
+  "text": "%ls je v %ls na %ls"
+ },
+ {
+  "label": "WOL:BuddyHiding",
+  "text": "%ls sę skryva"
+ },
+ {
+  "label": "Chat:Everyone",
+  "text": "Vsi Vidjat"
+ },
+ {
+  "label": "Chat:Allies",
+  "text": "Samo Sojuzniki Vidjat"
+ },
+ {
+  "label": "GUI:Clear",
+  "text": "OČISTITI"
+ },
+ {
+  "label": "LAN:GameStartTimerPlural",
+  "text": "Igra načne za %d sekund"
+ },
+ {
+  "label": "LAN:GameStartTimerSingular",
+  "text": "Igra načne za %d sekundu"
+ },
+ {
+  "label": "LAN:HostNotResponding",
+  "text": "Igra zaveršena; host ne otgovaral"
+ },
+ {
+  "label": "LAN:PlayerDropped",
+  "text": "%ls otpal; igrač ne otgovaral"
+ },
+ {
+  "label": "LAN:NeedMorePlayers",
+  "text": "Vam trěba věče nego %d igrač(ev), aby načeti igru"
+ },
+ {
+  "label": "LAN:NeedMoreTeams",
+  "text": "Vam trěba věče nego 1 komanda, aby načeti igru"
+ },
+ {
+  "label": "LAN:TooManyPlayers",
+  "text": "Ta karta podpiraje samo do %d igračev"
+ },
+ {
+  "label": "LAN:OK",
+  "text": "OK"
+ },
+ {
+  "label": "LAN:ErrorNoGameSelected",
+  "text": "Prosim, izberite igru najprjed"
+ },
+ {
+  "label": "LAN:ErrorTimeout",
+  "text": "Sojedinjenje prěvyšilo vrěmja"
+ },
+ {
+  "label": "LAN:ErrorGameFull",
+  "text": "Ta igra je polna"
+ },
+ {
+  "label": "LAN:ErrorDuplicateName",
+  "text": "Duplikatno imę već v igrě"
+ },
+ {
+  "label": "LAN:ErrorCRCMismatch",
+  "text": "Igra otkryla nesootvětstvje. To značit, že multiigra izgubila dany synhronizacije mezdu igračami. Može byti, že vaš protivnik izměnil svoju versiju, i vy možete ga dodati v vaš Spisok Ignorovanih"
+ },
+ {
+  "label": "LAN:ErrorGameStarted",
+  "text": "Izvinite, ta igra već načela"
+ },
+ {
+  "label": "LAN:ErrorGameExists",
+  "text": "Igra s tym istym imenem već postoji"
+ },
+ {
+  "label": "LAN:ErrorGameGone",
+  "text": "Igra iščezla"
+ },
+ {
+  "label": "LAN:ErrorBusy",
+  "text": "Druga operacija čeka"
+ },
+ {
+  "label": "LAN:ErrorUnknown",
+  "text": "Neznana pogreška"
+ },
+ {
+  "label": "LAN:JoinFailed",
+  "text": "VSTUP NE USPĚL"
+ },
+ {
+  "label": "Network:PlayerLeft",
+  "text": "%ls pokinul igru"
+ },
+ {
+  "label": "INI:MissingDisplayName",
+  "text": "NEDOSTAJE DisplayName za Objekt '%S'"
+ },
+ {
+  "label": "INI:FactionDefault",
+  "text": "Standardna Armija"
+ },
+ {
+  "label": "INI:FactionObserver",
+  "text": "Nabljudatelj"
+ },
+ {
+  "label": "INI:FactionCivilian",
+  "text": "Civili"
+ },
+ {
+  "label": "INI:FactionAmerica",
+  "text": "USA"
+ },
+ {
+  "label": "INI:FactionChina",
+  "text": "Kitaj"
+ },
+ {
+  "label": "INI:FactionGLA",
+  "text": "GLA"
+ },
+ {
+  "label": "INI:FactionChinaHacker",
+  "text": "Kitajsky Haker"
+ },
+ {
+  "label": "SIDE:America",
+  "text": "USA"
+ },
+ {
+  "label": "SIDE:China",
+  "text": "Kitaj"
+ },
+ {
+  "label": "SIDE:GLA",
+  "text": "GLA"
+ },
+ {
+  "label": "INI:RankLevel1",
+  "text": "General s 1 Zvězdoju"
+ },
+ {
+  "label": "INI:RankLevel2",
+  "text": "General s 2 Zvězdami"
+ },
+ {
+  "label": "INI:RankLevel3",
+  "text": "General s 3 Zvězdami"
+ },
+ {
+  "label": "INI:RankLevel4",
+  "text": "General s 4 Zvězdami"
+ },
+ {
+  "label": "INI:RankLevel5",
+  "text": "General s 5 Zvězdami"
+ },
+ {
+  "label": "INI:RankLevel6",
+  "text": "Loš Tip (Rang 6)"
+ },
+ {
+  "label": "INI:RankLevel7",
+  "text": "Dr. Smrt (Rang 7)"
+ },
+ {
+  "label": "INI:RankLevel8",
+  "text": "Krajnje Smrtonosny Tip (Rang 8)"
+ },
+ {
+  "label": "TOOLTIP:MyInfo",
+  "text": "Kliknite, aby prěgledati Informacije o vašej Personě. Vy možete videti vaš rang, točky, pobědy, poraženja, Bojeve Časti itd"
+ },
+ {
+  "label": "TOOLTIP:CustomMatch",
+  "text": "Kliknite, aby vstupiti v Lobi Vlastnyh Igr, aby sę vstrětiti i čatovati s drugimi igračami"
+ },
+ {
+  "label": "TOOLTIP:SelectAll",
+  "text": "Bystra Igra na vsěh dostupnyh kartah"
+ },
+ {
+  "label": "TOOLTIP:SelectNone",
+  "text": "Bystra Igra bez kart"
+ },
+ {
+  "label": "TOOLTIP:EnterPassword",
+  "text": "Prosim, vpišite parol"
+ },
+ {
+  "label": "TOOLTIP:Quickmatch",
+  "text": "Kliknite, aby načeti Bystru Igru. Bystra Igra pokuša sę avtomatski sopostaviti vas s najbližšim urovnjom uměnja i preferencijami"
+ },
+ {
+  "label": "TOOLTIP:GameLobbys",
+  "text": "."
+ },
+ {
+  "label": "TOOLTIP:ClearButton",
+  "text": "Očistiti okno čatovogo teksta"
+ },
+ {
+  "label": "TOOLTIP:Disconnectbutton",
+  "text": "Kliknite, aby sę otključiti ot vašej tekučej igry. Otključenje bude zaračunano v vašu obšču statistiku"
+ },
+ {
+  "label": "TOOLTIP:playersonline",
+  "text": "Spisok igračev trenutno na C&C Generals Zero Hour Online"
+ },
+ {
+  "label": "TOOLTIP:WidenSearch",
+  "text": "Kliknite, aby razširiti kriterije poiska protivnika. Čim specifičnějši sut vaši kriteriji, tym težše je najti protivnika"
+ },
+ {
+  "label": "TOOLTIP:Emote",
+  "text": "."
+ },
+ {
+  "label": "TOOLTIP:JoinGame",
+  "text": "Kliknite, aby vstupiti v izbranu igru"
+ },
+ {
+  "label": "TOOLTIP:BuddyButton",
+  "text": "Sortovati spisok igr po Prijateljah"
+ },
+ {
+  "label": "TOOLTIP:matchingprogress",
+  "text": "Vy možete gledati, kako Bystra Igra iščet vaše najlěpše sopostavjenje. Držite palce!"
+ },
+ {
+  "label": "TOOLTIP:CancelButton",
+  "text": "Kliknite, aby otkazati tekuču operaciju"
+ },
+ {
+  "label": "TOOLTIP:resizewindows",
+  "text": "Kliknite i vlecite vertikalno, aby izměniti veličinu okna Spiska Igr protiv okna Čata"
+ },
+ {
+  "label": "TOOLTIP:CreateGame",
+  "text": "Sozdajte novu igru. Igra bude pokazana v oknu Spiska Igr, aby drugi igrači mogli vstupiti"
+ },
+ {
+  "label": "TOOLTIP:ChatWindow",
+  "text": "Napišite i pritisnite Enter v poljě niže, aby poslati poslanja v to Čatovo okno. Drugi igrači mogu čitati i otgovarati"
+ },
+ {
+  "label": "TOOLTIP:StopSearch",
+  "text": "Prěkinite vaš tekuči poisk"
+ },
+ {
+  "label": "TOOLTIP:StartSearch",
+  "text": "Načeti poisk"
+ },
+ {
+  "label": "TOOLTIP:UnknownGame",
+  "text": "Neznana igra"
+ },
+ {
+  "label": "TOOLTIP:textentrybox",
+  "text": "Napišite i pritisnite Enter v tom poljě, aby poslati poslanja v Čatovo okno vyše"
+ },
+ {
+  "label": "TOOLTIP:PlayersInLobby",
+  "text": "Tekuči igrači v vašem lobiju"
+ },
+ {
+  "label": "TOOLTIP:LocalPlayer",
+  "text": "Tekuči igrač %s"
+ },
+ {
+  "label": "TOOLTIP:BuddyPlayer",
+  "text": "Vaš prijatelj %s"
+ },
+ {
+  "label": "TOOLTIP:ProfiledPlayer",
+  "text": "%s"
+ },
+ {
+  "label": "TOOLTIP:GenericPlayer",
+  "text": "%s"
+ },
+ {
+  "label": "TOOLTIP:IgnoredModifier",
+  "text": "(ignorirovan)"
+ },
+ {
+  "label": "TOOLTIP:PlayerInfo",
+  "text": "\n Region: %s \n %d poběd/%d poraženj"
+ },
+ {
+  "label": "TOOLTIP:GameInfoGameName",
+  "text": "Imę Igry: %s"
+ },
+ {
+  "label": "TOOLTIP:GameInfoLadderName",
+  "text": "\n Rejting: %s"
+ },
+ {
+  "label": "TOOLTIP:LadderName",
+  "text": "Rejting: %s"
+ },
+ {
+  "label": "TOOLTIP:UnknownLadder",
+  "text": "\n Neznany rejting"
+ },
+ {
+  "label": "TOOLTIP:NoLadder",
+  "text": "\n Bez rejtinga"
+ },
+ {
+  "label": "TOOLTIP:InvalidGameVersionSingleLine",
+  "text": "Ta versija igry je drugačija"
+ },
+ {
+  "label": "TOOLTIP:InvalidGameVersion",
+  "text": ""
+ },
+ {
+  "label": "TOOLTIP:GameInfoMap",
+  "text": "\n Karta: %s \n Igrači:"
+ },
+ {
+  "label": "TOOLTIP:GameInfoPlayer",
+  "text": "\n %s (%d/%d)"
+ },
+ {
+  "label": "TOOLTIP:FreeForAll",
+  "text": "Vsi Protiv Vsěh. Komandy/sojuzniki nedozvoljeni"
+ },
+ {
+  "label": "TOOLTIP:ListOfPlayers",
+  "text": "Igrači v tekučej igrě"
+ },
+ {
+  "label": "TOOLTIP:MapName",
+  "text": "Trenutno izbrana karta"
+ },
+ {
+  "label": "TOOLTIP:GameName",
+  "text": "Imę igry"
+ },
+ {
+  "label": "TOOLTIP:StartGame",
+  "text": "Načeti multiigru"
+ },
+ {
+  "label": "TOOLTIP:IgnoreButton",
+  "text": "Ignorirovati igrača"
+ },
+ {
+  "label": "TOOLTIP:closeButton",
+  "text": "."
+ },
+ {
+  "label": "TOOLTIP:GameOptions",
+  "text": "Nastavjenja trenutno vključena v igrě"
+ },
+ {
+  "label": "TOOLTIP:Crates",
+  "text": "Bonusni Jaščiky"
+ },
+ {
+  "label": "TOOLTIP:SuperWeapons",
+  "text": "Superoružja. Česticovo Dělo, Jaderna Raketa, itd"
+ },
+ {
+  "label": "DOZER:ConstructionComplete",
+  "text": "Stroitelstvo Zaveršeno: %s"
+ },
+ {
+  "label": "DOZER:RepairComplete",
+  "text": "Popravka Zaveršena"
+ },
+ {
+  "label": "UPGRADE:UpgradeComplete",
+  "text": "Ulučšenje završeno: %s"
+ },
+ {
+  "label": "GUI:CantBuildRestrictedTerrain",
+  "text": "Terén ne dozvoljaje vam tu stroiti"
+ },
+ {
+  "label": "GUI:CantBuildNotFlatEnough",
+  "text": "Terén nije dosta ravan, aby tu stroiti"
+ },
+ {
+  "label": "GUI:CantBuildObjectsInTheWay",
+  "text": "Vy ne možete tu stroiti, zašto tam sut prepony"
+ },
+ {
+  "label": "GUI:CantBuildNoClearPath",
+  "text": "Jedinica ne može dosěgnuti město stroitelstva"
+ },
+ {
+  "label": "GUI:CantBuildShroud",
+  "text": "Vy morate tam izslěditi prěd stroitelstvom"
+ },
+ {
+  "label": "GUI:CantBuildThere",
+  "text": "Vy ne možete tu stroiti"
+ },
+ {
+  "label": "GUI:RallyPointObjectsInTheWay",
+  "text": "Nevozmožno postaviti sborny punkt, objekt(y) sut na puti do cělja"
+ },
+ {
+  "label": "GUI:RallyPointNoPath",
+  "text": "Nevozmožno postaviti sborny punkt"
+ },
+ {
+  "label": "GUI:RallyPointSet",
+  "text": "Sborny punkt %s postavjen"
+ },
+ {
+  "label": "GUI:MouseType",
+  "text": "Tip Myši"
+ },
+ {
+  "label": "GUI:Com",
+  "text": "EAPIM"
+ },
+ {
+  "label": "GUI:CONTROL",
+  "text": "Kontrola"
+ },
+ {
+  "label": "GUI:INFORMATION",
+  "text": "Informacija"
+ },
+ {
+  "label": "GUI:INTERFACE",
+  "text": "Interfejs"
+ },
+ {
+  "label": "GUI:SELECTION",
+  "text": "Izbor"
+ },
+ {
+  "label": "GUI:TAUNT",
+  "text": "Draženje"
+ },
+ {
+  "label": "GUI:MISC",
+  "text": "Razno"
+ },
+ {
+  "label": "GUI:DEBUG",
+  "text": "Debag"
+ },
+ {
+  "label": "GUI:Cheer",
+  "text": "Proslava"
+ },
+ {
+  "label": "GUI:CheerDescription",
+  "text": "Naznačuje vašim silam slaviti vaše velike dela"
+ },
+ {
+  "label": "GUI:Deploy",
+  "text": "Razvernuti Objekt"
+ },
+ {
+  "label": "GUI:DeployDescription",
+  "text": "Razvernite izbrany(-e) objekt(y)"
+ },
+ {
+  "label": "GUI:Guard",
+  "text": "Straža"
+ },
+ {
+  "label": "GUI:GuardDescription",
+  "text": "Postavja izbrany(-e) objekt(y) v režim 'straža oblasti'"
+ },
+ {
+  "label": "GUI:CreateFormation",
+  "text": "Sozdati Formaciju"
+ },
+ {
+  "label": "GUI:Follow",
+  "text": "Slěditi"
+ },
+ {
+  "label": "GUI:FollowDescription",
+  "text": "Prěključi stan slěděnja izbranyh objektov"
+ },
+ {
+  "label": "GUI:ToggleControlBar",
+  "text": "Prěključi Panel Kontroly"
+ },
+ {
+  "label": "GUI:ToggleControlBarDescription",
+  "text": "Vključuje/vyključuje Panel Kontroly v igrě"
+ },
+ {
+  "label": "GUI:ToggleLetterbox",
+  "text": "Prěključi Kino-Format"
+ },
+ {
+  "label": "GUI:ToggleLetterboxDescription",
+  "text": "Vključuje/vyključuje Kino-Format"
+ }
+]

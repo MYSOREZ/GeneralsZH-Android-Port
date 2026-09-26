@@ -1,0 +1,802 @@
+[
+ {
+  "label": "GUI:ChooseLadder",
+  "text": "IZBERI REJTING"
+ },
+ {
+  "label": "GUI:UnknownLadder",
+  "text": "Neznany Rejting"
+ },
+ {
+  "label": "GUI:WOLLogin",
+  "text": "VHOD V GENERALS ONLINE"
+ },
+ {
+  "label": "GUI:PleaseEnterWOLInfo",
+  "text": "Prosim, vpišite informacije"
+ },
+ {
+  "label": "GUI:Username",
+  "text": "Nadimok"
+ },
+ {
+  "label": "GUI:Server",
+  "text": "Server"
+ },
+ {
+  "label": "GUI:RememberPassword",
+  "text": "Zapomniti moj Parol"
+ },
+ {
+  "label": "GUI:CreateAccount",
+  "text": "SOZDATI AKAUNT"
+ },
+ {
+  "label": "GUI:TryAgain",
+  "text": "Probovati Snova"
+ },
+ {
+  "label": "GUI:NetworkOptions",
+  "text": "NASTAVJENJA SĚTI"
+ },
+ {
+  "label": "GUI:GammaAdjustment",
+  "text": "Světlost"
+ },
+ {
+  "label": "GUI:HelpDescription",
+  "text": "Pokazati dialog pomoči"
+ },
+ {
+  "label": "GUI:ReturnToGame",
+  "text": "VRATITI SĘ V IGRU"
+ },
+ {
+  "label": "GUI:NewGame",
+  "text": "Nova Igra"
+ },
+ {
+  "label": "GUI:RestartGame",
+  "text": "RESTARTOVATI IGRU"
+ },
+ {
+  "label": "GUI:MatchingProgress",
+  "text": "Napredok Bystroj Igry"
+ },
+ {
+  "label": "GUI:Player'sName",
+  "text": "Imę Protivnika"
+ },
+ {
+  "label": "GUI:AllTimeWins",
+  "text": "Vsegdašnje Pobědy"
+ },
+ {
+  "label": "GUI:AllTimeLosses",
+  "text": "Vsegdašnja Poraženja"
+ },
+ {
+  "label": "GUI:AllTimePoints",
+  "text": "Vsegdašnje Točky Ranga"
+ },
+ {
+  "label": "GUI:AllTimeDisconnects",
+  "text": "Vsegdašnja Otključenja"
+ },
+ {
+  "label": "GUI:HighestRank",
+  "text": "Vsegdašnji Najvyšy Rang"
+ },
+ {
+  "label": "GUI:Honor",
+  "text": "Bojeve Časti"
+ },
+ {
+  "label": "GUI:LastUpdated",
+  "text": "Profil Igrača Poslědnjo Obnovljen"
+ },
+ {
+  "label": "GUI:WOLIconKey",
+  "text": "Ključ Ikon"
+ },
+ {
+  "label": "GUI:MyInfo",
+  "text": "MOJA PERSONA"
+ },
+ {
+  "label": "GUI:Buddies",
+  "text": "KOMUNIKATOR"
+ },
+ {
+  "label": "GUI:Community",
+  "text": "Dnevny Procent Poběd Armije"
+ },
+ {
+  "label": "GUI:SortAlpha",
+  "text": "Imę"
+ },
+ {
+  "label": "GUI:SortPing",
+  "text": "Sojedinjenje"
+ },
+ {
+  "label": "GUI:SortBuddies",
+  "text": "Prijatelji"
+ },
+ {
+  "label": "GUI:GSRank0",
+  "text": "Rjadovy"
+ },
+ {
+  "label": "GUI:GSRank1",
+  "text": "Kapral"
+ },
+ {
+  "label": "GUI:GSRank2",
+  "text": "Seržant"
+ },
+ {
+  "label": "GUI:GSRank3",
+  "text": "Lejtenant"
+ },
+ {
+  "label": "GUI:GSRank4",
+  "text": "Kapitan"
+ },
+ {
+  "label": "GUI:GSRank5",
+  "text": "Major"
+ },
+ {
+  "label": "GUI:GSRank6",
+  "text": "Polkovnik"
+ },
+ {
+  "label": "GUI:GSRank7",
+  "text": "Brigadny General"
+ },
+ {
+  "label": "GUI:GSRank8",
+  "text": "General"
+ },
+ {
+  "label": "GUI:GSRank9",
+  "text": "Vrhovny Komandujuči"
+ },
+ {
+  "label": "GUI:GSErrorTitle",
+  "text": "Izvěščenje"
+ },
+ {
+  "label": "GUI:GSDisconnected",
+  "text": "Vy ste otključeni ot čatovogo servera"
+ },
+ {
+  "label": "GUI:GSDisconReason1",
+  "text": "Tot nadimok je već zauzet. Prosim, izberite drugi"
+ },
+ {
+  "label": "GUI:GSDisconReason2",
+  "text": "Tot nadimok je nevalidan. Prosim, izberite drugi"
+ },
+ {
+  "label": "GUI:GSDisconReason3",
+  "text": "Sojedinjenje s C&C Generals Zero Hour Online izgubjeno"
+ },
+ {
+  "label": "GUI:GSDisconReason4",
+  "text": "Ne mogl sę sojediniti s C&C Generals Zero Hour Online"
+ },
+ {
+  "label": "GUI:GSDisconReason5",
+  "text": "Proces vhoda prěvyšil vrěmja. Prosim, prověrite vaše internetsko sojedinjenje"
+ },
+ {
+  "label": "GUI:GSDisconReason6",
+  "text": "Ta kombinacija nadimka/emaila ne postoji. Ako hočete sozdati akaunt, kliknite na Sozdati Akaunt"
+ },
+ {
+  "label": "GUI:GSDisconReason7",
+  "text": "Tot email je nevalidan"
+ },
+ {
+  "label": "GUI:GSDisconReason8",
+  "text": "Tot parol je nepravilny. Prosim, probujte znova"
+ },
+ {
+  "label": "GUI:GSDisconReason9",
+  "text": "Neispravny profil"
+ },
+ {
+  "label": "GUI:GSDisconReason10",
+  "text": "Profil je odstranjen"
+ },
+ {
+  "label": "GUI:GSDisconReason11",
+  "text": "Sojedinjenje s serverom prijateljev je otklonjeno"
+ },
+ {
+  "label": "GUI:GSDisconReason12",
+  "text": "Avtorizacija na serveru prijateljev ne uspěla"
+ },
+ {
+  "label": "GUI:GSDisconReason13",
+  "text": "Serijny nomer je nevalidan. Prosim, probujte drugi"
+ },
+ {
+  "label": "GUI:GSDisconReason14",
+  "text": "Registr je povrěžden i byl izměnjen"
+ },
+ {
+  "label": "GUI:GSDisconReason15",
+  "text": "Serijny nomer je banovan"
+ },
+ {
+  "label": "GUI:GSGroupRoomJoinFail",
+  "text": "Ne uspělo vstupiti v čatovu sobu"
+ },
+ {
+  "label": "GUI:JoinFailedRoomFull",
+  "text": "Ne uspělo vstupiti - soba je polna"
+ },
+ {
+  "label": "GUI:JoinFailedInviteOnly",
+  "text": "Ne uspělo vstupiti - soba je samo po pozvanju"
+ },
+ {
+  "label": "GUI:JoinFailedBannedFromRoom",
+  "text": "Ne uspělo vstupiti - vy ste banovani iz soby"
+ },
+ {
+  "label": "GUI:JoinFailedBadPassword",
+  "text": "Ne uspělo vstupiti - nepravilny parol"
+ },
+ {
+  "label": "GUI:JoinFailedAlreadyInRoom",
+  "text": "Ne uspělo vstupiti - vy ste već v sobě"
+ },
+ {
+  "label": "GUI:JoinFailedNoConnection",
+  "text": "Ne uspělo vstupiti - nema sojedinjenja s čatovym serverom"
+ },
+ {
+  "label": "GUI:JoinFailedCRCMismatch",
+  "text": "Ne uspělo vstupiti - igra ima drugu versiju"
+ },
+ {
+  "label": "GUI:JoinFailedUnknownLadder",
+  "text": "Ne uspělo vstupiti - igra upotrěbjaje neznany rejting"
+ },
+ {
+  "label": "GUI:JoinFailedDefault",
+  "text": "NE USPĚLO VSTUPITI V SOBU"
+ },
+ {
+  "label": "GUI:GSKicked",
+  "text": "Vy ste byli izgnani iz soby"
+ },
+ {
+  "label": "GUI:NATNegotiationFailed",
+  "text": "Nevozmožno sojediniti sę s drugimi igračami"
+ },
+ {
+  "label": "GUI:GPErrorTitle",
+  "text": "POGREŠKA PRIJATELJA"
+ },
+ {
+  "label": "GUI:GPDisconnected",
+  "text": "Vy ste otključeni ot servera prijateljev. Hočete li sę znova sojediniti?"
+ },
+ {
+  "label": "GUI:GPNoProfile",
+  "text": "Vy ste ne vošli s Profilom. Informacije o Prijateljah nedostupne"
+ },
+ {
+  "label": "GUI:PSErrorTitle",
+  "text": "POGREŠKA TRVALOGO SKLADIŠČA"
+ },
+ {
+  "label": "GUI:PSCannotConnect",
+  "text": "Ne mogl sę sojediniti s serverom trvalogo skladišča"
+ },
+ {
+  "label": "Buddy:Offline",
+  "text": "Oflajn"
+ },
+ {
+  "label": "Buddy:Online",
+  "text": "Onlajn"
+ },
+ {
+  "label": "Buddy:Chatting",
+  "text": "Čatuje v %ls"
+ },
+ {
+  "label": "Buddy:Staging",
+  "text": "Připravljaje sę v %ls"
+ },
+ {
+  "label": "Buddy:Loading",
+  "text": "Nagružaje v %ls"
+ },
+ {
+  "label": "Buddy:Playing",
+  "text": "Igraje v %ls"
+ },
+ {
+  "label": "Buddy:Matching",
+  "text": "Bystro Sopostavljaje"
+ },
+ {
+  "label": "Buddy:OnlineNotification",
+  "text": "%hs je teper onlajn"
+ },
+ {
+  "label": "Buddy:OfflineNotification",
+  "text": "%hs je teper oflajn"
+ },
+ {
+  "label": "Buddy:AddNotification",
+  "text": "Zaprošenje za dodanje prijatelja ot %hs"
+ },
+ {
+  "label": "Buddy:MessageNotification",
+  "text": "%hs govori: \n '%s...'"
+ },
+ {
+  "label": "GUI:Com/Tac",
+  "text": "Kom/Tak"
+ },
+ {
+  "label": "GUI:MoneySymbol",
+  "text": "$"
+ },
+ {
+  "label": "GUI:$$$",
+  "text": "$$$"
+ },
+ {
+  "label": "GUI:OverchargeExhausted",
+  "text": "Přeteženje iscrpjeno"
+ },
+ {
+  "label": "GUI:NotEnoughMoneyToBuild",
+  "text": "Vy nemate dosta novca, aby to postroili"
+ },
+ {
+  "label": "GUI:NotEnoughMoneyToUpgrade",
+  "text": "Vy nemate dosta novca, aby napravili ulučšenje"
+ },
+ {
+  "label": "GUI:Level",
+  "text": "Uroveń"
+ },
+ {
+  "label": "GUI:Tac",
+  "text": "Tak"
+ },
+ {
+  "label": "GUI:Strat",
+  "text": "Strat"
+ },
+ {
+  "label": "GUI:Struct",
+  "text": "Zgr."
+ },
+ {
+  "label": "GUI:Waypt",
+  "text": "Toč."
+ },
+ {
+  "label": "GUI:WOLStatus",
+  "text": "Status C&C Generals Zero Hour Online"
+ },
+ {
+  "label": "GUI:AIDifficulty",
+  "text": "Složnost Kompjutera"
+ },
+ {
+  "label": "GUI:EasyAI",
+  "text": "Lahka Armija"
+ },
+ {
+  "label": "GUI:MediumAI",
+  "text": "Srědnja Armija"
+ },
+ {
+  "label": "GUI:HardAI",
+  "text": "Težka Armija"
+ },
+ {
+  "label": "GUI:Hide",
+  "text": "NAZAD"
+ },
+ {
+  "label": "GUI:Pause",
+  "text": "Pauza"
+ },
+ {
+  "label": "GUI:NextFrame",
+  "text": "Slědujuči Kadr"
+ },
+ {
+  "label": "GUI:ReplayMenu",
+  "text": "NAGRUZI"
+ },
+ {
+  "label": "GUI:AntiAliasing",
+  "text": "Anti-Aliasing"
+ },
+ {
+  "label": "GUI:ScreenCapture",
+  "text": "Ekran Zahvačen v '%s'"
+ },
+ {
+  "label": "GUI:ScreenshotCapture",
+  "text": "Zahvat Ekrana"
+ },
+ {
+  "label": "GUI:ScreenshotCaptureDescription",
+  "text": "Napravi snimok ekrana igry"
+ },
+ {
+  "label": "GUI:Null",
+  "text": "."
+ },
+ {
+  "label": "GUI:CRCMismatch",
+  "text": "Igra otkryla nesootvětstvje. To značit, že multiigra izgubila dany synhronizacije mezdu igračami"
+ },
+ {
+  "label": "GUI:CurrentHotkey",
+  "text": "Tekuča Hotkey"
+ },
+ {
+  "label": "GUI:AssignNewHotkey",
+  "text": "Naznačiti Novu Hotkey"
+ },
+ {
+  "label": "GUI:CurrentlyAssignedTo",
+  "text": "Trenutno Naznačeno Na"
+ },
+ {
+  "label": "GUI:Reset",
+  "text": "Sbrositi"
+ },
+ {
+  "label": "QM:JOININGQMCHANNEL",
+  "text": "Vstupjenje v Bystru Igru..."
+ },
+ {
+  "label": "QM:WORKING",
+  "text": "Trenutno %d igračev pokušaje sę sopostaviti..."
+ },
+ {
+  "label": "QM:POOLSIZE",
+  "text": "Trenutno %d igračev pokušaje sę sopostaviti..."
+ },
+ {
+  "label": "QM:LOOKINGFORBOT",
+  "text": "Iskanje Sopostavitelja C&C Generals Zero Hour Online..."
+ },
+ {
+  "label": "QM:SENTINFO",
+  "text": "Informacije o igrě sut poslane..."
+ },
+ {
+  "label": "QM:WIDENINGSEARCH",
+  "text": "Razširjenje poiska protivnikov najbližših vašim preferencijam..."
+ },
+ {
+  "label": "QM:MATCHED",
+  "text": "Otlično, sopostavjenje najdeno..."
+ },
+ {
+  "label": "QM:INCHANNEL",
+  "text": "V kanalu..."
+ },
+ {
+  "label": "QM:NEGOTIATINGFIREWALLS",
+  "text": "Peregovory s firewallami..."
+ },
+ {
+  "label": "QM:STARTINGGAME",
+  "text": "Načinjenje igry..."
+ },
+ {
+  "label": "QM:COULDNOTFINDBOT",
+  "text": "Sopostavitelj ne najden"
+ },
+ {
+  "label": "QM:COULDNOTFINDCHANNEL",
+  "text": "Kanal Bystroj Igry ne najden"
+ },
+ {
+  "label": "QM:COULDNOTNEGOTIATEFIREWALLS",
+  "text": "Ne uspělo dogovoriti sę s firewallami"
+ },
+ {
+  "label": "QM:STOPPED",
+  "text": "Bystra Igra prěkinjena"
+ },
+ {
+  "label": "QM:WaitingForPlayerToJoin",
+  "text": "Čekanje na vstup protivnika"
+ },
+ {
+  "label": "QM:FindingGameChannel",
+  "text": "Iskanje igry protivnika"
+ },
+ {
+  "label": "QM:JoinedGameChannel",
+  "text": "Vstupjeno v igru protivnika"
+ },
+ {
+  "label": "QM:PlayerJoined",
+  "text": "Protivnik vstupil"
+ },
+ {
+  "label": "QM:LookingForMatchChannel",
+  "text": "Iskanje kanala Bystroj Igry"
+ },
+ {
+  "label": "QM:NoMatchChannel",
+  "text": "Kanal Bystroj Igry ne najden"
+ },
+ {
+  "label": "QM:JoinedMatchChannel",
+  "text": "Vstupjeno v kanal Bystroj Igry"
+ },
+ {
+  "label": "QM:NoMatchingBot",
+  "text": "Sopostavitelj ne najden"
+ },
+ {
+  "label": "QM:GameNotFound",
+  "text": "Bystra Igra ne mogla najti igru vašego protivnika"
+ },
+ {
+  "label": "QM:TimeoutOtherPlayer",
+  "text": "Bystra Igra prěvyšila vrěmja čekajuči na vstup protivnika v igru"
+ },
+ {
+  "label": "Version:Format4",
+  "text": "%d.%02d.%d Sborka %d %c%c"
+ },
+ {
+  "label": "Version:Format3",
+  "text": "Versija %d.%02d.%d"
+ },
+ {
+  "label": "Version:Format2",
+  "text": "Versija %d.%02d"
+ },
+ {
+  "label": "Version:BuildTime",
+  "text": "%ls %ls"
+ },
+ {
+  "label": "Version:BuildMachine",
+  "text": "Mašina Sborky: %ls"
+ },
+ {
+  "label": "Version:BuildUser",
+  "text": "Ot %ls"
+ },
+ {
+  "label": "GUI:SuperweaponDaisyCutter",
+  "text": "Vakuumna Bomba"
+ },
+ {
+  "label": "GUI:SuperweaponParadropAmerica",
+  "text": "Parašutny Desant"
+ },
+ {
+  "label": "GUI:SuperweaponClusterMines",
+  "text": "Kasetne Miny"
+ },
+ {
+  "label": "GUI:SuperweaponEMPPulse",
+  "text": "EMP Impuls"
+ },
+ {
+  "label": "GUI:SuperweaponA10ThunderboltMissileStrike",
+  "text": "Udar A10"
+ },
+ {
+  "label": "GUI:SuperweaponCrateDrop",
+  "text": "Sbros Jaščika"
+ },
+ {
+  "label": "GUI:SuperweaponCarpetBomb",
+  "text": "Kovrova Bomba"
+ },
+ {
+  "label": "GUI:SuperweaponNapalmStrike",
+  "text": "Napalmovy Udar"
+ },
+ {
+  "label": "GUI:SuperweaponCashHack",
+  "text": "Hakovanje Kasy"
+ },
+ {
+  "label": "GUI:SuperweaponNeutronMissile",
+  "text": "Jaderna Raketa"
+ },
+ {
+  "label": "GUI:SuperweaponScudStorm",
+  "text": "Burja SCUD"
+ },
+ {
+  "label": "GUI:SuperweaponTerrorCell",
+  "text": "Terorna Jačejka"
+ },
+ {
+  "label": "GUI:SuperweaponRebelAmbush",
+  "text": "Zasada Povstancev"
+ },
+ {
+  "label": "GUI:SuperweaponBlackMarketNuke",
+  "text": "Jaderka s Črnogo Rynka"
+ },
+ {
+  "label": "GUI:SuperweaponAnthraxBomb",
+  "text": "Antraksova Bomba"
+ },
+ {
+  "label": "GUI:SuperweaponDemoralize",
+  "text": "Demoralizacija"
+ },
+ {
+  "label": "GUI:SpecialAbilityGuidedMissiles",
+  "text": "Lazerno Navoděna Raketa"
+ },
+ {
+  "label": "GUI:SpecialAbilityDetonateCharges",
+  "text": "Detonacija Nabojev"
+ },
+ {
+  "label": "GUI:SuperweaponParticleUplinkCannon",
+  "text": "Česticovo Dělo"
+ },
+ {
+  "label": "GUI:PatchAvailable",
+  "text": "DOSTUPNO OBNOVLENJE"
+ },
+ {
+  "label": "GUI:MustPatchForOnline",
+  "text": "Vy morate skačati Obnovlenje, aby igrati C&C Generals Zero Hour Online"
+ },
+ {
+  "label": "GUI:CanPatchForOnline",
+  "text": "Hočete li skačati Obnovlenje?"
+ },
+ {
+  "label": "GUI:CheckingForPatches",
+  "text": "Prověrjenje Obnovlenj"
+ },
+ {
+  "label": "GUI:DownloadErrorTitle",
+  "text": "POGREŠKA SKAČANJA"
+ },
+ {
+  "label": "GUI:DownloadSuccessTitle",
+  "text": "SKAČANJE USPĚŠNO"
+ },
+ {
+  "label": "GUI:DownloadSuccess",
+  "text": "Skačanje zaveršeno bez pogrešok"
+ },
+ {
+  "label": "GUI:DownloadSuccessMustQuit",
+  "text": "Kliknite OK, aby izhoditi iz Command & Conquer Generals Zero Hour i primeniti Obnovlenje"
+ },
+ {
+  "label": "GUI:DownloadBytesRatio",
+  "text": "%d / %d bajtov"
+ },
+ {
+  "label": "GUI:DownloadTimeLeft",
+  "text": "%d:%02d:%02d ostaje"
+ },
+ {
+  "label": "GUI:DownloadUnknownTime",
+  "text": "???"
+ },
+ {
+  "label": "FTP:StatusIdle",
+  "text": "Nedělajuči"
+ },
+ {
+  "label": "FTP:UnknownError",
+  "text": "Neznana Pogreška"
+ },
+ {
+  "label": "FTP:NoSuchServer",
+  "text": "Nema Takogo Servera"
+ },
+ {
+  "label": "FTP:CouldNotConnect",
+  "text": "Ne Mogl sę Sojediniti"
+ },
+ {
+  "label": "FTP:LoginFailed",
+  "text": "Vhod ne Uspěl"
+ },
+ {
+  "label": "FTP:NoSuchFile",
+  "text": "Nema Takogo Fajla"
+ },
+ {
+  "label": "FTP:LocalFileOpenFailed",
+  "text": "Otvorjenje Lokalnogo Fajla ne Uspělo"
+ },
+ {
+  "label": "FTP:TCPError",
+  "text": "TCP Pogreška"
+ },
+ {
+  "label": "FTP:DisconnectError",
+  "text": "Pogreška Otključenja"
+ },
+ {
+  "label": "FTP:StatusConnecting",
+  "text": "Sojedinjuje sę"
+ },
+ {
+  "label": "FTP:StatusLoggingIn",
+  "text": "Vhoditi"
+ },
+ {
+  "label": "FTP:StatusFindingFile",
+  "text": "Iskanje Fajla"
+ },
+ {
+  "label": "FTP:StatusQueryingResume",
+  "text": "Zapytuje o Prodolženju Skačanja"
+ },
+ {
+  "label": "FTP:StatusDownloading",
+  "text": "Skačaje"
+ },
+ {
+  "label": "FTP:StatusDisconnecting",
+  "text": "Otključuje sę"
+ },
+ {
+  "label": "FTP:StatusFinishing",
+  "text": "Zaveršuje"
+ },
+ {
+  "label": "FTP:StatusDone",
+  "text": "Gotovo"
+ },
+ {
+  "label": "FTP:StatusNone",
+  "text": "Ničto"
+ },
+ {
+  "label": "WOL:InternalError",
+  "text": "Vnutrěnja Pogreška C&C Generals Zero Hour Online"
+ },
+ {
+  "label": "WOL:ServerBan",
+  "text": "Izvinite, vy ste banovani iz C&C Generals Zero Hour Online. Prosim, pregledajte Uslovja Služby"
+ },
+ {
+  "label": "WOL:DisconnectedError",
+  "text": "Izvinite, vy ste banovani iz C&C Generals Zero Hour Online. Prosim, pregledajte Uslovja Služby"
+ },
+ {
+  "label": "WOL:NoServers",
+  "text": "C&C Generals Zero Hour Online ne najden"
+ },
+ {
+  "label": "WOL:LoginTimeout",
+  "text": "Vrěmja isteklo čekajuči na vstup v C&C Generals Zero Hour Online"
+ },
+ {
+  "label": "WOL:NoMatchChannel",
+  "text": "Kanal sopostavjenja ne najden"
+ }
+]
