@@ -1,0 +1,802 @@
+[
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi002Subtitle",
+  "text": "*O tigre está pronto para dar o bote, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi003Subtitle",
+  "text": "*Pela China! Ataquem!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi004Subtitle",
+  "text": "*Minhas forças estão prontas para atacar suas defesas, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi005Subtitle",
+  "text": "*Sinta os passos pesados do meu dragão de ferro!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi006Subtitle",
+  "text": "*Suas defesas não valem nada contra minhas forças"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi007Subtitle",
+  "text": "*Agora nos encontramos no campo de honra, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi008Subtitle",
+  "text": "*Fazemos isto pelo bem da China"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi009Subtitle",
+  "text": "*Hora de testar a sua têmpera, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi010Subtitle",
+  "text": "*Você me atacou pela última vez, General. Esta onda vai romper suas defesas e reduzir seu exército lamentável a pó!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi011Subtitle",
+  "text": "*O poderio da China cai sobre você"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi012Subtitle",
+  "text": "*Suas forças inferiores não serão nenhum desafio para meus guerreiros"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi013Subtitle",
+  "text": "*Você começou esta luta, General. Eu vou terminá-la"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi014Subtitle",
+  "text": "*Ataquem o tolo! Sem prisioneiros!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi015Subtitle",
+  "text": "*Dois guerreiros se encontram no campo de batalha. Quem pode dizer quem vencerá? Eu posso. Eu mesma. Você vai cair, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi016Subtitle",
+  "text": "*Uma luta que não pode ser vencida não vale a pena ser travada. Então, por que você está aqui, General?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi017Subtitle",
+  "text": "*A raiva só leva você até certo ponto, General. Agora, raiva e uma coluna de tanques... isso sim leva você a algum lugar"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi018Subtitle",
+  "text": "*Você está com a corda no pescoço, General. E só agora descobriu que a corda está pegando fogo"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi019Subtitle",
+  "text": "*A dança da batalha é estranha e breve... e esta batalha com você foi estranhamente breve"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi020Subtitle",
+  "text": "*Vejo que você não pensou bem na sua estratégia. Que pena"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi021Subtitle",
+  "text": "*Essa é uma estratégia perdedora, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi022Subtitle",
+  "text": "*Você não está agindo pelo bem do seu povo, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi023Subtitle",
+  "text": "*Vou lhe dar um momento para pensar no seu próximo movimento"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi024Subtitle",
+  "text": "*Um sábio sabe quando recuar. Obviamente, você não é esse homem"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi025Subtitle",
+  "text": "*No fim, todos caem diante de mim"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi026Subtitle",
+  "text": "*Você não pode resistir ao meu poderio"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi027Subtitle",
+  "text": "*A China não pode ser derrotada por um só homem"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi028Subtitle",
+  "text": "*Vamos meditar e considerar nosso próximo movimento"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi029Subtitle",
+  "text": "*Não se comprometa com uma tática que você não pode sustentar"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi030Subtitle",
+  "text": "*Suicídio não é tática, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi031Subtitle",
+  "text": "*Varremos seus prédios como bambu diante de um furacão"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi032Subtitle",
+  "text": "*Seus homens fugiram do Quartel enquanto o derrubávamos"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi033Subtitle",
+  "text": "*Uma fábrica não pode produzir a guerra, General... e agora sua Fábrica de Guerra não produz nada"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi034Subtitle",
+  "text": "*Sua Base Aérea não decola mais, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi035Subtitle",
+  "text": "*As defesas da sua base caem diante de nós como folhas de grama"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi036Subtitle",
+  "text": "*Destruímos seu Centro de Comando. Onde você está se escondendo agora, General?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi037Subtitle",
+  "text": "*Tantos prédios seus caíram que eu esperava que você já tivesse se rendido"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi038Subtitle",
+  "text": "*Não pense que pode destruir meu Quartel sem sentir a minha ira, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi039Subtitle",
+  "text": "*Agora vou ter de reconstruir aquela Fábrica de Guerra. Seria sensato aproveitar minha fraqueza momentânea... ela não vai durar"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi040Subtitle",
+  "text": "*Escavadeiras: reconstruam a Base Aérea antes que nossos MiGs voltem!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi041Subtitle",
+  "text": "*Nossas defesas estão rachando! Repilam os invasores!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi042Subtitle",
+  "text": "*Já chega de destruição, General. Agora é a minha vez"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi043Subtitle",
+  "text": "*Você pode tomar meu Centro de Comando, mas esta batalha não acabou, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi044Subtitle",
+  "text": "*Vamos vingar todos os MiGs que você destruiu, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi045Subtitle",
+  "text": "*O preço desta guerra é alto demais, General. Agora é a sua vez de pagar"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi046Subtitle",
+  "text": "*A infantaria da China é numerosa, mas muitos foram sacrificados. Agora vou devolver sua crueldade multiplicada por dez"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi047Subtitle",
+  "text": "*Capture todo o petróleo que quiser... você não terá tempo de colher os frutos"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi048Subtitle",
+  "text": "*Essa Plataforma de Artilharia pode ser facilmente evitada, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi049Subtitle",
+  "text": "*Quer aumentar sua eficiência com essa Refinaria de Petróleo, General? Uma estratégia sólida teria sido mais útil"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi050Subtitle",
+  "text": "*Algo se move na borda da minha base"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi051Subtitle",
+  "text": "*Vejo que você está se aproximando da minha base, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi052Subtitle",
+  "text": "*Você não vai viver para se arrepender de entrar na minha base, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi053Subtitle",
+  "text": "*Suas forças podem entrar na minha base, mas nunca mais sairão"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi054Subtitle",
+  "text": "*Esses recursos estão sob a minha proteção, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi055Subtitle",
+  "text": "*Por que você insiste em atacar pelos flancos?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi056Subtitle",
+  "text": "*Ataque interessante, General, mas não terá sucesso contra mim"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi057Subtitle",
+  "text": "*Um ataque corajoso, General, mas a coragem sozinha não vai me derrotar"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi058Subtitle",
+  "text": "*Essa é uma tática de tolo, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi059Subtitle",
+  "text": "*Saia daqui antes que eu me irrite"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi060Subtitle",
+  "text": "*Estou vendo o que você está fazendo, General. Não vou permitir"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi061Subtitle",
+  "text": "*Fuja daqui, General, antes que eu solte a horda sobre você"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi062Subtitle",
+  "text": "*Estamos nos aproximando da sua base, General. Qual é a sua defesa?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi063Subtitle",
+  "text": "*Está preparado para nosso ataque, General? Veremos"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi064Subtitle",
+  "text": "*Suas defesas são insuficientes, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi065Subtitle",
+  "text": "*Agora vamos começar a arrasar sua base, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi066Subtitle",
+  "text": "*Seus recursos logo serão meus"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi067Subtitle",
+  "text": "*Reivindico esta Torre de Petróleo para a China"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi068Subtitle",
+  "text": "*Seus flancos estão expostos, General. Erro fatal"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi069Subtitle",
+  "text": "*Você deixou minhas forças furarem suas defesas. Agora vamos acabar com você"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi070Subtitle",
+  "text": "*Você deixou sua energia cair, General. Reze para que não seja um erro fatal"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi071Subtitle",
+  "text": "*Sem energia, você não vai conseguir defender sua base, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi072Subtitle",
+  "text": "*Você esgotou seus recursos, General. É hora de admitir a derrota"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi073Subtitle",
+  "text": "*Você drenou meus recursos, General. Agora vou buscar os seus"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi074Subtitle",
+  "text": "*A Tempestade SCUD é uma arma covarde, General. Eu esperava mais de você"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi075Subtitle",
+  "text": "*Você está me obrigando a responder com um silo nuclear meu, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi076Subtitle",
+  "text": "*Esse Canhão de Partículas é uma arma formidável, mas não pode deter a China"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi077Subtitle",
+  "text": "*Quantas defesas... Vejo que você tem o devido respeito pelo inimigo"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi078Subtitle",
+  "text": "*Você não consegue construir mais tanques que a China, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi079Subtitle",
+  "text": "*Vamos igualar seus aviões no ar, General. Sua superioridade só vai existir na sua cabeça"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi080Subtitle",
+  "text": "*Seus homens estão em desvantagem numérica, General. Não tente formar uma horda maior que a da China"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi081Subtitle",
+  "text": "*Sua base está crescendo, General... no ponto para um ataque nuclear"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi082Subtitle",
+  "text": "*Guarda Vermelha, dispersar! Mísseis SCUD a caminho!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi083Subtitle",
+  "text": "*Somos imunes aos seus mísseis nucleares, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi084Subtitle",
+  "text": "*Não! Seu raio de partículas só vai nos ferir... não vamos esquecer isso, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi085Subtitle",
+  "text": "*Esconda-se nesses prédios, General. Talvez um Tanque Dragão vá lhe fazer uma visita"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi086Subtitle",
+  "text": "*As façanhas do Coronel Burton são lendárias, mas ele é só um homem, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi087Subtitle",
+  "text": "*Vejo que você corrompeu uma de nossas agentes Lótus Negra. O treinamento dela não vai virar a batalha a seu favor, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi088Subtitle",
+  "text": "*O atirador Kell entra na nossa batalha. Não conte com a furtividade dele para salvar você, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi089Subtitle",
+  "text": "*É tolice construir uma Base Aérea, General. Só tanques podem salvar você de mim"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi090Subtitle",
+  "text": "*Você foi sensato em construir uma Fábrica de Guerra, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi091Subtitle",
+  "text": "*Esse Quartel é só o começo do que você vai precisar para me derrotar, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi092Subtitle",
+  "text": "*Se você vai vender seus prédios, por que se dá ao trabalho de construí-los?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi093Subtitle",
+  "text": "*Você não vai me derrotar tão facilmente, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi094Subtitle",
+  "text": "*Sua vantagem não vai durar"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi095Subtitle",
+  "text": "*Não serei derrotada por alguém como você, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi096Subtitle",
+  "text": "*Este não é o fim, General. Vou me recuperar"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi097Subtitle",
+  "text": "*Preciso reconhecer esta derrota. Você demonstrou táticas superiores, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi098Subtitle",
+  "text": "*Minhas táticas superiores estão levando você à derrota, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi099Subtitle",
+  "text": "*Você está perdendo esta batalha, General. Melhor aceitar a derrota com honra do que continuar lutando"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi100Subtitle",
+  "text": "*Seu fim está se aproximando, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi101Subtitle",
+  "text": "*Por que você resiste ao inevitável, General?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi102Subtitle",
+  "text": "*A sombra do dragão anuncia o início da sua derrota, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi103Subtitle",
+  "text": "*É hora de aceitar sua derrota, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi104Subtitle",
+  "text": "*É hora de o dragão se erguer novamente"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi105Subtitle",
+  "text": "*Não há vergonha em aceitar sua fraqueza"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi106Subtitle",
+  "text": "*Você não está pronto para me enfrentar. Volte quando seu treinamento estiver completo"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi107Subtitle",
+  "text": "*Por que você corre para a própria ruína?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi108Subtitle",
+  "text": "*Foi uma disputa interessante. Talvez você volte a me desafiar"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi109Subtitle",
+  "text": "*Aprimore suas habilidades e desafie-me de novo"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi110Subtitle",
+  "text": "*Bem-vindo, General. Espero que esteja preparado para me enfrentar"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi111Subtitle",
+  "text": "*Suas vitórias falam bem da sua capacidade, mas meus generais não tinham a minha astúcia nem a minha experiência"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi112Subtitle",
+  "text": "*Logo você vai ver o que é enfrentar o dragão"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA001Subtitle",
+  "text": "*A maioria dos inimigos teria fugido ao ver meus exércitos. Talvez isto valha a pena, afinal"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA002Subtitle",
+  "text": "*Minhas forças caem sobre você como o vento, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA003Subtitle",
+  "text": "*Seus homens são como ovelhas diante dos meus guerreiros"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA004Subtitle",
+  "text": "*Olhe só todos os brinquedos lindos que você me trouxe. Quando criança, eu quebrava todos os meus brinquedos, General, e agora vou quebrar os seus"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA005Subtitle",
+  "text": "*Suas forças caem como trigo diante da minha espada"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA006Subtitle",
+  "text": "*Você se saiu bem contra meus generais, mas eu tenho o poder de todos eles juntos. O que você vai fazer contra isso, General?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA007Subtitle",
+  "text": "*Você nem vai ver minhas forças, General... até que seja tarde demais"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA008Subtitle",
+  "text": "*Vamos varrer você das nossas terras, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA009Subtitle",
+  "text": "*Agora você vai ver o que sua invasão inútil lhe trouxe, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA010Subtitle",
+  "text": "*Você ousou me desafiar... agora vai colher a terrível recompensa"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA011Subtitle",
+  "text": "*Como você se sente, General, com os cavaleiros chegando à sua porta?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA012Subtitle",
+  "text": "*Você teve sua chance de recuar; agora vamos aniquilar você"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA013Subtitle",
+  "text": "*Testemunhe o poder da minha vontade, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA014Subtitle",
+  "text": "*Minha fúria vai reduzir sua máquina de guerra a pó"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA015Subtitle",
+  "text": "*Toxina... explosivos... furtividade... Você derrotou cada um deles, mas os três juntos? Está tudo perdido, General. Você deveria se render... pelo bem dos seus homens"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA016Subtitle",
+  "text": "*Seu mundo amoleceu você, General. O meu me fez forte"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA017Subtitle",
+  "text": "*Você vai aprender a respeitar meu poder, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA018Subtitle",
+  "text": "*Você vai esperar enquanto preparo meu próximo ataque, e então a batalha recomeça"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA019Subtitle",
+  "text": "*Cansou de morrer contra minhas defesas, General?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA020Subtitle",
+  "text": "*O campo de batalha está quieto, General. Está esperando que eu termine isto?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA021Subtitle",
+  "text": "*Aguardamos com grande expectativa seu próximo ataque patético"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA022Subtitle",
+  "text": "*Esse foi o limite do seu poder, General? Realmente patético"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA023Subtitle",
+  "text": "*Seus ataques foram como gritos patéticos no meio do uivo de uma tempestade furiosa"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA024Subtitle",
+  "text": "*Esta batalha está começando a me entediar, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA025Subtitle",
+  "text": "*Por quanto tempo mais devo deixar você viver, General?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA026Subtitle",
+  "text": "*General, meus súditos precisam da minha atenção... por quanto tempo mais você pretende ficar dançando como um palhaço?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA027Subtitle",
+  "text": "*General, suas táticas me lembram uma criança aprendendo a jogar xadrez"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA028Subtitle",
+  "text": "*Terminou, General? Esgotou seus recursos patéticos?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA029Subtitle",
+  "text": "*General, eu já estava entediado minutos atrás... agora estou começando a cochilar"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA030Subtitle",
+  "text": "*Como é desafiar um verdadeiro gênio militar?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA031Subtitle",
+  "text": "*Tudo o que você conquistar, eu vou destruir"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA032Subtitle",
+  "text": "*Agora cai seu Quartel... logo tudo vai cair"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA033Subtitle",
+  "text": "*Sua Fábrica de Guerra se foi... reconstrua-a e eu a destruo de novo"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA034Subtitle",
+  "text": "*Eu o aliviei da sua Base Aérea, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA035Subtitle",
+  "text": "*As defesas da sua base não podem deter minhas forças, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA036Subtitle",
+  "text": "*General, se você não consegue nem manter seu Centro de Comando, como espera me derrotar?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA037Subtitle",
+  "text": "*Tantas estruturas suas caíram, General... por que não abandona o campo e se poupa de mais vergonha?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA038Subtitle",
+  "text": "*Não teste mais a minha paciência destruindo mais Torres de Petróleo minhas, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA039Subtitle",
+  "text": "*Você ousa destruir meu Quartel, General?!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA040Subtitle",
+  "text": "*General, preciso de um Traficante de Armas para os meus negócios. Não destrua mais nenhum"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA041Subtitle",
+  "text": "*Pensa em esmagar minhas defesas, General? Outras vão surgir no lugar delas"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA042Subtitle",
+  "text": "*Esse é o último prédio que você destrói, General. Minha paciência tem limites"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA043Subtitle",
+  "text": "*Meu Centro de Comando! Você me obrigou a recuar para o subsolo, mas isto ainda não acabou, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA044Subtitle",
+  "text": "*Você destruiu muitas das minhas máquinas, General. Talvez eu tenha subestimado você"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA045Subtitle",
+  "text": "*Meus homens não são alvos para o seu treino, General. O sangue deles está nas suas mãos"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA046Subtitle",
+  "text": "*Solte minha Torre de Petróleo ou eu a queimo"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA047Subtitle",
+  "text": "*Vejo que você capturou aquela Plataforma de Artilharia abandonada. Boa sorte para fazê-la funcionar"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA048Subtitle",
+  "text": "*Essa Refinaria de Petróleo não vai virar o jogo a seu favor, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA049Subtitle",
+  "text": "*Tolo insolente! Você já invadiu minha casa demais"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA050Subtitle",
+  "text": "*Você é como um inseto que pica, General, e chegou a hora de esmagar sua presença irritante"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA051Subtitle",
+  "text": "*O inimigo está entre nós! Destruam-no! Destruam todos!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA052Subtitle",
+  "text": "*Tolo! Você passou dos limites! Suas forças estão perdidas!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA053Subtitle",
+  "text": "*Ah, um ataque pelo flanco... grosseiro, mas pelo menos é uma estratégia"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA054Subtitle",
+  "text": "*Tentando atacar pela minha porta dos fundos, General?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA055Subtitle",
+  "text": "*Um ataque frontal? Devia ter trazido mais forças"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA056Subtitle",
+  "text": "*Vejo que você encontrou meus suprimentos extras... e repito: MEUS suprimentos extras. Largue-os agora"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA057Subtitle",
+  "text": "*Aproximar-se da minha base por esse caminho só vai levar você à morte"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA058Subtitle",
+  "text": "*Fique fora daquela vila, General. Eu protejo os que estão sob meus cuidados"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA059Subtitle",
+  "text": "*Esses recursos são para o meu povo, General. Não são seus para pegar"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA060Subtitle",
+  "text": "*Esses prédios não foram colocados aqui para você usar, General. Não perturbe minha infraestrutura"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA061Subtitle",
+  "text": "*Parece que seu apetite foi maior que seus recursos, General. Espero que recupere a energia antes de chegarmos à sua base"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA062Subtitle",
+  "text": "*Nossa terra vive sem energia... pena que sua base não funcione sem essa dependência"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA063Subtitle",
+  "text": "*Sem fundos, General?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA064Subtitle",
+  "text": "*General, você está drenando meus recursos. Sua guerrinha vai fazer meu povo passar fome"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA065Subtitle",
+  "text": "*Uma Tempestade SCUD?! Você roubou nossa tecnologia! Vai pagar por isso, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA066Subtitle",
+  "text": "*Construindo armas nucleares, General? Eu imaginava que você recorreria a tamanha covardia"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA067Subtitle",
+  "text": "*Canhão de Partículas? Seus raios do espaço não podem nos alcançar debaixo da terra"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA068Subtitle",
+  "text": "*Quantas defesas na base. Você deve temer muito o meu poder, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA069Subtitle",
+  "text": "*Quantos tanques você precisa, General?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA070Subtitle",
+  "text": "*Você enche o ar com esses mosquitos irritantes. Agora vamos esmagá-los"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA071Subtitle",
+  "text": "*Treine quantos homens quiser, General, mas as perdas de vidas só vão aumentar a cada minuto"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA072Subtitle",
+  "text": "*Sua base cresceu muito, General... talvez demais"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA073Subtitle",
+  "text": "*Lance suas toxinas contra nós, General; estamos preparados para coisa muito pior"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA074Subtitle",
+  "text": "*Todos para o subsolo! Os mísseis nucleares deles se aproximam"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA075Subtitle",
+  "text": "*Isso, use seu raio de partículas... mostre ao mundo a sua covardia"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA076Subtitle",
+  "text": "*Ocupe o prédio, General... esconda-se como um rato na parede"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA077Subtitle",
+  "text": "*O Coronel Burton não vai salvar você, General. Você mesmo vai ter de lutar esta guerra"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA078Subtitle",
+  "text": "*Ah, a bela Lótus Negra. Junte-se a mim, Lótus, e você poderá viver como uma rainha"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA079Subtitle",
+  "text": "*Jarmen Kell? Ele ousa me enfrentar?! Minha vingança será das mais... desagradáveis"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA080Subtitle",
+  "text": "*Sua Base Aérea não vai resistir ao meu ataque, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA081Subtitle",
+  "text": "*Finalmente construiu uma Fábrica de Guerra, hein, General? Por que demorou tanto?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA082Subtitle",
+  "text": "*Seu Quartel patético não vai lhe servir de nada, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA083Subtitle",
+  "text": "*Vendendo seus prédios para financiar seu exército? Não parece muito lógico, não é, General?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA084Subtitle",
+  "text": "*Isto é impossível! Você não pode me derrotar!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA085Subtitle",
+  "text": "*Você pode achar que está em vantagem, mas esta batalha vai mudar como o vento"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA086Subtitle",
+  "text": "*Seus soldados podem estar em maior número agora, mas batalhas não se vencem só com números, General"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA087Subtitle",
+  "text": "*Não acredito que estou sendo derrotado por um tolo tão limitado. A vergonha vai me marcar para sempre"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA088Subtitle",
+  "text": "*Derrotado por um tolo... a humilhação é grande demais... deixe-me sozinho com meu tormento"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossGLA089Subtitle",
+  "text": "*General, sinto o fedor do medo e do desespero vindo da sua base"
+ }
+]
