@@ -1,0 +1,90 @@
+[
+ {
+  "label": "GUI:LoadReplayLong",
+  "text": "CARGAR REPETICIÓN"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak5",
+  "text": "Condecoración de racha \n El jugador ha ganado 5 partidas en línea seguidas"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak20",
+  "text": "Condecoración de racha \n El jugador ha ganado 20 partidas en línea seguidas"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAUpgradeBuggyAmmor",
+  "text": "+25% de munición del buggy lanzacohetes"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak3Disabled",
+  "text": "Condecoración de racha \n Gana 3 o más partidas seguidas para obtener esta medalla"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorBlitz10Disabled",
+  "text": "Condecoración relámpago \n Vence a los rivales controlados por el ordenador en 10 minutos o menos para obtener esta medalla"
+ },
+ {
+  "label": "GUI:CÀontrolBarBack",
+  "text": "ATRÁS"
+ },
+ {
+  "label": "GUI:BuddyAddReqMessageSent",
+  "text": "Solicitud de amistad enviada"
+ },
+ {
+  "label": "GUI:BuddyAddReqMessageRejected",
+  "text": "Solicitud de amistad rechazada"
+ },
+ {
+  "label": "GUI:BuddyAddReqMessageAccepted",
+  "text": "Solicitud de amistad aceptada"
+ },
+ {
+  "label": "TOOLTIP:RefreshGamePlayerList",
+  "text": "Actualizar las listas de partidas y jugadores"
+ },
+ {
+  "label": "TOOLTIP:CommunicatorBuddyRadioButton",
+  "text": "Haz clic derecho en un nombre de la lista de jugadores para enviar una solicitud de amistad"
+ },
+ {
+  "label": "TOOLTIP:CommunicatorIgnoreRadioButton",
+  "text": "Haz clic derecho en un nombre de la lista de jugadores para ignorar a ese jugador"
+ },
+ {
+  "label": "GUI:GroupRoom15",
+  "text": "3 contra 3"
+ },
+ {
+  "label": "GUI:GroupRoom16",
+  "text": "4 contra 4"
+ },
+ {
+  "label": "GUI:GroupRoom17",
+  "text": "Novatos"
+ },
+ {
+  "label": "GUI:GroupRoom18",
+  "text": "Mods"
+ },
+ {
+  "label": "GUI:GroupRoom19",
+  "text": "Clasificación"
+ },
+ {
+  "label": "GUI:GroupRoom20",
+  "text": "Alemania"
+ },
+ {
+  "label": "GUI:GroupRoom21",
+  "text": "EE. UU."
+ },
+ {
+  "label": "GUI:GroupRoom22",
+  "text": "Corea"
+ },
+ {
+  "label": "GUI:BeaconClear",
+  "text": "Borrar"
+ }
+]
