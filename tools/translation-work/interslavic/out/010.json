@@ -1,0 +1,802 @@
+[
+ {
+  "label": "TOOLTIP:SendDelay",
+  "text": "Samo za korisnikov Firewalla. (Prosim, pogledajte Priručnik)"
+ },
+ {
+  "label": "GUI:GSFailedToHost",
+  "text": "Ne mogl sę hostovati igru"
+ },
+ {
+  "label": "Buddy:SelectBuddyToChat",
+  "text": "Izberi Prijatelja za čatovanje"
+ },
+ {
+  "label": "GUI:CannotConnectToServservTitle",
+  "text": "NEVOZMOŽNO SOJEDINITI SĘ"
+ },
+ {
+  "label": "GUI:CannotConnectToServserv",
+  "text": "Nevozmožno ustanoviti sojedinjenje sa serverami Command and Conquer Generals Zero Hour. Prosim, prověrite vaše internetsko sojedinjenje"
+ },
+ {
+  "label": "MESSAGE:BattlePlanBombardmentInitiated",
+  "text": "Strategija Bombardovanja je začeta"
+ },
+ {
+  "label": "MESSAGE:BattlePlanHoldTheLineInitiated",
+  "text": "Strategija Držanja Linije je začeta"
+ },
+ {
+  "label": "MESSAGE:BattlePlanSearchAndDestroyInitiated",
+  "text": "Strategija Iskanja i Uništenja je začeta"
+ },
+ {
+  "label": "OBJECT:TechOilRefinery",
+  "text": "Naftova Rafinerija -- Zauzmi, aby snižiti cěnu vozil"
+ },
+ {
+  "label": "OBJECT:SupplyDock",
+  "text": "Dok Snabděnja"
+ },
+ {
+  "label": "GUI:InGameDiplomacy",
+  "text": "Diplomacija"
+ },
+ {
+  "label": "GUI:MapPreview",
+  "text": "Prědgljad Karty"
+ },
+ {
+  "label": "GUI:Error",
+  "text": "Pogreška"
+ },
+ {
+  "label": "Buddy:Disconnected",
+  "text": "Vy ste otključeni \n od spiska prijateljev"
+ },
+ {
+  "label": "GUI:SandboxMode",
+  "text": "Vhodjenje v peskovnik-režim..."
+ },
+ {
+  "label": "GUI:BookmarkXSet",
+  "text": "Zakladka #%d postavjena"
+ },
+ {
+  "label": "SCIENCE:EmergencyRepair1",
+  "text": "Avarijna popravka 1"
+ },
+ {
+  "label": "SCIENCE:EmergencyRepair2",
+  "text": "Avarijna popravka 2"
+ },
+ {
+  "label": "SCIENCE:EmergencyRepair3",
+  "text": "Avarijna popravka 3"
+ },
+ {
+  "label": "MAP:CHI05Open",
+  "text": "Balykči, Kirgizstan \n Spaljena Zemlja"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipScienceEmergencyRepair",
+  "text": "Popravja vozila v oblasti \n \n Rang 1: Lahka Popravka \n Rang 2: Srědnja Popravka \n Rang 3: Tjažka Popravka \n \n Razverni iz: Komandnogo Centra"
+ },
+ {
+  "label": "GUI:MinSpecFailedTitle",
+  "text": "POZOR"
+ },
+ {
+  "label": "GUI:MinSpecFailedMessage",
+  "text": "Vaš sistem ne dosěgaje minimalne aparatne trěbovanja. Vy možete doživěti niže bystrosti kadrov nego obyčno v vaših multiigrah"
+ },
+ {
+  "label": "TOOLTIP:AlreadyUpgradedDefault",
+  "text": "To ulučšenje je već kupjeno"
+ },
+ {
+  "label": "TOOLTIP:HasConflictingUpgradeDefault",
+  "text": "Konfliktno ulučšenje ne može byti kupjeno"
+ },
+ {
+  "label": "GUI:NoGameSelected",
+  "text": "Izberite igru, aby prvo vstupiti"
+ },
+ {
+  "label": "GUI:CloseExpScreen",
+  "text": "Gotovo"
+ },
+ {
+  "label": "TOOLTIP:CloseExpScreen",
+  "text": "Vratiti sę v Igru"
+ },
+ {
+  "label": "GUI:GPNoCommunicator",
+  "text": "Komunikator nije dostupen v Multiigrovom Testu"
+ },
+ {
+  "label": "GUI:GSKickedGameStarted",
+  "text": "Igra je načela"
+ },
+ {
+  "label": "GUI:GSKickedGameFull",
+  "text": "Igra je polna"
+ },
+ {
+  "label": "Network:PacketRouterTimeout",
+  "text": "Vrěmja Rutera Paketov Isteklo"
+ },
+ {
+  "label": "GUI:EstablishingConnectionPaths",
+  "text": "USTANAVLJANJE PUTEV SOJEDINJENJA"
+ },
+ {
+  "label": "UPGRADE:RadarVanScan",
+  "text": "Skan radarnogo furgona"
+ },
+ {
+  "label": "MAP:CHI04Open",
+  "text": "Gory Tanggula, Kitaj \n Razbiti Sojuzy"
+ },
+ {
+  "label": "MAP:GLA04Open",
+  "text": "Grad Astana \n Kitajski Zauzeta Stolica Kazahstana"
+ },
+ {
+  "label": "MAP:USA07NewObjective2",
+  "text": "NOVY OBJEKTIV MISIJE: \n Uništi Kitajsky Komandny Centr \n i Silo Jadernyh Raket"
+ },
+ {
+  "label": "MAP:USA07GotObjective1",
+  "text": "OBJEKTIV ZAVERŠEN: \n Uništi GLA na sěveroistoku"
+ },
+ {
+  "label": "MAP:USA07GotObjective2",
+  "text": "OBJEKTIV ZAVERŠEN: \n Uništi Kitajsky Komandny Centr \n i Silo Jadernyh Raket"
+ },
+ {
+  "label": "GUI:Defaults",
+  "text": "STANDARDNO"
+ },
+ {
+  "label": "TOOLTIP:OptionsAccept",
+  "text": "Prijmi izměny i izhodi iz Menu Nastavjenj"
+ },
+ {
+  "label": "TOOLTIP:OptionsCancel",
+  "text": "Izhodi iz Menu Nastavjenj bez izměn"
+ },
+ {
+  "label": "TOOLTIP:OptionsDefaults",
+  "text": "Sbrosi nastavjenja na standardne"
+ },
+ {
+  "label": "MESSAGE:StealthDiscovered",
+  "text": "Vražja nevidima jedinica otkryta"
+ },
+ {
+  "label": "MESSAGE:StealthNeutralized",
+  "text": "Sposobnost nevidimosti neutralizovana"
+ },
+ {
+  "label": "TOOLTIP:SortBuddies",
+  "text": "Sortuj Prijateljev na vrh spiska igr"
+ },
+ {
+  "label": "CONTROLBAR:GeneralsExperienceMenu",
+  "text": "Menu Opyta Generalov"
+ },
+ {
+  "label": "CONTROLBAR:GeneralsExperienceMenuDescription",
+  "text": "Pokaži menu opyta, gdě možete potrošiti točky opyta zarabjene v boju na različne Moći Generala"
+ },
+ {
+  "label": "CONTROLBAR:UpDown",
+  "text": "Prěključi Pokaži/Skryj"
+ },
+ {
+  "label": "CONTROLBAR:UpDownDescription",
+  "text": "Prěključuje, či je panel kontroly pokazan ili skryt"
+ },
+ {
+  "label": "CONTROLBAR:DisarmMinesAtPosition",
+  "text": "O&čisti Miny"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipDisarmMinesAtPosition",
+  "text": "Očisti miny i male eksplozivy v danoj oblasti"
+ },
+ {
+  "label": "TOOLTIP:ScienceCostUnavailable",
+  "text": "Cěna: Nedostupno"
+ },
+ {
+  "label": "GUI:OnlineIPAddresses",
+  "text": "Onlajn IP:"
+ },
+ {
+  "label": "GUI:GSDisconReason16",
+  "text": "Profil s tym nadimkom već postoji"
+ },
+ {
+  "label": "GUI:GSDisconReason17",
+  "text": "Tot parol je nepravilny. Prosim, probujte znova"
+ },
+ {
+  "label": "GUI:GSDisconReason18",
+  "text": "Profil s tym nadimkom već postoji"
+ },
+ {
+  "label": "GUI:GSDisconReason19",
+  "text": "Pogreška servera - nevozmožno sozdati akaunt"
+ },
+ {
+  "label": "Buddy:MessageDisconnected",
+  "text": "Vy ste otključeni \n od spiska prijateljev"
+ },
+ {
+  "label": "GUI:PlayerHasBeenDefeated",
+  "text": "%ls je Poražen"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaRangerCaptureBuilding",
+  "text": "&Zauzmi Zgradu"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaRedguardCaptureBuilding",
+  "text": "&Zauzmi Zgradu"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLARebelCaptureBuilding",
+  "text": "&Zauzmi Zgradu"
+ },
+ {
+  "label": "CONTROLBAR:DetonateBombTruck",
+  "text": "Detoniraj &Sejčas!"
+ },
+ {
+  "label": "UPGRADE:RangerCaptureBuilding",
+  "text": "Zahvat zgrady"
+ },
+ {
+  "label": "UPGRADE:RedguardCaptureBuilding",
+  "text": "Zauzenje Zgrady"
+ },
+ {
+  "label": "UPGRADE:RebelCaptureBuilding",
+  "text": "Zauzenje Zgrady"
+ },
+ {
+  "label": "CONTROLBAR:TooltipDetonateBombTruck",
+  "text": "Prikazuje Kamionu-Bombě nemedlenno detonirati na svojej tekučej poziciji"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSAUpgradeRangerCaptureBuilding",
+  "text": "Dozvoljaje Rangeram zauzimati vražje i tehnologične zgrady"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaUpgradeRedGuardCaptureBuilding",
+  "text": "Dozvoljaje Črvenoj Gvardiji zauzimati vražje i tehnologične zgrady"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAUpgradeRebelCaptureBuilding",
+  "text": "Dozvoljaje Povstancam zauzimati vražje i tehnologične zgrady"
+ },
+ {
+  "label": "GUI:Loading",
+  "text": "NAGRUŽANJE"
+ },
+ {
+  "label": "TOOLTIP:EmoteButton",
+  "text": "Emocija"
+ },
+ {
+  "label": "CONTROLBAR:Power",
+  "text": "Energija"
+ },
+ {
+  "label": "CONTROLBAR:PowerDescription",
+  "text": "Tekuča Energija: %d \n Trěbovana Energija: %d"
+ },
+ {
+  "label": "CONTROLBAR:Money",
+  "text": "Novac"
+ },
+ {
+  "label": "CONTROLBAR:MoneyDescription",
+  "text": "To je kolikost novca, koju imate"
+ },
+ {
+  "label": "MAP:TourneyArena",
+  "text": "Turnirna Pustynja"
+ },
+ {
+  "label": "UPGRADE:AmericaDroneARmor",
+  "text": "Bronja dronov"
+ },
+ {
+  "label": "UPGRADE:APRockets",
+  "text": "Bronebojne rakety"
+ },
+ {
+  "label": "ThingTemplate:EuropeanTowerBridge01",
+  "text": "Most"
+ },
+ {
+  "label": "ThingTemplate:BridgeTowerConcreteRight02",
+  "text": "Most"
+ },
+ {
+  "label": "Team:0",
+  "text": "Nijedno"
+ },
+ {
+  "label": "Team:1",
+  "text": "1"
+ },
+ {
+  "label": "Team:2",
+  "text": "2"
+ },
+ {
+  "label": "Team:3",
+  "text": "3"
+ },
+ {
+  "label": "Team:4",
+  "text": "4"
+ },
+ {
+  "label": "Team:AI",
+  "text": "KOMPJUTER"
+ },
+ {
+  "label": "GUI:RestartConfirmation",
+  "text": "Jeste li uverjeni, že hočete restartovati?"
+ },
+ {
+  "label": "GUI:ErrorStartingGame",
+  "text": "POGREŠKA PRI NAČENJU IGRY"
+ },
+ {
+  "label": "GUI:TooManyPlayers",
+  "text": "Ta karta podpiraje samo %d igračev"
+ },
+ {
+  "label": "GUI:SandboxWarning",
+  "text": "Kliknuvši Start znova, načne sę peskovnik-igra"
+ },
+ {
+  "label": "GUI:CantFindMap",
+  "text": "Nevozmožno najti kartu. Je li ona povrěžena?"
+ },
+ {
+  "label": "GUI:EnterSaveDesc",
+  "text": "Vpiši opis igry"
+ },
+ {
+  "label": "GUI:MissionSave",
+  "text": "Načelo Misije - %s %d"
+ },
+ {
+  "label": "GUI:SaveReplay",
+  "text": "SOHRANI ZAPIS"
+ },
+ {
+  "label": "GUI:OverwriteReplayTitle",
+  "text": "PRĚPISATI ZAPIS"
+ },
+ {
+  "label": "GUI:OverwriteReplay",
+  "text": "Prěpisati Zapis?"
+ },
+ {
+  "label": "GUI:ConfirmDelete",
+  "text": "Jeste li uverjeni, že hočete odstraniti tu igru?"
+ },
+ {
+  "label": "GUI:DeleteGame",
+  "text": "ODSTRANI"
+ },
+ {
+  "label": "GUI:GameSaveComplete",
+  "text": "*** Igra Sohranjena ***"
+ },
+ {
+  "label": "CAMPAIGN:USA",
+  "text": "USA"
+ },
+ {
+  "label": "CAMPAIGN:GLA",
+  "text": "GLA"
+ },
+ {
+  "label": "CAMPAIGN:China",
+  "text": "Kitaj"
+ },
+ {
+  "label": "GUI:Easy",
+  "text": "Lahko"
+ },
+ {
+  "label": "GUI:Hard",
+  "text": "Težko"
+ },
+ {
+  "label": "GUI:SelectDifficulty",
+  "text": "IZBERI SLOŽNOST"
+ },
+ {
+  "label": "GUI:NumPlayersOnline",
+  "text": "Vsego igračev onlajn: %d"
+ },
+ {
+  "label": "GUI:AllowableMaps",
+  "text": "Dozvoljene Karty"
+ },
+ {
+  "label": "GUI:QuickMatchTitle",
+  "text": "Bystra Igra"
+ },
+ {
+  "label": "LOAD:TRAINING_1",
+  "text": "- GLA kontrolira Fabriku Himičnyh Oružja"
+ },
+ {
+  "label": "LOAD:TRAINING_2",
+  "text": "- Uništi Fabriku Himičnyh Oružja"
+ },
+ {
+  "label": "LOAD:TRAINING_3",
+  "text": "- Uništi prětnju"
+ },
+ {
+  "label": "LOAD:USA01_1",
+  "text": "- GLA ima Burju SCUD"
+ },
+ {
+  "label": "LOAD:USA01_2",
+  "text": "- Oni sut bazirani v Bagdadu"
+ },
+ {
+  "label": "LOAD:USA01_3",
+  "text": "- Uništi tu prětnju"
+ },
+ {
+  "label": "LOAD:USA02_1",
+  "text": "- Vodi GLA vysledjeni do Jemena"
+ },
+ {
+  "label": "LOAD:USA02_2",
+  "text": "- Comanche iščut prěstupnikov"
+ },
+ {
+  "label": "LOAD:USA02_3",
+  "text": "- Spasi zahvačene pilote"
+ },
+ {
+  "label": "LOAD:USA03_1",
+  "text": "- Sily USA sut v polnom otstuplenju"
+ },
+ {
+  "label": "LOAD:USA03_2",
+  "text": "- GLA ih blizko goni"
+ },
+ {
+  "label": "LOAD:USA03_3",
+  "text": "- Daj pokritje otstupajučim silam"
+ },
+ {
+  "label": "LOAD:USA04_1",
+  "text": "- Obučny lager GLA je otkryt"
+ },
+ {
+  "label": "LOAD:USA04_2",
+  "text": "- Uništi tu prětnju"
+ },
+ {
+  "label": "LOAD:USA06_1",
+  "text": "- Mirna konferencija v Kabara Grade"
+ },
+ {
+  "label": "LOAD:USA06_2",
+  "text": "- GLA sę ne može věriti"
+ },
+ {
+  "label": "LOAD:USA06_3",
+  "text": "- Bud v pripravnosti"
+ },
+ {
+  "label": "LOAD:USA07_1",
+  "text": "- Otstupny kitajsky general sę pridružil GLA"
+ },
+ {
+  "label": "LOAD:USA07_2",
+  "text": "- Vrag sę oslanja na Tunelne Sěti"
+ },
+ {
+  "label": "LOAD:USA07_3",
+  "text": "- Napad morat byti pokrenut nemedlenno"
+ },
+ {
+  "label": "LOAD:USA08_1",
+  "text": "- Sily USA okružili stolicu GLA"
+ },
+ {
+  "label": "LOAD:USA08_2",
+  "text": "- GLA ima biologične oružja"
+ },
+ {
+  "label": "LOAD:USA08_3",
+  "text": "- Kitajci oběčali svoju podpiru USA"
+ },
+ {
+  "label": "LOAD:USA08_4",
+  "text": "- GLA morat byti uništena"
+ },
+ {
+  "label": "LOAD:China01_1",
+  "text": "- Sila Kitaja je na paradu"
+ },
+ {
+  "label": "LOAD:China01_2",
+  "text": "- Zaščiti vojenny pokaz Kitaja"
+ },
+ {
+  "label": "LOAD:China01_3",
+  "text": "- Uništi vsaku prětnju v oblasti Beijinga"
+ },
+ {
+  "label": "LOAD:China02_1",
+  "text": "- Jačejka GLA je otkryta v Hong Kongu"
+ },
+ {
+  "label": "LOAD:China02_2",
+  "text": "- Teroristi upotrěbjajut kongresny centr kako bazu"
+ },
+ {
+  "label": "LOAD:China02_3",
+  "text": "- Jačejka morat byti uništena"
+ },
+ {
+  "label": "LOAD:China03_1",
+  "text": "- GLA je zarazila oblast Brany Tri Klisur"
+ },
+ {
+  "label": "LOAD:China03_2",
+  "text": "- Vražje podkrěpljenja teper prětjat našim silam"
+ },
+ {
+  "label": "LOAD:China03_3",
+  "text": "- Utopi GLA kitajskimi silami"
+ },
+ {
+  "label": "LOAD:China04_1",
+  "text": "- GLA postroila fabriku Bio-Toksinov"
+ },
+ {
+  "label": "LOAD:China04_2",
+  "text": "- Najdi fabriku s pomoćju agentky Črnogo Lotosa"
+ },
+ {
+  "label": "LOAD:China04_3",
+  "text": "- Vozdušny udar pomože v jejem uništenju"
+ },
+ {
+  "label": "LOAD:China05_1",
+  "text": "- GLA zauzela Balykči"
+ },
+ {
+  "label": "LOAD:China05_2",
+  "text": "- Sily USA dadut vozdušnu podpiru"
+ },
+ {
+  "label": "LOAD:China05_3",
+  "text": "- Pozovi Kovrove Bomby i uništi GLA"
+ },
+ {
+  "label": "LOAD:China06_1",
+  "text": "- GLA zauzela jednu iz kitajskih železnic"
+ },
+ {
+  "label": "LOAD:China06_2",
+  "text": "- GLA sę sobira v Biškeku, Aldastan"
+ },
+ {
+  "label": "LOAD:China06_3",
+  "text": "- Upotrěbi Črnogo Lotosa, aby uništiti železny most"
+ },
+ {
+  "label": "LOAD:China07_1",
+  "text": "- Azijska teroristička jačejka GLA identifikovana v Tadžikistanu"
+ },
+ {
+  "label": "LOAD:China07_2",
+  "text": "- Avtorizovano upotrěbiti vaš jaderny arsenal"
+ },
+ {
+  "label": "LOAD:GLA01_1",
+  "text": "- Mnogo bratov je izgubjeno"
+ },
+ {
+  "label": "LOAD:GLA01_2",
+  "text": "- Oborona Kitaja je rasprostrěta tenko"
+ },
+ {
+  "label": "LOAD:GLA01_3",
+  "text": "- Uništi kitajske sily"
+ },
+ {
+  "label": "LOAD:GLA02_1",
+  "text": "- Snabděnje UN je na puti k regionu Almaty"
+ },
+ {
+  "label": "LOAD:GLA02_2",
+  "text": "- Prěhvati te dostavy za našu sudbinu"
+ },
+ {
+  "label": "LOAD:GLA02_3",
+  "text": "- Soberi snabděnje, aby napolnil GLA novcami"
+ },
+ {
+  "label": "LOAD:GLA03_1",
+  "text": "- Ugnětateli iskvarili narod Žambula"
+ },
+ {
+  "label": "LOAD:GLA03_2",
+  "text": "- Ih jedina istinna svoboda leži v smrti"
+ },
+ {
+  "label": "LOAD:GLA03_3",
+  "text": "- Upotrěbi Toksinne Traktory, aby ih uništiti"
+ },
+ {
+  "label": "LOAD:GLA04_1",
+  "text": "- My našli nove sojuzniky v Astanu"
+ },
+ {
+  "label": "LOAD:GLA04_2",
+  "text": "- Možemo ih upotrěbiti, aby dražili vraga"
+ },
+ {
+  "label": "LOAD:GLA04_3",
+  "text": "- Dok Astana gori, ograbi grad za snabděnje"
+ },
+ {
+  "label": "LOAD:GLA05_1",
+  "text": "- Arogancija USA ne može ostati bez otvěta"
+ },
+ {
+  "label": "LOAD:GLA05_2",
+  "text": "- Uděrži region od ih imperijalističnogo hvata"
+ },
+ {
+  "label": "LOAD:GLA05_3",
+  "text": "- Uništi ih 'nadmoćno' vozdušno vojsko"
+ },
+ {
+  "label": "LOAD:GLA06_1",
+  "text": "- Izvěščenja iz Aralskogo Morja nisu dobre"
+ },
+ {
+  "label": "LOAD:GLA06_2",
+  "text": "- Sily USA imajut kontrolu nad našim skladiščem toksinov"
+ },
+ {
+  "label": "LOAD:GLA06_3",
+  "text": "- Znova zauzmi skladišne bunkery"
+ },
+ {
+  "label": "LOAD:GLA07_1",
+  "text": "- Dezerteri GLA sę pridružili Kitaju"
+ },
+ {
+  "label": "LOAD:GLA07_2",
+  "text": "- Napadni konvoje i prěseci ih linije snabděnja"
+ },
+ {
+  "label": "LOAD:GLA07_3",
+  "text": "- Uništi izdajniky i ih kitajske sojuzniky"
+ },
+ {
+  "label": "LOAD:GLA08_1",
+  "text": "- Zauzmi kontrolu nad Kosmodromom"
+ },
+ {
+  "label": "LOAD:GLA08_2",
+  "text": "- Rakety tam dostave smrtonosny toksin našim vragam"
+ },
+ {
+  "label": "LOAD:GLA08_3",
+  "text": "- Naša sudbina je blizko"
+ },
+ {
+  "label": "TOOLTIP:DownloadProgress",
+  "text": "Napredok Skačanja"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorBlitz10",
+  "text": "Čast Blitza \n Pobědi protivnika(-ov) za 10 minut ili měně, aby zaslužiti tu medalju"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorBlitz5",
+  "text": "Čast Blitza \n Pobědi protivnika(-ov) za 5 minut ili měně, aby zaslužiti tu medalju"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorLoyaltyUSADisabled",
+  "text": "Čast Věrnosti USA \n Igraj 20+ igr podrjad kako USA, aby zaslužiti tu medalju"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorLoyaltyChinaDisabled",
+  "text": "Čast Věrnosti Kitaja \n Igraj 20+ igr podrjad kako Kitaj, aby zaslužiti tu medalju"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorLoyaltyGLADisabled",
+  "text": "Čast Věrnosti GLA \n Igraj 20+ igr podrjad kako GLA, aby zaslužiti tu medalju"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorBattleTankDisabled",
+  "text": "Čast Bojevogo Tanka \n Postroj 50+ tankov protiv kompjuterovogo(-yh) protivnika(-ov), aby zaslužiti tu medalju"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorAirWingDisabled",
+  "text": "Čast Zračnogo Kryla \n Postroj 20+ letadl protiv kompjuterovogo(-yh) protivnika(-ov), aby zaslužiti tu medalju"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorEnduranceDisabled",
+  "text": "Čast Vytrvalosti \n Pobědi vsaku kartu, aby zaslužiti Bronzovu, Srebrnu ili Zlatu medalju"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorCampaignUSADisabled",
+  "text": "Čast Kampanje USA \n Zaveršite Kampanju USA, aby polučiti tu čast \n Pobědite kampanju na Težkoj složnosti, aby dostigli najvyšu čast"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorCampaignChinaDisabled",
+  "text": "Čast Kampanje Kitaja \n Zaveršite Kampanju Kitaja, aby polučiti tu čast \n Pobědite kampanju na Težkoj složnosti, aby dostigli najvyšu čast"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorCampaignGLADisabled",
+  "text": "Čast Kampanje GLA \n Zaveršite Kampanju GLA, aby polučiti tu čast \n Pobědite kampanju na Težkoj složnosti, aby dostigli najvyšu čast"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorChallengeDisabled",
+  "text": "Čast Izzova \n Pobědi 1-7 težkih kompjuterovyh protivnikov, aby zaslužiti tu medalju"
+ },
+ {
+  "label": "GUI:BuildingsKilledStat",
+  "text": "Zgrady Uništene"
+ },
+ {
+  "label": "GUI:BuildingsBuiltStat",
+  "text": "Zgrady Postroene"
+ },
+ {
+  "label": "GUI:BuildingsLostStat",
+  "text": "Zgrady Izgubjene"
+ },
+ {
+  "label": "GUI:QMWinStreak",
+  "text": "Serija poběd v Bystroj Igrě"
+ },
+ {
+  "label": "GUI:LastLadder",
+  "text": "Poslědnji Rejting"
+ },
+ {
+  "label": "GUI:LobbyJoined",
+  "text": "Vy vstupili v %ls"
+ },
+ {
+  "label": "GUI:GSNoLoginInfoAll",
+  "text": "Prosim, vpišite vaš email, nadimok i parol. Potom kliknite na Vhod ili Sozdati Akaunt"
+ },
+ {
+  "label": "GUI:GSNoLoginInfoEmailNickname",
+  "text": "Prosim, vpišite vaš email i nadimok. Potom kliknite na Vhod ili Sozdati Akaunt"
+ },
+ {
+  "label": "GUI:GSNoLoginInfoEmailPassword",
+  "text": "Prosim, vpišite vaš email i parol. Potom kliknite na Vhod ili Sozdati Akaunt"
+ }
+]
