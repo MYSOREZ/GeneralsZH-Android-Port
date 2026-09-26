@@ -1,0 +1,802 @@
+[
+ {
+  "label": "DIALOGEVENT:MisUSA03xEva04Subtitle",
+  "text": "*Generale, vygljadaje, že v okolicě je několiko Radarnyh furgonov GLA, jesli se vaše sily priblíže predaleko, budu otkryte"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xEva05Subtitle",
+  "text": "*Izvrstna rabota, generale. Teper vy morate se brinuti samo o silah GLA na toj straně rěky"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xEva06Subtitle",
+  "text": "*GLA imaju lager plennikov na puti, kotorym Polkovnik Burton moraje jti do laboratorije GLA. Jesli oslobodite ljudi tam dăržane, Polkovnik Burton bude imati lăgši put do laboratorije"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xEva07Subtitle",
+  "text": "*Generale, razvědka predlaga, aby oslobodili ljudi v lageru plennikov, prěžde nego pošlete Polkovnika Burtona predaleko"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xEva08Subtitle",
+  "text": "*Čestitam, generale, sguren jesem, že semji tyh ljudej budu srěčni, slyšavši, že su spaseni"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xEva09Subtitle",
+  "text": "*Generale, laboratorija GLA je prjamo na sěver od vašej trenutnoj pozicije. Na vašem puti ešče je několiko obrambenyh pozicij GLA... buďte oprezni"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xEva10Subtitle",
+  "text": "*Vygljadaje, že te naftne vyšky su jediny izvor dohodka za bazu GLA. Jesli jih uništite, oslabite GLA tu"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xEva11Subtitle",
+  "text": "*Generale, spajam vas s Črnym Lotosom"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xEva12Subtitle",
+  "text": "*Generale, ljudi, kotoryh ste toliko spasli, voze naše najnovějše vozilo, Mikrovalny Tank"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xEva13Subtitle",
+  "text": "*To vozilo imaje dva režimy: pervy sozdaje nepreryvno mikrovalno polje pred vozilom -- mnogo smrtonosno za vsu pěhotu. Drugy mu dopusti razstroiti funkcije vsakoj cěljevoj budovy"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xEva14Subtitle",
+  "text": "*Generale, GLA znaje, že smo tu, i vygljadaje, že su v povyšenoj gotovnosti. Buďte oprezni, kogda pomikajete Polkovnika Burtona na poziciju nad jich tajnoju laboratorijoju"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xEva15Subtitle",
+  "text": "*Generale, GLA unapredila svoje tankove naboje, aby sodăržali otrovy. Buďte oprezni."
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xEva16Subtitle",
+  "text": "*Vidim patrolu GLA v tom selě, generale... a takože několiko neprijateljskyh sil zaposedlyh po cělom selě"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xEva17Subtitle",
+  "text": "*Može Črny Lotos može najti věče razvědnyh dat o tom, kto stoji za programom GLA za oružja masovnogo uništenja"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xEva18Subtitle",
+  "text": "*To bylo neverjatno, generale. Vygljadaje, že GLA věče ne bude koristiti tăj objekt, i izgljada, že Črny Lotos skopirovala važne informacije o izvoru toj laboratorije. Za teper, prěgrupirujmo se i pogledajmo, čto ona mogla najti. Velika rabota"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xLotus01Subtitle",
+  "text": "*Scorpion je onesposobjeny... ja se pobrinu o dělah na drugoj straně rěky. Počekajte, dokla ne prějdu, i togda uništite most"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xLotus02Subtitle",
+  "text": "*Teper jest. Ne brinite se, počekam vas u laboratorije... samo pospěšite"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xLotus03Subtitle",
+  "text": "*Generale, jesem na poziciji, aby pomogla oslobodit vaše sily dăržane v plenu. Može by Polkovnik Burton hotěl pomoči?"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xLotus04Subtitle",
+  "text": "*Generale, moglibyste li poprositi Polkovnika Burtona, aby pospěšil k lageru plennikov... umorena jesem od čekanja na njego"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xLotus05Subtitle",
+  "text": "*Ja privlečem pozornost stražev lagera na tătu stranu rěky. To by vam i vašim ljubimym robotam trěbalo dopustiti upraviti se s Tunelom i oslobodit vaše zahvačene ljudi"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xLotus06Subtitle",
+  "text": "*Generale... moje sily se dvigaju na poslědnje pozicije GLA na tăj straně rěky. Prošu, izvěstite Polkovnika Burtona, že by měl pospěšiti... ne hočem ga dolgo čekati"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xLotus07Subtitle",
+  "text": "*Prošu, izvěstite Polkovnika Burtona, že ja budu čekati NJEGO u laboratorije"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xLotus08Subtitle",
+  "text": "*Jesem tu, Polkovniče... vy pobědili. GLA se branila silnějše, nego jesem očekivala. Začinam kopirovanje"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xLotus09Subtitle",
+  "text": "*Imam dannosti! Teper, Polkovniče!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xLotus10Subtitle",
+  "text": "*Generale. Jesem gotova i čekam u laboratorije, kogdakoli Polkovnik hoče priti i dokončiti tătu misiju"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xLotus11Subtitle",
+  "text": "*Tu je studeno. Vy idete, ne li, Burton?"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xLotus12Subtitle",
+  "text": "*Teper kopiruju informacije"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xRngr01Subtitle",
+  "text": "*Blagodarju za spasenje, gospodine"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xRngr02Subtitle",
+  "text": "*Několiko naših ljudi otdělilo se, aby prověrilo selo na vzhod otsjuda, prěžde nego smo byli zahvačeni. Može oni ešče su tam"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xRngr03Subtitle",
+  "text": "*Dobro vas viděti, generale, mysleli smo, že konči se tym, že budemo zahvačeni"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xRngr04Subtitle",
+  "text": "*Ostatok našej ekipy byl zahvačeny malo po tom, kak smo prišli v selo. Generale, hotěli by smo se dobrovoljno prijaviti, aby jih spasli"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA03xRngr05Subtitle",
+  "text": "*Generale, jedinica vozil byla zahvačena malo po tom, kak smo my byli zajati. GLA jih dăržit v lageru prjamo na sěver otsjuda"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04Eva02Subtitle",
+  "text": "*Podkrěplenja pribyla"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04Eva07Subtitle",
+  "text": "*Morajemo očistiti te Pozicije Stinger, prěžde nego možemo dovesti naše bombonosce, aby očistili GLA iz okolicy"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04Eva08Subtitle",
+  "text": "*Stroiteljne ekipy pribyly, gospodine. Budete morati nastaviti našu bazu, prěžde nego nas GLA prěplavi"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04Eva09Subtitle",
+  "text": "*Naš poslědnji objektiv je tăta baza GLA tu, v hălmah. Uništite ju, i operacija bude zaveršena"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04Officer03Subtitle",
+  "text": "*Teroristy otkryti. Vse jedinice, buďte v gotovnosti"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04Ranger01Subtitle",
+  "text": "*Doněsuju město bunkera GLA na mrěži Beta Čarli 6-8-9-4-4"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04Transport01Subtitle",
+  "text": "*Transportne ekipy 1 i 2 približaju se k zoně vysadki"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04Transport03Subtitle",
+  "text": "*Transportna ekipa 1 doněsuje! Misija dokončena! Otstupam!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xBrf01Subtitle",
+  "text": "*Generale, razvědka doněsuje, že buntovne sily za tăjeju otcěpjenoju jačejkoju GLA su pod komandoju Dr. Thraxa"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xBrf02Subtitle",
+  "text": "*Dr. Thrax je traženy zločinec, otgovorny za ozloglašene teroristične zločiny protiv vojenstva US. Moraje byti dovedeny k pravosudju"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xBrf03Subtitle",
+  "text": "*Dr. Thrax razvijal sasvim novy toksin v svojej tajnoj gorskoj laboratoriji. Blagodarim Bogu, že Lotos i Burton byli tam, aby ga zaustavili"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xBrf04Subtitle",
+  "text": "*Dr. Thrax dobyva svoje financovanje iz svojih naftnyh poljev. Morajemo prěsěči jego tok nafty"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xBrf05Subtitle",
+  "text": "*Razvědne dannosti, kotore smo dobyli iz tajnoj laboratorije, dokazaju, že GLA zahvatila te naftne polja, aby pomogla financovati zlobnogo Dr. Thraxa. Oni jih mogu uništiti, radše nego dopustiti vam jih znova zahvatiti. Buďte oprezni, generale, GLA začala koristiti SKRYTE PASTI... koristite Buldozery, aby bezpečno odstranili SKRYTE PASTI"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xChat01Subtitle",
+  "text": "*Gospodine! Toksinni Traktory nas razjedaju! Pošlite pomoč!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xChat02Subtitle",
+  "text": "*Toksinni Traktory! Otstupite svoju pěhotu!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xChat03Subtitle",
+  "text": "*Četvorne děla zaměčena, gospodine!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xChat04Subtitle",
+  "text": "*Gubimo jedinice od Četvornyh děl, gospodine! Pošlite oklopnike!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xChat05Subtitle",
+  "text": "*NĚ! Bravo Tri byl ubity Četvornym dělom, gospodine!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xChat06Subtitle",
+  "text": "*Neprijatel začal posylati tanky, gospodine! Pošlite obrancev protiv raket!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xChat07Subtitle",
+  "text": "*Ha! Tanky GLA nam nisu ravni!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xChat08Subtitle",
+  "text": "*Gospodine, gubimo jedinice od neprijateljskyh tankov!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xChat09Subtitle",
+  "text": "*Čto neprijatel dělaje s tymi radarnymi furgonami?"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xChat10Subtitle",
+  "text": "*To byla avtobomba?"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xChat11Subtitle",
+  "text": "*Otkuda prihodu te avtobomby?"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xChat12Subtitle",
+  "text": "*Gospodine, potrěbujemo tu věče obrany! Avtobomby nas razdiraju!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xChat13Subtitle",
+  "text": "*Kamiony-bomby?! To ne je pravedno!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xChat14Subtitle",
+  "text": "*Gospodine, potrěbujemo lăpšu obranu protiv tyh Kamionov-bomb!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xChat15Subtitle",
+  "text": "*Gospodine, my se stăknuli s gněvnymi tolpami! Pošlite protivpěhotne jedinice!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xChat16Subtitle",
+  "text": "*Gněvne tolpy nas uništaju! Pošlite tu několiko snajperov!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xChat17Subtitle",
+  "text": "*Gospodine, morajemo něčto sdělati s tymi GNĚVNYMI TOLPAMI!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xChat18Subtitle",
+  "text": "*Gospodine, gubimo jedinice od Teroristov, možemo li dobyti tu snajpera?"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xChat19Subtitle",
+  "text": "*Gospodine, ti Teroristy nas razžvakaju! Pošlite podpordu!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xChat20Subtitle",
+  "text": "*O bože! Čto je s vsěmi tymi podryvnymi pastkami!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xChat21Subtitle",
+  "text": "*Gospodine, to polje je posypano Podryvnymi pastkami! Morajemo jih očistiti!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xChat22Subtitle",
+  "text": "*Čto?! Izgubili smo stavbu od AVTOBOMBAŠA!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xChat23Subtitle",
+  "text": "*Avtobombaši nas napadaju! Vygljadaje, že prihodu iz městnogo města"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xChat24Subtitle",
+  "text": "*Ho! Ti kamiony-bomby udaraju silno!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xChat25Subtitle",
+  "text": "*Aj! To bolělo!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xChat26Subtitle",
+  "text": "*Gospodine, sgradite věče obrany protiv KAMIONOV-BOMB!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xChat27Subtitle",
+  "text": "*Ho! Te tolpy su GNĚVNE!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xChat28Subtitle",
+  "text": "*Gospodine, potrěbujemo Pathfindera, aby se upravil s tymi GNĚVNYMI TOLPAMI!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xChat29Subtitle",
+  "text": "*Gospodine, potrěbujemo protivpěhotne sily tu TEPER! Te gněvne tolpy nas razžvakaju!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xChat30Subtitle",
+  "text": "*Gospodine, izgubili smo budovu od avtobomby"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xChat31Subtitle",
+  "text": "*Teroristy uništaju naše budovy! Pozovite snajperov!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xChat32Subtitle",
+  "text": "*Gospodine! Jich Kamiony-bomby uništaju našu bazu!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xCIA01Subtitle",
+  "text": "*Dobro viděti prijateljske sily! Idimo!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xCIA02Subtitle",
+  "text": "*Sleduju vas, generale"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xCIA03Subtitle",
+  "text": "*Tu jesem, veďte"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xCin01Subtitle",
+  "text": "*Satcom, tu Čarli 5. Približajemo se k CĚLJU, něma zaměčenyh neprijateljev... počekajte... CĚLJ je v vidu, Satcom... konec"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xCin02Subtitle",
+  "text": "*Razumjeno, 5... vy ste odobreni, konec"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xCin03Subtitle",
+  "text": "*Razumjeno, Satcom... tovar je izpuščen... ostavljam vruču zonu! Konec"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xCin04Subtitle",
+  "text": "*Razumjeno, 5, konec. Viktor 3, vy ste odobreni za NEMEDLJENNY sbros, konec"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xCin05Subtitle",
+  "text": "*Razumjeno, Satcom... približajemo se k cěljevoj zoně"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xCin06Subtitle",
+  "text": "*Zarjaďte oružje!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xCin07Subtitle",
+  "text": "*Skok! Skok!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xCin08Subtitle",
+  "text": "*Oprezno, aby vas ne pokrylo slizom, momci... hemijske oružja zaměčena"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xCin09Subtitle",
+  "text": "*To ne je LAHKA PROGULZKA, momci! Dăržite glavy dole!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xCin10Subtitle",
+  "text": "*Ostajte vo formaciji!! Bez kaubojev!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xCin11Subtitle",
+  "text": "*Kozy su izpuščene. Vraćam se k hlěvu. Konec"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xCin12Subtitle",
+  "text": "*Ekipa Bravo, vaš glavny objektiv je mala vzletna staza na jug od vas. Obezpečite ju za dohodeča podkrěplenja. Konec"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xCin13Subtitle",
+  "text": "*Razumjeno, Satcom, dvigamo se. Slušajte, děti! To je ZONA SLOBODNOGO OGNJA! Pozor na TARAKANY! Jesli se dvigaje, ubijte to"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xCin14Subtitle",
+  "text": "*Vzletna staza obezpečena, generale... Podkrěplenja su na puti"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xEva01Subtitle",
+  "text": "*GLA začala koristiti SKRYTE PASTI na stavbah v toj okolicě. Oni eksplodiraju, jesli poprobujete jih zahvatiti ili zaposesti. Koristite Buldozery, aby jih odstranili"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xEva02Subtitle",
+  "text": "*GLA zahvatila blizke naftne polja. Zaščitite vyšky i uništite bazu GLA"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xEva03Subtitle",
+  "text": "*BUĎTE OPREZNI, generale; neprijatel može byl nastavil pasti v naftnom polju"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xEva04Subtitle",
+  "text": "*Dobra novina, generale. Polkovnik Burton znaje několiko tajnyh agentov v toj okolicě. Veďte Burtona k agentam, aby izprosili jich pomoč"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xEva05Subtitle",
+  "text": "*Dobra novina, generale. V toj okolicě je několiko tajnyh agentov. Najdite jih, aby izprosili jich pomoč"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xEva06Subtitle",
+  "text": "*Dobro sdělano, generale, tăta oblast je teper svobodna od buntovnikov GLA"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xEva07Subtitle",
+  "text": "*Dobro sdělano, generale. Ta okolica je obezpečena"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xEva08Subtitle",
+  "text": "*Generale, vaš konečny objektiv je uništiti bazu GLA v toj okolicě. Vaš glavny izvor financovanja budu naftne vyšky. Morate jih obezpečiti i zaščititi!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xEva09Subtitle",
+  "text": "*Dobro sdělano, generale. Vaša misija je uspěšna"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xEva10Subtitle",
+  "text": "*Generale, městno město je otrovano propagandoju GLA i načinaje napady protiv nas. Uništite radiostaniciju GLA, aby ugasili buntu"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xEva11Subtitle",
+  "text": "*Uništite radiostaniciju GLA v městě, aby ugasili buntu"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xEva12Subtitle",
+  "text": "*Dobro sdělano, generale. Propagandny stroj GLA je uništeny"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xEva13Subtitle",
+  "text": "*Uništite RADIOSTANICIJU GLA v městě, aby zaustavili napady avtobombami"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xEva14Subtitle",
+  "text": "*Uništite RADIOSTANICIJU GLA v městě, aby zaustavili napady kamionami-bombami"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xEva15Subtitle",
+  "text": "*Uništite RADIOSTANICIJU GLA v městě, aby zaustavili samoubijstvene napady"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xEva16Subtitle",
+  "text": "*Generale, v okolicě je několiko ARTILJERIJSKYH PLATFORM. Zahvatite jih za potlačajuči ogonj"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xEva17Subtitle",
+  "text": "*Generale, v okolicě je REMONTNA STANICA. Zahvatite ju, aby pomogla lěčiti naše vozila"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xEva18Subtitle",
+  "text": "*Gospodine, prošu, sgradite věče obrany protiv avtobombašev"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xEva19Subtitle",
+  "text": "*Gospodine, neprijatel začal razvărtati Radarne furgony, oni mogu otkryti naših Pathfinderov!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xEva20Subtitle",
+  "text": "*Gospodine, radarne furgony neprijatelja pretražaju za našimi Pathfinderami... buďte oprezni"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xEva21Subtitle",
+  "text": "*Gospodine, trěbalo by smo sgraditi Patrioty, aby se protivstavili kamionam-bombam"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xEva22Subtitle",
+  "text": "*Gospodine, neprijateljski Teroristy se pokazuju mnogo effektivni. Prědlagam poslati Pathfinderov"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xEva23Subtitle",
+  "text": "*Gospodine! Gubimo jedinice od Podryvnyh pastok, prošu, buďte oprezniji!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xEva24Subtitle",
+  "text": "*Generale, v okolicě je NAFTOVA RAFINERIJA. Zahvatite ju, aby snizili cěnu vozil"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xEva25Subtitle",
+  "text": "*Gospodine, neprijatel začal napadati NAFTNE POLJA"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xEva26Subtitle",
+  "text": "*POZOR: naftna VYŠKA UNIŠTENA! \n Ostaje samo 1 vyška!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xEva27Subtitle",
+  "text": "*POZOR: naftna VYŠKA UNIŠTENA! \n Ostaje samo 5 vyšek"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xEva28Subtitle",
+  "text": "*POZOR: naftna VYŠKA UNIŠTENA! \n Ostaje samo 10 vyšek"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xEva29Subtitle",
+  "text": "*POZOR: naftna VYŠKA UNIŠTENA! \n Ostaje 15 vyšek"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xEva30Subtitle",
+  "text": "*Generale, naše rezervy dengeg su nizke -- zahvatite naftne vyšky za potrěbne dengi"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xEva31Subtitle",
+  "text": "*POZOR: BURJA SCUD OTKRYTA!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xEva32Subtitle",
+  "text": "*Generale! Polkovnik Burton je pal!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xEva33Subtitle",
+  "text": "*Vse naftne vyšky su UNIŠTENE! Vaša misija je neuspěšna"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xEva34Subtitle",
+  "text": "*Vaša baza je uništena! Vaša misija je neuspěšna"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA04xEva35Subtitle",
+  "text": "*Mnogo srěče, gospodine"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xChat01Subtitle",
+  "text": "*Naša baza je napadana, gospodine. Oni sgradili Tunelnu sěť vnutr našej bazy, a my o tom ne znali"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xChat02Subtitle",
+  "text": "*Ti avtobusy su nakladeni neprijateljami, gospodine! Pozor!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xChat03Subtitle",
+  "text": "*Naša baza je napadana, gospodine. Oni sgradili Tunelnu sěť vnutr našej bazy, a my o tom ne znali"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xChat04Subtitle",
+  "text": "*Nudimo vam našu pomoč, aby smo se izbavili tego Trgovca Otrovom. Jego opsesija ubije nas vsěh, a to ne směmo dopustiti"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xChat05Subtitle",
+  "text": "*Smărt Djavolu Bolězni!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xChat06Subtitle",
+  "text": "*Pomoč! Tu, prošu, oslobodite me"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xChat07Subtitle",
+  "text": "*Blagodarju, že ste me oslobodili. Prěvezite me v moju bazu na vzhodě, i ja vam mogu pomoči"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xCin01Subtitle",
+  "text": "*Sat-Com A4 imaje potvrděnje mesta bazy. Vizualy se teper posylaju"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xCin02Subtitle",
+  "text": "*Polje, prošu, potvrdite status objektov za proizvodstvo toksina"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xCin03Subtitle",
+  "text": "*Togda imamo odobrenje po prědstavlenju konečnogo koda dozvola"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xCin04Subtitle",
+  "text": "*Razumjeno, Alfa Viski Eho, ptice su v vozduhu"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xCin05Subtitle",
+  "text": "*Objekty za proizvodstvo toksina potvrděni, gospodine"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xCin06Subtitle",
+  "text": "*Kod dozvola je Sijera, Hotel, Oskar, Čarli Kilo"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xEva01Subtitle",
+  "text": "*Faza jedna našej operacije je dokončena, generale. Naš udar raketami Tomahawk uspěšno uništil vse objekty GLA za proizvodstvo toksina. Ostaje uništiti samo jich glavnu bazu i silosy toksinnyh raket"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xEva02Subtitle",
+  "text": "*Generale, my izslědili Dr. Thraxa do tego otdaljenogo mesta. On imaje hemijski napolnjene rakety i uže jih prigotovil za zapusk. Uništenje jego rezervoarov toksina ga zapozdilo, no morajemo vojti i zahvatiti te rakety, prěžde nego mogu byti zapuščene"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xEva03Subtitle",
+  "text": "*Generale, Dr. Thrax uspěl razviti male koliny svojego novogo toksina. Uvěrite se, že vaše sily su v vysokoj gotovnosti"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xEva04Subtitle",
+  "text": "*Generale, radi prisustva civilov na tom městě, budete morati koristiti zemske sily, aby napali na poslědnju bazu i zahvatili 4 pozicije toksinnyh raket v okolicě. Naše uspěšno oslobozenje naftnyh mest v Amisbadu nam dalo dodatne resursy za tătu operaciju"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xEva05Subtitle",
+  "text": "*Dr. Thrax moraje byti pobězen, aby ne mogl nanosti daljši teror světu. Generale, morate ga zaustaviti"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xEva06Subtitle",
+  "text": "*Naša razvědka pokazuje, že to je najlěpša okolica za gradenje vašej bazy. Městny nemir može byti vam v korist. Mnogo srěče"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xEva07Subtitle",
+  "text": "*Generale, městna GLA otgovorila na vaše spasenje i dala nam kontrolu nad svojoju bazoju. Teper možete koristiti jich sily v vašem napadu"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xEva08Subtitle",
+  "text": "*Generale, vaš glavny objektiv je zahvatiti 4 silosy toksinnyh raket, cěljenyh na glavne metropolitanske oblasti US, prěžde nego budu zapuščeni"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xEva09Subtitle",
+  "text": "*Generale, infračervene skeny okolicy pokazuju, že se oni prigotovljaju zapustiti toksinne rakety"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xEva10Subtitle",
+  "text": "*Zapusk rakety za 5 minut... Vaš poslědnji napad bude morati začati teper"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xEva11Subtitle",
+  "text": "*Zapusk rakety za 4 minuty"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xEva12Subtitle",
+  "text": "*Zapusk rakety za 3 minuty"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xEva13Subtitle",
+  "text": "*Zapusk rakety za 2 minuty"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xEva14Subtitle",
+  "text": "*Zapusk rakety za 1 minutu... Morajemo vojti teper!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xEva15Subtitle",
+  "text": "*30 sekund do zapuska rakety... Počti pozde, generale!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xEva16Subtitle",
+  "text": "*10 sekund do zapuska rakety"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xEva17Subtitle",
+  "text": "*5 4 3 2 1 (vzdyh) Zapusk toksinnoj rakety otkryty, generale"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xEva18Subtitle",
+  "text": "*Udar toksinnoj rakety je otkryty, i vruča zona je teper potvrděna. Žrtvy su nesčitne, generale, my neuspěli"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xEva19Subtitle",
+  "text": "*Pervy silos rakety je zahvačeny, i HazMat ekipa za dekontaminaciju je na puti. Ostaje ešče jeden, komandire"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xEva20Subtitle",
+  "text": "*Dobra rabota, gospodine. Drugy silos rakety je zahvačeny. Ostaju dva"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xEva21Subtitle",
+  "text": "*Dobra rabota, gospodine. Trětji silos rakety je zahvačeny. Ostaje jeden"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xEva22Subtitle",
+  "text": "*Velika rabota, generale. Teper imamo kontrolu nad vsěmi 4 silosami toksinnyh raket. Operacija je uspěšna"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xEva23Subtitle",
+  "text": "*Prěboj toksina, imate 2 minuty, aby doveli Bioinženera do vruče zony i neutralizovali ugrozu"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xEva24Subtitle",
+  "text": "*Imamo zelenu svetlost za operaciju. Začnite napad na perimetralnu bazu GLA"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xEva25Subtitle",
+  "text": "*Razvědka kaže, že pozicije raket, kotore iščemo, su v toj oblasti. Buďte oprezni i uvěrite se, že te toksiny ne budu izpuščeni"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xEva26Subtitle",
+  "text": "*Pěhota tu ne bude dobro rabotati, generale. Naš neprijatel koristi toksiny v počti vsakom oružju, kotore protiv nas koristi"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xEva27Subtitle",
+  "text": "*Generale, vaš objektiv je zahvatiti tătu stavbu, ne uništiti ju! Jesli ti toksiny budu izpuščeni, oblast bude kontaminirana na 100 kvadratnyh milj!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xEva28Subtitle",
+  "text": "*Generale, naša razvědka pokazuje, že jesli možemo pustiti napalm iz tyh rezervoarov v blizke izhody tunelov, možemo zaplaviti cěly jich sistem"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xEva29Subtitle",
+  "text": "*Čestitam, generale. Dr. Thrax věče ne bude otravjati svět svojimi izmyšljenjami"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xEva30Subtitle",
+  "text": "*Teper, kogda Dr. Thrax je pobězen, možemo konečno vrátiti naših momkov domoj. Dobra rabota, generale"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xEva31Subtitle",
+  "text": "*Imamo zelenu svetlost za Operaciju: Udar Orla. Začnite napad na objekty za proizvodstvo toksina"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xEva32Subtitle",
+  "text": "*Generale, vaše rozkazy su sgraditi bazu, aby napali na Generala Toksina. Kogda vaše sily budu gotove, zahvatite 4 pozicije toksinnyh raket neprijatelja, prěžde nego mogu byti zapuščene"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xEva33Subtitle",
+  "text": "*Generale, baza GLA na vzhodě rěšila se buntovati protiv Generala Toksina i jego masovnogo koristenja toksinov. Oni želaju nam pomoči v napadě na Generala, davši nam koristenje svojej bazy"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xEva34Subtitle",
+  "text": "*Generale, neprijatel otkryl naše prisustvo v jich glavnoj bazě i začal prigotovlenja za zapusk toksinnyh raket. Oni by trěbali imati sposobnost zapuska za oko 30 minut. Razvědka najšla i pokazala 4 pozicije raket na vašem radarnom ekraně"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xEva35Subtitle",
+  "text": "*Generale, razvědka staviti někoje rakety v tătu oblast. Pozor, aby ne izpuščali toksin!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xThrax01Subtitle",
+  "text": "*Prekasno ste, nevěrniče, zapusk začinaje, aby očistil vaše zemji čumoju. Ha ha ha ha"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xThrax02Subtitle",
+  "text": "*Vaša izměna ne prošla nezaměčena. Sožgnete se s nevěrnikami, kotorym teper pomagate. Neka verbljudy vaših synov naduju se otrovom!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA05xThrax03Subtitle",
+  "text": "*Moj dosek je dalek, i teper počujete moj gnev! Umrite, nevěrni psi, umrite!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA06Crusader101Subtitle",
+  "text": "*Neprijatel zaměčeny!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA06Crusader102Subtitle",
+  "text": "*Věče GLA. Zarjaďte oružje"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA06Crusader202Subtitle",
+  "text": "*Oni su predobro zakopani! Potrěbujemo podkrěplenja!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA06Crusader206Subtitle",
+  "text": "*Zaustavite te Traktory!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA06Officer05Subtitle",
+  "text": "*Skoncentrujte svoj ogonj, momci!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA07Crusader204Subtitle",
+  "text": "*Probili smo se na sěver! Pošlite podkrěplenja"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA07Crusader205Subtitle",
+  "text": "*Oni su vsjude!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA07Crusader301Subtitle",
+  "text": "*Buďte izvěščeni, avtobomby v okolicě"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA07Crusader303Subtitle",
+  "text": "*Prěšli smo most. Pretražite i očistite"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA07Crusader306Subtitle",
+  "text": "*Pomoooč!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA07Officer01Subtitle",
+  "text": "*Morajemo očistiti tătu okolicu! Uništite vse!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA07Officer02Subtitle",
+  "text": "*Uništite vse, čto ne je amerikansko. Ne ostavljajte ničego!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA07Officer03Subtitle",
+  "text": "*Razumjeno, Delta dva. Vaše rozkazy su otstupiti. Konec"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA08Chatter06Subtitle",
+  "text": "*Tu Eho jeden, vhodim vo vruču zonu. Vsi, dăržite oči otvorene"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA08Chatter10Subtitle",
+  "text": "*Avtobomba! Avtobomba!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA08Chatter12Subtitle",
+  "text": "*Avtobomba! Otkrijte ogonj!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA08Chatter14Subtitle",
+  "text": "*Dobro, momci, idimo!"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSA08Cin03Subtitle",
+  "text": "*Vygljadaje, kako se cěla GLA danas postrojila za nas"
+ },
+ {
+  "label": "DIALOGEVENT:MisUSAChatter01Subtitle",
+  "text": "*V formaciju, prjamo teper!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_BossChi001Subtitle",
+  "text": "*Tak, vidim, že ste se rěšili ostati i suprotstaviti se mne. Bude vam žal tego rěšenja, generale. Prigotovte se sresti svoj konec!"
+ }
+]
