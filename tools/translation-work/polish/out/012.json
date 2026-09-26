@@ -1,0 +1,802 @@
+[
+ {
+  "label": "MAP:NoMansLand",
+  "text": "No Man's Land"
+ },
+ {
+  "label": "MAP:OverlandOffensive",
+  "text": "Overland Offensive"
+ },
+ {
+  "label": "MAP:RockyRampage",
+  "text": "Rocky Rampage"
+ },
+ {
+  "label": "MAP:SnowblindStrike",
+  "text": "Snowblind Strike"
+ },
+ {
+  "label": "MAP:UrbanUnderground",
+  "text": "Urban Underground"
+ },
+ {
+  "label": "MAP:VictoryValley",
+  "text": "Victory Valley"
+ },
+ {
+  "label": "MAP:WastelandWarfare",
+  "text": "Wasteland Warfare"
+ },
+ {
+  "label": "MAP:RogueAgent",
+  "text": "Rogue Agent"
+ },
+ {
+  "label": "MAP:DesertEagle",
+  "text": "Desert Eagle"
+ },
+ {
+  "label": "MAP:FlashFire",
+  "text": "Flash Fire"
+ },
+ {
+  "label": "MAP:MountainGuns",
+  "text": "Mountain Guns"
+ },
+ {
+  "label": "MAP:FlashEffect",
+  "text": "Flash Effect"
+ },
+ {
+  "label": "MAP:LightsOut",
+  "text": "Lights Out"
+ },
+ {
+  "label": "MAP:SteelTrap",
+  "text": "Steel Trap"
+ },
+ {
+  "label": "MAP:ArmoredFury",
+  "text": "Armored Fury"
+ },
+ {
+  "label": "MAP:InfiniteJustice",
+  "text": "Cairo Commandos"
+ },
+ {
+  "label": "MAP:Whiteout",
+  "text": "Whiteout"
+ },
+ {
+  "label": "MAP:FalloutEffect",
+  "text": "Fallout Effect"
+ },
+ {
+  "label": "MAP:FloodedPlains",
+  "text": "Flooded Plains"
+ },
+ {
+  "label": "MAP:TournamentContinent",
+  "text": "Tournament Continent"
+ },
+ {
+  "label": "MAP:TournamentCity",
+  "text": "Tournament City"
+ },
+ {
+  "label": "MAP:TournamentLadder01",
+  "text": "Tournament Ladder 01"
+ },
+ {
+  "label": "MAP:TournamentLadder02",
+  "text": "Tournament Ladder 02"
+ },
+ {
+  "label": "MAP:TournamentLadder03",
+  "text": "Tournament Ladder 03"
+ },
+ {
+  "label": "MAP:TournamentLadder04",
+  "text": "Tournament Ladder 04"
+ },
+ {
+  "label": "MAP:TrainingGLAHole",
+  "text": "Budynki GLA mają głębokie podziemia, które chronią robotników. Po zniszczeniu budynku GLA zostaje nora. Ukryci w niej robotnicy z czasem odbudują obiekt. Zaatakuj norę, aby usunąć zagrożenie ze strony GLA"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak25",
+  "text": "Odznaczenie za serię \n Gracz wygrał 25 potyczek z rzędu \n Nowy medal za 3, 10, 25, 100, 500 i 1000 zwycięstw z rzędu"
+ },
+ {
+  "label": "GUI:InsertCDPrompt",
+  "text": "Brak płyty"
+ },
+ {
+  "label": "GUI:InsertCDMessage",
+  "text": "Włóż pierwszą płytę z grą"
+ },
+ {
+  "label": "CONTROLBAR:OrRequirement",
+  "text": "lub"
+ },
+ {
+  "label": "SCRIPT:USA02RescueCounter",
+  "text": "Pozostali piloci:"
+ },
+ {
+  "label": "GUI:AddCash",
+  "text": "%d $"
+ },
+ {
+  "label": "GUI:LoseCash",
+  "text": "-%d $"
+ },
+ {
+  "label": "RADAR:HarvesterUnderAttack",
+  "text": "Zbieracz zasobów atakowany"
+ },
+ {
+  "label": "OBJECT:PharmaceuticalFactory",
+  "text": "Fabryka farmaceutyczna"
+ },
+ {
+  "label": "GUI:CareerWins",
+  "text": "Zwycięstwa w karierze"
+ },
+ {
+  "label": "GUI:CareerLosses",
+  "text": "Porażki w karierze"
+ },
+ {
+  "label": "GUI:CurrentWinStreak",
+  "text": "Bieżąca seria zwycięstw"
+ },
+ {
+  "label": "GUI:CarrerWinPercent",
+  "text": "Procent zwycięstw w karierze"
+ },
+ {
+  "label": "TOOLTIP:NumberOfPlayers",
+  "text": "Liczba graczy obecnie w tej grze"
+ },
+ {
+  "label": "TOOTIP:Password",
+  "text": "Aby dołączyć do gry, wymagane jest hasło"
+ },
+ {
+  "label": "TOOLTIP:PingInfo",
+  "text": "Jakość połączenia z gospodarzem"
+ },
+ {
+  "label": "TOOLTIP:LobbyOfficersClub",
+  "text": "Klub Oficerów: członek-założyciel społeczności Generals"
+ },
+ {
+  "label": "GUI:Display",
+  "text": "OPCJE"
+ },
+ {
+  "label": "GUI:Audio",
+  "text": "DŹWIĘK"
+ },
+ {
+  "label": "GUI:LANLobby",
+  "text": "POCZEKALNIA LAN"
+ },
+ {
+  "label": "GUI:Mute",
+  "text": "Wycisz"
+ },
+ {
+  "label": "GUI:NeedHumanPlayers",
+  "text": "Do rozpoczęcia gry potrzebny jest gracz, który nie jest obserwatorem"
+ },
+ {
+  "label": "GUI:MediumDifficulty",
+  "text": "Średni"
+ },
+ {
+  "label": "CONTROLBAR:ObsPlayerLabel",
+  "text": "%ls (drużyna %ls)"
+ },
+ {
+  "label": "GUI:LowTextureDetail",
+  "text": "Niska jakość tekstur"
+ },
+ {
+  "label": "TOOLTIP:LowTextureDetail",
+  "text": "Używaj tekstur niskiej rozdzielczości"
+ },
+ {
+  "label": "GUI:QuickMatch800x600",
+  "text": "Aby zagrać w szybki mecz, zmień rozdzielczość na 800 x 600"
+ },
+ {
+  "label": "OBJECT:CargoPlane",
+  "text": "Samolot transportowy"
+ },
+ {
+  "label": "OBJECT:HuNanProvince",
+  "text": "Pekin"
+ },
+ {
+  "label": "OBJECT:HongKong",
+  "text": "Hongkong"
+ },
+ {
+  "label": "OBJECT:HubeiProvince",
+  "text": "Zapora Trzech Przełomów"
+ },
+ {
+  "label": "OBJECT:Tangula",
+  "text": "Góry Tanggula"
+ },
+ {
+  "label": "OBJECT:Balykchy",
+  "text": "Bałykczy"
+ },
+ {
+  "label": "OBJECT:Bishkek",
+  "text": "Biszkek"
+ },
+ {
+  "label": "OBJECT:Dushanbe",
+  "text": "Duszanbe"
+ },
+ {
+  "label": "OBJECT:Shymkent",
+  "text": "Szymkent"
+ },
+ {
+  "label": "OBJECT:Almaty",
+  "text": "Ałmaty"
+ },
+ {
+  "label": "OBJECT:Zambul",
+  "text": "Dżambuł"
+ },
+ {
+  "label": "OBJECT:Astana",
+  "text": "Astana"
+ },
+ {
+  "label": "OBJECT:Incirlik",
+  "text": "Incirlik"
+ },
+ {
+  "label": "OBJECT:AralSea",
+  "text": "Jezioro Aralskie"
+ },
+ {
+  "label": "OBJECT:Lenger",
+  "text": "Lenger"
+ },
+ {
+  "label": "OBJECT:Baikonur",
+  "text": "Bajkonur"
+ },
+ {
+  "label": "OBJECT:Mazar",
+  "text": "Mazar"
+ },
+ {
+  "label": "OBJECT:Baghdad",
+  "text": "Bagdad"
+ },
+ {
+  "label": "OBJECT:AlHanad",
+  "text": "Al Hanad"
+ },
+ {
+  "label": "OBJECT:NorthKazakhstan",
+  "text": "Północny Kazachstan"
+ },
+ {
+  "label": "OBJECT:KazakhstanCoast",
+  "text": "Wybrzeże Kazachstanu"
+ },
+ {
+  "label": "OBJECT:KazakhstanDMZ",
+  "text": "Strefa zdemilitaryzowana Kazachstanu"
+ },
+ {
+  "label": "OBJECT:SouthKazkahstan",
+  "text": "Południowo-wschodni Kazachstan"
+ },
+ {
+  "label": "OBJECT:Akmola",
+  "text": "Akmoła"
+ },
+ {
+  "label": "SCRIPT:GLA03Objective01a",
+  "text": "CELE MISJI: \n Przejmij centrum dowodzenia na wschodzie, aby rozpocząć produkcję \n Zabij 200 zdrajców"
+ },
+ {
+  "label": "SCRIPT:GLA03Objective02a",
+  "text": "CEL MISJI: \n Użyj ciągników toksyn, aby zabić 200 zdrajców"
+ },
+ {
+  "label": "TOOLTIP:Campaign1",
+  "text": "Kampania 3"
+ },
+ {
+  "label": "TOOLTIP:Campaign2",
+  "text": "Kampania 2"
+ },
+ {
+  "label": "TOOLTIP:Campaign3",
+  "text": "Kampania 1"
+ },
+ {
+  "label": "GUI:Setup",
+  "text": "KONFIGURACJA"
+ },
+ {
+  "label": "GUI:PlayerInfo",
+  "text": "INFORMACJE O GRACZU"
+ },
+ {
+  "label": "GUI:Persona",
+  "text": "PROFIL"
+ },
+ {
+  "label": "GUI:TextureHigh",
+  "text": "Wysoka jakość (wolniej)"
+ },
+ {
+  "label": "GUI:TextureMedium",
+  "text": "Średnia jakość"
+ },
+ {
+  "label": "GUI:TextureLow",
+  "text": "Niska jakość (szybciej)"
+ },
+ {
+  "label": "GUI:GameSpeed",
+  "text": "Szybkość gry"
+ },
+ {
+  "label": "GUI:SlowGameSpeed",
+  "text": "Wolna"
+ },
+ {
+  "label": "GUI:MediumGameSpeed",
+  "text": "Średnia"
+ },
+ {
+  "label": "GUI:FastGameSpeed",
+  "text": "Szybka"
+ },
+ {
+  "label": "GUI:RestartConfirmationTitle",
+  "text": "ZACZĄĆ OD NOWA?"
+ },
+ {
+  "label": "GUI:SurrenderConfirmationTitle",
+  "text": "PODDAĆ SIĘ?"
+ },
+ {
+  "label": "TOOLTIP:StartPositionN",
+  "text": "Pozycja startowa gracza %d"
+ },
+ {
+  "label": "LABEL:FORMATION",
+  "text": "S"
+ },
+ {
+  "label": "GUI:IgnoreSm",
+  "text": "Ignoruj"
+ },
+ {
+  "label": "GUI:AcceptSm",
+  "text": "AKCEPTUJ"
+ },
+ {
+  "label": "GUI:EasyCaps",
+  "text": "ŁATWY"
+ },
+ {
+  "label": "GUI:MediumDifficultyCaps",
+  "text": "ŚREDNI"
+ },
+ {
+  "label": "GUI:HardCaps",
+  "text": "TRUDNY"
+ },
+ {
+  "label": "TOOLTIP:AdvanceOptionsAccept",
+  "text": "Zaakceptuj zmiany zaawansowanych opcji obrazu"
+ },
+ {
+  "label": "TOOLTIP:AdvanceOptionsCancel",
+  "text": "Wyjdź z menu zaawansowanych opcji obrazu bez zapisywania zmian"
+ },
+ {
+  "label": "GUI:AdvanceDisplayOptions",
+  "text": "ZAAWANSOWANE OPCJE OBRAZU"
+ },
+ {
+  "label": "GUI:Shadows",
+  "text": "Cienie"
+ },
+ {
+  "label": "TOOLTIP:Shadows",
+  "text": "Włącza/wyłącza cienie w grze. Wyłącz, aby poprawić wydajność"
+ },
+ {
+  "label": "GUI:BehindBuilding",
+  "text": "Za budynkami"
+ },
+ {
+  "label": "TOOLTIP:BehindBuilding",
+  "text": "Włącza/wyłącza pokazywanie jednostek za budynkami. Wyłącz, aby poprawić wydajność"
+ },
+ {
+  "label": "GUI:ShowProps",
+  "text": "Pokaż rekwizyty"
+ },
+ {
+  "label": "TOOLTIP:ShowProps",
+  "text": "Włącza/wyłącza wyświetlanie rekwizytów. Wyłącz, aby poprawić wydajność"
+ },
+ {
+  "label": "GUI:LowResSlider",
+  "text": "ROZDZIELCZOŚĆ TEKSTUR"
+ },
+ {
+  "label": "GUI:HighResSlower",
+  "text": "Wysoka rozdzielczość (wolniej)"
+ },
+ {
+  "label": "GUI:LowResFaster",
+  "text": "Niska rozdzielczość (szybciej)"
+ },
+ {
+  "label": "TOOLTIP:LowResSlider",
+  "text": "Tekstury wyższej rozdzielczości mogą spowalniać grę"
+ },
+ {
+  "label": "GUI:ParticleCap",
+  "text": "LIMIT CZĄSTECZEK"
+ },
+ {
+  "label": "GUI:MoreParticlesSlower",
+  "text": "Maks. cząsteczek (wolniej)"
+ },
+ {
+  "label": "GUI:LessParticlesFaster",
+  "text": "Min. cząsteczek (szybciej)"
+ },
+ {
+  "label": "TOOLTIP:ParticleCapSlider",
+  "text": "Więcej cząsteczek może spowalniać grę"
+ },
+ {
+  "label": "GUI:CurrentLossStreak",
+  "text": "Bieżąca seria porażek"
+ },
+ {
+  "label": "GUI:Custom",
+  "text": "Niestandardowe"
+ },
+ {
+  "label": "GUI:ToggleOnOff",
+  "text": "Efekty wizualne"
+ },
+ {
+  "label": "GUI:RestartMission",
+  "text": "ZACZNIJ MISJĘ OD NOWA"
+ },
+ {
+  "label": "GUI:ExitMission",
+  "text": "WYJDŹ Z MISJI"
+ },
+ {
+  "label": "GUI:OlderReplayVersionTitle",
+  "text": "STARSZA WERSJA POWTÓRKI"
+ },
+ {
+  "label": "GUI:OlderReplayVersion",
+  "text": "Powtórka może nie wyświetlić się poprawnie. Kontynuować wczytywanie?"
+ },
+ {
+  "label": "GUI:Shadows2D",
+  "text": "Cienie 2D"
+ },
+ {
+  "label": "TOOLTIP:Shadows2D",
+  "text": "Włącza/wyłącza cienie 2D w grze. Wyłącz, aby poprawić wydajność"
+ },
+ {
+  "label": "GUI:Shadows3D",
+  "text": "Cienie 3D"
+ },
+ {
+  "label": "TOOLTIP:Shadows3D",
+  "text": "Włącza/wyłącza cienie 3D w grze. Wyłącz, aby poprawić wydajność"
+ },
+ {
+  "label": "GUI:CloudShadows",
+  "text": "Cienie chmur"
+ },
+ {
+  "label": "TOOLTIP:CloudShadows",
+  "text": "Włącza/wyłącza cienie chmur na terenie. Wyłącz, aby poprawić wydajność"
+ },
+ {
+  "label": "GUI:GroundLighting",
+  "text": "Dodatkowe oświetlenie terenu"
+ },
+ {
+  "label": "TOOLTIP:GroundLighting",
+  "text": "Włącza/wyłącza szczegółowe oświetlenie terenu. Wyłącz, aby poprawić wydajność"
+ },
+ {
+  "label": "GUI:SmoothWater",
+  "text": "Gładkie brzegi wody"
+ },
+ {
+  "label": "TOOLTIP:SmoothWater",
+  "text": "Włącza/wyłącza wygładzanie brzegów wody. Wyłącz, aby poprawić wydajność"
+ },
+ {
+  "label": "GUI:ExtraAnimations",
+  "text": "Dodatkowe animacje"
+ },
+ {
+  "label": "TOOLTIP:ExtraAnimations",
+  "text": "Włącza/wyłącza animacje dodatkowe, np. kołysanie drzew. Wyłącz, aby poprawić wydajność"
+ },
+ {
+  "label": "GUI:NoDynamicLOD",
+  "text": "Wyłącz dynamiczny poziom szczegółów"
+ },
+ {
+  "label": "TOOLTIP:NoDynamicLOD",
+  "text": "Wyłącza automatyczne dostosowywanie szczegółów. Wyłącz, aby poprawić wydajność"
+ },
+ {
+  "label": "GUI:UnlockMaxFPS",
+  "text": "Bez limitu FPS"
+ },
+ {
+  "label": "TOOLTIP:UnlockMaxFPS",
+  "text": "Pozwala na ponad 30 klatek na sekundę. Wpływa na szybkość gry, więc zalecane tylko do testów wydajności"
+ },
+ {
+  "label": "GUI:TreeSway",
+  "text": "Animacja drzew"
+ },
+ {
+  "label": "TOOLTIP:TreeSway",
+  "text": "Włącza/wyłącza animację drzew. Wyłącz, aby poprawić wydajność"
+ },
+ {
+  "label": "GUI:TankTreads",
+  "text": "Ślady pojazdów"
+ },
+ {
+  "label": "TOOLTIP:TankTreads",
+  "text": "Włącza/wyłącza ślady zostawiane przez pojazdy. Wyłącz, aby poprawić wydajność"
+ },
+ {
+  "label": "GUI:WaterWaves",
+  "text": "Fale na wodzie"
+ },
+ {
+  "label": "TOOLTIP:WaterWaves",
+  "text": "Włącza/wyłącza animację fal przy brzegach. Wyłącz, aby poprawić wydajność"
+ },
+ {
+  "label": "GUI:BuildupAnimations",
+  "text": "Animacje budowy"
+ },
+ {
+  "label": "TOOLTIP:BuildupAnimations",
+  "text": "Pokazuje dodatkowe animacje podczas budowy obiektów. Wyłącz, aby poprawić wydajność"
+ },
+ {
+  "label": "GUI:AdvancedOptionsToggleOnOff",
+  "text": "Włącz/wyłącz – wyłącz, aby poprawić wydajność"
+ },
+ {
+  "label": "GUI:PerformanceTestingMessage",
+  "text": "Poczekaj, testujemy wydajność komputera, aby dobrać optymalne ustawienia"
+ },
+ {
+  "label": "GUI:PerformanceTestingTitle",
+  "text": "Test wydajności komputera"
+ },
+ {
+  "label": "GUI:ReducedColor",
+  "text": "Kolor 16-bitowy"
+ },
+ {
+  "label": "TOOLTIP:ReducedColor",
+  "text": "Poprawia wydajność kosztem jakości obrazu"
+ },
+ {
+  "label": "GUI:SelectAMapLowerCase",
+  "text": "Wybierz mapę"
+ },
+ {
+  "label": "GUI:SaveAndExit",
+  "text": "ZAPISZ I WYJDŹ"
+ },
+ {
+  "label": "GUI:PerSideWinPercentage",
+  "text": "%d%% %ls"
+ },
+ {
+  "label": "GUI:WinnersToday",
+  "text": "DZISIEJSI ZWYCIĘZCY"
+ },
+ {
+  "label": "GUI:WinnersLastWeek",
+  "text": "ZWYCIĘZCY Z ZESZŁEGO TYGODNIA"
+ },
+ {
+  "label": "MOTD:NumPlayersHeading",
+  "text": "Witaj w Generals Zero Hour Online."
+ },
+ {
+  "label": "TOOLTIP:GameAcceptance",
+  "text": "Akceptacja gry"
+ },
+ {
+  "label": "TOOLTIP:ConnectionSpeed",
+  "text": "Szybkość połączenia"
+ },
+ {
+  "label": "CONTROLBAR:NoHotKeyArtilleryBarrage",
+  "text": "Ostrzał artyleryjski"
+ },
+ {
+  "label": "CONTROLBAR:NoHotKeySpySatellite",
+  "text": "Satelita szpiegowski"
+ },
+ {
+  "label": "GUI:FetchingPlayerInfo",
+  "text": "Aktualizacja..."
+ },
+ {
+  "label": "CREDITS:EALosAngelesFieldRecordingsTeam",
+  "text": "Zespół nagrań terenowych EA Los Angeles"
+ },
+ {
+  "label": "CREDITS:TiburonQualityAssuranceSeniorLead",
+  "text": "Starszy kierownik kontroli jakości EA Tiburon"
+ },
+ {
+  "label": "CREDITS:TiburonQualityAssuranceProjectLead",
+  "text": "Kierownik projektu kontroli jakości EA Tiburon"
+ },
+ {
+  "label": "CREDITS:TiburonAssociateQualityAssuranceLeads",
+  "text": "Zastępcy kierownika kontroli jakości EA Tiburon"
+ },
+ {
+  "label": "CREDITS:TiburonQualityAssuranceSeniorTesters",
+  "text": "Starsi testerzy kontroli jakości EA Tiburon"
+ },
+ {
+  "label": "CREDITS:TiburonQualityAssuranceTesters",
+  "text": "Testerzy kontroli jakości EA Tiburon"
+ },
+ {
+  "label": "CREDITS:EAUKAdditionalQualityAssurance",
+  "text": "Dodatkowa kontrola jakości EAUK"
+ },
+ {
+  "label": "CREDITS:MultiplayerTestParticipants",
+  "text": "Uczestnicy testów wieloosobowych"
+ },
+ {
+  "label": "CREDITS:FocusTesters",
+  "text": "Testerzy grup fokusowych"
+ },
+ {
+  "label": "CREDITS:NorthAmericaMarketingPartners",
+  "text": "Partnerzy marketingowi w Ameryce Północnej"
+ },
+ {
+  "label": "CREDITS:ManagingDirectorEurope",
+  "text": "Dyrektor zarządzający, Europa"
+ },
+ {
+  "label": "CREDITS:EuropeanMarketingPartners",
+  "text": "Europejscy partnerzy marketingowi"
+ },
+ {
+  "label": "CREDITS:AsiaPacificPresidentandCoach",
+  "text": "EA Azja-Pacyfik, prezes i trener"
+ },
+ {
+  "label": "CREDITS:AsiaPacificMarketingPartners",
+  "text": "Partnerzy marketingowi EA Azja-Pacyfik"
+ },
+ {
+  "label": "CREDITS:GamingCommunityPartners",
+  "text": "Partnerzy ze społeczności graczy"
+ },
+ {
+  "label": "CREDITS:EADevelopmentExecutives",
+  "text": "Kierownictwo rozwoju EA"
+ },
+ {
+  "label": "CREDITS:SpecialThankstotheMaxiscrew",
+  "text": "Specjalne podziękowania dla ekipy Maxis"
+ },
+ {
+  "label": "CREDITS:VerySpecialThanks",
+  "text": "Bardzo specjalne podziękowania"
+ },
+ {
+  "label": "CREDITS:DevelopmentTitle",
+  "text": "Command & Conquer (TM) Generals Zero Hour zostało stworzone"
+ },
+ {
+  "label": "CREDITS:EAPacificDevTeam",
+  "text": "Electronic Arts Los Angeles"
+ },
+ {
+  "label": "CREDITS:ExecutiveInCharge",
+  "text": "Dyrektor ds. produkcji"
+ },
+ {
+  "label": "CREDITS:Producer",
+  "text": "Producent"
+ },
+ {
+  "label": "CREDITS:LeadDesigner",
+  "text": "Główny projektant"
+ },
+ {
+  "label": "CREDITS:TechnicalDirector",
+  "text": "Dyrektor techniczny"
+ },
+ {
+  "label": "CREDITS:ArtDirector",
+  "text": "Dyrektor artystyczny"
+ },
+ {
+  "label": "CREDITS:ArtProducer",
+  "text": "Producent grafiki"
+ },
+ {
+  "label": "CREDITS:SeniorProducer",
+  "text": "Starszy producent"
+ },
+ {
+  "label": "CREDITS:AssociateProducers",
+  "text": "Producent współpracujący"
+ },
+ {
+  "label": "CREDITS:MultiplayerTestProducer",
+  "text": "Producent testów wieloosobowych"
+ },
+ {
+  "label": "CREDITS:SeniorEngineers",
+  "text": "Starsi inżynierowie"
+ },
+ {
+  "label": "CREDITS:Engineers",
+  "text": "Inżynierowie"
+ },
+ {
+  "label": "CREDITS:AdditionalEngineering",
+  "text": "Dodatkowe prace inżynierskie"
+ },
+ {
+  "label": "CREDITS:Designers",
+  "text": "Projektanci"
+ },
+ {
+  "label": "CREDITS:AdditionalDesignInspirationandSupport",
+  "text": "Dodatkowy projekt, inspiracja i wsparcie"
+ },
+ {
+  "label": "CREDITS:AdditionalDesign",
+  "text": "Dodatkowy projekt"
+ }
+]
