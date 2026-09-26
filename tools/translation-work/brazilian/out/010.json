@@ -1,0 +1,802 @@
+[
+ {
+  "label": "TOOLTIP:SendDelay",
+  "text": "Apenas para usuários de firewall. (Consulte o manual)"
+ },
+ {
+  "label": "GUI:GSFailedToHost",
+  "text": "Não foi possível hospedar a partida"
+ },
+ {
+  "label": "Buddy:SelectBuddyToChat",
+  "text": "Selecione um amigo para conversar"
+ },
+ {
+  "label": "GUI:CannotConnectToServservTitle",
+  "text": "NÃO FOI POSSÍVEL CONECTAR"
+ },
+ {
+  "label": "GUI:CannotConnectToServserv",
+  "text": "Não foi possível estabelecer conexão com os servidores do Command and Conquer Generals Zero Hour. Verifique sua conexão com a Internet"
+ },
+ {
+  "label": "MESSAGE:BattlePlanBombardmentInitiated",
+  "text": "A estratégia Bombardeio foi iniciada"
+ },
+ {
+  "label": "MESSAGE:BattlePlanHoldTheLineInitiated",
+  "text": "A estratégia Manter a Posição foi iniciada"
+ },
+ {
+  "label": "MESSAGE:BattlePlanSearchAndDestroyInitiated",
+  "text": "A estratégia Buscar e Destruir foi iniciada"
+ },
+ {
+  "label": "OBJECT:TechOilRefinery",
+  "text": "Refinaria de Petróleo: capture para reduzir o custo dos veículos"
+ },
+ {
+  "label": "OBJECT:SupplyDock",
+  "text": "Doca de Suprimentos"
+ },
+ {
+  "label": "GUI:InGameDiplomacy",
+  "text": "Diplomacia"
+ },
+ {
+  "label": "GUI:MapPreview",
+  "text": "Prévia do mapa"
+ },
+ {
+  "label": "GUI:Error",
+  "text": "Erro"
+ },
+ {
+  "label": "Buddy:Disconnected",
+  "text": "Você foi desconectado \n da lista de amigos"
+ },
+ {
+  "label": "GUI:SandboxMode",
+  "text": "Entrando no modo sandbox..."
+ },
+ {
+  "label": "GUI:BookmarkXSet",
+  "text": "Favorito nº %d definido"
+ },
+ {
+  "label": "SCIENCE:EmergencyRepair1",
+  "text": "Reparo de Emergência 1"
+ },
+ {
+  "label": "SCIENCE:EmergencyRepair2",
+  "text": "Reparo de Emergência 2"
+ },
+ {
+  "label": "SCIENCE:EmergencyRepair3",
+  "text": "Reparo de Emergência 3"
+ },
+ {
+  "label": "MAP:CHI05Open",
+  "text": "Balykchy, Quirguistão \n Terra Arrasada"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipScienceEmergencyRepair",
+  "text": "Repara veículos numa área \n \n Nível 1: reparo leve \n Nível 2: reparo médio \n Nível 3: reparo completo \n \n Implantar a partir de: Centro de Comando"
+ },
+ {
+  "label": "GUI:MinSpecFailedTitle",
+  "text": "ATENÇÃO"
+ },
+ {
+  "label": "GUI:MinSpecFailedMessage",
+  "text": "Seu sistema não atende aos requisitos mínimos de hardware. As taxas de quadros nas partidas multijogador podem ficar abaixo do normal"
+ },
+ {
+  "label": "TOOLTIP:AlreadyUpgradedDefault",
+  "text": "Esta melhoria já foi comprada"
+ },
+ {
+  "label": "TOOLTIP:HasConflictingUpgradeDefault",
+  "text": "Uma melhoria conflitante não pode ser comprada"
+ },
+ {
+  "label": "GUI:NoGameSelected",
+  "text": "Selecione primeiro uma partida para entrar"
+ },
+ {
+  "label": "GUI:CloseExpScreen",
+  "text": "Concluído"
+ },
+ {
+  "label": "TOOLTIP:CloseExpScreen",
+  "text": "Voltar ao jogo"
+ },
+ {
+  "label": "GUI:GPNoCommunicator",
+  "text": "O Comunicador não está disponível no teste multijogador"
+ },
+ {
+  "label": "GUI:GSKickedGameStarted",
+  "text": "A partida começou"
+ },
+ {
+  "label": "GUI:GSKickedGameFull",
+  "text": "A partida está cheia"
+ },
+ {
+  "label": "Network:PacketRouterTimeout",
+  "text": "Tempo esgotado no roteador de pacotes"
+ },
+ {
+  "label": "GUI:EstablishingConnectionPaths",
+  "text": "ESTABELECENDO ROTAS DE CONEXÃO"
+ },
+ {
+  "label": "UPGRADE:RadarVanScan",
+  "text": "Varredura da Van de Radar"
+ },
+ {
+  "label": "MAP:CHI04Open",
+  "text": "Montanhas Tanggula, China \n Alianças Rompidas"
+ },
+ {
+  "label": "MAP:GLA04Open",
+  "text": "Astana \n Capital do Cazaquistão ocupada pela China"
+ },
+ {
+  "label": "MAP:USA07NewObjective2",
+  "text": "NOVO OBJETIVO DA MISSÃO: \n Destrua o Centro de Comando chinês \n e o Silo de Mísseis Nucleares"
+ },
+ {
+  "label": "MAP:USA07GotObjective1",
+  "text": "OBJETIVO CONCLUÍDO: \n Destrua a GLA a nordeste"
+ },
+ {
+  "label": "MAP:USA07GotObjective2",
+  "text": "OBJETIVO CONCLUÍDO: \n Destrua o Centro de Comando chinês \n e o Silo de Mísseis Nucleares"
+ },
+ {
+  "label": "GUI:Defaults",
+  "text": "PADRÕES"
+ },
+ {
+  "label": "TOOLTIP:OptionsAccept",
+  "text": "Aceitar as alterações e sair do menu de opções"
+ },
+ {
+  "label": "TOOLTIP:OptionsCancel",
+  "text": "Sair do menu de opções sem aplicar as alterações"
+ },
+ {
+  "label": "TOOLTIP:OptionsDefaults",
+  "text": "Restaurar as opções para as configurações padrão"
+ },
+ {
+  "label": "MESSAGE:StealthDiscovered",
+  "text": "Unidade furtiva inimiga descoberta"
+ },
+ {
+  "label": "MESSAGE:StealthNeutralized",
+  "text": "Habilidade furtiva neutralizada"
+ },
+ {
+  "label": "TOOLTIP:SortBuddies",
+  "text": "Colocar os amigos no topo da lista de partidas"
+ },
+ {
+  "label": "CONTROLBAR:GeneralsExperienceMenu",
+  "text": "Menu de experiência do general"
+ },
+ {
+  "label": "CONTROLBAR:GeneralsExperienceMenuDescription",
+  "text": "Mostra o menu de experiência, onde você pode gastar os pontos ganhos em batalha em vários poderes de general"
+ },
+ {
+  "label": "CONTROLBAR:UpDown",
+  "text": "Mostrar/ocultar"
+ },
+ {
+  "label": "CONTROLBAR:UpDownDescription",
+  "text": "Alterna entre mostrar e ocultar a barra de controle"
+ },
+ {
+  "label": "CONTROLBAR:DisarmMinesAtPosition",
+  "text": "&Limpar minas"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipDisarmMinesAtPosition",
+  "text": "Limpa minas e pequenos explosivos na área indicada"
+ },
+ {
+  "label": "TOOLTIP:ScienceCostUnavailable",
+  "text": "Custo: indisponível"
+ },
+ {
+  "label": "GUI:OnlineIPAddresses",
+  "text": "IP online:"
+ },
+ {
+  "label": "GUI:GSDisconReason16",
+  "text": "Já existe um perfil com esse apelido"
+ },
+ {
+  "label": "GUI:GSDisconReason17",
+  "text": "Senha incorreta. Tente de novo"
+ },
+ {
+  "label": "GUI:GSDisconReason18",
+  "text": "Já existe um perfil com esse apelido"
+ },
+ {
+  "label": "GUI:GSDisconReason19",
+  "text": "Erro no servidor: não é possível criar a conta"
+ },
+ {
+  "label": "Buddy:MessageDisconnected",
+  "text": "Você foi desconectado \n da lista de amigos"
+ },
+ {
+  "label": "GUI:PlayerHasBeenDefeated",
+  "text": "%ls foi derrotado"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeAmericaRangerCaptureBuilding",
+  "text": "&Capturar prédio"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaRedguardCaptureBuilding",
+  "text": "&Capturar prédio"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLARebelCaptureBuilding",
+  "text": "&Capturar prédio"
+ },
+ {
+  "label": "CONTROLBAR:DetonateBombTruck",
+  "text": "Detonar &agora!"
+ },
+ {
+  "label": "UPGRADE:RangerCaptureBuilding",
+  "text": "Capturar Prédio"
+ },
+ {
+  "label": "UPGRADE:RedguardCaptureBuilding",
+  "text": "Capturar prédio"
+ },
+ {
+  "label": "UPGRADE:RebelCaptureBuilding",
+  "text": "Capturar prédio"
+ },
+ {
+  "label": "CONTROLBAR:TooltipDetonateBombTruck",
+  "text": "Ordena que o Caminhão-Bomba detone imediatamente onde está"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSAUpgradeRangerCaptureBuilding",
+  "text": "Permite que os Rangers capturem prédios inimigos e tecnológicos"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaUpgradeRedGuardCaptureBuilding",
+  "text": "Permite que os Guardas Vermelhos capturem prédios inimigos e tecnológicos"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAUpgradeRebelCaptureBuilding",
+  "text": "Permite que os Rebeldes capturem prédios inimigos e tecnológicos"
+ },
+ {
+  "label": "GUI:Loading",
+  "text": "CARREGANDO"
+ },
+ {
+  "label": "TOOLTIP:EmoteButton",
+  "text": "Emote"
+ },
+ {
+  "label": "CONTROLBAR:Power",
+  "text": "Energia"
+ },
+ {
+  "label": "CONTROLBAR:PowerDescription",
+  "text": "Energia atual: %d \n Energia necessária: %d"
+ },
+ {
+  "label": "CONTROLBAR:Money",
+  "text": "Dinheiro"
+ },
+ {
+  "label": "CONTROLBAR:MoneyDescription",
+  "text": "Esta é a quantidade de dinheiro que você tem"
+ },
+ {
+  "label": "MAP:TourneyArena",
+  "text": "Tournament Desert"
+ },
+ {
+  "label": "UPGRADE:AmericaDroneARmor",
+  "text": "Blindagem de Drones"
+ },
+ {
+  "label": "UPGRADE:APRockets",
+  "text": "Foguetes Perfurantes"
+ },
+ {
+  "label": "ThingTemplate:EuropeanTowerBridge01",
+  "text": "Ponte"
+ },
+ {
+  "label": "ThingTemplate:BridgeTowerConcreteRight02",
+  "text": "Ponte"
+ },
+ {
+  "label": "Team:0",
+  "text": "Nenhuma"
+ },
+ {
+  "label": "Team:1",
+  "text": "1"
+ },
+ {
+  "label": "Team:2",
+  "text": "2"
+ },
+ {
+  "label": "Team:3",
+  "text": "3"
+ },
+ {
+  "label": "Team:4",
+  "text": "4"
+ },
+ {
+  "label": "Team:AI",
+  "text": "CPU"
+ },
+ {
+  "label": "GUI:RestartConfirmation",
+  "text": "Tem certeza de que deseja reiniciar?"
+ },
+ {
+  "label": "GUI:ErrorStartingGame",
+  "text": "ERRO AO INICIAR A PARTIDA"
+ },
+ {
+  "label": "GUI:TooManyPlayers",
+  "text": "Este mapa suporta apenas %d jogadores"
+ },
+ {
+  "label": "GUI:SandboxWarning",
+  "text": "Clicar em Iniciar novamente começará uma partida sandbox"
+ },
+ {
+  "label": "GUI:CantFindMap",
+  "text": "Não foi possível encontrar o mapa. Ele está corrompido?"
+ },
+ {
+  "label": "GUI:EnterSaveDesc",
+  "text": "Digite uma descrição para o jogo"
+ },
+ {
+  "label": "GUI:MissionSave",
+  "text": "Início da missão - %s %d"
+ },
+ {
+  "label": "GUI:SaveReplay",
+  "text": "SALVAR REPLAY"
+ },
+ {
+  "label": "GUI:OverwriteReplayTitle",
+  "text": "SUBSTITUIR REPLAY"
+ },
+ {
+  "label": "GUI:OverwriteReplay",
+  "text": "Substituir o replay?"
+ },
+ {
+  "label": "GUI:ConfirmDelete",
+  "text": "Tem certeza de que deseja apagar este jogo?"
+ },
+ {
+  "label": "GUI:DeleteGame",
+  "text": "APAGAR"
+ },
+ {
+  "label": "GUI:GameSaveComplete",
+  "text": "*** Jogo salvo ***"
+ },
+ {
+  "label": "CAMPAIGN:USA",
+  "text": "EUA"
+ },
+ {
+  "label": "CAMPAIGN:GLA",
+  "text": "GLA"
+ },
+ {
+  "label": "CAMPAIGN:China",
+  "text": "China"
+ },
+ {
+  "label": "GUI:Easy",
+  "text": "Fácil"
+ },
+ {
+  "label": "GUI:Hard",
+  "text": "Difícil"
+ },
+ {
+  "label": "GUI:SelectDifficulty",
+  "text": "SELECIONE A DIFICULDADE"
+ },
+ {
+  "label": "GUI:NumPlayersOnline",
+  "text": "Total de jogadores online: %d"
+ },
+ {
+  "label": "GUI:AllowableMaps",
+  "text": "Mapas permitidos"
+ },
+ {
+  "label": "GUI:QuickMatchTitle",
+  "text": "Partida rápida"
+ },
+ {
+  "label": "LOAD:TRAINING_1",
+  "text": "- A GLA controla uma fábrica de armas químicas"
+ },
+ {
+  "label": "LOAD:TRAINING_2",
+  "text": "- Destrua a fábrica de armas químicas"
+ },
+ {
+  "label": "LOAD:TRAINING_3",
+  "text": "- Elimine a ameaça"
+ },
+ {
+  "label": "LOAD:USA01_1",
+  "text": "- A GLA tem uma Tempestade SCUD"
+ },
+ {
+  "label": "LOAD:USA01_2",
+  "text": "- Eles estão baseados em Bagdá"
+ },
+ {
+  "label": "LOAD:USA01_3",
+  "text": "- Elimine essa ameaça"
+ },
+ {
+  "label": "LOAD:USA02_1",
+  "text": "- Líderes da GLA rastreados até o Iêmen"
+ },
+ {
+  "label": "LOAD:USA02_2",
+  "text": "- Comanches estão procurando os criminosos"
+ },
+ {
+  "label": "LOAD:USA02_3",
+  "text": "- Salve os pilotos capturados"
+ },
+ {
+  "label": "LOAD:USA03_1",
+  "text": "- As forças dos EUA estão em retirada total"
+ },
+ {
+  "label": "LOAD:USA03_2",
+  "text": "- A GLA está em perseguição cerrada"
+ },
+ {
+  "label": "LOAD:USA03_3",
+  "text": "- Dê cobertura às forças em retirada"
+ },
+ {
+  "label": "LOAD:USA04_1",
+  "text": "- Um campo de treinamento da GLA foi descoberto"
+ },
+ {
+  "label": "LOAD:USA04_2",
+  "text": "- Elimine essa ameaça"
+ },
+ {
+  "label": "LOAD:USA06_1",
+  "text": "- Conferência de paz na cidade de Kabara"
+ },
+ {
+  "label": "LOAD:USA06_2",
+  "text": "- Não se pode confiar na GLA"
+ },
+ {
+  "label": "LOAD:USA06_3",
+  "text": "- Fique alerta"
+ },
+ {
+  "label": "LOAD:USA07_1",
+  "text": "- Um general chinês renegado se uniu à GLA"
+ },
+ {
+  "label": "LOAD:USA07_2",
+  "text": "- O inimigo depende das Redes de Túneis"
+ },
+ {
+  "label": "LOAD:USA07_3",
+  "text": "- O ataque deve ser lançado imediatamente"
+ },
+ {
+  "label": "LOAD:USA08_1",
+  "text": "- As forças dos EUA cercaram a capital da GLA"
+ },
+ {
+  "label": "LOAD:USA08_2",
+  "text": "- A GLA tem armas biológicas"
+ },
+ {
+  "label": "LOAD:USA08_3",
+  "text": "- A China prometeu apoio aos EUA"
+ },
+ {
+  "label": "LOAD:USA08_4",
+  "text": "- A GLA deve ser eliminada"
+ },
+ {
+  "label": "LOAD:China01_1",
+  "text": "- O poder da China está em desfile"
+ },
+ {
+  "label": "LOAD:China01_2",
+  "text": "- Proteja a exibição militar da China"
+ },
+ {
+  "label": "LOAD:China01_3",
+  "text": "- Elimine qualquer ameaça na região de Pequim"
+ },
+ {
+  "label": "LOAD:China02_1",
+  "text": "- Uma célula da GLA foi descoberta em Hong Kong"
+ },
+ {
+  "label": "LOAD:China02_2",
+  "text": "- Os terroristas usam o centro de convenções como base"
+ },
+ {
+  "label": "LOAD:China02_3",
+  "text": "- A célula deve ser erradicada"
+ },
+ {
+  "label": "LOAD:China03_1",
+  "text": "- A GLA infestou a região da Represa das Três Gargantas"
+ },
+ {
+  "label": "LOAD:China03_2",
+  "text": "- Reforços inimigos agora ameaçam nossas forças"
+ },
+ {
+  "label": "LOAD:China03_3",
+  "text": "- Afogue a GLA com as forças chinesas"
+ },
+ {
+  "label": "LOAD:China04_1",
+  "text": "- A GLA construiu uma fábrica de biotoxinas"
+ },
+ {
+  "label": "LOAD:China04_2",
+  "text": "- Localize a fábrica com a ajuda da agente Lótus Negra"
+ },
+ {
+  "label": "LOAD:China04_3",
+  "text": "- Um ataque aéreo ajudará a destruí-la"
+ },
+ {
+  "label": "LOAD:China05_1",
+  "text": "- A GLA tomou Balykchy"
+ },
+ {
+  "label": "LOAD:China05_2",
+  "text": "- As forças dos EUA darão apoio aéreo"
+ },
+ {
+  "label": "LOAD:China05_3",
+  "text": "- Solicite Bombardeios em Tapete e destrua a GLA"
+ },
+ {
+  "label": "LOAD:China06_1",
+  "text": "- A GLA se apoderou de uma das ferrovias da China"
+ },
+ {
+  "label": "LOAD:China06_2",
+  "text": "- A GLA está se reunindo em Bishkek, Aldastan"
+ },
+ {
+  "label": "LOAD:China06_3",
+  "text": "- Use a Lótus Negra para destruir a ponte ferroviária"
+ },
+ {
+  "label": "LOAD:China07_1",
+  "text": "- Célula terrorista asiática da GLA identificada no Tadjiquistão"
+ },
+ {
+  "label": "LOAD:China07_2",
+  "text": "- Autorizado o uso do seu arsenal nuclear"
+ },
+ {
+  "label": "LOAD:GLA01_1",
+  "text": "- Muitos irmãos foram perdidos"
+ },
+ {
+  "label": "LOAD:GLA01_2",
+  "text": "- As defesas da China estão espalhadas demais"
+ },
+ {
+  "label": "LOAD:GLA01_3",
+  "text": "- Destrua as forças chinesas"
+ },
+ {
+  "label": "LOAD:GLA02_1",
+  "text": "- Suprimentos da ONU a caminho da região de Almaty"
+ },
+ {
+  "label": "LOAD:GLA02_2",
+  "text": "- Intercepte essas entregas pela nossa causa"
+ },
+ {
+  "label": "LOAD:GLA02_3",
+  "text": "- Colete suprimentos para encher a GLA de fundos"
+ },
+ {
+  "label": "LOAD:GLA03_1",
+  "text": "- Os opressores corromperam o povo de Zhambul"
+ },
+ {
+  "label": "LOAD:GLA03_2",
+  "text": "- A única verdadeira liberdade deles está na morte"
+ },
+ {
+  "label": "LOAD:GLA03_3",
+  "text": "- Use os Tratores de Toxina para eliminá-los"
+ },
+ {
+  "label": "LOAD:GLA04_1",
+  "text": "- Encontramos novos aliados em Astana"
+ },
+ {
+  "label": "LOAD:GLA04_2",
+  "text": "- Podemos usá-los para fustigar o inimigo"
+ },
+ {
+  "label": "LOAD:GLA04_3",
+  "text": "- Enquanto Astana arde, saqueie a cidade em busca de suprimentos"
+ },
+ {
+  "label": "LOAD:GLA05_1",
+  "text": "- A arrogância dos EUA não pode ficar sem resposta"
+ },
+ {
+  "label": "LOAD:GLA05_2",
+  "text": "- Mantenha a região longe das garras imperialistas deles"
+ },
+ {
+  "label": "LOAD:GLA05_3",
+  "text": "- Destrua a força aérea 'superior' deles"
+ },
+ {
+  "label": "LOAD:GLA06_1",
+  "text": "- As notícias do Mar de Aral não são boas"
+ },
+ {
+  "label": "LOAD:GLA06_2",
+  "text": "- As forças dos EUA controlam nosso depósito de toxinas"
+ },
+ {
+  "label": "LOAD:GLA06_3",
+  "text": "- Retome os bunkers de armazenamento"
+ },
+ {
+  "label": "LOAD:GLA07_1",
+  "text": "- Desertores da GLA se uniram à China"
+ },
+ {
+  "label": "LOAD:GLA07_2",
+  "text": "- Ataque os comboios e corte as linhas de suprimento"
+ },
+ {
+  "label": "LOAD:GLA07_3",
+  "text": "- Elimine os traidores e seus aliados chineses"
+ },
+ {
+  "label": "LOAD:GLA08_1",
+  "text": "- Tome o controle do Cosmódromo"
+ },
+ {
+  "label": "LOAD:GLA08_2",
+  "text": "- Os mísseis de lá levarão toxinas mortais aos nossos inimigos"
+ },
+ {
+  "label": "LOAD:GLA08_3",
+  "text": "- Nosso destino está próximo"
+ },
+ {
+  "label": "TOOLTIP:DownloadProgress",
+  "text": "Progresso do download"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorBlitz10",
+  "text": "Condecoração Blitz \n Vença o(s) adversário(s) em 10 minutos ou menos para ganhar esta medalha"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorBlitz5",
+  "text": "Condecoração Blitz \n Vença o(s) adversário(s) em 5 minutos ou menos para ganhar esta medalha"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorLoyaltyUSADisabled",
+  "text": "Condecoração de Lealdade aos EUA \n Jogue mais de 20 partidas seguidas com os EUA para ganhar esta medalha"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorLoyaltyChinaDisabled",
+  "text": "Condecoração de Lealdade à China \n Jogue mais de 20 partidas seguidas com a China para ganhar esta medalha"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorLoyaltyGLADisabled",
+  "text": "Condecoração de Lealdade à GLA \n Jogue mais de 20 partidas seguidas com a GLA para ganhar esta medalha"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorBattleTankDisabled",
+  "text": "Condecoração de Tanque de Batalha \n Construa mais de 50 tanques contra adversário(s) do computador para ganhar esta medalha"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorAirWingDisabled",
+  "text": "Condecoração de Ala Aérea \n Construa mais de 20 aeronaves contra adversário(s) do computador para ganhar esta medalha"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorEnduranceDisabled",
+  "text": "Condecoração de Resistência \n Vença todos os mapas para ganhar uma medalha de bronze, prata ou ouro"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorCampaignUSADisabled",
+  "text": "Condecoração da Campanha dos EUA \n Conclua a campanha dos EUA para receber esta condecoração\n Vença a campanha no nível Difícil para obter a honra máxima"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorCampaignChinaDisabled",
+  "text": "Condecoração da Campanha da China \n Conclua a campanha da China para receber esta condecoração\n Vença a campanha no nível Difícil para obter a honra máxima"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorCampaignGLADisabled",
+  "text": "Condecoração da Campanha da GLA \n Conclua a campanha da GLA para receber esta condecoração\n Vença a campanha no nível Difícil para obter a honra máxima"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorChallengeDisabled",
+  "text": "Condecoração de Desafio \n Derrote de 1 a 7 adversários Difíceis do computador para ganhar esta medalha"
+ },
+ {
+  "label": "GUI:BuildingsKilledStat",
+  "text": "Prédios destruídos"
+ },
+ {
+  "label": "GUI:BuildingsBuiltStat",
+  "text": "Prédios construídos"
+ },
+ {
+  "label": "GUI:BuildingsLostStat",
+  "text": "Prédios perdidos"
+ },
+ {
+  "label": "GUI:QMWinStreak",
+  "text": "Sequência de vitórias em partida rápida"
+ },
+ {
+  "label": "GUI:LastLadder",
+  "text": "Último ranking"
+ },
+ {
+  "label": "GUI:LobbyJoined",
+  "text": "Você entrou em %ls"
+ },
+ {
+  "label": "GUI:GSNoLoginInfoAll",
+  "text": "Digite seu e-mail, apelido e senha. Depois, clique em Entrar ou Criar conta"
+ },
+ {
+  "label": "GUI:GSNoLoginInfoEmailNickname",
+  "text": "Digite seu e-mail e apelido. Depois, clique em Entrar ou Criar conta"
+ },
+ {
+  "label": "GUI:GSNoLoginInfoEmailPassword",
+  "text": "Digite seu e-mail e senha. Depois, clique em Entrar ou Criar conta"
+ }
+]
