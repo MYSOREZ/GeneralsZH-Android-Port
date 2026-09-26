@@ -1,0 +1,802 @@
+[
+ {
+  "label": "GUI:Scatter",
+  "text": "Rozproszenie"
+ },
+ {
+  "label": "GUI:StopObject",
+  "text": "Zatrzymaj obiekt"
+ },
+ {
+  "label": "GUI:StopObjectDescription",
+  "text": "Zatrzymaj zaznaczone obiekty"
+ },
+ {
+  "label": "GUI:GoToRadarEvent",
+  "text": "Idź do zdarzenia radarowego"
+ },
+ {
+  "label": "GUI:GoToRadarEventDescription",
+  "text": "Wyśrodkuj widok taktyczny na ostatnim zdarzeniu radarowym"
+ },
+ {
+  "label": "GUI:SaveView1",
+  "text": "Ustaw zakładkę 1"
+ },
+ {
+  "label": "GUI:SaveView1Description",
+  "text": "Ustaw zakładkę pozycji na mapie 1"
+ },
+ {
+  "label": "GUI:SaveView2",
+  "text": "Ustaw zakładkę 2"
+ },
+ {
+  "label": "GUI:SaveView2Description",
+  "text": "Ustaw zakładkę pozycji na mapie 2"
+ },
+ {
+  "label": "GUI:SaveView3",
+  "text": "Ustaw zakładkę 3"
+ },
+ {
+  "label": "GUI:SaveView3Description",
+  "text": "Ustaw zakładkę pozycji na mapie 3"
+ },
+ {
+  "label": "GUI:SaveView4",
+  "text": "Ustaw zakładkę 4"
+ },
+ {
+  "label": "GUI:SaveView4Description",
+  "text": "Ustaw zakładkę pozycji na mapie 4"
+ },
+ {
+  "label": "GUI:ViewView1",
+  "text": "Pokaż zakładkę 1"
+ },
+ {
+  "label": "GUI:ViewView1Description",
+  "text": "Pokaż zapisaną pozycję na mapie 1"
+ },
+ {
+  "label": "GUI:ViewView2",
+  "text": "Pokaż zakładkę 2"
+ },
+ {
+  "label": "GUI:ViewView2Description",
+  "text": "Pokaż zapisaną pozycję na mapie 2"
+ },
+ {
+  "label": "GUI:ViewView3",
+  "text": "Pokaż zakładkę 3"
+ },
+ {
+  "label": "GUI:ViewView3Description",
+  "text": "Pokaż zapisaną pozycję na mapie 3"
+ },
+ {
+  "label": "GUI:ViewView4",
+  "text": "Pokaż zakładkę 4"
+ },
+ {
+  "label": "GUI:ViewView4Description",
+  "text": "Pokaż zapisaną pozycję na mapie 4"
+ },
+ {
+  "label": "GUI:CenterBase",
+  "text": "Wyśrodkuj bazę"
+ },
+ {
+  "label": "GUI:CenterBaseDescription",
+  "text": "Wyśrodkuj widok na bazie gracza"
+ },
+ {
+  "label": "GUI:SelectNone",
+  "text": "Nic nie zaznaczaj"
+ },
+ {
+  "label": "GUI:SelectAll",
+  "text": "Zaznacz wszystko"
+ },
+ {
+  "label": "GUI:SelectAllDescription",
+  "text": "Zaznacza wszystkie jednostki wojskowe"
+ },
+ {
+  "label": "GUI:SelectNextUnit",
+  "text": "Następny obiekt"
+ },
+ {
+  "label": "GUI:SelectNextUnitDescription",
+  "text": "Zaznacz następny obiekt"
+ },
+ {
+  "label": "GUI:SelectPrevUnit",
+  "text": "Poprzedni obiekt"
+ },
+ {
+  "label": "GUI:SelectPrevUnitDescription",
+  "text": "Zaznacz poprzednią jednostkę"
+ },
+ {
+  "label": "GUI:SelectNextWorker",
+  "text": "Następny robotnik"
+ },
+ {
+  "label": "GUI:SelectNextWorkerDescription",
+  "text": "Zaznacz następnego robotnika"
+ },
+ {
+  "label": "GUI:SelectPrevWorker",
+  "text": "Poprzedni robotnik"
+ },
+ {
+  "label": "GUI:SelectPrevWorkerDescription",
+  "text": "Zaznacz poprzedniego robotnika"
+ },
+ {
+  "label": "GUI:TypeSelect",
+  "text": "Zaznaczanie według typu"
+ },
+ {
+  "label": "GUI:TypeSelectDescription",
+  "text": "Zaznacza jednostki według typu. Kliknij dwukrotnie lewym przyciskiem jednostkę, aby zaznaczyć wszystkie tego samego typu"
+ },
+ {
+  "label": "GUI:CreateTeam0",
+  "text": "Utwórz oddział 0"
+ },
+ {
+  "label": "GUI:CreateTeam0Description",
+  "text": "Tworzy oddział 0 z zaznaczonych jednostek"
+ },
+ {
+  "label": "GUI:CreateTeam1",
+  "text": "Utwórz oddział 1"
+ },
+ {
+  "label": "GUI:CreateTeam1Description",
+  "text": "Tworzy oddział 1 z zaznaczonych jednostek"
+ },
+ {
+  "label": "GUI:CreateTeam2",
+  "text": "Utwórz oddział 2"
+ },
+ {
+  "label": "GUI:CreateTeam2Description",
+  "text": "Tworzy oddział 2 z zaznaczonych jednostek"
+ },
+ {
+  "label": "GUI:CreateTeam3",
+  "text": "Utwórz oddział 3"
+ },
+ {
+  "label": "GUI:CreateTeam3Description",
+  "text": "Tworzy oddział 3 z zaznaczonych jednostek"
+ },
+ {
+  "label": "GUI:CreateTeam4",
+  "text": "Utwórz oddział 4"
+ },
+ {
+  "label": "GUI:CreateTeam4Description",
+  "text": "Tworzy oddział 4 z zaznaczonych jednostek"
+ },
+ {
+  "label": "GUI:CreateTeam5",
+  "text": "Utwórz oddział 5"
+ },
+ {
+  "label": "GUI:CreateTeam5Description",
+  "text": "Tworzy oddział 5 z zaznaczonych jednostek"
+ },
+ {
+  "label": "GUI:CreateTeam6",
+  "text": "Utwórz oddział 6"
+ },
+ {
+  "label": "GUI:CreateTeam6Description",
+  "text": "Tworzy oddział 6 z zaznaczonych jednostek"
+ },
+ {
+  "label": "GUI:CreateTeam7",
+  "text": "Utwórz oddział 7"
+ },
+ {
+  "label": "GUI:CreateTeam7Description",
+  "text": "Tworzy oddział 7 z zaznaczonych jednostek"
+ },
+ {
+  "label": "GUI:CreateTeam8",
+  "text": "Utwórz oddział 8"
+ },
+ {
+  "label": "GUI:CreateTeam8Description",
+  "text": "Tworzy oddział 8 z zaznaczonych jednostek"
+ },
+ {
+  "label": "GUI:CreateTeam9",
+  "text": "Utwórz oddział 9"
+ },
+ {
+  "label": "GUI:CreateTeam9Description",
+  "text": "Tworzy oddział 9 z zaznaczonych jednostek"
+ },
+ {
+  "label": "GUI:SelectTeam0",
+  "text": "Zaznacz oddział 0"
+ },
+ {
+  "label": "GUI:SelectTeam0Description",
+  "text": "Zaznacza członków oddziału 0"
+ },
+ {
+  "label": "GUI:SelectTeam1",
+  "text": "Zaznacz oddział 1"
+ },
+ {
+  "label": "GUI:SelectTeam1Description",
+  "text": "Zaznacza członków oddziału 1"
+ },
+ {
+  "label": "GUI:SelectTeam2",
+  "text": "Zaznacz oddział 2"
+ },
+ {
+  "label": "GUI:SelectTeam2Description",
+  "text": "Zaznacza członków oddziału 2"
+ },
+ {
+  "label": "GUI:SelectTeam3",
+  "text": "Zaznacz oddział 3"
+ },
+ {
+  "label": "GUI:SelectTeam3Description",
+  "text": "Zaznacza członków oddziału 3"
+ },
+ {
+  "label": "GUI:SelectTeam4",
+  "text": "Zaznacz oddział 4"
+ },
+ {
+  "label": "GUI:SelectTeam4Description",
+  "text": "Zaznacza członków oddziału 4"
+ },
+ {
+  "label": "GUI:SelectTeam5",
+  "text": "Zaznacz oddział 5"
+ },
+ {
+  "label": "GUI:SelectTeam5Description",
+  "text": "Zaznacza członków oddziału 5"
+ },
+ {
+  "label": "GUI:SelectTeam6",
+  "text": "Zaznacz oddział 6"
+ },
+ {
+  "label": "GUI:SelectTeam6Description",
+  "text": "Zaznacza członków oddziału 6"
+ },
+ {
+  "label": "GUI:SelectTeam7",
+  "text": "Zaznacz oddział 7"
+ },
+ {
+  "label": "GUI:SelectTeam7Description",
+  "text": "Zaznacza członków oddziału 7"
+ },
+ {
+  "label": "GUI:SelectTeam8",
+  "text": "Zaznacz oddział 8"
+ },
+ {
+  "label": "GUI:SelectTeam8Description",
+  "text": "Zaznacza członków oddziału 8"
+ },
+ {
+  "label": "GUI:SelectTeam9",
+  "text": "Zaznacz oddział 9"
+ },
+ {
+  "label": "GUI:SelectTeam9Description",
+  "text": "Zaznacza członków oddziału 9"
+ },
+ {
+  "label": "GUI:ViewTeam0",
+  "text": "Wyśrodkuj oddział 0"
+ },
+ {
+  "label": "GUI:ViewTeam0Description",
+  "text": "Zaznacza oddział 0 i wyśrodkowuje na nim widok"
+ },
+ {
+  "label": "GUI:ViewTeam1",
+  "text": "Wyśrodkuj oddział 1"
+ },
+ {
+  "label": "GUI:ViewTeam1Description",
+  "text": "Zaznacza oddział 1 i wyśrodkowuje na nim widok"
+ },
+ {
+  "label": "GUI:ViewTeam2",
+  "text": "Wyśrodkuj oddział 2"
+ },
+ {
+  "label": "GUI:ViewTeam2Description",
+  "text": "Zaznacza oddział 2 i wyśrodkowuje na nim widok"
+ },
+ {
+  "label": "GUI:ViewTeam3",
+  "text": "Wyśrodkuj oddział 3"
+ },
+ {
+  "label": "GUI:ViewTeam3Description",
+  "text": "Zaznacza oddział 3 i wyśrodkowuje na nim widok"
+ },
+ {
+  "label": "GUI:ViewTeam4",
+  "text": "Wyśrodkuj oddział 4"
+ },
+ {
+  "label": "GUI:ViewTeam4Description",
+  "text": "Zaznacza oddział 4 i wyśrodkowuje na nim widok"
+ },
+ {
+  "label": "GUI:ViewTeam5",
+  "text": "Wyśrodkuj oddział 5"
+ },
+ {
+  "label": "GUI:ViewTeam5Description",
+  "text": "Zaznacza oddział 5 i wyśrodkowuje na nim widok"
+ },
+ {
+  "label": "GUI:ViewTeam6",
+  "text": "Wyśrodkuj oddział 6"
+ },
+ {
+  "label": "GUI:ViewTeam6Description",
+  "text": "Zaznacza oddział 6 i wyśrodkowuje na nim widok"
+ },
+ {
+  "label": "GUI:ViewTeam7",
+  "text": "Wyśrodkuj oddział 7"
+ },
+ {
+  "label": "GUI:ViewTeam7Description",
+  "text": "Zaznacza oddział 7 i wyśrodkowuje na nim widok"
+ },
+ {
+  "label": "GUI:ViewTeam8",
+  "text": "Wyśrodkuj oddział 8"
+ },
+ {
+  "label": "GUI:ViewTeam8Description",
+  "text": "Zaznacza oddział 8 i wyśrodkowuje na nim widok"
+ },
+ {
+  "label": "GUI:ViewTeam9",
+  "text": "Wyśrodkuj oddział 9"
+ },
+ {
+  "label": "GUI:ViewTeam9Description",
+  "text": "Zaznacza oddział 9 i wyśrodkowuje na nim widok"
+ },
+ {
+  "label": "GUI:LocalIPDesc",
+  "text": "Lokalne IP"
+ },
+ {
+  "label": "GUI:RemoteIPDesc",
+  "text": "Zdalne IP"
+ },
+ {
+  "label": "GUI:SaveCamera",
+  "text": "Zapisuj kamerę w powtórkach"
+ },
+ {
+  "label": "GUI:UseCamera",
+  "text": "Używaj zapisanej kamery w powtórkach"
+ },
+ {
+  "label": "Mouse:Windows",
+  "text": "Kursor Windows"
+ },
+ {
+  "label": "Mouse:W3D",
+  "text": "Kursor W3D"
+ },
+ {
+  "label": "Mouse:Poly",
+  "text": "Kursor wielokątny"
+ },
+ {
+  "label": "Mouse:DX8",
+  "text": "Kursor DX8"
+ },
+ {
+  "label": "Mouse:Heal",
+  "text": "Lecz się"
+ },
+ {
+  "label": "Mouse:GetRepaired",
+  "text": "Napraw się"
+ },
+ {
+  "label": "Mouse:Dock",
+  "text": "Dokuj"
+ },
+ {
+  "label": "Mouse:DoRepair",
+  "text": "Napraw"
+ },
+ {
+  "label": "Mouse:ResumeConstruction",
+  "text": "Wznów budowę"
+ },
+ {
+  "label": "Mouse:Enter",
+  "text": "Wejdź"
+ },
+ {
+  "label": "Mouse:SetRallyPoint",
+  "text": "Ustaw punkt zbiórki"
+ },
+ {
+  "label": "Mouse:DisguiseAsVehicle",
+  "text": "Przebierz się za to!"
+ },
+ {
+  "label": "Mouse:Invalid",
+  "text": "NIEDOZWOLONE"
+ },
+ {
+  "label": "Mouse:FireFlame",
+  "text": "Podpal"
+ },
+ {
+  "label": "Mouse:FireFlashBang",
+  "text": "Granat ogłuszający"
+ },
+ {
+  "label": "Mouse:FireTranqDarts",
+  "text": "Strzałki usypiające"
+ },
+ {
+  "label": "Mouse:FireStunBullets",
+  "text": "Pociski ogłuszające"
+ },
+ {
+  "label": "Mouse:MakeCarBomb",
+  "text": "Zrób samochód-pułapkę"
+ },
+ {
+  "label": "Mouse:Hijack",
+  "text": "Porwij"
+ },
+ {
+  "label": "Mouse:FireBomb",
+  "text": "Bomba \n zapalająca"
+ },
+ {
+  "label": "Mouse:Defector",
+  "text": "Stwórz \n dezertera"
+ },
+ {
+  "label": "Mouse:CaptureBuilding",
+  "text": "Przejmij budynek"
+ },
+ {
+  "label": "Mouse:DisableVehicleHack",
+  "text": "Wyłącz pojazd"
+ },
+ {
+  "label": "Mouse:StealCashHack",
+  "text": "Ukradnij pieniądze"
+ },
+ {
+  "label": "Mouse:SnipeVehicle",
+  "text": "Zdejmij kierowcę"
+ },
+ {
+  "label": "Mouse:DisableBuildingHack",
+  "text": "Wyłącz budynek"
+ },
+ {
+  "label": "Mouse:LaserGuidedMissiles",
+  "text": "Pociski naprowadzane laserowo"
+ },
+ {
+  "label": "Mouse:TankHunterTNTAttack",
+  "text": "Atak TNT"
+ },
+ {
+  "label": "Mouse:A10ThunderboltStrike",
+  "text": "Cel nalotu A10"
+ },
+ {
+  "label": "Mouse:StabAttack",
+  "text": "Pchnięcie bagnetem"
+ },
+ {
+  "label": "Mouse:PlaceRemoteCharge",
+  "text": "Podłóż ładunek zdalny"
+ },
+ {
+  "label": "Mouse:PlaceTimedCharge",
+  "text": "Podłóż ładunek czasowy"
+ },
+ {
+  "label": "Mouse:RepairVehicles",
+  "text": "&Naprawa awaryjna"
+ },
+ {
+  "label": "Mouse:Demoralize",
+  "text": "Demoralizacja"
+ },
+ {
+  "label": "Mouse:PickUpPrisoner",
+  "text": "Zabierz jeńca"
+ },
+ {
+  "label": "Mouse:Return",
+  "text": "Wróć"
+ },
+ {
+  "label": "Mouse:PlaceBeacon",
+  "text": "Postaw znacznik"
+ },
+ {
+  "label": "SCRIPT:TestString",
+  "text": "No to jest taki jakby tekst testowy, stary"
+ },
+ {
+  "label": "SCRIPT:LongTestString",
+  "text": "No to jest taki jakby naprawdę długi tekst testowy, stary. Sprawdza, czy zawijanie wierszy i odstępy działają"
+ },
+ {
+  "label": "SCIENCE:GeneralName",
+  "text": "<Wpisz nazwę>"
+ },
+ {
+  "label": "SCIENCE:SkillPoints",
+  "text": "Punkty umiejętności: %d"
+ },
+ {
+  "label": "SCIENCE:Rank",
+  "text": "Poziom %d"
+ },
+ {
+  "label": "SCIENCE:TempName",
+  "text": "Nadaj nazwę mojej nauce"
+ },
+ {
+  "label": "SCIENCE:TempDescription",
+  "text": "Proszę, znajdź chwilę, żeby uzupełnić mój opis w pliku Science.ini! Wielkie dzięki"
+ },
+ {
+  "label": "SCIENCE:USAPaladin",
+  "text": "Czołg Paladin"
+ },
+ {
+  "label": "SCIENCE:USAPathFinder",
+  "text": "Zwiadowca"
+ },
+ {
+  "label": "SCIENCE:USAStealthFighter",
+  "text": "Myśliwiec Stealth"
+ },
+ {
+  "label": "SCIENCE:USASpyDrone",
+  "text": "Dron szpiegowski"
+ },
+ {
+  "label": "SCIENCE:USAParaDrop1",
+  "text": "Desant 1"
+ },
+ {
+  "label": "SCIENCE:USAParaDrop2",
+  "text": "Desant 2"
+ },
+ {
+  "label": "SCIENCE:USAParaDrop3",
+  "text": "Desant 3"
+ },
+ {
+  "label": "SCIENCE:USAA10Strike1",
+  "text": "Nalot A10 1"
+ },
+ {
+  "label": "SCIENCE:USAA10Strike2",
+  "text": "Nalot A10 2"
+ },
+ {
+  "label": "SCIENCE:USAA10Strike3",
+  "text": "Nalot A10 3"
+ },
+ {
+  "label": "SCIENCE:USADaisyCutter",
+  "text": "Bomba paliwowo-powietrzna"
+ },
+ {
+  "label": "SCIENCE:ChinaNukeLauncher",
+  "text": "Działo atomowe"
+ },
+ {
+  "label": "SCIENCE:ChinaRedGuardTraining",
+  "text": "Szkolenie Czerwonej Gwardii"
+ },
+ {
+  "label": "SCIENCE:ChinaClusterMines",
+  "text": "Miny kasetowe"
+ },
+ {
+  "label": "SCIENCE:ChinaArtilleryTraining",
+  "text": "Szkolenie artyleryjskie"
+ },
+ {
+  "label": "SCIENCE:ChinaArtilleryBarrage",
+  "text": "Ostrzał artyleryjski 1"
+ },
+ {
+  "label": "SCIENCE:ChinaArtilleryBarrage2",
+  "text": "Ostrzał artyleryjski 2"
+ },
+ {
+  "label": "SCIENCE:ChinaArtilleryBarrage3",
+  "text": "Ostrzał artyleryjski 3"
+ },
+ {
+  "label": "SCIENCE:ChinaCashHack1",
+  "text": "Włamanie bankowe 1"
+ },
+ {
+  "label": "SCIENCE:ChinaCashHack2",
+  "text": "Włamanie bankowe 2"
+ },
+ {
+  "label": "SCIENCE:ChinaCashHack3",
+  "text": "Włamanie bankowe 3"
+ },
+ {
+  "label": "SCIENCE:ChinaEMPPulse",
+  "text": "Impuls EMP"
+ },
+ {
+  "label": "SCIENCE:GLAHijacker",
+  "text": "Porywacz"
+ },
+ {
+  "label": "SCIENCE:GLASCUDLauncher",
+  "text": "Wyrzutnia SCUD"
+ },
+ {
+  "label": "SCIENCE:GLAMaruaderTank",
+  "text": "Czołg Maruder"
+ },
+ {
+  "label": "SCIENCE:GLATechnicalTraining",
+  "text": "Szkolenie technicali"
+ },
+ {
+  "label": "SCIENCE:GLARebelAmbush1",
+  "text": "Zasadzka rebeliantów 1"
+ },
+ {
+  "label": "SCIENCE:GLARebelAmbush2",
+  "text": "Zasadzka rebeliantów 2"
+ },
+ {
+  "label": "SCIENCE:GLARebelAmbush3",
+  "text": "Zasadzka rebeliantów 3"
+ },
+ {
+  "label": "SCIENCE:GLACashBounty1",
+  "text": "Nagroda pieniężna 1"
+ },
+ {
+  "label": "SCIENCE:GLACashBounty2",
+  "text": "Nagroda pieniężna 2"
+ },
+ {
+  "label": "SCIENCE:GLACashBounty3",
+  "text": "Nagroda pieniężna 3"
+ },
+ {
+  "label": "SCIENCE:GLAAnthraxBomb",
+  "text": "Bomba z wąglikiem"
+ },
+ {
+  "label": "CONTROLBAR:Demoralize",
+  "text": "Demoralizacja"
+ },
+ {
+  "label": "CONTROLBAR:CIAIntelligence",
+  "text": "Wywia&d"
+ },
+ {
+  "label": "CONTROLBAR:CombatDrop",
+  "text": "&Desant bojowy"
+ },
+ {
+  "label": "CONTROLBAR:Guard",
+  "text": "&Straż"
+ },
+ {
+  "label": "CONTROLBAR:GuardWithoutPursuit",
+  "text": "Straż &bliska"
+ },
+ {
+  "label": "CONTROLBAR:GuardFlyingUnitsOnly",
+  "text": "Straż po&wietrzna"
+ },
+ {
+  "label": "CONTROLBAR:AttackMove",
+  "text": "&Atak w ruchu"
+ },
+ {
+  "label": "CONTROLBAR:Stop",
+  "text": "&Stop"
+ },
+ {
+  "label": "CONTROLBAR:Waypoints",
+  "text": "Punkt &trasy"
+ },
+ {
+  "label": "CONTROLBAR:CancelBuild",
+  "text": "&Anuluj budowę"
+ },
+ {
+  "label": "CONTROLBAR:Contaminate",
+  "text": "&Skaź"
+ },
+ {
+  "label": "CONTROLBAR:FireWall",
+  "text": "Ś&ciana ognia"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLAArmTheMob",
+  "text": "Uzbrój &tłum"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaOverlordGattlingCannon",
+  "text": "&Działko Gatlinga"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaOverlordPropagandaTower",
+  "text": "Wieża &propagandowa"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaOverlordBattleBunker",
+  "text": "&Bunkier bojowy"
+ },
+ {
+  "label": "CONTROLBAR:FireBomb",
+  "text": "Bomba &zapalająca"
+ },
+ {
+  "label": "CONTROLBAR:UnderConstructionDesc",
+  "text": "Budowa: %.0f%%"
+ },
+ {
+  "label": "CONTROLBAR:OCLTimerDesc",
+  "text": "Czas do następnego zrzutu: %d:%d"
+ },
+ {
+  "label": "CONTROLBAR:OCLTimerDescWithPadding",
+  "text": "Czas do następnego zrzutu: %d:0%d"
+ },
+ {
+  "label": "CONTROLBAR:InitiateBattlePlanBombardment",
+  "text": "Plan bitwy &Bombardowanie"
+ },
+ {
+  "label": "CONTROLBAR:InitiateBattlePlanHoldTheLine",
+  "text": "Plan bitwy U&trzymać linię"
+ },
+ {
+  "label": "CONTROLBAR:InitiateBattlePlanSearchAndDestroy",
+  "text": "Plan Znajdź i &zniszcz"
+ }
+]
