@@ -345,7 +345,7 @@
  },
  {
   "label": "GUI:Com/Tac",
-  "text": "Dow/Tak"
+  "text": "Dow/Takt"
  },
  {
   "label": "GUI:MoneySymbol",
@@ -373,7 +373,7 @@
  },
  {
   "label": "GUI:Tac",
-  "text": "Tak"
+  "text": "Takt"
  },
  {
   "label": "GUI:Strat",
