@@ -153,3 +153,15 @@ to the player with "você"; EVA and the officers add "senhor" and "General", and
 calls the player "moleque" and "garoto" as in English. Multiplayer map names stay in English.
 Jokes are carried over as Brazilian ones ("Atirei o pau no gato" for the test rhyme, "Adoro o
 cheiro de MOAB pela manhã", "Limpeza no corredor um!", "toca a boiaaada!").
+
+## Polish
+
+`languages/polish/generals.str` is a new translation from the English original into Polish. It
+uses the names of the Polish release where they exist: "GLA", "ALW" for the PLA, "Centrum
+dowodzenia", "Burza SCUD", "Działo cząsteczkowe", "Czarny Lotos", "Spycharka", "Fabryka broni",
+"Emperor" for the Emperor Overlord, and so on. Officers address the player as "generale" and
+everyone uses the 2nd person singular; the USA boss's "Boy/Kid/Punk" become "chłopcze", "mały"
+and "gnojku". Tooltips follow one pattern ("Skuteczny przeciw: czołgom / Słaby przeciw:
+samolotom", "Wymagana energia:", "Czas odnowienia:"). Multiplayer map names stay in English.
+Jokes are carried over as Polish ones ("Wlazł kotek na płotek" for the test rhyme, "zapach MOAB
+o poranku", "Rozlane w alejce pierwszej!").
