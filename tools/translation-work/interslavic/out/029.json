@@ -1,0 +1,802 @@
+[
+ {
+  "label": "DIALOGEVENT:Taunts_Tank091Subtitle",
+  "text": "*Arrrrgh! To ne može byti! Kak ste pobědili moje tanky?!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank092Subtitle",
+  "text": "*Vrěme je puščati vojensku mašinu"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank093Subtitle",
+  "text": "*Vaš bystry napad tankami je ničto v sravnenju s mojim"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank094Subtitle",
+  "text": "*Ne izzyvajte moje tanky, generale -- izgubite"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank095Subtitle",
+  "text": "*Moj oklop razdrobi vaše žalke sily"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank096Subtitle",
+  "text": "*Može ste pobědili moje tanky, generale, no Tigrica vas razdrobi kako insekta"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank097Subtitle",
+  "text": "*Tanky su ključ vsakoj pobědy, kako dobro znate"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank098Subtitle",
+  "text": "*Vidim, že ste pobědili mojih razvědčikov, generale. Sleduješi napad se za vas ne skonči tak dobro, myslim"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank099Subtitle",
+  "text": "*Tu idemo, generale, nadam se, že vaša obrana je gotova"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank100Subtitle",
+  "text": "*A to su samo moji Battlemastery, generale... samo počekajte, dokla se Overlordy pridružu bitvě"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank101Subtitle",
+  "text": "*Byl by jesem oprezny, generale, někogda Červena Garda ljubi preuzeti budovy, poka ste zauzeti mojimi tankami"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin001Subtitle",
+  "text": "*Vidim vas!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin002Subtitle",
+  "text": "*Odyn okus, i nikogda se ne vrátite -- daže jesli by hotěli!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin003Subtitle",
+  "text": "*Okusite moj vlastny lěk!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin004Subtitle",
+  "text": "*Kak dolgo možete dăržati dyh?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin005Subtitle",
+  "text": "*Gotovi na ešče jednu lekciju hemije?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin006Subtitle",
+  "text": "*Ne je tak zlo. Trěbalo by čujati samo dolgo i boljno pečenje po tom!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin007Subtitle",
+  "text": "*Toksinni vojaci, napadnite!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin008Subtitle",
+  "text": "*Tu idemo, generale, kako hemičesky razliv"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin009Subtitle",
+  "text": "*Tak tăžko je najti lěkara, kotory prihodi domoj, no Dr. Thrax to dělaje"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin010Subtitle",
+  "text": "*Razliv na prěhodě jedan!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin011Subtitle",
+  "text": "*Kako kisely dăžd, spuskajemo se na vašu bazu, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin012Subtitle",
+  "text": "*Idite naprěd, moji toksinni ratniky! Donesite naše poslanje masam!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin013Subtitle",
+  "text": "*O, to vam se bude ljubiti, generale. Ně, počekajte... ně, ne bude"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin014Subtitle",
+  "text": "*Sami ste si to prinesli, generale. Teper gledajte, kak vaši ljudi plataju za vašu ošibku"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin015Subtitle",
+  "text": "*Tiho, no smrtonosno"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin016Subtitle",
+  "text": "*Tak je -- sědite i relaksujte se! Dajte mojim toksinam věče vrěmeni, aby dělovali!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin017Subtitle",
+  "text": "*Napetost... ona vas ubijaje!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin018Subtitle",
+  "text": "*Vrěme je skuhati ešče jednu partiju!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin019Subtitle",
+  "text": "*Kăždy moment, kotory odgadate, umirate malo věče!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin020Subtitle",
+  "text": "*Znate, že su gotovi tăčno, kogda meso padaje s kosti!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin021Subtitle",
+  "text": "*Antraks... on ne dělaje dobro tělu"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin022Subtitle",
+  "text": "*Čujete tăj zapah? Ně?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin023Subtitle",
+  "text": "*I vdohnite... izdohnite... i znova... čujete se lăpše?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin024Subtitle",
+  "text": "*Dobro do poslědnjej kapli!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin025Subtitle",
+  "text": "*Dam vam 'peredyh' pred našim sleduješim napadom"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin026Subtitle",
+  "text": "*Imamo začepjenu dušicu za toksin, generale... dajte mi sekundu, aby ju popravil"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin027Subtitle",
+  "text": "*Prijdete po toksin, no ostajete... zašto ste mrtvi!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin028Subtitle",
+  "text": "*Bude vam žal, že ste se vmešali v moje eksperimenty, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin029Subtitle",
+  "text": "*Napadete li me, ili se bojite tego, čto byste mogli najti v mojej bazě, generale?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin030Subtitle",
+  "text": "*Ničto ne može žiti pod mojim toksinnym oblakom, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin031Subtitle",
+  "text": "*Vsě jedno to niste zaista trěbovali"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin032Subtitle",
+  "text": "*Vaša vojska vygljadaju otrovana, generale!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin033Subtitle",
+  "text": "*Ohh, generale, vygljadaje, že vaša vojska ne mogu dăržati svoj toksin"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin034Subtitle",
+  "text": "*Vaše Vozdušne Polje je uništeno, generale. Teper budete morali hoditi prěko mojih oblakov smărti"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin035Subtitle",
+  "text": "*Zaměčajete, kak toksiny razdiraju vse na kuski?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin036Subtitle",
+  "text": "*Argh! Imal jesem tam svoju kolekciju vina!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin037Subtitle",
+  "text": "*Moji toksiny i vaša vojska zaista imaju hemiju!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin038Subtitle",
+  "text": "*Vsě jedno to ne jesem trěboval!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin039Subtitle",
+  "text": "*Nu, otkuda teper prijdu moji hemičeski soldati?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin040Subtitle",
+  "text": "*Moji toksinni kamiony znova pojedu!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin041Subtitle",
+  "text": "*Vidite, ljudi ne pripadaju v vozduh"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin042Subtitle",
+  "text": "*Prěčite mi, generale!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin043Subtitle",
+  "text": "*Prěstante uništati moje budovy, generale, ili sdělam stvari neprijatnymi za vas"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin044Subtitle",
+  "text": "*Uništili ste moj Komandny centr! Ah nu, vsegda jesem nenavidil svojih komandantov vsě jedno... teper smo samo vy i ja, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin045Subtitle",
+  "text": "*Generale, jesli prodălžite uništati moja vozila, kak vam donesu vaš lěk?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin046Subtitle",
+  "text": "*Moji hrabri ratniky! Kak im to možete sdělati? Čto su vam kogda sdělali... o počekajte, něvažno"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin047Subtitle",
+  "text": "*Vrátite tu naftnu vyšku! Ne znate li, že nafta je ključny sostav mojih toksinov?!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin048Subtitle",
+  "text": "*Ta Artiljerijska platforma me ne zaustavi, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin049Subtitle",
+  "text": "*Generale, trěbuju tu rafineriju, aby pročistil svoje toksiny. Začto by ju vy trěbovali?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin050Subtitle",
+  "text": "*Dal li jesem vam dozvol vojti?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin051Subtitle",
+  "text": "*Čto tu dělate? Recepty su moji!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin052Subtitle",
+  "text": "*Glupec ste, že ste prišli v moju bazu, generale!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin053Subtitle",
+  "text": "*Predbliza ste mojih dragocenyh toksinov, generale. Teper morate umrěti"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin054Subtitle",
+  "text": "*Ostajte dale od mojih skad raket! Dam vam jih, kogda budu gotov!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin055Subtitle",
+  "text": "*Ne myslim, že hočete te snabděnja, ešče nisu gotovi"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin056Subtitle",
+  "text": "*Vidim, že gradite drugu bazu. Skoro bude ostavlena"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin057Subtitle",
+  "text": "*Izydete iz mojego sela, generale. Ne ostalo je mnogo od njego, no je moje!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin058Subtitle",
+  "text": "*Buďte oprezni, kogda prěhodite tăj most, generale -- voda dole ne je bezpečna za plavanje"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin059Subtitle",
+  "text": "*Pazite, generale, tăj most može ne byti bezpečny... no čto je tu bezpečno vsě jedno?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin060Subtitle",
+  "text": "*Mysite, že ste lukavi, prokradajuči se mojimi zadnimi vratami?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin061Subtitle",
+  "text": "*Tak, prěšli ste rěku. Teper boj stane interesantny"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin062Subtitle",
+  "text": "*Vygljadaje, že ste bez energije, generale. Može by měl teper napasti"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin063Subtitle",
+  "text": "*Ste bez energije, generale. Vrěme je, aby jesem prišel i poigral se"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin064Subtitle",
+  "text": "*Vaš kup resursov postal maly, generale. Ne myslim, že vam ostalo dovoljno, aby zaustavili moj sleduješi napad... izvrstno"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin065Subtitle",
+  "text": "*Budžet?! Ne hoču slyšati o budžetě!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin066Subtitle",
+  "text": "*Osmělite se sgraditi Burju SCUD v mojem prisustvu! Znate, samosobju, že smo vsi imuni na jeje toksiny, tak, generale?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin067Subtitle",
+  "text": "*Nuklearny silos? Ne by očekival, že koristite toksinnu radiaciju... može byste mogli jednogo dnja rabotati zajedno"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin068Subtitle",
+  "text": "*Tak, Česticovo dělo protiv mojih toksinov, a? Vaša tehnologija ne je ravna mojim toksinam, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin069Subtitle",
+  "text": "*Tak mnogo obrany, generale. VSE BEZKORISNO!!!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin070Subtitle",
+  "text": "*Metal je samo vrěmenna prěpreka mojim toksinam!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin071Subtitle",
+  "text": "*Ah -- kukavice! Vaši piloty ešče morajut dyhati!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin072Subtitle",
+  "text": "*Uživate li viděti svoje ljudi sjajuči v tmě? Sgradite togda věče!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin073Subtitle",
+  "text": "*Vaša baza narastla velika, generale... idealna cěl za moju Burju SCUD"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin074Subtitle",
+  "text": "*Da, izpalte svoju Burju SCUD... posětite moju bazu svojimi bezkorisnymi toksinami"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin075Subtitle",
+  "text": "*Vaša nuklearna raketa nas samo mutuje i sdělaje silnějšymi, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin076Subtitle",
+  "text": "*Ne možete se nadati očistiti moje toksiny tym česticovym lučom, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin077Subtitle",
+  "text": "*Da, zaposedite tu budovu -- sguren jesem, že to bude ljubiti mojim Toksinnym Traktoram"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin078Subtitle",
+  "text": "*Jesli dovedete Polkovnika Burtona v to, budu morati pustiti Jarmena Kella"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin079Subtitle",
+  "text": "*Črny Lotos? Znate, samosobju, že črny lotos je otrovny cvět... myslim, že je v odnom od mojih toksinov... no odstupam od temy"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin080Subtitle",
+  "text": "*Vidim, že se Jarmen Kell pridružil našej maloj vojně. Može by moj užival snajpersky dvoboj"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin081Subtitle",
+  "text": "*Nu, čto hočete s tym Vozdušnym Poljem, generale?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin082Subtitle",
+  "text": "*Tak naš general gradi Vojensku Fabriku. Kak prědvidljivo s vaše strany"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin083Subtitle",
+  "text": "*Daaaa, sgradite Kasarnu -- pošlite mi svoje ljudi"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin084Subtitle",
+  "text": "*Prodajte vse svoje budovy, generale... i pošlite mi svoje ljudi"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin085Subtitle",
+  "text": "*Predajte se teper, i garantujem, že bude vam lehko dyhati"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin086Subtitle",
+  "text": "*Vaša vojska nemaju dyha, generale. Predajte se!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin087Subtitle",
+  "text": "*Moj drugy dyh znamenaje vašu propast, generale!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin088Subtitle",
+  "text": "*Dajte mi utopiti vaše tuge dobrym toksinom!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin089Subtitle",
+  "text": "*Toksinna Smărt"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin090Subtitle",
+  "text": "*Ste pobězeni, generale. Može vas to nauči ne protivstaviti se Dr. Thraxu"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin091Subtitle",
+  "text": "*Byste li promyslili mirovnu ponudu? Može antidot?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin092Subtitle",
+  "text": "*Može jesem vdyhnul predmnogo svojih vlastnyh toksinov -- ne možete me pobězovati"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin093Subtitle",
+  "text": "*Otstupite od mene! Ne pobědite me, generale. Čujete li me!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin094Subtitle",
+  "text": "*Čto imate protiv toksinov? Viděli li ste, čto stavjaju v hranu tyh dnjov?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin095Subtitle",
+  "text": "*Daže jesli me pobědite, moji toksiny vas dosegnu -- na koncu!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin096Subtitle",
+  "text": "*Ně! Ně. Pobězen jesem. Nu, gdě je ta kapsula cianida"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin097Subtitle",
+  "text": "*Tăj gumb byl pokryt otrovom... uže ste mrtvi"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin098Subtitle",
+  "text": "*Osmělite se izbrati Dr. Thraxa? Trěbalo by vam premysliti, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin099Subtitle",
+  "text": "*Ne možete poběditi moje toksiny, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin100Subtitle",
+  "text": "*Može ne trěbalo mi bylo dobyti svoj diplom iz poštovogo koledža"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin101Subtitle",
+  "text": "*Mysleli ste, že moji toksiny su neeffektivni, a teper pogledajte, čto se vam stalo, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin102Subtitle",
+  "text": "*Zdravo, generale. Ne mysite, že ne vidim vaše spiony leteče nad mojoju bazoju. Prošu, gledajte, koliko hočete, zašto to može byti poslědnji raz, kogda vidite moju tvrdinju"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin103Subtitle",
+  "text": "*Kak vidite, moja obrana je neprobojna... a moji toksinni oružni sistemy otravu vaša vojska dolgo prěžde nego mogu dostigniti mene"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin104Subtitle",
+  "text": "*I ne brinite se za civilno naselenje, generale; oni davno poběgli iz toj doliny toksinnoj smărti. Naša mala vojna se odygraje bez prěkyda, i vaše nežne čuvstva ne budu iskušeny"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin105Subtitle",
+  "text": "*Ah da, i tu ste postavili svoju žalku bazu. Teper stanite protiv mene -- Dr. Thraxa -- i kogda vaša vojska vdyhnu svoj poslědnji dyh mojego toksinnogo vozduha, mogu se vrátiti k svojim eksperimentam"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin106Subtitle",
+  "text": "*Věrujete li svojim čuvstvam, generale? Vstupivši v boj so mnoju, osudili ste sebe na dolgu i boljnu smărt, zašto jesem Dr. Thrax, i moje oružje udaraje neviděno!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin107Subtitle",
+  "text": "*Dyšite lehko, generale, zašto jesem Dr. Thrax, i s kăždym dyhom, kotory vzmete, idete k porazu!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin108Subtitle",
+  "text": "*Pervy uzorok je darom!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin109Subtitle",
+  "text": "*Hočete li zeleny ili modry? Oba su jednako zadovoljavajuči!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin110Subtitle",
+  "text": "*Prigotovte se povědati svojim trioky vnukam o svojem porazě dnes!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin111Subtitle",
+  "text": "*Moje dragocene hemikaliji! Znate li, kak dolgo trěba, aby jih smiešali?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin112Subtitle",
+  "text": "*Věče žrtv-- ah-- dobrovoljcev za moje eksperimenty!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin113Subtitle",
+  "text": "*Teper imam věče vozil, aby prevozili moje toksiny! Tak velikodušno s vaše strany!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin114Subtitle",
+  "text": "*O, zabyl li jesem vam reči o tyh? Pazite na miny, generale!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin115Subtitle",
+  "text": "*Nu, gdě jesem postavil te hemičeske vojska?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin117Subtitle",
+  "text": "*Bah! Vy!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin118Subtitle",
+  "text": "*Ah da, i tu ste postavili svoju žalku bazu"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle001Subtitle",
+  "text": "*O, ešče ste tu, generale. Impresioniran jesem vašoju odlučnostju. Idimo tancovati"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle002Subtitle",
+  "text": "*To ne bolělo predmnogo, ne li?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle003Subtitle",
+  "text": "*Bojišče je surovo město, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle004Subtitle",
+  "text": "*Ešče jeden savršeno izvěšeny udar"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle005Subtitle",
+  "text": "*Vse ide po planu"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle006Subtitle",
+  "text": "*Vygljadaje, že vse ide po mojemu"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle007Subtitle",
+  "text": "*Kak se to čuje, generale?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle008Subtitle",
+  "text": "*Taktička prevaga je ključ, generale. Tu, pokažu vam"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle009Subtitle",
+  "text": "*Zaista ne myslim, že mogl by ste zaustaviti tăj sleduješi napad... mysite li?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle010Subtitle",
+  "text": "*Tu ide ešče jeden napad... o, i počti vse moje Generalske Moći su gotove... kotoru hočete viděti pervu?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle011Subtitle",
+  "text": "*Je li to moje Superoružje gotovo? O ně, moji napady se samo tak čuju"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle012Subtitle",
+  "text": "*Vse jedinice: napadny obrazec alfa! Samo se šalim... kto by nazval něčto 'alfa'?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle013Subtitle",
+  "text": "*Tu idu někoje moje jedinice, generale. Ne vadi li vam pomoči im dobyti věterancu?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle014Subtitle",
+  "text": "*Rědko posylam vojska, no vy zaslužujete posebnu pozornost, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle015Subtitle",
+  "text": "*Preduprěždam vas, ne podceňujte me"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle016Subtitle",
+  "text": "*Može mysite, že se skryvam, no zaista samo planujem"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle017Subtitle",
+  "text": "*Glupci se žure, generale. Ja si berem svoje vrěme"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle018Subtitle",
+  "text": "*Ne znate, čto očekivati od mene, ne li?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle019Subtitle",
+  "text": "*Jesli ne planujete, planujete neuspěh, generale. Promyslite to"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle020Subtitle",
+  "text": "*Moje najvěčše 'superoružje' je moj mozg... ne slagate li se, generale?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle021Subtitle",
+  "text": "*Hajde, generale, poprobujte najlăpše, čto imate"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle022Subtitle",
+  "text": "*Čekamo vas, generale. Čto vas dărži?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle023Subtitle",
+  "text": "*Analizoval jesem vašu taktiku i jesem prosto zapanjen... imate li vy vobšče nekaku taktiku, generale?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle024Subtitle",
+  "text": "*Ja by napadl, byl by jesem na vašem městě, generale. Jesli čekate, budu imati ešče jedno Superoružje, kotore na vas izpalim"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle025Subtitle",
+  "text": "*Tak, vaša cělokupna strategija je dosaditi me z bojišča?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle026Subtitle",
+  "text": "*Premyšljate li mudrost napada na mene, generale?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle027Subtitle",
+  "text": "*Probal jesem byti blag k vam, generale, no začinate me dosajdati"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle028Subtitle",
+  "text": "*To bylo zabavno, generale, no myslim, že je vrěme to zaveršiti"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle029Subtitle",
+  "text": "*Može by smo to trěbali sdělati drugoj raz... kogda niste tak razsějani... bar se nadam, že je to problem. Rekli ste, že ste 'general', tak?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle030Subtitle",
+  "text": "*Niste to koristili, ne li?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle031Subtitle",
+  "text": "*Vůbec mi se ne ljubil izgled toj Kasarny"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle032Subtitle",
+  "text": "*Vaša vozila mi lezu na živce"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle033Subtitle",
+  "text": "*Ostajte von iz vozduha, generale -- budete bezpečniji na zemji"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle034Subtitle",
+  "text": "*Trěbalo li je to me dăržati von iz vašej bazy, generale?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle035Subtitle",
+  "text": "*Vau, toliko ste izgubili svoj Komandny centr. To ne je mnogo dobro, ne li"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle036Subtitle",
+  "text": "*Vaša baza byla predveľmi prěpuna prěd tym"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle037Subtitle",
+  "text": "*Nemate poštovanje k vlasnictvu drugih ljudej!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle038Subtitle",
+  "text": "*Ljudi, kto trěbal čuvati Kasarnu!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle039Subtitle",
+  "text": "*Koristil jesem tu Vojensku Fabriku!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle040Subtitle",
+  "text": "*Je li čuvanje mojego Vozdušnogo Polja predmnogo prositi"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle041Subtitle",
+  "text": "*Postavil jesem to tam iz razloga!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle042Subtitle",
+  "text": "*Toliko jesem dobyl vse te budovy tam, gdě jesem jih hotěl"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle043Subtitle",
+  "text": "*Ne cěnim taky rod nepoštovanja!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle044Subtitle",
+  "text": "*Sgradil jesem vse te samolety iz razloga!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle045Subtitle",
+  "text": "*Uništite koliko vozil hočete. Uvidime, mari li mi"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle046Subtitle",
+  "text": "*Kak se osmělite raniti moje soldaty!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle047Subtitle",
+  "text": "*Dopustil jesem vam imati tăj"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle048Subtitle",
+  "text": "*Vsě jedno to ne jesem trěboval"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle049Subtitle",
+  "text": "*Zahvatate rafineriju? Zašto, generale, ne znal jesem, že ste tak svěsni effektivnosti"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle050Subtitle",
+  "text": "*Kto vas sjuda pozval?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle051Subtitle",
+  "text": "*Ne myslim, že imate pravy sigurnostny dozvol byti tu"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle052Subtitle",
+  "text": "*Čto vam daje pravo byti v mojej bazě?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle053Subtitle",
+  "text": "*To je moja baza, izydete teper!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle054Subtitle",
+  "text": "*Ne očekujte, aby jesem byla dobra domaćica"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle055Subtitle",
+  "text": "*Ne ljubim neočekivane goste, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle056Subtitle",
+  "text": "*Čto mysite, že tu dělate?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle057Subtitle",
+  "text": "*Vtorgateli!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle058Subtitle",
+  "text": "*Vaše prisustvo me začinaje smetati, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle059Subtitle",
+  "text": "*Kto trěbal čuvati tu okolicu?!?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle060Subtitle",
+  "text": "*Tak, uspěli ste razbiti moju obranu... to se znova ne stane"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle061Subtitle",
+  "text": "*Izydete iz mojej bazy, generale. Ne mysite, že jesem prevelika, aby spustila Česticovo dělo prjamo tu"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle062Subtitle",
+  "text": "*Vygljadaje malo temno v vašej bazě, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle063Subtitle",
+  "text": "*Zabyl li někto zaplatiti račun za elektriku?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle064Subtitle",
+  "text": "*Niste mnogo mudro upravjali svojimi resursami, ne li?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle065Subtitle",
+  "text": "*Guryte me prěko budžeta, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle066Subtitle",
+  "text": "*Kak se to moglo stati! Imal jesem vse planovano tak savršeno!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle067Subtitle",
+  "text": "*Mysite, že se bojim vaše male Burje SCUD?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle068Subtitle",
+  "text": "*Tăj Nuklearny silos me ne plaši"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle069Subtitle",
+  "text": "*Cěnim vaš izbor oružja, no jedino ja jesem dozvoleno imati Česticovo dělo na tom bojišču"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle070Subtitle",
+  "text": "*Je li to najbezpečnějše, čto vaša baza može byti? Je li?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle071Subtitle",
+  "text": "*To je mnogo tankov, generale. Viděli li ste, čto Česticovo dělo može sdělati mnogym tankam?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle072Subtitle",
+  "text": "*Vsi ti samolety su za mene samo zagryznenje vozduha"
+ }
+]
