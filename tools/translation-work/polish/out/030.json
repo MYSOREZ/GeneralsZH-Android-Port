@@ -1,0 +1,802 @@
+[
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle073Subtitle",
+  "text": "*Tyle wojska, generale. Chyba nie planowałeś rzucić go na mnie w szturmie?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle074Subtitle",
+  "text": "*Niezłą bazę sobie urządziłeś, generale. Pamiętałeś, żeby rozstawić budynki w odstępach, na wypadek uderzeń superbroni, prawda?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle075Subtitle",
+  "text": "*Wiesz, ile czasu zajmie posprzątanie tego?!?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle076Subtitle",
+  "text": "*Zabierz to obrzydliwe promieniowanie z mojej bazy!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle077Subtitle",
+  "text": "*Hej, to moje Działo cząsteczkowe! Nie masz uprawnień, żeby go używać!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle078Subtitle",
+  "text": "*To manewr taktyczny, czy po prostu się chowasz?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle079Subtitle",
+  "text": "*Pułkownik Burton? Serio? Myślisz, że on ci pomoże?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle080Subtitle",
+  "text": "*Czarny Lotos? No to mamy starcie na girl power, co?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle081Subtitle",
+  "text": "*Jarmen Kell! Niech lepiej trzyma się z dala od moich czołgów!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle082Subtitle",
+  "text": "*Ładne lotnisko, generale -- tylko trzymaj te samoloty z dala od mojego Działa cząsteczkowego"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle083Subtitle",
+  "text": "*Fabryka broni? Naprawdę zamierzasz mnie zaatakować, co? Najwyższy czas"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle084Subtitle",
+  "text": "*Brawo -- potrafisz zbudować koszary"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle085Subtitle",
+  "text": "*Wyprzedajesz budynki? To część wyprzedaży likwidacyjnej?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle086Subtitle",
+  "text": "*Może po prostu się poddasz? Mam dziś ciekawsze rzeczy do roboty"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle087Subtitle",
+  "text": "*Czemu nigdy nie trafiam na takiego, który wytrzyma dłużej niż 5 minut"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle088Subtitle",
+  "text": "*Wygląda na to, że przegrywasz, generale. Co ja mówiłam o planowaniu porażki?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle089Subtitle",
+  "text": "*Niezłe lanie zbierasz, generale. Gotów na więcej?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle090Subtitle",
+  "text": "*Chciałabym powiedzieć \"dobra walka\", ale najwyraźniej myślami byłeś gdzie indziej, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle091Subtitle",
+  "text": "*Nie mogę uwierzyć, że tak tłuczesz dziewczynę"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle092Subtitle",
+  "text": "*Potrzebuję czasu do namysłu. Idź sobie, generale!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle093Subtitle",
+  "text": "*Twoja taktyka jest mało sportowa, generale. Graj ładnie!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle094Subtitle",
+  "text": "*Generale, popatrz tam! Ktoś przejmuje twoje budynki! Nie dałeś się nabrać, co?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle095Subtitle",
+  "text": "*Wiesz, gdybyś był dżentelmenem, dałbyś mi pięć minut na odbudowę obrony"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle096Subtitle",
+  "text": "*Co?! Już koniec? Cóż, miło się z tobą tańczyło, generale. Może następnym razem ja poprowadzę"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle097Subtitle",
+  "text": "*Moje superbronie są gotowe... a ty?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle098Subtitle",
+  "text": "*Nigdy nie przełamiesz mojej obrony, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle099Subtitle",
+  "text": "*Twoja taktyka szybkiego ataku na mnie nie zadziała"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle100Subtitle",
+  "text": "*To niesprawiedliwe! Jeszcze jedna superbroń i pokonałabym cię, generale. Wyzwij mnie znowu, no dalej"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle101Subtitle",
+  "text": "*Mówiłam ci, że nigdy nie pokonasz moich superbroni, generale. Spróbujesz jeszcze raz?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle102Subtitle",
+  "text": "*Witaj, generale. Gotów zaczynać?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle103Subtitle",
+  "text": "*Och, co to za dźwięk? Teraz widzę światło na niebie... Hmm"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle104Subtitle",
+  "text": "*O rany!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle106Subtitle",
+  "text": "*Ojej... przepraszam, generale, ale tak właśnie lubię mówić \"dzień dobry\". No cóż, powodzenia, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle107Subtitle",
+  "text": "*No cóż, powodzenia, generale"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina001Subtitle",
+  "text": "*Amerykanie używają drona wartowniczego jako systemu wczesnego wykrywania wroga. Dron staje się niewidzialny, gdy się nie porusza, a niektóre widzieliśmy ulepszone o karabiny maszynowe. Choć nie jest groźny dla czołgów, może sprawiać kłopoty piechocie"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina002Subtitle",
+  "text": "*Amerykański czołg mikrofalowy to wielkie działo mikrofalowe, które unieruchamia budynki i pojazdy. Jego promieniowanie rani też piechotę, więc trzymajcie naszych ludzi w bezpiecznej odległości"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina003Subtitle",
+  "text": "*Avenger to amerykański laserowy pojazd przeciwlotniczy, zdolny zestrzeliwać pociski i samoloty. Pomaga też innym jednostkom USA namierzać nasze samoloty, więc w grupie bojowej należy go traktować jako cel priorytetowy"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina004Subtitle",
+  "text": "*Kanonierka Spectre to duży samolot odrzutowy z wieloma systemami uzbrojenia zamocowanymi z boku, dzięki którym krąży nad celem i sieje śmierć z góry. Typowa amerykańska inżynieria -- strzelba na muchę"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina005Subtitle",
+  "text": "*Ulepszenie Kombinezony ochronne zwiększa odporność piechoty na toksyny i promieniowanie"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina006Subtitle",
+  "text": "*Amerykańskie ulepszenie Środki przeciwdziałania zmniejsza skuteczność ognia wroga przeciw ich jednostkom powietrznym. Pociski często chybiają, a kule zadają mniej obrażeń"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina007Subtitle",
+  "text": "*Amerykańskie ulepszenie Dron Hellfire tworzy zdalnie sterowanego drona, który broni pojazdu macierzystego automatycznym systemem rakiet Hellfire"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina008Subtitle",
+  "text": "*Bomba penetrująca to ulepszenie amerykańskiego myśliwca Stealth i Aurory, przeznaczone do niszczenia obsadzonych budynków"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina009Subtitle",
+  "text": "*Ulepszenie Linie zaopatrzenia zwiększa tempo, w jakim USA zbierają zasoby ze składów, zrzutów zaopatrzenia i szybów naftowych"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina010Subtitle",
+  "text": "*Amerykańscy generałowie docenili potęgę propagandy. Zrzut ulotek pozwala im chwilowo unieruchomić jednostki, które zatrzymują się, by czytać propagandę"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina011Subtitle",
+  "text": "*MOAB to ulepszenie amerykańskiej bomby paliwowo-powietrznej z efektem ogłuszenia, który chwilowo wyłącza ocalałe jednostki i budynki"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina012Subtitle",
+  "text": "*Amerykańska Baza ogniowa to pozycja obronna otoczona workami z piaskiem, z haubicą i 4 stanowiskami strzeleckimi"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina013Subtitle",
+  "text": "*Bomba napalmowa to ulepszenie naszego Helixa, pozwalające zrzucić parę bomb, które wywołują wielką burzę ogniową"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina014Subtitle",
+  "text": "*Nasza Placówka nasłuchowa to powolny, zamaskowany pojazd o dużym zasięgu widzenia, który mogą obsadzić 2 żołnierze jako straż. Oprócz wykrywania ukrytych obiektów pozwala ustalić cel ruchu wroga po kliknięciu jednostek w zasięgu"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina015Subtitle",
+  "text": "*Nasz Helix 2 to powolny śmigłowiec transportowy, który przewozi piechotę lub jeden pojazd. Choć uzbrojony w lekki karabin maszynowy, można go ulepszyć o działko Gatlinga, wieżę propagandową lub bunkier bojowy. Można go też wyposażyć w dużą bombę napalmową"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina016Subtitle",
+  "text": "*Czołg ECM zakłóca elektroniczne systemy naprowadzania, odciągając pociski wroga. Jego impuls elektromagnetyczny może unieruchomić pojedynczy pojazd wroga. Tworzy też pole zakłócające radar, które wyłącza wszystkie drony w zasięgu"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina017Subtitle",
+  "text": "*Pociski neutronowe to ulepszenie naszego działa atomowego, pozwalające mu strzelać pociskami neutronowymi. Zabijają one całą piechotę i załogi pojazdów w promieniu wybuchu"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina018Subtitle",
+  "text": "*Włamanie do systemów pozwala twoim hakerom ukraść wrogom losową moc generalską. Poziom 1 pozwala ukraść moc 1- lub 3-gwiazdkową, a poziom 2 -- moc 5-gwiazdkową"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina019Subtitle",
+  "text": "*Nasz nowy bombowiec dywanowy zrzuca serię bomb wzdłuż wyznaczonej trasy, dziesiątkując wszystkie siły wroga"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina020Subtitle",
+  "text": "*Nasze Miny neutronowe to alternatywa dla zwykłych min wybuchowych. Natychmiast unieruchamiają pojazdy i zabijają pobliską piechotę"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina021Subtitle",
+  "text": "*Nasi hakerzy, dotąd narażeni na ataki, znajdą bezpieczeństwo i większe możliwości w naszym nowym Centrum internetowym"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina022Subtitle",
+  "text": "*Włamanie satelitarne I to ulepszenie Centrum internetowego, które odsłania teren wokół centrum dowodzenia każdego przeciwnika"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina023Subtitle",
+  "text": "*Włamanie satelitarne II to ulepszenie Centrum internetowego, które chwilowo odsłania całą mapę, łącznie z ukrytymi siłami wroga"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina024Subtitle",
+  "text": "*Sabotażysta GLA to niewidzialna jednostka piechoty, która wspina się na klify i wpływa na wrogie budynki, wchodząc do nich. Wejście do elektrowni chwilowo odcina energię, a do superbroni -- zeruje jej licznik. Sabotażysta, który wejdzie do wrogiego centrum dowodzenia, zeruje liczniki wszystkich mocy generalskich wroga"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina025Subtitle",
+  "text": "*Motocykl bojowy ma na początku kierowcę-rebelianta i zamontowany karabin maszynowy. Rebelianta można zastąpić dowolnym innym piechurem GLA, co daje motocyklowi jego wyjątkowe zdolności"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina026Subtitle",
+  "text": "*Autobus bojowy GLA mieści do 8 piechurów, którzy strzelają przez okna. Po zniszczeniu jego ciężka stalowa kabina zostaje jako bunkier"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina027Subtitle",
+  "text": "*GLA wyposażyła swoich robotników w buty, by wycisnąć jeszcze więcej przymusowej pracy ze swoich chłopów"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina028Subtitle",
+  "text": "*Siatka maskująca to ulepszenie obronnych budowli GLA, które czyni je niewidocznymi dla zwykłego wykrywania"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina029Subtitle",
+  "text": "*GLA zaczęła obsadzać wszystkie swoje budowle Elitarną Gwardią uzbrojoną w RPG. Zachowajcie ostrożność, infiltrując bazy GLA"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina030Subtitle",
+  "text": "*Ulepszenie Pułapka-mina pozwala rebeliantowi zaminować budynki i pojazdy cywilne tak, by wybuchały, gdy wróg spróbuje je przejąć lub obsadzić. Uważajcie na rebeliantów kręcących się przy budynkach w waszym rejonie"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina031Subtitle",
+  "text": "*Sztuczki GLA weszły na nowy poziom. Budują teraz fałszywe budowle, które wyglądają jak prawdziwe, ale są tylko zaminowanymi atrapami. Niszczcie wszystko z dystansu, by uniknąć niespodzianek GLA"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina032Subtitle",
+  "text": "*Zakłócacz GPS obejmuje obszar z jednostkami i czyni je niewidocznymi dla zwykłego wykrywania"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina033Subtitle",
+  "text": "*Moc Atak z zaskoczenia pozwala generałom GLA postawić bezbronną sieć tuneli w dowolnym zbadanym miejscu. Choć nieco słabsza od zwykłego tunelu, jest połączona z główną siecią"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina034Subtitle",
+  "text": "*Platforma artyleryjska to stacjonarne działo zdolne w pojedynkę bronić obszaru przed atakiem wroga. Na każdym polu bitwy jej przejęcie powinno być priorytetem"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina035Subtitle",
+  "text": "*Lądowisko posiłków zapewnia darmowy, okresowy zrzut pancerny. Darmowe Battlemastery mogą odwrócić losy każdej bitwy"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina036Subtitle",
+  "text": "*Przejęte Stanowisko naprawcze pozwala naprawiać na polu bitwy wszystkie pojazdy naziemne. Naprawa uszkodzonego pancerza na wysuniętej pozycji może przesądzić o zwycięstwie lub porażce"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA001Subtitle",
+  "text": "*Uważaj na amerykańskiego drona wartowniczego, generale; widzi niewidzialne jednostki i często ma zamontowane działko"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA002Subtitle",
+  "text": "*Amerykański czołg mikrofalowy ma promień, który unieruchamia budynki i jednostki. Atakujcie go tylko dużymi grupami"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA003Subtitle",
+  "text": "*Amerykański czołg Warlock ma promień, który unieruchamia budynki i jednostki. Atakujcie go tylko dużymi grupami"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA004Subtitle",
+  "text": "*Amerykański Avenger to potężny laserowy pojazd przeciwlotniczy... ale my nie mamy samolotów, więc zagrożenie z jego strony jest minimalne"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA005Subtitle",
+  "text": "*Amerykańska kanonierka Spectre to duży samolot z dużymi działami. Nie walczcie z nią -- szukajcie schronienia pod ziemią, dopóki nie odleci"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA006Subtitle",
+  "text": "*Dzięki ulepszeniu Kombinezony ochronne wroga piechota staje się bardziej odporna na nasze toksyny. Ale naszych kul to nie zatrzyma, prawda?"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA007Subtitle",
+  "text": "*Ulepszenie Środki przeciwdziałania zmniejsza skuteczność ognia przeciw amerykańskim jednostkom powietrznym. Pociski często chybiają, a kule zadają mniej obrażeń"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA008Subtitle",
+  "text": "*Amerykańskie ulepszenie Dron Hellfire to mały samolocik-zabawka z doczepioną rakietą. Kolejny przykład tchórzliwej taktyki Amerykanów"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA009Subtitle",
+  "text": "*Bomba penetrująca to ulepszenie amerykańskiego myśliwca Stealth i Aurory. Próbują nią atakować nasze bunkry"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA010Subtitle",
+  "text": "*Ulepszenie Linie zaopatrzenia zwiększa tempo, w jakim USA zbierają zasoby ze składów, zrzutów zaopatrzenia i szybów naftowych"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA011Subtitle",
+  "text": "*Amerykański Zrzut ulotek chwilowo unieruchamia nasze jednostki, które zatrzymują się, by czytać propagandę"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA012Subtitle",
+  "text": "*MOAB to ulepszenie bomby paliwowo-powietrznej z efektem ogłuszenia, który chwilowo wyłącza ocalałe jednostki i budynki"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA013Subtitle",
+  "text": "*Baza ogniowa to amerykańska odpowiedź na nasze Stanowiska Stinger... ale uważajcie na wielkie działo w środku"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA014Subtitle",
+  "text": "*Chińska Bomba napalmowa to ulepszenie Helixa, pozwalające zrzucić parę bomb, które wywołują wielką burzę ogniową"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA015Subtitle",
+  "text": "*Placówka nasłuchowa to powolny, zamaskowany pojazd, którym Chiny wyszukują nasze ukryte jednostki. Omijajcie je, by pozostać niewykrytymi"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA016Subtitle",
+  "text": "*Chiński Helix 2 to powolny śmigłowiec transportowy, który przewozi piechotę lub jeden pojazd"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA017Subtitle",
+  "text": "*Chiński Czołg ECM to pojazd, który zakłóca elektroniczne systemy naprowadzania, odciągając pociski wroga"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA018Subtitle",
+  "text": "*Pociski neutronowe to ulepszenie chińskiego działa atomowego, pozwalające mu strzelać pociskami neutronowymi. Zabijają one całą piechotę i załogi pojazdów w promieniu wybuchu"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA019Subtitle",
+  "text": "*Nowa chińska technika Włamanie do systemów pozwala hakerom kraść wrogom losową moc. Oto słabość prowadzenia wojen w oparciu o prąd"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA020Subtitle",
+  "text": "*Bombowiec dywanowy to samolot zrzucający serię bomb wzdłuż wyznaczonej trasy, dziesiątkując wroga"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA021Subtitle",
+  "text": "*Miny neutronowe to alternatywa dla zwykłych chińskich min; unieruchamiają pojazdy. Nadal zabijają też piechotę"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA022Subtitle",
+  "text": "*Centrum internetowe zwiększa skuteczność chińskich hakerów"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA023Subtitle",
+  "text": "*Włamanie satelitarne I to ulepszenie Centrum internetowego, dzięki któremu Chiny widzą centrum dowodzenia każdego przeciwnika"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA024Subtitle",
+  "text": "*Włamanie satelitarne II to ulepszenie chińskiego Centrum internetowego, które chwilowo odsłania całą mapę, a także ukryte obiekty"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA025Subtitle",
+  "text": "*Sabotażysta to niewidzialna jednostka, która wspina się na klify i wpływa na wrogie budynki, wchodząc do nich"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA026Subtitle",
+  "text": "*Nasz nowy Motocykl bojowy ma zamontowane karabiny maszynowe i zyskuje zdolności piechura, który na nim jedzie"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA027Subtitle",
+  "text": "*Autobus bojowy to powolny transporter mieszczący do 8 piechurów, którzy mogą strzelać z autobusu. Po zniszczeniu jego kadłub zostaje i działa jak bunkier"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA028Subtitle",
+  "text": "*Ulepszenie Buty robotników zwiększa szybkość i wydajność zbierania wszystkich naszych lojalnych robotników"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA029Subtitle",
+  "text": "*Siatka maskująca to ulepszenie naszych obronnych budowli, które pozwala je zamaskować"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA030Subtitle",
+  "text": "*Ulepszenie Elitarna Gwardia to zdolność budowli, która obsadza ją 4 żołnierzami z RPG"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA031Subtitle",
+  "text": "*Pułapka-mina to ulepszenie rebelianta, pozwalające mu zaminować budynki i pojazdy cywilne tak, by wybuchały, gdy wróg spróbuje je przejąć lub obsadzić. Przejęte budynki są minowane automatycznie"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA032Subtitle",
+  "text": "*Fałszywe budowle można stawiać znacznie taniej. Na początku to zaminowane atrapy, ale można je ulepszyć do w pełni działających wersji budowli"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA033Subtitle",
+  "text": "*Nasz nowo zdobyty Zakłócacz GPS obejmuje obszar z jednostkami i czyni je niewidocznymi dla wrogów"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA034Subtitle",
+  "text": "*Nasz Atak z zaskoczenia pozwala postawić bezbronną sieć tuneli w dowolnym zbadanym miejscu. Choć nieco słabsza od zwykłego tunelu, jest połączona z główną siecią"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA035Subtitle",
+  "text": "*Platforma artyleryjska strzela z broni podobnej zasięgiem i siłą do amerykańskiego Centrum strategicznego. Przejmij ją albo omijaj jej zabójcze działo"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA036Subtitle",
+  "text": "*Lądowisko posiłków okresowo dostarcza nam grupę czołgów Scorpion"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA037Subtitle",
+  "text": "*Stanowisko naprawcze to frontowy warsztat naprawczy dla pojazdów. Naprawia pojazdy jak handlarz bronią"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA001Subtitle",
+  "text": "*Dron wartowniczy to ruchoma jednostka zdolna śledzić ruchy wroga, także zamaskowanego. Sam dron też jest niewidzialny, gdy się nie porusza, i można go wyposażyć w przeciwpiechotny karabin maszynowy z Centrum strategicznego"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA002Subtitle",
+  "text": "*Czołg mikrofalowy jest uzbrojony w panel mikrofalowy energii ukierunkowanej, który unieruchamia wskazane budynki i pojazdy. Emituje też stałe pole mikrofalowe raniące piechotę"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA003Subtitle",
+  "text": "*Czołg Warlock jest uzbrojony w panel mikrofalowy energii ukierunkowanej, który unieruchamia wskazane budynki i pojazdy. Emituje też stałe pole mikrofalowe raniące piechotę"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA004Subtitle",
+  "text": "*Avenger to laserowy pojazd przeciwlotniczy, zdolny zestrzeliwać pociski i samoloty. Daje też premie jednostkom atakującym \"podświetlony\" przez niego cel"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA005Subtitle",
+  "text": "*Kanonierka Spectre to duży samolot odrzutowy z wieloma systemami uzbrojenia zamocowanymi na skrzydłach. Krążąc nad celem, sama namierza wrogów. Można też wskazywać cele ręcznie, a po ulepszeniu wystrzeliwuje środki przeciwdziałania"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA006Subtitle",
+  "text": "*Dzięki ulepszeniu Kombinezony ochronne piechota staje się bardziej odporna na toksyny i promieniowanie"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA007Subtitle",
+  "text": "*Ulepszenie Środki przeciwdziałania zmniejsza skuteczność ognia przeciw amerykańskim jednostkom powietrznym. Pociski często chybiają, a kule zadają mniej obrażeń"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA008Subtitle",
+  "text": "*Ulepszenie Dron Hellfire wyposaża pojazd macierzysty w drona zdolnego wystrzelić jedną rakietę. Drony same namierzają cele i potrzebują czasu na przeładowanie"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA009Subtitle",
+  "text": "*Bomba penetrująca to ulepszenie myśliwca Stealth i Aurory. Oprócz zwykłego działania te ulepszone pociski ranią, a nawet zabijają jednostki ukryte w budowlach, m.in. w Pałacu GLA, Sieci tuneli i chińskim Bunkrze bojowym"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA010Subtitle",
+  "text": "*Ulepszenie Linie zaopatrzenia zwiększa ilość pieniędzy zbieranych ze składów, zrzutów zaopatrzenia i szybów naftowych"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA011Subtitle",
+  "text": "*Zrzut ulotek chwilowo unieruchamia jednostki, które zatrzymują się, by czytać propagandę. Samolot rozrzuca ulotki nad wskazanym obszarem, a efekt trwa krótko"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA012Subtitle",
+  "text": "*MOAB to ulepszenie bomby paliwowo-powietrznej z efektem ogłuszenia, który chwilowo wyłącza ocalałe jednostki i budynki"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA013Subtitle",
+  "text": "*Baza ogniowa jest otoczona workami z piaskiem i ma haubicę oraz 4 stanowiska strzeleckie. Piechota, która do niej wejdzie, zajmuje stanowiska za workami"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA014Subtitle",
+  "text": "*Bomba napalmowa to ulepszenie Helixa, pozwalające zrzucić parę bomb, które wywołują wielką burzę ogniową"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA015Subtitle",
+  "text": "*Placówka nasłuchowa to powolny, zamaskowany pojazd o dużym zasięgu widzenia, który mogą obsadzić 2 żołnierze jako straż. Oprócz wykrywania ukrytych obiektów pozwala ustalić cel ruchu wroga po kliknięciu jednostek w zasięgu"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA016Subtitle",
+  "text": "*Helix 2 to powolny śmigłowiec transportowy, który przewozi piechotę lub jeden pojazd. Choć uzbrojony w lekki karabin maszynowy, można go ulepszyć o działko Gatlinga, wieżę propagandową lub bunkier bojowy. Można go też wyposażyć w dużą bombę napalmową"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA017Subtitle",
+  "text": "*Czołg ECM to pojazd, który zakłóca elektroniczne systemy naprowadzania, odciągając pociski wroga. Jego impuls ECM może unieruchomić pojedynczy pojazd wroga. Tworzy też pole zakłócające radar, które wyłącza wszystkie drony w zasięgu"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA018Subtitle",
+  "text": "*Pociski neutronowe to ulepszenie chińskiego działa atomowego, pozwalające mu strzelać pociskami neutronowymi. Zabijają one całą piechotę i załogi pojazdów w promieniu wybuchu"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA019Subtitle",
+  "text": "*Włamanie do systemów pozwala twoim hakerom ukraść wrogom losową moc. Poziom 1 pozwala ukraść moc poziomu 1 lub 3, a poziom 2 -- moc 5-gwiazdkową"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA020Subtitle",
+  "text": "*Bombowiec dywanowy to samolot zrzucający serię bomb wzdłuż wyznaczonej trasy, dziesiątkując wroga"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA021Subtitle",
+  "text": "*Miny neutronowe to alternatywa dla zwykłych chińskich min; unieruchamiają pojazdy. Nadal zabijają też piechotę"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA022Subtitle",
+  "text": "*Centrum internetowe zwiększa skuteczność hakerów w zdobywaniu pieniędzy i pozwala używać Włamań satelitarnych I i II"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA023Subtitle",
+  "text": "*Włamanie satelitarne I to ulepszenie Centrum internetowego, które odsłania teren wokół centrum dowodzenia każdego przeciwnika"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA024Subtitle",
+  "text": "*Włamanie satelitarne II to ulepszenie Centrum internetowego, które chwilowo odsłania całą mapę, a także ukryte obiekty"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA025Subtitle",
+  "text": "*Sabotażysta to niewidzialna jednostka, która wspina się na klify i wpływa na wrogie budynki, wchodząc do nich. Wejście do elektrowni chwilowo odcina energię, a do superbroni -- zeruje jej licznik. Sabotażysta, który wejdzie do wrogiego centrum dowodzenia, zeruje liczniki wszystkich mocy generalskich wroga"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA026Subtitle",
+  "text": "*Motocykl bojowy ma na początku kierowcę-rebelianta i zamontowany karabin maszynowy. Zastąpienie go żołnierzem z RPG pozwala strzelać rakietami. Terrorysta tworzy motocykl-samobójcę. Jarmen Kell, Porywacze i Sabotażyści też mogą jeździć, czyniąc motocykl niewidzialnym"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA027Subtitle",
+  "text": "*Furgonetka bojowa to powolny transporter mieszczący do 8 piechurów, którzy mogą z niej strzelać. Po zniszczeniu jej kadłub zostaje i działa jak bunkier. Jeśli zostanie zniszczona, giną wszyscy w środku"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA028Subtitle",
+  "text": "*Ulepszenie Buty robotników zwiększa szybkość i wydajność zbierania wszystkich robotników GLA"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA029Subtitle",
+  "text": "*Siatka maskująca to ulepszenie obronnych budowli GLA, które pozwala je zamaskować"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA030Subtitle",
+  "text": "*Ulepszenie Elitarna Gwardia to zdolność budowli, która obsadza ją 4 żołnierzami z RPG"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA031Subtitle",
+  "text": "*Pułapka-mina to ulepszenie rebelianta, pozwalające mu zaminować budynki i pojazdy cywilne tak, by wybuchały, gdy wróg spróbuje je przejąć lub obsadzić. Wybuch rani wszystko w niewielkim promieniu. Budynki przejęte przez ulepszonego rebelianta są minowane automatycznie"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA032Subtitle",
+  "text": "*Fałszywe budowle można stawiać znacznie taniej. Na początku to zaminowane atrapy, ale można je ulepszyć do w pełni działających wersji budowli"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA033Subtitle",
+  "text": "*Zakłócacz GPS obejmuje obszar z jednostkami i czyni je niewidzialnymi dla wrogów"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA034Subtitle",
+  "text": "*Atak z zaskoczenia pozwala postawić bezbronną sieć tuneli w dowolnym zbadanym miejscu. Choć nieco słabsza od zwykłego tunelu, jest połączona z główną siecią"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA035Subtitle",
+  "text": "*Platforma artyleryjska jest uzbrojona w haubicę dużego kalibru. To świetna broń do ognia zaporowego, a także dobry punkt zbiórki przed natarciem"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA036Subtitle",
+  "text": "*Lądowisko posiłków okresowo wzmacnia gracza głównym czołgiem bojowym jego strony (Scorpion, Battlemaster, Crusader)"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA037Subtitle",
+  "text": "*Stanowisko naprawcze to warsztat naprawczy dla pojazdów. Pojazdy muszą do niego podjechać tak samo, jak do fabryki broni"
+ },
+ {
+  "label": "TOOLTIP:Community",
+  "text": "Odsetek zwycięstw każdej armii we wszystkich rozegranych grach online"
+ },
+ {
+  "label": "CONTROLBAR:Nuke_ToolTipChinaBuildHelix",
+  "text": "Ciężki transportowiec \n można ulepszyć o budowle obronne i bombę atomową \n \n Skuteczny przeciw: czołgom, lekkim pojazdom \n Słaby przeciw: piechocie z rakietami, obronie przeciwlotniczej"
+ },
+ {
+  "label": "MAP:CHI01xListeningPostHint01",
+  "text": "WSKAZÓWKA: \n Ukryte pułapki wybuchowe zostaną ujawnione w zasięgu widzenia Placówki nasłuchowej"
+ },
+ {
+  "label": "OBJECT:SupW_PatriotBattery",
+  "text": "System Patriot EMP"
+ },
+ {
+  "label": "CONTROLBAR:SupW_ConstructAmericaPatriotBattery",
+  "text": "System Patriot E&MP"
+ },
+ {
+  "label": "CONTROLBAR:SupW_ToolTipUSABuildPatriotBattery",
+  "text": "Obrona naziemna i przeciwlotnicza. Może przekazywać pozycję wroga pobliskim Patriotom \n \n Wymagana energia: 3"
+ },
+ {
+  "label": "MAP:USA03xBurtonSurvive",
+  "text": "TRANSMISJA: \n Płk Burton musi przeżyć"
+ },
+ {
+  "label": "MAP:MD_GLA04_GatherHint",
+  "text": "WSKAZÓWKA: \n Zaznacz ciężarówki transportowe i każ im zbierać zasoby z zakładu toksyn"
+ },
+ {
+  "label": "MAP:MD_GLA04_HospitalHint",
+  "text": "WSKAZÓWKA: \n Szpital sprawia, że twoje jednostki same się leczą"
+ },
+ {
+  "label": "MAP:MD_GLA04_TractorsHint",
+  "text": "WSKAZÓWKA: \n Ciągniki toksyn mogą zabijać jednostki w obsadzonych budynkach"
+ },
+ {
+  "label": "OBJECT:AssaultTroopTransport",
+  "text": "Szturmowy transporter piechoty"
+ },
+ {
+  "label": "OBJECT:AssaultListeningOutpost",
+  "text": "Placówka szturmowa"
+ },
+ {
+  "label": "UPGRADE:IsotopeStability",
+  "text": "Stabilność izotopów"
+ },
+ {
+  "label": "CONTROLBAR:Infa_ToolTipChinaUpgradeRedGuardCaptureBuilding",
+  "text": "Pozwala minigunnerom przejmować budynki wroga i technologiczne"
+ },
+ {
+  "label": "OBJECT:Lazr_PatriotBattery",
+  "text": "Laserowa wieża obronna"
+ },
+ {
+  "label": "SCIENCE:Infa_ChinaRedGuardTraining",
+  "text": "Szkolenie minigunnerów"
+ },
+ {
+  "label": "CONTROLBAR:Infa_ToolTipChinaScienceRedGuardTraining",
+  "text": "Wszyscy minigunnerzy są szkoleni jako elitarni"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildNuclearMissileLauncherBoss",
+  "text": "Wystrzeliwuje rakietę nuklearną. Daje ważne chińskie ulepszenia \n \n Wymagana energia: 10 \n Czas odnowienia: 6:00"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildParticleCannonBoss",
+  "text": "Wystrzeliwuje promień cząsteczkowy w dowolne miejsce na mapie \n \n Wymagana energia: 10 \n Czas odnowienia: 4:00"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildCombatBikeTerrorist",
+  "text": "Szybki i wszechstronny \n Z terrorystą na pokładzie \n Słaby przeciw: samolotom"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildSuperHacker",
+  "text": "Może unieruchamiać wrogie budynki i pojazdy wirusem komputerowym albo włamywać się do Internetu, by kraść pieniądze. Zamaskowany \n \n Skuteczny przeciw: budynkom \n Słaby przeciw: piechocie, pojazdom"
+ },
+ {
+  "label": "UPGRADE:Demo_SuicideBomb",
+  "text": "Materiały wybuchowe"
+ },
+ {
+  "label": "UPGRADE:AirF_StealthComanche",
+  "text": "Comanche Stealth"
+ },
+ {
+  "label": "UPGRADE:HighExplosiveTrap",
+  "text": "Burząca pułapka wybuchowa"
+ },
+ {
+  "label": "CAMPAIGN:CHALLENGE_0",
+  "text": "Wyzwanie: generał sił powietrznych"
+ },
+ {
+  "label": "CAMPAIGN:CHALLENGE_1",
+  "text": "Wyzwanie: generał toksyn"
+ },
+ {
+  "label": "CAMPAIGN:CHALLENGE_2",
+  "text": "Wyzwanie: generał atomowy"
+ },
+ {
+  "label": "CAMPAIGN:CHALLENGE_3",
+  "text": "Wyzwanie: generał superbroni"
+ },
+ {
+  "label": "CAMPAIGN:CHALLENGE_4",
+  "text": "Wyzwanie: generał pancerny"
+ },
+ {
+  "label": "CAMPAIGN:CHALLENGE_5",
+  "text": "Wyzwanie: generał laserowy"
+ },
+ {
+  "label": "CAMPAIGN:CHALLENGE_6",
+  "text": "Wyzwanie: generał niewidzialności"
+ },
+ {
+  "label": "CAMPAIGN:CHALLENGE_7",
+  "text": "Wyzwanie: generał piechoty"
+ },
+ {
+  "label": "CAMPAIGN:CHALLENGE_8",
+  "text": "Wyzwanie: generał od materiałów wybuchowych"
+ },
+ {
+  "label": "OBJECT:RocketDrop",
+  "text": "Rakieta"
+ },
+ {
+  "label": "OBJECT:RocketBomb",
+  "text": "Rakieta"
+ },
+ {
+  "label": "OBJECT:PTBoat",
+  "text": "Kuter torpedowy"
+ },
+ {
+  "label": "OBJECT:ShiekLimo",
+  "text": "Limuzyna"
+ },
+ {
+  "label": "OBJECT:Dock",
+  "text": "Dok"
+ },
+ {
+  "label": "OBJECT:RailroadBridgeH",
+  "text": "Most kolejowy"
+ },
+ {
+  "label": "OBJECT:RepairDrone",
+  "text": "Dron naprawczy"
+ },
+ {
+  "label": "OBJECT:CINE_Carrier",
+  "text": "Lotniskowiec"
+ },
+ {
+  "label": "OBJECT:SpectreGunship",
+  "text": "Kanonierka Spectre"
+ },
+ {
+  "label": "SCIENCE:LaserCannon",
+  "text": "Działo laserowe"
+ },
+ {
+  "label": "OBJECT:LaserCannon",
+  "text": "Działo laserowe"
+ },
+ {
+  "label": "UPGRADE:TacticalNukeMig",
+  "text": "MiG z taktyczną bombą atomową"
+ },
+ {
+  "label": "OBJECT:FuelAirBomb",
+  "text": "Bomba paliwowo-powietrzna"
+ },
+ {
+  "label": "OBJECT:CruiseMissile",
+  "text": "Pocisk manewrujący"
+ },
+ {
+  "label": "OBJECT:Ox",
+  "text": "Wół"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUpgradeChinaTacticalNukeMig",
+  "text": "Pozwala MiG-om wystrzeliwać małą bombę atomową"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaTacticalNukeMig",
+  "text": "Taktyczny atomowy Mi&G"
+ },
+ {
+  "label": "CONTROLBAR:Boss_ToolTipChinaBuildBarracks",
+  "text": "Szkoli żołnierzy"
+ },
+ {
+  "label": "CONTROLBAR:Boss_ToolTipChinaBuildAirField",
+  "text": "Buduje samoloty \n \n Wymagana energia: 1"
+ },
+ {
+  "label": "CONTROLBAR:Boss_ToolTipChinaBuildBunker",
+  "text": "Mieści 5 żołnierzy"
+ },
+ {
+  "label": "CONTROLBAR:Boss_ToolTipChinaBuildWarFactory",
+  "text": "Buduje pojazdy \n \n Wymagana energia: 1"
+ },
+ {
+  "label": "CONTROLBAR:Boss_ToolTipChinaBuildSupplyCenter",
+  "text": "Punkt rozładunku dla zbieraczy zaopatrzenia \n \n Wymagana energia: 1"
+ },
+ {
+  "label": "CONTROLBAR:Infa_TooltipParaDrop",
+  "text": "Zrzuca minigunnerów z samolotu \n \n Czas odnowienia: 4:00"
+ }
+]
