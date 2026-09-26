@@ -5,11 +5,11 @@
  },
  {
   "label": "TOOLTIP:BattleHonorStreak5",
-  "text": "Odznaczenie serii \n Gracz wygrał 5 gier online z rzędu"
+  "text": "Odznaczenie za serię \n Gracz wygrał 5 gier online z rzędu"
  },
  {
   "label": "TOOLTIP:BattleHonorStreak20",
-  "text": "Odznaczenie serii \n Gracz wygrał 20 gier online z rzędu"
+  "text": "Odznaczenie za serię \n Gracz wygrał 20 gier online z rzędu"
  },
  {
   "label": "CONTROLBAR:ToolTipGLAUpgradeBuggyAmmor",
@@ -17,11 +17,11 @@
  },
  {
   "label": "TOOLTIP:BattleHonorStreak3Disabled",
-  "text": "Odznaczenie serii \n Wygraj 3 lub więcej gier z rzędu, by zdobyć ten medal"
+  "text": "Odznaczenie za serię \n Wygraj 3 lub więcej gier z rzędu, by zdobyć ten medal"
  },
  {
   "label": "TOOLTIP:BattleHonorBlitz10Disabled",
-  "text": "Odznaczenie błyskawicy \n Pokonaj przeciwnika(-ów) komputerowego(-ych) w 10 minut lub krócej, by zdobyć ten medal"
+  "text": "Odznaczenie za błyskawiczne zwycięstwo \n Pokonaj przeciwnika(-ów) komputerowego(-ych) w 10 minut lub krócej, by zdobyć ten medal"
  },
  {
   "label": "GUI:CÀontrolBarBack",
