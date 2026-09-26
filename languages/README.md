@@ -142,3 +142,14 @@ interface talks to the player with "tú"; EVA, officers and the enemy generals u
 Multiplayer map names stay in English. Jokes and film or ad parodies are carried over as
 Spanish ones ("Otro que muerde el polvo", "Me encanta el olor a MOAB por la mañana", "¡Limpieza
 en el pasillo uno!") rather than word for word.
+
+## Brazilian Portuguese
+
+`languages/brazilian/generals.str` is a new translation from the English original into
+Brazilian Portuguese. It uses the names of the official Brazilian release: "GLA" (feminine, "a
+GLA"), "EUA", "Centro de Comando", "Tempestade SCUD", "Canhão de Partículas", "Lótus Negra",
+"Escavadeira de Construção", "Imperador" for the Emperor Overlord, and so on. Everyone speaks
+to the player with "você"; EVA and the officers add "senhor" and "General", and the USA boss
+calls the player "moleque" and "garoto" as in English. Multiplayer map names stay in English.
+Jokes are carried over as Brazilian ones ("Atirei o pau no gato" for the test rhyme, "Adoro o
+cheiro de MOAB pela manhã", "Limpeza no corredor um!", "toca a boiaaada!").
