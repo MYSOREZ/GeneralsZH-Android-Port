@@ -1,0 +1,802 @@
+[
+ {
+  "label": "OBJECT:NukeLauncher",
+  "text": "Cañón nuclear"
+ },
+ {
+  "label": "OBJECT:ParticleCannon",
+  "text": "Cañón de partículas"
+ },
+ {
+  "label": "OBJECT:OakTree",
+  "text": "Árbol"
+ },
+ {
+  "label": "OBJECT:Office",
+  "text": "Oficina"
+ },
+ {
+  "label": "OBJECT:OilDepot",
+  "text": "Depósito de petróleo"
+ },
+ {
+  "label": "OBJECT:OilRefinery",
+  "text": "Refinería de petróleo"
+ },
+ {
+  "label": "OBJECT:OilTank",
+  "text": "Tanque de petróleo"
+ },
+ {
+  "label": "OBJECT:OldWoodenTelephonePole",
+  "text": "Poste telefónico"
+ },
+ {
+  "label": "OBJECT:Outpost",
+  "text": "Puesto avanzado"
+ },
+ {
+  "label": "OBJECT:Overlord",
+  "text": "Overlord"
+ },
+ {
+  "label": "OBJECT:Palace",
+  "text": "Palacio"
+ },
+ {
+  "label": "OBJECT:PalmTree",
+  "text": "Árbol"
+ },
+ {
+  "label": "OBJECT:ParkBench",
+  "text": "Banco del parque"
+ },
+ {
+  "label": "OBJECT:ParkGazebo",
+  "text": "Cenador"
+ },
+ {
+  "label": "OBJECT:ParkPavillion",
+  "text": "Pabellón del parque"
+ },
+ {
+  "label": "OBJECT:ParkingGarage",
+  "text": "Aparcamiento"
+ },
+ {
+  "label": "OBJECT:ParkingMeter",
+  "text": "Parquímetro"
+ },
+ {
+  "label": "OBJECT:Pathfinder",
+  "text": "Explorador"
+ },
+ {
+  "label": "OBJECT:PatriotBattery",
+  "text": "Sistema de misiles Patriot"
+ },
+ {
+  "label": "OBJECT:GattlingCannon",
+  "text": "Cañón Gatling"
+ },
+ {
+  "label": "OBJECT:PatriotMissile",
+  "text": "Sistema de misiles Patriot"
+ },
+ {
+  "label": "OBJECT:PhoneBooth",
+  "text": "Cabina telefónica"
+ },
+ {
+  "label": "OBJECT:PineTree",
+  "text": "Árbol"
+ },
+ {
+  "label": "OBJECT:PoliceCar",
+  "text": "Coche de policía"
+ },
+ {
+  "label": "OBJECT:Prison",
+  "text": "Prisión"
+ },
+ {
+  "label": "OBJECT:PropagandaBlimp",
+  "text": "Dirigible prop."
+ },
+ {
+  "label": "OBJECT:PropagandaCenter",
+  "text": "Centro de propaganda"
+ },
+ {
+  "label": "OBJECT:Pub",
+  "text": "Abrevadero"
+ },
+ {
+  "label": "OBJECT:QuadCannon",
+  "text": "Cañón cuádruple"
+ },
+ {
+  "label": "OBJECT:QuonsetHut",
+  "text": "Barracón"
+ },
+ {
+  "label": "OBJECT:RailTie",
+  "text": "Traviesa"
+ },
+ {
+  "label": "OBJECT:Ranger",
+  "text": "Ranger"
+ },
+ {
+  "label": "OBJECT:Raptor",
+  "text": "Raptor"
+ },
+ {
+  "label": "OBJECT:RaptorPilot",
+  "text": "Piloto"
+ },
+ {
+  "label": "OBJECT:Restaurant",
+  "text": "Restaurante"
+ },
+ {
+  "label": "OBJECT:RetailStore",
+  "text": "Tienda"
+ },
+ {
+  "label": "OBJECT:RiverHouse",
+  "text": "Casa del río"
+ },
+ {
+  "label": "OBJECT:RoadCone",
+  "text": "Cono de tráfico"
+ },
+ {
+  "label": "OBJECT:RocketBuggy",
+  "text": "Buggy lanzacohetes"
+ },
+ {
+  "label": "OBJECT:RadarVan",
+  "text": "Furgoneta de radar"
+ },
+ {
+  "label": "OBJECT:RocketBuggyDebris",
+  "text": "Restos de buggy lanzacohetes"
+ },
+ {
+  "label": "OBJECT:RocketBuggyMissile",
+  "text": "Misil de buggy lanzacohetes"
+ },
+ {
+  "label": "OBJECT:TomahawkMissile",
+  "text": "Misil Tomahawk"
+ },
+ {
+  "label": "OBJECT:SCUDMissile",
+  "text": "Misil SCUD"
+ },
+ {
+  "label": "OBJECT:RangerTeamMissile",
+  "text": "Misil del equipo Ranger"
+ },
+ {
+  "label": "OBJECT:Rocks",
+  "text": "Rocas"
+ },
+ {
+  "label": "OBJECT:RopeCoil",
+  "text": "Rollo de cuerda"
+ },
+ {
+  "label": "OBJECT:Rubble",
+  "text": "Escombros"
+ },
+ {
+  "label": "OBJECT:ColonelBurton",
+  "text": "Coronel Burton"
+ },
+ {
+  "label": "OBJECT:SUV",
+  "text": "Todoterreno"
+ },
+ {
+  "label": "OBJECT:Schoolhouse",
+  "text": "Escuela"
+ },
+ {
+  "label": "OBJECT:Scorpion",
+  "text": "Scorpion"
+ },
+ {
+  "label": "OBJECT:Marauder",
+  "text": "Tanque Merodeador"
+ },
+ {
+  "label": "OBJECT:ScoutDrone",
+  "text": "Dron explorador"
+ },
+ {
+  "label": "OBJECT:SpyDrone",
+  "text": "Dron espía"
+ },
+ {
+  "label": "OBJECT:ScrapCar",
+  "text": "Coche de chatarra"
+ },
+ {
+  "label": "OBJECT:ScudLauncher",
+  "text": "Lanzador SCUD"
+ },
+ {
+  "label": "OBJECT:ScudStorm",
+  "text": "Tormenta SCUD"
+ },
+ {
+  "label": "OBJECT:SecretLab",
+  "text": "Laboratorio secreto"
+ },
+ {
+  "label": "OBJECT:SecretPolice",
+  "text": "Policía secreta"
+ },
+ {
+  "label": "OBJECT:SecurityFence",
+  "text": "Valla de seguridad"
+ },
+ {
+  "label": "OBJECT:Hacker",
+  "text": "Hacker"
+ },
+ {
+  "label": "OBJECT:Officer",
+  "text": "Oficial"
+ },
+ {
+  "label": "OBJECT:Agent",
+  "text": "Agente"
+ },
+ {
+  "label": "OBJECT:Sedan",
+  "text": "Berlina"
+ },
+ {
+  "label": "OBJECT:SeismicTank",
+  "text": "Tanque sísmico"
+ },
+ {
+  "label": "OBJECT:Shack",
+  "text": "Chabola"
+ },
+ {
+  "label": "OBJECT:ShippingContainer",
+  "text": "Contenedor de carga"
+ },
+ {
+  "label": "OBJECT:ShippingCrate",
+  "text": "Caja de envío"
+ },
+ {
+  "label": "OBJECT:SignalLights",
+  "text": "Luces de señalización"
+ },
+ {
+  "label": "OBJECT:Slide",
+  "text": "Tobogán"
+ },
+ {
+  "label": "OBJECT:SovietBuilding",
+  "text": "Edificio de oficinas antiguo"
+ },
+ {
+  "label": "OBJECT:SovietGovtBuildingSmall",
+  "text": "Edificio gubern. antiguo"
+ },
+ {
+  "label": "OBJECT:SovietRadioBuilding",
+  "text": "Edificio de radio antiguo"
+ },
+ {
+  "label": "OBJECT:SpeakerTower",
+  "text": "Torre de altavoces"
+ },
+ {
+  "label": "OBJECT:SportCar",
+  "text": "Deportivo"
+ },
+ {
+  "label": "OBJECT:Sprinkler",
+  "text": "Aspersor"
+ },
+ {
+  "label": "OBJECT:SpruceTree",
+  "text": "Árbol"
+ },
+ {
+  "label": "OBJECT:StanTallTower",
+  "text": "Torre alta"
+ },
+ {
+  "label": "OBJECT:Starlifter",
+  "text": "Starlifter2"
+ },
+ {
+  "label": "OBJECT:StatueAngel",
+  "text": "Estatua de ángel"
+ },
+ {
+  "label": "OBJECT:StatueLenin",
+  "text": "Estatua"
+ },
+ {
+  "label": "OBJECT:StatueRoman",
+  "text": "Estatua romana"
+ },
+ {
+  "label": "OBJECT:StealthFighter",
+  "text": "Caza furtivo"
+ },
+ {
+  "label": "OBJECT:StingerSite",
+  "text": "Emplazamiento Stinger"
+ },
+ {
+  "label": "OBJECT:StoneArch",
+  "text": "Arco de piedra"
+ },
+ {
+  "label": "OBJECT:StoneWall",
+  "text": "Muro de piedra"
+ },
+ {
+  "label": "OBJECT:PicketFence",
+  "text": "Valla de estacas"
+ },
+ {
+  "label": "OBJECT:StopLight",
+  "text": "Semáforo"
+ },
+ {
+  "label": "OBJECT:StreetLamp",
+  "text": "Farola"
+ },
+ {
+  "label": "OBJECT:StreetLight",
+  "text": "Farol"
+ },
+ {
+  "label": "OBJECT:StreetSign",
+  "text": "Señal de tráfico"
+ },
+ {
+  "label": "OBJECT:SupplyTruck",
+  "text": "Camión de suministros"
+ },
+ {
+  "label": "OBJECT:SupplyWarehouse",
+  "text": "Almacén de suministros"
+ },
+ {
+  "label": "OBJECT:Swing",
+  "text": "Columpio"
+ },
+ {
+  "label": "OBJECT:TVStation",
+  "text": "Estación de TV"
+ },
+ {
+  "label": "OBJECT:TankTrap",
+  "text": "Trampa antitanque"
+ },
+ {
+  "label": "OBJECT:TankerTruck",
+  "text": "Camión cisterna"
+ },
+ {
+  "label": "OBJECT:TaxiCab",
+  "text": "Taxi"
+ },
+ {
+  "label": "OBJECT:Technical",
+  "text": "Técnico"
+ },
+ {
+  "label": "OBJECT:Tent",
+  "text": "Tienda de campaña"
+ },
+ {
+  "label": "OBJECT:Terrorist",
+  "text": "Terrorista"
+ },
+ {
+  "label": "OBJECT:Tire",
+  "text": "Neumático"
+ },
+ {
+  "label": "OBJECT:TireObstacle",
+  "text": "Obstáculo de neumáticos"
+ },
+ {
+  "label": "OBJECT:Tollbooth",
+  "text": "Cabina de peaje"
+ },
+ {
+  "label": "OBJECT:Tomahawk",
+  "text": "Tomahawk"
+ },
+ {
+  "label": "OBJECT:TownHouse",
+  "text": "Casa adosada"
+ },
+ {
+  "label": "OBJECT:ToxinTruck",
+  "text": "Tractor de toxinas"
+ },
+ {
+  "label": "OBJECT:TrashCan",
+  "text": "Papelera"
+ },
+ {
+  "label": "OBJECT:TrashDumpster",
+  "text": "Contenedor de basura"
+ },
+ {
+  "label": "OBJECT:TrashPaper",
+  "text": "Papeles"
+ },
+ {
+  "label": "OBJECT:TrashPile",
+  "text": "Montón de basura"
+ },
+ {
+  "label": "OBJECT:TreeStump",
+  "text": "Tocón"
+ },
+ {
+  "label": "OBJECT:TroopCrawler",
+  "text": "Transporte de tropas"
+ },
+ {
+  "label": "OBJECT:TunnelDefender",
+  "text": "Soldado RPG"
+ },
+ {
+  "label": "OBJECT:TunnelNetwork",
+  "text": "Red de túneles"
+ },
+ {
+  "label": "OBJECT:Cave",
+  "text": "Cueva"
+ },
+ {
+  "label": "OBJECT:GLAHole",
+  "text": "Agujero ELG"
+ },
+ {
+  "label": "OBJECT:GLARock",
+  "text": "Roca ELG"
+ },
+ {
+  "label": "OBJECT:UNHumvee",
+  "text": "Humvee de la ONU"
+ },
+ {
+  "label": "OBJECT:UNSoldier",
+  "text": "Soldado de la ONU"
+ },
+ {
+  "label": "OBJECT:VendingMachine",
+  "text": "Máquina expendedora"
+ },
+ {
+  "label": "OBJECT:Wall",
+  "text": "Muro"
+ },
+ {
+  "label": "OBJECT:ConcreteWall",
+  "text": "Muro de hormigón"
+ },
+ {
+  "label": "OBJECT:WatchTower",
+  "text": "Atalaya"
+ },
+ {
+  "label": "OBJECT:WaterPlant",
+  "text": "Planta de agua"
+ },
+ {
+  "label": "OBJECT:WindMill",
+  "text": "Molino de viento"
+ },
+ {
+  "label": "OBJECT:WoodBeams",
+  "text": "Vigas de madera"
+ },
+ {
+  "label": "OBJECT:WoodTower",
+  "text": "Torre de madera"
+ },
+ {
+  "label": "OBJECT:WoodWall",
+  "text": "Muro de madera"
+ },
+ {
+  "label": "OBJECT:WoodenBarrels",
+  "text": "Barriles de madera"
+ },
+ {
+  "label": "OBJECT:Worker",
+  "text": "Trabajador"
+ },
+ {
+  "label": "OBJECT:Birch",
+  "text": "Árbol"
+ },
+ {
+  "label": "OBJECT:Building",
+  "text": "Edificio"
+ },
+ {
+  "label": "OBJECT:Cathedral",
+  "text": "Catedral"
+ },
+ {
+  "label": "OBJECT:FarmHouse",
+  "text": "Granja"
+ },
+ {
+  "label": "OBJECT:Fir",
+  "text": "Árbol"
+ },
+ {
+  "label": "OBJECT:Garage",
+  "text": "Garaje"
+ },
+ {
+  "label": "OBJECT:OscarTheGrouch",
+  "text": "Chatarrero"
+ },
+ {
+  "label": "OBJECT:Pilot",
+  "text": "Piloto"
+ },
+ {
+  "label": "OBJECT:Pump",
+  "text": "Bomba"
+ },
+ {
+  "label": "OBJECT:Shop",
+  "text": "Tienda"
+ },
+ {
+  "label": "OBJECT:StingerMissile",
+  "text": "Misil Stinger"
+ },
+ {
+  "label": "OBJECT:StingerSoldier",
+  "text": "Soldado Stinger"
+ },
+ {
+  "label": "OBJECT:StorageTank",
+  "text": "Tanque de almacenamiento"
+ },
+ {
+  "label": "OBJECT:Well",
+  "text": "Pozo"
+ },
+ {
+  "label": "OBJECT:WineVat",
+  "text": "Tina"
+ },
+ {
+  "label": "OBJECT:GenericMale",
+  "text": "Civil"
+ },
+ {
+  "label": "OBJECT:GenericFemale",
+  "text": "Civil"
+ },
+ {
+  "label": "OBJECT:MogadishuFemaleCivilian",
+  "text": "Civil"
+ },
+ {
+  "label": "OBJECT:MogadishuMaleCivilian",
+  "text": "Civil"
+ },
+ {
+  "label": "OBJECT:Crane",
+  "text": "Grúa"
+ },
+ {
+  "label": "OBJECT:OceanCenter",
+  "text": "Palacio de congresos"
+ },
+ {
+  "label": "OBJECT:SoccerStadium",
+  "text": "Estadio de fútbol"
+ },
+ {
+  "label": "OBJECT:Ambulance",
+  "text": "Ambulancia"
+ },
+ {
+  "label": "OBJECT:AsianCar",
+  "text": "Coche"
+ },
+ {
+  "label": "OBJECT:Backhoe",
+  "text": "Retroexcavadora"
+ },
+ {
+  "label": "OBJECT:LargeForklift",
+  "text": "Carretilla elevadora grande"
+ },
+ {
+  "label": "OBJECT:SmallForklift",
+  "text": "Carretilla elevadora"
+ },
+ {
+  "label": "OBJECT:CropDuster",
+  "text": "Avioneta fumigadora"
+ },
+ {
+  "label": "OBJECT:Cessna",
+  "text": "Avioneta"
+ },
+ {
+  "label": "OBJECT:ChickenTruck",
+  "text": "Camión de pollos"
+ },
+ {
+  "label": "OBJECT:Combine",
+  "text": "Cosechadora"
+ },
+ {
+  "label": "OBJECT:Eurovan",
+  "text": "Furgoneta"
+ },
+ {
+  "label": "OBJECT:EuroPoliceVan",
+  "text": "Furgón policial"
+ },
+ {
+  "label": "OBJECT:Firetruck",
+  "text": "Camión de bomberos"
+ },
+ {
+  "label": "OBJECT:FarmerTruck",
+  "text": "Camioneta de granjero"
+ },
+ {
+  "label": "OBJECT:AsianFishingBoat",
+  "text": "Barco pesquero"
+ },
+ {
+  "label": "OBJECT:TourBus",
+  "text": "Autobús turístico"
+ },
+ {
+  "label": "OBJECT:FishingTrowler",
+  "text": "Arrastrero"
+ },
+ {
+  "label": "OBJECT:WorkTruck",
+  "text": "Camión de obras"
+ },
+ {
+  "label": "OBJECT:TugBoat",
+  "text": "Remolcador"
+ },
+ {
+  "label": "OBJECT:BioHazardTech",
+  "text": "Técnico de riesgo biológico"
+ },
+ {
+  "label": "OBJECT:MilitiaTank",
+  "text": "Tanque de milicia"
+ },
+ {
+  "label": "Network:PlayerDisconnected",
+  "text": "%s se ha desconectado"
+ },
+ {
+  "label": "Network:PlayerLeftGame",
+  "text": "%s ha abandonado la partida"
+ },
+ {
+  "label": "Network:Vote",
+  "text": "Votar"
+ },
+ {
+  "label": "Network:QuitGame",
+  "text": "ABANDONAR PARTIDA"
+ },
+ {
+  "label": "MAP:AlpineAssault",
+  "text": "Alpine Assault"
+ },
+ {
+  "label": "MAP:AustrianAmbush",
+  "text": "Market Garden"
+ },
+ {
+  "label": "MAP:Badlands",
+  "text": "Desert Fury"
+ },
+ {
+  "label": "MAP:BridgeBusters",
+  "text": "Iron Dragon"
+ },
+ {
+  "label": "MAP:KashmarKlash",
+  "text": "Wasteland Warlords"
+ },
+ {
+  "label": "MAP:Oasis",
+  "text": "Golden Oasis"
+ },
+ {
+  "label": "MAP:ScorchedEarth",
+  "text": "Scorched Earth"
+ },
+ {
+  "label": "MAP:SleepyHollow",
+  "text": "Heartland Shield"
+ },
+ {
+  "label": "MAP:SmalltownUSA",
+  "text": "Homeland Alliance"
+ },
+ {
+  "label": "MAP:TampicoTrauma",
+  "text": "Silent River"
+ },
+ {
+  "label": "MAP:WoodcrestCircle",
+  "text": "Final Crusader"
+ },
+ {
+  "label": "MAP:XinjiangBang",
+  "text": "Winter Wolf"
+ },
+ {
+  "label": "Audio:Speakers0",
+  "text": "2 altavoces"
+ },
+ {
+  "label": "Audio:Speakers1",
+  "text": "Auriculares"
+ },
+ {
+  "label": "Audio:Speakers2",
+  "text": "Sonido envolvente"
+ },
+ {
+  "label": "Audio:Speakers3",
+  "text": "4 altavoces"
+ },
+ {
+  "label": "Audio:Speakers4",
+  "text": "Envolvente 5.1"
+ },
+ {
+  "label": "Audio:Speakers5",
+  "text": "Envolvente 7.1"
+ },
+ {
+  "label": "MAP:CHI01ObjectiveText",
+  "text": "OBJETIVO DE LA MISIÓN \n Destruir el almacén de ojivas nucleares"
+ },
+ {
+  "label": "MAP:CHI02Open",
+  "text": "Hong Kong, China \n Crisis en Hong Kong"
+ },
+ {
+  "label": "SCRIPT:CHI02AudioHolder01",
+  "text": "<Habla un Guardia Roja> \n 'General, ¡somos todo lo que queda de la fuerza de asalto! Tenemos que construir un centro de mando y poner en marcha el radar para recibir nuevas órdenes'"
+ },
+ {
+  "label": "SCRIPT:CHI02AudioHolder02",
+  "text": "<Habla un Guardia Roja> \n 'General, si no ponemos en marcha el radar no recibiremos información sobre la posición del enemigo. Necesitamos ese radar'"
+ }
+]
