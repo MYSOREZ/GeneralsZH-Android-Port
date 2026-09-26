@@ -1,0 +1,802 @@
+[
+ {
+  "label": "DIALOGEVENT:Taunts_Demo078Subtitle",
+  "text": "*Prošu, generale, ne prodavajte to, čto ja mogu za vas uništiti"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo079Subtitle",
+  "text": "*Generale, ne igrate pravedno. Idite teper stăpiti na někoje pastky"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo080Subtitle",
+  "text": "*Ste izvanredno srěčni, generale, no ne možete naveki izběgavati moje Podryvne pastky"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo081Subtitle",
+  "text": "*Nikto ešče ne pobědil moje pastky, generale, i vy ne budete prvy... uvidite"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo082Subtitle",
+  "text": "*Mysite, že me pobězujete, generale? To se može izměniti v momentu -- ja se ne bijem pravedno"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo083Subtitle",
+  "text": "*Może ste me pobědili, generale, no Deathstrike me otmsti"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo084Subtitle",
+  "text": "*Ha ha! Vaše vojska padaju v moje pastky, generale. Skoro vsi budu izčeznuti"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo085Subtitle",
+  "text": "*Gubite, generale. Moja taktika vam se izmyka"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo086Subtitle",
+  "text": "*Nikogda me ne pobědite, generale. Trěbalo by vam otiti, prěžde nego vas boli"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo087Subtitle",
+  "text": "*Imam ešče tak mnogo eksplozivov -- věče eksplozivov, bojim se, nego vy imate sil"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo088Subtitle",
+  "text": "*Gubite, generale. Škoda"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo089Subtitle",
+  "text": "*Imam prosto pravu stvar. Idimo dělati vojnu"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo090Subtitle",
+  "text": "*Ekspert za rušenja: kak vam mogu pomoči?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo091Subtitle",
+  "text": "*Zanimaje me, mogl by jesem tăj gumb spojiti, aby eksplodoval?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo092Subtitle",
+  "text": "*Prošu, generale -- vojdite na moje bojišče... no pazite, gdě stăpate"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo093Subtitle",
+  "text": "*Byli ste srěčni tăj raz, generale. Nikogda by me znova ne pobědili"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo094Subtitle",
+  "text": "*Niste byli prigotovleni na taku vojnu. Poprobujte znova, jesli se osmělite"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo095Subtitle",
+  "text": "*Tu vidime bojišče -- otvoreno... netaknuto bitvoju... čista tablica za naš maly..."
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo096Subtitle",
+  "text": "*Nu, otkuda prišly te Podryvne pastky?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo097Subtitle",
+  "text": "*Może imam několiko kart skrytyh v rukavě, no očekivali li ste od mene něčto manje, generale?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger001Subtitle",
+  "text": "*Ej, generale, viděli li ste kogda Raptor izbliza?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger002Subtitle",
+  "text": "*Ej, generale, viděli li ste tăj nevidimy istrebitel?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger003Subtitle",
+  "text": "*Ptice su izpuščene! Idimo loviti někoje buldozery!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger004Subtitle",
+  "text": "*Dokončil jesem igru s vami, generale. (objavljaje svojim silam) Vsi, napadnite!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger005Subtitle",
+  "text": "*Pogledajte na to... vojenski trošky US v najlăpšem izdanju"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger006Subtitle",
+  "text": "*(Pěje... loše) i červeny sjaj raket, bomby izbuhajuče v vozduhu"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger007Subtitle",
+  "text": "*Tu ide dăžd terora, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger008Subtitle",
+  "text": "*Kak vam se ljubi 'Šok i Strahopočitanje', generale?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger009Subtitle",
+  "text": "*Smărt s neba!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger010Subtitle",
+  "text": "*Ne vygljadaje pravedno, ne li, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger011Subtitle",
+  "text": "*Vrěme je vytáhnuti vsu obranu. Vsi, napadnite!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger012Subtitle",
+  "text": "*Bomby su izpuščene!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger013Subtitle",
+  "text": "*Tam je strašno tiho... niste li otišli, generale?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger014Subtitle",
+  "text": "*Ne brinite se, generale, to je samo tišina pred buroju"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger015Subtitle",
+  "text": "*Ja by iskoristil tăj pauzu, aby obnovil vašu obranu, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger016Subtitle",
+  "text": "*Ššš... čuli li ste to? Ne by se brinil, vjerojatno je ničego"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger017Subtitle",
+  "text": "*Žal mi, generale, samo idemo na obědovu pauzu -- budeme s vami za minutu"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger018Subtitle",
+  "text": "*Prinudili ste me koristiti tanky... nenavidim koristiti tanky"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger019Subtitle",
+  "text": "*Imate problemy prěhoditi rěku, generale? Hočete prevoz?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger020Subtitle",
+  "text": "*Kukavicy! Prěstante se skryvati i bijte se!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger021Subtitle",
+  "text": "*Skrytost vas ne spase, generale; my vas najdeme"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger022Subtitle",
+  "text": "*Aj, to moralo byti drago"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger023Subtitle",
+  "text": "*Hm, gdě teper budete trenirovati svoje vojska?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger024Subtitle",
+  "text": "*Imate problemy dăržati tu obranu, generale?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger025Subtitle",
+  "text": "*Izgubili ste mnogo budov, generale; planovali li ste teper koristiti ostre slova?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger026Subtitle",
+  "text": "*Buldozery, začnite popravjati naše budovy!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger027Subtitle",
+  "text": "*Dobydem vas za to, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger028Subtitle",
+  "text": "*Bude vam žal, že ste uništili to letišče, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger029Subtitle",
+  "text": "*Buldozery, obnovte našu obranu!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger030Subtitle",
+  "text": "*Tu general Grainger k Avianoscu Olympia: pošlite podkrěplenja... opakuju: pošlite podkrěplenja"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger031Subtitle",
+  "text": "*Napadaju Komandny centr! Vse sily, prěgrupirujte se!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger032Subtitle",
+  "text": "*Ne cěnim, že mi sestrěljujete samolety, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger033Subtitle",
+  "text": "*Zahvataju naše naftne vyšky! Rangery, idite tam i vzmite jih nazad!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger034Subtitle",
+  "text": "*Idite von iz našej bazy!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger035Subtitle",
+  "text": "*Idite von iz mojego vozdušnogo prostora, generale!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger036Subtitle",
+  "text": "*Neprijatel je v našem perimetru! Vse samolety, vrătite se v bazu!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger037Subtitle",
+  "text": "*Zemske sily, branite letišča!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger038Subtitle",
+  "text": "*Ne kradete moje snabděnja, ne li, generale?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger039Subtitle",
+  "text": "*Idu zadnimi vratami!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger040Subtitle",
+  "text": "*Skryvate se v selě, a. To je taktika kukavicy, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger041Subtitle",
+  "text": "*Prěstante se skryvati, generale. Ne dělajte, aby prišel i vas vzeli"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger042Subtitle",
+  "text": "*Su na vzhodnyh vratah!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger043Subtitle",
+  "text": "*Branite vzhodnu stranu!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger044Subtitle",
+  "text": "*Neprijateljske sily se približaju k zapadnym vratam!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger045Subtitle",
+  "text": "*Vse sily k zapadnym vratam!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger046Subtitle",
+  "text": "*Imate problemy dăržati svoju energiju, generale?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger047Subtitle",
+  "text": "*Ups, vaša energija je padla -- tu idu bomby!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger048Subtitle",
+  "text": "*Bez resursov, generale? Hočete si posuditi?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger049Subtitle",
+  "text": "*Ej, generale, čto by, jesli tăj nazovime nerěšenym?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger050Subtitle",
+  "text": "*Może ste vyigrali boj, generale, no vojna ešče dalek ne je zaveršena"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger051Subtitle",
+  "text": "*Tak, sgradili ste Burju SCUD. Mysite, že ju možete braniti?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger052Subtitle",
+  "text": "*Hm, to je mnogo protivozdušnyh sil, generale... myslite, že to bude dovoljno, aby uspokoilo strah?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger053Subtitle",
+  "text": "*Vaši tanky nisu ravni mojim samoletam, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger054Subtitle",
+  "text": "*Antraks! Vsi, najdite ukrytje!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger055Subtitle",
+  "text": "*Zaposedite vse budovy, kotore hočete, generale -- to ne pomože"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger056Subtitle",
+  "text": "*Koliko věče tego možete izdăržati, generale?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger057Subtitle",
+  "text": "*Gotovi li se uže predati?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger058Subtitle",
+  "text": "*Niste li uže izgubili dovoljno vojsk, generale?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger059Subtitle",
+  "text": "*Tăj boj je gotov, generale -- predajte se ili se prigotovte umrěti!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger060Subtitle",
+  "text": "*Ne budete se predavati, a? Škoda"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger061Subtitle",
+  "text": "*Bomby su izpuščene, prijatelju"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger062Subtitle",
+  "text": "*Hajde, generale -- pokažem vam značenje 'Smărti s neba'"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger063Subtitle",
+  "text": "*Zvukovy udar, sinko. Idimo to sdělati"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger064Subtitle",
+  "text": "*Vygljadaje, že je vrěme, aby jesem si našel dobru rabotu v aviolinii"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger065Subtitle",
+  "text": "*Ja vyigravam -- vy gubite. Čto ešče je reči?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger066Subtitle",
+  "text": "*Buďte izvěščeni: tăta oblast je pod kontroljoju generala vozdušnyh sil Malcolma Graingera. Otstupite teper, ili se prigotovte byti bombardovani nazad v kameny věk"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger067Subtitle",
+  "text": "*Generale, niste mi ravni -- vozduh je moj!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger068Subtitle",
+  "text": "*Gledajte na nebo, generale; ustroime vozdušne predstavlenje"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger069Subtitle",
+  "text": "*Hočete to viděti znova?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger070Subtitle",
+  "text": "*Gotovi ili ne, idu!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger071Subtitle",
+  "text": "*Ne vadi vam, jesli sviditi na dole, generale?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger072Subtitle",
+  "text": "*To su uže dva moji letišča, kotore ste udarili, generale. Začinam se dosajdati"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger073Subtitle",
+  "text": "*Prokljati ste, generale. Jesli udarite ešče jedno letišče, prijdu po vas osobno"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger074Subtitle",
+  "text": "*To je poslědnje letišče, kotore danas uništite. (objavljaje svojim vojskam) Sily, cěljajte na jich Komandny centr"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger075Subtitle",
+  "text": "*Ne mogu věriti, že ste me pobědili, generale. Salutuju vašu vyšu taktiku"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger076Subtitle",
+  "text": "*Vygljadaje, že ste me tăj raz pobědili, generale, no sretnemo se znova jednogo dnja, i togda ne budu tak milostiv, zašto--"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger077Subtitle",
+  "text": "*Mysleil jesem, že nikogda ne prěstane govoriti"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger078Subtitle",
+  "text": "*Ne mysite, že vam dopustim dăržati tu Burju SCUD, ne li?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger079Subtitle",
+  "text": "*Ešče jedna Burja SCUD? Vygljadaje, že je vrěme povyšiti stavky"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger080Subtitle",
+  "text": "*Piloty, pazite na te Pozicije Stinger"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger081Subtitle",
+  "text": "*Tak mnogo Rangerov -- tak malo budov za zahvatiti"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger082Subtitle",
+  "text": "*Generale, znate li, kak rabotaje Gorivno-vozdušna bomba? Čto o demonstraciji?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger083Subtitle",
+  "text": "*Dobro došli na zabavu, Polkovniče Burtone. Teper vas čeka, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger084Subtitle",
+  "text": "*Znate li, kak zaustaviti A-10, generale? Ja takože ne"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger085Subtitle",
+  "text": "*Ej, hočete viděti naš novy Razrušitel Bunkerov?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger086Subtitle",
+  "text": "*Artiljerija! Mysite, že me možete napasti artiljerijom?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger087Subtitle",
+  "text": "*Znate, že tăj Lanser Skad nikogda ne dojde do mojej bazy, tak?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger088Subtitle",
+  "text": "*Počekajte, to je Kamion-bomba! Vsi, pazite!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger089Subtitle",
+  "text": "*Prinudili ste me koristiti tanky... nenavidim koristiti tanky"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger090Subtitle",
+  "text": "*Imate problemy prěhoditi rěku, generale? Hočete prevoz?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger091Subtitle",
+  "text": "*Kukavicy! Prěstante se skryvati i bijte se!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger092Subtitle",
+  "text": "*Skrytost vas ne spase, generale; my vas najdeme"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger093Subtitle",
+  "text": "*Hm, to je mnogo protivozdušnyh sil, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry001Subtitle",
+  "text": "*Tak, tu se skryvate, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry002Subtitle",
+  "text": "*<sarkastično>Čujete li se prěplavleni, generale?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry003Subtitle",
+  "text": "*(kitajska pěhota umiraje) <gněvny glas> Ešče 1 miliard otkuda tăj prišel"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry004Subtitle",
+  "text": "*(vysadka) Kako roj skakavcev, spuskaju se s neba, aby požrali vsěh, kotori stanu protiv Kitaja"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry005Subtitle",
+  "text": "*Byli li ste kogda posěčeni, generale?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry006Subtitle",
+  "text": "*<kričeči>Marš!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry007Subtitle",
+  "text": "*Oni su takože dobri štity"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry008Subtitle",
+  "text": "*Tu je sovět, generale: predajte se!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry009Subtitle",
+  "text": "*Ne brinite se, generale, my ne beremo plennikov"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry010Subtitle",
+  "text": "*Puščajte ordu!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry011Subtitle",
+  "text": "*V redě je, generale, donesli smo svoj vlastny stjag za vašu bazu"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry012Subtitle",
+  "text": "*Skoro vaši ljudi uvidu samo čižmy, kotore po njih marširaju"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry013Subtitle",
+  "text": "*Napřed!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry014Subtitle",
+  "text": "*Smărt vsěm, kotori nam se protivstavjaju!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry015Subtitle",
+  "text": "*Znate li, kak tăžko je nakormiti ordu, generale?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry016Subtitle",
+  "text": "*Imam dovoljno ljudej za paradu. Možemo li ju sdělati v vašej bazě?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry017Subtitle",
+  "text": "*Ste li ešče tu, generale?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry018Subtitle",
+  "text": "*Budete li samo tam sěděti i čekati, aby vas prěplavili?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry019Subtitle",
+  "text": "*Padaju li vaše resursy, generale?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry020Subtitle",
+  "text": "*Kak dolgo vam trěba, aby sgradili svoju malu tankovu silu?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry021Subtitle",
+  "text": "*<sarkastično> Koju taktiku me teper udivite, generale?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry022Subtitle",
+  "text": "*To ne může byti najlăpše, čto možete sdělati, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry023Subtitle",
+  "text": "*Do teper me niste impresionirali, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry024Subtitle",
+  "text": "*Niste byli prigotovleni na tăj izzov, ne li, generale?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry025Subtitle",
+  "text": "*Imam dovoljno ljudej, aby vas razdrobil, ne ispálivši ni jedny vystrěl"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry026Subtitle",
+  "text": "*Idemo po vas, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry027Subtitle",
+  "text": "*Aaa... zrušili smo vašu malu Tehničku budovu. Bu-hu"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry028Subtitle",
+  "text": "*Teper vaša Kasarna je izčeznula. Kak se budete biti bez ljudej?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry029Subtitle",
+  "text": "*Bez Vojenskej Fabriky budete se morati biti sa mnoju čelověk protiv čelověka, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry030Subtitle",
+  "text": "*Věče ne budete imati samoletov. Idite na zemju i bijte se kako čelověk"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry031Subtitle",
+  "text": "*Moji ljudi marširaju prjamo prěko vašej obrany bazy, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry032Subtitle",
+  "text": "*Tu je samo prazdna zemja tam, gdě je nekogda stojal vaš Komandny centr, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry033Subtitle",
+  "text": "*Izgubil jesem mnogo ljudej, generale, no cěna vašim budovam byla vrědna tego"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry034Subtitle",
+  "text": "*Ostavte moje Tehničke budovy na miru, generale!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry035Subtitle",
+  "text": "*NĚ! Ne moja Kasarna! Sgradime drugu, generale... togda zaplatite"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry036Subtitle",
+  "text": "*Moja Vojenska Fabrika ne je nezbytna za moju pobědu, no ne uništite ešče jednu"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry037Subtitle",
+  "text": "*Uništili ste moje Vozdušne Polje! To začinaje byti dosadno, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry038Subtitle",
+  "text": "*Uništite vsu obranu bazy, kotoru hočete -- ona je tu samo, aby vas zpomalila vsě jedno"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry039Subtitle",
+  "text": "*Koštovali ste me mnogo budov, generale. Moji ljudi idu izbrati dolg"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry040Subtitle",
+  "text": "*Něěě! Uništili moj Komandny centr! Idite po njih! Dăržite jih dale od mene!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry041Subtitle",
+  "text": "*Sestrěljujte vse samolety, kotore hočete, generale -- sdělame věče"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry042Subtitle",
+  "text": "*Moji vozila nisu za vašu praktiku strěljanja, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry043Subtitle",
+  "text": "*Ešče mnogo je v mojej armiji gotovyh žrtvovati se za Kitaj, generale. Ne zaustavite nas"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry044Subtitle",
+  "text": "*Vidim, že ste zahvatili moju naftnu vyšku, generale. Idemo vzeti nazad naftu Kitaja"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry045Subtitle",
+  "text": "*Ta stara Artiljerijska platforma je uništena, generale; nikogda ju ne spravite rabotati"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry046Subtitle",
+  "text": "*Mysite, že ta Naftova rafinerija je tu za vsakogo koristiti? Vrátite mi refineriju teper"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry047Subtitle",
+  "text": "*Priblížte se ešče malo k mojej bazě, i puščam ordu na vas"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry048Subtitle",
+  "text": "*Preduprěždajem vas, generale, otstupite od mojej bazy. Znate li, čto sto ljudej může sdělati tanku?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry049Subtitle",
+  "text": "*Su v našej bazě! Ubijte jih! Izvedite jih otsjuda!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry050Subtitle",
+  "text": "*Približaju se predbliza! Zaščitite me!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry051Subtitle",
+  "text": "*Generale, otstupite od mojih resursov -- moji ljudi jih trěbaju"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry052Subtitle",
+  "text": "*Generale, ne probujte obojti moju bazu s boku"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry053Subtitle",
+  "text": "*Napad na zadnja vrata vam ne pomože, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry054Subtitle",
+  "text": "*Napad na prěd mojej bazy je glupy, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry055Subtitle",
+  "text": "*To su moje Tehničke budovy, generale. Ostajte dale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry056Subtitle",
+  "text": "*Izydete iz mojih budov, generale!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry057Subtitle",
+  "text": "*Prěhod tego mosta je ošibka, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry058Subtitle",
+  "text": "*Izgubili ste energiju, generale -- vaša obrana je pala, i moji ljudi skoro vtorgnu se"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry059Subtitle",
+  "text": "*Bez energije nikogda ne zaustavite moju ordu, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry060Subtitle",
+  "text": "*Potrošili ste vse svoje resursy, bijuči se s mojimi ljudmi... no ja imam ešče věče ljudej"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry061Subtitle",
+  "text": "*Nemamo věče resursov! Kak se to stalo?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry062Subtitle",
+  "text": "*Sgradite svoju Burju SCUD -- ona udari samo několiko mojih ljudej... ostatok vas uništi"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry063Subtitle",
+  "text": "*Mysleil jesem, že nuklearne rakety nisu dozvoleny! To edva je pravedno, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry064Subtitle",
+  "text": "*To Česticovo dělo je bezkorisno protiv moje ordy!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry065Subtitle",
+  "text": "*Da, trěbalo by vam sgraditi věče obrany bazy -- bar togda možete zaustaviti pervu volnu nadhodeče ordy"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry066Subtitle",
+  "text": "*Kukavice! Znate, že vaši tanky ne mogu razdrobiti mojih ljudej, ne li?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry067Subtitle",
+  "text": "*Tak mnogo samoletov... něvažno, moja orda sestrěli i te"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry068Subtitle",
+  "text": "*Mobilizujete svoju vlastnu ordu?! Bude vam trěba mnogo věče ljudej, aby sravnali moju silu, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry069Subtitle",
+  "text": "*Vaša baza narastla predveliku, generale. Vrěme je, aby moji ljudi sviditi na dole i zahvatili několiko za Kitaj"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry070Subtitle",
+  "text": "*Burja SCUD! Razběgnite se!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry071Subtitle",
+  "text": "*Nuklearna raketa se približaje! Uběgnite! Izvedite me otsjuda!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry072Subtitle",
+  "text": "*Ooh, pogledajte na krasny světelny šou. Čto se nadate postiži tym malenkym oružjem, generale?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry073Subtitle",
+  "text": "*Izydete iz toj budovy, generale. Imamo sposoby vas izvesti siloju, jesli je potrěbno"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry074Subtitle",
+  "text": "*Doněsli ste Polkovnika Burtona v našu malu vojnu, generale. Daže on padne pred licom ordy"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry075Subtitle",
+  "text": "*Črny Lotos? Kak vam ona pomože prěživěti moju ordu, generale?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry076Subtitle",
+  "text": "*Vse sily, pazite: Jarmen Kell se skryvaje na polju"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry077Subtitle",
+  "text": "*Vidim to Vozdušne Polje, generale. Běgnite v vozduh! Bojte se moje ordy!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry078Subtitle",
+  "text": "*Moji ljudi razderu vaše tanky tak bystro, kak jih možete sdělati, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry079Subtitle",
+  "text": "*Moji ljudi su trenirovani v grupah po tri... kak bystro možete trenirovati svojih?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry080Subtitle",
+  "text": "*Prodavate svoje budovy? Glupo! Čto kupite za te dengi, aby zaustavili moju ordu?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry081Subtitle",
+  "text": "*Imam tak mnogo sil, kak možete vyigravati tăj boj?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry082Subtitle",
+  "text": "*Podcenil jesem vašu taktiku, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry083Subtitle",
+  "text": "*Zaskočili ste me, generale, no teper jesem gotov na vas"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry084Subtitle",
+  "text": "*Ne pobědite moju ordu, generale! Vaša trenutna prevaga skoro bude izgubjena"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry085Subtitle",
+  "text": "*Ne primam tăj poraz, generale. Moji ljudi pokryju moj uběg, i my se bijeme drugy deň"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry086Subtitle",
+  "text": "*Moji ljudi vas teper prevyšuju po čislu, generale. Bylo by mudro se predati"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry087Subtitle",
+  "text": "*To vygljadaje kako konec za vas, generale"
+ }
+]
