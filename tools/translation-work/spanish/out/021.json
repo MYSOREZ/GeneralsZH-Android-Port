@@ -1,0 +1,802 @@
+[
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen06Subtitle",
+  "text": "*¡Hemos obtenido la tecnología de Perturbación de GPS! ¡Ahora podemos usar los trucos de Kassad contra él!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen07Subtitle",
+  "text": "*¡Excelente, general! ¡Hemos asegurado la habilidad Ataque furtivo!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen08Subtitle",
+  "text": "*Capture los centros de mando enemigos"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen09Subtitle",
+  "text": "*Si capturamos el centro de mando enemigo, podremos usar su tecnología contra ellos"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen10Subtitle",
+  "text": "*General, debemos capturar su centro de mando y usar sus conocimientos para avanzar hacia nuestra meta: unir al ELG bajo una sola bandera"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen11Subtitle",
+  "text": "*Nos quedamos sin recursos. Debemos capturar algunas torres petrolíferas"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen12Subtitle",
+  "text": "*¡El enemigo ataca nuestro suministro de petróleo! ¡Hay que detenerlos!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen13Subtitle",
+  "text": "*¡Use la Perturbación de GPS para burlar las defensas enemigas!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen14Subtitle",
+  "text": "*La Perturbación de GPS no funcionará aquí: hay demasiados emplazamientos Stinger. Necesitaremos otra táctica"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen15Subtitle",
+  "text": "*Quizá encontremos una zona sin vigilancia para usar nuestra nueva habilidad Ataque furtivo"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen16Subtitle",
+  "text": "*No destruya el centro de mando. Debemos capturar el edificio y conservarlo intacto"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen17Subtitle",
+  "text": "*Hay que robarles sus conocimientos. ¡Debemos usar sus tácticas avanzadas para derrotarlos!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen18Subtitle",
+  "text": "*General, cuidado con los francotiradores... A Kassad le encanta usarlos"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen19Subtitle",
+  "text": "*Este puente está muy defendido. Necesitaremos ayuda para cruzarlo"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen20Subtitle",
+  "text": "*¡Capture el centro de mando enemigo al norte!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen21Subtitle",
+  "text": "*¡Capture el centro de mando enemigo al oeste!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen22Subtitle",
+  "text": "*¡General, si capturamos este cañón podremos usarlo contra las fuerzas de Kassad!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen23Subtitle",
+  "text": "*Si capturamos el centro de mando, podremos usar sus habilidades para cambiar el curso de esta batalla"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen24Subtitle",
+  "text": "*El príncipe Kassad ya no existe. ¡El ELG vuelve a estar unido contra nuestros enemigos!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen25Subtitle",
+  "text": "*¡Ahora que tenemos la Perturbación de GPS, podemos pasar sin ser vistos junto a las defensas del puente de Kassad!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen26Subtitle",
+  "text": "*El traidor se ha atrincherado en esta colina y ha cortado todos los demás accesos. El Ataque furtivo es nuestra única forma de golpear su base principal"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen27Subtitle",
+  "text": "*General, esta zona está bajo el control del príncipe Kassad. Ha dado la espalda a sus hermanos y no nos ayudará en nuestra causa contra los infieles"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen28Subtitle",
+  "text": "*Kassad es un maestro del sigilo: esconde sus fuerzas a plena vista. Se niega a compartir sus conocimientos con nosotros, así que se los arrebataremos"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen29Subtitle",
+  "text": "*Una célula disidente del ELG al mando del príncipe Kassad controla esta zona. Kassad se niega a dejarnos usar sus habilidades por el bien del ELG"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen30Subtitle",
+  "text": "*Kassad es un maestro del sigilo que recurre a varias técnicas para sorprender y atacar a sus enemigos"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen31Subtitle",
+  "text": "*La Perturbación de GPS le permite que cualquier unidad ataque al enemigo sin ser vista"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen32Subtitle",
+  "text": "*Los ataques furtivos por túnel ofrecen más ventajas tácticas"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen33Subtitle",
+  "text": "*Necesitamos estas tecnologías. Si Kassad no las comparte, se las arrebataremos. ¡Capture sus centros de mando y vuelva sus propias habilidades contra él!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03Kenwar03Subtitle",
+  "text": "*Libere a nuestros hermanos prisioneros"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03Kenwar15Subtitle",
+  "text": "*Hemos avistado un campo de prisioneros; nuestros hermanos están dentro"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xBrf01Subtitle",
+  "text": "*¡Bienvenido, comandante!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xBrf02Subtitle",
+  "text": "*Kassad era demasiado cobarde para intentar algo así contra EE. UU. General, es usted un auténtico genio"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xBrf03Subtitle",
+  "text": "*En cuanto destrocemos la fuerza naval de EE. UU. en el Mediterráneo, toda Europa estará a nuestro alcance"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xBrf04Subtitle",
+  "text": "*Ahora que volvemos a estar unidos, ¡es hora de hacer sentir nuestra fuerza!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xBrf05Subtitle",
+  "text": "*EE. UU. ha atacado nuestra base secreta en el Mediterráneo"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xBrf06Subtitle",
+  "text": "*Pero antes de que la aniquilaran, descubrimos dónde están su cañón de partículas y su flota en la región"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xBrf07Subtitle",
+  "text": "*La mayoría de sus barcos están en puerto e indefensos. ¡Robaremos su cañón de partículas y lo usaremos para hundir su portaaviones!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xBrf08Subtitle",
+  "text": "*Busque la ocasión de recuperar y reconstruir nuestra base secreta"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xChat01Subtitle",
+  "text": "*¡Moriremos por usted!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xChat02Subtitle",
+  "text": "*Otro que muerde el polvo"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xChat03Subtitle",
+  "text": "*Más víctimas para mí"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xChat04Subtitle",
+  "text": "*¡Acribilladlos!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xChat05Subtitle",
+  "text": "*¡No escaparán de nuestra ira!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xChat06Subtitle",
+  "text": "*¡Los tenemos donde queríamos!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xChat07Subtitle",
+  "text": "*¡La victoria será nuestra!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xChat08Subtitle",
+  "text": "*¡Menudo chapuzón!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xCin01Subtitle",
+  "text": "*¡Vengaremos este cobarde ataque!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xCin02Subtitle",
+  "text": "*¡Su portaaviones quedará convertido en chatarra!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xCin03Subtitle",
+  "text": "*¡Hemos demostrado el poder del ELG!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen01Subtitle",
+  "text": "*Nuestros secuestradores podrían hacerse con ese tanque fácilmente"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen02Subtitle",
+  "text": "*¡Ese ranger corre a pedir ayuda! No debemos dejarlo escapar"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen03Subtitle",
+  "text": "*Necesitaremos este cañón de partículas para hundir el portaaviones enemigo. ¡Defiéndalo bien!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen04Subtitle",
+  "text": "*Nuestros rebeldes pueden usar su habilidad Capturar edificio para hacerse con el cañón de partículas"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen05Subtitle",
+  "text": "*Podemos usar el Ataque furtivo para crear redes de túneles en las islas cercanas"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen06Subtitle",
+  "text": "*¡No debemos dejar que el piloto llegue a su Tomahawk!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen07Subtitle",
+  "text": "*¡Van a por el Tomahawk!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen08Subtitle",
+  "text": "*Este cuartel ya es nuestro"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen09Subtitle",
+  "text": "*Hemos liberado este palacio"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen10Subtitle",
+  "text": "*Este traficante de armas nos será muy útil"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen11Subtitle",
+  "text": "*¡Hemos recuperado nuestro centro de mando!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen12Subtitle",
+  "text": "*General, ¿ve esos aviones de suministro enemigos? ¡Si destruimos sus zonas de lanzamiento, paralizaremos su producción!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen13Subtitle",
+  "text": "*Ah, este tractor de toxinas nos vendrá de perlas"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen14Subtitle",
+  "text": "*Estos cañones cuádruples nos defenderán de la aviación enemiga"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen15Subtitle",
+  "text": "*Estos Merodeadores aumentarán nuestra potencia de fuego"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen16Subtitle",
+  "text": "*¡Destruya esos tanques y podremos liberar el cuartel!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen17Subtitle",
+  "text": "*Si despejamos esta zona, podremos ocupar el centro de mando sin peligro"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen18Subtitle",
+  "text": "*¡Acabe con esas tropas y el traficante de armas será nuestro!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen19Subtitle",
+  "text": "*¡Puede que estén preparando un ataque contra nosotros! ¡Defienda nuestros edificios!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen20Subtitle",
+  "text": "*¡Comanches! ¡Reúna nuestras defensas antiaéreas!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen21Subtitle",
+  "text": "*¡Debemos defendernos de esos Comanches!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen22Subtitle",
+  "text": "*¡Intentan recuperar el cañón de partículas!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen23Subtitle",
+  "text": "*¡Su aviación ha destruido nuestra red de túneles!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen24Subtitle",
+  "text": "*¡Qué villanos tan astutos! Atacan nuestras centrales eléctricas. Necesitamos energía para usar el cañón de partículas"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen25Subtitle",
+  "text": "*Casi todas las centrales eléctricas han sido destruidas. ¡Necesitamos energía para usar el cañón de partículas!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen26Subtitle",
+  "text": "*Si capturamos algunas centrales eléctricas, podríamos usar el cañón de partículas contra ellos"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen27Subtitle",
+  "text": "*Ahh... Hemos encontrado unos regalitos escondidos"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen28Subtitle",
+  "text": "*Este paso está bien defendido. Deberíamos usar el cañón de partículas para abrirnos camino"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen29Subtitle",
+  "text": "*¡Cuidado! ¡Este paso está muy vigilado!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen30Subtitle",
+  "text": "*¡Han desplegado infantería en las islas!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen31Subtitle",
+  "text": "*¡Sus helicópteros traen refuerzos!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen32Subtitle",
+  "text": "*¡Han lanzado un ataque de A10 contra nosotros!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen33Subtitle",
+  "text": "*¡Han lanzado paracaidistas sobre el cañón de partículas!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen34Subtitle",
+  "text": "*¡Hemos inutilizado sus zonas de suministro! ¡Su producción quedará paralizada!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen35Subtitle",
+  "text": "*Su misión es destruir el portaaviones enemigo con el cañón de partículas. Tendrá que penetrar en su base del continente para fijar visualmente el portaaviones y poder destruirlo"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen36Subtitle",
+  "text": "*¡Buen trabajo! Ahora debemos asegurar algunas centrales eléctricas"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen37Subtitle",
+  "text": "*La red de túneles nos llevará a la siguiente isla"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen38Subtitle",
+  "text": "*El cañón de partículas ya está operativo. Deberíamos defenderlo junto con las centrales eléctricas"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen39Subtitle",
+  "text": "*¡Todas nuestras unidades y edificios han sido destruidos!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen40Subtitle",
+  "text": "*Sin el cañón de partículas será imposible hundir el portaaviones"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen41Subtitle",
+  "text": "*¡Ahora los americanos probarán el amargo sabor de la derrota!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen42Subtitle",
+  "text": "*¡Han destruido nuestra red de túneles! ¡Use el Ataque furtivo para recuperar el cañón de partículas!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen43Subtitle",
+  "text": "*Nos acercamos al portaaviones. Está justo al sur de aquí"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen44Subtitle",
+  "text": "*¡Ahí está el portaaviones! ¡Destrúyalo con el cañón de partículas!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen45Subtitle",
+  "text": "*Jarmen Kell está aquí para servirnos"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen46Subtitle",
+  "text": "*Su disparo de precisión puede inutilizar vehículos enemigos, para que nuestra infantería los capture"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen47Subtitle",
+  "text": "*Estos acorazados atracados son inofensivos"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen48Subtitle",
+  "text": "*¡El acorazado nos está bombardeando! ¡Destrúyalo!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen49Subtitle",
+  "text": "*Esta debe de ser la base principal del enemigo"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen50Subtitle",
+  "text": "*Estos edificios falsos engañarán a nuestros enemigos"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA03xKen51Subtitle",
+  "text": "*¡Construya más estructuras falsas para engañar al enemigo!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04Dispatcher06Subtitle",
+  "text": "*Las fuerzas americanas están en camino"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xChat01Subtitle",
+  "text": "*¡Tenemos que despejar esos búnkeres!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xChat02Subtitle",
+  "text": "*¡Se han quedado sin energía! ¡No hay Patriots de los que preocuparse!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xChat03Subtitle",
+  "text": "*¡Derribad las vallas y rescatad a nuestros hermanos!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xChat04Subtitle",
+  "text": "*¡Ahora nuestros hermanos pueden ser libres!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xChat05Subtitle",
+  "text": "*Un Chinook americano nos ayudaría a transportar tropas. Capture este depósito de suministros si puede"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xChat06Subtitle",
+  "text": "*¡Traiga antiaéreos aquí, general! ¡Sus Comanches nos están haciendo trizas!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xChat07Subtitle",
+  "text": "*¡General, debemos encontrar la forma de acabar con estas defensas del puente!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xChat08Subtitle",
+  "text": "*¡General, estamos usando nuestros móviles para pedir una red de túneles sorpresa!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xChat09Subtitle",
+  "text": "*Necesitaremos estos tractores si queremos despejar algún búnker"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xChat10Subtitle",
+  "text": "*¡Este ferry está ahora bajo nuestro control! ¡Nos llevarás adonde queramos ir!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xChat11Subtitle",
+  "text": "*¡Sí, sí! ¡Haré lo que usted diga!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xChat12Subtitle",
+  "text": "*Nuestros hermanos han sido liberados"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xChat13Subtitle",
+  "text": "*Cuántos todoterrenos hay en esta extraña tierra"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xChat14Subtitle",
+  "text": "*Tenemos un simpatizante del ELG en esta zona. Él y sus hermanos han aceptado ayudarnos"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xChat15Subtitle",
+  "text": "*¡Tanques! ¡Despegad! ¡Vamos, vamos, vamos!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin01Subtitle",
+  "text": "*Aquí equipo uno. Estamos en posición"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin02Subtitle",
+  "text": "*Hermanos, tened cuidado: pisamos suelo enemigo. Nuestro objetivo principal es obtener muestras químicas de la instalación de toxinas americana cercana"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin03Subtitle",
+  "text": "*Los restos de la fuerza naval americana se han trasladado al Mediterráneo tras la pérdida de su flota de mando. Eso nos ha permitido colarnos"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin04Subtitle",
+  "text": "*Allí los derrotamos, y aquí también saldremos victoriosos"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin05Subtitle",
+  "text": "*¡Alegraos, hermanos! Cuando tengamos las toxinas de esta instalación, nuestros científicos podrán forjar un arma de infección masiva"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin06Subtitle",
+  "text": "*Los americanos se han entrometido demasiado tiempo. ¡Con esta nueva arma sembraremos el terror en el corazón de nuestros opresores!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin07Subtitle",
+  "text": "*(Risa muy malvada)"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin08Subtitle",
+  "text": "*Equipo uno, ¿las toxinas están aseguradas y a bordo?"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin09Subtitle",
+  "text": "*Tenemos las muestras"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin10Subtitle",
+  "text": "*Listos para despegar"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin11Subtitle",
+  "text": "*Confirmado. El paquete está asegurado"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin12Subtitle",
+  "text": "*Tienen vía libre. ¡Cubriremos su huida!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin13Subtitle",
+  "text": "*¡General, los Patriots están operativos!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin14Subtitle",
+  "text": "*¡Contenedlos hasta que despejemos la pista de aterrizaje!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin15Subtitle",
+  "text": "*¡Que no se nos peguen a la cola!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin16Subtitle",
+  "text": "*¡Largo de aquí, estúpidos americanos!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin17Subtitle",
+  "text": "*Nos reuniremos de nuevo al llegar a la instalación de toxinas"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin18Subtitle",
+  "text": "*Los americanos creen que nos han expulsado"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin19Subtitle",
+  "text": "*Divide y vencerás"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin20Subtitle",
+  "text": "*¡No somos nada frente a este poderío aéreo!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin21Subtitle",
+  "text": "*¡Esto no ha terminado!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin22Subtitle",
+  "text": "*¡Nos vengaremos, sucios americanos!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin23Subtitle",
+  "text": "*¡Pongamos nuestro granito de arena para acabar con estos cerdos capitalistas!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin24Subtitle",
+  "text": "*Estos americanos pagarán por las vidas de nuestros hermanos"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin25Subtitle",
+  "text": "*¡Vamos a achicharrar a esos intrusos del ELG! ¡Fox 1!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin26Subtitle",
+  "text": "*¡ELG avistado frente a la costa! Todas las unidades a posiciones defensivas"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin27Subtitle",
+  "text": "*¡Infiltración del ELG en las coordenadas 77BetaGamma! ¡Todas las unidades disponibles, respondan!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin28Subtitle",
+  "text": "*¡Hay más en la playa!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin29Subtitle",
+  "text": "*¡Infiltrados del ELG avistados en la cornisa!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xCin30Subtitle",
+  "text": "*¡Tenemos al ELG dentro de la ciudad! Todas las unidades, converjan en las coordenadas 34AlphaAlpha"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen01Subtitle",
+  "text": "*¡Buen trabajo, general! Solo faltan 15 muestras de toxinas por recoger"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen02Subtitle",
+  "text": "*¡Buen trabajo, general! Solo faltan 10 muestras de toxinas por recoger"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen03Subtitle",
+  "text": "*¡Buen trabajo, general! Solo faltan 5 muestras de toxinas por recoger"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen04Subtitle",
+  "text": "*General, tenemos un plan para atacar el Mando Central de América en Europa. Pero aún no tenemos fuerza para golpearlos directamente. Necesitamos una nueva arma de toxinas"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen05Subtitle",
+  "text": "*Nuestras dos fuerzas están en posición. Los dos grupos deben colaborar si queremos recuperar las toxinas"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen06Subtitle",
+  "text": "*Nuestros secuestradores pueden capturar vehículos y son invisibles mientras no se muevan"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen07Subtitle",
+  "text": "*Jarmen Kell puede abatir a los pilotos de sus vehículos y eliminar infantería a larga distancia"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen08Subtitle",
+  "text": "*Nuestros saboteadores pueden realizar diversas operaciones secretas, como apagar centrales eléctricas"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen09Subtitle",
+  "text": "*Nuestros rebeldes van camuflados y pueden capturar edificios para ayudar a nuestra causa"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen10Subtitle",
+  "text": "*Buena suerte, general. Que el sigilo y la astucia le acompañen en su empresa"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen11Subtitle",
+  "text": "*Buenos días, general"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen12Subtitle",
+  "text": "*General, debemos capturar ese ferry"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen13Subtitle",
+  "text": "*¡General, aquí hay minas, pero no podemos detectarlas! ¡Necesitamos una furgoneta de radar!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen14Subtitle",
+  "text": "*General, envíe a alguien a esa estación de válvulas junto al río. Vaciar el depósito de refrigerante permitirá a nuestros hermanos seguir avanzando"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen15Subtitle",
+  "text": "*Excelente"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen16Subtitle",
+  "text": "*Buen trabajo"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen17Subtitle",
+  "text": "*¡General! ¡Destruya ese aeródromo antes de que nos aniquilen!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen18Subtitle",
+  "text": "*General, ¡debemos cortarles la energía! ¡Entonces los americanos serán presa fácil!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen19Subtitle",
+  "text": "*General, debemos capturar esa instalación de toxinas"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen20Subtitle",
+  "text": "*Excelente trabajo, general. Ahora debemos proteger estos camiones mientras llevan las toxinas al avión de carga"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen21Subtitle",
+  "text": "*Use los camiones para empezar a recoger toxinas de la instalación"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen22Subtitle",
+  "text": "*¡General, los americanos han enviado refuerzos!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen23Subtitle",
+  "text": "*Ha llegado otra célula de secuestradores para apoyar nuestra causa"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen24Subtitle",
+  "text": "*Ha llegado otra célula de rebeldes para apoyar nuestra causa"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen25Subtitle",
+  "text": "*Hemos encontrado a Jarmen Kell y ha vuelto para ayudar a nuestra causa"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen26Subtitle",
+  "text": "*Nuestros hermanos han abierto brecha y nos han enviado refuerzos"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen27Subtitle",
+  "text": "*EE. UU. no se esperará un ataque en su propio suelo después de nuestra victoria en Grecia"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen28Subtitle",
+  "text": "*Kassad nunca habría tenido el valor de atacar el territorio de EE. UU."
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA04xKen29Subtitle",
+  "text": "*Cuando robemos el agente tóxico secreto del Centro Biológico de EE. UU., seremos imparables"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05Buggy104Subtitle",
+  "text": "*Cuidado con las baterías Patriot: son peligrosas"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05Buggy108Subtitle",
+  "text": "*¡Id a vuestras tumbas, escoria americana!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05Kenwar02bSubtitle",
+  "text": "*Destruya la base aérea americana y perderán gran parte de su capacidad de proyectar su poder en esta región"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05Kenwar05Subtitle",
+  "text": "*Los americanos usarán su poder aéreo para detenernos"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05Quad201Subtitle",
+  "text": "*¡Muere, americano!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05Rebel02Subtitle",
+  "text": "*¡Estamos indefensos ante los ataques aéreos americanos!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05Scorpion105Subtitle",
+  "text": "*¡Cobardes americanos! ¡Luchad en tierra, como hombres!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xChat01Subtitle",
+  "text": "*Esta región está bajo el control del general Granger, de la Fuerza Aérea de los Estados Unidos. Podemos usar y usaremos la fuerza para expulsarles de esta zona. Se les ordena que la abandonen de inmediato"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xCin01Subtitle",
+  "text": "*Nuestras fuerzas son pocas, pero podemos usar lo que tenemos para salir victoriosos"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xCin02Subtitle",
+  "text": "*Como no tenemos base en esta región, ¡debemos tomar una!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xCin03Subtitle",
+  "text": "*La base china. ¡Debemos atacar ya! ¡Su base pronto será nuestra!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xJarmen01Subtitle",
+  "text": "*¡Si rescata a nuestros camaradas de la base americana del sur, nuestros guerreros de élite lucharán a su lado!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xJarmen02Subtitle",
+  "text": "*¡Gracias por rescatar a nuestros hermanos! A cambio, le abriremos una zona de la base americana para que comience su asalto"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xJarmen03Subtitle",
+  "text": "*Je, je, je, je, je (risa siniestra). Eso les enseñará"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xJarmen04Subtitle",
+  "text": "*¡Que nuestra muerte no quede impune!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xJarmen05Subtitle",
+  "text": "*¡Juntos hemos vencido al enemigo! ¡La victoria es nuestra!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xJarmen06Subtitle",
+  "text": "*Gracias por ayudarnos a rescatar a mis soldados. Le devolveremos el favor y le ayudaremos a acabar con la base del Mando Central de EE. UU."
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen01Subtitle",
+  "text": "*Cuando esta base sea destruida, EE. UU. volverá a casa corriendo como un perro cobarde. Toda Europa será nuestra"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen02Subtitle",
+  "text": "*Los americanos tienen a nuestros hermanos como rehenes en su base. Debemos rescatarlos"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen03Subtitle",
+  "text": "*Nos conviene rescatar a los prisioneros de guerra de las garras de los americanos"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen04Subtitle",
+  "text": "*¡Buen trabajo! Capture o elimine esta base para garantizar la seguridad de los prisioneros"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen05Subtitle",
+  "text": "*Debemos llevarlos sanos y salvos de vuelta a su base del norte. No debe pasarles nada"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen06Subtitle",
+  "text": "*Nos quedamos sin suministros. Debemos dispersarnos y capturar nuevos recursos"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen07Subtitle",
+  "text": "*¡Más ataques aéreos! Debemos construir más defensas antiaéreas"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA05xKen08Subtitle",
+  "text": "*Reconstruya nuestras defensas deprisa: no falta mucho para el próximo ataque"
+ }
+]
