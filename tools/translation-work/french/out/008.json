@@ -13,7 +13,7 @@
  },
  {
   "label": "SCRIPT:CHI02AudioHolder06",
-  "text": "<'EVA' parle> \n 'J'ignore dans quel état est cette base, mais elle devrait vous permettre de construire des blindés pour vous aider. Rendez-vous-y au plus vite, Général.'"
+  "text": "<'EVA' parle> \n 'J'ignore dans quel état est cette base, mais elle devrait vous permettre de construire des blindés pour vous aider. Rendez-vous-y au plus vite, général.'"
  },
  {
   "label": "SCRIPT:CHI02AudioHolder07",
@@ -29,7 +29,7 @@
  },
  {
   "label": "SCRIPT:CHI02AudioHolder10",
-  "text": "<'EVA' parle> \n 'Un autre terroriste a quitté le Centre des congrès ! Je marque sa position en rouge. Ses cibles possibles sont en jaune. Arrêtez-le, Général.'"
+  "text": "<'EVA' parle> \n 'Un autre terroriste a quitté le Centre des congrès ! Je marque sa position en rouge. Ses cibles possibles sont en jaune. Arrêtez-le, général.'"
  },
  {
   "label": "SCRIPT:CHI02AudioHolder11",
@@ -45,7 +45,7 @@
  },
  {
   "label": "SCRIPT:CHI02AudioHolder14",
-  "text": "<'EVA' parle> \n 'La menace terroriste est écartée. Bon travail, Général.'"
+  "text": "<'EVA' parle> \n 'La menace terroriste est écartée. Bon travail, général.'"
  },
  {
   "label": "SCRIPT:CHI02AudioHolder15",
@@ -57,15 +57,15 @@
  },
  {
   "label": "SCRIPT:CHI02AudioHolder17",
-  "text": "<'EVA' parle> \n 'Bon travail, Général, vous avez détruit la base toxique. Ils ne devraient plus pouvoir construire de tracteurs toxiques.'"
+  "text": "<'EVA' parle> \n 'Bon travail, général, vous avez détruit la base toxique. Ils ne devraient plus pouvoir construire de tracteurs toxiques.'"
  },
  {
   "label": "SCRIPT:CHI02AudioHolder18",
-  "text": "<'EVA' parle> \n 'Attendez, Général, une grosse force ennemie vous attend plus loin. Je demande une frappe IEM pour dégager la zone, patientez.'"
+  "text": "<'EVA' parle> \n 'Attendez, général, une grosse force ennemie vous attend plus loin. Je demande une frappe IEM pour dégager la zone, patientez.'"
  },
  {
   "label": "SCRIPT:CHI02AudioHolder19",
-  "text": "<'EVA' parle> \n 'La voie vers leur base devrait être dégagée. Finissons-en, Général.'"
+  "text": "<'EVA' parle> \n 'La voie vers leur base devrait être dégagée. Finissons-en, général.'"
  },
  {
   "label": "SCRIPT:CHI02AudioHolder20",

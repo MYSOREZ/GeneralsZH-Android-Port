@@ -217,7 +217,7 @@
  },
  {
   "label": "DIALOGEVENT:EvaUSA_IncomingFuelAirBombSubtitle",
-  "text": "*Bombe thermobarique détectée"
+  "text": "*Bombe aérobie détectée"
  },
  {
   "label": "DIALOGEVENT:EvaUSA_InsufficientFundsSubtitle",

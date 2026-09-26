@@ -1,23 +1,23 @@
 [
  {
   "label": "DIALOGEVENT:Taunts_BossGLA090Subtitle",
-  "text": "* Je sens que l'heure de votre fin approche, Général"
+  "text": "* Je sens que l'heure de votre fin approche, général"
  },
  {
   "label": "DIALOGEVENT:Taunts_BossGLA091Subtitle",
-  "text": "*Vos forces commencent à être submergées, Général. Bientôt, elles seront mes prisonnières"
+  "text": "*Vos forces commencent à être submergées, général. Bientôt, elles seront mes prisonnières"
  },
  {
   "label": "DIALOGEVENT:Taunts_BossGLA092Subtitle",
-  "text": "*Nous vous rouons de coups comme une chèvre blessée, Général. Admettez votre défaite pour abréger votre agonie"
+  "text": "*Nous vous rouons de coups comme une chèvre blessée, général. Admettez votre défaite pour abréger votre agonie"
  },
  {
   "label": "DIALOGEVENT:Taunts_BossGLA093Subtitle",
-  "text": "*Vous êtes vaincu. Voilà ce qui arrive à tous ceux qui se dressent contre moi, Général"
+  "text": "*Vous êtes vaincu. Voilà ce qui arrive à tous ceux qui se dressent contre moi, général"
  },
  {
   "label": "DIALOGEVENT:Taunts_BossGLA094Subtitle",
-  "text": "*Vous êtes fou de me défier, Général"
+  "text": "*Vous êtes fou de me défier, général"
  },
  {
   "label": "DIALOGEVENT:Taunts_BossGLA095Subtitle",
@@ -29,7 +29,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_BossGLA097Subtitle",
-  "text": "*Vous avez gagné, Général. Pourquoi continuez-vous à me torturer en examinant ces statistiques ?"
+  "text": "*Vous avez gagné, général. Pourquoi continuez-vous à me torturer en examinant ces statistiques ?"
  },
  {
   "label": "DIALOGEVENT:Taunts_BossGLA098Subtitle",
@@ -37,7 +37,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_BossGLA099Subtitle",
-  "text": "*Vous avez parcouru un long chemin et affronté de nombreux adversaires pour m'atteindre, Général"
+  "text": "*Vous avez parcouru un long chemin et affronté de nombreux adversaires pour m'atteindre, général"
  },
  {
   "label": "DIALOGEVENT:Taunts_BossGLA100Subtitle",
@@ -49,11 +49,11 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_BossGLA102Subtitle",
-  "text": "*Ce sera votre dernière bataille, Général. Que les dieux que vous priez aient pitié de vous... car moi, je n'en aurai aucune"
+  "text": "*Ce sera votre dernière bataille, général. Que les dieux que vous priez aient pitié de vous... car moi, je n'en aurai aucune"
  },
  {
   "label": "DIALOGEVENT:Taunts_BossGLA103Subtitle",
-  "text": "*Ce sera votre dernière bataille, Général. Faites la paix avec vous-même et préparez-vous à la fin"
+  "text": "*Ce sera votre dernière bataille, général. Faites la paix avec vous-même et préparez-vous à la fin"
  },
  {
   "label": "DIALOGEVENT:Taunts_BossUSA001Subtitle",
@@ -485,7 +485,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_BossUSA108Subtitle",
-  "text": "*Beau travail, Général. Je vous salue"
+  "text": "*Beau travail, général. Je vous salue"
  },
  {
   "label": "DIALOGEVENT:Taunts_BossUSA109Subtitle",
@@ -493,7 +493,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo001Subtitle",
-  "text": "*J'ai quelques surprises pour vous, Général. Pourquoi ne venez-vous pas jouer ?"
+  "text": "*J'ai quelques surprises pour vous, général. Pourquoi ne venez-vous pas jouer ?"
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo002Subtitle",
@@ -513,7 +513,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo006Subtitle",
-  "text": "*Toutes mes forces sont bourrées d'explosifs, Général. À votre place, je ne leur tirerais pas dessus"
+  "text": "*Toutes mes forces sont bourrées d'explosifs, général. À votre place, je ne leur tirerais pas dessus"
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo007Subtitle",
@@ -529,7 +529,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo010Subtitle",
-  "text": "*D'abord, le silence total... puis « boum ! »... ahh... vous n'adorez pas ça, Général ?"
+  "text": "*D'abord, le silence total... puis « boum ! »... ahh... vous n'adorez pas ça, général ?"
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo011Subtitle",
@@ -537,7 +537,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo012Subtitle",
-  "text": "*Voici une nouvelle attaque, Général"
+  "text": "*Voici une nouvelle attaque, général"
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo013Subtitle",
@@ -545,23 +545,23 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo014Subtitle",
-  "text": "*Ne faites pas attention à mes ouvriers, Général ; ils enterrent juste quelques... euh... ordures pour moi"
+  "text": "*Ne faites pas attention à mes ouvriers, général ; ils enterrent juste quelques... euh... ordures pour moi"
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo015Subtitle",
-  "text": "*Oh, Général, il faut que vous voyiez ça... c'est de la bombe. <rire enfantin>"
+  "text": "*Oh, général, il faut que vous voyiez ça... c'est de la bombe. <rire enfantin>"
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo016Subtitle",
-  "text": "*Nous partons chercher d'autres explosifs, Général. Nous revenons tout de suite"
+  "text": "*Nous partons chercher d'autres explosifs, général. Nous revenons tout de suite"
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo017Subtitle",
-  "text": "*C'est calme là-dehors, Général. Vous savez ce que veut dire le calme, n'est-ce pas ? BOUM !!!"
+  "text": "*C'est calme là-dehors, général. Vous savez ce que veut dire le calme, n'est-ce pas ? BOUM !!!"
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo018Subtitle",
-  "text": "*Je suis le maître des explosifs, Général. Vous n'avez aucune défense contre moi"
+  "text": "*Je suis le maître des explosifs, général. Vous n'avez aucune défense contre moi"
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo019Subtitle",
@@ -569,7 +569,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo020Subtitle",
-  "text": "*Craignez-vous ma prochaine attaque, Général ? Vous devriez"
+  "text": "*Craignez-vous ma prochaine attaque, général ? Vous devriez"
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo021Subtitle",
@@ -585,7 +585,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo024Subtitle",
-  "text": "*Les pièges explosifs sont difficiles à construire, Général. Pour apprécier leur beauté, il faut en voir un de près"
+  "text": "*Les pièges explosifs sont difficiles à construire, général. Pour apprécier leur beauté, il faut en voir un de près"
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo025Subtitle",
@@ -601,7 +601,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo028Subtitle",
-  "text": "*Votre usine d'armement est tombée, Général. Construisez-en une autre, que nous puissions la raser à nouveau"
+  "text": "*Votre usine d'armement est tombée, général. Construisez-en une autre, que nous puissions la raser à nouveau"
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo029Subtitle",
@@ -609,7 +609,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo030Subtitle",
-  "text": "*Vos défenses ne résistent pas à mes explosifs, Général"
+  "text": "*Vos défenses ne résistent pas à mes explosifs, général"
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo031Subtitle",
@@ -617,7 +617,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo032Subtitle",
-  "text": "*Nous avons détruit tant de vos bâtiments, Général... merci d'en construire d'autres pour notre amusement"
+  "text": "*Nous avons détruit tant de vos bâtiments, général... merci d'en construire d'autres pour notre amusement"
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo033Subtitle",
@@ -625,7 +625,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo034Subtitle",
-  "text": "*Ma caserne ! Beaucoup de mes démolisseurs étaient dedans, Général. Je vous le ferai payer"
+  "text": "*Ma caserne ! Beaucoup de mes démolisseurs étaient dedans, général. Je vous le ferai payer"
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo035Subtitle",
@@ -637,11 +637,11 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo037Subtitle",
-  "text": "*Trop ! Vous avez détruit trop de mes bâtiments, Général. Maintenant, le combat va devenir sale"
+  "text": "*Trop ! Vous avez détruit trop de mes bâtiments, général. Maintenant, le combat va devenir sale"
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo038Subtitle",
-  "text": "*Nous reconstruirons ce centre de commandement, Général, et vous paierez pour cette transgression"
+  "text": "*Nous reconstruirons ce centre de commandement, général, et vous paierez pour cette transgression"
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo039Subtitle",
@@ -649,11 +649,11 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo040Subtitle",
-  "text": "*Vous abattez mes hommes avant qu'ils puissent poser leurs explosifs... ça ne semble pas juste, n'est-ce pas, Général ?"
+  "text": "*Vous abattez mes hommes avant qu'ils puissent poser leurs explosifs... ça ne semble pas juste, n'est-ce pas, général ?"
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo041Subtitle",
-  "text": "*Ah oui, capturez ce derrick pétrolier, Général. Nous aurons plus de choses à détruire"
+  "text": "*Ah oui, capturez ce derrick pétrolier, général. Nous aurons plus de choses à détruire"
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo042Subtitle",
@@ -661,11 +661,11 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo043Subtitle",
-  "text": "*Bien, Général, capturez la raffinerie de pétrole... elles explosent de façon si spectaculaire"
+  "text": "*Bien, général, capturez la raffinerie de pétrole... elles explosent de façon si spectaculaire"
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo044Subtitle",
-  "text": "*Prudence, Général : vos hommes viennent d'entrer dans la zone dangereuse autour de ma base. Même moi, je ne me souviens plus où sont posés tous les pièges"
+  "text": "*Prudence, général : vos hommes viennent d'entrer dans la zone dangereuse autour de ma base. Même moi, je ne me souviens plus où sont posés tous les pièges"
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo045Subtitle",
@@ -673,7 +673,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo046Subtitle",
-  "text": "*Sortez de ma base, Général. Toute cette zone est piégée d'explosifs, et je n'ai pas peur de m'en servir"
+  "text": "*Sortez de ma base, général. Toute cette zone est piégée d'explosifs, et je n'ai pas peur de m'en servir"
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo047Subtitle",
@@ -681,15 +681,15 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo048Subtitle",
-  "text": "*Une attaque de flanc, Général ? Il y a peut-être peu de défenses par là, mais qu'en est-il des pièges ?"
+  "text": "*Une attaque de flanc, général ? Il y a peut-être peu de défenses par là, mais qu'en est-il des pièges ?"
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo049Subtitle",
-  "text": "*L'arrière de ma base est particulièrement redoutable, Général. Je ne vous conseille pas d'attaquer par là"
+  "text": "*L'arrière de ma base est particulièrement redoutable, général. Je ne vous conseille pas d'attaquer par là"
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo050Subtitle",
-  "text": "*Un assaut frontal ?! Vous êtes encore plus stupide que je le pensais, Général"
+  "text": "*Un assaut frontal ?! Vous êtes encore plus stupide que je le pensais, général"
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo051Subtitle",
@@ -697,15 +697,15 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo052Subtitle",
-  "text": "*Prudence, Général ; cet endroit m'a l'air idéal pour une embuscade... oups, trop tard"
+  "text": "*Prudence, général ; cet endroit m'a l'air idéal pour une embuscade... oups, trop tard"
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo053Subtitle",
-  "text": "*Vous pensiez que je ne m'étais pas préparé à votre venue, Général ? Imbécile"
+  "text": "*Vous pensiez que je ne m'étais pas préparé à votre venue, général ? Imbécile"
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo054Subtitle",
-  "text": "*Ce sont mes ressources, Général. Allez trouver les vôtres"
+  "text": "*Ce sont mes ressources, général. Allez trouver les vôtres"
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo055Subtitle",
@@ -717,15 +717,15 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo057Subtitle",
-  "text": "*Votre dépendance à l'électricité causera votre perte, Général"
+  "text": "*Votre dépendance à l'électricité causera votre perte, général"
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo058Subtitle",
-  "text": "*Vos ressources sont épuisées, Général. Mes forces tournent autour de vous pour la curée"
+  "text": "*Vos ressources sont épuisées, général. Mes forces tournent autour de vous pour la curée"
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo059Subtitle",
-  "text": "*Mes ressources s'amenuisent, Général. Ça vous dérange si nous venons prendre un peu des vôtres ?"
+  "text": "*Mes ressources s'amenuisent, général. Ça vous dérange si nous venons prendre un peu des vôtres ?"
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo060Subtitle",
@@ -737,35 +737,35 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo062Subtitle",
-  "text": "*Pourquoi voulez-vous construire un canon à particules ? Nous commencions tout juste à nous amuser, Général"
+  "text": "*Pourquoi voulez-vous construire un canon à particules ? Nous commencions tout juste à nous amuser, général"
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo063Subtitle",
-  "text": "*Tant de défenses, Général. Comment voulez-vous que mes poseurs de bombes entrent dans votre base maintenant ?"
+  "text": "*Tant de défenses, général. Comment voulez-vous que mes poseurs de bombes entrent dans votre base maintenant ?"
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo064Subtitle",
-  "text": "*Des chars... tant de chars. J'aurai plaisir à voir vos chars sauter sur mes pièges, Général"
+  "text": "*Des chars... tant de chars. J'aurai plaisir à voir vos chars sauter sur mes pièges, général"
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo065Subtitle",
-  "text": "*Arrêtez de construire des avions, Général... vous allez rater le génie de mes pièges"
+  "text": "*Arrêtez de construire des avions, général... vous allez rater le génie de mes pièges"
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo066Subtitle",
-  "text": "*Avec autant de fantassins, vous allez forcément déclencher mes pièges explosifs. À votre place, je leur dirais de se disperser en traversant le terrain, Général... ou pas"
+  "text": "*Avec autant de fantassins, vous allez forcément déclencher mes pièges explosifs. À votre place, je leur dirais de se disperser en traversant le terrain, général... ou pas"
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo067Subtitle",
-  "text": "*Tant de bâtiments... Votre base est une cible parfaite pour mes explosifs, Général. Merci"
+  "text": "*Tant de bâtiments... Votre base est une cible parfaite pour mes explosifs, général. Merci"
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo068Subtitle",
-  "text": "*Geste insensé, Général. Votre Tempête de SCUD ne m'arrêtera pas"
+  "text": "*Geste insensé, général. Votre Tempête de SCUD ne m'arrêtera pas"
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo069Subtitle",
-  "text": "*Missile nucléaire ! Vous allez le payer, Général"
+  "text": "*Missile nucléaire ! Vous allez le payer, général"
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo070Subtitle",
@@ -773,7 +773,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo071Subtitle",
-  "text": "*Oui, occupez ce bâtiment, Général... il n'est probablement pas piégé"
+  "text": "*Oui, occupez ce bâtiment, général... il n'est probablement pas piégé"
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo072Subtitle",
@@ -785,11 +785,11 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo074Subtitle",
-  "text": "*Pourquoi enverriez-vous Jarmen Kell contre moi, Général ?"
+  "text": "*Pourquoi enverriez-vous Jarmen Kell contre moi, général ?"
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo075Subtitle",
-  "text": "*Ne construisez plus d'aérodromes, Général... je ne les aime pas"
+  "text": "*Ne construisez plus d'aérodromes, général... je ne les aime pas"
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo076Subtitle",
@@ -797,6 +797,6 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo077Subtitle",
-  "text": "*Pensez-vous qu'il soit sage de construire une caserne, Général ?"
+  "text": "*Pensez-vous qu'il soit sage de construire une caserne, général ?"
  }
 ]

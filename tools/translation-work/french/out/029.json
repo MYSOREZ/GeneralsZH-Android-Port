@@ -1,0 +1,802 @@
+[
+ {
+  "label": "DIALOGEVENT:Taunts_Tank091Subtitle",
+  "text": "*Arrrrgh ! C'est impossible ! Comment avez-vous vaincu mes chars ?!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank092Subtitle",
+  "text": "*Il est temps de lâcher la machine de guerre"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank093Subtitle",
+  "text": "*Votre ruée de chars n'est rien comparée à la mienne"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank094Subtitle",
+  "text": "*Ne défiez pas mes chars, général… vous perdrez"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank095Subtitle",
+  "text": "*Mes blindés vont écraser vos forces pitoyables"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank096Subtitle",
+  "text": "*Vous avez peut-être vaincu mes chars, général, mais la Tigresse va vous écraser comme un insecte"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank097Subtitle",
+  "text": "*Les chars sont la clé de toute victoire, vous le savez bien"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank098Subtitle",
+  "text": "*Je vois que vous avez vaincu mes éclaireurs, général. La prochaine attaque se passera moins bien pour vous, je pense"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank099Subtitle",
+  "text": "*Nous arrivons, général, j'espère que vos défenses sont prêtes"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank100Subtitle",
+  "text": "*Et ce ne sont que mes Battlemaster, général… attendez que les Overlord entrent dans la bataille"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Tank101Subtitle",
+  "text": "*À votre place, je ferais attention, général : parfois, les Gardes rouges aiment s'emparer des bâtiments pendant que vous êtes occupé avec mes chars"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin001Subtitle",
+  "text": "*Je vous vois !"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin002Subtitle",
+  "text": "*Y goûter, c'est l'adopter… et vous n'aurez plus le choix !"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin003Subtitle",
+  "text": "*Goûtez donc à ma propre médecine !"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin004Subtitle",
+  "text": "*Combien de temps pouvez-vous retenir votre souffle ?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin005Subtitle",
+  "text": "*Prêt pour un nouveau cours de chimie ?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin006Subtitle",
+  "text": "*Ce n'est pas si terrible. Vous ne sentirez qu'une longue et douloureuse brûlure après ça !"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin007Subtitle",
+  "text": "*Soldats toxiques, attaquez !"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin008Subtitle",
+  "text": "*Nous arrivons, général, comme une fuite chimique"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin009Subtitle",
+  "text": "*Un médecin qui se déplace à domicile, c'est si rare… Le Dr Thrax, lui, se déplace"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin010Subtitle",
+  "text": "*On demande un agent d'entretien au rayon 1 !"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin011Subtitle",
+  "text": "*Nous tombons sur votre base comme une pluie acide, général"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin012Subtitle",
+  "text": "*Allez, mes guerriers toxiques ! Portez notre message aux masses !"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin013Subtitle",
+  "text": "*Oh, vous allez adorer ça, général. Non, attendez… pas du tout"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin014Subtitle",
+  "text": "*Vous l'avez bien cherché, général. Regardez maintenant vos hommes payer pour votre erreur"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin015Subtitle",
+  "text": "*Sans bruit… mais ça tue…"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin016Subtitle",
+  "text": "*C'est ça… installez-vous confortablement ! Laissez à mes toxines le temps d'agir !"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin017Subtitle",
+  "text": "*Ce suspense… il est mortel !"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin018Subtitle",
+  "text": "*Il est temps de concocter une nouvelle fournée !"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin019Subtitle",
+  "text": "*Chaque instant d'hésitation, vous mourez un petit peu plus !"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin020Subtitle",
+  "text": "*On sait que c'est cuit à point quand la chair se détache de l'os !"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin021Subtitle",
+  "text": "*L'anthrax : votre ennemi pour la vie"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin022Subtitle",
+  "text": "*Vous sentez ça ? Non ?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin023Subtitle",
+  "text": "*Et on inspire… on expire… et encore une fois… ça va mieux ?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin024Subtitle",
+  "text": "*Jusqu'à la dernière goutte !"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin025Subtitle",
+  "text": "*Je vous laisse un peu souffler avant notre prochaine attaque"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin026Subtitle",
+  "text": "*Nous avons une buse à toxines bouchée, général… donnez-moi une seconde pour la réparer"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin027Subtitle",
+  "text": "*Vous viendrez pour la toxine, et vous resterez… parce que vous serez mort !"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin028Subtitle",
+  "text": "*Vous regretterez d'avoir dérangé mes expériences, général"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin029Subtitle",
+  "text": "*Allez-vous m'attaquer, ou avez-vous peur de ce que vous pourriez trouver dans ma base, général ?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin030Subtitle",
+  "text": "*Rien ne peut vivre sous mon nuage toxique, général"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin031Subtitle",
+  "text": "*Vous n'en aviez pas vraiment besoin, de toute façon"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin032Subtitle",
+  "text": "*Vos troupes ont un sacré coup dans le nez, général !"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin033Subtitle",
+  "text": "*Ohh, général, on dirait que vos troupes ne tiennent pas la toxine"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin034Subtitle",
+  "text": "*Votre aérodrome est détruit, général. Maintenant, vous allez devoir traverser à pied mes nuages de mort"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin035Subtitle",
+  "text": "*Vous remarquez comme les toxines mettent tout en pièces ?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin036Subtitle",
+  "text": "*Argh ! J'avais ma cave à vins là-dedans !"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin037Subtitle",
+  "text": "*Entre mes toxines et vos troupes, c'est une vraie alchimie !"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin038Subtitle",
+  "text": "*Je n'en avais pas besoin, de toute façon !"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin039Subtitle",
+  "text": "*Et maintenant, d'où vont venir mes soldats chimiques ?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin040Subtitle",
+  "text": "*Mes camions de toxines rouleront à nouveau !"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin041Subtitle",
+  "text": "*Vous voyez, l'homme n'est pas fait pour voler"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin042Subtitle",
+  "text": "*Vous me dérangez, général !"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin043Subtitle",
+  "text": "*Arrêtez de détruire mes bâtiments, général, ou je vais vous rendre les choses… désagréables"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin044Subtitle",
+  "text": "*Vous avez détruit mon Centre de commandement ! Bah, j'ai toujours détesté mes commandants… maintenant, il n'y a plus que vous et moi, général"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin045Subtitle",
+  "text": "*Général, si vous continuez à détruire mes véhicules, comment voulez-vous que je vous apporte vos médicaments ?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin046Subtitle",
+  "text": "*Mes braves guerriers ! Comment pouvez-vous leur faire ça ? Qu'est-ce qu'ils vous ont jamais… ah, non, laissez tomber"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin047Subtitle",
+  "text": "*Rendez-moi ce derrick ! Vous ne savez pas que le pétrole est un ingrédient essentiel de mes toxines ?!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin048Subtitle",
+  "text": "*Cette plate-forme d'artillerie ne m'arrêtera pas, général"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin049Subtitle",
+  "text": "*Général, j'ai besoin de cette raffinerie pour purifier mes toxines. Vous, qu'est-ce que vous pourriez bien en faire ?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin050Subtitle",
+  "text": "*Je vous ai permis d'entrer ?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin051Subtitle",
+  "text": "*Qu'est-ce que vous faites ici ? Les recettes sont à moi !"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin052Subtitle",
+  "text": "*Vous êtes fou d'entrer dans ma base, général !"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin053Subtitle",
+  "text": "*Vous êtes trop près de mes précieuses toxines, général. Maintenant, vous devez mourir"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin054Subtitle",
+  "text": "*Éloignez-vous de mes missiles SCUD ! Je vous les donnerai quand je serai prêt !"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin055Subtitle",
+  "text": "*Je ne crois pas que vous vouliez ces réserves, elles ne sont pas… encore prêtes"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin056Subtitle",
+  "text": "*Je vois que vous construisez une autre base. Elle sera bientôt abandonnée"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin057Subtitle",
+  "text": "*Sortez de mon village, général. Il n'en reste pas grand-chose, mais il est à moi !"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin058Subtitle",
+  "text": "*Prudence en traversant ce pont, général… l'eau en dessous n'est pas recommandée pour la baignade"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin059Subtitle",
+  "text": "*Attention, général, ce pont n'est peut-être pas sûr… mais au fond, qu'est-ce qui l'est, par ici ?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin060Subtitle",
+  "text": "*Vous vous croyez malin, à vous faufiler par ma porte de derrière ?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin061Subtitle",
+  "text": "*Alors, vous avez traversé la rivière. Maintenant, la bataille devient intéressante"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin062Subtitle",
+  "text": "*On dirait que vous êtes à court d'énergie, général. Je devrais peut-être attaquer maintenant"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin063Subtitle",
+  "text": "*Vous êtes à court d'énergie, général. C'est l'heure pour moi de venir jouer"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin064Subtitle",
+  "text": "*Votre tas de ressources a bien fondu, général. Je ne crois pas qu'il vous en reste assez pour arrêter ma prochaine attaque… excellent…"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin065Subtitle",
+  "text": "*Le budget ?! Je ne veux pas entendre parler du budget !"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin066Subtitle",
+  "text": "*Vous osez construire une Tempête de SCUD en ma présence ! Vous savez, bien sûr, que nous sommes tous immunisés contre ses toxines, n'est-ce pas, général ?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin067Subtitle",
+  "text": "*Un silo nucléaire ? Je ne vous aurais pas cru capable d'utiliser des radiations toxiques… nous pourrions peut-être collaborer un jour"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin068Subtitle",
+  "text": "*Alors, un Canon à particules pour contrer mes toxines, hein ? Votre technologie ne fait pas le poids face à mes toxines, général"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin069Subtitle",
+  "text": "*Tant de défenses, général. TOUTES INUTILES !!!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin070Subtitle",
+  "text": "*Le métal n'est qu'une barrière provisoire pour mes toxines !"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin071Subtitle",
+  "text": "*Ah… lâche ! Vos pilotes ont quand même besoin de respirer !"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin072Subtitle",
+  "text": "*Vous aimez voir vos hommes briller dans le noir ? Alors construisez-en d'autres !"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin073Subtitle",
+  "text": "*Votre base s'est agrandie, général… une cible parfaite pour ma Tempête de SCUD…"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin074Subtitle",
+  "text": "*Oui, tirez votre Tempête de SCUD… déversez vos toxines inutiles sur ma base"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin075Subtitle",
+  "text": "*Votre missile nucléaire ne fera que nous faire muter et nous rendre plus forts, général"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin076Subtitle",
+  "text": "*N'espérez pas dissiper mes toxines avec ce rayon à particules, général"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin077Subtitle",
+  "text": "*Oui, occupez ce bâtiment… je suis sûr que mes Tracteurs toxiques vont adorer ça"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin078Subtitle",
+  "text": "*Si vous mêlez le colonel Burton à ça, je devrai lâcher Jarmen Kell"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin079Subtitle",
+  "text": "*Lotus Noir ? Vous savez, bien sûr, que le lotus noir est une fleur vénéneuse… je crois même qu'il entre dans une de mes toxines… mais je m'égare…"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin080Subtitle",
+  "text": "*Je vois que Jarmen Kell s'est joint à notre petite guerre. Le mien apprécierait peut-être un duel de tireurs d'élite"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin081Subtitle",
+  "text": "*Et que voulez-vous faire de cet aérodrome, général ?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin082Subtitle",
+  "text": "*Ainsi, notre général construit une Usine d'armement. Comme c'est prévisible de votre part"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin083Subtitle",
+  "text": "*Ouiiii, construisez une Caserne… envoyez-moi vos hommes"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin084Subtitle",
+  "text": "*Vendez tous vos bâtiments, général… et envoyez-moi vos hommes"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin085Subtitle",
+  "text": "*Rendez-vous maintenant, et je vous garantis un grand bol d'air !"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin086Subtitle",
+  "text": "*Vos troupes manquent de souffle, général. Abandonnez !"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin087Subtitle",
+  "text": "*Mon second souffle signe votre perte, général !"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin088Subtitle",
+  "text": "*Laissez-moi noyer votre chagrin dans une bonne toxine !"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin089Subtitle",
+  "text": "*Fatality toxique"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin090Subtitle",
+  "text": "*Vous êtes vaincu, général. Peut-être que ça vous apprendra à défier le Dr Thrax"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin091Subtitle",
+  "text": "*Accepteriez-vous une offrande de paix ? Un antidote, peut-être ?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin092Subtitle",
+  "text": "*J'ai peut-être inhalé trop de mes propres toxines… Vous ne pouvez tout de même pas être en train de me vaincre"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin093Subtitle",
+  "text": "*Éloignez-vous de moi ! Vous ne me vaincrez pas, général. Vous m'entendez !"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin094Subtitle",
+  "text": "*Qu'avez-vous contre les toxines ? Vous avez vu ce qu'ils mettent dans la nourriture de nos jours ?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin095Subtitle",
+  "text": "*Même si vous me battez, mes toxines vous auront… tôt ou tard !"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin096Subtitle",
+  "text": "*Non ! Non. Je suis vaincu. Voyons, où est passée cette capsule de cyanure…"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin097Subtitle",
+  "text": "*Ce bouton était enduit de poison… vous êtes déjà mort"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin098Subtitle",
+  "text": "*Vous osez choisir le Dr Thrax ? Vous devriez y réfléchir à deux fois, général"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin099Subtitle",
+  "text": "*Vous ne pouvez pas vaincre mes toxines, général"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin100Subtitle",
+  "text": "*Je n'aurais peut-être pas dû passer mon diplôme par correspondance"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin101Subtitle",
+  "text": "*Vous pensiez que mes toxines étaient inefficaces, et regardez ce qui vous est arrivé, général"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin102Subtitle",
+  "text": "*Bonjour, général. Ne croyez pas que je ne vois pas vos espions survoler ma base. Je vous en prie, regardez tant que vous voulez, car c'est peut-être la dernière fois que vous voyez ma forteresse"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin103Subtitle",
+  "text": "*Comme vous le voyez, mes défenses sont impénétrables… et mes systèmes d'armes toxiques empoisonneront vos troupes bien avant qu'elles puissent m'atteindre"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin104Subtitle",
+  "text": "*Et ne vous souciez pas de blesser la population civile, général ; elle a fui depuis longtemps cette vallée de mort toxique. Notre petite guerre se déroulera sans interruption… et votre délicate sensibilité sera épargnée"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin105Subtitle",
+  "text": "*Ah oui, et voici où vous avez installé votre pitoyable base. Tenez donc tête au Dr Thrax… et une fois que vos forces auront rendu leur dernier souffle de mon air toxique, je pourrai retourner à mes expériences"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin106Subtitle",
+  "text": "*Vous fiez-vous à vos sens, général ? En m'affrontant, vous vous êtes condamné à une mort longue et douloureuse, car je suis le Dr Thrax, et mes armes frappent sans être vues !"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin107Subtitle",
+  "text": "*Respirez tranquillement, général, car je suis le Dr Thrax, et à chaque inspiration, vous avancez vers la défaite !"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin108Subtitle",
+  "text": "*Le premier échantillon est gratuit !"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin109Subtitle",
+  "text": "*Vous préférez le vert ou le bleu ? Les deux sont tout aussi satisfaisants !"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin110Subtitle",
+  "text": "*Préparez-vous à raconter la défaite de ce jour à vos petits-enfants à trois yeux !"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin111Subtitle",
+  "text": "*Mes précieux produits chimiques ! Vous savez combien de temps il faut pour les préparer ?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin112Subtitle",
+  "text": "*Encore des victi… euh… des volontaires pour mes expériences !"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin113Subtitle",
+  "text": "*J'ai maintenant plus de véhicules pour transporter mes toxines ! Comme c'est généreux de votre part !"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin114Subtitle",
+  "text": "*Oh, j'ai oublié de vous en parler ? Attention aux mines, général !"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin115Subtitle",
+  "text": "*Voyons, où ai-je mis ces soldats chimiques ?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin117Subtitle",
+  "text": "*Bah ! Vous !"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Toxin118Subtitle",
+  "text": "*Ah oui, et voici où vous avez installé votre pitoyable base"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle001Subtitle",
+  "text": "*Oh, vous êtes toujours là, général. Votre détermination m'impressionne. Dansons"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle002Subtitle",
+  "text": "*Ça n'a pas fait trop mal, si ?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle003Subtitle",
+  "text": "*Le champ de bataille est un endroit rude, général"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle004Subtitle",
+  "text": "*Encore une frappe parfaitement exécutée"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle005Subtitle",
+  "text": "*Tout se déroule comme prévu"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle006Subtitle",
+  "text": "*Tout semble tourner en ma faveur"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle007Subtitle",
+  "text": "*Qu'est-ce que ça fait, général ?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle008Subtitle",
+  "text": "*La supériorité tactique est essentielle, général. Tenez, laissez-moi vous montrer"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle009Subtitle",
+  "text": "*Je ne crois vraiment pas que vous pourrez arrêter la prochaine attaque… et vous ?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle010Subtitle",
+  "text": "*Voici une nouvelle attaque… oh, et presque tous mes pouvoirs de général sont prêts… lequel voulez-vous voir en premier ?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle011Subtitle",
+  "text": "*Ma superarme est prête ? Oh non, c'est juste l'effet que font mes attaques"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle012Subtitle",
+  "text": "*Toutes les unités : schéma d'attaque alpha ! Je plaisante… qui appellerait un truc « alpha » ?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle013Subtitle",
+  "text": "*Voici quelques-unes de mes unités, général. Ça vous ennuierait de les aider à gagner un peu d'expérience ?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle014Subtitle",
+  "text": "*J'envoie rarement mes troupes, mais vous méritez une attention particulière, général"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle015Subtitle",
+  "text": "*Je vous préviens : ne me sous-estimez pas"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle016Subtitle",
+  "text": "*Vous croyez peut-être que je me cache, mais en fait, je planifie"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle017Subtitle",
+  "text": "*Les imbéciles se précipitent, général. Moi, je prends mon temps"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle018Subtitle",
+  "text": "*Vous ne savez pas à quoi vous attendre de ma part, n'est-ce pas ?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle019Subtitle",
+  "text": "*Qui ne prévoit rien prévoit l'échec, général. Réfléchissez-y"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle020Subtitle",
+  "text": "*Ma plus grande « superarme », c'est mon cerveau… vous n'êtes pas d'accord, général ?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle021Subtitle",
+  "text": "*Allez, général, donnez tout ce que vous avez"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle022Subtitle",
+  "text": "*Nous vous attendons, général. Qu'est-ce qui vous retient ?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle023Subtitle",
+  "text": "*J'ai analysé votre tactique et je suis sidérée… avez-vous seulement une tactique, général ?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle024Subtitle",
+  "text": "*À votre place, j'attaquerais, général. Si vous attendez, j'aurai juste une superarme de plus à vous envoyer"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle025Subtitle",
+  "text": "*Alors, votre stratégie globale consiste à me chasser du champ de bataille par l'ennui ?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle026Subtitle",
+  "text": "*Vous vous demandez s'il était bien sage de m'attaquer, général ?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle027Subtitle",
+  "text": "*J'ai essayé de vous ménager, général, mais vous commencez à m'agacer"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle028Subtitle",
+  "text": "*C'était amusant, général, mais je crois qu'il est temps d'en finir"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle029Subtitle",
+  "text": "*On devrait peut-être remettre ça à une autre fois… quand vous serez moins distrait… du moins, j'espère que c'est ça le problème. Vous avez bien dit que vous étiez « général », non ?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle030Subtitle",
+  "text": "*Vous ne vous en serviez pas, si ?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle031Subtitle",
+  "text": "*Cette Caserne ne me revenait pas du tout"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle032Subtitle",
+  "text": "*Vos véhicules me tapent sur les nerfs"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle033Subtitle",
+  "text": "*Restez au sol, général… vous y serez plus en sécurité que dans les airs"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle034Subtitle",
+  "text": "*C'était censé m'empêcher d'entrer dans votre base, général ?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle035Subtitle",
+  "text": "*Ouah, vous venez de perdre votre Centre de commandement. Ce n'est pas terrible, hein"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle036Subtitle",
+  "text": "*Votre base était bien trop encombrée, de toute façon"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle037Subtitle",
+  "text": "*Vous n'avez aucun respect pour le bien d'autrui !"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle038Subtitle",
+  "text": "*Voyons, qui était censé garder la Caserne ?!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle039Subtitle",
+  "text": "*Je m'en servais, de cette Usine d'armement !"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle040Subtitle",
+  "text": "*C'est trop demander de garder mon aérodrome ?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle041Subtitle",
+  "text": "*Je l'avais mis là pour une bonne raison !"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle042Subtitle",
+  "text": "*Je venais juste de placer tous ces bâtiments exactement où je voulais"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle043Subtitle",
+  "text": "*Je n'apprécie pas ce genre d'irrespect !"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle044Subtitle",
+  "text": "*J'ai construit tous ces avions pour une bonne raison !"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle045Subtitle",
+  "text": "*Détruisez autant de véhicules que vous voulez. Je m'en moque"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle046Subtitle",
+  "text": "*Comment osez-vous blesser mes soldats !"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle047Subtitle",
+  "text": "*Celle-là, je vous l'ai laissée"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle048Subtitle",
+  "text": "*Je n'en avais pas besoin, de toute façon"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle049Subtitle",
+  "text": "*Vous capturez la raffinerie ? Tiens donc, général, je ne vous savais pas si soucieux d'efficacité"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle050Subtitle",
+  "text": "*Qui vous a invité ici ?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle051Subtitle",
+  "text": "*Je ne crois pas que vous ayez l'habilitation de sécurité requise pour être ici"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle052Subtitle",
+  "text": "*De quel droit êtes-vous dans ma base ?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle053Subtitle",
+  "text": "*C'est ma base, sortez immédiatement !"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle054Subtitle",
+  "text": "*Ne comptez pas sur moi pour être une bonne hôtesse"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle055Subtitle",
+  "text": "*Je n'aime pas les visiteurs inattendus, général"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle056Subtitle",
+  "text": "*Qu'est-ce que vous croyez faire ici ?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle057Subtitle",
+  "text": "*Des intrus !"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle058Subtitle",
+  "text": "*Votre présence commence à m'importuner, général"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle059Subtitle",
+  "text": "*Qui était censé garder ce secteur ?!?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle060Subtitle",
+  "text": "*Alors, vous avez réussi à percer mes défenses… ça ne se reproduira pas"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle061Subtitle",
+  "text": "*Sortez de ma base, général. Ne croyez pas que j'hésiterais à abattre le Canon à particules ici même"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle062Subtitle",
+  "text": "*Il fait un peu sombre dans votre base, général"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle063Subtitle",
+  "text": "*Quelqu'un a oublié de payer la facture d'électricité ?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle064Subtitle",
+  "text": "*Vous n'avez pas géré vos ressources très sagement, hein ?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle065Subtitle",
+  "text": "*Vous me faites dépasser mon budget, général"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle066Subtitle",
+  "text": "*Comment est-ce possible ! J'avais tout si parfaitement planifié !"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle067Subtitle",
+  "text": "*Vous croyez que votre petite Tempête de SCUD me fait peur ?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle068Subtitle",
+  "text": "*Ce silo nucléaire ne m'effraie pas"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle069Subtitle",
+  "text": "*J'apprécie votre choix d'armement, mais je suis la seule autorisée à avoir un Canon à particules sur ce champ de bataille"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle070Subtitle",
+  "text": "*C'est tout ce que votre base a de plus sûr ? Vraiment ?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle071Subtitle",
+  "text": "*Ça fait beaucoup de chars, général. Vous avez déjà vu ce qu'un Canon à particules peut faire à beaucoup de chars ?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle072Subtitle",
+  "text": "*Tous ces avions, pour moi, ce n'est que de la pollution atmosphérique"
+ }
+]

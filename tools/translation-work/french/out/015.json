@@ -545,15 +545,15 @@
  },
  {
   "label": "LOSE:AllUnits",
-  "text": "TRANSMISSION ENTRANTE : \n Toutes nos unités ont été détruites \n Nous avons été vaincus, Général. Pour cette fois"
+  "text": "TRANSMISSION ENTRANTE : \n Toutes nos unités ont été détruites \n Nous avons été vaincus, général. Pour cette fois"
  },
  {
   "label": "LOSE:AllBuildings",
-  "text": "TRANSMISSION ENTRANTE : \n Tous nos bâtiments ont été détruits \n Nous avons été vaincus, Général. Pour cette fois"
+  "text": "TRANSMISSION ENTRANTE : \n Tous nos bâtiments ont été détruits \n Nous avons été vaincus, général. Pour cette fois"
  },
  {
   "label": "LOSE:AllUnitsAndBuildings",
-  "text": "TRANSMISSION ENTRANTE : \n Toutes nos unités et tous nos bâtiments ont été détruits \n Nous avons été vaincus, Général. Pour cette fois"
+  "text": "TRANSMISSION ENTRANTE : \n Toutes nos unités et tous nos bâtiments ont été détruits \n Nous avons été vaincus, général. Pour cette fois"
  },
  {
   "label": "HELP:OilRefinery-01",
@@ -789,7 +789,7 @@
  },
  {
   "label": "MAP:USA03xLoseReason01",
-  "text": "TRANSMISSION ENTRANTE : \n Le colonel Burton a été tué \n Vous avez été vaincu, Général. Pour cette fois"
+  "text": "TRANSMISSION ENTRANTE : \n Le colonel Burton a été tué \n Vous avez été vaincu, général. Pour cette fois"
  },
  {
   "label": "MAP:MD-USA04_LOCALE",

@@ -107,3 +107,13 @@ names of the official German release rather than the English ones: the faction i
 units and buildings are "Kommandozentrale", "Vierlingskanone", "Horchposten", "Tarnkappenjäger"
 and so on. Multiplayer map names stay in English. Jokes, ad parodies and idioms in the
 generals' taunts are carried over as German ones rather than word for word.
+
+## French
+
+`languages/french/generals.str` is a new translation from the English original. It uses the
+names of the official French release: "GLA", "Centre de commandement", "Usine d'armement",
+"Canon quadruple", "Poste d'écoute", "Tempête de SCUD", "Pirate de la route" and so on. French
+typography keeps a space before `!`, `?` and `:`; EVA and officers address the player with
+"vous". Multiplayer map names stay in English, apart from the "Tournament" maps. Jokes and
+film or ad parodies in the generals' taunts are carried over as French ones (the Ghostbusters
+"effluves", "J'adore l'odeur de la MOAB au petit matin") rather than word for word.

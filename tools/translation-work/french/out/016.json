@@ -129,7 +129,7 @@
  },
  {
   "label": "MAP:MD-USA06Failure01",
-  "text": "ATTENTION : \n Impact détecté. Vous avez échoué, Général"
+  "text": "ATTENTION : \n Impact détecté. Vous avez échoué, général"
  },
  {
   "label": "MAP:MD-USA06Imperative01",
@@ -317,15 +317,15 @@
  },
  {
   "label": "MDGLA03:Lose-NoUnitsOrStructures-01",
-  "text": "TRANSMISSION ENTRANTE : \n Toutes vos unités et tous vos bâtiments ont été détruits \n Vous avez été vaincu, Général. Pour cette fois"
+  "text": "TRANSMISSION ENTRANTE : \n Toutes vos unités et tous vos bâtiments ont été détruits \n Vous avez été vaincu, général. Pour cette fois"
  },
  {
   "label": "MDGLA03:Lose-ParticleCannonDestroyed-01",
-  "text": "TRANSMISSION ENTRANTE : \n Sans le canon à particules, impossible de détruire le porte-avions \n Vous avez été vaincu, Général. Pour cette fois"
+  "text": "TRANSMISSION ENTRANTE : \n Sans le canon à particules, impossible de détruire le porte-avions \n Vous avez été vaincu, général. Pour cette fois"
  },
  {
   "label": "MDGLA03:Lose-PowerPlantsDestroyed-01",
-  "text": "TRANSMISSION ENTRANTE : \n Toutes les centrales ont été détruites \n Vous avez été vaincu, Général. Pour cette fois"
+  "text": "TRANSMISSION ENTRANTE : \n Toutes les centrales ont été détruites \n Vous avez été vaincu, général. Pour cette fois"
  },
  {
   "label": "MDGLA03:Help-UseParticleCannon-01",
@@ -785,7 +785,7 @@
  },
  {
   "label": "MAP:MD_CHI04MissionLoseText",
-  "text": "TRANSMISSION ENTRANTE : \n Les forces de la GLA se sont enfuies vers le nord \n Vous avez été vaincu, Général. Pour cette fois"
+  "text": "TRANSMISSION ENTRANTE : \n Les forces de la GLA se sont enfuies vers le nord \n Vous avez été vaincu, général. Pour cette fois"
  },
  {
   "label": "MAP:MD-CHI05_LOCALE",

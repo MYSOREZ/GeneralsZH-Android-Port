@@ -1,0 +1,90 @@
+[
+ {
+  "label": "GUI:LoadReplayLong",
+  "text": "CHARGER LE REPLAY"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak5",
+  "text": "Honneur de série \n Le joueur a remporté 5 parties en ligne d'affilée"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak20",
+  "text": "Honneur de série \n Le joueur a remporté 20 parties en ligne d'affilée"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLAUpgradeBuggyAmmor",
+  "text": "+25 % de munitions pour le Buggy lance-roquettes"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorStreak3Disabled",
+  "text": "Honneur de série \n Gagnez 3 parties ou plus d'affilée pour obtenir cette médaille"
+ },
+ {
+  "label": "TOOLTIP:BattleHonorBlitz10Disabled",
+  "text": "Honneur Blitz \n Battez l'ordinateur en 10 minutes ou moins pour obtenir cette médaille"
+ },
+ {
+  "label": "GUI:CÀontrolBarBack",
+  "text": "RETOUR"
+ },
+ {
+  "label": "GUI:BuddyAddReqMessageSent",
+  "text": "Demande d'ami envoyée"
+ },
+ {
+  "label": "GUI:BuddyAddReqMessageRejected",
+  "text": "Demande d'ami refusée"
+ },
+ {
+  "label": "GUI:BuddyAddReqMessageAccepted",
+  "text": "Demande d'ami acceptée"
+ },
+ {
+  "label": "TOOLTIP:RefreshGamePlayerList",
+  "text": "Actualiser la liste des parties et des joueurs"
+ },
+ {
+  "label": "TOOLTIP:CommunicatorBuddyRadioButton",
+  "text": "Faites un clic droit sur un nom dans la liste des joueurs pour envoyer une demande d'ami"
+ },
+ {
+  "label": "TOOLTIP:CommunicatorIgnoreRadioButton",
+  "text": "Faites un clic droit sur un nom dans la liste des joueurs pour ignorer ce joueur"
+ },
+ {
+  "label": "GUI:GroupRoom15",
+  "text": "3 contre 3"
+ },
+ {
+  "label": "GUI:GroupRoom16",
+  "text": "4 contre 4"
+ },
+ {
+  "label": "GUI:GroupRoom17",
+  "text": "Débutants"
+ },
+ {
+  "label": "GUI:GroupRoom18",
+  "text": "Mods"
+ },
+ {
+  "label": "GUI:GroupRoom19",
+  "text": "Classement"
+ },
+ {
+  "label": "GUI:GroupRoom20",
+  "text": "Allemagne"
+ },
+ {
+  "label": "GUI:GroupRoom21",
+  "text": "USA"
+ },
+ {
+  "label": "GUI:GroupRoom22",
+  "text": "Corée"
+ },
+ {
+  "label": "GUI:BeaconClear",
+  "text": "Effacer"
+ }
+]

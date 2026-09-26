@@ -1,0 +1,102 @@
+[
+ {
+  "label": "MAP:SniperDuel",
+  "text": "Sniper Duel"
+ },
+ {
+  "label": "MAP:TheFrontline",
+  "text": "The Frontline"
+ },
+ {
+  "label": "MAP:TournamentBeach",
+  "text": "Plage du tournoi"
+ },
+ {
+  "label": "MAP:TournamentCanyon",
+  "text": "Canyon du tournoi"
+ },
+ {
+  "label": "MAP:TournamentDesolate",
+  "text": "Désolation du tournoi"
+ },
+ {
+  "label": "MAP:TournamentForest",
+  "text": "Forêt du tournoi"
+ },
+ {
+  "label": "MAP:TournamentIceStorm",
+  "text": "Tempête de glace du tournoi"
+ },
+ {
+  "label": "MAP:TournamentTactics",
+  "text": "Tactique du tournoi"
+ },
+ {
+  "label": "MAP:TournamentTown",
+  "text": "Ville du tournoi"
+ },
+ {
+  "label": "MAP:TournamentValley",
+  "text": "Vallée du tournoi"
+ },
+ {
+  "label": "MAP:UnholyWar",
+  "text": "Unholy War"
+ },
+ {
+  "label": "MAP:Unstable",
+  "text": "Unstable"
+ },
+ {
+  "label": "MAP:UrbanUprising",
+  "text": "Urban Uprising"
+ },
+ {
+  "label": "MAP:VictoryOutlook",
+  "text": "Victory Outlook"
+ },
+ {
+  "label": "MAP:VictoryRoad",
+  "text": "Victory Road"
+ },
+ {
+  "label": "MAP:NorthAmerica",
+  "text": "North America"
+ },
+ {
+  "label": "MAP:Floodplains",
+  "text": "Floodplains"
+ },
+ {
+  "label": "MAP:TournamentA",
+  "text": "Tournoi A"
+ },
+ {
+  "label": "MAP:TournamentB",
+  "text": "Tournoi B"
+ },
+ {
+  "label": "MAP:Defcon6",
+  "text": "Defcon 6"
+ },
+ {
+  "label": "CONTROLBAR:AirF_TooltipUSAUpgradeLaserMissiles",
+  "text": "Les missiles du Raptor et du Chasseur furtif font +12 % de dégâts"
+ },
+ {
+  "label": "CONTROLBAR:AirF_ToolTipUSAScienceCarpetBomb",
+  "text": "Permet de faire appel à un bombardier furtif B2 pour un tapis de bombes sur une zone \n \n Déploiement depuis : Centre de stratégie"
+ },
+ {
+  "label": "GUI:CustomMission",
+  "text": "MISSION PERSONNALISÉE"
+ },
+ {
+  "label": "GX:ForceAttack",
+  "text": "Attaque forcée"
+ },
+ {
+  "label": "GX:ToolTipForceAttack",
+  "text": "Attaque la prochaine cible que vous touchez, même vos propres unités ou un terrain vide"
+ }
+]
