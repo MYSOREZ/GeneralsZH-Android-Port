@@ -1,0 +1,802 @@
+[
+ {
+  "label": "DIALOGEVENT:EvaGLA_NuclearMissileReadySubtitle",
+  "text": "*Nosso míssil nuclear está pronto para o lançamento"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_OpinionCivilianStructures01Subtitle",
+  "text": "*General, cuidado para que as estruturas civis não sejam destruídas"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_OpinionCivilianStructures02Subtitle",
+  "text": "*Destruir estruturas civis afetará negativamente nossa Opinião Internacional!"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_OpinionDestroyStatuesSubtitle",
+  "text": "*Destrua as estátuas da GLA para aumentar nossa Opinião Internacional, senhor"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_OpinionDestroyStructuresSubtitle",
+  "text": "*Senhor, destruir estruturas inimigas aumentará a Opinião Internacional sobre nós"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_OpinionDestroyTroopsSubtitle",
+  "text": "*Destrua mais tropas inimigas para aumentar a Opinião Internacional"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_OpinionFallingSubtitle",
+  "text": "*Nossa Opinião Internacional está caindo!"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_OpinionLowSubtitle",
+  "text": "*Nossa Opinião Internacional está baixando"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_OpinionLowCriticalSubtitle",
+  "text": "*Nossa Opinião Internacional está criticamente baixa!"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_OpinionLowVerySubtitle",
+  "text": "*Nossa Opinião Internacional está muito baixa"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_OpinionProtectCivilianSubtitle",
+  "text": "*Proteja as propriedades civis de danos"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_OpinionRisingSubtitle",
+  "text": "*Nossa Opinião Internacional está subindo!"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_ParticleCannonDetectedAllySubtitle",
+  "text": "*Nosso aliado construiu um Canhão de Partículas"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_ParticleCannonLaunchedAllySubtitle",
+  "text": "*Nosso aliado está usando o Canhão de Partículas"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_ParticleCannonLaunchedOursSubtitle",
+  "text": "*Disparando o Canhão de Partículas"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_ParticleCannonReadySubtitle",
+  "text": "*Nosso Canhão de Partículas está pronto"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_ReinforcementsHaveArrivedSubtitle",
+  "text": "*Mais guerreiros vieram em nossa ajuda"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_ScudStormDetectedAllySubtitle",
+  "text": "*Nosso aliado construiu uma Tempestade SCUD"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_ScudStormLaunchedAllySubtitle",
+  "text": "*Nosso aliado lançou uma Tempestade SCUD"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_ScudStormLaunchedOursSubtitle",
+  "text": "*Lançando a Tempestade SCUD"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_ScudStormReadySubtitle",
+  "text": "*Já podemos usar nossa Tempestade SCUD"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_SelectTargetSubtitle",
+  "text": "*Onde vamos atacar?"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_SneakAttackLaunchedSubtitle",
+  "text": "*General, nosso inimigo está usando o Ataque Furtivo"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_UnitLostSubtitle",
+  "text": "*Um guerreiro tombou"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_UpgradeCompleteSubtitle",
+  "text": "*Melhoria concluída"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_VehicleStolenSubtitle",
+  "text": "*Eles roubaram um veículo"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_VictorySubtitle",
+  "text": "*Vencemos"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_AllyUnderAttackSubtitle",
+  "text": "*Nosso aliado está sob ataque"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_BaseDefensesOffLineSubtitle",
+  "text": "*Defesas de base desligadas"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_BeaconDetectedSubtitle",
+  "text": "*Sinalizador detectado"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_BlackLotusEnemySubtitle",
+  "text": "*Jarmen Kell inimigo detectado"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_BlackLotusOursSubtitle",
+  "text": "*Nosso Jarmen Kell foi detectado"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_BuildingBeingCapturedSubtitle",
+  "text": "*Nosso prédio está sendo capturado"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_BuildingDisabledSubtitle",
+  "text": "*Prédio desligado"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_BuildingEnabledSubtitle",
+  "text": "*Prédio operacional novamente"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_BuildingStolenSubtitle",
+  "text": "*Prédio roubado"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_CashStolenSubtitle",
+  "text": "*General, eles estão roubando nosso dinheiro"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_ColonelBurtonEnemySubtitle",
+  "text": "*Coronel Burton inimigo detectado"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_ColonelBurtonOursSubtitle",
+  "text": "*Nosso Coronel Burton foi detectado"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_DefeatSubtitle",
+  "text": "*Você foi derrotado"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_DetectedNukeSubtitle",
+  "text": "*Atenção: silo de mísseis nucleares detectado"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_DetectedParticleCannonSubtitle",
+  "text": "*Atenção: Canhão de Partículas detectado"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_DetectedScudStormSubtitle",
+  "text": "*Atenção: Tempestade SCUD detectada"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_FundsReceivedSubtitle",
+  "text": "*Recebemos fundos do nosso aliado"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_FundsRequestedSubtitle",
+  "text": "*Você pediu fundos ao seu aliado"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_FundsRequestedAllySubtitle",
+  "text": "*Seu aliado está pedindo fundos"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_FundsTransferredSubtitle",
+  "text": "*Transferimos fundos ao nosso aliado"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_GeneralLevelUpSubtitle",
+  "text": "*Parabéns, general. Você foi promovido"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_GPSScramblerLaunchedSubtitle",
+  "text": "*Atenção. Bloqueador de GPS detectado"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_HeroDiscoveredEnemySubtitle",
+  "text": "*Um herói inimigo foi descoberto"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_HeroDiscoveredOursSubtitle",
+  "text": "*Um de nossos heróis foi descoberto"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_IncomingAnthraxSubtitle",
+  "text": "*Bomba de antraz detectada"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_IncomingDaisyCutterSubtitle",
+  "text": "*Bomba Daisy Cutter detectada"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_IncomingEmpPulseSubtitle",
+  "text": "*Bomba de Pulso EMP detectada"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_IncomingFuelAirBombSubtitle",
+  "text": "*Bomba Ar-Combustível detectada"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_InsufficientFundsSubtitle",
+  "text": "*Fundos insuficientes"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_JarmenKellEnemySubtitle",
+  "text": "*Lótus Negra inimiga detectada"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_JarmenKellOursSubtitle",
+  "text": "*Nossa Lótus Negra foi detectada"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_LaserDefenseSpeechSubtitle",
+  "text": "*General, nosso adversário tem uma fortaleza no meio da cidade. O sistema de defesa a laser dele é devastador, mas exige muita energia. Ele será obrigado a concentrar a energia num ponto de defesa de cada vez. Use isso a seu favor"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_LaunchedNukeSubtitle",
+  "text": "*Atenção: míssil nuclear lançado"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_LaunchedParticleCannonSubtitle",
+  "text": "*Atenção: Canhão de Partículas ativado"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_LaunchedScudStormSubtitle",
+  "text": "*Atenção: Tempestade SCUD lançada"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_LowPowerSubtitle",
+  "text": "*Energia baixa"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_NuclearMissileDetectedAllySubtitle",
+  "text": "*Silo nuclear aliado detectado"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_NuclearMissileLaunchedAllySubtitle",
+  "text": "*Míssil nuclear aliado lançado"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_NuclearMissileLaunchedOursSubtitle",
+  "text": "*Míssil nuclear lançado"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_NuclearMissileReadySubtitle",
+  "text": "*Míssil nuclear pronto"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_OpinionCivilianStructures01Subtitle",
+  "text": "*General, cuidado para que as estruturas civis não sejam destruídas"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_OpinionCivilianStructures02Subtitle",
+  "text": "*Destruir estruturas civis afetará negativamente nossa Opinião Internacional!"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_OpinionDestroyStatuesSubtitle",
+  "text": "*Destrua as estátuas da GLA para aumentar nossa Opinião Internacional, senhor"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_OpinionDestroyStructuresSubtitle",
+  "text": "*Senhor, destruir estruturas inimigas aumentará a Opinião Internacional sobre nós"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_OpinionDestroyTroopsSubtitle",
+  "text": "*Destrua mais tropas inimigas para aumentar a Opinião Internacional"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_OpinionFallingSubtitle",
+  "text": "*Nossa Opinião Internacional está caindo!"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_OpinionLowSubtitle",
+  "text": "*Nossa Opinião Internacional está baixando"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_OpinionLowCriticalSubtitle",
+  "text": "*Nossa Opinião Internacional está criticamente baixa!"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_OpinionLowVerySubtitle",
+  "text": "*Nossa Opinião Internacional está muito baixa"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_OpinionProtectCivilianSubtitle",
+  "text": "*Proteja as propriedades civis de danos"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_OpinionRisingSubtitle",
+  "text": "*Nossa Opinião Internacional está subindo!"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_ParticleCannonDetectedAllySubtitle",
+  "text": "*Canhão de Partículas aliado detectado"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_ParticleCannonLaunchedAllySubtitle",
+  "text": "*Canhão de Partículas aliado ativado"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_ParticleCannonLaunchedOursSubtitle",
+  "text": "*Canhão de Partículas ativado"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_ParticleCannonReadySubtitle",
+  "text": "*Canhão de Partículas pronto"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_ReinforcementsHaveArrivedSubtitle",
+  "text": "*Chegaram reforços"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_ScudStormDetectedAllySubtitle",
+  "text": "*Tempestade SCUD aliada detectada"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_ScudStormLaunchedAllySubtitle",
+  "text": "*Tempestade SCUD aliada lançada"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_ScudStormLaunchedOursSubtitle",
+  "text": "*Tempestade SCUD lançada"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_ScudStormReadySubtitle",
+  "text": "*Tempestade SCUD pronta"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_SelectTargetSubtitle",
+  "text": "*Selecione o alvo"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_SneakAttackLaunchedSubtitle",
+  "text": "*Atenção. Ataque Furtivo detectado"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_UnitLostSubtitle",
+  "text": "*Unidade perdida"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_UpgradeCompleteSubtitle",
+  "text": "*Melhoria concluída"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_UpgradeControlRodSubtitle",
+  "text": "*Melhoria Barras de Controle concluída"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_UpgradeControlRodAdvancedSubtitle",
+  "text": "*Melhoria Barras de Controle Avançadas concluída"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_UpgradeMoabSubtitle",
+  "text": "*Melhoria MOAB concluída"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_UpgradeSentryDroneSubtitle",
+  "text": "*Melhoria do Drone Sentinela concluída"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_VehicleStolenSubtitle",
+  "text": "*Veículo roubado"
+ },
+ {
+  "label": "DIALOGEVENT:EvaUSA_VictorySubtitle",
+  "text": "*Você venceu"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xBrf01Subtitle",
+  "text": "*General, a GLA conseguiu derrotar as forças dos EUA nesta área. Lançamos um contra-ataque devastador, mas, como baratas, eles continuam vivos"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xBrf02Subtitle",
+  "text": "*Neste exato momento, os sobreviventes da GLA estão se reconstruindo"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xBrf03Subtitle",
+  "text": "*Para eliminar a GLA de vez, precisamos enviar nossas forças e arrancá-los de cada canto escuro onde se escondem"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xBrf04Subtitle",
+  "text": "*General, nossos novos Postos de Escuta estão posicionados na área. Estão à sua disposição"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xBrf05Subtitle",
+  "text": "*O Posto de Escuta em si é desarmado, mas seus passageiros podem atirar em inimigos que se aproximem demais. Seu longo alcance de visão e sua capacidade furtiva aumentam muito a percepção do campo de batalha"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xChat01Subtitle",
+  "text": "*Nenhum membro da GLA vai passar pela nossa guarnição"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xChat02Subtitle",
+  "text": "*Tratores de Toxina! Eles querem envenenar todos nós... precisamos de apoio!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xChat03Subtitle",
+  "text": "*Olhe... Torres de Petróleo... vamos capturá-las?"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xChat04Subtitle",
+  "text": "*GLA na sua casa? Aplique um pouco de fogo... e adeus, GLA"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xChat05Subtitle",
+  "text": "*A GLA está se reconstruindo ali... preparem-se para atacar"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xChat06Subtitle",
+  "text": "*Hoje a vitória é nossa... todos avançar"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xCin01aSubtitle",
+  "text": "*Não achei que os Estados Unidos seriam derrotados tão facilmente"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xCin01bSubtitle",
+  "text": "*Não entendo por que os Estados Unidos permitiram que isso acontecesse"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xCin01cSubtitle",
+  "text": "*Isso não pode ficar assim. A China vai consertar as coisas"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xCin01dSubtitle",
+  "text": "*O uso traiçoeiro de nossos recursos pela GLA contra os americanos causou um grande constrangimento à China. Eles vão pagar por essa insolência"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xCin02Subtitle",
+  "text": "*Os mísseis estão prontos para o lançamento... contagem regressiva final iniciada"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xCin03Subtitle",
+  "text": "*3... 2... 1... Mísseis lançados"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xCin04Subtitle",
+  "text": "*Eles acham que venceram, mas estão comemorando cedo demais"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xCin05Subtitle",
+  "text": "*É bonito quando usado pelos motivos certos"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xCin06Subtitle",
+  "text": "*Sobreviventes da GLA estão correndo para se abrigar na cidade... precisam ser detidos!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xCin07Subtitle",
+  "text": "*Estamos em posição... compartimento de bombas aberto"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xCin08Subtitle",
+  "text": "*Avistamos sobreviventes. Será necessário um ataque por terra"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xXO01Subtitle",
+  "text": "*General, nossa antiga base na região foi tomada pela GLA. Você precisará construir uma nova base antes de enfrentar o inimigo"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xXO02Subtitle",
+  "text": "*Sugiro que você ocupe alguns dos prédios próximos para defender nossa base"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xXO03Subtitle",
+  "text": "*General, a GLA ocupou vários prédios pela cidade. Talvez você possa usar um Tanque Dragão para limpar essas guarnições"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xXO04Subtitle",
+  "text": "*General, a GLA está movendo Tratores de Toxina em direção aos nossos prédios ocupados. Se esses tratores atacarem os prédios, todos lá dentro serão eliminados"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xXO05Subtitle",
+  "text": "*A GLA está usando estas Torres de Petróleo para financiar suas forças. Um dos nossos Guardas Vermelhos poderia capturá-las. O lucro ajudaria a derrotar a GLA"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xXO06Subtitle",
+  "text": "*General, é sensato destruir estas Torres de Petróleo? Elas nos dariam recursos valiosos. Um dos nossos Guardas Vermelhos poderia capturá-las"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xXO07Subtitle",
+  "text": "*Você os pegou desprevenidos, General. Um dos seus Guardas Vermelhos poderia capturar os prédios deles antes que consigam reagir"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xXO08Subtitle",
+  "text": "*Agora que você restabeleceu nossa base de operações, é hora de arrancar todas as forças restantes da GLA da área"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI01xXO09Subtitle",
+  "text": "*Parabéns, General. Você libertou a cidade de todas as forças da GLA. Quando destruir a última base deles, sua missão estará concluída"
+ },
+ {
+  "label": "DIALOGEVENT:MisChi02Lin13Subtitle",
+  "text": "*A ameaça terrorista acabou. Bom trabalho, General"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xBrf01Subtitle",
+  "text": "*General, a GLA está tentando roubar as ogivas nucleares armazenadas nesta instalação"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xBrf01aSubtitle",
+  "text": "*General, a GLA está tentando destruir nossa principal usina nuclear"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xBrf02Subtitle",
+  "text": "*Nossos bravos soldados contiveram o ataque, mas a um grande custo, e a GLA ainda está por aí"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xBrf03Subtitle",
+  "text": "*Você precisa conter a GLA e garantir que cada um de nossos bunkers esteja protegido"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xBrf03aSubtitle",
+  "text": "*Você precisa conter a GLA para garantir que a instalação não seja destruída"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xBrf04Subtitle",
+  "text": "*Temos várias tecnologias novas que devem ser de grande ajuda na sua missão, General"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xBrf05Subtitle",
+  "text": "*Nossos Canhões Nucleares agora foram melhorados para disparar projéteis de nêutrons. Esses novos projéteis eliminam com eficácia soldados e motoristas de veículos. Depois que a radiação se dissipar, um de nossos soldados de infantaria pode capturar os veículos restantes"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xBrf06Subtitle",
+  "text": "*Nossos prédios agora podem receber minas de nêutrons. Além de continuarem eficazes contra a infantaria, elas incapacitam temporariamente os veículos inimigos"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xBrf07aSubtitle",
+  "text": "*General, seus reforços chegarão em 15 minutos"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xBrf07bSubtitle",
+  "text": "*General, seus reforços chegarão em 10 minutos"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xBrf07cSubtitle",
+  "text": "*General, seus reforços chegarão em 5 minutos"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xBrf07dSubtitle",
+  "text": "*General, seus reforços chegarão em breve"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat01Subtitle",
+  "text": "*Forças inimigas avistadas. Vamos contê-las"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat02Subtitle",
+  "text": "*Estamos sob fogo no flanco direito... precisamos de apoio aqui"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat03Subtitle",
+  "text": "*Eles estão atrás de nós... todo o fogo para o sul!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat04Subtitle",
+  "text": "*Base da GLA ao alcance... todas as equipes prontas para atacar, General"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat05Subtitle",
+  "text": "*Prédios inimigos naquele cume. É só dar a ordem, General, e passaremos por cima deles"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat06Subtitle",
+  "text": "*Cuidado com os Soldados RPG! Precisamos de ajuda!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat07Subtitle",
+  "text": "*General, estamos sobre a área-alvo e iniciamos o bombardeio"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat08Subtitle",
+  "text": "*Estendendo o tapete... de bombas. Rá, rá"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat09Subtitle",
+  "text": "*As defesas antiaéreas inimigas são pesadas aqui... estamos sofrendo danos graves"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat10Subtitle",
+  "text": "*As Bases Stinger travaram a mira em nós... estamos em apuros!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat11Subtitle",
+  "text": "*Detenham aquele Rebelde, ele está tentando capturar nosso bunker!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat12Subtitle",
+  "text": "*Não é um Battlemaster, mas vai ter que servir"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat13Subtitle",
+  "text": "*Prefiro meu Tanque Gatling"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat14Subtitle",
+  "text": "*Outra onda da GLA!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat15Subtitle",
+  "text": "*Precisamos proteger nossos bunkers!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat15aSubtitle",
+  "text": "*Precisamos proteger o reator nuclear!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat16Subtitle",
+  "text": "*Agora vamos mostrar a eles como se ataca uma base!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat17Subtitle",
+  "text": "*Reforços! Que bom ver vocês!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xChat18Subtitle",
+  "text": "*Estamos prontos para suas ordens, General. Onde precisa de nós?"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xCin01Subtitle",
+  "text": "*Precisamos ficar atentos. Os relatórios dizem que a GLA pode atacar como vingança por termos entrado na guerra"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xCin01aSubtitle",
+  "text": "*Não me sinto seguro guardando esta usina nuclear"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xCin01bSubtitle",
+  "text": "*É. Queria ter entrado na força aérea"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xCin01dSubtitle",
+  "text": "*Com certeza, depois da nossa vitória recente, eles não ousariam nos atacar aqui"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xCin01cSubtitle",
+  "text": "*A comida deles é muito melhor. E eles ainda usam aqueles capacetes chiques"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xCin02Subtitle",
+  "text": "*Forças da GLA! Estamos sob ataque!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xCin03Subtitle",
+  "text": "*Eles estão por toda parte! Estamos sendo dominados"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xCin04Subtitle",
+  "text": "*Outra onda! Precisamos de reforços!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xCin04aSubtitle",
+  "text": "*Outra onda! Eles têm caminhões-bomba e terroristas! Precisamos de reforços!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xCin04bSubtitle",
+  "text": "*Outra onda! Eles estão usando táticas suicidas! Cadê os reforços?!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xCin05Subtitle",
+  "text": "*Perdemos a base aérea!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xCin06Subtitle",
+  "text": "*Eles estão tentando chegar aos bunkers de armazenamento! Protejam-nos a qualquer custo!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xCin06aSubtitle",
+  "text": "*Eles estão tentando chegar ao reator principal! Protejam-no a qualquer custo!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xCin07Subtitle",
+  "text": "*O Centro de Comando... eles pegaram o Centro de Comando"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xCin08Subtitle",
+  "text": "*Resistimos... forças restantes, informem"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xCin09Subtitle",
+  "text": "*Não sobrou muita coisa. Vamos precisar de reforços"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xCin10Subtitle",
+  "text": "*A mensagem chegou, mas teremos de resistir até eles chegarem"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xXO01Subtitle",
+  "text": "*General, nossos reforços chegaram!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xXO02Subtitle",
+  "text": "*General, forças da GLA estão atacando os bunkers"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xXO02aSubtitle",
+  "text": "*General, forças da GLA estão atacando a usina nuclear!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xXO03Subtitle",
+  "text": "*A GLA está tentando capturar um de nossos bunkers"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xXO04Subtitle",
+  "text": "*General, este bunker está muito danificado. Sugiro repará-lo antes de outro ataque da GLA"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xXO04aSubtitle",
+  "text": "*General, nossa usina nuclear está muito danificada. Sugiro repará-la antes de outro ataque da GLA"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xXO05Subtitle",
+  "text": "*General, o último ataque enfraqueceu gravemente vários bunkers. Se um deles for destruído, a GLA vencerá este confronto"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xXO05aSubtitle",
+  "text": "*General, o último ataque enfraqueceu gravemente a usina nuclear. Se ela for destruída, nossa missão fracassará!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xXO06Subtitle",
+  "text": "*Atenção... forças da GLA se movendo em direção aos bunkers"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xXO06aSubtitle",
+  "text": "*Atenção... forças da GLA se movendo em direção à usina!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xXO07Subtitle",
+  "text": "*General, fiz contato com um de nossos postos de espionagem. Eles estão sob ataque da GLA. Se conseguirmos resgatá-los, posso me conectar ao sistema deles e poderemos chamar bombardeiros em tapete"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xXO08Subtitle",
+  "text": "*General, se você assegurar aquele posto de espionagem, poderá dirigir bombardeios em tapete contra as forças da GLA"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI02xXO09Subtitle",
+  "text": "*General, agora que nossos reforços chegaram, é hora de eliminar a GLA desta área"
+ },
+ {
+  "label": "DIALOGEVENT:MisChi03RedChat12Subtitle",
+  "text": "*À batalha!"
+ },
+ {
+  "label": "DIALOGEVENT:MisChi03RedChat19Subtitle",
+  "text": "*Tragam os tanques! Arrasem tudo!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xBrf01Subtitle",
+  "text": "*Saudações, comandante. Agora que frustramos o contra-ataque da GLA, é hora de aproveitar nossa vantagem!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xBrf02Subtitle",
+  "text": "*Precisamos libertar esta cidade das garras da GLA"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xBrf03Subtitle",
+  "text": "*Há uma base da GLA muito bem defendida ao norte do rio. Precisamos destruí-la, mas não será uma tarefa fácil"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xBrf04Subtitle",
+  "text": "*Nossas operações chamaram muita atenção do resto do mundo, e seremos observados de perto. Quanto mais esta batalha durar, mais nossa Opinião Internacional vai cair"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xBrf05Subtitle",
+  "text": "*Danos a propriedades civis devem ser evitados. Nossa operação precisa ser precisa e rápida. Destruir forças da GLA fará a Opinião Internacional subir a nosso favor"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xBrf09Subtitle",
+  "text": "*Se nossa Opinião Internacional ficar alta o bastante, o povo da cidade pode se juntar à nossa causa"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xBrf10Subtitle",
+  "text": "*Então será fácil aniquilar as defesas da GLA"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xChat01Subtitle",
+  "text": "*Eles devem ter uma Rede de Túneis camuflada perto daqui"
+ }
+]
