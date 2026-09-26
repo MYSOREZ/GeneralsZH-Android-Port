@@ -1,0 +1,802 @@
+[
+ {
+  "label": "WOL:NoMatchbot",
+  "text": "Nenhum MatchMaker encontrado"
+ },
+ {
+  "label": "WOL:BadMatchParams",
+  "text": "Parâmetros de partida inválidos"
+ },
+ {
+  "label": "WOL:ChatErrorNickInUse",
+  "text": "Esse apelido já está em uso"
+ },
+ {
+  "label": "WOL:ChatErrorBadPass",
+  "text": "Senha incorreta para esse nome"
+ },
+ {
+  "label": "WOL:ChatErrorNoneSuch",
+  "text": "Usuário ou canal inexistente"
+ },
+ {
+  "label": "WOL:ChatErrorConNetDown",
+  "text": "A conexão de rede caiu"
+ },
+ {
+  "label": "WOL:ChatErrorConLookupFailed",
+  "text": "Falha na consulta DNS"
+ },
+ {
+  "label": "WOL:ChatErrorConError",
+  "text": "Ocorreu um erro fatal de rede"
+ },
+ {
+  "label": "WOL:ChatErrorTimeout",
+  "text": "Tempo esgotado"
+ },
+ {
+  "label": "WOL:ChatErrorMustPatch",
+  "text": "Você precisa obter a última atualização antes de entrar no C&C Generals Zero Hour Online"
+ },
+ {
+  "label": "WOL:ChatErrorStatusError",
+  "text": "Erro interno de status"
+ },
+ {
+  "label": "WOL:ChatErrorUnknownResponse",
+  "text": "Resposta desconhecida"
+ },
+ {
+  "label": "WOL:ChatErrorChannelFull",
+  "text": "O canal está cheio"
+ },
+ {
+  "label": "WOL:ChatErrorChannelExists",
+  "text": "O canal já existe"
+ },
+ {
+  "label": "WOL:ChatErrorChannelDoesNotExist",
+  "text": "O canal não existe"
+ },
+ {
+  "label": "WOL:ChatErrorBadChannelPassword",
+  "text": "Senha do canal incorreta"
+ },
+ {
+  "label": "WOL:ChatErrorBanned",
+  "text": "Desculpe, você foi banido do C&C Generals Zero Hour Online. Consulte os Termos de Serviço"
+ },
+ {
+  "label": "WOL:ChatErrorNotOper",
+  "text": "Não é possível realizar essa operação"
+ },
+ {
+  "label": "WOL:ChatErrorAccountDisabled",
+  "text": "Sua conta foi desativada"
+ },
+ {
+  "label": "WOL:ChatErrorSerialBanned",
+  "text": "Seu número de série foi banido. Consulte os Termos de Serviço"
+ },
+ {
+  "label": "WOL:ChatErrorSerialDup",
+  "text": "Seu número de série já está em uso"
+ },
+ {
+  "label": "WOL:ChatErrorSerialUnknown",
+  "text": "Seu número de série é inválido"
+ },
+ {
+  "label": "WOL:NetUtilErrorGeneric",
+  "text": "Erro genérico do NetUtil"
+ },
+ {
+  "label": "WOL:NetUtilErrorBusy",
+  "text": "Ocupado"
+ },
+ {
+  "label": "WOL:NetUtilErrorTimeout",
+  "text": "Tempo esgotado"
+ },
+ {
+  "label": "WOL:NetUtilErrorInvalidField",
+  "text": "Campo inválido"
+ },
+ {
+  "label": "WOL:NetUtilErrorCantVerify",
+  "text": "Não foi possível verificar"
+ },
+ {
+  "label": "WOL:NetUtilFinished",
+  "text": "Concluído"
+ },
+ {
+  "label": "WOL:UnknownError",
+  "text": "Erro desconhecido"
+ },
+ {
+  "label": "WOL:CouldNotCreateChannel",
+  "text": "Não foi possível criar o canal"
+ },
+ {
+  "label": "WOL:ErrorTitle",
+  "text": "Erro do C&C Generals Zero Hour Online"
+ },
+ {
+  "label": "WOL:LoginErrorTitle",
+  "text": "Erro de login"
+ },
+ {
+  "label": "WOL:CreatingChannel",
+  "text": "Criando canal"
+ },
+ {
+  "label": "WOL:ChannelClosed",
+  "text": "O canal foi fechado"
+ },
+ {
+  "label": "WOL:BadChannelPassword",
+  "text": "Senha do canal incorreta"
+ },
+ {
+  "label": "WOL:ChannelFull",
+  "text": "Canal cheio"
+ },
+ {
+  "label": "WOL:BannedFromChannel",
+  "text": "Você foi banido do canal"
+ },
+ {
+  "label": "WOL:CannotJoinChannel",
+  "text": "Não é possível entrar no canal"
+ },
+ {
+  "label": "WOL:NoWOLAPI",
+  "text": "Os Componentes de Internet Compartilhados não foram instalados"
+ },
+ {
+  "label": "WOL:OldWOLAPI",
+  "text": "Os Componentes de Internet Compartilhados precisam ser atualizados. Instale-os a partir do disco do C&C Generals Zero Hour"
+ },
+ {
+  "label": "WOL:BadRegistry",
+  "text": "O registro do C&C Generals Zero Hour está corrompido"
+ },
+ {
+  "label": "WOL:GotPing",
+  "text": "Ping recebido de %dms. Quanto menor o ping, melhor a conexão"
+ },
+ {
+  "label": "WOL:ServerListAndVersion",
+  "text": "Obtendo lista de servidores"
+ },
+ {
+  "label": "WOL:GettingPings",
+  "text": "Obtendo pings. Quanto menor o ping, melhor a conexão"
+ },
+ {
+  "label": "WOL:Connecting",
+  "text": "Conectando"
+ },
+ {
+  "label": "WOL:JoinedChannel",
+  "text": "Você entrou em %ls"
+ },
+ {
+  "label": "WOL:LeftChannel",
+  "text": "Você saiu de %ls"
+ },
+ {
+  "label": "WOL:UserKicked",
+  "text": "%ls expulsou %ls de %ls"
+ },
+ {
+  "label": "WOL:BeginIgnoreList",
+  "text": "Início da Lista de Ignorados"
+ },
+ {
+  "label": "WOL:IgnoredUser",
+  "text": "%ls"
+ },
+ {
+  "label": "WOL:EndIgnoreList",
+  "text": "Fim da Lista de Ignorados"
+ },
+ {
+  "label": "WOL:DownloadPatchNow",
+  "text": "Deseja baixar a atualização agora?"
+ },
+ {
+  "label": "WOL:FindInChannel",
+  "text": "%ls está em %s"
+ },
+ {
+  "label": "WOL:FindInChannelOtherServer",
+  "text": "%ls está em %s em %s"
+ },
+ {
+  "label": "WOL:FindOffline",
+  "text": "%ls não está conectado"
+ },
+ {
+  "label": "WOL:FindHiding",
+  "text": "%ls não está respondendo à busca"
+ },
+ {
+  "label": "WOL:FindNotInChannel",
+  "text": "%ls não está em nenhum canal"
+ },
+ {
+  "label": "WOL:FindNotInChannelOtherServer",
+  "text": "%ls está em %s"
+ },
+ {
+  "label": "WOL:Lob_49_0",
+  "text": "Saguão principal"
+ },
+ {
+  "label": "WOL:Lob_49_1",
+  "text": "Alternativo"
+ },
+ {
+  "label": "WOL:Lob_49_2",
+  "text": "Realidade"
+ },
+ {
+  "label": "WOL:Lob_41_0",
+  "text": "Partida rápida"
+ },
+ {
+  "label": "WOL:UnknownServer",
+  "text": "servidor desconhecido"
+ },
+ {
+  "label": "WOL:UnknownChannel",
+  "text": "canal desconhecido"
+ },
+ {
+  "label": "WOL:BuddyMatching",
+  "text": "%ls está numa partida rápida"
+ },
+ {
+  "label": "WOL:BuddyNotInChan",
+  "text": "%ls está online"
+ },
+ {
+  "label": "WOL:BuddyInGame",
+  "text": "%ls está jogando"
+ },
+ {
+  "label": "WOL:BuddyInChat",
+  "text": "%ls está conversando em %ls"
+ },
+ {
+  "label": "WOL:BuddyGameSetup",
+  "text": "%ls está em %ls"
+ },
+ {
+  "label": "WOL:BuddyMatchingOtherServer",
+  "text": "%ls está numa partida rápida em %ls"
+ },
+ {
+  "label": "WOL:BuddyNotInChanOtherServer",
+  "text": "%ls está online em %ls"
+ },
+ {
+  "label": "WOL:BuddyInGameOtherServer",
+  "text": "%ls está jogando em %ls"
+ },
+ {
+  "label": "WOL:BuddyInChatOtherServer",
+  "text": "%ls está conversando em %ls em %ls"
+ },
+ {
+  "label": "WOL:BuddyGameSetupOtherServer",
+  "text": "%ls está em %ls em %ls"
+ },
+ {
+  "label": "WOL:BuddyHiding",
+  "text": "%ls está escondido"
+ },
+ {
+  "label": "Chat:Everyone",
+  "text": "Todos veem"
+ },
+ {
+  "label": "Chat:Allies",
+  "text": "Só aliados veem"
+ },
+ {
+  "label": "GUI:Clear",
+  "text": "LIMPAR"
+ },
+ {
+  "label": "LAN:GameStartTimerPlural",
+  "text": "A partida começará em %d segundos"
+ },
+ {
+  "label": "LAN:GameStartTimerSingular",
+  "text": "A partida começará em %d segundo"
+ },
+ {
+  "label": "LAN:HostNotResponding",
+  "text": "Partida encerrada; o anfitrião não respondia"
+ },
+ {
+  "label": "LAN:PlayerDropped",
+  "text": "%ls caiu; o jogador não respondia"
+ },
+ {
+  "label": "LAN:NeedMorePlayers",
+  "text": "É preciso mais de %d jogador(es) para iniciar uma partida"
+ },
+ {
+  "label": "LAN:NeedMoreTeams",
+  "text": "É preciso mais de 1 equipe para iniciar uma partida"
+ },
+ {
+  "label": "LAN:TooManyPlayers",
+  "text": "Este mapa suporta no máximo %d jogadores"
+ },
+ {
+  "label": "LAN:OK",
+  "text": "OK"
+ },
+ {
+  "label": "LAN:ErrorNoGameSelected",
+  "text": "Selecione uma partida primeiro"
+ },
+ {
+  "label": "LAN:ErrorTimeout",
+  "text": "A conexão expirou"
+ },
+ {
+  "label": "LAN:ErrorGameFull",
+  "text": "Esta partida está cheia"
+ },
+ {
+  "label": "LAN:ErrorDuplicateName",
+  "text": "Já existe um nome igual na partida"
+ },
+ {
+  "label": "LAN:ErrorCRCMismatch",
+  "text": "O jogo detectou uma incompatibilidade. Isso significa que a partida multijogador perdeu a sincronia de dados entre os jogadores. É possível que seu adversário tenha modificado a versão dele; talvez você queira incluí-lo na sua Lista de Ignorados"
+ },
+ {
+  "label": "LAN:ErrorGameStarted",
+  "text": "Desculpe, esta partida já começou"
+ },
+ {
+  "label": "LAN:ErrorGameExists",
+  "text": "Já existe uma partida com o mesmo nome"
+ },
+ {
+  "label": "LAN:ErrorGameGone",
+  "text": "A partida desapareceu"
+ },
+ {
+  "label": "LAN:ErrorBusy",
+  "text": "Outra operação está pendente"
+ },
+ {
+  "label": "LAN:ErrorUnknown",
+  "text": "Erro desconhecido"
+ },
+ {
+  "label": "LAN:JoinFailed",
+  "text": "FALHA AO ENTRAR"
+ },
+ {
+  "label": "Network:PlayerLeft",
+  "text": "%ls saiu da partida"
+ },
+ {
+  "label": "INI:MissingDisplayName",
+  "text": "DisplayName AUSENTE para o objeto '%S'"
+ },
+ {
+  "label": "INI:FactionDefault",
+  "text": "Exército padrão"
+ },
+ {
+  "label": "INI:FactionObserver",
+  "text": "Observador"
+ },
+ {
+  "label": "INI:FactionCivilian",
+  "text": "Civil"
+ },
+ {
+  "label": "INI:FactionAmerica",
+  "text": "EUA"
+ },
+ {
+  "label": "INI:FactionChina",
+  "text": "China"
+ },
+ {
+  "label": "INI:FactionGLA",
+  "text": "GLA"
+ },
+ {
+  "label": "INI:FactionChinaHacker",
+  "text": "Hacker chinês"
+ },
+ {
+  "label": "SIDE:America",
+  "text": "EUA"
+ },
+ {
+  "label": "SIDE:China",
+  "text": "China"
+ },
+ {
+  "label": "SIDE:GLA",
+  "text": "GLA"
+ },
+ {
+  "label": "INI:RankLevel1",
+  "text": "General 1 Estrela"
+ },
+ {
+  "label": "INI:RankLevel2",
+  "text": "General 2 Estrelas"
+ },
+ {
+  "label": "INI:RankLevel3",
+  "text": "General 3 Estrelas"
+ },
+ {
+  "label": "INI:RankLevel4",
+  "text": "General 4 Estrelas"
+ },
+ {
+  "label": "INI:RankLevel5",
+  "text": "General 5 Estrelas"
+ },
+ {
+  "label": "INI:RankLevel6",
+  "text": "Sr. Casca-Grossa (Nível 6)"
+ },
+ {
+  "label": "INI:RankLevel7",
+  "text": "Dr. Morte (Nível 7)"
+ },
+ {
+  "label": "INI:RankLevel8",
+  "text": "Supremo Mata-Mata (Nível 8)"
+ },
+ {
+  "label": "TOOLTIP:MyInfo",
+  "text": "Clique para explorar as informações do seu perfil. Você pode ver sua patente, pontos, vitórias, derrotas, condecorações etc."
+ },
+ {
+  "label": "TOOLTIP:CustomMatch",
+  "text": "Clique para entrar no saguão de partidas personalizadas e conhecer e conversar com outros jogadores"
+ },
+ {
+  "label": "TOOLTIP:SelectAll",
+  "text": "Partida rápida em todos os mapas disponíveis"
+ },
+ {
+  "label": "TOOLTIP:SelectNone",
+  "text": "Partida rápida em nenhum mapa"
+ },
+ {
+  "label": "TOOLTIP:EnterPassword",
+  "text": "Digite uma senha"
+ },
+ {
+  "label": "TOOLTIP:Quickmatch",
+  "text": "Clique para iniciar a partida rápida. Ela tentará encontrar automaticamente um adversário próximo do seu nível e das suas preferências"
+ },
+ {
+  "label": "TOOLTIP:GameLobbys",
+  "text": "."
+ },
+ {
+  "label": "TOOLTIP:ClearButton",
+  "text": "Limpar a janela de chat"
+ },
+ {
+  "label": "TOOLTIP:Disconnectbutton",
+  "text": "Clique para se desconectar da partida atual. A desconexão será contabilizada no seu total"
+ },
+ {
+  "label": "TOOLTIP:playersonline",
+  "text": "Lista de jogadores no C&C Generals Zero Hour Online agora"
+ },
+ {
+  "label": "TOOLTIP:WidenSearch",
+  "text": "Clique para ampliar os critérios de busca de adversário. Quanto mais específicos os critérios, mais difícil pode ser encontrar um adversário"
+ },
+ {
+  "label": "TOOLTIP:Emote",
+  "text": "."
+ },
+ {
+  "label": "TOOLTIP:JoinGame",
+  "text": "Clique para entrar na partida selecionada"
+ },
+ {
+  "label": "TOOLTIP:BuddyButton",
+  "text": "Ordenar a lista de partidas por amigos"
+ },
+ {
+  "label": "TOOLTIP:matchingprogress",
+  "text": "Você pode acompanhar a partida rápida procurando o melhor adversário. Torça!"
+ },
+ {
+  "label": "TOOLTIP:CancelButton",
+  "text": "Clique para cancelar a operação atual"
+ },
+ {
+  "label": "TOOLTIP:resizewindows",
+  "text": "Clique e arraste na vertical para ajustar o tamanho da lista de partidas em relação à janela de chat"
+ },
+ {
+  "label": "TOOLTIP:CreateGame",
+  "text": "Criar uma nova partida. Ela aparecerá na lista de partidas para que outros jogadores entrem"
+ },
+ {
+  "label": "TOOLTIP:ChatWindow",
+  "text": "Digite na caixa de texto abaixo e pressione Enter para enviar mensagens a esta janela de chat. Outros jogadores podem ler e responder"
+ },
+ {
+  "label": "TOOLTIP:StopSearch",
+  "text": "Cancelar a busca atual"
+ },
+ {
+  "label": "TOOLTIP:StartSearch",
+  "text": "Iniciar busca"
+ },
+ {
+  "label": "TOOLTIP:UnknownGame",
+  "text": "Partida desconhecida"
+ },
+ {
+  "label": "TOOLTIP:textentrybox",
+  "text": "Digite nesta caixa de texto e pressione Enter para enviar mensagens à janela de chat acima"
+ },
+ {
+  "label": "TOOLTIP:PlayersInLobby",
+  "text": "Jogadores no seu saguão"
+ },
+ {
+  "label": "TOOLTIP:LocalPlayer",
+  "text": "Jogador atual %s"
+ },
+ {
+  "label": "TOOLTIP:BuddyPlayer",
+  "text": "Seu amigo %s"
+ },
+ {
+  "label": "TOOLTIP:ProfiledPlayer",
+  "text": "%s"
+ },
+ {
+  "label": "TOOLTIP:GenericPlayer",
+  "text": "%s"
+ },
+ {
+  "label": "TOOLTIP:IgnoredModifier",
+  "text": "(ignorado)"
+ },
+ {
+  "label": "TOOLTIP:PlayerInfo",
+  "text": "\n Região: %s \n %d vitórias/%d derrotas"
+ },
+ {
+  "label": "TOOLTIP:GameInfoGameName",
+  "text": "Nome da partida: %s"
+ },
+ {
+  "label": "TOOLTIP:GameInfoLadderName",
+  "text": "\n Ranking: %s"
+ },
+ {
+  "label": "TOOLTIP:LadderName",
+  "text": "Ranking: %s"
+ },
+ {
+  "label": "TOOLTIP:UnknownLadder",
+  "text": "\n Ranking desconhecido"
+ },
+ {
+  "label": "TOOLTIP:NoLadder",
+  "text": "\n Sem ranking"
+ },
+ {
+  "label": "TOOLTIP:InvalidGameVersionSingleLine",
+  "text": "A versão desta partida é diferente"
+ },
+ {
+  "label": "TOOLTIP:InvalidGameVersion",
+  "text": ""
+ },
+ {
+  "label": "TOOLTIP:GameInfoMap",
+  "text": "\n Mapa: %s \n Jogadores:"
+ },
+ {
+  "label": "TOOLTIP:GameInfoPlayer",
+  "text": "\n %s (%d/%d)"
+ },
+ {
+  "label": "TOOLTIP:FreeForAll",
+  "text": "Todos contra todos. Sem equipes/aliados"
+ },
+ {
+  "label": "TOOLTIP:ListOfPlayers",
+  "text": "Jogadores na partida atual"
+ },
+ {
+  "label": "TOOLTIP:MapName",
+  "text": "Mapa selecionado"
+ },
+ {
+  "label": "TOOLTIP:GameName",
+  "text": "Nome da partida"
+ },
+ {
+  "label": "TOOLTIP:StartGame",
+  "text": "Iniciar uma partida multijogador"
+ },
+ {
+  "label": "TOOLTIP:IgnoreButton",
+  "text": "Ignorar jogador"
+ },
+ {
+  "label": "TOOLTIP:closeButton",
+  "text": "."
+ },
+ {
+  "label": "TOOLTIP:GameOptions",
+  "text": "Opções ativadas na partida"
+ },
+ {
+  "label": "TOOLTIP:Crates",
+  "text": "Caixas de bônus"
+ },
+ {
+  "label": "TOOLTIP:SuperWeapons",
+  "text": "Superarmas. Canhão de Partículas, Míssil Nuclear etc."
+ },
+ {
+  "label": "DOZER:ConstructionComplete",
+  "text": "Construção concluída: %s"
+ },
+ {
+  "label": "DOZER:RepairComplete",
+  "text": "Reparo concluído"
+ },
+ {
+  "label": "UPGRADE:UpgradeComplete",
+  "text": "Melhoria concluída: %s"
+ },
+ {
+  "label": "GUI:CantBuildRestrictedTerrain",
+  "text": "O terreno impede que você construa aqui"
+ },
+ {
+  "label": "GUI:CantBuildNotFlatEnough",
+  "text": "O terreno não é plano o bastante para construir aqui"
+ },
+ {
+  "label": "GUI:CantBuildObjectsInTheWay",
+  "text": "Você não pode construir ali porque há obstáculos no caminho"
+ },
+ {
+  "label": "GUI:CantBuildNoClearPath",
+  "text": "A unidade não consegue chegar ao local da construção"
+ },
+ {
+  "label": "GUI:CantBuildShroud",
+  "text": "Você precisa explorar ali antes de construir"
+ },
+ {
+  "label": "GUI:CantBuildThere",
+  "text": "Você não pode construir aqui"
+ },
+ {
+  "label": "GUI:RallyPointObjectsInTheWay",
+  "text": "Não foi possível definir o ponto de encontro; há objeto(s) no caminho do destino"
+ },
+ {
+  "label": "GUI:RallyPointNoPath",
+  "text": "Não foi possível definir o ponto de encontro"
+ },
+ {
+  "label": "GUI:RallyPointSet",
+  "text": "Ponto de encontro de %s definido"
+ },
+ {
+  "label": "GUI:MouseType",
+  "text": "Tipo de mouse"
+ },
+ {
+  "label": "GUI:Com",
+  "text": "EAPIM"
+ },
+ {
+  "label": "GUI:CONTROL",
+  "text": "Controle"
+ },
+ {
+  "label": "GUI:INFORMATION",
+  "text": "Informação"
+ },
+ {
+  "label": "GUI:INTERFACE",
+  "text": "Interface"
+ },
+ {
+  "label": "GUI:SELECTION",
+  "text": "Seleção"
+ },
+ {
+  "label": "GUI:TAUNT",
+  "text": "Provocação"
+ },
+ {
+  "label": "GUI:MISC",
+  "text": "Diversos"
+ },
+ {
+  "label": "GUI:DEBUG",
+  "text": "Depuração"
+ },
+ {
+  "label": "GUI:Cheer",
+  "text": "Comemorar"
+ },
+ {
+  "label": "GUI:CheerDescription",
+  "text": "Ordena que suas forças comemorem seus grandes feitos"
+ },
+ {
+  "label": "GUI:Deploy",
+  "text": "Desdobrar objeto"
+ },
+ {
+  "label": "GUI:DeployDescription",
+  "text": "Desdobrar objeto(s) selecionado(s)"
+ },
+ {
+  "label": "GUI:Guard",
+  "text": "Guarda"
+ },
+ {
+  "label": "GUI:GuardDescription",
+  "text": "Coloca o(s) objeto(s) selecionado(s) no modo 'guardar área'"
+ },
+ {
+  "label": "GUI:CreateFormation",
+  "text": "Criar formação"
+ },
+ {
+  "label": "GUI:Follow",
+  "text": "Seguir"
+ },
+ {
+  "label": "GUI:FollowDescription",
+  "text": "Alterna o modo de seguir do(s) objeto(s) selecionado(s)"
+ },
+ {
+  "label": "GUI:ToggleControlBar",
+  "text": "Alternar barra de controle"
+ },
+ {
+  "label": "GUI:ToggleControlBarDescription",
+  "text": "Liga/desliga a barra de controle do jogo"
+ },
+ {
+  "label": "GUI:ToggleLetterbox",
+  "text": "Alternar modo letterbox"
+ },
+ {
+  "label": "GUI:ToggleLetterboxDescription",
+  "text": "Liga/desliga o modo letterbox"
+ }
+]
