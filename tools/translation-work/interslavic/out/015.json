@@ -65,7 +65,7 @@
  },
  {
   "label": "OBJECT:TechRepairPad",
-  "text": "Platforma Popravky -- Zauzmi, aby vozila sę mogli popravjati na tej zgradě"
+  "text": "Platforma Popravky -- Zauzmi, aby vozila se mogli popravjati na tej zgradě"
  },
  {
   "label": "OBJECT:AirF_Aurora",
@@ -313,7 +313,7 @@
  },
  {
   "label": "HELP:Frenzy-01",
-  "text": "SOVĚT: \n Upotrěbi Moć Generala Besnjenje, aby poveličiti \n ognjevu silu i bronu vaših jedinic"
+  "text": "SOVĚT: \n Upotrěbi Moč Generala Besnjenje, aby poveličiti \n ognjevu silu i bronu vaših jedinic"
  },
  {
   "label": "HELP:InternetCenter-01",
@@ -365,7 +365,7 @@
  },
  {
   "label": "HELP:Saboteur-02",
-  "text": "SOVĚT: \n Napravi Sabotera v vražji Komandny Centr, \n aby sbrosil časovnike ih Moćej Generala"
+  "text": "SOVĚT: \n Napravi Sabotera v vražji Komandny Centr, \n aby sbrosil časovnike ih Močej Generala"
  },
  {
   "label": "HELP:FakeStructures-01",
@@ -377,7 +377,7 @@
  },
  {
   "label": "HELP:GPSScramble-01",
-  "text": "SOVĚT: \n Upotrěbi Moć Generala GPS-Glušitelj, aby \n kamuflovati prijateljske jedinice"
+  "text": "SOVĚT: \n Upotrěbi Moč Generala GPS-Glušitelj, aby \n kamuflovati prijateljske jedinice"
  },
  {
   "label": "HELP:WorkerShoes-01",
@@ -393,7 +393,7 @@
  },
  {
   "label": "HELP:BoobyTrap-01",
-  "text": "SOVĚT: \n Minne Pastky detoniraju, kogda vrag pokuša sę \n zauzeti ili garnizonovati zaminovanu strukturu"
+  "text": "SOVĚT: \n Minne Pastky detoniraju, kogda vrag pokuša se \n zauzeti ili garnizonovati zaminovanu strukturu"
  },
  {
   "label": "HELP:KingRaptor-01",
@@ -417,11 +417,11 @@
  },
  {
   "label": "HELP:LaserTank-01",
-  "text": "SOVĚT: \n Postroj dodatne Elektrostancije, kogda upotrěbjaješ Lazerne Tanky \n Oni ne mogu sę dvigati ili strěljati, kogda je energija nizka"
+  "text": "SOVĚT: \n Postroj dodatne Elektrostancije, kogda upotrěbjaješ Lazerne Tanky \n Oni ne mogu se dvigati ili strěljati, kogda je energija nizka"
  },
  {
   "label": "HELP:LaserDefenseTurret-01",
-  "text": "SOVĚT: \n Turelje Lazernoj Obrany sut moćne, no trěbujut dodatnu energiju"
+  "text": "SOVĚT: \n Turelje Lazernoj Obrany sut močne, no trěbujut dodatnu energiju"
  },
  {
   "label": "HELP:AssaultTroopTransport-01",
@@ -517,7 +517,7 @@
  },
  {
   "label": "HELP:AdvancedTrap-01",
-  "text": "SOVĚT: \n Napredne Pastky sut moćnějše nego obyčne Podryvne Pastky"
+  "text": "SOVĚT: \n Napredne Pastky sut močnějše nego obyčne Podryvne Pastky"
  },
  {
   "label": "HELP:Demolitions-01",
@@ -725,7 +725,7 @@
  },
  {
   "label": "MAP:USAX02Truck10Arrived",
-  "text": "Kamion Snabděnja 10 pridošel \n Konvoj sę pripravja otiti k skladu"
+  "text": "Kamion Snabděnja 10 pridošel \n Konvoj se pripravja otiti k skladu"
  },
  {
   "label": "MAP:USAX02ConvoyToWarehouse",
@@ -785,7 +785,7 @@
  },
  {
   "label": "MAP:USA03xChemWarning02",
-  "text": "POZOR: \n Te obrany sut modifikovane, aby strěljali himikaliami \n Oni ubijut vsaku pěhotu, koja sę prěblizi"
+  "text": "POZOR: \n Te obrany sut modifikovane, aby strěljali himikaliami \n Oni ubijut vsaku pěhotu, koja se prěblizi"
  },
  {
   "label": "MAP:USA03xLoseReason01",

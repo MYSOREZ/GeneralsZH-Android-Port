@@ -309,7 +309,7 @@
  },
  {
   "label": "GUI:BioFeatures_Pos6",
-  "text": "Vse Stavby mogu byti pokryte Kamuflažnoju Sěťoju \n Kamuflovani Povstance \n Obrana začinaje s Kamuflažnoju Sěťoju \n Začinaje s Otimačom \n Otimač je vsegda nevidimy \n Dobyva GPS Scrambler ranje \n Može GPS Scramblovati čašćeje"
+  "text": "Vse Stavby mogu byti pokryte Kamuflažnoju Sěťoju \n Kamuflovani Povstance \n Obrana začinaje s Kamuflažnoju Sěťoju \n Začinaje s Otimačom \n Otimač je vsegda nevidimy \n Dobyva GPS Scrambler ranje \n Može GPS Scramblovati čaščeje"
  },
  {
   "label": "GUI:BioFeatures_Pos7",
@@ -321,7 +321,7 @@
  },
  {
   "label": "GUI:BioFeatures_Pos9",
-  "text": "Koristi najlăpše iz najlăpšego \n Vse geroji \n Vse superoružja \n Raznolike moći generalov \n Jedinice iz vsěh frakcij \n Napredna obrana \n"
+  "text": "Koristi najlăpše iz najlăpšego \n Vse geroji \n Vse superoružja \n Raznolike moči generalov \n Jedinice iz vsěh frakcij \n Napredna obrana \n"
  },
  {
   "label": "GUI:BioFeatures_Pos10",
@@ -445,7 +445,7 @@
  },
  {
   "label": "CONTROLBAR:Nuke_ToolTipChinaBuildPowerPlant",
-  "text": "Napredny Jaderny Reaktor. Može byti prěopterećen, aby davl věče energije \n \n Dostavlena Energija: 18"
+  "text": "Napredny Jaderny Reaktor. Može byti prěopterečen, aby davl věče energije \n \n Dostavlena Energija: 18"
  },
  {
   "label": "CONTROLBAR:Nuke_ToolTipChinaScienceCarpetBomb",
@@ -769,7 +769,7 @@
  },
  {
   "label": "MAP:PowerPlay",
-  "text": "Igra Moći"
+  "text": "Igra Moči"
  },
  {
   "label": "MAP:RedRock",

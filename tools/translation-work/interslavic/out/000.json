@@ -213,7 +213,7 @@
  },
  {
   "label": "GUI:Disconnect",
-  "text": "OTKLJUČITI SĘ"
+  "text": "OTKLJUČITI SE"
  },
  {
   "label": "GUI:No",
@@ -613,7 +613,7 @@
  },
  {
   "label": "GUI:GameName",
-  "text": "Imę Igry:"
+  "text": "Ime Igry:"
  },
  {
   "label": "GUI:NoFileSelected",
@@ -641,7 +641,7 @@
  },
  {
   "label": "GUI:ErrorCopyingFile",
-  "text": "SLUČILA SĘ POGREŠKA PRI KOPIROVANJU FAJLA"
+  "text": "SLUČILA SE POGREŠKA PRI KOPIROVANJU FAJLA"
  },
  {
   "label": "GUI:LoadReplay",
@@ -657,7 +657,7 @@
  },
  {
   "label": "GUI:ErrorDeletingFile",
-  "text": "SLUČILA SĘ POGREŠKA PRI ODSTRANJENJU FAJLA"
+  "text": "SLUČILA SE POGREŠKA PRI ODSTRANJENJU FAJLA"
  },
  {
   "label": "GUI:ShortDescription",
@@ -665,7 +665,7 @@
  },
  {
   "label": "GUI:LadderName",
-  "text": "Imę Rejtinga:"
+  "text": "Ime Rejtinga:"
  },
  {
   "label": "GUI:LadderPassword",
@@ -769,7 +769,7 @@
  },
  {
   "label": "GUI:WorldBuilderLoadFailed",
-  "text": "Stroitelj Světa ne mogl sę nagruziti"
+  "text": "Stroitelj Světa ne mogl se nagruziti"
  },
  {
   "label": "GUI:DontUseAccount",

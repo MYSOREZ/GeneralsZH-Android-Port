@@ -113,7 +113,7 @@
  },
  {
   "label": "MAP:CHI01Open",
-  "text": "Kitajska Vojenna Parada, Beijing \n Zmaj Sę Budi"
+  "text": "Kitajska Vojenna Parada, Beijing \n Zmaj Se Budi"
  },
  {
   "label": "MAP:CHI03Obj1Done",
@@ -145,15 +145,15 @@
  },
  {
   "label": "MAP:GLA07OpenAlt2",
-  "text": "Gdě-to blizu Lenger, Kazahstan \n Pokaži světu, čto sę slučaje izdajnikam"
+  "text": "Gdě-to blizu Lenger, Kazahstan \n Pokaži světu, čto se slučaje izdajnikam"
  },
  {
   "label": "MAP:GLA07OpenAlt",
-  "text": "Gdě-to blizu Lenger, Kazahstan \n Operacija: Trojansky Koń"
+  "text": "Gdě-to blizu Lenger, Kazahstan \n Operacija: Trojansky Konj"
  },
  {
   "label": "MAP:GLA03Open02",
-  "text": "Kitajski Zauzety Žambul, Kazahstan \n Operacija: Pravedny Ogeń"
+  "text": "Kitajski Zauzety Žambul, Kazahstan \n Operacija: Pravedny Ogenj"
  },
  {
   "label": "MAP:GLA03Directive",
@@ -329,15 +329,15 @@
  },
  {
   "label": "MAP:TrainingGenerals",
-  "text": "Kliknite lěvym gumbom na gumb generala v niže-desnom uglu vašego ekrana, aby izbrati novu sposobnost za vašego Generala. Kako ste promovirani, vaš General polučit dostup k novym sposobnostam. Někotore sposobnosti vam dozvoljat sozdati nove specijalne jedinice, dok druge dadut vam specijalne moći, koje sę upotrěbjajut iz vašego Komandnogo Centra"
+  "text": "Kliknite lěvym gumbom na gumb generala v niže-desnom uglu vašego ekrana, aby izbrati novu sposobnost za vašego Generala. Kako ste promovirani, vaš General polučit dostup k novym sposobnostam. Někotore sposobnosti vam dozvoljat sozdati nove specijalne jedinice, dok druge dadut vam specijalne moči, koje se upotrěbjajut iz vašego Komandnogo Centra"
  },
  {
   "label": "MAP:TrainingSalvage",
-  "text": "Vy sozdali kupu ostatkov. Kogda vozila GLA uništajut vražje vozila, ostatky ostaju za nimi. Vozila GLA mogu vzeti ostatky dvigajuč sę čerez nih. Ostatky mogu vrěditi novac ili opyt. Tehnikaly, Četvorna Děla i Marauderi mogu ulučšiti svoje oružja ostatkami"
+  "text": "Vy sozdali kupu ostatkov. Kogda vozila GLA uništajut vražje vozila, ostatky ostaju za nimi. Vozila GLA mogu vzeti ostatky dvigajuč se čerez nih. Ostatky mogu vrěditi novac ili opyt. Tehnikaly, Četvorna Děla i Marauderi mogu ulučšiti svoje oružja ostatkami"
  },
  {
   "label": "MAP:TrainingUpgrade",
-  "text": "Ulučšenja sę kupuju v različnyh strukturah vašej bazy. Oni ulučšajut vaše jedinice. Kliknite lěvym gumbom na Kasarnu, a potom lěvym gumbom na ikonu Zauzenja Zgrady, aby ulučšiti vaše Rangery, aby mogli zauzimati vražje zgrady"
+  "text": "Ulučšenja se kupuju v različnyh strukturah vašej bazy. Oni ulučšajut vaše jedinice. Kliknite lěvym gumbom na Kasarnu, a potom lěvym gumbom na ikonu Zauzenja Zgrady, aby ulučšiti vaše Rangery, aby mogli zauzimati vražje zgrady"
  },
  {
   "label": "GUI:SaveAndContinue",
@@ -361,7 +361,7 @@
  },
  {
   "label": "TOOLTIP:QuickMatchStatus",
-  "text": "Bystra Igra pokuša sę sopostaviti vas na osnově urovnja uměnja, specifikacij PC, itd"
+  "text": "Bystra Igra pokuša se sopostaviti vas na osnově urovnja uměnja, specifikacij PC, itd"
  },
  {
   "label": "TOOLTIP:OnlineIP",
@@ -569,7 +569,7 @@
  },
  {
   "label": "TOOLTIP:PlayerCreatedName",
-  "text": "Imę igrača, koji sozdal igru"
+  "text": "Ime igrača, koji sozdal igru"
  },
  {
   "label": "TOOLTIP:HTTPProxy",
@@ -613,7 +613,7 @@
  },
  {
   "label": "TOOLTIP:BattleHonorFairPlay",
-  "text": "Čast Poštene Igry \n Otključi sę od Onlajn igr měně nego 10% vrěmeni (s najměń 10 igranyh igr), aby zaslužiti tu medalju"
+  "text": "Čast Poštene Igry \n Otključi se od Onlajn igr měně nego 10% vrěmeni (s najměnj 10 igranyh igr), aby zaslužiti tu medalju"
  },
  {
   "label": "TOOLTIP:BattleHonorApocalypse",
@@ -621,7 +621,7 @@
  },
  {
   "label": "TOOLTIP:BattleHonorFairPlayDisabled",
-  "text": "Čast Poštene Igry \n Otključi sę od Onlajn igr měně nego 10% vrěmeni (s najměń 10 igranyh igr), aby zaslužiti tu medalju"
+  "text": "Čast Poštene Igry \n Otključi se od Onlajn igr měně nego 10% vrěmeni (s najměnj 10 igranyh igr), aby zaslužiti tu medalju"
  },
  {
   "label": "TOOLTIP:BattleHonorApocalypseDisabled",
@@ -645,7 +645,7 @@
  },
  {
   "label": "ERROR:D3DFailureMessage",
-  "text": "Prosim, uverte sę, že imate instaliran DirectX 8.1 ili vyši. Takože prověrite, že vaša video-karta dosěgaje minimalne trěbovanja"
+  "text": "Prosim, uverte se, že imate instaliran DirectX 8.1 ili vyši. Takože prověrite, že vaša video-karta dosěgaje minimalne trěbovanja"
  },
  {
   "label": "GUI:AudioHardware",
@@ -717,7 +717,7 @@
  },
  {
   "label": "GUI:ESRB_Bottom",
-  "text": "Igrovy Opyt Može \n Sę Izměniti Vo Vrěmja Onlajn Igry"
+  "text": "Igrovy Opyt Može \n Se Izměniti Vo Vrěmja Onlajn Igry"
  },
  {
   "label": "GUI:ReplaySaved",
@@ -741,7 +741,7 @@
  },
  {
   "label": "TOOLTIP:TooltipCannotBuildUnitBecauseMaximumNumber",
-  "text": "Jedinica već postoji"
+  "text": "Jedinica več postoji"
  },
  {
   "label": "GUI:SocketError",
@@ -761,7 +761,7 @@
  },
  {
   "label": "GUI:CreateFormationDescription",
-  "text": "Sozdaje formaciju izbranyh jedinic, koju oni uděržavajut, dok sę dvigaju"
+  "text": "Sozdaje formaciju izbranyh jedinic, koju oni uděržavajut, dok se dvigaju"
  },
  {
   "label": "GUI:ScatterDescription",

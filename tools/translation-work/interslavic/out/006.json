@@ -53,7 +53,7 @@
  },
  {
   "label": "UPGRADE:RangerFlashBangGrenade",
-  "text": "Oslěpjajuće granaty Rangera"
+  "text": "Oslěpjajuče granaty Rangera"
  },
  {
   "label": "UPGRADE:HoverTank",
@@ -121,11 +121,11 @@
  },
  {
   "label": "UPGRADE:StunBullets",
-  "text": "Omamljajuće kulje"
+  "text": "Omamljajuče kulje"
  },
  {
   "label": "UPGRADE:TranqDarts",
-  "text": "Usypljajuće strělky"
+  "text": "Usypljajuče strělky"
  },
  {
   "label": "UPGRADE:APBullets",
@@ -285,7 +285,7 @@
  },
  {
   "label": "OBJECT:TechHospital",
-  "text": "Bolnica -- Zauzmi, aby vsa pěhota avtomatski sę lěčila"
+  "text": "Bolnica -- Zauzmi, aby vsa pěhota avtomatski se lěčila"
  },
  {
   "label": "OBJECT:ApartmentComplex",
@@ -649,7 +649,7 @@
  },
  {
   "label": "OBJECT:FlashBangGrenade",
-  "text": "Oslěpjajuća granata"
+  "text": "Oslěpjajuča granata"
  },
  {
   "label": "OBJECT:TankShell",

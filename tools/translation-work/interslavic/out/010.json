@@ -5,7 +5,7 @@
  },
  {
   "label": "GUI:GSFailedToHost",
-  "text": "Ne mogl sę hostovati igru"
+  "text": "Ne mogl se hostovati igru"
  },
  {
   "label": "Buddy:SelectBuddyToChat",
@@ -13,7 +13,7 @@
  },
  {
   "label": "GUI:CannotConnectToServservTitle",
-  "text": "NEVOZMOŽNO SOJEDINITI SĘ"
+  "text": "NEVOZMOŽNO SOJEDINITI SE"
  },
  {
   "label": "GUI:CannotConnectToServserv",
@@ -93,7 +93,7 @@
  },
  {
   "label": "TOOLTIP:AlreadyUpgradedDefault",
-  "text": "To ulučšenje je već kupjeno"
+  "text": "To ulučšenje je več kupjeno"
  },
  {
   "label": "TOOLTIP:HasConflictingUpgradeDefault",
@@ -109,7 +109,7 @@
  },
  {
   "label": "TOOLTIP:CloseExpScreen",
-  "text": "Vratiti sę v Igru"
+  "text": "Vratiti se v Igru"
  },
  {
   "label": "GUI:GPNoCommunicator",
@@ -189,7 +189,7 @@
  },
  {
   "label": "CONTROLBAR:GeneralsExperienceMenuDescription",
-  "text": "Pokaži menu opyta, gdě možete potrošiti točky opyta zarabjene v boju na različne Moći Generala"
+  "text": "Pokaži menu opyta, gdě možete potrošiti točky opyta zarabjene v boju na različne Moči Generala"
  },
  {
   "label": "CONTROLBAR:UpDown",
@@ -217,7 +217,7 @@
  },
  {
   "label": "GUI:GSDisconReason16",
-  "text": "Profil s tym nadimkom već postoji"
+  "text": "Profil s tym nadimkom več postoji"
  },
  {
   "label": "GUI:GSDisconReason17",
@@ -225,7 +225,7 @@
  },
  {
   "label": "GUI:GSDisconReason18",
-  "text": "Profil s tym nadimkom već postoji"
+  "text": "Profil s tym nadimkom več postoji"
  },
  {
   "label": "GUI:GSDisconReason19",
@@ -365,7 +365,7 @@
  },
  {
   "label": "GUI:SandboxWarning",
-  "text": "Kliknuvši Start znova, načne sę peskovnik-igra"
+  "text": "Kliknuvši Start znova, načne se peskovnik-igra"
  },
  {
   "label": "GUI:CantFindMap",
@@ -501,7 +501,7 @@
  },
  {
   "label": "LOAD:USA06_2",
-  "text": "- GLA sę ne može věriti"
+  "text": "- GLA se ne može věriti"
  },
  {
   "label": "LOAD:USA06_3",
@@ -509,11 +509,11 @@
  },
  {
   "label": "LOAD:USA07_1",
-  "text": "- Otstupny kitajsky general sę pridružil GLA"
+  "text": "- Otstupny kitajsky general se pridružil GLA"
  },
  {
   "label": "LOAD:USA07_2",
-  "text": "- Vrag sę oslanja na Tunelne Sěti"
+  "text": "- Vrag se oslanja na Tunelne Sěti"
  },
  {
   "label": "LOAD:USA07_3",
@@ -577,7 +577,7 @@
  },
  {
   "label": "LOAD:China04_2",
-  "text": "- Najdi fabriku s pomoćju agentky Črnogo Lotosa"
+  "text": "- Najdi fabriku s pomočju agentky Črnogo Lotosa"
  },
  {
   "label": "LOAD:China04_3",
@@ -601,7 +601,7 @@
  },
  {
   "label": "LOAD:China06_2",
-  "text": "- GLA sę sobira v Biškeku, Aldastan"
+  "text": "- GLA se sobira v Biškeku, Aldastan"
  },
  {
   "label": "LOAD:China06_3",
@@ -673,7 +673,7 @@
  },
  {
   "label": "LOAD:GLA05_3",
-  "text": "- Uništi ih 'nadmoćno' vozdušno vojsko"
+  "text": "- Uništi ih 'nadmočno' vozdušno vojsko"
  },
  {
   "label": "LOAD:GLA06_1",
@@ -689,7 +689,7 @@
  },
  {
   "label": "LOAD:GLA07_1",
-  "text": "- Dezerteri GLA sę pridružili Kitaju"
+  "text": "- Dezerteri GLA se pridružili Kitaju"
  },
  {
   "label": "LOAD:GLA07_2",

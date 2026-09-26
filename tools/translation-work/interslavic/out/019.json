@@ -65,7 +65,7 @@
  },
  {
   "label": "DIALOGEVENT:EvaGLA_ReinforcementsHaveArrivedSubtitle",
-  "text": "*Věče voinov pridošlo nam na pomoć"
+  "text": "*Věče voinov pridošlo nam na pomoč"
  },
  {
   "label": "DIALOGEVENT:EvaGLA_ScudStormDetectedAllySubtitle",
@@ -393,11 +393,11 @@
  },
  {
   "label": "DIALOGEVENT:MisCHI01xBrf02Subtitle",
-  "text": "*Dažde teper preživěli GLA sę znova stroje"
+  "text": "*Dažde teper preživěli GLA se znova stroje"
  },
  {
   "label": "DIALOGEVENT:MisCHI01xBrf03Subtitle",
-  "text": "*Aby konečno uništili GLA, morame poslati naše sily i izkoreniti ih iz vsakogo tmnogo ugla, gdě sę skryvaju"
+  "text": "*Aby konečno uništili GLA, morame poslati naše sily i izkoreniti ih iz vsakogo tmnogo ugla, gdě se skryvaju"
  },
  {
   "label": "DIALOGEVENT:MisCHI01xBrf04Subtitle",
@@ -405,11 +405,11 @@
  },
  {
   "label": "DIALOGEVENT:MisCHI01xBrf05Subtitle",
-  "text": "*Podslušny Post sam po sebě je nevooružen, no jego putniky mogu strěljati na vragov, koji sę prěblizijut. Naidete, že jego dolgy doseg pogleda i nevidimost veoma poveličajut svěst o poljě boja"
+  "text": "*Podslušny Post sam po sebě je nevooružen, no jego putniky mogu strěljati na vragov, koji se prěblizijut. Naidete, že jego dolgy doseg pogleda i nevidimost veoma poveličajut svěst o poljě boja"
  },
  {
   "label": "DIALOGEVENT:MisCHI01xChat01Subtitle",
-  "text": "*Nijedna GLA ne prokrade sę mimo našego garnizona"
+  "text": "*Nijedna GLA ne prokrade se mimo našego garnizona"
  },
  {
   "label": "DIALOGEVENT:MisCHI01xChat02Subtitle",
@@ -425,11 +425,11 @@
  },
  {
   "label": "DIALOGEVENT:MisCHI01xChat05Subtitle",
-  "text": "*GLA sę tam znova stroje… i sut gotovi napasti"
+  "text": "*GLA se tam znova stroje… i sut gotovi napasti"
  },
  {
   "label": "DIALOGEVENT:MisCHI01xChat06Subtitle",
-  "text": "*My pobědime tot deń… vsi naprěd"
+  "text": "*My pobědime tot denj… vsi naprěd"
  },
  {
   "label": "DIALOGEVENT:MisCHI01xCin01aSubtitle",
@@ -437,7 +437,7 @@
  },
  {
   "label": "DIALOGEVENT:MisCHI01xCin01bSubtitle",
-  "text": "*Ja ne razumiem, začto Sjedinjene Državy dozvolili, aby sę to slučilo"
+  "text": "*Ja ne razumiem, začto Sjedinjene Državy dozvolili, aby se to slučilo"
  },
  {
   "label": "DIALOGEVENT:MisCHI01xCin01cSubtitle",
@@ -457,11 +457,11 @@
  },
  {
   "label": "DIALOGEVENT:MisCHI01xCin04Subtitle",
-  "text": "*Oni mysljat, že pobědili tot deń, no slaviju prěrano"
+  "text": "*Oni mysljat, že pobědili tot denj, no slaviju prěrano"
  },
  {
   "label": "DIALOGEVENT:MisCHI01xCin05Subtitle",
-  "text": "*Je krasno, kogda sę upotrěbjaje za pravedne pričiny"
+  "text": "*Je krasno, kogda se upotrěbjaje za pravedne pričiny"
  },
  {
   "label": "DIALOGEVENT:MisCHI01xCin06Subtitle",
@@ -517,11 +517,11 @@
  },
  {
   "label": "DIALOGEVENT:MisCHI02xBrf01Subtitle",
-  "text": "*Generale, GLA pokuša sę ukrasti jaderne boglavy sohranjene v tej zgradě"
+  "text": "*Generale, GLA pokuša se ukrasti jaderne boglavy sohranjene v tej zgradě"
  },
  {
   "label": "DIALOGEVENT:MisCHI02xBrf01aSubtitle",
-  "text": "*Generale, GLA pokuša sę uništiti našu glavnu jadernu elektrostanciju"
+  "text": "*Generale, GLA pokuša se uništiti našu glavnu jadernu elektrostanciju"
  },
  {
   "label": "DIALOGEVENT:MisCHI02xBrf02Subtitle",
@@ -529,11 +529,11 @@
  },
  {
   "label": "DIALOGEVENT:MisCHI02xBrf03Subtitle",
-  "text": "*Morate zaustaviti GLA i uveriti sę, že vsaky naš Bunker je zaščiščen"
+  "text": "*Morate zaustaviti GLA i uveriti se, že vsaky naš Bunker je zaščiščen"
  },
  {
   "label": "DIALOGEVENT:MisCHI02xBrf03aSubtitle",
-  "text": "*Morate zaustaviti GLA, aby uveriti sę, že zgrada ne bude uništena"
+  "text": "*Morate zaustaviti GLA, aby uveriti se, že zgrada ne bude uništena"
  },
  {
   "label": "DIALOGEVENT:MisCHI02xBrf04Subtitle",
@@ -541,11 +541,11 @@
  },
  {
   "label": "DIALOGEVENT:MisCHI02xBrf05Subtitle",
-  "text": "*Naša Jaderna Děla sut teper ulučšena, aby strěljala neutronnymi snarjadami. Ti novi snarjady efektivno uništaju soldaty i vodičev vozil. Kogda sę radiacija razčisti, jeden iz naših pěhotincev može tada zauzeti preživěla vozila"
+  "text": "*Naša Jaderna Děla sut teper ulučšena, aby strěljala neutronnymi snarjadami. Ti novi snarjady efektivno uništaju soldaty i vodičev vozil. Kogda se radiacija razčisti, jeden iz naših pěhotincev može tada zauzeti preživěla vozila"
  },
  {
   "label": "DIALOGEVENT:MisCHI02xBrf06Subtitle",
-  "text": "*Naše zgrady mogu sę teper ulučšiti na Neutronne Miny. Dok sut ešče efektivne protiv pěhoty, oni takože vrěmenno onesposobjajut vražje vozila"
+  "text": "*Naše zgrady mogu se teper ulučšiti na Neutronne Miny. Dok sut ešče efektivne protiv pěhoty, oni takože vrěmenno onesposobjajut vražje vozila"
  },
  {
   "label": "DIALOGEVENT:MisCHI02xBrf07aSubtitle",
@@ -573,7 +573,7 @@
  },
  {
   "label": "DIALOGEVENT:MisCHI02xChat03Subtitle",
-  "text": "*Oni sut za nami… napravi ves ogeń na jug!"
+  "text": "*Oni sut za nami… napravi ves ogenj na jug!"
  },
  {
   "label": "DIALOGEVENT:MisCHI02xChat04Subtitle",
@@ -585,7 +585,7 @@
  },
  {
   "label": "DIALOGEVENT:MisCHI02xChat06Subtitle",
-  "text": "*Pazi na te RPG Boecev! Trěba nam pomoć!"
+  "text": "*Pazi na te RPG Boecev! Trěba nam pomoč!"
  },
  {
   "label": "DIALOGEVENT:MisCHI02xChat07Subtitle",
@@ -605,7 +605,7 @@
  },
  {
   "label": "DIALOGEVENT:MisCHI02xChat11Subtitle",
-  "text": "*Zaustavi togo Povstanca, on pokuša sę zauzeti naš bunker!"
+  "text": "*Zaustavi togo Povstanca, on pokuša se zauzeti naš bunker!"
  },
  {
   "label": "DIALOGEVENT:MisCHI02xChat12Subtitle",
@@ -629,11 +629,11 @@
  },
  {
   "label": "DIALOGEVENT:MisCHI02xChat16Subtitle",
-  "text": "*Teper my im pokažemo, kako sę napada baza!"
+  "text": "*Teper my im pokažemo, kako se napada baza!"
  },
  {
   "label": "DIALOGEVENT:MisCHI02xChat17Subtitle",
-  "text": "*Podkrěpljenja! Radujemo sę, že vas vidime!"
+  "text": "*Podkrěpljenja! Radujemo se, že vas vidime!"
  },
  {
   "label": "DIALOGEVENT:MisCHI02xChat18Subtitle",
@@ -645,11 +645,11 @@
  },
  {
   "label": "DIALOGEVENT:MisCHI02xCin01aSubtitle",
-  "text": "*Ne čujem sę bezbědno, branječ tu jadernu elektrostanciju"
+  "text": "*Ne čujem se bezbědno, branječ tu jadernu elektrostanciju"
  },
  {
   "label": "DIALOGEVENT:MisCHI02xCin01bSubtitle",
-  "text": "*Da. Volil bych, aby sem sę pridružil vozdušnym silam vměsto togo"
+  "text": "*Da. Volil bych, aby sem se pridružil vozdušnym silam vměsto togo"
  },
  {
   "label": "DIALOGEVENT:MisCHI02xCin01dSubtitle",
@@ -697,7 +697,7 @@
  },
  {
   "label": "DIALOGEVENT:MisCHI02xCin08Subtitle",
-  "text": "*My sme uděržali… ostatne sily, javte sę"
+  "text": "*My sme uděržali… ostatne sily, javte se"
  },
  {
   "label": "DIALOGEVENT:MisCHI02xCin09Subtitle",
@@ -721,7 +721,7 @@
  },
  {
   "label": "DIALOGEVENT:MisCHI02xXO03Subtitle",
-  "text": "*GLA pokuša sę zauzeti jeden iz naših bunkerov"
+  "text": "*GLA pokuša se zauzeti jeden iz naših bunkerov"
  },
  {
   "label": "DIALOGEVENT:MisCHI02xXO04Subtitle",
@@ -741,15 +741,15 @@
  },
  {
   "label": "DIALOGEVENT:MisCHI02xXO06Subtitle",
-  "text": "*Pozor… sily GLA sę dvigaju k bunkeram"
+  "text": "*Pozor… sily GLA se dvigaju k bunkeram"
  },
  {
   "label": "DIALOGEVENT:MisCHI02xXO06aSubtitle",
-  "text": "*Pozor… sily GLA sę dvigaju k elektrostanciji!"
+  "text": "*Pozor… sily GLA se dvigaju k elektrostanciji!"
  },
  {
   "label": "DIALOGEVENT:MisCHI02xXO07Subtitle",
-  "text": "*Generale, ja sem kontaktoval jeden iz naših špionskih postov. Oni sut pod napadom GLA. Ako ih spasime, ja sę mogu sojediniti s ih sistemom, i budemo moči pozvati bombardirovniky za kovrovo bombardovanje"
+  "text": "*Generale, ja sem kontaktoval jeden iz naših špionskih postov. Oni sut pod napadom GLA. Ako ih spasime, ja se mogu sojediniti s ih sistemom, i budemo moči pozvati bombardirovniky za kovrovo bombardovanje"
  },
  {
   "label": "DIALOGEVENT:MisCHI02xXO08Subtitle",
@@ -789,7 +789,7 @@
  },
  {
   "label": "DIALOGEVENT:MisCHI03xBrf09Subtitle",
-  "text": "*Ako naše Meddržavno Měnjenje postane dosta visoko, ljudi grada sę mogu pridružiti našej sudbině"
+  "text": "*Ako naše Meddržavno Měnjenje postane dosta visoko, ljudi grada se mogu pridružiti našej sudbině"
  },
  {
   "label": "DIALOGEVENT:MisCHI03xBrf10Subtitle",

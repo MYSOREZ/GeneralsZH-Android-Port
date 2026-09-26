@@ -9,11 +9,11 @@
  },
  {
   "label": "WOL:ChatErrorNickInUse",
-  "text": "Tot nadimok je već v upotrěbě"
+  "text": "Tot nadimok je več v upotrěbě"
  },
  {
   "label": "WOL:ChatErrorBadPass",
-  "text": "Nepravilny parol za to imę"
+  "text": "Nepravilny parol za to ime"
  },
  {
   "label": "WOL:ChatErrorNoneSuch",
@@ -29,7 +29,7 @@
  },
  {
   "label": "WOL:ChatErrorConError",
-  "text": "Slučila sę fatalna sětova pogreška"
+  "text": "Slučila se fatalna sětova pogreška"
  },
  {
   "label": "WOL:ChatErrorTimeout",
@@ -53,7 +53,7 @@
  },
  {
   "label": "WOL:ChatErrorChannelExists",
-  "text": "Kanal već postoji"
+  "text": "Kanal več postoji"
  },
  {
   "label": "WOL:ChatErrorChannelDoesNotExist",
@@ -81,7 +81,7 @@
  },
  {
   "label": "WOL:ChatErrorSerialDup",
-  "text": "Vaš serijny nomer je već v upotrěbě"
+  "text": "Vaš serijny nomer je več v upotrěbě"
  },
  {
   "label": "WOL:ChatErrorSerialUnknown",
@@ -105,7 +105,7 @@
  },
  {
   "label": "WOL:NetUtilErrorCantVerify",
-  "text": "Ne može sę potvrditi"
+  "text": "Ne može se potvrditi"
  },
  {
   "label": "WOL:NetUtilFinished",
@@ -117,7 +117,7 @@
  },
  {
   "label": "WOL:CouldNotCreateChannel",
-  "text": "Ne mogl sę sozdati kanal"
+  "text": "Ne mogl se sozdati kanal"
  },
  {
   "label": "WOL:ErrorTitle",
@@ -177,7 +177,7 @@
  },
  {
   "label": "WOL:Connecting",
-  "text": "Sojedinjuje sę"
+  "text": "Sojedinjuje se"
  },
  {
   "label": "WOL:JoinedChannel",
@@ -297,7 +297,7 @@
  },
  {
   "label": "WOL:BuddyHiding",
-  "text": "%ls sę skryva"
+  "text": "%ls se skryva"
  },
  {
   "label": "Chat:Everyone",
@@ -357,7 +357,7 @@
  },
  {
   "label": "LAN:ErrorDuplicateName",
-  "text": "Duplikatno imę već v igrě"
+  "text": "Duplikatno ime več v igrě"
  },
  {
   "label": "LAN:ErrorCRCMismatch",
@@ -365,11 +365,11 @@
  },
  {
   "label": "LAN:ErrorGameStarted",
-  "text": "Izvinite, ta igra već načela"
+  "text": "Izvinite, ta igra več načela"
  },
  {
   "label": "LAN:ErrorGameExists",
-  "text": "Igra s tym istym imenem već postoji"
+  "text": "Igra s tym istym imenem več postoji"
  },
  {
   "label": "LAN:ErrorGameGone",
@@ -473,7 +473,7 @@
  },
  {
   "label": "TOOLTIP:CustomMatch",
-  "text": "Kliknite, aby vstupiti v Lobi Vlastnyh Igr, aby sę vstrětiti i čatovati s drugimi igračami"
+  "text": "Kliknite, aby vstupiti v Lobi Vlastnyh Igr, aby se vstrětiti i čatovati s drugimi igračami"
  },
  {
   "label": "TOOLTIP:SelectAll",
@@ -489,7 +489,7 @@
  },
  {
   "label": "TOOLTIP:Quickmatch",
-  "text": "Kliknite, aby načeti Bystru Igru. Bystra Igra pokuša sę avtomatski sopostaviti vas s najbližšim urovnjom uměnja i preferencijami"
+  "text": "Kliknite, aby načeti Bystru Igru. Bystra Igra pokuša se avtomatski sopostaviti vas s najbližšim urovnjom uměnja i preferencijami"
  },
  {
   "label": "TOOLTIP:GameLobbys",
@@ -501,7 +501,7 @@
  },
  {
   "label": "TOOLTIP:Disconnectbutton",
-  "text": "Kliknite, aby sę otključiti ot vašej tekučej igry. Otključenje bude zaračunano v vašu obšču statistiku"
+  "text": "Kliknite, aby se otključiti ot vašej tekučej igry. Otključenje bude zaračunano v vašu obšču statistiku"
  },
  {
   "label": "TOOLTIP:playersonline",
@@ -589,7 +589,7 @@
  },
  {
   "label": "TOOLTIP:GameInfoGameName",
-  "text": "Imę Igry: %s"
+  "text": "Ime Igry: %s"
  },
  {
   "label": "TOOLTIP:GameInfoLadderName",
@@ -637,7 +637,7 @@
  },
  {
   "label": "TOOLTIP:GameName",
-  "text": "Imę igry"
+  "text": "Ime igry"
  },
  {
   "label": "TOOLTIP:StartGame",

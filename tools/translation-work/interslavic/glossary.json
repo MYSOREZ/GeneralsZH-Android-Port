@@ -25,7 +25,7 @@
  },
  {
   "label": "SCIENCE:GeneralName",
-  "text": "<Vpiši imę>"
+  "text": "<Vpiši ime>"
  },
  {
   "label": "SCIENCE:SkillPoints",
@@ -33,11 +33,11 @@
  },
  {
   "label": "SCIENCE:Rank",
-  "text": "Uroveń %d"
+  "text": "Urovenj %d"
  },
  {
   "label": "SCIENCE:TempName",
-  "text": "Daj imę mojej nauke"
+  "text": "Daj ime mojej nauke"
  },
  {
   "label": "SCIENCE:USAPaladin",
@@ -213,7 +213,7 @@
  },
  {
   "label": "UPGRADE:RangerFlashBangGrenade",
-  "text": "Oslěpjajuće granaty Rangera"
+  "text": "Oslěpjajuče granaty Rangera"
  },
  {
   "label": "UPGRADE:HoverTank",
@@ -281,11 +281,11 @@
  },
  {
   "label": "UPGRADE:StunBullets",
-  "text": "Omamljajuće kulje"
+  "text": "Omamljajuče kulje"
  },
  {
   "label": "UPGRADE:TranqDarts",
-  "text": "Usypljajuće strělky"
+  "text": "Usypljajuče strělky"
  },
  {
   "label": "UPGRADE:APBullets",
@@ -761,7 +761,7 @@
  },
  {
   "label": "OBJECT:FlashBangGrenade",
-  "text": "Oslěpjajuća granata"
+  "text": "Oslěpjajuča granata"
  },
  {
   "label": "OBJECT:TankShell",

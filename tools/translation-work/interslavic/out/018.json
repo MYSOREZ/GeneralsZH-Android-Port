@@ -137,7 +137,7 @@
  },
  {
   "label": "TOOLTIP:BioStrategyLong_China",
-  "text": "Kitaj upotrěbjaje ogeń i prěsilny broj, aby pobědil svoje vragy"
+  "text": "Kitaj upotrěbjaje ogenj i prěsilny broj, aby pobědil svoje vragy"
  },
  {
   "label": "TOOLTIP:BioStrategyLong_USA",
@@ -177,7 +177,7 @@
  },
  {
   "label": "CREDITS:AssistantMultiplayerTestLead",
-  "text": "Pomoćny Vodja Testa Multiigry"
+  "text": "Pomočny Vodja Testa Multiigry"
  },
  {
   "label": "CREDITS:TestAnalyst",
@@ -185,7 +185,7 @@
  },
  {
   "label": "CREDITS:AssistantProducer",
-  "text": "Pomoćny Producent"
+  "text": "Pomočny Producent"
  },
  {
   "label": "CREDITS:CameoPhotoshootStudio",
@@ -213,7 +213,7 @@
  },
  {
   "label": "CREDITS:LocalizationAssistance",
-  "text": "Pomoć pri Lokalizaciji"
+  "text": "Pomoč pri Lokalizaciji"
  },
  {
   "label": "ACADEMY:Eva",
@@ -221,11 +221,11 @@
  },
  {
   "label": "ACADEMY:BuildAllStructures",
-  "text": "Kogda ste na poljě boja, važno je upotrěbiti vse instrumenty dostupne vam, generale. Uverte sę, že postrojite vse strukture. Morate uděržavati silnu vojennu silu"
+  "text": "Kogda ste na poljě boja, važno je upotrěbiti vse instrumenty dostupne vam, generale. Uverte se, že postrojite vse strukture. Morate uděržavati silnu vojennu silu"
  },
  {
   "label": "ACADEMY:BuildSupplyCenterEarlier",
-  "text": "Generale, jedna iz najvažnějših funkcij silnogo vodji je uverjenje sę, že soldaty imajut dosta snabděnja. Sovětujemo vam postroiti Centr Snabděnja ili Tajny Sklad na počatku vsakoj misije. Snabděnje vam prinosi novac, a novac vam prinosi pobědu"
+  "text": "Generale, jedna iz najvažnějših funkcij silnogo vodji je uverjenje se, že soldaty imajut dosta snabděnja. Sovětujemo vam postroiti Centr Snabděnja ili Tajny Sklad na počatku vsakoj misije. Snabděnje vam prinosi novac, a novac vam prinosi pobědu"
  },
  {
   "label": "ACADEMY:TryBuildingRadar",
@@ -245,7 +245,7 @@
  },
  {
   "label": "ACADEMY:TryUsingSuperweapons",
-  "text": "Kaka polza od sobiranja Točok Generala, ako ih ne upotrěbjajete? Ako ste kupili Moći Generala upotrěbivši vaše točky, ikona sę pojavi na desnoj straně ekrana. Prosto ju pritisnite i gledajte, kako počinaje ognjena zabava. Čim věče točok potrošite, tym moćnějša je moć"
+  "text": "Kaka polza od sobiranja Točok Generala, ako ih ne upotrěbjajete? Ako ste kupili Moči Generala upotrěbivši vaše točky, ikona se pojavi na desnoj straně ekrana. Prosto ju pritisnite i gledajte, kako počinaje ognjena zabava. Čim věče točok potrošite, tym močnějša je moč"
  },
  {
   "label": "ACADEMY:TryGarrisoningAStructure",
@@ -253,23 +253,23 @@
  },
  {
   "label": "ACADEMY:IdleBuildingUnits",
-  "text": "Generale, sozdanje i vodstvo velikoj armije morat byti vaš najvyši cělj. Uverte sę, že stroite vaše bojeve jedinice, klikajuč na Kasarnu, Vojennu Fabriku, Aerodrom, itd. a potom klikajuč na odgovarajuču sliku v nižnjem Panelu Komandy. To bude dobro potrošeny novac i pomože vam dostignuti pobědu"
+  "text": "Generale, sozdanje i vodstvo velikoj armije morat byti vaš najvyši cělj. Uverte se, že stroite vaše bojeve jedinice, klikajuč na Kasarnu, Vojennu Fabriku, Aerodrom, itd. a potom klikajuč na odgovarajuču sliku v nižnjem Panelu Komandy. To bude dobro potrošeny novac i pomože vam dostignuti pobědu"
  },
  {
   "label": "ACADEMY:TryDragSelectingUnits",
-  "text": "Upravjanje vašeju armijeju je jedna iz najtežših věšči, koje General morat naučiti. Hoč možete kliknuti na vsaku jedinicu odděljno, obyčno je bystrěje \"arkanovati\" grupu jedinic. Prosto kliknite i vlecite okvir okolo jedinic. Oni teper budut pod vašeju kontroloju. Ako kliknite na drugu oblast, jedinice sę dvignu tam"
+  "text": "Upravjanje vašeju armijeju je jedna iz najtežših věšči, koje General morat naučiti. Hoč možete kliknuti na vsaku jedinicu odděljno, obyčno je bystrěje \"arkanovati\" grupu jedinic. Prosto kliknite i vlecite okvir okolo jedinic. Oni teper budut pod vašeju kontroloju. Ako kliknite na drugu oblast, jedinice se dvignu tam"
  },
  {
   "label": "ACADEMY:ResearchUpgrades",
-  "text": "Veliky General može postroiti mnogo tankov, no ešče věči General može postroiti mnogo lěpših tankov. Počti vsaka jedinica ima někaku formu ulučšenja. Často je najlěpše potrošiti vaš novac na poboljšanje togo, čto već imate"
+  "text": "Veliky General može postroiti mnogo tankov, no ešče věči General može postroiti mnogo lěpših tankov. Počti vsaka jedinica ima někaku formu ulučšenja. Často je najlěpše potrošiti vaš novac na poboljšanje togo, čto več imate"
  },
  {
   "label": "ACADEMY:RanOutOfPower",
-  "text": "Dok GLA ne trěbuje energiju, Kitaj i USA ju jedjat kako popkorn. Aby uděržati bazu silno rabotajuču, General morat potrošiti novac na dosta energije, aby snabděl vojennu mašinu. Uverte sę, že postrojite Reaktor Hladnoj Fuzije ili Jaderny Reaktor za maksimalny izhod. Nizka energija može značiti nizky procent uspěha"
+  "text": "Dok GLA ne trěbuje energiju, Kitaj i USA ju jedjat kako popkorn. Aby uděržati bazu silno rabotajuču, General morat potrošiti novac na dosta energije, aby snabděl vojennu mašinu. Uverte se, že postrojite Reaktor Hladnoj Fuzije ili Jaderny Reaktor za maksimalny izhod. Nizka energija može značiti nizky procent uspěha"
  },
  {
   "label": "ACADEMY:BuildMoreGatherers",
-  "text": "Generale, uverte sę, že stroite dosta Rabotnikov, Kamionov Snabděnja ili Chinookov, aby vaš dohod prodolžil tekti. Možete napraviti dodatne sobirateli, klikajuč na sliku sobiratelja resursov v Centru Snabděnja ili Tajnom Skladu. Ne stydite sę maksimizovati vaš potencijal resursov"
+  "text": "Generale, uverte se, že stroite dosta Rabotnikov, Kamionov Snabděnja ili Chinookov, aby vaš dohod prodolžil tekti. Možete napraviti dodatne sobirateli, klikajuč na sliku sobiratelja resursov v Centru Snabděnja ili Tajnom Skladu. Ne stydite se maksimizovati vaš potencijal resursov"
  },
  {
   "label": "ACADEMY:BuildAHero",
@@ -281,15 +281,15 @@
  },
  {
   "label": "ACADEMY:UseTunnelNetwork",
-  "text": "Kogda dojde na GLA, prokradanje po poljě boja je ih vizitna kartočka. Tunelne Sěti dajut sposobnosti obrany, no takože dozvoljajut igraču bystro sę dvigati. Prosto postrojite několiko Tunelnyh Sětej i pošlite vaše jedinice vnutri. Kliknite na strukturu i možete ih izgnati iz bilo kojej drugoj Tunelnoj Sěti bilo kde na kartě. Oni sut ključ celkovoj strategije GLA"
+  "text": "Kogda dojde na GLA, prokradanje po poljě boja je ih vizitna kartočka. Tunelne Sěti dajut sposobnosti obrany, no takože dozvoljajut igraču bystro se dvigati. Prosto postrojite několiko Tunelnyh Sětej i pošlite vaše jedinice vnutri. Kliknite na strukturu i možete ih izgnati iz bilo kojej drugoj Tunelnoj Sěti bilo kde na kartě. Oni sut ključ celkovoj strategije GLA"
  },
  {
   "label": "ACADEMY:UseControlGroups",
-  "text": "Upravjanje velikoju armijeju može byti někogda malo nesposlušno. Jeden sposob lahko upravjati mnogimi jedinicami je sozdanje \"kontrolnoj grupy\". Prosto izberite grupu jedinic v pytanju i pritisnite \"Ctrl\" i broj v tom istom momentě. Teper, vsaky put, kogda pritisnete tot broj, ta grupa jedinic bude izbrana. Pritisnite broj dvakrat bystro, i pogled kamery sę centrira nad grupoju"
+  "text": "Upravjanje velikoju armijeju može byti někogda malo nesposlušno. Jeden sposob lahko upravjati mnogimi jedinicami je sozdanje \"kontrolnoj grupy\". Prosto izberite grupu jedinic v pytanju i pritisnite \"Ctrl\" i broj v tom istom momentě. Teper, vsaky put, kogda pritisnete tot broj, ta grupa jedinic bude izbrana. Pritisnite broj dvakrat bystro, i pogled kamery se centrira nad grupoju"
  },
  {
   "label": "ACADEMY:UseSecondaryIncomeMethods",
-  "text": "Generale, polučanje snabděnja pozdno v misiji može byti trudno. Vsaka frakcija ima svoj vlastny sposob polučenja novca počas dolgih bitok. Kitaj može postroiti Hakerov i Centr Internet. Možete naprěditi Hakerov, aby hakovali internet za novac bilo kde, ili ih prosto poslati vnutri Centra Internet, aby polučili novac ešče bystrěje. GLA zavisi ot Črnogo Rynka, a USA sę oslanja na Sbros Snabděnja. Ako ne planirate naprěd, možete imati nedostatky"
+  "text": "Generale, polučanje snabděnja pozdno v misiji može byti trudno. Vsaka frakcija ima svoj vlastny sposob polučenja novca počas dolgih bitok. Kitaj može postroiti Hakerov i Centr Internet. Možete naprěditi Hakerov, aby hakovali internet za novac bilo kde, ili ih prosto poslati vnutri Centra Internet, aby polučili novac ešče bystrěje. GLA zavisi ot Črnogo Rynka, a USA se oslanja na Sbros Snabděnja. Ako ne planirate naprěd, možete imati nedostatky"
  },
  {
   "label": "ACADEMY:ClearBuildings",
@@ -301,15 +301,15 @@
  },
  {
   "label": "ACADEMY:UseGuardAbility",
-  "text": "Někogda je važno, aby jedinice ostali na městě i branili odrěženu oblast. Prosto izberite jedinicu i pritisnite gumb \"šćit\" ili klavišu \"G\", a potom izberite oblast za branjenje. Jedinica napade bilo kojego vraga, koji vstupi v jeji radius branjenja"
+  "text": "Někogda je važno, aby jedinice ostali na městě i branili odrěženu oblast. Prosto izberite jedinicu i pritisnite gumb \"ščit\" ili klavišu \"G\", a potom izberite oblast za branjenje. Jedinica napade bilo kojego vraga, koji vstupi v jeji radius branjenja"
  },
  {
   "label": "ACADEMY:MultipleSupplyCenters",
-  "text": "Snabděnje je imę igry, generale. Ono može byti sobrano v Dokah Snabděnja rasprostrěnyh po poljě boja. Dok jeden dok može byti dosta v počatku, obyčno je najlěpše rasšěriti sę i najti ešče několiko počas misije. Vam bude trěba postroiti Centr Snabděnja ili Tajny Sklad blizu Doka Snabděnja, aby osigurali efektivno sobiranje"
+  "text": "Snabděnje je ime igry, generale. Ono može byti sobrano v Dokah Snabděnja rasprostrěnyh po poljě boja. Dok jeden dok može byti dosta v počatku, obyčno je najlěpše rasšěriti se i najti ešče několiko počas misije. Vam bude trěba postroiti Centr Snabděnja ili Tajny Sklad blizu Doka Snabděnja, aby osigurali efektivno sobiranje"
  },
  {
   "label": "ACADEMY:GarrionVehicle",
-  "text": "Někotore jedinice mogu vstupiti v drugi vozila ili ih ukrasti. Krada vozil Otimačami ili Teroristami vam može dozvoliti prokrasti sę v vražju teritoriju"
+  "text": "Někotore jedinice mogu vstupiti v drugi vozila ili ih ukrasti. Krada vozil Otimačami ili Teroristami vam može dozvoliti prokrasti se v vražju teritoriju"
  },
  {
   "label": "ACADEMY:UseSelectionHotkeys",
@@ -317,11 +317,11 @@
  },
  {
   "label": "ACADEMY:AlternateMouseInterface",
-  "text": "Jedno novo dodanje je opcija \"Alternativny Interfejs Myši\" v Menu Nastavjenj. Ako ste privykli komandovati armijami upotrěbjajuč desny klik kako gumb dějstvija, to vam može pomoći lěpše upravjati vašeju armijeju"
+  "text": "Jedno novo dodanje je opcija \"Alternativny Interfejs Myši\" v Menu Nastavjenj. Ako ste privykli komandovati armijami upotrěbjajuč desny klik kako gumb dějstvija, to vam može pomoči lěpše upravjati vašeju armijeju"
  },
  {
   "label": "ACADEMY:DoubleClickAttackMoveGuard",
-  "text": "Generale, my sozdali novy sposob upravjanja vašeju armijeju. Prosto izberite vaše jedinice i dvakrat kliknite na cělovu oblast. Vaše jedinice sę dvignu napadajuč do togo města i potom ga branit. Možete to aktivirati čerez menu nastavjenj"
+  "text": "Generale, my sozdali novy sposob upravjanja vašeju armijeju. Prosto izberite vaše jedinice i dvakrat kliknite na cělovu oblast. Vaše jedinice se dvignu napadajuč do togo města i potom ga branit. Možete to aktivirati čerez menu nastavjenj"
  },
  {
   "label": "ACADEMY:BuildBarracksSooner",
@@ -329,7 +329,7 @@
  },
  {
   "label": "ACADEMY:BuildWarFactorySooner",
-  "text": "Dok pěhota i vozdušna sila mogu byti velike prědnosti, ničto ne pobědi dobry tank. Uverte sę, že postrojite Vojennu Fabriku ili Torgovca Oružjem ranije v misiji"
+  "text": "Dok pěhota i vozdušna sila mogu byti velike prědnosti, ničto ne pobědi dobry tank. Uverte se, že postrojite Vojennu Fabriku ili Torgovca Oružjem ranije v misiji"
  },
  {
   "label": "ACADEMY:BuildTechStructureSooner",
@@ -337,7 +337,7 @@
  },
  {
   "label": "ACADEMY:NoIncome",
-  "text": "Generale, vitalno je za vaš uspěh, aby vaš tok dohoda prodolžil čerez celu misiju. Prěmnogo prěryvov vodit k gubjenju vašego prěimuščstva. Uverte sę, že snabděnje postojanno teče"
+  "text": "Generale, vitalno je za vaš uspěh, aby vaš tok dohoda prodolžil čerez celu misiju. Prěmnogo prěryvov vodit k gubjenju vašego prěimuščstva. Uverte se, že snabděnje postojanno teče"
  },
  {
   "label": "ACADEMY:ClearMines",
@@ -345,11 +345,11 @@
  },
  {
   "label": "ACADEMY:UnmannedVehicles",
-  "text": "Generale, někotore jedinice mogu snajperovati ili odstraniti vražjih vodičev vozil. Kogda sę to slučit, vozila postaju neutralna i mogu byti \"posudžena\" ot vraga. Ne stydite sę projti sę na štet vašego vraga"
+  "text": "Generale, někotore jedinice mogu snajperovati ili odstraniti vražjih vodičev vozil. Kogda se to slučit, vozila postaju neutralna i mogu byti \"posudžena\" ot vraga. Ne stydite se projti se na štet vašego vraga"
  },
  {
   "label": "ACADEMY:DisguisedUnits",
-  "text": "Někotore jedinice sę mogu maskirati kako druge jedinice. Nema ničto tako zadovoljujuče, kako vvezti Kamion-Bombu GLA v vražju bazu neotkryto i pričiniti mnogo haosa. Uverte sę, že upotrěbite tu ključovu taktiku, aby napredoval vaš plan boja"
+  "text": "Někotore jedinice se mogu maskirati kako druge jedinice. Nema ničto tako zadovoljujuče, kako vvezti Kamion-Bombu GLA v vražju bazu neotkryto i pričiniti mnogo haosa. Uverte se, že upotrěbite tu ključovu taktiku, aby napredoval vaš plan boja"
  },
  {
   "label": "ACADEMY:StealthUpgrade",
@@ -357,7 +357,7 @@
  },
  {
   "label": "ACADEMY:Firestorm",
-  "text": "Kitaj ima jedinstvenu sposobnost sozdati Ognjenu Buru, kogda věče MiGov ili Děl Inferno cěljaju jednogo vraga ili oblast. Uverte sę, že koordinirate vaše napady za maksimalny efekt"
+  "text": "Kitaj ima jedinstvenu sposobnost sozdati Ognjenu Buru, kogda věče MiGov ili Děl Inferno cěljaju jednogo vraga ili oblast. Uverte se, že koordinirate vaše napady za maksimalny efekt"
  },
  {
   "label": "GUI:HeatEffects",
@@ -709,7 +709,7 @@
  },
  {
   "label": "DIALOGEVENT:EvaGLA_EliteGuardUpgrade02Subtitle",
-  "text": "*My sę ulučšujemo na Elitnu Gvardiju"
+  "text": "*My se ulučšujemo na Elitnu Gvardiju"
  },
  {
   "label": "DIALOGEVENT:EvaGLA_EliteGuardUpgrade03Subtitle",
@@ -741,19 +741,19 @@
  },
  {
   "label": "DIALOGEVENT:EvaGLA_IncomingAnthraxSubtitle",
-  "text": "*Bud v pripravnosti, Antraksova bomba sę može približavati"
+  "text": "*Bud v pripravnosti, Antraksova bomba se može približavati"
  },
  {
   "label": "DIALOGEVENT:EvaGLA_IncomingDaisyCutterSubtitle",
-  "text": "*Bud v pripravnosti. Vakuumna bomba sę može približavati"
+  "text": "*Bud v pripravnosti. Vakuumna bomba se može približavati"
  },
  {
   "label": "DIALOGEVENT:EvaGLA_IncomingEmpPulseSubtitle",
-  "text": "*Bud v pripravnosti. Bomba EMP Impulsa sę može približavati"
+  "text": "*Bud v pripravnosti. Bomba EMP Impulsa se može približavati"
  },
  {
   "label": "DIALOGEVENT:EvaGLA_IncomingFuelAirBombSubtitle",
-  "text": "*Bud v pripravnosti. Vakuumna bomba sę može približavati"
+  "text": "*Bud v pripravnosti. Vakuumna bomba se može približavati"
  },
  {
   "label": "DIALOGEVENT:EvaGLA_InsufficientFundsSubtitle",

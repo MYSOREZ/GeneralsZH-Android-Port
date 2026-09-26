@@ -1,7 +1,7 @@
 [
  {
   "label": "GUI:Scatter",
-  "text": "Razpršiti Sę"
+  "text": "Razpršiti Se"
  },
  {
   "label": "GUI:StopObject",
@@ -445,7 +445,7 @@
  },
  {
   "label": "Mouse:DisguiseAsVehicle",
-  "text": "Maskiraj sę kako Ovo!"
+  "text": "Maskiraj se kako Ovo!"
  },
  {
   "label": "Mouse:Invalid",
@@ -541,7 +541,7 @@
  },
  {
   "label": "Mouse:Return",
-  "text": "Vrati Sę"
+  "text": "Vrati Se"
  },
  {
   "label": "Mouse:PlaceBeacon",
@@ -557,7 +557,7 @@
  },
  {
   "label": "SCIENCE:GeneralName",
-  "text": "<Vpiši imę>"
+  "text": "<Vpiši ime>"
  },
  {
   "label": "SCIENCE:SkillPoints",
@@ -565,11 +565,11 @@
  },
  {
   "label": "SCIENCE:Rank",
-  "text": "Uroveń %d"
+  "text": "Urovenj %d"
  },
  {
   "label": "SCIENCE:TempName",
-  "text": "Daj imę mojej nauke"
+  "text": "Daj ime mojej nauke"
  },
  {
   "label": "SCIENCE:TempDescription",

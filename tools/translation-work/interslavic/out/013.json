@@ -225,7 +225,7 @@
  },
  {
   "label": "CREDITS:SpecialThanx26",
-  "text": "Hvala mojej ženě, že mi dala naše vrěmja. Ljubim tę. - Jeff Stewart"
+  "text": "Hvala mojej ženě, že mi dala naše vrěmja. Ljubim te. - Jeff Stewart"
  },
  {
   "label": "CREDITS:SpecialThanx27",
@@ -305,11 +305,11 @@
  },
  {
   "label": "CREDITS:MultiplayerTestParticipantThanxMessageLine2",
-  "text": "koji nam pomogli protestovati igru. Vaša pomoć"
+  "text": "koji nam pomogli protestovati igru. Vaša pomoč"
  },
  {
   "label": "CREDITS:MultiplayerTestParticipantThanxMessageLine3",
-  "text": "byla neocěnima, i my nadějemo sę, že vam sę světil opyt"
+  "text": "byla neocěnima, i my nadějemo se, že vam se světil opyt"
  },
  {
   "label": "CREDITS:SpecialThanxKeyMessage1",
@@ -581,7 +581,7 @@
  },
  {
   "label": "GUI:InternetDisconnectionMenuBody2",
-  "text": "Može byti, že osoba pokušaje sę znova sojediniti, tako da možete izbrati čekati, dok časovnik toj osoby ne isteče. Kogda časovnik dojde do 0, ta osoba bude izgnana iz igry i boj prodolži"
+  "text": "Može byti, že osoba pokušaje se znova sojediniti, tako da možete izbrati čekati, dok časovnik toj osoby ne isteče. Kogda časovnik dojde do 0, ta osoba bude izgnana iz igry i boj prodolži"
  },
  {
   "label": "CREDITS:EAKoreaLocalisationTeam",
@@ -641,7 +641,7 @@
  },
  {
   "label": "GUI:Day",
-  "text": "Deń (DD)"
+  "text": "Denj (DD)"
  },
  {
   "label": "GUI:Year",
@@ -757,7 +757,7 @@
  },
  {
   "label": "TOOLTIP:TooltipCannotBuildBuildingBecauseMaximumNumber",
-  "text": "Zgrada već postroena"
+  "text": "Zgrada več postroena"
  },
  {
   "label": "TOOLTIP:MapMaxBrutalSuccess",

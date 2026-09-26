@@ -21,7 +21,7 @@
  },
  {
   "label": "DIALOGEVENT:MisGLA02xKen11Subtitle",
-  "text": "*Naši resursy sę isčrpavaju. Morame zauzeti někotore naftove vyšky"
+  "text": "*Naši resursy se isčrpavaju. Morame zauzeti někotore naftove vyšky"
  },
  {
   "label": "DIALOGEVENT:MisGLA02xKen12Subtitle",
@@ -29,7 +29,7 @@
  },
  {
   "label": "DIALOGEVENT:MisGLA02xKen13Subtitle",
-  "text": "*Upotrěbi GPS-Glušenje, aby prokrasti sę mimo vražjej obrany!"
+  "text": "*Upotrěbi GPS-Glušenje, aby prokrasti se mimo vražjej obrany!"
  },
  {
   "label": "DIALOGEVENT:MisGLA02xKen14Subtitle",
@@ -53,7 +53,7 @@
  },
  {
   "label": "DIALOGEVENT:MisGLA02xKen19Subtitle",
-  "text": "*Tot most je tjažko branjen. Bude nam trěba pomoć, aby ga prěšli"
+  "text": "*Tot most je tjažko branjen. Bude nam trěba pomoč, aby ga prěšli"
  },
  {
   "label": "DIALOGEVENT:MisGLA02xKen20Subtitle",
@@ -77,11 +77,11 @@
  },
  {
   "label": "DIALOGEVENT:MisGLA02xKen25Subtitle",
-  "text": "*Teper, kogda imamo GPS-Glušenje, možemo sę dvigati nevidime mimo obrany mosta Kassada!"
+  "text": "*Teper, kogda imamo GPS-Glušenje, možemo se dvigati nevidime mimo obrany mosta Kassada!"
  },
  {
   "label": "DIALOGEVENT:MisGLA02xKen26Subtitle",
-  "text": "*Izdajnik sę utvrdil na tom vrhu gory i prěsěkl vse druge sposoby dostupa. Skryta Ataka je jediny sposob, koji imamo, aby udarili jego glavnu bazu"
+  "text": "*Izdajnik se utvrdil na tom vrhu gory i prěsěkl vse druge sposoby dostupa. Skryta Ataka je jediny sposob, koji imamo, aby udarili jego glavnu bazu"
  },
  {
   "label": "DIALOGEVENT:MisGLA02xKen27Subtitle",
@@ -89,7 +89,7 @@
  },
  {
   "label": "DIALOGEVENT:MisGLA02xKen28Subtitle",
-  "text": "*Kassad je majstor nevidimosti, skryvajuč svoje sily na otvorenom pogledu. On otkazyvaje dělitisę svojim znanjem s nami, tako da ga vzemem od njego"
+  "text": "*Kassad je majstor nevidimosti, skryvajuč svoje sily na otvorenom pogledu. On otkazyvaje děliti se svojim znanjem s nami, tako da ga vzemem od njego"
  },
  {
   "label": "DIALOGEVENT:MisGLA02xKen29Subtitle",
@@ -97,11 +97,11 @@
  },
  {
   "label": "DIALOGEVENT:MisGLA02xKen30Subtitle",
-  "text": "*Kassad je majstor nevidimosti, oslanjajuč sę na několiko tehnik, aby iznenadil i napal svoje vragy"
+  "text": "*Kassad je majstor nevidimosti, oslanjajuč se na několiko tehnik, aby iznenadil i napal svoje vragy"
  },
  {
   "label": "DIALOGEVENT:MisGLA02xKen31Subtitle",
-  "text": "*GPS-Glušenje mu daje moć, aby bilo koja jedinica udarila nevidimo na vraga"
+  "text": "*GPS-Glušenje mu daje moč, aby bilo koja jedinica udarila nevidimo na vraga"
  },
  {
   "label": "DIALOGEVENT:MisGLA02xKen32Subtitle",
@@ -141,7 +141,7 @@
  },
  {
   "label": "DIALOGEVENT:MisGLA03xBrf06Subtitle",
-  "text": "*No prěže nego byla uništena, my sę naučili poziciju ih Česticovogo Děla i morskoj floty v regionu"
+  "text": "*No prěže nego byla uništena, my se naučili poziciju ih Česticovogo Děla i morskoj floty v regionu"
  },
  {
   "label": "DIALOGEVENT:MisGLA03xBrf07Subtitle",
@@ -201,7 +201,7 @@
  },
  {
   "label": "DIALOGEVENT:MisGLA03xKen02Subtitle",
-  "text": "*Tot Ranger běži za pomoćju! Ne smějemo mu dozvoliti izbeči"
+  "text": "*Tot Ranger běži za pomočju! Ne smějemo mu dozvoliti izbeči"
  },
  {
   "label": "DIALOGEVENT:MisGLA03xKen03Subtitle",
@@ -277,7 +277,7 @@
  },
  {
   "label": "DIALOGEVENT:MisGLA03xKen21Subtitle",
-  "text": "*Morame sę braniti od tyh Comanche!"
+  "text": "*Morame se braniti od tyh Comanche!"
  },
  {
   "label": "DIALOGEVENT:MisGLA03xKen22Subtitle",
@@ -305,7 +305,7 @@
  },
  {
   "label": "DIALOGEVENT:MisGLA03xKen28Subtitle",
-  "text": "*Tot prohod je dobro branjen. Morame upotrěbiti Česticovo Dělo, aby probili sę čerez"
+  "text": "*Tot prohod je dobro branjen. Morame upotrěbiti Česticovo Dělo, aby probili se čerez"
  },
  {
   "label": "DIALOGEVENT:MisGLA03xKen29Subtitle",
@@ -365,7 +365,7 @@
  },
  {
   "label": "DIALOGEVENT:MisGLA03xKen43Subtitle",
-  "text": "*Približujemo sę Nosaču Letadl. Je prosto na jug otsjuda"
+  "text": "*Približujemo se Nosaču Letadl. Je prosto na jug otsjuda"
  },
  {
   "label": "DIALOGEVENT:MisGLA03xKen44Subtitle",
@@ -409,7 +409,7 @@
  },
  {
   "label": "DIALOGEVENT:MisGLA04xChat02Subtitle",
-  "text": "*Ih energija je pala! Nema Patriotov, s kojimi trěba sę rěšiti!"
+  "text": "*Ih energija je pala! Nema Patriotov, s kojimi trěba se rěšiti!"
  },
  {
   "label": "DIALOGEVENT:MisGLA04xChat03Subtitle",
@@ -457,7 +457,7 @@
  },
  {
   "label": "DIALOGEVENT:MisGLA04xChat14Subtitle",
-  "text": "*Imamo simpatizanta GLA v tej oblasti. On i jego bratja sę soglasili nam pomoći"
+  "text": "*Imamo simpatizanta GLA v tej oblasti. On i jego bratja se soglasili nam pomoči"
  },
  {
   "label": "DIALOGEVENT:MisGLA04xChat15Subtitle",
@@ -473,7 +473,7 @@
  },
  {
   "label": "DIALOGEVENT:MisGLA04xCin03Subtitle",
-  "text": "*Ostatky amerikanskoj morskoj sily sę prěměstili v Sredozemje, v otvět na gubjenje ih komandnoj floty. To nam dozvolilo prokrasti sę"
+  "text": "*Ostatky amerikanskoj morskoj sily se prěměstili v Sredozemje, v otvět na gubjenje ih komandnoj floty. To nam dozvolilo prokrasti se"
  },
  {
   "label": "DIALOGEVENT:MisGLA04xCin04Subtitle",
@@ -481,11 +481,11 @@
  },
  {
   "label": "DIALOGEVENT:MisGLA04xCin05Subtitle",
-  "text": "*Bratja, radujte sę! Kogda budemo imati toksiny iz tej zgrady, naši naučniky mogu skovati oružje masovoj infekcije"
+  "text": "*Bratja, radujte se! Kogda budemo imati toksiny iz tej zgrady, naši naučniky mogu skovati oružje masovoj infekcije"
  },
  {
   "label": "DIALOGEVENT:MisGLA04xCin06Subtitle",
-  "text": "*Amerikanci sę věč prěmnogo měšaju. S tym novym oružjem, budemo moči udariti strah v srdca naših ugnjetatelej!"
+  "text": "*Amerikanci se věč prěmnogo měšaju. S tym novym oružjem, budemo moči udariti strah v srdca naših ugnjetatelej!"
  },
  {
   "label": "DIALOGEVENT:MisGLA04xCin07Subtitle",
@@ -529,7 +529,7 @@
  },
  {
   "label": "DIALOGEVENT:MisGLA04xCin17Subtitle",
-  "text": "*Vstrětime sę znova, kogda dosěgnemo toksinnu zgradu"
+  "text": "*Vstrětime se znova, kogda dosěgnemo toksinnu zgradu"
  },
  {
   "label": "DIALOGEVENT:MisGLA04xCin18Subtitle",
@@ -537,7 +537,7 @@
  },
  {
   "label": "DIALOGEVENT:MisGLA04xCin19Subtitle",
-  "text": "*My sę razdělime i pobědime"
+  "text": "*My se razdělime i pobědime"
  },
  {
   "label": "DIALOGEVENT:MisGLA04xCin20Subtitle",
@@ -581,7 +581,7 @@
  },
  {
   "label": "DIALOGEVENT:MisGLA04xCin30Subtitle",
-  "text": "*Imamo GLA vnutri granic grada! Vse jedinice, soberite sę na koordinatah 34 Alfa Alfa"
+  "text": "*Imamo GLA vnutri granic grada! Vse jedinice, soberite se na koordinatah 34 Alfa Alfa"
  },
  {
   "label": "DIALOGEVENT:MisGLA04xKen01Subtitle",
@@ -605,11 +605,11 @@
  },
  {
   "label": "DIALOGEVENT:MisGLA04xKen06Subtitle",
-  "text": "*Naši Otimači mogu zauzeti vozila i sut nevidimi, krome kogda sę dvigaju"
+  "text": "*Naši Otimači mogu zauzeti vozila i sut nevidimi, krome kogda se dvigaju"
  },
  {
   "label": "DIALOGEVENT:MisGLA04xKen07Subtitle",
-  "text": "*Jarmen Kell може snajperovati pilotov iz vozil i takože uništiti pěhotu na dalekom dosegu"
+  "text": "*Jarmen Kell može snajperovati pilotov iz vozil i takože uništiti pěhotu na dalekom dosegu"
  },
  {
   "label": "DIALOGEVENT:MisGLA04xKen08Subtitle",
@@ -681,11 +681,11 @@
  },
  {
   "label": "DIALOGEVENT:MisGLA04xKen25Subtitle",
-  "text": "*Jarmen Kell je najden i vratil sę, aby pomogl našej sudbině"
+  "text": "*Jarmen Kell je najden i vratil se, aby pomogl našej sudbině"
  },
  {
   "label": "DIALOGEVENT:MisGLA04xKen26Subtitle",
-  "text": "*Naši bratja probili sę i dali nam podkrěpljenja"
+  "text": "*Naši bratja probili se i dali nam podkrěpljenja"
  },
  {
   "label": "DIALOGEVENT:MisGLA04xKen27Subtitle",
@@ -725,11 +725,11 @@
  },
  {
   "label": "DIALOGEVENT:MisGLA05Scorpion105Subtitle",
-  "text": "*Amerikanski kukavicy! Boriti sę na zemji, kako muži!"
+  "text": "*Amerikanski kukavicy! Boriti se na zemji, kako muži!"
  },
  {
   "label": "DIALOGEVENT:MisGLA05xChat01Subtitle",
-  "text": "*Tot region je pod kontroloju generala Grangera Vozdušnyh Sil Sjedinjenyh Državov. Možemo i upotrěbime silu, aby vas uklonili iz tej oblasti. Vy ste tymto pod prikazom nemedlenno sę uklaniti"
+  "text": "*Tot region je pod kontroloju generala Grangera Vozdušnyh Sil Sjedinjenyh Državov. Možemo i upotrěbime silu, aby vas uklonili iz tej oblasti. Vy ste tymto pod prikazom nemedlenno se uklaniti"
  },
  {
   "label": "DIALOGEVENT:MisGLA05xCin01Subtitle",
@@ -745,7 +745,7 @@
  },
  {
   "label": "DIALOGEVENT:MisGLA05xJarmen01Subtitle",
-  "text": "*Ako spasiš naših sodrugov iz južnoj bazy USA, naši elitni voiny budut sę boriti uz tebe!"
+  "text": "*Ako spasiš naših sodrugov iz južnoj bazy USA, naši elitni voiny budut se boriti uz tebe!"
  },
  {
   "label": "DIALOGEVENT:MisGLA05xJarmen02Subtitle",
@@ -765,7 +765,7 @@
  },
  {
   "label": "DIALOGEVENT:MisGLA05xJarmen06Subtitle",
-  "text": "*Hvala za tvoju pomoć v spasenju mojih soldatov. My otplatime uslugu i pomožemo ti uništiti Centralnu Komandnu Bazu USA"
+  "text": "*Hvala za tvoju pomoč v spasenju mojih soldatov. My otplatime uslugu i pomožemo ti uništiti Centralnu Komandnu Bazu USA"
  },
  {
   "label": "DIALOGEVENT:MisGLA05xKen01Subtitle",
@@ -785,11 +785,11 @@
  },
  {
   "label": "DIALOGEVENT:MisGLA05xKen05Subtitle",
-  "text": "*Morame ih bezbědno prěnesti domoj do ih bazy na sěveru. Nikakva šteta im ne smět sę slučiti"
+  "text": "*Morame ih bezbědno prěnesti domoj do ih bazy na sěveru. Nikakva šteta im ne smět se slučiti"
  },
  {
   "label": "DIALOGEVENT:MisGLA05xKen06Subtitle",
-  "text": "*Naše snabděnje sę isčrpava. Morame sę rasprostrěti i zauzeti nove resursy"
+  "text": "*Naše snabděnje se isčrpava. Morame se rasprostrěti i zauzeti nove resursy"
  },
  {
   "label": "DIALOGEVENT:MisGLA05xKen07Subtitle",

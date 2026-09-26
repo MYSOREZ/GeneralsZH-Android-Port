@@ -37,7 +37,7 @@
  },
  {
   "label": "MAP:FlashFire",
-  "text": "Bystry Ogeń"
+  "text": "Bystry Ogenj"
  },
  {
   "label": "MAP:MountainGuns",
@@ -373,7 +373,7 @@
  },
  {
   "label": "GUI:SurrenderConfirmationTitle",
-  "text": "PREDATI SĘ?"
+  "text": "PREDATI SE?"
  },
  {
   "label": "TOOLTIP:StartPositionN",
@@ -549,7 +549,7 @@
  },
  {
   "label": "GUI:NoDynamicLOD",
-  "text": "Deaktiviraj Dinamičny Uroveń Detaljov"
+  "text": "Deaktiviraj Dinamičny Urovenj Detaljov"
  },
  {
   "label": "TOOLTIP:NoDynamicLOD",
@@ -673,7 +673,7 @@
  },
  {
   "label": "CREDITS:TiburonAssociateQualityAssuranceLeads",
-  "text": "Pomoćni Vodji Kontroly Kačestva EA Tiburon"
+  "text": "Pomočni Vodji Kontroly Kačestva EA Tiburon"
  },
  {
   "label": "CREDITS:TiburonQualityAssuranceSeniorTesters",
@@ -769,7 +769,7 @@
  },
  {
   "label": "CREDITS:AssociateProducers",
-  "text": "Pomoćny Producent"
+  "text": "Pomočny Producent"
  },
  {
   "label": "CREDITS:MultiplayerTestProducer",

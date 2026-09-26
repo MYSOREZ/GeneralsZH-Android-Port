@@ -117,3 +117,16 @@ typography keeps a space before `!`, `?` and `:`; EVA and officers address the p
 "vous". Multiplayer map names stay in English, apart from the "Tournament" maps. Jokes and
 film or ad parodies in the generals' taunts are carried over as French ones (the Ghostbusters
 "effluves", "J'adore l'odeur de la MOAB au petit matin") rather than word for word.
+
+## Interslavic
+
+`languages/interslavic/generals.str` is a new translation from the English original into
+Interslavic (Medžuslovjansky), written in the standard Latin orthography (`ě č š ž`, no
+etymological letters such as `ę`, `ć`, `ń`), so it reads the same to speakers of any Slavic
+language. There is no official release to borrow names from: the faction stays "GLA", named
+units keep their English names (Crusader, Scorpion, Comanche, Chinook, Helix, Raptor, Aurora,
+Battlemaster, Overlord), and generic ones are translated ("Komandny centr", "Česticovo dělo",
+"Burja SCUD", "Podslušny post", "Minna pastka"). EVA and officers address the player as "vy"
+and "generale". Unlike the German and French packs, multiplayer map names are translated, as
+in the Russian and Ukrainian ones. The generals' taunts keep their jokes and register (the
+USA general's "momče"/"sinko", the MOAB "in the morning" line) rather than going word for word.

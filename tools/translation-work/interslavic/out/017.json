@@ -17,7 +17,7 @@
  },
  {
   "label": "MAP:MD-CHI05_Hint08",
-  "text": "VHODEČA TRANSMISIJA: \n Jarmen Kell sę može skryvati v tom selě"
+  "text": "VHODEČA TRANSMISIJA: \n Jarmen Kell se može skryvati v tom selě"
  },
  {
   "label": "MAP:MD-CHI05_Hint10",
@@ -321,7 +321,7 @@
  },
  {
   "label": "CONTROLBAR:ToolTipGLABuildSniper",
-  "text": "Kamuflovan, kogda ne dviga sę ili ne strělja. Najdi skryte vragy \n \n Efektivno protiv: pěhoty \n Slabo protiv: lahkih vozil, razvědčikov"
+  "text": "Kamuflovan, kogda ne dviga se ili ne strělja. Najdi skryte vragy \n \n Efektivno protiv: pěhoty \n Slabo protiv: lahkih vozil, razvědčikov"
  },
  {
   "label": "CONTROLBAR:ToolTipUSABuildMicrowave",
@@ -341,7 +341,7 @@
  },
  {
   "label": "CONTROLBAR:ToolTipChinaBuildHelix",
-  "text": "Tjažky transport \n ulučšaje sę oboranymi strukturami bazy i Napalmovoju Bomboju \n \n Efektivno protiv: tankov, lahkih vozil \n Slabo protiv: raketno-vooruženoj pěhoty, protivvozdušnoj oborony"
+  "text": "Tjažky transport \n ulučšaje se oboranymi strukturami bazy i Napalmovoju Bomboju \n \n Efektivno protiv: tankov, lahkih vozil \n Slabo protiv: raketno-vooruženoj pěhoty, protivvozdušnoj oborony"
  },
  {
   "label": "CONTROLBAR:ToolTipChinaBuildListeningOutpost",
@@ -429,7 +429,7 @@
  },
  {
   "label": "GUI:BioName",
-  "text": "Imę:"
+  "text": "Ime:"
  },
  {
   "label": "GUI:BioDOB",
@@ -529,7 +529,7 @@
  },
  {
   "label": "GUI:BioVictoriousEntry_Pos1",
-  "text": "Vy mysleli, že moji toksiny sut neefektivni, a teper pogledajte, čto sę s vami slučilo, generale."
+  "text": "Vy mysleli, že moji toksiny sut neefektivni, a teper pogledajte, čto se s vami slučilo, generale."
  },
  {
   "label": "GUI:BioNameEntry_Pos2",
@@ -605,7 +605,7 @@
  },
  {
   "label": "GUI:BioDefeatedEntry_Pos3",
-  "text": "To nije pravedno! Ešče jedno Superoružje, i ja bych vas pobědila, generale. Izzovi me znova, izzyvam tę."
+  "text": "To nije pravedno! Ešče jedno Superoružje, i ja bych vas pobědila, generale. Izzovi me znova, izzyvam te."
  },
  {
   "label": "GUI:BioVictoriousEntry_Pos3",
@@ -729,7 +729,7 @@
  },
  {
   "label": "GUI:BioVictoriousEntry_Pos6",
-  "text": "Prijmi svoje gorko poraženje i uklani sę iz mojego pogleda, generale."
+  "text": "Prijmi svoje gorko poraženje i uklani se iz mojego pogleda, generale."
  },
  {
   "label": "GUI:BioNameEntry_Pos7",
@@ -797,6 +797,6 @@
  },
  {
   "label": "TOOLTIP:BioStrategyLong_Pos8",
-  "text": "General Rodall \"Demo\" Juhziz prěferuje minirati moćnymi eksplozivami, aby pobědil svojih vragov"
+  "text": "General Rodall \"Demo\" Juhziz prěferuje minirati močnymi eksplozivami, aby pobědil svojih vragov"
  }
 ]

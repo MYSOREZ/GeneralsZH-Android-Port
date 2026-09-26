@@ -45,7 +45,7 @@
  },
  {
   "label": "SCRIPT:CHI02AudioHolder14",
-  "text": "<'EVA' govori> \n 'Terorističnа prětnja je zaveršena. Dobra rabota, generale.'"
+  "text": "<'EVA' govori> \n 'Teroristična prětnja je zaveršena. Dobra rabota, generale.'"
  },
  {
   "label": "SCRIPT:CHI02AudioHolder15",
@@ -53,7 +53,7 @@
  },
  {
   "label": "SCRIPT:CHI02AudioHolder16",
-  "text": "<'EVA' govori> \n 'Generale, GLA privela svoje Toksinne Traktory. Poznajete ih po zelenoj sluzi, koju oni prskajut. Uděržite vašu pěhotu daleko od nih i upotrěbite vaše tanky, aby sę spravili s toju novoju prětnjoju.'"
+  "text": "<'EVA' govori> \n 'Generale, GLA privela svoje Toksinne Traktory. Poznajete ih po zelenoj sluzi, koju oni prskajut. Uděržite vašu pěhotu daleko od nih i upotrěbite vaše tanky, aby se spravili s toju novoju prětnjoju.'"
  },
  {
   "label": "SCRIPT:CHI02AudioHolder17",
@@ -69,11 +69,11 @@
  },
  {
   "label": "SCRIPT:CHI02AudioHolder20",
-  "text": "<Govori Kapitan Avtomobilnogo Proma> \n 'Nakonec, vojsko je tu! Ti Teroristi uništajut moj biznes! Ako vy postavite vaše sily na bort, ja vas otvedu k Kongresnomu Centru. Vy možete sę uvući čerez zadnja vrata i zaskočiti ih vrasploh. Prosto pritisnite gumb Transport, kogda ste gotovi.'"
+  "text": "<Govori Kapitan Avtomobilnogo Proma> \n 'Nakonec, vojsko je tu! Ti Teroristi uništajut moj biznes! Ako vy postavite vaše sily na bort, ja vas otvedu k Kongresnomu Centru. Vy možete se uvuči čerez zadnja vrata i zaskočiti ih vrasploh. Prosto pritisnite gumb Transport, kogda ste gotovi.'"
  },
  {
   "label": "SCRIPT:CHI02Box01",
-  "text": "Upotrěbite BULDOZER, aby postroiti KOMANDNY CENTR \n Kogda je KOMANDNY CENTR zaveršen, \n izberite ga i načnite ulučšenje RADAR \n Kogda ulučšenje je zaveršeno, ekran radara sę pojavi \n v niže-lěvom uglu Komandnogo Interfejsa"
+  "text": "Upotrěbite BULDOZER, aby postroiti KOMANDNY CENTR \n Kogda je KOMANDNY CENTR zaveršen, \n izberite ga i načnite ulučšenje RADAR \n Kogda ulučšenje je zaveršeno, ekran radara se pojavi \n v niže-lěvom uglu Komandnogo Interfejsa"
  },
  {
   "label": "SCRIPT:CHI02Box02",
@@ -113,7 +113,7 @@
  },
  {
   "label": "MAP:CHI03AudioHolder01",
-  "text": "<Govori Črvena Gvardija> 'Generale, uroveń vody je padnul! Sily GLA prěhodjat rěku!'"
+  "text": "<Govori Črvena Gvardija> 'Generale, urovenj vody je padnul! Sily GLA prěhodjat rěku!'"
  },
  {
   "label": "MAP:CHI06Open",
@@ -137,7 +137,7 @@
  },
  {
   "label": "MAP:Demo58End2",
-  "text": "COMMAND AND CONQUER GENERALS \n IDE: BOŽIĆ 2002"
+  "text": "COMMAND AND CONQUER GENERALS \n IDE: BOŽIČ 2002"
  },
  {
   "label": "MAP:Demo48Open",
@@ -149,7 +149,7 @@
  },
  {
   "label": "MAP:GLA02Open",
-  "text": "Sela okolo Almaty, Kazahstan \n Zona Sbrosa Pomoćnogo Snabděnja"
+  "text": "Sela okolo Almaty, Kazahstan \n Zona Sbrosa Pomočnogo Snabděnja"
  },
  {
   "label": "MAP:GLA02ObjectiveText01",
@@ -205,7 +205,7 @@
  },
  {
   "label": "MAP:GLA06BunkerDestroyed",
-  "text": "POZOR: \n Glupi Amerikanci pokušajut sę zaustaviti nas uništivši bunkery"
+  "text": "POZOR: \n Glupi Amerikanci pokušajut se zaustaviti nas uništivši bunkery"
  },
  {
   "label": "MAP:GLA06BunkerRetaken",
@@ -221,7 +221,7 @@
  },
  {
   "label": "MAP:GLA06ScoutsInBase",
-  "text": "Amerikanski razvědčiky nas našli \n Bud gotov boriti sę s Amerikancami"
+  "text": "Amerikanski razvědčiky nas našli \n Bud gotov boriti se s Amerikancami"
  },
  {
   "label": "MAP:GLA06Only8Bunkers",
@@ -237,7 +237,7 @@
  },
  {
   "label": "MAP:GLA07MapName",
-  "text": "Trojansky Koń"
+  "text": "Trojansky Konj"
  },
  {
   "label": "MAP:GLA07Open",
@@ -297,7 +297,7 @@
  },
  {
   "label": "SCRIPT:TrainingExplor",
-  "text": "Magla Vojny okolo vaših jedinic može byti otisnuta nazad dvigajuč sę v nove i neizslěděne oblasti. Magla pokazuje vam gdě ste izslědili i gdě ne. Izslědite nove oblasti, aby najti vražje sily i resursy za rasšěrjenje vašej armije"
+  "text": "Magla Vojny okolo vaših jedinic može byti otisnuta nazad dvigajuč se v nove i neizslěděne oblasti. Magla pokazuje vam gdě ste izslědili i gdě ne. Izslědite nove oblasti, aby najti vražje sily i resursy za rasšěrjenje vašej armije"
  },
  {
   "label": "SCRIPT:TrainingBarracks",
@@ -325,7 +325,7 @@
  },
  {
   "label": "SCRIPT:TrainingAbilities",
-  "text": "Někotore jedinice imajut specijalne sposobnosti. Izberite jedinicu, aby videti koje specijalne moći ona ima. Kliknite lěvym gumbom na moć, aby ju aktivirati. V slučaju Tanka Crusader USA, vsaky tank može postroiti jeden Bojevy Dron. Bojevi Droni sut male robotičeske pomoćniky, koji avtomatski napadajut vragov i popravjajut svoj Tank Crusader, ako je poškoděn vražjim ognjem"
+  "text": "Někotore jedinice imajut specijalne sposobnosti. Izberite jedinicu, aby videti koje specijalne moči ona ima. Kliknite lěvym gumbom na moč, aby ju aktivirati. V slučaju Tanka Crusader USA, vsaky tank može postroiti jeden Bojevy Dron. Bojevi Droni sut male robotičeske pomočniky, koji avtomatski napadajut vragov i popravjajut svoj Tank Crusader, ako je poškoděn vražjim ognjem"
  },
  {
   "label": "SCRIPT:TrainingObjective",
@@ -333,7 +333,7 @@
  },
  {
   "label": "SCRIPT:TrainingUrban",
-  "text": "Civilne zgrady mogu byti zauzete soldatami. Prikažite vašim soldatam vstupiti v civilne zgrady, aby polučili obranny bonus. Civilne zgrady zauzete tako sut moćni oporni punkty za vaše vojska i mogu byti upotrěbjene, aby braniti važne puti v vašu bazu i iz nje"
+  "text": "Civilne zgrady mogu byti zauzete soldatami. Prikažite vašim soldatam vstupiti v civilne zgrady, aby polučili obranny bonus. Civilne zgrady zauzete tako sut močni oporni punkty za vaše vojska i mogu byti upotrěbjene, aby braniti važne puti v vašu bazu i iz nje"
  },
  {
   "label": "SCRIPT:TrainingTech",
@@ -341,7 +341,7 @@
  },
  {
   "label": "SCRIPT:TrainingCrate",
-  "text": "Jaščiky sodrže bonusne predmety za vaše soldaty, koji poveličajut ih sposobnosti. Dodatna municija, brona i drugi predmety mogu byti najdeni v jaščikah. Prikaži svojim soldatam ili vozilam dvigati sę na jaščik, aby ga otvoriti i sobrati sodrženje"
+  "text": "Jaščiky sodrže bonusne predmety za vaše soldaty, koji poveličajut ih sposobnosti. Dodatna municija, brona i drugi predmety mogu byti najdeni v jaščikah. Prikaži svojim soldatam ili vozilam dvigati se na jaščik, aby ga otvoriti i sobrati sodrženje"
  },
  {
   "label": "SCRIPT:TrainingMissionObjective",
@@ -357,7 +357,7 @@
  },
  {
   "label": "MAP:USA01BahdadText",
-  "text": "Opsada Bagdada \n Deń 3"
+  "text": "Opsada Bagdada \n Denj 3"
  },
  {
   "label": "MAP:USA01ObjectiveText",
@@ -577,7 +577,7 @@
  },
  {
   "label": "CONTROLBAR:TooltipDemoTrapProxy",
-  "text": "Eksplodira, kogda sę vrag približi"
+  "text": "Eksplodira, kogda se vrag približi"
  },
  {
   "label": "CONTROLBAR:TooltipDemoTrapManual",
@@ -741,7 +741,7 @@
  },
  {
   "label": "CONTROLBAR:ToolTipGLAUpgradeJunkRepair",
-  "text": "Vse vozila sę avtomatski popravjajut"
+  "text": "Vse vozila se avtomatski popravjajut"
  },
  {
   "label": "CONTROLBAR:ToolTipGLAUpgradeCamouflage",
@@ -773,23 +773,23 @@
  },
  {
   "label": "CONTROLBAR:ToolTipUSACombatDrop",
-  "text": "Prikaži Rangeram spustiti sę na vražju cělj. Upotrěbi na zauzetyh zgradah, aby ubiti vse vražje soldaty vnutri"
+  "text": "Prikaži Rangeram spustiti se na vražju cělj. Upotrěbi na zauzetyh zgradah, aby ubiti vse vražje soldaty vnutri"
  },
  {
   "label": "CONTROLBAR:ToolTipGuard",
-  "text": "Prikaži jedinicě dvigati sę, aby branila specifičnu poziciju i gonila cěli, ako trěba"
+  "text": "Prikaži jedinicě dvigati se, aby branila specifičnu poziciju i gonila cěli, ako trěba"
  },
  {
   "label": "CONTROLBAR:ToolTipGuardWithoutPursuit",
-  "text": "Prikaži jedinicě dvigati sę, aby branila specifičnu poziciju, no ne gonila cěli vně oblasti"
+  "text": "Prikaži jedinicě dvigati se, aby branila specifičnu poziciju, no ne gonila cěli vně oblasti"
  },
  {
   "label": "CONTROLBAR:ToolTipGuardFlyingUnitsOnly",
-  "text": "Prikaži jedinicě dvigati sę, aby napadala vozdušne jedinice, koje sę približajut k specifičnoj poziciji"
+  "text": "Prikaži jedinicě dvigati se, aby napadala vozdušne jedinice, koje se približajut k specifičnoj poziciji"
  },
  {
   "label": "CONTROLBAR:ToolTipAttackMove",
-  "text": "Prikaži jedinicě dvigati sę k cělovoj oblasti i zastati, aby napala vragy na puti"
+  "text": "Prikaži jedinicě dvigati se k cělovoj oblasti i zastati, aby napala vragy na puti"
  },
  {
   "label": "CONTROLBAR:ToolTipCommandStop",

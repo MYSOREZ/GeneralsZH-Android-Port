@@ -105,7 +105,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Laser016Subtitle",
-  "text": "*Ne gledajte prjamo v lazer -- mogli by ste si spáliti zadnju čast głavy"
+  "text": "*Ne gledajte prjamo v lazer -- mogli by ste si spáliti zadnju čast glavy"
  },
  {
   "label": "DIALOGEVENT:Taunts_Laser017Subtitle",
@@ -121,7 +121,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Laser020Subtitle",
-  "text": "*Možete li sravnati pjatdesjat milionov megadžulej lazernoj moći, generale?"
+  "text": "*Možete li sravnati pjatdesjat milionov megadžulej lazernoj moči, generale?"
  },
  {
   "label": "DIALOGEVENT:Taunts_Laser021Subtitle",
@@ -449,7 +449,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Nuke004Subtitle",
-  "text": "*Vaše oružje ne je ravno mojej moći!"
+  "text": "*Vaše oružje ne je ravno mojej moči!"
  },
  {
   "label": "DIALOGEVENT:Taunts_Nuke005Subtitle",
@@ -793,10 +793,10 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Nuke090Subtitle",
-  "text": "*(črny rynok) Črny rynok vam ne proda ničego dovoljno moćnogo, aby me zaustavilo, generale"
+  "text": "*(črny rynok) Črny rynok vam ne proda ničego dovoljno močnogo, aby me zaustavilo, generale"
  },
  {
   "label": "DIALOGEVENT:Taunts_Nuke091Subtitle",
-  "text": "*(centr propagandy) Vaša propaganda ne obrati nikogo protiv moje nuklearne moći, generale"
+  "text": "*(centr propagandy) Vaša propaganda ne obrati nikogo protiv moje nuklearne moči, generale"
  }
 ]

@@ -157,7 +157,7 @@
  },
  {
   "label": "GUI:PlayerName",
-  "text": "Imę Igrača"
+  "text": "Ime Igrača"
  },
  {
   "label": "GUI:Info",
@@ -493,7 +493,7 @@
  },
  {
   "label": "TOOLTIP:ReturnToGame",
-  "text": "VRATITI SĘ V IGRU"
+  "text": "VRATITI SE V IGRU"
  },
  {
   "label": "TOOLTIP:CommandList",
@@ -521,15 +521,15 @@
  },
  {
   "label": "TOOLTIP:BackButton",
-  "text": "Vratiti sę v prědhodne menu"
+  "text": "Vratiti se v prědhodne menu"
  },
  {
   "label": "TOOLTIP:ProviderSelect",
-  "text": "Izberite 3D Zvukovy Provajder. Igra već izbrala vaš optimalny nastroj, no vy možete ručno izměniti, ako preferujete"
+  "text": "Izberite 3D Zvukovy Provajder. Igra več izbrala vaš optimalny nastroj, no vy možete ručno izměniti, ako preferujete"
  },
  {
   "label": "TOOLTIP:SpeakerSelect",
-  "text": "Izberite vaš nastroj zvučnikov. Igra već izbrala vaš optimalny nastroj, no vy možete ručno izměniti, ako preferujete"
+  "text": "Izberite vaš nastroj zvučnikov. Igra več izbrala vaš optimalny nastroj, no vy možete ručno izměniti, ako preferujete"
  },
  {
   "label": "TOOLTIP:DontUseAccount",
@@ -565,15 +565,15 @@
  },
  {
   "label": "TOOLTIP:RememberInfo",
-  "text": "Zapomniti informacije vhoda. Ne rekomenduje sę za kompjutery s věče korisnikov"
+  "text": "Zapomniti informacije vhoda. Ne rekomenduje se za kompjutery s věče korisnikov"
  },
  {
   "label": "TOOLTIP:Back",
-  "text": "Vratiti sę na prědhodny ekran"
+  "text": "Vratiti se na prědhodny ekran"
  },
  {
   "label": "TOOLTIP:BattleHonors",
-  "text": "Bojeve Časti, koje igrač polučil \n Bojeve Časti sę polučaju dostiženjem někotoryh cělej v solo ili multiigrě"
+  "text": "Bojeve Časti, koje igrač polučil \n Bojeve Časti se polučaju dostiženjem někotoryh cělej v solo ili multiigrě"
  },
  {
   "label": "TOOLTIP:BattleHonorStreak3",

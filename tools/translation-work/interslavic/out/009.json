@@ -85,7 +85,7 @@
  },
  {
   "label": "CONTROLBAR:ToolTipChinaHackerBuildingHack",
-  "text": "Deaktiviraj vražju zgradu moćnym kompjuterovym virusom"
+  "text": "Deaktiviraj vražju zgradu močnym kompjuterovym virusom"
  },
  {
   "label": "CONTROLBAR:ToolTipChinaDragonTankFire",
@@ -101,7 +101,7 @@
  },
  {
   "label": "CONTROLBAR:ToolTipReturnToPrison",
-  "text": "Vrati sę v zgradu za zatvorenikov"
+  "text": "Vrati se v zgradu za zatvorenikov"
  },
  {
   "label": "CONTROLBAR:ToolTipChinaFireTankHunterTNTAttack",
@@ -229,7 +229,7 @@
  },
  {
   "label": "CONTROLBAR:ToolTipChinaBuildGattlingCannon",
-  "text": "Moćna protivvozdušna oborona bazy \n \n Trěbovana Energija: 3"
+  "text": "Močna protivvozdušna oborona bazy \n \n Trěbovana Energija: 3"
  },
  {
   "label": "CONTROLBAR:ToolTipChinaBuildNuclearMissileLauncher",
@@ -245,7 +245,7 @@
  },
  {
   "label": "CONTROLBAR:ToolTipGLABuildPalace",
-  "text": "Sodrže važne tehnologije GLA. Може byti zauzeta vojskami GLA"
+  "text": "Sodrže važne tehnologije GLA. Može byti zauzeta vojskami GLA"
  },
  {
   "label": "CONTROLBAR:ToolTipGLABuildBlackMarket",
@@ -261,7 +261,7 @@
  },
  {
   "label": "CONTROLBAR:ToolTipGLABuildPrison",
-  "text": "Upotrěbjaje sę, aby uděržati zahvačenyh vražjih soldatov"
+  "text": "Upotrěbjaje se, aby uděržati zahvačenyh vražjih soldatov"
  },
  {
   "label": "CONTROLBAR:ToolTipUSABuildRanger",
@@ -337,7 +337,7 @@
  },
  {
   "label": "CONTROLBAR:ToolTipUSABuildComanche",
-  "text": "Strěljaje raketami i dělom. Prěvooružaje sę v vozduhu \n \n Efektivno protiv: tankov, lahkih vozil, pěhoty \n Slabo protiv: raketno-vooruženoj pěhoty, protivvozdušnoj oborony"
+  "text": "Strěljaje raketami i dělom. Prěvooružaje se v vozduhu \n \n Efektivno protiv: tankov, lahkih vozil, pěhoty \n Slabo protiv: raketno-vooruženoj pěhoty, protivvozdušnoj oborony"
  },
  {
   "label": "CONTROLBAR:ToolTipUSABuildMissileDefender",
@@ -345,11 +345,11 @@
  },
  {
   "label": "CONTROLBAR:ToolTipUSABuildPathFinder",
-  "text": "Kamuflovan, kogda ne dviga sę ili ne strělja. Najdi skryte vragy \n \n Efektivno protiv: pěhoty \n Slabo protiv: lahkih vozil, razvědčikov"
+  "text": "Kamuflovan, kogda ne dviga se ili ne strělja. Najdi skryte vragy \n \n Efektivno protiv: pěhoty \n Slabo protiv: lahkih vozil, razvědčikov"
  },
  {
   "label": "CONTROLBAR:ToolTipUSABuildColonelBurton",
-  "text": "Kamuflovan. Otkryva sę, kogda strělja ili postavja bombu \n \n Limit Stroitelstva: 1 \n Efektivno protiv: pěhoty \n Slabo protiv: razvědčikov"
+  "text": "Kamuflovan. Otkryva se, kogda strělja ili postavja bombu \n \n Limit Stroitelstva: 1 \n Efektivno protiv: pěhoty \n Slabo protiv: razvědčikov"
  },
  {
   "label": "CONTROLBAR:ToolTipUSABuildTomahawk",
@@ -413,11 +413,11 @@
  },
  {
   "label": "CONTROLBAR:ToolTipGLABuildHijacker",
-  "text": "Може zauzeti bilo koje vražje vozilo. Kamuflovan \n \n Efektivno protiv: tankov, vozil \n Slabo protiv: pěhoty, razvědčikov"
+  "text": "Može zauzeti bilo koje vražje vozilo. Kamuflovan \n \n Efektivno protiv: tankov, vozil \n Slabo protiv: pěhoty, razvědčikov"
  },
  {
   "label": "CONTROLBAR:ToolTipGLABuildJarmenKell",
-  "text": "Kamuflovan. Может sę skryti vnutri civilnyh zgrad, aby snajperiral vražje soldaty. Može ubiti ekipaž vražjih vozil, čineč ih ranjivymi za zauzenje \n \n Efektivno protiv: pěhoty, vozil \n Slabo protiv: razvědčikov"
+  "text": "Kamuflovan. Može se skryti vnutri civilnyh zgrad, aby snajperiral vražje soldaty. Može ubiti ekipaž vražjih vozil, čineč ih ranjivymi za zauzenje \n \n Efektivno protiv: pěhoty, vozil \n Slabo protiv: razvědčikov"
  },
  {
   "label": "CONTROLBAR:ToolTipGLABuildToxinTruck",
@@ -433,7 +433,7 @@
  },
  {
   "label": "CONTROLBAR:ToolTipGLABuildTechnical",
-  "text": "Може ulučšiti oružje sobranymi dělami iz ubityh vragov \n \n Efektivno protiv: pěhoty \n Slabo protiv: tankov, letadl"
+  "text": "Može ulučšiti oružje sobranymi dělami iz ubityh vragov \n \n Efektivno protiv: pěhoty \n Slabo protiv: tankov, letadl"
  },
  {
   "label": "CONTROLBAR:ToolTipGLABuildQuadCannon",
@@ -441,7 +441,7 @@
  },
  {
   "label": "CONTROLBAR:ToolTipGLABuildBombTruck",
-  "text": "Može sę maskirati kako bilo koje vozilo, prijateljsko ili vražje \n \n Efektivno protiv: pěhoty, zgrad \n Slabo protiv: razvědčikov"
+  "text": "Može se maskirati kako bilo koje vozilo, prijateljsko ili vražje \n \n Efektivno protiv: pěhoty, zgrad \n Slabo protiv: razvědčikov"
  },
  {
   "label": "CONTROLBAR:ToolTipGLABuildSCUDLauncher",
@@ -453,15 +453,15 @@
  },
  {
   "label": "CONTROLBAR:ToolTipUSASciencePaladin",
-  "text": "Paladini mogu srušiti vražje rakety naprednym obrannym lazernym sistemom \n \n Stroji sę v: Vojennoj Fabrikě"
+  "text": "Paladini mogu srušiti vražje rakety naprednym obrannym lazernym sistemom \n \n Stroji se v: Vojennoj Fabrikě"
  },
  {
   "label": "CONTROLBAR:ToolTipUSASciencePathFinder",
-  "text": "Sledopyty sut elitni kamuflovani snajpery \n \n Stroji sę v: Kasarně"
+  "text": "Sledopyty sut elitni kamuflovani snajpery \n \n Stroji se v: Kasarně"
  },
  {
   "label": "CONTROLBAR:ToolTipUSAScienceStealthFighter",
-  "text": "Nevidim vo dvigenju \n \n Stroji sę v: Aerodromu"
+  "text": "Nevidim vo dvigenju \n \n Stroji se v: Aerodromu"
  },
  {
   "label": "CONTROLBAR:ToolTipUSAScienceSpyDrone",
@@ -481,7 +481,7 @@
  },
  {
   "label": "CONTROLBAR:ToolTipChinaScienceNukeCannon",
-  "text": "Jaderna Děla vystrělivajut male taktičske jaderky na velike distancije \n \n Stroji sę v: Vojennoj Fabrikě \n Trěbuje: Centr Propagandy"
+  "text": "Jaderna Děla vystrělivajut male taktičske jaderky na velike distancije \n \n Stroji se v: Vojennoj Fabrikě \n Trěbuje: Centr Propagandy"
  },
  {
   "label": "CONTROLBAR:ToolTipChinaScienceRedGuardTraining",
@@ -505,15 +505,15 @@
  },
  {
   "label": "CONTROLBAR:ToolTipGLAScienceHijacker",
-  "text": "Otimači sut kamuflovani i mogu ukrasti vražje vozila \n \n Stroji sę v: Kasarně"
+  "text": "Otimači sut kamuflovani i mogu ukrasti vražje vozila \n \n Stroji se v: Kasarně"
  },
  {
   "label": "CONTROLBAR:ToolTipGLAScienceSCUDLauncher",
-  "text": "Strěljaje dalekodosežnoju raketoju, koja može byti oprěmljena eksplozivom ili smrtonosnym Antraksom \n \n Stroji sę v: Torgovca Oružjem"
+  "text": "Strěljaje dalekodosežnoju raketoju, koja može byti oprěmljena eksplozivom ili smrtonosnym Antraksom \n \n Stroji se v: Torgovca Oružjem"
  },
  {
   "label": "CONTROLBAR:ToolTipGLaScienceMarauderTank",
-  "text": "Tanky Marauder mogu sobirati děla iz ubityh vragov, aby ulučšili svoje glavno dělo \n \n Stroji sę v: Torgovca Oružjem"
+  "text": "Tanky Marauder mogu sobirati děla iz ubityh vragov, aby ulučšili svoje glavno dělo \n \n Stroji se v: Torgovca Oružjem"
  },
  {
   "label": "CONTROLBAR:ToolTipGLAScienceTechnicalTraining",
@@ -717,7 +717,7 @@
  },
  {
   "label": "GUI:UnitMaxedOut",
-  "text": "Vy već imate maksimum za tu jedinicu"
+  "text": "Vy več imate maksimum za tu jedinicu"
  },
  {
   "label": "CONTROLBAR:FireTomahawkAtPosition",
@@ -729,7 +729,7 @@
  },
  {
   "label": "GUI:SurrenderConfirmation",
-  "text": "Jeste li uverjeni, že hočete sę Predati?"
+  "text": "Jeste li uverjeni, že hočete se Predati?"
  },
  {
   "label": "GUI:GameOver",
@@ -741,7 +741,7 @@
  },
  {
   "label": "GUI:Surrender",
-  "text": "PREDAJ SĘ"
+  "text": "PREDAJ SE"
  },
  {
   "label": "GUI:SuperweaponEmergencyRepair",

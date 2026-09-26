@@ -145,6 +145,7 @@ final class LocaleHelper {
             case "korean":    return "한국어";
             case "chinese":   return "中文";
             case "ukrainian": return "Українська";
+            case "interslavic": return "Medžuslovjansky";
             default:
                 // GeneralsX @feature Android port 09/09/2026 A language nobody listed is still
                 // a language. Show the folder name with a capital rather than nothing, so a

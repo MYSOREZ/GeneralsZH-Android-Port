@@ -13,7 +13,7 @@
  },
  {
   "label": "MAP:MD-USA04_Hint04",
-  "text": "SOVĚT: \n Najdi 3 agenty CIA, aby polučiti ih pomoć"
+  "text": "SOVĚT: \n Najdi 3 agenty CIA, aby polučiti ih pomoč"
  },
  {
   "label": "MAP:MD-USA04_Hint05",
@@ -41,7 +41,7 @@
  },
  {
   "label": "MAP:MD-USA06Objective02",
-  "text": "VHODEČA TRANSMISIJA: \n Buntovne sily GLA sę pridružili vam"
+  "text": "VHODEČA TRANSMISIJA: \n Buntovne sily GLA se pridružili vam"
  },
  {
   "label": "MAP:MD-USA06Objective03",
@@ -77,11 +77,11 @@
  },
  {
   "label": "MAP:MD-USA06CivilianMessage01",
-  "text": "VHODEČA TRANSMISIJA: \n Povstanci GLA na istoku mogu pomoći našemu naporu"
+  "text": "VHODEČA TRANSMISIJA: \n Povstanci GLA na istoku mogu pomoči našemu naporu"
  },
  {
   "label": "MAP:MD-USA06Hint01",
-  "text": "SOVĚT: \n Věče snabděnja sę nahodit na jugozapadu"
+  "text": "SOVĚT: \n Věče snabděnja se nahodit na jugozapadu"
  },
  {
   "label": "MAP:MD-USA06Hint02",
@@ -89,7 +89,7 @@
  },
  {
   "label": "MAP:MD-USA06Hint03",
-  "text": "SOVĚT: \n Moći Generala GLA sut dostupne v Komandnom Centru GLA"
+  "text": "SOVĚT: \n Moči Generala GLA sut dostupne v Komandnom Centru GLA"
  },
  {
   "label": "MAP:MD-USA06Warning01",
@@ -149,7 +149,7 @@
  },
  {
   "label": "MAP:MD-USA06Intro1",
-  "text": "Zemna Orbita: \n Špionsky Satelit USA Kodovo Imę: Powers"
+  "text": "Zemna Orbita: \n Špionsky Satelit USA Kodovo Ime: Powers"
  },
  {
   "label": "MAP:MD-USA06Intro2",
@@ -157,11 +157,11 @@
  },
  {
   "label": "MAP:MD-USA06Warning15",
-  "text": "VHODEČA TRANSMISIJA: \n Generale, baza GLA na istoku sę \n rěšila buntovati protiv Toksinnogo Generala i \n jego masovogo upotrěbjenja toksinov"
+  "text": "VHODEČA TRANSMISIJA: \n Generale, baza GLA na istoku se \n rěšila buntovati protiv Toksinnogo Generala i \n jego masovogo upotrěbjenja toksinov"
  },
  {
   "label": "MAP:MD-USA06Warning16",
-  "text": "VHODEČA TRANSMISIJA: \n Oni hočut nam pomoći v napadu na \n Generala, davajuč nam upotrěbjenje svoje bazy"
+  "text": "VHODEČA TRANSMISIJA: \n Oni hočut nam pomoči v napadu na \n Generala, davajuč nam upotrěbjenje svoje bazy"
  },
  {
   "label": "MAP:MD_GLA01Objective6",
@@ -229,7 +229,7 @@
  },
  {
   "label": "MDGLA02:Hint3",
-  "text": "SOVĚT: \n Věče snabděnja sę nahodit na jugozapadu"
+  "text": "SOVĚT: \n Věče snabděnja se nahodit na jugozapadu"
  },
  {
   "label": "MDGLA02:OBJ1",
@@ -329,7 +329,7 @@
  },
  {
   "label": "MDGLA03:Help-UseParticleCannon-01",
-  "text": "POZOR: \n Ta oblast izgleda dobro branjena \n Česticovo Dělo može nam pomoći prodrěti"
+  "text": "POZOR: \n Ta oblast izgleda dobro branjena \n Česticovo Dělo može nam pomoči prodrěti"
  },
  {
   "label": "MDGLA03:Help-A10Warning-01",
@@ -365,7 +365,7 @@
  },
  {
   "label": "MDGLA03:Help-LostIsland-01",
-  "text": "SOVĚT: \n Oni uništili našu Tunelnu Sěť \n Upotrěbi Skrytu Ataku, aby sę vratiti na tot ostrov"
+  "text": "SOVĚT: \n Oni uništili našu Tunelnu Sěť \n Upotrěbi Skrytu Ataku, aby se vratiti na tot ostrov"
  },
  {
   "label": "MDGLA03:Help-ArmsDealer-01",
@@ -421,7 +421,7 @@
  },
  {
   "label": "MD_GLA05-MilitaryBriefing:String_3",
-  "text": "VHODEČA TRANSMISIJA: \n Spasi plěnnikov i vrati ih sjuda \n Terorna Jačejka sę razbudi, aby vam pomogla protiv USA"
+  "text": "VHODEČA TRANSMISIJA: \n Spasi plěnnikov i vrati ih sjuda \n Terorna Jačejka se razbudi, aby vam pomogla protiv USA"
  },
  {
   "label": "MD_GLA05-MilitaryBriefing:String_4",
@@ -433,11 +433,11 @@
  },
  {
   "label": "MD_GLA05-MilitaryBriefing:String_6",
-  "text": "VHODEČA TRANSMISIJA: \n My sme gotovi vratiti sę v naše selo na sěveru"
+  "text": "VHODEČA TRANSMISIJA: \n My sme gotovi vratiti se v naše selo na sěveru"
  },
  {
   "label": "MD_GLA05-MilitaryBriefing:String_7",
-  "text": "VHODEČA TRANSMISIJA: \n Vy spasili plěnnikov i vratili ih domoj \n Terorna Jačejka sę aktivira i načne napad na USA"
+  "text": "VHODEČA TRANSMISIJA: \n Vy spasili plěnnikov i vratili ih domoj \n Terorna Jačejka se aktivira i načne napad na USA"
  },
  {
   "label": "MD_GLA05-MilitaryBriefing:String_8",
@@ -477,7 +477,7 @@
  },
  {
   "label": "MD_GLA05-MilitaryBriefing:String_17",
-  "text": "SOVĚT: \n Postroj Komandny Centr GLA, aby upotrěbiti svoje Moći Generala"
+  "text": "SOVĚT: \n Postroj Komandny Centr GLA, aby upotrěbiti svoje Moči Generala"
  },
  {
   "label": "MD_GLA05-MilitaryBriefing:String_18",
@@ -489,11 +489,11 @@
  },
  {
   "label": "MD_GLA05-MilitaryBriefing:String_20",
-  "text": "VHODEČA TRANSMISIJA: \n Vsi plěnniky sut ubiti \n Terorna Jačejka sę pridružuje nam, aby osvětila ih smrt"
+  "text": "VHODEČA TRANSMISIJA: \n Vsi plěnniky sut ubiti \n Terorna Jačejka se pridružuje nam, aby osvětila ih smrt"
  },
  {
   "label": "MD_GLA05-MilitaryBriefing:String_21",
-  "text": "VHODEČA TRANSMISIJA: \n Vrag sę rasprostrl, aby osigural věče resursov \n Uklani ih i upotrěbi resursy za nas"
+  "text": "VHODEČA TRANSMISIJA: \n Vrag se rasprostrl, aby osigural věče resursov \n Uklani ih i upotrěbi resursy za nas"
  },
  {
   "label": "MD_GLA05-MilitaryBriefing:String_22",
@@ -501,11 +501,11 @@
  },
  {
   "label": "MD_GLA05-MilitaryBriefing:String_23",
-  "text": "VHODEČA TRANSMISIJA: \n S malenkoju bazoju neutralizovanoju, možemo sę koncentrirati na \n Evropsku Centralnu Komandnu Bazu USA"
+  "text": "VHODEČA TRANSMISIJA: \n S malenkoju bazoju neutralizovanoju, možemo se koncentrirati na \n Evropsku Centralnu Komandnu Bazu USA"
  },
  {
   "label": "MD_GLA05-MilitaryBriefing:String_24",
-  "text": "My imamo plan... \n My sę dvignemo i zauzmemo Kitajsku Bazu \n i upotrěbimo ju, aby izgnati USA iz Evropy"
+  "text": "My imamo plan... \n My se dvignemo i zauzmemo Kitajsku Bazu \n i upotrěbimo ju, aby izgnati USA iz Evropy"
  },
  {
   "label": "MD_GLA05-MilitaryBriefing:String_25",
@@ -549,7 +549,7 @@
  },
  {
   "label": "MD_GLA05-MilitaryBriefing:String_35",
-  "text": "SOVĚT: \n Ulučši Moć Generala Novčana Nagrada, \n aby poveličiti dohod"
+  "text": "SOVĚT: \n Ulučši Moč Generala Novčana Nagrada, \n aby poveličiti dohod"
  },
  {
   "label": "MD_GLA05-MilitaryBriefing:String_36",
@@ -605,7 +605,7 @@
  },
  {
   "label": "MAP:CHI01xGarrisonClrHint01",
-  "text": "SOVĚT: \n Toksinny Traktor ubijet garnizonovanu pěhotu momentalno \n Ne dozvoli mu sę približiti k vašim garnizonovanym strukturam"
+  "text": "SOVĚT: \n Toksinny Traktor ubijet garnizonovanu pěhotu momentalno \n Ne dozvoli mu se približiti k vašim garnizonovanym strukturam"
  },
  {
   "label": "MAP:CHI01xGarrisonClrHint02",
@@ -617,15 +617,15 @@
  },
  {
   "label": "MAP:CHI01xPerimeterWarn02",
-  "text": "POZOR: \n Vrag sę pripravja napasti našu bazu"
+  "text": "POZOR: \n Vrag se pripravja napasti našu bazu"
  },
  {
   "label": "MAP:CHI02xMapName",
-  "text": "Braneč Ogeń"
+  "text": "Braneč Ogenj"
  },
  {
   "label": "MAP:CHI02xOpen",
-  "text": "Zgrada Proizvodstva Oružja, Kitaj \n 'Braneč Ogeń'"
+  "text": "Zgrada Proizvodstva Oružja, Kitaj \n 'Braneč Ogenj'"
  },
  {
   "label": "SCRIPT:CHI02xReinforcementTimer",
@@ -669,11 +669,11 @@
  },
  {
   "label": "MAP:CHI02xPerimeterWarn",
-  "text": "POZOR: \n Vražje sily sę pripravjajut napasti"
+  "text": "POZOR: \n Vražje sily se pripravjajut napasti"
  },
  {
   "label": "MAP:CHI02xPerimeterEasyWarn",
-  "text": "POZOR: \n Vražje sily sę pripravjajut napasti"
+  "text": "POZOR: \n Vražje sily se pripravjajut napasti"
  },
  {
   "label": "MAP:CHI02xNeutronHint01",
@@ -705,7 +705,7 @@
  },
  {
   "label": "MAP:MD_CHI03-Event-AngryMob-01",
-  "text": "VHODEČA TRANSMISIJA: \n Ljudi sę podigaju, aby nam služili"
+  "text": "VHODEČA TRANSMISIJA: \n Ljudi se podigaju, aby nam služili"
  },
  {
   "label": "MAP:MD_CHI03-Help-IOLow-01",

@@ -49,7 +49,7 @@
  },
  {
   "label": "GUI:ReturnToGame",
-  "text": "VRATITI SĘ V IGRU"
+  "text": "VRATITI SE V IGRU"
  },
  {
   "label": "GUI:NewGame",
@@ -65,7 +65,7 @@
  },
  {
   "label": "GUI:Player'sName",
-  "text": "Imę Protivnika"
+  "text": "Ime Protivnika"
  },
  {
   "label": "GUI:AllTimeWins",
@@ -113,7 +113,7 @@
  },
  {
   "label": "GUI:SortAlpha",
-  "text": "Imę"
+  "text": "Ime"
  },
  {
   "label": "GUI:SortPing",
@@ -173,7 +173,7 @@
  },
  {
   "label": "GUI:GSDisconReason1",
-  "text": "Tot nadimok je već zauzet. Prosim, izberite drugi"
+  "text": "Tot nadimok je več zauzet. Prosim, izberite drugi"
  },
  {
   "label": "GUI:GSDisconReason2",
@@ -185,7 +185,7 @@
  },
  {
   "label": "GUI:GSDisconReason4",
-  "text": "Ne mogl sę sojediniti s C&C Generals Zero Hour Online"
+  "text": "Ne mogl se sojediniti s C&C Generals Zero Hour Online"
  },
  {
   "label": "GUI:GSDisconReason5",
@@ -253,7 +253,7 @@
  },
  {
   "label": "GUI:JoinFailedAlreadyInRoom",
-  "text": "Ne uspělo vstupiti - vy ste već v sobě"
+  "text": "Ne uspělo vstupiti - vy ste več v sobě"
  },
  {
   "label": "GUI:JoinFailedNoConnection",
@@ -277,7 +277,7 @@
  },
  {
   "label": "GUI:NATNegotiationFailed",
-  "text": "Nevozmožno sojediniti sę s drugimi igračami"
+  "text": "Nevozmožno sojediniti se s drugimi igračami"
  },
  {
   "label": "GUI:GPErrorTitle",
@@ -285,7 +285,7 @@
  },
  {
   "label": "GUI:GPDisconnected",
-  "text": "Vy ste otključeni ot servera prijateljev. Hočete li sę znova sojediniti?"
+  "text": "Vy ste otključeni ot servera prijateljev. Hočete li se znova sojediniti?"
  },
  {
   "label": "GUI:GPNoProfile",
@@ -297,7 +297,7 @@
  },
  {
   "label": "GUI:PSCannotConnect",
-  "text": "Ne mogl sę sojediniti s serverom trvalogo skladišča"
+  "text": "Ne mogl se sojediniti s serverom trvalogo skladišča"
  },
  {
   "label": "Buddy:Offline",
@@ -313,7 +313,7 @@
  },
  {
   "label": "Buddy:Staging",
-  "text": "Připravljaje sę v %ls"
+  "text": "Připravljaje se v %ls"
  },
  {
   "label": "Buddy:Loading",
@@ -369,7 +369,7 @@
  },
  {
   "label": "GUI:Level",
-  "text": "Uroveń"
+  "text": "Urovenj"
  },
  {
   "label": "GUI:Tac",
@@ -469,11 +469,11 @@
  },
  {
   "label": "QM:WORKING",
-  "text": "Trenutno %d igračev pokušaje sę sopostaviti..."
+  "text": "Trenutno %d igračev pokušaje se sopostaviti..."
  },
  {
   "label": "QM:POOLSIZE",
-  "text": "Trenutno %d igračev pokušaje sę sopostaviti..."
+  "text": "Trenutno %d igračev pokušaje se sopostaviti..."
  },
  {
   "label": "QM:LOOKINGFORBOT",
@@ -513,7 +513,7 @@
  },
  {
   "label": "QM:COULDNOTNEGOTIATEFIREWALLS",
-  "text": "Ne uspělo dogovoriti sę s firewallami"
+  "text": "Ne uspělo dogovoriti se s firewallami"
  },
  {
   "label": "QM:STOPPED",
@@ -717,7 +717,7 @@
  },
  {
   "label": "FTP:CouldNotConnect",
-  "text": "Ne Mogl sę Sojediniti"
+  "text": "Ne Mogl se Sojediniti"
  },
  {
   "label": "FTP:LoginFailed",
@@ -741,7 +741,7 @@
  },
  {
   "label": "FTP:StatusConnecting",
-  "text": "Sojedinjuje sę"
+  "text": "Sojedinjuje se"
  },
  {
   "label": "FTP:StatusLoggingIn",
@@ -761,7 +761,7 @@
  },
  {
   "label": "FTP:StatusDisconnecting",
-  "text": "Otključuje sę"
+  "text": "Otključuje se"
  },
  {
   "label": "FTP:StatusFinishing",
