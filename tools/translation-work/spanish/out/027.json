@@ -1,0 +1,802 @@
+[
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry088Subtitle",
+  "text": "*Si no se retira ahora, desataré la horda para barrerle de nuestra tierra"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry089Subtitle",
+  "text": "*¿Siente que se acerca el final, general?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry090Subtitle",
+  "text": "*¡Jaja! Le he derrotado. Ahora debe elegir: unirse a mi horda o morir"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry091Subtitle",
+  "text": "*¡Es hora de desatar la horda!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry092Subtitle",
+  "text": "*Enfréntese a mí y caiga como los demás"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry093Subtitle",
+  "text": "*Mis hombres le aplastarán"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry094Subtitle",
+  "text": "*Le arrasaremos como una plaga de langostas"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry095Subtitle",
+  "text": "*¿Hombres? ¿Dónde están mis hombres? No consideraría dejarme marchar, ¿verdad? Por favor, no me haga daño"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry096Subtitle",
+  "text": "*En la horda tenemos uniformes muy bonitos... no estará tan mal... hasta puede que le guste. Aunque lo dudo"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry097Subtitle",
+  "text": "*¿Está preparado para enfrentarse a mi horda, general?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry098Subtitle",
+  "text": "*Y piense que esta es solo la primera oleada"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser001Subtitle",
+  "text": "*Ya le tengo en el punto de mira, general"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser002Subtitle",
+  "text": "*Iniciando ataque de precisión"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser003Subtitle",
+  "text": "*(Unidades del jugador destruidas) Curiosa elección de táctica; tampoco le sirvió a mi último rival"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser004Subtitle",
+  "text": "*Estoy a punto de atacar; he pensado que le vendría bien el aviso"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser005Subtitle",
+  "text": "*Quizá debería replantearse su estrategia; es evidente que no funciona"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser006Subtitle",
+  "text": "*¿Qué le parecen mis juguetes nuevos, general?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser007Subtitle",
+  "text": "*Prepárese, general: está a punto de recibir una lección de guerra"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser008Subtitle",
+  "text": "*Lo que fácil viene, fácil se va"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser009Subtitle",
+  "text": "*Quizá esto no sea lo suyo; pruebe con la pintura"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser010Subtitle",
+  "text": "*Preciosos, ¿verdad, general?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser011Subtitle",
+  "text": "*Mis láseres atravesarán sus defensas como un cuchillo caliente la mantequilla"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser012Subtitle",
+  "text": "*Jaque mate"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser013Subtitle",
+  "text": "*Es una nueva era de la guerra, general, y está llamando a su puerta"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser014Subtitle",
+  "text": "*Objetivo marcado... todas las fuerzas, inicien la pasada de ataque"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser015Subtitle",
+  "text": "*Al principio todas mis armas llevaban también guiado láser, pero mis enemigos se confundían"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser016Subtitle",
+  "text": "*No mire directamente al láser... podría quemarse la nuca"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser017Subtitle",
+  "text": "*Cargando láseres... espere, por favor, general"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser018Subtitle",
+  "text": "*Los láseres deben calibrarse con precisión para lograr el máximo efecto"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser019Subtitle",
+  "text": "*Excavadoras, construid más reactores... los láseres consumen mucha energía"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser020Subtitle",
+  "text": "*¿Puede igualar cincuenta millones de megajulios de potencia láser, general?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser021Subtitle",
+  "text": "*Parece una gran batalla espacial, ¿verdad?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser022Subtitle",
+  "text": "*Mis láseres van a convertir su blindaje en vapor"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser023Subtitle",
+  "text": "*General, de verdad debería coordinar sus ataques... esto ha sido demasiado fácil para mí"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser024Subtitle",
+  "text": "*No se distraiga con las lucecitas, general"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser025Subtitle",
+  "text": "*¿Quiere que le teletransporte, general?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser026Subtitle",
+  "text": "*Sus armas no pueden igualar mi precisión milimétrica, general. ¿Por qué no se rinde sin más?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser027Subtitle",
+  "text": "*¿Por qué no construye otro cuartel, general? También disfrutaré destruyéndolo"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser028Subtitle",
+  "text": "*Si no puede proteger su fábrica de guerra, ¿hasta qué punto estará a salvo su centro de mando?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser029Subtitle",
+  "text": "*Sus aviones no están a salvo de mis láseres, sobre todo sin su aeródromo"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser030Subtitle",
+  "text": "*Las defensas de su base no valen nada contra mí"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser031Subtitle",
+  "text": "*Ah, el centro de mando... la reina de este tablero. La partida prácticamente ha terminado, general"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser032Subtitle",
+  "text": "*Mis láseres han destruido tantos edificios suyos... ¿cómo sigue luchando?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser033Subtitle",
+  "text": "*General, no destruya mis edificios tecnológicos; los necesito"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser034Subtitle",
+  "text": "*¡Aléjese de mi cuartel!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser035Subtitle",
+  "text": "*¡Mi fábrica de guerra! ¡Nooo!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser036Subtitle",
+  "text": "*¡Cómo se atreve a destruir mi aeródromo!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser037Subtitle",
+  "text": "*¡Están destruyendo nuestras defensas! Todas las fuerzas: ¡defended la base!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser038Subtitle",
+  "text": "*General, estas pérdidas son inaceptables. Me las pagará por destruir mis edificios"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser039Subtitle",
+  "text": "*¡No! ¡Rápido, excavadoras, reconstruid el centro de mando!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser040Subtitle",
+  "text": "*General, ¡si derriba uno más de mis aviones, usaré todas mis superarmas para destruirle!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser041Subtitle",
+  "text": "*¡Deje en paz mis vehículos, general!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser042Subtitle",
+  "text": "*Está cazando a mis hombres a propósito, ¿verdad, general?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser043Subtitle",
+  "text": "*Aproveche esa torre petrolífera mientras pueda; pronto iremos a quitársela"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser044Subtitle",
+  "text": "*Esa plataforma de artillería no es rival para mis láseres aéreos"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser045Subtitle",
+  "text": "*¿Sabía que esa refinería de petróleo le permite construir vehículos más deprisa y de forma más eficiente? Uy, seguramente no debería habérselo dicho"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser046Subtitle",
+  "text": "*Ha activado nuestros láseres de alerta del perímetro exterior, general. Ya sabemos que está ahí"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser047Subtitle",
+  "text": "*Veo que se acerca a mi base, general. No le aconsejo acercarse más"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser048Subtitle",
+  "text": "*¡El enemigo está en nuestra base! ¡Todas las fuerzas, regresad y desplegad los láseres!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser049Subtitle",
+  "text": "*¡Aléjese de mis reactores, general!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser050Subtitle",
+  "text": "*General, esos recursos son para mí... no se acerque a ellos"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser051Subtitle",
+  "text": "*Atacando por los flancos, ¿eh? Hará falta algo más que trucos tácticos para vencerme"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser052Subtitle",
+  "text": "*¡¿Ataques por el flanco?! Es usted retorcido, general"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser053Subtitle",
+  "text": "*Sí, entre directamente por mi puerta principal, general... si se atreve"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser054Subtitle",
+  "text": "*Cuidado, general... la puerta trasera de mi base no está tan desprotegida como parece"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser055Subtitle",
+  "text": "*Ha sido una insensatez venir aquí, general"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser056Subtitle",
+  "text": "*Estos recursos no bastan para salvar su fallida estrategia, general"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser057Subtitle",
+  "text": "*¡No! ¡Aléjese! ¡Necesito esos reactores para alimentar mis láseres!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser058Subtitle",
+  "text": "*¡¿Sin energía?! ¿Cómo ha podido dejar que su base se quede sin energía?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser059Subtitle",
+  "text": "*Quedarse sin energía es un error fatal, general"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser060Subtitle",
+  "text": "*Se ha quedado sin recursos, general. Nunca se recuperará antes de que le arrollemos"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser061Subtitle",
+  "text": "*¡¿Sin recursos?! ¡Esto es inaceptable! ¡Chinooks, recoged más deprisa!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser062Subtitle",
+  "text": "*Venda esa Tormenta SCUD, general, o se la destruiré yo"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser063Subtitle",
+  "text": "*Ese silo nuclear no me detendrá, general"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser064Subtitle",
+  "text": "*Si usted construye un cañón de partículas y yo lo destruyo con un rayo de partículas... ¿eso es ironía?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser065Subtitle",
+  "text": "*Esa cantidad desmesurada de defensas solo retrasará un poco mi láser, general"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser066Subtitle",
+  "text": "*Sus tanques convencionales no son rival para mis plataformas de armas láser, general"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser067Subtitle",
+  "text": "*Cuántos aviones, general. ¿Está montando un espectáculo aéreo?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser068Subtitle",
+  "text": "*Ha entrenado a bastante infantería, general. Estoy deseando ver ese plan descabellado"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser069Subtitle",
+  "text": "*Su base empieza a parecer una urbanización, general. Quizá debería jugar a unir los puntos con el cañón de partículas para aclarar un poco sus filas"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser070Subtitle",
+  "text": "*Derribaré esos misiles SCUD, general. Y entonces pagará"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser071Subtitle",
+  "text": "*Mis láseres derribarán esa bomba nuclear, general. La lluvia radiactiva será culpa suya"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser072Subtitle",
+  "text": "*¡¿Un cañón de partículas?! Me pregunto qué pasaría si cruzáramos los rayos"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser073Subtitle",
+  "text": "*General, no ocupe ese edificio; salga a jugar"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser074Subtitle",
+  "text": "*General, el coronel Burton es un torpe inútil"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser075Subtitle",
+  "text": "*Loto Negro no es invisible para mis láseres, general"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser076Subtitle",
+  "text": "*Espero que Jarmen Kell no use una mira láser en su fusil... conmigo no funcionaría"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser077Subtitle",
+  "text": "*Construir un aeródromo solo proporciona blancos aéreos a mis láseres, general"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser078Subtitle",
+  "text": "*Va a necesitar muchos tanques para llegar hasta mí, general. Buena suerte"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser079Subtitle",
+  "text": "*Construir un cuartel solo servirá para que hieran a sus hombres, general"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser080Subtitle",
+  "text": "*Vendiendo sus estructuras, ¿eh? Ese es el primer error de un general desesperado"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser081Subtitle",
+  "text": "*¡¿Qué?! ¡No puede estar ganándome! Su falta de precisión debería bastar para asegurar mi victoria"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser082Subtitle",
+  "text": "*¡No puedo perder contra usted... es un bufón torpe!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser083Subtitle",
+  "text": "*¿Cómo puede estar ganando? En la simulación no salía así"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser084Subtitle",
+  "text": "*He calculado todas las variables y, aun así, usted está ganando... ¿cómo es posible?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser085Subtitle",
+  "text": "*¡No! ¡Este no puede ser el final! ¿Qué truco ha usado para vencerme?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser086Subtitle",
+  "text": "*Mi planificación y preparación me llevan a una clara victoria"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser087Subtitle",
+  "text": "*La precisión siempre vencerá a la fuerza bruta, general"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser088Subtitle",
+  "text": "*Esto debe de ser como una pesadilla para usted, general"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser089Subtitle",
+  "text": "*¿Ha decidido ya cómo va a aceptar esta derrota, general?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser090Subtitle",
+  "text": "*Está derrotado, general. Aunque nunca hubo ninguna duda, ¿verdad?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser091Subtitle",
+  "text": "*Láseres cargados... rastreando objetivos"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser092Subtitle",
+  "text": "*No está a mi nivel, general... pruebe con un rival más fácil"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser093Subtitle",
+  "text": "*Calculo que perderá esta batalla, general"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser094Subtitle",
+  "text": "*Los láseres son armas superiores"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser095Subtitle",
+  "text": "*Me ha derrotado, general, pero analizaré su táctica y diseñaré una estrategia superior"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser096Subtitle",
+  "text": "*Sus debilidades se hicieron evidentes cuando analicé su táctica"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser097Subtitle",
+  "text": "*Ahí lo tiene, general... he trazado la raya en la arena"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Laser098Subtitle",
+  "text": "*Ahora le reto a cruzarla. Venga a por mí, general"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke001Subtitle",
+  "text": "*Al menos es un calor seco, general"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke002Subtitle",
+  "text": "*Pronto su base brillará como el sol"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke003Subtitle",
+  "text": "*¿Cómo espera luchar contra esto, general?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke004Subtitle",
+  "text": "*¡Sus armas no son rival para mi poder!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke005Subtitle",
+  "text": "*¡Fundíos! ¡Todo debe fundirse!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke006Subtitle",
+  "text": "*¡El resplandor! ¡El maravilloso resplandor! ¿No lo ve, general?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke007Subtitle",
+  "text": "*Parece que este año tendremos invierno nuclear, general"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke008Subtitle",
+  "text": "*El final está cerca, general"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke009Subtitle",
+  "text": "*Esto es solo el principio, general. El principio del fin"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke010Subtitle",
+  "text": "*No se preocupe, general, las cabezas nucleares están en camino"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke011Subtitle",
+  "text": "*Perdone el retraso, general; estoy reuniendo mis fuerzas"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke012Subtitle",
+  "text": "*¿Le está afectando el calor, general?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke013Subtitle",
+  "text": "*¿Se está fundiendo, general?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke014Subtitle",
+  "text": "*Todas las fuerzas, preparaos para el próximo asalto"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke015Subtitle",
+  "text": "*¿Y dónde habré puesto los códigos de lanzamiento?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke016Subtitle",
+  "text": "*¿Listo para más, general?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke017Subtitle",
+  "text": "*Creo que ha llegado su periodo de semidesintegración, general"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke018Subtitle",
+  "text": "*Espero que su radar no esté caído, general; me sabría mal que se perdiera lo que viene ahora"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke019Subtitle",
+  "text": "*Ya conozco sus debilidades, general. El próximo ataque será imparable"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke020Subtitle",
+  "text": "*Pronto conocerá la gloria de mi arsenal nuclear"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke021Subtitle",
+  "text": "*Yo que usted haría acopio de protector solar, general"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke022Subtitle",
+  "text": "*\"    Ne"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke023Subtitle",
+  "text": "*Al final alguien tiene que ganar la carrera armamentística; si no, ¿para qué correr?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke024Subtitle",
+  "text": "*Hora de ponerse la ropa interior de plomo"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke025Subtitle",
+  "text": "*Recuerde: no mire directamente a la explosión, general"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke026Subtitle",
+  "text": "*Parece que solo ha entrenado a sus hombres para morir, general"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke027Subtitle",
+  "text": "*Ahora su fábrica de guerra es un cráter resplandeciente. Maravilloso"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke028Subtitle",
+  "text": "*Sus defensas se resquebrajan como cáscaras de huevo, general"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke029Subtitle",
+  "text": "*Oh, no estaría usted en ese centro de mando, ¿verdad, general?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke030Subtitle",
+  "text": "*¿Por qué destruye mi cuartel, general? No son mis hombres lo que debería temer"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke031Subtitle",
+  "text": "*¡Mi fábrica de guerra! ¡¿Qué ha hecho?! Mis preciosos tanques... desaparecidos..."
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke032Subtitle",
+  "text": "*¡Déjeme en paz! ¿Qué le he hecho yo?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke033Subtitle",
+  "text": "*¡Mi centro de mando! ¡¡¡No!!! ¡No perderé el mando! ¡No!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke034Subtitle",
+  "text": "*¡No puedo creer que me esté ganando! ¿Me concedería un momento para reconstruir?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke035Subtitle",
+  "text": "*Hemos sufrido grandes pérdidas por su culpa, general, pero esto aún no ha terminado"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke036Subtitle",
+  "text": "*General, puede quedarse con esa torre petrolífera, pero no le ayudará a detenerme"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke037Subtitle",
+  "text": "*¡Salga de mi base, general! No se lo pediré dos veces"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke038Subtitle",
+  "text": "*¿Cuánto tiempo pensaba quedarse en mi base, general? ¿Le preparo una litera?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke039Subtitle",
+  "text": "*Abandone mi base, general, o me veré obligado a detonar mis cabezas nucleares"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke040Subtitle",
+  "text": "*¿Le gusta mi aldea, general? Por favor, está en su casa"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke041Subtitle",
+  "text": "*¿Viene a inspeccionar las armas nucleares, general? Puede mirar, pero no tocar"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke042Subtitle",
+  "text": "*Yo tendría cuidado, general; estos depósitos nucleares suelen tener fugas"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke043Subtitle",
+  "text": "*¡Aléjese de mis suministros, general!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke044Subtitle",
+  "text": "*General, yo que usted no capturaría esa torre petrolífera... la destruiré sin más"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke045Subtitle",
+  "text": "*¡Aléjese de mis silos, general!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke046Subtitle",
+  "text": "*Veo que se ha quedado sin energía, general. ¿Le envío un poco de energía nuclear?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke047Subtitle",
+  "text": "*¿Ya sin fondos? ¿No sabe que la guerra es cara, general?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke048Subtitle",
+  "text": "*Por favor, construya más tanques, general; también se fundirán... tarde o temprano"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke049Subtitle",
+  "text": "*¡Mantened esos aviones lejos de mis silos!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke050Subtitle",
+  "text": "*Cuántos soldados, general. ¿Llevan puestos sus trajes antirradiación?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke051Subtitle",
+  "text": "*¿Cuántas bombas nucleares cree que necesitaré para destruir esa nueva arma, general?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke052Subtitle",
+  "text": "*¿Cuántas bombas nucleares cree que necesitaré para destruir esa nueva arma, general?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke053Subtitle",
+  "text": "*¿Vendiendo edificios? General, si quería despejar esa zona, podría haberlo hecho yo por usted"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke054Subtitle",
+  "text": "*No puede resistir mi poderío, general"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke055Subtitle",
+  "text": "*¡Ríndase! ¿O prefiere que continúe el bombardeo?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke056Subtitle",
+  "text": "*Está perdiendo esta guerra, general. ¡Unas cuantas bombas más y su base caerá!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke057Subtitle",
+  "text": "*La razón es del más fuerte. ¿No está de acuerdo, general?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke058Subtitle",
+  "text": "*Y ahora, mi ataque final. Espere, general, esto le va a gustar... bueno, no, no le va a gustar"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke059Subtitle",
+  "text": "*Nadie resistirá nuestro arsenal nuclear"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke060Subtitle",
+  "text": "*Desafíeme y su base brillará como el sol"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke061Subtitle",
+  "text": "*Pronto no será más que residuo nuclear"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke062Subtitle",
+  "text": "*Un momento más y le habría reducido a polvo"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke063Subtitle",
+  "text": "*Ha tenido suerte de sobrevivir intacto a esta batalla. Vuelva a desafiarme si se atreve"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke064Subtitle",
+  "text": "*Bienvenido a la fiesta, general. Disculpe el desorden"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke065Subtitle",
+  "text": "*Ahora, general, creo que entiende por qué me llaman Mao el Nuclear"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke066Subtitle",
+  "text": "*Le estábamos esperando, general. Acepte nuestros regalos, por favor"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke067Subtitle",
+  "text": "*Más regalos, general. Nuestra generosidad no tiene límites"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke068Subtitle",
+  "text": "*Ahora empieza la batalla de verdad. Prepárese, general"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke069Subtitle",
+  "text": "*La fusión fría no es forma de generar energía, general"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke070Subtitle",
+  "text": "*Me duele destruir sus reactores, general"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke071Subtitle",
+  "text": "*¿A eso lo llama \"superarma\", general? Se rompe como un juguete"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke072Subtitle",
+  "text": "*¡No! ¡Mis cabezas nucleares! ¡Mis preciosas cabezas nucleares! Me las pagará, general"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke073Subtitle",
+  "text": "*No pasa nada, general, tengo más bombas nucleares para usted"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke074Subtitle",
+  "text": "*Oiga, ¿sabe lo que cuesta ese silo nuclear?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke075Subtitle",
+  "text": "*Vale, general, ya basta... ¡me estoy quedando sin bombas nucleares!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke076Subtitle",
+  "text": "*¿Y por qué quiere volar mis bombas nucleares, general?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke077Subtitle",
+  "text": "*¡No! ¡Era mi último silo nuclear! ¿Por qué, general...? ¿Por qué?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke078Subtitle",
+  "text": "*(El enemigo pierde todos los silos) Ha destruido todos mis silos... ¿por qué, general? ¡¿Por qué?!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke079Subtitle",
+  "text": "*(El enemigo captura el cuartel del jugador) He capturado su cuartel, general. Quizá lo venda"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke080Subtitle",
+  "text": "*(El enemigo captura la fábrica de guerra del jugador) Mis hombres han capturado su fábrica de guerra. De verdad debería haberla vigilado mejor"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke081Subtitle",
+  "text": "*(Base del jugador) Sus defensas son débiles, general; hemos entrado en su base"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke082Subtitle",
+  "text": "*(Zona de combate) Mis fuerzas están en el campo, general. Pronto entrarán en su base"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke083Subtitle",
+  "text": "*(Zona de depósito de suministros) Ah, hemos encontrado suministros. ¡Pronto controlaremos todos los recursos!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke084Subtitle",
+  "text": "*(Segunda zona de depósito de suministros) Más suministros para nosotros. ¿Cómo financia usted a sus tropas, general?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke085Subtitle",
+  "text": "*(Zona de torre petrolífera) Guardia Roja... ¡capturad esa torre petrolífera!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke086Subtitle",
+  "text": "*Parece que hemos agotado todos los suministros de la zona. Espero que haya tomado otras medidas, general"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke087Subtitle",
+  "text": "*(El enemigo se queda sin energía) ¡¿Qué?! ¿Sin energía? ¿Cómo puedo estar sin energía? ¡Que alguien me traiga más energía! ¡Ya!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke088Subtitle",
+  "text": "*(Ambulancia) Esa ambulancia no salvará a sus hombres de la radiación"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke089Subtitle",
+  "text": "*(Centro de estrategia) ¿Un centro de estrategia? ¿Qué estrategia podría idear para luchar contra mí?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke090Subtitle",
+  "text": "*(Mercado negro) El mercado negro no le venderá nada lo bastante potente para detenerme, general"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Nuke091Subtitle",
+  "text": "*(Centro de propaganda) Su propaganda no pondrá a nadie en contra de mi poder nuclear, general"
+ }
+]
