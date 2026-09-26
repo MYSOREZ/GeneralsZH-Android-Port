@@ -65,7 +65,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_BossChi018Subtitle",
-  "text": "*Ви на краю прірви, генерале. І тільки тепер помітили, що край уже горить"
+  "text": "*Ви на останньому подиху, генерале. І тільки тепер помітили, що ґніт уже підпалено"
  },
  {
   "label": "DIALOGEVENT:Taunts_BossChi019Subtitle",
@@ -105,7 +105,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_BossChi028Subtitle",
-  "text": "*Ми поміркуємо й обміркуємо наступний хід"
+  "text": "*Ми помедитуємо й обміркуємо наступний хід"
  },
  {
   "label": "DIALOGEVENT:Taunts_BossChi029Subtitle",
@@ -129,7 +129,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_BossChi034Subtitle",
-  "text": "*Ваш аеродром більше не злітає, генерале"
+  "text": "*Ваш аеродром приземлили, генерале"
  },
  {
   "label": "DIALOGEVENT:Taunts_BossChi035Subtitle",
@@ -481,7 +481,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_BossGLA010Subtitle",
-  "text": "*Ви насмілилися кинути мені виклик — тепер пожнете страшну нагороду"
+  "text": "*Ви насмілилися кинути мені виклик — тепер пожнете страшні плоди"
  },
  {
   "label": "DIALOGEVENT:Taunts_BossGLA011Subtitle",

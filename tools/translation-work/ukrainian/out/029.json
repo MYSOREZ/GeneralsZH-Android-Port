@@ -49,11 +49,11 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Toxin002Subtitle",
-  "text": "*Один ковток — і назад дороги нема, навіть якби хотілося!"
+  "text": "*Спробуєте раз — і вже не відмовитеся, навіть якщо дуже захочеться!"
  },
  {
   "label": "DIALOGEVENT:Taunts_Toxin003Subtitle",
-  "text": "*Скуштуйте моїх же ліків!"
+  "text": "*Покуштуйте мого фірмового зілля!"
  },
  {
   "label": "DIALOGEVENT:Taunts_Toxin004Subtitle",
@@ -73,15 +73,15 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Toxin008Subtitle",
-  "text": "*Ми йдемо, генерале, як хімічний розлив"
+  "text": "*Ми йдемо, генерале, як хімічний викид"
  },
  {
   "label": "DIALOGEVENT:Taunts_Toxin009Subtitle",
-  "text": "*Так важко знайти лікаря, який ходить додому, а доктор Тракс ходить"
+  "text": "*Лікаря з виїздом додому вдень з вогнем не знайдеш, а доктор Тракс виїжджає!"
  },
  {
   "label": "DIALOGEVENT:Taunts_Toxin010Subtitle",
-  "text": "*Розлив у першому ряду!"
+  "text": "*Прибиральницю до першого відділу, терміново!"
  },
  {
   "label": "DIALOGEVENT:Taunts_Toxin011Subtitle",
@@ -101,7 +101,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Toxin015Subtitle",
-  "text": "*Тихо… але смертельно…"
+  "text": "*Без звуку… зате з ароматом…"
  },
  {
   "label": "DIALOGEVENT:Taunts_Toxin016Subtitle",
@@ -109,7 +109,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Toxin017Subtitle",
-  "text": "*Напруга… вона вас убиває!"
+  "text": "*Ця невідомість… просто вбиває, правда?"
  },
  {
   "label": "DIALOGEVENT:Taunts_Toxin018Subtitle",
@@ -121,11 +121,11 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Toxin020Subtitle",
-  "text": "*Вони саме готові, коли м'ясо відстає від кісток!"
+  "text": "*Одразу видно, що готово: м'ясо саме відстає від кісток!"
  },
  {
   "label": "DIALOGEVENT:Taunts_Toxin021Subtitle",
-  "text": "*Сибірка… тілу не на користь"
+  "text": "*Сибірка. МОЗ попереджає: шкодить вашому здоров'ю"
  },
  {
   "label": "DIALOGEVENT:Taunts_Toxin022Subtitle",
@@ -137,11 +137,11 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Toxin024Subtitle",
-  "text": "*До останньої краплі!"
+  "text": "*Смакує до останньої краплі!"
  },
  {
   "label": "DIALOGEVENT:Taunts_Toxin025Subtitle",
-  "text": "*Дам вам «перепочинок» перед наступною атакою"
+  "text": "*Дам вам перевести подих перед наступною атакою"
  },
  {
   "label": "DIALOGEVENT:Taunts_Toxin026Subtitle",
@@ -149,7 +149,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Toxin027Subtitle",
-  "text": "*Ви прийдете по токсин, а залишитеся… бо ви мертві!"
+  "text": "*Прийдете по токсин, а залишитеся… назавжди!"
  },
  {
   "label": "DIALOGEVENT:Taunts_Toxin028Subtitle",
@@ -169,11 +169,11 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Toxin032Subtitle",
-  "text": "*Ваші війська, схоже, отруєні, генерале!"
+  "text": "*Ваші війська, схоже, перебрали, генерале!"
  },
  {
   "label": "DIALOGEVENT:Taunts_Toxin033Subtitle",
-  "text": "*О, генерале, схоже, ваші війська не тримають токсину"
+  "text": "*О, генерале, схоже, ваші війська зовсім не вміють пити… токсин"
  },
  {
   "label": "DIALOGEVENT:Taunts_Toxin034Subtitle",
@@ -381,7 +381,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Toxin085Subtitle",
-  "text": "*Здавайтеся зараз, і я гарантую, що ви дихатимете вільно"
+  "text": "*Здавайтеся зараз — легке дихання гарантовано!"
  },
  {
   "label": "DIALOGEVENT:Taunts_Toxin086Subtitle",
@@ -389,15 +389,15 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Toxin087Subtitle",
-  "text": "*Моє друге дихання віщує вам загибель, генерале!"
+  "text": "*У мене відкрилося друге дихання — вам кінець, генерале!"
  },
  {
   "label": "DIALOGEVENT:Taunts_Toxin088Subtitle",
-  "text": "*Дозвольте втопити ваші печалі в гарному токсині!"
+  "text": "*Дозвольте залити ваше горе чарочкою доброго токсину!"
  },
  {
   "label": "DIALOGEVENT:Taunts_Toxin089Subtitle",
-  "text": "*Токсична смерть"
+  "text": "*Токсичне фаталіті"
  },
  {
   "label": "DIALOGEVENT:Taunts_Toxin090Subtitle",
@@ -441,7 +441,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Toxin100Subtitle",
-  "text": "*Мабуть, не варто було здобувати диплом у заочному коледжі"
+  "text": "*Мабуть, не варто було здобувати диплом заочно, за листуванням"
  },
  {
   "label": "DIALOGEVENT:Taunts_Toxin101Subtitle",
@@ -473,11 +473,11 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Toxin108Subtitle",
-  "text": "*Перша проба безкоштовна!"
+  "text": "*Перша доза безкоштовно!"
  },
  {
   "label": "DIALOGEVENT:Taunts_Toxin109Subtitle",
-  "text": "*Вам зелений чи синій? Обидва однаково приємні!"
+  "text": "*Вам зелененького чи синенького? Обидва однаково бадьорять!"
  },
  {
   "label": "DIALOGEVENT:Taunts_Toxin110Subtitle",

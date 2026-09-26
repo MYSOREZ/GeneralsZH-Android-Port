@@ -281,11 +281,11 @@
  },
  {
   "label": "DIALOGEVENT:MisUSA01xChat02Subtitle",
-  "text": "*Усі на борт!"
+  "text": "*Прошу до вагонів!"
  },
  {
   "label": "DIALOGEVENT:MisUSA01xChat03Subtitle",
-  "text": "*Усі взяли квитки?"
+  "text": "*Квиточки всі прокомпостували?"
  },
  {
   "label": "DIALOGEVENT:MisUSA01xChat04Subtitle",
@@ -325,7 +325,7 @@
  },
  {
   "label": "DIALOGEVENT:MisUSA01xChat14Subtitle",
-  "text": "*Люблю зранку свіжий запах МОАБ"
+  "text": "*Люблю запах МОАБ уранці"
  },
  {
   "label": "DIALOGEVENT:MisUSA01xCin01Subtitle",
@@ -465,7 +465,7 @@
  },
  {
   "label": "DIALOGEVENT:MisUSA02xChat08Subtitle",
-  "text": "*Ми їм покажемо червоне сяйво"
+  "text": "*Ми їм влаштуємо заграву, будьте певні"
  },
  {
   "label": "DIALOGEVENT:MisUSA02xCin01Subtitle",

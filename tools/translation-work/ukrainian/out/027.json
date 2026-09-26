@@ -329,7 +329,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Laser072Subtitle",
-  "text": "*Молекулярна гармата?! Цікаво, що буде, якщо схрестити промені"
+  "text": "*Молекулярна гармата?! Цікаво, що буде, якщо схрестити потоки"
  },
  {
   "label": "DIALOGEVENT:Taunts_Laser073Subtitle",
@@ -437,7 +437,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Nuke001Subtitle",
-  "text": "*Принаймні спека суха, генерале"
+  "text": "*Зате спека суха, генерале"
  },
  {
   "label": "DIALOGEVENT:Taunts_Nuke002Subtitle",
@@ -485,7 +485,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Nuke013Subtitle",
-  "text": "*Розплавилися, генерале?"
+  "text": "*Що, генерале, нерви розплавилися?"
  },
  {
   "label": "DIALOGEVENT:Taunts_Nuke014Subtitle",

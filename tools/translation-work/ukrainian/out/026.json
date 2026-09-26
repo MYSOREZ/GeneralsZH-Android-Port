@@ -105,7 +105,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Grainger007Subtitle",
-  "text": "*Ось і дощ жаху, генерале"
+  "text": "*А ось і злива терору, генерале"
  },
  {
   "label": "DIALOGEVENT:Taunts_Grainger008Subtitle",
@@ -121,7 +121,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Grainger011Subtitle",
-  "text": "*Час знімати воротаря. Усім атакувати!"
+  "text": "*Час іти ва-банк. Усі в атаку!"
  },
  {
   "label": "DIALOGEVENT:Taunts_Grainger012Subtitle",
@@ -329,11 +329,11 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Grainger063Subtitle",
-  "text": "*Звуковий удар, крихітко. Зробимо це"
+  "text": "*Звуковий удар, крихітко. Погнали!"
  },
  {
   "label": "DIALOGEVENT:Taunts_Grainger064Subtitle",
-  "text": "*Мабуть, час шукати собі хорошу роботу в авіакомпанії"
+  "text": "*Мабуть, час влаштовуватися пілотом у цивільну авіацію"
  },
  {
   "label": "DIALOGEVENT:Taunts_Grainger065Subtitle",
@@ -457,11 +457,11 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Infantry002Subtitle",
-  "text": "*<саркастично>Почуваєшся пригніченим, генерале?"
+  "text": "*<саркастично> Що, задавили числом, генерале?"
  },
  {
   "label": "DIALOGEVENT:Taunts_Infantry003Subtitle",
-  "text": "*(Гине китайська піхота) <сердитим голосом> Там, звідки вони прийшли, є ще мільярд"
+  "text": "*(гине китайська піхота) <сердито> У нас таких іще мільярд"
  },
  {
   "label": "DIALOGEVENT:Taunts_Infantry004Subtitle",

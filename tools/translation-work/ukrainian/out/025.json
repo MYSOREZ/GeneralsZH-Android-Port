@@ -93,7 +93,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_BossUSA010Subtitle",
-  "text": "*Час навчити тебе дечого про тильний бік моєї долоні"
+  "text": "*Час пояснити тобі дещо на пальцях… точніше, долонею по потилиці"
  },
  {
   "label": "DIALOGEVENT:Taunts_BossUSA011Subtitle",
@@ -113,7 +113,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_BossUSA015Subtitle",
-  "text": "*Ти називаєш себе \"генералом\"? А я називаю тебе головним болем, от як я тебе називаю"
+  "text": "*Ти називаєш себе \"генералом\"? А я називаю тебе скалкою в одному місці, от як я тебе називаю"
  },
  {
   "label": "DIALOGEVENT:Taunts_BossUSA016Subtitle",
@@ -297,7 +297,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_BossUSA061Subtitle",
-  "text": "*Ось і молот, шмаркачу, і тобі не хочеться бути цвяхом"
+  "text": "*Ось і молот, шмаркачу, а цвяхом тут будеш ти"
  },
  {
   "label": "DIALOGEVENT:Taunts_BossUSA062Subtitle",
@@ -389,7 +389,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_BossUSA084Subtitle",
-  "text": "*Використовуєш променеву гармату, еге? Краще прикінчи мене нею, бо моя контратака тобі не сподобається"
+  "text": "*Молекулярна гармата, еге? Краще добий мене нею одразу, бо моя контратака тобі не сподобається"
  },
  {
   "label": "DIALOGEVENT:Taunts_BossUSA085Subtitle",
@@ -461,7 +461,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_BossUSA102Subtitle",
-  "text": "*Хлопче, я відлупцював тебе, як старий барабан. Хто дав тобі командування? Бо я маю їм що сказати"
+  "text": "*Хлопче, я відгамселив тебе, як сидорову козу. Хто взагалі дав тобі командувати? Бо я маю їм що сказати"
  },
  {
   "label": "DIALOGEVENT:Taunts_BossUSA103Subtitle",
@@ -593,7 +593,7 @@
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo026Subtitle",
-  "text": "*Ой… твоя технологічна будівля зробила бум"
+  "text": "*Ой… твоя технологічна будівля зробила \"бабах\""
  },
  {
   "label": "DIALOGEVENT:Taunts_Demo027Subtitle",

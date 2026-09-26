@@ -16965,7 +16965,7 @@ DIALOGEVENT:MisGLA03xChat01Subtitle
 END
 
 DIALOGEVENT:MisGLA03xChat02Subtitle
-"*Ще один готовий"
+"*Ще один гризе землю"
 END
 
 DIALOGEVENT:MisGLA03xChat03Subtitle
@@ -16989,7 +16989,7 @@ DIALOGEVENT:MisGLA03xChat07Subtitle
 END
 
 DIALOGEVENT:MisGLA03xChat08Subtitle
-"*Оце був сплеск!"
+"*Оце так бабахнуло — аж бризки!"
 END
 
 DIALOGEVENT:MisGLA03xCin01Subtitle
@@ -17269,7 +17269,7 @@ DIALOGEVENT:MisGLA04xChat14Subtitle
 END
 
 DIALOGEVENT:MisGLA04xChat15Subtitle
-"*Танки! Злітаємо! Швидше, швидше, швидше!"
+"*Дякую! Злітайте! Швидше, швидше, швидше!"
 END
 
 DIALOGEVENT:MisGLA04xCin01Subtitle
@@ -17889,11 +17889,11 @@ DIALOGEVENT:MisUSA01xChat01Subtitle
 END
 
 DIALOGEVENT:MisUSA01xChat02Subtitle
-"*Усі на борт!"
+"*Прошу до вагонів!"
 END
 
 DIALOGEVENT:MisUSA01xChat03Subtitle
-"*Усі взяли квитки?"
+"*Квиточки всі прокомпостували?"
 END
 
 DIALOGEVENT:MisUSA01xChat04Subtitle
@@ -17933,7 +17933,7 @@ DIALOGEVENT:MisUSA01xChat13Subtitle
 END
 
 DIALOGEVENT:MisUSA01xChat14Subtitle
-"*Люблю зранку свіжий запах МОАБ"
+"*Люблю запах МОАБ уранці"
 END
 
 DIALOGEVENT:MisUSA01xCin01Subtitle
@@ -18073,7 +18073,7 @@ DIALOGEVENT:MisUSA02xChat07Subtitle
 END
 
 DIALOGEVENT:MisUSA02xChat08Subtitle
-"*Ми їм покажемо червоне сяйво"
+"*Ми їм влаштуємо заграву, будьте певні"
 END
 
 DIALOGEVENT:MisUSA02xCin01Subtitle
@@ -19273,7 +19273,7 @@ DIALOGEVENT:Taunts_BossChi017Subtitle
 END
 
 DIALOGEVENT:Taunts_BossChi018Subtitle
-"*Ви на краю прірви, генерале. І тільки тепер помітили, що край уже горить"
+"*Ви на останньому подиху, генерале. І тільки тепер помітили, що ґніт уже підпалено"
 END
 
 DIALOGEVENT:Taunts_BossChi019Subtitle
@@ -19313,7 +19313,7 @@ DIALOGEVENT:Taunts_BossChi027Subtitle
 END
 
 DIALOGEVENT:Taunts_BossChi028Subtitle
-"*Ми поміркуємо й обміркуємо наступний хід"
+"*Ми помедитуємо й обміркуємо наступний хід"
 END
 
 DIALOGEVENT:Taunts_BossChi029Subtitle
@@ -19337,7 +19337,7 @@ DIALOGEVENT:Taunts_BossChi033Subtitle
 END
 
 DIALOGEVENT:Taunts_BossChi034Subtitle
-"*Ваш аеродром більше не злітає, генерале"
+"*Ваш аеродром приземлили, генерале"
 END
 
 DIALOGEVENT:Taunts_BossChi035Subtitle
@@ -19689,7 +19689,7 @@ DIALOGEVENT:Taunts_BossGLA009Subtitle
 END
 
 DIALOGEVENT:Taunts_BossGLA010Subtitle
-"*Ви насмілилися кинути мені виклик — тепер пожнете страшну нагороду"
+"*Ви насмілилися кинути мені виклик — тепер пожнете страшні плоди"
 END
 
 DIALOGEVENT:Taunts_BossGLA011Subtitle
@@ -20101,7 +20101,7 @@ DIALOGEVENT:Taunts_BossUSA009Subtitle
 END
 
 DIALOGEVENT:Taunts_BossUSA010Subtitle
-"*Час навчити тебе дечого про тильний бік моєї долоні"
+"*Час пояснити тобі дещо на пальцях… точніше, долонею по потилиці"
 END
 
 DIALOGEVENT:Taunts_BossUSA011Subtitle
@@ -20121,7 +20121,7 @@ DIALOGEVENT:Taunts_BossUSA014Subtitle
 END
 
 DIALOGEVENT:Taunts_BossUSA015Subtitle
-"*Ти називаєш себе \"генералом\"? А я називаю тебе головним болем, от як я тебе називаю"
+"*Ти називаєш себе \"генералом\"? А я називаю тебе скалкою в одному місці, от як я тебе називаю"
 END
 
 DIALOGEVENT:Taunts_BossUSA016Subtitle
@@ -20305,7 +20305,7 @@ DIALOGEVENT:Taunts_BossUSA060Subtitle
 END
 
 DIALOGEVENT:Taunts_BossUSA061Subtitle
-"*Ось і молот, шмаркачу, і тобі не хочеться бути цвяхом"
+"*Ось і молот, шмаркачу, а цвяхом тут будеш ти"
 END
 
 DIALOGEVENT:Taunts_BossUSA062Subtitle
@@ -20397,7 +20397,7 @@ DIALOGEVENT:Taunts_BossUSA083Subtitle
 END
 
 DIALOGEVENT:Taunts_BossUSA084Subtitle
-"*Використовуєш променеву гармату, еге? Краще прикінчи мене нею, бо моя контратака тобі не сподобається"
+"*Молекулярна гармата, еге? Краще добий мене нею одразу, бо моя контратака тобі не сподобається"
 END
 
 DIALOGEVENT:Taunts_BossUSA085Subtitle
@@ -20469,7 +20469,7 @@ DIALOGEVENT:Taunts_BossUSA101Subtitle
 END
 
 DIALOGEVENT:Taunts_BossUSA102Subtitle
-"*Хлопче, я відлупцював тебе, як старий барабан. Хто дав тобі командування? Бо я маю їм що сказати"
+"*Хлопче, я відгамселив тебе, як сидорову козу. Хто взагалі дав тобі командувати? Бо я маю їм що сказати"
 END
 
 DIALOGEVENT:Taunts_BossUSA103Subtitle
@@ -20601,7 +20601,7 @@ DIALOGEVENT:Taunts_Demo025Subtitle
 END
 
 DIALOGEVENT:Taunts_Demo026Subtitle
-"*Ой… твоя технологічна будівля зробила бум"
+"*Ой… твоя технологічна будівля зробила \"бабах\""
 END
 
 DIALOGEVENT:Taunts_Demo027Subtitle
@@ -20913,7 +20913,7 @@ DIALOGEVENT:Taunts_Grainger006Subtitle
 END
 
 DIALOGEVENT:Taunts_Grainger007Subtitle
-"*Ось і дощ жаху, генерале"
+"*А ось і злива терору, генерале"
 END
 
 DIALOGEVENT:Taunts_Grainger008Subtitle
@@ -20929,7 +20929,7 @@ DIALOGEVENT:Taunts_Grainger010Subtitle
 END
 
 DIALOGEVENT:Taunts_Grainger011Subtitle
-"*Час знімати воротаря. Усім атакувати!"
+"*Час іти ва-банк. Усі в атаку!"
 END
 
 DIALOGEVENT:Taunts_Grainger012Subtitle
@@ -21137,11 +21137,11 @@ DIALOGEVENT:Taunts_Grainger062Subtitle
 END
 
 DIALOGEVENT:Taunts_Grainger063Subtitle
-"*Звуковий удар, крихітко. Зробимо це"
+"*Звуковий удар, крихітко. Погнали!"
 END
 
 DIALOGEVENT:Taunts_Grainger064Subtitle
-"*Мабуть, час шукати собі хорошу роботу в авіакомпанії"
+"*Мабуть, час влаштовуватися пілотом у цивільну авіацію"
 END
 
 DIALOGEVENT:Taunts_Grainger065Subtitle
@@ -21265,11 +21265,11 @@ DIALOGEVENT:Taunts_Infantry001Subtitle
 END
 
 DIALOGEVENT:Taunts_Infantry002Subtitle
-"*<саркастично>Почуваєшся пригніченим, генерале?"
+"*<саркастично> Що, задавили числом, генерале?"
 END
 
 DIALOGEVENT:Taunts_Infantry003Subtitle
-"*(Гине китайська піхота) <сердитим голосом> Там, звідки вони прийшли, є ще мільярд"
+"*(гине китайська піхота) <сердито> У нас таких іще мільярд"
 END
 
 DIALOGEVENT:Taunts_Infantry004Subtitle
@@ -21937,7 +21937,7 @@ DIALOGEVENT:Taunts_Laser071Subtitle
 END
 
 DIALOGEVENT:Taunts_Laser072Subtitle
-"*Молекулярна гармата?! Цікаво, що буде, якщо схрестити промені"
+"*Молекулярна гармата?! Цікаво, що буде, якщо схрестити потоки"
 END
 
 DIALOGEVENT:Taunts_Laser073Subtitle
@@ -22045,7 +22045,7 @@ DIALOGEVENT:Taunts_Laser098Subtitle
 END
 
 DIALOGEVENT:Taunts_Nuke001Subtitle
-"*Принаймні спека суха, генерале"
+"*Зате спека суха, генерале"
 END
 
 DIALOGEVENT:Taunts_Nuke002Subtitle
@@ -22093,7 +22093,7 @@ DIALOGEVENT:Taunts_Nuke012Subtitle
 END
 
 DIALOGEVENT:Taunts_Nuke013Subtitle
-"*Розплавилися, генерале?"
+"*Що, генерале, нерви розплавилися?"
 END
 
 DIALOGEVENT:Taunts_Nuke014Subtitle
@@ -23257,11 +23257,11 @@ DIALOGEVENT:Taunts_Toxin001Subtitle
 END
 
 DIALOGEVENT:Taunts_Toxin002Subtitle
-"*Один ковток — і назад дороги нема, навіть якби хотілося!"
+"*Спробуєте раз — і вже не відмовитеся, навіть якщо дуже захочеться!"
 END
 
 DIALOGEVENT:Taunts_Toxin003Subtitle
-"*Скуштуйте моїх же ліків!"
+"*Покуштуйте мого фірмового зілля!"
 END
 
 DIALOGEVENT:Taunts_Toxin004Subtitle
@@ -23281,15 +23281,15 @@ DIALOGEVENT:Taunts_Toxin007Subtitle
 END
 
 DIALOGEVENT:Taunts_Toxin008Subtitle
-"*Ми йдемо, генерале, як хімічний розлив"
+"*Ми йдемо, генерале, як хімічний викид"
 END
 
 DIALOGEVENT:Taunts_Toxin009Subtitle
-"*Так важко знайти лікаря, який ходить додому, а доктор Тракс ходить"
+"*Лікаря з виїздом додому вдень з вогнем не знайдеш, а доктор Тракс виїжджає!"
 END
 
 DIALOGEVENT:Taunts_Toxin010Subtitle
-"*Розлив у першому ряду!"
+"*Прибиральницю до першого відділу, терміново!"
 END
 
 DIALOGEVENT:Taunts_Toxin011Subtitle
@@ -23309,7 +23309,7 @@ DIALOGEVENT:Taunts_Toxin014Subtitle
 END
 
 DIALOGEVENT:Taunts_Toxin015Subtitle
-"*Тихо… але смертельно…"
+"*Без звуку… зате з ароматом…"
 END
 
 DIALOGEVENT:Taunts_Toxin016Subtitle
@@ -23317,7 +23317,7 @@ DIALOGEVENT:Taunts_Toxin016Subtitle
 END
 
 DIALOGEVENT:Taunts_Toxin017Subtitle
-"*Напруга… вона вас убиває!"
+"*Ця невідомість… просто вбиває, правда?"
 END
 
 DIALOGEVENT:Taunts_Toxin018Subtitle
@@ -23329,11 +23329,11 @@ DIALOGEVENT:Taunts_Toxin019Subtitle
 END
 
 DIALOGEVENT:Taunts_Toxin020Subtitle
-"*Вони саме готові, коли м'ясо відстає від кісток!"
+"*Одразу видно, що готово: м'ясо саме відстає від кісток!"
 END
 
 DIALOGEVENT:Taunts_Toxin021Subtitle
-"*Сибірка… тілу не на користь"
+"*Сибірка. МОЗ попереджає: шкодить вашому здоров'ю"
 END
 
 DIALOGEVENT:Taunts_Toxin022Subtitle
@@ -23345,11 +23345,11 @@ DIALOGEVENT:Taunts_Toxin023Subtitle
 END
 
 DIALOGEVENT:Taunts_Toxin024Subtitle
-"*До останньої краплі!"
+"*Смакує до останньої краплі!"
 END
 
 DIALOGEVENT:Taunts_Toxin025Subtitle
-"*Дам вам «перепочинок» перед наступною атакою"
+"*Дам вам перевести подих перед наступною атакою"
 END
 
 DIALOGEVENT:Taunts_Toxin026Subtitle
@@ -23357,7 +23357,7 @@ DIALOGEVENT:Taunts_Toxin026Subtitle
 END
 
 DIALOGEVENT:Taunts_Toxin027Subtitle
-"*Ви прийдете по токсин, а залишитеся… бо ви мертві!"
+"*Прийдете по токсин, а залишитеся… назавжди!"
 END
 
 DIALOGEVENT:Taunts_Toxin028Subtitle
@@ -23377,11 +23377,11 @@ DIALOGEVENT:Taunts_Toxin031Subtitle
 END
 
 DIALOGEVENT:Taunts_Toxin032Subtitle
-"*Ваші війська, схоже, отруєні, генерале!"
+"*Ваші війська, схоже, перебрали, генерале!"
 END
 
 DIALOGEVENT:Taunts_Toxin033Subtitle
-"*О, генерале, схоже, ваші війська не тримають токсину"
+"*О, генерале, схоже, ваші війська зовсім не вміють пити… токсин"
 END
 
 DIALOGEVENT:Taunts_Toxin034Subtitle
@@ -23589,7 +23589,7 @@ DIALOGEVENT:Taunts_Toxin084Subtitle
 END
 
 DIALOGEVENT:Taunts_Toxin085Subtitle
-"*Здавайтеся зараз, і я гарантую, що ви дихатимете вільно"
+"*Здавайтеся зараз — легке дихання гарантовано!"
 END
 
 DIALOGEVENT:Taunts_Toxin086Subtitle
@@ -23597,15 +23597,15 @@ DIALOGEVENT:Taunts_Toxin086Subtitle
 END
 
 DIALOGEVENT:Taunts_Toxin087Subtitle
-"*Моє друге дихання віщує вам загибель, генерале!"
+"*У мене відкрилося друге дихання — вам кінець, генерале!"
 END
 
 DIALOGEVENT:Taunts_Toxin088Subtitle
-"*Дозвольте втопити ваші печалі в гарному токсині!"
+"*Дозвольте залити ваше горе чарочкою доброго токсину!"
 END
 
 DIALOGEVENT:Taunts_Toxin089Subtitle
-"*Токсична смерть"
+"*Токсичне фаталіті"
 END
 
 DIALOGEVENT:Taunts_Toxin090Subtitle
@@ -23649,7 +23649,7 @@ DIALOGEVENT:Taunts_Toxin099Subtitle
 END
 
 DIALOGEVENT:Taunts_Toxin100Subtitle
-"*Мабуть, не варто було здобувати диплом у заочному коледжі"
+"*Мабуть, не варто було здобувати диплом заочно, за листуванням"
 END
 
 DIALOGEVENT:Taunts_Toxin101Subtitle
@@ -23681,11 +23681,11 @@ DIALOGEVENT:Taunts_Toxin107Subtitle
 END
 
 DIALOGEVENT:Taunts_Toxin108Subtitle
-"*Перша проба безкоштовна!"
+"*Перша доза безкоштовно!"
 END
 
 DIALOGEVENT:Taunts_Toxin109Subtitle
-"*Вам зелений чи синій? Обидва однаково приємні!"
+"*Вам зелененького чи синенького? Обидва однаково бадьорять!"
 END
 
 DIALOGEVENT:Taunts_Toxin110Subtitle
