@@ -1,0 +1,802 @@
+[
+ {
+  "label": "GUI:Scatter",
+  "text": "Dispersar"
+ },
+ {
+  "label": "GUI:StopObject",
+  "text": "Parar objeto"
+ },
+ {
+  "label": "GUI:StopObjectDescription",
+  "text": "Parar o(s) objeto(s) selecionado(s)"
+ },
+ {
+  "label": "GUI:GoToRadarEvent",
+  "text": "Ir ao evento do radar"
+ },
+ {
+  "label": "GUI:GoToRadarEventDescription",
+  "text": "Centralizar a visão tática no último evento do radar"
+ },
+ {
+  "label": "GUI:SaveView1",
+  "text": "Definir favorito 1"
+ },
+ {
+  "label": "GUI:SaveView1Description",
+  "text": "Definir a posição de mapa favorita 1"
+ },
+ {
+  "label": "GUI:SaveView2",
+  "text": "Definir favorito 2"
+ },
+ {
+  "label": "GUI:SaveView2Description",
+  "text": "Definir a posição de mapa favorita 2"
+ },
+ {
+  "label": "GUI:SaveView3",
+  "text": "Definir favorito 3"
+ },
+ {
+  "label": "GUI:SaveView3Description",
+  "text": "Definir a posição de mapa favorita 3"
+ },
+ {
+  "label": "GUI:SaveView4",
+  "text": "Definir favorito 4"
+ },
+ {
+  "label": "GUI:SaveView4Description",
+  "text": "Definir a posição de mapa favorita 4"
+ },
+ {
+  "label": "GUI:ViewView1",
+  "text": "Ver favorito 1"
+ },
+ {
+  "label": "GUI:ViewView1Description",
+  "text": "Ver a posição de mapa favorita 1"
+ },
+ {
+  "label": "GUI:ViewView2",
+  "text": "Ver favorito 2"
+ },
+ {
+  "label": "GUI:ViewView2Description",
+  "text": "Ver a posição de mapa favorita 2"
+ },
+ {
+  "label": "GUI:ViewView3",
+  "text": "Ver favorito 3"
+ },
+ {
+  "label": "GUI:ViewView3Description",
+  "text": "Ver a posição de mapa favorita 3"
+ },
+ {
+  "label": "GUI:ViewView4",
+  "text": "Ver favorito 4"
+ },
+ {
+  "label": "GUI:ViewView4Description",
+  "text": "Ver a posição de mapa favorita 4"
+ },
+ {
+  "label": "GUI:CenterBase",
+  "text": "Centralizar base"
+ },
+ {
+  "label": "GUI:CenterBaseDescription",
+  "text": "Centralizar a visão na base do jogador"
+ },
+ {
+  "label": "GUI:SelectNone",
+  "text": "Não selecionar nada"
+ },
+ {
+  "label": "GUI:SelectAll",
+  "text": "Selecionar tudo"
+ },
+ {
+  "label": "GUI:SelectAllDescription",
+  "text": "Seleciona todas as unidades militares"
+ },
+ {
+  "label": "GUI:SelectNextUnit",
+  "text": "Próximo objeto"
+ },
+ {
+  "label": "GUI:SelectNextUnitDescription",
+  "text": "Seleciona o próximo objeto"
+ },
+ {
+  "label": "GUI:SelectPrevUnit",
+  "text": "Objeto anterior"
+ },
+ {
+  "label": "GUI:SelectPrevUnitDescription",
+  "text": "Seleciona a unidade anterior"
+ },
+ {
+  "label": "GUI:SelectNextWorker",
+  "text": "Próximo trabalhador"
+ },
+ {
+  "label": "GUI:SelectNextWorkerDescription",
+  "text": "Seleciona o próximo trabalhador"
+ },
+ {
+  "label": "GUI:SelectPrevWorker",
+  "text": "Trabalhador anterior"
+ },
+ {
+  "label": "GUI:SelectPrevWorkerDescription",
+  "text": "Seleciona o trabalhador anterior"
+ },
+ {
+  "label": "GUI:TypeSelect",
+  "text": "Selecionar por tipo"
+ },
+ {
+  "label": "GUI:TypeSelectDescription",
+  "text": "Seleciona unidades por tipo. Clique duas vezes com o botão esquerdo numa unidade para selecionar todas do mesmo tipo"
+ },
+ {
+  "label": "GUI:CreateTeam0",
+  "text": "Criar equipe 0"
+ },
+ {
+  "label": "GUI:CreateTeam0Description",
+  "text": "Cria a equipe 0 com as unidades selecionadas"
+ },
+ {
+  "label": "GUI:CreateTeam1",
+  "text": "Criar equipe 1"
+ },
+ {
+  "label": "GUI:CreateTeam1Description",
+  "text": "Cria a equipe 1 com as unidades selecionadas"
+ },
+ {
+  "label": "GUI:CreateTeam2",
+  "text": "Criar equipe 2"
+ },
+ {
+  "label": "GUI:CreateTeam2Description",
+  "text": "Cria a equipe 2 com as unidades selecionadas"
+ },
+ {
+  "label": "GUI:CreateTeam3",
+  "text": "Criar equipe 3"
+ },
+ {
+  "label": "GUI:CreateTeam3Description",
+  "text": "Cria a equipe 3 com as unidades selecionadas"
+ },
+ {
+  "label": "GUI:CreateTeam4",
+  "text": "Criar equipe 4"
+ },
+ {
+  "label": "GUI:CreateTeam4Description",
+  "text": "Cria a equipe 4 com as unidades selecionadas"
+ },
+ {
+  "label": "GUI:CreateTeam5",
+  "text": "Criar equipe 5"
+ },
+ {
+  "label": "GUI:CreateTeam5Description",
+  "text": "Cria a equipe 5 com as unidades selecionadas"
+ },
+ {
+  "label": "GUI:CreateTeam6",
+  "text": "Criar equipe 6"
+ },
+ {
+  "label": "GUI:CreateTeam6Description",
+  "text": "Cria a equipe 6 com as unidades selecionadas"
+ },
+ {
+  "label": "GUI:CreateTeam7",
+  "text": "Criar equipe 7"
+ },
+ {
+  "label": "GUI:CreateTeam7Description",
+  "text": "Cria a equipe 7 com as unidades selecionadas"
+ },
+ {
+  "label": "GUI:CreateTeam8",
+  "text": "Criar equipe 8"
+ },
+ {
+  "label": "GUI:CreateTeam8Description",
+  "text": "Cria a equipe 8 com as unidades selecionadas"
+ },
+ {
+  "label": "GUI:CreateTeam9",
+  "text": "Criar equipe 9"
+ },
+ {
+  "label": "GUI:CreateTeam9Description",
+  "text": "Cria a equipe 9 com as unidades selecionadas"
+ },
+ {
+  "label": "GUI:SelectTeam0",
+  "text": "Selecionar equipe 0"
+ },
+ {
+  "label": "GUI:SelectTeam0Description",
+  "text": "Seleciona os membros da equipe 0"
+ },
+ {
+  "label": "GUI:SelectTeam1",
+  "text": "Selecionar equipe 1"
+ },
+ {
+  "label": "GUI:SelectTeam1Description",
+  "text": "Seleciona os membros da equipe 1"
+ },
+ {
+  "label": "GUI:SelectTeam2",
+  "text": "Selecionar equipe 2"
+ },
+ {
+  "label": "GUI:SelectTeam2Description",
+  "text": "Seleciona os membros da equipe 2"
+ },
+ {
+  "label": "GUI:SelectTeam3",
+  "text": "Selecionar equipe 3"
+ },
+ {
+  "label": "GUI:SelectTeam3Description",
+  "text": "Seleciona os membros da equipe 3"
+ },
+ {
+  "label": "GUI:SelectTeam4",
+  "text": "Selecionar equipe 4"
+ },
+ {
+  "label": "GUI:SelectTeam4Description",
+  "text": "Seleciona os membros da equipe 4"
+ },
+ {
+  "label": "GUI:SelectTeam5",
+  "text": "Selecionar equipe 5"
+ },
+ {
+  "label": "GUI:SelectTeam5Description",
+  "text": "Seleciona os membros da equipe 5"
+ },
+ {
+  "label": "GUI:SelectTeam6",
+  "text": "Selecionar equipe 6"
+ },
+ {
+  "label": "GUI:SelectTeam6Description",
+  "text": "Seleciona os membros da equipe 6"
+ },
+ {
+  "label": "GUI:SelectTeam7",
+  "text": "Selecionar equipe 7"
+ },
+ {
+  "label": "GUI:SelectTeam7Description",
+  "text": "Seleciona os membros da equipe 7"
+ },
+ {
+  "label": "GUI:SelectTeam8",
+  "text": "Selecionar equipe 8"
+ },
+ {
+  "label": "GUI:SelectTeam8Description",
+  "text": "Seleciona os membros da equipe 8"
+ },
+ {
+  "label": "GUI:SelectTeam9",
+  "text": "Selecionar equipe 9"
+ },
+ {
+  "label": "GUI:SelectTeam9Description",
+  "text": "Seleciona os membros da equipe 9"
+ },
+ {
+  "label": "GUI:ViewTeam0",
+  "text": "Centralizar equipe 0"
+ },
+ {
+  "label": "GUI:ViewTeam0Description",
+  "text": "Seleciona a equipe 0 e centraliza a visão nela"
+ },
+ {
+  "label": "GUI:ViewTeam1",
+  "text": "Centralizar equipe 1"
+ },
+ {
+  "label": "GUI:ViewTeam1Description",
+  "text": "Seleciona a equipe 1 e centraliza a visão nela"
+ },
+ {
+  "label": "GUI:ViewTeam2",
+  "text": "Centralizar equipe 2"
+ },
+ {
+  "label": "GUI:ViewTeam2Description",
+  "text": "Seleciona a equipe 2 e centraliza a visão nela"
+ },
+ {
+  "label": "GUI:ViewTeam3",
+  "text": "Centralizar equipe 3"
+ },
+ {
+  "label": "GUI:ViewTeam3Description",
+  "text": "Seleciona a equipe 3 e centraliza a visão nela"
+ },
+ {
+  "label": "GUI:ViewTeam4",
+  "text": "Centralizar equipe 4"
+ },
+ {
+  "label": "GUI:ViewTeam4Description",
+  "text": "Seleciona a equipe 4 e centraliza a visão nela"
+ },
+ {
+  "label": "GUI:ViewTeam5",
+  "text": "Centralizar equipe 5"
+ },
+ {
+  "label": "GUI:ViewTeam5Description",
+  "text": "Seleciona a equipe 5 e centraliza a visão nela"
+ },
+ {
+  "label": "GUI:ViewTeam6",
+  "text": "Centralizar equipe 6"
+ },
+ {
+  "label": "GUI:ViewTeam6Description",
+  "text": "Seleciona a equipe 6 e centraliza a visão nela"
+ },
+ {
+  "label": "GUI:ViewTeam7",
+  "text": "Centralizar equipe 7"
+ },
+ {
+  "label": "GUI:ViewTeam7Description",
+  "text": "Seleciona a equipe 7 e centraliza a visão nela"
+ },
+ {
+  "label": "GUI:ViewTeam8",
+  "text": "Centralizar equipe 8"
+ },
+ {
+  "label": "GUI:ViewTeam8Description",
+  "text": "Seleciona a equipe 8 e centraliza a visão nela"
+ },
+ {
+  "label": "GUI:ViewTeam9",
+  "text": "Centralizar equipe 9"
+ },
+ {
+  "label": "GUI:ViewTeam9Description",
+  "text": "Seleciona a equipe 9 e centraliza a visão nela"
+ },
+ {
+  "label": "GUI:LocalIPDesc",
+  "text": "IP local"
+ },
+ {
+  "label": "GUI:RemoteIPDesc",
+  "text": "IP remoto"
+ },
+ {
+  "label": "GUI:SaveCamera",
+  "text": "Salvar câmera nos replays"
+ },
+ {
+  "label": "GUI:UseCamera",
+  "text": "Usar câmera salva nos replays"
+ },
+ {
+  "label": "Mouse:Windows",
+  "text": "Cursor do Windows"
+ },
+ {
+  "label": "Mouse:W3D",
+  "text": "Cursor W3D"
+ },
+ {
+  "label": "Mouse:Poly",
+  "text": "Cursor poligonal"
+ },
+ {
+  "label": "Mouse:DX8",
+  "text": "Cursor DX8"
+ },
+ {
+  "label": "Mouse:Heal",
+  "text": "Ser curado"
+ },
+ {
+  "label": "Mouse:GetRepaired",
+  "text": "Ser reparado"
+ },
+ {
+  "label": "Mouse:Dock",
+  "text": "Atracar"
+ },
+ {
+  "label": "Mouse:DoRepair",
+  "text": "Reparar"
+ },
+ {
+  "label": "Mouse:ResumeConstruction",
+  "text": "Retomar construção"
+ },
+ {
+  "label": "Mouse:Enter",
+  "text": "Entrar"
+ },
+ {
+  "label": "Mouse:SetRallyPoint",
+  "text": "Definir ponto de encontro"
+ },
+ {
+  "label": "Mouse:DisguiseAsVehicle",
+  "text": "Disfarçar-se disto!"
+ },
+ {
+  "label": "Mouse:Invalid",
+  "text": "INVÁLIDO"
+ },
+ {
+  "label": "Mouse:FireFlame",
+  "text": "Queimar"
+ },
+ {
+  "label": "Mouse:FireFlashBang",
+  "text": "Granada de luz e som"
+ },
+ {
+  "label": "Mouse:FireTranqDarts",
+  "text": "Dardos tranquilizantes"
+ },
+ {
+  "label": "Mouse:FireStunBullets",
+  "text": "Balas atordoantes"
+ },
+ {
+  "label": "Mouse:MakeCarBomb",
+  "text": "Fazer carro-bomba"
+ },
+ {
+  "label": "Mouse:Hijack",
+  "text": "Sequestrar"
+ },
+ {
+  "label": "Mouse:FireBomb",
+  "text": "Bomba \n incendiária"
+ },
+ {
+  "label": "Mouse:Defector",
+  "text": "Criar \n desertor"
+ },
+ {
+  "label": "Mouse:CaptureBuilding",
+  "text": "Capturar prédio"
+ },
+ {
+  "label": "Mouse:DisableVehicleHack",
+  "text": "Desativar veículo"
+ },
+ {
+  "label": "Mouse:StealCashHack",
+  "text": "Roubar dinheiro"
+ },
+ {
+  "label": "Mouse:SnipeVehicle",
+  "text": "Abater piloto"
+ },
+ {
+  "label": "Mouse:DisableBuildingHack",
+  "text": "Desativar prédio"
+ },
+ {
+  "label": "Mouse:LaserGuidedMissiles",
+  "text": "Mísseis guiados a laser"
+ },
+ {
+  "label": "Mouse:TankHunterTNTAttack",
+  "text": "Ataque com TNT"
+ },
+ {
+  "label": "Mouse:A10ThunderboltStrike",
+  "text": "Local do ataque de A10"
+ },
+ {
+  "label": "Mouse:StabAttack",
+  "text": "Esfaquear"
+ },
+ {
+  "label": "Mouse:PlaceRemoteCharge",
+  "text": "Colocar carga remota"
+ },
+ {
+  "label": "Mouse:PlaceTimedCharge",
+  "text": "Colocar carga temporizada"
+ },
+ {
+  "label": "Mouse:RepairVehicles",
+  "text": "Reparo de &emergência"
+ },
+ {
+  "label": "Mouse:Demoralize",
+  "text": "Desmoralizar"
+ },
+ {
+  "label": "Mouse:PickUpPrisoner",
+  "text": "Recolher prisioneiro"
+ },
+ {
+  "label": "Mouse:Return",
+  "text": "Retornar"
+ },
+ {
+  "label": "Mouse:PlaceBeacon",
+  "text": "Colocar sinalizador"
+ },
+ {
+  "label": "SCRIPT:TestString",
+  "text": "Tipo assim, é uma frase de teste, cara"
+ },
+ {
+  "label": "SCRIPT:LongTestString",
+  "text": "Tipo assim, é uma frase de teste bem comprida, cara. Serve pra garantir que a quebra de linha e o espaçamento funcionam"
+ },
+ {
+  "label": "SCIENCE:GeneralName",
+  "text": "<Digite o nome>"
+ },
+ {
+  "label": "SCIENCE:SkillPoints",
+  "text": "Pontos de habilidade: %d"
+ },
+ {
+  "label": "SCIENCE:Rank",
+  "text": "Nível %d"
+ },
+ {
+  "label": "SCIENCE:TempName",
+  "text": "Dê um nome à minha ciência"
+ },
+ {
+  "label": "SCIENCE:TempDescription",
+  "text": "Por favor, preencha a minha descrição no Science.ini! Valeu mesmo"
+ },
+ {
+  "label": "SCIENCE:USAPaladin",
+  "text": "Tanque Paladin"
+ },
+ {
+  "label": "SCIENCE:USAPathFinder",
+  "text": "Pathfinder"
+ },
+ {
+  "label": "SCIENCE:USAStealthFighter",
+  "text": "Caça Furtivo"
+ },
+ {
+  "label": "SCIENCE:USASpyDrone",
+  "text": "Drone Espião"
+ },
+ {
+  "label": "SCIENCE:USAParaDrop1",
+  "text": "Paraquedistas 1"
+ },
+ {
+  "label": "SCIENCE:USAParaDrop2",
+  "text": "Paraquedistas 2"
+ },
+ {
+  "label": "SCIENCE:USAParaDrop3",
+  "text": "Paraquedistas 3"
+ },
+ {
+  "label": "SCIENCE:USAA10Strike1",
+  "text": "Ataque de A10 1"
+ },
+ {
+  "label": "SCIENCE:USAA10Strike2",
+  "text": "Ataque de A10 2"
+ },
+ {
+  "label": "SCIENCE:USAA10Strike3",
+  "text": "Ataque de A10 3"
+ },
+ {
+  "label": "SCIENCE:USADaisyCutter",
+  "text": "Bomba Ar-Combustível"
+ },
+ {
+  "label": "SCIENCE:ChinaNukeLauncher",
+  "text": "Canhão Nuclear"
+ },
+ {
+  "label": "SCIENCE:ChinaRedGuardTraining",
+  "text": "Treinamento da Guarda Vermelha"
+ },
+ {
+  "label": "SCIENCE:ChinaClusterMines",
+  "text": "Minas de Fragmentação"
+ },
+ {
+  "label": "SCIENCE:ChinaArtilleryTraining",
+  "text": "Treinamento de Artilharia"
+ },
+ {
+  "label": "SCIENCE:ChinaArtilleryBarrage",
+  "text": "Bombardeio de Artilharia 1"
+ },
+ {
+  "label": "SCIENCE:ChinaArtilleryBarrage2",
+  "text": "Bombardeio de Artilharia 2"
+ },
+ {
+  "label": "SCIENCE:ChinaArtilleryBarrage3",
+  "text": "Bombardeio de Artilharia 3"
+ },
+ {
+  "label": "SCIENCE:ChinaCashHack1",
+  "text": "Invasão Financeira 1"
+ },
+ {
+  "label": "SCIENCE:ChinaCashHack2",
+  "text": "Invasão Financeira 2"
+ },
+ {
+  "label": "SCIENCE:ChinaCashHack3",
+  "text": "Invasão Financeira 3"
+ },
+ {
+  "label": "SCIENCE:ChinaEMPPulse",
+  "text": "Pulso EMP"
+ },
+ {
+  "label": "SCIENCE:GLAHijacker",
+  "text": "Sequestrador"
+ },
+ {
+  "label": "SCIENCE:GLASCUDLauncher",
+  "text": "Lançador SCUD"
+ },
+ {
+  "label": "SCIENCE:GLAMaruaderTank",
+  "text": "Tanque Marauder"
+ },
+ {
+  "label": "SCIENCE:GLATechnicalTraining",
+  "text": "Treinamento de Technicals"
+ },
+ {
+  "label": "SCIENCE:GLARebelAmbush1",
+  "text": "Emboscada Rebelde 1"
+ },
+ {
+  "label": "SCIENCE:GLARebelAmbush2",
+  "text": "Emboscada Rebelde 2"
+ },
+ {
+  "label": "SCIENCE:GLARebelAmbush3",
+  "text": "Emboscada Rebelde 3"
+ },
+ {
+  "label": "SCIENCE:GLACashBounty1",
+  "text": "Recompensa 1"
+ },
+ {
+  "label": "SCIENCE:GLACashBounty2",
+  "text": "Recompensa 2"
+ },
+ {
+  "label": "SCIENCE:GLACashBounty3",
+  "text": "Recompensa 3"
+ },
+ {
+  "label": "SCIENCE:GLAAnthraxBomb",
+  "text": "Bomba de Antraz"
+ },
+ {
+  "label": "CONTROLBAR:Demoralize",
+  "text": "Desmoralizar"
+ },
+ {
+  "label": "CONTROLBAR:CIAIntelligence",
+  "text": "Inteligên&cia"
+ },
+ {
+  "label": "CONTROLBAR:CombatDrop",
+  "text": "Desembarque de &combate"
+ },
+ {
+  "label": "CONTROLBAR:Guard",
+  "text": "&Guardar"
+ },
+ {
+  "label": "CONTROLBAR:GuardWithoutPursuit",
+  "text": "Guardar &perto"
+ },
+ {
+  "label": "CONTROLBAR:GuardFlyingUnitsOnly",
+  "text": "Guardar espaço &aéreo"
+ },
+ {
+  "label": "CONTROLBAR:AttackMove",
+  "text": "&Atacar em movimento"
+ },
+ {
+  "label": "CONTROLBAR:Stop",
+  "text": "&Parar"
+ },
+ {
+  "label": "CONTROLBAR:Waypoints",
+  "text": "Pon&to de rota"
+ },
+ {
+  "label": "CONTROLBAR:CancelBuild",
+  "text": "&Cancelar construção"
+ },
+ {
+  "label": "CONTROLBAR:Contaminate",
+  "text": "&Contaminar"
+ },
+ {
+  "label": "CONTROLBAR:FireWall",
+  "text": "&Muro de fogo"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeGLAArmTheMob",
+  "text": "Armar a &multidão"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaOverlordGattlingCannon",
+  "text": "&Canhão Gatling"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaOverlordPropagandaTower",
+  "text": "&Torre de propaganda"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaOverlordBattleBunker",
+  "text": "&Bunker de batalha"
+ },
+ {
+  "label": "CONTROLBAR:FireBomb",
+  "text": "Bomba &incendiária"
+ },
+ {
+  "label": "CONTROLBAR:UnderConstructionDesc",
+  "text": "Construindo: %.0f%%"
+ },
+ {
+  "label": "CONTROLBAR:OCLTimerDesc",
+  "text": "Tempo até o próximo lançamento: %d:%d"
+ },
+ {
+  "label": "CONTROLBAR:OCLTimerDescWithPadding",
+  "text": "Tempo até o próximo lançamento: %d:0%d"
+ },
+ {
+  "label": "CONTROLBAR:InitiateBattlePlanBombardment",
+  "text": "Plano de batalha &Bombardeio"
+ },
+ {
+  "label": "CONTROLBAR:InitiateBattlePlanHoldTheLine",
+  "text": "Plano de batalha Manter a p&osição"
+ },
+ {
+  "label": "CONTROLBAR:InitiateBattlePlanSearchAndDestroy",
+  "text": "Plano Buscar e &destruir"
+ }
+]
