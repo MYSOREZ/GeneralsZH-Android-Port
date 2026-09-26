@@ -1,0 +1,802 @@
+[
+ {
+  "label": "GUI:BioClassNumber_Pos8",
+  "text": "No procede"
+ },
+ {
+  "label": "GUI:BioDefeatedEntry_Pos8",
+  "text": "Por determinar"
+ },
+ {
+  "label": "GUI:BioVictoriousEntry_Pos8",
+  "text": "Por determinar"
+ },
+ {
+  "label": "GUI:BioNameEntry_Pos9",
+  "text": "General Leang"
+ },
+ {
+  "label": "GUI:BioDOBEntry_Pos9",
+  "text": "Por determinar"
+ },
+ {
+  "label": "GUI:BioBirthplaceEntry_Pos9",
+  "text": "Base Dragón, Lanzhou, China"
+ },
+ {
+  "label": "GUI:BioStrategyEntry_Pos9",
+  "text": "Desconocida"
+ },
+ {
+  "label": "GUI:BioRankEntry_Pos9",
+  "text": "General dragón, clase AAAA"
+ },
+ {
+  "label": "GUI:BioBranchEntry_Pos9",
+  "text": "EPL - Fuerzas de élite"
+ },
+ {
+  "label": "TOOLTIP:BioStrategyLong_Pos9",
+  "text": "La general 'Tigresa' Leiong Leang exige el uso de todas las demás tecnologías para derrotar a sus enemigos"
+ },
+ {
+  "label": "GUI:BioClassNumber_Pos9",
+  "text": "Desconocido"
+ },
+ {
+  "label": "GUI:BioDefeatedEntry_Pos9",
+  "text": "Ha sido un duelo interesante. Quizá vuelva a desafiarme."
+ },
+ {
+  "label": "GUI:BioVictoriousEntry_Pos9",
+  "text": "Mejore sus habilidades y desafíeme otra vez."
+ },
+ {
+  "label": "GUI:BioNameEntry_Pos10",
+  "text": "Por determinar"
+ },
+ {
+  "label": "GUI:BioDOBEntry_Pos10",
+  "text": "33"
+ },
+ {
+  "label": "GUI:BioBirthplaceEntry_Pos10",
+  "text": "Por determinar"
+ },
+ {
+  "label": "GUI:BioStrategyEntry_Pos10",
+  "text": "Por determinar"
+ },
+ {
+  "label": "GUI:BioRankEntry_Pos10",
+  "text": "."
+ },
+ {
+  "label": "GUI:BioBranchEntry_Pos10",
+  "text": "."
+ },
+ {
+  "label": "TOOLTIP:BioStrategyLong_Pos10",
+  "text": "."
+ },
+ {
+  "label": "GUI:BioClassNumber_Pos10",
+  "text": "."
+ },
+ {
+  "label": "GUI:BioDefeatedEntry_Pos10",
+  "text": "Por determinar"
+ },
+ {
+  "label": "GUI:BioVictoriousEntry_Pos10",
+  "text": "Por determinar"
+ },
+ {
+  "label": "GUI:BioNameEntry_Pos11",
+  "text": "Por determinar"
+ },
+ {
+  "label": "GUI:BioDOBEntry_Pos11",
+  "text": "Por determinar"
+ },
+ {
+  "label": "GUI:BioBirthplaceEntry_Pos11",
+  "text": "Por determinar"
+ },
+ {
+  "label": "GUI:BioStrategyEntry_Pos11",
+  "text": "Por determinar"
+ },
+ {
+  "label": "GUI:BioRankEntry_Pos11",
+  "text": "."
+ },
+ {
+  "label": "GUI:BioBranchEntry_Pos11",
+  "text": "."
+ },
+ {
+  "label": "TOOLTIP:BioStrategyLong_Pos11",
+  "text": "."
+ },
+ {
+  "label": "GUI:BioClassNumber_Pos11",
+  "text": "."
+ },
+ {
+  "label": "GUI:BioDefeatedEntry_Pos11",
+  "text": "Por determinar"
+ },
+ {
+  "label": "GUI:BioVictoriousEntry_Pos11",
+  "text": "Por determinar"
+ },
+ {
+  "label": "TOOLTIP:BioStrategyLong_GLA",
+  "text": "El Ejército de Liberación Global prefiere las tácticas rastreras y arteras para derrotar a sus enemigos"
+ },
+ {
+  "label": "TOOLTIP:BioStrategyLong_China",
+  "text": "China usa el fuego y la superioridad numérica aplastante para derrotar a sus enemigos"
+ },
+ {
+  "label": "TOOLTIP:BioStrategyLong_USA",
+  "text": "EE. UU. usa armamento de alta tecnología y pericia para derrotar a sus enemigos"
+ },
+ {
+  "label": "TOOLTIP:BioStrategyLong_Random",
+  "text": "Esta opción elige una facción al azar"
+ },
+ {
+  "label": "GUI:ChallengeWinText",
+  "text": "Enhorabuena, has derrotado a %s"
+ },
+ {
+  "label": "GUI:ChallengeLossText",
+  "text": "%s te ha derrotado"
+ },
+ {
+  "label": "CREDITS:DevelopmentDirector",
+  "text": "Director de desarrollo"
+ },
+ {
+  "label": "CREDITS:GeneralManager",
+  "text": "Director general de EALA"
+ },
+ {
+  "label": "CREDITS:LeadArtist",
+  "text": "Artista jefe"
+ },
+ {
+  "label": "CREDITS:QADirector",
+  "text": "Director de QA"
+ },
+ {
+  "label": "CREDITS:SrTestLead",
+  "text": "Jefe sénior de pruebas"
+ },
+ {
+  "label": "CREDITS:AssistantMultiplayerTestLead",
+  "text": "Jefe adjunto de pruebas multijugador"
+ },
+ {
+  "label": "CREDITS:TestAnalyst",
+  "text": "Analista de pruebas"
+ },
+ {
+  "label": "CREDITS:AssistantProducer",
+  "text": "Productor ayudante"
+ },
+ {
+  "label": "CREDITS:CameoPhotoshootStudio",
+  "text": "Fotos tomadas en Out West Studio"
+ },
+ {
+  "label": "CREDITS:Models",
+  "text": "Modelos"
+ },
+ {
+  "label": "CREDITS:Actors",
+  "text": "Actores"
+ },
+ {
+  "label": "CREDITS:VisualEffectsAndEditing",
+  "text": "Efectos visuales y montaje"
+ },
+ {
+  "label": "CREDITS:NewsReporterVideos",
+  "text": "Vídeos de reporteros de noticias"
+ },
+ {
+  "label": "CREDITS:DirectorOfProductLocalization",
+  "text": "Director de localización de productos, EALA"
+ },
+ {
+  "label": "CREDITS:LocalizationAssistance",
+  "text": "Ayuda con la localización"
+ },
+ {
+  "label": "ACADEMY:Eva",
+  "text": "Análisis táctico"
+ },
+ {
+  "label": "ACADEMY:BuildAllStructures",
+  "text": "En el campo de batalla es importante aprovechar todas las herramientas a su alcance, general. Asegúrese de construir todas las estructuras. Debe mantener una fuerza militar sólida"
+ },
+ {
+  "label": "ACADEMY:BuildSupplyCenterEarlier",
+  "text": "General, una de las funciones más importantes de un buen líder es asegurarse de que a los soldados no les falten suministros. Le sugerimos que construya un centro de suministros o un alijo en cuanto empiece una misión. Los suministros dan dinero, y el dinero da la victoria"
+ },
+ {
+  "label": "ACADEMY:TryBuildingRadar",
+  "text": "La niebla de guerra nos rodea a todos. Una forma útil de ver a través de ella es el radar. Cada facción obtiene su ojo en el cielo a su manera: el centro de mando de EE. UU. incluye radar de serie, el centro de mando chino debe mejorarse y el ELG debe construir una furgoneta de radar en el traficante de armas"
+ },
+ {
+  "label": "ACADEMY:BuildMorePeons",
+  "text": "Pregunte a cualquier otro general y le confirmará una regla sencilla: la tropa hace al ejército. Para construir su base, tendrá que poner a trabajar a sus excavadoras o trabajadores. Son clave para su éxito futuro, así que no se olvide de ellos"
+ },
+ {
+  "label": "ACADEMY:TryCapturingStructures",
+  "text": "General, a veces es más fácil quitar lo que uno quiere que ganárselo con esfuerzo. Si compra la mejora 'Capturar' en su cuartel, podrá robar estructuras enemigas. Además, por el campo de batalla hay edificios tecnológicos que pueden reforzar aún más su ejército"
+ },
+ {
+  "label": "ACADEMY:SpendGeneralsPoints",
+  "text": "La guerra trae botín. Cada vez que destruya a un enemigo irá ganando puntos de general, que puede gastar pulsando el botón de la 'estrella' a la derecha de la barra de mando. Abra el menú de puntos de general y gaste esos puntos tan bien ganados en nuevos juguetes de guerra"
+ },
+ {
+  "label": "ACADEMY:TryUsingSuperweapons",
+  "text": "¿De qué sirve acumular puntos de general si no los usa? Si ha comprado poderes de general con sus puntos, aparecerá un icono a la derecha de la pantalla. Púlselo y disfrute de los fuegos artificiales. Cuantos más puntos gaste, más potente será el poder"
+ },
+ {
+  "label": "ACADEMY:TryGarrisoningAStructure",
+  "text": "Los soldados pueden ser eficaces al descubierto, pero son más letales atrincherados en edificios civiles. Seleccione a sus soldados y envíelos a una estructura vacía. Las paredes los protegerán... a menos que aparezca una granada cegadora, un tractor de toxinas o un tanque Dragon"
+ },
+ {
+  "label": "ACADEMY:IdleBuildingUnits",
+  "text": "General, su máxima meta debe ser formar y dirigir un gran ejército. Asegúrese de construir unidades de combate haciendo clic en un cuartel, una fábrica de guerra, un aeródromo, etc., y después en la imagen correspondiente de la barra de mando inferior. Será dinero bien gastado y le ayudará a lograr la victoria"
+ },
+ {
+  "label": "ACADEMY:TryDragSelectingUnits",
+  "text": "Manejar el ejército es de lo más difícil que debe aprender un general. Aunque puede hacer clic en cada unidad por separado, suele ser más rápido 'enlazar' un grupo de unidades: haga clic y arrastre el recuadro alrededor de ellas. Quedarán bajo su control. Si hace clic en otra zona, las unidades irán a ese punto"
+ },
+ {
+  "label": "ACADEMY:ResearchUpgrades",
+  "text": "Un gran general puede fabricar muchos tanques, pero un general aún mejor fabrica muchos tanques mejores. Casi todas las unidades tienen algún tipo de mejora. A menudo lo mejor es gastar el dinero en mejorar lo que ya tiene"
+ },
+ {
+  "label": "ACADEMY:RanOutOfPower",
+  "text": "Aunque el ELG no necesita energía, China y EE. UU. la devoran como si fueran palomitas. Para que una base funcione a pleno rendimiento, un general debe invertir en energía de sobra para abastecer a la maquinaria de guerra. Construya un reactor de fusión fría o un reactor nuclear para obtener el máximo rendimiento. Poca energía puede significar pocas victorias"
+ },
+ {
+  "label": "ACADEMY:BuildMoreGatherers",
+  "text": "General, asegúrese de construir suficientes trabajadores, camiones de suministros o Chinook para que no dejen de entrar ingresos. Puede crear recolectores adicionales haciendo clic en su imagen en el centro de suministros o en el alijo. No se corte a la hora de exprimir sus recursos"
+ },
+ {
+  "label": "ACADEMY:BuildAHero",
+  "text": "Jarmen Kell, el coronel Burton y Loto Negro pueden ser muy valiosos para su estrategia. Estos héroes pueden cambiar el curso de una batalla y son invisibles para el enemigo. Para localizar a su héroe en el radar, busque el icono de la mira. Aunque solo puede construir uno a la vez, no subestime su importancia"
+ },
+ {
+  "label": "ACADEMY:PickStrategyCenterPlan",
+  "text": "El centro de estrategia de EE. UU. es una estructura muy útil. Recuerde elegir la estrategia que mejor encaje con su plan de juego. Buscar & destruir, Bombardeo y Mantener la línea son formas excelentes de conseguir la ventaja que necesita. Además de estas estrategias generales, en este edificio puede comprar muchas mejoras"
+ },
+ {
+  "label": "ACADEMY:UseTunnelNetwork",
+  "text": "Moverse a escondidas por el campo de batalla es la seña de identidad del ELG. Las redes de túneles ofrecen capacidad defensiva, pero también permiten desplazarse rápidamente. Construya unas cuantas redes de túneles y meta dentro a sus unidades. Haga clic en la estructura y podrá sacarlas por cualquier otra red de túneles del mapa. Son clave en la estrategia general del ELG"
+ },
+ {
+  "label": "ACADEMY:UseControlGroups",
+  "text": "Manejar un gran ejército a veces cuesta. Una forma de controlar muchas unidades con facilidad es crear un 'grupo de control': seleccione el grupo de unidades y pulse a la vez 'Ctrl' & un número. A partir de ahí, cada vez que pulse ese número se seleccionará el grupo. Pulse el número dos veces seguidas y la cámara se centrará en el grupo"
+ },
+ {
+  "label": "ACADEMY:UseSecondaryIncomeMethods",
+  "text": "General, conseguir suministros cuando la misión está avanzada puede ser difícil. Cada facción tiene su propia forma de obtener fondos en las batallas largas. China puede construir hackers y un centro de Internet: puede ordenar a los hackers que pirateen Internet en cualquier lugar o meterlos en el centro de Internet para ganar dinero aún más rápido. El ELG depende del mercado negro y EE. UU., del lanzamiento de suministros. Si no planifica con antelación, puede sufrir escasez"
+ },
+ {
+  "label": "ACADEMY:ClearBuildings",
+  "text": "Los edificios ocupados pueden ser difíciles de tomar, a menos que conozca algunos trucos. Mejore a los rangers de EE. UU. con granadas cegadoras, o construya tractores de toxinas del ELG o tanques Dragon chinos para desalojar rápidamente esos puntos fuertes. ¡EE. UU. también puede adquirir los misiles antibúnker para vaciar incluso las redes de túneles!"
+ },
+ {
+  "label": "ACADEMY:PickUpSalvage",
+  "text": "El ELG es una panda de tramposos, pero también de gente con recursos. Cada vez que una unidad del ELG destruye un vehículo, quedan restos aprovechables. Pase por encima de la chatarra para mejorar sus unidades, ganar veteranía o conseguir dinero extra. En una batalla larga, la chatarra puede marcar la diferencia, así que no la deje tirada"
+ },
+ {
+  "label": "ACADEMY:UseGuardAbility",
+  "text": "A veces es importante que las unidades se queden quietas vigilando una zona. Seleccione la unidad, pulse el botón del 'escudo' o la tecla 'G' y elija la zona que debe vigilar. La unidad atacará a cualquier enemigo que entre en su radio de vigilancia"
+ },
+ {
+  "label": "ACADEMY:MultipleSupplyCenters",
+  "text": "Los suministros son lo más importante, general. Se recogen en los muelles de suministros repartidos por el campo de batalla. Aunque al principio puede bastar con un muelle, lo mejor suele ser expandirse y encontrar algunos más durante la misión. Tendrá que construir un centro de suministros o un alijo cerca del muelle para que la recogida sea eficiente"
+ },
+ {
+  "label": "ACADEMY:GarrionVehicle",
+  "text": "Algunas unidades pueden entrar en otros vehículos o robarlos. Robar vehículos con secuestradores o terroristas le permitirá colarse en territorio enemigo"
+ },
+ {
+  "label": "ACADEMY:UseSelectionHotkeys",
+  "text": "General, las teclas de acceso rápido son una forma estupenda de mejorar el control de sus fuerzas. 'E' selecciona todas las unidades del mismo tipo que haya en pantalla. Si pulsa 'E' dos veces seguidas, seleccionará todas las del mismo tipo en todo el campo de batalla. 'Q' selecciona todas sus unidades de combate del mapa y 'W', todas sus unidades aéreas. Pruébelas, le serán útiles"
+ },
+ {
+  "label": "ACADEMY:AlternateMouseInterface",
+  "text": "Una novedad es la opción 'Interfaz de ratón alternativa' del menú de opciones. Si está acostumbrado a dirigir ejércitos con el clic derecho como botón de acción, le ayudará a controlar mejor su ejército"
+ },
+ {
+  "label": "ACADEMY:DoubleClickAttackMoveGuard",
+  "text": "General, hemos creado una nueva forma de dirigir su ejército. Seleccione sus unidades y haga doble clic en el destino: las unidades avanzarán atacando hasta ese punto y después lo vigilarán. Puede activarlo en el menú de opciones"
+ },
+ {
+  "label": "ACADEMY:BuildBarracksSooner",
+  "text": "Para crear una fuerza equilibrada debe construir un cuartel antes en la misión. La infantería puede hacer triunfar o hundir su plan de juego, así que no se olvide de ella"
+ },
+ {
+  "label": "ACADEMY:BuildWarFactorySooner",
+  "text": "La infantería y el poder aéreo son grandes bazas, pero nada supera a un buen tanque. Construya una fábrica de guerra o un traficante de armas antes en la misión"
+ },
+ {
+  "label": "ACADEMY:BuildTechStructureSooner",
+  "text": "Para el armamento avanzado no hay nada que sustituya a un centro de estrategia, un centro de propaganda o un palacio. No olvide construir uno algo antes en las misiones para asegurarse el éxito"
+ },
+ {
+  "label": "ACADEMY:NoIncome",
+  "text": "General, para triunfar es vital que el flujo de ingresos no se detenga durante toda la misión. Demasiados parones le harán perder ventaja. Asegúrese de que los suministros no dejen de llegar"
+ },
+ {
+  "label": "ACADEMY:ClearMines",
+  "text": "Las trampas explosivas y las minas pueden estropearle el día. Contra estas tácticas arteras, use excavadoras o trabajadores para limpiar las zonas peligrosas"
+ },
+ {
+  "label": "ACADEMY:UnmannedVehicles",
+  "text": "General, algunas unidades pueden abatir o sacar a los conductores de los vehículos enemigos. Cuando eso ocurre, el vehículo queda neutral y se le puede 'tomar prestado' al enemigo. Dese una vuelta a costa del enemigo"
+ },
+ {
+  "label": "ACADEMY:DisguisedUnits",
+  "text": "Algunas unidades pueden disfrazarse de otras. No hay nada tan gratificante como meter un camión bomba del ELG en una base enemiga sin ser detectado y sembrar el caos. Aproveche esta táctica clave en su plan de batalla"
+ },
+ {
+  "label": "ACADEMY:StealthUpgrade",
+  "text": "Algunas estructuras, como la red de túneles o los emplazamientos Stinger del ELG, pueden mejorarse con camuflaje. Serán invisibles para el enemigo hasta que sea demasiado tarde. ¡Sorpresa!"
+ },
+ {
+  "label": "ACADEMY:Firestorm",
+  "text": "China tiene la capacidad única de crear una tormenta de fuego cuando varios MiG o cañones Infierno atacan a un mismo enemigo o zona. Coordine sus ataques para lograr el máximo efecto"
+ },
+ {
+  "label": "GUI:HeatEffects",
+  "text": "Efectos de calor"
+ },
+ {
+  "label": "TOOLTIP:HeatEffects",
+  "text": "Mostrar u ocultar los efectos de distorsión por calor. Desactívalo para mejorar el rendimiento"
+ },
+ {
+  "label": "GUI:WeatherEffects",
+  "text": "Efectos meteorológicos"
+ },
+ {
+  "label": "TOOLTIP:WeatherEffects",
+  "text": "Mostrar u ocultar efectos meteorológicos como la nieve. Desactívalo para mejorar el rendimiento"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_AllyUnderAttackSubtitle",
+  "text": "*Nuestro aliado está bajo ataque"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_BaseDefensesOffLineSubtitle",
+  "text": "*Nuestras defensas están desactivadas"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_BeaconDetectedSubtitle",
+  "text": "*Se ha colocado una baliza"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_BlackLotusEnemySubtitle",
+  "text": "*Hemos descubierto a una Loto Negro enemiga"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_BlackLotusOursSubtitle",
+  "text": "*Han descubierto a Loto Negro"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_BuildingBeingCapturedSubtitle",
+  "text": "*Están capturando uno de nuestros edificios"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_BuildingDisabledSubtitle",
+  "text": "*Un edificio ha quedado inutilizado"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_BuildingEnabledSubtitle",
+  "text": "*Un edificio vuelve a funcionar"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_BuildingStolenSubtitle",
+  "text": "*El enemigo ha capturado uno de nuestros edificios"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_CashStolenSubtitle",
+  "text": "*General, nos están robando el dinero"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_ColonelBurtonEnemySubtitle",
+  "text": "*Hemos descubierto a un coronel Burton enemigo"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_ColonelBurtonOursSubtitle",
+  "text": "*Han descubierto al coronel Burton"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_DefeatSubtitle",
+  "text": "*Hemos sido derrotados"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_DetectedNukeSubtitle",
+  "text": "*Aviso: detectado un silo de misiles nucleares"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_DetectedParticleCannonSubtitle",
+  "text": "*Aviso: detectado un cañón de partículas"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_DetectedScudStormSubtitle",
+  "text": "*Aviso: detectada una Tormenta SCUD"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_FundsReceivedSubtitle",
+  "text": "*Hemos recibido fondos de nuestro aliado"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_FundsRequestedSubtitle",
+  "text": "*Ha pedido fondos a su aliado"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_FundsRequestedAllySubtitle",
+  "text": "*Su aliado le pide fondos"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_FundsTransferredSubtitle",
+  "text": "*Hemos transferido fondos a nuestro aliado"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_GeneralLevelUpSubtitle",
+  "text": "*Enhorabuena, general. Ha sido ascendido"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_GPSScramblerLaunchedSubtitle",
+  "text": "*Aviso: se ha activado un perturbador de GPS"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_IncomingAnthraxSubtitle",
+  "text": "*Aviso: se ha lanzado una bomba de ántrax"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_IncomingDaisyCutterSubtitle",
+  "text": "*Aviso: se ha lanzado una Daisy Cutter"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_IncomingEmpPulseSubtitle",
+  "text": "*Aviso: se ha lanzado una bomba de pulso PEM"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_IncomingFuelAirBombSubtitle",
+  "text": "*Aviso: se ha lanzado una bomba de combustible-aire"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_InsufficientFundsSubtitle",
+  "text": "*Necesitamos más fondos"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_JarmenKellEnemySubtitle",
+  "text": "*Hemos descubierto a un Jarmen Kell enemigo"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_JarmenKellOursSubtitle",
+  "text": "*Han descubierto a Jarmen Kell"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_LaserDefenseSpeechSubtitle",
+  "text": "*General, nuestro rival tiene un bastión en el centro de la ciudad. Su sistema de defensa láser es devastador, pero consume mucha energía. Se verá obligado a desviar la energía a un solo punto de defensa cada vez. Aprovéchelo"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_LaunchedNukeSubtitle",
+  "text": "*Aviso: se ha lanzado un misil nuclear"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_LaunchedParticleCannonSubtitle",
+  "text": "*Aviso: detectado un cañón de partículas"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_LaunchedScudStormSubtitle",
+  "text": "*Aviso: se ha lanzado la Tormenta SCUD"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_LowPowerSubtitle",
+  "text": "*Tenemos poca energía"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_NuclearMissileDetectedAllySubtitle",
+  "text": "*Nuestro aliado ha construido un silo de misiles nucleares"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_NuclearMissileLaunchedAllySubtitle",
+  "text": "*Nuestro aliado ha lanzado un misil nuclear"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_NuclearMissileLaunchedOursSubtitle",
+  "text": "*Hemos lanzado nuestro misil nuclear"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_NuclearMissileReadySubtitle",
+  "text": "*Nuestro misil nuclear está listo, general"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_OpinionCivilianStructures01Subtitle",
+  "text": "*General, procure que no se destruyan estructuras civiles"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_OpinionCivilianStructures02Subtitle",
+  "text": "*¡Destruir estructuras civiles perjudicará nuestra opinión internacional!"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_OpinionDestroyStatuesSubtitle",
+  "text": "*Destruya las estatuas del ELG para mejorar la opinión internacional, señor"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_OpinionDestroyStructuresSubtitle",
+  "text": "*Señor, destruir estructuras enemigas mejorará la opinión internacional sobre nosotros"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_OpinionDestroyTroopsSubtitle",
+  "text": "*Destruya más tropas enemigas para mejorar la opinión internacional"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_OpinionFallingSubtitle",
+  "text": "*¡Nuestra opinión internacional está cayendo!"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_OpinionLowSubtitle",
+  "text": "*Nuestra opinión internacional está bajando"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_OpinionLowCriticalSubtitle",
+  "text": "*¡Nuestra opinión internacional está en un nivel crítico!"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_OpinionLowVerySubtitle",
+  "text": "*Nuestra opinión internacional es muy baja"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_OpinionProtectCivilianSubtitle",
+  "text": "*Proteja las propiedades civiles"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_OpinionRisingSubtitle",
+  "text": "*¡Nuestra opinión internacional está subiendo!"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_ParticleCannonDetectedAllySubtitle",
+  "text": "*Nuestro aliado ha construido un cañón de partículas"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_ParticleCannonLaunchedAllySubtitle",
+  "text": "*Nuestro aliado ha activado su cañón de partículas"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_ParticleCannonLaunchedOursSubtitle",
+  "text": "*Nuestro cañón de partículas se ha activado"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_ParticleCannonReadySubtitle",
+  "text": "*Nuestro cañón de partículas está listo, general"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_ReinforcementsHaveArrivedSubtitle",
+  "text": "*Han llegado refuerzos"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_ScudStormDetectedAllySubtitle",
+  "text": "*Nuestro aliado ha construido una Tormenta SCUD"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_ScudStormLaunchedAllySubtitle",
+  "text": "*Nuestro aliado ha lanzado su Tormenta SCUD"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_ScudStormLaunchedOursSubtitle",
+  "text": "*Hemos lanzado nuestra Tormenta SCUD"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_ScudStormReadySubtitle",
+  "text": "*Nuestra Tormenta SCUD está lista, general"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_SelectTargetSubtitle",
+  "text": "*Seleccione un objetivo"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_SneakAttackLaunchedSubtitle",
+  "text": "*Aviso: detectado un ataque furtivo"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_UnitLostSubtitle",
+  "text": "*Unidad perdida"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_UpgradeCompleteSubtitle",
+  "text": "*Mejora completada"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_UpgradeEMPminesSubtitle",
+  "text": "*Mejora de minas de neutrones completada"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_UpgradeNeutronShellSubtitle",
+  "text": "*Mejora de proyectiles de neutrones completada"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_VehicleStolenSubtitle",
+  "text": "*Han robado un vehículo"
+ },
+ {
+  "label": "DIALOGEVENT:EvaChina_VictorySubtitle",
+  "text": "*Hemos vencido"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_AllyUnderAttackSubtitle",
+  "text": "*Nuestro aliado está bajo ataque"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_BaseDefensesOffLineSubtitle",
+  "text": "*Nuestras defensas no funcionan"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_BeaconDetectedSubtitle",
+  "text": "*Se ha colocado una baliza"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_BlackLotusEnemySubtitle",
+  "text": "*Hemos descubierto a una Loto Negro enemiga"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_BlackLotusOursSubtitle",
+  "text": "*El enemigo ha visto a nuestro Jarmen Kell"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_BuildingBeingCapturedSubtitle",
+  "text": "*General, nos están robando el dinero"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_BuildingDisabledSubtitle",
+  "text": "*Un edificio ha dejado de funcionar"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_BuildingEnabledSubtitle",
+  "text": "*Nuestro edificio vuelve a funcionar"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_BuildingStolenSubtitle",
+  "text": "*Se han hecho con el control de nuestro edificio"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_CashStolenSubtitle",
+  "text": "*General, nos están robando el dinero"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_ColonelBurtonEnemySubtitle",
+  "text": "*Hemos descubierto a un coronel Burton enemigo"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_ColonelBurtonOursSubtitle",
+  "text": "*El enemigo ha visto a nuestro coronel Burton"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_DefeatSubtitle",
+  "text": "*Hemos sido derrotados"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_DetectedNukeSubtitle",
+  "text": "*Cuidado, hemos avistado un silo de misiles nucleares"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_DetectedParticleCannonSubtitle",
+  "text": "*Esté en guardia, hemos descubierto un cañón de partículas enemigo"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_DetectedScudStormSubtitle",
+  "text": "*Cuidado, el enemigo ha construido una Tormenta SCUD"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_EliteGuardUpgrade01Subtitle",
+  "text": "*Ahora nuestras estructuras estarán custodiadas"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_EliteGuardUpgrade02Subtitle",
+  "text": "*Estamos mejorando a guardia de élite"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_EliteGuardUpgrade03Subtitle",
+  "text": "*La guardia de élite protege ahora nuestros edificios"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_FundsReceivedSubtitle",
+  "text": "*Hemos recibido fondos de nuestro aliado"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_FundsRequestedSubtitle",
+  "text": "*Ha pedido fondos a su aliado"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_FundsRequestedAllySubtitle",
+  "text": "*Su aliado le pide fondos"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_FundsTransferredSubtitle",
+  "text": "*Hemos transferido fondos a nuestro aliado"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_GeneralLevelUpSubtitle",
+  "text": "*Bien hecho, general. Ha alcanzado un rango superior"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_GPSScramblerLaunchedSubtitle",
+  "text": "*General, el enemigo está usando su perturbador de GPS"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_IncomingAnthraxSubtitle",
+  "text": "*Alerta, puede que se acerque una bomba de ántrax"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_IncomingDaisyCutterSubtitle",
+  "text": "*Alerta, puede que se acerque una Daisy Cutter"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_IncomingEmpPulseSubtitle",
+  "text": "*Alerta, puede que se acerque una bomba de pulso PEM"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_IncomingFuelAirBombSubtitle",
+  "text": "*Alerta, puede que se acerque una bomba de combustible-aire"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_InsufficientFundsSubtitle",
+  "text": "*Necesitaremos más fondos, general"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_JarmenKellEnemySubtitle",
+  "text": "*Hemos descubierto a un Jarmen Kell enemigo"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_JarmenKellOursSubtitle",
+  "text": "*El enemigo ha visto a nuestra Loto Negro"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_LaserDefenseSpeechSubtitle",
+  "text": "*General, nuestro rival tiene un bastión en el centro de la ciudad. Su sistema de defensa láser es devastador, pero consume mucha energía. Se verá obligado a desviar la energía a un solo punto de defensa cada vez. Aprovéchelo"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_LaunchedNukeSubtitle",
+  "text": "*General, ¡se ha lanzado un misil nuclear!"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_LaunchedParticleCannonSubtitle",
+  "text": "*General, el enemigo está usando su cañón de partículas"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_LaunchedScudStormSubtitle",
+  "text": "*General, se ha lanzado una Tormenta SCUD"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_LowPowerSubtitle",
+  "text": "*Tenemos poca energía"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_NuclearMissileDetectedAllySubtitle",
+  "text": "*Nuestro aliado ha construido un silo de misiles nucleares"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_NuclearMissileLaunchedAllySubtitle",
+  "text": "*Nuestro aliado ha lanzado un misil nuclear"
+ },
+ {
+  "label": "DIALOGEVENT:EvaGLA_NuclearMissileLaunchedOursSubtitle",
+  "text": "*Lanzando misil nuclear"
+ }
+]
