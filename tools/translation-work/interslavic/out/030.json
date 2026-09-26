@@ -1,0 +1,802 @@
+[
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle073Subtitle",
+  "text": "*Tak mnogo vojsk, generale. Niste li planovali me napasti s njimi vsemi naraz?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle074Subtitle",
+  "text": "*To je pravedno dobra baza, kotoru tam imate, generale. Zapomneli ste razměstiti budovy, aby izběgli udary oružja, tak?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle075Subtitle",
+  "text": "*Znate li, kak dolgo bude trvati to počistiti?!?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle076Subtitle",
+  "text": "*Izvedite tu odvratnu radiaciju iz moje bazy!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle077Subtitle",
+  "text": "*Ej, to je moje Česticovo dělo! Niste avtorizovani go koristiti!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle078Subtitle",
+  "text": "*Je li to taktičny potez, ili se prosto skryvate?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle079Subtitle",
+  "text": "*Polkovnik Burton? Zaista? Mysite, že vam pomože?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle080Subtitle",
+  "text": "*Črny Lotos? Vygljadaje, že to je samo dvoboj žensk, ne li?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle081Subtitle",
+  "text": "*Jarmen Kell! Lăpše by ostal dale od mojih tankov!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle082Subtitle",
+  "text": "*Krasno Vozdušne Polje, generale -- samo dăržite te samolety dale od mojego Česticovogo děla"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle083Subtitle",
+  "text": "*Vojenska Fabrika? Zaista me hočete napasti, ne li? Uže je vrěme"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle084Subtitle",
+  "text": "*Dobro za vas -- možete sgraditi kasarnu"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle085Subtitle",
+  "text": "*Prodavate svoje budovy? Je li to čast vaše likvidacijske rasprodaje?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle086Subtitle",
+  "text": "*Začto se prosto ne predate? Imam lăpše stvari, kotore by mogla dělati danas"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle087Subtitle",
+  "text": "*Začto nikogda ne mogu najti takogo, kotory izdărži věče nego 5 minut"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle088Subtitle",
+  "text": "*Vygljadaje, že gubite, generale. Nu, čto jesem rekla o planovanju neuspěha?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle089Subtitle",
+  "text": "*To je pravedno tăžky poraz, kotory primate, generale. Ste li gotovi na věče?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle090Subtitle",
+  "text": "*Hotěla by jesem reči, 'dobry boj', no jasno, že vaš um ne byl v tom, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle091Subtitle",
+  "text": "*Ne mogu věriti, že by ste tak izbivali děvušku"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle092Subtitle",
+  "text": "*Trěbuju vrěme za razmyšljanje. Idite dale, generale!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle093Subtitle",
+  "text": "*Vaša taktika edva je sportska, generale. Igrajte pošteno!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle094Subtitle",
+  "text": "*Generale, pogledajte tam! Někto zahvataje vaše budovy! Ne poverili ste, a?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle095Subtitle",
+  "text": "*Znate, jesli byste byli džentlmen, dali by ste mi pjat minut, aby obnovila svoju obranu"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle096Subtitle",
+  "text": "*Čto?! Konec je? Nu, bylo prijatno tancovati s vami, generale. Može sleduješi raz ja vedu"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle097Subtitle",
+  "text": "*Moje Superoružja su gotova... ste li vy?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle098Subtitle",
+  "text": "*Nikogda ne razbijete moju obranu, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle099Subtitle",
+  "text": "*Vaša bystra taktika na mene ne bude rabotati"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle100Subtitle",
+  "text": "*To ne je pravedno! Ešče jedno Superoružje, i pobědila by jesem vas, generale. Izzovite me znova, izzyvam vas"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle101Subtitle",
+  "text": "*Rekla jesem vam, že nikogda ne pobědite moje Superoružja, generale. Hočete li poprobovati znova?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle102Subtitle",
+  "text": "*Dobro došli, generale. Ste li gotovi začati?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle103Subtitle",
+  "text": "*O, čto je tăj zvuk? Teper vidim světlo na nebu... Hm"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle104Subtitle",
+  "text": "*O moj bože!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle106Subtitle",
+  "text": "*o bože... žal mi, generale, no to je prosto kak ja ljubim reči 'zdravo'. Nu, mnogo srěče, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Turtle107Subtitle",
+  "text": "*Nu, mnogo srěče, generale"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina001Subtitle",
+  "text": "*Amerikanci koristijut Stražny dron kako rany sistem otkrytja neprijatelja. Dron stane nevidimy, kogda se ne dvigaje, i viděli smo někoje unapreděne kulemetami. Hoča ne ravny tankam, dron može sozdati problemy pěšim soldatam"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina002Subtitle",
+  "text": "*Amerikansky Mikrovalny Tank je velika mikrovalna puška, kotora onesposobjuje stavby i vozila. Radiacija iz tanka može takože raniti pěhotu, tak dăržite naši ljudi na bezpečnoj distanciji"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina003Subtitle",
+  "text": "*Avenger je amerikansko lazerno protivozdušno vozilo, sposobno sestrěliti rakety i letadla. On takože pomagaje inym jedinicam US cěljati naše samolety, tak by morali byti visoko prioritetne cěle, kogda se sustanu v bojevoj grupě"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina004Subtitle",
+  "text": "*Spectre Gunship je veliky reaktivny letun s mnogymi oružnymi sistemami pričvrščenymi k boku, kotory može kružiti nad cěljevoju zonoju i sypati smărt s neba. Tipično amerikansky inžiniring -- koristiti puškarnicu, aby uterl muhu"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina005Subtitle",
+  "text": "*Unapreděnje Hemičesko Odělo sdělaje pěhotu ustojčivěju na toksiny i radiaciju"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina006Subtitle",
+  "text": "*Unapreděnje US Protivmery znizuje effektivnost neprijateljskogo ognja protiv jich vozdušnyh jedinic. Rakety često promašat, a kule dělaju menje škody"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina007Subtitle",
+  "text": "*Unapreděnje US Dron Hellfire sozdavaje udaljeny vozdušny dron, kotory brani roditeljsko vozilo avtomatizovanym sistemom raket hellfire"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina008Subtitle",
+  "text": "*Razrušitel Bunkerov je unapreděnje k US nevidimomu istrebitelju i Aurore, dizajnovano za probijanje zaposednutyh budov"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina009Subtitle",
+  "text": "*Unapreděnje Linije Snabděnja povyšaje brzinu, kotoroju US sbiraje resursy iz dokov snabděnja, sbrosov snabděnja i naftnyh vyšek"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina010Subtitle",
+  "text": "*US generaly viděli mudrost propagandy. Koristivši Sbros Letakov, oni mogu vrěmenno onesposobiti jedinice, poka se ony zaustavjaju čitati propagandu"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina011Subtitle",
+  "text": "*Mati vsěh bomb (MOAB) je unapreděnje US Gorivno-vozdušnoj bomby, kotore vklučaje sposobnost omraćenja, vrěmenno vypinajuč prěživše jedinice i stavby"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina012Subtitle",
+  "text": "*Stavba US Ognjeva Baza je oborambena pozicija okružena měšovi s pěskom i vklučaje haubicu i 4 pozicije za strěljanje"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina013Subtitle",
+  "text": "*Napalmna Bomba je unapreděnje k našemu vozdušnomu korablju Helix, kotore mu dopusti izpustiti par bomb, kotore sozdavaju veliky effekt ognjevoj bury"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina014Subtitle",
+  "text": "*Naš Podslušny Post je medlenno, nevidimo vozilo s velikym radiusom vida, kotore može byti zaposednuto s 2 pěhotami kako stražami. Krome otkryvanja nevidimyh objektov, može byti koristeno za odrězenje cělej neprijatelja, kliknuvši na jedinice v dosegu"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina015Subtitle",
+  "text": "*Naš vozdušny korabl Helix 2 je medlenny transportny helikopter, kotory može nositi pěhotu ili jedno vozilo. Hoča vooružen legkym kulemetom, može byti unapredjen Gatlingovym dělom, Propagandnoju vežoju, ili Bojevym bunkerom. Može takože byti unapredjen, aby nosil veliku napalmnu bombu"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina016Subtitle",
+  "text": "*Tank ECM razstraivaje elektronne sistemy sledenja, otvraćajuč ogonj neprijateljskyh raket. Jego elektromagnetny impuls može byti koristen, aby onesposobil jedno neprijateljsko vozilo. On takože sozdavaje polje glušenja radara, kotore onesposobljuje vse drony v svojem dosegu"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina017Subtitle",
+  "text": "*Neutronny Naboj je unapreděnje k našemu Nuklearnomu Dělu, kotore mu dopusti streljati neutronnymi nabojami. Ti naboji ubijaju vsu pěhotu i pilotov vozil vnutr radiusa eksplozije"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina018Subtitle",
+  "text": "*Hakerstvo Sistemov dopusti vašim hakeram ukrasti slučajnu Generalsku Moč od naših neprijateljev. Uroveň 1 dopusti krádež moći od 1 ili 3 zvězd, poka uroveň 2 dopusti krádež moći od 5 zvězd"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina019Subtitle",
+  "text": "*Naš novy samolet Kobercovy Bombonosec izpuskaje seriju bomb po cěljevom puti, desetkujuč vse neprijateljske sily"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina020Subtitle",
+  "text": "*Naše Neutronne Miny su alternativa standardnym eksplozivnym minam. Neutronne Miny nemedljenno onesposobjaju vozila i ubijaju vsu blizku pěhotu"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina021Subtitle",
+  "text": "*Naši hakery, někogda ranjivi na napad, budu najdu bezpečnost i povyšenu sposobnost hakerstva v našem novom Internet-centrě"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina022Subtitle",
+  "text": "*Satelitno Hakerstvo I je unapreděnje Internet-centra, kotore dopusti otkrytje okolo Komandnogo centra vsakogo protivnika"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina023Subtitle",
+  "text": "*Satelitno Hakerstvo II je unapreděnje Internet-centra, kotore vrěmenno otkrivaje cělu kartu, vklučajuč nevidime neprijateljske sily"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina024Subtitle",
+  "text": "*Saboter GLA je nevidima pěhotna jedinica, kotora može laziti po skalah i vlijati na neprijateljske budovy, vhodivši v njih. Vhod v elektranu vrěmenno prěseče energiju, poka vhod v superoružje resetuje časovnik. Saboter, kotory vhodi v neprijateljsky Komandny centr, resetuje časovniky vsěh neprijateljskyh Generalskyh Moći"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina025Subtitle",
+  "text": "*Bojevy Motocikl prvotno prihodi s vodičem Povstancem GLA i namontovanym kulemetom. Povstanec može byti zaměnjen inoju pěhotoju GLA, davši motociklu jeje unikatne sposobnosti"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina026Subtitle",
+  "text": "*Bojevy avtobus GLA može dăržati do 8 pěhoty, kotori streljaju iz okon. Jesli je uništeny, tăžka stalna kabina ostaje kako bunker"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina027Subtitle",
+  "text": "*GLA unapredila svoje Rabotniky Obuvju, aby vyžala ešče věče prinudnogo truda od svojih seljanov"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina028Subtitle",
+  "text": "*Kamuflažna Sěť je unapreděnje k oborambenym stavbam bazy GLA, kotore jih sdělaje nevidimymi za normalne otkryvanje"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina029Subtitle",
+  "text": "*GLA začala zaposedati vse svoje stavby elitnymi stražami vooruženymi RPG. Buďte oprezni, infiltrujuč bilo koju bazu GLA"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina030Subtitle",
+  "text": "*Unapreděnje Minna pastka dopusti povstancu spojiti stavby i civilne vozila za eksploziju, kogda neprijatel probaje jih zahvatiti ili zaposesti. Pazite na povstancev, kotori se skryvaju okolo budov v vašej okolicě"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina031Subtitle",
+  "text": "*Truky GLA dostigli novy uroveň. Teper gradu Falošne Stavby, kotore vygljadaju kako jich prave budovy, no su samo minirane fasady. Uništite vse iz distancije, aby izběgli bilo koje iznenadenja GLA"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina032Subtitle",
+  "text": "*GPS Scrambler cělji okolicu jedinic i sdělaje jih nevidimymi za normalne otkryvanje"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina033Subtitle",
+  "text": "*Moč Tihogo Napada dopusti generalam GLA postaviti nebranjenu tunelnu sěť bilo gdě, gdě su razvědili. Hoča malo slabšu nego normalny tunel, ona je spojena s glavnoju sěťoju"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina034Subtitle",
+  "text": "*Artiljerijska Platforma je nepomičny top, sposobny samostojno kontrolovati okolicu od neprijateljskogo napada. Trěbala by byti prioritetny cěl zahvata na vsakom bojišču"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina035Subtitle",
+  "text": "*Podloga Podkrěplenja dopusti besplatny periodičny vozdušny sbros oklopa. Besplatni Battlemastery mogu obratiti tok bilo kojej bitvy"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXChina036Subtitle",
+  "text": "*Tehnička budova Remontny Zaliv, kogda je zahvačena, dopusti popravky na bojišču za bilo koje zemske vozila. Popravky poškoženogo oklopa na prědnjej poziciji mogu sdělati razliku mežu pobědoju i porazom"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA001Subtitle",
+  "text": "*Buďte oprezni s amerikanskym Stražnym dronom, generale; on može viděti nevidime jedinice i často imaje namontovanu pušku"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA002Subtitle",
+  "text": "*US Mikrovalny Tank imaje luč, kotory onesposobjuje stavby i jedinice. Trěba go napasti samo velikymi grupami"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA003Subtitle",
+  "text": "*US Warlock Tank imaje luč, kotory onesposobjuje stavby i jedinice. Trěba go napasti samo velikymi grupami"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA004Subtitle",
+  "text": "*US Avenger je moćno lazerno protivozdušno vozilo... no my nemame samoletov, tak opasnost od njego je minimalna"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA005Subtitle",
+  "text": "*Amerikansky Spectre Gunship je veliky samolet s velikymi puškami. Ne vstupajte v boj s njim -- iščite ukrytje pod zemjoju, dokla ne napusti okolicu"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA006Subtitle",
+  "text": "*S unapreděnjem Hemičesko Odělo neprijateljska pěhota stane ustojčiviša na naše toksiny. No to ne zaustavi naše kule, ne li?"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA007Subtitle",
+  "text": "*Unapreděnje Protivmery znizuje effekt neprijateljskogo ognja protiv vozdušnyh jedinic US. Rakety često promašat, a kule dělaju menje škody"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA008Subtitle",
+  "text": "*Unapreděnje US Dron Hellfire je maly igračkovy samolet s pričvrščenoju raketoju. Ešče jeden primer amerikanskoj kukavičnoj taktiky"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA009Subtitle",
+  "text": "*Bomba Razrušitel Bunkerov je unapreděnje k US nevidimomu istrebitelju i Aurore. Koristiju ju, aby probovali napasti naše bunkery"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA010Subtitle",
+  "text": "*Unapreděnje Linije Snabděnja povyšaje brzinu, kotoroju US sbiraje resursy iz dokov snabděnja, sbrosov snabděnja i naftnyh vyšek"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA011Subtitle",
+  "text": "*US Sbros Letakov vrěmenno onesposobjuje naše jedinice, poka se zaustavjaju čitati propagandu"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA012Subtitle",
+  "text": "*Mati vsěh bomb (MOAB) je unapreděnje Gorivno-vozdušnoj bomby, kotore vklučaje sposobnost omraćenja, vrěmenno vypinajuč prěživše jedinice i stavby"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA013Subtitle",
+  "text": "*Ognjeva Baza je amerikansky otgovor na naše Pozicije Stinger... no pazite na veliko dělo v srědině"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA014Subtitle",
+  "text": "*Napalmna Bomba Kitaja je unapreděnje k Helixu, kotore mu dopusti izpustiti par bomb, kotore sozdavaju veliku ognjevu buru"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA015Subtitle",
+  "text": "*Podslušny Post je medlenno, nevidimo vozilo, kotore Kitaj koristi, aby našel naše nevidime jedinice. Izběgavajte jih, aby ostali skryti"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA016Subtitle",
+  "text": "*Helix 2 Kitaja je medlenny transportny helikopter, kotory može nositi pěhotu ili jedno vozilo"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA017Subtitle",
+  "text": "*Kitajsky Tank ECM je vozilo, kotore razstraivaje elektronne sistemy sledenja, otvraćajuč ogonj neprijateljskyh raket"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA018Subtitle",
+  "text": "*Neutronny Naboj je unapreděnje k Kitajskomu Nuklearnomu Dělu, kotore mu dopusti streljati neutronnymi nabojami. Ti naboji ubijaju vsu pěhotu i pilotov vozil vnutr radiusa eksplozije"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA019Subtitle",
+  "text": "*Nova tehnika Hakerstva Sistemov Kitaja dopusti hakeram ukrasti slučajnu moč od svojih neprijateljev. Taky je pad zavisnosti od moći v vodenju vojen"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA020Subtitle",
+  "text": "*Kobercovy Bombonosec je samolet, kotory izpuskaje seriju bomb po cěljevom puti, desetkujuč neprijatelja"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA021Subtitle",
+  "text": "*Neutronne Miny su alternativa standardnym Kitajskym Minam, kotore onesposobjaju vozila. Miny takože ubijaju pěhotu"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA022Subtitle",
+  "text": "*Internet-centr dopusti hakeram Kitaja povyšiti svoju effektivnost"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA023Subtitle",
+  "text": "*Satelitno Hakerstvo I je unapreděnje Internet-centra, kotore dopusti Kitaju viděti Komandny centr vsakogo protivnika"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA024Subtitle",
+  "text": "*Satelitno Hakerstvo II je unapreděnje Kitajskogo Internet-centra, kotore vrěmenno otkrivaje cělu kartu, kako i nevidime objekty"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA025Subtitle",
+  "text": "*Saboter je nevidima jedinica, kotora može laziti po skalah i vlijati na neprijateljske budovy, vhodivši v njih"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA026Subtitle",
+  "text": "*Naš novy Bojevy Motocikl imaje namontovane kulemety i je poboljšan sposobnostami bilo koje pěhoty, kotora na njem jazdi"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA027Subtitle",
+  "text": "*Bojevy avtobus je medlenno dvigajuče se transportno vozilo, kotore može dăržati do 8 pěhoty, kotori mogu streljati iz avtobusa. Jesli je uništeny, korpus avtobusa ostaje i funkcionuje kako bunker"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA028Subtitle",
+  "text": "*Unapreděnje Obuv Rabotnikov povyšaje brzinu i effektivnost sbiranja za vsěh naših věrnyh rabotnikov"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA029Subtitle",
+  "text": "*Kamuflažna Sěť je unapreděnje k našim oborambenym stavbam bazy, kotore jim dopusti byti nevidimymi"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA030Subtitle",
+  "text": "*Unapreděnje Elitna Straža je sposobnost stavby, zaposedajuč stavbu s 4 RPG-soldatami"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA031Subtitle",
+  "text": "*Minna pastka je unapreděnje k povstancu, kotore dopusti jedinici spojiti stavby i civilne vozila za eksploziju, kogda neprijatel probaje jih zahvatiti ili zaposesti. Zahvačene stavby su avtomatično minirane"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA032Subtitle",
+  "text": "*Falošne Stavby mogu byti sgraděny za mnogo nižu cěnu. Ti budovy su prvotno minirana fasada, no mogu byti unapredjeny do polnostju funkcionalnyh versij stavby"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA033Subtitle",
+  "text": "*Naš novodobyty GPS Scrambler cělji okolicu jedinic i sdělaje jih nevidimymi za neprijateljev"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA034Subtitle",
+  "text": "*Naš Tihy Napad dopusti postaviti nebranjenu tunelnu sěť v bilo kojej razvěděnoj okolicě. Hoča malo slabšu nego normalny tunel, ona je spojena s glavnoju sěťoju"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA035Subtitle",
+  "text": "*Artiljerijska Platforma streljaje oružjem podobnym US Strategičnomu Centru po dosegu i škodě. Zahvatite ili izběgnite jego smrtonosno dělo"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA036Subtitle",
+  "text": "*Podloga Podkrěplenja periodično dostavljaje grupu tankov Scorpion za naš delo"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXGLA037Subtitle",
+  "text": "*Remontny Zaliv je objekt popravky na prědnjej liniji za vozila. On popravjaje vozila kako Trgovec Oružjem"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA001Subtitle",
+  "text": "*Stražny dron je mobilna jedinica, sposobna slediti dviženja neprijatelja, vklučajuč kamuflovane. Sam Stražny dron je takože sposobny nevidimosti, kogda se ne dvigaje, i može byti unapredjen protivpěhotnym kulemetom iz strategičnogo centra"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA002Subtitle",
+  "text": "*Mikrovalny Tank je vooružen panelom prjamej energije, kotory onesposobjuje cěljene stavby i vozila. On takože izpuskaje nepreryvno mikrovalno polje, kotore škoduje pěhotu"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA003Subtitle",
+  "text": "*Warlock Tank je vooružen panelom prjamej energije, kotory onesposobjuje cěljene stavby i vozila. On takože izpuskaje nepreryvno mikrovalno polje, kotore škoduje pěhotu"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA004Subtitle",
+  "text": "*Avenger je lazerno protivozdušno vozilo, sposobno sestrěliti rakety i letadla. On može takože davati bonusy jedinicam, kotore napadaju jego 'označenu' cěl"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA005Subtitle",
+  "text": "*Spectre Gunship je veliky reaktivny letun s mnogymi oružnymi sistemami pričvrščenymi k krylam. Poka kruži nad cěljom, avtomatično najdi neprijateljev. Ručno cěljanje je dozvoleno, i može byti unapredjen, aby razvărtal protivmery"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA006Subtitle",
+  "text": "*S unapreděnjem Hemičesko Odělo pěhota stane ustojčiviša na toksiny i radiaciju"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA007Subtitle",
+  "text": "*Unapreděnje Protivmery znizuje effekt neprijateljskogo ognja protiv vozdušnyh jedinic US. Rakety često promašat, a kule dělaju menje škody"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA008Subtitle",
+  "text": "*Unapreděnje Dron Hellfire opremljuje roditeljsko vozilo dronom, sposobnym izpaliti jednu raketu. Droni avtomatično najdu cěl i trěbaju vrěme za prězarjadenje"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA009Subtitle",
+  "text": "*Razrušitel Bunkerov je unapreděnje k nevidimomu istrebitelju i Aurore. Krome svojih normalnyh effektov, ti unapredjeni rakety škoduju i daže ubijaju jedinice zaposednute vnutr stavb, vklučajuč Palac GLA, Tunelnu sěť i Kitajsky Bojevy Bunker"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA010Subtitle",
+  "text": "*Unapreděnje Linije Snabděnja povyšaje količinu dengeg sobranyh iz dokov snabděnja, sbrosov snabděnja i naftnyh vyšek"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA011Subtitle",
+  "text": "*Sbros Letakov vrěmenno onesposobjuje jedinice, poka se zaustavjaju čitati propagandu. Samolet razdaje letaky nad cěljevoju okolicoju, i effekt trvaje samo kratko vrěme"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA012Subtitle",
+  "text": "*Mati vsěh bomb (MOAB) je unapreděnje Gorivno-vozdušnoj bomby, kotore vklučaje sposobnost omraćenja, vrěmenno vypinajuč prěživše jedinice i stavby"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA013Subtitle",
+  "text": "*Ognjeva Baza je okružena měšovi s pěskom i vklučaje haubicu i 4 pozicije za strěljanje. Pěhota, kotora vhodi v Ognjevu Bazu, zauzme pozicije za strěljanje za měšami s pěskom"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA014Subtitle",
+  "text": "*Napalmna Bomba je unapreděnje k Helixu, kotore mu dopusti izpustiti par bomb, kotore sozdavaju veliku ognjevu buru"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA015Subtitle",
+  "text": "*Podslušny Post je medlenno, nevidimo vozilo s velikym radiusom vida, kotore može byti zaposednuto s 2 pěhotami kako stražami. Krome otkryvanja nevidimyh objektov, može byti koristeno za odrězenje cělej neprijatelja, kliknuvši na jedinice v dosegu"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA016Subtitle",
+  "text": "*Helix 2 je medlenny transportny helikopter, kotory može nositi pěhotu ili jedno vozilo. Hoča vooružen legkym kulemetom, može byti unapredjen Gatlingovym dělom, Propagandnoju vežoju, ili Bojevym bunkerom. Može takože byti unapredjen, aby nosil veliku napalmnu bombu"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA017Subtitle",
+  "text": "*Tank ECM je vozilo, kotore razstraivaje elektronne sistemy sledenja, otvraćajuč ogonj neprijateljskyh raket. Jego ECM impuls može byti koristen, aby onesposobil jedno neprijateljsko vozilo. Konečno, on sozdavaje polje glušenja radara, onesposobljujuč vse drony v svojem dosegu"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA018Subtitle",
+  "text": "*Neutronny Naboj je unapreděnje k Kitajskomu Nuklearnomu Dělu, kotore mu dopusti streljati neutronnymi nabojami. Ti naboji ubijaju vsu pěhotu i pilotov vozil vnutr radiusa eksplozije"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA019Subtitle",
+  "text": "*Hakerstvo Sistemov dopusti vašim hakeram ukrasti slučajnu moč od vašich neprijateljev. Uroveň 1 dopusti krádež moći uroveň 1 ili 3, poka uroveň 2 dopusti krádež moći od 5 zvězd"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA020Subtitle",
+  "text": "*Kobercovy Bombonosec je samolet, kotory izpuskaje seriju bomb po cěljevom puti, desetkujuč neprijatelja"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA021Subtitle",
+  "text": "*Neutronne Miny su alternativa standardnym Kitajskym Minam, kotore onesposobjaju vozila. Miny takože ubijaju pěhotu"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA022Subtitle",
+  "text": "*Internet-centr dopusti hakeram povyšiti svoju effektivnost v sozdanju dengeg i dopusti koristenje Satelitnyh Hakerstv I i II"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA023Subtitle",
+  "text": "*Satelitno Hakerstvo I je unapreděnje Internet-centra, kotore dopusti otkrytje okolo Komandnogo centra vsakogo protivnika"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA024Subtitle",
+  "text": "*Satelitno Hakerstvo II je unapreděnje Internet-centra, kotore vrěmenno otkrivaje cělu kartu, kako i nevidime objekty"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA025Subtitle",
+  "text": "*Saboter GLA je nevidima pěhotna jedinica, kotora može laziti po skalah i vlijati na neprijateljske budovy, vhodivši v njih. Vhod v elektranu vrěmenno prěseče energiju, poka vhod v superoružje resetuje časovnik. Saboter, kotory vhodi v neprijateljsky Komandny centr, resetuje časovniky vsěh neprijateljskyh Generalskyh Moći"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA026Subtitle",
+  "text": "*Bojevy Motocikl prvotno prihodi s vodičem Povstancem i namontovanym kulemetom. Zaměnjenje jego RPG-soldatom dopusti motociklu streljati raketami. Terorist sozdaje samoubijstveny motocikl. Jarmen Kell, Otimači i Saboteri takože mogu jazditi, sdělajuč motocikl nevidimym"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA027Subtitle",
+  "text": "*Bojevy Van je medlenno dvigajuče se transportno vozilo, kotore može dăržati do 8 pěhoty, kotori mogu streljati iz njego. Jesli je uništeny, korpus Bojevogo Vana ostaje i funkcionuje kako bunker. Jesli je uništeny, vsi vnutr takože umiraju"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA028Subtitle",
+  "text": "*Unapreděnje Obuv Rabotnikov povyšaje brzinu i effektivnost sbiranja za vsěh rabotnikov GLA"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA029Subtitle",
+  "text": "*Kamuflažna Sěť je unapreděnje k oborambenym stavbam bazy GLA, kotore jim dopusti byti nevidimymi"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA030Subtitle",
+  "text": "*Unapreděnje Elitna Straža je sposobnost stavby, zaposedajuč stavbu s 4 RPG-soldatami"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA031Subtitle",
+  "text": "*Minna pastka je unapreděnje k povstancu, kotore dopusti jedinici spojiti stavby i civilne vozila za eksploziju, kogda neprijatel probaje jih zahvatiti ili zaposesti. Eksplozija škoduje vse vnutr malogo radiusa. Stavby zahvačene unapredjenym povstancom su avtomatično minirane"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA032Subtitle",
+  "text": "*Falošne Stavby mogu byti sgraděny za mnogo nižu cěnu. Ti budovy su prvotno minirana fasada, no mogu byti unapredjeny do polnostju funkcionalnyh versij stavby"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA033Subtitle",
+  "text": "*GPS Scrambler cělji okolicu jedinic i sdělaje jih nevidimymi za neprijateljev"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA034Subtitle",
+  "text": "*Naš Tihy Napad dopusti postaviti nebranjenu tunelnu sěť v bilo kojej razvěděnoj okolicě. Hoča malo slabšu nego normalny tunel, ona je spojena s glavnoju sěťoju"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA035Subtitle",
+  "text": "*Artiljerijska platforma je vooružena velikokalibarnoju haubicoju. Ona je izvrstno oružje za potlačenje. Je takože dobro mesto sbiranja, iz kotorogo se može načati napad"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA036Subtitle",
+  "text": "*Podloga Podkrěplenja periodično podkrěpi igrača jednym glavnym bojevym tankom svoje strany (Scorpion, Battlemaster, Crusader)"
+ },
+ {
+  "label": "DIALOGEVENT:UnitDescriptXUSA037Subtitle",
+  "text": "*Remontny Zaliv je objekt popravky za vozila. Vozila moraju pristati k stavbě na isti sposob, na kotory pristajut k vojenskej fabrikě"
+ },
+ {
+  "label": "TOOLTIP:Community",
+  "text": "Procenty poběd za kăždu armiju na osnově vsěh odigranyh onlajn-igr"
+ },
+ {
+  "label": "CONTROLBAR:Nuke_ToolTipChinaBuildHelix",
+  "text": "Tăžky transportny podjemnik \n unapreduje se oborambenymi stavbami bazy i Nuklearnoju Bomboju \n \n Silno protiv: tanky, legke vozila \n Slabo protiv: pěhota s raketami, protivozdušna obrana"
+ },
+ {
+  "label": "MAP:CHI01xListeningPostHint01",
+  "text": "SOVĚT: \n Skryte Podryvne pastky budu otkryte, kogda su v radiusu vida Podslušnogo posta"
+ },
+ {
+  "label": "OBJECT:SupW_PatriotBattery",
+  "text": "Kompleks EMP Patriot"
+ },
+ {
+  "label": "CONTROLBAR:SupW_ConstructAmericaPatriotBattery",
+  "text": "Sistem Patriot E&MP"
+ },
+ {
+  "label": "CONTROLBAR:SupW_ToolTipUSABuildPatriotBattery",
+  "text": "Zemska i vozdušna obrana. Može prěnositi poziciju neprijatelja k blizkym Patriotam \n \n Potrěbna Energija: 3"
+ },
+ {
+  "label": "MAP:USA03xBurtonSurvive",
+  "text": "VHODEČA TRANSMISIJA: \n Polkovnik Burton moraje prěživěti"
+ },
+ {
+  "label": "MAP:MD_GLA04_GatherHint",
+  "text": "SOVĚT: \n Izberite transportne kamiony i rozkažite im sbirati resursy iz Toksinnogo Objekta"
+ },
+ {
+  "label": "MAP:MD_GLA04_HospitalHint",
+  "text": "SOVĚT: \n Bolnica avtomatično lěči vaše jedinice"
+ },
+ {
+  "label": "MAP:MD_GLA04_TractorsHint",
+  "text": "SOVĚT: \n Toksinni Traktory mogu ubiti jedinice vnutr zaposednutyh budov"
+ },
+ {
+  "label": "OBJECT:AssaultTroopTransport",
+  "text": "Šturmovy transporter vojsk"
+ },
+ {
+  "label": "OBJECT:AssaultListeningOutpost",
+  "text": "Šturmovy post"
+ },
+ {
+  "label": "UPGRADE:IsotopeStability",
+  "text": "Izotopna stabilnost"
+ },
+ {
+  "label": "CONTROLBAR:Infa_ToolTipChinaUpgradeRedGuardCaptureBuilding",
+  "text": "Dopusti Kulemetčikam zahvatiti neprijateljske i tehničke budovy"
+ },
+ {
+  "label": "OBJECT:Lazr_PatriotBattery",
+  "text": "Laserna oboronna turelj"
+ },
+ {
+  "label": "SCIENCE:Infa_ChinaRedGuardTraining",
+  "text": "Obučenje kulemetčikov"
+ },
+ {
+  "label": "CONTROLBAR:Infa_ToolTipChinaScienceRedGuardTraining",
+  "text": "Vsi Kulemetčiky budu sgraděni kako Elitni"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildNuclearMissileLauncherBoss",
+  "text": "Zapuskaje nuklearnu raketu. Gradi važne unapreděnja Kitaja \n \n Potrěbna Energija: 10 \n Časovnik: 6:00"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipUSABuildParticleCannonBoss",
+  "text": "Streljaje česticovym lučom bilo gdě na kartě \n \n Potrěbna Energija: 10 \n Časovnik: 4:00"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipGLABuildCombatBikeTerrorist",
+  "text": "Bystry i mnogostranny \n Prihodi s teroristom \n Slabo protiv: letadla"
+ },
+ {
+  "label": "CONTROLBAR:ToolTipChinaBuildSuperHacker",
+  "text": "Može onesposobiti neprijateljske budovy i vozila kompjuterskym virusom ili hakovati internet, aby ukrasti dengi. Kamuflovany \n \n Silno protiv: budovy \n Slabo protiv: pěhota, vozila"
+ },
+ {
+  "label": "UPGRADE:Demo_SuicideBomb",
+  "text": "Podryvanje"
+ },
+ {
+  "label": "UPGRADE:AirF_StealthComanche",
+  "text": "Nevidimy Comanche"
+ },
+ {
+  "label": "UPGRADE:HighExplosiveTrap",
+  "text": "Fugasna podryvna pastka"
+ },
+ {
+  "label": "CAMPAIGN:CHALLENGE_0",
+  "text": "Izzov Generala Vozdušnyh Sil"
+ },
+ {
+  "label": "CAMPAIGN:CHALLENGE_1",
+  "text": "Izzov Generala Toksina"
+ },
+ {
+  "label": "CAMPAIGN:CHALLENGE_2",
+  "text": "Izzov Nuklearnogo Generala"
+ },
+ {
+  "label": "CAMPAIGN:CHALLENGE_3",
+  "text": "Izzov Generala Superoružja"
+ },
+ {
+  "label": "CAMPAIGN:CHALLENGE_4",
+  "text": "Izzov Tankovogo Generala"
+ },
+ {
+  "label": "CAMPAIGN:CHALLENGE_5",
+  "text": "Izzov Lazernogo Generala"
+ },
+ {
+  "label": "CAMPAIGN:CHALLENGE_6",
+  "text": "Izzov Nevidimogo Generala"
+ },
+ {
+  "label": "CAMPAIGN:CHALLENGE_7",
+  "text": "Izzov Pěhotnogo Generala"
+ },
+ {
+  "label": "CAMPAIGN:CHALLENGE_8",
+  "text": "Izzov Podryvnogo Generala"
+ },
+ {
+  "label": "OBJECT:RocketDrop",
+  "text": "Raketa"
+ },
+ {
+  "label": "OBJECT:RocketBomb",
+  "text": "Raketa"
+ },
+ {
+  "label": "OBJECT:PTBoat",
+  "text": "Torpedna lodka"
+ },
+ {
+  "label": "OBJECT:ShiekLimo",
+  "text": "Limuzina"
+ },
+ {
+  "label": "OBJECT:Dock",
+  "text": "Dok"
+ },
+ {
+  "label": "OBJECT:RailroadBridgeH",
+  "text": "Železnodorožny Most"
+ },
+ {
+  "label": "OBJECT:RepairDrone",
+  "text": "Remontny dron"
+ },
+ {
+  "label": "OBJECT:CINE_Carrier",
+  "text": "Avianosec"
+ },
+ {
+  "label": "OBJECT:SpectreGunship",
+  "text": "Spectre Gunship"
+ },
+ {
+  "label": "SCIENCE:LaserCannon",
+  "text": "Laserno dělo"
+ },
+ {
+  "label": "OBJECT:LaserCannon",
+  "text": "Lazerno Dělo"
+ },
+ {
+  "label": "UPGRADE:TacticalNukeMig",
+  "text": "Taktičny jaderny MiG"
+ },
+ {
+  "label": "OBJECT:FuelAirBomb",
+  "text": "Gorivno-vozdušna Bomba"
+ },
+ {
+  "label": "OBJECT:CruiseMissile",
+  "text": "Krilata raketa"
+ },
+ {
+  "label": "OBJECT:Ox",
+  "text": "Vol"
+ },
+ {
+  "label": "CONTROLBAR:TooltipUpgradeChinaTacticalNukeMig",
+  "text": "Unapredjuje MiG, aby streljal malu nuklearnu bombu"
+ },
+ {
+  "label": "CONTROLBAR:UpgradeChinaTacticalNukeMig",
+  "text": "Taktična Nuklearna Mi&G"
+ },
+ {
+  "label": "CONTROLBAR:Boss_ToolTipChinaBuildBarracks",
+  "text": "Trenira soldaty"
+ },
+ {
+  "label": "CONTROLBAR:Boss_ToolTipChinaBuildAirField",
+  "text": "Gradi letadla \n \n Potrěbna Energija: 1"
+ },
+ {
+  "label": "CONTROLBAR:Boss_ToolTipChinaBuildBunker",
+  "text": "Može dăržati 5 soldat"
+ },
+ {
+  "label": "CONTROLBAR:Boss_ToolTipChinaBuildWarFactory",
+  "text": "Gradi vozila \n \n Potrěbna Energija: 1"
+ },
+ {
+  "label": "CONTROLBAR:Boss_ToolTipChinaBuildSupplyCenter",
+  "text": "Město dostavy za sbiratelje snabděnja \n \n Potrěbna Energija: 1"
+ },
+ {
+  "label": "CONTROLBAR:Infa_TooltipParaDrop",
+  "text": "Izpuskaje Kulemetčikov iz samoleta \n \n Časovnik: 4:00"
+ }
+]
