@@ -1,0 +1,802 @@
+[
+ {
+  "label": "RADAR:StructureUnderAttack",
+  "text": "Estrutura sob ataque"
+ },
+ {
+  "label": "RADAR:UnderAttack",
+  "text": "Sob ataque"
+ },
+ {
+  "label": "RADAR:Infiltration",
+  "text": "Infiltração inimiga detectada"
+ },
+ {
+  "label": "UPGRADE:AdvancedTraining",
+  "text": "Treinamento Avançado"
+ },
+ {
+  "label": "UPGRADE:AmericaLaserMissiles",
+  "text": "Mísseis Laser Americanos"
+ },
+ {
+  "label": "UPGRADE:Mines",
+  "text": "Minas Terrestres"
+ },
+ {
+  "label": "UPGRADE:Radar",
+  "text": "Radar"
+ },
+ {
+  "label": "UPGRADE:OverlordGattlingCannon",
+  "text": "Canhão Gatling do Overlord"
+ },
+ {
+  "label": "UPGRADE:OverlordPropagandaTower",
+  "text": "Torre de Propaganda do Overlord"
+ },
+ {
+  "label": "UPGRADE:OverlordBattleBunker",
+  "text": "Bunker de Batalha do Overlord"
+ },
+ {
+  "label": "UPGRADE:ControlRods",
+  "text": "Barras de Controle"
+ },
+ {
+  "label": "UPGRADE:ScoutDrone",
+  "text": "Drone Batedor"
+ },
+ {
+  "label": "UPGRADE:BattleDrone",
+  "text": "Drone de Combate"
+ },
+ {
+  "label": "UPGRADE:RangerFlashBangGrenade",
+  "text": "Granadas de Luz e Som do Ranger"
+ },
+ {
+  "label": "UPGRADE:HoverTank",
+  "text": "Tanque Hover"
+ },
+ {
+  "label": "UPGRADE:TomahawkRemoteControl",
+  "text": "Mísseis de Cruzeiro"
+ },
+ {
+  "label": "UPGRADE:AircraftFuel",
+  "text": "Combustível de Aeronaves"
+ },
+ {
+  "label": "UPGRADE:LaserMissiles",
+  "text": "Mísseis Laser"
+ },
+ {
+  "label": "UPGRADE:TOWMissile",
+  "text": "Míssil TOW"
+ },
+ {
+  "label": "UPGRADE:ComancheRocketPods",
+  "text": "Casulos de Foguetes do Comanche"
+ },
+ {
+  "label": "UPGRADE:RailGun",
+  "text": "Canhão Elétrico"
+ },
+ {
+  "label": "UPGRADE:Nationalism",
+  "text": "Nacionalismo"
+ },
+ {
+  "label": "UPGRADE:AntiTankGrenade",
+  "text": "Granadas Antitanque"
+ },
+ {
+  "label": "UPGRADE:VehicleHack",
+  "text": "Hack de Veículos"
+ },
+ {
+  "label": "UPGRADE:IRGoggles",
+  "text": "Óculos Infravermelhos"
+ },
+ {
+  "label": "UPGRADE:BlackNapalm",
+  "text": "Napalm Negro"
+ },
+ {
+  "label": "UPGRADE:ChainGuns",
+  "text": "Metralhadoras Rotativas"
+ },
+ {
+  "label": "UPGRADE:SubliminalMessaging",
+  "text": "Mensagens Subliminares"
+ },
+ {
+  "label": "UPGRADE:UraniumShells",
+  "text": "Projéteis de Urânio"
+ },
+ {
+  "label": "UPGRADE:NuclearTanks",
+  "text": "Tanques Nucleares"
+ },
+ {
+  "label": "UPGRADE:StunBullets",
+  "text": "Balas Atordoantes"
+ },
+ {
+  "label": "UPGRADE:TranqDarts",
+  "text": "Dardos Tranquil."
+ },
+ {
+  "label": "UPGRADE:APBullets",
+  "text": "Balas Perfurantes"
+ },
+ {
+  "label": "UPGRADE:BioBomb",
+  "text": "Bomba Biológica"
+ },
+ {
+  "label": "UPGRADE:HighExplosiveBomb",
+  "text": "Bomba de Alto Explosivo"
+ },
+ {
+  "label": "UPGRADE:ArmTheMob",
+  "text": "Armar a Multidão"
+ },
+ {
+  "label": "UPGRADE:ScorpionRocket",
+  "text": "Foguete Scorpion"
+ },
+ {
+  "label": "UPGRADE:SCUDLauncherExplosiveWarhead",
+  "text": "Ogiva Explosiva"
+ },
+ {
+  "label": "UPGRADE:SCUDLauncherAnthraxWarhead",
+  "text": "Ogiva de Antraz"
+ },
+ {
+  "label": "UPGRADE:BuggyAmmo",
+  "text": "Munição do Buggy de Foguetes"
+ },
+ {
+  "label": "UPGRADE:AnthraxBeta",
+  "text": "Antraz Beta"
+ },
+ {
+  "label": "UPGRADE:ToxinShells",
+  "text": "Projéteis de Toxina"
+ },
+ {
+  "label": "UPGRADE:JunkRepair",
+  "text": "Reparo com Sucata"
+ },
+ {
+  "label": "UPGRADE:Camouflage",
+  "text": "Camuflagem"
+ },
+ {
+  "label": "UPGRADE:CompositeArmor",
+  "text": "Blindagem Composta"
+ },
+ {
+  "label": "OBJECT:Beacon",
+  "text": "Sinalizador"
+ },
+ {
+  "label": "OBJECT:Dam",
+  "text": "Represa"
+ },
+ {
+  "label": "OBJECT:CommandCenter",
+  "text": "Centro de Comando"
+ },
+ {
+  "label": "OBJECT:ColdFusionReactor",
+  "text": "Reator de Fusão a Frio"
+ },
+ {
+  "label": "OBJECT:NuclearReactor",
+  "text": "Reator Nuclear"
+ },
+ {
+  "label": "OBJECT:DemoTrap",
+  "text": "Armadilha Explosiva"
+ },
+ {
+  "label": "OBJECT:PowerPlant",
+  "text": "Usina de Energia"
+ },
+ {
+  "label": "OBJECT:DetentionCamp",
+  "text": "Campo de Detenção"
+ },
+ {
+  "label": "OBJECT:StrategyCenter",
+  "text": "Centro de Estratégia"
+ },
+ {
+  "label": "OBJECT:Airfield",
+  "text": "Base Aérea"
+ },
+ {
+  "label": "OBJECT:SupplyCenter",
+  "text": "Centro de Suprimentos"
+ },
+ {
+  "label": "OBJECT:AmericaSupplyDropZone",
+  "text": "Zona de Suprimentos"
+ },
+ {
+  "label": "OBJECT:SupplyStash",
+  "text": "Esconderijo de Suprimentos"
+ },
+ {
+  "label": "OBJECT:Barracks",
+  "text": "Quartel"
+ },
+ {
+  "label": "OBJECT:BlackMarket",
+  "text": "Mercado Negro"
+ },
+ {
+  "label": "OBJECT:WarFactory",
+  "text": "Fábrica de Guerra"
+ },
+ {
+  "label": "OBJECT:ArmsDealer",
+  "text": "Traficante de Armas"
+ },
+ {
+  "label": "OBJECT:AmmoCache",
+  "text": "Depósito de Munição"
+ },
+ {
+  "label": "OBJECT:AmphibiousTransport",
+  "text": "Transporte Anfíbio"
+ },
+ {
+  "label": "OBJECT:AutoFerry",
+  "text": "Balsa de Veículos"
+ },
+ {
+  "label": "OBJECT:TrainGuide",
+  "text": "Guia do Trem"
+ },
+ {
+  "label": "OBJECT:AngryMob",
+  "text": "Multidão Furiosa"
+ },
+ {
+  "label": "OBJECT:TankHunter",
+  "text": "Caçador de Tanques"
+ },
+ {
+  "label": "OBJECT:Apartment",
+  "text": "Apartamento"
+ },
+ {
+  "label": "OBJECT:ChemicalFactory",
+  "text": "Fábrica Química"
+ },
+ {
+  "label": "OBJECT:GovBuilding",
+  "text": "Prédio do Governo"
+ },
+ {
+  "label": "OBJECT:TechHospital",
+  "text": "Hospital: capture para que toda a infantaria se cure sozinha"
+ },
+ {
+  "label": "OBJECT:ApartmentComplex",
+  "text": "Complexo de Apartamentos"
+ },
+ {
+  "label": "OBJECT:SpyPost",
+  "text": "Posto de Espionagem"
+ },
+ {
+  "label": "OBJECT:SupplyPile",
+  "text": "Pilha de Suprimentos"
+ },
+ {
+  "label": "OBJECT:TrainStation",
+  "text": "Estação de Trem"
+ },
+ {
+  "label": "OBJECT:TechRadioStation",
+  "text": "Estação de Rádio"
+ },
+ {
+  "label": "OBJECT:TechOilDerrick",
+  "text": "Torre de Petróleo: capture para receber fundos adicionais"
+ },
+ {
+  "label": "OBJECT:Arcade",
+  "text": "Fliperama"
+ },
+ {
+  "label": "OBJECT:Aurora",
+  "text": "Bombardeiro Aurora"
+ },
+ {
+  "label": "OBJECT:A10Thunderbolt",
+  "text": "A10 Thunderbolt"
+ },
+ {
+  "label": "OBJECT:AVPOWTRUCK",
+  "text": "Caminhão de Prisioneiros"
+ },
+ {
+  "label": "OBJECT:B52",
+  "text": "B52"
+ },
+ {
+  "label": "OBJECT:BMW",
+  "text": "Carro"
+ },
+ {
+  "label": "OBJECT:Bank",
+  "text": "Banco"
+ },
+ {
+  "label": "OBJECT:BarnCoop",
+  "text": "Galinheiro"
+ },
+ {
+  "label": "OBJECT:BarnShed",
+  "text": "Galpão"
+ },
+ {
+  "label": "OBJECT:Barrel",
+  "text": "Barril"
+ },
+ {
+  "label": "OBJECT:BattleDrone",
+  "text": "Drone de Combate"
+ },
+ {
+  "label": "OBJECT:BattleMaster",
+  "text": "Battlemaster"
+ },
+ {
+  "label": "OBJECT:Battleship",
+  "text": "Encouraçado"
+ },
+ {
+  "label": "OBJECT:BigRig",
+  "text": "Carreta"
+ },
+ {
+  "label": "OBJECT:BikeRack",
+  "text": "Bicicletário"
+ },
+ {
+  "label": "OBJECT:Billboard",
+  "text": "Outdoor"
+ },
+ {
+  "label": "OBJECT:Bird",
+  "text": "Pássaro"
+ },
+ {
+  "label": "OBJECT:BombTruck",
+  "text": "Caminhão-Bomba"
+ },
+ {
+  "label": "OBJECT:Boulders",
+  "text": "Pedregulhos"
+ },
+ {
+  "label": "OBJECT:Boxes",
+  "text": "Caixas"
+ },
+ {
+  "label": "OBJECT:BrickWall",
+  "text": "Muro de Tijolos"
+ },
+ {
+  "label": "OBJECT:BrokenWall",
+  "text": "Muro Quebrado"
+ },
+ {
+  "label": "OBJECT:Bunker",
+  "text": "Bunker"
+ },
+ {
+  "label": "OBJECT:BurningBarricade",
+  "text": "Barricada em Chamas"
+ },
+ {
+  "label": "OBJECT:Checkpoint",
+  "text": "Posto de Controle"
+ },
+ {
+  "label": "OBJECT:BusStop",
+  "text": "Ponto de Ônibus"
+ },
+ {
+  "label": "OBJECT:Bush",
+  "text": "Arbusto"
+ },
+ {
+  "label": "OBJECT:Camaro",
+  "text": "Carro"
+ },
+ {
+  "label": "OBJECT:CarBug",
+  "text": "Carro"
+ },
+ {
+  "label": "OBJECT:CarSwatchEuro",
+  "text": "Carro"
+ },
+ {
+  "label": "OBJECT:CargoLoadingCranes",
+  "text": "Guindastes de Carga"
+ },
+ {
+  "label": "OBJECT:CargoNet",
+  "text": "Rede de Carga"
+ },
+ {
+  "label": "OBJECT:Cart",
+  "text": "Carroça"
+ },
+ {
+  "label": "OBJECT:ChainLinkFence",
+  "text": "Cerca de Arame"
+ },
+ {
+  "label": "OBJECT:Chalet",
+  "text": "Chalé"
+ },
+ {
+  "label": "OBJECT:CheckPointCrossingGuard",
+  "text": "Posto de Controle"
+ },
+ {
+  "label": "OBJECT:Chinook",
+  "text": "Chinook"
+ },
+ {
+  "label": "OBJECT:Church",
+  "text": "Igreja"
+ },
+ {
+  "label": "OBJECT:Clete",
+  "text": "Cunho"
+ },
+ {
+  "label": "OBJECT:ClothesLine",
+  "text": "Varal"
+ },
+ {
+  "label": "OBJECT:Comanche",
+  "text": "Comanche"
+ },
+ {
+  "label": "OBJECT:ComancheHull",
+  "text": "Casco do Comanche"
+ },
+ {
+  "label": "OBJECT:CompactCar",
+  "text": "Carro Compacto"
+ },
+ {
+  "label": "OBJECT:Ambassador",
+  "text": "Embaixador"
+ },
+ {
+  "label": "OBJECT:Redguard",
+  "text": "Guarda Vermelha"
+ },
+ {
+  "label": "OBJECT:ConstructionBarricade",
+  "text": "Barricada de Obras"
+ },
+ {
+  "label": "OBJECT:ConvenienceStore",
+  "text": "Loja de Conveniência"
+ },
+ {
+  "label": "OBJECT:ConvoyTruck",
+  "text": "Caminhão de Comboio"
+ },
+ {
+  "label": "OBJECT:Cottage",
+  "text": "Casa de Campo"
+ },
+ {
+  "label": "OBJECT:Crate",
+  "text": "Caixote"
+ },
+ {
+  "label": "OBJECT:CrossingGuard",
+  "text": "Guarda de Trânsito"
+ },
+ {
+  "label": "OBJECT:Crusader",
+  "text": "Crusader"
+ },
+ {
+  "label": "OBJECT:Paladin",
+  "text": "Paladin"
+ },
+ {
+  "label": "OBJECT:DaisyCutterBomb",
+  "text": "Bomba Ar-Combustível"
+ },
+ {
+  "label": "OBJECT:BlackMarketNuke",
+  "text": "Bomba Nuclear do Mercado Negro"
+ },
+ {
+  "label": "OBJECT:ToxinTank",
+  "text": "Tanque de Toxina"
+ },
+ {
+  "label": "OBJECT:AnthraxBomb",
+  "text": "Bomba de Antraz"
+ },
+ {
+  "label": "OBJECT:CarpetBomb",
+  "text": "Bombardeio em Tapete"
+ },
+ {
+  "label": "OBJECT:ClusterMinesBomb",
+  "text": "Minas de Fragmentação"
+ },
+ {
+  "label": "OBJECT:EMPPulseBomb",
+  "text": "Pulso EMP"
+ },
+ {
+  "label": "OBJECT:NeutronMissile",
+  "text": "Míssil Nuclear"
+ },
+ {
+  "label": "OBJECT:Dealership",
+  "text": "Concessionária"
+ },
+ {
+  "label": "OBJECT:Dirt",
+  "text": "Terra"
+ },
+ {
+  "label": "OBJECT:Docks",
+  "text": "Docas"
+ },
+ {
+  "label": "OBJECT:DogwoodTree",
+  "text": "Árvore"
+ },
+ {
+  "label": "OBJECT:Dozer",
+  "text": "Escavadeira de Construção"
+ },
+ {
+  "label": "OBJECT:Dragon",
+  "text": "Tanque Dragão"
+ },
+ {
+  "label": "OBJECT:ElectricRetail",
+  "text": "Loja de Eletrônicos"
+ },
+ {
+  "label": "OBJECT:ElectricalTransformer",
+  "text": "Transformador Elétrico"
+ },
+ {
+  "label": "OBJECT:FireHydrant",
+  "text": "Hidrante"
+ },
+ {
+  "label": "OBJECT:StructureMine",
+  "text": "Mina"
+ },
+ {
+  "label": "OBJECT:ClusterMine",
+  "text": "Mina"
+ },
+ {
+  "label": "OBJECT:FireStorm",
+  "text": "Tempestade de Fogo"
+ },
+ {
+  "label": "OBJECT:FlamingInfantry",
+  "text": "Infantaria Incendiária"
+ },
+ {
+  "label": "OBJECT:ToxicInfantry",
+  "text": "Infantaria Tóxica"
+ },
+ {
+  "label": "OBJECT:FoodCart",
+  "text": "Carrinho de Comida"
+ },
+ {
+  "label": "OBJECT:Fountain",
+  "text": "Fonte"
+ },
+ {
+  "label": "OBJECT:FruitStand",
+  "text": "Barraca de Frutas"
+ },
+ {
+  "label": "OBJECT:Gargoyle",
+  "text": "Gárgula"
+ },
+ {
+  "label": "OBJECT:GasStation",
+  "text": "Posto de Gasolina"
+ },
+ {
+  "label": "OBJECT:GasStorageFacility",
+  "text": "Depósito de Gás"
+ },
+ {
+  "label": "OBJECT:GattlingTank",
+  "text": "Tanque Gatling"
+ },
+ {
+  "label": "OBJECT:GrassHut",
+  "text": "Cabana de Palha"
+ },
+ {
+  "label": "OBJECT:Gravel",
+  "text": "Cascalho"
+ },
+ {
+  "label": "OBJECT:FlashBangGrenade",
+  "text": "Granada de Luz e Som"
+ },
+ {
+  "label": "OBJECT:TankShell",
+  "text": "Projétil de Tanque"
+ },
+ {
+  "label": "OBJECT:Rebel",
+  "text": "Rebelde"
+ },
+ {
+  "label": "OBJECT:JarmenKell",
+  "text": "Jarmen Kell"
+ },
+ {
+  "label": "OBJECT:GuardTower",
+  "text": "Torre de Vigia"
+ },
+ {
+  "label": "OBJECT:GuardianControlCenter",
+  "text": "Centro de Controle Guardian"
+ },
+ {
+  "label": "OBJECT:GuardianDrone",
+  "text": "Drone Guardian"
+ },
+ {
+  "label": "OBJECT:BlackLotus",
+  "text": "Lótus Negra"
+ },
+ {
+  "label": "OBJECT:Hanger",
+  "text": "Hangar"
+ },
+ {
+  "label": "OBJECT:HarvardsOffice",
+  "text": "Lixeira"
+ },
+ {
+  "label": "OBJECT:Hedge",
+  "text": "Cerca Viva"
+ },
+ {
+  "label": "OBJECT:HighwaySign",
+  "text": "Placa de Rodovia"
+ },
+ {
+  "label": "OBJECT:Hijacker",
+  "text": "Sequestrador"
+ },
+ {
+  "label": "OBJECT:AngryMobNexus",
+  "text": "<<MULTIDÃO FURIOSA>>"
+ },
+ {
+  "label": "OBJECT:Hotel",
+  "text": "Hotel"
+ },
+ {
+  "label": "OBJECT:Humvee",
+  "text": "Humvee"
+ },
+ {
+  "label": "OBJECT:POWTruck",
+  "text": "Caminhão de Prisioneiros"
+ },
+ {
+  "label": "OBJECT:IndustrialBuilding",
+  "text": "Prédio Industrial"
+ },
+ {
+  "label": "OBJECT:InfernoCannon",
+  "text": "Canhão Inferno"
+ },
+ {
+  "label": "OBJECT:JapaneseLantern",
+  "text": "Lanterna Japonesa"
+ },
+ {
+  "label": "OBJECT:JunkCar",
+  "text": "Carro Velho"
+ },
+ {
+  "label": "OBJECT:Limo",
+  "text": "Limusine"
+ },
+ {
+  "label": "OBJECT:Lumber",
+  "text": "Madeira"
+ },
+ {
+  "label": "OBJECT:MIG",
+  "text": "MiG"
+ },
+ {
+  "label": "OBJECT:MailBox",
+  "text": "Caixa de Correio"
+ },
+ {
+  "label": "OBJECT:ManHoleCover",
+  "text": "Tampa de Bueiro"
+ },
+ {
+  "label": "OBJECT:MapleTree",
+  "text": "Árvore"
+ },
+ {
+  "label": "OBJECT:MarketVendor",
+  "text": "Vendedor de Feira"
+ },
+ {
+  "label": "OBJECT:Medic",
+  "text": "Ambulância"
+ },
+ {
+  "label": "OBJECT:MegaMall",
+  "text": "Megashopping"
+ },
+ {
+  "label": "OBJECT:Missile",
+  "text": "Míssil"
+ },
+ {
+  "label": "OBJECT:MissileTeam",
+  "text": "Defensor de Mísseis"
+ },
+ {
+  "label": "OBJECT:Moat",
+  "text": "Fosso"
+ },
+ {
+  "label": "OBJECT:MogadishuHighrise",
+  "text": "Arranha-céu"
+ },
+ {
+  "label": "OBJECT:NewsStand",
+  "text": "Banca de Jornal"
+ },
+ {
+  "label": "OBJECT:NightClub",
+  "text": "Boate"
+ },
+ {
+  "label": "OBJECT:NotAMosque",
+  "text": "Domo"
+ },
+ {
+  "label": "OBJECT:NuclearMissile",
+  "text": "Míssil Nuclear"
+ }
+]
