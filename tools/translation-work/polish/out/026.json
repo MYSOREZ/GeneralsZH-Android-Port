@@ -1,0 +1,802 @@
+[
+ {
+  "label": "DIALOGEVENT:Taunts_Demo078Subtitle",
+  "text": "*Proszę, generale, nie wyprzedawaj tego, co mógłbym dla ciebie zniszczyć"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo079Subtitle",
+  "text": "*Generale, nie grasz fair. Idź nadepnąć na kilka pułapek"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo080Subtitle",
+  "text": "*Masz wyjątkowe szczęście, generale, ale nie będziesz wiecznie omijał moich pułapek wybuchowych"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo081Subtitle",
+  "text": "*Nikt jeszcze nie pokonał moich pułapek, generale, i ty nie będziesz pierwszy... zobaczysz"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo082Subtitle",
+  "text": "*Myślisz, że mnie pokonujesz, generale? To może się zmienić w mgnieniu oka -- ja nie walczę fair"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo083Subtitle",
+  "text": "*Może i mnie pokonałeś, generale, ale Deathstrike mnie pomści"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo084Subtitle",
+  "text": "*Ha, ha! Twoi żołnierze padają w moich pułapkach, generale. Wkrótce nie zostanie żaden"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo085Subtitle",
+  "text": "*Przegrywasz, generale. Moja taktyka jest poza twoim zasięgiem"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo086Subtitle",
+  "text": "*Nigdy mnie nie pokonasz, generale. Odejdź, zanim zrobisz sobie krzywdę"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo087Subtitle",
+  "text": "*Zostało mi tyle materiałów wybuchowych... obawiam się, że więcej niż ty masz wojska"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo088Subtitle",
+  "text": "*Przegrywasz, generale. Szkoda"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo089Subtitle",
+  "text": "*Mam coś w sam raz. Chodźmy wywołać wojnę"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo090Subtitle",
+  "text": "*Ekspert od materiałów wybuchowych: w czym mogę pomóc?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo091Subtitle",
+  "text": "*Ciekawe, czy dałoby się zaminować ten przycisk?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo092Subtitle",
+  "text": "*Zapraszam, generale -- wejdź na moje pole bitwy... ale patrz, gdzie stawiasz stopy"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo093Subtitle",
+  "text": "*Tym razem miałeś szczęście, generale. Drugi raz już mnie nie pokonasz"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo094Subtitle",
+  "text": "*Nie byłeś przygotowany na taką wojnę. Spróbuj jeszcze raz, jeśli się odważysz"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo095Subtitle",
+  "text": "*Oto pole bitwy... otwarte... nietknięte walką... czysta karta dla naszej małej..."
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo096Subtitle",
+  "text": "*A skąd się wzięły te pułapki wybuchowe?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Demo097Subtitle",
+  "text": "*Może i mam kilka asów w rękawie, ale czy spodziewałeś się po mnie czegoś innego, generale?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger001Subtitle",
+  "text": "*Hej, generale, widziałeś kiedyś Raptora z bliska?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger002Subtitle",
+  "text": "*Hej, generale, widziałeś ten myśliwiec Stealth?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger003Subtitle",
+  "text": "*Ptaszki w powietrzu! Idziemy zapolować na spycharki!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger004Subtitle",
+  "text": "*Koniec zabawy z tobą, generale. (Do własnych sił) Wszyscy do ataku!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger005Subtitle",
+  "text": "*No popatrz tylko... amerykańskie wydatki wojskowe w najlepszym wydaniu"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger006Subtitle",
+  "text": "*(Śpiewa... fałszując) ...i rakiet czerwony blask, i bomb w powietrzu trzask..."
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger007Subtitle",
+  "text": "*Nadchodzi deszcz terroru, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger008Subtitle",
+  "text": "*Jak ci się podoba \"Szok i przerażenie\", generale?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger009Subtitle",
+  "text": "*Śmierć z nieba!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger010Subtitle",
+  "text": "*To chyba niezbyt fair, co, generale?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger011Subtitle",
+  "text": "*Czas zdjąć bramkarza. Wszyscy do ataku!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger012Subtitle",
+  "text": "*Bomby w dół!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger013Subtitle",
+  "text": "*Strasznie tam cicho... nie wyszedłeś chyba, generale?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger014Subtitle",
+  "text": "*Bez obaw, generale, to tylko cisza przed burzą"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger015Subtitle",
+  "text": "*Na twoim miejscu wykorzystałbym tę przerwę na odbudowę obrony, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger016Subtitle",
+  "text": "*Ćśś... słyszałeś to? Nie przejmowałbym się, to pewnie nic takiego"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger017Subtitle",
+  "text": "*Wybacz, generale, mamy właśnie przerwę na obiad -- zaraz do ciebie wrócimy"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger018Subtitle",
+  "text": "*Zmusiłeś mnie do użycia czołgów... nienawidzę używać czołgów"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger019Subtitle",
+  "text": "*Kłopot z przeprawą przez rzekę, generale? Podwieźć cię?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger020Subtitle",
+  "text": "*Tchórze! Przestańcie się chować i walczcie!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger021Subtitle",
+  "text": "*Niewidzialność cię nie ocali, generale; znajdziemy cię"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger022Subtitle",
+  "text": "*Auć, to musiało być drogie"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger023Subtitle",
+  "text": "*Hę, a gdzie teraz będziesz szkolił swoje wojsko?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger024Subtitle",
+  "text": "*Kłopot z utrzymaniem obrony, generale?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger025Subtitle",
+  "text": "*Straciłeś mnóstwo budynków, generale; zamierzasz teraz użyć mocnych słów?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger026Subtitle",
+  "text": "*Spycharki, zacząć naprawiać nasze budynki!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger027Subtitle",
+  "text": "*Dopadnę cię za to, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger028Subtitle",
+  "text": "*Pożałujesz zniszczenia tego lotniska, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger029Subtitle",
+  "text": "*Spycharki, odbudować naszą obronę!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger030Subtitle",
+  "text": "*Tu generał Granger do lotniskowca Olympia: przyślijcie posiłki... powtarzam: przyślijcie posiłki"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger031Subtitle",
+  "text": "*Atakują centrum dowodzenia! Wszystkie siły, przegrupować się!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger032Subtitle",
+  "text": "*Nie podoba mi się, że zestrzeliwujesz moje samoloty, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger033Subtitle",
+  "text": "*Przejmują nasze szyby naftowe! Rangersi, ruszać tam i je odbić!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger034Subtitle",
+  "text": "*Wynocha z naszej bazy!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger035Subtitle",
+  "text": "*Wynoś się z mojej przestrzeni powietrznej, generale!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger036Subtitle",
+  "text": "*Wróg w naszym obwodzie! Wszystkie samoloty wracać do bazy!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger037Subtitle",
+  "text": "*Siły naziemne, bronić lotnisk!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger038Subtitle",
+  "text": "*Chyba nie kradniesz moich zapasów, generale?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger039Subtitle",
+  "text": "*Wchodzą tylnymi drzwiami!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger040Subtitle",
+  "text": "*Chowasz się w wiosce, co? To taktyka tchórza, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger041Subtitle",
+  "text": "*Przestań się chować, generale. Nie każ mi po ciebie przychodzić"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger042Subtitle",
+  "text": "*Są przy wschodniej bramie!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger043Subtitle",
+  "text": "*Bronić wschodniej strony!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger044Subtitle",
+  "text": "*Siły wroga zbliżają się do zachodniej bramy!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger045Subtitle",
+  "text": "*Wszystkie siły do zachodniej bramy!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger046Subtitle",
+  "text": "*Kłopot z utrzymaniem energii, generale?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger047Subtitle",
+  "text": "*Ups, padł ci prąd -- lecą bomby!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger048Subtitle",
+  "text": "*Skończyły się zasoby, generale? Pożyczyć ci trochę?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger049Subtitle",
+  "text": "*Hej, generale, może ogłosimy remis?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger050Subtitle",
+  "text": "*Może wygrałeś bitwę, generale, ale wojna jeszcze się nie skończyła"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger051Subtitle",
+  "text": "*No to zbudowałeś Burzę SCUD. Myślisz, że zdołasz jej obronić?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger052Subtitle",
+  "text": "*Hmm, sporo tej obrony przeciwlotniczej, generale... Myślisz, że to uspokoi twój strach?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger053Subtitle",
+  "text": "*Twoje czołgi nie mają szans z moimi samolotami, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger054Subtitle",
+  "text": "*Wąglik! Wszyscy do ukrycia!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger055Subtitle",
+  "text": "*Obsadzaj budynki, ile chcesz, generale -- to nic nie da"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger056Subtitle",
+  "text": "*Ile jeszcze zdołasz tego znieść, generale?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger057Subtitle",
+  "text": "*Gotów już się poddać?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger058Subtitle",
+  "text": "*Nie straciłeś jeszcze dość żołnierzy, generale?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger059Subtitle",
+  "text": "*Ta bitwa jest skończona, generale -- poddaj się albo szykuj na śmierć!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger060Subtitle",
+  "text": "*Nie zamierzasz się poddać, co? Szkoda"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger061Subtitle",
+  "text": "*Bomby w dół, gnojku"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger062Subtitle",
+  "text": "*Chodź no, generale -- pokażę ci, co znaczy \"Śmierć z nieba\"."
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger063Subtitle",
+  "text": "*Huk dźwiękowy, kotku. Do roboty"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger064Subtitle",
+  "text": "*Chyba czas poszukać sobie dobrej pracy w liniach lotniczych"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger065Subtitle",
+  "text": "*Ja wygrywam -- ty przegrywasz. Co tu więcej mówić?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger066Subtitle",
+  "text": "*Uwaga: ten obszar znajduje się pod kontrolą generała sił powietrznych Malcolma Grangera. Wycofaj się natychmiast albo przygotuj na zbombardowanie z powrotem do epoki kamienia łupanego"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger067Subtitle",
+  "text": "*Generale, nie masz ze mną szans -- niebo należy do mnie!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger068Subtitle",
+  "text": "*Patrz w niebo, generale; urządzimy pokaz lotniczy"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger069Subtitle",
+  "text": "*Chcesz zobaczyć jeszcze raz?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger070Subtitle",
+  "text": "*Kto nie schowany, ten kryje!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger071Subtitle",
+  "text": "*Nie masz nic przeciwko, że wpadniemy, co, generale?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger072Subtitle",
+  "text": "*To już drugie moje lotnisko, które trafiłeś, generale. Zaczynam się irytować"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger073Subtitle",
+  "text": "*Niech cię licho, generale. Jeśli trafisz jeszcze jedno lotnisko, przyjdę po ciebie osobiście"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger074Subtitle",
+  "text": "*To ostatnie lotnisko, jakie dziś niszczysz. (Do własnych żołnierzy) Siły, celować w ich centrum dowodzenia"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger075Subtitle",
+  "text": "*Nie mogę uwierzyć, że mnie pokonałeś, generale. Salutuję twojej lepszej taktyce"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger076Subtitle",
+  "text": "*Wygląda na to, że tym razem mnie pokonałeś, generale, ale jeszcze się kiedyś spotkamy i nie będę już tak łaskawy, bo..."
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger077Subtitle",
+  "text": "*Myślałem, że nigdy się nie zamknie"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger078Subtitle",
+  "text": "*Chyba nie myślisz, że pozwolę ci zatrzymać tę Burzę SCUD?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger079Subtitle",
+  "text": "*Kolejna Burza SCUD? Chyba czas podkręcić tempo"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger080Subtitle",
+  "text": "*Piloci, uważać na te Stanowiska Stinger"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger081Subtitle",
+  "text": "*Tylu rangersów... tak mało budynków do zajęcia"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger082Subtitle",
+  "text": "*Generale, wiesz, jak działa bomba paliwowo-powietrzna? Może mała demonstracja?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger083Subtitle",
+  "text": "*Witamy na imprezie, pułkowniku Burton. Teraz się doigrałeś, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger084Subtitle",
+  "text": "*Wiesz, jak zatrzymać A-10, generale? Ja też nie"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger085Subtitle",
+  "text": "*Hej, chcesz zobaczyć naszą nową bombę penetrującą?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger086Subtitle",
+  "text": "*Artyleria! Myślisz, że możesz mnie atakować artylerią?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger087Subtitle",
+  "text": "*Wiesz, że ta wyrzutnia SCUD nigdy nie dotrze do mojej bazy, prawda?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger088Subtitle",
+  "text": "*Chwila, to ciężarówka-bomba! Wszyscy uważać!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger089Subtitle",
+  "text": "*Zmusiłeś mnie do użycia czołgów... nienawidzę używać czołgów"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger090Subtitle",
+  "text": "*Kłopot z przeprawą przez rzekę, generale? Podwieźć cię?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger091Subtitle",
+  "text": "*Tchórze! Przestańcie się chować i walczcie!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger092Subtitle",
+  "text": "*Niewidzialność cię nie ocali, generale; znajdziemy cię"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Grainger093Subtitle",
+  "text": "*Hmm, sporo tej obrony przeciwlotniczej, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry001Subtitle",
+  "text": "*A więc tu się ukrywasz, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry002Subtitle",
+  "text": "*<sarcastic>Czujesz się przytłoczony, generale?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry003Subtitle",
+  "text": "*(Chińska piechota ginie) <angry voice> Mamy jeszcze miliard takich"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry004Subtitle",
+  "text": "*(Desant) Jak rój szarańczy spadają z nieba, by pożreć wszystkich, którzy stają przeciw Chinom"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry005Subtitle",
+  "text": "*Zhakowano cię kiedyś, generale?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry006Subtitle",
+  "text": "*<shouting>Marsz!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry007Subtitle",
+  "text": "*Nadają się też na tarcze"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry008Subtitle",
+  "text": "*Mała rada, generale: poddaj się!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry009Subtitle",
+  "text": "*Bez obaw, generale, nie bierzemy jeńców"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry010Subtitle",
+  "text": "*Wypuścić hordę!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry011Subtitle",
+  "text": "*Spokojnie, generale, przynieśliśmy własną flagę dla twojej bazy"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry012Subtitle",
+  "text": "*Wkrótce twoi ludzie będą widzieć tylko buty maszerujące po nich"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry013Subtitle",
+  "text": "*Do ataku!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry014Subtitle",
+  "text": "*Śmierć wszystkim, którzy nam się sprzeciwiają!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry015Subtitle",
+  "text": "*Wiesz, jak trudno wykarmić hordę, generale?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry016Subtitle",
+  "text": "*Mam dość ludzi, żeby urządzić defiladę. Możemy ją zrobić w twojej bazie?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry017Subtitle",
+  "text": "*Jeszcze tu jesteś, generale?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry018Subtitle",
+  "text": "*Będziesz tak siedział i czekał, aż cię zaleją?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry019Subtitle",
+  "text": "*Kończą ci się zasoby, generale?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry020Subtitle",
+  "text": "*Ile ci zajmuje zbudowanie twojego małego oddziału czołgów?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry021Subtitle",
+  "text": "*<sarcastic> Jaką taktyką mnie teraz zadziwisz, generale?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry022Subtitle",
+  "text": "*To nie może być wszystko, na co cię stać, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry023Subtitle",
+  "text": "*Jak dotąd nie jestem pod wrażeniem, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry024Subtitle",
+  "text": "*Nie byłeś gotów na to wyzwanie, prawda, generale?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry025Subtitle",
+  "text": "*Mam dość ludzi, żeby cię zmiażdżyć bez jednego wystrzału"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry026Subtitle",
+  "text": "*Idziemy po ciebie, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry027Subtitle",
+  "text": "*Ooo... przewróciliśmy twój mały budynek technologiczny. Buu, buu"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry028Subtitle",
+  "text": "*Teraz nie masz już koszar. Jak będziesz walczył bez ludzi?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry029Subtitle",
+  "text": "*Bez Fabryki broni będziesz musiał walczyć ze mną wręcz, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry030Subtitle",
+  "text": "*Koniec z samolotami. Zejdź na ziemię i walcz jak mężczyzna"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry031Subtitle",
+  "text": "*Moi ludzie maszerują prosto przez twoje umocnienia, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry032Subtitle",
+  "text": "*Tam, gdzie kiedyś stało twoje centrum dowodzenia, jest już tylko pusta ziemia, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry033Subtitle",
+  "text": "*Straciłem wielu ludzi, generale, ale straty w twoich budynkach były tego warte"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry034Subtitle",
+  "text": "*Zostaw moje budynki technologiczne w spokoju, generale!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry035Subtitle",
+  "text": "*NIE! Tylko nie moje koszary! Zbudujemy nowe, generale... wtedy zapłacisz"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry036Subtitle",
+  "text": "*Moja Fabryka broni nie jest niezbędna do zwycięstwa, ale nie niszcz następnej"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry037Subtitle",
+  "text": "*Zniszczyłeś moje lotnisko! To robi się irytujące, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry038Subtitle",
+  "text": "*Niszcz umocnienia, ile chcesz -- i tak są tylko po to, żeby cię spowolnić"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry039Subtitle",
+  "text": "*Kosztowałeś mnie wiele budynków, generale. Moi ludzie idą odebrać należność"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry040Subtitle",
+  "text": "*Nieee! Zniszczyli moje centrum dowodzenia! Łapać ich! Trzymać ich z dala ode mnie!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry041Subtitle",
+  "text": "*Zestrzeliwuj samoloty, ile chcesz, generale -- zrobimy więcej"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry042Subtitle",
+  "text": "*Moje pojazdy to nie cele do twoich ćwiczeń strzeleckich, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry043Subtitle",
+  "text": "*W mojej armii jest wielu więcej gotowych poświęcić się za Chiny, generale. Nie powstrzymasz nas"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry044Subtitle",
+  "text": "*Widzę, że zająłeś mój szyb naftowy, generale. Idziemy odebrać chińską ropę"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry045Subtitle",
+  "text": "*Ta stara platforma artyleryjska jest zniszczona, generale; nigdy jej nie uruchomisz"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry046Subtitle",
+  "text": "*Myślisz, że ta rafineria jest tu dla każdego? Natychmiast mi ją oddaj"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry047Subtitle",
+  "text": "*Podejdź bliżej mojej bazy, a poszczuję cię hordą"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry048Subtitle",
+  "text": "*Ostrzegam cię, generale, odejdź od mojej bazy. Wiesz, co stu ludzi może zrobić z czołgiem?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry049Subtitle",
+  "text": "*Są w naszej bazie! Zabić ich! Wyrzucić ich stąd!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry050Subtitle",
+  "text": "*Podchodzą za blisko! Chrońcie mnie!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry051Subtitle",
+  "text": "*Generale, odejdź od moich zasobów -- moi ludzie ich potrzebują"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry052Subtitle",
+  "text": "*Generale, nie próbuj oskrzydlić mojej bazy"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry053Subtitle",
+  "text": "*Atak tylnymi drzwiami ci nie pomoże, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry054Subtitle",
+  "text": "*Atakowanie mojej bazy od frontu to głupota, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry055Subtitle",
+  "text": "*To moje budynki technologiczne, generale. Trzymaj się z daleka"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry056Subtitle",
+  "text": "*Wynoś się z moich budynków, generale!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry057Subtitle",
+  "text": "*Przeprawa przez ten most to błąd, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry058Subtitle",
+  "text": "*Skończyła ci się energia, generale -- twoja obrona nie działa, a moi ludzie wkrótce wkroczą"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry059Subtitle",
+  "text": "*Bez energii nigdy nie powstrzymasz mojej hordy, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry060Subtitle",
+  "text": "*Zmarnowałeś wszystkie zasoby na walkę z moimi ludźmi... a ja wciąż mam więcej ludzi"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry061Subtitle",
+  "text": "*Skończyły nam się zasoby! Jak to się stało?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry062Subtitle",
+  "text": "*Buduj Burzę SCUD -- trafi tylko kilku moich ludzi... reszta cię zniszczy"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry063Subtitle",
+  "text": "*Myślałem, że rakiety nuklearne są zakazane! To nie fair, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry064Subtitle",
+  "text": "*To Działo cząsteczkowe jest bezużyteczne przeciw mojej hordzie!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry065Subtitle",
+  "text": "*Tak, powinieneś zbudować więcej umocnień -- przynajmniej zatrzymasz pierwszą falę szarżującej hordy"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry066Subtitle",
+  "text": "*Tchórzu! Wiesz, że twoje czołgi nie zmiażdżą moich ludzi, prawda?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry067Subtitle",
+  "text": "*Tyle samolotów... nieważne, moja horda zestrzeli i twoje samoloty"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry068Subtitle",
+  "text": "*Mobilizujesz własną hordę?! Potrzebujesz dużo więcej ludzi, żeby dorównać mojej sile, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry069Subtitle",
+  "text": "*Twoja baza za bardzo się rozrosła, generale. Czas, by moi ludzie wpadli i zajęli kilka budynków dla Chin"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry070Subtitle",
+  "text": "*Burza SCUD! Rozproszyć się!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry071Subtitle",
+  "text": "*Nadlatuje rakieta nuklearna! Uciekać! Zabierzcie mnie stąd!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry072Subtitle",
+  "text": "*Ooo, jaki ładny pokaz świateł. Co chcesz osiągnąć tą marną bronią, generale?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry073Subtitle",
+  "text": "*Wyjdź z tego budynku, generale. Mamy sposoby, by w razie potrzeby wyciągnąć cię siłą"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry074Subtitle",
+  "text": "*Sprowadziłeś do naszej małej wojny pułkownika Burtona, generale. Nawet on padnie w starciu z hordą"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry075Subtitle",
+  "text": "*Czarny Lotos? Jak ma ci pomóc przetrwać moją hordę, generale?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry076Subtitle",
+  "text": "*Uwaga, wszystkie siły: Jarmen Kell ukrywa się w terenie"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry077Subtitle",
+  "text": "*Widzę to lotnisko, generale. Uciekaj w powietrze! Lękaj się mojej hordy!"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry078Subtitle",
+  "text": "*Moi ludzie będą rozrywać twoje czołgi tak szybko, jak je budujesz, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry079Subtitle",
+  "text": "*Moich ludzi szkoli się trójkami... jak szybko ty szkolisz swoich?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry080Subtitle",
+  "text": "*Sprzedajesz budynki? Głupota! Co kupisz za te pieniądze, żeby zatrzymać moją hordę?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry081Subtitle",
+  "text": "*Mam tyle sił, jak możesz wygrywać tę bitwę?"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry082Subtitle",
+  "text": "*Nie doceniłem twojej taktyki, generale"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry083Subtitle",
+  "text": "*Zaskoczyłeś mnie, generale, ale teraz jestem na ciebie gotowy"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry084Subtitle",
+  "text": "*Nie pokonasz mojej hordy, generale! Twoja obecna przewaga wkrótce przepadnie"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry085Subtitle",
+  "text": "*Nie przyjmuję tej porażki, generale. Moi ludzie osłonią moją ucieczkę i będziemy walczyć innego dnia"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry086Subtitle",
+  "text": "*Moi ludzie mają teraz nad tobą przewagę liczebną, generale. Na twoim miejscu bym się poddał"
+ },
+ {
+  "label": "DIALOGEVENT:Taunts_Infantry087Subtitle",
+  "text": "*Wygląda na to, że to dla ciebie koniec, generale"
+ }
+]
