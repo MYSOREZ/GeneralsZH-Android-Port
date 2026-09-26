@@ -1,0 +1,802 @@
+[
+ {
+  "label": "DIALOGEVENT:MisCHI03xChat02Subtitle",
+  "text": "*Wpadliśmy w zasadzkę!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xChat03Subtitle",
+  "text": "*Zaatakowali naszą bazę z zasadzki!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xChat04Subtitle",
+  "text": "*Znaleźliśmy ich tajną bazę!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xChat05Subtitle",
+  "text": "*Nadchodzą z drugiego brzegu jeziora"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xChat06Subtitle",
+  "text": "*Ich oddziały muszą się kryć w lesie"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xChat07Subtitle",
+  "text": "*Ciekawe, co jest za rzeką"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xChat08Subtitle",
+  "text": "*Ich ataki z doskoku stają się uciążliwe"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xChat09Subtitle",
+  "text": "*Buggy wróciły!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xChat10Subtitle",
+  "text": "*Atak z zaskoczenia!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xChat11Subtitle",
+  "text": "*Zmiażdżyć to działo Inferno!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xChat12Subtitle",
+  "text": "*Ludzie boją się wyjść z domów"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xChat13Subtitle",
+  "text": "*Musimy uwolnić ich od ucisku!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xXO01Subtitle",
+  "text": "*Lud powstaje, by nas wesprzeć!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xXO10Subtitle",
+  "text": "*Generale, zniszczenie posągów GLA będzie kluczowe dla poprawy naszej opinii międzynarodowej i zwiększy poparcie ludności dla naszych działań"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xXO11Subtitle",
+  "text": "*Wysłali ciągnik toksyn, żeby oczyścić nasze obsadzone budynki!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xXO12Subtitle",
+  "text": "*Nasze czołgi Dragon będą celem priorytetowym... dobrze ich strzeż"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xXO13Subtitle",
+  "text": "*Dobra robota, sir. Zniszczenie posągu poprawiło opinię świata"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xXO16Subtitle",
+  "text": "*Nie pozwól im zniszczyć budynków!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xXO17Subtitle",
+  "text": "*Użyj pocisków neutronowych, by oczyścić budynki bez ich niszczenia"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xXO18Subtitle",
+  "text": "*Uwaga! Ich budowle obronne są ukryte pod siatką maskującą"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xXO19Subtitle",
+  "text": "*Generale, GLA dobrze broni miasta. Musimy ich wykurzyć"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xXO20Subtitle",
+  "text": "*Robisz postępy, dowódco. Duża część miasta jest już wolna od GLA"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xXO21Subtitle",
+  "text": "*Sir! Miasto powstaje przeciw naszym wrogom!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xXO22Subtitle",
+  "text": "*Generale, musimy oczyścić ten rejon z GLA!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI03xXO23Subtitle",
+  "text": "*Nasza opinia międzynarodowa jest wysoka. Świetna robota!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xChat01Subtitle",
+  "text": "*Prawie uciekli! Musimy ich zatrzymać!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xChat010Subtitle",
+  "text": "*Obchodzą jezioro. Przechwyćcie ich!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xChat011Subtitle",
+  "text": "*Idą na naszą bazę!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xChat012Subtitle",
+  "text": "*Zatrzymaliśmy pierwszą falę GLA!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xChat013Subtitle",
+  "text": "*Znów pokazaliśmy im ich miejsce!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xChat014Subtitle",
+  "text": "*Nikt nie oprze się potędze Chin!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xChat015Subtitle",
+  "text": "*Sun Tzu byłby dumny"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xChat016Subtitle",
+  "text": "*Zwycięstwo jest nasze!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xChat017Subtitle",
+  "text": "*Nie przejdą!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xChat018Subtitle",
+  "text": "*Przepędzimy ich z nieba!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xChat019Subtitle",
+  "text": "*Nasza potęga jest niezrównana!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xChat02Subtitle",
+  "text": "*Odetnijcie ich przy wiosce!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xChat020Subtitle",
+  "text": "*Helix to nie jedyny siłacz"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xChat03Subtitle",
+  "text": "*Nie możemy pozwolić im przejść za to wzgórze"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xChat04Subtitle",
+  "text": "*Na pewno tędy przejdą. Powinniśmy bronić tego terenu"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xChat05Subtitle",
+  "text": "*Tu jest kolejne wąskie gardło"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xChat06Subtitle",
+  "text": "*Powinniśmy zabezpieczyć te budynki"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xChat07Subtitle",
+  "text": "*Co oni robią?"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xChat08Subtitle",
+  "text": "*Uważajcie na toksyny!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xChat09Subtitle",
+  "text": "*Wpadliśmy w zasadzkę!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xChat15Subtitle",
+  "text": "*Nasze siły są na pozycjach. Jesteśmy gotowi na wszystko"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xChat16Subtitle",
+  "text": "*Są silniejsi, niż sądziliśmy. Potrzebujemy wsparcia lotniczego. Wyślijcie Helixa, natychmiast!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO01Subtitle",
+  "text": "*GLA wysyła kolejną falę!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO02Subtitle",
+  "text": "*Ta fala wycofuje się na północ"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO03Subtitle",
+  "text": "*Wycofują się na północny wschód"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO04Subtitle",
+  "text": "*Ta fala wycofuje się na wschód"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO05Subtitle",
+  "text": "*Unia Europejska jest niezwykle zadowolona z naszych wyników, generale. Musimy dalej naciskać i zlikwidować GLA"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO06Subtitle",
+  "text": "*Te siły to była tylko dywersja!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO07Subtitle",
+  "text": "*Generale, mają Burzę SCUD! Musimy rozproszyć oddziały, żeby nie dać im celu!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO08Subtitle",
+  "text": "*Chwila... nie celują w nas"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO09Subtitle",
+  "text": "*GLA nie ma honoru! Zniszczyli wioskę, żeby utorować sobie drogę!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO10Subtitle",
+  "text": "*Powinniśmy zbudować bazę, by zabezpieczyć ten rejon"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO11Subtitle",
+  "text": "*Nasz Helix to Overlord przestworzy. Zbuduj ich więcej, by kontrolować teren"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO12Subtitle",
+  "text": "*Sir, proponuję rozmieścić placówki nasłuchowe w kluczowych miejscach"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO13Subtitle",
+  "text": "*Według najnowszych danych wywiadu GLA wycofuje się w to miejsce. Tu stawimy opór. Nie pozwól żadnej jednostce GLA opuścić tego rejonu. Nasz nowy śmigłowiec Helix powinien zapewnić ci sukces. Pojawienie się naszych sił od południa oznaczać będzie wykonanie głównego celu"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO14Subtitle",
+  "text": "*Według najnowszych danych wywiadu GLA wycofuje się w to miejsce. Tu stawimy opór. Nie pozwól żadnej jednostce GLA opuścić tego rejonu. Jeśli zbyt wielu ucieknie, misja się nie powiedzie. Nasz nowy śmigłowiec Helix powinien zapewnić ci sukces. Pojawienie się naszych sił od południa oznaczać będzie wykonanie głównego celu"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO15Subtitle",
+  "text": "*Od zachodu nadciąga fala GLA"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO16Subtitle",
+  "text": "*Od południa nadciąga fala GLA"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO17Subtitle",
+  "text": "*Zauważono siły GLA zbliżające się od południowego zachodu"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO18Subtitle",
+  "text": "*Siły GLA nadciągają od południowego wschodu"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO19Subtitle",
+  "text": "*Fala sił GLA zbliża się od południowego zachodu"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO20Subtitle",
+  "text": "*Nadciąga kolejna fala GLA"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO21Subtitle",
+  "text": "*Świetna robota, sir. Wywiad potwierdza, że zniszczyłeś całą falę"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO22Subtitle",
+  "text": "*Wróg zaraz przełamie naszą obronę"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO23Subtitle",
+  "text": "*Wykryto wiele startów Burzy SCUD"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO24Subtitle",
+  "text": "*Nasza obrona została przełamana, dowódco, misja się nie powiodła"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO25Subtitle",
+  "text": "*Dowódco, przybyły nasze siły z południa. Misja zakończyła się sukcesem"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO26Subtitle",
+  "text": "*Generale, siły wroga są niebezpiecznie blisko ucieczki. Musimy się z nimi szybko rozprawić!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO27Subtitle",
+  "text": "*Wykryto siły GLA uciekające przez to miejsce. Zajmij pozycje obronne i czekaj na kontakt z wrogiem"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO28Subtitle",
+  "text": "*Generale, wykryto falę 1 wycofującego się wroga wchodzącą w rejon – według wywiadu porusza się trasą widoczną na twoim radarze"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO29Subtitle",
+  "text": "*Generale, wykryto falę 2 wycofującego się wroga wchodzącą w rejon – według wywiadu porusza się trasą widoczną na twoim radarze"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO30Subtitle",
+  "text": "*Generale, wykryto falę 3 wycofującego się wroga wchodzącą w rejon – według wywiadu porusza się trasą widoczną na twoim radarze"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO31Subtitle",
+  "text": "*Generale, wykryto falę 4 wycofującego się wroga wchodzącą w rejon – według wywiadu porusza się trasą widoczną na twoim radarze"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO32Subtitle",
+  "text": "*Generale, wykryto falę 5 wycofującego się wroga wchodzącą w rejon – według wywiadu porusza się trasą widoczną na twoim radarze"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO33Subtitle",
+  "text": "*Nasze siły przybyły z południa. Udało ci się powstrzymać odwrót wroga. Dobra robota, generale"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI04xXO34Subtitle",
+  "text": "*Generale, siły wroga uciekły na północ. Misja się nie powiodła"
+ },
+ {
+  "label": "DIALOGEVENT:MisChi05OfficerC01Subtitle",
+  "text": "*Czas naprawić nasz błąd. Zabić wszystkich!"
+ },
+ {
+  "label": "DIALOGEVENT:MisChi05OfficerC02Subtitle",
+  "text": "*Wykurzmy te szczury z nor. Śmierć tchórzom!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xBrf01Subtitle",
+  "text": "*Dzięki twoim niezwykłym wysiłkom pod Halberstadt GLA jest niemal skończona. Wywiad USA namierzył ostatnią twierdzę GLA pod Hamburgiem. Niestety, nie zdążyliśmy pomóc tu Amerykanom i GLA przejęła ich bazę. Zbierz siły i zniszcz bazy GLA i USA"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xBrf02Subtitle",
+  "text": "*GLA przejęła starą bazę USA w tym rejonie i się rozbudowuje. Twoim celem ostatecznym jest zniszczenie baz USA i GLA"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xBrf03Subtitle",
+  "text": "*GLA udoskonaliła maskowanie, generale. Teraz potrafią ukryć niemal wszystko. Musimy być czujni"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xBrf04Subtitle",
+  "text": "*Użyj placówek nasłuchowych, aby wykrywać niewidoczne jednostki"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xBrf05Subtitle",
+  "text": "*Generale, proponuję najpierw skupić atak na bazie USA. Musimy zniszczyć ich działa cząsteczkowe"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xChat01Subtitle",
+  "text": "*Jakbyśmy szukali pisanek, generale"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xCin01Subtitle",
+  "text": "*Kapralu! Jakiś ślad Chińczyków?"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xCin02Subtitle",
+  "text": "*Nie, sir, ostatnia wiadomość przyszła o 02:00... od tamtej pory nic"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xCin03Subtitle",
+  "text": "*No, oby się pospieszyli. Wywiad wskazuje na zmasowany atak GLA"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xCin04Subtitle",
+  "text": "*Tak jest"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xCin06Subtitle",
+  "text": "*Co jest...?! Kontakt z wrogiem!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xCin07Subtitle",
+  "text": "*Wtargnęli do bazy... wszystkie jednostki na stanowiska! Gdzie są ci obiecani Chińczycy?!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xCin08Subtitle",
+  "text": "*Uwaga, wybuch! Uwaga, wybuch!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xCin09Subtitle",
+  "text": "*Skąd oni się wzięli?!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xCin10Subtitle",
+  "text": "*Przejmują nasze budynki! Nie utrzymamy się! Wszystkie jednostki, odwrót! Powtarzam, odwrót!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO01Subtitle",
+  "text": "*Tak jest! Baza USA straciła zasilanie! Wykończ ich, zanim się odbudują!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO02Subtitle",
+  "text": "*Dobra robota, generale. Wróg nie może już produkować jednostek USA"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO03Subtitle",
+  "text": "*Dobra robota, generale. Wróg nie może już produkować jednostek GLA"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO04Subtitle",
+  "text": "*Dobra robota, generale. Baza USA zneutralizowana. Zniszcz bazę GLA, aby zakończyć bitwę"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO05Subtitle",
+  "text": "*Dobra robota, generale. Baza GLA zneutralizowana. Zniszcz bazę USA, aby zakończyć bitwę"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO06Subtitle",
+  "text": "*Musimy dokończyć to, czego nie zdołały USA. GLA musi upaść, a świat zazna pokoju"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO07Subtitle",
+  "text": "*Jeśli pokonamy GLA i wyrwiemy Europę z jej szponów, czekają nas wielkie nagrody"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO08Subtitle",
+  "text": "*Generale, zajmiesz miejsce wśród największych bohaterów Chin. GLA upadła, a Chiny są jasną latarnią nowego świata. Zajmij honorowe miejsce i ciesz się chwałą Chin"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO09Subtitle",
+  "text": "*Generale, wróg udoskonalił maskowanie, ale chyba nie używa czołgów"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO10Subtitle",
+  "text": "*Generale, dowódcy GLA brakuje czołgów. Może zdołamy go przytłoczyć naszymi siłami"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO11Subtitle",
+  "text": "*Generale, tracimy pojazdy przez Jarmena Kella. Musisz go wytropić, jeśli mamy mieć szansę"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO12Subtitle",
+  "text": "*Generale, wróg używa PORYWACZY! Musimy ich powstrzymać!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO13Subtitle",
+  "text": "*Generale, wróg rozmieścił SNAJPERÓW w okolicznych wioskach. Musimy ich wykurzyć"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO14Subtitle",
+  "text": "*Generale, tracimy żołnierzy przez wrogie działa poczwórne, potrzebujemy tu ciężkiego pancerza"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO15Subtitle",
+  "text": "*Generale, według wywiadu Jarmen Kell może się ukrywać w tej małej wiosce"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO16Subtitle",
+  "text": "*Generale, baza wroga chyba jest za tą rzeką. Może zamkniemy go, rozmieszczając siły przy mostach"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO17Subtitle",
+  "text": "*Generale, mamy w polu wiele pojazdów bez kierowców... wyślij jednostki, by je odbić"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO18Subtitle",
+  "text": "*Sir! Wykryliśmy autobusy bojowe w sektorze C. Powinniśmy się nimi zająć, zanim dotrą do naszej bazy"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO19Subtitle",
+  "text": "*Generale, wróg przemycił jednostki do naszej bazy! Powinniśmy wzmocnić obronę!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO20Subtitle",
+  "text": "*Generale, wróg przeniknął do naszej bazy!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO21Subtitle",
+  "text": "*Generale! Zniszczenie amerykańskiego centrum dowodzenia odetnie mu silne wsparcie lotnicze"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO22Subtitle",
+  "text": "*Generale, musimy jak najszybciej zbudować CENTRUM INTERNETOWE. Pomoże nam namierzyć pozycje wroga"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO23Subtitle",
+  "text": "*Generale, wróg zostawił flankę bez osłony! To nasza szansa na kontratak!"
+ },
+ {
+  "label": "DIALOGEVENT:MisCHI05xXO24Subtitle",
+  "text": "*Generale, Amerykanie mają lepszą technologię wykrywania niewidocznych jednostek. Może lepiej przejąć tę bazę, niż ją niszczyć"
+ },
+ {
+  "label": "DIALOGEVENT:MisChi07RedGuard108Subtitle",
+  "text": "*Zasadzka!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01Scorpion105Subtitle",
+  "text": "*Chińczycy są blisko"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01Scorpion108Subtitle",
+  "text": "*Znaleźliśmy tajne przejście. Jest słabo strzeżone"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01Scorpion109Subtitle",
+  "text": "*Jesteśmy pod ostrzałem!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xChat01Subtitle",
+  "text": "*Widzimy wrogie budowle obronne, generale"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xChat02Subtitle",
+  "text": "*Zauważono pozycję wroga! Musimy znaleźć sposób, żeby ich minąć!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xChat03Subtitle",
+  "text": "*Wrogi patrol! Wszystkie jednostki, ognia!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xChat04Subtitle",
+  "text": "*Amerykańskie drony wartownicze! Szybko je zniszczmy, zanim podniosą alarm!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xChat05Subtitle",
+  "text": "*Patrzcie, jak się miotają! Nasz atak był całkowitym zaskoczeniem!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xChat06Subtitle",
+  "text": "*Nadciągają amerykańscy napastnicy! Musimy utrzymać pozycję, generale!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xChat07Subtitle",
+  "text": "*Pełne zaskoczenie! Wszystkie jednostki, skupcie się na ich elektrowniach!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xChat08Subtitle",
+  "text": "*Generale! Ponosimy ciężkie straty!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xCin01Subtitle",
+  "text": "*Patrol do bazy: cel namierzony, jesteśmy w pościgu"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xCin02Subtitle",
+  "text": "*Uwaga, bombardowanie już się zaczęło. Uważajcie, patrol"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xCin03Subtitle",
+  "text": "*Przyjąłem, baza. Jestem po prawej"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xCin04Subtitle",
+  "text": "*Biorę lewą"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xCin05Subtitle",
+  "text": "*Jestem pod ostrzałem!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xCin06Subtitle",
+  "text": "*Nie odpuszczajcie!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xCin07Subtitle",
+  "text": "*Uwaga!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xCin08Subtitle",
+  "text": "*Baza! Charlie trzy zestrzelony! Powtarzam: Charlie trzy zestrzelony!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xCin09Subtitle",
+  "text": "*Kontynuuj pościg, Charlie dwa! To nasza najlepsza szansa!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xCin10Subtitle",
+  "text": "*Eskorta zlikwidowana! Mam go!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xCin11Subtitle",
+  "text": "*Nieeee!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xCin12Subtitle",
+  "text": "*He, he. Generale, uciekliśmy... i lecimy do punktu spotkania. GLA powstanie znowu"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xCin13Subtitle",
+  "text": "*Potwierdzam. Zwiadowcy ruszają"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xCin14Subtitle",
+  "text": "*Tu zwiadowcy. Nie wykrywamy wroga. Czekajcie..."
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xCin15Subtitle",
+  "text": "*Amerykańska zasadzka! Otoczyli nas!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xCin16Subtitle",
+  "text": "*Drony wartownicze! Ci Amerykanie są sprytni. Ich drony są niewidoczne, gdy stoją. Musisz działać ostrożnie, generale"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen01Subtitle",
+  "text": "*Amerykanie otoczyli naszą twierdzę wojskowymi punktami kontrolnymi. Musisz utorować drogę"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen02Subtitle",
+  "text": "*Generale, musisz pomóc naszemu prawdziwemu przywódcy uciec, by GLA mogła przetrwać"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen03Subtitle",
+  "text": "*Dr Thrax mógł zginąć za sprawę, ale był bez znaczenia. Jeśli nasz brat ucieknie, USA jeszcze usłyszą o GLA"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen04Subtitle",
+  "text": "*Generale, obrona baz ogniowych wokół tej amerykańskiej pozycji jest za silna. Unikajmy bezpośredniego starcia i znajdźmy inną drogę do bazy"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen05Subtitle",
+  "text": "*Wstrzymaj siły, generale. Wysyłamy zwiadowców na drugą stronę mostu. Zameldują o pozycjach wroga"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen06Subtitle",
+  "text": "*Mój generale, jeden z naszych oddziałów szybkiego uderzenia zgubił amerykański pościg i zgodził się nam pomóc. Ich zasobniki rakietowe przydadzą się przeciw wrogim pancerzom"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen07Subtitle",
+  "text": "*Odnaleźliśmy jeden z naszych oddziałów saperów. Pomogą nam utorować drogę, niszcząc zewnętrzne bazy wsparcia USA"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen08Subtitle",
+  "text": "*Generale, musimy zabezpieczyć lotnisko, zanim przyleci samolot transportowy. Przetrwanie GLA zależy od twojego sukcesu"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen09Subtitle",
+  "text": "*Nasze motocykle bojowe są bardzo wszechstronne. Wzmacniają zdolności naszej wiernej piechoty i jeżdżą po trudnym terenie. Przetrwają nawet skok z urwiska. Użyj ich, by ominąć amerykańskie punkty oporu i uderzyć w słabe flanki"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen10Subtitle",
+  "text": "*Generale! Amerykanie wysłali drugi pościg, by pojmać naszego przywódcę. Chroń go za wszelką cenę!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen11Subtitle",
+  "text": "*Generale, ta ukryta baza da nam zasoby potrzebne, by przebić się przez amerykańskie oblężenie i dotrzeć na lotnisko"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen12Subtitle",
+  "text": "*Generale, nasz przywódca jest atakowany! Nie może wpaść w ręce Amerykanów!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen13Subtitle",
+  "text": "*Generale, twoje siły za bardzo wyprzedzają naszego przywódcę. Pamiętaj, że musi dotrzeć na lotnisko, jeśli nasza sprawa ma przetrwać"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen14Subtitle",
+  "text": "*Kolejna amerykańska baza. Trzeba ją zlikwidować. Uważaj na ich bazy ogniowe, sir"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen15Subtitle",
+  "text": "*Lotnisko jest w zasięgu, generale. Zniszcz siły amerykańskie i zabezpiecz teren, byśmy mogli wywieźć przywódcę w bezpieczne miejsce"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen16Subtitle",
+  "text": "*Dobra robota, generale. Z tobą u steru nie możemy przegrać"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen17Subtitle",
+  "text": "*Dotarliśmy na lotnisko, sir. Dopilnuj, by nasz przywódca czekał na pasie, gdy przyleci samolot"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen18Subtitle",
+  "text": "*Samolot podchodzi do lądowania, generale! Utrzymaj pozycję jeszcze chwilę. Nasz przywódca musi przeżyć, by wsiąść na pokład!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen19Subtitle",
+  "text": "*Samolot przyleciał. Wprowadź przywódcę na pokład, byśmy mogli go wywieźć i przegrupować się"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen20Subtitle",
+  "text": "*Samolot czeka na przywódcę. Pospiesz się i przyprowadź go, generale. Nasze siły nie wytrzymają w nieskończoność naporu Amerykanów"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen21Subtitle",
+  "text": "*Nasz agent, Jarmen Kell, nękał amerykańskie linie zaopatrzenia. Bardzo nam pomoże w misji, generale"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen22Subtitle",
+  "text": "*Świetna robota, generale. Pokażemy Amerykanom, że wciąż potrafimy stawiać opór"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen23Subtitle",
+  "text": "*Odnaleźliśmy wysunięty oddział zwiadowczy, generale. Zaproponowali pomoc w naszej misji"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen24Subtitle",
+  "text": "*Generale! Zniszcz amerykańskie elektrownie, aby wyłączyć obronę ich bazy!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA01xKen25Subtitle",
+  "text": "*Nasze siły osłabły, generale. Musimy mądrzej wybierać bitwy"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02Chatter04Subtitle",
+  "text": "*Jesteśmy gotowi na twoje rozkazy"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02Chatter18Subtitle",
+  "text": "*I gdzie ta amerykańska \"wyższość\""
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02General07Subtitle",
+  "text": "*Nadciągają siły amerykańskie. Przygotować się!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xChat01Subtitle",
+  "text": "*Wróg atakuje!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xChat02Subtitle",
+  "text": "*Opór jest za silny, musi być inna droga"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xChat03Subtitle",
+  "text": "*Księcia trzeba powstrzymać. GLA nie może mu ulec!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xChat04Subtitle",
+  "text": "*Nasza baza jest atakowana!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xChat05Subtitle",
+  "text": "*Nasz pałac zniszczony!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xChat06Subtitle",
+  "text": "*Straciliśmy koszary"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xChat07Subtitle",
+  "text": "*Musimy szybko odbudować handlarza bronią"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xCin01Subtitle",
+  "text": "*Zwiad 1 do bazy. Kończę patrol. Sektor czysty"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xCin02Subtitle",
+  "text": "*Tu baza. Jesteś pewien, Zwiad 1? Mamy raporty o ruchach wojsk związanych z księciem Kassadem"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xCin03Subtitle",
+  "text": "*Całkowicie pewien. Od godzin nie widzę nic poza kurzem i krzakami. Potem wracam do bazy"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xCin04Subtitle",
+  "text": "*Co jest...?"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xCin05Subtitle",
+  "text": "*Zwiad 1 do bazy! Kontakt z wrogiem! Powtarzam, kontakt z wrogiem!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xCin06Subtitle",
+  "text": "*Zwiad 1! Jaka jest twoja pozycja?"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xCin07Subtitle",
+  "text": "*Szykuje się do strzału!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xCin08Subtitle",
+  "text": "*Zwiad 1, jaki jest twój stan? Zwiad 1! Zgłoś się!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xCin09Subtitle",
+  "text": "*Gdy książę Kassad zniknie, GLA będzie pod naszą kontrolą. Wtedy dokonamy zemsty, a amerykańscy niewierni spłoną"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xCin10Subtitle",
+  "text": "*Książę Kassad przejmuje kontrolę, gdzie tylko może. Musimy położyć kres jego walce o władzę"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen01Subtitle",
+  "text": "*Generale, kończą się nam zasoby... musimy znaleźć nowe źródło zaopatrzenia!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen02Subtitle",
+  "text": "*Kassad próbuje przejąć okoliczne zasoby! Nie możemy pozwolić, by zabrał to, co słusznie nasze!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen03Subtitle",
+  "text": "*Musimy zjednoczyć GLA pod jednym przywódcą!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen04Subtitle",
+  "text": "*Uwaga! Kassad przypuścił na nas atak z zaskoczenia!"
+ },
+ {
+  "label": "DIALOGEVENT:MisGLA02xKen05Subtitle",
+  "text": "*Mamy znacznie większe plany niż ten szczur Kassad. Świat zadrży, gdy rozpętamy furię GLA"
+ }
+]
