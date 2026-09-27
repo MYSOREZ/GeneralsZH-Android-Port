@@ -29,6 +29,8 @@
 #include "gles_pipeline.h"
 #include "gles_dispatch.h"
 #include <chrono>
+#include <cstdlib>
+#include <sys/stat.h>
 
 #include <SDL3/SDL.h>
 #include <cstdio>
@@ -45,6 +47,18 @@
 // ---------------------------------------------------------------------------
 
 static bool g_glTrace = false;
+
+// 64-bit FNV-1a, chainable through `seed`: keys the on-disk program cache.
+static uint64_t fnv1a64(const void *data, size_t size, uint64_t seed)
+{
+	const unsigned char *p = static_cast<const unsigned char *>(data);
+	uint64_t h = seed;
+	for (size_t i = 0; i < size; i++) {
+		h ^= p[i];
+		h *= 1099511628211ULL;
+	}
+	return h;
+}
 
 // GeneralsX @build Android port GLES experiment 08/30/2026 Uniform Buffer
 // Object binding point for the camera (view+proj) block -- see its use in
@@ -461,6 +475,89 @@ bool WebGLPipeline::initContext(int w, int h, SDL_Window *window)
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 	glDisable(GL_DITHER);
 
+	loadOptimizationSwitches();
+	{
+		// Optional entry points come from the same GLES library as everything else, or from
+		// the matching EGL (SDL_HINT_EGL_LIBRARY selects ANGLE's EGL together with ANGLE's
+		// GLES), and only when the version or extension string says they exist: an
+		// eglGetProcAddress result alone is not proof of support.
+		auto optionalProc = [](const char *name) -> void * {
+			void *p = d3d8gles_GetOptionalGLProc(name);
+			if (!p)
+				p = reinterpret_cast<void *>(SDL_GL_GetProcAddress(name));
+			return p;
+		};
+		const char *version = (const char *)glGetString(GL_VERSION);
+		int major = 0, minor = 0;
+		if (version)
+			sscanf(version, "OpenGL ES %d.%d", &major, &minor);
+		const bool es32 = major > 3 || (major == 3 && minor >= 2);
+		const char *baseVertexSource = "none";
+		if (m_opt.baseVertex) {
+			if (es32) {
+				m_glDrawElementsBaseVertex = reinterpret_cast<PFN_DrawElementsBaseVertex>(optionalProc("glDrawElementsBaseVertex"));
+				baseVertexSource = "ES 3.2";
+			}
+			if (!m_glDrawElementsBaseVertex && extensions && strstr(extensions, "GL_OES_draw_elements_base_vertex")) {
+				m_glDrawElementsBaseVertex = reinterpret_cast<PFN_DrawElementsBaseVertex>(optionalProc("glDrawElementsBaseVertexOES"));
+				baseVertexSource = "OES";
+			}
+			if (!m_glDrawElementsBaseVertex && extensions && strstr(extensions, "GL_EXT_draw_elements_base_vertex")) {
+				m_glDrawElementsBaseVertex = reinterpret_cast<PFN_DrawElementsBaseVertex>(optionalProc("glDrawElementsBaseVertexEXT"));
+				baseVertexSource = "EXT";
+			}
+			if (!m_glDrawElementsBaseVertex)
+				baseVertexSource = "unavailable";
+		}
+
+		if (m_opt.upRing) {
+			glGenBuffers(1, &m_upRingVB);
+			glBindBuffer(GL_COPY_WRITE_BUFFER, m_upRingVB);
+			glBufferData(GL_COPY_WRITE_BUFFER, kUpRingVBBytes, nullptr, GL_STREAM_DRAW);
+			glGenBuffers(1, &m_upRingIB);
+			glBindBuffer(GL_COPY_WRITE_BUFFER, m_upRingIB);
+			glBufferData(GL_COPY_WRITE_BUFFER, kUpRingIBBytes, nullptr, GL_STREAM_DRAW);
+		}
+
+		const char *programCacheState = "off";
+		if (m_opt.programCache) {
+			GLint binaryFormats = 0;
+			glGetIntegerv(GL_NUM_PROGRAM_BINARY_FORMATS, &binaryFormats);
+			m_glGetProgramBinary = reinterpret_cast<PFN_GetProgramBinary>(optionalProc("glGetProgramBinary"));
+			m_glProgramBinary = reinterpret_cast<PFN_ProgramBinary>(optionalProc("glProgramBinary"));
+			m_glProgramParameteri = reinterpret_cast<PFN_ProgramParameteri>(optionalProc("glProgramParameteri"));
+			const char *home = getenv("HOME");
+			if (binaryFormats > 0 && m_glGetProgramBinary && m_glProgramBinary && m_glProgramParameteri && home && home[0]) {
+				std::string dir = std::string(home) + "/.cache";
+				mkdir(dir.c_str(), 0755);
+				dir += "/gx_gles_programs";
+				mkdir(dir.c_str(), 0755);
+				m_programCacheDir = dir;
+				// A driver update or a switch between the system driver and ANGLE produces
+				// binaries the other cannot load, so their identity is part of every key.
+				std::string id = "gxpb1|";
+				const char *vendor = (const char *)glGetString(GL_VENDOR);
+				const char *renderer = (const char *)glGetString(GL_RENDERER);
+				id += vendor ? vendor : "";
+				id += "|";
+				id += renderer ? renderer : "";
+				id += "|";
+				id += version ? version : "";
+				m_driverHash = fnv1a64(id.data(), id.size(), 1469598103934665603ULL);
+				programCacheState = "on";
+			} else {
+				m_glGetProgramBinary = nullptr;
+				m_glProgramBinary = nullptr;
+				m_glProgramParameteri = nullptr;
+				programCacheState = binaryFormats > 0 ? "unavailable" : "no binary formats";
+			}
+		}
+		fprintf(stderr, "[d3d8gles] optimizations: basevertex=%s upring=%d progcache=%s dxt16=%d "
+			"(GL_VERSION=%s; gx_gles_noopt.txt turns them off)\n",
+			m_opt.baseVertex ? baseVertexSource : "off", (int)m_opt.upRing, programCacheState,
+			(int)(m_opt.dxt565 && !m_hasS3TC), version ? version : "?");
+	}
+
 	m_ctxReady = true;
 	// GeneralsX @build Android port 09/05/2026 Report the DEFAULT framebuffer's
 	// actual bit depths, not the ones we asked SDL for. Stencil is the one that
@@ -483,6 +580,37 @@ bool WebGLPipeline::initContext(int w, int h, SDL_Window *window)
 	}
 	fprintf(stderr, "[d3d8gles] GLES3 context ready %dx%d (s3tc=%d)\n", w, h, (int)m_hasS3TC);
 	return true;
+}
+
+// GeneralsX @performance Android port 27/09/2026 gx_gles_noopt.txt in the game folder turns the
+// translator optimizations off: all of them when it is empty, or only those it names. Same
+// convention as the other gx_*.txt switches -- presence (and content) is the switch.
+void WebGLPipeline::loadOptimizationSwitches()
+{
+	FILE *f = fopen("gx_gles_noopt.txt", "r");
+	if (!f)
+		return;
+	char buf[512] = { 0 };
+	const size_t n = fread(buf, 1, sizeof(buf) - 1, f);
+	fclose(f);
+	buf[n] = '\0';
+	bool named = false;
+	for (const char *p = buf; *p; p++) {
+		if (*p != ' ' && *p != '\t' && *p != '\r' && *p != '\n') {
+			named = true;
+			break;
+		}
+	}
+	if (!named) {
+		m_opt.baseVertex = m_opt.upRing = m_opt.programCache = m_opt.dxt565 = false;
+	} else {
+		if (strstr(buf, "basevertex")) m_opt.baseVertex = false;
+		if (strstr(buf, "upring")) m_opt.upRing = false;
+		if (strstr(buf, "progcache")) m_opt.programCache = false;
+		if (strstr(buf, "dxt565")) m_opt.dxt565 = false;
+	}
+	fprintf(stderr, "[d3d8gles] gx_gles_noopt.txt: basevertex=%d upring=%d progcache=%d dxt565=%d\n",
+		(int)m_opt.baseVertex, (int)m_opt.upRing, (int)m_opt.programCache, (int)m_opt.dxt565);
 }
 
 void WebGLPipeline::resize(int w, int h)
@@ -808,6 +936,73 @@ static GLuint compileShader(GLenum type, const std::string &src)
 	return sh;
 }
 
+// GeneralsX @performance Android port 27/09/2026 Linked program binaries on disk, one file per
+// generated program: <HOME>/.cache/gx_gles_programs/<hash>.bin = "GXPB", format, length, data.
+// A binary the driver refuses (it may reject one it produced itself after an update the
+// hash did not catch) is deleted and the program is compiled from source as before.
+GLuint WebGLPipeline::loadCachedProgram(uint64_t sourceHash)
+{
+	char path[1024];
+	snprintf(path, sizeof(path), "%s/%016llx.bin", m_programCacheDir.c_str(), (unsigned long long)sourceHash);
+	FILE *f = fopen(path, "rb");
+	if (!f)
+		return 0;
+	uint32_t header[3] = { 0, 0, 0 };
+	std::vector<uint8_t> data;
+	bool readOk = fread(header, sizeof(header), 1, f) == 1 && header[0] == 0x42505847u /* "GXPB" */
+		&& header[2] > 0 && header[2] < (64u << 20);
+	if (readOk) {
+		data.resize(header[2]);
+		readOk = fread(data.data(), 1, data.size(), f) == data.size();
+	}
+	fclose(f);
+	if (!readOk) {
+		remove(path);
+		return 0;
+	}
+	GLuint p = glCreateProgram();
+	m_glProgramBinary(p, (GLenum)header[1], data.data(), (GLsizei)data.size());
+	GLint ok = 0;
+	glGetProgramiv(p, GL_LINK_STATUS, &ok);
+	if (!ok) {
+		glDeleteProgram(p);
+		remove(path);
+		return 0;
+	}
+	m_perfProgramCacheLoads++;
+	return p;
+}
+
+void WebGLPipeline::saveCachedProgram(uint64_t sourceHash, GLuint program)
+{
+	GLint length = 0;
+	glGetProgramiv(program, GL_PROGRAM_BINARY_LENGTH, &length);
+	if (length <= 0)
+		return;
+	std::vector<uint8_t> data((size_t)length);
+	GLsizei written = 0;
+	GLenum format = 0;
+	m_glGetProgramBinary(program, length, &written, &format, data.data());
+	if (written <= 0)
+		return;
+	char path[1024], temp[1040];
+	snprintf(path, sizeof(path), "%s/%016llx.bin", m_programCacheDir.c_str(), (unsigned long long)sourceHash);
+	snprintf(temp, sizeof(temp), "%s.tmp", path);
+	FILE *f = fopen(temp, "wb");
+	if (!f)
+		return;
+	const uint32_t header[3] = { 0x42505847u, (uint32_t)format, (uint32_t)written };
+	const bool ok = fwrite(header, sizeof(header), 1, f) == 1
+		&& fwrite(data.data(), 1, (size_t)written, f) == (size_t)written;
+	fclose(f);
+	// Written to a temporary name first, so a crash mid-write never leaves a truncated
+	// binary under the real name.
+	if (ok && rename(temp, path) == 0)
+		m_perfProgramCacheSaves++;
+	else
+		remove(temp);
+}
+
 WebGLPipeline::ProgramInfo *WebGLPipeline::getProgram(WebGLDevice *dev, unsigned fvf)
 {
 	const uint64_t key = computeProgramKey(dev, fvf);
@@ -1035,13 +1230,28 @@ WebGLPipeline::ProgramInfo *WebGLPipeline::getProgram(WebGLDevice *dev, unsigned
 
 	// ---------------- link ----------------
 	const std::chrono::steady_clock::time_point buildStart = std::chrono::steady_clock::now();
-	GLuint vsh = compileShader(GL_VERTEX_SHADER, vs);
-	GLuint fsh = compileShader(GL_FRAGMENT_SHADER, fs);
 	ProgramInfo *info = new ProgramInfo();
-	if (vsh && fsh) {
+	// GeneralsX @performance Android port 27/09/2026 The generated source is the program's
+	// identity (the state key above only selects which source to generate), so the on-disk
+	// cache is keyed on the source text itself plus the driver.
+	uint64_t sourceHash = 0;
+	if (!m_programCacheDir.empty()) {
+		sourceHash = fnv1a64(vs.data(), vs.size(), m_driverHash);
+		sourceHash = fnv1a64("|", 1, sourceHash);
+		sourceHash = fnv1a64(fs.data(), fs.size(), sourceHash);
+		info->prog = loadCachedProgram(sourceHash);
+	}
+	GLuint vsh = 0, fsh = 0;
+	if (info->prog == 0) {
+		vsh = compileShader(GL_VERTEX_SHADER, vs);
+		fsh = compileShader(GL_FRAGMENT_SHADER, fs);
+	}
+	if (info->prog == 0 && vsh && fsh) {
 		GLuint p = glCreateProgram();
 		glAttachShader(p, vsh);
 		glAttachShader(p, fsh);
+		if (!m_programCacheDir.empty())
+			m_glProgramParameteri(p, GL_PROGRAM_BINARY_RETRIEVABLE_HINT, GL_TRUE);
 		glLinkProgram(p);
 		GLint ok = 0;
 		glGetProgramiv(p, GL_LINK_STATUS, &ok);
@@ -1053,6 +1263,8 @@ WebGLPipeline::ProgramInfo *WebGLPipeline::getProgram(WebGLDevice *dev, unsigned
 			p = 0;
 		}
 		info->prog = p;
+		if (p && !m_programCacheDir.empty())
+			saveCachedProgram(sourceHash, p);
 	}
 	if (vsh) glDeleteShader(vsh);
 	if (fsh) glDeleteShader(fsh);
@@ -1409,6 +1621,32 @@ static bool prepareLevelUpload(D3DFORMAT fmt, unsigned w, unsigned h,
 	}
 }
 
+// GeneralsX @performance Android port 27/09/2026 A software-decoded DXT1 level repacked to
+// 16 bits per texel. DXT1's colours are RGB565 endpoints (and their interpolations) with at
+// most a 1-bit alpha, so RGB565 -- or RGB5_A1 when the texture uses its punch-through
+// alpha -- keeps what the format can express at half the memory and bandwidth of the RGBA8
+// the decoder produces; on a GPU without S3TC (Mali) that is still 4x the compressed size
+// instead of 8x. DXT3/DXT5 keep RGBA8: their alpha gradients would band in 4 bits.
+static void packRGBA8To16(UploadDesc *up, unsigned w, unsigned h, bool withAlpha)
+{
+	const size_t texels = (size_t)w * h;
+	std::vector<uint8_t> packed(texels * 2);
+	const uint8_t *src = up->converted.data();
+	uint16_t *dst = reinterpret_cast<uint16_t *>(packed.data());
+	for (size_t i = 0; i < texels; i++) {
+		const uint8_t r = src[i * 4 + 0], g = src[i * 4 + 1], b = src[i * 4 + 2], a = src[i * 4 + 3];
+		if (withAlpha)
+			dst[i] = (uint16_t)(((r >> 3) << 11) | ((g >> 3) << 6) | ((b >> 3) << 1) | (a >= 128 ? 1 : 0));
+		else
+			dst[i] = (uint16_t)(((r >> 3) << 11) | ((g >> 2) << 5) | (b >> 3));
+	}
+	up->converted.swap(packed);
+	up->pixels = up->converted.data();
+	up->internalFormat = withAlpha ? GL_RGB5_A1 : GL_RGB565;
+	up->format = withAlpha ? GL_RGBA : GL_RGB;
+	up->type = withAlpha ? GL_UNSIGNED_SHORT_5_5_5_1 : GL_UNSIGNED_SHORT_5_6_5;
+}
+
 void WebGLPipeline::uploadTexture(WebGLTexture *tex)
 {
 	GLTextureState &g = tex->m_gl;
@@ -1421,11 +1659,30 @@ void WebGLPipeline::uploadTexture(WebGLTexture *tex)
 	const bool isDXT = FormatIsDXT(tex->m_format);
 
 	int uploaded = 0;
+	// Decided on level 0 and kept for every level: a mip chain whose levels differ in
+	// internal format is incomplete in GL and samples as black.
+	const bool dxt16 = m_opt.dxt565 && !m_hasS3TC && tex->m_format == D3DFMT_DXT1;
+	int dxt16Alpha = -1;
 	for (int lvl = 0; lvl < levels; lvl++) {
 		WebGLSurface *s = tex->m_levels[lvl];
 		UploadDesc up;
-		if (!prepareLevelUpload(tex->m_format, s->m_width, s->m_height,
-		                        s->m_bits.data(), s->m_bits.size(), m_hasS3TC, &up)) {
+		const bool prepared = prepareLevelUpload(tex->m_format, s->m_width, s->m_height,
+		                        s->m_bits.data(), s->m_bits.size(), m_hasS3TC, &up);
+		if (prepared && dxt16 && !up.compressed && up.type == GL_UNSIGNED_BYTE) {
+			if (dxt16Alpha < 0) {
+				dxt16Alpha = 0;
+				for (size_t i = 3; i < up.converted.size(); i += 4) {
+					if (up.converted[i] != 255) {
+						dxt16Alpha = 1;
+						break;
+					}
+				}
+			}
+			packRGBA8To16(&up, s->m_width, s->m_height, dxt16Alpha == 1);
+			m_perfDxt16Levels++;
+			m_perfDxt16SavedBytes += (double)s->m_width * s->m_height * 2;
+		}
+		if (!prepared) {
 			// Unknown format: upload magenta so it is visible, not crashy.
 			std::vector<uint8_t> mag((size_t)s->m_width * s->m_height * 4);
 			for (size_t i = 0; i < mag.size(); i += 4) {
@@ -2137,7 +2394,8 @@ extern "C" int d3d8gles_SetDrawCategory(int category)
 void WebGLPipeline::drawCommon(WebGLDevice *dev, unsigned primType, unsigned primCount,
                                GLuint vbo, unsigned stride, unsigned fvf,
                                GLuint ibo, unsigned indexFormat,
-                               unsigned startIndex, int baseVertexBytes, unsigned /*vertexCount*/)
+                               unsigned startIndex, int baseVertexBytes, unsigned /*vertexCount*/,
+                               int baseVertexIndex)
 {
 	FVFLayout l;
 	if (!parseFVF(fvf, &l)) {
@@ -2153,7 +2411,13 @@ void WebGLPipeline::drawCommon(WebGLDevice *dev, unsigned primType, unsigned pri
 	applyUniforms(dev, prog, fvf);
 	bindTextures(dev, prog);
 
-	bindVertexLayout(l, vbo, ibo, fvf, stride, baseVertexBytes);
+	// GeneralsX @performance Android port 27/09/2026 D3D8's base vertex index (SetIndices'
+	// second argument) is what glDrawElementsBaseVertex takes. Without it the offset has to be
+	// baked into the attribute pointers, and the engine's shared dynamic vertex pool moves it on
+	// most draws -- a real device log showed 26-60% of all draws re-issuing every
+	// glVertexAttribPointer for that alone (the perf line's "ptr-refresh").
+	const bool useBaseVertex = indexFormat != 0 && baseVertexIndex > 0 && m_glDrawElementsBaseVertex != nullptr;
+	bindVertexLayout(l, vbo, ibo, fvf, stride, useBaseVertex ? 0 : baseVertexBytes);
 
 	const GLenum mode = primModeGL(primType);
 	const unsigned count = primVertexCount(primType, primCount);
@@ -2161,7 +2425,12 @@ void WebGLPipeline::drawCommon(WebGLDevice *dev, unsigned primType, unsigned pri
 	if (indexFormat != 0) {
 		const GLenum itype = (indexFormat == D3DFMT_INDEX32) ? GL_UNSIGNED_INT : GL_UNSIGNED_SHORT;
 		const unsigned isize = (indexFormat == D3DFMT_INDEX32) ? 4 : 2;
-		glDrawElements(mode, count, itype, (const void *)(intptr_t)(startIndex * isize));
+		if (useBaseVertex) {
+			m_glDrawElementsBaseVertex(mode, count, itype, (const void *)(intptr_t)(startIndex * isize), baseVertexIndex);
+			m_perfBaseVertexDraws++;
+		} else {
+			glDrawElements(mode, count, itype, (const void *)(intptr_t)(startIndex * isize));
+		}
 	} else {
 		glDrawArrays(mode, startIndex, count);
 	}
@@ -2349,11 +2618,43 @@ void WebGLPipeline::ensureIBUploaded(WebGLIndexBuffer *ib)
 // driver-portable way to ask for a new backing allocation instead of
 // waiting; mobile GL drivers are the ones most likely to need this spelled
 // out rather than inferring it from the "same size, new data" pattern alone.
+// One-off upload for a *UP draw that does not fit the streaming ring (or with the ring
+// switched off). glBufferData with the data respecifies the storage by itself; the extra
+// nullptr respecification that used to precede it only cost a second allocation per draw.
 static void orphanAndUpload(GLenum target, GLuint buffer, size_t size, const void *data, GLenum usage)
 {
 	glBindBuffer(target, buffer);
-	glBufferData(target, size, nullptr, usage);
 	glBufferData(target, size, data, usage);
+}
+
+// GeneralsX @performance Android port 27/09/2026 Append to a streaming ring, the D3D "dynamic
+// buffer" pattern ToGL and WineD3D use for DrawPrimitiveUP. An unsynchronized map is safe
+// because a *UP draw's data is used by that draw only (the engine hands over a pointer per
+// call and never refers back to it), so bytes behind the write position are dead for every
+// later draw, and on wrap the storage is orphaned: draws still in flight keep the old block.
+size_t WebGLPipeline::streamToRing(GLuint buffer, size_t capacity, size_t *offset,
+                                   const void *data, size_t bytes, size_t align)
+{
+	if (bytes == 0 || bytes > capacity || align == 0)
+		return (size_t)-1;
+	size_t start = (*offset + align - 1) / align * align;
+	glBindBuffer(GL_COPY_WRITE_BUFFER, buffer);
+	if (start + bytes > capacity) {
+		glBufferData(GL_COPY_WRITE_BUFFER, capacity, nullptr, GL_STREAM_DRAW);
+		start = 0;
+		m_perfUpRingWraps++;
+	}
+	void *dst = glMapBufferRange(GL_COPY_WRITE_BUFFER, start, bytes,
+		GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_RANGE_BIT | GL_MAP_UNSYNCHRONIZED_BIT);
+	if (dst) {
+		memcpy(dst, data, bytes);
+		glUnmapBuffer(GL_COPY_WRITE_BUFFER);
+	} else {
+		glBufferSubData(GL_COPY_WRITE_BUFFER, start, bytes, data);
+	}
+	*offset = start + bytes;
+	m_perfUpRingBytes += (double)bytes;
+	return start;
 }
 
 void WebGLPipeline::drawIndexed(WebGLDevice *dev, unsigned primType, unsigned /*minIndex*/,
@@ -2371,7 +2672,8 @@ void WebGLPipeline::drawIndexed(WebGLDevice *dev, unsigned primType, unsigned /*
 	const unsigned stride = dev->getStream0Stride();
 	const int baseBytes = (int)(dev->getBaseVertexIndex() * stride);
 	drawCommon(dev, primType, primCount, vb->m_gl.name, stride, fvf,
-	           ib->m_gl.name, ib->m_format, startIndex, baseBytes, numVertices);
+	           ib->m_gl.name, ib->m_format, startIndex, baseBytes, numVertices,
+	           (int)dev->getBaseVertexIndex());
 }
 
 void WebGLPipeline::draw(WebGLDevice *dev, unsigned primType, unsigned startVertex, unsigned primCount)
@@ -2398,6 +2700,16 @@ void WebGLPipeline::drawUP(WebGLDevice *dev, unsigned primType, unsigned primCou
 	if (stride == 0) stride = l.stride;
 
 	const unsigned vcount = primVertexCount(primType, primCount);
+	if (m_opt.upRing && m_upRingVB) {
+		const size_t offset = streamToRing(m_upRingVB, kUpRingVBBytes, &m_upRingVBOffset,
+			vertexData, (size_t)vcount * stride, stride);
+		if (offset != (size_t)-1) {
+			m_perfUpRingDraws++;
+			drawCommon(dev, primType, primCount, m_upRingVB, stride, fvf, 0, 0,
+			           (unsigned)(offset / stride), 0, vcount);
+			return;
+		}
+	}
 	orphanAndUpload(GL_COPY_WRITE_BUFFER, m_upVBO, (size_t)vcount * stride, vertexData, GL_STREAM_DRAW);
 
 	drawCommon(dev, primType, primCount, m_upVBO, stride, fvf, 0, 0, 0, 0, vcount);
@@ -2414,11 +2726,26 @@ void WebGLPipeline::drawIndexedUP(WebGLDevice *dev, unsigned primType, unsigned 
 	if (!parseFVF(fvf, &l)) return;
 	if (stride == 0) stride = l.stride;
 
-	orphanAndUpload(GL_COPY_WRITE_BUFFER, m_upVBO, (size_t)(minVertexIdx + numVertices) * stride,
-	                vertexData, GL_STREAM_DRAW);
-
 	const unsigned isize = (indexFormat == D3DFMT_INDEX32) ? 4 : 2;
 	const unsigned icount = primVertexCount(primType, primCount);
+	if (m_opt.upRing && m_upRingVB && m_upRingIB) {
+		const size_t vbytes = (size_t)(minVertexIdx + numVertices) * stride;
+		const size_t ibytes = (size_t)icount * isize;
+		if (vbytes <= kUpRingVBBytes && ibytes <= kUpRingIBBytes) {
+			const size_t voffset = streamToRing(m_upRingVB, kUpRingVBBytes, &m_upRingVBOffset,
+				vertexData, vbytes, stride);
+			const size_t ioffset = streamToRing(m_upRingIB, kUpRingIBBytes, &m_upRingIBOffset,
+				indexData, ibytes, isize);
+			if (voffset != (size_t)-1 && ioffset != (size_t)-1) {
+				m_perfUpRingDraws++;
+				drawCommon(dev, primType, primCount, m_upRingVB, stride, fvf, m_upRingIB, indexFormat,
+				           (unsigned)(ioffset / isize), (int)voffset, numVertices, (int)(voffset / stride));
+				return;
+			}
+		}
+	}
+	orphanAndUpload(GL_COPY_WRITE_BUFFER, m_upVBO, (size_t)(minVertexIdx + numVertices) * stride,
+	                vertexData, GL_STREAM_DRAW);
 	orphanAndUpload(GL_COPY_WRITE_BUFFER, m_upIBO, (size_t)icount * isize, indexData, GL_STREAM_DRAW);
 
 	drawCommon(dev, primType, primCount, m_upVBO, stride, fvf, m_upIBO, indexFormat, 0, 0, numVertices);
@@ -2617,11 +2944,17 @@ void WebGLPipeline::readbackRenderTarget(WebGLTexture *tex)
 	}
 	if (s->m_bits.size() < (size_t)h * s->m_pitch) return;
 
+	// GeneralsX @performance Android port 27/09/2026 glReadPixels drains the GPU; counted and
+	// timed in the perf log (perf-opt: rt-readback) to tell whether this is a per-frame cost.
+	const std::chrono::steady_clock::time_point readStart = std::chrono::steady_clock::now();
 	m_rtReadback.resize((size_t)w * h * 4);
 	glBindFramebuffer(GL_FRAMEBUFFER, tex->m_gl.fbo);
 	glPixelStorei(GL_PACK_ALIGNMENT, 1);
 	glReadPixels(0, 0, w, h, GL_RGBA, GL_UNSIGNED_BYTE, m_rtReadback.data());
 	glBindFramebuffer(GL_FRAMEBUFFER, m_curFBO);
+	m_perfRTReadbacks++;
+	m_perfRTReadbackUs += std::chrono::duration<double, std::micro>(
+		std::chrono::steady_clock::now() - readStart).count();
 
 	// Row 0 of this FBO's texture attachment is D3D's top row (setRenderTarget
 	// keeps m_yFlip at +1 precisely so it lands there), and glReadPixels
@@ -2692,9 +3025,13 @@ void WebGLPipeline::present()
 	if (!m_ctxReady) return;
 	m_frame++;
 
-	GLenum err = glGetError();
-	if (err != GL_NO_ERROR && (m_frame % 60) == 1) {
-		fprintf(stderr, "[d3d8gles] glGetError at frame %u: 0x%x\n", m_frame, err);
+	// GeneralsX @performance Android port 27/09/2026 Asked once a second, not every frame: a
+	// glGetError can make the driver flush its command queue, and only the once-a-second
+	// answer was ever printed. GL keeps the error flag set until it is read.
+	if ((m_frame % 60) == 1) {
+		const GLenum err = glGetError();
+		if (err != GL_NO_ERROR)
+			fprintf(stderr, "[d3d8gles] glGetError at frame %u: 0x%x\n", m_frame, err);
 	}
 
 	// GeneralsX @build Android port GLES experiment - perf visibility.
@@ -2810,6 +3147,17 @@ void WebGLPipeline::present()
 					(unsigned)m_curFBO, m_yFlip);
 			}
 			DumpLiveTextureShapes();
+			// GeneralsX @performance Android port 27/09/2026 What each translator optimization
+			// did in this window: base-vertex draws (each one a pointer refresh saved), *UP draws
+			// through the ring, program binaries loaded from and saved to disk, render-target
+			// readbacks and their total stall, DXT1 levels uploaded at 16 bpp.
+			const double frames = m_perfFrameCount > 0 ? (double)m_perfFrameCount : 1.0;
+			fprintf(stderr, "[d3d8gles] perf-opt: basevertex=%.1f/frame upring=%.1f/frame (%.0f KB/frame, %d wraps) "
+				"progcache load=%d save=%d rt-readback=%d (%.1f ms) dxt16 levels=%d (%.1f MB saved)\n",
+				m_perfBaseVertexDraws / frames, m_perfUpRingDraws / frames, m_perfUpRingBytes / 1024.0 / frames,
+				m_perfUpRingWraps, m_perfProgramCacheLoads, m_perfProgramCacheSaves,
+				m_perfRTReadbacks, m_perfRTReadbackUs / 1000.0,
+				m_perfDxt16Levels, m_perfDxt16SavedBytes / (1024.0 * 1024.0));
 			m_perfLogLastMs = nowMs;
 			m_perfFrameCount = 0;
 			m_perfDrawAccum = 0;
@@ -2832,6 +3180,17 @@ void WebGLPipeline::present()
 			m_perfUniformLightingMisses = 0;
 			m_perfProgramBuilds = 0;
 			m_perfProgramBuildUs = 0.0;
+
+			m_perfBaseVertexDraws = 0;
+			m_perfUpRingDraws = 0;
+			m_perfUpRingWraps = 0;
+			m_perfUpRingBytes = 0.0;
+			m_perfProgramCacheLoads = 0;
+			m_perfProgramCacheSaves = 0;
+			m_perfRTReadbacks = 0;
+			m_perfRTReadbackUs = 0.0;
+			m_perfDxt16Levels = 0;
+			m_perfDxt16SavedBytes = 0.0;
 		}
 	}
 

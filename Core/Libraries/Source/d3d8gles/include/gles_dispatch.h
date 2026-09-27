@@ -19,3 +19,8 @@
 // back to linking against system GLESv3 in that case.
 bool d3d8gles_LoadGLESDispatch(const char *libName);
 
+// GeneralsX @performance Android port 27/09/2026 An entry point that may legitimately be
+// missing (an extension, or an ES 3.2 function on a 3.0 driver), from the same library as the
+// dispatch above; nullptr when absent. Callers fall back to EGL's eglGetProcAddress for
+// extension names and keep a working path for when neither has it.
+void *d3d8gles_GetOptionalGLProc(const char *name);

@@ -629,6 +629,16 @@ GL_APICALL void GL_APIENTRY glViewport(GLint x, GLint y, GLsizei width, GLsizei 
 
 } // extern "C"
 
+// The library every required entry point below came from; optional ones (extensions, ES 3.2
+// functions a 3.0 driver may not export) are looked up in the same place by
+// d3d8gles_GetOptionalGLProc, so they can never mix implementations with the rest.
+static void *s_glesLib = nullptr;
+
+void *d3d8gles_GetOptionalGLProc(const char *name)
+{
+	return s_glesLib ? dlsym(s_glesLib, name) : nullptr;
+}
+
 bool d3d8gles_LoadGLESDispatch(const char *libName)
 {
 	void *lib = dlopen(libName, RTLD_NOW | RTLD_GLOBAL);
@@ -636,6 +646,7 @@ bool d3d8gles_LoadGLESDispatch(const char *libName)
 		fprintf(stderr, "[d3d8gles] GLES dispatch: dlopen(%s) failed: %s\n", libName, dlerror());
 		return false;
 	}
+	s_glesLib = lib;
 
 	bool ok = true;
 	d3d8gles_pfn_glActiveTexture = reinterpret_cast<PFN_glActiveTexture>(dlsym(lib, "glActiveTexture"));

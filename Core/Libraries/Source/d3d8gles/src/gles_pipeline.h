@@ -33,6 +33,7 @@
 #include <GLES3/gl3.h>
 #include <cstdint>
 #include <cstring>
+#include <string>
 #include <unordered_map>
 #include <vector>
 
@@ -170,10 +171,14 @@ private:
 	// cache hit skips touching those bindings entirely, and content uploads
 	// (ensureVBUploaded/ensureIBUploaded) go through GL_COPY_WRITE_BUFFER,
 	// never GL_ARRAY_BUFFER/GL_ELEMENT_ARRAY_BUFFER, for the same reason.
+	// baseVertexIndex is the same offset as baseVertexBytes, in vertices: with
+	// glDrawElementsBaseVertex available the offset goes into the draw call and the VAO's
+	// attribute pointers stay at 0 (see m_glDrawElementsBaseVertex).
 	void drawCommon(WebGLDevice *dev, unsigned primType, unsigned primCount,
 	                GLuint vbo, unsigned stride, unsigned fvf,
 	                GLuint ibo, unsigned indexFormat,
-	                unsigned startIndex, int baseVertexBytes, unsigned vertexCount);
+	                unsigned startIndex, int baseVertexBytes, unsigned vertexCount,
+	                int baseVertexIndex = 0);
 
 	ProgramInfo *getProgram(WebGLDevice *dev, unsigned fvf);
 	void applyFixedState(WebGLDevice *dev);
@@ -481,6 +486,68 @@ private:
 	std::vector<uint8_t> m_rtReadback;
 	GLuint m_upVBO = 0;
 	GLuint m_upIBO = 0;
+
+	// GeneralsX @performance Android port 27/09/2026 Techniques other D3D->GL translators rely
+	// on (Valve's ToGL, WineD3D, ANGLE), each switchable off from the game folder so a
+	// regression on one device can be isolated from a log without a new build: the file
+	// gx_gles_noopt.txt disables every one of them when empty, or only the ones it names
+	// (basevertex, upring, progcache, dxt565). See loadOptimizationSwitches() in the .cpp.
+	struct OptimizationSwitches {
+		bool baseVertex = true;   // glDrawElementsBaseVertex instead of re-pointing attributes
+		bool upRing = true;       // one streaming ring buffer for the *UP draws
+		bool programCache = true; // linked program binaries kept on disk between launches
+		bool dxt565 = true;       // DXT1 decoded to 16 bpp, not 32, where S3TC is missing
+	};
+	OptimizationSwitches m_opt;
+	void loadOptimizationSwitches();
+
+	typedef void (GL_APIENTRY *PFN_DrawElementsBaseVertex)(GLenum mode, GLsizei count, GLenum type,
+		const void *indices, GLint basevertex);
+	PFN_DrawElementsBaseVertex m_glDrawElementsBaseVertex = nullptr;
+	int m_perfBaseVertexDraws = 0;
+
+	// Streaming ring for DrawPrimitiveUP/DrawIndexedPrimitiveUP: appended to with an
+	// unsynchronized map, orphaned only when it wraps -- the D3D "dynamic buffer" pattern
+	// ToGL and WineD3D use, instead of two glBufferData respecifications per draw.
+	static const size_t kUpRingVBBytes = 4u << 20;
+	static const size_t kUpRingIBBytes = 1u << 20;
+	GLuint m_upRingVB = 0;
+	GLuint m_upRingIB = 0;
+	size_t m_upRingVBOffset = 0;
+	size_t m_upRingIBOffset = 0;
+	// Returns the byte offset the data landed at, or (size_t)-1 when it cannot go through
+	// the ring (larger than the ring itself); the caller then takes the one-off path.
+	size_t streamToRing(GLuint buffer, size_t capacity, size_t *offset,
+	                    const void *data, size_t bytes, size_t align);
+	int m_perfUpRingDraws = 0;
+	int m_perfUpRingWraps = 0;
+	double m_perfUpRingBytes = 0.0;
+
+	// Program binaries on disk (glGetProgramBinary/glProgramBinary, core in GLES 3.0): a
+	// shader variant is compiled once per install instead of once per launch, which is
+	// where the first-appearance hitches of an effect come from.
+	typedef void (GL_APIENTRY *PFN_GetProgramBinary)(GLuint program, GLsizei bufSize, GLsizei *length,
+		GLenum *binaryFormat, void *binary);
+	typedef void (GL_APIENTRY *PFN_ProgramBinary)(GLuint program, GLenum binaryFormat,
+		const void *binary, GLsizei length);
+	typedef void (GL_APIENTRY *PFN_ProgramParameteri)(GLuint program, GLenum pname, GLint value);
+	PFN_GetProgramBinary m_glGetProgramBinary = nullptr;
+	PFN_ProgramBinary m_glProgramBinary = nullptr;
+	PFN_ProgramParameteri m_glProgramParameteri = nullptr;
+	std::string m_programCacheDir;
+	uint64_t m_driverHash = 0;
+	GLuint loadCachedProgram(uint64_t sourceHash);
+	void saveCachedProgram(uint64_t sourceHash, GLuint program);
+	int m_perfProgramCacheLoads = 0;
+	int m_perfProgramCacheSaves = 0;
+
+	// Render-target readbacks (glReadPixels, a full GPU drain each): counted and timed so a
+	// log says whether this is a per-frame cost before anything replaces it.
+	int m_perfRTReadbacks = 0;
+	double m_perfRTReadbackUs = 0.0;
+
+	int m_perfDxt16Levels = 0;
+	double m_perfDxt16SavedBytes = 0.0;
 
 	// Program cache: key -> program.
 	static const int kMaxPrograms = 256;
