@@ -290,10 +290,39 @@ void ArchiveFileSystem::loadMods()
 		const Bool disabled = disableMarkerPath.isNotEmpty()
 			&& TheLocalFileSystem->doesFileExist(disableMarkerPath.str());
 
+		// GeneralsX @bugfix Android port 27/09/2026 Not with a mod. The patch is the whole Zero
+		// Hour INI set re-laid out as directories (Data\INI\CommandButton\*.ini, Object\...,
+		// with CommandButton.ini itself emptied). A mod such as Contra 007 (!Contra007.big)
+		// replaces the single-file originals and wins on the files both have, but not on the
+		// patch's directory files, so both sets of definitions got loaded and the mod stopped
+		// starting -- on 1.2.2, before the patch existed, it ran. The patch only exists to match
+		// a PC lobby's INI checksum, which a modded install cannot match anyway. Mods name their
+		// archives with a leading '!' so that they sort ahead of the retail ones (which all start
+		// with a letter); -mod is the other way a mod is loaded.
+		AsciiString modArchive;
+		for (ArchiveFileMap::const_iterator it = m_archiveFileMap.begin(); it != m_archiveFileMap.end(); ++it)
+		{
+			const AsciiString base = getBaseFilename(it->first);
+			if (base.isNotEmpty() && base.getCharAt(0) == '!')
+			{
+				modArchive = base;
+				break;
+			}
+		}
+		if (modArchive.isEmpty() && TheGlobalData->m_modBIG.isNotEmpty())
+			modArchive = TheGlobalData->m_modBIG;
+		if (modArchive.isEmpty() && TheGlobalData->m_modDir.isNotEmpty())
+			modArchive = TheGlobalData->m_modDir;
+
 		if (disabled)
 		{
 			fprintf(stderr, "[gxbig] community patch disabled by %s; INI stays retail\n",
 				disableMarkerPath.str());
+		}
+		else if (modArchive.isNotEmpty())
+		{
+			fprintf(stderr, "[gxbig] community patch not mounted: a mod is installed (%s), and the "
+				"patch would mix its own INI files into the mod's\n", modArchive.str());
 		}
 		else if (patchPath.isNotEmpty() && TheLocalFileSystem->doesFileExist(patchPath.str()))
 		{
