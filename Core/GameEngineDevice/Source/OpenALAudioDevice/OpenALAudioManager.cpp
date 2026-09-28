@@ -40,6 +40,7 @@
 
 #include "Lib/BaseType.h"
 #include "GXTrace.h"
+#include <chrono>
 #include "OpenALAudioDevice/OpenALAudioManager.h"
 #include "OpenALAudioDevice/OpenALAudioStream.h"
 #include "OpenALAudioCache.h"
@@ -85,7 +86,6 @@ static const Int DISALLOW_SPEECH_MAX_FRAMES = 30 * 15;
 
 extern "C" {
 #include <libavcodec/avcodec.h>
-#include <chrono>
 #include <libavutil/avutil.h>
 }
 
