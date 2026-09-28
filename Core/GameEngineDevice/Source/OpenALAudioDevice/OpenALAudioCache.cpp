@@ -9,8 +9,12 @@ extern "C" {
 #include "Common/file.h"
 #include "Common/FileSystem.h"
 
+#include <algorithm>
+#include <chrono>
 #include <cstring>
 #include <limits>
+#include <utility>
+#include <vector>
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
@@ -122,8 +126,27 @@ ALuint OpenALAudioFileCache::getBufferForFile(const OpenFileInfo &fileInfo)
 
 	if (it != m_openFiles.end()) {
 		++it->second.m_openCount;
+		it->second.m_lastUse = ++m_useClock;
+		++m_stats.hits;
 		return it->second.m_buffer;
 	}
+
+	// GeneralsX @performance Android port 28/09/2026 Time every miss: opening, probing and
+	// decoding a file happens right here on the main thread, in the frame that plays it.
+	const std::chrono::steady_clock::time_point missStart = std::chrono::steady_clock::now();
+	struct MissTimer
+	{
+		OpenALAudioCacheStats &stats;
+		std::chrono::steady_clock::time_point start;
+		~MissTimer()
+		{
+			const double ms = std::chrono::duration<double, std::milli>(std::chrono::steady_clock::now() - start).count();
+			++stats.misses;
+			stats.decodeMs += ms;
+			if (ms > stats.decodeMaxMs)
+				stats.decodeMaxMs = ms;
+		}
+	} missTimer = { m_stats, missStart };
 
 	// Couldn't find the file, so actually open it.
 	File* file = TheFileSystem->openFile(strToFind.str());
@@ -167,6 +190,7 @@ ALuint OpenALAudioFileCache::getBufferForFile(const OpenFileInfo &fileInfo)
 		// We need to free some samples, or we're not going to be able to play this sound.
 		if (!freeEnoughSpaceForSample(openedAudioFile)) {
 			DEBUG_LOG(("Couldn't free enough space for sample\n"));
+			++m_stats.dropped;
 			m_currentlyUsedSize -= openedAudioFile.m_fileSize;
 			releaseOpenAudioFile(&openedAudioFile);
 			return 0;
@@ -184,6 +208,7 @@ ALuint OpenALAudioFileCache::getBufferForFile(const OpenFileInfo &fileInfo)
 	// full for good: every new sound was decoded in full with FFmpeg and then thrown away, on
 	// the main thread, which on the old Mali test phone grew to 5-15 ms of every frame in battle.
 	openedAudioFile.m_openCount = 1;
+	openedAudioFile.m_lastUse = ++m_useClock;
 	m_openFiles[strToFind] = openedAudioFile;
 	return openedAudioFile.m_buffer;
 }
@@ -266,18 +291,26 @@ Bool OpenALAudioFileCache::freeEnoughSpaceForSample(const OpenAudioFile& sampleT
 	std::list<AsciiString> filesToClose;
 	// First, search for any samples that have ref counts of 0. They are low-hanging fruit, and 
 	// should be considered immediately.
+	//
+	// GeneralsX @performance Android port 28/09/2026 Oldest first. The hash map's iteration
+	// order is arbitrary, so this used to evict whichever idle sounds the hash happened to list
+	// first -- in a battle, as often as not the gunfire that was about to play again, which then
+	// had to be opened and decoded on the main thread once more. Least recently used goes first.
+	std::vector< std::pair<UnsignedInt, OpenFilesHashIt> > idle;
 	OpenFilesHashIt it;
 	for (it = m_openFiles.begin(); it != m_openFiles.end(); ++it) {
 		if (it->second.m_openCount == 0) {
-			// This is said low-hanging fruit.
-			filesToClose.push_back(it->first);
-
-			runningTotal += it->second.m_fileSize;
-
-			if (runningTotal >= spaceRequired) {
-				break;
-			}
+			idle.push_back(std::make_pair(it->second.m_lastUse, it));
 		}
+	}
+	std::sort(idle.begin(), idle.end(),
+		[](const std::pair<UnsignedInt, OpenFilesHashIt> &a, const std::pair<UnsignedInt, OpenFilesHashIt> &b) {
+			return a.first < b.first;
+		});
+	for (size_t i = 0; i < idle.size() && runningTotal < spaceRequired; ++i) {
+		// This is said low-hanging fruit.
+		filesToClose.push_back(idle[i].second->first);
+		runningTotal += idle[i].second->second.m_fileSize;
 	}
 
 	// If we don't have enough space yet, then search through the events who have a count of 1 or more
@@ -314,6 +347,7 @@ Bool OpenALAudioFileCache::freeEnoughSpaceForSample(const OpenAudioFile& sampleT
 			releaseOpenAudioFile(&itToErase->second);
 			m_currentlyUsedSize -= itToErase->second.m_fileSize;
 			m_openFiles.erase(itToErase);
+			++m_stats.evicted;
 		}
 	}
 
