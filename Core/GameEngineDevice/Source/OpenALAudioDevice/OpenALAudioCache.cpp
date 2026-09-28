@@ -173,6 +173,17 @@ ALuint OpenALAudioFileCache::getBufferForFile(const OpenFileInfo &fileInfo)
 		}
 	}
 
+	// GeneralsX @bugfix Android port 28/09/2026 The caller is about to play this buffer, so it
+	// enters the cache with one user, as MilesAudioFileCache::openFile does (m_openCount = 1).
+	// Left at 0, two things went wrong at once. While the sound played, freeEnoughSpaceForSample
+	// took it for an unused entry and deleted its buffer under the playing source -- OpenAL
+	// refuses that, so the PCM leaked and the cache only believed it had freed the space
+	// (the al::base_exception traces from alDeleteBuffers in device logs). And when the sound
+	// ended, closeBuffer() decremented 0, wrapping the unsigned count to 4294967295, so the
+	// entry never counted as unused again. Once about 14 MB of sounds had played the cache was
+	// full for good: every new sound was decoded in full with FFmpeg and then thrown away, on
+	// the main thread, which on the old Mali test phone grew to 5-15 ms of every frame in battle.
+	openedAudioFile.m_openCount = 1;
 	m_openFiles[strToFind] = openedAudioFile;
 	return openedAudioFile.m_buffer;
 }
