@@ -1223,10 +1223,15 @@ void GameEngine::update()
 				TheFramePacer->setFramesPerSecondLimit(NGMP_OnlineServicesManager::Settings.Graphics_GetFPSLimit());
 				TheWritableGlobalData->m_useFpsLimit = NGMP_OnlineServicesManager::Settings.Graphics_GetFPSLimit();
 			}
-			else
+			else if (!TheGameLogic->isInGame() || TheShell->isShellActive())
 			{
 				TheFramePacer->setFramesPerSecondLimit(GENERALS_ONLINE_HIGH_FPS_LIMIT);
 			}
+			// GeneralsX @bugfix Android port 28/09/2026 An offline game keeps the limit
+			// MSG_NEW_GAME set from the skirmish Game Speed slider (GameLogicDispatch.cpp). This
+			// block used to reset it to GENERALS_ONLINE_HIGH_FPS_LIMIT on every frame of every
+			// game, so the slider did nothing: a skirmish on 1.3.0 ran at 30 fps on a phone that
+			// ran it at 45-60 on 1.2.2, where this block did not exist.
 #endif
 
 			if (gxPerfTrace) gxT0 = std::chrono::steady_clock::now();
