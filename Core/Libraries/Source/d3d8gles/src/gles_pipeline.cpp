@@ -584,9 +584,16 @@ bool WebGLPipeline::initContext(int w, int h, SDL_Window *window)
 
 // GeneralsX @performance Android port 27/09/2026 gx_gles_noopt.txt in the game folder turns the
 // translator optimizations off: all of them when it is empty, or only those it names. Same
-// convention as the other gx_*.txt switches -- presence (and content) is the switch.
+// convention as the other gx_*.txt switches -- presence (and content) is the switch. The one
+// that is off by default (base-vertex draws, see OptimizationSwitches) is turned on by
+// gx_gles_basevertex.txt instead.
 void WebGLPipeline::loadOptimizationSwitches()
 {
+	if (FILE *optIn = fopen("gx_gles_basevertex.txt", "r")) {
+		fclose(optIn);
+		m_opt.baseVertex = true;
+		fprintf(stderr, "[d3d8gles] gx_gles_basevertex.txt: base-vertex draws enabled (experimental)\n");
+	}
 	FILE *f = fopen("gx_gles_noopt.txt", "r");
 	if (!f)
 		return;

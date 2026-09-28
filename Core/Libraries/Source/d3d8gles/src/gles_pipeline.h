@@ -493,7 +493,13 @@ private:
 	// gx_gles_noopt.txt disables every one of them when empty, or only the ones it names
 	// (basevertex, upring, progcache, dxt565). See loadOptimizationSwitches() in the .cpp.
 	struct OptimizationSwitches {
-		bool baseVertex = true;   // glDrawElementsBaseVertex instead of re-pointing attributes
+		// Off by default: on an Adreno 8xx (ES 3.2 core entry point) it broke stencil shadow
+		// volumes into long streaks and made UI widgets flicker out, confirmed by switching it
+		// alone off with gx_gles_noopt.txt. The likely mechanism is the driver's cached index
+		// range going stale under the unsynchronized dynamic-buffer writes (see
+		// LESSON-gles-dynamic-buffer-stalls.md). Opt in with gx_gles_basevertex.txt to test
+		// it on another GPU.
+		bool baseVertex = false;  // glDrawElementsBaseVertex instead of re-pointing attributes
 		bool upRing = true;       // one streaming ring buffer for the *UP draws
 		bool programCache = true; // linked program binaries kept on disk between launches
 		bool dxt565 = true;       // DXT1 decoded to 16 bpp, not 32, where S3TC is missing

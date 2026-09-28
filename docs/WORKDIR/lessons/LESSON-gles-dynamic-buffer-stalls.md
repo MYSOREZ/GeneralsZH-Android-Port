@@ -187,3 +187,11 @@ device) and `[d3d8gles] perf-opt:` (what each did per window). If a device regre
 `progcache`, `dxt565` -- and compare, one name at a time. The unsynchronized ring is safe for the
 same reason the lesson above demands be written down: a *UP draw's data is referenced by that
 draw only.
+
+**Result of that round (28/09/2026):** base-vertex draws broke rendering on Adreno 8xx (stencil
+shadow volumes streaked, UI widgets flickered out) and were switched off by default; the A/B
+through gx_gles_noopt.txt named them in one test without a rebuild, which is exactly what the
+switches were for. Suspected, not proven: a driver-side cached index range that unsynchronized
+writes to the dynamic buffers never invalidate -- so **an optimization that changes how the
+driver reads a buffer the engine writes without synchronization needs a device test before it
+ships, however standard it is elsewhere.**
