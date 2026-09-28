@@ -358,6 +358,7 @@ struct TouchState {
 	float lastX = 0.0f, lastY = 0.0f;   // finger1 latest position (pixels)
 	Uint64 downTicks = 0;
 	GameWindow *listBox = nullptr;      // list box under finger1 at touch-down, see LIST_SCROLL
+	Bool uiPressDisabled = FALSE;       // UI_PRESS started on a disabled button (read-only hold)
 
 	// GeneralsX @feature Android port 01/08/2026 Native touch camera control:
 	// pan/zoom go straight to TheTacticalView (userScrollBy/userZoom), driven
@@ -969,7 +970,27 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 			GameWindow *uiHit = TheWindowManager
 				? TheWindowManager->getWindowUnderCursor((Int)px, (Int)py)
 				: nullptr;
+			// GeneralsX @bugfix Android port 28/09/2026 A DISABLED button is a UI press too.
+			// getWindowUnderCursor() does not descend into disabled windows, so on a command
+			// the player cannot use yet (missing prerequisite) or has already used (purchased
+			// upgrade) it returned the command panel behind it, this test said "not UI", and
+			// the touch went down the battlefield path -- the control bar was never told a
+			// finger was held there and could not keep the button's description up. Descend
+			// from the hit container, and from it only, with ignoreEnabled: a global
+			// ignoreEnabled hit test would also find disabled overlay windows such as the
+			// description popup itself. The press is still delivered as a mouse press, which
+			// the window manager routes by its own enabled-only hit test, so a disabled
+			// button stays unpressable exactly as with a mouse.
+			Bool uiHitDisabled = FALSE;
+			if (uiHit != nullptr && !isRealUiHit(uiHit)) {
+				GameWindow *disabledHit = uiHit->winPointInChild((Int)px, (Int)py, TRUE);
+				if (isRealUiHit(disabledHit) && !BitIsSet(disabledHit->winGetStatus(), WIN_STATUS_ENABLED)) {
+					uiHit = disabledHit;
+					uiHitDisabled = TRUE;
+				}
+			}
 			if (isRealUiHit(uiHit)) {
+				s_touch.uiPressDisabled = uiHitDisabled;
 				s_touch.finger1 = event.tfinger.fingerID;
 				s_touch.phase = TouchState::UI_PRESS;
 				s_touch.downX = s_touch.lastX = px;
@@ -1657,9 +1678,14 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 					// release necessarily completes a click. Undo the intent rather than the
 					// mechanics: a press held this long was to read, not to arm, so back out
 					// of whatever it armed. A short tap is unaffected and still builds.
-					if ((SDL_GetTicks() - s_touch.downTicks) >= LONG_PRESS_MS) {
+					//
+					// Not after a hold on a DISABLED button: nothing was armed, so the undo would
+					// fall through to its second meaning and clear the selection -- reading why a
+					// building is unavailable would deselect the builder.
+					if ((SDL_GetTicks() - s_touch.downTicks) >= LONG_PRESS_MS && !s_touch.uiPressDisabled) {
 						TouchInput::cancelOrDeselect();
 					}
+					s_touch.uiPressDisabled = FALSE;
 					break;
 				}
 				default:
