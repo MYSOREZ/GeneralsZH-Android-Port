@@ -2391,6 +2391,14 @@ static double s_gxUiTimeUs[3] = {0.0, 0.0, 0.0};
 // whether a slow frame is the engine walking its scene, this layer, or the driver.
 static double s_gxDrawUsByCategory[GX_DRAWCAT_COUNT] = {0, 0, 0, 0, 0, 0, 0};
 static double s_gxDrawCallUs = 0.0;
+// The glDraw part per draw source, and split by whether the draw's vertex or index buffer was
+// written just before it (the engine's dynamic ring: map, write, draw). Draws after a write
+// costing far more than the rest would put the time in the driver's handling of freshly written
+// buffers rather than in the draws themselves.
+static double s_gxDrawCallUsByCategory[GX_DRAWCAT_COUNT] = {0, 0, 0, 0, 0, 0, 0};
+static bool s_gxDrawAfterWrite = false;
+static double s_gxDrawCallUsAfterWrite = 0.0;
+static unsigned s_gxDrawsAfterWrite = 0;
 extern double d3d8gles_perfUploadUs;
 extern unsigned d3d8gles_perfUploadCalls;
 
@@ -2475,7 +2483,14 @@ void WebGLPipeline::drawCommon(WebGLDevice *dev, unsigned primType, unsigned pri
 	} else {
 		glDrawArrays(mode, startIndex, count);
 	}
-	s_gxDrawCallUs += gxNowUs() - drawCallStart;
+	const double drawCallUs = gxNowUs() - drawCallStart;
+	s_gxDrawCallUs += drawCallUs;
+	s_gxDrawCallUsByCategory[s_gxDrawCategory] += drawCallUs;
+	if (s_gxDrawAfterWrite) {
+		s_gxDrawCallUsAfterWrite += drawCallUs;
+		++s_gxDrawsAfterWrite;
+	}
+	s_gxDrawAfterWrite = false;
 	// GeneralsX @build Android port 09/05/2026 Dump the fixed-function state
 	// actually in effect for the first terrain draw and the first model draw of
 	// each log window. Every remaining theory for the black geometry on a
@@ -2707,6 +2722,7 @@ void WebGLPipeline::drawIndexed(WebGLDevice *dev, unsigned primType, unsigned /*
 	WebGLIndexBuffer *ib = dev->getIndices();
 	if (!vb || !ib) return;
 
+	s_gxDrawAfterWrite = vb->m_gl.dirty || ib->m_gl.dirty;
 	ensureVBUploaded(vb);
 	ensureIBUploaded(ib);
 
@@ -2724,6 +2740,7 @@ void WebGLPipeline::draw(WebGLDevice *dev, unsigned primType, unsigned startVert
 	WebGLVertexBuffer *vb = dev->getStream0();
 	if (!vb) return;
 
+	s_gxDrawAfterWrite = vb->m_gl.dirty;
 	ensureVBUploaded(vb);
 
 	const unsigned fvf = dev->getFVF() ? dev->getFVF() : vb->m_fvf;
@@ -2735,6 +2752,7 @@ void WebGLPipeline::draw(WebGLDevice *dev, unsigned primType, unsigned startVert
 void WebGLPipeline::drawUP(WebGLDevice *dev, unsigned primType, unsigned primCount,
                            const void *vertexData, unsigned stride)
 {
+	s_gxDrawAfterWrite = true; // streamed right before the draw
 	if (!m_ctxReady || !vertexData) return;
 	const unsigned fvf = dev->getFVF();
 	FVFLayout l;
@@ -2762,6 +2780,7 @@ void WebGLPipeline::drawIndexedUP(WebGLDevice *dev, unsigned primType, unsigned 
                                   const void *indexData, unsigned indexFormat,
                                   const void *vertexData, unsigned stride)
 {
+	s_gxDrawAfterWrite = true; // streamed right before the draw
 	if (!m_ctxReady || !vertexData || !indexData) return;
 	const unsigned fvf = dev->getFVF();
 	FVFLayout l;
@@ -3131,6 +3150,19 @@ void WebGLPipeline::present()
 					(s_gxDrawUsByCategory[GX_DRAWCAT_OTHER] + s_gxDrawUsByCategory[GX_DRAWCAT_SHADOWS] +
 					 s_gxDrawUsByCategory[GX_DRAWCAT_SKIN]) / 1000.0 / f,
 					d3d8gles_perfUploadUs / 1000.0 / f, d3d8gles_perfUploadCalls / f);
+				fprintf(stderr, "[d3d8gles] perf-gldraw ms/frame: models=%.2f particles=%.2f 2d-ui=%.2f terrain=%.2f other=%.2f | "
+					"after-write draws=%.1f/frame (%.2f ms) other draws=%.1f/frame (%.2f ms)\n",
+					s_gxDrawCallUsByCategory[GX_DRAWCAT_MODELS] / 1000.0 / f,
+					s_gxDrawCallUsByCategory[GX_DRAWCAT_SORTED] / 1000.0 / f,
+					s_gxDrawCallUsByCategory[GX_DRAWCAT_2D] / 1000.0 / f,
+					s_gxDrawCallUsByCategory[GX_DRAWCAT_TERRAIN] / 1000.0 / f,
+					(s_gxDrawCallUsByCategory[GX_DRAWCAT_OTHER] + s_gxDrawCallUsByCategory[GX_DRAWCAT_SHADOWS] +
+					 s_gxDrawCallUsByCategory[GX_DRAWCAT_SKIN]) / 1000.0 / f,
+					s_gxDrawsAfterWrite / f, s_gxDrawCallUsAfterWrite / 1000.0 / f,
+					(m_perfDrawAccum - s_gxDrawsAfterWrite) / f, (s_gxDrawCallUs - s_gxDrawCallUsAfterWrite) / 1000.0 / f);
+				for (int i = 0; i < GX_DRAWCAT_COUNT; i++) s_gxDrawCallUsByCategory[i] = 0.0;
+				s_gxDrawCallUsAfterWrite = 0.0;
+				s_gxDrawsAfterWrite = 0;
 				for (int i = 0; i < GX_DRAWCAT_COUNT; i++) s_gxDrawUsByCategory[i] = 0.0;
 				s_gxDrawCallUs = 0.0;
 				d3d8gles_perfUploadUs = 0.0;
