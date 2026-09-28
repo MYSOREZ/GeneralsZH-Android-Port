@@ -35,11 +35,11 @@
 #include <string.h>
 
 // GeneralsX @bugfix Android LAN: interfaces that can reach other players on a LAN
-// (Wi-Fi client, phone hotspot, Ethernet) as opposed to mobile data (rmnet*,
-// ccmni*) or VPN tunnels (tun*).
+// (Wi-Fi client, phone hotspot, Ethernet, USB tethering) as opposed to mobile data
+// (rmnet*, ccmni*) or VPN tunnels (tun*).
 static bool isLanInterface(const char *name)
 {
-	static const char *const prefixes[] = { "wlan", "swlan", "ap", "softap", "eth" };
+	static const char *const prefixes[] = { "wlan", "swlan", "ap", "softap", "eth", "rndis", "ncm", "usb" };
 	for (const char *prefix : prefixes)
 	{
 		if (strncmp(name, prefix, strlen(prefix)) == 0)
@@ -114,7 +114,14 @@ EnumeratedIP * IPEnumeration::getAddresses()
 		// binds to the first entry, so a carrier's 10.x mobile-data address beat Wi-Fi's
 		// 192.168.x and the lobby broadcast into the mobile network. List only LAN
 		// interfaces when there are any; fall back to every interface otherwise.
-		for (int pass = 0; pass < 2 && m_IPlist == nullptr; ++pass)
+		auto countIPs = [this]() {
+			Int n = 0;
+			for (EnumeratedIP *p = m_IPlist; p != nullptr; p = p->getNext())
+				++n;
+			return n;
+		};
+		const Int countBefore = countIPs();	// the multi-instance 127.x entry, if any
+		for (int pass = 0; pass < 2 && countIPs() == countBefore; ++pass)
 		for (struct ifaddrs *ifa = ifaddr; ifa != nullptr; ifa = ifa->ifa_next)
 		{
 			if (ifa->ifa_addr == nullptr)

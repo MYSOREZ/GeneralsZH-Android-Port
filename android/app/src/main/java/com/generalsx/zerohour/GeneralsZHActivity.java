@@ -34,6 +34,7 @@ package com.generalsx.zerohour;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Rect;
+import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.view.Display;
 import android.view.DisplayCutout;
@@ -66,6 +67,32 @@ public class GeneralsZHActivity extends SDLActivity {
     static final String EXTRA_FAST_TO = "gx_fast_to";
     static final String EXTRA_AUTO_QUIT = "gx_auto_quit";
     static final String EXTRA_CRC_EVERY_FRAME = "gx_crc_every_frame";
+
+    // GeneralsX @bugfix Android LAN: many Wi-Fi drivers drop broadcast frames unless an
+    // app holds a MulticastLock, which hides LAN games. Called from native code
+    // (udp.cpp) with true when a LAN broadcast socket opens and false when it closes,
+    // so the lock is only held while the LAN lobby or a LAN match is active.
+    private WifiManager.MulticastLock lanMulticastLock;
+
+    @SuppressWarnings("unused") // called via JNI
+    public synchronized void setLanMulticastLock(boolean held) {
+        try {
+            if (lanMulticastLock == null) {
+                WifiManager wifi = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
+                if (wifi == null) return;
+                lanMulticastLock = wifi.createMulticastLock("GeneralsZH-LAN");
+                lanMulticastLock.setReferenceCounted(true);
+            }
+            if (held) {
+                lanMulticastLock.acquire();
+            } else if (lanMulticastLock.isHeld()) {
+                lanMulticastLock.release();
+            }
+            Log.i(TAG, "LAN multicast lock " + (lanMulticastLock.isHeld() ? "held" : "released"));
+        } catch (RuntimeException e) {
+            Log.w(TAG, "LAN multicast lock unavailable", e);
+        }
+    }
 
     // singleInstance: a relaunch from the Replay check screen can arrive here instead of
     // creating a new activity; keep the newest launch's extras for getArguments().

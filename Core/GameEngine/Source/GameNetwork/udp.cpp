@@ -34,6 +34,10 @@
 #include "Common/GameEngine.h"
 //#include "GameNetwork/NetworkInterface.h"
 #include "GameNetwork/udp.h"
+#if defined(__ANDROID__)
+#include <SDL3/SDL_system.h>
+#include <jni.h>
+#endif
 
 
 //-------------------------------------------------------------------------
@@ -127,8 +131,7 @@ UDP::~UDP()
 	if (fd)
 		closesocket(fd);
 #ifndef _WIN32
-	if (bcastFd != -1)
-		close(bcastFd);
+	SetBroadcastReceive(FALSE);
 #endif
 }
 
@@ -189,30 +192,6 @@ socklen_t namelen=sizeof(addr);
   retval=SetBlocking(FALSE);
   if (retval==-1)
     fprintf(stderr,"Couldn't set nonblocking mode!\n");
-
-#ifndef _WIN32
-  // GeneralsX @bugfix Android LAN: Winsock delivers broadcasts to a socket bound to a
-  // unicast address, POSIX does not, so LAN lobby announcements (sent to
-  // 255.255.255.255) never arrived and no games were listed. Catch them on a second,
-  // receive-only socket bound to the broadcast address. Sends stay on fd, so broadcasts
-  // still leave through the interface of the chosen local IP.
-  if (IP != htonl(INADDR_ANY) && bcastFd == -1)
-  {
-    Int b = socket(AF_INET, SOCK_DGRAM, DEFAULT_PROTOCOL);
-    if (b != -1)
-    {
-      int one = 1;
-      setsockopt(b, SOL_SOCKET, SO_REUSEADDR, &one, sizeof(one));
-      struct sockaddr_in baddr = addr;
-      baddr.sin_addr.s_addr = htonl(INADDR_BROADCAST);
-      if (bind(b, (struct sockaddr *)&baddr, sizeof(baddr)) == 0 &&
-          fcntl(b, F_SETFL, fcntl(b, F_GETFL, 0) | O_NONBLOCK) == 0)
-        bcastFd = b;
-      else
-        close(b);
-    }
-  }
-#endif
 
   return(OK);
 }
@@ -573,8 +552,78 @@ Int UDP::AllowBroadcasts(Bool status)
 	int retval;
 	BOOL val = status;
 	retval = setsockopt(fd, SOL_SOCKET, SO_BROADCAST, (char *)&val, sizeof(BOOL));
+#ifndef _WIN32
+	// Only the LAN lobby enables broadcasts, so this scopes the extra socket (and on
+	// Android the Wi-Fi multicast lock) to the LAN lobby and LAN matches.
+	SetBroadcastReceive(status);
+#endif
 	if (retval == 0)
 		return TRUE;
 	else
 		return FALSE;
 }
+
+#ifndef _WIN32
+#if defined(__ANDROID__)
+// GeneralsX @bugfix Android LAN: many Wi-Fi drivers drop broadcast frames to save
+// power unless an app holds a WifiManager.MulticastLock. GeneralsZHActivity owns the
+// reference-counted lock; each open broadcast socket holds one reference.
+static void setAndroidLanMulticastLock(Bool held)
+{
+	JNIEnv *jni = static_cast<JNIEnv *>(SDL_GetAndroidJNIEnv());
+	jobject activity = static_cast<jobject>(SDL_GetAndroidActivity());
+	if (jni == nullptr || activity == nullptr)
+		return;
+	jclass activityClass = jni->GetObjectClass(activity);
+	jmethodID method = jni->GetMethodID(activityClass, "setLanMulticastLock", "(Z)V");
+	if (method != nullptr)
+		jni->CallVoidMethod(activity, method, held ? JNI_TRUE : JNI_FALSE);
+	if (jni->ExceptionCheck())
+		jni->ExceptionClear();
+	jni->DeleteLocalRef(activityClass);
+	jni->DeleteLocalRef(activity);
+}
+#endif
+
+// GeneralsX @bugfix Android LAN: Winsock delivers broadcasts to a socket bound to a
+// unicast address, POSIX does not, so LAN lobby announcements (sent to
+// 255.255.255.255) never arrived and no games were listed. Catch them on a second,
+// receive-only socket bound to the broadcast address. Sends stay on fd, so broadcasts
+// still leave through the interface of the chosen local IP.
+void UDP::SetBroadcastReceive(Bool enable)
+{
+	if (!enable)
+	{
+		if (bcastFd != -1)
+		{
+			close(bcastFd);
+			bcastFd = -1;
+#if defined(__ANDROID__)
+			setAndroidLanMulticastLock(FALSE);
+#endif
+		}
+		return;
+	}
+	// already open, not bound yet, or bound to INADDR_ANY (which receives broadcasts)
+	if (bcastFd != -1 || fd <= 0 || addr.sin_addr.s_addr == htonl(INADDR_ANY))
+		return;
+
+	Int b = socket(AF_INET, SOCK_DGRAM, DEFAULT_PROTOCOL);
+	if (b == -1)
+		return;
+	int one = 1;
+	setsockopt(b, SOL_SOCKET, SO_REUSEADDR, &one, sizeof(one));
+	struct sockaddr_in baddr = addr;
+	baddr.sin_addr.s_addr = htonl(INADDR_BROADCAST);
+	if (bind(b, (struct sockaddr *)&baddr, sizeof(baddr)) != 0 ||
+	    fcntl(b, F_SETFL, fcntl(b, F_GETFL, 0) | O_NONBLOCK) != 0)
+	{
+		close(b);
+		return;
+	}
+	bcastFd = b;
+#if defined(__ANDROID__)
+	setAndroidLanMulticastLock(TRUE);
+#endif
+}
+#endif

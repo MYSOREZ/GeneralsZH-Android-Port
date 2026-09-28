@@ -104,6 +104,9 @@ class UDP
 // CODE
  private:
   Int           SetBlocking(Int block);
+#ifndef _WIN32
+  void          SetBroadcastReceive(Bool enable);
+#endif
 
 	Int m_lastError;
 
