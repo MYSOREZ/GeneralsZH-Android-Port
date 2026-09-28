@@ -257,6 +257,11 @@
     <string name="online_button_datapacks_delete">Excluir</string>
     <string name="online_switch_datapacks">Usar o patch de dados da comunidade</string>
     <string name="online_switch_datapacks_desc">Desligado, o download continua no lugar, mas o jogo volta a ler os dados originais e as partidas de PC recusarão este dispositivo. Vale a partir do próximo início do jogo.</string>
+    <string name="online_switch_datapacks_mods">Usar o patch também com mods</string>
+    <string name="online_switch_datapacks_mods_desc">Por padrão o patch não é carregado se a pasta do jogo tiver um mod que muda os dados do jogo (como o Contra): os arquivos se misturariam. Ative só para um mod feito para o patch do GeneralsOnline.</string>
+    <string name="online_datapacks_mod_found_skipped">Mod encontrado: %1$s. O patch da comunidade não é usado com ele.</string>
+    <string name="online_datapacks_mod_found_forced">Mod encontrado: %1$s. O patch da comunidade é usado junto com ele.</string>
+    <string name="online_datapacks_mod_none">Nenhum mod que muda os dados do jogo na pasta do jogo.</string>
     <string name="online_datapacks_chip_sign_in_first">Entre primeiro</string>
     <string name="online_datapacks_chip_required">Necessário para jogar on-line — toque em Atualizar</string>
     <string name="online_datapacks_chip_off">Baixado, mas desligado</string>

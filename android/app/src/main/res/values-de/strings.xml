@@ -257,6 +257,11 @@
     <string name="online_button_datapacks_delete">Löschen</string>
     <string name="online_switch_datapacks">Community-Datenpatch verwenden</string>
     <string name="online_switch_datapacks_desc">Aus lässt den Download liegen, das Spiel liest aber wieder die Retail-Daten, und PC-Spiele weisen dieses Gerät ab. Wirkt beim nächsten Spielstart.</string>
+    <string name="online_switch_datapacks_mods">Patch auch mit Mods verwenden</string>
+    <string name="online_switch_datapacks_mods_desc">Standardmäßig wird der Patch nicht geladen, wenn im Spielordner ein Mod liegt, der Spieldaten ändert (etwa Contra): ihre Dateien würden sich vermischen. Nur für einen Mod einschalten, der für den GeneralsOnline-Patch gemacht ist.</string>
+    <string name="online_datapacks_mod_found_skipped">Mod gefunden: %1$s. Der Community-Patch wird damit nicht verwendet.</string>
+    <string name="online_datapacks_mod_found_forced">Mod gefunden: %1$s. Der Community-Patch wird zusammen damit verwendet.</string>
+    <string name="online_datapacks_mod_none">Kein Mod im Spielordner, der Spieldaten ändert.</string>
     <string name="online_datapacks_chip_sign_in_first">Zuerst anmelden</string>
     <string name="online_datapacks_chip_required">Für das Online-Spiel nötig — auf Aktualisieren tippen</string>
     <string name="online_datapacks_chip_off">Geladen, aber ausgeschaltet</string>

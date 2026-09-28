@@ -257,6 +257,11 @@
     <string name="online_button_datapacks_delete">删除</string>
     <string name="online_switch_datapacks">使用社区数据补丁</string>
     <string name="online_switch_datapacks_desc">关闭后不会删除已下载的文件，但游戏会重新读取零售数据，电脑端主持的对局将拒绝本设备。下次启动游戏时生效。</string>
+    <string name="online_switch_datapacks_mods">有模组时也使用补丁</string>
+    <string name="online_switch_datapacks_mods_desc">默认情况下，如果游戏文件夹中有修改游戏数据的模组（如 Contra），则不加载补丁：两者的文件会混在一起。仅当模组是为 GeneralsOnline 补丁制作时才开启。</string>
+    <string name="online_datapacks_mod_found_skipped">发现模组：%1$s。不与其一起使用社区补丁。</string>
+    <string name="online_datapacks_mod_found_forced">发现模组：%1$s。与其一起使用社区补丁。</string>
+    <string name="online_datapacks_mod_none">游戏文件夹中没有修改游戏数据的模组。</string>
     <string name="online_datapacks_chip_sign_in_first">请先登录</string>
     <string name="online_datapacks_chip_required">联机所需 — 请点击“更新”</string>
     <string name="online_datapacks_chip_off">已下载，但已关闭</string>

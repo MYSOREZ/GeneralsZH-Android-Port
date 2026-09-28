@@ -257,6 +257,11 @@
     <string name="online_button_datapacks_delete">حذف</string>
     <string name="online_switch_datapacks">استخدام حزمة بيانات المجتمع</string>
     <string name="online_switch_datapacks_desc">الإيقاف يُبقي الملفات المنزَّلة لكن اللعبة تعود إلى قراءة بيانات النسخة الأصلية، فترفض مباريات الحاسوب هذا الجهاز. يسري عند تشغيل اللعبة في المرة القادمة.</string>
+    <string name="online_switch_datapacks_mods">استخدام الرقعة مع التعديلات أيضًا</string>
+    <string name="online_switch_datapacks_mods_desc">افتراضيًا لا تُحمَّل الرقعة إذا كان في مجلد اللعبة تعديل يغيّر بيانات اللعبة (مثل Contra): ستختلط ملفاتهما. فعّله فقط لتعديل مصنوع لرقعة GeneralsOnline.</string>
+    <string name="online_datapacks_mod_found_skipped">عُثر على تعديل: %1$s. لا تُستخدم رقعة المجتمع معه.</string>
+    <string name="online_datapacks_mod_found_forced">عُثر على تعديل: %1$s. تُستخدم رقعة المجتمع معه.</string>
+    <string name="online_datapacks_mod_none">لا يوجد في مجلد اللعبة تعديل يغيّر بيانات اللعبة.</string>
     <string name="online_datapacks_chip_sign_in_first">سجّل الدخول أولاً</string>
     <string name="online_datapacks_chip_required">مطلوب للعب عبر الإنترنت — اضغط «تحديث»</string>
     <string name="online_datapacks_chip_off">منزَّل لكنه متوقف</string>

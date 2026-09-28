@@ -162,6 +162,106 @@ final class DataPackInstaller {
         }
     }
 
+    // GeneralsX @feature Android port 28/09/2026 "Use the patch with mods too". The engine leaves
+    // the patch out when a data mod is installed (ArchiveFileSystem::loadMods: the patch's INI
+    // directories would mix with the mod's files); this marker, beside the disable one, is the
+    // player's override for a mod built on top of the GeneralsOnline patch.
+    private static final String WITH_MODS_MARKER = "gx_community_patch_with_mods.txt";
+
+    static boolean isEnabledWithMods() {
+        return new File(userDataDir(), WITH_MODS_MARKER).isFile();
+    }
+
+    /** Returns true if the state now matches what was asked for. */
+    static boolean setEnabledWithMods(Context ctx, boolean enabled) {
+        File marker = new File(userDataDir(), WITH_MODS_MARKER);
+        if (!enabled) {
+            boolean ok = !marker.exists() || marker.delete();
+            NetworkTrace.write(ctx, "[datapack] patch with mods disabled=" + ok);
+            return ok;
+        }
+        try {
+            File parent = marker.getParentFile();
+            if (parent != null && !parent.isDirectory()) {
+                parent.mkdirs();
+            }
+            try (FileWriter out = new FileWriter(marker)) {
+                out.write("The community data patch is mounted even with a data mod while this file exists.\n");
+            }
+            NetworkTrace.write(ctx, "[datapack] patch with mods enabled");
+            return true;
+        } catch (IOException e) {
+            NetworkTrace.write(ctx, "[datapack] could not enable with mods: " + e);
+            return false;
+        }
+    }
+
+    /**
+     * The first archive in the game folder that the engine treats as a data mod, or null: the
+     * same rule as ArchiveFileSystem::loadMods -- a name starting with '!' (how mods sort ahead
+     * of the retail archives) and at least one file under Data\INI\. UI and texture add-ons with
+     * the same prefix carry no INI and do not count. Reads only the archives' file tables.
+     */
+    static String findDataMod(String gamePath) {
+        if (gamePath == null) {
+            return null;
+        }
+        File[] files = new File(gamePath).listFiles();
+        if (files == null) {
+            return null;
+        }
+        java.util.Arrays.sort(files);
+        for (File f : files) {
+            String name = f.getName();
+            if (!f.isFile() || !name.startsWith("!") || !name.toLowerCase(Locale.US).endsWith(".big")) {
+                continue;
+            }
+            if (bigHasIniFiles(f)) {
+                return name;
+            }
+        }
+        return null;
+    }
+
+    // BIG file table: "BIGF"/"BIG4", archive size (LE), file count (BE), header size (BE), then per
+    // file: offset (BE), size (BE), zero-terminated path.
+    private static boolean bigHasIniFiles(File big) {
+        try (java.io.DataInputStream in = new java.io.DataInputStream(
+                new BufferedInputStream(new java.io.FileInputStream(big), 64 * 1024))) {
+            byte[] magic = new byte[4];
+            in.readFully(magic);
+            if (magic[0] != 'B' || magic[1] != 'I' || magic[2] != 'G') {
+                return false;
+            }
+            in.readInt(); // archive size, little-endian, unused
+            final int count = in.readInt();
+            in.readInt(); // header size
+            if (count < 0 || count > 200000) {
+                return false;
+            }
+            StringBuilder path = new StringBuilder();
+            for (int i = 0; i < count; i++) {
+                in.readInt();
+                in.readInt();
+                path.setLength(0);
+                int c;
+                while ((c = in.read()) > 0) {
+                    path.append((char) c);
+                }
+                if (c < 0) {
+                    return false;
+                }
+                String lower = path.toString().toLowerCase(Locale.US).replace('/', '\\');
+                if (lower.startsWith("data\\ini\\")) {
+                    return true;
+                }
+            }
+        } catch (IOException e) {
+            return false;
+        }
+        return false;
+    }
+
     /**
      * Removes exactly the files the last install wrote, then any directories
      * left empty by that. Returns how many files went, or -1 if there was no

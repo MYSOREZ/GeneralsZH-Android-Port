@@ -257,6 +257,11 @@
     <string name="online_button_datapacks_delete">حذف</string>
     <string name="online_switch_datapacks">استفاده از وصله داده‌های انجمن</string>
     <string name="online_switch_datapacks_desc">خاموش‌کردن فایل‌های دانلودشده را نگه می‌دارد، اما بازی دوباره داده‌های اصلی را می‌خواند و بازی‌های رایانه این دستگاه را نمی‌پذیرند. از اجرای بعدی بازی اعمال می‌شود.</string>
+    <string name="online_switch_datapacks_mods">استفاده از وصله همراه با ماد</string>
+    <string name="online_switch_datapacks_mods_desc">به‌طور پیش‌فرض اگر در پوشهٔ بازی مادی باشد که داده‌های بازی را تغییر می‌دهد (مثل Contra)، وصله بارگذاری نمی‌شود: فایل‌هایشان قاطی می‌شوند. فقط برای مادی روشن کنید که برای وصلهٔ GeneralsOnline ساخته شده است.</string>
+    <string name="online_datapacks_mod_found_skipped">ماد پیدا شد: %1$s. وصلهٔ جامعه همراه آن استفاده نمی‌شود.</string>
+    <string name="online_datapacks_mod_found_forced">ماد پیدا شد: %1$s. وصلهٔ جامعه همراه آن استفاده می‌شود.</string>
+    <string name="online_datapacks_mod_none">در پوشهٔ بازی مادی که داده‌های بازی را تغییر دهد نیست.</string>
     <string name="online_datapacks_chip_sign_in_first">ابتدا وارد شوید</string>
     <string name="online_datapacks_chip_required">برای بازی آنلاین لازم است — «به‌روزرسانی» را بزنید</string>
     <string name="online_datapacks_chip_off">دانلود شده، اما خاموش است</string>

@@ -257,6 +257,11 @@
     <string name="online_button_datapacks_delete">Usuń</string>
     <string name="online_switch_datapacks">Używaj społecznościowej łatki danych</string>
     <string name="online_switch_datapacks_desc">Wyłączenie zostawia pobrane pliki, ale gra znów czyta dane oryginalne i gry z komputera odrzucą to urządzenie. Zadziała przy następnym uruchomieniu gry.</string>
+    <string name="online_switch_datapacks_mods">Używaj łatki także z modami</string>
+    <string name="online_switch_datapacks_mods_desc">Domyślnie łatka nie jest wczytywana, gdy w folderze gry jest mod zmieniający dane gry (np. Contra): ich pliki by się pomieszały. Włącz tylko dla moda zrobionego pod łatkę GeneralsOnline.</string>
+    <string name="online_datapacks_mod_found_skipped">Znaleziono mod: %1$s. Łatka społeczności nie jest z nim używana.</string>
+    <string name="online_datapacks_mod_found_forced">Znaleziono mod: %1$s. Łatka społeczności jest używana razem z nim.</string>
+    <string name="online_datapacks_mod_none">W folderze gry nie ma moda zmieniającego dane gry.</string>
     <string name="online_datapacks_chip_sign_in_first">Najpierw się zaloguj</string>
     <string name="online_datapacks_chip_required">Wymagane do gry w sieci — naciśnij Aktualizuj</string>
     <string name="online_datapacks_chip_off">Pobrane, ale wyłączone</string>

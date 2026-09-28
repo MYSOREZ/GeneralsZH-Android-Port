@@ -257,6 +257,11 @@
     <string name="online_button_datapacks_delete">Supprimer</string>
     <string name="online_switch_datapacks">Utiliser le correctif communautaire</string>
     <string name="online_switch_datapacks_desc">Désactivé, le téléchargement reste en place mais le jeu relit les données d\'origine, et les parties PC refuseront cet appareil. Prend effet au prochain démarrage du jeu.</string>
+    <string name="online_switch_datapacks_mods">Utiliser le patch aussi avec des mods</string>
+    <string name="online_switch_datapacks_mods_desc">Par défaut, le patch n’est pas chargé si le dossier du jeu contient un mod qui modifie les données du jeu (comme Contra) : leurs fichiers se mélangeraient. À activer uniquement pour un mod conçu pour le patch GeneralsOnline.</string>
+    <string name="online_datapacks_mod_found_skipped">Mod trouvé : %1$s. Le patch communautaire n’est pas utilisé avec lui.</string>
+    <string name="online_datapacks_mod_found_forced">Mod trouvé : %1$s. Le patch communautaire est utilisé avec lui.</string>
+    <string name="online_datapacks_mod_none">Aucun mod modifiant les données du jeu dans le dossier du jeu.</string>
     <string name="online_datapacks_chip_sign_in_first">Connectez-vous d\'abord</string>
     <string name="online_datapacks_chip_required">Nécessaire pour jouer en ligne — appuyez sur Mettre à jour</string>
     <string name="online_datapacks_chip_off">Téléchargé, mais désactivé</string>

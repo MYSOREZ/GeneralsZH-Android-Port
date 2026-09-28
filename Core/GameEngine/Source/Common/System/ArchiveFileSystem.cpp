@@ -98,6 +98,8 @@ ArchiveFileSystem *TheArchiveFileSystem = nullptr;
 // Presence turns the community data patch off without removing it -- the
 // launcher writes and deletes this, and loadMods() below is the only reader.
 static const char* const kCommunityPatchDisableMarker = "gx_no_community_patch.txt";
+// Presence mounts the patch even when a data mod is installed; also written by the launcher.
+static const char* const kCommunityPatchWithModsMarker = "gx_community_patch_with_mods.txt";
 #endif
 
 static AsciiString getBaseFilename(const AsciiString& path)
@@ -274,6 +276,7 @@ void ArchiveFileSystem::loadMods()
 
 		AsciiString patchPath;
 		AsciiString disableMarkerPath;
+		AsciiString withModsMarkerPath;
 
 		if (userData.isNotEmpty())
 		{
@@ -282,6 +285,9 @@ void ArchiveFileSystem::loadMods()
 
 			disableMarkerPath = userData;
 			disableMarkerPath.concat(kCommunityPatchDisableMarker);
+
+			withModsMarkerPath = userData;
+			withModsMarkerPath.concat(kCommunityPatchWithModsMarker);
 		}
 
 		// The PC client has a settings switch for this (DataPacks_UseCommunityPatch)
@@ -299,20 +305,45 @@ void ArchiveFileSystem::loadMods()
 		// a PC lobby's INI checksum, which a modded install cannot match anyway. Mods name their
 		// archives with a leading '!' so that they sort ahead of the retail ones (which all start
 		// with a letter); -mod is the other way a mod is loaded.
+		//
+		// Only an archive that carries game data (Data\INI\...) counts: UI and texture add-ons
+		// (HD control bars, texture packs) use the same '!' prefix, touch no INI, and must not
+		// keep a player out of PC lobbies. The launcher applies the same rule to say which mod
+		// it found (DataPackInstaller.findDataMod), and can set the player's override below.
 		AsciiString modArchive;
 		for (ArchiveFileMap::const_iterator it = m_archiveFileMap.begin(); it != m_archiveFileMap.end(); ++it)
 		{
 			const AsciiString base = getBaseFilename(it->first);
-			if (base.isNotEmpty() && base.getCharAt(0) == '!')
+			if (base.isEmpty() || base.getCharAt(0) != '!' || it->second == nullptr)
+				continue;
+			FilenameList iniFiles;
+			it->second->getFileListInDirectory(AsciiString(""), AsciiString(""), AsciiString("*.ini"), iniFiles, TRUE);
+			for (FilenameList::const_iterator f = iniFiles.begin(); f != iniFiles.end(); ++f)
 			{
-				modArchive = base;
-				break;
+				if (f->startsWithNoCase("data\\ini\\") || f->startsWithNoCase("data/ini/"))
+				{
+					modArchive = base;
+					break;
+				}
 			}
+			if (modArchive.isNotEmpty())
+				break;
 		}
 		if (modArchive.isEmpty() && TheGlobalData->m_modBIG.isNotEmpty())
 			modArchive = TheGlobalData->m_modBIG;
 		if (modArchive.isEmpty() && TheGlobalData->m_modDir.isNotEmpty())
 			modArchive = TheGlobalData->m_modDir;
+
+		// The player's override from the launcher ("use the patch with mods too"), for a mod
+		// built on top of the GeneralsOnline patch: written beside the disable marker.
+		const Bool withMods = withModsMarkerPath.isNotEmpty()
+			&& TheLocalFileSystem->doesFileExist(withModsMarkerPath.str());
+		if (modArchive.isNotEmpty() && withMods && !disabled)
+		{
+			fprintf(stderr, "[gxbig] mod %s installed, community patch mounted anyway (launcher "
+				"switch)\n", modArchive.str());
+			modArchive.clear();
+		}
 
 		if (disabled)
 		{

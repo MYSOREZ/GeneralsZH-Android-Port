@@ -257,6 +257,11 @@
     <string name="online_button_datapacks_delete">Izbrisati</string>
     <string name="online_switch_datapacks">Upotrěbjati zajedniču zaplatu podatkov</string>
     <string name="online_switch_datapacks_desc">Vyključenje ne izbriše tęgnutoje, ale igra zase čitaje retail podatky, i igry iz komputera odkažut semu pristroju. Dějstvuje pri sledujučem puščenju igry.</string>
+    <string name="online_switch_datapacks_mods">Upotrěbjati zaplatu i s modami</string>
+    <string name="online_switch_datapacks_mods_desc">Po umolčanju zaplata ne jest vključena, ako v papkě igry jest mod, ktory měnjaje podatky igry (na priklad Contra): njih fajly by sę směšali. Vključite, jedino ako mod jest sdělany za zaplatu GeneralsOnline.</string>
+    <string name="online_datapacks_mod_found_skipped">Najdeny mod: %1$s. Zajedniča zaplata s nim ne jest upotrěbjena.</string>
+    <string name="online_datapacks_mod_found_forced">Najdeny mod: %1$s. Zajedniča zaplata jest upotrěbjena vměstě s nim.</string>
+    <string name="online_datapacks_mod_none">V papkě igry ne jest modov, ktore měnjajut podatky igry.</string>
     <string name="online_datapacks_chip_sign_in_first">Najprvo vojdite</string>
     <string name="online_datapacks_chip_required">Trěbno za mrežnu igru — pritisnite «Obnoviti»</string>
     <string name="online_datapacks_chip_off">Tęgnuto, ale vyključeno</string>

@@ -87,6 +87,11 @@ public class GeneralsOnlineActivity extends Activity {
     private com.google.android.material.button.MaterialButton dataPackButton;
     private com.google.android.material.button.MaterialButton dataPackDeleteButton;
     private com.google.android.material.materialswitch.MaterialSwitch dataPackSwitch;
+    // GeneralsX @feature Android port 28/09/2026 "Use the patch with mods too" and which data mod
+    // the game folder has (DataPackInstaller.findDataMod, scanned off the UI thread).
+    private com.google.android.material.materialswitch.MaterialSwitch dataPackModsSwitch;
+    private TextView dataPackModStatus;
+    private String detectedDataMod;
     private TextView dataPackChip;
     private boolean dataPackBusy;
     private boolean dataPackPrompted;
@@ -237,7 +242,32 @@ public class GeneralsOnlineActivity extends Activity {
                     Toast.LENGTH_LONG).show();
                 button.setChecked(!checked);
             }
+            refreshDataPackCard();
         });
+
+        // A data mod (Contra and the like) keeps the patch out by default: its INI files and the
+        // patch's would mix. This is the player's override, for a mod made for the patch.
+        dataPackModsSwitch = UiKit.switchRow(card,
+            getString(R.string.online_switch_datapacks_mods),
+            getString(R.string.online_switch_datapacks_mods_desc));
+        dataPackModsSwitch.setChecked(DataPackInstaller.isEnabledWithMods());
+        dataPackModsSwitch.setOnCheckedChangeListener((button, checked) -> {
+            if (!DataPackInstaller.setEnabledWithMods(this, checked)) {
+                Toast.makeText(this, R.string.online_datapacks_switch_failed,
+                    Toast.LENGTH_LONG).show();
+                button.setChecked(!checked);
+            }
+            refreshDataPackCard();
+        });
+        dataPackModStatus = UiKit.supporting(card, "");
+        final String gamePath = SetupActivity.getSavedGamePath(this);
+        new Thread(() -> {
+            final String mod = DataPackInstaller.findDataMod(gamePath);
+            handler.post(() -> {
+                detectedDataMod = mod;
+                refreshDataPackCard();
+            });
+        }, "gx-mod-scan").start();
 
         refreshDataPackCard();
         maybeAutoCheckDataPacks();
@@ -337,6 +367,18 @@ public class GeneralsOnlineActivity extends Activity {
         dataPackDeleteButton.setEnabled(installed && !dataPackBusy);
         dataPackSwitch.setEnabled(installed);
         dataPackSwitch.setChecked(DataPackInstaller.isEnabled());
+        if (dataPackModsSwitch != null) {
+            final boolean withMods = DataPackInstaller.isEnabledWithMods();
+            dataPackModsSwitch.setEnabled(installed && DataPackInstaller.isEnabled());
+            dataPackModsSwitch.setChecked(withMods);
+            if (detectedDataMod == null) {
+                dataPackModStatus.setText(R.string.online_datapacks_mod_none);
+            } else {
+                dataPackModStatus.setText(getString(withMods
+                    ? R.string.online_datapacks_mod_found_forced
+                    : R.string.online_datapacks_mod_found_skipped, detectedDataMod));
+            }
+        }
 
         if (!signedIn) {
             setChip(dataPackChip, R.drawable.ic_gzh_info,

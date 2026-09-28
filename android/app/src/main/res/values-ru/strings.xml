@@ -259,6 +259,11 @@
     <string name="online_button_datapacks_delete">Удалить</string>
     <string name="online_switch_datapacks">Использовать патч данных сообщества</string>
     <string name="online_switch_datapacks_desc">Выключение не удаляет загрузку, но игра снова читает ретейл-данные, и игры с ПК откажут этому устройству. Вступает в силу при следующем запуске игры.</string>
+    <string name="online_switch_datapacks_mods">Использовать патч и с модами</string>
+    <string name="online_switch_datapacks_mods_desc">По умолчанию патч не подключается, если в папке игры есть мод, меняющий данные игры (например, «Контра»): их файлы смешались бы. Включайте, только если мод сделан под патч GeneralsOnline.</string>
+    <string name="online_datapacks_mod_found_skipped">Найден мод: %1$s. Патч сообщества с ним не используется.</string>
+    <string name="online_datapacks_mod_found_forced">Найден мод: %1$s. Патч сообщества используется вместе с ним.</string>
+    <string name="online_datapacks_mod_none">Модов, меняющих данные игры, в папке игры нет.</string>
     <string name="online_datapacks_chip_sign_in_first">Сначала войдите</string>
     <string name="online_datapacks_chip_required">Нужно для игры по сети — нажмите «Обновить»</string>
     <string name="online_datapacks_chip_off">Загружено, но выключено</string>
