@@ -37,6 +37,7 @@
 #include <filesystem>
 #include <mutex>
 #include <string>
+#include <unordered_map>
 #include <unordered_set>
 
 #ifndef _WIN32
@@ -72,10 +73,75 @@ StdLocalFileSystem::~StdLocalFileSystem() {
 static std::mutex s_missingMutex;
 static std::unordered_set<std::string> s_missingRelative;
 
+// GeneralsX @performance Android port 28/09/2026 ...and list each directory once. The negative
+// set above only helps from a name's second lookup on; the first one still paid the full
+// search, and a battle's opening seconds are nothing but first lookups (logs-9: 10-15 ms of
+// directory listing per new sound, most of a miss). The case-insensitive search needs exactly
+// one thing per directory -- its entry names -- so keep them. A lookup is then a walk through
+// in-memory tables with no system call at all, except the one listing per directory ever
+// visited. Guarded by s_missingMutex and cleared with it.
+struct ListedDirectory
+{
+	std::unordered_set<std::string> exact;                  ///< entry names as on disk
+	std::unordered_map<std::string, std::string> folded;    ///< lowercased name -> name on disk
+};
+static std::unordered_map<std::string, ListedDirectory> s_listedDirectories;
+
+static std::string foldCase(const std::string &name)
+{
+	std::string folded(name);
+	std::transform(folded.begin(), folded.end(), folded.begin(), [](unsigned char c) { return (char)std::tolower(c); });
+	return folded;
+}
+
+static const ListedDirectory &listDirectory(const std::filesystem::path &dir)
+{
+	std::unordered_map<std::string, ListedDirectory>::iterator it = s_listedDirectories.find(dir.string());
+	if (it != s_listedDirectories.end()) {
+		return it->second;
+	}
+	ListedDirectory &listed = s_listedDirectories[dir.string()];
+	std::error_code ec;
+	for (std::filesystem::directory_iterator entry(dir, ec), end; !ec && entry != end; entry.increment(ec)) {
+		const std::string name = entry->path().filename().string();
+		listed.exact.insert(name);
+		listed.folded.emplace(foldCase(name), name);
+	}
+	return listed;
+}
+
+// The same answer the case-insensitive search in resolveFilenameFromWindowsPath() gives for a
+// read -- an exact-case entry first, else the first entry that matches ignoring case -- taken
+// from the listings. FALSE when a component is missing, or for "." and ".." components, which
+// are left to the full search.
+static bool findInListings(const std::filesystem::path &base, const std::filesystem::path &relative, std::filesystem::path &found)
+{
+	std::filesystem::path current = base;
+	for (const auto &part : relative) {
+		const std::string name = part.string();
+		if (name.empty() || name == "." || name == "..") {
+			return false;
+		}
+		const ListedDirectory &listed = listDirectory(current);
+		if (listed.exact.find(name) != listed.exact.end()) {
+			current /= name;
+			continue;
+		}
+		std::unordered_map<std::string, std::string>::const_iterator match = listed.folded.find(foldCase(name));
+		if (match == listed.folded.end()) {
+			return false;
+		}
+		current /= match->second;
+	}
+	found = current;
+	return true;
+}
+
 static void forgetMissingFiles()
 {
 	std::lock_guard<std::mutex> lock(s_missingMutex);
 	s_missingRelative.clear();
+	s_listedDirectories.clear();
 }
 #endif
 
@@ -94,6 +160,32 @@ static std::filesystem::path fixFilenameFromWindowsPath(const Char *filename, In
 	if (relative) {
 		std::lock_guard<std::mutex> lock(s_missingMutex);
 		if (s_missingRelative.find(filename) != s_missingRelative.end()) {
+			return std::filesystem::path();
+		}
+
+		// The working directory first, as the full search does, then the asset root.
+		std::string slashed(filename);
+		std::replace(slashed.begin(), slashed.end(), '\\', '/');
+		const std::filesystem::path relativePath(slashed);
+		bool usable = true;
+		for (const auto &part : relativePath) {
+			const std::string name = part.string();
+			if (name.empty() || name == "." || name == "..") {
+				usable = false;
+				break;
+			}
+		}
+		if (usable) {
+			std::error_code ec;
+			const std::filesystem::path cwd = std::filesystem::current_path(ec);
+			std::filesystem::path found;
+			if (!ec && findInListings(cwd, relativePath, found)) {
+				return found;
+			}
+			if (!s_assetFallbackPath.empty() && findInListings(s_assetFallbackPath, relativePath, found)) {
+				return found;
+			}
+			s_missingRelative.insert(filename);
 			return std::filesystem::path();
 		}
 	}
