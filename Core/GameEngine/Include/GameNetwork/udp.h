@@ -67,6 +67,11 @@ class UDP
  // DATA
  private:
   Int       fd;
+#ifndef _WIN32
+  // GeneralsX @bugfix Android LAN: receives 255.255.255.255 broadcasts, which a
+  // POSIX socket bound to a unicast IP (fd) never sees. -1 when unused.
+  Int       bcastFd;
+#endif
   UnsignedInt       myIP;
   UnsignedShort       myPort;
   struct       sockaddr_in  addr;
