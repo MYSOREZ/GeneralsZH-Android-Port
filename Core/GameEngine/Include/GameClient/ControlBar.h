@@ -1022,11 +1022,6 @@ protected:
 	// slot on top of whatever the selection's own set shows (addTouchModeButtons).
 	const CommandButton *m_touchForceAttackButton;
 	const CommandButton *m_touchWaypointButton;
-	// GeneralsX @feature Android port 28/09/2026 The stock Attack Move and Guard buttons, lent to
-	// a selection whose own set lacks them although it can fight -- a Combat Chinook with
-	// soldiers firing from inside it. See addTouchModeButtons.
-	const CommandButton *m_touchAttackMoveButton;
-	const CommandButton *m_touchGuardButton;
 	void initTouchModeButtons();
 	void addTouchModeButtons( const CommandSet *commandSet );
 
