@@ -118,11 +118,14 @@ namespace TouchInput
 	/// layer's include order.
 	void reportUiHold(Int x, Int y, Bool held);
 
-	/// A finger lifted from a command button whose description is on screen was reading it,
-	/// not choosing it: take the press back the way a mouse does -- the pointer leaves the
-	/// held button, which clears its pressed state, so the release that follows is "not
-	/// meant for this button" (GadgetPushButton GWM_LEFT_UP) and nothing is built, bought
-	/// or armed. Returns TRUE when the press was taken back. Call before the release.
+	/// TRUE while the command description popup is on screen. A finger lifted from a
+	/// command button then was reading it, not choosing it.
+	Bool isDescriptionShown();
+
+	/// Take a held button's press back the way a mouse does -- the pointer leaves the held
+	/// button, which clears its pressed state, so the release that follows is "not meant for
+	/// this button" (GadgetPushButton GWM_LEFT_UP) and nothing is built, bought or armed.
+	/// Returns TRUE when the press was taken back. Call before the release.
 	Bool withdrawReadButtonPress();
 
 	/// Back out of an armed command or a pending building placement. Deselects otherwise.

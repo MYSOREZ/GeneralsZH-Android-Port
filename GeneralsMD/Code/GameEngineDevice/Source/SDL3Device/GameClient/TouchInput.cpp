@@ -455,10 +455,15 @@ namespace TouchInput
 	}
 
 	//-------------------------------------------------------------------------------------
+	Bool isDescriptionShown()
+	{
+		return TheControlBar != nullptr && TheControlBar->isBuildTooltipLayoutVisible();
+	}
+
+	//-------------------------------------------------------------------------------------
 	Bool withdrawReadButtonPress()
 	{
-		if (TheControlBar == nullptr || TheWindowManager == nullptr ||
-		    !TheControlBar->isBuildTooltipLayoutVisible())
+		if (TheWindowManager == nullptr)
 			return FALSE;
 
 		// The grab window is the button the press went to (the window manager grabs it on

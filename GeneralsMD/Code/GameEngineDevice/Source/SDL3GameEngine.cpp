@@ -358,6 +358,7 @@ struct TouchState {
 	float lastX = 0.0f, lastY = 0.0f;   // finger1 latest position (pixels)
 	Uint64 downTicks = 0;
 	GameWindow *listBox = nullptr;      // list box under finger1 at touch-down, see LIST_SCROLL
+	Bool deferredPress = FALSE;         // UI_PRESS on a fire-on-down button: press sent at release
 
 	// GeneralsX @feature Android port 01/08/2026 Native touch camera control:
 	// pan/zoom go straight to TheTacticalView (userScrollBy/userZoom), driven
@@ -993,7 +994,23 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 				s_touch.downY = s_touch.lastY = py;
 				s_touch.downTicks = SDL_GetTicks();
 				pushMousePosition(px, py);
-				pushMouseButton(GameMessage::MSG_RAW_MOUSE_LEFT_BUTTON_DOWN, px, py);
+				// GeneralsX @bugfix Android port 28/09/2026 Reported: holding a command button
+				// to read its description bought the upgrade (or queued the unit) at once. The
+				// control bar's command buttons act on the DOWN (WIN_STATUS_ON_MOUSE_DOWN, set
+				// from the WND data), so no handling of the release could take it back. A finger
+				// cannot hover, so the hold is its only way to ask "what is this?" -- hold the
+				// press back for such a button and decide at release: a tap sends down and up
+				// together, a hold released while the description is up sends neither. The
+				// description does not need the press: ControlBar::update() follows the hold
+				// POINT (reportUiHold below), not the button's pressed state.
+				s_touch.deferredPress =
+					BitIsSet(uiHit->winGetStyle(), GWS_PUSH_BUTTON) &&
+					BitIsSet(uiHit->winGetStatus(), WIN_STATUS_ON_MOUSE_DOWN) &&
+					BitIsSet(uiHit->winGetStatus(), WIN_STATUS_ENABLED) &&
+					!BitIsSet(uiHit->winGetStatus(), WIN_STATUS_CHECK_LIKE);
+				if (!s_touch.deferredPress) {
+					pushMouseButton(GameMessage::MSG_RAW_MOUSE_LEFT_BUTTON_DOWN, px, py);
+				}
 				// GeneralsX @feature Android port 06/09/2026 Tell the control bar a finger is
 				// down here, so it can keep the held button's description alive. It re-hit-tests
 				// this point every frame rather than trusting a window pointer or a widget state
@@ -1673,11 +1690,25 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 					// while the description is up takes the press back before the up, exactly as
 					// a mouse sliding off the button does, so the button never fires. A tap, or
 					// a hold released before the description appeared, still acts.
-					if ((SDL_GetTicks() - s_touch.downTicks) >= LONG_PRESS_MS) {
-						TouchInput::withdrawReadButtonPress();
-					}
+					//
+					// A fire-on-down button (see the finger-down case) got no press yet: the
+					// tap is sent whole here, unless the hold was a read or the OS took the
+					// touch away.
+					const Bool readHold = (SDL_GetTicks() - s_touch.downTicks) >= LONG_PRESS_MS &&
+						TouchInput::isDescriptionShown();
 					pushMousePosition(s_touch.downX, s_touch.downY);
-					pushMouseButton(GameMessage::MSG_RAW_MOUSE_LEFT_BUTTON_UP, s_touch.downX, s_touch.downY);
+					if (s_touch.deferredPress) {
+						if (!readHold && event.type != SDL_EVENT_FINGER_CANCELED) {
+							pushMouseButton(GameMessage::MSG_RAW_MOUSE_LEFT_BUTTON_DOWN, s_touch.downX, s_touch.downY);
+							pushMouseButton(GameMessage::MSG_RAW_MOUSE_LEFT_BUTTON_UP, s_touch.downX, s_touch.downY);
+						}
+					} else {
+						if (readHold) {
+							TouchInput::withdrawReadButtonPress();
+						}
+						pushMouseButton(GameMessage::MSG_RAW_MOUSE_LEFT_BUTTON_UP, s_touch.downX, s_touch.downY);
+					}
+					s_touch.deferredPress = FALSE;
 
 					pushPointerGone();
 					TouchInput::reportUiHold(0, 0, FALSE);
