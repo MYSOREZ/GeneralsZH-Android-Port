@@ -455,6 +455,25 @@ namespace TouchInput
 	}
 
 	//-------------------------------------------------------------------------------------
+	Bool withdrawReadButtonPress()
+	{
+		if (TheControlBar == nullptr || TheWindowManager == nullptr ||
+		    !TheControlBar->isBuildTooltipLayoutVisible())
+			return FALSE;
+
+		// The grab window is the button the press went to (the window manager grabs it on
+		// the down and routes the matching up to it). Check-like buttons act on the down
+		// already, so there is nothing left to take back for them.
+		GameWindow *pressed = TheWindowManager->winGetGrabWindow();
+		if (pressed == nullptr || !BitIsSet(pressed->winGetStyle(), GWS_PUSH_BUTTON) ||
+		    BitIsSet(pressed->winGetStatus(), WIN_STATUS_CHECK_LIKE))
+			return FALSE;
+
+		TheWindowManager->winSendInputMsg(pressed, GWM_MOUSE_LEAVING, 0, 0);
+		return TRUE;
+	}
+
+	//-------------------------------------------------------------------------------------
 	void cancelOrDeselect()
 	{
 		if (TheInGameUI == nullptr)

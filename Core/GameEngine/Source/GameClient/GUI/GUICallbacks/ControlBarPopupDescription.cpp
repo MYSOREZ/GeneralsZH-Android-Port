@@ -129,6 +129,15 @@ void ControlBarPopupDescriptionUpdateFunc( WindowLayout *layout, void *param )
 
 // ---------------------------------------------------------------------------------------
 
+// GeneralsX @feature Android port 28/09/2026 Lets touch input tell a hold that was read from
+// one that was not: a finger released while this popup is up was reading, not choosing.
+Bool ControlBar::isBuildTooltipLayoutVisible() const
+{
+	return m_buildToolTipLayout != nullptr && !m_buildToolTipLayout->isHidden();
+}
+
+// ---------------------------------------------------------------------------------------
+
 void ControlBar::showBuildTooltipLayout( GameWindow *cmdButton )
 {
 	// GeneralsX @tweak GitHubCopilot 27/05/2026 Trace command tooltip population and cost-line visibility decisions.

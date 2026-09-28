@@ -358,7 +358,6 @@ struct TouchState {
 	float lastX = 0.0f, lastY = 0.0f;   // finger1 latest position (pixels)
 	Uint64 downTicks = 0;
 	GameWindow *listBox = nullptr;      // list box under finger1 at touch-down, see LIST_SCROLL
-	Bool uiPressDisabled = FALSE;       // UI_PRESS started on a disabled button (read-only hold)
 
 	// GeneralsX @feature Android port 01/08/2026 Native touch camera control:
 	// pan/zoom go straight to TheTacticalView (userScrollBy/userZoom), driven
@@ -981,16 +980,13 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 			// description popup itself. The press is still delivered as a mouse press, which
 			// the window manager routes by its own enabled-only hit test, so a disabled
 			// button stays unpressable exactly as with a mouse.
-			Bool uiHitDisabled = FALSE;
 			if (uiHit != nullptr && !isRealUiHit(uiHit)) {
 				GameWindow *disabledHit = uiHit->winPointInChild((Int)px, (Int)py, TRUE);
 				if (isRealUiHit(disabledHit) && !BitIsSet(disabledHit->winGetStatus(), WIN_STATUS_ENABLED)) {
 					uiHit = disabledHit;
-					uiHitDisabled = TRUE;
 				}
 			}
 			if (isRealUiHit(uiHit)) {
-				s_touch.uiPressDisabled = uiHitDisabled;
 				s_touch.finger1 = event.tfinger.fingerID;
 				s_touch.phase = TouchState::UI_PRESS;
 				s_touch.downX = s_touch.lastX = px;
@@ -1666,26 +1662,25 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 					// of natural tremor that used to cancel a hold gesture via
 					// GWM_MOUSE_LEAVING when this path went through PENDING's
 					// deferred classification instead.
+					//
+					// GeneralsX @bugfix Android port 28/09/2026 Reported: holding a button to
+					// read its description before buying still bought it. The hold has to keep
+					// the button pressed -- that is what the description poll watches -- so the
+					// release used to complete a click, and the old answer undid the INTENT
+					// afterwards (cancelOrDeselect): that could back out of a building placement
+					// but not out of a purchase or a queued unit, and with nothing armed it
+					// deselected the builder instead. Undo the MECHANICS: a long hold released
+					// while the description is up takes the press back before the up, exactly as
+					// a mouse sliding off the button does, so the button never fires. A tap, or
+					// a hold released before the description appeared, still acts.
+					if ((SDL_GetTicks() - s_touch.downTicks) >= LONG_PRESS_MS) {
+						TouchInput::withdrawReadButtonPress();
+					}
 					pushMousePosition(s_touch.downX, s_touch.downY);
 					pushMouseButton(GameMessage::MSG_RAW_MOUSE_LEFT_BUTTON_UP, s_touch.downX, s_touch.downY);
 
 					pushPointerGone();
 					TouchInput::reportUiHold(0, 0, FALSE);
-					// GeneralsX @bugfix Android port 06/09/2026 Reported: holding a build
-					// button to read its description eventually enters build mode and the
-					// description disappears. The hold has to keep the button pressed -- that
-					// is what the description poll watches (WIN_STATE_SELECTED) -- so the
-					// release necessarily completes a click. Undo the intent rather than the
-					// mechanics: a press held this long was to read, not to arm, so back out
-					// of whatever it armed. A short tap is unaffected and still builds.
-					//
-					// Not after a hold on a DISABLED button: nothing was armed, so the undo would
-					// fall through to its second meaning and clear the selection -- reading why a
-					// building is unavailable would deselect the builder.
-					if ((SDL_GetTicks() - s_touch.downTicks) >= LONG_PRESS_MS && !s_touch.uiPressDisabled) {
-						TouchInput::cancelOrDeselect();
-					}
-					s_touch.uiPressDisabled = FALSE;
 					break;
 				}
 				default:

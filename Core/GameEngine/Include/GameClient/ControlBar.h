@@ -1047,6 +1047,7 @@ public:
 	void hideBuildTooltipLayout();
 	void deleteBuildTooltipLayout();
 	Bool getShowBuildTooltipLayout(){return m_showBuildToolTipLayout;	}
+	Bool isBuildTooltipLayoutVisible() const;	///< the command description popup is on screen
 	void populateBuildTooltipLayout( const CommandButton *commandButton, GameWindow *tooltipWin = nullptr );
 	void repopulateBuildTooltipLayout();
 	GameFont *overrideTooltipGadgetFont( GameWindow *win );
