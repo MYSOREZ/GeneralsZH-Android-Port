@@ -2385,6 +2385,27 @@ static unsigned s_gxDrawsByCategory[GX_DRAWCAT_COUNT] = {0, 0, 0, 0, 0, 0, 0};
 // time go.
 static double s_gxUiTimeUs[3] = {0.0, 0.0, 0.0};
 
+// GeneralsX @performance Android port 28/09/2026 CPU time inside drawCommon() per draw source
+// -- this layer's state translation plus the GL calls it makes -- and the part of it spent in
+// the glDraw* call alone. Next to the engine's mainScene time ([GX-PERF-DISPLAY]) this says
+// whether a slow frame is the engine walking its scene, this layer, or the driver.
+static double s_gxDrawUsByCategory[GX_DRAWCAT_COUNT] = {0, 0, 0, 0, 0, 0, 0};
+static double s_gxDrawCallUs = 0.0;
+extern double d3d8gles_perfUploadUs;
+extern unsigned d3d8gles_perfUploadCalls;
+
+namespace {
+inline double gxNowUs()
+{
+	return std::chrono::duration<double, std::micro>(std::chrono::steady_clock::now().time_since_epoch()).count();
+}
+struct GxDrawTimer
+{
+	double start = gxNowUs();
+	~GxDrawTimer() { s_gxDrawUsByCategory[s_gxDrawCategory] += gxNowUs() - start; }
+};
+}
+
 
 extern "C" void d3d8gles_AddUiTiming(int bucket, double microseconds)
 {
@@ -2415,6 +2436,7 @@ void WebGLPipeline::drawCommon(WebGLDevice *dev, unsigned primType, unsigned pri
                                unsigned startIndex, int baseVertexBytes, unsigned /*vertexCount*/,
                                int baseVertexIndex)
 {
+	GxDrawTimer drawTimer;
 	FVFLayout l;
 	if (!parseFVF(fvf, &l)) {
 		WARN_ONCE(s_fvf, "unsupported FVF 0x%x", fvf);
@@ -2440,6 +2462,7 @@ void WebGLPipeline::drawCommon(WebGLDevice *dev, unsigned primType, unsigned pri
 	const GLenum mode = primModeGL(primType);
 	const unsigned count = primVertexCount(primType, primCount);
 
+	const double drawCallStart = gxNowUs();
 	if (indexFormat != 0) {
 		const GLenum itype = (indexFormat == D3DFMT_INDEX32) ? GL_UNSIGNED_INT : GL_UNSIGNED_SHORT;
 		const unsigned isize = (indexFormat == D3DFMT_INDEX32) ? 4 : 2;
@@ -2452,6 +2475,7 @@ void WebGLPipeline::drawCommon(WebGLDevice *dev, unsigned primType, unsigned pri
 	} else {
 		glDrawArrays(mode, startIndex, count);
 	}
+	s_gxDrawCallUs += gxNowUs() - drawCallStart;
 	// GeneralsX @build Android port 09/05/2026 Dump the fixed-function state
 	// actually in effect for the first terrain draw and the first model draw of
 	// each log window. Every remaining theory for the black geometry on a
@@ -3095,6 +3119,22 @@ void WebGLPipeline::present()
 					s_gxUiTimeUs[0] / 1000.0 / f,
 					s_gxUiTimeUs[1] / 1000.0 / f,
 					s_gxUiTimeUs[2] / 1000.0 / f);
+				double drawUs = 0.0;
+				for (int i = 0; i < GX_DRAWCAT_COUNT; i++) drawUs += s_gxDrawUsByCategory[i];
+				fprintf(stderr, "[d3d8gles] perf-cpu ms/frame: draws=%.2f (glDraw %.2f) models=%.2f particles=%.2f "
+					"2d-ui=%.2f terrain=%.2f other=%.2f | uploads=%.2f (%.0f calls)\n",
+					drawUs / 1000.0 / f, s_gxDrawCallUs / 1000.0 / f,
+					s_gxDrawUsByCategory[GX_DRAWCAT_MODELS] / 1000.0 / f,
+					s_gxDrawUsByCategory[GX_DRAWCAT_SORTED] / 1000.0 / f,
+					s_gxDrawUsByCategory[GX_DRAWCAT_2D] / 1000.0 / f,
+					s_gxDrawUsByCategory[GX_DRAWCAT_TERRAIN] / 1000.0 / f,
+					(s_gxDrawUsByCategory[GX_DRAWCAT_OTHER] + s_gxDrawUsByCategory[GX_DRAWCAT_SHADOWS] +
+					 s_gxDrawUsByCategory[GX_DRAWCAT_SKIN]) / 1000.0 / f,
+					d3d8gles_perfUploadUs / 1000.0 / f, d3d8gles_perfUploadCalls / f);
+				for (int i = 0; i < GX_DRAWCAT_COUNT; i++) s_gxDrawUsByCategory[i] = 0.0;
+				s_gxDrawCallUs = 0.0;
+				d3d8gles_perfUploadUs = 0.0;
+				d3d8gles_perfUploadCalls = 0;
 				for (int i = 0; i < 3; i++) s_gxUiTimeUs[i] = 0.0;
 				for (int i = 0; i < GX_DRAWCAT_COUNT; i++) s_gxDrawsByCategory[i] = 0;
 			}

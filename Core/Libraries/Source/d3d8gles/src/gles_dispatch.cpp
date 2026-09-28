@@ -4,6 +4,28 @@
 #include <GLES3/gl3.h>
 #include <dlfcn.h>
 #include <cstdio>
+#include <time.h>
+
+// GeneralsX @performance Android port 28/09/2026 Time spent in the driver's upload entry
+// points (buffer data, mapping, texture images), for the [d3d8gles] perf-cpu line: together
+// with the draw timing in gles_pipeline.cpp it splits a frame's rendering cost into the
+// engine's own work, this layer's translation, and the driver.
+double d3d8gles_perfUploadUs = 0.0;
+unsigned d3d8gles_perfUploadCalls = 0;
+namespace {
+struct UploadTimer
+{
+	timespec start;
+	UploadTimer() { clock_gettime(CLOCK_MONOTONIC, &start); }
+	~UploadTimer()
+	{
+		timespec end;
+		clock_gettime(CLOCK_MONOTONIC, &end);
+		d3d8gles_perfUploadUs += (end.tv_sec - start.tv_sec) * 1.0e6 + (end.tv_nsec - start.tv_nsec) / 1.0e3;
+		++d3d8gles_perfUploadCalls;
+	}
+};
+}
 
 namespace {
 
@@ -238,21 +260,25 @@ GL_APICALL void GL_APIENTRY glBlendFunc(GLenum sfactor, GLenum dfactor)
 
 GL_APICALL void GL_APIENTRY glBufferData(GLenum target, GLsizeiptr size, const void *data, GLenum usage)
 {
+	UploadTimer uploadTimer;
 	d3d8gles_pfn_glBufferData(target, size, data, usage);
 }
 
 GL_APICALL void GL_APIENTRY glBufferSubData(GLenum target, GLintptr offset, GLsizeiptr size, const void *data)
 {
+	UploadTimer uploadTimer;
 	d3d8gles_pfn_glBufferSubData(target, offset, size, data);
 }
 
 GL_APICALL void *GL_APIENTRY glMapBufferRange(GLenum target, GLintptr offset, GLsizeiptr length, GLbitfield access)
 {
+	UploadTimer uploadTimer;
 	return d3d8gles_pfn_glMapBufferRange(target, offset, length, access);
 }
 
 GL_APICALL GLboolean GL_APIENTRY glUnmapBuffer(GLenum target)
 {
+	UploadTimer uploadTimer;
 	return d3d8gles_pfn_glUnmapBuffer(target);
 }
 
@@ -293,6 +319,7 @@ GL_APICALL void GL_APIENTRY glCompileShader(GLuint shader)
 
 GL_APICALL void GL_APIENTRY glCompressedTexImage2D(GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLint border, GLsizei imageSize, const void *data)
 {
+	UploadTimer uploadTimer;
 	d3d8gles_pfn_glCompressedTexImage2D(target, level, internalformat, width, height, border, imageSize, data);
 }
 
@@ -559,6 +586,7 @@ GL_APICALL void GL_APIENTRY glStencilOp(GLenum fail, GLenum zfail, GLenum zpass)
 
 GL_APICALL void GL_APIENTRY glTexImage2D(GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLint border, GLenum format, GLenum type, const void *pixels)
 {
+	UploadTimer uploadTimer;
 	d3d8gles_pfn_glTexImage2D(target, level, internalformat, width, height, border, format, type, pixels);
 }
 
