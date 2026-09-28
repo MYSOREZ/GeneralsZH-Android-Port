@@ -653,8 +653,15 @@ void ControlBar::populateBuildTooltipLayout( const CommandButton *commandButton,
 		}
 
 	}
+	// GeneralsX @bugfix Android port 28/09/2026 Reset the name's font only when the name changes.
+	// A translated name longer than its one-line box (most Russian upgrade names) makes the
+	// static text draw step the font down and keep the smaller one (W3DStaticText.cpp). The
+	// popup is repopulated whenever the control bar is marked dirty -- money changing is
+	// enough -- and resetting the font on every repopulate undid that, so the centred title
+	// alternated between two sizes, visibly jumping left and right while a finger held the
+	// button. Same for the cost line, which is one line too.
 	GameWindow *win = TheWindowManager->winGetWindowFromId(m_buildToolTipLayout->getFirstWindow(), TheNameKeyGenerator->nameToKey("ControlBarPopupDescription.wnd:StaticTextName"));
-	if(win)
+	if(win && GadgetStaticTextGetText(win) != name)
 	{
 		TheControlBar->overrideTooltipGadgetFont(win);
 		GadgetStaticTextSetText(win, name);
@@ -663,11 +670,14 @@ void ControlBar::populateBuildTooltipLayout( const CommandButton *commandButton,
 	win = TheWindowManager->winGetWindowFromId(m_buildToolTipLayout->getFirstWindow(), TheNameKeyGenerator->nameToKey("ControlBarPopupDescription.wnd:StaticTextCost"));
 	if(win)
 	{
-		TheControlBar->overrideTooltipGadgetFont(win);
 		if( costToBuild > 0 )
 		{
 			win->winHide( FALSE );
-			GadgetStaticTextSetText(win, cost);
+			if( GadgetStaticTextGetText(win) != cost )
+			{
+				TheControlBar->overrideTooltipGadgetFont(win);
+				GadgetStaticTextSetText(win, cost);
+			}
 		}
 		else
 		{
