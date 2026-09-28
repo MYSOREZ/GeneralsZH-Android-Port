@@ -367,14 +367,25 @@ struct TouchState {
 	float panLastPxX = 0.0f, panLastPxY = 0.0f; // last processed finger1 pixel pos, single-finger PANNING
 
 	// GeneralsX @feature Android port 02/08/2026 Momentum (inertia): the
-	// pixel delta actually applied on the LAST processed PANNING frame,
-	// carried over as the coasting phase's starting velocity on release --
-	// see applyPendingCameraMotion()'s MOMENTUM branch.
+	// finger's velocity at release, in pixels per SECOND, carried over as the
+	// coasting phase's starting velocity -- see applyPendingCameraMotion()'s
+	// MOMENTUM branch.
 	float panVelX = 0.0f, panVelY = 0.0f;
 	// A virtual "finger" position that MOMENTUM advances by panVelX/Y each
 	// frame (screenToTerrain needs real screen coordinates to project, even
 	// though no finger is actually there anymore).
 	float momentumX = 0.0f, momentumY = 0.0f;
+	Uint64 momentumLastNs = 0;          // when MOMENTUM last advanced
+
+	// GeneralsX @bugfix Android port 28/09/2026 The finger's recent path while PANNING,
+	// as timestamped touch samples, so the release velocity comes from the finger rather
+	// than from the rendered frame -- see panReleaseVelocity().
+	static const int PAN_SAMPLES = 16;
+	float panSampleX[PAN_SAMPLES] = {};
+	float panSampleY[PAN_SAMPLES] = {};
+	Uint64 panSampleNs[PAN_SAMPLES] = {};
+	int panSampleCount = 0;             // valid samples, newest at index (panSampleNext - 1)
+	int panSampleNext = 0;
 
 	// TWOFINGER tracking: both fingers' current pixel positions (updated on
 	// every motion event), plus the last-processed centroid/spread so
@@ -441,9 +452,21 @@ const float TWO_FINGER_TAP_MAX_PX = 24.0f;
 // FRICTION is a per-frame multiplier (not per-second -- applyPendingCameraMotion
 // runs once per rendered frame, so this is frame-rate-dependent same as the
 // rest of this file's per-frame camera application).
-const float MOMENTUM_MIN_START_PX_PER_FRAME = 2.0f;  // below this release speed, don't bother coasting
-const float MOMENTUM_STOP_PX_PER_FRAME = 0.5f;       // below this, coasting has died down enough to stop
-const float MOMENTUM_FRICTION = 0.92f;               // velocity *= this, every frame, while coasting
+//
+// GeneralsX @bugfix Android port 28/09/2026 Reported on a 240 fps phone: the camera
+// sometimes stopped dead on release instead of coasting, depending on direction. All three
+// numbers were per rendered FRAME and the release speed was the finger's movement during
+// the last frame. At 240 fps the touch panel (120-240 Hz) delivers no sample in many
+// frames, so that last-frame delta was often exactly zero -- no coast at all -- or one
+// axis of it was, and when a coast did start, 0.92 per frame decayed four times faster in
+// wall time than at 60 fps. Everything is now per SECOND, with the values the 60 fps tuning
+// had (2 and 0.5 px/frame at 60 fps, 0.92 per 1/60 s), and the release speed is measured
+// over the finger's own timestamped samples (panReleaseVelocity).
+const float MOMENTUM_MIN_START_PX_PER_SEC = 120.0f;  // below this release speed, don't bother coasting
+const float MOMENTUM_STOP_PX_PER_SEC = 30.0f;        // below this, coasting has died down enough to stop
+const float MOMENTUM_FRICTION_PER_60TH = 0.92f;      // velocity *= this per 1/60 s while coasting
+const Uint64 PAN_VELOCITY_WINDOW_NS = 80000000;      // release speed: finger path over the last 80 ms
+const Uint64 PAN_REST_BEFORE_LIFT_NS = 100000000;    // no sample for 100 ms before lifting = finger stopped
 
 const float ZOOM_PX_PER_TICK = 40.0f; // calibration only -- see ZOOM_HEIGHT_PER_PIXEL below
 
@@ -581,11 +604,25 @@ void applyCameraPan(float fromPxX, float fromPxY, float toPxX, float toPxY)
 		GX_TRACE("applyCameraPan: blocked, the script owns the camera (cinematic)\n");
 		return;
 	}
+	// GeneralsX @bugfix Android port 28/09/2026 Sub-pixel steps. screenToTerrain() takes
+	// whole pixels, and at 240 fps a coast or a slow drag moves well under one pixel per
+	// frame: truncating both ends made most frames move nothing and every few frames jump a
+	// pixel. Project a stretched copy of the step instead (at least PAN_PROJECT_MIN_PX long,
+	// same direction) and scale the world delta back down -- the projection is locally
+	// linear over a few pixels, so this is the step's true size.
+	const float PAN_PROJECT_MIN_PX = 16.0f;
+	const float stepX = toPxX - fromPxX;
+	const float stepY = toPxY - fromPxY;
+	const float stepLen = SDL_max(SDL_fabsf(stepX), SDL_fabsf(stepY));
+	if (stepLen <= 0.0f) {
+		return;
+	}
+	const float stretch = (stepLen < PAN_PROJECT_MIN_PX) ? (PAN_PROJECT_MIN_PX / stepLen) : 1.0f;
 	ICoord2D fromScreen, toScreen;
-	fromScreen.x = (Int)fromPxX;
-	fromScreen.y = (Int)fromPxY;
-	toScreen.x = (Int)toPxX;
-	toScreen.y = (Int)toPxY;
+	fromScreen.x = (Int)SDL_lroundf(fromPxX);
+	fromScreen.y = (Int)SDL_lroundf(fromPxY);
+	toScreen.x = (Int)SDL_lroundf(fromPxX + stepX * stretch);
+	toScreen.y = (Int)SDL_lroundf(fromPxY + stepY * stretch);
 
 	Coord3D worldFrom, worldTo;
 	const Bool fromOk = TheTacticalView->screenToTerrain(&fromScreen, &worldFrom);
@@ -639,8 +676,8 @@ void applyCameraPan(float fromPxX, float fromPxY, float toPxX, float toPxY)
 	// confirmed, sufficient fix.
 
 	Coord3D pos = TheTacticalView->getPosition();
-	pos.x += (worldFrom.x - worldTo.x);
-	pos.y += (worldFrom.y - worldTo.y);
+	pos.x += (worldFrom.x - worldTo.x) / stretch;
+	pos.y += (worldFrom.y - worldTo.y) / stretch;
 	TheTacticalView->userSetPosition(pos);
 	TheTacticalView->forceRedraw();
 }
@@ -826,6 +863,58 @@ void pushMousePosition(float x, float y)
 //
 // Must come AFTER the button-up: the leave tail only runs while m_grabWindow is null, and
 // the up is what clears the grab.
+void resetPanSamples()
+{
+	s_touch.panSampleCount = 0;
+	s_touch.panSampleNext = 0;
+}
+
+void recordPanSample(float x, float y, Uint64 ns)
+{
+	const int i = s_touch.panSampleNext;
+	s_touch.panSampleX[i] = x;
+	s_touch.panSampleY[i] = y;
+	s_touch.panSampleNs[i] = ns;
+	s_touch.panSampleNext = (i + 1) % TouchState::PAN_SAMPLES;
+	if (s_touch.panSampleCount < TouchState::PAN_SAMPLES) {
+		++s_touch.panSampleCount;
+	}
+}
+
+// The finger's velocity at liftNs, in pixels per second: the straight line from the oldest
+// sample inside PAN_VELOCITY_WINDOW_NS to the newest one. Zero when the finger rested before
+// lifting -- a deliberate stop must stay a stop.
+void panReleaseVelocity(Uint64 liftNs, float &velX, float &velY)
+{
+	velX = velY = 0.0f;
+	if (s_touch.panSampleCount < 2) {
+		return;
+	}
+	const int n = TouchState::PAN_SAMPLES;
+	const int newest = (s_touch.panSampleNext - 1 + n) % n;
+	const Uint64 newestNs = s_touch.panSampleNs[newest];
+	if (liftNs > newestNs && liftNs - newestNs > PAN_REST_BEFORE_LIFT_NS) {
+		return;
+	}
+	int oldest = newest;
+	for (int k = 1; k < s_touch.panSampleCount; ++k) {
+		const int i = (newest - k + n) % n;
+		if (newestNs - s_touch.panSampleNs[i] > PAN_VELOCITY_WINDOW_NS) {
+			break;
+		}
+		oldest = i;
+	}
+	if (oldest == newest) {
+		return;
+	}
+	const float dt = (float)(newestNs - s_touch.panSampleNs[oldest]) * 1.0e-9f;
+	if (dt <= 0.0f) {
+		return;
+	}
+	velX = (s_touch.panSampleX[newest] - s_touch.panSampleX[oldest]) / dt;
+	velY = (s_touch.panSampleY[newest] - s_touch.panSampleY[oldest]) / dt;
+}
+
 void pushPointerGone()
 {
 	pushMousePosition(-1.0f, -1.0f);
@@ -1163,6 +1252,9 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 		if (event.tfinger.fingerID == s_touch.finger1) {
 			s_touch.lastX = px;
 			s_touch.lastY = py;
+			if (s_touch.phase == TouchState::PANNING) {
+				recordPanSample(px, py, event.tfinger.timestamp);
+			}
 			if (s_touch.phase == TouchState::TWOFINGER) {
 				s_touch.f1px = px;
 				s_touch.f1py = py;
@@ -1255,6 +1347,8 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 					s_touch.phase = TouchState::PANNING;
 					s_touch.panLastPxX = px;
 					s_touch.panLastPxY = py;
+					resetPanSamples();
+					recordPanSample(px, py, event.tfinger.timestamp);
 				}
 			}
 		}
@@ -1526,10 +1620,12 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 						// keeps calling applyCameraPan() with decaying velocity.
 						// No message stream involvement either way -- nothing to
 						// release.
+						panReleaseVelocity(event.tfinger.timestamp, s_touch.panVelX, s_touch.panVelY);
 						const float speed = SDL_fabsf(s_touch.panVelX) + SDL_fabsf(s_touch.panVelY);
-						if (speed >= MOMENTUM_MIN_START_PX_PER_FRAME) {
+						if (speed >= MOMENTUM_MIN_START_PX_PER_SEC) {
 							s_touch.momentumX = s_touch.lastX;
 							s_touch.momentumY = s_touch.lastY;
+							s_touch.momentumLastNs = SDL_GetTicksNS();
 							s_touch.phase = TouchState::MOMENTUM;
 							startedMomentum = true;
 						}
@@ -1563,6 +1659,8 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 							}
 							s_touch.finger2 = 0;
 							s_touch.phase = TouchState::PANNING;
+							resetPanSamples();
+							recordPanSample(s_touch.lastX, s_touch.lastY, event.tfinger.timestamp);
 							continueAsSinglePan = true;
 						}
 					}
@@ -1947,8 +2045,6 @@ void applyPendingCameraMotion()
 	updateTouchTargetFeedback();
 
 	if (s_touch.phase == TouchState::PANNING) {
-		s_touch.panVelX = s_touch.lastX - s_touch.panLastPxX;
-		s_touch.panVelY = s_touch.lastY - s_touch.panLastPxY;
 		applyCameraPan(s_touch.panLastPxX, s_touch.panLastPxY, s_touch.lastX, s_touch.lastY);
 		s_touch.panLastPxX = s_touch.lastX;
 		s_touch.panLastPxY = s_touch.lastY;
@@ -2003,15 +2099,25 @@ void applyPendingCameraMotion()
 		// "finger" (momentumX/Y) that applyCameraPan()'s screenToTerrain
 		// projection still needs real screen coordinates for -- no actual
 		// finger is down during this phase.
-		const float newX = s_touch.momentumX + s_touch.panVelX;
-		const float newY = s_touch.momentumY + s_touch.panVelY;
+		// Advanced by elapsed time, not by frame, so the coast covers the same distance
+		// over the same time at 30, 60 or 240 fps. A long stall (a loading hitch) is
+		// clamped rather than applied as one jump.
+		const Uint64 nowNs = SDL_GetTicksNS();
+		float dt = (float)(nowNs - s_touch.momentumLastNs) * 1.0e-9f;
+		s_touch.momentumLastNs = nowNs;
+		if (dt > 0.05f) {
+			dt = 0.05f;
+		}
+		const float newX = s_touch.momentumX + s_touch.panVelX * dt;
+		const float newY = s_touch.momentumY + s_touch.panVelY * dt;
 		applyCameraPan(s_touch.momentumX, s_touch.momentumY, newX, newY);
 		s_touch.momentumX = newX;
 		s_touch.momentumY = newY;
-		s_touch.panVelX *= MOMENTUM_FRICTION;
-		s_touch.panVelY *= MOMENTUM_FRICTION;
+		const float friction = SDL_powf(MOMENTUM_FRICTION_PER_60TH, dt * 60.0f);
+		s_touch.panVelX *= friction;
+		s_touch.panVelY *= friction;
 		const float speed = SDL_fabsf(s_touch.panVelX) + SDL_fabsf(s_touch.panVelY);
-		if (speed < MOMENTUM_STOP_PX_PER_FRAME) {
+		if (speed < MOMENTUM_STOP_PX_PER_SEC) {
 			s_touch.phase = TouchState::IDLE;
 		}
 	}
