@@ -67,6 +67,12 @@
 #include "Common/AudioAffect.h"
 #include "Common/GameAudio.h"
 #include "GameLogic/GameLogic.h"
+#include "Common/FramePacer.h"
+#if defined(__ANDROID__)
+// Forward-declared like W3DProjectedShadow.cpp does: d3d8gles.h is not on this target's include
+// path, and everything links into the same libmain.so. See gles_pipeline.cpp.
+extern "C" void d3d8gles_SetPresentUncapped(bool uncapped);
+#endif
 #include "SDL3Device/GameClient/TouchInput.h"
 #if defined(__APPLE__)
 #include <TargetConditionals.h>
@@ -2148,6 +2154,21 @@ void SDL3GameEngine::update(void)
 		return;
 	}
 	s_wasPausedLastFrame = pausedNow;
+#endif
+#if defined(__ANDROID__)
+	// GeneralsX @bugfix Android port 28/09/2026 Game speed above the screen's refresh rate. The
+	// skirmish Game Speed slider raises the frame-rate limit, and logic runs one step per
+	// rendered frame, so on the 60 Hz engine anything above normal speed needs more than 60
+	// frames a second -- which vsync on a 60 Hz display never allows: the phone showed 60 fps
+	// and the game did not speed up. Vsync goes off only while the limit is above the refresh
+	// rate; the native GLES backend applies it at its next present.
+	if (TheFramePacer != nullptr && m_SDLWindow != nullptr) {
+		const SDL_DisplayMode *mode = SDL_GetCurrentDisplayMode(SDL_GetDisplayForWindow(m_SDLWindow));
+		const int refresh = (mode && mode->refresh_rate > 1.0f) ? (int)(mode->refresh_rate + 0.5f) : 60;
+		const bool uncapped = TheFramePacer->isActualFramesPerSecondLimitEnabled()
+			&& TheFramePacer->getActualFramesPerSecondLimit() > refresh;
+		d3d8gles_SetPresentUncapped(uncapped);
+	}
 #endif
 	GameEngine::update();
 }

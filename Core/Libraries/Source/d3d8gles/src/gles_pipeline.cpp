@@ -2391,6 +2391,17 @@ extern "C" void d3d8gles_AddUiTiming(int bucket, double microseconds)
 	if (bucket >= 0 && bucket < 3) s_gxUiTimeUs[bucket] += microseconds;
 }
 
+// GeneralsX @bugfix Android port 28/09/2026 Vsync on or off, applied at the next present on the
+// GL thread. The engine asks for it off only while its frame-rate limit is above the display's
+// refresh rate -- the skirmish Game Speed slider raised on the 60 Hz engine, which needs more
+// than 60 frames for more than 60 logic frames a second (logic cannot outrun rendering here, see
+// FramePacer). Android's compositor drops the surplus frames, so nothing tears.
+static int s_gxWantUncappedPresent = 0;
+extern "C" void d3d8gles_SetPresentUncapped(bool uncapped)
+{
+	s_gxWantUncappedPresent = uncapped ? 1 : 0;
+}
+
 extern "C" int d3d8gles_SetDrawCategory(int category)
 {
 	const int prev = s_gxDrawCategory;
@@ -3198,6 +3209,16 @@ void WebGLPipeline::present()
 			m_perfRTReadbackUs = 0.0;
 			m_perfDxt16Levels = 0;
 			m_perfDxt16SavedBytes = 0.0;
+		}
+	}
+
+	{
+		static int s_appliedUncapped = 0;
+		if (s_gxWantUncappedPresent != s_appliedUncapped) {
+			s_appliedUncapped = s_gxWantUncappedPresent;
+			const bool ok = SDL_GL_SetSwapInterval(s_appliedUncapped ? 0 : 1);
+			fprintf(stderr, "[d3d8gles] vsync %s (%s)\n", s_appliedUncapped ? "off" : "on",
+				ok ? "ok" : SDL_GetError());
 		}
 	}
 

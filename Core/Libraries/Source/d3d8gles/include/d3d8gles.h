@@ -90,3 +90,6 @@ enum {
 };
 extern "C" void d3d8gles_AddUiTiming(int bucket, double microseconds);
 extern "C" bool d3d8gles_ShouldUseANGLE();
+// Vsync off while the engine's frame-rate limit is above the display refresh rate (game speed
+// raised past what the screen shows); applied at the next present. See gles_pipeline.cpp.
+extern "C" void d3d8gles_SetPresentUncapped(bool uncapped);
