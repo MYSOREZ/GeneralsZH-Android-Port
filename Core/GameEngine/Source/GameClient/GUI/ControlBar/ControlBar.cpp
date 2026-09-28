@@ -1598,15 +1598,20 @@ void ControlBar::update()
 	// that gets rebuilt underneath the finger, and hit-testing the point again each frame
 	// survives that.
 	//
-	// GeneralsX @bugfix Android port 28/09/2026 The hit test includes disabled windows
-	// (ignoreEnabled = TRUE). A command the player cannot use yet -- a building whose
-	// prerequisite is missing, an upgrade not yet affordable -- is a DISABLED button, and the
-	// default hit test skips it and returns the control bar panel behind it; the flag was
-	// never asserted and the description vanished after a second. Those are the buttons whose
-	// description matters most: it is where the popup says what is still required.
+	// GeneralsX @bugfix Android port 28/09/2026 Disabled buttons too. A command the player
+	// cannot use yet (a building whose prerequisite is missing) or has already used (a
+	// purchased upgrade) is a DISABLED button, and the default hit test does not descend into
+	// disabled windows: it returned the command panel behind the button, the flag was never
+	// asserted and the description vanished after a second. So when the enabled-only hit
+	// lands on a container, descend from THAT window again with ignoreEnabled. Not a global
+	// ignoreEnabled hit test: that one also finds disabled top-level windows, among them this
+	// description popup itself, so the popup was hit through, deleted, found missing, shown
+	// again -- the flickering title and, on disabled buttons, no description at all.
 	if (m_touchHoldActive && TheInGameUI && !TheInGameUI->areTooltipsDisabled() && TheWindowManager)
 	{
-		GameWindow *held = TheWindowManager->getWindowUnderCursor(m_touchHoldPoint.x, m_touchHoldPoint.y, TRUE);
+		GameWindow *held = TheWindowManager->getWindowUnderCursor(m_touchHoldPoint.x, m_touchHoldPoint.y);
+		if (held != nullptr && !BitIsSet(held->winGetStyle(), GWS_PUSH_BUTTON))
+			held = held->winPointInChild(m_touchHoldPoint.x, m_touchHoldPoint.y, TRUE);
 		if (held != nullptr && BitIsSet(held->winGetStyle(), GWS_PUSH_BUTTON))
 		{
 			showBuildTooltipLayout(held);

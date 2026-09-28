@@ -186,6 +186,7 @@ protected:
 
 	ALuint loadBufferForRead(AudioEventRTS *eventToLoadFrom);
 	void closeBuffer(ALuint bufferToClose);
+	void detachAndCloseBuffer(PlayingAudio* playing);	///< take the buffer off a stopped source, then closeBuffer()
 
 	PlayingAudio *allocatePlayingAudio(void);
 	void releaseOpenALHandles(PlayingAudio *release);

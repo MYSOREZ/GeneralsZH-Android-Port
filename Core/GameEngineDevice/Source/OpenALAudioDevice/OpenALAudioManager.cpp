@@ -1231,6 +1231,22 @@ void OpenALAudioManager::closeBuffer(ALuint bufferToClose)
 	m_audioCache->closeBuffer(bufferToClose);
 }
 
+//-------------------------------------------------------------------------------------------------
+// GeneralsX @bugfix Android port 28/09/2026 Give a finished portion's buffer back to the cache
+// only after taking it off the source. The source is stopped but still holds the buffer, and
+// the next portion or loop is fetched right after -- through the cache, which may evict any
+// unused entry to make room, including this one. OpenAL refuses to delete a buffer attached
+// to a source, so the eviction failed (al::base_exception from alDeleteBuffers under
+// startNextLoop), leaked the PCM, and the cache counted the space as free. Deleting the
+// source on release already detaches it; this covers the source that lives on.
+void OpenALAudioManager::detachAndCloseBuffer(PlayingAudio* playing)
+{
+	if (playing->m_source != 0 && playing->m_bufferHandle != 0)
+		alSourcei(playing->m_source, AL_BUFFER, 0);
+	closeBuffer(playing->m_bufferHandle);
+	playing->m_bufferHandle = 0;
+}
+
 
 //-------------------------------------------------------------------------------------------------
 PlayingAudio* OpenALAudioManager::allocatePlayingAudio(void)
@@ -1714,7 +1730,7 @@ void OpenALAudioManager::notifyOfAudioCompletion(UnsignedInt audioCompleted, Uns
 	playing->m_audioEventRTS->advanceNextPlayPortion();
 	if (playing->m_audioEventRTS->getNextPlayPortion() != PP_Done) {
 		if (playing->m_type == PAT_Sample) {
-			closeBuffer(playing->m_bufferHandle);	// close it so as not to leak it.
+			detachAndCloseBuffer(playing);	// close it so as not to leak it.
 			playing->m_bufferHandle = playSample(playing->m_audioEventRTS, playing);
 
 			// If we don't have a file now, then we should drop to the stopped status so that 
@@ -1724,7 +1740,7 @@ void OpenALAudioManager::notifyOfAudioCompletion(UnsignedInt audioCompleted, Uns
 			}
 		}
 		else if (playing->m_type == PAT_3DSample) {
-			closeBuffer(playing->m_bufferHandle);	// close it so as not to leak it.
+			detachAndCloseBuffer(playing);	// close it so as not to leak it.
 			playing->m_bufferHandle = playSample3D(playing->m_audioEventRTS, playing);
 
 			// If we don't have a file now, then we should drop to the stopped status so that 
@@ -3021,8 +3037,7 @@ Real OpenALAudioManager::getEffectiveVolume(AudioEventRTS* event) const
 //-------------------------------------------------------------------------------------------------
 Bool OpenALAudioManager::startNextLoop(PlayingAudio* looping)
 {
-	closeBuffer(looping->m_bufferHandle);
-	looping->m_bufferHandle = 0;
+	detachAndCloseBuffer(looping);
 
 	if (looping->m_requestStop) {
 		return false;
