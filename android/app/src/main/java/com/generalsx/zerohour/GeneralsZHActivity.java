@@ -110,7 +110,7 @@ public class GeneralsZHActivity extends SDLActivity {
     // Measure the safe insets of this window -- the cutout's safe insets, and on Android 12+
     // the part of each rounded corner a line of text at the edge would run into -- and pass
     // them as fractions of the window, "left,top,right,bottom", for Common/GXSafeArea.h.
-    // Returns null when nothing is known (Android 9, or no cutout and square corners).
+    // Returns null when nothing is known (Android 9).
     private String computeSafeInsetsArgument() {
         try {
             int width;
@@ -137,6 +137,7 @@ public class GeneralsZHActivity extends SDLActivity {
             } else {
                 return null;
             }
+            boolean cornersKnown = false;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                 // A text line hugging an edge meets the corner arc about 0.3 of the radius in
                 // (1 - cos 45 degrees); apply that to both sides of every corner.
@@ -150,12 +151,25 @@ public class GeneralsZHActivity extends SDLActivity {
                 for (int[] c : corners) {
                     RoundedCorner corner = display != null ? display.getRoundedCorner(c[0]) : null;
                     if (corner == null) continue;
+                    cornersKnown = true;
                     int inset = (int) Math.ceil(corner.getRadius() * 0.3);
                     if (c[1] == 1) left = Math.max(left, inset);
                     if (c[2] == 1) top = Math.max(top, inset);
                     if (c[3] == 1) right = Math.max(right, inset);
                     if (c[4] == 1) bottom = Math.max(bottom, inset);
                 }
+            }
+            // GeneralsX @bugfix Android port 28/09/2026 Before Android 12 the system cannot tell
+            // the corner radius, and some Android 12+ firmwares report none: on such a phone the
+            // FPS/clock line sat at the very top edge and was cut off (the old test phone, a
+            // teardrop notch that gave a left inset only). Assume a typical phone corner, a radius
+            // of 8% of the short side, and keep the same 0.3 of it clear on every side.
+            if (!cornersKnown && width > 0 && height > 0) {
+                int inset = (int) Math.ceil(Math.min(width, height) * 0.08 * 0.3);
+                left = Math.max(left, inset);
+                top = Math.max(top, inset);
+                right = Math.max(right, inset);
+                bottom = Math.max(bottom, inset);
             }
             if (width <= 0 || height <= 0 || (left | top | right | bottom) == 0) {
                 return null;

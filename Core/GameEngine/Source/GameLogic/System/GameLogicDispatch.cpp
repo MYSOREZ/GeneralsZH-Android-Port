@@ -984,14 +984,28 @@ bool GameLogic::onNewGame(MAYBE_UNUSED GameMessage *msg)
 		Int maxFPS = msg->getArgument( 3 )->integer;
 		if (maxFPS < 1 || maxFPS > 1000)
 			maxFPS = TheGlobalData->m_framesPerSecondLimit;
-#if defined(GENERALS_ONLINE_HIGH_FPS_FRAME_MULTIPLIER)
-		// GeneralsX @bugfix Android port 28/09/2026 The skirmish Game Speed slider counts in
-		// retail 30 Hz logic frames (30 = normal speed). The 60 Hz engine runs two logic frames
-		// per retail one, so the same speed needs twice the frame rate there; unscaled, "normal"
-		// would play at half speed.
 		else
+		{
+#if defined(__ANDROID__)
+			// GeneralsX @tweak Android port 28/09/2026 The slider's top position ("--", sent as
+			// 1000) means "no limit". Logic runs one step per rendered frame, so there the game
+			// speed is whatever the phone can render: 349 fps on the 60 Hz engine is almost six
+			// times normal speed, and it changes with every scene. Cap it at four times normal
+			// speed instead: a fixed, still very fast top speed that does not keep the GPU at
+			// full load for nothing. The slider counts in retail 30 Hz frames, so that is 120
+			// here; m_framesPerSecondLimit is not used as the base because online settings and
+			// replay playback rewrite it.
+			if (maxFPS >= 1000)
+				maxFPS = 4 * 30;
+#endif
+#if defined(GENERALS_ONLINE_HIGH_FPS_FRAME_MULTIPLIER)
+			// GeneralsX @bugfix Android port 28/09/2026 The skirmish Game Speed slider counts in
+			// retail 30 Hz logic frames (30 = normal speed). The 60 Hz engine runs two logic
+			// frames per retail one, so the same speed needs twice the frame rate there;
+			// unscaled, "normal" would play at half speed.
 			maxFPS *= GENERALS_ONLINE_HIGH_FPS_FRAME_MULTIPLIER;
 #endif
+		}
 		DEBUG_LOG(("Setting max FPS limit to %d FPS", maxFPS));
 		TheFramePacer->setFramesPerSecondLimit(maxFPS);
 		TheWritableGlobalData->m_useFpsLimit = true;
