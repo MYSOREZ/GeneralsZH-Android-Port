@@ -907,6 +907,8 @@ ControlBar::ControlBar()
 	m_touchHoldPoint.x = m_touchHoldPoint.y = 0;
 	m_touchForceAttackButton = nullptr;
 	m_touchWaypointButton = nullptr;
+	m_touchAttackMoveButton = nullptr;
+	m_touchGuardButton = nullptr;
 	m_touchBuilderMoreButton = nullptr;
 	m_touchBuilderBackButton = nullptr;
 	m_builderPageObject = INVALID_ID;
@@ -2775,6 +2777,11 @@ void ControlBar::initTouchModeButtons()
 	waypoints->initTouchModeButton( GUI_COMMAND_WAYPOINTS,
 																	"CONTROLBAR:Waypoints", "CONTROLBAR:ToolTipWayPoints", "SSRally" );
 	m_touchWaypointButton = waypoints;
+
+	// The game's own buttons, not copies: same picture, strings, cursor and hotkey as on the
+	// sets that carry them. Null in a mod that renamed them, which just means no button.
+	m_touchAttackMoveButton = findCommandButton( "Command_AttackMove" );
+	m_touchGuardButton = findCommandButton( "Command_Guard" );
 
 	// A button with no picture would keep showing the previous command's art in its slot
 	// (setControlCommand only ever sets an image, never clears one), which is worse than no

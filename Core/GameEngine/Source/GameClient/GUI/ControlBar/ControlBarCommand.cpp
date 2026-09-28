@@ -570,6 +570,21 @@ static Bool isBuilderCommandSet( const CommandSet *commandSet )
 }
 
 //-------------------------------------------------------------------------------------------------
+/** Does the bar being populated already carry a command of this type in any slot? */
+//-------------------------------------------------------------------------------------------------
+static Bool barHasCommandType( const CommandSet *commandSet, const CommandButton * const *commonCommands,
+															 GUICommandType type )
+{
+	for( Int i = 0; i < MAX_COMMANDS_PER_SET; ++i )
+	{
+		const CommandButton *button = commandSet ? commandSet->getCommandButton( i ) : commonCommands[ i ];
+		if( button && button->getCommandType() == type )
+			return TRUE;
+	}
+	return FALSE;
+}
+
+//-------------------------------------------------------------------------------------------------
 /** GeneralsX @feature Android port 24/09/2026 Put the touch force-attack and waypoint buttons
 	(see initTouchModeButtons) into free slots of the command bar that was just populated.
 
@@ -612,14 +627,57 @@ void ControlBar::addTouchModeButtons( const CommandSet *commandSet )
 			canMove = TRUE;
 	}
 
-	const CommandButton *wanted[ 2 ];
-	wanted[ 0 ] = canAttack ? m_touchForceAttackButton : nullptr;
-	wanted[ 1 ] = canMove ? m_touchWaypointButton : nullptr;
+	// GeneralsX @feature Android port 28/09/2026 Reported: the Combat Chinook has no Attack Move
+	// and no Guard, although the soldiers inside it fire. Its set simply never listed them (Guard
+	// is commented out in CommandSet.ini), while the Battle Bus and the Humvee -- the same kind of
+	// transport -- carry both, and the engine already runs both orders for a container whose
+	// passengers fire: target acquisition asks the passengers (WeaponSet.cpp) and attack orders
+	// are handed on to them (TransportAIUpdate, ChinookAIUpdate). A mouse player could not issue
+	// them either, but a touch player also lacks the keyboard that makes up for the rest, so lend
+	// the stock buttons to a mobile selection that can fight and whose bar lacks them. They go in
+	// the slots the stock sets use (11 and 13) when free. canAttack is false for an empty
+	// transport, so they appear only while someone inside can shoot.
+	const Bool lendOrders = canAttack && canMove;
+	const CommandButton *lentAttackMove =
+		( lendOrders && !barHasCommandType( commandSet, m_commonCommands, GUI_COMMAND_ATTACK_MOVE ) )
+		? m_touchAttackMoveButton : nullptr;
+	const CommandButton *lentGuard =
+		( lendOrders && !barHasCommandType( commandSet, m_commonCommands, GUI_COMMAND_GUARD ) &&
+		  !barHasCommandType( commandSet, m_commonCommands, GUI_COMMAND_GUARD_WITHOUT_PURSUIT ) &&
+		  !barHasCommandType( commandSet, m_commonCommands, GUI_COMMAND_GUARD_FLYING_UNITS_ONLY ) )
+		? m_touchGuardButton : nullptr;
+
+	const CommandButton *wanted[ 4 ];
+	wanted[ 0 ] = lentAttackMove;
+	wanted[ 1 ] = lentGuard;
+	wanted[ 2 ] = canAttack ? m_touchForceAttackButton : nullptr;
+	wanted[ 3 ] = canMove ? m_touchWaypointButton : nullptr;
+
+	// The lent stock buttons first, in their own slots (zero-based 10 and 12) when free.
+	static const Int homeSlot[ 2 ] = { 10, 12 };
+	for( Int b = 0; b < 2; ++b )
+	{
+		const Int i = homeSlot[ b ];
+		GameWindow *win = m_commandWindows[ i ];
+		if( wanted[ b ] == nullptr || win == nullptr )
+			continue;
+		const Bool slotTaken = commandSet
+			? ( commandSet->getCommandButton( i ) != nullptr )
+			: ( m_commonCommands[ i ] != nullptr );
+		if( slotTaken )
+			continue;
+		win->winHide( FALSE );
+		win->winEnable( TRUE );
+		setControlCommand( win, wanted[ b ] );
+		if( commandSet == nullptr )
+			m_commonCommands[ i ] = wanted[ b ];
+		wanted[ b ] = nullptr;
+	}
 
 	// Zero-based window indices: slot 12, then 10, 9, ... 1.
 	static const Int preferredSlots[] = { 11, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
 	size_t next = 0;
-	for( Int b = 0; b < 2; ++b )
+	for( Int b = 0; b < 4; ++b )
 	{
 		if( wanted[ b ] == nullptr )
 			continue;
