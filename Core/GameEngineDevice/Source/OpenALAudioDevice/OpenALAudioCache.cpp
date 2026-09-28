@@ -290,6 +290,7 @@ ALuint OpenALAudioFileCache::getBufferForFile(const OpenFileInfo &fileInfo)
 
 	// Couldn't find the file, so actually open it.
 	File* file = TheFileSystem->openFile(strToFind.str());
+	m_stats.openMs += std::chrono::duration<double, std::milli>(std::chrono::steady_clock::now() - missStart).count();
 	if (!file) {
 		DEBUG_ASSERTLOG(strToFind.isEmpty(), ("Missing Audio File: '%s'\n", strToFind.str()));
 		return 0;

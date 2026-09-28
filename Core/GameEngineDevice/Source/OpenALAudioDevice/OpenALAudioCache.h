@@ -81,6 +81,7 @@ struct OpenALAudioCacheStats
 	UnsignedInt misses = 0;       ///< opened and decoded from the file
 	double decodeMs = 0.0;        ///< time spent on those misses (open + FFmpeg decode + upload)
 	double decodeMaxMs = 0.0;     ///< the single slowest miss
+	double openMs = 0.0;          ///< part of decodeMs spent finding and opening the file
 	UnsignedInt evicted = 0;      ///< entries freed to make room
 	UnsignedInt dropped = 0;      ///< decoded but no room could be made: thrown away, sound not played
 	UnsignedInt nativeWav = 0;    ///< misses decoded by the built-in WAV reader rather than FFmpeg

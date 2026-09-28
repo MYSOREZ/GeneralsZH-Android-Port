@@ -35,6 +35,9 @@
 #include <algorithm>
 #include <cctype>
 #include <filesystem>
+#include <mutex>
+#include <string>
+#include <unordered_set>
 
 #ifndef _WIN32
 // GeneralsX @bugfix felipebraz 23/03/2026 Asset root fallback path for loose file lookups.
@@ -51,8 +54,66 @@ StdLocalFileSystem::StdLocalFileSystem() : LocalFileSystem()
 StdLocalFileSystem::~StdLocalFileSystem() {
 }
 
+#ifndef _WIN32
+// GeneralsX @performance Android port 28/09/2026 Remember which relative names are not loose
+// files. FileSystem::openFile() asks the local file system before the .big archives for every
+// file, and on a case-sensitive system a miss is not one failed open: it is a stat of the name,
+// a stat under the asset root, then a component-by-component case-insensitive search that lists
+// directories -- twice, once from the asset root and once from the working directory. On
+// Android those directories are in shared storage, behind FUSE, where each of those calls is
+// slow, and nearly every asset lives in a .big, so the search always fails. Device logs showed
+// it as the bulk of a sound's first-play cost (8-15 ms, up to 85 ms, for a .wav whose decode is
+// well under a millisecond), repeated for every sound the cache had evicted.
+//
+// Only read lookups of RELATIVE names are remembered -- the install directory, which the game
+// never writes to while running. Its user files (saves, replays, options, downloaded maps) are
+// addressed by absolute paths and are never cached. Any write through this file system clears
+// the whole set anyway, as a backstop.
+static std::mutex s_missingMutex;
+static std::unordered_set<std::string> s_missingRelative;
+
+static void forgetMissingFiles()
+{
+	std::lock_guard<std::mutex> lock(s_missingMutex);
+	s_missingRelative.clear();
+}
+#endif
+
 //DECLARE_PERF_TIMER(StdLocalFileSystem_openFile)
+static std::filesystem::path resolveFilenameFromWindowsPath(const Char *filename, Int access);
+
 static std::filesystem::path fixFilenameFromWindowsPath(const Char *filename, Int access)
+{
+#ifndef _WIN32
+	if (access & File::WRITE) {
+		forgetMissingFiles();
+		return resolveFilenameFromWindowsPath(filename, access);
+	}
+
+	const bool relative = filename[0] != '/' && filename[0] != '\\';
+	if (relative) {
+		std::lock_guard<std::mutex> lock(s_missingMutex);
+		if (s_missingRelative.find(filename) != s_missingRelative.end()) {
+			return std::filesystem::path();
+		}
+	}
+
+	std::filesystem::path resolved = resolveFilenameFromWindowsPath(filename, access);
+	if (relative) {
+		std::error_code ec;
+		if (resolved.empty() || !std::filesystem::exists(resolved, ec)) {
+			std::lock_guard<std::mutex> lock(s_missingMutex);
+			s_missingRelative.insert(filename);
+			return std::filesystem::path();
+		}
+	}
+	return resolved;
+#else
+	return resolveFilenameFromWindowsPath(filename, access);
+#endif
+}
+
+static std::filesystem::path resolveFilenameFromWindowsPath(const Char *filename, Int access)
 {
 	std::string fixedFilename(filename);
 
@@ -403,6 +464,7 @@ Bool StdLocalFileSystem::createDirectory(AsciiString directory)
 	std::string fixedDirectory(directory.str());
 
 #ifndef _WIN32
+	forgetMissingFiles();
 	// Replace backslashes with forward slashes on unix
 	std::replace(fixedDirectory.begin(), fixedDirectory.end(), '\\', '/');
 #endif
