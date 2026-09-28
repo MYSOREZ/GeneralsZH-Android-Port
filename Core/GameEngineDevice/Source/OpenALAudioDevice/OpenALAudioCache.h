@@ -83,6 +83,7 @@ struct OpenALAudioCacheStats
 	double decodeMaxMs = 0.0;     ///< the single slowest miss
 	UnsignedInt evicted = 0;      ///< entries freed to make room
 	UnsignedInt dropped = 0;      ///< decoded but no room could be made: thrown away, sound not played
+	UnsignedInt nativeWav = 0;    ///< misses decoded by the built-in WAV reader rather than FFmpeg
 };
 
 struct OpenFileInfo
@@ -140,6 +141,8 @@ protected:
 
 	// FFmpeg related
 	Bool decodeFFmpeg(OpenAudioFile* fileToDecode);
+	// PCM and IMA ADPCM .wav, read directly (see the definition)
+	Bool decodeWavNative(const uint8_t* data, size_t size, OpenAudioFile* fileToDecode);
 
 	OpenFilesHash m_openFiles;
 	UnsignedInt m_currentlyUsedSize;
