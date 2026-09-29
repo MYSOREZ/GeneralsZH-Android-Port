@@ -49,6 +49,7 @@
 #include "statistics.h"
 #include <wwprofile.h>
 #include <algorithm>
+#include <cmath>
 #include <cstring>
 #include <list>
 #if defined(__ANDROID__)
@@ -80,13 +81,38 @@ struct TempIndexStruct
 	ShortVectorIStruct tri;
 	unsigned short idx;
 	float z;
+	int slab;	// GeneralsX: depth slab, see SORT_SLAB_DEPTH
 };
 
-bool operator <(const TempIndexStruct &l, const TempIndexStruct &r) { return l.z < r.z; }
-bool operator <=(const TempIndexStruct &l, const TempIndexStruct &r) { return l.z <= r.z; }
-bool operator >(const TempIndexStruct &l, const TempIndexStruct &r) { return l.z > r.z; }
-bool operator >=(const TempIndexStruct &l, const TempIndexStruct &r) { return l.z >= r.z; }
-bool operator ==(const TempIndexStruct &l, const TempIndexStruct &r) { return l.z == r.z; }
+// GeneralsX @performance Android port 29/09/2026 Sort translucent triangles by depth SLAB, then by
+// node, then by depth -- not by depth alone. Sorting every triangle by its own depth interleaves
+// overlapping effects triangle by triangle, and the pool draws one call per run of a node, so a
+// battle's smoke, fire and explosions became hundreds of tiny draws: a device log of the main
+// menu's background battle on High showed 850-1190 particle draws per frame costing 21-28 ms,
+// the frame at ~14 fps. Within a slab the triangles are grouped by node, so each effect in it is
+// one draw; slabs still go back to front. Only triangles of DIFFERENT effects closer in depth
+// than SORT_SLAB_DEPTH can swap order -- invisible for additive effects (fire, explosions, where
+// order does not matter) and at most a slight change where two alpha-blended effects overlap
+// within that distance. Triangles of one effect keep their exact depth order.
+static const float SORT_SLAB_DEPTH = 4.0f;
+
+static inline int Sort_Slab(float z)
+{
+	return (z == z) ? (int)floorf(z * (1.0f / SORT_SLAB_DEPTH)) : 0;	// NaN goes to slab 0
+}
+
+static inline bool Sort_Less(const TempIndexStruct &l, const TempIndexStruct &r)
+{
+	if (l.slab != r.slab) return l.slab < r.slab;
+	if (l.idx != r.idx) return l.idx < r.idx;
+	return l.z < r.z;
+}
+
+bool operator <(const TempIndexStruct &l, const TempIndexStruct &r) { return Sort_Less(l, r); }
+bool operator <=(const TempIndexStruct &l, const TempIndexStruct &r) { return !Sort_Less(r, l); }
+bool operator >(const TempIndexStruct &l, const TempIndexStruct &r) { return Sort_Less(r, l); }
+bool operator >=(const TempIndexStruct &l, const TempIndexStruct &r) { return !Sort_Less(l, r); }
+bool operator ==(const TempIndexStruct &l, const TempIndexStruct &r) { return !Sort_Less(l, r) && !Sort_Less(r, l); }
 // ----------------------------------------------------------------------------
 static
 void InsertionSort(TempIndexStruct *begin, TempIndexStruct *end)
@@ -515,6 +541,7 @@ void SortingRendererClass::Flush_Sorting_Pool()
 					tis_ptr->tri.k = idx3 + vertex_array_offset;
 					tis_ptr->idx = node_id;
 					tis_ptr->z = (v1->z + v2->z + v3->z)/3.0f;
+					tis_ptr->slab = Sort_Slab(tis_ptr->z);
 					DEBUG_ASSERTCRASH((! _isnan(tis_ptr->z) && _finite(tis_ptr->z)), ("Triangle has invalid center"));
 				}
 			} else {
@@ -538,6 +565,7 @@ void SortingRendererClass::Flush_Sorting_Pool()
 					tis_ptr->z = (mtx[0][2]*(v1->x + v2->x + v3->x) +
 												mtx[1][2]*(v1->y + v2->y + v3->y) +
 												mtx[2][2]*(v1->z + v2->z + v3->z))/3.0f + mtx[3][2];
+					tis_ptr->slab = Sort_Slab(tis_ptr->z);
 					DEBUG_ASSERTCRASH((! _isnan(tis_ptr->z) && _finite(tis_ptr->z)), ("Triangle has invalid center"));
 				}
 			}
