@@ -61,6 +61,7 @@
 #ifdef USE_WWSHADE
 #include "wwshade/shdmesh.h"
 #include "wwshade/shdsubmesh.h"
+#endif
 #include "GXTrace.h"
 #include <chrono>
 
@@ -84,7 +85,6 @@ inline double shadowMsSince(ShadowPerf::Clock::time_point t)
 	return std::chrono::duration<double, std::milli>(ShadowPerf::Clock::now() - t).count();
 }
 }
-#endif
 
 
 // Global Variables and Functions /////////////////////////////////////////////
