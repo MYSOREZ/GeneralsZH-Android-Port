@@ -1859,24 +1859,45 @@ void WebGLPipeline::applyFixedState(WebGLDevice *dev)
 		return; // Nothing this function sets has changed since the last draw.
 	}
 	m_perfStateCacheMisses++;
+	// GeneralsX @performance Android port 29/09/2026 Re-issue only the groups that changed. A
+	// miss used to re-send every call below -- depth, blend, cull, bias, colour mask, stencil,
+	// viewport -- when one field moved, and particles move the blend state on nearly every
+	// draw: device logs showed ~2 depth and ~2 enable calls per particle draw on top of the
+	// blend change, and ~23 us of driver time per particle draw against ~6 us for a model draw.
+	// Drivers tend to treat any state call as "state dirty, revalidate at the next draw", and
+	// the values being the same does not save that. `all` covers the first draw and every
+	// invalidation (m_haveFixedStateKey reset after a clear, etc.), exactly as before.
+	const bool all = !m_haveFixedStateKey;
+	const FixedStateKey prev = m_lastFixedStateKey;
 	m_lastFixedStateKey = key;
 	m_haveFixedStateKey = true;
 
 	// Depth
 	const DWORD zEnable = dev->getRenderState(D3DRS_ZENABLE);
-	if (zEnable) glEnable(GL_DEPTH_TEST);
-	else glDisable(GL_DEPTH_TEST);
-	glDepthMask(dev->getRenderState(D3DRS_ZWRITEENABLE) ? GL_TRUE : GL_FALSE);
+	if (all || key.zEnable != prev.zEnable) {
+		if (zEnable) glEnable(GL_DEPTH_TEST);
+		else glDisable(GL_DEPTH_TEST);
+	}
+	if (all || key.zWrite != prev.zWrite)
+		glDepthMask(dev->getRenderState(D3DRS_ZWRITEENABLE) ? GL_TRUE : GL_FALSE);
 	const DWORD zfunc = dev->getRenderState(D3DRS_ZFUNC);
-	glDepthFunc(d3dCmpToGL(zfunc ? zfunc : D3DCMP_LESSEQUAL));
+	if (all || key.zFunc != prev.zFunc)
+		glDepthFunc(d3dCmpToGL(zfunc ? zfunc : D3DCMP_LESSEQUAL));
 
 	// Blend
 	if (dev->getRenderState(D3DRS_ALPHABLENDENABLE)) {
-		glEnable(GL_BLEND);
+		if (all || !prev.alphaBlend)
+			glEnable(GL_BLEND);
 		const DWORD sb = dev->getRenderState(D3DRS_SRCBLEND);
 		const DWORD db = dev->getRenderState(D3DRS_DESTBLEND);
-		glBlendFunc(d3dBlendToGL(sb ? sb : D3DBLEND_ONE), d3dBlendToGL(db ? db : D3DBLEND_ZERO));
-	} else {
+		// The blend function is only in effect while blending is on, so compare it against
+		// the last one actually sent: prev's factors may belong to a draw that had it off.
+		if (all || !prev.alphaBlend || key.srcBlend != m_lastSentSrcBlend || key.destBlend != m_lastSentDestBlend) {
+			glBlendFunc(d3dBlendToGL(sb ? sb : D3DBLEND_ONE), d3dBlendToGL(db ? db : D3DBLEND_ZERO));
+			m_lastSentSrcBlend = key.srcBlend;
+			m_lastSentDestBlend = key.destBlend;
+		}
+	} else if (all || prev.alphaBlend) {
 		glDisable(GL_BLEND);
 	}
 
@@ -1891,6 +1912,7 @@ void WebGLPipeline::applyFixedState(WebGLDevice *dev)
 	// nearly everything (terrain, video quads) after the y-negate fix,
 	// since front/back faces were now backwards relative to what D3D
 	// intended.
+	if (all || key.cullMode != prev.cullMode)
 	switch (dev->getRenderState(D3DRS_CULLMODE)) {
 	case D3DCULL_CW:
 		glEnable(GL_CULL_FACE);
@@ -1907,21 +1929,31 @@ void WebGLPipeline::applyFixedState(WebGLDevice *dev)
 
 	// Depth bias (D3D8 ZBIAS 0..16 pulls towards the viewer)
 	const DWORD zbias = dev->getRenderState(D3DRS_ZBIAS);
-	if (zbias) {
-		glEnable(GL_POLYGON_OFFSET_FILL);
-		glPolygonOffset(-1.0f, -(float)zbias * 2.0f);
-	} else {
-		glDisable(GL_POLYGON_OFFSET_FILL);
+	if (all || key.zBias != prev.zBias) {
+		if (zbias) {
+			glEnable(GL_POLYGON_OFFSET_FILL);
+			glPolygonOffset(-1.0f, -(float)zbias * 2.0f);
+		} else {
+			glDisable(GL_POLYGON_OFFSET_FILL);
+		}
 	}
 
 	// Color mask. Zero is a real value: stencil shadow volumes render with
 	// COLORWRITEENABLE=0 (stencil-only) - mapping it to "write everything"
 	// made every shadow volume a visible black silhouette.
 	const DWORD cw = dev->getRenderState(D3DRS_COLORWRITEENABLE);
-	glColorMask((cw & 1) != 0, (cw & 2) != 0, (cw & 4) != 0, (cw & 8) != 0);
+	if (all || key.colorWrite != prev.colorWrite)
+		glColorMask((cw & 1) != 0, (cw & 2) != 0, (cw & 4) != 0, (cw & 8) != 0);
 
 	// Stencil
-	if (dev->getRenderState(D3DRS_STENCILENABLE)) {
+	const bool stencilChanged = all || key.stencilEnable != prev.stencilEnable ||
+		key.stencilFunc != prev.stencilFunc || key.stencilRef != prev.stencilRef ||
+		key.stencilMask != prev.stencilMask || key.stencilFail != prev.stencilFail ||
+		key.stencilZFail != prev.stencilZFail || key.stencilPass != prev.stencilPass ||
+		key.stencilWriteMask != prev.stencilWriteMask;
+	if (!stencilChanged) {
+		// unchanged: nothing to send
+	} else if (dev->getRenderState(D3DRS_STENCILENABLE)) {
 		glEnable(GL_STENCIL_TEST);
 		// GeneralsX @bugfix Android port 09/05/2026 Two deviations from D3D8
 		// semantics used to live in these three calls, and together they broke
@@ -1985,8 +2017,12 @@ void WebGLPipeline::applyFixedState(WebGLDevice *dev)
 	// on a real device screenshot during live gameplay.
 	const D3DVIEWPORT8 &vp = dev->getViewport();
 	const GLint glViewportY = (GLint)(m_curRTHeight - (int)vp.Y - (int)vp.Height);
-	glViewport((GLint)vp.X, glViewportY, (GLsizei)vp.Width, (GLsizei)vp.Height);
-	glDepthRangef(vp.MinZ, vp.MaxZ);
+	if (all || key.vpX != prev.vpX || key.vpY != prev.vpY || key.vpW != prev.vpW || key.vpH != prev.vpH ||
+	    glViewportY != m_lastSentViewportY)
+		glViewport((GLint)vp.X, glViewportY, (GLsizei)vp.Width, (GLsizei)vp.Height);
+	m_lastSentViewportY = glViewportY;
+	if (all || key.vpMinZ != prev.vpMinZ || key.vpMaxZ != prev.vpMaxZ)
+		glDepthRangef(vp.MinZ, vp.MaxZ);
 
 }
 

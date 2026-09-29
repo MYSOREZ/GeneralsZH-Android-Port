@@ -303,6 +303,8 @@ private:
 	};
 	bool m_haveFixedStateKey = false;
 	FixedStateKey m_lastFixedStateKey{};
+	DWORD m_lastSentSrcBlend = 0, m_lastSentDestBlend = 0; // glBlendFunc as last sent (applyFixedState)
+	GLint m_lastSentViewportY = 0;                             // glViewport's y as last sent (it depends on the RT height)
 	GLuint m_lastProgram = 0;
 	int m_perfStateCacheHits = 0;
 	int m_perfStateCacheMisses = 0;
