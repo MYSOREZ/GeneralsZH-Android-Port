@@ -561,6 +561,8 @@ private:
 	PFN_FenceSync m_glFenceSync = nullptr;
 	PFN_ClientWaitSync m_glClientWaitSync = nullptr;
 	PFN_DeleteSync m_glDeleteSync = nullptr;
+	typedef void (GL_APIENTRY *PFN_FlushMappedBufferRange)(GLenum target, GLintptr offset, GLsizeiptr length);
+	PFN_FlushMappedBufferRange m_glFlushMappedBufferRange = nullptr;
 	bool m_persistentOK = false;
 	int m_perfPersistentSwitches = 0;
 	int m_perfPersistentWaits = 0;
