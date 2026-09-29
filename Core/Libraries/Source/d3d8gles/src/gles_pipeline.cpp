@@ -2960,6 +2960,55 @@ size_t WebGLPipeline::streamToRing(GLuint buffer, size_t capacity, size_t *offse
 	return start;
 }
 
+// GeneralsX @performance Android port 29/09/2026 Dynamic index data without per-draw GL calls,
+// and without ever reusing a byte. Writing the engine's dynamic index buffers through a persistent
+// mapping flickered on Mali (every dynamic draw; static-buffer terrain was fine; Adreno was fine):
+// glDrawElements carries no index range, so the driver scans the indices for min/max and caches it
+// per buffer range until a GL call modifies the buffer -- and the engine refills the same offsets
+// every frame, so a memcpy left the cached range stale. Putting them back on map/unmap cured it
+// and cost 3-6 ms per frame (~20 us per call). Here each draw's indices go to the next unused
+// bytes of a stream buffer, so no (buffer, offset) pair is ever used with two different contents
+// and there is nothing for a cache to get wrong. A full stream is replaced by a NEW buffer object
+// (the old one is deleted; GL keeps its storage alive for the draws still in flight), so there
+// is no fence and no wait either.
+bool WebGLPipeline::streamIndices(const void *src, size_t bytes, GLuint *name, size_t *offset)
+{
+	if (m_indexStreamFailed || !m_persistentOK || !m_opt.persistent || bytes == 0 || bytes > kIndexStreamBytes)
+		return false;
+	size_t start = (m_indexStreamOffset + 3) & ~(size_t)3; // 4-byte aligned: fits 16- and 32-bit indices
+	if (m_indexStream == 0 || start + bytes > kIndexStreamBytes) {
+		if (m_indexStream != 0) {
+			glBindBuffer(GL_COPY_WRITE_BUFFER, m_indexStream);
+			glUnmapBuffer(GL_COPY_WRITE_BUFFER);
+			const GLuint old = m_indexStream;
+			glDeleteBuffers(1, &m_indexStream);
+			invalidateBufferBinding(old);
+			m_indexStream = 0;
+			m_indexStreamPtr = nullptr;
+			m_perfIndexStreamRenewals++;
+		}
+		const GLbitfield flags = GL_MAP_WRITE_BIT | GL_MAP_PERSISTENT_BIT_EXT | GL_MAP_COHERENT_BIT_EXT;
+		glGenBuffers(1, &m_indexStream);
+		glBindBuffer(GL_COPY_WRITE_BUFFER, m_indexStream);
+		m_glBufferStorage(GL_COPY_WRITE_BUFFER, (GLsizeiptr)kIndexStreamBytes, nullptr, flags);
+		m_indexStreamPtr = static_cast<unsigned char *>(
+			glMapBufferRange(GL_COPY_WRITE_BUFFER, 0, (GLsizeiptr)kIndexStreamBytes, flags));
+		if (m_indexStreamPtr == nullptr) {
+			glDeleteBuffers(1, &m_indexStream);
+			m_indexStream = 0;
+			m_indexStreamFailed = true;
+			fprintf(stderr, "[d3d8gles] index stream: persistent mapping refused; dynamic index buffers use ordinary uploads\n");
+			return false;
+		}
+		start = 0;
+	}
+	memcpy(m_indexStreamPtr + start, src, bytes);
+	m_indexStreamOffset = start + bytes;
+	*name = m_indexStream;
+	*offset = start;
+	return true;
+}
+
 void WebGLPipeline::drawIndexed(WebGLDevice *dev, unsigned primType, unsigned minIndex,
                                 unsigned numVertices, unsigned startIndex, unsigned primCount)
 {
@@ -2970,7 +3019,26 @@ void WebGLPipeline::drawIndexed(WebGLDevice *dev, unsigned primType, unsigned mi
 
 	s_gxDrawAfterWrite = vb->m_gl.dirty || ib->m_gl.dirty;
 	ensureVBUploaded(vb);
-	ensureIBUploaded(ib);
+
+	// Dynamic index buffers go through the index stream (streamIndices) when it is available;
+	// their own GL storage is then never uploaded, and stays fully dirty in case the stream
+	// ever falls back.
+	const size_t isz = (ib->m_format == D3DFMT_INDEX32) ? 4 : 2;
+	const size_t indexBytes = (size_t)primVertexCount(primType, primCount) * isz;
+	GLuint iboName = 0;
+	unsigned drawStartIndex = startIndex;
+	bool streamed = false;
+	if ((ib->m_usage & D3DUSAGE_DYNAMIC) && (size_t)startIndex * isz + indexBytes <= ib->m_bits.size()) {
+		const GxUploadTimer uploadTimer(GX_UPLOAD_RING, indexBytes);
+		size_t streamOffset = 0;
+		streamed = streamIndices(ib->m_bits.data() + (size_t)startIndex * isz, indexBytes, &iboName, &streamOffset);
+		if (streamed)
+			drawStartIndex = (unsigned)(streamOffset / isz);
+	}
+	if (!streamed) {
+		ensureIBUploaded(ib);
+		iboName = ib->m_gl.name;
+	}
 
 	const unsigned fvf = dev->getFVF() ? dev->getFVF() : vb->m_fvf;
 	const unsigned stride = dev->getStream0Stride();
@@ -2980,10 +3048,10 @@ void WebGLPipeline::drawIndexed(WebGLDevice *dev, unsigned primType, unsigned mi
 	vb->m_gl.noteGpuRead(numVertices > 0
 		? ((size_t)dev->getBaseVertexIndex() + minIndex + numVertices) * stride
 		: vb->m_bits.size(), vb->m_bits.size());
-	ib->m_gl.noteGpuRead(((size_t)startIndex + primVertexCount(primType, primCount)) *
-		(ib->m_format == D3DFMT_INDEX32 ? 4 : 2), ib->m_bits.size());
+	if (!streamed)
+		ib->m_gl.noteGpuRead((size_t)startIndex * isz + indexBytes, ib->m_bits.size());
 	drawCommon(dev, primType, primCount, vb->m_gl.name, stride, fvf,
-	           ib->m_gl.name, ib->m_format, startIndex, baseBytes, numVertices,
+	           iboName, ib->m_format, drawStartIndex, baseBytes, numVertices,
 	           (int)dev->getBaseVertexIndex());
 }
 
@@ -3435,7 +3503,7 @@ void WebGLPipeline::present()
 				s_gxDrawCallUsAfterWrite = 0.0;
 				s_gxDrawsAfterWrite = 0;
 				{
-					const char *names[GX_UPLOAD_KIND_COUNT] = { "vb-full", "vb-append", "ib-full", "ib-append", "ring" };
+					const char *names[GX_UPLOAD_KIND_COUNT] = { "vb-full", "vb-append", "ib-full", "ib-append", "ring+index-stream" };
 					char line[512];
 					int len = snprintf(line, sizeof(line), "[d3d8gles] perf-upload per frame:");
 					double known = 0.0;
@@ -3532,13 +3600,14 @@ void WebGLPipeline::present()
 			const double frames = m_perfFrameCount > 0 ? (double)m_perfFrameCount : 1.0;
 			fprintf(stderr, "[d3d8gles] perf-opt: basevertex=%.1f/frame upring=%.1f/frame (%.0f KB/frame, %d wraps) "
 				"progcache load=%d save=%d rt-readback=%d (%.1f ms) dxt16 levels=%d (%.1f MB saved) "
-				"persistent switches=%.1f/frame waits=%d new-copies=%d\n",
+				"persistent switches=%.1f/frame waits=%d new-copies=%d index-stream renewals=%d\n",
 				m_perfBaseVertexDraws / frames, m_perfUpRingDraws / frames, m_perfUpRingBytes / 1024.0 / frames,
 				m_perfUpRingWraps, m_perfProgramCacheLoads, m_perfProgramCacheSaves,
 				m_perfRTReadbacks, m_perfRTReadbackUs / 1000.0,
 				m_perfDxt16Levels, m_perfDxt16SavedBytes / (1024.0 * 1024.0),
-				m_perfPersistentSwitches / frames, m_perfPersistentWaits, m_perfPersistentCopies);
-			m_perfPersistentSwitches = m_perfPersistentWaits = m_perfPersistentCopies = 0;
+				m_perfPersistentSwitches / frames, m_perfPersistentWaits, m_perfPersistentCopies,
+				m_perfIndexStreamRenewals);
+			m_perfPersistentSwitches = m_perfPersistentWaits = m_perfPersistentCopies = m_perfIndexStreamRenewals = 0;
 			m_perfLogLastMs = nowMs;
 			m_perfFrameCount = 0;
 			m_perfDrawAccum = 0;

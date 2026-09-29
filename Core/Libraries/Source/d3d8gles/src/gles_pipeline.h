@@ -569,6 +569,16 @@ private:
 	PFN_ClientWaitSync m_glClientWaitSync = nullptr;
 	PFN_DeleteSync m_glDeleteSync = nullptr;
 	bool m_persistentOK = false;
+	// GeneralsX @performance Android port 29/09/2026 Index stream for dynamic index buffers: each
+	// indexed draw's indices are copied into the next unused bytes of one persistently mapped
+	// buffer, and a full buffer is replaced by a new GL buffer object. See streamIndices().
+	static const size_t kIndexStreamBytes = 4u << 20;
+	GLuint m_indexStream = 0;
+	unsigned char *m_indexStreamPtr = nullptr;
+	size_t m_indexStreamOffset = 0;
+	bool m_indexStreamFailed = false;
+	int m_perfIndexStreamRenewals = 0;
+	bool streamIndices(const void *src, size_t bytes, GLuint *name, size_t *offset);
 	int m_perfPersistentSwitches = 0;
 	int m_perfPersistentWaits = 0;
 	int m_perfPersistentCopies = 0;
