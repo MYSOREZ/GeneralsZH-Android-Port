@@ -319,6 +319,34 @@ public class GeneralsZHActivity extends SDLActivity {
         }
 
         super.onCreate(savedInstanceState);
+        acquireLanMulticastLock();
+    }
+
+    // GeneralsX @bugfix Android port 29/09/2026 LAN games find each other by UDP broadcast, and
+    // Android's Wi-Fi stack drops incoming broadcast and multicast frames for any app that does
+    // not hold a multicast lock (a power-saving filter, done in the driver on many phones). Held
+    // for the life of the game activity; its cost is only that the radio wakes for broadcasts.
+    private android.net.wifi.WifiManager.MulticastLock lanMulticastLock;
+
+    private void acquireLanMulticastLock() {
+        try {
+            android.net.wifi.WifiManager wifi = (android.net.wifi.WifiManager)
+                getApplicationContext().getSystemService(WIFI_SERVICE);
+            if (wifi == null) return;
+            lanMulticastLock = wifi.createMulticastLock("GeneralsZH-LAN");
+            lanMulticastLock.setReferenceCounted(false);
+            lanMulticastLock.acquire();
+        } catch (RuntimeException e) {
+            Log.w("GeneralsZH", "LAN multicast lock unavailable: " + e);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (lanMulticastLock != null && lanMulticastLock.isHeld()) {
+            lanMulticastLock.release();
+        }
+        super.onDestroy();
     }
 
     // GeneralsX @bugfix Android port 02/08/2026 A tester reported the camera
