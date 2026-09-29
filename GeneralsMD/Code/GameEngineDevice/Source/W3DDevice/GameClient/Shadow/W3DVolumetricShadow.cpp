@@ -65,6 +65,10 @@
 #include "GXTrace.h"
 #include <chrono>
 
+#if defined(__ANDROID__)
+extern "C" int d3d8gles_SetTwoSidedStencil(int enable, unsigned backPassOp);
+#endif
+
 // GeneralsX @performance Android port 29/09/2026 Where the stencil shadow volumes' time goes. The
 // High preset (the only one with shadow volumes) cost ~12 ms more per frame than Medium with the
 // same units on screen, and the translator's own draw timing accounts for only 3-4 ms of it, so
@@ -3547,6 +3551,21 @@ void W3DVolumetricShadowManager::renderShadows( Bool forceStencilFill )
 		m_pDev->SetVertexShader(SHADOW_DYNAMIC_VOLUME_FVF);
 
 		m_pDev->SetRenderState(D3DRS_CULLMODE,D3DCULL_CW);
+
+		// GeneralsX @performance Android port 29/09/2026 One pass instead of two where the renderer
+		// can do two-sided stencil (the native GLES backend). D3D8 cannot, so every volume is drawn
+		// with front faces incrementing and then again with back faces decrementing; with both faces
+		// in one draw, the second loop below is skipped -- about 450 of ~2900 draws per frame in a
+		// heavy High-preset battle on the old test phone, where shadows cost 5-8 ms of translator
+		// time besides their CPU work. Both faces now wrap (INCR/DECR) so the order in which they
+		// meet a pixel does not matter; the result equals the two-pass INCR-then-DECRSAT one
+		// wherever a pixel sees at least as many front faces as back faces, which holds for every
+		// pixel while the camera is outside the volumes -- always, from this game's camera.
+#if defined(__ANDROID__)
+		const Bool twoSidedStencil = d3d8gles_SetTwoSidedStencil(1, D3DSTENCILOP_DECR) != 0;
+#else
+		const Bool twoSidedStencil = FALSE;
+#endif
 //		m_pDev->SetRenderState(D3DRS_ZBIAS,1);	///@todo: See if this helps or makes things worse.
 		//m_pDev->SetRenderState(D3DRS_FILLMODE,D3DFILL_WIREFRAME);
 
@@ -3603,6 +3622,14 @@ void W3DVolumetricShadowManager::renderShadows( Bool forceStencilFill )
 		s_shadowPerf.incrMs += shadowMsSince(incrStart);
 		const ShadowPerf::Clock::time_point decrStart = ShadowPerf::Clock::now();
 
+		if (twoSidedStencil)
+		{	// Back faces were decremented in the pass above; nothing left to draw.
+#if defined(__ANDROID__)
+			d3d8gles_SetTwoSidedStencil(0, 0);
+#endif
+		}
+		else
+		{
 		// change the stencil op to decrement
 		m_pDev->SetRenderState( D3DRS_STENCILPASS,  D3DSTENCILOP_DECRSAT);
 
@@ -3631,6 +3658,7 @@ void W3DVolumetricShadowManager::renderShadows( Bool forceStencilFill )
 			//all use the same vertex buffer.  Flush them ASAP.
 			shadowDynamicTask->m_parentShadow->RenderVolume(shadowDynamicTask->m_meshIndex,shadowDynamicTask->m_lightIndex);
 			shadowDynamicTask=(W3DVolumetricShadowRenderTask *)shadowDynamicTask->m_nextTask;
+		}
 		}
 
 		//Reset all render tasks for next frame.

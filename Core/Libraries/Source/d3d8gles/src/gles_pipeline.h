@@ -334,6 +334,7 @@ private:
 		DWORD cullMode, colorWrite;
 		DWORD stencilEnable, stencilFunc, stencilRef, stencilMask;
 		DWORD stencilFail, stencilZFail, stencilPass, stencilWriteMask;
+		DWORD twoSided, stencilBackPass; // d3d8gles_SetTwoSidedStencil(), not a D3D8 state
 		int vpX, vpY, vpW, vpH;
 		float vpMinZ, vpMaxZ;
 
@@ -568,6 +569,10 @@ private:
 	PFN_FenceSync m_glFenceSync = nullptr;
 	PFN_ClientWaitSync m_glClientWaitSync = nullptr;
 	PFN_DeleteSync m_glDeleteSync = nullptr;
+	typedef void (GL_APIENTRY *PFN_StencilOpSeparate)(GLenum face, GLenum sfail, GLenum dpfail, GLenum dppass);
+public:
+	PFN_StencilOpSeparate m_glStencilOpSeparate = nullptr;
+private:
 	bool m_persistentOK = false;
 	// GeneralsX @performance Android port 29/09/2026 Index stream for dynamic index buffers: each
 	// indexed draw's indices are copied into the next unused bytes of one persistently mapped

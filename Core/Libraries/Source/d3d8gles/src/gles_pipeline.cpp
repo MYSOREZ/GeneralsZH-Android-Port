@@ -28,6 +28,12 @@
 // it can access the device/resource class internals defined there.
 #include "gles_pipeline.h"
 #include "gles_dispatch.h"
+
+// Set by d3d8gles_SetTwoSidedStencil() (defined further down, with the rest of the exported
+// engine hooks) and read by applyFixedState().
+static bool s_gxGlesReady = false;
+static bool s_gxTwoSidedStencil = false;
+static DWORD s_gxTwoSidedBackPass = 0;
 #include <chrono>
 #include <cstdlib>
 #include <sys/stat.h>
@@ -510,6 +516,9 @@ bool WebGLPipeline::initContext(int w, int h, SDL_Window *window)
 				baseVertexSource = "unavailable";
 		}
 
+		// Core since ES 2.0; resolved here because the dispatch table does not carry it.
+		m_glStencilOpSeparate = reinterpret_cast<PFN_StencilOpSeparate>(optionalProc("glStencilOpSeparate"));
+
 		// GeneralsX @performance Android port 29/09/2026 Persistent mapping for dynamic VB/IB.
 		const char *persistentState = "off";
 		if (m_opt.persistent) {
@@ -572,6 +581,7 @@ bool WebGLPipeline::initContext(int w, int h, SDL_Window *window)
 	}
 
 	m_ctxReady = true;
+	s_gxGlesReady = true;
 	// GeneralsX @build Android port 09/05/2026 Report the DEFAULT framebuffer's
 	// actual bit depths, not the ones we asked SDL for. Stencil is the one that
 	// matters: volumetric (stencil) shadows are enabled only at High detail and
@@ -1866,6 +1876,8 @@ void WebGLPipeline::applyFixedState(WebGLDevice *dev)
 	key.stencilZFail = dev->getRenderState(D3DRS_STENCILZFAIL);
 	key.stencilPass = dev->getRenderState(D3DRS_STENCILPASS);
 	key.stencilWriteMask = dev->getRenderState(D3DRS_STENCILWRITEMASK);
+	key.twoSided = s_gxTwoSidedStencil ? 1 : 0;
+	key.stencilBackPass = s_gxTwoSidedStencil ? s_gxTwoSidedBackPass : 0;
 	key.vpX = vpKey.X;
 	key.vpY = vpKey.Y;
 	key.vpW = vpKey.Width;
@@ -1931,7 +1943,10 @@ void WebGLPipeline::applyFixedState(WebGLDevice *dev)
 	// nearly everything (terrain, video quads) after the y-negate fix,
 	// since front/back faces were now backwards relative to what D3D
 	// intended.
-	if (all || key.cullMode != prev.cullMode)
+	if (key.twoSided) {
+		if (all || !prev.twoSided)
+			glDisable(GL_CULL_FACE); // both faces drawn; the stencil op tells them apart
+	} else if (all || key.cullMode != prev.cullMode || prev.twoSided)
 	switch (dev->getRenderState(D3DRS_CULLMODE)) {
 	case D3DCULL_CW:
 		glEnable(GL_CULL_FACE);
@@ -1969,7 +1984,8 @@ void WebGLPipeline::applyFixedState(WebGLDevice *dev)
 		key.stencilFunc != prev.stencilFunc || key.stencilRef != prev.stencilRef ||
 		key.stencilMask != prev.stencilMask || key.stencilFail != prev.stencilFail ||
 		key.stencilZFail != prev.stencilZFail || key.stencilPass != prev.stencilPass ||
-		key.stencilWriteMask != prev.stencilWriteMask;
+		key.stencilWriteMask != prev.stencilWriteMask || key.twoSided != prev.twoSided ||
+		key.stencilBackPass != prev.stencilBackPass;
 	if (!stencilChanged) {
 		// unchanged: nothing to send
 	} else if (dev->getRenderState(D3DRS_STENCILENABLE)) {
@@ -2013,9 +2029,17 @@ void WebGLPipeline::applyFixedState(WebGLDevice *dev)
 		glStencilFunc(d3dCmpToGL(dev->getRenderState(D3DRS_STENCILFUNC)),
 		              (GLint)(dev->getRenderState(D3DRS_STENCILREF) & 0xFFu),
 		              (GLuint)dev->getRenderState(D3DRS_STENCILMASK));
-		glStencilOp(d3dStencilOpToGL(dev->getRenderState(D3DRS_STENCILFAIL)),
-		            d3dStencilOpToGL(dev->getRenderState(D3DRS_STENCILZFAIL)),
-		            d3dStencilOpToGL(dev->getRenderState(D3DRS_STENCILPASS)));
+		if (key.twoSided) {
+			// Front faces are the ones D3DCULL_CW leaves visible (see the cull mapping above).
+			const GLenum sfail = d3dStencilOpToGL(dev->getRenderState(D3DRS_STENCILFAIL));
+			const GLenum zfail = d3dStencilOpToGL(dev->getRenderState(D3DRS_STENCILZFAIL));
+			m_glStencilOpSeparate(GL_FRONT, sfail, zfail, d3dStencilOpToGL(dev->getRenderState(D3DRS_STENCILPASS)));
+			m_glStencilOpSeparate(GL_BACK, sfail, zfail, d3dStencilOpToGL(key.stencilBackPass));
+		} else {
+			glStencilOp(d3dStencilOpToGL(dev->getRenderState(D3DRS_STENCILFAIL)),
+			            d3dStencilOpToGL(dev->getRenderState(D3DRS_STENCILZFAIL)),
+			            d3dStencilOpToGL(dev->getRenderState(D3DRS_STENCILPASS)));
+		}
 		glStencilMask((GLuint)dev->getRenderState(D3DRS_STENCILWRITEMASK));
 	} else {
 		glDisable(GL_STENCIL_TEST);
@@ -2486,6 +2510,24 @@ static int s_gxWantUncappedPresent = 0;
 extern "C" void d3d8gles_SetPresentUncapped(bool uncapped)
 {
 	s_gxWantUncappedPresent = uncapped ? 1 : 0;
+}
+
+// GeneralsX @performance Android port 29/09/2026 Two-sided stencil for the stencil shadow volumes.
+// D3D8 has no two-sided stencil, so the engine draws every volume twice: front faces incrementing,
+// then back faces decrementing (W3DVolumetricShadowManager::renderShadows). GL does both in one
+// pass with culling off and a separate stencil op per face. While this is on, applyFixedState()
+// disables culling and applies D3DRS_STENCILPASS to front faces and backPassOp to back faces.
+// Returns 0 when the GLES backend is not the one rendering (DXVK), or the driver lacks
+// glStencilOpSeparate, so the engine keeps its two passes.
+extern "C" int d3d8gles_SetTwoSidedStencil(int enable, unsigned backPassOp)
+{
+	if (!s_gxGlesReady || WebGLPipeline::get()->m_glStencilOpSeparate == nullptr) {
+		s_gxTwoSidedStencil = false;
+		return 0;
+	}
+	s_gxTwoSidedStencil = enable != 0;
+	s_gxTwoSidedBackPass = backPassOp;
+	return 1;
 }
 
 extern "C" int d3d8gles_SetDrawCategory(int category)
