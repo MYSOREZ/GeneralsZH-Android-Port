@@ -518,10 +518,8 @@ bool WebGLPipeline::initContext(int w, int h, SDL_Window *window)
 				m_glFenceSync = reinterpret_cast<PFN_FenceSync>(optionalProc("glFenceSync"));
 				m_glClientWaitSync = reinterpret_cast<PFN_ClientWaitSync>(optionalProc("glClientWaitSync"));
 				m_glDeleteSync = reinterpret_cast<PFN_DeleteSync>(optionalProc("glDeleteSync"));
-				m_glFlushMappedBufferRange = reinterpret_cast<PFN_FlushMappedBufferRange>(optionalProc("glFlushMappedBufferRange"));
 			}
-			m_persistentOK = m_glBufferStorage && m_glFenceSync && m_glClientWaitSync && m_glDeleteSync &&
-				m_glFlushMappedBufferRange;
+			m_persistentOK = m_glBufferStorage && m_glFenceSync && m_glClientWaitSync && m_glDeleteSync;
 			persistentState = m_persistentOK ? "on" : "unavailable";
 		}
 
@@ -2674,15 +2672,7 @@ bool WebGLPipeline::persistentUpload(GLBufferState &gl, const unsigned char *bit
 	const bool haveRange = gl.dirtyBegin < gl.dirtyEnd;
 	const bool hazard = haveRange && gl.dirtyBegin < gl.gpuRefEnd;
 	const bool full = !gl.allocated || !haveRange || gl.pendingDiscard || hazard;
-	// GeneralsX @bugfix Android port 29/09/2026 Not coherent: flushed explicitly instead. The
-	// coherent mapping flickered everywhere on the old Mali phone (UI, buildings, units, effects)
-	// even with copy-on-write for ranges under issued draws, which almost never fired -- the
-	// writes themselves were not reaching the GPU in time. With GL_MAP_FLUSH_EXPLICIT_BIT every
-	// write is followed by glFlushMappedBufferRange over exactly the bytes written, the documented
-	// way to make CPU writes to a persistent mapping visible without relying on the driver's
-	// coherence.
-	const GLbitfield storageFlags = GL_MAP_WRITE_BIT | GL_MAP_PERSISTENT_BIT_EXT;
-	const GLbitfield flags = GL_MAP_WRITE_BIT | GL_MAP_PERSISTENT_BIT_EXT | GL_MAP_FLUSH_EXPLICIT_BIT;
+	const GLbitfield flags = GL_MAP_WRITE_BIT | GL_MAP_PERSISTENT_BIT_EXT | GL_MAP_COHERENT_BIT_EXT;
 
 	if (full) {
 		const GxUploadTimer uploadTimer(isIndex ? GX_UPLOAD_IB_FULL : GX_UPLOAD_VB_FULL,
@@ -2715,7 +2705,7 @@ bool WebGLPipeline::persistentUpload(GLBufferState &gl, const unsigned char *bit
 			const int i = ps->count;
 			glGenBuffers(1, &ps->names[i]);
 			glBindBuffer(GL_COPY_WRITE_BUFFER, ps->names[i]);
-			m_glBufferStorage(GL_COPY_WRITE_BUFFER, (GLsizeiptr)size, nullptr, storageFlags);
+			m_glBufferStorage(GL_COPY_WRITE_BUFFER, (GLsizeiptr)size, nullptr, flags);
 			ps->ptrs[i] = static_cast<unsigned char *>(glMapBufferRange(GL_COPY_WRITE_BUFFER, 0, (GLsizeiptr)size, flags));
 			if (ps->ptrs[i] == nullptr) {
 				// The driver refused: give up on the persistent path for good, cleanly.
@@ -2747,16 +2737,12 @@ bool WebGLPipeline::persistentUpload(GLBufferState &gl, const unsigned char *bit
 		ps->cur = next;
 		const size_t valid = (gl.writtenEnd > 0 && gl.writtenEnd < size) ? gl.writtenEnd : size;
 		memcpy(ps->ptrs[next], bits, valid);
-		glBindBuffer(GL_COPY_WRITE_BUFFER, ps->names[next]);
-		m_glFlushMappedBufferRange(GL_COPY_WRITE_BUFFER, 0, (GLsizeiptr)valid);
 		gl.name = ps->names[next];
 		gl.allocated = true;
 		gl.gpuRefEnd = 0; // nothing has been drawn from this copy since it was selected
 	} else {
 		const GxUploadTimer uploadTimer(isIndex ? GX_UPLOAD_IB_APPEND : GX_UPLOAD_VB_APPEND, gl.dirtyEnd - gl.dirtyBegin);
 		memcpy(ps->ptrs[ps->cur] + gl.dirtyBegin, bits + gl.dirtyBegin, gl.dirtyEnd - gl.dirtyBegin);
-		glBindBuffer(GL_COPY_WRITE_BUFFER, ps->names[ps->cur]);
-		m_glFlushMappedBufferRange(GL_COPY_WRITE_BUFFER, (GLintptr)gl.dirtyBegin, (GLsizeiptr)(gl.dirtyEnd - gl.dirtyBegin));
 	}
 	gl.dirty = false;
 	gl.pendingDiscard = false;
