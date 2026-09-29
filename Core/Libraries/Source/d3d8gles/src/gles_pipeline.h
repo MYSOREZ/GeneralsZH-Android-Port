@@ -80,6 +80,10 @@ struct GLBufferState {
 	// upload nor the NOOVERWRITE appends that follow in the same ring cycle
 	// have to wait on the GPU still reading the old contents.
 	bool pendingDiscard = false;
+	// GeneralsX @performance Android port 29/09/2026 One past the highest byte the engine has
+	// ever written (0 = nothing tracked yet). A full upload only needs [0, writtenEnd): bytes
+	// beyond it were never written, so no draw can reference them.
+	size_t writtenEnd = 0;
 
 	void markRange(size_t begin, size_t end)
 	{
@@ -87,6 +91,7 @@ struct GLBufferState {
 		if (end <= begin) return;
 		if (begin < dirtyBegin) dirtyBegin = begin;
 		if (end > dirtyEnd) dirtyEnd = end;
+		if (end > writtenEnd) writtenEnd = end;
 	}
 	void clearRange()
 	{
@@ -158,6 +163,7 @@ public:
 	// ~WebGLVertexBuffer()/~WebGLIndexBuffer() (d3d8gles.cpp) must call this
 	// right after glDeleteBuffers.
 	void invalidateBufferBinding(GLuint name);
+	void fullBufferUpload(GLBufferState &gl, const unsigned char *bits, size_t size, int kind);
 
 private:
 	WebGLPipeline() = default;

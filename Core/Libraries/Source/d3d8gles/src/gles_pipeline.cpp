@@ -2579,6 +2579,48 @@ void WebGLPipeline::bindArrayBuffer(GLuint name)
 // ring-style dynamic buffer where earlier sub-ranges belong to draws already
 // submitted but not necessarily consumed yet, and orphaning would discard
 // them. That matches D3D8's own NOOVERWRITE semantics for this usage.
+// GeneralsX @performance Android port 29/09/2026 Upload cost split by kind, for the
+// [d3d8gles] perf-upload line: the driver's upload entry points took 13-14 ms per frame in a
+// heavy battle on the old Mali phone (perf-cpu "uploads"), with no way to tell which of these it
+// was.
+enum GxUploadKind { GX_UPLOAD_VB_FULL, GX_UPLOAD_VB_APPEND, GX_UPLOAD_IB_FULL, GX_UPLOAD_IB_APPEND, GX_UPLOAD_RING, GX_UPLOAD_KIND_COUNT };
+static double s_gxUploadUs[GX_UPLOAD_KIND_COUNT] = {};
+static double s_gxUploadBytes[GX_UPLOAD_KIND_COUNT] = {};
+static unsigned s_gxUploadCount[GX_UPLOAD_KIND_COUNT] = {};
+namespace {
+struct GxUploadTimer
+{
+	int kind;
+	double start;
+	GxUploadTimer(int k, size_t bytes) : kind(k), start(gxNowUs())
+	{
+		s_gxUploadBytes[k] += (double)bytes;
+		++s_gxUploadCount[k];
+	}
+	~GxUploadTimer() { s_gxUploadUs[kind] += gxNowUs() - start; }
+};
+}
+
+// GeneralsX @performance Android port 29/09/2026 A full upload (first use, D3DLOCK_DISCARD, or
+// no recorded range) respecifies the storage at its full size but only sends the bytes the engine
+// has ever written. It used to send the whole buffer, and the engine's dynamic buffers are sized
+// for the worst case -- the sorted-translucency pool is allocated for its maximum vertex count --
+// while a frame writes a fraction of that, and DISCARD comes at least once a frame (the shadow
+// and sorting code force it on purpose). The bytes kept are everything a later draw can
+// reference, older ranges included, which is what the DISCARD handling above relies on.
+void WebGLPipeline::fullBufferUpload(GLBufferState &gl, const unsigned char *bits, size_t size, int kind)
+{
+	const size_t valid = (gl.writtenEnd > 0 && gl.writtenEnd < size) ? gl.writtenEnd : size;
+	const GxUploadTimer uploadTimer(kind, valid);
+	if (valid == size) {
+		glBufferData(GL_COPY_WRITE_BUFFER, size, bits, GL_DYNAMIC_DRAW);
+	} else {
+		glBufferData(GL_COPY_WRITE_BUFFER, size, nullptr, GL_DYNAMIC_DRAW);
+		glBufferSubData(GL_COPY_WRITE_BUFFER, 0, valid, bits);
+	}
+	gl.allocated = true;
+}
+
 void WebGLPipeline::ensureVBUploaded(WebGLVertexBuffer *vb)
 {
 	if (vb->m_gl.name == 0) {
@@ -2605,9 +2647,9 @@ void WebGLPipeline::ensureVBUploaded(WebGLVertexBuffer *vb)
 		if (fullUpload) {
 			// First use, or an update with no recorded range: full upload,
 			// which also (re)allocates the GL storage.
-			glBufferData(GL_COPY_WRITE_BUFFER, vb->m_bits.size(), vb->m_bits.data(), GL_DYNAMIC_DRAW);
-			vb->m_gl.allocated = true;
+			fullBufferUpload(vb->m_gl, vb->m_bits.data(), vb->m_bits.size(), GX_UPLOAD_VB_FULL);
 		} else {
+			const GxUploadTimer uploadTimer(GX_UPLOAD_VB_APPEND, vb->m_gl.dirtyEnd - vb->m_gl.dirtyBegin);
 			// GeneralsX @perf Android port 09/05/2026 This is the
 			// D3DLOCK_NOOVERWRITE case (the engine's ring buffer appending
 			// past offset 0). glBufferSubData here makes the driver
@@ -2666,9 +2708,9 @@ void WebGLPipeline::ensureIBUploaded(WebGLIndexBuffer *ib)
 		// cheap.
 		const bool fullUpload = !ib->m_gl.allocated || !haveRange || ib->m_gl.pendingDiscard;
 		if (fullUpload) {
-			glBufferData(GL_COPY_WRITE_BUFFER, ib->m_bits.size(), ib->m_bits.data(), GL_DYNAMIC_DRAW);
-			ib->m_gl.allocated = true;
+			fullBufferUpload(ib->m_gl, ib->m_bits.data(), ib->m_bits.size(), GX_UPLOAD_IB_FULL);
 		} else {
+			const GxUploadTimer uploadTimer(GX_UPLOAD_IB_APPEND, ib->m_gl.dirtyEnd - ib->m_gl.dirtyBegin);
 			// GeneralsX @perf Android port 09/05/2026 This is the
 			// D3DLOCK_NOOVERWRITE case (the engine's ring buffer appending
 			// past offset 0). glBufferSubData here makes the driver
@@ -2740,6 +2782,7 @@ size_t WebGLPipeline::streamToRing(GLuint buffer, size_t capacity, size_t *offse
 		start = 0;
 		m_perfUpRingWraps++;
 	}
+	const GxUploadTimer uploadTimer(GX_UPLOAD_RING, bytes);
 	void *dst = glMapBufferRange(GL_COPY_WRITE_BUFFER, start, bytes,
 		GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_RANGE_BIT | GL_MAP_UNSYNCHRONIZED_BIT);
 	if (dst) {
@@ -3219,6 +3262,23 @@ void WebGLPipeline::present()
 				for (int i = 0; i < GX_DRAWCAT_COUNT; i++) s_gxDrawCallUsByCategory[i] = 0.0;
 				s_gxDrawCallUsAfterWrite = 0.0;
 				s_gxDrawsAfterWrite = 0;
+				{
+					const char *names[GX_UPLOAD_KIND_COUNT] = { "vb-full", "vb-append", "ib-full", "ib-append", "ring" };
+					char line[512];
+					int len = snprintf(line, sizeof(line), "[d3d8gles] perf-upload per frame:");
+					double known = 0.0;
+					for (int k = 0; k < GX_UPLOAD_KIND_COUNT; k++) {
+						known += s_gxUploadUs[k];
+						len += snprintf(line + len, sizeof(line) - len, " %s=%.2fms (%.1f, %.0fKB)", names[k],
+							s_gxUploadUs[k] / 1000.0 / f, s_gxUploadCount[k] / f, s_gxUploadBytes[k] / 1024.0 / f);
+						s_gxUploadUs[k] = s_gxUploadBytes[k] = 0.0;
+						s_gxUploadCount[k] = 0;
+					}
+					// Everything else the driver-upload timer saw is texture uploads.
+					snprintf(line + len, sizeof(line) - len, " textures+other=%.2fms",
+						(d3d8gles_perfUploadUs - known) / 1000.0 / f);
+					fprintf(stderr, "%s\n", line);
+				}
 				for (int i = 0; i < GX_DRAWCAT_COUNT; i++) s_gxDrawUsByCategory[i] = 0.0;
 				s_gxDrawCallUs = 0.0;
 				d3d8gles_perfUploadUs = 0.0;
