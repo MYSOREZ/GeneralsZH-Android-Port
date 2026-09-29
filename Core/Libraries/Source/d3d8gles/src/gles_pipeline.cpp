@@ -2401,6 +2401,8 @@ static double s_gxDrawCallUsAfterWrite = 0.0;
 static unsigned s_gxDrawsAfterWrite = 0;
 extern double d3d8gles_perfUploadUs;
 extern unsigned d3d8gles_perfUploadCalls;
+extern int d3d8gles_curDrawCategory;
+extern unsigned d3d8gles_stateCalls[8][7];
 
 namespace {
 inline double gxNowUs()
@@ -2435,6 +2437,7 @@ extern "C" int d3d8gles_SetDrawCategory(int category)
 {
 	const int prev = s_gxDrawCategory;
 	s_gxDrawCategory = (category >= 0 && category < GX_DRAWCAT_COUNT) ? category : GX_DRAWCAT_OTHER;
+	d3d8gles_curDrawCategory = s_gxDrawCategory;
 	return prev;
 }
 
@@ -3160,6 +3163,23 @@ void WebGLPipeline::present()
 					 s_gxDrawCallUsByCategory[GX_DRAWCAT_SKIN]) / 1000.0 / f,
 					s_gxDrawsAfterWrite / f, s_gxDrawCallUsAfterWrite / 1000.0 / f,
 					(m_perfDrawAccum - s_gxDrawsAfterWrite) / f, (s_gxDrawCallUs - s_gxDrawCallUsAfterWrite) / 1000.0 / f);
+				{
+					// GL state calls per draw, for the two sources that dominate a battle.
+					const int cats[2] = { GX_DRAWCAT_SORTED, GX_DRAWCAT_MODELS };
+					const char *names[2] = { "particles", "models" };
+					char line[512];
+					int len = snprintf(line, sizeof(line), "[d3d8gles] perf-state calls/draw:");
+					for (int c = 0; c < 2; c++) {
+						const unsigned *n = d3d8gles_stateCalls[cats[c]];
+						const float draws = s_gxDrawsByCategory[cats[c]] > 0 ? (float)s_gxDrawsByCategory[cats[c]] : 1.0f;
+						len += snprintf(line + len, sizeof(line) - len,
+							" %s prog=%.2f tex=%.2f blend=%.2f depth=%.2f enable=%.2f uniform=%.2f attrib=%.2f%s",
+							names[c], n[0] / draws, n[1] / draws, n[2] / draws, n[3] / draws, n[4] / draws,
+							n[5] / draws, n[6] / draws, c == 0 ? " |" : "");
+					}
+					fprintf(stderr, "%s\n", line);
+					memset(d3d8gles_stateCalls, 0, sizeof(d3d8gles_stateCalls));
+				}
 				for (int i = 0; i < GX_DRAWCAT_COUNT; i++) s_gxDrawCallUsByCategory[i] = 0.0;
 				s_gxDrawCallUsAfterWrite = 0.0;
 				s_gxDrawsAfterWrite = 0;

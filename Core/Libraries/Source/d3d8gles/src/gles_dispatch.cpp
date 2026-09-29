@@ -12,6 +12,14 @@
 // engine's own work, this layer's translation, and the driver.
 double d3d8gles_perfUploadUs = 0.0;
 unsigned d3d8gles_perfUploadCalls = 0;
+
+// GeneralsX @performance Android port 29/09/2026 GL state calls made per draw source, for the
+// [d3d8gles] perf-state line: which state actually changes between draws of a source. Indexed by
+// the draw category the pipeline is in (d3d8gles_curDrawCategory) and by the kind of call.
+enum { GXSC_PROGRAM, GXSC_TEXTURE, GXSC_BLEND, GXSC_DEPTH, GXSC_ENABLE, GXSC_UNIFORM, GXSC_ATTRIB, GXSC_COUNT };
+int d3d8gles_curDrawCategory = 0;
+unsigned d3d8gles_stateCalls[8][GXSC_COUNT] = {};
+static inline void gxCountState(int kind) { ++d3d8gles_stateCalls[d3d8gles_curDrawCategory & 7][kind]; }
 namespace {
 struct UploadTimer
 {
@@ -245,16 +253,19 @@ GL_APICALL void GL_APIENTRY glBindRenderbuffer(GLenum target, GLuint renderbuffe
 
 GL_APICALL void GL_APIENTRY glBindTexture(GLenum target, GLuint texture)
 {
+	gxCountState(GXSC_TEXTURE);
 	d3d8gles_pfn_glBindTexture(target, texture);
 }
 
 GL_APICALL void GL_APIENTRY glBindVertexArray(GLuint array)
 {
+	gxCountState(GXSC_ATTRIB);
 	d3d8gles_pfn_glBindVertexArray(array);
 }
 
 GL_APICALL void GL_APIENTRY glBlendFunc(GLenum sfactor, GLenum dfactor)
 {
+	gxCountState(GXSC_BLEND);
 	d3d8gles_pfn_glBlendFunc(sfactor, dfactor);
 }
 
@@ -375,11 +386,13 @@ GL_APICALL void GL_APIENTRY glDeleteVertexArrays(GLsizei n, const GLuint *arrays
 
 GL_APICALL void GL_APIENTRY glDepthFunc(GLenum func)
 {
+	gxCountState(GXSC_DEPTH);
 	d3d8gles_pfn_glDepthFunc(func);
 }
 
 GL_APICALL void GL_APIENTRY glDepthMask(GLboolean flag)
 {
+	gxCountState(GXSC_DEPTH);
 	d3d8gles_pfn_glDepthMask(flag);
 }
 
@@ -390,6 +403,7 @@ GL_APICALL void GL_APIENTRY glDepthRangef(GLfloat n, GLfloat f)
 
 GL_APICALL void GL_APIENTRY glDisable(GLenum cap)
 {
+	gxCountState(cap == GL_BLEND ? GXSC_BLEND : cap == GL_DEPTH_TEST ? GXSC_DEPTH : GXSC_ENABLE);
 	d3d8gles_pfn_glDisable(cap);
 }
 
@@ -410,6 +424,7 @@ GL_APICALL void GL_APIENTRY glDrawElements(GLenum mode, GLsizei count, GLenum ty
 
 GL_APICALL void GL_APIENTRY glEnable(GLenum cap)
 {
+	gxCountState(cap == GL_BLEND ? GXSC_BLEND : cap == GL_DEPTH_TEST ? GXSC_DEPTH : GXSC_ENABLE);
 	d3d8gles_pfn_glEnable(cap);
 }
 
@@ -592,6 +607,7 @@ GL_APICALL void GL_APIENTRY glTexImage2D(GLenum target, GLint level, GLint inter
 
 GL_APICALL void GL_APIENTRY glTexParameteri(GLenum target, GLenum pname, GLint param)
 {
+	gxCountState(GXSC_TEXTURE);
 	d3d8gles_pfn_glTexParameteri(target, pname, param);
 }
 
@@ -602,51 +618,61 @@ GL_APICALL void GL_APIENTRY glUniformBlockBinding(GLuint program, GLuint uniform
 
 GL_APICALL void GL_APIENTRY glUniform1f(GLint location, GLfloat v0)
 {
+	gxCountState(GXSC_UNIFORM);
 	d3d8gles_pfn_glUniform1f(location, v0);
 }
 
 GL_APICALL void GL_APIENTRY glUniform1i(GLint location, GLint v0)
 {
+	gxCountState(GXSC_UNIFORM);
 	d3d8gles_pfn_glUniform1i(location, v0);
 }
 
 GL_APICALL void GL_APIENTRY glUniform1iv(GLint location, GLsizei count, const GLint *value)
 {
+	gxCountState(GXSC_UNIFORM);
 	d3d8gles_pfn_glUniform1iv(location, count, value);
 }
 
 GL_APICALL void GL_APIENTRY glUniform2f(GLint location, GLfloat v0, GLfloat v1)
 {
+	gxCountState(GXSC_UNIFORM);
 	d3d8gles_pfn_glUniform2f(location, v0, v1);
 }
 
 GL_APICALL void GL_APIENTRY glUniform3fv(GLint location, GLsizei count, const GLfloat *value)
 {
+	gxCountState(GXSC_UNIFORM);
 	d3d8gles_pfn_glUniform3fv(location, count, value);
 }
 
 GL_APICALL void GL_APIENTRY glUniform4f(GLint location, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3)
 {
+	gxCountState(GXSC_UNIFORM);
 	d3d8gles_pfn_glUniform4f(location, v0, v1, v2, v3);
 }
 
 GL_APICALL void GL_APIENTRY glUniform4fv(GLint location, GLsizei count, const GLfloat *value)
 {
+	gxCountState(GXSC_UNIFORM);
 	d3d8gles_pfn_glUniform4fv(location, count, value);
 }
 
 GL_APICALL void GL_APIENTRY glUniformMatrix4fv(GLint location, GLsizei count, GLboolean transpose, const GLfloat *value)
 {
+	gxCountState(GXSC_UNIFORM);
 	d3d8gles_pfn_glUniformMatrix4fv(location, count, transpose, value);
 }
 
 GL_APICALL void GL_APIENTRY glUseProgram(GLuint program)
 {
+	gxCountState(GXSC_PROGRAM);
 	d3d8gles_pfn_glUseProgram(program);
 }
 
 GL_APICALL void GL_APIENTRY glVertexAttribPointer(GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const void *pointer)
 {
+	gxCountState(GXSC_ATTRIB);
 	d3d8gles_pfn_glVertexAttribPointer(index, size, type, normalized, stride, pointer);
 }
 
