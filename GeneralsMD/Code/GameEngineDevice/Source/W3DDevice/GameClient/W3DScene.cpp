@@ -73,17 +73,39 @@
 // ~10.5 ms of a ~20 ms main scene; this splits the whole of it -- engine CPU included -- so the
 // remaining ~8 ms can be attributed. [GX-PERF-SCENE], once a second, perf trace only. Each phase
 // includes the draws it issues.
+// On the GLES backend each phase also reports its draw count, the translator's time for them and
+// the driver's glDraw share ([GX-PERF-SCENE-DRAWS]); the phase's ms minus the translator's is the
+// engine's own CPU. Most of the scene's draws had no source in perf-draws ("other").
+#if defined(__ANDROID__)
+extern "C" void d3d8gles_GetDrawTotals(unsigned long long *draws, double *drawUs, double *glDrawUs);
+#endif
 namespace {
 enum ScenePhase { SP_VIS, SP_UPDATE, SP_TERRAIN, SP_OBJECTS, SP_QUEUE, SP_DECALS, SP_MESHES, SP_OCCLUDED,
-	SP_TREES, SP_SHADOWS, SP_WATER, SP_TRANSLUCENT, SP_PARTICLES, SP_COUNT };
+	SP_TREES, SP_SHADOWS, SP_WATER, SP_TRANSLUCENT, SP_PARTICLES, SP_SORTFLUSH, SP_COUNT };
 const char *const s_scenePhaseNames[SP_COUNT] = { "visibility", "frameUpdate", "terrain", "objects", "queue",
-	"decals", "meshes", "occluded", "trees", "stencilShadows", "staticSort", "translucent", "particles" };
+	"decals", "meshes", "occluded", "trees", "stencilShadows", "staticSort", "translucent", "particles",
+	"sortFlush" };
+struct DrawTotals
+{
+	unsigned long long draws = 0;
+	double drawUs = 0.0;
+	double glDrawUs = 0.0;
+	void read()
+	{
+#if defined(__ANDROID__)
+		d3d8gles_GetDrawTotals(&draws, &drawUs, &glDrawUs);
+#endif
+	}
+};
 struct ScenePerf
 {
 	typedef std::chrono::steady_clock Clock;
 	Clock::time_point windowStart = Clock::now();
 	unsigned frames = 0;
 	double ms[SP_COUNT] = {};
+	unsigned long long draws[SP_COUNT] = {};
+	double drawUs[SP_COUNT] = {};
+	double glDrawUs[SP_COUNT] = {};
 };
 ScenePerf s_scenePerf;
 struct ScenePhaseTimer
@@ -91,14 +113,22 @@ struct ScenePhaseTimer
 	ScenePhase phase;
 	bool on;
 	ScenePerf::Clock::time_point start;
+	DrawTotals startTotals;
 	explicit ScenePhaseTimer(ScenePhase p) : phase(p), on(GXTrace::isPerfEnabled())
 	{
-		if (on) start = ScenePerf::Clock::now();
+		if (!on) return;
+		startTotals.read();
+		start = ScenePerf::Clock::now();
 	}
 	void stop()
 	{
 		if (!on) return;
 		s_scenePerf.ms[phase] += std::chrono::duration<double, std::milli>(ScenePerf::Clock::now() - start).count();
+		DrawTotals end;
+		end.read();
+		s_scenePerf.draws[phase] += end.draws - startTotals.draws;
+		s_scenePerf.drawUs[phase] += end.drawUs - startTotals.drawUs;
+		s_scenePerf.glDrawUs[phase] += end.glDrawUs - startTotals.glDrawUs;
 		on = false;
 	}
 	~ScenePhaseTimer() { stop(); }
@@ -111,15 +141,28 @@ void reportScenePerf()
 	++p.frames;
 	if (std::chrono::duration<double, std::milli>(ScenePerf::Clock::now() - p.windowStart).count() < 1000.0)
 		return;
-	char line[512];
+	char line[768];
 	int len = snprintf(line, sizeof(line), "[GX-PERF-SCENE] frames=%u ms/frame:", p.frames);
 	double total = 0.0;
+	unsigned long long totalDraws = 0;
 	for (int i = 0; i < SP_COUNT; i++) {
 		total += p.ms[i];
+		totalDraws += p.draws[i];
 		len += snprintf(line + len, sizeof(line) - len, " %s=%.2f", s_scenePhaseNames[i], p.ms[i] / p.frames);
 	}
 	snprintf(line + len, sizeof(line) - len, " total=%.2f\n", total / p.frames);
 	GX_PERF_TRACE("%s", line);
+	if (totalDraws > 0) {
+		// Per phase: draws/frame, translator ms/frame, of which glDraw ms/frame.
+		len = snprintf(line, sizeof(line), "[GX-PERF-SCENE-DRAWS] draws/xlatMs/glMs per frame:");
+		for (int i = 0; i < SP_COUNT; i++) {
+			if (p.draws[i] == 0) continue;
+			len += snprintf(line + len, sizeof(line) - len, " %s=%.0f/%.2f/%.2f", s_scenePhaseNames[i],
+				(double)p.draws[i] / p.frames, p.drawUs[i] / 1000.0 / p.frames, p.glDrawUs[i] / 1000.0 / p.frames);
+		}
+		snprintf(line + len, sizeof(line) - len, "\n");
+		GX_PERF_TRACE("%s", line);
+	}
 	p = ScenePerf();
 }
 }
@@ -958,6 +1001,8 @@ void RTS3DScene::Flush(RenderInfoClass & rinfo)
 		if (m_customPassMode == SCENE_PASS_DEFAULT && Get_Extra_Pass_Polygon_Mode() == EXTRA_PASS_DISABLE)
 			DoParticles(rinfo);	//queue up particles for rendering.
 
+		particlesTimer.stop();
+		ScenePhaseTimer sortFlushTimer(SP_SORTFLUSH);
 		SortingRendererClass::Flush();	//draw sorted translucent polygons like particles.
 	}
 	TheDX8MeshRenderer.Clear_Pending_Delete_Lists();

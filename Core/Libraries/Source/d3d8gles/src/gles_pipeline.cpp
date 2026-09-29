@@ -2476,6 +2476,14 @@ static double s_gxDrawCallUs = 0.0;
 // buffers rather than in the draws themselves.
 static double s_gxDrawCallUsByCategory[GX_DRAWCAT_COUNT] = {0, 0, 0, 0, 0, 0, 0};
 static bool s_gxDrawAfterWrite = false;
+// GeneralsX @performance Android port 29/09/2026 Running totals that never reset, read by the
+// engine's scene phase timers ([GX-PERF-SCENE]) as before/after deltas. That splits each scene
+// phase into its draw count, this layer's time and the driver's glDraw time, so the engine's own
+// CPU per phase is the remainder. The per-source counters above cannot do this: most of the
+// scene's draws fall into "other".
+static unsigned long long s_gxTotalDraws = 0;
+static double s_gxTotalDrawUs = 0.0;
+static double s_gxTotalGlDrawUs = 0.0;
 static double s_gxDrawCallUsAfterWrite = 0.0;
 static unsigned s_gxDrawsAfterWrite = 0;
 extern double d3d8gles_perfUploadUs;
@@ -2491,7 +2499,12 @@ inline double gxNowUs()
 struct GxDrawTimer
 {
 	double start = gxNowUs();
-	~GxDrawTimer() { s_gxDrawUsByCategory[s_gxDrawCategory] += gxNowUs() - start; }
+	~GxDrawTimer()
+	{
+		const double us = gxNowUs() - start;
+		s_gxDrawUsByCategory[s_gxDrawCategory] += us;
+		s_gxTotalDrawUs += us;
+	}
 };
 }
 
@@ -2528,6 +2541,13 @@ extern "C" int d3d8gles_SetTwoSidedStencil(int enable, unsigned backPassOp)
 	s_gxTwoSidedStencil = enable != 0;
 	s_gxTwoSidedBackPass = backPassOp;
 	return 1;
+}
+
+extern "C" void d3d8gles_GetDrawTotals(unsigned long long *draws, double *drawUs, double *glDrawUs)
+{
+	*draws = s_gxTotalDraws;
+	*drawUs = s_gxTotalDrawUs;
+	*glDrawUs = s_gxTotalGlDrawUs;
 }
 
 extern "C" int d3d8gles_SetDrawCategory(int category)
@@ -2586,6 +2606,8 @@ void WebGLPipeline::drawCommon(WebGLDevice *dev, unsigned primType, unsigned pri
 	const double drawCallUs = gxNowUs() - drawCallStart;
 	s_gxDrawCallUs += drawCallUs;
 	s_gxDrawCallUsByCategory[s_gxDrawCategory] += drawCallUs;
+	s_gxTotalGlDrawUs += drawCallUs;
+	++s_gxTotalDraws;
 	if (s_gxDrawAfterWrite) {
 		s_gxDrawCallUsAfterWrite += drawCallUs;
 		++s_gxDrawsAfterWrite;
