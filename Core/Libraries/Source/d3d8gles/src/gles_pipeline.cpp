@@ -602,6 +602,11 @@ bool WebGLPipeline::initContext(int w, int h, SDL_Window *window)
 // gx_gles_basevertex.txt instead.
 void WebGLPipeline::loadOptimizationSwitches()
 {
+	if (FILE *optIn = fopen("gx_gles_persistentib.txt", "r")) {
+		fclose(optIn);
+		m_opt.persistentIB = true;
+		fprintf(stderr, "[d3d8gles] gx_gles_persistentib.txt: persistent index buffers enabled (experimental)\n");
+	}
 	if (FILE *optIn = fopen("gx_gles_basevertex.txt", "r")) {
 		fclose(optIn);
 		m_opt.baseVertex = true;
@@ -622,13 +627,13 @@ void WebGLPipeline::loadOptimizationSwitches()
 		}
 	}
 	if (!named) {
-		m_opt.baseVertex = m_opt.upRing = m_opt.programCache = m_opt.dxt565 = m_opt.persistent = false;
+		m_opt.baseVertex = m_opt.upRing = m_opt.programCache = m_opt.dxt565 = m_opt.persistent = m_opt.persistentIB = false;
 	} else {
 		if (strstr(buf, "basevertex")) m_opt.baseVertex = false;
 		if (strstr(buf, "upring")) m_opt.upRing = false;
 		if (strstr(buf, "progcache")) m_opt.programCache = false;
 		if (strstr(buf, "dxt565")) m_opt.dxt565 = false;
-		if (strstr(buf, "persistent")) m_opt.persistent = false;
+		if (strstr(buf, "persistent")) m_opt.persistent = m_opt.persistentIB = false;
 	}
 	fprintf(stderr, "[d3d8gles] gx_gles_noopt.txt: basevertex=%d upring=%d progcache=%d dxt565=%d persistent=%d\n",
 		(int)m_opt.baseVertex, (int)m_opt.upRing, (int)m_opt.programCache, (int)m_opt.dxt565, (int)m_opt.persistent);
@@ -2842,7 +2847,7 @@ void WebGLPipeline::ensureVBUploaded(WebGLVertexBuffer *vb)
 // measurements.
 void WebGLPipeline::ensureIBUploaded(WebGLIndexBuffer *ib)
 {
-	if (ib->m_gl.dirty && (ib->m_usage & D3DUSAGE_DYNAMIC) &&
+	if (m_opt.persistentIB && ib->m_gl.dirty && (ib->m_usage & D3DUSAGE_DYNAMIC) &&
 	    persistentUpload(ib->m_gl, ib->m_bits.data(), ib->m_bits.size(), true))
 		return;
 	if (ib->m_gl.name == 0) {

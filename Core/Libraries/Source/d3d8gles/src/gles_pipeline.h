@@ -545,7 +545,14 @@ private:
 		bool upRing = true;       // one streaming ring buffer for the *UP draws
 		bool programCache = true; // linked program binaries kept on disk between launches
 		bool dxt565 = true;       // DXT1 decoded to 16 bpp, not 32, where S3TC is missing
-		bool persistent = true;   // dynamic VB/IB persistently mapped (EXT_buffer_storage)
+		bool persistent = true;   // dynamic VBs persistently mapped (EXT_buffer_storage)
+		// Dynamic IBs too: off by default. With them mapped, the old Mali phone flickered on every
+		// dynamic draw (UI, units, buildings, effects) while static-buffer terrain did not. The
+		// driver scans an index buffer for the draw's index range and caches the answer until a
+		// GL call modifies the buffer; a memcpy into a persistent mapping is not such a call, and
+		// the dynamic IBs refill the same offsets every frame. Opt in with
+		// gx_gles_persistentib.txt to test another GPU.
+		bool persistentIB = false;
 	};
 	OptimizationSwitches m_opt;
 	void loadOptimizationSwitches();
