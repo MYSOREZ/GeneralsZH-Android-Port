@@ -825,11 +825,7 @@ public:
 	// invalidateTextureBinding().
 	~WebGLVertexBuffer()
 	{
-		if (m_gl.name) {
-			glDeleteBuffers(1, &m_gl.name);
-			WebGLPipeline::get()->invalidateBufferBinding(m_gl.name);
-			m_gl.name = 0;
-		}
+		WebGLPipeline::get()->releaseBufferStorage(m_gl);
 	}
 
 	D3D8GLES_IUNKNOWN_IMPL(WebGLVertexBuffer)
@@ -914,11 +910,7 @@ public:
 	// ~WebGLVertexBuffer()'s comment; same missing-destructor leak, same fix.
 	~WebGLIndexBuffer()
 	{
-		if (m_gl.name) {
-			glDeleteBuffers(1, &m_gl.name);
-			WebGLPipeline::get()->invalidateBufferBinding(m_gl.name);
-			m_gl.name = 0;
-		}
+		WebGLPipeline::get()->releaseBufferStorage(m_gl);
 	}
 
 	D3D8GLES_IUNKNOWN_IMPL(WebGLIndexBuffer)

@@ -510,6 +510,19 @@ bool WebGLPipeline::initContext(int w, int h, SDL_Window *window)
 				baseVertexSource = "unavailable";
 		}
 
+		// GeneralsX @performance Android port 29/09/2026 Persistent mapping for dynamic VB/IB.
+		const char *persistentState = "off";
+		if (m_opt.persistent) {
+			if (extensions && strstr(extensions, "GL_EXT_buffer_storage")) {
+				m_glBufferStorage = reinterpret_cast<PFN_BufferStorage>(optionalProc("glBufferStorageEXT"));
+				m_glFenceSync = reinterpret_cast<PFN_FenceSync>(optionalProc("glFenceSync"));
+				m_glClientWaitSync = reinterpret_cast<PFN_ClientWaitSync>(optionalProc("glClientWaitSync"));
+				m_glDeleteSync = reinterpret_cast<PFN_DeleteSync>(optionalProc("glDeleteSync"));
+			}
+			m_persistentOK = m_glBufferStorage && m_glFenceSync && m_glClientWaitSync && m_glDeleteSync;
+			persistentState = m_persistentOK ? "on" : "unavailable";
+		}
+
 		if (m_opt.upRing) {
 			glGenBuffers(1, &m_upRingVB);
 			glBindBuffer(GL_COPY_WRITE_BUFFER, m_upRingVB);
@@ -552,10 +565,10 @@ bool WebGLPipeline::initContext(int w, int h, SDL_Window *window)
 				programCacheState = binaryFormats > 0 ? "unavailable" : "no binary formats";
 			}
 		}
-		fprintf(stderr, "[d3d8gles] optimizations: basevertex=%s upring=%d progcache=%s dxt16=%d "
+		fprintf(stderr, "[d3d8gles] optimizations: basevertex=%s upring=%d progcache=%s dxt16=%d persistent=%s "
 			"(GL_VERSION=%s; gx_gles_noopt.txt turns them off)\n",
 			m_opt.baseVertex ? baseVertexSource : "off", (int)m_opt.upRing, programCacheState,
-			(int)(m_opt.dxt565 && !m_hasS3TC), version ? version : "?");
+			(int)(m_opt.dxt565 && !m_hasS3TC), persistentState, version ? version : "?");
 	}
 
 	m_ctxReady = true;
@@ -609,15 +622,16 @@ void WebGLPipeline::loadOptimizationSwitches()
 		}
 	}
 	if (!named) {
-		m_opt.baseVertex = m_opt.upRing = m_opt.programCache = m_opt.dxt565 = false;
+		m_opt.baseVertex = m_opt.upRing = m_opt.programCache = m_opt.dxt565 = m_opt.persistent = false;
 	} else {
 		if (strstr(buf, "basevertex")) m_opt.baseVertex = false;
 		if (strstr(buf, "upring")) m_opt.upRing = false;
 		if (strstr(buf, "progcache")) m_opt.programCache = false;
 		if (strstr(buf, "dxt565")) m_opt.dxt565 = false;
+		if (strstr(buf, "persistent")) m_opt.persistent = false;
 	}
-	fprintf(stderr, "[d3d8gles] gx_gles_noopt.txt: basevertex=%d upring=%d progcache=%d dxt565=%d\n",
-		(int)m_opt.baseVertex, (int)m_opt.upRing, (int)m_opt.programCache, (int)m_opt.dxt565);
+	fprintf(stderr, "[d3d8gles] gx_gles_noopt.txt: basevertex=%d upring=%d progcache=%d dxt565=%d persistent=%d\n",
+		(int)m_opt.baseVertex, (int)m_opt.upRing, (int)m_opt.programCache, (int)m_opt.dxt565, (int)m_opt.persistent);
 }
 
 void WebGLPipeline::resize(int w, int h)
@@ -2621,8 +2635,139 @@ void WebGLPipeline::fullBufferUpload(GLBufferState &gl, const unsigned char *bit
 	gl.allocated = true;
 }
 
+
+// GeneralsX @performance Android port 29/09/2026 Dynamic VB/IB updates without GL calls. In a heavy
+// battle on the old Mali phone the engine's dynamic buffers took 400-600 map/unmap pairs per frame
+// (skinned meshes, shadow volumes, the sorted pool, the UI), ~15 us each, 9-11 ms per frame
+// ([d3d8gles] perf-upload vb-append/ib-append). With EXT_buffer_storage each copy of the buffer is
+// mapped once, persistently and coherently, and an append is a memcpy into it: the D3D contract
+// behind NOOVERWRITE (never touch bytes the GPU may still read) is exactly what makes writing
+// into memory the GPU is using safe, and coherence makes the bytes visible to the draw issued
+// next. DISCARD cannot respecify immutable storage, so it moves to another copy instead -- one
+// whose fence says the GPU is done with it, or a new one (up to kMaxCopies), waiting only if all
+// are busy -- and refills it with every byte ever written, the same content a full upload sends.
+bool WebGLPipeline::persistentUpload(GLBufferState &gl, const unsigned char *bits, size_t size, bool isIndex)
+{
+	PersistentBufferSet *ps = gl.persistent;
+	if (ps == nullptr) {
+		// Only a buffer that has never been uploaded starts on this path; one that has stays
+		// where it is. Once on it, it stays on it: its storage is immutable and cannot take an
+		// ordinary glBufferData.
+		if (!m_persistentOK || size == 0 || gl.name != 0)
+			return false;
+		ps = new PersistentBufferSet;
+		ps->size = size;
+		gl.persistent = ps;
+	}
+
+	const bool haveRange = gl.dirtyBegin < gl.dirtyEnd;
+	const bool full = !gl.allocated || !haveRange || gl.pendingDiscard;
+	const GLbitfield flags = GL_MAP_WRITE_BIT | GL_MAP_PERSISTENT_BIT_EXT | GL_MAP_COHERENT_BIT_EXT;
+
+	if (full) {
+		const GxUploadTimer uploadTimer(isIndex ? GX_UPLOAD_IB_FULL : GX_UPLOAD_VB_FULL,
+			(gl.writtenEnd > 0 && gl.writtenEnd < size) ? gl.writtenEnd : size);
+		int next = -1;
+		if (ps->cur >= 0) {
+			// The draws that used the current copy are all issued: fence it.
+			if (ps->fences[ps->cur])
+				m_glDeleteSync(ps->fences[ps->cur]);
+			ps->fences[ps->cur] = m_glFenceSync(GL_SYNC_GPU_COMMANDS_COMPLETE, 0);
+			m_perfPersistentSwitches++;
+			for (int k = 1; k <= ps->count && next < 0; k++) {
+				const int i = (ps->cur + k) % ps->count;
+				if (i == ps->cur)
+					continue;
+				if (ps->fences[i] == nullptr) {
+					next = i;
+				} else {
+					const GLenum r = m_glClientWaitSync(ps->fences[i], 0, 0);
+					if (r == GL_ALREADY_SIGNALED || r == GL_CONDITION_SATISFIED) {
+						m_glDeleteSync(ps->fences[i]);
+						ps->fences[i] = nullptr;
+						next = i;
+					}
+				}
+			}
+		}
+		if (next < 0 && m_persistentOK && ps->count < PersistentBufferSet::kMaxCopies) {
+			// Every existing copy is busy (or there is none): make another.
+			const int i = ps->count;
+			glGenBuffers(1, &ps->names[i]);
+			glBindBuffer(GL_COPY_WRITE_BUFFER, ps->names[i]);
+			m_glBufferStorage(GL_COPY_WRITE_BUFFER, (GLsizeiptr)size, nullptr, flags);
+			ps->ptrs[i] = static_cast<unsigned char *>(glMapBufferRange(GL_COPY_WRITE_BUFFER, 0, (GLsizeiptr)size, flags));
+			if (ps->ptrs[i] == nullptr) {
+				// The driver refused: give up on the persistent path for good, cleanly.
+				glDeleteBuffers(1, &ps->names[i]);
+				ps->names[i] = 0;
+				fprintf(stderr, "[d3d8gles] persistent mapping refused by the driver; using ordinary uploads\n");
+				m_persistentOK = false;
+				if (ps->count == 0) {
+					delete ps;
+					gl.persistent = nullptr;
+					return false;
+				}
+			} else {
+				ps->count++;
+				m_perfPersistentCopies++;
+				next = i;
+			}
+		}
+		if (next < 0) {
+			// All copies busy and no room for another: wait for the oldest one.
+			next = (ps->cur + 1) % ps->count;
+			if (ps->fences[next]) {
+				m_glClientWaitSync(ps->fences[next], GL_SYNC_FLUSH_COMMANDS_BIT, 1000000000ull);
+				m_glDeleteSync(ps->fences[next]);
+				ps->fences[next] = nullptr;
+			}
+			m_perfPersistentWaits++;
+		}
+		ps->cur = next;
+		const size_t valid = (gl.writtenEnd > 0 && gl.writtenEnd < size) ? gl.writtenEnd : size;
+		memcpy(ps->ptrs[next], bits, valid);
+		gl.name = ps->names[next];
+		gl.allocated = true;
+	} else {
+		const GxUploadTimer uploadTimer(isIndex ? GX_UPLOAD_IB_APPEND : GX_UPLOAD_VB_APPEND, gl.dirtyEnd - gl.dirtyBegin);
+		memcpy(ps->ptrs[ps->cur] + gl.dirtyBegin, bits + gl.dirtyBegin, gl.dirtyEnd - gl.dirtyBegin);
+	}
+	gl.dirty = false;
+	gl.pendingDiscard = false;
+	gl.clearRange();
+	return true;
+}
+
+void WebGLPipeline::releaseBufferStorage(GLBufferState &gl)
+{
+	if (gl.persistent != nullptr) {
+		PersistentBufferSet *ps = gl.persistent;
+		for (int i = 0; i < ps->count; i++) {
+			if (ps->fences[i] && m_glDeleteSync)
+				m_glDeleteSync(ps->fences[i]);
+			glBindBuffer(GL_COPY_WRITE_BUFFER, ps->names[i]);
+			glUnmapBuffer(GL_COPY_WRITE_BUFFER);
+			glDeleteBuffers(1, &ps->names[i]);
+			invalidateBufferBinding(ps->names[i]);
+		}
+		delete ps;
+		gl.persistent = nullptr;
+		gl.name = 0;
+		return;
+	}
+	if (gl.name) {
+		glDeleteBuffers(1, &gl.name);
+		invalidateBufferBinding(gl.name);
+		gl.name = 0;
+	}
+}
+
 void WebGLPipeline::ensureVBUploaded(WebGLVertexBuffer *vb)
 {
+	if (vb->m_gl.dirty && (vb->m_usage & D3DUSAGE_DYNAMIC) &&
+	    persistentUpload(vb->m_gl, vb->m_bits.data(), vb->m_bits.size(), false))
+		return;
 	if (vb->m_gl.name == 0) {
 		glGenBuffers(1, &vb->m_gl.name);
 		vb->m_gl.allocated = false;
@@ -2686,6 +2831,9 @@ void WebGLPipeline::ensureVBUploaded(WebGLVertexBuffer *vb)
 // measurements.
 void WebGLPipeline::ensureIBUploaded(WebGLIndexBuffer *ib)
 {
+	if (ib->m_gl.dirty && (ib->m_usage & D3DUSAGE_DYNAMIC) &&
+	    persistentUpload(ib->m_gl, ib->m_bits.data(), ib->m_bits.size(), true))
+		return;
 	if (ib->m_gl.name == 0) {
 		glGenBuffers(1, &ib->m_gl.name);
 		ib->m_gl.allocated = false;
@@ -3359,11 +3507,14 @@ void WebGLPipeline::present()
 			// readbacks and their total stall, DXT1 levels uploaded at 16 bpp.
 			const double frames = m_perfFrameCount > 0 ? (double)m_perfFrameCount : 1.0;
 			fprintf(stderr, "[d3d8gles] perf-opt: basevertex=%.1f/frame upring=%.1f/frame (%.0f KB/frame, %d wraps) "
-				"progcache load=%d save=%d rt-readback=%d (%.1f ms) dxt16 levels=%d (%.1f MB saved)\n",
+				"progcache load=%d save=%d rt-readback=%d (%.1f ms) dxt16 levels=%d (%.1f MB saved) "
+				"persistent switches=%.1f/frame waits=%d new-copies=%d\n",
 				m_perfBaseVertexDraws / frames, m_perfUpRingDraws / frames, m_perfUpRingBytes / 1024.0 / frames,
 				m_perfUpRingWraps, m_perfProgramCacheLoads, m_perfProgramCacheSaves,
 				m_perfRTReadbacks, m_perfRTReadbackUs / 1000.0,
-				m_perfDxt16Levels, m_perfDxt16SavedBytes / (1024.0 * 1024.0));
+				m_perfDxt16Levels, m_perfDxt16SavedBytes / (1024.0 * 1024.0),
+				m_perfPersistentSwitches / frames, m_perfPersistentWaits, m_perfPersistentCopies);
+			m_perfPersistentSwitches = m_perfPersistentWaits = m_perfPersistentCopies = 0;
 			m_perfLogLastMs = nowMs;
 			m_perfFrameCount = 0;
 			m_perfDrawAccum = 0;

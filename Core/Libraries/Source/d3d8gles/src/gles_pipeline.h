@@ -31,6 +31,12 @@
 #pragma once
 
 #include <GLES3/gl3.h>
+#ifndef GL_MAP_PERSISTENT_BIT_EXT
+#define GL_MAP_PERSISTENT_BIT_EXT 0x0040
+#endif
+#ifndef GL_MAP_COHERENT_BIT_EXT
+#define GL_MAP_COHERENT_BIT_EXT 0x0080
+#endif
 #include <cstdint>
 #include <cstring>
 #include <string>
@@ -59,6 +65,20 @@ struct GLTextureState {
 	GLuint fbo = 0;             // lazily created when used as a render target
 };
 
+// GeneralsX @performance Android port 29/09/2026 Persistently mapped storage for a dynamic VB/IB
+// (EXT_buffer_storage): a few GL buffers, each mapped once for good, so an append is a memcpy and
+// no GL call at all. D3DLOCK_DISCARD moves to a copy the GPU has finished with (fenced) instead
+// of respecifying storage. See WebGLPipeline::persistentUpload().
+struct PersistentBufferSet {
+	static const int kMaxCopies = 8;
+	GLuint names[kMaxCopies] = {};
+	unsigned char *ptrs[kMaxCopies] = {};
+	GLsync fences[kMaxCopies] = {};
+	int count = 0;
+	int cur = -1;
+	size_t size = 0;
+};
+
 // GL side of a VB/IB.
 struct GLBufferState {
 	GLuint name = 0;
@@ -84,6 +104,7 @@ struct GLBufferState {
 	// ever written (0 = nothing tracked yet). A full upload only needs [0, writtenEnd): bytes
 	// beyond it were never written, so no draw can reference them.
 	size_t writtenEnd = 0;
+	PersistentBufferSet *persistent = nullptr; // set once a dynamic buffer takes the persistent path
 
 	void markRange(size_t begin, size_t end)
 	{
@@ -164,6 +185,10 @@ public:
 	// right after glDeleteBuffers.
 	void invalidateBufferBinding(GLuint name);
 	void fullBufferUpload(GLBufferState &gl, const unsigned char *bits, size_t size, int kind);
+	// Persistent path for dynamic buffers; FALSE when unavailable (the caller then uploads as before).
+	bool persistentUpload(GLBufferState &gl, const unsigned char *bits, size_t size, bool isIndex);
+	// Deletes a buffer's GL storage, persistent copies included (VB/IB destructors).
+	void releaseBufferStorage(GLBufferState &gl);
 
 private:
 	WebGLPipeline() = default;
@@ -511,6 +536,7 @@ private:
 		bool upRing = true;       // one streaming ring buffer for the *UP draws
 		bool programCache = true; // linked program binaries kept on disk between launches
 		bool dxt565 = true;       // DXT1 decoded to 16 bpp, not 32, where S3TC is missing
+		bool persistent = true;   // dynamic VB/IB persistently mapped (EXT_buffer_storage)
 	};
 	OptimizationSwitches m_opt;
 	void loadOptimizationSwitches();
@@ -518,6 +544,18 @@ private:
 	typedef void (GL_APIENTRY *PFN_DrawElementsBaseVertex)(GLenum mode, GLsizei count, GLenum type,
 		const void *indices, GLint basevertex);
 	PFN_DrawElementsBaseVertex m_glDrawElementsBaseVertex = nullptr;
+	typedef void (GL_APIENTRY *PFN_BufferStorage)(GLenum target, GLsizeiptr size, const void *data, GLbitfield flags);
+	typedef GLsync (GL_APIENTRY *PFN_FenceSync)(GLenum condition, GLbitfield flags);
+	typedef GLenum (GL_APIENTRY *PFN_ClientWaitSync)(GLsync sync, GLbitfield flags, GLuint64 timeout);
+	typedef void (GL_APIENTRY *PFN_DeleteSync)(GLsync sync);
+	PFN_BufferStorage m_glBufferStorage = nullptr;
+	PFN_FenceSync m_glFenceSync = nullptr;
+	PFN_ClientWaitSync m_glClientWaitSync = nullptr;
+	PFN_DeleteSync m_glDeleteSync = nullptr;
+	bool m_persistentOK = false;
+	int m_perfPersistentSwitches = 0;
+	int m_perfPersistentWaits = 0;
+	int m_perfPersistentCopies = 0;
 	int m_perfBaseVertexDraws = 0;
 
 	// Streaming ring for DrawPrimitiveUP/DrawIndexedPrimitiveUP: appended to with an
