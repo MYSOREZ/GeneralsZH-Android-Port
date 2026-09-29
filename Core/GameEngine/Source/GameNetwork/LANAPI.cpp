@@ -41,56 +41,6 @@
 
 static const UnsignedShort lobbyPort = 8086; ///< This is the UDP port used by all LANAPI communication
 
-#ifndef _WIN32
-#include <ifaddrs.h>
-#include <net/if.h>
-#endif
-
-// GeneralsX @bugfix Android port 29/09/2026 The lobby finds games by UDP broadcast, and its socket
-// was bound to the chosen local address. Winsock delivers broadcasts to such a socket; Linux, and
-// so Android, does not -- a datagram to 255.255.255.255 only reaches sockets bound to INADDR_ANY
-// (or to the broadcast address). So off Windows the lobby binds to every address and still sends
-// from the chosen interface: broadcasts go to that interface's own subnet broadcast address
-// (lanBroadcastAddress), which routing sends out of it, rather than 255.255.255.255, which follows
-// the default route -- on a phone that can be mobile data rather than the Wi-Fi the other players
-// are on. The chosen address still identifies this machine in every message, as before.
-static UnsignedInt lanBindAddress( UnsignedInt localIP )
-{
-#ifdef _WIN32
-	return localIP;
-#else
-	(void)localIP;
-	return INADDR_ANY;
-#endif
-}
-
-static UnsignedInt lanBroadcastAddress( UnsignedInt localIP )
-{
-#ifndef _WIN32
-	struct ifaddrs *ifaddr = nullptr;
-	if (localIP != 0 && getifaddrs(&ifaddr) == 0)
-	{
-		UnsignedInt directed = INADDR_BROADCAST;
-		for (struct ifaddrs *ifa = ifaddr; ifa != nullptr; ifa = ifa->ifa_next)
-		{
-			if (ifa->ifa_addr == nullptr || ifa->ifa_netmask == nullptr || ifa->ifa_addr->sa_family != AF_INET)
-				continue;
-			const UnsignedInt addr = ntohl(reinterpret_cast<const sockaddr_in *>(ifa->ifa_addr)->sin_addr.s_addr);
-			if (addr != localIP)
-				continue;
-			const UnsignedInt mask = ntohl(reinterpret_cast<const sockaddr_in *>(ifa->ifa_netmask)->sin_addr.s_addr);
-			if (mask != 0 && mask != 0xFFFFFFFF)
-				directed = (addr & mask) | ~mask;
-			break;
-		}
-		freeifaddrs(ifaddr);
-		return directed;
-	}
-#endif
-	(void)localIP;
-	return INADDR_BROADCAST;
-}
-
 AsciiString GetMessageTypeString(UnsignedInt type);
 
 const UnsignedInt LANAPI::s_resendDelta = 10 * 1000;	///< This is how often we announce ourselves to the world
@@ -150,9 +100,8 @@ void LANAPI::init()
 	m_gameStartTime = 0;
 	m_gameStartSeconds = 0;
 	m_transport->reset();
-	m_transport->init(lanBindAddress(m_localIP), lobbyPort);
+	m_transport->init(m_localIP, lobbyPort);
 	m_transport->allowBroadcasts(true);
-	m_broadcastAddr = lanBroadcastAddress(m_localIP);
 
 	m_pendingAction = ACT_NONE;
 	m_expiration = 0;
@@ -1326,9 +1275,8 @@ Bool LANAPI::SetLocalIP( UnsignedInt localIP )
 	m_localIP = localIP;
 
 	m_transport->reset();
-	retval = m_transport->init(lanBindAddress(m_localIP), lobbyPort);
+	retval = m_transport->init(m_localIP, lobbyPort);
 	m_transport->allowBroadcasts(true);
-	m_broadcastAddr = lanBroadcastAddress(m_localIP);
 
 	return retval;
 }

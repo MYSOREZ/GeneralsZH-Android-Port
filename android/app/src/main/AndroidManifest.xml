@@ -59,9 +59,6 @@
          multiplayer client both need plain outbound HTTPS/WebSocket. -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <!-- LAN games: receive UDP broadcasts over Wi-Fi (GeneralsZHActivity multicast lock) -->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
 
     <!-- GeneralsX @bugfix Android port 10/07/2026 the sign-in flow backgrounds
          this app for the whole browser round-trip (open playgenerals.online,
