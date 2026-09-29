@@ -208,6 +208,11 @@ cmake --build build/macos-vulkan --target z_generals
   `docs/WORKDIR/lessons/LESSON-gles-dynamic-buffer-stalls.md` — it also documents the
   per-subsystem draw and UI-time counters (`[d3d8gles] perf-draws/frame by source:`,
   `[d3d8gles] perf-ui ms/frame:`) that attribute a frame's cost from a device log.
+- **Flicker on Mali only, on dynamic draws only, after touching buffer uploads**: the Mali driver
+  caches a scanned index range per buffer until a GL call modifies the buffer; a `memcpy` into a
+  persistent mapping is not one. Never persistently map index data that is refilled in place --
+  stream it into never-reused bytes. Read `docs/WORKDIR/lessons/LESSON-gles-persistent-buffers-mali.md`,
+  which also lists every perf counter now in the log and the order that found each cost.
 
 ## Testing & Validation
 ### Smoke test
