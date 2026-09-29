@@ -61,6 +61,29 @@
 #ifdef USE_WWSHADE
 #include "wwshade/shdmesh.h"
 #include "wwshade/shdsubmesh.h"
+#include "GXTrace.h"
+#include <chrono>
+
+// GeneralsX @performance Android port 29/09/2026 Where the stencil shadow volumes' time goes. The
+// High preset (the only one with shadow volumes) cost ~12 ms more per frame than Medium with the
+// same units on screen, and the translator's own draw timing accounts for only 3-4 ms of it, so
+// most of the rest should be the CPU work here. [GX-PERF-SHADOW], once a second with the perf
+// trace on: casters updated, silhouettes rebuilt, the update loop (which builds them), the
+// increment pass, the decrement pass and the darkening quad, per frame.
+namespace {
+struct ShadowPerf
+{
+	typedef std::chrono::steady_clock Clock;
+	Clock::time_point windowStart = Clock::now();
+	unsigned frames = 0, casters = 0, rebuilds = 0, volumes = 0;
+	double updateMs = 0.0, incrMs = 0.0, decrMs = 0.0, darkenMs = 0.0;
+};
+ShadowPerf s_shadowPerf;
+inline double shadowMsSince(ShadowPerf::Clock::time_point t)
+{
+	return std::chrono::duration<double, std::milli>(ShadowPerf::Clock::now() - t).count();
+}
+}
 #endif
 
 
@@ -2139,6 +2162,7 @@ void W3DVolumetricShadow::updateMeshVolume(Int meshIndex, Int lightIndex, const 
 			}
 			resetSilhouette(meshIndex);
 			buildSilhouette(meshIndex, &lightPosObject);
+			++s_shadowPerf.rebuilds;
 
 			//
 			// in a multiple shadow situation we would be allocating a volume
@@ -3533,12 +3557,14 @@ void W3DVolumetricShadowManager::renderShadows( Bool forceStencilFill )
 		W3DVolumetricShadowRenderTask *shadowDynamicTasksStart,*shadowDynamicTask;
 
 		// step through each of our shadows and render
+		const ShadowPerf::Clock::time_point updateStart = ShadowPerf::Clock::now();
 		for( shadow = m_shadowList; shadow; shadow = shadow->m_next )
 		{
 			if (shadow->m_isEnabled && !shadow->m_isInvisibleEnabled)
 			{
 				//Record last added task
 				shadowDynamicTasksStart=m_dynamicShadowVolumesToRender;
+				++s_shadowPerf.casters;
 				shadow->Update();
 				shadowDynamicTask=m_dynamicShadowVolumesToRender;
 				while (shadowDynamicTask != shadowDynamicTasksStart)
@@ -3552,6 +3578,10 @@ void W3DVolumetricShadowManager::renderShadows( Bool forceStencilFill )
 				}
 			}
 		}
+
+		// The loop above both builds and draws the dynamic volumes; it is reported as "update".
+		s_shadowPerf.updateMs += shadowMsSince(updateStart);
+		const ShadowPerf::Clock::time_point incrStart = ShadowPerf::Clock::now();
 
 		// Set vertex format to that used by static shadow volumes
 		m_pDev->SetVertexShader(W3DBufferManager::getDX8Format(W3DBufferManager::VBM_FVF_XYZ));
@@ -3569,6 +3599,9 @@ void W3DVolumetricShadowManager::renderShadows( Bool forceStencilFill )
 				numRenderedShadows++;
 			}
 		}
+
+		s_shadowPerf.incrMs += shadowMsSince(incrStart);
+		const ShadowPerf::Clock::time_point decrStart = ShadowPerf::Clock::now();
 
 		// change the stencil op to decrement
 		m_pDev->SetRenderState( D3DRS_STENCILPASS,  D3DSTENCILOP_DECRSAT);
@@ -3618,9 +3651,24 @@ void W3DVolumetricShadowManager::renderShadows( Bool forceStencilFill )
 		// render the big transparent square of shadows in the stencil buffer
 		// to the screen
 		//
+		s_shadowPerf.decrMs += shadowMsSince(decrStart);
+		s_shadowPerf.volumes += numRenderedShadows;
+		const ShadowPerf::Clock::time_point darkenStart = ShadowPerf::Clock::now();
+
 ///@todo: Put this check back in after water is fixed so it doesn't require shadow rendering to fix alpha.
 //		if (numRenderedShadows)
 			renderStencilShadows();
+
+		s_shadowPerf.darkenMs += shadowMsSince(darkenStart);
+		++s_shadowPerf.frames;
+		if (shadowMsSince(s_shadowPerf.windowStart) >= 1000.0 && s_shadowPerf.frames > 0)
+		{
+			const double n = (double)s_shadowPerf.frames;
+			GX_PERF_TRACE("[GX-PERF-SHADOW] frames=%u per frame: casters=%.1f rebuilds=%.1f volumes=%.1f | ms: update=%.2f incr=%.2f decr=%.2f darken=%.2f\n",
+				s_shadowPerf.frames, s_shadowPerf.casters / n, s_shadowPerf.rebuilds / n, s_shadowPerf.volumes / n,
+				s_shadowPerf.updateMs / n, s_shadowPerf.incrMs / n, s_shadowPerf.decrMs / n, s_shadowPerf.darkenMs / n);
+			s_shadowPerf = ShadowPerf();
+		}
 
 		m_pDev->SetRenderState(D3DRS_SHADEMODE, D3DSHADE_GOURAUD);
 		m_pDev->SetRenderState(D3DRS_ALPHABLENDENABLE , FALSE);
