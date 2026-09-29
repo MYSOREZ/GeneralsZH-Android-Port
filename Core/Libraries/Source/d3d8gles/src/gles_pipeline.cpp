@@ -2660,8 +2660,18 @@ bool WebGLPipeline::persistentUpload(GLBufferState &gl, const unsigned char *bit
 		gl.persistent = ps;
 	}
 
+	// GeneralsX @bugfix Android port 29/09/2026 Reported with the first persistent build: UI,
+	// buildings, units and effects flickering. Mobile GPUs are tile-based and run a frame's draws
+	// after the frame is submitted, so a draw issued earlier reads the buffer as it is at the END
+	// of the frame. The old path went through glMapBufferRange, where the driver quietly
+	// preserves what earlier draws will read (copy-on-write); a persistent mapping has no such
+	// protection, and any write to bytes an already-issued draw may read showed up in that draw.
+	// NOOVERWRITE appends past everything drawn are safe; anything else that lands below the
+	// highest byte an issued draw may read (gpuRefEnd, recorded by the draw calls) now moves to a
+	// free copy first -- the copy-on-write the driver used to do.
 	const bool haveRange = gl.dirtyBegin < gl.dirtyEnd;
-	const bool full = !gl.allocated || !haveRange || gl.pendingDiscard;
+	const bool hazard = haveRange && gl.dirtyBegin < gl.gpuRefEnd;
+	const bool full = !gl.allocated || !haveRange || gl.pendingDiscard || hazard;
 	const GLbitfield flags = GL_MAP_WRITE_BIT | GL_MAP_PERSISTENT_BIT_EXT | GL_MAP_COHERENT_BIT_EXT;
 
 	if (full) {
@@ -2729,6 +2739,7 @@ bool WebGLPipeline::persistentUpload(GLBufferState &gl, const unsigned char *bit
 		memcpy(ps->ptrs[next], bits, valid);
 		gl.name = ps->names[next];
 		gl.allocated = true;
+		gl.gpuRefEnd = 0; // nothing has been drawn from this copy since it was selected
 	} else {
 		const GxUploadTimer uploadTimer(isIndex ? GX_UPLOAD_IB_APPEND : GX_UPLOAD_VB_APPEND, gl.dirtyEnd - gl.dirtyBegin);
 		memcpy(ps->ptrs[ps->cur] + gl.dirtyBegin, bits + gl.dirtyBegin, gl.dirtyEnd - gl.dirtyBegin);
@@ -2944,7 +2955,7 @@ size_t WebGLPipeline::streamToRing(GLuint buffer, size_t capacity, size_t *offse
 	return start;
 }
 
-void WebGLPipeline::drawIndexed(WebGLDevice *dev, unsigned primType, unsigned /*minIndex*/,
+void WebGLPipeline::drawIndexed(WebGLDevice *dev, unsigned primType, unsigned minIndex,
                                 unsigned numVertices, unsigned startIndex, unsigned primCount)
 {
 	if (!m_ctxReady) return;
@@ -2959,6 +2970,13 @@ void WebGLPipeline::drawIndexed(WebGLDevice *dev, unsigned primType, unsigned /*
 	const unsigned fvf = dev->getFVF() ? dev->getFVF() : vb->m_fvf;
 	const unsigned stride = dev->getStream0Stride();
 	const int baseBytes = (int)(dev->getBaseVertexIndex() * stride);
+	// What this draw may read, for the persistent path's hazard check. D3D8's minIndex/numVertices
+	// are the vertex range the indices address; without a count, assume the whole buffer.
+	vb->m_gl.noteGpuRead(numVertices > 0
+		? ((size_t)dev->getBaseVertexIndex() + minIndex + numVertices) * stride
+		: vb->m_bits.size(), vb->m_bits.size());
+	ib->m_gl.noteGpuRead(((size_t)startIndex + primVertexCount(primType, primCount)) *
+		(ib->m_format == D3DFMT_INDEX32 ? 4 : 2), ib->m_bits.size());
 	drawCommon(dev, primType, primCount, vb->m_gl.name, stride, fvf,
 	           ib->m_gl.name, ib->m_format, startIndex, baseBytes, numVertices,
 	           (int)dev->getBaseVertexIndex());
@@ -2975,6 +2993,7 @@ void WebGLPipeline::draw(WebGLDevice *dev, unsigned primType, unsigned startVert
 
 	const unsigned fvf = dev->getFVF() ? dev->getFVF() : vb->m_fvf;
 	const unsigned stride = dev->getStream0Stride();
+	vb->m_gl.noteGpuRead(((size_t)startVertex + primVertexCount(primType, primCount)) * stride, vb->m_bits.size());
 	drawCommon(dev, primType, primCount, vb->m_gl.name, stride, fvf,
 	           0, 0, startVertex, 0, 0);
 }

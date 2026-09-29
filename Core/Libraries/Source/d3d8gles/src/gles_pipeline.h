@@ -105,6 +105,15 @@ struct GLBufferState {
 	// beyond it were never written, so no draw can reference them.
 	size_t writtenEnd = 0;
 	PersistentBufferSet *persistent = nullptr; // set once a dynamic buffer takes the persistent path
+	// Persistent path only: one past the highest byte of the current copy that a draw issued since
+	// the copy was selected may read. Writing below it is a hazard (see persistentUpload()).
+	size_t gpuRefEnd = 0;
+	void noteGpuRead(size_t end, size_t size)
+	{
+		if (persistent == nullptr) return;
+		if (end > size) end = size;
+		if (end > gpuRefEnd) gpuRefEnd = end;
+	}
 
 	void markRange(size_t begin, size_t end)
 	{
