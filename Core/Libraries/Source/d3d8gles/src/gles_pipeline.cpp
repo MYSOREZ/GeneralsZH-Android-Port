@@ -3135,8 +3135,34 @@ void WebGLPipeline::drawIndexed(WebGLDevice *dev, unsigned primType, unsigned mi
 	const int baseBytes = (int)(dev->getBaseVertexIndex() * stride);
 	// What this draw may read, for the persistent path's hazard check. D3D8's minIndex/numVertices
 	// are the vertex range the indices address; without a count, assume the whole buffer.
-	vb->m_gl.noteGpuRead(numVertices > 0
-		? ((size_t)dev->getBaseVertexIndex() + minIndex + numVertices) * stride
+	size_t vertexEnd = numVertices > 0 ? (size_t)minIndex + numVertices : (size_t)-1;
+	// GeneralsX @bugfix Android port 30/09/2026 ...but D3D itself never enforces that range, so an
+	// engine call that understates it draws fine there and here leaves gpuRefEnd short: a later
+	// NOOVERWRITE write into the understated tail passes the hazard check and overwrites vertices
+	// a queued draw still reads -- a triangle stretched across the screen. With the render thread
+	// the draw runs later than it used to, so such a write lands first more often. For a
+	// persistent VB, read the real highest index (the indices are right here in m_bits).
+	if (vb->m_gl.persistent != nullptr && vertexEnd != (size_t)-1 &&
+	    (size_t)startIndex * isz + indexBytes <= ib->m_bits.size()) {
+		size_t maxIndex = 0;
+		const unsigned char *idx = ib->m_bits.data() + (size_t)startIndex * isz;
+		const size_t count = indexBytes / isz;
+		if (isz == 2) {
+			const uint16_t *p16 = reinterpret_cast<const uint16_t *>(idx);
+			for (size_t i = 0; i < count; i++)
+				if (p16[i] > maxIndex) maxIndex = p16[i];
+		} else {
+			const uint32_t *p32 = reinterpret_cast<const uint32_t *>(idx);
+			for (size_t i = 0; i < count; i++)
+				if (p32[i] > maxIndex) maxIndex = p32[i];
+		}
+		if (maxIndex + 1 > vertexEnd) {
+			vertexEnd = maxIndex + 1;
+			m_perfRangeUnderstated++;
+		}
+	}
+	vb->m_gl.noteGpuRead(vertexEnd != (size_t)-1
+		? ((size_t)dev->getBaseVertexIndex() + vertexEnd) * stride
 		: vb->m_bits.size(), vb->m_bits.size());
 	if (!streamed)
 		ib->m_gl.noteGpuRead((size_t)startIndex * isz + indexBytes, ib->m_bits.size());
@@ -3712,6 +3738,10 @@ void WebGLPipeline::present()
 				m_perfDxt16Levels, m_perfDxt16SavedBytes / (1024.0 * 1024.0),
 				m_perfPersistentSwitches / frames, m_perfPersistentWaits, m_perfPersistentCopies,
 				m_perfIndexStreamRenewals);
+			if (m_perfRangeUnderstated > 0)
+				fprintf(stderr, "[d3d8gles] perf-opt: %d indexed draws read past their stated vertex range (hazard range widened)\n",
+					m_perfRangeUnderstated);
+			m_perfRangeUnderstated = 0;
 			m_perfPersistentSwitches = m_perfPersistentWaits = m_perfPersistentCopies = m_perfIndexStreamRenewals = 0;
 			// GeneralsX @performance Android port 30/09/2026 The render thread: how long it ran GL
 			// calls, and how long the engine's thread waited -- for the previous frame's swap (the

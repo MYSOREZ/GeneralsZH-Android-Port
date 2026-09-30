@@ -594,6 +594,7 @@ private:
 	size_t m_indexStreamOffset = 0;
 	bool m_indexStreamFailed = false;
 	int m_perfIndexStreamRenewals = 0;
+	int m_perfRangeUnderstated = 0; // indexed draws whose indices reach past minIndex+numVertices
 	bool streamIndices(const void *src, size_t bytes, GLuint *name, size_t *offset);
 	int m_perfPersistentSwitches = 0;
 	int m_perfPersistentWaits = 0;
