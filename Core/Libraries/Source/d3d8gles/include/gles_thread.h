@@ -177,13 +177,6 @@ bool running();
 // engine's thread they raced the render thread's GL calls: artifacts only with the thread on
 // (stretched triangles, the terrain blend layer smeared across the screen, water missing for a
 // frame), in spite of fences, hazard ranges and a store barrier (logs-30..35).
-inline void writeMapped(void *dst, const void *src, size_t bytes)
-{
-	if (!g_active) {
-		memcpy(dst, src, bytes);
-		return;
-	}
-	post([dst, bytes, blob = Blob<256>(src, bytes)] { memcpy(dst, blob.data(), bytes); });
-}
+void writeMapped(void *dst, const void *src, size_t bytes);
 
 } // namespace gxrt

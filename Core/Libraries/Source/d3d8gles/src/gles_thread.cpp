@@ -326,6 +326,51 @@ void syncCall(void (*fn)(void *), void *ctx)
 	waitMain([&done] { return done.load(std::memory_order_acquire); }, &s_stats.syncWaitUs);
 }
 
+// The bytes travel inside the command itself, right behind a small header: one copy into the ring
+// (which stays in cache), one out of it, and no allocation. The first version carried them in a
+// heap Blob; a full refill of a vertex copy is ~400 KB, so every one of those was an allocation
+// large enough to be mmap'd and page-faulted fresh (logs-36: uploads ~1 ms a frame dearer).
+namespace {
+struct MappedWriteCmd : Cmd
+{
+	void *dst;
+	size_t length;
+	static void exec(Cmd *c)
+	{
+		MappedWriteCmd *w = static_cast<MappedWriteCmd *>(c);
+		memcpy(w->dst, reinterpret_cast<unsigned char *>(w) + sizeof(MappedWriteCmd), w->length);
+	}
+};
+}
+
+void writeMapped(void *dst, const void *src, size_t bytes)
+{
+	if (!g_active) {
+		memcpy(dst, src, bytes);
+		return;
+	}
+	// A quarter of the ring at most per command, so one write can never wait on room it needs
+	// itself; larger ones are split.
+	const size_t kMaxChunk = kRingBytes / 4;
+	const unsigned char *from = static_cast<const unsigned char *>(src);
+	unsigned char *to = static_cast<unsigned char *>(dst);
+	while (bytes > 0) {
+		const size_t n = bytes < kMaxChunk ? bytes : kMaxChunk;
+		uint32_t rounded = 0;
+		unsigned char *mem = static_cast<unsigned char *>(allocCmd(sizeof(MappedWriteCmd) + n, &rounded));
+		MappedWriteCmd *w = new (mem) MappedWriteCmd;
+		w->run = &MappedWriteCmd::exec;
+		w->bytes = rounded;
+		w->dst = to;
+		w->length = n;
+		memcpy(mem + sizeof(MappedWriteCmd), from, n);
+		commitCmd();
+		from += n;
+		to += n;
+		bytes -= n;
+	}
+}
+
 bool start(SDL_Window *window)
 {
 	if (s_thread.joinable())

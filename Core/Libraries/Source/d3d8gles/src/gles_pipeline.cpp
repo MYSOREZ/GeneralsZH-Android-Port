@@ -2843,9 +2843,30 @@ bool WebGLPipeline::persistentUpload(GLBufferState &gl, const unsigned char *bit
 			}
 			m_perfPersistentWaits++;
 		}
+		const int prev = ps->cur;
 		ps->cur = next;
 		const size_t valid = (gl.writtenEnd > 0 && gl.writtenEnd < size) ? gl.writtenEnd : size;
-		gxrt::writeMapped(ps->ptrs[next], bits, valid);
+		// GeneralsX @performance Android port 30/09/2026 The new copy must hold every byte ever
+		// written, but everything outside the dirty range is already in the previous copy. Let the
+		// GPU copy that part (glCopyBufferSubData is ordered after the draws still reading the
+		// previous copy and before the ones that will read this one) and write only the dirty
+		// range from the CPU. The two ranges never overlap, so the CPU write and the GPU copy
+		// cannot race. In the heavy menu battle this was ~2 MB a frame of CPU copying, twice with
+		// the render thread (logs-36).
+		const size_t dirtyEnd = gl.dirtyEnd < valid ? gl.dirtyEnd : valid;
+		if (prev >= 0 && prev != next && gl.allocated && haveRange && gl.dirtyBegin < dirtyEnd) {
+			glBindBuffer(GL_COPY_READ_BUFFER, ps->names[prev]);
+			glBindBuffer(GL_COPY_WRITE_BUFFER, ps->names[next]);
+			if (gl.dirtyBegin > 0)
+				glCopyBufferSubData(GL_COPY_READ_BUFFER, GL_COPY_WRITE_BUFFER, 0, 0, (GLsizeiptr)gl.dirtyBegin);
+			if (dirtyEnd < valid)
+				glCopyBufferSubData(GL_COPY_READ_BUFFER, GL_COPY_WRITE_BUFFER, (GLintptr)dirtyEnd, (GLintptr)dirtyEnd,
+					(GLsizeiptr)(valid - dirtyEnd));
+			gxrt::writeMapped(ps->ptrs[next] + gl.dirtyBegin, bits + gl.dirtyBegin, dirtyEnd - gl.dirtyBegin);
+			m_perfGpuRefills++;
+		} else {
+			gxrt::writeMapped(ps->ptrs[next], bits, valid);
+		}
 		gl.name = ps->names[next];
 		gl.allocated = true;
 		gl.gpuRefEnd = 0; // nothing has been drawn from this copy since it was selected
@@ -3754,6 +3775,9 @@ void WebGLPipeline::present()
 				fprintf(stderr, "[d3d8gles] perf-opt: %.1f/frame buffer updates from plain locks, uploaded synchronized\n",
 					m_perfSyncUploads / frames);
 			m_perfSyncUploads = 0;
+			if (m_perfGpuRefills > 0)
+				fprintf(stderr, "[d3d8gles] perf-opt: %.1f/frame persistent copies refilled on the GPU\n", m_perfGpuRefills / frames);
+			m_perfGpuRefills = 0;
 			if (m_perfRangeUnderstated > 0)
 				fprintf(stderr, "[d3d8gles] perf-opt: %d indexed draws read past their stated vertex range (hazard range widened)\n",
 					m_perfRangeUnderstated);
