@@ -2845,15 +2845,13 @@ bool WebGLPipeline::persistentUpload(GLBufferState &gl, const unsigned char *bit
 		}
 		ps->cur = next;
 		const size_t valid = (gl.writtenEnd > 0 && gl.writtenEnd < size) ? gl.writtenEnd : size;
-		memcpy(ps->ptrs[next], bits, valid);
-		gxrt::publishMappedWrites();
+		gxrt::writeMapped(ps->ptrs[next], bits, valid);
 		gl.name = ps->names[next];
 		gl.allocated = true;
 		gl.gpuRefEnd = 0; // nothing has been drawn from this copy since it was selected
 	} else {
 		const GxUploadTimer uploadTimer(isIndex ? GX_UPLOAD_IB_APPEND : GX_UPLOAD_VB_APPEND, gl.dirtyEnd - gl.dirtyBegin);
-		memcpy(ps->ptrs[ps->cur] + gl.dirtyBegin, bits + gl.dirtyBegin, gl.dirtyEnd - gl.dirtyBegin);
-		gxrt::publishMappedWrites();
+		gxrt::writeMapped(ps->ptrs[ps->cur] + gl.dirtyBegin, bits + gl.dirtyBegin, gl.dirtyEnd - gl.dirtyBegin);
 	}
 	gl.dirty = false;
 	gl.pendingDiscard = false;
@@ -3106,8 +3104,7 @@ bool WebGLPipeline::streamIndices(const void *src, size_t bytes, GLuint *name, s
 		}
 		start = 0;
 	}
-	memcpy(m_indexStreamPtr + start, src, bytes);
-	gxrt::publishMappedWrites();
+	gxrt::writeMapped(m_indexStreamPtr + start, src, bytes);
 	m_indexStreamOffset = start + bytes;
 	*name = m_indexStream;
 	*offset = start;

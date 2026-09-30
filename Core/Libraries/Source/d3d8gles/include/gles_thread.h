@@ -170,23 +170,20 @@ struct Stats
 Stats takeStats();
 bool running();
 
-// GeneralsX @bugfix Android port 30/09/2026 Call after writing into a persistently mapped buffer
-// on this thread when the render thread will issue the draws that read it. The mapping is
-// write-combined (uncached) memory; ARM keeps such stores in the writing core's write buffer until
-// a barrier drains it. The driver's own submission path used to do that, on the same core, right
-// after the memcpy -- with the draw issued from the render thread's core it no longer did, and the
-// GPU occasionally read vertices or indices that had not reached memory yet: rare flicker and
-// triangles stretched across the screen (logs-30). The store-release that publishes the command
-// only orders these stores for other CPU cores, not for the GPU, so this is a full DSB.
-inline void publishMappedWrites()
+// GeneralsX @bugfix Android port 30/09/2026 Writes into persistently mapped buffers (the dynamic
+// vertex copies and the index stream) go through here. With the render thread they are queued and
+// done by the render thread itself, in stream order, right before the draws that read them --
+// exactly where they happened when everything ran on one thread. Written directly from the
+// engine's thread they raced the render thread's GL calls: artifacts only with the thread on
+// (stretched triangles, the terrain blend layer smeared across the screen, water missing for a
+// frame), in spite of fences, hazard ranges and a store barrier (logs-30..35).
+inline void writeMapped(void *dst, const void *src, size_t bytes)
 {
-	if (!g_active)
+	if (!g_active) {
+		memcpy(dst, src, bytes);
 		return;
-#if defined(__aarch64__)
-	__asm__ volatile("dsb st" ::: "memory");
-#else
-	__atomic_thread_fence(__ATOMIC_SEQ_CST);
-#endif
+	}
+	post([dst, bytes, blob = Blob<256>(src, bytes)] { memcpy(dst, blob.data(), bytes); });
 }
 
 } // namespace gxrt
