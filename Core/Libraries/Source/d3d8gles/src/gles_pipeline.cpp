@@ -28,6 +28,7 @@
 // it can access the device/resource class internals defined there.
 #include "gles_pipeline.h"
 #include "gles_dispatch.h"
+#include "gles_thread.h"
 
 // Set by d3d8gles_SetTwoSidedStencil() (defined further down, with the rest of the exported
 // engine hooks) and read by applyFixedState().
@@ -602,6 +603,17 @@ bool WebGLPipeline::initContext(int w, int h, SDL_Window *window)
 			(int)rb, (int)gb, (int)bb, (int)ab, (int)db, (int)sb);
 	}
 	fprintf(stderr, "[d3d8gles] GLES3 context ready %dx%d (s3tc=%d)\n", w, h, (int)m_hasS3TC);
+
+	// GeneralsX @performance Android port 30/09/2026 From here on GL calls run on the render thread
+	// (gles_thread.h). Everything above ran on this thread with the context current here.
+	if (m_glClientWaitSync && m_glFenceSync && m_glDeleteSync)
+		gxrt::setFenceProcs(m_glFenceSync, m_glClientWaitSync, m_glDeleteSync);
+	if (m_opt.thread && window) {
+		const bool threaded = gxrt::start(window);
+		fprintf(stderr, "[d3d8gles] render thread: %s\n", threaded ? "on" : "unavailable, rendering on the main thread");
+	} else {
+		fprintf(stderr, "[d3d8gles] render thread: off (gx_gles_noopt.txt)\n");
+	}
 	return true;
 }
 
@@ -638,15 +650,18 @@ void WebGLPipeline::loadOptimizationSwitches()
 	}
 	if (!named) {
 		m_opt.baseVertex = m_opt.upRing = m_opt.programCache = m_opt.dxt565 = m_opt.persistent = m_opt.persistentIB = false;
+		m_opt.thread = false;
 	} else {
 		if (strstr(buf, "basevertex")) m_opt.baseVertex = false;
 		if (strstr(buf, "upring")) m_opt.upRing = false;
 		if (strstr(buf, "progcache")) m_opt.programCache = false;
 		if (strstr(buf, "dxt565")) m_opt.dxt565 = false;
 		if (strstr(buf, "persistent")) m_opt.persistent = m_opt.persistentIB = false;
+		if (strstr(buf, "thread")) m_opt.thread = false;
 	}
-	fprintf(stderr, "[d3d8gles] gx_gles_noopt.txt: basevertex=%d upring=%d progcache=%d dxt565=%d persistent=%d\n",
-		(int)m_opt.baseVertex, (int)m_opt.upRing, (int)m_opt.programCache, (int)m_opt.dxt565, (int)m_opt.persistent);
+	fprintf(stderr, "[d3d8gles] gx_gles_noopt.txt: basevertex=%d upring=%d progcache=%d dxt565=%d persistent=%d thread=%d\n",
+		(int)m_opt.baseVertex, (int)m_opt.upRing, (int)m_opt.programCache, (int)m_opt.dxt565, (int)m_opt.persistent,
+		(int)m_opt.thread);
 }
 
 void WebGLPipeline::resize(int w, int h)
@@ -997,7 +1012,10 @@ GLuint WebGLPipeline::loadCachedProgram(uint64_t sourceHash)
 		return 0;
 	}
 	GLuint p = glCreateProgram();
-	m_glProgramBinary(p, (GLenum)header[1], data.data(), (GLsizei)data.size());
+	{
+		PFN_ProgramBinary programBinary = m_glProgramBinary;
+		gxrt::sync([&] { programBinary(p, (GLenum)header[1], data.data(), (GLsizei)data.size()); });
+	}
 	GLint ok = 0;
 	glGetProgramiv(p, GL_LINK_STATUS, &ok);
 	if (!ok) {
@@ -1018,7 +1036,10 @@ void WebGLPipeline::saveCachedProgram(uint64_t sourceHash, GLuint program)
 	std::vector<uint8_t> data((size_t)length);
 	GLsizei written = 0;
 	GLenum format = 0;
-	m_glGetProgramBinary(program, length, &written, &format, data.data());
+	{
+		PFN_GetProgramBinary getProgramBinary = m_glGetProgramBinary;
+		gxrt::sync([&] { getProgramBinary(program, length, &written, &format, data.data()); });
+	}
 	if (written <= 0)
 		return;
 	char path[1024], temp[1040];
@@ -1287,7 +1308,10 @@ WebGLPipeline::ProgramInfo *WebGLPipeline::getProgram(WebGLDevice *dev, unsigned
 		glAttachShader(p, vsh);
 		glAttachShader(p, fsh);
 		if (!m_programCacheDir.empty())
-			m_glProgramParameteri(p, GL_PROGRAM_BINARY_RETRIEVABLE_HINT, GL_TRUE);
+			{
+				PFN_ProgramParameteri programParameteri = m_glProgramParameteri;
+				gxrt::post([programParameteri, p] { programParameteri(p, GL_PROGRAM_BINARY_RETRIEVABLE_HINT, GL_TRUE); });
+			}
 		glLinkProgram(p);
 		GLint ok = 0;
 		glGetProgramiv(p, GL_LINK_STATUS, &ok);
@@ -1732,11 +1756,15 @@ void WebGLPipeline::uploadTexture(WebGLTexture *tex)
 		if (up.compressed) {
 			glCompressedTexImage2D(GL_TEXTURE_2D, lvl, up.internalFormat,
 			                       s->m_width, s->m_height, 0, up.compressedSize, up.pixels);
-			const GLenum cerr = glGetError();
-			if (cerr != GL_NO_ERROR) {
-				fprintf(stderr, "[d3d8gles] DXT upload error 0x%x lvl=%d %ux%u fmt=0x%x size=%u\n",
-					cerr, lvl, s->m_width, s->m_height, (unsigned)tex->m_format, up.compressedSize);
-			}
+			// Checked on the GL thread, right after the upload, without waiting for it.
+			const unsigned cw = s->m_width, ch = s->m_height, cfmt = (unsigned)tex->m_format, csize = up.compressedSize;
+			gxrt::post([lvl, cw, ch, cfmt, csize] {
+				const GLenum cerr = gxrt::rawGetError();
+				if (cerr != GL_NO_ERROR) {
+					fprintf(stderr, "[d3d8gles] DXT upload error 0x%x lvl=%d %ux%u fmt=0x%x size=%u\n",
+						cerr, lvl, cw, ch, cfmt, csize);
+				}
+			});
 			uploaded = lvl + 1;
 		} else {
 			glTexImage2D(GL_TEXTURE_2D, lvl, up.internalFormat, s->m_width, s->m_height, 0,
@@ -2033,8 +2061,13 @@ void WebGLPipeline::applyFixedState(WebGLDevice *dev)
 			// Front faces are the ones D3DCULL_CW leaves visible (see the cull mapping above).
 			const GLenum sfail = d3dStencilOpToGL(dev->getRenderState(D3DRS_STENCILFAIL));
 			const GLenum zfail = d3dStencilOpToGL(dev->getRenderState(D3DRS_STENCILZFAIL));
-			m_glStencilOpSeparate(GL_FRONT, sfail, zfail, d3dStencilOpToGL(dev->getRenderState(D3DRS_STENCILPASS)));
-			m_glStencilOpSeparate(GL_BACK, sfail, zfail, d3dStencilOpToGL(key.stencilBackPass));
+			const GLenum frontPass = d3dStencilOpToGL(dev->getRenderState(D3DRS_STENCILPASS));
+			const GLenum backPass = d3dStencilOpToGL(key.stencilBackPass);
+			PFN_StencilOpSeparate opSeparate = m_glStencilOpSeparate;
+			gxrt::post([opSeparate, sfail, zfail, frontPass, backPass] {
+				opSeparate(GL_FRONT, sfail, zfail, frontPass);
+				opSeparate(GL_BACK, sfail, zfail, backPass);
+			});
 		} else {
 			glStencilOp(d3dStencilOpToGL(dev->getRenderState(D3DRS_STENCILFAIL)),
 			            d3dStencilOpToGL(dev->getRenderState(D3DRS_STENCILZFAIL)),
@@ -2595,7 +2628,11 @@ void WebGLPipeline::drawCommon(WebGLDevice *dev, unsigned primType, unsigned pri
 		const GLenum itype = (indexFormat == D3DFMT_INDEX32) ? GL_UNSIGNED_INT : GL_UNSIGNED_SHORT;
 		const unsigned isize = (indexFormat == D3DFMT_INDEX32) ? 4 : 2;
 		if (useBaseVertex) {
-			m_glDrawElementsBaseVertex(mode, count, itype, (const void *)(intptr_t)(startIndex * isize), baseVertexIndex);
+			{
+				PFN_DrawElementsBaseVertex drawBV = m_glDrawElementsBaseVertex;
+				const void *indices = (const void *)(intptr_t)(startIndex * isize);
+				gxrt::post([drawBV, mode, count, itype, indices, baseVertexIndex] { drawBV(mode, count, itype, indices, baseVertexIndex); });
+			}
 			m_perfBaseVertexDraws++;
 		} else {
 			glDrawElements(mode, count, itype, (const void *)(intptr_t)(startIndex * isize));
@@ -2750,8 +2787,8 @@ bool WebGLPipeline::persistentUpload(GLBufferState &gl, const unsigned char *bit
 		if (ps->cur >= 0) {
 			// The draws that used the current copy are all issued: fence it.
 			if (ps->fences[ps->cur])
-				m_glDeleteSync(ps->fences[ps->cur]);
-			ps->fences[ps->cur] = m_glFenceSync(GL_SYNC_GPU_COMMANDS_COMPLETE, 0);
+				gxrt::deleteSync(ps->fences[ps->cur]);
+			ps->fences[ps->cur] = gxrt::fenceSync();
 			m_perfPersistentSwitches++;
 			for (int k = 1; k <= ps->count && next < 0; k++) {
 				const int i = (ps->cur + k) % ps->count;
@@ -2760,9 +2797,9 @@ bool WebGLPipeline::persistentUpload(GLBufferState &gl, const unsigned char *bit
 				if (ps->fences[i] == nullptr) {
 					next = i;
 				} else {
-					const GLenum r = m_glClientWaitSync(ps->fences[i], 0, 0);
+					const GLenum r = gxrt::clientWaitSync(ps->fences[i], 0, 0);
 					if (r == GL_ALREADY_SIGNALED || r == GL_CONDITION_SATISFIED) {
-						m_glDeleteSync(ps->fences[i]);
+						gxrt::deleteSync(ps->fences[i]);
 						ps->fences[i] = nullptr;
 						next = i;
 					}
@@ -2774,7 +2811,10 @@ bool WebGLPipeline::persistentUpload(GLBufferState &gl, const unsigned char *bit
 			const int i = ps->count;
 			glGenBuffers(1, &ps->names[i]);
 			glBindBuffer(GL_COPY_WRITE_BUFFER, ps->names[i]);
-			m_glBufferStorage(GL_COPY_WRITE_BUFFER, (GLsizeiptr)size, nullptr, flags);
+			{
+				PFN_BufferStorage storage = m_glBufferStorage;
+				gxrt::post([storage, size, flags] { storage(GL_COPY_WRITE_BUFFER, (GLsizeiptr)size, nullptr, flags); });
+			}
 			ps->ptrs[i] = static_cast<unsigned char *>(glMapBufferRange(GL_COPY_WRITE_BUFFER, 0, (GLsizeiptr)size, flags));
 			if (ps->ptrs[i] == nullptr) {
 				// The driver refused: give up on the persistent path for good, cleanly.
@@ -2797,8 +2837,8 @@ bool WebGLPipeline::persistentUpload(GLBufferState &gl, const unsigned char *bit
 			// All copies busy and no room for another: wait for the oldest one.
 			next = (ps->cur + 1) % ps->count;
 			if (ps->fences[next]) {
-				m_glClientWaitSync(ps->fences[next], GL_SYNC_FLUSH_COMMANDS_BIT, 1000000000ull);
-				m_glDeleteSync(ps->fences[next]);
+				gxrt::clientWaitSync(ps->fences[next], GL_SYNC_FLUSH_COMMANDS_BIT, 1000000000ull);
+				gxrt::deleteSync(ps->fences[next]);
 				ps->fences[next] = nullptr;
 			}
 			m_perfPersistentWaits++;
@@ -2825,7 +2865,7 @@ void WebGLPipeline::releaseBufferStorage(GLBufferState &gl)
 		PersistentBufferSet *ps = gl.persistent;
 		for (int i = 0; i < ps->count; i++) {
 			if (ps->fences[i] && m_glDeleteSync)
-				m_glDeleteSync(ps->fences[i]);
+				gxrt::deleteSync(ps->fences[i]);
 			glBindBuffer(GL_COPY_WRITE_BUFFER, ps->names[i]);
 			glUnmapBuffer(GL_COPY_WRITE_BUFFER);
 			glDeleteBuffers(1, &ps->names[i]);
@@ -2888,17 +2928,10 @@ void WebGLPipeline::ensureVBUploaded(WebGLVertexBuffer *vb)
 			// bytes the GPU may still read, so no wait is needed.
 			const GLintptr off = (GLintptr)vb->m_gl.dirtyBegin;
 			const GLsizeiptr len = (GLsizeiptr)(vb->m_gl.dirtyEnd - vb->m_gl.dirtyBegin);
-			void *mapped = glMapBufferRange(GL_COPY_WRITE_BUFFER, off, len,
+			// Map, copy and unmap on the GL thread (falling back to glBufferSubData when the
+			// driver refuses the mapping): see gxrt::bufferWrite.
+			gxrt::bufferWrite(GL_COPY_WRITE_BUFFER, off, len, vb->m_bits.data() + vb->m_gl.dirtyBegin,
 				GL_MAP_WRITE_BIT | GL_MAP_UNSYNCHRONIZED_BIT);
-			if (mapped) {
-				memcpy(mapped, vb->m_bits.data() + vb->m_gl.dirtyBegin, (size_t)len);
-				glUnmapBuffer(GL_COPY_WRITE_BUFFER);
-			} else {
-				// Mapping can legitimately fail (driver refusal, lost
-				// context); the synchronizing path is slower but correct.
-				glBufferSubData(GL_COPY_WRITE_BUFFER, off, len,
-					vb->m_bits.data() + vb->m_gl.dirtyBegin);
-			}
 		}
 		vb->m_gl.dirty = false;
 		vb->m_gl.pendingDiscard = false;
@@ -2952,17 +2985,10 @@ void WebGLPipeline::ensureIBUploaded(WebGLIndexBuffer *ib)
 			// bytes the GPU may still read, so no wait is needed.
 			const GLintptr off = (GLintptr)ib->m_gl.dirtyBegin;
 			const GLsizeiptr len = (GLsizeiptr)(ib->m_gl.dirtyEnd - ib->m_gl.dirtyBegin);
-			void *mapped = glMapBufferRange(GL_COPY_WRITE_BUFFER, off, len,
+			// Map, copy and unmap on the GL thread (falling back to glBufferSubData when the
+			// driver refuses the mapping): see gxrt::bufferWrite.
+			gxrt::bufferWrite(GL_COPY_WRITE_BUFFER, off, len, ib->m_bits.data() + ib->m_gl.dirtyBegin,
 				GL_MAP_WRITE_BIT | GL_MAP_UNSYNCHRONIZED_BIT);
-			if (mapped) {
-				memcpy(mapped, ib->m_bits.data() + ib->m_gl.dirtyBegin, (size_t)len);
-				glUnmapBuffer(GL_COPY_WRITE_BUFFER);
-			} else {
-				// Mapping can legitimately fail (driver refusal, lost
-				// context); the synchronizing path is slower but correct.
-				glBufferSubData(GL_COPY_WRITE_BUFFER, off, len,
-					ib->m_bits.data() + ib->m_gl.dirtyBegin);
-			}
 		}
 		ib->m_gl.dirty = false;
 		ib->m_gl.pendingDiscard = false;
@@ -3011,14 +3037,8 @@ size_t WebGLPipeline::streamToRing(GLuint buffer, size_t capacity, size_t *offse
 		m_perfUpRingWraps++;
 	}
 	const GxUploadTimer uploadTimer(GX_UPLOAD_RING, bytes);
-	void *dst = glMapBufferRange(GL_COPY_WRITE_BUFFER, start, bytes,
+	gxrt::bufferWrite(GL_COPY_WRITE_BUFFER, (GLintptr)start, (GLsizeiptr)bytes, data,
 		GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_RANGE_BIT | GL_MAP_UNSYNCHRONIZED_BIT);
-	if (dst) {
-		memcpy(dst, data, bytes);
-		glUnmapBuffer(GL_COPY_WRITE_BUFFER);
-	} else {
-		glBufferSubData(GL_COPY_WRITE_BUFFER, start, bytes, data);
-	}
 	*offset = start + bytes;
 	m_perfUpRingBytes += (double)bytes;
 	return start;
@@ -3054,7 +3074,10 @@ bool WebGLPipeline::streamIndices(const void *src, size_t bytes, GLuint *name, s
 		const GLbitfield flags = GL_MAP_WRITE_BIT | GL_MAP_PERSISTENT_BIT_EXT | GL_MAP_COHERENT_BIT_EXT;
 		glGenBuffers(1, &m_indexStream);
 		glBindBuffer(GL_COPY_WRITE_BUFFER, m_indexStream);
-		m_glBufferStorage(GL_COPY_WRITE_BUFFER, (GLsizeiptr)kIndexStreamBytes, nullptr, flags);
+		{
+			PFN_BufferStorage storage = m_glBufferStorage;
+			gxrt::post([storage, flags] { storage(GL_COPY_WRITE_BUFFER, (GLsizeiptr)kIndexStreamBytes, nullptr, flags); });
+		}
 		m_indexStreamPtr = static_cast<unsigned char *>(
 			glMapBufferRange(GL_COPY_WRITE_BUFFER, 0, (GLsizeiptr)kIndexStreamBytes, flags));
 		if (m_indexStreamPtr == nullptr) {
@@ -3312,6 +3335,8 @@ void WebGLPipeline::setRenderTarget(WebGLDevice * /*dev*/, WebGLTexture *tex)
 
 	if (tex->m_gl.fbo == 0) {
 		glGenFramebuffers(1, &tex->m_gl.fbo);
+		tex->m_gl.fboDepthGen = 0;
+		tex->m_gl.fboStatus = 0;
 		glBindFramebuffer(GL_FRAMEBUFFER, tex->m_gl.fbo);
 		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, tex->m_gl.name, 0);
 	} else {
@@ -3324,12 +3349,17 @@ void WebGLPipeline::setRenderTarget(WebGLDevice * /*dev*/, WebGLTexture *tex)
 		glGenRenderbuffers(1, &m_depthRB);
 		glBindRenderbuffer(GL_RENDERBUFFER, m_depthRB);
 		glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, w, h);
+		m_depthRBGeneration++;
 		m_depthRBW = w;
 		m_depthRBH = h;
 	}
-	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, m_depthRB);
+	if (tex->m_gl.fboDepthGen != m_depthRBGeneration || tex->m_gl.fboStatus == 0) {
+		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, m_depthRB);
+		tex->m_gl.fboDepthGen = m_depthRBGeneration;
+		tex->m_gl.fboStatus = glCheckFramebufferStatus(GL_FRAMEBUFFER);
+	}
 
-	const GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
+	const GLenum status = tex->m_gl.fboStatus;
 	if (status != GL_FRAMEBUFFER_COMPLETE) {
 		WARN_ONCE(s_fboIncomplete, "FBO incomplete: 0x%x (%dx%d fmt=%d)", status, w, h, (int)tex->m_format);
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
@@ -3476,9 +3506,13 @@ void WebGLPipeline::present()
 	// glGetError can make the driver flush its command queue, and only the once-a-second
 	// answer was ever printed. GL keeps the error flag set until it is read.
 	if ((m_frame % 60) == 1) {
-		const GLenum err = glGetError();
-		if (err != GL_NO_ERROR)
-			fprintf(stderr, "[d3d8gles] glGetError at frame %u: 0x%x\n", m_frame, err);
+		// Checked where the calls run, so it never waits for the render thread.
+		const unsigned frame = m_frame;
+		gxrt::post([frame] {
+			const GLenum err = gxrt::rawGetError();
+			if (err != GL_NO_ERROR)
+				fprintf(stderr, "[d3d8gles] glGetError at frame %u: 0x%x\n", frame, err);
+		});
 	}
 
 	// GeneralsX @build Android port GLES experiment - perf visibility.
@@ -3647,14 +3681,18 @@ void WebGLPipeline::present()
 			// got lost/cached wrong somewhere in this file. If it DOES
 			// match, the bug is further upstream (EGL surface/window
 			// geometry itself), outside this pipeline's control.
+			// Read where the GL calls run, so the render thread is not made to drain for it.
 			{
-				GLint vpDump[4] = {-1, -1, -1, -1};
-				glGetIntegerv(GL_VIEWPORT, vpDump);
-				fprintf(stderr, "[d3d8gles-diag] present(): GL_VIEWPORT=(%d,%d,%d,%d) m_fbWidth=%d m_fbHeight=%d "
-					"m_curRTWidth=%d m_curRTHeight=%d m_curFBO=%u m_yFlip=%.1f\n",
-					vpDump[0], vpDump[1], vpDump[2], vpDump[3],
-					m_fbWidth, m_fbHeight, m_curRTWidth, m_curRTHeight,
-					(unsigned)m_curFBO, m_yFlip);
+				const int fbW = m_fbWidth, fbH = m_fbHeight, rtW = m_curRTWidth, rtH = m_curRTHeight;
+				const unsigned fbo = (unsigned)m_curFBO;
+				const float yFlip = m_yFlip;
+				gxrt::post([fbW, fbH, rtW, rtH, fbo, yFlip] {
+					GLint vpDump[4] = {-1, -1, -1, -1};
+					gxrt::rawGetIntegerv(GL_VIEWPORT, vpDump);
+					fprintf(stderr, "[d3d8gles-diag] present(): GL_VIEWPORT=(%d,%d,%d,%d) m_fbWidth=%d m_fbHeight=%d "
+						"m_curRTWidth=%d m_curRTHeight=%d m_curFBO=%u m_yFlip=%.1f\n",
+						vpDump[0], vpDump[1], vpDump[2], vpDump[3], fbW, fbH, rtW, rtH, fbo, yFlip);
+				});
 			}
 			DumpLiveTextureShapes();
 			// GeneralsX @performance Android port 27/09/2026 What each translator optimization
@@ -3672,6 +3710,19 @@ void WebGLPipeline::present()
 				m_perfPersistentSwitches / frames, m_perfPersistentWaits, m_perfPersistentCopies,
 				m_perfIndexStreamRenewals);
 			m_perfPersistentSwitches = m_perfPersistentWaits = m_perfPersistentCopies = m_perfIndexStreamRenewals = 0;
+			// GeneralsX @performance Android port 30/09/2026 The render thread: how long it ran GL
+			// calls, and how long the engine's thread waited -- for the previous frame's swap (the
+			// render thread is the slower half), for a call's result (a round trip), or for room
+			// in the command ring. With the thread working, waits are small and busy is roughly
+			// what the GL calls used to cost the engine's thread.
+			{
+				const gxrt::Stats rt = gxrt::takeStats();
+				fprintf(stderr, "[d3d8gles] perf-thread: %s worker-busy=%.2f ms/frame waits: frame=%.2f sync=%.2f (%.1f calls) "
+					"ring=%.2f ms/frame, commands=%.0f/frame (%.0f KB/frame)\n",
+					gxrt::running() ? "on" : "off", rt.workerBusyUs / 1000.0 / frames, rt.frameWaitUs / 1000.0 / frames,
+					rt.syncWaitUs / 1000.0 / frames, rt.syncCalls / frames, rt.ringWaitUs / 1000.0 / frames,
+					rt.commands / frames, rt.commandBytes / 1024.0 / frames);
+			}
 			m_perfLogLastMs = nowMs;
 			m_perfFrameCount = 0;
 			m_perfDrawAccum = 0;
@@ -3708,13 +3759,13 @@ void WebGLPipeline::present()
 		}
 	}
 
+	int swapInterval = -1;
 	{
 		static int s_appliedUncapped = 0;
 		if (s_gxWantUncappedPresent != s_appliedUncapped) {
 			s_appliedUncapped = s_gxWantUncappedPresent;
-			const bool ok = SDL_GL_SetSwapInterval(s_appliedUncapped ? 0 : 1);
-			fprintf(stderr, "[d3d8gles] vsync %s (%s)\n", s_appliedUncapped ? "off" : "on",
-				ok ? "ok" : SDL_GetError());
+			swapInterval = s_appliedUncapped ? 0 : 1;
+			fprintf(stderr, "[d3d8gles] vsync %s\n", s_appliedUncapped ? "off" : "on");
 		}
 	}
 
@@ -3722,7 +3773,9 @@ void WebGLPipeline::present()
 	// needed an explicit swap (the canvas presents implicitly when the game
 	// pthread yields back to its rAF loop tick). Android/EGL has no such
 	// implicit hook, so this call is new, not adapted from upstream.
+	// GeneralsX @performance Android port 30/09/2026 Queued behind the frame's GL calls when the
+	// render thread runs; waits for the previous frame's swap, not this one's.
 	if (m_window) {
-		SDL_GL_SwapWindow(m_window);
+		gxrt::present(m_window, swapInterval);
 	}
 }

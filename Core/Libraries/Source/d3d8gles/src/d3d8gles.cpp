@@ -484,6 +484,8 @@ public:
 		if (m_gl.fbo) {
 			glDeleteFramebuffers(1, &m_gl.fbo);
 			m_gl.fbo = 0;
+			m_gl.fboDepthGen = 0;
+			m_gl.fboStatus = 0;
 		}
 		if (m_gl.name) {
 			// GeneralsX @build Android port GLES experiment - part 2/2 of the

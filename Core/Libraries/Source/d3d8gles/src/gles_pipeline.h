@@ -63,6 +63,13 @@ struct GLTextureState {
 	bool dirty = true;          // shadow bits changed since last upload
 	uint32_t samplerKey = ~0u;  // last-applied filter/wrap state
 	GLuint fbo = 0;             // lazily created when used as a render target
+	// GeneralsX @performance Android port 30/09/2026 Which depth renderbuffer (by generation, since
+	// GL may reuse a deleted name) was last attached to fbo, and
+	// the completeness the driver reported for that combination. glCheckFramebufferStatus returns
+	// a value, so with the render thread it waits for every queued call; it is asked only when
+	// an attachment actually changed, not on every render-target switch.
+	GLuint fboDepthGen = 0;
+	GLenum fboStatus = 0;
 };
 
 // GeneralsX @performance Android port 29/09/2026 Persistently mapped storage for a dynamic VB/IB
@@ -513,6 +520,7 @@ private:
 	float m_yFlip = 1.0f; // +1 backbuffer (flip), -1 FBO (no flip)
 	GLuint m_depthRB = 0; // shared depth-stencil renderbuffer for FBOs
 	int m_depthRBW = 0, m_depthRBH = 0;
+	unsigned m_depthRBGeneration = 0; // bumped whenever m_depthRB is recreated
 
 	// GeneralsX @build Android port GLES experiment 08/30/2026 Camera
 	// (view+proj) uniform buffer -- see kViewProjUBOBinding's comment in
@@ -554,6 +562,9 @@ private:
 		// the dynamic IBs refill the same offsets every frame. Opt in with
 		// gx_gles_persistentib.txt to test another GPU.
 		bool persistentIB = false;
+		// GL calls and the swap on a render thread (gles_thread.h), overlapping the driver's work
+		// with the engine building the next frame.
+		bool thread = true;
 	};
 	OptimizationSwitches m_opt;
 	void loadOptimizationSwitches();

@@ -1,10 +1,14 @@
 // GeneralsX @build Android port ANGLE integration
 #include "gles_dispatch.h"
+#include "gles_thread.h"
 
 #include <GLES3/gl3.h>
 #include <dlfcn.h>
 #include <cstdio>
 #include <time.h>
+#include <cstring>
+#include <string>
+#include <vector>
 
 // GeneralsX @performance Android port 28/09/2026 Time spent in the driver's upload entry
 // points (buffer data, mapping, texture images), for the [d3d8gles] perf-cpu line: together
@@ -219,468 +223,579 @@ PFN_glViewport d3d8gles_pfn_glViewport = nullptr;
 
 } // namespace
 
+// GeneralsX @performance Android port 30/09/2026 Helpers for the render thread (gles_thread.h).
+// The unpack alignment in effect for the next glTexImage2D, tracked on the calling thread: a queued
+// upload has to know how many bytes of the caller's pixels to copy.
+static GLint s_unpackAlignment = 4;
+
+static size_t gxTexImageBytes(GLsizei width, GLsizei height, GLenum format, GLenum type)
+{
+	if (width <= 0 || height <= 0)
+		return 0;
+	size_t components = 4;
+	switch (format) {
+	case GL_ALPHA: case GL_LUMINANCE: case GL_RED: case GL_RED_INTEGER: case GL_DEPTH_COMPONENT: components = 1; break;
+	case GL_LUMINANCE_ALPHA: case GL_RG: case GL_RG_INTEGER: case GL_DEPTH_STENCIL: components = 2; break;
+	case GL_RGB: case GL_RGB_INTEGER: components = 3; break;
+	default: components = 4; break;
+	}
+	size_t pixelBytes = components;
+	switch (type) {
+	case GL_UNSIGNED_SHORT_5_6_5: case GL_UNSIGNED_SHORT_4_4_4_4: case GL_UNSIGNED_SHORT_5_5_5_1: pixelBytes = 2; break;
+	case GL_UNSIGNED_INT_2_10_10_10_REV: case GL_UNSIGNED_INT_24_8: case GL_UNSIGNED_INT_10F_11F_11F_REV:
+	case GL_UNSIGNED_INT_5_9_9_9_REV: pixelBytes = 4; break;
+	case GL_SHORT: case GL_UNSIGNED_SHORT: case GL_HALF_FLOAT: pixelBytes = components * 2; break;
+	case GL_INT: case GL_UNSIGNED_INT: case GL_FLOAT: pixelBytes = components * 4; break;
+	default: pixelBytes = components; break;
+	}
+	const size_t align = (size_t)s_unpackAlignment;
+	const size_t row = ((size_t)width * pixelBytes + align - 1) / align * align;
+	return row * (size_t)(height - 1) + (size_t)width * pixelBytes;
+}
+
+// Object names, generated 64 at a time while the render thread is running: glGen* has to return
+// the names, so each call would otherwise wait for the whole queue ahead of it.
+static std::vector<GLuint> s_poolBuffers, s_poolFramebuffers, s_poolRenderbuffers, s_poolTextures, s_poolVertexArrays;
+
+template <class PFN>
+static void gxGenPooled(std::vector<GLuint> &pool, PFN gen, GLsizei n, GLuint *out)
+{
+	if (!gxrt::g_active) {
+		gen(n, out);
+		return;
+	}
+	for (GLsizei i = 0; i < n; i++) {
+		if (pool.empty()) {
+			GLuint fresh[64];
+			gxrt::sync([&] { gen(64, fresh); });
+			pool.assign(fresh, fresh + 64);
+		}
+		out[i] = pool.back();
+		pool.pop_back();
+	}
+}
+
+GLenum gxrt::rawGetError()
+{
+	return d3d8gles_pfn_glGetError();
+}
+
+void gxrt::rawGetIntegerv(GLenum pname, GLint *data)
+{
+	d3d8gles_pfn_glGetIntegerv(pname, data);
+}
+
+void gxrt::bufferWrite(GLenum target, GLintptr offset, GLsizeiptr length, const void *data, GLbitfield access)
+{
+	gxrt::post([target, offset, length, access, blob = gxrt::Blob<256>(data, (size_t)length)] {
+		void *mapped = d3d8gles_pfn_glMapBufferRange(target, offset, length, access);
+		if (mapped) {
+			memcpy(mapped, blob.data(), (size_t)length);
+			d3d8gles_pfn_glUnmapBuffer(target);
+		} else {
+			// Mapping can legitimately fail (driver refusal, lost context); the synchronizing
+			// path is slower but correct.
+			d3d8gles_pfn_glBufferSubData(target, offset, length, blob.data());
+		}
+	});
+}
+
 extern "C" {
 
 GL_APICALL void GL_APIENTRY glActiveTexture(GLenum texture)
 {
-	d3d8gles_pfn_glActiveTexture(texture);
+	gxrt::post([texture] { d3d8gles_pfn_glActiveTexture(texture); });
 }
 
 GL_APICALL void GL_APIENTRY glAttachShader(GLuint program, GLuint shader)
 {
-	d3d8gles_pfn_glAttachShader(program, shader);
+	gxrt::post([program, shader] { d3d8gles_pfn_glAttachShader(program, shader); });
 }
 
 GL_APICALL void GL_APIENTRY glBindBuffer(GLenum target, GLuint buffer)
 {
-	d3d8gles_pfn_glBindBuffer(target, buffer);
+	gxrt::post([target, buffer] { d3d8gles_pfn_glBindBuffer(target, buffer); });
 }
 
 GL_APICALL void GL_APIENTRY glBindBufferBase(GLenum target, GLuint index, GLuint buffer)
 {
-	d3d8gles_pfn_glBindBufferBase(target, index, buffer);
+	gxrt::post([target, index, buffer] { d3d8gles_pfn_glBindBufferBase(target, index, buffer); });
 }
 
 GL_APICALL void GL_APIENTRY glBindFramebuffer(GLenum target, GLuint framebuffer)
 {
-	d3d8gles_pfn_glBindFramebuffer(target, framebuffer);
+	gxrt::post([target, framebuffer] { d3d8gles_pfn_glBindFramebuffer(target, framebuffer); });
 }
 
 GL_APICALL void GL_APIENTRY glBindRenderbuffer(GLenum target, GLuint renderbuffer)
 {
-	d3d8gles_pfn_glBindRenderbuffer(target, renderbuffer);
+	gxrt::post([target, renderbuffer] { d3d8gles_pfn_glBindRenderbuffer(target, renderbuffer); });
 }
 
 GL_APICALL void GL_APIENTRY glBindTexture(GLenum target, GLuint texture)
 {
 	gxCountState(GXSC_TEXTURE);
-	d3d8gles_pfn_glBindTexture(target, texture);
+	gxrt::post([target, texture] { d3d8gles_pfn_glBindTexture(target, texture); });
 }
 
 GL_APICALL void GL_APIENTRY glBindVertexArray(GLuint array)
 {
 	gxCountState(GXSC_ATTRIB);
-	d3d8gles_pfn_glBindVertexArray(array);
+	gxrt::post([array] { d3d8gles_pfn_glBindVertexArray(array); });
 }
 
 GL_APICALL void GL_APIENTRY glBlendFunc(GLenum sfactor, GLenum dfactor)
 {
 	gxCountState(GXSC_BLEND);
-	d3d8gles_pfn_glBlendFunc(sfactor, dfactor);
+	gxrt::post([sfactor, dfactor] { d3d8gles_pfn_glBlendFunc(sfactor, dfactor); });
 }
 
 GL_APICALL void GL_APIENTRY glBufferData(GLenum target, GLsizeiptr size, const void *data, GLenum usage)
 {
 	UploadTimer uploadTimer;
-	d3d8gles_pfn_glBufferData(target, size, data, usage);
+	gxrt::post([target, size, usage, blob = gxrt::Blob<256>(data, (size_t)size)] { d3d8gles_pfn_glBufferData(target, size, blob.data(), usage); });
 }
 
 GL_APICALL void GL_APIENTRY glBufferSubData(GLenum target, GLintptr offset, GLsizeiptr size, const void *data)
 {
 	UploadTimer uploadTimer;
-	d3d8gles_pfn_glBufferSubData(target, offset, size, data);
+	gxrt::post([target, offset, size, blob = gxrt::Blob<256>(data, (size_t)size)] { d3d8gles_pfn_glBufferSubData(target, offset, size, static_cast<decltype(data)>(blob.data())); });
 }
 
 GL_APICALL void *GL_APIENTRY glMapBufferRange(GLenum target, GLintptr offset, GLsizeiptr length, GLbitfield access)
 {
 	UploadTimer uploadTimer;
-	return d3d8gles_pfn_glMapBufferRange(target, offset, length, access);
+	void *result = nullptr;
+	gxrt::sync([&] { result = d3d8gles_pfn_glMapBufferRange(target, offset, length, access); });
+	return result;
 }
 
 GL_APICALL GLboolean GL_APIENTRY glUnmapBuffer(GLenum target)
 {
 	UploadTimer uploadTimer;
+	// Queued: a mapping is only ever lost with the context, and none of the callers acts on the
+	// result beyond ignoring it.
+	if (gxrt::g_active) {
+		gxrt::post([target] { d3d8gles_pfn_glUnmapBuffer(target); });
+		return GL_TRUE;
+	}
 	return d3d8gles_pfn_glUnmapBuffer(target);
 }
 
 GL_APICALL GLenum GL_APIENTRY glCheckFramebufferStatus(GLenum target)
 {
-	return d3d8gles_pfn_glCheckFramebufferStatus(target);
+	GLenum result = {};
+	gxrt::sync([&] { result = d3d8gles_pfn_glCheckFramebufferStatus(target); });
+	return result;
 }
 
 GL_APICALL void GL_APIENTRY glClear(GLbitfield mask)
 {
-	d3d8gles_pfn_glClear(mask);
+	gxrt::post([mask] { d3d8gles_pfn_glClear(mask); });
 }
 
 GL_APICALL void GL_APIENTRY glClearColor(GLfloat red, GLfloat green, GLfloat blue, GLfloat alpha)
 {
-	d3d8gles_pfn_glClearColor(red, green, blue, alpha);
+	gxrt::post([red, green, blue, alpha] { d3d8gles_pfn_glClearColor(red, green, blue, alpha); });
 }
 
 GL_APICALL void GL_APIENTRY glClearDepthf(GLfloat d)
 {
-	d3d8gles_pfn_glClearDepthf(d);
+	gxrt::post([d] { d3d8gles_pfn_glClearDepthf(d); });
 }
 
 GL_APICALL void GL_APIENTRY glClearStencil(GLint s)
 {
-	d3d8gles_pfn_glClearStencil(s);
+	gxrt::post([s] { d3d8gles_pfn_glClearStencil(s); });
 }
 
 GL_APICALL void GL_APIENTRY glColorMask(GLboolean red, GLboolean green, GLboolean blue, GLboolean alpha)
 {
-	d3d8gles_pfn_glColorMask(red, green, blue, alpha);
+	gxrt::post([red, green, blue, alpha] { d3d8gles_pfn_glColorMask(red, green, blue, alpha); });
 }
 
 GL_APICALL void GL_APIENTRY glCompileShader(GLuint shader)
 {
-	d3d8gles_pfn_glCompileShader(shader);
+	gxrt::post([shader] { d3d8gles_pfn_glCompileShader(shader); });
 }
 
 GL_APICALL void GL_APIENTRY glCompressedTexImage2D(GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLint border, GLsizei imageSize, const void *data)
 {
 	UploadTimer uploadTimer;
-	d3d8gles_pfn_glCompressedTexImage2D(target, level, internalformat, width, height, border, imageSize, data);
+	gxrt::post([target, level, internalformat, width, height, border, imageSize, blob = gxrt::Blob<0>(data, (size_t)imageSize)] { d3d8gles_pfn_glCompressedTexImage2D(target, level, internalformat, width, height, border, imageSize, static_cast<decltype(data)>(blob.data())); });
 }
 
 GL_APICALL GLuint GL_APIENTRY glCreateProgram(void)
 {
-	return d3d8gles_pfn_glCreateProgram();
+	GLuint result = {};
+	gxrt::sync([&] { result = d3d8gles_pfn_glCreateProgram(); });
+	return result;
 }
 
 GL_APICALL GLuint GL_APIENTRY glCreateShader(GLenum type)
 {
-	return d3d8gles_pfn_glCreateShader(type);
+	GLuint result = {};
+	gxrt::sync([&] { result = d3d8gles_pfn_glCreateShader(type); });
+	return result;
 }
 
 GL_APICALL void GL_APIENTRY glCullFace(GLenum mode)
 {
-	d3d8gles_pfn_glCullFace(mode);
+	gxrt::post([mode] { d3d8gles_pfn_glCullFace(mode); });
 }
 
 GL_APICALL void GL_APIENTRY glDeleteBuffers(GLsizei n, const GLuint *buffers)
 {
-	d3d8gles_pfn_glDeleteBuffers(n, buffers);
+	gxrt::post([n, blob = gxrt::Blob<32>(buffers, (size_t)n * sizeof(GLuint))] { d3d8gles_pfn_glDeleteBuffers(n, static_cast<decltype(buffers)>(blob.data())); });
 }
 
 GL_APICALL void GL_APIENTRY glDeleteFramebuffers(GLsizei n, const GLuint *framebuffers)
 {
-	d3d8gles_pfn_glDeleteFramebuffers(n, framebuffers);
+	gxrt::post([n, blob = gxrt::Blob<32>(framebuffers, (size_t)n * sizeof(GLuint))] { d3d8gles_pfn_glDeleteFramebuffers(n, static_cast<decltype(framebuffers)>(blob.data())); });
 }
 
 GL_APICALL void GL_APIENTRY glDeleteProgram(GLuint program)
 {
-	d3d8gles_pfn_glDeleteProgram(program);
+	gxrt::post([program] { d3d8gles_pfn_glDeleteProgram(program); });
 }
 
 GL_APICALL void GL_APIENTRY glDeleteRenderbuffers(GLsizei n, const GLuint *renderbuffers)
 {
-	d3d8gles_pfn_glDeleteRenderbuffers(n, renderbuffers);
+	gxrt::post([n, blob = gxrt::Blob<32>(renderbuffers, (size_t)n * sizeof(GLuint))] { d3d8gles_pfn_glDeleteRenderbuffers(n, static_cast<decltype(renderbuffers)>(blob.data())); });
 }
 
 GL_APICALL void GL_APIENTRY glDeleteShader(GLuint shader)
 {
-	d3d8gles_pfn_glDeleteShader(shader);
+	gxrt::post([shader] { d3d8gles_pfn_glDeleteShader(shader); });
 }
 
 GL_APICALL void GL_APIENTRY glDeleteTextures(GLsizei n, const GLuint *textures)
 {
-	d3d8gles_pfn_glDeleteTextures(n, textures);
+	gxrt::post([n, blob = gxrt::Blob<32>(textures, (size_t)n * sizeof(GLuint))] { d3d8gles_pfn_glDeleteTextures(n, static_cast<decltype(textures)>(blob.data())); });
 }
 
 GL_APICALL void GL_APIENTRY glDeleteVertexArrays(GLsizei n, const GLuint *arrays)
 {
-	d3d8gles_pfn_glDeleteVertexArrays(n, arrays);
+	gxrt::post([n, blob = gxrt::Blob<32>(arrays, (size_t)n * sizeof(GLuint))] { d3d8gles_pfn_glDeleteVertexArrays(n, static_cast<decltype(arrays)>(blob.data())); });
 }
 
 GL_APICALL void GL_APIENTRY glDepthFunc(GLenum func)
 {
 	gxCountState(GXSC_DEPTH);
-	d3d8gles_pfn_glDepthFunc(func);
+	gxrt::post([func] { d3d8gles_pfn_glDepthFunc(func); });
 }
 
 GL_APICALL void GL_APIENTRY glDepthMask(GLboolean flag)
 {
 	gxCountState(GXSC_DEPTH);
-	d3d8gles_pfn_glDepthMask(flag);
+	gxrt::post([flag] { d3d8gles_pfn_glDepthMask(flag); });
 }
 
 GL_APICALL void GL_APIENTRY glDepthRangef(GLfloat n, GLfloat f)
 {
-	d3d8gles_pfn_glDepthRangef(n, f);
+	gxrt::post([n, f] { d3d8gles_pfn_glDepthRangef(n, f); });
 }
 
 GL_APICALL void GL_APIENTRY glDisable(GLenum cap)
 {
 	gxCountState(cap == GL_BLEND ? GXSC_BLEND : cap == GL_DEPTH_TEST ? GXSC_DEPTH : GXSC_ENABLE);
-	d3d8gles_pfn_glDisable(cap);
+	gxrt::post([cap] { d3d8gles_pfn_glDisable(cap); });
 }
 
 GL_APICALL void GL_APIENTRY glDisableVertexAttribArray(GLuint index)
 {
-	d3d8gles_pfn_glDisableVertexAttribArray(index);
+	gxrt::post([index] { d3d8gles_pfn_glDisableVertexAttribArray(index); });
 }
 
 GL_APICALL void GL_APIENTRY glDrawArrays(GLenum mode, GLint first, GLsizei count)
 {
-	d3d8gles_pfn_glDrawArrays(mode, first, count);
+	gxrt::post([mode, first, count] { d3d8gles_pfn_glDrawArrays(mode, first, count); });
 }
 
 GL_APICALL void GL_APIENTRY glDrawElements(GLenum mode, GLsizei count, GLenum type, const void *indices)
 {
-	d3d8gles_pfn_glDrawElements(mode, count, type, indices);
+	gxrt::post([mode, count, type, indices] { d3d8gles_pfn_glDrawElements(mode, count, type, indices); });
 }
 
 GL_APICALL void GL_APIENTRY glEnable(GLenum cap)
 {
 	gxCountState(cap == GL_BLEND ? GXSC_BLEND : cap == GL_DEPTH_TEST ? GXSC_DEPTH : GXSC_ENABLE);
-	d3d8gles_pfn_glEnable(cap);
+	gxrt::post([cap] { d3d8gles_pfn_glEnable(cap); });
 }
 
 GL_APICALL void GL_APIENTRY glEnableVertexAttribArray(GLuint index)
 {
-	d3d8gles_pfn_glEnableVertexAttribArray(index);
+	gxrt::post([index] { d3d8gles_pfn_glEnableVertexAttribArray(index); });
 }
 
 GL_APICALL void GL_APIENTRY glFinish(void)
 {
-	d3d8gles_pfn_glFinish();
+	gxrt::sync([&] { d3d8gles_pfn_glFinish(); });
 }
 
 GL_APICALL void GL_APIENTRY glFramebufferRenderbuffer(GLenum target, GLenum attachment, GLenum renderbuffertarget, GLuint renderbuffer)
 {
-	d3d8gles_pfn_glFramebufferRenderbuffer(target, attachment, renderbuffertarget, renderbuffer);
+	gxrt::post([target, attachment, renderbuffertarget, renderbuffer] { d3d8gles_pfn_glFramebufferRenderbuffer(target, attachment, renderbuffertarget, renderbuffer); });
 }
 
 GL_APICALL void GL_APIENTRY glFramebufferTexture2D(GLenum target, GLenum attachment, GLenum textarget, GLuint texture, GLint level)
 {
-	d3d8gles_pfn_glFramebufferTexture2D(target, attachment, textarget, texture, level);
+	gxrt::post([target, attachment, textarget, texture, level] { d3d8gles_pfn_glFramebufferTexture2D(target, attachment, textarget, texture, level); });
 }
 
 GL_APICALL void GL_APIENTRY glGenBuffers(GLsizei n, GLuint *buffers)
 {
-	d3d8gles_pfn_glGenBuffers(n, buffers);
+	gxGenPooled(s_poolBuffers, d3d8gles_pfn_glGenBuffers, n, buffers);
 }
 
 GL_APICALL void GL_APIENTRY glGenFramebuffers(GLsizei n, GLuint *framebuffers)
 {
-	d3d8gles_pfn_glGenFramebuffers(n, framebuffers);
+	gxGenPooled(s_poolFramebuffers, d3d8gles_pfn_glGenFramebuffers, n, framebuffers);
 }
 
 GL_APICALL void GL_APIENTRY glGenRenderbuffers(GLsizei n, GLuint *renderbuffers)
 {
-	d3d8gles_pfn_glGenRenderbuffers(n, renderbuffers);
+	gxGenPooled(s_poolRenderbuffers, d3d8gles_pfn_glGenRenderbuffers, n, renderbuffers);
 }
 
 GL_APICALL void GL_APIENTRY glGenTextures(GLsizei n, GLuint *textures)
 {
-	d3d8gles_pfn_glGenTextures(n, textures);
+	gxGenPooled(s_poolTextures, d3d8gles_pfn_glGenTextures, n, textures);
 }
 
 GL_APICALL void GL_APIENTRY glGenVertexArrays(GLsizei n, GLuint *arrays)
 {
-	d3d8gles_pfn_glGenVertexArrays(n, arrays);
+	gxGenPooled(s_poolVertexArrays, d3d8gles_pfn_glGenVertexArrays, n, arrays);
 }
 
 GL_APICALL void GL_APIENTRY glGenerateMipmap(GLenum target)
 {
-	d3d8gles_pfn_glGenerateMipmap(target);
+	gxrt::post([target] { d3d8gles_pfn_glGenerateMipmap(target); });
 }
 
 GL_APICALL GLenum GL_APIENTRY glGetError(void)
 {
-	return d3d8gles_pfn_glGetError();
+	GLenum result = {};
+	gxrt::sync([&] { result = d3d8gles_pfn_glGetError(); });
+	return result;
 }
 
 GL_APICALL void GL_APIENTRY glGetBooleanv(GLenum pname, GLboolean *data)
 {
-	d3d8gles_pfn_glGetBooleanv(pname, data);
+	gxrt::sync([&] { d3d8gles_pfn_glGetBooleanv(pname, data); });
 }
 
 GL_APICALL void GL_APIENTRY glGenQueries(GLsizei n, GLuint *ids)
 {
-	d3d8gles_pfn_glGenQueries(n, ids);
+	gxrt::sync([&] { d3d8gles_pfn_glGenQueries(n, ids); });
 }
 
 GL_APICALL void GL_APIENTRY glBeginQuery(GLenum target, GLuint id)
 {
-	d3d8gles_pfn_glBeginQuery(target, id);
+	gxrt::post([target, id] { d3d8gles_pfn_glBeginQuery(target, id); });
 }
 
 GL_APICALL void GL_APIENTRY glEndQuery(GLenum target)
 {
-	d3d8gles_pfn_glEndQuery(target);
+	gxrt::post([target] { d3d8gles_pfn_glEndQuery(target); });
 }
 
 GL_APICALL void GL_APIENTRY glGetQueryObjectuiv(GLuint id, GLenum pname, GLuint *params)
 {
-	d3d8gles_pfn_glGetQueryObjectuiv(id, pname, params);
+	gxrt::sync([&] { d3d8gles_pfn_glGetQueryObjectuiv(id, pname, params); });
 }
 
 GL_APICALL void GL_APIENTRY glGetIntegerv(GLenum pname, GLint *data)
 {
-	d3d8gles_pfn_glGetIntegerv(pname, data);
+	gxrt::sync([&] { d3d8gles_pfn_glGetIntegerv(pname, data); });
 }
 
 GL_APICALL void GL_APIENTRY glGetProgramInfoLog(GLuint program, GLsizei bufSize, GLsizei *length, GLchar *infoLog)
 {
-	d3d8gles_pfn_glGetProgramInfoLog(program, bufSize, length, infoLog);
+	gxrt::sync([&] { d3d8gles_pfn_glGetProgramInfoLog(program, bufSize, length, infoLog); });
 }
 
 GL_APICALL void GL_APIENTRY glGetProgramiv(GLuint program, GLenum pname, GLint *params)
 {
-	d3d8gles_pfn_glGetProgramiv(program, pname, params);
+	gxrt::sync([&] { d3d8gles_pfn_glGetProgramiv(program, pname, params); });
 }
 
 GL_APICALL void GL_APIENTRY glGetShaderInfoLog(GLuint shader, GLsizei bufSize, GLsizei *length, GLchar *infoLog)
 {
-	d3d8gles_pfn_glGetShaderInfoLog(shader, bufSize, length, infoLog);
+	gxrt::sync([&] { d3d8gles_pfn_glGetShaderInfoLog(shader, bufSize, length, infoLog); });
 }
 
 GL_APICALL void GL_APIENTRY glGetShaderiv(GLuint shader, GLenum pname, GLint *params)
 {
-	d3d8gles_pfn_glGetShaderiv(shader, pname, params);
+	gxrt::sync([&] { d3d8gles_pfn_glGetShaderiv(shader, pname, params); });
 }
 
 GL_APICALL const GLubyte * GL_APIENTRY glGetString(GLenum name)
 {
-	return d3d8gles_pfn_glGetString(name);
+	const GLubyte * result = {};
+	gxrt::sync([&] { result = d3d8gles_pfn_glGetString(name); });
+	return result;
 }
 
 GL_APICALL GLuint GL_APIENTRY glGetUniformBlockIndex(GLuint program, const GLchar *uniformBlockName)
 {
-	return d3d8gles_pfn_glGetUniformBlockIndex(program, uniformBlockName);
+	GLuint result = {};
+	gxrt::sync([&] { result = d3d8gles_pfn_glGetUniformBlockIndex(program, uniformBlockName); });
+	return result;
 }
 
 GL_APICALL GLint GL_APIENTRY glGetUniformLocation(GLuint program, const GLchar *name)
 {
-	return d3d8gles_pfn_glGetUniformLocation(program, name);
+	GLint result = {};
+	gxrt::sync([&] { result = d3d8gles_pfn_glGetUniformLocation(program, name); });
+	return result;
 }
 
 GL_APICALL void GL_APIENTRY glLinkProgram(GLuint program)
 {
-	d3d8gles_pfn_glLinkProgram(program);
+	gxrt::post([program] { d3d8gles_pfn_glLinkProgram(program); });
 }
 
 GL_APICALL void GL_APIENTRY glReadPixels(GLint x, GLint y, GLsizei width, GLsizei height,
                                          GLenum format, GLenum type, void *pixels)
 {
-	d3d8gles_pfn_glReadPixels(x, y, width, height, format, type, pixels);
+	gxrt::sync([&] { d3d8gles_pfn_glReadPixels(x, y, width, height, format, type, pixels); });
 }
 
 GL_APICALL void GL_APIENTRY glPixelStorei(GLenum pname, GLint param)
 {
-	d3d8gles_pfn_glPixelStorei(pname, param);
+	if (pname == GL_UNPACK_ALIGNMENT)
+		s_unpackAlignment = param > 0 ? param : 1;
+	gxrt::post([pname, param] { d3d8gles_pfn_glPixelStorei(pname, param); });
 }
 
 GL_APICALL void GL_APIENTRY glPolygonOffset(GLfloat factor, GLfloat units)
 {
-	d3d8gles_pfn_glPolygonOffset(factor, units);
+	gxrt::post([factor, units] { d3d8gles_pfn_glPolygonOffset(factor, units); });
 }
 
 GL_APICALL void GL_APIENTRY glRenderbufferStorage(GLenum target, GLenum internalformat, GLsizei width, GLsizei height)
 {
-	d3d8gles_pfn_glRenderbufferStorage(target, internalformat, width, height);
+	gxrt::post([target, internalformat, width, height] { d3d8gles_pfn_glRenderbufferStorage(target, internalformat, width, height); });
 }
 
 GL_APICALL void GL_APIENTRY glScissor(GLint x, GLint y, GLsizei width, GLsizei height)
 {
-	d3d8gles_pfn_glScissor(x, y, width, height);
+	gxrt::post([x, y, width, height] { d3d8gles_pfn_glScissor(x, y, width, height); });
 }
 
 GL_APICALL void GL_APIENTRY glShaderSource(GLuint shader, GLsizei count, const GLchar *const*string, const GLint *length)
 {
-	d3d8gles_pfn_glShaderSource(shader, count, string, length);
+	// The strings are joined into one owned copy: the caller's may be temporaries.
+	std::string joined;
+	for (GLsizei i = 0; i < count; i++) {
+		if (length != nullptr && length[i] >= 0)
+			joined.append(string[i], (size_t)length[i]);
+		else
+			joined.append(string[i]);
+	}
+	gxrt::post([shader, joined = std::move(joined)] {
+		const GLchar *src = joined.c_str();
+		d3d8gles_pfn_glShaderSource(shader, 1, &src, nullptr);
+	});
 }
 
 GL_APICALL void GL_APIENTRY glStencilFunc(GLenum func, GLint ref, GLuint mask)
 {
-	d3d8gles_pfn_glStencilFunc(func, ref, mask);
+	gxrt::post([func, ref, mask] { d3d8gles_pfn_glStencilFunc(func, ref, mask); });
 }
 
 GL_APICALL void GL_APIENTRY glStencilMask(GLuint mask)
 {
-	d3d8gles_pfn_glStencilMask(mask);
+	gxrt::post([mask] { d3d8gles_pfn_glStencilMask(mask); });
 }
 
 GL_APICALL void GL_APIENTRY glStencilOp(GLenum fail, GLenum zfail, GLenum zpass)
 {
-	d3d8gles_pfn_glStencilOp(fail, zfail, zpass);
+	gxrt::post([fail, zfail, zpass] { d3d8gles_pfn_glStencilOp(fail, zfail, zpass); });
 }
 
 GL_APICALL void GL_APIENTRY glTexImage2D(GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLint border, GLenum format, GLenum type, const void *pixels)
 {
 	UploadTimer uploadTimer;
-	d3d8gles_pfn_glTexImage2D(target, level, internalformat, width, height, border, format, type, pixels);
+	gxrt::post([target, level, internalformat, width, height, border, format, type, blob = gxrt::Blob<0>(pixels, gxTexImageBytes(width, height, format, type))] { d3d8gles_pfn_glTexImage2D(target, level, internalformat, width, height, border, format, type, static_cast<decltype(pixels)>(blob.data())); });
 }
 
 GL_APICALL void GL_APIENTRY glTexParameteri(GLenum target, GLenum pname, GLint param)
 {
 	gxCountState(GXSC_TEXTURE);
-	d3d8gles_pfn_glTexParameteri(target, pname, param);
+	gxrt::post([target, pname, param] { d3d8gles_pfn_glTexParameteri(target, pname, param); });
 }
 
 GL_APICALL void GL_APIENTRY glUniformBlockBinding(GLuint program, GLuint uniformBlockIndex, GLuint uniformBlockBinding)
 {
-	d3d8gles_pfn_glUniformBlockBinding(program, uniformBlockIndex, uniformBlockBinding);
+	gxrt::post([program, uniformBlockIndex, uniformBlockBinding] { d3d8gles_pfn_glUniformBlockBinding(program, uniformBlockIndex, uniformBlockBinding); });
 }
 
 GL_APICALL void GL_APIENTRY glUniform1f(GLint location, GLfloat v0)
 {
 	gxCountState(GXSC_UNIFORM);
-	d3d8gles_pfn_glUniform1f(location, v0);
+	gxrt::post([location, v0] { d3d8gles_pfn_glUniform1f(location, v0); });
 }
 
 GL_APICALL void GL_APIENTRY glUniform1i(GLint location, GLint v0)
 {
 	gxCountState(GXSC_UNIFORM);
-	d3d8gles_pfn_glUniform1i(location, v0);
+	gxrt::post([location, v0] { d3d8gles_pfn_glUniform1i(location, v0); });
 }
 
 GL_APICALL void GL_APIENTRY glUniform1iv(GLint location, GLsizei count, const GLint *value)
 {
 	gxCountState(GXSC_UNIFORM);
-	d3d8gles_pfn_glUniform1iv(location, count, value);
+	gxrt::post([location, count, blob = gxrt::Blob<64>(value, (size_t)count * sizeof(GLint))] { d3d8gles_pfn_glUniform1iv(location, count, static_cast<decltype(value)>(blob.data())); });
 }
 
 GL_APICALL void GL_APIENTRY glUniform2f(GLint location, GLfloat v0, GLfloat v1)
 {
 	gxCountState(GXSC_UNIFORM);
-	d3d8gles_pfn_glUniform2f(location, v0, v1);
+	gxrt::post([location, v0, v1] { d3d8gles_pfn_glUniform2f(location, v0, v1); });
 }
 
 GL_APICALL void GL_APIENTRY glUniform3fv(GLint location, GLsizei count, const GLfloat *value)
 {
 	gxCountState(GXSC_UNIFORM);
-	d3d8gles_pfn_glUniform3fv(location, count, value);
+	gxrt::post([location, count, blob = gxrt::Blob<64>(value, (size_t)count * 3 * sizeof(GLfloat))] { d3d8gles_pfn_glUniform3fv(location, count, static_cast<decltype(value)>(blob.data())); });
 }
 
 GL_APICALL void GL_APIENTRY glUniform4f(GLint location, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3)
 {
 	gxCountState(GXSC_UNIFORM);
-	d3d8gles_pfn_glUniform4f(location, v0, v1, v2, v3);
+	gxrt::post([location, v0, v1, v2, v3] { d3d8gles_pfn_glUniform4f(location, v0, v1, v2, v3); });
 }
 
 GL_APICALL void GL_APIENTRY glUniform4fv(GLint location, GLsizei count, const GLfloat *value)
 {
 	gxCountState(GXSC_UNIFORM);
-	d3d8gles_pfn_glUniform4fv(location, count, value);
+	gxrt::post([location, count, blob = gxrt::Blob<64>(value, (size_t)count * 4 * sizeof(GLfloat))] { d3d8gles_pfn_glUniform4fv(location, count, static_cast<decltype(value)>(blob.data())); });
 }
 
 GL_APICALL void GL_APIENTRY glUniformMatrix4fv(GLint location, GLsizei count, GLboolean transpose, const GLfloat *value)
 {
 	gxCountState(GXSC_UNIFORM);
-	d3d8gles_pfn_glUniformMatrix4fv(location, count, transpose, value);
+	gxrt::post([location, count, transpose, blob = gxrt::Blob<64>(value, (size_t)count * 16 * sizeof(GLfloat))] { d3d8gles_pfn_glUniformMatrix4fv(location, count, transpose, static_cast<decltype(value)>(blob.data())); });
 }
 
 GL_APICALL void GL_APIENTRY glUseProgram(GLuint program)
 {
 	gxCountState(GXSC_PROGRAM);
-	d3d8gles_pfn_glUseProgram(program);
+	gxrt::post([program] { d3d8gles_pfn_glUseProgram(program); });
 }
 
 GL_APICALL void GL_APIENTRY glVertexAttribPointer(GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const void *pointer)
 {
 	gxCountState(GXSC_ATTRIB);
-	d3d8gles_pfn_glVertexAttribPointer(index, size, type, normalized, stride, pointer);
+	gxrt::post([index, size, type, normalized, stride, pointer] { d3d8gles_pfn_glVertexAttribPointer(index, size, type, normalized, stride, pointer); });
 }
 
 GL_APICALL void GL_APIENTRY glViewport(GLint x, GLint y, GLsizei width, GLsizei height)
 {
-	d3d8gles_pfn_glViewport(x, y, width, height);
+	gxrt::post([x, y, width, height] { d3d8gles_pfn_glViewport(x, y, width, height); });
 }
-
 } // extern "C"
 
 // The library every required entry point below came from; optional ones (extensions, ES 3.2

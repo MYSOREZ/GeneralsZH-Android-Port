@@ -18,6 +18,7 @@ endif()
 add_library(d3d8gles STATIC
     src/d3d8gles.cpp
     src/gles_dispatch.cpp
+    src/gles_thread.cpp
 )
 
 target_include_directories(d3d8gles PUBLIC
