@@ -90,7 +90,7 @@ repository owner says so.
 
 If `GITVERSE_TOKEN` and `GITVERSE_REPO` are set, also mirror the APK to GitVerse for testers who
 cannot reach GitHub: `./scripts/build/android/publish-apk-gitverse.sh apk/<name>.apk` (one commit on
-the `apk` branch, replaced each time; prints the direct link). Give both links.
+the `apk` branch as a `.zip` holding the APK, replaced each time; prints the direct link). Give both links.
 
 Keep only the current build in `apk/`: `git rm` the previous APK when adding a new one. Every
 APK is ~60 MB of permanent git history.

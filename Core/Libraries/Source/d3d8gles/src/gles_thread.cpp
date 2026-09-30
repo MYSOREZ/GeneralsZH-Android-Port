@@ -14,6 +14,9 @@
 #include <thread>
 #include <vector>
 
+#include <sys/resource.h>
+#include <unistd.h>
+
 namespace gxrt {
 
 bool g_active = false;
@@ -146,6 +149,13 @@ void workerMain()
 	s_hasContext.store(true, std::memory_order_release);
 	wakeMain();
 
+	// GeneralsX @performance Android port 30/09/2026 The same priority Android gives its own
+	// RenderThread (THREAD_PRIORITY_DISPLAY and above). In logs-30 the render thread was busy
+	// 19-28 ms a frame for GL calls that cost ~9 ms on the engine's thread, the signature of the
+	// scheduler keeping a default-priority thread on the slow cores.
+	const int prioResult = setpriority(PRIO_PROCESS, (id_t)gettid(), -10);
+	fprintf(stderr, "[d3d8gles] render thread: priority -10 %s\n", prioResult == 0 ? "set" : "refused");
+
 	size_t read = s_readPos.load(std::memory_order_relaxed);
 	while (true) {
 		size_t write = s_writePos.load(std::memory_order_acquire);
@@ -173,6 +183,8 @@ void workerMain()
 			continue;
 		}
 		const Clock::time_point busy = Clock::now();
+		Clock::time_point lastPoll = busy;
+		unsigned sincePoll = 0;
 		while (read != write) {
 			Cmd *c = reinterpret_cast<Cmd *>(s_ring + read % kRingBytes);
 			const uint32_t bytes = c->bytes;
@@ -182,6 +194,18 @@ void workerMain()
 			s_readPos.store(read, std::memory_order_release);
 			wakeMain();
 			write = s_writePos.load(std::memory_order_acquire);
+			// Poll fences while busy too, at most every 0.5 ms. Polled only while idle, a busy
+			// render thread never marked a persistent buffer's copies free, the engine's thread
+			// ran out of copies and waited on a fence (logs-30: 3-8 ms a frame of sync waits).
+			if (++sincePoll >= 64) {
+				sincePoll = 0;
+				const Clock::time_point now = Clock::now();
+				if (now - lastPoll >= std::chrono::microseconds(500)) {
+					lastPoll = now;
+					if (s_clientWaitSync && s_hasContext.load(std::memory_order_relaxed))
+						pollFences();
+				}
+			}
 		}
 		s_workerBusyNs.fetch_add((uint64_t)(usSince(busy) * 1000.0), std::memory_order_relaxed);
 	}
@@ -254,6 +278,14 @@ void stopAtExit()
 
 void *allocCmd(size_t bytes, uint32_t *rounded)
 {
+	// The ring has one producer. A GL call from any other thread while the render thread runs
+	// would corrupt it; before the render thread such a call simply had no context. Say so once.
+	if (SDL_GetCurrentThreadID() != s_mainThread) {
+		static std::atomic<bool> s_warned{false};
+		if (!s_warned.exchange(true))
+			fprintf(stderr, "[d3d8gles] render thread: GL call from another thread (%llu); not supported\n",
+				(unsigned long long)SDL_GetCurrentThreadID());
+	}
 	size_t n = (bytes + kAlign - 1) & ~(kAlign - 1);
 	size_t phys = s_allocPos % kRingBytes;
 	if (phys + n > kRingBytes) {

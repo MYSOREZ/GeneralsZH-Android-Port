@@ -170,4 +170,23 @@ struct Stats
 Stats takeStats();
 bool running();
 
+// GeneralsX @bugfix Android port 30/09/2026 Call after writing into a persistently mapped buffer
+// on this thread when the render thread will issue the draws that read it. The mapping is
+// write-combined (uncached) memory; ARM keeps such stores in the writing core's write buffer until
+// a barrier drains it. The driver's own submission path used to do that, on the same core, right
+// after the memcpy -- with the draw issued from the render thread's core it no longer did, and the
+// GPU occasionally read vertices or indices that had not reached memory yet: rare flicker and
+// triangles stretched across the screen (logs-30). The store-release that publishes the command
+// only orders these stores for other CPU cores, not for the GPU, so this is a full DSB.
+inline void publishMappedWrites()
+{
+	if (!g_active)
+		return;
+#if defined(__aarch64__)
+	__asm__ volatile("dsb st" ::: "memory");
+#else
+	__atomic_thread_fence(__ATOMIC_SEQ_CST);
+#endif
+}
+
 } // namespace gxrt
