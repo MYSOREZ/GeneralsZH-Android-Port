@@ -600,7 +600,6 @@ private:
 	size_t m_indexStreamOffset = 0;
 	bool m_indexStreamFailed = false;
 	int m_perfIndexStreamRenewals = 0;
-	int m_perfGpuRefills = 0; // persistent copy switches refilled with glCopyBufferSubData
 	int m_perfSyncUploads = 0; // appends from plain locks, uploaded with glBufferSubData
 	int m_perfRangeUnderstated = 0; // indexed draws whose indices reach past minIndex+numVertices
 	bool streamIndices(const void *src, size_t bytes, GLuint *name, size_t *offset);

@@ -52,7 +52,6 @@ typedef void (GL_APIENTRY *PFN_glBindVertexArray)(GLuint array);
 typedef void (GL_APIENTRY *PFN_glBlendFunc)(GLenum sfactor, GLenum dfactor);
 typedef void (GL_APIENTRY *PFN_glBufferData)(GLenum target, GLsizeiptr size, const void *data, GLenum usage);
 typedef void (GL_APIENTRY *PFN_glBufferSubData)(GLenum target, GLintptr offset, GLsizeiptr size, const void *data);
-typedef void (GL_APIENTRY *PFN_glCopyBufferSubData)(GLenum readTarget, GLenum writeTarget, GLintptr readOffset, GLintptr writeOffset, GLsizeiptr size);
 // GeneralsX @perf Android port 09/05/2026 Needed to translate D3DLOCK_NOOVERWRITE
 // faithfully: GL_MAP_UNSYNCHRONIZED_BIT is the only way to write into a region
 // of a buffer the GPU may still be reading without the driver inserting a wait,
@@ -145,7 +144,6 @@ PFN_glBindVertexArray d3d8gles_pfn_glBindVertexArray = nullptr;
 PFN_glBlendFunc d3d8gles_pfn_glBlendFunc = nullptr;
 PFN_glBufferData d3d8gles_pfn_glBufferData = nullptr;
 PFN_glBufferSubData d3d8gles_pfn_glBufferSubData = nullptr;
-PFN_glCopyBufferSubData d3d8gles_pfn_glCopyBufferSubData = nullptr;
 PFN_glMapBufferRange d3d8gles_pfn_glMapBufferRange = nullptr;
 PFN_glUnmapBuffer d3d8gles_pfn_glUnmapBuffer = nullptr;
 PFN_glCheckFramebufferStatus d3d8gles_pfn_glCheckFramebufferStatus = nullptr;
@@ -370,17 +368,6 @@ GL_APICALL void *GL_APIENTRY glMapBufferRange(GLenum target, GLintptr offset, GL
 	void *result = nullptr;
 	gxrt::sync([&] { result = d3d8gles_pfn_glMapBufferRange(target, offset, length, access); });
 	return result;
-}
-
-// GeneralsX @performance Android port 30/09/2026 GPU-side copy between buffers (ES 3.0 core), used
-// to refill a persistent vertex copy from the previous one without the CPU touching the bytes.
-GL_APICALL void GL_APIENTRY glCopyBufferSubData(GLenum readTarget, GLenum writeTarget, GLintptr readOffset,
-                                                GLintptr writeOffset, GLsizeiptr size)
-{
-	UploadTimer uploadTimer;
-	gxrt::post([readTarget, writeTarget, readOffset, writeOffset, size] {
-		d3d8gles_pfn_glCopyBufferSubData(readTarget, writeTarget, readOffset, writeOffset, size);
-	});
 }
 
 GL_APICALL GLboolean GL_APIENTRY glUnmapBuffer(GLenum target)
@@ -852,8 +839,6 @@ bool d3d8gles_LoadGLESDispatch(const char *libName)
 	d3d8gles_pfn_glBufferData = reinterpret_cast<PFN_glBufferData>(dlsym(lib, "glBufferData"));
 	if (!d3d8gles_pfn_glBufferData) { fprintf(stderr, "[d3d8gles] GLES dispatch: missing symbol glBufferData in %s\n", libName); ok = false; }
 	d3d8gles_pfn_glBufferSubData = reinterpret_cast<PFN_glBufferSubData>(dlsym(lib, "glBufferSubData"));
-	d3d8gles_pfn_glCopyBufferSubData = reinterpret_cast<PFN_glCopyBufferSubData>(dlsym(lib, "glCopyBufferSubData"));
-	if (!d3d8gles_pfn_glCopyBufferSubData) { fprintf(stderr, "[d3d8gles] GLES dispatch: missing symbol glCopyBufferSubData in %s\n", libName); ok = false; }
 	if (!d3d8gles_pfn_glBufferSubData) { fprintf(stderr, "[d3d8gles] GLES dispatch: missing symbol glBufferSubData in %s\n", libName); ok = false; }
 	d3d8gles_pfn_glMapBufferRange = reinterpret_cast<PFN_glMapBufferRange>(dlsym(lib, "glMapBufferRange"));
 	if (!d3d8gles_pfn_glMapBufferRange) { fprintf(stderr, "[d3d8gles] GLES dispatch: missing symbol glMapBufferRange in %s\n", libName); ok = false; }
