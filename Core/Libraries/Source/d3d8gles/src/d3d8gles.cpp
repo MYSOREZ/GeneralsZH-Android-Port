@@ -861,6 +861,7 @@ public:
 		m_lockBegin = offset;
 		m_lockEnd = end;
 		m_lockDiscard = (flags & D3DLOCK_DISCARD) != 0;
+		m_lockNoOverwrite = (flags & D3DLOCK_NOOVERWRITE) != 0;
 		*ppbData = m_bits.data() + offset;
 		return D3D_OK;
 	}
@@ -868,10 +869,17 @@ public:
 	HRESULT Unlock() override
 	{
 		m_gl.markRange(m_lockBegin, m_lockEnd);
-		if (m_lockDiscard) m_gl.pendingDiscard = true;
+		// GeneralsX @bugfix Android port 30/09/2026 A lock with neither DISCARD nor NOOVERWRITE
+		// promises nothing: D3D waits (or renames) so draws already issued still read the old
+		// bytes. The upload has to be synchronized too, not an unsynchronized append.
+		if (m_lockDiscard)
+			m_gl.pendingDiscard = true;
+		else if (!m_lockNoOverwrite)
+			m_gl.pendingSync = true;
 		m_lockBegin = 0;
 		m_lockEnd = 0;
 		m_lockDiscard = false;
+		m_lockNoOverwrite = false;
 		return D3D_OK;
 	}
 
@@ -895,6 +903,7 @@ public:
 	size_t m_lockBegin = 0;
 	size_t m_lockEnd = 0;
 	bool m_lockDiscard = false;
+	bool m_lockNoOverwrite = false;
 	GLBufferState m_gl;
 	std::vector<BYTE> m_bits;
 };
@@ -937,6 +946,7 @@ public:
 		m_lockBegin = offset;
 		m_lockEnd = end;
 		m_lockDiscard = (flags & D3DLOCK_DISCARD) != 0;
+		m_lockNoOverwrite = (flags & D3DLOCK_NOOVERWRITE) != 0;
 		*ppbData = m_bits.data() + offset;
 		return D3D_OK;
 	}
@@ -944,10 +954,17 @@ public:
 	HRESULT Unlock() override
 	{
 		m_gl.markRange(m_lockBegin, m_lockEnd);
-		if (m_lockDiscard) m_gl.pendingDiscard = true;
+		// GeneralsX @bugfix Android port 30/09/2026 A lock with neither DISCARD nor NOOVERWRITE
+		// promises nothing: D3D waits (or renames) so draws already issued still read the old
+		// bytes. The upload has to be synchronized too, not an unsynchronized append.
+		if (m_lockDiscard)
+			m_gl.pendingDiscard = true;
+		else if (!m_lockNoOverwrite)
+			m_gl.pendingSync = true;
 		m_lockBegin = 0;
 		m_lockEnd = 0;
 		m_lockDiscard = false;
+		m_lockNoOverwrite = false;
 		return D3D_OK;
 	}
 
@@ -970,6 +987,7 @@ public:
 	size_t m_lockBegin = 0;
 	size_t m_lockEnd = 0;
 	bool m_lockDiscard = false;
+	bool m_lockNoOverwrite = false;
 	GLBufferState m_gl;
 	std::vector<BYTE> m_bits;
 };

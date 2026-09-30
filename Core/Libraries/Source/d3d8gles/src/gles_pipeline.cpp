@@ -2857,6 +2857,7 @@ bool WebGLPipeline::persistentUpload(GLBufferState &gl, const unsigned char *bit
 	}
 	gl.dirty = false;
 	gl.pendingDiscard = false;
+	gl.pendingSync = false;
 	gl.clearRange();
 	return true;
 }
@@ -2930,13 +2931,20 @@ void WebGLPipeline::ensureVBUploaded(WebGLVertexBuffer *vb)
 			// bytes the GPU may still read, so no wait is needed.
 			const GLintptr off = (GLintptr)vb->m_gl.dirtyBegin;
 			const GLsizeiptr len = (GLsizeiptr)(vb->m_gl.dirtyEnd - vb->m_gl.dirtyBegin);
-			// Map, copy and unmap on the GL thread (falling back to glBufferSubData when the
-			// driver refuses the mapping): see gxrt::bufferWrite.
-			gxrt::bufferWrite(GL_COPY_WRITE_BUFFER, off, len, vb->m_bits.data() + vb->m_gl.dirtyBegin,
-				GL_MAP_WRITE_BIT | GL_MAP_UNSYNCHRONIZED_BIT);
+			if (vb->m_gl.pendingSync) {
+				// A plain lock (no NOOVERWRITE): synchronized, as D3D would be.
+				glBufferSubData(GL_COPY_WRITE_BUFFER, off, len, vb->m_bits.data() + vb->m_gl.dirtyBegin);
+				m_perfSyncUploads++;
+			} else {
+				// Map, copy and unmap on the GL thread (falling back to glBufferSubData when the
+				// driver refuses the mapping): see gxrt::bufferWrite.
+				gxrt::bufferWrite(GL_COPY_WRITE_BUFFER, off, len, vb->m_bits.data() + vb->m_gl.dirtyBegin,
+					GL_MAP_WRITE_BIT | GL_MAP_UNSYNCHRONIZED_BIT);
+			}
 		}
 		vb->m_gl.dirty = false;
 		vb->m_gl.pendingDiscard = false;
+		vb->m_gl.pendingSync = false;
 		vb->m_gl.clearRange();
 	}
 }
@@ -2987,13 +2995,20 @@ void WebGLPipeline::ensureIBUploaded(WebGLIndexBuffer *ib)
 			// bytes the GPU may still read, so no wait is needed.
 			const GLintptr off = (GLintptr)ib->m_gl.dirtyBegin;
 			const GLsizeiptr len = (GLsizeiptr)(ib->m_gl.dirtyEnd - ib->m_gl.dirtyBegin);
-			// Map, copy and unmap on the GL thread (falling back to glBufferSubData when the
-			// driver refuses the mapping): see gxrt::bufferWrite.
-			gxrt::bufferWrite(GL_COPY_WRITE_BUFFER, off, len, ib->m_bits.data() + ib->m_gl.dirtyBegin,
-				GL_MAP_WRITE_BIT | GL_MAP_UNSYNCHRONIZED_BIT);
+			if (ib->m_gl.pendingSync) {
+				// A plain lock (no NOOVERWRITE): synchronized, as D3D would be.
+				glBufferSubData(GL_COPY_WRITE_BUFFER, off, len, ib->m_bits.data() + ib->m_gl.dirtyBegin);
+				m_perfSyncUploads++;
+			} else {
+				// Map, copy and unmap on the GL thread (falling back to glBufferSubData when the
+				// driver refuses the mapping): see gxrt::bufferWrite.
+				gxrt::bufferWrite(GL_COPY_WRITE_BUFFER, off, len, ib->m_bits.data() + ib->m_gl.dirtyBegin,
+					GL_MAP_WRITE_BIT | GL_MAP_UNSYNCHRONIZED_BIT);
+			}
 		}
 		ib->m_gl.dirty = false;
 		ib->m_gl.pendingDiscard = false;
+		ib->m_gl.pendingSync = false;
 		ib->m_gl.clearRange();
 	}
 }
@@ -3738,6 +3753,10 @@ void WebGLPipeline::present()
 				m_perfDxt16Levels, m_perfDxt16SavedBytes / (1024.0 * 1024.0),
 				m_perfPersistentSwitches / frames, m_perfPersistentWaits, m_perfPersistentCopies,
 				m_perfIndexStreamRenewals);
+			if (m_perfSyncUploads > 0)
+				fprintf(stderr, "[d3d8gles] perf-opt: %.1f/frame buffer updates from plain locks, uploaded synchronized\n",
+					m_perfSyncUploads / frames);
+			m_perfSyncUploads = 0;
 			if (m_perfRangeUnderstated > 0)
 				fprintf(stderr, "[d3d8gles] perf-opt: %d indexed draws read past their stated vertex range (hazard range widened)\n",
 					m_perfRangeUnderstated);

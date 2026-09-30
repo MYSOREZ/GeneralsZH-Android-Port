@@ -107,6 +107,12 @@ struct GLBufferState {
 	// upload nor the NOOVERWRITE appends that follow in the same ring cycle
 	// have to wait on the GPU still reading the old contents.
 	bool pendingDiscard = false;
+	// GeneralsX @bugfix Android port 30/09/2026 Set when a lock since the last upload had neither
+	// DISCARD nor NOOVERWRITE. Such an update must not be written unsynchronized: D3D makes a plain
+	// lock wait for (or rename away from) draws still reading the buffer. Written that way, bytes
+	// a previous frame's draw was still reading changed under it -- long stretched triangles and
+	// passes vanishing for a frame, hidden until the render thread let the CPU get ahead of the GPU.
+	bool pendingSync = false;
 	// GeneralsX @performance Android port 29/09/2026 One past the highest byte the engine has
 	// ever written (0 = nothing tracked yet). A full upload only needs [0, writtenEnd): bytes
 	// beyond it were never written, so no draw can reference them.
@@ -594,6 +600,7 @@ private:
 	size_t m_indexStreamOffset = 0;
 	bool m_indexStreamFailed = false;
 	int m_perfIndexStreamRenewals = 0;
+	int m_perfSyncUploads = 0; // appends from plain locks, uploaded with glBufferSubData
 	int m_perfRangeUnderstated = 0; // indexed draws whose indices reach past minIndex+numVertices
 	bool streamIndices(const void *src, size_t bytes, GLuint *name, size_t *offset);
 	int m_perfPersistentSwitches = 0;
