@@ -238,6 +238,7 @@ public:
 	// GeneralsX @feature Android port 01/10/2026 Snapdragon GSR 1 program for the pillarbox upscale
 	// (see d3d8gles_SetUpscaleBlit); nullptr when it cannot be built.
 	ProgramInfo *gsrProgram();
+	void debugUpscaleSample(WebGLTexture *input, bool gsr);
 private:
 	ProgramInfo *m_gsrProg = nullptr;
 	GLint m_gsrViewportInfo = -1;

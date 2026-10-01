@@ -2694,11 +2694,14 @@ extern "C" void d3d8gles_GetDrawTotals(unsigned long long *draws, double *drawUs
 // SGSR's single-pass edge-adaptive upscale + sharpen instead of plain bilinear. The engine turns it
 // on around that one draw. Returns 1 when the GSR program is in use; 0 when it is not available
 // (DXVK, no ES 3.1 textureGather, or the shader failed to build), and the bilinear path stays.
-static int s_gxUpscaleOn = 0;
+static int s_gxUpscaleOn = 0;   // the SGSR program draws the blit
+static int s_gxUpscaleBlit = 0; // a scaling pillarbox blit is being drawn (SGSR or bilinear)
 static float s_gxUpscaleSrcW = 0.0f, s_gxUpscaleSrcH = 0.0f;
 extern "C" int d3d8gles_SetUpscaleBlit(int enable, int srcW, int srcH)
 {
-	if (!s_gxGlesReady || !enable || srcW <= 0 || srcH <= 0) {
+	// enable: 0 = no scaling blit, 1 = scaling blit with SGSR, 2 = scaling blit kept bilinear.
+	s_gxUpscaleBlit = (s_gxGlesReady && enable != 0) ? 1 : 0;
+	if (!s_gxGlesReady || enable != 1 || srcW <= 0 || srcH <= 0) {
 		s_gxUpscaleOn = 0;
 		return 0;
 	}
@@ -2928,6 +2931,54 @@ void WebGLPipeline::drawCommon(WebGLDevice *dev, unsigned primType, unsigned pri
 	// per window, so it costs nothing.
 	m_perfDrawsThisFrame++;
 	s_gxDrawsByCategory[s_gxDrawCategory]++;
+
+	// GeneralsX @bugfix Android port 01/10/2026 The first SGSR build showed a black screen on the old
+	// Mali phone with the game running at 60 fps underneath (logs-43). Three times, a few seconds
+	// apart, compare the centre of the frame going into the upscale (the offscreen target) with the
+	// centre of the screen after it: black in, black out puts the fault in the low-resolution
+	// render; picture in, black out puts it in the upscale. Each sample waits for the GPU once.
+	if (s_gxUpscaleBlit && l.xyzrhw) {
+		static unsigned s_gsrBlits = 0;
+		const unsigned n = ++s_gsrBlits;
+		if (n == 180 || n == 600 || n == 1200)
+			debugUpscaleSample(dev->getTexture2D(0), gsrBlit);
+	}
+}
+
+void WebGLPipeline::debugUpscaleSample(WebGLTexture *input, bool gsr)
+{
+	auto measure = [](const std::vector<uint8_t> &px, double avg[3], int *nonBlack) {
+		avg[0] = avg[1] = avg[2] = 0.0;
+		*nonBlack = 0;
+		const size_t n = px.size() / 4;
+		for (size_t i = 0; i < n; i++) {
+			const uint8_t *p = px.data() + i * 4;
+			for (int c = 0; c < 3; c++) avg[c] += p[c];
+			if (p[0] || p[1] || p[2]) (*nonBlack)++;
+		}
+		for (int c = 0; c < 3; c++) avg[c] /= n ? (double)n : 1.0;
+	};
+	const int bw = 32, bh = 32;
+	std::vector<uint8_t> in((size_t)bw * bh * 4), out((size_t)bw * bh * 4);
+	glPixelStorei(GL_PACK_ALIGNMENT, 1);
+	int inW = 0, inH = 0;
+	if (input && input->m_gl.fbo && !input->m_levels.empty()) {
+		inW = (int)input->m_levels[0]->m_width;
+		inH = (int)input->m_levels[0]->m_height;
+		glBindFramebuffer(GL_FRAMEBUFFER, input->m_gl.fbo);
+		glReadPixels(inW / 2 - bw / 2, inH / 2 - bh / 2, bw, bh, GL_RGBA, GL_UNSIGNED_BYTE, in.data());
+	}
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	glReadPixels(m_fbWidth / 2 - bw / 2, m_fbHeight / 2 - bh / 2, bw, bh, GL_RGBA, GL_UNSIGNED_BYTE, out.data());
+	glBindFramebuffer(GL_FRAMEBUFFER, m_curFBO);
+	double ai[3], ao[3];
+	int ni = 0, no = 0;
+	measure(in, ai, &ni);
+	measure(out, ao, &no);
+	fprintf(stderr, "[GX-UPSCALE] %s %dx%d -> %dx%d | input centre avg=(%.0f,%.0f,%.0f) nonblack=%d/%d | "
+		"screen centre avg=(%.0f,%.0f,%.0f) nonblack=%d/%d\n",
+		gsr ? "SGSR" : "bilinear", inW, inH, m_fbWidth, m_fbHeight, ai[0], ai[1], ai[2], ni, bw * bh,
+		ao[0], ao[1], ao[2], no, bw * bh);
 }
 
 // Buffer objects (device-side shadow -> GL) helpers.

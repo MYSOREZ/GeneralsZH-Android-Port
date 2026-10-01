@@ -44,7 +44,8 @@
     <string name="setup_switch_gsr">Апскейл Snapdragon GSR</string>
     <string name="setup_switch_gsr_desc">Чёткое растягивание с учётом краёв (Snapdragon Game Super Resolution) вместо обычного сглаживания, когда игра рисует в разрешении ниже экранного. Работает на любой видеокарте с бэкендами GLES.</string>
     <string name="setup_card_render_scale">Разрешение рендера</string>
-    <string name="setup_render_scale_label">Разрешение: %1$d%% (%2$d×%3$d)</string>
+    <string name="setup_render_scale_label">%1$d%%</string>
+    <string name="setup_render_scale_size">Рендер %1$d×%2$d, на экране %3$d×%4$d</string>
     <string name="setup_button_apply_render_scale">Применить разрешение рендера</string>
     <string name="setup_render_scale_help">Игра рисует кадр в этой доле разрешения экрана и плавно растягивает его на весь экран. Меньшие значения разгружают видеокарту — именно она ограничивает частоту кадров в тяжёлых боях на слабых телефонах: при 75% пикселей примерно вдвое меньше. Картинка становится чуть мягче, размер интерфейса не меняется. Применение также сбрасывает разрешение, выбранное в настройках самой игры. Вступает в силу при следующем запуске игры.</string>
     <string name="setup_toast_render_scale_saved">Сохранено. Применится при следующем запуске игры.</string>

@@ -44,7 +44,8 @@
     <string name="setup_switch_gsr">Snapdragon GSR upscaling</string>
     <string name="setup_switch_gsr_desc">Sharp, edge-aware upscaling (Snapdragon Game Super Resolution) instead of plain smoothing whenever the game renders below the screen\'s resolution. Works on any GPU with the GLES backends.</string>
     <string name="setup_card_render_scale">Render Resolution</string>
-    <string name="setup_render_scale_label">Resolution: %1$d%% (%2$d×%3$d)</string>
+    <string name="setup_render_scale_label">%1$d%%</string>
+    <string name="setup_render_scale_size">Renders at %1$d×%2$d, shown on %3$d×%4$d</string>
     <string name="setup_button_apply_render_scale">Apply Render Resolution</string>
     <string name="setup_render_scale_help">The game renders at this share of the screen and is stretched to full screen, smoothly. Lower values take load off the GPU, which is what limits the frame rate in heavy battles on weaker phones: 75% is about half the pixels. The picture gets slightly softer; the interface keeps its size. Applying also resets a resolution chosen in the game\'s own Options. Takes effect the next time you launch the game.</string>
     <string name="setup_toast_render_scale_saved">Saved. Takes effect next time you launch the game.</string>

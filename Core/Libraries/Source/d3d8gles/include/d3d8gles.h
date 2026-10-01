@@ -55,7 +55,8 @@ extern "C" void d3d8gles_resize(int w, int h);
 extern "C" bool d3d8gles_ShouldUseVulkanBackend();
 // GeneralsX @feature Android port 01/10/2026 Snapdragon GSR 1 for the pillarbox upscale quad:
 // enable around that one draw with the offscreen frame's size; 0 when it is not available (the
-// caller then keeps its ordinary bilinear blit). See gles_pipeline.cpp.
+// caller then keeps its ordinary bilinear blit). enable: 0 none, 1 SGSR, 2 bilinear (still marked
+// as the upscale blit for diagnostics). See gles_pipeline.cpp.
 extern "C" int d3d8gles_SetUpscaleBlit(int enable, int srcW, int srcH);
 
 // GeneralsX @perf Android port 09/05/2026 Draw-call breakdown by subsystem.

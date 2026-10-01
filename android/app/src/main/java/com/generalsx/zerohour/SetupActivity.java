@@ -961,6 +961,7 @@ public class SetupActivity extends Activity {
     // clears a Resolution saved from the game's Options, which would otherwise win.
     private Slider renderScaleSlider;
     private TextView renderScaleLabel;
+    private TextView renderScaleSize;
     // GeneralsX @feature Android port 01/10/2026 Snapdragon GSR 1 for the stretch to the screen (on
     // by default; native GLES backend only). Saved as GXUpscaler = gsr | bilinear.
     private com.google.android.material.materialswitch.MaterialSwitch gsrSwitch;
@@ -987,6 +988,9 @@ public class SetupActivity extends Activity {
             LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         sliderLp.topMargin = UiKit.dim(this, R.dimen.gzh_item_gap_tight);
         content.addView(renderScaleSlider, sliderLp);
+        // The resolution on its own line: in the header it squeezed the card title into a column.
+        renderScaleSize = UiKit.supporting(content, "");
+        updateRenderScaleLabel(startPercent);
 
         gsrSwitch = UiKit.switchRow(content, getString(R.string.setup_switch_gsr),
             getString(R.string.setup_switch_gsr_desc));
@@ -1012,8 +1016,12 @@ public class SetupActivity extends Activity {
 
     private void updateRenderScaleLabel(int percent) {
         if (renderScaleLabel != null) {
+            renderScaleLabel.setText(getString(R.string.setup_render_scale_label, percent));
+        }
+        if (renderScaleSize != null) {
             int[] size = renderScaleSize(percent);
-            renderScaleLabel.setText(getString(R.string.setup_render_scale_label, percent, size[0], size[1]));
+            int[] full = renderScaleSize(100);
+            renderScaleSize.setText(getString(R.string.setup_render_scale_size, size[0], size[1], full[0], full[1]));
         }
     }
 
