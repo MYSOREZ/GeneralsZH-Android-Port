@@ -3769,6 +3769,45 @@ void WebGLPipeline::present()
 			// render thread is the slower half), for a call's result (a round trip), or for room
 			// in the command ring. With the thread working, waits are small and busy is roughly
 			// what the GL calls used to cost the engine's thread.
+			// GeneralsX @performance Android port 01/10/2026 Clocks and temperature, so a log can
+			// tell throttling from a regression: in logs-38 the same spot of the menu battle ran at
+			// ~60 fps at the start of the loop and ~40 a few minutes later with no more work per
+			// frame. Current frequency of each CPU and the hottest readable thermal zone; either
+			// may be unreadable under the device's SELinux policy, which is reported as such.
+			{
+				char line[512];
+				int len = snprintf(line, sizeof(line), "[GX-PERF-THERMAL] cpu MHz:");
+				for (int cpu = 0; cpu < 12; cpu++) {
+					char path[96];
+					snprintf(path, sizeof(path), "/sys/devices/system/cpu/cpu%d/cpufreq/scaling_cur_freq", cpu);
+					FILE *ff = fopen(path, "r");
+					if (!ff)
+						continue;
+					long khz = 0;
+					if (fscanf(ff, "%ld", &khz) == 1 && len < (int)sizeof(line) - 16)
+						len += snprintf(line + len, sizeof(line) - len, " %ld", khz / 1000);
+					fclose(ff);
+				}
+				long hottest = -1;
+				for (int zone = 0; zone < 64; zone++) {
+					char path[96];
+					snprintf(path, sizeof(path), "/sys/class/thermal/thermal_zone%d/temp", zone);
+					FILE *ff = fopen(path, "r");
+					if (!ff)
+						continue;
+					long t = 0;
+					if (fscanf(ff, "%ld", &t) == 1) {
+						if (t > 1000) t /= 1000; // millidegrees on most kernels
+						if (t > hottest && t < 150) hottest = t;
+					}
+					fclose(ff);
+				}
+				if (hottest >= 0)
+					snprintf(line + len, sizeof(line) - len, " | hottest zone %ld C\n", hottest);
+				else
+					snprintf(line + len, sizeof(line) - len, " | temperature unreadable\n");
+				fputs(line, stderr);
+			}
 			{
 				const gxrt::Stats rt = gxrt::takeStats();
 				fprintf(stderr, "[d3d8gles] perf-thread: %s worker-busy=%.2f ms/frame waits: frame=%.2f sync=%.2f (%.1f calls) "

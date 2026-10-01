@@ -100,7 +100,7 @@ void waitMain(P pred, double *accumUs)
 	if (pred())
 		return;
 	const Clock::time_point t0 = Clock::now();
-	for (int spin = 0; spin < 64; spin++) {
+	for (int spin = 0; spin < 16; spin++) {
 		std::this_thread::yield();
 		if (pred()) {
 			*accumUs += usSince(t0);
@@ -163,8 +163,13 @@ void workerMain()
 			if (s_hasContext.load(std::memory_order_relaxed) && s_clientWaitSync)
 				pollFences();
 			// Spin briefly: the engine thread usually queues the next command within microseconds.
+			// GeneralsX @performance Android port 01/10/2026 Bounded by time (30 us), not by 200
+			// yields: the render thread catches up with the engine's thread many times a frame,
+			// and spinning hundreds of microseconds each time kept a big core busy for nothing --
+			// heat that the old phone paid back as throttling within minutes (logs-38).
 			bool more = false;
-			for (int spin = 0; spin < 200 && !more; spin++) {
+			const Clock::time_point spinStart = Clock::now();
+			while (!more && Clock::now() - spinStart < std::chrono::microseconds(30)) {
 				std::this_thread::yield();
 				more = s_writePos.load(std::memory_order_acquire) != read;
 			}
