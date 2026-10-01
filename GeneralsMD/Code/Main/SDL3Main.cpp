@@ -1345,18 +1345,35 @@ int main(int argc, char* argv[])
 						FILE *fp = fopen(optionsPath, "r");
 						if (fp) {
 							char line[256];
+							bool savedResolution = false;
+							int renderScale = 100;
 							while (fgets(line, sizeof(line), fp)) {
-								int savedX = 0, savedY = 0;
-								if (sscanf(line, " Resolution = %d %d", &savedX, &savedY) == 2 &&
+								int savedX = 0, savedY = 0, scale = 0;
+								if (!savedResolution && sscanf(line, " Resolution = %d %d", &savedX, &savedY) == 2 &&
 								    savedX > 0 && savedY > 0) {
 									xres = savedX & ~1;
 									yres = savedY;
+									savedResolution = true;
 									fprintf(stderr, "INFO: using saved Resolution %dx%d from Options.ini instead of window size %dx%d\n",
 									        xres, yres, winW, winH);
-									break;
+								} else if (sscanf(line, " GXRenderScale = %d", &scale) == 1 && scale >= 50 && scale <= 100) {
+									renderScale = scale;
 								}
 							}
 							fclose(fp);
+							// GeneralsX @performance Android port 01/10/2026 Render resolution from the
+							// launcher (Graphics > Render Resolution): a share of the screen, aspect kept.
+							// The game then renders at that size and the pillarbox pass stretches it to the
+							// full screen with bilinear filtering -- the same path a smaller resolution picked
+							// in the game's Options takes. The weak phones are GPU-bound in heavy battles
+							// (logs-42) and that cost scales with pixels. A Resolution the player picked in
+							// the game's own Options wins; the launcher clears it when the scale is applied.
+							if (!savedResolution && renderScale < 100) {
+								xres = (winW * renderScale / 100) & ~1;
+								yres = (winH * renderScale / 100) & ~1;
+								fprintf(stderr, "INFO: render scale %d%%: rendering at %dx%d for a %dx%d window\n",
+								        renderScale, xres, yres, winW, winH);
+							}
 						}
 					}
 				}

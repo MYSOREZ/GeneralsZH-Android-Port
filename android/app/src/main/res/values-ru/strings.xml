@@ -41,6 +41,11 @@
     <string name="setup_language_game_status_missing">Текст игры: НЕ переключён — в папке игры нет data/%1$s/generals.csf, поэтому игра сохраняет свой язык.</string>
 
     <!-- SetupActivity: Menu Text Size card -->
+    <string name="setup_card_render_scale">Разрешение рендера</string>
+    <string name="setup_render_scale_label">Разрешение: %1$d%% (%2$d×%3$d)</string>
+    <string name="setup_button_apply_render_scale">Применить разрешение рендера</string>
+    <string name="setup_render_scale_help">Игра рисует кадр в этой доле разрешения экрана и плавно растягивает его на весь экран. Меньшие значения разгружают видеокарту — именно она ограничивает частоту кадров в тяжёлых боях на слабых телефонах: при 75% пикселей примерно вдвое меньше. Картинка становится чуть мягче, размер интерфейса не меняется. Применение также сбрасывает разрешение, выбранное в настройках самой игры. Вступает в силу при следующем запуске игры.</string>
+    <string name="setup_toast_render_scale_saved">Сохранено. Применится при следующем запуске игры.</string>
     <string name="setup_card_text_size">Размер текста меню</string>
     <string name="setup_text_size_label">Масштаб: %1$d%%</string>
     <string name="setup_button_apply_text_size">Применить размер текста</string>

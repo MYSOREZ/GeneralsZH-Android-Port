@@ -367,6 +367,7 @@ public class SetupActivity extends Activity {
         switch (tab) {
             case TAB_GRAPHICS:
                 buildSimRateSection(page);
+                buildRenderScaleSection(page);
                 buildRenderBackendSection(page);
                 // Custom Vulkan driver / dxvk.conf only matter when Vulkan is
                 // the selected backend -- the GLES/GLES+ANGLE paths never
@@ -948,6 +949,92 @@ public class SetupActivity extends Activity {
             });
 
         UiKit.helpText(content, getString(R.string.setup_text_size_help));
+    }
+
+    // GeneralsX @performance Android port 01/10/2026 Render resolution as a percentage of the
+    // screen. The engine renders the game at that size and its pillarbox pass stretches it to the
+    // full screen with bilinear filtering -- the same path a lower resolution picked in the game's
+    // own Options takes, but keeping the screen's aspect ratio, so no black bars. On the old Mali
+    // test phone the GPU, not the CPU, sets the frame time in a heavy battle (logs-42: ~30 ms of
+    // GPU work for a 23 ms frame), and that work scales with the pixel count: 75% is ~56% of the
+    // pixels. Saved as GXRenderScale in Options.ini (read by SDL3Main.cpp at startup); Apply also
+    // clears a Resolution saved from the game's Options, which would otherwise win.
+    private Slider renderScaleSlider;
+    private TextView renderScaleLabel;
+
+    private void buildRenderScaleSection(LinearLayout root) {
+        LinearLayout content = UiKit.card(root);
+        renderScaleLabel = UiKit.sectionHeader(content, R.drawable.ic_gzh_display,
+            getString(R.string.setup_card_render_scale), true);
+
+        int startPercent = readRenderScalePercent();
+        renderScaleSlider = new Slider(this);
+        renderScaleSlider.setValueFrom(50f);
+        renderScaleSlider.setValueTo(100f);
+        renderScaleSlider.setStepSize(5f);
+        renderScaleSlider.setValue(startPercent);
+        renderScaleSlider.setLabelBehavior(LabelFormatter.LABEL_GONE);
+        renderScaleSlider.setTrackActiveTintList(UiKit.tint(this, R.color.gzh_primary));
+        renderScaleSlider.setTrackInactiveTintList(UiKit.tint(this, R.color.gzh_surface_container_highest));
+        renderScaleSlider.setThumbTintList(UiKit.tint(this, R.color.gzh_primary));
+        renderScaleSlider.setHaloTintList(UiKit.tint(this, R.color.gzh_ripple_primary));
+        updateRenderScaleLabel(startPercent);
+        renderScaleSlider.addOnChangeListener((slider, value, fromUser) -> updateRenderScaleLabel((int) value));
+        LinearLayout.LayoutParams sliderLp = new LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        sliderLp.topMargin = UiKit.dim(this, R.dimen.gzh_item_gap_tight);
+        content.addView(renderScaleSlider, sliderLp);
+
+        UiKit.button(content, UiKit.BTN_PRIMARY, R.drawable.ic_gzh_check,
+            getString(R.string.setup_button_apply_render_scale), () -> {
+                writeRenderScalePercent((int) renderScaleSlider.getValue());
+                Toast.makeText(this, R.string.setup_toast_render_scale_saved, Toast.LENGTH_LONG).show();
+            });
+
+        UiKit.helpText(content, getString(R.string.setup_render_scale_help));
+    }
+
+    // The game's own size for a percentage, from the screen's real (landscape) pixel size.
+    private int[] renderScaleSize(int percent) {
+        android.util.DisplayMetrics dm = new android.util.DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getRealMetrics(dm);
+        int w = Math.max(dm.widthPixels, dm.heightPixels);
+        int h = Math.min(dm.widthPixels, dm.heightPixels);
+        return new int[] { (w * percent / 100) & ~1, (h * percent / 100) & ~1 };
+    }
+
+    private void updateRenderScaleLabel(int percent) {
+        if (renderScaleLabel != null) {
+            int[] size = renderScaleSize(percent);
+            renderScaleLabel.setText(getString(R.string.setup_render_scale_label, percent, size[0], size[1]));
+        }
+    }
+
+    private int readRenderScalePercent() {
+        String val = readKeyValueFile(optionsIniFile()).get("GXRenderScale");
+        if (val != null) {
+            try {
+                int percent = Integer.parseInt(val.trim());
+                return Math.max(50, Math.min(100, percent));
+            } catch (NumberFormatException ignored) {
+                // Fall through to full resolution.
+            }
+        }
+        return 100;
+    }
+
+    private void writeRenderScalePercent(int percent) {
+        File file = optionsIniFile();
+        // Seeded from DefaultOptions.ini when new, for the same reason as writeUiScalePercent().
+        java.util.LinkedHashMap<String, String> prefs;
+        if (!file.isFile()) {
+            prefs = new java.util.LinkedHashMap<>(readKeyValueFile(defaultOptionsIniFile()));
+        } else {
+            prefs = new java.util.LinkedHashMap<>(readKeyValueFile(file));
+        }
+        prefs.put("GXRenderScale", String.valueOf(percent));
+        prefs.remove("Resolution");
+        writeKeyValueFile(file, prefs);
     }
 
     private void updateUiScaleLabel(int percent) {
