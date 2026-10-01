@@ -1049,7 +1049,14 @@ public class SetupActivity extends Activity {
         }
         prefs.put("GXRenderScale", String.valueOf(percent));
         prefs.put("GXUpscaler", gsr ? "gsr" : "bilinear");
-        prefs.remove("Resolution");
+        // GeneralsX @bugfix Android port 01/10/2026 The resolution itself, from the screen's full
+        // size -- what the game's own Options writes. The first version removed Resolution and let
+        // SDL3Main.cpp scale the window size at startup, but Android hands the game a window
+        // without the display cutout first (2264x1080 on the old test phone) and widens it to the
+        // full 2340x1080 half a second later: the game then rendered narrower than the screen,
+        // pillarboxed even at 100% (logs-44). At 100% this is exactly the screen, no pillarbox.
+        int[] size = renderScaleSize(percent);
+        prefs.put("Resolution", size[0] + " " + size[1]);
         writeKeyValueFile(file, prefs);
     }
 

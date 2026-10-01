@@ -417,7 +417,7 @@ void DX8Wrapper::Pillarbox_End()
 		return !(upscaler && strcmp(upscaler, "bilinear") == 0);
 	}();
 	const bool scaling = s_dstW != s_renderW || s_dstH != s_renderH;
-	d3d8gles_SetUpscaleBlit(!scaling ? 0 : (s_gsrWanted ? 1 : 2), s_renderW, s_renderH);
+	d3d8gles_SetUpscaleBlit(!scaling ? 3 : (s_gsrWanted ? 1 : 2), s_renderW, s_renderH);
 #endif
 	D3DDevice->DrawPrimitiveUP(D3DPT_TRIANGLESTRIP, 2, quad, sizeof(BV));
 #if defined(__ANDROID__)

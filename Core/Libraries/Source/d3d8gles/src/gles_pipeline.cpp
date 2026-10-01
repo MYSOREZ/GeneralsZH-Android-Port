@@ -2699,7 +2699,8 @@ static int s_gxUpscaleBlit = 0; // a scaling pillarbox blit is being drawn (SGSR
 static float s_gxUpscaleSrcW = 0.0f, s_gxUpscaleSrcH = 0.0f;
 extern "C" int d3d8gles_SetUpscaleBlit(int enable, int srcW, int srcH)
 {
-	// enable: 0 = no scaling blit, 1 = scaling blit with SGSR, 2 = scaling blit kept bilinear.
+	// enable: 0 = none, 1 = scaling blit with SGSR, 2 = scaling blit kept bilinear, 3 = unscaled
+	// pillarbox blit (bars only).
 	s_gxUpscaleBlit = (s_gxGlesReady && enable != 0) ? 1 : 0;
 	if (!s_gxGlesReady || enable != 1 || srcW <= 0 || srcH <= 0) {
 		s_gxUpscaleOn = 0;
@@ -2976,9 +2977,11 @@ void WebGLPipeline::debugUpscaleSample(WebGLTexture *input, bool gsr)
 	measure(in, ai, &ni);
 	measure(out, ao, &no);
 	fprintf(stderr, "[GX-UPSCALE] %s %dx%d -> %dx%d | input centre avg=(%.0f,%.0f,%.0f) nonblack=%d/%d | "
-		"screen centre avg=(%.0f,%.0f,%.0f) nonblack=%d/%d\n",
-		gsr ? "SGSR" : "bilinear", inW, inH, m_fbWidth, m_fbHeight, ai[0], ai[1], ai[2], ni, bw * bh,
-		ao[0], ao[1], ao[2], no, bw * bh);
+		"screen centre avg=(%.0f,%.0f,%.0f) nonblack=%d/%d | input fbo=%u status=0x%x dirty=%d gl=%u\n",
+		gsr ? "SGSR" : "plain", inW, inH, m_fbWidth, m_fbHeight, ai[0], ai[1], ai[2], ni, bw * bh,
+		ao[0], ao[1], ao[2], no, bw * bh,
+		input ? (unsigned)input->m_gl.fbo : 0u, input ? (unsigned)input->m_gl.fboStatus : 0u,
+		input ? (int)input->m_gl.dirty : -1, input ? (unsigned)input->m_gl.name : 0u);
 }
 
 // Buffer objects (device-side shadow -> GL) helpers.
