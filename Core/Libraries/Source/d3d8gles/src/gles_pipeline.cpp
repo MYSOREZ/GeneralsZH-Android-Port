@@ -45,6 +45,10 @@ static DWORD s_gxTwoSidedBackPass = 0;
 #include <cstring>
 #include <string>
 #include <vector>
+#include <mutex>
+#include <thread>
+#include <sys/resource.h>
+#include <unistd.h>
 
 #if defined(__ANDROID__)
 #include <android/native_window.h>
@@ -2885,6 +2889,7 @@ bool WebGLPipeline::setVirtualBackbuffer(int w, int h, int renderW, int renderH,
 		if (m_vbActive) {
 			// Back to the window itself.
 			m_vbActive = false;
+			m_vbUpscaled = false;
 			m_fbWidth = m_winW;
 			m_fbHeight = m_winH;
 			if (m_curFBO == m_vbFBO) {
@@ -2957,7 +2962,8 @@ bool WebGLPipeline::setVirtualBackbuffer(int w, int h, int renderW, int renderH,
 		return false;
 	}
 
-	const bool wasBackbuffer = !m_vbActive ? (m_curFBO == 0) : (m_curFBO == m_vbFBO);
+	const bool wasBackbuffer = (m_curFBO == 0) || (m_vbActive && m_curFBO == m_vbFBO);
+	m_vbUpscaled = false;
 	m_vbActive = true;
 	m_vbW = w;
 	m_vbH = h;
@@ -2979,8 +2985,9 @@ bool WebGLPipeline::setVirtualBackbuffer(int w, int h, int renderW, int renderH,
 	return true;
 }
 
-// Called by present() right before the swap: the virtual backbuffer over the whole window.
-void WebGLPipeline::presentVirtualBackbuffer()
+// The virtual backbuffer over the whole window: by present() right before the swap, or by
+// upscaleSceneNow() once the scene is drawn. Leaves the window's framebuffer bound.
+void WebGLPipeline::stretchVirtualBackbuffer()
 {
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	glViewport(0, 0, m_winW, m_winH);
@@ -2999,12 +3006,112 @@ void WebGLPipeline::presentVirtualBackbuffer()
 		glUniform4f(m_presentGsrInfo, 1.0f / (float)m_vbRW, 1.0f / (float)m_vbRH, (float)m_vbRW, (float)m_vbRH);
 	glBindVertexArray(m_presentVAO);
 	glDrawArrays(GL_TRIANGLES, 0, 3);
-	// The next frame draws into the virtual backbuffer again, from a clean slate of cached state.
-	glBindFramebuffer(GL_FRAMEBUFFER, m_curFBO);
+	// Whatever draws next starts from a clean slate of cached state.
 	m_lastProgram = 0;
 	m_haveFixedStateKey = false;
 	m_haveLastVAOKey = false;
 	m_lastBoundTex[0] = m_lastBoundTex[1] = ~0u;
+}
+
+bool WebGLPipeline::upscaleSceneNow()
+{
+	if (!m_ctxReady || !m_vbActive || m_vbUpscaled || m_curFBO != m_vbFBO)
+		return false;
+	// Only worth it, and only correct, when the scene was rendered below the game's resolution and
+	// the game's resolution is the window's: the interface then draws into the window 1:1.
+	if ((m_vbRW == m_vbW && m_vbRH == m_vbH) || m_winW != m_vbW || m_winH != m_vbH)
+		return false;
+	stretchVirtualBackbuffer();
+	// The window's depth and stencil are not the scene's; the interface starts from cleared ones.
+	glDepthMask(GL_TRUE);
+	glStencilMask(0xFFFFFFFF);
+	glClearDepthf(1.0f);
+	glClearStencil(0);
+	glClear(GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+	static bool s_logged = false;
+	if (!s_logged) {
+		s_logged = true;
+		fprintf(stderr, "[d3d8gles] scene upscaled %dx%d -> %dx%d before the interface; interface at full resolution\n",
+			m_vbRW, m_vbRH, m_winW, m_winH);
+	}
+	m_vbUpscaled = true;
+	m_curFBO = 0;
+	m_curRTWidth = m_winW;
+	m_curRTHeight = m_winH;
+	return true;
+}
+
+extern "C" int d3d8gles_UpscaleSceneNow()
+{
+	if (!s_gxGlesReady)
+		return 0;
+	return WebGLPipeline::get()->upscaleSceneNow() ? 1 : 0;
+}
+
+// GeneralsX @bugfix Android port 01/10/2026 The clocks and temperature for [GX-PERF-THERMAL] are read
+// on a thread of their own. They used to be read inside the perf report, on the engine's thread, every
+// 2000 ms: a dozen cpufreq files and up to 64 thermal zones, some of which are sensors behind a slow
+// bus that take milliseconds each to answer. The owner saw a micro-stutter about every two seconds
+// at a high frame rate (after logs-47); the report's own cost is now printed too ("report took").
+static std::mutex s_thermalMutex;
+static std::string s_thermalLine;
+static std::atomic<bool> s_thermalStarted{false};
+
+static std::string ReadThermalLine()
+{
+	const auto t0 = std::chrono::steady_clock::now();
+	char line[512];
+	int len = snprintf(line, sizeof(line), "[GX-PERF-THERMAL] cpu MHz:");
+	for (int cpu = 0; cpu < 12; cpu++) {
+		char path[96];
+		snprintf(path, sizeof(path), "/sys/devices/system/cpu/cpu%d/cpufreq/scaling_cur_freq", cpu);
+		FILE *ff = fopen(path, "r");
+		if (!ff)
+			continue;
+		long khz = 0;
+		if (fscanf(ff, "%ld", &khz) == 1 && len < (int)sizeof(line) - 16)
+			len += snprintf(line + len, sizeof(line) - len, " %ld", khz / 1000);
+		fclose(ff);
+	}
+	long hottest = -1;
+	for (int zone = 0; zone < 64; zone++) {
+		char path[96];
+		snprintf(path, sizeof(path), "/sys/class/thermal/thermal_zone%d/temp", zone);
+		FILE *ff = fopen(path, "r");
+		if (!ff)
+			continue;
+		long t = 0;
+		if (fscanf(ff, "%ld", &t) == 1) {
+			if (t > 1000) t /= 1000; // millidegrees on most kernels
+			if (t > hottest && t < 150) hottest = t;
+		}
+		fclose(ff);
+	}
+	const double readMs = std::chrono::duration<double, std::milli>(std::chrono::steady_clock::now() - t0).count();
+	if (hottest >= 0)
+		snprintf(line + len, sizeof(line) - len, " | hottest zone %ld C (read in %.1f ms, off the game's thread)\n", hottest, readMs);
+	else
+		snprintf(line + len, sizeof(line) - len, " | temperature unreadable (read in %.1f ms)\n", readMs);
+	return line;
+}
+
+static std::string ThermalLine()
+{
+	if (!s_thermalStarted.exchange(true)) {
+		std::thread([] {
+			setpriority(PRIO_PROCESS, (id_t)gettid(), 10);
+			for (;;) {
+				std::string l = ReadThermalLine();
+				{
+					std::lock_guard<std::mutex> lock(s_thermalMutex);
+					s_thermalLine.swap(l);
+				}
+				std::this_thread::sleep_for(std::chrono::seconds(2));
+			}
+		}).detach();
+	}
+	std::lock_guard<std::mutex> lock(s_thermalMutex);
+	return s_thermalLine;
 }
 
 extern "C" int d3d8gles_SetDrawCategory(int category)
@@ -4005,6 +4112,7 @@ void WebGLPipeline::present()
 		if (m_perfLogLastMs == 0) {
 			m_perfLogLastMs = nowMs;
 		} else if (nowMs - m_perfLogLastMs >= 2000) {
+			const auto reportStart = std::chrono::steady_clock::now();
 			const float seconds = (nowMs - m_perfLogLastMs) / 1000.0f;
 			const float fps = m_perfFrameCount / seconds;
 			const float drawsPerFrame = m_perfFrameCount > 0
@@ -4210,38 +4318,9 @@ void WebGLPipeline::present()
 			// frame. Current frequency of each CPU and the hottest readable thermal zone; either
 			// may be unreadable under the device's SELinux policy, which is reported as such.
 			{
-				char line[512];
-				int len = snprintf(line, sizeof(line), "[GX-PERF-THERMAL] cpu MHz:");
-				for (int cpu = 0; cpu < 12; cpu++) {
-					char path[96];
-					snprintf(path, sizeof(path), "/sys/devices/system/cpu/cpu%d/cpufreq/scaling_cur_freq", cpu);
-					FILE *ff = fopen(path, "r");
-					if (!ff)
-						continue;
-					long khz = 0;
-					if (fscanf(ff, "%ld", &khz) == 1 && len < (int)sizeof(line) - 16)
-						len += snprintf(line + len, sizeof(line) - len, " %ld", khz / 1000);
-					fclose(ff);
-				}
-				long hottest = -1;
-				for (int zone = 0; zone < 64; zone++) {
-					char path[96];
-					snprintf(path, sizeof(path), "/sys/class/thermal/thermal_zone%d/temp", zone);
-					FILE *ff = fopen(path, "r");
-					if (!ff)
-						continue;
-					long t = 0;
-					if (fscanf(ff, "%ld", &t) == 1) {
-						if (t > 1000) t /= 1000; // millidegrees on most kernels
-						if (t > hottest && t < 150) hottest = t;
-					}
-					fclose(ff);
-				}
-				if (hottest >= 0)
-					snprintf(line + len, sizeof(line) - len, " | hottest zone %ld C\n", hottest);
-				else
-					snprintf(line + len, sizeof(line) - len, " | temperature unreadable\n");
-				fputs(line, stderr);
+				const std::string thermal = ThermalLine();
+				if (!thermal.empty())
+					fputs(thermal.c_str(), stderr);
 			}
 			{
 				const gxrt::Stats rt = gxrt::takeStats();
@@ -4265,6 +4344,8 @@ void WebGLPipeline::present()
 					rt.drawUs / 1000.0 / frames, rt.swapUs / 1000.0 / frames, rt.uploadUs / 1000.0 / frames,
 					(other > 0 ? other : 0.0) / 1000.0 / frames, gpuText);
 			}
+			fprintf(stderr, "[d3d8gles] perf report took %.2f ms on the game's thread\n",
+				std::chrono::duration<double, std::milli>(std::chrono::steady_clock::now() - reportStart).count());
 			m_perfLogLastMs = nowMs;
 			m_perfFrameCount = 0;
 			m_perfDrawAccum = 0;
@@ -4318,8 +4399,20 @@ void WebGLPipeline::present()
 	// GeneralsX @performance Android port 30/09/2026 Queued behind the frame's GL calls when the
 	// render thread runs; waits for the previous frame's swap, not this one's.
 	if (m_window) {
-		if (m_vbActive)
-			presentVirtualBackbuffer();
+		if (m_vbActive) {
+			if (!m_vbUpscaled)
+				stretchVirtualBackbuffer();
+			// The next frame draws into the virtual backbuffer again.
+			m_vbUpscaled = false;
+			if (m_curFBO == 0 || m_curFBO == m_vbFBO) {
+				glBindFramebuffer(GL_FRAMEBUFFER, m_vbFBO);
+				m_curFBO = m_vbFBO;
+				m_curRTWidth = m_vbW;
+				m_curRTHeight = m_vbH;
+			} else {
+				glBindFramebuffer(GL_FRAMEBUFFER, m_curFBO);
+			}
+		}
 		if (s_gpuTimer.ok)
 			gxrt::post([] { s_gpuTimer.frameEnd(); });
 		gxrt::present(m_window, swapInterval);

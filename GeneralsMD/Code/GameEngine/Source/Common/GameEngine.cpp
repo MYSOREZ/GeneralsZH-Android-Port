@@ -1172,6 +1172,30 @@ static void gxTraceEngineUpdatePhase(
 	static double s_radarUs = 0, s_audioUs = 0, s_clientUs = 0,
 		s_networkUs = 0, s_logicUs = 0, s_stepUs = 0;
 	static int s_frames = 0;
+	// GeneralsX @performance Android port 01/10/2026 Hitches. The averages above hide a single long
+	// frame; the owner sees a micro-stutter about every two seconds at a high frame rate. A frame is a
+	// hitch when it takes more than 1.8x the previous second's average (and over 25 ms); the worst one
+	// of each second is printed with its own split, so the phase that spiked is named.
+	static std::chrono::steady_clock::time_point s_lastFrame;
+	static double s_prevAvgMs = 0.0;
+	static int s_hitches = 0;
+	static double s_worstMs = 0.0, s_worstPhases[6] = {};
+
+	{
+		const std::chrono::steady_clock::time_point frameEnd = std::chrono::steady_clock::now();
+		if (s_lastFrame.time_since_epoch().count() != 0) {
+			const double frameMs = std::chrono::duration<double, std::milli>(frameEnd - s_lastFrame).count();
+			if (s_prevAvgMs > 0.0 && frameMs > 25.0 && frameMs > s_prevAvgMs * 1.8)
+				++s_hitches;
+			if (frameMs > s_worstMs) {
+				s_worstMs = frameMs;
+				const double phases[6] = { radarUs, audioUs, clientUs, networkUs, logicUs, stepUs };
+				for (int i = 0; i < 6; ++i)
+					s_worstPhases[i] = phases[i] / 1000.0;
+			}
+		}
+		s_lastFrame = frameEnd;
+	}
 
 	s_radarUs += radarUs;
 	s_audioUs += audioUs;
@@ -1194,6 +1218,13 @@ static void gxTraceEngineUpdatePhase(
 			s_networkUs / 1000.0 / s_frames,
 			s_logicUs / 1000.0 / s_frames,
 			s_stepUs / 1000.0 / s_frames);
+
+		GX_PERF_TRACE("[GX-PERF-HITCH] hitches=%d worstFrameMs=%.1f (radar=%.1f audio=%.1f client=%.1f network=%.1f logic=%.1f step=%.1f)\n",
+			s_hitches, s_worstMs, s_worstPhases[0], s_worstPhases[1], s_worstPhases[2], s_worstPhases[3],
+			s_worstPhases[4], s_worstPhases[5]);
+		s_prevAvgMs = (elapsedUs / 1000.0) / s_frames;
+		s_hitches = 0;
+		s_worstMs = 0.0;
 
 		s_windowStart = now;
 		s_radarUs = s_audioUs = s_clientUs = s_networkUs = s_logicUs = s_stepUs = 0;

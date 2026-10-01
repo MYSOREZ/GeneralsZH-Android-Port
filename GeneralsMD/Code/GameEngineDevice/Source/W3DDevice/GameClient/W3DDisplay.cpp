@@ -2510,6 +2510,10 @@ AGAIN:
 				// DX8Wrapper::Pillarbox_End();
 				// DX8Wrapper::Pillarbox_Begin_UI();
 
+				// GeneralsX @feature Android port 01/10/2026 The scene is done: with the upscaler on, it
+				// is upscaled to the screen here and the interface below draws at full resolution.
+				DX8Wrapper::Upscale_Scene_Begin_UI();
+
 				// draw the user interface
 				TheInGameUI->DRAW();
 

@@ -488,6 +488,14 @@ void DX8Wrapper::Pillarbox_Begin_UI()
 	D3DDevice->SetViewport(&vp);
 }
 
+void DX8Wrapper::Upscale_Scene_Begin_UI()
+{
+#if defined(__ANDROID__)
+	if (!d3d8gles_ShouldUseVulkanBackend())
+		d3d8gles_UpscaleSceneNow();
+#endif
+}
+
 bool DX8Wrapper::Pillarbox_Get_Rect(int& x, int& y, int& w, int& h)
 {
 	if (!s_pillarboxEnabled) return false;

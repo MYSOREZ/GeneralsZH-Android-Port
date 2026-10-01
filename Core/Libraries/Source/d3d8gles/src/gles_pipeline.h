@@ -239,9 +239,11 @@ public:
 	// resolution, stretched to the window at present() with SGSR or bilinear (see
 	// d3d8gles_SetVirtualBackbuffer). w or h <= 0 turns it off.
 	bool setVirtualBackbuffer(int w, int h, int renderW, int renderH, bool gsr);
+	bool upscaleSceneNow();
 private:
-	void presentVirtualBackbuffer();
-	GLuint backbufferFBO() const { return m_vbActive ? m_vbFBO : 0; }
+	void stretchVirtualBackbuffer();
+	// After upscaleSceneNow() "the backbuffer" is the window itself until the frame is presented.
+	GLuint backbufferFBO() const { return (m_vbActive && !m_vbUpscaled) ? m_vbFBO : 0; }
 	// The viewport to apply: the device's, except that one larger than the virtual backbuffer
 	// (the engine still knows the window's size) covers the whole virtual backbuffer instead.
 	const D3DVIEWPORT8 &effectiveViewport(WebGLDevice *dev);
@@ -252,6 +254,7 @@ private:
 	void targetRect(const D3DVIEWPORT8 &vp, GLint *x, GLint *y, GLsizei *w, GLsizei *h) const;
 	bool m_vbActive = false;
 	bool m_vbGsr = false;
+	bool m_vbUpscaled = false; // this frame's scene is already in the window (upscaleSceneNow)
 	int m_vbW = 0, m_vbH = 0;   // what the engine sees (its backbuffer)
 	int m_vbRW = 0, m_vbRH = 0; // what is rendered: the texture stretched at present
 	int m_winW = 0, m_winH = 0;

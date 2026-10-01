@@ -532,6 +532,11 @@ public:
 	// so this doesn't require touching any UI code -- only where its NDC
 	// output gets rasterized. No-op when pillarboxing isn't engaged.
 	static void					Pillarbox_Begin_UI();
+	// GeneralsX @feature Android port 01/10/2026 Call between the 3D scene and the interface. With the
+	// launcher's upscaler on (native GLES backend), the scene rendered below the game's resolution is
+	// upscaled to the screen here, and everything after it -- the interface, the cursor -- is drawn at
+	// the screen's full resolution. No-op otherwise.
+	static void					Upscale_Scene_Begin_UI();
 	static void					Pillarbox_Process_Resize();
 
 	// for depth map support KJM V
