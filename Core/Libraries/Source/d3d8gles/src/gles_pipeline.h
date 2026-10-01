@@ -239,6 +239,8 @@ public:
 	// (see d3d8gles_SetUpscaleBlit); nullptr when it cannot be built.
 	ProgramInfo *gsrProgram();
 	void debugUpscaleSample(WebGLTexture *input, bool gsr);
+	unsigned m_pbFrameTargetDraws = 0, m_pbFrameScreenDraws = 0, m_pbFrameBlits = 0, m_pbFramesSinceBlit = 0;
+	bool m_pbSeenBlit = false;
 private:
 	ProgramInfo *m_gsrProg = nullptr;
 	GLint m_gsrViewportInfo = -1;

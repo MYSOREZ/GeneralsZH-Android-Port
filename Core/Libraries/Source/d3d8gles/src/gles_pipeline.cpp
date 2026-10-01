@@ -2938,6 +2938,13 @@ void WebGLPipeline::drawCommon(WebGLDevice *dev, unsigned primType, unsigned pri
 	// apart, compare the centre of the frame going into the upscale (the offscreen target) with the
 	// centre of the screen after it: black in, black out puts the fault in the low-resolution
 	// render; picture in, black out puts it in the upscale. Each sample waits for the GPU once.
+	// Per-frame split for [GX-PBFRAME] (see present()).
+	if (m_curFBO == 0)
+		m_pbFrameScreenDraws++;
+	else
+		m_pbFrameTargetDraws++;
+	if (s_gxUpscaleBlit && l.xyzrhw)
+		m_pbFrameBlits++;
 	if (s_gxUpscaleBlit && l.xyzrhw) {
 		static unsigned s_gsrBlits = 0;
 		const unsigned n = ++s_gsrBlits;
@@ -3870,6 +3877,25 @@ void WebGLPipeline::present()
 {
 	if (!m_ctxReady) return;
 	m_frame++;
+
+	// GeneralsX @bugfix Android port 01/10/2026 Rendering below the screen's resolution flickered
+	// every frame on GLES (logs-45/46) while its upscale samples showed a correct picture on some
+	// frames and black on others. For 40 consecutive frames, once the game has been running a
+	// while, log where each frame's draws went -- an offscreen target, the screen -- and how many
+	// pillarbox blits it had, so the alternation shows up as a pattern.
+	{
+		static unsigned s_pbLogged = 0;
+		if (m_pbFrameBlits > 0 || m_pbSeenBlit) {
+			m_pbSeenBlit = true;
+			++m_pbFramesSinceBlit;
+			if (m_pbFramesSinceBlit > 1500 && s_pbLogged < 40) {
+				s_pbLogged++;
+				fprintf(stderr, "[GX-PBFRAME] frame=%u target-draws=%u screen-draws=%u pillarbox-blits=%u\n",
+					m_frame, m_pbFrameTargetDraws, m_pbFrameScreenDraws, m_pbFrameBlits);
+			}
+		}
+		m_pbFrameTargetDraws = m_pbFrameScreenDraws = m_pbFrameBlits = 0;
+	}
 
 	// GeneralsX @performance Android port 27/09/2026 Asked once a second, not every frame: a
 	// glGetError can make the driver flush its command queue, and only the once-a-second
