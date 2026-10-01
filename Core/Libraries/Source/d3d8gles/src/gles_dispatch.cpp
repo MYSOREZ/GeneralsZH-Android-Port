@@ -771,7 +771,12 @@ GL_APICALL void GL_APIENTRY glUniform4f(GLint location, GLfloat v0, GLfloat v1, 
 GL_APICALL void GL_APIENTRY glUniform4fv(GLint location, GLsizei count, const GLfloat *value)
 {
 	gxCountState(GXSC_UNIFORM);
-	gxrt::post([location, count, blob = gxrt::Blob<64>(value, (size_t)count * 4 * sizeof(GLfloat))] { d3d8gles_pfn_glUniform4fv(location, count, static_cast<decltype(value)>(blob.data())); });
+	const size_t bytes = (size_t)count * 4 * sizeof(GLfloat);
+	// The packed light array (up to 22 vec4) travels inline too, not through a heap allocation.
+	if (bytes <= 64)
+		gxrt::post([location, count, blob = gxrt::Blob<64>(value, bytes)] { d3d8gles_pfn_glUniform4fv(location, count, static_cast<decltype(value)>(blob.data())); });
+	else
+		gxrt::post([location, count, blob = gxrt::Blob<352>(value, bytes)] { d3d8gles_pfn_glUniform4fv(location, count, static_cast<decltype(value)>(blob.data())); });
 }
 
 GL_APICALL void GL_APIENTRY glUniformMatrix4fv(GLint location, GLsizei count, GLboolean transpose, const GLfloat *value)

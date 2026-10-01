@@ -276,11 +276,15 @@ struct WebGLPipeline::ProgramInfo {
 	GLint uTFactor = -1;
 	GLint uAlphaRef = -1;
 	GLint uFogColor = -1, uFogParams = -1;
-	GLint uMatDiffuse = -1, uMatAmbient = -1, uMatEmissive = -1;
-	GLint uGlobalAmbient = -1;
-	GLint uNumLights = -1;
-	GLint uLightType = -1, uLightDir = -1, uLightPos = -1;
-	GLint uLightDiffuse = -1, uLightAmbient = -1, uLightAtten = -1;
+	// GeneralsX @performance Android port 01/10/2026 Material and lights packed into two vec4 arrays
+	// (see getProgram()), so a change uploads with one call each instead of three and eight. Lights
+	// change on ~15% of model draws (each object gets its own nearest lights).
+	GLint uMat = -1; // [0] diffuse, [1] ambient, [2] emissive
+	GLint uLit = -1; // [0] global ambient, [1].x light count, then 5 per light (see kLitStride)
+	// The world matrix this program last received: uniform values live in the program, so a draw
+	// that repeats it (particles, a mesh's further passes) needs no upload.
+	float lastWorld[16] = {};
+	bool haveWorld = false;
 	// key fields needed at bind time
 	int stageTci[2] = {0, 0};
 	bool stageXform[2] = {false, false};
@@ -1127,10 +1131,11 @@ WebGLPipeline::ProgramInfo *WebGLPipeline::getProgram(WebGLDevice *dev, unsigned
 	vs += "uniform mat4 uTexMat0, uTexMat1;\n";
 	vs += "out vec4 vCol;\nout vec4 vSpec;\nout vec2 vUV0;\nout vec2 vUV1;\nout float vFogDepth;\n";
 	if (lighting) {
-		vs += "uniform vec4 uMatDiffuse, uMatAmbient, uMatEmissive, uGlobalAmbient;\n";
-		vs += "uniform int uNumLights;\n";
-		vs += "uniform int uLightType[4];\nuniform vec3 uLightDir[4];\nuniform vec3 uLightPos[4];\n";
-		vs += "uniform vec4 uLightDiffuse[4];\nuniform vec4 uLightAmbient[4];\nuniform vec4 uLightAtten[4];\n"; // atten: range, a0, a1, a2
+		// uMat: diffuse, ambient, emissive. uLit: [0] global ambient, [1].x light count, then per
+		// light i at 2 + 5i: (direction, type 1=point), (position, -), diffuse, ambient,
+		// (range, a0, a1, a2). See ProgramInfo::uMat/uLit.
+		vs += "uniform vec4 uMat[3];\n";
+		vs += "uniform vec4 uLit[22];\n";
 	}
 	vs += "void main() {\n";
 	if (l.xyzrhw) {
@@ -1167,23 +1172,26 @@ WebGLPipeline::ProgramInfo *WebGLPipeline::getProgram(WebGLDevice *dev, unsigned
 		vs += "  vec3 wnrm = normalize(mat3(uWorld) * aNormal);\n";
 		// Material color sources per D3DRS_*MATERIALSOURCE (COLOR1 = vertex).
 		vs += diffFromVertex ? "  vec4 matDiff = aColor0.zyxw;\n"
-		                     : "  vec4 matDiff = uMatDiffuse;\n";
+		                     : "  vec4 matDiff = uMat[0];\n";
 		vs += ambFromVertex ? "  vec3 matAmb = aColor0.zyx;\n"
-		                    : "  vec3 matAmb = uMatAmbient.rgb;\n";
+		                    : "  vec3 matAmb = uMat[1].rgb;\n";
 		vs += emisFromVertex ? "  vec3 matEmis = aColor0.zyx;\n"
-		                     : "  vec3 matEmis = uMatEmissive.rgb;\n";
-		vs += "  vec3 accum = matEmis + uGlobalAmbient.rgb * matAmb;\n";
-		vs += "  for (int i = 0; i < uNumLights; i++) {\n";
+		                     : "  vec3 matEmis = uMat[2].rgb;\n";
+		vs += "  vec3 accum = matEmis + uLit[0].rgb * matAmb;\n";
+		vs += "  int numLights = int(uLit[1].x + 0.5);\n";
+		vs += "  for (int i = 0; i < numLights; i++) {\n";
+		vs += "    int b = 2 + i * 5;\n";
+		vs += "    vec4 dirType = uLit[b]; vec4 atn = uLit[b + 4];\n";
 		vs += "    vec3 L; float atten = 1.0;\n";
-		vs += "    if (uLightType[i] == 1) {\n"; // POINT
-		vs += "      vec3 d = uLightPos[i] - wpos.xyz; float dist = length(d);\n";
-		vs += "      if (dist > uLightAtten[i].x) { continue; }\n";
+		vs += "    if (dirType.w > 0.5) {\n"; // POINT
+		vs += "      vec3 d = uLit[b + 1].xyz - wpos.xyz; float dist = length(d);\n";
+		vs += "      if (dist > atn.x) { continue; }\n";
 		vs += "      L = d / max(dist, 0.0001);\n";
-		vs += "      atten = 1.0 / (uLightAtten[i].y + uLightAtten[i].z * dist + uLightAtten[i].w * dist * dist);\n";
-		vs += "    } else { L = -uLightDir[i]; }\n";
+		vs += "      atten = 1.0 / (atn.y + atn.z * dist + atn.w * dist * dist);\n";
+		vs += "    } else { L = -dirType.xyz; }\n";
 		vs += "    float ndl = max(dot(wnrm, L), 0.0);\n";
-		vs += "    accum += uLightAmbient[i].rgb * matAmb * atten;\n";
-		vs += "    accum += uLightDiffuse[i].rgb * matDiff.rgb * ndl * atten;\n";
+		vs += "    accum += uLit[b + 3].rgb * matAmb * atten;\n";
+		vs += "    accum += uLit[b + 2].rgb * matDiff.rgb * ndl * atten;\n";
 		vs += "  }\n";
 		vs += "  vCol = vec4(clamp(accum, 0.0, 1.0), matDiff.a);\n";
 	} else if (l.hasDiffuse) {
@@ -1370,17 +1378,8 @@ WebGLPipeline::ProgramInfo *WebGLPipeline::getProgram(WebGLDevice *dev, unsigned
 		info->uAlphaRef = glGetUniformLocation(p, "uAlphaRef");
 		info->uFogColor = glGetUniformLocation(p, "uFogColor");
 		info->uFogParams = glGetUniformLocation(p, "uFogParams");
-		info->uMatDiffuse = glGetUniformLocation(p, "uMatDiffuse");
-		info->uMatAmbient = glGetUniformLocation(p, "uMatAmbient");
-		info->uMatEmissive = glGetUniformLocation(p, "uMatEmissive");
-		info->uGlobalAmbient = glGetUniformLocation(p, "uGlobalAmbient");
-		info->uNumLights = glGetUniformLocation(p, "uNumLights");
-		info->uLightType = glGetUniformLocation(p, "uLightType[0]");
-		info->uLightDir = glGetUniformLocation(p, "uLightDir[0]");
-		info->uLightPos = glGetUniformLocation(p, "uLightPos[0]");
-		info->uLightDiffuse = glGetUniformLocation(p, "uLightDiffuse[0]");
-		info->uLightAmbient = glGetUniformLocation(p, "uLightAmbient[0]");
-		info->uLightAtten = glGetUniformLocation(p, "uLightAtten[0]");
+		info->uMat = glGetUniformLocation(p, "uMat[0]");
+		info->uLit = glGetUniformLocation(p, "uLit[0]");
 	}
 	info->stageTci[0] = st[0].tci;
 	info->stageTci[1] = st[1].tci;
@@ -2141,8 +2140,17 @@ void WebGLPipeline::applyUniforms(WebGLDevice *dev, ProgramInfo *prog, unsigned 
 	// cached -- it changes on nearly every draw in real battlefield
 	// rendering (each object has its own transform) -- see ViewProjKey's
 	// declaration for why the rest of this function's blocks are cached.
-	if (prog->uWorld >= 0)
-		glUniformMatrix4fv(prog->uWorld, 1, GL_FALSE, (const float *)&dev->getTransform(D3DTS_WORLD));
+	if (prog->uWorld >= 0) {
+		const float *world = (const float *)&dev->getTransform(D3DTS_WORLD);
+		if (!prog->haveWorld || memcmp(prog->lastWorld, world, sizeof(prog->lastWorld)) != 0) {
+			glUniformMatrix4fv(prog->uWorld, 1, GL_FALSE, world);
+			memcpy(prog->lastWorld, world, sizeof(prog->lastWorld));
+			prog->haveWorld = true;
+			m_perfWorldUploads++;
+		} else {
+			m_perfWorldSkips++;
+		}
+	}
 
 	// GeneralsX @build Android port GLES experiment 08/30/2026 view/proj now
 	// live in a UBO (kViewProjUBOBinding), not per-program uniform
@@ -2223,7 +2231,7 @@ void WebGLPipeline::applyUniforms(WebGLDevice *dev, ProgramInfo *prog, unsigned 
 	// NOTE: each uniform can be optimized out independently (a program whose
 	// material sources are all vertex colors has NO uMat* uniforms but still
 	// needs its lights). Never gate the light upload on a material location.
-	if (prog->uMatDiffuse >= 0 || prog->uMatAmbient >= 0 || prog->uMatEmissive >= 0) {
+	if (prog->uMat >= 0) {
 		const D3DMATERIAL8 &m = dev->getMaterial();
 		MaterialKey key{};
 		memcpy(key.diffuse, &m.Diffuse, sizeof(key.diffuse));
@@ -2235,14 +2243,16 @@ void WebGLPipeline::applyUniforms(WebGLDevice *dev, ProgramInfo *prog, unsigned 
 		} else {
 			m_perfUniformCacheMisses++;
 			m_perfUniformMaterialMisses++;
-			if (prog->uMatDiffuse >= 0) glUniform4fv(prog->uMatDiffuse, 1, key.diffuse);
-			if (prog->uMatAmbient >= 0) glUniform4fv(prog->uMatAmbient, 1, key.ambient);
-			if (prog->uMatEmissive >= 0) glUniform4fv(prog->uMatEmissive, 1, key.emissive);
+			float packed[12];
+			memcpy(packed + 0, key.diffuse, 16);
+			memcpy(packed + 4, key.ambient, 16);
+			memcpy(packed + 8, key.emissive, 16);
+			glUniform4fv(prog->uMat, 3, packed);
 			m_lastMaterialKey = key;
 			m_haveMaterialKey = true;
 		}
 	}
-	if (prog->uGlobalAmbient >= 0 || prog->uNumLights >= 0) {
+	if (prog->uLit >= 0) {
 		LightingKey key{};
 		argbToFloats(dev->getRenderState(D3DRS_AMBIENT), key.globalAmbient);
 		int n = 0;
@@ -2272,16 +2282,20 @@ void WebGLPipeline::applyUniforms(WebGLDevice *dev, ProgramInfo *prog, unsigned 
 		} else {
 			m_perfUniformCacheMisses++;
 			m_perfUniformLightingMisses++;
-			if (prog->uGlobalAmbient >= 0) glUniform4fv(prog->uGlobalAmbient, 1, key.globalAmbient);
-			if (prog->uNumLights >= 0) {
-				glUniform1i(prog->uNumLights, key.numLights);
-				glUniform1iv(prog->uLightType, 4, key.types);
-				glUniform3fv(prog->uLightDir, 4, key.dirs);
-				glUniform3fv(prog->uLightPos, 4, key.poss);
-				glUniform4fv(prog->uLightDiffuse, 4, key.diff);
-				glUniform4fv(prog->uLightAmbient, 4, key.amb);
-				glUniform4fv(prog->uLightAtten, 4, key.att);
+			// One call: only the lights in use are sent; the shader reads no further.
+			float packed[22 * 4] = {};
+			memcpy(packed + 0, key.globalAmbient, 16);
+			packed[4] = (float)key.numLights;
+			for (int i = 0; i < key.numLights; i++) {
+				float *b = packed + (2 + i * 5) * 4;
+				b[0] = key.dirs[i * 3 + 0]; b[1] = key.dirs[i * 3 + 1]; b[2] = key.dirs[i * 3 + 2];
+				b[3] = key.types[i] == 1 ? 1.0f : 0.0f;
+				b[4] = key.poss[i * 3 + 0]; b[5] = key.poss[i * 3 + 1]; b[6] = key.poss[i * 3 + 2];
+				memcpy(b + 8, &key.diff[i * 4], 16);
+				memcpy(b + 12, &key.amb[i * 4], 16);
+				memcpy(b + 16, &key.att[i * 4], 16);
 			}
+			glUniform4fv(prog->uLit, 2 + key.numLights * 5, packed);
 			m_lastLightingKey = key;
 			m_haveLightingKey = true;
 		}
@@ -3771,6 +3785,10 @@ void WebGLPipeline::present()
 				fprintf(stderr, "[d3d8gles] perf-opt: %.1f/frame buffer updates from plain locks, uploaded synchronized\n",
 					m_perfSyncUploads / frames);
 			m_perfSyncUploads = 0;
+			if (m_perfWorldUploads + m_perfWorldSkips > 0)
+				fprintf(stderr, "[d3d8gles] perf-opt: world matrix %.1f/frame sent, %.1f/frame already in the program\n",
+					m_perfWorldUploads / frames, m_perfWorldSkips / frames);
+			m_perfWorldUploads = m_perfWorldSkips = 0;
 			if (m_perfRangeUnderstated > 0)
 				fprintf(stderr, "[d3d8gles] perf-opt: %d indexed draws read past their stated vertex range (hazard range widened)\n",
 					m_perfRangeUnderstated);

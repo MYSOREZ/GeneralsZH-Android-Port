@@ -601,6 +601,7 @@ private:
 	size_t m_indexStreamOffset = 0;
 	bool m_indexStreamFailed = false;
 	int m_perfIndexStreamRenewals = 0;
+	int m_perfWorldUploads = 0, m_perfWorldSkips = 0; // world matrix sent vs. already in the program
 	int m_perfSyncUploads = 0; // appends from plain locks, uploaded with glBufferSubData
 	int m_perfRangeUnderstated = 0; // indexed draws whose indices reach past minIndex+numVertices
 	bool streamIndices(const void *src, size_t bytes, GLuint *name, size_t *offset);
