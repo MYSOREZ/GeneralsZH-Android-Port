@@ -961,6 +961,9 @@ public class SetupActivity extends Activity {
     // clears a Resolution saved from the game's Options, which would otherwise win.
     private Slider renderScaleSlider;
     private TextView renderScaleLabel;
+    // GeneralsX @feature Android port 01/10/2026 Snapdragon GSR 1 for the stretch to the screen (on
+    // by default; native GLES backend only). Saved as GXUpscaler = gsr | bilinear.
+    private com.google.android.material.materialswitch.MaterialSwitch gsrSwitch;
 
     private void buildRenderScaleSection(LinearLayout root) {
         LinearLayout content = UiKit.card(root);
@@ -985,9 +988,13 @@ public class SetupActivity extends Activity {
         sliderLp.topMargin = UiKit.dim(this, R.dimen.gzh_item_gap_tight);
         content.addView(renderScaleSlider, sliderLp);
 
+        gsrSwitch = UiKit.switchRow(content, getString(R.string.setup_switch_gsr),
+            getString(R.string.setup_switch_gsr_desc));
+        gsrSwitch.setChecked(!"bilinear".equals(readKeyValueFile(optionsIniFile()).get("GXUpscaler")));
+
         UiKit.button(content, UiKit.BTN_PRIMARY, R.drawable.ic_gzh_check,
             getString(R.string.setup_button_apply_render_scale), () -> {
-                writeRenderScalePercent((int) renderScaleSlider.getValue());
+                writeRenderScalePercent((int) renderScaleSlider.getValue(), gsrSwitch.isChecked());
                 Toast.makeText(this, R.string.setup_toast_render_scale_saved, Toast.LENGTH_LONG).show();
             });
 
@@ -1023,7 +1030,7 @@ public class SetupActivity extends Activity {
         return 100;
     }
 
-    private void writeRenderScalePercent(int percent) {
+    private void writeRenderScalePercent(int percent, boolean gsr) {
         File file = optionsIniFile();
         // Seeded from DefaultOptions.ini when new, for the same reason as writeUiScalePercent().
         java.util.LinkedHashMap<String, String> prefs;
@@ -1033,6 +1040,7 @@ public class SetupActivity extends Activity {
             prefs = new java.util.LinkedHashMap<>(readKeyValueFile(file));
         }
         prefs.put("GXRenderScale", String.valueOf(percent));
+        prefs.put("GXUpscaler", gsr ? "gsr" : "bilinear");
         prefs.remove("Resolution");
         writeKeyValueFile(file, prefs);
     }

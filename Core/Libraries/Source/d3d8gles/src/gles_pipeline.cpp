@@ -2687,6 +2687,162 @@ extern "C" void d3d8gles_GetDrawTotals(unsigned long long *draws, double *drawUs
 	*glDrawUs = s_gxTotalGlDrawUs;
 }
 
+// GeneralsX @feature Android port 01/10/2026 Snapdragon Game Super Resolution 1 for the pillarbox
+// upscale. When the game renders below the screen's resolution (a smaller Resolution in its
+// Options, or the launcher's Render Resolution), DX8Wrapper::Pillarbox_End() stretches the
+// offscreen frame to the screen with one textured quad; with this on, that quad is drawn with
+// SGSR's single-pass edge-adaptive upscale + sharpen instead of plain bilinear. The engine turns it
+// on around that one draw. Returns 1 when the GSR program is in use; 0 when it is not available
+// (DXVK, no ES 3.1 textureGather, or the shader failed to build), and the bilinear path stays.
+static int s_gxUpscaleOn = 0;
+static float s_gxUpscaleSrcW = 0.0f, s_gxUpscaleSrcH = 0.0f;
+extern "C" int d3d8gles_SetUpscaleBlit(int enable, int srcW, int srcH)
+{
+	if (!s_gxGlesReady || !enable || srcW <= 0 || srcH <= 0) {
+		s_gxUpscaleOn = 0;
+		return 0;
+	}
+	if (WebGLPipeline::get()->gsrProgram() == nullptr) {
+		s_gxUpscaleOn = 0;
+		return 0;
+	}
+	s_gxUpscaleOn = 1;
+	s_gxUpscaleSrcW = (float)srcW;
+	s_gxUpscaleSrcH = (float)srcH;
+	return 1;
+}
+
+// The SGSR program, built on first use. The vertex stage reproduces the generated xyzrhw vertex
+// shader (getProgram()) exactly, so the quad lands where the bilinear blit put it. The fragment
+// stage is Qualcomm's sgsr1_shader_mobile.frag (RGBA mode, edge threshold 8/255, sharpness 2),
+// BSD-3-Clause, Copyright (c) 2025 Qualcomm Innovation Center, Inc.
+// (https://github.com/SnapdragonStudios/snapdragon-gsr, sgsr/v1), with only its input names
+// adapted to this pipeline, #version raised to 310 es for textureGather, and the `highp` dropped
+// from three vec2 constructor calls (a precision qualifier there is not valid GLSL ES; glslc
+// rejects it, and a strict driver would too).
+WebGLPipeline::ProgramInfo *WebGLPipeline::gsrProgram()
+{
+	if (m_gsrTried)
+		return m_gsrProg;
+	m_gsrTried = true;
+	static const char *kVs =
+		"#version 310 es\n"
+		"precision highp float;\n"
+		"layout(location=0) in vec4 aPos;\n"
+		"layout(location=4) in vec4 aUV0;\n"
+		"uniform vec4 uViewportPos;\n"
+		"uniform float uYFlip;\n"
+		"out highp vec4 in_TEXCOORD0;\n"
+		"void main() {\n"
+		"  float nx = ((aPos.x - uViewportPos.x - 0.5) / uViewportPos.z) * 2.0 - 1.0;\n"
+		"  float ny = 1.0 - ((aPos.y - uViewportPos.y - 0.5) / uViewportPos.w) * 2.0;\n"
+		"  gl_Position = vec4(nx, ny * uYFlip, aPos.z * 2.0 - 1.0, 1.0);\n"
+		"  in_TEXCOORD0 = vec4(aUV0.xy, 0.0, 0.0);\n"
+		"}\n";
+	static const char *kFs =
+		"#version 310 es\n"
+		"precision mediump float;\n"
+		"precision highp int;\n"
+		"uniform highp vec4 ViewportInfo[1];\n"
+		"uniform mediump sampler2D uTex0;\n"
+		"in highp vec4 in_TEXCOORD0;\n"
+		"layout(location=0) out vec4 out_Target0;\n"
+		"float fastLanczos2(float x) {\n"
+		"  float wA = x - 4.0;\n"
+		"  float wB = x * wA - wA;\n"
+		"  wA *= wA;\n"
+		"  return wB * wA;\n"
+		"}\n"
+		"vec2 weightY(float dx, float dy, float c, float std) {\n"
+		"  float x = ((dx * dx) + (dy * dy)) * 0.55 + clamp(abs(c) * std, 0.0, 1.0);\n"
+		"  float w = fastLanczos2(x);\n"
+		"  return vec2(w, w * c);\n"
+		"}\n"
+		"void main() {\n"
+		"  const int mode = 1;\n"
+		"  float edgeThreshold = 8.0 / 255.0;\n"
+		"  float edgeSharpness = 2.0;\n"
+		"  vec4 color;\n"
+		"  color.xyz = textureLod(uTex0, in_TEXCOORD0.xy, 0.0).xyz;\n"
+		"  highp vec2 imgCoord = ((in_TEXCOORD0.xy * ViewportInfo[0].zw) + vec2(-0.5, 0.5));\n"
+		"  highp vec2 imgCoordPixel = floor(imgCoord);\n"
+		"  highp vec2 coord = (imgCoordPixel * ViewportInfo[0].xy);\n"
+		"  vec2 pl = (imgCoord + (-imgCoordPixel));\n"
+		"  vec4 left = textureGather(uTex0, coord, mode);\n"
+		"  float edgeVote = abs(left.z - left.y) + abs(color[mode] - left.y) + abs(color[mode] - left.z);\n"
+		"  if (edgeVote > edgeThreshold) {\n"
+		"    coord.x += ViewportInfo[0].x;\n"
+		"    vec4 right = textureGather(uTex0, coord + vec2(ViewportInfo[0].x, 0.0), mode);\n"
+		"    vec4 upDown;\n"
+		"    upDown.xy = textureGather(uTex0, coord + vec2(0.0, -ViewportInfo[0].y), mode).wz;\n"
+		"    upDown.zw = textureGather(uTex0, coord + vec2(0.0, ViewportInfo[0].y), mode).yx;\n"
+		"    float mean = (left.y + left.z + right.x + right.w) * 0.25;\n"
+		"    left = left - vec4(mean);\n"
+		"    right = right - vec4(mean);\n"
+		"    upDown = upDown - vec4(mean);\n"
+		"    color.w = color[mode] - mean;\n"
+		"    float sum = (((((abs(left.x) + abs(left.y)) + abs(left.z)) + abs(left.w)) + (((abs(right.x) + abs(right.y)) + abs(right.z)) + abs(right.w))) + (((abs(upDown.x) + abs(upDown.y)) + abs(upDown.z)) + abs(upDown.w)));\n"
+		"    float std = 2.181818 / sum;\n"
+		"    vec2 aWY = weightY(pl.x, pl.y + 1.0, upDown.x, std);\n"
+		"    aWY += weightY(pl.x - 1.0, pl.y + 1.0, upDown.y, std);\n"
+		"    aWY += weightY(pl.x - 1.0, pl.y - 2.0, upDown.z, std);\n"
+		"    aWY += weightY(pl.x, pl.y - 2.0, upDown.w, std);\n"
+		"    aWY += weightY(pl.x + 1.0, pl.y - 1.0, left.x, std);\n"
+		"    aWY += weightY(pl.x, pl.y - 1.0, left.y, std);\n"
+		"    aWY += weightY(pl.x, pl.y, left.z, std);\n"
+		"    aWY += weightY(pl.x + 1.0, pl.y, left.w, std);\n"
+		"    aWY += weightY(pl.x - 1.0, pl.y - 1.0, right.x, std);\n"
+		"    aWY += weightY(pl.x - 2.0, pl.y - 1.0, right.y, std);\n"
+		"    aWY += weightY(pl.x - 2.0, pl.y, right.z, std);\n"
+		"    aWY += weightY(pl.x - 1.0, pl.y, right.w, std);\n"
+		"    float finalY = aWY.y / aWY.x;\n"
+		"    float maxY = max(max(left.y, left.z), max(right.x, right.w));\n"
+		"    float minY = min(min(left.y, left.z), min(right.x, right.w));\n"
+		"    finalY = clamp(edgeSharpness * finalY, minY, maxY);\n"
+		"    float deltaY = finalY - color.w;\n"
+		"    deltaY = clamp(deltaY, -23.0 / 255.0, 23.0 / 255.0);\n"
+		"    color.x = clamp((color.x + deltaY), 0.0, 1.0);\n"
+		"    color.y = clamp((color.y + deltaY), 0.0, 1.0);\n"
+		"    color.z = clamp((color.z + deltaY), 0.0, 1.0);\n"
+		"  }\n"
+		"  color.w = 1.0;\n"
+		"  out_Target0 = color;\n"
+		"}\n";
+	GLuint vsh = compileShader(GL_VERTEX_SHADER, kVs);
+	GLuint fsh = compileShader(GL_FRAGMENT_SHADER, kFs);
+	GLuint p = 0;
+	if (vsh && fsh) {
+		p = glCreateProgram();
+		glAttachShader(p, vsh);
+		glAttachShader(p, fsh);
+		glLinkProgram(p);
+		GLint ok = 0;
+		glGetProgramiv(p, GL_LINK_STATUS, &ok);
+		if (!ok) {
+			char log[2048];
+			glGetProgramInfoLog(p, sizeof(log), nullptr, log);
+			fprintf(stderr, "[d3d8gles] SGSR program link FAILED: %s\n", log);
+			glDeleteProgram(p);
+			p = 0;
+		}
+	}
+	if (vsh) glDeleteShader(vsh);
+	if (fsh) glDeleteShader(fsh);
+	if (p == 0) {
+		fprintf(stderr, "[d3d8gles] SGSR upscale unavailable; the pillarbox blit stays bilinear\n");
+		return nullptr;
+	}
+	ProgramInfo *info = new ProgramInfo();
+	info->prog = p;
+	info->uViewportPos = glGetUniformLocation(p, "uViewportPos");
+	info->uYFlip = glGetUniformLocation(p, "uYFlip");
+	info->uTex0 = glGetUniformLocation(p, "uTex0");
+	m_gsrViewportInfo = glGetUniformLocation(p, "ViewportInfo[0]");
+	m_gsrProg = info;
+	fprintf(stderr, "[d3d8gles] SGSR upscale ready (Snapdragon Game Super Resolution 1)\n");
+	return m_gsrProg;
+}
+
 extern "C" int d3d8gles_SetDrawCategory(int category)
 {
 	const int prev = s_gxDrawCategory;
@@ -2711,10 +2867,15 @@ void WebGLPipeline::drawCommon(WebGLDevice *dev, unsigned primType, unsigned pri
 
 	ProgramInfo *prog = getProgram(dev, fvf);
 	if (!prog || !prog->prog) return;
+	const bool gsrBlit = s_gxUpscaleOn && l.xyzrhw && m_gsrProg != nullptr;
+	if (gsrBlit)
+		prog = m_gsrProg;
 
 	applyFixedState(dev);
 	applyUniforms(dev, prog, fvf);
 	bindTextures(dev, prog);
+	if (gsrBlit && m_gsrViewportInfo >= 0)
+		glUniform4f(m_gsrViewportInfo, 1.0f / s_gxUpscaleSrcW, 1.0f / s_gxUpscaleSrcH, s_gxUpscaleSrcW, s_gxUpscaleSrcH);
 
 	// GeneralsX @performance Android port 27/09/2026 D3D8's base vertex index (SetIndices'
 	// second argument) is what glDrawElementsBaseVertex takes. Without it the offset has to be

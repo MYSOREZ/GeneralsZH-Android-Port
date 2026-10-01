@@ -41,6 +41,8 @@
     <string name="setup_language_game_status_missing">Текст игры: НЕ переключён — в папке игры нет data/%1$s/generals.csf, поэтому игра сохраняет свой язык.</string>
 
     <!-- SetupActivity: Menu Text Size card -->
+    <string name="setup_switch_gsr">Апскейл Snapdragon GSR</string>
+    <string name="setup_switch_gsr_desc">Чёткое растягивание с учётом краёв (Snapdragon Game Super Resolution) вместо обычного сглаживания, когда игра рисует в разрешении ниже экранного. Работает на любой видеокарте с бэкендами GLES.</string>
     <string name="setup_card_render_scale">Разрешение рендера</string>
     <string name="setup_render_scale_label">Разрешение: %1$d%% (%2$d×%3$d)</string>
     <string name="setup_button_apply_render_scale">Применить разрешение рендера</string>

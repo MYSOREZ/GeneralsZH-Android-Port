@@ -234,6 +234,14 @@ private:
 	                int baseVertexIndex = 0);
 
 	ProgramInfo *getProgram(WebGLDevice *dev, unsigned fvf);
+public:
+	// GeneralsX @feature Android port 01/10/2026 Snapdragon GSR 1 program for the pillarbox upscale
+	// (see d3d8gles_SetUpscaleBlit); nullptr when it cannot be built.
+	ProgramInfo *gsrProgram();
+private:
+	ProgramInfo *m_gsrProg = nullptr;
+	GLint m_gsrViewportInfo = -1;
+	bool m_gsrTried = false;
 	void applyFixedState(WebGLDevice *dev);
 	void applyUniforms(WebGLDevice *dev, ProgramInfo *prog, unsigned fvf);
 	void ensureVBUploaded(WebGLVertexBuffer *vb);

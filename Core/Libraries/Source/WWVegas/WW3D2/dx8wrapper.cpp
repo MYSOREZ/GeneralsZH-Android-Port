@@ -407,7 +407,22 @@ void DX8Wrapper::Pillarbox_End()
 		{x0, y1, 0, 1, 0, v1Bottom}, {x1, y1, 0, 1, 1, v1Bottom},
 	};
 	D3DDevice->SetVertexShader(D3DFVF_XYZRHW | D3DFVF_TEX1);
+#if defined(__ANDROID__)
+	// GeneralsX @feature Android port 01/10/2026 Snapdragon GSR 1 instead of bilinear when the frame
+	// is actually being scaled, on the native GLES backend (DXVK has no hook for it). Off with
+	// GXUpscaler = bilinear in Options.ini (Graphics > Render Resolution in the launcher), which
+	// SDL3Main.cpp passes on as GX_UPSCALER.
+	static const bool s_gsrWanted = [] {
+		const char *upscaler = getenv("GX_UPSCALER");
+		return !(upscaler && strcmp(upscaler, "bilinear") == 0);
+	}();
+	const bool scaling = s_dstW != s_renderW || s_dstH != s_renderH;
+	d3d8gles_SetUpscaleBlit(s_gsrWanted && scaling ? 1 : 0, s_renderW, s_renderH);
+#endif
 	D3DDevice->DrawPrimitiveUP(D3DPT_TRIANGLESTRIP, 2, quad, sizeof(BV));
+#if defined(__ANDROID__)
+	d3d8gles_SetUpscaleBlit(0, 0, 0);
+#endif
 	Set_DX8_Texture(0, nullptr);
 
 	// GeneralsX @bugfix Android port 09/05/2026 Restore the depth state this

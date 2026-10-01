@@ -41,6 +41,8 @@
     <string name="setup_language_game_status_missing">Game text: NOT switched — no data/%1$s/generals.csf found in your game folder, so the game keeps its own language.</string>
 
     <!-- SetupActivity: Menu Text Size card -->
+    <string name="setup_switch_gsr">Snapdragon GSR upscaling</string>
+    <string name="setup_switch_gsr_desc">Sharp, edge-aware upscaling (Snapdragon Game Super Resolution) instead of plain smoothing whenever the game renders below the screen\'s resolution. Works on any GPU with the GLES backends.</string>
     <string name="setup_card_render_scale">Render Resolution</string>
     <string name="setup_render_scale_label">Resolution: %1$d%% (%2$d×%3$d)</string>
     <string name="setup_button_apply_render_scale">Apply Render Resolution</string>

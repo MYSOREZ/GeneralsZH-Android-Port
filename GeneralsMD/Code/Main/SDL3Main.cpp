@@ -1359,6 +1359,9 @@ int main(int argc, char* argv[])
 								} else if (sscanf(line, " GXRenderScale = %d", &scale) == 1 && scale >= 50 && scale <= 100) {
 									renderScale = scale;
 								}
+								char upscaler[32] = {};
+								if (sscanf(line, " GXUpscaler = %31s", upscaler) == 1)
+									setenv("GX_UPSCALER", upscaler, 1);
 							}
 							fclose(fp);
 							// GeneralsX @performance Android port 01/10/2026 Render resolution from the
