@@ -23,6 +23,8 @@
 
 #include "GameClient/GXUiScale.h"
 #include "GameClient/Display.h"
+#include "Common/FileSystem.h"
+#include "Common/file.h"
 
 #include <cmath>
 #include <cstdio>
@@ -45,12 +47,17 @@ namespace
 		Real maxFracY;
 		Bool uniform;  // the same factor on both axes (anything but the full-width control bar)
 		const char *exclude[ 12 ];
+		// Another layout whose transform this one takes as it is, instead of its own: a panel that
+		// is part of that layout on screen and must stay where it sits on it.
+		const char *sharedWith;
 	};
 
 	const Rule kRules[] =
 	{
 		// In game.
-		{ "ControlBar.wnd",                 1.0f, 0.45f, FALSE, { nullptr } },
+		{ "ControlBar.wnd",                 1.0f, 0.40f, FALSE, { nullptr } },
+		// This port's control group row (Window\\GroupPanel.wnd) rides on the control bar.
+		{ "GroupPanel.wnd",                 1.0f, 1.0f, FALSE, { nullptr }, "ControlBar.wnd" },
 		{ "ControlBarPopupDescription.wnd", 1.0f, 1.0f, TRUE, { nullptr } },
 		{ "GenPowersShortcutBarUS.wnd",     1.0f, 1.0f, TRUE, { nullptr } },
 		{ "GenPowersShortcutBarChina.wnd",  1.0f, 1.0f, TRUE, { nullptr } },
@@ -66,10 +73,11 @@ namespace
 		{ "OptionsMenu.wnd",                1.0f, 1.0f, TRUE, { nullptr } },
 		{ "MessageBox.wnd",                 1.0f, 1.0f, TRUE, { nullptr } },
 		{ "DifficultySelect.wnd",           1.0f, 1.0f, TRUE, { nullptr } },
-		// The main menu's buttons, not its decoration: the logo, the faction pictures the single
-		// player menu grows, the clock and the download buttons stay where they are.
+		// The main menu's buttons with the logo above them (scaled apart, the buttons grew into the
+		// logo), not the rest of its decoration: the faction pictures the single player menu grows,
+		// the clock and the download buttons stay where they are.
 		{ "MainMenu.wnd",                   1.0f, 1.0f, TRUE,
-			{ "Logo", "WinFaction*", "WinGrowMarker", "GreenDot", "Clock", "ButtonGetMapPack",
+			{ "WinFaction*", "WinGrowMarker", "GreenDot", "Clock", "ButtonGetMapPack",
 			  "ButtonGetUpdate", "ShellMenuScheme", nullptr } },
 	};
 
@@ -178,14 +186,12 @@ const Transform &forLayout( const char *layoutFile )
 	return it != s_transforms.end() ? it->second : kIdentity;
 }
 
-void beginLayout( const char *layoutFile, const char *text, Int length )
-{
-	Parsing p;
-	p.next = 0;
-	p.transform = kIdentity;
+} // namespace GXUiScale
 
-	const Rule *rule = findRule( layoutFile );
-	const Real k = userScale();
+// Which windows of a layout scale, and its own transform, from the layout's text.
+static void analyzeLayout( const Rule *rule, const char *layoutFile, const char *text, Int length, Parsing &p )
+{
+	const Real k = GXUiScale::userScale();
 	if( rule && k > 1.0f && text && length > 0 && TheDisplay )
 	{
 		// The layout's windows in file order: rectangle (creation coordinates), name, depth.
@@ -298,7 +304,7 @@ void beginLayout( const char *layoutFile, const char *text, Int length )
 				fit[ 0 ] = fit[ 1 ] = fminf( fit[ 0 ], fit[ 1 ] );
 			for( Int a = 0; a < 2; ++a )
 				axisTransform( box[ a ][ 0 ], box[ a ][ 1 ], 1.0f, fit[ a ], &axisK[ a ], &axisAdd[ a ] );
-			Transform &t = p.transform;
+			GXUiScale::Transform &t = p.transform;
 			t.active = axisK[ 0 ] > 1.001f || axisK[ 1 ] > 1.001f;
 			t.kx = axisK[ 0 ];
 			t.ky = axisK[ 1 ];
@@ -316,8 +322,50 @@ void beginLayout( const char *layoutFile, const char *text, Int length )
 					baseName( layoutFile ), t.kx, t.ky, k, t.fontK,
 					scaledCount, (Int)wins.size() );
 		}
-		s_transforms[ baseName( layoutFile ) ] = p.transform;
 	}
+}
+
+// The transform of a layout that has not been loaded yet (one shared by another layout).
+static const GXUiScale::Transform &ensureLayoutTransform( const char *layoutFile )
+{
+	std::map<std::string, GXUiScale::Transform>::const_iterator it = s_transforms.find( baseName( layoutFile ) );
+	if( it != s_transforms.end() )
+		return it->second;
+	Parsing p;
+	p.next = 0;
+	p.transform = kIdentity;
+	std::string path = std::string( "Window\\" ) + layoutFile;
+	File *file = TheFileSystem ? TheFileSystem->openFile( path.c_str(), File::READ ) : nullptr;
+	if( file )
+	{
+		const Int size = file->size();
+		std::vector<char> text( size > 0 ? size : 1 );
+		const Int got = size > 0 ? file->read( &text[ 0 ], size ) : 0;
+		file->close();
+		analyzeLayout( findRule( layoutFile ), layoutFile, &text[ 0 ], got, p );
+	}
+	s_transforms[ baseName( layoutFile ) ] = p.transform;
+	return s_transforms[ baseName( layoutFile ) ];
+}
+
+namespace GXUiScale
+{
+
+void beginLayout( const char *layoutFile, const char *text, Int length )
+{
+	Parsing p;
+	p.next = 0;
+	p.transform = kIdentity;
+	const Rule *rule = findRule( layoutFile );
+	analyzeLayout( rule, layoutFile, text, length, p );
+	if( rule && rule->sharedWith )
+	{
+		p.transform = ensureLayoutTransform( rule->sharedWith );
+		if( p.transform.active )
+			fprintf( stderr, "[GX-UISCALE] %s: follows %s (x%.2f y%.2f)\n", baseName( layoutFile ),
+				rule->sharedWith, p.transform.kx, p.transform.ky );
+	}
+	s_transforms[ baseName( layoutFile ) ] = p.transform;
 	s_parsing.push_back( p );
 }
 
