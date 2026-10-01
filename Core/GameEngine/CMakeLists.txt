@@ -153,6 +153,7 @@ set(GAMEENGINE_SRC
     Include/GameClient/ControlBar.h
     Include/GameClient/ControlBarResizer.h
     Include/GameClient/ControlBarScheme.h
+    Include/GameClient/GXUiScale.h
     Include/GameClient/Credits.h
     Include/GameClient/DebugDisplay.h
 #    Include/GameClient/Diplomacy.h
@@ -725,6 +726,7 @@ set(GAMEENGINE_SRC
     Source/GameClient/GUI/ControlBar/ControlBarScheme.cpp
     Source/GameClient/GUI/ControlBar/ControlBarStructureInventory.cpp
     Source/GameClient/GUI/ControlBar/ControlBarUnderConstruction.cpp
+    Source/GameClient/GUI/GXUiScale.cpp
 #    Source/GameClient/GUI/DisconnectMenu/DisconnectMenu.cpp
 #    Source/GameClient/GUI/EstablishConnectionsMenu/EstablishConnectionsMenu.cpp
     Source/GameClient/GUI/Gadget/GadgetCheckBox.cpp

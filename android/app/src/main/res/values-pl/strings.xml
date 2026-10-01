@@ -341,4 +341,8 @@
     <string name="setup_upscale_status">%1$s: 3D renderowane w %2$d×%3$d, skalowane do %4$d×%5$d</string>
     <string name="setup_upscale_help">Jak FSR w grach na PC: gra zachowuje rozdzielczość ekranu, ale GPU rysuje trójwymiarowe pole bitwy mniejszą liczbą pikseli, a Snapdragon Game Super Resolution wyostrza je z powrotem do pełnego rozmiaru. Interfejs i tekst są rysowane potem w pełnej rozdzielczości ekranu, więc pozostają ostre, a rozmiar tekstu menu działa jak dotąd. Odciąża to GPU, które ogranicza liczbę klatek w ciężkich bitwach na słabszych telefonach. Ultra jakość i Jakość wyglądają najbliżej natywnej rozdzielczości; Zrównoważony i Wydajność dają najwięcej klatek. Ustawienie rozdzielczości w samej grze nie jest zmieniane. Tylko natywny backend GLES. Zadziała przy następnym uruchomieniu gry.</string>
     <string name="setup_toast_render_scale_saved">Zapisano. Zadziała przy następnym uruchomieniu gry.</string>
+    <string name="setup_card_interface_scale">Rozmiar interfejsu</string>
+    <string name="setup_interface_scale_label">%1$d%%</string>
+    <string name="setup_button_apply_interface_scale">Zastosuj rozmiar interfejsu</string>
+    <string name="setup_interface_scale_help">Powiększa interfejs gry bez zmiany jej plików: pasek dowodzenia z radarem rośnie w górę od dolnej krawędzi, a pasek mocy generała, czat, komunikaty o zdarzeniach, lista graczy, menu gry z zapisem/wczytaniem i opcjami oraz przyciski menu głównego rosną od miejsca, w którym są. Nic nie wychodzi poza ekran: każda część rośnie tylko tyle, ile się zmieści, więc na szerokim telefonie pasek dowodzenia robi się wyższy, a nie szerszy, a pole bitwy nad nim — niższe. Działa razem z rozmiarem tekstu menu. Zadziała przy następnym uruchomieniu gry.</string>
 </resources>

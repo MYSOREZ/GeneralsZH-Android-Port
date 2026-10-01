@@ -62,6 +62,7 @@
 #include "GameLogic/ScriptEngine.h"
 
 #include "GameClient/AnimateWindowManager.h"
+#include "GameClient/GXUiScale.h"
 #include "GameClient/ControlBar.h"
 #include "GameClient/ControlBarScheme.h"
 #include "GameClient/Drawable.h"
@@ -4101,7 +4102,9 @@ void ControlBar::setFullViewportHeight()
 
 void ControlBar::setScaledViewportHeight()
 {
-	TheTacticalView->setHeight(TheDisplay->getHeight() * TheGlobalData->m_viewportHeightScale);
+	// GeneralsX @feature Android port 01/10/2026 The battlefield ends where the control bar starts,
+	// and a bar made taller by the interface scale starts higher (GXUiScale.h).
+	TheTacticalView->setHeight((Int)GXUiScale::forLayout("ControlBar.wnd").mapY(TheDisplay->getHeight() * TheGlobalData->m_viewportHeightScale));
 }
 
 // GeneralsX @bugfix w1semannn 07/06/2026 Fix tooltip height clipping with Unicode fonts (Issue #153)

@@ -348,4 +348,8 @@
     <string name="setup_upscale_status">%1$s: 3D rendered at %2$d×%3$d, upscaled to %4$d×%5$d</string>
     <string name="setup_upscale_help">Like FSR in PC games: the game keeps your screen\'s resolution, but the GPU draws the 3D battlefield with fewer pixels and Snapdragon Game Super Resolution sharpens it back up to full size. The interface and text are drawn afterwards at the screen\'s full resolution, so they stay sharp, and Menu Text Size works as before. This takes load off the GPU, which is what limits the frame rate in heavy battles on weaker phones. Ultra Quality and Quality look closest to native; Balanced and Performance give the most frames. The game\'s own resolution setting is not changed. Native GLES backend only. Takes effect the next time you launch the game.</string>
     <string name="setup_toast_render_scale_saved">Saved. Takes effect next time you launch the game.</string>
+    <string name="setup_card_interface_scale">Interface Size</string>
+    <string name="setup_interface_scale_label">%1$d%%</string>
+    <string name="setup_button_apply_interface_scale">Apply Interface Size</string>
+    <string name="setup_interface_scale_help">Makes the in-game interface bigger, without touching the game\'s files: the control bar with the radar grows up from the bottom, and the generals\' powers bar, chat, event messages, player list, in-game menu with Save/Load and Options, and the main menu\'s buttons grow from where they sit. Nothing is pushed off the screen: each part grows only as far as it fits, so the control bar gets taller rather than wider on a wide phone, and the battlefield above it gets shorter. Works together with Menu Text Size. Takes effect the next time you launch the game.</string>
 </resources>

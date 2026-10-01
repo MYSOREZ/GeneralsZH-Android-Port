@@ -341,4 +341,8 @@
     <string name="setup_upscale_status">%1$s: 3D renderuje se v %2$d×%3$d, uvečeno do %4$d×%5$d</string>
     <string name="setup_upscale_help">Kako FSR v igrah na PC: igra ostaje v rezoluciji vašego ekrana, ale grafična karta risuje 3D-pole bitvy menjšim čislom pikselov, i Snapdragon Game Super Resolution jasno rastegaje jego do polnoj velikosti. Interfejs i tekst sut risovane potom v polnoj rezoluciji ekrana, zato ostajut jasne, i Věličina teksta menija dějstvuje kako prěžde. To odlehčaje grafičnu kartu, ktora ograničaje čislo kadrov v težkih bitvah na slabših telefonah. Ultra kvaliteta i Kvaliteta sut najbliže k rodnoj rezoluciji; Balans i Brzina davajut najvěće kadrov. Rezolucija v nastavjenjah samoj igry ne izměnjaje se. Jedino za nativny GLES. Dějstvuje pri sledujućem spuštěniju igry.</string>
     <string name="setup_toast_render_scale_saved">Shranjeno. Dějstvuje pri sledujućem spuštěniju igry.</string>
+    <string name="setup_card_interface_scale">Veličina interfejsa</string>
+    <string name="setup_interface_scale_label">%1$d%%</string>
+    <string name="setup_button_apply_interface_scale">Primeniti veličinu interfejsa</string>
+    <string name="setup_interface_scale_help">Uvečaje interfejs igry bez měnjenja jej datotek: dolnja panel s kartoju raste vvŕh od kraja ekrana, a panel moćij generala, čat, poruky o događajah, spis igračev, igrovo meni s shranjenjem i nastavjenjami i ključi glavnogo menija rastut od města, gde sut. Ničto ne izhodi za ekran: každa čast uvečaje se jedino toliko, koliko se vměstiti, zato na širokom telefonu dolnja panel stanovi se vyšeju, ne širšeju, a pole bitvy nad njeju — nižeju. Dějstvuje vměste s Věličinoju teksta menija. Dějstvuje pri sledujućem spuštěniju igry.</string>
 </resources>

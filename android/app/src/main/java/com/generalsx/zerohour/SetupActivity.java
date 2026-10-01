@@ -382,6 +382,7 @@ public class SetupActivity extends Activity {
             case TAB_INTERFACE:
                 buildLanguageSection(page);
                 buildUiScaleSection(page);
+                buildInterfaceScaleSection(page);
                 break;
             case TAB_TOOLS:
                 buildLogsSection(page);
@@ -416,6 +417,8 @@ public class SetupActivity extends Activity {
         uiScaleSlider = null;
         uiScaleLabel = null;
         upscaleStatus = null;
+        interfaceScaleSlider = null;
+        interfaceScaleLabel = null;
         java.util.Arrays.fill(diagnosticSwitches, null);
     }
 
@@ -950,6 +953,80 @@ public class SetupActivity extends Activity {
             });
 
         UiKit.helpText(content, getString(R.string.setup_text_size_help));
+    }
+
+    // GeneralsX @feature Android port 01/10/2026 Interface size. The game stretches every layout over
+    // the whole screen, so on a wide phone the control bar is as wide as the screen but low, and its
+    // buttons are small to touch; a lower game resolution does not change that (see the removed
+    // "Interface Size" note above). This one is applied by the engine to the layouts themselves
+    // (GXUiScale.h): the control bar with the radar grows up from the bottom, the generals' power
+    // bar, chat, the event messages, the player list, the in-game menu and its dialogs, and the main
+    // menu's buttons grow from where they sit, each only as far as the screen allows. Saved as
+    // GXUiScale (percent) in Options.ini, read by SDL3Main.cpp at startup.
+    private Slider interfaceScaleSlider;
+    private TextView interfaceScaleLabel;
+
+    private void buildInterfaceScaleSection(LinearLayout root) {
+        LinearLayout content = UiKit.card(root);
+        interfaceScaleLabel = UiKit.sectionHeader(content, R.drawable.ic_gzh_sliders,
+            getString(R.string.setup_card_interface_scale), true);
+
+        int startPercent = readInterfaceScalePercent();
+        interfaceScaleSlider = new Slider(this);
+        interfaceScaleSlider.setValueFrom(100f);
+        interfaceScaleSlider.setValueTo(200f);
+        interfaceScaleSlider.setStepSize(10f);
+        interfaceScaleSlider.setValue(startPercent);
+        interfaceScaleSlider.setLabelBehavior(LabelFormatter.LABEL_GONE);
+        interfaceScaleSlider.setTrackActiveTintList(UiKit.tint(this, R.color.gzh_primary));
+        interfaceScaleSlider.setTrackInactiveTintList(UiKit.tint(this, R.color.gzh_surface_container_highest));
+        interfaceScaleSlider.setThumbTintList(UiKit.tint(this, R.color.gzh_primary));
+        interfaceScaleSlider.setHaloTintList(UiKit.tint(this, R.color.gzh_ripple_primary));
+        updateInterfaceScaleLabel(startPercent);
+        interfaceScaleSlider.addOnChangeListener((slider, value, fromUser) -> updateInterfaceScaleLabel((int) value));
+        LinearLayout.LayoutParams sliderLp = new LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        sliderLp.topMargin = UiKit.dim(this, R.dimen.gzh_item_gap_tight);
+        content.addView(interfaceScaleSlider, sliderLp);
+
+        UiKit.button(content, UiKit.BTN_PRIMARY, R.drawable.ic_gzh_check,
+            getString(R.string.setup_button_apply_interface_scale), () -> {
+                writeInterfaceScalePercent((int) interfaceScaleSlider.getValue());
+                Toast.makeText(this, R.string.setup_toast_render_scale_saved, Toast.LENGTH_LONG).show();
+            });
+
+        UiKit.helpText(content, getString(R.string.setup_interface_scale_help));
+    }
+
+    private void updateInterfaceScaleLabel(int percent) {
+        if (interfaceScaleLabel != null) {
+            interfaceScaleLabel.setText(getString(R.string.setup_interface_scale_label, percent));
+        }
+    }
+
+    private int readInterfaceScalePercent() {
+        String val = readKeyValueFile(optionsIniFile()).get("GXUiScale");
+        if (val != null) {
+            try {
+                return Math.max(100, Math.min(200, Integer.parseInt(val.trim())));
+            } catch (NumberFormatException ignored) {
+                // Fall through to the unscaled interface.
+            }
+        }
+        return 100;
+    }
+
+    private void writeInterfaceScalePercent(int percent) {
+        File file = optionsIniFile();
+        // Seeded from DefaultOptions.ini when new, for the same reason as writeUiScalePercent().
+        java.util.LinkedHashMap<String, String> prefs;
+        if (!file.isFile()) {
+            prefs = new java.util.LinkedHashMap<>(readKeyValueFile(defaultOptionsIniFile()));
+        } else {
+            prefs = new java.util.LinkedHashMap<>(readKeyValueFile(file));
+        }
+        prefs.put("GXUiScale", String.valueOf(percent));
+        writeKeyValueFile(file, prefs);
     }
 
     // GeneralsX @feature Android port 01/10/2026 Upscaling the way a PC game offers FSR: the game keeps

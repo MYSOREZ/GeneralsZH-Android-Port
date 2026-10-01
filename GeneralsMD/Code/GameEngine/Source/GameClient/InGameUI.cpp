@@ -66,6 +66,7 @@
 #include "GameClient/GameWindowID.h"
 #include "GameClient/GUICallbacks.h"
 #include "GameClient/Image.h"
+#include "GameClient/GXUiScale.h"
 #include "GameClient/InGameUI.h"
 #include "GameClient/VideoPlayer.h"
 #include "GameClient/Mouse.h"
@@ -2807,8 +2808,10 @@ void InGameUI::addMessageText( const UnicodeString& formattedMessage, const RGBC
 	m_uiMessages[ 0 ].fullText = formattedMessage;
 	m_uiMessages[ 0 ].timestamp = TheGameLogic->getFrame();
 	m_uiMessages[ 0 ].displayString = TheDisplayStringManager->newDisplayString();
+	// GeneralsX @feature Android port 01/10/2026 The event messages at the top left grow with the
+	// launcher's interface scale (GXUiScale.h), up to twice their size.
 	m_uiMessages[ 0 ].displayString->setFont( TheFontLibrary->getFont( m_messageFont,
-																						TheGlobalLanguageData->adjustFontSize(m_messagePointSize), m_messageBold ) );
+																						(Int)( TheGlobalLanguageData->adjustFontSize(m_messagePointSize) * min( GXUiScale::userScale(), 2.0f ) + 0.5f ), m_messageBold ) );
 	m_uiMessages[ 0 ].displayString->setText( m_uiMessages[ 0 ].fullText );
 
 	//

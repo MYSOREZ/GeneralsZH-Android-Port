@@ -57,6 +57,7 @@
 #include "Common/PlayerTemplate.h"
 #include "Common/Recorder.h"
 #include "GameClient/ControlBarScheme.h"
+#include "GameClient/GXUiScale.h"
 #include "GameClient/Display.h"
 #include "GameClient/ControlBar.h"
 #include "GameClient/Image.h"
@@ -417,9 +418,18 @@ void ControlBarScheme::init()
 		TheControlBar->setArrowImage( m_genArrow);
 	}
 	GameWindow *win = nullptr;
+	// GeneralsX @feature Android port 01/10/2026 The windows placed here belong to ControlBar.wnd and
+	// follow its interface scale (GXUiScale.h): screen X = scheme X * resMultiplier.x + resOffset.x.
+	const GXUiScale::Transform &uiScale = GXUiScale::forLayout( "ControlBar.wnd" );
 	Coord2D resMultiplier;
 	resMultiplier.x = TheDisplay->getWidth()/INT_TO_REAL(m_ScreenCreationRes.x) ;
 	resMultiplier.y = TheDisplay->getHeight()/INT_TO_REAL(m_ScreenCreationRes.y);
+	const Coord2D unscaledMultiplier = resMultiplier;
+	Coord2D resOffset;
+	resOffset.x = uiScale.mapX( 0.0f );
+	resOffset.y = uiScale.mapY( 0.0f );
+	resMultiplier.x = uiScale.mapX( resMultiplier.x ) - resOffset.x;
+	resMultiplier.y = uiScale.mapY( resMultiplier.y ) - resOffset.y;
 
 	win= TheWindowManager->winGetWindowFromId( nullptr, TheNameKeyGenerator->nameToKey( "ControlBar.wnd:PopupCommunicator" ) );
 	if(win)
@@ -438,13 +448,13 @@ void ControlBarScheme::init()
 		{
 			Int parX, parY;
 			parent->winGetScreenPosition(&parX, &parY);
-			x = m_chatUL.x * resMultiplier.x - parX;
-			y = m_chatUL.y * resMultiplier.y - parY;
+			x = m_chatUL.x * resMultiplier.x + resOffset.x - parX;
+			y = m_chatUL.y * resMultiplier.y + resOffset.y - parY;
 		}
 		else
 		{
-			x = m_chatUL.x * resMultiplier.x;
-			y = m_chatUL.y * resMultiplier.y;
+			x = m_chatUL.x * resMultiplier.x + resOffset.x;
+			y = m_chatUL.y * resMultiplier.y + resOffset.y;
 		}
 		win->winSetPosition(x,y );
 		win->winSetSize((m_chatLR.x - m_chatUL.x)*resMultiplier.x + static_cast<float>(COMMAND_BAR_SIZE_OFFSET),(m_chatLR.y - m_chatUL.y)*resMultiplier.y+ static_cast<float>(COMMAND_BAR_SIZE_OFFSET));
@@ -463,13 +473,13 @@ void ControlBarScheme::init()
 		{
 			Int parX, parY;
 			parent->winGetScreenPosition(&parX, &parY);
-			x = m_workerUL.x * resMultiplier.x - parX;
-			y = m_workerUL.y * resMultiplier.y - parY;
+			x = m_workerUL.x * resMultiplier.x + resOffset.x - parX;
+			y = m_workerUL.y * resMultiplier.y + resOffset.y - parY;
 		}
 		else
 		{
-			x = m_workerUL.x * resMultiplier.x;
-			y = m_workerUL.y * resMultiplier.y;
+			x = m_workerUL.x * resMultiplier.x + resOffset.x;
+			y = m_workerUL.y * resMultiplier.y + resOffset.y;
 		}
 		win->winSetPosition(x,y );
 
@@ -494,13 +504,13 @@ void ControlBarScheme::init()
 		{
 			Int parX, parY;
 			parent->winGetScreenPosition(&parX, &parY);
-			x = m_optionsUL.x * resMultiplier.x - parX;
-			y = m_optionsUL.y * resMultiplier.y - parY;
+			x = m_optionsUL.x * resMultiplier.x + resOffset.x - parX;
+			y = m_optionsUL.y * resMultiplier.y + resOffset.y - parY;
 		}
 		else
 		{
-			x = m_optionsUL.x * resMultiplier.x;
-			y = m_optionsUL.y * resMultiplier.y;
+			x = m_optionsUL.x * resMultiplier.x + resOffset.x;
+			y = m_optionsUL.y * resMultiplier.y + resOffset.y;
 		}
 		win->winSetPosition(x,y );
 		win->winSetSize((m_optionsLR.x - m_optionsUL.x)*resMultiplier.x+ static_cast<float>(COMMAND_BAR_SIZE_OFFSET),(m_optionsLR.y - m_optionsUL.y)*resMultiplier.y+ static_cast<float>(COMMAND_BAR_SIZE_OFFSET));
@@ -519,13 +529,13 @@ void ControlBarScheme::init()
 		{
 			Int parX, parY;
 			parent->winGetScreenPosition(&parX, &parY);
-			x = m_beaconUL.x * resMultiplier.x - parX;
-			y = m_beaconUL.y * resMultiplier.y - parY;
+			x = m_beaconUL.x * resMultiplier.x + resOffset.x - parX;
+			y = m_beaconUL.y * resMultiplier.y + resOffset.y - parY;
 		}
 		else
 		{
-			x = m_beaconUL.x * resMultiplier.x;
-			y = m_beaconUL.y * resMultiplier.y;
+			x = m_beaconUL.x * resMultiplier.x + resOffset.x;
+			y = m_beaconUL.y * resMultiplier.y + resOffset.y;
 		}
 		win->winSetPosition(x,y );
 		win->winSetSize((m_beaconLR.x - m_beaconUL.x)*resMultiplier.x+ static_cast<float>(COMMAND_BAR_SIZE_OFFSET),(m_beaconLR.y - m_beaconUL.y)*resMultiplier.y+ static_cast<float>(COMMAND_BAR_SIZE_OFFSET));
@@ -541,13 +551,13 @@ void ControlBarScheme::init()
 		{
 			Int parX, parY;
 			parent->winGetScreenPosition(&parX, &parY);
-			x = m_moneyUL.x * resMultiplier.x - parX;
-			y = m_moneyUL.y * resMultiplier.y - parY;
+			x = m_moneyUL.x * resMultiplier.x + resOffset.x - parX;
+			y = m_moneyUL.y * resMultiplier.y + resOffset.y - parY;
 		}
 		else
 		{
-			x = m_moneyUL.x * resMultiplier.x;
-			y = m_moneyUL.y * resMultiplier.y;
+			x = m_moneyUL.x * resMultiplier.x + resOffset.x;
+			y = m_moneyUL.y * resMultiplier.y + resOffset.y;
 		}
 		win->winSetPosition(x,y );
 		win->winSetSize((m_moneyLR.x - m_moneyUL.x)*resMultiplier.x+ static_cast<float>(COMMAND_BAR_SIZE_OFFSET),(m_moneyLR.y - m_moneyUL.y)*resMultiplier.y+ static_cast<float>(COMMAND_BAR_SIZE_OFFSET));
@@ -563,13 +573,13 @@ void ControlBarScheme::init()
 		{
 			Int parX, parY;
 			parent->winGetScreenPosition(&parX, &parY);
-			x = m_powerBarUL.x * resMultiplier.x - parX;
-			y = m_powerBarUL.y * resMultiplier.y - parY;
+			x = m_powerBarUL.x * resMultiplier.x + resOffset.x - parX;
+			y = m_powerBarUL.y * resMultiplier.y + resOffset.y - parY;
 		}
 		else
 		{
-			x = m_powerBarUL.x * resMultiplier.x;
-			y = m_powerBarUL.y * resMultiplier.y;
+			x = m_powerBarUL.x * resMultiplier.x + resOffset.x;
+			y = m_powerBarUL.y * resMultiplier.y + resOffset.y;
 		}
 		win->winSetPosition(x,y );
 		win->winSetSize((m_powerBarLR.x - m_powerBarUL.x)*resMultiplier.x+ static_cast<float>(COMMAND_BAR_SIZE_OFFSET),(m_powerBarLR.y - m_powerBarUL.y)*resMultiplier.y+ static_cast<float>(COMMAND_BAR_SIZE_OFFSET));
@@ -591,13 +601,13 @@ void ControlBarScheme::init()
 		{
 			Int parX, parY;
 			parent->winGetScreenPosition(&parX, &parY);
-			x = m_generalUL.x * resMultiplier.x - parX;
-			y = m_generalUL.y * resMultiplier.y - parY;
+			x = m_generalUL.x * resMultiplier.x + resOffset.x - parX;
+			y = m_generalUL.y * resMultiplier.y + resOffset.y - parY;
 		}
 		else
 		{
-			x = m_generalUL.x * resMultiplier.x;
-			y = m_generalUL.y * resMultiplier.y;
+			x = m_generalUL.x * resMultiplier.x + resOffset.x;
+			y = m_generalUL.y * resMultiplier.y + resOffset.y;
 		}
 		win->winSetPosition(x,y );
 		win->winSetSize((m_generalLR.x - m_generalUL.x)*resMultiplier.x+ static_cast<float>(COMMAND_BAR_SIZE_OFFSET),(m_generalLR.y - m_generalUL.y)*resMultiplier.y+ static_cast<float>(COMMAND_BAR_SIZE_OFFSET));
@@ -617,13 +627,13 @@ void ControlBarScheme::init()
 		{
 			Int parX, parY;
 			parent->winGetScreenPosition(&parX, &parY);
-			x = m_minMaxUL.x * resMultiplier.x - parX;
-			y = m_minMaxUL.y * resMultiplier.y - parY;
+			x = m_minMaxUL.x * resMultiplier.x + resOffset.x - parX;
+			y = m_minMaxUL.y * resMultiplier.y + resOffset.y - parY;
 		}
 		else
 		{
-			x = m_minMaxUL.x * resMultiplier.x;
-			y = m_minMaxUL.y * resMultiplier.y;
+			x = m_minMaxUL.x * resMultiplier.x + resOffset.x;
+			y = m_minMaxUL.y * resMultiplier.y + resOffset.y;
 		}
 		win->winSetPosition(x,y );
 		win->winSetSize((m_minMaxLR.x - m_minMaxUL.x)*resMultiplier.x + static_cast<float>(COMMAND_BAR_SIZE_OFFSET),(m_minMaxLR.y - m_minMaxUL.y)*resMultiplier.y + static_cast<float>(COMMAND_BAR_SIZE_OFFSET));
@@ -641,13 +651,13 @@ void ControlBarScheme::init()
 		{
 			Int parX, parY;
 			parent->winGetScreenPosition(&parX, &parY);
-			x = m_uAttackUL.x * resMultiplier.x - parX;
-			y = m_uAttackUL.y * resMultiplier.y - parY;
+			x = m_uAttackUL.x * resMultiplier.x + resOffset.x - parX;
+			y = m_uAttackUL.y * resMultiplier.y + resOffset.y - parY;
 		}
 		else
 		{
-			x = m_uAttackUL.x * resMultiplier.x;
-			y = m_uAttackUL.y * resMultiplier.y;
+			x = m_uAttackUL.x * resMultiplier.x + resOffset.x;
+			y = m_uAttackUL.y * resMultiplier.y + resOffset.y;
 		}
 		win->winSetPosition(x,y );
 		win->winSetSize((m_uAttackLR.x - m_uAttackUL.x)*resMultiplier.x+ static_cast<float>(COMMAND_BAR_SIZE_OFFSET),(m_uAttackLR.y - m_uAttackUL.y)*resMultiplier.y+ static_cast<float>(COMMAND_BAR_SIZE_OFFSET));
@@ -659,7 +669,13 @@ void ControlBarScheme::init()
 		win->winSetEnabledImage(0,m_powerPurchaseImage);
 		if( m_powerPurchaseImage )
 		{
-			win->winSetSize(m_powerPurchaseImage->getImageWidth() * resMultiplier.x, m_powerPurchaseImage->getImageHeight() * resMultiplier.y);
+		{
+			// Its own layout's interface scale, not the control bar's.
+			const GXUiScale::Transform &expScale = GXUiScale::forLayout( "GeneralsExpPoints.wnd" );
+			const Real kx = expScale.active ? expScale.kx : 1.0f;
+			const Real ky = expScale.active ? expScale.ky : 1.0f;
+			win->winSetSize(m_powerPurchaseImage->getImageWidth() * unscaledMultiplier.x * kx, m_powerPurchaseImage->getImageHeight() * unscaledMultiplier.y * ky);
+		}
 		}
 	}
 }
@@ -1066,13 +1082,33 @@ void ControlBarSchemeManager::update()
 void ControlBarSchemeManager::drawForeground( ICoord2D offset )
 {
 	if(m_currentScheme)
-		m_currentScheme->drawForeground( m_multiplier, offset);
+	{
+		// GeneralsX @feature Android port 01/10/2026 The control bar's art follows ControlBar.wnd's
+		// interface scale (GXUiScale.h), like its windows.
+		const GXUiScale::Transform &uiScale = GXUiScale::forLayout( "ControlBar.wnd" );
+		Coord2D multi = m_multiplier;
+		multi.x = uiScale.mapX( multi.x ) - uiScale.mapX( 0.0f );
+		multi.y = uiScale.mapY( multi.y ) - uiScale.mapY( 0.0f );
+		offset.x += (Int)uiScale.mapX( 0.0f );
+		offset.y += (Int)uiScale.mapY( 0.0f );
+		m_currentScheme->drawForeground( multi, offset );
+	}
 }
 //-----------------------------------------------------------------------------
 void ControlBarSchemeManager::drawBackground( ICoord2D offset )
 {
 	if(m_currentScheme)
-		m_currentScheme->drawBackground( m_multiplier, offset );
+	{
+		// GeneralsX @feature Android port 01/10/2026 The control bar's art follows ControlBar.wnd's
+		// interface scale (GXUiScale.h), like its windows.
+		const GXUiScale::Transform &uiScale = GXUiScale::forLayout( "ControlBar.wnd" );
+		Coord2D multi = m_multiplier;
+		multi.x = uiScale.mapX( multi.x ) - uiScale.mapX( 0.0f );
+		multi.y = uiScale.mapY( multi.y ) - uiScale.mapY( 0.0f );
+		offset.x += (Int)uiScale.mapX( 0.0f );
+		offset.y += (Int)uiScale.mapY( 0.0f );
+		m_currentScheme->drawBackground( multi, offset );
+	}
 }
 
 //-----------------------------------------------------------------------------

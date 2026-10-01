@@ -59,6 +59,7 @@
 #include "GameClient/WindowLayout.h"
 #include "GameClient/Gadget.h"
 #include "GameClient/GameWindowManager.h"
+#include "GameClient/GXUiScale.h"
 #include "GameClient/GameWindowGlobal.h"
 #include "GameClient/GadgetStaticText.h"
 #include "GameClient/GadgetTabControl.h"
@@ -532,6 +533,10 @@ static Bool parseScreenRect( const char *token, char *buffer,
 	screenRegion.lo.y = (Int)((Real)screenRegion.lo.y * yScale);
 	screenRegion.hi.x = (Int)((Real)screenRegion.hi.x * xScale);
 	screenRegion.hi.y = (Int)((Real)screenRegion.hi.y * yScale);
+	// GeneralsX @feature Android port 01/10/2026 The launcher's interface scale, for the layouts it
+	// applies to (GXUiScale.h). Before the parent-relative conversion below, which then sees the
+	// parent where it was actually put.
+	GXUiScale::mapNextWindowRect( &screenRegion.lo.x, &screenRegion.lo.y, &screenRegion.hi.x, &screenRegion.hi.y );
 
 	//
 	// given the screen region upper left compute the upper left that we
@@ -617,6 +622,9 @@ static Bool parseFont( const char *token, WinInstanceData *instData,
 	c = strtok( nullptr, seps );  // label
 	c = strtok( nullptr, seps );  // value
 	scanInt( c, fontBold );
+
+	// GeneralsX @feature Android port 01/10/2026 Text grows with a scaled layout (GXUiScale.h).
+	fontSize = GXUiScale::scaleFontSize( fontSize );
 
 	if( TheFontLibrary )
 	{
@@ -2774,6 +2782,22 @@ GameWindow *GameWindowManager::winCreateFromScript( AsciiString filenameString,
 
   // read into memory
   inFile=inFile->convertToRAMFile();
+
+	// GeneralsX @feature Android port 01/10/2026 The interface scale needs the whole layout -- which
+	// windows there are and where -- before the first one is created (GXUiScale.h).
+	struct UiScaleLayoutScope
+	{
+		UiScaleLayoutScope( const char *name, File *file )
+		{
+			const Int size = file->size();
+			char *text = size > 0 ? new char[ size ] : nullptr;
+			const Int got = text ? file->read( text, size ) : 0;
+			file->seek( 0, File::START );
+			GXUiScale::beginLayout( name, text, got );
+			delete[] text;
+		}
+		~UiScaleLayoutScope() { GXUiScale::endLayout(); }
+	} uiScaleLayoutScope( filename, inFile );
 
 	// read the file version
 	Int version;

@@ -1362,6 +1362,12 @@ int main(int argc, char* argv[])
 								char upscale[32] = {};
 								if (sscanf(line, " GXUpscale = %31s", upscale) == 1)
 									setenv("GX_UPSCALE", upscale, 1);
+								int uiScale = 0;
+								if (sscanf(line, " GXUiScale = %d", &uiScale) == 1 && uiScale > 0) {
+									char uiScaleVal[16];
+									snprintf(uiScaleVal, sizeof(uiScaleVal), "%d", uiScale);
+									setenv("GX_UI_SCALE", uiScaleVal, 1);
+								}
 							}
 							fclose(fp);
 						}
