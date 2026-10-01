@@ -94,6 +94,15 @@
 #include "GameLogic/Module/MobMemberSlavedUpdate.h"//ML
 
 #include "GameNetwork/GameInfo.h"
+
+// GeneralsX @feature Android port 01/10/2026 The corner HUD (frame rate, clock, latency, game time,
+// player list) and the event messages grow with the launcher's interface scale like the rest of the interface
+// (GXUiScale.h), up to twice its size.
+static Int gxHudFontSize( Int size )
+{
+	return (Int)( size * min( GXUiScale::userScale(), 2.0f ) + 0.5f );
+}
+
 #include "GameNetwork/NetworkInterface.h"
 #if defined(GENERALS_ONLINE)
 // ConvertMSLatencyToFrames / ConvertMSLatencyToGenToolFrames, used by drawNetworkLatency.
@@ -2811,7 +2820,7 @@ void InGameUI::addMessageText( const UnicodeString& formattedMessage, const RGBC
 	// GeneralsX @feature Android port 01/10/2026 The event messages at the top left grow with the
 	// launcher's interface scale (GXUiScale.h), up to twice their size.
 	m_uiMessages[ 0 ].displayString->setFont( TheFontLibrary->getFont( m_messageFont,
-																						(Int)( TheGlobalLanguageData->adjustFontSize(m_messagePointSize) * min( GXUiScale::userScale(), 2.0f ) + 0.5f ), m_messageBold ) );
+																						gxHudFontSize( TheGlobalLanguageData->adjustFontSize(m_messagePointSize) ), m_messageBold ) );
 	m_uiMessages[ 0 ].displayString->setText( m_uiMessages[ 0 ].fullText );
 
 	//
@@ -2926,6 +2935,8 @@ void InGameUI::createGarrisonHint( const GameMessage *msg )
 #include "Common/StateMachine.h"
 #include "GameLogic/Module/AIUpdate.h"
 #include "GameLogic/AIPathfind.h"
+
+
 #endif // AI_DEBUG_TOOLTIPS
 
 #endif // defined(RTS_DEBUG)
@@ -6651,7 +6662,7 @@ void InGameUI::refreshNetworkLatencyResources()
 	}
 
 	m_networkLatencyPointSize = TheGlobalData->m_networkLatencyFontSize;
-	Int adjustedNetworkLatencyFontSize = TheGlobalLanguageData->adjustFontSize(m_networkLatencyPointSize);
+	Int adjustedNetworkLatencyFontSize = gxHudFontSize(TheGlobalLanguageData->adjustFontSize(m_networkLatencyPointSize));
 	GameFont* latencyFont = TheWindowManager->winFindFont(m_networkLatencyFont, adjustedNetworkLatencyFontSize, m_networkLatencyBold);
 	m_networkLatencyString->setFont(latencyFont);
 }
@@ -6672,7 +6683,7 @@ void InGameUI::refreshRenderFpsResources()
 	}
 
 	m_renderFpsPointSize = TheGlobalData->m_renderFpsFontSize;
-	Int adjustedRenderFpsFontSize = TheGlobalLanguageData->adjustFontSize(m_renderFpsPointSize);
+	Int adjustedRenderFpsFontSize = gxHudFontSize(TheGlobalLanguageData->adjustFontSize(m_renderFpsPointSize));
 	GameFont *fpsFont = TheWindowManager->winFindFont(m_renderFpsFont, adjustedRenderFpsFontSize, m_renderFpsBold);
 	m_renderFpsString->setFont(fpsFont);
 	m_renderFpsLimitString->setFont(fpsFont);
@@ -6691,7 +6702,7 @@ void InGameUI::refreshSystemTimeResources()
 	}
 
 	m_systemTimePointSize = TheGlobalData->m_systemTimeFontSize;
-	Int adjustedSystemTimeFontSize = TheGlobalLanguageData->adjustFontSize(m_systemTimePointSize);
+	Int adjustedSystemTimeFontSize = gxHudFontSize(TheGlobalLanguageData->adjustFontSize(m_systemTimePointSize));
 	GameFont* systemTimeFont = TheWindowManager->winFindFont(m_systemTimeFont, adjustedSystemTimeFontSize, m_systemTimeBold);
 	m_systemTimeString->setFont(systemTimeFont);
 }
@@ -6709,7 +6720,7 @@ void InGameUI::refreshGameTimeResources()
 	}
 
 	m_gameTimePointSize = TheGlobalData->m_gameTimeFontSize;
-	Int adjustedGameTimeFontSize = TheGlobalLanguageData->adjustFontSize(m_gameTimePointSize);
+	Int adjustedGameTimeFontSize = gxHudFontSize(TheGlobalLanguageData->adjustFontSize(m_gameTimePointSize));
 	GameFont* gameTimeFont = TheWindowManager->winFindFont(m_gameTimeFont, adjustedGameTimeFontSize, m_gameTimeBold);
 	m_gameTimeString->setFont(gameTimeFont);
 	m_gameTimeFrameString->setFont(gameTimeFont);
@@ -6718,7 +6729,7 @@ void InGameUI::refreshGameTimeResources()
 void InGameUI::refreshPlayerInfoListResources()
 {
 	m_playerInfoListPointSize = TheGlobalData->m_playerInfoListFontSize;
-	Int adjustedPlayerInfoListPointSize = TheGlobalLanguageData->adjustFontSize(m_playerInfoListPointSize);
+	Int adjustedPlayerInfoListPointSize = gxHudFontSize(TheGlobalLanguageData->adjustFontSize(m_playerInfoListPointSize));
 	m_playerInfoList.init(m_playerInfoListFont, adjustedPlayerInfoListPointSize, m_playerInfoListBold);
 }
 
