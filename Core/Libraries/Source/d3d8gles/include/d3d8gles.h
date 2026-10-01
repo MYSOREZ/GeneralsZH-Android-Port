@@ -54,10 +54,12 @@ extern "C" void d3d8gles_resize(int w, int h);
 // re-reading render_backend.cfg/the env vars themselves.
 extern "C" bool d3d8gles_ShouldUseVulkanBackend();
 // GeneralsX @feature Android port 01/10/2026 Render below the window's resolution: a virtual
-// backbuffer of w x h, stretched to the window at present with Snapdragon GSR 1 (gsr != 0) or
-// bilinear. w or h <= 0 turns it off. Returns 1 when active; 0 under DXVK or when it could not be
-// set up (the caller then keeps its own pillarbox). See gles_pipeline.cpp.
-extern "C" int d3d8gles_SetVirtualBackbuffer(int w, int h, int gsr);
+// backbuffer the engine sees as w x h, rendered at renderW x renderH and stretched to the window at
+// present with Snapdragon GSR 1 (gsr != 0) or bilinear. renderW x renderH below w x h is the
+// upscaler's quality mode: the game keeps its resolution and only the pixels drawn get fewer.
+// w or h <= 0 turns it off. Returns 1 when active; 0 under DXVK or when it could not be set up (the
+// caller then keeps its own pillarbox). See gles_pipeline.cpp.
+extern "C" int d3d8gles_SetVirtualBackbuffer(int w, int h, int renderW, int renderH, int gsr);
 
 // GeneralsX @perf Android port 09/05/2026 Draw-call breakdown by subsystem.
 // Engine code tags the passes it can identify cheaply so the per-frame perf log

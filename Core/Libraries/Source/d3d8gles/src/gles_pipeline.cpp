@@ -2189,11 +2189,11 @@ void WebGLPipeline::applyFixedState(WebGLDevice *dev)
 	// (top black band, picking offset by the same amount) did not: confirmed
 	// on a real device screenshot during live gameplay.
 	const D3DVIEWPORT8 &vp = effectiveViewport(dev);
-	const GLint glViewportY = (GLint)(m_curRTHeight - (int)vp.Y - (int)vp.Height);
-	if (all || key.vpX != prev.vpX || key.vpY != prev.vpY || key.vpW != prev.vpW || key.vpH != prev.vpH ||
-	    glViewportY != m_lastSentViewportY)
-		glViewport((GLint)vp.X, glViewportY, (GLsizei)vp.Width, (GLsizei)vp.Height);
-	m_lastSentViewportY = glViewportY;
+	GLint glvp[4];
+	targetRect(vp, &glvp[0], &glvp[1], &glvp[2], &glvp[3]);
+	if (all || memcmp(glvp, m_lastSentViewport, sizeof(glvp)) != 0)
+		glViewport(glvp[0], glvp[1], (GLsizei)glvp[2], (GLsizei)glvp[3]);
+	memcpy(m_lastSentViewport, glvp, sizeof(glvp));
 	if (all || key.vpMinZ != prev.vpMinZ || key.vpMaxZ != prev.vpMaxZ)
 		glDepthRangef(vp.MinZ, vp.MaxZ);
 
@@ -2696,19 +2696,23 @@ extern "C" void d3d8gles_GetDrawTotals(unsigned long long *draws, double *drawUs
 }
 
 // GeneralsX @feature Android port 01/10/2026 Render resolution below the screen's, on the native GLES
-// backend: a virtual backbuffer. When the game's resolution is smaller than the window (the
-// launcher's Render Resolution, or a smaller Resolution from the game's Options), everything the
+// backend: a virtual backbuffer. It has two sizes. The engine's (w x h) is the game's resolution, and
+// all the engine ever sees: viewports, 2D coordinates and touch input stay in it. The rendered one
+// (renderW x renderH) is that times the launcher's upscaler mode (Ultra Quality .. Performance, as
+// FSR 1 names them), and only glViewport/glScissor know about it (targetRect). So the game runs at the
+// screen's own resolution, like a PC game with FSR on, and the GPU shades fewer pixels. When the
+// game's resolution is smaller than the window (a smaller Resolution from the game's Options), everything the
 // engine draws to "the backbuffer" -- scene, interface, videos, loading screens -- goes into an
 // offscreen framebuffer of the game's size, and present() stretches it over the whole window in
 // one pass right before the swap, with Snapdragon GSR 1 or bilinear. The engine's own pillarbox
 // (an offscreen target switched in and out around parts of the frame) is not used on GLES: there it
 // showed frozen frames and flicker (logs-45/46) because not every draw path went through it. Here
 // there is no such thing as a draw that misses the target. Returns 1 when active.
-extern "C" int d3d8gles_SetVirtualBackbuffer(int w, int h, int gsr)
+extern "C" int d3d8gles_SetVirtualBackbuffer(int w, int h, int renderW, int renderH, int gsr)
 {
 	if (!s_gxGlesReady)
 		return 0;
-	return WebGLPipeline::get()->setVirtualBackbuffer(w, h, gsr != 0) ? 1 : 0;
+	return WebGLPipeline::get()->setVirtualBackbuffer(w, h, renderW, renderH, gsr != 0) ? 1 : 0;
 }
 
 // The present pass's shaders. One full-screen triangle from gl_VertexID (no vertex buffer), and
@@ -2855,7 +2859,27 @@ const D3DVIEWPORT8 &WebGLPipeline::effectiveViewport(WebGLDevice *dev)
 	return vp;
 }
 
-bool WebGLPipeline::setVirtualBackbuffer(int w, int h, bool gsr)
+void WebGLPipeline::targetRect(const D3DVIEWPORT8 &vp, GLint *x, GLint *y, GLsizei *w, GLsizei *h) const
+{
+	int x0 = (int)vp.X, y0 = (int)vp.Y;
+	int x1 = x0 + (int)vp.Width, y1 = y0 + (int)vp.Height;
+	int rtH = m_curRTHeight;
+	if (m_vbActive && m_curFBO == m_vbFBO && (m_vbRW != m_vbW || m_vbRH != m_vbH)) {
+		// Both edges scaled, so that rectangles sharing an edge in the engine's pixels still share
+		// one here.
+		x0 = (int)(((int64_t)x0 * m_vbRW + m_vbW / 2) / m_vbW);
+		x1 = (int)(((int64_t)x1 * m_vbRW + m_vbW / 2) / m_vbW);
+		y0 = (int)(((int64_t)y0 * m_vbRH + m_vbH / 2) / m_vbH);
+		y1 = (int)(((int64_t)y1 * m_vbRH + m_vbH / 2) / m_vbH);
+		rtH = m_vbRH;
+	}
+	*x = (GLint)x0;
+	*y = (GLint)(rtH - y1);
+	*w = (GLsizei)(x1 - x0);
+	*h = (GLsizei)(y1 - y0);
+}
+
+bool WebGLPipeline::setVirtualBackbuffer(int w, int h, int renderW, int renderH, bool gsr)
 {
 	if (w <= 0 || h <= 0) {
 		if (m_vbActive) {
@@ -2869,15 +2893,20 @@ bool WebGLPipeline::setVirtualBackbuffer(int w, int h, bool gsr)
 				m_curRTWidth = m_fbWidth;
 				m_curRTHeight = m_fbHeight;
 			}
+			m_haveFixedStateKey = false;
 			fprintf(stderr, "[d3d8gles] virtual backbuffer off: rendering at the window's %dx%d\n", m_fbWidth, m_fbHeight);
 		}
 		return false;
+	}
+	if (renderW <= 0 || renderH <= 0 || renderW > w || renderH > h) {
+		renderW = w;
+		renderH = h;
 	}
 	if (!m_vbActive) {
 		m_winW = m_fbWidth;
 		m_winH = m_fbHeight;
 	}
-	if (m_vbActive && w == m_vbW && h == m_vbH && gsr == m_vbGsr)
+	if (m_vbActive && w == m_vbW && h == m_vbH && renderW == m_vbRW && renderH == m_vbRH && gsr == m_vbGsr)
 		return true;
 
 	if (m_vbFBO == 0) {
@@ -2886,20 +2915,20 @@ bool WebGLPipeline::setVirtualBackbuffer(int w, int h, bool gsr)
 		glGenRenderbuffers(1, &m_vbDepth);
 	}
 	glBindTexture(GL_TEXTURE_2D, m_vbTex);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, renderW, renderH, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 	m_lastBoundTex[0] = m_lastBoundTex[1] = ~0u;
 	glBindRenderbuffer(GL_RENDERBUFFER, m_vbDepth);
-	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, w, h);
+	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, renderW, renderH);
 	glBindFramebuffer(GL_FRAMEBUFFER, m_vbFBO);
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_vbTex, 0);
 	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, m_vbDepth);
 	const GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
 	if (status != GL_FRAMEBUFFER_COMPLETE) {
-		fprintf(stderr, "[d3d8gles] virtual backbuffer %dx%d incomplete (0x%x); rendering at the window's size\n", w, h, status);
+		fprintf(stderr, "[d3d8gles] virtual backbuffer %dx%d incomplete (0x%x); rendering at the window's size\n", renderW, renderH, status);
 		glBindFramebuffer(GL_FRAMEBUFFER, m_curFBO == m_vbFBO ? 0 : m_curFBO);
 		m_vbActive = false;
 		return false;
@@ -2932,6 +2961,8 @@ bool WebGLPipeline::setVirtualBackbuffer(int w, int h, bool gsr)
 	m_vbActive = true;
 	m_vbW = w;
 	m_vbH = h;
+	m_vbRW = renderW;
+	m_vbRH = renderH;
 	m_vbGsr = gsr && m_presentGsrProg != 0;
 	m_fbWidth = w;
 	m_fbHeight = h;
@@ -2943,8 +2974,8 @@ bool WebGLPipeline::setVirtualBackbuffer(int w, int h, bool gsr)
 		glBindFramebuffer(GL_FRAMEBUFFER, m_curFBO);
 	}
 	m_haveFixedStateKey = false;
-	fprintf(stderr, "[d3d8gles] virtual backbuffer %dx%d, stretched to the %dx%d window with %s\n",
-		w, h, m_winW, m_winH, m_vbGsr ? "SGSR" : "bilinear filtering");
+	fprintf(stderr, "[d3d8gles] virtual backbuffer %dx%d rendered at %dx%d (%d%%), stretched to the %dx%d window with %s\n",
+		w, h, renderW, renderH, (int)((int64_t)renderW * 100 / w), m_winW, m_winH, m_vbGsr ? "SGSR" : "bilinear filtering");
 	return true;
 }
 
@@ -2965,7 +2996,7 @@ void WebGLPipeline::presentVirtualBackbuffer()
 	glBindTexture(GL_TEXTURE_2D, m_vbTex);
 	glUniform1i(m_vbGsr ? m_presentGsrTex : m_presentPlainTex, 0);
 	if (m_vbGsr && m_presentGsrInfo >= 0)
-		glUniform4f(m_presentGsrInfo, 1.0f / (float)m_vbW, 1.0f / (float)m_vbH, (float)m_vbW, (float)m_vbH);
+		glUniform4f(m_presentGsrInfo, 1.0f / (float)m_vbRW, 1.0f / (float)m_vbRH, (float)m_vbRW, (float)m_vbRH);
 	glBindVertexArray(m_presentVAO);
 	glDrawArrays(GL_TRIANGLES, 0, 3);
 	// The next frame draws into the virtual backbuffer again, from a clean slate of cached state.
@@ -3680,8 +3711,10 @@ void WebGLPipeline::clear(WebGLDevice *dev, unsigned flags, uint32_t argb, float
 		glEnable(GL_SCISSOR_TEST);
 		// Same D3D-top-to-GL-bottom Y conversion as applyFixedState's
 		// glViewport call -- glScissor's y is bottom-origin in GL too.
-		glScissor((GLint)vp.X, (GLint)(m_curRTHeight - (int)vp.Y - (int)vp.Height),
-		          (GLsizei)vp.Width, (GLsizei)vp.Height);
+		GLint sx, sy;
+		GLsizei sw, sh;
+		targetRect(vp, &sx, &sy, &sw, &sh);
+		glScissor(sx, sy, sw, sh);
 	}
 
 	GLbitfield mask = 0;

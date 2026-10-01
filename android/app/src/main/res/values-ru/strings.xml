@@ -41,13 +41,19 @@
     <string name="setup_language_game_status_missing">Текст игры: НЕ переключён — в папке игры нет data/%1$s/generals.csf, поэтому игра сохраняет свой язык.</string>
 
     <!-- SetupActivity: Menu Text Size card -->
-    <string name="setup_switch_gsr">Апскейл Snapdragon GSR</string>
-    <string name="setup_switch_gsr_desc">Чёткое растягивание с учётом краёв (Snapdragon Game Super Resolution) вместо обычного сглаживания, когда игра рисует в разрешении ниже экранного. Работает на любой видеокарте с бэкендами GLES.</string>
-    <string name="setup_card_render_scale">Разрешение рендера</string>
-    <string name="setup_render_scale_label">%1$d%%</string>
-    <string name="setup_render_scale_size">Рендер %1$d×%2$d, на экране %3$d×%4$d</string>
-    <string name="setup_button_apply_render_scale">Применить разрешение рендера</string>
-    <string name="setup_render_scale_help">Игра рисует кадр в этой доле разрешения экрана и плавно растягивает его на весь экран. Меньшие значения разгружают видеокарту — именно она ограничивает частоту кадров в тяжёлых боях на слабых телефонах: при 75% пикселей примерно вдвое меньше. Картинка становится чуть мягче, размер интерфейса не меняется. Применение также сбрасывает разрешение, выбранное в настройках самой игры. Вступает в силу при следующем запуске игры.</string>
+    <string name="setup_card_upscale">Апскейл (Snapdragon GSR)</string>
+    <string name="setup_upscale_off_short">Выкл</string>
+    <string name="setup_upscale_ultra_short">Ультра</string>
+    <string name="setup_upscale_quality_short">Качество</string>
+    <string name="setup_upscale_balanced_short">Баланс</string>
+    <string name="setup_upscale_performance_short">Произв.</string>
+    <string name="setup_upscale_ultra">Ультра-качество</string>
+    <string name="setup_upscale_quality">Качество</string>
+    <string name="setup_upscale_balanced">Баланс</string>
+    <string name="setup_upscale_performance">Производительность</string>
+    <string name="setup_upscale_status_off">Выключен: рендер в полном %1$d×%2$d</string>
+    <string name="setup_upscale_status">%1$s: рендер %2$d×%3$d, апскейл до %4$d×%5$d</string>
+    <string name="setup_upscale_help">Как FSR в играх на ПК: игра остаётся в разрешении вашего экрана, но видеокарта рисует меньше пикселей, а Snapdragon Game Super Resolution чётко растягивает кадр до полного размера. Это разгружает видеокарту — именно она ограничивает частоту кадров в тяжёлых боях на слабых телефонах. «Ультра» и «Качество» ближе всего к родному разрешению, «Баланс» и «Произв.» дают больше всего кадров. Разрешение в настройках самой игры не меняется. Только для нативного бэкенда GLES. Вступает в силу при следующем запуске игры.</string>
     <string name="setup_toast_render_scale_saved">Сохранено. Применится при следующем запуске игры.</string>
     <string name="setup_card_text_size">Размер текста меню</string>
     <string name="setup_text_size_label">Масштаб: %1$d%%</string>

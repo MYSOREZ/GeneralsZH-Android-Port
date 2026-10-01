@@ -193,6 +193,20 @@ static const float kPillarboxRenderScale = 1.0f;
 static const float kPillarboxRenderScale = 1.0f;
 #endif
 
+#if defined(__ANDROID__)
+// GeneralsX @feature Android port 01/10/2026 The launcher's upscaler modes, named and sized as FSR 1's
+// (render scale per axis 1/1.3, 1/1.5, 1/1.7, 1/2). Anything else is off.
+static int UpscaleModePercent(const char *mode)
+{
+	if (mode == nullptr) return 100;
+	if (strcmp(mode, "ultra") == 0) return 77;
+	if (strcmp(mode, "quality") == 0) return 67;
+	if (strcmp(mode, "balanced") == 0) return 59;
+	if (strcmp(mode, "performance") == 0) return 50;
+	return 100;
+}
+#endif
+
 bool DX8Wrapper::Pillarbox_Setup(int gameW, int gameH)
 {
 	Pillarbox_Cleanup();
@@ -226,13 +240,19 @@ bool DX8Wrapper::Pillarbox_Setup(int gameW, int gameH)
 	// with Snapdragon GSR 1 (or bilinear, GXUpscaler = bilinear in Options.ini, passed on by
 	// SDL3Main.cpp as GX_UPSCALER). This pillarbox -- an offscreen target switched in around parts
 	// of the frame -- showed frozen frames and flicker there (logs-45/46) and stays for DXVK.
+	// The launcher's upscaler mode (GXUpscale in Options.ini, GX_UPSCALE here) renders that target
+	// below the game's resolution, as FSR 1's modes do on a PC: the game keeps the screen's
+	// resolution, only the GPU's share of the frame gets smaller.
 	if (!d3d8gles_ShouldUseVulkanBackend()) {
 		const char *upscaler = getenv("GX_UPSCALER");
 		const bool gsr = !(upscaler && strcmp(upscaler, "bilinear") == 0);
-		const bool smaller = renderW < bbW || renderH < bbH;
-		if (d3d8gles_SetVirtualBackbuffer(smaller ? renderW : 0, smaller ? renderH : 0, gsr ? 1 : 0)) {
-			fprintf(stderr, "INFO: game %dx%d on a %dx%d window: virtual backbuffer (%s), no pillarbox\n",
-				renderW, renderH, bbW, bbH, gsr ? "SGSR" : "bilinear");
+		const int percent = UpscaleModePercent(getenv("GX_UPSCALE"));
+		const int scaledW = ((renderW * percent / 100) & ~1);
+		const int scaledH = ((renderH * percent / 100) & ~1);
+		const bool smaller = renderW < bbW || renderH < bbH || percent < 100;
+		if (d3d8gles_SetVirtualBackbuffer(smaller ? renderW : 0, smaller ? renderH : 0, scaledW, scaledH, gsr ? 1 : 0)) {
+			fprintf(stderr, "INFO: game %dx%d on a %dx%d window: virtual backbuffer rendered at %dx%d (%s, upscale %d%%), no pillarbox\n",
+				renderW, renderH, bbW, bbH, scaledW, scaledH, gsr ? "SGSR" : "bilinear", percent);
 			return false;
 		}
 	}

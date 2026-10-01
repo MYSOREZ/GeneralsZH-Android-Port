@@ -238,16 +238,22 @@ public:
 	// GeneralsX @feature Android port 01/10/2026 Virtual backbuffer for rendering below the window's
 	// resolution, stretched to the window at present() with SGSR or bilinear (see
 	// d3d8gles_SetVirtualBackbuffer). w or h <= 0 turns it off.
-	bool setVirtualBackbuffer(int w, int h, bool gsr);
+	bool setVirtualBackbuffer(int w, int h, int renderW, int renderH, bool gsr);
 private:
 	void presentVirtualBackbuffer();
 	GLuint backbufferFBO() const { return m_vbActive ? m_vbFBO : 0; }
 	// The viewport to apply: the device's, except that one larger than the virtual backbuffer
 	// (the engine still knows the window's size) covers the whole virtual backbuffer instead.
 	const D3DVIEWPORT8 &effectiveViewport(WebGLDevice *dev);
+	// GeneralsX @performance Android port 01/10/2026 A rectangle in the current target's pixels (the
+	// engine's, top-left origin) as GL wants it (bottom-left origin), scaled down to the virtual
+	// backbuffer's render size while that is the target. Every glViewport and glScissor goes
+	// through here; the shaders keep working in the engine's pixels (uViewportPos).
+	void targetRect(const D3DVIEWPORT8 &vp, GLint *x, GLint *y, GLsizei *w, GLsizei *h) const;
 	bool m_vbActive = false;
 	bool m_vbGsr = false;
-	int m_vbW = 0, m_vbH = 0;
+	int m_vbW = 0, m_vbH = 0;   // what the engine sees (its backbuffer)
+	int m_vbRW = 0, m_vbRH = 0; // what is rendered: the texture stretched at present
 	int m_winW = 0, m_winH = 0;
 	GLuint m_vbFBO = 0, m_vbTex = 0, m_vbDepth = 0;
 	D3DVIEWPORT8 m_vbFullVp = {};
@@ -378,7 +384,7 @@ private:
 	bool m_haveFixedStateKey = false;
 	FixedStateKey m_lastFixedStateKey{};
 	DWORD m_lastSentSrcBlend = 0, m_lastSentDestBlend = 0; // glBlendFunc as last sent (applyFixedState)
-	GLint m_lastSentViewportY = 0;                             // glViewport's y as last sent (it depends on the RT height)
+	GLint m_lastSentViewport[4] = {0, 0, 0, 0};                // glViewport as last sent (it depends on the RT's height and scale)
 	GLuint m_lastProgram = 0;
 	int m_perfStateCacheHits = 0;
 	int m_perfStateCacheMisses = 0;

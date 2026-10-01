@@ -415,6 +415,7 @@ public class SetupActivity extends Activity {
         dxvkConfigEdit = null;
         uiScaleSlider = null;
         uiScaleLabel = null;
+        upscaleStatus = null;
         java.util.Arrays.fill(diagnosticSwitches, null);
     }
 
@@ -951,94 +952,78 @@ public class SetupActivity extends Activity {
         UiKit.helpText(content, getString(R.string.setup_text_size_help));
     }
 
-    // GeneralsX @performance Android port 01/10/2026 Render resolution as a percentage of the
-    // screen. The engine renders the game at that size and its pillarbox pass stretches it to the
-    // full screen with bilinear filtering -- the same path a lower resolution picked in the game's
-    // own Options takes, but keeping the screen's aspect ratio, so no black bars. On the old Mali
-    // test phone the GPU, not the CPU, sets the frame time in a heavy battle (logs-42: ~30 ms of
-    // GPU work for a 23 ms frame), and that work scales with the pixel count: 75% is ~56% of the
-    // pixels. Saved as GXRenderScale in Options.ini (read by SDL3Main.cpp at startup); Apply also
-    // clears a Resolution saved from the game's Options, which would otherwise win.
-    private Slider renderScaleSlider;
-    private TextView renderScaleLabel;
-    private TextView renderScaleSize;
-    // GeneralsX @feature Android port 01/10/2026 Snapdragon GSR 1 for the stretch to the screen (on
-    // by default; native GLES backend only). Saved as GXUpscaler = gsr | bilinear.
-    private com.google.android.material.materialswitch.MaterialSwitch gsrSwitch;
+    // GeneralsX @feature Android port 01/10/2026 Upscaling the way a PC game offers FSR: the game keeps
+    // the screen's own resolution (and the game's Options keep showing it), and a mode picks how much
+    // smaller the GPU actually renders before Snapdragon GSR 1 stretches the frame back to the
+    // screen. The modes and their scales are FSR 1's. On the old Mali test phone the GPU sets the
+    // frame time in heavy battles (logs-42), and its work scales with the pixel count; 75% with GSR
+    // took a battle from 44 to 57 fps (logs-47). Saved as GXUpscale in Options.ini, read by
+    // SDL3Main.cpp at startup and applied by the native GLES backend (DX8Wrapper::Pillarbox_Setup).
+    // The first version was a percentage slider that lowered the game's Resolution itself -- the
+    // same thing as picking a smaller resolution in the game's Options -- and is migrated here.
+    private static final String[] UPSCALE_MODES = { "off", "ultra", "quality", "balanced", "performance" };
+    private static final int[] UPSCALE_PERCENT = { 100, 77, 67, 59, 50 };
+    private TextView upscaleStatus;
 
     private void buildRenderScaleSection(LinearLayout root) {
         LinearLayout content = UiKit.card(root);
-        renderScaleLabel = UiKit.sectionHeader(content, R.drawable.ic_gzh_display,
-            getString(R.string.setup_card_render_scale), true);
+        UiKit.sectionHeader(content, R.drawable.ic_gzh_display, getString(R.string.setup_card_upscale), false);
 
-        int startPercent = readRenderScalePercent();
-        renderScaleSlider = new Slider(this);
-        renderScaleSlider.setValueFrom(50f);
-        renderScaleSlider.setValueTo(100f);
-        renderScaleSlider.setStepSize(5f);
-        renderScaleSlider.setValue(startPercent);
-        renderScaleSlider.setLabelBehavior(LabelFormatter.LABEL_GONE);
-        renderScaleSlider.setTrackActiveTintList(UiKit.tint(this, R.color.gzh_primary));
-        renderScaleSlider.setTrackInactiveTintList(UiKit.tint(this, R.color.gzh_surface_container_highest));
-        renderScaleSlider.setThumbTintList(UiKit.tint(this, R.color.gzh_primary));
-        renderScaleSlider.setHaloTintList(UiKit.tint(this, R.color.gzh_ripple_primary));
-        updateRenderScaleLabel(startPercent);
-        renderScaleSlider.addOnChangeListener((slider, value, fromUser) -> updateRenderScaleLabel((int) value));
-        LinearLayout.LayoutParams sliderLp = new LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        sliderLp.topMargin = UiKit.dim(this, R.dimen.gzh_item_gap_tight);
-        content.addView(renderScaleSlider, sliderLp);
-        // The resolution on its own line: in the header it squeezed the card title into a column.
-        renderScaleSize = UiKit.supporting(content, "");
-        updateRenderScaleLabel(startPercent);
+        int current = readUpscaleMode();
+        CharSequence[] labels = {
+            getString(R.string.setup_upscale_off_short),
+            getString(R.string.setup_upscale_ultra_short),
+            getString(R.string.setup_upscale_quality_short),
+            getString(R.string.setup_upscale_balanced_short),
+            getString(R.string.setup_upscale_performance_short),
+        };
+        UiKit.segmented(content, labels, current, index -> {
+            writeUpscaleMode(index);
+            updateUpscaleStatus(index);
+            Toast.makeText(this, R.string.setup_toast_render_scale_saved, Toast.LENGTH_LONG).show();
+        });
+        upscaleStatus = UiKit.supporting(content, "");
+        updateUpscaleStatus(current);
 
-        gsrSwitch = UiKit.switchRow(content, getString(R.string.setup_switch_gsr),
-            getString(R.string.setup_switch_gsr_desc));
-        gsrSwitch.setChecked(!"bilinear".equals(readKeyValueFile(optionsIniFile()).get("GXUpscaler")));
-
-        UiKit.button(content, UiKit.BTN_PRIMARY, R.drawable.ic_gzh_check,
-            getString(R.string.setup_button_apply_render_scale), () -> {
-                writeRenderScalePercent((int) renderScaleSlider.getValue(), gsrSwitch.isChecked());
-                Toast.makeText(this, R.string.setup_toast_render_scale_saved, Toast.LENGTH_LONG).show();
-            });
-
-        UiKit.helpText(content, getString(R.string.setup_render_scale_help));
+        UiKit.helpText(content, getString(R.string.setup_upscale_help));
     }
 
-    // The game's own size for a percentage, from the screen's real (landscape) pixel size.
-    private int[] renderScaleSize(int percent) {
+    // The screen's real (landscape) pixel size: the game's resolution with the upscaler on.
+    private int[] screenSize() {
         android.util.DisplayMetrics dm = new android.util.DisplayMetrics();
         getWindowManager().getDefaultDisplay().getRealMetrics(dm);
-        int w = Math.max(dm.widthPixels, dm.heightPixels);
-        int h = Math.min(dm.widthPixels, dm.heightPixels);
-        return new int[] { (w * percent / 100) & ~1, (h * percent / 100) & ~1 };
+        return new int[] { Math.max(dm.widthPixels, dm.heightPixels) & ~1, Math.min(dm.widthPixels, dm.heightPixels) };
     }
 
-    private void updateRenderScaleLabel(int percent) {
-        if (renderScaleLabel != null) {
-            renderScaleLabel.setText(getString(R.string.setup_render_scale_label, percent));
+    private void updateUpscaleStatus(int index) {
+        if (upscaleStatus == null) {
+            return;
         }
-        if (renderScaleSize != null) {
-            int[] size = renderScaleSize(percent);
-            int[] full = renderScaleSize(100);
-            renderScaleSize.setText(getString(R.string.setup_render_scale_size, size[0], size[1], full[0], full[1]));
+        int[] full = screenSize();
+        if (index <= 0) {
+            upscaleStatus.setText(getString(R.string.setup_upscale_status_off, full[0], full[1]));
+            return;
         }
+        int[] names = { 0, R.string.setup_upscale_ultra, R.string.setup_upscale_quality,
+            R.string.setup_upscale_balanced, R.string.setup_upscale_performance };
+        int percent = UPSCALE_PERCENT[index];
+        upscaleStatus.setText(getString(R.string.setup_upscale_status, getString(names[index]),
+            (full[0] * percent / 100) & ~1, (full[1] * percent / 100) & ~1, full[0], full[1]));
     }
 
-    private int readRenderScalePercent() {
-        String val = readKeyValueFile(optionsIniFile()).get("GXRenderScale");
+    private int readUpscaleMode() {
+        String val = readKeyValueFile(optionsIniFile()).get("GXUpscale");
         if (val != null) {
-            try {
-                int percent = Integer.parseInt(val.trim());
-                return Math.max(50, Math.min(100, percent));
-            } catch (NumberFormatException ignored) {
-                // Fall through to full resolution.
+            for (int i = 0; i < UPSCALE_MODES.length; i++) {
+                if (UPSCALE_MODES[i].equals(val.trim())) {
+                    return i;
+                }
             }
         }
-        return 100;
+        return 0;
     }
 
-    private void writeRenderScalePercent(int percent, boolean gsr) {
+    private void writeUpscaleMode(int index) {
         File file = optionsIniFile();
         // Seeded from DefaultOptions.ini when new, for the same reason as writeUiScalePercent().
         java.util.LinkedHashMap<String, String> prefs;
@@ -1047,16 +1032,16 @@ public class SetupActivity extends Activity {
         } else {
             prefs = new java.util.LinkedHashMap<>(readKeyValueFile(file));
         }
-        prefs.put("GXRenderScale", String.valueOf(percent));
-        prefs.put("GXUpscaler", gsr ? "gsr" : "bilinear");
-        // GeneralsX @bugfix Android port 01/10/2026 The resolution itself, from the screen's full
-        // size -- what the game's own Options writes. The first version removed Resolution and let
-        // SDL3Main.cpp scale the window size at startup, but Android hands the game a window
-        // without the display cutout first (2264x1080 on the old test phone) and widens it to the
-        // full 2340x1080 half a second later: the game then rendered narrower than the screen,
-        // pillarboxed even at 100% (logs-44). At 100% this is exactly the screen, no pillarbox.
-        int[] size = renderScaleSize(percent);
-        prefs.put("Resolution", size[0] + " " + size[1]);
+        prefs.put("GXUpscale", UPSCALE_MODES[Math.max(0, Math.min(UPSCALE_MODES.length - 1, index))]);
+        // The previous slider's keys. It lowered Resolution itself; that goes back to the screen's
+        // size (from the screen's full size, not the window's: Android hands the game a window
+        // without the display cutout first, logs-44), so the game runs at the screen's resolution
+        // again and only the upscaler renders below it.
+        if (prefs.remove("GXRenderScale") != null) {
+            int[] full = screenSize();
+            prefs.put("Resolution", full[0] + " " + full[1]);
+        }
+        prefs.remove("GXUpscaler");
         writeKeyValueFile(file, prefs);
     }
 

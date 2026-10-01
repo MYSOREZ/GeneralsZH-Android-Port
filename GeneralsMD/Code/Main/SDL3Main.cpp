@@ -1359,6 +1359,9 @@ int main(int argc, char* argv[])
 								char upscaler[32] = {};
 								if (sscanf(line, " GXUpscaler = %31s", upscaler) == 1)
 									setenv("GX_UPSCALER", upscaler, 1);
+								char upscale[32] = {};
+								if (sscanf(line, " GXUpscale = %31s", upscale) == 1)
+									setenv("GX_UPSCALE", upscale, 1);
 							}
 							fclose(fp);
 						}
