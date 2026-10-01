@@ -218,6 +218,11 @@ cmake --build build/macos-vulkan --target z_generals
   stream it into never-reused bytes. Read `docs/WORKDIR/lessons/LESSON-gles-persistent-buffers-mali.md`,
   which also lists every perf counter now in the log and the order that found each cost.
 
+- **Launcher strings ship in every language**: a new or changed string in
+  `android/app/src/main/res/values/strings.xml` goes into every `values-*/strings.xml`
+  (ar, b+isv, de, es, fa, fr, ko, pl, pt-rBR, ru, uk, zh) in the same commit -- not only
+  English and Russian. Check: every locale has the same set of string names as `values/`.
+
 ## Testing & Validation
 ### Smoke test
 ```bash
