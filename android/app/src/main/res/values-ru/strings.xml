@@ -41,20 +41,6 @@
     <string name="setup_language_game_status_missing">Текст игры: НЕ переключён — в папке игры нет data/%1$s/generals.csf, поэтому игра сохраняет свой язык.</string>
 
     <!-- SetupActivity: Menu Text Size card -->
-    <string name="setup_card_upscale">Апскейл (Snapdragon GSR)</string>
-    <string name="setup_upscale_off_short">Выкл</string>
-    <string name="setup_upscale_ultra_short">Ультра</string>
-    <string name="setup_upscale_quality_short">Качество</string>
-    <string name="setup_upscale_balanced_short">Баланс</string>
-    <string name="setup_upscale_performance_short">Произв.</string>
-    <string name="setup_upscale_ultra">Ультра-качество</string>
-    <string name="setup_upscale_quality">Качество</string>
-    <string name="setup_upscale_balanced">Баланс</string>
-    <string name="setup_upscale_performance">Производительность</string>
-    <string name="setup_upscale_status_off">Выключен: рендер в полном %1$d×%2$d</string>
-    <string name="setup_upscale_status">%1$s: рендер %2$d×%3$d, апскейл до %4$d×%5$d</string>
-    <string name="setup_upscale_help">Как FSR в играх на ПК: игра остаётся в разрешении вашего экрана, но видеокарта рисует меньше пикселей, а Snapdragon Game Super Resolution чётко растягивает кадр до полного размера. Это разгружает видеокарту — именно она ограничивает частоту кадров в тяжёлых боях на слабых телефонах. «Ультра» и «Качество» ближе всего к родному разрешению, «Баланс» и «Произв.» дают больше всего кадров. Разрешение в настройках самой игры не меняется. Только для нативного бэкенда GLES. Вступает в силу при следующем запуске игры.</string>
-    <string name="setup_toast_render_scale_saved">Сохранено. Применится при следующем запуске игры.</string>
     <string name="setup_card_text_size">Размер текста меню</string>
     <string name="setup_text_size_label">Масштаб: %1$d%%</string>
     <string name="setup_button_apply_text_size">Применить размер текста</string>
@@ -343,4 +329,18 @@
     <string name="online_network_settings">Сетевые настройки (серверы, совместимость с ПК): от %1$s, обновляются автоматически с GitHub проекта и подписаны.</string>
     <string name="online_network_settings_builtin">Сетевые настройки (серверы, совместимость с ПК): встроенные в эту версию; новые придут автоматически с GitHub проекта.</string>
     <string name="online_datapacks_chip_update">Есть обновление</string>
+    <string name="setup_card_upscale">Апскейл (Snapdragon GSR)</string>
+    <string name="setup_upscale_off_short">Выкл</string>
+    <string name="setup_upscale_ultra_short">Ультра</string>
+    <string name="setup_upscale_quality_short">Качество</string>
+    <string name="setup_upscale_balanced_short">Баланс</string>
+    <string name="setup_upscale_performance_short">Произв.</string>
+    <string name="setup_upscale_ultra">Ультра-качество</string>
+    <string name="setup_upscale_quality">Качество</string>
+    <string name="setup_upscale_balanced">Баланс</string>
+    <string name="setup_upscale_performance">Производительность</string>
+    <string name="setup_upscale_status_off">Выключен: рендер в полном %1$d×%2$d</string>
+    <string name="setup_upscale_status">%1$s: 3D рендерится в %2$d×%3$d, апскейл до %4$d×%5$d</string>
+    <string name="setup_upscale_help">Как FSR в играх на ПК: игра остаётся в разрешении вашего экрана, но видеокарта рисует 3D-поле боя меньшим числом пикселей, а Snapdragon Game Super Resolution чётко растягивает его до полного размера. Интерфейс и текст рисуются после этого в полном разрешении экрана, поэтому остаются чёткими, а «Размер текста меню» работает как прежде. Это разгружает видеокарту — именно она ограничивает частоту кадров в тяжёлых боях на слабых телефонах. «Ультра» и «Качество» ближе всего к родному разрешению, «Баланс» и «Произв.» дают больше всего кадров. Разрешение в настройках самой игры не меняется. Только для нативного бэкенда GLES. Вступает в силу при следующем запуске игры.</string>
+    <string name="setup_toast_render_scale_saved">Сохранено. Применится при следующем запуске игры.</string>
 </resources>

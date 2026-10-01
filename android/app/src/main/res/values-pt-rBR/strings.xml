@@ -327,4 +327,18 @@
     <string name="online_network_settings">Configurações de rede (servidores, compatibilidade com PC): de %1$s, atualizadas automaticamente pelo GitHub do projeto e assinadas.</string>
     <string name="online_network_settings_builtin">Configurações de rede (servidores, compatibilidade com PC): embutidas nesta versão; as novas virão automaticamente do GitHub do projeto.</string>
     <string name="online_datapacks_chip_update">Atualização disponível</string>
+    <string name="setup_card_upscale">Upscaling (Snapdragon GSR)</string>
+    <string name="setup_upscale_off_short">Desl.</string>
+    <string name="setup_upscale_ultra_short">Ultra</string>
+    <string name="setup_upscale_quality_short">Qualidade</string>
+    <string name="setup_upscale_balanced_short">Equilíbrio</string>
+    <string name="setup_upscale_performance_short">Desemp.</string>
+    <string name="setup_upscale_ultra">Ultra Qualidade</string>
+    <string name="setup_upscale_quality">Qualidade</string>
+    <string name="setup_upscale_balanced">Equilibrado</string>
+    <string name="setup_upscale_performance">Desempenho</string>
+    <string name="setup_upscale_status_off">Desligado: renderizado em %1$d×%2$d completos</string>
+    <string name="setup_upscale_status">%1$s: 3D renderizado em %2$d×%3$d, ampliado para %4$d×%5$d</string>
+    <string name="setup_upscale_help">Como o FSR em jogos de PC: o jogo mantém a resolução da sua tela, mas a GPU desenha o campo de batalha 3D com menos pixels e o Snapdragon Game Super Resolution o deixa nítido de novo em tamanho cheio. A interface e o texto são desenhados depois na resolução cheia da tela, então continuam nítidos, e o tamanho do texto do menu funciona como antes. Isso alivia a GPU, que é o que limita a taxa de quadros em batalhas pesadas em celulares mais fracos. Ultra Qualidade e Qualidade ficam mais próximos da resolução nativa; Equilibrado e Desempenho dão mais quadros. A resolução configurada no próprio jogo não é alterada. Somente no backend GLES nativo. Vale a partir da próxima vez que você abrir o jogo.</string>
+    <string name="setup_toast_render_scale_saved">Salvo. Vale a partir da próxima vez que você abrir o jogo.</string>
 </resources>

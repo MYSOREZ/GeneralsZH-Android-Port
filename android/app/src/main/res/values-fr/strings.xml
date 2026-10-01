@@ -327,4 +327,18 @@
     <string name="online_network_settings">Paramètres réseau (serveurs, compatibilité PC) : du %1$s, mis à jour automatiquement depuis le GitHub du projet et signés.</string>
     <string name="online_network_settings_builtin">Paramètres réseau (serveurs, compatibilité PC) : intégrés à cette version ; les nouveaux arriveront automatiquement depuis le GitHub du projet.</string>
     <string name="online_datapacks_chip_update">Mise à jour disponible</string>
+    <string name="setup_card_upscale">Mise à l\'échelle (Snapdragon GSR)</string>
+    <string name="setup_upscale_off_short">Non</string>
+    <string name="setup_upscale_ultra_short">Ultra</string>
+    <string name="setup_upscale_quality_short">Qualité</string>
+    <string name="setup_upscale_balanced_short">Équilibré</string>
+    <string name="setup_upscale_performance_short">Perf.</string>
+    <string name="setup_upscale_ultra">Ultra qualité</string>
+    <string name="setup_upscale_quality">Qualité</string>
+    <string name="setup_upscale_balanced">Équilibré</string>
+    <string name="setup_upscale_performance">Performance</string>
+    <string name="setup_upscale_status_off">Désactivé : rendu en %1$d×%2$d complet</string>
+    <string name="setup_upscale_status">%1$s : 3D rendue en %2$d×%3$d, mise à l\'échelle en %4$d×%5$d</string>
+    <string name="setup_upscale_help">Comme FSR dans les jeux PC : le jeu garde la résolution de votre écran, mais le GPU dessine le champ de bataille 3D avec moins de pixels et Snapdragon Game Super Resolution le ramène net à pleine taille. L\'interface et le texte sont dessinés ensuite à la pleine résolution de l\'écran, ils restent donc nets, et la taille du texte des menus fonctionne comme avant. Cela soulage le GPU, qui limite la fréquence d\'images dans les grosses batailles sur les téléphones modestes. Ultra qualité et Qualité sont les plus proches de la résolution native ; Équilibré et Performance donnent le plus d\'images. Le réglage de résolution du jeu lui-même n\'est pas modifié. Backend GLES natif uniquement. Prend effet au prochain lancement du jeu.</string>
+    <string name="setup_toast_render_scale_saved">Enregistré. Prend effet au prochain lancement du jeu.</string>
 </resources>

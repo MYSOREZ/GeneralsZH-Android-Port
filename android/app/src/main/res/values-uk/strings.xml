@@ -327,4 +327,18 @@
     <string name="online_network_settings">Мережеві налаштування (сервери, сумісність із ПК): від %1$s, оновлюються автоматично з GitHub проєкту й підписані.</string>
     <string name="online_network_settings_builtin">Мережеві налаштування (сервери, сумісність із ПК): вбудовані в цю версію; нові прийдуть автоматично з GitHub проєкту.</string>
     <string name="online_datapacks_chip_update">Є оновлення</string>
+    <string name="setup_card_upscale">Апскейл (Snapdragon GSR)</string>
+    <string name="setup_upscale_off_short">Вимк</string>
+    <string name="setup_upscale_ultra_short">Ультра</string>
+    <string name="setup_upscale_quality_short">Якість</string>
+    <string name="setup_upscale_balanced_short">Баланс</string>
+    <string name="setup_upscale_performance_short">Продукт.</string>
+    <string name="setup_upscale_ultra">Ультраякість</string>
+    <string name="setup_upscale_quality">Якість</string>
+    <string name="setup_upscale_balanced">Баланс</string>
+    <string name="setup_upscale_performance">Продуктивність</string>
+    <string name="setup_upscale_status_off">Вимкнено: рендер у повній %1$d×%2$d</string>
+    <string name="setup_upscale_status">%1$s: 3D рендериться в %2$d×%3$d, апскейл до %4$d×%5$d</string>
+    <string name="setup_upscale_help">Як FSR в іграх на ПК: гра залишається в роздільності вашого екрана, але відеокарта малює 3D-поле бою меншою кількістю пікселів, а Snapdragon Game Super Resolution чітко розтягує його до повного розміру. Інтерфейс і текст малюються після цього в повній роздільності екрана, тому залишаються чіткими, а «Розмір тексту меню» працює як раніше. Це розвантажує відеокарту — саме вона обмежує частоту кадрів у важких боях на слабких телефонах. «Ультра» та «Якість» найближчі до рідної роздільності, «Баланс» і «Продукт.» дають найбільше кадрів. Роздільність у налаштуваннях самої гри не змінюється. Лише для нативного бекенда GLES. Застосовується при наступному запуску гри.</string>
+    <string name="setup_toast_render_scale_saved">Збережено. Застосується при наступному запуску гри.</string>
 </resources>

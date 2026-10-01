@@ -327,4 +327,18 @@
     <string name="online_network_settings">إعدادات الشبكة (الخوادم، التوافق مع الحاسوب): بتاريخ %1$s، تُحدَّث تلقائيًا من GitHub المشروع وموقّعة.</string>
     <string name="online_network_settings_builtin">إعدادات الشبكة (الخوادم، التوافق مع الحاسوب): مدمجة في هذا الإصدار؛ ستصل الأحدث تلقائيًا من GitHub المشروع.</string>
     <string name="online_datapacks_chip_update">يتوفر تحديث</string>
+    <string name="setup_card_upscale">رفع الدقة (Snapdragon GSR)</string>
+    <string name="setup_upscale_off_short">إيقاف</string>
+    <string name="setup_upscale_ultra_short">فائق</string>
+    <string name="setup_upscale_quality_short">الجودة</string>
+    <string name="setup_upscale_balanced_short">متوازن</string>
+    <string name="setup_upscale_performance_short">الأداء</string>
+    <string name="setup_upscale_ultra">جودة فائقة</string>
+    <string name="setup_upscale_quality">الجودة</string>
+    <string name="setup_upscale_balanced">متوازن</string>
+    <string name="setup_upscale_performance">الأداء</string>
+    <string name="setup_upscale_status_off">متوقف: العرض بالدقة الكاملة %1$d×%2$d</string>
+    <string name="setup_upscale_status">%1$s: يُعرض الـ3D بدقة %2$d×%3$d ويُرفع إلى %4$d×%5$d</string>
+    <string name="setup_upscale_help">مثل FSR في ألعاب الحاسوب: تحتفظ اللعبة بدقة شاشتك، لكن معالج الرسوميات يرسم ساحة المعركة ثلاثية الأبعاد بعدد أقل من البكسلات، ثم تعيدها تقنية Snapdragon Game Super Resolution بوضوح إلى الحجم الكامل. تُرسم الواجهة والنصوص بعد ذلك بدقة الشاشة الكاملة فتبقى واضحة، ويعمل حجم نص القائمة كما كان. هذا يخفف الحمل عن معالج الرسوميات، وهو ما يحدّ معدل الإطارات في المعارك الكبيرة على الهواتف الأضعف. الجودة الفائقة والجودة الأقرب إلى الدقة الأصلية؛ المتوازن والأداء يعطيان أكبر عدد من الإطارات. لا يتغير إعداد الدقة في اللعبة نفسها. لواجهة GLES الأصلية فقط. يسري عند تشغيل اللعبة في المرة القادمة.</string>
+    <string name="setup_toast_render_scale_saved">تم الحفظ. يسري عند تشغيل اللعبة في المرة القادمة.</string>
 </resources>

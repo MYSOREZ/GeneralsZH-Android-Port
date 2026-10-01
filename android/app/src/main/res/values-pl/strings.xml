@@ -327,4 +327,18 @@
     <string name="online_network_settings">Ustawienia sieci (serwery, zgodność z PC): z %1$s, aktualizowane automatycznie z GitHuba projektu i podpisane.</string>
     <string name="online_network_settings_builtin">Ustawienia sieci (serwery, zgodność z PC): wbudowane w tę wersję; nowsze przyjdą automatycznie z GitHuba projektu.</string>
     <string name="online_datapacks_chip_update">Dostępna aktualizacja</string>
+    <string name="setup_card_upscale">Skalowanie (Snapdragon GSR)</string>
+    <string name="setup_upscale_off_short">Wył.</string>
+    <string name="setup_upscale_ultra_short">Ultra</string>
+    <string name="setup_upscale_quality_short">Jakość</string>
+    <string name="setup_upscale_balanced_short">Balans</string>
+    <string name="setup_upscale_performance_short">Wydajn.</string>
+    <string name="setup_upscale_ultra">Ultra jakość</string>
+    <string name="setup_upscale_quality">Jakość</string>
+    <string name="setup_upscale_balanced">Zrównoważony</string>
+    <string name="setup_upscale_performance">Wydajność</string>
+    <string name="setup_upscale_status_off">Wyłączone: renderowanie w pełnej %1$d×%2$d</string>
+    <string name="setup_upscale_status">%1$s: 3D renderowane w %2$d×%3$d, skalowane do %4$d×%5$d</string>
+    <string name="setup_upscale_help">Jak FSR w grach na PC: gra zachowuje rozdzielczość ekranu, ale GPU rysuje trójwymiarowe pole bitwy mniejszą liczbą pikseli, a Snapdragon Game Super Resolution wyostrza je z powrotem do pełnego rozmiaru. Interfejs i tekst są rysowane potem w pełnej rozdzielczości ekranu, więc pozostają ostre, a rozmiar tekstu menu działa jak dotąd. Odciąża to GPU, które ogranicza liczbę klatek w ciężkich bitwach na słabszych telefonach. Ultra jakość i Jakość wyglądają najbliżej natywnej rozdzielczości; Zrównoważony i Wydajność dają najwięcej klatek. Ustawienie rozdzielczości w samej grze nie jest zmieniane. Tylko natywny backend GLES. Zadziała przy następnym uruchomieniu gry.</string>
+    <string name="setup_toast_render_scale_saved">Zapisano. Zadziała przy następnym uruchomieniu gry.</string>
 </resources>

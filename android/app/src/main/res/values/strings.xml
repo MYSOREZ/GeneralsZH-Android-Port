@@ -41,20 +41,6 @@
     <string name="setup_language_game_status_missing">Game text: NOT switched — no data/%1$s/generals.csf found in your game folder, so the game keeps its own language.</string>
 
     <!-- SetupActivity: Menu Text Size card -->
-    <string name="setup_card_upscale">Upscaling (Snapdragon GSR)</string>
-    <string name="setup_upscale_off_short">Off</string>
-    <string name="setup_upscale_ultra_short">Ultra</string>
-    <string name="setup_upscale_quality_short">Quality</string>
-    <string name="setup_upscale_balanced_short">Balanced</string>
-    <string name="setup_upscale_performance_short">Perf.</string>
-    <string name="setup_upscale_ultra">Ultra Quality</string>
-    <string name="setup_upscale_quality">Quality</string>
-    <string name="setup_upscale_balanced">Balanced</string>
-    <string name="setup_upscale_performance">Performance</string>
-    <string name="setup_upscale_status_off">Off: rendered at the full %1$d×%2$d</string>
-    <string name="setup_upscale_status">%1$s: rendered at %2$d×%3$d, upscaled to %4$d×%5$d</string>
-    <string name="setup_upscale_help">Like FSR in PC games: the game keeps your screen\'s resolution, but the GPU draws fewer pixels and Snapdragon Game Super Resolution sharpens the frame back up to full size. It takes load off the GPU, which is what limits the frame rate in heavy battles on weaker phones. Ultra Quality and Quality look closest to native; Balanced and Performance give the most frames. The game\'s own resolution setting is not changed. Native GLES backend only. Takes effect the next time you launch the game.</string>
-    <string name="setup_toast_render_scale_saved">Saved. Takes effect next time you launch the game.</string>
     <string name="setup_card_text_size">Menu Text Size</string>
     <string name="setup_text_size_label">Scale: %1$d%%</string>
     <string name="setup_button_apply_text_size">Apply Menu Text Size</string>
@@ -348,4 +334,18 @@
     <string name="online_network_settings">Network settings (servers, PC compatibility): from %1$s, updated automatically from the project\'s GitHub and signed.</string>
     <string name="online_network_settings_builtin">Network settings (servers, PC compatibility): built into this version; newer ones come automatically from the project\'s GitHub.</string>
     <string name="online_datapacks_chip_update">Update available</string>
+    <string name="setup_card_upscale">Upscaling (Snapdragon GSR)</string>
+    <string name="setup_upscale_off_short">Off</string>
+    <string name="setup_upscale_ultra_short">Ultra</string>
+    <string name="setup_upscale_quality_short">Quality</string>
+    <string name="setup_upscale_balanced_short">Balanced</string>
+    <string name="setup_upscale_performance_short">Perf.</string>
+    <string name="setup_upscale_ultra">Ultra Quality</string>
+    <string name="setup_upscale_quality">Quality</string>
+    <string name="setup_upscale_balanced">Balanced</string>
+    <string name="setup_upscale_performance">Performance</string>
+    <string name="setup_upscale_status_off">Off: rendered at the full %1$d×%2$d</string>
+    <string name="setup_upscale_status">%1$s: 3D rendered at %2$d×%3$d, upscaled to %4$d×%5$d</string>
+    <string name="setup_upscale_help">Like FSR in PC games: the game keeps your screen\'s resolution, but the GPU draws the 3D battlefield with fewer pixels and Snapdragon Game Super Resolution sharpens it back up to full size. The interface and text are drawn afterwards at the screen\'s full resolution, so they stay sharp, and Menu Text Size works as before. This takes load off the GPU, which is what limits the frame rate in heavy battles on weaker phones. Ultra Quality and Quality look closest to native; Balanced and Performance give the most frames. The game\'s own resolution setting is not changed. Native GLES backend only. Takes effect the next time you launch the game.</string>
+    <string name="setup_toast_render_scale_saved">Saved. Takes effect next time you launch the game.</string>
 </resources>

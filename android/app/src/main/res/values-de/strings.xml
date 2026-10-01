@@ -327,4 +327,18 @@
     <string name="online_network_settings">Netzwerkeinstellungen (Server, PC-Kompatibilität): vom %1$s, automatisch vom GitHub des Projekts aktualisiert und signiert.</string>
     <string name="online_network_settings_builtin">Netzwerkeinstellungen (Server, PC-Kompatibilität): in diese Version eingebaut; neuere kommen automatisch vom GitHub des Projekts.</string>
     <string name="online_datapacks_chip_update">Update verfügbar</string>
+    <string name="setup_card_upscale">Hochskalierung (Snapdragon GSR)</string>
+    <string name="setup_upscale_off_short">Aus</string>
+    <string name="setup_upscale_ultra_short">Ultra</string>
+    <string name="setup_upscale_quality_short">Qualität</string>
+    <string name="setup_upscale_balanced_short">Ausgew.</string>
+    <string name="setup_upscale_performance_short">Leistung</string>
+    <string name="setup_upscale_ultra">Ultra-Qualität</string>
+    <string name="setup_upscale_quality">Qualität</string>
+    <string name="setup_upscale_balanced">Ausgewogen</string>
+    <string name="setup_upscale_performance">Leistung</string>
+    <string name="setup_upscale_status_off">Aus: Darstellung in vollen %1$d×%2$d</string>
+    <string name="setup_upscale_status">%1$s: 3D in %2$d×%3$d gerendert, hochskaliert auf %4$d×%5$d</string>
+    <string name="setup_upscale_help">Wie FSR in PC-Spielen: Das Spiel behält die Auflösung deines Bildschirms, aber die GPU zeichnet das 3D-Schlachtfeld mit weniger Pixeln, und Snapdragon Game Super Resolution schärft es wieder auf volle Größe. Oberfläche und Text werden danach in der vollen Bildschirmauflösung gezeichnet, bleiben also scharf, und die Menü-Textgröße funktioniert wie bisher. Das entlastet die GPU, die auf schwächeren Handys in großen Schlachten die Bildrate begrenzt. Ultra-Qualität und Qualität sehen der nativen Auflösung am ähnlichsten; Ausgewogen und Leistung bringen die meisten Bilder. Die Auflösungseinstellung des Spiels selbst wird nicht geändert. Nur für das native GLES-Backend. Wird beim nächsten Spielstart wirksam.</string>
+    <string name="setup_toast_render_scale_saved">Gespeichert. Wird beim nächsten Spielstart wirksam.</string>
 </resources>
