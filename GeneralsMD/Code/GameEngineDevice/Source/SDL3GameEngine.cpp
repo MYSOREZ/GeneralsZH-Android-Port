@@ -965,6 +965,13 @@ void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
 		if (DX8Wrapper::Pillarbox_Get_Rect(pbX, pbY, pbW, pbH) && pbW > 0 && pbH > 0 && TheDisplay) {
 			px = (px - (float)pbX) * ((float)TheDisplay->getWidth() / (float)pbW);
 			py = (py - (float)pbY) * ((float)TheDisplay->getHeight() / (float)pbH);
+		} else if (TheDisplay && TheDisplay->getWidth() > 0 && TheDisplay->getHeight() > 0) {
+			// GeneralsX @feature Android port 01/10/2026 No pillarbox but a game resolution other
+			// than the window's: the GLES backend's virtual backbuffer stretches the whole game
+			// over the whole window (d3d8gles_SetVirtualBackbuffer), so the finger's share of the
+			// window is its share of the game. Identical to the window size when they match.
+			px = event.tfinger.x * (float)TheDisplay->getWidth();
+			py = event.tfinger.y * (float)TheDisplay->getHeight();
 		}
 	}
 
@@ -2555,6 +2562,14 @@ void SDL3GameEngine::pollSDL3Events(void)
 					int winH = 0;
 					if (m_SDLWindow) {
 						SDL_GetWindowSize(m_SDLWindow, &winW, &winH);
+					}
+					// GeneralsX @bugfix Android port 01/10/2026 Hit-tested in the game's resolution,
+					// which differs from the window's when rendering below it (see handleTouchEvent).
+					int pbX = 0, pbY = 0, pbW = 0, pbH = 0;
+					if (TheDisplay && TheDisplay->getWidth() > 0 && TheDisplay->getHeight() > 0 &&
+					    !DX8Wrapper::Pillarbox_Get_Rect(pbX, pbY, pbW, pbH)) {
+						winW = TheDisplay->getWidth();
+						winH = TheDisplay->getHeight();
 					}
 
 					GameWindow* touched = (TheWindowManager && winW > 0 && winH > 0)

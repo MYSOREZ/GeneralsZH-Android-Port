@@ -760,6 +760,14 @@ void WebGLPipeline::loadOptimizationSwitches()
 
 void WebGLPipeline::resize(int w, int h)
 {
+	if (m_vbActive) {
+		// The virtual backbuffer keeps the game's size; only the stretch's target changes.
+		if (w != m_winW || h != m_winH)
+			fprintf(stderr, "[d3d8gles] window resized to %dx%d (virtual backbuffer stays %dx%d)\n", w, h, m_vbW, m_vbH);
+		m_winW = w;
+		m_winH = h;
+		return;
+	}
 	if (w == m_fbWidth && h == m_fbHeight) return;
 	// The native window surface already tracks the real size on its own
 	// (unlike a browser canvas, which needed an explicit element-size call);
@@ -1974,7 +1982,7 @@ void WebGLPipeline::bindTextures(WebGLDevice *dev, ProgramInfo *prog)
 
 void WebGLPipeline::applyFixedState(WebGLDevice *dev)
 {
-	const D3DVIEWPORT8 &vpKey = dev->getViewport();
+	const D3DVIEWPORT8 &vpKey = effectiveViewport(dev);
 	FixedStateKey key{};
 	key.zEnable = dev->getRenderState(D3DRS_ZENABLE);
 	key.zWrite = dev->getRenderState(D3DRS_ZWRITEENABLE);
@@ -2180,7 +2188,7 @@ void WebGLPipeline::applyFixedState(WebGLDevice *dev)
 	// viewport) looked fine while the actual in-game partial 3D viewport
 	// (top black band, picking offset by the same amount) did not: confirmed
 	// on a real device screenshot during live gameplay.
-	const D3DVIEWPORT8 &vp = dev->getViewport();
+	const D3DVIEWPORT8 &vp = effectiveViewport(dev);
 	const GLint glViewportY = (GLint)(m_curRTHeight - (int)vp.Y - (int)vp.Height);
 	if (all || key.vpX != prev.vpX || key.vpY != prev.vpY || key.vpW != prev.vpW || key.vpH != prev.vpH ||
 	    glViewportY != m_lastSentViewportY)
@@ -2277,7 +2285,7 @@ void WebGLPipeline::applyUniforms(WebGLDevice *dev, ProgramInfo *prog, unsigned 
 
 	if (prog->uViewportPos >= 0 || prog->uYFlip >= 0 || prog->uTFactor >= 0 ||
 	    prog->uAlphaRef >= 0 || prog->uFogColor >= 0) {
-		const D3DVIEWPORT8 &vp = dev->getViewport();
+		const D3DVIEWPORT8 &vp = effectiveViewport(dev);
 		MiscUniformKey key{};
 		key.vpX = (float)vp.X; key.vpY = (float)vp.Y; key.vpW = (float)vp.Width; key.vpH = (float)vp.Height;
 		key.yFlip = m_yFlip;
@@ -2687,63 +2695,56 @@ extern "C" void d3d8gles_GetDrawTotals(unsigned long long *draws, double *drawUs
 	*glDrawUs = s_gxTotalGlDrawUs;
 }
 
-// GeneralsX @feature Android port 01/10/2026 Snapdragon Game Super Resolution 1 for the pillarbox
-// upscale. When the game renders below the screen's resolution (a smaller Resolution in its
-// Options, or the launcher's Render Resolution), DX8Wrapper::Pillarbox_End() stretches the
-// offscreen frame to the screen with one textured quad; with this on, that quad is drawn with
-// SGSR's single-pass edge-adaptive upscale + sharpen instead of plain bilinear. The engine turns it
-// on around that one draw. Returns 1 when the GSR program is in use; 0 when it is not available
-// (DXVK, no ES 3.1 textureGather, or the shader failed to build), and the bilinear path stays.
-static int s_gxUpscaleOn = 0;   // the SGSR program draws the blit
-static int s_gxUpscaleBlit = 0; // a scaling pillarbox blit is being drawn (SGSR or bilinear)
-static float s_gxUpscaleSrcW = 0.0f, s_gxUpscaleSrcH = 0.0f;
-extern "C" int d3d8gles_SetUpscaleBlit(int enable, int srcW, int srcH)
+// GeneralsX @feature Android port 01/10/2026 Render resolution below the screen's, on the native GLES
+// backend: a virtual backbuffer. When the game's resolution is smaller than the window (the
+// launcher's Render Resolution, or a smaller Resolution from the game's Options), everything the
+// engine draws to "the backbuffer" -- scene, interface, videos, loading screens -- goes into an
+// offscreen framebuffer of the game's size, and present() stretches it over the whole window in
+// one pass right before the swap, with Snapdragon GSR 1 or bilinear. The engine's own pillarbox
+// (an offscreen target switched in and out around parts of the frame) is not used on GLES: there it
+// showed frozen frames and flicker (logs-45/46) because not every draw path went through it. Here
+// there is no such thing as a draw that misses the target. Returns 1 when active.
+extern "C" int d3d8gles_SetVirtualBackbuffer(int w, int h, int gsr)
 {
-	// enable: 0 = none, 1 = scaling blit with SGSR, 2 = scaling blit kept bilinear, 3 = unscaled
-	// pillarbox blit (bars only).
-	s_gxUpscaleBlit = (s_gxGlesReady && enable != 0) ? 1 : 0;
-	if (!s_gxGlesReady || enable != 1 || srcW <= 0 || srcH <= 0) {
-		s_gxUpscaleOn = 0;
+	if (!s_gxGlesReady)
 		return 0;
-	}
-	if (WebGLPipeline::get()->gsrProgram() == nullptr) {
-		s_gxUpscaleOn = 0;
-		return 0;
-	}
-	s_gxUpscaleOn = 1;
-	s_gxUpscaleSrcW = (float)srcW;
-	s_gxUpscaleSrcH = (float)srcH;
-	return 1;
+	return WebGLPipeline::get()->setVirtualBackbuffer(w, h, gsr != 0) ? 1 : 0;
 }
 
-// The SGSR program, built on first use. The vertex stage reproduces the generated xyzrhw vertex
-// shader (getProgram()) exactly, so the quad lands where the bilinear blit put it. The fragment
+// The present pass's shaders. One full-screen triangle from gl_VertexID (no vertex buffer), and
+// texture coordinates in the same orientation the scene was rendered in (an offscreen target's
+// v = 1 is D3D's top row, see Pillarbox_End()'s flipForGLTextureStorage). The SGSR fragment
 // stage is Qualcomm's sgsr1_shader_mobile.frag (RGBA mode, edge threshold 8/255, sharpness 2),
 // BSD-3-Clause, Copyright (c) 2025 Qualcomm Innovation Center, Inc.
-// (https://github.com/SnapdragonStudios/snapdragon-gsr, sgsr/v1), with only its input names
-// adapted to this pipeline, #version raised to 310 es for textureGather, and the `highp` dropped
-// from three vec2 constructor calls (a precision qualifier there is not valid GLSL ES; glslc
-// rejects it, and a strict driver would too).
-WebGLPipeline::ProgramInfo *WebGLPipeline::gsrProgram()
-{
-	if (m_gsrTried)
-		return m_gsrProg;
-	m_gsrTried = true;
-	static const char *kVs =
-		"#version 310 es\n"
-		"precision highp float;\n"
-		"layout(location=0) in vec4 aPos;\n"
-		"layout(location=4) in vec4 aUV0;\n"
-		"uniform vec4 uViewportPos;\n"
-		"uniform float uYFlip;\n"
-		"out highp vec4 in_TEXCOORD0;\n"
-		"void main() {\n"
-		"  float nx = ((aPos.x - uViewportPos.x - 0.5) / uViewportPos.z) * 2.0 - 1.0;\n"
-		"  float ny = 1.0 - ((aPos.y - uViewportPos.y - 0.5) / uViewportPos.w) * 2.0;\n"
-		"  gl_Position = vec4(nx, ny * uYFlip, aPos.z * 2.0 - 1.0, 1.0);\n"
-		"  in_TEXCOORD0 = vec4(aUV0.xy, 0.0, 0.0);\n"
-		"}\n";
-	static const char *kFs =
+// (https://github.com/SnapdragonStudios/snapdragon-gsr, sgsr/v1), with its input names adapted,
+// #version raised to 310 es for textureGather, and the `highp` dropped from three vec2
+// constructor calls (a precision qualifier there is not valid GLSL ES; glslc rejects it).
+static const char *kPresentVs300 =
+	"#version 300 es\n"
+	"out highp vec4 in_TEXCOORD0;\n"
+	"void main() {\n"
+	"  vec2 p = vec2(float((gl_VertexID << 1) & 2), float(gl_VertexID & 2));\n"
+	"  in_TEXCOORD0 = vec4(p, 0.0, 0.0);\n"
+	"  gl_Position = vec4(p * 2.0 - 1.0, 0.0, 1.0);\n"
+	"}\n";
+static const char *kPresentVs310 =
+	"#version 310 es\n"
+	"out highp vec4 in_TEXCOORD0;\n"
+	"void main() {\n"
+	"  vec2 p = vec2(float((gl_VertexID << 1) & 2), float(gl_VertexID & 2));\n"
+	"  in_TEXCOORD0 = vec4(p, 0.0, 0.0);\n"
+	"  gl_Position = vec4(p * 2.0 - 1.0, 0.0, 1.0);\n"
+	"}\n";
+static const char *kPresentPlainFs =
+	"#version 300 es\n"
+	"precision mediump float;\n"
+	"uniform mediump sampler2D uTex0;\n"
+	"in highp vec4 in_TEXCOORD0;\n"
+	"layout(location=0) out vec4 out_Target0;\n"
+	"void main() {\n"
+	"  out_Target0 = vec4(texture(uTex0, in_TEXCOORD0.xy).rgb, 1.0);\n"
+	"}\n";
+static const char *kPresentGsrFs =
 		"#version 310 es\n"
 		"precision mediump float;\n"
 		"precision highp int;\n"
@@ -2812,8 +2813,11 @@ WebGLPipeline::ProgramInfo *WebGLPipeline::gsrProgram()
 		"  color.w = 1.0;\n"
 		"  out_Target0 = color;\n"
 		"}\n";
-	GLuint vsh = compileShader(GL_VERTEX_SHADER, kVs);
-	GLuint fsh = compileShader(GL_FRAGMENT_SHADER, kFs);
+
+static GLuint buildPresentProgram(const char *vs, const char *fs)
+{
+	GLuint vsh = compileShader(GL_VERTEX_SHADER, vs);
+	GLuint fsh = compileShader(GL_FRAGMENT_SHADER, fs);
 	GLuint p = 0;
 	if (vsh && fsh) {
 		p = glCreateProgram();
@@ -2825,26 +2829,151 @@ WebGLPipeline::ProgramInfo *WebGLPipeline::gsrProgram()
 		if (!ok) {
 			char log[2048];
 			glGetProgramInfoLog(p, sizeof(log), nullptr, log);
-			fprintf(stderr, "[d3d8gles] SGSR program link FAILED: %s\n", log);
+			fprintf(stderr, "[d3d8gles] present program link FAILED: %s\n", log);
 			glDeleteProgram(p);
 			p = 0;
 		}
 	}
 	if (vsh) glDeleteShader(vsh);
 	if (fsh) glDeleteShader(fsh);
-	if (p == 0) {
-		fprintf(stderr, "[d3d8gles] SGSR upscale unavailable; the pillarbox blit stays bilinear\n");
-		return nullptr;
+	return p;
+}
+
+const D3DVIEWPORT8 &WebGLPipeline::effectiveViewport(WebGLDevice *dev)
+{
+	const D3DVIEWPORT8 &vp = dev->getViewport();
+	if (m_vbActive && m_curFBO == m_vbFBO &&
+	    ((int)(vp.X + vp.Width) > m_vbW || (int)(vp.Y + vp.Height) > m_vbH)) {
+		m_vbFullVp.X = 0;
+		m_vbFullVp.Y = 0;
+		m_vbFullVp.Width = (DWORD)m_vbW;
+		m_vbFullVp.Height = (DWORD)m_vbH;
+		m_vbFullVp.MinZ = vp.MinZ;
+		m_vbFullVp.MaxZ = vp.MaxZ;
+		return m_vbFullVp;
 	}
-	ProgramInfo *info = new ProgramInfo();
-	info->prog = p;
-	info->uViewportPos = glGetUniformLocation(p, "uViewportPos");
-	info->uYFlip = glGetUniformLocation(p, "uYFlip");
-	info->uTex0 = glGetUniformLocation(p, "uTex0");
-	m_gsrViewportInfo = glGetUniformLocation(p, "ViewportInfo[0]");
-	m_gsrProg = info;
-	fprintf(stderr, "[d3d8gles] SGSR upscale ready (Snapdragon Game Super Resolution 1)\n");
-	return m_gsrProg;
+	return vp;
+}
+
+bool WebGLPipeline::setVirtualBackbuffer(int w, int h, bool gsr)
+{
+	if (w <= 0 || h <= 0) {
+		if (m_vbActive) {
+			// Back to the window itself.
+			m_vbActive = false;
+			m_fbWidth = m_winW;
+			m_fbHeight = m_winH;
+			if (m_curFBO == m_vbFBO) {
+				glBindFramebuffer(GL_FRAMEBUFFER, 0);
+				m_curFBO = 0;
+				m_curRTWidth = m_fbWidth;
+				m_curRTHeight = m_fbHeight;
+			}
+			fprintf(stderr, "[d3d8gles] virtual backbuffer off: rendering at the window's %dx%d\n", m_fbWidth, m_fbHeight);
+		}
+		return false;
+	}
+	if (!m_vbActive) {
+		m_winW = m_fbWidth;
+		m_winH = m_fbHeight;
+	}
+	if (m_vbActive && w == m_vbW && h == m_vbH && gsr == m_vbGsr)
+		return true;
+
+	if (m_vbFBO == 0) {
+		glGenFramebuffers(1, &m_vbFBO);
+		glGenTextures(1, &m_vbTex);
+		glGenRenderbuffers(1, &m_vbDepth);
+	}
+	glBindTexture(GL_TEXTURE_2D, m_vbTex);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	m_lastBoundTex[0] = m_lastBoundTex[1] = ~0u;
+	glBindRenderbuffer(GL_RENDERBUFFER, m_vbDepth);
+	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, w, h);
+	glBindFramebuffer(GL_FRAMEBUFFER, m_vbFBO);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_vbTex, 0);
+	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, m_vbDepth);
+	const GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
+	if (status != GL_FRAMEBUFFER_COMPLETE) {
+		fprintf(stderr, "[d3d8gles] virtual backbuffer %dx%d incomplete (0x%x); rendering at the window's size\n", w, h, status);
+		glBindFramebuffer(GL_FRAMEBUFFER, m_curFBO == m_vbFBO ? 0 : m_curFBO);
+		m_vbActive = false;
+		return false;
+	}
+
+	if (m_presentPlainProg == 0) {
+		m_presentPlainProg = buildPresentProgram(kPresentVs300, kPresentPlainFs);
+		if (m_presentPlainProg)
+			m_presentPlainTex = glGetUniformLocation(m_presentPlainProg, "uTex0");
+		glGenVertexArrays(1, &m_presentVAO);
+	}
+	if (gsr && m_presentGsrProg == 0 && !m_presentGsrTried) {
+		m_presentGsrTried = true;
+		m_presentGsrProg = buildPresentProgram(kPresentVs310, kPresentGsrFs);
+		if (m_presentGsrProg) {
+			m_presentGsrTex = glGetUniformLocation(m_presentGsrProg, "uTex0");
+			m_presentGsrInfo = glGetUniformLocation(m_presentGsrProg, "ViewportInfo[0]");
+		}
+		fprintf(stderr, "[d3d8gles] SGSR upscale %s\n", m_presentGsrProg ? "ready (Snapdragon Game Super Resolution 1)"
+			: "unavailable; stretching with bilinear filtering");
+	}
+	if (m_presentPlainProg == 0) {
+		fprintf(stderr, "[d3d8gles] virtual backbuffer: present program unavailable; rendering at the window's size\n");
+		glBindFramebuffer(GL_FRAMEBUFFER, m_curFBO == m_vbFBO ? 0 : m_curFBO);
+		m_vbActive = false;
+		return false;
+	}
+
+	const bool wasBackbuffer = !m_vbActive ? (m_curFBO == 0) : (m_curFBO == m_vbFBO);
+	m_vbActive = true;
+	m_vbW = w;
+	m_vbH = h;
+	m_vbGsr = gsr && m_presentGsrProg != 0;
+	m_fbWidth = w;
+	m_fbHeight = h;
+	if (wasBackbuffer) {
+		m_curFBO = m_vbFBO;
+		m_curRTWidth = w;
+		m_curRTHeight = h;
+	} else {
+		glBindFramebuffer(GL_FRAMEBUFFER, m_curFBO);
+	}
+	m_haveFixedStateKey = false;
+	fprintf(stderr, "[d3d8gles] virtual backbuffer %dx%d, stretched to the %dx%d window with %s\n",
+		w, h, m_winW, m_winH, m_vbGsr ? "SGSR" : "bilinear filtering");
+	return true;
+}
+
+// Called by present() right before the swap: the virtual backbuffer over the whole window.
+void WebGLPipeline::presentVirtualBackbuffer()
+{
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	glViewport(0, 0, m_winW, m_winH);
+	glDisable(GL_SCISSOR_TEST);
+	glDisable(GL_BLEND);
+	glDisable(GL_DEPTH_TEST);
+	glDisable(GL_STENCIL_TEST);
+	glDisable(GL_CULL_FACE);
+	glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
+	const GLuint prog = m_vbGsr ? m_presentGsrProg : m_presentPlainProg;
+	glUseProgram(prog);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, m_vbTex);
+	glUniform1i(m_vbGsr ? m_presentGsrTex : m_presentPlainTex, 0);
+	if (m_vbGsr && m_presentGsrInfo >= 0)
+		glUniform4f(m_presentGsrInfo, 1.0f / (float)m_vbW, 1.0f / (float)m_vbH, (float)m_vbW, (float)m_vbH);
+	glBindVertexArray(m_presentVAO);
+	glDrawArrays(GL_TRIANGLES, 0, 3);
+	// The next frame draws into the virtual backbuffer again, from a clean slate of cached state.
+	glBindFramebuffer(GL_FRAMEBUFFER, m_curFBO);
+	m_lastProgram = 0;
+	m_haveFixedStateKey = false;
+	m_haveLastVAOKey = false;
+	m_lastBoundTex[0] = m_lastBoundTex[1] = ~0u;
 }
 
 extern "C" int d3d8gles_SetDrawCategory(int category)
@@ -2871,15 +3000,10 @@ void WebGLPipeline::drawCommon(WebGLDevice *dev, unsigned primType, unsigned pri
 
 	ProgramInfo *prog = getProgram(dev, fvf);
 	if (!prog || !prog->prog) return;
-	const bool gsrBlit = s_gxUpscaleOn && l.xyzrhw && m_gsrProg != nullptr;
-	if (gsrBlit)
-		prog = m_gsrProg;
 
 	applyFixedState(dev);
 	applyUniforms(dev, prog, fvf);
 	bindTextures(dev, prog);
-	if (gsrBlit && m_gsrViewportInfo >= 0)
-		glUniform4f(m_gsrViewportInfo, 1.0f / s_gxUpscaleSrcW, 1.0f / s_gxUpscaleSrcH, s_gxUpscaleSrcW, s_gxUpscaleSrcH);
 
 	// GeneralsX @performance Android port 27/09/2026 D3D8's base vertex index (SetIndices'
 	// second argument) is what glDrawElementsBaseVertex takes. Without it the offset has to be
@@ -2932,63 +3056,6 @@ void WebGLPipeline::drawCommon(WebGLDevice *dev, unsigned primType, unsigned pri
 	// per window, so it costs nothing.
 	m_perfDrawsThisFrame++;
 	s_gxDrawsByCategory[s_gxDrawCategory]++;
-
-	// GeneralsX @bugfix Android port 01/10/2026 The first SGSR build showed a black screen on the old
-	// Mali phone with the game running at 60 fps underneath (logs-43). Three times, a few seconds
-	// apart, compare the centre of the frame going into the upscale (the offscreen target) with the
-	// centre of the screen after it: black in, black out puts the fault in the low-resolution
-	// render; picture in, black out puts it in the upscale. Each sample waits for the GPU once.
-	// Per-frame split for [GX-PBFRAME] (see present()).
-	if (m_curFBO == 0)
-		m_pbFrameScreenDraws++;
-	else
-		m_pbFrameTargetDraws++;
-	if (s_gxUpscaleBlit && l.xyzrhw)
-		m_pbFrameBlits++;
-	if (s_gxUpscaleBlit && l.xyzrhw) {
-		static unsigned s_gsrBlits = 0;
-		const unsigned n = ++s_gsrBlits;
-		if (n == 180 || n == 600 || n == 1200)
-			debugUpscaleSample(dev->getTexture2D(0), gsrBlit);
-	}
-}
-
-void WebGLPipeline::debugUpscaleSample(WebGLTexture *input, bool gsr)
-{
-	auto measure = [](const std::vector<uint8_t> &px, double avg[3], int *nonBlack) {
-		avg[0] = avg[1] = avg[2] = 0.0;
-		*nonBlack = 0;
-		const size_t n = px.size() / 4;
-		for (size_t i = 0; i < n; i++) {
-			const uint8_t *p = px.data() + i * 4;
-			for (int c = 0; c < 3; c++) avg[c] += p[c];
-			if (p[0] || p[1] || p[2]) (*nonBlack)++;
-		}
-		for (int c = 0; c < 3; c++) avg[c] /= n ? (double)n : 1.0;
-	};
-	const int bw = 32, bh = 32;
-	std::vector<uint8_t> in((size_t)bw * bh * 4), out((size_t)bw * bh * 4);
-	glPixelStorei(GL_PACK_ALIGNMENT, 1);
-	int inW = 0, inH = 0;
-	if (input && input->m_gl.fbo && !input->m_levels.empty()) {
-		inW = (int)input->m_levels[0]->m_width;
-		inH = (int)input->m_levels[0]->m_height;
-		glBindFramebuffer(GL_FRAMEBUFFER, input->m_gl.fbo);
-		glReadPixels(inW / 2 - bw / 2, inH / 2 - bh / 2, bw, bh, GL_RGBA, GL_UNSIGNED_BYTE, in.data());
-	}
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-	glReadPixels(m_fbWidth / 2 - bw / 2, m_fbHeight / 2 - bh / 2, bw, bh, GL_RGBA, GL_UNSIGNED_BYTE, out.data());
-	glBindFramebuffer(GL_FRAMEBUFFER, m_curFBO);
-	double ai[3], ao[3];
-	int ni = 0, no = 0;
-	measure(in, ai, &ni);
-	measure(out, ao, &no);
-	fprintf(stderr, "[GX-UPSCALE] %s %dx%d -> %dx%d | input centre avg=(%.0f,%.0f,%.0f) nonblack=%d/%d | "
-		"screen centre avg=(%.0f,%.0f,%.0f) nonblack=%d/%d | input fbo=%u status=0x%x dirty=%d gl=%u\n",
-		gsr ? "SGSR" : "plain", inW, inH, m_fbWidth, m_fbHeight, ai[0], ai[1], ai[2], ni, bw * bh,
-		ao[0], ao[1], ao[2], no, bw * bh,
-		input ? (unsigned)input->m_gl.fbo : 0u, input ? (unsigned)input->m_gl.fboStatus : 0u,
-		input ? (int)input->m_gl.dirty : -1, input ? (unsigned)input->m_gl.name : 0u);
 }
 
 // Buffer objects (device-side shadow -> GL) helpers.
@@ -3606,7 +3673,7 @@ void WebGLPipeline::clear(WebGLDevice *dev, unsigned flags, uint32_t argb, float
 
 
 	// D3D clears the viewport region only.
-	const D3DVIEWPORT8 &vp = dev->getViewport();
+	const D3DVIEWPORT8 &vp = effectiveViewport(dev);
 	const bool full = (vp.X == 0 && vp.Y == 0 &&
 	                   (int)vp.Width == m_curRTWidth && (int)vp.Height == m_curRTHeight);
 	if (!full) {
@@ -3671,8 +3738,8 @@ void WebGLPipeline::setRenderTarget(WebGLDevice * /*dev*/, WebGLTexture *tex)
 	if (!m_ctxReady) return;
 
 	if (tex == nullptr) {
-		glBindFramebuffer(GL_FRAMEBUFFER, 0);
-		m_curFBO = 0;
+		glBindFramebuffer(GL_FRAMEBUFFER, backbufferFBO());
+		m_curFBO = backbufferFBO();
 		m_curRTWidth = m_fbWidth;
 		m_curRTHeight = m_fbHeight;
 		// GeneralsX @build Android port GLES experiment - this was +1.0f as
@@ -3737,8 +3804,8 @@ void WebGLPipeline::setRenderTarget(WebGLDevice * /*dev*/, WebGLTexture *tex)
 	const GLenum status = tex->m_gl.fboStatus;
 	if (status != GL_FRAMEBUFFER_COMPLETE) {
 		WARN_ONCE(s_fboIncomplete, "FBO incomplete: 0x%x (%dx%d fmt=%d)", status, w, h, (int)tex->m_format);
-		glBindFramebuffer(GL_FRAMEBUFFER, 0);
-		m_curFBO = 0;
+		glBindFramebuffer(GL_FRAMEBUFFER, backbufferFBO());
+		m_curFBO = backbufferFBO();
 		m_curRTWidth = m_fbWidth;
 		m_curRTHeight = m_fbHeight;
 		// GeneralsX @build Android port GLES experiment - this was +1.0f as
@@ -3878,24 +3945,6 @@ void WebGLPipeline::present()
 	if (!m_ctxReady) return;
 	m_frame++;
 
-	// GeneralsX @bugfix Android port 01/10/2026 Rendering below the screen's resolution flickered
-	// every frame on GLES (logs-45/46) while its upscale samples showed a correct picture on some
-	// frames and black on others. For 40 consecutive frames, once the game has been running a
-	// while, log where each frame's draws went -- an offscreen target, the screen -- and how many
-	// pillarbox blits it had, so the alternation shows up as a pattern.
-	{
-		static unsigned s_pbLogged = 0;
-		if (m_pbFrameBlits > 0 || m_pbSeenBlit) {
-			m_pbSeenBlit = true;
-			++m_pbFramesSinceBlit;
-			if (m_pbFramesSinceBlit > 1500 && s_pbLogged < 40) {
-				s_pbLogged++;
-				fprintf(stderr, "[GX-PBFRAME] frame=%u target-draws=%u screen-draws=%u pillarbox-blits=%u\n",
-					m_frame, m_pbFrameTargetDraws, m_pbFrameScreenDraws, m_pbFrameBlits);
-			}
-		}
-		m_pbFrameTargetDraws = m_pbFrameScreenDraws = m_pbFrameBlits = 0;
-	}
 
 	// GeneralsX @performance Android port 27/09/2026 Asked once a second, not every frame: a
 	// glGetError can make the driver flush its command queue, and only the once-a-second
@@ -4236,6 +4285,8 @@ void WebGLPipeline::present()
 	// GeneralsX @performance Android port 30/09/2026 Queued behind the frame's GL calls when the
 	// render thread runs; waits for the previous frame's swap, not this one's.
 	if (m_window) {
+		if (m_vbActive)
+			presentVirtualBackbuffer();
 		if (s_gpuTimer.ok)
 			gxrt::post([] { s_gpuTimer.frameEnd(); });
 		gxrt::present(m_window, swapInterval);

@@ -235,16 +235,25 @@ private:
 
 	ProgramInfo *getProgram(WebGLDevice *dev, unsigned fvf);
 public:
-	// GeneralsX @feature Android port 01/10/2026 Snapdragon GSR 1 program for the pillarbox upscale
-	// (see d3d8gles_SetUpscaleBlit); nullptr when it cannot be built.
-	ProgramInfo *gsrProgram();
-	void debugUpscaleSample(WebGLTexture *input, bool gsr);
-	unsigned m_pbFrameTargetDraws = 0, m_pbFrameScreenDraws = 0, m_pbFrameBlits = 0, m_pbFramesSinceBlit = 0;
-	bool m_pbSeenBlit = false;
+	// GeneralsX @feature Android port 01/10/2026 Virtual backbuffer for rendering below the window's
+	// resolution, stretched to the window at present() with SGSR or bilinear (see
+	// d3d8gles_SetVirtualBackbuffer). w or h <= 0 turns it off.
+	bool setVirtualBackbuffer(int w, int h, bool gsr);
 private:
-	ProgramInfo *m_gsrProg = nullptr;
-	GLint m_gsrViewportInfo = -1;
-	bool m_gsrTried = false;
+	void presentVirtualBackbuffer();
+	GLuint backbufferFBO() const { return m_vbActive ? m_vbFBO : 0; }
+	// The viewport to apply: the device's, except that one larger than the virtual backbuffer
+	// (the engine still knows the window's size) covers the whole virtual backbuffer instead.
+	const D3DVIEWPORT8 &effectiveViewport(WebGLDevice *dev);
+	bool m_vbActive = false;
+	bool m_vbGsr = false;
+	int m_vbW = 0, m_vbH = 0;
+	int m_winW = 0, m_winH = 0;
+	GLuint m_vbFBO = 0, m_vbTex = 0, m_vbDepth = 0;
+	D3DVIEWPORT8 m_vbFullVp = {};
+	GLuint m_presentPlainProg = 0, m_presentGsrProg = 0, m_presentVAO = 0;
+	GLint m_presentPlainTex = -1, m_presentGsrTex = -1, m_presentGsrInfo = -1;
+	bool m_presentGsrTried = false;
 	void applyFixedState(WebGLDevice *dev);
 	void applyUniforms(WebGLDevice *dev, ProgramInfo *prog, unsigned fvf);
 	void ensureVBUploaded(WebGLVertexBuffer *vb);

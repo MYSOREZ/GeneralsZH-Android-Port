@@ -219,6 +219,25 @@ bool DX8Wrapper::Pillarbox_Setup(int gameW, int gameH)
 	if (renderW <= 0) renderW = gameW;
 	if (renderH <= 0) renderH = gameH;
 
+#if defined(__ANDROID__)
+	// GeneralsX @feature Android port 01/10/2026 On the native GLES backend a game resolution below the
+	// window's is a virtual backbuffer in the translator (d3d8gles_SetVirtualBackbuffer): every draw
+	// to the backbuffer lands in a target of the game's size, stretched to the window at present
+	// with Snapdragon GSR 1 (or bilinear, GXUpscaler = bilinear in Options.ini, passed on by
+	// SDL3Main.cpp as GX_UPSCALER). This pillarbox -- an offscreen target switched in around parts
+	// of the frame -- showed frozen frames and flicker there (logs-45/46) and stays for DXVK.
+	if (!d3d8gles_ShouldUseVulkanBackend()) {
+		const char *upscaler = getenv("GX_UPSCALER");
+		const bool gsr = !(upscaler && strcmp(upscaler, "bilinear") == 0);
+		const bool smaller = renderW < bbW || renderH < bbH;
+		if (d3d8gles_SetVirtualBackbuffer(smaller ? renderW : 0, smaller ? renderH : 0, gsr ? 1 : 0)) {
+			fprintf(stderr, "INFO: game %dx%d on a %dx%d window: virtual backbuffer (%s), no pillarbox\n",
+				renderW, renderH, bbW, bbH, gsr ? "SGSR" : "bilinear");
+			return false;
+		}
+	}
+#endif
+
 	// No pillarbox needed if backbuffer matches the actual render resolution
 	if (bbW == renderW && bbH == renderH) return false;
 
@@ -407,22 +426,7 @@ void DX8Wrapper::Pillarbox_End()
 		{x0, y1, 0, 1, 0, v1Bottom}, {x1, y1, 0, 1, 1, v1Bottom},
 	};
 	D3DDevice->SetVertexShader(D3DFVF_XYZRHW | D3DFVF_TEX1);
-#if defined(__ANDROID__)
-	// GeneralsX @feature Android port 01/10/2026 Snapdragon GSR 1 instead of bilinear when the frame
-	// is actually being scaled, on the native GLES backend (DXVK has no hook for it). Off with
-	// GXUpscaler = bilinear in Options.ini (Graphics > Render Resolution in the launcher), which
-	// SDL3Main.cpp passes on as GX_UPSCALER.
-	static const bool s_gsrWanted = [] {
-		const char *upscaler = getenv("GX_UPSCALER");
-		return !(upscaler && strcmp(upscaler, "bilinear") == 0);
-	}();
-	const bool scaling = s_dstW != s_renderW || s_dstH != s_renderH;
-	d3d8gles_SetUpscaleBlit(!scaling ? 3 : (s_gsrWanted ? 1 : 2), s_renderW, s_renderH);
-#endif
 	D3DDevice->DrawPrimitiveUP(D3DPT_TRIANGLESTRIP, 2, quad, sizeof(BV));
-#if defined(__ANDROID__)
-	d3d8gles_SetUpscaleBlit(0, 0, 0);
-#endif
 	Set_DX8_Texture(0, nullptr);
 
 	// GeneralsX @bugfix Android port 09/05/2026 Restore the depth state this

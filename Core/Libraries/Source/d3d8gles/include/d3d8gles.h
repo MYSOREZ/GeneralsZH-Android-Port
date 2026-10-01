@@ -53,11 +53,11 @@ extern "C" void d3d8gles_resize(int w, int h);
 // NOT itself link sdl3lib -- can share one implementation instead of each
 // re-reading render_backend.cfg/the env vars themselves.
 extern "C" bool d3d8gles_ShouldUseVulkanBackend();
-// GeneralsX @feature Android port 01/10/2026 Snapdragon GSR 1 for the pillarbox upscale quad:
-// enable around that one draw with the offscreen frame's size; 0 when it is not available (the
-// caller then keeps its ordinary bilinear blit). enable: 0 none, 1 SGSR, 2 bilinear, 3 an unscaled
-// pillarbox blit (2 and 3 are still marked as the pillarbox blit for diagnostics). See gles_pipeline.cpp.
-extern "C" int d3d8gles_SetUpscaleBlit(int enable, int srcW, int srcH);
+// GeneralsX @feature Android port 01/10/2026 Render below the window's resolution: a virtual
+// backbuffer of w x h, stretched to the window at present with Snapdragon GSR 1 (gsr != 0) or
+// bilinear. w or h <= 0 turns it off. Returns 1 when active; 0 under DXVK or when it could not be
+// set up (the caller then keeps its own pillarbox). See gles_pipeline.cpp.
+extern "C" int d3d8gles_SetVirtualBackbuffer(int w, int h, int gsr);
 
 // GeneralsX @perf Android port 09/05/2026 Draw-call breakdown by subsystem.
 // Engine code tags the passes it can identify cheaply so the per-frame perf log
