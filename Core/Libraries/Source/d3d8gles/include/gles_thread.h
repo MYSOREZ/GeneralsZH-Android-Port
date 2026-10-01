@@ -26,6 +26,7 @@
 #include <new>
 #include <type_traits>
 #include <utility>
+#include <time.h>
 
 struct SDL_Window;
 
@@ -166,9 +167,34 @@ struct Stats
 	unsigned syncCalls = 0;
 	unsigned commands = 0;
 	double commandBytes = 0.0;
+	// Render thread time by kind of work (see WorkKind); the rest of workerBusyUs is state calls
+	// and this layer's own overhead.
+	double drawUs = 0.0;
+	double swapUs = 0.0;
+	double uploadUs = 0.0;
 };
 Stats takeStats();
 bool running();
+
+// GeneralsX @performance Android port 01/10/2026 Where the render thread's time goes: the draw
+// calls themselves, the swap (which blocks when the GPU is behind), and data uploads. logs-41 cut
+// GL calls per draw from 8.9 to 6.2 with no change in render-thread time per draw, so the cost is
+// in the draws or in waiting for the GPU; these counters tell which.
+enum WorkKind { kWorkDraw, kWorkSwap, kWorkUpload, kWorkKinds };
+void addWork(int kind, uint64_t ns);
+struct WorkTimer
+{
+	int kind;
+	uint64_t start;
+	static uint64_t nowNs()
+	{
+		timespec ts;
+		clock_gettime(CLOCK_MONOTONIC, &ts);
+		return (uint64_t)ts.tv_sec * 1000000000ull + (uint64_t)ts.tv_nsec;
+	}
+	explicit WorkTimer(int k) : kind(k), start(nowNs()) {}
+	~WorkTimer() { addWork(kind, nowNs() - start); }
+};
 
 // GeneralsX @bugfix Android port 30/09/2026 Writes into persistently mapped buffers (the dynamic
 // vertex copies and the index stream) go through here. With the render thread they are queued and

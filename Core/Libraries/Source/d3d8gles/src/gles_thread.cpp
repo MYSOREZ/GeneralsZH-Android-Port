@@ -63,6 +63,7 @@ SDL_ThreadID s_mainThread = 0;
 bool s_watchInstalled = false;
 
 std::atomic<uint64_t> s_workerBusyNs{0};
+std::atomic<uint64_t> s_workNs[kWorkKinds];
 Stats s_stats; // engine-thread fields only
 
 // Fence proxies: created in order on the render thread, polled by it while idle.
@@ -189,6 +190,7 @@ void workerMain()
 		}
 		const Clock::time_point busy = Clock::now();
 		Clock::time_point lastPoll = busy;
+		Clock::time_point busyMark = busy;
 		unsigned sincePoll = 0;
 		while (read != write) {
 			Cmd *c = reinterpret_cast<Cmd *>(s_ring + read % kRingBytes);
@@ -205,6 +207,11 @@ void workerMain()
 			if (++sincePoll >= 64) {
 				sincePoll = 0;
 				const Clock::time_point now = Clock::now();
+				// Counted as it goes: a render thread that never catches up never leaves this
+				// loop, and busy time added only on leaving it read as zero (logs-33).
+				s_workerBusyNs.fetch_add((uint64_t)std::chrono::duration_cast<std::chrono::nanoseconds>(now - busyMark).count(),
+					std::memory_order_relaxed);
+				busyMark = now;
 				if (now - lastPoll >= std::chrono::microseconds(500)) {
 					lastPoll = now;
 					if (s_clientWaitSync && s_hasContext.load(std::memory_order_relaxed))
@@ -212,7 +219,7 @@ void workerMain()
 				}
 			}
 		}
-		s_workerBusyNs.fetch_add((uint64_t)(usSince(busy) * 1000.0), std::memory_order_relaxed);
+		s_workerBusyNs.fetch_add((uint64_t)(usSince(busyMark) * 1000.0), std::memory_order_relaxed);
 	}
 	if (s_hasContext.load())
 		SDL_GL_MakeCurrent(s_window, nullptr);
@@ -343,6 +350,7 @@ struct MappedWriteCmd : Cmd
 	static void exec(Cmd *c)
 	{
 		MappedWriteCmd *w = static_cast<MappedWriteCmd *>(c);
+		WorkTimer uploadTimer(kWorkUpload);
 		memcpy(w->dst, reinterpret_cast<unsigned char *>(w) + sizeof(MappedWriteCmd), w->length);
 	}
 };
@@ -434,13 +442,17 @@ void present(SDL_Window *window, int swapInterval)
 	if (!g_active) {
 		if (swapInterval >= 0)
 			SDL_GL_SetSwapInterval(swapInterval);
+		WorkTimer swapTimer(kWorkSwap);
 		SDL_GL_SwapWindow(window);
 		return;
 	}
 	post([window, swapInterval] {
 		if (swapInterval >= 0)
 			SDL_GL_SetSwapInterval(swapInterval);
-		SDL_GL_SwapWindow(window);
+		{
+			WorkTimer swapTimer(kWorkSwap);
+			SDL_GL_SwapWindow(window);
+		}
 		s_framesPresented.fetch_add(1, std::memory_order_release);
 	});
 	s_framesQueued++;
@@ -515,10 +527,18 @@ void deleteSync(GLsync sync)
 	});
 }
 
+void addWork(int kind, uint64_t ns)
+{
+	s_workNs[kind].fetch_add(ns, std::memory_order_relaxed);
+}
+
 Stats takeStats()
 {
 	Stats s = s_stats;
 	s.workerBusyUs = (double)s_workerBusyNs.exchange(0, std::memory_order_relaxed) / 1000.0;
+	s.drawUs = (double)s_workNs[kWorkDraw].exchange(0, std::memory_order_relaxed) / 1000.0;
+	s.swapUs = (double)s_workNs[kWorkSwap].exchange(0, std::memory_order_relaxed) / 1000.0;
+	s.uploadUs = (double)s_workNs[kWorkUpload].exchange(0, std::memory_order_relaxed) / 1000.0;
 	s_stats = Stats();
 	return s;
 }

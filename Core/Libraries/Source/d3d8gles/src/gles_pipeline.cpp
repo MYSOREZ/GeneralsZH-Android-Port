@@ -35,6 +35,7 @@
 static bool s_gxGlesReady = false;
 static bool s_gxTwoSidedStencil = false;
 static DWORD s_gxTwoSidedBackPass = 0;
+#include <atomic>
 #include <chrono>
 #include <cstdlib>
 #include <sys/stat.h>
@@ -48,6 +49,65 @@ static DWORD s_gxTwoSidedBackPass = 0;
 #if defined(__ANDROID__)
 #include <android/native_window.h>
 #endif
+
+// GeneralsX @performance Android port 01/10/2026 GPU time per frame (GL_EXT_disjoint_timer_query),
+// to tell a GPU-bound frame from a CPU-bound one: a TIME_ELAPSED query spans from just after one
+// swap to just before the next, and results are read a few frames later, when available, so
+// nothing ever waits for the GPU. Runs where the GL calls run (the render thread when it is on).
+namespace {
+struct GpuFrameTimer
+{
+	typedef void (GL_APIENTRY *PFN_GenQueries)(GLsizei, GLuint *);
+	typedef void (GL_APIENTRY *PFN_BeginQuery)(GLenum, GLuint);
+	typedef void (GL_APIENTRY *PFN_EndQuery)(GLenum);
+	typedef void (GL_APIENTRY *PFN_GetQueryObjectuiv)(GLuint, GLenum, GLuint *);
+	static constexpr GLenum kTimeElapsed = 0x88BF;   // GL_TIME_ELAPSED_EXT
+	static constexpr GLenum kResult = 0x8866;        // GL_QUERY_RESULT_EXT
+	static constexpr GLenum kAvailable = 0x8867;     // GL_QUERY_RESULT_AVAILABLE_EXT
+	static constexpr int kQueries = 4;
+	PFN_BeginQuery begin = nullptr;
+	PFN_EndQuery end = nullptr;
+	PFN_GetQueryObjectuiv get = nullptr;
+	GLuint queries[kQueries] = {};
+	bool pending[kQueries] = {};
+	int next = 0;
+	bool active = false;
+	bool ok = false;
+	std::atomic<uint64_t> gpuNs{0};
+	std::atomic<unsigned> frames{0};
+
+	void frameEnd()
+	{
+		if (active) {
+			end(kTimeElapsed);
+			pending[next] = true;
+			next = (next + 1) % kQueries;
+			active = false;
+		}
+		for (int i = 0; i < kQueries; i++) {
+			if (!pending[i])
+				continue;
+			GLuint available = 0;
+			get(queries[i], kAvailable, &available);
+			if (!available)
+				continue;
+			GLuint ns = 0;
+			get(queries[i], kResult, &ns);
+			gpuNs.fetch_add(ns, std::memory_order_relaxed);
+			frames.fetch_add(1, std::memory_order_relaxed);
+			pending[i] = false;
+		}
+	}
+	void frameBegin()
+	{
+		if (pending[next])
+			return; // still in flight: skip timing this frame rather than wait
+		begin(kTimeElapsed, queries[next]);
+		active = true;
+	}
+};
+GpuFrameTimer s_gpuTimer;
+}
 
 // ---------------------------------------------------------------------------
 // Small helpers
@@ -623,6 +683,24 @@ bool WebGLPipeline::initContext(int w, int h, SDL_Window *window)
 	// (gles_thread.h). Everything above ran on this thread with the context current here.
 	if (m_glClientWaitSync && m_glFenceSync && m_glDeleteSync)
 		gxrt::setFenceProcs(m_glFenceSync, m_glClientWaitSync, m_glDeleteSync);
+	{
+		const char *ext = (const char *)glGetString(GL_EXTENSIONS);
+		if (ext && strstr(ext, "GL_EXT_disjoint_timer_query")) {
+			auto proc = [](const char *name) -> void * {
+				void *p = d3d8gles_GetOptionalGLProc(name);
+				return p ? p : reinterpret_cast<void *>(SDL_GL_GetProcAddress(name));
+			};
+			auto gen = reinterpret_cast<GpuFrameTimer::PFN_GenQueries>(proc("glGenQueriesEXT"));
+			s_gpuTimer.begin = reinterpret_cast<GpuFrameTimer::PFN_BeginQuery>(proc("glBeginQueryEXT"));
+			s_gpuTimer.end = reinterpret_cast<GpuFrameTimer::PFN_EndQuery>(proc("glEndQueryEXT"));
+			s_gpuTimer.get = reinterpret_cast<GpuFrameTimer::PFN_GetQueryObjectuiv>(proc("glGetQueryObjectuivEXT"));
+			if (gen && s_gpuTimer.begin && s_gpuTimer.end && s_gpuTimer.get) {
+				gen(GpuFrameTimer::kQueries, s_gpuTimer.queries);
+				s_gpuTimer.ok = true;
+			}
+		}
+		fprintf(stderr, "[d3d8gles] GPU frame timer: %s\n", s_gpuTimer.ok ? "on" : "unavailable (no GL_EXT_disjoint_timer_query)");
+	}
 	if (m_opt.thread && window) {
 		const bool threaded = gxrt::start(window);
 		fprintf(stderr, "[d3d8gles] render thread: %s\n", threaded ? "on" : "unavailable, rendering on the main thread");
@@ -2657,7 +2735,10 @@ void WebGLPipeline::drawCommon(WebGLDevice *dev, unsigned primType, unsigned pri
 			{
 				PFN_DrawElementsBaseVertex drawBV = m_glDrawElementsBaseVertex;
 				const void *indices = (const void *)(intptr_t)(startIndex * isize);
-				gxrt::post([drawBV, mode, count, itype, indices, baseVertexIndex] { drawBV(mode, count, itype, indices, baseVertexIndex); });
+				gxrt::post([drawBV, mode, count, itype, indices, baseVertexIndex] {
+					gxrt::WorkTimer t(gxrt::kWorkDraw);
+					drawBV(mode, count, itype, indices, baseVertexIndex);
+				});
 			}
 			m_perfBaseVertexDraws++;
 		} else {
@@ -3569,6 +3650,7 @@ void WebGLPipeline::debugSampleRenderTarget(WebGLTexture *tex, const char *tag)
 	fflush(stderr);
 }
 
+
 void WebGLPipeline::present()
 {
 	if (!m_ctxReady) return;
@@ -3845,6 +3927,20 @@ void WebGLPipeline::present()
 					gxrt::running() ? "on" : "off", rt.workerBusyUs / 1000.0 / frames, rt.frameWaitUs / 1000.0 / frames,
 					rt.syncWaitUs / 1000.0 / frames, rt.syncCalls / frames, rt.ringWaitUs / 1000.0 / frames,
 					rt.commands / frames, rt.commandBytes / 1024.0 / frames);
+				// GeneralsX @performance Android port 01/10/2026 Render-thread time split, and GPU time.
+				// A frame is GPU-bound when gpu is close to the frame time and swap is large (the swap
+				// waits for the GPU); CPU-bound when draw/other dominate and gpu is well below.
+				const unsigned gpuFrames = s_gpuTimer.frames.exchange(0, std::memory_order_relaxed);
+				const uint64_t gpuNs = s_gpuTimer.gpuNs.exchange(0, std::memory_order_relaxed);
+				char gpuText[64];
+				if (gpuFrames > 0)
+					snprintf(gpuText, sizeof(gpuText), "%.2f ms/frame (%u frames timed)", gpuNs / 1.0e6 / gpuFrames, gpuFrames);
+				else
+					snprintf(gpuText, sizeof(gpuText), "%s", s_gpuTimer.ok ? "no results yet" : "unavailable");
+				const double other = rt.workerBusyUs - rt.drawUs - rt.swapUs - rt.uploadUs;
+				fprintf(stderr, "[d3d8gles] perf-gpu: render thread ms/frame: draw=%.2f swap=%.2f upload=%.2f other=%.2f | gpu=%s\n",
+					rt.drawUs / 1000.0 / frames, rt.swapUs / 1000.0 / frames, rt.uploadUs / 1000.0 / frames,
+					(other > 0 ? other : 0.0) / 1000.0 / frames, gpuText);
 			}
 			m_perfLogLastMs = nowMs;
 			m_perfFrameCount = 0;
@@ -3899,6 +3995,10 @@ void WebGLPipeline::present()
 	// GeneralsX @performance Android port 30/09/2026 Queued behind the frame's GL calls when the
 	// render thread runs; waits for the previous frame's swap, not this one's.
 	if (m_window) {
+		if (s_gpuTimer.ok)
+			gxrt::post([] { s_gpuTimer.frameEnd(); });
 		gxrt::present(m_window, swapInterval);
+		if (s_gpuTimer.ok)
+			gxrt::post([] { s_gpuTimer.frameBegin(); });
 	}
 }

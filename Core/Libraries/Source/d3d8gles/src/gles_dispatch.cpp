@@ -288,6 +288,7 @@ void gxrt::rawGetIntegerv(GLenum pname, GLint *data)
 void gxrt::bufferWrite(GLenum target, GLintptr offset, GLsizeiptr length, const void *data, GLbitfield access)
 {
 	gxrt::post([target, offset, length, access, blob = gxrt::Blob<256>(data, (size_t)length)] {
+		gxrt::WorkTimer t(gxrt::kWorkUpload);
 		void *mapped = d3d8gles_pfn_glMapBufferRange(target, offset, length, access);
 		if (mapped) {
 			memcpy(mapped, blob.data(), (size_t)length);
@@ -353,13 +354,13 @@ GL_APICALL void GL_APIENTRY glBlendFunc(GLenum sfactor, GLenum dfactor)
 GL_APICALL void GL_APIENTRY glBufferData(GLenum target, GLsizeiptr size, const void *data, GLenum usage)
 {
 	UploadTimer uploadTimer;
-	gxrt::post([target, size, usage, blob = gxrt::Blob<256>(data, (size_t)size)] { d3d8gles_pfn_glBufferData(target, size, blob.data(), usage); });
+	gxrt::post([target, size, usage, blob = gxrt::Blob<256>(data, (size_t)size)] { gxrt::WorkTimer t(gxrt::kWorkUpload); d3d8gles_pfn_glBufferData(target, size, blob.data(), usage); });
 }
 
 GL_APICALL void GL_APIENTRY glBufferSubData(GLenum target, GLintptr offset, GLsizeiptr size, const void *data)
 {
 	UploadTimer uploadTimer;
-	gxrt::post([target, offset, size, blob = gxrt::Blob<256>(data, (size_t)size)] { d3d8gles_pfn_glBufferSubData(target, offset, size, static_cast<decltype(data)>(blob.data())); });
+	gxrt::post([target, offset, size, blob = gxrt::Blob<256>(data, (size_t)size)] { gxrt::WorkTimer t(gxrt::kWorkUpload); d3d8gles_pfn_glBufferSubData(target, offset, size, static_cast<decltype(data)>(blob.data())); });
 }
 
 GL_APICALL void *GL_APIENTRY glMapBufferRange(GLenum target, GLintptr offset, GLsizeiptr length, GLbitfield access)
@@ -422,7 +423,7 @@ GL_APICALL void GL_APIENTRY glCompileShader(GLuint shader)
 GL_APICALL void GL_APIENTRY glCompressedTexImage2D(GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLint border, GLsizei imageSize, const void *data)
 {
 	UploadTimer uploadTimer;
-	gxrt::post([target, level, internalformat, width, height, border, imageSize, blob = gxrt::Blob<0>(data, (size_t)imageSize)] { d3d8gles_pfn_glCompressedTexImage2D(target, level, internalformat, width, height, border, imageSize, static_cast<decltype(data)>(blob.data())); });
+	gxrt::post([target, level, internalformat, width, height, border, imageSize, blob = gxrt::Blob<0>(data, (size_t)imageSize)] { gxrt::WorkTimer t(gxrt::kWorkUpload); d3d8gles_pfn_glCompressedTexImage2D(target, level, internalformat, width, height, border, imageSize, static_cast<decltype(data)>(blob.data())); });
 }
 
 GL_APICALL GLuint GL_APIENTRY glCreateProgram(void)
@@ -509,12 +510,12 @@ GL_APICALL void GL_APIENTRY glDisableVertexAttribArray(GLuint index)
 
 GL_APICALL void GL_APIENTRY glDrawArrays(GLenum mode, GLint first, GLsizei count)
 {
-	gxrt::post([mode, first, count] { d3d8gles_pfn_glDrawArrays(mode, first, count); });
+	gxrt::post([mode, first, count] { gxrt::WorkTimer t(gxrt::kWorkDraw); d3d8gles_pfn_glDrawArrays(mode, first, count); });
 }
 
 GL_APICALL void GL_APIENTRY glDrawElements(GLenum mode, GLsizei count, GLenum type, const void *indices)
 {
-	gxrt::post([mode, count, type, indices] { d3d8gles_pfn_glDrawElements(mode, count, type, indices); });
+	gxrt::post([mode, count, type, indices] { gxrt::WorkTimer t(gxrt::kWorkDraw); d3d8gles_pfn_glDrawElements(mode, count, type, indices); });
 }
 
 GL_APICALL void GL_APIENTRY glEnable(GLenum cap)
@@ -718,7 +719,7 @@ GL_APICALL void GL_APIENTRY glStencilOp(GLenum fail, GLenum zfail, GLenum zpass)
 GL_APICALL void GL_APIENTRY glTexImage2D(GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLint border, GLenum format, GLenum type, const void *pixels)
 {
 	UploadTimer uploadTimer;
-	gxrt::post([target, level, internalformat, width, height, border, format, type, blob = gxrt::Blob<0>(pixels, gxTexImageBytes(width, height, format, type))] { d3d8gles_pfn_glTexImage2D(target, level, internalformat, width, height, border, format, type, static_cast<decltype(pixels)>(blob.data())); });
+	gxrt::post([target, level, internalformat, width, height, border, format, type, blob = gxrt::Blob<0>(pixels, gxTexImageBytes(width, height, format, type))] { gxrt::WorkTimer t(gxrt::kWorkUpload); d3d8gles_pfn_glTexImage2D(target, level, internalformat, width, height, border, format, type, static_cast<decltype(pixels)>(blob.data())); });
 }
 
 GL_APICALL void GL_APIENTRY glTexParameteri(GLenum target, GLenum pname, GLint param)
