@@ -557,6 +557,7 @@ private:
 		// LESSON-gles-dynamic-buffer-stalls.md). Opt in with gx_gles_basevertex.txt to test
 		// it on another GPU.
 		bool baseVertex = false;  // glDrawElementsBaseVertex instead of re-pointing attributes
+		bool baseVertexOff = false; // gx_gles_noopt.txt turned it off: overrides the per-GPU default
 		bool upRing = true;       // one streaming ring buffer for the *UP draws
 		bool programCache = true; // linked program binaries kept on disk between launches
 		bool dxt565 = true;       // DXT1 decoded to 16 bpp, not 32, where S3TC is missing

@@ -500,6 +500,17 @@ bool WebGLPipeline::initContext(int w, int h, SDL_Window *window)
 			sscanf(version, "OpenGL ES %d.%d", &major, &minor);
 		const bool es32 = major > 3 || (major == 3 && minor >= 2);
 		const char *baseVertexSource = "none";
+		// GeneralsX @performance Android port 01/10/2026 On by default on Mali. Without it every
+		// draw from the engine's shared dynamic buffer at a new offset re-points the vertex
+		// attributes: ~470 refreshes of 4-5 calls a frame in the menu battle, ~18% of the render
+		// thread's commands (logs-39 -> logs-40: 8.9 -> 7.3 GL calls per draw, no artifacts).
+		// It stays off elsewhere: on an Adreno 8xx it once broke shadow volumes and UI widgets,
+		// back when dynamic indices were rewritten in place (since replaced by the index stream).
+		{
+			const char *renderer = (const char *)glGetString(GL_RENDERER);
+			if (!m_opt.baseVertexOff && renderer && strstr(renderer, "Mali"))
+				m_opt.baseVertex = true;
+		}
 		if (m_opt.baseVertex) {
 			if (es32) {
 				m_glDrawElementsBaseVertex = reinterpret_cast<PFN_DrawElementsBaseVertex>(optionalProc("glDrawElementsBaseVertex"));
@@ -651,8 +662,9 @@ void WebGLPipeline::loadOptimizationSwitches()
 	if (!named) {
 		m_opt.baseVertex = m_opt.upRing = m_opt.programCache = m_opt.dxt565 = m_opt.persistent = m_opt.persistentIB = false;
 		m_opt.thread = false;
+		m_opt.baseVertexOff = true;
 	} else {
-		if (strstr(buf, "basevertex")) m_opt.baseVertex = false;
+		if (strstr(buf, "basevertex")) { m_opt.baseVertex = false; m_opt.baseVertexOff = true; }
 		if (strstr(buf, "upring")) m_opt.upRing = false;
 		if (strstr(buf, "progcache")) m_opt.programCache = false;
 		if (strstr(buf, "dxt565")) m_opt.dxt565 = false;
