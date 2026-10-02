@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">GeneralsZH</string>
+    <string name="app_name">Abodeh Play</string>
     <string name="common_cancel">Cancel</string>
 
     <!-- SetupActivity: title / fallback -->
-    <string name="setup_window_title">GeneralsZH Settings</string>
+    <string name="setup_window_title">Abodeh Play Settings</string>
     <string name="setup_title">Command &amp; Conquer Generals: Zero Hour</string>
-    <string name="setup_subtitle">Android Settings</string>
+    <string name="setup_subtitle">Android Edition • Abodeh Play</string>
     <string name="setup_fallback_warning">The normal Settings UI failed to load (%1$s). Showing a basic fallback so you can still get to your logs/game folder.</string>
 
     <!-- SetupActivity: Game Folder card -->
@@ -46,6 +46,18 @@
     <string name="setup_button_apply_text_size">Apply Menu Text Size</string>
     <string name="setup_text_size_help">Scales most menu button/label text for the screen resolution. 70 is the game\'s own default; higher values make menu text bigger. Takes effect the next time you launch the game, not live.</string>
     <string name="setup_toast_text_size_saved">Saved. Takes effect next time you launch the game.</string>
+
+
+    <!-- Abodeh Play: Render Resolution card -->
+    <string name="setup_card_resolution">Render Resolution</string>
+    <string name="setup_resolution_auto_short">Auto</string>
+    <string name="setup_resolution_600_short">600p</string>
+    <string name="setup_resolution_720_short">720p</string>
+    <string name="setup_resolution_auto_desc">Uses the actual game-window size detected at launch. Best image quality.</string>
+    <string name="setup_resolution_600_desc">Performance preset for mid-range phones. Keeps the device aspect ratio and renders at about 600 pixels high.</string>
+    <string name="setup_resolution_720_desc">Balanced preset. Keeps the device aspect ratio and renders at about 720 pixels high.</string>
+    <string name="setup_resolution_help">Lower resolution can reduce GPU load. Auto removes the forced Resolution value and lets the engine detect the real game window again. The change applies on the next launch.</string>
+    <string name="setup_toast_resolution_saved">Render resolution saved. It will apply on the next launch.</string>
 
     <!-- SetupActivity: Render Backend card -->
     <string name="setup_card_render_backend">Render Backend</string>
