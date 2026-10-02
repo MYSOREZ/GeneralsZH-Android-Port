@@ -1141,65 +1141,6 @@ extern NGMPGame* TheNGMPGame;
 #endif
 
 /// -----------------------------------------------------------------------------------------------
-// GeneralsX @feature Android port 02/10/2026 Game speed above normal on a phone that cannot draw that
-// fast. Offline, the original engine runs one logic frame per rendered frame and sets the frame
-// limit from the Game Speed slider, so the game is only as fast as the screen is drawn: at the
-// maximum speed (240 logic frames a second on the 60 Hz engine) an Adreno phone drawing 120 fps
-// played twice as fast as normal, the Mali test phone drawing ~60 not faster at all. Here, when the
-// slider asks for more than normal speed and drawing falls behind it, the logic catches up with
-// extra frames within the same rendered frame -- up to three, within 8 ms, so drawing never stops,
-// and debt beyond that is dropped rather than carried (the game is then slower than asked, never
-// stuck catching up). Offline only (no TheNetwork), never at normal speed or below, where the
-// original "slower frames, slower game" behaviour stays. The logic frames are the same ones in
-// the same order, only grouped differently between draws: replays and saves are unaffected.
-static UnsignedInt s_gxCatchUpSteps = 0;
-
-static void gxCatchUpSpedUpLogic()
-{
-	static std::chrono::steady_clock::time_point s_last;
-	static double s_debt = 0.0;
-	const std::chrono::steady_clock::time_point now = std::chrono::steady_clock::now();
-	double dt = s_last.time_since_epoch().count() != 0 ? std::chrono::duration<double>(now - s_last).count() : 0.0;
-	s_last = now;
-	if (dt > 0.1)
-		dt = 0.1;
-
-#if defined(GENERALS_ONLINE_HIGH_FPS_FRAME_MULTIPLIER)
-	const Int normalFps = BaseFps * GENERALS_ONLINE_HIGH_FPS_FRAME_MULTIPLIER;
-#else
-	const Int normalFps = BaseFps;
-#endif
-	const Bool applies = TheNetwork == nullptr && TheGameLogic->isInGame() && !TheGameLogic->isGamePaused()
-		&& TheShell != nullptr && !TheShell->isShellActive()
-		&& !TheFramePacer->isTimeFrozen() && !TheFramePacer->isGameHalted()
-		&& TheFramePacer->isActualFramesPerSecondLimitEnabled()
-		&& TheFramePacer->getActualFramesPerSecondLimit() > normalFps;
-	if (!applies)
-	{
-		s_debt = 0.0;
-		return;
-	}
-
-	// This frame's own logic step already ran (canUpdateRegularGameLogic is true on every frame
-	// while the logic time scale is off, as it is offline).
-	s_debt += dt * TheFramePacer->getActualFramesPerSecondLimit() - 1.0;
-	const std::chrono::steady_clock::time_point until = now + std::chrono::milliseconds(8);
-	Int extra = 0;
-	while (s_debt >= 1.0 && extra < 3 && std::chrono::steady_clock::now() < until)
-	{
-		TheMessageStream->propagateMessages();
-		TheGameLogic->UPDATE();
-		TheGameClient->step();
-		s_debt -= 1.0;
-		++extra;
-		++s_gxCatchUpSteps;
-	}
-	if (s_debt > 1.0)
-		s_debt = 1.0;
-	else if (s_debt < -1.0)
-		s_debt = -1.0;
-}
-
 DECLARE_PERF_TIMER(GameEngine_update)
 
 /** -----------------------------------------------------------------------------------------------
@@ -1278,10 +1219,9 @@ static void gxTraceEngineUpdatePhase(
 			s_logicUs / 1000.0 / s_frames,
 			s_stepUs / 1000.0 / s_frames);
 
-		GX_PERF_TRACE("[GX-PERF-HITCH] hitches=%d worstFrameMs=%.1f (radar=%.1f audio=%.1f client=%.1f network=%.1f logic=%.1f step=%.1f) speedCatchUpSteps=%u\n",
+		GX_PERF_TRACE("[GX-PERF-HITCH] hitches=%d worstFrameMs=%.1f (radar=%.1f audio=%.1f client=%.1f network=%.1f logic=%.1f step=%.1f)\n",
 			s_hitches, s_worstMs, s_worstPhases[0], s_worstPhases[1], s_worstPhases[2], s_worstPhases[3],
-			s_worstPhases[4], s_worstPhases[5], s_gxCatchUpSteps);
-		s_gxCatchUpSteps = 0;
+			s_worstPhases[4], s_worstPhases[5]);
 		s_prevAvgMs = (elapsedUs / 1000.0) / s_frames;
 		s_hitches = 0;
 		s_worstMs = 0.0;
@@ -1376,8 +1316,6 @@ void GameEngine::update()
 				stepUs = std::chrono::duration<double, std::micro>(gxT6 - gxT5).count();
 			}
 		}
-
-		gxCatchUpSpedUpLogic();
 
 		// GeneralsX @feature Android port 23/09/2026 Replay check: fast-forward extra
 		// logic frames and quit with a result file when asked to (GXReplayCheck.h).
