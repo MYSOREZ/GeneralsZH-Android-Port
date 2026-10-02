@@ -3844,7 +3844,10 @@ void WebGLPipeline::clear(WebGLDevice *dev, unsigned flags, uint32_t argb, float
 		// offscreen render targets (m_curFBO!=0, e.g. water reflections)
 		// keep using the caller's real alpha, since those aren't presented
 		// directly to the OS compositor.
-		if (m_curFBO == 0) c[3] = 1.0f;
+		// GeneralsX @bugfix Android port 02/10/2026 The virtual backbuffer is the backbuffer too:
+		// cleared with the caller's alpha (m_minWaterOpacity) it left a destination alpha the window
+		// never had, and every blend that reads it came out different with the upscaler on.
+		if (m_curFBO == 0 || (m_vbActive && m_curFBO == m_vbFBO)) c[3] = 1.0f;
 		glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
 		glClearColor(c[0], c[1], c[2], c[3]);
 		mask |= GL_COLOR_BUFFER_BIT;

@@ -59,6 +59,20 @@ namespace
 		const char *moveAwayPrefix;
 	};
 
+	// "WinFactionUSMedium" -> "WinFactionUS": a window and the Small / Medium copies the menu's
+	// transitions grow it through belong together.
+	std::string factionGroup( const std::string &name )
+	{
+		static const char *suffixes[] = { "Small", "Medium" };
+		for( Int i = 0; i < 2; ++i )
+		{
+			const size_t n = strlen( suffixes[ i ] );
+			if( name.size() > n && name.compare( name.size() - n, n, suffixes[ i ] ) == 0 )
+				return name.substr( 0, name.size() - n );
+		}
+		return name;
+	}
+
 	const Rule kRules[] =
 	{
 		// In game.
@@ -128,7 +142,8 @@ namespace
 
 	struct Parsing
 	{
-		std::vector<Int> scaled;  // per window with a rectangle, in file order: 0 keep, 1 scale, 2 move off screen
+		std::vector<Int> scaled;  // per window with a rectangle, in file order: 0 keep, 1 scale, 2 move off screen, 3 move by offset
+		std::vector<Real> offset; // decision 3: x, y per window (fractions of the screen)
 		Int next;
 		GXUiScale::Transform transform;
 	};
@@ -236,21 +251,25 @@ static void analyzeLayout( const Rule *rule, const char *layoutFile, const char 
 			else if( !wins.empty() )
 			{
 				Win &w = wins.back();
+				// The three parts of SCREENRECT, wherever they are: the game's own layouts put each
+				// on a line of its own, this port's GroupPanel.wnd all three on one (which this used
+				// to miss, so the group row never scaled -- logs-50, handle still at y 734).
 				Int a = 0, b = 0;
-				if( sscanf( l.c_str(), "SCREENRECT = UPPERLEFT: %d %d", &a, &b ) == 2 )
+				const char *t = nullptr;
+				if( ( t = strstr( l.c_str(), "UPPERLEFT:" ) ) != nullptr && sscanf( t, "UPPERLEFT: %d %d", &a, &b ) == 2 )
 				{
 					w.lo[ 0 ] = (Real)a; w.lo[ 1 ] = (Real)b;
 				}
-				else if( sscanf( l.c_str(), "BOTTOMRIGHT: %d %d", &a, &b ) == 2 )
+				if( ( t = strstr( l.c_str(), "BOTTOMRIGHT:" ) ) != nullptr && sscanf( t, "BOTTOMRIGHT: %d %d", &a, &b ) == 2 )
 				{
 					w.hi[ 0 ] = (Real)a; w.hi[ 1 ] = (Real)b;
 				}
-				else if( sscanf( l.c_str(), "CREATIONRESOLUTION: %d %d", &a, &b ) == 2 && a > 0 && b > 0 )
+				if( ( t = strstr( l.c_str(), "CREATIONRESOLUTION:" ) ) != nullptr && sscanf( t, "CREATIONRESOLUTION: %d %d", &a, &b ) == 2 && a > 0 && b > 0 )
 				{
 					w.res[ 0 ] = (Real)a; w.res[ 1 ] = (Real)b;
 					w.hasRect = TRUE;
 				}
-				else if( l.compare( 0, 8, "NAME = \"" ) == 0 && w.name.empty() )
+				if( l.compare( 0, 8, "NAME = \"" ) == 0 && w.name.empty() )
 				{
 					std::string n = l.substr( 8 );
 					const size_t q = n.find( '"' );
@@ -267,8 +286,11 @@ static void analyzeLayout( const Rule *rule, const char *layoutFile, const char 
 		// One decision per window that has a rectangle: parseScreenRect is called once for each of
 		// those, in file order.
 		p.scaled.clear();
-		struct MoveAway { size_t index; Real r[ 4 ]; };
+		struct MoveAway { size_t index; Real r[ 4 ]; std::string group; Bool plain; };
 		std::vector<MoveAway> moveAway;
+		// Windows inside an excluded one follow it if it moves: decision of index `inherit[ i ]`.
+		std::vector<Int> inherit;
+		Int excludedIndex = -1;
 		Real box[ 2 ][ 2 ] = { { 1.0f, 0.0f }, { 1.0f, 0.0f } };
 		Bool any = FALSE;
 		Int excludedDepth = 0;
@@ -279,21 +301,27 @@ static void analyzeLayout( const Rule *rule, const char *layoutFile, const char 
 				continue;
 			if( excludedDepth > 0 && w.depth > excludedDepth )
 			{
+				inherit.push_back( excludedIndex );
 				p.scaled.push_back( 0 );
 				continue;
 			}
 			excludedDepth = 0;
+			excludedIndex = -1;
 			if( excluded( *rule, w.name ) )
 			{
 				excludedDepth = w.depth;
+				excludedIndex = (Int)p.scaled.size();
 				if( rule->moveAwayPrefix && w.name.compare( 0, strlen( rule->moveAwayPrefix ), rule->moveAwayPrefix ) == 0 )
 				{
-					MoveAway m = { p.scaled.size(), { w.lo[ 0 ] / w.res[ 0 ], w.lo[ 1 ] / w.res[ 1 ], w.hi[ 0 ] / w.res[ 0 ], w.hi[ 1 ] / w.res[ 1 ] } };
+					MoveAway m = { p.scaled.size(), { w.lo[ 0 ] / w.res[ 0 ], w.lo[ 1 ] / w.res[ 1 ], w.hi[ 0 ] / w.res[ 0 ], w.hi[ 1 ] / w.res[ 1 ] },
+						factionGroup( w.name ), factionGroup( w.name ) == w.name };
 					moveAway.push_back( m );
 				}
+				inherit.push_back( -1 );
 				p.scaled.push_back( 0 );
 				continue;
 			}
+			inherit.push_back( -1 );
 			const Real fx0 = w.lo[ 0 ] / w.res[ 0 ], fx1 = w.hi[ 0 ] / w.res[ 0 ];
 			const Real fy0 = w.lo[ 1 ] / w.res[ 1 ], fy1 = w.hi[ 1 ] / w.res[ 1 ];
 			if( fx1 - fx0 >= 0.95f && fy1 - fy0 >= 0.95f )
@@ -325,7 +353,9 @@ static void analyzeLayout( const Rule *rule, const char *layoutFile, const char 
 			if( rule->restsOn )
 			{
 				const GXUiScale::Transform &base = ensureLayoutTransform( rule->restsOn );
-				restBottom = base.active ? box[ 1 ][ 1 ] * base.ky + base.addY : box[ 1 ][ 1 ];
+				// A little above it: the bar's own art (the general's star tab) reaches a few pixels
+				// over its windows, and a power button resting exactly on the line covered it.
+				restBottom = base.active ? box[ 1 ][ 1 ] * base.ky + base.addY - 0.015f : box[ 1 ][ 1 ];
 				const Real extent = fmaxf( box[ 1 ][ 1 ] - box[ 1 ][ 0 ], 0.001f );
 				fit[ 1 ] = fmaxf( 1.0f, fminf( fit[ 1 ], restBottom / extent ) );
 			}
@@ -360,9 +390,87 @@ static void analyzeLayout( const Rule *rule, const char *layoutFile, const char 
 				if( r[ 0 ] < sx1 && r[ 2 ] > sx0 && r[ 1 ] < sy1 && r[ 3 ] > sy0 )
 					covered = TRUE;
 			}
+			p.offset.assign( p.scaled.size() * 2, 0.0f );
 			if( t.active && covered )
+			{
+				// Rearranged as a column in the free space left of the grown content, in their
+				// original left-to-right order, each group (a picture and the Small / Medium copies
+				// its hover effect grows through) moved as one so the effect still plays. Only if
+				// no room is left there do they leave the screen.
+				std::vector<std::string> groups;
+				std::vector<Real> groupCx, groupCy;
+				Real maxW = 0.0f, maxH = 0.0f;
 				for( size_t m = 0; m < moveAway.size(); ++m )
-					p.scaled[ moveAway[ m ].index ] = 2;
+				{
+					const MoveAway &mw = moveAway[ m ];
+					maxW = fmaxf( maxW, mw.r[ 2 ] - mw.r[ 0 ] );
+					maxH = fmaxf( maxH, mw.r[ 3 ] - mw.r[ 1 ] );
+					size_t g = 0;
+					while( g < groups.size() && groups[ g ] != mw.group )
+						++g;
+					if( g == groups.size() )
+					{
+						groups.push_back( mw.group );
+						groupCx.push_back( ( mw.r[ 0 ] + mw.r[ 2 ] ) * 0.5f );
+						groupCy.push_back( ( mw.r[ 1 ] + mw.r[ 3 ] ) * 0.5f );
+					}
+					// A group's centre is its plain picture's (the one without a suffix).
+					if( mw.plain )
+					{
+						groupCx[ g ] = ( mw.r[ 0 ] + mw.r[ 2 ] ) * 0.5f;
+						groupCy[ g ] = ( mw.r[ 1 ] + mw.r[ 3 ] ) * 0.5f;
+					}
+				}
+				std::vector<size_t> order( groups.size() );
+				for( size_t g = 0; g < order.size(); ++g )
+					order[ g ] = g;
+				for( size_t a = 0; a < order.size(); ++a )
+					for( size_t b = a + 1; b < order.size(); ++b )
+						if( groupCx[ order[ b ] ] < groupCx[ order[ a ] ] )
+						{
+							const size_t tmp = order[ a ];
+							order[ a ] = order[ b ];
+							order[ b ] = tmp;
+						}
+				const Real freeRight = sx0 - 0.01f;
+				const Real slot = groups.empty() ? 0.0f : 0.94f / (Real)groups.size();
+				const Bool fits = !groups.empty() && freeRight >= maxW + 0.02f && slot * 1.15f >= maxH * 0.75f;
+				for( size_t k2 = 0; k2 < order.size(); ++k2 )
+				{
+					const size_t g = order[ k2 ];
+					const Real newCx = fminf( freeRight * 0.5f, 0.02f + maxW * 0.5f + 0.04f );
+					const Real newCy = 0.03f + slot * ( (Real)k2 + 0.5f );
+					for( size_t m = 0; m < moveAway.size(); ++m )
+					{
+						if( moveAway[ m ].group != groups[ g ] )
+							continue;
+						const size_t idx = moveAway[ m ].index;
+						if( fits )
+						{
+							p.scaled[ idx ] = 3;
+							p.offset[ idx * 2 ] = newCx - groupCx[ g ];
+							p.offset[ idx * 2 + 1 ] = newCy - groupCy[ g ];
+						}
+						else
+							p.scaled[ idx ] = 2;
+					}
+				}
+				fprintf( stderr, "[GX-UISCALE] %s: %d decoration groups %s\n", baseName( layoutFile ),
+					(Int)groups.size(), fits ? "rearranged as a column on the left" : "moved off the screen (no room)" );
+			}
+			// Windows inside a moved one go with it.
+			for( size_t i = 0; i < p.scaled.size() && i < inherit.size(); ++i )
+			{
+				if( inherit[ i ] < 0 || p.scaled[ i ] != 0 )
+					continue;
+				const Int from = inherit[ i ];
+				if( p.scaled[ from ] == 2 || p.scaled[ from ] == 3 )
+				{
+					p.scaled[ i ] = p.scaled[ from ];
+					p.offset[ i * 2 ] = p.offset[ from * 2 ];
+					p.offset[ i * 2 + 1 ] = p.offset[ from * 2 + 1 ];
+				}
+			}
 			Int scaledCount = 0;
 			for( size_t i = 0; i < p.scaled.size(); ++i )
 				scaledCount += p.scaled[ i ] == 1 ? 1 : 0;
@@ -432,6 +540,16 @@ void mapNextWindowRect( Int *loX, Int *loY, Int *hiX, Int *hiY )
 	const Int index = p.next++;
 	if( !p.transform.active || index >= (Int)p.scaled.size() || p.scaled[ index ] == 0 )
 		return;
+	if( p.scaled[ index ] == 3 )
+	{
+		const Int dx = (Int)floorf( p.offset[ index * 2 ] * TheDisplay->getWidth() + 0.5f );
+		const Int dy = (Int)floorf( p.offset[ index * 2 + 1 ] * TheDisplay->getHeight() + 0.5f );
+		*loX += dx;
+		*hiX += dx;
+		*loY += dy;
+		*hiY += dy;
+		return;
+	}
 	if( p.scaled[ index ] == 2 )
 	{
 		// Below the bottom of the screen, where nothing that moves it relative to itself brings it back.
