@@ -109,13 +109,14 @@ namespace
 		{ "OptionsMenu.wnd",                1.0f, 1.0f, TRUE, { nullptr } },
 		{ "MessageBox.wnd",                 1.0f, 1.0f, TRUE, { nullptr } },
 		{ "DifficultySelect.wnd",           1.0f, 1.0f, TRUE, { nullptr } },
-		// At most 52% of the screen's width: the side emblem grows into the room left of it and
-		// at x1.5 kept only 40% of its size (owner: it should shrink a little, not that much).
+		// At most 60% of the screen's width (x1.35): the side emblem grows into the room left of
+		// it -- at x1.5 it kept 40% of its size, at 52% (x1.18) the menu looked too small; the
+		// owner picked the middle.
 		// The main menu's buttons with the logo above them (scaled apart, the buttons grew into the
 		// logo), not the rest of its decoration: the clock and the download buttons stay where they
 		// are, and the faction emblems the single player menu shows along the bottom go when the
 		// grown menu reaches down over them (they overlapped its lower buttons, owner's photo).
-		{ "MainMenu.wnd",                   0.52f, 1.0f, TRUE,
+		{ "MainMenu.wnd",                   0.60f, 1.0f, TRUE,
 			{ "WinFaction*", "WinGrowMarker", "GreenDot", "Clock", "ButtonGetMapPack",
 			  "ButtonGetUpdate", "ShellMenuScheme", nullptr }, nullptr, nullptr, "WinFaction", nullptr, nullptr, "WinGrowMarker", 0.06f },
 	};
@@ -495,14 +496,26 @@ static void analyzeLayout( const Rule *rule, const char *layoutFile, const char 
 			}
 			// Decoration the grown content now covers leaves the screen -- all of the set, so that
 			// not half of a row of emblems is left standing.
-			const Real sx0 = box[ 0 ][ 0 ] * t.kx + t.addX, sx1 = box[ 0 ][ 1 ] * t.kx + t.addX;
-			const Real sy0 = box[ 1 ][ 0 ] * t.ky + t.addY, sy1 = box[ 1 ][ 1 ] * t.ky + t.addY;
+			const Real sx0 = box[ 0 ][ 0 ] * t.kx + t.addX;
+			// Covered means a scaled window itself now reaches into one of them (by more than 1% of
+			// the screen) -- not the content's bounding box, which takes in empty space and the
+			// tallest of the submenus and moved the emblems away at 110% with room to spare.
 			Bool covered = FALSE;
-			for( size_t m = 0; m < moveAway.size(); ++m )
+			for( size_t m = 0; m < moveAway.size() && !covered; ++m )
 			{
 				const Real *r = moveAway[ m ].r;
-				if( r[ 0 ] < sx1 && r[ 2 ] > sx0 && r[ 1 ] < sy1 && r[ 3 ] > sy0 )
-					covered = TRUE;
+				for( size_t i = 0; i < rectWins.size() && !covered; ++i )
+				{
+					if( p.scaled[ i ] != 1 )
+						continue;
+					const Win &w = *rectWins[ i ];
+					const Real wx0 = w.lo[ 0 ] / w.res[ 0 ] * t.kx + t.addX, wx1 = w.hi[ 0 ] / w.res[ 0 ] * t.kx + t.addX;
+					const Real wy0 = w.lo[ 1 ] / w.res[ 1 ] * t.ky + t.addY, wy1 = w.hi[ 1 ] / w.res[ 1 ] * t.ky + t.addY;
+					const Real ox = fminf( r[ 2 ], wx1 ) - fmaxf( r[ 0 ], wx0 );
+					const Real oy = fminf( r[ 3 ], wy1 ) - fmaxf( r[ 1 ], wy0 );
+					if( ox > 0.01f && oy > 0.01f )
+						covered = TRUE;
+				}
 			}
 			if( p.offset.size() != p.scaled.size() * 5 )
 				p.offset.assign( p.scaled.size() * 5, 0.0f );
