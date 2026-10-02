@@ -77,7 +77,7 @@
          shared storage. The flag only has an effect on Android 10; Android 11+ ignores it and
          uses MANAGE_EXTERNAL_STORAGE ("All files access") as before. -->
     <application
-        android:label="@string/app_name"
+        android:label="Abodeh Play"
         android:icon="@mipmap/ic_launcher"
         android:allowBackup="true"
         android:isGame="true"
