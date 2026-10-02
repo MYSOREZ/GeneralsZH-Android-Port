@@ -3561,11 +3561,15 @@ void W3DVolumetricShadowManager::renderShadows( Bool forceStencilFill )
 		// meet a pixel does not matter; the result equals the two-pass INCR-then-DECRSAT one
 		// wherever a pixel sees at least as many front faces as back faces, which holds for every
 		// pixel while the camera is outside the volumes -- always, from this game's camera.
-#if defined(__ANDROID__)
-		const Bool twoSidedStencil = d3d8gles_SetTwoSidedStencil(1, D3DSTENCILOP_DECR) != 0;
-#else
+		// GeneralsX @bugfix Android port 02/10/2026 Off again: the claim above is wrong for the
+		// volumes this game draws. They are open at the caster's end, so a ray through a flying
+		// unit's body enters its shadow column through the open top and meets a back face with no
+		// front face before it: the count goes to -1. The two-pass DECRSAT clamps that to 0; the
+		// one-pass DECR wraps it to 255, and the darkening pass painted the whole column from the
+		// helicopter down to the ground (owner's photos, every build since 29/09, with and
+		// without the upscaler). Saturating ops cannot be used in one pass either -- within one
+		// draw the faces' order decides the result. Correct shadows over ~450 draws a frame.
 		const Bool twoSidedStencil = FALSE;
-#endif
 //		m_pDev->SetRenderState(D3DRS_ZBIAS,1);	///@todo: See if this helps or makes things worse.
 		//m_pDev->SetRenderState(D3DRS_FILLMODE,D3DFILL_WIREFRAME);
 
