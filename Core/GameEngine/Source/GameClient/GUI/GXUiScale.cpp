@@ -143,7 +143,7 @@ namespace
 	struct Parsing
 	{
 		std::vector<Int> scaled;  // per window with a rectangle, in file order: 0 keep, 1 scale, 2 move off screen, 3 move by offset
-		std::vector<Real> offset; // decision 3: x, y per window (fractions of the screen)
+		std::vector<Real> offset; // decision 3, per window: old centre x, y, new centre x, y, scale (fractions of the screen)
 		Int next;
 		GXUiScale::Transform transform;
 	};
@@ -356,8 +356,11 @@ static void analyzeLayout( const Rule *rule, const char *layoutFile, const char 
 				// A little above it: the bar's own art (the general's star tab) reaches a few pixels
 				// over its windows, and a power button resting exactly on the line covered it.
 				restBottom = base.active ? box[ 1 ][ 1 ] * base.ky + base.addY - 0.015f : box[ 1 ][ 1 ];
+				// The power bar's frame reaches nearly to the top of the screen, but its buttons fill
+				// it from the bottom: let the empty top run off the screen, keeping at least 70% of
+				// it (8 of its 12 slots) visible.
 				const Real extent = fmaxf( box[ 1 ][ 1 ] - box[ 1 ][ 0 ], 0.001f );
-				fit[ 1 ] = fmaxf( 1.0f, fminf( fit[ 1 ], restBottom / extent ) );
+				fit[ 1 ] = fmaxf( 1.0f, fminf( fit[ 1 ], restBottom / ( 0.7f * extent ) ) );
 			}
 			if( rule->uniform )
 				fit[ 0 ] = fit[ 1 ] = fminf( fit[ 0 ], fit[ 1 ] );
@@ -365,9 +368,9 @@ static void analyzeLayout( const Rule *rule, const char *layoutFile, const char 
 				axisTransform( box[ a ][ 0 ], box[ a ][ 1 ], 1.0f, fit[ a ], &axisK[ a ], &axisAdd[ a ] );
 			if( restBottom >= 0.0f )
 			{
+				// No clamp at the top: clamping there undid the whole shift for the power bar (its frame
+				// starts at y 3 of 600), which then stayed on the grown control bar's star tab.
 				axisAdd[ 1 ] = restBottom - box[ 1 ][ 1 ] * axisK[ 1 ];
-				if( box[ 1 ][ 0 ] * axisK[ 1 ] + axisAdd[ 1 ] < 0.0f )
-					axisAdd[ 1 ] = -box[ 1 ][ 0 ] * axisK[ 1 ];
 			}
 			GXUiScale::Transform &t = p.transform;
 			t.active = axisK[ 0 ] > 1.001f || axisK[ 1 ] > 1.001f || fabsf( axisAdd[ 0 ] ) > 0.0005f || fabsf( axisAdd[ 1 ] ) > 0.0005f;
@@ -390,7 +393,7 @@ static void analyzeLayout( const Rule *rule, const char *layoutFile, const char 
 				if( r[ 0 ] < sx1 && r[ 2 ] > sx0 && r[ 1 ] < sy1 && r[ 3 ] > sy0 )
 					covered = TRUE;
 			}
-			p.offset.assign( p.scaled.size() * 2, 0.0f );
+			p.offset.assign( p.scaled.size() * 5, 0.0f );
 			if( t.active && covered )
 			{
 				// Rearranged as a column in the free space left of the grown content, in their
@@ -432,14 +435,22 @@ static void analyzeLayout( const Rule *rule, const char *layoutFile, const char 
 							order[ a ] = order[ b ];
 							order[ b ] = tmp;
 						}
+				// Inside the menu's frame (its ruler runs about 8% in from the top and bottom: at
+				// 3%..97% the emblems touched it, owner's photo), each shrunk to fit its slot.
+				const Real top = 0.11f, bottom = 0.89f;
 				const Real freeRight = sx0 - 0.01f;
-				const Real slot = groups.empty() ? 0.0f : 0.94f / (Real)groups.size();
-				const Bool fits = !groups.empty() && freeRight >= maxW + 0.02f && slot * 1.15f >= maxH * 0.75f;
+				const Real slot = groups.empty() ? 0.0f : ( bottom - top ) / (Real)groups.size();
+				Real plainH = 0.0f;
+				for( size_t m = 0; m < moveAway.size(); ++m )
+					if( moveAway[ m ].plain )
+						plainH = fmaxf( plainH, moveAway[ m ].r[ 3 ] - moveAway[ m ].r[ 1 ] );
+				const Real shrink = plainH > 0.0f ? fminf( 1.0f, slot * 0.88f / plainH ) : 1.0f;
+				const Bool fits = !groups.empty() && freeRight >= maxW * shrink + 0.04f;
 				for( size_t k2 = 0; k2 < order.size(); ++k2 )
 				{
 					const size_t g = order[ k2 ];
-					const Real newCx = fminf( freeRight * 0.5f, 0.02f + maxW * 0.5f + 0.04f );
-					const Real newCy = 0.03f + slot * ( (Real)k2 + 0.5f );
+					const Real newCx = fminf( freeRight * 0.5f, 0.06f + maxW * shrink * 0.5f );
+					const Real newCy = top + slot * ( (Real)k2 + 0.5f );
 					for( size_t m = 0; m < moveAway.size(); ++m )
 					{
 						if( moveAway[ m ].group != groups[ g ] )
@@ -448,8 +459,12 @@ static void analyzeLayout( const Rule *rule, const char *layoutFile, const char 
 						if( fits )
 						{
 							p.scaled[ idx ] = 3;
-							p.offset[ idx * 2 ] = newCx - groupCx[ g ];
-							p.offset[ idx * 2 + 1 ] = newCy - groupCy[ g ];
+							Real *o = &p.offset[ idx * 5 ];
+							o[ 0 ] = groupCx[ g ];
+							o[ 1 ] = groupCy[ g ];
+							o[ 2 ] = newCx;
+							o[ 3 ] = newCy;
+							o[ 4 ] = shrink;
 						}
 						else
 							p.scaled[ idx ] = 2;
@@ -467,8 +482,8 @@ static void analyzeLayout( const Rule *rule, const char *layoutFile, const char 
 				if( p.scaled[ from ] == 2 || p.scaled[ from ] == 3 )
 				{
 					p.scaled[ i ] = p.scaled[ from ];
-					p.offset[ i * 2 ] = p.offset[ from * 2 ];
-					p.offset[ i * 2 + 1 ] = p.offset[ from * 2 + 1 ];
+					for( Int c = 0; c < 5; ++c )
+						p.offset[ i * 5 + c ] = p.offset[ from * 5 + c ];
 				}
 			}
 			Int scaledCount = 0;
@@ -542,12 +557,13 @@ void mapNextWindowRect( Int *loX, Int *loY, Int *hiX, Int *hiY )
 		return;
 	if( p.scaled[ index ] == 3 )
 	{
-		const Int dx = (Int)floorf( p.offset[ index * 2 ] * TheDisplay->getWidth() + 0.5f );
-		const Int dy = (Int)floorf( p.offset[ index * 2 + 1 ] * TheDisplay->getHeight() + 0.5f );
-		*loX += dx;
-		*hiX += dx;
-		*loY += dy;
-		*hiY += dy;
+		// Moved to a new centre and shrunk around it, with the group it belongs to.
+		const Real *o = &p.offset[ index * 5 ];
+		const Real w = (Real)TheDisplay->getWidth(), h = (Real)TheDisplay->getHeight();
+		*loX = (Int)floorf( ( o[ 2 ] + ( *loX / w - o[ 0 ] ) * o[ 4 ] ) * w + 0.5f );
+		*hiX = (Int)floorf( ( o[ 2 ] + ( *hiX / w - o[ 0 ] ) * o[ 4 ] ) * w + 0.5f );
+		*loY = (Int)floorf( ( o[ 3 ] + ( *loY / h - o[ 1 ] ) * o[ 4 ] ) * h + 0.5f );
+		*hiY = (Int)floorf( ( o[ 3 ] + ( *hiY / h - o[ 1 ] ) * o[ 4 ] ) * h + 0.5f );
 		return;
 	}
 	if( p.scaled[ index ] == 2 )
