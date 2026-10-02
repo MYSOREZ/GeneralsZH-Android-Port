@@ -62,6 +62,14 @@ namespace
 		// window (frameName) widens to hold it, so taps there still reach the buttons.
 		const char *wrapSlotPrefix;
 		const char *frameName;
+		// An excluded window that marks where something grows to (the main menu's faction emblem
+		// grows into WinGrowMarker when a side is picked): moved into the free space beside the
+		// scaled content, shrunk to fit, so the grown emblem does not cover the menu.
+		const char *growMarkerName;
+		// How far from the screen's edges the scaled content stays (fraction). 0 = the default 2%,
+		// where content that already reaches past it may stay there; a value given here is strict:
+		// everything goes inside, as the main menu inside its frame (its logo stuck out at the top).
+		Real margin;
 	};
 
 	// "WinFactionUSMedium" -> "WinFactionUS": a window and the Small / Medium copies the menu's
@@ -107,7 +115,7 @@ namespace
 		// grown menu reaches down over them (they overlapped its lower buttons, owner's photo).
 		{ "MainMenu.wnd",                   1.0f, 1.0f, TRUE,
 			{ "WinFaction*", "WinGrowMarker", "GreenDot", "Clock", "ButtonGetMapPack",
-			  "ButtonGetUpdate", "ShellMenuScheme", nullptr }, nullptr, nullptr, "WinFaction" },
+			  "ButtonGetUpdate", "ShellMenuScheme", nullptr }, nullptr, nullptr, "WinFaction", nullptr, nullptr, "WinGrowMarker", 0.06f },
 	};
 
 	const char *baseName( const char *path )
@@ -160,7 +168,7 @@ namespace
 
 	// The axis transform for content [lo, hi] of an axis `size` long: scale k around the edge the
 	// content sits on (or its centre), then shift it back inside [0, size].
-	void axisTransform( Real lo, Real hi, Real size, Real k, Real *outK, Real *outAdd )
+	void axisTransform( Real lo, Real hi, Real size, Real k, Real margin, Bool strict, Real *outK, Real *outAdd )
 	{
 		const Real gapLo = lo;
 		const Real gapHi = size - hi;
@@ -172,10 +180,13 @@ namespace
 		Real add = anchor * ( 1.0f - k );
 		const Real newLo = lo * k + add;
 		const Real newHi = hi * k + add;
-		if( newLo < 0.0f )
-			add -= newLo;
-		else if( newHi > size )
-			add -= newHi - size;
+		// Edges already outside the margin before scaling are allowed to stay where they were.
+		const Real minLo = strict ? margin * size : fminf( margin * size, lo );
+		const Real maxHi = strict ? size - margin * size : fmaxf( size - margin * size, hi );
+		if( newLo < minLo )
+			add += minLo - newLo;
+		else if( newHi > maxHi )
+			add -= newHi - maxHi;
 		*outK = k;
 		*outAdd = add / size;
 	}
@@ -294,6 +305,8 @@ static void analyzeLayout( const Rule *rule, const char *layoutFile, const char 
 		p.scaled.clear();
 		struct MoveAway { size_t index; Real r[ 4 ]; std::string group; Bool plain; };
 		std::vector<const Win *> rectWins;  // the window behind each decision, in the same order
+		Int growMarker = -1;
+		Real growRect[ 4 ] = { 0, 0, 0, 0 };
 		std::vector<MoveAway> moveAway;
 		// Windows inside an excluded one follow it if it moves: decision of index `inherit[ i ]`.
 		std::vector<Int> inherit;
@@ -319,6 +332,12 @@ static void analyzeLayout( const Rule *rule, const char *layoutFile, const char 
 			{
 				excludedDepth = w.depth;
 				excludedIndex = (Int)p.scaled.size();
+				if( rule->growMarkerName && w.name == rule->growMarkerName )
+				{
+					growMarker = (Int)p.scaled.size();
+					growRect[ 0 ] = w.lo[ 0 ] / w.res[ 0 ]; growRect[ 1 ] = w.lo[ 1 ] / w.res[ 1 ];
+					growRect[ 2 ] = w.hi[ 0 ] / w.res[ 0 ]; growRect[ 3 ] = w.hi[ 1 ] / w.res[ 1 ];
+				}
 				if( rule->moveAwayPrefix && w.name.compare( 0, strlen( rule->moveAwayPrefix ), rule->moveAwayPrefix ) == 0 )
 				{
 					MoveAway m = { p.scaled.size(), { w.lo[ 0 ] / w.res[ 0 ], w.lo[ 1 ] / w.res[ 1 ], w.hi[ 0 ] / w.res[ 0 ], w.hi[ 1 ] / w.res[ 1 ] },
@@ -347,13 +366,21 @@ static void analyzeLayout( const Rule *rule, const char *layoutFile, const char 
 		{
 			// Per axis: as much of the asked scale as fits.
 			const Real maxFrac[ 2 ] = { rule->maxFracX, rule->maxFracY };
+			// The control bar sits on the screen's edge by design: no margin for content that
+			// already touches it.
+			const Real margin = rule->margin > 0.0f ? rule->margin : 0.02f;
+			const Bool strict = rule->margin > 0.0f;
 			Real axisK[ 2 ], axisAdd[ 2 ], fit[ 2 ];
 			for( Int a = 0; a < 2; ++a )
 			{
 				box[ a ][ 0 ] = fmaxf( box[ a ][ 0 ], 0.0f );
 				box[ a ][ 1 ] = fminf( box[ a ][ 1 ], 1.0f );
 				const Real extent = fmaxf( box[ a ][ 1 ] - box[ a ][ 0 ], 0.001f );
-				fit[ a ] = fmaxf( 1.0f, fminf( k, maxFrac[ a ] / extent ) );
+				// The margin only on sides the content does not already touch (the control bar sits
+				// on the bottom edge and keeps its full height cap).
+				const Real room = strict ? 1.0f - 2.0f * margin
+					: fmaxf( box[ a ][ 1 ], 1.0f - margin ) - fminf( box[ a ][ 0 ], margin );
+				fit[ a ] = fmaxf( 1.0f, fminf( k, fminf( maxFrac[ a ], room ) / extent ) );
 			}
 			// Resting on another layout: the bottom edge goes where that layout puts it, and the
 			// content may only grow as far as the room above it.
@@ -373,7 +400,7 @@ static void analyzeLayout( const Rule *rule, const char *layoutFile, const char 
 			if( rule->uniform )
 				fit[ 0 ] = fit[ 1 ] = fminf( fit[ 0 ], fit[ 1 ] );
 			for( Int a = 0; a < 2; ++a )
-				axisTransform( box[ a ][ 0 ], box[ a ][ 1 ], 1.0f, fit[ a ], &axisK[ a ], &axisAdd[ a ] );
+				axisTransform( box[ a ][ 0 ], box[ a ][ 1 ], 1.0f, fit[ a ], margin, strict, &axisK[ a ], &axisAdd[ a ] );
 			if( restBottom >= 0.0f )
 			{
 				// No clamp at the top: clamping there undid the whole shift for the power bar (its frame
@@ -552,6 +579,23 @@ static void analyzeLayout( const Rule *rule, const char *layoutFile, const char 
 				}
 				fprintf( stderr, "[GX-UISCALE] %s: %d decoration groups %s\n", baseName( layoutFile ),
 					(Int)groups.size(), fits ? "rearranged as a column on the left" : "moved off the screen (no room)" );
+			}
+			// The grow target beside the scaled content, shrunk to the room there.
+			if( t.active && growMarker >= 0 )
+			{
+				const Real left = 0.04f, right = sx0 - 0.02f, top = 0.12f, bottom = 0.88f;
+				const Real gw = growRect[ 2 ] - growRect[ 0 ], gh = growRect[ 3 ] - growRect[ 1 ];
+				if( right - left > 0.05f && gw > 0.0f && gh > 0.0f )
+				{
+					const Real shrink = fminf( 1.0f, fminf( ( right - left ) / gw, ( bottom - top ) / gh ) );
+					Real *o = &p.offset[ growMarker * 5 ];
+					o[ 0 ] = ( growRect[ 0 ] + growRect[ 2 ] ) * 0.5f;
+					o[ 1 ] = ( growRect[ 1 ] + growRect[ 3 ] ) * 0.5f;
+					o[ 2 ] = ( left + right ) * 0.5f;
+					o[ 3 ] = ( top + bottom ) * 0.5f;
+					o[ 4 ] = shrink;
+					p.scaled[ growMarker ] = 3;
+				}
 			}
 			// Windows inside a moved one go with it.
 			for( size_t i = 0; i < p.scaled.size() && i < inherit.size(); ++i )
