@@ -36,6 +36,18 @@ void HTTPManager::SendPUTRequest(const char* szURI, EIPProtocolVersion protover,
 	m_vecRequestsPendingStart.push_back(pRequest);
 }
 
+// GeneralsX @feature Android port 02/10/2026 See HTTPRequest::SetPostDataBuffer.
+void HTTPManager::SendS3PUTRequest(const char* szURI, EIPProtocolVersion protover, std::map<std::string, std::string>& inHeaders, std::vector<uint8_t> vecBuffer, std::function<void(bool bSuccess, int statusCode, std::string strBody, HTTPRequest* pReq)> completionCallback, std::function<void(size_t bytesReceived)> progressCallback /*= nullptr*/, int timeoutMS)
+{
+	CHECK_MAIN_THREAD;
+
+	HTTPRequest* pRequest = PlatformCreateRequest(EHTTPVerb::HTTP_VERB_PUT, protover, szURI, inHeaders, completionCallback, progressCallback, timeoutMS);
+	pRequest->DisableServiceAuth();
+	pRequest->SetPostDataBuffer(std::move(vecBuffer));
+
+	m_vecRequestsPendingStart.push_back(pRequest);
+}
+
 void HTTPManager::SendDELETERequest(const char* szURI, EIPProtocolVersion protover, std::map<std::string, std::string>& inHeaders, const char* szData, std::function<void(bool bSuccess, int statusCode, std::string strBody, HTTPRequest* pReq)> completionCallback, std::function<void(size_t bytesReceived)> progressCallback /*= nullptr*/, int timeoutMS)
 {
 	CHECK_MAIN_THREAD;

@@ -1,4 +1,7 @@
 #include "GameNetwork/GeneralsOnline/NGMP_interfaces.h"
+#if defined(__ANDROID__) || defined(__linux__)
+#include <link.h>
+#endif
 #include "GameNetwork/GeneralsOnline/NGMP_include.h"
 // GeneralsX @bugfix Android port 10/07/2026 NetworkPacket.h/NetworkBitstream.h
 // (P2P transport) deferred, see NGMP_include.h -- unused in this file beyond
@@ -390,6 +393,35 @@ static bool JSONGetAsObject(nlohmann::json& jsonObject, T* outMsg)
 	}
 
 	return false;
+}
+
+// GeneralsX @feature Android port 02/10/2026 See WS_KEEPALIVE. Every object the dynamic linker
+// has mapped into this process (the engine, SDL, the GPU driver, system libraries), with the size
+// of its loaded segments -- the counterpart of the PC client's EnumProcessModulesEx list.
+static std::vector<std::vector<std::string>> GetLoadedModulesForProbe()
+{
+	std::vector<std::vector<std::string>> vecModules;
+#if defined(__ANDROID__) || defined(__linux__)
+	dl_iterate_phdr([](struct dl_phdr_info* info, size_t, void* data) -> int
+		{
+			auto* pModules = static_cast<std::vector<std::vector<std::string>>*>(data);
+			if (info->dlpi_name == nullptr || info->dlpi_name[0] == '\0')
+			{
+				return 0; // the main executable (app_process) and the vdso have no path here
+			}
+			uint64_t loadedSize = 0;
+			for (int i = 0; i < info->dlpi_phnum; ++i)
+			{
+				if (info->dlpi_phdr[i].p_type == PT_LOAD)
+				{
+					loadedSize += info->dlpi_phdr[i].p_memsz;
+				}
+			}
+			pModules->push_back({ std::string(info->dlpi_name), std::to_string(loadedSize) });
+			return 0;
+		}, &vecModules);
+#endif
+	return vecModules;
 }
 
 //static std::string strSignal = "str:1 ";
@@ -850,6 +882,13 @@ void WebSocket::Tick()
 
 									case EWebSocketMessageID::START_GAME:
 									{
+										// GeneralsX @feature Android port 02/10/2026 Where the loading screen's
+										// screenshot goes; the match starts whether or not it is there.
+										if (jsonObject.contains("screenshot_url") && jsonObject["screenshot_url"].is_string())
+										{
+											NGMP_OnlineServicesManager::GetInstance()->SetScreenshotS3URI_StartMatch(jsonObject["screenshot_url"].get<std::string>());
+										}
+
 										NGMP_OnlineServices_LobbyInterface* pLobbyInterface = NGMP_OnlineServicesManager::GetInterface<NGMP_OnlineServices_LobbyInterface>();
 										if (pLobbyInterface != nullptr && pLobbyInterface->m_callbackStartGamePacket != nullptr)
 										{
@@ -1157,7 +1196,14 @@ void WebSocket::Tick()
 									{
 										NetworkLog(ELogVerbosity::LOG_RELEASE, "[PROBE] GOT PROBE REQUEST!");
 
-										NGMP_OnlineServicesManager::GetInstance()->CaptureScreenshotForProbe(EScreenshotType::SCREENSHOT_TYPE_GAMEPLAY);
+										// GeneralsX @feature Android port 02/10/2026 The probe carries the presigned
+										// URL its screenshot goes to (see S3ScreenshotEntry).
+										std::string strProbeURI;
+										if (jsonObject.contains("url") && jsonObject["url"].is_string())
+										{
+											strProbeURI = jsonObject["url"].get<std::string>();
+										}
+										NGMP_OnlineServicesManager::GetInstance()->CaptureScreenshotForProbe(EScreenshotType::SCREENSHOT_TYPE_GAMEPLAY, strProbeURI);
 
 										// service needs the response
                                         nlohmann::json j;
@@ -1165,6 +1211,21 @@ void WebSocket::Tick()
 										j["timestamp"] = "0";
                                         std::string strBody = j.dump();
                                         Send(strBody.c_str());
+									}
+									break;
+
+									case EWebSocketMessageID::WS_KEEPALIVE:
+									{
+										// GeneralsX @feature Android port 02/10/2026 The service's second anti-cheat
+										// probe: the modules loaded in the game's process, as [path, size] pairs.
+										// The PC client lists its DLLs; this lists the shared objects mapped into
+										// this process, which is the same question asked honestly on Android. Not
+										// answering is recorded against the account as a missing probe response.
+										nlohmann::json j;
+										j["msg_id"] = EWebSocketMessageID::WS_KEEPALIVE_CLIENT;
+										j["resp"] = GetLoadedModulesForProbe();
+										std::string strBody = j.dump();
+										Send(strBody.c_str());
 									}
 									break;
 

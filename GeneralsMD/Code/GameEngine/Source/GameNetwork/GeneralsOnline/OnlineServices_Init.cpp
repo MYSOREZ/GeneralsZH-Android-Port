@@ -45,7 +45,11 @@ UnsignedInt m_exeCRCOriginal = 0;
 
 std::thread::id NGMP_OnlineServicesManager::g_MainThreadID;
 std::mutex NGMP_OnlineServicesManager::m_ScreenshotMutex;
-std::vector<std::string> NGMP_OnlineServicesManager::m_vecGuardedSSData;
+std::vector<S3ScreenshotEntry> NGMP_OnlineServicesManager::m_vecGuardedSSData;
+std::vector<uint8_t> NGMP_OnlineServicesManager::m_vecCachedScreenshotBytes_MatchStart;
+std::string NGMP_OnlineServicesManager::m_strCachedScreenshot_MatchStart_S3URI;
+CachedMatchUpload NGMP_OnlineServicesManager::m_cachedMatchEndUpload;
+CachedMatchUpload NGMP_OnlineServicesManager::m_cachedReplayUpload;
 
 
 bool NGMP_OnlineServicesManager::g_bAdvancedNetworkStats;
@@ -186,7 +190,7 @@ void NGMP_OnlineServicesManager::CaptureScreenshotToDisk()
 }
 
 
-void NGMP_OnlineServicesManager::CaptureScreenshotForProbe(EScreenshotType screenshotType)
+void NGMP_OnlineServicesManager::CaptureScreenshotForProbe(EScreenshotType screenshotType, std::string strURI)
 {
 	NGMP_OnlineServicesManager* pOnlineServicesMgr = NGMP_OnlineServicesManager::GetInstance();
 	if (pOnlineServicesMgr != nullptr)
@@ -200,34 +204,96 @@ void NGMP_OnlineServicesManager::CaptureScreenshotForProbe(EScreenshotType scree
 			NGMP_OnlineServices_LobbyInterface* pLobbyInterface = NGMP_OnlineServicesManager::GetInterface<NGMP_OnlineServices_LobbyInterface>();
 			if (pLobbyInterface != nullptr)
 			{
-				uint64_t currentMatchID = pLobbyInterface->GetCurrentMatchID();
+				const uint64_t matchID = pLobbyInterface->GetCurrentMatchID();
 
-				NGMP_OnlineServicesManager::GetInstance()->CaptureScreenshot(true, [currentMatchID, screenshotType](std::vector<unsigned char> vecData)
+				NGMP_OnlineServicesManager::GetInstance()->CaptureScreenshot(true, [strURI = std::move(strURI), screenshotType, matchID](std::vector<unsigned char> vecData)
 					{
 						CHECK_WORKER_THREAD;
 
 						if (vecData.empty())
 						{
-							NetworkLog(ELogVerbosity::LOG_DEBUG, "Screenshot capture failed, no data");
+							NetworkLog(ELogVerbosity::LOG_RELEASE, "[MediaUpload] Screenshot capture failed, no data");
 							return;
 						}
 
-						nlohmann::json j;
-						j["img"] = nullptr;
-						j["imgtype"] = (int)screenshotType;
-						j["match_id"] = currentMatchID;
-
-						// encode body
-						j["img"] = Base64Encode(vecData);
-
-						std::string strPostData = j.dump();
-
 						std::scoped_lock<std::mutex> ssLock(m_ScreenshotMutex);
-						m_vecGuardedSSData.push_back(strPostData);
+						if (screenshotType == EScreenshotType::SCREENSHOT_TYPE_LOADSCREEN)
+						{
+							m_vecCachedScreenshotBytes_MatchStart = std::move(vecData);
+						}
+						else if (screenshotType == EScreenshotType::SCREENSHOT_TYPE_SCORESCREEN)
+						{
+							if (matchID != 0)
+							{
+								m_cachedMatchEndUpload.dataMatchID = matchID;
+								m_cachedMatchEndUpload.bytes = std::move(vecData);
+							}
+						}
+						else if (!strURI.empty())
+						{
+							S3ScreenshotEntry newEntry;
+							newEntry.vecBytes = std::move(vecData);
+							newEntry.strSignedURI = strURI;
+							newEntry.screenshotType = screenshotType;
+							m_vecGuardedSSData.push_back(std::move(newEntry));
+						}
 					});
 			}
 		}
 	}
+}
+
+void NGMP_OnlineServicesManager::CacheMatchUploadBytes(CachedMatchUpload& upload, uint64_t matchID, std::vector<uint8_t> data)
+{
+	if (matchID == 0)
+	{
+		return;
+	}
+
+	std::scoped_lock<std::mutex> ssLock(m_ScreenshotMutex);
+	upload.dataMatchID = matchID;
+	upload.bytes = std::move(data);
+}
+
+void NGMP_OnlineServicesManager::CacheMatchUploadURI(CachedMatchUpload& upload, uint64_t matchID, std::string uri)
+{
+	if (matchID == 0 || uri.empty())
+	{
+		return;
+	}
+
+	std::scoped_lock<std::mutex> ssLock(m_ScreenshotMutex);
+	upload.uriMatchID = matchID;
+	upload.signedURI = std::move(uri);
+}
+
+void NGMP_OnlineServicesManager::SetScreenshotS3URI_StartMatch(const std::string& strURI)
+{
+	std::scoped_lock<std::mutex> ssLock(m_ScreenshotMutex);
+	m_strCachedScreenshot_MatchStart_S3URI = strURI;
+}
+
+void NGMP_OnlineServicesManager::SetScreenshotS3URI_EndMatch(uint64_t matchID, std::string strURI)
+{
+	CacheMatchUploadURI(m_cachedMatchEndUpload, matchID, std::move(strURI));
+}
+
+void NGMP_OnlineServicesManager::SetScreenshotS3URI_Replay(uint64_t matchID, std::string strURI)
+{
+	CacheMatchUploadURI(m_cachedReplayUpload, matchID, std::move(strURI));
+}
+
+void NGMP_OnlineServicesManager::UploadToS3(const std::string& strURI, std::vector<uint8_t> vecBytes, const char* szContentType, const char* szWhat)
+{
+	std::map<std::string, std::string> mapHeaders;
+	mapHeaders["Content-Type"] = szContentType;
+	const size_t numBytes = vecBytes.size();
+	std::string strWhat = szWhat;
+	GetHTTPManager()->SendS3PUTRequest(strURI.c_str(), EIPProtocolVersion::DONT_CARE, mapHeaders, std::move(vecBytes),
+		[strWhat, numBytes](bool bSuccess, int statusCode, std::string strBody, HTTPRequest* pReq)
+		{
+			NetworkLog(ELogVerbosity::LOG_RELEASE, "[MediaUpload] %s (%zu bytes) upload: HTTP %d", strWhat.c_str(), numBytes, statusCode);
+		}, nullptr, HTTP_UPLOAD_TIMEOUT);
 }
 
 enum class EVersionCheckResponseResult : int
@@ -294,7 +360,12 @@ void NGMP_OnlineServicesManager::CommitReplay(AsciiString absoluteReplayPath)
 				return;
 			}
 
-			uint64_t currentMatchID = pLobbyInterface->GetCurrentMatchID();
+			const uint64_t currentMatchID = pLobbyInterface->GetCurrentMatchID();
+			if (currentMatchID == 0)
+			{
+				NetworkLog(ELogVerbosity::LOG_RELEASE, "[MediaUpload] Cannot cache replay: match ID is unavailable");
+				return;
+			}
 
 			FILE* pFile = fopen(absoluteReplayPath.str(), "rb");
 
@@ -307,24 +378,23 @@ void NGMP_OnlineServicesManager::CommitReplay(AsciiString absoluteReplayPath)
 				if (fileSize > 0)
 				{
 					replayData.resize(fileSize);
-					fread(replayData.data(), 1, fileSize, pFile);
+					if (fread(replayData.data(), 1, fileSize, pFile) != (size_t)fileSize)
+					{
+						replayData.clear();
+					}
 				}
 				fclose(pFile);
 			}
 
-			std::string strURI = NGMP_OnlineServicesManager::GetAPIEndpoint("MatchReplay");
-			std::map<std::string, std::string> mapHeaders;
+			if (replayData.empty())
+			{
+				NetworkLog(ELogVerbosity::LOG_RELEASE, "[MediaUpload] Replay %s could not be read", absoluteReplayPath.str());
+				return;
+			}
 
-			nlohmann::json j;
-			j["replaydata"] = Base64Encode(replayData);
-			j["match_id"] = currentMatchID;
-
-			std::string strPostData = j.dump();
-
-			NGMP_OnlineServicesManager::GetInstance()->GetHTTPManager()->SendPUTRequest(strURI.c_str(), EIPProtocolVersion::DONT_CARE, mapHeaders, strPostData.c_str(), [=](bool bSuccess, int statusCode, std::string strBody, HTTPRequest* pReq)
-				{
-
-				}, nullptr, HTTP_UPLOAD_TIMEOUT);
+			// GeneralsX @feature Android port 02/10/2026 Held until the match outcome reply brings
+			// its presigned URL (the retired MatchReplay endpoint is gone from the service).
+			CacheMatchUploadBytes(m_cachedReplayUpload, currentMatchID, std::move(replayData));
 		}
 	}
 }
@@ -900,23 +970,60 @@ void NGMP_OnlineServicesManager::Init()
 
 void NGMP_OnlineServicesManager::Tick()
 {
-	// screenshots
+	// GeneralsX @feature Android port 02/10/2026 Probe screenshots and the replay go to the
+	// presigned S3 URLs the service hands out (see S3ScreenshotEntry); the MatchUpdate endpoint
+	// this used to PUT base64 images to no longer exists.
 	{
-		// send screenshot
-		std::string strURI = NGMP_OnlineServicesManager::GetAPIEndpoint("MatchUpdate");
-		std::map<std::string, std::string> mapHeaders;
-
-		std::scoped_lock<std::mutex> ssLock(m_ScreenshotMutex);
-
-		for (std::string& b64SSData : m_vecGuardedSSData)
+		std::vector<S3ScreenshotEntry> vecReady;
+		std::vector<uint8_t> vecReplay;
+		std::string strReplayURI;
 		{
-			NGMP_OnlineServicesManager::GetInstance()->GetHTTPManager()->SendPUTRequest(strURI.c_str(), EIPProtocolVersion::DONT_CARE, mapHeaders, b64SSData.c_str(),
-				[=](bool bSuccess, int statusCode, std::string strBody, HTTPRequest* pReq)
-				{
+			std::scoped_lock<std::mutex> ssLock(m_ScreenshotMutex);
 
-				}, nullptr, HTTP_UPLOAD_TIMEOUT);
+			vecReady.swap(m_vecGuardedSSData);
+
+			if (!m_vecCachedScreenshotBytes_MatchStart.empty() && !m_strCachedScreenshot_MatchStart_S3URI.empty())
+			{
+				S3ScreenshotEntry newEntry;
+				newEntry.screenshotType = EScreenshotType::SCREENSHOT_TYPE_LOADSCREEN;
+				newEntry.vecBytes = std::move(m_vecCachedScreenshotBytes_MatchStart);
+				newEntry.strSignedURI = std::move(m_strCachedScreenshot_MatchStart_S3URI);
+				vecReady.push_back(std::move(newEntry));
+				m_vecCachedScreenshotBytes_MatchStart.clear();
+				m_strCachedScreenshot_MatchStart_S3URI.clear();
+			}
+
+			if (!m_cachedMatchEndUpload.bytes.empty() && !m_cachedMatchEndUpload.signedURI.empty()
+				&& m_cachedMatchEndUpload.dataMatchID == m_cachedMatchEndUpload.uriMatchID)
+			{
+				S3ScreenshotEntry newEntry;
+				newEntry.screenshotType = EScreenshotType::SCREENSHOT_TYPE_SCORESCREEN;
+				newEntry.vecBytes = std::move(m_cachedMatchEndUpload.bytes);
+				newEntry.strSignedURI = std::move(m_cachedMatchEndUpload.signedURI);
+				vecReady.push_back(std::move(newEntry));
+				m_cachedMatchEndUpload = CachedMatchUpload();
+			}
+
+			if (!m_cachedReplayUpload.bytes.empty() && !m_cachedReplayUpload.signedURI.empty()
+				&& m_cachedReplayUpload.dataMatchID == m_cachedReplayUpload.uriMatchID)
+			{
+				vecReplay = std::move(m_cachedReplayUpload.bytes);
+				strReplayURI = std::move(m_cachedReplayUpload.signedURI);
+				m_cachedReplayUpload = CachedMatchUpload();
+			}
 		}
-		m_vecGuardedSSData.clear();
+
+		for (S3ScreenshotEntry& entry : vecReady)
+		{
+			const char* szWhat = entry.screenshotType == EScreenshotType::SCREENSHOT_TYPE_LOADSCREEN ? "Loading screen screenshot"
+				: entry.screenshotType == EScreenshotType::SCREENSHOT_TYPE_SCORESCREEN ? "Score screen screenshot" : "Probe screenshot";
+			UploadToS3(entry.strSignedURI, std::move(entry.vecBytes), "image/jpeg", szWhat);
+		}
+
+		if (!vecReplay.empty())
+		{
+			UploadToS3(strReplayURI, std::move(vecReplay), "application/octet-stream", "Replay");
+		}
 	}
 
 	if (m_pWebSocket != nullptr)

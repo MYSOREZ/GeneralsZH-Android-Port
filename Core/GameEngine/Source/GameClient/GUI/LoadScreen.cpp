@@ -90,6 +90,15 @@
 #include "GameNetwork/NetworkInterface.h"
 #include "GameNetwork/RankPointValue.h"
 
+// GeneralsX @feature Android port 02/10/2026 Zero Hour-only GeneralsOnline hooks in the online
+// load screen (this file is shared Core, compiled for base Generals too, where the defines
+// header is an empty stub and leaves GENERALS_ONLINE undefined).
+#include "GameNetwork/GeneralsOnline/NextGenMP_defines.h"
+#if defined(GENERALS_ONLINE)
+#include "GameNetwork/GeneralsOnline/NGMP_interfaces.h"
+static Bool s_bHasTakenLoadScreenProbe = FALSE;
+#endif
+
 //-----------------------------------------------------------------------------
 // DEFINES ////////////////////////////////////////////////////////////////////
 //-----------------------------------------------------------------------------
@@ -1568,6 +1577,10 @@ extern Int GetAdditionalDisconnectsFromUserFile(Int playerID);
 
 void GameSpyLoadScreen::init( GameInfo *game )
 {
+#if defined(GENERALS_ONLINE)
+	s_bHasTakenLoadScreenProbe = FALSE;
+#endif
+
 	// create the layout of the load screen
 	m_loadScreen = TheWindowManager->winCreateFromScript( "Menus/GameSpyLoadScreen.wnd" );
 	DEBUG_ASSERTCRASH(m_loadScreen, ("Can't initialize the Multiplayer loadscreen"));
@@ -1903,6 +1916,22 @@ void GameSpyLoadScreen::update( Int percent )
 	if(percent <= 100)
 		TheNetwork->updateLoadProgress( percent );
 	TheNetwork->liteupdate();
+
+#if defined(GENERALS_ONLINE)
+	// GeneralsX @feature Android port 02/10/2026 Upstream GeneralsOnline: the loading screen's
+	// anti-cheat screenshot, half way through, uploaded once START_GAME's URL is known; and the
+	// online services ticked here, since the engine does not tick while a match loads -- on a
+	// phone that is long enough for the WebSocket to miss its keepalives.
+	if (percent >= 50 && !s_bHasTakenLoadScreenProbe && NGMP_OnlineServicesManager::GetInstance() != nullptr)
+	{
+		s_bHasTakenLoadScreenProbe = TRUE;
+		NGMP_OnlineServicesManager::GetInstance()->CaptureScreenshotForProbe(EScreenshotType::SCREENSHOT_TYPE_LOADSCREEN, std::string());
+	}
+	if (NGMP_OnlineServicesManager::GetInstance() != nullptr)
+	{
+		NGMP_OnlineServicesManager::GetInstance()->Tick();
+	}
+#endif
 
 	//GadgetProgressBarSetProgress(m_progressBars[TheNetwork->getLocalPlayerID()], percent );
 

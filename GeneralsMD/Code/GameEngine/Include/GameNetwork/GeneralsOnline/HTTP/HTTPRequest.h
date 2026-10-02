@@ -4,6 +4,7 @@
 #include <map>
 #include <string>
 #include <functional>
+#include <vector>
 
 enum class EHTTPVerb;
 enum class EIPProtocolVersion;
@@ -28,6 +29,15 @@ public:
 	void PlatformThreaded_SetComplete();
 
 	void SetPostData(const char* szPostData);
+
+	// GeneralsX @feature Android port 02/10/2026 Binary bodies for presigned S3 uploads (probe
+	// screenshots, replays), which also must not carry the service's bearer token: the URL is
+	// signed by itself and S3 rejects a second auth mechanism. Upstream's SendS3PUTRequest.
+	void SetPostDataBuffer(std::vector<uint8_t> vecBuffer);
+	void DisableServiceAuth()
+	{
+		m_bAppendAuthIfPresent = false;
+	}
 	void StartRequest();
 
 	void OnResponsePartialWrite(std::uint8_t* pBuffer, size_t numBytes);
@@ -78,6 +88,8 @@ private:
 
 	std::string m_strURI;
 	std::string m_strPostData;
+	std::vector<uint8_t> m_vecPostDataBuffer;
+	bool m_bAppendAuthIfPresent = true;
 
 	std::map<std::string, std::string> m_mapHeaders;
 

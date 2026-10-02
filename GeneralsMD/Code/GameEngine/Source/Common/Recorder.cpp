@@ -62,6 +62,7 @@ void gxCommandTraceDump(UnsignedInt fromFrame);
 void gxShroudTraceDump(UnsignedInt fromFrame);
 #if defined(GENERALS_ONLINE)
 #include "GameNetwork/GeneralsOnline/NGMPGame.h"
+#include "GameNetwork/GeneralsOnline/NGMP_interfaces.h"
 extern NGMPGame* TheNGMPGame;
 #endif
 #include "Common/RandomValue.h"
@@ -767,6 +768,17 @@ void RecorderClass::stopRecording() {
 
 		if (m_archiveReplays)
 			archiveReplay(m_fileName);
+
+#if defined(GENERALS_ONLINE)
+		// GeneralsX @feature Android port 02/10/2026 An online match's replay goes to the
+		// service, to the URL the match outcome reply hands out (see S3ScreenshotEntry).
+		if (TheNGMPGame != nullptr && NGMP_OnlineServicesManager::GetInstance() != nullptr)
+		{
+			AsciiString absoluteReplayPath = getReplayDir();
+			absoluteReplayPath.concat(m_fileName);
+			NGMP_OnlineServicesManager::GetInstance()->CommitReplay(absoluteReplayPath);
+		}
+#endif
 	}
 	m_fileName.clear();
 }

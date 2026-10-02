@@ -127,6 +127,11 @@ void HTTPRequest::SetPostData(const char* szPostData)
 	NetworkLog(ELogVerbosity::LOG_DEBUG, "[%p|%s|Verb %d] Transfer is created: Body is %s", this, m_strURI.c_str(), m_httpVerb, szPostData);
 }
 
+void HTTPRequest::SetPostDataBuffer(std::vector<uint8_t> vecBuffer)
+{
+	m_vecPostDataBuffer = std::move(vecBuffer);
+}
+
 void HTTPRequest::StartRequest()
 {
 	m_bIsStarted = true;
@@ -137,8 +142,17 @@ void HTTPRequest::StartRequest()
 	m_currentBufSize_Used = 0;
 
 	NetworkLog(ELogVerbosity::LOG_DEBUG, "[%p|%s|Verb %d] Transfer is starting: Body is %s", this, m_strURI.c_str(), m_httpVerb, m_strPostData.c_str());
-	GX_NET_TRACE("-> verb %d %s  body=%s\n", m_httpVerb, m_strURI.c_str(),
-		GXSnippet(GXRedactTokens(m_strPostData), 300).c_str());
+	// A presigned upload URL carries its signature in the query: trace the path and size only.
+	if (!m_vecPostDataBuffer.empty())
+	{
+		GX_NET_TRACE("-> verb %d %s  binary body, %zu bytes\n", m_httpVerb,
+			m_strURI.substr(0, m_strURI.find('?')).c_str(), m_vecPostDataBuffer.size());
+	}
+	else
+	{
+		GX_NET_TRACE("-> verb %d %s  body=%s\n", m_httpVerb, m_strURI.c_str(),
+			GXSnippet(GXRedactTokens(m_strPostData), 300).c_str());
+	}
 	PlatformStartRequest();
 }
 
@@ -231,6 +245,11 @@ void HTTPRequest::Threaded_SetComplete(CURLcode result)
 		strURIRedacted = strURIRedacted.replace(tokenpos + 6, tokenLen, strReplace);
 	}
 #endif
+	// GeneralsX @feature Android port 02/10/2026 A presigned upload URL's query is its signature.
+	if (!m_bAppendAuthIfPresent)
+	{
+		strURIRedacted = strURIRedacted.substr(0, strURIRedacted.find('?'));
+	}
 
 	std::string strResponse = std::string(reinterpret_cast<const char*>(m_vecBuffer.data()), m_currentBufSize_Used);
 	NetworkLog(ELogVerbosity::LOG_RELEASE, "[%p|%s|Verb %d] Transfer is complete: %d bytes total! Curl result is %d", this, strURIRedacted.c_str(), m_httpVerb, m_currentBufSize_Used, result);
@@ -302,7 +321,7 @@ void HTTPRequest::PlatformStartRequest()
 
 		// Are we authenticated? attach our auth header
 		NGMP_OnlineServices_AuthInterface* pAuthInterface = NGMP_OnlineServicesManager::GetInterface<NGMP_OnlineServices_AuthInterface>();
-		if (pAuthInterface != nullptr && pAuthInterface->IsLoggedIn())
+		if (pAuthInterface != nullptr && pAuthInterface->IsLoggedIn() && m_bAppendAuthIfPresent)
 		{
 			m_mapHeaders["Authorization"] = "Bearer " + pAuthInterface->GetAuthToken();
 		}
@@ -320,7 +339,15 @@ void HTTPRequest::PlatformStartRequest()
 			//if (m_strPostData.length() > 0)
 			{
 				//char* pEscaped = curl_easy_escape(m_pCURL, m_strPostData.c_str(), m_strPostData.length());
-				curl_easy_setopt(m_pCURL, CURLOPT_POSTFIELDS, m_strPostData.c_str());
+				if (!m_vecPostDataBuffer.empty())
+				{
+					curl_easy_setopt(m_pCURL, CURLOPT_POSTFIELDSIZE, (long)m_vecPostDataBuffer.size());
+					curl_easy_setopt(m_pCURL, CURLOPT_POSTFIELDS, m_vecPostDataBuffer.data());
+				}
+				else
+				{
+					curl_easy_setopt(m_pCURL, CURLOPT_POSTFIELDS, m_strPostData.c_str());
+				}
 			}
 		}
 

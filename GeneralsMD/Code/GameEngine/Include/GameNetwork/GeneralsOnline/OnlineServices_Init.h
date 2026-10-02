@@ -23,6 +23,26 @@ enum class EScreenshotType : int
 	SCREENSHOT_TYPE_SCORESCREEN = 2
 };
 
+// GeneralsX @feature Android port 02/10/2026 The service's integrated anti-cheat probes upload
+// to presigned S3 URLs it hands out: the gameplay screenshot with the PROBE message, the
+// loading-screen one with START_GAME, the score-screen one and the replay with the match
+// outcome reply. The image or replay is often ready before its URL (or the other way round),
+// so each waits for the other, matched by match id. Upstream OnlineServices_Init.cpp.
+struct S3ScreenshotEntry
+{
+	std::vector<uint8_t> vecBytes;
+	std::string strSignedURI;
+	EScreenshotType screenshotType = EScreenshotType::SCREENSHOT_TYPE_GAMEPLAY;
+};
+
+struct CachedMatchUpload
+{
+	uint64_t dataMatchID = 0;
+	std::vector<uint8_t> bytes;
+	uint64_t uriMatchID = 0;
+	std::string signedURI;
+};
+
 #include <mutex>
 #include <atomic>
 
@@ -54,7 +74,7 @@ enum EWebSocketMessageID
 	NETWORK_ROOM_MARK_READY = 5,
 	LOBBY_CURRENT_LOBBY_UPDATE = 6,
 	NETWORK_ROOM_LOBBY_LIST_UPDATE = 7,
-	UNUSED_PLACEHOLDER = 8, // this was relay upgrade, was removed. We can re-use it later, but service needs this placeholder
+	ANTICHEAT_MESSAGE = 8, // GeneralsX @tweak Android port 02/10/2026 named as the service names it (was UNUSED_PLACEHOLDER)
 	PLAYER_NAME_CHANGE = 9,
 	LOBBY_ROOM_CHAT_FROM_CLIENT = 10,
 	LOBBY_CHAT_FROM_SERVER = 11,
@@ -85,7 +105,18 @@ enum EWebSocketMessageID
 	SOCIAL_FRIEND_FRIEND_REQUEST_ACCEPTED_BY_TARGET = 36,
 	SOCIAL_FRIENDS_LIST_DIRTY = 37,
 	SOCIAL_CANT_ADD_FRIEND_LIST_FULL = 38,
-	PROBE_RESP = 39
+	PROBE_RESP = 39,
+	// GeneralsX @feature Android port 02/10/2026 The rest of the service's current list
+	// (GenOnlineService/Constants.cs); only the keepalive probe is handled so far.
+	AC_REGISTER_PLAYER = 40,
+	AC_DEREGISTER_PLAYER = 41,
+	WS_KEEPALIVE = 42,
+	WS_KEEPALIVE_CLIENT = 43,
+	MATCHMAKING_ACTION_REQUEUE = 44,
+	MATCHMAKING_ACTION_SETUP_PROGRESS = 45,
+	MODERATION_NOTICE = 46,
+	MODERATION_COMMAND = 47,
+	MODERATION_COMMAND_RESULT = 48
 };
 
 enum class EQoSRegions
@@ -445,7 +476,12 @@ public:
 
 	static void CaptureScreenshot(bool bResizeForTransmit, std::function<void(std::vector<unsigned char>)> cbOnDataAvailable);
 	static void CaptureScreenshotToDisk();
-	static void CaptureScreenshotForProbe(EScreenshotType screenshotType);
+	// strURI empty: the URL arrives later (loading screen, score screen)
+	static void CaptureScreenshotForProbe(EScreenshotType screenshotType, std::string strURI);
+
+	void SetScreenshotS3URI_StartMatch(const std::string& strURI);
+	void SetScreenshotS3URI_EndMatch(uint64_t matchID, std::string strURI);
+	void SetScreenshotS3URI_Replay(uint64_t matchID, std::string strURI);
 
 	static bool g_bAdvancedNetworkStats;
 	static void ToggleAdvancedNetworkStats() { g_bAdvancedNetworkStats = !g_bAdvancedNetworkStats; }
@@ -490,7 +526,16 @@ public:
 private:
 	// main thread SS Upload
 	static std::mutex m_ScreenshotMutex;
-	static std::vector<std::string> m_vecGuardedSSData;
+	static std::vector<S3ScreenshotEntry> m_vecGuardedSSData;
+
+	// waiting for their URL or their bytes, all under m_ScreenshotMutex
+	static std::vector<uint8_t> m_vecCachedScreenshotBytes_MatchStart;
+	static std::string m_strCachedScreenshot_MatchStart_S3URI;
+	static CachedMatchUpload m_cachedMatchEndUpload;
+	static CachedMatchUpload m_cachedReplayUpload;
+	static void CacheMatchUploadBytes(CachedMatchUpload& upload, uint64_t matchID, std::vector<uint8_t> data);
+	static void CacheMatchUploadURI(CachedMatchUpload& upload, uint64_t matchID, std::string uri);
+	void UploadToS3(const std::string& strURI, std::vector<uint8_t> vecBytes, const char* szContentType, const char* szWhat);
 
 	// Screenshot thread management
 	std::vector<std::thread*> m_vecScreenshotThreads;

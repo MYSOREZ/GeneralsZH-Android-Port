@@ -452,7 +452,28 @@ void NGMP_OnlineServices_StatsInterface::CommitMyOutcome(ScoreKeeper* pScoreKeep
 
 		NGMP_OnlineServicesManager::GetInstance()->GetHTTPManager()->SendPOSTRequest(strURI.c_str(), EIPProtocolVersion::DONT_CARE, mapHeaders, strPostData.c_str(), [=](bool bSuccess, int statusCode, std::string strBody, HTTPRequest* pReq)
 			{
-
+				// GeneralsX @feature Android port 02/10/2026 The reply names where this match's
+				// score-screen screenshot and replay go (see S3ScreenshotEntry).
+				if (!bSuccess || strBody.empty())
+				{
+					return;
+				}
+				try
+				{
+					nlohmann::json jsonObject = nlohmann::json::parse(strBody);
+					if (jsonObject.contains("screenshot_url") && jsonObject["screenshot_url"].is_string())
+					{
+						NGMP_OnlineServicesManager::GetInstance()->SetScreenshotS3URI_EndMatch(currentMatchID, jsonObject["screenshot_url"].get<std::string>());
+					}
+					if (jsonObject.contains("replay_url") && jsonObject["replay_url"].is_string())
+					{
+						NGMP_OnlineServicesManager::GetInstance()->SetScreenshotS3URI_Replay(currentMatchID, jsonObject["replay_url"].get<std::string>());
+					}
+				}
+				catch (...)
+				{
+					NetworkLog(ELogVerbosity::LOG_RELEASE, "[MediaUpload] Match outcome reply could not be parsed");
+				}
 			});
 	}
 }
