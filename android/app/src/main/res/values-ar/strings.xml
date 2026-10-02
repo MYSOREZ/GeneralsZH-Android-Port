@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">GeneralsZH</string>
+    <string name="app_name">Abodeh Play</string>
     <string name="common_cancel">إلغاء</string>
 
     <!-- SetupActivity: title / fallback -->
-    <string name="setup_window_title">إعدادات GeneralsZH</string>
+    <string name="setup_window_title">إعدادات Abodeh Play</string>
     <string name="setup_title">Command &amp; Conquer Generals: Zero Hour</string>
-    <string name="setup_subtitle">إعدادات أندرويد</string>
+    <string name="setup_subtitle">نسخة أندرويد • Abodeh Play</string>
     <string name="setup_fallback_warning">فشل تحميل واجهة الإعدادات العادية (%1$s). يتم عرض واجهة بديلة بسيطة حتى تتمكن من الوصول إلى السجلات/مجلد اللعبة.</string>
 
     <!-- SetupActivity: Game Folder card -->
@@ -46,6 +46,18 @@
     <string name="setup_button_apply_text_size">تطبيق حجم نص القائمة</string>
     <string name="setup_text_size_help">يُكبّر أو يُصغّر نص معظم أزرار/تسميات القائمة حسب دقة الشاشة. القيمة الافتراضية للعبة هي 70؛ القيم الأعلى تجعل نص القائمة أكبر. يسري المفعول عند تشغيل اللعبة في المرة القادمة، وليس فورًا.</string>
     <string name="setup_toast_text_size_saved">تم الحفظ. سيسري المفعول في المرة القادمة التي تشغّل فيها اللعبة.</string>
+
+
+    <!-- Abodeh Play: بطاقة دقة العرض -->
+    <string name="setup_card_resolution">دقة العرض</string>
+    <string name="setup_resolution_auto_short">تلقائي</string>
+    <string name="setup_resolution_600_short">600p</string>
+    <string name="setup_resolution_720_short">720p</string>
+    <string name="setup_resolution_auto_desc">يستخدم حجم نافذة اللعبة الحقيقي الذي يتم اكتشافه عند التشغيل. أفضل جودة للصورة.</string>
+    <string name="setup_resolution_600_desc">وضع أداء للهواتف المتوسطة. يحافظ على أبعاد شاشة الجهاز ويعرض بارتفاع يقارب 600 بكسل.</string>
+    <string name="setup_resolution_720_desc">وضع متوازن. يحافظ على أبعاد شاشة الجهاز ويعرض بارتفاع يقارب 720 بكسل.</string>
+    <string name="setup_resolution_help">خفض الدقة قد يقلل حمل المعالج الرسومي. خيار «تلقائي» يحذف قيمة Resolution المفروضة ويعيد للمحرك اكتشاف حجم نافذة اللعبة الحقيقي. يسري التغيير عند التشغيل التالي.</string>
+    <string name="setup_toast_resolution_saved">تم حفظ دقة العرض. ستُطبّق عند تشغيل اللعبة في المرة القادمة.</string>
 
     <!-- SetupActivity: Render Backend card -->
     <string name="setup_card_render_backend">خلفية الرسومات</string>
