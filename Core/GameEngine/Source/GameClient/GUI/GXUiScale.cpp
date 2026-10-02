@@ -109,11 +109,13 @@ namespace
 		{ "OptionsMenu.wnd",                1.0f, 1.0f, TRUE, { nullptr } },
 		{ "MessageBox.wnd",                 1.0f, 1.0f, TRUE, { nullptr } },
 		{ "DifficultySelect.wnd",           1.0f, 1.0f, TRUE, { nullptr } },
+		// At most 52% of the screen's width: the side emblem grows into the room left of it and
+		// at x1.5 kept only 40% of its size (owner: it should shrink a little, not that much).
 		// The main menu's buttons with the logo above them (scaled apart, the buttons grew into the
 		// logo), not the rest of its decoration: the clock and the download buttons stay where they
 		// are, and the faction emblems the single player menu shows along the bottom go when the
 		// grown menu reaches down over them (they overlapped its lower buttons, owner's photo).
-		{ "MainMenu.wnd",                   1.0f, 1.0f, TRUE,
+		{ "MainMenu.wnd",                   0.52f, 1.0f, TRUE,
 			{ "WinFaction*", "WinGrowMarker", "GreenDot", "Clock", "ButtonGetMapPack",
 			  "ButtonGetUpdate", "ShellMenuScheme", nullptr }, nullptr, nullptr, "WinFaction", nullptr, nullptr, "WinGrowMarker", 0.06f },
 	};
@@ -368,8 +370,10 @@ static void analyzeLayout( const Rule *rule, const char *layoutFile, const char 
 			const Real maxFrac[ 2 ] = { rule->maxFracX, rule->maxFracY };
 			// The control bar sits on the screen's edge by design: no margin for content that
 			// already touches it.
-			const Real margin = rule->margin > 0.0f ? rule->margin : 0.02f;
 			const Bool strict = rule->margin > 0.0f;
+			// A strict margin is the rule's own at the top and bottom; the frame's sides are
+			// thinner, 3% (6% moved the main menu visibly left of where it sits).
+			const Real marginAxis[ 2 ] = { strict ? fminf( rule->margin, 0.03f ) : 0.02f, strict ? rule->margin : 0.02f };
 			Real axisK[ 2 ], axisAdd[ 2 ], fit[ 2 ];
 			for( Int a = 0; a < 2; ++a )
 			{
@@ -378,6 +382,7 @@ static void analyzeLayout( const Rule *rule, const char *layoutFile, const char 
 				const Real extent = fmaxf( box[ a ][ 1 ] - box[ a ][ 0 ], 0.001f );
 				// The margin only on sides the content does not already touch (the control bar sits
 				// on the bottom edge and keeps its full height cap).
+				const Real margin = marginAxis[ a ];
 				const Real room = strict ? 1.0f - 2.0f * margin
 					: fmaxf( box[ a ][ 1 ], 1.0f - margin ) - fminf( box[ a ][ 0 ], margin );
 				fit[ a ] = fmaxf( 1.0f, fminf( k, fminf( maxFrac[ a ], room ) / extent ) );
@@ -400,7 +405,7 @@ static void analyzeLayout( const Rule *rule, const char *layoutFile, const char 
 			if( rule->uniform )
 				fit[ 0 ] = fit[ 1 ] = fminf( fit[ 0 ], fit[ 1 ] );
 			for( Int a = 0; a < 2; ++a )
-				axisTransform( box[ a ][ 0 ], box[ a ][ 1 ], 1.0f, fit[ a ], margin, strict, &axisK[ a ], &axisAdd[ a ] );
+				axisTransform( box[ a ][ 0 ], box[ a ][ 1 ], 1.0f, fit[ a ], marginAxis[ a ], strict, &axisK[ a ], &axisAdd[ a ] );
 			if( restBottom >= 0.0f )
 			{
 				// No clamp at the top: clamping there undid the whole shift for the power bar (its frame
