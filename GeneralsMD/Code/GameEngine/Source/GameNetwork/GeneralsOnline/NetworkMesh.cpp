@@ -896,9 +896,18 @@ void NetworkMesh::ApplyTurnCredentials(const std::string& strUsername, const std
 	m_strTurnUsernameString = std::format("{},{}", m_strTurnUsername.c_str(), m_strTurnUsername.c_str());
 	m_strTurnTokenString = std::format("{},{}", m_strTurnToken.c_str(), m_strTurnToken.c_str());
 
-	// New connections take their configuration from the global values when they are created.
+	// New outbound connections take their configuration from the global values when they are
+	// created; inbound ones from the listen socket's, so it is set there explicitly as well (as
+	// upstream 91f21934d does) rather than relying on it still inheriting the global value.
 	SteamNetworkingUtils()->SetGlobalConfigValueString(k_ESteamNetworkingConfig_P2P_TURN_UserList, m_strTurnUsernameString.c_str());
 	SteamNetworkingUtils()->SetGlobalConfigValueString(k_ESteamNetworkingConfig_P2P_TURN_PassList, m_strTurnTokenString.c_str());
+	if (m_hListenSock != k_HSteamListenSocket_Invalid)
+	{
+		SteamNetworkingUtils()->SetConfigValue(k_ESteamNetworkingConfig_P2P_TURN_UserList, k_ESteamNetworkingConfig_ListenSocket,
+			(intptr_t)m_hListenSock, k_ESteamNetworkingConfig_String, m_strTurnUsernameString.c_str());
+		SteamNetworkingUtils()->SetConfigValue(k_ESteamNetworkingConfig_P2P_TURN_PassList, k_ESteamNetworkingConfig_ListenSocket,
+			(intptr_t)m_hListenSock, k_ESteamNetworkingConfig_String, m_strTurnTokenString.c_str());
+	}
 	NetworkLog(ELogVerbosity::LOG_RELEASE, "[NGMP] Mesh TURN credentials applied (username empty=%d, token empty=%d), %zu deferred signalling request(s)",
 		(int)m_strTurnUsername.empty(), (int)m_strTurnToken.empty(), m_vecDeferredSignalling.size());
 

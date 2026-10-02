@@ -1463,6 +1463,16 @@ void NGMP_OnlineServices_LobbyInterface::CreateLobby(UnicodeString strLobbyName,
 						m_strTURNToken = resp.turn_token;
 						NetworkLog(ELogVerbosity::LOG_DEBUG, "Got TURN username: %s, token: %s", m_strTURNUsername.c_str(), m_strTURNToken.c_str());
 
+#if defined(GENERALS_ONLINE_ENABLE_P2P_TRANSPORT)
+						// GeneralsX @bugfix Android port 02/10/2026 A mesh kept from a failed join was
+						// built with that join's (or no) credentials; OnJoinedOrCreatedLobby reuses it.
+						// Upstream 91f21934d.
+						if (m_pLobbyMesh != nullptr)
+						{
+							m_pLobbyMesh->ApplyTurnCredentials(m_strTURNUsername, m_strTURNToken);
+						}
+#endif
+
 
 						if (resp.result == ECreateLobbyResponseResult::SUCCEEDED)
 						{
