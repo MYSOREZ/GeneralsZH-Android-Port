@@ -74,6 +74,7 @@
 extern "C" void d3d8gles_SetPresentUncapped(bool uncapped);
 #endif
 #include "SDL3Device/GameClient/TouchInput.h"
+#include "SDL3Device/GameClient/AndroidTextEditor.h"
 #if defined(__APPLE__)
 #include <TargetConditionals.h>
 #endif
@@ -2601,6 +2602,11 @@ void SDL3GameEngine::pollSDL3Events(void)
 		updateTextInputState();
 	}
 
+#if defined(__ANDROID__)
+	// Whatever the EditText bar sent since the last frame, applied on this thread.
+	AndroidTextEditor::pump();
+#endif
+
 #if defined(SAGE_MOBILE_PLATFORM)
 	// Once per frame, after every queued SDL touch event for this frame has
 	// been drained -- see applyPendingCameraMotion()'s comment for why this
@@ -2625,13 +2631,27 @@ void SDL3GameEngine::updateTextInputState(void)
 			SDL_StopTextInput(m_SDLWindow);
 			m_IsTextInputActive = false;
 		}
+#if defined(__ANDROID__)
+		AndroidTextEditor::close();
+#endif
 		m_TextInputFocusWindow = nullptr;
 		return;
 	}
 
 	m_TextInputFocusWindow = focusedWindow;
 
-#if defined(SAGE_MOBILE_PLATFORM)
+#if defined(__ANDROID__)
+	// GeneralsX @feature Android port 02/10/2026 Text is edited in an Android EditText bar
+	// (cursor, selection, copy and paste) instead of SDL's hidden field, which can only append
+	// and delete -- see AndroidTextEditor.h. Same rule as below for when it may open: a
+	// deliberate tap on the field. A field that takes focus while the bar is shown (Tab, a
+	// screen replacing another) takes the bar over.
+	if (m_PendingTextInputRearmFrames > 0 ||
+			(AndroidTextEditor::field() != nullptr && AndroidTextEditor::field() != focusedWindow)) {
+		AndroidTextEditor::open(focusedWindow);
+		m_PendingTextInputRearmFrames = 0;
+	}
+#elif defined(SAGE_MOBILE_PLATFORM)
 	// GeneralsX @bugfix Android port 11/07/2026 - Only (re)open the on-screen keyboard
 	// in direct response to a recent, deliberate tap (m_PendingTextInputRearmFrames),
 	// never just because a field happens to be focused -- e.g. a screen's default

@@ -240,6 +240,7 @@ else()
         Source/SDL3Device/GameClient/SDL3Mouse.cpp
         Source/SDL3Device/GameClient/SDL3Keyboard.cpp
         Source/SDL3Device/GameClient/TouchInput.cpp
+        Source/SDL3Device/GameClient/AndroidTextEditor.cpp
         Source/VideoDevice/BinkVideoPlayerStub.cpp
     )
 

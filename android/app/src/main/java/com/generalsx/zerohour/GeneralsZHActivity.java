@@ -37,6 +37,7 @@ import android.graphics.Rect;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.view.Display;
+import android.view.KeyEvent;
 import android.view.DisplayCutout;
 import android.view.RoundedCorner;
 import android.view.WindowInsets;
@@ -92,6 +93,61 @@ public class GeneralsZHActivity extends SDLActivity {
         } catch (RuntimeException e) {
             Log.w(TAG, "LAN multicast lock unavailable", e);
         }
+    }
+
+    // GeneralsX @feature Android port 02/10/2026 The game's text fields are edited in an
+    // EditText bar (cursor, selection, copy, paste) -- see TextEditorBar and the engine's
+    // AndroidTextEditor.cpp. The engine calls show/hide from its own thread; the bar reports
+    // back through the two native methods, which only queue for the engine's next frame.
+    private TextEditorBar textEditorBar;
+
+    private static native void nativeTextEditorChanged(String text, int serial);
+    private static native void nativeTextEditorDone(String text, boolean submit, int serial);
+
+    @SuppressWarnings("unused") // called via JNI
+    public void showTextEditor(final String text, final int maxLength, final int flags, final int serial) {
+        runOnUiThread(() -> {
+            if (mLayout == null) {
+                return;
+            }
+            if (textEditorBar == null) {
+                textEditorBar = new TextEditorBar(this, mLayout, new TextEditorBar.Listener() {
+                    @Override public void onChanged(String changed, int changedSerial) {
+                        nativeTextEditorChanged(changed, changedSerial);
+                    }
+                    @Override public void onDone(String finished, boolean submit, int doneSerial) {
+                        nativeTextEditorDone(finished, submit, doneSerial);
+                    }
+                }, () -> {
+                    if (mSurface != null) {
+                        mSurface.requestFocus();
+                    }
+                });
+            }
+            textEditorBar.show(text, maxLength, flags, serial);
+        });
+    }
+
+    @SuppressWarnings("unused") // called via JNI
+    public void hideTextEditor() {
+        runOnUiThread(() -> {
+            if (textEditorBar != null) {
+                textEditorBar.hide();
+            }
+        });
+    }
+
+    // Back closes the bar (keeping the text) instead of reaching the game. While the keyboard
+    // is up, the keyboard takes the first Back itself.
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK && textEditorBar != null && textEditorBar.isShown()) {
+            if (event.getAction() == KeyEvent.ACTION_UP) {
+                textEditorBar.finish(false);
+            }
+            return true;
+        }
+        return super.dispatchKeyEvent(event);
     }
 
     // singleInstance: a relaunch from the Replay check screen can arrive here instead of
