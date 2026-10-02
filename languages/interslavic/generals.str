@@ -25819,3 +25819,11 @@ GUI:BeaconClear
 "Očistiti"
 END
 
+
+GX:ViewMatchOnline
+"VIDĚTI MEČ ONLAJN"
+END
+
+GX:Logout
+"ODJAVITI SE"
+END

@@ -25816,3 +25816,11 @@ GUI:BeaconClear
 "Löschen"
 END
 
+
+GX:ViewMatchOnline
+"MATCH ONLINE ANSEHEN"
+END
+
+GX:Logout
+"ABMELDEN"
+END

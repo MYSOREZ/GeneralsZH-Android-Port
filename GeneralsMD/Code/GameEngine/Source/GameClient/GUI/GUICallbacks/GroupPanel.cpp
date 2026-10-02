@@ -275,6 +275,10 @@ void GroupPanelCalibrateFollowOffset(Int barScreenX, Int barScreenY)
 	s_followOffsetX = handleX - barScreenX;
 	s_followOffsetY = handleY - barScreenY;
 	s_followOffsetCalibrated = TRUE;
+	// GeneralsX @feature Android port 02/10/2026 Where the row's handle and the control bar are when
+	// the offset is taken, to check the interface scale moved both (GXUiScale.h).
+	fprintf(stderr, "[GX-UISCALE] group panel handle at %d,%d, control bar at %d,%d\n",
+		handleX, handleY, barScreenX, barScreenY);
 }
 
 void GroupPanelFollowControlBar(Int barScreenX, Int barScreenY, Bool visible)

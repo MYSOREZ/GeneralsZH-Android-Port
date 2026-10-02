@@ -396,7 +396,9 @@ final class DataPackInstaller {
             String version = manifest.optString("version", "");
             String downloadUrl = manifest.optString("download_url", "");
             long expectedSize = manifest.optLong("size", -1);
-            String expectedSha = manifest.optString("sha256", "");
+            // GeneralsX @bugfix Android port 02/10/2026 Trimmed: the 100126_QFE3 manifest publishes " 0857..." with a
+            // leading space, and every update then failed as "checksum mismatch" on a correct download.
+            String expectedSha = manifest.optString("sha256", "").trim();
 
             if (downloadUrl.isEmpty() || !downloadUrl.startsWith("https://")) {
                 return Result.failure("manifest has no usable download URL");

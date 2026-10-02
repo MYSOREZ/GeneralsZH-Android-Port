@@ -611,6 +611,15 @@ void ControlBarScheme::init()
 		}
 		win->winSetPosition(x,y );
 		win->winSetSize((m_generalLR.x - m_generalUL.x)*resMultiplier.x+ static_cast<float>(COMMAND_BAR_SIZE_OFFSET),(m_generalLR.y - m_generalUL.y)*resMultiplier.y+ static_cast<float>(COMMAND_BAR_SIZE_OFFSET));
+		// GeneralsX @feature Android port 02/10/2026 The general's button as placed, against the
+		// interface scale (an owner report has its touch area off its picture).
+		{
+			Int sx, sy, sw, sh;
+			win->winGetScreenPosition(&sx, &sy);
+			win->winGetSize(&sw, &sh);
+			fprintf(stderr, "[GX-UISCALE] control bar general button at %d,%d size %dx%d (scheme %d,%d-%d,%d)\n",
+				sx, sy, sw, sh, m_generalUL.x, m_generalUL.y, m_generalLR.x, m_generalLR.y);
+		}
 	}
 
 	win= TheWindowManager->winGetWindowFromId( nullptr, TheNameKeyGenerator->nameToKey( "ControlBar.wnd:ButtonLarge" ) );

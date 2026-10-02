@@ -50,6 +50,13 @@ namespace
 		// Another layout whose transform this one takes as it is, instead of its own: a panel that
 		// is part of that layout on screen and must stay where it sits on it.
 		const char *sharedWith;
+		// A layout this one sits on top of (the control bar): its content's bottom edge goes where
+		// that layout's transform puts the same screen height, and it grows upward from there.
+		const char *restsOn;
+		// Windows (NAME prefix) of the exclude list that are moved off the screen when the scaled
+		// content would cover them: decoration that has no room left (the main menu's faction
+		// emblems, under the grown single player menu).
+		const char *moveAwayPrefix;
 	};
 
 	const Rule kRules[] =
@@ -59,11 +66,13 @@ namespace
 		// This port's control group row (Window\\GroupPanel.wnd) rides on the control bar.
 		{ "GroupPanel.wnd",                 1.0f, 1.0f, FALSE, { nullptr }, "ControlBar.wnd" },
 		{ "ControlBarPopupDescription.wnd", 1.0f, 1.0f, TRUE, { nullptr } },
-		{ "GenPowersShortcutBarUS.wnd",     1.0f, 1.0f, TRUE, { nullptr } },
-		{ "GenPowersShortcutBarChina.wnd",  1.0f, 1.0f, TRUE, { nullptr } },
-		{ "GenPowersShortcutBarGLA.wnd",    1.0f, 1.0f, TRUE, { nullptr } },
+		// The generals' power buttons stack up from just above the control bar; scaled around their
+		// own box they slid down onto it (owner's photo, 150%).
+		{ "GenPowersShortcutBarUS.wnd",     1.0f, 1.0f, TRUE, { nullptr }, nullptr, "ControlBar.wnd" },
+		{ "GenPowersShortcutBarChina.wnd",  1.0f, 1.0f, TRUE, { nullptr }, nullptr, "ControlBar.wnd" },
+		{ "GenPowersShortcutBarGLA.wnd",    1.0f, 1.0f, TRUE, { nullptr }, nullptr, "ControlBar.wnd" },
 		{ "GeneralsExpPoints.wnd",          1.0f, 1.0f, TRUE, { nullptr } },
-		{ "InGameChat.wnd",                 1.0f, 1.0f, TRUE, { nullptr } },
+		{ "InGameChat.wnd",                 1.0f, 1.0f, TRUE, { nullptr }, nullptr, "ControlBar.wnd" },
 		{ "Diplomacy.wnd",                  1.0f, 1.0f, TRUE, { nullptr } },
 		{ "QuitMenu.wnd",                   1.0f, 1.0f, TRUE, { nullptr } },
 		{ "QuitMessageBox.wnd",             1.0f, 1.0f, TRUE, { nullptr } },
@@ -74,11 +83,12 @@ namespace
 		{ "MessageBox.wnd",                 1.0f, 1.0f, TRUE, { nullptr } },
 		{ "DifficultySelect.wnd",           1.0f, 1.0f, TRUE, { nullptr } },
 		// The main menu's buttons with the logo above them (scaled apart, the buttons grew into the
-		// logo), not the rest of its decoration: the faction pictures the single player menu grows,
-		// the clock and the download buttons stay where they are.
+		// logo), not the rest of its decoration: the clock and the download buttons stay where they
+		// are, and the faction emblems the single player menu shows along the bottom go when the
+		// grown menu reaches down over them (they overlapped its lower buttons, owner's photo).
 		{ "MainMenu.wnd",                   1.0f, 1.0f, TRUE,
 			{ "WinFaction*", "WinGrowMarker", "GreenDot", "Clock", "ButtonGetMapPack",
-			  "ButtonGetUpdate", "ShellMenuScheme", nullptr } },
+			  "ButtonGetUpdate", "ShellMenuScheme", nullptr }, nullptr, nullptr, "WinFaction" },
 	};
 
 	const char *baseName( const char *path )
@@ -118,7 +128,7 @@ namespace
 
 	struct Parsing
 	{
-		std::vector<Bool> scaled;  // per window, in file order
+		std::vector<Int> scaled;  // per window with a rectangle, in file order: 0 keep, 1 scale, 2 move off screen
 		Int next;
 		GXUiScale::Transform transform;
 	};
@@ -188,6 +198,8 @@ const Transform &forLayout( const char *layoutFile )
 
 } // namespace GXUiScale
 
+static const GXUiScale::Transform &ensureLayoutTransform( const char *layoutFile );
+
 // Which windows of a layout scale, and its own transform, from the layout's text.
 static void analyzeLayout( const Rule *rule, const char *layoutFile, const char *text, Int length, Parsing &p )
 {
@@ -255,6 +267,8 @@ static void analyzeLayout( const Rule *rule, const char *layoutFile, const char 
 		// One decision per window that has a rectangle: parseScreenRect is called once for each of
 		// those, in file order.
 		p.scaled.clear();
+		struct MoveAway { size_t index; Real r[ 4 ]; };
+		std::vector<MoveAway> moveAway;
 		Real box[ 2 ][ 2 ] = { { 1.0f, 0.0f }, { 1.0f, 0.0f } };
 		Bool any = FALSE;
 		Int excludedDepth = 0;
@@ -265,24 +279,29 @@ static void analyzeLayout( const Rule *rule, const char *layoutFile, const char 
 				continue;
 			if( excludedDepth > 0 && w.depth > excludedDepth )
 			{
-				p.scaled.push_back( FALSE );
+				p.scaled.push_back( 0 );
 				continue;
 			}
 			excludedDepth = 0;
 			if( excluded( *rule, w.name ) )
 			{
 				excludedDepth = w.depth;
-				p.scaled.push_back( FALSE );
+				if( rule->moveAwayPrefix && w.name.compare( 0, strlen( rule->moveAwayPrefix ), rule->moveAwayPrefix ) == 0 )
+				{
+					MoveAway m = { p.scaled.size(), { w.lo[ 0 ] / w.res[ 0 ], w.lo[ 1 ] / w.res[ 1 ], w.hi[ 0 ] / w.res[ 0 ], w.hi[ 1 ] / w.res[ 1 ] } };
+					moveAway.push_back( m );
+				}
+				p.scaled.push_back( 0 );
 				continue;
 			}
 			const Real fx0 = w.lo[ 0 ] / w.res[ 0 ], fx1 = w.hi[ 0 ] / w.res[ 0 ];
 			const Real fy0 = w.lo[ 1 ] / w.res[ 1 ], fy1 = w.hi[ 1 ] / w.res[ 1 ];
 			if( fx1 - fx0 >= 0.95f && fy1 - fy0 >= 0.95f )
 			{
-				p.scaled.push_back( FALSE );
+				p.scaled.push_back( 0 );
 				continue;
 			}
-			p.scaled.push_back( TRUE );
+			p.scaled.push_back( 1 );
 			any = TRUE;
 			box[ 0 ][ 0 ] = fminf( box[ 0 ][ 0 ], fx0 ); box[ 0 ][ 1 ] = fmaxf( box[ 0 ][ 1 ], fx1 );
 			box[ 1 ][ 0 ] = fminf( box[ 1 ][ 0 ], fy0 ); box[ 1 ][ 1 ] = fmaxf( box[ 1 ][ 1 ], fy1 );
@@ -300,12 +319,28 @@ static void analyzeLayout( const Rule *rule, const char *layoutFile, const char 
 				const Real extent = fmaxf( box[ a ][ 1 ] - box[ a ][ 0 ], 0.001f );
 				fit[ a ] = fmaxf( 1.0f, fminf( k, maxFrac[ a ] / extent ) );
 			}
+			// Resting on another layout: the bottom edge goes where that layout puts it, and the
+			// content may only grow as far as the room above it.
+			Real restBottom = -1.0f;
+			if( rule->restsOn )
+			{
+				const GXUiScale::Transform &base = ensureLayoutTransform( rule->restsOn );
+				restBottom = base.active ? box[ 1 ][ 1 ] * base.ky + base.addY : box[ 1 ][ 1 ];
+				const Real extent = fmaxf( box[ 1 ][ 1 ] - box[ 1 ][ 0 ], 0.001f );
+				fit[ 1 ] = fmaxf( 1.0f, fminf( fit[ 1 ], restBottom / extent ) );
+			}
 			if( rule->uniform )
 				fit[ 0 ] = fit[ 1 ] = fminf( fit[ 0 ], fit[ 1 ] );
 			for( Int a = 0; a < 2; ++a )
 				axisTransform( box[ a ][ 0 ], box[ a ][ 1 ], 1.0f, fit[ a ], &axisK[ a ], &axisAdd[ a ] );
+			if( restBottom >= 0.0f )
+			{
+				axisAdd[ 1 ] = restBottom - box[ 1 ][ 1 ] * axisK[ 1 ];
+				if( box[ 1 ][ 0 ] * axisK[ 1 ] + axisAdd[ 1 ] < 0.0f )
+					axisAdd[ 1 ] = -box[ 1 ][ 0 ] * axisK[ 1 ];
+			}
 			GXUiScale::Transform &t = p.transform;
-			t.active = axisK[ 0 ] > 1.001f || axisK[ 1 ] > 1.001f;
+			t.active = axisK[ 0 ] > 1.001f || axisK[ 1 ] > 1.001f || fabsf( axisAdd[ 0 ] ) > 0.0005f || fabsf( axisAdd[ 1 ] ) > 0.0005f;
 			t.kx = axisK[ 0 ];
 			t.ky = axisK[ 1 ];
 			t.addX = axisAdd[ 0 ];
@@ -314,9 +349,23 @@ static void analyzeLayout( const Rule *rule, const char *layoutFile, const char 
 			// screen being wider than 4:3 -- leaves room for.
 			const Real aspectRoom = ( (Real)TheDisplay->getWidth() / 800.0f ) / ( (Real)TheDisplay->getHeight() / 600.0f );
 			t.fontK = fmaxf( 1.0f, fminf( t.ky, t.kx * fmaxf( aspectRoom, 1.0f ) ) );
+			// Decoration the grown content now covers leaves the screen -- all of the set, so that
+			// not half of a row of emblems is left standing.
+			const Real sx0 = box[ 0 ][ 0 ] * t.kx + t.addX, sx1 = box[ 0 ][ 1 ] * t.kx + t.addX;
+			const Real sy0 = box[ 1 ][ 0 ] * t.ky + t.addY, sy1 = box[ 1 ][ 1 ] * t.ky + t.addY;
+			Bool covered = FALSE;
+			for( size_t m = 0; m < moveAway.size(); ++m )
+			{
+				const Real *r = moveAway[ m ].r;
+				if( r[ 0 ] < sx1 && r[ 2 ] > sx0 && r[ 1 ] < sy1 && r[ 3 ] > sy0 )
+					covered = TRUE;
+			}
+			if( t.active && covered )
+				for( size_t m = 0; m < moveAway.size(); ++m )
+					p.scaled[ moveAway[ m ].index ] = 2;
 			Int scaledCount = 0;
 			for( size_t i = 0; i < p.scaled.size(); ++i )
-				scaledCount += p.scaled[ i ] ? 1 : 0;
+				scaledCount += p.scaled[ i ] == 1 ? 1 : 0;
 			if( t.active )
 				fprintf( stderr, "[GX-UISCALE] %s: x%.2f y%.2f (asked %.2f), fonts x%.2f, %d of %d windows\n",
 					baseName( layoutFile ), t.kx, t.ky, k, t.fontK,
@@ -381,8 +430,16 @@ void mapNextWindowRect( Int *loX, Int *loY, Int *hiX, Int *hiY )
 		return;
 	Parsing &p = s_parsing.back();
 	const Int index = p.next++;
-	if( !p.transform.active || index >= (Int)p.scaled.size() || !p.scaled[ index ] )
+	if( !p.transform.active || index >= (Int)p.scaled.size() || p.scaled[ index ] == 0 )
 		return;
+	if( p.scaled[ index ] == 2 )
+	{
+		// Below the bottom of the screen, where nothing that moves it relative to itself brings it back.
+		const Int h = TheDisplay->getHeight() * 2;
+		*loY += h;
+		*hiY += h;
+		return;
+	}
 	const Transform &t = p.transform;
 	*loX = (Int)floorf( t.mapX( (Real)*loX ) + 0.5f );
 	*hiX = (Int)floorf( t.mapX( (Real)*hiX ) + 0.5f );
@@ -396,7 +453,7 @@ Int scaleFontSize( Int size )
 		return size;
 	const Parsing &p = s_parsing.back();
 	const Int index = p.next - 1;
-	if( !p.transform.active || index < 0 || index >= (Int)p.scaled.size() || !p.scaled[ index ] )
+	if( !p.transform.active || index < 0 || index >= (Int)p.scaled.size() || p.scaled[ index ] != 1 )
 		return size;
 	return (Int)floorf( size * p.transform.fontK + 0.5f );
 }

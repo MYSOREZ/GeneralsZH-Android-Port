@@ -2076,6 +2076,13 @@ void W3DView::draw()
   }
 #endif // RTS_DEBUG
 
+	// GeneralsX @feature Android port 02/10/2026 The 3D scene is complete here; what follows is 2D
+	// drawn over it (health bars, icons, "Construction: 45%" captions, the 2D scene). With the
+	// upscaler on, the scene is upscaled now so those are drawn at the screen's full resolution
+	// instead of being pixelated with the scene (owner's report); W3DDisplay's call before the
+	// interface then finds it already done.
+	DX8Wrapper::Upscale_Scene_Begin_UI();
+
 	Region3D axisAlignedRegion;
 	getAxisAlignedViewRegion(axisAlignedRegion);
 

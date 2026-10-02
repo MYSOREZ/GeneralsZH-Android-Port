@@ -253,6 +253,9 @@ static const GXEnglishDefault s_gxEnglishDefaults[] =
 	{ "GX:ToolTipBuilderPageMore", L"Show this builder's orders, such as waypoints" },
 	{ "GX:BuilderPageBack",        L"Structures" },
 	{ "GX:ToolTipBuilderPageBack", L"Back to the list of structures" },
+	// GeneralsOnline buttons the original menus do not have (score screen, player info).
+	{ "GX:ViewMatchOnline",    L"VIEW MATCH ONLINE" },
+	{ "GX:Logout",             L"LOGOUT" },
 };
 
 

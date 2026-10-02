@@ -1462,7 +1462,7 @@ void GameSpyPlayerInfoOverlayInit( WindowLayout *layout, void *userData )
 		if (buttonDeleteAccount)
 		{
 			buttonDeleteAccount->winHide(FALSE);
-			buttonDeleteAccount->winSetText(UnicodeString(L"LOGOUT"));
+			buttonDeleteAccount->winSetText(TheGameText->fetch("GX:Logout"));
 		}
 		if (checkBoxAsianFont) checkBoxAsianFont->winHide(TRUE);
 		if (checkBoxNonAsianFont) checkBoxNonAsianFont->winHide(TRUE);

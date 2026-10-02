@@ -1241,7 +1241,7 @@ void initInternetMultiPlayer(void)
 				strMatchURL.format(L"\nView match data, participants, replays, anti-cheat data: https://www.playgenerals.online/viewmatch?match=%" PRIu64, lobby.match_id);
 #endif
 
-				buttonContinue->winSetText(UnicodeString(L"VIEW MATCH ONLINE"));
+				buttonContinue->winSetText(TheGameText->fetch("GX:ViewMatchOnline"));
 
 				GadgetListBoxAddEntryText(listboxAcademyWindowScoreScreen, strMatchID, GameSpyColor[GSCOLOR_DEFAULT], -1);
 				GadgetListBoxAddEntryText(listboxAcademyWindowScoreScreen, strMatchURL, GameSpyColor[GSCOLOR_DEFAULT], -1);

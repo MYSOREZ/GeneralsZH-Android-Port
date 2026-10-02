@@ -24,7 +24,8 @@ A few labels exist in no original `generals.csf`, because the GeneralsX port add
 things they name: the Steam release's "Custom Mission" button (`GUI:CustomMission`) and the
 touch force-attack button (`GX:ForceAttack`, `GX:ToolTipForceAttack`), and the page arrows
 on a builder's command bar (`GX:BuilderPageMore`, `GX:ToolTipBuilderPageMore`,
-`GX:BuilderPageBack`, `GX:ToolTipBuilderPageBack`). They are translated
+`GX:BuilderPageBack`, `GX:ToolTipBuilderPageBack`), and two GeneralsOnline buttons
+(`GX:ViewMatchOnline` on the score screen, `GX:Logout` in the player info). They are translated
 in the pack like everything else -- see the end of `russian/generals.str`. Their English
 text is built into the engine, so a game without a pack, or a pack that does not have them
 yet, shows English there rather than `MISSING`. Still one file per language.

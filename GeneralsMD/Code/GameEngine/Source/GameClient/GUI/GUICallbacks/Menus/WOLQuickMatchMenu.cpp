@@ -1135,8 +1135,11 @@ void WOLQuickMatchMenuInit( WindowLayout *layout, void *userData )
 
 #if defined(GENERALS_ONLINE)
 	buttonStart->winEnable(TRUE);
-	buttonStart->winSetText(UnicodeString(L"START MATCHMAKING"));
-	buttonStop->winSetText(UnicodeString(L"CANCEL MATCHMAKING"));
+	// GeneralsX @bugfix Android port 02/10/2026 The game's own translated labels for these buttons
+	// (the retail .wnd's GUI:Start / GUI:Stop) instead of English-only text: "START MATCHMAKING"
+	// showed in every language (owner report, Russian).
+	buttonStart->winSetText(TheGameText->fetchOrSubstitute("GUI:Start", L"START MATCHMAKING"));
+	buttonStop->winSetText(TheGameText->fetchOrSubstitute("GUI:Stop", L"CANCEL MATCHMAKING"));
 	buttonBack->winEnable(TRUE);
 
 	// not supported in GO

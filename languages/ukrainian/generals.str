@@ -25816,3 +25816,11 @@ GUI:BeaconClear
 "Очистити"
 END
 
+
+GX:ViewMatchOnline
+"МАТЧ НА САЙТІ"
+END
+
+GX:Logout
+"ВИЙТИ"
+END

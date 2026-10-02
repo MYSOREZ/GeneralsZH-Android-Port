@@ -25817,3 +25817,11 @@ GUI:BeaconClear
 "清除"
 END
 
+
+GX:ViewMatchOnline
+"在线查看比赛"
+END
+
+GX:Logout
+"注销"
+END

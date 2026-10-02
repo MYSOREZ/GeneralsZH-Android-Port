@@ -25817,3 +25817,11 @@ GUI:BeaconClear
 "مسح"
 END
 
+
+GX:ViewMatchOnline
+"عرض المباراة على الإنترنت"
+END
+
+GX:Logout
+"تسجيل الخروج"
+END

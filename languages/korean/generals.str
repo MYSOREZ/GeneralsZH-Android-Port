@@ -25817,3 +25817,11 @@ GUI:BeaconClear
 "지우기"
 END
 
+
+GX:ViewMatchOnline
+"온라인에서 경기 보기"
+END
+
+GX:Logout
+"로그아웃"
+END

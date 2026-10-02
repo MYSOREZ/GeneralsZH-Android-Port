@@ -25819,3 +25819,11 @@ GUI:BeaconClear
 "پاک کردن"
 END
 
+
+GX:ViewMatchOnline
+"مشاهده مسابقه آنلاین"
+END
+
+GX:Logout
+"خروج از حساب"
+END
