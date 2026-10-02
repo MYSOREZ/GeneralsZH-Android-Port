@@ -339,7 +339,7 @@
     <string name="setup_upscale_performance">کارایی</string>
     <string name="setup_upscale_status_off">خاموش: رندر با وضوح کامل %1$d×%2$d</string>
     <string name="setup_upscale_status">%1$s: سه‌بعدی با %2$d×%3$d رندر و تا %4$d×%5$d بزرگ می‌شود</string>
-    <string name="setup_upscale_help">مانند FSR در بازی‌های رایانه: بازی وضوح صفحه شما را حفظ می‌کند، اما پردازنده گرافیکی میدان نبرد سه‌بعدی را با پیکسل‌های کمتری می‌کشد و Snapdragon Game Super Resolution آن را با وضوح به اندازه کامل برمی‌گرداند. رابط کاربری و متن پس از آن با وضوح کامل صفحه کشیده می‌شوند، پس واضح می‌مانند و اندازه متن منو مثل قبل کار می‌کند. این کار بار پردازنده گرافیکی را کم می‌کند که در نبردهای سنگین روی گوشی‌های ضعیف‌تر نرخ فریم را محدود می‌کند. «کیفیت فوق‌العاده» و «کیفیت» نزدیک‌ترین به وضوح اصلی‌اند؛ «متعادل» و «کارایی» بیشترین فریم را می‌دهند. تنظیم وضوح خود بازی تغییر نمی‌کند. فقط برای بک‌اند بومی GLES. در اجرای بعدی بازی اعمال می‌شود.</string>
+    <string name="setup_upscale_help">میدان نبرد با وضوح کمتر کشیده می‌شود و Snapdragon GSR آن را واضح تا تمام صفحه بزرگ می‌کند: فریم بیشتر، رابط کاربری واضح می‌ماند. فقط GLES و ANGLE. در اجرای بعدی اعمال می‌شود.</string>
     <string name="setup_toast_render_scale_saved">ذخیره شد. در اجرای بعدی بازی اعمال می‌شود.</string>
     <string name="setup_card_interface_scale">اندازه رابط کاربری</string>
     <string name="setup_interface_scale_label">%1$d%%</string>

@@ -339,7 +339,7 @@
     <string name="setup_upscale_performance">الأداء</string>
     <string name="setup_upscale_status_off">متوقف: العرض بالدقة الكاملة %1$d×%2$d</string>
     <string name="setup_upscale_status">%1$s: يُعرض الـ3D بدقة %2$d×%3$d ويُرفع إلى %4$d×%5$d</string>
-    <string name="setup_upscale_help">مثل FSR في ألعاب الحاسوب: تحتفظ اللعبة بدقة شاشتك، لكن معالج الرسوميات يرسم ساحة المعركة ثلاثية الأبعاد بعدد أقل من البكسلات، ثم تعيدها تقنية Snapdragon Game Super Resolution بوضوح إلى الحجم الكامل. تُرسم الواجهة والنصوص بعد ذلك بدقة الشاشة الكاملة فتبقى واضحة، ويعمل حجم نص القائمة كما كان. هذا يخفف الحمل عن معالج الرسوميات، وهو ما يحدّ معدل الإطارات في المعارك الكبيرة على الهواتف الأضعف. الجودة الفائقة والجودة الأقرب إلى الدقة الأصلية؛ المتوازن والأداء يعطيان أكبر عدد من الإطارات. لا يتغير إعداد الدقة في اللعبة نفسها. لواجهة GLES الأصلية فقط. يسري عند تشغيل اللعبة في المرة القادمة.</string>
+    <string name="setup_upscale_help">تُرسم ساحة المعركة بدقة أقل ثم تكبّرها Snapdragon GSR بوضوح إلى ملء الشاشة: إطارات أكثر وتبقى الواجهة واضحة. لـ GLES و ANGLE فقط. يسري عند التشغيل التالي.</string>
     <string name="setup_toast_render_scale_saved">تم الحفظ. يسري عند تشغيل اللعبة في المرة القادمة.</string>
     <string name="setup_card_interface_scale">حجم الواجهة</string>
     <string name="setup_interface_scale_label">%1$d%%</string>

@@ -339,7 +339,7 @@
     <string name="setup_upscale_performance">Rendimiento</string>
     <string name="setup_upscale_status_off">Desactivado: se renderiza a %1$d×%2$d completos</string>
     <string name="setup_upscale_status">%1$s: 3D renderizado a %2$d×%3$d, reescalado a %4$d×%5$d</string>
-    <string name="setup_upscale_help">Como FSR en los juegos de PC: el juego mantiene la resolución de tu pantalla, pero la GPU dibuja el campo de batalla 3D con menos píxeles y Snapdragon Game Super Resolution lo vuelve a enfocar a tamaño completo. La interfaz y el texto se dibujan después a la resolución completa de la pantalla, así que se ven nítidos, y el tamaño del texto del menú funciona como antes. Esto alivia la GPU, que es lo que limita los FPS en batallas intensas en teléfonos más modestos. Ultracalidad y Calidad se parecen más a la resolución nativa; Equilibrado y Rendimiento dan más FPS. No se cambia la resolución configurada en el propio juego. Solo con el backend GLES nativo. Se aplica la próxima vez que inicies el juego.</string>
+    <string name="setup_upscale_help">El campo de batalla se dibuja a menor resolución y Snapdragon GSR lo reescala nítido a pantalla completa: más FPS y la interfaz sigue nítida. Solo GLES y ANGLE. Se aplica en el próximo inicio.</string>
     <string name="setup_toast_render_scale_saved">Guardado. Se aplicará la próxima vez que inicies el juego.</string>
     <string name="setup_card_interface_scale">Tamaño de la interfaz</string>
     <string name="setup_interface_scale_label">%1$d%%</string>

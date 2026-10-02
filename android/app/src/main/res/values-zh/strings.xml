@@ -339,7 +339,7 @@
     <string name="setup_upscale_performance">性能</string>
     <string name="setup_upscale_status_off">关闭：以完整 %1$d×%2$d 渲染</string>
     <string name="setup_upscale_status">%1$s：3D 以 %2$d×%3$d 渲染，放大到 %4$d×%5$d</string>
-    <string name="setup_upscale_help">类似 PC 游戏中的 FSR：游戏保持屏幕的原生分辨率，但 GPU 以更少的像素绘制 3D 战场，再由 Snapdragon Game Super Resolution 锐利地放大到完整尺寸。界面和文字随后以屏幕的完整分辨率绘制，因此保持清晰，“菜单文字大小”也照常有效。这可以减轻 GPU 负担——在较弱的手机上，大规模战斗的帧率正是受它限制。“超级质量”和“质量”最接近原生分辨率；“平衡”和“性能”帧数最高。游戏自身的分辨率设置不会改变。仅适用于原生 GLES 后端。将在下次启动游戏时生效。</string>
+    <string name="setup_upscale_help">战场以较低分辨率渲染，再由 Snapdragon GSR 清晰放大到全屏：帧数更高，界面保持清晰。仅适用于 GLES 和 ANGLE。下次启动时生效。</string>
     <string name="setup_toast_render_scale_saved">已保存。将在下次启动游戏时生效。</string>
     <string name="setup_card_interface_scale">界面大小</string>
     <string name="setup_interface_scale_label">%1$d%%</string>

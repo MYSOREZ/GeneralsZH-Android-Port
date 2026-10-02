@@ -367,7 +367,11 @@ public class SetupActivity extends Activity {
         switch (tab) {
             case TAB_GRAPHICS:
                 buildSimRateSection(page);
-                buildRenderScaleSection(page);
+                // GeneralsX @tweak Android port 02/10/2026 The upscaler lives in the GLES translator
+                // (plain GLES and GLES on ANGLE); under Vulkan it does nothing, so it is not offered.
+                if (!RENDER_BACKEND_VULKAN.equals(getRenderBackendChoice())) {
+                    buildRenderScaleSection(page);
+                }
                 buildRenderBackendSection(page);
                 // Custom Vulkan driver / dxvk.conf only matter when Vulkan is
                 // the selected backend -- the GLES/GLES+ANGLE paths never

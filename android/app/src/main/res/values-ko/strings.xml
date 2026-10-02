@@ -339,7 +339,7 @@
     <string name="setup_upscale_performance">성능</string>
     <string name="setup_upscale_status_off">끔: 전체 %1$d×%2$d로 렌더링</string>
     <string name="setup_upscale_status">%1$s: 3D를 %2$d×%3$d로 렌더링, %4$d×%5$d로 업스케일</string>
-    <string name="setup_upscale_help">PC 게임의 FSR처럼: 게임은 화면의 해상도를 그대로 유지하지만, GPU는 3D 전장을 더 적은 픽셀로 그리고 Snapdragon Game Super Resolution이 이를 전체 크기로 선명하게 되돌립니다. 인터페이스와 텍스트는 그 뒤에 화면의 전체 해상도로 그려지므로 선명하게 유지되며, 메뉴 글자 크기도 이전처럼 작동합니다. 성능이 낮은 휴대폰의 대규모 전투에서 프레임 레이트를 제한하는 GPU의 부담을 줄여 줍니다. 울트라 품질과 품질은 기본 해상도에 가장 가깝고, 균형과 성능은 프레임이 가장 많이 나옵니다. 게임 자체의 해상도 설정은 바뀌지 않습니다. 네이티브 GLES 백엔드 전용입니다. 다음에 게임을 실행할 때 적용됩니다.</string>
+    <string name="setup_upscale_help">전장을 낮은 해상도로 그린 뒤 Snapdragon GSR로 전체 화면에 선명하게 확대합니다. 프레임이 늘고 인터페이스는 선명하게 유지됩니다. GLES와 ANGLE 전용. 다음 실행 시 적용됩니다.</string>
     <string name="setup_toast_render_scale_saved">저장했습니다. 다음에 게임을 실행할 때 적용됩니다.</string>
     <string name="setup_card_interface_scale">인터페이스 크기</string>
     <string name="setup_interface_scale_label">%1$d%%</string>
