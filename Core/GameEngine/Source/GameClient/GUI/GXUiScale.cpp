@@ -561,7 +561,7 @@ static void analyzeLayout( const Rule *rule, const char *layoutFile, const char 
 				for( size_t k2 = 0; k2 < order.size(); ++k2 )
 				{
 					const size_t g = order[ k2 ];
-					const Real newCx = fminf( freeRight * 0.5f, 0.06f + maxW * shrink * 0.5f );
+					const Real newCx = fminf( freeRight * 0.5f, 0.08f + maxW * shrink * 0.5f );
 					const Real newCy = top + slot * ( (Real)k2 + 0.5f );
 					for( size_t m = 0; m < moveAway.size(); ++m )
 					{
@@ -588,7 +588,14 @@ static void analyzeLayout( const Rule *rule, const char *layoutFile, const char 
 			// The grow target beside the scaled content, shrunk to the room there.
 			if( t.active && growMarker >= 0 )
 			{
-				const Real left = 0.04f, right = sx0 - 0.02f, top = 0.12f, bottom = 0.88f;
+				// Between the frame's left rule (about 7% in) and the menu panel itself -- not the
+				// content box, which reaches further left through the load-game buttons: centred
+				// on that, the emblem sat left of the free space and over the frame (owner's photos).
+				Real panelLeft = sx0;
+				for( size_t i = 0; i < rectWins.size(); ++i )
+					if( rectWins[ i ]->name.compare( 0, 9, "MapBorder" ) == 0 && p.scaled[ i ] == 1 )
+						panelLeft = fmaxf( panelLeft, ( rectWins[ i ]->lo[ 0 ] / rectWins[ i ]->res[ 0 ] ) * t.kx + t.addX );
+				const Real left = 0.08f, right = panelLeft - 0.02f, top = 0.12f, bottom = 0.88f;
 				const Real gw = growRect[ 2 ] - growRect[ 0 ], gh = growRect[ 3 ] - growRect[ 1 ];
 				if( right - left > 0.05f && gw > 0.0f && gh > 0.0f )
 				{
