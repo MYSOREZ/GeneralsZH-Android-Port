@@ -1117,6 +1117,10 @@ void NGMP_OnlineServices_LobbyInterface::JoinLobby(LobbyEntry lobbyInfo, std::st
 			{
 				m_pLobbyMesh = new NetworkMesh();
 			}
+			// GeneralsX @bugfix Android port 02/10/2026 ...but not equally harmless: without them
+			// no connection of this player ever had a relay (issue #31). The mesh holds its
+			// signalling until the response below hands it the credentials.
+			m_pLobbyMesh->AwaitTurnCredentials();
 #endif
 
 			// convert
@@ -1205,13 +1209,22 @@ void NGMP_OnlineServices_LobbyInterface::JoinLobby(LobbyEntry lobbyInfo, std::st
 							m_strTURNUsername = resp.turn_username;
 							m_strTURNToken = resp.turn_token;
 							NetworkLog(ELogVerbosity::LOG_DEBUG, "Got TURN username: %s, token: %s", m_strTURNUsername.c_str(), m_strTURNToken.c_str());
-							NetworkLog(ELogVerbosity::LOG_RELEASE, "[NGMP] JoinLobby stored TURN credentials (username empty=%d, token empty=%d) before building the mesh",
+							NetworkLog(ELogVerbosity::LOG_RELEASE, "[NGMP] JoinLobby stored TURN credentials (username empty=%d, token empty=%d)",
 								(int)m_strTURNUsername.empty(), (int)m_strTURNToken.empty());
 						}
 						catch (...)
 						{
-
+							NetworkLog(ELogVerbosity::LOG_RELEASE, "[NGMP] JoinLobby response could not be parsed for TURN credentials");
 						}
+
+#if defined(GENERALS_ONLINE_ENABLE_P2P_TRANSPORT)
+						// GeneralsX @bugfix Android port 02/10/2026 The mesh was built before this
+						// response (see above); give it the relay now and let signalling proceed.
+						if (m_pLobbyMesh != nullptr)
+						{
+							m_pLobbyMesh->ApplyTurnCredentials(m_strTURNUsername, m_strTURNToken);
+						}
+#endif
 
 						// for safety
 						if (TheNGMPGame != nullptr)

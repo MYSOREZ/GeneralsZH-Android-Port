@@ -868,8 +868,73 @@ int NetworkMesh::SendGamePacket(void* pBuffer, uint32_t totalDataSize, int64_t u
 }
 
 
+// GeneralsX @bugfix Android port 02/10/2026 Issue #31 ("Mesh is not fully connected"). A joining
+// player builds its mesh before the join response, so the TURN credentials in that response
+// never reached the ICE configuration: the constructor set empty ones, nothing set them again,
+// and every connection -- the first and every retry -- was negotiated with no relay on this
+// side. Two players on networks that cannot reach each other directly (mobile CGNAT, filtered
+// Wi-Fi) were then left with only the host's relay, and in practice could not meet at all. The
+// same holds in the upstream PC client.
+//
+// The mesh cannot be built later instead (the service's START_SIGNALLING arrives before the HTTP
+// response, see JoinLobby), so it waits: outbound signalling is queued, inbound signals stay in
+// the WebSocket's buffer, and both resume once ApplyTurnCredentials() has set the relay. A
+// missing response releases them after kTurnCredentialWaitMs without a relay, as before.
+static const int64_t kTurnCredentialWaitMs = 5000;
+
+void NetworkMesh::AwaitTurnCredentials()
+{
+	m_bAwaitingTurnCredentials = true;
+	m_timeAwaitingTurnSince = std::chrono::steady_clock::now();
+	NetworkLog(ELogVerbosity::LOG_RELEASE, "[NGMP] Mesh holding signalling until the join response brings TURN credentials");
+}
+
+void NetworkMesh::ApplyTurnCredentials(const std::string& strUsername, const std::string& strToken)
+{
+	m_strTurnUsername = strUsername;
+	m_strTurnToken = strToken;
+	m_strTurnUsernameString = std::format("{},{}", m_strTurnUsername.c_str(), m_strTurnUsername.c_str());
+	m_strTurnTokenString = std::format("{},{}", m_strTurnToken.c_str(), m_strTurnToken.c_str());
+
+	// New connections take their configuration from the global values when they are created.
+	SteamNetworkingUtils()->SetGlobalConfigValueString(k_ESteamNetworkingConfig_P2P_TURN_UserList, m_strTurnUsernameString.c_str());
+	SteamNetworkingUtils()->SetGlobalConfigValueString(k_ESteamNetworkingConfig_P2P_TURN_PassList, m_strTurnTokenString.c_str());
+	NetworkLog(ELogVerbosity::LOG_RELEASE, "[NGMP] Mesh TURN credentials applied (username empty=%d, token empty=%d), %zu deferred signalling request(s)",
+		(int)m_strTurnUsername.empty(), (int)m_strTurnToken.empty(), m_vecDeferredSignalling.size());
+
+	ReleaseDeferredSignalling();
+}
+
+void NetworkMesh::ReleaseDeferredSignalling()
+{
+	m_bAwaitingTurnCredentials = false;
+
+	std::vector<std::pair<int64_t, uint16_t>> vecDeferred;
+	vecDeferred.swap(m_vecDeferredSignalling);
+	for (const auto& request : vecDeferred)
+	{
+		StartConnectionSignalling(request.first, request.second);
+	}
+}
+
 void NetworkMesh::StartConnectionSignalling(int64_t remoteUserID, uint16_t preferredPort)
 {
+	if (m_bAwaitingTurnCredentials)
+	{
+		auto itDeferred = std::find_if(m_vecDeferredSignalling.begin(), m_vecDeferredSignalling.end(),
+			[remoteUserID](const std::pair<int64_t, uint16_t>& request) { return request.first == remoteUserID; });
+		if (itDeferred != m_vecDeferredSignalling.end())
+		{
+			itDeferred->second = preferredPort;
+		}
+		else
+		{
+			m_vecDeferredSignalling.emplace_back(remoteUserID, preferredPort);
+		}
+		NetworkLog(ELogVerbosity::LOG_RELEASE, "[NGMP] Signalling to user %lld deferred until TURN credentials arrive", remoteUserID);
+		return;
+	}
+
 	// if we already have a connection to this use, drop it, having a single-direction connection will break signalling
 	auto it = m_mapConnections.find(remoteUserID);
 	if (it != m_mapConnections.end())
@@ -1065,8 +1130,20 @@ void NetworkMesh::Tick()
 		fflush(stderr);
 	}
 
-	// Check for incoming signals, and dispatch them
-	if (m_pSignaling != nullptr)
+	if (m_bAwaitingTurnCredentials)
+	{
+		const int64_t waitedMs = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - m_timeAwaitingTurnSince).count();
+		if (waitedMs >= kTurnCredentialWaitMs)
+		{
+			NetworkLog(ELogVerbosity::LOG_RELEASE, "[NGMP] No TURN credentials after %lld ms, releasing %zu deferred signalling request(s) without a relay",
+				(long long)waitedMs, m_vecDeferredSignalling.size());
+			ReleaseDeferredSignalling();
+		}
+	}
+
+	// Check for incoming signals, and dispatch them. While the TURN credentials are awaited they
+	// stay buffered in the WebSocket: an inbound connection is configured when it is created.
+	if (m_pSignaling != nullptr && !m_bAwaitingTurnCredentials)
 	{
 		m_pSignaling->Poll();
 	}
