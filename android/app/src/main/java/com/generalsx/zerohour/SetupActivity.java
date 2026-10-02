@@ -368,6 +368,7 @@ public class SetupActivity extends Activity {
             case TAB_GRAPHICS:
                 buildSimRateSection(page);
                 buildRenderBackendSection(page);
+                buildResolutionSection(page);
                 // Custom Vulkan driver / dxvk.conf only matter when Vulkan is
                 // the selected backend -- the GLES/GLES+ANGLE paths never
                 // touch DXVK at all, see
@@ -954,6 +955,113 @@ public class SetupActivity extends Activity {
         if (uiScaleLabel != null) {
             uiScaleLabel.setText(getString(R.string.setup_text_size_label, percent));
         }
+    }
+
+
+    // ABODEH_PLAY_V1_20261002
+    // Performance presets implemented through the existing Options.ini
+    // Resolution key. Native startup already respects this value before it
+    // injects -xres/-yres. "Auto" removes the key and restores window-size
+    // detection on the next game launch.
+    private static final int RES_PRESET_AUTO = 0;
+    private static final int RES_PRESET_600 = 1;
+    private static final int RES_PRESET_720 = 2;
+
+    private int readResolutionPreset() {
+        String value = readKeyValueFile(optionsIniFile()).get("Resolution");
+        if (value == null) {
+            return RES_PRESET_AUTO;
+        }
+        String[] parts = value.trim().split("\\s+");
+        if (parts.length >= 2) {
+            try {
+                int h = Integer.parseInt(parts[1]);
+                if (Math.abs(h - 600) <= 24) return RES_PRESET_600;
+                if (Math.abs(h - 720) <= 24) return RES_PRESET_720;
+            } catch (NumberFormatException ignored) {
+            }
+        }
+        return RES_PRESET_AUTO;
+    }
+
+    private int[] resolutionForHeight(int targetHeight) {
+        android.util.DisplayMetrics dm = getResources().getDisplayMetrics();
+        int longSide = Math.max(dm.widthPixels, dm.heightPixels);
+        int shortSide = Math.min(dm.widthPixels, dm.heightPixels);
+        if (longSide <= 0 || shortSide <= 0 || targetHeight <= 0) {
+            return null;
+        }
+        int width = Math.round((float) targetHeight * (float) longSide / (float) shortSide);
+        width &= ~1;
+        return new int[] { Math.max(width, 800), targetHeight };
+    }
+
+    private void writeResolutionPreset(int preset) {
+        File file = optionsIniFile();
+        java.util.LinkedHashMap<String, String> prefs;
+        if (!file.isFile()) {
+            prefs = new java.util.LinkedHashMap<>(readKeyValueFile(defaultOptionsIniFile()));
+        } else {
+            prefs = new java.util.LinkedHashMap<>(readKeyValueFile(file));
+        }
+
+        if (preset == RES_PRESET_AUTO) {
+            prefs.remove("Resolution");
+        } else {
+            int targetHeight = preset == RES_PRESET_600 ? 600 : 720;
+            int[] res = resolutionForHeight(targetHeight);
+            if (res == null) {
+                return;
+            }
+            prefs.put("Resolution", res[0] + " " + res[1]);
+        }
+        writeKeyValueFile(file, prefs);
+    }
+
+    private CharSequence resolutionPresetLabel(int preset) {
+        switch (preset) {
+            case RES_PRESET_600:
+                return getString(R.string.setup_resolution_600_short);
+            case RES_PRESET_720:
+                return getString(R.string.setup_resolution_720_short);
+            default:
+                return getString(R.string.setup_resolution_auto_short);
+        }
+    }
+
+    private int resolutionPresetDescription(int preset) {
+        switch (preset) {
+            case RES_PRESET_600:
+                return R.string.setup_resolution_600_desc;
+            case RES_PRESET_720:
+                return R.string.setup_resolution_720_desc;
+            default:
+                return R.string.setup_resolution_auto_desc;
+        }
+    }
+
+    private void buildResolutionSection(LinearLayout root) {
+        LinearLayout content = UiKit.card(root);
+        int current = readResolutionPreset();
+
+        TextView status = UiKit.sectionHeader(content, R.drawable.ic_gzh_display,
+            getString(R.string.setup_card_resolution), true);
+        status.setText(resolutionPresetLabel(current));
+
+        CharSequence[] labels = new CharSequence[] {
+            getString(R.string.setup_resolution_auto_short),
+            getString(R.string.setup_resolution_600_short),
+            getString(R.string.setup_resolution_720_short)
+        };
+
+        UiKit.segmented(content, labels, current, index -> {
+            writeResolutionPreset(index);
+            status.setText(resolutionPresetLabel(index));
+            Toast.makeText(this, R.string.setup_toast_resolution_saved, Toast.LENGTH_LONG).show();
+        });
+
+        UiKit.supporting(content, getString(resolutionPresetDescription(current)));
+        UiKit.helpText(content, getString(R.string.setup_resolution_help));
     }
 
     // GeneralsX @feature Android port render-backend picker 07/09/2026 -
