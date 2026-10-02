@@ -2890,6 +2890,7 @@ bool WebGLPipeline::setVirtualBackbuffer(int w, int h, int renderW, int renderH,
 			// Back to the window itself.
 			m_vbActive = false;
 			m_vbUpscaled = false;
+			m_vbBypass = false;
 			m_fbWidth = m_winW;
 			m_fbHeight = m_winH;
 			if (m_curFBO == m_vbFBO) {
@@ -2964,6 +2965,7 @@ bool WebGLPipeline::setVirtualBackbuffer(int w, int h, int renderW, int renderH,
 
 	const bool wasBackbuffer = (m_curFBO == 0) || (m_vbActive && m_curFBO == m_vbFBO);
 	m_vbUpscaled = false;
+	m_vbBypass = false;
 	m_vbActive = true;
 	m_vbW = w;
 	m_vbH = h;
@@ -3015,7 +3017,11 @@ void WebGLPipeline::stretchVirtualBackbuffer()
 
 bool WebGLPipeline::upscaleSceneNow()
 {
-	if (!m_ctxReady || !m_vbActive || m_vbUpscaled || m_curFBO != m_vbFBO)
+	if (!m_ctxReady || !m_vbActive || m_vbUpscaled)
+		return false;
+	// A scene in this frame: the next frames render it below the game's resolution again.
+	m_vbSceneSeen = true;
+	if (m_curFBO != m_vbFBO)
 		return false;
 	// Only worth it, and only correct, when the scene was rendered below the game's resolution and
 	// the game's resolution is the window's: the interface then draws into the window 1:1.
@@ -4403,15 +4409,20 @@ void WebGLPipeline::present()
 	// render thread runs; waits for the previous frame's swap, not this one's.
 	if (m_window) {
 		if (m_vbActive) {
-			if (!m_vbUpscaled)
+			if (!m_vbUpscaled && !m_vbBypass)
 				stretchVirtualBackbuffer();
-			// The next frame draws into the virtual backbuffer again.
+			// The next frame: into the virtual backbuffer again if this one had a scene, else (no
+			// scene to upscale, and the window is the game's size) straight into the window.
+			const bool wasBackbuffer = (m_curFBO == 0 || m_curFBO == m_vbFBO);
 			m_vbUpscaled = false;
-			if (m_curFBO == 0 || m_curFBO == m_vbFBO) {
-				glBindFramebuffer(GL_FRAMEBUFFER, m_vbFBO);
-				m_curFBO = m_vbFBO;
+			m_vbBypass = !m_vbSceneSeen && (m_vbRW != m_vbW || m_vbRH != m_vbH) && m_winW == m_vbW && m_winH == m_vbH;
+			m_vbSceneSeen = false;
+			if (wasBackbuffer) {
+				glBindFramebuffer(GL_FRAMEBUFFER, backbufferFBO());
+				m_curFBO = backbufferFBO();
 				m_curRTWidth = m_vbW;
 				m_curRTHeight = m_vbH;
+				m_haveFixedStateKey = false;
 			} else {
 				glBindFramebuffer(GL_FRAMEBUFFER, m_curFBO);
 			}

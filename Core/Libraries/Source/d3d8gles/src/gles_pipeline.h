@@ -243,7 +243,7 @@ public:
 private:
 	void stretchVirtualBackbuffer();
 	// After upscaleSceneNow() "the backbuffer" is the window itself until the frame is presented.
-	GLuint backbufferFBO() const { return (m_vbActive && !m_vbUpscaled) ? m_vbFBO : 0; }
+	GLuint backbufferFBO() const { return (m_vbActive && !m_vbUpscaled && !m_vbBypass) ? m_vbFBO : 0; }
 	// The viewport to apply: the device's, except that one larger than the virtual backbuffer
 	// (the engine still knows the window's size) covers the whole virtual backbuffer instead.
 	const D3DVIEWPORT8 &effectiveViewport(WebGLDevice *dev);
@@ -255,6 +255,12 @@ private:
 	bool m_vbActive = false;
 	bool m_vbGsr = false;
 	bool m_vbUpscaled = false; // this frame's scene is already in the window (upscaleSceneNow)
+	// GeneralsX @feature Android port 02/10/2026 A frame with no 3D scene in it (loading screens,
+	// videos, menus over no battle) is drawn straight into the window at full resolution: there is
+	// no scene to upscale, and stretched whole its text came out pixelated (owner report, loading
+	// screen). Decided per frame from the frame before: m_vbSceneSeen is set by upscaleSceneNow().
+	bool m_vbBypass = false;
+	bool m_vbSceneSeen = false;
 	int m_vbW = 0, m_vbH = 0;   // what the engine sees (its backbuffer)
 	int m_vbRW = 0, m_vbRH = 0; // what is rendered: the texture stretched at present
 	int m_winW = 0, m_winH = 0;
