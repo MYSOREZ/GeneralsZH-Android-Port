@@ -57,6 +57,11 @@ namespace
 		// content would cover them: decoration that has no room left (the main menu's faction
 		// emblems, under the grown single player menu).
 		const char *moveAwayPrefix;
+		// Slots (NAME prefix) stacked bottom to top in a column: those that would leave the top of
+		// the screen continue in a second column to the left, again from the bottom; the frame
+		// window (frameName) widens to hold it, so taps there still reach the buttons.
+		const char *wrapSlotPrefix;
+		const char *frameName;
 	};
 
 	// "WinFactionUSMedium" -> "WinFactionUS": a window and the Small / Medium copies the menu's
@@ -82,9 +87,9 @@ namespace
 		{ "ControlBarPopupDescription.wnd", 1.0f, 1.0f, TRUE, { nullptr } },
 		// The generals' power buttons stack up from just above the control bar; scaled around their
 		// own box they slid down onto it (owner's photo, 150%).
-		{ "GenPowersShortcutBarUS.wnd",     1.0f, 1.0f, TRUE, { nullptr }, nullptr, "ControlBar.wnd" },
-		{ "GenPowersShortcutBarChina.wnd",  1.0f, 1.0f, TRUE, { nullptr }, nullptr, "ControlBar.wnd" },
-		{ "GenPowersShortcutBarGLA.wnd",    1.0f, 1.0f, TRUE, { nullptr }, nullptr, "ControlBar.wnd" },
+		{ "GenPowersShortcutBarUS.wnd",     1.0f, 1.0f, TRUE, { nullptr }, nullptr, "ControlBar.wnd", nullptr, "ButtonParent", "GenPowersShortcutBarParent" },
+		{ "GenPowersShortcutBarChina.wnd",  1.0f, 1.0f, TRUE, { nullptr }, nullptr, "ControlBar.wnd", nullptr, "ButtonParent", "GenPowersShortcutBarParent" },
+		{ "GenPowersShortcutBarGLA.wnd",    1.0f, 1.0f, TRUE, { nullptr }, nullptr, "ControlBar.wnd", nullptr, "ButtonParent", "GenPowersShortcutBarParent" },
 		{ "GeneralsExpPoints.wnd",          1.0f, 1.0f, TRUE, { nullptr } },
 		{ "InGameChat.wnd",                 1.0f, 1.0f, TRUE, { nullptr }, nullptr, "ControlBar.wnd" },
 		{ "Diplomacy.wnd",                  1.0f, 1.0f, TRUE, { nullptr } },
@@ -142,7 +147,8 @@ namespace
 
 	struct Parsing
 	{
-		std::vector<Int> scaled;  // per window with a rectangle, in file order: 0 keep, 1 scale, 2 move off screen, 3 move by offset
+		std::vector<Int> scaled;  // per window with a rectangle, in file order: 0 keep, 1 scale, 2 move off screen,
+		                          // 3 moved decoration, 4 wrapped slot, 5 wrapping frame
 		std::vector<Real> offset; // decision 3, per window: old centre x, y, new centre x, y, scale (fractions of the screen)
 		Int next;
 		GXUiScale::Transform transform;
@@ -287,6 +293,7 @@ static void analyzeLayout( const Rule *rule, const char *layoutFile, const char 
 		// those, in file order.
 		p.scaled.clear();
 		struct MoveAway { size_t index; Real r[ 4 ]; std::string group; Bool plain; };
+		std::vector<const Win *> rectWins;  // the window behind each decision, in the same order
 		std::vector<MoveAway> moveAway;
 		// Windows inside an excluded one follow it if it moves: decision of index `inherit[ i ]`.
 		std::vector<Int> inherit;
@@ -299,6 +306,7 @@ static void analyzeLayout( const Rule *rule, const char *layoutFile, const char 
 			const Win &w = wins[ i ];
 			if( !w.hasRect )
 				continue;
+			rectWins.push_back( &w );
 			if( excludedDepth > 0 && w.depth > excludedDepth )
 			{
 				inherit.push_back( excludedIndex );
@@ -356,11 +364,11 @@ static void analyzeLayout( const Rule *rule, const char *layoutFile, const char 
 				// A little above it: the bar's own art (the general's star tab) reaches a few pixels
 				// over its windows, and a power button resting exactly on the line covered it.
 				restBottom = base.active ? box[ 1 ][ 1 ] * base.ky + base.addY - 0.015f : box[ 1 ][ 1 ];
-				// The power bar's frame reaches nearly to the top of the screen, but its buttons fill
-				// it from the bottom: let the empty top run off the screen, keeping at least 70% of
-				// it (8 of its 12 slots) visible.
+				// Content that wraps into columns (the power bar) may be taller than the room above;
+				// anything else has to fit there.
 				const Real extent = fmaxf( box[ 1 ][ 1 ] - box[ 1 ][ 0 ], 0.001f );
-				fit[ 1 ] = fmaxf( 1.0f, fminf( fit[ 1 ], restBottom / ( 0.7f * extent ) ) );
+				if( !rule->wrapSlotPrefix )
+					fit[ 1 ] = fmaxf( 1.0f, fminf( fit[ 1 ], restBottom / extent ) );
 			}
 			if( rule->uniform )
 				fit[ 0 ] = fit[ 1 ] = fminf( fit[ 0 ], fit[ 1 ] );
@@ -382,6 +390,77 @@ static void analyzeLayout( const Rule *rule, const char *layoutFile, const char 
 			// screen being wider than 4:3 -- leaves room for.
 			const Real aspectRoom = ( (Real)TheDisplay->getWidth() / 800.0f ) / ( (Real)TheDisplay->getHeight() / 600.0f );
 			t.fontK = fmaxf( 1.0f, fminf( t.ky, t.kx * fmaxf( aspectRoom, 1.0f ) ) );
+			// Slots that would leave the top of the screen wrap into further columns to the left.
+			if( t.active && rule->wrapSlotPrefix )
+			{
+				const size_t prefixLen = strlen( rule->wrapSlotPrefix );
+				struct Slot { size_t index; Int depth; Real r[ 4 ]; };
+				std::vector<Slot> slots;
+				for( size_t i = 0; i < rectWins.size(); ++i )
+				{
+					const Win &w = *rectWins[ i ];
+					if( w.name.compare( 0, prefixLen, rule->wrapSlotPrefix ) == 0 )
+					{
+						Slot sl = { i, w.depth, { w.lo[ 0 ] / w.res[ 0 ], w.lo[ 1 ] / w.res[ 1 ], w.hi[ 0 ] / w.res[ 0 ], w.hi[ 1 ] / w.res[ 1 ] } };
+						slots.push_back( sl );
+					}
+				}
+				// Bottom first.
+				for( size_t a = 0; a < slots.size(); ++a )
+					for( size_t b = a + 1; b < slots.size(); ++b )
+						if( slots[ b ].r[ 3 ] > slots[ a ].r[ 3 ] )
+						{
+							const Slot tmp = slots[ a ];
+							slots[ a ] = slots[ b ];
+							slots[ b ] = tmp;
+						}
+				if( slots.size() >= 2 )
+				{
+					const Real k = t.ky;
+					const Real pitch = ( slots[ 0 ].r[ 1 ] - slots[ 1 ].r[ 1 ] ) * k;
+					const Real colW = ( slots[ 0 ].r[ 2 ] - slots[ 0 ].r[ 0 ] ) * t.kx + 0.004f;
+					const Real top0 = slots[ 0 ].r[ 1 ] * k + t.addY;
+					const Int perCol = pitch > 0.0f ? 1 + (Int)floorf( ( top0 - 0.01f ) / pitch ) : (Int)slots.size();
+					const Real c0x = ( slots[ 0 ].r[ 0 ] + slots[ 0 ].r[ 2 ] ) * 0.5f * t.kx + t.addX;
+					const Real c0y = ( slots[ 0 ].r[ 1 ] + slots[ 0 ].r[ 3 ] ) * 0.5f * k + t.addY;
+					p.offset.assign( p.scaled.size() * 5, 0.0f );
+					Int columns = 1;
+					for( size_t n = 0; n < slots.size(); ++n )
+					{
+						const Int col = perCol > 0 ? (Int)n / perCol : 0;
+						const Int row = perCol > 0 ? (Int)n % perCol : (Int)n;
+						if( col + 1 > columns ) columns = col + 1;
+						const Real ocx = ( slots[ n ].r[ 0 ] + slots[ n ].r[ 2 ] ) * 0.5f;
+						const Real ocy = ( slots[ n ].r[ 1 ] + slots[ n ].r[ 3 ] ) * 0.5f;
+						// The slot and every window inside it, moved as one.
+						for( size_t i = slots[ n ].index; i < rectWins.size(); ++i )
+						{
+							if( i != slots[ n ].index && rectWins[ i ]->depth <= slots[ n ].depth )
+								break;
+							p.scaled[ i ] = 4;
+							Real *o = &p.offset[ i * 5 ];
+							o[ 0 ] = ocx;
+							o[ 1 ] = ocy;
+							o[ 2 ] = c0x - col * colW;
+							o[ 3 ] = c0y - row * pitch;
+							o[ 4 ] = k;
+						}
+					}
+					// The frame: from the leftmost column to the right edge of its own, and no
+					// higher than the top of the screen.
+					if( rule->frameName )
+						for( size_t i = 0; i < rectWins.size(); ++i )
+							if( rectWins[ i ]->name == rule->frameName )
+							{
+								p.scaled[ i ] = 5;
+								Real *o = &p.offset[ i * 5 ];
+								o[ 0 ] = ( columns - 1 ) * colW;  // widen to the left by this
+								o[ 1 ] = 0.0f;                     // and keep the top on screen
+							}
+					fprintf( stderr, "[GX-UISCALE] %s: %d slots, %d per column, %d column(s)\n", baseName( layoutFile ),
+						(Int)slots.size(), perCol, columns );
+				}
+			}
 			// Decoration the grown content now covers leaves the screen -- all of the set, so that
 			// not half of a row of emblems is left standing.
 			const Real sx0 = box[ 0 ][ 0 ] * t.kx + t.addX, sx1 = box[ 0 ][ 1 ] * t.kx + t.addX;
@@ -393,7 +472,8 @@ static void analyzeLayout( const Rule *rule, const char *layoutFile, const char 
 				if( r[ 0 ] < sx1 && r[ 2 ] > sx0 && r[ 1 ] < sy1 && r[ 3 ] > sy0 )
 					covered = TRUE;
 			}
-			p.offset.assign( p.scaled.size() * 5, 0.0f );
+			if( p.offset.size() != p.scaled.size() * 5 )
+				p.offset.assign( p.scaled.size() * 5, 0.0f );
 			if( t.active && covered )
 			{
 				// Rearranged as a column in the free space left of the grown content, in their
@@ -488,7 +568,7 @@ static void analyzeLayout( const Rule *rule, const char *layoutFile, const char 
 			}
 			Int scaledCount = 0;
 			for( size_t i = 0; i < p.scaled.size(); ++i )
-				scaledCount += p.scaled[ i ] == 1 ? 1 : 0;
+				scaledCount += ( p.scaled[ i ] == 1 || p.scaled[ i ] == 4 || p.scaled[ i ] == 5 ) ? 1 : 0;
 			if( t.active )
 				fprintf( stderr, "[GX-UISCALE] %s: x%.2f y%.2f (asked %.2f), fonts x%.2f, %d of %d windows\n",
 					baseName( layoutFile ), t.kx, t.ky, k, t.fontK,
@@ -555,7 +635,19 @@ void mapNextWindowRect( Int *loX, Int *loY, Int *hiX, Int *hiY )
 	const Int index = p.next++;
 	if( !p.transform.active || index >= (Int)p.scaled.size() || p.scaled[ index ] == 0 )
 		return;
-	if( p.scaled[ index ] == 3 )
+	if( p.scaled[ index ] == 5 )
+	{
+		// A wrapping layout's frame: scaled as usual, widened left over its extra columns, kept
+		// below the top of the screen.
+		const Transform &t = p.transform;
+		const Real *o = &p.offset[ index * 5 ];
+		*loX = (Int)floorf( t.mapX( (Real)*loX ) - o[ 0 ] * TheDisplay->getWidth() + 0.5f );
+		*hiX = (Int)floorf( t.mapX( (Real)*hiX ) + 0.5f );
+		{ const Int y0 = (Int)floorf( t.mapY( (Real)*loY ) + 0.5f ); *loY = y0 > 0 ? y0 : 0; }
+		*hiY = (Int)floorf( t.mapY( (Real)*hiY ) + 0.5f );
+		return;
+	}
+	if( p.scaled[ index ] == 3 || p.scaled[ index ] == 4 )
 	{
 		// Moved to a new centre and shrunk around it, with the group it belongs to.
 		const Real *o = &p.offset[ index * 5 ];
@@ -587,7 +679,7 @@ Int scaleFontSize( Int size )
 		return size;
 	const Parsing &p = s_parsing.back();
 	const Int index = p.next - 1;
-	if( !p.transform.active || index < 0 || index >= (Int)p.scaled.size() || p.scaled[ index ] != 1 )
+	if( !p.transform.active || index < 0 || index >= (Int)p.scaled.size() || ( p.scaled[ index ] != 1 && p.scaled[ index ] != 4 ) )
 		return size;
 	return (Int)floorf( size * p.transform.fontK + 0.5f );
 }
