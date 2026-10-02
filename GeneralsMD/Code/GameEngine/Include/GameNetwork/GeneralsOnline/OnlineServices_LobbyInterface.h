@@ -8,6 +8,7 @@
 #include "Common/Player.h"
 #include "GameClient/InGameUI.h"
 #include "GameLogic/VictoryConditions.h"
+#include <set>
 
 extern NGMPGame* TheNGMPGame;
 
@@ -325,6 +326,39 @@ public:
 
 	bool IsHost();
 
+	// GeneralsX @bugfix Android port 02/10/2026 Who was in the lobby before us decides which side
+	// of a pair that cannot connect gives up (upstream d60a850c9): only the later joiner leaves,
+	// so a newcomer on a bad network no longer makes an established player drop out.
+private:
+	std::set<int64_t> m_setMembersBeforeUs;
+	bool m_bJoinOrderKnown = false;
+	void ResetJoinOrder();
+	void RecordJoinOrder(const std::vector<LobbyMemberEntry>& members);
+
+public:
+	// true if userID was already in the lobby when we joined, i.e. we are the later joiner of that pair
+	bool JoinedAfter(int64_t userID) const
+	{
+		return m_bJoinOrderKnown && m_setMembersBeforeUs.contains(userID);
+	}
+
+	bool IsJoinOrderKnown() const
+	{
+		return m_bJoinOrderKnown;
+	}
+
+	bool IsLobbyMember(int64_t userID) const
+	{
+		for (const LobbyMemberEntry& member : m_CurrentLobby.members)
+		{
+			if (member.user_id == userID)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
 	// GeneralsX @bugfix Android port 07/11/2026 - sync with upstream: callback now reports success/failure, needed by WOLQuickMatchMenu.cpp/WOLGameSetupMenu.cpp callers
 	void UpdateRoomDataCache(std::function<void(bool)> fnCallback = nullptr);
 
@@ -348,6 +382,15 @@ public:
 	void DeregisterForCannotConnectToLobbyCallback()
 	{
 		m_OnCannotConnectToLobbyCallback = nullptr;
+	}
+
+	// GeneralsX @bugfix Android port 02/10/2026 Raised from inside the mesh's GNS callbacks and
+	// dispatched by Tick once the mesh is done with them: the handler leaves the lobby, which
+	// deletes the mesh while it is still inside RunCallbacks. Upstream 2e04467af.
+	bool m_bCannotConnectToLobbyPending = false;
+	void QueueCannotConnectToLobby()
+	{
+		m_bCannotConnectToLobbyPending = true;
 	}
 
 	std::function<void(UnicodeString strMessage, Color color)> m_OnChatCallback = nullptr;

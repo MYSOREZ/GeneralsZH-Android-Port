@@ -860,8 +860,26 @@ void WebSocket::Tick()
 
 									case EWebSocketMessageID::FULL_MESH_CONNECTIVITY_CHECK_RESPONSE:
 									{
+										// GeneralsX @bugfix Android port 02/10/2026 Echo the check's id and attempt.
+										// Without them the service files the reply as a legacy client's, counts it
+										// for the first attempt only, and turns off the retry attempt for the whole
+										// lobby (FullMeshCheckProtocol.ShouldRetry): one slow link was a failed start
+										// in any lobby with this client in it. Also report the peers still
+										// negotiating, so the service waits for them (upstream 7fa4893be).
+										int64_t meshCheckID = 0;
+										int meshCheckAttempt = 0;
+										if (jsonObject.contains("mesh_check_id") && jsonObject["mesh_check_id"].is_number_integer())
+										{
+											meshCheckID = jsonObject["mesh_check_id"].get<int64_t>();
+										}
+										if (jsonObject.contains("attempt") && jsonObject["attempt"].is_number_integer())
+										{
+											meshCheckAttempt = jsonObject["attempt"].get<int>();
+										}
+
 										// respond with our state
 										std::vector<int64_t> connectivityMap;
+										std::vector<int64_t> connectingMap;
 										NetworkMesh* pMesh = nullptr;
 										NGMP_OnlineServices_LobbyInterface* pLobbyInterface = NGMP_OnlineServicesManager::GetInterface<NGMP_OnlineServices_LobbyInterface>();
 										if (pLobbyInterface != nullptr)
@@ -890,6 +908,11 @@ void WebSocket::Tick()
 														connectivityMap.push_back(userID);
 													}
 												}
+												else if (playerConn.GetState() == EConnectionState::CONNECTING_DIRECT || playerConn.GetState() == EConnectionState::FINDING_ROUTE)
+												{
+													// still negotiating: lets the service hold off restarting it
+													connectingMap.push_back(userID);
+												}
 											}
 										}
 #else
@@ -899,7 +922,10 @@ void WebSocket::Tick()
 										// send response
 										nlohmann::json j;
 										j["msg_id"] = EWebSocketMessageID::FULL_MESH_CONNECTIVITY_CHECK_RESPONSE;
+										j["mesh_check_id"] = meshCheckID;
+										j["attempt"] = meshCheckAttempt;
 										j["connectivity_map"] = connectivityMap;
+										j["connecting_map"] = connectingMap;
 										std::string strBody = j.dump();
 
 										Send(strBody.c_str());

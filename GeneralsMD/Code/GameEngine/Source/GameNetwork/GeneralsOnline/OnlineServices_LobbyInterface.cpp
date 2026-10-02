@@ -640,6 +640,47 @@ void NGMP_OnlineServices_LobbyInterface::SearchForLobbies(std::function<void()> 
 	});
 }
 
+void NGMP_OnlineServices_LobbyInterface::ResetJoinOrder()
+{
+	m_setMembersBeforeUs.clear();
+	m_bJoinOrderKnown = false;
+}
+
+// the first member list after joining holds everyone who was there before us
+void NGMP_OnlineServices_LobbyInterface::RecordJoinOrder(const std::vector<LobbyMemberEntry>& members)
+{
+	if (m_bJoinOrderKnown)
+	{
+		return;
+	}
+
+	NGMP_OnlineServices_AuthInterface* pAuthInterface = NGMP_OnlineServicesManager::GetInterface<NGMP_OnlineServices_AuthInterface>();
+	int64_t myUserID = pAuthInterface == nullptr ? -1 : pAuthInterface->GetUserID();
+
+	// only a list from after our join counts
+	std::set<int64_t> setOthers;
+	bool bContainsUs = false;
+	for (const LobbyMemberEntry& member : members)
+	{
+		if (member.user_id == myUserID)
+		{
+			bContainsUs = true;
+		}
+		else
+		{
+			setOthers.insert(member.user_id);
+		}
+	}
+
+	if (!bContainsUs)
+	{
+		return;
+	}
+
+	m_setMembersBeforeUs = std::move(setOthers);
+	m_bJoinOrderKnown = true;
+}
+
 bool NGMP_OnlineServices_LobbyInterface::IsHost()
 {
 	if (IsInLobby())
@@ -702,6 +743,17 @@ void NGMP_OnlineServices_LobbyInterface::Tick()
 	{
 		m_pLobbyMesh->Flush();
 		m_pLobbyMesh->Tick();
+	}
+
+	if (m_bCannotConnectToLobbyPending)
+	{
+		m_bCannotConnectToLobbyPending = false;
+
+		auto callbackCopy = m_OnCannotConnectToLobbyCallback;
+		if (callbackCopy != nullptr)
+		{
+			callbackCopy();
+		}
 	}
 #endif
 
@@ -808,6 +860,14 @@ void NGMP_OnlineServices_LobbyInterface::UpdateRoomDataCache(std::function<void(
 								//fnCallback(false);
 							}
 
+							// GeneralsX @bugfix Android port 02/10/2026 The match runs on this lobby's
+							// mesh: a 404 mid-match must not tear its connections down. Upstream ed8ce9f0a.
+							if (TheNGMPGame != nullptr && TheNGMPGame->isGameInProgress())
+							{
+								NetworkLog(ELogVerbosity::LOG_RELEASE, "[NGMP] Lobby lookup returned 404 during a match, keeping the match running");
+								return;
+							}
+
 							LeaveCurrentLobby();
 							return;
 						}
@@ -815,7 +875,7 @@ void NGMP_OnlineServices_LobbyInterface::UpdateRoomDataCache(std::function<void(
 						nlohmann::json jsonObjectRoot = nlohmann::json::parse(strBody);
 
 						NetworkLog(ELogVerbosity::LOG_DEBUG, "LOBBY JSON");
-						NetworkLog(ELogVerbosity::LOG_DEBUG, strBody.c_str());
+						NetworkLog(ELogVerbosity::LOG_DEBUG, "%s", strBody.c_str());
 
 						auto lobbyEntryIter = jsonObjectRoot["lobby"];
 
@@ -995,6 +1055,7 @@ void NGMP_OnlineServices_LobbyInterface::UpdateRoomDataCache(std::function<void(
 
 							// store
 							m_CurrentLobby = lobbyEntry;
+							RecordJoinOrder(lobbyEntry.members);
 
 							// inform game instance too
 							if (TheNGMPGame != nullptr)
@@ -1052,6 +1113,7 @@ void NGMP_OnlineServices_LobbyInterface::JoinLobby(LobbyEntry lobbyInfo, std::st
 
 	m_bAttemptingToJoinLobby = true;
 	m_CurrentLobby = LobbyEntry();
+	ResetJoinOrder();
 
 	NGMP_OnlineServicesManager::GetInstance()->GetAndParseServiceConfig([=]()
 		{
@@ -1136,8 +1198,28 @@ void NGMP_OnlineServices_LobbyInterface::JoinLobby(LobbyEntry lobbyInfo, std::st
 					// Also log the host's exe_crc/ini_crc (already known client-side from the lobby
 					// list response) against our own, so a CRC mismatch is visible directly instead
 					// of inferred from an HTTP status code.
+					//
+					// GeneralsX @bugfix Android port 02/10/2026 ...but without the TURN username and
+					// token the body carries: players attach these logs to public issues.
+					std::string strLoggedBody = strBody;
+					try
+					{
+						nlohmann::json jsonLogged = nlohmann::json::parse(strBody);
+						for (const char* szSecret : { "turn_username", "turn_token" })
+						{
+							if (jsonLogged.contains(szSecret))
+							{
+								jsonLogged[szSecret] = jsonLogged[szSecret].get<std::string>().empty() ? "" : "<redacted>";
+							}
+						}
+						strLoggedBody = jsonLogged.dump();
+					}
+					catch (...)
+					{
+						strLoggedBody = "<unparsable, not logged>";
+					}
 					NetworkLog(ELogVerbosity::LOG_RELEASE, "[NGMP] JoinLobby response: lobbyID=%d statusCode=%d bSuccess=%d body=%s",
-						lobbyInfo.lobbyID, statusCode, (int)bSuccess, strBody.c_str());
+						lobbyInfo.lobbyID, statusCode, (int)bSuccess, strLoggedBody.c_str());
 					NetworkLog(ELogVerbosity::LOG_RELEASE, "[NGMP] JoinLobby CRC check: host exe_crc=%u ini_crc=%u, local exe_crc=%u ini_crc=%u",
 						lobbyInfo.exe_crc, lobbyInfo.ini_crc, TheGlobalData->m_exeCRC, TheGlobalData->m_iniCRC);
 
@@ -1208,7 +1290,7 @@ void NGMP_OnlineServices_LobbyInterface::JoinLobby(LobbyEntry lobbyInfo, std::st
 
 							m_strTURNUsername = resp.turn_username;
 							m_strTURNToken = resp.turn_token;
-							NetworkLog(ELogVerbosity::LOG_DEBUG, "Got TURN username: %s, token: %s", m_strTURNUsername.c_str(), m_strTURNToken.c_str());
+							NetworkLog(ELogVerbosity::LOG_DEBUG, "Got TURN credentials (username empty=%d, token empty=%d)", (int)m_strTURNUsername.empty(), (int)m_strTURNToken.empty());
 							NetworkLog(ELogVerbosity::LOG_RELEASE, "[NGMP] JoinLobby stored TURN credentials (username empty=%d, token empty=%d)",
 								(int)m_strTURNUsername.empty(), (int)m_strTURNToken.empty());
 						}
@@ -1322,6 +1404,9 @@ void NGMP_OnlineServices_LobbyInterface::JoinLobby(LobbyEntry lobbyInfo, std::st
 
 void NGMP_OnlineServices_LobbyInterface::LeaveCurrentLobby()
 {
+	m_bCannotConnectToLobbyPending = false;
+	ResetJoinOrder();
+
 	// reset host migration flags
 	ResetHostMigrationFlags();
 
@@ -1397,6 +1482,9 @@ void NGMP_OnlineServices_LobbyInterface::CreateLobby(UnicodeString strLobbyName,
 	NGMP_OnlineServicesManager::GetInstance()->GetAndParseServiceConfig([=]()
 		{
 			m_CurrentLobby = LobbyEntry();
+			// the creator is the first member: nobody joined before it
+			ResetJoinOrder();
+			m_bJoinOrderKnown = true;
 			std::string strURI = NGMP_OnlineServicesManager::GetAPIEndpoint("Lobbies");
 			std::map<std::string, std::string> mapHeaders;
 
@@ -1461,7 +1549,7 @@ void NGMP_OnlineServices_LobbyInterface::CreateLobby(UnicodeString strLobbyName,
 
 						m_strTURNUsername = resp.turn_username;
 						m_strTURNToken = resp.turn_token;
-						NetworkLog(ELogVerbosity::LOG_DEBUG, "Got TURN username: %s, token: %s", m_strTURNUsername.c_str(), m_strTURNToken.c_str());
+						NetworkLog(ELogVerbosity::LOG_DEBUG, "Got TURN credentials (username empty=%d, token empty=%d)", (int)m_strTURNUsername.empty(), (int)m_strTURNToken.empty());
 
 #if defined(GENERALS_ONLINE_ENABLE_P2P_TRANSPORT)
 						// GeneralsX @bugfix Android port 02/10/2026 A mesh kept from a failed join was

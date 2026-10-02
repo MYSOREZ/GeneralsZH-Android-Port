@@ -125,17 +125,16 @@ void NGMP_OnlineServicesManager::GetAndParseServiceConfig(std::function<void(voi
 				}
 				else
 				{
-					// It's OK to fail, we'll just use the sensible defaults
-					NetworkLog(ELogVerbosity::LOG_RELEASE, "[NGMP] Failed to get service config, using defaults. Status code: %d", statusCode);
-					m_ServiceConfig = ServiceConfig();
+					// GeneralsX @bugfix Android port 02/10/2026 Keep the last good config (defaults if
+					// there never was one); resetting it on a failed refresh turned off
+					// retry_signalling mid-session. Upstream cc132f02f.
+					NetworkLog(ELogVerbosity::LOG_RELEASE, "[NGMP] Failed to get service config, keeping the current one. Status code: %d", statusCode);
 				}
 				
 			}
 			catch (...)
 			{
-				// It's OK to fail, we'll just use the sensible defaults
-				NetworkLog(ELogVerbosity::LOG_RELEASE, "[NGMP] Failed to get service config, using defaults. Exception.");
-				m_ServiceConfig = ServiceConfig();
+				NetworkLog(ELogVerbosity::LOG_RELEASE, "[NGMP] Failed to parse service config, keeping the current one.");
 			}
 
 			if (cbOnDone != nullptr)

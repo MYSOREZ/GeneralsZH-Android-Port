@@ -238,9 +238,12 @@ void HTTPRequest::Threaded_SetComplete(CURLcode result)
 	// if we got an error, set the response code to 0
 
 #if !_DEBUG
-	std::transform(strResponse.begin(), strResponse.end(), strResponse.begin(),
+	// GeneralsX @bugfix Android port 02/10/2026 Search a lowered copy: the logged response
+	// itself kept only its lower-cased form. Upstream 50addcd15.
+	std::string strResponseLower = strResponse;
+	std::transform(strResponseLower.begin(), strResponseLower.end(), strResponseLower.begin(),
 		[](unsigned char c) { return std::tolower(c); });
-	if (strResponse.find("token") != std::string::npos)
+	if (strResponseLower.find("token") != std::string::npos)
 	{
 		strResponse = "<redacted>";
 	}
