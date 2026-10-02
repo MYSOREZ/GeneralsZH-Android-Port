@@ -960,6 +960,7 @@ public class SetupActivity extends Activity {
 
     // ABODEH_PLAY_V1_20261002
     // ABODEH_PLAY_CI_TRIGGER_20261002
+    // ABODEH_PLAY_CI_TRIGGER_20261002_B
     // Performance presets implemented through the existing Options.ini
     // Resolution key. Native startup already respects this value before it
     // injects -xres/-yres. "Auto" removes the key and restores window-size
