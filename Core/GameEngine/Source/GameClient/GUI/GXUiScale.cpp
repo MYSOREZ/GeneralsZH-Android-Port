@@ -503,6 +503,11 @@ static void analyzeLayout( const Rule *rule, const char *layoutFile, const char 
 			Bool covered = FALSE;
 			for( size_t m = 0; m < moveAway.size() && !covered; ++m )
 			{
+				// The pictures as they normally stand: their Medium copies, the size a picture grows
+				// to while highlighted, reach higher and touched the panel's bottom at 110% (by 2.5%
+				// of the screen) though nothing covered the pictures themselves.
+				if( !moveAway[ m ].plain )
+					continue;
 				const Real *r = moveAway[ m ].r;
 				for( size_t i = 0; i < rectWins.size() && !covered; ++i )
 				{
