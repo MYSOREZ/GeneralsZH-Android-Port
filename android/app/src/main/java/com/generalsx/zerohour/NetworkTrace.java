@@ -179,7 +179,10 @@ final class NetworkTrace {
         if (body == null) {
             return "";
         }
-        String flat = body.replace('\n', ' ').replace('\r', ' ').trim();
+        // GeneralsX @bugfix Android port 03/10/2026 Redact before cutting: write() redacts too, but
+        // its patterns need a token's closing quote, and a reply cut at 300 characters ended inside
+        // the session token, which then went to the log half-written (header and payload).
+        String flat = redact(body).replace('\n', ' ').replace('\r', ' ').trim();
         if (flat.length() <= max) {
             return flat;
         }
