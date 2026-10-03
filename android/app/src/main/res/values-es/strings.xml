@@ -345,4 +345,11 @@
     <string name="setup_interface_scale_label">%1$d%%</string>
     <string name="setup_button_apply_interface_scale">Aplicar tamaño de la interfaz</string>
     <string name="setup_interface_scale_help">Agranda la interfaz del juego sin tocar sus archivos: la barra de control con el radar crece hacia arriba desde el borde inferior, y la barra de poderes del general, el chat, los mensajes de eventos, la lista de jugadores, el menú de partida con Guardar/Cargar y Opciones y los botones del menú principal crecen desde donde están. Nada sale de la pantalla: cada parte crece solo lo que cabe, así que en un teléfono ancho la barra de control se hace más alta en vez de más ancha, y el campo de batalla encima, más bajo. Funciona junto con el tamaño del texto del menú. Se aplica la próxima vez que inicies el juego.</string>
+
+    <!-- GeneralsX @feature Android port 03/10/2026 Support the project (Help page). -->
+    <string name="support_card_title">Apoyar el proyecto</string>
+    <string name="support_card_body">Este port se desarrolla con Claude Code (Claude de Anthropic) y la suscripción se paga de mi bolsillo. Si el port te resulta útil, las donaciones son bienvenidas: se destinan a esa suscripción. El juego y todas las versiones siguen siendo gratuitos, y donar no desbloquea nada.</string>
+    <string name="support_card_warning">Envía solo la moneda indicada junto a la dirección y solo por esa red. Cualquier otra cosa, o la misma moneda por otra red, se perderá.</string>
+    <string name="support_row_copy_hint">Toca para copiar la dirección</string>
+    <string name="support_copied">Dirección copiada: %1$s</string>
 </resources>

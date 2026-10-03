@@ -345,4 +345,11 @@
     <string name="setup_interface_scale_label">%1$d%%</string>
     <string name="setup_button_apply_interface_scale">Primeniti veličinu interfejsa</string>
     <string name="setup_interface_scale_help">Uvečaje interfejs igry bez měnjenja jej datotek: dolnja panel s kartoju raste vvŕh od kraja ekrana, a panel moćij generala, čat, poruky o događajah, spis igračev, igrovo meni s shranjenjem i nastavjenjami i ključi glavnogo menija rastut od města, gde sut. Ničto ne izhodi za ekran: každa čast uvečaje se jedino toliko, koliko se vměstiti, zato na širokom telefonu dolnja panel stanovi se vyšeju, ne širšeju, a pole bitvy nad njeju — nižeju. Dějstvuje vměste s Věličinoju teksta menija. Dějstvuje pri sledujućem spuštěniju igry.</string>
+
+    <!-- GeneralsX @feature Android port 03/10/2026 Support the project (Help page). -->
+    <string name="support_card_title">Podporiti projekt</string>
+    <string name="support_card_body">Tutoj port jest razvivany s Claude Code (Claude od Anthropic), i podpiska jest plaćena iz svojego karmana. Jestli port jest vam koristny, darovanja sut dobrodošle: one idut na tu podpisku. Igra i vse versije ostajut bezplatne, i darovanje ničego ne otvarja.</string>
+    <string name="support_card_warning">Posylajte jedino valutu, ukazanu poblizu adresy, i jedino v toj mreži. Vse drugo, takože ta sama valuta v drugoj mreži, bude izgubjeno.</string>
+    <string name="support_row_copy_hint">Kliknite, aby kopirovati adresu</string>
+    <string name="support_copied">Adresa kopirovana: %1$s</string>
 </resources>

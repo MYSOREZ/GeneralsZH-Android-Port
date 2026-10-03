@@ -345,4 +345,11 @@
     <string name="setup_interface_scale_label">%1$d%%</string>
     <string name="setup_button_apply_interface_scale">Zastosuj rozmiar interfejsu</string>
     <string name="setup_interface_scale_help">Powiększa interfejs gry bez zmiany jej plików: pasek dowodzenia z radarem rośnie w górę od dolnej krawędzi, a pasek mocy generała, czat, komunikaty o zdarzeniach, lista graczy, menu gry z zapisem/wczytaniem i opcjami oraz przyciski menu głównego rosną od miejsca, w którym są. Nic nie wychodzi poza ekran: każda część rośnie tylko tyle, ile się zmieści, więc na szerokim telefonie pasek dowodzenia robi się wyższy, a nie szerszy, a pole bitwy nad nim — niższe. Działa razem z rozmiarem tekstu menu. Zadziała przy następnym uruchomieniu gry.</string>
+
+    <!-- GeneralsX @feature Android port 03/10/2026 Support the project (Help page). -->
+    <string name="support_card_title">Wesprzyj projekt</string>
+    <string name="support_card_body">Ten port powstaje przy użyciu Claude Code (Claude od Anthropic), a subskrypcja jest opłacana z własnej kieszeni. Jeśli port jest dla Ciebie przydatny, darowizny są mile widziane: idą na tę subskrypcję. Gra i wszystkie wersje pozostają darmowe, a darowizna niczego nie odblokowuje.</string>
+    <string name="support_card_warning">Wysyłaj tylko walutę podaną obok adresu i tylko w tej sieci. Wszystko inne, także ta sama waluta w innej sieci, przepadnie.</string>
+    <string name="support_row_copy_hint">Dotknij, aby skopiować adres</string>
+    <string name="support_copied">Skopiowano adres: %1$s</string>
 </resources>

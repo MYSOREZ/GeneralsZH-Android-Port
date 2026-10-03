@@ -345,4 +345,11 @@
     <string name="setup_interface_scale_label">%1$d%%</string>
     <string name="setup_button_apply_interface_scale">Appliquer la taille de l\'interface</string>
     <string name="setup_interface_scale_help">Agrandit l\'interface du jeu sans modifier ses fichiers : la barre de commande avec le radar grandit vers le haut depuis le bord inférieur, et la barre des pouvoirs du général, le chat, les messages d\'événements, la liste des joueurs, le menu de partie avec Sauvegarder/Charger et Options ainsi que les boutons du menu principal grandissent depuis leur place. Rien ne sort de l\'écran : chaque partie ne grandit que tant qu\'elle tient, donc sur un téléphone large la barre de commande devient plus haute plutôt que plus large, et le champ de bataille au-dessus plus court. Fonctionne avec la taille du texte des menus. Prend effet au prochain lancement du jeu.</string>
+
+    <!-- GeneralsX @feature Android port 03/10/2026 Support the project (Help page). -->
+    <string name="support_card_title">Soutenir le projet</string>
+    <string name="support_card_body">Ce portage est développé avec Claude Code (Claude d\'Anthropic), et l\'abonnement est payé de ma poche. Si le portage vous est utile, les dons sont les bienvenus : ils financent cet abonnement. Le jeu et toutes les versions restent gratuits, et un don ne débloque rien.</string>
+    <string name="support_card_warning">N\'envoyez que la devise indiquée à côté de l\'adresse, et uniquement sur ce réseau. Tout le reste, ou la même devise sur un autre réseau, sera perdu.</string>
+    <string name="support_row_copy_hint">Touchez pour copier l\'adresse</string>
+    <string name="support_copied">Adresse copiée : %1$s</string>
 </resources>

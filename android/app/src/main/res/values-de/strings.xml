@@ -345,4 +345,11 @@
     <string name="setup_interface_scale_label">%1$d%%</string>
     <string name="setup_button_apply_interface_scale">Oberflächengröße übernehmen</string>
     <string name="setup_interface_scale_help">Vergrößert die Spieloberfläche, ohne die Spieldateien zu ändern: Die Steuerleiste mit dem Radar wächst vom unteren Rand nach oben, die Leiste der Generalsfähigkeiten, der Chat, die Ereignismeldungen, die Spielerliste, das Spielmenü mit Speichern/Laden und Optionen sowie die Schaltflächen des Hauptmenüs wachsen von ihrer Position aus. Nichts wird aus dem Bildschirm geschoben: Jeder Teil wächst nur so weit, wie er passt, daher wird die Steuerleiste auf einem breiten Handy höher statt breiter und das Schlachtfeld darüber kürzer. Funktioniert zusammen mit der Menü-Textgröße. Wird beim nächsten Spielstart wirksam.</string>
+
+    <!-- GeneralsX @feature Android port 03/10/2026 Support the project (Help page). -->
+    <string name="support_card_title">Projekt unterstützen</string>
+    <string name="support_card_body">Dieser Port wird mit Claude Code (Claude von Anthropic) entwickelt, und das Abo wird aus eigener Tasche bezahlt. Wenn dir der Port nützt, sind Spenden willkommen: Sie fließen in dieses Abo. Das Spiel und alle Builds bleiben kostenlos, und durch eine Spende wird nichts freigeschaltet.</string>
+    <string name="support_card_warning">Sende nur die Währung, die neben der Adresse steht, und nur über dieses Netzwerk. Alles andere, auch dieselbe Währung über ein anderes Netzwerk, geht verloren.</string>
+    <string name="support_row_copy_hint">Tippen, um die Adresse zu kopieren</string>
+    <string name="support_copied">Adresse kopiert: %1$s</string>
 </resources>

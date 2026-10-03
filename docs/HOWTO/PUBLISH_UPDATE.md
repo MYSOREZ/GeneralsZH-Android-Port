@@ -17,6 +17,14 @@ screen; the engine is downloaded only by the Home check.
   newer one on Wi-Fi; the Updates card only says when a newer one is out. It also computes the PC checksum
   from the PC executable inside that patch, and that number wins over `pc_exe_crc`, so a new PC
   release normally needs nothing published at all; `pc_exe_crc` covers players without the patch.
+- **Support list** (launchers built from 03/10/2026 on): the addresses and links on the Help page's
+  "Support the project" card, as `support_1`, `support_2`, ... -- `"Label|value"`, numbered from 1
+  without gaps. A value starting with `https://` opens in the browser, anything else is an address
+  the player copies. While no `support_N` key is published, the list built into the APK is shown
+  (the README's three USDT addresses); once one is published, the settings replace that list
+  entirely, so leaving an address out withdraws it. Example:
+  `"support_1": "USDT — TRON (TRC20)|TAQHCF733ovKpvBjUgvkE6wHxkntnKZ6br"`. Older launchers store
+  the keys and ignore them.
 - **Engine**: a newer `libmain.so` / `libmain60.so`. It is downloaded into the app's private
   storage and used from the next game start, instead of the engine inside the APK.
 
