@@ -507,9 +507,9 @@ void GameLogic::reset()
 		m_crcWithoutRevision[gxv] = 0;
 	}
 	m_crcVariantNext = 0;
-	// Every game starts on the current GeneralsOnline revision; only a replay from an
-	// older client switches it off, and that must not carry into the next match.
-	s_logicCRCRevision = GO_LOGIC_CRC_REVISION;
+	// Every game starts on the revision of the PC release the data package came from; only a
+	// replay from another client switches it, and that must not carry into the next match.
+	s_logicCRCRevision = s_defaultLogicCRCRevision;
 	for(Int i = 0; i < MAX_SLOTS; ++i)
 	{
 		m_progressComplete[i] = FALSE;
@@ -5009,6 +5009,7 @@ UnsignedInt GameLogic::getCRC( Int mode, AsciiString deepCRCFileName )
 
 // ------------------------------------------------------------------------------------------------
 UnsignedInt GameLogic::s_logicCRCRevision = GameLogic::GO_LOGIC_CRC_REVISION;
+UnsignedInt GameLogic::s_defaultLogicCRCRevision = GameLogic::GO_LOGIC_CRC_REVISION;
 
 // ------------------------------------------------------------------------------------------------
 Bool GameLogic::adoptLogicCRCRevisionFrom( UnsignedInt recorded, UnsignedInt *ours )

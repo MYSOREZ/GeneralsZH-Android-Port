@@ -5,6 +5,16 @@ read this before forming a hypothesis. Most of the obvious theories have been
 tested and killed with measurements, and the instrument that actually finds
 these is already built.
 
+## 03/10/2026: a mismatch at the very first checkpoint is the checksum's shape, not the game
+
+Against GeneralsOnline 100126 every live match failed at frame 100 with the seed CRC equal on both
+sides. The trace had it immediately: the phone's `crc ai ... afterGroups` was the PC's whole
+checksum, and only the trailing `OfficialLogicCRCRevision` tag (present in the 22/09-28/09 exes,
+absent from the public source and from 100126) made ours differ. **When the first checkpoint
+fails, compare the peer's value against each `crc parts`/`crc ai` stage before touching the
+simulation.** The tag is now decided per data package from the PC executable itself
+(`crc_revision=` in `pc_exe_crc_seed.txt`).
+
 ## The playbook that works (24/09/2026): read this first
 
 On 24/09/2026 the full `USA.rep`, a 30800-frame PC recording, matched the PC on all

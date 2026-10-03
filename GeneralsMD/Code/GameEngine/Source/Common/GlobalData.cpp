@@ -32,6 +32,7 @@
 // INCLUDES ///////////////////////////////////////////////////////////////////////////////////////
 #include "PreRTS.h"	// This must go first in EVERY cpp file in the GameEngine
 #include "Common/GXRemoteConfig.h"
+#include "GameLogic/GameLogic.h"
 
 #include "ww3d.h"
 #include "texturefilter.h"
@@ -1221,9 +1222,40 @@ static Bool pcExeCrcFromDataPack(UnsignedInt &out)
 }
 
 //-------------------------------------------------------------------------------------------------
+// GeneralsX @bugfix Android port 03/10/2026 Whether the PC release in the installed data package
+// ends its logic checksum with the GeneralsOnline revision tag: the launcher looks for the
+// marker string in its executable and writes "crc_revision=1/0" next to the checksum seed.
+// 22/09-28/09 releases had it, 100126 does not; a phone that guessed wrong mismatched every PC
+// at the first checkpoint. No package, or one from before the launcher checked: unchanged.
+static void logicCRCRevisionFromDataPack()
+{
+	const std::string dir = GXRemoteConfig::updateDirPath();
+	if (dir.empty())
+		return;
+	FILE *f = fopen((dir + "/pc_exe_crc_seed.txt").c_str(), "r");
+	if (f == nullptr)
+		return;
+	char line[128];
+	while (fgets(line, sizeof(line), f) != nullptr)
+	{
+		if (strncmp(line, "crc_revision=", 13) == 0)
+		{
+			const Bool tagged = line[13] == '1';
+			GameLogic::setDefaultLogicCRCRevision(tagged ? (UnsignedInt)GameLogic::GO_LOGIC_CRC_REVISION : 0u);
+			fprintf(stderr, "[GX-CRC] logic CRC revision tag %s (the data package's PC release %s it)\n",
+				tagged ? "on" : "off", tagged ? "writes" : "does not write");
+			fflush(stderr);
+			break;
+		}
+	}
+	fclose(f);
+}
+
+//-------------------------------------------------------------------------------------------------
 void GlobalData::init()
 {
 	m_exeCRC = generateExeCRC();
+	logicCRCRevisionFromDataPack();
 
 	// GeneralsX @feature Android port 13/09/2026 Optional EXE-checksum override,
 	// for testing against a PC client.

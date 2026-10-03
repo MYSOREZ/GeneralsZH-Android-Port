@@ -425,10 +425,12 @@ final class DataPackInstaller {
 
             progress.onInstalling();
             File target = userDataDir();
-            long[] pcExeCrc = new long[] { -1 };
+            // [0] checksum state, [1] whether the executable ends its logic checksum with the
+            // GeneralsOnline revision tag (1/0, -1 unknown) -- see pcExeCrcState.
+            long[] pcExeCrc = new long[] { -1, -1 };
             List<String> written = extract(tempZip, target, pcExeCrc);
             writeInstalledList(ctx, written);
-            writePcExeCrcSeed(ctx, pcExeCrc[0], version);
+            writePcExeCrcSeed(ctx, pcExeCrc[0], pcExeCrc[1], version);
             NetworkTrace.write(ctx, "[datapack] installed " + written.size()
                 + " file(s) into " + target.getAbsolutePath());
 
@@ -542,25 +544,49 @@ final class DataPackInstaller {
         return (rotated + (b & 0xFF)) & 0xFFFFFFFFL;
     }
 
-    private static long pcExeCrcState(InputStream exe) throws IOException {
+    // GeneralsX @bugfix Android port 03/10/2026 The GeneralsOnline releases of 22/09-28/09 end
+    // every logic checksum with this marker and 0x474F0001 (found by disassembly, GameLogic.cpp);
+    // the public source never had it, and 100126 (built from it) does not write it. A phone that
+    // still appended it mismatched every 100126 PC at the first checkpoint. Whether this
+    // executable has the string decides it, so the next release needs nothing from us either.
+    private static final byte[] PC_CRC_REVISION_MARKER =
+        "MARKER:OfficialLogicCRCRevision".getBytes(java.nio.charset.StandardCharsets.US_ASCII);
+
+    /** out[0] = checksum state, out[1] = 1/0 whether the revision marker is in the file. */
+    private static void pcExeCrcState(InputStream exe, long[] out) throws IOException {
         long crc = 0;
         long done = 0;
+        int matched = 0;
+        boolean hasMarker = false;
         byte[] buffer = new byte[64 * 1024];
         int read;
-        while (done < PC_EXE_CRC_LIMIT && (read = exe.read(buffer)) > 0) {
-            int use = (int) Math.min(read, PC_EXE_CRC_LIMIT - done);
-            for (int i = 0; i < use; i++) {
-                crc = crcFeed(crc, buffer[i]);
+        while ((read = exe.read(buffer)) > 0) {
+            if (done < PC_EXE_CRC_LIMIT) {
+                int use = (int) Math.min(read, PC_EXE_CRC_LIMIT - done);
+                for (int i = 0; i < use; i++) {
+                    crc = crcFeed(crc, buffer[i]);
+                }
+                done += use;
             }
-            done += use;
+            for (int i = 0; i < read && !hasMarker; i++) {
+                // The marker has no repeated prefix, so restarting a broken match is exact.
+                if (buffer[i] == PC_CRC_REVISION_MARKER[matched]) {
+                    if (++matched == PC_CRC_REVISION_MARKER.length) {
+                        hasMarker = true;
+                    }
+                } else {
+                    matched = buffer[i] == PC_CRC_REVISION_MARKER[0] ? 1 : 0;
+                }
+            }
         }
         for (int i = 0; i < 4; i++) {
             crc = crcFeed(crc, PC_VERSION_NUMBER >>> (8 * i));
         }
-        return crc;
+        out[0] = crc;
+        out[1] = hasMarker ? 1 : 0;
     }
 
-    private static void writePcExeCrcSeed(Context ctx, long seed, String version) throws IOException {
+    private static void writePcExeCrcSeed(Context ctx, long seed, long crcRevision, String version) throws IOException {
         File dir = new File(ctx.getFilesDir(), "update");
         File file = new File(dir, PC_EXE_SEED_FILE);
         if (seed < 0) {
@@ -572,14 +598,31 @@ final class DataPackInstaller {
             throw new IOException("could not create " + dir.getAbsolutePath());
         }
         try (FileWriter out = new FileWriter(file)) {
-            out.write(seed + "\n" + version + "\n");
+            out.write(seed + "\n" + version + "\n" + "crc_revision=" + crcRevision + "\n");
         }
-        NetworkTrace.write(ctx, "[datapack] PC exe checksum state " + seed + " from " + PC_EXE_NAME);
+        NetworkTrace.write(ctx, "[datapack] PC exe checksum state " + seed + " from " + PC_EXE_NAME
+            + ", logic CRC revision tag " + (crcRevision == 1 ? "present" : "absent"));
     }
 
     /** Whether the installed package's PC checksum has been computed (see PC_EXE_NAME). */
     static boolean hasPcExeCrcSeed(Context ctx) {
-        return new File(new File(ctx.getFilesDir(), "update"), PC_EXE_SEED_FILE).isFile();
+        File file = new File(new File(ctx.getFilesDir(), "update"), PC_EXE_SEED_FILE);
+        if (!file.isFile()) {
+            return false;
+        }
+        // A seed written before 03/10/2026 lacks the revision-tag line: install the package once
+        // more so it is known (see PC_CRC_REVISION_MARKER).
+        try (java.io.BufferedReader in = new java.io.BufferedReader(new java.io.FileReader(file))) {
+            String line;
+            while ((line = in.readLine()) != null) {
+                if (line.startsWith("crc_revision=")) {
+                    return true;
+                }
+            }
+        } catch (IOException e) {
+            return false;
+        }
+        return false;
     }
 
     /** Extracts the wanted prefixes into targetRoot, listing what it wrote. */
@@ -594,7 +637,7 @@ final class DataPackInstaller {
             while ((entry = zip.getNextEntry()) != null) {
                 String name = entry.getName().replace('\\', '/');
                 if (name.equalsIgnoreCase(PC_EXE_NAME)) {
-                    pcExeCrc[0] = pcExeCrcState(zip);
+                    pcExeCrcState(zip, pcExeCrc);
                     continue;
                 }
                 if (!isWanted(name)) {

@@ -147,6 +147,9 @@ public:
 	// the 28/08/2026 client did not. 0 means "append nothing". See getCRC().
 	enum { GO_LOGIC_CRC_REVISION = 0x474F0001 };
 	static void setLogicCRCRevision( UnsignedInt revision ) { s_logicCRCRevision = revision; }
+	// GeneralsX @bugfix Android port 03/10/2026 What each game starts with: the PC release in the
+	// installed data package decides (100126 dropped the tag; see GlobalData::init).
+	static void setDefaultLogicCRCRevision( UnsignedInt revision ) { s_defaultLogicCRCRevision = revision; s_logicCRCRevision = revision; }
 	static UnsignedInt getLogicCRCRevision() { return s_logicCRCRevision; }
 	// For a replay: if 'recorded' is what one of our recent checksums would have been
 	// with the revision tag switched the other way, adopt that setting and return the
@@ -413,8 +416,11 @@ private:
 	// CRC cache system -----------------------------------------------------------------------------
 	UnsignedInt	m_CRC;																			///< Cache of previous CRC value
 	static UnsignedInt s_logicCRCRevision;
+	static UnsignedInt s_defaultLogicCRCRevision;
 	// Recent checksums with and without the revision tag, for adoptLogicCRCRevisionFrom().
-	enum { CRC_VARIANT_RING = 8 };
+	// GeneralsX @bugfix Android port 03/10/2026 Wide enough for the checksum of every frame: a
+	// replay's recorded value arrives up to ~15 frames after ours was queued (8 was overrun).
+	enum { CRC_VARIANT_RING = 64 };
 	UnsignedInt m_crcWithRevision[CRC_VARIANT_RING];
 	UnsignedInt m_crcWithoutRevision[CRC_VARIANT_RING];
 	Int m_crcVariantNext;
