@@ -16,11 +16,15 @@ void HTTPManager::SendGETRequest(const char* szURI, EIPProtocolVersion protover,
 	m_vecRequestsPendingStart.push_back(pRequest);
 }
 
-void HTTPManager::SendPOSTRequest(const char* szURI, EIPProtocolVersion protover, std::map<std::string, std::string>& inHeaders, const char* szPostData, std::function<void(bool bSuccess, int statusCode, std::string strBody, HTTPRequest* pReq)> completionCallback, std::function<void(size_t bytesReceived)> progressCallback, int timeoutMS)
+void HTTPManager::SendPOSTRequest(const char* szURI, EIPProtocolVersion protover, std::map<std::string, std::string>& inHeaders, const char* szPostData, std::function<void(bool bSuccess, int statusCode, std::string strBody, HTTPRequest* pReq)> completionCallback, std::function<void(size_t bytesReceived)> progressCallback, int timeoutMS, bool bDisableServiceAuth)
 {
 	CHECK_MAIN_THREAD;
 
 	HTTPRequest* pRequest = PlatformCreateRequest(EHTTPVerb::HTTP_VERB_POST, protover, szURI, inHeaders, completionCallback, progressCallback, timeoutMS);
+	if (bDisableServiceAuth)
+	{
+		pRequest->DisableServiceAuth();
+	}
 	pRequest->SetPostData(szPostData);
 
 	m_vecRequestsPendingStart.push_back(pRequest);

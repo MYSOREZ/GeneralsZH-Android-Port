@@ -72,7 +72,6 @@ public class GeneralsOnlineActivity extends Activity {
 
     private static final String PREFS_NAME = GeneralsOnlineSession.PREFS_NAME;
     private static final String PREF_SESSION_TOKEN = GeneralsOnlineSession.PREF_SESSION_TOKEN;
-    private static final String PREF_REFRESH_TOKEN = GeneralsOnlineSession.PREF_REFRESH_TOKEN;
     private static final String PREF_USER_ID = GeneralsOnlineSession.PREF_USER_ID;
     private static final String PREF_DISPLAY_NAME = GeneralsOnlineSession.PREF_DISPLAY_NAME;
     private static final String PREF_WS_URI = GeneralsOnlineSession.PREF_WS_URI;
@@ -594,8 +593,7 @@ public class GeneralsOnlineActivity extends Activity {
     // browser again -- mirrors BeginLogin()'s GetCredentials()/LoginWithToken
     // branch in the reference client.
     private void maybeSilentReauth() {
-        String refreshToken = getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
-            .getString(PREF_REFRESH_TOKEN, null);
+        String refreshToken = GeneralsOnlineSession.currentRefreshToken(this);
         if (refreshToken == null || refreshToken.isEmpty() || busy) {
             return;
         }

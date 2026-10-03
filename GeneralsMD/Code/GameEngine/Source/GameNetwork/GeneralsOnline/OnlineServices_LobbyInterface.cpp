@@ -1254,7 +1254,9 @@ void NGMP_OnlineServices_LobbyInterface::JoinLobby(LobbyEntry lobbyInfo, std::st
 						// An unparseable body is not a refusal; fall back to the status code.
 					}
 
-					if (!bServerAccepted)
+					// GeneralsX @bugfix Android port 03/10/2026 417 is the server's anticheat refusal
+					// (reported as such below); the "already in the lobby" hint misled a log reading.
+					if (!bServerAccepted && statusCode != 417)
 					{
 						NetworkLog(ELogVerbosity::LOG_RELEASE,
 							"[NGMP] JoinLobby refused by server (HTTP %d, success=false). The usual cause is that this account is already in the lobby -- one account cannot occupy two seats, so two devices need two accounts.",

@@ -423,9 +423,38 @@ final class GeneralsOnlineSession {
             w.write("machine_guid=" + NetworkDiagnostics.installId(ctx) + "\n");
             w.write("mac_addr=" + NetworkDiagnostics.syntheticMac(ctx) + "\n");
             w.write("vol_serial=" + NetworkDiagnostics.syntheticVolumeSerial(ctx) + "\n");
+            // GeneralsX @bugfix Android port 03/10/2026 The engine renews the session itself now
+            // (session tokens last fifteen minutes), and each renewal rotates the refresh token --
+            // only the newest is accepted. This file is where both processes keep the newest one;
+            // see currentRefreshToken().
+            if (result.refreshToken != null && !result.refreshToken.isEmpty()) {
+                w.write("refresh_token=" + result.refreshToken + "\n");
+            }
         } catch (IOException e) {
             // Not fatal: the game will report the connection failure itself.
         }
+    }
+
+    /**
+     * GeneralsX @bugfix Android port 03/10/2026 The newest refresh token: the marker file's, which
+     * the engine rewrites on every renewal during play, else the one saved at sign-in. Using the
+     * preferences' copy after the engine has rotated it would be refused as superseded.
+     */
+    static String currentRefreshToken(Context ctx) {
+        File marker = new File(ctx.getFilesDir(), SESSION_MARKER_NAME);
+        if (marker.isFile()) {
+            try (java.io.BufferedReader r = new java.io.BufferedReader(new java.io.FileReader(marker))) {
+                String line;
+                while ((line = r.readLine()) != null) {
+                    if (line.startsWith("refresh_token=") && line.length() > "refresh_token=".length()) {
+                        return line.substring("refresh_token=".length()).trim();
+                    }
+                }
+            } catch (IOException e) {
+                Log.w(TAG, "cannot read the session marker", e);
+            }
+        }
+        return ctx.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).getString(PREF_REFRESH_TOKEN, null);
     }
 
     static void clearSession(Context ctx) {
@@ -445,8 +474,7 @@ final class GeneralsOnlineSession {
     static void refreshSessionAsync(Context appContext) {
         final Context ctx = appContext.getApplicationContext();
         new Thread(() -> {
-            SharedPreferences prefs = ctx.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-            String refreshToken = prefs.getString(PREF_REFRESH_TOKEN, null);
+            String refreshToken = currentRefreshToken(ctx);
             if (refreshToken == null || refreshToken.isEmpty()) {
                 Log.i(TAG, "no cached refresh_token; skipping launch-time session refresh");
                 return;

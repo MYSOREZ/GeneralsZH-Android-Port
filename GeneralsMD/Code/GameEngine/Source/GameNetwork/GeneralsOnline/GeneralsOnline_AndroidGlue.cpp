@@ -32,6 +32,7 @@ namespace
 		std::string machineGuid;
 		std::string macAddr;
 		std::string volSerial;
+		std::string refreshToken;
 	};
 
 	// Mirrors SDL3Main.cpp's gamedata_path.txt reader: the Android launcher
@@ -84,6 +85,7 @@ namespace
 			else if (strcmp(key, "machine_guid") == 0) outSession.machineGuid = value;
 			else if (strcmp(key, "mac_addr") == 0) outSession.macAddr = value;
 			else if (strcmp(key, "vol_serial") == 0) outSession.volSerial = value;
+			else if (strcmp(key, "refresh_token") == 0) outSession.refreshToken = value;
 		}
 		fclose(f);
 
@@ -129,6 +131,128 @@ void GeneralsOnline_GetDeviceIdentity(std::string& outMachineGuid,
 	outMachineGuid = s_machineGuid;
 	outMacAddr = s_macAddr;
 	outVolSerial = s_volSerial;
+#endif
+}
+
+#if defined(__ANDROID__)
+namespace
+{
+	std::string MarkerPath()
+	{
+		const char* internalPath = SDL_GetAndroidInternalStoragePath();
+		return internalPath != nullptr ? std::string(internalPath) + "/generalsonline_session.txt" : std::string();
+	}
+
+	// Launchers up to 1.3.0 keep the refresh token only in their SharedPreferences, an XML file in
+	// this same app's data directory (files/../shared_prefs). A JWT is [A-Za-z0-9._-] only, so it
+	// needs no XML unescaping.
+	bool ReadRefreshTokenFromLauncherPrefs(std::string& out)
+	{
+		const char* internalPath = SDL_GetAndroidInternalStoragePath();
+		if (internalPath == nullptr)
+		{
+			return false;
+		}
+		std::string path = std::string(internalPath) + "/../shared_prefs/generalsonline_session.xml";
+		FILE* f = fopen(path.c_str(), "r");
+		if (f == nullptr)
+		{
+			return false;
+		}
+		std::string xml;
+		char buf[4096];
+		size_t n;
+		while ((n = fread(buf, 1, sizeof(buf), f)) > 0)
+		{
+			xml.append(buf, n);
+		}
+		fclose(f);
+		const std::string key = "<string name=\"refresh_token\">";
+		size_t start = xml.find(key);
+		if (start == std::string::npos)
+		{
+			return false;
+		}
+		start += key.size();
+		size_t end = xml.find("</string>", start);
+		if (end == std::string::npos || end == start)
+		{
+			return false;
+		}
+		out = xml.substr(start, end - start);
+		return true;
+	}
+}
+#endif
+
+bool GeneralsOnline_ReadStoredRefreshToken(std::string& outRefreshToken)
+{
+	outRefreshToken.clear();
+#if defined(__ANDROID__)
+	AndroidSession session;
+	ReadAndroidSession(session);
+	if (!session.refreshToken.empty())
+	{
+		outRefreshToken = session.refreshToken;
+		return true;
+	}
+	return ReadRefreshTokenFromLauncherPrefs(outRefreshToken);
+#else
+	return false;
+#endif
+}
+
+bool GeneralsOnline_StoreRenewedSession(const std::string& sessionToken, const std::string& refreshToken)
+{
+#if defined(__ANDROID__)
+	std::string path = MarkerPath();
+	if (path.empty())
+	{
+		return false;
+	}
+	std::string content;
+	FILE* in = fopen(path.c_str(), "r");
+	if (in != nullptr)
+	{
+		char line[4096];
+		while (fgets(line, sizeof(line), in) != nullptr)
+		{
+			if (strncmp(line, "session_token=", 14) == 0 || strncmp(line, "refresh_token=", 14) == 0)
+			{
+				continue;
+			}
+			content += line;
+			if (!content.empty() && content.back() != '\n')
+			{
+				content += '\n';
+			}
+		}
+		fclose(in);
+	}
+	content = "session_token=" + sessionToken + "\n" + content;
+	if (!refreshToken.empty())
+	{
+		content += "refresh_token=" + refreshToken + "\n";
+	}
+
+	std::string tmp = path + ".tmp";
+	FILE* out = fopen(tmp.c_str(), "w");
+	if (out == nullptr)
+	{
+		return false;
+	}
+	bool bOk = fwrite(content.data(), 1, content.size(), out) == content.size();
+	bOk = (fclose(out) == 0) && bOk;
+	if (!bOk || rename(tmp.c_str(), path.c_str()) != 0)
+	{
+		remove(tmp.c_str());
+		return false;
+	}
+	return true;
+#else
+	(void)sessionToken;
+	(void)refreshToken;
+	return false;
 #endif
 }
 
@@ -187,22 +311,41 @@ bool TryStartGeneralsOnline()
 	ClearGSMessageBoxes();
 	GSMessageBoxNoButtons(UnicodeString(L"GeneralsOnline"), UnicodeString(L"Connecting..."), false);
 
-	fprintf(stderr, "DEBUG-ONLINE: TryStartGeneralsOnline -- calling OnLogin, wsUri=%s\n", session.wsUri.c_str());
-	fflush(stderr);
-	NGMP_OnlineServicesManager::GetInstance()->OnLogin(ELoginResult::Success, session.wsUri.c_str(), []()
-		{
-			// GeneralsX @feature Android port 11/07/2026 the real upstream
-			// WOLWelcomeMenu (ported from GeneralsOnlineDevelopmentTeam/
-			// GameClient) replaces our earlier hand-rolled GeneralsOnlineHome
-			// screen -- same entry point upstream's own MainMenu -> Online
-			// button flow uses.
-			fprintf(stderr, "DEBUG-ONLINE: OnLogin callback fired, pushing WOLWelcomeMenu.wnd\n");
-			fflush(stderr);
-			ClearGSMessageBoxes();
-			TheShell->push("Menus/WOLWelcomeMenu.wnd");
-		});
-	fprintf(stderr, "DEBUG-ONLINE: TryStartGeneralsOnline -- OnLogin call returned, exiting\n");
-	fflush(stderr);
+	const std::string wsUri = session.wsUri;
+	auto connect = [wsUri]()
+	{
+		fprintf(stderr, "DEBUG-ONLINE: TryStartGeneralsOnline -- calling OnLogin, wsUri=%s\n", wsUri.c_str());
+		fflush(stderr);
+		NGMP_OnlineServicesManager::GetInstance()->OnLogin(ELoginResult::Success, wsUri.c_str(), []()
+			{
+				// GeneralsX @feature Android port 11/07/2026 the real upstream
+				// WOLWelcomeMenu (ported from GeneralsOnlineDevelopmentTeam/
+				// GameClient) replaces our earlier hand-rolled GeneralsOnlineHome
+				// screen -- same entry point upstream's own MainMenu -> Online
+				// button flow uses.
+				fprintf(stderr, "DEBUG-ONLINE: OnLogin callback fired, pushing WOLWelcomeMenu.wnd\n");
+				fflush(stderr);
+				ClearGSMessageBoxes();
+				TheShell->push("Menus/WOLWelcomeMenu.wnd");
+			});
+		fprintf(stderr, "DEBUG-ONLINE: TryStartGeneralsOnline -- OnLogin call returned, exiting\n");
+		fflush(stderr);
+	};
+
+	// GeneralsX @bugfix Android port 03/10/2026 The marker's session token can be close to its
+	// fifteen-minute expiry, or past it (the launcher's launch-time refresh failed, or the game sat
+	// in the main menu): renew it before connecting with it. The connect goes ahead either way --
+	// a renewal that fails for good tears the session down with its own message.
+	if (pAuthInterface != nullptr && pAuthInterface->SessionTokenExpiresWithin(60))
+	{
+		fprintf(stderr, "DEBUG-ONLINE: TryStartGeneralsOnline -- session token (nearly) expired, renewing first\n");
+		fflush(stderr);
+		pAuthInterface->RefreshToken([connect](bool) { connect(); });
+	}
+	else
+	{
+		connect();
+	}
 
 	return true;
 #else

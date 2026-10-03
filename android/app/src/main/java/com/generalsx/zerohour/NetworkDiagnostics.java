@@ -450,7 +450,10 @@ final class NetworkDiagnostics {
         SharedPreferences prefs =
             ctx.getSharedPreferences(GeneralsOnlineSession.PREFS_NAME, Context.MODE_PRIVATE);
         String session = prefs.getString(GeneralsOnlineSession.PREF_SESSION_TOKEN, "");
-        String refresh = prefs.getString(GeneralsOnlineSession.PREF_REFRESH_TOKEN, "");
+        String refresh = GeneralsOnlineSession.currentRefreshToken(ctx);
+        if (refresh == null) {
+            refresh = "";
+        }
         long userId = prefs.getLong(GeneralsOnlineSession.PREF_USER_ID, -1);
         String name = prefs.getString(GeneralsOnlineSession.PREF_DISPLAY_NAME, "");
 

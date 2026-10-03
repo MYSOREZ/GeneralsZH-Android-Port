@@ -160,6 +160,15 @@ void TearDownGeneralsOnline()
 			title = TheGameText->fetch("GUI:GSErrorTitle");
 			body = L"Your connection to the Generals Online servers was lost.";
 		}
+		// GeneralsX @bugfix Android port 03/10/2026 Until now a session the server stopped accepting
+		// went unnoticed: the lobby kept polling and got 401 forever, and the player saw a lobby that
+		// simply never changed again.
+		else if (teardownReason == EGOTearDownReason::AUTH_FAILED)
+		{
+			title = TheGameText->fetch("GUI:GSErrorTitle");
+			body = L"Your Generals Online sign-in could not be renewed: it expired, or the account signed in "
+				L"on another device. Sign in again under GeneralsOnline account in the launcher.";
+		}
 		else
 		{
 			title = TheGameText->fetch("GUI:GSErrorTitle");

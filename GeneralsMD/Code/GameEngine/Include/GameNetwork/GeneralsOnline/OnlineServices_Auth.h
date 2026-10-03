@@ -57,7 +57,18 @@ public:
 		m_strToken = strToken;
 		m_userID = userID;
 		m_strDisplayName = strDisplayName;
+		ScheduleTokenRefresh();
 	}
+
+	// GeneralsX @bugfix Android port 03/10/2026 Session renewal, after upstream's RefreshToken() (see
+	// GeneralsOnline_AndroidGlue.h for why the refresh token comes from the session marker file).
+	// Renews when the session token is five minutes from its expiry; a failed renewal is retried
+	// every 30 s while the token still lives, and the online session is torn down -- with a message --
+	// once it cannot be renewed. onDone, if given, runs once with the outcome.
+	void RefreshToken(std::function<void(bool bRenewed)> onDone = nullptr);
+
+	// Whether the session token expires within the next secondsAhead seconds (or cannot be read).
+	bool SessionTokenExpiresWithin(int secondsAhead) const;
 
 	void LogoutOfMyAccount();
 
@@ -79,4 +90,16 @@ private:
 	std::string m_strDisplayName = "NO_USER";
 
 	std::function<void(ELoginResult)> m_cb_LoginPendingCallback = nullptr;
+
+	// GeneralsX @bugfix Android port 03/10/2026 Session renewal state (RefreshToken()).
+	void ScheduleTokenRefresh();
+	void OnRefreshTokenFailed(const char* szReason, const std::string& strBody, bool bFinal);
+	static int64_t TokenExpirySeconds(const std::string& strToken);
+
+	int64_t m_nextTokenRefreshTime = -1;   // ms since the epoch; -1 = nothing scheduled
+	int64_t m_nextRefreshRetryTime = -1;
+	int m_currentRefreshAttempt = 0;
+	bool m_bRefreshInFlight = false;
+	const int m_secondsBeforeExpiryToRefresh = 5 * 60;
+	const int m_secondsUntilRefreshRetry = 30;
 };

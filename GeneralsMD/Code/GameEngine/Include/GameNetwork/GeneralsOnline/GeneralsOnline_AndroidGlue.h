@@ -27,3 +27,18 @@ bool TryStartGeneralsOnline();
 // or a non-Android build), which is what the API gets sent in that case.
 void GeneralsOnline_GetDeviceIdentity(std::string& outMachineGuid,
 	std::string& outMacAddr, std::string& outVolSerial);
+
+// GeneralsX @bugfix Android port 03/10/2026 Session renewal. The service's session tokens last
+// fifteen minutes; the PC client renews them every ten with its refresh token, and this port never
+// did, so every online session older than that met 401 on every request (lobby list, match result)
+// with no word to the player. Refresh tokens are single use: each renewal rotates it, and only the
+// newest is accepted (the previous one for five more minutes). The launcher and the engine must
+// therefore always use the newest one, and the session marker file is where it lives: the engine
+// reads it before every renewal and writes the rotated one back; the launcher does the same.
+//
+// Reads the newest refresh token: the marker's refresh_token, or, for a launcher too old to write
+// one there (1.3.0 and earlier), the one in its own preferences file. False if there is none.
+bool GeneralsOnline_ReadStoredRefreshToken(std::string& outRefreshToken);
+
+// Writes a renewed session into the marker file (session_token and refresh_token), atomically.
+bool GeneralsOnline_StoreRenewedSession(const std::string& sessionToken, const std::string& refreshToken);
