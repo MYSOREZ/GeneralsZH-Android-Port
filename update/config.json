@@ -3,5 +3,8 @@
   "turn_servers": "turn:turn.playgenerals.online:53,turn:turn.playgenerals.online:3478",
   "pc_exe_crc": "560676586",
   "datapack_manifest_url": "https://cdn.playgenerals.online/manifest.json",
-  "logic_crc_revision": "0"
+  "logic_crc_revision": "0",
+  "support_1": "USDT — TRON (TRC20)|TAQHCF733ovKpvBjUgvkE6wHxkntnKZ6br",
+  "support_2": "USDT — BSC (BEP20)|0x52c05c81485d68367385ff389cf19a453f036310",
+  "support_3": "USDT — TON|UQAOdBpFSPhlgbvUIJ2O2w2NuwWashaNjFWDsOirDqH9kGbR"
 }

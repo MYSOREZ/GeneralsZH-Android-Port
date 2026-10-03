@@ -22,7 +22,9 @@ import java.util.List;
 //
 // Until the settings name any support_N entry, the list built into this APK is shown -- the same
 // three addresses as the README. Once they name one, they replace the built-in list entirely, so
-// an address can also be withdrawn.
+// an address can also be withdrawn; "support_1": "none" (no '|') withdraws them all, and the card
+// is then not shown. The built-in list is only for a launcher that has never fetched settings:
+// once an address dies it must not come back from an old APK's copy.
 final class SupportLinks {
 
     static final class Entry {
@@ -52,17 +54,19 @@ final class SupportLinks {
 
     static List<Entry> load(Context ctx) {
         List<Entry> remote = new ArrayList<>();
+        boolean published = false;
         for (int i = 1; i <= MAX_ENTRIES; i++) {
             String raw = UpdateManager.remoteConfig(ctx, "support_" + i, null);
             if (raw == null) {
                 break;
             }
+            published = true;
             Entry e = parse(raw);
             if (e != null) {
                 remote.add(e);
             }
         }
-        if (!remote.isEmpty()) {
+        if (published) {
             return remote;
         }
         List<Entry> builtIn = new ArrayList<>();

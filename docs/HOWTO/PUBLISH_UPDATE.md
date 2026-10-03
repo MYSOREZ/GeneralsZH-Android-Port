@@ -22,7 +22,7 @@ screen; the engine is downloaded only by the Home check.
   without gaps. A value starting with `https://` opens in the browser, anything else is an address
   the player copies. While no `support_N` key is published, the list built into the APK is shown
   (the README's three USDT addresses); once one is published, the settings replace that list
-  entirely, so leaving an address out withdraws it. Example:
+  entirely, so leaving an address out withdraws it, and `"support_1": "none"` withdraws all of them (the card is then hidden). Example:
   `"support_1": "USDT — TRON (TRC20)|TAQHCF733ovKpvBjUgvkE6wHxkntnKZ6br"`. Older launchers store
   the keys and ignore them.
 - **Engine**: a newer `libmain.so` / `libmain60.so`. It is downloaded into the app's private

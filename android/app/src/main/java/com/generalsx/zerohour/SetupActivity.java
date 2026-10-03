@@ -580,11 +580,15 @@ public class SetupActivity extends Activity {
     // and nothing here should stand between a player and the Play button. The entries come from the
     // signed settings (SupportLinks), so the list is changed by publishing settings, not an APK.
     private void buildSupportSection(LinearLayout page) {
+        java.util.List<SupportLinks.Entry> entries = SupportLinks.load(this);
+        if (entries.isEmpty()) {
+            return;
+        }
         LinearLayout card = UiKit.card(page);
         UiKit.sectionHeader(card, R.drawable.ic_gzh_heart,
             getString(R.string.support_card_title), false);
         UiKit.supporting(card, getString(R.string.support_card_body));
-        for (SupportLinks.Entry e : SupportLinks.load(this)) {
+        for (SupportLinks.Entry e : entries) {
             if (e.isLink()) {
                 UiKit.listRow(card, R.drawable.ic_gzh_globe, e.label,
                     e.value, () -> openSupportLink(e.value));
