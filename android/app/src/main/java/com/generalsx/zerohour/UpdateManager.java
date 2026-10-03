@@ -48,6 +48,8 @@ import java.util.zip.GZIPInputStream;
  * <ul>
  *   <li>{@code config}: string values written to {@code files/update/remote_config.ini}, read by
  *       the engine at startup (GXRemoteConfig.h) -- today the STUN and TURN server lists.</li>
+ *   <li>{@code support}: url, sha256 and size of {@code support.json}, the Help page's
+ *       "Support the project" card ({@link SupportLinks}).</li>
  *   <li>{@code engine}: a newer engine build. Its files are downloaded, checked against the
  *       SHA-256 in the (signed) manifest, and loaded instead of the APK's own by
  *       {@link GeneralsZHActivity} -- but only when its {@code seq} is higher than the APK's
@@ -216,6 +218,7 @@ final class UpdateManager {
         String error;
         int serial;
         boolean configUpdated;
+        boolean supportUpdated;
         int engineSeq;              // engine offered by the manifest, 0 if none
         boolean engineDownloaded;   // newly downloaded and ready for the next start
         boolean engineIncompatible; // offered but built against other libraries -- needs a new APK
@@ -273,6 +276,8 @@ final class UpdateManager {
             if (config != null) {
                 r.configUpdated = writeRemoteConfig(ctx, config);
             }
+
+            r.supportUpdated = applySupport(ctx, manifest.optJSONObject("support"));
 
             JSONObject engine = manifest.optJSONObject("engine");
             if (engine != null && withEngine) {
@@ -427,6 +432,42 @@ final class UpdateManager {
         }
         writeBytes(file, after.getBytes(StandardCharsets.UTF_8));
         return true;
+    }
+
+    /**
+     * GeneralsX @feature Android port 03/10/2026 The Help page's support card (SupportLinks). The
+     * manifest names the file's SHA-256, so the file is as trusted as the signed manifest; a
+     * manifest without the entry withdraws the card. A file that fails to download or to match is
+     * not an error for the rest of the update: the previous verified copy stays.
+     * @return whether the copy on disk changed.
+     */
+    private static boolean applySupport(Context ctx, JSONObject support) {
+        File file = new File(updateDir(ctx), SupportLinks.FILE_NAME);
+        if (support == null) {
+            return file.exists() && file.delete();
+        }
+        String sha = support.optString("sha256", "");
+        String url = support.optString("url", "");
+        try {
+            if (file.isFile() && sha256(file).equalsIgnoreCase(sha)) {
+                return false;
+            }
+            if (!url.startsWith(BASE_URL)) {
+                Log.w(TAG, "support file outside the updates branch: " + url);
+                return false;
+            }
+            byte[] data = download(url, 256 * 1024);
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            if (!hex(digest.digest(data)).equalsIgnoreCase(sha)) {
+                Log.w(TAG, "support file does not match the signed manifest");
+                return false;
+            }
+            writeBytes(file, data);
+            return true;
+        } catch (Exception e) {
+            Log.w(TAG, "support file not updated", e);
+            return false;
+        }
     }
 
     private static void applyEngine(Context ctx, JSONObject engine, Result r) throws Exception {

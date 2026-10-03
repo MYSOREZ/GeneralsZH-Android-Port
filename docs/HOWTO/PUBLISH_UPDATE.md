@@ -17,14 +17,17 @@ screen; the engine is downloaded only by the Home check.
   newer one on Wi-Fi; the Updates card only says when a newer one is out. It also computes the PC checksum
   from the PC executable inside that patch, and that number wins over `pc_exe_crc`, so a new PC
   release normally needs nothing published at all; `pc_exe_crc` covers players without the patch.
-- **Support list** (launchers built from 03/10/2026 on): the addresses and links on the Help page's
-  "Support the project" card, as `support_1`, `support_2`, ... -- `"Label|value"`, numbered from 1
-  without gaps. A value starting with `https://` opens in the browser, anything else is an address
-  the player copies. While no `support_N` key is published, the list built into the APK is shown
-  (the README's three USDT addresses); once one is published, the settings replace that list
-  entirely, so leaving an address out withdraws it, and `"support_1": "none"` withdraws all of them (the card is then hidden). Example:
-  `"support_1": "USDT — TRON (TRC20)|TAQHCF733ovKpvBjUgvkE6wHxkntnKZ6br"`. Older launchers store
-  the keys and ignore them.
+- **Support card** (launchers built from 03/10/2026 on): the Help page's "Support the project"
+  card comes entirely from `update/support.json` -- its text in every language, and the
+  addresses/links. `publish-update.py` copies the file next to the manifest and writes its
+  SHA-256 into the signed manifest, so it is as trusted as the manifest. Nothing of it is in the
+  APK, so a new or retired address, a reworded text, or a language added or dropped is just a
+  settings publish. Format: `text` maps a language tag (`en`, `ru`, `pt-BR`, `isv`, ...) to
+  `title`, `body`, `warning`, `copy_hint`, `copied` (`%s` = the entry's label); `entries` is a list
+  of `{ "label", "value" }`, where `label` is a string or a per-language object. A value starting
+  with `https://` opens in the browser, anything else is copied. The player's language falls back
+  to `en`, which the script requires. Deleting `update/support.json` before a publish withdraws
+  the card everywhere.
 - **Engine**: a newer `libmain.so` / `libmain60.so`. It is downloaded into the app's private
   storage and used from the next game start, instead of the engine inside the APK.
 

@@ -1,31 +1,47 @@
 package com.generalsx.zerohour;
 
 import android.content.Context;
+import android.os.Build;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
-// GeneralsX @feature Android port 03/10/2026 Where a donation can be sent, as the launcher's Help
-// page lists it (README "Support the project").
+// GeneralsX @feature Android port 03/10/2026 The Help page's "Support the project" card (README
+// "Support the project"), read from update/support.json.
 //
-// The list comes from the signed settings (update/config.json on the updates branch, see
-// docs/HOWTO/PUBLISH_UPDATE.md), so an address can be added, changed or retired without a new APK:
+// Nothing of the card is in the APK -- not the addresses, not the text, not the set of languages.
+// The file is published with the signed settings (docs/HOWTO/PUBLISH_UPDATE.md): its SHA-256 is in
+// the signed manifest, so UpdateManager only keeps a copy that matches it. That signature matters
+// more here than anywhere else: an address swapped in transit would send someone's money elsewhere.
+// Adding or retiring an address, rewording the text, adding or dropping a language: all of it is a
+// settings publish, which reaches every launcher from this one on without a new APK.
 //
-//   "support_1": "USDT — TRON (TRC20)|TAQHCF733ovKpvBjUgvkE6wHxkntnKZ6br",
-//   "support_2": "Boosty|https://boosty.to/...",
+// Format:
+//   { "schema": 1,
+//     "text": { "en": { "title", "body", "warning", "copy_hint", "copied" }, "ru": { ... }, ... },
+//     "entries": [ { "label": "USDT — TON", "value": "UQ..." },
+//                  { "label": { "en": "Card", "ru": "Карта" }, "value": "https://..." } ] }
+// Languages are BCP 47 tags ("pt-BR", "zh"); a field missing in the player's language comes from
+// "en", then from whichever language has it. A value starting with https:// opens in the browser;
+// anything else is an address and is copied. "copied" may contain %s for the entry's label.
 //
-// one entry per key, label and value split by the first '|', numbered from 1 without gaps (the list
-// ends at the first missing number). A value starting with https:// is a link and opens in the
-// browser; anything else is an address and is copied. The settings are signed, which matters more
-// here than anywhere else: an address swapped in transit would send the money to someone else, and
-// a forged manifest is rejected before any of it reaches remote_config.ini.
-//
-// Until the settings name any support_N entry, the list built into this APK is shown -- the same
-// three addresses as the README. Once they name one, they replace the built-in list entirely, so
-// an address can also be withdrawn; "support_1": "none" (no '|') withdraws them all, and the card
-// is then not shown. The built-in list is only for a launcher that has never fetched settings:
-// once an address dies it must not come back from an old APK's copy.
+// No file, an unreadable one, or one with no usable entry: the card is not shown. A launcher that
+// has never fetched settings therefore shows nothing rather than an address that may have died.
 final class SupportLinks {
+
+    static final String FILE_NAME = "support.json";
 
     static final class Entry {
         final String label;
@@ -41,56 +57,145 @@ final class SupportLinks {
         }
     }
 
-    private static final String[][] BUILT_IN = {
-        { "USDT — TRON (TRC20)", "TAQHCF733ovKpvBjUgvkE6wHxkntnKZ6br" },
-        { "USDT — BSC (BEP20)", "0x52c05c81485d68367385ff389cf19a453f036310" },
-        { "USDT — TON", "UQAOdBpFSPhlgbvUIJ2O2w2NuwWashaNjFWDsOirDqH9kGbR" },
-    };
+    final String title;
+    final String body;
+    final String warning;
+    final String copyHint;
+    final String copied;
+    final List<Entry> entries;
 
-    private static final int MAX_ENTRIES = 32;
-
-    private SupportLinks() {
+    private SupportLinks(String title, String body, String warning, String copyHint, String copied,
+                         List<Entry> entries) {
+        this.title = title;
+        this.body = body;
+        this.warning = warning;
+        this.copyHint = copyHint;
+        this.copied = copied;
+        this.entries = entries;
     }
 
-    static List<Entry> load(Context ctx) {
-        List<Entry> remote = new ArrayList<>();
-        boolean published = false;
-        for (int i = 1; i <= MAX_ENTRIES; i++) {
-            String raw = UpdateManager.remoteConfig(ctx, "support_" + i, null);
-            if (raw == null) {
-                break;
+    /** The card's content in the launcher's language, or null when there is nothing to show. */
+    static SupportLinks load(Context ctx) {
+        File file = new File(UpdateManager.updateDir(ctx), FILE_NAME);
+        if (!file.isFile()) {
+            return null;
+        }
+        try {
+            JSONObject root = new JSONObject(readText(file));
+            Locale locale = launcherLocale(ctx);
+            JSONObject text = root.optJSONObject("text");
+            if (text == null) {
+                text = new JSONObject();
             }
-            published = true;
-            Entry e = parse(raw);
-            if (e != null) {
-                remote.add(e);
+            List<Entry> entries = new ArrayList<>();
+            JSONArray list = root.optJSONArray("entries");
+            for (int i = 0; list != null && i < list.length(); i++) {
+                JSONObject e = list.optJSONObject(i);
+                if (e == null) {
+                    continue;
+                }
+                Object labelObj = e.opt("label");
+                String label = labelObj instanceof JSONObject
+                    ? pick(strings((JSONObject) labelObj), locale)
+                    : e.optString("label", "").trim();
+                String value = e.optString("value", "").trim();
+                if (usable(label, value)) {
+                    entries.add(new Entry(label, value));
+                }
             }
+            String title = field(text, locale, "title");
+            if (entries.isEmpty() || title.isEmpty()) {
+                return null;
+            }
+            return new SupportLinks(title, field(text, locale, "body"), field(text, locale, "warning"),
+                field(text, locale, "copy_hint"), field(text, locale, "copied"), entries);
+        } catch (Exception e) {
+            // A malformed file is published by mistake, not by an attacker (it matched the signed
+            // manifest); showing no card is the safe reading of it.
+            android.util.Log.w("GXSupport", "support.json unreadable", e);
+            return null;
         }
-        if (published) {
-            return remote;
-        }
-        List<Entry> builtIn = new ArrayList<>();
-        for (String[] e : BUILT_IN) {
-            builtIn.add(new Entry(e[0], e[1]));
-        }
-        return builtIn;
     }
 
-    // "label|value"; an entry without a label, without a value, or with a link that is not https
-    // is skipped rather than shown half-formed.
-    private static Entry parse(String raw) {
-        int bar = raw.indexOf('|');
-        if (bar <= 0) {
-            return null;
+    // An entry without a label or value, with whitespace in the value, or with a link that is not
+    // https is skipped rather than shown half-formed.
+    private static boolean usable(String label, String value) {
+        if (label.isEmpty() || value.isEmpty() || value.matches(".*\\s.*")) {
+            return false;
         }
-        String label = raw.substring(0, bar).trim();
-        String value = raw.substring(bar + 1).trim();
-        if (label.isEmpty() || value.isEmpty() || value.indexOf(' ') >= 0) {
-            return null;
+        return !value.contains("://") || value.startsWith("https://");
+    }
+
+    private static String field(JSONObject text, Locale locale, String name) {
+        Map<String, String> byTag = new LinkedHashMap<>();
+        for (Iterator<String> it = text.keys(); it.hasNext(); ) {
+            String tag = it.next();
+            JSONObject t = text.optJSONObject(tag);
+            String v = t != null ? t.optString(name, "").trim() : "";
+            if (!v.isEmpty()) {
+                byTag.put(tag, v);
+            }
         }
-        if (value.contains("://") && !value.startsWith("https://")) {
-            return null;
+        return pick(byTag, locale);
+    }
+
+    private static Map<String, String> strings(JSONObject byTagJson) {
+        Map<String, String> byTag = new LinkedHashMap<>();
+        for (Iterator<String> it = byTagJson.keys(); it.hasNext(); ) {
+            String tag = it.next();
+            String v = byTagJson.optString(tag, "").trim();
+            if (!v.isEmpty()) {
+                byTag.put(tag, v);
+            }
         }
-        return new Entry(label, value);
+        return byTag;
+    }
+
+    /**
+     * The value for the launcher's language: exact tag, then language only, then a regional
+     * variant of it ("pt-BR" in the file for a plain "pt" launcher), then "en", then any.
+     */
+    private static String pick(Map<String, String> byTag, Locale locale) {
+        String full = locale.toLanguageTag().toLowerCase(Locale.ROOT);
+        String lang = locale.getLanguage().toLowerCase(Locale.ROOT);
+        String exact = null, language = null, regional = null, english = null;
+        for (Map.Entry<String, String> e : byTag.entrySet()) {
+            String tag = e.getKey().toLowerCase(Locale.ROOT);
+            if (tag.equals(full)) {
+                exact = e.getValue();
+            } else if (tag.equals(lang)) {
+                language = e.getValue();
+            } else if (regional == null && tag.startsWith(lang + "-")) {
+                regional = e.getValue();
+            }
+            if (tag.equals("en")) {
+                english = e.getValue();
+            }
+        }
+        if (exact != null) return exact;
+        if (language != null) return language;
+        if (regional != null) return regional;
+        if (english != null) return english;
+        return byTag.isEmpty() ? "" : byTag.values().iterator().next();
+    }
+
+    // The language the launcher's own strings are in (LocaleHelper's override or the system's).
+    private static Locale launcherLocale(Context ctx) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            return ctx.getResources().getConfiguration().getLocales().get(0);
+        }
+        return ctx.getResources().getConfiguration().locale;
+    }
+
+    private static String readText(File file) throws IOException {
+        try (InputStream in = new FileInputStream(file)) {
+            java.io.ByteArrayOutputStream out = new java.io.ByteArrayOutputStream();
+            byte[] buf = new byte[8192];
+            int n;
+            while ((n = in.read(buf)) > 0) {
+                out.write(buf, 0, n);
+            }
+            return new String(out.toByteArray(), StandardCharsets.UTF_8);
+        }
     }
 }

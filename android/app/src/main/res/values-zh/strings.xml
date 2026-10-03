@@ -345,11 +345,4 @@
     <string name="setup_interface_scale_label">%1$d%%</string>
     <string name="setup_button_apply_interface_scale">应用界面大小</string>
     <string name="setup_interface_scale_help">在不修改游戏文件的情况下放大游戏界面：带雷达的底部控制栏从屏幕底边向上增高，将军技能栏、聊天、事件消息、玩家列表、带保存/读取和选项的游戏菜单以及主菜单按钮从各自所在的位置放大。不会有任何内容超出屏幕：每个部分只放大到能容纳为止，因此在宽屏手机上控制栏会变高而不是变宽，上方的战场则相应变矮。可与“菜单文字大小”一起使用。将在下次启动游戏时生效。</string>
-
-    <!-- GeneralsX @feature Android port 03/10/2026 Support the project (Help page). -->
-    <string name="support_card_title">支持本项目</string>
-    <string name="support_card_body">本移植版借助 Claude Code（Anthropic 的 Claude）开发，订阅费用由开发者自掏腰包。如果本移植对你有用，欢迎捐助：捐款将用于该订阅。游戏和所有版本始终免费，捐助不会解锁任何内容。</string>
-    <string name="support_card_warning">只发送地址旁注明的币种，并且只通过该网络发送。其他任何币种，或通过其他网络发送的同一币种，都会丢失。</string>
-    <string name="support_row_copy_hint">点击复制地址</string>
-    <string name="support_copied">地址已复制：%1$s</string>
 </resources>

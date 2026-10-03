@@ -529,8 +529,8 @@ public class SetupActivity extends Activity {
             runOnUiThread(() -> {
                 updateCheckRunning = false;
                 refreshUpdatesStatus();
-                // The support list is read from the settings this check may just have replaced.
-                if (r.configUpdated && currentTab == TAB_HELP && contentHost != null) {
+                // The support card is read from the support.json this check may just have replaced.
+                if (r.supportUpdated && currentTab == TAB_HELP && contentHost != null) {
                     showTab(TAB_HELP);
                 }
                 if (!r.ok) {
@@ -577,31 +577,34 @@ public class SetupActivity extends Activity {
 
     // GeneralsX @feature Android port 03/10/2026 README "Support the project", in the launcher.
     // On the Help page, next to the version, rather than on Home: Home is for getting into the game,
-    // and nothing here should stand between a player and the Play button. The entries come from the
-    // signed settings (SupportLinks), so the list is changed by publishing settings, not an APK.
+    // and nothing here should stand between a player and the Play button. Text, languages and
+    // entries all come from the published support.json (SupportLinks), none from this APK.
     private void buildSupportSection(LinearLayout page) {
-        java.util.List<SupportLinks.Entry> entries = SupportLinks.load(this);
-        if (entries.isEmpty()) {
+        SupportLinks support = SupportLinks.load(this);
+        if (support == null) {
             return;
         }
         LinearLayout card = UiKit.card(page);
-        UiKit.sectionHeader(card, R.drawable.ic_gzh_heart,
-            getString(R.string.support_card_title), false);
-        UiKit.supporting(card, getString(R.string.support_card_body));
-        for (SupportLinks.Entry e : entries) {
+        UiKit.sectionHeader(card, R.drawable.ic_gzh_heart, support.title, false);
+        if (!support.body.isEmpty()) {
+            UiKit.supporting(card, support.body);
+        }
+        for (SupportLinks.Entry e : support.entries) {
             if (e.isLink()) {
                 UiKit.listRow(card, R.drawable.ic_gzh_globe, e.label,
                     e.value, () -> openSupportLink(e.value));
             } else {
                 UiKit.listRow(card, R.drawable.ic_gzh_copy, e.label,
-                    e.value + "\n" + getString(R.string.support_row_copy_hint),
-                    () -> copySupportAddress(e.label, e.value));
+                    support.copyHint.isEmpty() ? e.value : e.value + "\n" + support.copyHint,
+                    () -> copySupportAddress(e.label, e.value, support.copied));
             }
         }
-        UiKit.helpText(card, getString(R.string.support_card_warning));
+        if (!support.warning.isEmpty()) {
+            UiKit.helpText(card, support.warning);
+        }
     }
 
-    private void copySupportAddress(String label, String value) {
+    private void copySupportAddress(String label, String value, String copiedText) {
         android.content.ClipboardManager clipboard =
             (android.content.ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
         if (clipboard == null) {
@@ -610,7 +613,7 @@ public class SetupActivity extends Activity {
         clipboard.setPrimaryClip(android.content.ClipData.newPlainText(label, value));
         // Android 13 and newer confirm a copy themselves; a second toast would only repeat it.
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
-            toast(getString(R.string.support_copied, label));
+            toast(copiedText.isEmpty() ? value : copiedText.replace("%s", label));
         }
     }
 

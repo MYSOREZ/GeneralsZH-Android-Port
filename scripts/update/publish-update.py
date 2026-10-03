@@ -5,6 +5,8 @@
 # Produces, in --out, exactly what the `updates` branch holds:
 #   manifest.json        what the launcher reads (config, optional engine)
 #   manifest.json.sig    base64 ECDSA-P256/SHA-256 signature of manifest.json's bytes
+#   support.json         the launcher's "Support the project" card (with --support; its SHA-256
+#                        is in the manifest, so the manifest's signature covers it)
 #   engine/<seq>/libmain.so.gz, libmain60.so.gz   (with --apk)
 #
 # The engine entry names the SHA-256 of every other native library in the APK
@@ -32,6 +34,8 @@ def current_serial():
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--config", default=os.path.join(os.path.dirname(__file__), "..", "..", "update", "config.json"))
+    ap.add_argument("--support", default=os.path.join(os.path.dirname(__file__), "..", "..", "update", "support.json"),
+                    help="the support card's file; a missing file withdraws the card")
     ap.add_argument("--apk", help="APK whose engine to publish; omit for a settings-only update")
     ap.add_argument("--key", help="PEM private key (never commit it); omit to leave signing to the Sign update workflow")
     ap.add_argument("--out", required=True)
@@ -48,6 +52,16 @@ def main():
         manifest["note"] = a.note
     with open(a.config, encoding="utf-8") as f:
         manifest["config"] = json.load(f)
+
+    if os.path.isfile(a.support):
+        with open(a.support, "rb") as f:
+            data = f.read()
+        doc = json.loads(data.decode("utf-8"))
+        if not doc.get("entries") or "en" not in doc.get("text", {}):
+            sys.exit("support.json needs entries and an \"en\" text (the fallback language)")
+        with open(os.path.join(a.out, "support.json"), "wb") as f:
+            f.write(data)
+        manifest["support"] = {"url": BASE_URL + "support.json", "sha256": sha256(data), "size": len(data)}
 
     if a.apk:
         with zipfile.ZipFile(a.apk) as z:
