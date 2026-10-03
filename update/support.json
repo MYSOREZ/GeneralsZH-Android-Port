@@ -95,6 +95,24 @@
   },
   "entries": [
     {
+      "label": {
+        "en": "Boosty — bank card",
+        "ru": "Boosty — банковская карта",
+        "uk": "Boosty — банківська картка",
+        "de": "Boosty — Bankkarte",
+        "es": "Boosty — tarjeta bancaria",
+        "fr": "Boosty — carte bancaire",
+        "pl": "Boosty — karta płatnicza",
+        "pt-BR": "Boosty — cartão bancário",
+        "isv": "Boosty — bankova karta",
+        "zh": "Boosty — 银行卡",
+        "ko": "Boosty — 은행 카드",
+        "ar": "Boosty — بطاقة مصرفية",
+        "fa": "Boosty — کارت بانکی"
+      },
+      "value": "https://boosty.to/antikeks_m/donate"
+    },
+    {
       "label": "USDT — TRON (TRC20)",
       "value": "TAQHCF733ovKpvBjUgvkE6wHxkntnKZ6br"
     },

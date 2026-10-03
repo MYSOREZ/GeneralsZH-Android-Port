@@ -239,6 +239,9 @@ This port is developed with [Claude Code](https://claude.com/claude-code) (Anthr
 and the subscription is paid out of pocket. If the port is useful to you and you'd like to help
 keep it going, donations are welcome — they go to that subscription.
 
+**[Boosty](https://boosty.to/antikeks_m/donate)** takes a bank card, from Russia and from abroad
+(the amount is shown in your currency and converted automatically). Or send USDT:
+
 | Currency and network | Address |
 |---|---|
 | **USDT — TRON (TRC20)** | `TAQHCF733ovKpvBjUgvkE6wHxkntnKZ6br` |
