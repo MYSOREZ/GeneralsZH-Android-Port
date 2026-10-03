@@ -78,6 +78,13 @@ final class DataPackInstaller {
      */
     static String manifestUrl(Context ctx) {
         String url = UpdateManager.remoteConfig(ctx, "datapack_manifest_url", MANIFEST_URL);
+        // GeneralsX @bugfix Android port 03/10/2026 A copy on the updates branch is published for
+        // launchers up to 1.3.0, which compare the CDN's sha256 untrimmed (it starts with a space)
+        // and so fail every install with "checksum mismatch". This launcher trims it, and the copy
+        // is only as current as the last settings publish, so it reads the CDN itself.
+        if (url.startsWith(UpdateManager.BASE_URL)) {
+            return MANIFEST_URL;
+        }
         return url.startsWith("https://") ? url : MANIFEST_URL;
     }
 

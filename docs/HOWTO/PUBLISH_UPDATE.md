@@ -17,6 +17,14 @@ screen; the engine is downloaded only by the Home check.
   newer one on Wi-Fi; the Updates card only says when a newer one is out. It also computes the PC checksum
   from the PC executable inside that patch, and that number wins over `pc_exe_crc`, so a new PC
   release normally needs nothing published at all; `pc_exe_crc` covers players without the patch.
+- **Data package manifest mirror**: while `datapack_manifest_url` points at the updates branch
+  (`.../updates/datapack-manifest.json`), `publish-update.py` copies the GeneralsOnline CDN manifest
+  there with its fields trimmed -- the CDN's `sha256` starts with a space, and launchers up to 1.3.0
+  compare it untrimmed, failing every install with "checksum mismatch". The script downloads the
+  package and refuses to publish unless the trimmed digest and size match it. Newer launchers ignore
+  a mirror address and read the CDN themselves. The mirror is as current as the last publish: after
+  a new GeneralsOnline release, publish settings again so 1.3.0 players see it. Point the key back at
+  `https://cdn.playgenerals.online/manifest.json` once the CDN fixes the digest.
 - **Support card** (launchers built from 03/10/2026 on): the Help page's "Support the project"
   card comes entirely from `update/support.json` -- its text in every language, and the
   addresses/links. `publish-update.py` copies the file next to the manifest and writes its
