@@ -1169,7 +1169,14 @@ static void gxCatchUpSpedUpLogic()
 #else
 	const Int normalFps = BaseFps;
 #endif
-	const Bool applies = TheNetwork == nullptr && TheGameLogic->isInGame() && !TheGameLogic->isGamePaused()
+	// GeneralsX @bugfix Android port 03/10/2026 Only a game the player is playing: skirmish or
+	// campaign. A replay plays at its own speed, and catching up inside playback broke the replay
+	// check -- Global_War2.rep, which matched the PC on all 1946 checkpoints on 29/09, mismatched
+	// from the first one on the 02/10 builds (the recorded 60 fps limit is doubled for the 60 Hz
+	// engine, which is above normal, so playback qualified).
+	const Bool playingAGame = (TheGameLogic->isInSkirmishGame() || TheGameLogic->isInSinglePlayerGame())
+		&& !TheGameLogic->isInReplayGame() && (TheRecorder == nullptr || !TheRecorder->isPlaybackMode());
+	const Bool applies = TheNetwork == nullptr && playingAGame && TheGameLogic->isInGame() && !TheGameLogic->isGamePaused()
 		&& TheShell != nullptr && !TheShell->isShellActive()
 		&& !TheFramePacer->isTimeFrozen() && !TheFramePacer->isGameHalted()
 		&& TheFramePacer->isActualFramesPerSecondLimitEnabled()
@@ -1187,7 +1194,12 @@ static void gxCatchUpSpedUpLogic()
 	Int extra = 0;
 	while (s_debt >= 1.0 && extra < 3 && std::chrono::steady_clock::now() < until)
 	{
+		// The same steps as a regular frame's logic update (canUpdateGameLogic's preUpdate
+		// clears the per-render-frame flag and applies a scheduled pause).
 		TheMessageStream->propagateMessages();
+		TheGameLogic->preUpdate();
+		if (TheGameLogic->isGamePaused())
+			break;
 		TheGameLogic->UPDATE();
 		TheGameClient->step();
 		s_debt -= 1.0;
