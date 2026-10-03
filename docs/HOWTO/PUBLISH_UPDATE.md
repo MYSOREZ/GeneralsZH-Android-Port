@@ -27,7 +27,8 @@ screen; the engine is downloaded only by the Home check.
   `https://cdn.playgenerals.online/manifest.json` once the CDN fixes the digest.
 - **Support card** (launchers built from 03/10/2026 on): the Help page's "Support the project"
   card comes entirely from `update/support.json` -- its text in every language, and the
-  addresses/links. `publish-update.py` copies the file next to the manifest and writes its
+  addresses/links. `publish-update.py` copies the file to `support/<digest>.json` (a new name for every content, so
+  GitHub's five-minute per-file cache cannot pair a new manifest with the old file) and writes its
   SHA-256 into the signed manifest, so it is as trusted as the manifest. Nothing of it is in the
   APK, so a new or retired address, a reworded text, or a language added or dropped is just a
   settings publish. Format: `text` maps a language tag (`en`, `ru`, `pt-BR`, `isv`, ...) to

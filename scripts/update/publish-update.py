@@ -8,7 +8,7 @@
 #   datapack-manifest.json  when config's datapack_manifest_url points at the updates branch: the
 #                        GeneralsOnline CDN manifest with its fields trimmed, for launchers up to
 #                        1.3.0 that fail on the CDN's " 0E45..." sha256 (newer ones read the CDN)
-#   support.json         the launcher's "Support the project" card (with --support; its SHA-256
+#   support/<sha>.json   the launcher's "Support the project" card (with --support; its SHA-256
 #                        is in the manifest, so the manifest's signature covers it)
 #   engine/<seq>/libmain.so.gz, libmain60.so.gz   (with --apk)
 #
@@ -96,9 +96,14 @@ def main():
         doc = json.loads(data.decode("utf-8"))
         if not doc.get("entries") or "en" not in doc.get("text", {}):
             sys.exit("support.json needs entries and an \"en\" text (the fallback language)")
-        with open(os.path.join(a.out, "support.json"), "wb") as f:
+        # Named by its digest, like the engine files by seq: raw.githubusercontent caches every
+        # path for five minutes on its own, so a fixed name could pair a fresh manifest with the
+        # previous file, which the launcher then (rightly) refuses -- and keeps the old card.
+        rel = "support/%s.json" % sha256(data)[:16]
+        os.makedirs(os.path.join(a.out, "support"), exist_ok=True)
+        with open(os.path.join(a.out, rel), "wb") as f:
             f.write(data)
-        manifest["support"] = {"url": BASE_URL + "support.json", "sha256": sha256(data), "size": len(data)}
+        manifest["support"] = {"url": BASE_URL + rel, "sha256": sha256(data), "size": len(data)}
 
     if a.apk:
         with zipfile.ZipFile(a.apk) as z:
