@@ -101,18 +101,33 @@ else
     RID="$(json 'print(d["id"])')"
 fi
 
-# 3. The APK: whatever the release held before goes (a test release holds one build; a release
-#    being re-published replaces its APK), then the APK is uploaded.
+# 3. The APK. A release must never stand empty while players are looking at it, so:
+#    - an asset with the same name and size is the same build (republishing notes): kept as is;
+#    - otherwise the new APK goes up first, and only then are the other assets removed. An asset
+#      with the same name but another size has to go first (names are unique in a release).
+LOCAL_SIZE="$(stat -c %s "${APK}")"
 code="$(api GET "/releases/${RID}/assets")"
-if [ "${code}" = 200 ]; then
-    for AID in $(json 'print(" ".join(str(a["id"]) for a in d))'); do
-        api DELETE "/releases/${RID}/assets/${AID}" > /dev/null
-    done
+EXISTING="[]"
+[ "${code}" = 200 ] && EXISTING="$(cat "${WORK}/resp.json")"
+SAME_ID="$(python3 -c "import json,sys; d=json.loads(sys.argv[1]); m=[a for a in d if a['name']==sys.argv[2] and a['size']==int(sys.argv[3])]; print(m[0]['id'] if m else '')" "${EXISTING}" "${ASSET_NAME}" "${LOCAL_SIZE}")"
+if [ -n "${SAME_ID}" ]; then
+    KEEP_ID="${SAME_ID}"
+    printf '%s' "${EXISTING}" > "${WORK}/resp.json"
+    json "a=[x for x in d if x['id']==${KEEP_ID}][0]; print(a['browser_download_url'])" > "${WORK}/link.txt"
+else
+    CLASH_ID="$(python3 -c "import json,sys; d=json.loads(sys.argv[1]); m=[a for a in d if a['name']==sys.argv[2]]; print(m[0]['id'] if m else '')" "${EXISTING}" "${ASSET_NAME}")"
+    [ -n "${CLASH_ID}" ] && api DELETE "/releases/${RID}/assets/${CLASH_ID}" > /dev/null
+    code="$(api POST "/releases/${RID}/assets?name=${ASSET_NAME}" \
+        -F "attachment=@${APK};type=application/vnd.android.package-archive")"
+    [ "${code}" = 201 ] || { echo "uploading ${ASSET_NAME} failed: HTTP ${code}"; cat "${WORK}/resp.json"; exit 1; }
+    [ "$(json 'print(d["size"])')" = "${LOCAL_SIZE}" ] || { echo "uploaded size differs from ${APK}"; exit 1; }
+    KEEP_ID="$(json 'print(d["id"])')"
+    json 'print(d["browser_download_url"])' > "${WORK}/link.txt"
 fi
-code="$(api POST "/releases/${RID}/assets?name=${ASSET_NAME}" \
-    -F "attachment=@${APK};type=application/vnd.android.package-archive")"
-[ "${code}" = 201 ] || { echo "uploading ${ASSET_NAME} failed: HTTP ${code}"; cat "${WORK}/resp.json"; exit 1; }
-SIZE="$(json 'print(d["size"])')"
-[ "${SIZE}" = "$(stat -c %s "${APK}")" ] || { echo "uploaded size ${SIZE} differs from ${APK}"; exit 1; }
+for AID in $(python3 -c "import json,sys; print(' '.join(str(a['id']) for a in json.loads(sys.argv[1])))" "${EXISTING}"); do
+    [ "${AID}" = "${KEEP_ID}" ] || api DELETE "/releases/${RID}/assets/${AID}" > /dev/null
+done
 
-json 'print(d["browser_download_url"])'
+# The /api/attachments/<uuid> link: it serves the file to anyone. The release page's
+# /releases/download/<tag>/<name> form answers 404 to a visitor who is not signed in.
+cat "${WORK}/link.txt"
