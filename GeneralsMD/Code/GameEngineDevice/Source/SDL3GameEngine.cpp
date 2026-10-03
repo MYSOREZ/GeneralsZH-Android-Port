@@ -2646,12 +2646,17 @@ void SDL3GameEngine::updateTextInputState(void)
 	// and delete -- see AndroidTextEditor.h. Same rule as below for when it may open: a
 	// deliberate tap on the field. A field that takes focus while the bar is shown (Tab, a
 	// screen replacing another) takes the bar over.
-	if (m_PendingTextInputRearmFrames > 0 ||
-			(AndroidTextEditor::field() != nullptr && AndroidTextEditor::field() != focusedWindow)) {
-		AndroidTextEditor::open(focusedWindow);
-		m_PendingTextInputRearmFrames = 0;
+	const Bool retarget = AndroidTextEditor::field() != nullptr && AndroidTextEditor::field() != focusedWindow;
+	if (m_PendingTextInputRearmFrames > 0 || retarget) {
+		if (AndroidTextEditor::open(focusedWindow)) {
+			m_PendingTextInputRearmFrames = 0;
+			return;
+		}
+		// No bar in this launcher (an older APK running an engine updated over the air): SDL's
+		// own text input below, as before.
 	}
-#elif defined(SAGE_MOBILE_PLATFORM)
+#endif
+#if defined(SAGE_MOBILE_PLATFORM)
 	// GeneralsX @bugfix Android port 11/07/2026 - Only (re)open the on-screen keyboard
 	// in direct response to a recent, deliberate tap (m_PendingTextInputRearmFrames),
 	// never just because a field happens to be focused -- e.g. a screen's default

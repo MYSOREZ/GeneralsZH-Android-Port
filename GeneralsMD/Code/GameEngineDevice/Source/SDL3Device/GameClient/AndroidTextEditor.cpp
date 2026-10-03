@@ -148,10 +148,10 @@ namespace
 	}
 }
 
-void AndroidTextEditor::open(GameWindow* field)
+bool AndroidTextEditor::open(GameWindow* field)
 {
 	if (!isEntryField(field) || TheWindowManager == nullptr)
-		return;
+		return false;
 
 	const EntryData* entry = static_cast<const EntryData*>(field->winGetUserData());
 	const UnicodeString current = GadgetTextEntryGetText(field);
@@ -170,14 +170,14 @@ void AndroidTextEditor::open(GameWindow* field)
 
 	JNIEnv* jni = static_cast<JNIEnv*>(SDL_GetAndroidJNIEnv());
 	if (jni == nullptr)
-		return;
+		return false;
 	std::vector<jchar> units;
 	units.reserve(current.getLength());
 	for (Int i = 0; i < current.getLength(); ++i)
 		units.push_back(static_cast<jchar>(current.getCharAt(i)));
 	jstring initial = jni->NewString(units.data(), static_cast<jsize>(units.size()));
 	if (initial == nullptr)
-		return;
+		return false;
 
 	++s_serial;
 	jvalue args[4];
@@ -185,9 +185,11 @@ void AndroidTextEditor::open(GameWindow* field)
 	args[1].i = maxLength;
 	args[2].i = flags;
 	args[3].i = s_serial;
-	if (callActivity("showTextEditor", "(Ljava/lang/String;III)V", args))
+	const bool shown = callActivity("showTextEditor", "(Ljava/lang/String;III)V", args);
+	if (shown)
 		s_field = field;
 	jni->DeleteLocalRef(initial);
+	return shown;
 }
 
 void AndroidTextEditor::close()
@@ -241,7 +243,7 @@ Java_com_generalsx_zerohour_GeneralsZHActivity_nativeTextEditorDone(JNIEnv* env,
 
 #else
 
-void AndroidTextEditor::open(GameWindow*) {}
+bool AndroidTextEditor::open(GameWindow*) { return false; }
 void AndroidTextEditor::close() {}
 GameWindow* AndroidTextEditor::field() { return nullptr; }
 void AndroidTextEditor::pump() {}

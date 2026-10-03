@@ -46,7 +46,9 @@ class GameWindow;
 namespace AndroidTextEditor
 {
 	/// Show the bar for this entry field (or retarget it when another field took focus).
-	void open(GameWindow* field);
+	/// False when the launcher has no bar (an APK older than this engine, updated over the air):
+	/// the caller then falls back to SDL's own text input.
+	bool open(GameWindow* field);
 	/// Hide the bar if it is shown.
 	void close();
 	/// The field the bar currently edits, or nullptr.

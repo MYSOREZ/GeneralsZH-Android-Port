@@ -1229,26 +1229,45 @@ static Bool pcExeCrcFromDataPack(UnsignedInt &out)
 // at the first checkpoint. No package, or one from before the launcher checked: unchanged.
 static void logicCRCRevisionFromDataPack()
 {
+	const char* source = nullptr;
+	Bool tagged = TRUE;
+
 	const std::string dir = GXRemoteConfig::updateDirPath();
-	if (dir.empty())
-		return;
-	FILE *f = fopen((dir + "/pc_exe_crc_seed.txt").c_str(), "r");
-	if (f == nullptr)
-		return;
-	char line[128];
-	while (fgets(line, sizeof(line), f) != nullptr)
+	if (!dir.empty())
 	{
-		if (strncmp(line, "crc_revision=", 13) == 0)
+		if (FILE *f = fopen((dir + "/pc_exe_crc_seed.txt").c_str(), "r"))
 		{
-			const Bool tagged = line[13] == '1';
-			GameLogic::setDefaultLogicCRCRevision(tagged ? (UnsignedInt)GameLogic::GO_LOGIC_CRC_REVISION : 0u);
-			fprintf(stderr, "[GX-CRC] logic CRC revision tag %s (the data package's PC release %s it)\n",
-				tagged ? "on" : "off", tagged ? "writes" : "does not write");
-			fflush(stderr);
-			break;
+			char line[128];
+			while (fgets(line, sizeof(line), f) != nullptr)
+			{
+				if (strncmp(line, "crc_revision=", 13) == 0)
+				{
+					tagged = line[13] == '1';
+					source = "the data package's PC executable";
+					break;
+				}
+			}
+			fclose(f);
 		}
 	}
-	fclose(f);
+
+	// A launcher older than this engine (an engine updated over the air) never records it: the
+	// signed update settings say what the current PC release does instead.
+	if (source == nullptr)
+	{
+		const std::string fromSettings = GXRemoteConfig::get("logic_crc_revision", "");
+		if (!fromSettings.empty())
+		{
+			tagged = fromSettings[0] == '1';
+			source = "the update settings";
+		}
+	}
+
+	if (source == nullptr)
+		return;
+	GameLogic::setDefaultLogicCRCRevision(tagged ? (UnsignedInt)GameLogic::GO_LOGIC_CRC_REVISION : 0u);
+	fprintf(stderr, "[GX-CRC] logic CRC revision tag %s (from %s)\n", tagged ? "on" : "off", source);
+	fflush(stderr);
 }
 
 //-------------------------------------------------------------------------------------------------

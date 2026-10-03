@@ -8,7 +8,10 @@ screen; the engine is downloaded only by the Home check.
 - **Settings** (`update/config.json` in the main tree): values the engine reads at startup. Today
   the STUN and TURN server lists (`stun_servers`, `turn_servers`), the PC client checksum for
   cross-play (`pc_exe_crc`, computed with `scripts/update/pc-exe-crc.py`) and the community data
-  patch manifest address (`datapack_manifest_url`). A missing key keeps the value built in.
+  patch manifest address (`datapack_manifest_url`), and whether the current PC release ends its
+  logic checksum with the GeneralsOnline revision tag (`logic_crc_revision`, `1`/`0`; 100126 does
+  not -- used only when the launcher has not read it from the data package's PC executable).
+  A missing key keeps the value built in.
   The community data patch itself comes from that manifest and is updated on the multiplayer
   screen (GeneralsOnline account → Online game data), which checks it by itself and installs a
   newer one on Wi-Fi; the Updates card only says when a newer one is out. It also computes the PC checksum
