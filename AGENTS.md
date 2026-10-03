@@ -89,8 +89,8 @@ Work and push on the diagnostics branch (`claude/network-diagnostics`), never di
 repository owner says so.
 
 If `GITVERSE_TOKEN` and `GITVERSE_REPO` are set, also mirror the APK to GitVerse for testers who
-cannot reach GitHub: `./scripts/build/android/publish-apk-gitverse.sh apk/<name>.apk` (one commit on
-the `apk` branch as a `.zip` holding the APK, replaced each time; prints the direct link). Give both links.
+cannot reach GitHub: `./scripts/build/android/publish-apk-gitverse.sh apk/<name>.apk` (the bare APK
+in the rolling pre-release `test-build`, replaced each time; prints the direct link). Give both links.
 
 Keep only the current build in `apk/`: `git rm` the previous APK when adding a new one. Every
 APK is ~60 MB of permanent git history.
@@ -101,7 +101,9 @@ APK is ~60 MB of permanent git history.
 `android/app/build.gradle`, build with `build-dual-hz.sh`, commit the APK as the one file in `apk/`
 and the notes (plus the symbol tables of both engines) under `docs/releases/v<version>/`, push to
 `main`, then run `Actions → Publish Android Release` with the version. It builds nothing, so it
-costs seconds.
+costs seconds. Then duplicate the release on GitVerse -- same title, notes and APK:
+`./scripts/build/android/publish-apk-gitverse.sh --release <version>`, and give its page
+(`https://gitverse.ru/<GITVERSE_REPO>/releases/tag/v<version>`) next to the GitHub one.
 
 CI (`Actions tab → Build Android → Run workflow`) still exists for release
 artifacts and the symbol bundle. For a local build's prerequisites see
