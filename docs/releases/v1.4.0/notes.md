@@ -1,31 +1,43 @@
 ## Highlights
 
-### Faster on OpenGL ES
+**1.4.0 is about speed and fit:** a much faster OpenGL ES renderer, **upscaling** that renders the battlefield
+below screen resolution while the interface stays sharp, and an **interface size** setting that makes menus and
+buttons larger on small screens. Both settings are in the launcher:
+
+| Setting | Where in the launcher |
+|---|---|
+| **Upscaling (Snapdragon GSR)** | **Graphics** page (shown with the OpenGL ES backends; Vulkan does not use it) |
+| **Interface Size** | **Interface** page |
+
+### Performance: a faster OpenGL ES renderer
 
 The native OpenGL ES renderer (the default) got most of the work in this release:
 
 - **Its own render thread.** The game no longer waits on the graphics driver for every draw: GL calls are
   queued and run on a separate thread.
 - **Dynamic geometry streamed the way the driver expects** -- persistently mapped buffers, index data written
-  into never-reused memory (this also fixes flicker on Mali), fewer GL calls per draw, base-vertex draws and a
-  shader program cache.
+  into never-reused memory, fewer GL calls per draw, base-vertex draws and a shader program cache.
 - **Cheaper translucent effects, sounds and file lookups**: particle and model draws with the same state are
   merged, `.wav` sounds are decoded natively instead of through FFmpeg, and the sound cache no longer drops
   sounds still in use.
 
-On the old Mali test phone, heavy battles went from about 23 to about 35 fps.
+**On the old Mali test phone, heavy battles went from about 23 to about 35 fps** -- before upscaling, which adds
+on top of that.
 
-### Upscaler (OpenGL ES)
+### Upscaling: more frames, sharp interface
 
-**Launcher → Graphics → Upscaling (Snapdragon GSR).** The 3D scene can be rendered below the screen's resolution and scaled up
-(Ultra Quality / Quality / Balanced / Performance), while the interface and text stay at full resolution. On a phone
-whose GPU is the limit this is the biggest single gain. Not available with Vulkan.
+**Launcher → Graphics → Upscaling (Snapdragon GSR).** The 3D battlefield is rendered at a lower resolution and
+sharpened back to full screen with Snapdragon Game Super Resolution; menus, the command bar and text are drawn at
+full resolution afterwards, so they stay crisp. Four modes, as on PC: **Ultra Quality**, **Quality**, **Balanced**,
+**Performance** -- the launcher shows the resolution each one renders at. On a phone whose GPU is the limit this
+is the biggest single gain. Works with *OpenGL ES* and *OpenGL ES + ANGLE*; with *Vulkan* the option is hidden.
 
-### Interface size
+### Interface size: bigger buttons on small screens
 
-**Launcher → Interface → Interface Size.** Menus, the command bar, the generals' power bar, the group panel
-and the corner HUD can be made larger for small screens. Layouts are scaled as they load, so buttons really
-grow -- not just the picture.
+**Launcher → Interface → Interface Size.** Menus, the command bar, the generals' power bar, the group panel and
+the corner HUD can be made larger. The layouts themselves are scaled as they load, so buttons really grow --
+larger touch targets, not just a larger picture -- and the main menu, emblems and power bar are kept inside the
+screen at every size.
 
 ### Typing in the game: a real Android text field
 
