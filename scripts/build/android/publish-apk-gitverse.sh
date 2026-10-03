@@ -1,17 +1,15 @@
 #!/usr/bin/env bash
-# Mirror APKs to GitVerse, for players who cannot reach GitHub -- as GitVerse releases.
+# Mirror APKs to GitVerse, for players who cannot reach GitHub.
 #
-#   publish-apk-gitverse.sh apk/<name>.apk     test build: the rolling pre-release "test-build"
-#                                              holds exactly this APK (the previous one is removed)
-#   publish-apk-gitverse.sh --release <ver>    duplicate the GitHub release v<ver>: same title,
-#                                              notes (docs/releases/v<ver>/notes.md) and APK
-#                                              (the one file in apk/)
+#   publish-apk-gitverse.sh apk/<name>.apk     test build: the branch "apk" holds exactly this
+#                                              APK (one commit, replaced each time, so old
+#                                              builds never pile up in its history)
+#   publish-apk-gitverse.sh --release <ver>    duplicate the GitHub release v<ver> as a GitVerse
+#                                              release: same title, notes
+#                                              (docs/releases/v<ver>/notes.md) and APK (the one
+#                                              file in apk/)
 #
-# Prints the direct download link of the uploaded APK.
-#
-# Release assets are served from /api/attachments/<uuid> as the real file, so the APK goes up
-# bare. (This script used to push a .zip to an "apk" branch: GitVerse's raw-file endpoint sits
-# behind a bot filter, and phone browsers saved a broken .apk from it.)
+# Prints the direct download link of the APK.
 #
 # Needs GITVERSE_TOKEN (personal access token with write access to the repository) and
 # GITVERSE_REPO (owner/name). The token travels only in request headers, never in a URL, a git
@@ -43,11 +41,26 @@ if [ "${1:-}" = "--release" ]; then
 else
     APK="${1:?usage: $0 apk/<name>.apk | --release <version>}"
     [ -f "${APK}" ] || { echo "no such file: ${APK}"; exit 1; }
-    TAG="test-build"
-    ASSET_NAME="$(basename "${APK}")"
-    TITLE="Test build: ${ASSET_NAME%.apk}"
-    NOTES=""
-    PRERELEASE=true
+    # Test builds: one commit on the branch "apk" holding the bare APK, pushed over the last one.
+    BRANCH="${GITVERSE_BRANCH:-apk}"
+    NAME="$(basename "${APK}")"
+    WORK="$(mktemp -d)"
+    trap 'rm -rf "${WORK}"' EXIT
+    git -C "${WORK}" init -q -b "${BRANCH}"
+    cp "${APK}" "${WORK}/${NAME}"
+    printf 'Current GeneralsXZH Android test build: %s\n' "${NAME}" > "${WORK}/README.md"
+    git -C "${WORK}" add "${NAME}" README.md
+    git -C "${WORK}" -c user.name="GeneralsXZH build" -c user.email="noreply@example.invalid" \
+        commit -q -m "APK: ${NAME}"
+    AUTH="$(printf '%s:%s' "${OWNER}" "${GITVERSE_TOKEN}" | base64 -w0)"
+    for i in 1 2 3 4; do
+        GIT_TERMINAL_PROMPT=0 git -C "${WORK}" -c http.extraHeader="Authorization: Basic ${AUTH}" \
+            -c http.postBuffer=157286400 push -q --force "${GIT_URL}" "${BRANCH}:${BRANCH}" && break
+        [ "${i}" = 4 ] && { echo "push to GitVerse failed"; exit 1; }
+        sleep $((i * 5))
+    done
+    echo "https://gitverse.ru/api/repos/${GITVERSE_REPO}/raw/branch/${BRANCH}/${NAME}"
+    exit 0
 fi
 
 WORK="$(mktemp -d)"

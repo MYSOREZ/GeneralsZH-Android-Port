@@ -89,8 +89,9 @@ Work and push on the diagnostics branch (`claude/network-diagnostics`), never di
 repository owner says so.
 
 If `GITVERSE_TOKEN` and `GITVERSE_REPO` are set, also mirror the APK to GitVerse for testers who
-cannot reach GitHub: `./scripts/build/android/publish-apk-gitverse.sh apk/<name>.apk` (the bare APK
-in the rolling pre-release `test-build`, replaced each time; prints the direct link). Give both links.
+cannot reach GitHub: `./scripts/build/android/publish-apk-gitverse.sh apk/<name>.apk` (the bare APK, no
+zip, as one commit on the `apk` branch, replaced each time; prints the direct link). Give both
+links. Test builds never become GitVerse releases -- only real releases do (below).
 
 Keep only the current build in `apk/`: `git rm` the previous APK when adding a new one. Every
 APK is ~60 MB of permanent git history.
