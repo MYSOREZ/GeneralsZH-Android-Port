@@ -137,6 +137,10 @@
 // GeneralsX @bugfix Android port 07/11/2026 - ported from upstream GeneralsOnline: request a delayed teardown of NGMP
 // online services, deferred to the next GameEngine::update() so it doesn't destroy the manager mid-callback.
 static bool g_bTearDownGeneralsOnlineRequested = false;
+static const wchar_t* const kGeneralsOnlineSignInAgain =
+	L"Your Generals Online sign-in could not be renewed: it expired, or the account signed in "
+	L"on another device. Sign in again under GeneralsOnline account in the launcher.";
+
 void TearDownGeneralsOnline()
 {
 	g_bTearDownGeneralsOnlineRequested = true;
@@ -166,8 +170,7 @@ void TearDownGeneralsOnline()
 		else if (teardownReason == EGOTearDownReason::AUTH_FAILED)
 		{
 			title = TheGameText->fetch("GUI:GSErrorTitle");
-			body = L"Your Generals Online sign-in could not be renewed: it expired, or the account signed in "
-				L"on another device. Sign in again under GeneralsOnline account in the launcher.";
+			body = kGeneralsOnlineSignInAgain;
 		}
 		else
 		{
@@ -180,6 +183,30 @@ void TearDownGeneralsOnline()
 		GameSpyCloseAllOverlays();
 		GSMessageBoxOk(title, body);
 	}
+}
+
+void MainMenuOnlineAborted();
+
+void AbortGeneralsOnlineStart(bool bAuth, const char* szDetail)
+{
+	if (NGMP_OnlineServicesManager::GetInstance() != nullptr)
+	{
+		NGMP_OnlineServicesManager::GetInstance()->SetPendingFullTeardown(EGOTearDownReason::USER_REQUESTED_SILENT);
+		TearDownGeneralsOnline();
+	}
+	MainMenuOnlineAborted();
+
+	UnicodeString body;
+	if (bAuth)
+	{
+		body = kGeneralsOnlineSignInAgain;
+	}
+	else
+	{
+		body.format(UnicodeString(L"Could not connect to GeneralsOnline (%hs)."), szDetail != nullptr ? szDetail : "");
+	}
+	ClearGSMessageBoxes();
+	GSMessageBoxOk(UnicodeString(L"GeneralsOnline"), body, nullptr);
 }
 
 //-------------------------------------------------------------------------------------------------

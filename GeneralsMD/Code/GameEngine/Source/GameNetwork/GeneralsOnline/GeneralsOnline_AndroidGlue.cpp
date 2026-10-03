@@ -11,6 +11,7 @@
 #include "GameNetwork/GeneralsOnline/OnlineServices_Auth.h"
 #include "GameNetwork/GameSpyOverlay.h"
 #include "GameClient/Shell.h"
+#include "Common/GameEngine.h"
 #include <cstdlib>
 #include <string>
 
@@ -334,13 +335,24 @@ bool TryStartGeneralsOnline()
 
 	// GeneralsX @bugfix Android port 03/10/2026 The marker's session token can be close to its
 	// fifteen-minute expiry, or past it (the launcher's launch-time refresh failed, or the game sat
-	// in the main menu): renew it before connecting with it. The connect goes ahead either way --
-	// a renewal that fails for good tears the session down with its own message.
+	// in the main menu): renew it before connecting with it. If it cannot be renewed and is already
+	// dead, connecting would only be refused (HTTP 401 on the WebSocket upgrade): say so instead,
+	// and give the main menu back.
 	if (pAuthInterface != nullptr && pAuthInterface->SessionTokenExpiresWithin(60))
 	{
 		fprintf(stderr, "DEBUG-ONLINE: TryStartGeneralsOnline -- session token (nearly) expired, renewing first\n");
 		fflush(stderr);
-		pAuthInterface->RefreshToken([connect](bool) { connect(); });
+		pAuthInterface->RefreshToken([connect, pAuthInterface](bool bRenewed)
+			{
+				if (!bRenewed && pAuthInterface->SessionTokenExpiresWithin(0))
+				{
+					fprintf(stderr, "DEBUG-ONLINE: TryStartGeneralsOnline -- session could not be renewed, not connecting\n");
+					fflush(stderr);
+					AbortGeneralsOnlineStart(true, nullptr);
+					return;
+				}
+				connect();
+			});
 	}
 	else
 	{

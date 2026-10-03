@@ -56,6 +56,12 @@ class ParticleSystemManager;
 // GeneralsX @bugfix Android port 07/11/2026 - ported from upstream GeneralsOnline, requests a delayed teardown of the NGMP online services
 void TearDownGeneralsOnline();
 
+// GeneralsX @bugfix Android port 03/10/2026 Ends a GeneralsOnline start that failed before any
+// online menu was shown: the online services are torn down (so the next press of Online starts
+// clean), the main menu gets its buttons back, and the player is told why. bAuth: the server
+// refused the sign-in (expired or replaced), as opposed to the connection failing.
+void AbortGeneralsOnlineStart(bool bAuth, const char* szDetail);
+
 class GameEngine : public SubsystemInterface
 {
 public:

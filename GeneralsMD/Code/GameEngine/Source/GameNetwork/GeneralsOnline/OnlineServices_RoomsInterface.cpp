@@ -23,6 +23,7 @@
 #include "GameNetwork/GeneralsOnline/HTTP/HTTPManager.h"
 #include "GameNetwork/GameSpy/PeerDefs.h"
 #include "GameNetwork/GameSpyOverlay.h"
+#include "Common/GameEngine.h"
 
 
 WebSocket::WebSocket()
@@ -98,8 +99,12 @@ void WebSocket::Connect(const char* url, bool bIsReconnect, std::function<void(v
 		// crash. Same fix applied to the other two int/long curl mismatches
 		// this module had (Tick() below, HTTPRequest.cpp's m_responseCode).
 		long httpResponseCode = -1;
-		m_strWebsocketAddr = std::string(url);
-		curl_easy_setopt(m_pCurlWS, CURLOPT_URL, url);
+		// GeneralsX @bugfix Android port 03/10/2026 A retry passes m_strWebsocketAddr.c_str() as url,
+		// and the assignment below freed that buffer before curl read it: the last retry of a failed
+		// connect went out as "URL using bad/illegal format or missing URL". Copy first, use the copy.
+		std::string strUrl(url);
+		m_strWebsocketAddr = strUrl;
+		curl_easy_setopt(m_pCurlWS, CURLOPT_URL, m_strWebsocketAddr.c_str());
 
 		curl_easy_getinfo(m_pCurlWS, CURLINFO_RESPONSE_CODE, &httpResponseCode);
 
@@ -583,8 +588,7 @@ void WebSocket::Tick()
                         }
                         else // give up for real
                         {
-                            NetworkLog(ELogVerbosity::LOG_RELEASE, "Going to teardown (initial connect)");
-                            NGMP_OnlineServicesManager::GetInstance()->SetPendingFullTeardown(EGOTearDownReason::LOST_CONNECTION);
+                            NetworkLog(ELogVerbosity::LOG_RELEASE, "Going to teardown (initial connect, HTTP %ld)", httpResponseCode);
                             m_bConnected = false;
                             m_vecWSPartialBuffer.clear();
 
@@ -599,10 +603,14 @@ void WebSocket::Tick()
                             // (see above), so without this the "Connecting..."
                             // box put up by GeneralsOnline_AndroidGlue.cpp
                             // would just sit there forever with no feedback.
-                            ClearGSMessageBoxes();
-                            UnicodeString msg;
-                            msg.format(UnicodeString(L"Could not connect to GeneralsOnline (%hs)."), curl_easy_strerror(m->data.result));
-                            GSMessageBoxOk(UnicodeString(L"GeneralsOnline"), msg, nullptr);
+                            //
+                            // GeneralsX @bugfix Android port 03/10/2026 ... and through
+                            // AbortGeneralsOnlineStart: the services are torn down and the
+                            // main menu gets its buttons back (they stayed hidden, and only
+                            // killing the game helped), and a refused sign-in (401/403 on
+                            // the upgrade) says so instead of quoting curl.
+                            AbortGeneralsOnlineStart(httpResponseCode == 401 || httpResponseCode == 403,
+                                curl_easy_strerror(m->data.result));
                         }
                     }
                     else

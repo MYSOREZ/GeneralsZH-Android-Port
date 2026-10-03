@@ -249,6 +249,22 @@ void HandleCanceledDownload( Bool resetDropDown )
 	}
 }
 
+// GeneralsX @bugfix Android port 03/10/2026 The Online button plays the menu's exit transition and
+// waits for the online menu to replace it. When the online start failed instead (no connection, a
+// sign-in the server refused), nothing brought the menu back: the player was left on the
+// background with no buttons and had to kill the game. Same reset as a cancelled patch download.
+void MainMenuOnlineAborted()
+{
+	if (isShuttingDown || dropDownWindows[DROPDOWN_MAIN] == nullptr)
+	{
+		return;
+	}
+	buttonPushed = FALSE;
+	dropDown = DROPDOWN_NONE;
+	dropDownWindows[DROPDOWN_MAIN]->winHide(FALSE);
+	TheTransitionHandler->setGroup("MainMenuDefaultMenuLogoFade");
+}
+
 //-------------------------------------------------------------------------------------------------
 /** This is called when a shutdown is complete for this menu */
 //-------------------------------------------------------------------------------------------------
