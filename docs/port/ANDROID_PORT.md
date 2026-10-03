@@ -248,14 +248,17 @@ The first configure builds vcpkg deps (ffmpeg, curl+openssl, freetype…) for
 
 ## 4. Game data and first run — the in-app Setup flow (no adb, no PC needed)
 
-No assets ship in the APK (2.7 GB, and they're the user's own). Installing
-the APK also installs a **second launcher icon, "GeneralsZH Setup"**
-(`SetupActivity`) — a standalone screen for everything that used to require
-`adb`:
+No assets ship in the APK (2.7 GB, and they're the user's own). The game's
+home-screen icon opens the launcher (`SetupActivity`): five pages behind a bottom
+navigation bar -- **Home** (game folder, Launch Game, GeneralsOnline Account, updates),
+**Graphics** (render backend, upscaling, Vulkan driver options), **Interface**
+(game and launcher language, menu text size, interface size), **Tools** (logs,
+network diagnostics, replay check, diagnostics switches) and **Help** (version,
+how it works, support the project). Everything that used to need `adb` is here:
 
-1. **Install the APK, then open "GeneralsZH Setup"** (not the game icon yet).
-2. Tap **Select Game Folder**. First time, Android will ask for the "All
-   files access" permission (`MANAGE_EXTERNAL_STORAGE`) — a normal system
+1. **Install the APK and open it.**
+2. On **Home**, tap **Select Game Folder**. First time, Android will ask for the
+   "All files access" permission (`MANAGE_EXTERNAL_STORAGE`) — a normal system
    permission screen, no root, no PC. Grant it, come back, tap the button
    again.
 3. A plain folder browser opens, starting at the device's internal storage
@@ -265,8 +268,10 @@ the APK also installs a **second launcher icon, "GeneralsZH Setup"**
    normal USB-cable "transfer files" connection, no special app needed — then
    navigate to it in the picker and tap **Use This Folder**. The picker
    flags a folder green once it sees `INIZH.big`/`INI.big`.
-4. Tap **Launch Game** (or go back to the regular game icon — both work; the
-   folder choice is saved).
+4. Tap **Launch Game** (the folder choice is saved).
+5. For online play: **Home → GeneralsOnline Account**, sign in (one account per
+   device -- the service keeps one active sign-in per account), and install the
+   **Online game data** there. The game renews the sign-in by itself while it runs.
 
 The engine reads the picked path from a marker file
 (`SDL3Main.cpp` chdir logic) written by Setup — no `adb push` into the
@@ -338,7 +343,10 @@ a file manager to create them by hand.
 `updates` branch, at launcher start (switchable) and on **Check for updates**:
 
 - **Settings** (`update/config.json`): written to `files/update/remote_config.ini`, read by the
-  engine through `Common/GXRemoteConfig.h`. Today the STUN and TURN lists.
+  engine through `Common/GXRemoteConfig.h` and by the launcher: the STUN and TURN lists, the PC
+  checksum and its revision-tag rule, and the community data package's manifest address.
+- **Support card** (`update/support.json`): the Help page's "Support the project" text, in every
+  language, and its addresses and links; its SHA-256 is in the signed manifest.
 - **Engine**: a newer `libmain.so`/`libmain60.so`, downloaded to the app's private storage and
   loaded by `GeneralsZHActivity.loadLibraries()` instead of the APK's, from the next game start.
 

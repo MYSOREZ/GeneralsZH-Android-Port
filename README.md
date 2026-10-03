@@ -72,10 +72,14 @@ here; their notes are in [docs/port/APPLE_PLATFORMS.md](docs/port/APPLE_PLATFORM
 | Video / cutscenes | ✅ Working (FFmpeg) |
 | Touch controls | ✅ Working — native touch, not mouse emulation (see [Touch controls](#touch-controls)) |
 | Online multiplayer (GeneralsOnline) | ✅ Working — real matches between real players, P2P transport |
-| Cross-play with PC (Windows) GeneralsOnline players | ✅ Working — new in 1.3.0; the PC player turns their anti-cheat off. If a match goes out of sync, send the logs and the replay |
+| Cross-play with PC (Windows) GeneralsOnline players | ✅ Working — since 1.3.0, against the current PC release (100126) since 1.4.0; the PC player turns their anti-cheat off. If a match goes out of sync, send the logs and the replay |
+| LAN games between phones | ✅ Working — on the same Wi-Fi network |
 | Game text languages | ✅ English plus 12 packs: Russian, Ukrainian, German, French, Spanish, Brazilian Portuguese, Polish, Interslavic, Simplified Chinese, Korean, Arabic, Persian — right-to-left layout and CJK glyphs included. [Add yours](languages/README.md) |
 | Updates without a new APK | ✅ Signed engine builds and network settings straight from this repository (Home → Updates) |
 | Simulation rate | ✅ 30 Hz (retail) or 60 Hz, chosen in the launcher — the APK carries both engines |
+| Upscaling (OpenGL ES) | ✅ The 3D scene rendered below screen resolution and sharpened back (Snapdragon GSR), interface at full resolution — Launcher → Graphics |
+| Interface size | ✅ Larger menus, command bar and HUD for small screens — Launcher → Interface |
+| Text input | ✅ Chat, lobby names and passwords in an Android text field: cursor, selection, copy and paste |
 | Performance on Vulkan-1.1-only GPUs (Mali) | ⚠️ Playable, but CPU-bound — expect lower FPS and occasional freezes on weaker/older phones |
 
 - **Android**: primary target. Grab a prebuilt APK from
@@ -227,6 +231,10 @@ architecture, bring-up log): [docs/port/ANDROID_PORT.md](docs/port/ANDROID_PORT.
   `W3D.big`) are absent, most of the artwork has nowhere to come from. Setup
   lists any missing archive by name and can be pointed at a separate base-game
   folder.
+- One GeneralsOnline account per device: the service keeps one active sign-in per
+  account, so signing in on a second phone (or on the PC) with the same account signs
+  the first one out, and its game then asks you to sign in again. Use a separate
+  account on each device.
 - Cross-play with PC players is new. Both sides must compute the same game
   frame by frame, and the remaining differences are found from real matches:
   if a game against a PC goes out of sync, please send the launcher's logs
