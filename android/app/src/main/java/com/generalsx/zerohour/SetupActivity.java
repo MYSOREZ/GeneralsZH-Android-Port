@@ -594,9 +594,11 @@ public class SetupActivity extends Activity {
                 UiKit.listRow(card, R.drawable.ic_gzh_globe, e.label,
                     e.value, () -> openSupportLink(e.value));
             } else {
-                UiKit.listRow(card, R.drawable.ic_gzh_copy, e.label,
-                    support.copyHint.isEmpty() ? e.value : e.value + "\n" + support.copyHint,
-                    () -> copySupportAddress(e.label, e.value, support.copied));
+                final CharSequence idle = support.copyHint.isEmpty()
+                    ? e.value : e.value + "\n" + support.copyHint;
+                final UiKit.Row[] row = new UiKit.Row[1];
+                row[0] = UiKit.listRow(card, R.drawable.ic_gzh_copy, e.label, idle,
+                    () -> copySupportAddress(row[0], idle, e.label, e.value, support.copied));
             }
         }
         if (!support.warning.isEmpty()) {
@@ -604,17 +606,29 @@ public class SetupActivity extends Activity {
         }
     }
 
-    private void copySupportAddress(String label, String value, String copiedText) {
+    // GeneralsX @bugfix Android port 03/10/2026 The copy was silent: Android 13+ was trusted to
+    // confirm it, and several vendor builds show nothing. The row itself now says so for a moment
+    // (with a tick of haptics), and the toast is shown on every version.
+    private void copySupportAddress(UiKit.Row row, CharSequence idle, String label, String value,
+                                    String copiedText) {
         android.content.ClipboardManager clipboard =
             (android.content.ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
         if (clipboard == null) {
             return;
         }
         clipboard.setPrimaryClip(android.content.ClipData.newPlainText(label, value));
-        // Android 13 and newer confirm a copy themselves; a second toast would only repeat it.
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
-            toast(copiedText.isEmpty() ? value : copiedText.replace("%s", label));
-        }
+        String done = copiedText.isEmpty() ? value : copiedText.replace("%s", label);
+        row.root.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);
+        row.supporting.setText(value + "\n\u2713 " + done);
+        row.supporting.setTextColor(UiKit.color(this, R.color.gzh_primary));
+        row.root.removeCallbacks((Runnable) row.root.getTag());
+        Runnable restore = () -> {
+            row.supporting.setText(idle);
+            row.supporting.setTextColor(UiKit.color(this, R.color.gzh_on_surface_variant));
+        };
+        row.root.setTag(restore);
+        row.root.postDelayed(restore, 2500);
+        toast(done);
     }
 
     private void openSupportLink(String url) {

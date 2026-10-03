@@ -597,6 +597,15 @@ final class UiKit {
             row.setClickable(true);
             row.setFocusable(true);
             row.setOnClickListener(v -> onClick.run());
+            // GeneralsX @bugfix Android port 03/10/2026 A tap on a row showed nothing until its
+            // action had visible results -- for "copy this address" that is never. The same ripple
+            // as the buttons, clipped to the row's rounded corners.
+            GradientDrawable mask = new GradientDrawable();
+            mask.setShape(GradientDrawable.RECTANGLE);
+            mask.setCornerRadius(dim(c, R.dimen.gzh_radius_row));
+            mask.setColor(0xFFFFFFFF);
+            row.setForeground(new android.graphics.drawable.RippleDrawable(
+                tint(c, R.color.gzh_ripple_primary), null, mask));
         }
 
         if (iconRes != 0) {
