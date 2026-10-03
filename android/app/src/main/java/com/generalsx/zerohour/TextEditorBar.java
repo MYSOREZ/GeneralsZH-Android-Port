@@ -3,6 +3,7 @@ package com.generalsx.zerohour;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.text.Editable;
 import android.text.InputFilter;
@@ -88,6 +89,13 @@ final class TextEditorBar {
         edit.setText(text);
         edit.setSelection(edit.getText().length());
         settingText = false;
+        // The keyboard keeps its own idea of the text being composed (the underlined word and its
+        // suggestions). Without a restart it re-committed the previous field's text into this
+        // one: chat typed and sent, then the lobby name field opened with the chat line in it.
+        InputMethodManager restartImm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (restartImm != null) {
+            restartImm.restartInput(edit);
+        }
 
         applyCutoutMargins();
         bar.setVisibility(View.VISIBLE);
@@ -112,6 +120,13 @@ final class TextEditorBar {
             imm.hideSoftInputFromWindow(edit.getWindowToken(), 0);
         }
         bar.setVisibility(View.GONE);
+        // Nothing of this field may reach the next one (see show()).
+        settingText = true;
+        edit.setText("");
+        settingText = false;
+        if (imm != null) {
+            imm.restartInput(edit);
+        }
         restoreGameFocus.run();
     }
 
@@ -136,6 +151,15 @@ final class TextEditorBar {
 
         edit = new EditText(activity);
         edit.setSingleLine(true);
+        // Its own background: the launcher's light theme gave the field a white box, and the text
+        // (white, for the dark bar) vanished in it.
+        GradientDrawable field = new GradientDrawable();
+        field.setColor(0xFF2A2F36);
+        field.setStroke(dp(1), 0xFF5C6670);
+        field.setCornerRadius(dp(6));
+        edit.setBackground(field);
+        int fieldPad = dp(8);
+        edit.setPadding(fieldPad, fieldPad, fieldPad, fieldPad);
         edit.setTextColor(Color.WHITE);
         edit.setHintTextColor(0xFF9AA0A6);
         edit.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
