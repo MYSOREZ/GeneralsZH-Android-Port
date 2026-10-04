@@ -151,12 +151,6 @@ char s_driverRenderer[160];
 char s_driverVersion[160];
 }
 
-void noteDriver(const char *renderer, const char *version)
-{
-	snprintf(s_driverRenderer, sizeof(s_driverRenderer), "%s", renderer ? renderer : "?");
-	snprintf(s_driverVersion, sizeof(s_driverVersion), "%s", version ? version : "?");
-}
-
 void workerMain()
 {
 	s_workerTid = gettid();
@@ -310,6 +304,13 @@ void stopAtExit()
 }
 
 } // namespace
+
+// Outside the unnamed namespace: called from gles_pipeline.cpp.
+void noteDriver(const char *renderer, const char *version)
+{
+	snprintf(s_driverRenderer, sizeof(s_driverRenderer), "%s", renderer ? renderer : "?");
+	snprintf(s_driverVersion, sizeof(s_driverVersion), "%s", version ? version : "?");
+}
 
 void *allocCmd(size_t bytes, uint32_t *rounded)
 {
