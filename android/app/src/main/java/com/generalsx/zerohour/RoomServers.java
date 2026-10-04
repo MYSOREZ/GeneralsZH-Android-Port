@@ -126,6 +126,20 @@ final class RoomServers {
         prefs(ctx).edit().putString(PREF_MINE, android.text.TextUtils.join("\n", all)).apply();
     }
 
+    /** Drops the player's servers on this host: by name, or by the IP's sslip.io name. */
+    static void forgetHost(Context ctx, String host) {
+        String h = host.trim().toLowerCase(Locale.ROOT);
+        String sslip = h.replace('.', '-') + ".sslip.io";
+        Set<String> all = mine(ctx);
+        for (java.util.Iterator<String> it = all.iterator(); it.hasNext(); ) {
+            String u = it.next();
+            if (u.contains("://" + h + "/") || u.contains("://" + h + ":") || u.contains("://" + sslip + "/")) {
+                it.remove();
+            }
+        }
+        prefs(ctx).edit().putString(PREF_MINE, android.text.TextUtils.join("\n", all)).apply();
+    }
+
     private static SharedPreferences prefs(Context ctx) {
         return ctx.getSharedPreferences(PREFS, Context.MODE_PRIVATE);
     }

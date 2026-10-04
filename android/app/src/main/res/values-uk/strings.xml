@@ -454,4 +454,10 @@
     <string name="rooms_install_error_ip">Не вдалося визначити публічну IPv4-адресу VPS.</string>
     <string name="rooms_install_error_ports">Сервер працює, але не відповідає через HTTPS: відкрийте порти 80 і 443 у файрволі провайдера і встановіть знову.</string>
     <string name="rooms_install_error_other">Інсталятор зупинився: %1$s</string>
+    <!-- GeneralsX @feature Android port 04/10/2026 Rooms: remove a server from the VPS -->
+    <string name="rooms_remove_button">Видалити сервер з VPS</string>
+    <string name="rooms_remove_confirm">Зупинити сервер кімнат на %1$s і видалити його (контейнери, образи, /opt/gx-rooms)? Docker залишиться. Гравців у його кімнатах буде відключено.</string>
+    <string name="rooms_remove_yes">Видалити</string>
+    <string name="rooms_remove_step">Видаляємо сервер…</string>
+    <string name="rooms_remove_done">Видалено з %1$s. Із загального списку сервер зникне сам протягом двох годин.</string>
 </resources>

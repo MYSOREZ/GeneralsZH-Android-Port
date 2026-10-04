@@ -54,6 +54,8 @@ import java.util.Properties;
 
 public class RoomInstallActivity extends Activity {
     static final String EXTRA_URL = "url";
+    static final String EXTRA_REMOVED_HOST = "removed_host";
+    private static final String REMOVED = "removed";
     private static final String PREFS = "rooms";
     private static final String HOSTKEY_PREFIX = "hostkey:";
     private static final String DEFAULT_INSTALLER =
@@ -68,6 +70,7 @@ public class RoomInstallActivity extends Activity {
     private EditText nameInput;
     private MaterialSwitch listedSwitch;
     private MaterialButton installButton;
+    private MaterialButton removeButton;
     private TextView stepView;
     private TextView logView;
     private final StringBuilder log = new StringBuilder();
@@ -113,6 +116,8 @@ public class RoomInstallActivity extends Activity {
         UiKit.supporting(server, getString(R.string.rooms_install_ports));
         installButton = UiKit.button(server, UiKit.BTN_PRIMARY, R.drawable.ic_gzh_download,
             getString(R.string.rooms_install_button), this::install);
+        removeButton = UiKit.button(server, UiKit.BTN_DANGER, R.drawable.ic_gzh_trash,
+            getString(R.string.rooms_remove_button), this::confirmRemove);
 
         LinearLayout progress = UiKit.card(page);
         UiKit.sectionHeader(progress, R.drawable.ic_gzh_refresh, getString(R.string.rooms_install_card_progress), false);
@@ -151,6 +156,30 @@ public class RoomInstallActivity extends Activity {
     }
 
     private void install() {
+        start(false);
+    }
+
+    // GeneralsX @feature Android port 04/10/2026 The same connection, running the installer with
+    // --uninstall: the server, its containers and /opt/gx-rooms go; it leaves the public list by
+    // itself once it stops announcing.
+    private void confirmRemove() {
+        if (running) {
+            return;
+        }
+        final String host = hostInput.getText().toString().trim();
+        if (host.isEmpty()) {
+            stepView.setText(R.string.rooms_install_missing);
+            return;
+        }
+        new android.app.AlertDialog.Builder(this)
+            .setTitle(R.string.rooms_remove_button)
+            .setMessage(getString(R.string.rooms_remove_confirm, host))
+            .setPositiveButton(R.string.rooms_remove_yes, (d, w) -> start(true))
+            .setNegativeButton(android.R.string.cancel, null)
+            .show();
+    }
+
+    private void start(final boolean remove) {
         if (running) {
             return;
         }
@@ -173,6 +202,7 @@ public class RoomInstallActivity extends Activity {
         final boolean listed = listedSwitch.isChecked();
         running = true;
         installButton.setEnabled(false);
+        removeButton.setEnabled(false);
         log.setLength(0);
         logView.setText("");
         step(getString(R.string.rooms_install_connecting, host));
@@ -184,7 +214,7 @@ public class RoomInstallActivity extends Activity {
             String url = null;
             String failure = null;
             try {
-                url = runInstall(host, sshPort, user, password, key, name.isEmpty() ? "Rooms server" : name, listed);
+                url = runInstall(host, sshPort, user, password, key, name.isEmpty() ? "Rooms server" : name, listed, remove);
                 if (url == null) {
                     failure = getString(R.string.rooms_install_failed_unknown);
                 }
@@ -200,7 +230,13 @@ public class RoomInstallActivity extends Activity {
             }
             final String done = url;
             final String error = failure;
-            handler.post(() -> finishInstall(done, error));
+            handler.post(() -> {
+                if (remove) {
+                    finishRemove(host, done != null, error);
+                } else {
+                    finishInstall(done, error);
+                }
+            });
         }, "GXRooms-install").start();
     }
 
@@ -210,8 +246,9 @@ public class RoomInstallActivity extends Activity {
         }
     }
 
+    /** Runs the installer; returns the server's address, or REMOVED after an uninstall. */
     private String runInstall(String host, int port, String user, String password, String key,
-                              String name, boolean listed) throws Exception {
+                              String name, boolean listed, boolean remove) throws Exception {
         JSch jsch = new JSch();
         if (!key.isEmpty()) {
             jsch.addIdentity("key", key.getBytes(StandardCharsets.UTF_8), null,
@@ -244,7 +281,7 @@ public class RoomInstallActivity extends Activity {
         String script = "set -e; f=/tmp/gx-rooms-install.sh; "
             + "if command -v curl >/dev/null 2>&1; then curl -fsSL " + shellQuote(installer) + " -o $f; "
             + "else wget -qO $f " + shellQuote(installer) + "; fi; "
-            + "sh $f --name " + shellQuote(name) + (listed ? " --public" : " --private");
+            + (remove ? "sh $f --uninstall" : "sh $f --name " + shellQuote(name) + (listed ? " --public" : " --private"));
         boolean root = "root".equals(user);
         String command = root
             ? "sh -c " + shellQuote(script) + " 2>&1"
@@ -270,6 +307,8 @@ public class RoomInstallActivity extends Activity {
                 handler.post(() -> step(stepText(code)));
             } else if (l.startsWith("GXROOMS:URL ")) {
                 url = l.substring(12).trim();
+            } else if (l.startsWith("GXROOMS:REMOVED")) {
+                url = REMOVED;
             } else if (l.startsWith("GXROOMS:ERROR ")) {
                 errorCode = l.substring(14).trim();
             } else {
@@ -311,6 +350,7 @@ public class RoomInstallActivity extends Activity {
             case "config": return getString(R.string.rooms_install_step_config);
             case "start": return getString(R.string.rooms_install_step_start);
             case "check": return getString(R.string.rooms_install_step_check);
+            case "uninstall": return getString(R.string.rooms_remove_step);
             default: return code;
         }
     }
@@ -327,9 +367,23 @@ public class RoomInstallActivity extends Activity {
         }
     }
 
+    private void finishRemove(String host, boolean removed, String error) {
+        running = false;
+        installButton.setEnabled(true);
+        removeButton.setEnabled(true);
+        if (!removed) {
+            step(error == null ? getString(R.string.rooms_install_failed_unknown) : error);
+            return;
+        }
+        RoomServers.forgetHost(this, host);
+        step(getString(R.string.rooms_remove_done, host));
+        setResult(RESULT_OK, new Intent().putExtra(EXTRA_REMOVED_HOST, host));
+    }
+
     private void finishInstall(String url, String error) {
         running = false;
         installButton.setEnabled(true);
+        removeButton.setEnabled(true);
         if (url == null) {
             step(error == null ? getString(R.string.rooms_install_failed_unknown) : error);
             return;

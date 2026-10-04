@@ -454,4 +454,10 @@
     <string name="rooms_install_error_ip">Ne udalo se najdti javny IPv4 adres VPS.</string>
     <string name="rooms_install_error_ports">Server rabotaje, ale ne odpovědaje črez HTTPS: otvorite porty 80 i 443 v firewallu provajdera i instalujte ponovno.</string>
     <string name="rooms_install_error_other">Instalator se zastavil: %1$s</string>
+    <!-- GeneralsX @feature Android port 04/10/2026 Rooms: remove a server from the VPS -->
+    <string name="rooms_remove_button">Odstraniti server iz VPS</string>
+    <string name="rooms_remove_confirm">Zastaviti server komnat na %1$s i izbrisati ego (kontejnery, obrazy, /opt/gx-rooms)? Docker ostane. Igrači v jego komnatah budut odključeni.</string>
+    <string name="rooms_remove_yes">Odstraniti</string>
+    <string name="rooms_remove_step">Odstranjajemo server…</string>
+    <string name="rooms_remove_done">Odstranjeno iz %1$s. Sam izčezne iz javnogo spisa v teku dvoh godin.</string>
 </resources>

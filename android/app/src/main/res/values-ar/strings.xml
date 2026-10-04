@@ -454,4 +454,10 @@
     <string name="rooms_install_error_ip">تعذّر العثور على عنوان IPv4 العام للـ VPS.</string>
     <string name="rooms_install_error_ports">الخادم يعمل لكنه لا يستجيب عبر HTTPS: افتح المنفذين 80 و443 في جدار حماية المزوّد ثم ثبّت من جديد.</string>
     <string name="rooms_install_error_other">توقّف المثبّت: %1$s</string>
+    <!-- GeneralsX @feature Android port 04/10/2026 Rooms: remove a server from the VPS -->
+    <string name="rooms_remove_button">إزالة الخادم من VPS</string>
+    <string name="rooms_remove_confirm">إيقاف خادم الغرف على %1$s وحذفه (الحاويات والصور و/opt/gx-rooms)؟ يبقى Docker مثبّتًا. سيُفصل اللاعبون في غرفه.</string>
+    <string name="rooms_remove_yes">إزالة</string>
+    <string name="rooms_remove_step">جارٍ إزالة الخادم…</string>
+    <string name="rooms_remove_done">أُزيل من %1$s. سيخرج من القائمة العامة تلقائيًا خلال ساعتين.</string>
 </resources>

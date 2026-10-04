@@ -454,4 +454,10 @@
     <string name="rooms_install_error_ip">نشانی IPv4 عمومی VPS پیدا نشد.</string>
     <string name="rooms_install_error_ports">سرور اجرا شده ولی با HTTPS پاسخ نمی‌دهد: درگاه‌های 80 و 443 را در دیوار آتش ارائه‌دهنده باز کنید و دوباره نصب کنید.</string>
     <string name="rooms_install_error_other">نصب‌کننده متوقف شد: %1$s</string>
+    <!-- GeneralsX @feature Android port 04/10/2026 Rooms: remove a server from the VPS -->
+    <string name="rooms_remove_button">حذف سرور از VPS</string>
+    <string name="rooms_remove_confirm">سرور اتاق‌ها روی %1$s متوقف و حذف شود (کانتینرها، ایمیج‌ها، /opt/gx-rooms)؟ Docker باقی می‌ماند. اتصال بازیکنان اتاق‌هایش قطع می‌شود.</string>
+    <string name="rooms_remove_yes">حذف</string>
+    <string name="rooms_remove_step">در حال حذف سرور…</string>
+    <string name="rooms_remove_done">از %1$s حذف شد. ظرف دو ساعت خودبه‌خود از فهرست عمومی خارج می‌شود.</string>
 </resources>

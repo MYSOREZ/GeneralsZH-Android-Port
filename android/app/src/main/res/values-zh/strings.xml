@@ -454,4 +454,10 @@
     <string name="rooms_install_error_ip">找不到 VPS 的公网 IPv4 地址。</string>
     <string name="rooms_install_error_ports">服务器已运行，但无法通过 HTTPS 访问：请在服务商防火墙中开放 80 和 443 端口后重新安装。</string>
     <string name="rooms_install_error_other">安装程序已停止：%1$s</string>
+    <!-- GeneralsX @feature Android port 04/10/2026 Rooms: remove a server from the VPS -->
+    <string name="rooms_remove_button">从 VPS 删除服务器</string>
+    <string name="rooms_remove_confirm">停止 %1$s 上的房间服务器并删除它（容器、镜像、/opt/gx-rooms）？Docker 会保留。其房间中的玩家将断开连接。</string>
+    <string name="rooms_remove_yes">删除</string>
+    <string name="rooms_remove_step">正在删除服务器…</string>
+    <string name="rooms_remove_done">已从 %1$s 删除。它会在两小时内自动从公共列表中消失。</string>
 </resources>

@@ -259,8 +259,19 @@ public class RoomActivity extends Activity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_INSTALL && resultCode == RESULT_OK && data != null) {
             String url = data.getStringExtra(RoomInstallActivity.EXTRA_URL);
+            String removedHost = data.getStringExtra(RoomInstallActivity.EXTRA_REMOVED_HOST);
+            android.content.SharedPreferences prefs = getSharedPreferences(PREFS, MODE_PRIVATE);
             if (url != null) {
-                getSharedPreferences(PREFS, MODE_PRIVATE).edit().putString(PREF_SERVER, url).apply();
+                prefs.edit().putString(PREF_SERVER, url).apply();
+            } else if (removedHost != null) {
+                // The removed server is no longer worth keeping selected.
+                String selected = prefs.getString(PREF_SERVER, "");
+                String h = removedHost.trim().toLowerCase(java.util.Locale.ROOT);
+                if (selected.contains(h) || selected.contains(h.replace('.', '-') + ".sslip.io")) {
+                    prefs.edit().putString(PREF_SERVER, "").apply();
+                }
+            }
+            if (url != null || removedHost != null) {
                 shown = null;
                 render();
             }

@@ -461,4 +461,10 @@
     <string name="rooms_install_error_ip">Could not find the VPS\'s public IPv4 address.</string>
     <string name="rooms_install_error_ports">The server runs but does not answer over HTTPS: open ports 80 and 443 in your provider\'s firewall, then install again.</string>
     <string name="rooms_install_error_other">The installer stopped: %1$s</string>
+    <!-- GeneralsX @feature Android port 04/10/2026 Rooms: remove a server from the VPS -->
+    <string name="rooms_remove_button">Remove server from the VPS</string>
+    <string name="rooms_remove_confirm">Stop the rooms server on %1$s and delete it (containers, images, /opt/gx-rooms)? Docker stays installed. Players in its rooms will be disconnected.</string>
+    <string name="rooms_remove_yes">Remove</string>
+    <string name="rooms_remove_step">Removing the server…</string>
+    <string name="rooms_remove_done">Removed from %1$s. It leaves the public list by itself within two hours.</string>
 </resources>

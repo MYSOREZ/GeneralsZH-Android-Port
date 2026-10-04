@@ -454,4 +454,10 @@
     <string name="rooms_install_error_ip">VPS의 공인 IPv4 주소를 찾을 수 없습니다.</string>
     <string name="rooms_install_error_ports">서버는 실행 중이지만 HTTPS로 응답하지 않습니다. 제공업체 방화벽에서 80, 443 포트를 연 뒤 다시 설치하세요.</string>
     <string name="rooms_install_error_other">설치 프로그램이 중단됨: %1$s</string>
+    <!-- GeneralsX @feature Android port 04/10/2026 Rooms: remove a server from the VPS -->
+    <string name="rooms_remove_button">VPS에서 서버 삭제</string>
+    <string name="rooms_remove_confirm">%1$s의 방 서버를 중지하고 삭제할까요(컨테이너, 이미지, /opt/gx-rooms)? Docker는 남습니다. 방에 있는 플레이어는 연결이 끊깁니다.</string>
+    <string name="rooms_remove_yes">삭제</string>
+    <string name="rooms_remove_step">서버 삭제 중…</string>
+    <string name="rooms_remove_done">%1$s에서 삭제했습니다. 2시간 안에 공개 목록에서 저절로 사라집니다.</string>
 </resources>
