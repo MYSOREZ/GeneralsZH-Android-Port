@@ -2843,6 +2843,10 @@ public class SetupActivity extends Activity {
     // [4-byte offset, big-endian][4-byte size, big-endian][null-terminated
     // backslash-separated path].
     private static final String BIG_CRITICAL_ENTRY = "data\\ini\\default\\weather.ini";
+    // GeneralsX @bugfix Android port 04/10/2026 Weather.ini is Zero Hour's: the original Generals has
+    // no weather settings at all, so every complete Generals copy failed the check above. GameData.ini
+    // is the first INI the base game's engine loads, and every release of it has one.
+    private static final String GENERALS_BIG_CRITICAL_ENTRY = "data\\ini\\gamedata.ini";
 
     // GeneralsX @bugfix Android port game-folder-integrity-check 08/30/2026
     // Some retail/Deluxe layouts don't put the base Generals archives (incl.
@@ -2861,6 +2865,7 @@ public class SetupActivity extends Activity {
     private java.util.List<String> findGameFolderIntegrityIssues(File dir) {
         java.util.List<String> issues = new java.util.ArrayList<>();
         m_lastCheckWantedBaseGenerals = false;
+        final boolean generalsFolder = isGeneralsSelected(this);
         if (dir == null || !dir.isDirectory()) {
             return issues;
         }
@@ -2913,7 +2918,7 @@ public class SetupActivity extends Activity {
         if (!iniArchives.isEmpty()) {
             boolean found = false;
             for (File f : iniArchives) {
-                if (bigArchiveHasEntry(f, BIG_CRITICAL_ENTRY)) {
+                if (bigArchiveHasEntry(f, generalsFolder ? GENERALS_BIG_CRITICAL_ENTRY : BIG_CRITICAL_ENTRY)) {
                     found = true;
                     break;
                 }
@@ -2955,7 +2960,6 @@ public class SetupActivity extends Activity {
         // wrong for exactly the people who already did the right thing.
         // GeneralsX @feature Android port 04/10/2026 For Generals itself these archives are its own:
         // nothing elsewhere can stand in for them.
-        final boolean generalsFolder = isGeneralsSelected(this);
         final String basePath = getBaseGeneralsPath();
         final boolean baseFolderCovers = !generalsFolder &&
             basePath != null && missingBaseGeneralsArchives(new File(basePath)).isEmpty();
