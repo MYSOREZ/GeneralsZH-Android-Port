@@ -60,6 +60,16 @@ body:
 
 - type: textarea
   attributes:
+    label: Logs
+    description: |
+      **Attach the log archive, do not paste the log text** -- pasted text gets cut off long before the part that explains the problem.
+      Android: launcher -> View Logs -> **Share** creates `generalszh-logs.zip`; save it, then drag it into this box (or tap the box and attach it).
+      Please also say your phone model.
+  validations:
+    required: false
+
+- type: textarea
+  attributes:
     label: Additional Context
     description: Add any relevant screenshots, video recordings, or other files here
   validations:

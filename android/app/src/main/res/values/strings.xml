@@ -186,9 +186,7 @@
     <!-- LogViewerActivity -->
     <string name="logviewer_title">Logs</string>
     <string name="logviewer_button_clear">Clear Logs</string>
-    <string name="logviewer_button_copy">Copy</string>
     <string name="logviewer_button_share">Share</string>
-    <string name="logviewer_toast_copied">Copied to clipboard.</string>
     <string name="logviewer_section_crash_log">=== crash.log (native crash handler, internal storage) ===\n</string>
     <string name="logviewer_crash_log_absent">(not present — no native crash recorded since install, or the app has never launched past library load)</string>
     <string name="logviewer_section_crash_prev_log">=== crash-prev.log (native crash handler, previous session) ===\n</string>

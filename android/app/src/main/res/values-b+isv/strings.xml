@@ -160,9 +160,7 @@
     <!-- LogViewerActivity -->
     <string name="logviewer_title">Logi</string>
     <string name="logviewer_button_clear">Izbrisati logi</string>
-    <string name="logviewer_button_copy">Kopirovati</string>
     <string name="logviewer_button_share">Poděliti sę</string>
-    <string name="logviewer_toast_copied">Kopirovano v mežuskladišče.</string>
     <string name="logviewer_section_crash_log">=== crash.log (nativny obradnik padu, vnutrěšnje skladišče) ===\n</string>
     <string name="logviewer_crash_log_absent">(ne prisutny — nijeden nativny pad ne zapisan od instalacije, ili aplikacija nikada ne byla spuštena dalje zagruzky biblioteky)</string>
     <string name="logviewer_section_stderr_log">=== generals-stderr.log (log jadra, vnějšnje skladišče) ===\n</string>

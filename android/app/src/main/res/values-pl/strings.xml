@@ -160,9 +160,7 @@
     <!-- LogViewerActivity -->
     <string name="logviewer_title">Dzienniki</string>
     <string name="logviewer_button_clear">Wyczyść dzienniki</string>
-    <string name="logviewer_button_copy">Kopiuj</string>
     <string name="logviewer_button_share">Udostępnij</string>
-    <string name="logviewer_toast_copied">Skopiowano do schowka.</string>
     <string name="logviewer_section_crash_log">=== crash.log (natywna obsługa awarii, pamięć wewnętrzna) ===\n</string>
     <string name="logviewer_crash_log_absent">(brak — nie odnotowano żadnej natywnej awarii od czasu instalacji lub aplikacja nigdy nie uruchomiła się dalej niż wczytanie biblioteki)</string>
     <string name="logviewer_section_stderr_log">=== generals-stderr.log (dziennik silnika, pamięć zewnętrzna) ===\n</string>

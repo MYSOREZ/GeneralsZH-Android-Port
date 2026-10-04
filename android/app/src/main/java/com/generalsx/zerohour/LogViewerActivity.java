@@ -45,8 +45,6 @@ package com.generalsx.zerohour;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -125,20 +123,16 @@ public class LogViewerActivity extends Activity {
         // Ukrainian "Очистити логи") cannot make one button taller than its
         // siblings and break the row's bottom edge.
         // Share is the reason this screen exists on a phone with no adb, so it
-        // gets the full width; Copy and Clear split the row beneath it, which
-        // also keeps three long translated labels off one 360dp line.
+        // gets the full width, and Clear sits beneath it.
+        //
+        // GeneralsX @bugfix Android port 04/10/2026 No Copy button any more. Copied text gets
+        // pasted into an issue form, and the form cut it off: issue #35's log stopped 20,000
+        // characters in, still loading INI files, long before the crash it was meant to show.
+        // Share hands over a zip of the whole files, which nothing truncates.
         UiKit.button(actions, UiKit.BTN_PRIMARY, R.drawable.ic_gzh_share,
             getString(R.string.logviewer_button_share), this::shareLogAsFile);
-
-        LinearLayout buttonRow = UiKit.buttonRow(actions);
-        UiKit.share(UiKit.button(buttonRow, UiKit.BTN_TONAL, R.drawable.ic_gzh_copy,
-            getString(R.string.logviewer_button_copy), () -> {
-                ClipboardManager cm = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
-                cm.setPrimaryClip(ClipData.newPlainText(getString(R.string.logviewer_share_subject), combinedLog));
-                Toast.makeText(this, R.string.logviewer_toast_copied, Toast.LENGTH_SHORT).show();
-            }), true);
-        UiKit.share(UiKit.button(buttonRow, UiKit.BTN_DANGER, R.drawable.ic_gzh_trash,
-            getString(R.string.logviewer_button_clear), this::confirmClearLogs), false);
+        UiKit.button(actions, UiKit.BTN_DANGER, R.drawable.ic_gzh_trash,
+            getString(R.string.logviewer_button_clear), this::confirmClearLogs);
 
         MaterialCardView logCard = new MaterialCardView(this);
         logCard.setRadius(UiKit.dim(this, R.dimen.gzh_radius_card));

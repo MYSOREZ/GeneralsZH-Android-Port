@@ -160,9 +160,7 @@
     <!-- LogViewerActivity -->
     <string name="logviewer_title">Journaux</string>
     <string name="logviewer_button_clear">Effacer les journaux</string>
-    <string name="logviewer_button_copy">Copier</string>
     <string name="logviewer_button_share">Partager</string>
-    <string name="logviewer_toast_copied">Copié dans le presse-papiers.</string>
     <string name="logviewer_section_crash_log">=== crash.log (gestionnaire de plantage natif, stockage interne) ===\n</string>
     <string name="logviewer_crash_log_absent">(absent — aucun plantage natif enregistré depuis l\'installation, ou l\'application n\'a jamais dépassé le chargement de la bibliothèque)</string>
     <string name="logviewer_section_stderr_log">=== generals-stderr.log (journal du moteur, stockage externe) ===\n</string>

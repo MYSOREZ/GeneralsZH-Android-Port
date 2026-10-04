@@ -171,9 +171,7 @@
     <!-- LogViewerActivity -->
     <string name="logviewer_title">Логи</string>
     <string name="logviewer_button_clear">Очистить логи</string>
-    <string name="logviewer_button_copy">Копировать</string>
     <string name="logviewer_button_share">Поделиться</string>
-    <string name="logviewer_toast_copied">Скопировано в буфер обмена.</string>
     <string name="logviewer_section_crash_log">=== crash.log (обработчик краша, внутреннее хранилище) ===\n</string>
     <string name="logviewer_crash_log_absent">(отсутствует — крашей движка с момента установки не было, либо приложение ни разу не запускалось дальше загрузки библиотеки)</string>
     <string name="logviewer_section_stderr_log">=== generals-stderr.log (лог движка, внешнее хранилище) ===\n</string>

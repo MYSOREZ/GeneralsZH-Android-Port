@@ -40,6 +40,11 @@ struct Cmd
 {
 	void (*run)(Cmd *); // nullptr: padding up to the end of the ring
 	uint32_t bytes;
+	// GeneralsX @feature Android port 04/10/2026 The function that queued the command (the GL
+	// wrapper in gles_dispatch.cpp, filled in by __builtin_FUNCTION), so a crash on the render
+	// thread can say which GL call it was in (issue #35: a driver fault whose only frame of ours
+	// was this ring's loop). See crashContext().
+	const char *where;
 };
 
 // Engine thread: room for one command of `bytes`, rounded up; waits while the ring is full.
@@ -47,7 +52,7 @@ void *allocCmd(size_t bytes, uint32_t *rounded);
 // Engine thread: make the command just written visible to the render thread.
 void commitCmd();
 // Engine thread: run fn(ctx) on the render thread after everything queued before it, and wait.
-void syncCall(void (*fn)(void *), void *ctx);
+void syncCall(void (*fn)(void *), void *ctx, const char *where);
 
 template <class F>
 struct CmdT : Cmd
@@ -64,7 +69,7 @@ struct CmdT : Cmd
 
 // Queue f for the render thread, or run it now when the render thread is not in use.
 template <class F>
-inline void post(F f)
+inline void post(F f, const char *where = __builtin_FUNCTION())
 {
 	if (!g_active) {
 		f();
@@ -76,18 +81,19 @@ inline void post(F f)
 	T *t = new (mem) T(std::move(f));
 	t->run = &T::exec;
 	t->bytes = rounded;
+	t->where = where;
 	commitCmd();
 }
 
 // Run f on the render thread and wait for it, or run it now when the render thread is not in use.
 template <class F>
-inline void sync(F f)
+inline void sync(F f, const char *where = __builtin_FUNCTION())
 {
 	if (!g_active) {
 		f();
 		return;
 	}
-	syncCall([](void *ctx) { (*static_cast<F *>(ctx))(); }, &f);
+	syncCall([](void *ctx) { (*static_cast<F *>(ctx))(); }, &f, where);
 }
 
 // A copy of a pointer argument, owned by the command that carries it. Small copies live inside
@@ -130,6 +136,9 @@ struct Blob
 // Starts the render thread and hands it the GL context current on the calling thread. Returns
 // false (and leaves everything on the calling thread) when the thread could not take it.
 bool start(SDL_Window *window);
+
+// GeneralsX @feature Android port 04/10/2026 The GL driver's identity, kept for crash reports.
+void noteDriver(const char *renderer, const char *version);
 // Drains the queue, stops the render thread and gives the context back to the engine's thread.
 void stop();
 

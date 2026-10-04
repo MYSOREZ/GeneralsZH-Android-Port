@@ -658,6 +658,7 @@ bool WebGLPipeline::initContext(int w, int h, SDL_Window *window)
 			"(GL_VERSION=%s; gx_gles_noopt.txt turns them off)\n",
 			m_opt.baseVertex ? baseVertexSource : "off", (int)m_opt.upRing, programCacheState,
 			(int)(m_opt.dxt565 && !m_hasS3TC), persistentState, version ? version : "?");
+		gxrt::noteDriver((const char *)glGetString(GL_RENDERER), version);
 	}
 
 	m_ctxReady = true;

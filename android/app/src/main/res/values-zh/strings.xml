@@ -160,9 +160,7 @@
     <!-- LogViewerActivity -->
     <string name="logviewer_title">日志</string>
     <string name="logviewer_button_clear">清除日志</string>
-    <string name="logviewer_button_copy">复制</string>
     <string name="logviewer_button_share">分享</string>
-    <string name="logviewer_toast_copied">已复制到剪贴板。</string>
     <string name="logviewer_section_crash_log">=== crash.log（原生崩溃处理器，内部存储）===\n</string>
     <string name="logviewer_crash_log_absent">（不存在 —— 自安装以来未记录到原生崩溃，或该应用从未启动到加载库文件之后的阶段）</string>
     <string name="logviewer_section_stderr_log">=== generals-stderr.log（引擎日志，外部存储）===\n</string>

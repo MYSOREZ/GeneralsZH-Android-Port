@@ -160,9 +160,7 @@
     <!-- LogViewerActivity -->
     <string name="logviewer_title">السجلات</string>
     <string name="logviewer_button_clear">مسح السجلات</string>
-    <string name="logviewer_button_copy">نسخ</string>
     <string name="logviewer_button_share">مشاركة</string>
-    <string name="logviewer_toast_copied">تم النسخ إلى الحافظة.</string>
     <string name="logviewer_section_crash_log">=== crash.log (معالج الأعطال الأصلي، التخزين الداخلي) ===\n</string>
     <string name="logviewer_crash_log_absent">(غير موجود — لم يُسجَّل أي عطل أصلي منذ التثبيت، أو أن التطبيق لم يُشغَّل قط بعد تحميل المكتبة)</string>
     <string name="logviewer_section_stderr_log">=== generals-stderr.log (سجل المحرك، التخزين الخارجي) ===\n</string>

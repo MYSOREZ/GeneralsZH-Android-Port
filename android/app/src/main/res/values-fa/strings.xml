@@ -160,9 +160,7 @@
     <!-- LogViewerActivity -->
     <string name="logviewer_title">گزارش‌ها</string>
     <string name="logviewer_button_clear">پاک کردن گزارش‌ها</string>
-    <string name="logviewer_button_copy">کپی</string>
     <string name="logviewer_button_share">اشتراک‌گذاری</string>
-    <string name="logviewer_toast_copied">در کلیپ‌بورد کپی شد.</string>
     <string name="logviewer_section_crash_log">=== crash.log (پردازشگر خرابی بومی، حافظه داخلی) ===\n</string>
     <string name="logviewer_crash_log_absent">(وجود ندارد — از زمان نصب هیچ خرابی بومی ثبت نشده، یا برنامه هرگز فراتر از بارگذاری کتابخانه اجرا نشده است)</string>
     <string name="logviewer_section_stderr_log">=== generals-stderr.log (گزارش موتور، حافظه خارجی) ===\n</string>

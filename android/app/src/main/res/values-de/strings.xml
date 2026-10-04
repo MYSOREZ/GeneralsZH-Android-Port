@@ -160,9 +160,7 @@
     <!-- LogViewerActivity -->
     <string name="logviewer_title">Logs</string>
     <string name="logviewer_button_clear">Logs löschen</string>
-    <string name="logviewer_button_copy">Kopieren</string>
     <string name="logviewer_button_share">Teilen</string>
-    <string name="logviewer_toast_copied">In die Zwischenablage kopiert.</string>
     <string name="logviewer_section_crash_log">=== crash.log (nativer Absturz-Handler, interner Speicher) ===\n</string>
     <string name="logviewer_crash_log_absent">(nicht vorhanden — seit der Installation kein nativer Absturz aufgezeichnet, oder die App wurde noch nie über das Laden der Bibliothek hinaus gestartet)</string>
     <string name="logviewer_section_stderr_log">=== generals-stderr.log (Engine-Log, externer Speicher) ===\n</string>

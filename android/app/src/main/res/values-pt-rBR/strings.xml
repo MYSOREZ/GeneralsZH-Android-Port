@@ -160,9 +160,7 @@
     <!-- LogViewerActivity -->
     <string name="logviewer_title">Registros</string>
     <string name="logviewer_button_clear">Limpar registros</string>
-    <string name="logviewer_button_copy">Copiar</string>
     <string name="logviewer_button_share">Compartilhar</string>
-    <string name="logviewer_toast_copied">Copiado para a área de transferência.</string>
     <string name="logviewer_section_crash_log">=== crash.log (manipulador de falhas nativo, armazenamento interno) ===\n</string>
     <string name="logviewer_crash_log_absent">(ausente — nenhuma falha nativa registrada desde a instalação, ou o aplicativo nunca foi executado além do carregamento da biblioteca)</string>
     <string name="logviewer_section_stderr_log">=== generals-stderr.log (registro do motor, armazenamento externo) ===\n</string>

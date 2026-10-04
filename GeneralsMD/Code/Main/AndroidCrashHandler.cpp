@@ -405,6 +405,9 @@ void logResolvedAddress(const char *label, uintptr_t addr) {
 	}
 }
 
+extern "C" void d3d8gles_write_crash_context(void (*out)(const char *, size_t), int crashedTid)
+	__attribute__((weak));
+
 void androidCrashHandler(int sig, siginfo_t *info, void *ucontext) {
 	char buf[512];
 	const void *faultAddr = (info != nullptr) ? info->si_addr : nullptr;
@@ -450,6 +453,13 @@ void androidCrashHandler(int sig, siginfo_t *info, void *ucontext) {
 		}
 	}
 #endif
+
+	// GeneralsX @feature Android port 04/10/2026 The GL driver, and the GL calls the GLES render
+	// thread ran last when the crash is on it: its own frames are only the command loop, so
+	// without this a driver fault there names nothing (issue #35).
+	if (d3d8gles_write_crash_context != nullptr) {
+		d3d8gles_write_crash_context(appendCrashLog, (int)gettid());
+	}
 
 	// Chain to whatever handler was previously installed (Android's own
 	// debuggerd hook in the common case) so the system tombstone and the

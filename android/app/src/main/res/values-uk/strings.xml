@@ -160,9 +160,7 @@
     <!-- LogViewerActivity -->
     <string name="logviewer_title">Логи</string>
     <string name="logviewer_button_clear">Очистити логи</string>
-    <string name="logviewer_button_copy">Копіювати</string>
     <string name="logviewer_button_share">Поділитися</string>
-    <string name="logviewer_toast_copied">Скопійовано в буфер обміну.</string>
     <string name="logviewer_section_crash_log">=== crash.log (обробник краху, внутрішнє сховище) ===\n</string>
     <string name="logviewer_crash_log_absent">(відсутній — крахів рушія з моменту встановлення не було, або застосунок жодного разу не запускався далі завантаження бібліотеки)</string>
     <string name="logviewer_section_stderr_log">=== generals-stderr.log (лог рушія, зовнішнє сховище) ===\n</string>
