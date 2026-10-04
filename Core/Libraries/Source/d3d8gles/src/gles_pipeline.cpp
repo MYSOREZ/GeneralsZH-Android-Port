@@ -689,8 +689,17 @@ bool WebGLPipeline::initContext(int w, int h, SDL_Window *window)
 	if (m_glClientWaitSync && m_glFenceSync && m_glDeleteSync)
 		gxrt::setFenceProcs(m_glFenceSync, m_glClientWaitSync, m_glDeleteSync);
 	{
+		// GeneralsX @bugfix Android port 04/10/2026 Opt-in (gx_gles_gputimer.txt in the game folder),
+		// no longer on for everyone: the Mali-G57 r32p1 driver dies inside it (issue #35 -- SIGSEGV
+		// in libGLES_mali.so from the TIME_ELAPSED query at present(), with every other 1.4.0 change
+		// switched off by gx_gles_noopt.txt; 1.3.0, which had no timer, ran at 90 fps). It is a
+		// diagnostic only and not worth a crash anywhere it is not asked for.
+		FILE *timerIn = fopen("gx_gles_gputimer.txt", "r");
+		const bool timerWanted = timerIn != nullptr;
+		if (timerIn)
+			fclose(timerIn);
 		const char *ext = (const char *)glGetString(GL_EXTENSIONS);
-		if (ext && strstr(ext, "GL_EXT_disjoint_timer_query")) {
+		if (timerWanted && ext && strstr(ext, "GL_EXT_disjoint_timer_query")) {
 			auto proc = [](const char *name) -> void * {
 				void *p = d3d8gles_GetOptionalGLProc(name);
 				return p ? p : reinterpret_cast<void *>(SDL_GL_GetProcAddress(name));
@@ -704,7 +713,8 @@ bool WebGLPipeline::initContext(int w, int h, SDL_Window *window)
 				s_gpuTimer.ok = true;
 			}
 		}
-		fprintf(stderr, "[d3d8gles] GPU frame timer: %s\n", s_gpuTimer.ok ? "on" : "unavailable (no GL_EXT_disjoint_timer_query)");
+		fprintf(stderr, "[d3d8gles] GPU frame timer: %s\n", s_gpuTimer.ok ? "on" :
+			(timerWanted ? "unavailable (no GL_EXT_disjoint_timer_query)" : "off (gx_gles_gputimer.txt turns it on)"));
 	}
 	if (m_opt.thread && window) {
 		const bool threaded = gxrt::start(window);
