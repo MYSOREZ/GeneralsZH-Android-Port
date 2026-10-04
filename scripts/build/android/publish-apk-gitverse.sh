@@ -4,8 +4,8 @@
 #   publish-apk-gitverse.sh apk/<name>.apk     test build: the branch "apk" holds this APK plus
 #                                              every build in apk/testers/ (builds people are
 #                                              testing, kept until the owner removes them) --
-#                                              one commit, replaced each time, so builds that
-#                                              were removed never pile up in its history
+#                                              rebuilt each time, so builds that were removed
+#                                              never pile up in its history
 #   publish-apk-gitverse.sh --release <ver>    duplicate the GitHub release v<ver> as a GitVerse
 #                                              release: same title, notes
 #                                              (docs/releases/v<ver>/notes.md) and APK (the one
@@ -43,31 +43,46 @@ if [ "${1:-}" = "--release" ]; then
 else
     APK="${1:?usage: $0 apk/<name>.apk | --release <version>}"
     [ -f "${APK}" ] || { echo "no such file: ${APK}"; exit 1; }
-    # Test builds: one commit on the branch "apk" holding the bare APK, pushed over the last one.
+    # Test builds: the branch "apk" is rebuilt from scratch each time (old builds never pile up).
     BRANCH="${GITVERSE_BRANCH:-apk}"
     NAME="$(basename "${APK}")"
     WORK="$(mktemp -d)"
     trap 'rm -rf "${WORK}"' EXIT
     git -C "${WORK}" init -q -b "${BRANCH}"
-    cp "${APK}" "${WORK}/${NAME}"
-    printf 'Current GeneralsXZH Android test build: %s\n' "${NAME}" > "${WORK}/README.md"
-    # Builds handed to testers stay downloadable at the same address on every publish.
+    # GitVerse refuses a push much over ~100 MB (HTTP 413), so each APK goes up in a commit and a
+    # push of its own: the builds people are testing first (testers/), the current build last.
+    # The first push replaces the branch; the rest add to it.
+    AUTH="$(printf '%s:%s' "${OWNER}" "${GITVERSE_TOKEN}" | base64 -w0)"
     shopt -s nullglob
     TESTERS=("${REPO}"/apk/testers/*.apk)
-    if [ "${#TESTERS[@]}" -gt 0 ]; then
-        mkdir -p "${WORK}/testers"
-        cp "${TESTERS[@]}" "${WORK}/testers/"
-        printf '\nBuilds people are testing: testers/\n' >> "${WORK}/README.md"
-    fi
-    git -C "${WORK}" add -A
-    git -C "${WORK}" -c user.name="GeneralsXZH build" -c user.email="noreply@example.invalid" \
-        commit -q -m "APK: ${NAME}"
-    AUTH="$(printf '%s:%s' "${OWNER}" "${GITVERSE_TOKEN}" | base64 -w0)"
-    for i in 1 2 3 4; do
-        GIT_TERMINAL_PROMPT=0 git -C "${WORK}" -c http.extraHeader="Authorization: Basic ${AUTH}" \
-            -c http.postBuffer=157286400 push -q --force "${GIT_URL}" "${BRANCH}:${BRANCH}" && break
-        [ "${i}" = 4 ] && { echo "push to GitVerse failed"; exit 1; }
-        sleep $((i * 5))
+    STEPS=()
+    for t in "${TESTERS[@]}"; do STEPS+=("testers/$(basename "${t}")=${t}"); done
+    STEPS+=("${NAME}=${APK}")
+    FIRST=1
+    for step in "${STEPS[@]}"; do
+        dest="${step%%=*}"
+        src="${step#*=}"
+        mkdir -p "$(dirname "${WORK}/${dest}")"
+        cp "${src}" "${WORK}/${dest}"
+        {
+            printf 'Current GeneralsXZH Android test build: %s\n' "${NAME}"
+            if [ "${#TESTERS[@]}" -gt 0 ]; then printf '\nBuilds people are testing: testers/\n'; fi
+        } > "${WORK}/README.md"
+        git -C "${WORK}" add -A
+        git -C "${WORK}" -c user.name="GeneralsXZH build" -c user.email="noreply@example.invalid" \
+            commit -q -m "APK: ${dest}"
+        for i in 1 2 3 4; do
+            if [ "${FIRST}" = 1 ]; then
+                GIT_TERMINAL_PROMPT=0 git -C "${WORK}" -c http.extraHeader="Authorization: Basic ${AUTH}" \
+                    -c http.postBuffer=157286400 push -q --force "${GIT_URL}" "${BRANCH}:${BRANCH}" && break
+            else
+                GIT_TERMINAL_PROMPT=0 git -C "${WORK}" -c http.extraHeader="Authorization: Basic ${AUTH}" \
+                    -c http.postBuffer=157286400 push -q "${GIT_URL}" "${BRANCH}:${BRANCH}" && break
+            fi
+            [ "${i}" = 4 ] && { echo "push to GitVerse failed (${dest})"; exit 1; }
+            sleep $((i * 5))
+        done
+        FIRST=0
     done
     echo "https://gitverse.ru/api/repos/${GITVERSE_REPO}/raw/branch/${BRANCH}/${NAME}"
     exit 0
