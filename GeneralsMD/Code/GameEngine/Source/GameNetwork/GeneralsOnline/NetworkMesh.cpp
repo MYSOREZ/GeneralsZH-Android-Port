@@ -697,7 +697,14 @@ NetworkMesh::NetworkMesh()
 	// this port has always used, and the PC client's since that commit -- retry STUN forever.
 	// GeneralsX @feature Android port 27/09/2026 ...and overridable from the signed update
 	// manifest (GXRemoteConfig.h), so a server change does not need a new build.
-	const std::string stunList = GXRemoteConfig::get("stun_servers", "stun:stun.playgenerals.online:53,stun:stun.playgenerals.online:3478,stun:stun.l.google.com:19302");
+	// GeneralsX @bugfix Android port 04/10/2026 Port 3478 first, 53 last (issue #37). The ICE client
+	// asks one server at a time per interface and moves on only after a request times out, which
+	// takes ~5.3 s (5 sends, 400 ms growing x1.5); the TURN allocation waits for that walk to end.
+	// On a network that drops UDP to port 53 -- carriers that intercept DNS do -- a dead :53 STUN
+	// and a dead :53 TURN put the relay candidate at ~11.5 s, after the 10 s connect timeout, so
+	// every connection failed with 5008 just before its fallback route existed. Google's STUN sits
+	// second so a network that blocks 3478 still learns its public address at once.
+	const std::string stunList = GXRemoteConfig::get("stun_servers", "stun:stun.playgenerals.online:3478,stun:stun.l.google.com:19302,stun:stun.playgenerals.online:53");
 	SteamNetworkingUtils()->SetGlobalConfigValueString(k_ESteamNetworkingConfig_P2P_STUN_ServerList, stunList.c_str());
 	fprintf(stderr, "DEBUG-P2P: NetworkMesh ctor STUN server list set\n");
 	fflush(stderr);
@@ -723,7 +730,7 @@ NetworkMesh::NetworkMesh()
 	// The result on two devices was a lobby where neither player could reach the
 	// other: credentials present, relays silently absent, and a mesh with
 	// nothing to fall back on when the direct path did not come up.
-	const std::string turnListValue = GXRemoteConfig::get("turn_servers", "turn:turn.playgenerals.online:53,turn:turn.playgenerals.online:3478");
+	const std::string turnListValue = GXRemoteConfig::get("turn_servers", "turn:turn.playgenerals.online:3478,turn:turn.playgenerals.online:53");
 	const char* turnList = turnListValue.c_str();
 
 	m_strTurnUsername = pLobbyInterface->GetLobbyTurnUsername();
