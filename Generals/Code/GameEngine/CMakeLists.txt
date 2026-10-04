@@ -172,7 +172,7 @@ set(GAMEENGINE_SRC
 #    Include/GameClient/GameWindow.h
 #    Include/GameClient/GameWindowGlobal.h
     Include/GameClient/GameWindowID.h
-    Include/GameClient/GameWindowManager.h
+#    Include/GameClient/GameWindowManager.h
 #    Include/GameClient/GameWindowTransitions.h
 #    Include/GameClient/GlobalLanguage.h
 #    Include/GameClient/GraphDraw.h
@@ -683,7 +683,7 @@ set(GAMEENGINE_SRC
 #    Source/GameClient/GUI/GameFont.cpp
 #    Source/GameClient/GUI/GameWindow.cpp
 #    Source/GameClient/GUI/GameWindowGlobal.cpp
-    Source/GameClient/GUI/GameWindowManager.cpp
+#    Source/GameClient/GUI/GameWindowManager.cpp
     Source/GameClient/GUI/GameWindowManagerScript.cpp
 #    Source/GameClient/GUI/GameWindowTransitions.cpp
     Source/GameClient/GUI/GameWindowTransitionsStyles.cpp

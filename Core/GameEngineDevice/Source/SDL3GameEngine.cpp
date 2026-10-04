@@ -29,7 +29,7 @@
 #ifndef _WIN32
 
 #include "SDL3GameEngine.h"
-#include "OpenALAudioManager.h"
+#include "OpenALAudioDevice/OpenALAudioManager.h"
 #include "SDL3Device/GameClient/SDL3Mouse.h"
 #include "SDL3Device/GameClient/SDL3Keyboard.h"
 #include "Common/MessageStream.h"

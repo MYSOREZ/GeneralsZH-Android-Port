@@ -87,11 +87,7 @@ set(GAMEENGINEDEVICE_SRC
 #    Include/Win32Device/Common/Win32LocalFile.h
 #    Include/Win32Device/Common/Win32LocalFileSystem.h
     # Linux SDL3/OpenAL devices (Phase 1 - TheSuperHackers @feature CnC_Generals_Linux 07/02/2026)
-    Include/SDL3GameEngine.h
     Include/OpenALAudioManager.h
-    # Linux SDL3 input devices (Phase 1.5 - TheSuperHackers @build 10/02/2026 Bender)
-    Include/SDL3Device/GameClient/SDL3Mouse.h
-    Include/SDL3Device/GameClient/SDL3Keyboard.h
     Source/W3DDevice/Common/System/W3DFunctionLexicon.cpp
 #    Source/W3DDevice/Common/System/W3DRadar.cpp
     Source/W3DDevice/Common/Thing/W3DModuleFactory.cpp
@@ -235,12 +231,9 @@ if(WIN32)
     endif()
 else()
     # Linux-specific files (SDL3, OpenAL+FFmpeg audio, DXVK)
+    # GeneralsX @build Android port 04/10/2026 The SDL3 game engine, mouse, keyboard, touch input
+    # and Android text editor are shared with the base game: Core/GameEngineDevice.
     list(APPEND GAMEENGINEDEVICE_SRC
-        Source/SDL3GameEngine.cpp
-        Source/SDL3Device/GameClient/SDL3Mouse.cpp
-        Source/SDL3Device/GameClient/SDL3Keyboard.cpp
-        Source/SDL3Device/GameClient/TouchInput.cpp
-        Source/SDL3Device/GameClient/AndroidTextEditor.cpp
         Source/VideoDevice/BinkVideoPlayerStub.cpp
     )
 

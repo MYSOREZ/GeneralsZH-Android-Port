@@ -29,6 +29,7 @@
 
 #include "PreRTS.h"	// This must go first in EVERY cpp file in the GameEngine
 
+#include "Common/GXSafeArea.h"
 #define DEFINE_SHADOW_NAMES
 
 #include "Common/ActionManager.h"
@@ -61,6 +62,8 @@
 #include "GameClient/GameWindowGlobal.h"
 #include "GameClient/GameWindowID.h"
 #include "GameClient/GUICallbacks.h"
+#include "GameClient/Image.h"
+#include "GameClient/GXUiScale.h"
 #include "GameClient/InGameUI.h"
 #include "GameClient/VideoPlayer.h"
 #include "GameClient/Mouse.h"
@@ -87,6 +90,14 @@
 #include "GameLogic/Module/MobMemberSlavedUpdate.h"//ML
 
 #include "GameNetwork/GameInfo.h"
+
+// GeneralsX @feature Android port 01/10/2026 The corner HUD (frame rate, clock, latency, game time,
+// player list) and the event messages grow with the launcher's interface scale like the rest of the interface
+// (GXUiScale.h), up to twice its size.
+static Int gxHudFontSize( Int size )
+{
+	return (Int)( size * min( GXUiScale::userScale(), 2.0f ) + 0.5f );
+}
 #include "GameNetwork/NetworkInterface.h"
 
 
@@ -1027,6 +1038,15 @@ InGameUI::InGameUI()
 	m_selectCount = 0;
 	m_frameSelectionChanged = 0;
   m_duringDoubleClickAttackMoveGuardHintTimer = 0;
+
+	// GeneralsX @feature Android port 09/09/2026 Touch feedback under the finger; see the
+	// header for what each of these is for.
+	m_touchCommandIcon = nullptr;
+	m_touchOrderMarker = TOUCHMARKER_NONE;
+	m_touchCommandIconPos.x = 0;
+	m_touchCommandIconPos.y = 0;
+	m_touchCommandIconTimer = 0;
+	m_touchHoverTimer = 0;
   m_duringDoubleClickAttackMoveGuardHintStashedPosition.zero();
 	m_maxSelectCount = -1;
 	m_isScrolling = FALSE;
@@ -1034,6 +1054,15 @@ InGameUI::InGameUI()
 	m_mouseMode = MOUSEMODE_DEFAULT;
 	m_mouseModeCursor = Mouse::ARROW;
 	m_mousedOverDrawableID = INVALID_DRAWABLE_ID;
+	m_touchAimKnown = FALSE;
+	m_touchAimValid = FALSE;
+	m_touchAimPoint.x = m_touchAimPoint.y = 0;
+	m_touchDebugOn = FALSE;
+	m_touchDebugPhase = "";
+	m_touchDebugDown.x = m_touchDebugDown.y = 0;
+	m_touchDebugLast.x = m_touchDebugLast.y = 0;
+	m_touchDebugPublished.x = m_touchDebugPublished.y = 0;
+	m_touchDebugFingers = 0;
 
 	m_currentlyPlayingMovie.clear();
 	m_militarySubtitle = nullptr;
@@ -1475,6 +1504,29 @@ void InGameUI::setRadiusCursor(RadiusCursorType cursorType, const SpecialPowerTe
 //-------------------------------------------------------------------------------------------------
 void InGameUI::handleRadiusCursor()
 {
+#if defined(__ANDROID__) || (defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE)
+	// GeneralsX @bugfix Android port 06/09/2026 Reported: the ability circle appears for a
+	// moment when the finger lands and is then gone for the rest of the drag, leaving the
+	// player aiming a superweapon with nothing on screen.
+	//
+	// The decal is created once, when aiming starts, and seven different places in the
+	// engine call setRadiusCursorNone() -- createCommandHint() does it unconditionally on
+	// every hint, ControlBar::switchToContext() does it whenever the selection context is
+	// rebuilt, and so on. On the mouse path that is harmless because the very next mouse
+	// position recreates it a frame later; native aiming sends no positions, so the first
+	// one to fire kills it for good.
+	//
+	// Rather than hunt which one it was, re-assert the invariant here, once a frame: while
+	// a command is armed and a finger is aiming it, its radius decal exists. Cheap, because
+	// setRadiusCursor() is only reached on the frame after something cleared it.
+	if (m_touchAimKnown && m_pendingGUICommand != nullptr && m_curRadiusCursor.isEmpty())
+	{
+		setRadiusCursor(m_pendingGUICommand->getRadiusCursorType(),
+										m_pendingGUICommand->getSpecialPowerTemplate(),
+										m_pendingGUICommand->getWeaponSlot());
+	}
+#endif
+
 	if (!m_curRadiusCursor.isEmpty())
 	{
     if ( TheGlobalData->m_doubleClickAttackMove && m_duringDoubleClickAttackMoveGuardHintTimer > 0 )
@@ -1489,6 +1541,23 @@ void InGameUI::handleRadiusCursor()
 			Coord3D pos;
 			Bool hasPos = false;
 
+			// GeneralsX @bugfix Android port 06/09/2026 On a touch device the aim point is
+			// reported explicitly by the gesture (setTouchAimPoint) rather than read out of
+			// the mouse object. TheMouse's position between gestures is not "where the
+			// player is pointing" -- there is no pointer -- it is wherever the last touch
+			// happened to leave it, which is how the ability radius ended up drawn on the
+			// button that armed it, and on the previous attempt's target after re-arming.
+			const ICoord2D *aimPixel = &mouseIO->pos;
+#if defined(__ANDROID__) || (defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE)
+			if( !m_touchAimKnown )
+			{
+				// no finger has pointed anywhere yet: leave the decal exactly as it is
+				// rather than parking it somewhere arbitrary
+				return;
+			}
+			aimPixel = &m_touchAimPoint;
+#endif
+
 			//
 			// if the mouse is in the radar window, the position in the world is that which is
 			// represented by the radar, otherwise we use the mouse position itself transformed
@@ -1496,13 +1565,13 @@ void InGameUI::handleRadiusCursor()
 			//
 			if( rts::localPlayerHasRadar() )
 			{
-				hasPos = TheRadar->screenPixelToWorld( &mouseIO->pos, &pos );
+				hasPos = TheRadar->screenPixelToWorld( aimPixel, &pos );
 			}
 
 			if( !hasPos )
 			{
 				// if radar off, or point not on radar
-				hasPos = TheTacticalView->screenToTerrain( &mouseIO->pos, &pos );
+				hasPos = TheTacticalView->screenToTerrain( aimPixel, &pos );
 			}
 
 			if( hasPos )
@@ -1516,6 +1585,273 @@ void InGameUI::handleRadiusCursor()
 }
 
 
+//-------------------------------------------------------------------------------------------------
+/** Touch version: the caller already knows the world point, and nothing else will build
+	* the decal for us. See the header for why this cannot just call the mouse version. */
+//-------------------------------------------------------------------------------------------------
+void InGameUI::triggerTouchAttackMoveGuardHint(const Coord3D *worldPos)
+{
+	if( worldPos == nullptr )
+		return;
+
+	m_duringDoubleClickAttackMoveGuardHintStashedPosition = *worldPos;
+	m_duringDoubleClickAttackMoveGuardHintTimer = 11;
+
+	// createCommandHint() does this for the mouse, once per frame, off a hint that a
+	// finger never produces. handleRadiusCursor() only draws the stashed position while
+	// the decal exists, so without this the hint was invisible until something else
+	// happened to create a decal -- opening the game menu, for instance, which is exactly
+	// what the report described.
+	setRadiusCursor(RADIUSCURSOR_GUARD_AREA, nullptr, PRIMARY_WEAPON);
+}
+
+//-------------------------------------------------------------------------------------------------
+/** GeneralsX @feature Android port 09/09/2026 What would pressing here actually order?
+
+	This mirrors CommandTranslator::evaluateContextCommand() -- the function that decides,
+	for the mouse, whether a click on an object is a move, an attack, a capture or an entry
+	-- but it asks the questions instead of answering them with a message. The tests below
+	are the very same TheInGameUI predicates evaluateContextCommand() uses, in the very same
+	order, because the order is the decision: "can enter" is checked before "can attack",
+	so a transport you own does not read as a target.
+
+	It is deliberately not a call to evaluateContextCommand(..., EVALUATE_ONLY) even though
+	that entry point exists and TouchInput.cpp uses it. That path is fine once per tap, but
+	this runs on every frame a finger is down, and even in EVALUATE_ONLY it still walks
+	through issueMoveToLocationCommand() (which bumps TheStatsCollector's move count) and
+	issueAttackCommand() (which logs a line per call). Neither is something to do sixty
+	times a second to decide whether to draw a picture.
+
+	Intents that are checked but not covered return TOUCHMARKER_NONE rather than falling
+	through: they sit ABOVE attack in the chain, so skipping them entirely would make a
+	dock or a hijack draw the attack marker.
+*/
+//-------------------------------------------------------------------------------------------------
+InGameUI::TouchOrderMarker InGameUI::computeTouchOrderMarker( const Drawable *targetDraw ) const
+{
+	// Open ground is the case that must stay silent. The green ground decal already says
+	// where the units are going, and an icon on top of it is noise.
+	if( targetDraw == nullptr )
+		return TOUCHMARKER_NONE;
+
+	const Object *obj = targetDraw->getObject();
+	if( obj == nullptr )
+		return TOUCHMARKER_NONE;
+
+	// (m_selectCount rather than getSelectCount(), which is not const.)
+	if( m_selectCount == 0 || !areSelectedObjectsControllable() )
+		return TOUCHMARKER_NONE;
+
+	// The cases where evaluateContextCommand() throws the target away and evaluates a plain
+	// ground order instead. There is then no order-on-an-object to advertise.
+	if( obj->getStatusBits().test( OBJECT_STATUS_MASKED )
+			&& !obj->isKindOf( KINDOF_SHRUBBERY ) && !obj->isKindOf( KINDOF_FORCEATTACKABLE ) )
+		return TOUCHMARKER_NONE;
+	if( obj->isLocallyControlled() && obj->isKindOf( KINDOF_MINE ) )
+		return TOUCHMARKER_NONE;
+	if( isInForceMoveToMode() )
+		return TOUCHMARKER_NONE;
+	if( obj->isLocallyControlled() && isInPreferSelectionMode() )
+		return TOUCHMARKER_NONE;
+	// GeneralsX @feature Android port 24/09/2026 Waypoint mode turns every order into a
+	// waypoint (evaluateContextCommand returns before any of the chain below), so there is no
+	// order on the object to advertise.
+	if( isInWaypointMode() )
+		return TOUCHMARKER_NONE;
+
+	const Bool forceAttack = isInForceAttackMode();
+
+	// --- the chain, in evaluateContextCommand()'s order -------------------------------------
+	if( !forceAttack && canSelectedObjectsDoAction( ACTIONTYPE_RESUME_CONSTRUCTION, obj, SELECTION_ANY ) )
+		return TOUCHMARKER_NONE;																					// not covered, but claims priority
+	if( !forceAttack && canSelectedObjectsDoAction( ACTIONTYPE_DOCK_AT, obj, SELECTION_ALL ) )
+		return TOUCHMARKER_NONE;																					// not covered
+	if( !forceAttack && canSelectedObjectsDoAction( ACTIONTYPE_REPAIR_OBJECT, obj, SELECTION_ANY ) )
+		return TOUCHMARKER_REPAIR;
+	if( !forceAttack && canSelectedObjectsDoAction( ACTIONTYPE_GET_REPAIRED_AT, obj, SELECTION_ANY ) )
+		return TOUCHMARKER_NONE;																					// "go and be repaired", not "repair that"
+	if( !forceAttack && canSelectedObjectsDoAction( ACTIONTYPE_GET_HEALED_AT, obj, SELECTION_ANY ) )
+		return TOUCHMARKER_NONE;																					// likewise
+	if( !forceAttack && canSelectedObjectsDoAction( ACTIONTYPE_HIJACK_VEHICLE, obj, SELECTION_ANY ) )
+		return TOUCHMARKER_NONE;																					// enter-aggressively; no art for it
+	if( !forceAttack && canSelectedObjectsDoAction( ACTIONTYPE_CONVERT_OBJECT_TO_CARBOMB, obj, SELECTION_ANY ) )
+		return TOUCHMARKER_NONE;																					// likewise
+	if( !forceAttack && canSelectedObjectsDoAction( ACTIONTYPE_SABOTAGE_BUILDING, obj, SELECTION_ANY ) )
+		return TOUCHMARKER_NONE;																					// likewise
+	if( !forceAttack && canSelectedObjectsDoAction( ACTIONTYPE_ENTER_OBJECT, obj, SELECTION_ANY, true ) )
+		return TOUCHMARKER_ENTER;
+
+	// The one the whole thing exists for.
+	const CanAttackResult attack = getCanSelectedObjectsAttack( ACTIONTYPE_ATTACK_OBJECT, obj,
+																														 SELECTION_ANY, forceAttack );
+	if( attack == ATTACKRESULT_POSSIBLE || attack == ATTACKRESULT_POSSIBLE_AFTER_MOVING )
+		return TOUCHMARKER_ATTACK;
+
+	if( canSelectedObjectsDoAction( ACTIONTYPE_CAPTURE_BUILDING, obj, SELECTION_ANY ) )
+		return TOUCHMARKER_CAPTURE;
+
+	return TOUCHMARKER_NONE;
+}
+
+//-------------------------------------------------------------------------------------------------
+/** GeneralsX @feature Android port 09/09/2026 Is there a picture of this order in the data?
+
+	The honest answer is "sometimes, and only the data can say". The mouse's shapes are
+	cursor resources, not Images: Mouse.ini names a W3D model, a .tga texture and a
+	Data/Cursors/*.ani file per cursor, and none of those can be handed to
+	TheDisplay->drawImage(). The one bridge the engine itself builds is CursorInfo::imageName
+	-- Mouse.ini's "Image =" field -- which W3DMouse::initPolygonAssets() resolves through
+	TheMappedImageCollection for its RM_POLYGON cursor mode. So that is what is asked for
+	here, by the cursor the mouse would have shown; if the installed Mouse.ini fills that
+	field in, the player gets the game's own cursor art, and if it does not, this returns
+	null and the caller falls back to a drawn marker. Nothing is guessed and no image name
+	is hardcoded: the data names the picture, or there is no picture.
+
+	Capture is the exception that has real art regardless, and it comes from where
+	evaluateContextCommand() gets it: the capture special power's own command button, found
+	in the selected unit's command set. That is the flag icon the control bar shows.
+*/
+//-------------------------------------------------------------------------------------------------
+const Image *InGameUI::findTouchOrderImage( TouchOrderMarker marker ) const
+{
+	if( marker == TOUCHMARKER_NONE )
+		return nullptr;
+
+	// Capture first: a real button image beats anything else available.
+	if( marker == TOUCHMARKER_CAPTURE && TheControlBar != nullptr )
+	{
+		const DrawableList *selected = getAllSelectedDrawables();
+		const Drawable *srcDraw = (selected != nullptr && !selected->empty()) ? selected->front() : nullptr;
+		const Object *source = srcDraw ? srcDraw->getObject() : nullptr;
+		const CommandSet *set = source ? TheControlBar->findCommandSet( source->getCommandSetString() ) : nullptr;
+		if( set != nullptr )
+		{
+			for( Int i = 0; i < MAX_COMMANDS_PER_SET; i++ )
+			{
+				const CommandButton *button = set->getCommandButton( i );
+				if( button == nullptr || button->getCommandType() != GUI_COMMAND_SPECIAL_POWER )
+					continue;
+				const SpecialPowerTemplate *spTemplate = button->getSpecialPowerTemplate();
+				if( spTemplate == nullptr )
+					continue;
+				const SpecialPowerType spType = spTemplate->getSpecialPowerType();
+				if( spType == SPECIAL_INFANTRY_CAPTURE_BUILDING || spType == SPECIAL_BLACKLOTUS_CAPTURE_BUILDING )
+				{
+					if( const Image *buttonImage = button->getButtonImage() )
+						return buttonImage;
+				}
+			}
+		}
+	}
+
+	if( TheMouse == nullptr || TheMappedImageCollection == nullptr )
+		return nullptr;
+
+	Mouse::MouseCursor cursor;
+	switch( marker )
+	{
+		case TOUCHMARKER_ATTACK:	cursor = Mouse::ATTACK_OBJECT;		break;
+		case TOUCHMARKER_CAPTURE:	cursor = Mouse::CAPTUREBUILDING;	break;
+		case TOUCHMARKER_ENTER:		cursor = Mouse::ENTER_FRIENDLY;		break;
+		case TOUCHMARKER_REPAIR:	cursor = Mouse::DO_REPAIR;				break;
+		default:									return nullptr;
+	}
+
+	// Only the declared mapping is followed. The Texture = name (a .tga for the DX8 cursor
+	// path) and the cursor's own INI name are NOT tried as image names: a mapped image that
+	// happens to share one of those names is not the same picture, and drawing the wrong
+	// icon under a finger is worse than drawing none.
+	const CursorInfo &info = TheMouse->m_cursorInfo[ cursor ];
+	if( info.imageName.isEmpty() )
+		return nullptr;
+
+	return TheMappedImageCollection->findImageByName( info.imageName );
+}
+
+//-------------------------------------------------------------------------------------------------
+/** GeneralsX @feature Android port 09/09/2026 The fallback, and it is only a fallback.
+
+	Drawn when the intent is known but the installed data offered no picture of it. This is
+	a hand-drawn marker, not the game's art: a single chevron pointing down at the target,
+	coloured by intent, in the same two-primitive style the rest of postDraw() already uses.
+	Kept small and thin on purpose -- it is meant to be read at a glance next to a finger,
+	not to compete with the control bar.
+*/
+//-------------------------------------------------------------------------------------------------
+void InGameUI::drawTouchOrderMarker( TouchOrderMarker marker, Int x, Int y ) const
+{
+	if( TheDisplay == nullptr )
+		return;
+
+	Color color;
+	switch( marker )
+	{
+		case TOUCHMARKER_ATTACK:	color = GameMakeColor( 255,  48,  48, 255 ); break;	// red -- the attack arrow
+		case TOUCHMARKER_CAPTURE:	color = GameMakeColor( 255, 200,  48, 255 ); break;
+		case TOUCHMARKER_ENTER:		color = GameMakeColor(  64, 220,  80, 255 ); break;
+		case TOUCHMARKER_REPAIR:	color = GameMakeColor(  80, 200, 255, 255 ); break;
+		default:									return;
+	}
+
+	// Sits above the touch point, like the icon, so the finger does not cover it.
+	const Int halfWidth = 15;
+	const Int height		= 13;
+	const Int tipY			= y - 14;
+	const Real width		= 3.0f;
+
+	TheDisplay->drawLine( x - halfWidth, tipY - height, x, tipY, width, color );
+	TheDisplay->drawLine( x + halfWidth, tipY - height, x, tipY, width, color );
+}
+
+//-------------------------------------------------------------------------------------------------
+void InGameUI::updateTouchCommandIcon(Int screenX, Int screenY, DrawableID targetID)
+{
+	const Image *image = nullptr;
+	TouchOrderMarker marker = TOUCHMARKER_NONE;
+
+	if( m_pendingGUICommand != nullptr )
+	{
+		// An armed ability owns the answer outright: the player pressed a specific button to
+		// get here, so that button's own picture is the truthful thing to show.
+		image = m_pendingGUICommand->getButtonImage();
+	}
+	else if( TheGameClient != nullptr )
+	{
+		// Nothing armed: the press is an implicit order, and what it would be depends only on
+		// what is under the finger.
+		const Drawable *target = (targetID != INVALID_DRAWABLE_ID)
+			? TheGameClient->findDrawableByID( targetID )
+			: nullptr;
+
+		marker = computeTouchOrderMarker( target );
+		if( marker != TOUCHMARKER_NONE )
+		{
+			image = findTouchOrderImage( marker );
+			if( image != nullptr )
+				marker = TOUCHMARKER_NONE;	// real art found; the drawn fallback is not needed
+		}
+	}
+
+	m_touchCommandIcon = image;
+	m_touchOrderMarker = marker;
+	m_touchCommandIconPos.x = screenX;
+	m_touchCommandIconPos.y = screenY;
+	// A few frames, refreshed on every frame the finger is still down. Expiring on its own
+	// means the release does not have to be noticed anywhere -- and a release that never
+	// arrives (the touch layer's recurring hazard) cannot leave the icon stuck on screen.
+	m_touchCommandIconTimer = (image != nullptr || marker != TOUCHMARKER_NONE) ? 3 : 0;
+}
+
+//-------------------------------------------------------------------------------------------------
+void InGameUI::setTouchHoverDrawable(DrawableID id)
+{
+	m_mousedOverDrawableID = id;
+	// Longer than the icon: the point is that the health bar stays readable for a moment
+	// after the finger lifts, which is when the player is actually looking at it.
+	m_touchHoverTimer = (id != INVALID_DRAWABLE_ID) ? 45 : 0;
+}
+
+//-------------------------------------------------------------------------------------------------
 void InGameUI::triggerDoubleClickAttackMoveGuardHint()
 {
 	const MouseIO* mouseIO = TheMouse->getMouseStatus();
@@ -1636,11 +1972,26 @@ void InGameUI::handleBuildPlacements()
 		}
 		else
 		{
+#if defined(__ANDROID__) || (defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE)
+			// GeneralsX @bugfix Android port 06/09/2026 Reported: picking a structure at a
+			// dozer immediately drew its silhouette in the middle of the screen, which means
+			// nothing -- the player is about to tap where they actually want it.
+			//
+			// Same cause as the ability radius: "the mouse position" is not an answer to
+			// "where is the player pointing" on a touchscreen. Between gestures there is no
+			// pointer at all, and this read whatever value happened to be left in the mouse
+			// object. Use the aim point the touch layer reports, and draw nothing until a
+			// finger has actually pointed somewhere -- so the ghost appears under the finger,
+			// where the building is going, and nowhere before that.
+			if( !m_touchAimKnown )
+				return;
+			loc = m_touchAimPoint;
+#else
 			const MouseIO *mouseIO = TheMouse->getMouseStatus();
 
 			// location is the mouse position
 			loc = mouseIO->pos;
-
+#endif
 		}
 
 		// set the location and angle of the place icon
@@ -1788,6 +2139,35 @@ void InGameUI::preDraw()
 
 	// handle any "icons" for the act of building things and placing them in the world
 	handleBuildPlacements();
+
+#if defined(__ANDROID__) || (defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE)
+	// GeneralsX @bugfix Android port 08/09/2026 Age the attack-move guard hint here.
+	// On the mouse path createCommandHint() ticks it, but that runs off mouseover hints,
+	// which a finger never generates -- so the timer sat at 11 forever and the decal
+	// stayed on screen until some unrelated event cleared it ("the radius stays until I
+	// tap"). Clearing the decal at zero is what actually ends the hint.
+	if( m_duringDoubleClickAttackMoveGuardHintTimer > 0 )
+	{
+		if( --m_duringDoubleClickAttackMoveGuardHintTimer <= 0 )
+			setRadiusCursorNone();
+	}
+
+	// GeneralsX @feature Android port 09/09/2026 Same treatment for the two touch feedback
+	// aids: nothing on a touchscreen reliably reports "the finger left", so they expire.
+	if( m_touchCommandIconTimer > 0 )
+	{
+		if( --m_touchCommandIconTimer <= 0 )
+		{
+			m_touchCommandIcon = nullptr;
+			m_touchOrderMarker = TOUCHMARKER_NONE;
+		}
+	}
+	if( m_touchHoverTimer > 0 )
+	{
+		if( --m_touchHoverTimer <= 0 )
+			m_mousedOverDrawableID = INVALID_DRAWABLE_ID;
+	}
+#endif
 
 	// handle radius-cursors, if any
 	handleRadiusCursor();
@@ -2361,8 +2741,10 @@ void InGameUI::addMessageText( const UnicodeString& formattedMessage, const RGBC
 	m_uiMessages[ 0 ].fullText = formattedMessage;
 	m_uiMessages[ 0 ].timestamp = TheGameLogic->getFrame();
 	m_uiMessages[ 0 ].displayString = TheDisplayStringManager->newDisplayString();
+	// GeneralsX @feature Android port 01/10/2026 The event messages at the top left grow with the
+	// launcher's interface scale (GXUiScale.h), up to twice their size.
 	m_uiMessages[ 0 ].displayString->setFont( TheFontLibrary->getFont( m_messageFont,
-																						TheGlobalLanguageData->adjustFontSize(m_messagePointSize), m_messageBold ) );
+																						gxHudFontSize( TheGlobalLanguageData->adjustFontSize(m_messagePointSize) ), m_messageBold ) );
 	m_uiMessages[ 0 ].displayString->setText( m_uiMessages[ 0 ].fullText );
 
 	//
@@ -2477,6 +2859,8 @@ void InGameUI::createGarrisonHint( const GameMessage *msg )
 #include "Common/StateMachine.h"
 #include "GameLogic/Module/AIUpdate.h"
 #include "GameLogic/AIPathfind.h"
+
+
 #endif // AI_DEBUG_TOOLTIPS
 
 #endif // defined(RTS_DEBUG)
@@ -3155,6 +3539,14 @@ void InGameUI::setGUICommand( const CommandButton *command )
 	// set the command
 	m_pendingGUICommand = command;
 
+	// GeneralsX @bugfix Android port 06/09/2026 Arming a command forgets where the last
+	// one was aimed. A mouse cursor is wherever the player physically left it, so it is
+	// always a truthful answer to "where am I aiming"; a touch cursor is a leftover from
+	// the previous attempt and is not. Reported: re-arming an ability showed the reticle
+	// still sitting at the previous try's target. Nothing is drawn again until a finger
+	// touches the battlefield and createCommandHint() supplies a real point.
+	clearTouchAimPoint();
+
 	// set the mouse cursor for commands that need a targeting or to normal with no command
 	if( command && BitIsSet( command->getOptions(), COMMAND_OPTION_NEED_TARGET ) && !command->isContextCommand() )
 	{
@@ -3162,9 +3554,16 @@ void InGameUI::setGUICommand( const CommandButton *command )
 		// the mouseoverhint code will take care of the cursor context, once the mouse leaves the panel
 		// but we will set the radius cursor here, so you can see it bleeding out from beneath the panel
 
+#if defined(__ANDROID__) || (defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE)
+		// ...except on a touchscreen, where "bleeding out from beneath the panel" is not
+		// what happens: with no live pointer the decal appears at the stale cursor point,
+		// which is the previous attempt's target somewhere else on the map. Leave it to
+		// createCommandHint(), one finger-down later.
+#else
 		setRadiusCursor(command->getRadiusCursorType(), //*****************************************************************
 										command->getSpecialPowerTemplate(),
 										command->getWeaponSlot());
+#endif
 	}
 	else
 	{
@@ -3177,6 +3576,34 @@ void InGameUI::setGUICommand( const CommandButton *command )
 
 	m_mouseModeCursor = TheMouse->getMouseCursor();
 
+}
+
+//-------------------------------------------------------------------------------------------------
+/** GeneralsX @feature Android port 06/09/2026 See the declaration comment. */
+//-------------------------------------------------------------------------------------------------
+void InGameUI::setTouchAimPoint( Int x, Int y, Bool valid )
+{
+	m_touchAimKnown = TRUE;
+	m_touchAimValid = valid;
+	m_touchAimPoint.x = x;
+	m_touchAimPoint.y = y;
+}
+
+//-------------------------------------------------------------------------------------------------
+/** GeneralsX @feature Android port 06/09/2026 See the declaration comment. */
+//-------------------------------------------------------------------------------------------------
+void InGameUI::setTouchDebugState( const char *phaseName, Int downX, Int downY,
+																	 Int lastX, Int lastY, Int pubX, Int pubY, Int fingers )
+{
+	m_touchDebugOn = TRUE;
+	m_touchDebugPhase = (phaseName != nullptr) ? phaseName : "";
+	m_touchDebugDown.x = downX;
+	m_touchDebugDown.y = downY;
+	m_touchDebugLast.x = lastX;
+	m_touchDebugLast.y = lastY;
+	m_touchDebugPublished.x = pubX;
+	m_touchDebugPublished.y = pubY;
+	m_touchDebugFingers = fingers;
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -3223,6 +3650,11 @@ void InGameUI::placeBuildAvailable( const ThingTemplate *build, Drawable *buildD
 	{
 		// if building something, no radius cursor, thankew
 		setRadiusCursorNone();
+
+		// GeneralsX @bugfix Android port 06/09/2026 And no stale aim point either: the
+		// ghost must not appear at wherever the player last touched the map before they
+		// picked this building. It appears when a finger points somewhere, and there.
+		clearTouchAimPoint();
 	}
 
 	//
@@ -3686,8 +4118,10 @@ void InGameUI::disregardDrawable( Drawable *draw )
 //-------------------------------------------------------------------------------------------------
 void InGameUI::postWindowDraw()
 {
-	Int hudOffsetX = 0;
-	Int hudOffsetY = 0;
+	// GeneralsX @bugfix Android port 24/09/2026 Start the corner HUD inside the screen's safe
+	// area, so a cutout or rounded corner does not clip it (issue #20; see Common/GXSafeArea.h).
+	Int hudOffsetX = GXSafeArea::leftPx();
+	Int hudOffsetY = GXSafeArea::topPx();
 
 	if (m_networkLatencyPointSize > 0 && TheGameLogic->isInMultiplayerGame())
 	{
@@ -3720,6 +4154,26 @@ void InGameUI::postWindowDraw()
 //-------------------------------------------------------------------------------------------------
 void InGameUI::postDraw()
 {
+#if defined(__ANDROID__) || (defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE)
+	// GeneralsX @feature Android port 09/09/2026 The pending command's own icon, under the
+	// finger. Drawn here rather than as part of the world so it is never occluded and never
+	// scales with the camera -- it belongs to the finger, not to the ground. Offset up and
+	// left of the touch point by half its size so the finger does not cover it.
+	if( m_touchCommandIcon != nullptr && TheDisplay != nullptr )
+	{
+		const Int size = 48;
+		const Int x = m_touchCommandIconPos.x - size / 2;
+		const Int y = m_touchCommandIconPos.y - size - (size / 4);
+		TheDisplay->drawImage( m_touchCommandIcon, x, y, x + size, y + size );
+	}
+	else if( m_touchOrderMarker != TOUCHMARKER_NONE )
+	{
+		// An implicit order -- an attack, most often -- that the installed data had no
+		// picture for. See drawTouchOrderMarker(): a drawn marker, not the game's art.
+		drawTouchOrderMarker( m_touchOrderMarker, m_touchCommandIconPos.x, m_touchCommandIconPos.y );
+	}
+#endif
+
 
 	// render our display strings for the messages if on
 	if( m_messagesOn )
@@ -3730,6 +4184,34 @@ void InGameUI::postDraw()
 
 		x = m_messagePosition.x;
 		y = m_messagePosition.y;
+
+		// GeneralsX @bugfix Android port 27/09/2026 Start the message list inside the safe area
+		// and below the corner HUD row (FPS, clock, latency -- postWindowDraw), like the HUD
+		// itself (issue #20). At (10,10) the list sat under a rounded screen corner and on top
+		// of the FPS counter, so the start of each line and the counter were unreadable.
+		x += GXSafeArea::leftPx();
+		y += GXSafeArea::topPx();
+		{
+			Int hudRowHeight = 0;
+			DisplayString *hudStrings[ 3 ] = { nullptr, nullptr, nullptr };
+			if( m_renderFpsPointSize > 0 && isAtHudAnchorPos( m_renderFpsPosition ) )
+				hudStrings[ 0 ] = m_renderFpsString;
+			if( m_systemTimePointSize > 0 && isAtHudAnchorPos( m_systemTimePosition ) )
+				hudStrings[ 1 ] = m_systemTimeString;
+			if( m_networkLatencyPointSize > 0 && isAtHudAnchorPos( m_networkLatencyPosition ) && TheGameLogic->isInMultiplayerGame() )
+				hudStrings[ 2 ] = m_networkLatencyString;
+			for( Int h = 0; h < 3; ++h )
+			{
+				if( hudStrings[ h ] == nullptr )
+					continue;
+				Int w = 0, hgt = 0;
+				hudStrings[ h ]->getSize( &w, &hgt );
+				hudRowHeight = max( hudRowHeight, hgt );
+			}
+			if( hudRowHeight > 0 )
+				y = max( y, GXSafeArea::topPx() + kHudAnchorY + hudRowHeight + 2 );
+		}
+
 		for( i = MAX_UI_MESSAGES - 1; i >= 0; i-- )
 		{
 
@@ -3955,7 +4437,12 @@ void InGameUI::postDraw()
 				UnsignedInt readyFrame = TheGameLogic->getFrame();
 				if (framesLeft > 0)
 					readyFrame += framesLeft;
+#if defined(GENERALS_ONLINE_HIGH_FPS_SERVER)
+				// Script counters are kept in retail frames, so convert with the retail rate.
+				Int readySecs = (Int)((Real)(readyFrame - TheGameLogic->getFrame()) / (Real)BaseFps);
+#else
 				Int readySecs = (Int)(SECONDS_PER_LOGICFRAME_REAL * (readyFrame - TheGameLogic->getFrame()));
+#endif
 				if ( (info->isCountdown && readySecs != info->timestamp) || (!info->isCountdown && framesLeft != info->timestamp) )
 				{
 					if (!readySecs && info->isCountdown)
@@ -4038,7 +4525,146 @@ void InGameUI::postDraw()
 			TheDisplay->drawFillRect( anchor->x-w, anchor->y-h*r, w*2+1, h*2*r+1, mainColor );
 		}
 	}
+
+#if defined(__ANDROID__) || (defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE)
+	// GeneralsX @feature Android port 06/09/2026 Draw the targeting reticle a touchscreen
+	// has no cursor to carry.
+	//
+	// With an ability armed, the shape of the mouse cursor was the ONLY thing telling the
+	// player whether the point under it would accept the order: createCommandHint() picks
+	// getCursorName() or getInvalidCursorName() from the hint message and calls
+	// setMouseCursor() with it. On Android that cursor is an SDL system cursor
+	// (SDL3Mouse::setCursor) and a touchscreen never draws one, so the whole valid/invalid
+	// channel simply vanished -- a player would drop a fuel-air bomb or a spy drone blind
+	// and find out where it went afterwards. Nothing here restores the cursor; it draws the
+	// answer directly, at the point the finger is actually pointing at.
+	//
+	// Not colour alone: valid draws inward ticks, invalid draws an X across the box, so it
+	// reads on a small bright screen and without colour vision.
+	if( m_mouseMode == MOUSEMODE_GUI_COMMAND && m_pendingGUICommand != nullptr && m_touchAimKnown )
+	{
+		const Bool needsATarget =
+			m_pendingGUICommand->isContextCommand() ||
+			m_pendingGUICommand->getCommandType() == GUI_COMMAND_SPECIAL_POWER ||
+			m_pendingGUICommand->getCommandType() == GUI_COMMAND_SPECIAL_POWER_FROM_SHORTCUT ||
+			BitIsSet( m_pendingGUICommand->getOptions(), COMMAND_OPTION_NEED_TARGET );
+
+		if( needsATarget )
+		{
+			const ICoord2D pos = m_touchAimPoint;
+			const Color mainColor = m_touchAimValid ? GameMakeColor( 80, 255, 80, 255 )
+																							: GameMakeColor( 255, 48, 48, 255 );
+			const Color dropColor = GameMakeColor( 0, 0, 0, 255 );
+			const Int r = 22;			// half-size of the reticle box, in logical pixels
+			const Int gap = 8;		// centre kept clear so the target stays visible
+			const Real lineW = 2.0f;
+
+			// black outline first, so the reticle survives whatever it is drawn over
+			TheDisplay->drawOpenRect( pos.x - r - 1, pos.y - r - 1, r * 2 + 3, r * 2 + 3, lineW, dropColor );
+			TheDisplay->drawOpenRect( pos.x - r, pos.y - r, r * 2 + 1, r * 2 + 1, lineW, mainColor );
+
+			if( m_touchAimValid )
+			{
+				TheDisplay->drawLine( pos.x, pos.y - r, pos.x, pos.y - gap, lineW, mainColor );
+				TheDisplay->drawLine( pos.x, pos.y + gap, pos.x, pos.y + r, lineW, mainColor );
+				TheDisplay->drawLine( pos.x - r, pos.y, pos.x - gap, pos.y, lineW, mainColor );
+				TheDisplay->drawLine( pos.x + gap, pos.y, pos.x + r, pos.y, lineW, mainColor );
+			}
+			else
+			{
+				TheDisplay->drawLine( pos.x - r, pos.y - r, pos.x + r, pos.y + r, lineW, mainColor );
+				TheDisplay->drawLine( pos.x + r, pos.y - r, pos.x - r, pos.y + r, lineW, mainColor );
+			}
+		}
+	}
+#endif
+
+#if defined(__ANDROID__) || (defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE)
+	// GeneralsX @feature Android port 06/09/2026 Touch-input debug overlay, off unless
+	// the tester turns it on in the launcher's Diagnostics section.
+	//
+	// It exists because the hard bugs here are all disagreements between three positions
+	// that are the same thing on a desktop and different things on a touchscreen: where
+	// the finger is, where the engine thinks the pointer is (TheMouse's own position,
+	// which drives the placement ghost and the ability radius), and where the camera is
+	// anchored (LookAtTranslator's, which drives scrolling). A log cannot show that --
+	// the disagreement only matters mid-gesture, while the player's finger is on the
+	// screen and their eyes are on the game.
+	if( m_touchDebugOn )
+	{
+		const MouseIO *mio = TheMouse ? TheMouse->getMouseStatus() : nullptr;
+		const Color colFinger    = GameMakeColor(  80, 255,  80, 255 );  // where the finger is now
+		const Color colAnchor    = GameMakeColor(  80, 160, 255, 255 );  // where it went down
+		const Color colCursor    = GameMakeColor( 255, 220,  40, 255 );  // engine pointer position
+		const Color colPublished = GameMakeColor( 255,  80, 255, 255 );  // last position we sent
+		const Color colScroll    = GameMakeColor( 255,  60,  60, 255 );  // camera scroll anchor
+		const Color colBack      = GameMakeColor(   0,   0,   0, 160 );
+
+		// Each marker is a different SHAPE as well as a different colour -- they routinely
+		// sit on top of each other, which is exactly the case worth being able to read.
+		// finger: filled square
+		TheDisplay->drawFillRect( m_touchDebugLast.x - 6, m_touchDebugLast.y - 6, 13, 13, colFinger );
+		// anchor: hollow square
+		TheDisplay->drawOpenRect( m_touchDebugDown.x - 11, m_touchDebugDown.y - 11, 23, 23, 2.0f, colAnchor );
+		// engine cursor: long cross
+		if( mio != nullptr )
+		{
+			TheDisplay->drawLine( mio->pos.x - 20, mio->pos.y, mio->pos.x + 20, mio->pos.y, 2.0f, colCursor );
+			TheDisplay->drawLine( mio->pos.x, mio->pos.y - 20, mio->pos.x, mio->pos.y + 20, 2.0f, colCursor );
+		}
+		// last published position: diagonal cross
+		TheDisplay->drawLine( m_touchDebugPublished.x - 14, m_touchDebugPublished.y - 14,
+													m_touchDebugPublished.x + 14, m_touchDebugPublished.y + 14, 2.0f, colPublished );
+		TheDisplay->drawLine( m_touchDebugPublished.x + 14, m_touchDebugPublished.y - 14,
+													m_touchDebugPublished.x - 14, m_touchDebugPublished.y + 14, 2.0f, colPublished );
+
+		// The camera scroll anchor: the one that answers "why is the map running away".
+		// A non-null anchor while no finger is down means a scroll is latched.
+		const ICoord2D *scrollAnchor = TheLookAtTranslator ? TheLookAtTranslator->getRMBScrollAnchor() : nullptr;
+		if( scrollAnchor != nullptr )
+		{
+			TheDisplay->drawOpenRect( scrollAnchor->x - 17, scrollAnchor->y - 17, 35, 35, 3.0f, colScroll );
+		}
+
+		static DisplayString *debugText = nullptr;
+		if( debugText == nullptr && TheDisplayStringManager != nullptr && TheFontLibrary != nullptr )
+		{
+			debugText = TheDisplayStringManager->newDisplayString();
+			if( debugText != nullptr )
+			{
+				debugText->setFont( TheFontLibrary->getFont( AsciiString("Arial"), 12, FALSE ) );
+			}
+		}
+
+		if( debugText != nullptr )
+		{
+			// The camera half of the line is the important half. "cam" reports EVERY mode
+			// LookAtTranslator can be stuck in, not just the RMB one -- a camera moving on
+			// its own is one of them latched, and naming which is the whole diagnosis.
+			const char *camState = TheLookAtTranslator
+				? TheLookAtTranslator->getCameraModeDebugText() : "(no xlat)";
+
+			UnicodeString line;
+			line.format( L"TOUCH %hs f=%d | finger %d,%d | down %d,%d | sent %d,%d | cursor %d,%d | cam %hs | uiScroll %d sel %d | view %dx%d",
+									 m_touchDebugPhase, m_touchDebugFingers,
+									 m_touchDebugLast.x, m_touchDebugLast.y,
+									 m_touchDebugDown.x, m_touchDebugDown.y,
+									 m_touchDebugPublished.x, m_touchDebugPublished.y,
+									 mio ? mio->pos.x : -1, mio ? mio->pos.y : -1,
+									 camState,
+									 m_isScrolling ? 1 : 0, m_isSelecting ? 1 : 0,
+									 TheDisplay->getWidth(), TheDisplay->getHeight() );
+			debugText->setText( line );
+
+			const Int textW = debugText->getWidth();
+			const Int textH = debugText->getFont() ? debugText->getFont()->height : 14;
+			TheDisplay->drawFillRect( 2, 2, textW + 8, textH + 4, colBack );
+			debugText->draw( 6, 4, GameMakeColor( 255, 255, 255, 255 ), GameMakeColor( 0, 0, 0, 255 ) );
+		}
+	}
+#endif
 }
+
 
 //-------------------------------------------------------------------------------------------------
 /** Expire a hint of the specified type with the corresponding hint index */
@@ -5870,7 +6496,7 @@ void InGameUI::refreshNetworkLatencyResources()
 	}
 
 	m_networkLatencyPointSize = TheGlobalData->m_networkLatencyFontSize;
-	Int adjustedNetworkLatencyFontSize = TheGlobalLanguageData->adjustFontSize(m_networkLatencyPointSize);
+	Int adjustedNetworkLatencyFontSize = gxHudFontSize(TheGlobalLanguageData->adjustFontSize(m_networkLatencyPointSize));
 	GameFont* latencyFont = TheWindowManager->winFindFont(m_networkLatencyFont, adjustedNetworkLatencyFontSize, m_networkLatencyBold);
 	m_networkLatencyString->setFont(latencyFont);
 }
@@ -5891,7 +6517,7 @@ void InGameUI::refreshRenderFpsResources()
 	}
 
 	m_renderFpsPointSize = TheGlobalData->m_renderFpsFontSize;
-	Int adjustedRenderFpsFontSize = TheGlobalLanguageData->adjustFontSize(m_renderFpsPointSize);
+	Int adjustedRenderFpsFontSize = gxHudFontSize(TheGlobalLanguageData->adjustFontSize(m_renderFpsPointSize));
 	GameFont *fpsFont = TheWindowManager->winFindFont(m_renderFpsFont, adjustedRenderFpsFontSize, m_renderFpsBold);
 	m_renderFpsString->setFont(fpsFont);
 	m_renderFpsLimitString->setFont(fpsFont);
@@ -5910,7 +6536,7 @@ void InGameUI::refreshSystemTimeResources()
 	}
 
 	m_systemTimePointSize = TheGlobalData->m_systemTimeFontSize;
-	Int adjustedSystemTimeFontSize = TheGlobalLanguageData->adjustFontSize(m_systemTimePointSize);
+	Int adjustedSystemTimeFontSize = gxHudFontSize(TheGlobalLanguageData->adjustFontSize(m_systemTimePointSize));
 	GameFont* systemTimeFont = TheWindowManager->winFindFont(m_systemTimeFont, adjustedSystemTimeFontSize, m_systemTimeBold);
 	m_systemTimeString->setFont(systemTimeFont);
 }
@@ -5928,7 +6554,7 @@ void InGameUI::refreshGameTimeResources()
 	}
 
 	m_gameTimePointSize = TheGlobalData->m_gameTimeFontSize;
-	Int adjustedGameTimeFontSize = TheGlobalLanguageData->adjustFontSize(m_gameTimePointSize);
+	Int adjustedGameTimeFontSize = gxHudFontSize(TheGlobalLanguageData->adjustFontSize(m_gameTimePointSize));
 	GameFont* gameTimeFont = TheWindowManager->winFindFont(m_gameTimeFont, adjustedGameTimeFontSize, m_gameTimeBold);
 	m_gameTimeString->setFont(gameTimeFont);
 	m_gameTimeFrameString->setFont(gameTimeFont);
@@ -5937,7 +6563,7 @@ void InGameUI::refreshGameTimeResources()
 void InGameUI::refreshPlayerInfoListResources()
 {
 	m_playerInfoListPointSize = TheGlobalData->m_playerInfoListFontSize;
-	Int adjustedPlayerInfoListPointSize = TheGlobalLanguageData->adjustFontSize(m_playerInfoListPointSize);
+	Int adjustedPlayerInfoListPointSize = gxHudFontSize(TheGlobalLanguageData->adjustFontSize(m_playerInfoListPointSize));
 	m_playerInfoList.init(m_playerInfoListFont, adjustedPlayerInfoListPointSize, m_playerInfoListBold);
 }
 
@@ -6010,6 +6636,28 @@ void InGameUI::updateRenderFpsString()
 
 void InGameUI::drawNetworkLatency(Int &x, Int &y)
 {
+#if defined(GENERALS_ONLINE)
+	// The run-ahead is a frame count, so converting it to milliseconds depends on the tick rate.
+	const UnsignedInt actualLatencyInMS = TheNetwork->getRunAhead() * (1000 / GENERALS_ONLINE_HIGH_FPS_LIMIT);
+	const UnsignedInt actualFrames = ConvertMSLatencyToFrames(actualLatencyInMS);
+	const UnsignedInt gentoolFrames = ConvertMSLatencyToGenToolFrames(actualLatencyInMS);
+
+	if (gentoolFrames != m_lastNetworkLatencyFrames)
+	{
+		UnicodeString latencyStr;
+
+		if (actualFrames != gentoolFrames)
+		{
+			latencyStr.format(L"[%u] - [%ums - %u]", TheNetwork->getFrameRate(), actualLatencyInMS, actualFrames);
+		}
+		else
+		{
+			latencyStr.format(L"%u [%ums][L: %u]", gentoolFrames, actualLatencyInMS, TheNetwork->getFrameRate());
+		}
+		m_networkLatencyString->setText(latencyStr);
+		m_lastNetworkLatencyFrames = gentoolFrames;
+	}
+#else
 	const UnsignedInt networkLatencyFrames = TheNetwork->getRunAhead();
 
 	if (networkLatencyFrames != m_lastNetworkLatencyFrames)
@@ -6019,6 +6667,7 @@ void InGameUI::drawNetworkLatency(Int &x, Int &y)
 		m_networkLatencyString->setText(latencyStr);
 		m_lastNetworkLatencyFrames = networkLatencyFrames;
 	}
+#endif
 
 	// TheSuperHackers @info at the HUD anchor this draws inline and advances x otherwise uses configured position
 	if (isAtHudAnchorPos(m_networkLatencyPosition))
@@ -6123,11 +6772,14 @@ void InGameUI::drawGameTime()
     m_gameTimeFrameString->setText(gameTimeFrameString);
 
 	// TheSuperHackers @info this implicitly offsets the game timer from the right instead of left of the screen
-	int horizontalTimerOffset = TheDisplay->getWidth() - (Int)m_gameTimePosition.x - m_gameTimeString->getWidth() - m_gameTimeFrameString->getWidth();
-	int horizontalFrameOffset = TheDisplay->getWidth() - (Int)m_gameTimePosition.x - m_gameTimeFrameString->getWidth();
+	// GeneralsX @bugfix Android port 24/09/2026 Keep the timer inside the screen's safe area (issue #20).
+	const Int safeRight = GXSafeArea::rightPx();
+	const Int safeTop = GXSafeArea::topPx();
+	int horizontalTimerOffset = TheDisplay->getWidth() - safeRight - (Int)m_gameTimePosition.x - m_gameTimeString->getWidth() - m_gameTimeFrameString->getWidth();
+	int horizontalFrameOffset = TheDisplay->getWidth() - safeRight - (Int)m_gameTimePosition.x - m_gameTimeFrameString->getWidth();
 
-	m_gameTimeString->draw(horizontalTimerOffset, m_gameTimePosition.y, m_gameTimeColor, m_gameTimeDropColor);
-	m_gameTimeFrameString->draw(horizontalFrameOffset, m_gameTimePosition.y, GameMakeColor(180,180,180,255), m_gameTimeDropColor);
+	m_gameTimeString->draw(horizontalTimerOffset, m_gameTimePosition.y + safeTop, m_gameTimeColor, m_gameTimeDropColor);
+	m_gameTimeFrameString->draw(horizontalFrameOffset, m_gameTimePosition.y + safeTop, GameMakeColor(180,180,180,255), m_gameTimeDropColor);
 }
 
 void InGameUI::drawPlayerInfoList()

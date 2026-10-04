@@ -450,6 +450,21 @@ public:  // ********************************************************************
 	virtual void setRadiusCursor(RadiusCursorType r, const SpecialPowerTemplate* sp, WeaponSlotType wslot);
 	virtual void setRadiusCursorNone() { setRadiusCursor(RADIUSCURSOR_NONE, nullptr, PRIMARY_WEAPON); }
 
+	// GeneralsX @feature Android port 06/09/2026 Report the touch layer's own view of
+	// the gesture, for the debug overlay drawn in postDraw(). Called only while the
+	// overlay is enabled; phaseName must have static lifetime (it is a literal).
+	// Turning it into a picture is the point: the numbers that matter here -- where the
+	// finger is versus where the engine thinks the pointer is versus where the camera is
+	// anchored -- are three different things that only ever disagree on a touchscreen,
+	// and a log cannot be read while a gesture is in progress.
+	void setTouchDebugState( const char *phaseName, Int downX, Int downY,
+													 Int lastX, Int lastY, Int pubX, Int pubY, Int fingers );
+
+	// GeneralsX @feature Android port 06/09/2026 Report where the finger is aiming and
+	// whether the armed command accepts it. See m_touchAimKnown.
+	void setTouchAimPoint( Int x, Int y, Bool valid );
+	void clearTouchAimPoint() { m_touchAimKnown = FALSE; m_touchAimValid = FALSE; }
+
 	virtual void setInputEnabled( Bool enable );										///< Set the input enabled or disabled
 	virtual Bool getInputEnabled() { return m_inputEnabled; }	///< Get the current input status
 
@@ -590,6 +605,52 @@ public:
 	void unregisterWindowLayout(WindowLayout *layout); // stop updates for this layout
 
   void triggerDoubleClickAttackMoveGuardHint();
+
+	// GeneralsX @bugfix Android port 08/09/2026 The touch equivalent of the above, and it
+	// has to be a separate entry point for two reasons. It takes the world point that was
+	// actually ordered instead of reading TheMouse's position, which on a touch device is
+	// not where the player pointed. And it creates the radius decal itself, because the
+	// mouse path gets that for free from createCommandHint() -- which runs off mouseover
+	// hints that a finger never generates, so on touch the hint's timer was never ticked
+	// and its decal never existed. Reported as "double tap does nothing; the radius only
+	// shows up if I open the game menu, and then it stays".
+	void triggerTouchAttackMoveGuardHint(const Coord3D *worldPos);
+
+	// GeneralsX @feature Android port 09/09/2026 Two things the mouse gave the player for
+	// free and a finger does not, both reported from device testing.
+	//
+	// setTouchCommandIcon() pins the pending command's own icon under the finger while it is
+	// held on a target. Touch already draws the ability's ground decal, but that decal is the
+	// same green square whatever the ability is, so nothing says WHICH order is about to be
+	// given -- where the mouse showed a distinct cursor per command. The icon is the command
+	// button's own image, so it is exactly the picture the player pressed to get here.
+	//
+	// setTouchHoverDrawable() is the "hover" a touchscreen cannot have. Drawable::drawHealthBar
+	// shows a health bar when the drawable is selected OR is TheInGameUI's moused-over
+	// drawable, and the moused-over id is fed by MSG_MOUSEOVER_DRAWABLE_HINT, which a finger
+	// never produces. Pointing this at whatever is under the finger gives back the health
+	// readout the mouse had on hover; the timer lets it linger briefly after release rather
+	// than vanishing with the touch.
+	// A third case, added after device testing: an order the player never armed a button
+	// for. With units selected, pressing an ENEMY is an attack, and the mouse said so with
+	// its own red cursor -- but there is no CommandButton behind an implicit order, so
+	// there is no button image to borrow and touch showed nothing at all. Reported as the
+	// missing "red arrow". TouchOrderMarker is the small set of implicit orders worth
+	// advertising; see InGameUI::computeTouchOrderMarker() for how the intent is decided
+	// (by asking the same predicates the order path asks) and InGameUI::findTouchOrderImage()
+	// for where the art comes from, and why there may not be any.
+	enum TouchOrderMarker
+	{
+		TOUCHMARKER_NONE = 0,	///< nothing to advertise -- notably a plain move onto open ground,
+													///< where the green ground decal already says everything
+		TOUCHMARKER_ATTACK,		///< the press would attack the object under the finger
+		TOUCHMARKER_CAPTURE,	///< ...capture the building under it
+		TOUCHMARKER_ENTER,		///< ...enter/garrison it
+		TOUCHMARKER_REPAIR,		///< ...repair it
+	};
+
+	void updateTouchCommandIcon(Int screenX, Int screenY, DrawableID targetID);
+	void setTouchHoverDrawable(DrawableID id);
 
 
 public:
@@ -888,6 +949,31 @@ protected:
 	Bool												m_isSelecting;
 	MouseMode										m_mouseMode;
 	Int													m_mouseModeCursor;
+	// GeneralsX @feature Android port 06/09/2026 Where the finger is aiming, and whether
+	// the armed command would accept that point.
+	//
+	// This replaces reading TheMouse's position. A mouse position is a truthful answer to
+	// "where is the player pointing" because a real pointer is always somewhere; a touch
+	// device has nowhere to point between gestures, and the last written value is a
+	// leftover from the previous attempt. So it is recorded explicitly, per gesture, and
+	// m_touchAimKnown says whether there is an answer at all -- there is none until a
+	// finger actually lands, and arming a command clears it again.
+	//
+	// Validity comes from evaluateContextCommand's EVALUATE_ONLY mode, the same evaluation
+	// the order itself will run, so the feedback cannot disagree with the outcome.
+	Bool												m_touchAimKnown;
+	Bool												m_touchAimValid;
+	ICoord2D										m_touchAimPoint;
+
+	// GeneralsX @feature Android port 06/09/2026 Touch-input debug overlay state, fed
+	// from the platform touch handler (see setTouchDebugState). Off unless the tester
+	// enables it in the launcher's Diagnostics section.
+	Bool												m_touchDebugOn;
+	const char *								m_touchDebugPhase;
+	ICoord2D										m_touchDebugDown;
+	ICoord2D										m_touchDebugLast;
+	ICoord2D										m_touchDebugPublished;
+	Int													m_touchDebugFingers;
 	DrawableID									m_mousedOverDrawableID;
 	Coord2D											m_scrollAmt;
 	Bool												m_isQuitMenuVisible;
@@ -917,6 +1003,28 @@ protected:
 	Int													m_militaryCaptionSpeed;
 
 	RadiusDecalTemplate					m_radiusCursors[RADIUSCURSOR_COUNT];
+
+	// GeneralsX @feature Android port 09/09/2026 Implicit-order feedback under the finger.
+	// computeTouchOrderMarker() answers "what would pressing this do", findTouchOrderImage()
+	// answers "is there a picture of that in the game's own data", drawTouchOrderMarker()
+	// is what is drawn when the answer to the second question is no.
+	TouchOrderMarker computeTouchOrderMarker( const Drawable *targetDraw ) const;
+	const Image *findTouchOrderImage( TouchOrderMarker marker ) const;
+	void drawTouchOrderMarker( TouchOrderMarker marker, Int x, Int y ) const;
+
+	// GeneralsX @feature Android port 09/09/2026 See setTouchCommandIcon/setTouchHoverDrawable.
+	// Both are refreshed every frame while a finger is down and expire on their own, so
+	// nothing has to notice the release to clean them up.
+	//
+	// m_touchOrderMarker is the fallback for the implicit-order case: it is only ever set
+	// when the intent is known but no image could be found for it, and postDraw() then
+	// draws a small primitive instead of an icon. Real art always wins; see
+	// findTouchOrderImage().
+	const Image *								m_touchCommandIcon;
+	TouchOrderMarker						m_touchOrderMarker;
+	ICoord2D										m_touchCommandIconPos;
+	Int													m_touchCommandIconTimer;
+	Int													m_touchHoverTimer;
 	RadiusDecal									m_curRadiusCursor;
 	RadiusCursorType						m_curRcType;
 

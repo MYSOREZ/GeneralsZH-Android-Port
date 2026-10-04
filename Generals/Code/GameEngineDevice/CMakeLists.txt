@@ -208,15 +208,8 @@ if(WIN32)
         )
     endif()
 else()
-    # Linux-specific files (SDL3, DXVK)
-    list(APPEND GAMEENGINEDEVICE_SRC
-        Source/SDL3GameEngine.cpp
-        Include/SDL3GameEngine.h
-        Source/SDL3Device/GameClient/SDL3Mouse.cpp
-        Include/SDL3Device/GameClient/SDL3Mouse.h
-        Source/SDL3Device/GameClient/SDL3Keyboard.cpp
-        Include/SDL3Device/GameClient/SDL3Keyboard.h
-    )
+    # GeneralsX @build Android port 04/10/2026 The SDL3 game engine, mouse, keyboard, touch input
+    # and Android text editor are shared with Zero Hour: Core/GameEngineDevice.
 
     # GeneralsX @refactor fbraz3 31/03/2026 OpenALAudioDevice sources now in Core/GameEngineDevice
     # OpenALAudioManager.cpp, OpenALAudioStream.cpp, OpenALAudioCache.cpp and FFmpegFile.cpp

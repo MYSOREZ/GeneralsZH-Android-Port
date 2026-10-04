@@ -103,7 +103,7 @@ target_sources(g_generals PRIVATE
     $<$<BOOL:${WIN32}>:WinMain.cpp>
     $<$<BOOL:${WIN32}>:WinMain.h>
     # Linux SDL3 entry point
-    $<$<NOT:$<BOOL:${WIN32}>>:SDL3Main.cpp>
+    $<$<NOT:$<BOOL:${WIN32}>>:${CMAKE_SOURCE_DIR}/Core/Main/SDL3Main.cpp>
     # Linux stubs
     $<$<NOT:$<BOOL:${WIN32}>>:LinuxStubs.cpp>
     # GeneralsX @build Android port 04/10/2026 Shared with Zero Hour (Core/Main): the native crash

@@ -1,5 +1,5 @@
 /*
-**	Command & Conquer Generals Zero Hour(tm)
+**	Command & Conquer Generals / Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
 **
 **	This program is free software: you can redistribute it and/or modify
@@ -83,6 +83,17 @@
 #include "Common/version.h"  // GeneralsX @bugfix BenderAI 14/02/2026 Version class + TheVersion extern
 #include "SDL3GameEngine.h"
 #include "GeneratedVersion.h"  // GeneralsX @feature Android port 12/07/2026 ANDROID_CI_BUILD_NUMBER
+
+// GeneralsX @build Android port 04/10/2026 This entry point is shared by both games (Core/Main);
+// RTS_ZEROHOUR / RTS_GENERALS come from each game's own CMakeLists. Only names differ: the
+// window title, the log banner and the user-data leaf under the shared "Generals" folder.
+#if RTS_ZEROHOUR
+#define GX_GAME_TITLE "Command & Conquer Generals: Zero Hour"
+#define GX_USERDATA_LEAF "Command and Conquer Generals Zero Hour Data"
+#else
+#define GX_GAME_TITLE "Command & Conquer Generals"
+#define GX_USERDATA_LEAF "Command and Conquer Generals Data"
+#endif
 
 // DXVK WSI
 #define DXVK_WSI_SDL3 1
@@ -714,11 +725,9 @@ int main(int argc, char* argv[])
 			// This is where custom maps (Maps/), save games, and Options.ini
 			// now live -- laid out exactly like the reference (Windows)
 			// platform's Documents folder: a shared "Generals" directory
-			// holding one leaf per game variant ("Command and Conquer
-			// Generals Zero Hour Data" for this port; "Command and Conquer
-			// Generals Data" alongside it, matching vanilla Generals' own
-			// Documents leaf name, reserved for if/when that variant is
-			// also built for Android -- RTS_BUILD_GENERALS is OFF today).
+			// holding one leaf per game ("Command and Conquer Generals Zero
+			// Hour Data" and "Command and Conquer Generals Data", the two
+			// games' own Documents leaf names).
 			// This is exactly why players have been unable to add custom
 			// maps at all until now (issue #9 comments). Needs
 			// MANAGE_EXTERNAL_STORAGE (already requested and granted via
@@ -732,24 +741,15 @@ int main(int argc, char* argv[])
 			int rootLen = snprintf(generalsRoot, sizeof(generalsRoot),
 				"/storage/emulated/%d/Generals", userId);
 			if (rootLen > 0 && (size_t)rootLen < sizeof(generalsRoot)) {
-				char zhUserDataDir[400];
-				int zhLen = snprintf(zhUserDataDir, sizeof(zhUserDataDir),
-					"%s/Command and Conquer Generals Zero Hour Data", generalsRoot);
-				if (zhLen > 0 && (size_t)zhLen < sizeof(zhUserDataDir)) {
-					setenv("GENERALSX_USERDATA_DIR", zhUserDataDir, 1);
-				}
-
-				// Reserved sibling for vanilla Generals, not used by this
-				// (Zero Hour) build -- created so the "Generals" folder's
-				// layout matches Windows Documents from the start rather
-				// than growing a second leaf only whenever that variant
-				// eventually ships.
-				char baseUserDataDir[400];
-				int baseLen = snprintf(baseUserDataDir, sizeof(baseUserDataDir),
-					"%s/Command and Conquer Generals Data", generalsRoot);
-				if (baseLen > 0 && (size_t)baseLen < sizeof(baseUserDataDir)) {
+				// GeneralsX @build Android port 04/10/2026 Each game its own leaf, as on Windows:
+				// the base game's "Command and Conquer Generals Data" was created here as a
+				// reserved sibling while only Zero Hour was built; now it is the base game's.
+				char userDataDir[400];
+				int len = snprintf(userDataDir, sizeof(userDataDir), "%s/" GX_USERDATA_LEAF, generalsRoot);
+				if (len > 0 && (size_t)len < sizeof(userDataDir)) {
 					mkdir(generalsRoot, 0755);
-					mkdir(baseUserDataDir, 0755);
+					mkdir(userDataDir, 0755);
+					setenv("GENERALSX_USERDATA_DIR", userDataDir, 1);
 				}
 			}
 		}
@@ -845,6 +845,8 @@ int main(int argc, char* argv[])
 		// every guess, and setting it here costs the engine nothing. Same plumbing
 		// as the game folder above: the Setup app writes a plain-text marker,
 		// native code reads it before the engine starts.
+		// GeneralsX @build Android port 04/10/2026 Zero Hour only: the base game IS those archives.
+#if RTS_ZEROHOUR
 		if (internalPath != nullptr) {
 			char basePathMarker[1024];
 			snprintf(basePathMarker, sizeof(basePathMarker), "%s/generals_base_path.txt", internalPath);
@@ -864,6 +866,7 @@ int main(int argc, char* argv[])
 				fclose(baseMarker);
 			}
 		}
+#endif
 
 		// GeneralsX @feature Android port 30/07/2026 Opt-in Vulkan validation
 		// layer, same UX as gx_trace.txt: a tester drops a file named
@@ -1021,7 +1024,7 @@ int main(int argc, char* argv[])
 #endif
 
 	fprintf(stderr, "=================================================\n");
-	fprintf(stderr, " Command & Conquer Generals: Zero Hour (Linux)\n");
+	fprintf(stderr, " " GX_GAME_TITLE " (%s)\n", SDL_GetPlatform());
 	fprintf(stderr, " SDL3 + DXVK Build\n");
 	// GeneralsX @feature Android port 12/07/2026 Print the CI run number
 	// (matches the "runNNN" in the release APK's filename) so a crash log
@@ -1212,7 +1215,7 @@ int main(int argc, char* argv[])
 		windowFlags |= SDL_WINDOW_FULLSCREEN;
 #endif
 		TheSDL3Window = SDL_CreateWindow(
-			"Command & Conquer Generals: Zero Hour",
+			GX_GAME_TITLE,
 			1024, 768,  // Default resolution
 			windowFlags
 		);
