@@ -562,6 +562,17 @@ void SinglePlayerLoadScreen::init( GameInfo *game )
 	// else leave the default background screen
 
 
+#if RTS_GENERALS
+	// GeneralsX @bugfix Android port 04/10/2026 In the base game the briefing voice is its own audio
+	// stream, started from moveWindows() inside the loops below -- not the movie's soundtrack, as in
+	// Zero Hour. Those loops are where the game spends the whole briefing, so the voice has to be fed
+	// there (TheAudio->UPDATE()), or it plays only once the mission is running (reported 04/10:
+	// silent briefing, voice heard in the mission). Feeding it would also bring back the shell music
+	// the menu left playing, which this screen never had ("No music in SinglePlayerLoadScreen"), so it
+	// is faded out first, the way the other load screens stop it.
+	TheAudio->removeAudioEvent( AHSV_StopTheMusicFade );
+#endif
+
 	if(TheGameLODManager && TheGameLODManager->didMemPass())
 	{
 		// TheSuperHackers @bugfix Originally this movie render loop stopped rendering when the game window was inactive.
@@ -615,6 +626,10 @@ void SinglePlayerLoadScreen::init( GameInfo *game )
 
 			}
 			TheWindowManager->update();
+#if RTS_GENERALS
+			// The base game's briefing voice (see the music fade above).
+			TheAudio->UPDATE();
+#endif
 
 			// GeneralsX @bugfix Android port 08/09/2026 Deliberately NO TheAudio->UPDATE()
 			// here, unlike the loading pump. This loop plays a movie, and the movie feeds its
@@ -677,7 +692,11 @@ void SinglePlayerLoadScreen::init( GameInfo *game )
 			}
 
 			TheWindowManager->update();
-			// No audio pump here either -- see the movie loop above. These wait on a movie.
+#if RTS_GENERALS
+			// The base game's briefing voice (see the music fade above).
+			TheAudio->UPDATE();
+#endif
+			// Zero Hour: no audio pump here -- see the movie loop above. These wait on a movie.
 			TheDisplay->draw();
 			Sleep(100);
 			currTime = timeGetTime();
