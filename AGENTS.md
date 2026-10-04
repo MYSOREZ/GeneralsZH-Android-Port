@@ -94,7 +94,11 @@ zip, as one commit on the `apk` branch, replaced each time; prints the direct li
 links. Test builds never become GitVerse releases -- only real releases do (below).
 
 Keep only the current build in `apk/`: `git rm` the previous APK when adding a new one. Every
-APK is ~60 MB of permanent git history.
+APK is ~60 MB of permanent git history. **Except `apk/testers/`**: builds handed to someone in an
+issue (or still being tested) move there and are never replaced or deleted by a new build -- only
+when the repository owner says so. List each in `apk/testers/README.md` (who has it, why); link
+testers to `apk/testers/<name>.apk`. The GitVerse mirror publishes that folder alongside the
+current build (`testers/` on the `apk` branch).
 
 **Give the user the APK link first, at the top of the reply, not at the end.**
 

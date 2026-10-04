@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 # Mirror APKs to GitVerse, for players who cannot reach GitHub.
 #
-#   publish-apk-gitverse.sh apk/<name>.apk     test build: the branch "apk" holds exactly this
-#                                              APK (one commit, replaced each time, so old
-#                                              builds never pile up in its history)
+#   publish-apk-gitverse.sh apk/<name>.apk     test build: the branch "apk" holds this APK plus
+#                                              every build in apk/testers/ (builds people are
+#                                              testing, kept until the owner removes them) --
+#                                              one commit, replaced each time, so builds that
+#                                              were removed never pile up in its history
 #   publish-apk-gitverse.sh --release <ver>    duplicate the GitHub release v<ver> as a GitVerse
 #                                              release: same title, notes
 #                                              (docs/releases/v<ver>/notes.md) and APK (the one
@@ -49,7 +51,15 @@ else
     git -C "${WORK}" init -q -b "${BRANCH}"
     cp "${APK}" "${WORK}/${NAME}"
     printf 'Current GeneralsXZH Android test build: %s\n' "${NAME}" > "${WORK}/README.md"
-    git -C "${WORK}" add "${NAME}" README.md
+    # Builds handed to testers stay downloadable at the same address on every publish.
+    shopt -s nullglob
+    TESTERS=("${REPO}"/apk/testers/*.apk)
+    if [ "${#TESTERS[@]}" -gt 0 ]; then
+        mkdir -p "${WORK}/testers"
+        cp "${TESTERS[@]}" "${WORK}/testers/"
+        printf '\nBuilds people are testing: testers/\n' >> "${WORK}/README.md"
+    fi
+    git -C "${WORK}" add -A
     git -C "${WORK}" -c user.name="GeneralsXZH build" -c user.email="noreply@example.invalid" \
         commit -q -m "APK: ${NAME}"
     AUTH="$(printf '%s:%s' "${OWNER}" "${GITVERSE_TOKEN}" | base64 -w0)"
