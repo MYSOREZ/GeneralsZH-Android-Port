@@ -170,6 +170,19 @@ public class RoomActivity extends Activity {
         UiKit.button(server, UiKit.BTN_TONAL, R.drawable.ic_gzh_refresh, getString(R.string.rooms_server_check),
             this::checkServer);
 
+        // GeneralsX @feature Android port 04/10/2026 The servers players run, closest first
+        // (RoomServers), and installing one's own on a VPS (RoomInstallActivity).
+        LinearLayout list = UiKit.card(page);
+        UiKit.sectionHeader(list, R.drawable.ic_gzh_globe, getString(R.string.rooms_card_list), false);
+        serverList = new LinearLayout(this);
+        serverList.setOrientation(LinearLayout.VERTICAL);
+        list.addView(serverList);
+        UiKit.button(list, UiKit.BTN_TONAL, R.drawable.ic_gzh_refresh, getString(R.string.rooms_list_refresh),
+            this::loadServers);
+        UiKit.button(list, UiKit.BTN_OUTLINE, R.drawable.ic_gzh_download, getString(R.string.rooms_install_open),
+            () -> startActivityForResult(new Intent(this, RoomInstallActivity.class), REQUEST_INSTALL));
+        loadServers();
+
         errorView = UiKit.body(page, "");
         errorView.setTextColor(UiKit.color(this, R.color.gzh_tertiary));
 
@@ -197,6 +210,63 @@ public class RoomActivity extends Activity {
         UiKit.helpText(page, getString(R.string.rooms_how));
     }
 
+    private static final int REQUEST_INSTALL = 1;
+    private LinearLayout serverList;
+    private int serverListGeneration;
+
+    private void loadServers() {
+        if (serverList == null) {
+            return;
+        }
+        final int generation = ++serverListGeneration;
+        serverList.removeAllViews();
+        UiKit.supporting(serverList, getString(R.string.rooms_list_loading));
+        new Thread(() -> {
+            final java.util.List<RoomServers.Server> servers = RoomServers.load(getApplicationContext());
+            handler.post(() -> {
+                if (generation != serverListGeneration || serverList == null || isFinishing()) {
+                    return;
+                }
+                serverList.removeAllViews();
+                if (servers.isEmpty()) {
+                    UiKit.supporting(serverList, getString(R.string.rooms_list_empty));
+                    return;
+                }
+                for (final RoomServers.Server srv : servers) {
+                    String title = srv.name.isEmpty() ? srv.url : srv.name;
+                    if (srv.mine) {
+                        title = getString(R.string.rooms_list_mine, title);
+                    }
+                    String detail = srv.alive
+                        ? getString(R.string.rooms_list_detail, srv.pingMs, srv.rooms, srv.players)
+                        : getString(R.string.rooms_list_down);
+                    UiKit.listRow(serverList, R.drawable.ic_gzh_globe, title, detail + "\n" + srv.url, () -> {
+                        serverInput.setText(srv.url);
+                        serverStatus.setText(srv.alive ? getString(R.string.rooms_server_ok, title(srv), srv.pingMs, srv.rooms)
+                            : getString(R.string.rooms_server_down));
+                    });
+                }
+            });
+        }, "GXRooms-list").start();
+    }
+
+    private static String title(RoomServers.Server s) {
+        return s.name.isEmpty() ? s.url : s.name;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_INSTALL && resultCode == RESULT_OK && data != null) {
+            String url = data.getStringExtra(RoomInstallActivity.EXTRA_URL);
+            if (url != null) {
+                getSharedPreferences(PREFS, MODE_PRIVATE).edit().putString(PREF_SERVER, url).apply();
+                shown = null;
+                render();
+            }
+        }
+    }
+
     private EditText field(LinearLayout parent, String hint, String value, int type) {
         UiKit.caption(parent, hint);
         EditText e = new EditText(this);
@@ -210,6 +280,7 @@ public class RoomActivity extends Activity {
     private void buildRoom() {
         page.removeAllViews();
         errorView = null;
+        serverList = null;
         LinearLayout card = UiKit.card(page);
         synchronized (room) {
             if (checkingFiles) {
