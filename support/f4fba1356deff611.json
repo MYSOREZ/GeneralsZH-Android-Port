@@ -1,0 +1,128 @@
+{
+  "schema": 1,
+  "text": {
+    "en": {
+      "title": "Support the project",
+      "body": "This port is developed with Claude Code (Anthropic's Claude), and the subscription is paid out of pocket. If the port is useful to you, donations are welcome: they go to that subscription. The game and every build stay free, and nothing is unlocked by donating.",
+      "warning": "Send only the currency named next to the address, and only over that network. Anything else, or the same currency over a different network, will be lost.",
+      "copy_hint": "Tap to copy the address",
+      "copied": "Address copied: %s"
+    },
+    "ru": {
+      "title": "Поддержать проект",
+      "body": "Порт разрабатывается с помощью Claude Code (Claude от Anthropic), подписка оплачивается из своего кармана. Если порт вам полезен, буду рад пожертвованиям: они идут на эту подписку. Игра и все сборки остаются бесплатными, пожертвование ничего не открывает.",
+      "warning": "Отправляйте только ту валюту, что указана рядом с адресом, и только в этой сети. Всё остальное, как и та же валюта в другой сети, будет потеряно.",
+      "copy_hint": "Нажмите, чтобы скопировать адрес",
+      "copied": "Адрес скопирован: %s"
+    },
+    "uk": {
+      "title": "Підтримати проєкт",
+      "body": "Порт розробляється за допомогою Claude Code (Claude від Anthropic), підписка оплачується власним коштом. Якщо порт вам корисний, пожертви вітаються: вони йдуть на цю підписку. Гра й усі збірки лишаються безкоштовними, пожертва нічого не відкриває.",
+      "warning": "Надсилайте лише ту валюту, що вказана біля адреси, і лише в цій мережі. Усе інше, як і та сама валюта в іншій мережі, буде втрачено.",
+      "copy_hint": "Натисніть, щоб скопіювати адресу",
+      "copied": "Адресу скопійовано: %s"
+    },
+    "de": {
+      "title": "Projekt unterstützen",
+      "body": "Dieser Port wird mit Claude Code (Claude von Anthropic) entwickelt, und das Abo wird aus eigener Tasche bezahlt. Wenn dir der Port nützt, sind Spenden willkommen: Sie fließen in dieses Abo. Das Spiel und alle Builds bleiben kostenlos, und durch eine Spende wird nichts freigeschaltet.",
+      "warning": "Sende nur die Währung, die neben der Adresse steht, und nur über dieses Netzwerk. Alles andere, auch dieselbe Währung über ein anderes Netzwerk, geht verloren.",
+      "copy_hint": "Tippen, um die Adresse zu kopieren",
+      "copied": "Adresse kopiert: %s"
+    },
+    "es": {
+      "title": "Apoyar el proyecto",
+      "body": "Este port se desarrolla con Claude Code (Claude de Anthropic) y la suscripción se paga de mi bolsillo. Si el port te resulta útil, las donaciones son bienvenidas: se destinan a esa suscripción. El juego y todas las versiones siguen siendo gratuitos, y donar no desbloquea nada.",
+      "warning": "Envía solo la moneda indicada junto a la dirección y solo por esa red. Cualquier otra cosa, o la misma moneda por otra red, se perderá.",
+      "copy_hint": "Toca para copiar la dirección",
+      "copied": "Dirección copiada: %s"
+    },
+    "fr": {
+      "title": "Soutenir le projet",
+      "body": "Ce portage est développé avec Claude Code (Claude d'Anthropic), et l'abonnement est payé de ma poche. Si le portage vous est utile, les dons sont les bienvenus : ils financent cet abonnement. Le jeu et toutes les versions restent gratuits, et un don ne débloque rien.",
+      "warning": "N'envoyez que la devise indiquée à côté de l'adresse, et uniquement sur ce réseau. Tout le reste, ou la même devise sur un autre réseau, sera perdu.",
+      "copy_hint": "Touchez pour copier l'adresse",
+      "copied": "Adresse copiée : %s"
+    },
+    "pl": {
+      "title": "Wesprzyj projekt",
+      "body": "Ten port powstaje przy użyciu Claude Code (Claude od Anthropic), a subskrypcja jest opłacana z własnej kieszeni. Jeśli port jest dla Ciebie przydatny, darowizny są mile widziane: idą na tę subskrypcję. Gra i wszystkie wersje pozostają darmowe, a darowizna niczego nie odblokowuje.",
+      "warning": "Wysyłaj tylko walutę podaną obok adresu i tylko w tej sieci. Wszystko inne, także ta sama waluta w innej sieci, przepadnie.",
+      "copy_hint": "Dotknij, aby skopiować adres",
+      "copied": "Skopiowano adres: %s"
+    },
+    "pt-BR": {
+      "title": "Apoie o projeto",
+      "body": "Este port é desenvolvido com o Claude Code (Claude, da Anthropic), e a assinatura é paga do próprio bolso. Se o port é útil para você, doações são bem-vindas: elas vão para essa assinatura. O jogo e todas as versões continuam gratuitos, e doar não desbloqueia nada.",
+      "warning": "Envie apenas a moeda indicada ao lado do endereço e somente por essa rede. Qualquer outra coisa, ou a mesma moeda por outra rede, será perdida.",
+      "copy_hint": "Toque para copiar o endereço",
+      "copied": "Endereço copiado: %s"
+    },
+    "isv": {
+      "title": "Podporiti projekt",
+      "body": "Tutoj port jest razvivany s Claude Code (Claude od Anthropic), i podpiska jest plaćena iz svojego karmana. Jestli port jest vam koristny, darovanja sut dobrodošle: one idut na tu podpisku. Igra i vse versije ostajut bezplatne, i darovanje ničego ne otvarja.",
+      "warning": "Posylajte jedino valutu, ukazanu poblizu adresy, i jedino v toj mreži. Vse drugo, takože ta sama valuta v drugoj mreži, bude izgubjeno.",
+      "copy_hint": "Kliknite, aby kopirovati adresu",
+      "copied": "Adresa kopirovana: %s"
+    },
+    "zh": {
+      "title": "支持本项目",
+      "body": "本移植版借助 Claude Code（Anthropic 的 Claude）开发，订阅费用由开发者自掏腰包。如果本移植对你有用，欢迎捐助：捐款将用于该订阅。游戏和所有版本始终免费，捐助不会解锁任何内容。",
+      "warning": "只发送地址旁注明的币种，并且只通过该网络发送。其他任何币种，或通过其他网络发送的同一币种，都会丢失。",
+      "copy_hint": "点击复制地址",
+      "copied": "地址已复制：%s"
+    },
+    "ko": {
+      "title": "프로젝트 후원",
+      "body": "이 포트는 Claude Code(Anthropic의 Claude)로 개발되며, 구독료는 개발자가 직접 부담합니다. 포트가 유용하다면 후원을 환영합니다. 후원금은 그 구독료에 쓰입니다. 게임과 모든 빌드는 계속 무료이며, 후원으로 잠금 해제되는 것은 없습니다.",
+      "warning": "주소 옆에 표시된 화폐만, 그리고 해당 네트워크로만 보내세요. 그 밖의 것이나 다른 네트워크로 보낸 같은 화폐는 잃게 됩니다.",
+      "copy_hint": "탭하여 주소 복사",
+      "copied": "주소 복사됨: %s"
+    },
+    "ar": {
+      "title": "ادعم المشروع",
+      "body": "يُطوَّر هذا المنفذ باستخدام Claude Code (‏Claude من Anthropic)، ويُدفع الاشتراك من الجيب الخاص. إذا كان المنفذ مفيدًا لك فالتبرعات مرحّب بها: تذهب إلى هذا الاشتراك. تبقى اللعبة وكل الإصدارات مجانية، ولا يفتح التبرع أي شيء.",
+      "warning": "أرسل العملة المذكورة بجانب العنوان فقط، وعبر تلك الشبكة فقط. أي شيء آخر، أو العملة نفسها عبر شبكة أخرى، سيضيع.",
+      "copy_hint": "اضغط لنسخ العنوان",
+      "copied": "تم نسخ العنوان: %s"
+    },
+    "fa": {
+      "title": "حمایت از پروژه",
+      "body": "این پورت با Claude Code ‏(Claude از Anthropic) توسعه داده می‌شود و هزینه اشتراک از جیب خود پرداخت می‌شود. اگر این پورت برایتان مفید است، کمک مالی پذیرفته می‌شود: صرف همین اشتراک می‌شود. بازی و همه نسخه‌ها رایگان می‌مانند و کمک مالی چیزی را باز نمی‌کند.",
+      "warning": "فقط ارزی را که کنار نشانی نوشته شده و فقط از طریق همان شبکه بفرستید. هر چیز دیگر، یا همان ارز از شبکه‌ای دیگر، از دست می‌رود.",
+      "copy_hint": "برای کپی نشانی ضربه بزنید",
+      "copied": "نشانی کپی شد: %s"
+    }
+  },
+  "entries": [
+    {
+      "label": {
+        "en": "Boosty (like Patreon) — bank card",
+        "ru": "Boosty — банковская карта",
+        "uk": "Boosty (аналог Patreon) — банківська картка",
+        "de": "Boosty (wie Patreon) — Bankkarte",
+        "es": "Boosty (como Patreon) — tarjeta bancaria",
+        "fr": "Boosty (comme Patreon) — carte bancaire",
+        "pl": "Boosty (jak Patreon) — karta płatnicza",
+        "pt-BR": "Boosty (como o Patreon) — cartão bancário",
+        "isv": "Boosty (kako Patreon) — bankova karta",
+        "zh": "Boosty（类似 Patreon）— 银行卡",
+        "ko": "Boosty (Patreon과 비슷한 서비스) — 은행 카드",
+        "ar": "Boosty (مثل Patreon) — بطاقة مصرفية",
+        "fa": "Boosty (مانند Patreon) — کارت بانکی"
+      },
+      "value": "https://boosty.to/antikeks_m/donate"
+    },
+    {
+      "label": "USDT — TRON (TRC20)",
+      "value": "TAQHCF733ovKpvBjUgvkE6wHxkntnKZ6br"
+    },
+    {
+      "label": "USDT — BSC (BEP20)",
+      "value": "0x52c05c81485d68367385ff389cf19a453f036310"
+    },
+    {
+      "label": "USDT — TON",
+      "value": "UQAOdBpFSPhlgbvUIJ2O2w2NuwWashaNjFWDsOirDqH9kGbR"
+    }
+  ]
+}

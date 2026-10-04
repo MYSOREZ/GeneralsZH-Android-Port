@@ -1,0 +1,49 @@
+{
+  "config": {
+    "datapack_manifest_url": "https://raw.githubusercontent.com/MYSOREZ/GeneralsZH-Android-Port/updates/datapack-manifest.json",
+    "logic_crc_revision": "0",
+    "pc_exe_crc": "560676586",
+    "stun_servers": "stun:stun.playgenerals.online:3478,stun:stun.l.google.com:19302,stun:stun.playgenerals.online:53",
+    "turn_servers": "turn:turn.playgenerals.online:3478,turn:turn.playgenerals.online:53"
+  },
+  "engine": {
+    "files": {
+      "libmain.so": {
+        "sha256": "e597d248ae7264f983561d75dd5bfa6d23b495efff535387a72739bc61390286",
+        "size": 42225624,
+        "url": "https://raw.githubusercontent.com/MYSOREZ/GeneralsZH-Android-Port/updates/engine/3277/libmain.so.gz"
+      },
+      "libmain60.so": {
+        "sha256": "db5fbdad1053e5f22b4332e593460727fb10f73a4b0ad78bf96167237ca090fa",
+        "size": 42225784,
+        "url": "https://raw.githubusercontent.com/MYSOREZ/GeneralsZH-Android-Port/updates/engine/3277/libmain60.so.gz"
+      }
+    },
+    "requires_libs": {
+      "libEGL_angle.so": "68bec582dab9f2466ca83d80babbb65a334c09a9e85ef83aa3448ba22990268b",
+      "libGLESv2_angle.so": "f85d6f551069a88757859088a88a3456fdfe4ac54e9c18a3c7fb533e9753efe2",
+      "libSDL3.so": "7d672bef1ee413511cb93eef9fb7de935e152629beda10bd92dbe4bd704ab96f",
+      "libSDL3_image.so": "5ae74e0e1360dee588e7e9757764ce5ecb555cd2db05702f6e07d6e92e88a4b7",
+      "libadrenotools.so": "aca61d1edcd0092080ef3eeabaee47125a36d47d5a26f8ceb318e2cf75151371",
+      "libc++_shared.so": "f9992c4ba6b7c5a716e3a202fceb1ce029d6a2b0605838ac6b3219f489dd7970",
+      "libdxvk_d3d8.so": "1e3bae8ccb7578dcfd7b4f80c2c3c915b77475a96b5720c66a93a9578184cb6f",
+      "libdxvk_d3d9.so": "814734a3ac9eed0e71c4293478592eece810ca937339b7e9e9ae9c82ffd9b071",
+      "libfile_redirect_hook.so": "412a2863a66dd2e35030ae1d03ada9d73e0c2cd991d67c615178e3e370a0e62a",
+      "libgamespy.so": "3ef247264fdb20bc9f9cb8c1d6ae91fc38d7f42c7dd8e172340d8d281ece91bd",
+      "libgsl_alloc_hook.so": "cdccecea6e5de455aceabf1a39233e6774beb5584fef2765ffc9d904bf28ba44",
+      "libhook_impl.so": "87e17adace9f04e2291c406ec547cbbb9ba7f1f8acfc5cdc6deff6c9b99a2394",
+      "libmain_hook.so": "39a40200ac1ad0e2eb0ac9539f9b0a0f673464f8dab2c40831c390741108293d",
+      "libopenal.so": "fdfeb98cceb799df587f954c9cc84a480feef0fdfc367e7d7683182205b545ea"
+    },
+    "seq": 3277
+  },
+  "note": "STUN/TURN: port 3478 first, 53 last (a dead port 53 cost 5.3 s per server and pushed relays past the 10 s connect timeout, issue #37); engine 3277 unchanged",
+  "published": "2026-10-04",
+  "schema": 1,
+  "serial": 12,
+  "support": {
+    "sha256": "f4fba1356deff6110668aa66fe9ee557f96556d44ad7cafc1ccb993b34be00b9",
+    "size": 10291,
+    "url": "https://raw.githubusercontent.com/MYSOREZ/GeneralsZH-Android-Port/updates/support/f4fba1356deff611.json"
+  }
+}
