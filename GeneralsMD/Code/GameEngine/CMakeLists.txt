@@ -93,7 +93,6 @@ set(GAMEENGINE_SRC
 #    Include/Common/RAMFile.h
 #    Include/Common/RandomValue.h
     Include/Common/GXReplayCheck.h
-    Include/Common/GXSafeArea.h
     Include/Common/StatsExporter.h
     Include/Common/Recorder.h
 #    Include/Common/ReplaySimulation.h
@@ -609,7 +608,6 @@ set(GAMEENGINE_SRC
     Source/Common/PerfTimer.cpp
 #    Source/Common/RandomValue.cpp
     Source/Common/GXReplayCheck.cpp
-    Source/Common/GXSafeArea.cpp
     Source/Common/StatsExporter.cpp
     Source/Common/Recorder.cpp
 #    Source/Common/ReplaySimulation.cpp
@@ -739,7 +737,6 @@ set(GAMEENGINE_SRC
     Source/GameClient/GUI/GUICallbacks/Diplomacy.cpp
     Source/GameClient/GUI/GUICallbacks/ExtendedMessageBox.cpp
     Source/GameClient/GUI/GUICallbacks/GeneralsExpPoints.cpp
-    Source/GameClient/GUI/GUICallbacks/GroupPanel.cpp
     Source/GameClient/GUI/GUICallbacks/IMECandidate.cpp
     Source/GameClient/GUI/GUICallbacks/InGameChat.cpp
     Source/GameClient/GUI/GUICallbacks/InGamePopupMessage.cpp

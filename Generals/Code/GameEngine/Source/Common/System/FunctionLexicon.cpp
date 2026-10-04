@@ -95,6 +95,8 @@ static FunctionLexicon::TableEntry gameWinSystemTable[] =
 
 	{ NAMEKEY_INVALID, "MOTDSystem",                         (void*)MOTDSystem },
 	{ NAMEKEY_INVALID, "MainMenuSystem",                     (void*)MainMenuSystem },
+	// GeneralsX @feature Android port 04/10/2026 The touch control-group panel, as in Zero Hour.
+	{ NAMEKEY_INVALID, "GroupPanelSystem",                   (void*)GroupPanelSystem },
 	{ NAMEKEY_INVALID, "OptionsMenuSystem",                  (void*)OptionsMenuSystem },
 	{ NAMEKEY_INVALID, "SinglePlayerMenuSystem",             (void*)SinglePlayerMenuSystem },
 	{ NAMEKEY_INVALID, "QuitMenuSystem",                     (void*)QuitMenuSystem },
@@ -239,6 +241,7 @@ static FunctionLexicon::TableEntry winLayoutInitTable[] =
 {
 
 	{ NAMEKEY_INVALID, "MainMenuInit",                  (void*)MainMenuInit },
+	{ NAMEKEY_INVALID, "GroupPanelInit",                (void*)GroupPanelInit },
 	{ NAMEKEY_INVALID, "OptionsMenuInit",               (void*)OptionsMenuInit },
 	{ NAMEKEY_INVALID, "SaveLoadMenuInit",              (void*)SaveLoadMenuInit },
 	{ NAMEKEY_INVALID, "SaveLoadMenuFullScreenInit",    (void*)SaveLoadMenuFullScreenInit },
@@ -290,6 +293,7 @@ static FunctionLexicon::TableEntry winLayoutUpdateTable[] =
 {
 
 	{ NAMEKEY_INVALID, "MainMenuUpdate",                  (void*)MainMenuUpdate },
+	{ NAMEKEY_INVALID, "GroupPanelUpdate",                (void*)GroupPanelUpdate },
 	{ NAMEKEY_INVALID, "OptionsMenuUpdate",               (void*)OptionsMenuUpdate },
 	{ NAMEKEY_INVALID, "SinglePlayerMenuUpdate",          (void*)SinglePlayerMenuUpdate },
 	{ NAMEKEY_INVALID, "MapSelectMenuUpdate",             (void*)MapSelectMenuUpdate },
@@ -329,6 +333,7 @@ static FunctionLexicon::TableEntry winLayoutShutdownTable[] =
 {
 
 	{ NAMEKEY_INVALID, "MainMenuShutdown",                  (void*)MainMenuShutdown },
+	{ NAMEKEY_INVALID, "GroupPanelShutdown",                (void*)GroupPanelShutdown },
 	{ NAMEKEY_INVALID, "OptionsMenuShutdown",               (void*)OptionsMenuShutdown },
 	{ NAMEKEY_INVALID, "SaveLoadMenuShutdown",              (void*)SaveLoadMenuShutdown },
 	{ NAMEKEY_INVALID, "PopupCommunicatorShutdown",         (void*)PopupCommunicatorShutdown },

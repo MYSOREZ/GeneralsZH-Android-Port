@@ -106,7 +106,19 @@ target_sources(g_generals PRIVATE
     $<$<NOT:$<BOOL:${WIN32}>>:SDL3Main.cpp>
     # Linux stubs
     $<$<NOT:$<BOOL:${WIN32}>>:LinuxStubs.cpp>
+    # GeneralsX @build Android port 04/10/2026 Shared with Zero Hour (Core/Main): the native crash
+    # handler, and the float-cast-overflow report handler plus reference float transcendentals that
+    # every Android engine target needs (cmake/config-build.cmake turns that check on for them).
+    $<$<BOOL:${ANDROID}>:${CMAKE_SOURCE_DIR}/Core/Main/AndroidCrashHandler.cpp>
+    $<$<NOT:$<BOOL:${MSVC}>>:${CMAKE_SOURCE_DIR}/Core/Main/ReferenceFloatMath.cpp>
 )
+
+if(NOT MSVC)
+    # See GeneralsMD/Code/Main/CMakeLists.txt: no builtins inside the reference math, and no PCH.
+    set_source_files_properties(${CMAKE_SOURCE_DIR}/Core/Main/ReferenceFloatMath.cpp PROPERTIES
+        COMPILE_OPTIONS "-fno-builtin"
+        SKIP_PRECOMPILE_HEADERS ON)
+endif()
 
 # RC files are optional for MinGW builds
 # Icon: LoadIcon() handles missing resource gracefully (uses default system icon)

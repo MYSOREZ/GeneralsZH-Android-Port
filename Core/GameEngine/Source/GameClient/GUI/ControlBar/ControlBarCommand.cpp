@@ -547,7 +547,12 @@ static Bool canBeOrderedToForceAttack( const Object *obj )
 	for( ContainedItemsList::const_iterator it = passengers->begin(); it != passengers->end(); ++it )
 	{
 		const Object *passenger = *it;
+#if RTS_ZEROHOUR
 		if( passenger && hasForceAttackWeapon( passenger ) && contain->isPassengerAllowedToFire( passenger->getID() ) )
+#else
+		// Generals: whether passengers may fire is the container's, not the passenger's.
+		if( passenger && hasForceAttackWeapon( passenger ) && contain->isPassengerAllowedToFire() )
+#endif
 			return TRUE;
 	}
 	return FALSE;

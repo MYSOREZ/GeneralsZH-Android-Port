@@ -258,3 +258,9 @@ target_link_libraries(g_ww3d2 PRIVATE
     gi_always
     d3d8lib
 )
+
+# GeneralsX @build Android port 04/10/2026 As for Zero Hour's z_ww3d2: dx8wrapper.cpp calls the
+# native GLES backend directly when the runtime backend switch selects it; needs d3d8gles.h.
+if(ANDROID)
+    target_link_libraries(g_ww3d2 PRIVATE d3d8gles)
+endif()

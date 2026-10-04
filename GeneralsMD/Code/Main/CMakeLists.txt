@@ -120,10 +120,10 @@ target_sources(z_generals PRIVATE
     # GeneralsX @build Android port 07/07/2026 Installs as soon as libmain.so is
     # dlopen'd (ELF constructor), before any engine code — captures crashes that
     # happen before SDL3Main.cpp's own logging is ready.
-    $<$<BOOL:${ANDROID}>:AndroidCrashHandler.cpp>
+    $<$<BOOL:${ANDROID}>:${CMAKE_SOURCE_DIR}/Core/Main/AndroidCrashHandler.cpp>
     # GeneralsX @bugfix Android port 22/09/2026 Float transcendentals with the reference
     # client's semantics (double, rounded once), bound inside this binary. See the file.
-    $<$<NOT:$<BOOL:${MSVC}>>:ReferenceFloatMath.cpp>
+    $<$<NOT:$<BOOL:${MSVC}>>:${CMAKE_SOURCE_DIR}/Core/Main/ReferenceFloatMath.cpp>
 )
 
 if(NOT MSVC)
@@ -131,7 +131,7 @@ if(NOT MSVC)
     # And keep the target's inherited precompiled header out of it: the PCH brings in <math.h>,
     # whose default-visibility declarations are exactly what these definitions must not inherit,
     # and a PCH built without -fno-builtin cannot be used by a file compiled with it.
-    set_source_files_properties(ReferenceFloatMath.cpp PROPERTIES
+    set_source_files_properties(${CMAKE_SOURCE_DIR}/Core/Main/ReferenceFloatMath.cpp PROPERTIES
         COMPILE_OPTIONS "-fno-builtin"
         SKIP_PRECOMPILE_HEADERS ON)
 endif()

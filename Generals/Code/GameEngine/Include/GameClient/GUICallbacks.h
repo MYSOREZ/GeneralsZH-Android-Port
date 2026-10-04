@@ -347,6 +347,15 @@ void ResetDiplomacy();
 WindowMsgHandledType GeneralsExpPointsSystem( GameWindow *window, UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2 );
 WindowMsgHandledType GeneralsExpPointsInput( GameWindow *window, UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2 );
 
+// GeneralsX @feature Android port 04/10/2026 The touch control-group panel (Core GroupPanel.cpp),
+// shared with Zero Hour -- see GeneralsMD/Code/GameEngine/Include/GameClient/GUICallbacks.h.
+extern void GroupPanelInit( WindowLayout *layout, void *userData );
+extern void GroupPanelUpdate( WindowLayout *layout, void *userData );
+extern void GroupPanelShutdown( WindowLayout *layout, void *userData );
+extern WindowMsgHandledType GroupPanelSystem( GameWindow *window, UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2 );
+extern void GroupPanelCalibrateFollowOffset( Int barScreenX, Int barScreenY );
+extern void GroupPanelFollowControlBar( Int barScreenX, Int barScreenY, Bool visible );
+
 
 // IdleWorker Controls --------------------------------------------------------------------------------
 WindowMsgHandledType IdleWorkerSystem( GameWindow *window, UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2 );

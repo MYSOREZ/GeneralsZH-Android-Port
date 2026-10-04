@@ -31,6 +31,8 @@
 #include "PreRTS.h"	// This must go first in EVERY cpp file in the GameEngine
 #include "GameClient/GameClient.h"
 
+#include <chrono>
+
 // USER INCLUDES //////////////////////////////////////////////////////////////
 #include "Common/ActionManager.h"
 #include "Common/GameEngine.h"
@@ -102,6 +104,11 @@ GameClient::GameClient()
 	m_textBearingDrawableList.clear();
 
 	m_frame = 0;
+#if defined(GENERALS_ONLINE_HIGH_FPS_RENDER)
+	m_legacyFrameMSAccured = 0;
+	m_frameLegacy = 0;
+	m_frameLegacyLast = 0;
+#endif
 
 	m_drawableList = nullptr;
 
@@ -743,6 +750,29 @@ void GameClient::update()
 		// update the in game UI
 		TheInGameUI->UPDATE();
 	}
+
+#if defined(GENERALS_ONLINE_HIGH_FPS_RENDER)
+	// GeneralsX @feature Android port 04/10/2026 As in Zero Hour: the legacy frame follows wall time,
+	// not the logic tick, so render-side cadences stay at the retail 30 Hz at any frame rate.
+	const int64_t currTime = std::chrono::duration_cast<std::chrono::milliseconds>(
+		std::chrono::steady_clock::now().time_since_epoch()).count();
+
+	if (!freezeTime)
+	{
+		m_legacyFrameMSAccured += currTime - m_LegacyFrameEndLastFrame;
+	}
+	m_LegacyFrameEndLastFrame = currTime;
+
+	if (m_legacyFrameMSAccured >= 33)
+	{
+		m_legacyFrameMSAccured = 0;
+		m_frameLegacy++;
+	}
+	else
+	{
+		m_frameLegacyLast = m_frameLegacy;
+	}
+#endif
 }
 
 void GameClient::step()

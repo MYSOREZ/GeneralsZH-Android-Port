@@ -277,7 +277,9 @@ RankPoints::RankPoints()
 
 RankPoints *TheRankPointValues = nullptr;
 
-void SetLookAtPlayer( Int id, AsciiString nick)
+// GeneralsX @build Android port 04/10/2026 int64_t id, matching the shared declaration in Core's
+// PersistentStorageDefs.h (widened for GeneralsOnline's 64-bit user ids).
+void SetLookAtPlayer( int64_t id, AsciiString nick)
 {
 	lookAtPlayerID = id;
 	lookAtPlayerName = nick.str();
