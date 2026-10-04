@@ -1,5 +1,11 @@
 # Rooms: LAN over a relay — protocol v1
 
+> **The protocol and the server now live in https://github.com/MYSOREZ/Generals-Servers**
+> (`PROTOCOL.md`, `relay/`). That copy is the reference; this one is kept for the client side of
+> this port: `RoomSession.java` / `RoomActivity.java` / `RoomFiles.java` in the launcher and
+> `UDP::RoomIP()` in `Core/GameEngine/Source/GameNetwork/udp.cpp`. The server list is the issues
+> of that repository with the label `server`.
+
 A room is a virtual LAN. Players join it on a relay server, then pick
 **Multiplayer → Network (LAN)** in the game exactly as on Wi-Fi. The engine's LAN socket
 (`Core/GameEngine/Source/GameNetwork/udp.cpp`) sends its datagrams into the room instead of the
@@ -7,7 +13,7 @@ network, so NAT, STUN/TURN and carrier blocking do not matter: every packet goes
 WebSocket to the relay. Both games use it — Zero Hour and the original Generals — because both
 use the same LAN code in Core.
 
-Anybody can run a relay (`tools/rooms-relay/`, one Docker command), and the launcher can install
+Anybody can run a relay (Generals-Servers, one command), and the launcher can install
 one on a VPS over SSH. Relays are listed by the community in GitHub issues (see *Server list*).
 
 The design follows the room client of the Mobsik build of this port (1.4.0-mobsik.23): virtual
@@ -88,8 +94,8 @@ differ, so a mismatch is fixed before the match instead of ending it in a desync
 
 ## Server list
 
-Relays are listed in this repository's issues with the label `rooms-server`, filed through the
-"Rooms server" issue form (the launcher opens it pre-filled after installing a server). The
+Relays are listed in the issues of MYSOREZ/Generals-Servers with the label `server`, filed
+through its "Add a server" issue form (the launcher opens it pre-filled after installing a server). The
 launcher reads the open issues of that label from the GitHub API, takes the `wss://` address from
 each, asks `/health`, and shows the servers that answer, by ping. A server that is gone simply does
 not answer; the maintainer closes issues that abuse the list. A player can also type any address

@@ -11,17 +11,19 @@ virtual addresses are taken from it, the rest is our own. Protocol: `docs/port/R
 
 ## Parts
 
-1. **Relay** — `tools/rooms-relay/` (Go, one static binary, Docker + Caddy, `install.sh`).
-   Done 04/10/2026, with tests (`go test -race`). How-to: `docs/HOWTO/ROOMS_SERVER.md`.
-2. **Server list** — issues with the label `rooms-server` (`.github/ISSUE_TEMPLATE/rooms-server.yml`).
-   The launcher reads them through the GitHub API (no Actions, no token), asks each `/health`,
-   sorts by ping. Needs the label created in the repository once.
+1. **Relay** — its own repository, https://github.com/MYSOREZ/Generals-Servers (`relay/`: Go,
+   one static binary, Docker + Caddy; `install.sh`; `PROTOCOL.md`). Done 04/10/2026, with tests
+   (`go test -race`). Moved out of this repository the same day.
+2. **Server list** — the open issues of Generals-Servers with the label `server` (its "Add a
+   server" form; the label exists). The launcher reads them through the GitHub API (no Actions,
+   no token), asks each `/health`, sorts by ping. The repository name should come from the signed
+   remote config (`rooms_registry`) so the list can move without a new APK.
 3. **Launcher**
    - Rooms screen: server picker (list + custom address), public rooms of a server, create
      (capacity, title, password, public), join by code / link / QR, ready, launch.
    - Files: SHA-256 of the `.big` archives, `Data/INI` and maps, cached by size+mtime.
    - Install on my VPS: host, port, user, password or key → SSH (JSch fork `com.github.mwiede:jsch`,
-     no other dependencies), host key shown on first connect, runs `install.sh`, follows its
+     no other dependencies), host key shown on first connect, runs Generals-Servers `install.sh`, follows its
      `GXROOMS:` lines, then offers the pre-filled issue form. Credentials are never stored.
    - Invite links `gxrooms://join?server=…&code=…` and QR.
    - Strings in all 13 locales.
