@@ -1,0 +1,34 @@
+# GeneralsX @feature Android port 04/10/2026 Rooms relay behind Caddy, which gets and renews
+# the TLS certificate for RELAY_DOMAIN by itself. Settings come from .env (install.sh writes it).
+services:
+  relay:
+    build:
+      context: .
+      args:
+        VERSION: ${RELAY_VERSION:-dev}
+    restart: unless-stopped
+    environment:
+      RELAY_NAME: ${RELAY_NAME:-Rooms server}
+      RELAY_MAX_ROOMS: ${RELAY_MAX_ROOMS:-200}
+      RELAY_MAX_PLAYERS: ${RELAY_MAX_PLAYERS:-1000}
+    expose:
+      - "8080"
+
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    depends_on:
+      - relay
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      RELAY_DOMAIN: ${RELAY_DOMAIN:?set RELAY_DOMAIN in .env}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+
+volumes:
+  caddy_data:
+  caddy_config:

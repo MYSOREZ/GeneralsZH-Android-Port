@@ -1,0 +1,34 @@
+name: Rooms server
+description: Add your rooms server to the list every player's launcher shows.
+title: "Rooms server: "
+labels: ["rooms-server"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        The launcher reads the open issues with this form's label, checks each address, and lists
+        the servers that answer. Close this issue to take your server off the list.
+        How to run one: `docs/HOWTO/ROOMS_SERVER.md`.
+  - type: input
+    id: url
+    attributes:
+      label: Server address
+      description: The address the launcher printed after installing, ending in /ws.
+      placeholder: wss://203-0-113-7.sslip.io/ws
+    validations:
+      required: true
+  - type: input
+    id: name
+    attributes:
+      label: Name
+      placeholder: My server
+    validations:
+      required: true
+  - type: input
+    id: region
+    attributes:
+      label: Location
+      description: Country or city, so players can pick a close one.
+      placeholder: Germany, Frankfurt
+    validations:
+      required: false
