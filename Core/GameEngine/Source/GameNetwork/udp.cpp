@@ -118,11 +118,93 @@ AsciiString GetWSAErrorString( Int error )
 
 //-------------------------------------------------------------------------
 
+#if defined(__ANDROID__)
+// GeneralsX @feature Android port 04/10/2026 Rooms: LAN over a relay (docs/port/ROOMS_PROTOCOL.md).
+// The launcher holds the room's WebSocket (RoomSession.java); GeneralsZHActivity exposes it as
+// roomIP / roomSend / roomReceive / roomReset. A socket bound while a room is active never
+// opens an OS socket: its datagrams go into the room, addressed by the room's 10.240.0.<slot>
+// addresses, and the LAN code above it runs unchanged -- lobby broadcasts included.
+namespace
+{
+	struct RoomMethods
+	{
+		jmethodID ip;
+		jmethodID send;
+		jmethodID receive;
+		jmethodID reset;
+	};
+	RoomMethods s_roomMethods;
+	bool s_roomResolved = false;
+
+	const size_t kRoomHeader = 16;
+
+	// The activity and its room methods, or false when there is no JVM to call into.
+	bool roomActivity(JNIEnv *&jni, jobject &activity)
+	{
+		jni = static_cast<JNIEnv *>(SDL_GetAndroidJNIEnv());
+		activity = static_cast<jobject>(SDL_GetAndroidActivity());
+		if (jni == nullptr || activity == nullptr)
+			return false;
+		if (!s_roomResolved)
+		{
+			jclass cls = jni->GetObjectClass(activity);
+			s_roomMethods.ip = jni->GetMethodID(cls, "roomIP", "()I");
+			s_roomMethods.send = jni->GetMethodID(cls, "roomSend", "(III[B)I");
+			s_roomMethods.receive = jni->GetMethodID(cls, "roomReceive", "(I)[B");
+			s_roomMethods.reset = jni->GetMethodID(cls, "roomReset", "(I)V");
+			if (jni->ExceptionCheck())
+			{
+				jni->ExceptionClear();
+				s_roomMethods = RoomMethods();
+			}
+			jni->DeleteLocalRef(cls);
+			s_roomResolved = true;
+		}
+		if (s_roomMethods.ip == nullptr || s_roomMethods.send == nullptr || s_roomMethods.receive == nullptr || s_roomMethods.reset == nullptr)
+		{
+			jni->DeleteLocalRef(activity);
+			return false;
+		}
+		return true;
+	}
+
+	void roomDone(JNIEnv *jni, jobject activity)
+	{
+		if (jni->ExceptionCheck())
+			jni->ExceptionClear();
+		jni->DeleteLocalRef(activity);
+	}
+
+	UnsignedInt readBE32(const unsigned char *p)
+	{
+		return ((UnsignedInt)p[0] << 24) | ((UnsignedInt)p[1] << 16) | ((UnsignedInt)p[2] << 8) | p[3];
+	}
+}
+#endif
+
+UnsignedInt UDP::RoomIP()
+{
+#if defined(__ANDROID__)
+	JNIEnv *jni;
+	jobject activity;
+	if (!roomActivity(jni, activity))
+		return 0;
+	const UnsignedInt ip = (UnsignedInt)jni->CallIntMethod(activity, s_roomMethods.ip);
+	roomDone(jni, activity);
+	return ip;
+#else
+	return 0;
+#endif
+}
+
 UDP::UDP()
 {
   fd=0;
 #ifndef _WIN32
   bcastFd=-1;
+#endif
+#if defined(__ANDROID__)
+  roomPort=0;
 #endif
 }
 
@@ -132,6 +214,18 @@ UDP::~UDP()
 		closesocket(fd);
 #ifndef _WIN32
 	SetBroadcastReceive(FALSE);
+#endif
+#if defined(__ANDROID__)
+	if (roomPort != 0)
+	{
+		JNIEnv *jni;
+		jobject activity;
+		if (roomActivity(jni, activity))
+		{
+			jni->CallVoidMethod(activity, s_roomMethods.reset, (jint)roomPort);
+			roomDone(jni, activity);
+		}
+	}
 #endif
 }
 
@@ -156,6 +250,23 @@ Int UDP::Bind(UnsignedInt IP,UnsignedShort Port)
 {
   int retval;
   int status;
+
+#if defined(__ANDROID__)
+  // GeneralsX @feature Android port 04/10/2026 In a room, binding only claims the port.
+  if (const UnsignedInt roomIP = RoomIP())
+  {
+    roomPort = Port;
+    myIP = roomIP;
+    myPort = Port;
+    addr.sin_family = AF_INET;
+    addr.sin_port = htons(Port);
+    addr.sin_addr.s_addr = htonl(roomIP);
+    m_lastError = 0;
+    fprintf(stderr, "[GX-ROOM] socket on port %u carried by the room as %u.%u.%u.%u\n", (unsigned)Port,
+      (roomIP >> 24) & 0xFF, (roomIP >> 16) & 0xFF, (roomIP >> 8) & 0xFF, roomIP & 0xFF);
+    return(OK);
+  }
+#endif
 
   IP=htonl(IP);
   Port=htons(Port);
@@ -241,6 +352,28 @@ Int UDP::Write(const unsigned char *msg,UnsignedInt len,UnsignedInt IP,UnsignedS
   // This happens frequently
   if ((IP==0)||(port==0)) return(ADDRNOTAVAIL);
 
+#if defined(__ANDROID__)
+  if (roomPort != 0)
+  {
+    m_lastError = 0;
+    JNIEnv *jni;
+    jobject activity;
+    if (!roomActivity(jni, activity))
+      return(-1);
+    jbyteArray data = jni->NewByteArray((jsize)len);
+    if (data == nullptr)
+    {
+      roomDone(jni, activity);
+      return(-1);
+    }
+    jni->SetByteArrayRegion(data, 0, (jsize)len, reinterpret_cast<const jbyte *>(msg));
+    retval = jni->CallIntMethod(activity, s_roomMethods.send, (jint)roomPort, (jint)IP, (jint)port, data);
+    jni->DeleteLocalRef(data);
+    roomDone(jni, activity);
+    return(retval);
+  }
+#endif
+
 #ifdef _UNIX
   errno=0;
 #endif
@@ -270,6 +403,44 @@ Int UDP::Read(unsigned char *msg,UnsignedInt len,sockaddr_in *from)
   Int retval;
   // GeneralsX @bugfix BenderAI 13/02/2026 Use socklen_t for POSIX socket functions (fighter19 pattern)
   socklen_t alen=sizeof(sockaddr_in);
+
+#if defined(__ANDROID__)
+  // A room frame keeps the header the relay checked: GXR1, source IP, destination IP, source
+  // port, destination port, then the datagram.
+  if (roomPort != 0)
+  {
+    m_lastError = 0;
+    JNIEnv *jni;
+    jobject activity;
+    if (!roomActivity(jni, activity))
+      return(0);
+    jbyteArray frame = static_cast<jbyteArray>(jni->CallObjectMethod(activity, s_roomMethods.receive, (jint)roomPort));
+    retval = 0;
+    if (frame != nullptr)
+    {
+      const jsize size = jni->GetArrayLength(frame);
+      if ((size_t)size > kRoomHeader)
+      {
+        unsigned char header[kRoomHeader];
+        jni->GetByteArrayRegion(frame, 0, (jsize)kRoomHeader, reinterpret_cast<jbyte *>(header));
+        const UnsignedInt payload = (UnsignedInt)size - (UnsignedInt)kRoomHeader;
+        const UnsignedInt copied = payload < len ? payload : len;
+        jni->GetByteArrayRegion(frame, (jsize)kRoomHeader, (jsize)copied, reinterpret_cast<jbyte *>(msg));
+        if (from != nullptr)
+        {
+          memset(from, 0, sizeof(*from));
+          from->sin_family = AF_INET;
+          from->sin_addr.s_addr = htonl(readBE32(header + 4));
+          from->sin_port = htons((UnsignedShort)((header[12] << 8) | header[13]));
+        }
+        retval = (Int)copied;
+      }
+      jni->DeleteLocalRef(frame);
+    }
+    roomDone(jni, activity);
+    return(retval);
+  }
+#endif
 
   if (from!=nullptr)
   {
@@ -499,6 +670,10 @@ int UDP::Wait(Int sec,Int usec,fd_set &givenSet,fd_set &returnSet)
 Int UDP::SetInputBuffer(UnsignedInt bytes)
 {
    int retval,arg=bytes;
+#if defined(__ANDROID__)
+   if (roomPort != 0)
+     return(TRUE); // no OS socket to size in a room
+#endif
 
    retval=setsockopt(fd,SOL_SOCKET,SO_RCVBUF,
      (char *)&arg,sizeof(int));
@@ -513,6 +688,10 @@ Int UDP::SetInputBuffer(UnsignedInt bytes)
 Int UDP::SetOutputBuffer(UnsignedInt bytes)
 {
    int retval,arg=bytes;
+#if defined(__ANDROID__)
+   if (roomPort != 0)
+     return(TRUE); // no OS socket to size in a room
+#endif
 
    retval=setsockopt(fd,SOL_SOCKET,SO_SNDBUF,
      (char *)&arg,sizeof(int));
@@ -551,6 +730,10 @@ Int UDP::AllowBroadcasts(Bool status)
 {
 	int retval;
 	BOOL val = status;
+#if defined(__ANDROID__)
+	if (roomPort != 0)
+		return 0; // the room carries broadcasts itself
+#endif
 	retval = setsockopt(fd, SOL_SOCKET, SO_BROADCAST, (char *)&val, sizeof(BOOL));
 #ifndef _WIN32
 	// Only the LAN lobby enables broadcasts, so this scopes the extra socket (and on

@@ -167,6 +167,12 @@
             android:configChanges="orientation|screenSize|keyboardHidden" />
 
         <activity
+            android:name=".RoomActivity"
+            android:exported="false"
+            android:theme="@style/Theme.GeneralsZHSettings"
+            android:configChanges="orientation|screenSize|keyboardHidden" />
+
+        <activity
             android:name=".NetworkDiagnosticsActivity"
             android:exported="false"
             android:theme="@style/Theme.GeneralsZHSettings"

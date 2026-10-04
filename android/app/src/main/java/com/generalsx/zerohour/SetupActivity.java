@@ -506,6 +506,12 @@ public class SetupActivity extends Activity {
         // The one thing this app exists to do, as the first thing on it.
         UiKit.button(page, UiKit.BTN_PRIMARY, R.drawable.ic_gzh_play,
             getString(R.string.setup_button_launch_game), this::onLaunchGame);
+        // GeneralsX @feature Android port 04/10/2026 LAN with friends over the internet, through a
+        // rooms server (docs/port/ROOMS_PROTOCOL.md).
+        LinearLayout rooms = UiKit.card(page);
+        UiKit.listRow(rooms, R.drawable.ic_gzh_account, getString(R.string.rooms_title),
+            getString(R.string.rooms_row_note),
+            () -> startActivityForResult(new Intent(this, RoomActivity.class), REQUEST_ROOM));
 
         LinearLayout folder = UiKit.card(page);
         UiKit.sectionHeader(folder, R.drawable.ic_gzh_folder,
@@ -1566,6 +1572,7 @@ public class SetupActivity extends Activity {
     // into this asset folder at build time) -- see applyRecommendedDriverIfNeeded().
     private static final String DEFAULT_DRIVER_ASSET_DIR = "default_driver";
     private static final int REQUEST_IMPORT_DRIVER = 1002;
+    private static final int REQUEST_ROOM = 1004;
     private static final int REQUEST_PICK_BASE_GENERALS = 1003;
 
     private TextView customDriverStatusView;
@@ -3250,6 +3257,13 @@ public class SetupActivity extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        // GeneralsX @feature Android port 04/10/2026 The room's creator launched: start the game,
+        // whose LAN screen now runs over the room (RoomSession).
+        if (requestCode == REQUEST_ROOM && resultCode == Activity.RESULT_OK) {
+            Toast.makeText(this, R.string.rooms_launch_hint, Toast.LENGTH_LONG).show();
+            onLaunchGame();
+            return;
+        }
         if (requestCode == 1001 && resultCode == Activity.RESULT_OK && data != null) {
             String path = data.getStringExtra(FolderPickerActivity.EXTRA_SELECTED_PATH);
             if (path != null) {
