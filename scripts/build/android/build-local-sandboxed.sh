@@ -123,8 +123,9 @@ mkdir -p "build/${PRESET}/_deps"
 rm -rf "build/${PRESET}/_deps/sdl3-src"
 ln -sfn "${FETCHCONTENT_SRC}/SDL3-src" "build/${PRESET}/_deps/sdl3-src"
 
-echo "=== [7/8] Build z_generals + DXVK d3d8/d3d9 + hooks ==="
-cmake --build "build/${PRESET}" --target z_generals dxvk_d3d8_install \
+echo "=== [7/8] Build z_generals + g_generals + DXVK d3d8/d3d9 + hooks ==="
+# GeneralsX @build Android port 04/10/2026 g_generals: the base game, libgenerals.so.
+cmake --build "build/${PRESET}" --target z_generals g_generals dxvk_d3d8_install \
   main_hook file_redirect_hook gsl_alloc_hook hook_impl -- -k 0 2>&1 | tee logs/build_android.log
 ccache --show-stats
 
