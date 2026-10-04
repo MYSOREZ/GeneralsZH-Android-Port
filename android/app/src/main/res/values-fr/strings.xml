@@ -111,6 +111,8 @@
     <string name="setup_switch_touch_debug_desc">Affiche par-dessus le jeu l\'état de la couche tactile : geste en cours, position de votre doigt, position où le moteur croit que se trouve le pointeur, et ancre de défilement de la caméra. Activez ceci pour signaler des problèmes de contrôle : carte qui défile toute seule, bâtiment fantôme au mauvais endroit, capacité qui vise là où vous n\'avez pas touché. (gx_touch_debug.txt)</string>
     <string name="setup_switch_gx_perf">Résumé des performances</string>
     <string name="setup_switch_gx_perf_desc">Ajoute une courte ligne par seconde indiquant où passe le temps de trame (radar, audio, réseau, logique du jeu, rendu). Peut rester activé toute la session sans risque — activez-le pour les rapports de FPS/ralentissements. (gx_perf.txt)</string>
+    <string name="setup_switch_gpu_timer">Mesure du temps GPU</string>
+    <string name="setup_switch_gpu_timer_desc">Mesure le temps que le GPU passe sur chaque image et l\'ajoute au résumé des performances, pour savoir si la limite vient du GPU ou du CPU. OpenGL ES uniquement. Certains pilotes Mali plantent avec, laissez-la désactivée sauf si on vous le demande. (gx_gles_gputimer.txt)</string>
     <string name="setup_switch_gx_audio_trace">Journal audio</string>
     <string name="setup_switch_gx_audio_trace_desc">Enregistre ce que fait le système sonore : niveau des tampons de musique et de voix, audio des vidéos, et chaque source qui démarre ou s\'arrête. Activez-le si un journal audio vous est demandé après un signalement de son absent, haché ou muet. (gx_audio_trace.txt)</string>
     <string name="setup_button_download_langpack">Télécharger le pack de langue</string>

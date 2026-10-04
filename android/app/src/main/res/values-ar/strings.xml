@@ -111,6 +111,8 @@
     <string name="setup_switch_touch_debug_desc">يرسم حالة طبقة اللمس فوق اللعبة: الإيماءة الحالية، وموضع إصبعك، والموضع الذي يعتقد المحرك أن المؤشر فيه، ونقطة ارتكاز تمرير الكاميرا. فعّل هذا للإبلاغ عن مشكلات التحكم — خريطة تتحرك من تلقاء نفسها، أو مبنى شبحي في المكان الخطأ، أو قدرة تستهدف مكانًا لم تلمسه. (gx_touch_debug.txt)</string>
     <string name="setup_switch_gx_perf">ملخص الأداء</string>
     <string name="setup_switch_gx_perf_desc">يضيف سطرًا قصيرًا كل ثانية يوضح أين يُصرف وقت الإطار (الرادار، الصوت، الشبكة، منطق اللعبة، العرض). آمن تركه مفعّلاً طوال جلسة اللعب — فعّله لتقارير معدل الإطارات/التباطؤ. (gx_perf.txt)</string>
+    <string name="setup_switch_gpu_timer">قياس وقت معالج الرسومات</string>
+    <string name="setup_switch_gpu_timer_desc">يقيس الوقت الذي يقضيه معالج الرسومات في كل إطار ويضيفه إلى ملخص الأداء، لمعرفة ما إذا كان الحد هو معالج الرسومات أم المعالج. لـ OpenGL ES فقط. بعض تعريفات Mali تتعطل معه، فأبقه مطفأً ما لم يُطلب منك. (gx_gles_gputimer.txt)</string>
     <string name="setup_switch_gx_audio_trace">سجل الصوت</string>
     <string name="setup_switch_gx_audio_trace_desc">يسجل ما يقوم به نظام الصوت: مستوى مخازن الموسيقى والحوار، وصوت المقاطع السينمائية، وكل مصدر يبدأ أو يتوقف. فعّل هذا إذا طُلب منك سجل صوت بعد الإبلاغ عن صوت مفقود أو متقطع أو صامت. ‎(gx_audio_trace.txt)</string>
     <string name="setup_button_download_langpack">تنزيل حزمة اللغة</string>

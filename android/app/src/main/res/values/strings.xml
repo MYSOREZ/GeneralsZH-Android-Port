@@ -121,6 +121,8 @@
     <string name="setup_switch_touch_debug_desc">Draws the touch layer\'s own state over the game: current gesture, where your finger is, where the engine thinks the pointer is, and the camera scroll anchor. Turn this on to report control problems — a runaway map, a ghost building in the wrong place, an ability aiming somewhere you did not touch. (gx_touch_debug.txt)</string>
     <string name="setup_switch_gx_perf">Performance summary</string>
     <string name="setup_switch_gx_perf_desc">Adds one short line per second showing where frame time goes (radar, audio, network, game logic, rendering). Safe to leave on for a whole play session — turn this on for FPS/slowdown reports. (gx_perf.txt)</string>
+    <string name="setup_switch_gpu_timer">GPU frame timing</string>
+    <string name="setup_switch_gpu_timer_desc">Measures how long the GPU spends on each frame and adds it to the performance summary, to tell whether the GPU or the CPU is the limit. OpenGL ES only. Some Mali drivers crash with it, so leave it off unless you are asked for it. (gx_gles_gputimer.txt)</string>
     <string name="setup_switch_gx_audio_trace">Audio log</string>
     <string name="setup_switch_gx_audio_trace_desc">Records what the sound system is doing: music and speech buffer levels, movie audio, and every source that starts or stops. Turn this on if you are asked for an audio log after reporting missing, stuttering or silent sound. (gx_audio_trace.txt)</string>
     <string name="setup_switch_gx_net_trace">Online network log</string>
