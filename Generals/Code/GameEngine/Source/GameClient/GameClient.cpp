@@ -28,12 +28,18 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 // SYSTEM INCLUDES ////////////////////////////////////////////////////////////
+#include <stdexcept>
+#include <cstdio>
+#include <chrono>
 #include "PreRTS.h"	// This must go first in EVERY cpp file in the GameEngine
 #include "GameClient/GameClient.h"
+#include "GXTrace.h"
 
 #include <chrono>
 
 // USER INCLUDES //////////////////////////////////////////////////////////////
+#include "Common/AudioAffect.h"
+#include "Common/GameAudio.h"
 #include "Common/ActionManager.h"
 #include "Common/GameEngine.h"
 #include "Common/GameState.h"
@@ -89,6 +95,11 @@
 
 /// The GameClient singleton instance
 GameClient *TheGameClient = nullptr;
+
+// GeneralsX @bugfix Android port 09/09/2026 Let the renderer black the whole screen out while
+// the intro sequence is running (see W3DDisplay::draw()). Cleared only around the legal page,
+// which is the one thing that is legitimately drawn during the intro without a movie under it.
+Bool g_gxIntroBlackoutAllowed = TRUE;
 
 //-------------------------------------------------------------------------------------------------
 GameClient::GameClient()
@@ -489,6 +500,55 @@ void GameClient::registerDrawable( Drawable *draw )
 
 }
 
+// GeneralsX @bugfix Android port 31/07/2026 Real-device [GX-PERF] data
+// (140 samples, Redmi Note 8 Pro/Mali-G76) showed the "client" bucket in
+// GameEngine::update() -- i.e. this whole function -- at ~90% of frame
+// time in steady-state gameplay, with logic/audio/network/radar all minor.
+// That single bucket doesn't say WHERE inside GameClient::update() the
+// time goes, so break it down the same way: time each major sub-block and
+// flush an aggregate once a second. Buckets group logically-related calls
+// so the count stays manageable (see body below for exactly what each
+// covers). Cost when disabled is the single bool check -- no now()/
+// duration calls execute. Only covers the steady-state gameplay path;
+// the one-time intro/sizzle movie path returns before gxT0 is captured.
+static void gxTraceClientUpdatePhase(
+	double inputUs, double windowMgrUs, double videoPlayerUs,
+	double drawablesUs, double terrainDisplayUs, double drawUs, double uiTailUs)
+{
+	static std::chrono::steady_clock::time_point s_windowStart = std::chrono::steady_clock::now();
+	static double s_inputUs = 0, s_windowMgrUs = 0, s_videoPlayerUs = 0,
+		s_drawablesUs = 0, s_terrainDisplayUs = 0, s_drawUs = 0, s_uiTailUs = 0;
+	static int s_frames = 0;
+
+	s_inputUs += inputUs;
+	s_windowMgrUs += windowMgrUs;
+	s_videoPlayerUs += videoPlayerUs;
+	s_drawablesUs += drawablesUs;
+	s_terrainDisplayUs += terrainDisplayUs;
+	s_drawUs += drawUs;
+	s_uiTailUs += uiTailUs;
+	++s_frames;
+
+	std::chrono::steady_clock::time_point now = std::chrono::steady_clock::now();
+	double elapsedUs = std::chrono::duration<double, std::micro>(now - s_windowStart).count();
+	if (elapsedUs >= 1'000'000.0 && s_frames > 0)
+	{
+		GX_PERF_TRACE("[GX-PERF-CLIENT] frames=%d input=%.2fms windowMgr=%.2fms videoPlayer=%.2fms drawables=%.2fms terrainDisplay=%.2fms draw=%.2fms uiTail=%.2fms\n",
+			s_frames,
+			s_inputUs / 1000.0 / s_frames,
+			s_windowMgrUs / 1000.0 / s_frames,
+			s_videoPlayerUs / 1000.0 / s_frames,
+			s_drawablesUs / 1000.0 / s_frames,
+			s_terrainDisplayUs / 1000.0 / s_frames,
+			s_drawUs / 1000.0 / s_frames,
+			s_uiTailUs / 1000.0 / s_frames);
+
+		s_windowStart = now;
+		s_inputUs = s_windowMgrUs = s_videoPlayerUs = s_drawablesUs = s_terrainDisplayUs = s_drawUs = s_uiTailUs = 0;
+		s_frames = 0;
+	}
+}
+
 /** -----------------------------------------------------------------------------------------------
  * Redraw all views, update the GUI, play sound effects, etc.
  */
@@ -499,9 +559,41 @@ void GameClient::update()
 	USE_PERF_TIMER(GameClient_update)
 	PROFILER_FRAME_MARK;
 	PROFILER_SECTION_COLOR(0x2196F3);
+	// GeneralsX @bugfix Android port 31/07/2026 see gxTraceClientUpdatePhase() above.
+	const bool gxPerfTrace = GXTrace::isPerfEnabled();
+	std::chrono::steady_clock::time_point gxcT0, gxcT1, gxcT2, gxcT3, gxcT4, gxcT5, gxcT6;
 	// create the FRAME_TICK message
 	GameMessage *frameMsg = TheMessageStream->appendMessage( GameMessage::MSG_FRAME_TICK );
 	frameMsg->appendTimestampArgument( getFrame() );
+	// GeneralsX @bugfix Android port 08/09/2026 The movie gate that used to live here is GONE.
+	//
+	// It tried to silence the shell map behind the intro movie, first by pausing the world's
+	// samples and then by zeroing their volume. The second version silenced the MOVIE and left
+	// the background playing -- the exact opposite of the intent -- which says the assumption
+	// underneath both attempts was simply wrong: the movie's own audio is carried by the same
+	// sample volumes, and what is audible behind it is not.
+	//
+	// Rather than guess a third time, the sample-start trace below names what is actually
+	// playing while a movie is on screen. Nothing is silenced until that says what to silence.
+	// GeneralsX @bugfix Android port 08/09/2026 Count frames since a movie was last playing.
+	//
+	// This is the real cause of "the main menu battle is audible under the intro video", and
+	// it was never an audio bug at all: the shell map was being LOADED AND STARTED while the
+	// video was still on screen. A device log shows it plainly -- Maps\ShellMapMD\map.ini
+	// loading between the movie's start and its end. On the PC the order is strictly video
+	// first, shell map afterwards.
+	//
+	// The gate below is `!isMoviePlaying()`, which is not enough here: this port's video path
+	// is asynchronous, so that flag is still false in the frame that starts a movie and can
+	// drop briefly between the logo and the sizzle. Either window lets the shell through.
+	// Requiring it to have been quiet for a stretch closes both without needing to know which
+	// one actually fired.
+	static Int s_framesSinceMoviePlaying = 0;
+	if (TheDisplay != nullptr && TheDisplay->isMoviePlaying())
+		s_framesSinceMoviePlaying = 0;
+	else
+		s_framesSinceMoviePlaying++;
+
 	static Bool playSizzle = FALSE;
 	// We need to show the movie first.
 	if(TheGlobalData->m_playIntro && !TheDisplay->isMoviePlaying())
@@ -513,6 +605,9 @@ void GameClient::update()
 		TheWritableGlobalData->m_playIntro = FALSE;
 		TheWritableGlobalData->m_afterIntro = TRUE;
 		playSizzle = TRUE;
+		// the movie has just been asked to start; it is not "quiet" any more, whatever
+		// isMoviePlaying() says about it this instant
+		s_framesSinceMoviePlaying = 0;
 	}
 
 	//Initial Game Condition.  We must show the movie first and then we can display the shell
@@ -539,6 +634,9 @@ void GameClient::update()
 				WindowLayout *legal = TheWindowManager->winCreateLayout("Menus/LegalPage.wnd");
 				if(legal)
 				{
+					// This page IS meant to be visible during the intro, with no movie behind
+					// it -- exempt it from the intro blackout for as long as it is up.
+					g_gxIntroBlackoutAllowed = FALSE;
 					legal->hide(FALSE);
 					legal->bringForward();
 					Int beginTime = timeGetTime();
@@ -559,6 +657,7 @@ void GameClient::update()
 
 					legal->destroyWindows();
 					deleteInstance(legal);
+					g_gxIntroBlackoutAllowed = TRUE;
 
 				}
 				TheWritableGlobalData->m_breakTheMovie = TRUE;
@@ -566,11 +665,38 @@ void GameClient::update()
 
 			}
 
+		// Wait for the screen to have been free of video for a stretch before loading the
+		// shell map. Deliberately NOT applied to the sizzle branch above, which must follow
+		// the logo immediately.
+		if (s_framesSinceMoviePlaying >= 30)
+		{
+			GX_AUDIO_TRACE("intro finished (%d frames quiet) -> loading shell map\n",
+			        (int)s_framesSinceMoviePlaying);
+			// GeneralsX @bugfix Android port 09/09/2026 Order matters here, in both directions.
+			//
+			// showShell() runs the top layout's init callback again -- a device log shows
+			// MainMenuInit running a second time right after this point -- and MainMenuInit
+			// only skips queueing its own MSG_NEW_GAME (through showShellMap) while it can
+			// still see an intro in progress. So m_afterIntro has to stay set across the
+			// showShell() call, or the shell map gets requested twice.
+			//
+			// MainMenuInit also (re)hides the layout for as long as either intro flag is set,
+			// so the reveal has to come AFTER both showShell() and the flag clear, not before
+			// them -- doing it first, as this used to, left the layout hidden by that second
+			// MainMenuInit with nothing to ever show it again.
 			TheShell->showShellMap(TRUE);
 			TheShell->showShell();
 			TheWritableGlobalData->m_afterIntro = FALSE;
+			// Reveal the static main-menu layout MainMenuInit kept hidden through the intro
+			// (MainMenu.cpp), at the same point the map itself is finally let in.
+			if (TheShell->top())
+				TheShell->top()->hide(FALSE);
+		}
 		}
 	}
+
+	if (gxPerfTrace) gxcT0 = std::chrono::steady_clock::now();
+
 
 	// update animation 2d collection
 	TheAnim2DCollection->UPDATE();
@@ -596,21 +722,39 @@ void GameClient::update()
 
 	if(TheGlobalData->m_playIntro || TheGlobalData->m_afterIntro)
 	{
+		// GeneralsX @bugfix Android port 09/09/2026 Do NOT call TheVideoPlayer->UPDATE() here.
+		//
+		// It looks like an obvious omission -- this branch returns before the
+		// TheVideoPlayer->UPDATE() further down, so during the intro the player is never
+		// updated and the movie's audio only ever gets the one frame per game frame that
+		// Display::update() pulls. Adding the call did make the audio queue fill. It also hung
+		// the intro dead: black screen, no video, no way to skip, reproduced on device twice.
+		// Guarding the look-ahead against overrunning the last frame did not help, so the
+		// interaction is not understood yet, and a playable game beats a fed audio queue.
+		// The buffering work stays in FFmpegVideoStream (dormant here); the sound in the intro
+		// movies is still open, and needs a path that cannot touch video frame accounting.
+
 		// redraw all views, update the GUI
 		TheDisplay->UPDATE();
 		TheDisplay->DRAW();
 		return;
 	}
 
+	if (gxPerfTrace) gxcT1 = std::chrono::steady_clock::now();
+
 	// update the window system itself
 	{
 		TheWindowManager->UPDATE();
 	}
 
+	if (gxPerfTrace) gxcT2 = std::chrono::steady_clock::now();
+
 	// update the video player
 	{
 		TheVideoPlayer->UPDATE();
 	}
+
+	if (gxPerfTrace) gxcT3 = std::chrono::steady_clock::now();
 
 	const Bool freezeTime = TheGameEngine->isTimeFrozen() || TheGameEngine->isGameHalted();
 
@@ -700,6 +844,8 @@ void GameClient::update()
 		}
 	}
 
+	if (gxPerfTrace) gxcT4 = std::chrono::steady_clock::now();
+
 #if defined(RTS_DEBUG)
 	// need to draw the first frame, then don't draw again until TheGlobalData->m_noDraw
 	if (TheGlobalData->m_noDraw > TheGameLogic->getFrame() && TheGameLogic->getFrame() > 0)
@@ -727,6 +873,8 @@ void GameClient::update()
 		TheDisplay->UPDATE();
 	}
 
+	if (gxPerfTrace) gxcT5 = std::chrono::steady_clock::now();
+
 	{
 		USE_PERF_TIMER(GameClient_draw)
 
@@ -735,6 +883,8 @@ void GameClient::update()
 
 		TheDisplay->DRAW();
 	}
+
+	if (gxPerfTrace) gxcT6 = std::chrono::steady_clock::now();
 
 	{
 		// let display string factory handle its update
@@ -751,9 +901,24 @@ void GameClient::update()
 		TheInGameUI->UPDATE();
 	}
 
+	if (gxPerfTrace)
+	{
+		std::chrono::steady_clock::time_point gxcT7 = std::chrono::steady_clock::now();
+		gxTraceClientUpdatePhase(
+			std::chrono::duration<double, std::micro>(gxcT1 - gxcT0).count(),
+			std::chrono::duration<double, std::micro>(gxcT2 - gxcT1).count(),
+			std::chrono::duration<double, std::micro>(gxcT3 - gxcT2).count(),
+			std::chrono::duration<double, std::micro>(gxcT4 - gxcT3).count(),
+			std::chrono::duration<double, std::micro>(gxcT5 - gxcT4).count(),
+			std::chrono::duration<double, std::micro>(gxcT6 - gxcT5).count(),
+			std::chrono::duration<double, std::micro>(gxcT7 - gxcT6).count());
+	}
+
 #if defined(GENERALS_ONLINE_HIGH_FPS_RENDER)
-	// GeneralsX @feature Android port 04/10/2026 As in Zero Hour: the legacy frame follows wall time,
-	// not the logic tick, so render-side cadences stay at the retail 30 Hz at any frame rate.
+	// The client's legacy frame is driven by wall time, not by the logic tick, so that render-side
+	// cadences (particle keyframes, FX delays) stay at the retail 30 Hz however fast we render.
+	// The client uses utc_clock here; steady_clock is used instead because this value is only ever
+	// consumed as a delta and steady_clock is both monotonic and portable to the NDK.
 	const int64_t currTime = std::chrono::duration_cast<std::chrono::milliseconds>(
 		std::chrono::steady_clock::now().time_since_epoch()).count();
 
@@ -763,6 +928,7 @@ void GameClient::update()
 	}
 	m_LegacyFrameEndLastFrame = currTime;
 
+	// TODO_NGMP: This should really use partial frame intervals instead of a fixed 60hz update
 	if (m_legacyFrameMSAccured >= 33)
 	{
 		m_legacyFrameMSAccured = 0;

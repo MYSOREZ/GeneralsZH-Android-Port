@@ -54,6 +54,7 @@
 #include "WW3D2/assetmgr.h"
 #include "WW3D2/render2dsentence.h"
 #include "GameClient/GlobalLanguage.h"
+#include "GXTrace.h"
 
 namespace
 {

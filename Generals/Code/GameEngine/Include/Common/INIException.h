@@ -43,6 +43,33 @@ public:
 		}
 	}
 
+	// GeneralsX @bugfix Android port 12/07/2026 - Without these, the compiler-
+	// generated copy constructor/assignment shallow-copy mFailureMessage, so
+	// any code that catches this type by value (as GameEngine.cpp used to)
+	// ends up with two objects pointing at the same heap block; both
+	// destructors then delete[] it, a double-free that corrupts the heap
+	// right as an INI parse error is being reported. Deep-copy instead.
+	INIException(const INIException& other) : mFailureMessage(nullptr)
+	{
+		if (other.mFailureMessage) {
+			mFailureMessage = new char[strlen(other.mFailureMessage) + 1];
+			strcpy(mFailureMessage, other.mFailureMessage);
+		}
+	}
+
+	INIException& operator=(const INIException& other)
+	{
+		if (this != &other) {
+			delete [] mFailureMessage;
+			mFailureMessage = nullptr;
+			if (other.mFailureMessage) {
+				mFailureMessage = new char[strlen(other.mFailureMessage) + 1];
+				strcpy(mFailureMessage, other.mFailureMessage);
+			}
+		}
+		return *this;
+	}
+
 	~INIException()
 	{
 		delete [] mFailureMessage;

@@ -29,6 +29,7 @@
 
 // INCLUDES ///////////////////////////////////////////////////////////////////////////////////////
 #include "PreRTS.h"	// This must go first in EVERY cpp file in the GameEngine
+#include "GXTrace.h"
 
 #include "gamespy/ghttp/ghttp.h"
 
@@ -54,6 +55,9 @@
 #include "GameClient/KeyDefs.h"
 #include "GameClient/GameWindowManager.h"
 #include "GameClient/GadgetStaticText.h"
+#include "GameClient/DisplayStringManager.h"
+#include "Common/GXSafeArea.h"
+#include "Common/GXRemoteConfig.h"
 #include "GameClient/GlobalLanguage.h"
 #include "GameClient/Mouse.h"
 #include "GameClient/WindowVideoManager.h"
@@ -70,6 +74,9 @@
 
 #include "GameNetwork/DownloadManager.h"
 #include "GameNetwork/GameSpy/MainMenuUtils.h"
+#if defined(GENERALS_ONLINE)
+#include "GameNetwork/GeneralsOnline/OnlineServices_Init.h"
+#endif
 
 #include "GameClient/InGameUI.h"
 
@@ -109,6 +116,11 @@ void DoCompressTest();
 // window ids -------------------------------------------------------------------------------------
 static NameKeyType mainMenuID = NAMEKEY_INVALID;
 static NameKeyType skirmishID = NAMEKEY_INVALID;
+// GeneralsX @feature Android port 24/09/2026 The Steam release's "Custom Mission" button.
+// It exists only in that release's PatchWindow.big (MainMenu.wnd:ButtonCustomMission, with
+// its transitions in PatchINI.big), and the executable that shipped with it is the only
+// thing that ever handled it -- so on this engine the button did nothing when pressed.
+static NameKeyType customMissionID = NAMEKEY_INVALID;
 static NameKeyType onlineID = NAMEKEY_INVALID;
 static NameKeyType networkID = NAMEKEY_INVALID;
 static NameKeyType optionsID = NAMEKEY_INVALID;
@@ -221,12 +233,32 @@ extern Bool dispChanged;
 void diffReverseSide();
 void HandleCanceledDownload( Bool resetDropDown )
 {
+#if defined(GENERALS_ONLINE)
+	NGMP_OnlineServicesManager::GetInstance()->CancelUpdate();
+#endif
+
 	buttonPushed = FALSE;
 	if (resetDropDown)
 	{
 		dropDownWindows[DROPDOWN_MAIN]->winHide(FALSE);
 		TheTransitionHandler->setGroup("MainMenuDefaultMenuLogoFade");
 	}
+}
+
+// GeneralsX @bugfix Android port 03/10/2026 The Online button plays the menu's exit transition and
+// waits for the online menu to replace it. When the online start failed instead (no connection, a
+// sign-in the server refused), nothing brought the menu back: the player was left on the
+// background with no buttons and had to kill the game. Same reset as a cancelled patch download.
+void MainMenuOnlineAborted()
+{
+	if (isShuttingDown || dropDownWindows[DROPDOWN_MAIN] == nullptr)
+	{
+		return;
+	}
+	buttonPushed = FALSE;
+	dropDown = DROPDOWN_NONE;
+	dropDownWindows[DROPDOWN_MAIN]->winHide(FALSE);
+	TheTransitionHandler->setGroup("MainMenuDefaultMenuLogoFade");
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -389,17 +421,76 @@ GameWindow *win = nullptr;
 
 }
 
+// GeneralsX @bugfix Android port 27/09/2026 Both watermark boxes -- the stock LabelVersion,
+// sized for the 800x600 version string, and the fallback made below with a fixed 28px height
+// -- draw their text wrapped at the box width and clipped to the box. With the scaled-up font
+// the watermark wrapped after "C&C" and the second line, plus the lower half of the first,
+// fell outside the box, right at the phone's rounded bottom corner (seen on a 2510x1156
+// phone). Grow the box to the unwrapped text and keep it inside the screen's safe area; the
+// box never shrinks, so a desktop layout that already fits is unchanged.
+static void fitCreditLabel( GameWindow *label, const UnicodeString &text )
+{
+	GameFont *font = label ? label->winGetFont() : nullptr;
+	if (!font || !TheDisplay || !TheDisplayStringManager)
+		return;
+
+	DisplayString *measure = TheDisplayStringManager->newDisplayString();
+	measure->setFont( font );
+	measure->setText( text );
+	Int textWidth = 0, textHeight = 0;
+	measure->getSize( &textWidth, &textHeight );
+	TheDisplayStringManager->freeDisplayString( measure );
+
+	// drawStaticTextText wraps at width - 10 and draws at the left/top margins.
+	TextData *textData = (TextData *)label->winGetUserData();
+	const Int marginX = textData ? textData->leftMargin : 0;
+	const Int marginY = textData ? textData->topMargin : 0;
+	Int width = 0, height = 0, x = 0, y = 0;
+	label->winGetSize( &width, &height );
+	label->winGetScreenPosition( &x, &y );
+	width = max( width, textWidth + marginX + 12 );
+	height = max( height, textHeight + marginY + 2 );
+
+	const Int left = GXSafeArea::leftPx();
+	const Int newX = max( x, left );
+	Int newY = min( y, (Int)TheDisplay->getHeight() - GXSafeArea::bottomPx() - height );
+#if defined(__ANDROID__) || (defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE)
+	// Under the frame, not on it: the menu backdrop (MainMenuRuler, 800x600 art stretched over
+	// the whole screen) draws its bottom frame line at rows 559-560 of 600 -- measured on a
+	// device screenshot at 1077-1079 of 1156. Centre the watermark in the strip between that
+	// line and the bottom edge. The strip lies below the bottom safe inset, which is there for
+	// the rounded corners; the label starts at the left inset, clear of the corner's curve.
+	const Int displayHeight = (Int)TheDisplay->getHeight();
+	const Int lineBottom = ( displayHeight * 561 ) / 600;
+	const Int strip = displayHeight - lineBottom;
+	if( strip >= height )
+		newY = lineBottom + ( strip - height ) / 2;
+#endif
+
+	Int parentX = 0, parentY = 0;
+	if (GameWindow *parent = label->winGetParent())
+		parent->winGetScreenPosition( &parentX, &parentY );
+	label->winSetSize( width, height );
+	label->winSetPosition( newX - parentX, newY - parentY );
+}
+
 // GeneralsX @tweak BenderAI 31/03/2026 Print fixed project watermark in optional main-menu LabelVersion widget.
 static void initLabelVersion()
 {
 	NameKeyType versionID = TheNameKeyGenerator->nameToKey( "MainMenu.wnd:LabelVersion" );
 	GameWindow *labelVersion = TheWindowManager->winGetWindowFromId( nullptr, versionID );
 	UnicodeString creditText;
+#if defined(__ANDROID__)
+	creditText.translate("GeneralsX for Android - C&C Generals Zero Hour");
+#else
 	creditText.translate("GeneralsX - Multiplatform C&C Generals");
+#endif
 
 	if (labelVersion)
 	{
 		GadgetStaticTextSetText( labelVersion, creditText );
+
+		fitCreditLabel( labelVersion, creditText );
 		return;
 	}
 
@@ -439,6 +530,7 @@ static void initLabelVersion()
 				fallbackCreditLabel->winSetFont(TheWindowManager->winFindFont("Arial", creditFontSize, FALSE));
 				fallbackCreditLabel->winSetEnabledTextColors(GameMakeColor(255, 220, 60, 255), GameMakeColor(0, 0, 0, 0));
 				GadgetStaticTextSetText(fallbackCreditLabel, creditText);
+				fitCreditLabel(fallbackCreditLabel, creditText);
 			}
 		}
 	}
@@ -449,9 +541,54 @@ static void initLabelVersion()
 //-------------------------------------------------------------------------------------------------
 void MainMenuInit( WindowLayout *layout, void *userData )
 {
+	// GeneralsX @feature Android port 27/09/2026 The engine got this far: an updated engine that
+	// the launcher is watching (UpdateManager.noteEngineBoot) is good. See GXRemoteConfig.h.
+	GXRemoteConfig::markEngineBootComplete();
+
 	TheWritableGlobalData->m_breakTheMovie = FALSE;
 
-	TheShell->showShellMap(TRUE);
+	// GeneralsX @bugfix Android port 08/09/2026 This call used to run unconditionally.
+	// TheShell->push("Menus/MainMenu.wnd") happens synchronously during GameEngine::init(),
+	// before frame 1 -- before the intro-movie sequencing in GameClient::update() has run at
+	// all -- so this ran, and queued MSG_NEW_GAME (inside showShellMap), while the EA logo and
+	// sizzle movie had not even started. GameLogic::update() then started the real, heavy
+	// shell-map load ("Maps\ShellMapMD\map.ini") as soon as its own (separate, undebounced)
+	// !TheDisplay->isMoviePlaying() check happened to read false -- which on this port's
+	// asynchronous video path can be true for a frame or two around either movie, letting the
+	// load slip in underneath. That is why the shell map's ambient loops and unit sounds were
+	// audible under the intro: the battle was already running behind it.
+	//
+	// A real device log showed the shell map load starting between "movie started" and
+	// "movie ended". This condition matches the one GameClient.cpp's own m_afterIntro block
+	// already uses to call showShellMap() at the CORRECT time, after the intro has actually
+	// finished; skipping it here means that later, correctly-gated call is the only one that
+	// ever runs it during startup.
+	GX_AUDIO_TRACE("MainMenuInit: playIntro=%d afterIntro=%d layout=%p\n",
+	        (int)TheGlobalData->m_playIntro, (int)TheGlobalData->m_afterIntro, (void*)layout);
+
+	if (!TheGlobalData->m_playIntro && !TheGlobalData->m_afterIntro)
+	{
+		GX_AUDIO_TRACE("MainMenuInit: showing shell map immediately\n");
+		TheShell->showShellMap(TRUE);
+	}
+	else
+	{
+		GX_AUDIO_TRACE("MainMenuInit: intro pending -> hiding layout %p\n", (void*)layout);
+		// GeneralsX @bugfix Android port 08/09/2026 Deferring showShellMap() above stopped
+		// the animated battle background from loading under the movie, but this layout --
+		// MainMenu.wnd's own static background and logo -- is created and shown regardless,
+		// synchronously, as part of this very push. Before this fix that never mattered:
+		// the shell map used to start loading essentially immediately (see the comment
+		// above) and its full-screen 3D render covered this static layout within a second
+		// or two either way. With the map deferred, this static layout is now the only
+		// thing behind the movie for the whole wait, and it is not opaque everywhere the
+		// video isn't -- reported as a fragment of the CONQUER/GENERALS logo visible in a
+		// corner during the intro. Hide it until the same point that reveals the map.
+		layout->hide(TRUE);
+		GX_AUDIO_TRACE("MainMenuInit: layout->hide(TRUE) called, isHidden now=%d\n",
+		        (int)layout->isHidden());
+	}
+
 	TheMouse->setVisibility(TRUE);
 	//winVidManager = NEW WindowVideoManager;
 	buttonPushed = FALSE;
@@ -467,6 +604,7 @@ void MainMenuInit( WindowLayout *layout, void *userData )
 	mainMenuID = TheNameKeyGenerator->nameToKey( "MainMenu.wnd:MainMenuParent" );
 //	campaignID = TheNameKeyGenerator->nameToKey( "MainMenu.wnd:ButtonCampaign" );
 	skirmishID = TheNameKeyGenerator->nameToKey( "MainMenu.wnd:ButtonSkirmish" );
+	customMissionID = TheNameKeyGenerator->nameToKey( "MainMenu.wnd:ButtonCustomMission" );
 	onlineID = TheNameKeyGenerator->nameToKey( "MainMenu.wnd:ButtonOnline" );
 	networkID = TheNameKeyGenerator->nameToKey( "MainMenu.wnd:ButtonNetwork" );
 	optionsID = TheNameKeyGenerator->nameToKey( "MainMenu.wnd:ButtonOptions" );
@@ -585,7 +723,18 @@ void MainMenuInit( WindowLayout *layout, void *userData )
 //	TheShell->registerWithAnimateManager(buttonOptions, WIN_ANIMATION_SLIDE_LEFT, TRUE, 1);
 //	TheShell->registerWithAnimateManager(buttonExit, WIN_ANIMATION_SLIDE_RIGHT, TRUE, 1);
 //
-	layout->hide( FALSE );
+	// GeneralsX @bugfix Android port 09/09/2026 This unconditional unhide is what defeated the
+	// intro hide near the top of this same function. MainMenuInit is one long function: it
+	// calls layout->hide(TRUE) while an intro is pending (see above), then ~130 lines later
+	// arrives here and shows the layout again, in the same call, before the first frame is
+	// ever drawn. A device log printing isHidden right after the hide therefore reported
+	// isHidden=1 and looked like proof the menu was hidden -- it was, for the few microseconds
+	// until this line. The whole MainMenu layout was in fact visible for the entire intro, and
+	// it is the shell artwork reported over the movie (only the middle of the screen is
+	// covered by the letterboxed/pillarboxed video, so everything outside that rectangle shows
+	// through). Keep it hidden for as long as either intro flag is set; GameClient::update()
+	// clears m_afterIntro and reveals this layout when the intro is really over.
+	layout->hide( TheGlobalData->m_playIntro || TheGlobalData->m_afterIntro );
 
 	/*
 	if (!checkedForUpdate)
@@ -652,6 +801,14 @@ void MainMenuInit( WindowLayout *layout, void *userData )
 		initialGadgetDelay = 2;
 		if(rule)
 		rule->winHide(FALSE);
+
+		// GeneralsX @bugfix Android port 27/09/2026 This path brings the menu up by itself (the
+		// justEntered branch in MainMenuUpdate), but notShown stayed TRUE if the first menu was
+		// never revealed through MainMenuInput -- e.g. the first session went straight into a
+		// game. The next tap anywhere then counted as "first input", MainMenuInput slid the main
+		// dropdown in again, and it sat on top of whichever submenu was open, both working.
+		notShown = FALSE;
+		TheMouse->setVisibility(TRUE);
 	}
 
 	layout->bringForward();
@@ -1310,6 +1467,9 @@ WindowMsgHandledType MainMenuSystem( GameWindow *window, UnsignedInt msg,
 
 			GameWindow *control = (GameWindow *)mData1;
 			Int controlID = control->winGetWindowId();
+			fprintf(stderr, "DEBUG-UI: MainMenuSystem GBM_SELECTED control='%s' buttonPushed=%d\n",
+				KEYNAME((NameKeyType)controlID).str(), (int)buttonPushed);
+			fflush(stderr);
 
 			if(buttonPushed)
 				break;
@@ -1447,6 +1607,22 @@ WindowMsgHandledType MainMenuSystem( GameWindow *window, UnsignedInt msg,
 				TheTransitionHandler->reverse("MainMenuSinglePlayerMenuBackSkirmish");
 				TheShell->push( "Menus/SkirmishGameOptionsMenu.wnd" );
 				TheScriptEngine->signalUIInteract(TheShellHookNames[SHELL_SCRIPT_HOOK_MAIN_MENU_SKIRMISH_SELECTED]);
+			}
+			else if( controlID == customMissionID )
+			{
+				// GeneralsX @feature Android port 24/09/2026 Same path as Skirmish just above, into
+				// the menu the Steam patch built this button for: its own MapSelectMenu.wnd (single-
+				// player maps, AI difficulty, "START GAME"), whose callbacks this engine has always
+				// had (MapSelectMenu.cpp). The transition group is the patch's own, the counterpart
+				// of MainMenuSinglePlayerMenuBackSkirmish. Only reachable when that patch is
+				// installed, since without it there is no window with this id to press.
+				if(campaignSelected || dontAllowTransitions)
+					break;
+				buttonPushed = TRUE;
+				campaignSelected = TRUE;
+				dropDownWindows[DROPDOWN_SINGLE]->winHide(FALSE);
+				TheTransitionHandler->reverse("MainMenuSinglePlayerMenuBackCustomMission");
+				TheShell->push( "Menus/MapSelectMenu.wnd" );
 			}
 			else if( controlID == onlineID )
 			{

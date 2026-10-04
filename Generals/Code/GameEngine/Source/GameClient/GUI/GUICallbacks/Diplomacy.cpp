@@ -56,6 +56,7 @@
 #include "GameNetwork/NetworkInterface.h"
 #include "GameNetwork/GameSpy/BuddyDefs.h"
 #include "GameNetwork/GameSpy/PeerDefs.h"
+#include "GameNetwork/GeneralsOnline/NextGenMP_defines.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -92,7 +93,11 @@ static AnimateWindowManager *theAnimateWindowManager = nullptr;
 WindowMsgHandledType BuddyControlSystem( GameWindow *window, UnsignedInt msg,
 														 WindowMsgData mData1, WindowMsgData mData2);
 void InitBuddyControls(Int type);
-void updateBuddyInfo();
+#if defined(GENERALS_ONLINE)
+void updateBuddyInfo(bool bIsAutoRefresh = false, bool bUseCache = false);
+#else
+void updateBuddyInfo( void );
+#endif
 static void grabWindowPointers()
 {
 	for (Int i=0; i<MAX_SLOTS; ++i)
@@ -518,7 +523,13 @@ void PopulateInGameDiplomacyPopup()
 			if (staticTextSide[rowNum])
 			{
 				staticTextSide[rowNum]->winSetEnabledTextColors( playerColor, backColor );
-				GadgetStaticTextSetText(staticTextSide[rowNum], slot->getApparentPlayerTemplateDisplayName() );
+
+#if defined(GO_REVEAL_TEAMS)
+				const PlayerTemplate* pt = ThePlayerTemplateStore->getNthPlayerTemplate(slot->getPlayerTemplate());
+				GadgetStaticTextSetText(staticTextSide[rowNum], pt ? pt->getDisplayName() : slot->getApparentPlayerTemplateDisplayName());
+#else
+				GadgetStaticTextSetText(staticTextSide[rowNum], slot->getApparentPlayerTemplateDisplayName());
+#endif
 			}
 			if (staticTextTeam[rowNum])
 			{

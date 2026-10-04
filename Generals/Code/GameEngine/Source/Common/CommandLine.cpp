@@ -32,6 +32,7 @@
 
 #include "Common/ArchiveFileSystem.h"
 #include "Common/CommandLine.h"
+#include "Common/GXSafeArea.h"
 #include "Common/CRCDebug.h"
 #include "Common/LocalFileSystem.h"
 #include "Common/Recorder.h"
@@ -426,6 +427,19 @@ Int parseHeadless(char *args[], int num)
 	extern bool DX8Wrapper_IsWindowed;
 	DX8Wrapper_IsWindowed = false;
 
+	return 1;
+}
+
+// GeneralsX @feature Android port 24/09/2026 HUD safe insets from the launcher; see Common/GXSafeArea.h.
+Int parseGxSafeInsets(char *args[], int num)
+{
+	if (num > 1)
+	{
+		float left = 0.0f, top = 0.0f, right = 0.0f, bottom = 0.0f;
+		if (sscanf(args[1], "%f,%f,%f,%f", &left, &top, &right, &bottom) == 4)
+			GXSafeArea::setFractions(left, top, right, bottom);
+		return 2;
+	}
 	return 1;
 }
 
@@ -1160,6 +1174,9 @@ static CommandLineParam paramsForStartup[] =
 	// (If you have 4 cores, call it with -jobs 4)
 	// If you do not call this, all replays will be simulated in sequence in the same process.
 	{ "-jobs", parseJobs },
+
+	// GeneralsX @feature Android port 24/09/2026 HUD safe insets from the launcher.
+	{ "-gxSafeInsets", parseGxSafeInsets },
 };
 
 // These Params are parsed during Engine Init before INI data is loaded

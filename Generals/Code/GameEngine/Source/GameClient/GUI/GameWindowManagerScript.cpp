@@ -59,6 +59,7 @@
 #include "GameClient/WindowLayout.h"
 #include "GameClient/Gadget.h"
 #include "GameClient/GameWindowManager.h"
+#include "GameClient/GXUiScale.h"
 #include "GameClient/GameWindowGlobal.h"
 #include "GameClient/GadgetStaticText.h"
 #include "GameClient/GadgetTabControl.h"
@@ -71,6 +72,7 @@
 #include "GameClient/GadgetSlider.h"
 #include "GameClient/GameText.h"
 #include "GameClient/HeaderTemplate.h"
+#include "GXTrace.h"
 
 
 
@@ -530,6 +532,10 @@ static Bool parseScreenRect( const char *token, char *buffer,
 	screenRegion.lo.y = (Int)((Real)screenRegion.lo.y * yScale);
 	screenRegion.hi.x = (Int)((Real)screenRegion.hi.x * xScale);
 	screenRegion.hi.y = (Int)((Real)screenRegion.hi.y * yScale);
+	// GeneralsX @feature Android port 01/10/2026 The launcher's interface scale, for the layouts it
+	// applies to (GXUiScale.h). Before the parent-relative conversion below, which then sees the
+	// parent where it was actually put.
+	GXUiScale::mapNextWindowRect( &screenRegion.lo.x, &screenRegion.lo.y, &screenRegion.hi.x, &screenRegion.hi.y );
 
 	//
 	// given the screen region upper left compute the upper left that we
@@ -615,6 +621,9 @@ static Bool parseFont( const char *token, WinInstanceData *instData,
 	c = strtok( nullptr, seps );  // label
 	c = strtok( nullptr, seps );  // value
 	scanInt( c, fontBold );
+
+	// GeneralsX @feature Android port 01/10/2026 Text grows with a scaled layout (GXUiScale.h).
+	fontSize = GXUiScale::scaleFontSize( fontSize );
 
 	if( TheFontLibrary )
 	{
@@ -1037,6 +1046,21 @@ static Bool parseText( const char *token, WinInstanceData *instData,
 		ptr++;
 	ptr++;  // skip the "
 	c = strtok( ptr, stringSeps );  // value
+
+	// GeneralsX @bugfix Android port 11/07/2026 TEXT = ""; (a genuinely
+	// empty string) leaves nothing for strtok() to find after it skips the
+	// opening quote (itself one of the separator chars) -- it returns NULL,
+	// and strlen(NULL) below is undefined behavior. Confirmed via a real
+	// device crash (wild PC, no matching /proc/self/maps entry) plus
+	// reproducing this exact buffer on the host. An empty label is a
+	// legitimate thing to want (e.g. a stat line populated later at
+	// runtime), so treat it as "" rather than failing the whole layout.
+	if( c == nullptr )
+	{
+		instData->m_textLabelString = AsciiString::TheEmptyString;
+		return TRUE;
+	}
+
 	if( strlen( c ) >= MAX_TEXT_LABEL )
 	{
 
@@ -2120,7 +2144,9 @@ static GameWindow *createWindow( char *type,
 	{
 
 		// set any text read from the textLabel
+		GX_TRACE("createWindow: about to setWindowText window=%p label='%s'\n", (void*)window, instData->m_textLabelString.str());
 		setWindowText( window, instData->m_textLabelString );
+		GX_TRACE("createWindow: setWindowText returned window=%p\n", (void*)window);
 
 	}
 
@@ -2725,13 +2751,52 @@ GameWindow *GameWindowManager::winCreateFromScript( AsciiString filenameString,
 	else
 		strlcpy(filepath, filename, ARRAY_SIZE(filepath));
 
+	// GeneralsX @feature Android port 11/07/2026 ported from upstream
+	// (GeneralsOnlineDevelopmentTeam/GameClient) -- GeneralsOnline's own
+	// .wnd screens live under a GeneralsOnlineGameData\ prefix, checked
+	// before the normal Window\ location so they can be dropped in
+	// alongside the base game's own .big-archived layouts without ever
+	// colliding with those names.
+#if defined(GENERALS_ONLINE)
+	char gofilepath[_MAX_PATH] = "GeneralsOnlineGameData\\";
+	if (strchr(filename, '\\') == nullptr)
+		snprintf(gofilepath, ARRAY_SIZE(gofilepath), "GeneralsOnlineGameData\\%s", filename);
+	else
+		strlcpy(gofilepath, filename, ARRAY_SIZE(gofilepath));
+
+	inFile = TheFileSystem->openFile(gofilepath, File::READ);
+	if (inFile == nullptr)
+	{
+		inFile = TheFileSystem->openFile(filepath, File::READ);
+	}
+#else
   // Open the input file
 	inFile = TheFileSystem->openFile(filepath, File::READ);
+#endif
 	if (inFile == nullptr)
 	{
 		DEBUG_LOG(( "WinCreateFromScript: Cannot access file '%s'.", filename ));
 		return nullptr;
 	}
+
+  // read into memory
+  inFile=inFile->convertToRAMFile();
+
+	// GeneralsX @feature Android port 01/10/2026 The interface scale needs the whole layout -- which
+	// windows there are and where -- before the first one is created (GXUiScale.h).
+	struct UiScaleLayoutScope
+	{
+		UiScaleLayoutScope( const char *name, File *file )
+		{
+			const Int size = file->size();
+			char *text = size > 0 ? new char[ size ] : nullptr;
+			const Int got = text ? file->read( text, size ) : 0;
+			file->seek( 0, File::START );
+			GXUiScale::beginLayout( name, text, got );
+			delete[] text;
+		}
+		~UiScaleLayoutScope() { GXUiScale::endLayout(); }
+	} uiScaleLayoutScope( filename, inFile );
 
 	// read the file version
 	Int version;

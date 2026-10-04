@@ -44,6 +44,18 @@ class FunctionLexicon : public SubsystemInterface
 
 public:
 
+	// GeneralsX @bugfix Android port 24/09/2026 Name keys are numbered in the order names are
+	// first registered, and lockstep commands carry them as numbers: MSG_QUEUE_UPGRADE sends
+	// the upgrade's key, MSG_PURCHASE_SCIENCE the science's. This lexicon is loaded before the
+	// science, object and upgrade stores, so every function name this port adds to its tables
+	// used to shift all of those keys. Ten extra names made the PC's key for Advanced Control
+	// Rods mean something else here, so a replay or match in which the PC researched it
+	// desynced 1800 frames later, when the upgrade completed on the PC only. Names the
+	// GeneralsOnline client does not have are therefore keyed after those stores, by this call
+	// from GameEngine::init. Any GUI function added to this port must be listed in
+	// GX_PORT_ONLY_FUNCTIONS in FunctionLexicon.cpp.
+	void gxKeyPortOnlyEntries();
+
 	struct TableEntry
 	{
 		NameKeyType key;
@@ -110,6 +122,9 @@ protected:
 
 	/// load a lookup table with run time values needed and save in table list
 	void loadTable( TableEntry *table, TableIndex tableIndex );
+
+	// GeneralsX @bugfix Android port 24/09/2026 See gxKeyPortOnlyEntries().
+	Bool m_gxPortOnlyKeyed;
 
 	/** given a key find the function, the index parameter can limit the search
 	to a single table or to ANY of the tables */

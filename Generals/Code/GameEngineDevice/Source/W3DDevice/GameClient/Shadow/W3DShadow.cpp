@@ -32,6 +32,7 @@
 //
 
 // USER INCLUDES //////////////////////////////////////////////////////////////
+#include "dx8wrapper.h"
 #include "always.h"
 #include "GameClient/View.h"
 #include "WW3D2/camera.h"
@@ -74,7 +75,29 @@ void DoShadows(RenderInfoClass & rinfo, Bool stencilPass)
 {
 	//USE_PERF_TIMER(shadowsRender)
 	shadowCameraFrustum=&rinfo.Camera.Get_Frustum();
-	Int projectionCount=0;
+
+	// GeneralsX @bugfix Android port 09/05/2026 projectionCount used to be a
+	// LOCAL here, which made W3DVolumetricShadowManager's forceStencilFill
+	// argument dead code. DoShadows() is called twice per frame from
+	// W3DScene: once with stencilPass=FALSE, which is the only call that
+	// computes projectionCount from the projected-shadow manager, and once
+	// with stencilPass=TRUE, which is the only call that passes it on. As a
+	// local it was re-zeroed by the second call, so renderShadows() always
+	// received 0 and its "no shadow volumes to render, but still need to fill
+	// the stencil buffer for other effects" branch could never run.
+	//
+	// That matters beyond the stencil fill itself: both of renderShadows()'
+	// branches end with DX8Wrapper::Invalidate_Cached_Render_States(), and
+	// with shadow volumes OFF (Medium detail and below) neither branch ran, so
+	// nothing flushed that cache all session. DX8Wrapper::Set_DX8_Texture and
+	// Set_DX8_Texture_Stage_State are pure redundancy filters -- they skip the
+	// real call when they believe the state already matches -- and several
+	// subsystems (W3DWater, W3DTreeBuffer, the shadow setup itself) poke the
+	// device directly, desyncing that belief. On High the per-frame flush hid
+	// it; on a Medium-only session it was never repaired, which is why
+	// textures came back black only after a fresh start on Medium and why
+	// switching to High "fixed" it permanently.
+	static Int projectionCount = 0;
 
 	//Projected shadows render first because they may fill the stencil buffer
 	//which will be used by the shadow volumes
@@ -96,6 +119,39 @@ void DoShadows(RenderInfoClass & rinfo, Bool stencilPass)
 	}
 	if (TheW3DShadowManager && stencilPass)	//reset so no more shadow processing this frame.
 		TheW3DShadowManager->queueShadows(FALSE);
+
+	// GeneralsX @bugfix Android port 09/05/2026 Flush DX8Wrapper's state caches
+	// once per frame, unconditionally.
+	//
+	// This flush already existed, but only INSIDE
+	// W3DVolumetricShadowManager::renderShadows(), at the end of both of its
+	// branches -- so it ran only when there were shadow volumes to draw, or
+	// (after the projectionCount fix above) when there were projected shadows
+	// to fill the stencil with. Fixing projectionCount restored it for Medium,
+	// where shadow decals are still on, but LOW turns BOTH shadow types off
+	// (shadowVolumes=0 shadowDecals=0), so on Low nothing reached the flush and
+	// the original bug came straight back. Measured: stage-0 texture collapses
+	// in the GLES backend climbing to 14000-16000 per two-second window against
+	// 6-549 in a healthy one.
+	//
+	// Why the flush is needed at all: DX8Wrapper::Set_DX8_Texture and
+	// Set_DX8_Texture_Stage_State are redundancy filters that skip the real
+	// device call when they believe the state already matches, and several
+	// subsystems (W3DWater, W3DTreeBuffer, W3DShaderManager, the shadow setup)
+	// drive the device directly and desync that belief. A draw then samples a
+	// stage with no texture actually bound and renders as flat vertex colour --
+	// black geometry, no GL error, texture still alive. The engine has always
+	// depended on this per-frame repair; it just happened to be parked inside a
+	// renderer that a low detail level switches off entirely.
+	//
+	// Tying the repair to DoShadows rather than to any shadow being drawn is
+	// deliberate: this function is called every frame from
+	// W3DScene::Customized_Render regardless of detail level. It is still a
+	// compensation rather than a cure -- the real fix is that those subsystems
+	// should not desync the caches in the first place -- so it is placed and
+	// commented as such rather than left implicit.
+	if (stencilPass)
+		DX8Wrapper::Invalidate_Cached_Render_States();
 
 }
 

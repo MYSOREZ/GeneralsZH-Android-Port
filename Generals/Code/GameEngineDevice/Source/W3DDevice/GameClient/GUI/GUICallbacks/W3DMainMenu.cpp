@@ -56,6 +56,8 @@
 #include "GameClient/GameWindow.h"
 #include "Lib/BaseType.h"
 #include "W3DDevice/GameClient/W3DGameWindow.h"
+#include "Common/GlobalData.h"
+#include "Common/GXSafeArea.h"
 #include "GameClient/Display.h"
 #include "GameLogic/GameLogic.h"
 #include "GameClient/Shell.h"
@@ -153,6 +155,27 @@ static void advancePosition(GameWindow *window, const Image *image, UnsignedInt 
 
 void W3DShellMenuSchemeDraw( GameWindow *window, WinInstanceData *instData )
 {
+	// GeneralsX @bugfix Android port 08/09/2026 Nothing of the shell may be painted over a
+	// movie. Reported: a stray picture in the top-right corner during the intro video.
+	//
+	// MainMenuInit already hides the whole MainMenu layout while an intro is pending, and a
+	// device log confirms the hide takes effect (isHidden now=1) -- yet the artwork stayed on
+	// screen, because it is not drawn by that layout at all. It is drawn here: the shell menu
+	// SCHEME paints its images straight to the display at absolute positions
+	// (ShellMenuScheme::draw), through a callback bound to a window outside MainMenu.wnd, and
+	// its only condition was "is the shell active", which is true the whole time the movie
+	// plays. Same for the watermark below.
+	// GeneralsX @bugfix Android port 09/09/2026 isMoviePlaying() alone is a frame too late:
+	// the shell is built and drawn for a moment BEFORE the first movie frame reaches the
+	// screen, which is the "logo flashed in the corner for a second, then the video started"
+	// that was reported after the previous fix. Cover the whole intro sequence instead --
+	// m_afterIntro is cleared in GameClient::update() once the intro is over and the shell map
+	// is let in, so this opens up again by itself.
+	const Bool introRunning = (TheGlobalData != NULL
+		&& (TheGlobalData->m_playIntro || TheGlobalData->m_afterIntro));
+	if (introRunning || (TheDisplay != NULL && TheDisplay->isMoviePlaying()))
+		return;
+
 	if(TheShell && TheShell->isShellActive())
 		TheShell->getShellMenuSchemeManager()->draw();
 
@@ -418,6 +441,15 @@ void W3DGeneralsXCreditDraw( GameWindow *window, WinInstanceData *instData )
 	if (!instData)
 		return;
 
+	// GeneralsX @bugfix Android port 08/09/2026 Four different menu draw callbacks funnel into
+	// here, so the watermark has four ways to land on top of a playing movie. Gate it once,
+	// here, rather than at every caller -- and for the whole intro sequence, not just the
+	// frames where a movie is already on screen.
+	if (TheGlobalData != NULL && (TheGlobalData->m_playIntro || TheGlobalData->m_afterIntro))
+		return;
+	if (TheDisplay != NULL && TheDisplay->isMoviePlaying())
+		return;
+
 	UnicodeString ucredit;
 	ucredit.translate("GeneralsX - Multiplatform C&C Generals");
 	instData->setText(ucredit);
@@ -445,9 +477,32 @@ void W3DGeneralsXCreditDraw( GameWindow *window, WinInstanceData *instData )
 
 	// GeneralsX @bugfix BenderAI 31/03/2026 Use display coordinates to avoid clipping in narrow callback windows.
 	// bottom-left with small margin
+	// GeneralsX @bugfix Android port 24/09/2026 ...inside the screen's safe area (issue #20).
 	const Int MARGIN = 4;
-	textPos.x = MARGIN;
-	textPos.y = displayHeight - textHeight - MARGIN;
+	textPos.x = MARGIN + GXSafeArea::leftPx();
+	textPos.y = displayHeight - textHeight - MARGIN - GXSafeArea::bottomPx();
+
+	// GeneralsX @diag Android port 25/09/2026 On a 2400x1080 device the watermark shows only
+	// "GeneralsX - Multiplatform C&C", cut through the bottom -- the last word and the lower
+	// half missing -- with no safe-area inset at the bottom to explain it. Two candidates:
+	// the borrowed window string wraps at that window's width (then fullWidth > textWidth and
+	// textHeight is two lines), or the rendered glyphs are taller than getSize() reports.
+	// Log what the engine measured, once per change, instead of guessing.
+	{
+		static Int s_lastW = -1, s_lastH = -1, s_lastDW = -1, s_lastDH = -1;
+		if (textWidth != s_lastW || textHeight != s_lastH || displayWidth != s_lastDW || displayHeight != s_lastDH)
+		{
+			s_lastW = textWidth; s_lastH = textHeight; s_lastDW = displayWidth; s_lastDH = displayHeight;
+			Int winW = 0, winH = 0;
+			if (window)
+				window->winGetSize(&winW, &winH);
+			GameFont *font = dString->getFont();
+			fprintf(stderr, "[credit] size=%dx%d fullWidth=%d display=%dx%d window=%dx%d font=%s/%d h=%d pos=%d,%d\n",
+				textWidth, textHeight, dString->getWidth(-1), displayWidth, displayHeight, winW, winH,
+				font ? font->nameString.str() : "?", font ? font->pointSize : 0, font ? font->height : 0,
+				textPos.x, textPos.y);
+		}
+	}
 
 	dString->setClipRegion(&clipRegion);
 	dString->draw(textPos.x, textPos.y, GameMakeColor(255,255,255,255), GameMakeColor(0,0,0,255));

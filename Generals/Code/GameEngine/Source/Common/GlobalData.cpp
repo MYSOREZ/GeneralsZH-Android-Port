@@ -649,7 +649,33 @@ GlobalData::GlobalData()
 	m_useLightMap = FALSE;
 	m_bilinearTerrainTex = FALSE;
 	m_trilinearTerrainTex = FALSE;
+#if defined(__ANDROID__)
+	// GeneralsX @bugfix Android port 01/08/2026 TerrainTex.cpp's Apply()
+	// picks between two ways to blend an alpha-edge terrain tile onto its
+	// base tile: multipass (two clean draws) when m_multiPassTerrain is
+	// true, or a single-pass shortcut when it's false. That shortcut's own
+	// comment says exactly why it's risky: "This method is a backdoor
+	// specific to Nvidia based cards. It will fail on other hardware." No
+	// mobile GPU is Nvidia. Real-device testing on a Snapdragon 8 Elite
+	// (Adreno) showed a solid black fringe along every alpha-blended
+	// terrain edge (coastlines, rock/clutter bases) instead of a smooth
+	// blend -- exactly the kind of failure that comment warns about --
+	// while a Redmi Note 8 Pro (Mali-G76) happened not to hit it. Default
+	// to the safe multipass path on Android instead of gambling on which
+	// non-Nvidia GPUs tolerate the shortcut.
+	m_multiPassTerrain = TRUE;
+#else
 	m_multiPassTerrain = FALSE;
+#endif
+	// GeneralsX @bugfix Android port 01/08/2026 Unconditional (not gated by
+	// any marker file) build-verification line: four unrelated fix attempts
+	// in a row for the POCO/Adreno black-terrain-edge report produced zero
+	// visible change on the device, which is unusual enough to also check
+	// whether the binary actually running there matches what was just
+	// built, rather than assuming yet another theory is wrong. This string
+	// is unique to this exact commit, so its presence/absence in
+	// generals-stderr.log answers that directly.
+	fprintf(stderr, "INFO: GX-BUILD-MARKER 20260801-multipass-terrain-fix m_multiPassTerrain=%d\n", (int)m_multiPassTerrain);
 	m_adjustCliffTextures = FALSE;
 	m_stretchTerrain = FALSE;
 	m_useHalfHeightMap = FALSE;
@@ -1397,6 +1423,43 @@ AsciiString GlobalData::BuildUserDataPathFromIni()
 	}
 
 	userDataDir = myDocumentsDirectory;
+
+#elif defined(__ANDROID__)
+	// GeneralsX @feature Android port 18/07/2026 issue #9 follow-up: Android
+	// has no folder that is both durable and reachable with a plain file
+	// manager (unlike Windows' Documents), so SDL3Main.cpp's Android launch
+	// path picks one deliberately and hands it down via
+	// GENERALSX_USERDATA_DIR: a plain, top-level, always-visible directory
+	// (needs MANAGE_EXTERNAL_STORAGE, already granted) that is the direct
+	// analog of "Documents\Command and Conquer Generals Zero Hour Data" --
+	// this is where players now need to drop custom maps (Maps/<name>/) for
+	// them to show up, the same way they would on PC. $HOME is intentionally
+	// NOT used here (it points at internal, unreachable storage for
+	// registry.ini instead) -- see the comment in SDL3Main.cpp.
+	{
+		const char* androidUserDataDir = getenv("GENERALSX_USERDATA_DIR");
+		if (androidUserDataDir) {
+			std::filesystem::path path = std::filesystem::path(androidUserDataDir) / "";
+			// GeneralsX @bugfix Android port 09/04/2026 create_directories()'s
+			// return value/exception were both silently discarded, so a
+			// failure here (e.g. scoped-storage restrictions on some Android
+			// versions/OEM skins still blocking this even with
+			// MANAGE_EXTERNAL_STORAGE granted at the settings-toggle level)
+			// left userDataDir pointing at a directory that doesn't actually
+			// exist/isn't writable, with no way to tell from a device log --
+			// confirmed on a real device that Options.ini (which lives here)
+			// never survived an app restart. Log the outcome explicitly.
+			std::error_code ec;
+			bool created = std::filesystem::create_directories(path, ec);
+			userDataDir = path.string().c_str();
+			fprintf(stderr, "[GlobalData] Android user data dir: env='%s' resolved='%s' create_directories=%s (created=%d, ec=%d: %s)\n",
+			        androidUserDataDir, userDataDir.str(),
+			        ec ? "FAILED" : "OK", (int)created, ec.value(), ec.message().c_str());
+		} else {
+			userDataDir = "./";
+			fprintf(stderr, "[GlobalData] GENERALSX_USERDATA_DIR not set -- falling back to './' (relative to whatever the working directory is)\n");
+		}
+	}
 
 #elif defined(__APPLE__)
 	// GeneralsX @feature Bender 01/04/2026 macOS user data directory

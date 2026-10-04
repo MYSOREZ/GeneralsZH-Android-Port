@@ -27,6 +27,12 @@
 // Author: Michael S. Booth, April 2001
 
 #include "PreRTS.h"	// This must go first in EVERY cpp file in the GameEngine
+#include "Common/GXRemoteConfig.h"
+#if defined(__ANDROID__) || defined(__linux__) || defined(__APPLE__)
+#include <dlfcn.h>
+#include <sys/stat.h>
+#include <ctime>
+#endif
 
 #include "Common/ActionManager.h"
 #include "Common/AudioAffect.h"
@@ -69,6 +75,19 @@
 #include "Common/XferCRC.h"
 #include "Common/GameLOD.h"
 #include "Common/Registry.h"
+#include "Common/GameCommon.h"	// FOR THE ALLOW_DEBUG_CHEATS_IN_RELEASE #define
+#include "GXTrace.h"
+
+#include <chrono>
+
+// GeneralsX @bugfix Android port 16/07/2026 __cxa_current_exception_type() /
+// __cxa_demangle() are Itanium C++ ABI runtime entry points (libc++abi on
+// Android/bionic, libstdc++/libsupc++ on Linux) -- not available under MSVC's
+// ABI, which has no equivalent public API. Only used inside the update()
+// catch(...) diagnostic below, gated the same way (issue #2).
+#if !defined(_MSC_VER)
+#include <cxxabi.h>
+#endif
 
 #include "GameLogic/Armor.h"
 #include "GameLogic/AI.h"
@@ -107,9 +126,97 @@
 #include "GameNetwork/GameSpy/PersistentStorageThread.h"
 #include "Common/Player.h"
 
+// GeneralsX @build Android port 04/10/2026 The GeneralsOnline client is Zero Hour's; in the base
+// game everything below that belongs to it stays out until the client is built for it
+// (GENERALS_ONLINE is defined by the game's own CMakeLists).
+#if defined(GENERALS_ONLINE)
+// GeneralsX @feature Android port 10/07/2026 GeneralsOnline's HTTPManager/
+// WebSocket need pumping once a frame, same as TheNetwork below, or nothing
+// they kick off (auth polling, WS connect, HTTP requests) ever progresses.
+#include "GameNetwork/GeneralsOnline/NGMP_interfaces.h"
+#include "GameNetwork/GeneralsOnline/NextGenMP_defines.h"
+// GeneralsX @bugfix Android port 07/11/2026 - needed for GSMessageBoxOk/GameSpyCloseAllOverlays used by TearDownGeneralsOnline below
+#include "GameNetwork/GameSpyOverlay.h"
+#endif
 
 #include "Common/version.h"
 
+#if defined(GENERALS_ONLINE)
+// GeneralsX @bugfix Android port 07/11/2026 - ported from upstream GeneralsOnline: request a delayed teardown of NGMP
+// online services, deferred to the next GameEngine::update() so it doesn't destroy the manager mid-callback.
+static bool g_bTearDownGeneralsOnlineRequested = false;
+static const wchar_t* const kGeneralsOnlineSignInAgain =
+	L"Your Generals Online sign-in could not be renewed: it expired, or the account signed in "
+	L"on another device. Sign in again under GeneralsOnline account in the launcher.";
+
+void TearDownGeneralsOnline()
+{
+	g_bTearDownGeneralsOnlineRequested = true;
+
+	if (NGMP_OnlineServicesManager::GetInstance() == nullptr)
+		return;
+
+	EGOTearDownReason teardownReason = NGMP_OnlineServicesManager::GetInstance()->GetTeardownReason();
+
+	if (teardownReason != EGOTearDownReason::USER_REQUESTED_SILENT)
+	{
+		UnicodeString title, body;
+
+		if (teardownReason == EGOTearDownReason::USER_LOGOUT)
+		{
+			title = L"Logged Out";
+			body = L"You are now logged out of GeneralsOnline.";
+		}
+		else if (teardownReason == EGOTearDownReason::LOST_CONNECTION)
+		{
+			title = TheGameText->fetch("GUI:GSErrorTitle");
+			body = L"Your connection to the Generals Online servers was lost.";
+		}
+		// GeneralsX @bugfix Android port 03/10/2026 Until now a session the server stopped accepting
+		// went unnoticed: the lobby kept polling and got 401 forever, and the player saw a lobby that
+		// simply never changed again.
+		else if (teardownReason == EGOTearDownReason::AUTH_FAILED)
+		{
+			title = TheGameText->fetch("GUI:GSErrorTitle");
+			body = kGeneralsOnlineSignInAgain;
+		}
+		else
+		{
+			title = TheGameText->fetch("GUI:GSErrorTitle");
+			body = L"An unknown error occurred.";
+		}
+
+		NGMP_OnlineServicesManager::GetInstance()->ResetPendingFullTeardownReason();
+
+		GameSpyCloseAllOverlays();
+		GSMessageBoxOk(title, body);
+	}
+}
+
+void MainMenuOnlineAborted();
+
+void AbortGeneralsOnlineStart(bool bAuth, const char* szDetail)
+{
+	if (NGMP_OnlineServicesManager::GetInstance() != nullptr)
+	{
+		NGMP_OnlineServicesManager::GetInstance()->SetPendingFullTeardown(EGOTearDownReason::USER_REQUESTED_SILENT);
+		TearDownGeneralsOnline();
+	}
+	MainMenuOnlineAborted();
+
+	UnicodeString body;
+	if (bAuth)
+	{
+		body = kGeneralsOnlineSignInAgain;
+	}
+	else
+	{
+		body.format(UnicodeString(L"Could not connect to GeneralsOnline (%hs)."), szDetail != nullptr ? szDetail : "");
+	}
+	ClearGSMessageBoxes();
+	GSMessageBoxOk(UnicodeString(L"GeneralsOnline"), body, nullptr);
+}
+#endif // GENERALS_ONLINE
 
 //-------------------------------------------------------------------------------------------------
 
@@ -353,6 +460,11 @@ Bool GameEngine::isGameHalted()
 /** -----------------------------------------------------------------------------------------------
  * Initialize the game engine by initializing the GameLogic and GameClient.
  */
+// GeneralsX @feature Android port 13/09/2026 An ordinary function in this
+// translation unit, so dladdr has an address it can resolve back to the
+// shared library (a pointer-to-member is not a code address).
+static void gxBuildStampAnchor() {}
+
 void GameEngine::init()
 {
 	// GeneralsX @feature BenderAI 18/02/2026 Add diagnostic logging for engine initialization
@@ -504,7 +616,26 @@ void GameEngine::init()
 		TheGlobalLanguageData->parseCustomDefinition();
 		initSubsystem(TheAudio,"TheAudio", createAudioManager(TheGlobalData->m_headless), nullptr);
 		if (!TheAudio->isMusicAlreadyLoaded())
+		{
+			// GeneralsX @bugfix Android port 06/09/2026 This one missing file used
+			// to end the session outright: init ran to completion, the main menu
+			// was built, and the loop's first check quit -- a black screen, then
+			// the app closing with status 0 and not one line of explanation. A
+			// real report cost a whole debugging session to get this far.
+			//
+			// On desktop the check is a reasonable "the game data was never
+			// installed" guard. On Android people assemble their own file set by
+			// hand, so a single absent music track is both far more likely and far
+			// less serious, and the folder check in the Setup app now covers the
+			// case this was really guarding against. Say what happened and keep
+			// going: a game that runs without music beats one that vanishes.
+			fprintf(stderr, "[gxaudio] music data missing -- see the [gxaudio] line above for the file\n");
+#if defined(__ANDROID__)
+			fprintf(stderr, "[gxaudio] continuing anyway (Android): music may be silent\n");
+#else
 			setQuitting(TRUE);
+#endif
+		}
 
 #if RTS_ZEROHOUR && RETAIL_COMPATIBLE_CRC
 		TheNameKeyGenerator->syncNameKeyID();
@@ -534,6 +665,10 @@ void GameEngine::init()
 #endif
 
 		initSubsystem(TheUpgradeCenter,"TheUpgradeCenter", MSGNEW("GameEngineSubsystem") UpgradeCenter, &xferCRC, "Data\\INI\\Default\\Upgrade", "Data\\INI\\Upgrade");
+		// GeneralsX @bugfix Android port 24/09/2026 Only now, with the stores whose keys travel
+		// in lockstep commands numbered as on the PC, and before any window is loaded. In the base
+		// game this keeps retail replays playable despite the port's extra GUI functions.
+		TheFunctionLexicon->gxKeyPortOnlyEntries();
 		initSubsystem(TheGameClient,"TheGameClient", createGameClient(), nullptr);
 		initSubsystem(TheAI,"TheAI", MSGNEW("GameEngineSubsystem") AI(), &xferCRC,  "Data\\INI\\Default\\AIData", "Data\\INI\\AIData");
 		initSubsystem(TheGameLogic,"TheGameLogic", createGameLogic(), nullptr);
@@ -546,7 +681,16 @@ void GameEngine::init()
 
 		AsciiString fname;
 		fname.format("Data\\%s\\CommandMap", GetRegistryLanguage().str());
-		initSubsystem(TheMetaMap,"TheMetaMap", MSGNEW("GameEngineSubsystem") MetaMap(), nullptr, fname.str(), "Data\\INI\\CommandMap");
+		// GeneralsX @bugfix Android port 09/09/2026 Only pass the per-language command map
+		// when it is actually there. initSubsystem() loads it with loadFileDirectory(), which
+		// throws on reading zero files, and Data\<language>\ exists only for the SKUs EA
+		// shipped -- so an unofficial language died here during startup. The real command map
+		// is the second path, Data\INI\CommandMap; the language one is an optional override.
+		AsciiString fnameWithExt = fname;
+		fnameWithExt.concat(".ini");
+		const Bool haveLanguageCommandMap = TheFileSystem->doesFileExist(fnameWithExt.str());
+		initSubsystem(TheMetaMap,"TheMetaMap", MSGNEW("GameEngineSubsystem") MetaMap(), nullptr,
+			haveLanguageCommandMap ? fname.str() : nullptr, "Data\\INI\\CommandMap");
 
 #if defined(RTS_DEBUG)
 		ini.loadFileDirectory("Data\\INI\\CommandMapDebug", INI_LOAD_MULTIFILE, nullptr);
@@ -566,6 +710,76 @@ void GameEngine::init()
 		xferCRC.close();
 		TheWritableGlobalData->m_iniCRC = xferCRC.getCRC();
 		DEBUG_LOG(("INI CRC is 0x%8.8X", TheGlobalData->m_iniCRC));
+
+		// GeneralsX @feature Android port 13/09/2026 Report both checksums once, in
+		// release too. They decide whether this installation can join a PC-hosted
+		// game, and until now the only way to see them was to try to join one and
+		// read the refusal -- DEBUG_LOG above is compiled out of the builds people
+		// run.
+		//
+		// The INI checksum is the one that can be changed: it is computed over the
+		// INI files in the game folder, so swapping in a different set moves it.
+		// The stock PC GeneralsOnline client reports 2180732466, against
+		// VANILLA_INI_CRC's 4272612339 for untouched EA data -- printing ours next
+		// to both turns "did that data change anything?" into one line of the log.
+		//
+		// The EXE checksum is not fixable this way and is printed only so a report
+		// carries it: the PC client hashes its own Windows binary, this port hashes
+		// a version number and the .scb scripts, and no arrangement of game files
+		// will ever make those agree.
+		// GeneralsX @build Android port 04/10/2026 The base game has no PC GeneralsOnline client to
+		// compare against: just the two checksums.
+		fprintf(stderr, "[GX-CRC] ini_crc=%u exe_crc=%u\n",
+			(unsigned)TheGlobalData->m_iniCRC, (unsigned)TheGlobalData->m_exeCRC);
+		fflush(stderr);
+
+		// GeneralsX @feature Android port 13/09/2026 State which simulation
+		// switches this binary was built with.
+		//
+		// These decide whether a match against a PC client can agree with it --
+		// RETAIL_COMPATIBLE_CRC alone changes which bytes go into the per-frame
+		// checksum -- and they are compile-time, so a log cannot be read without
+		// knowing them. A test round was already spent on a log that turned out to
+		// come from the previous build, which was only caught because a checksum
+		// that had to change had not. One line makes every log say for itself
+		// which binary produced it.
+		fprintf(stderr, "[GX-BUILD] sim flags: crc=%d xfer_save=%d pathfind_alloc=%d aigroup=%d networking=%d  (0 = as the PC client builds it)\n",
+			(int)RETAIL_COMPATIBLE_CRC, (int)RETAIL_COMPATIBLE_XFER_SAVE,
+			(int)RETAIL_COMPATIBLE_PATHFINDING_ALLOCATION, (int)RETAIL_COMPATIBLE_AIGROUP,
+			(int)RETAIL_COMPATIBLE_NETWORKING);
+		// The tick rate is part of the lockstep contract and is a build-time choice, so a log
+		// has to say which one produced it. Deducing it from a CRC that moved is guesswork.
+		fprintf(stderr, "[GX-BUILD] sim tick: %d Hz\n", (int)LOGICFRAMES_PER_SECOND);
+		// GeneralsX @bugfix Android port 13/09/2026 Take the build time from the
+		// binary, not from __TIME__.
+		//
+		// ccache is configured to ignore the time macros when hashing, which is
+		// what makes it able to reuse an object at all -- so __TIME__ reports when
+		// this file last actually compiled, not when the build was made. A log
+		// already arrived stamped with an older build's time while carrying code
+		// only the newer build has, which is precisely the confusion the stamp
+		// exists to prevent. The shared library is relinked every build, so its
+		// modification time is the honest answer.
+		{
+			const char* soPath = "<unknown>";
+			char timeText[64] = "<unknown>";
+#if defined(__ANDROID__) || defined(__linux__) || defined(__APPLE__)
+			Dl_info info;
+			if (dladdr((const void*)&gxBuildStampAnchor, &info) != 0 && info.dli_fname != nullptr)
+			{
+				soPath = info.dli_fname;
+				struct stat st;
+				if (stat(soPath, &st) == 0)
+				{
+					struct tm tmBuf;
+					localtime_r(&st.st_mtime, &tmBuf);
+					strftime(timeText, sizeof(timeText), "%Y-%m-%d %H:%M:%S", &tmBuf);
+				}
+			}
+#endif
+			fprintf(stderr, "[GX-BUILD] binary %s built %s\n", soPath, timeText);
+		}
+		fflush(stderr);
 
 		TheSubsystemList->postProcessLoadAll();
 
@@ -656,7 +870,14 @@ void GameEngine::init()
 			RELEASE_CRASHLOCALIZED("ERROR:D3DFailurePrompt", "ERROR:D3DFailureMessage");
 		}
 	}
-	catch (INIException e)
+	// GeneralsX @bugfix Android port 12/07/2026 - INIException has no
+	// user-defined copy constructor, so catching it BY VALUE shallow-copies
+	// the mFailureMessage pointer; both the local copy and the original
+	// propagating exception object then delete[] the same pointer when
+	// their destructors run, a double-free that corrupts the heap right as
+	// we're reporting an INI parse error. Catch by const reference instead
+	// (only ever read here) so no copy happens at all.
+	catch (const INIException& e)
 	{
 		if (e.mFailureMessage)
 			RELEASE_CRASH((e.mFailureMessage));
@@ -786,44 +1007,277 @@ Bool GameEngine::canUpdateRegularGameLogic(UnsignedInt logicTimeQueryFlags)
 
 	return false;
 }
+#if defined(GENERALS_ONLINE)
+extern NGMPGame* TheNGMPGame;
+#endif
 
 /// -----------------------------------------------------------------------------------------------
+// GeneralsX @feature Android port 02/10/2026 Game speed above normal on a phone that cannot draw that
+// fast. Offline, the original engine runs one logic frame per rendered frame and sets the frame
+// limit from the Game Speed slider, so the game is only as fast as the screen is drawn: at the
+// maximum speed (240 logic frames a second on the 60 Hz engine) an Adreno phone drawing 120 fps
+// played twice as fast as normal, the Mali test phone drawing ~60 not faster at all. Here, when the
+// slider asks for more than normal speed and drawing falls behind it, the logic catches up with
+// extra frames within the same rendered frame -- up to three, within 8 ms, so drawing never stops,
+// and debt beyond that is dropped rather than carried (the game is then slower than asked, never
+// stuck catching up). Offline only (no TheNetwork), never at normal speed or below, where the
+// original "slower frames, slower game" behaviour stays. The logic frames are the same ones in
+// the same order, only grouped differently between draws: replays and saves are unaffected.
+static UnsignedInt s_gxCatchUpSteps = 0;
+
+static void gxCatchUpSpedUpLogic()
+{
+	static std::chrono::steady_clock::time_point s_last;
+	static double s_debt = 0.0;
+	const std::chrono::steady_clock::time_point now = std::chrono::steady_clock::now();
+	double dt = s_last.time_since_epoch().count() != 0 ? std::chrono::duration<double>(now - s_last).count() : 0.0;
+	s_last = now;
+	if (dt > 0.1)
+		dt = 0.1;
+
+#if defined(GENERALS_ONLINE_HIGH_FPS_FRAME_MULTIPLIER)
+	const Int normalFps = BaseFps * GENERALS_ONLINE_HIGH_FPS_FRAME_MULTIPLIER;
+#else
+	const Int normalFps = BaseFps;
+#endif
+	// GeneralsX @bugfix Android port 03/10/2026 Only a game the player is playing: skirmish or
+	// campaign. A replay plays at its own speed, and catching up inside playback broke the replay
+	// check -- Global_War2.rep, which matched the PC on all 1946 checkpoints on 29/09, mismatched
+	// from the first one on the 02/10 builds (the recorded 60 fps limit is doubled for the 60 Hz
+	// engine, which is above normal, so playback qualified).
+	const Bool playingAGame = (TheGameLogic->isInSkirmishGame() || TheGameLogic->isInSinglePlayerGame())
+		&& !TheGameLogic->isInReplayGame() && (TheRecorder == nullptr || !TheRecorder->isPlaybackMode());
+	const Bool applies = TheNetwork == nullptr && playingAGame && TheGameLogic->isInGame() && !TheGameLogic->isGamePaused()
+		&& TheShell != nullptr && !TheShell->isShellActive()
+		&& !TheFramePacer->isTimeFrozen() && !TheFramePacer->isGameHalted()
+		&& TheFramePacer->isActualFramesPerSecondLimitEnabled()
+		&& TheFramePacer->getActualFramesPerSecondLimit() > normalFps;
+	if (!applies)
+	{
+		s_debt = 0.0;
+		return;
+	}
+
+	// This frame's own logic step already ran (canUpdateRegularGameLogic is true on every frame
+	// while the logic time scale is off, as it is offline).
+	s_debt += dt * TheFramePacer->getActualFramesPerSecondLimit() - 1.0;
+	const std::chrono::steady_clock::time_point until = now + std::chrono::milliseconds(8);
+	Int extra = 0;
+	while (s_debt >= 1.0 && extra < 3 && std::chrono::steady_clock::now() < until)
+	{
+		// The same steps as a regular frame's logic update (canUpdateGameLogic's preUpdate
+		// clears the per-render-frame flag and applies a scheduled pause).
+		TheMessageStream->propagateMessages();
+		TheGameLogic->preUpdate();
+		if (TheGameLogic->isGamePaused())
+			break;
+		TheGameLogic->UPDATE();
+		TheGameClient->step();
+		s_debt -= 1.0;
+		++extra;
+		++s_gxCatchUpSteps;
+	}
+	if (s_debt > 1.0)
+		s_debt = 1.0;
+	else if (s_debt < -1.0)
+		s_debt = -1.0;
+}
+
 DECLARE_PERF_TIMER(GameEngine_update)
 
 /** -----------------------------------------------------------------------------------------------
  * Update the game engine by updating the GameClient and GameLogic singletons.
  */
+// GeneralsX @perf Android port 31/07/2026 lightweight per-subsystem
+// frame-phase timing for GameEngine::update(), gated by the GX_PERF opt-in
+// (gx_perf.txt marker / GX_PERF env var, off by default -- gx_trace.txt/
+// GX_TRACE also enables it, see GXTrace.h). A dedicated flag rather than
+// reusing GX_TRACE outright: a real multi-minute session with full tracing
+// on produced a >70 MB stderr log, and the in-app log export's head+tail
+// cap then elided the entire middle of the session -- exactly where the
+// [GX-PERF] samples that matter live. gx_perf.txt alone gets just this
+// ~1-line-per-second summary, cheap enough to leave on for a whole session.
+// DXVK's own HUD counters (already logged elsewhere as "DXVK_HUD: ...")
+// showed near-zero GPU wait/submission cost on Mali-G76 real-device runs
+// -- syncs=0 almost always, low draw/submit/barrier counts -- so whatever
+// is capping FPS on that device has to be on the CPU side of this
+// function, not in DXVK/Vulkan submission. This times each subsystem
+// UPDATE() call and flushes an aggregate once a second, so a real-device
+// log can show which subsystem actually owns the frame budget instead of
+// guessing. Cost when disabled is the single bool check below -- none of
+// the now()/duration calls execute.
+static void gxTraceEngineUpdatePhase(
+	double radarUs, double audioUs, double clientUs,
+	double networkUs, double logicUs, double stepUs)
+{
+	static std::chrono::steady_clock::time_point s_windowStart = std::chrono::steady_clock::now();
+	static double s_radarUs = 0, s_audioUs = 0, s_clientUs = 0,
+		s_networkUs = 0, s_logicUs = 0, s_stepUs = 0;
+	static int s_frames = 0;
+	// GeneralsX @performance Android port 01/10/2026 Hitches. The averages above hide a single long
+	// frame; the owner sees a micro-stutter about every two seconds at a high frame rate. A frame is a
+	// hitch when it takes more than 1.8x the previous second's average (and over 25 ms); the worst one
+	// of each second is printed with its own split, so the phase that spiked is named.
+	static std::chrono::steady_clock::time_point s_lastFrame;
+	static double s_prevAvgMs = 0.0;
+	static int s_hitches = 0;
+	static double s_worstMs = 0.0, s_worstPhases[6] = {};
+
+	{
+		const std::chrono::steady_clock::time_point frameEnd = std::chrono::steady_clock::now();
+		if (s_lastFrame.time_since_epoch().count() != 0) {
+			const double frameMs = std::chrono::duration<double, std::milli>(frameEnd - s_lastFrame).count();
+			if (s_prevAvgMs > 0.0 && frameMs > 25.0 && frameMs > s_prevAvgMs * 1.8)
+				++s_hitches;
+			if (frameMs > s_worstMs) {
+				s_worstMs = frameMs;
+				const double phases[6] = { radarUs, audioUs, clientUs, networkUs, logicUs, stepUs };
+				for (int i = 0; i < 6; ++i)
+					s_worstPhases[i] = phases[i] / 1000.0;
+			}
+		}
+		s_lastFrame = frameEnd;
+	}
+
+	s_radarUs += radarUs;
+	s_audioUs += audioUs;
+	s_clientUs += clientUs;
+	s_networkUs += networkUs;
+	s_logicUs += logicUs;
+	s_stepUs += stepUs;
+	++s_frames;
+
+	std::chrono::steady_clock::time_point now = std::chrono::steady_clock::now();
+	double elapsedUs = std::chrono::duration<double, std::micro>(now - s_windowStart).count();
+	if (elapsedUs >= 1'000'000.0 && s_frames > 0)
+	{
+		GX_PERF_TRACE("[GX-PERF] frames=%d avgFrameMs=%.2f radar=%.2fms audio=%.2fms client=%.2fms network=%.2fms logic=%.2fms step=%.2fms\n",
+			s_frames,
+			(elapsedUs / 1000.0) / s_frames,
+			s_radarUs / 1000.0 / s_frames,
+			s_audioUs / 1000.0 / s_frames,
+			s_clientUs / 1000.0 / s_frames,
+			s_networkUs / 1000.0 / s_frames,
+			s_logicUs / 1000.0 / s_frames,
+			s_stepUs / 1000.0 / s_frames);
+
+		GX_PERF_TRACE("[GX-PERF-HITCH] hitches=%d worstFrameMs=%.1f (radar=%.1f audio=%.1f client=%.1f network=%.1f logic=%.1f step=%.1f) speedCatchUpSteps=%u\n",
+			s_hitches, s_worstMs, s_worstPhases[0], s_worstPhases[1], s_worstPhases[2], s_worstPhases[3],
+			s_worstPhases[4], s_worstPhases[5], s_gxCatchUpSteps);
+		s_gxCatchUpSteps = 0;
+		s_prevAvgMs = (elapsedUs / 1000.0) / s_frames;
+		s_hitches = 0;
+		s_worstMs = 0.0;
+
+		s_windowStart = now;
+		s_radarUs = s_audioUs = s_clientUs = s_networkUs = s_logicUs = s_stepUs = 0;
+		s_frames = 0;
+	}
+}
+
 void GameEngine::update()
 {
 	USE_PERF_TIMER(GameEngine_update)
 	{
+		// GeneralsX @bugfix Android port 31/07/2026 gated on isPerfEnabled(),
+		// not isEnabled() -- a gx_perf.txt-only session should still get
+		// this cheap ~1-line-per-second summary without also paying for
+		// (and drowning the exported log in) full GX_TRACE font/UI tracing.
+		const bool gxPerfTrace = GXTrace::isPerfEnabled();
+		std::chrono::steady_clock::time_point gxT0, gxT1, gxT2, gxT3, gxT4, gxT5;
+
 		{
 			// VERIFY CRC needs to be in this code block.  Please to not pull TheGameLogic->update() inside this block.
 			VERIFY_CRC
 
+#if defined(GENERALS_ONLINE_HIGH_FPS_RENDER)
+			// NGMP_NOTE: Lock the shellmap to 30fps until we fix everything
+#if defined(GENERALS_ONLINE)
+			if (TheNGMPGame != nullptr && TheGameLogic->isInGame() && !TheShell->isShellActive())
+			{
+				TheFramePacer->setFramesPerSecondLimit(NGMP_OnlineServicesManager::Settings.Graphics_GetFPSLimit());
+				TheWritableGlobalData->m_useFpsLimit = NGMP_OnlineServicesManager::Settings.Graphics_GetFPSLimit();
+			}
+			else
+#endif
+			if (!TheGameLogic->isInGame() || TheShell->isShellActive())
+			{
+				TheFramePacer->setFramesPerSecondLimit(GENERALS_ONLINE_HIGH_FPS_LIMIT);
+			}
+			// GeneralsX @bugfix Android port 28/09/2026 An offline game keeps the limit
+			// MSG_NEW_GAME set from the skirmish Game Speed slider (GameLogicDispatch.cpp). This
+			// block used to reset it to GENERALS_ONLINE_HIGH_FPS_LIMIT on every frame of every
+			// game, so the slider did nothing: a skirmish on 1.3.0 ran at 30 fps on a phone that
+			// ran it at 45-60 on 1.2.2, where this block did not exist.
+#endif
+
+			if (gxPerfTrace) gxT0 = std::chrono::steady_clock::now();
 			TheRadar->UPDATE();
+			if (gxPerfTrace) gxT1 = std::chrono::steady_clock::now();
 
 			/// @todo Move audio init, update, etc, into GameClient update
 
 			TheAudio->UPDATE();
+			if (gxPerfTrace) gxT2 = std::chrono::steady_clock::now();
 			TheGameClient->UPDATE();
+			if (gxPerfTrace) gxT3 = std::chrono::steady_clock::now();
 			TheMessageStream->propagateMessages();
 
 			if (TheNetwork != nullptr)
 			{
 				TheNetwork->UPDATE();
 			}
-		}	// end VERIFY_CRC block
+			if (gxPerfTrace) gxT4 = std::chrono::steady_clock::now();
+
+#if defined(GENERALS_ONLINE)
+			// GeneralsX @bugfix Android port 07/11/2026 - ported from upstream GeneralsOnline: process a deferred TearDownGeneralsOnline() request
+			if (g_bTearDownGeneralsOnlineRequested) // delayed tear down
+			{
+				g_bTearDownGeneralsOnlineRequested = false;
+
+				NGMP_OnlineServicesManager::DestroyInstance();
+			}
+
+			if (NGMP_OnlineServicesManager::GetInstance() != nullptr)
+			{
+				NGMP_OnlineServicesManager::GetInstance()->Tick();
+			}
+#endif
+		}
 
 		// TheSuperHackers @info Ignores frozen time because the script engine needs updating in the logic update regardless.
+		double logicUs = 0.0, stepUs = 0.0;
 		if (canUpdateGameLogic(FramePacer::IgnoreFrozenTime))
 		{
 			TheGameLogic->UPDATE();
+			if (gxPerfTrace) gxT5 = std::chrono::steady_clock::now();
 
 			if (!TheFramePacer->isTimeFrozen())
 			{
 				TheGameClient->step();
 			}
+
+			if (gxPerfTrace)
+			{
+				std::chrono::steady_clock::time_point gxT6 = std::chrono::steady_clock::now();
+				logicUs = std::chrono::duration<double, std::micro>(gxT5 - gxT4).count();
+				stepUs = std::chrono::duration<double, std::micro>(gxT6 - gxT5).count();
+			}
+		}
+
+		gxCatchUpSpedUpLogic();
+
+
+		if (gxPerfTrace)
+		{
+			// gxT4->gxT5 also covers propagateMessages()/online-services tick (unlabeled,
+			// folded into "logic" below since they're consistently cheap message-queue work).
+			gxTraceEngineUpdatePhase(
+				std::chrono::duration<double, std::micro>(gxT1 - gxT0).count(),
+				std::chrono::duration<double, std::micro>(gxT2 - gxT1).count(),
+				std::chrono::duration<double, std::micro>(gxT3 - gxT2).count(),
+				std::chrono::duration<double, std::micro>(gxT4 - gxT3).count(),
+				logicUs, stepUs);
 		}
 	}
 }
@@ -831,6 +1285,36 @@ void GameEngine::update()
 // Horrible reference, but we really, really need to know if we are windowed.
 extern bool DX8Wrapper_IsWindowed;
 extern HWND ApplicationHWnd;
+
+// GeneralsX @bugfix Android port 18/07/2026 Survive exceptions escaping
+// GameEngine::update() instead of killing the session (issue #2). The
+// original engine turns ANY exception reaching execute()'s per-frame catch
+// into RELEASE_CRASH -- the "Technical Difficulties..." box -- which on the
+// affected devices fires right as the shell menu comes up, from a throw
+// whose type doesn't match any catch clause we've enumerated (a per-TU
+// anonymous-enum identity per the '$_0' typeinfo, see the catch chain
+// below). Three earlier issue-#2 fixes (science lookup, CommandButton
+// tokens, Eva events) were all the same pattern: a runtime lookup throwing
+// over one unrecognized data token that the game could perfectly well keep
+// running without. Rather than keep fixing one thrower per tester round,
+// treat a per-frame exception like those fixes treat a bad token: log it,
+// abandon the rest of that frame, and keep the session alive. A generous
+// cap guards against a session that's genuinely wedged (throwing every
+// frame forever burns the log and the battery for nothing); below it, a
+// glitched frame beats a dead game.
+static Bool recoverFromUpdateException()
+{
+	static Int total = 0;
+	++total;
+	if (total > 2000)
+		return FALSE;
+	if (total <= 20 || (total % 200) == 0)
+	{
+		fprintf(stderr, "[GX-RECOVER] GameEngine::update threw (occurrence %d) -- skipping rest of frame, continuing\n", total);
+		fflush(stderr);
+	}
+	return TRUE;
+}
 
 /** -----------------------------------------------------------------------------------------------
  * The "main loop" of the game engine. It will not return until the game exits.
@@ -882,13 +1366,22 @@ void GameEngine::execute()
 					// compute a frame
 					update();
 				}
-				catch (INIException e)
+				// GeneralsX @bugfix Android port 12/07/2026 - Catch by const reference,
+				// see the same fix earlier in this file for why (INIException lacks a
+				// copy constructor, so catching by value double-frees mFailureMessage).
+				catch (const INIException& e)
 				{
-					// Release CRASH doesn't return, so don't worry about executing additional code.
-					if (e.mFailureMessage)
-						RELEASE_CRASH((e.mFailureMessage));
-					else
-						RELEASE_CRASH(("Uncaught Exception in GameEngine::update"));
+					fprintf(stderr, "[GX-RELEASECRASH] GameEngine::update threw INIException: %s\n",
+						e.mFailureMessage ? e.mFailureMessage : "<no message>");
+					fflush(stderr);
+					if (!recoverFromUpdateException())
+					{
+						// Release CRASH doesn't return, so don't worry about executing additional code.
+						if (e.mFailureMessage)
+							RELEASE_CRASH((e.mFailureMessage));
+						else
+							RELEASE_CRASH(("Uncaught Exception in GameEngine::update"));
+					}
 				}
 				catch (...)
 				{
@@ -901,7 +1394,107 @@ void GameEngine::execute()
 					catch (...)
 					{
 					}
-					RELEASE_CRASH(("Uncaught Exception in GameEngine::update"));
+					// GeneralsX @bugfix Android port 16/07/2026 The bare catch(...)
+					// discards which exception actually escaped update() -- on Android
+					// (issue #2) that leaves the "Technical Difficulties..." box with no
+					// clue in the log. Re-throw once to identify the common engine
+					// throw types before falling through to RELEASE_CRASH.
+					try
+					{
+						throw;
+					}
+					catch (ErrorCode ec)
+					{
+						fprintf(stderr, "[GX-RELEASECRASH] GameEngine::update threw ErrorCode=%d\n", (int)ec);
+						fflush(stderr);
+					}
+					// GeneralsX @bugfix Android port 16/07/2026 The two families that
+					// escape here as "unrecognized" are the anonymous INI_* enum
+					// (INI_INVALID_DATA etc., all == ERROR_BAD_INI) and the named
+					// SaveCode enum (SC_INVALID_DATA etc.). Catch both by their real
+					// types so the log says which family threw -- INI-style data
+					// validation vs save/map load -- to pin down the culprit path
+					// during shell/menu load (issue #2).
+					catch (SaveCode sc)
+					{
+						fprintf(stderr, "[GX-RELEASECRASH] GameEngine::update threw SaveCode=%d\n", (int)sc);
+						fflush(stderr);
+					}
+					catch (decltype(INI_INVALID_DATA) ie)
+					{
+						fprintf(stderr, "[GX-RELEASECRASH] GameEngine::update threw INI-family anonymous enum=%d\n", (int)ie);
+						fflush(stderr);
+					}
+					// GeneralsX @bugfix Android port 16/07/2026 Build 168 ruled out
+					// SaveCode and the INI anonymous enum -- still "unrecognized". The
+					// only remaining engine runtime throw type that lands here is the
+					// XferStatus enum (XFER_* codes, Xfer.h) from the save/load/xfer
+					// serialization system -- consistent with the 'GUI:RecentSave'
+					// window reading a save whose data this build can't parse. Log the
+					// exact XFER_* value so we know which failure (e.g. XFER_UNKNOWN_STRING
+					// == an unrecognized enum-name in the saved data, same pattern as the
+					// earlier menu-load fixes).
+					catch (XferStatus xs)
+					{
+						fprintf(stderr, "[GX-RELEASECRASH] GameEngine::update threw XferStatus=%d\n", (int)xs);
+						fflush(stderr);
+					}
+					// GeneralsX @bugfix Android port 16/07/2026 Also cover bare
+					// primitive throws (some engine paths throw a literal int, and
+					// a stray C-string throw is possible) so those don't masquerade
+					// as "unrecognized" too (issue #2).
+					catch (int n)
+					{
+						fprintf(stderr, "[GX-RELEASECRASH] GameEngine::update threw int=%d\n", n);
+						fflush(stderr);
+					}
+					catch (const char* s)
+					{
+						fprintf(stderr, "[GX-RELEASECRASH] GameEngine::update threw const char*='%s'\n", s ? s : "<null>");
+						fflush(stderr);
+					}
+					catch (const std::exception& se)
+					{
+						fprintf(stderr, "[GX-RELEASECRASH] GameEngine::update threw std::exception what='%s'\n", se.what());
+						fflush(stderr);
+					}
+					catch (...)
+					{
+						// GeneralsX @bugfix Android port 16/07/2026 Every explicit catch
+						// above (ErrorCode/SaveCode/INI-anon/XferStatus/int/const char*/
+						// std::exception) has now been ruled out across builds 167-170 on
+						// two different devices (Adreno 750, Exynos Xclipse), including a
+						// confirmed-fresh install of this exact build (issue #2). Rather
+						// than keep guessing engine types one at a time, ask the C++ ABI
+						// runtime directly what's actually in flight -- __cxa_current_
+						// exception_type() reads it from the exception object's own
+						// typeinfo, independent of any catch clause matching. Android/
+						// bionic uses libc++abi, which supports this. If even this comes
+						// back null/garbage, that itself is strong evidence the exception
+						// object (or the unwind machinery) is memory-corrupted, not just
+						// an engine type we haven't enumerated.
+#if !defined(_MSC_VER)
+						std::type_info* ti = abi::__cxa_current_exception_type();
+						if (ti != nullptr)
+						{
+							int demangleStatus = 0;
+							char* demangled = abi::__cxa_demangle(ti->name(), nullptr, nullptr, &demangleStatus);
+							fprintf(stderr, "[GX-RELEASECRASH] GameEngine::update threw type='%s' (mangled='%s', demangle_status=%d)\n",
+								demangled ? demangled : "<demangle failed>", ti->name(), demangleStatus);
+							if (demangled)
+								free(demangled);
+						}
+						else
+						{
+							fprintf(stderr, "[GX-RELEASECRASH] GameEngine::update threw unrecognized exception type (__cxa_current_exception_type returned null)\n");
+						}
+#else
+						fprintf(stderr, "[GX-RELEASECRASH] GameEngine::update threw unrecognized exception type\n");
+#endif
+						fflush(stderr);
+					}
+					if (!recoverFromUpdateException())
+						RELEASE_CRASH(("Uncaught Exception in GameEngine::update"));
 				}
 			}
 

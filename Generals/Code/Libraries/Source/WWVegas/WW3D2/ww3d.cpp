@@ -106,6 +106,7 @@
 #include "meshmdl.h"
 #include "dx8renderer.h"
 #include "render2d.h"
+#include "render2dsentence.h"  // GeneralsX @perf Android port 09/05/2026 - Flush_Recycled_Textures()
 #include "bound.h"
 #include "rddesc.h"
 #include "Vector3i.h"
@@ -754,6 +755,13 @@ void WW3D::_Invalidate_Mesh_Cache()
 
 void WW3D::_Invalidate_Textures()
 {
+	// GeneralsX @perf Android port 09/05/2026 The glyph-atlas recycle pool
+	// (render2dsentence.cpp) holds textures that outlive individual sentence
+	// objects on purpose, and they are created directly rather than registered
+	// with the asset manager -- so the hash walk below would never reach them.
+	// Drop them here so a device reset cannot leave stale GPU resources cached.
+	Render2DSentenceClass::Flush_Recycled_Textures();
+
 	if (!WW3DAssetManager::Get_Instance()) return;
 
 	TextureLoader::Flush_Pending_Load_Tasks();
@@ -1811,6 +1819,16 @@ float	WW3D::Get_Movie_Capture_Frame_Rate()
 void	WW3D::Set_Texture_Reduction( int value, int minDim )
 {
 	if (_TextureReduction != value || _TextureMinDim != minDim) {
+		// GeneralsX @build Android port 09/05/2026 Name the setting in the log.
+		// Textures go missing after RESTARTING on Medium detail while a live
+		// switch to Medium looks fine, which points at load-time reduction
+		// rather than at rendering -- a live switch does not reload anything
+		// already in memory. This prints what reduction the next load will
+		// actually use. Engine-side deliberately, so it appears under Vulkan
+		// too and the two can be compared.
+		fprintf(stderr, "[gxtex] texture reduction %d -> %d, minDim %d -> %d "
+			"(invalidating textures)\n",
+			_TextureReduction, value, _TextureMinDim, minDim);
 		_TextureReduction=value;
 		_TextureMinDim=minDim;
 		_Invalidate_Textures();

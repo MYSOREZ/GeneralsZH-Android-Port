@@ -665,6 +665,19 @@ void Shell::doPush( AsciiString layoutFile )
 	newScreen = TheWindowManager->winCreateLayout( layoutFile );
 	DEBUG_ASSERTCRASH( newScreen != nullptr, ("Shell unable to load pending push layout") );
 
+	// GeneralsX @bugfix Android port 11/07/2026 DEBUG_ASSERTCRASH doesn't
+	// actually stop execution in a release build -- a bad/missing .wnd file
+	// (confirmed via a real device crash log: winCreateLayout returned 0x0,
+	// then this function segfaulted at newScreen->runInit() a few lines
+	// below) used to take the whole game down instead of just failing to
+	// open that one screen. Bail out cleanly instead.
+	if (newScreen == nullptr)
+	{
+		fprintf(stderr, "ERROR: Shell::doPush() - failed to load layout '%s', aborting this push\n", layoutFile.str());
+		fflush(stderr);
+		return;
+	}
+
 	// link screen to the top
 	linkScreen( newScreen );
 

@@ -34,10 +34,14 @@
 static void drawFramerateBar();
 
 // SYSTEM INCLUDES ////////////////////////////////////////////////////////////
+#include <chrono>
 #include <numeric>
 #include <stdlib.h>
 #include <windows.h>
-// GeneralsX @bugfix BenderAI 10/03/2026 - io.h is Windows-specific, use unistd.h on Linux
+// GeneralsX @build Android port GLES experiment - see gxTraceDisplayDrawPhase
+// in W3DDisplay::draw() below.
+#include "GXTrace.h"
+// GeneralsX @bugfix BenderAI 13/02/2026 - io.h is Windows-specific, use unistd.h on Linux
 #ifdef _WIN32
 #include <io.h>
 #else
@@ -64,10 +68,13 @@ static void drawFramerateBar();
 #include "GameClient/Drawable.h"
 #include "GameClient/GameText.h"
 #include "GameClient/GraphDraw.h"
+#include "GameClient/Image.h"
 #include "GameClient/Line2D.h"
 #include "GameClient/Mouse.h"
 #include "GameClient/GlobalLanguage.h"
 #include "GameClient/Water.h"
+#include "GameClient/Shell.h"
+#include "GameClient/WindowLayout.h"
 
 #include "GameNetwork/NetworkInterface.h"
 #include "Common/ModelState.h"
@@ -106,6 +113,8 @@ static void drawFramerateBar();
 #include "WW3D2/meshmatdesc.h"
 #include "WW3D2/meshmdl.h"
 #include "WW3D2/rddesc.h"
+#include "WW3D2/surfaceclass.h"
+#include "WW3D2/texture.h"
 #include "TARGA.h"
 
 #include "GameLogic/ScriptEngine.h"		// For TheScriptEngine - jkmcd
@@ -299,6 +308,11 @@ void StatDumpClass::dumpStats()
 StatDumpClass TheStatDump("StatisticsDump.txt");
 
 #endif //DUMP_PERF_STATS
+
+// GeneralsX @bugfix Android port 09/09/2026 Defined in GameClient.cpp. FALSE only while the
+// legal page is up, which is the one screen that is legitimately drawn during the intro with
+// no movie behind it; see the intro blackout in W3DDisplay::draw().
+extern Bool g_gxIntroBlackoutAllowed;
 
 //*****************************************************************************************
 //**** End Statistical Dump ***************************************************************
@@ -513,6 +527,14 @@ static void SDL3_ApplyWindowModeForRenderConfig(Bool windowed, Int renderWidth, 
 			fprintf(stderr, "WARNING: SDL_SetWindowFullscreen(false) failed: %s\n", SDL_GetError());
 		}
 
+		// GeneralsX @bugfix Android port 07/07/2026 Android's SDL video backend has
+		// no concept of exclusive display-mode switching (there's exactly one
+		// "mode": the current physical screen) — SDL_SetWindowFullscreenMode()
+		// always fails there with "Invalid fullscreen display mode". Desktop
+		// platforms still pin the window's fullscreen mode to the current display
+		// mode explicitly; SDL_SetWindowFullscreen(true) further down is already
+		// sufficient and correct for Android's borderless-only fullscreen.
+#if !defined(__ANDROID__)
 		SDL_DisplayID displayId = SDL_GetDisplayForWindow(TheSDL3Window);
 		const SDL_DisplayMode* mode = SDL_GetCurrentDisplayMode(displayId);
 		if (mode) {
@@ -523,6 +545,7 @@ static void SDL3_ApplyWindowModeForRenderConfig(Bool windowed, Int renderWidth, 
 		else {
 			fprintf(stderr, "WARNING: SDL_GetCurrentDisplayMode failed for fullscreen transition\n");
 		}
+#endif
 	}
 	else {
 		if (!SDL_SetWindowSize(TheSDL3Window, renderWidth, renderHeight)) {
@@ -547,6 +570,41 @@ static bool s_filteredDirty = true;
 static void buildFilteredResolutions()
 {
 	s_filteredResolutions.clear();
+#if defined(__ANDROID__)
+	// GeneralsX @bugfix Android port 14/07/2026 there are no desktop display
+	// modes to enumerate on a fixed-resolution mobile screen, and
+	// Enumerate_Resolutions() returns garbage/null here on Android -- the
+	// Settings menu then null-derefs walking it (confirmed independently by
+	// another GeneralsX Android fork's real device testing,
+	// tarek369/GeneralsZH-Android commit ba61ec6). The Settings menu just
+	// needs at least one entry; report the actual native resolution as the
+	// only available mode instead of enumerating.
+	int nativeW = 0, nativeH = 0;
+	float density = 1.0f;
+	DX8Wrapper::GetNativeDisplaySize(nativeW, nativeH, density);
+	if (nativeW <= 0 || nativeH <= 0) { nativeW = 1024; nativeH = 768; }
+	s_filteredResolutions.push_back({ nativeW, nativeH, 32 });
+	// GeneralsX @bugfix Android port 08/31/2026 Users have asked for a manual
+	// way to trade resolution for FPS on weaker devices. Unlike the earlier
+	// pillarbox-render-scale experiment (which decoupled the RENDER
+	// resolution from the LOGICAL one and broke worldToScreen()-based UI
+	// positioning -- see dx8wrapper.cpp's kPillarboxRenderScale comment),
+	// picking one of these entries goes through the same
+	// setDisplayMode()/WW3D::Set_Device_Resolution() path desktop users have
+	// always used to change resolution: it updates ResolutionWidth/Height
+	// (and therefore worldToScreen(), UI layout, camera aspect, font-size
+	// bucketing) all consistently together, so there's no split-brain
+	// mismatch. The existing pillarbox mechanism still centers/letterboxes
+	// whichever of these doesn't exactly fill the native screen, exactly as
+	// it already does for the native entry today.
+	for (int pct : {85, 70, 55}) {
+		int w = (nativeW * pct / 100) & ~1;
+		int h = (nativeH * pct / 100) & ~1;
+		if (w > 0 && h > 0) s_filteredResolutions.push_back({ w, h, 32 });
+	}
+	s_filteredDirty = false;
+	return;
+#else
 	const RenderDeviceDescClass &devDesc = WW3D::Get_Render_Device_Desc(0);
 	const DynamicVectorClass<ResolutionDescClass> &resolutions = devDesc.Enumerate_Resolutions();
 
@@ -570,7 +628,17 @@ static void buildFilteredResolutions()
 		}
 		if (!duplicate) s_filteredResolutions.push_back({w, h, bits});
 	}
+
+	// TheSuperHackers @bugfix Android's D3D8-over-Vulkan adapter reports zero
+	// enumerated display modes (no exclusive-fullscreen concept there), so
+	// `resolutions` above is legitimately empty -- fall back to the native
+	// screen size so the Options resolution list isn't left empty.
+	if (s_filteredResolutions.empty() && nativeW > 0 && nativeH > 0) {
+		s_filteredResolutions.push_back({nativeW, nativeH, 32});
+	}
+
 	s_filteredDirty = false;
+#endif
 }
 
 Int W3DDisplay::getDisplayModeCount()
@@ -613,6 +681,15 @@ Bool W3DDisplay::setDisplayMode( UnsignedInt xres, UnsignedInt yres, UnsignedInt
 		#endif
 		Render2DClass::Set_Screen_Resolution(RectClass(0, 0, xres, yres));
 		Display::setDisplayMode(xres, yres, bitdepth, windowed);
+
+		// GeneralsX @bugfix Android port 09/04/2026 REVERTED: forcing
+		// m_2DRender's coordinate range to WW3D::Get_Render_Target_Resolution()
+		// here was confirmed WRONG on a real device -- see render2d.cpp's
+		// matching revert for the full explanation (Render2DClass still
+		// draws into Pillarbox's small offscreen render target, so the
+		// logical-resolution range that setWidth()/setHeight() just set,
+		// two lines up via Display::setDisplayMode(), was already correct).
+
 		return TRUE;
 	}
 
@@ -781,6 +858,173 @@ void W3DDisplay::init3DScene()
 void W3DDisplay::init2DScene()
 {
 
+}
+
+// registerBuilderPageImages ==================================================
+/** GeneralsX @feature Android port 27/09/2026 The two arrows of a builder's command-bar pages
+	(ControlBar::addBuilderPageButtons): a cyan triangle pointing down ("more orders") and one
+	pointing up ("back to structures") on the dark steel of a command button.
+
+	The game has arrows of that style only as 14x7 scroll-bar pieces, which turn into a smear
+	when a 60x48 button stretches them, and shipping a texture would mean writing into the
+	player's game folder. So the pictures are drawn here, once, into textures that belong to
+	the display -- the way W3DRadar builds its images -- and registered in the mapped-image
+	collection under GXBuilderPageMore / GXBuilderPageBack, where the control bar finds them by
+	name like any other button picture. Drawn with 4x4 supersampling so the edges stay smooth
+	at the ~2.3x scale a command button is shown at on a phone. */
+//=============================================================================
+static void registerBuilderPageImages()
+{
+	if( TheMappedImageCollection == nullptr )
+		return;
+
+	enum { TEX = 64, CELL_W = 60, CELL_H = 48, SS = 4 };
+
+	struct Tri { Real x[ 3 ]; Real y[ 3 ]; };
+	// Signed distance of (px,py) to edge a->b, positive on the triangle's inner side.
+	struct EdgeFn
+	{
+		static Real dist( Real ax, Real ay, Real bx, Real by, Real px, Real py, Real sign )
+		{
+			const Real ex = bx - ax, ey = by - ay;
+			const Real len = sqrtf( ex * ex + ey * ey );
+			return sign * ( ( px - ax ) * ey - ( py - ay ) * ex ) / len;
+		}
+	};
+
+	for( Int pass = 0; pass < 2; ++pass )
+	{
+		const Bool pointsDown = ( pass == 0 );
+		const char *name = pointsDown ? "GXBuilderPageMore" : "GXBuilderPageBack";
+		if( TheMappedImageCollection->findImageByName( name ) != nullptr )
+			continue;
+
+		Tri tri;
+		const Real cx = 30.0f, top = 9.0f, bottom = 39.0f, half = 17.0f;
+		if( pointsDown )
+		{
+			tri.x[ 0 ] = cx;        tri.y[ 0 ] = bottom;
+			tri.x[ 1 ] = cx - half; tri.y[ 1 ] = top;
+			tri.x[ 2 ] = cx + half; tri.y[ 2 ] = top;
+		}
+		else
+		{
+			tri.x[ 0 ] = cx;        tri.y[ 0 ] = top;
+			tri.x[ 1 ] = cx - half; tri.y[ 1 ] = bottom;
+			tri.x[ 2 ] = cx + half; tri.y[ 2 ] = bottom;
+		}
+		// Winding sign so that "inside" is positive for all three edges.
+		const Real area = ( tri.x[ 1 ] - tri.x[ 0 ] ) * ( tri.y[ 2 ] - tri.y[ 0 ] ) - ( tri.y[ 1 ] - tri.y[ 0 ] ) * ( tri.x[ 2 ] - tri.x[ 0 ] );
+		const Real sign = area > 0 ? -1.0f : 1.0f;
+
+		// How far inside the triangle, shifted by (dx,dy); negative outside.
+		auto inside = [&]( Real px, Real py, Real dx, Real dy ) -> Real
+		{
+			Real d = 1e9f;
+			for( Int e = 0; e < 3; ++e )
+			{
+				const Int n = ( e + 1 ) % 3;
+				d = min( d, EdgeFn::dist( tri.x[ e ] + dx, tri.y[ e ] + dy, tri.x[ n ] + dx, tri.y[ n ] + dy, px, py, sign ) );
+			}
+			return d;
+		};
+
+		TextureClass *texture = MSGNEW("TextureClass") TextureClass( TEX, TEX, WW3D_FORMAT_A8R8G8B8, MIP_LEVELS_1 );
+		SurfaceClass *surface = texture ? texture->Get_Surface_Level() : nullptr;
+		if( surface == nullptr || surface->Get_Bytes_Per_Pixel() != 4 )
+		{
+			fprintf( stderr, "[touchmodes] could not create the %s texture\n", name );
+			REF_PTR_RELEASE( surface );
+			REF_PTR_RELEASE( texture );
+			continue;
+		}
+
+		int pitch = 0;
+		UnsignedByte *bits = (UnsignedByte *)surface->Lock( &pitch );
+		if( bits == nullptr )
+		{
+			REF_PTR_RELEASE( surface );
+			REF_PTR_RELEASE( texture );
+			continue;
+		}
+
+		for( Int y = 0; y < TEX; ++y )
+		{
+			UnsignedInt *row = (UnsignedInt *)( bits + y * pitch );
+			for( Int x = 0; x < TEX; ++x )
+			{
+				if( x >= CELL_W || y >= CELL_H )
+				{
+					row[ x ] = 0;
+					continue;
+				}
+				Real r = 0, g = 0, b = 0;
+				for( Int sy = 0; sy < SS; ++sy )
+				{
+					for( Int sx = 0; sx < SS; ++sx )
+					{
+						const Real px = x + ( sx + 0.5f ) / SS;
+						const Real py = y + ( sy + 0.5f ) / SS;
+
+						// steel background, lighter at the top
+						const Real shade = 62.0f - 34.0f * py / CELL_H;
+						Real cr = shade - 22.0f, cg = shade - 8.0f, cb = shade + 30.0f;
+
+						// drop shadow
+						if( inside( px, py, 2.0f, 2.0f ) >= 0 )
+						{
+							const Real a = 170.0f / 255.0f;
+							cr *= 1 - a; cg *= 1 - a; cb *= 1 - a;
+						}
+
+						// arrow: dark rim one pixel wide, cyan fill
+						const Real d = inside( px, py, 0, 0 );
+						if( d >= 1.0f )
+						{
+							cr = 90; cg = 215; cb = 255;
+						}
+						else if( d >= 0 )
+						{
+							cr = 30; cg = 110; cb = 170;
+						}
+
+						// button frame
+						if( px < 1.0f || py < 1.0f || px >= CELL_W - 1.0f || py >= CELL_H - 1.0f )
+						{
+							cr = 120; cg = 140; cb = 190;
+						}
+
+						r += cr; g += cg; b += cb;
+					}
+				}
+				const Real n = (Real)( SS * SS );
+				const UnsignedInt R = (UnsignedInt)clamp( 0.0f, r / n, 255.0f );
+				const UnsignedInt G = (UnsignedInt)clamp( 0.0f, g / n, 255.0f );
+				const UnsignedInt B = (UnsignedInt)clamp( 0.0f, b / n, 255.0f );
+				row[ x ] = 0xFF000000u | ( R << 16 ) | ( G << 8 ) | B;
+			}
+		}
+		surface->Unlock();
+		REF_PTR_RELEASE( surface );
+
+		Image *image = newInstance(Image);
+		image->setName( name );
+		image->setStatus( IMAGE_STATUS_RAW_TEXTURE );
+		image->setRawTextureData( texture );	// the image keeps the reference
+		Region2D uv;
+		uv.lo.x = 0.0f;
+		uv.lo.y = 0.0f;
+		uv.hi.x = (Real)CELL_W / TEX;
+		uv.hi.y = (Real)CELL_H / TEX;
+		image->setUV( &uv );
+		image->setTextureWidth( TEX );
+		image->setTextureHeight( TEX );
+		ICoord2D size;
+		size.x = CELL_W;
+		size.y = CELL_H;
+		image->setImageSize( &size );
+		TheMappedImageCollection->addImage( image );
+	}
 }
 
 // W3DDisplay::init ===========================================================
@@ -982,6 +1226,18 @@ void W3DDisplay::init()
 			return;
 		}
 
+		// GeneralsX @bugfix Android port 09/04/2026 REVERTED: this refresh
+		// (forcing m_2DRender's coordinate range to WW3D::Get_Render_Target_Resolution())
+		// was confirmed WRONG on a real device at a non-100% pillarbox
+		// resolution -- Render2DClass still draws into Pillarbox's small
+		// offscreen render target (there's no separate native-resolution UI
+		// pass), so forcing its coordinate range to the REAL backbuffer size
+		// while the actually-bound target is still the smaller offscreen
+		// texture made UI/video get clipped to the texture's real bounds,
+		// which Pillarbox_End()'s blit then visibly stretched -- worse than
+		// before (UI/video confined to a shrunken box). See render2d.cpp's
+		// matching revert for the full explanation.
+
 		#ifdef SAGE_USE_SDL3
 		SDL3_ApplyWindowModeForRenderConfig(getWindowed(), getWidth(), getHeight());
 		#endif
@@ -1034,6 +1290,8 @@ void W3DDisplay::init()
 		}
 
 		DX8WebBrowser::Initialize();
+
+		registerBuilderPageImages();
 	}
 
 	// we're now online
@@ -1841,6 +2099,56 @@ void W3DDisplay::step()
 
 //DECLARE_PERF_TIMER(BigAssRenderLoop)
 
+// GeneralsX @build Android port GLES experiment - GameClient.cpp's
+// [GX-PERF-CLIENT] breakdown already showed the entire "draw" bucket
+// (TheDisplay->DRAW(), i.e. this function) climbing from a few ms to
+// 70-90ms/frame as the ShellMapMD battle escalates, with everything else
+// (input/drawables/terrainDisplay/uiTail) staying near zero -- so the cost
+// is genuinely inside this function, not before or after it. Two earlier
+// hypotheses (draw-call count via GPU instancing, GL texture create/destroy
+// churn) were each tested on a real device and neither moved FPS at all,
+// so before trying another point fix, split this function's own major
+// blocks: view/particle updates, the water-reflection and projected-shadow
+// render-to-texture passes (each a full extra scene render, scaling with
+// the same battle content as the main view), the main scene render
+// (drawViews()), and the UI/mouse/present tail -- to see which one
+// actually owns the growing cost instead of guessing again.
+static void gxTraceDisplayDrawPhase(double preRTTUs, double waterShadowRTTUs,
+	double mainSceneUs, double uiWidgetsUs, double presentUs)
+{
+	static std::chrono::steady_clock::time_point s_windowStart = std::chrono::steady_clock::now();
+	static double s_preRTTUs = 0, s_waterShadowRTTUs = 0, s_mainSceneUs = 0, s_uiWidgetsUs = 0, s_presentUs = 0;
+	static int s_frames = 0;
+
+	s_preRTTUs += preRTTUs;
+	s_waterShadowRTTUs += waterShadowRTTUs;
+	s_mainSceneUs += mainSceneUs;
+	s_uiWidgetsUs += uiWidgetsUs;
+	s_presentUs += presentUs;
+	++s_frames;
+
+	std::chrono::steady_clock::time_point now = std::chrono::steady_clock::now();
+	double elapsedUs = std::chrono::duration<double, std::micro>(now - s_windowStart).count();
+	if (elapsedUs >= 1'000'000.0 && s_frames > 0)
+	{
+		// uiWidgets = TheInGameUI->DRAW() (winRepaint() -- every .wnd control);
+		// present = mouse/debug draw + WW3D::End_Render() (the actual swap).
+		// Split out of the old single "uiPresent" number -- see the comment at
+		// gxdT3b's assignment above for why.
+		GX_PERF_TRACE("[GX-PERF-DISPLAY] frames=%d preRTT=%.2fms waterShadowRTT=%.2fms mainScene=%.2fms uiWidgets=%.2fms present=%.2fms\n",
+			s_frames,
+			s_preRTTUs / 1000.0 / s_frames,
+			s_waterShadowRTTUs / 1000.0 / s_frames,
+			s_mainSceneUs / 1000.0 / s_frames,
+			s_uiWidgetsUs / 1000.0 / s_frames,
+			s_presentUs / 1000.0 / s_frames);
+
+		s_windowStart = now;
+		s_preRTTUs = s_waterShadowRTTUs = s_mainSceneUs = s_uiWidgetsUs = s_presentUs = 0;
+		s_frames = 0;
+	}
+}
+
 // W3DDisplay::draw ===========================================================
 /** Draw the entire W3D Display */
 //=============================================================================
@@ -1848,6 +2156,8 @@ void W3DDisplay::step()
 void W3DDisplay::draw()
 {
 	//USE_PERF_TIMER(W3DDisplay_draw)
+	const bool gxPerfTrace = GXTrace::isPerfEnabled();
+	std::chrono::steady_clock::time_point gxdT0, gxdT1, gxdT2, gxdT3, gxdT3b;
 
 	// GeneralsX @feature xxorza 15/04/2026 Process deferred window resize for pillarbox
 	DX8Wrapper::Pillarbox_Process_Resize();
@@ -1981,12 +2291,16 @@ AGAIN:
 
 	do {
 
+		if (gxPerfTrace) gxdT0 = std::chrono::steady_clock::now();
+
 		// update all views of the world - recomputes data which will affect drawing
 		if (DX8Wrapper::_Get_D3D_Device8() && (DX8Wrapper::_Get_D3D_Device8()->TestCooperativeLevel()) == D3D_OK)
 		{	//Checking if we have the device before updating views because the heightmap crashes otherwise while
 			//trying to refresh the visible terrain geometry.
 //			if(TheGlobalData->m_loadScreenRender != TRUE)
 				updateViews();
+
+			if (gxPerfTrace) gxdT1 = std::chrono::steady_clock::now();
 
 			if (TheWaterRenderObj && TheGlobalData->m_waterType == 2)
 				TheWaterRenderObj->updateRenderTargetTextures(primaryW3DView->get3DCamera());	//do a render into each texture
@@ -1996,6 +2310,8 @@ AGAIN:
 			if (TheW3DProjectedShadowManager)
 				TheW3DProjectedShadowManager->updateRenderTargetTextures();
 		}
+
+		if (gxPerfTrace) gxdT2 = std::chrono::steady_clock::now();
 
 		// Switch to offscreen RT AFTER pre-render (shadows/water) completes, BEFORE main render.
 		DX8Wrapper::Pillarbox_Begin();
@@ -2031,11 +2347,78 @@ AGAIN:
 				if (numRenderTargetPolygons || numRenderTargetVertices)
 					Debug_Statistics::Record_DX8_Polys_And_Vertices(numRenderTargetPolygons,numRenderTargetVertices,ShaderClass::_PresetOpaqueShader);
 
+				// GeneralsX @build Android port GLES experiment - draw-call
+				// spike fix. Shell::doPush() deliberately does not hide the
+				// previous top-of-stack screen (that's what makes overlays
+				// like the pause menu work), and this draw loop calls
+				// drawViews() -- the full 3D battlefield render, terrain +
+				// units + particles -- unconditionally regardless of what's
+				// on top of the shell stack. Confirmed directly from a
+				// device log: the instant 'Menus/ScoreScreen.wnd' is pushed,
+				// draws/frame jumps from ~250 to 250-1493 and fps craters to
+				// 2.4-17, because the battlefield keeps fully rendering
+				// behind a screen that's fully covering it and about to be
+				// composited over anyway. ScoreScreen is a genuine fullscreen
+				// opaque results screen (not a translucent overlay like the
+				// pause menu), so skipping the world render while it's on
+				// top wastes nothing visible. Kept as a small explicit
+				// allowlist rather than a generic "is this window opaque"
+				// check -- only ScoreScreen has been confirmed by a real
+				// device log to cause this spike.
+				Bool skipViewsForOpaqueShellScreen = FALSE;
+				if (TheShell && TheShell->getScreenCount() > 0)
+				{
+					WindowLayout *topShellScreen = TheShell->top();
+					if (topShellScreen && !topShellScreen->isHidden() &&
+						topShellScreen->getFilename() == AsciiString("Menus/ScoreScreen.wnd"))
+					{
+						skipViewsForOpaqueShellScreen = TRUE;
+					}
+				}
+
 				// draw all views of the world
-				drawViews();
+				if (!skipViewsForOpaqueShellScreen)
+					drawViews();
+
+				if (gxPerfTrace) gxdT3 = std::chrono::steady_clock::now();
+
+				// GeneralsX @bugfix Android port 08/30/2026 EXPERIMENT, PARKED
+				// (disabled) after a real-device A/B test: with this call pair
+				// active, the main menu showed a much wider (and asymmetric)
+				// strip near one screen edge with no UI/border drawn, versus a
+				// barely-visible ~1mm gap (the same pre-existing, harmless
+				// letterbox margin from this device's incidental
+				// game-resolution/backbuffer mismatch) with it disabled. The
+				// device-side viewport/state-cache plumbing (FixedStateKey
+				// includes vpX/Y/W/H, so it does re-apply glViewport on
+				// change) looks correct on inspection, so the actual cause
+				// wasn't root-caused from code reading alone. Since
+				// kPillarboxRenderScale is currently parked at 1.0 (see its
+				// own comment) this split provides no benefit today anyway --
+				// left disabled rather than spending more real-device test
+				// cycles on an architecture change that isn't earning its
+				// keep yet. Revisit together with re-enabling render-scale.
+				// DX8Wrapper::Pillarbox_End();
+				// DX8Wrapper::Pillarbox_Begin_UI();
+
+				// GeneralsX @feature Android port 01/10/2026 The scene is done: with the upscaler on, it
+				// is upscaled to the screen here and the interface below draws at full resolution.
+				DX8Wrapper::Upscale_Scene_Begin_UI();
 
 				// draw the user interface
 				TheInGameUI->DRAW();
+
+				// GeneralsX @build Android port ANGLE experiment - split off
+				// uiPresent's dominant cost: TheInGameUI->DRAW() -> winRepaint()
+				// draws every .wnd control (menus/dialogs), which was ~flat
+				// under system GLES but spikes hugely on ANGLE's Vulkan
+				// backend specifically in control-heavy menus (e.g.
+				// SkirmishGameOptionsMenu) -- likely a lot of distinct
+				// blend/stencil state permutations each forcing ANGLE to
+				// build a new VkPipeline. Splitting this out from mouse/debug
+				// draw + End_Render (the actual present/swap) isolates which
+				// half of the old "uiPresent" number is really the culprit.
+				if (gxPerfTrace) gxdT3b = std::chrono::steady_clock::now();
 
 				// end of video example code
 
@@ -2047,6 +2430,32 @@ AGAIN:
 				{
 					// TheSuperHackers @bugfix Mauller 20/07/2025 scale videos based on screen size so they are shown in their original aspect
 					drawScaledVideoBuffer( m_videoBuffer, m_videoStream );
+				}
+				// GeneralsX @bugfix Android port 09/09/2026 Nothing of the shell may reach the
+				// screen before the intro is over -- reported as the Zero Hour logo flashing in
+				// a corner "for a fraction of a second" as the game starts, and as shell art
+				// sitting in the black bars beside the movie.
+				//
+				// Gating the individual draw callbacks could never close this on its own,
+				// because there are frames during the intro with NO movie on screen at all:
+				// Display::update() calls stopMovie() the moment a movie runs out (nulling
+				// m_videoStream), and GameClient::update() only starts the next one on the
+				// FOLLOWING frame -- and it calls TheDisplay->UPDATE() immediately before
+				// TheDisplay->DRAW(), so the frame in between is drawn with the shell fully
+				// exposed and isMoviePlaying() reading false. That happens at least twice, once
+				// between the EA logo and the sizzle reel and once at the end of the sizzle.
+				//
+				// So do it once, here, at the bottom of the frame and independent of which
+				// window or callback painted what: while the intro sequence is running, either
+				// a movie covers its own rectangle (and drawScaledVideoBuffer blacks out the
+				// margins around it) or the whole frame goes black. Both intro flags are
+				// cleared by GameClient::update() when the intro really ends, so the normal
+				// main menu comes up by itself afterwards.
+				else if ( TheGlobalData != NULL
+					&& ( TheGlobalData->m_playIntro || TheGlobalData->m_afterIntro )
+					&& g_gxIntroBlackoutAllowed )
+				{
+					drawFillRect( 0, 0, getWidth(), getHeight(), GameMakeColor( 0, 0, 0, 255 ) );
 				}
 				if( m_copyrightDisplayString )
 				{
@@ -2122,6 +2531,17 @@ AGAIN:
 #endif
 				// render is all done!
 				WW3D::End_Render();
+
+				if (gxPerfTrace)
+				{
+					std::chrono::steady_clock::time_point gxdT4 = std::chrono::steady_clock::now();
+					gxTraceDisplayDrawPhase(
+						std::chrono::duration<double, std::micro>(gxdT1 - gxdT0).count(),
+						std::chrono::duration<double, std::micro>(gxdT2 - gxdT1).count(),
+						std::chrono::duration<double, std::micro>(gxdT3 - gxdT2).count(),
+						std::chrono::duration<double, std::micro>(gxdT3b - gxdT3).count(),
+						std::chrono::duration<double, std::micro>(gxdT4 - gxdT3b).count());
+				}
 			}
 			else
 			{
@@ -2999,6 +3419,28 @@ void W3DDisplay::drawScaledVideoBuffer( VideoBuffer *buffer, VideoStreamInterfac
 
 		endX = getWidth();
 	}
+
+	// GeneralsX @bugfix Android port 09/09/2026 Black out everything around the movie.
+	//
+	// Movies are drawn AFTER TheInGameUI->DRAW() and only cover their own letterboxed
+	// rectangle, and nothing clears the rest of the frame -- so whatever the shell painted
+	// stays on screen beside the video. That is the corner logo and the bottom-left watermark
+	// reported over the intro, and it is why they FLICKER rather than sit still: with a
+	// multi-buffered swap chain the stale pixels live in some buffers and not others, so they
+	// blink at the swap rate. Gating the callbacks that draw them (see W3DMainMenu.cpp) stops
+	// new ones appearing but cannot erase what is already in a back buffer.
+	//
+	// Filling the margins here fixes the whole class of problem at its source: while a movie
+	// is on screen, nothing behind it can show through, no matter which callback drew it.
+	const Color gxLetterbox = GameMakeColor( 0, 0, 0, 255 );
+	if ( startY > 0 )
+		drawFillRect( 0, 0, getWidth(), startY, gxLetterbox );
+	if ( endY < getHeight() )
+		drawFillRect( 0, endY, getWidth(), getHeight() - endY, gxLetterbox );
+	if ( startX > 0 )
+		drawFillRect( 0, startY, startX, endY - startY, gxLetterbox );
+	if ( endX < getWidth() )
+		drawFillRect( endX, startY, getWidth() - endX, endY - startY, gxLetterbox );
 
 	drawVideoBuffer( buffer, startX, startY, endX, endY );
 }

@@ -64,6 +64,107 @@
 #include "WW3D2/dx8caps.h"
 #include "WW3D2/colorspace.h"
 
+#include "GXTrace.h"
+#include <chrono>
+
+// GeneralsX @performance Android port 29/09/2026 Where the main scene's time goes, phase by phase.
+// In the heaviest High-preset scene on the old test phone the translator's own draw time covers
+// ~10.5 ms of a ~20 ms main scene; this splits the whole of it -- engine CPU included -- so the
+// remaining ~8 ms can be attributed. [GX-PERF-SCENE], once a second, perf trace only. Each phase
+// includes the draws it issues.
+// On the GLES backend each phase also reports its draw count, the translator's time for them and
+// the driver's glDraw share ([GX-PERF-SCENE-DRAWS]); the phase's ms minus the translator's is the
+// engine's own CPU. Most of the scene's draws had no source in perf-draws ("other").
+#if defined(__ANDROID__)
+extern "C" void d3d8gles_GetDrawTotals(unsigned long long *draws, double *drawUs, double *glDrawUs);
+#endif
+namespace {
+enum ScenePhase { SP_VIS, SP_UPDATE, SP_TERRAIN, SP_OBJECTS, SP_QUEUE, SP_DECALS, SP_MESHES, SP_OCCLUDED,
+	SP_TREES, SP_SHADOWS, SP_WATER, SP_TRANSLUCENT, SP_PARTICLES, SP_SORTFLUSH, SP_COUNT };
+const char *const s_scenePhaseNames[SP_COUNT] = { "visibility", "frameUpdate", "terrain", "objects", "queue",
+	"decals", "meshes", "occluded", "trees", "stencilShadows", "staticSort", "translucent", "particles",
+	"sortFlush" };
+struct DrawTotals
+{
+	unsigned long long draws = 0;
+	double drawUs = 0.0;
+	double glDrawUs = 0.0;
+	void read()
+	{
+#if defined(__ANDROID__)
+		d3d8gles_GetDrawTotals(&draws, &drawUs, &glDrawUs);
+#endif
+	}
+};
+struct ScenePerf
+{
+	typedef std::chrono::steady_clock Clock;
+	Clock::time_point windowStart = Clock::now();
+	unsigned frames = 0;
+	double ms[SP_COUNT] = {};
+	unsigned long long draws[SP_COUNT] = {};
+	double drawUs[SP_COUNT] = {};
+	double glDrawUs[SP_COUNT] = {};
+};
+ScenePerf s_scenePerf;
+struct ScenePhaseTimer
+{
+	ScenePhase phase;
+	bool on;
+	ScenePerf::Clock::time_point start;
+	DrawTotals startTotals;
+	explicit ScenePhaseTimer(ScenePhase p) : phase(p), on(GXTrace::isPerfEnabled())
+	{
+		if (!on) return;
+		startTotals.read();
+		start = ScenePerf::Clock::now();
+	}
+	void stop()
+	{
+		if (!on) return;
+		s_scenePerf.ms[phase] += std::chrono::duration<double, std::milli>(ScenePerf::Clock::now() - start).count();
+		DrawTotals end;
+		end.read();
+		s_scenePerf.draws[phase] += end.draws - startTotals.draws;
+		s_scenePerf.drawUs[phase] += end.drawUs - startTotals.drawUs;
+		s_scenePerf.glDrawUs[phase] += end.glDrawUs - startTotals.glDrawUs;
+		on = false;
+	}
+	~ScenePhaseTimer() { stop(); }
+};
+void reportScenePerf()
+{
+	if (!GXTrace::isPerfEnabled())
+		return;
+	ScenePerf &p = s_scenePerf;
+	++p.frames;
+	if (std::chrono::duration<double, std::milli>(ScenePerf::Clock::now() - p.windowStart).count() < 1000.0)
+		return;
+	char line[768];
+	int len = snprintf(line, sizeof(line), "[GX-PERF-SCENE] frames=%u ms/frame:", p.frames);
+	double total = 0.0;
+	unsigned long long totalDraws = 0;
+	for (int i = 0; i < SP_COUNT; i++) {
+		total += p.ms[i];
+		totalDraws += p.draws[i];
+		len += snprintf(line + len, sizeof(line) - len, " %s=%.2f", s_scenePhaseNames[i], p.ms[i] / p.frames);
+	}
+	snprintf(line + len, sizeof(line) - len, " total=%.2f\n", total / p.frames);
+	GX_PERF_TRACE("%s", line);
+	if (totalDraws > 0) {
+		// Per phase: draws/frame, translator ms/frame, of which glDraw ms/frame.
+		len = snprintf(line, sizeof(line), "[GX-PERF-SCENE-DRAWS] draws/xlatMs/glMs per frame:");
+		for (int i = 0; i < SP_COUNT; i++) {
+			if (p.draws[i] == 0) continue;
+			len += snprintf(line + len, sizeof(line) - len, " %s=%.0f/%.2f/%.2f", s_scenePhaseNames[i],
+				(double)p.draws[i] / p.frames, p.drawUs[i] / 1000.0 / p.frames, p.glDrawUs[i] / 1000.0 / p.frames);
+		}
+		snprintf(line + len, sizeof(line) - len, "\n");
+		GX_PERF_TRACE("%s", line);
+	}
+	p = ScenePerf();
+}
+}
 
 ///////////////////////////////////////////////////////////////////////////////
 // DEFINITIONS ////////////////////////////////////////////////////////////////
@@ -810,13 +911,18 @@ void RTS3DScene::Flush(RenderInfoClass & rinfo)
 {
 	// TheSuperHackers @bugfix Now always prepares shadows to guarantee correct state before doing any
 	// shadow draw calls. Originally just drawing shadows for trees would not properly prepare shadows.
+	ScenePhaseTimer decalsTimer(SP_DECALS);
 	PrepareShadows();
 
 	//don't draw shadows in this mode because they interfere with destination alpha or are invisible (wireframe)
 	if (m_customPassMode == SCENE_PASS_DEFAULT && Get_Extra_Pass_Polygon_Mode() == EXTRA_PASS_DISABLE)
 		DoShadows(rinfo, false);	//draw all non-stencil shadows (decals) since they fall under other objects.
 
+	decalsTimer.stop();
+	ScenePhaseTimer meshesTimer(SP_MESHES);
 	TheDX8MeshRenderer.Flush();	//draw all non-translucent objects.
+	meshesTimer.stop();
+	ScenePhaseTimer occludedTimer(SP_OCCLUDED);
 
 	//draw all non-translucent objects which were separated because they are hidden and need custom rendering.
 #ifdef USE_NON_STENCIL_OCCLUSION
@@ -826,27 +932,41 @@ void RTS3DScene::Flush(RenderInfoClass & rinfo)
 		flushOccludedObjectsIntoStencil(rinfo);
 #endif
 	// Draw the trees last so they alpha blend onto everything correctly.
+	occludedTimer.stop();
+	ScenePhaseTimer treesTimer(SP_TREES);
 	DoTrees(rinfo);
+	treesTimer.stop();
+	ScenePhaseTimer shadowsTimer(SP_SHADOWS);
 
 	//don't draw shadows in this mode because they interfere with destination alpha
 	if (m_customPassMode == SCENE_PASS_DEFAULT && Get_Extra_Pass_Polygon_Mode() == EXTRA_PASS_DISABLE)
 		DoShadows(rinfo, true);	//draw all stencil shadows
 
+	shadowsTimer.stop();
+	ScenePhaseTimer waterTimer(SP_WATER);
 	WW3D::Render_And_Clear_Static_Sort_Lists(rinfo);	//draws things like water
+	waterTimer.stop();
+	ScenePhaseTimer translucentTimer(SP_TRANSLUCENT);
 
 	if (m_customPassMode == SCENE_PASS_DEFAULT && Get_Extra_Pass_Polygon_Mode() == EXTRA_PASS_DISABLE)
 		flushTranslucentObjects(rinfo);	//draw all translucent meshes which don't need per-polygon sorting.
 
 	{
 		//USE_PERF_TIMER(translucentRender)
+		translucentTimer.stop();
+		ScenePhaseTimer particlesTimer(SP_PARTICLES);
 
 		//don't draw transparent in this mode because they interfere with destination alpha
 		if (m_customPassMode == SCENE_PASS_DEFAULT && Get_Extra_Pass_Polygon_Mode() == EXTRA_PASS_DISABLE)
 			DoParticles(rinfo);	//queue up particles for rendering.
 
+		particlesTimer.stop();
+		ScenePhaseTimer sortFlushTimer(SP_SORTFLUSH);
 		SortingRendererClass::Flush();	//draw sorted translucent polygons like particles.
 	}
 	TheDX8MeshRenderer.Clear_Pending_Delete_Lists();
+	if (m_customPassMode == SCENE_PASS_DEFAULT && Get_Extra_Pass_Polygon_Mode() == EXTRA_PASS_DISABLE)
+		reportScenePerf();
 }
 
 /**Generate a predefined light environment(s) that will be applied to many objects.  Useful for things like totally fogged
@@ -1067,6 +1187,7 @@ void RTS3DScene::Customized_Render( RenderInfoClass &rinfo )
 
 #define USE_LIGHT_ENV 1
 
+   ScenePhaseTimer visTimer(SP_VIS);
    if (!Visibility_Checked) {
       // set the visibility bit in all render objects in all layers.
 	   Visibility_Check(&rinfo.Camera);
@@ -1075,6 +1196,8 @@ void RTS3DScene::Customized_Render( RenderInfoClass &rinfo )
 #endif
    }
    Visibility_Checked = false;
+	visTimer.stop();
+	ScenePhaseTimer updateTimer(SP_UPDATE);
 
 
 	RefRenderObjListIterator it(&UpdateList);
@@ -1092,6 +1215,8 @@ void RTS3DScene::Customized_Render( RenderInfoClass &rinfo )
 	}
 
 	//terrain needs to be rendered first
+	updateTimer.stop();
+	ScenePhaseTimer terrainTimer(SP_TERRAIN);
 	if (terrainObject)	// Don't check visibility - terrain is always visible. jba.
 	{
 		robj=terrainObject;
@@ -1113,6 +1238,7 @@ void RTS3DScene::Customized_Render( RenderInfoClass &rinfo )
 		robj->Render(rinfo);
 	}
 
+	terrainTimer.stop();
 	if (m_drawTerrainOnly) {
 		return;
 	}
@@ -1123,6 +1249,7 @@ void RTS3DScene::Customized_Render( RenderInfoClass &rinfo )
 #endif
 
 	// loop through all render objects in the list:
+	ScenePhaseTimer objectsTimer(SP_OBJECTS);
 	for (it.First(&RenderList); !it.Is_Done();)
 	{
 		// get the render object
@@ -1148,6 +1275,8 @@ void RTS3DScene::Customized_Render( RenderInfoClass &rinfo )
 
 	//Tell shadow manager to render shadows at the end of this frame
 	//Don't draw shadows if there is no terrain present.
+	objectsTimer.stop();
+	ScenePhaseTimer queueTimer(SP_QUEUE);
 	if (TheW3DShadowManager && terrainObject && !ShaderClass::Is_Backface_Culling_Inverted() &&
 		Get_Extra_Pass_Polygon_Mode() == EXTRA_PASS_DISABLE)
 	{

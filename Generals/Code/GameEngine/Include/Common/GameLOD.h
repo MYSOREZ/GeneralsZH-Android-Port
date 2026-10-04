@@ -180,6 +180,7 @@ public:
 	inline Bool isParticleSkipped();
 	inline Bool isDebrisSkipped();
 	inline Real getSlowDeathScale();
+	Bool isLogicLODPinned() const;	///< lockstep game or replay: logic reads the VeryHigh tier, not the frame-rate one.
 	inline ParticlePriorityType getMinDynamicParticlePriority();		///<priority at which particles will still render at current FPS.
 	inline ParticlePriorityType	getMinDynamicParticleSkipPriority();	///<priority at which particles will never be skipped at any FPS.
 	Int getRecommendedTextureReduction();	///<return the optimal texture reduction for the system.
@@ -189,6 +190,11 @@ public:
 	Bool didMemPass();
 	void setReallyLowMHz(Int mhz) { m_reallyLowMHz = mhz; }
 	Bool isReallyLowMHz() const { return m_cpuFreq < m_reallyLowMHz; }
+#if defined(GENERALS_ONLINE_HIGH_FPS_SERVER)
+	void updateGraphicsQualityState(float averageFPS);
+	void restoreQualitySettings();
+	bool isQualityReduced() const { return m_isQualityReduced; }
+#endif
 
 	StaticGameLODInfo m_staticGameLODInfo[STATIC_GAME_LOD_COUNT];
 	DynamicGameLODInfo m_dynamicGameLODInfo[DYNAMIC_GAME_LOD_COUNT];
@@ -212,6 +218,22 @@ protected:
 	Real m_slowDeathScale;			///<values < 1.0f are used to accelerate deaths
 	ParticlePriorityType m_minDynamicParticlePriority;	///<only priorities above/including this value are allowed to render.
 	ParticlePriorityType m_minDynamicParticleSkipPriority;	///<priorities above/including this value never skip particles.
+
+	// GeneralsX @build Android port GLES experiment - dynamic LOD's existing
+	// particle/debris skip masks alone can't relieve real-device GPU
+	// throughput pressure from heavy scene content (confirmed via
+	// [GX-PERF-DISPLAY] profiling: draws/frame into the thousands,
+	// present-wait plateaued near a hard ceiling, in both the ShellMapMD
+	// menu background and real skirmish gameplay) -- they don't touch
+	// unit/shadow rendering cost at all. At the lowest dynamic LOD tier,
+	// temporarily force shadows off (both TheGlobalData->m_useShadowVolumes
+	// and m_useShadowDecals, the same flags the *static* LOD/graphics-
+	// options system already drives) and restore whatever the player/static
+	// LOD had them set to once FPS recovers -- see applyDynamicLODLevel().
+	Bool m_dynamicShadowsSuppressed;
+	Bool m_savedUseShadowVolumes;
+	Bool m_savedUseShadowDecals;
+
 	Bool m_videoPassed;
 	Bool m_cpuPassed;
 	Bool m_memPassed;
@@ -227,6 +249,15 @@ protected:
 	Real m_memBenchIndex;
 	Real m_compositeBenchIndex;
 	Int m_reallyLowMHz;
+#if defined(GENERALS_ONLINE_HIGH_FPS_SERVER)
+	bool m_userShadowVolumesEnabled;
+	bool m_userShadowDecalsEnabled;
+	bool m_userHeatEffectsEnabled;
+	bool m_isQualityReduced;
+	int  m_stableFPSSecondsCount;
+	int  m_lowFPSSecondsCount;
+	int  m_userMaxParticleCount;
+#endif
 };
 
 Bool GameLODManager::isParticleSkipped()
@@ -234,14 +265,26 @@ Bool GameLODManager::isParticleSkipped()
 	return (++m_numParticleGenerations & m_dynamicParticleSkipMask) != m_dynamicParticleSkipMask;
 }
 
+// GeneralsX @bugfix Android port 22/09/2026 These two are read by game LOGIC (the debris
+// ObjectCreationList and SlowDeathBehavior), yet the dynamic LOD behind them follows this
+// machine's frame rate. In a lockstep game, or a replay of one, that made the simulation depend
+// on how fast each peer happened to render: a device below the "High" FPS threshold spawned
+// fewer debris objects and shortened slow deaths, and fell out of sync with every peer that did
+// not. There, the logic reads the VeryHigh tier -- what a peer rendering at full speed uses --
+// while particles and shadows keep following the frame rate. See isLogicLODPinned().
 Bool GameLODManager::isDebrisSkipped()
 {
-	return (++m_numDebrisGenerations & m_dynamicDebrisSkipMask) != m_dynamicDebrisSkipMask;
+	const Int mask = isLogicLODPinned()
+		? m_dynamicGameLODInfo[DYNAMIC_GAME_LOD_VERY_HIGH].m_dynamicDebrisSkipMask
+		: m_dynamicDebrisSkipMask;
+	return (++m_numDebrisGenerations & mask) != mask;
 }
 
 Real GameLODManager::getSlowDeathScale()
 {
-	return m_slowDeathScale;
+	return isLogicLODPinned()
+		? m_dynamicGameLODInfo[DYNAMIC_GAME_LOD_VERY_HIGH].m_slowDeathScale
+		: m_slowDeathScale;
 }
 
 ParticlePriorityType GameLODManager::getMinDynamicParticlePriority()

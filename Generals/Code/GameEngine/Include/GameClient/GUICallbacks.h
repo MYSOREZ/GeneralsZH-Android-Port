@@ -347,13 +347,26 @@ void ResetDiplomacy();
 WindowMsgHandledType GeneralsExpPointsSystem( GameWindow *window, UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2 );
 WindowMsgHandledType GeneralsExpPointsInput( GameWindow *window, UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2 );
 
-// GeneralsX @feature Android port 04/10/2026 The touch control-group panel (Core GroupPanel.cpp),
-// shared with Zero Hour -- see GeneralsMD/Code/GameEngine/Include/GameClient/GUICallbacks.h.
+// GeneralsX @feature Android port 02/08/2026 Native in-engine replacement
+// for the Android-overlay unit-group panel (GroupPanel.wnd, loaded from a
+// loose file outside the game's .big archives -- see
+// GameWindowManagerScript.cpp's Window\ path resolution).
 extern void GroupPanelInit( WindowLayout *layout, void *userData );
 extern void GroupPanelUpdate( WindowLayout *layout, void *userData );
 extern void GroupPanelShutdown( WindowLayout *layout, void *userData );
 extern WindowMsgHandledType GroupPanelSystem( GameWindow *window, UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2 );
+// GeneralsX @feature Android port 03/08/2026 Calibrates the panel's
+// handle/row screen-space offset from the real command bar's root window
+// exactly once, at ControlBar::init() time, against whatever position
+// this file's own hand-tuned SCREENRECT coordinates produced -- before
+// the bar has ever run a slide animation, so both windows are still at
+// their plain authored resting positions and the delta is the true,
+// permanent spatial relationship between them.
 extern void GroupPanelCalibrateFollowOffset( Int barScreenX, Int barScreenY );
+// Tracks the panel's handle/row to the bar's live screen position every
+// frame using the offset above, so it follows the bar through every
+// stage (default/squished/low) AND every frame of its own slide-in/out
+// animation, instead of only snapping into place once the bar settles.
 extern void GroupPanelFollowControlBar( Int barScreenX, Int barScreenY, Bool visible );
 
 

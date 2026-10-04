@@ -40,6 +40,9 @@
 
 #define DEFINE_PARTICLE_SYSTEM_NAMES
 #include "GameClient/ParticleSys.h"
+#include "GameLogic/GameLogic.h"
+#include "Common/Recorder.h"
+#include "GXTrace.h"
 
 
 #define PROFILE_ERROR_LIMIT	0.94f	//fraction of profiled result needed to get a match.  Allows some room for error/fluctuation.
@@ -221,6 +224,9 @@ GameLODManager::GameLODManager()
 	m_cpuPassed=false;
 	m_memPassed=false;
 	m_slowDeathScale=1.0f;
+	m_dynamicShadowsSuppressed=false;
+	m_savedUseShadowVolumes=false;
+	m_savedUseShadowDecals=false;
 	m_idealDetailLevel = STATIC_GAME_LOD_UNKNOWN;
 	m_videoChipType = DC_MAX;
 	m_cpuType = XX;
@@ -232,6 +238,12 @@ GameLODManager::GameLODManager()
 	m_compositeBenchIndex=0;
 	m_numBenchProfiles=0;
 	m_reallyLowMHz = 400;
+#if defined(GENERALS_ONLINE_HIGH_FPS_SERVER)
+	m_isQualityReduced = false;
+	m_lowFPSSecondsCount = 0;
+	m_stableFPSSecondsCount = 0;
+	m_userMaxParticleCount = 0;
+#endif
 
 	for (Int i=0; i<STATIC_GAME_LOD_CUSTOM; i++)
 		m_numLevelPresets[i]=0;
@@ -505,6 +517,30 @@ StaticGameLODLevel GameLODManager::getRecommendedStaticLODLevel()
 		//search all our presets for matching hardware
 		m_idealDetailLevel = STATIC_GAME_LOD_LOW;
 
+#if defined(__ANDROID__)
+		// GeneralsX @bugfix Android port 08/31/2026 The preset-matching loop
+		// below identifies hardware by legacy PC-era CPU family (P3/P4/...)
+		// and GPU PCI vendor/device ID (GeForce/Radeon/...), none of which
+		// exist on ARM/Android. testMinimumRequirements() has no real data
+		// here, so m_cpuType/m_cpuFreq fall back to an assumed "P4, 2000MHz"
+		// (see this function's own m_videoChipType fallback below, and
+		// init()'s #ifndef _WIN32 block for the CPU one) and m_videoChipType
+		// falls back to DC_TNT2 -- both comfortably clear this 2003-era
+		// game's MEDIUM/HIGH preset thresholds despite being nowhere close to
+		// representing real mobile GPU/CPU capability. Confirmed on a real
+		// device: this made the game default to a demanding detail level on
+		// first launch instead of a safe, always-playable one. Skip the
+		// legacy matching entirely and stay at the LOW default set just
+		// above -- the user can always raise it manually in Options once
+		// they know their device handles more.
+		OptionPreferences androidOptionPref;
+		androidOptionPref["IdealStaticGameLOD"] = getStaticGameLODLevelName(m_idealDetailLevel);
+		if (getStaticLODLevel() == STATIC_GAME_LOD_UNKNOWN)
+			androidOptionPref["StaticGameLOD"] = getStaticGameLODLevelName(m_idealDetailLevel);
+		androidOptionPref.write();
+		return m_idealDetailLevel;
+#endif
+
 		//get system configuration - only need vide chip type, got rest in ::init().
 		testMinimumRequirements(&m_videoChipType,nullptr,nullptr,nullptr,nullptr,nullptr,nullptr);
 		if (m_videoChipType == DC_UNKNOWN)
@@ -606,6 +642,22 @@ void GameLODManager::applyStaticLODLevel(StaticGameLODLevel level)
 		TheWritableGlobalData->m_useShadowDecals=lodInfo->m_useShadowDecals;
 
 		TheWritableGlobalData->m_textureReductionFactor = requestedTextureReduction;
+
+		// GeneralsX @build Android port 09/05/2026 Expose the whole detail-level
+		// decision. Textures go missing after RESTARTING on Medium/Low while a
+		// live switch changes nothing at all visually, and the first
+		// measurement showed WW3D::Set_Texture_Reduction is never even called
+		// with a changed value -- so the reduction the engine picks is not what
+		// I assumed it was. Note requestedTextureReduction for a non-custom
+		// level comes from getRecommendedTextureLODLevel(), a hardware
+		// recommendation, NOT from the level the player chose. Print both.
+		fprintf(stderr, "[gxlod] setStaticLODLevel(%d) prevLevel=%d "
+			"recommendedTextureLevel=%d -> textureReduction=%d useTrees=%d "
+			"shadowVolumes=%d shadowDecals=%d\n",
+			(int)level, (int)m_currentStaticLOD,
+			(int)getRecommendedTextureLODLevel(), (int)requestedTextureReduction,
+			(int)requestedTrees, (int)lodInfo->m_useShadowVolumes,
+			(int)lodInfo->m_useShadowDecals);
 
 		//Check if shadow state changed
 		if (m_currentStaticLOD == STATIC_GAME_LOD_UNKNOWN	||
@@ -721,10 +773,29 @@ DynamicGameLODLevel GameLODManager::findDynamicLODLevel(Real averageFPS)
 }
 
 /**Set all game systems to match the desired LOD level.*/
+Bool GameLODManager::isLogicLODPinned() const
+{
+	// Every peer, and every later playback, must compute the same simulation: that is a
+	// multiplayer game while it is played and any replay while it is watched.
+	return TheRecorder != nullptr && (TheRecorder->isMultiplayer() || TheRecorder->isPlaybackMode());
+}
+
 Bool GameLODManager::setDynamicLODLevel(DynamicGameLODLevel level)
 {
 	if (level == DYNAMIC_GAME_LOD_UNKNOWN || m_currentDynamicLOD == level)
 		return FALSE;
+
+	// GeneralsX @feature Android port 22/09/2026 A frame-rate-driven tier change used to be
+	// invisible in the log, yet before isLogicLODPinned() it changed how many debris objects the
+	// logic spawned. Say when it happens, what the tier would do to the logic, and whether the
+	// logic is listening.
+	GX_NET_TRACE("lod frame %u: dynamic LOD %s -> %s (debrisSkipMask=%d slowDeathScale=%.2f)%s\n",
+		TheGameLogic ? (unsigned)TheGameLogic->getFrame() : 0u,
+		m_currentDynamicLOD == DYNAMIC_GAME_LOD_UNKNOWN ? "UNKNOWN" : DynamicGameLODNames[m_currentDynamicLOD],
+		DynamicGameLODNames[level],
+		m_dynamicGameLODInfo[level].m_dynamicDebrisSkipMask,
+		(double)m_dynamicGameLODInfo[level].m_slowDeathScale,
+		isLogicLODPinned() ? " -- logic stays on VeryHigh (lockstep game or replay)" : "");
 
 	m_currentDynamicLOD = level;
 
@@ -744,6 +815,30 @@ void GameLODManager::applyDynamicLODLevel(DynamicGameLODLevel level)
 	m_slowDeathScale=m_dynamicGameLODInfo[level].m_slowDeathScale;
 	m_minDynamicParticlePriority=m_dynamicGameLODInfo[level].m_minDynamicParticlePriority;
 	m_minDynamicParticleSkipPriority=m_dynamicGameLODInfo[level].m_minDynamicParticleSkipPriority;
+
+	// GeneralsX @build Android port GLES experiment - see m_dynamicShadowsSuppressed's
+	// comment in GameLOD.h. Only the worst dynamic tier (findDynamicLODLevel()
+	// already means "average FPS is below even the LOW threshold") forces
+	// shadows off; anything better than that leaves the player's/static-LOD's
+	// shadow settings untouched. Saves and restores whatever was actually
+	// set (which may itself be FALSE already, e.g. shadows manually disabled
+	// in the options menu, or a static LOD level that never enabled them) so
+	// this never fights the player's own choice once FPS recovers.
+	const Bool wantShadowsOff = (level <= DYNAMIC_GAME_LOD_LOW);
+	if (wantShadowsOff && !m_dynamicShadowsSuppressed)
+	{
+		m_savedUseShadowVolumes = TheGlobalData->m_useShadowVolumes;
+		m_savedUseShadowDecals = TheGlobalData->m_useShadowDecals;
+		TheWritableGlobalData->m_useShadowVolumes = FALSE;
+		TheWritableGlobalData->m_useShadowDecals = FALSE;
+		m_dynamicShadowsSuppressed = true;
+	}
+	else if (!wantShadowsOff && m_dynamicShadowsSuppressed)
+	{
+		TheWritableGlobalData->m_useShadowVolumes = m_savedUseShadowVolumes;
+		TheWritableGlobalData->m_useShadowDecals = m_savedUseShadowDecals;
+		m_dynamicShadowsSuppressed = false;
+	}
 }
 
 Int GameLODManager::getRecommendedTextureReduction()
@@ -789,3 +884,87 @@ Bool GameLODManager::didMemPass()
 {
 	return m_memPassed;
 }
+
+#if defined(GENERALS_ONLINE_HIGH_FPS_SERVER)
+void GameLODManager::updateGraphicsQualityState(float averageFPS)
+{
+	if (!TheGameLogic || (TheGameLogic->getFrame() % LOGICFRAMES_PER_SECOND) != 0)
+		return;
+
+	if (TheGameLogic->isInShellGame() || TheGameLogic->isInReplayGame() || (TheGameLogic->getFrame() < LOGICFRAMES_PER_SECOND))
+	{
+		if (m_isQualityReduced)
+			restoreQualitySettings();
+		return;
+	}
+
+	if (!m_isQualityReduced)
+	{
+		m_userShadowVolumesEnabled = TheGlobalData->m_useShadowVolumes;
+		m_userShadowDecalsEnabled = TheGlobalData->m_useShadowDecals;
+		m_userHeatEffectsEnabled = TheGlobalData->m_useHeatEffects;
+		m_userMaxParticleCount = TheGlobalData->m_maxParticleCount;
+	}
+
+	// Track how many consecutive seconds FPS is below or above threshold.
+	const float minAcceptedFPS = 58.f;
+	if (averageFPS < minAcceptedFPS)
+	{
+		m_lowFPSSecondsCount++;
+		m_stableFPSSecondsCount = 0;
+	}
+	else
+	{
+		m_stableFPSSecondsCount++;
+		m_lowFPSSecondsCount = 0;
+	}
+
+	bool isInGame = TheGameLogic->isInGame();
+	bool shouldReduceQuality = (m_lowFPSSecondsCount >= 2 && isInGame);
+	if (shouldReduceQuality && !m_isQualityReduced)
+	{
+		TheGameClient->releaseShadows();
+		TheWritableGlobalData->m_useShadowVolumes = false;
+		TheWritableGlobalData->m_useShadowDecals = false;
+		TheWritableGlobalData->m_useHeatEffects = false;
+		m_isQualityReduced = true;
+		m_lowFPSSecondsCount = 0;
+	}
+
+
+	if (m_isQualityReduced)
+	{
+		float particleReductionFactor = max(0.f, min(1.f, (minAcceptedFPS - averageFPS) / minAcceptedFPS * 5.f));
+		int targetCount = max(100, (int)(m_userMaxParticleCount * (1.f - particleReductionFactor)));
+		int current = TheGlobalData->m_maxParticleCount;
+
+		if (targetCount < current)
+			TheWritableGlobalData->m_maxParticleCount = max(100, current + (int)((targetCount - current) * 0.5f));
+
+		if (!shouldReduceQuality && m_stableFPSSecondsCount > 15)
+		{
+			int newCount = current + (int)((m_userMaxParticleCount - current) * 0.3f);
+			if (newCount >= m_userMaxParticleCount || newCount == current)
+				restoreQualitySettings();
+			else
+				TheWritableGlobalData->m_maxParticleCount = newCount;
+
+			DynamicGameLODLevel lod = TheGameLODManager->findDynamicLODLevel(averageFPS);
+			TheGameLODManager->setDynamicLODLevel(lod);
+		}
+	}
+}
+
+void GameLODManager::restoreQualitySettings()
+{
+	TheWritableGlobalData->m_useShadowVolumes = m_userShadowVolumesEnabled;
+	TheWritableGlobalData->m_useShadowDecals = m_userShadowDecalsEnabled;
+	TheWritableGlobalData->m_useHeatEffects = m_userHeatEffectsEnabled;
+	TheWritableGlobalData->m_maxParticleCount = m_userMaxParticleCount;
+	m_stableFPSSecondsCount = 0;
+	m_lowFPSSecondsCount = 0;
+	m_isQualityReduced = false;
+	if (TheGameClient)
+		TheGameClient->allocateShadows();
+}
+#endif // GENERALS_ONLINE_HIGH_FPS_SERVER

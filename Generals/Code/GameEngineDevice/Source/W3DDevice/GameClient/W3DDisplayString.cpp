@@ -55,6 +55,7 @@
 #include "GameClient/HotKey.h"
 #include "GameClient/GameFont.h"
 #include "GameClient/GlobalLanguage.h"
+#include "GXTrace.h"
 
 // DEFINES ////////////////////////////////////////////////////////////////////
 
@@ -368,7 +369,9 @@ void W3DDisplayString::computeExtents()
 	else
 	{
 
+		GX_TRACE("computeExtents: about to Get_Formatted_Text_Extents this=%p len=%u\n", (void*)this, len);
 		Vector2 extents = m_textRenderer.Get_Formatted_Text_Extents(getText().str()); //Get_Text_Extents( getText().str() );
+		GX_TRACE("computeExtents: Get_Formatted_Text_Extents returned this=%p x=%f y=%f\n", (void*)this, extents.X, extents.Y);
 		m_size.x = extents.X;
 		m_size.y = extents.Y;
 
