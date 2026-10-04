@@ -34,7 +34,13 @@ inline double usSince(Clock::time_point t)
 // 16 MB: a heavy frame is ~5000 commands of mostly 32-96 bytes; large payloads (buffer and texture
 // data) are on the heap, so the ring holds several frames with room to spare.
 constexpr size_t kRingBytes = 16u << 20;
-constexpr size_t kAlign = 16;
+// GeneralsX @bugfix Android port 04/10/2026 Every command, and so every gap left before the end of
+// the ring, is a multiple of this -- and the padding that fills such a gap starts with a whole Cmd
+// header. At 16 that held until Cmd gained `where` (24 bytes): a gap of exactly 16 bytes then had
+// its header written 8 bytes past the ring, and the game died in allocCmd on the first page after
+// it (a heavy base-game match, logs of 04/10).
+constexpr size_t kAlign = 32;
+static_assert(sizeof(Cmd) <= kAlign, "the end-of-ring padding header must fit in the smallest gap");
 
 unsigned char *s_ring = nullptr;
 size_t s_allocPos = 0;                  // engine thread: next free byte (monotonic)
