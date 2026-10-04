@@ -38,6 +38,7 @@
 
 #include "GameLogic/Locomotor.h"
 #include "GameLogic/Module/AIUpdate.h"
+#include "GameLogic/Module/DeletionUpdate.h"
 #include "GameLogic/Module/ParachuteContain.h"
 #include "GameLogic/Module/PhysicsUpdate.h"
 #include "GameLogic/Object.h"

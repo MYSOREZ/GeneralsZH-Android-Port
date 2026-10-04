@@ -283,10 +283,13 @@ public class GeneralsZHActivity extends SDLActivity {
         // libmain.so is the 30 Hz engine, libmain60.so the 60 Hz one that can hold
         // lockstep with the Windows client. If the 60 Hz library is somehow missing
         // from the APK, fall back rather than fail to start.
-        String engine = "main";
+        // GeneralsX @feature Android port 04/10/2026 And of which game: libmain*.so is Zero Hour,
+        // libgenerals*.so the base game (SetupActivity.engineLibraries()).
+        final String[] engines = SetupActivity.engineLibraries(this);
+        String engine = engines[0];
         if (SetupActivity.getSimHz(this) == SetupActivity.SIM_HZ_CROSSPLAY
-                && new java.io.File(getApplicationInfo().nativeLibraryDir, "libmain60.so").isFile()) {
-            engine = "main60";
+                && new java.io.File(getApplicationInfo().nativeLibraryDir, "lib" + engines[1] + ".so").isFile()) {
+            engine = engines[1];
         }
         Log.i(TAG, "Loading engine library: lib" + engine + ".so");
         return new String[] {
@@ -309,6 +312,7 @@ public class GeneralsZHActivity extends SDLActivity {
     @Override
     public void loadLibraries() {
         for (String lib : getLibraries()) {
+            // Signed engine updates are Zero Hour's (UpdateManager.ENGINE_LIBS).
             if ("main".equals(lib) || "main60".equals(lib)) {
                 int seq = UpdateManager.activeEngineSeq(this);
                 if (seq > 0 && UpdateManager.noteEngineBoot(this, seq)) {
@@ -363,7 +367,8 @@ public class GeneralsZHActivity extends SDLActivity {
         extractBundledRuntime();
 
         String gamePath = getSavedGamePath();
-        boolean haveCustomPath = gamePath != null && SetupActivity.isValidGameFolder(new File(gamePath));
+        final String game = SetupActivity.getSelectedGame(this);
+        boolean haveCustomPath = gamePath != null && SetupActivity.isValidGameFolder(new File(gamePath), game);
         boolean haveLegacyPath = !haveCustomPath && isValidGameFolder(legacyGameDataDir());
 
         if (!haveCustomPath && !haveLegacyPath) {
@@ -395,6 +400,9 @@ public class GeneralsZHActivity extends SDLActivity {
         // otherwise keep missing fonts/ forever (every button renders with no
         // text; see SetupActivity.copyBundledRuntimeIfMissing for why).
         if (haveCustomPath) {
+            // GeneralsX @feature Android port 04/10/2026 SDL3Main.cpp enters the folder this marker
+            // names: point it at the game about to start.
+            SetupActivity.writeNativeGameMarker(this, gamePath);
             File bundledRoot = getExternalFilesDir(null);
             if (bundledRoot != null) {
                 SetupActivity.copyBundledRuntimeIfMissing(bundledRoot, gamePath);
@@ -491,7 +499,7 @@ public class GeneralsZHActivity extends SDLActivity {
     }
 
     private boolean isValidGameFolder(File dir) {
-        return SetupActivity.isValidGameFolder(dir);
+        return SetupActivity.isValidGameFolder(dir, SetupActivity.getSelectedGame(this));
     }
 
     /**

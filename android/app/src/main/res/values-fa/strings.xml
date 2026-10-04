@@ -6,6 +6,16 @@
     <!-- SetupActivity: title / fallback -->
     <string name="setup_window_title">تنظیمات GeneralsZH</string>
     <string name="setup_title">Command &amp; Conquer Generals: Zero Hour</string>
+    <string name="setup_title_generals">Command &amp; Conquer Generals</string>
+    <string name="setup_card_game">بازی</string>
+    <string name="setup_game_generals">Generals</string>
+    <string name="setup_game_zero_hour">Zero Hour</string>
+    <string name="setup_game_desc">هر بازی پوشه، ذخیره‌ها، نقشه‌ها و فایل تنظیمات خودش را دارد. تنظیمات گرافیک و رابط کاربری برای هر دو مشترک است.</string>
+    <string name="setup_status_folder_invalid_generals">وضعیت: این پوشه INI.big ندارد — پوشهٔ Generals اصلی را انتخاب کنید.\n</string>
+    <string name="setup_status_folder_is_zero_hour">وضعیت: این پوشهٔ Zero Hour است (INIZH.big دارد). Generals به پوشهٔ بازی اصلی نیاز دارد.\n</string>
+    <string name="setup_sim_rate_30_desc_generals">۳۰ هرتز نرخ بازی اصلی است. بازپخش‌های ضبط‌شده روی رایانه با آن پخش می‌شوند.</string>
+    <string name="setup_sim_rate_60_desc_generals">۶۰ هرتز شبیه‌سازی را دو برابر بیشتر محاسبه می‌کند و حرکت نرم‌تر است. کار در هر ثانیه دو برابر می‌شود، پس دستگاه کندتر ممکن است کمتر از سرعت کامل اجرا شود.</string>
+    <string name="setup_folder_issue_generals_incomplete">داده‌های بازی Generals وجود ندارد:%1$s</string>
     <string name="setup_subtitle">تنظیمات اندروید</string>
     <string name="setup_fallback_warning">رابط تنظیمات معمولی بارگذاری نشد (%1$s). یک رابط ساده جایگزین نمایش داده می‌شود تا همچنان بتوانید به گزارش‌ها/پوشه بازی دسترسی داشته باشید.</string>
 

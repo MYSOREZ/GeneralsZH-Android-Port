@@ -6,6 +6,16 @@
     <!-- SetupActivity: title / fallback -->
     <string name="setup_window_title">GeneralsZH Settings</string>
     <string name="setup_title">Command &amp; Conquer Generals: Zero Hour</string>
+    <string name="setup_title_generals">Command &amp; Conquer Generals</string>
+    <string name="setup_card_game">Game</string>
+    <string name="setup_game_generals">Generals</string>
+    <string name="setup_game_zero_hour">Zero Hour</string>
+    <string name="setup_game_desc">Each game has its own folder, saves, maps and settings file. Graphics and interface options apply to both.</string>
+    <string name="setup_status_folder_invalid_generals">Status: this folder does NOT contain INI.big — pick the folder of the original Generals.\n</string>
+    <string name="setup_status_folder_is_zero_hour">Status: this is a Zero Hour folder (it has INIZH.big). Generals needs the folder of the original game.\n</string>
+    <string name="setup_sim_rate_30_desc_generals">30 Hz is the original game\'s rate. Replays recorded on a PC play back on it.</string>
+    <string name="setup_sim_rate_60_desc_generals">60 Hz runs the simulation twice as often, for smoother movement. It doubles the work per second, so a slower device may run below full speed.</string>
+    <string name="setup_folder_issue_generals_incomplete">Generals game data missing:%1$s</string>
     <string name="setup_subtitle">Android Settings</string>
     <string name="setup_fallback_warning">The normal Settings UI failed to load (%1$s). Showing a basic fallback so you can still get to your logs/game folder.</string>
 

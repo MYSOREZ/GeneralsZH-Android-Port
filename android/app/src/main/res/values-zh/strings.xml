@@ -6,6 +6,16 @@
     <!-- SetupActivity: title / fallback -->
     <string name="setup_window_title">GeneralsZH 设置</string>
     <string name="setup_title">Command &amp; Conquer Generals: Zero Hour</string>
+    <string name="setup_title_generals">Command &amp; Conquer Generals</string>
+    <string name="setup_card_game">游戏</string>
+    <string name="setup_game_generals">Generals</string>
+    <string name="setup_game_zero_hour">Zero Hour</string>
+    <string name="setup_game_desc">每个游戏都有自己的文件夹、存档、地图和设置文件。图形和界面设置两个游戏通用。</string>
+    <string name="setup_status_folder_invalid_generals">状态：此文件夹中没有 INI.big — 请选择原版 Generals 的文件夹。\n</string>
+    <string name="setup_status_folder_is_zero_hour">状态：这是 Zero Hour 文件夹（包含 INIZH.big）。Generals 需要原版游戏的文件夹。\n</string>
+    <string name="setup_sim_rate_30_desc_generals">30 Hz 是原版游戏的频率。在 PC 上录制的回放可以用它播放。</string>
+    <string name="setup_sim_rate_60_desc_generals">60 Hz 将模拟计算频率提高一倍，动作更流畅。每秒工作量翻倍，因此较慢的设备可能无法全速运行。</string>
+    <string name="setup_folder_issue_generals_incomplete">缺少 Generals 游戏数据：%1$s</string>
     <string name="setup_subtitle">Android 设置</string>
     <string name="setup_fallback_warning">正常的设置界面加载失败（%1$s）。已显示简化版界面，方便你仍能访问日志或游戏文件夹。</string>
 

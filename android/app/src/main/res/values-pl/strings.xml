@@ -6,6 +6,16 @@
     <!-- SetupActivity: title / fallback -->
     <string name="setup_window_title">Ustawienia GeneralsZH</string>
     <string name="setup_title">Command &amp; Conquer Generals: Zero Hour</string>
+    <string name="setup_title_generals">Command &amp; Conquer Generals</string>
+    <string name="setup_card_game">Gra</string>
+    <string name="setup_game_generals">Generals</string>
+    <string name="setup_game_zero_hour">Zero Hour</string>
+    <string name="setup_game_desc">Każda gra ma własny folder, zapisy, mapy i plik ustawień. Ustawienia grafiki i interfejsu są wspólne.</string>
+    <string name="setup_status_folder_invalid_generals">Status: ten folder NIE zawiera INI.big — wybierz folder oryginalnego Generals.\n</string>
+    <string name="setup_status_folder_is_zero_hour">Status: to folder Zero Hour (zawiera INIZH.big). Generals potrzebuje folderu oryginalnej gry.\n</string>
+    <string name="setup_sim_rate_30_desc_generals">30 Hz to częstotliwość oryginalnej gry. Powtórki nagrane na PC odtwarzają się na niej.</string>
+    <string name="setup_sim_rate_60_desc_generals">60 Hz liczy symulację dwa razy częściej, ruch jest płynniejszy. Podwaja to pracę na sekundę, więc słabsze urządzenie może działać wolniej.</string>
+    <string name="setup_folder_issue_generals_incomplete">Brak danych gry Generals:%1$s</string>
     <string name="setup_subtitle">Ustawienia Android</string>
     <string name="setup_fallback_warning">Nie udało się załadować zwykłego interfejsu ustawień (%1$s). Wyświetlono prosty interfejs zastępczy, abyś nadal mógł dotrzeć do dzienników/folderu gry.</string>
 

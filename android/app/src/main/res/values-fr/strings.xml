@@ -6,6 +6,16 @@
     <!-- SetupActivity: title / fallback -->
     <string name="setup_window_title">Paramètres GeneralsZH</string>
     <string name="setup_title">Command &amp; Conquer Generals: Zero Hour</string>
+    <string name="setup_title_generals">Command &amp; Conquer Generals</string>
+    <string name="setup_card_game">Jeu</string>
+    <string name="setup_game_generals">Generals</string>
+    <string name="setup_game_zero_hour">Zero Hour</string>
+    <string name="setup_game_desc">Chaque jeu a son propre dossier, ses sauvegardes, ses cartes et son fichier de réglages. Les options graphiques et d\'interface valent pour les deux.</string>
+    <string name="setup_status_folder_invalid_generals">État : ce dossier ne contient PAS INI.big — choisissez le dossier du Generals original.\n</string>
+    <string name="setup_status_folder_is_zero_hour">État : c\'est un dossier Zero Hour (il contient INIZH.big). Generals a besoin du dossier du jeu original.\n</string>
+    <string name="setup_sim_rate_30_desc_generals">30 Hz est la fréquence du jeu original. Les replays enregistrés sur PC s\'y relisent.</string>
+    <string name="setup_sim_rate_60_desc_generals">60 Hz calcule la simulation deux fois plus souvent, pour des mouvements plus fluides. Le travail par seconde double, un appareil plus lent peut donc tourner sous la vitesse normale.</string>
+    <string name="setup_folder_issue_generals_incomplete">Données du jeu Generals manquantes :%1$s</string>
     <string name="setup_subtitle">Paramètres Android</string>
     <string name="setup_fallback_warning">L\'interface normale des paramètres n\'a pas pu se charger (%1$s). Une interface de secours simplifiée s\'affiche pour que vous puissiez quand même accéder aux journaux/au dossier du jeu.</string>
 

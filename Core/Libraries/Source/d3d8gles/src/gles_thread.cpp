@@ -10,6 +10,7 @@
 #include <chrono>
 #include <condition_variable>
 #include <cstdio>
+#include <cstring>
 #include <mutex>
 #include <thread>
 #include <vector>
@@ -149,6 +150,12 @@ volatile unsigned s_recentNext = 0;
 volatile pid_t s_workerTid = 0;
 char s_driverRenderer[160];
 char s_driverVersion[160];
+// Written by the engine's thread before it compiles a program and cleared once the link status
+// came back (a synchronous call), so while it is set the render thread is working on exactly it.
+char s_pendingVs[16384];
+char s_pendingFs[16384];
+volatile size_t s_pendingVsLen = 0;
+volatile size_t s_pendingFsLen = 0;
 }
 
 void workerMain()
@@ -310,6 +317,21 @@ void noteDriver(const char *renderer, const char *version)
 {
 	snprintf(s_driverRenderer, sizeof(s_driverRenderer), "%s", renderer ? renderer : "?");
 	snprintf(s_driverVersion, sizeof(s_driverVersion), "%s", version ? version : "?");
+}
+
+void noteProgramSource(const char *vs, size_t vsLen, const char *fs, size_t fsLen)
+{
+	if (vs == nullptr || fs == nullptr) {
+		s_pendingVsLen = s_pendingFsLen = 0;
+		return;
+	}
+	s_pendingVsLen = s_pendingFsLen = 0;
+	vsLen = vsLen < sizeof(s_pendingVs) ? vsLen : sizeof(s_pendingVs);
+	fsLen = fsLen < sizeof(s_pendingFs) ? fsLen : sizeof(s_pendingFs);
+	memcpy(s_pendingVs, vs, vsLen);
+	memcpy(s_pendingFs, fs, fsLen);
+	s_pendingVsLen = vsLen;
+	s_pendingFsLen = fsLen;
 }
 
 void *allocCmd(size_t bytes, uint32_t *rounded)
@@ -600,5 +622,16 @@ extern "C" void d3d8gles_write_crash_context(void (*out)(const char *, size_t), 
 		len = snprintf(buf, sizeof(buf), "  %s\n", w ? w : "(unnamed)");
 		if (len > 0)
 			out(buf, (size_t)len < sizeof(buf) ? (size_t)len : sizeof(buf) - 1);
+	}
+	const size_t vsLen = gxrt::s_pendingVsLen, fsLen = gxrt::s_pendingFsLen;
+	if (vsLen > 0 && fsLen > 0) {
+		static const char kVs[] = "the shader program being compiled/linked at the time -- vertex shader:\n";
+		static const char kFs[] = "\n-- fragment shader:\n";
+		static const char kEnd[] = "\n-- end of program\n";
+		out(kVs, sizeof(kVs) - 1);
+		out(gxrt::s_pendingVs, vsLen);
+		out(kFs, sizeof(kFs) - 1);
+		out(gxrt::s_pendingFs, fsLen);
+		out(kEnd, sizeof(kEnd) - 1);
 	}
 }

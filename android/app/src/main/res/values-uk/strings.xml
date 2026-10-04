@@ -6,6 +6,16 @@
     <!-- SetupActivity: title / fallback -->
     <string name="setup_window_title">Налаштування GeneralsZH</string>
     <string name="setup_title">Command &amp; Conquer Generals: Zero Hour</string>
+    <string name="setup_title_generals">Command &amp; Conquer Generals</string>
+    <string name="setup_card_game">Гра</string>
+    <string name="setup_game_generals">Generals</string>
+    <string name="setup_game_zero_hour">Zero Hour</string>
+    <string name="setup_game_desc">Кожна гра має власну теку, збереження, мапи й файл налаштувань. Налаштування графіки та інтерфейсу спільні.</string>
+    <string name="setup_status_folder_invalid_generals">Статус: у цій теці НЕМАЄ INI.big — оберіть теку оригінальної Generals.\n</string>
+    <string name="setup_status_folder_is_zero_hour">Статус: це тека Zero Hour (у ній є INIZH.big). Для Generals потрібна тека оригінальної гри.\n</string>
+    <string name="setup_sim_rate_30_desc_generals">30 Гц — частота оригінальної гри. На ній відтворюються реплеї, записані на ПК.</string>
+    <string name="setup_sim_rate_60_desc_generals">60 Гц оновлюють симуляцію вдвічі частіше, рух плавніший. Навантаження за секунду подвоюється, тож на слабкому пристрої гра може йти повільніше.</string>
+    <string name="setup_folder_issue_generals_incomplete">Відсутні дані гри Generals:%1$s</string>
     <string name="setup_subtitle">Налаштування Android</string>
     <string name="setup_fallback_warning">Звичайний інтерфейс налаштувань не завантажився (%1$s). Показано спрощений варіант, щоб ви все одно могли відкрити логи чи папку з грою.</string>
 

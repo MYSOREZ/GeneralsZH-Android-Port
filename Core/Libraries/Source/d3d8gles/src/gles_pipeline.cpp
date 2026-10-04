@@ -1411,6 +1411,7 @@ WebGLPipeline::ProgramInfo *WebGLPipeline::getProgram(WebGLDevice *dev, unsigned
 	}
 	GLuint vsh = 0, fsh = 0;
 	if (info->prog == 0) {
+		gxrt::noteProgramSource(vs.data(), vs.size(), fs.data(), fs.size());
 		vsh = compileShader(GL_VERTEX_SHADER, vs);
 		fsh = compileShader(GL_FRAGMENT_SHADER, fs);
 	}
@@ -1433,6 +1434,7 @@ WebGLPipeline::ProgramInfo *WebGLPipeline::getProgram(WebGLDevice *dev, unsigned
 			glDeleteProgram(p);
 			p = 0;
 		}
+		gxrt::noteProgramSource(nullptr, 0, nullptr, 0);
 		info->prog = p;
 		if (p && !m_programCacheDir.empty())
 			saveCachedProgram(sourceHash, p);

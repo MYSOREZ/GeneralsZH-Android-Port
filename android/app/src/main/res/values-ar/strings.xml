@@ -6,6 +6,16 @@
     <!-- SetupActivity: title / fallback -->
     <string name="setup_window_title">إعدادات GeneralsZH</string>
     <string name="setup_title">Command &amp; Conquer Generals: Zero Hour</string>
+    <string name="setup_title_generals">Command &amp; Conquer Generals</string>
+    <string name="setup_card_game">اللعبة</string>
+    <string name="setup_game_generals">Generals</string>
+    <string name="setup_game_zero_hour">Zero Hour</string>
+    <string name="setup_game_desc">لكل لعبة مجلدها وحفظها وخرائطها وملف إعداداتها. إعدادات الرسومات والواجهة مشتركة بين اللعبتين.</string>
+    <string name="setup_status_folder_invalid_generals">الحالة: هذا المجلد لا يحتوي على INI.big — اختر مجلد Generals الأصلية.\n</string>
+    <string name="setup_status_folder_is_zero_hour">الحالة: هذا مجلد Zero Hour (يحتوي على INIZH.big). تحتاج Generals إلى مجلد اللعبة الأصلية.\n</string>
+    <string name="setup_sim_rate_30_desc_generals">30 هرتز هو معدل اللعبة الأصلية. تُعرض عليه الإعادات المسجّلة على الحاسوب.</string>
+    <string name="setup_sim_rate_60_desc_generals">60 هرتز تحسب المحاكاة ضعف المرات لحركة أنعم. يتضاعف العمل في الثانية، لذا قد يعمل الجهاز الأبطأ بأقل من السرعة الكاملة.</string>
+    <string name="setup_folder_issue_generals_incomplete">بيانات لعبة Generals مفقودة:%1$s</string>
     <string name="setup_subtitle">إعدادات أندرويد</string>
     <string name="setup_fallback_warning">فشل تحميل واجهة الإعدادات العادية (%1$s). يتم عرض واجهة بديلة بسيطة حتى تتمكن من الوصول إلى السجلات/مجلد اللعبة.</string>
 

@@ -6,6 +6,16 @@
     <!-- SetupActivity: title / fallback -->
     <string name="setup_window_title">GeneralsZH 설정</string>
     <string name="setup_title">Command &amp; Conquer Generals: Zero Hour</string>
+    <string name="setup_title_generals">Command &amp; Conquer Generals</string>
+    <string name="setup_card_game">게임</string>
+    <string name="setup_game_generals">Generals</string>
+    <string name="setup_game_zero_hour">Zero Hour</string>
+    <string name="setup_game_desc">게임마다 폴더, 저장 파일, 맵, 설정 파일이 따로 있습니다. 그래픽과 인터페이스 설정은 두 게임에 함께 적용됩니다.</string>
+    <string name="setup_status_folder_invalid_generals">상태: 이 폴더에 INI.big이 없습니다 — 오리지널 Generals 폴더를 선택하세요.\n</string>
+    <string name="setup_status_folder_is_zero_hour">상태: Zero Hour 폴더입니다(INIZH.big이 있음). Generals에는 오리지널 게임 폴더가 필요합니다.\n</string>
+    <string name="setup_sim_rate_30_desc_generals">30Hz는 오리지널 게임의 속도입니다. PC에서 녹화한 리플레이가 이 속도로 재생됩니다.</string>
+    <string name="setup_sim_rate_60_desc_generals">60Hz는 시뮬레이션을 두 배 자주 계산해 움직임이 더 부드럽습니다. 초당 작업량이 두 배가 되므로 느린 기기에서는 정상 속도보다 느려질 수 있습니다.</string>
+    <string name="setup_folder_issue_generals_incomplete">Generals 게임 데이터가 없습니다:%1$s</string>
     <string name="setup_subtitle">Android 설정</string>
     <string name="setup_fallback_warning">일반 설정 화면을 불러오지 못했습니다 (%1$s). 로그/게임 폴더에는 계속 접근할 수 있도록 간단한 대체 화면을 표시합니다.</string>
 

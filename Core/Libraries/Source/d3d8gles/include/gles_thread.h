@@ -139,6 +139,10 @@ bool start(SDL_Window *window);
 
 // GeneralsX @feature Android port 04/10/2026 The GL driver's identity, kept for crash reports.
 void noteDriver(const char *renderer, const char *version);
+// GeneralsX @feature Android port 04/10/2026 The shader program being compiled and linked, kept
+// for crash reports: a driver that dies inside glCompileShader/glLinkProgram (issue #35, Mali-G57
+// r32p1) leaves the source that killed it in crash.log. Null clears it once the link answered.
+void noteProgramSource(const char *vs, size_t vsLen, const char *fs, size_t fsLen);
 // Drains the queue, stops the render thread and gives the context back to the engine's thread.
 void stop();
 

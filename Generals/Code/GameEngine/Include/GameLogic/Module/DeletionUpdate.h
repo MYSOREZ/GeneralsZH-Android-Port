@@ -72,6 +72,8 @@ public:
 	// virtual destructor prototype provided by memory pool declaration
 
 	void setLifetimeRange( UnsignedInt minFrames, UnsignedInt maxFrames );
+	// GeneralsX @feature Android port 04/10/2026 Used by ParachuteContain at 60 Hz, as in Zero Hour.
+	void restartLifetime();
 	UnsignedInt getDieFrame() { return m_dieFrame; }
 
 	virtual UpdateSleepTime update() override;
