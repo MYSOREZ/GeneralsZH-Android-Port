@@ -287,6 +287,10 @@ nearly irrelevant: the code on the movement path declares **no doubles at all**
 (`Locomotor.cpp` and `PhysicsUpdate.cpp` have zero). It only bites where a
 float meets a `double` literal, and `PI` is declared `3.14159265359f`.
 
+**Upstream is about to change this (04/10/2026).** TheSuperHackers PR #2670 turns GameMath on by
+default for non-VC6 builds. Taking it as-is breaks cross-play with the PC client; what to do is in
+`docs/WORKDIR/planning/PLAN-024_UPSTREAM_DETERMINISTIC_MATH.md`.
+
 **Deterministic math / fdlibm.** `SAGE_USE_DETERMINISTIC_MATH` is OFF and its
 `wwmath.h` wrappers are `#ifdef` stubs with identical arms. Do not switch it
 on: **the PC client does not use GameMath or fdlibm** (verified by searching

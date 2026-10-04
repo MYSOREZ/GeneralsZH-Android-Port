@@ -281,7 +281,9 @@ git merge thesuperhackers/main
 
 **Conflict resolution**:
 - Platform code (`Core/GameEngineDevice/`): keep ours
-- Game logic (`GeneralsMD/Code/GameEngine/`): keep theirs
+- Game logic (`GeneralsMD/Code/GameEngine/`): keep theirs -- **except the math mode**: TheSuperHackers
+  PR #2670 makes GameMath/fdlibm the default, which breaks cross-play with the GeneralsOnline PC
+  client (VC6/x87). Read `docs/WORKDIR/planning/PLAN-024_UPSTREAM_DETERMINISTIC_MATH.md` first.
 - Build system: merge carefully, test both versions
 
 ## Code Conventions
