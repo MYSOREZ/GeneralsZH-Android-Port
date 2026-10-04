@@ -383,6 +383,9 @@ Bool TurretAI::friend_turnTowardsAngle(Real desiredAngle, Real rateModifier, Rea
 	Real origAngle = getTurretAngle();
 	Real actualAngle = origAngle;
 	Real turnRate = getTurnRate() * rateModifier;
+#if defined(GENERALS_ONLINE_HIGH_FPS_SERVER)
+	turnRate *= 2.f;
+#endif
 	Real angleDiff = normalizeAngle(desiredAngle - actualAngle);
 
 	// Are we close enough to the desired angle to just snap there?
@@ -656,6 +659,12 @@ void TurretAI::friend_notifyStateMachineChanged()
 DECLARE_PERF_TIMER(TurretAI)
 UpdateSleepTime TurretAI::updateTurretAI()
 {
+#if defined(GENERALS_ONLINE_HIGH_FPS_SERVER)
+	if (!TheGameLogic->HasLegacyFrameAdvanced())
+	{
+		return UPDATE_SLEEP_NONE;
+	}
+#endif
 	USE_PERF_TIMER(TurretAI)
 
 #if defined(RTS_DEBUG)
@@ -1346,7 +1355,11 @@ StateReturnType TurretAIIdleScanState::update()
 {
 	//DEBUG_LOG(("TurretAIIdleScanState frame %d: %08lx",TheGameLogic->getFrame(),getTurretAI()->getOwner()));
 
+#if defined(GENERALS_ONLINE_HIGH_FPS_SERVER)
+	Bool angleAligned = getTurretAI()->friend_turnTowardsAngle(getTurretAI()->getNaturalTurretAngle() + m_desiredAngle, 0.5f, 0.5f);
+#else
 	Bool angleAligned = getTurretAI()->friend_turnTowardsAngle(getTurretAI()->getNaturalTurretAngle() + m_desiredAngle, 0.5f, 0.0f);
+#endif
 	Bool pitchAligned = getTurretAI()->friend_turnTowardsPitch(getTurretAI()->getNaturalTurretPitch(), 0.5f);
 
 	if( angleAligned && pitchAligned )

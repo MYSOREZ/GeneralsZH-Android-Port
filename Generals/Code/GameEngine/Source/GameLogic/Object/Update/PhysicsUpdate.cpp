@@ -570,8 +570,17 @@ UpdateSleepTime PhysicsBehavior::update()
 
 		// when vel gets tiny, just clamp to zero
 		const Real THRESH = 0.001f;
+#if defined(GENERALS_ONLINE_HIGH_FPS_SERVER)
+		// Info: At 60Hz, motive acceleration can be smaller than THRESH and must accumulate across frames.
+		if (!isMotive())
+		{
+			if (fabsf(m_vel.x) < THRESH) m_vel.x = 0.0f;
+			if (fabsf(m_vel.y) < THRESH) m_vel.y = 0.0f;
+		}
+#else
 		if (fabsf(m_vel.x) < THRESH) m_vel.x = 0.0f;
 		if (fabsf(m_vel.y) < THRESH) m_vel.y = 0.0f;
+#endif
 		if (fabsf(m_vel.z) < THRESH) m_vel.z = 0.0f;
 
 		m_velMag = INVALID_VEL_MAG;

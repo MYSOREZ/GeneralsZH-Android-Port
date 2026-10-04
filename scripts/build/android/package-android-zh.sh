@@ -64,6 +64,23 @@ if [[ -n "${GX_SECOND_GAME_LIB:-}" ]]; then
     echo "Packaging a second engine: libmain60.so ($(du -h "${GX_SECOND_GAME_LIB}" | cut -f1))"
 fi
 
+# GeneralsX @feature Android port 04/10/2026 The base game, Command & Conquer Generals, in the
+# same APK: libgenerals.so (30 Hz) and, from build-dual-hz.sh, libgenerals60.so. The launcher
+# loads one of the four (GeneralsZHActivity.getLibraries()).
+BASE_GAME_LIB="$(find "${BUILD_DIR}" -name libgenerals.so -not -path "*/_deps/*" 2>/dev/null | head -1)"
+if [[ -n "${BASE_GAME_LIB}" ]]; then
+    cp "${BASE_GAME_LIB}" "${JNILIBS}/libgenerals.so"
+    echo "Packaging the base game: libgenerals.so ($(du -h "${BASE_GAME_LIB}" | cut -f1))"
+fi
+if [[ -n "${GX_SECOND_BASE_GAME_LIB:-}" ]]; then
+    if [[ ! -f "${GX_SECOND_BASE_GAME_LIB}" ]]; then
+        echo "ERROR: GX_SECOND_BASE_GAME_LIB points at a file that does not exist: ${GX_SECOND_BASE_GAME_LIB}"
+        exit 1
+    fi
+    cp "${GX_SECOND_BASE_GAME_LIB}" "${JNILIBS}/libgenerals60.so"
+    echo "Packaging the base game's second engine: libgenerals60.so ($(du -h "${GX_SECOND_BASE_GAME_LIB}" | cut -f1))"
+fi
+
 # Required runtime .so set. Fail loudly on any missing file: a stale or partial
 # stage produces an APK that dies at System.loadLibrary / D3D init.
 declare -a REQUIRED_LIBS=(
