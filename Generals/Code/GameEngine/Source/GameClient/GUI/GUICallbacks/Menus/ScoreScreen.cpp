@@ -174,7 +174,15 @@ void populateSideInfo( UnicodeString side,ScoreGather *sg, Int pos, Color color)
 
 void startNextCampaignGame()
 {
-	TheShell->popImmediate();
+	// GeneralsX @bugfix Android port 04/10/2026 Pop the score screen WITHOUT initializing the main
+	// menu underneath it again. Its init (MainMenuInit) calls showShellMap(TRUE), which exits this
+	// game and queues a MSG_NEW_GAME for the shell map -- before ours, below, and reading the same
+	// m_pendingFile, so it loads the NEXT MISSION in GAME_SHELL mode, main menu on top. Retail then
+	// let our MSG_NEW_GAME replace it; with RETAIL_COMPATIBLE_CRC 0 (as the GeneralsOnline client
+	// builds) GameLogic::onNewGame() refuses a new game while one is running (TheSuperHackers
+	// guard), so the campaign stayed in shell mode: the main and pause menus over mission 2, and a
+	// broken map on "Exit mission". The menu would be shut down by hideShell() right after anyway.
+	TheShell->popImmediate( FALSE );
 	TheShell->hideShell();
 	TheWritableGlobalData->m_pendingFile = TheCampaignManager->getCurrentMap();
 	// send a message to the logic for a new game

@@ -131,7 +131,9 @@ public:
 	// pseudo-stack operations for manipulating layouts
 	void push( AsciiString filename, Bool shutdownImmediate = FALSE );	///< load new screen on top, optionally doing an immediate shutdown
 	void pop();																				///< pop top layout
-	void popImmediate();															///< pop now, don't wait for shutdown
+	// GeneralsX @bugfix Android port 04/10/2026 reinitNewTop FALSE: leaving the shell anyway, so
+	// the screen underneath is not initialized again (see startNextCampaignGame, ScoreScreen.cpp).
+	void popImmediate( Bool reinitNewTop = TRUE );									///< pop now, don't wait for shutdown
 	void showShell( Bool runInit = TRUE );									///< init the top of stack
 	void hideShell();																	///< shutdown the top of stack
 	WindowLayout *top();															///< return top layout
