@@ -153,7 +153,7 @@ public class FolderPickerActivity extends Activity {
 
     private void refresh() {
         pathLabel.setText(currentDir.getAbsolutePath());
-        hintLabel.setText(SetupActivity.isValidGameFolder(currentDir)
+        hintLabel.setText(SetupActivity.isValidGameFolder(currentDir, SetupActivity.getSelectedGame(this))
             ? getString(R.string.folderpicker_hint_valid)
             : getString(R.string.folderpicker_hint_invalid));
 

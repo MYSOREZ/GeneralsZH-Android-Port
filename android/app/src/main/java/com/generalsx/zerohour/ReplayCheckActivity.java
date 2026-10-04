@@ -208,7 +208,7 @@ public class ReplayCheckActivity extends Activity {
     }
 
     private void launch(File replay) {
-        String gamePath = SetupActivity.getSavedGamePath(this);
+        String gamePath = SetupActivity.getSavedGamePath(this, SetupActivity.GAME_ZERO_HOUR);
         if (gamePath == null) {
             Toast.makeText(this, R.string.replaycheck_no_game_folder, Toast.LENGTH_LONG).show();
             return;

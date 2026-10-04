@@ -259,7 +259,7 @@ public class GeneralsOnlineActivity extends Activity {
             refreshDataPackCard();
         });
         dataPackModStatus = UiKit.supporting(card, "");
-        final String gamePath = SetupActivity.getSavedGamePath(this);
+        final String gamePath = SetupActivity.getSavedGamePath(this, SetupActivity.GAME_ZERO_HOUR);
         new Thread(() -> {
             final String mod = DataPackInstaller.findDataMod(gamePath);
             handler.post(() -> {
@@ -583,7 +583,7 @@ public class GeneralsOnlineActivity extends Activity {
     }
 
     private File crossPlayMarkerFile() {
-        String gamePath = SetupActivity.getSavedGamePath(this);
+        String gamePath = SetupActivity.getSavedGamePath(this, SetupActivity.GAME_ZERO_HOUR);
         return gamePath != null ? new File(gamePath, "gx_pc_compat.txt") : null;
     }
 
