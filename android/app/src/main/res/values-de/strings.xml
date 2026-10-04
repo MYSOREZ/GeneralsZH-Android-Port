@@ -355,4 +355,6 @@
     <string name="setup_interface_scale_label">%1$d%%</string>
     <string name="setup_button_apply_interface_scale">Oberflächengröße übernehmen</string>
     <string name="setup_interface_scale_help">Vergrößert die Spieloberfläche, ohne die Spieldateien zu ändern: Die Steuerleiste mit dem Radar wächst vom unteren Rand nach oben, die Leiste der Generalsfähigkeiten, der Chat, die Ereignismeldungen, die Spielerliste, das Spielmenü mit Speichern/Laden und Optionen sowie die Schaltflächen des Hauptmenüs wachsen von ihrer Position aus. Nichts wird aus dem Bildschirm geschoben: Jeder Teil wächst nur so weit, wie er passt, daher wird die Steuerleiste auf einem breiten Handy höher statt breiter und das Schlachtfeld darüber kürzer. Funktioniert zusammen mit der Menü-Textgröße. Wird beim nächsten Spielstart wirksam.</string>
+    <!-- GeneralsX @feature Android port 04/10/2026 Game folder found below the pick -->
+    <string name="setup_toast_folder_found_inside">Das Spiel lag in einem Unterordner; verwendet wird %1$s</string>
 </resources>

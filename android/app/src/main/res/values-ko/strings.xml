@@ -355,4 +355,6 @@
     <string name="setup_interface_scale_label">%1$d%%</string>
     <string name="setup_button_apply_interface_scale">인터페이스 크기 적용</string>
     <string name="setup_interface_scale_help">게임 파일을 건드리지 않고 게임 인터페이스를 키웁니다. 레이더가 있는 하단 컨트롤 바는 화면 아래쪽 가장자리에서 위로 커지고, 장군 능력 바, 채팅, 이벤트 메시지, 플레이어 목록, 저장/불러오기와 옵션이 있는 게임 메뉴, 메인 메뉴 버튼은 각자의 위치에서 커집니다. 화면 밖으로 밀려나는 것은 없습니다. 각 부분은 들어갈 수 있는 만큼만 커지므로, 넓은 휴대폰에서는 컨트롤 바가 넓어지는 대신 높아지고 그 위의 전장은 낮아집니다. 메뉴 글자 크기와 함께 작동합니다. 다음에 게임을 실행할 때 적용됩니다.</string>
+    <!-- GeneralsX @feature Android port 04/10/2026 Game folder found below the pick -->
+    <string name="setup_toast_folder_found_inside">게임이 하위 폴더에 있어 그 폴더를 사용합니다: %1$s</string>
 </resources>

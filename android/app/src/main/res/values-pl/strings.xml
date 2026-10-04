@@ -355,4 +355,6 @@
     <string name="setup_interface_scale_label">%1$d%%</string>
     <string name="setup_button_apply_interface_scale">Zastosuj rozmiar interfejsu</string>
     <string name="setup_interface_scale_help">Powiększa interfejs gry bez zmiany jej plików: pasek dowodzenia z radarem rośnie w górę od dolnej krawędzi, a pasek mocy generała, czat, komunikaty o zdarzeniach, lista graczy, menu gry z zapisem/wczytaniem i opcjami oraz przyciski menu głównego rosną od miejsca, w którym są. Nic nie wychodzi poza ekran: każda część rośnie tylko tyle, ile się zmieści, więc na szerokim telefonie pasek dowodzenia robi się wyższy, a nie szerszy, a pole bitwy nad nim — niższe. Działa razem z rozmiarem tekstu menu. Zadziała przy następnym uruchomieniu gry.</string>
+    <!-- GeneralsX @feature Android port 04/10/2026 Game folder found below the pick -->
+    <string name="setup_toast_folder_found_inside">Gra była w podfolderze; użyto %1$s</string>
 </resources>

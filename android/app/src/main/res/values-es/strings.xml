@@ -355,4 +355,6 @@
     <string name="setup_interface_scale_label">%1$d%%</string>
     <string name="setup_button_apply_interface_scale">Aplicar tamaño de la interfaz</string>
     <string name="setup_interface_scale_help">Agranda la interfaz del juego sin tocar sus archivos: la barra de control con el radar crece hacia arriba desde el borde inferior, y la barra de poderes del general, el chat, los mensajes de eventos, la lista de jugadores, el menú de partida con Guardar/Cargar y Opciones y los botones del menú principal crecen desde donde están. Nada sale de la pantalla: cada parte crece solo lo que cabe, así que en un teléfono ancho la barra de control se hace más alta en vez de más ancha, y el campo de batalla encima, más bajo. Funciona junto con el tamaño del texto del menú. Se aplica la próxima vez que inicies el juego.</string>
+    <!-- GeneralsX @feature Android port 04/10/2026 Game folder found below the pick -->
+    <string name="setup_toast_folder_found_inside">El juego estaba en una subcarpeta; se usa %1$s</string>
 </resources>

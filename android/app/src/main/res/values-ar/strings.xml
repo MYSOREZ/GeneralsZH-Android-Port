@@ -355,4 +355,6 @@
     <string name="setup_interface_scale_label">%1$d%%</string>
     <string name="setup_button_apply_interface_scale">تطبيق حجم الواجهة</string>
     <string name="setup_interface_scale_help">يكبّر واجهة اللعبة دون تعديل ملفاتها: يكبر شريط التحكم مع الرادار صعودًا من الحافة السفلية، وتكبر قدرات الجنرال والدردشة ورسائل الأحداث وقائمة اللاعبين وقائمة اللعب مع الحفظ/التحميل والخيارات وأزرار القائمة الرئيسية من أماكنها. لا يخرج شيء من الشاشة: يكبر كل جزء بقدر ما يتسع فقط، لذا على الهاتف العريض يصبح شريط التحكم أطول بدلًا من أعرض، وتصبح ساحة المعركة فوقه أقصر. يعمل مع حجم نص القائمة. يسري عند تشغيل اللعبة في المرة القادمة.</string>
+    <!-- GeneralsX @feature Android port 04/10/2026 Game folder found below the pick -->
+    <string name="setup_toast_folder_found_inside">اللعبة موجودة في مجلد فرعي؛ تم اختيار: %1$s</string>
 </resources>

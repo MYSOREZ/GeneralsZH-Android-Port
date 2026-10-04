@@ -2795,6 +2795,38 @@ public class SetupActivity extends Activity {
         return getString(R.string.setup_status_folder_invalid_generals);
     }
 
+    // The only game folder within three levels below dir, or null when there is none or more than
+    // one (then the player has to choose). Bounded, because shared storage behind FUSE is slow to list.
+    static File findGameFolderBelow(File dir, String game) {
+        java.util.ArrayDeque<File> queue = new java.util.ArrayDeque<>();
+        java.util.ArrayDeque<Integer> depths = new java.util.ArrayDeque<>();
+        queue.add(dir);
+        depths.add(0);
+        File found = null;
+        int listed = 0;
+        while (!queue.isEmpty() && listed < 300) {
+            File d = queue.poll();
+            int depth = depths.poll();
+            File[] children = d.listFiles(File::isDirectory);
+            listed++;
+            if (children == null) {
+                continue;
+            }
+            for (File c : children) {
+                if (isValidGameFolder(c, game)) {
+                    if (found != null) {
+                        return null;
+                    }
+                    found = c;
+                } else if (depth + 1 < 3 && !c.getName().startsWith(".")) {
+                    queue.add(c);
+                    depths.add(depth + 1);
+                }
+            }
+        }
+        return found;
+    }
+
     static boolean isValidGameFolder(File dir, String game) {
         if (dir == null || !dir.isDirectory()) {
             return false;
@@ -3253,6 +3285,17 @@ public class SetupActivity extends Activity {
         if (requestCode == 1001 && resultCode == Activity.RESULT_OK && data != null) {
             String path = data.getStringExtra(FolderPickerActivity.EXTRA_SELECTED_PATH);
             if (path != null) {
+                // GeneralsX @feature Android port 04/10/2026 A common mistake (4PDA report): picking the
+                // folder the archive was unpacked INTO, while the game sits one or two folders down.
+                // If exactly one folder below the pick is a game folder, take that one.
+                if (!isValidGameFolder(new File(path), getSelectedGame(this))) {
+                    File inside = findGameFolderBelow(new File(path), getSelectedGame(this));
+                    if (inside != null) {
+                        path = inside.getAbsolutePath();
+                        Toast.makeText(this, getString(R.string.setup_toast_folder_found_inside, path),
+                            Toast.LENGTH_LONG).show();
+                    }
+                }
                 saveGamePath(path);
                 refreshStatus();
                 File dir = new File(path);
