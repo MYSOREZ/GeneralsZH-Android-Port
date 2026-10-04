@@ -95,34 +95,6 @@ public class GeneralsZHActivity extends SDLActivity {
         }
     }
 
-    // GeneralsX @feature Android port 04/10/2026 Rooms: the engine's LAN sockets (udp.cpp) send
-    // and receive through the room the launcher joined (RoomSession), when one is active.
-    @SuppressWarnings("unused") // called via JNI
-    public int roomIP() {
-        return RoomSession.INSTANCE.engineIP();
-    }
-
-    @SuppressWarnings("unused") // called via JNI
-    public int roomSend(int srcPort, int dstIP, int dstPort, byte[] data) {
-        return RoomSession.INSTANCE.send(srcPort, dstIP, dstPort, data);
-    }
-
-    @SuppressWarnings("unused") // called via JNI
-    public byte[] roomReceive(int port) {
-        return RoomSession.INSTANCE.receive(port);
-    }
-
-    @SuppressWarnings("unused") // called via JNI
-    public void roomReset(int port) {
-        RoomSession.INSTANCE.reset(port);
-    }
-
-    @Override
-    protected void onDestroy() {
-        RoomSession.INSTANCE.endGame();
-        super.onDestroy();
-    }
-
     // GeneralsX @feature Android port 02/10/2026 The game's text fields are edited in an
     // EditText bar (cursor, selection, copy, paste) -- see TextEditorBar and the engine's
     // AndroidTextEditor.cpp. The engine calls show/hide from its own thread; the bar reports

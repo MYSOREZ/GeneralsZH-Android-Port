@@ -154,12 +154,5 @@ dependencies {
     // WindowInsetsCompat (InsetUtil.java) -- pulled in transitively by
     // Material already, but declared directly since we call its APIs.
     implementation 'androidx.core:core:1.13.1'
-
-    // GeneralsX @feature Android port 04/10/2026 WebSocket client for rooms (RoomSession.java).
-    implementation 'com.squareup.okhttp3:okhttp:4.12.0'
-
-    // GeneralsX @feature Android port 04/10/2026 SSH client for installing a rooms server on the
-    // player's VPS (RoomInstallActivity). The maintained fork of JSch, no other dependencies.
-    implementation 'com.github.mwiede:jsch:0.2.20'
 }
 

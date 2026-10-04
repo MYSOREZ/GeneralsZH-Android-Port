@@ -1272,10 +1272,6 @@ void LANAPI::addPlayer( LANPlayer *player )
 Bool LANAPI::SetLocalIP( UnsignedInt localIP )
 {
 	Bool retval = TRUE;
-	// GeneralsX @feature Android port 04/10/2026 In a room (docs/port/ROOMS_PROTOCOL.md) the
-	// player's address is the room's, whatever interface the menu picked or Options.ini names.
-	if (const UnsignedInt roomIP = UDP::RoomIP())
-		localIP = roomIP;
 	m_localIP = localIP;
 
 	m_transport->reset();

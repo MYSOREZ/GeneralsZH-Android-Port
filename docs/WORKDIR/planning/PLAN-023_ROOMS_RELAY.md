@@ -1,5 +1,16 @@
 # PLAN-023: Rooms — LAN over community relays
 
+> **Status: paused (04/10/2026), code reverted from this repository.** The owner's call, after
+> weighing it: ordinary players need GeneralsOnline working on mobile networks first, and that
+> turned out to be a timing problem in reaching GeneralsOnline's own TURN relay (#37), fixed by
+> the STUN/TURN order in the signed config -- not a missing relay. Rooms would only help once
+> there is a live server, and asked a lot of whoever runs it. What exists, to pick up from:
+> the relay, installer, protocol and self-maintaining server list in
+> https://github.com/MYSOREZ/Generals-Servers (unchanged), and in this repository's history the
+> engine bridge, launcher screens, SSH install/remove (commits 17506c268..3799f17d2; reverted
+> together, so `git revert` of the revert brings them back). If it returns: one server the owner
+> runs as the default, SSH install under "Advanced", and the game opening its LAN screen itself.
+
 Goal: friends play **Network (LAN)** over the internet through a relay, in both games, without
 NAT traversal (issue #37 is the case it ends) and without GeneralsOnline — which also gives the
 original Generals an internet mode. Anyone can run a relay; the list is kept by the community.

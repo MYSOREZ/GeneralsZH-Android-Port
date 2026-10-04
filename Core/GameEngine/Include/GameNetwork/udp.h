@@ -75,11 +75,6 @@ class UDP
   UnsignedInt       myIP;
   UnsignedShort       myPort;
   struct       sockaddr_in  addr;
-#if defined(__ANDROID__)
-  // GeneralsX @feature Android port 04/10/2026 Nonzero while this socket is carried by a room
-  // (docs/port/ROOMS_PROTOCOL.md): the local port it was bound to, and no OS socket behind it.
-  UnsignedShort roomPort;
-#endif
 
  public:
   // These defines specify a system independent way to
@@ -135,11 +130,6 @@ class UDP
   int              GetInputBuffer();
   int              GetOutputBuffer();
 	Int						AllowBroadcasts(Bool status);
-
-  // GeneralsX @feature Android port 04/10/2026 The player's address in the room, 10.240.0.<slot>
-  // (host order), while a room session is active; 0 otherwise and off Android. Sockets bound
-  // while it is nonzero send and receive through the room instead of the network.
-  static UnsignedInt RoomIP();
 };
 
 #ifdef DEBUG_LOGGING
