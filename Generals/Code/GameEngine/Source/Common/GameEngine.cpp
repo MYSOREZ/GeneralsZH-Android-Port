@@ -1500,13 +1500,11 @@ void GameEngine::execute()
 
 			TheFramePacer->update();
 
-			// GeneralsX @build BenderAI 18/02/2026 - Call display step and draw every frame
-			// This was missing, causing only magenta screen (no UI rendering)
-			if (TheDisplay != nullptr)
-			{
-				TheDisplay->step();
-				TheDisplay->draw();
-			}
+			// GeneralsX @bugfix Android port 04/10/2026 No extra display step/draw here: GameClient::update()
+			// already draws each frame (TheDisplay->DRAW()), as in Zero Hour. The extra call, an early
+			// desktop workaround, drew and presented two frames per logic step -- the frame counter read
+			// 398 against a 240 limit, game speed followed the phone's draw rate rather than the Game
+			// Speed slider, and command-bar icons flickered.
 		}
 
 #ifdef PERF_TIMERS
