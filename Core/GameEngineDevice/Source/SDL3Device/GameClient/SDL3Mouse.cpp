@@ -45,6 +45,8 @@
 #if (defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE) || defined(__ANDROID__)
 // GeneralsX @feature Android port 05/10/2026 The touchpad pointer is drawn by the game (draw()).
 #include "Common/GXMouseMode.h"
+#include "GameClient/InGameUI.h"
+#include <math.h>
 #include "GameClient/Image.h"
 #include "WW3D2/surfaceclass.h"
 #include "WW3D2/texture.h"
@@ -655,6 +657,25 @@ void SDL3Mouse::draw()
 	}
 	if (m_currentCursor == NONE) {
 		return;	// the game hides the pointer (movies, cinematics)
+	}
+
+	// GeneralsX @bugfix Android port 05/10/2026 The scroll cursor points where the view moves
+	// (owner: "the arrows always point right"). Nothing set the direction on this platform; this
+	// is W3DMouse::setCursorDirection's rule: frame 0 points right, the rest go clockwise.
+	if (m_currentCursor >= FIRST_CURSOR && m_currentCursor < NUM_MOUSE_CURSORS) {
+		const Int numDirections = m_cursorInfo[m_currentCursor].numDirections;
+		m_directionFrame = 0;
+		if (numDirections > 1 && TheInGameUI != nullptr && TheInGameUI->isScrolling()) {
+			Coord2D offset = TheInGameUI->getScrollAmount();
+			if (offset.x != 0.0f || offset.y != 0.0f) {
+				Real theta = atan2f(offset.y, offset.x);
+				theta = fmodf(theta + PI * 2.0f, PI * 2.0f);
+				m_directionFrame = (Int)(theta / (2.0f * PI / (Real)numDirections) + 0.5f);
+				if (m_directionFrame >= numDirections || m_directionFrame >= MAX_2D_CURSOR_DIRECTIONS) {
+					m_directionFrame = 0;
+				}
+			}
+		}
 	}
 
 	AnimatedCursor *cursor = nullptr;

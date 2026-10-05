@@ -2335,7 +2335,20 @@ void enforceNoPointerScrollWithoutFinger()
 	// there IS a pointer with no finger down, it rests at the edge, and this cancelled every edge
 	// scroll the moment it started (owner's report, twice). The touch state machine is not even
 	// running in that mode, so its phase says nothing.
+	//
+	// GeneralsX @bugfix Android port 05/10/2026 ...but the right-button drag scroll still needs it
+	// there (owner: "some finger combination switches on held-right-button mode and I fly over the
+	// whole map"). The touchpad never holds the right button -- a two-finger tap is a right click,
+	// down and up at once -- yet a right button-up that a translator before LookAtTranslator keeps
+	// for itself (a click on the interface, an order cancelled) leaves SCROLL_RMB latched, and from
+	// then on every pointer move scrolls the camera away from the anchor. With no real right button
+	// down (SDL's own mouse state; the touchpad's events never enter it) it cannot be legitimate.
 	if (GXMouseModeEnabled()) {
+		if (TheLookAtTranslator->isRightButtonScrollActive() &&
+		    (SDL_GetMouseState(nullptr, nullptr) & SDL_BUTTON_RMASK) == 0) {
+			fprintf(stderr, "[gxtouch] cancelling a right-button scroll with no right button down\n");
+			TheLookAtTranslator->cancelScrolling();
+		}
 		return;
 	}
 	const Bool noFinger = (s_touch.phase == TouchState::IDLE || s_touch.phase == TouchState::MOMENTUM);

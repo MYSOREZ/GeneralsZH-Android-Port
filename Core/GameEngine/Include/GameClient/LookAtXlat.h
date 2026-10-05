@@ -86,6 +86,11 @@ public:
 	{
 		return m_isScrolling && (m_scrollType == SCROLL_RMB || m_scrollType == SCROLL_SCREENEDGE);
 	}
+	// GeneralsX @bugfix Android port 05/10/2026 The right-button drag scroll alone (touchpad mode).
+	Bool isRightButtonScrollActive() const
+	{
+		return m_isScrolling && m_scrollType == SCROLL_RMB;
+	}
 
 private:
 	enum
