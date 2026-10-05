@@ -753,6 +753,14 @@ int main(int argc, char* argv[])
 				}
 			}
 		}
+		// GeneralsX @bugfix Android port 05/10/2026 Issue #36: where the launcher always unpacks the
+		// bundled fonts, for when they could not be copied into the game folder
+		// (render2dsentence.cpp, Locate_Font_FontConfig).
+		if (externalPath != nullptr) {
+			char fontsDir[1024];
+			snprintf(fontsDir, sizeof(fontsDir), "%s/fonts", externalPath);
+			setenv("GENERALSX_BUNDLED_FONTS_DIR", fontsDir, 1);
+		}
 		if (cachePath != nullptr) {
 			// DXVK shader cache: regenerable, belongs in the OS-purgeable dir.
 			// Must be set before the d3d8 .so loads.

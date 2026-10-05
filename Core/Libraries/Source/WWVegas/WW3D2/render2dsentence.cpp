@@ -2524,20 +2524,34 @@ FontCharsClass::Locate_Font_FontConfig (const char *font_name)
 	}
 	normalized[n] = '\0';
 
+	// GeneralsX @bugfix Android port 05/10/2026 Issue #36: a second place to look. The launcher
+	// copies the bundled fonts into the game folder, and that copy fails silently when the
+	// folder cannot be written (Android 16 custom ROM: no fonts/ folder, every label blank). The
+	// app's own external files dir always holds them -- the launcher unpacks the APK's copies
+	// there on every start, no permission needed -- and SDL3Main.cpp names it in
+	// GENERALSX_BUNDLED_FONTS_DIR. The game folder is still searched first, so a player's own
+	// replacement font keeps winning.
+	const char *roots[2] = { "fonts", getenv( "GENERALSX_BUNDLED_FONTS_DIR" ) };
 	static const char *extensions[] = { ".ttf", ".otf", ".ttc" };
-	char candidate[256];
-	for ( size_t i = 0; i < sizeof(extensions) / sizeof(extensions[0]); ++i ) {
-		snprintf( candidate, sizeof(candidate), "fonts/%s%s", normalized, extensions[i] );
+	char candidate[512];
+	for ( size_t r = 0; r < sizeof(roots) / sizeof(roots[0]); ++r ) {
+		if ( roots[r] == nullptr || roots[r][0] == '\0' ) {
+			continue;
+		}
+		for ( size_t i = 0; i < sizeof(extensions) / sizeof(extensions[0]); ++i ) {
+			snprintf( candidate, sizeof(candidate), "%s/%s%s", roots[r], normalized, extensions[i] );
+			if ( access( candidate, R_OK ) == 0 ) {
+				FreetypeFontPath = candidate;
+				return FreetypeFontPath;
+			}
+		}
+
+		// Fall back to the Arial-equivalent face shipped with the app
+		snprintf( candidate, sizeof(candidate), "%s/arial.ttf", roots[r] );
 		if ( access( candidate, R_OK ) == 0 ) {
 			FreetypeFontPath = candidate;
 			return FreetypeFontPath;
 		}
-	}
-
-	// Fall back to the Arial-equivalent face shipped with the app
-	if ( access( "fonts/arial.ttf", R_OK ) == 0 ) {
-		FreetypeFontPath = "fonts/arial.ttf";
-		return FreetypeFontPath;
 	}
 
 	return nullptr;
