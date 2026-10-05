@@ -23,8 +23,10 @@ label is a string the game can no longer find.
 A few labels exist in no original `generals.csf`, because the GeneralsX port added the
 things they name: the Steam release's "Custom Mission" button (`GUI:CustomMission`) and the
 touch force-attack button (`GX:ForceAttack`, `GX:ToolTipForceAttack`), and the page arrows
-on a builder's command bar (`GX:BuilderPageMore`, `GX:ToolTipBuilderPageMore`,
-`GX:BuilderPageBack`, `GX:ToolTipBuilderPageBack`), and two GeneralsOnline buttons
+on a command bar (`GX:BuilderPageMore`, `GX:ToolTipBuilderPageMore`,
+`GX:BuilderPageBack`, `GX:ToolTipBuilderPageBack` -- on any bar without room since 05/10/2026),
+the scatter and formation buttons (`GX:Scatter`, `GX:ToolTipScatter`, `GX:Formation`,
+`GX:ToolTipFormation`), and two GeneralsOnline buttons
 (`GX:ViewMatchOnline` on the score screen, `GX:Logout` in the player info). They are translated
 in the pack like everything else -- see the end of `russian/generals.str`. Their English
 text is built into the engine, so a game without a pack, or a pack that does not have them

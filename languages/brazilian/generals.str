@@ -25710,7 +25710,7 @@ GX:ForceAttack
 END
 
 GX:ToolTipForceAttack
-"Ataca o próximo alvo que você tocar, até suas próprias unidades ou o chão vazio"
+"Ataca tudo o que você tocar, até suas próprias unidades ou o chão vazio, até você apertar este botão de novo"
 END
 
 GX:BuilderPageMore
@@ -25718,15 +25718,31 @@ GX:BuilderPageMore
 END
 
 GX:ToolTipBuilderPageMore
-"Mostrar as ordens deste construtor, como os pontos de rota"
+"Mostrar mais ordens: forçar ataque, pontos de rota, dispersar, formação"
 END
 
 GX:BuilderPageBack
-"Estruturas"
+"Voltar"
 END
 
 GX:ToolTipBuilderPageBack
-"Voltar à lista de estruturas"
+"Voltar aos botões desta unidade"
+END
+
+GX:Scatter
+"Dispersar"
+END
+
+GX:ToolTipScatter
+"As unidades selecionadas se espalham a partir do centro, longe da artilharia e das bombas"
+END
+
+GX:Formation
+"Formação"
+END
+
+GX:ToolTipFormation
+"As unidades selecionadas mantêm suas posições e se movem juntas na velocidade da mais lenta. Aperte de novo para desfazer a formação"
 END
 
 GUI:LoadReplayLong

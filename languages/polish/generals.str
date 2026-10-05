@@ -25710,7 +25710,7 @@ GX:ForceAttack
 END
 
 GX:ToolTipForceAttack
-"Atakuj następny dotknięty cel, nawet własne jednostki lub pusty teren"
+"Atakuj wszystko, czego dotkniesz, nawet własne jednostki lub pusty teren, dopóki ponownie nie naciśniesz tego przycisku"
 END
 
 GX:BuilderPageMore
@@ -25718,15 +25718,31 @@ GX:BuilderPageMore
 END
 
 GX:ToolTipBuilderPageMore
-"Pokaż rozkazy tego budowniczego, np. punkty trasy"
+"Pokaż więcej rozkazów: wymuszony atak, punkty trasy, rozproszenie, szyk"
 END
 
 GX:BuilderPageBack
-"Budynki"
+"Wstecz"
 END
 
 GX:ToolTipBuilderPageBack
-"Powrót do listy budynków"
+"Wróć do przycisków tej jednostki"
+END
+
+GX:Scatter
+"Rozproszenie"
+END
+
+GX:ToolTipScatter
+"Wybrane jednostki rozbiegają się od środka grupy, z dala od artylerii i bomb"
+END
+
+GX:Formation
+"Szyk"
+END
+
+GX:ToolTipFormation
+"Wybrane jednostki trzymają swoje miejsca i poruszają się razem z prędkością najwolniejszej. Naciśnij ponownie, aby rozbić szyk"
 END
 
 GUI:LoadReplayLong

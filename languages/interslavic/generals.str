@@ -25712,7 +25712,7 @@ GX:ForceAttack
 END
 
 GX:ToolTipForceAttack
-"Napadni sleduješi objekt, na kotory kliknete, daže vaše vlastne jedinice ili prazdnu zemju"
+"Napadaj vse, čego se dotknete, daže vaše vlastne jedinice ili prazdnu zemju, dokolě ne nažmete toj gumb opęt"
 END
 
 GX:BuilderPageMore
@@ -25720,15 +25720,31 @@ GX:BuilderPageMore
 END
 
 GX:ToolTipBuilderPageMore
-"Pokazati prikazy tutogo graditelja, napriměr točky puti"
+"Pokaži drugi prikazy: prinudny napad, točky puti, rasprųžiti se, stroj"
 END
 
 GX:BuilderPageBack
-"Zgrady"
+"Nazad"
 END
 
 GX:ToolTipBuilderPageBack
-"Vråtiti se k spisku zgrad"
+"Vrati se k gumbam toj jedinice"
+END
+
+GX:Scatter
+"Rasprųžiti se"
+END
+
+GX:ToolTipScatter
+"Izbrane jedinice razbegajųt se od srědiny grupy, dalje od artilerije i bomb"
+END
+
+GX:Formation
+"Stroj"
+END
+
+GX:ToolTipFormation
+"Izbrane jedinice drže svoje města i dvigajųt se vkupě s bystrostjų najpomalějšej. Nažmite opęt, da by razbiti stroj"
 END
 
 GUI:LoadReplayLong

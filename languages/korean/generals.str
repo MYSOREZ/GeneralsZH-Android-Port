@@ -25710,7 +25710,7 @@ GX:ForceAttack
 END
 
 GX:ToolTipForceAttack
-"다음에 탭하는 목표를 공격합니다. 아군 유닛이나 빈 땅도 공격합니다"
+"이 버튼을 다시 누를 때까지 탭하는 모든 대상을 공격합니다. 아군 유닛이나 빈 땅도 공격합니다"
 END
 
 GX:BuilderPageMore
@@ -25718,15 +25718,31 @@ GX:BuilderPageMore
 END
 
 GX:ToolTipBuilderPageMore
-"이 건설 유닛의 명령(예: 경유지)을 표시합니다"
+"추가 명령 보기: 강제 공격, 경유지, 분산, 대형"
 END
 
 GX:BuilderPageBack
-"건물"
+"뒤로"
 END
 
 GX:ToolTipBuilderPageBack
-"건물 목록으로 돌아갑니다"
+"이 유닛의 버튼으로 돌아갑니다"
+END
+
+GX:Scatter
+"분산"
+END
+
+GX:ToolTipScatter
+"선택한 유닛들이 중심에서 흩어져 포격과 폭격을 피합니다"
+END
+
+GX:Formation
+"대형"
+END
+
+GX:ToolTipFormation
+"선택한 유닛들이 자리를 유지하며 가장 느린 유닛의 속도로 함께 이동합니다. 다시 누르면 대형이 해제됩니다"
 END
 
 GUI:LoadReplayLong

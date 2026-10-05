@@ -25709,7 +25709,7 @@ GX:ForceAttack
 END
 
 GX:ToolTipForceAttack
-"Attaque la prochaine cible que vous touchez, même vos propres unités ou un terrain vide"
+"Attaque tout ce que vous touchez, même vos propres unités ou un terrain vide, jusqu'à ce que vous appuyiez de nouveau sur ce bouton"
 END
 
 GX:BuilderPageMore
@@ -25717,15 +25717,31 @@ GX:BuilderPageMore
 END
 
 GX:ToolTipBuilderPageMore
-"Afficher les ordres de ce constructeur, comme les points de passage"
+"Afficher d'autres ordres : attaque forcée, points de passage, dispersion, formation"
 END
 
 GX:BuilderPageBack
-"Bâtiments"
+"Retour"
 END
 
 GX:ToolTipBuilderPageBack
-"Retour à la liste des bâtiments"
+"Revenir aux boutons de cette unité"
+END
+
+GX:Scatter
+"Dispersion"
+END
+
+GX:ToolTipScatter
+"Les unités sélectionnées s'écartent de leur centre, loin de l'artillerie et des bombes"
+END
+
+GX:Formation
+"Formation"
+END
+
+GX:ToolTipFormation
+"Les unités sélectionnées gardent leur place et avancent ensemble à la vitesse de la plus lente. Appuyez de nouveau pour rompre la formation"
 END
 
 GUI:LoadReplayLong

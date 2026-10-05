@@ -25710,7 +25710,7 @@ GX:ForceAttack
 END
 
 GX:ToolTipForceAttack
-"هاجم الهدف التالي الذي تلمسه، حتى لو كان وحداتك أو أرضًا فارغة"
+"هاجم كل ما تلمسه، حتى وحداتك أو أرضًا فارغة، إلى أن تضغط هذا الزر مرة أخرى"
 END
 
 GX:BuilderPageMore
@@ -25718,15 +25718,31 @@ GX:BuilderPageMore
 END
 
 GX:ToolTipBuilderPageMore
-"عرض أوامر وحدة البناء هذه، مثل نقاط المسار"
+"عرض أوامر أخرى: هجوم إجباري، نقاط المسار، تفرّق، تشكيل"
 END
 
 GX:BuilderPageBack
-"المباني"
+"رجوع"
 END
 
 GX:ToolTipBuilderPageBack
-"العودة إلى قائمة المباني"
+"العودة إلى أزرار هذه الوحدة"
+END
+
+GX:Scatter
+"تفرّق"
+END
+
+GX:ToolTipScatter
+"تتفرّق الوحدات المحددة من مركزها بعيدًا عن المدفعية والقنابل"
+END
+
+GX:Formation
+"تشكيل"
+END
+
+GX:ToolTipFormation
+"تحافظ الوحدات المحددة على مواقعها وتتحرك معًا بسرعة أبطئها. اضغط مرة أخرى لفك التشكيل"
 END
 
 GUI:LoadReplayLong

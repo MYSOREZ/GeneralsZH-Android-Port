@@ -25709,7 +25709,7 @@ GX:ForceAttack
 END
 
 GX:ToolTipForceAttack
-"Das nächste angetippte Ziel angreifen, auch eigene Einheiten oder leeren Boden"
+"Alles angreifen, was Sie antippen, auch eigene Einheiten oder leeren Boden, bis Sie diese Schaltfläche erneut drücken"
 END
 
 GX:BuilderPageMore
@@ -25717,15 +25717,31 @@ GX:BuilderPageMore
 END
 
 GX:ToolTipBuilderPageMore
-"Befehle dieses Bautrupps anzeigen, etwa Wegpunkte"
+"Weitere Befehle anzeigen: Angriff erzwingen, Wegpunkte, Zerstreuen, Formation"
 END
 
 GX:BuilderPageBack
-"Gebäude"
+"Zurück"
 END
 
 GX:ToolTipBuilderPageBack
-"Zurück zur Gebäudeliste"
+"Zurück zu den Schaltflächen dieser Einheit"
+END
+
+GX:Scatter
+"Zerstreuen"
+END
+
+GX:ToolTipScatter
+"Die ausgewählten Einheiten verteilen sich von ihrer Mitte aus, weg von Artillerie und Bomben"
+END
+
+GX:Formation
+"Formation"
+END
+
+GX:ToolTipFormation
+"Die ausgewählten Einheiten halten ihre Plätze und bewegen sich gemeinsam im Tempo der langsamsten. Erneut drücken, um die Formation aufzulösen"
 END
 
 GUI:LoadReplayLong

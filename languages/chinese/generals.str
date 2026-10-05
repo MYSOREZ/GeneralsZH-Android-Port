@@ -25710,7 +25710,7 @@ GX:ForceAttack
 END
 
 GX:ToolTipForceAttack
-"攻击你点击的下一个目标，即使是你自己的单位或空地"
+"攻击你点击的任何目标，即使是你自己的单位或空地，直到再次按下此按钮"
 END
 
 GX:BuilderPageMore
@@ -25718,15 +25718,31 @@ GX:BuilderPageMore
 END
 
 GX:ToolTipBuilderPageMore
-"显示此建造单位的命令，例如路径点"
+"显示更多命令：强制攻击、路径点、散开、编队"
 END
 
 GX:BuilderPageBack
-"建筑"
+"返回"
 END
 
 GX:ToolTipBuilderPageBack
-"返回建筑列表"
+"返回此单位自己的按钮"
+END
+
+GX:Scatter
+"散开"
+END
+
+GX:ToolTipScatter
+"选中的单位从中心向四周散开，躲避炮击和轰炸"
+END
+
+GX:Formation
+"编队"
+END
+
+GX:ToolTipFormation
+"选中的单位保持各自位置，以最慢单位的速度一起移动。再按一次解散编队"
 END
 
 GUI:LoadReplayLong
