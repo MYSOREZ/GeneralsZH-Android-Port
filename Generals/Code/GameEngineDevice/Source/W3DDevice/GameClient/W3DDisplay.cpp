@@ -115,6 +115,7 @@ static void drawFramerateBar();
 #include "WW3D2/rddesc.h"
 #include "WW3D2/surfaceclass.h"
 #include "WW3D2/texture.h"
+#include "W3DDevice/GameClient/W3DTouchButtonImages.h"
 #include "TARGA.h"
 
 #include "GameLogic/ScriptEngine.h"		// For TheScriptEngine - jkmcd
@@ -860,173 +861,6 @@ void W3DDisplay::init2DScene()
 
 }
 
-// registerBuilderPageImages ==================================================
-/** GeneralsX @feature Android port 27/09/2026 The two arrows of a builder's command-bar pages
-	(ControlBar::addBuilderPageButtons): a cyan triangle pointing down ("more orders") and one
-	pointing up ("back to structures") on the dark steel of a command button.
-
-	The game has arrows of that style only as 14x7 scroll-bar pieces, which turn into a smear
-	when a 60x48 button stretches them, and shipping a texture would mean writing into the
-	player's game folder. So the pictures are drawn here, once, into textures that belong to
-	the display -- the way W3DRadar builds its images -- and registered in the mapped-image
-	collection under GXBuilderPageMore / GXBuilderPageBack, where the control bar finds them by
-	name like any other button picture. Drawn with 4x4 supersampling so the edges stay smooth
-	at the ~2.3x scale a command button is shown at on a phone. */
-//=============================================================================
-static void registerBuilderPageImages()
-{
-	if( TheMappedImageCollection == nullptr )
-		return;
-
-	enum { TEX = 64, CELL_W = 60, CELL_H = 48, SS = 4 };
-
-	struct Tri { Real x[ 3 ]; Real y[ 3 ]; };
-	// Signed distance of (px,py) to edge a->b, positive on the triangle's inner side.
-	struct EdgeFn
-	{
-		static Real dist( Real ax, Real ay, Real bx, Real by, Real px, Real py, Real sign )
-		{
-			const Real ex = bx - ax, ey = by - ay;
-			const Real len = sqrtf( ex * ex + ey * ey );
-			return sign * ( ( px - ax ) * ey - ( py - ay ) * ex ) / len;
-		}
-	};
-
-	for( Int pass = 0; pass < 2; ++pass )
-	{
-		const Bool pointsDown = ( pass == 0 );
-		const char *name = pointsDown ? "GXBuilderPageMore" : "GXBuilderPageBack";
-		if( TheMappedImageCollection->findImageByName( name ) != nullptr )
-			continue;
-
-		Tri tri;
-		const Real cx = 30.0f, top = 9.0f, bottom = 39.0f, half = 17.0f;
-		if( pointsDown )
-		{
-			tri.x[ 0 ] = cx;        tri.y[ 0 ] = bottom;
-			tri.x[ 1 ] = cx - half; tri.y[ 1 ] = top;
-			tri.x[ 2 ] = cx + half; tri.y[ 2 ] = top;
-		}
-		else
-		{
-			tri.x[ 0 ] = cx;        tri.y[ 0 ] = top;
-			tri.x[ 1 ] = cx - half; tri.y[ 1 ] = bottom;
-			tri.x[ 2 ] = cx + half; tri.y[ 2 ] = bottom;
-		}
-		// Winding sign so that "inside" is positive for all three edges.
-		const Real area = ( tri.x[ 1 ] - tri.x[ 0 ] ) * ( tri.y[ 2 ] - tri.y[ 0 ] ) - ( tri.y[ 1 ] - tri.y[ 0 ] ) * ( tri.x[ 2 ] - tri.x[ 0 ] );
-		const Real sign = area > 0 ? -1.0f : 1.0f;
-
-		// How far inside the triangle, shifted by (dx,dy); negative outside.
-		auto inside = [&]( Real px, Real py, Real dx, Real dy ) -> Real
-		{
-			Real d = 1e9f;
-			for( Int e = 0; e < 3; ++e )
-			{
-				const Int n = ( e + 1 ) % 3;
-				d = min( d, EdgeFn::dist( tri.x[ e ] + dx, tri.y[ e ] + dy, tri.x[ n ] + dx, tri.y[ n ] + dy, px, py, sign ) );
-			}
-			return d;
-		};
-
-		TextureClass *texture = MSGNEW("TextureClass") TextureClass( TEX, TEX, WW3D_FORMAT_A8R8G8B8, MIP_LEVELS_1 );
-		SurfaceClass *surface = texture ? texture->Get_Surface_Level() : nullptr;
-		if( surface == nullptr || surface->Get_Bytes_Per_Pixel() != 4 )
-		{
-			fprintf( stderr, "[touchmodes] could not create the %s texture\n", name );
-			REF_PTR_RELEASE( surface );
-			REF_PTR_RELEASE( texture );
-			continue;
-		}
-
-		int pitch = 0;
-		UnsignedByte *bits = (UnsignedByte *)surface->Lock( &pitch );
-		if( bits == nullptr )
-		{
-			REF_PTR_RELEASE( surface );
-			REF_PTR_RELEASE( texture );
-			continue;
-		}
-
-		for( Int y = 0; y < TEX; ++y )
-		{
-			UnsignedInt *row = (UnsignedInt *)( bits + y * pitch );
-			for( Int x = 0; x < TEX; ++x )
-			{
-				if( x >= CELL_W || y >= CELL_H )
-				{
-					row[ x ] = 0;
-					continue;
-				}
-				Real r = 0, g = 0, b = 0;
-				for( Int sy = 0; sy < SS; ++sy )
-				{
-					for( Int sx = 0; sx < SS; ++sx )
-					{
-						const Real px = x + ( sx + 0.5f ) / SS;
-						const Real py = y + ( sy + 0.5f ) / SS;
-
-						// steel background, lighter at the top
-						const Real shade = 62.0f - 34.0f * py / CELL_H;
-						Real cr = shade - 22.0f, cg = shade - 8.0f, cb = shade + 30.0f;
-
-						// drop shadow
-						if( inside( px, py, 2.0f, 2.0f ) >= 0 )
-						{
-							const Real a = 170.0f / 255.0f;
-							cr *= 1 - a; cg *= 1 - a; cb *= 1 - a;
-						}
-
-						// arrow: dark rim one pixel wide, cyan fill
-						const Real d = inside( px, py, 0, 0 );
-						if( d >= 1.0f )
-						{
-							cr = 90; cg = 215; cb = 255;
-						}
-						else if( d >= 0 )
-						{
-							cr = 30; cg = 110; cb = 170;
-						}
-
-						// button frame
-						if( px < 1.0f || py < 1.0f || px >= CELL_W - 1.0f || py >= CELL_H - 1.0f )
-						{
-							cr = 120; cg = 140; cb = 190;
-						}
-
-						r += cr; g += cg; b += cb;
-					}
-				}
-				const Real n = (Real)( SS * SS );
-				const UnsignedInt R = (UnsignedInt)clamp( 0.0f, r / n, 255.0f );
-				const UnsignedInt G = (UnsignedInt)clamp( 0.0f, g / n, 255.0f );
-				const UnsignedInt B = (UnsignedInt)clamp( 0.0f, b / n, 255.0f );
-				row[ x ] = 0xFF000000u | ( R << 16 ) | ( G << 8 ) | B;
-			}
-		}
-		surface->Unlock();
-		REF_PTR_RELEASE( surface );
-
-		Image *image = newInstance(Image);
-		image->setName( name );
-		image->setStatus( IMAGE_STATUS_RAW_TEXTURE );
-		image->setRawTextureData( texture );	// the image keeps the reference
-		Region2D uv;
-		uv.lo.x = 0.0f;
-		uv.lo.y = 0.0f;
-		uv.hi.x = (Real)CELL_W / TEX;
-		uv.hi.y = (Real)CELL_H / TEX;
-		image->setUV( &uv );
-		image->setTextureWidth( TEX );
-		image->setTextureHeight( TEX );
-		ICoord2D size;
-		size.x = CELL_W;
-		size.y = CELL_H;
-		image->setImageSize( &size );
-		TheMappedImageCollection->addImage( image );
-	}
-}
-
 // W3DDisplay::init ===========================================================
 /** Initialize or re-initialize the W3D display system.  Here we need to
   * create our window, and get our 3D hardware setup and online */
@@ -1291,7 +1125,7 @@ void W3DDisplay::init()
 
 		DX8WebBrowser::Initialize();
 
-		registerBuilderPageImages();
+		W3DRegisterTouchButtonImages();
 	}
 
 	// we're now online

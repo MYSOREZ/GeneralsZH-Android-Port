@@ -179,9 +179,11 @@ namespace
 		A mouse player force-attacks by clicking with Ctrl held, and CommandXlat answers that
 		click with evaluateForceAttack() instead of evaluateContextCommand()
 		(CommandXlat.cpp, the MSG_MOUSE_RIGHT_CLICK case) -- which is what lets the target be
-		your own unit or bare ground. Do exactly that, with the same pick. Then disarm: the
-		button arms one order, as asked for in the issue, where Ctrl stays down only as long as
-		the key is held.
+		your own unit or bare ground. Do exactly that, with the same pick.
+
+		GeneralsX @tweak Android port 05/10/2026 The mode stays on after the order -- the issue's
+		author asked for a mode, so artillery can be aimed shot after shot -- the way Ctrl stays
+		down for as long as the key is held. The button or cancelOrDeselect() turns it off.
 
 		Returns FALSE when the mode is not armed, or armed with nothing controllable selected --
 		then there is nothing to order, the mode is dropped, and the tap is an ordinary one.
@@ -202,7 +204,6 @@ namespace
 				TheTacticalView->screenToTerrain(&pixel, &pos))
 		{
 			TheGameClient->evaluateForceAttack(pickForOrder(pixel), &pos, CommandTranslator::DO_COMMAND);
-			TheInGameUI->setForceAttackMode(FALSE);
 		}
 		// Off the terrain: keep the mode armed, the player simply missed the map.
 		return TRUE;
@@ -493,14 +494,14 @@ namespace TouchInput
 			return;
 		}
 
-		// GeneralsX @feature Android port 24/09/2026 The touch modifier modes (issue #25) are a
-		// commitment of the same kind: back out of them before touching the selection.
-		if (TheInGameUI->isInForceAttackMode() || TheInGameUI->isInWaypointMode())
-		{
-			TheInGameUI->setForceAttackMode(FALSE);
-			TheInGameUI->setWaypointMode(FALSE);
-			return;
-		}
+		// GeneralsX @feature Android port 24/09/2026 The touch modifier modes (issue #25) end here.
+		// GeneralsX @tweak Android port 05/10/2026 Together with the selection, in one gesture: the
+		// issue's author had to cancel twice to let go of a unit after giving it waypoints, once
+		// for the mode and once for the selection. A mode is a way of giving orders to the
+		// selection, so it has no use once the selection is gone; to leave the mode and keep the
+		// units, press the lit button.
+		TheInGameUI->setForceAttackMode(FALSE);
+		TheInGameUI->setWaypointMode(FALSE);
 
 		if (TheInGameUI->getPendingPlaceSourceObjectID() != INVALID_ID)
 		{

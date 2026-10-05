@@ -908,9 +908,11 @@ ControlBar::ControlBar()
 	m_touchHoldPoint.x = m_touchHoldPoint.y = 0;
 	m_touchForceAttackButton = nullptr;
 	m_touchWaypointButton = nullptr;
+	m_touchScatterButton = nullptr;
+	m_touchFormationButton = nullptr;
 	m_touchBuilderMoreButton = nullptr;
 	m_touchBuilderBackButton = nullptr;
-	m_builderPageObject = INVALID_ID;
+	m_orderPageObject = INVALID_ID;
 
 	m_animateDownWin1Pos.x = m_animateDownWin1Pos.y = 0;
 	m_animateDownWin1Size.x = m_animateDownWin1Size.y = 0;
@@ -2558,7 +2560,7 @@ void ControlBar::switchToContext( ControlBarContext context, Drawable *draw )
 
 			// fill the specific UI info
 			populateMultiSelect();
-			addTouchModeButtons( nullptr );
+			addTouchOrderButtons( nullptr );
 
 			break;
 
@@ -2791,11 +2793,27 @@ void ControlBar::initTouchModeButtons()
 		m_touchWaypointButton = nullptr;
 	}
 
-	// GeneralsX @feature Android port 27/09/2026 The page arrows on a builder's bar
-	// (addBuilderPageButtons): a cyan down arrow for "more orders", an up arrow for "back".
-	// Both pictures are drawn by the display at startup (W3DDisplay.cpp,
-	// registerBuilderPageImages); should that ever fail, SUFakeToggle -- the GLA worker's own
-	// "other page" arrow -- stands in for both.
+	// GeneralsX @feature Android port 05/10/2026 Scatter and formation (issue #25). The game has
+	// no art for either, so the display draws both at startup (W3DTouchButtonImages.cpp); the
+	// strings are GameText.cpp's GX: defaults. A missing picture means no button, as above.
+	CommandButton *scatter = newCommandButton( "GX_Command_TouchScatter" );
+	scatter->initTouchModeButton( GUI_COMMAND_GX_SCATTER, "GX:Scatter", "GX:ToolTipScatter", "GXScatter" );
+	if( scatter->getButtonImage() != nullptr )
+		m_touchScatterButton = scatter;
+	else
+		fprintf(stderr, "[touchmodes] GXScatter image missing; no scatter button\n");
+
+	CommandButton *formation = newCommandButton( "GX_Command_TouchFormation" );
+	formation->initTouchModeButton( GUI_COMMAND_GX_FORMATION, "GX:Formation", "GX:ToolTipFormation", "GXFormation" );
+	if( formation->getButtonImage() != nullptr )
+		m_touchFormationButton = formation;
+	else
+		fprintf(stderr, "[touchmodes] GXFormation image missing; no formation button\n");
+
+	// GeneralsX @feature Android port 27/09/2026 The page arrows (addTouchOrderButtons): a cyan
+	// down arrow for "more orders", an up arrow for "back". Both pictures are drawn by the
+	// display at startup (W3DTouchButtonImages.cpp); should that ever fail, SUFakeToggle -- the
+	// GLA worker's own "other page" arrow -- stands in for both.
 	const char *moreImage = TheMappedImageCollection && TheMappedImageCollection->findImageByName( "GXBuilderPageMore" )
 		? "GXBuilderPageMore" : "SUFakeToggle";
 	const char *backImage = TheMappedImageCollection && TheMappedImageCollection->findImageByName( "GXBuilderPageBack" )

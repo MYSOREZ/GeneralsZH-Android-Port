@@ -93,6 +93,11 @@
 
 static NameKeyType s_parentID = NAMEKEY_INVALID;
 static NameKeyType s_buttonHandleID = NAMEKEY_INVALID;
+// GeneralsX @feature Android port 05/10/2026 The space bar for a finger (issue #25): "!" beside the
+// handle centres the view on the last radar event, the way MSG_META_VIEW_LAST_RADAR_EVENT does --
+// a camera button, so it sits with the camera-side controls here rather than on a unit's bar, and
+// is there with nothing selected. Optional: an older GroupPanel.wnd simply has no such window.
+static NameKeyType s_buttonLastEventID = NAMEKEY_INVALID;
 static NameKeyType s_groupRowID = NAMEKEY_INVALID;
 static NameKeyType s_buttonGroupID[10];
 static Bool s_groupRowExpanded = FALSE;
@@ -111,6 +116,7 @@ static void cacheWidgetIDs()
 	}
 	s_parentID = TheNameKeyGenerator->nameToKey("GroupPanel.wnd:GroupPanelParent");
 	s_buttonHandleID = TheNameKeyGenerator->nameToKey("GroupPanel.wnd:ButtonHandle");
+	s_buttonLastEventID = TheNameKeyGenerator->nameToKey("GroupPanel.wnd:ButtonLastEvent");
 	s_groupRowID = TheNameKeyGenerator->nameToKey("GroupPanel.wnd:GroupRow");
 	char buf[40];
 	for (Int i = 0; i < 10; ++i) {
@@ -288,6 +294,16 @@ static void fitParentToVisibleContent()
 	handle->winGetScreenPosition(&hx, &hy);
 	handle->winGetSize(&hw, &hh);
 	Int loX = hx, loY = hy, hiX = hx + hw, hiY = hy + hh;
+	GameWindow *lastEvent = TheWindowManager->winGetWindowFromId(nullptr, s_buttonLastEventID);
+	if (lastEvent && !lastEvent->winIsHidden()) {
+		Int ex, ey, ew, eh;
+		lastEvent->winGetScreenPosition(&ex, &ey);
+		lastEvent->winGetSize(&ew, &eh);
+		loX = min(loX, ex);
+		loY = min(loY, ey);
+		hiX = max(hiX, ex + ew);
+		hiY = max(hiY, ey + eh);
+	}
 	if (!row->winIsHidden()) {
 		Int rx, ry, rw, rh;
 		row->winGetScreenPosition(&rx, &ry);
@@ -312,6 +328,10 @@ static void fitParentToVisibleContent()
 	handle->winSetPosition(cx - dx, cy - dy);
 	row->winGetPosition(&cx, &cy);
 	row->winSetPosition(cx - dx, cy - dy);
+	if (lastEvent) {
+		lastEvent->winGetPosition(&cx, &cy);
+		lastEvent->winSetPosition(cx - dx, cy - dy);
+	}
 	Int ox, oy;
 	parent->winGetPosition(&ox, &oy);
 	parent->winSetPosition(ox + dx, oy + dy);
@@ -374,6 +394,13 @@ void GroupPanelFollowControlBar(Int barScreenX, Int barScreenY, Bool visible)
 		Int rx, ry;
 		row->winGetPosition(&rx, &ry);
 		row->winSetPosition(rx + dx, ry + dy);
+
+		GameWindow *lastEvent = TheWindowManager->winGetWindowFromId(nullptr, s_buttonLastEventID);
+		if (lastEvent) {
+			Int ex, ey;
+			lastEvent->winGetPosition(&ex, &ey);
+			lastEvent->winSetPosition(ex + dx, ey + dy);
+		}
 	}
 	fitParentToVisibleContent();
 }
@@ -445,6 +472,11 @@ WindowMsgHandledType GroupPanelSystem(GameWindow *window, UnsignedInt msg,
 					groupRow->winHide(!s_groupRowExpanded);
 				}
 				fitParentToVisibleContent();
+				return MSG_HANDLED;
+			}
+
+			if (controlID == s_buttonLastEventID) {
+				TheMessageStream->appendMessage(GameMessage::MSG_META_VIEW_LAST_RADAR_EVENT);
 				return MSG_HANDLED;
 			}
 

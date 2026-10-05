@@ -682,10 +682,12 @@ CBCommandStatus ControlBar::processCommandUI( GameWindow *control,
 		//---------------------------------------------------------------------------------------------
 		case GUI_COMMAND_GX_FORCE_ATTACK:
 		{
-			// GeneralsX @feature Android port 24/09/2026 Ctrl for a finger (issue #25). Arms
-			// InGameUI's force-attack mode for the next order; the touch layer turns the next tap
-			// into the MSG_DO_FORCE_ATTACK_* a Ctrl+click sends and then disarms it
-			// (TouchInput.cpp). Pressing the button again disarms it without an order.
+			// GeneralsX @feature Android port 24/09/2026 Ctrl for a finger (issue #25). Switches
+			// InGameUI's force-attack mode; while it is on, the touch layer turns every tap into
+			// the MSG_DO_FORCE_ATTACK_* a Ctrl+click sends (TouchInput.cpp).
+			// GeneralsX @tweak Android port 05/10/2026 A mode, like the waypoint button, as the
+			// issue's author asked: on until this button is pressed again (or the selection is
+			// cancelled), so artillery can be aimed shot after shot.
 			const Bool enable = !TheInGameUI->isInForceAttackMode();
 			TheInGameUI->setForceAttackMode( enable );
 			if( enable )
@@ -696,9 +698,30 @@ CBCommandStatus ControlBar::processCommandUI( GameWindow *control,
 		//---------------------------------------------------------------------------------------------
 		case GUI_COMMAND_GX_BUILDER_PAGE:
 		{
-			// GeneralsX @feature Android port 27/09/2026 Page arrow on a builder's bar. UI only:
-			// no message reaches the logic, so it cannot affect a replay or a network game.
-			toggleBuilderPage();
+			// GeneralsX @feature Android port 27/09/2026 Page arrow on a builder's bar, on any
+			// bar without room since 05/10/2026. UI only: no message reaches the logic, so it
+			// cannot affect a replay or a network game.
+			toggleOrderPage();
+			break;
+		}
+
+		//---------------------------------------------------------------------------------------------
+		case GUI_COMMAND_GX_SCATTER:
+		{
+			// GeneralsX @feature Android port 05/10/2026 X for a finger (issue #25): what
+			// MSG_META_SCATTER sends (CommandXlat.cpp). Works on the currently selected team.
+			TheMessageStream->appendMessage( GameMessage::MSG_DO_SCATTER );
+			break;
+		}
+
+		//---------------------------------------------------------------------------------------------
+		case GUI_COMMAND_GX_FORMATION:
+		{
+			// GeneralsX @feature Android port 05/10/2026 Ctrl+F for a finger (issue #25): what
+			// MSG_META_CREATE_FORMATION sends. On a group that already is one formation the logic
+			// breaks it up instead (AIGroup::groupCreateFormation), which is why the button is
+			// lit while the selection is in formation.
+			TheMessageStream->appendMessage( GameMessage::MSG_CREATE_FORMATION );
 			break;
 		}
 

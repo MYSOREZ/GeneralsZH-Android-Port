@@ -228,6 +228,13 @@ enum GUICommandType CPP_11(: Int)
 	// the logic, unlike the GLA worker's own fake-building toggle, which is an object upgrade.
 	GUI_COMMAND_GX_BUILDER_PAGE,
 
+	// GeneralsX @feature Android port 05/10/2026 X and Ctrl+F for a touchscreen (issue #25): the
+	// selected units scatter, or form up and move as one. Built in code like GX_FORCE_ATTACK;
+	// each sends the message the key's meta command sends (MSG_DO_SCATTER, MSG_CREATE_FORMATION),
+	// so the logic sees exactly what a keyboard player's game sends.
+	GUI_COMMAND_GX_SCATTER,
+	GUI_COMMAND_GX_FORMATION,
+
 	// add more commands here, don't forget to update the string command list below too ...
 
 	GUI_COMMAND_NUM_COMMANDS
@@ -283,6 +290,8 @@ static const char *const TheGuiCommandNames[] =
 	"SELECT_ALL_UNITS_OF_TYPE",
 	"GX_FORCE_ATTACK",
 	"GX_BUILDER_PAGE",
+	"GX_SCATTER",
+	"GX_FORMATION",
 
 	nullptr
 };
@@ -383,7 +392,7 @@ public:
 	void setFlashCount(Int c) const { m_flashCount = c; }
 
 	// GeneralsX @feature Android port 24/09/2026 Fill in a button built in code rather than
-	// parsed from INI -- see ControlBar::initTouchModeButtons for the two that exist.
+	// parsed from INI -- see ControlBar::initTouchModeButtons for the ones that exist.
 	void initTouchModeButton( GUICommandType command, const char *textLabel,
 														const char *descriptionLabel, const char *buttonImageName );
 
@@ -1019,23 +1028,29 @@ protected:
 	// A mouse player holds Ctrl to force-attack and Alt to queue waypoints; a finger has no
 	// modifier keys, so these two buttons switch the same InGameUI modes instead. Built in
 	// code, never part of a CommandSet from the game's INI, and placed into a free command
-	// slot on top of whatever the selection's own set shows (addTouchModeButtons).
+	// slot on top of whatever the selection's own set shows (addTouchOrderButtons).
 	const CommandButton *m_touchForceAttackButton;
 	const CommandButton *m_touchWaypointButton;
+	// GeneralsX @feature Android port 05/10/2026 X and Ctrl+F (issue #25), for two or more units.
+	const CommandButton *m_touchScatterButton;
+	const CommandButton *m_touchFormationButton;
 	void initTouchModeButtons();
-	void addTouchModeButtons( const CommandSet *commandSet );
+	Int collectTouchOrderButtons( const CommandButton *out[], Int maxCount ) const;
+	Bool isSelectionInFormation() const;
 
-	// GeneralsX @feature Android port 27/09/2026 A builder's bar has no room for order buttons
-	// among its structures, so it gets a second page instead: an arrow in the bottom-right slot
-	// (14) opens it and an arrow in the same slot brings the structures back. Whatever the
-	// stock set keeps in slot 14 moves to a free slot. m_builderPageObject is the builder whose
-	// second page is showing, INVALID_ID when none is.
+	// GeneralsX @feature Android port 27/09/2026, every bar 05/10/2026 The touch order buttons go
+	// into free cells of the bar when they all fit. A builder's bar (its cells are a palette of
+	// structures) and a bar without room for all of them (transports, whose passenger cells are
+	// taken) get a second page instead: an arrow in the bottom-right slot (14) opens it and an
+	// arrow in the same slot brings the bar back. Whatever the stock set keeps in slot 14 moves to
+	// a free slot. m_orderPageObject is the first selected object while the second page is
+	// showing, INVALID_ID when it is not.
 	const CommandButton *m_touchBuilderMoreButton;
 	const CommandButton *m_touchBuilderBackButton;
-	ObjectID m_builderPageObject;
-	Bool addBuilderPageButtons( const CommandSet *commandSet, const Object *obj );
+	ObjectID m_orderPageObject;
+	void addTouchOrderButtons( const CommandSet *commandSet );
 public:
-	void toggleBuilderPage();
+	void toggleOrderPage();
 	void setTouchHoldPoint( Int x, Int y, Bool held )
 	{
 		m_touchHoldActive = held;
