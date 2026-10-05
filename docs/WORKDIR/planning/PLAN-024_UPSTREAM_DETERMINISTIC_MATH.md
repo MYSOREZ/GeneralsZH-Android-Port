@@ -53,6 +53,22 @@ on native math). The owner posted a correction: we match the **VC6 client**, whi
 Consequence for step 4 below: the day GeneralsOnline's Windows client moves to GameMath, this port
 should switch at the same time; until then, keep the VC6 contract on the hashed path.
 
+## How fast it reaches the PC client (checked 05/10/2026)
+
+The GeneralsOnline client (github.com/GeneralsOnlineDevelopmentTeam/gameclient) is a TheSuperHackers
+fork by a TheSuperHackers contributor (x64-dev), with `RETAIL_COMPATIBLE_CRC 0`, shipped as a modern
+MSVC 32-bit build (`win32-vcpkg-optimized`), not VC6. It **tracks upstream continuously**: merges of
+TheSuperHackers on 22-29/03, 22/05, 28/07, and upstream commits up to 04/09 arrived with the merge
+of 25/09 -- every one to two months, a few weeks behind. Once #2670 is merged upstream, GameMath
+will therefore reach the PC client by itself within about two months (it is on for every non-VC6
+build), and the client's updater moves every PC player at once. Android must follow the same day.
+
+So step 1 below becomes: as soon as #2670 is merged upstream, bring GameMath into this port behind a
+per-match switch (both math paths built in; the one a match uses decided by the PC client's version,
+like the logic CRC revision), so the day GeneralsOnline ships it costs no emergency release, and
+players still on the old PC client can still play. Watch the client repository for
+`USE_DETERMINISTIC_MATH` / GameMath arriving.
+
 ## Why it matters here
 
 Cross-play with the PC works because this port reproduces what the GeneralsOnline Windows client
