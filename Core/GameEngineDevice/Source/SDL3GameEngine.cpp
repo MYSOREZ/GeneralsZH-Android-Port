@@ -44,6 +44,7 @@
 #include "GameClient/View.h"
 #include "GameClient/Shell.h"
 #include "GameClient/WindowLayout.h"
+#include "Common/NameKeyGenerator.h"
 #include "GameClient/InGameUI.h"
 #include "GameClient/Drawable.h"
 #include "W3DDevice/GameLogic/W3DGameLogic.h"
@@ -974,6 +975,8 @@ namespace
 		Bool dragArmed = FALSE;		// touched again right after a tap
 		Uint64 lastTapUpTicks = 0;
 		Bool direct = FALSE;		// this gesture presses where the finger is (a menu)
+		Bool panel = FALSE;		// this gesture presses the group panel, the pointer comes back after
+		float savedX = 0.0f, savedY = 0.0f;
 	};
 	TouchpadState s_pad;
 
@@ -1080,6 +1083,28 @@ namespace
 		return TheWindowManager != nullptr && TheWindowManager->winHasModal();
 	}
 
+	// GeneralsX @feature Android port 05/10/2026 The group panel ("=", "!", groups 0-9) takes the
+	// finger in touchpad mode too (owner: they could not be pressed by finger), and the pointer
+	// stays where it was: it jumps to the finger for the press and back when the finger lifts.
+	Bool padFingerOnGroupPanel(SDL_Window *window, float wx, float wy)
+	{
+		if (TheWindowManager == nullptr || TheNameKeyGenerator == nullptr) {
+			return FALSE;
+		}
+		float gx, gy;
+		padWindowToGame(window, wx, wy, gx, gy);
+		static NameKeyType s_panelRoot = NAMEKEY_INVALID;
+		if (s_panelRoot == NAMEKEY_INVALID) {
+			s_panelRoot = TheNameKeyGenerator->nameToKey("GroupPanel.wnd:GroupPanelParent");
+		}
+		for (GameWindow *w = TheWindowManager->getWindowUnderCursor((Int)gx, (Int)gy); w != nullptr; w = w->winGetParent()) {
+			if (w->winGetWindowId() == (Int)s_panelRoot) {
+				return TRUE;
+			}
+		}
+		return FALSE;
+	}
+
 	void padMoveTo(SDL_Window *window, float x, float y)
 	{
 		padSendMotion(window, x - s_pad.pointerX, y - s_pad.pointerY);
@@ -1129,7 +1154,12 @@ Bool handleTouchpadEvent(SDL_Window *window, const SDL_Event &event, Int &clickX
 		s_pad.fx[i] = wx;
 		s_pad.fy[i] = wy;
 		if (s_pad.fingers == 1) {
-			s_pad.direct = padMenuTakesFinger();
+			s_pad.panel = !padMenuTakesFinger() && padFingerOnGroupPanel(window, wx, wy);
+			if (s_pad.panel) {
+				s_pad.savedX = s_pad.pointerX;
+				s_pad.savedY = s_pad.pointerY;
+			}
+			s_pad.direct = s_pad.panel || padMenuTakesFinger();
 			if (s_pad.direct) {
 				padMoveTo(window, wx, wy);
 				padSendButton(window, SDL_BUTTON_LEFT, true, 1);
@@ -1163,7 +1193,7 @@ Bool handleTouchpadEvent(SDL_Window *window, const SDL_Event &event, Int &clickX
 		const float dy = wy - s_pad.fy[i];
 
 		if (s_pad.direct) {
-			if (i == 0) {
+			if (i == 0 && !s_pad.panel) {
 				s_pad.fx[0] = wx;
 				s_pad.fy[0] = wy;
 				padMoveTo(window, wx, wy);
@@ -1245,6 +1275,11 @@ Bool handleTouchpadEvent(SDL_Window *window, const SDL_Event &event, Int &clickX
 				padSendButton(window, SDL_BUTTON_LEFT, false, 1);
 				s_pad.leftHeld = FALSE;
 				clicked = (event.type != SDL_EVENT_FINGER_CANCELED);
+			}
+			if (s_pad.panel) {
+				padMoveTo(window, s_pad.savedX, s_pad.savedY);
+				s_pad.panel = FALSE;
+				clicked = FALSE;
 			}
 			s_pad.direct = FALSE;
 			s_pad.lastTapUpTicks = 0;
