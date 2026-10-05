@@ -978,6 +978,11 @@ namespace
 	const float PAD_SPEED = 1.6f;
 	const Uint64 PAD_TAP_MS = 250;
 	const Uint64 PAD_DOUBLE_TAP_MS = 300;
+	// GeneralsX @bugfix Android port 05/10/2026 A drag needs the second touch held still first.
+	// Owner's report: tap empty ground to deselect, then at once slide to another unit -- the
+	// slide began inside the double-tap window, so it became a left-button drag, and its release
+	// selected whatever the pointer reached. Moving straight away is moving the pointer.
+	const Uint64 PAD_DRAG_HOLD_MS = 180;
 
 	SDL3Mouse *padMouse()
 	{
@@ -1159,8 +1164,12 @@ Bool handleTouchpadEvent(SDL_Window *window, const SDL_Event &event, Int &clickX
 			break;	// may still be a tap: do not jiggle the pointer
 		}
 		if (s_pad.dragArmed && !s_pad.leftHeld) {
-			padSendButton(window, SDL_BUTTON_LEFT, true, 1);
-			s_pad.leftHeld = TRUE;
+			if (now - s_pad.downTicks >= PAD_DRAG_HOLD_MS) {
+				padSendButton(window, SDL_BUTTON_LEFT, true, 1);
+				s_pad.leftHeld = TRUE;
+			} else {
+				s_pad.dragArmed = FALSE;
+			}
 		}
 		padSendMotion(window, s_pad.pendingDX, s_pad.pendingDY);
 		s_pad.pendingDX = s_pad.pendingDY = 0.0f;

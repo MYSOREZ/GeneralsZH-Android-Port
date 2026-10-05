@@ -135,6 +135,10 @@ Bool LookAtTranslator::canScrollAtScreenEdge() const
 	// scrolls as on a PC.
 	if (!GXMouseModeEnabled())
 		return false;
+	// GeneralsX @bugfix Android port 05/10/2026 ...and only that: the windowed/fullscreen choice
+	// below is a desktop option (Options.ini ScreenEdgeScrollMode), and the game window on a phone
+	// does not count as full screen to it, so edge scrolling never started (owner's report).
+	return true;
 #else
 	if (!TheMouse->isCursorCaptured())
 		return false;

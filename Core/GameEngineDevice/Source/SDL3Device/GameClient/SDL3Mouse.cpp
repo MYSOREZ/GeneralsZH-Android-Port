@@ -31,6 +31,7 @@
 #include "SDL3Device/GameClient/SDL3Mouse.h"
 #include <cstdio>
 #include <cstring>
+#include <cstdlib>
 
 // GeneralsX @bugfix felipebraz 18/02/2026 Include GameLogic for frame tracking
 #include "GameLogic/GameLogic.h"
@@ -665,9 +666,16 @@ void SDL3Mouse::draw()
 		cursor = cursorResources[NORMAL][0];
 	}
 
-	Real scale = (Real)TheDisplay->getHeight() / 768.0f;
+	// GeneralsX @tweak Android port 05/10/2026 Sized like the interface: the cursor art is made for
+	// 800x600, so scale with the screen against that, and by the launcher's interface size
+	// (GX_UI_SCALE, percent) -- it stayed small when the interface grew (owner's report).
+	Real scale = (Real)TheDisplay->getHeight() / 600.0f;
+	const char *uiScale = getenv("GX_UI_SCALE");
+	if (uiScale != nullptr && atoi(uiScale) > 0) {
+		scale *= (Real)atoi(uiScale) / 100.0f;
+	}
 	if (scale < 1.0f) scale = 1.0f;
-	if (scale > 3.0f) scale = 3.0f;
+	if (scale > 5.0f) scale = 5.0f;
 	const Int x = m_currMouse.pos.x;
 	const Int y = m_currMouse.pos.y;
 
