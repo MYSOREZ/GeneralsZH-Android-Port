@@ -280,6 +280,9 @@ public:
 	virtual GameWindow *winGetCapture();  ///< current mouse capture settings
 
 	virtual Int winSetModal( GameWindow *window );  ///< put at top of modal stack
+	// GeneralsX @feature Android port 05/10/2026 Is a modal window (dialog, message box) up? Read by
+	// the touchpad mode, which lets a finger press such windows directly (SDL3GameEngine.cpp).
+	Bool winHasModal() const { return m_modalHead != nullptr; }
 	virtual Int winUnsetModal( GameWindow *window );  /**< take window off modal stack, if window is
 																										not at top of stack and error will occur */
 

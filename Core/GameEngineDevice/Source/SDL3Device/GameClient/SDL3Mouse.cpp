@@ -669,13 +669,16 @@ void SDL3Mouse::draw()
 	// GeneralsX @tweak Android port 05/10/2026 Sized like the interface: the cursor art is made for
 	// 800x600, so scale with the screen against that, and by the launcher's interface size
 	// (GX_UI_SCALE, percent) -- it stayed small when the interface grew (owner's report).
-	Real scale = (Real)TheDisplay->getHeight() / 600.0f;
+	// GeneralsX @tweak Android port 05/10/2026 A fifth smaller at 100% (owner: "a little smaller"),
+	// and the launcher's cursor-size slider on top (GXMouseCursorPercent, 50-200%).
+	Real scale = (Real)TheDisplay->getHeight() / 600.0f * 0.8f;
 	const char *uiScale = getenv("GX_UI_SCALE");
 	if (uiScale != nullptr && atoi(uiScale) > 0) {
 		scale *= (Real)atoi(uiScale) / 100.0f;
 	}
-	if (scale < 1.0f) scale = 1.0f;
-	if (scale > 5.0f) scale = 5.0f;
+	scale *= (Real)GXMouseCursorPercent() / 100.0f;
+	if (scale < 0.5f) scale = 0.5f;
+	if (scale > 6.0f) scale = 6.0f;
 	const Int x = m_currMouse.pos.x;
 	const Int y = m_currMouse.pos.y;
 

@@ -360,5 +360,6 @@
     <string name="setup_card_controls">Controles</string>
     <string name="setup_switch_mouse_mode">Ratón y panel táctil</string>
     <string name="setup_switch_mouse_mode_desc">Un puntero en lugar de tocar donde quieres: un ratón conectado funciona como en PC y, sin él, tu dedo mueve el cursor como el panel táctil de un portátil. Desactivado: el juego se controla tocando directamente.</string>
-    <string name="setup_mouse_mode_help">Panel táctil: mueve un dedo para mover el cursor. Tocar = clic izquierdo, dos toques = doble clic, tocar y luego tocar y arrastrar = recuadro de selección. Tocar con dos dedos = clic derecho. Dos dedos = desplazar el mapa, pellizcar = zoom. Se aplica la próxima vez que inicie el juego. La opción del juego «Control alternativo del ratón» sigue decidiendo qué hacen los botones izquierdo y derecho.</string>
+    <string name="setup_mouse_mode_help">Panel táctil: mueve un dedo para mover el cursor. Tocar = clic izquierdo, dos toques = doble clic, tocar y luego tocar y arrastrar = recuadro de selección. Tocar con dos dedos = clic derecho. Dos dedos = desplazar el mapa, pellizcar = zoom. Se aplica la próxima vez que inicie el juego. La opción del juego «Control alternativo del ratón» sigue decidiendo qué hacen los botones izquierdo y derecho. En los menús, la sala y los diálogos el dedo pulsa directamente, como siempre.</string>
+    <string name="setup_cursor_size_label">Tamaño del cursor: %1$d %%</string>
 </resources>

@@ -43,6 +43,7 @@
 #include "WW3D2/dx8wrapper.h"
 #include "GameClient/View.h"
 #include "GameClient/Shell.h"
+#include "GameClient/WindowLayout.h"
 #include "GameClient/InGameUI.h"
 #include "GameClient/Drawable.h"
 #include "W3DDevice/GameLogic/W3DGameLogic.h"
@@ -972,6 +973,7 @@ namespace
 		Bool leftHeld = FALSE;
 		Bool dragArmed = FALSE;		// touched again right after a tap
 		Uint64 lastTapUpTicks = 0;
+		Bool direct = FALSE;		// this gesture presses where the finger is (a menu)
 	};
 	TouchpadState s_pad;
 
@@ -1056,6 +1058,33 @@ namespace
 		padSendButton(window, button, false, clicks);
 	}
 
+	// GeneralsX @feature Android port 05/10/2026 Menus take the finger directly, as without this
+	// mode (owner's request): the main menu and its screens, the lobby, the in-game menu, options
+	// and any dialog. There the pointer jumps to the finger and the left button follows it, so a
+	// tap is a click where it lands and a drag moves a slider -- still mouse events, so the game
+	// sees one pointer. The battlefield and the control bar stay a touchpad.
+	Bool padMenuTakesFinger()
+	{
+		if (TheShell != nullptr && TheShell->isShellActive()) {
+			return TRUE;
+		}
+		if (TheInGameUI != nullptr && TheInGameUI->isQuitMenuVisible()) {
+			return TRUE;
+		}
+		if (TheShell != nullptr) {
+			WindowLayout *options = TheShell->getOptionsLayout(FALSE);
+			if (options != nullptr && !options->isHidden()) {
+				return TRUE;
+			}
+		}
+		return TheWindowManager != nullptr && TheWindowManager->winHasModal();
+	}
+
+	void padMoveTo(SDL_Window *window, float x, float y)
+	{
+		padSendMotion(window, x - s_pad.pointerX, y - s_pad.pointerY);
+	}
+
 	Int padFingerIndex(SDL_FingerID id)
 	{
 		for (Int i = 0; i < s_pad.fingers; ++i) {
@@ -1100,11 +1129,20 @@ Bool handleTouchpadEvent(SDL_Window *window, const SDL_Event &event, Int &clickX
 		s_pad.fx[i] = wx;
 		s_pad.fy[i] = wy;
 		if (s_pad.fingers == 1) {
+			s_pad.direct = padMenuTakesFinger();
+			if (s_pad.direct) {
+				padMoveTo(window, wx, wy);
+				padSendButton(window, SDL_BUTTON_LEFT, true, 1);
+				s_pad.leftHeld = TRUE;
+				break;
+			}
 			s_pad.maxFingers = 1;
 			s_pad.downTicks = now;
 			s_pad.travel = 0.0f;
 			s_pad.pendingDX = s_pad.pendingDY = 0.0f;
 			s_pad.dragArmed = (s_pad.lastTapUpTicks != 0 && now - s_pad.lastTapUpTicks < PAD_DOUBLE_TAP_MS);
+		} else if (s_pad.direct) {
+			break;	// a menu takes one finger
 		} else {
 			s_pad.maxFingers = 2;
 			if (s_pad.leftHeld) {
@@ -1123,6 +1161,15 @@ Bool handleTouchpadEvent(SDL_Window *window, const SDL_Event &event, Int &clickX
 		}
 		const float dx = wx - s_pad.fx[i];
 		const float dy = wy - s_pad.fy[i];
+
+		if (s_pad.direct) {
+			if (i == 0) {
+				s_pad.fx[0] = wx;
+				s_pad.fy[0] = wy;
+				padMoveTo(window, wx, wy);
+			}
+			break;
+		}
 
 		if (s_pad.maxFingers >= 2) {
 			if (s_pad.fingers == 2) {
@@ -1190,6 +1237,17 @@ Bool handleTouchpadEvent(SDL_Window *window, const SDL_Event &event, Int &clickX
 		}
 		--s_pad.fingers;
 		if (s_pad.fingers > 0) {
+			break;
+		}
+
+		if (s_pad.direct) {
+			if (s_pad.leftHeld) {
+				padSendButton(window, SDL_BUTTON_LEFT, false, 1);
+				s_pad.leftHeld = FALSE;
+				clicked = (event.type != SDL_EVENT_FINGER_CANCELED);
+			}
+			s_pad.direct = FALSE;
+			s_pad.lastTapUpTicks = 0;
 			break;
 		}
 
@@ -2271,6 +2329,13 @@ void enforceNoPointerScrollWithoutFinger()
 {
 #if defined(__ANDROID__) || (defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE)
 	if (TheLookAtTranslator == nullptr) {
+		return;
+	}
+	// GeneralsX @bugfix Android port 05/10/2026 Not with a pointer chosen (GXMouseMode.h): then
+	// there IS a pointer with no finger down, it rests at the edge, and this cancelled every edge
+	// scroll the moment it started (owner's report, twice). The touch state machine is not even
+	// running in that mode, so its phase says nothing.
+	if (GXMouseModeEnabled()) {
 		return;
 	}
 	const Bool noFinger = (s_touch.phase == TouchState::IDLE || s_touch.phase == TouchState::MOMENTUM);

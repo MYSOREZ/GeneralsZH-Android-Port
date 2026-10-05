@@ -360,5 +360,6 @@
     <string name="setup_card_controls">Commandes</string>
     <string name="setup_switch_mouse_mode">Souris et pavé tactile</string>
     <string name="setup_switch_mouse_mode_desc">Un pointeur au lieu de toucher l\'endroit voulu : une souris connectée fonctionne comme sur PC, et sans souris votre doigt déplace le curseur comme un pavé tactile. Désactivé : le jeu se joue directement au toucher.</string>
-    <string name="setup_mouse_mode_help">Pavé tactile : déplacez un doigt pour déplacer le curseur. Toucher = clic gauche, deux touchers = double-clic, toucher puis toucher et glisser = cadre de sélection. Toucher à deux doigts = clic droit. Deux doigts = faire défiler la carte, pincer = zoom. Prend effet au prochain lancement du jeu. L\'option du jeu « Contrôle souris alternatif » décide toujours du rôle des boutons gauche et droit.</string>
+    <string name="setup_mouse_mode_help">Pavé tactile : déplacez un doigt pour déplacer le curseur. Toucher = clic gauche, deux touchers = double-clic, toucher puis toucher et glisser = cadre de sélection. Toucher à deux doigts = clic droit. Deux doigts = faire défiler la carte, pincer = zoom. Prend effet au prochain lancement du jeu. L\'option du jeu « Contrôle souris alternatif » décide toujours du rôle des boutons gauche et droit. Dans les menus, le salon et les dialogues, le doigt appuie directement, comme d\'habitude.</string>
+    <string name="setup_cursor_size_label">Taille du curseur : %1$d %%</string>
 </resources>

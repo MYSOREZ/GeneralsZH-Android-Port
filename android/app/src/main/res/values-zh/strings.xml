@@ -360,5 +360,6 @@
     <string name="setup_card_controls">操控</string>
     <string name="setup_switch_mouse_mode">鼠标和触控板</string>
     <string name="setup_switch_mouse_mode_desc">使用指针代替点按：连接的鼠标与电脑上一样使用；没有鼠标时，手指像笔记本触控板一样移动光标。关闭：直接用触摸操控游戏。</string>
-    <string name="setup_mouse_mode_help">触控板：移动手指即可移动光标。轻点 = 左键单击，轻点两次 = 双击，轻点后再按住拖动 = 框选。双指轻点 = 右键单击。双指 = 滚动地图，捏合 = 缩放。下次启动游戏时生效。左右键的作用仍由游戏自己的“备用鼠标设置”选项决定。</string>
+    <string name="setup_mouse_mode_help">触控板：移动手指即可移动光标。轻点 = 左键单击，轻点两次 = 双击，轻点后再按住拖动 = 框选。双指轻点 = 右键单击。双指 = 滚动地图，捏合 = 缩放。下次启动游戏时生效。左右键的作用仍由游戏自己的“备用鼠标设置”选项决定。 在菜单、大厅和对话框中，手指照常直接点按。</string>
+    <string name="setup_cursor_size_label">光标大小：%1$d%%</string>
 </resources>

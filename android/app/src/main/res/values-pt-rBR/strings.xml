@@ -360,5 +360,6 @@
     <string name="setup_card_controls">Controles</string>
     <string name="setup_switch_mouse_mode">Mouse e touchpad</string>
     <string name="setup_switch_mouse_mode_desc">Um ponteiro em vez de tocar onde você quer: um mouse conectado funciona como no PC e, sem ele, seu dedo move o cursor como o touchpad de um notebook. Desligado: o jogo é controlado tocando diretamente.</string>
-    <string name="setup_mouse_mode_help">Touchpad: mova um dedo para mover o cursor. Tocar = clique esquerdo, dois toques = clique duplo, tocar e depois tocar e arrastar = caixa de seleção. Tocar com dois dedos = clique direito. Dois dedos = rolar o mapa, pinçar = zoom. Vale a partir do próximo início do jogo. A opção do jogo \"Controle alternativo do mouse\" continua decidindo o que fazem os botões esquerdo e direito.</string>
+    <string name="setup_mouse_mode_help">Touchpad: mova um dedo para mover o cursor. Tocar = clique esquerdo, dois toques = clique duplo, tocar e depois tocar e arrastar = caixa de seleção. Tocar com dois dedos = clique direito. Dois dedos = rolar o mapa, pinçar = zoom. Vale a partir do próximo início do jogo. A opção do jogo \"Controle alternativo do mouse\" continua decidindo o que fazem os botões esquerdo e direito. Nos menus, no lobby e nas caixas de diálogo o dedo toca diretamente, como de costume.</string>
+    <string name="setup_cursor_size_label">Tamanho do cursor: %1$d%%</string>
 </resources>

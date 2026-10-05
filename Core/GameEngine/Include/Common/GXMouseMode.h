@@ -33,6 +33,33 @@
 #include <unistd.h>
 #endif
 
+// The cursor size the launcher's slider chose, in percent (50-200), kept as the marker's content.
+// 100 when the marker is empty or unreadable.
+inline int GXMouseCursorPercent()
+{
+#if defined(__ANDROID__)
+	static int percent = -1;
+	if (percent < 0)
+	{
+		percent = 100;
+		char path[256];
+		const int userId = (int)(getuid() / 100000);
+		snprintf(path, sizeof(path), "/data/user/%d/com.generalsx.zerohour/files/mouse_mode", userId);
+		FILE *fp = fopen(path, "r");
+		if (fp != nullptr)
+		{
+			int value = 0;
+			if (fscanf(fp, "%d", &value) == 1 && value >= 50 && value <= 200)
+				percent = value;
+			fclose(fp);
+		}
+	}
+	return percent;
+#else
+	return 100;
+#endif
+}
+
 inline bool GXMouseModeEnabled()
 {
 #if defined(__ANDROID__)

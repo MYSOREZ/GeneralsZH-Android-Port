@@ -360,5 +360,6 @@
     <string name="setup_card_controls">Steuerung</string>
     <string name="setup_switch_mouse_mode">Maus und Touchpad</string>
     <string name="setup_switch_mouse_mode_desc">Ein Zeiger statt Tippen: Eine angeschlossene Maus funktioniert wie am PC, ohne Maus bewegt dein Finger den Zeiger wie ein Laptop-Touchpad. Aus: Das Spiel wird direkt per Touch gesteuert.</string>
-    <string name="setup_mouse_mode_help">Touchpad: Finger bewegen, um den Zeiger zu bewegen. Tippen = Linksklick, zweimal tippen = Doppelklick, tippen und dann berühren und ziehen = Auswahlrahmen. Mit zwei Fingern tippen = Rechtsklick. Zwei Finger = Karte verschieben, Spreizen = Zoom. Gilt ab dem nächsten Spielstart. Was die linke und rechte Taste tun, bestimmt weiterhin die Spieloption „Alternative Maussteuerung“.</string>
+    <string name="setup_mouse_mode_help">Touchpad: Finger bewegen, um den Zeiger zu bewegen. Tippen = Linksklick, zweimal tippen = Doppelklick, tippen und dann berühren und ziehen = Auswahlrahmen. Mit zwei Fingern tippen = Rechtsklick. Zwei Finger = Karte verschieben, Spreizen = Zoom. Gilt ab dem nächsten Spielstart. Was die linke und rechte Taste tun, bestimmt weiterhin die Spieloption „Alternative Maussteuerung“. In Menüs, der Lobby und Dialogen tippt der Finger wie gewohnt direkt.</string>
+    <string name="setup_cursor_size_label">Zeigergröße: %1$d %%</string>
 </resources>

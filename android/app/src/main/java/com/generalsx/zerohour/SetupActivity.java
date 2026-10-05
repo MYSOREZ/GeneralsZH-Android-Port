@@ -763,20 +763,64 @@ public class SetupActivity extends Activity {
             getString(R.string.setup_card_controls), false);
         SwitchCompat mouse = UiKit.switchRow(content,
             getString(R.string.setup_switch_mouse_mode), getString(R.string.setup_switch_mouse_mode_desc));
-        mouse.setChecked(new File(getFilesDir(), MOUSE_MODE_MARKER).isFile());
-        mouse.setOnCheckedChangeListener((button, checked) -> {
-            File marker = new File(getFilesDir(), MOUSE_MODE_MARKER);
-            try {
-                if (checked) {
-                    marker.createNewFile();
-                } else {
-                    marker.delete();
-                }
-            } catch (java.io.IOException e) {
-                android.util.Log.w("SetupActivity", "could not write the mouse mode marker", e);
+        final File marker = new File(getFilesDir(), MOUSE_MODE_MARKER);
+        mouse.setChecked(marker.isFile());
+
+        // GeneralsX @feature Android port 05/10/2026 Cursor size for the touchpad pointer, 50-200%,
+        // shown only while the mode is on. Kept as the marker's content (GXMouseCursorPercent).
+        final LinearLayout cursorBox = new LinearLayout(this);
+        cursorBox.setOrientation(LinearLayout.VERTICAL);
+        final TextView cursorLabel = UiKit.body(cursorBox, null);
+        final Slider cursorSlider = new Slider(this);
+        cursorSlider.setValueFrom(50f);
+        cursorSlider.setValueTo(200f);
+        cursorSlider.setStepSize(10f);
+        cursorSlider.setValue(readMouseCursorPercent(marker));
+        cursorSlider.setLabelBehavior(LabelFormatter.LABEL_GONE);
+        cursorSlider.setTrackActiveTintList(UiKit.tint(this, R.color.gzh_primary));
+        cursorSlider.setTrackInactiveTintList(UiKit.tint(this, R.color.gzh_surface_container_highest));
+        cursorSlider.setThumbTintList(UiKit.tint(this, R.color.gzh_primary));
+        cursorSlider.setHaloTintList(UiKit.tint(this, R.color.gzh_ripple_primary));
+        cursorLabel.setText(getString(R.string.setup_cursor_size_label, (int) cursorSlider.getValue()));
+        cursorSlider.addOnChangeListener((slider, value, fromUser) -> {
+            cursorLabel.setText(getString(R.string.setup_cursor_size_label, (int) value));
+            if (fromUser) {
+                writeMouseMode(marker, true, (int) value);
             }
         });
+        cursorBox.addView(cursorSlider, new LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        content.addView(cursorBox, new LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        cursorBox.setVisibility(marker.isFile() ? android.view.View.VISIBLE : android.view.View.GONE);
+
+        mouse.setOnCheckedChangeListener((button, checked) -> {
+            writeMouseMode(marker, checked, (int) cursorSlider.getValue());
+            cursorBox.setVisibility(checked ? android.view.View.VISIBLE : android.view.View.GONE);
+        });
         UiKit.helpText(content, getString(R.string.setup_mouse_mode_help));
+    }
+
+    private static int readMouseCursorPercent(File marker) {
+        try (java.io.BufferedReader r = new java.io.BufferedReader(new java.io.FileReader(marker))) {
+            String line = r.readLine();
+            int value = line == null ? 100 : Integer.parseInt(line.trim());
+            return Math.max(50, Math.min(200, Math.round(value / 10f) * 10));
+        } catch (java.io.IOException | NumberFormatException e) {
+            return 100;
+        }
+    }
+
+    private static void writeMouseMode(File marker, boolean enabled, int cursorPercent) {
+        if (!enabled) {
+            marker.delete();
+            return;
+        }
+        try (java.io.FileWriter w = new java.io.FileWriter(marker, false)) {
+            w.write(Integer.toString(cursorPercent));
+        } catch (java.io.IOException e) {
+            android.util.Log.w("SetupActivity", "could not write the mouse mode marker", e);
+        }
     }
 
     // GeneralsX @feature Android port 13/07/2026 GitHub issue #4: in-app
