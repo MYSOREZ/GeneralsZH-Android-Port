@@ -20,6 +20,20 @@ on native math). The owner posted a correction: we match the **VC6 client**, whi
 `(float)sin((double)x)` instead of bionic's `sinf` — see
 `docs/WORKDIR/lessons/LESSON-cross-play-desync-method.md`.
 
+## Update 05/10/2026 (from the PR thread)
+
+- Okladnoj: GameMath is used **only when `RETAIL_COMPATIBLE_CRC` is off**; `BaseDefines.h` disables
+  `USE_DETERMINISTIC_MATH` for a retail-compatible build. This port builds with
+  `RETAIL_COMPATIBLE_CRC 0` (as the GeneralsOnline client), so **taking the PR switches us to
+  GameMath automatically** -- step 1 below is not optional.
+- His measurements match ours: native math on ARM64 (macOS clang) and Windows x64 gives
+  0 differing lines; against 32-bit x86 (x87) it differs -- 22 lines at `_PC_53`, 338 at `_PC_24`.
+  The GeneralsOnline PC client is VC6 x87 at `_PC_24`, the worst row; this port matches it by
+  evaluating the hashed transcendentals in double and narrowing once (the lesson). Tests:
+  https://github.com/Okladnoj/GeneralsGameCode/tree/okji/test/deterministic-math-v2.2.8/tests
+- xezon doubts native math is enough across all CPUs and libms; fbraz3 (who cited this port)
+  said it was raised for discussion only.
+
 ## Why it matters here
 
 Cross-play with the PC works because this port reproduces what the GeneralsOnline Windows client
