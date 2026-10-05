@@ -367,5 +367,5 @@
     <string name="setup_card_controls">Controls</string>
     <string name="setup_switch_mouse_mode">Mouse and touchpad</string>
     <string name="setup_switch_mouse_mode_desc">A pointer instead of tapping where you want: a connected mouse works as on a PC, and without one your finger moves the cursor like a laptop touchpad. Off: the game is played by touch directly.</string>
-    <string name="setup_mouse_mode_help">Touchpad: move a finger to move the cursor. Tap = left click, two taps = double click, tap and then touch and drag = selection box. Two-finger tap = right click. Two fingers = scroll the map, pinch = zoom. Takes effect the next time the game starts. The game's own \"Alternate mouse setup\" option still decides what the left and right buttons do.</string>
+    <string name="setup_mouse_mode_help">Touchpad: move a finger to move the cursor. Tap = left click, two taps = double click, tap and then touch and drag = selection box. Two-finger tap = right click. Two fingers = scroll the map, pinch = zoom. Takes effect the next time the game starts. The game\'s own \"Alternate mouse setup\" option still decides what the left and right buttons do.</string>
 </resources>
