@@ -75,6 +75,7 @@
 #include "GameClient/GameText.h"
 #include "GameClient/GlobalLanguage.h"
 #include "GameClient/GadgetPushButton.h"
+#include "GameClient/WinInstanceData.h"
 #include "GameClient/GadgetProgressBar.h"
 #include "GameClient/GadgetStaticText.h"
 #include "GameClient/GadgetTextEntry.h"
@@ -862,8 +863,57 @@ CommandSet::CommandSet(const AsciiString& name) :
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
+#if RTS_GENERALS && (defined(__ANDROID__) || (defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE))
+//-------------------------------------------------------------------------------------------------
+/** GeneralsX @feature Android port 05/10/2026 The base game's command bar laid out like Zero Hour's
+	(owner's request): 14 cells in 7 columns instead of 12 in 6 (ControlBar::init adds the two), and
+	a unit's buttons in Zero Hour's places. A base-game unit set keeps its orders in the last two
+	columns -- Attack Move 9, Guard 11, Stop 12 -- where Zero Hour has them one column further right
+	(11, 13, 14), leaving cell 12, between Attack Move and Guard, free. So for a set with any of those
+	orders in slots 9-12 the cells shown read: 1-8 as they are, 9-10 empty, 11-14 from slots 9-12. That
+	matches Zero Hour for 203 of the 260 buttons of the units both games share; the rest (Evacuate on
+	a transport, Combat Drop) land one column right of where Zero Hour put them. Every other set
+	(structures, production lists, a dozer) keeps its cells and has 13-14 free. The INI and anything
+	addressing a slot by number -- a map script's command bar override -- still use the base game's
+	numbers: only what a cell shows is translated, here. Returns -1 for an empty cell. */
+//-------------------------------------------------------------------------------------------------
+static Int gxBaseGameSlotForCell( const CommandButton *const command[ MAX_COMMANDS_PER_SET ], Int cell )
+{
+	Bool unitSet = FALSE;
+	for( Int i = 8; i < 12 && !unitSet; ++i )
+	{
+		if( command[ i ] == nullptr )
+			continue;
+		switch( command[ i ]->getCommandType() )
+		{
+			case GUI_COMMAND_ATTACK_MOVE:
+			case GUI_COMMAND_GUARD:
+			case GUI_COMMAND_GUARD_WITHOUT_PURSUIT:
+			case GUI_COMMAND_GUARD_FLYING_UNITS_ONLY:
+			case GUI_COMMAND_STOP:
+				unitSet = TRUE;
+				break;
+			default:
+				break;
+		}
+	}
+	if( !unitSet )
+		return cell < 12 ? cell : -1;
+	if( cell < 8 )
+		return cell;
+	if( cell < 10 )
+		return -1;
+	return cell - 2;
+}
+#endif
+
 const CommandButton* CommandSet::getCommandButton(Int i) const
 {
+#if RTS_GENERALS && (defined(__ANDROID__) || (defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE))
+	i = gxBaseGameSlotForCell( m_command, i );
+	if( i < 0 )
+		return nullptr;
+#endif
 	const CommandButton* button;
   // Check for TheGameLogic == null, cause it is in Worldbuilder, and wb gets command bar info. jba.
 	if (TheGameLogic && TheGameLogic->findControlBarOverride(m_name, i, button))
@@ -879,6 +929,89 @@ void CommandSet::friend_addToList(CommandSet** listHead)
 	m_next = *listHead;
 	*listHead = this;
 }
+
+#if RTS_GENERALS && (defined(__ANDROID__) || (defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE))
+//-------------------------------------------------------------------------------------------------
+/** GeneralsX @feature Android port 05/10/2026 The base game's bar has 12 command cells in 6 columns;
+	give it Zero Hour's 14 in 7 (see gxBaseGameSlotForCell). The two new cells are push buttons made
+	like cell 12 -- same parent (which receives their clicks), same look, same callbacks -- named
+	ButtonCommand13/14 as in Zero Hour, and all 14 are laid out again over the width the 6 columns
+	took, keeping their height, rows and the gaps' share. Nothing in the player's files changes. */
+//-------------------------------------------------------------------------------------------------
+static void gxGrowCommandBarToFourteenCells( GameWindow *windows[ MAX_COMMANDS_PER_SET ] )
+{
+	for( Int i = 0; i < 12; ++i )
+		if( windows[ i ] == nullptr )
+			return;
+	if( windows[ 12 ] != nullptr || windows[ 13 ] != nullptr )
+		return;
+
+	GameWindow *model = windows[ 11 ];
+	GameWindow *parent = model->winGetParent();
+	Int leftX, topY, cellW, cellH, lastX, bottomY, nextX, unused;
+	windows[ 0 ]->winGetPosition( &leftX, &topY );
+	windows[ 0 ]->winGetSize( &cellW, &cellH );
+	windows[ 1 ]->winGetPosition( &unused, &bottomY );
+	windows[ 2 ]->winGetPosition( &nextX, &unused );
+	windows[ 10 ]->winGetPosition( &lastX, &unused );
+	const Real oldPitch = (Real)( nextX - leftX );
+	if( oldPitch <= 0.0f )
+		return;
+	const Real span = (Real)( lastX + cellW - leftX );
+	const Real widthShare = (Real)cellW / oldPitch;
+	const Real pitch = span / ( 6.0f + widthShare );
+	const Int newW = (Int)( pitch * widthShare + 0.5f );
+
+	WinInstanceData *src = model->winGetInstanceData();
+	for( Int n = 12; n < 14; ++n )
+	{
+		WinInstanceData inst;
+		inst.init();
+		inst.m_style = src->m_style;
+		inst.m_status = src->m_status;
+		for( Int d = 0; d < MAX_DRAW_DATA; ++d )
+		{
+			inst.m_enabledDrawData[ d ] = src->m_enabledDrawData[ d ];
+			inst.m_disabledDrawData[ d ] = src->m_disabledDrawData[ d ];
+			inst.m_hiliteDrawData[ d ] = src->m_hiliteDrawData[ d ];
+		}
+		inst.m_enabledText = src->m_enabledText;
+		inst.m_disabledText = src->m_disabledText;
+		inst.m_hiliteText = src->m_hiliteText;
+		inst.m_imeCompositeText = src->m_imeCompositeText;
+		inst.m_imageOffset = src->m_imageOffset;
+		inst.m_font = src->m_font;
+		inst.m_headerTemplateName = src->m_headerTemplateName;
+		inst.m_tooltipDelay = src->m_tooltipDelay;
+		AsciiString name;
+		name.format( "ControlBar.wnd:ButtonCommand%02d", n + 1 );
+		inst.m_decoratedNameString = name;
+
+		GameWindow *win = TheWindowManager->gogoGadgetPushButton( parent, model->winGetStatus(),
+			0, 0, newW, cellH, &inst, src->m_font, FALSE );
+		if( win == nullptr )
+			return;
+		win->winSetWindowId( TheNameKeyGenerator->nameToKey( name.str() ) );
+		win->winSetInputFunc( model->winGetInputFunc() );
+		win->winSetDrawFunc( model->winGetDrawFunc() );
+		win->winSetTooltipFunc( model->winGetTooltipFunc() );
+		win->winSetStatus( WIN_STATUS_USE_OVERLAY_STATES );
+		win->winHide( TRUE );
+		windows[ n ] = win;
+	}
+
+	// Column-major, as both games number them: cell 1 top-left, 2 below it, 3 top of column two...
+	for( Int i = 0; i < 14; ++i )
+	{
+		const Int column = i / 2;
+		const Int x = leftX + (Int)( column * pitch + 0.5f );
+		windows[ i ]->winSetPosition( x, ( i % 2 ) ? bottomY : topY );
+		windows[ i ]->winSetSize( newW, cellH );
+	}
+	fprintf( stderr, "[GX-CELLS] base game command bar: 14 cells, %d wide at pitch %.1f (was %d at %.1f)\n",
+		newW, pitch, cellW, oldPitch );
+}
+#endif
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
@@ -1227,6 +1360,10 @@ void ControlBar::init()
 
 		}
 
+
+#if RTS_GENERALS && (defined(__ANDROID__) || (defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE))
+		gxGrowCommandBarToFourteenCells( m_commandWindows );
+#endif
 
 		for( i = 0; i < MAX_PURCHASE_SCIENCE_RANK_1; i++ )
 		{
