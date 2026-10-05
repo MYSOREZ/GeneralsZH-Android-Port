@@ -457,6 +457,26 @@ static void analyzeLayout( const Rule *rule, const char *layoutFile, const char 
 					const Real c0x = ( slots[ 0 ].r[ 0 ] + slots[ 0 ].r[ 2 ] ) * 0.5f * t.kx + t.addX;
 					const Real c0y = ( slots[ 0 ].r[ 1 ] + slots[ 0 ].r[ 3 ] ) * 0.5f * k + t.addY;
 					p.offset.assign( p.scaled.size() * 5, 0.0f );
+					// GeneralsX @bugfix Android port 05/10/2026 The places are filled in the order the
+					// game fills the slots -- ButtonParent1 first -- not in the file's top-to-bottom
+					// order. Zero Hour's slot 1 is the bottom one, so nothing changes there; the base
+					// game's is the TOP one, and its first power (owner's photo: the spy drone) landed in
+					// the wrapped column out in the battlefield. Now the first power rests on the bar in
+					// both games, and further ones stack upward.
+					std::vector<Slot> byNumber = slots;
+					for( size_t a = 0; a < byNumber.size(); ++a )
+						for( size_t b = a + 1; b < byNumber.size(); ++b )
+						{
+							const Int na = atoi( rectWins[ byNumber[ a ].index ]->name.c_str() + prefixLen );
+							const Int nb = atoi( rectWins[ byNumber[ b ].index ]->name.c_str() + prefixLen );
+							if( nb < na )
+							{
+								const Slot tmp = byNumber[ a ];
+								byNumber[ a ] = byNumber[ b ];
+								byNumber[ b ] = tmp;
+							}
+						}
+					slots = byNumber;
 					Int columns = 1;
 					for( size_t n = 0; n < slots.size(); ++n )
 					{
