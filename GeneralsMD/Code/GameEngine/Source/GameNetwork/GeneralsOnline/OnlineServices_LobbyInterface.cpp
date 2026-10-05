@@ -22,6 +22,59 @@ extern void OnKickedFromLobby();
 
 extern NGMPGame* TheNGMPGame;
 
+// GeneralsX @bugfix Android port 05/10/2026 Custom maps in online lobbies (4PDA: the preview was a
+// question mark for every player, Android host or not; skirmish was fine).
+//
+// The lobby carries a custom map as its file name only -- "mymap.map" -- and each client finds it
+// under its own user map folder. Both halves assumed Windows paths. Sending cut the name after the
+// last backslash, and this port's map keys use forward slashes, so the whole phone path went out
+// ("/storage/emulated/0/..."). Receiving rebuilt "<user map dir>\mymap.map", without the map's own
+// folder and with a backslash, which is no key in this port's map cache ("<user map dir>/mymap/
+// mymap.map", lowercase) -- so not even the host found its own map.
+//
+// The leaf is cut at either separator, and a received name is matched against the custom maps
+// this client actually has, by file name. When it has none, the path is where this client keeps
+// such a map (its own folder, named like the file), which is where a map transfer puts it.
+static AsciiString gxMapFileLeaf(const AsciiString& mapPath)
+{
+	const char* s = mapPath.str();
+	const char* leaf = s;
+	for (const char* c = s; *c != '\0'; ++c)
+	{
+		if (*c == '\\' || *c == '/')
+			leaf = c + 1;
+	}
+	return AsciiString(leaf);
+}
+
+static std::string gxResolveCustomMapPath(const std::string& receivedMapPath)
+{
+	AsciiString leaf = gxMapFileLeaf(AsciiString(receivedMapPath.c_str()));
+	leaf.toLower();
+	if (TheMapCache != nullptr)
+	{
+		for (MapCache::iterator it = TheMapCache->begin(); it != TheMapCache->end(); ++it)
+		{
+			if (it->second.m_isOfficial)
+				continue;
+			if (gxMapFileLeaf(it->first).compareNoCase(leaf) == 0)
+				return std::string(it->first.str());
+		}
+	}
+
+	AsciiString userMapDir = TheMapCache ? TheMapCache->getUserMapDir() : AsciiString::TheEmptyString;
+	userMapDir.toLower();
+	AsciiString stem = leaf;
+	if (stem.endsWithNoCase(".map"))
+		stem.truncateBy(4);
+#if defined(_WIN32)
+	const char sep = '\\';
+#else
+	const char sep = '/';
+#endif
+	return std::format("{}{}{}{}{}", userMapDir.str(), sep, stem.str(), sep, leaf.str());
+}
+
 struct JoinLobbyResponse
 {
 	bool success = false;
@@ -103,11 +156,7 @@ void NGMP_OnlineServices_LobbyInterface::UpdateCurrentLobby_Map(UnicodeString st
 	// sanitize map path
 	// we need to parse out the map name for custom maps... its an absolute path
 	// it's safe to just get the file name, dir name and file name MUST be the same. Game enforces this
-	AsciiString sanitizedMapPath = strMapPath;
-	if (sanitizedMapPath.reverseFind('\\'))
-	{
-		sanitizedMapPath = sanitizedMapPath.reverseFind('\\') + 1;
-	}
+	AsciiString sanitizedMapPath = gxMapFileLeaf(strMapPath);
 
 	// GeneralsX @bugfix Android port 27/09/2026 The map name goes out as UTF-8, as the PC client's
 	// CreateLobby sends it and every client's game list reads it (LobbyUtils, from_utf8). Taken
@@ -594,7 +643,7 @@ void NGMP_OnlineServices_LobbyInterface::SearchForLobbies(std::function<void()> 
 				}
 				else
 				{
-					lobbyEntry.map_path = std::format("{}\\{}", TheMapCache->getUserMapDir().str(), lobbyEntry.map_path.c_str());
+					lobbyEntry.map_path = gxResolveCustomMapPath(lobbyEntry.map_path);
 				}
 
 				// NOTE: These fields won't be present becauase they're private properties
@@ -917,11 +966,7 @@ void NGMP_OnlineServices_LobbyInterface::UpdateRoomDataCache(std::function<void(
 						}
 						else
 						{
-							// TODO_NGMP: This needs to match identically, but why did it change from the base game?
-							AsciiString strUserMapDIr = TheMapCache->getUserMapDir();
-							strUserMapDIr.toLower();
-
-							lobbyEntry.map_path = std::format("{}\\{}", strUserMapDIr.str(), lobbyEntry.map_path.c_str());
+							lobbyEntry.map_path = gxResolveCustomMapPath(lobbyEntry.map_path);
 						}
 
 						// did the map change? cache that we need to reset and transmit our ready state
@@ -1497,11 +1542,7 @@ void NGMP_OnlineServices_LobbyInterface::CreateLobby(UnicodeString strLobbyName,
 			// sanitize map path
 			// we need to parse out the map name for custom maps... its an absolute path
 			// it's safe to just get the file name, dir name and file name MUST be the same. Game enforces this
-			AsciiString sanitizedMapPath = strInitialMapPath;
-			if (sanitizedMapPath.reverseFind('\\'))
-			{
-				sanitizedMapPath = sanitizedMapPath.reverseFind('\\') + 1;
-			}
+			AsciiString sanitizedMapPath = gxMapFileLeaf(strInitialMapPath);
 
 			nlohmann::json j;
 			j["name"] = to_utf8(strLobbyName.str());
