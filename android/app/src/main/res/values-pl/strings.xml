@@ -362,4 +362,6 @@
     <string name="setup_switch_mouse_mode_desc">Kursor zamiast dotykania: podłączona mysz działa jak na PC, a bez niej palec przesuwa kursor jak touchpad laptopa. Wyłączone: gra sterowana jest bezpośrednio dotykiem.</string>
     <string name="setup_mouse_mode_help">Touchpad: przesuwaj palcem, aby przesuwać kursor. Dotknięcie = lewy klik, dwa dotknięcia = podwójny klik, dotknięcie, a potem dotknięcie i przeciągnięcie = ramka zaznaczenia. Dotknięcie dwoma palcami = prawy klik. Dwa palce = przewijanie mapy, uszczypnięcie = powiększenie. Działa od następnego uruchomienia gry. O tym, co robią lewy i prawy przycisk, nadal decyduje opcja gry „Alternatywne sterowanie myszą”. W menu, lobby i oknach dialogowych palec naciska bezpośrednio, jak zwykle.</string>
     <string name="setup_cursor_size_label">Rozmiar kursora: %1$d%%</string>
+    <string name="setup_switch_skip_intro">Pomijaj filmy wprowadzające</string>
+    <string name="setup_switch_skip_intro_desc">Logo EA, intro i inne filmy przed menu są pomijane — gra od razu przechodzi do wczytywania. Dla obu gier, także z modami.</string>
 </resources>

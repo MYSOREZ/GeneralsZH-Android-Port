@@ -166,6 +166,10 @@ public class GeneralsZHActivity extends SDLActivity {
             args.add("-gxSafeInsets");
             args.add(safeInsets);
         }
+        // GeneralsX @feature Android port 05/10/2026 The launcher's "skip intro" switch.
+        if (SetupActivity.isSkipIntroEnabled(this)) {
+            args.add("-nologo");
+        }
         Intent intent = getIntent();
         String replay = intent != null ? intent.getStringExtra(EXTRA_REPLAY) : null;
         if (replay == null || replay.isEmpty()) {

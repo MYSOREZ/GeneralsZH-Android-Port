@@ -362,4 +362,6 @@
     <string name="setup_switch_mouse_mode_desc">Kursor vměsto dotykov: podključena myš rabotaje kako na PC, a bez nje palec dvigaje kursor kako tačpad notebooka. Izključeno: igra se upravjaje dotykami naprųdno.</string>
     <string name="setup_mouse_mode_help">Tačpad: vedite palcem — kursor se dvigaje. Dotyk = levy klik, dva dotyka = dvojny klik, dotyk, potom dotknųti i vesti = ramka izbora. Dotyk dvoma palcami = pravy klik. Dva palca = prokrutka karty, ščipok = masštab. Dějstvuje od slědnego zapuska igry. Čto dělajųt levy i pravy gumb, nadalje rěšaje opcija igry «Alternativno upravjanje myšjų». V menju, lobi i dialogah palec nažimaje naprųdno, kako obyčno.</string>
     <string name="setup_cursor_size_label">Velikost kursora: %1$d%%</string>
+    <string name="setup_switch_skip_intro">Propuščati zastavky</string>
+    <string name="setup_switch_skip_intro_desc">Logotipy EA, vstupno video i druge filmy pred menju se ne pokazujut — igra odrazu prěhodi k zagruzkě. Za obě igry, i s modami.</string>
 </resources>

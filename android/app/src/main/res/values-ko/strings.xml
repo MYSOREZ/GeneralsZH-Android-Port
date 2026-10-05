@@ -362,4 +362,6 @@
     <string name="setup_switch_mouse_mode_desc">원하는 곳을 탭하는 대신 포인터를 사용합니다. 연결된 마우스는 PC처럼 작동하고, 마우스가 없으면 손가락이 노트북 터치패드처럼 커서를 움직입니다. 끄면 게임을 터치로 직접 조작합니다.</string>
     <string name="setup_mouse_mode_help">터치패드: 손가락을 움직이면 커서가 움직입니다. 탭 = 왼쪽 클릭, 두 번 탭 = 더블 클릭, 탭한 뒤 다시 눌러 끌기 = 선택 상자. 두 손가락 탭 = 오른쪽 클릭. 두 손가락 = 지도 스크롤, 핀치 = 확대/축소. 다음에 게임을 시작할 때 적용됩니다. 왼쪽과 오른쪽 버튼의 동작은 여전히 게임의 \"대체 마우스 설정\" 옵션이 정합니다. 메뉴, 로비, 대화 상자에서는 평소처럼 손가락으로 직접 누릅니다.</string>
     <string name="setup_cursor_size_label">커서 크기: %1$d%%</string>
+    <string name="setup_switch_skip_intro">인트로 영상 건너뛰기</string>
+    <string name="setup_switch_skip_intro_desc">EA 로고, 인트로 및 메뉴 전 다른 영상을 건너뛰고 바로 로딩합니다. 두 게임 모두, 모드 포함.</string>
 </resources>

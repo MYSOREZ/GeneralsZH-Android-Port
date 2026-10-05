@@ -77,6 +77,11 @@ import java.io.File;
 public class SetupActivity extends Activity {
 
     static final String PREFS_NAME = "generalszh_setup";
+    static final String PREF_SKIP_INTRO = "skip_intro";
+
+    static boolean isSkipIntroEnabled(android.content.Context ctx) {
+        return ctx.getSharedPreferences(PREFS_NAME, MODE_PRIVATE).getBoolean(PREF_SKIP_INTRO, false);
+    }
     static final String PREF_GAME_PATH = "game_path";
 
     // GeneralsX @feature Android port 04/10/2026 Two games behind one icon: Command & Conquer
@@ -503,6 +508,16 @@ public class SetupActivity extends Activity {
             buildUi();
         });
         UiKit.supporting(game, getString(R.string.setup_game_desc));
+
+        // GeneralsX @feature Android port 05/10/2026 Skip the logos and intro movies (owner's
+        // request): the engine's own -nologo, passed by GeneralsZHActivity.getArguments(), for
+        // both games. Whatever plays in their place -- EA logo, intro, sizzle, or a mod's or a
+        // repack's replacement of those movies -- is skipped, straight to loading.
+        SwitchCompat skipIntro = UiKit.switchRow(game,
+            getString(R.string.setup_switch_skip_intro), getString(R.string.setup_switch_skip_intro_desc));
+        skipIntro.setChecked(isSkipIntroEnabled(this));
+        skipIntro.setOnCheckedChangeListener((button, checked) ->
+            getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit().putBoolean(PREF_SKIP_INTRO, checked).apply());
 
         // The one thing this app exists to do, as the first thing on it.
         UiKit.button(page, UiKit.BTN_PRIMARY, R.drawable.ic_gzh_play,
