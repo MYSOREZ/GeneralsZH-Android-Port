@@ -109,6 +109,9 @@ and the notes (plus the symbol tables of both engines) under `docs/releases/v<ve
 costs seconds. Then duplicate the release on GitVerse -- same title, notes and APK:
 `./scripts/build/android/publish-apk-gitverse.sh --release <version>`, and give its page
 (`https://gitverse.ru/<GITVERSE_REPO>/releases/tag/v<version>`) next to the GitHub one.
+**Before every release** check `docs/WORKDIR/planning/PLAN-026_LANGUAGE_PACKS_PER_GAME.md`: the
+language packs move to one file per game in two steps, each done at a release (never in a test
+build).
 
 CI (`Actions tab → Build Android → Run workflow`) still exists for release
 artifacts and the symbol bundle. For a local build's prerequisites see
