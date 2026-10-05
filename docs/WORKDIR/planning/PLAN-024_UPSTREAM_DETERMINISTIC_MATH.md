@@ -34,6 +34,25 @@ on native math). The owner posted a correction: we match the **VC6 client**, whi
 - xezon doubts native math is enough across all CPUs and libms; fbraz3 (who cited this port)
   said it was raised for discussion only.
 
+## Update 05/10/2026 (OmniBlade, TheSuperHackers)
+
+- Our double-and-narrow works because the double CRT result is computed at higher precision and
+  then rounded to float: as long as the rounding mode is the same and the double function's error
+  is below a float's precision, the float comes out the same. It does **not** make transcendental
+  functions return the same value on every platform and C runtime, and nothing can guarantee that.
+  This matches what we measured, and it names the residual risk: a double result that lands within
+  its error of a float rounding boundary narrows differently. Rare, and not seen in the 1946
+  checkpoints of `Global_War*.rep`, but possible -- and it depends on bionic's libm, which could
+  change between Android versions.
+- **Long-term compatibility with the VC6 clients is not a TheSuperHackers goal**: it constrains
+  engine improvements too much. So upstream will move to GameMath and stay there; holding the VC6
+  contract is this port's job alone, for as long as the GeneralsOnline PC client is VC6.
+- GameMath's performance is now close to the CRT's (sqrt intrinsics) -- so cost is no argument
+  against switching once the PC client does.
+
+Consequence for step 4 below: the day GeneralsOnline's Windows client moves to GameMath, this port
+should switch at the same time; until then, keep the VC6 contract on the hashed path.
+
 ## Why it matters here
 
 Cross-play with the PC works because this port reproduces what the GeneralsOnline Windows client
