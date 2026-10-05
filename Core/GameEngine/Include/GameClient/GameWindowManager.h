@@ -283,6 +283,12 @@ public:
 	// GeneralsX @feature Android port 05/10/2026 Is a modal window (dialog, message box) up? Read by
 	// the touchpad mode, which lets a finger press such windows directly (SDL3GameEngine.cpp).
 	Bool winHasModal() const { return m_modalHead != nullptr; }
+	// GeneralsX @bugfix Android port 05/10/2026 A top-level window that only shows something and
+	// never takes the pointer: hit tests look through it to what is underneath. The control bar's
+	// description popup is one -- grown by the interface size, it came to cover the money counter,
+	// so hovering the counter showed the popup, the popup then had the pointer, the counter lost
+	// it and the popup closed, over and over (owner's report: it flickers).
+	void winSetHitPassthrough( GameWindow *window ) { m_hitPassthrough = window; }
 	virtual Int winUnsetModal( GameWindow *window );  /**< take window off modal stack, if window is
 																										not at top of stack and error will occur */
 
@@ -382,6 +388,7 @@ protected:
 	GameWindow *m_mouseCaptor;			// window that captured mouse
 	GameWindow *m_keyboardFocus;		// window that has input focus
 	ModalWindow *m_modalHead;			// top of windows in the modal stack
+	GameWindow *m_hitPassthrough;	// see winSetHitPassthrough()
 	GameWindow *m_grabWindow;			// window that grabbed the last down event
 	GameWindow *m_loneWindow;			// Set if we just opened a Lone Window
 	GameWindowList m_tabList;			// we have to register a tab list to make a tab list.

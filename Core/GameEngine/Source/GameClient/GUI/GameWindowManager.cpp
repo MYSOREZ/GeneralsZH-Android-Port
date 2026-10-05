@@ -271,6 +271,7 @@ GameWindowManager::GameWindowManager()
 	m_mouseCaptor = nullptr;			// window that captured mouse
 	m_keyboardFocus = nullptr;		// window that has input focus
 	m_modalHead = nullptr;			// top of windows in the modal stack
+	m_hitPassthrough = nullptr;
 	m_grabWindow = nullptr;			// window that grabbed the last down event
 	m_loneWindow = nullptr;		// Set if we just opened a combo box
 
@@ -1354,6 +1355,8 @@ GameWindow* GameWindowManager::findWindowUnderMouse(GameWindow*& toolTipWindow, 
 {
 	for (GameWindow* window = m_windowList; window; window = window->m_next)
 	{
+		if (window == m_hitPassthrough)
+			continue;
 		if (!isMouseWithinWindow(window, mousePos, requiredStatusMask, forbiddenStatusMask))
 			continue;
 
@@ -1589,6 +1592,9 @@ Int GameWindowManager::winDestroy( GameWindow *window )
 
 	if( window == nullptr )
 		return WIN_ERR_INVALID_WINDOW;
+
+	if( window == m_hitPassthrough )
+		m_hitPassthrough = nullptr;
 
 	//
 	// we should never have edit data allocated in the window code, it's
@@ -3767,6 +3773,8 @@ GameWindow *GameWindowManager::getWindowUnderCursor( Int x, Int y, Bool ignoreEn
 		// search for top-level window which contains pointer
 		for( window = m_windowList; window; window = window->m_next )
 		{
+			if( window == m_hitPassthrough )
+				continue;
 
 			if( BitIsSet( window->m_status, WIN_STATUS_ABOVE ) &&
 					!BitIsSet( window->m_status, WIN_STATUS_HIDDEN ) &&

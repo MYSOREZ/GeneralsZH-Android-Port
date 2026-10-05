@@ -873,7 +873,8 @@ CommandSet::CommandSet(const AsciiString& name) :
 	orders in slots 9-12 the cells shown read: 1-8 as they are, 9-10 empty, 11-14 from slots 9-12. That
 	matches Zero Hour for 203 of the 260 buttons of the units both games share; the rest (Evacuate on
 	a transport, Combat Drop) land one column right of where Zero Hour put them. Every other set
-	(structures, production lists, a dozer) keeps its cells and has 13-14 free. The INI and anything
+	(structures, production lists, a dozer) keeps slots 1-10 and shows 11-12 in cells 13-14, which is
+	where Zero Hour has Rally Point, Sell and Disarm Mines. The INI and anything
 	addressing a slot by number -- a map script's command bar override -- still use the base game's
 	numbers: only what a cell shows is translated, here. Returns -1 for an empty cell. */
 //-------------------------------------------------------------------------------------------------
@@ -897,8 +898,17 @@ static Int gxBaseGameSlotForCell( const CommandButton *const command[ MAX_COMMAN
 				break;
 		}
 	}
+	// Structures and builders: Zero Hour keeps slots 1-10 and moves the last two -- Set Rally Point
+	// and Sell on a building, Disarm Mines on a dozer -- to 13 and 14, leaving 11-12 free (owner's
+	// photo of the command center: they stayed in the sixth column).
 	if( !unitSet )
-		return cell < 12 ? cell : -1;
+	{
+		if( cell < 10 )
+			return cell;
+		if( cell < 12 )
+			return -1;
+		return cell - 2;
+	}
 	if( cell < 8 )
 		return cell;
 	if( cell < 10 )
@@ -1490,6 +1500,9 @@ void ControlBar::init()
 		{
 			m_buildToolTipLayout->hide(TRUE);
 			m_buildToolTipLayout->setUpdate(ControlBarPopupDescriptionUpdateFunc);
+			// GeneralsX @bugfix Android port 05/10/2026 The popup never takes the pointer (see
+			// GameWindowManager::winSetHitPassthrough).
+			TheWindowManager->winSetHitPassthrough(m_buildToolTipLayout->getFirstWindow());
 		}
 
 		m_genStarOn = TheMappedImageCollection ? (Image *)TheMappedImageCollection->findImageByName("BarButtonGenStarON") : nullptr;
