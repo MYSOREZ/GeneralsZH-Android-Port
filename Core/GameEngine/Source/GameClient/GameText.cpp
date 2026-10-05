@@ -470,19 +470,28 @@ void GameTextManager::init()
 	qsort( m_stringLUT, m_textCount, sizeof(StringLookUp), compareLUT  );
 
 	// GeneralsX @bugfix BenderAI 22/05/2026 Load fallback CSF instance when a mod provides an incomplete table.
-	if ( format == CSF_FILE )
+	// GeneralsX @feature Android port 05/10/2026 And under a language pack (.str), the game's own
+	// table: the packs are made from Zero Hour's text, which holds all but 20 of the base game's
+	// 2806 labels, so on Generals those 20 come from its own generals.csf instead of "MISSING".
+	AsciiString fallbackCsfFile = csfFile;
+	Int fallbackInstance = 1;
+	if ( format == STRING_FILE )
+	{
+		fallbackCsfFile.format( g_csfFile, GetRegistryLanguage().str() );
+		fallbackInstance = 0;
+	}
 	{
 		Int fallbackCount = 0;
 		LanguageID originalLanguage = m_language;
 
-		if ( getCSFInfo(csfFile.str(), fallbackCount, m_language, 1) && fallbackCount > 0 )
+		if ( getCSFInfo(fallbackCsfFile.str(), fallbackCount, m_language, fallbackInstance) && fallbackCount > 0 )
 		{
 			m_fallbackStringInfo = NEW StringInfo[fallbackCount];
 
 			if ( m_fallbackStringInfo != nullptr )
 			{
 				Int fallbackMaxLabelLen = m_maxLabelLen;
-				if ( parseCSF(csfFile.str(), m_fallbackStringInfo, fallbackCount, fallbackMaxLabelLen, 1) )
+				if ( parseCSF(fallbackCsfFile.str(), m_fallbackStringInfo, fallbackCount, fallbackMaxLabelLen, fallbackInstance) )
 				{
 					m_fallbackTextCount = fallbackCount;
 					m_maxLabelLen = max(m_maxLabelLen, fallbackMaxLabelLen);

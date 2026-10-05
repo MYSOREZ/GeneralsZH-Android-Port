@@ -779,10 +779,9 @@ public class SetupActivity extends Activity {
 
         languagePackButton = UiKit.button(content, UiKit.BTN_OUTLINE, R.drawable.ic_gzh_download,
             getString(R.string.setup_button_download_langpack), this::onDownloadLanguagePack);
-        // GeneralsX @feature Android port 04/10/2026 The packs are Zero Hour translations.
-        if (isGeneralsSelected(this)) {
-            languagePackButton.setVisibility(android.view.View.GONE);
-        }
+        // GeneralsX @feature Android port 05/10/2026 The packs are made from Zero Hour's text, which
+        // holds all but 20 of the base game's 2806 labels (the engine takes those 20 from the
+        // game's own table), so they serve Generals too.
 
         UiKit.helpText(content, getString(R.string.setup_language_help));
     }
