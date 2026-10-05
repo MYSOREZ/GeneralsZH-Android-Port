@@ -357,4 +357,8 @@
     <string name="setup_interface_scale_help">Powiększa interfejs gry bez zmiany jej plików: pasek dowodzenia z radarem rośnie w górę od dolnej krawędzi, a pasek mocy generała, czat, komunikaty o zdarzeniach, lista graczy, menu gry z zapisem/wczytaniem i opcjami oraz przyciski menu głównego rosną od miejsca, w którym są. Nic nie wychodzi poza ekran: każda część rośnie tylko tyle, ile się zmieści, więc na szerokim telefonie pasek dowodzenia robi się wyższy, a nie szerszy, a pole bitwy nad nim — niższe. Działa razem z rozmiarem tekstu menu. Zadziała przy następnym uruchomieniu gry.</string>
     <!-- GeneralsX @feature Android port 04/10/2026 Game folder found below the pick -->
     <string name="setup_toast_folder_found_inside">Gra była w podfolderze; użyto %1$s</string>
+    <string name="setup_card_controls">Sterowanie</string>
+    <string name="setup_switch_mouse_mode">Mysz i touchpad</string>
+    <string name="setup_switch_mouse_mode_desc">Kursor zamiast dotykania: podłączona mysz działa jak na PC, a bez niej palec przesuwa kursor jak touchpad laptopa. Wyłączone: gra sterowana jest bezpośrednio dotykiem.</string>
+    <string name="setup_mouse_mode_help">Touchpad: przesuwaj palcem, aby przesuwać kursor. Dotknięcie = lewy klik, dwa dotknięcia = podwójny klik, dotknięcie, a potem dotknięcie i przeciągnięcie = ramka zaznaczenia. Dotknięcie dwoma palcami = prawy klik. Dwa palce = przewijanie mapy, uszczypnięcie = powiększenie. Działa od następnego uruchomienia gry. O tym, co robią lewy i prawy przycisk, nadal decyduje opcja gry „Alternatywne sterowanie myszą”.</string>
 </resources>

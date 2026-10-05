@@ -30,6 +30,7 @@
 #include "PreRTS.h"	// This must go first in EVERY cpp file in the GameEngine
 
 #include "Common/GXSafeArea.h"
+#include "Common/GXMouseMode.h"
 #include <stdio.h>
 
 #define DEFINE_SHADOW_NAMES
@@ -1616,13 +1617,18 @@ void InGameUI::handleRadiusCursor()
 			// button that armed it, and on the previous attempt's target after re-arming.
 			const ICoord2D *aimPixel = &mouseIO->pos;
 #if defined(__ANDROID__) || (defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE)
-			if( !m_touchAimKnown )
+			// GeneralsX @feature Android port 05/10/2026 ...unless the player chose a pointer
+			// (GXMouseMode.h): then there is one, and it aims, as on a PC.
+			if( !GXMouseModeEnabled() )
 			{
-				// no finger has pointed anywhere yet: leave the decal exactly as it is
-				// rather than parking it somewhere arbitrary
-				return;
+				if( !m_touchAimKnown )
+				{
+					// no finger has pointed anywhere yet: leave the decal exactly as it is
+					// rather than parking it somewhere arbitrary
+					return;
+				}
+				aimPixel = &m_touchAimPoint;
 			}
-			aimPixel = &m_touchAimPoint;
 #endif
 
 			//
@@ -2050,9 +2056,18 @@ void InGameUI::handleBuildPlacements()
 			// object. Use the aim point the touch layer reports, and draw nothing until a
 			// finger has actually pointed somewhere -- so the ghost appears under the finger,
 			// where the building is going, and nowhere before that.
-			if( !m_touchAimKnown )
-				return;
-			loc = m_touchAimPoint;
+			// GeneralsX @feature Android port 05/10/2026 With a pointer (GXMouseMode.h) the ghost
+			// follows it, as on a PC.
+			if( GXMouseModeEnabled() )
+			{
+				loc = TheMouse->getMouseStatus()->pos;
+			}
+			else
+			{
+				if( !m_touchAimKnown )
+					return;
+				loc = m_touchAimPoint;
+			}
 #else
 			const MouseIO *mouseIO = TheMouse->getMouseStatus();
 

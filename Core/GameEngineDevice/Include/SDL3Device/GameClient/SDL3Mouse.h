@@ -93,6 +93,13 @@ public:
 	// map scrolling by itself from a point left near an edge. The position and the
 	// event are different things and only the first one is wanted here.
 	void setTouchCursorPos(Int x, Int y);
+
+	// GeneralsX @feature Android port 05/10/2026 Mouse and touchpad mode (GXMouseMode.h, issue #39).
+	// The touchpad gestures (SDL3GameEngine.cpp) are mouse events with this id, added with
+	// addSDLEvent() like a real mouse's. A real mouse is drawn by Android; a touchpad pointer is
+	// not, so the game draws it while the last pointer input came from the touchpad.
+	static const SDL_MouseID TOUCHPAD_MOUSE_ID = (SDL_MouseID)0xFFFFFFFDu;
+	virtual void draw() override;
 #endif
 
 	// SDL3-specific methods
@@ -154,6 +161,10 @@ private:
 	
 	// GeneralsX @bugfix BenderAI 22/02/2026 Add cursor animation tracking
 	Int m_directionFrame;         ///< current frame of directional cursor (from 0 points up)
+
+	// GeneralsX @feature Android port 05/10/2026 The pointer was last moved by the touchpad, not a
+	// real mouse: draw() draws it. See TOUCHPAD_MOUSE_ID.
+	Bool m_touchpadPointer;
 };
 
 #endif // !_WIN32

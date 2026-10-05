@@ -357,4 +357,8 @@
     <string name="setup_interface_scale_help">Uvečaje interfejs igry bez měnjenja jej datotek: dolnja panel s kartoju raste vvŕh od kraja ekrana, a panel moćij generala, čat, poruky o događajah, spis igračev, igrovo meni s shranjenjem i nastavjenjami i ključi glavnogo menija rastut od města, gde sut. Ničto ne izhodi za ekran: každa čast uvečaje se jedino toliko, koliko se vměstiti, zato na širokom telefonu dolnja panel stanovi se vyšeju, ne širšeju, a pole bitvy nad njeju — nižeju. Dějstvuje vměste s Věličinoju teksta menija. Dějstvuje pri sledujućem spuštěniju igry.</string>
     <!-- GeneralsX @feature Android port 04/10/2026 Game folder found below the pick -->
     <string name="setup_toast_folder_found_inside">Igra je byla v podpapke; izbrana jest: %1$s</string>
+    <string name="setup_card_controls">Upravjanje</string>
+    <string name="setup_switch_mouse_mode">Myš i tačpad</string>
+    <string name="setup_switch_mouse_mode_desc">Kursor vměsto dotykov: podključena myš rabotaje kako na PC, a bez nje palec dvigaje kursor kako tačpad notebooka. Izključeno: igra se upravjaje dotykami naprųdno.</string>
+    <string name="setup_mouse_mode_help">Tačpad: vedite palcem — kursor se dvigaje. Dotyk = levy klik, dva dotyka = dvojny klik, dotyk, potom dotknųti i vesti = ramka izbora. Dotyk dvoma palcami = pravy klik. Dva palca = prokrutka karty, ščipok = masštab. Dějstvuje od slědnego zapuska igry. Čto dělajųt levy i pravy gumb, nadalje rěšaje opcija igry «Alternativno upravjanje myšjų».</string>
 </resources>

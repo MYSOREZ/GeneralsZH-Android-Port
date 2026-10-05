@@ -57,11 +57,14 @@
 #include "StdDevice/Common/StdBIGFileSystem.h"
 #include "Common/GlobalData.h"
 #include "GXTrace.h"
+#include "Common/GXMouseMode.h"
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_vulkan.h>
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
+#include <algorithm>
+#include <cmath>
 
 #include "GameClient/LookAtXlat.h"
 #include "Common/AudioAffect.h"
@@ -933,6 +936,290 @@ void pushMouseButton(GameMessage::Type type, float x, float y)
 	if (touchDebugEnabled()) {
 		fprintf(stderr, "[gxtouch] send BUTTON type=%d at %d,%d\n", (int)type, (Int)x, (Int)y);
 	}
+}
+
+// GeneralsX @feature Android port 05/10/2026 Mouse and touchpad mode (GXMouseMode.h, issue #39).
+//
+// Chosen in the launcher, off by default. Then the game has a pointer, and a finger drives it the
+// way a laptop touchpad does instead of acting where it lands:
+//
+//   one finger moves         -> the pointer moves by the finger's motion (relative, x1.6)
+//   one-finger tap           -> left click where the pointer is; two taps -> double click
+//   tap, then touch and move -> left button held while moving (selection box, drag), released on lift
+//   two-finger tap           -> right click where the pointer is
+//   two fingers moving       -> the map follows them (applyCameraPan); pinch zooms (applyCameraZoom)
+//
+// Everything a finger does here is a mouse event -- SDL3Mouse::TOUCHPAD_MOUSE_ID, added to the
+// mouse's buffer exactly like a real mouse's -- so the game's own mouse handling answers it, the
+// same as on a PC. That is the opposite of the native touch layer above, and the reason it is a
+// separate mode: the lesson in docs/WORKDIR/lessons/LESSON-touch-input-is-not-a-mouse.md is that a
+// finger lacks what a pointer has (a position when nothing is pressed, hover, a place to rest near
+// an edge, singularity). Here there really is a pointer, with all of those: it stays where it was
+// left, it hovers, it can rest at an edge, and there is one of it.
+namespace
+{
+	struct TouchpadState
+	{
+		Bool havePointer = FALSE;
+		float pointerX = 0.0f, pointerY = 0.0f;	// window pixels
+		Int fingers = 0;
+		SDL_FingerID ids[2] = { 0, 0 };
+		float fx[2] = { 0, 0 }, fy[2] = { 0, 0 };	// window pixels
+		Int maxFingers = 0;
+		Uint64 downTicks = 0;
+		float travel = 0.0f;			// finger travel in this gesture, window pixels
+		float pendingDX = 0.0f, pendingDY = 0.0f;	// motion held back until it is clearly not a tap
+		Bool leftHeld = FALSE;
+		Bool dragArmed = FALSE;		// touched again right after a tap
+		Uint64 lastTapUpTicks = 0;
+	};
+	TouchpadState s_pad;
+
+	const float PAD_SPEED = 1.6f;
+	const Uint64 PAD_TAP_MS = 250;
+	const Uint64 PAD_DOUBLE_TAP_MS = 300;
+
+	SDL3Mouse *padMouse()
+	{
+		return TheMouse ? dynamic_cast<SDL3Mouse *>(TheMouse) : nullptr;
+	}
+
+	// Window pixels to the game's own (the same mapping handleTouchEvent uses).
+	void padWindowToGame(SDL_Window *window, float wx, float wy, float &gx, float &gy)
+	{
+		gx = wx;
+		gy = wy;
+		int pbX = 0, pbY = 0, pbW = 0, pbH = 0;
+		int winW = 0, winH = 0;
+		SDL_GetWindowSize(window, &winW, &winH);
+		if (DX8Wrapper::Pillarbox_Get_Rect(pbX, pbY, pbW, pbH) && pbW > 0 && pbH > 0 && TheDisplay) {
+			gx = (wx - (float)pbX) * ((float)TheDisplay->getWidth() / (float)pbW);
+			gy = (wy - (float)pbY) * ((float)TheDisplay->getHeight() / (float)pbH);
+		} else if (TheDisplay && winW > 0 && winH > 0) {
+			gx = wx * (float)TheDisplay->getWidth() / (float)winW;
+			gy = wy * (float)TheDisplay->getHeight() / (float)winH;
+		}
+	}
+
+	void padSendMotion(SDL_Window *window, float dx, float dy)
+	{
+		SDL3Mouse *mouse = padMouse();
+		if (mouse == nullptr) {
+			return;
+		}
+		int winW = 0, winH = 0;
+		SDL_GetWindowSize(window, &winW, &winH);
+		s_pad.pointerX = std::min(std::max(s_pad.pointerX + dx, 0.0f), (float)(winW > 0 ? winW - 1 : 0));
+		s_pad.pointerY = std::min(std::max(s_pad.pointerY + dy, 0.0f), (float)(winH > 0 ? winH - 1 : 0));
+		SDL_Event e;
+		SDL_zero(e);
+		e.type = SDL_EVENT_MOUSE_MOTION;
+		e.motion.timestamp = SDL_GetTicksNS();
+		e.motion.windowID = SDL_GetWindowID(window);
+		e.motion.which = SDL3Mouse::TOUCHPAD_MOUSE_ID;
+		e.motion.state = s_pad.leftHeld ? SDL_BUTTON_LMASK : 0;
+		e.motion.x = s_pad.pointerX;
+		e.motion.y = s_pad.pointerY;
+		e.motion.xrel = dx;
+		e.motion.yrel = dy;
+		mouse->addSDLEvent(&e);
+	}
+
+	void padSendButton(SDL_Window *window, Uint8 button, bool down, Uint8 clicks)
+	{
+		SDL3Mouse *mouse = padMouse();
+		if (mouse == nullptr) {
+			return;
+		}
+		SDL_Event e;
+		SDL_zero(e);
+		e.type = down ? SDL_EVENT_MOUSE_BUTTON_DOWN : SDL_EVENT_MOUSE_BUTTON_UP;
+		e.button.timestamp = SDL_GetTicksNS();
+		e.button.windowID = SDL_GetWindowID(window);
+		e.button.which = SDL3Mouse::TOUCHPAD_MOUSE_ID;
+		e.button.button = button;
+		e.button.down = down;
+		e.button.clicks = clicks;
+		e.button.x = s_pad.pointerX;
+		e.button.y = s_pad.pointerY;
+		mouse->addSDLEvent(&e);
+	}
+
+	void padClick(SDL_Window *window, Uint8 button, Uint8 clicks)
+	{
+		padSendButton(window, button, true, clicks);
+		padSendButton(window, button, false, clicks);
+	}
+
+	Int padFingerIndex(SDL_FingerID id)
+	{
+		for (Int i = 0; i < s_pad.fingers; ++i) {
+			if (s_pad.ids[i] == id) {
+				return i;
+			}
+		}
+		return -1;
+	}
+}
+
+// Returns TRUE when it clicked, with the pointer's position in game pixels in clickX/clickY: the
+// caller hands a text field under it the on-screen keyboard.
+Bool handleTouchpadEvent(SDL_Window *window, const SDL_Event &event, Int &clickX, Int &clickY)
+{
+	int winW = 0, winH = 0;
+	SDL_GetWindowSize(window, &winW, &winH);
+	if (winW <= 0 || winH <= 0) {
+		return FALSE;
+	}
+	if (!s_pad.havePointer) {
+		s_pad.pointerX = winW * 0.5f;
+		s_pad.pointerY = winH * 0.5f;
+		s_pad.havePointer = TRUE;
+		padSendMotion(window, 0.0f, 0.0f);
+	}
+
+	const float wx = event.tfinger.x * (float)winW;
+	const float wy = event.tfinger.y * (float)winH;
+	const float slop = winH * 0.012f;
+	const Uint64 now = SDL_GetTicks();
+	Bool clicked = FALSE;
+
+	switch (event.type) {
+	case SDL_EVENT_FINGER_DOWN:
+	{
+		if (s_pad.fingers >= 2) {
+			break;	// a third finger means nothing here
+		}
+		const Int i = s_pad.fingers++;
+		s_pad.ids[i] = event.tfinger.fingerID;
+		s_pad.fx[i] = wx;
+		s_pad.fy[i] = wy;
+		if (s_pad.fingers == 1) {
+			s_pad.maxFingers = 1;
+			s_pad.downTicks = now;
+			s_pad.travel = 0.0f;
+			s_pad.pendingDX = s_pad.pendingDY = 0.0f;
+			s_pad.dragArmed = (s_pad.lastTapUpTicks != 0 && now - s_pad.lastTapUpTicks < PAD_DOUBLE_TAP_MS);
+		} else {
+			s_pad.maxFingers = 2;
+			if (s_pad.leftHeld) {
+				padSendButton(window, SDL_BUTTON_LEFT, false, 1);
+				s_pad.leftHeld = FALSE;
+			}
+		}
+		break;
+	}
+
+	case SDL_EVENT_FINGER_MOTION:
+	{
+		const Int i = padFingerIndex(event.tfinger.fingerID);
+		if (i < 0) {
+			break;
+		}
+		const float dx = wx - s_pad.fx[i];
+		const float dy = wy - s_pad.fy[i];
+
+		if (s_pad.maxFingers >= 2) {
+			if (s_pad.fingers == 2) {
+				// Two fingers: the map follows their centre, and their spread zooms.
+				const float oldCx = (s_pad.fx[0] + s_pad.fx[1]) * 0.5f;
+				const float oldCy = (s_pad.fy[0] + s_pad.fy[1]) * 0.5f;
+				const float oldDist = sqrtf((s_pad.fx[0] - s_pad.fx[1]) * (s_pad.fx[0] - s_pad.fx[1]) +
+				                            (s_pad.fy[0] - s_pad.fy[1]) * (s_pad.fy[0] - s_pad.fy[1]));
+				s_pad.fx[i] = wx;
+				s_pad.fy[i] = wy;
+				const float newCx = (s_pad.fx[0] + s_pad.fx[1]) * 0.5f;
+				const float newCy = (s_pad.fy[0] + s_pad.fy[1]) * 0.5f;
+				const float newDist = sqrtf((s_pad.fx[0] - s_pad.fx[1]) * (s_pad.fx[0] - s_pad.fx[1]) +
+				                            (s_pad.fy[0] - s_pad.fy[1]) * (s_pad.fy[0] - s_pad.fy[1]));
+				s_pad.travel += fabsf(newCx - oldCx) + fabsf(newCy - oldCy) + fabsf(newDist - oldDist);
+				if (s_pad.travel > slop * 2.0f) {
+					float gx0, gy0, gx1, gy1;
+					padWindowToGame(window, oldCx, oldCy, gx0, gy0);
+					padWindowToGame(window, newCx, newCy, gx1, gy1);
+					applyCameraPan(gx0, gy0, gx1, gy1);
+					float gd0x, gd0y, gd1x, gd1y;
+					padWindowToGame(window, oldDist, 0.0f, gd0x, gd0y);
+					padWindowToGame(window, newDist, 0.0f, gd1x, gd1y);
+					applyCameraZoom(gd1x - gd0x);
+				}
+			} else {
+				s_pad.fx[i] = wx;
+				s_pad.fy[i] = wy;	// one finger left over from a two-finger gesture moves nothing
+			}
+			break;
+		}
+
+		s_pad.fx[i] = wx;
+		s_pad.fy[i] = wy;
+		s_pad.travel += fabsf(dx) + fabsf(dy);
+		s_pad.pendingDX += dx * PAD_SPEED;
+		s_pad.pendingDY += dy * PAD_SPEED;
+		if (s_pad.travel <= slop) {
+			break;	// may still be a tap: do not jiggle the pointer
+		}
+		if (s_pad.dragArmed && !s_pad.leftHeld) {
+			padSendButton(window, SDL_BUTTON_LEFT, true, 1);
+			s_pad.leftHeld = TRUE;
+		}
+		padSendMotion(window, s_pad.pendingDX, s_pad.pendingDY);
+		s_pad.pendingDX = s_pad.pendingDY = 0.0f;
+		break;
+	}
+
+	case SDL_EVENT_FINGER_UP:
+	case SDL_EVENT_FINGER_CANCELED:
+	{
+		const Int i = padFingerIndex(event.tfinger.fingerID);
+		if (i < 0) {
+			break;
+		}
+		if (i == 0 && s_pad.fingers == 2) {
+			s_pad.ids[0] = s_pad.ids[1];
+			s_pad.fx[0] = s_pad.fx[1];
+			s_pad.fy[0] = s_pad.fy[1];
+		}
+		--s_pad.fingers;
+		if (s_pad.fingers > 0) {
+			break;
+		}
+
+		const Bool canceled = (event.type == SDL_EVENT_FINGER_CANCELED);
+		const Bool quick = (now - s_pad.downTicks) < PAD_TAP_MS;
+		if (s_pad.leftHeld) {
+			padSendButton(window, SDL_BUTTON_LEFT, false, 1);
+			s_pad.leftHeld = FALSE;
+			s_pad.lastTapUpTicks = 0;
+		} else if (!canceled && s_pad.maxFingers >= 2) {
+			if (quick && s_pad.travel <= slop * 2.0f) {
+				padClick(window, SDL_BUTTON_RIGHT, 1);
+				clicked = TRUE;
+			}
+			s_pad.lastTapUpTicks = 0;
+		} else if (!canceled && quick && s_pad.travel <= slop) {
+			const Uint8 clicks = s_pad.dragArmed ? 2 : 1;
+			padClick(window, SDL_BUTTON_LEFT, clicks);
+			clicked = TRUE;
+			s_pad.lastTapUpTicks = (clicks == 1) ? now : 0;
+		} else {
+			s_pad.lastTapUpTicks = 0;
+		}
+		s_pad.maxFingers = 0;
+		s_pad.dragArmed = FALSE;
+		break;
+	}
+
+	default:
+		break;
+	}
+
+	if (clicked) {
+		float gx, gy;
+		padWindowToGame(window, s_pad.pointerX, s_pad.pointerY, gx, gy);
+		clickX = (Int)gx;
+		clickY = (Int)gy;
+	}
+	return clicked;
 }
 
 void handleTouchEvent(SDL_Window *window, const SDL_Event &event)
@@ -2558,6 +2845,18 @@ void SDL3GameEngine::pollSDL3Events(void)
 				// a map, a dropdown or empty space all summoned the on-screen
 				// keyboard again, over and over, with no way to keep it down.
 				// Dismissing it and tapping anything brought it straight back.
+				// GeneralsX @feature Android port 05/10/2026 With a pointer chosen in the launcher a
+				// finger is a touchpad (handleTouchpadEvent), and the native touch layer stays out.
+				if (GXMouseModeEnabled()) {
+					Int clickX = 0, clickY = 0;
+					if (m_SDLWindow && handleTouchpadEvent(m_SDLWindow, event, clickX, clickY)) {
+						GameWindow* clicked = TheWindowManager ? TheWindowManager->getWindowUnderCursor(clickX, clickY) : nullptr;
+						if (clicked != nullptr && BitIsSet(clicked->winGetStyle(), GWS_ENTRY_FIELD)) {
+							m_PendingTextInputRearmFrames = 20;
+						}
+					}
+					break;
+				}
 				if (event.type == SDL_EVENT_FINGER_DOWN || event.type == SDL_EVENT_FINGER_UP) {
 					int winW = 0;
 					int winH = 0;

@@ -357,4 +357,8 @@
     <string name="setup_interface_scale_help">Aumenta a interface do jogo sem mexer nos arquivos dele: a barra de controle com o radar cresce para cima a partir da borda inferior, e a barra de poderes do general, o chat, as mensagens de eventos, a lista de jogadores, o menu da partida com Salvar/Carregar e Opções e os botões do menu principal crescem a partir de onde estão. Nada sai da tela: cada parte só cresce até onde cabe, então num celular largo a barra de controle fica mais alta em vez de mais larga, e o campo de batalha acima dela, mais baixo. Funciona junto com o tamanho do texto do menu. Vale a partir da próxima vez que você abrir o jogo.</string>
     <!-- GeneralsX @feature Android port 04/10/2026 Game folder found below the pick -->
     <string name="setup_toast_folder_found_inside">O jogo estava em uma subpasta; usando %1$s</string>
+    <string name="setup_card_controls">Controles</string>
+    <string name="setup_switch_mouse_mode">Mouse e touchpad</string>
+    <string name="setup_switch_mouse_mode_desc">Um ponteiro em vez de tocar onde você quer: um mouse conectado funciona como no PC e, sem ele, seu dedo move o cursor como o touchpad de um notebook. Desligado: o jogo é controlado tocando diretamente.</string>
+    <string name="setup_mouse_mode_help">Touchpad: mova um dedo para mover o cursor. Tocar = clique esquerdo, dois toques = clique duplo, tocar e depois tocar e arrastar = caixa de seleção. Tocar com dois dedos = clique direito. Dois dedos = rolar o mapa, pinçar = zoom. Vale a partir do próximo início do jogo. A opção do jogo \"Controle alternativo do mouse\" continua decidindo o que fazem os botões esquerdo e direito.</string>
 </resources>

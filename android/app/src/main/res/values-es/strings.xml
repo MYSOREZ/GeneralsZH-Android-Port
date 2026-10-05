@@ -357,4 +357,8 @@
     <string name="setup_interface_scale_help">Agranda la interfaz del juego sin tocar sus archivos: la barra de control con el radar crece hacia arriba desde el borde inferior, y la barra de poderes del general, el chat, los mensajes de eventos, la lista de jugadores, el menú de partida con Guardar/Cargar y Opciones y los botones del menú principal crecen desde donde están. Nada sale de la pantalla: cada parte crece solo lo que cabe, así que en un teléfono ancho la barra de control se hace más alta en vez de más ancha, y el campo de batalla encima, más bajo. Funciona junto con el tamaño del texto del menú. Se aplica la próxima vez que inicies el juego.</string>
     <!-- GeneralsX @feature Android port 04/10/2026 Game folder found below the pick -->
     <string name="setup_toast_folder_found_inside">El juego estaba en una subcarpeta; se usa %1$s</string>
+    <string name="setup_card_controls">Controles</string>
+    <string name="setup_switch_mouse_mode">Ratón y panel táctil</string>
+    <string name="setup_switch_mouse_mode_desc">Un puntero en lugar de tocar donde quieres: un ratón conectado funciona como en PC y, sin él, tu dedo mueve el cursor como el panel táctil de un portátil. Desactivado: el juego se controla tocando directamente.</string>
+    <string name="setup_mouse_mode_help">Panel táctil: mueve un dedo para mover el cursor. Tocar = clic izquierdo, dos toques = doble clic, tocar y luego tocar y arrastrar = recuadro de selección. Tocar con dos dedos = clic derecho. Dos dedos = desplazar el mapa, pellizcar = zoom. Se aplica la próxima vez que inicie el juego. La opción del juego «Control alternativo del ratón» sigue decidiendo qué hacen los botones izquierdo y derecho.</string>
 </resources>

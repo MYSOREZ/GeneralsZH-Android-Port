@@ -441,6 +441,7 @@ public class SetupActivity extends Activity {
                 buildLanguageSection(page);
                 buildUiScaleSection(page);
                 buildInterfaceScaleSection(page);
+                buildMouseModeSection(page);
                 break;
             case TAB_TOOLS:
                 buildLogsSection(page);
@@ -749,6 +750,33 @@ public class SetupActivity extends Activity {
             getString(R.string.replaycheck_title),
             getString(R.string.replaycheck_row_note),
             () -> startActivity(new Intent(this, ReplayCheckActivity.class)));
+    }
+
+    // GeneralsX @feature Android port 05/10/2026 Issue #39: a pointer instead of native touch,
+    // off by default. A marker file in the app's own files dir, read natively at start
+    // (GXMouseMode.h), so it holds before any game folder is chosen and for both games.
+    static final String MOUSE_MODE_MARKER = "mouse_mode";
+
+    private void buildMouseModeSection(LinearLayout root) {
+        LinearLayout content = UiKit.card(root);
+        UiKit.sectionHeader(content, R.drawable.ic_gzh_sliders,
+            getString(R.string.setup_card_controls), false);
+        SwitchCompat mouse = UiKit.switchRow(content,
+            getString(R.string.setup_switch_mouse_mode), getString(R.string.setup_switch_mouse_mode_desc));
+        mouse.setChecked(new File(getFilesDir(), MOUSE_MODE_MARKER).isFile());
+        mouse.setOnCheckedChangeListener((button, checked) -> {
+            File marker = new File(getFilesDir(), MOUSE_MODE_MARKER);
+            try {
+                if (checked) {
+                    marker.createNewFile();
+                } else {
+                    marker.delete();
+                }
+            } catch (java.io.IOException e) {
+                android.util.Log.w("SetupActivity", "could not write the mouse mode marker", e);
+            }
+        });
+        UiKit.helpText(content, getString(R.string.setup_mouse_mode_help));
     }
 
     // GeneralsX @feature Android port 13/07/2026 GitHub issue #4: in-app

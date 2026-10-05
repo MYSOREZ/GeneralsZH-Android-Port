@@ -357,4 +357,8 @@
     <string name="setup_interface_scale_help">在不修改游戏文件的情况下放大游戏界面：带雷达的底部控制栏从屏幕底边向上增高，将军技能栏、聊天、事件消息、玩家列表、带保存/读取和选项的游戏菜单以及主菜单按钮从各自所在的位置放大。不会有任何内容超出屏幕：每个部分只放大到能容纳为止，因此在宽屏手机上控制栏会变高而不是变宽，上方的战场则相应变矮。可与“菜单文字大小”一起使用。将在下次启动游戏时生效。</string>
     <!-- GeneralsX @feature Android port 04/10/2026 Game folder found below the pick -->
     <string name="setup_toast_folder_found_inside">游戏位于子文件夹中，已改用：%1$s</string>
+    <string name="setup_card_controls">操控</string>
+    <string name="setup_switch_mouse_mode">鼠标和触控板</string>
+    <string name="setup_switch_mouse_mode_desc">使用指针代替点按：连接的鼠标与电脑上一样使用；没有鼠标时，手指像笔记本触控板一样移动光标。关闭：直接用触摸操控游戏。</string>
+    <string name="setup_mouse_mode_help">触控板：移动手指即可移动光标。轻点 = 左键单击，轻点两次 = 双击，轻点后再按住拖动 = 框选。双指轻点 = 右键单击。双指 = 滚动地图，捏合 = 缩放。下次启动游戏时生效。左右键的作用仍由游戏自己的“备用鼠标设置”选项决定。</string>
 </resources>
