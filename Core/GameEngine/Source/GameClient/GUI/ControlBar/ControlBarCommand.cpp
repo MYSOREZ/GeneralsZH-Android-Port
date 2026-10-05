@@ -672,11 +672,12 @@ static ObjectID orderPageKey()
 	When they do not all fit -- transports (Humvee, Battle Bus, Troop Crawler, Helix), whose
 	passenger cells are taken -- and always on a builder's bar, whose cells are a palette of
 	structures where an order button would read as one more building, they go on a second page.
-	Page one is the stock bar with the page arrow in slot 14, the bottom-right cell; whatever the
-	set keeps there (Stop, or a builder's Disarm Mines) moves to a free slot, bottom row first,
-	and still works: a command window carries its own button, nothing looks the slot index up
-	again. Page two holds the order buttons from slot 1 and the arrow back in slot 14. A bar with
-	no free cell at all keeps its stock layout. */
+	Page one is the stock bar with the page arrow in its bottom-right cell (slot 14 in Zero Hour,
+	12 in the base game); whatever the set keeps there (Stop, or a builder's Disarm Mines) moves
+	to a free slot, bottom row first, and still works: a command window carries its own button,
+	nothing looks the slot index up again. With no free slot (a full set) it goes to page two.
+	Page two holds that button if it moved there, then the order buttons, from slot 1, and the
+	arrow back in the last cell. */
 //-------------------------------------------------------------------------------------------------
 void ControlBar::addTouchOrderButtons( const CommandSet *commandSet )
 {
@@ -688,7 +689,16 @@ void ControlBar::addTouchOrderButtons( const CommandSet *commandSet )
 		return;
 	}
 
-	const Int PAGE_SLOT = 13;	// slot 14, bottom right
+	// GeneralsX @bugfix Android port 05/10/2026 The page arrow goes in the bar's last cell, whatever
+	// the game: slot 14 in Zero Hour, slot 12 in the base game, whose bar has 12 cells (6 x 2). It
+	// was fixed at slot 14, so Generals had no arrow at all (owner's photo, a dozer).
+	Int pageSlot = -1;
+	for( Int i = MAX_COMMANDS_PER_SET - 1; i >= 0 && pageSlot < 0; --i )
+		if( m_commandWindows[ i ] != nullptr )
+			pageSlot = i;
+	if( pageSlot < 0 )
+		return;
+	const Int PAGE_SLOT = pageSlot;
 	auto slotTaken = [&]( Int i ) -> Bool
 	{
 		return commandSet ? ( commandSet->getCommandButton( i ) != nullptr ) : ( m_commonCommands[ i ] != nullptr );
@@ -721,8 +731,26 @@ void ControlBar::addTouchOrderButtons( const CommandSet *commandSet )
 	}
 
 	GameWindow *pageWin = m_commandWindows[ PAGE_SLOT ];
-	if( pageWin == nullptr || m_touchBuilderMoreButton == nullptr || m_touchBuilderBackButton == nullptr )
+	if( m_touchBuilderMoreButton == nullptr || m_touchBuilderBackButton == nullptr )
 		return;
+
+	// What the set keeps in the arrow's cell moves to a free cell, bottom row first (odd indices),
+	// then the top row from the right. A full set -- the base game's dozer fills all 12 -- has none:
+	// then it goes to the second page, first, ahead of the orders.
+	const CommandButton *moved = commandSet ? commandSet->getCommandButton( PAGE_SLOT ) : m_commonCommands[ PAGE_SLOT ];
+	const Bool movedShown = moved != nullptr && !pageWin->winIsHidden();
+	Int moveTarget = -1;
+	if( movedShown )
+	{
+		static const Int moveSlots[] = { 11, 9, 7, 5, 3, 1, 12, 10, 8, 6, 4, 2, 0 };
+		for( size_t k = 0; k < ARRAY_SIZE( moveSlots ) && moveTarget < 0; ++k )
+		{
+			const Int i = moveSlots[ k ];
+			if( i != PAGE_SLOT && m_commandWindows[ i ] && !slotTaken( i ) )
+				moveTarget = i;
+		}
+	}
+	const CommandButton *overflow = ( movedShown && moveTarget < 0 ) ? moved : nullptr;
 
 	const ObjectID key = orderPageKey();
 	if( key != INVALID_ID && m_orderPageObject == key )
@@ -731,15 +759,22 @@ void ControlBar::addTouchOrderButtons( const CommandSet *commandSet )
 			if( m_commandWindows[ i ] )
 				m_commandWindows[ i ]->winHide( TRUE );
 
+		const CommandButton *pageTwo[ 5 ];
+		Int pageTwoCount = 0;
+		if( overflow != nullptr )
+			pageTwo[ pageTwoCount++ ] = overflow;
+		for( Int b = 0; b < count; ++b )
+			pageTwo[ pageTwoCount++ ] = wanted[ b ];
+
 		Int slot = 0;
-		for( Int b = 0; b < count && slot < PAGE_SLOT; ++b, ++slot )
+		for( Int b = 0; b < pageTwoCount && slot < PAGE_SLOT; ++b, ++slot )
 		{
 			GameWindow *win = m_commandWindows[ slot ];
 			if( win == nullptr )
 				continue;
 			win->winHide( FALSE );
 			win->winEnable( TRUE );
-			setControlCommand( win, wanted[ b ] );
+			setControlCommand( win, pageTwo[ b ] );
 		}
 
 		pageWin->winHide( FALSE );
@@ -749,30 +784,14 @@ void ControlBar::addTouchOrderButtons( const CommandSet *commandSet )
 	}
 	m_orderPageObject = INVALID_ID;
 
-	// Page one: make room in slot 14 if the stock set uses it. Bottom row first (odd indices),
-	// then the top row from the right.
-	const CommandButton *moved = commandSet ? commandSet->getCommandButton( PAGE_SLOT ) : m_commonCommands[ PAGE_SLOT ];
-	if( moved != nullptr && !pageWin->winIsHidden() )
+	if( moveTarget >= 0 )
 	{
-		static const Int moveSlots[] = { 11, 9, 7, 5, 3, 1, 12, 10, 8, 6, 4, 2, 0 };
-		Int target = -1;
-		for( size_t k = 0; k < ARRAY_SIZE( moveSlots ); ++k )
-		{
-			const Int i = moveSlots[ k ];
-			if( m_commandWindows[ i ] && !slotTaken( i ) )
-			{
-				target = i;
-				break;
-			}
-		}
-		if( target < 0 )
-			return;	// a full set keeps its stock layout and gets no second page
-		GameWindow *win = m_commandWindows[ target ];
+		GameWindow *win = m_commandWindows[ moveTarget ];
 		win->winHide( FALSE );
 		win->winEnable( TRUE );
 		setControlCommand( win, moved );
 		if( commandSet == nullptr )
-			m_commonCommands[ target ] = moved;
+			m_commonCommands[ moveTarget ] = moved;
 	}
 
 	pageWin->winHide( FALSE );
