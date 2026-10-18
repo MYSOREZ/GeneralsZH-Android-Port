@@ -1667,7 +1667,11 @@ public class SetupActivity extends Activity {
                 R.color.gzh_on_surface, R.color.gzh_surface_container_high);
         }
 
-        UiKit.helpText(content, getString(R.string.setup_render_backend_help));
+        // GeneralsX @tweak Android port 18/10/2026 The Vulkan paragraphs only while Vulkan is offered
+        // (RENDER_BACKEND_CHOICES_NO_VULKAN): explaining a choice that is not on screen confuses.
+        UiKit.helpText(content, isVulkanUnlocked()
+            ? getString(R.string.setup_render_backend_help) + "\n\n" + getString(R.string.setup_render_backend_help_vulkan)
+            : getString(R.string.setup_render_backend_help));
     }
 
     private void onPickRenderBackend(String choice) {
@@ -2257,13 +2261,23 @@ public class SetupActivity extends Activity {
                     && writeRenderBackend(RENDER_BACKEND_GLES)) {
                 Toast.makeText(this, R.string.setup_toast_render_backend_saved, Toast.LENGTH_LONG).show();
             }
+            // The DXVK diagnostics below come and go with it.
+            button.post(() -> showTab(TAB_TOOLS));
         });
         UiKit.divider(content);
 
+        boolean first = true;
         for (int i = 0; i < DIAGNOSTIC_MARKERS.length; i++) {
-            if (i > 0) {
+            // GeneralsX @tweak Android port 18/10/2026 The DXVK switches (HUD, validation, verbose
+            // log) do nothing under OpenGL ES, so they are shown only while Vulkan is offered.
+            if (DIAGNOSTIC_MARKERS[i].startsWith("dxvk_") && !isVulkanUnlocked()) {
+                diagnosticSwitches[i] = null;
+                continue;
+            }
+            if (!first) {
                 UiKit.divider(content);
             }
+            first = false;
             diagnosticSwitches[i] = UiKit.switchRow(content,
                 getString(DIAGNOSTIC_TITLES[i]), getString(DIAGNOSTIC_DESCRIPTIONS[i]));
         }

@@ -78,6 +78,11 @@ the APK into `apk/`, then push, so the download link is a raw GitHub URL:
 cp GeneralsXZH-android-local.apk apk/<name>.apk
 ```
 
+Test builds may build one game only when only it changed, which halves the wait:
+`GX_BUILD_GAMES=zh` or `GX_BUILD_GAMES=generals` (the other game's engines are taken from the
+latest APK in `apk/`). A change to shared code (`Core/`) needs both. Releases always build both
+(the variable unset).
+
 Test builds set `GX_UPDATE_CHANNEL=test` (`GX_UPDATE_CHANNEL=test ./scripts/build/android/build-dual-hz.sh`):
 they then read the `updates-test` branch, so later test engines can reach testers over the air
 without touching what players get (docs/HOWTO/PUBLISH_UPDATE.md). Releases never set it.
@@ -249,6 +254,10 @@ cmake --build build/macos-vulkan --target z_generals
   was a sysfs read on the engine's thread. Read
   `docs/WORKDIR/lessons/LESSON-gles-upscaler-and-frame-pacing.md`.
 
+- **A launcher change carries its texts with it**: when a choice, switch or card is added, hidden,
+  renamed or moved, update in the same commit every help text, description, dialog and toast that
+  mentions it (search `strings.xml` for its name) -- the owner has caught stale ones more than
+  once (the render backend help still describing Vulkan after Vulkan was hidden).
 - **Launcher strings ship in every language**: a new or changed string in
   `android/app/src/main/res/values/strings.xml` goes into every `values-*/strings.xml`
   (ar, b+isv, de, es, fa, fr, ko, pl, pt-rBR, ru, uk, zh) in the same commit -- not only

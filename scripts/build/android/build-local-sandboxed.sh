@@ -123,11 +123,43 @@ mkdir -p "build/${PRESET}/_deps"
 rm -rf "build/${PRESET}/_deps/sdl3-src"
 ln -sfn "${FETCHCONTENT_SRC}/SDL3-src" "build/${PRESET}/_deps/sdl3-src"
 
-echo "=== [7/8] Build z_generals + g_generals + DXVK d3d8/d3d9 + hooks ==="
+# GeneralsX @build Android port 18/10/2026 GX_BUILD_GAMES=zh|generals builds one game's engine for a
+# quick test build; the other game's engine (for this pass's tick rate) is taken from the latest
+# APK in apk/ (or GX_PREV_APK), so the APK still runs both games. Unset or "all": both, as every
+# release is built.
+GX_BUILD_GAMES="${GX_BUILD_GAMES:-all}"
+case "${GX_BUILD_GAMES}" in
+  all)      GAME_TARGETS="z_generals g_generals" ;;
+  zh)       GAME_TARGETS="z_generals" ;;
+  generals) GAME_TARGETS="g_generals" ;;
+  *) echo "GX_BUILD_GAMES must be all, zh or generals (got ${GX_BUILD_GAMES})"; exit 1 ;;
+esac
+
+echo "=== [7/8] Build ${GAME_TARGETS} + DXVK d3d8/d3d9 + hooks ==="
 # GeneralsX @build Android port 04/10/2026 g_generals: the base game, libgenerals.so.
-cmake --build "build/${PRESET}" --target z_generals g_generals dxvk_d3d8_install \
+cmake --build "build/${PRESET}" --target ${GAME_TARGETS} dxvk_d3d8_install \
   main_hook file_redirect_hook gsl_alloc_hook hook_impl -- -k 0 2>&1 | tee logs/build_android.log
 ccache --show-stats
+
+if [ "${GX_BUILD_GAMES}" != "all" ]; then
+  PREV_APK="${GX_PREV_APK:-$(ls -t apk/*.apk 2>/dev/null | head -1)}"
+  [ -f "${PREV_APK}" ] || { echo "GX_BUILD_GAMES=${GX_BUILD_GAMES} needs a previous APK in apk/ (or GX_PREV_APK) for the other game"; exit 1; }
+  case "${GX_EXTRA_CMAKE:-}" in
+    *SAGE_HIGH_FPS_SIM=ON*) PREV_SUFFIX="60" ;;
+    *) PREV_SUFFIX="" ;;
+  esac
+  if [ "${GX_BUILD_GAMES}" = "zh" ]; then
+    PREV_NAME="libgenerals${PREV_SUFFIX}.so"; PREV_DEST="build/${PRESET}/Generals/Code/Main/libgenerals.so"
+  else
+    PREV_NAME="libmain${PREV_SUFFIX}.so"; PREV_DEST="build/${PRESET}/GeneralsMD/Code/Main/libmain.so"
+  fi
+  mkdir -p "$(dirname "${PREV_DEST}")"
+  unzip -p "${PREV_APK}" "lib/arm64-v8a/${PREV_NAME}" > "${PREV_DEST}"
+  [ -s "${PREV_DEST}" ] || { echo "${PREV_APK} has no ${PREV_NAME}"; exit 1; }
+  # An old date, so the next build of that game relinks over it instead of trusting it.
+  touch -d @0 "${PREV_DEST}"
+  echo "Not rebuilt: ${PREV_NAME} taken from ${PREV_APK}"
+fi
 
 echo "=== [8/8] Verify, strip, package APK ==="
 READELF="$(ls "${ANDROID_NDK_HOME}"/toolchains/llvm/prebuilt/*/bin/llvm-readelf | head -1)"
