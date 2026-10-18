@@ -205,6 +205,12 @@ cmake --build build/macos-vulkan --target z_generals
   port came from exactly this -- read
   `docs/WORKDIR/lessons/LESSON-d3d-state-value-semantics.md`, which also records which
   diagnostics were blind to it and why.
+- **Cross-play with the PC client is OFF** (since 18/10/2026, at the GeneralsOnline developers'
+  request): the engine claims the PC checksum only when the signed manifest carries
+  `pc_crossplay=1`, verified by the engine itself (`GXSignedSettings`); see
+  `update/features.json` and docs/HOWTO/PUBLISH_UPDATE.md. Do not turn it back on, or weaken that
+  check, without the repository owner's word and GeneralsOnline's agreement. The two notes below
+  apply only if it is ever turned on again.
 - **Lockstep CRC desync against the PC client**: do NOT start from floating-point
   theory, and do NOT build a Windows or x86 reference binary -- one was brought up
   for this and abandoned. The PC client's full source is on the dev machine at

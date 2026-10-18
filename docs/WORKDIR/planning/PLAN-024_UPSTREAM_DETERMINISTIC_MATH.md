@@ -2,6 +2,11 @@
 
 Status: **watching** (recorded 04/10/2026). Nothing to do until the PR is merged upstream.
 
+Update 18/10/2026: cross-play with the PC client is turned off at the GeneralsOnline developers'
+request, so matching the PC client's x87 math no longer holds back adopting the upstream default.
+What still matters is that every Android client in a match computes the same, and that replays
+keep playing back; weigh the merge on that.
+
 ## What is coming
 
 TheSuperHackers/GeneralsGameCode PR #2670 by Okladnoj, "feat(math): Route game logic math through

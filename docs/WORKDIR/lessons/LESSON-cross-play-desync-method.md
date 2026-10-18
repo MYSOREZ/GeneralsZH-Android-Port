@@ -1,5 +1,9 @@
 # Cross-play desync: start here, not from the top
 
+> **Status 18/10/2026:** cross-play with the PC client is turned off at the GeneralsOnline
+> developers' request (signed switch `pc_crossplay`, verified by the engine). This note stays for
+> the day it is turned on again by agreement; until then there is nothing here to work on.
+
 If you have been handed "Android and the PC client desync in GeneralsOnline",
 read this before forming a hypothesis. Most of the obvious theories have been
 tested and killed with measurements, and the instrument that actually finds

@@ -25,8 +25,7 @@ the battlefield with Dr. Thrax's toxins, rig it to blow with General Juhziz, and
 with Prince Kassad's stealth.
 
 Build your Command Center, secure your supply lines and wipe the enemy off the map — straight
-from your touchscreen. And the desk-bound commanders are no longer out of reach: **meet PC players
-on the same online battlefield.**
+from your touchscreen — and take it online against other commanders on Android.
 
 *General, the uplink is ready. Target coordinates received — engage!*
 
@@ -52,7 +51,7 @@ Built on EA's GPL v3 source release, standing on a chain of community work —
 [Fighter19's original Unix port](https://github.com/Fighter19/CnC_Generals_Zero_Hour), and
 [fbraz3/GeneralsX](https://github.com/fbraz3/GeneralsX) — this fork is the
 Android port: native touch controls, the in-app launcher, GeneralsOnline
-multiplayer with cross-play against PC, and language packs. See
+multiplayer, and language packs. See
 [Lineage & credits](#lineage--credits) for who built what, and
 [the story of the port](docs/port/PORT_STORY.md) for how it went. The macOS
 and iOS/iPadOS builds inherited from the original project are not maintained
@@ -72,7 +71,7 @@ here; their notes are in [docs/port/APPLE_PLATFORMS.md](docs/port/APPLE_PLATFORM
 | Video / cutscenes | ✅ Working (FFmpeg) |
 | Touch controls | ✅ Working — native touch, not mouse emulation (see [Touch controls](#touch-controls)) |
 | Online multiplayer (GeneralsOnline) | ✅ Working — real matches between real players, P2P transport |
-| Cross-play with PC (Windows) GeneralsOnline players | ✅ Working — since 1.3.0, against the current PC release (100126) since 1.4.0; the PC player turns their anti-cheat off. If a match goes out of sync, send the logs and the replay |
+| Cross-play with PC (Windows) GeneralsOnline players | ⛔ Turned off — since 18/10/2026, for an indefinite time, at the request of the GeneralsOnline developers. Online games between Android players are not affected |
 | LAN games between phones | ✅ Working — on the same Wi-Fi network |
 | Game text languages | ✅ English plus 12 packs: Russian, Ukrainian, German, French, Spanish, Brazilian Portuguese, Polish, Interslavic, Simplified Chinese, Korean, Arabic, Persian — right-to-left layout and CJK glyphs included. [Add yours](languages/README.md) |
 | Updates without a new APK | ✅ Signed engine builds and network settings straight from this repository (Home → Updates) |
@@ -235,11 +234,9 @@ architecture, bring-up log): [docs/port/ANDROID_PORT.md](docs/port/ANDROID_PORT.
   account, so signing in on a second phone (or on the PC) with the same account signs
   the first one out, and its game then asks you to sign in again. Use a separate
   account on each device.
-- Cross-play with PC players is new. Both sides must compute the same game
-  frame by frame, and the remaining differences are found from real matches:
-  if a game against a PC goes out of sync, please send the launcher's logs
-  **and the replay** (yours and, if you can, the PC player's `.rep`) in an
-  [issue](../../issues).
+- Cross-play with PC players is turned off at the GeneralsOnline developers'
+  request: Android clients cannot join PC games, and PC clients cannot join
+  Android games. Online play between Android players works as before.
 
 ## Support the project
 
@@ -286,8 +283,8 @@ work that this repo inherits everywhere:
   [GeneralsOnline](https://www.playgenerals.online), the online service and PC client
   whose client this port brings to Android, and whose community data patch and
   maps the launcher downloads
-- **This fork** — the Android port (the GeneralsOnline client on Android and
-  cross-play with PC, touch controls, in-app launcher, language packs, device
+- **This fork** — the Android port (the GeneralsOnline client on Android,
+  touch controls, in-app launcher, language packs, device
   bring-up), plus engine fixes throughout, offered upstream
 - **DXVK, SDL, OpenAL Soft, FFmpeg, GameNetworkingSockets, Liberation Fonts** — the load-bearing walls
 
