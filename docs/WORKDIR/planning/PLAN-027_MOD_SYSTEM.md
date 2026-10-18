@@ -194,6 +194,48 @@ the control scheme and the launcher's version do not enter either, and do not de
 6. **Rooms (PLAN-023, paused):** if they return, they compare the fingerprint and can offer the
    missing mod's download link from `mod.ini` (`Url = ...`).
 
+## Later: a modern mod format (owner, 18/10/2026 -- once mods are stable)
+
+Owner: `.big` is uncomfortable for players and for the game; C&C 3 and Red Alert 3 moved to a newer
+mod system -- modernise the same way, so the game loads faster and mods cause fewer problems.
+
+What C&C 3 / RA3 actually changed (SAGE 2, the Mod SDK). The container stayed: their mods are still
+`.big` files. What changed is what is inside and what describes it:
+
+- **Compiled data, not text.** The SDK's build step (BinaryAssetBuilder) turns XML/INI definitions,
+  models and textures into binary asset streams (`.manifest` + `.bin` / `.relo` / `.imp`). The game
+  loads them almost as-is, with no INI parsing at start-up and no runtime surprises from a typo:
+  errors are found when the mod is built, not when a player starts it.
+- **A descriptor.** A `.skudef` file names the mod, its version and the archives it loads, in
+  order, on top of the game's own -- the game does not guess from file names.
+- **Mods live outside the game.** One folder per mod under the user's Documents (`Mods/<name>/`),
+  chosen in the launcher; the game folder is never touched.
+
+This port already has the last two in its own form: one folder per mod under `mods/`, `mod.ini` as
+the descriptor, `mods_active.txt` as the explicit order (no `!` naming). What is left, in order:
+
+1. **Loose folders without packing.** Mount a mod folder directly as a layer (a directory archive
+   next to the BIG one), instead of `ModPacker` writing `!!loose_files.big`. Players unpack a mod
+   and it works; no second copy on the phone.
+2. **A compiled INI cache per mod set.** Parse the INI of game + mods once, store the parsed
+   objects in a binary cache keyed by the mods' fingerprints (`ModAnalysis.fingerprint`) and the
+   engine build; later starts load the cache. This is where start-up time and the "mod breaks on
+   some INI line" problems go. Hard constraints:
+   - the INI checksum (`ini_crc`, lobby gate, replays) must stay the checksum of the *source* INI,
+     computed exactly as today -- the cache is a loading shortcut, never a different identity;
+   - determinism (Golden rule 7): the cache must produce bit-identical objects to a parse, checked
+     by loading both ways and comparing a CRC of the result in a debug build;
+   - any mismatch (engine build, mod files changed, cache unreadable) falls back to parsing.
+3. **A modern container, optional.** A compressed archive with an index (zip/zstd) accepted
+   alongside `.big` -- smaller downloads and less storage. `.big` stays readable forever: the
+   retail data, every existing PC mod, replays and multiplayer with PC players depend on it.
+4. **A mod build step in the launcher or a desktop tool**, like the SDK's: checks a mod (INI
+   references, missing textures, duplicate definitions) and writes the cache + descriptor, so
+   errors show up before a match, not in it.
+
+Not before: the current system has been stable through a release or two, and the GeneralsOnline
+question (modded online, above) is settled -- a format change must not split players again.
+
 ## Order of work
 
 1. Engine: layers, `mods.cfg`, managed mods mounted with explicit priority; file -> layer map;
