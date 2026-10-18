@@ -2499,6 +2499,9 @@ FontCharsClass::Update_Current_Buffer (int char_width)
 #include <cctype>
 #include <cstdio>
 #include <unistd.h>
+#include <dirent.h>
+#include <map>
+#include <string>
 
 ////////////////////////////////////////////////////////////////////////////////////
 //
@@ -2511,6 +2514,86 @@ FontCharsClass::Update_Current_Buffer (int char_width)
 // is normalized (lowercase, spaces stripped) and tried as <name>.ttf/.otf/.ttc;
 // arial.ttf serves as the universal fallback since the game UI is Arial-based.
 ////////////////////////////////////////////////////////////////////////////////////
+// GeneralsX @feature Android port 18/10/2026 Fonts by the name inside them, not only by file name.
+// A mod's font file is rarely named after its family ("zh_font_bd.ttf" for "Generals Bold"), and a
+// mod may keep it in Fonts/ or the game folder itself; they all fell back to Arial. Every font file
+// in those folders is opened once with FreeType and indexed by its family name (and its bold face
+// separately). Order: a file named like the request in fonts/ (the player's own replacement, as
+// before), then the family index, then the bundled Arial.
+namespace
+{
+	std::string gxNormalizeFontName( const char *name )
+	{
+		std::string out;
+		for ( const char *p = name; p != nullptr && *p != '\0'; ++p ) {
+			if ( *p != ' ' && *p != '-' && *p != '_' ) {
+				out += (char)tolower( (unsigned char)*p );
+			}
+		}
+		return out;
+	}
+
+	struct GXFontIndex
+	{
+		std::map<std::string, std::string> regular;   // normalized family -> file
+		std::map<std::string, std::string> bold;
+	};
+
+	const GXFontIndex &gxFontIndex()
+	{
+		static GXFontIndex index;
+		static bool built = false;
+		if ( built ) {
+			return index;
+		}
+		built = true;
+		FT_Library library = nullptr;
+		if ( FT_Init_FreeType( &library ) != 0 ) {
+			return index;
+		}
+		const char *roots[] = { "fonts", "Fonts", ".", getenv( "GENERALSX_BUNDLED_FONTS_DIR" ) };
+		int indexed = 0;
+		for ( size_t r = 0; r < sizeof(roots) / sizeof(roots[0]); ++r ) {
+			if ( roots[r] == nullptr || roots[r][0] == '\0' ) {
+				continue;
+			}
+			DIR *dir = opendir( roots[r] );
+			if ( dir == nullptr ) {
+				continue;
+			}
+			while ( struct dirent *entry = readdir( dir ) ) {
+				std::string file = entry->d_name;
+				std::string lower = gxNormalizeFontName( file.c_str() );
+				if ( lower.size() < 5 ) {
+					continue;
+				}
+				const std::string ext = lower.substr( lower.size() - 4 );
+				if ( ext != ".ttf" && ext != ".otf" && ext != ".ttc" ) {
+					continue;
+				}
+				std::string path = std::string( roots[r] ) + "/" + file;
+				FT_Face face = nullptr;
+				if ( FT_New_Face( library, path.c_str(), 0, &face ) != 0 || face == nullptr ) {
+					continue;
+				}
+				if ( face->family_name != nullptr ) {
+					const std::string family = gxNormalizeFontName( face->family_name );
+					const bool isBold = ( face->style_flags & FT_STYLE_FLAG_BOLD ) != 0;
+					std::map<std::string, std::string> &table = isBold ? index.bold : index.regular;
+					// The first folder in the list wins: the player's fonts/ over the game's own.
+					table.insert( std::make_pair( family, path ) );
+					++indexed;
+				}
+				FT_Done_Face( face );
+			}
+			closedir( dir );
+		}
+		FT_Done_FreeType( library );
+		fprintf( stderr, "[font] indexed %d font files by family name\n", indexed );
+		return index;
+	}
+}
+
 const char *
 FontCharsClass::Locate_Font_FontConfig (const char *font_name)
 {
@@ -2545,10 +2628,37 @@ FontCharsClass::Locate_Font_FontConfig (const char *font_name)
 				return FreetypeFontPath;
 			}
 		}
+	}
 
-		// Fall back to the Arial-equivalent face shipped with the app
+	// By the family name inside the files (a mod's font, whatever its file is called): the bold
+	// face for a bold request when there is one, else the regular face, else whichever exists.
+	{
+		const GXFontIndex &index = gxFontIndex();
+		const std::string family = gxNormalizeFontName( font_name );
+		const std::map<std::string, std::string> *order[2] = {
+			IsBold ? &index.bold : &index.regular,
+			IsBold ? &index.regular : &index.bold };
+		for ( int k = 0; k < 2; ++k ) {
+			std::map<std::string, std::string>::const_iterator it = order[k]->find( family );
+			if ( it != order[k]->end() ) {
+				FreetypeFontPath = it->second.c_str();
+				return FreetypeFontPath;
+			}
+		}
+	}
+
+	// Fall back to the Arial-equivalent face shipped with the app
+	for ( size_t r = 0; r < sizeof(roots) / sizeof(roots[0]); ++r ) {
+		if ( roots[r] == nullptr || roots[r][0] == '\0' ) {
+			continue;
+		}
 		snprintf( candidate, sizeof(candidate), "%s/arial.ttf", roots[r] );
 		if ( access( candidate, R_OK ) == 0 ) {
+			static bool s_logged = false;
+			if ( !s_logged ) {
+				s_logged = true;
+				fprintf( stderr, "[font] '%s' not found by file or family name; Arial in its place (logged once)\n", font_name );
+			}
 			FreetypeFontPath = candidate;
 			return FreetypeFontPath;
 		}
