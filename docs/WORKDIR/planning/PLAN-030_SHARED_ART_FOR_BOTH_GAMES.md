@@ -38,6 +38,15 @@ for Generals, the Zero Hour folder and whether it has TexturesZH.big (green), or
 folder is chosen / the archive is missing (amber); for Zero Hour, the chosen original Generals
 folder, or where it is looked for when none is chosen.
 
+## Considered and dropped (owner, 18/10/2026)
+
+A real common base -- one folder of pictures both games read from, built by the launcher from the
+two installs, or one shared list of picture archives -- was offered. The owner decided against it
+("simpler is not possible, as I see"): the game data has to stay in the players' game folders, so a
+common folder means copies (hundreds of MB), and the borrowing above already gives Generals what it
+lacks. If the Mali texture cache (PLAN-027) is built one day, it is the natural place for such a
+shared folder.
+
 ## Step 3: the rest of the gaps, on evidence
 
 The engine already names every texture it had to replace with magenta (`[gxmiss] magenta
