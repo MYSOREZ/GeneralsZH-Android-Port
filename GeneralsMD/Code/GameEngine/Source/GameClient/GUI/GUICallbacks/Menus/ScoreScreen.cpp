@@ -217,6 +217,12 @@ void startNextCampaignGame(void)
 	// broken map on "Exit mission". The menu would be shut down by hideShell() right after anyway.
 	TheShell->popImmediate( FALSE );
 	TheShell->hideShell();
+	// GeneralsX @bugfix Android port 18/10/2026 ...and with that init skipped, nothing replaced the
+	// score screen's window transitions either: the frames they draw around the score panels stayed
+	// on screen through the next mission until the game was restarted (issue report, after mission
+	// 1). The transition handler draws its groups apart from the windows, so it is cleared here; no
+	// shell transition belongs to the mission that starts.
+	TheTransitionHandler->reset();
 	TheWritableGlobalData->m_pendingFile = TheCampaignManager->getCurrentMap();
 	if (TheCampaignManager->getCurrentCampaign() && TheCampaignManager->getCurrentCampaign()->isChallengeCampaign())
 	{
