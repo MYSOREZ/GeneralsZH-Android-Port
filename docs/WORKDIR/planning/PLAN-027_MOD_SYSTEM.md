@@ -233,6 +233,28 @@ the descriptor, `mods_active.txt` as the explicit order (no `!` naming). What is
    references, missing textures, duplicate definitions) and writes the cache + descriptor, so
    errors show up before a match, not in it.
 
+**Owner, 18/10/2026: the new format is the main one, `.big` becomes legacy, and the launcher
+converts.** So:
+
+- **Two formats, one engine path.** The engine reads the new format (folder layer + compiled
+  cache, or the new container) as the primary mod format, and `.big` stays fully supported as the
+  legacy one -- the retail data, `!` archives in the game folder, `-mod`, mods from PC sites.
+  Neither is ever dropped from the engine.
+- **A converter in the launcher (Mods screen).** For a mod made of `.big` files: "Convert to the
+  new format" unpacks the archives into the new layout in the mod's folder, keeping the archives'
+  priority as file order (the first archive in name order wins, exactly as mounted today), writes
+  `mod.ini` if there is none, and builds the cache. Rules:
+  - **Verified before anything is removed:** every file of every archive is compared (size + CRC)
+    with the converted copy, and the game's INI checksum with the mod mounted both ways must be
+    equal -- a converted mod is the same mod for the lobby, replays and LAN partners who still
+    have the `.big`.
+  - The `.big` files are kept until the check passes; then the player chooses whether to delete
+    them (space) or keep them (sharing with PC players). Converting back (new -> `.big`) is the
+    same writer `ModPacker` already has, for handing a mod to a PC player.
+  - Progress and Cancel, in a foreground service like the import (a 500 MB mod takes a while);
+    cancel leaves the mod as it was.
+  - Import offers the conversion right after a `.big` mod is installed, never forces it.
+
 Not before: the current system has been stable through a release or two, and the GeneralsOnline
 question (modded online, above) is settled -- a format change must not split players again.
 
