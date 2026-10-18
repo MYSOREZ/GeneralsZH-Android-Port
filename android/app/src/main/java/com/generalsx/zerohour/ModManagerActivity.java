@@ -108,7 +108,7 @@ public class ModManagerActivity extends Activity {
 
     @Override
     protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(ThemeHelper.wrap(LocaleHelper.wrap(newBase)));
+        super.attachBaseContext(LocaleHelper.wrap(newBase));
     }
 
     @Override

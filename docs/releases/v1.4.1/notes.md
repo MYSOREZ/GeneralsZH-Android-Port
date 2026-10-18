@@ -84,16 +84,12 @@ Hour, with its own game folder:
 - **Mods screen** (Home → Mods): import a mod from a folder, a `.big` or a `.zip`, see its size and a check
   of its files, pick which one the game starts with, or the original game. One library per game. Online
   (GeneralsOnline) is played without mods; LAN games work when everyone has the same mod.
-- **New look**: a navy and gold design, and **Appearance: System / Day / Night** (Interface tab). The
-  launch screen shows the emblem instead of a blank frame.
+- **Appearance** (Interface tab): the usual dark look, navy and gold, a light day look, or following the
+  phone.
 
 ## Install / update
 
 Install over 1.4.0 -- settings, sign-in and game folders are kept. Requires Android 9 or newer, 64-bit (arm64).
-
-The keyboard, mouse, Tactical control scheme, the Mods screen and the launcher's new look come from **realkot**'s
-[GeneralsX fork](https://github.com/realkot/GeneralsX) (with parts by Codex / koreazolfakar-droid), ported with
-the author's permission -- thank you!
 
 Thanks to everyone who reported problems on GitHub and 4PDA.
 

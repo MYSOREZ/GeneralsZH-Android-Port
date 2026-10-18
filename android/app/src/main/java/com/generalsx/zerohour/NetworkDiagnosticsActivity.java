@@ -60,7 +60,7 @@ public class NetworkDiagnosticsActivity extends Activity {
 
     @Override
     protected void attachBaseContext(android.content.Context newBase) {
-        super.attachBaseContext(ThemeHelper.wrap(LocaleHelper.wrap(newBase)));
+        super.attachBaseContext(LocaleHelper.wrap(newBase));
     }
 
     @Override

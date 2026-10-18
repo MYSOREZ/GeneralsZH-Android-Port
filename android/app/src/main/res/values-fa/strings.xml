@@ -382,10 +382,11 @@
     <string name="setup_switch_camera_high_desc">دوربین تا چهار برابر بیشتر از حدی که نقشه اجازه می‌دهد دور می‌شود.</string>
     <string name="setup_control_scheme_help">از اجرای بعدی بازی اعمال می‌شود. در نبرد، کارزار و بازی‌های آنلاین یکسان کار می‌کند: فقط شیوه دادن دستورها تغییر می‌کند، نه قوانین بازی.</string>
     <string name="setup_appearance_title">ظاهر برنامه</string>
+    <string name="setup_appearance_standard">استاندارد</string>
+    <string name="setup_appearance_navy">سرمه‌ای</string>
     <string name="setup_appearance_system">سیستم</string>
     <string name="setup_appearance_light">روز</string>
-    <string name="setup_appearance_dark">شب</string>
-    <string name="setup_appearance_help">فقط ظاهر برنامه تغییر می‌کند. حالت سیستم از تنظیمات گوشی پیروی می‌کند و روز و شب ذخیره می‌شوند. گرافیک بازی تغییر نمی‌کند.</string>
+    <string name="setup_appearance_help">فقط لانچر تغییر می‌کند. استاندارد همان ظاهر تیره همیشگی است؛ سرمه‌ای آبی تیره با طلایی؛ روز روشن است؛ سیستم از تنظیم گوشی پیروی می‌کند (در حالت روشن روز، در حالت تیره استاندارد). گرافیک بازی تغییر نمی‌کند.</string>
     <string name="setup_cursor_size_label">اندازهٔ نشانگر: %1$d%%</string>
     <string name="setup_switch_skip_intro">رد کردن ویدیوهای آغازین</string>
     <string name="setup_switch_skip_intro_desc">لوگوهای EA، ویدیوی آغازین و ویدیوهای دیگر پیش از منو رد می‌شوند و بازی مستقیم بارگذاری می‌شود. برای هر دو بازی، با مادها هم.</string>

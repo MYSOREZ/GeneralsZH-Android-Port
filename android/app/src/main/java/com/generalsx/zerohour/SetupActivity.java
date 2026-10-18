@@ -187,7 +187,7 @@ public class SetupActivity extends Activity {
 
     @Override
     protected void attachBaseContext(android.content.Context newBase) {
-        super.attachBaseContext(ThemeHelper.wrap(LocaleHelper.wrap(newBase)));
+        super.attachBaseContext(LocaleHelper.wrap(newBase));
     }
 
     @Override
@@ -1110,17 +1110,17 @@ public class SetupActivity extends Activity {
     // -- see LocaleHelper for why it's a manual attachBaseContext() wrap
     // rather than androidx.appcompat's per-app language API, and why
     // "System Default" needs no explicit handling.
-    // GeneralsX @feature realkot 10/10/2026 The launcher's appearance: System / Day / Night
-    // (ThemeHelper). The game itself is not affected. Ported from realkot's GeneralsX fork with the
-    // author's permission.
+    // GeneralsX @feature Android port 18/10/2026 The launcher's appearance (ThemeHelper): the
+    // standard look, navy and gold, day, or following the phone. The game itself is not affected.
     private void buildThemeSection(LinearLayout page) {
         LinearLayout card = UiKit.card(page);
         UiKit.sectionHeader(card, R.drawable.ic_gzh_display,
             getString(R.string.setup_appearance_title), false);
         UiKit.segmented(card, new CharSequence[] {
-                getString(R.string.setup_appearance_system),
+                getString(R.string.setup_appearance_standard),
+                getString(R.string.setup_appearance_navy),
                 getString(R.string.setup_appearance_light),
-                getString(R.string.setup_appearance_dark)
+                getString(R.string.setup_appearance_system)
             }, ThemeHelper.getMode(this), index -> {
                 if (ThemeHelper.getMode(this) == index) {
                     return;
@@ -2805,7 +2805,7 @@ public class SetupActivity extends Activity {
                 }
             }
             int statusEnd = sb.length();
-            sb.setSpan(new ForegroundColorSpan(ContextCompat.getColor(this, statusColorRes)),
+            sb.setSpan(new ForegroundColorSpan(UiKit.color(this, statusColorRes)),
                 statusStart, statusEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             sb.setSpan(new StyleSpan(Typeface.BOLD), statusStart, statusEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             sb.setSpan(new UnderlineSpan(), statusStart, statusEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);

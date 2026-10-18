@@ -382,10 +382,11 @@
     <string name="setup_switch_camera_high_desc">La caméra recule jusqu\'à quatre fois plus loin que ce que la carte permet.</string>
     <string name="setup_control_scheme_help">Prend effet au prochain lancement du jeu. Fonctionne aussi bien en escarmouche, en campagne qu\'en ligne : seule la façon de donner les ordres change, pas les règles du jeu.</string>
     <string name="setup_appearance_title">Apparence</string>
+    <string name="setup_appearance_standard">Standard</string>
+    <string name="setup_appearance_navy">Marine</string>
     <string name="setup_appearance_system">Système</string>
     <string name="setup_appearance_light">Jour</string>
-    <string name="setup_appearance_dark">Nuit</string>
-    <string name="setup_appearance_help">Modifie uniquement l\'interface. Système suit le téléphone ; Jour et Nuit restent enregistrés. Les graphismes du jeu ne changent pas.</string>
+    <string name="setup_appearance_help">Ne change que le lanceur. Standard est l\'aspect sombre habituel ; Marine est bleu marine et or ; Jour est clair ; Système suit le téléphone (Jour s\'il est en mode clair, Standard en mode sombre). Les graphismes du jeu ne changent pas.</string>
     <string name="setup_cursor_size_label">Taille du curseur : %1$d %%</string>
     <string name="setup_switch_skip_intro">Passer les vidéos d\'introduction</string>
     <string name="setup_switch_skip_intro_desc">Les logos EA, l\'introduction et les autres vidéos avant le menu sont passés ; le jeu charge directement. Pour les deux jeux, mods compris.</string>

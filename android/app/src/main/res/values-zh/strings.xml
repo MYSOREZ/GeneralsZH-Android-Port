@@ -382,10 +382,11 @@
     <string name="setup_switch_camera_high_desc">镜头最多可拉远到地图允许高度的四倍。</string>
     <string name="setup_control_scheme_help">下次启动游戏时生效。在遭遇战、战役和联机游戏中同样有效：只改变下达命令的方式，不改变游戏规则。</string>
     <string name="setup_appearance_title">外观</string>
+    <string name="setup_appearance_standard">标准</string>
+    <string name="setup_appearance_navy">藏青</string>
     <string name="setup_appearance_system">跟随系统</string>
     <string name="setup_appearance_light">日间</string>
-    <string name="setup_appearance_dark">夜间</string>
-    <string name="setup_appearance_help">只更改应用界面。跟随系统会使用手机设置；日间和夜间选择会保存。游戏画面不会改变。</string>
+    <string name="setup_appearance_help">只改变启动器的外观。标准是一贯的深色外观；藏青是深蓝配金色；日间为浅色；跟随系统按手机设置（浅色模式用日间，深色模式用标准）。游戏画面不变。</string>
     <string name="setup_cursor_size_label">光标大小：%1$d%%</string>
     <string name="setup_switch_skip_intro">跳过开场动画</string>
     <string name="setup_switch_skip_intro_desc">跳过 EA 标志、开场动画和菜单前的其他视频，游戏直接开始加载。适用于两款游戏，包括模组。</string>

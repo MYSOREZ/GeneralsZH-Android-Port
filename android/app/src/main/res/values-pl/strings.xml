@@ -382,10 +382,11 @@
     <string name="setup_switch_camera_high_desc">Kamerę można oddalić nawet cztery razy dalej, niż pozwala mapa.</string>
     <string name="setup_control_scheme_help">Działa od następnego uruchomienia gry. Działa tak samo w potyczce, kampanii i grach sieciowych: zmienia się tylko sposób wydawania rozkazów, a nie zasady gry.</string>
     <string name="setup_appearance_title">Wygląd</string>
-    <string name="setup_appearance_system">System</string>
-    <string name="setup_appearance_light">Dzień</string>
-    <string name="setup_appearance_dark">Noc</string>
-    <string name="setup_appearance_help">Zmienia wyłącznie wygląd aplikacji. System dopasowuje go do telefonu; Dzień i Noc są zapamiętywane. Grafika gry bez zmian.</string>
+    <string name="setup_appearance_standard">Standardowy</string>
+    <string name="setup_appearance_navy">Granatowy</string>
+    <string name="setup_appearance_system">Systemowy</string>
+    <string name="setup_appearance_light">Dzienny</string>
+    <string name="setup_appearance_help">Zmienia tylko launcher. Standardowy to zwykły ciemny wygląd; Granatowy to granat ze złotem; Dzienny jest jasny; Systemowy podąża za telefonem (Dzienny przy jasnym trybie, Standardowy przy ciemnym). Grafika gry się nie zmienia.</string>
     <string name="setup_cursor_size_label">Rozmiar kursora: %1$d%%</string>
     <string name="setup_switch_skip_intro">Pomijaj filmy wprowadzające</string>
     <string name="setup_switch_skip_intro_desc">Logo EA, intro i inne filmy przed menu są pomijane — gra od razu przechodzi do wczytywania. Dla obu gier, także z modami.</string>

@@ -384,10 +384,11 @@
     <string name="setup_switch_camera_high_desc">Камеру можно отдалить до четырёх раз дальше, чем позволяет карта.</string>
     <string name="setup_control_scheme_help">Применяется при следующем запуске игры. Работает и в схватке, и в кампании, и в сетевых играх: меняется только то, как вы отдаёте приказы, а не правила игры.</string>
     <string name="setup_appearance_title">Оформление</string>
-    <string name="setup_appearance_system">Система</string>
-    <string name="setup_appearance_light">День</string>
-    <string name="setup_appearance_dark">Ночь</string>
-    <string name="setup_appearance_help">Меняется только оформление приложения. Система следует настройке телефона; День и Ночь сохраняются. Графика игры не меняется.</string>
+    <string name="setup_appearance_standard">Стандартное</string>
+    <string name="setup_appearance_navy">Сине-золотое</string>
+    <string name="setup_appearance_system">Как в системе</string>
+    <string name="setup_appearance_light">Дневное</string>
+    <string name="setup_appearance_help">Меняется только лаунчер. Стандартное — привычное тёмное оформление; Сине-золотое — тёмно-синее с золотом; Дневное — светлое; Как в системе — по настройке телефона (днём Дневное, ночью Стандартное). Графика игры не меняется.</string>
     <string name="setup_cursor_size_label">Размер курсора: %1$d%%</string>
     <string name="setup_switch_skip_intro">Пропускать заставки</string>
     <string name="setup_switch_skip_intro_desc">Логотипы EA, вступительное видео и другие ролики перед меню не показываются — игра сразу переходит к загрузке. Для обеих игр, и с модами тоже.</string>

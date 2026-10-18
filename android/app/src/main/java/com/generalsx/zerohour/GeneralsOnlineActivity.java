@@ -130,7 +130,7 @@ public class GeneralsOnlineActivity extends Activity {
 
     @Override
     protected void attachBaseContext(android.content.Context newBase) {
-        super.attachBaseContext(ThemeHelper.wrap(LocaleHelper.wrap(newBase)));
+        super.attachBaseContext(LocaleHelper.wrap(newBase));
     }
 
     @Override
@@ -430,7 +430,7 @@ public class GeneralsOnlineActivity extends Activity {
         if (chip == null) {
             return;
         }
-        int tint = androidx.core.content.ContextCompat.getColor(this, colorRes);
+        int tint = UiKit.color(this, colorRes);
         chip.setText(labelRes);
         chip.setTextColor(tint);
         android.graphics.drawable.Drawable icon =

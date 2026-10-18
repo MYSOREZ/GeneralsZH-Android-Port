@@ -382,10 +382,11 @@
     <string name="setup_switch_camera_high_desc">La cámara se aleja hasta cuatro veces más de lo que permite el mapa.</string>
     <string name="setup_control_scheme_help">Se aplica la próxima vez que se inicie el juego. Funciona igual en escaramuzas, la campaña y partidas en línea: solo cambia cómo das las órdenes, no las reglas del juego.</string>
     <string name="setup_appearance_title">Apariencia</string>
+    <string name="setup_appearance_standard">Estándar</string>
+    <string name="setup_appearance_navy">Marino</string>
     <string name="setup_appearance_system">Sistema</string>
     <string name="setup_appearance_light">Día</string>
-    <string name="setup_appearance_dark">Noche</string>
-    <string name="setup_appearance_help">Solo cambia la interfaz de la aplicación. Sistema sigue al teléfono; Día y Noche se guardan. Los gráficos del juego no cambian.</string>
+    <string name="setup_appearance_help">Solo cambia el lanzador. Estándar es el aspecto oscuro habitual; Marino es azul marino y dorado; Día es claro; Sistema sigue al teléfono (Día si está en modo claro, Estándar si está en oscuro). Los gráficos del juego no cambian.</string>
     <string name="setup_cursor_size_label">Tamaño del cursor: %1$d %%</string>
     <string name="setup_switch_skip_intro">Omitir vídeos de introducción</string>
     <string name="setup_switch_skip_intro_desc">Los logotipos de EA, la introducción y otros vídeos antes del menú se omiten; el juego carga directamente. Para ambos juegos, también con mods.</string>

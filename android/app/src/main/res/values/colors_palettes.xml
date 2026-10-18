@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- GeneralsX @feature Android port 18/10/2026 Two extra launcher palettes the player can pick in
+         Interface -> Appearance (ThemeHelper): "navy" (navy and gold) and "day" (light), from the
+         GeneralsX fork by realkot, used with permission. Same names as the standard palette in
+         colors.xml with a gzh_navy_ / gzh_day_ prefix; UiKit.color() maps a standard name to the
+         chosen palette, and the matching themes in themes.xml use them directly. -->
+    <color name="gzh_navy_accent">#FFC84C</color>
+    <color name="gzh_navy_background">#06111D</color>
+    <color name="gzh_navy_container_disabled">#1FF5F7FB</color>
+    <color name="gzh_navy_error">#FFB4AB</color>
+    <color name="gzh_navy_error_container">#93000A</color>
+    <color name="gzh_navy_on_error">#690005</color>
+    <color name="gzh_navy_on_error_container">#FFDAD6</color>
+    <color name="gzh_navy_on_primary">#201607</color>
+    <color name="gzh_navy_on_primary_container">#FFE6A3</color>
+    <color name="gzh_navy_on_secondary">#10253E</color>
+    <color name="gzh_navy_on_secondary_container">#D2E9FF</color>
+    <color name="gzh_navy_on_surface">#F5F7FB</color>
+    <color name="gzh_navy_on_surface_disabled">#61F5F7FB</color>
+    <color name="gzh_navy_on_surface_faint">#A4B9D4</color>
+    <color name="gzh_navy_on_surface_variant">#B6C9E2</color>
+    <color name="gzh_navy_on_tertiary">#4B281B</color>
+    <color name="gzh_navy_on_tertiary_container">#FFDCC7</color>
+    <color name="gzh_navy_outline">#45647F</color>
+    <color name="gzh_navy_outline_variant">#263E57</color>
+    <color name="gzh_navy_primary">#FFC84C</color>
+    <color name="gzh_navy_primary_container">#45321B</color>
+    <color name="gzh_navy_primary_dark">#06111D</color>
+    <color name="gzh_navy_ripple_light">#1FF5F7FB</color>
+    <color name="gzh_navy_ripple_primary">#44FFC84C</color>
+    <color name="gzh_navy_secondary">#93BDE8</color>
+    <color name="gzh_navy_secondary_container">#173A54</color>
+    <color name="gzh_navy_status_error">#FFB4AB</color>
+    <color name="gzh_navy_status_ok">#8BE6B3</color>
+    <color name="gzh_navy_status_warn">#FFCE5D</color>
+    <color name="gzh_navy_surface">#0A1726</color>
+    <color name="gzh_navy_surface_container">#0D1E30</color>
+    <color name="gzh_navy_surface_container_high">#15273C</color>
+    <color name="gzh_navy_surface_container_highest">#1C3249</color>
+    <color name="gzh_navy_surface_container_low">#0C1B2D</color>
+    <color name="gzh_navy_tertiary">#F0B9A1</color>
+    <color name="gzh_navy_tertiary_container">#54352C</color>
+    <color name="gzh_day_accent">#895300</color>
+    <color name="gzh_day_background">#F6F8FC</color>
+    <color name="gzh_day_container_disabled">#1F132338</color>
+    <color name="gzh_day_error">#B3261E</color>
+    <color name="gzh_day_error_container">#FCE8E6</color>
+    <color name="gzh_day_on_error">#FFFFFF</color>
+    <color name="gzh_day_on_error_container">#5F1711</color>
+    <color name="gzh_day_on_primary">#FFFFFF</color>
+    <color name="gzh_day_on_primary_container">#503100</color>
+    <color name="gzh_day_on_secondary">#FFFFFF</color>
+    <color name="gzh_day_on_secondary_container">#103C5F</color>
+    <color name="gzh_day_on_surface">#132338</color>
+    <color name="gzh_day_on_surface_disabled">#61132338</color>
+    <color name="gzh_day_on_surface_faint">#526782</color>
+    <color name="gzh_day_on_surface_variant">#405675</color>
+    <color name="gzh_day_on_tertiary">#FFFFFF</color>
+    <color name="gzh_day_on_tertiary_container">#5A2B1D</color>
+    <color name="gzh_day_outline">#ABC0D3</color>
+    <color name="gzh_day_outline_variant">#D3E0EA</color>
+    <color name="gzh_day_primary">#895300</color>
+    <color name="gzh_day_primary_container">#FDE6B0</color>
+    <color name="gzh_day_primary_dark">#F6F8FC</color>
+    <color name="gzh_day_ripple_light">#1F132338</color>
+    <color name="gzh_day_ripple_primary">#33895300</color>
+    <color name="gzh_day_secondary">#32658A</color>
+    <color name="gzh_day_secondary_container">#D4EAF9</color>
+    <color name="gzh_day_status_error">#B3261E</color>
+    <color name="gzh_day_status_ok">#087949</color>
+    <color name="gzh_day_status_warn">#855700</color>
+    <color name="gzh_day_surface">#FFFFFF</color>
+    <color name="gzh_day_surface_container">#FFFFFF</color>
+    <color name="gzh_day_surface_container_high">#E7EEF6</color>
+    <color name="gzh_day_surface_container_highest">#DAE5F1</color>
+    <color name="gzh_day_surface_container_low">#EEF2F8</color>
+    <color name="gzh_day_tertiary">#8E4933</color>
+    <color name="gzh_day_tertiary_container">#FAE2D7</color>
+</resources>

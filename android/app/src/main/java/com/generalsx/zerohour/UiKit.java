@@ -74,8 +74,9 @@ final class UiKit {
         return c.getResources().getDimensionPixelSize(dimenRes);
     }
 
+    // GeneralsX @feature Android port 18/10/2026 Under the palette chosen in Appearance (ThemeHelper).
     static int color(Context c, int colorRes) {
-        return ContextCompat.getColor(c, colorRes);
+        return ContextCompat.getColor(c, ThemeHelper.mapColor(c, colorRes));
     }
 
     static ColorStateList tint(Context c, int colorRes) {
