@@ -47,6 +47,15 @@ static bool isLanInterface(const char *name)
 	}
 	return false;
 }
+
+// GeneralsX @feature 18/10/2026 Android LAN: virtual-LAN VPNs (MiniLAN, Tailscale, ZeroTier) give each player
+// an address in the shared address space 100.64.0.0/10 on a tun interface. That tunnel is the LAN the players
+// share, so list it like Wi-Fi; other VPN tunnels (privacy VPNs) and mobile data (rmnet/ccmni, which may also use
+// 100.64/10) stay excluded. The list is sorted, so with a virtual LAN connected its 100.x address comes first.
+static bool isVirtualLanTunnel(const char *name, UnsignedInt hostAddr)
+{
+	return strncmp(name, "tun", 3) == 0 && (hostAddr & 0xFFC00000u) == 0x64400000u;
+}
 #endif
 
 IPEnumeration::IPEnumeration()
@@ -138,15 +147,14 @@ EnumeratedIP * IPEnumeration::getAddresses()
 			{
 				continue;
 			}
-			if (pass == 0 && !isLanInterface(ifa->ifa_name))
-			{
-				continue;
-			}
-
 			const sockaddr_in *addr = reinterpret_cast<const sockaddr_in *>(ifa->ifa_addr);
 			// GeneralsX @bugfix BenderAI 31/03/2026 Use ntohl to convert from network byte order before extracting octets;
 			// reading s_addr byte-by-byte on little-endian platforms reverses the IPv4 octets.
 			const UnsignedInt hostAddr = ntohl(addr->sin_addr.s_addr);
+			if (pass == 0 && !isLanInterface(ifa->ifa_name) && !isVirtualLanTunnel(ifa->ifa_name, hostAddr))
+			{
+				continue;
+			}
 			addNewIP(
 				(UnsignedByte)((hostAddr >> 24) & 0xFF),
 				(UnsignedByte)((hostAddr >> 16) & 0xFF),
