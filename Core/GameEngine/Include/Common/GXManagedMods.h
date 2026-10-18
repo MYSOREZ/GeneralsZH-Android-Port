@@ -21,6 +21,8 @@
 // starting a game the launcher writes their absolute paths, one per line, highest priority first,
 // to mods_active.txt in the app's own files directory (no file: no managed mods), and
 // ArchiveFileSystem::loadMods() mounts them above the game's archives and above legacy '!' mods.
+// A first line "#profile <name>" names the set's profile: its saves and replays go to
+// <user data>/Profiles/<name>/ (profileDir), so a modded save never meets the vanilla game.
 // Read once per process. Always empty off Android.
 #pragma once
 
@@ -29,11 +31,18 @@
 #include <string>
 #include <vector>
 #if defined(__ANDROID__)
+#include <sys/stat.h>
 #include <unistd.h>
 #endif
 
 namespace GXManagedMods
 {
+	inline std::string &profileNameStorage()
+	{
+		static std::string s_profile;
+		return s_profile;
+	}
+
 	// The enabled mod folders, highest priority first, each ending with '/'.
 	inline const std::vector<std::string> &folders()
 	{
@@ -55,6 +64,21 @@ namespace GXManagedMods
 					std::string folder = line;
 					while (!folder.empty() && (folder.back() == '\n' || folder.back() == '\r'))
 						folder.pop_back();
+					if (folder.compare(0, 9, "#profile ") == 0)
+					{
+						// Only characters safe in a folder name, whatever the launcher wrote.
+						std::string name;
+						for (size_t i = 9; i < folder.size() && name.size() < 80; ++i)
+						{
+							const char c = folder[i];
+							const bool safe = (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')
+								|| (c >= '0' && c <= '9') || c == ' ' || c == '-' || c == '_' || c == '+' || c == '.';
+							name += safe ? c : '_';
+						}
+						if (!name.empty() && name[0] != '.')
+							profileNameStorage() = name;
+						continue;
+					}
 					if (folder.empty() || folder[0] != '/')
 						continue;
 					if (folder.back() != '/')
@@ -66,6 +90,29 @@ namespace GXManagedMods
 #endif
 		}
 		return s_folders;
+	}
+
+	// The set's own folder for saves and replays, "<userData>Profiles/<name>/" (created), or empty
+	// when no mods are on: then the game's usual folders are used.
+	inline std::string profileDir(const char *userData)
+	{
+		folders();
+		const std::string &name = profileNameStorage();
+		if (name.empty() || userData == nullptr || userData[0] == '\0')
+			return std::string();
+		std::string dir = userData;
+		if (dir.back() != '/' && dir.back() != '\\')
+			dir += '/';
+		dir += "Profiles/";
+#if defined(__ANDROID__)
+		mkdir(dir.c_str(), 0775);
+#endif
+		dir += name;
+		dir += '/';
+#if defined(__ANDROID__)
+		mkdir(dir.c_str(), 0775);
+#endif
+		return dir;
 	}
 
 	// True when path lies inside one of the enabled mod folders.

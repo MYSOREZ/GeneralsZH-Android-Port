@@ -39,6 +39,11 @@
 #include "GameLogic/Damage.h"
 #include "Common/file.h"
 #include "Common/FileSystem.h"
+#include "Common/ArchiveFileSystem.h"
+#include "Common/ArchiveFile.h"
+#include "Common/LocalFileSystem.h"
+#include "Common/GlobalData.h"
+#include "Common/GXManagedMods.h"
 #include "Common/GameAudio.h"
 #include "Common/Science.h"
 #include "Common/SpecialPower.h"
@@ -194,6 +199,42 @@ INI::INI()
 }
 
 //-------------------------------------------------------------------------------------------------
+// GeneralsX @feature Android port 18/10/2026 Form masking (PLAN-027). Zero Hour's INI sets exist in
+// two forms, one file (Data\INI\CommandButton.ini) or a directory (Data\INI\CommandButton\*.ini),
+// and loadFileDirectory() reads both. When a mod -- a loose file, a '!' archive, -mod, or a mod
+// switched on in the launcher -- provides the single file, the directory files of the same set
+// that come from below it (the game's or the community patch's archives) are not read: that
+// mod replaced the whole set, and reading both loaded every definition twice (Contra with the
+// community patch stopped starting). A mod that only adds files to a set in the same form is
+// read as before.
+static Bool s_gxMaskLowerDirectory = FALSE;
+
+static Bool gxIsModSource(const AsciiString &filename)
+{
+	if (TheLocalFileSystem != nullptr && TheLocalFileSystem->doesFileExist(filename.str()))
+		return TRUE;
+	ArchiveFile *archive = TheArchiveFileSystem != nullptr ? TheArchiveFileSystem->getArchiveFile(filename) : nullptr;
+	if (archive == nullptr)
+		return FALSE;
+	const AsciiString path = archive->getName();
+	const char *base = path.str();
+	for (const char *c = path.str(); *c; ++c)
+		if (*c == '/' || *c == '\\')
+			base = c + 1;
+	if (base[0] == '!' || GXManagedMods::contains(path.str()))
+		return TRUE;
+	if (TheGlobalData->m_modBIG.isNotEmpty() && path.compareNoCase(TheGlobalData->m_modBIG) == 0)
+		return TRUE;
+	if (TheGlobalData->m_modDir.isNotEmpty())
+	{
+		AsciiString dir = TheGlobalData->m_modDir;
+		dir.removeLastChar();
+		if (path.startsWithNoCase(dir.str()))
+			return TRUE;
+	}
+	return FALSE;
+}
+
 UnsignedInt INI::loadFileDirectory( AsciiString fileDirName, INILoadType loadType, Xfer *pXfer, Bool subdirs )
 {
 	// GeneralsX @feature BenderAI 20/02/2026 Debug hang investigation
@@ -232,7 +273,9 @@ UnsignedInt INI::loadFileDirectory( AsciiString fileDirName, INILoadType loadTyp
 	// Load any additional ini files from a "filename" directory and its subdirectories.
 	fprintf(stderr, "[INI] loadFileDirectory - calling loadDirectory('%s') START\n", iniDir.str());
 	fflush(stderr);
+	s_gxMaskLowerDirectory = TheFileSystem->doesFileExist(iniFile.str()) && gxIsModSource(iniFile);
 	filesRead += loadDirectory(iniDir, loadType, pXfer, subdirs);
+	s_gxMaskLowerDirectory = FALSE;
 	fprintf(stderr, "[INI] loadFileDirectory - calling loadDirectory('%s') END\n", iniDir.str());
 	fflush(stderr);
 
@@ -285,6 +328,25 @@ UnsignedInt INI::loadDirectory( AsciiString dirName, INILoadType loadType, Xfer 
 	LogMemoryUsageRSS(dirName.str());
 	// Load the INI files in the dir now, in a sorted order.  This keeps things the same between machines
 	// in a network game.
+	if (s_gxMaskLowerDirectory)
+	{
+		UnsignedInt masked = 0;
+		FilenameList kept;
+		for (FilenameList::const_iterator m = filenameList.begin(); m != filenameList.end(); ++m)
+		{
+			if (gxIsModSource(*m))
+				kept.insert(*m);
+			else
+				++masked;
+		}
+		if (masked > 0)
+		{
+			fprintf(stderr, "[INI] %s: a mod replaces this set with one file; %u file(s) of the set's "
+				"directory from below it not read\n", dirName.str(), masked);
+			fflush(stderr);
+			filenameList.swap(kept);
+		}
+	}
 	FilenameList::const_iterator it = filenameList.begin();
 	while (it != filenameList.end())
 	{

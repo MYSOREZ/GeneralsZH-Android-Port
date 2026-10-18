@@ -149,6 +149,12 @@ public class ModManagerActivity extends Activity {
                     return;
                 }
                 String key = mod.dir.getAbsolutePath();
+                try {
+                    // A mod laid out as loose files gets them packed for the engine (ModPacker).
+                    ModPacker.ensurePacked(mod.dir);
+                } catch (java.io.IOException e) {
+                    android.util.Log.w("ModManager", "could not pack the loose files of " + mod.dir, e);
+                }
                 if (measure) {
                     measured.put(key, ModLibraryInfo.measure(mod.dir));
                 }

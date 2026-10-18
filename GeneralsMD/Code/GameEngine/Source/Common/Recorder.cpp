@@ -23,6 +23,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "PreRTS.h"	// This must go first in EVERY cpp file in the GameEngine
+#include "Common/GXManagedMods.h"
 #ifndef _WIN32
 // GeneralsX @build Android port 13/09/2026 The compat layer defines min/max as
 // macros for the Windows sources that expect them, and libstdc++'s <chrono>
@@ -1957,6 +1958,11 @@ RecorderClass::CullBadCommandsResult RecorderClass::cullBadCommands() {
 AsciiString RecorderClass::getReplayDir()
 {
 	AsciiString tmp = TheGlobalData->getPath_UserData();
+	// GeneralsX @feature Android port 18/10/2026 With mods on, the set's own profile folder
+	// (GXManagedMods.h, PLAN-027): a modded save or replay never meets the vanilla game.
+	const std::string profile = GXManagedMods::profileDir(tmp.str());
+	if (!profile.empty())
+		tmp = profile.c_str();
 	// GeneralsX @bugfix copilot 12/03/2026 Use POSIX separator on non-Windows so replay files are stored in the actual Replays directory.
 #ifdef _WIN32
 	tmp.concat("Replays\\");

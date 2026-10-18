@@ -29,6 +29,7 @@
 
 // INCLUDES ///////////////////////////////////////////////////////////////////////////////////////
 #include "PreRTS.h"
+#include "Common/GXManagedMods.h"
 #ifndef _WIN32
 #include <filesystem>
 #include "socket_compat.h"
@@ -782,6 +783,11 @@ SaveCode GameState::loadGame( AvailableGameInfo gameInfo )
 AsciiString GameState::getSaveDirectory() const
 {
 	AsciiString tmp = TheGlobalData->getPath_UserData();
+	// GeneralsX @feature Android port 18/10/2026 With mods on, the set's own profile folder
+	// (GXManagedMods.h, PLAN-027): a modded save or replay never meets the vanilla game.
+	const std::string profile = GXManagedMods::profileDir(tmp.str());
+	if (!profile.empty())
+		tmp = profile.c_str();
 	// GeneralsX @bugfix copilot 12/03/2026 Use POSIX separator on non-Windows so saves are created inside a real Save directory.
 #ifdef _WIN32
 	tmp.concat("Save\\");

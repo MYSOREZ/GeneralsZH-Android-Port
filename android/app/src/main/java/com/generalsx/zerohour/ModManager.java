@@ -196,6 +196,8 @@ final class ModManager {
             android.util.Log.w("ModManager", "could not write the mods boot marker", e);
         }
         try (FileWriter w = new FileWriter(out, false)) {
+            // The set's profile: saves and replays of this set apart from the vanilla game's.
+            w.write("#profile " + profileName(paths) + "\n");
             for (String path : paths) {
                 w.write(path);
                 w.write('\n');
@@ -203,6 +205,22 @@ final class ModManager {
         } catch (IOException e) {
             android.util.Log.w("ModManager", "could not write the active mod list", e);
         }
+    }
+
+    /** The folder name of a set's profile: its mods' folder names, in order (GXManagedMods.h). */
+    static String profileName(List<String> paths) {
+        StringBuilder sb = new StringBuilder();
+        for (String path : paths) {
+            if (sb.length() > 0) {
+                sb.append(" + ");
+            }
+            sb.append(new File(path).getName());
+        }
+        String name = sb.toString().replaceAll("[^A-Za-z0-9 _+.\\-]", "_");
+        if (name.length() > 60) {
+            name = name.substring(0, 52) + "_" + Integer.toHexString(sb.toString().hashCode());
+        }
+        return name.startsWith(".") ? "_" + name.substring(1) : name;
     }
 
     static final String BOOT_PENDING_FILE = "mods_boot_pending";

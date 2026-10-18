@@ -185,11 +185,12 @@ final class ModImportService {
         Stats stats = new Stats();
         try {
             copyTree(ctx.getContentResolver(), treeUri, documentId, stage, stats, 0, cancellation);
+            File installRoot = singleFolderInside(stage);
+            ModPacker.ensurePacked(installRoot);
             stats.bigCount = verifyBigArchives(stage, cancellation);
             if (stats.bigCount == 0) {
                 throw new ImportProblem(R.string.mods_import_no_big);
             }
-            File installRoot = singleFolderInside(stage);
 
             File target = uniqueTarget(modsRoot, name, false);
             cancellation.throwIfCancelled();
@@ -290,15 +291,18 @@ final class ModImportService {
             if (looksLikeGame(stage, 0)) {
                 throw new ImportProblem(R.string.mods_import_full_game);
             }
+            File setList = new File(stage, SET_FILE);
+            File installRoot = singleFolderInside(stage);
+            if (!setList.isFile()) {
+                ModPacker.ensurePacked(installRoot);
+            }
             stats.bigCount = verifyBigArchives(stage, cancellation);
             if (stats.bigCount == 0) {
                 throw new ImportProblem(R.string.mods_import_no_big);
             }
-            File setList = new File(stage, SET_FILE);
             if (setList.isFile()) {
                 return installSet(stage, setList, modsRoot, stats, cancellation);
             }
-            File installRoot = singleFolderInside(stage);
 
             File target = uniqueTarget(modsRoot, name, false);
             cancellation.throwIfCancelled();
@@ -447,11 +451,16 @@ final class ModImportService {
      */
     private static File singleFolderInside(File stage) {
         File[] children = stage.listFiles();
-        if (children != null && children.length == 1 && children[0].isDirectory()) {
+        if (children != null && children.length == 1 && children[0].isDirectory()
+                && !GAME_FOLDERS.contains(children[0].getName().toLowerCase(Locale.US))) {
             return children[0];
         }
         return stage;
     }
+
+    // Top folders of the game's own layout: a mod packed as just "Data/..." keeps it as its content.
+    private static final Set<String> GAME_FOLDERS = new HashSet<>(java.util.Arrays.asList(
+        "data", "art", "window", "maps", "shaders", "movies", "audio", "fonts"));
 
     /**
      * A shared mod set: mods_set.txt names its folders, top first. Each becomes a mod of its own;
