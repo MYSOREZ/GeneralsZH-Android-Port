@@ -101,8 +101,25 @@ archive that is also inside a managed mod's folder (copied twice) is mounted onc
 
 ## Launcher side
 
-- **Mods screen**: the list of managed mods (enable switch, drag to reorder, size, kind, game) and,
-  read-only below it, the legacy `!` archives found in the game folder.
+- **Mods screen** (owner's requirements: switches, reordering, the mods' pictures):
+  - one card per managed mod: its picture, name, version, author, kind badge (total conversion /
+    gameplay / cosmetic / maps / language), which game it is for, size, and an **on/off switch**;
+  - **reordering** by dragging a card's handle (and up/down buttons for accessibility); the top
+    card wins, and the screen says so in one line above the list;
+  - the picture: `Image = ...` in `mod.ini`, else the first of `cover.*`, `preview.*`, `logo.*`,
+    `icon.*` (png/jpg/webp) in the mod folder, else the mod's own main-menu or loading-screen art
+    found in its archives (`Art/Textures/*mainmenu*`, `*loadscreen*`, read from the `.big` with
+    the existing reader and decoded from TGA/DDS), else a placeholder with the mod's initials;
+  - tapping a card opens its page: a larger picture and screenshots (`screenshots/` in the folder),
+    the description (`Description` in `mod.ini`, or `readme.txt`), the files it changes grouped
+    (INI, maps, art, window, text, fonts), its conflicts with the other enabled mods, and buttons:
+    open its folder, export, delete;
+  - a header with the active set's name and profile, and **Play** with that set;
+  - filters: all / Zero Hour / Generals / enabled; search by name;
+  - below the list, read-only, the legacy `!` archives found in the game folder with their kind,
+    and a button to move one into `mods/` (it becomes a managed mod, with its order kept);
+  - warnings inline on the cards (red: will not start together; amber: overlaps that change
+    gameplay; grey: cosmetic overlaps), and a summary bar above Play.
 - **Import**: a `.zip` or a folder through the system picker, unpacked into `mods/<name>/`. `.rar`
   and `.exe` installers cannot be opened on Android; the screen says so and how to repack.
 - **Conflict report** before launch, from the archives' file lists (the launcher already reads
