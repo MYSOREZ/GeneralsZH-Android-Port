@@ -367,6 +367,20 @@
     <string name="setup_switch_mouse_mode">鼠标和触控板</string>
     <string name="setup_switch_mouse_mode_desc">使用指针代替点按：连接的鼠标与电脑上一样使用；没有鼠标时，手指像笔记本触控板一样移动光标。关闭：直接用触摸操控游戏。</string>
     <string name="setup_mouse_mode_help">触控板：移动手指即可移动光标。轻点 = 左键单击，轻点两次 = 双击，轻点后再按住拖动 = 框选。双指轻点 = 右键单击。双指 = 滚动地图，捏合 = 缩放。下次启动游戏时生效。左右键的作用仍由游戏自己的“备用鼠标设置”选项决定。 在菜单、大厅和对话框中，手指照常直接点按。</string>
+    <string name="setup_card_control_scheme">操作方案</string>
+    <string name="setup_control_scheme_classic">经典</string>
+    <string name="setup_control_scheme_tactical">战术</string>
+    <string name="setup_control_scheme_custom">自定义</string>
+    <string name="setup_control_scheme_classic_desc">与原版游戏相同：移动命令只是移动，镜头停在地图自身的高度，没有军队按钮。</string>
+    <string name="setup_control_scheme_tactical_desc">作战单位边移动边攻击，编队面板旁出现军队选择按钮，镜头可以拉得更远。</string>
+    <string name="setup_control_scheme_custom_desc">由下方开关自由组合。</string>
+    <string name="setup_switch_attack_move">移动中攻击</string>
+    <string name="setup_switch_attack_move_desc">作战单位的移动命令变为攻击移动：沿途遇到的敌人都会交战。推土机和采集车仍只移动。</string>
+    <string name="setup_switch_army_buttons">军队按钮</string>
+    <string name="setup_switch_army_buttons_desc">编队面板旁的按钮可选中屏幕上或全图的所有作战单位、战机、直升机或地面部队（再按一次“地面”选中全图）。</string>
+    <string name="setup_switch_camera_high">更高的镜头</string>
+    <string name="setup_switch_camera_high_desc">镜头最多可拉远到地图允许高度的四倍。</string>
+    <string name="setup_control_scheme_help">下次启动游戏时生效。在遭遇战、战役和联机游戏中同样有效：只改变下达命令的方式，不改变游戏规则。</string>
     <string name="setup_cursor_size_label">光标大小：%1$d%%</string>
     <string name="setup_switch_skip_intro">跳过开场动画</string>
     <string name="setup_switch_skip_intro_desc">跳过 EA 标志、开场动画和菜单前的其他视频，游戏直接开始加载。适用于两款游戏，包括模组。</string>

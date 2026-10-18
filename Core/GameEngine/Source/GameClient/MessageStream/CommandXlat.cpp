@@ -51,6 +51,7 @@
 #include "Common/StatsCollector.h"
 #include "Common/ThingTemplate.h"
 #include "Common/GameLOD.h"
+#include "Common/GXControlScheme.h"
 
 #include "GameClient/InGameUI.h"
 #include "GameClient/CommandXlat.h"
@@ -982,6 +983,31 @@ static Object *iNeedAHero()
 
 }
 
+// GeneralsX @feature realkot/Codex 14/10/2026 Tactical control scheme: a plain move order is an
+// attack-move when the selection holds a combat unit. Attack-move already moves dozers, harvesters
+// and other units that cannot attack as an ordinary move, so a mixed group still works; only a
+// selection with nothing that fights keeps the plain move (and its own cursor).
+// Ported from https://github.com/realkot/GeneralsX with the author's permission.
+static Bool gxDefaultAttackMove()
+{
+	if (!GXControlScheme::enabled(GXControlScheme::ATTACK_MOVE))
+		return FALSE;
+	if (!TheInGameUI || !TheInGameUI->areSelectedObjectsControllable())
+		return FALSE;
+	const DrawableList *selection = TheInGameUI->getAllSelectedDrawables();
+	if (!selection)
+		return FALSE;
+	for (DrawableListCIt it = selection->begin(); it != selection->end(); ++it)
+	{
+		Object *obj = (*it)->getObject();
+		if (obj && obj->isLocallyControlled() && !obj->isEffectivelyDead() && !obj->isContained()
+			&& obj->isKindOf(KINDOF_CAN_ATTACK) && !obj->isKindOf(KINDOF_STRUCTURE)
+			&& !obj->isKindOf(KINDOF_DOZER) && !obj->isKindOf(KINDOF_HARVESTER))
+			return TRUE;
+	}
+	return FALSE;
+}
+
 //------------------------------------------------------------------------------------
 /**
  * Create DO_MOVE_TO messages for each selected object, instructing it to move to the given location.
@@ -1017,7 +1043,7 @@ GameMessage::Type CommandTranslator::issueMoveToLocationCommand( const Coord3D *
 		}
 		else
 		{
-			msgType = GameMessage::MSG_DO_MOVETO;
+			msgType = gxDefaultAttackMove() ? GameMessage::MSG_DO_ATTACKMOVETO : GameMessage::MSG_DO_MOVETO;
 		}
 		if( commandType == DO_COMMAND )
 		{
@@ -2437,8 +2463,9 @@ GameMessage::Type CommandTranslator::evaluateContextCommand( Drawable *draw,
 					//Waypoint mode
 					msgType = GameMessage::MSG_ADD_WAYPOINT_HINT;
 				}
-				else if( TheInGameUI->isInAttackMoveToMode() )
+				else if( TheInGameUI->isInAttackMoveToMode() || (!TheInGameUI->isInForceMoveToMode() && gxDefaultAttackMove()) )
 				{
+					// GeneralsX @feature realkot/Codex 14/10/2026 The Tactical scheme's default attack-move shows its own hint.
 					//THIS CODE WILL NEVER EVER GET CALLED! -- it's a context command now (READ: rip code out)
 					//Attack move
 					msgType = GameMessage::MSG_DO_ATTACKMOVETO_HINT;

@@ -76,19 +76,24 @@
 
 #include "PreRTS.h"
 
+#include "Common/GXControlScheme.h"
 #include "Common/GXSafeArea.h"
 #include "Common/MessageStream.h"
 #include "Common/NameKeyGenerator.h"
 #include "Common/Player.h"
 #include "Common/PlayerList.h"
+#include "Common/Registry.h"
 #include "GameClient/Color.h"
 #include "GameClient/Display.h"
 #include "GameClient/GadgetPushButton.h"
+#include "GameClient/GameText.h"
 #include "GameClient/GameWindow.h"
 #include "GameClient/GameWindowManager.h"
 #include "GameClient/GUICallbacks.h"
+#include "GameClient/InGameUI.h"
 #include "GameClient/WindowLayout.h"
 #include "GameClient/WinInstanceData.h"
+#include "GameLogic/GameLogic.h"
 #include "GameLogic/Squad.h"
 
 static NameKeyType s_parentID = NAMEKEY_INVALID;
@@ -108,6 +113,151 @@ static Bool s_groupRowExpanded = FALSE;
 static const UnsignedInt GROUP_HOLD_MS = 600;
 static UnsignedInt s_pressStartMs[10] = { 0 };
 
+// GeneralsX @feature realkot/Codex 14/10/2026 Tactical control scheme (GXControlScheme.h): army
+// buttons beside the handle -- every combat unit on screen, on the whole map, combat planes,
+// combat helicopters, and ground forces (on screen; pressed again within two seconds, the whole
+// map). Each replaces the selection through the retail mass-selection path
+// (selectAllUnitsByTypeAcross*), which sends the group to the logic like a drag-box does.
+// Dozers, harvesters, structures and units that opt out of "select all" are never picked.
+// Ported from https://github.com/realkot/GeneralsX with the author's permission.
+enum { ARMY_SCREEN, ARMY_MAP, ARMY_PLANES, ARMY_HELICOPTERS, ARMY_GROUND, ARMY_BUTTON_COUNT };
+static NameKeyType s_armyButtonID[ARMY_BUTTON_COUNT];
+static Bool s_armyButtonsPrepared = FALSE;
+static const UnsignedInt ARMY_GROUND_REPEAT_MS = 2000;
+static UnsignedInt s_armyGroundPressMs = 0;
+
+static Bool canSelectArmy()
+{
+	return TheMessageStream && TheInGameUI && TheInGameUI->getInputEnabled()
+		&& TheGameLogic && TheGameLogic->isInInteractiveGame() && !TheGameLogic->isGamePaused()
+		&& ThePlayerList && ThePlayerList->getLocalPlayer()
+		&& ThePlayerList->getLocalPlayer()->isPlayerActive();
+}
+
+static void armyExcludedKinds(KindOfMaskType &excluded)
+{
+	excluded.set(KINDOF_DOZER);
+	excluded.set(KINDOF_HARVESTER);
+	excluded.set(KINDOF_IGNORES_SELECT_ALL);
+	excluded.set(KINDOF_STRUCTURE);
+}
+
+static void selectArmy(Int which)
+{
+	if (!canSelectArmy()) {
+		return;
+	}
+	KindOfMaskType required, excluded;
+	armyExcludedKinds(excluded);
+	Bool acrossMap = TRUE;
+	switch (which) {
+		case ARMY_SCREEN:
+			acrossMap = FALSE;
+			break;
+		case ARMY_MAP:
+			break;
+		case ARMY_PLANES:
+		case ARMY_HELICOPTERS:
+			// Helicopters are aircraft built at a helipad (the Comanche flies with JetAIUpdate too).
+			// Transports stay: the armed Helix is one.
+			required.set(KINDOF_AIRCRAFT);
+			required.set(KINDOF_CAN_ATTACK);
+			if (which == ARMY_HELICOPTERS) {
+				required.set(KINDOF_PRODUCED_AT_HELIPAD);
+			} else {
+				excluded.set(KINDOF_PRODUCED_AT_HELIPAD);
+			}
+			break;
+		case ARMY_GROUND:
+		{
+			required.set(KINDOF_CAN_ATTACK);
+			excluded.set(KINDOF_AIRCRAFT);
+			const UnsignedInt now = timeGetTime();
+			acrossMap = s_armyGroundPressMs != 0 && now - s_armyGroundPressMs < ARMY_GROUND_REPEAT_MS;
+			s_armyGroundPressMs = acrossMap ? 0 : now;
+			break;
+		}
+		default:
+			return;
+	}
+	TheInGameUI->deselectAllDrawables();
+	if (acrossMap) {
+		TheInGameUI->selectAllUnitsByTypeAcrossMap(required, excluded);
+	} else {
+		TheInGameUI->selectAllUnitsByTypeAcrossScreen(required, excluded);
+	}
+}
+
+static Int findArmyButtonIndex(Int controlID)
+{
+	for (Int i = 0; i < ARMY_BUTTON_COUNT; ++i) {
+		if (controlID == s_armyButtonID[i]) {
+			return i;
+		}
+	}
+	return -1;
+}
+
+// A language pack may carry its own labels (GUI:GXArmy*); otherwise the text language's short names.
+static UnicodeString armyButtonLabel(Int index)
+{
+	static const char *const kLabelKeys[ARMY_BUTTON_COUNT] = {
+		"GUI:GXArmyScreen", "GUI:GXArmyMap", "GUI:GXArmyPlanes", "GUI:GXArmyHelicopters", "GUI:GXArmyGround" };
+	if (TheGameText) {
+		Bool exists = FALSE;
+		UnicodeString label = TheGameText->fetch(kLabelKeys[index], &exists);
+		if (exists) {
+			return label;
+		}
+	}
+	struct Labels { const char *language; const wchar_t *text[ARMY_BUTTON_COUNT]; };
+	static const Labels kLabels[] = {
+		{ "english", { L"Screen", L"Map", L"Planes", L"Helis", L"Ground" } },
+		{ "russian", { L"Экран", L"Карта", L"Самолёты", L"Вертол.", L"Наземные" } },
+		{ "ukrainian", { L"Екран", L"Карта", L"Літаки", L"Гелікоп.", L"Наземні" } },
+		{ "interslavic", { L"Ekran", L"Mapa", L"Aviony", L"Helikop.", L"Zemja" } },
+		{ "arabic", { L"الشاشة", L"الخريطة", L"طائرات", L"مروحيات", L"برية" } },
+		{ "brazilian", { L"Tela", L"Mapa", L"Aviões", L"Helicóp.", L"Terrest." } },
+		{ "chinese", { L"屏幕", L"全图", L"战机", L"直升机", L"地面" } },
+		{ "french", { L"Écran", L"Carte", L"Avions", L"Hélicos", L"Sol" } },
+		{ "german", { L"Bild", L"Karte", L"Flieger", L"Helis", L"Boden" } },
+		{ "korean", { L"화면", L"지도", L"전투기", L"헬기", L"지상군" } },
+		{ "persian", { L"صفحه", L"نقشه", L"هواپیما", L"بالگرد", L"زمینی" } },
+		{ "polish", { L"Ekran", L"Mapa", L"Samoloty", L"Śmigłow.", L"Lądowe" } },
+		{ "spanish", { L"Pantalla", L"Mapa", L"Aviones", L"Helicóp.", L"Tierra" } },
+	};
+	const char *pack = getenv("GENERALSX_TEXT_LANGUAGE");
+	AsciiString language = (pack != nullptr && pack[0] != '\0') ? AsciiString(pack) : GetRegistryLanguage();
+	language.toLower();
+	for (Int i = 0; i < (Int)(sizeof(kLabels) / sizeof(kLabels[0])); ++i) {
+		if (language.compare(kLabels[i].language) == 0) {
+			return UnicodeString(kLabels[i].text[index]);
+		}
+	}
+	return UnicodeString(kLabels[0].text[index]);
+}
+
+// Shown and labelled once per layout, when the scheme asks for them; hidden (as the .wnd creates
+// them) otherwise, so the Classic scheme's panel is exactly what it was.
+static void prepareArmyButtons()
+{
+	if (s_armyButtonsPrepared || !TheWindowManager) {
+		return;
+	}
+	s_armyButtonsPrepared = TRUE;
+	const Bool wanted = GXControlScheme::enabled(GXControlScheme::ARMY_BUTTONS);
+	for (Int i = 0; i < ARMY_BUTTON_COUNT; ++i) {
+		GameWindow *button = TheWindowManager->winGetWindowFromId(nullptr, s_armyButtonID[i]);
+		if (!button) {
+			continue;
+		}
+		if (wanted) {
+			GadgetButtonSetText(button, armyButtonLabel(i));
+		}
+		button->winHide(!wanted);
+	}
+}
+
 //-------------------------------------------------------------------------------------------------
 static void cacheWidgetIDs()
 {
@@ -118,6 +268,12 @@ static void cacheWidgetIDs()
 	s_buttonHandleID = TheNameKeyGenerator->nameToKey("GroupPanel.wnd:ButtonHandle");
 	s_buttonLastEventID = TheNameKeyGenerator->nameToKey("GroupPanel.wnd:ButtonLastEvent");
 	s_groupRowID = TheNameKeyGenerator->nameToKey("GroupPanel.wnd:GroupRow");
+	static const char *const kArmyNames[ARMY_BUTTON_COUNT] = {
+		"GroupPanel.wnd:ArmyScreen", "GroupPanel.wnd:ArmyMap", "GroupPanel.wnd:ArmyPlanes",
+		"GroupPanel.wnd:ArmyHelicopters", "GroupPanel.wnd:ArmyGround" };
+	for (Int i = 0; i < ARMY_BUTTON_COUNT; ++i) {
+		s_armyButtonID[i] = TheNameKeyGenerator->nameToKey(kArmyNames[i]);
+	}
 	char buf[40];
 	for (Int i = 0; i < 10; ++i) {
 		sprintf(buf, "GroupPanel.wnd:ButtonGroup%d", i);
@@ -304,6 +460,18 @@ static void fitParentToVisibleContent()
 		hiX = max(hiX, ex + ew);
 		hiY = max(hiY, ey + eh);
 	}
+	for (Int i = 0; i < ARMY_BUTTON_COUNT; ++i) {
+		GameWindow *army = TheWindowManager->winGetWindowFromId(nullptr, s_armyButtonID[i]);
+		if (army && !army->winIsHidden()) {
+			Int ax, ay, aw, ah;
+			army->winGetScreenPosition(&ax, &ay);
+			army->winGetSize(&aw, &ah);
+			loX = min(loX, ax);
+			loY = min(loY, ay);
+			hiX = max(hiX, ax + aw);
+			hiY = max(hiY, ay + ah);
+		}
+	}
 	if (!row->winIsHidden()) {
 		Int rx, ry, rw, rh;
 		row->winGetScreenPosition(&rx, &ry);
@@ -331,6 +499,13 @@ static void fitParentToVisibleContent()
 	if (lastEvent) {
 		lastEvent->winGetPosition(&cx, &cy);
 		lastEvent->winSetPosition(cx - dx, cy - dy);
+	}
+	for (Int i = 0; i < ARMY_BUTTON_COUNT; ++i) {
+		GameWindow *army = TheWindowManager->winGetWindowFromId(nullptr, s_armyButtonID[i]);
+		if (army) {
+			army->winGetPosition(&cx, &cy);
+			army->winSetPosition(cx - dx, cy - dy);
+		}
 	}
 	Int ox, oy;
 	parent->winGetPosition(&ox, &oy);
@@ -401,6 +576,15 @@ void GroupPanelFollowControlBar(Int barScreenX, Int barScreenY, Bool visible)
 			lastEvent->winGetPosition(&ex, &ey);
 			lastEvent->winSetPosition(ex + dx, ey + dy);
 		}
+
+		for (Int i = 0; i < ARMY_BUTTON_COUNT; ++i) {
+			GameWindow *army = TheWindowManager->winGetWindowFromId(nullptr, s_armyButtonID[i]);
+			if (army) {
+				Int ax, ay;
+				army->winGetPosition(&ax, &ay);
+				army->winSetPosition(ax + dx, ay + dy);
+			}
+		}
 	}
 	fitParentToVisibleContent();
 }
@@ -418,6 +602,10 @@ void GroupPanelUpdate(WindowLayout *layout, void *userData)
 	(void)layout;
 	(void)userData;
 	updateHoldVisuals();
+	if (!s_armyButtonsPrepared) {
+		prepareArmyButtons();
+		fitParentToVisibleContent();
+	}
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -458,6 +646,7 @@ WindowMsgHandledType GroupPanelSystem(GameWindow *window, UnsignedInt msg,
 		}
 
 		case GWM_DESTROY:
+			s_armyButtonsPrepared = FALSE;
 			break;
 
 		case GBM_SELECTED:
@@ -472,6 +661,12 @@ WindowMsgHandledType GroupPanelSystem(GameWindow *window, UnsignedInt msg,
 					groupRow->winHide(!s_groupRowExpanded);
 				}
 				fitParentToVisibleContent();
+				return MSG_HANDLED;
+			}
+
+			const Int army = findArmyButtonIndex(controlID);
+			if (army >= 0) {
+				selectArmy(army);
 				return MSG_HANDLED;
 			}
 

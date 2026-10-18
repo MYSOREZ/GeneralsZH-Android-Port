@@ -39,6 +39,14 @@ Hour, with its own game folder:
   size slider, and menus, lobby and the group panel stay usable by finger directly.
 - **Touch orders** (#25): force attack as a mode, scatter, formation, jump to the last event.
 - **The control-group panel no longer swallows touches** under it (#33), and group 9 works again.
+- **Control scheme: Classic or Tactical** (launcher → Interface → Control scheme). Classic is the original
+  game. Tactical: combat units **attack on the move** (dozers and harvesters still just move), **army
+  buttons** beside the group panel (every combat unit on screen / on the map, planes, helicopters, ground
+  forces) and a **higher camera** (zooms out up to four times further). Each one has its own switch too.
+- **Physical keyboard:** every key with its original code -- the keypad, punctuation and the hotkeys that
+  did nothing before.
+- **A real mouse scrolls the map** without the touchpad mode (#47): edge scroll and right-button drag; the
+  wheel zooms smoothly; no lost button releases.
 
 ### Game fixes
 
@@ -48,6 +56,10 @@ Hour, with its own game folder:
 - **Blank text** on devices where the fonts could not be copied into the game folder (#36): the game now
   finds the bundled fonts itself.
 - **The money counter's description** no longer flickers when hovered.
+- **Mods and language packs together:** a mod's own texts (its units, tooltips, menus) show as the mod
+  wrote them and the rest of the game stays in your language, instead of MISSING everywhere.
+- **Mod fonts** are found by the name inside the font file, also in `Fonts/` and the game folder.
+- **Angry mob** members no longer appear in the map's corner (#30, #42).
 
 ### Online
 
@@ -73,6 +85,10 @@ Hour, with its own game folder:
 ## Install / update
 
 Install over 1.4.0 -- settings, sign-in and game folders are kept. Requires Android 9 or newer, 64-bit (arm64).
+
+The keyboard, mouse and Tactical control scheme work comes from **realkot**'s
+[GeneralsX fork](https://github.com/realkot/GeneralsX) (with parts by Codex / koreazolfakar-droid), ported with
+the author's permission -- thank you!
 
 Thanks to everyone who reported problems on GitHub and 4PDA.
 

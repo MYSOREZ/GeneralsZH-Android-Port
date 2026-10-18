@@ -449,6 +449,7 @@ public class SetupActivity extends Activity {
                 buildUiScaleSection(page);
                 buildInterfaceScaleSection(page);
                 buildMouseModeSection(page);
+                buildControlSchemeSection(page);
                 break;
             case TAB_TOOLS:
                 buildLogsSection(page);
@@ -964,6 +965,131 @@ public class SetupActivity extends Activity {
             w.write(Integer.toString(cursorPercent));
         } catch (java.io.IOException e) {
             android.util.Log.w("SetupActivity", "could not write the mouse mode marker", e);
+        }
+    }
+
+    // GeneralsX @feature Android port 18/10/2026 The control scheme: Classic (retail) or Tactical
+    // (ported from realkot's GeneralsX fork with the author's permission), or a custom mix -- every
+    // behaviour also has its own switch, so there is always a choice. Written as key=value lines to
+    // a file in the app's own files dir and read natively at start (GXControlScheme.h); no file is
+    // the retail game.
+    static final String CONTROL_SCHEME_FILE = "control_scheme";
+    private static final String[] CONTROL_SCHEME_KEYS = { "attack_move", "army_buttons", "camera_high" };
+    private boolean controlSchemeUpdating;
+
+    private void buildControlSchemeSection(LinearLayout root) {
+        LinearLayout content = UiKit.card(root);
+        TextView status = UiKit.sectionHeader(content, R.drawable.ic_gzh_sliders,
+            getString(R.string.setup_card_control_scheme), true);
+        final File file = new File(getFilesDir(), CONTROL_SCHEME_FILE);
+        final boolean[] state = readControlScheme(file);
+
+        CharSequence[] labels = new CharSequence[] {
+            getString(R.string.setup_control_scheme_classic),
+            getString(R.string.setup_control_scheme_tactical),
+            getString(R.string.setup_control_scheme_custom)
+        };
+        final int[] descs = new int[] {
+            R.string.setup_control_scheme_classic_desc,
+            R.string.setup_control_scheme_tactical_desc,
+            R.string.setup_control_scheme_custom_desc
+        };
+        final int current = controlSchemeIndex(state);
+        status.setText(labels[current]);
+        final com.google.android.material.button.MaterialButtonToggleGroup[] group =
+            new com.google.android.material.button.MaterialButtonToggleGroup[1];
+        final TextView[] desc = new TextView[1];
+        final SwitchCompat[] switches = new SwitchCompat[CONTROL_SCHEME_KEYS.length];
+
+        group[0] = UiKit.segmented(content, labels, current, index -> {
+            if (controlSchemeUpdating) {
+                return;
+            }
+            status.setText(labels[index]);
+            desc[0].setText(descs[index]);
+            if (index == 2) {
+                return;
+            }
+            controlSchemeUpdating = true;
+            for (int i = 0; i < switches.length; i++) {
+                state[i] = index == 1;
+                switches[i].setChecked(state[i]);
+            }
+            controlSchemeUpdating = false;
+            writeControlScheme(file, state);
+        });
+        desc[0] = UiKit.supporting(content, getString(descs[current]));
+
+        final int[][] texts = new int[][] {
+            { R.string.setup_switch_attack_move, R.string.setup_switch_attack_move_desc },
+            { R.string.setup_switch_army_buttons, R.string.setup_switch_army_buttons_desc },
+            { R.string.setup_switch_camera_high, R.string.setup_switch_camera_high_desc }
+        };
+        for (int i = 0; i < switches.length; i++) {
+            final int option = i;
+            switches[i] = UiKit.switchRow(content, getString(texts[i][0]), getString(texts[i][1]));
+            switches[i].setChecked(state[i]);
+            switches[i].setOnCheckedChangeListener((button, checked) -> {
+                if (controlSchemeUpdating) {
+                    return;
+                }
+                state[option] = checked;
+                writeControlScheme(file, state);
+                int index = controlSchemeIndex(state);
+                controlSchemeUpdating = true;
+                group[0].check(group[0].getChildAt(index).getId());
+                controlSchemeUpdating = false;
+                status.setText(labels[index]);
+                desc[0].setText(descs[index]);
+            });
+        }
+        UiKit.helpText(content, getString(R.string.setup_control_scheme_help));
+    }
+
+    private static int controlSchemeIndex(boolean[] state) {
+        boolean all = true;
+        boolean none = true;
+        for (boolean on : state) {
+            all &= on;
+            none &= !on;
+        }
+        return none ? 0 : (all ? 1 : 2);
+    }
+
+    private static boolean[] readControlScheme(File file) {
+        boolean[] state = new boolean[CONTROL_SCHEME_KEYS.length];
+        try (java.io.BufferedReader r = new java.io.BufferedReader(new java.io.FileReader(file))) {
+            String line;
+            while ((line = r.readLine()) != null) {
+                int eq = line.indexOf('=');
+                if (eq < 0) {
+                    continue;
+                }
+                String key = line.substring(0, eq).trim();
+                for (int i = 0; i < CONTROL_SCHEME_KEYS.length; i++) {
+                    if (CONTROL_SCHEME_KEYS[i].equals(key)) {
+                        state[i] = "1".equals(line.substring(eq + 1).trim());
+                    }
+                }
+            }
+        } catch (java.io.IOException e) {
+            // No file yet: the Classic scheme.
+            return state;
+        }
+        return state;
+    }
+
+    private static void writeControlScheme(File file, boolean[] state) {
+        if (controlSchemeIndex(state) == 0) {
+            file.delete();
+            return;
+        }
+        try (java.io.FileWriter w = new java.io.FileWriter(file, false)) {
+            for (int i = 0; i < CONTROL_SCHEME_KEYS.length; i++) {
+                w.write(CONTROL_SCHEME_KEYS[i] + "=" + (state[i] ? "1" : "0") + "\n");
+            }
+        } catch (java.io.IOException e) {
+            android.util.Log.w("SetupActivity", "could not write the control scheme", e);
         }
     }
 

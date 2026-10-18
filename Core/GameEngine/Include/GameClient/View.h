@@ -232,6 +232,10 @@ public:
 	void lockUserControlUntilFrame(UnsignedInt frame) { m_userControlLockedUntilFrame = frame; } ///< Locks the user control over camera until the given frame is reached.
 
 	virtual void setUserControlled(Bool value) { m_isUserControlled = value; }
+	// GeneralsX @feature realkot/Codex 14/10/2026 The highest the player may zoom out: the map's limit,
+	// or with the Tactical scheme's high camera up to four times it (3600 at most). Scripted cameras
+	// and the default zoom keep the map's limit.
+	Real getUserMaxHeightAboveGround() const;
 	Bool isUserControlLocked() const;
 
 	// for debugging

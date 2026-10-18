@@ -635,7 +635,8 @@ Bool W3DView::isWithinCameraAreaConstraints() const
 Bool W3DView::isWithinCameraHeightConstraints() const
 {
 	const Bool isAboveMinHeight = m_currentHeightAboveGround >= m_minHeightAboveGround;
-	const Bool isBelowMaxHeight = m_currentHeightAboveGround <= m_maxHeightAboveGround;
+	// GeneralsX @feature realkot/Codex 14/10/2026 The player's ceiling (Tactical scheme: higher camera).
+	const Bool isBelowMaxHeight = m_currentHeightAboveGround <= getUserMaxHeightAboveGround();
 	return isAboveMinHeight && (isBelowMaxHeight || !TheGlobalData->m_enforceMaxCameraHeight);
 }
 

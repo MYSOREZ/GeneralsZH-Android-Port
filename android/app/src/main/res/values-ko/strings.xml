@@ -367,6 +367,20 @@
     <string name="setup_switch_mouse_mode">마우스와 터치패드</string>
     <string name="setup_switch_mouse_mode_desc">원하는 곳을 탭하는 대신 포인터를 사용합니다. 연결된 마우스는 PC처럼 작동하고, 마우스가 없으면 손가락이 노트북 터치패드처럼 커서를 움직입니다. 끄면 게임을 터치로 직접 조작합니다.</string>
     <string name="setup_mouse_mode_help">터치패드: 손가락을 움직이면 커서가 움직입니다. 탭 = 왼쪽 클릭, 두 번 탭 = 더블 클릭, 탭한 뒤 다시 눌러 끌기 = 선택 상자. 두 손가락 탭 = 오른쪽 클릭. 두 손가락 = 지도 스크롤, 핀치 = 확대/축소. 다음에 게임을 시작할 때 적용됩니다. 왼쪽과 오른쪽 버튼의 동작은 여전히 게임의 \"대체 마우스 설정\" 옵션이 정합니다. 메뉴, 로비, 대화 상자에서는 평소처럼 손가락으로 직접 누릅니다.</string>
+    <string name="setup_card_control_scheme">조작 방식</string>
+    <string name="setup_control_scheme_classic">클래식</string>
+    <string name="setup_control_scheme_tactical">전술</string>
+    <string name="setup_control_scheme_custom">사용자 지정</string>
+    <string name="setup_control_scheme_classic_desc">원작과 같음: 이동 명령은 이동만 하고, 카메라는 맵 높이에서 멈추며, 군대 버튼이 없습니다.</string>
+    <string name="setup_control_scheme_tactical_desc">전투 유닛이 이동 중에 공격하고, 그룹 패널 옆에 군대 선택 버튼이 생기며, 카메라를 더 멀리 축소할 수 있습니다.</string>
+    <string name="setup_control_scheme_custom_desc">아래 스위치를 직접 조합합니다.</string>
+    <string name="setup_switch_attack_move">이동 중 공격</string>
+    <string name="setup_switch_attack_move_desc">전투 유닛의 이동 명령이 공격 이동이 됩니다: 가는 길에 만나는 적과 싸웁니다. 불도저와 수확 유닛은 그냥 이동합니다.</string>
+    <string name="setup_switch_army_buttons">군대 버튼</string>
+    <string name="setup_switch_army_buttons_desc">그룹 패널 옆 버튼으로 화면 또는 맵 전체의 모든 전투 유닛, 전투기, 헬기 또는 지상군을 선택합니다(지상군을 한 번 더 누르면 맵 전체).</string>
+    <string name="setup_switch_camera_high">더 높은 카메라</string>
+    <string name="setup_switch_camera_high_desc">카메라를 맵이 허용하는 것보다 최대 네 배 더 멀리 축소할 수 있습니다.</string>
+    <string name="setup_control_scheme_help">다음에 게임을 시작할 때 적용됩니다. 스커미시, 캠페인, 온라인 게임 모두에서 똑같이 작동합니다: 명령을 내리는 방식만 바뀌고 게임 규칙은 바뀌지 않습니다.</string>
     <string name="setup_cursor_size_label">커서 크기: %1$d%%</string>
     <string name="setup_switch_skip_intro">인트로 영상 건너뛰기</string>
     <string name="setup_switch_skip_intro_desc">EA 로고, 인트로 및 메뉴 전 다른 영상을 건너뛰고 바로 로딩합니다. 두 게임 모두, 모드 포함.</string>

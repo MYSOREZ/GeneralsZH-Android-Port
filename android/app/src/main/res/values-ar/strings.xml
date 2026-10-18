@@ -367,6 +367,20 @@
     <string name="setup_switch_mouse_mode">الفأرة ولوحة اللمس</string>
     <string name="setup_switch_mouse_mode_desc">مؤشر بدلًا من اللمس في المكان المطلوب: الفأرة الموصولة تعمل كما على الحاسوب، ومن دونها يحرّك إصبعك المؤشر مثل لوحة لمس الحاسوب المحمول. عند الإيقاف: تُلعب اللعبة باللمس مباشرة.</string>
     <string name="setup_mouse_mode_help">لوحة اللمس: حرّك إصبعًا لتحريك المؤشر. نقرة = نقر أيسر، نقرتان = نقر مزدوج، نقرة ثم لمس وسحب = مربع تحديد. نقرة بإصبعين = نقر أيمن. إصبعان = تمرير الخريطة، القرص = التكبير. يسري عند بدء اللعبة في المرة القادمة. يبقى خيار اللعبة \"إعداد الفأرة البديل\" هو ما يحدد عمل الزرين الأيسر والأيمن. في القوائم والردهة ومربعات الحوار يضغط الإصبع مباشرة كالمعتاد.</string>
+    <string name="setup_card_control_scheme">مخطط التحكم</string>
+    <string name="setup_control_scheme_classic">كلاسيكي</string>
+    <string name="setup_control_scheme_tactical">تكتيكي</string>
+    <string name="setup_control_scheme_custom">مخصص</string>
+    <string name="setup_control_scheme_classic_desc">كما في اللعبة الأصلية: أمر التحرك يحرك فقط، وتتوقف الكاميرا عند ارتفاع الخريطة، ولا توجد أزرار للجيش.</string>
+    <string name="setup_control_scheme_tactical_desc">تهاجم الوحدات القتالية أثناء التحرك، وتظهر أزرار اختيار الجيش بجانب لوحة المجموعات، ويمكن إبعاد الكاميرا أكثر.</string>
+    <string name="setup_control_scheme_custom_desc">مزيجك الخاص من المفاتيح أدناه.</string>
+    <string name="setup_switch_attack_move">الهجوم أثناء التحرك</string>
+    <string name="setup_switch_attack_move_desc">يصبح أمر التحرك للوحدات القتالية تقدمًا هجوميًا: تقاتل كل ما تصادفه في الطريق. الجرافات وجامعو الموارد يتحركون فقط.</string>
+    <string name="setup_switch_army_buttons">أزرار الجيش</string>
+    <string name="setup_switch_army_buttons_desc">أزرار بجانب لوحة المجموعات تختار كل الوحدات القتالية على الشاشة أو في الخريطة كلها، أو الطائرات، أو المروحيات، أو القوات البرية (اضغط برية مرة أخرى للخريطة كلها).</string>
+    <string name="setup_switch_camera_high">كاميرا أعلى</string>
+    <string name="setup_switch_camera_high_desc">يمكن إبعاد الكاميرا حتى أربعة أضعاف ما تسمح به الخريطة.</string>
+    <string name="setup_control_scheme_help">يسري عند تشغيل اللعبة في المرة القادمة. يعمل في المناوشات والحملة والألعاب عبر الإنترنت على حد سواء: يتغير فقط أسلوب إصدار الأوامر، لا قواعد اللعبة.</string>
     <string name="setup_cursor_size_label">حجم المؤشر: %1$d%%</string>
     <string name="setup_switch_skip_intro">تخطي مقاطع المقدمة</string>
     <string name="setup_switch_skip_intro_desc">تُتخطى شعارات EA والمقدمة والمقاطع الأخرى قبل القائمة، وتبدأ اللعبة التحميل مباشرة. للعبتين، ومع التعديلات أيضًا.</string>

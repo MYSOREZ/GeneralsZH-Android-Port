@@ -367,6 +367,20 @@
     <string name="setup_switch_mouse_mode">Souris et pavé tactile</string>
     <string name="setup_switch_mouse_mode_desc">Un pointeur au lieu de toucher l\'endroit voulu : une souris connectée fonctionne comme sur PC, et sans souris votre doigt déplace le curseur comme un pavé tactile. Désactivé : le jeu se joue directement au toucher.</string>
     <string name="setup_mouse_mode_help">Pavé tactile : déplacez un doigt pour déplacer le curseur. Toucher = clic gauche, deux touchers = double-clic, toucher puis toucher et glisser = cadre de sélection. Toucher à deux doigts = clic droit. Deux doigts = faire défiler la carte, pincer = zoom. Prend effet au prochain lancement du jeu. L\'option du jeu « Contrôle souris alternatif » décide toujours du rôle des boutons gauche et droit. Dans les menus, le salon et les dialogues, le doigt appuie directement, comme d\'habitude.</string>
+    <string name="setup_card_control_scheme">Schéma de contrôle</string>
+    <string name="setup_control_scheme_classic">Classique</string>
+    <string name="setup_control_scheme_tactical">Tactique</string>
+    <string name="setup_control_scheme_custom">Personnalisé</string>
+    <string name="setup_control_scheme_classic_desc">Comme dans le jeu d\'origine : un ordre de déplacement ne fait que déplacer, la caméra s\'arrête à la hauteur de la carte, pas de boutons d\'armée.</string>
+    <string name="setup_control_scheme_tactical_desc">Les unités de combat attaquent en se déplaçant, des boutons de sélection d\'armée apparaissent à côté du panneau des groupes et la caméra recule davantage.</string>
+    <string name="setup_control_scheme_custom_desc">Votre propre combinaison des interrupteurs ci-dessous.</string>
+    <string name="setup_switch_attack_move">Attaque en mouvement</string>
+    <string name="setup_switch_attack_move_desc">Un ordre de déplacement pour les unités de combat devient une marche offensive : elles combattent ce qu\'elles croisent en chemin. Les bulldozers et les collecteurs se déplacent simplement.</string>
+    <string name="setup_switch_army_buttons">Boutons d\'armée</string>
+    <string name="setup_switch_army_buttons_desc">Des boutons à côté du panneau des groupes sélectionnent toutes les unités de combat à l\'écran ou sur toute la carte, les avions, les hélicoptères ou les forces terrestres (appuyez encore sur Sol pour toute la carte).</string>
+    <string name="setup_switch_camera_high">Caméra plus haute</string>
+    <string name="setup_switch_camera_high_desc">La caméra recule jusqu\'à quatre fois plus loin que ce que la carte permet.</string>
+    <string name="setup_control_scheme_help">Prend effet au prochain lancement du jeu. Fonctionne aussi bien en escarmouche, en campagne qu\'en ligne : seule la façon de donner les ordres change, pas les règles du jeu.</string>
     <string name="setup_cursor_size_label">Taille du curseur : %1$d %%</string>
     <string name="setup_switch_skip_intro">Passer les vidéos d\'introduction</string>
     <string name="setup_switch_skip_intro_desc">Les logos EA, l\'introduction et les autres vidéos avant le menu sont passés ; le jeu charge directement. Pour les deux jeux, mods compris.</string>

@@ -286,6 +286,10 @@ work that this repo inherits everywhere:
 - **This fork** — the Android port (the GeneralsOnline client on Android,
   touch controls, in-app launcher, language packs, device
   bring-up), plus engine fixes throughout, offered upstream
+- **[realkot/GeneralsX](https://github.com/realkot/GeneralsX)** (realkot, with parts by Codex /
+  koreazolfakar-droid) — the physical keyboard mapping, mouse fixes and the launcher's **Tactical**
+  control scheme (attack on the move, army buttons, higher camera), ported here with the author's
+  permission
 - **DXVK, SDL, OpenAL Soft, FFmpeg, GameNetworkingSockets, Liberation Fonts** — the load-bearing walls
 
 Not part of that chain: **[tarek369/GeneralsZH-Android](https://github.com/tarek369/GeneralsZH-Android)**

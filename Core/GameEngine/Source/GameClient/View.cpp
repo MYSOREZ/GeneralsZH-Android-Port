@@ -29,6 +29,7 @@
 #include "PreRTS.h"	// This must go first in EVERY cpp file in the GameEngine
 
 #include "Common/GameEngine.h"
+#include "Common/GXControlScheme.h"
 #include "Common/Xfer.h"
 #include "GameClient/Drawable.h"
 #include "GameClient/GameClient.h"
@@ -202,12 +203,21 @@ void View::setPitchToDefault()
 	m_pitch = m_defaultPitch;
 }
 
+// GeneralsX @feature realkot/Codex 14/10/2026 See View.h.
+Real View::getUserMaxHeightAboveGround() const
+{
+	if (!m_isUserControlled || !GXControlScheme::enabled(GXControlScheme::CAMERA_HIGH))
+		return m_maxHeightAboveGround;
+	const Real ceiling = m_maxHeightAboveGround > 900.0f ? 3600.0f : m_maxHeightAboveGround * 4.0f;
+	return ceiling > m_maxHeightAboveGround ? ceiling : m_maxHeightAboveGround;
+}
+
 void View::setHeightAboveGround(Real z)
 {
 	// if our zoom is limited, we will stay within a predefined distance from the terrain
 	if( m_zoomLimited )
 	{
-		m_heightAboveGround = clamp(m_minHeightAboveGround, z, m_maxHeightAboveGround);
+		m_heightAboveGround = clamp(m_minHeightAboveGround, z, getUserMaxHeightAboveGround());
 	}
 	else
 	{

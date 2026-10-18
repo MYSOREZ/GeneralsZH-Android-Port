@@ -367,6 +367,20 @@
     <string name="setup_switch_mouse_mode">Mouse e touchpad</string>
     <string name="setup_switch_mouse_mode_desc">Um ponteiro em vez de tocar onde você quer: um mouse conectado funciona como no PC e, sem ele, seu dedo move o cursor como o touchpad de um notebook. Desligado: o jogo é controlado tocando diretamente.</string>
     <string name="setup_mouse_mode_help">Touchpad: mova um dedo para mover o cursor. Tocar = clique esquerdo, dois toques = clique duplo, tocar e depois tocar e arrastar = caixa de seleção. Tocar com dois dedos = clique direito. Dois dedos = rolar o mapa, pinçar = zoom. Vale a partir do próximo início do jogo. A opção do jogo \"Controle alternativo do mouse\" continua decidindo o que fazem os botões esquerdo e direito. Nos menus, no lobby e nas caixas de diálogo o dedo toca diretamente, como de costume.</string>
+    <string name="setup_card_control_scheme">Esquema de controle</string>
+    <string name="setup_control_scheme_classic">Clássico</string>
+    <string name="setup_control_scheme_tactical">Tático</string>
+    <string name="setup_control_scheme_custom">Personalizado</string>
+    <string name="setup_control_scheme_classic_desc">Como no jogo original: uma ordem de mover apenas move, a câmera para na altura do mapa e não há botões de exército.</string>
+    <string name="setup_control_scheme_tactical_desc">Unidades de combate atacam em movimento, botões de seleção de exército aparecem ao lado do painel de grupos e a câmera se afasta mais.</string>
+    <string name="setup_control_scheme_custom_desc">Sua própria combinação dos interruptores abaixo.</string>
+    <string name="setup_switch_attack_move">Ataque em movimento</string>
+    <string name="setup_switch_attack_move_desc">Uma ordem de mover para unidades de combate vira um avanço com ataque: elas lutam contra o que encontram no caminho. Escavadeiras e coletores apenas se movem.</string>
+    <string name="setup_switch_army_buttons">Botões de exército</string>
+    <string name="setup_switch_army_buttons_desc">Botões ao lado do painel de grupos selecionam todas as unidades de combate na tela ou no mapa inteiro, aviões, helicópteros ou forças terrestres (toque em Terrest. de novo para o mapa inteiro).</string>
+    <string name="setup_switch_camera_high">Câmera mais alta</string>
+    <string name="setup_switch_camera_high_desc">A câmera se afasta até quatro vezes mais do que o mapa permite.</string>
+    <string name="setup_control_scheme_help">Vale a partir da próxima vez que o jogo for iniciado. Funciona igualmente em escaramuças, na campanha e em partidas online: muda apenas como você dá as ordens, não as regras do jogo.</string>
     <string name="setup_cursor_size_label">Tamanho do cursor: %1$d%%</string>
     <string name="setup_switch_skip_intro">Pular vídeos de introdução</string>
     <string name="setup_switch_skip_intro_desc">Logos da EA, a introdução e outros vídeos antes do menu são pulados; o jogo carrega direto. Para os dois jogos, com mods também.</string>
