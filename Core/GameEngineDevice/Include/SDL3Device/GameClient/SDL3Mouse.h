@@ -99,6 +99,9 @@ public:
 	// addSDLEvent() like a real mouse's. A real mouse is drawn by Android; a touchpad pointer is
 	// not, so the game draws it while the last pointer input came from the touchpad.
 	static const SDL_MouseID TOUCHPAD_MOUSE_ID = (SDL_MouseID)0xFFFFFFFDu;
+	// GeneralsX @bugfix Android port 18/10/2026 When a real mouse last moved (SDL_GetTicks ms), 0 never.
+	static inline Uint64 s_lastHardwareMouseMs = 0;
+	static Bool hardwareMouseActive() { return s_lastHardwareMouseMs != 0 && SDL_GetTicks() - s_lastHardwareMouseMs < 3000; }
 	virtual void draw() override;
 #endif
 

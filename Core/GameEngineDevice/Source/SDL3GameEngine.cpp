@@ -2378,7 +2378,9 @@ void enforceNoPointerScrollWithoutFinger()
 	// for itself (a click on the interface, an order cancelled) leaves SCROLL_RMB latched, and from
 	// then on every pointer move scrolls the camera away from the anchor. With no real right button
 	// down (SDL's own mouse state; the touchpad's events never enter it) it cannot be legitimate.
-	if (GXMouseModeEnabled()) {
+	// GeneralsX @bugfix Android port 18/10/2026 The same for a real mouse without that mode (issue
+	// #47: "the mouse cannot move around the map"): it rests at the edge with no finger down too.
+	if (GXMouseModeEnabled() || SDL3Mouse::hardwareMouseActive()) {
 		if (TheLookAtTranslator->isRightButtonScrollActive() &&
 		    (SDL_GetMouseState(nullptr, nullptr) & SDL_BUTTON_RMASK) == 0) {
 			fprintf(stderr, "[gxtouch] cancelling a right-button scroll with no right button down\n");

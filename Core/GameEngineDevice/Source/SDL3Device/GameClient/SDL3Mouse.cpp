@@ -959,7 +959,13 @@ void SDL3Mouse::translateWheelEvent(const SDL_MouseWheelEvent& event, MouseIO *r
 
 	// SDL3 wheel: positive = up/away, negative = down/toward user
 	// Multiply by MOUSE_WHEEL_DELTA (120) to match Windows behavior
-	result->wheelPos = (Int)(event.y * MOUSE_WHEEL_DELTA);
+	// GeneralsX @bugfix Codex 14/10/2026 (realkot/GeneralsX, with permission) Keep the fraction a
+	// precise wheel or touchpad sends in small steps, instead of truncating each one away, and
+	// read a "flipped" (natural scrolling) wheel the right way round.
+	static float s_wheelRemainder = 0.0f;
+	s_wheelRemainder += event.y * MOUSE_WHEEL_DELTA * (event.direction == SDL_MOUSEWHEEL_FLIPPED ? -1.0f : 1.0f);
+	result->wheelPos = (Int)s_wheelRemainder;
+	s_wheelRemainder -= (float)result->wheelPos;
 
 	result->leftState = MBS_None;
 	result->rightState = MBS_None;
@@ -1050,6 +1056,31 @@ void SDL3Mouse::addSDLEvent(SDL_Event *event)
 		m_touchpadPointer = (event->button.which == TOUCHPAD_MOUSE_ID);
 	}
 #endif
+
+#if (defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE) || defined(__ANDROID__)
+	// GeneralsX @bugfix Android port 18/10/2026 A real mouse's last move, so the touch layer's
+	// guards leave its edge and right-button scrolling alone (SDL3GameEngine.cpp).
+	if (event->type == SDL_EVENT_MOUSE_MOTION && event->motion.which != TOUCHPAD_MOUSE_ID
+	    && event->motion.which != SDL_TOUCH_MOUSEID) {
+		s_lastHardwareMouseMs = SDL_GetTicks();
+	}
+#endif
+
+	// GeneralsX @bugfix Codex 14/10/2026 (realkot/GeneralsX, with permission) Merge a motion into
+	// the motion still waiting before it, from the same mouse with the same buttons: a fast mouse
+	// filled the buffer, and the event dropped then could be a button release, leaving it held.
+	if (event->type == SDL_EVENT_MOUSE_MOTION && m_nextFreeIndex != m_nextGetIndex) {
+		SDL_Event &last = m_eventBuffer[(m_nextFreeIndex + MAX_SDL3_MOUSE_EVENTS - 1) % MAX_SDL3_MOUSE_EVENTS];
+		if (last.type == SDL_EVENT_MOUSE_MOTION && last.motion.which == event->motion.which
+		    && last.motion.windowID == event->motion.windowID && last.motion.state == event->motion.state) {
+			const float dx = last.motion.xrel + event->motion.xrel;
+			const float dy = last.motion.yrel + event->motion.yrel;
+			last = *event;
+			last.motion.xrel = dx;
+			last.motion.yrel = dy;
+			return;
+		}
+	}
 
 	// Check if buffer is full
 	UnsignedInt nextFreeIndex = (m_nextFreeIndex + 1) % MAX_SDL3_MOUSE_EVENTS;
