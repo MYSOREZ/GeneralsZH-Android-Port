@@ -526,6 +526,14 @@ public class SetupActivity extends Activity {
         skipIntro.setOnCheckedChangeListener((button, checked) ->
             getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit().putBoolean(PREF_SKIP_INTRO, checked).apply());
 
+        // GeneralsX @feature Android port 18/10/2026 The Mods screen (ModManagerActivity, from
+        // realkot's GeneralsX fork), with the mod the next game starts with.
+        File activeMod = ModManager.getActiveMod(this);
+        UiKit.listRow(game, R.drawable.ic_gzh_folder, getString(R.string.mods_title),
+            activeMod == null ? getString(R.string.mods_active_vanilla)
+                : getString(R.string.mods_active_mod, activeMod.getName()),
+            () -> startActivityForResult(new Intent(this, ModManagerActivity.class), REQUEST_MODS));
+
         // The one thing this app exists to do, as the first thing on it.
         UiKit.button(page, UiKit.BTN_PRIMARY, R.drawable.ic_gzh_play,
             getString(R.string.setup_button_launch_game), this::onLaunchGame);
@@ -1990,6 +1998,7 @@ public class SetupActivity extends Activity {
     // into this asset folder at build time) -- see applyRecommendedDriverIfNeeded().
     private static final String DEFAULT_DRIVER_ASSET_DIR = "default_driver";
     private static final int REQUEST_IMPORT_DRIVER = 1002;
+    private static final int REQUEST_MODS = 1004;
     private static final int REQUEST_PICK_BASE_GENERALS = 1003;
 
     private TextView customDriverStatusView;
@@ -3741,6 +3750,14 @@ public class SetupActivity extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_MODS) {
+            // Back on Home: the active mod may have changed, and "Play" on a mod launches.
+            showTab(currentTab);
+            if (resultCode == ModManagerActivity.RESULT_LAUNCH) {
+                getWindow().getDecorView().post(this::onLaunchGame);
+            }
+            return;
+        }
         if (requestCode == 1001 && resultCode == Activity.RESULT_OK && data != null) {
             String path = data.getStringExtra(FolderPickerActivity.EXTRA_SELECTED_PATH);
             if (path != null) {

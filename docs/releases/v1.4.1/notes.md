@@ -81,6 +81,9 @@ Hour, with its own game folder:
 - **The game folder one or two levels down**: pick the folder the archive was unpacked into, and the launcher
   finds the game inside it.
 - Language packs: Zero Hour and Generals each fetch their own translation file.
+- **Mods screen** (Home → Mods): import a mod from a folder, a `.big` or a `.zip`, see its size and a check
+  of its files, pick which one the game starts with, or the original game. One library per game. Online
+  (GeneralsOnline) is played without mods; LAN games work when everyone has the same mod.
 - **New look**: a navy and gold design, and **Appearance: System / Day / Night** (Interface tab). The
   launch screen shows the emblem instead of a blank frame.
 
@@ -88,7 +91,7 @@ Hour, with its own game folder:
 
 Install over 1.4.0 -- settings, sign-in and game folders are kept. Requires Android 9 or newer, 64-bit (arm64).
 
-The keyboard, mouse, Tactical control scheme and the launcher's new look come from **realkot**'s
+The keyboard, mouse, Tactical control scheme, the Mods screen and the launcher's new look come from **realkot**'s
 [GeneralsX fork](https://github.com/realkot/GeneralsX) (with parts by Codex / koreazolfakar-droid), ported with
 the author's permission -- thank you!
 

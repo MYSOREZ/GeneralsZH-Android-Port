@@ -160,6 +160,13 @@
 
         <!-- GeneralsX @feature Android port 23/09/2026 Replay check: pick a replay and
              run it through fast (or fast-forward to a frame) with a result summary. -->
+        <!-- GeneralsX @feature Android port 18/10/2026 Mods screen, from realkot's GeneralsX fork. -->
+        <activity
+            android:name=".ModManagerActivity"
+            android:exported="false"
+            android:theme="@style/Theme.GeneralsZHSettings"
+            android:configChanges="orientation|screenSize|keyboardHidden" />
+
         <activity
             android:name=".ReplayCheckActivity"
             android:exported="false"
