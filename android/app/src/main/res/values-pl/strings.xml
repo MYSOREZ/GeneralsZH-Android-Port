@@ -243,7 +243,7 @@
     <string name="setup_vulkan_moved_message">Vulkan obecnie pokazuje czarne tekstury na wielu urządzeniach, więc gra została przełączona na OpenGL ES. Vulkan można włączyć z powrotem tutaj: %1$s → %2$s → %3$s.</string>
     <string name="setup_support_popup_later">Później</string>
     <string name="setup_switch_gx_net_trace">Dziennik sieci online</string>
-    <string name="setup_switch_gx_net_trace_desc">Zapisuje każde żądanie gry do serwerów GeneralsOnline wraz z otrzymaną odpowiedzią. Włącz, jeśli logowanie, poczekalnia lub dobieranie graczy zawodzą już w grze. Żądania samego launchera są zapisywane zawsze; to dodaje żądania gry. Włącza także diagnostykę desynchronizacji w grze międzyplatformowej: sumy kontrolne symulacji porównywane w każdym interwale, a w powtórce — sumę kontrolną każdego obiektu. (gx_net_trace.txt)</string>
+    <string name="setup_switch_gx_net_trace_desc">Zapisuje każde żądanie gry do serwerów GeneralsOnline wraz z otrzymaną odpowiedzią. Włącz, jeśli logowanie, poczekalnia lub dobieranie graczy zawodzą już w grze. Żądania samego launchera są zapisywane zawsze; to dodaje żądania gry. Włącza także diagnostykę desynchronizacji w grze międzyplatformowej: sumy kontrolne symulacji porównywane w każdym interwale, a w powtórce — sumę kontrolną każdego obiektu. Suma kontrolna każdego obiektu jest zapisywana tylko podczas „Sprawdzania powtórki”, więc zwykłe gry nie zwalniają. (gx_net_trace.txt)</string>
     <string name="netdiag_title">Diagnostyka sieci</string>
     <string name="netdiag_row_note">Sprawdź, czy to urządzenie dociera do serwerów GeneralsOnline, i zbierz raport do zgłoszenia błędu.</string>
     <string name="netdiag_intro">Sprawdzane po kolei: czy sieć działa, czy nazwy serwerów GeneralsOnline się rozwiązują, czy serwery odpowiadają i co mówią o logowaniu.\n\nNic nie jest nigdzie wysyłane. Dotknij „Uruchom”.</string>
@@ -310,10 +310,10 @@
     <string name="replaycheck_none">Brak plików .rep w %1$s</string>
     <string name="replaycheck_no_game_folder">Najpierw wybierz folder gry w programie uruchamiającym.</string>
     <string name="replaycheck_need_frame">Podaj klatkę, do której przewinąć.</string>
-    <string name="replaycheck_trace_enabled">Włączono śledzenie sieci na potrzeby sprawdzania.</string>
+    <string name="replaycheck_trace_enabled">Włączono śledzenie sieci na potrzeby sprawdzania. Zostanie wyłączone przy następnym naciśnięciu „Uruchom grę”.</string>
     <string name="replaycheck_trace_failed">Nie udało się włączyć śledzenia sieci; w dzienniku zabraknie szczegółów sum kontrolnych.</string>
     <string name="replaycheck_crc_every_frame">Suma kontrolna każdej klatki</string>
-    <string name="replaycheck_crc_every_frame_help">Dodatkowo zapisuje w dzienniku sumę kontrolną logiki dla każdej klatki. Służy do zbudowania kopii powtórki, którą klient PC sprawdzi klatka po klatce. Wolniej.</string>
+    <string name="replaycheck_crc_every_frame_help">Dodatkowo zapisuje w dzienniku sumę kontrolną logiki dla każdej klatki. Służy do zbudowania kopii powtórki, którą klient PC sprawdzi klatka po klatce. Wolniej. Tylko podczas sprawdzania: nie wpływa na gry uruchamiane przyciskiem „Uruchom grę”.</string>
     <string name="setup_online_anticheat_note">Klient mobilny nie ma anty-cheata. Aby grać razem, gracz na PC musi wyłączyć anty-cheat (GeneralsOnline AntiCheat lub Easy Anti-Cheat) w launcherze GeneralsOnline: do lobby z innym anty-cheatem nie da się dołączyć z telefonu i odwrotnie.</string>
     <string name="setup_switch_logging">Zbieraj logi</string>
     <string name="setup_switch_logging_desc">Zapisuj na urządzeniu logi gry, awarii i sieci. Wyłącz, aby nic nie było zapisywane w tle, dopóki nie włączysz ponownie. Potrzebne do zgłaszania błędów.</string>

@@ -127,7 +127,7 @@
     <string name="setup_switch_gx_audio_trace">Audio log</string>
     <string name="setup_switch_gx_audio_trace_desc">Records what the sound system is doing: music and speech buffer levels, movie audio, and every source that starts or stops. Turn this on if you are asked for an audio log after reporting missing, stuttering or silent sound. (gx_audio_trace.txt)</string>
     <string name="setup_switch_gx_net_trace">Online network log</string>
-    <string name="setup_switch_gx_net_trace_desc">Records every request the game makes to the GeneralsOnline servers, with the reply it got. Turn this on if sign-in, the lobby or matchmaking fails from inside the game. The launcher\'s own requests are always recorded; this adds the game\'s. It also turns on the cross-play desync diagnostics: the simulation checksums that are compared each interval, and, in a replay, the checksum of every single object. (gx_net_trace.txt)</string>
+    <string name="setup_switch_gx_net_trace_desc">Records every request the game makes to the GeneralsOnline servers, with the reply it got. Turn this on if sign-in, the lobby or matchmaking fails from inside the game. The launcher\'s own requests are always recorded; this adds the game\'s. It also turns on the cross-play desync diagnostics: the simulation checksums that are compared each interval, and, in a replay, the checksum of every single object. The checksum of every single object is written only during a Replay check, so ordinary games are not slowed down. (gx_net_trace.txt)</string>
     <string name="setup_button_download_langpack">Download language pack</string>
     <string name="setup_langpack_downloading">Downloading the language pack…</string>
     <string name="setup_langpack_done">Language pack installed. The game will use it on the next launch.</string>
@@ -317,10 +317,10 @@
     <string name="replaycheck_none">No .rep files in %1$s</string>
     <string name="replaycheck_no_game_folder">Choose the game folder in the launcher first.</string>
     <string name="replaycheck_need_frame">Enter the frame to fast-forward to.</string>
-    <string name="replaycheck_trace_enabled">Network trace switched on for the check.</string>
+    <string name="replaycheck_trace_enabled">Network trace switched on for the check. It is switched off again the next time you press Launch Game.</string>
     <string name="replaycheck_trace_failed">Could not switch the network trace on; the log will lack the checksum details.</string>
     <string name="replaycheck_crc_every_frame">Checksum of every frame</string>
-    <string name="replaycheck_crc_every_frame_help">Also writes the logic checksum of every frame to the log. Used to build a copy of a replay that the PC client checks frame by frame. Slower.</string>
+    <string name="replaycheck_crc_every_frame_help">Also writes the logic checksum of every frame to the log. Used to build a copy of a replay that the PC client checks frame by frame. Slower. Only during the check: games started with Launch Game are not affected.</string>
     <string name="setup_online_anticheat_note">Mobile clients have no anti-cheat. To play together, the PC player has to turn anti-cheat off (GeneralsOnline AntiCheat or Easy Anti-Cheat) in the GeneralsOnline launcher: lobbies with a different anti-cheat cannot be joined from a phone, and a phone lobby cannot be joined from them.</string>
     <string name="setup_switch_logging">Collect logs</string>
     <string name="setup_switch_logging_desc">Write game, crash and network logs to the device. Turn off to keep nothing in the background; the logs stay off until you turn this back on. Needed for bug reports.</string>

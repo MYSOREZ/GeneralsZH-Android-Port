@@ -243,7 +243,7 @@
     <string name="setup_vulkan_moved_message">Vulkan affiche actuellement des textures noires sur beaucoup d\'appareils, le jeu est donc passé sur OpenGL ES. Vulkan peut être réactivé dans %1$s → %2$s → %3$s.</string>
     <string name="setup_support_popup_later">Plus tard</string>
     <string name="setup_switch_gx_net_trace">Journal réseau en ligne</string>
-    <string name="setup_switch_gx_net_trace_desc">Enregistre chaque requête du jeu vers les serveurs GeneralsOnline et la réponse reçue. Activez ceci si la connexion, le salon ou le matchmaking échouent une fois dans le jeu. Les requêtes du lanceur sont toujours enregistrées ; ceci ajoute celles du jeu. Active également le diagnostic de désynchronisation en jeu multiplateforme : les sommes de contrôle de la simulation comparées à chaque intervalle et, dans une rediffusion, celle de chaque objet. (gx_net_trace.txt)</string>
+    <string name="setup_switch_gx_net_trace_desc">Enregistre chaque requête du jeu vers les serveurs GeneralsOnline et la réponse reçue. Activez ceci si la connexion, le salon ou le matchmaking échouent une fois dans le jeu. Les requêtes du lanceur sont toujours enregistrées ; ceci ajoute celles du jeu. Active également le diagnostic de désynchronisation en jeu multiplateforme : les sommes de contrôle de la simulation comparées à chaque intervalle et, dans une rediffusion, celle de chaque objet. La somme de contrôle de chaque objet n’est écrite que pendant une « Vérification de replay » : les parties normales ne sont pas ralenties. (gx_net_trace.txt)</string>
     <string name="netdiag_title">Diagnostic réseau</string>
     <string name="netdiag_row_note">Vérifier si cet appareil atteint les serveurs GeneralsOnline et produire un rapport à joindre à un signalement.</string>
     <string name="netdiag_intro">Vérifie, dans l\'ordre : si le réseau fonctionne, si les noms des serveurs GeneralsOnline se résolvent, si les serveurs répondent et ce qu\'ils disent de la connexion.\n\nRien n\'est envoyé. Touchez « Lancer » pour commencer.</string>
@@ -310,10 +310,10 @@
     <string name="replaycheck_none">Aucun fichier .rep dans %1$s</string>
     <string name="replaycheck_no_game_folder">Choisissez d\'abord le dossier du jeu dans le lanceur.</string>
     <string name="replaycheck_need_frame">Saisissez l\'image jusqu\'à laquelle avancer.</string>
-    <string name="replaycheck_trace_enabled">Trace réseau activée pour la vérification.</string>
+    <string name="replaycheck_trace_enabled">Trace réseau activée pour la vérification. Elle sera désactivée au prochain appui sur « Lancer le jeu ».</string>
     <string name="replaycheck_trace_failed">Impossible d\'activer la trace réseau ; le journal n\'aura pas le détail des sommes de contrôle.</string>
     <string name="replaycheck_crc_every_frame">Somme de contrôle de chaque image</string>
-    <string name="replaycheck_crc_every_frame_help">Écrit aussi dans le journal la somme de contrôle de la logique à chaque image. Sert à construire une copie du replay que le client PC vérifie image par image. Plus lent.</string>
+    <string name="replaycheck_crc_every_frame_help">Écrit aussi dans le journal la somme de contrôle de la logique à chaque image. Sert à construire une copie du replay que le client PC vérifie image par image. Plus lent. Uniquement pendant la vérification : les parties lancées avec « Lancer le jeu » ne sont pas concernées.</string>
     <string name="setup_online_anticheat_note">Les clients mobiles n\'ont pas d\'anti-triche. Pour jouer ensemble, le joueur PC doit désactiver l\'anti-triche (GeneralsOnline AntiCheat ou Easy Anti-Cheat) dans le lanceur GeneralsOnline : un salon avec un autre anti-triche est inaccessible depuis un téléphone, et inversement.</string>
     <string name="setup_switch_logging">Collecter les journaux</string>
     <string name="setup_switch_logging_desc">Écrire les journaux du jeu, des plantages et du réseau sur l\'appareil. Désactivez pour ne rien conserver en arrière-plan, jusqu\'à ce que vous le réactiviez. Nécessaire pour signaler un bug.</string>

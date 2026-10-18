@@ -243,7 +243,7 @@
     <string name="setup_vulkan_moved_message">يعرض Vulkan حاليًا خامات سوداء على أجهزة كثيرة، لذا حُوّلت اللعبة إلى OpenGL ES. يمكن إعادة تشغيل Vulkan من %1$s ← %2$s ← %3$s.</string>
     <string name="setup_support_popup_later">لاحقًا</string>
     <string name="setup_switch_gx_net_trace">سجل شبكة اللعب عبر الإنترنت</string>
-    <string name="setup_switch_gx_net_trace_desc">يسجّل كل طلب ترسله اللعبة إلى خوادم GeneralsOnline والرد الذي يصلها. فعّل هذا إذا كان تسجيل الدخول أو الردهة أو المطابقة يفشل داخل اللعبة نفسها. طلبات المشغّل تُسجَّل دائمًا، وهذا يضيف طلبات اللعبة. كما يُفعّل تشخيص عدم التزامن في اللعب عبر المنصات: مجاميع التحقّق للمحاكاة التي تُقارن في كل فترة، وفي إعادة العرض مجموع التحقّق لكل كائن على حدة. (gx_net_trace.txt)</string>
+    <string name="setup_switch_gx_net_trace_desc">يسجّل كل طلب ترسله اللعبة إلى خوادم GeneralsOnline والرد الذي يصلها. فعّل هذا إذا كان تسجيل الدخول أو الردهة أو المطابقة يفشل داخل اللعبة نفسها. طلبات المشغّل تُسجَّل دائمًا، وهذا يضيف طلبات اللعبة. كما يُفعّل تشخيص عدم التزامن في اللعب عبر المنصات: مجاميع التحقّق للمحاكاة التي تُقارن في كل فترة، وفي إعادة العرض مجموع التحقّق لكل كائن على حدة. لا يُكتب مجموع التحقق لكل كائن إلا أثناء «فحص الإعادة»، لذلك لا تتباطأ الألعاب العادية. (gx_net_trace.txt)</string>
     <string name="netdiag_title">تشخيص الشبكة</string>
     <string name="netdiag_row_note">تحقّق مما إذا كان هذا الجهاز يصل إلى خوادم GeneralsOnline، واجمع تقريرًا لإرفاقه ببلاغ عن خلل.</string>
     <string name="netdiag_intro">يفحص بالترتيب: هل توجد شبكة تعمل، وهل تُترجَم أسماء خوادم GeneralsOnline، وهل تستجيب الخوادم، وماذا تقول عن تسجيل الدخول.\n\nلا يُرسَل أي شيء إلى أي جهة. اضغط «تشغيل» للبدء.</string>
@@ -310,10 +310,10 @@
     <string name="replaycheck_none">لا توجد ملفات ‎.rep في %1$s</string>
     <string name="replaycheck_no_game_folder">اختر مجلد اللعبة في المشغّل أولاً.</string>
     <string name="replaycheck_need_frame">أدخل الإطار المراد التقديم إليه.</string>
-    <string name="replaycheck_trace_enabled">تم تشغيل تتبّع الشبكة للفحص.</string>
+    <string name="replaycheck_trace_enabled">تم تشغيل تتبّع الشبكة للفحص. سيُطفأ مرة أخرى عند الضغط التالي على «تشغيل اللعبة».</string>
     <string name="replaycheck_trace_failed">تعذّر تشغيل تتبّع الشبكة؛ لن يتضمن السجل تفاصيل مجاميع التحقق.</string>
     <string name="replaycheck_crc_every_frame">مجموع التحقق لكل إطار</string>
-    <string name="replaycheck_crc_every_frame_help">يكتب أيضاً في السجل مجموع تحقق المنطق لكل إطار. يُستخدم لبناء نسخة من الإعادة يفحصها عميل الحاسوب إطاراً بإطار. أبطأ.</string>
+    <string name="replaycheck_crc_every_frame_help">يكتب أيضاً في السجل مجموع تحقق المنطق لكل إطار. يُستخدم لبناء نسخة من الإعادة يفحصها عميل الحاسوب إطاراً بإطار. أبطأ. أثناء الفحص فقط: لا يتأثر ما تبدؤه بزر «تشغيل اللعبة».</string>
     <string name="setup_online_anticheat_note">لا يحتوي العميل على الهاتف على مانع غش. للعب معًا يجب على لاعب الحاسوب إيقاف مانع الغش (GeneralsOnline AntiCheat أو Easy Anti-Cheat) في مشغّل GeneralsOnline: لا يمكن الانضمام من الهاتف إلى ردهة بمانع غش مختلف، والعكس كذلك.</string>
     <string name="setup_switch_logging">جمع السجلات</string>
     <string name="setup_switch_logging_desc">تسجيل سجلات اللعبة والأعطال والشبكة على الجهاز. أوقفه كي لا يُحفظ شيء في الخلفية حتى تعيد تشغيله. مطلوب للإبلاغ عن الأخطاء.</string>

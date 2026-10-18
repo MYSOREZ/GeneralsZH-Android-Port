@@ -243,7 +243,7 @@
     <string name="setup_vulkan_moved_message">Vulkan 目前在许多设备上显示黑色纹理，因此游戏已切换到 OpenGL ES。可在“%1$s → %2$s → %3$s”中重新开启 Vulkan。</string>
     <string name="setup_support_popup_later">稍后</string>
     <string name="setup_switch_gx_net_trace">在线网络日志</string>
-    <string name="setup_switch_gx_net_trace_desc">记录游戏发往 GeneralsOnline 服务器的每个请求及其回复。如果登录、大厅或匹配是在进入游戏后才失败，请打开此项。启动器自身的请求始终会被记录；此开关会额外记录游戏的请求。同时会开启跨平台对战的不同步诊断：每个间隔比对的模拟校验和，以及在回放中每个对象各自的校验和。(gx_net_trace.txt)</string>
+    <string name="setup_switch_gx_net_trace_desc">记录游戏发往 GeneralsOnline 服务器的每个请求及其回复。如果登录、大厅或匹配是在进入游戏后才失败，请打开此项。启动器自身的请求始终会被记录；此开关会额外记录游戏的请求。同时会开启跨平台对战的不同步诊断：每个间隔比对的模拟校验和，以及在回放中每个对象各自的校验和。每个对象的校验和只在“回放检查”期间写入，因此普通游戏不会变慢。(gx_net_trace.txt)</string>
     <string name="netdiag_title">网络诊断</string>
     <string name="netdiag_row_note">检查本设备能否连上 GeneralsOnline 服务器，并生成一份可随错误报告一起发送的报告。</string>
     <string name="netdiag_intro">按顺序检查：网络是否可用、GeneralsOnline 服务器域名能否解析、服务器是否响应，以及它们对登录的答复。\n\n不会向任何地方发送数据。点击「运行」开始。</string>
@@ -310,10 +310,10 @@
     <string name="replaycheck_none">%1$s 中没有 .rep 文件</string>
     <string name="replaycheck_no_game_folder">请先在启动器中选择游戏文件夹。</string>
     <string name="replaycheck_need_frame">请输入要快进到的帧。</string>
-    <string name="replaycheck_trace_enabled">已为本次检查开启网络跟踪。</string>
+    <string name="replaycheck_trace_enabled">已为本次检查开启网络跟踪。下次点击“启动游戏”时会自动关闭。</string>
     <string name="replaycheck_trace_failed">无法开启网络跟踪；日志中将缺少校验和细节。</string>
     <string name="replaycheck_crc_every_frame">每帧校验和</string>
-    <string name="replaycheck_crc_every_frame_help">同时把每一帧的逻辑校验和写入日志。用于生成一份回放副本，让 PC 客户端逐帧校验。速度较慢。</string>
+    <string name="replaycheck_crc_every_frame_help">同时把每一帧的逻辑校验和写入日志。用于生成一份回放副本，让 PC 客户端逐帧校验。速度较慢。仅在检查期间生效：用“启动游戏”开始的游戏不受影响。</string>
     <string name="setup_online_anticheat_note">移动端没有反作弊。想一起玩，PC 玩家需要在 GeneralsOnline 启动器中关闭反作弊（GeneralsOnline AntiCheat 或 Easy Anti-Cheat）：手机无法加入使用其他反作弊的房间，反之亦然。</string>
     <string name="setup_switch_logging">收集日志</string>
     <string name="setup_switch_logging_desc">在设备上记录游戏、崩溃和网络日志。关闭后后台不保存任何日志，直到你再次开启。报告问题时需要。</string>

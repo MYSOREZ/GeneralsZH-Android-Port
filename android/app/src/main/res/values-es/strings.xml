@@ -243,7 +243,7 @@
     <string name="setup_vulkan_moved_message">Vulkan muestra ahora texturas negras en muchos dispositivos, así que el juego se ha cambiado a OpenGL ES. Puedes volver a activar Vulkan en %1$s → %2$s → %3$s.</string>
     <string name="setup_support_popup_later">Más tarde</string>
     <string name="setup_switch_gx_net_trace">Registro de red en línea</string>
-    <string name="setup_switch_gx_net_trace_desc">Registra cada petición del juego a los servidores de GeneralsOnline y la respuesta recibida. Actívalo si el inicio de sesión, la sala o el emparejamiento fallan ya dentro del juego. Las peticiones del lanzador se registran siempre; esto añade las del juego. También activa el diagnóstico de desincronización en el juego multiplataforma: las sumas de comprobación de la simulación que se comparan en cada intervalo y, en una repetición, la de cada objeto. (gx_net_trace.txt)</string>
+    <string name="setup_switch_gx_net_trace_desc">Registra cada petición del juego a los servidores de GeneralsOnline y la respuesta recibida. Actívalo si el inicio de sesión, la sala o el emparejamiento fallan ya dentro del juego. Las peticiones del lanzador se registran siempre; esto añade las del juego. También activa el diagnóstico de desincronización en el juego multiplataforma: las sumas de comprobación de la simulación que se comparan en cada intervalo y, en una repetición, la de cada objeto. La suma de control de cada objeto solo se escribe durante «Comprobar repetición», así que las partidas normales no se ralentizan. (gx_net_trace.txt)</string>
     <string name="netdiag_title">Diagnóstico de red</string>
     <string name="netdiag_row_note">Comprobar si este dispositivo llega a los servidores de GeneralsOnline y generar un informe para adjuntar a un reporte.</string>
     <string name="netdiag_intro">Comprueba, por orden: si hay red funcionando, si los nombres de los servidores de GeneralsOnline se resuelven, si los servidores responden y qué dicen sobre el inicio de sesión.\n\nNo se envía nada. Toca «Ejecutar» para empezar.</string>
@@ -310,10 +310,10 @@
     <string name="replaycheck_none">No hay archivos .rep en %1$s</string>
     <string name="replaycheck_no_game_folder">Primero elige la carpeta del juego en el lanzador.</string>
     <string name="replaycheck_need_frame">Introduce el fotograma hasta el que avanzar.</string>
-    <string name="replaycheck_trace_enabled">Rastreo de red activado para la comprobación.</string>
+    <string name="replaycheck_trace_enabled">Rastreo de red activado para la comprobación. Se desactivará la próxima vez que pulses «Iniciar juego».</string>
     <string name="replaycheck_trace_failed">No se pudo activar el rastreo de red; el registro no tendrá los detalles de las sumas de control.</string>
     <string name="replaycheck_crc_every_frame">Suma de control de cada fotograma</string>
-    <string name="replaycheck_crc_every_frame_help">Además escribe en el registro la suma de control de la lógica de cada fotograma. Sirve para crear una copia de la repetición que el cliente de PC comprueba fotograma a fotograma. Más lento.</string>
+    <string name="replaycheck_crc_every_frame_help">Además escribe en el registro la suma de control de la lógica de cada fotograma. Sirve para crear una copia de la repetición que el cliente de PC comprueba fotograma a fotograma. Más lento. Solo durante la comprobación: no afecta a las partidas iniciadas con «Iniciar juego».</string>
     <string name="setup_online_anticheat_note">Los clientes móviles no tienen antitrampas. Para jugar juntos, el jugador de PC debe desactivar el antitrampas (GeneralsOnline AntiCheat o Easy Anti-Cheat) en el lanzador de GeneralsOnline: no se puede entrar desde un móvil a una sala con otro antitrampas, ni al revés.</string>
     <string name="setup_switch_logging">Recopilar registros</string>
     <string name="setup_switch_logging_desc">Guardar en el dispositivo los registros del juego, de fallos y de red. Desactívalo para no guardar nada en segundo plano hasta que lo vuelvas a activar. Necesario para informar de errores.</string>

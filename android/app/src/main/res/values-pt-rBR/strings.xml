@@ -243,7 +243,7 @@
     <string name="setup_vulkan_moved_message">O Vulkan está mostrando texturas pretas em muitos aparelhos, por isso o jogo foi trocado para OpenGL ES. O Vulkan pode ser religado em %1$s → %2$s → %3$s.</string>
     <string name="setup_support_popup_later">Mais tarde</string>
     <string name="setup_switch_gx_net_trace">Registro de rede online</string>
-    <string name="setup_switch_gx_net_trace_desc">Registra cada requisição do jogo aos servidores do GeneralsOnline e a resposta recebida. Ative se o login, o lobby ou o matchmaking falharem já dentro do jogo. As requisições do próprio inicializador são sempre registradas; isto acrescenta as do jogo. Também ativa o diagnóstico de dessincronização no jogo multiplataforma: as somas de verificação da simulação comparadas a cada intervalo e, em uma repetição, a de cada objeto. (gx_net_trace.txt)</string>
+    <string name="setup_switch_gx_net_trace_desc">Registra cada requisição do jogo aos servidores do GeneralsOnline e a resposta recebida. Ative se o login, o lobby ou o matchmaking falharem já dentro do jogo. As requisições do próprio inicializador são sempre registradas; isto acrescenta as do jogo. Também ativa o diagnóstico de dessincronização no jogo multiplataforma: as somas de verificação da simulação comparadas a cada intervalo e, em uma repetição, a de cada objeto. A soma de verificação de cada objeto só é gravada durante “Verificar replay”, então as partidas normais não ficam lentas. (gx_net_trace.txt)</string>
     <string name="netdiag_title">Diagnóstico de rede</string>
     <string name="netdiag_row_note">Verificar se este aparelho alcança os servidores do GeneralsOnline e gerar um relatório para anexar a um report.</string>
     <string name="netdiag_intro">Verifica, nesta ordem: se há rede funcionando, se os nomes dos servidores do GeneralsOnline são resolvidos, se os servidores respondem e o que dizem sobre o login.\n\nNada é enviado a lugar nenhum. Toque em «Executar».</string>
@@ -310,10 +310,10 @@
     <string name="replaycheck_none">Nenhum arquivo .rep em %1$s</string>
     <string name="replaycheck_no_game_folder">Escolha primeiro a pasta do jogo no inicializador.</string>
     <string name="replaycheck_need_frame">Digite o quadro até onde avançar.</string>
-    <string name="replaycheck_trace_enabled">Rastreamento de rede ativado para a verificação.</string>
+    <string name="replaycheck_trace_enabled">Rastreamento de rede ativado para a verificação. Será desativado na próxima vez que você tocar em “Iniciar jogo”.</string>
     <string name="replaycheck_trace_failed">Não foi possível ativar o rastreamento de rede; o registro não terá os detalhes das somas de verificação.</string>
     <string name="replaycheck_crc_every_frame">Soma de verificação de cada quadro</string>
-    <string name="replaycheck_crc_every_frame_help">Também grava no registro a soma de verificação da lógica de cada quadro. Serve para montar uma cópia do replay que o cliente de PC verifica quadro a quadro. Mais lento.</string>
+    <string name="replaycheck_crc_every_frame_help">Também grava no registro a soma de verificação da lógica de cada quadro. Serve para montar uma cópia do replay que o cliente de PC verifica quadro a quadro. Mais lento. Só durante a verificação: não afeta as partidas iniciadas com “Iniciar jogo”.</string>
     <string name="setup_online_anticheat_note">Clientes móveis não têm anti-cheat. Para jogar juntos, o jogador de PC precisa desativar o anti-cheat (GeneralsOnline AntiCheat ou Easy Anti-Cheat) no launcher do GeneralsOnline: não dá para entrar pelo celular em uma sala com outro anti-cheat, nem o contrário.</string>
     <string name="setup_switch_logging">Coletar registros</string>
     <string name="setup_switch_logging_desc">Gravar no aparelho os registros do jogo, de falhas e de rede. Desative para não guardar nada em segundo plano até ativar de novo. Necessário para relatar erros.</string>

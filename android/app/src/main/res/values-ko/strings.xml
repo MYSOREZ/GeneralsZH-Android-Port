@@ -243,7 +243,7 @@
     <string name="setup_vulkan_moved_message">현재 많은 기기에서 Vulkan이 검은 텍스처를 표시하므로 게임을 OpenGL ES로 전환했습니다. %1$s → %2$s → %3$s에서 Vulkan을 다시 켤 수 있습니다.</string>
     <string name="setup_support_popup_later">나중에</string>
     <string name="setup_switch_gx_net_trace">온라인 네트워크 로그</string>
-    <string name="setup_switch_gx_net_trace_desc">게임이 GeneralsOnline 서버에 보낸 모든 요청과 받은 응답을 기록합니다. 게임 안에서 로그인, 로비, 매치메이킹이 실패할 때 켜세요. 런처 자체의 요청은 항상 기록되며, 이 스위치는 게임의 요청을 추가합니다. 교차 플랫폼 플레이의 desync 진단도 함께 켭니다. 각 간격마다 비교되는 시뮬레이션 체크섬과, 리플레이에서는 개별 오브젝트마다의 체크섬을 기록합니다. (gx_net_trace.txt)</string>
+    <string name="setup_switch_gx_net_trace_desc">게임이 GeneralsOnline 서버에 보낸 모든 요청과 받은 응답을 기록합니다. 게임 안에서 로그인, 로비, 매치메이킹이 실패할 때 켜세요. 런처 자체의 요청은 항상 기록되며, 이 스위치는 게임의 요청을 추가합니다. 교차 플랫폼 플레이의 desync 진단도 함께 켭니다. 각 간격마다 비교되는 시뮬레이션 체크섬과, 리플레이에서는 개별 오브젝트마다의 체크섬을 기록합니다. 개별 오브젝트의 체크섬은 \'리플레이 검사\' 중에만 기록되므로 일반 게임은 느려지지 않습니다. (gx_net_trace.txt)</string>
     <string name="netdiag_title">네트워크 진단</string>
     <string name="netdiag_row_note">이 기기가 GeneralsOnline 서버에 연결되는지 확인하고, 버그 신고에 첨부할 보고서를 만듭니다.</string>
     <string name="netdiag_intro">네트워크가 작동하는지, GeneralsOnline 서버 이름이 해석되는지, 서버가 응답하는지, 로그인에 대해 뭐라고 답하는지를 순서대로 확인합니다.\n\n아무것도 외부로 전송되지 않습니다. 「실행」을 누르세요.</string>
@@ -310,10 +310,10 @@
     <string name="replaycheck_none">%1$s에 .rep 파일이 없습니다</string>
     <string name="replaycheck_no_game_folder">먼저 런처에서 게임 폴더를 선택하세요.</string>
     <string name="replaycheck_need_frame">빨리 감을 프레임을 입력하세요.</string>
-    <string name="replaycheck_trace_enabled">검사를 위해 네트워크 추적을 켰습니다.</string>
+    <string name="replaycheck_trace_enabled">검사를 위해 네트워크 추적을 켰습니다. 다음에 \'게임 실행\'을 누르면 다시 꺼집니다.</string>
     <string name="replaycheck_trace_failed">네트워크 추적을 켤 수 없습니다. 로그에 체크섬 세부 정보가 없습니다.</string>
     <string name="replaycheck_crc_every_frame">매 프레임 체크섬</string>
-    <string name="replaycheck_crc_every_frame_help">매 프레임의 로직 체크섬도 로그에 기록합니다. PC 클라이언트가 프레임 단위로 검사할 리플레이 사본을 만드는 데 씁니다. 느려집니다.</string>
+    <string name="replaycheck_crc_every_frame_help">매 프레임의 로직 체크섬도 로그에 기록합니다. PC 클라이언트가 프레임 단위로 검사할 리플레이 사본을 만드는 데 씁니다. 느려집니다. 검사 중에만 적용됩니다. \'게임 실행\'으로 시작한 게임에는 영향이 없습니다.</string>
     <string name="setup_online_anticheat_note">모바일 클라이언트에는 안티치트가 없습니다. 함께 플레이하려면 PC 플레이어가 GeneralsOnline 런처에서 안티치트(GeneralsOnline AntiCheat 또는 Easy Anti-Cheat)를 꺼야 합니다. 다른 안티치트를 쓰는 로비에는 휴대폰에서 참가할 수 없고, 그 반대도 마찬가지입니다.</string>
     <string name="setup_switch_logging">로그 수집</string>
     <string name="setup_switch_logging_desc">게임, 충돌, 네트워크 로그를 기기에 기록합니다. 끄면 다시 켤 때까지 백그라운드에서 아무것도 저장하지 않습니다. 버그 보고에 필요합니다.</string>

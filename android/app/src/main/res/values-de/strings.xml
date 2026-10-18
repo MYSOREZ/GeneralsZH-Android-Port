@@ -243,7 +243,7 @@
     <string name="setup_vulkan_moved_message">Vulkan zeigt derzeit auf vielen Geräten schwarze Texturen, daher wurde das Spiel auf OpenGL ES umgestellt. Vulkan lässt sich hier wieder einschalten: %1$s → %2$s → %3$s.</string>
     <string name="setup_support_popup_later">Später</string>
     <string name="setup_switch_gx_net_trace">Online-Netzwerkprotokoll</string>
-    <string name="setup_switch_gx_net_trace_desc">Zeichnet jede Anfrage des Spiels an die GeneralsOnline-Server samt Antwort auf. Aktiviere dies, wenn Anmeldung, Lobby oder Matchmaking erst im Spiel fehlschlagen. Die Anfragen des Launchers werden immer aufgezeichnet; dies ergänzt die des Spiels. Schaltet außerdem die Desync-Diagnose für das plattformübergreifende Spiel ein: die Prüfsummen der Simulation, die in jedem Intervall verglichen werden, und in einer Wiederholung die Prüfsumme jedes einzelnen Objekts. (gx_net_trace.txt)</string>
+    <string name="setup_switch_gx_net_trace_desc">Zeichnet jede Anfrage des Spiels an die GeneralsOnline-Server samt Antwort auf. Aktiviere dies, wenn Anmeldung, Lobby oder Matchmaking erst im Spiel fehlschlagen. Die Anfragen des Launchers werden immer aufgezeichnet; dies ergänzt die des Spiels. Schaltet außerdem die Desync-Diagnose für das plattformübergreifende Spiel ein: die Prüfsummen der Simulation, die in jedem Intervall verglichen werden, und in einer Wiederholung die Prüfsumme jedes einzelnen Objekts. Die Prüfsumme jedes einzelnen Objekts wird nur während einer Replay-Prüfung geschrieben, normale Spiele werden also nicht verlangsamt. (gx_net_trace.txt)</string>
     <string name="netdiag_title">Netzwerkdiagnose</string>
     <string name="netdiag_row_note">Prüfen, ob dieses Gerät die GeneralsOnline-Server erreicht, und einen Bericht für eine Fehlermeldung erstellen.</string>
     <string name="netdiag_intro">Geprüft wird der Reihe nach: ob ein funktionierendes Netzwerk vorhanden ist, ob die GeneralsOnline-Servernamen auflösbar sind, ob die Server antworten und was sie zur Anmeldung sagen.\n\nEs wird nichts verschickt. Zum Start auf „Ausführen“ tippen.</string>
@@ -310,10 +310,10 @@
     <string name="replaycheck_none">Keine .rep-Dateien in %1$s</string>
     <string name="replaycheck_no_game_folder">Wähle zuerst den Spielordner im Launcher.</string>
     <string name="replaycheck_need_frame">Gib den Frame ein, bis zu dem vorgespult werden soll.</string>
-    <string name="replaycheck_trace_enabled">Netzwerk-Trace für die Prüfung eingeschaltet.</string>
+    <string name="replaycheck_trace_enabled">Netzwerk-Trace für die Prüfung eingeschaltet. Er wird beim nächsten Tippen auf „Spiel starten“ wieder ausgeschaltet.</string>
     <string name="replaycheck_trace_failed">Netzwerk-Trace konnte nicht eingeschaltet werden; im Log fehlen die Prüfsummen-Details.</string>
     <string name="replaycheck_crc_every_frame">Prüfsumme jedes Frames</string>
-    <string name="replaycheck_crc_every_frame_help">Schreibt zusätzlich die Logik-Prüfsumme jedes Frames ins Log. Damit lässt sich eine Kopie des Replays bauen, die der PC-Client Frame für Frame prüft. Langsamer.</string>
+    <string name="replaycheck_crc_every_frame_help">Schreibt zusätzlich die Logik-Prüfsumme jedes Frames ins Log. Damit lässt sich eine Kopie des Replays bauen, die der PC-Client Frame für Frame prüft. Langsamer. Nur während der Prüfung: Spiele, die mit „Spiel starten“ beginnen, sind nicht betroffen.</string>
     <string name="setup_online_anticheat_note">Mobile Clients haben keinen Anti-Cheat. Zum gemeinsamen Spielen muss der PC-Spieler den Anti-Cheat (GeneralsOnline AntiCheat oder Easy Anti-Cheat) im GeneralsOnline-Launcher ausschalten: Lobbys mit anderem Anti-Cheat sind vom Handy aus nicht beitretbar und umgekehrt.</string>
     <string name="setup_switch_logging">Logs sammeln</string>
     <string name="setup_switch_logging_desc">Spiel-, Absturz- und Netzwerklogs auf dem Gerät speichern. Ausschalten, damit im Hintergrund nichts gespeichert wird; bleibt aus, bis Sie es wieder einschalten. Für Fehlerberichte nötig.</string>
