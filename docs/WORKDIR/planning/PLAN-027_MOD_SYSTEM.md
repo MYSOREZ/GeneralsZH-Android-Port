@@ -65,6 +65,12 @@ Languages = english russian
 
 `Kind` is detected when missing (below), so `mod.ini` is only needed to override a guess.
 
+Text a player reads can be given per language, so a mod page follows the launcher's language
+(the 13 it ships): `Name.ru = ...`, `Description.de = ...`, and `readme_<lang>.txt` beside
+`readme.txt`; without the player's language, English, then whatever the mod has. Everything the
+launcher itself says on the Mods screen -- labels, kinds, warnings, conflict lines, dialogs --
+is launcher strings, in all 13 locales like every other string.
+
 ## Priority (highest first)
 
 1. Loose files in the game folder (retail rule, unchanged).
