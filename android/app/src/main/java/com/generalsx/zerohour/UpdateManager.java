@@ -335,6 +335,9 @@ final class UpdateManager {
             noticeNewerDatapack(ctx, r);
 
             writeBytes(new File(dir, "manifest.json"), manifestBytes);
+            // GeneralsX @feature Android port 18/10/2026 The signature too: the engine checks it
+            // itself before it believes a feature switch such as pc_crossplay (GXSignedSettings).
+            writeBytes(new File(dir, "manifest.json.sig"), signatureText);
             SharedPreferences.Editor edit = prefs(ctx).edit();
             if (r.serial != acceptedSerial(ctx) || !prefs(ctx).contains(KEY_SETTINGS_DATE)) {
                 // Players see the settings by date, not by serial. A manifest from before the

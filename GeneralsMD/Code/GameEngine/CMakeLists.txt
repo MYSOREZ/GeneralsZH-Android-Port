@@ -53,6 +53,7 @@ set(GAMEENGINE_SRC
 #    Include/Common/GameType.h
     Include/Common/Geometry.h
     Include/Common/GlobalData.h
+    Include/Common/GXSignedSettings.h
     Include/Common/Handicap.h
     Include/Common/IgnorePreferences.h
 #    Include/Common/INI.h
@@ -571,6 +572,7 @@ set(GAMEENGINE_SRC
     Source/Common/GameLOD.cpp
     Source/Common/GameMain.cpp
     Source/Common/GlobalData.cpp
+    Source/Common/GXSignedSettings.cpp
 #    Source/Common/INI/INI.cpp
     Source/Common/INI/INIAiData.cpp
     Source/Common/INI/INIAnimation.cpp
@@ -1254,6 +1256,13 @@ endif()
 # so find_package here just needs to actually run for this target.
 find_package(CURL CONFIG REQUIRED)
 target_link_libraries(z_gameengine PUBLIC CURL::libcurl)
+
+# GeneralsX @feature Android port 18/10/2026 GXSignedSettings verifies the update manifest's
+# signature in the engine itself; OpenSSL is already in the build as curl's TLS backend.
+if(ANDROID)
+    find_package(OpenSSL REQUIRED)
+    target_link_libraries(z_gameengine PUBLIC OpenSSL::Crypto)
+endif()
 
 # GeneralsX @feature Android port 12/07/2026 Valve GameNetworkingSockets for
 # the GeneralsOnline P2P match transport (NetworkMesh/NextGenTransport, ported

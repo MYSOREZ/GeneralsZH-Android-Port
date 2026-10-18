@@ -28,6 +28,13 @@ screen; the engine is downloaded only by the Home check.
   `GXRemoteConfig::enabled("name", default)` in the engine or
   `UpdateManager.featureEnabled(ctx, "name", default)` in the launcher where it applies. Today:
   `pc_crossplay` (Android-PC cross-play, off since 18/10/2026 at GeneralsOnline's request).
+  A switch that guards something other players depend on is read in the engine with
+  `GXSignedSettings::enabled("name")` instead: the engine checks the manifest's signature itself
+  (the launcher saves `manifest.json.sig` next to `manifest.json`), so a patched launcher or a
+  hand-edited `remote_config.ini` cannot turn it on. Only a rebuilt engine can -- the source is
+  open, so the server remains the final word. Note for later: once such a switch has been
+  published as `1` and then back to `0`, the older signed manifest could be put back by hand;
+  if that matters, give the engine a minimum serial in the same engine update.
 - **Data package manifest mirror**: while `datapack_manifest_url` points at the updates branch
   (`.../updates/datapack-manifest.json`), `publish-update.py` copies the GeneralsOnline CDN manifest
   there with its fields trimmed -- the CDN's `sha256` starts with a space, and launchers up to 1.3.0

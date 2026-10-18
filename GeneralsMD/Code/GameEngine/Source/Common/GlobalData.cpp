@@ -32,6 +32,7 @@
 // INCLUDES ///////////////////////////////////////////////////////////////////////////////////////
 #include "PreRTS.h"	// This must go first in EVERY cpp file in the GameEngine
 #include "Common/GXRemoteConfig.h"
+#include "Common/GXSignedSettings.h"
 #include "GameLogic/GameLogic.h"
 
 #include "ww3d.h"
@@ -1305,7 +1306,11 @@ void GlobalData::init()
 	// honoured only when the signed update settings say so (pc_crossplay=1); they do not. Without
 	// it this client reports its own checksum and meets only other Android clients.
 	FILE *marker = fopen("gx_pc_compat.txt", "r");
-	if (marker && !GXRemoteConfig::enabled("pc_crossplay", false))
+	//
+	// GeneralsX @bugfix Android port 18/10/2026 Read from the signed manifest, verified here
+	// (GXSignedSettings), not from remote_config.ini: a patched launcher or an edited file must
+	// not be able to turn cross-play back on.
+	if (marker && !GXSignedSettings::enabled("pc_crossplay"))
 	{
 		fclose(marker);
 		marker = nullptr;
