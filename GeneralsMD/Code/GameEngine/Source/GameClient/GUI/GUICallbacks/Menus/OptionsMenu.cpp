@@ -937,12 +937,14 @@ static void DestroyOptionsLayout() {
 
 static void showAdvancedOptions()
 {
-	WinAdvancedDisplay->winHide(FALSE);
+	if (WinAdvancedDisplay)
+		WinAdvancedDisplay->winHide(FALSE);
 }
 
 static void acceptAdvancedOptions()
 {
-	WinAdvancedDisplay->winHide(TRUE);
+	if (WinAdvancedDisplay)
+		WinAdvancedDisplay->winHide(TRUE);
 }
 
 static void cancelAdvancedOptions()
@@ -950,7 +952,8 @@ static void cancelAdvancedOptions()
 	//restore the detail selection back to initial state
 	GadgetComboBoxSetSelectedPos(comboBoxDetail, (Int)TheGameLODManager->getStaticLODLevel());
 
-	WinAdvancedDisplay->winHide(TRUE);
+	if (WinAdvancedDisplay)
+		WinAdvancedDisplay->winHide(TRUE);
 }
 
 // TheSuperHackers @tweak Now prints additional version information in the version label.
@@ -968,7 +971,8 @@ static void initLabelVersion()
 		}
 		else
 		{
-			labelVersion->winHide( TRUE );
+			if (labelVersion)
+				labelVersion->winHide( TRUE );
 		}
 	}
 }
@@ -1092,7 +1096,11 @@ void OptionsMenuInit( WindowLayout *layout, void *userData )
 	sliderParticleCapID = TheNameKeyGenerator->nameToKey( "OptionsMenu.wnd:ParticleCapSlider" );
   sliderParticleCap = TheWindowManager->winGetWindowFromId( nullptr, sliderParticleCapID );
 
-	WinAdvancedDisplay->winHide(TRUE);
+	// GeneralsX @bugfix Android port 18/10/2026 Every control the menu touches directly is checked:
+	// a layout from another release (Generals 1.00's OptionsMenu.wnd, kept by some disc editions)
+	// lacks the later ones -- CheckAlternateMouse there crashed the menu as it opened.
+	if (WinAdvancedDisplay)
+		WinAdvancedDisplay->winHide(TRUE);
 
 	Color color =  GameMakeColor(255,255,255,255);
 
@@ -1433,14 +1441,17 @@ void OptionsMenuInit( WindowLayout *layout, void *userData )
 	if( (TheGameLogic->isInGame() && TheGameLogic->getGameMode() != GAME_SHELL) || NGMP_OnlineServicesManager::GetInstance() != nullptr )
 	{
 		// disable controls that you can't change the options for in game
-		comboBoxLANIP->winEnable(FALSE);
+		if (comboBoxLANIP)
+			comboBoxLANIP->winEnable(FALSE);
 
 		if (comboBoxOnlineIP)
 			comboBoxOnlineIP->winEnable(FALSE);
 
-		checkSendDelay->winEnable(FALSE);
+		if (checkSendDelay)
+			checkSendDelay->winEnable(FALSE);
 
-		buttonFirewallRefresh->winEnable(FALSE);
+		if (buttonFirewallRefresh)
+			buttonFirewallRefresh->winEnable(FALSE);
 
 		if (comboBoxDetail)
 			comboBoxDetail->winEnable(FALSE);

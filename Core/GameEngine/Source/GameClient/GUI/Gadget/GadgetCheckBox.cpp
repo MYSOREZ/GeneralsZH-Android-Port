@@ -314,7 +314,6 @@ WindowMsgHandledType GadgetCheckBoxSystem( GameWindow *window, UnsignedInt msg,
 //=============================================================================
 void GadgetCheckBoxSetText( GameWindow *g, UnicodeString text )
 {
-
 	// sanity
 	if( g == nullptr )
 		return;
@@ -329,6 +328,10 @@ void GadgetCheckBoxSetText( GameWindow *g, UnicodeString text )
 //=============================================================================
 void GadgetCheckBoxSetChecked( GameWindow *g, Bool isChecked)
 {
+	// GeneralsX @bugfix Android port 18/10/2026 A layout without this check box (Generals 1.00's
+	// OptionsMenu.wnd has no CheckAlternateMouse) must not crash the menu that asks for it.
+	if( g == nullptr )
+		return;
 	WinInstanceData *instData = g->winGetInstanceData();
 	if (isChecked)
 	{
@@ -350,6 +353,10 @@ void GadgetCheckBoxSetChecked( GameWindow *g, Bool isChecked)
 //=============================================================================
 void GadgetCheckBoxToggle( GameWindow *g)
 {
+	// GeneralsX @bugfix Android port 18/10/2026 A layout without this check box (Generals 1.00's
+	// OptionsMenu.wnd has no CheckAlternateMouse) must not crash the menu that asks for it.
+	if( g == nullptr )
+		return;
 	WinInstanceData *instData = g->winGetInstanceData();
 	Bool isChecked = BitIsSet(instData->m_state, WIN_STATE_SELECTED);
 	if (isChecked)
@@ -371,6 +378,10 @@ void GadgetCheckBoxToggle( GameWindow *g)
 //=============================================================================
 Bool GadgetCheckBoxIsChecked( GameWindow *g )
 {
+	// GeneralsX @bugfix Android port 18/10/2026 A layout without this check box (Generals 1.00's
+	// OptionsMenu.wnd has no CheckAlternateMouse) must not crash the menu that asks for it.
+	if( g == nullptr )
+		return FALSE;
 	WinInstanceData *instData = g->winGetInstanceData();
 	return (BitIsSet(instData->m_state, WIN_STATE_SELECTED));
 }

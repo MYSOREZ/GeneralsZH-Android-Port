@@ -72,6 +72,12 @@ HORIZONTAL_SLIDER_THUMB_POSITION = HORIZONTAL_SLIDER_THUMB_HEIGHT *2/3
 
 inline void GadgetSliderGetMinMax( GameWindow *g, Int *min, Int *max )
 {
+	// GeneralsX @bugfix Android port 18/10/2026 A layout may lack the slider (see GadgetCheckBox.cpp).
+	if( g == nullptr )
+	{
+		*min = *max = 0;
+		return;
+	}
 	SliderData *sData = (SliderData *)g->winGetUserData();
 
 	*max = sData->maxVal;
@@ -90,6 +96,9 @@ inline void GadgetSliderSetPosition( GameWindow *win, Int pos )
 
 inline Int GadgetSliderGetPosition( GameWindow *win )
 {
+	// GeneralsX @bugfix Android port 18/10/2026 A layout may lack the slider (see GadgetCheckBox.cpp).
+	if( win == nullptr )
+		return -1;
 	SliderData *sData = (SliderData *)win->winGetUserData();
 	if (sData)
 	{
