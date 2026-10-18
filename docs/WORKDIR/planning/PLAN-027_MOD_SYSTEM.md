@@ -151,13 +151,44 @@ A mod set gets its own `Profiles/<name>/` for saves, replays and `Options.ini` (
 keeps the current folders). Loading a save from another set is impossible by construction, and
 options a mod does not understand stay in the vanilla profile.
 
-## Online and LAN
+## Online and LAN (owner, 18/10/2026: mods must work in multiplayer, across launcher versions)
 
-- GeneralsOnline: unchanged -- vanilla data plus the community patch; any INI-changing mod makes
-  the INI checksum differ, and the launcher says so before the player tries.
-- LAN and rooms: the lobby already compares checksums; the launcher shows the active mod set's
-  name so players know what to match. The rooms protocol compares game files and can name the
-  missing mod.
+What decides whether two players can play together is not the launcher but two numbers every
+lobby already compares: `exe_crc` (on Android a fixed retail value + the game version + the two
+multiplayer scripts) and `ini_crc` (the INI data the engine actually loaded). Text, fonts, art,
+the control scheme and the launcher's version do not enter either, and do not desync. So:
+
+1. **Same files -> same game, whichever way they were installed.** A mod mounted from `mods/`
+   by a new launcher and the same mod as `!` archives under an old launcher must produce the same
+   loaded data, so the same `ini_crc`, and must play together. Rules that follow:
+   - the managed order of a single mod, or of mods that do not overlap, gives exactly the legacy
+     result (tested by comparing `ini_crc` of both installs of Contra, ShockWave, Rise of the Reds);
+   - form masking and duplicate-definition skipping (Engine side) change the loaded data only in
+     combinations that crashed before -- they can never make a combination that worked under an
+     old launcher load differently;
+   - text and font layers stay client-only (they already are).
+2. **Engine logic stays compatible between versions.** A lockstep game desyncs silently when two
+   engines simulate differently, mods or not. A change to game logic (not rendering, input or
+   text) is called out in the release notes and its diary entry, and kept behind the conditions
+   that broke before (e.g. the angry-mob guard only touches a spawn left at the origin). If a
+   real logic break is ever unavoidable, a "logic revision" number joins `exe_crc` so mixed
+   versions are refused in the lobby with a clear message instead of desyncing mid-game.
+3. **Mod set name in the lobby.** The launcher computes a mod-set fingerprint (names + hashes of
+   the enabled mods' archives, order included) and hands it to the engine; the LAN lobby and the
+   rooms show it next to each player, and on a CRC mismatch the message names what differs
+   ("Contra 009 Final" vs "no mods") instead of the retail "different version".
+4. **LAN:** works today with identical mods (the retail check). Added: the fingerprint above, and
+   in the launcher "share this mod set" -- an export (zip of `mods/<name>` + `mods.cfg`) to send
+   to a friend and import, so both have byte-identical files.
+5. **GeneralsOnline:** the client reports `ini_crc` to GeneralsOnline at login, when creating a
+   lobby and in quickmatch. A modded game reports a different number, and whether GeneralsOnline
+   accepts modded lobbies is GeneralsOnline's rule, not ours -- the same as cross-play. Before
+   any of this ships for online: ask the GeneralsOnline developers. Until they agree, the launcher
+   says before connecting that online play is vanilla + community patch only, and the true
+   `ini_crc` is always reported -- never a substituted one (that would be the kind of evasion
+   that gets accounts banned, see the cross-play notice).
+6. **Rooms (PLAN-023, paused):** if they return, they compare the fingerprint and can offer the
+   missing mod's download link from `mod.ini` (`Url = ...`).
 
 ## Order of work
 
