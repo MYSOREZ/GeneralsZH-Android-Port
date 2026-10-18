@@ -102,6 +102,13 @@ public class ModManagerActivity extends Activity {
             LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         setContentView(root);
         InsetUtil.applySafeInsets(root);
+        // a28 zipped mods into the cache to share them; such a zip can be hundreds of MB.
+        File[] stale = getCacheDir().listFiles((d, name) -> name.endsWith(".zip"));
+        if (stale != null) {
+            for (File f : stale) {
+                f.delete();
+            }
+        }
     }
 
     @Override
