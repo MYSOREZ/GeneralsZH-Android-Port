@@ -57,7 +57,13 @@
 #include "Common/GlobalData.h"
 #include "Common/file.h"
 #include "Common/FileSystem.h"
+#include "Common/ArchiveFileSystem.h"
+#include "Common/ArchiveFile.h"
+#include "Common/LocalFileSystem.h"
 #include "Common/version.h"
+#include <map>
+#include <string>
+#include <vector>
 
 
 
@@ -172,6 +178,13 @@ class GameTextManager : public GameTextInterface
 		StringInfo			*m_fallbackStringInfo;
 		StringLookUp		*m_fallbackStringLUT;
 		Int						m_fallbackTextCount;
+		// GeneralsX @feature Android port 18/10/2026 Labels a mod added or changed, consulted before
+		// the language pack (see init()).
+		StringInfo			*m_overrideStringInfo;
+		StringLookUp		*m_overrideStringLUT;
+		Int						m_overrideTextCount;
+		void						buildModTextLayers( Int format, const AsciiString& textLanguage );
+		static StringLookUp *makeLUT( StringInfo *info, Int count );
 		Bool						m_initialized;
 #if defined(RTS_DEBUG)
 		Bool						m_jabberWockie;
@@ -308,6 +321,9 @@ GameTextManager::GameTextManager()
 	m_fallbackStringInfo(nullptr),
 	m_fallbackStringLUT(nullptr),
 	m_fallbackTextCount(0),
+	m_overrideStringInfo(nullptr),
+	m_overrideStringLUT(nullptr),
+	m_overrideTextCount(0),
 	m_initialized(FALSE),
 	m_noStringList(nullptr),
 #if defined(RTS_DEBUG)
@@ -470,67 +486,193 @@ void GameTextManager::init()
 	qsort( m_stringLUT, m_textCount, sizeof(StringLookUp), compareLUT  );
 
 	// GeneralsX @bugfix BenderAI 22/05/2026 Load fallback CSF instance when a mod provides an incomplete table.
-	// GeneralsX @feature Android port 05/10/2026 And under a language pack (.str), the game's own
-	// table: the packs are made from Zero Hour's text, which holds all but 20 of the base game's
-	// 2806 labels, so on Generals those 20 come from its own generals.csf instead of "MISSING".
-	AsciiString fallbackCsfFile = csfFile;
-	Int fallbackInstance = 1;
-	if ( format == STRING_FILE )
+	// GeneralsX @feature Android port 18/10/2026 Generalised: every string table there is, mods'
+	// and the game's, in the pack's language, the game's and English, and the labels a mod added
+	// or changed above the language pack (buildModTextLayers).
+	buildModTextLayers( format, textLanguage );
+}
+
+//============================================================================
+// GameTextManager::buildModTextLayers
+//============================================================================
+// GeneralsX @feature Android port 18/10/2026 Mods and the language packs together.
+//
+// A language pack (.str) translates Zero Hour's own labels. A mod brings its own generals.csf --
+// usually English -- with labels of its own (new units, buildings, tooltips) and some of the
+// game's changed. With one fallback table in the game's language, a Russian install with an
+// English mod showed MISSING for everything the mod added (4PDA, Shockwave screenshot).
+//
+// Every copy of data/<language>/generals.csf the file system has is read, for the pack's
+// language, the game's and English, highest priority first. A copy is a mod's when it is a loose
+// file or comes from an archive named with the leading '!' mods use (the same rule loadMods()
+// uses for the community patch); the first copy that is not, is the game's. Then:
+//   - override, consulted before the pack: every label a mod table has that the game's table of
+//     the same language lacks or words differently -- what the mod added or changed, in the mod's
+//     own words (and in the pack's language when the mod ships that language);
+//   - fallback, after the pack: every label of every table, first copy wins -- so nothing the
+//     game or a mod has ever shows MISSING.
+// Without a pack (format == CSF_FILE) the primary table already is the top copy, mod or not, and
+// only the fallback is built. A label the pack and the mod both have and the mod did not change
+// stays translated.
+namespace
+{
+	struct GXCsfTable
 	{
-		fallbackCsfFile.format( g_csfFile, GetRegistryLanguage().str() );
-		fallbackInstance = 0;
+		Bool isMod;
+		std::vector<StringInfo> strings;
+	};
+
+	Bool gxIsModArchiveName( const AsciiString& path )
+	{
+		const char *name = path.str();
+		const char *base = name;
+		for( const char *c = name; *c; ++c )
+			if( *c == '/' || *c == '\\' )
+				base = c + 1;
+		if( base[0] == '!' )
+			return TRUE;
+		return TheGlobalData != nullptr && TheGlobalData->m_modBIG.isNotEmpty()
+			&& path.compareNoCase( TheGlobalData->m_modBIG ) == 0;
 	}
+}
+
+StringLookUp *GameTextManager::makeLUT( StringInfo *info, Int count )
+{
+	StringLookUp *lut = NEW StringLookUp[count];
+	for( Int i = 0; i < count; ++i )
 	{
-		Int fallbackCount = 0;
-		LanguageID originalLanguage = m_language;
+		lut[i].info = &info[i];
+		lut[i].label = &info[i].label;
+	}
+	qsort( lut, count, sizeof(StringLookUp), compareLUT );
+	return lut;
+}
 
-		if ( getCSFInfo(fallbackCsfFile.str(), fallbackCount, m_language, fallbackInstance) && fallbackCount > 0 )
+void GameTextManager::buildModTextLayers( Int format, const AsciiString& textLanguage )
+{
+	std::vector<AsciiString> languages;
+	const AsciiString candidates[3] = { textLanguage, GetRegistryLanguage(), AsciiString("english") };
+	for( Int i = 0; i < 3; ++i )
+	{
+		Bool seen = candidates[i].isEmpty();
+		for( size_t j = 0; j < languages.size() && !seen; ++j )
+			seen = languages[j].compareNoCase( candidates[i] ) == 0;
+		if( !seen )
+			languages.push_back( candidates[i] );
+	}
+
+	const LanguageID originalLanguage = m_language;
+	std::vector< std::vector<GXCsfTable> > tablesByLanguage;
+	Int modTables = 0, gameTables = 0;
+	for( size_t l = 0; l < languages.size(); ++l )
+	{
+		AsciiString path;
+		path.format( g_csfFile, languages[l].str() );
+		tablesByLanguage.push_back( std::vector<GXCsfTable>() );
+		const Bool loose = TheLocalFileSystem != nullptr && TheLocalFileSystem->doesFileExist( path.str() );
+		const Int archives = 16;
+		for( Int k = -1; k < archives; ++k )
 		{
-			m_fallbackStringInfo = NEW StringInfo[fallbackCount];
-
-			if ( m_fallbackStringInfo != nullptr )
+			FileInstance instance;
+			Bool isMod;
+			if( k < 0 )
 			{
-				Int fallbackMaxLabelLen = m_maxLabelLen;
-				if ( parseCSF(fallbackCsfFile.str(), m_fallbackStringInfo, fallbackCount, fallbackMaxLabelLen, fallbackInstance) )
+				if( !loose )
+					continue;
+				instance = 0;
+				isMod = TRUE;
+			}
+			else
+			{
+				ArchiveFile *archive = TheArchiveFileSystem ? TheArchiveFileSystem->getArchiveFile( path, (FileInstance)k ) : nullptr;
+				if( archive == nullptr )
+					break;
+				instance = (FileInstance)( k + ( loose ? 1 : 0 ) );
+				isMod = gxIsModArchiveName( archive->getName() );
+			}
+			Int count = 0;
+			if( !getCSFInfo( path.str(), count, m_language, instance ) || count <= 0 )
+				continue;
+			GXCsfTable table;
+			table.isMod = isMod;
+			table.strings.resize( count );
+			Int maxLabelLen = m_maxLabelLen;
+			if( !parseCSF( path.str(), &table.strings[0], count, maxLabelLen, instance ) )
+				continue;
+			m_maxLabelLen = max( m_maxLabelLen, maxLabelLen );
+			( isMod ? modTables : gameTables )++;
+			tablesByLanguage.back().push_back( table );
+		}
+	}
+	m_language = originalLanguage;
+
+	// Override: what a mod added or changed, pack language first.
+	std::map<std::string, const StringInfo*> overrides;
+	if( format == STRING_FILE )
+	{
+		for( size_t l = 0; l < tablesByLanguage.size(); ++l )
+		{
+			const GXCsfTable *game = nullptr;
+			for( size_t t = 0; t < tablesByLanguage[l].size() && game == nullptr; ++t )
+				if( !tablesByLanguage[l][t].isMod )
+					game = &tablesByLanguage[l][t];
+			std::map<std::string, const UnicodeString*> gameText;
+			if( game != nullptr )
+				for( size_t i = 0; i < game->strings.size(); ++i )
+					gameText[ std::string( game->strings[i].label.str() ) ] = &game->strings[i].text;
+			for( size_t t = 0; t < tablesByLanguage[l].size(); ++t )
+			{
+				const GXCsfTable &table = tablesByLanguage[l][t];
+				if( !table.isMod )
+					continue;
+				for( size_t i = 0; i < table.strings.size(); ++i )
 				{
-					m_fallbackTextCount = fallbackCount;
-					m_maxLabelLen = max(m_maxLabelLen, fallbackMaxLabelLen);
-
-					m_fallbackStringLUT = NEW StringLookUp[m_fallbackTextCount];
-
-					if ( m_fallbackStringLUT != nullptr )
-					{
-						StringLookUp *fallbackLut = m_fallbackStringLUT;
-						StringInfo *fallbackInfo = m_fallbackStringInfo;
-
-						for ( Int i = 0; i < m_fallbackTextCount; i++ )
-						{
-							fallbackLut->info = fallbackInfo;
-							fallbackLut->label = &fallbackInfo->label;
-							fallbackLut++;
-							fallbackInfo++;
-						}
-
-						qsort( m_fallbackStringLUT, m_fallbackTextCount, sizeof(StringLookUp), compareLUT );
-					}
-					else
-					{
-						delete [] m_fallbackStringInfo;
-						m_fallbackStringInfo = nullptr;
-						m_fallbackTextCount = 0;
-					}
-				}
-				else
-				{
-					delete [] m_fallbackStringInfo;
-					m_fallbackStringInfo = nullptr;
+					const std::string label( table.strings[i].label.str() );
+					if( label.empty() || overrides.count( label ) )
+						continue;
+					std::map<std::string, const UnicodeString*>::const_iterator g = gameText.find( label );
+					if( g == gameText.end() || g->second->compare( table.strings[i].text ) != 0 )
+						overrides[ label ] = &table.strings[i];
 				}
 			}
 		}
-
-		m_language = originalLanguage;
 	}
 
+	// Fallback: everything, first copy wins.
+	std::map<std::string, const StringInfo*> fallback;
+	for( size_t l = 0; l < tablesByLanguage.size(); ++l )
+		for( size_t t = 0; t < tablesByLanguage[l].size(); ++t )
+			for( size_t i = 0; i < tablesByLanguage[l][t].strings.size(); ++i )
+			{
+				const StringInfo &info = tablesByLanguage[l][t].strings[i];
+				if( !info.label.isEmpty() )
+					fallback.insert( std::make_pair( std::string( info.label.str() ), &info ) );
+			}
+
+	if( !overrides.empty() )
+	{
+		m_overrideTextCount = (Int)overrides.size();
+		m_overrideStringInfo = NEW StringInfo[m_overrideTextCount];
+		Int i = 0;
+		for( std::map<std::string, const StringInfo*>::const_iterator it = overrides.begin(); it != overrides.end(); ++it )
+			m_overrideStringInfo[i++] = *it->second;
+		m_overrideStringLUT = makeLUT( m_overrideStringInfo, m_overrideTextCount );
+	}
+	if( !fallback.empty() )
+	{
+		m_fallbackTextCount = (Int)fallback.size();
+		m_fallbackStringInfo = NEW StringInfo[m_fallbackTextCount];
+		Int i = 0;
+		for( std::map<std::string, const StringInfo*>::const_iterator it = fallback.begin(); it != fallback.end(); ++it )
+			m_fallbackStringInfo[i++] = *it->second;
+		m_fallbackStringLUT = makeLUT( m_fallbackStringInfo, m_fallbackTextCount );
+	}
+
+	fprintf( stderr, "[GX-TEXT] primary=%s labels=%d; string tables: %d from mods, %d from the game; "
+		"mod labels over the pack: %d; fallback labels: %d\n",
+		format == STRING_FILE ? "language pack" : "game table", m_textCount, modTables, gameTables,
+		m_overrideTextCount, m_fallbackTextCount );
+	fflush( stderr );
 }
 
 //============================================================================
@@ -551,6 +693,13 @@ void GameTextManager::deinit()
 
 	delete [] m_fallbackStringLUT;
 	m_fallbackStringLUT = nullptr;
+
+	delete [] m_overrideStringInfo;
+	m_overrideStringInfo = nullptr;
+
+	delete [] m_overrideStringLUT;
+	m_overrideStringLUT = nullptr;
+	m_overrideTextCount = 0;
 
 	m_textCount = 0;
 	m_fallbackTextCount = 0;
@@ -1561,7 +1710,17 @@ UnicodeString GameTextManager::fetch( const Char *label, Bool *exists )
 	key.info = nullptr;
 	key.label = &lb;
 
-	lookUp = (StringLookUp *) bsearch( &key, (void*) m_stringLUT, m_textCount, sizeof(StringLookUp), compareLUT );
+	// GeneralsX @feature Android port 18/10/2026 A mod's own text first (buildModTextLayers).
+	lookUp = nullptr;
+	if ( m_overrideStringLUT && m_overrideTextCount )
+	{
+		lookUp = (StringLookUp *) bsearch( &key, (void*) m_overrideStringLUT, m_overrideTextCount, sizeof(StringLookUp), compareLUT );
+	}
+
+	if ( lookUp == nullptr )
+	{
+		lookUp = (StringLookUp *) bsearch( &key, (void*) m_stringLUT, m_textCount, sizeof(StringLookUp), compareLUT );
+	}
 
 	if ( lookUp == nullptr && m_mapStringLUT && m_mapTextCount )
 	{
