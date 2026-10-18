@@ -23,15 +23,16 @@
 // permission): control groups 0-9 in two columns, the army buttons (on screen, whole map, planes,
 // helicopters, ground forces) and a handle. What this port adds is that it is a drawer (owner,
 // 18/10/2026): in a game only the "+" handle shows, just above the left end of the control bar,
-// which is the standard bar. A tap on it opens the column in the screen's left part and narrows the
-// control bar to the rest (ControlBar::setArmyColumnOpen, GXUiScale::setControlBarLeftEdge); the
-// handle, now "-" in the same place, closes it again. Every game starts with it closed.
+// which is the standard bar. A tap on it opens the column at the screen's left, no taller than the
+// bar, and narrows the control bar to the rest (ControlBar::setArmyColumnOpen,
+// GXUiScale::setControlBarLeftEdge); "-" in the column's first row closes it, ">" beside it widens it
+// with the army buttons. Every game starts with it closed.
 //
 // Groups: a tap selects the group, or assigns the selection to it while it is empty; a two-finger
 // tap (right click) always assigns; holding a group button for GROUP_HOLD_MS (the red clock wipe)
 // and releasing clears it, through MSG_CREATE_TEAM<n> with no objects (Player.cpp clears the squad
-// first), so the battlefield selection is never touched. Long-pressing the handle shows or hides
-// the army buttons; they start as the control scheme says (GXControlScheme::ARMY_BUTTONS).
+// first), so the battlefield selection is never touched. The army buttons start shown as the control
+// scheme says (GXControlScheme::ARMY_BUTTONS).
 //
 // GroupPanel.wnd is a loose file (Window\GroupPanel.wnd) rather than part of the game's archives.
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -70,6 +71,7 @@ enum { ARMY_SCREEN, ARMY_MAP, ARMY_PLANES, ARMY_HELICOPTERS, ARMY_GROUND, ARMY_B
 
 static NameKeyType s_parentID = NAMEKEY_INVALID;
 static NameKeyType s_buttonHandleID = NAMEKEY_INVALID;
+static NameKeyType s_buttonArmyToggleID = NAMEKEY_INVALID;
 static NameKeyType s_groupRowID = NAMEKEY_INVALID;
 static NameKeyType s_buttonGroupID[10];
 static NameKeyType s_armyButtonID[ARMY_BUTTON_COUNT];
@@ -77,17 +79,12 @@ static NameKeyType s_armyButtonID[ARMY_BUTTON_COUNT];
 static Bool s_drawerOpen = FALSE;
 static Bool s_armyShown = FALSE;
 static Bool s_labelsSet = FALSE;
-static UnsignedInt s_handlePressMs = 0;
 
 static const UnsignedInt GROUP_HOLD_MS = 600;
 static UnsignedInt s_pressStartMs[10] = { 0 };
 
 static const UnsignedInt ARMY_GROUND_REPEAT_MS = 2000;
 static UnsignedInt s_armyGroundPressMs = 0;
-
-// How much of the screen's width the open column takes, safe-area inset included (owner: a little
-// less than the first version's 4:3 bar left, so the control bar stays wider).
-static const Real COLUMN_WIDTH_FRACTION = 0.095f;
 
 //-------------------------------------------------------------------------------------------------
 // Army selection, through the retail mass-selection path (selectAllUnitsByTypeAcross*), which
@@ -199,6 +196,7 @@ static void cacheWidgetIDs()
 	}
 	s_parentID = TheNameKeyGenerator->nameToKey("GroupPanel.wnd:GroupPanelParent");
 	s_buttonHandleID = TheNameKeyGenerator->nameToKey("GroupPanel.wnd:ButtonHandle");
+	s_buttonArmyToggleID = TheNameKeyGenerator->nameToKey("GroupPanel.wnd:ButtonArmyToggle");
 	s_groupRowID = TheNameKeyGenerator->nameToKey("GroupPanel.wnd:GroupRow");
 	static const char *const kArmyNames[ARMY_BUTTON_COUNT] = {
 		"GroupPanel.wnd:ArmyScreen", "GroupPanel.wnd:ArmyMap", "GroupPanel.wnd:ArmyPlanes",
@@ -295,8 +293,8 @@ static void updateHoldVisuals()
 }
 
 //-------------------------------------------------------------------------------------------------
-// realkot's fitted labels: the layout's own font size (GroupPanel.wnd, scaled with the interface),
-// made smaller until the text fits the button. Only when the size or the text changed.
+// realkot's fitted labels, from a size that suits the button (about half its height, or the layout's
+// own if larger) down until the text fits it. Only when the size or the text changed.
 struct PanelFontState
 {
 	GameFont *base = nullptr;
@@ -322,7 +320,7 @@ static void fitButtonFont(GameWindow *button, Int width, Int height)
 	state.height = height;
 	state.text = text;
 	const Int smallest = max(8, (Int)(8 * min(TheDisplay->getWidth() / 800.0f, TheDisplay->getHeight() / 600.0f)));
-	Int size = max(smallest, state.base->pointSize);
+	Int size = max(smallest, max(state.base->pointSize, (Int)(height * 0.55f)));
 	GameFont *font = TheFontLibrary->getFont(state.base->nameString, size, state.base->bold);
 	DisplayString *measure = TheDisplayStringManager->newDisplayString();
 	if (measure) {
@@ -378,6 +376,7 @@ static void applyButtonFaces()
 		parent->winSetDrawFunc(gxPanelBackdropDraw);
 	}
 	applyButtonFace(panelWindow(s_buttonHandleID));
+	applyButtonFace(panelWindow(s_buttonArmyToggleID));
 	for (Int i = 0; i < 10; ++i) {
 		applyButtonFace(panelWindow(s_buttonGroupID[i]));
 	}
@@ -471,6 +470,44 @@ static void fitParentToVisibleContent()
 	parent->winSetSize(hiX - loX, hiY - loY);
 }
 
+// GeneralsX @tweak Android port 18/10/2026 The column's geometry (owner, a31: the column was taller
+// than the control bar, its buttons small and pushed right of an empty strip, "+" and "-" in one
+// place forced it higher, and it took more room than a handful of buttons needs):
+//   - it never rises above the control bar's top: six rows from the bar's top to the screen's foot,
+//     the first holding "-" and the army switch, the other five the groups, two to a row;
+//   - it starts at the screen's left edge and its buttons fill its plate;
+//   - narrow by default, groups only; the army switch (">") widens it by a second column with the
+//     army buttons, the control bar moving right by as much, and ("<") narrows it again;
+//   - closed, "+" sits above the bar's left end, one cell wide.
+struct ColumnGeometry
+{
+	Int margin, gap, x0, rowHeight, cellWidth, columnWidth;
+	Int narrowRight, wideRight;	// where the control bar starts, open narrow / wide
+};
+
+static Int s_lastBarTop = 0;
+
+static ColumnGeometry columnGeometry(Int barTop)
+{
+	ColumnGeometry g;
+	const Int width = TheDisplay->getWidth();
+	const Int height = TheDisplay->getHeight();
+	const Real resolution = max(0.25f, min(width / 800.0f, height / 600.0f));
+	g.margin = max(4, (Int)(6 * resolution));
+	g.gap = max(2, (Int)(4 * resolution));
+	g.x0 = g.margin;
+	const Int bottom = height - GXSafeArea::bottomPx() - g.margin;
+	if (barTop <= 0) {
+		barTop = (Int)(height * 0.6f);
+	}
+	g.rowHeight = max((Int)(20 * resolution), (bottom - barTop - 5 * g.gap) / 6);
+	g.cellWidth = (Int)(g.rowHeight * 1.3f);
+	g.columnWidth = 2 * g.cellWidth + g.gap;
+	g.narrowRight = g.x0 + g.columnWidth + g.margin;
+	g.wideRight = g.x0 + 2 * g.columnWidth + g.gap + g.margin;
+	return g;
+}
+
 // The left edge the control bar gets while the column is open, as a fraction of the screen's
 // width; 0 on a screen too narrow for it (the column then opens above the bar instead).
 static Real columnLeftEdge()
@@ -479,9 +516,8 @@ static Real columnLeftEdge()
 		|| (Real)TheDisplay->getWidth() / (Real)TheDisplay->getHeight() < 1.5f) {
 		return 0.0f;
 	}
-	const Real resolution = max(0.25f, min(TheDisplay->getWidth() / 800.0f, TheDisplay->getHeight() / 600.0f));
-	const Real margin = max(4.0f, 6.0f * resolution);
-	return ((Real)GXSafeArea::leftPx() + 2.0f * margin) / (Real)TheDisplay->getWidth() + COLUMN_WIDTH_FRACTION;
+	const ColumnGeometry g = columnGeometry(s_lastBarTop);
+	return (Real)(s_armyShown ? g.wideRight : g.narrowRight) / (Real)TheDisplay->getWidth();
 }
 
 static void setDrawer(Bool open)
@@ -497,9 +533,23 @@ static void setDrawer(Bool open)
 	fflush(stderr);
 }
 
+// The army buttons in or out: the open column widens or narrows, and the bar follows it.
+static void setArmyShown(Bool shown)
+{
+	if (s_armyShown == shown) {
+		return;
+	}
+	s_armyShown = shown;
+	if (s_drawerOpen && TheControlBar) {
+		TheControlBar->setArmyColumnOpen(FALSE, 0.0f);
+		TheControlBar->setArmyColumnOpen(TRUE, columnLeftEdge());
+	}
+}
+
 //-------------------------------------------------------------------------------------------------
 void GroupPanelCalibrateFollowOffset(Int barScreenX, Int barScreenY)
 {
+	s_lastBarTop = barScreenY;
 	fprintf(stderr, "[GX-UISCALE] group panel: control bar at %d,%d\n", barScreenX, barScreenY);
 }
 
@@ -508,12 +558,6 @@ void GroupPanelCloseDrawer()
 	setDrawer(FALSE);
 }
 
-// Every frame the bar is shown. realkot's arrangement: the groups two to a row, the handle, the
-// army buttons one to a row, each as wide as the column, rows 34 units high as far as the room
-// allows. The handle never moves (owner, a30: "+" and "-" in one place, to open and close without
-// looking): just above the top of the control bar at the screen's left, open or closed. Open, what
-// sits beside the bar below it is the army buttons -- or the groups when the army buttons are
-// hidden -- and the groups otherwise stack above the handle.
 void GroupPanelFollowControlBar(Int barScreenX, Int barScreenY, Bool visible)
 {
 	if (!visible || !TheWindowManager || !TheDisplay) {
@@ -521,87 +565,69 @@ void GroupPanelFollowControlBar(Int barScreenX, Int barScreenY, Bool visible)
 	}
 	GameWindow *parent = panelWindow(s_parentID);
 	GameWindow *handle = panelWindow(s_buttonHandleID);
+	GameWindow *toggle = panelWindow(s_buttonArmyToggleID);
 	GameWindow *row = panelWindow(s_groupRowID);
-	if (!parent || !handle || !row) {
+	if (!parent || !handle || !toggle || !row) {
 		return;
 	}
 	(void)barScreenX;
-	const Int width = TheDisplay->getWidth();
+	s_lastBarTop = barScreenY;
 	const Int height = TheDisplay->getHeight();
-	const Real resolution = max(0.25f, min(width / 800.0f, height / 600.0f));
-	const Real unit = resolution * max(1.0f, GXUiScale::forLayout("ControlBar.wnd").fontK);
-	const Int margin = max(4, (Int)(6 * resolution));
-	const Int gap = max(2, (Int)(4 * resolution));
-	const Int x0 = GXSafeArea::leftPx() + margin;
-	const Int bottom = height - GXSafeArea::bottomPx() - margin;
-
-	// The column's width: up to where the bar starts while it is open, the same in both states.
-	const Real leftEdge = columnLeftEdge();
-	const Int columnWidth = leftEdge > 0.0f
-		? max((Int)(60 * resolution), (Int)(leftEdge * width) - margin - x0)
-		: (Int)(150 * resolution);
-	const Int cellWidth = max(1, (columnWidth - gap) / 2);
-
-	// One row height for everything: 34 units, or what fits five rows beside the bar.
-	const Int besideRoom = bottom - barScreenY;
-	Int rowHeight = (Int)(34 * unit);
-	if (leftEdge > 0.0f && besideRoom > 0) {
-		rowHeight = min(rowHeight, (besideRoom - 4 * gap) / 5);
-	}
-	rowHeight = max(rowHeight, (Int)(20 * resolution));
-
-	const Int handleY = barScreenY - rowHeight - gap;
+	const ColumnGeometry g = columnGeometry(barScreenY);
+	const Bool besideBar = columnLeftEdge() > 0.0f;
 	Int px, py;
 	parent->winGetScreenPosition(&px, &py);
-	placeButton(handle, x0, handleY, px, py, columnWidth, rowHeight);
 
 	if (!s_drawerOpen) {
 		s_backdropValid = FALSE;
 		parent->winSetStatus(WIN_STATUS_NO_INPUT);
 		row->winHide(TRUE);
+		toggle->winHide(TRUE);
 		for (Int i = 0; i < ARMY_BUTTON_COUNT; ++i) {
 			if (GameWindow *button = panelWindow(s_armyButtonID[i])) {
 				button->winHide(TRUE);
 			}
 		}
+		placeButton(handle, g.x0, barScreenY - g.rowHeight - g.gap, px, py, g.cellWidth, g.rowHeight);
 		fitParentToVisibleContent();
 		return;
 	}
 
-	// Beside the bar (or, without room beside it, above the handle): the army buttons, or the
-	// groups when the army buttons are hidden.
-	const Bool besideBar = leftEdge > 0.0f;
-	const Int groupsHeight = 5 * rowHeight + 4 * gap;
-	const Int armyHeight = 5 * rowHeight + 4 * gap;
-	Int groupsTop, armyTop;
-	if (besideBar) {
-		armyTop = barScreenY;
-		groupsTop = s_armyShown ? handleY - gap - groupsHeight : barScreenY;
-	} else {
-		armyTop = handleY - gap - armyHeight;
-		groupsTop = (s_armyShown ? armyTop : handleY) - gap - groupsHeight;
-	}
+	// Beside the bar: from its top down. Without room beside it, the same block above it.
+	const Int blockHeight = 6 * g.rowHeight + 5 * g.gap;
+	const Int top = besideBar ? barScreenY : barScreenY - g.margin - blockHeight;
+	const Int right = s_armyShown ? g.wideRight : g.narrowRight;
 
 	s_backdropX = 0;
-	s_backdropY = max(0, min(handleY, groupsTop) - margin);
-	s_backdropW = besideBar ? (Int)(leftEdge * width) : x0 + columnWidth + margin;
-	s_backdropH = height - s_backdropY;
+	s_backdropY = max(0, top - g.margin);
+	s_backdropW = right;
+	s_backdropH = (besideBar ? height : barScreenY) - s_backdropY;
 	s_backdropValid = TRUE;
 	parent->winClearStatus(WIN_STATUS_NO_INPUT);
 
+	// First row: close, and the army switch.
+	placeButton(handle, g.x0, top, px, py, g.cellWidth, g.rowHeight);
+	toggle->winHide(FALSE);
+	placeButton(toggle, g.x0 + g.cellWidth + g.gap, top, px, py, g.cellWidth, g.rowHeight);
+
+	// The groups, two to a row.
+	const Int groupsTop = top + g.rowHeight + g.gap;
 	row->winHide(FALSE);
-	row->winSetPosition(x0 - px, groupsTop - py);
-	row->winSetSize(columnWidth, groupsHeight);
+	row->winSetPosition(g.x0 - px, groupsTop - py);
+	row->winSetSize(g.columnWidth, 5 * g.rowHeight + 4 * g.gap);
 	for (Int i = 0; i < 10; ++i) {
 		GameWindow *button = panelWindow(s_buttonGroupID[i]);
 		if (!button) {
 			continue;
 		}
-		button->winSetPosition((i % 2) * (cellWidth + gap), (i / 2) * (rowHeight + gap));
-		button->winSetSize(cellWidth, rowHeight);
-		fitButtonFont(button, cellWidth, rowHeight);
+		button->winSetPosition((i % 2) * (g.cellWidth + g.gap), (i / 2) * (g.rowHeight + g.gap));
+		button->winSetSize(g.cellWidth, g.rowHeight);
+		fitButtonFont(button, g.cellWidth, g.rowHeight);
 	}
 
+	// The army: a second column as tall as the first, five buttons.
+	const Int armyX = g.x0 + g.columnWidth + g.gap;
+	const Int armyRow = (blockHeight - 4 * g.gap) / 5;
 	for (Int i = 0; i < ARMY_BUTTON_COUNT; ++i) {
 		GameWindow *button = panelWindow(s_armyButtonID[i]);
 		if (!button) {
@@ -609,7 +635,7 @@ void GroupPanelFollowControlBar(Int barScreenX, Int barScreenY, Bool visible)
 		}
 		button->winHide(!s_armyShown);
 		if (s_armyShown) {
-			placeButton(button, x0, armyTop + i * (rowHeight + gap), px, py, columnWidth, rowHeight);
+			placeButton(button, armyX, top + i * (armyRow + g.gap), px, py, g.columnWidth, armyRow);
 		}
 	}
 	fitParentToVisibleContent();
@@ -622,7 +648,6 @@ void GroupPanelInit(WindowLayout *layout, void *userData)
 	(void)userData;
 	s_drawerOpen = FALSE;
 	s_armyShown = GXControlScheme::enabled(GXControlScheme::ARMY_BUTTONS);
-	s_handlePressMs = 0;
 	s_armyGroundPressMs = 0;
 	s_panelFonts.clear();
 }
@@ -636,12 +661,11 @@ void GroupPanelUpdate(WindowLayout *layout, void *userData)
 	}
 	updateHoldVisuals();
 	GameWindow *handle = panelWindow(s_buttonHandleID);
-	if (handle && BitIsSet(handle->winGetInstanceData()->getState(), WIN_STATE_SELECTED)) {
-		if (s_handlePressMs == 0) {
-			s_handlePressMs = timeGetTime();
+	if (GameWindow *toggle = panelWindow(s_buttonArmyToggleID)) {
+		const UnicodeString mark(s_armyShown ? L"<" : L">");
+		if (toggle->winGetText() != mark) {
+			GadgetButtonSetText(toggle, mark);
 		}
-	} else {
-		s_handlePressMs = 0;
 	}
 
 	const Bool enabled = canSelectArmy();
@@ -680,7 +704,6 @@ void GroupPanelShutdown(WindowLayout *layout, void *userData)
 {
 	(void)userData;
 	s_panelFonts.clear();
-	s_handlePressMs = 0;
 	if (layout) {
 		layout->hide(TRUE);
 	}
@@ -709,13 +732,11 @@ WindowMsgHandledType GroupPanelSystem(GameWindow *window, UnsignedInt msg,
 			GameWindow *control = (GameWindow *)mData1;
 			const Int controlID = control->winGetWindowId();
 			if (controlID == (Int)s_buttonHandleID) {
-				// Held: the army buttons in or out of the open column. Tapped: open or close it.
-				if (s_drawerOpen && s_handlePressMs != 0 && timeGetTime() - s_handlePressMs >= GROUP_HOLD_MS) {
-					s_armyShown = !s_armyShown;
-				} else {
-					setDrawer(!s_drawerOpen);
-				}
-				s_handlePressMs = 0;
+				setDrawer(!s_drawerOpen);
+				return MSG_HANDLED;
+			}
+			if (controlID == (Int)s_buttonArmyToggleID) {
+				setArmyShown(!s_armyShown);
 				return MSG_HANDLED;
 			}
 			const Int army = findArmyButtonIndex(controlID);
@@ -741,12 +762,6 @@ WindowMsgHandledType GroupPanelSystem(GameWindow *window, UnsignedInt msg,
 		{
 			GameWindow *control = (GameWindow *)mData1;
 			const Int controlID = control->winGetWindowId();
-			if (controlID == (Int)s_buttonHandleID) {
-				if (s_drawerOpen) {
-					s_armyShown = !s_armyShown;
-				}
-				return MSG_HANDLED;
-			}
 			const Int group = findGroupButtonIndex(controlID);
 			if (group >= 0) {
 				handleGroupCommand(group, TRUE);
