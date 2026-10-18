@@ -283,6 +283,12 @@ the engine build; the originals are never touched, so deleting the cache restore
 and a texture the cache lacks is decoded as today. The engine could also fill the same cache on
 first use, so the offer only does in advance what play would do anyway.
 
+Always optional (owner, 18/10/2026): the game runs fully without it, exactly as today. The offer has
+"Not now" and "Don't ask again"; the same switch sits in Graphics (transcoded textures on/off, with
+"Delete the cache" and its size), so a player can try it, compare, and go back. Turning it off makes
+the engine ignore the cache -- nothing is reinstalled. The engine's fill-on-first-use, if added,
+follows that same switch and is off unless the player turned it on.
+
 **Online and cross-play are not affected (checked 18/10/2026).** What multiplayer compares:
 - the lobby's `ini_crc` -- the INI files only (`m_iniCRC`);
 - `exe_crc` -- the executable's identity plus `SkirmishScripts.scb` / `MultiplayerScripts.scb`
