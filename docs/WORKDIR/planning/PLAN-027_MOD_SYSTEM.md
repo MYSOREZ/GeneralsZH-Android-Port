@@ -274,6 +274,25 @@ goal is the INI cache and phone-native textures, not a new container.** The answ
      space only.
 - The container may stay `.big`-like or become a plain folder; speed does not depend on it.
 
+**The whole game too (owner, 18/10/2026).** When a game is picked, the launcher checks the device's
+GPU and, only where it lacks S3TC (Adreno does not need it), offers to transcode the textures of
+the whole game -- Generals and Zero Hour each -- not only mods'. Size of the job and the space it
+needs are shown first; progress and cancel as for the converter. The output is a texture cache
+beside the data (app storage or `<game>/.gxcache/`), keyed by the source archive's size/date and
+the engine build; the originals are never touched, so deleting the cache restores the retail path,
+and a texture the cache lacks is decoded as today. The engine could also fill the same cache on
+first use, so the offer only does in advance what play would do anyway.
+
+**Online and cross-play are not affected (checked 18/10/2026).** What multiplayer compares:
+- the lobby's `ini_crc` -- the INI files only (`m_iniCRC`);
+- `exe_crc` -- the executable's identity plus `SkirmishScripts.scb` / `MultiplayerScripts.scb`
+  (`GlobalData::generateExeCRC`, `pcExeCrcFromDataPack`);
+- the lockstep CRC in a match -- the simulation's state (objects, players, fog), not assets.
+No texture enters any of them: textures are drawn, never simulated. So transcoded textures change
+nothing for GeneralsOnline, LAN, replays, or a future cross-play with PC. The line not to cross: the
+converter transcodes **textures only**. INI, scripts (`.scb`), maps and W3D models stay byte for byte
+(models carry bone positions some weapons fire from), and the INI cache keeps the source checksum.
+
 Order for this part:
 0. **Measure first** (cheap, any build): log the time of INI parsing and of texture loading at
    start-up and per map load, with and without a big mod, on an Adreno and a Mali phone. The
