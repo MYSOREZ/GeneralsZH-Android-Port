@@ -255,6 +255,33 @@ converts.** So:
     cancel leaves the mod as it was.
   - Import offers the conversion right after a `.big` mod is installed, never forces it.
 
+**Owner, 18/10/2026, after asking whether the format itself would make Android faster: the converter's
+goal is the INI cache and phone-native textures, not a new container.** The answer recorded:
+
+- In a match the container costs nothing: textures, models and INI are read while the map loads;
+  a frame is logic + rendering (owner's Shockwave log: logic 6-17 ms, client 4-5 ms, file reads
+  ~0). `.big` is an uncompressed archive with an index -- a read from it is a plain file read.
+- What a format change can buy:
+  1. **Start-up: the compiled INI cache** (largest gain; big mods parse thousands of INI files).
+  2. **Loading and, on weak GPUs, frame time: textures in the phone's own compressed format.**
+     Retail and mod textures are DXT (S3TC). Adreno samples DXT natively (`s3tc=1` in the log);
+     many Mali/PowerVR GPUs do not, so the port has to expand them at load -- slower loads, up to
+     4-8x the video memory and bandwidth. The converter may transcode to ASTC (or ETC2 where ASTC
+     is missing), chosen per device, kept beside the originals (never replacing them, so the
+     checksum-relevant data and PC sharing are untouched). Quality differs slightly: compare
+     screenshots before making it a default.
+  3. A compressed container saves storage but *adds* load time (decompression) -- optional, for
+     space only.
+- The container may stay `.big`-like or become a plain folder; speed does not depend on it.
+
+Order for this part:
+0. **Measure first** (cheap, any build): log the time of INI parsing and of texture loading at
+   start-up and per map load, with and without a big mod, on an Adreno and a Mali phone. The
+   numbers decide whether 1 or 2 comes first and are the baseline to prove the gain.
+1. INI cache (with the checksum and determinism rules above).
+2. Texture transcoding for GPUs without S3TC.
+3. The `.big` -> new-format converter UI around both, then folders without packing.
+
 Not before: the current system has been stable through a release or two, and the GeneralsOnline
 question (modded online, above) is settled -- a format change must not split players again.
 
