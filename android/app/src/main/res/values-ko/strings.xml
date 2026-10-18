@@ -241,6 +241,7 @@
     <string name="setup_switch_vulkan_experimental">실험적 Vulkan 렌더러</string>
     <string name="setup_switch_vulkan_experimental_desc">%1$s 탭의 렌더러 목록에 Vulkan(DXVK)을 다시 표시합니다. 현재 많은 기기에서 검은 텍스처가 나타나므로 테스트할 때만 켜세요.</string>
     <string name="setup_vulkan_moved_message">현재 많은 기기에서 Vulkan이 검은 텍스처를 표시하므로 게임을 OpenGL ES로 전환했습니다. %1$s → %2$s → %3$s에서 Vulkan을 다시 켤 수 있습니다.</string>
+    <string name="setup_support_popup_later">나중에</string>
     <string name="setup_switch_gx_net_trace">온라인 네트워크 로그</string>
     <string name="setup_switch_gx_net_trace_desc">게임이 GeneralsOnline 서버에 보낸 모든 요청과 받은 응답을 기록합니다. 게임 안에서 로그인, 로비, 매치메이킹이 실패할 때 켜세요. 런처 자체의 요청은 항상 기록되며, 이 스위치는 게임의 요청을 추가합니다. 교차 플랫폼 플레이의 desync 진단도 함께 켭니다. 각 간격마다 비교되는 시뮬레이션 체크섬과, 리플레이에서는 개별 오브젝트마다의 체크섬을 기록합니다. (gx_net_trace.txt)</string>
     <string name="netdiag_title">네트워크 진단</string>

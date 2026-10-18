@@ -241,6 +241,7 @@
     <string name="setup_switch_vulkan_experimental">Експериментальний рендерер Vulkan</string>
     <string name="setup_switch_vulkan_experimental_desc">Знову показує Vulkan (DXVK) серед варіантів на вкладці «%1$s». Зараз на багатьох пристроях він дає чорні текстури; не вмикайте без потреби його перевірити.</string>
     <string name="setup_vulkan_moved_message">Vulkan зараз на багатьох пристроях показує чорні текстури, тому гру переключено на OpenGL ES. Повернути Vulkan можна тут: %1$s → %2$s → %3$s.</string>
+    <string name="setup_support_popup_later">Пізніше</string>
     <string name="setup_switch_gx_net_trace">Мережевий лог онлайну</string>
     <string name="setup_switch_gx_net_trace_desc">Записує кожен запит гри до серверів GeneralsOnline і отриману відповідь. Увімкніть, якщо вхід, лобі чи підбір гри не працюють уже всередині гри. Запити самого лаунчера записуються завжди; цей перемикач додає запити гри. Також вмикає діагностику розсинхронізації у кросплатформеній грі: контрольні суми симуляції, які порівнюються на кожному інтервалі, а в повторі — контрольну суму кожного окремого об\'єкта. (gx_net_trace.txt)</string>
     <string name="netdiag_title">Діагностика мережі</string>

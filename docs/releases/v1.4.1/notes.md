@@ -75,3 +75,13 @@ Hour, with its own game folder:
 Install over 1.4.0 -- settings, sign-in and game folders are kept. Requires Android 9 or newer, 64-bit (arm64).
 
 Thanks to everyone who reported problems on GitHub and 4PDA.
+
+## ❤️ Heroes of the project
+
+**Diaa Abu Jazar — $2.** Thank you! Every donation goes to the Claude Code subscription this port is built
+with, and keeps the updates coming. The game and every build stay free; if you enjoy it and want to help, the
+addresses are in the launcher (**Help → Support the project**) and in the README.
+
+> **Герои проекта:** Diaa Abu Jazar — $2. Спасибо! Каждый донат идёт на подписку Claude Code, с которой
+> делается порт, и помогает выпускать обновления. Игра и все сборки остаются бесплатными; поддержать можно
+> в лаунчере (**Справка → Поддержать проект**) и по ссылкам в README.

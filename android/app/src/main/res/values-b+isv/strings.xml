@@ -241,6 +241,7 @@
     <string name="setup_switch_vulkan_experimental">Eksperimentalny renderer Vulkan</string>
     <string name="setup_switch_vulkan_experimental_desc">Opet pokazyvaje Vulkan (DXVK) medžu rendererami na kartě „%1$s“. Sejčas na mnogih ustrojstvah daje črne tekstury; ostavite izključeno, aky ne hčete jego testovati.</string>
     <string name="setup_vulkan_moved_message">Vulkan sejčas na mnogih ustrojstvah pokazyvaje črne tekstury, zato igra jest prěključena na OpenGL ES. Vulkan možno opet vključiti tu: %1$s → %2$s → %3$s.</string>
+    <string name="setup_support_popup_later">Pozdněje</string>
     <string name="setup_switch_gx_net_trace">Mrežny log online</string>
     <string name="setup_switch_gx_net_trace_desc">Zapisuje kojžde zaprošenje igry do serverov GeneralsOnline i odpoved, ktora prišla. Vključite, ako vhod, lobby ili podbiranje igry ne rabotaje uže vnutri igry. Zaprošenja samogo launchera zapisujut se vsegda; to dodaje zaprošenja igry. Takože vključaje diagnostiku rozsinhronizacije v krossplatformnoj igre: kontrolne sumy simulacije, ktore sut porovnjane na vsakom intervale, a v repleju — kontrolnu sumu vsakogo objekta. (gx_net_trace.txt)</string>
     <string name="netdiag_title">Diagnostika mreže</string>

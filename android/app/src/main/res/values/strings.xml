@@ -298,6 +298,7 @@
     <string name="setup_switch_vulkan_experimental">Experimental Vulkan renderer</string>
     <string name="setup_switch_vulkan_experimental_desc">Shows Vulkan (DXVK) among the render backends on the %1$s tab again. It currently shows black textures on many devices; leave this off unless you are testing it.</string>
     <string name="setup_vulkan_moved_message">Vulkan currently shows black textures on many devices, so the game has been switched to OpenGL ES. Vulkan can be turned back on in %1$s → %2$s → %3$s.</string>
+    <string name="setup_support_popup_later">Later</string>
     <string name="online_status_requesting_code">Requesting a login code from the server…</string>
     <string name="online_status_no_login_code">The server would not issue a login code. Check your connection and try again, or run Network diagnostics in Tools.</string>
     <string name="replaycheck_title">Replay check</string>
