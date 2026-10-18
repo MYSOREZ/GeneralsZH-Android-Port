@@ -51,6 +51,7 @@
 
 #include "Common/GXCrcStream.h"
 #include "GXTrace.h"
+#include "Common/GXReplayCheck.h"
 
 #include "Common/ActionManager.h"
 #include "Common/DiscreteCircle.h"
@@ -4737,7 +4738,9 @@ void PartitionManager::crc( Xfer *xfer )
 	// shrouded. Three counts per player say which, and that is checkable on its own:
 	// an observer slot that is not clear, or a playing slot that is, is wrong without
 	// needing the other machine's numbers.
-	if (GXTrace::isNetEnabled() && xfer->getXferMode() == XFER_CRC)
+	// GeneralsX @performance Android port 18/10/2026 Only while a replay is being checked: the
+	// count walks every cell for every player, on each checksum.
+	if (GXTrace::isNetEnabled() && GXReplayCheck::isActive() && xfer->getXferMode() == XFER_CRC)
 	{
 		for (Int p = 0; p < MAX_PLAYER_COUNT; ++p)
 		{

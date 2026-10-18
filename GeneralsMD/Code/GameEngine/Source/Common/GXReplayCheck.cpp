@@ -239,7 +239,12 @@ Bool crcEveryFrame()
 			fclose(f);
 		return f != nullptr;
 	}();
-	return s_crcEveryFrame || marker;
+	// GeneralsX @performance Android port 18/10/2026 The marker only during a replay check.
+	// A check run with the option on leaves the file behind, and every game after it -- a plain
+	// skirmish included -- then took the world's checksum on every frame, with the per-object and
+	// fog-of-war traces that come with it: a player saw the game crawl from its first second (108 MB
+	// of log in one skirmish start). The launch argument is set only by the check itself.
+	return s_crcEveryFrame || (marker && isActive());
 }
 Bool isActive() { return s_fastTo != 0 || s_autoQuit; }
 

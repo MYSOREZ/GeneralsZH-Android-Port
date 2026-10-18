@@ -35,6 +35,7 @@
 package com.generalsx.zerohour;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -61,9 +62,28 @@ public class ReplayCheckActivity extends Activity {
     private static final String CRC_EVERY_FRAME_MARKER = "gx_crc_every_frame.txt";
     private static final String PREFS = "replay_check";
     private static final String PREF_CRC_EVERY_FRAME = "crc_every_frame";
+    private static final String PREF_TRACE_BY_CHECK = "net_trace_by_check";
 
     private static final int MODE_RUN_THROUGH = 0;
     private static final int MODE_WATCH_FROM = 1;
+
+    // GeneralsX @performance Android port 18/10/2026 Undo what a check switched on, before an
+    // ordinary game. The network trace a check turned on stayed on, and the every-frame checksum
+    // marker stayed in the game folder: every later skirmish took the world's checksum on every
+    // frame and logged it, and a player saw the game crawl. Called by the launcher's Play; a
+    // trace the player turned on in Diagnostics is left alone.
+    static void clearCheckMarkers(Context context) {
+        String gamePath = SetupActivity.getSavedGamePath(context, SetupActivity.GAME_ZERO_HOUR);
+        if (gamePath == null) {
+            return;
+        }
+        new File(gamePath, CRC_EVERY_FRAME_MARKER).delete();
+        android.content.SharedPreferences prefs = context.getSharedPreferences(PREFS, MODE_PRIVATE);
+        if (prefs.getBoolean(PREF_TRACE_BY_CHECK, false)) {
+            new File(gamePath, NET_TRACE_MARKER).delete();
+            prefs.edit().remove(PREF_TRACE_BY_CHECK).apply();
+        }
+    }
 
     private int mode = MODE_RUN_THROUGH;
     private TextView resultText;
@@ -237,6 +257,7 @@ public class ReplayCheckActivity extends Activity {
         if (!marker.isFile()) {
             try {
                 marker.createNewFile();
+                getSharedPreferences(PREFS, MODE_PRIVATE).edit().putBoolean(PREF_TRACE_BY_CHECK, true).apply();
                 Toast.makeText(this, R.string.replaycheck_trace_enabled, Toast.LENGTH_SHORT).show();
             } catch (IOException ignored) {
                 Toast.makeText(this, R.string.replaycheck_trace_failed, Toast.LENGTH_LONG).show();

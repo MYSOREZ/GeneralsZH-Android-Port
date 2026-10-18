@@ -603,6 +603,7 @@ void GameTextManager::buildModTextLayers( Int format, const AsciiString& textLan
 				instance = (FileInstance)( k + ( loose ? 1 : 0 ) );
 				isMod = gxIsModArchiveName( archive->getName() );
 			}
+			const AsciiString source = k < 0 ? AsciiString("a loose file") : TheArchiveFileSystem->getArchiveFile( path, (FileInstance)k )->getName();
 			Int count = 0;
 			if( !getCSFInfo( path.str(), count, m_language, instance ) || count <= 0 )
 				continue;
@@ -615,6 +616,102 @@ void GameTextManager::buildModTextLayers( Int format, const AsciiString& textLan
 			m_maxLabelLen = max( m_maxLabelLen, maxLabelLen );
 			( isMod ? modTables : gameTables )++;
 			tablesByLanguage.back().push_back( table );
+			fprintf( stderr, "[GX-TEXT] %s table %s: %d labels from %s\n", isMod ? "mod" : "game",
+				path.str(), count, source.str() );
+		}
+	}
+
+	// GeneralsX @bugfix Android port 18/10/2026 Strings a mod keeps somewhere else.
+	//
+	// The retail engine looked first for one string file without a language in its path,
+	// "data\Generals.str", and a mod could ship its text there; this port looks for
+	// data/<language>/generals.str (the language packs) instead, so such a mod's labels were never
+	// read and showed MISSING (Shockwave: 'INI:FactionChinaSpecialWeaponsGeneral' in the skirmish
+	// lobby, with 0 mod tables in the log above). Every generals.csf and generals.str in a mod's
+	// archives that the loop above did not read joins the English tables as a mod table, and every
+	// string file a mod carries is named in the log, so the next MISSING says where to look.
+	size_t englishIndex = 0;
+	for( size_t l = 0; l < languages.size(); ++l )
+		if( languages[l].compareNoCase( "english" ) == 0 )
+			englishIndex = l;
+	if( TheArchiveFileSystem != nullptr )
+	{
+		const char *patterns[2] = { "*.csf", "*.str" };
+		for( Int p = 0; p < 2; ++p )
+		{
+			FilenameList files;
+			TheArchiveFileSystem->getFileListInDirectory( AsciiString(""), AsciiString(""), AsciiString(patterns[p]), files, TRUE );
+			for( FilenameList::const_iterator it = files.begin(); it != files.end(); ++it )
+			{
+				const AsciiString &name = *it;
+				if( name.startsWithNoCase( "maps\\" ) || name.startsWithNoCase( "maps/" ) )
+					continue;
+				const char *base = name.str();
+				for( const char *c = name.str(); *c; ++c )
+					if( *c == '/' || *c == '\\' )
+						base = c + 1;
+				const Bool isGeneralsTable = stricmp( base, p == 0 ? "generals.csf" : "generals.str" ) == 0;
+				Bool readAbove = FALSE;
+				if( p == 0 )
+				{
+					for( size_t l = 0; l < languages.size() && !readAbove; ++l )
+					{
+						AsciiString path;
+						path.format( g_csfFile, languages[l].str() );
+						const char *a = path.str(), *b = name.str();
+						while( *a && *b && ( tolower( (unsigned char)*a ) == tolower( (unsigned char)*b )
+							|| ( ( *a == '/' || *a == '\\' ) && ( *b == '/' || *b == '\\' ) ) ) )
+						{
+							++a;
+							++b;
+						}
+						readAbove = *a == '\0' && *b == '\0';
+					}
+				}
+				const Bool loose = TheLocalFileSystem != nullptr && TheLocalFileSystem->doesFileExist( name.str() );
+				for( Int k = 0; k < 16; ++k )
+				{
+					ArchiveFile *archive = TheArchiveFileSystem->getArchiveFile( name, (FileInstance)k );
+					if( archive == nullptr )
+						break;
+					if( !gxIsModArchiveName( archive->getName() ) )
+						continue;
+					const Bool use = isGeneralsTable && !readAbove && ( p == 0 || ( k == 0 && !loose ) );
+					fprintf( stderr, "[GX-TEXT] mod string file %s in %s%s\n", name.str(), archive->getName().str(),
+						use ? "" : readAbove ? " (read above)" : isGeneralsTable ? " (shadowed, not read)" : " (not a name the game reads)" );
+					if( !use )
+						continue;
+					GXCsfTable table;
+					table.isMod = TRUE;
+					Int count = 0;
+					Bool ok = FALSE;
+					if( p == 0 )
+					{
+						const FileInstance instance = (FileInstance)( k + ( loose ? 1 : 0 ) );
+						Int maxLabelLen = m_maxLabelLen;
+						if( getCSFInfo( name.str(), count, m_language, instance ) && count > 0 )
+						{
+							table.strings.resize( count );
+							ok = parseCSF( name.str(), &table.strings[0], count, maxLabelLen, instance );
+							m_maxLabelLen = max( m_maxLabelLen, maxLabelLen );
+						}
+					}
+					else if( getStringCount( name.str(), count ) && count > 0 )
+					{
+						// parseStringFile fills m_stringInfo; lend it this table for the call.
+						table.strings.resize( count );
+						StringInfo *primary = m_stringInfo;
+						m_stringInfo = &table.strings[0];
+						ok = parseStringFile( name.str() );
+						m_stringInfo = primary;
+					}
+					if( !ok )
+						continue;
+					++modTables;
+					fprintf( stderr, "[GX-TEXT] mod table %s: %d labels from %s\n", name.str(), count, archive->getName().str() );
+					tablesByLanguage[englishIndex].insert( tablesByLanguage[englishIndex].begin(), table );
+				}
+			}
 		}
 	}
 	m_language = originalLanguage;

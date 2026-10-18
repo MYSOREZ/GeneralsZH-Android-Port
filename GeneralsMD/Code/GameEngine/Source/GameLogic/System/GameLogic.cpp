@@ -4801,7 +4801,9 @@ UnsignedInt GameLogic::getCRC( Int mode, AsciiString deepCRCFileName )
 		return v < 0 ? 0 : v;
 	}();
 
-	const Bool gxTraceObjects = GXTrace::isNetEnabled() && isInGameLogicUpdate()
+	// GeneralsX @performance Android port 18/10/2026 Only while a replay is being checked: with the
+	// network trace left on, a skirmish of 1800 objects printed 1800 lines a frame for 500 frames.
+	const Bool gxTraceObjects = GXTrace::isNetEnabled() && GXReplayCheck::isActive() && isInGameLogicUpdate()
 		&& xferCRC->getXferMode() == XFER_CRC && m_frame <= (UnsignedInt)s_objTraceLastFrame;
 	for( obj = m_objList; obj; obj=obj->getNextObject() )
 	{

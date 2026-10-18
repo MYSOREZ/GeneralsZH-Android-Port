@@ -4040,6 +4040,7 @@ public class SetupActivity extends Activity {
         // GeneralsX @feature Android port 04/10/2026 The text-language marker is checked against
         // the data of the game about to start, which may not be the one it was last written for.
         applyGameLanguageOverride();
+        ReplayCheckActivity.clearCheckMarkers(this);
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
             startActivity(new Intent(this, GeneralsZHActivity.class));
             return;
