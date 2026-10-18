@@ -63,7 +63,7 @@
     <string name="setup_sim_rate_30_short">30 Hz</string>
     <string name="setup_sim_rate_60_short">60 Hz</string>
     <string name="setup_sim_rate_30_desc">30 Hz es lo que han usado todas las versiones anteriores de esta adaptación. Las partidas de Android contra Android funcionan, pero una partida contra un jugador de Windows se desincronizará.</string>
-    <string name="setup_sim_rate_60_desc">60 Hz es lo que usa el cliente GeneralsOnline de Windows, y es lo que hace posible el juego multiplataforma. La simulación hace el doble de trabajo por segundo, así que un dispositivo más lento puede no alcanzar la velocidad completa.</string>
+    <string name="setup_sim_rate_60_desc">60 Hz es la frecuencia del cliente GeneralsOnline para Windows. Duplica el trabajo de simulación por segundo, así que en un dispositivo lento el juego puede ir por debajo de la velocidad normal.</string>
     <string name="setup_sim_rate_help">La frecuencia se fija al compilar el motor, por eso la aplicación incluye ambas versiones y carga la que elijas aquí. El cambio se aplica la próxima vez que inicies el juego. Ambos jugadores de una partida deben usar la misma frecuencia.</string>
     <string name="setup_toast_sim_rate_saved">Frecuencia de simulación guardada. Se aplicará la próxima vez que inicies el juego.</string>
     <string name="online_crossplay_hz_title">Frecuencia de simulación cambiada a 60 Hz</string>
@@ -255,7 +255,7 @@
     <string name="online_status_requesting_code">Solicitando un código de inicio de sesión al servidor…</string>
     <string name="online_status_no_login_code">El servidor no emitió un código de inicio de sesión. Comprueba la conexión e inténtalo de nuevo, o ejecuta el diagnóstico de red en Herramientas.</string>
     <string name="online_card_datapacks">Datos del juego en línea</string>
-    <string name="online_datapacks_help">Jugar en línea necesita dos cosas que el juego no incluye: el parche de datos de la comunidad, del que depende que una partida de PC acepte este dispositivo, y los mapas de la comunidad en los que se juega. Aquí se descargan ambos directamente de GeneralsOnline, sin PC.</string>
+    <string name="online_datapacks_help">Para jugar en línea hacen falta dos cosas que el juego original no trae: el parche de datos de la comunidad, con el que se juega toda partida en línea (una partida solo admite jugadores con los mismos datos), y los mapas de la comunidad en los que se juegan. Aquí se descargan ambos directamente de GeneralsOnline.</string>
     <string name="online_button_datapacks_update">Actualizar</string>
     <string name="online_datapacks_checking">Buscando actualizaciones…</string>
     <string name="online_datapacks_downloading">Descargando… %1$d%%</string>
@@ -266,7 +266,7 @@
     <string name="online_datapacks_not_installed">Aún no instalado.</string>
     <string name="online_button_datapacks_delete">Eliminar</string>
     <string name="online_switch_datapacks">Usar el parche de datos de la comunidad</string>
-    <string name="online_switch_datapacks_desc">Desactivarlo conserva la descarga, pero el juego vuelve a leer los datos originales y las partidas de PC rechazarán este dispositivo. Se aplica al iniciar el juego la próxima vez.</string>
+    <string name="online_switch_datapacks_desc">Desactivarlo no borra la descarga, pero el juego vuelve a leer los datos originales y las partidas en línea con el parche rechazarán este dispositivo. Se aplica la próxima vez que se inicie el juego.</string>
     <string name="online_switch_datapacks_mods">Usar el parche también con mods</string>
     <string name="online_switch_datapacks_mods_desc">Por defecto el parche no se carga si la carpeta del juego tiene un mod que cambia los datos del juego (como Contra): sus archivos se mezclarían. Actívalo solo para un mod hecho para el parche de GeneralsOnline.</string>
     <string name="online_datapacks_mod_found_skipped">Mod encontrado: %1$s. El parche de la comunidad no se usa con él.</string>
@@ -276,7 +276,7 @@
     <string name="online_datapacks_chip_required">Necesario para jugar en línea: pulse Actualizar</string>
     <string name="online_datapacks_chip_off">Descargado, pero desactivado</string>
     <string name="online_datapacks_chip_ready">Listo para jugar en línea</string>
-    <string name="online_datapacks_prompt">Las partidas alojadas en un PC rechazarán este dispositivo mientras falte el parche de datos de la comunidad, y se juegan en los mapas de la comunidad. ¿Descargar ambos ahora? Unos 30 MB.</string>
+    <string name="online_datapacks_prompt">Las partidas en línea rechazarán este dispositivo hasta que se instale el parche de datos de la comunidad, y se juegan en los mapas de la comunidad. ¿Descargar ambos ahora? Unos 30 MB.</string>
     <string name="online_datapacks_prompt_later">Más tarde</string>
     <string name="online_datapacks_delete_confirm">Elimina solo los archivos que instaló esta descarga. Sus mapas y partidas guardadas no se tocan.</string>
     <string name="online_datapacks_deleted">%1$d archivos eliminados.</string>
@@ -288,6 +288,7 @@
     <string name="online_crossplay_patch_missing">Falta el parche de la comunidad: pulse Actualizar</string>
     <string name="online_switch_crossplay">Jugar con jugadores de PC</string>
     <string name="online_switch_crossplay_desc">Informa la suma de comprobación EXE del cliente de Windows para que sus partidas te acepten. Esa suma no es un antitrampas: impide que jueguen juntas máquinas que calcularían la partida de forma distinta, así que esto puede desincronizar la partida para toda la sala. Actívalo para un PC tuyo y solo tras copiar sus datos INI a esta carpeta del juego.</string>
+    <string name="online_crossplay_off">Desactivado por tiempo indefinido a petición de los desarrolladores de GeneralsOnline. Las partidas en línea con otros jugadores de Android no se ven afectadas.</string>
     <string name="replaycheck_title">Comprobar repetición</string>
     <string name="replaycheck_row_note">Reproduce una repetición del PC con esta compilación sin mirarla, o salta a un fotograma, y ve dónde se separan las sumas de control.</string>
     <string name="replaycheck_refresh">Actualizar</string>
@@ -334,8 +335,8 @@
     <string name="online_datapacks_update_available">Instalada: versión %1$s. Hay una versión nueva: %2$s.</string>
     <string name="online_datapacks_update_for_crc">Instalada: versión %1$s. Actualiza una vez para que el dispositivo calcule con él la suma de verificación del cliente de PC.</string>
     <string name="online_datapacks_up_to_date">Instalada: versión %1$s, la más reciente.</string>
-    <string name="online_network_settings">Ajustes de red (servidores, compatibilidad con PC): del %1$s, actualizados automáticamente desde el GitHub del proyecto y firmados.</string>
-    <string name="online_network_settings_builtin">Ajustes de red (servidores, compatibilidad con PC): incluidos en esta versión; los nuevos llegarán automáticamente desde el GitHub del proyecto.</string>
+    <string name="online_network_settings">Ajustes de red (servidores, reglas del juego en línea): del %1$s, actualizados automáticamente desde el GitHub del proyecto y firmados.</string>
+    <string name="online_network_settings_builtin">Ajustes de red (servidores, reglas del juego en línea): incluidos en esta versión; los nuevos llegan automáticamente desde el GitHub del proyecto.</string>
     <string name="online_datapacks_chip_update">Actualización disponible</string>
     <string name="setup_card_upscale">Reescalado (Snapdragon GSR)</string>
     <string name="setup_upscale_off_short">No</string>

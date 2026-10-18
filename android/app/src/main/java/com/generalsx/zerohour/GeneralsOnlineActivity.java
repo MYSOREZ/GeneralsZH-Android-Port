@@ -206,12 +206,7 @@ public class GeneralsOnlineActivity extends Activity {
         // Whether this device can play against a PC belongs with the account screen
         // -- that is where someone goes when they want to play online at all -- and
         // filed under diagnostics it read as one more trace switch for developers.
-        // GeneralsX @tweak Android port 18/10/2026 Hidden while cross-play with PC is off (the
-        // GeneralsOnline developers asked for it): the engine ignores the marker unless the signed
-        // settings carry pc_crossplay=1 (GlobalData::init), so the switch would do nothing.
-        if (UpdateManager.featureEnabled(this, "pc_crossplay", false)) {
-            buildCrossPlayCard(page);
-        }
+        buildCrossPlayCard(page);
     }
 
     // GeneralsX @feature Android port 13/09/2026 Maps and the community data
@@ -369,7 +364,8 @@ public class GeneralsOnlineActivity extends Activity {
             dataPackStatus.setText(R.string.online_datapacks_not_installed);
         } else if (updateWanted && latest != null && !latest.equals(version)) {
             dataPackStatus.setText(getString(R.string.online_datapacks_update_available, version, latest));
-        } else if (updateWanted) {
+        } else if (updateWanted && UpdateManager.featureEnabled(this, "pc_crossplay", false)) {
+            // Only cross-play needs the PC checksum computed from the package.
             dataPackStatus.setText(getString(R.string.online_datapacks_update_for_crc, version));
         } else if (latest != null) {
             dataPackStatus.setText(getString(R.string.online_datapacks_up_to_date, version));
@@ -523,6 +519,20 @@ public class GeneralsOnlineActivity extends Activity {
         LinearLayout card = UiKit.card(page);
         UiKit.sectionHeader(card, R.drawable.ic_gzh_globe,
             getString(R.string.online_card_crossplay), false);
+
+        // GeneralsX @tweak Android port 18/10/2026 Cross-play with PC is off at the GeneralsOnline
+        // developers' request: the engine ignores the marker unless the signed settings carry
+        // pc_crossplay=1 (GlobalData::init). The card stays, with the switch shown off and
+        // disabled and the reason under it, so players see why rather than a feature gone missing.
+        if (!UpdateManager.featureEnabled(this, "pc_crossplay", false)) {
+            com.google.android.material.materialswitch.MaterialSwitch off = UiKit.switchRow(card,
+                getString(R.string.online_switch_crossplay),
+                getString(R.string.online_crossplay_off));
+            off.setChecked(false);
+            off.setEnabled(false);
+            return;
+        }
+
         UiKit.supporting(card, getString(R.string.online_crossplay_help));
 
         // GeneralsX @feature Android port 13/09/2026 The EXE checksum is only half

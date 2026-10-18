@@ -63,7 +63,7 @@
     <string name="setup_sim_rate_30_short">30 Hz</string>
     <string name="setup_sim_rate_60_short">60 Hz</string>
     <string name="setup_sim_rate_30_desc">30 Hz é o que todas as versões anteriores desta adaptação usaram. Partidas de Android contra Android funcionam, mas uma partida contra um jogador de Windows vai dessincronizar.</string>
-    <string name="setup_sim_rate_60_desc">60 Hz é o que o cliente GeneralsOnline do Windows usa, e é o que torna o multiplataforma possível. A simulação faz o dobro de trabalho por segundo, então um aparelho mais lento pode não manter a velocidade total.</string>
+    <string name="setup_sim_rate_60_desc">60 Hz é a taxa do cliente GeneralsOnline para Windows. Dobra o trabalho da simulação por segundo, então em um aparelho mais lento o jogo pode rodar abaixo da velocidade normal.</string>
     <string name="setup_sim_rate_help">A taxa é fixada quando o motor é compilado, por isso o aplicativo traz as duas versões e carrega a escolhida aqui. A mudança vale a partir da próxima vez que você iniciar o jogo. Os dois jogadores de uma partida precisam usar a mesma taxa.</string>
     <string name="setup_toast_sim_rate_saved">Taxa de simulação salva. Ela será aplicada na próxima vez que você iniciar o jogo.</string>
     <string name="online_crossplay_hz_title">Taxa de simulação alterada para 60 Hz</string>
@@ -255,7 +255,7 @@
     <string name="online_status_requesting_code">Solicitando um código de login ao servidor…</string>
     <string name="online_status_no_login_code">O servidor não emitiu um código de login. Verifique a conexão e tente de novo, ou execute o diagnóstico de rede em Ferramentas.</string>
     <string name="online_card_datapacks">Dados do jogo on-line</string>
-    <string name="online_datapacks_help">Jogar on-line exige duas coisas que o jogo não traz: o patch de dados da comunidade, do qual depende uma partida de PC aceitar este dispositivo, e os mapas da comunidade em que se joga. Ambos são baixados aqui direto do GeneralsOnline, sem PC.</string>
+    <string name="online_datapacks_help">Jogar online exige duas coisas que o jogo original não traz: o patch de dados da comunidade, com o qual toda partida online é jogada (uma partida só aceita jogadores com os mesmos dados), e os mapas da comunidade em que essas partidas acontecem. Aqui os dois são baixados direto do GeneralsOnline.</string>
     <string name="online_button_datapacks_update">Atualizar</string>
     <string name="online_datapacks_checking">Procurando atualizações…</string>
     <string name="online_datapacks_downloading">Baixando… %1$d%%</string>
@@ -266,7 +266,7 @@
     <string name="online_datapacks_not_installed">Ainda não instalado.</string>
     <string name="online_button_datapacks_delete">Excluir</string>
     <string name="online_switch_datapacks">Usar o patch de dados da comunidade</string>
-    <string name="online_switch_datapacks_desc">Desligado, o download continua no lugar, mas o jogo volta a ler os dados originais e as partidas de PC recusarão este dispositivo. Vale a partir do próximo início do jogo.</string>
+    <string name="online_switch_datapacks_desc">Desligar mantém o download, mas o jogo volta a ler os dados originais e as partidas online com o patch vão recusar este aparelho. Vale a partir do próximo início do jogo.</string>
     <string name="online_switch_datapacks_mods">Usar o patch também com mods</string>
     <string name="online_switch_datapacks_mods_desc">Por padrão o patch não é carregado se a pasta do jogo tiver um mod que muda os dados do jogo (como o Contra): os arquivos se misturariam. Ative só para um mod feito para o patch do GeneralsOnline.</string>
     <string name="online_datapacks_mod_found_skipped">Mod encontrado: %1$s. O patch da comunidade não é usado com ele.</string>
@@ -276,7 +276,7 @@
     <string name="online_datapacks_chip_required">Necessário para jogar on-line — toque em Atualizar</string>
     <string name="online_datapacks_chip_off">Baixado, mas desligado</string>
     <string name="online_datapacks_chip_ready">Pronto para jogar on-line</string>
-    <string name="online_datapacks_prompt">Partidas hospedadas em um PC recusarão este dispositivo enquanto faltar o patch de dados da comunidade, e são jogadas nos mapas da comunidade. Baixar os dois agora? Cerca de 30 MB.</string>
+    <string name="online_datapacks_prompt">As partidas online vão recusar este aparelho até que o patch de dados da comunidade esteja instalado, e elas são jogadas nos mapas da comunidade. Baixar os dois agora? Cerca de 30 MB.</string>
     <string name="online_datapacks_prompt_later">Depois</string>
     <string name="online_datapacks_delete_confirm">Remove apenas os arquivos que este download instalou. Seus mapas e jogos salvos não são tocados.</string>
     <string name="online_datapacks_deleted">%1$d arquivos excluídos.</string>
@@ -288,6 +288,7 @@
     <string name="online_crossplay_patch_missing">Falta o patch da comunidade — toque em Atualizar</string>
     <string name="online_switch_crossplay">Jogar com jogadores de PC</string>
     <string name="online_switch_crossplay_desc">Informa a soma de verificação EXE do cliente Windows para que suas partidas aceitem você. Essa soma não é anticheat — ela impede que máquinas que calculariam a partida de formas diferentes joguem juntas, então isso pode dessincronizar a partida para todos no lobby. Ative para um PC seu e somente após copiar os dados INI dele para esta pasta do jogo.</string>
+    <string name="online_crossplay_off">Desativado por tempo indeterminado a pedido dos desenvolvedores do GeneralsOnline. Partidas online com outros jogadores de Android não são afetadas.</string>
     <string name="replaycheck_title">Verificar replay</string>
     <string name="replaycheck_row_note">Rode um replay do PC nesta versão sem assistir, ou pule para um quadro, e veja onde as somas de verificação divergem.</string>
     <string name="replaycheck_refresh">Atualizar</string>
@@ -334,8 +335,8 @@
     <string name="online_datapacks_update_available">Instalada: versão %1$s. Saiu uma nova versão: %2$s.</string>
     <string name="online_datapacks_update_for_crc">Instalada: versão %1$s. Atualize uma vez para o aparelho calcular com ele o checksum do cliente de PC.</string>
     <string name="online_datapacks_up_to_date">Instalada: versão %1$s, a mais recente.</string>
-    <string name="online_network_settings">Configurações de rede (servidores, compatibilidade com PC): de %1$s, atualizadas automaticamente pelo GitHub do projeto e assinadas.</string>
-    <string name="online_network_settings_builtin">Configurações de rede (servidores, compatibilidade com PC): embutidas nesta versão; as novas virão automaticamente do GitHub do projeto.</string>
+    <string name="online_network_settings">Configurações de rede (servidores, regras do jogo online): de %1$s, atualizadas automaticamente pelo GitHub do projeto e assinadas.</string>
+    <string name="online_network_settings_builtin">Configurações de rede (servidores, regras do jogo online): embutidas nesta versão; as novas chegam automaticamente pelo GitHub do projeto.</string>
     <string name="online_datapacks_chip_update">Atualização disponível</string>
     <string name="setup_card_upscale">Upscaling (Snapdragon GSR)</string>
     <string name="setup_upscale_off_short">Desl.</string>

@@ -63,7 +63,7 @@
     <string name="setup_sim_rate_30_short">30 Hz</string>
     <string name="setup_sim_rate_60_short">60 Hz</string>
     <string name="setup_sim_rate_30_desc">30 Hz matches every earlier build of this port. Android-to-Android matches work on it, but a match against a Windows player will desynchronise.</string>
-    <string name="setup_sim_rate_60_desc">60 Hz matches the Windows GeneralsOnline client, which is what makes cross-play possible. It doubles the simulation work per second, so a slower device may run the game below full speed.</string>
+    <string name="setup_sim_rate_60_desc">60 Hz is the rate the Windows GeneralsOnline client runs at. It doubles the simulation work per second, so a slower device may run the game below full speed.</string>
     <string name="setup_sim_rate_help">The tick rate is fixed when the engine is built, so the app carries both versions and loads the one you pick here. The change takes effect the next time you start the game. Both players in a match must be on the same rate.</string>
     <string name="setup_toast_sim_rate_saved">Simulation rate saved. It will apply the next time you start the game.</string>
     <string name="online_crossplay_hz_title">Simulation rate switched to 60 Hz</string>
@@ -226,7 +226,7 @@
     <string name="online_card_sign_in">Sign in</string>
     <string name="online_signin_help">Tap Sign In. The first tap may ask to exempt this app from battery optimization -- allow it, then come back and tap Sign In again. A browser then opens to playgenerals.online, already carrying a one-time code for this device. Pick Steam, Discord, or GameReplays there, then just come back to this app; it finishes on its own.</string>
     <string name="online_card_datapacks">Online game data</string>
-    <string name="online_datapacks_help">Playing online needs two things the retail game does not ship: the community data patch, which decides whether a PC-hosted game will accept this device, and the community maps those games are played on. This fetches both from GeneralsOnline directly — no PC involved.</string>
+    <string name="online_datapacks_help">Playing online needs two things the retail game does not ship: the community data patch, which every online game is played with (a game only admits players whose game data matches), and the community maps those games are played on. This fetches both from GeneralsOnline directly.</string>
     <string name="online_button_datapacks_update">Update</string>
     <string name="online_datapacks_checking">Checking for updates…</string>
     <string name="online_datapacks_downloading">Downloading… %1$d%%</string>
@@ -237,7 +237,7 @@
     <string name="online_datapacks_not_installed">Not installed yet.</string>
     <string name="online_button_datapacks_delete">Delete</string>
     <string name="online_switch_datapacks">Use the community data patch</string>
-    <string name="online_switch_datapacks_desc">Off leaves the download in place but makes the game read retail data again, so PC-hosted games will refuse this device. Takes effect the next time the game starts.</string>
+    <string name="online_switch_datapacks_desc">Off leaves the download in place but makes the game read retail data again, so online games played with the patch will refuse this device. Takes effect the next time the game starts.</string>
     <string name="online_switch_datapacks_mods">Use the patch with mods too</string>
     <string name="online_switch_datapacks_mods_desc">By default the patch is left out when the game folder has a mod that changes game data (Contra and the like): their files would mix. Turn this on only for a mod made for the GeneralsOnline patch.</string>
     <string name="online_datapacks_mod_found_skipped">Mod found: %1$s. The community patch is not used with it.</string>
@@ -247,7 +247,7 @@
     <string name="online_datapacks_chip_required">Required for online play — tap Update</string>
     <string name="online_datapacks_chip_off">Downloaded, but switched off</string>
     <string name="online_datapacks_chip_ready">Ready for online play</string>
-    <string name="online_datapacks_prompt">Games hosted from a PC will refuse this device until the community data patch is installed, and they are played on the community maps. Download both now? About 30 MB.</string>
+    <string name="online_datapacks_prompt">Online games will refuse this device until the community data patch is installed, and they are played on the community maps. Download both now? About 30 MB.</string>
     <string name="online_datapacks_prompt_later">Later</string>
     <string name="online_datapacks_delete_confirm">Removes only the files this download installed. Your own maps and saves are left alone.</string>
     <string name="online_datapacks_deleted">Deleted %1$d files.</string>
@@ -259,6 +259,7 @@
     <string name="online_crossplay_patch_missing">Community data patch missing — tap Update</string>
     <string name="online_switch_crossplay">Play with PC players</string>
     <string name="online_switch_crossplay_desc">Reports the Windows client\'s EXE checksum so its games will accept you. That checksum is not anti-cheat — it is what keeps two machines that would compute the match differently from playing it together, so this can desync the game for everyone in the lobby. Turn it on for a PC you own, and only after copying that PC\'s INI data into this game folder so the two really do match.</string>
+    <string name="online_crossplay_off">Turned off for an indefinite time at the request of the GeneralsOnline developers. Online games with other Android players are not affected.</string>
     <string name="online_button_sign_in">Sign In</string>
     <string name="online_status_signing_in">Signing in...</string>
     <string name="online_status_battery_opt">Allow GeneralsZH to run in the background on the next screen, then come back and tap Sign In again -- otherwise Android may kill the sign-in check while you\'re in the browser.</string>
@@ -341,8 +342,8 @@
     <string name="online_datapacks_update_available">Installed: version %1$s. A new version is out: %2$s.</string>
     <string name="online_datapacks_update_for_crc">Installed: version %1$s. Update once so this device computes the PC client checksum from it.</string>
     <string name="online_datapacks_up_to_date">Installed: version %1$s, the latest.</string>
-    <string name="online_network_settings">Network settings (servers, PC compatibility): from %1$s, updated automatically from the project\'s GitHub and signed.</string>
-    <string name="online_network_settings_builtin">Network settings (servers, PC compatibility): built into this version; newer ones come automatically from the project\'s GitHub.</string>
+    <string name="online_network_settings">Network settings (servers, online rules): from %1$s, updated automatically from the project\'s GitHub and signed.</string>
+    <string name="online_network_settings_builtin">Network settings (servers, online rules): built into this version; newer ones come automatically from the project\'s GitHub.</string>
     <string name="online_datapacks_chip_update">Update available</string>
     <string name="setup_card_upscale">Upscaling (Snapdragon GSR)</string>
     <string name="setup_upscale_off_short">Off</string>

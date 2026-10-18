@@ -63,7 +63,7 @@
     <string name="setup_sim_rate_30_short">30 Hz</string>
     <string name="setup_sim_rate_60_short">60 Hz</string>
     <string name="setup_sim_rate_30_desc">30Hz는 이 이식판의 모든 이전 빌드가 사용한 값입니다. 안드로이드끼리는 정상 동작하지만 윈도우 플레이어와의 대전은 동기화가 깨집니다.</string>
-    <string name="setup_sim_rate_60_desc">60Hz는 윈도우용 GeneralsOnline 클라이언트가 사용하는 값이며, 크로스플레이를 가능하게 하는 유일한 설정입니다. 초당 시뮬레이션 작업량이 두 배가 되므로 성능이 낮은 기기에서는 게임이 느려질 수 있습니다.</string>
+    <string name="setup_sim_rate_60_desc">60Hz는 Windows용 GeneralsOnline 클라이언트의 속도입니다. 초당 시뮬레이션 작업이 두 배가 되므로 느린 기기에서는 게임이 정상 속도보다 느릴 수 있습니다.</string>
     <string name="setup_sim_rate_help">주기는 엔진을 빌드할 때 고정되므로 앱이 두 버전을 모두 담고 있으며 여기서 선택한 쪽을 불러옵니다. 변경은 다음 게임 실행부터 적용됩니다. 한 경기의 두 플레이어는 같은 주기를 써야 합니다.</string>
     <string name="setup_toast_sim_rate_saved">시뮬레이션 주기를 저장했습니다. 다음 게임 실행부터 적용됩니다.</string>
     <string name="online_crossplay_hz_title">시뮬레이션 주기가 60Hz로 전환되었습니다</string>
@@ -255,7 +255,7 @@
     <string name="online_status_requesting_code">서버에 로그인 코드를 요청하는 중…</string>
     <string name="online_status_no_login_code">서버가 로그인 코드를 발급하지 않았습니다. 연결을 확인하고 다시 시도하거나, 도구에서 네트워크 진단을 실행하세요.</string>
     <string name="online_card_datapacks">온라인 게임 데이터</string>
-    <string name="online_datapacks_help">온라인 플레이에는 게임에 들어 있지 않은 두 가지가 필요합니다. PC 게임이 이 기기를 받아줄지 결정하는 커뮤니티 데이터 패치와, 그 게임들이 진행되는 커뮤니티 맵입니다. 여기서 둘 다 GeneralsOnline에서 바로 받습니다 — PC는 필요 없습니다.</string>
+    <string name="online_datapacks_help">온라인 플레이에는 정품 게임에 없는 두 가지가 필요합니다. 모든 온라인 게임이 사용하는 커뮤니티 데이터 패치(게임 데이터가 같은 플레이어만 입장할 수 있습니다)와 그 게임들이 열리는 커뮤니티 맵입니다. 여기서 둘 다 GeneralsOnline에서 바로 받습니다.</string>
     <string name="online_button_datapacks_update">업데이트</string>
     <string name="online_datapacks_checking">업데이트 확인 중…</string>
     <string name="online_datapacks_downloading">다운로드 중… %1$d%%</string>
@@ -266,7 +266,7 @@
     <string name="online_datapacks_not_installed">아직 설치되지 않았습니다.</string>
     <string name="online_button_datapacks_delete">삭제</string>
     <string name="online_switch_datapacks">커뮤니티 데이터 패치 사용</string>
-    <string name="online_switch_datapacks_desc">끄면 내려받은 파일은 그대로 두되 게임이 다시 원본 데이터를 읽으므로, PC 호스트 게임이 이 기기를 거부합니다. 다음 게임 실행부터 적용됩니다.</string>
+    <string name="online_switch_datapacks_desc">끄면 받은 파일은 그대로 두지만 게임이 다시 정품 데이터를 읽으므로, 패치를 쓰는 온라인 게임이 이 기기를 거부합니다. 다음에 게임을 시작할 때 적용됩니다.</string>
     <string name="online_switch_datapacks_mods">모드와 함께도 패치 사용</string>
     <string name="online_switch_datapacks_mods_desc">게임 폴더에 게임 데이터를 바꾸는 모드(예: Contra)가 있으면 기본적으로 패치를 불러오지 않습니다. 파일이 섞이기 때문입니다. GeneralsOnline 패치용으로 만든 모드일 때만 켜세요.</string>
     <string name="online_datapacks_mod_found_skipped">모드 발견: %1$s. 커뮤니티 패치를 함께 사용하지 않습니다.</string>
@@ -276,7 +276,7 @@
     <string name="online_datapacks_chip_required">온라인 플레이에 필요 — 업데이트를 누르세요</string>
     <string name="online_datapacks_chip_off">내려받았지만 꺼져 있음</string>
     <string name="online_datapacks_chip_ready">온라인 플레이 준비 완료</string>
-    <string name="online_datapacks_prompt">PC에서 호스트한 게임은 커뮤니티 데이터 패치가 없으면 이 기기를 거부하며, 그 게임들은 커뮤니티 맵에서 진행됩니다. 지금 둘 다 내려받을까요? 약 30MB입니다.</string>
+    <string name="online_datapacks_prompt">커뮤니티 데이터 패치를 설치하기 전까지 온라인 게임이 이 기기를 거부하며, 게임은 커뮤니티 맵에서 열립니다. 지금 둘 다 받을까요? 약 30MB.</string>
     <string name="online_datapacks_prompt_later">나중에</string>
     <string name="online_datapacks_delete_confirm">이 다운로드가 설치한 파일만 지웁니다. 직접 넣은 맵과 저장 파일은 건드리지 않습니다.</string>
     <string name="online_datapacks_deleted">파일 %1$d개를 삭제했습니다.</string>
@@ -288,6 +288,7 @@
     <string name="online_crossplay_patch_missing">커뮤니티 데이터 패치 없음 — 업데이트를 누르세요</string>
     <string name="online_switch_crossplay">PC 플레이어와 함께 플레이</string>
     <string name="online_switch_crossplay_desc">Windows 클라이언트의 EXE 체크섬을 보고해 해당 게임이 참가를 허용하게 합니다. 이 체크섬은 안티치트가 아니라, 경기를 다르게 계산할 기기끼리 함께 플레이하지 못하게 막는 장치입니다. 따라서 로비의 모든 사람에게 동기화 오류를 낼 수 있습니다. 본인 소유의 PC를 상대할 때, 그 PC의 INI 데이터를 이 게임 폴더에 복사한 뒤에만 켜세요.</string>
+    <string name="online_crossplay_off">GeneralsOnline 개발자의 요청으로 무기한 꺼져 있습니다. 다른 Android 플레이어와의 온라인 게임에는 영향이 없습니다.</string>
     <string name="replaycheck_title">리플레이 검사</string>
     <string name="replaycheck_row_note">PC 리플레이를 이 빌드에서 보지 않고 끝까지 돌리거나 특정 프레임으로 건너뛰어, 체크섬이 어디서 갈라지는지 확인합니다.</string>
     <string name="replaycheck_refresh">새로 고침</string>
@@ -334,8 +335,8 @@
     <string name="online_datapacks_update_available">설치됨: 버전 %1$s. 새 버전이 나왔습니다: %2$s.</string>
     <string name="online_datapacks_update_for_crc">설치됨: 버전 %1$s. 한 번 업데이트하면 이 기기가 PC 클라이언트 체크섬을 계산합니다.</string>
     <string name="online_datapacks_up_to_date">설치됨: 버전 %1$s, 최신입니다.</string>
-    <string name="online_network_settings">네트워크 설정(서버, PC 호환성): %1$s 게시, 프로젝트 GitHub에서 자동으로 업데이트되며 서명되어 있습니다.</string>
-    <string name="online_network_settings_builtin">네트워크 설정(서버, PC 호환성): 이 버전에 내장됨. 새 설정은 프로젝트 GitHub에서 자동으로 받습니다.</string>
+    <string name="online_network_settings">네트워크 설정(서버, 온라인 규칙): %1$s 기준, 프로젝트 GitHub에서 자동으로 업데이트되며 서명되어 있습니다.</string>
+    <string name="online_network_settings_builtin">네트워크 설정(서버, 온라인 규칙): 이 버전에 내장됨. 새 설정은 프로젝트 GitHub에서 자동으로 받습니다.</string>
     <string name="online_datapacks_chip_update">업데이트 있음</string>
     <string name="setup_card_upscale">업스케일링 (Snapdragon GSR)</string>
     <string name="setup_upscale_off_short">끔</string>

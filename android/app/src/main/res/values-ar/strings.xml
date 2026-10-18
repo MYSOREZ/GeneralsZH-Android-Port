@@ -63,7 +63,7 @@
     <string name="setup_sim_rate_30_short">30 Hz</string>
     <string name="setup_sim_rate_60_short">60 Hz</string>
     <string name="setup_sim_rate_30_desc">‏30 هرتز هو ما استخدمته كل الإصدارات السابقة من هذا النقل. مباريات أندرويد ضد أندرويد تعمل به، لكن مباراة ضد لاعب على ويندوز ستفقد التزامن.</string>
-    <string name="setup_sim_rate_60_desc">‏60 هرتز هو ما يستخدمه عميل GeneralsOnline على ويندوز، وهو ما يجعل اللعب المشترك ممكنًا. يضاعف ذلك عمل المحاكاة في الثانية، لذا قد لا يبلغ جهاز أبطأ السرعة الكاملة.</string>
+    <string name="setup_sim_rate_60_desc">60 هرتز هو معدل عميل GeneralsOnline على Windows. يضاعف عمل المحاكاة في الثانية، لذا قد تعمل اللعبة على جهاز أبطأ بأقل من سرعتها الكاملة.</string>
     <string name="setup_sim_rate_help">يُثبَّت المعدل عند بناء المحرك، لذا يحمل التطبيق النسختين معًا ويحمّل ما تختاره هنا. يسري التغيير عند تشغيل اللعبة في المرة القادمة. يجب أن يستخدم اللاعبان في المباراة المعدل نفسه.</string>
     <string name="setup_toast_sim_rate_saved">تم حفظ معدل المحاكاة. سيسري عند تشغيل اللعبة في المرة القادمة.</string>
     <string name="online_crossplay_hz_title">تم تبديل معدل المحاكاة إلى 60 هرتز</string>
@@ -255,7 +255,7 @@
     <string name="online_status_requesting_code">جارٍ طلب رمز تسجيل الدخول من الخادم…</string>
     <string name="online_status_no_login_code">لم يُصدر الخادم رمز تسجيل دخول. تحقّق من الاتصال وحاول مجددًا، أو شغّل تشخيص الشبكة من الأدوات.</string>
     <string name="online_card_datapacks">بيانات اللعب عبر الإنترنت</string>
-    <string name="online_datapacks_help">يحتاج اللعب عبر الإنترنت إلى شيئين لا تتضمنهما اللعبة: حزمة بيانات المجتمع التي يتوقف عليها قبول مباراة الحاسوب لهذا الجهاز، وخرائط المجتمع التي تُلعب عليها تلك المباريات. يجري تنزيلهما هنا مباشرةً من GeneralsOnline، دون الحاجة إلى حاسوب.</string>
+    <string name="online_datapacks_help">يحتاج اللعب عبر الإنترنت إلى شيئين لا تتضمنهما اللعبة الأصلية: رقعة بيانات المجتمع التي تُلعب بها كل مباراة عبر الإنترنت (لا تقبل المباراة إلا اللاعبين ذوي البيانات المتطابقة)، وخرائط المجتمع التي تُلعب عليها هذه المباريات. يُنزَّل كلاهما هنا مباشرة من GeneralsOnline.</string>
     <string name="online_button_datapacks_update">تحديث</string>
     <string name="online_datapacks_checking">جارٍ البحث عن تحديثات…</string>
     <string name="online_datapacks_downloading">جارٍ التنزيل… %1$d%%</string>
@@ -266,7 +266,7 @@
     <string name="online_datapacks_not_installed">غير مثبّت بعد.</string>
     <string name="online_button_datapacks_delete">حذف</string>
     <string name="online_switch_datapacks">استخدام حزمة بيانات المجتمع</string>
-    <string name="online_switch_datapacks_desc">الإيقاف يُبقي الملفات المنزَّلة لكن اللعبة تعود إلى قراءة بيانات النسخة الأصلية، فترفض مباريات الحاسوب هذا الجهاز. يسري عند تشغيل اللعبة في المرة القادمة.</string>
+    <string name="online_switch_datapacks_desc">الإيقاف يُبقي التنزيل في مكانه، لكن اللعبة تعود لقراءة البيانات الأصلية، فترفض مباريات الإنترنت التي تستخدم الرقعة هذا الجهاز. يسري عند تشغيل اللعبة في المرة التالية.</string>
     <string name="online_switch_datapacks_mods">استخدام الرقعة مع التعديلات أيضًا</string>
     <string name="online_switch_datapacks_mods_desc">افتراضيًا لا تُحمَّل الرقعة إذا كان في مجلد اللعبة تعديل يغيّر بيانات اللعبة (مثل Contra): ستختلط ملفاتهما. فعّله فقط لتعديل مصنوع لرقعة GeneralsOnline.</string>
     <string name="online_datapacks_mod_found_skipped">عُثر على تعديل: %1$s. لا تُستخدم رقعة المجتمع معه.</string>
@@ -276,7 +276,7 @@
     <string name="online_datapacks_chip_required">مطلوب للعب عبر الإنترنت — اضغط «تحديث»</string>
     <string name="online_datapacks_chip_off">منزَّل لكنه متوقف</string>
     <string name="online_datapacks_chip_ready">جاهز للعب عبر الإنترنت</string>
-    <string name="online_datapacks_prompt">سترفض المباريات المستضافة من حاسوب هذا الجهاز ما دامت حزمة بيانات المجتمع غير مثبّتة، وهي تُلعب على خرائط المجتمع. أتريد تنزيلهما الآن؟ نحو 30 ميغابايت.</string>
+    <string name="online_datapacks_prompt">سترفض مباريات الإنترنت هذا الجهاز حتى تُثبَّت رقعة بيانات المجتمع، وهي تُلعب على خرائط المجتمع. هل تريد تنزيل الاثنين الآن؟ نحو 30 ميغابايت.</string>
     <string name="online_datapacks_prompt_later">لاحقاً</string>
     <string name="online_datapacks_delete_confirm">يحذف ملفات هذا التنزيل فقط. خرائطك وملفات حفظك لا تُمَس.</string>
     <string name="online_datapacks_deleted">تم حذف %1$d ملفاً.</string>
@@ -288,6 +288,7 @@
     <string name="online_crossplay_patch_missing">حزمة بيانات المجتمع مفقودة — اضغط «تحديث»</string>
     <string name="online_switch_crossplay">اللعب مع لاعبي الحاسوب</string>
     <string name="online_switch_crossplay_desc">يُبلغ عن مجموع تحقّق EXE الخاص بعميل ويندوز كي تقبلك مبارياته. هذا المجموع ليس مضادًا للغش: وظيفته منع جهازين يحسبان المباراة بطريقتين مختلفتين من اللعب معًا، لذا قد يُفسد ذلك المباراة على الجميع في الردهة. فعّله لحاسوب تملكه، وبعد نسخ بيانات INI منه إلى مجلد اللعبة هذا فقط.</string>
+    <string name="online_crossplay_off">أُوقف لأجل غير مسمى بطلب من مطوري GeneralsOnline. لا يتأثر اللعب عبر الإنترنت مع لاعبي Android الآخرين.</string>
     <string name="replaycheck_title">فحص الإعادة</string>
     <string name="replaycheck_row_note">شغّل إعادة من الحاسوب على هذا الإصدار دون مشاهدتها، أو انتقل إلى إطار معيّن، واعرف أين تفترق مجاميع التحقق.</string>
     <string name="replaycheck_refresh">تحديث</string>
@@ -334,8 +335,8 @@
     <string name="online_datapacks_update_available">المثبت: الإصدار %1$s. صدر إصدار جديد: %2$s.</string>
     <string name="online_datapacks_update_for_crc">المثبت: الإصدار %1$s. حدّث مرة واحدة ليحسب هذا الجهاز منه المجموع الاختباري لعميل الحاسوب.</string>
     <string name="online_datapacks_up_to_date">المثبت: الإصدار %1$s، وهو الأحدث.</string>
-    <string name="online_network_settings">إعدادات الشبكة (الخوادم، التوافق مع الحاسوب): بتاريخ %1$s، تُحدَّث تلقائيًا من GitHub المشروع وموقّعة.</string>
-    <string name="online_network_settings_builtin">إعدادات الشبكة (الخوادم، التوافق مع الحاسوب): مدمجة في هذا الإصدار؛ ستصل الأحدث تلقائيًا من GitHub المشروع.</string>
+    <string name="online_network_settings">إعدادات الشبكة (الخوادم، قواعد اللعب عبر الإنترنت): من %1$s، تُحدَّث تلقائيًا من GitHub المشروع وموقّعة.</string>
+    <string name="online_network_settings_builtin">إعدادات الشبكة (الخوادم، قواعد اللعب عبر الإنترنت): مضمّنة في هذا الإصدار؛ وتصل الأحدث تلقائيًا من GitHub المشروع.</string>
     <string name="online_datapacks_chip_update">يتوفر تحديث</string>
     <string name="setup_card_upscale">رفع الدقة (Snapdragon GSR)</string>
     <string name="setup_upscale_off_short">إيقاف</string>

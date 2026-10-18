@@ -63,7 +63,7 @@
     <string name="setup_sim_rate_30_short">30 Hz</string>
     <string name="setup_sim_rate_60_short">60 Hz</string>
     <string name="setup_sim_rate_30_desc">‏۳۰ هرتز همان چیزی است که همهٔ نسخه‌های پیشین این پورت داشتند. بازی اندروید با اندروید با آن کار می‌کند، اما بازی در برابر بازیکن ویندوز هماهنگی‌اش را از دست می‌دهد.</string>
-    <string name="setup_sim_rate_60_desc">‏۶۰ هرتز همان نرخ کلاینت GeneralsOnline روی ویندوز است و تنها حالتی است که بازی میان‌سکویی را ممکن می‌کند. کار شبیه‌سازی در هر ثانیه دو برابر می‌شود، پس ممکن است دستگاه کندتر به سرعت کامل نرسد.</string>
+    <string name="setup_sim_rate_60_desc">۶۰ هرتز نرخ کلاینت GeneralsOnline در ویندوز است. کار شبیه‌سازی در هر ثانیه دو برابر می‌شود، پس روی دستگاه کندتر ممکن است بازی کندتر از سرعت عادی اجرا شود.</string>
     <string name="setup_sim_rate_help">نرخ تیک هنگام ساخت موتور تثبیت می‌شود، بنابراین برنامه هر دو نسخه را همراه دارد و همانی را بار می‌کند که اینجا انتخاب می‌کنید. تغییر از اجرای بعدی بازی اعمال می‌شود. هر دو بازیکن یک مسابقه باید نرخ یکسانی داشته باشند.</string>
     <string name="setup_toast_sim_rate_saved">نرخ شبیه‌سازی ذخیره شد. از اجرای بعدی بازی اعمال می‌شود.</string>
     <string name="online_crossplay_hz_title">نرخ شبیه‌سازی به ۶۰ هرتز تغییر کرد</string>
@@ -255,7 +255,7 @@
     <string name="online_status_requesting_code">در حال درخواست کد ورود از سرور…</string>
     <string name="online_status_no_login_code">سرور کد ورود صادر نکرد. اتصال را بررسی کنید و دوباره تلاش کنید، یا عیب‌یابی شبکه را در ابزارها اجرا کنید.</string>
     <string name="online_card_datapacks">داده‌های بازی آنلاین</string>
-    <string name="online_datapacks_help">بازی آنلاین به دو چیز نیاز دارد که در خود بازی نیست: وصله داده‌های انجمن، که پذیرفته‌شدن این دستگاه در بازی رایانه به آن بستگی دارد، و نقشه‌های انجمن که آن بازی‌ها روی آن‌ها انجام می‌شود. هر دو اینجا مستقیم از GeneralsOnline دریافت می‌شوند — بدون نیاز به رایانه.</string>
+    <string name="online_datapacks_help">بازی آنلاین به دو چیز نیاز دارد که بازی اصلی ندارد: وصلهٔ داده‌های جامعه که همهٔ بازی‌های آنلاین با آن انجام می‌شوند (یک بازی فقط بازیکنانی با داده‌های یکسان را می‌پذیرد) و نقشه‌های جامعه که این بازی‌ها روی آن‌ها انجام می‌شوند. هر دو اینجا مستقیم از GeneralsOnline دریافت می‌شوند.</string>
     <string name="online_button_datapacks_update">به‌روزرسانی</string>
     <string name="online_datapacks_checking">در حال بررسی به‌روزرسانی…</string>
     <string name="online_datapacks_downloading">در حال دانلود… %1$d%%</string>
@@ -266,7 +266,7 @@
     <string name="online_datapacks_not_installed">هنوز نصب نشده است.</string>
     <string name="online_button_datapacks_delete">حذف</string>
     <string name="online_switch_datapacks">استفاده از وصله داده‌های انجمن</string>
-    <string name="online_switch_datapacks_desc">خاموش‌کردن فایل‌های دانلودشده را نگه می‌دارد، اما بازی دوباره داده‌های اصلی را می‌خواند و بازی‌های رایانه این دستگاه را نمی‌پذیرند. از اجرای بعدی بازی اعمال می‌شود.</string>
+    <string name="online_switch_datapacks_desc">خاموش کردن، فایل دریافت‌شده را نگه می‌دارد، اما بازی دوباره داده‌های اصلی را می‌خواند و بازی‌های آنلاین با وصله این دستگاه را نمی‌پذیرند. از اجرای بعدی بازی اعمال می‌شود.</string>
     <string name="online_switch_datapacks_mods">استفاده از وصله همراه با ماد</string>
     <string name="online_switch_datapacks_mods_desc">به‌طور پیش‌فرض اگر در پوشهٔ بازی مادی باشد که داده‌های بازی را تغییر می‌دهد (مثل Contra)، وصله بارگذاری نمی‌شود: فایل‌هایشان قاطی می‌شوند. فقط برای مادی روشن کنید که برای وصلهٔ GeneralsOnline ساخته شده است.</string>
     <string name="online_datapacks_mod_found_skipped">ماد پیدا شد: %1$s. وصلهٔ جامعه همراه آن استفاده نمی‌شود.</string>
@@ -276,7 +276,7 @@
     <string name="online_datapacks_chip_required">برای بازی آنلاین لازم است — «به‌روزرسانی» را بزنید</string>
     <string name="online_datapacks_chip_off">دانلود شده، اما خاموش است</string>
     <string name="online_datapacks_chip_ready">آماده بازی آنلاین</string>
-    <string name="online_datapacks_prompt">تا وقتی وصله داده‌های انجمن نصب نشده باشد، بازی‌هایی که از رایانه میزبانی می‌شوند این دستگاه را نمی‌پذیرند و روی نقشه‌های انجمن انجام می‌شوند. هر دو الان دانلود شوند؟ حدود ۳۰ مگابایت.</string>
+    <string name="online_datapacks_prompt">تا وقتی وصلهٔ داده‌های جامعه نصب نشود، بازی‌های آنلاین این دستگاه را نمی‌پذیرند و روی نقشه‌های جامعه انجام می‌شوند. هر دو را الان دریافت کنیم؟ حدود ۳۰ مگابایت.</string>
     <string name="online_datapacks_prompt_later">بعداً</string>
     <string name="online_datapacks_delete_confirm">فقط فایل‌هایی که این دانلود نصب کرده حذف می‌شوند. نقشه‌ها و ذخیره‌های خودتان دست‌نخورده می‌مانند.</string>
     <string name="online_datapacks_deleted">%1$d فایل حذف شد.</string>
@@ -288,6 +288,7 @@
     <string name="online_crossplay_patch_missing">وصله داده‌های انجمن نیست — «به‌روزرسانی» را بزنید</string>
     <string name="online_switch_crossplay">بازی با بازیکنان رایانه</string>
     <string name="online_switch_crossplay_desc">مجموع کنترلی EXE کلاینت ویندوز را گزارش می‌کند تا بازی‌هایش شما را بپذیرند. این مجموع ضدتقلب نیست: جلوی هم‌بازی شدن دستگاه‌هایی را می‌گیرد که بازی را متفاوت محاسبه می‌کنند، پس می‌تواند بازی را برای همهٔ افراد لابی خراب کند. برای رایانهٔ خودتان و فقط پس از کپی‌کردن داده‌های INI آن به این پوشهٔ بازی روشن کنید.</string>
+    <string name="online_crossplay_off">به درخواست توسعه‌دهندگان GeneralsOnline برای مدتی نامعلوم خاموش شده است. بازی آنلاین با دیگر بازیکنان اندروید تحت تأثیر نیست.</string>
     <string name="replaycheck_title">بررسی بازپخش</string>
     <string name="replaycheck_row_note">یک بازپخش رایانه را روی این نسخه بدون تماشا اجرا کنید یا به یک فریم بروید و ببینید مجموع‌های بررسی از کجا از هم جدا می‌شوند.</string>
     <string name="replaycheck_refresh">تازه‌سازی</string>
@@ -334,8 +335,8 @@
     <string name="online_datapacks_update_available">نصب‌شده: نسخهٔ %1$s. نسخهٔ جدید منتشر شده: %2$s.</string>
     <string name="online_datapacks_update_for_crc">نصب‌شده: نسخهٔ %1$s. یک بار به‌روز کنید تا این دستگاه از روی آن جمع کنترلی کلاینت رایانه را حساب کند.</string>
     <string name="online_datapacks_up_to_date">نصب‌شده: نسخهٔ %1$s، آخرین نسخه.</string>
-    <string name="online_network_settings">تنظیمات شبکه (سرورها، سازگاری با رایانه): مورخ %1$s، به‌طور خودکار از GitHub پروژه به‌روز و امضا می‌شوند.</string>
-    <string name="online_network_settings_builtin">تنظیمات شبکه (سرورها، سازگاری با رایانه): درون این نسخه؛ نسخه‌های تازه به‌طور خودکار از GitHub پروژه می‌آیند.</string>
+    <string name="online_network_settings">تنظیمات شبکه (سرورها، قوانین بازی آنلاین): از %1$s، به‌طور خودکار از GitHub پروژه به‌روز و امضا می‌شود.</string>
+    <string name="online_network_settings_builtin">تنظیمات شبکه (سرورها، قوانین بازی آنلاین): درون این نسخه؛ نسخه‌های جدیدتر خودکار از GitHub پروژه می‌آیند.</string>
     <string name="online_datapacks_chip_update">به‌روزرسانی موجود است</string>
     <string name="setup_card_upscale">افزایش وضوح (Snapdragon GSR)</string>
     <string name="setup_upscale_off_short">خاموش</string>

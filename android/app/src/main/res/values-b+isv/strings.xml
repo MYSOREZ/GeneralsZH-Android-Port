@@ -63,7 +63,7 @@
     <string name="setup_sim_rate_30_short">30 Hz</string>
     <string name="setup_sim_rate_60_short">60 Hz</string>
     <string name="setup_sim_rate_30_desc">30 Hz je to, čto imali vse prědšestvujuče verzije tutoj portacije. Igra Android proti Androida rabotaje, no meč proti igrača na Windows izgubi sinhronizaciju.</string>
-    <string name="setup_sim_rate_60_desc">60 Hz je častota klienta GeneralsOnline na Windows i jedina, pri kotoroj možlivo jest igrati s PC. Simulacija děla dvakrat vyše rabotǫ na sekundǫ, tomu na slabšem uređaju igra može iti pomalěje.</string>
+    <string name="setup_sim_rate_60_desc">60 Hz jest čestota klienta GeneralsOnline za Windows. Simulacija imaje dvakrat vęcej raboty za sekundu, zato na slabšem ustrojstvu igra može iti medlenněje od normy.</string>
     <string name="setup_sim_rate_help">Častota tika jest utverđena pri buđenju motora, tomu aplikacija nese obě verzije i nalagaje tu, kotorǫ izbereš tutde. Izměna dějstvuje pri slědujučem puščenju igry. Oba igrača v meču mahjǫt iměti istǫ častotǫ.</string>
     <string name="setup_toast_sim_rate_saved">Častota simulacije sohranjena. Budě dějstvovati pri slědujučem puščenju igry.</string>
     <string name="online_crossplay_hz_title">Častota simulacije prěključena na 60 Hz</string>
@@ -255,7 +255,7 @@
     <string name="online_status_requesting_code">Zaprašajemo kod vhoda od servera…</string>
     <string name="online_status_no_login_code">Server ne vydal kod vhoda. Proverite sopojenje i probujte znovu, ili pustite «Diagnostiku mreže» v Instrumentah.</string>
     <string name="online_card_datapacks">Podatky mrežnoj igry</string>
-    <string name="online_datapacks_help">Za igru po mreži trěbujut dvě věci, kojih ne jest v samoj igrě: zajedniča zaplata podatkov, od koje zavisi, čto igra iz komputera primi sej pristroj, i zajedniče karty, na kojih te igry idut. Tu obadvě sę tęgajut prěmo iz GeneralsOnline — komputer ne jest potrěbny.</string>
+    <string name="online_datapacks_help">Za igru v seti sut potrebne dve veči, ktoryh ne imaje originalna igra: zaplata dannyh obščiny, s kojeju igrajut vse setevye igry (igra prijmaje jedino igračev s jednakymi dannymi), i karty obščiny, na kojih se tute igry igrajut. Tuto oboje se skačaje prjamo iz GeneralsOnline.</string>
     <string name="online_button_datapacks_update">Obnoviti</string>
     <string name="online_datapacks_checking">Prověrjanje obnovlenij…</string>
     <string name="online_datapacks_downloading">Tęganje… %1$d%%</string>
@@ -266,7 +266,7 @@
     <string name="online_datapacks_not_installed">Ješče ne instalovano.</string>
     <string name="online_button_datapacks_delete">Izbrisati</string>
     <string name="online_switch_datapacks">Upotrěbjati zajedniču zaplatu podatkov</string>
-    <string name="online_switch_datapacks_desc">Vyključenje ne izbriše tęgnutoje, ale igra zase čitaje retail podatky, i igry iz komputera odkažut semu pristroju. Dějstvuje pri sledujučem puščenju igry.</string>
+    <string name="online_switch_datapacks_desc">Izključenje ne udaljaje skačanoje, ale igra opet čitaje originalne danne, i setevye igry se zaplatoju odkažut tomu ustrojstvu. Dějstvuje od slědnjego zapusku igry.</string>
     <string name="online_switch_datapacks_mods">Upotrěbjati zaplatu i s modami</string>
     <string name="online_switch_datapacks_mods_desc">Po umolčanju zaplata ne jest vključena, ako v papkě igry jest mod, ktory měnjaje podatky igry (na priklad Contra): njih fajly by sę směšali. Vključite, jedino ako mod jest sdělany za zaplatu GeneralsOnline.</string>
     <string name="online_datapacks_mod_found_skipped">Najdeny mod: %1$s. Zajedniča zaplata s nim ne jest upotrěbjena.</string>
@@ -276,7 +276,7 @@
     <string name="online_datapacks_chip_required">Trěbno za mrežnu igru — pritisnite «Obnoviti»</string>
     <string name="online_datapacks_chip_off">Tęgnuto, ale vyključeno</string>
     <string name="online_datapacks_chip_ready">Gotovo do mrežnoj igry</string>
-    <string name="online_datapacks_prompt">Igry, hostovane iz komputera, budut odkazyvati semu pristroju, dokole ne jest instalovana zajedniča zaplata podatkov, i igrajut sę na zajedničih kartah. Tęgnuti oboje sejčas? Okolo 30 MB.</string>
+    <string name="online_datapacks_prompt">Setevye igry budut odkazyvati tomu ustrojstvu, dokolě ne jest ustanovjena zaplata dannyh obščiny, i igrajut se na kartah obščiny. Skačati oboje teraz? Okolo 30 MB.</string>
     <string name="online_datapacks_prompt_later">Pozdněje</string>
     <string name="online_datapacks_delete_confirm">Izbriva sę samo to, čto sej tęg instalovaŭ. Vaše karty i zapisy ostajut netknute.</string>
     <string name="online_datapacks_deleted">Izbrisano fajlov: %1$d.</string>
@@ -288,6 +288,7 @@
     <string name="online_crossplay_patch_missing">Nema zajedničej zaplaty — pritisnite «Obnoviti»</string>
     <string name="online_switch_crossplay">Igrati s igračami na PC</string>
     <string name="online_switch_crossplay_desc">Soobčaje kontrolnu sumu EXE Windows-klienta, aby jego igry vas puščali. Ta suma ne jest antičit — ona ne dozvoljaje igrati vmeste mašinam, ktore bi sčitali meč različno, tako to može razvaliti igru vsem v lobby. Vključite za svoj PC i samo poslě kopirovanja jego INI-dannyh v tu papku igry.</string>
+    <string name="online_crossplay_off">Izključeno na neopredeljeno vrěme na prosbu razrabotnikov GeneralsOnline. Setevyh igr s drugymi igračami na Android to ne dotyče.</string>
     <string name="replaycheck_title">Provrka replaja</string>
     <string name="replaycheck_row_note">Prognati replaj s PK na tutoj versiji bez gledanja ili skočiti do kadra i viděti, kde se razhodet kontrolne sumy.</string>
     <string name="replaycheck_refresh">Obnoviti</string>
@@ -334,8 +335,8 @@
     <string name="online_datapacks_update_available">Ustanovjena versija %1$s. Jest nova versija: %2$s.</string>
     <string name="online_datapacks_update_for_crc">Ustanovjena versija %1$s. Obnovite jedin raz, da pristroj izčisli iz nje kontrolnu sumu komputernogo klienta.</string>
     <string name="online_datapacks_up_to_date">Ustanovjena versija %1$s, najnovějša.</string>
-    <string name="online_network_settings">Mrežne nastavjenja (servery, sųglasnost s komputerom): od %1$s, obnovjajut sę avtomatično iz GitHub projekta i sut podpisane.</string>
-    <string name="online_network_settings_builtin">Mrežne nastavjenja (servery, sųglasnost s komputerom): vstrojene v tutu versiju; nove prijdut avtomatično iz GitHub projekta.</string>
+    <string name="online_network_settings">Nastrojenja seti (servery, pravila setevoj igry): od %1$s, obnovjajut se avtomatično iz GitHub projekta i sut podpisane.</string>
+    <string name="online_network_settings_builtin">Nastrojenja seti (servery, pravila setevoj igry): vstrojene v tu versiju; novejše prijdut avtomatično iz GitHub projekta.</string>
     <string name="online_datapacks_chip_update">Jest obnovljenje</string>
     <string name="setup_card_upscale">Uvečenje (Snapdragon GSR)</string>
     <string name="setup_upscale_off_short">Vyklj.</string>

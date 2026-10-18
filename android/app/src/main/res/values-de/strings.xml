@@ -63,7 +63,7 @@
     <string name="setup_sim_rate_30_short">30 Hz</string>
     <string name="setup_sim_rate_60_short">60 Hz</string>
     <string name="setup_sim_rate_30_desc">30 Hz entspricht allen bisherigen Versionen dieser Portierung. Android-gegen-Android funktioniert damit, ein Spiel gegen einen Windows-Spieler läuft aber auseinander.</string>
-    <string name="setup_sim_rate_60_desc">60 Hz entspricht dem GeneralsOnline-Client unter Windows und ist die einzige Rate, mit der Cross-Play möglich ist. Die Simulation leistet doppelt so viel Arbeit pro Sekunde, daher kann das Spiel auf langsameren Geräten unter voller Geschwindigkeit laufen.</string>
+    <string name="setup_sim_rate_60_desc">60 Hz ist die Rate des GeneralsOnline-Clients für Windows. Die Simulation hat doppelt so viel Arbeit pro Sekunde, daher kann das Spiel auf einem langsameren Gerät unter voller Geschwindigkeit laufen.</string>
     <string name="setup_sim_rate_help">Die Taktrate wird beim Kompilieren der Engine festgelegt, deshalb enthält die App beide Versionen und lädt die hier gewählte. Die Änderung greift beim nächsten Start des Spiels. Beide Spieler eines Matches müssen dieselbe Rate verwenden.</string>
     <string name="setup_toast_sim_rate_saved">Simulationsrate gespeichert. Sie greift beim nächsten Start des Spiels.</string>
     <string name="online_crossplay_hz_title">Simulationsrate auf 60 Hz umgestellt</string>
@@ -255,7 +255,7 @@
     <string name="online_status_requesting_code">Anmeldecode wird vom Server angefordert…</string>
     <string name="online_status_no_login_code">Der Server hat keinen Anmeldecode ausgegeben. Prüfe die Verbindung und versuche es erneut, oder führe die Netzwerkdiagnose unter Werkzeuge aus.</string>
     <string name="online_card_datapacks">Online-Spieldaten</string>
-    <string name="online_datapacks_help">Für das Spiel im Netz fehlen dem Spiel zwei Dinge: der Community-Datenpatch, von dem abhängt, ob ein PC-Spiel dieses Gerät annimmt, und die Community-Karten, auf denen gespielt wird. Beides wird hier direkt von GeneralsOnline geladen — ganz ohne PC.</string>
+    <string name="online_datapacks_help">Online-Spiele brauchen zwei Dinge, die das Originalspiel nicht mitbringt: den Community-Datenpatch, mit dem jedes Online-Spiel gespielt wird (ein Spiel lässt nur Spieler mit gleichen Spieldaten zu), und die Community-Karten, auf denen diese Spiele laufen. Beides wird hier direkt von GeneralsOnline geladen.</string>
     <string name="online_button_datapacks_update">Aktualisieren</string>
     <string name="online_datapacks_checking">Suche nach Updates…</string>
     <string name="online_datapacks_downloading">Wird geladen… %1$d%%</string>
@@ -266,7 +266,7 @@
     <string name="online_datapacks_not_installed">Noch nicht installiert.</string>
     <string name="online_button_datapacks_delete">Löschen</string>
     <string name="online_switch_datapacks">Community-Datenpatch verwenden</string>
-    <string name="online_switch_datapacks_desc">Aus lässt den Download liegen, das Spiel liest aber wieder die Retail-Daten, und PC-Spiele weisen dieses Gerät ab. Wirkt beim nächsten Spielstart.</string>
+    <string name="online_switch_datapacks_desc">Aus lässt den Download liegen, aber das Spiel liest wieder die Originaldaten, und Online-Spiele mit dem Patch lehnen dieses Gerät ab. Gilt ab dem nächsten Spielstart.</string>
     <string name="online_switch_datapacks_mods">Patch auch mit Mods verwenden</string>
     <string name="online_switch_datapacks_mods_desc">Standardmäßig wird der Patch nicht geladen, wenn im Spielordner ein Mod liegt, der Spieldaten ändert (etwa Contra): ihre Dateien würden sich vermischen. Nur für einen Mod einschalten, der für den GeneralsOnline-Patch gemacht ist.</string>
     <string name="online_datapacks_mod_found_skipped">Mod gefunden: %1$s. Der Community-Patch wird damit nicht verwendet.</string>
@@ -276,7 +276,7 @@
     <string name="online_datapacks_chip_required">Für das Online-Spiel nötig — auf Aktualisieren tippen</string>
     <string name="online_datapacks_chip_off">Geladen, aber ausgeschaltet</string>
     <string name="online_datapacks_chip_ready">Bereit für das Online-Spiel</string>
-    <string name="online_datapacks_prompt">Von einem PC gehostete Spiele weisen dieses Gerät ab, solange der Community-Datenpatch fehlt, und gespielt wird auf den Community-Karten. Beides jetzt laden? Etwa 30 MB.</string>
+    <string name="online_datapacks_prompt">Online-Spiele lehnen dieses Gerät ab, bis der Community-Datenpatch installiert ist, und sie werden auf den Community-Karten gespielt. Beides jetzt herunterladen? Etwa 30 MB.</string>
     <string name="online_datapacks_prompt_later">Später</string>
     <string name="online_datapacks_delete_confirm">Entfernt nur die Dateien aus diesem Download. Eigene Karten und Spielstände bleiben unangetastet.</string>
     <string name="online_datapacks_deleted">%1$d Dateien gelöscht.</string>
@@ -288,6 +288,7 @@
     <string name="online_crossplay_patch_missing">Community-Datenpatch fehlt — auf Aktualisieren tippen</string>
     <string name="online_switch_crossplay">Mit PC-Spielern spielen</string>
     <string name="online_switch_crossplay_desc">Meldet die EXE-Prüfsumme des Windows-Clients, damit dessen Spiele dich annehmen. Diese Prüfsumme ist kein Anti-Cheat — sie verhindert, dass Maschinen zusammen spielen, die das Match unterschiedlich berechnen würden; das kann die Partie für alle in der Lobby zerstören. Aktiviere es für einen eigenen PC, und erst nachdem dessen INI-Daten in diesen Spielordner kopiert wurden.</string>
+    <string name="online_crossplay_off">Auf Wunsch der GeneralsOnline-Entwickler auf unbestimmte Zeit abgeschaltet. Online-Spiele mit anderen Android-Spielern sind davon nicht betroffen.</string>
     <string name="replaycheck_title">Replay-Prüfung</string>
     <string name="replaycheck_row_note">Ein PC-Replay mit diesem Build durchlaufen lassen, ohne zuzusehen, oder zu einem Frame springen, und sehen, wo die Prüfsummen auseinandergehen.</string>
     <string name="replaycheck_refresh">Aktualisieren</string>
@@ -334,8 +335,8 @@
     <string name="online_datapacks_update_available">Installiert: Version %1$s. Eine neue Version ist da: %2$s.</string>
     <string name="online_datapacks_update_for_crc">Installiert: Version %1$s. Einmal aktualisieren, damit das Gerät daraus die Prüfsumme des PC-Clients berechnet.</string>
     <string name="online_datapacks_up_to_date">Installiert: Version %1$s, die neueste.</string>
-    <string name="online_network_settings">Netzwerkeinstellungen (Server, PC-Kompatibilität): vom %1$s, automatisch vom GitHub des Projekts aktualisiert und signiert.</string>
-    <string name="online_network_settings_builtin">Netzwerkeinstellungen (Server, PC-Kompatibilität): in diese Version eingebaut; neuere kommen automatisch vom GitHub des Projekts.</string>
+    <string name="online_network_settings">Netzwerkeinstellungen (Server, Regeln fürs Online-Spiel): vom %1$s, automatisch vom GitHub des Projekts aktualisiert und signiert.</string>
+    <string name="online_network_settings_builtin">Netzwerkeinstellungen (Server, Regeln fürs Online-Spiel): in diese Version eingebaut; neuere kommen automatisch vom GitHub des Projekts.</string>
     <string name="online_datapacks_chip_update">Update verfügbar</string>
     <string name="setup_card_upscale">Hochskalierung (Snapdragon GSR)</string>
     <string name="setup_upscale_off_short">Aus</string>

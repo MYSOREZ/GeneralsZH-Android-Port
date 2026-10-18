@@ -63,7 +63,7 @@
     <string name="setup_sim_rate_30_short">30 Hz</string>
     <string name="setup_sim_rate_60_short">60 Hz</string>
     <string name="setup_sim_rate_30_desc">30 Гц — те саме, що в усіх попередніх збірках порту. Гра Android з Android на ній працює, але матч проти гравця на Windows розсинхронізується.</string>
-    <string name="setup_sim_rate_60_desc">60 Гц — стільки рахує клієнт GeneralsOnline на Windows, і лише на цій частоті можлива гра з ПК. Роботи в симуляції вдвічі більше, тож на слабшому пристрої гра може йти повільніше за норму.</string>
+    <string name="setup_sim_rate_60_desc">60 Гц — частота клієнта GeneralsOnline для Windows. Роботи в симуляції вдвічі більше, тому на слабкому пристрої гра може йти повільніше за норму.</string>
     <string name="setup_sim_rate_help">Частота тику задається під час складання рушія, тому застосунок несе обидві версії та завантажує обрану тут. Зміна набуде чинності під час наступного запуску гри. В обох гравців у матчі частота має збігатися.</string>
     <string name="setup_toast_sim_rate_saved">Частоту симуляції збережено. Застосується під час наступного запуску гри.</string>
     <string name="online_crossplay_hz_title">Частоту симуляції перемкнено на 60 Гц</string>
@@ -255,7 +255,7 @@
     <string name="online_status_requesting_code">Запитуємо код входу в сервера…</string>
     <string name="online_status_no_login_code">Сервер не видав код входу. Перевірте з’єднання і спробуйте ще раз або запустіть «Діагностику мережі» в Інструментах.</string>
     <string name="online_card_datapacks">Мережеві дані гри</string>
-    <string name="online_datapacks_help">Для гри в мережі потрібні дві речі, яких немає у звичайній грі: патч даних спільноти, від якого залежить, чи прийме вас гра з ПК, і карти спільноти, на яких ці ігри йдуть. Тут і те й інше завантажується просто з GeneralsOnline — ПК не потрібен.</string>
+    <string name="online_datapacks_help">Для гри по мережі потрібні дві речі, яких немає у звичайній грі: патч даних спільноти, з яким ідуть усі мережеві ігри (у гру пускають лише зі збіжними даними), і карти спільноти, на яких ці ігри йдуть. Тут і те, і інше завантажується прямо з GeneralsOnline.</string>
     <string name="online_button_datapacks_update">Оновити</string>
     <string name="online_datapacks_checking">Перевірка оновлень…</string>
     <string name="online_datapacks_downloading">Завантаження… %1$d%%</string>
@@ -266,7 +266,7 @@
     <string name="online_datapacks_not_installed">Ще не встановлено.</string>
     <string name="online_button_datapacks_delete">Видалити</string>
     <string name="online_switch_datapacks">Використовувати патч даних спільноти</string>
-    <string name="online_switch_datapacks_desc">Вимкнення не видаляє завантаження, але гра знову читає ретейл-дані, і ігри з ПК відмовлять цьому пристрою. Набуває чинності з наступним запуском гри.</string>
+    <string name="online_switch_datapacks_desc">Вимкнення не видаляє завантаження, але гра знову читає ретейл-дані, і мережеві ігри з патчем відмовлять цьому пристрою. Набуває чинності під час наступного запуску гри.</string>
     <string name="online_switch_datapacks_mods">Використовувати патч і з модами</string>
     <string name="online_switch_datapacks_mods_desc">За замовчуванням патч не підключається, якщо в теці гри є мод, що змінює дані гри (наприклад, «Контра»): їхні файли змішалися б. Вмикайте, лише якщо мод зроблено під патч GeneralsOnline.</string>
     <string name="online_datapacks_mod_found_skipped">Знайдено мод: %1$s. Патч спільноти з ним не використовується.</string>
@@ -276,7 +276,7 @@
     <string name="online_datapacks_chip_required">Потрібно для гри в мережі — натисніть «Оновити»</string>
     <string name="online_datapacks_chip_off">Завантажено, але вимкнено</string>
     <string name="online_datapacks_chip_ready">Готово до гри в мережі</string>
-    <string name="online_datapacks_prompt">Ігри з ПК відмовлятимуть цьому пристрою, доки не встановлено патч даних спільноти, і грають на них на картах спільноти. Завантажити і те й інше? Близько 30 МБ.</string>
+    <string name="online_datapacks_prompt">Мережеві ігри відмовлятимуть цьому пристрою, доки не встановлено патч даних спільноти, і грають у них на картах спільноти. Завантажити і те, і інше? Близько 30 МБ.</string>
     <string name="online_datapacks_prompt_later">Пізніше</string>
     <string name="online_datapacks_delete_confirm">Видаляються лише файли, встановлені цим завантаженням. Ваші карти й збереження не чіпаються.</string>
     <string name="online_datapacks_deleted">Видалено файлів: %1$d.</string>
@@ -288,6 +288,7 @@
     <string name="online_crossplay_patch_missing">Немає патча даних спільноти — натисніть «Оновити»</string>
     <string name="online_switch_crossplay">Грати з гравцями на ПК</string>
     <string name="online_switch_crossplay_desc">Повідомляє контрольну суму EXE Windows-клієнта, щоб його ігри вас пускали. Ця сума не античит — вона не дає грати разом машинам, які порахували б матч по-різному, тож так можна розвалити гру всім у лобі. Вмикайте для власного ПК і лише скопіювавши з нього INI-дані в теку з грою, щоб вони справді збіглися.</string>
+    <string name="online_crossplay_off">Вимкнено на невизначений час на прохання розробників GeneralsOnline. Мережевих ігор з іншими гравцями на Android це не стосується.</string>
     <string name="replaycheck_title">Перевірка реплею</string>
     <string name="replaycheck_row_note">Прогнати реплей з ПК на цій збірці без перегляду або перемотати до потрібного кадру й побачити, де розходяться контрольні суми.</string>
     <string name="replaycheck_refresh">Оновити</string>
@@ -334,8 +335,8 @@
     <string name="online_datapacks_update_available">Встановлено версію %1$s. Вийшла нова версія %2$s.</string>
     <string name="online_datapacks_update_for_crc">Встановлено версію %1$s. Оновіть один раз, щоб телефон обчислив за ним контрольну суму ПК-клієнта.</string>
     <string name="online_datapacks_up_to_date">Встановлено версію %1$s, вона остання.</string>
-    <string name="online_network_settings">Мережеві налаштування (сервери, сумісність із ПК): від %1$s, оновлюються автоматично з GitHub проєкту й підписані.</string>
-    <string name="online_network_settings_builtin">Мережеві налаштування (сервери, сумісність із ПК): вбудовані в цю версію; нові прийдуть автоматично з GitHub проєкту.</string>
+    <string name="online_network_settings">Мережеві налаштування (сервери, правила мережевої гри): від %1$s, оновлюються автоматично з GitHub проєкту та підписані.</string>
+    <string name="online_network_settings_builtin">Мережеві налаштування (сервери, правила мережевої гри): вбудовані в цю версію; нові прийдуть автоматично з GitHub проєкту.</string>
     <string name="online_datapacks_chip_update">Є оновлення</string>
     <string name="setup_card_upscale">Апскейл (Snapdragon GSR)</string>
     <string name="setup_upscale_off_short">Вимк</string>
