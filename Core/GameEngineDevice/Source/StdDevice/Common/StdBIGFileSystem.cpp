@@ -513,11 +513,35 @@ void StdBIGFileSystem::init() {
 	// textures Generals does not have -- the touch force-attack button's SCCAttack art among them.
 	// Textures only: no INI, map, script or model of Zero Hour reaches Generals, and no texture is in
 	// any checksum the game compares.
+	//
+	// That one archive, found by name: the directory listing does not filter by a file name (a mask
+	// of "TexturesZH.big" listed every archive of the folder, INIZH.big included, and Generals died
+	// parsing Zero Hour's objects -- a30).
 	const char *zhArt = getenv("GENERALSX_ZH_ART_PATH");
 	if (zhArt != nullptr && zhArt[0] != '\0') {
-		const Bool loaded = loadBigFilesFromDirectory(AsciiString(zhArt), "TexturesZH.big", FALSE);
+		FilenameList files;
+		TheLocalFileSystem->getFileListInDirectory(AsciiString(zhArt), "", "*.big", files, FALSE);
+		AsciiString texturesZH;
+		for (FilenameListIter it = files.begin(); it != files.end(); ++it) {
+			const char *name = it->str();
+			const char *base = name;
+			for (const char *c = name; *c; ++c) {
+				if (*c == '/' || *c == '\\') {
+					base = c + 1;
+				}
+			}
+			if (strcasecmp(base, "TexturesZH.big") == 0) {
+				texturesZH = *it;
+				break;
+			}
+		}
+		ArchiveFile *archive = texturesZH.isNotEmpty() ? openArchiveFile(texturesZH.str()) : nullptr;
+		if (archive != nullptr) {
+			loadIntoDirectoryTree(archive, FALSE);
+			m_archiveFileMap[texturesZH] = archive;
+		}
 		fprintf(stderr, "[gxbig] Zero Hour pictures for Generals from %s: %s\n", zhArt,
-			loaded ? "TexturesZH.big mounted below Generals' own" : "no TexturesZH.big there");
+			archive != nullptr ? "TexturesZH.big mounted below Generals' own" : "no TexturesZH.big there");
 		fflush(stderr);
 	}
 #endif
