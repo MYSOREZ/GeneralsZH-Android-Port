@@ -332,6 +332,8 @@ static void saveExtras()
 	val = max(SLIDER_MAX_CAMERA_HEIGHT_MIN, min(SLIDER_MAX_CAMERA_HEIGHT_MAX, GadgetSliderGetPosition(sliderMaxCameraHeight))) / GX_EXTRA_CAMERA_SCALE;
     val = max(val, max(SLIDER_MIN_CAMERA_HEIGHT_MIN, min(SLIDER_MIN_CAMERA_HEIGHT_MAX, GadgetSliderGetPosition(sliderMinCameraHeight))));
 	if (val > 0) {
+		if (GXExtrasValues::retailMaxCameraHeight() <= 0.0f)
+			GXExtrasValues::retailMaxCameraHeight() = TheGlobalData->m_maxCameraHeight;
 		TheWritableGlobalData->m_maxCameraHeight = (Real)val;
 		AsciiString prefString;
 		prefString.format("%d", val);

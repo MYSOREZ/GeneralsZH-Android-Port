@@ -32,6 +32,13 @@ template<class Char> inline bool digits(const Char *text,int length,int &value) 
     }
     value=result;return true;
 }
+// GeneralsX @bugfix Android port 18/10/2026 GameData's MaxCameraHeight before the Extras menu first
+// overrode it this session (0 until then): the main menu's scene keeps the retail height
+// (W3DView::setZoomToMax).
+inline float &retailMaxCameraHeight() {
+    static float value=0.0f;
+    return value;
+}
 inline int normalize(int value,int low,int high,int quantum=1) {
     value=std::max(low,std::min(high,value));
     return std::max(low,std::min(high,value/quantum*quantum));
