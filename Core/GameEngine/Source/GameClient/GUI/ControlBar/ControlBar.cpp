@@ -2922,12 +2922,33 @@ void ControlBar::initTouchModeButtons()
 {
 #if defined(__ANDROID__) || (defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE)
 	CommandButton *forceAttack = newCommandButton( "GX_Command_TouchForceAttack" );
-	// GeneralsX @bugfix Android port 18/10/2026 Generals has no SCCAttack art; the display draws a
-	// crosshair for it (W3DTouchButtonImages.cpp).
-#if RTS_ZEROHOUR
+	// GeneralsX @bugfix Android port 18/10/2026 Generals has no SCCAttack art of its own: it reads it
+	// from the Zero Hour install when the launcher knows one (StdBIGFileSystem.cpp), and draws a
+	// crosshair otherwise (W3DTouchButtonImages.cpp) -- an image whose texture is missing drew as a
+	// purple square (owner, a29).
 	const char *forceAttackImage = "SCCAttack";
-#else
-	const char *forceAttackImage = "GXForceAttack";
+#if !RTS_ZEROHOUR
+	{
+		const Image *art = TheMappedImageCollection ? TheMappedImageCollection->findImageByName( "SCCAttack" ) : nullptr;
+		Bool found = FALSE;
+		if( art != nullptr && TheFileSystem != nullptr )
+		{
+			// The archives carry a .tga's picture as .dds under the same name, as the texture loader
+			// looks for it.
+			AsciiString texture;
+			texture.format( "Art\\Textures\\%s", art->getFilename().str() );
+			found = TheFileSystem->doesFileExist( texture.str() );
+			if( !found && texture.getLength() > 4 )
+			{
+				AsciiString dds = texture;
+				dds.truncateBy( 4 );
+				dds.concat( ".dds" );
+				found = TheFileSystem->doesFileExist( dds.str() );
+			}
+		}
+		if( !found )
+			forceAttackImage = "GXForceAttack";
+	}
 #endif
 	forceAttack->initTouchModeButton( GUI_COMMAND_GX_FORCE_ATTACK,
 																		"GX:ForceAttack", "GX:ToolTipForceAttack", forceAttackImage );

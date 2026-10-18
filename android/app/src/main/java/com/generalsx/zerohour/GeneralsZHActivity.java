@@ -174,6 +174,7 @@ public class GeneralsZHActivity extends SDLActivity {
         // screen, in their order, for the game being started (ModManager, GXManagedMods.h). Written
         // here so both engines, a replay and every way of starting the game read the same list.
         ModManager.writeActiveList(this);
+        writeZeroHourArtPath();
         Intent intent = getIntent();
         String replay = intent != null ? intent.getStringExtra(EXTRA_REPLAY) : null;
         if (replay == null || replay.isEmpty()) {
@@ -569,6 +570,26 @@ public class GeneralsZHActivity extends SDLActivity {
             }
         } catch (IOException e) {
             Log.e(TAG, "asset extraction failed for " + assetPath, e);
+        }
+    }
+
+    // GeneralsX @feature Android port 18/10/2026 Generals borrows the pictures it lacks from the Zero
+    // Hour install (owner: the touch force-attack button's art is in Zero Hour, take it from there).
+    // The engine mounts that folder's TexturesZH.big below its own archives (StdBIGFileSystem.cpp),
+    // so a picture Generals has is always its own. Native code reads this plain-text marker, as it
+    // does gamedata_path.txt; it is removed for Zero Hour or when no Zero Hour folder is chosen.
+    private void writeZeroHourArtPath() {
+        java.io.File marker = new java.io.File(getFilesDir(), "zerohour_art_path.txt");
+        String zh = SetupActivity.getSavedGamePath(this, SetupActivity.GAME_ZERO_HOUR);
+        if (!SetupActivity.GAME_GENERALS.equals(SetupActivity.getSelectedGame(this)) || zh == null || zh.isEmpty()) {
+            marker.delete();
+            return;
+        }
+        try (java.io.FileWriter w = new java.io.FileWriter(marker, false)) {
+            w.write(zh);
+            w.write("\n");
+        } catch (java.io.IOException e) {
+            android.util.Log.w("GeneralsZHActivity", "could not write the Zero Hour art marker", e);
         }
     }
 }

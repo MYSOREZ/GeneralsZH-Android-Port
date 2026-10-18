@@ -507,6 +507,19 @@ void StdBIGFileSystem::init() {
 
 #if RTS_ZEROHOUR
 	loadBaseGeneralsAssetsForZH(this, primaryAssetsDirectory);
+#else
+	// GeneralsX @feature Android port 18/10/2026 Pictures Generals lacks, from the Zero Hour install:
+	// its TexturesZH.big mounted below every Generals archive (no overwrite), so it only answers for
+	// textures Generals does not have -- the touch force-attack button's SCCAttack art among them.
+	// Textures only: no INI, map, script or model of Zero Hour reaches Generals, and no texture is in
+	// any checksum the game compares.
+	const char *zhArt = getenv("GENERALSX_ZH_ART_PATH");
+	if (zhArt != nullptr && zhArt[0] != '\0') {
+		const Bool loaded = loadBigFilesFromDirectory(AsciiString(zhArt), "TexturesZH.big", FALSE);
+		fprintf(stderr, "[gxbig] Zero Hour pictures for Generals from %s: %s\n", zhArt,
+			loaded ? "TexturesZH.big mounted below Generals' own" : "no TexturesZH.big there");
+		fflush(stderr);
+	}
 #endif
 }
 

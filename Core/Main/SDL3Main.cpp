@@ -876,6 +876,30 @@ int main(int argc, char* argv[])
 		}
 #endif
 
+		// GeneralsX @feature Android port 18/10/2026 Generals: the Zero Hour folder, to borrow the
+		// pictures Generals lacks (StdBIGFileSystem.cpp). Written by the launcher for Generals only.
+#if !RTS_ZEROHOUR
+		if (internalPath != nullptr) {
+			char artMarkerPath[1024];
+			snprintf(artMarkerPath, sizeof(artMarkerPath), "%s/zerohour_art_path.txt", internalPath);
+			FILE *artMarker = fopen(artMarkerPath, "r");
+			if (artMarker != nullptr) {
+				char zhPath[900] = {0};
+				if (fgets(zhPath, sizeof(zhPath), artMarker) != nullptr) {
+					size_t len = strlen(zhPath);
+					while (len > 0 && (zhPath[len - 1] == '\n' || zhPath[len - 1] == '\r')) {
+						zhPath[--len] = '\0';
+					}
+					if (len > 0) {
+						setenv("GENERALSX_ZH_ART_PATH", zhPath, 1);
+						fprintf(stderr, "INFO: Zero Hour folder for missing pictures: %s\n", zhPath);
+					}
+				}
+				fclose(artMarker);
+			}
+		}
+#endif
+
 		// GeneralsX @feature Android port 30/07/2026 Opt-in Vulkan validation
 		// layer, same UX as gx_trace.txt: a tester drops a file named
 		// dxvk_validation.txt into the game data folder (no adb, no rebuild)
