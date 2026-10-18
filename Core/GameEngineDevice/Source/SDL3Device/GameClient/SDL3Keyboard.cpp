@@ -31,6 +31,7 @@
 #include "SDL3Device/GameClient/SDL3Keyboard.h"
 #include <cstdio>
 #include <cstring>
+#include "Common/MessageStream.h"
 
 /**
  * Constructor
@@ -61,9 +62,6 @@ void SDL3Keyboard::init(void)
 	// Call parent init
 	Keyboard::init();
 	
-	// TODO: Phase 2 - Get SDL3 keyboard state array
-	// m_SDLKeyState = SDL_GetKeyboardState(&m_NumKeys);
-	
 	// Clear event buffer - Fighter19 pattern
 	// GeneralsX @refactor felipebraz 16/02/2026
 	memset(m_eventBuffer, 0, sizeof(m_eventBuffer));
@@ -79,6 +77,22 @@ void SDL3Keyboard::init(void)
 void SDL3Keyboard::reset(void)
 {
 	Keyboard::reset();
+	// GeneralsX @bugfix Codex 14/10/2026 The base reset() is empty; release its held-key cache too.
+    if (TheMessageStream) {
+        // Release all held bindings before clearing the base cache, including camera keys.
+        for (Int i = 1; i < KEY_COUNT; ++i) {
+            if ((m_keyStatus[i].state & KEY_STATE_DOWN) && i != KEY_LALT && i != KEY_RALT) {
+                GameMessage *msg = TheMessageStream->appendMessage(GameMessage::MSG_RAW_KEY_UP);
+                msg->appendIntegerArgument(i);
+                msg->appendIntegerArgument(KEY_STATE_UP);
+            }
+        }
+        resetKeys();
+    } else {
+        memset(m_keys, 0, sizeof(m_keys));
+        memset(m_keyStatus, 0, sizeof(m_keyStatus));
+        m_modifiers = 0;
+    }
 	
 	// Clear event buffer - Fighter19 pattern
 	// GeneralsX @refactor felipebraz 16/02/2026
@@ -102,22 +116,16 @@ void SDL3Keyboard::update(void)
  */
 KeyboardIO *SDL3Keyboard::getKeyboard(void)
 {
-	// For Phase 1.5, return nullptr - full implementation in Phase 2
-	// TODO: Phase 2 - Return keyboard state structure
-	return nullptr;
+	// GeneralsX @bugfix Codex 14/10/2026 Expose the base class event list, not a second state cache.
+	return getFirstKey();
 }
 
 /**
- * Get Caps Lock state (Linux stub)
- * Returns 0 (Caps Lock not active) - Windows would query keyboard driver state
- * On Linux/SDL3, we don't track Caps Lock state yet
- * GeneralsX @build fbraz 12/02/2026 Bender
+ * Get Caps Lock state from SDL, including keyboards attached after startup.
  */
 Bool SDL3Keyboard::getCapsState(void)
 {
-	// TODO: Phase 2 - Query SDL3 keyboard modifiers for Caps Lock
-	// For now, assume Caps Lock is not active
-	return 0;
+	return (SDL_GetModState() & SDL_KMOD_CAPS) != 0;
 }
 
 /**
@@ -126,6 +134,11 @@ Bool SDL3Keyboard::getCapsState(void)
  */
 void SDL3Keyboard::getKey(KeyboardIO *key)
 {
+    while (m_eventBuffer[m_nextGetIndex].type != SDL_EVENT_FIRST &&
+           translateScanCodeToKeyVal(m_eventBuffer[m_nextGetIndex].key.scancode) == KEY_NONE) {
+        m_eventBuffer[m_nextGetIndex].type = SDL_EVENT_FIRST;
+        m_nextGetIndex = (m_nextGetIndex + 1) % MAX_SDL3_KEY_EVENTS;
+    }
 	// Check if buffer is empty: if event type is SDL_EVENT_FIRST (0), slot is empty
 	// GeneralsX @refactor felipebraz 16/02/2026 Fighter19 pattern: sentinel check
 	if (m_eventBuffer[m_nextGetIndex].type == SDL_EVENT_FIRST) {
@@ -198,8 +211,9 @@ void SDL3Keyboard::addSDLEvent(SDL_Event *event)
 	// Check if buffer is full
 	UnsignedInt nextFreeIndex = (m_nextFreeIndex + 1) % MAX_SDL3_KEY_EVENTS;
 	if (nextFreeIndex == m_nextGetIndex) {
-		// Buffer full, dropping event
-		return;
+		// GeneralsX @bugfix Codex 14/10/2026 Overflow must not lose a release and leave a key held.
+		reset();
+		nextFreeIndex = (m_nextFreeIndex + 1) % MAX_SDL3_KEY_EVENTS;
 	}
 	
 	// Copy entire event to buffer
@@ -216,14 +230,6 @@ void SDL3Keyboard::addSDLEvent(SDL_Event *event)
  */
 void SDL3Keyboard::addSDL3KeyEvent(const SDL_KeyboardEvent& event)
 {
-	UnsignedInt nextFreeIndex = (m_nextFreeIndex + 1) % MAX_SDL3_KEY_EVENTS;
-	
-	// Check if buffer is full
-	if (nextFreeIndex == m_nextGetIndex) {
-		// Buffer full, dropping key event
-		return;
-	}
-	
 	// Create SDL_Event wrapper around SDL_KeyboardEvent
 	SDL_Event sdlEvent;
 	memset(&sdlEvent, 0, sizeof(sdlEvent));
@@ -236,16 +242,46 @@ void SDL3Keyboard::addSDL3KeyEvent(const SDL_KeyboardEvent& event)
 
 /**
  * Translate SDL3 scancode to game KeyDefType
- * For Phase 1.5, minimal mapping - full mapping in Phase 2
+ * Physical keys use retail DirectInput values; Unicode text travels separately through the IME.
  */
 KeyVal SDL3Keyboard::translateScanCodeToKeyVal(SDL_Scancode scan)
 {
-	// TODO: Phase 2 - Complete SDL_Scancode → KeyDefType mapping
-	// For now, return KEY_NONE (parent class will handle)
-
 	// Quick mapping for essential keys
 	// GeneralsX @bugfix felipebraz 01/04/2026 Restore editing/navigation keys required by GUI widgets.
 	switch (scan) {
+		// GeneralsX @feature Codex 14/10/2026 Complete the retail keyboard's punctuation and keypad.
+		case SDL_SCANCODE_INSERT: return KEY_INS;
+		case SDL_SCANCODE_MINUS: return KEY_MINUS;
+		case SDL_SCANCODE_EQUALS: return KEY_EQUAL;
+		case SDL_SCANCODE_LEFTBRACKET: return KEY_LBRACKET;
+		case SDL_SCANCODE_RIGHTBRACKET: return KEY_RBRACKET;
+		case SDL_SCANCODE_SEMICOLON: return KEY_SEMICOLON;
+		case SDL_SCANCODE_APOSTROPHE: return KEY_APOSTROPHE;
+		case SDL_SCANCODE_GRAVE: return KEY_TICK;
+		case SDL_SCANCODE_BACKSLASH: return KEY_BACKSLASH;
+		case SDL_SCANCODE_NONUSBACKSLASH: return KEY_102;
+		case SDL_SCANCODE_COMMA: return KEY_COMMA;
+		case SDL_SCANCODE_PERIOD: return KEY_PERIOD;
+		case SDL_SCANCODE_SLASH: return KEY_SLASH;
+		case SDL_SCANCODE_CAPSLOCK: return KEY_CAPS;
+		case SDL_SCANCODE_NUMLOCKCLEAR: return KEY_NUM;
+		case SDL_SCANCODE_SCROLLLOCK: return KEY_SCROLL;
+		case SDL_SCANCODE_PRINTSCREEN: return KEY_SYSREQ;
+		case SDL_SCANCODE_KP_0: return KEY_KP0;
+		case SDL_SCANCODE_KP_1: return KEY_KP1;
+		case SDL_SCANCODE_KP_2: return KEY_KP2;
+		case SDL_SCANCODE_KP_3: return KEY_KP3;
+		case SDL_SCANCODE_KP_4: return KEY_KP4;
+		case SDL_SCANCODE_KP_5: return KEY_KP5;
+		case SDL_SCANCODE_KP_6: return KEY_KP6;
+		case SDL_SCANCODE_KP_7: return KEY_KP7;
+		case SDL_SCANCODE_KP_8: return KEY_KP8;
+		case SDL_SCANCODE_KP_9: return KEY_KP9;
+		case SDL_SCANCODE_KP_PERIOD: return KEY_KPDEL;
+		case SDL_SCANCODE_KP_MULTIPLY: return KEY_KPSTAR;
+		case SDL_SCANCODE_KP_MINUS: return KEY_KPMINUS;
+		case SDL_SCANCODE_KP_PLUS: return KEY_KPPLUS;
+		case SDL_SCANCODE_KP_DIVIDE: return KEY_KPSLASH;
 		case SDL_SCANCODE_ESCAPE: return KEY_ESC;      // GeneralsX @bugfix BenderAI 13/02/2026 Fix key constant name
 		// GeneralsX @bugfix Android port 08/07/2026 Phone Back button/gesture ->
 		// same key that already opens the in-game pause menu.
@@ -328,7 +364,7 @@ KeyVal SDL3Keyboard::translateScanCodeToKeyVal(SDL_Scancode scan)
 		case SDL_SCANCODE_Z: return KEY_Z;
 		
 		default:
-			// TODO: Phase 2 - Complete mapping
+			// No retail binding for this key (media/system keys, for example).
 			return KEY_NONE;
 	}
 }
