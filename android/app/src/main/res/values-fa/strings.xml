@@ -237,6 +237,9 @@
     <string name="setup_render_backend_gles_short">GLES</string>
     <string name="setup_render_backend_gles_angle_short">ANGLE</string>
     <string name="setup_render_backend_vulkan_short">Vulkan</string>
+    <string name="setup_switch_vulkan_experimental">رندرکنندهٔ آزمایشی Vulkan</string>
+    <string name="setup_switch_vulkan_experimental_desc">دوباره Vulkan (DXVK) را میان گزینه‌های رندر در زبانهٔ «%1$s» نشان می‌دهد. در حال حاضر روی بسیاری از دستگاه‌ها بافت‌های سیاه نشان می‌دهد؛ مگر برای آزمایش، خاموش بگذارید.</string>
+    <string name="setup_vulkan_moved_message">Vulkan در حال حاضر روی بسیاری از دستگاه‌ها بافت‌های سیاه نشان می‌دهد، بنابراین بازی به OpenGL ES تغییر کرد. می‌توانید Vulkan را از %1$s ← %2$s ← %3$s دوباره روشن کنید.</string>
     <string name="setup_switch_gx_net_trace">گزارش شبکهٔ آنلاین</string>
     <string name="setup_switch_gx_net_trace_desc">هر درخواستی را که بازی به سرورهای GeneralsOnline می‌فرستد به همراه پاسخ آن ثبت می‌کند. اگر ورود، لابی یا همسان‌سازی داخل خود بازی شکست می‌خورد این را روشن کنید. درخواست‌های خودِ لانچر همیشه ثبت می‌شوند؛ این گزینه درخواست‌های بازی را اضافه می‌کند. همچنین تشخیص ناهمگامی در بازی میان‌سکویی را روشن می‌کند: مجموع‌های کنترلی شبیه‌سازی که در هر بازه مقایسه می‌شوند و در بازپخش، مجموع کنترلی هر شیء به‌تنهایی. (gx_net_trace.txt)</string>
     <string name="netdiag_title">عیب‌یابی شبکه</string>

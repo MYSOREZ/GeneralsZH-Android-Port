@@ -237,6 +237,9 @@
     <string name="setup_render_backend_gles_short">GLES</string>
     <string name="setup_render_backend_gles_angle_short">ANGLE</string>
     <string name="setup_render_backend_vulkan_short">Vulkan</string>
+    <string name="setup_switch_vulkan_experimental">عارض Vulkan التجريبي</string>
+    <string name="setup_switch_vulkan_experimental_desc">يعيد إظهار Vulkan (DXVK) بين خيارات العرض في تبويب «%1$s». يعرض حاليًا خامات سوداء على أجهزة كثيرة؛ اتركه مطفأً إلا إذا كنت تختبره.</string>
+    <string name="setup_vulkan_moved_message">يعرض Vulkan حاليًا خامات سوداء على أجهزة كثيرة، لذا حُوّلت اللعبة إلى OpenGL ES. يمكن إعادة تشغيل Vulkan من %1$s ← %2$s ← %3$s.</string>
     <string name="setup_switch_gx_net_trace">سجل شبكة اللعب عبر الإنترنت</string>
     <string name="setup_switch_gx_net_trace_desc">يسجّل كل طلب ترسله اللعبة إلى خوادم GeneralsOnline والرد الذي يصلها. فعّل هذا إذا كان تسجيل الدخول أو الردهة أو المطابقة يفشل داخل اللعبة نفسها. طلبات المشغّل تُسجَّل دائمًا، وهذا يضيف طلبات اللعبة. كما يُفعّل تشخيص عدم التزامن في اللعب عبر المنصات: مجاميع التحقّق للمحاكاة التي تُقارن في كل فترة، وفي إعادة العرض مجموع التحقّق لكل كائن على حدة. (gx_net_trace.txt)</string>
     <string name="netdiag_title">تشخيص الشبكة</string>

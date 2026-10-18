@@ -237,6 +237,9 @@
     <string name="setup_render_backend_gles_short">GLES</string>
     <string name="setup_render_backend_gles_angle_short">ANGLE</string>
     <string name="setup_render_backend_vulkan_short">Vulkan</string>
+    <string name="setup_switch_vulkan_experimental">Moteur de rendu Vulkan expérimental</string>
+    <string name="setup_switch_vulkan_experimental_desc">Réaffiche Vulkan (DXVK) parmi les moteurs de rendu de l\'onglet « %1$s ». Il affiche actuellement des textures noires sur beaucoup d\'appareils ; laissez-le désactivé sauf pour le tester.</string>
+    <string name="setup_vulkan_moved_message">Vulkan affiche actuellement des textures noires sur beaucoup d\'appareils, le jeu est donc passé sur OpenGL ES. Vulkan peut être réactivé dans %1$s → %2$s → %3$s.</string>
     <string name="setup_switch_gx_net_trace">Journal réseau en ligne</string>
     <string name="setup_switch_gx_net_trace_desc">Enregistre chaque requête du jeu vers les serveurs GeneralsOnline et la réponse reçue. Activez ceci si la connexion, le salon ou le matchmaking échouent une fois dans le jeu. Les requêtes du lanceur sont toujours enregistrées ; ceci ajoute celles du jeu. Active également le diagnostic de désynchronisation en jeu multiplateforme : les sommes de contrôle de la simulation comparées à chaque intervalle et, dans une rediffusion, celle de chaque objet. (gx_net_trace.txt)</string>
     <string name="netdiag_title">Diagnostic réseau</string>

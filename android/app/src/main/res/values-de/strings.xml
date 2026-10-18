@@ -237,6 +237,9 @@
     <string name="setup_render_backend_gles_short">GLES</string>
     <string name="setup_render_backend_gles_angle_short">ANGLE</string>
     <string name="setup_render_backend_vulkan_short">Vulkan</string>
+    <string name="setup_switch_vulkan_experimental">Experimenteller Vulkan-Renderer</string>
+    <string name="setup_switch_vulkan_experimental_desc">Zeigt Vulkan (DXVK) wieder unter den Renderern im Tab „%1$s“. Er zeigt derzeit auf vielen Geräten schwarze Texturen; nur einschalten, um ihn zu testen.</string>
+    <string name="setup_vulkan_moved_message">Vulkan zeigt derzeit auf vielen Geräten schwarze Texturen, daher wurde das Spiel auf OpenGL ES umgestellt. Vulkan lässt sich hier wieder einschalten: %1$s → %2$s → %3$s.</string>
     <string name="setup_switch_gx_net_trace">Online-Netzwerkprotokoll</string>
     <string name="setup_switch_gx_net_trace_desc">Zeichnet jede Anfrage des Spiels an die GeneralsOnline-Server samt Antwort auf. Aktiviere dies, wenn Anmeldung, Lobby oder Matchmaking erst im Spiel fehlschlagen. Die Anfragen des Launchers werden immer aufgezeichnet; dies ergänzt die des Spiels. Schaltet außerdem die Desync-Diagnose für das plattformübergreifende Spiel ein: die Prüfsummen der Simulation, die in jedem Intervall verglichen werden, und in einer Wiederholung die Prüfsumme jedes einzelnen Objekts. (gx_net_trace.txt)</string>
     <string name="netdiag_title">Netzwerkdiagnose</string>

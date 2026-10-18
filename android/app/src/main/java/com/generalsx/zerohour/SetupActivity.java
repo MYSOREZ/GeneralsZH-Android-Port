@@ -220,6 +220,7 @@ public class SetupActivity extends Activity {
         } catch (Throwable t) {
             buildFallbackUi(t);
         }
+        moveOffVulkanOnce();
     }
 
     @Override
@@ -1522,6 +1523,63 @@ public class SetupActivity extends Activity {
         RENDER_BACKEND_GLES, RENDER_BACKEND_GLES_ANGLE, RENDER_BACKEND_VULKAN
     };
 
+    // GeneralsX @tweak Android port 18/10/2026 Vulkan (DXVK) renders black textures since the GLES
+    // work of 1.4.0, so it is hidden: the picker offers OpenGL ES and ANGLE, and Vulkan comes back
+    // only through Tools -> Diagnostics -> "Experimental Vulkan renderer". DXVK stays in the APK
+    // (its libraries are part of requires_libs, and Vulkan is to return once fixed).
+    private static final String[] RENDER_BACKEND_CHOICES_NO_VULKAN = {
+        RENDER_BACKEND_GLES, RENDER_BACKEND_GLES_ANGLE
+    };
+    private static final String PREF_VULKAN_UNLOCKED = "vulkan_unlocked";
+    private static final String PREF_VULKAN_MOVED = "vulkan_moved_to_gles";
+
+    private boolean isVulkanUnlocked() {
+        return getSharedPreferences(PREFS_NAME, MODE_PRIVATE).getBoolean(PREF_VULKAN_UNLOCKED, false);
+    }
+
+    private String[] renderBackendChoices() {
+        return isVulkanUnlocked() ? RENDER_BACKEND_CHOICES : RENDER_BACKEND_CHOICES_NO_VULKAN;
+    }
+
+    /**
+     * Once per install: a player still on Vulkan is moved to OpenGL ES and told why, rather than
+     * left looking at black textures without knowing that the renderer is the cause.
+     */
+    private void moveOffVulkanOnce() {
+        android.content.SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        if (prefs.getBoolean(PREF_VULKAN_MOVED, false)) {
+            return;
+        }
+        prefs.edit().putBoolean(PREF_VULKAN_MOVED, true).apply();
+        if (!RENDER_BACKEND_VULKAN.equals(getRenderBackendChoice()) || isVulkanUnlocked()) {
+            return;
+        }
+        if (!writeRenderBackend(RENDER_BACKEND_GLES)) {
+            return;
+        }
+        if (contentHost != null) {
+            showTab(currentTab);
+        }
+        new com.google.android.material.dialog.MaterialAlertDialogBuilder(this)
+            .setTitle(R.string.setup_card_render_backend)
+            .setMessage(getString(R.string.setup_vulkan_moved_message, getString(R.string.nav_tab_tools),
+                getString(R.string.setup_card_diagnostics), getString(R.string.setup_switch_vulkan_experimental)))
+            .setPositiveButton(android.R.string.ok, null)
+            .show();
+    }
+
+    private boolean writeRenderBackend(String choice) {
+        File cfg = new File(getFilesDir(), RENDER_BACKEND_CFG_NAME);
+        try (java.io.FileWriter w = new java.io.FileWriter(cfg, false)) {
+            w.write(choice);
+            w.write("\n");
+            return true;
+        } catch (java.io.IOException e) {
+            Toast.makeText(this, getString(R.string.setup_toast_render_backend_failed, e.getMessage()), Toast.LENGTH_LONG).show();
+            return false;
+        }
+    }
+
     // GeneralsX @feature Android port launcher-ui-2026 08/09/2026 The three
     // backends were behind a "Change Render Backend" button that opened a
     // single-choice dialog -- two taps and a modal to see what you already
@@ -1574,18 +1632,19 @@ public class SetupActivity extends Activity {
             renderBackendLabel(getRenderBackendChoice())));
 
         String current = getRenderBackendChoice();
+        final String[] choices = renderBackendChoices();
         int currentIndex = 0;
-        CharSequence[] labels = new CharSequence[RENDER_BACKEND_CHOICES.length];
-        for (int i = 0; i < RENDER_BACKEND_CHOICES.length; i++) {
-            labels[i] = shortRenderBackendLabel(RENDER_BACKEND_CHOICES[i]);
-            if (RENDER_BACKEND_CHOICES[i].equals(current)) {
+        CharSequence[] labels = new CharSequence[choices.length];
+        for (int i = 0; i < choices.length; i++) {
+            labels[i] = shortRenderBackendLabel(choices[i]);
+            if (choices[i].equals(current)) {
                 currentIndex = i;
             }
         }
         final String initial = current;
         com.google.android.material.button.MaterialButtonToggleGroup group =
             UiKit.segmented(content, labels, currentIndex, index -> {
-            String picked = RENDER_BACKEND_CHOICES[index];
+            String picked = choices[index];
             if (picked.equals(initial)) {
                 return;  // programmatic/no-op selection: nothing to save
             }
@@ -1612,12 +1671,7 @@ public class SetupActivity extends Activity {
     }
 
     private void onPickRenderBackend(String choice) {
-        File cfg = new File(getFilesDir(), RENDER_BACKEND_CFG_NAME);
-        try (java.io.FileWriter w = new java.io.FileWriter(cfg, false)) {
-            w.write(choice);
-            w.write("\n");
-        } catch (java.io.IOException e) {
-            Toast.makeText(this, getString(R.string.setup_toast_render_backend_failed, e.getMessage()), Toast.LENGTH_LONG).show();
+        if (!writeRenderBackend(choice)) {
             return;
         }
         Toast.makeText(this, R.string.setup_toast_render_backend_saved, Toast.LENGTH_LONG).show();
@@ -2188,6 +2242,22 @@ public class SetupActivity extends Activity {
             getString(R.string.setup_switch_logging), getString(R.string.setup_switch_logging_desc));
         loggingSwitch.setChecked(!isLoggingDisabled(this));
         loggingSwitch.setOnCheckedChangeListener((button, checked) -> setLoggingDisabled(!checked));
+        UiKit.divider(content);
+
+        // GeneralsX @tweak Android port 18/10/2026 See RENDER_BACKEND_CHOICES_NO_VULKAN. Turning it
+        // off while Vulkan is selected moves the game back to OpenGL ES.
+        com.google.android.material.materialswitch.MaterialSwitch vulkanSwitch = UiKit.switchRow(content,
+            getString(R.string.setup_switch_vulkan_experimental),
+            getString(R.string.setup_switch_vulkan_experimental_desc, getString(R.string.nav_tab_graphics)));
+        vulkanSwitch.setChecked(isVulkanUnlocked());
+        vulkanSwitch.setOnCheckedChangeListener((button, checked) -> {
+            getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit()
+                .putBoolean(PREF_VULKAN_UNLOCKED, checked).apply();
+            if (!checked && RENDER_BACKEND_VULKAN.equals(getRenderBackendChoice())
+                    && writeRenderBackend(RENDER_BACKEND_GLES)) {
+                Toast.makeText(this, R.string.setup_toast_render_backend_saved, Toast.LENGTH_LONG).show();
+            }
+        });
         UiKit.divider(content);
 
         for (int i = 0; i < DIAGNOSTIC_MARKERS.length; i++) {

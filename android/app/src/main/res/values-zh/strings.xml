@@ -237,6 +237,9 @@
     <string name="setup_render_backend_gles_short">GLES</string>
     <string name="setup_render_backend_gles_angle_short">ANGLE</string>
     <string name="setup_render_backend_vulkan_short">Vulkan</string>
+    <string name="setup_switch_vulkan_experimental">实验性 Vulkan 渲染器</string>
+    <string name="setup_switch_vulkan_experimental_desc">在“%1$s”选项卡的渲染后端中重新显示 Vulkan（DXVK）。它目前在许多设备上显示黑色纹理；除非要测试，请保持关闭。</string>
+    <string name="setup_vulkan_moved_message">Vulkan 目前在许多设备上显示黑色纹理，因此游戏已切换到 OpenGL ES。可在“%1$s → %2$s → %3$s”中重新开启 Vulkan。</string>
     <string name="setup_switch_gx_net_trace">在线网络日志</string>
     <string name="setup_switch_gx_net_trace_desc">记录游戏发往 GeneralsOnline 服务器的每个请求及其回复。如果登录、大厅或匹配是在进入游戏后才失败，请打开此项。启动器自身的请求始终会被记录；此开关会额外记录游戏的请求。同时会开启跨平台对战的不同步诊断：每个间隔比对的模拟校验和，以及在回放中每个对象各自的校验和。(gx_net_trace.txt)</string>
     <string name="netdiag_title">网络诊断</string>
