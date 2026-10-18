@@ -52,6 +52,11 @@ namespace GXUiScale
 	// layout is loaded (beginLayout); identity for layouts that are not scaled or not loaded yet.
 	const Transform &forLayout( const char *layoutFile );
 
+	// GeneralsX @feature Android port 18/10/2026 ControlBar.wnd's transform squeezed into the part of
+	// the screen right of leftEdge (a fraction of its width), for the open army column; 0 restores
+	// the transform the layout was loaded with. The caller moves the windows (ControlBar.cpp).
+	void setControlBarLeftEdge( Real leftEdge );
+
 	// winCreateFromScript: the layout about to be parsed, and its text, to find what to scale.
 	void beginLayout( const char *layoutFile, const char *text, Int length );
 	void endLayout();

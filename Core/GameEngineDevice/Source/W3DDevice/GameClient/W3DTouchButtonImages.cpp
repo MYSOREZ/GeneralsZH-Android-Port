@@ -72,6 +72,15 @@ namespace
 			{ 3, { 30, 39, 21 }, { 44, 33, 33 } },
 			{ 3, { 7, 19, 19 }, { 24, 15, 33 } },
 			{ 3, { 53, 41, 41 }, { 24, 33, 15 } } } },
+		// Force attack: four arrowheads closing on a centre point -- a crosshair. Generals has no
+		// SCCAttack picture (the base game's cursors are animated files), and its mapped image name
+		// drew as a purple square there (owner, a29).
+		{ "GXForceAttack", 5, {
+			{ 4, { 28, 32, 32, 28 }, { 22, 22, 26, 26 } },
+			{ 3, { 30, 37, 23 }, { 18, 5, 5 } },
+			{ 3, { 30, 23, 37 }, { 30, 43, 43 } },
+			{ 3, { 22, 9, 9 }, { 24, 31, 17 } },
+			{ 3, { 38, 51, 51 }, { 24, 17, 31 } } } },
 		// Formation: two ranks of three, with the heading above them.
 		{ "GXFormation", 7, {
 			{ 3, { 30, 21, 39 }, { 4, 12, 12 } },

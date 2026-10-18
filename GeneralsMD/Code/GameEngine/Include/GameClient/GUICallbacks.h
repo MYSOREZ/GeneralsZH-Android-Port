@@ -390,6 +390,8 @@ extern void GroupPanelCalibrateFollowOffset( Int barScreenX, Int barScreenY );
 // stage (default/squished/low) AND every frame of its own slide-in/out
 // animation, instead of only snapping into place once the bar settles.
 extern void GroupPanelFollowControlBar( Int barScreenX, Int barScreenY, Bool visible );
+// GeneralsX @feature Android port 18/10/2026 Closes the army column's drawer (a new game).
+extern void GroupPanelCloseDrawer();
 
 
 // IdleWorker Controls --------------------------------------------------------------------------------

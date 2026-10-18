@@ -739,6 +739,11 @@ public:
 	void setFullViewportHeight();
 	void setScaledViewportHeight();
 
+	// GeneralsX @feature Android port 18/10/2026 The army column's drawer (GroupPanel.cpp): open,
+	// the bar's windows move into the screen's width right of leftEdge (a fraction of it); closed,
+	// back where they were.
+	void setArmyColumnOpen( Bool open, Real leftEdge );
+
 	/// set the control bar to the proper scheme based off a player template that's passed in
 	ControlBarSchemeManager *getControlBarSchemeManager() { return m_controlBarSchemeManager; }
 	void setControlBarSchemeByPlayer(Player *p);

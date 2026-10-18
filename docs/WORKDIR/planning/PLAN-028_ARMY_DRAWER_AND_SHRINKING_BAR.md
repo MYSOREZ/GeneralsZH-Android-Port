@@ -1,6 +1,10 @@
 # PLAN-028: Army buttons as a left drawer, with the control bar shrinking right
 
-Status: **idea** (18/10/2026, owner). Not started; to be thought through after 1.4.1.
+Status: **implemented for the next test build** (18/10/2026): realkot's column (GroupPanel.cpp,
+GroupPanel.wnd) as a drawer -- "+" above the standard bar's left end opens it, the bar's windows
+move right of it (`ControlBar::setArmyColumnOpen`, `GXUiScale::setControlBarLeftEdge`), "-" at the
+column's foot closes it; closed at the start of every game. Column width: safe inset + 9.5% of the
+screen (owner: narrower than the 4:3 bar left). See the diary, 18/10/2026.
 
 ## What exists (1.4.1)
 

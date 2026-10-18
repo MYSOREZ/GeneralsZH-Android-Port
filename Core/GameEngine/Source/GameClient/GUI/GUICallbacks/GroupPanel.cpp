@@ -17,61 +17,26 @@
 */
 
 // FILE: GroupPanel.cpp ///////////////////////////////////////////////////////////////////////////
-// GeneralsX @feature Android port 02/08/2026
+// GeneralsX @feature Android port 18/10/2026 The army column, as a drawer.
 //
-// Native in-engine replacement for the Android-overlay unit-group touch
-// panel: a small handle button that expands a row of 10 buttons (0-9) for
-// control-group assignment/recall. GroupPanel.wnd is loaded from a loose
-// file (Window\GroupPanel.wnd) rather than the game's own .big archives --
-// see GameWindowManagerScript.cpp's Window\ path resolution, same trick
-// already used for GeneralsOnline's own screens -- so this never touches
-// the user's separately-owned game data.
+// The column is realkot's (https://github.com/realkot/GeneralsX, r20, with the author's
+// permission): control groups 0-9 in two columns, the army buttons (on screen, whole map, planes,
+// helicopters, ground forces) and a handle. What this port adds is that it is a drawer (owner,
+// 18/10/2026): in a game only the "+" handle shows, just above the left end of the control bar,
+// which is the standard bar. A tap on it opens the column in the screen's left part and narrows the
+// control bar to the rest (ControlBar::setArmyColumnOpen, GXUiScale::setControlBarLeftEdge); the
+// handle, now "-" at the column's foot, closes it again. Every game starts with it closed.
 //
-// Quick tap (GBM_SELECTED): recall/select that group, same as a bare 0-9
-// keypress -- unless the group is still empty, in which case tap assigns
-// instead (an empty group has no useful "recall" meaning to begin with,
-// and a first-time user has no reason to already know the
-// long-press/right-click-to-assign convention -- this exact confusion was
-// reported against the Android-overlay version of this feature).
-// Two-finger-tap a group button (GBM_SELECTED_RIGHT -- GadgetPushButton's
-// existing right-click handling, which the touch layer's two-finger-tap
-// already produces at whatever screen position it lands on): always
-// assign/replace, regardless of occupancy -- the deliberate, explicit
-// version of the same action.
+// The column fills the whole left part beside the bar, the buttons' text fitted to them (owner: the
+// first version's small buttons left the battlefield showing around them).
 //
-// GeneralsX @feature Android port 02/08/2026, simplified 03/08/2026 Hold
-// gesture: press and hold a group button, a clock-wipe overlay
-// (GadgetButtonDrawClock -- the same mechanism this engine already has for
-// production-progress buttons, see W3DPushButton.cpp) fills clockwise in
-// red over GROUP_HOLD_MS; release once it completes (the whole button
-// reads solid red at percent=100) to CLEAR the group entirely. Releasing
-// before the wipe completes is just the normal tap above -- unchanged.
-// (A first version also had a shorter green "add to group" stage before
-// the red one, dropped once real use showed it was redundant: a plain tap
-// on a non-empty group already assigns/replaces it with the current
-// selection, which covers the same "grow this group" need a two-finger-
-// tap/force-assign already handles explicitly.)
+// Groups: a tap selects the group, or assigns the selection to it while it is empty; a two-finger
+// tap (right click) always assigns; holding a group button for GROUP_HOLD_MS (the red clock wipe)
+// and releasing clears it, through MSG_CREATE_TEAM<n> with no objects (Player.cpp clears the squad
+// first), so the battlefield selection is never touched. Long-pressing the handle shows or hides
+// the army buttons; they start as the control scheme says (GXControlScheme::ARMY_BUTTONS).
 //
-// CLEAR is built from the existing, already network-replicated
-// MSG_CREATE_TEAM<n> message (never a new message type), sent directly
-// with zero object-ID arguments -- Player::processCreateTeamGameMessage()
-// (Player.cpp) always clears the hotkey squad first regardless, so an
-// argument-less message just clears it. This never touches the player's
-// on-screen battlefield selection at all (an earlier version tried
-// building the empty team via the SELECTION-driven MSG_META_CREATE_TEAM<n>
-// instead -- deselect everything, fire it, restore afterward -- which hit
-// a string of bugs: the restore raced the message translator, then broke
-// move orders for the restored units by only touching the client-side
-// selection list and not the player's real AIGroup, then still left the
-// selection visibly flickering/disappearing for the reselect's deferred
-// frame; sending the concrete message directly sidesteps all of it).
-//
-// None of the actual group logic (assignment, recall, double-press-to-
-// recenter-camera) is reimplemented here -- SelectionXlat.cpp's
-// onMetaCreateTeam()/onMetaSelectTeam() already do the tap/two-finger-tap
-// paths; this only needs to feed the same MSG_META_CREATE_TEAM<n>/
-// MSG_META_SELECT_TEAM<n>/MSG_CREATE_TEAM<n> a keyboard shortcut or a
-// real click-based force-assign would have.
+// GroupPanel.wnd is a loose file (Window\GroupPanel.wnd) rather than part of the game's archives.
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "PreRTS.h"
@@ -84,64 +49,58 @@
 #include "Common/PlayerList.h"
 #include "Common/Registry.h"
 #include "GameClient/Color.h"
+#include "GameClient/ControlBar.h"
 #include "GameClient/Display.h"
+#include "GameClient/DisplayString.h"
+#include "GameClient/DisplayStringManager.h"
 #include "GameClient/GadgetPushButton.h"
+#include "GameClient/GameFont.h"
 #include "GameClient/GameText.h"
 #include "GameClient/GameWindow.h"
 #include "GameClient/GameWindowManager.h"
 #include "GameClient/GUICallbacks.h"
-#include "GameClient/GXArmyPanelLayout.h"
-#include "GameClient/GXUiScale.h"
 #include "GameClient/InGameUI.h"
+#include "GameClient/Shell.h"
 #include "GameClient/WindowLayout.h"
 #include "GameClient/WinInstanceData.h"
 #include "GameLogic/GameLogic.h"
 #include "GameLogic/Squad.h"
+#include <map>
+
+enum { ARMY_SCREEN, ARMY_MAP, ARMY_PLANES, ARMY_HELICOPTERS, ARMY_GROUND, ARMY_BUTTON_COUNT };
 
 static NameKeyType s_parentID = NAMEKEY_INVALID;
 static NameKeyType s_buttonHandleID = NAMEKEY_INVALID;
-// GeneralsX @feature Android port 05/10/2026 The space bar for a finger (issue #25): "!" beside the
-// handle centres the view on the last radar event, the way MSG_META_VIEW_LAST_RADAR_EVENT does --
-// a camera button, so it sits with the camera-side controls here rather than on a unit's bar, and
-// is there with nothing selected. Optional: an older GroupPanel.wnd simply has no such window.
-static NameKeyType s_buttonLastEventID = NAMEKEY_INVALID;
 static NameKeyType s_groupRowID = NAMEKEY_INVALID;
 static NameKeyType s_buttonGroupID[10];
-static Bool s_groupRowExpanded = FALSE;
+static NameKeyType s_armyButtonID[ARMY_BUTTON_COUNT];
 
-// GeneralsX @feature Android port 02/08/2026 Hold-gesture timing. 0 means
-// "not currently pressed" for s_pressStartMs, so a genuine press start is
-// never allowed to land exactly on timeGetTime()==0 in practice.
+static Bool s_drawerOpen = FALSE;
+static Bool s_armyShown = FALSE;
+static Bool s_labelsSet = FALSE;
+static UnsignedInt s_handlePressMs = 0;
+
 static const UnsignedInt GROUP_HOLD_MS = 600;
 static UnsignedInt s_pressStartMs[10] = { 0 };
 
-// GeneralsX @feature realkot/Codex 14/10/2026 Tactical control scheme (GXControlScheme.h): army
-// buttons beside the handle -- every combat unit on screen, on the whole map, combat planes,
-// combat helicopters, and ground forces (on screen; pressed again within two seconds, the whole
-// map). Each replaces the selection through the retail mass-selection path
-// (selectAllUnitsByTypeAcross*), which sends the group to the logic like a drag-box does.
-// Dozers, harvesters, structures and units that opt out of "select all" are never picked.
-// Ported from https://github.com/realkot/GeneralsX with the author's permission.
-enum { ARMY_SCREEN, ARMY_MAP, ARMY_PLANES, ARMY_HELICOPTERS, ARMY_GROUND, ARMY_BUTTON_COUNT };
-static NameKeyType s_armyButtonID[ARMY_BUTTON_COUNT];
-static Bool s_armyButtonsPrepared = FALSE;
 static const UnsignedInt ARMY_GROUND_REPEAT_MS = 2000;
 static UnsignedInt s_armyGroundPressMs = 0;
 
+// How much of the screen's width the open column takes, safe-area inset included (owner: a little
+// less than the first version's 4:3 bar left, so the control bar stays wider).
+static const Real COLUMN_WIDTH_FRACTION = 0.095f;
+
+//-------------------------------------------------------------------------------------------------
+// Army selection, through the retail mass-selection path (selectAllUnitsByTypeAcross*), which
+// sends the group to the logic as a drag-box does. Dozers, harvesters, structures and units that
+// opt out of "select all" are never picked.
 static Bool canSelectArmy()
 {
 	return TheMessageStream && TheInGameUI && TheInGameUI->getInputEnabled()
-		&& TheGameLogic && TheGameLogic->isInInteractiveGame() && !TheGameLogic->isGamePaused()
+		&& TheGameLogic && TheGameLogic->isInInteractiveGame() && TheGameLogic->getFrame() > 0
+		&& !TheGameLogic->isGamePaused() && !(TheShell && TheShell->isShellActive())
 		&& ThePlayerList && ThePlayerList->getLocalPlayer()
 		&& ThePlayerList->getLocalPlayer()->isPlayerActive();
-}
-
-static void armyExcludedKinds(KindOfMaskType &excluded)
-{
-	excluded.set(KINDOF_DOZER);
-	excluded.set(KINDOF_HARVESTER);
-	excluded.set(KINDOF_IGNORES_SELECT_ALL);
-	excluded.set(KINDOF_STRUCTURE);
 }
 
 static void selectArmy(Int which)
@@ -150,7 +109,10 @@ static void selectArmy(Int which)
 		return;
 	}
 	KindOfMaskType required, excluded;
-	armyExcludedKinds(excluded);
+	excluded.set(KINDOF_DOZER);
+	excluded.set(KINDOF_HARVESTER);
+	excluded.set(KINDOF_IGNORES_SELECT_ALL);
+	excluded.set(KINDOF_STRUCTURE);
 	Bool acrossMap = TRUE;
 	switch (which) {
 		case ARMY_SCREEN:
@@ -172,6 +134,7 @@ static void selectArmy(Int which)
 			break;
 		case ARMY_GROUND:
 		{
+			// On screen; pressed again within two seconds, the whole map.
 			required.set(KINDOF_CAN_ATTACK);
 			excluded.set(KINDOF_AIRCRAFT);
 			const UnsignedInt now = timeGetTime();
@@ -190,21 +153,11 @@ static void selectArmy(Int which)
 	}
 }
 
-static Int findArmyButtonIndex(Int controlID)
-{
-	for (Int i = 0; i < ARMY_BUTTON_COUNT; ++i) {
-		if (controlID == s_armyButtonID[i]) {
-			return i;
-		}
-	}
-	return -1;
-}
-
-// A language pack may carry its own labels (GUI:GXArmy*); otherwise the text language's short names.
+// A language pack may carry its own labels; otherwise the text language's short names.
 static UnicodeString armyButtonLabel(Int index)
 {
 	static const char *const kLabelKeys[ARMY_BUTTON_COUNT] = {
-		"GUI:GXArmyScreen", "GUI:GXArmyMap", "GUI:GXArmyPlanes", "GUI:GXArmyHelicopters", "GUI:GXArmyGround" };
+		"GUI:ArmyScreenShort", "GUI:ArmyMapShort", "GUI:ArmyPlanesShort", "GUI:ArmyHelicoptersShort", "GUI:ArmyGround" };
 	if (TheGameText) {
 		Bool exists = FALSE;
 		UnicodeString label = TheGameText->fetch(kLabelKeys[index], &exists);
@@ -239,41 +192,14 @@ static UnicodeString armyButtonLabel(Int index)
 	return UnicodeString(kLabels[0].text[index]);
 }
 
-// Shown and labelled once per layout, when the scheme asks for them; hidden (as the .wnd creates
-// them) otherwise, so the Classic scheme's panel is exactly what it was.
-static void prepareArmyButtons()
-{
-	if (s_armyButtonsPrepared || !TheWindowManager) {
-		return;
-	}
-	s_armyButtonsPrepared = TRUE;
-	const Bool wanted = GXControlScheme::enabled(GXControlScheme::ARMY_BUTTONS);
-	Int found = 0;
-	for (Int i = 0; i < ARMY_BUTTON_COUNT; ++i) {
-		GameWindow *button = TheWindowManager->winGetWindowFromId(nullptr, s_armyButtonID[i]);
-		if (!button) {
-			continue;
-		}
-		++found;
-		if (wanted) {
-			GadgetButtonSetText(button, armyButtonLabel(i));
-		}
-		button->winHide(!wanted);
-	}
-	fprintf(stderr, "[GX-Controls] army buttons: %s, %d of %d found in GroupPanel.wnd\n",
-		wanted ? "on" : "off", (int)found, (int)ARMY_BUTTON_COUNT);
-	fflush(stderr);
-}
-
 //-------------------------------------------------------------------------------------------------
 static void cacheWidgetIDs()
 {
 	if (s_buttonHandleID != NAMEKEY_INVALID) {
-		return; // already cached -- GWM_CREATE fires once per window in this layout
+		return;
 	}
 	s_parentID = TheNameKeyGenerator->nameToKey("GroupPanel.wnd:GroupPanelParent");
 	s_buttonHandleID = TheNameKeyGenerator->nameToKey("GroupPanel.wnd:ButtonHandle");
-	s_buttonLastEventID = TheNameKeyGenerator->nameToKey("GroupPanel.wnd:ButtonLastEvent");
 	s_groupRowID = TheNameKeyGenerator->nameToKey("GroupPanel.wnd:GroupRow");
 	static const char *const kArmyNames[ARMY_BUTTON_COUNT] = {
 		"GroupPanel.wnd:ArmyScreen", "GroupPanel.wnd:ArmyMap", "GroupPanel.wnd:ArmyPlanes",
@@ -288,7 +214,11 @@ static void cacheWidgetIDs()
 	}
 }
 
-//-------------------------------------------------------------------------------------------------
+static GameWindow *panelWindow(NameKeyType id)
+{
+	return TheWindowManager ? TheWindowManager->winGetWindowFromId(nullptr, id) : nullptr;
+}
+
 static Int findGroupButtonIndex(Int controlID)
 {
 	for (Int i = 0; i < 10; ++i) {
@@ -299,13 +229,19 @@ static Int findGroupButtonIndex(Int controlID)
 	return -1;
 }
 
-//-------------------------------------------------------------------------------------------------
+static Int findArmyButtonIndex(Int controlID)
+{
+	for (Int i = 0; i < ARMY_BUTTON_COUNT; ++i) {
+		if (controlID == s_armyButtonID[i]) {
+			return i;
+		}
+	}
+	return -1;
+}
+
 static Bool isGroupEmpty(Int group)
 {
-	if (!ThePlayerList) {
-		return TRUE;
-	}
-	Player *player = ThePlayerList->getLocalPlayer();
+	Player *player = ThePlayerList ? ThePlayerList->getLocalPlayer() : nullptr;
 	if (!player) {
 		return TRUE;
 	}
@@ -313,47 +249,17 @@ static Bool isGroupEmpty(Int group)
 	return !squad || squad->getLiveObjects().empty();
 }
 
-//-------------------------------------------------------------------------------------------------
 static void handleGroupCommand(Int group, Bool forceAssign)
 {
 	if (!TheMessageStream || group < 0 || group > 9) {
 		return;
 	}
-	Bool assign = forceAssign || isGroupEmpty(group);
-	GameMessage::Type type = assign
+	const Bool assign = forceAssign || isGroupEmpty(group);
+	TheMessageStream->appendMessage(assign
 		? (GameMessage::Type)(GameMessage::MSG_META_CREATE_TEAM0 + group)
-		: (GameMessage::Type)(GameMessage::MSG_META_SELECT_TEAM0 + group);
-	TheMessageStream->appendMessage(type);
+		: (GameMessage::Type)(GameMessage::MSG_META_SELECT_TEAM0 + group));
 }
 
-//-------------------------------------------------------------------------------------------------
-// GeneralsX @bugfix Android port 04/08/2026 Two earlier versions of this
-// built the empty team via MSG_META_CREATE_TEAM<n>, which has no
-// arguments of its own -- SelectionTranslator::onMetaCreateTeam()
-// (SelectionXlat.cpp) always builds it from whatever's CURRENTLY selected
-// on the battlefield at translation time, so getting an EMPTY team out of
-// it meant deselecting everything first, then restoring the player's
-// actual selection afterward. That restore was a real source of bugs:
-// doing it synchronously raced the translator (it hadn't run yet, so it
-// saw the restored selection, not the empty one -- team never actually
-// got cleared); deferring it a frame fixed that but reportedly used
-// TheInGameUI->selectDrawable() to reselect, which never rebuilds the
-// player's real (network-replicated) AIGroup, only the client-local
-// selection list, so the "restored" units looked selected but weren't
-// actually commandable; fixing THAT to send MSG_CREATE_SELECTED_GROUP
-// instead fixed commandability, but the player's selection still
-// visibly disappeared for a frame (and, per a later report, sometimes
-// longer) between the deselect and the deferred restore.
-//
-// All of that complexity existed only to build an EMPTY team through a
-// message that has no way to say "empty" directly. The underlying
-// concrete message, MSG_CREATE_TEAM<n>, doesn't have that limitation --
-// Player::processCreateTeamGameMessage() (Player.cpp) always clears the
-// hotkey squad first, then adds whatever object-ID arguments the message
-// carries; sent with ZERO of them, it just clears. Sending that directly
-// means CLEAR never has to touch the player's on-screen selection at
-// all -- nothing to snapshot, nothing to restore, nothing that can
-// flicker or desync.
 static void handleGroupClear(Int group)
 {
 	if (!TheMessageStream || group < 0 || group > 9) {
@@ -362,131 +268,121 @@ static void handleGroupClear(Int group)
 	TheMessageStream->appendMessage((GameMessage::Type)(GameMessage::MSG_CREATE_TEAM0 + group));
 }
 
-//-------------------------------------------------------------------------------------------------
-// Called every frame while the panel exists. Polls each group button's own
-// WIN_STATE_SELECTED bit (set/cleared by GadgetPushButtonInput on
-// GWM_LEFT_DOWN/GWM_LEFT_UP) rather than intercepting raw window messages,
-// so the existing tap/click handling in GadgetPushButton.cpp is completely
-// untouched -- this only observes it. Draws the red clock-wipe while held;
-// GroupPanelSystem's GBM_SELECTED handler reads s_pressStartMs to decide
-// what the release actually meant.
+// The red clock wipe on a group button held down; GBM_SELECTED reads how long it was held.
 static void updateHoldVisuals()
 {
-	// GeneralsX @bugfix Android port 06/08/2026 This ran unconditionally
-	// every frame of every match regardless of whether the group row was
-	// even expanded -- 10 recursive TheWindowManager->winGetWindowFromId()
-	// tree walks/frame for buttons that are hidden (and therefore
-	// unpressable, so WIN_STATE_SELECTED could never be set on them) the
-	// vast majority of the time, since s_groupRowExpanded defaults FALSE
-	// and the row is only shown while the spoiler handle is held open.
-	// Skip the whole thing when the row is collapsed, matching the same
-	// s_groupRowExpanded gate the row's own winHide() already uses.
-	if (!s_groupRowExpanded) {
+	if (!s_drawerOpen) {
 		return;
 	}
-	if (!TheWindowManager) {
-		return;
-	}
-	UnsignedInt now = timeGetTime();
+	const UnsignedInt now = timeGetTime();
 	for (Int i = 0; i < 10; ++i) {
-		GameWindow *button = TheWindowManager->winGetWindowFromId(nullptr, s_buttonGroupID[i]);
+		GameWindow *button = panelWindow(s_buttonGroupID[i]);
 		if (!button) {
 			continue;
 		}
-
-		Bool pressed = BitIsSet(button->winGetInstanceData()->getState(), WIN_STATE_SELECTED);
-		if (!pressed) {
+		if (!BitIsSet(button->winGetInstanceData()->getState(), WIN_STATE_SELECTED)) {
 			s_pressStartMs[i] = 0;
 			continue;
 		}
-
 		if (s_pressStartMs[i] == 0) {
 			s_pressStartMs[i] = now;
 		}
-
-		UnsignedInt elapsed = now - s_pressStartMs[i];
-		Int percent = 1 + (Int)((elapsed * 99u) / GROUP_HOLD_MS);
-		if (percent > 100) percent = 100;
+		Int percent = 1 + (Int)(((now - s_pressStartMs[i]) * 99u) / GROUP_HOLD_MS);
+		if (percent > 100) {
+			percent = 100;
+		}
 		GadgetButtonDrawClock(button, percent, GameMakeColor(220, 60, 50, 255));
 	}
 }
 
-// GeneralsX @feature Android port 03/08/2026 See GUICallbacks.h's comment.
-// The offset is captured exactly ONCE, at ControlBar::init() time, before
-// the real bar has ever run a single show/hide slide animation -- at that
-// moment both this panel's handle and the real ControlBarParent are still
-// sitting at their plain authored .wnd resting positions, so the
-// screen-space delta between them is the true, permanent spatial
-// relationship, independent of any animation timing. Earlier attempts
-// calibrated lazily at runtime (once "visible", or once "visible AND the
-// bar's slide-in animation had settled") -- both were timing-dependent:
-// the first could sample a transient mid-slide bar position (real device
-// report: the panel flew off the top of the screen); the second was
-// correct but only ever moved the panel AFTER the bar's animation
-// finished, so the panel just sat static and "already in place" for the
-// whole slide instead of sliding in together with the bar, which is the
-// actual "become an inseparable part of the bar" behavior asked for.
-// Since the offset never needs to change, tracking by it unconditionally
-// every frame (see GroupPanelFollowControlBar below) makes the panel
-// mirror the bar's live screen position on every single frame, including
-// every frame of its slide-in/out animation.
-// GeneralsX @bugfix Android port 04/10/2026 Issue #33: the panel's root window must cover exactly
-// what is shown -- the handle, plus the row while it is open -- and nothing else.
-//
-// The window manager hit-tests by top-level window: the first one whose rectangle contains the
-// point is searched for a child, and the search stops there (getWindowUnderCursor(),
-// findWindowUnderMouse()). GroupPanelParent is authored as one rectangle around the handle and the
-// whole row, and it is NOINPUT, so over its empty parts the answer was "no window" -- and the
-// windows underneath it, the command bar's own buttons (the general's promotions among them), were
-// never reached. Worse, the cutout margin (02/10/2026) moved the handle and the row right but not
-// their parent, so the "9" button ended up outside the rectangle that is searched and could not be
-// pressed at all. Fitting the root to its visible children after every move and every open/close
-// fixes both: a point outside the buttons is outside the panel.
+//-------------------------------------------------------------------------------------------------
+// The text of a button as large as the button allows: from about half its height down until it
+// fits its width (realkot's fitted labels). Only when the size or the text changed.
+struct PanelFontState
+{
+	GameFont *base = nullptr;
+	Int width = 0, height = 0;
+	UnicodeString text;
+};
+static std::map<GameWindow *, PanelFontState> s_panelFonts;
+
+static void fitButtonFont(GameWindow *button, Int width, Int height)
+{
+	if (!button || !TheFontLibrary || !TheDisplayStringManager) {
+		return;
+	}
+	PanelFontState &state = s_panelFonts[button];
+	if (state.base == nullptr) {
+		state.base = button->winGetFont();
+	}
+	const UnicodeString text = button->winGetText();
+	if (state.base == nullptr || (state.width == width && state.height == height && state.text == text)) {
+		return;
+	}
+	state.width = width;
+	state.height = height;
+	state.text = text;
+	const Int smallest = max(8, (Int)(8 * min(TheDisplay->getWidth() / 800.0f, TheDisplay->getHeight() / 600.0f)));
+	Int size = max(smallest, (Int)(height * 0.5f));
+	GameFont *font = TheFontLibrary->getFont(state.base->nameString, size, state.base->bold);
+	DisplayString *measure = TheDisplayStringManager->newDisplayString();
+	if (measure) {
+		measure->setText(text);
+		measure->setWordWrap(0);
+		while (font && size > smallest) {
+			measure->setFont(font);
+			Int w = 0, h = 0;
+			measure->getSize(&w, &h);
+			if (w <= width - 8 && h <= height - 4) {
+				break;
+			}
+			--size;
+			font = TheFontLibrary->getFont(state.base->nameString, size, state.base->bold);
+		}
+		TheDisplayStringManager->freeDisplayString(measure);
+	}
+	if (font) {
+		button->winSetFont(font);
+	}
+}
+
+static void placeButton(GameWindow *button, Int screenX, Int screenY, Int originX, Int originY, Int width, Int height)
+{
+	if (!button) {
+		return;
+	}
+	button->winSetPosition(screenX - originX, screenY - originY);
+	button->winSetSize(width, height);
+	fitButtonFont(button, width, height);
+}
+
+// The panel's root covers exactly what is shown: the window manager hit-tests by top-level window,
+// and an empty part of a larger root would keep the control bar's own buttons from a press
+// (issue #33).
 static void fitParentToVisibleContent()
 {
-	if (!TheWindowManager) {
+	GameWindow *parent = panelWindow(s_parentID);
+	if (!parent) {
 		return;
 	}
-	GameWindow *parent = TheWindowManager->winGetWindowFromId(nullptr, s_parentID);
-	GameWindow *handle = TheWindowManager->winGetWindowFromId(nullptr, s_buttonHandleID);
-	GameWindow *row = TheWindowManager->winGetWindowFromId(nullptr, s_groupRowID);
-	if (!parent || !handle || !row) {
-		return;
-	}
-	Int hx, hy, hw, hh;
-	handle->winGetScreenPosition(&hx, &hy);
-	handle->winGetSize(&hw, &hh);
-	Int loX = hx, loY = hy, hiX = hx + hw, hiY = hy + hh;
-	GameWindow *lastEvent = TheWindowManager->winGetWindowFromId(nullptr, s_buttonLastEventID);
-	if (lastEvent && !lastEvent->winIsHidden()) {
-		Int ex, ey, ew, eh;
-		lastEvent->winGetScreenPosition(&ex, &ey);
-		lastEvent->winGetSize(&ew, &eh);
-		loX = min(loX, ex);
-		loY = min(loY, ey);
-		hiX = max(hiX, ex + ew);
-		hiY = max(hiY, ey + eh);
-	}
-	for (Int i = 0; i < ARMY_BUTTON_COUNT; ++i) {
-		GameWindow *army = TheWindowManager->winGetWindowFromId(nullptr, s_armyButtonID[i]);
-		if (army && !army->winIsHidden()) {
-			Int ax, ay, aw, ah;
-			army->winGetScreenPosition(&ax, &ay);
-			army->winGetSize(&aw, &ah);
-			loX = min(loX, ax);
-			loY = min(loY, ay);
-			hiX = max(hiX, ax + aw);
-			hiY = max(hiY, ay + ah);
+	Int loX = 0, loY = 0, hiX = 0, hiY = 0;
+	Bool any = FALSE;
+	for (GameWindow *child = parent->winGetChild(); child; child = child->winGetNext()) {
+		if (child->winIsHidden()) {
+			continue;
+		}
+		Int x, y, w, h;
+		child->winGetScreenPosition(&x, &y);
+		child->winGetSize(&w, &h);
+		if (!any) {
+			loX = x; loY = y; hiX = x + w; hiY = y + h;
+			any = TRUE;
+		} else {
+			loX = min(loX, x); loY = min(loY, y); hiX = max(hiX, x + w); hiY = max(hiY, y + h);
 		}
 	}
-	if (!row->winIsHidden()) {
-		Int rx, ry, rw, rh;
-		row->winGetScreenPosition(&rx, &ry);
-		row->winGetSize(&rw, &rh);
-		loX = min(loX, rx);
-		loY = min(loY, ry);
-		hiX = max(hiX, rx + rw);
-		hiY = max(hiY, ry + rh);
+	if (!any) {
+		return;
 	}
 	Int px, py, pw, ph;
 	parent->winGetScreenPosition(&px, &py);
@@ -494,25 +390,13 @@ static void fitParentToVisibleContent()
 	if (px == loX && py == loY && pw == hiX - loX && ph == hiY - loY) {
 		return;
 	}
-	// The children are placed relative to the root: move them back by however far the root moves,
-	// so nothing on screen shifts.
+	// The children are placed relative to the root: move them back by however far the root moves.
 	const Int dx = loX - px;
 	const Int dy = loY - py;
-	Int cx, cy;
-	handle->winGetPosition(&cx, &cy);
-	handle->winSetPosition(cx - dx, cy - dy);
-	row->winGetPosition(&cx, &cy);
-	row->winSetPosition(cx - dx, cy - dy);
-	if (lastEvent) {
-		lastEvent->winGetPosition(&cx, &cy);
-		lastEvent->winSetPosition(cx - dx, cy - dy);
-	}
-	for (Int i = 0; i < ARMY_BUTTON_COUNT; ++i) {
-		GameWindow *army = TheWindowManager->winGetWindowFromId(nullptr, s_armyButtonID[i]);
-		if (army) {
-			army->winGetPosition(&cx, &cy);
-			army->winSetPosition(cx - dx, cy - dy);
-		}
+	for (GameWindow *child = parent->winGetChild(); child; child = child->winGetNext()) {
+		Int cx, cy;
+		child->winGetPosition(&cx, &cy);
+		child->winSetPosition(cx - dx, cy - dy);
 	}
 	Int ox, oy;
 	parent->winGetPosition(&ox, &oy);
@@ -520,135 +404,130 @@ static void fitParentToVisibleContent()
 	parent->winSetSize(hiX - loX, hiY - loY);
 }
 
-static Bool s_followOffsetCalibrated = FALSE;
-static Int s_followOffsetX = 0;
-static Int s_followOffsetY = 0;
-
-void GroupPanelCalibrateFollowOffset(Int barScreenX, Int barScreenY)
+// The left edge the control bar gets while the column is open, as a fraction of the screen's
+// width; 0 on a screen too narrow for it (the column then opens above the bar instead).
+static Real columnLeftEdge()
 {
-	if (!TheWindowManager) {
-		return;
+	if (!TheDisplay || TheDisplay->getHeight() <= 0
+		|| (Real)TheDisplay->getWidth() / (Real)TheDisplay->getHeight() < 1.5f) {
+		return 0.0f;
 	}
-	GameWindow *handle = TheWindowManager->winGetWindowFromId(nullptr, s_buttonHandleID);
-	if (!handle) {
-		return;
-	}
-	Int handleX, handleY;
-	handle->winGetScreenPosition(&handleX, &handleY);
-	s_followOffsetX = handleX - barScreenX;
-	s_followOffsetY = handleY - barScreenY;
-	s_followOffsetCalibrated = TRUE;
-	// GeneralsX @feature Android port 02/10/2026 Where the row's handle and the control bar are when
-	// the offset is taken, to check the interface scale moved both (GXUiScale.h).
-	fprintf(stderr, "[GX-UISCALE] group panel handle at %d,%d, control bar at %d,%d\n",
-		handleX, handleY, barScreenX, barScreenY);
+	const Real resolution = max(0.25f, min(TheDisplay->getWidth() / 800.0f, TheDisplay->getHeight() / 600.0f));
+	const Real margin = max(4.0f, 6.0f * resolution);
+	return ((Real)GXSafeArea::leftPx() + 2.0f * margin) / (Real)TheDisplay->getWidth() + COLUMN_WIDTH_FRACTION;
 }
 
-// GeneralsX @feature Codex/realkot 15/10/2026 Tactical scheme's army column
-// (GXControlScheme::ARMY_COLUMN): in the left gap the bar leaves (GXUiScale.cpp), from the bottom
-// up -- the army buttons, the handle with the last-event button beside it, and the ten groups in
-// two columns above (in a row above the bar when the gap is too narrow). Positions from
-// GXArmyPanelLayout, ported from https://github.com/realkot/GeneralsX with permission.
-static void placeArmyColumn(Int barScreenX, Int barScreenY)
+static void setDrawer(Bool open)
 {
-	GameWindow *parent = TheWindowManager->winGetWindowFromId(nullptr, s_parentID);
-	GameWindow *handle = TheWindowManager->winGetWindowFromId(nullptr, s_buttonHandleID);
-	GameWindow *row = TheWindowManager->winGetWindowFromId(nullptr, s_groupRowID);
-	GameWindow *lastEvent = TheWindowManager->winGetWindowFromId(nullptr, s_buttonLastEventID);
-	if (!parent || !handle || !row || !TheDisplay) {
+	if (s_drawerOpen == open) {
 		return;
 	}
-	const GXUiScale::Transform &bar = GXUiScale::forLayout("ControlBar.wnd");
-	const GXArmyPanelLayout::Layout box = GXArmyPanelLayout::calculate(
-		TheDisplay->getWidth(), TheDisplay->getHeight(), barScreenX, barScreenY,
-		GXSafeArea::leftPx(), GXSafeArea::bottomPx(), bar.fontK);
-	const Int armyRows = GXControlScheme::enabled(GXControlScheme::ARMY_BUTTONS) ? ARMY_BUTTON_COUNT : 0;
-	const Int shift = (ARMY_BUTTON_COUNT - armyRows) * (box.height + box.gap);
-	const Int handleY = box.y + shift;
+	s_drawerOpen = open;
+	if (TheControlBar) {
+		TheControlBar->setArmyColumnOpen(open, open ? columnLeftEdge() : 0.0f);
+	}
+	fprintf(stderr, "[GX-Controls] army column %s\n", open ? "opened" : "closed");
+	fflush(stderr);
+}
+
+//-------------------------------------------------------------------------------------------------
+void GroupPanelCalibrateFollowOffset(Int barScreenX, Int barScreenY)
+{
+	fprintf(stderr, "[GX-UISCALE] group panel: control bar at %d,%d\n", barScreenX, barScreenY);
+}
+
+void GroupPanelCloseDrawer()
+{
+	setDrawer(FALSE);
+}
+
+// Every frame the bar is shown: the handle above the bar's left end while closed; the column in the
+// left part beside the bar while open, filling it from the bar's top to the screen's foot.
+void GroupPanelFollowControlBar(Int barScreenX, Int barScreenY, Bool visible)
+{
+	if (!visible || !TheWindowManager || !TheDisplay) {
+		return;
+	}
+	GameWindow *parent = panelWindow(s_parentID);
+	GameWindow *handle = panelWindow(s_buttonHandleID);
+	GameWindow *row = panelWindow(s_groupRowID);
+	if (!parent || !handle || !row) {
+		return;
+	}
+	const Int width = TheDisplay->getWidth();
+	const Int height = TheDisplay->getHeight();
+	const Real resolution = max(0.25f, min(width / 800.0f, height / 600.0f));
+	const Int margin = max(4, (Int)(6 * resolution));
+	const Int gap = max(2, (Int)(4 * resolution));
+	const Int x0 = GXSafeArea::leftPx() + margin;
+	const Int bottom = height - GXSafeArea::bottomPx() - margin;
 	Int px, py;
 	parent->winGetScreenPosition(&px, &py);
 
-	const Int half = (box.width - box.gap) / 2;
-	handle->winSetPosition(box.x - px, handleY - py);
-	handle->winSetSize(lastEvent ? half : box.width, box.height);
-	if (lastEvent) {
-		lastEvent->winSetPosition(box.x + half + box.gap - px, handleY - py);
-		lastEvent->winSetSize(box.width - half - box.gap, box.height);
-	}
-	for (Int i = 0; i < ARMY_BUTTON_COUNT; ++i) {
-		GameWindow *army = TheWindowManager->winGetWindowFromId(nullptr, s_armyButtonID[i]);
-		if (army) {
-			army->winSetPosition(box.x - px, handleY + (i + 1) * (box.height + box.gap) - py);
-			army->winSetSize(box.width, box.height);
-		}
-	}
-	row->winSetPosition(box.rowX - px, box.rowY + shift - py);
-	row->winSetSize(box.columns * box.cellWidth + (box.columns - 1) * box.gap,
-		box.rows * box.cellHeight + (box.rows - 1) * box.gap);
-	for (Int i = 0; i < 10; ++i) {
-		GameWindow *button = TheWindowManager->winGetWindowFromId(nullptr, s_buttonGroupID[i]);
-		if (button) {
-			button->winSetPosition((i % box.columns) * (box.cellWidth + box.gap),
-				(i / box.columns) * (box.cellHeight + box.gap));
-			button->winSetSize(box.cellWidth, box.cellHeight);
-		}
-	}
-	fitParentToVisibleContent();
-}
-
-void GroupPanelFollowControlBar(Int barScreenX, Int barScreenY, Bool visible)
-{
-	if (!visible || !s_followOffsetCalibrated) {
-		return;
-	}
-	if (!TheWindowManager) {
-		return;
-	}
-	if (GXControlScheme::enabled(GXControlScheme::ARMY_COLUMN)) {
-		placeArmyColumn(barScreenX, barScreenY);
-		return;
-	}
-	GameWindow *handle = TheWindowManager->winGetWindowFromId(nullptr, s_buttonHandleID);
-	GameWindow *row = TheWindowManager->winGetWindowFromId(nullptr, s_groupRowID);
-	if (!handle || !row) {
-		return;
-	}
-
-	// GeneralsX @tweak Android port 02/10/2026 Clear of the display cutout: at the bar's left edge
-	// the camera hole covered the handle and the "0" button (owner's photo). The launcher's safe
-	// inset (GXSafeArea.h) plus a little.
-	Int targetX = barScreenX + s_followOffsetX + GXSafeArea::leftPx() + TheDisplay->getWidth() / 100;
-	Int targetY = barScreenY + s_followOffsetY;
-
-	Int curX, curY;
-	handle->winGetScreenPosition(&curX, &curY);
-	Int dx = targetX - curX;
-	Int dy = targetY - curY;
-	if (dx != 0 || dy != 0) {
-		Int hx, hy;
-		handle->winGetPosition(&hx, &hy);
-		handle->winSetPosition(hx + dx, hy + dy);
-
-		Int rx, ry;
-		row->winGetPosition(&rx, &ry);
-		row->winSetPosition(rx + dx, ry + dy);
-
-		GameWindow *lastEvent = TheWindowManager->winGetWindowFromId(nullptr, s_buttonLastEventID);
-		if (lastEvent) {
-			Int ex, ey;
-			lastEvent->winGetPosition(&ex, &ey);
-			lastEvent->winSetPosition(ex + dx, ey + dy);
-		}
-
+	if (!s_drawerOpen) {
+		row->winHide(TRUE);
 		for (Int i = 0; i < ARMY_BUTTON_COUNT; ++i) {
-			GameWindow *army = TheWindowManager->winGetWindowFromId(nullptr, s_armyButtonID[i]);
-			if (army) {
-				Int ax, ay;
-				army->winGetPosition(&ax, &ay);
-				army->winSetPosition(ax + dx, ay + dy);
+			if (GameWindow *button = panelWindow(s_armyButtonID[i])) {
+				button->winHide(TRUE);
 			}
 		}
+		const Int w = (Int)(48 * resolution);
+		const Int h = (Int)(32 * resolution);
+		placeButton(handle, x0, barScreenY - h - margin, px, py, w, h);
+		fitParentToVisibleContent();
+		return;
 	}
+
+	// Beside the bar when it was narrowed for the column; above it otherwise.
+	const Int barLeft = barScreenX - margin;
+	const Bool beside = barLeft - x0 >= (Int)(60 * resolution);
+	const Int columnWidth = beside ? barLeft - x0 : (Int)(150 * resolution);
+	const Int rows = 5 + (s_armyShown ? 3 : 0) + 1;
+	const Int foot = beside ? bottom : barScreenY - margin;
+	const Int minRow = (Int)(28 * resolution);
+	Int rowHeight = beside ? (foot - barScreenY - (rows - 1) * gap) / rows : minRow;
+	if (rowHeight < minRow) {
+		rowHeight = minRow;
+	}
+	const Int top = foot - rows * rowHeight - (rows - 1) * gap;
+	const Int cellWidth = max(1, (columnWidth - gap) / 2);
+
+	// Groups 0-9, two to a row.
+	row->winHide(FALSE);
+	row->winSetPosition(x0 - px, top - py);
+	row->winSetSize(columnWidth, 5 * rowHeight + 4 * gap);
+	for (Int i = 0; i < 10; ++i) {
+		GameWindow *button = panelWindow(s_buttonGroupID[i]);
+		if (!button) {
+			continue;
+		}
+		button->winSetPosition((i % 2) * (cellWidth + gap), (i / 2) * (rowHeight + gap));
+		button->winSetSize(cellWidth, rowHeight);
+		fitButtonFont(button, cellWidth, rowHeight);
+	}
+
+	// The army: screen | map, planes | helicopters, ground forces across.
+	Int y = top + 5 * (rowHeight + gap);
+	for (Int i = 0; i < ARMY_BUTTON_COUNT; ++i) {
+		GameWindow *button = panelWindow(s_armyButtonID[i]);
+		if (!button) {
+			continue;
+		}
+		button->winHide(!s_armyShown);
+		if (!s_armyShown) {
+			continue;
+		}
+		const Bool full = (i == ARMY_GROUND);
+		const Int bx = x0 + ((i % 2 == 1 && !full) ? cellWidth + gap : 0);
+		const Int by = y + (i / 2) * (rowHeight + gap);
+		placeButton(button, bx, by, px, py, full ? columnWidth : cellWidth, rowHeight);
+	}
+	if (s_armyShown) {
+		y += 3 * (rowHeight + gap);
+	}
+
+	// The handle closes the drawer.
+	placeButton(handle, x0, y, px, py, columnWidth, rowHeight);
 	fitParentToVisibleContent();
 }
 
@@ -657,24 +536,66 @@ void GroupPanelInit(WindowLayout *layout, void *userData)
 {
 	(void)layout;
 	(void)userData;
+	s_drawerOpen = FALSE;
+	s_armyShown = GXControlScheme::enabled(GXControlScheme::ARMY_BUTTONS);
+	s_handlePressMs = 0;
+	s_armyGroundPressMs = 0;
+	s_panelFonts.clear();
 }
 
-//-------------------------------------------------------------------------------------------------
 void GroupPanelUpdate(WindowLayout *layout, void *userData)
 {
 	(void)layout;
 	(void)userData;
-	updateHoldVisuals();
-	if (!s_armyButtonsPrepared) {
-		prepareArmyButtons();
-		fitParentToVisibleContent();
+	if (!TheWindowManager) {
+		return;
 	}
+	updateHoldVisuals();
+	GameWindow *handle = panelWindow(s_buttonHandleID);
+	if (handle && BitIsSet(handle->winGetInstanceData()->getState(), WIN_STATE_SELECTED)) {
+		if (s_handlePressMs == 0) {
+			s_handlePressMs = timeGetTime();
+		}
+	} else {
+		s_handlePressMs = 0;
+	}
+
+	const Bool enabled = canSelectArmy();
+	for (Int i = 0; i < ARMY_BUTTON_COUNT; ++i) {
+		if (GameWindow *button = panelWindow(s_armyButtonID[i])) {
+			button->winEnable(enabled);
+		}
+	}
+	if (handle) {
+		const UnicodeString mark(s_drawerOpen ? L"\x2212" : L"+");
+		if (handle->winGetText() != mark) {
+			GadgetButtonSetText(handle, mark);
+		}
+	}
+	if (s_labelsSet || !TheGameText) {
+		return;
+	}
+	for (Int i = 0; i < ARMY_BUTTON_COUNT; ++i) {
+		if (GameWindow *button = panelWindow(s_armyButtonID[i])) {
+			GadgetButtonSetText(button, armyButtonLabel(i));
+		}
+	}
+	// Group digits are literal text, not localization keys.
+	for (Int group = 0; group < 10; ++group) {
+		if (GameWindow *button = panelWindow(s_buttonGroupID[group])) {
+			UnicodeString digit;
+			digit.format(L"%d", group);
+			GadgetButtonSetText(button, digit);
+		}
+	}
+	s_labelsSet = TRUE;
 }
 
-//-------------------------------------------------------------------------------------------------
 void GroupPanelShutdown(WindowLayout *layout, void *userData)
 {
 	(void)userData;
+	s_panelFonts.clear();
+	s_handlePressMs = 0;
 	if (layout) {
 		layout->hide(TRUE);
 	}
@@ -690,60 +611,37 @@ WindowMsgHandledType GroupPanelSystem(GameWindow *window, UnsignedInt msg,
 	switch (msg) {
 
 		case GWM_CREATE:
-		{
-			// GeneralsX @bugfix Android port 03/08/2026 Used to also try to
-			// hide GroupRow from here (matching window->winGetWindowId()
-			// against s_groupRowID), but for a WINDOWTYPE=USER window
-			// winSetWindowId() only runs AFTER winCreate() has already
-			// dispatched this very GWM_CREATE (see createGadget()'s "USER"
-			// branch in GameWindowManagerScript.cpp), so winGetWindowId()
-			// read from in here was always still the pre-assignment
-			// default and never matched -- moved the actual hide to
-			// ControlBar::init(), right after winCreateLayout() returns,
-			// where every window in the tree is guaranteed to already have
-			// its real id. cacheWidgetIDs() is still safe and useful to run
-			// this early since it only hashes names, independent of
-			// whether the matching windows exist yet.
 			cacheWidgetIDs();
 			break;
-		}
 
 		case GWM_DESTROY:
-			s_armyButtonsPrepared = FALSE;
+			s_labelsSet = FALSE;
+			s_panelFonts.clear();
 			break;
 
 		case GBM_SELECTED:
 		{
 			GameWindow *control = (GameWindow *)mData1;
-			Int controlID = control->winGetWindowId();
-
-			if (controlID == s_buttonHandleID) {
-				s_groupRowExpanded = !s_groupRowExpanded;
-				GameWindow *groupRow = TheWindowManager->winGetWindowFromId(nullptr, s_groupRowID);
-				if (groupRow) {
-					groupRow->winHide(!s_groupRowExpanded);
+			const Int controlID = control->winGetWindowId();
+			if (controlID == (Int)s_buttonHandleID) {
+				// Held: the army buttons in or out of the open column. Tapped: open or close it.
+				if (s_drawerOpen && s_handlePressMs != 0 && timeGetTime() - s_handlePressMs >= GROUP_HOLD_MS) {
+					s_armyShown = !s_armyShown;
+				} else {
+					setDrawer(!s_drawerOpen);
 				}
-				fitParentToVisibleContent();
+				s_handlePressMs = 0;
 				return MSG_HANDLED;
 			}
-
 			const Int army = findArmyButtonIndex(controlID);
 			if (army >= 0) {
 				selectArmy(army);
 				return MSG_HANDLED;
 			}
-
-			if (controlID == s_buttonLastEventID) {
-				TheMessageStream->appendMessage(GameMessage::MSG_META_VIEW_LAST_RADAR_EVENT);
-				return MSG_HANDLED;
-			}
-
-			Int group = findGroupButtonIndex(controlID);
+			const Int group = findGroupButtonIndex(controlID);
 			if (group >= 0) {
-				UnsignedInt now = timeGetTime();
-				UnsignedInt elapsed = (s_pressStartMs[group] != 0) ? (now - s_pressStartMs[group]) : 0;
+				const UnsignedInt elapsed = s_pressStartMs[group] != 0 ? timeGetTime() - s_pressStartMs[group] : 0;
 				s_pressStartMs[group] = 0;
-
 				if (elapsed >= GROUP_HOLD_MS) {
 					handleGroupClear(group);
 				} else {
@@ -757,9 +655,14 @@ WindowMsgHandledType GroupPanelSystem(GameWindow *window, UnsignedInt msg,
 		case GBM_SELECTED_RIGHT:
 		{
 			GameWindow *control = (GameWindow *)mData1;
-			Int controlID = control->winGetWindowId();
-
-			Int group = findGroupButtonIndex(controlID);
+			const Int controlID = control->winGetWindowId();
+			if (controlID == (Int)s_buttonHandleID) {
+				if (s_drawerOpen) {
+					s_armyShown = !s_armyShown;
+				}
+				return MSG_HANDLED;
+			}
+			const Int group = findGroupButtonIndex(controlID);
 			if (group >= 0) {
 				handleGroupCommand(group, TRUE);
 				return MSG_HANDLED;

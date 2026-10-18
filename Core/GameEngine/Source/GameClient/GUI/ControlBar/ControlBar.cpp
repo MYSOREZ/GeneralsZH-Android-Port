@@ -1535,6 +1535,8 @@ void ControlBar::init()
 //-------------------------------------------------------------------------------------------------
 void ControlBar::reset()
 {
+	// GeneralsX @feature Android port 18/10/2026 Every game starts with the army column closed.
+	GroupPanelCloseDrawer();
 	hideSpecialPowerShortcut();
 	// do not destroy the rally drawable, it will get destroyed with everything else during a reset
 	m_rallyPointDrawableID = INVALID_DRAWABLE_ID;
@@ -2920,8 +2922,15 @@ void ControlBar::initTouchModeButtons()
 {
 #if defined(__ANDROID__) || (defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE)
 	CommandButton *forceAttack = newCommandButton( "GX_Command_TouchForceAttack" );
+	// GeneralsX @bugfix Android port 18/10/2026 Generals has no SCCAttack art; the display draws a
+	// crosshair for it (W3DTouchButtonImages.cpp).
+#if RTS_ZEROHOUR
+	const char *forceAttackImage = "SCCAttack";
+#else
+	const char *forceAttackImage = "GXForceAttack";
+#endif
 	forceAttack->initTouchModeButton( GUI_COMMAND_GX_FORCE_ATTACK,
-																		"GX:ForceAttack", "GX:ToolTipForceAttack", "SCCAttack" );
+																		"GX:ForceAttack", "GX:ToolTipForceAttack", forceAttackImage );
 	m_touchForceAttackButton = forceAttack;
 
 	CommandButton *waypoints = newCommandButton( "GX_Command_TouchWaypoints" );
@@ -2934,7 +2943,7 @@ void ControlBar::initTouchModeButtons()
 	// button at all. So an install missing either picture simply does not get that button.
 	if( m_touchForceAttackButton->getButtonImage() == nullptr )
 	{
-		fprintf(stderr, "[touchmodes] SCCAttack image missing; no force-attack button\n");
+		fprintf(stderr, "[touchmodes] %s image missing; no force-attack button\n", forceAttackImage);
 		m_touchForceAttackButton = nullptr;
 	}
 	if( m_touchWaypointButton->getButtonImage() == nullptr )
@@ -4261,6 +4270,140 @@ void ControlBar::hideSpecialPowerShortcut()
 
 	m_specialPowerShortcutParent->winHide(TRUE);
 
+}
+
+// GeneralsX @feature Android port 18/10/2026 The army column's drawer.
+//
+// ControlBar.wnd's windows were placed through its interface-scale transform when the layout was
+// loaded (GXUiScale.h); opening the column swaps that transform for one squeezed right of leftEdge,
+// and this moves the windows to match. Only X changes: a top-level window's screen X and every
+// window's width go through the affine map between the two transforms, a child's X relative to
+// its parent scales with them. Each window's place is read when the drawer opens and given back
+// when it closes, unless something placed it anew meanwhile (a control bar scheme), in which case
+// it is mapped back instead. The markers the bar's art is drawn from and the bar's resting place
+// follow, and the battlefield's height is set again for the bar's current stage.
+namespace
+{
+	struct GXBarWindowPlace
+	{
+		GameWindow *window;
+		Bool topLevel;
+		Int x, y, width, height;          // when the drawer opened
+		Int setX, setWidth;               // what opening it set
+	};
+	std::vector<GXBarWindowPlace> s_gxBarPlaces;
+	Bool s_gxBarColumnOpen = FALSE;
+	ICoord2D s_gxBarMarkers[ 2 ];
+	Int s_gxBarDefaultX = 0;
+
+	void gxCollectBarWindows( GameWindow *window, Bool topLevel )
+	{
+		for( ; window != nullptr; window = window->winGetNext() )
+		{
+			GXBarWindowPlace place;
+			place.window = window;
+			place.topLevel = topLevel;
+			window->winGetPosition( &place.x, &place.y );
+			window->winGetSize( &place.width, &place.height );
+			place.setX = place.x;
+			place.setWidth = place.width;
+			s_gxBarPlaces.push_back( place );
+			gxCollectBarWindows( window->winGetChild(), FALSE );
+		}
+	}
+}
+
+void ControlBar::setArmyColumnOpen( Bool open, Real leftEdge )
+{
+	if( TheDisplay == nullptr || TheWindowManager == nullptr || m_contextParent[ CP_MASTER ] == nullptr )
+		return;
+	if( open == s_gxBarColumnOpen )
+		return;
+	const Real screenW = (Real)TheDisplay->getWidth();
+	const GXUiScale::Transform before = GXUiScale::forLayout( "ControlBar.wnd" );
+	GXUiScale::setControlBarLeftEdge( open ? leftEdge : 0.0f );
+	const GXUiScale::Transform after = GXUiScale::forLayout( "ControlBar.wnd" );
+	const Real kBefore = before.active ? before.kx : 1.0f;
+	const Real kAfter = after.active ? after.kx : 1.0f;
+	const Real addBefore = before.active ? before.addX : 0.0f;
+	const Real addAfter = after.active ? after.addX : 0.0f;
+	if( kBefore <= 0.0f )
+		return;
+	// screen X after = a * screen X before + b
+	const Real a = kAfter / kBefore;
+	const Real b = screenW * ( addAfter - addBefore * a );
+	s_gxBarColumnOpen = open;
+
+	if( open )
+	{
+		s_gxBarPlaces.clear();
+		for( GameWindow *window = TheWindowManager->winGetWindowList(); window != nullptr; window = window->winGetNext() )
+		{
+			if( window->winGetInstanceData()->m_decoratedNameString.startsWith( "ControlBar.wnd:" ) )
+			{
+				GXBarWindowPlace place;
+				place.window = window;
+				place.topLevel = TRUE;
+				window->winGetPosition( &place.x, &place.y );
+				window->winGetSize( &place.width, &place.height );
+				s_gxBarPlaces.push_back( place );
+				gxCollectBarWindows( window->winGetChild(), FALSE );
+			}
+		}
+		getForegroundMarkerPos( &s_gxBarMarkers[ 0 ].x, &s_gxBarMarkers[ 0 ].y );
+		getBackgroundMarkerPos( &s_gxBarMarkers[ 1 ].x, &s_gxBarMarkers[ 1 ].y );
+		s_gxBarDefaultX = m_defaultControlBarPosition.x;
+	}
+
+	for( size_t i = 0; i < s_gxBarPlaces.size(); ++i )
+	{
+		GXBarWindowPlace &place = s_gxBarPlaces[ i ];
+		GameWindow *window = place.window;
+		Int x, y, width, height;
+		window->winGetPosition( &x, &y );
+		window->winGetSize( &width, &height );
+		// A window covering the whole screen was never scaled (GXUiScale.cpp).
+		if( place.width >= (Int)( screenW * 0.95f ) && height >= (Int)( TheDisplay->getHeight() * 0.95f ) )
+			continue;
+		Int newX, newWidth;
+		if( open )
+		{
+			newX = place.topLevel ? (Int)floorf( a * place.x + b + 0.5f ) : (Int)floorf( a * place.x + 0.5f );
+			newWidth = max( 1, (Int)floorf( a * place.width + 0.5f ) );
+			place.setX = newX;
+			place.setWidth = newWidth;
+		}
+		else if( x == place.setX && width == place.setWidth )
+		{
+			newX = place.x;
+			newWidth = place.width;
+		}
+		else
+		{
+			newX = place.topLevel ? (Int)floorf( a * x + b + 0.5f ) : (Int)floorf( a * x + 0.5f );
+			newWidth = max( 1, (Int)floorf( a * width + 0.5f ) );
+		}
+		window->winSetPosition( newX, y );
+		if( newWidth != width )
+			window->winSetSize( newWidth, height );
+	}
+
+	if( open )
+	{
+		m_controlBarForegroundMarkerPos.x = (Int)floorf( a * s_gxBarMarkers[ 0 ].x + b + 0.5f );
+		m_controlBarBackgroundMarkerPos.x = (Int)floorf( a * s_gxBarMarkers[ 1 ].x + b + 0.5f );
+		m_defaultControlBarPosition.x = (Int)floorf( a * s_gxBarDefaultX + b + 0.5f );
+	}
+	else
+	{
+		m_controlBarForegroundMarkerPos.x = s_gxBarMarkers[ 0 ].x;
+		m_controlBarBackgroundMarkerPos.x = s_gxBarMarkers[ 1 ].x;
+		m_defaultControlBarPosition.x = s_gxBarDefaultX;
+		s_gxBarPlaces.clear();
+	}
+
+	if( m_currentControlBarStage == CONTROL_BAR_STAGE_DEFAULT )
+		setScaledViewportHeight();
 }
 
 void ControlBar::setFullViewportHeight()
