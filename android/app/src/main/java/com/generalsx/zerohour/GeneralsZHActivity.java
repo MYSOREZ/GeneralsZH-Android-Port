@@ -170,15 +170,10 @@ public class GeneralsZHActivity extends SDLActivity {
         if (SetupActivity.isSkipIntroEnabled(this)) {
             args.add("-nologo");
         }
-        // GeneralsX @feature Android port 18/10/2026 The mod picked in the launcher's Mods screen
-        // (ModManager, from realkot's GeneralsX fork): the engine's own -mod, a folder of .big files
-        // or one .big, mounted above the game's archives. Both engines get the same argument.
-        String activeMod = ModManager.getActiveModPath(this);
-        if (activeMod != null) {
-            args.add("-mod");
-            args.add(activeMod);
-            Log.i(TAG, "Launching with mod: " + activeMod);
-        }
+        // GeneralsX @feature Android port 18/10/2026 The mods switched on in the launcher's Mods
+        // screen, in their order, for the game being started (ModManager, GXManagedMods.h). Written
+        // here so both engines, a replay and every way of starting the game read the same list.
+        ModManager.writeActiveList(this);
         Intent intent = getIntent();
         String replay = intent != null ? intent.getStringExtra(EXTRA_REPLAY) : null;
         if (replay == null || replay.isEmpty()) {

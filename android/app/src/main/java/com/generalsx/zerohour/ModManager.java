@@ -11,9 +11,15 @@
 package com.generalsx.zerohour;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -21,36 +27,55 @@ import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 /**
- * GeneralsX @feature Android port 04/10/2026 Phase 1 mod-manager state.
+ * GeneralsX @feature Android port 18/10/2026 Managed mods (PLAN-027 step 1).
  *
- * Mods are isolated under <selected game folder>/Mods/. One direct child can
- * be active at a time. The active choice is stored by child name, never by an
- * arbitrary absolute path, so changing the game folder cannot accidentally
- * keep pointing at files outside the new install.
+ * One mod = one folder under {@code <game folder>/mods/}, holding its .big files and an optional
+ * mod.ini and picture. Each game (Zero Hour, Generals) has its own folder and its own list. The
+ * list is an order the player chooses (top wins) with an on/off switch per mod, kept in the
+ * launcher's preferences by folder name. Right before a game starts, {@link #writeActiveList}
+ * gives the engine the enabled folders, highest priority first (GXManagedMods.h); the engine
+ * mounts them above the game's archives and above legacy '!' archives in the game folder.
  *
- * A mod entry may be either a directory (the engine loads every .big inside
- * it through its retail -mod directory path) or one .big archive directly.
+ * The folder-safety checks (direct child, no symbolic links) and the transactional importer
+ * (ModImportService) come from the GeneralsX fork by realkot, used with permission.
  */
 final class ModManager {
-    private static final String PREF_ACTIVE_MOD = "active_mod";
-    private static final String PREF_ACTIVE_MOD_GENERALS = "active_mod_generals";
+    static final String MODS_DIR = "mods";
+    static final String ACTIVE_LIST_FILE = "mods_active.txt";
+    private static final String PREF_ORDER = "mods_order";
+    private static final String PREF_ORDER_GENERALS = "mods_order_generals";
+    private static final String[] PICTURE_NAMES = { "cover", "preview", "logo", "icon" };
+    private static final String[] PICTURE_EXTENSIONS = { ".png", ".jpg", ".jpeg", ".webp" };
 
-    private static String activeModKey(Context ctx) {
-        return SetupActivity.isGeneralsSelected(ctx) ? PREF_ACTIVE_MOD_GENERALS : PREF_ACTIVE_MOD;
+    /** One mod folder as the Mods screen shows it. */
+    static final class Mod {
+        final File dir;
+        final String name;
+        final String version;
+        final String author;
+        final String description;
+        final File picture;
+        boolean enabled;
+
+        Mod(File dir, Map<String, String> info, String language, boolean enabled) {
+            this.dir = dir;
+            this.name = localized(info, "name", language, dir.getName());
+            this.version = localized(info, "version", language, "");
+            this.author = localized(info, "author", language, "");
+            this.description = localized(info, "description", language, "");
+            this.picture = findPicture(dir, info.get("image"));
+            this.enabled = enabled;
+        }
     }
-    private static final String MODS_DIR = "Mods";
 
     private ModManager() {}
 
-    // GeneralsX @feature Android port 18/10/2026 Ported from realkot's GeneralsX fork (with the
-    // author's permission) into a launcher with two games: the library and the active mod belong to
-    // the game picked on Home, each in its own game folder.
     static File gameRoot(Context ctx) {
         String path = SetupActivity.getSavedGamePath(ctx);
         if (path == null || path.trim().isEmpty()) {
@@ -64,119 +89,208 @@ final class ModManager {
         return game == null ? null : new File(game, MODS_DIR);
     }
 
-    static List<File> listMods(Context ctx) {
-        File root = modsRoot(ctx);
-        if (root == null) {
-            return Collections.emptyList();
-        }
-        if (!root.isDirectory() && !root.mkdirs()) {
-            return Collections.emptyList();
-        }
-
-        File[] children = root.listFiles(file -> {
-            if (file == null || file.isHidden()) {
-                return false;
-            }
-            return file.isDirectory()
-                || (file.isFile() && file.getName().toLowerCase(Locale.US).endsWith(".big"));
-        });
-        if (children == null || children.length == 0) {
-            return Collections.emptyList();
-        }
-
-        Arrays.sort(children, Comparator.comparing(File::getName, String.CASE_INSENSITIVE_ORDER));
-        return new ArrayList<>(Arrays.asList(children));
-    }
-
-    static File getActiveMod(Context ctx) {
-        String childName = ctx.getSharedPreferences(SetupActivity.PREFS_NAME, Context.MODE_PRIVATE)
-            .getString(activeModKey(ctx), null);
-        if (childName == null || childName.isEmpty()) {
-            return null;
-        }
-
-        File root = modsRoot(ctx);
-        if (root == null) {
-            clearActiveMod(ctx);
-            return null;
-        }
-
-        File candidate = new File(root, childName);
-        if (!isDirectChild(root, candidate)
-                || (!candidate.isDirectory()
-                    && !(candidate.isFile()
-                        && candidate.getName().toLowerCase(Locale.US).endsWith(".big")))) {
-            clearActiveMod(ctx);
-            return null;
-        }
-        return candidate;
-    }
-
-    static String getActiveModPath(Context ctx) {
-        File active = getActiveMod(ctx);
-        return active == null ? null : active.getAbsolutePath();
-    }
-
-    static boolean setActiveMod(Context ctx, File candidate) {
-        if (candidate == null) {
-            clearActiveMod(ctx);
-            return true;
-        }
-
-        File root = modsRoot(ctx);
-        if (root == null || !isDirectChild(root, candidate)) {
-            return false;
-        }
-        if (!candidate.isDirectory()
-                && !(candidate.isFile()
-                    && candidate.getName().toLowerCase(Locale.US).endsWith(".big"))) {
-            return false;
-        }
-
-        ctx.getSharedPreferences(SetupActivity.PREFS_NAME, Context.MODE_PRIVATE).edit()
-            .putString(activeModKey(ctx), candidate.getName())
-            .apply();
-        return true;
-    }
-
-    static void clearActiveMod(Context ctx) {
-        ctx.getSharedPreferences(SetupActivity.PREFS_NAME, Context.MODE_PRIVATE).edit()
-            .remove(activeModKey(ctx))
-            .apply();
+    private static String orderKey(Context ctx) {
+        return SetupActivity.isGeneralsSelected(ctx) ? PREF_ORDER_GENERALS : PREF_ORDER;
     }
 
     /**
-     * GeneralsX @feature Android port 04/10/2026 Delete one managed mod only.
-     *
-     * The canonical direct-child check protects the base installation and
-     * Vanilla archives. Files.walkFileTree does not follow symbolic links, so
-     * a link inside a mod is removed as a link rather than deleting its target.
-     * The active selection is cleared before deletion so a partial filesystem
-     * failure can never leave the launcher pointing at a damaged mod.
+     * The mods of the selected game in the player's order: those already in the list first, then
+     * folders found since, at the bottom and switched off.
      */
-    static boolean deleteManagedMod(Context ctx, File candidate) {
+    static List<Mod> listMods(Context ctx) {
+        List<Mod> result = new ArrayList<>();
+        File root = modsRoot(ctx);
+        if (root == null || !root.isDirectory()) {
+            return result;
+        }
+        File[] children = root.listFiles(f -> f.isDirectory() && !f.getName().startsWith(".")
+            && !Files.isSymbolicLink(f.toPath()));
+        if (children == null) {
+            return result;
+        }
+        Arrays.sort(children, (a, b) -> a.getName().compareToIgnoreCase(b.getName()));
+        Map<String, File> byName = new HashMap<>();
+        for (File child : children) {
+            byName.put(child.getName(), child);
+        }
+        String language = Locale.getDefault().getLanguage();
+        for (String entry : readOrder(ctx)) {
+            boolean enabled = entry.startsWith("1|");
+            String name = entry.substring(2);
+            File dir = byName.remove(name);
+            if (dir != null) {
+                result.add(new Mod(dir, readModIni(dir), language, enabled));
+            }
+        }
+        for (File child : children) {
+            if (byName.containsKey(child.getName())) {
+                result.add(new Mod(child, readModIni(child), language, false));
+            }
+        }
+        return result;
+    }
+
+    /** Keeps the order and switches of the given list for the selected game. */
+    static void saveOrder(Context ctx, List<Mod> mods) {
+        StringBuilder sb = new StringBuilder();
+        for (Mod mod : mods) {
+            if (sb.length() > 0) {
+                sb.append('\n');
+            }
+            sb.append(mod.enabled ? "1|" : "0|").append(mod.dir.getName());
+        }
+        ctx.getSharedPreferences(SetupActivity.PREFS_NAME, Context.MODE_PRIVATE).edit()
+            .putString(orderKey(ctx), sb.toString()).apply();
+    }
+
+    private static List<String> readOrder(Context ctx) {
+        SharedPreferences prefs = ctx.getSharedPreferences(SetupActivity.PREFS_NAME, Context.MODE_PRIVATE);
+        String stored = prefs.getString(orderKey(ctx), "");
+        List<String> entries = new ArrayList<>();
+        for (String line : stored.split("\n")) {
+            if (line.length() > 2 && (line.startsWith("1|") || line.startsWith("0|"))) {
+                entries.add(line);
+            }
+        }
+        return entries;
+    }
+
+    static int enabledCount(Context ctx) {
+        int count = 0;
+        for (Mod mod : listMods(ctx)) {
+            if (mod.enabled) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    /**
+     * Right before the game starts: the enabled folders of the selected game, highest priority
+     * first, for the engine (GXManagedMods.h). No enabled mod: no file.
+     */
+    static void writeActiveList(Context ctx) {
+        File out = new File(ctx.getFilesDir(), ACTIVE_LIST_FILE);
+        List<String> paths = new ArrayList<>();
+        for (Mod mod : listMods(ctx)) {
+            if (mod.enabled) {
+                paths.add(mod.dir.getAbsolutePath());
+            }
+        }
+        if (paths.isEmpty()) {
+            out.delete();
+            return;
+        }
+        try (FileWriter w = new FileWriter(out, false)) {
+            for (String path : paths) {
+                w.write(path);
+                w.write('\n');
+            }
+        } catch (IOException e) {
+            android.util.Log.w("ModManager", "could not write the active mod list", e);
+        }
+    }
+
+    /** The legacy '!' archives in the game folder: always loaded, outside this list. */
+    static List<String> legacyArchives(Context ctx) {
+        List<String> names = new ArrayList<>();
+        File game = gameRoot(ctx);
+        File[] files = game == null ? null : game.listFiles(f -> f.isFile()
+            && f.getName().startsWith("!") && f.getName().toLowerCase(Locale.US).endsWith(".big"));
+        if (files != null) {
+            for (File f : files) {
+                names.add(f.getName());
+            }
+            names.sort(String::compareToIgnoreCase);
+        }
+        return names;
+    }
+
+    /**
+     * mod.ini: "Key = Value" lines, keys case-insensitive, ';' or '#' comments; a key may carry a
+     * language, "Name.ru = ...".
+     */
+    static Map<String, String> readModIni(File dir) {
+        Map<String, String> info = new HashMap<>();
+        File ini = new File(dir, "mod.ini");
+        if (!ini.isFile() || ini.length() > 64 * 1024) {
+            return info;
+        }
+        try (BufferedReader r = new BufferedReader(new InputStreamReader(
+                new FileInputStream(ini), StandardCharsets.UTF_8))) {
+            String line;
+            while ((line = r.readLine()) != null) {
+                int comment = line.indexOf(';');
+                if (comment >= 0) {
+                    line = line.substring(0, comment);
+                }
+                line = line.trim();
+                int eq = line.indexOf('=');
+                if (line.startsWith("#") || eq <= 0) {
+                    continue;
+                }
+                info.put(line.substring(0, eq).trim().toLowerCase(Locale.US),
+                    line.substring(eq + 1).trim().replace("\\n", "\n"));
+            }
+        } catch (IOException e) {
+            android.util.Log.w("ModManager", "could not read " + ini, e);
+        }
+        return info;
+    }
+
+    private static String localized(Map<String, String> info, String key, String language, String fallback) {
+        String value = info.get(key + "." + language);
+        if (value == null || value.isEmpty()) {
+            value = info.get(key + ".en");
+        }
+        if (value == null || value.isEmpty()) {
+            value = info.get(key);
+        }
+        return value == null || value.isEmpty() ? fallback : value;
+    }
+
+    private static File findPicture(File dir, String named) {
+        if (named != null && !named.isEmpty() && !named.contains("..")) {
+            File f = new File(dir, named);
+            if (f.isFile()) {
+                return f;
+            }
+        }
+        File[] files = dir.listFiles(File::isFile);
+        if (files == null) {
+            return null;
+        }
+        for (String base : PICTURE_NAMES) {
+            for (File f : files) {
+                String lower = f.getName().toLowerCase(Locale.US);
+                for (String ext : PICTURE_EXTENSIONS) {
+                    if (lower.equals(base + ext)) {
+                        return f;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Deletes one managed mod folder. Only a direct child of mods/, never through a symbolic
+     * link (Files.walkFileTree does not follow them, so a link inside is removed as a link).
+     */
+    static boolean deleteMod(Context ctx, File candidate) {
         File root = modsRoot(ctx);
         if (root == null || candidate == null) {
             return false;
         }
         try {
             File canonicalRoot = root.getCanonicalFile();
-            File canonicalCandidate = candidate.getCanonicalFile();
-            if (!isDirectChild(canonicalRoot, canonicalCandidate)
-                    || candidate.getName().startsWith(".")
-                    || Files.isSymbolicLink(candidate.toPath())
-                    || (!canonicalCandidate.isDirectory()
-                        && !(canonicalCandidate.isFile()
-                            && canonicalCandidate.getName().toLowerCase(Locale.US).endsWith(".big")))) {
+            File canonical = candidate.getCanonicalFile();
+            File parent = canonical.getParentFile();
+            if (parent == null || !parent.equals(canonicalRoot) || candidate.getName().startsWith(".")
+                    || Files.isSymbolicLink(candidate.toPath()) || !canonical.isDirectory()) {
                 return false;
             }
-
-            File active = getActiveMod(ctx);
-            if (active != null && active.getCanonicalFile().equals(canonicalCandidate)) {
-                clearActiveMod(ctx);
-            }
-
-            Files.walkFileTree(canonicalCandidate.toPath(), new SimpleFileVisitor<Path>() {
+            Files.walkFileTree(canonical.toPath(), new SimpleFileVisitor<Path>() {
                 @Override public FileVisitResult visitFile(Path file, BasicFileAttributes attrs)
                         throws IOException {
                     Files.delete(file);
@@ -185,24 +299,16 @@ final class ModManager {
 
                 @Override public FileVisitResult postVisitDirectory(Path dir, IOException error)
                         throws IOException {
-                    if (error != null) throw error;
+                    if (error != null) {
+                        throw error;
+                    }
                     Files.delete(dir);
                     return FileVisitResult.CONTINUE;
                 }
             });
-            return !canonicalCandidate.exists();
+            return !canonical.exists();
         } catch (IOException | SecurityException e) {
-            return false;
-        }
-    }
-
-    private static boolean isDirectChild(File root, File candidate) {
-        try {
-            File canonicalRoot = root.getCanonicalFile();
-            File canonicalCandidate = candidate.getCanonicalFile();
-            File parent = canonicalCandidate.getParentFile();
-            return parent != null && parent.equals(canonicalRoot);
-        } catch (IOException e) {
+            android.util.Log.w("ModManager", "could not delete " + candidate, e);
             return false;
         }
     }

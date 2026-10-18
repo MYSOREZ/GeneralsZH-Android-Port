@@ -246,16 +246,21 @@ static void prepareArmyButtons()
 	}
 	s_armyButtonsPrepared = TRUE;
 	const Bool wanted = GXControlScheme::enabled(GXControlScheme::ARMY_BUTTONS);
+	Int found = 0;
 	for (Int i = 0; i < ARMY_BUTTON_COUNT; ++i) {
 		GameWindow *button = TheWindowManager->winGetWindowFromId(nullptr, s_armyButtonID[i]);
 		if (!button) {
 			continue;
 		}
+		++found;
 		if (wanted) {
 			GadgetButtonSetText(button, armyButtonLabel(i));
 		}
 		button->winHide(!wanted);
 	}
+	fprintf(stderr, "[GX-Controls] army buttons: %s, %d of %d found in GroupPanel.wnd\n",
+		wanted ? "on" : "off", (int)found, (int)ARMY_BUTTON_COUNT);
+	fflush(stderr);
 }
 
 //-------------------------------------------------------------------------------------------------

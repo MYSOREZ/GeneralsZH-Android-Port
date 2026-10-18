@@ -25,7 +25,9 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import java.util.UUID;
@@ -40,6 +42,12 @@ import java.util.zip.ZipInputStream;
  * BIG archives are header-validated, ZIP traversal is rejected, and the final
  * install becomes visible only through a same-filesystem rename after all
  * validation succeeds. A failed import therefore cannot half-install a mod.
+ *
+ * GeneralsX @feature Android port 18/10/2026 From the GeneralsX fork by realkot (used with
+ * permission), into mods/ (PLAN-027): every mod becomes a folder, a single .big included; a
+ * complete game picked by mistake is recognised and refused; and what a player can act on
+ * (RAR, no game folder, no .big, a whole game) comes back as an ImportProblem with a launcher
+ * string, in the player's language.
  */
 final class ModImportService {
     private static final long MAX_TOTAL_BYTES = 8L * 1024L * 1024L * 1024L;
@@ -58,6 +66,16 @@ final class ModImportService {
             if (cancelled || Thread.currentThread().isInterrupted()) {
                 throw new ImportCancelledException();
             }
+        }
+    }
+
+    /** A refusal the player can act on: its text is a launcher string. */
+    static final class ImportProblem extends IOException {
+        final int messageRes;
+
+        ImportProblem(int messageRes) {
+            super("import refused");
+            this.messageRes = messageRes;
         }
     }
 
@@ -123,7 +141,10 @@ final class ModImportService {
         if (lower.endsWith(".big")) {
             return importBig(ctx, uri, displayName, modsRoot, cancellation);
         }
-        throw new IOException("Only .big and .zip files are supported in this import phase");
+        if (lower.endsWith(".rar") || lower.endsWith(".7z") || lower.endsWith(".exe")) {
+            throw new ImportProblem(R.string.mods_import_rar);
+        }
+        throw new ImportProblem(R.string.mods_import_unsupported);
     }
 
     static Result importTree(Context ctx, Uri treeUri) throws IOException {
@@ -147,12 +168,17 @@ final class ModImportService {
             throw new IOException("Could not create staging directory");
         }
 
+        if (treeLooksLikeGame(ctx.getContentResolver(), treeUri, documentId, 0)) {
+            deleteRecursively(stage);
+            throw new ImportProblem(R.string.mods_import_full_game);
+        }
+
         Stats stats = new Stats();
         try {
             copyTree(ctx.getContentResolver(), treeUri, documentId, stage, stats, 0, cancellation);
             stats.bigCount = verifyBigArchives(stage, cancellation);
             if (stats.bigCount == 0) {
-                throw new IOException("No .big archive was found. Loose-only mods are not supported yet");
+                throw new ImportProblem(R.string.mods_import_no_big);
             }
 
             File target = uniqueTarget(modsRoot, name, false);
@@ -169,9 +195,15 @@ final class ModImportService {
     private static Result importBig(Context ctx, Uri uri, String displayName, File modsRoot,
                                     CancellationSignal cancellation)
             throws IOException {
-        String name = sanitizeInstallName(displayName, true);
+        // One mod = one folder (PLAN-027): the archive goes into a folder named after it.
+        String fileName = sanitizeInstallName(displayName, true);
+        String name = sanitizeInstallName(fileName.substring(0, fileName.length() - 4), false);
         File stagingRoot = stagingRoot(modsRoot);
-        File stage = new File(stagingRoot, UUID.randomUUID().toString() + ".big");
+        File stage = new File(stagingRoot, UUID.randomUUID().toString());
+        if (!stage.mkdirs()) {
+            throw new IOException("Could not create staging directory");
+        }
+        File archive = new File(stage, fileName);
 
         Stats stats = new Stats();
         try (InputStream raw = ctx.getContentResolver().openInputStream(uri)) {
@@ -179,18 +211,18 @@ final class ModImportService {
                 throw new IOException("Could not open selected BIG archive");
             }
             stats.addFile();
-            copyStream(raw, stage, stats, cancellation);
-            if (!isValidBig(stage, cancellation)) {
+            copyStream(raw, archive, stats, cancellation);
+            if (!isValidBig(archive, cancellation)) {
                 throw new IOException("Selected file is not a valid BIGF/BIG4 archive");
             }
             stats.bigCount = 1;
 
-            File target = uniqueTarget(modsRoot, name, true);
+            File target = uniqueTarget(modsRoot, name, false);
             cancellation.throwIfCancelled();
             finishInstall(stage, target);
             return new Result(target, stats.fileCount, stats.bigCount, stats.bytes);
         } catch (IOException | RuntimeException e) {
-            stage.delete();
+            deleteRecursively(stage);
             if (cancellation.isCancelled()) throw new ImportCancelledException();
             throw e;
         }
@@ -244,9 +276,12 @@ final class ModImportService {
                 zip.closeEntry();
             }
 
+            if (looksLikeGame(stage, 0)) {
+                throw new ImportProblem(R.string.mods_import_full_game);
+            }
             stats.bigCount = verifyBigArchives(stage, cancellation);
             if (stats.bigCount == 0) {
-                throw new IOException("ZIP contains no .big archive. Loose-only mods are not supported yet");
+                throw new ImportProblem(R.string.mods_import_no_big);
             }
 
             File target = uniqueTarget(modsRoot, name, false);
@@ -309,13 +344,93 @@ final class ModImportService {
         }
     }
 
+    // A complete game rather than a mod: the archives every install has, at the top or one folder
+    // down (an archive unpacked into a folder of its own name).
+    private static final String[][] GAME_ARCHIVES = {
+        { "ini.big", "inizh.big" }, { "w3d.big", "w3dzh.big" }, { "textures.big", "textureszh.big" } };
+
+    private static boolean namesLookLikeGame(java.util.Collection<String> lowerNames) {
+        for (String[] alternatives : GAME_ARCHIVES) {
+            boolean found = false;
+            for (String name : alternatives) {
+                found |= lowerNames.contains(name);
+            }
+            if (!found) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private static boolean looksLikeGame(File dir, int depth) {
+        File[] children = dir.listFiles();
+        if (children == null) {
+            return false;
+        }
+        Set<String> names = new HashSet<>();
+        for (File child : children) {
+            names.add(child.getName().toLowerCase(Locale.US));
+        }
+        if (namesLookLikeGame(names)) {
+            return true;
+        }
+        if (depth == 0) {
+            for (File child : children) {
+                if (child.isDirectory() && looksLikeGame(child, 1)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private static boolean treeLooksLikeGame(ContentResolver resolver, Uri treeUri, String documentId,
+                                             int depth) {
+        Uri children = DocumentsContract.buildChildDocumentsUriUsingTree(treeUri, documentId);
+        String[] projection = {
+            DocumentsContract.Document.COLUMN_DOCUMENT_ID,
+            DocumentsContract.Document.COLUMN_DISPLAY_NAME,
+            DocumentsContract.Document.COLUMN_MIME_TYPE
+        };
+        Set<String> names = new HashSet<>();
+        List<String> folders = new ArrayList<>();
+        try (Cursor cursor = resolver.query(children, projection, null, null, null)) {
+            if (cursor == null) {
+                return false;
+            }
+            while (cursor.moveToNext()) {
+                String name = cursor.getString(1);
+                if (name != null) {
+                    names.add(name.toLowerCase(Locale.US));
+                }
+                if (DocumentsContract.Document.MIME_TYPE_DIR.equals(cursor.getString(2))) {
+                    folders.add(cursor.getString(0));
+                }
+            }
+        } catch (RuntimeException e) {
+            // An unreadable listing is not a game; the copy that follows reports what fails.
+            return false;
+        }
+        if (namesLookLikeGame(names)) {
+            return true;
+        }
+        if (depth == 0) {
+            for (String folder : folders) {
+                if (treeLooksLikeGame(resolver, treeUri, folder, 1)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     private static File requireModsRoot(Context ctx) throws IOException {
         File root = ModManager.modsRoot(ctx);
         if (root == null) {
-            throw new IOException("Choose the Zero Hour game folder first");
+            throw new ImportProblem(R.string.mods_no_game_message);
         }
         if (!root.isDirectory() && !root.mkdirs()) {
-            throw new IOException("Could not create Mods directory: " + root);
+            throw new IOException("Could not create the mods directory: " + root);
         }
         return root.getCanonicalFile();
     }

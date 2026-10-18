@@ -1,6 +1,10 @@
 # PLAN-027: A mod system for the Android port (mods/ folder, alongside the legacy way)
 
-Status: **design** (18/10/2026, owner's request). Nothing implemented yet.
+Status: **step 1 in a28** (18/10/2026): `mods/` folders, several mods with switches and order,
+pictures and mod.ini, import (folder / .big / .zip, a whole game and .rar recognised), the engine
+mounting them above the game and legacy `!` archives (GXManagedMods.h, ArchiveFileSystem::loadMods),
+community patch left out when one carries INI, mod texts counted as mods. Not yet: loose files in a
+mod folder, conflict report, profiles, safe start.
 
 ## Where we are
 
@@ -66,7 +70,7 @@ Languages = english russian
 `Kind` is detected when missing (below), so `mod.ini` is only needed to override a guess.
 
 Text a player reads can be given per language, so a mod page follows the launcher's language
-(the 13 it ships): `Name.ru = ...`, `Description.de = ...`, and `readme_<lang>.txt` beside
+(the 13 it ships): `Name.ru = ...` (implemented: Name, Version, Author, Description, Image, each with `.<lang>`), `Description.de = ...`, and `readme_<lang>.txt` beside
 `readme.txt`; without the player's language, English, then whatever the mod has. Everything the
 launcher itself says on the Mods screen -- labels, kinds, warnings, conflict lines, dialogs --
 is launcher strings, in all 13 locales like every other string.

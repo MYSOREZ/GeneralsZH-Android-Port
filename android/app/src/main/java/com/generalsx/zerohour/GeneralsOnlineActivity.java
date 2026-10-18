@@ -135,7 +135,7 @@ public class GeneralsOnlineActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // GeneralsX @feature realkot 10/10/2026 The launcher's Day / Night / System theme (ThemeHelper).
+        // GeneralsX @feature Android port 18/10/2026 The launcher's appearance (ThemeHelper).
         ThemeHelper.apply(this);
         super.onCreate(savedInstanceState);
         ThemeHelper.applyBars(this);

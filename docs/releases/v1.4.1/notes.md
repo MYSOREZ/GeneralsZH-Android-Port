@@ -81,9 +81,12 @@ Hour, with its own game folder:
 - **The game folder one or two levels down**: pick the folder the archive was unpacked into, and the launcher
   finds the game inside it.
 - Language packs: Zero Hour and Generals each fetch their own translation file.
-- **Mods screen** (Home → Mods): import a mod from a folder, a `.big` or a `.zip`, see its size and a check
-  of its files, pick which one the game starts with, or the original game. One library per game. Online
-  (GeneralsOnline) is played without mods; LAN games work when everyone has the same mod.
+- **Mods screen** (Home → Mods): several mods at once, each with its own switch, in the order you choose
+  (the upper one wins where two change the same file), with the mod's picture and description. Import a
+  mod from a folder, a `.big` or a `.zip` into the game's `mods` folder; a complete game picked by mistake,
+  or a `.rar`, is explained instead of failing. Mods installed the old way (`!` archives in the game folder)
+  keep working. Online (GeneralsOnline) is played without mods; LAN games work when everyone has the same
+  mods.
 - **Appearance** (Interface tab): the usual dark look, navy and gold, a light day look, or following the
   phone.
 

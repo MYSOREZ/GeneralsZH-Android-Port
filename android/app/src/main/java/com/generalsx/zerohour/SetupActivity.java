@@ -198,7 +198,7 @@ public class SetupActivity extends Activity {
         // screen; onLaunchGame()/onConfigurationChanged() below handle the
         // Setup -> Launch rotation race that used to be sidestepped by never
         // rotating Setup at all.
-        // GeneralsX @feature realkot 10/10/2026 The launcher's Day / Night / System theme (ThemeHelper).
+        // GeneralsX @feature Android port 18/10/2026 The launcher's appearance (ThemeHelper).
         ThemeHelper.apply(this);
         super.onCreate(savedInstanceState);
         ThemeHelper.applyBars(this);
@@ -526,12 +526,12 @@ public class SetupActivity extends Activity {
         skipIntro.setOnCheckedChangeListener((button, checked) ->
             getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit().putBoolean(PREF_SKIP_INTRO, checked).apply());
 
-        // GeneralsX @feature Android port 18/10/2026 The Mods screen (ModManagerActivity, from
-        // realkot's GeneralsX fork), with the mod the next game starts with.
-        File activeMod = ModManager.getActiveMod(this);
+        // GeneralsX @feature Android port 18/10/2026 The Mods screen (ModManagerActivity): which mods
+        // the next game starts with, and in what order.
+        int modsOn = ModManager.enabledCount(this);
         UiKit.listRow(game, R.drawable.ic_gzh_folder, getString(R.string.mods_title),
-            activeMod == null ? getString(R.string.mods_active_vanilla)
-                : getString(R.string.mods_active_mod, activeMod.getName()),
+            modsOn == 0 ? getString(R.string.mods_home_none)
+                : getString(R.string.mods_home_enabled, modsOn),
             () -> startActivityForResult(new Intent(this, ModManagerActivity.class), REQUEST_MODS));
 
         // The one thing this app exists to do, as the first thing on it.
@@ -3751,11 +3751,8 @@ public class SetupActivity extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_MODS) {
-            // Back on Home: the active mod may have changed, and "Play" on a mod launches.
+            // Back on Home: the mods switched on may have changed.
             showTab(currentTab);
-            if (resultCode == ModManagerActivity.RESULT_LAUNCH) {
-                getWindow().getDecorView().post(this::onLaunchGame);
-            }
             return;
         }
         if (requestCode == 1001 && resultCode == Activity.RESULT_OK && data != null) {

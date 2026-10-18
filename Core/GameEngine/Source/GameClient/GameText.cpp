@@ -44,6 +44,7 @@
 //----------------------------------------------------------------------------
 
 #include "PreRTS.h"	// This must go first in EVERY cpp file in the GameEngine
+#include "Common/GXManagedMods.h"
 #include <cstdlib>
 #include <cctype>
 
@@ -531,6 +532,18 @@ namespace
 				base = c + 1;
 		if( base[0] == '!' )
 			return TRUE;
+		// GeneralsX @feature Android port 18/10/2026 Also the archives of a -mod folder and of the
+		// mods turned on in the launcher's Mods screen (GXManagedMods.h).
+		if( GXManagedMods::contains( name ) )
+			return TRUE;
+		if( TheGlobalData != nullptr && TheGlobalData->m_modDir.isNotEmpty() )
+		{
+			// parseMod() ends the folder with '\\'; the archive paths under it use '/'.
+			AsciiString dir = TheGlobalData->m_modDir;
+			dir.removeLastChar();
+			if( path.startsWithNoCase( dir.str() ) )
+				return TRUE;
+		}
 		return TheGlobalData != nullptr && TheGlobalData->m_modBIG.isNotEmpty()
 			&& path.compareNoCase( TheGlobalData->m_modBIG ) == 0;
 	}
