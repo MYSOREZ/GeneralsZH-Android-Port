@@ -163,6 +163,13 @@ extern void DownloadMenuShutdown( WindowLayout *layout, void *userData );
 extern WindowMsgHandledType DownloadMenuSystem( GameWindow *window, UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2 );
 extern WindowMsgHandledType DownloadMenuInput( GameWindow *window, UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2 );
 
+// GeneralsX @feature Codex/realkot 14/10/2026 Extras is a popup owned by Options, not a shell
+// screen (Options stays open beneath it, in game too).
+class OptionPreferences;
+extern void OpenExtrasMenu(OptionPreferences *optionsPreferences);
+extern void CloseExtrasMenu();
+extern UnicodeString ExtrasMenuButtonLabel();  ///< "Extras" in the text language
+
 // Extras Menu (SagePatch QoL) ----------------------------------------------------------------------------------
 extern void ExtrasMenuInit( WindowLayout *layout, void *userData );
 extern void ExtrasMenuUpdate( WindowLayout *layout, void *userData );
