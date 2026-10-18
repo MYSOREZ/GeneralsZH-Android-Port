@@ -21,9 +21,13 @@ import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -31,6 +35,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.SwitchCompat;
+import androidx.core.content.FileProvider;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -42,12 +47,15 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * GeneralsX @feature Android port 18/10/2026 The Mods screen (PLAN-027 step 1): the mods of the
- * game picked on Home, each a folder under mods/, with an on/off switch, an order (top wins), its
- * picture and description from the folder, a file check, deletion, and import of a folder, a
- * .big or a .zip. The game is started from Home as always; the engine gets the enabled list at
- * launch (ModManager.writeActiveList). The importer and the file check come from the GeneralsX
- * fork by realkot, used with permission.
+ * GeneralsX @feature Android port 18/10/2026 The Mods screen (PLAN-027): the mods of the game
+ * picked on Home, each a folder under mods/, with an on/off switch, an order (top wins), the
+ * mod's picture, kind and game, and what it does with the other mods switched on -- red (will not
+ * start together), amber (changes the same game rules), grey (replaces the same art). A page per
+ * mod (screenshots, readme, file groups, file check, share, delete), filters, a search, the old
+ * '!' archives with a button to move one into mods/, and import of a folder, a .big, a .zip or a
+ * shared mod set. The game is started from Home as always; the engine gets the list at launch
+ * (ModManager.writeActiveList). The importer and the file check come from the GeneralsX fork by
+ * realkot, used with permission.
  */
 public class ModManagerActivity extends Activity {
     private static final int REQUEST_IMPORT_FOLDER = 2101;
@@ -56,9 +64,15 @@ public class ModManagerActivity extends Activity {
     private final ExecutorService worker = Executors.newSingleThreadExecutor(
         task -> new Thread(task, "GeneralsX-Mods"));
     private final Map<String, Long> sizes = new HashMap<>();
+    private final Map<String, ModAnalysis.Info> infos = new HashMap<>();
+    private List<ModAnalysis.Problem> problems = new ArrayList<>();
+    private boolean analyzed;
+    private int analysisGeneration;
     private LinearLayout list;
     private List<ModManager.Mod> mods = new ArrayList<>();
     private boolean busy;
+    private boolean onlyEnabled;
+    private String query = "";
     private AlertDialog importProgress;
     private ModImportService.CancellationSignal importCancellation;
     private Thread importThread;
@@ -114,29 +128,55 @@ public class ModManagerActivity extends Activity {
         super.onDestroy();
     }
 
-    // ------------------------------------------------------------------ list
+    // -------------------------------------------------------------- analysis
 
     private void refresh() {
         mods = ModManager.listMods(this);
         render();
-        final List<ModManager.Mod> measuring = new ArrayList<>(mods);
+        analyze(true);
+    }
+
+    /** Sizes, kinds, games and problems, off the UI thread; the file tables are cached. */
+    private void analyze(boolean measure) {
+        final int generation = ++analysisGeneration;
+        final List<ModManager.Mod> snapshot = new ArrayList<>(mods);
         worker.execute(() -> {
             Map<String, Long> measured = new HashMap<>();
-            for (ModManager.Mod mod : measuring) {
+            Map<String, ModAnalysis.Info> found = new HashMap<>();
+            Map<String, Map<String, String>> inis = new HashMap<>();
+            for (ModManager.Mod mod : snapshot) {
                 if (Thread.currentThread().isInterrupted()) {
                     return;
                 }
-                measured.put(mod.dir.getAbsolutePath(), ModLibraryInfo.measure(mod.dir));
+                String key = mod.dir.getAbsolutePath();
+                if (measure) {
+                    measured.put(key, ModLibraryInfo.measure(mod.dir));
+                }
+                found.put(key, ModAnalysis.analyze(this, mod, mod.ini));
+                inis.put(key, mod.ini);
             }
+            List<ModAnalysis.Problem> next = ModAnalysis.problems(this, snapshot, found, inis);
             runOnUiThread(() -> {
-                if (isFinishing() || isDestroyed()) {
+                if (isFinishing() || isDestroyed() || generation != analysisGeneration) {
                     return;
                 }
                 sizes.putAll(measured);
+                infos.clear();
+                infos.putAll(found);
+                problems = next;
+                analyzed = true;
                 render();
             });
         });
     }
+
+    private void changed() {
+        ModManager.saveOrder(this, mods);
+        render();
+        analyze(false);
+    }
+
+    // ------------------------------------------------------------------ list
 
     private void render() {
         list.removeAllViews();
@@ -146,46 +186,117 @@ public class ModManagerActivity extends Activity {
             UiKit.supporting(card, getString(R.string.mods_no_game_message));
             return;
         }
-
-        LinearLayout intro = UiKit.card(list);
-        UiKit.sectionHeader(intro, R.drawable.ic_gzh_sliders, getString(R.string.mods_order_title), false);
-        UiKit.supporting(intro, getString(R.string.mods_order_help));
-        boolean anyEnabled = false;
-        for (ModManager.Mod mod : mods) {
-            anyEnabled |= mod.enabled;
-        }
-        if (anyEnabled) {
-            UiKit.chip(intro, R.drawable.ic_gzh_info, getString(R.string.mods_online_note),
-                R.color.gzh_status_warn, R.color.gzh_surface_container_high);
-        }
-
-        if (mods.isEmpty()) {
-            LinearLayout empty = UiKit.card(list);
-            UiKit.sectionHeader(empty, R.drawable.ic_gzh_folder, getString(R.string.mods_empty_title), false);
-            UiKit.supporting(empty, getString(R.string.mods_library_empty));
-        }
-        for (int i = 0; i < mods.size(); i++) {
-            renderMod(i);
-        }
-
-        List<String> legacy = ModManager.legacyArchives(this);
-        if (!legacy.isEmpty()) {
-            LinearLayout card = UiKit.card(list);
-            UiKit.sectionHeader(card, R.drawable.ic_gzh_info, getString(R.string.mods_legacy_title), false);
-            UiKit.body(card, TextUtils.join("\n", legacy));
-            UiKit.supporting(card, getString(R.string.mods_legacy_help));
-        }
+        renderSummary();
+        renderMods();
+        renderLegacy();
 
         LinearLayout actions = UiKit.card(list);
         UiKit.button(actions, UiKit.BTN_TONAL, R.drawable.ic_gzh_download,
             getString(R.string.mods_import_title), this::showImportChoices).setEnabled(!busy);
+        boolean anyOn = false;
+        for (ModManager.Mod mod : mods) {
+            anyOn |= mod.enabled;
+        }
+        UiKit.button(actions, UiKit.BTN_TONAL, R.drawable.ic_gzh_share,
+            getString(R.string.mods_export_set), this::exportSet).setEnabled(!busy && anyOn);
         File root = ModManager.modsRoot(this);
         UiKit.helpText(actions, getString(R.string.mods_folder_help,
             root == null ? "" : root.getAbsolutePath()));
     }
 
+    private void renderMods() {
+        int shown = 0;
+        for (int i = 0; i < mods.size(); i++) {
+            ModManager.Mod mod = mods.get(i);
+            if ((onlyEnabled && !mod.enabled)
+                    || (!query.isEmpty() && !mod.name.toLowerCase(Locale.ROOT).contains(query))) {
+                continue;
+            }
+            renderMod(i);
+            shown++;
+        }
+        if (mods.isEmpty()) {
+            LinearLayout empty = UiKit.card(list);
+            UiKit.sectionHeader(empty, R.drawable.ic_gzh_folder, getString(R.string.mods_empty_title), false);
+            UiKit.supporting(empty, getString(R.string.mods_library_empty));
+        } else if (shown == 0) {
+            UiKit.supporting(UiKit.card(list), getString(R.string.mods_filter_nothing));
+        }
+    }
+
+    private void renderSummary() {
+        LinearLayout intro = UiKit.card(list);
+        UiKit.sectionHeader(intro, R.drawable.ic_gzh_sliders, getString(R.string.mods_order_title), false);
+        UiKit.supporting(intro, getString(R.string.mods_order_help));
+
+        boolean anyEnabled = false, anyIni = false;
+        for (ModManager.Mod mod : mods) {
+            if (mod.enabled) {
+                anyEnabled = true;
+                ModAnalysis.Info info = infos.get(mod.dir.getAbsolutePath());
+                anyIni |= info != null && info.hasIni();
+            }
+        }
+        if (anyEnabled) {
+            int worst = -1;
+            for (ModAnalysis.Problem p : problems) {
+                worst = Math.max(worst, p.level);
+            }
+            if (!analyzed) {
+                UiKit.chip(intro, R.drawable.ic_gzh_refresh, getString(R.string.mods_summary_checking),
+                    R.color.gzh_on_surface_variant, R.color.gzh_surface_container_high);
+            } else if (worst == ModAnalysis.LEVEL_RED) {
+                UiKit.chip(intro, R.drawable.ic_gzh_info, getString(R.string.mods_summary_red),
+                    R.color.gzh_status_error, R.color.gzh_surface_container_high).setMaxLines(4);
+            } else if (worst == ModAnalysis.LEVEL_AMBER) {
+                UiKit.chip(intro, R.drawable.ic_gzh_info, getString(R.string.mods_summary_amber),
+                    R.color.gzh_status_warn, R.color.gzh_surface_container_high).setMaxLines(4);
+            } else {
+                UiKit.chip(intro, R.drawable.ic_gzh_check, getString(R.string.mods_summary_ok),
+                    R.color.gzh_status_ok, R.color.gzh_surface_container_high).setMaxLines(4);
+            }
+            if (anyIni) {
+                UiKit.supporting(intro, getString(R.string.mods_patch_off));
+            }
+            UiKit.supporting(intro, getString(R.string.mods_online_note));
+        }
+
+        if (mods.size() > 1) {
+            UiKit.segmented(intro, new CharSequence[] {
+                    getString(R.string.mods_filter_all), getString(R.string.mods_filter_on) },
+                onlyEnabled ? 1 : 0, index -> {
+                    onlyEnabled = index == 1;
+                    render();
+                });
+        }
+        if (mods.size() > 4) {
+            EditText search = new EditText(this);
+            search.setSingleLine(true);
+            search.setHint(R.string.mods_search_hint);
+            search.setText(query);
+            search.setSelection(query.length());
+            search.addTextChangedListener(new TextWatcher() {
+                @Override public void beforeTextChanged(CharSequence s, int a, int b, int c) { }
+                @Override public void onTextChanged(CharSequence s, int a, int b, int c) { }
+                @Override public void afterTextChanged(Editable s) {
+                    String next = s.toString().trim().toLowerCase(Locale.ROOT);
+                    if (!next.equals(query)) {
+                        query = next;
+                        // Keep the summary card (and the field with the keyboard) while the list changes.
+                        while (list.getChildCount() > 1) {
+                            list.removeViewAt(1);
+                        }
+                        renderMods();
+                    }
+                }
+            });
+            intro.addView(search);
+        }
+    }
+
     private void renderMod(int index) {
         final ModManager.Mod mod = mods.get(index);
+        final ModAnalysis.Info info = infos.get(mod.dir.getAbsolutePath());
         LinearLayout card = UiKit.card(list);
 
         LinearLayout head = new LinearLayout(this);
@@ -193,7 +304,7 @@ public class ModManagerActivity extends Activity {
         head.setGravity(Gravity.CENTER_VERTICAL);
         card.addView(head, new LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-        head.addView(picture(mod));
+        head.addView(picture(mod, 56));
 
         LinearLayout labels = new LinearLayout(this);
         labels.setOrientation(LinearLayout.VERTICAL);
@@ -201,11 +312,13 @@ public class ModManagerActivity extends Activity {
             LinearLayout.LayoutParams.WRAP_CONTENT, 1f);
         labelParams.setMarginStart(UiKit.dp(this, 12));
         head.addView(labels, labelParams);
+        labels.setClickable(true);
+        labels.setOnClickListener(v -> showPage(mod));
         TextView name = UiKit.body(labels, mod.name);
         name.setTypeface(Typeface.DEFAULT_BOLD);
         name.setMaxLines(2);
         name.setEllipsize(TextUtils.TruncateAt.END);
-        UiKit.caption(labels, meta(mod));
+        UiKit.caption(labels, meta(mod, info));
 
         SwitchCompat toggle = new SwitchCompat(this);
         toggle.setChecked(mod.enabled);
@@ -213,14 +326,19 @@ public class ModManagerActivity extends Activity {
         toggle.setEnabled(!busy);
         toggle.setOnCheckedChangeListener((button, checked) -> {
             mod.enabled = checked;
-            ModManager.saveOrder(this, mods);
-            render();
+            changed();
         });
         head.addView(toggle);
 
+        addProblemChips(card, mod, 4);
+        if (mod.enabled && analyzed && !hasProblem(mod)) {
+            UiKit.chip(card, R.drawable.ic_gzh_check, getString(R.string.mods_card_ok),
+                R.color.gzh_status_ok, R.color.gzh_surface_container_high);
+        }
+
         if (!mod.description.isEmpty()) {
             TextView description = UiKit.supporting(card, mod.description);
-            description.setMaxLines(4);
+            description.setMaxLines(3);
             description.setEllipsize(TextUtils.TruncateAt.END);
         }
 
@@ -244,13 +362,40 @@ public class ModManagerActivity extends Activity {
         down.setAlpha(down.isEnabled() ? 1f : 0.35f);
         tools.addView(down);
         tools.addView(UiKit.iconButton(this, R.drawable.ic_gzh_info, getString(R.string.mods_details_button),
-            () -> showDetails(mod)));
+            () -> showPage(mod)));
         tools.addView(UiKit.iconButton(this, R.drawable.ic_gzh_trash, getString(R.string.mods_delete_button),
             () -> confirmDelete(mod)));
     }
 
-    private String meta(ModManager.Mod mod) {
+    private void addProblemChips(LinearLayout parent, ModManager.Mod mod, int maxLines) {
+        for (ModAnalysis.Problem p : problems) {
+            if (p.mod == mod) {
+                int color = p.level == ModAnalysis.LEVEL_RED ? R.color.gzh_status_error
+                    : p.level == ModAnalysis.LEVEL_AMBER ? R.color.gzh_status_warn : R.color.gzh_on_surface_variant;
+                UiKit.chip(parent, R.drawable.ic_gzh_info, p.text, color, R.color.gzh_surface_container_high)
+                    .setMaxLines(maxLines);
+            }
+        }
+    }
+
+    private boolean hasProblem(ModManager.Mod mod) {
+        for (ModAnalysis.Problem p : problems) {
+            if (p.mod == mod && p.level > ModAnalysis.LEVEL_GREY) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private String meta(ModManager.Mod mod, ModAnalysis.Info info) {
         List<String> parts = new ArrayList<>();
+        if (info != null) {
+            parts.add(getString(kindLabel(info.kind)));
+            if (info.game != ModAnalysis.GAME_UNKNOWN) {
+                parts.add(getString(info.game == ModAnalysis.GAME_ZH ? R.string.mods_game_zh
+                    : info.game == ModAnalysis.GAME_GENERALS ? R.string.mods_game_generals : R.string.mods_game_both));
+            }
+        }
         if (!mod.version.isEmpty()) {
             parts.add(mod.version);
         }
@@ -265,9 +410,19 @@ public class ModManagerActivity extends Activity {
         return TextUtils.join("  ·  ", parts);
     }
 
+    private static int kindLabel(int kind) {
+        switch (kind) {
+            case ModAnalysis.KIND_TOTAL: return R.string.mods_kind_total;
+            case ModAnalysis.KIND_GAMEPLAY: return R.string.mods_kind_gameplay;
+            case ModAnalysis.KIND_MAPS: return R.string.mods_kind_maps;
+            case ModAnalysis.KIND_LANGUAGE: return R.string.mods_kind_language;
+            default: return R.string.mods_kind_cosmetic;
+        }
+    }
+
     /** The mod's own picture (mod.ini Image=, cover/preview/logo/icon), else its initials. */
-    private View picture(ModManager.Mod mod) {
-        int size = UiKit.dp(this, 56);
+    private View picture(ModManager.Mod mod, int sizeDp) {
+        int size = UiKit.dp(this, sizeDp);
         GradientDrawable bg = new GradientDrawable();
         bg.setCornerRadius(UiKit.dp(this, 12));
         bg.setColor(UiKit.color(this, R.color.gzh_surface_container_high));
@@ -285,7 +440,7 @@ public class ModManagerActivity extends Activity {
         initials.setText(initials(mod.name));
         initials.setGravity(Gravity.CENTER);
         initials.setTypeface(Typeface.DEFAULT_BOLD);
-        initials.setTextSize(18f);
+        initials.setTextSize(sizeDp / 3f);
         initials.setTextColor(UiKit.color(this, R.color.gzh_primary));
         initials.setBackground(bg);
         initials.setLayoutParams(new LinearLayout.LayoutParams(size, size));
@@ -324,38 +479,109 @@ public class ModManagerActivity extends Activity {
         }
         ModManager.Mod mod = mods.remove(index);
         mods.add(target, mod);
-        ModManager.saveOrder(this, mods);
-        render();
+        changed();
     }
 
-    // --------------------------------------------------------- details, delete
+    // ------------------------------------------------------------- old way
 
-    private void showDetails(ModManager.Mod mod) {
+    private void renderLegacy() {
+        List<String> legacy = ModManager.legacyArchives(this);
+        if (legacy.isEmpty()) {
+            return;
+        }
+        LinearLayout card = UiKit.card(list);
+        UiKit.sectionHeader(card, R.drawable.ic_gzh_info, getString(R.string.mods_legacy_title), false);
+        UiKit.supporting(card, getString(R.string.mods_legacy_help));
+        for (String name : legacy) {
+            UiKit.divider(card);
+            UiKit.body(card, name);
+            UiKit.button(card, UiKit.BTN_TONAL, R.drawable.ic_gzh_folder,
+                getString(R.string.mods_legacy_move), () -> moveLegacy(name)).setEnabled(!busy);
+        }
+    }
+
+    private void moveLegacy(String archive) {
+        File moved = ModManager.moveLegacyArchive(this, archive);
+        if (moved == null) {
+            Toast.makeText(this, getString(R.string.mods_legacy_move_failed, archive), Toast.LENGTH_LONG).show();
+            return;
+        }
+        // It loaded every time before: keep it switched on, below the mods already chosen.
+        mods = ModManager.listMods(this);
+        for (ModManager.Mod mod : mods) {
+            if (mod.dir.getAbsolutePath().equals(moved.getAbsolutePath())) {
+                mod.enabled = true;
+            }
+        }
+        Toast.makeText(this, getString(R.string.mods_legacy_moved, archive), Toast.LENGTH_LONG).show();
+        changed();
+    }
+
+    // --------------------------------------------------------------- page
+
+    private void showPage(ModManager.Mod mod) {
+        ModAnalysis.Info info = infos.get(mod.dir.getAbsolutePath());
         LinearLayout body = new LinearLayout(this);
         body.setOrientation(LinearLayout.VERTICAL);
         int pad = UiKit.dp(this, 20);
         body.setPadding(pad, UiKit.dp(this, 8), pad, 0);
-        if (!mod.description.isEmpty()) {
-            UiKit.supporting(body, mod.description);
+
+        body.addView(picture(mod, 120));
+        List<File> shots = ModManager.screenshots(mod.dir);
+        if (!shots.isEmpty()) {
+            HorizontalScrollView scroller = new HorizontalScrollView(this);
+            LinearLayout strip = new LinearLayout(this);
+            strip.setOrientation(LinearLayout.HORIZONTAL);
+            scroller.addView(strip);
+            int h = UiKit.dp(this, 120);
+            for (File shot : shots) {
+                Bitmap bitmap = decode(shot, h);
+                if (bitmap == null) {
+                    continue;
+                }
+                ImageView image = new ImageView(this);
+                image.setImageBitmap(bitmap);
+                image.setAdjustViewBounds(true);
+                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT, h);
+                lp.setMarginEnd(UiKit.dp(this, 8));
+                strip.addView(image, lp);
+            }
+            LinearLayout.LayoutParams sp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            sp.topMargin = UiKit.dp(this, 12);
+            body.addView(scroller, sp);
         }
-        TextView report = UiKit.body(body, getString(R.string.mods_health_scanning));
-        report.setTextIsSelectable(true);
+        UiKit.caption(body, meta(mod, info));
+        if (!mod.description.isEmpty()) {
+            TextView description = UiKit.supporting(body, mod.description);
+            description.setTextIsSelectable(true);
+        }
+        if (info != null) {
+            UiKit.supporting(body, getString(R.string.mods_page_files, info.iniFiles, info.mapFiles,
+                info.artFiles, info.windowFiles, info.textFiles));
+        }
+        addProblemChips(body, mod, 6);
+        TextView report = UiKit.supporting(body, "");
+        UiKit.button(body, UiKit.BTN_TONAL, R.drawable.ic_gzh_check, getString(R.string.mods_page_check),
+            () -> {
+                report.setText(R.string.mods_health_scanning);
+                worker.execute(() -> {
+                    ModHealthCheck.Result r = ModHealthCheck.scan(mod.dir);
+                    runOnUiThread(() -> report.setText(healthText(r)));
+                });
+            });
+        UiKit.button(body, UiKit.BTN_TONAL, R.drawable.ic_gzh_share, getString(R.string.mods_export),
+            () -> exportMods(java.util.Collections.singletonList(mod), mod.dir.getName()));
+
         android.widget.ScrollView scroll = new android.widget.ScrollView(this);
         scroll.addView(body);
-        AlertDialog dialog = new AlertDialog.Builder(this)
+        new AlertDialog.Builder(this)
             .setTitle(mod.name)
             .setView(scroll)
             .setPositiveButton(android.R.string.ok, null)
+            .setNeutralButton(R.string.mods_delete_button, (d, w) -> confirmDelete(mod))
             .show();
-        worker.execute(() -> {
-            ModHealthCheck.Result r = ModHealthCheck.scan(mod.dir);
-            runOnUiThread(() -> {
-                if (!dialog.isShowing()) {
-                    return;
-                }
-                report.setText(healthText(r));
-            });
-        });
     }
 
     private String healthText(ModHealthCheck.Result report) {
@@ -420,6 +646,59 @@ public class ModManagerActivity extends Activity {
             })
             .setNegativeButton(android.R.string.cancel, null)
             .show();
+    }
+
+    // ------------------------------------------------------------- sharing
+
+    private void exportSet() {
+        List<ModManager.Mod> on = new ArrayList<>();
+        for (ModManager.Mod mod : mods) {
+            if (mod.enabled) {
+                on.add(mod);
+            }
+        }
+        if (!on.isEmpty()) {
+            exportMods(on, getString(R.string.mods_export_set_file));
+        }
+    }
+
+    /** A zip of the mods (a set carries mods_set.txt with their order), shared through Android. */
+    private void exportMods(List<ModManager.Mod> chosen, String baseName) {
+        if (busy) {
+            return;
+        }
+        busy = true;
+        render();
+        Toast.makeText(this, R.string.mods_export_working, Toast.LENGTH_LONG).show();
+        worker.execute(() -> {
+            File zip = null;
+            String failure = null;
+            try {
+                zip = ModImportService.exportZip(this, chosen, baseName);
+            } catch (java.io.IOException e) {
+                failure = e.getMessage();
+            }
+            final File done = zip;
+            final String error = failure;
+            runOnUiThread(() -> {
+                if (isFinishing() || isDestroyed()) {
+                    return;
+                }
+                busy = false;
+                render();
+                if (done == null) {
+                    Toast.makeText(this, getString(R.string.mods_export_failed, String.valueOf(error)),
+                        Toast.LENGTH_LONG).show();
+                    return;
+                }
+                Uri uri = FileProvider.getUriForFile(this, getPackageName() + ".fileprovider", done);
+                Intent share = new Intent(Intent.ACTION_SEND);
+                share.setType("application/zip");
+                share.putExtra(Intent.EXTRA_STREAM, uri);
+                share.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                startActivity(Intent.createChooser(share, getString(R.string.mods_export)));
+            });
+        });
     }
 
     // ------------------------------------------------------------------ import
@@ -533,6 +812,23 @@ public class ModManagerActivity extends Activity {
                 .show();
             return;
         }
+        if (!result.set.isEmpty()) {
+            // A shared set: its mods, switched on, in the sender's order, above the others.
+            List<ModManager.Mod> top = new ArrayList<>();
+            for (File dir : result.set) {
+                for (ModManager.Mod mod : mods) {
+                    if (mod.dir.getAbsolutePath().equals(dir.getAbsolutePath())) {
+                        mod.enabled = true;
+                        top.add(mod);
+                    }
+                }
+            }
+            mods.removeAll(top);
+            mods.addAll(0, top);
+            changed();
+            Toast.makeText(this, getString(R.string.mods_import_set_done, top.size()), Toast.LENGTH_LONG).show();
+            return;
+        }
         new AlertDialog.Builder(this)
             .setTitle(R.string.mods_import_done_title)
             .setMessage(getString(R.string.mods_import_done_message, result.installed.getName(),
@@ -550,8 +846,7 @@ public class ModManagerActivity extends Activity {
                 mods.remove(i);
                 mod.enabled = true;
                 mods.add(0, mod);
-                ModManager.saveOrder(this, mods);
-                render();
+                changed();
                 return;
             }
         }

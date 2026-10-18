@@ -88,14 +88,23 @@ final class ModImportService {
         final int fileCount;
         final int bigCount;
         final long bytes;
+        /** A shared mod set (mods_set.txt): its mods in the sender's order; empty for one mod. */
+        final List<File> set;
 
         Result(File installed, int fileCount, int bigCount, long bytes) {
+            this(installed, fileCount, bigCount, bytes, new ArrayList<>());
+        }
+
+        Result(File installed, int fileCount, int bigCount, long bytes, List<File> set) {
             this.installed = installed;
             this.fileCount = fileCount;
             this.bigCount = bigCount;
             this.bytes = bytes;
+            this.set = set;
         }
     }
+
+    static final String SET_FILE = "mods_set.txt";
 
     private static final class Stats {
         int fileCount;
@@ -180,10 +189,12 @@ final class ModImportService {
             if (stats.bigCount == 0) {
                 throw new ImportProblem(R.string.mods_import_no_big);
             }
+            File installRoot = singleFolderInside(stage);
 
             File target = uniqueTarget(modsRoot, name, false);
             cancellation.throwIfCancelled();
-            finishInstall(stage, target);
+            finishInstall(installRoot, target);
+            deleteRecursively(stage);
             return new Result(target, stats.fileCount, stats.bigCount, stats.bytes);
         } catch (IOException | RuntimeException e) {
             deleteRecursively(stage);
@@ -283,10 +294,16 @@ final class ModImportService {
             if (stats.bigCount == 0) {
                 throw new ImportProblem(R.string.mods_import_no_big);
             }
+            File setList = new File(stage, SET_FILE);
+            if (setList.isFile()) {
+                return installSet(stage, setList, modsRoot, stats, cancellation);
+            }
+            File installRoot = singleFolderInside(stage);
 
             File target = uniqueTarget(modsRoot, name, false);
             cancellation.throwIfCancelled();
-            finishInstall(stage, target);
+            finishInstall(installRoot, target);
+            deleteRecursively(stage);
             return new Result(target, stats.fileCount, stats.bigCount, stats.bytes);
         } catch (IOException | RuntimeException e) {
             deleteRecursively(stage);
@@ -422,6 +439,104 @@ final class ModImportService {
             }
         }
         return false;
+    }
+
+    /**
+     * The folder that is the mod: the staged one, or the only folder inside it when an archive
+     * was packed with its folder (Contra.zip -> Contra/...), so the mod's files sit at its top.
+     */
+    private static File singleFolderInside(File stage) {
+        File[] children = stage.listFiles();
+        if (children != null && children.length == 1 && children[0].isDirectory()) {
+            return children[0];
+        }
+        return stage;
+    }
+
+    /**
+     * A shared mod set: mods_set.txt names its folders, top first. Each becomes a mod of its own;
+     * the result lists them in that order.
+     */
+    private static Result installSet(File stage, File setList, File modsRoot, Stats stats,
+                                     CancellationSignal cancellation) throws IOException {
+        List<File> installed = new ArrayList<>();
+        for (String line : java.nio.file.Files.readAllLines(setList.toPath(), java.nio.charset.StandardCharsets.UTF_8)) {
+            String folder = line.trim();
+            if (folder.isEmpty() || folder.startsWith("#")) {
+                continue;
+            }
+            File source = resolveSafeRelative(stage, validateSegment(folder));
+            if (!source.isDirectory()) {
+                continue;
+            }
+            cancellation.throwIfCancelled();
+            File target = uniqueTarget(modsRoot, sanitizeInstallName(folder, false), false);
+            finishInstall(source, target);
+            installed.add(target);
+        }
+        deleteRecursively(stage);
+        if (installed.isEmpty()) {
+            throw new ImportProblem(R.string.mods_import_no_big);
+        }
+        return new Result(installed.get(0), stats.fileCount, stats.bigCount, stats.bytes, installed);
+    }
+
+    /**
+     * Zips mods for sharing into the app's cache: each under its folder name, and for more than
+     * one a mods_set.txt with their order, which importZip() turns back into the same set.
+     */
+    static File exportZip(Context ctx, List<ModManager.Mod> mods, String baseName) throws IOException {
+        File out = new File(ctx.getCacheDir(), sanitizeInstallName(baseName, false) + ".zip");
+        File[] old = ctx.getCacheDir().listFiles((d, n) -> n.endsWith(".zip"));
+        if (old != null) {
+            for (File f : old) {
+                f.delete();
+            }
+        }
+        try (java.util.zip.ZipOutputStream zip = new java.util.zip.ZipOutputStream(
+                new BufferedOutputStream(new FileOutputStream(out), BUFFER_SIZE))) {
+            if (mods.size() > 1) {
+                StringBuilder order = new StringBuilder();
+                for (ModManager.Mod mod : mods) {
+                    order.append(mod.dir.getName()).append('\n');
+                }
+                zip.putNextEntry(new ZipEntry(SET_FILE));
+                zip.write(order.toString().getBytes(java.nio.charset.StandardCharsets.UTF_8));
+                zip.closeEntry();
+            }
+            byte[] buf = new byte[BUFFER_SIZE];
+            for (ModManager.Mod mod : mods) {
+                addToZip(zip, mod.dir, mod.dir.getName(), buf, 0);
+            }
+        } catch (IOException e) {
+            out.delete();
+            throw e;
+        }
+        return out;
+    }
+
+    private static void addToZip(java.util.zip.ZipOutputStream zip, File file, String path, byte[] buf,
+                                 int depth) throws IOException {
+        if (depth > MAX_DEPTH || java.nio.file.Files.isSymbolicLink(file.toPath())) {
+            return;
+        }
+        if (file.isDirectory()) {
+            File[] children = file.listFiles();
+            if (children != null) {
+                for (File c : children) {
+                    addToZip(zip, c, path + "/" + c.getName(), buf, depth + 1);
+                }
+            }
+            return;
+        }
+        zip.putNextEntry(new ZipEntry(path));
+        try (InputStream in = new FileInputStream(file)) {
+            int n;
+            while ((n = in.read(buf)) > 0) {
+                zip.write(buf, 0, n);
+            }
+        }
+        zip.closeEntry();
     }
 
     private static File requireModsRoot(Context ctx) throws IOException {

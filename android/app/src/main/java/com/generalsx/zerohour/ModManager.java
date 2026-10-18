@@ -61,14 +61,17 @@ final class ModManager {
         final String author;
         final String description;
         final File picture;
+        final Map<String, String> ini;
         boolean enabled;
 
         Mod(File dir, Map<String, String> info, String language, boolean enabled) {
             this.dir = dir;
+            this.ini = info;
             this.name = localized(info, "name", language, dir.getName());
             this.version = localized(info, "version", language, "");
             this.author = localized(info, "author", language, "");
-            this.description = localized(info, "description", language, "");
+            String text = localized(info, "description", language, "");
+            this.description = text.isEmpty() ? readme(dir, language) : text;
             this.picture = findPicture(dir, info.get("image"));
             this.enabled = enabled;
         }
@@ -207,6 +210,42 @@ final class ModManager {
     }
 
     /**
+     * Moves an old '!' archive from the game folder into a mod folder of its own under mods/
+     * (same storage, so a rename). Returns the new mod folder, or null.
+     */
+    static File moveLegacyArchive(Context ctx, String archive) {
+        File game = gameRoot(ctx);
+        File root = modsRoot(ctx);
+        if (game == null || root == null || archive.contains("/") || archive.contains("\\")) {
+            return null;
+        }
+        File source = new File(game, archive);
+        if (!source.isFile() || (!root.isDirectory() && !root.mkdirs())) {
+            return null;
+        }
+        String base = archive;
+        while (base.startsWith("!")) {
+            base = base.substring(1);
+        }
+        if (base.toLowerCase(Locale.US).endsWith(".big")) {
+            base = base.substring(0, base.length() - 4);
+        }
+        base = base.trim().isEmpty() ? "mod" : base.trim();
+        File dir = new File(root, base);
+        for (int i = 2; dir.exists() && i < 100; i++) {
+            dir = new File(root, base + " (" + i + ")");
+        }
+        if (dir.exists() || !dir.mkdirs()) {
+            return null;
+        }
+        if (!source.renameTo(new File(dir, archive))) {
+            dir.delete();
+            return null;
+        }
+        return dir;
+    }
+
+    /**
      * mod.ini: "Key = Value" lines, keys case-insensitive, ';' or '#' comments; a key may carry a
      * language, "Name.ru = ...".
      */
@@ -247,6 +286,55 @@ final class ModManager {
             value = info.get(key);
         }
         return value == null || value.isEmpty() ? fallback : value;
+    }
+
+    /** readme_<language>.txt, readme_en.txt or readme.txt, the first part of it. */
+    static String readme(File dir, String language) {
+        String[] names = { "readme_" + language + ".txt", "readme_en.txt", "readme.txt" };
+        File[] files = dir.listFiles(File::isFile);
+        if (files == null) {
+            return "";
+        }
+        for (String wanted : names) {
+            for (File f : files) {
+                if (f.getName().equalsIgnoreCase(wanted)) {
+                    return readText(f, 4000);
+                }
+            }
+        }
+        return "";
+    }
+
+    static String readText(File f, int limit) {
+        char[] buf = new char[limit];
+        try (java.io.Reader r = new InputStreamReader(new FileInputStream(f), StandardCharsets.UTF_8)) {
+            int n = 0, got;
+            while (n < limit && (got = r.read(buf, n, limit - n)) > 0) {
+                n += got;
+            }
+            return new String(buf, 0, n).replace("\r", "").trim();
+        } catch (IOException e) {
+            android.util.Log.w("ModManager", "could not read " + f, e);
+            return "";
+        }
+    }
+
+    /** The pictures in the mod's screenshots/ folder, sorted by name. */
+    static List<File> screenshots(File dir) {
+        List<File> out = new ArrayList<>();
+        File[] files = new File(dir, "screenshots").listFiles(File::isFile);
+        if (files != null) {
+            for (File f : files) {
+                String lower = f.getName().toLowerCase(Locale.US);
+                for (String ext : PICTURE_EXTENSIONS) {
+                    if (lower.endsWith(ext)) {
+                        out.add(f);
+                    }
+                }
+            }
+            out.sort((a, b) -> a.getName().compareToIgnoreCase(b.getName()));
+        }
+        return out;
     }
 
     private static File findPicture(File dir, String named) {
