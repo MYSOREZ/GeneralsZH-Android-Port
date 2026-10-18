@@ -447,6 +447,12 @@
     <string name="mods_state_off">desligado</string>
     <string name="mods_move_up">Subir</string>
     <string name="mods_move_down">Descer</string>
+    <string name="mods_move_to_zh">Mover para Zero Hour</string>
+    <string name="mods_move_to_generals">Mover para Generals</string>
+    <string name="mods_move_no_folder">Escolha primeiro a pasta de %1$s no Início.</string>
+    <string name="mods_moved_to">%1$s movido para %2$s.</string>
+    <string name="mods_move_failed">Não foi possível mover %1$s.</string>
+    <string name="mods_import_other_game">\"%1$s\" parece um mod para %2$s. Mover para lá?</string>
     <string name="mods_legacy_title">Instalados do jeito antigo (na pasta do jogo)</string>
     <string name="mods_legacy_help">Estes arquivos começam com \"!\" e ficam na própria pasta do jogo: sempre carregam, abaixo dos mods acima, e não podem ser desligados aqui. \"Mover para mods\" transforma um em mod desta lista, ligado, para continuar carregando.</string>
     <string name="mods_folder_help">Pasta de mods: %1$s. Cada mod é uma pasta nela com seus .big; um mod.ini (Name, Version, Author, Description, Image) e uma imagem chamada cover, preview, logo ou icon aparecem aqui se o mod tiver.</string>

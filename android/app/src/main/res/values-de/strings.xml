@@ -447,6 +447,12 @@
     <string name="mods_state_off">aus</string>
     <string name="mods_move_up">Nach oben</string>
     <string name="mods_move_down">Nach unten</string>
+    <string name="mods_move_to_zh">Nach Zero Hour verschieben</string>
+    <string name="mods_move_to_generals">Nach Generals verschieben</string>
+    <string name="mods_move_no_folder">Wählen Sie zuerst auf der Startseite den Ordner von %1$s.</string>
+    <string name="mods_moved_to">%1$s nach %2$s verschoben.</string>
+    <string name="mods_move_failed">%1$s konnte nicht verschoben werden.</string>
+    <string name="mods_import_other_game">„%1$s“ scheint eine Mod für %2$s zu sein. Dorthin verschieben?</string>
     <string name="mods_legacy_title">Auf die alte Art installiert (im Spielordner)</string>
     <string name="mods_legacy_help">Diese Archive beginnen mit „!“ und liegen direkt im Spielordner: Sie werden immer geladen, unter den Mods oben, und lassen sich hier nicht ausschalten. „Nach mods verschieben“ macht eines zu einer Mod dieser Liste – eingeschaltet, damit es weiter geladen wird.</string>
     <string name="mods_folder_help">Mod-Ordner: %1$s. Jede Mod ist ein Ordner darin mit ihren .big-Dateien; eine mod.ini (Name, Version, Author, Description, Image) und ein Bild namens cover, preview, logo oder icon werden hier gezeigt, wenn die Mod sie hat.</string>

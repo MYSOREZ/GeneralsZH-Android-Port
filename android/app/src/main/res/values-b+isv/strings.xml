@@ -447,6 +447,12 @@
     <string name="mods_state_off">izključeny</string>
     <string name="mods_move_up">Vyše</string>
     <string name="mods_move_down">Niže</string>
+    <string name="mods_move_to_zh">Prenesti v Zero Hour</string>
+    <string name="mods_move_to_generals">Prenesti v Generals</string>
+    <string name="mods_move_no_folder">Najprvo izberite papku %1$s na glavnoj stranici.</string>
+    <string name="mods_moved_to">%1$s je prenesen v %2$s.</string>
+    <string name="mods_move_failed">Ne udalo se prenesti %1$s.</string>
+    <string name="mods_import_other_game">«%1$s» izgleda kako mod za %2$s. Prenesti go tamo?</string>
     <string name="mods_legacy_title">Ustanovjene po-staromu (v papkě igry)</string>
     <string name="mods_legacy_help">Ti arhivy počinajut se s «!» i ležat prjamo v papkě igry: oni se vsegda nakladajut, pod modami vyše, i tut ne mogut byti izključene. «Prenesti v mods» stvori iz takogo arhiva mod tutogo spiska — vključeny, zato on bude dalje se nakladati.</string>
     <string name="mods_folder_help">Papka modov: %1$s. Každy mod je papka v njej so svojimi .big; mod.ini (Name, Version, Author, Description, Image) i kartina cover, preview, logo ili icon se pokazujut tut, ako mod jih imaje.</string>

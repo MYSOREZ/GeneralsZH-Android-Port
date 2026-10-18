@@ -447,6 +447,12 @@
     <string name="mods_state_off">꺼짐</string>
     <string name="mods_move_up">위로</string>
     <string name="mods_move_down">아래로</string>
+    <string name="mods_move_to_zh">Zero Hour로 옮기기</string>
+    <string name="mods_move_to_generals">Generals로 옮기기</string>
+    <string name="mods_move_no_folder">먼저 홈에서 %1$s 폴더를 선택하세요.</string>
+    <string name="mods_moved_to">%1$s을(를) %2$s(으)로 옮겼습니다.</string>
+    <string name="mods_move_failed">%1$s을(를) 옮길 수 없습니다.</string>
+    <string name="mods_import_other_game">\"%1$s\"은(는) %2$s용 모드로 보입니다. 그쪽으로 옮길까요?</string>
     <string name="mods_legacy_title">예전 방식으로 설치됨 (게임 폴더 안)</string>
     <string name="mods_legacy_help">이 아카이브들은 \"!\"로 시작하며 게임 폴더 바로 안에 있습니다: 위 모드들보다 아래 순위로 항상 로드되며 여기서 끌 수 없습니다. \"mods로 옮기기\"를 누르면 이 목록의 모드가 되어 켜진 채로 계속 로드됩니다.</string>
     <string name="mods_folder_help">모드 폴더: %1$s. 각 모드는 그 안의 폴더이며 .big 파일을 담습니다. 모드에 mod.ini(Name, Version, Author, Description, Image)와 cover, preview, logo, icon 이름의 그림이 있으면 여기에 표시됩니다.</string>

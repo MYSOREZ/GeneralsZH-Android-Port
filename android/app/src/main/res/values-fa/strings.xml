@@ -447,6 +447,12 @@
     <string name="mods_state_off">خاموش</string>
     <string name="mods_move_up">بالاتر</string>
     <string name="mods_move_down">پایین‌تر</string>
+    <string name="mods_move_to_zh">انتقال به Zero Hour</string>
+    <string name="mods_move_to_generals">انتقال به Generals</string>
+    <string name="mods_move_no_folder">ابتدا در صفحه اصلی پوشه %1$s را انتخاب کنید.</string>
+    <string name="mods_moved_to">%1$s به %2$s منتقل شد.</string>
+    <string name="mods_move_failed">انتقال %1$s ممکن نشد.</string>
+    <string name="mods_import_other_game">«%1$s» به نظر مادی برای %2$s است. به آنجا منتقل شود؟</string>
     <string name="mods_legacy_title">نصب‌شده به روش قدیمی (در پوشه بازی)</string>
     <string name="mods_legacy_help">این آرشیوها با «!» شروع می‌شوند و در خود پوشه بازی هستند: همیشه، زیر مادهای بالا، بارگذاری می‌شوند و اینجا خاموش نمی‌شوند. «انتقال به mods» یکی را به ماد این فهرست تبدیل می‌کند، روشن، تا همچنان بارگذاری شود.</string>
     <string name="mods_folder_help">پوشه مادها: %1$s. هر ماد پوشه‌ای در آن با فایل‌های .big خودش است؛ فایل mod.ini (Name، Version، Author، Description، Image) و تصویری با نام cover، preview، logo یا icon در صورت وجود اینجا نمایش داده می‌شوند.</string>

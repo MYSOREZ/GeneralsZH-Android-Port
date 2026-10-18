@@ -447,6 +447,12 @@
     <string name="mods_state_off">desactivado</string>
     <string name="mods_move_up">Subir</string>
     <string name="mods_move_down">Bajar</string>
+    <string name="mods_move_to_zh">Mover a Zero Hour</string>
+    <string name="mods_move_to_generals">Mover a Generals</string>
+    <string name="mods_move_no_folder">Elige primero la carpeta de %1$s en Inicio.</string>
+    <string name="mods_moved_to">%1$s se movió a %2$s.</string>
+    <string name="mods_move_failed">No se pudo mover %1$s.</string>
+    <string name="mods_import_other_game">«%1$s» parece un mod para %2$s. ¿Moverlo allí?</string>
     <string name="mods_legacy_title">Instalados a la manera antigua (en la carpeta del juego)</string>
     <string name="mods_legacy_help">Estos archivos empiezan por \"!\" y están en la propia carpeta del juego: siempre se cargan, por debajo de los mods de arriba, y aquí no se pueden desactivar. «Mover a mods» convierte uno en un mod de esta lista, activado, para que siga cargándose.</string>
     <string name="mods_folder_help">Carpeta de mods: %1$s. Cada mod es una carpeta dentro con sus .big; aquí se muestran un mod.ini (Name, Version, Author, Description, Image) y una imagen llamada cover, preview, logo o icon si el mod los tiene.</string>

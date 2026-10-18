@@ -96,6 +96,84 @@ final class ModManager {
         return SetupActivity.isGeneralsSelected(ctx) ? PREF_ORDER_GENERALS : PREF_ORDER;
     }
 
+    /** The other game than the one picked on Home (SetupActivity.GAME_*). */
+    static String otherGame(Context ctx) {
+        return SetupActivity.isGeneralsSelected(ctx) ? SetupActivity.GAME_ZERO_HOUR : SetupActivity.GAME_GENERALS;
+    }
+
+    /** The mods folder of a given game, or null while that game has no folder set. */
+    static File modsRootFor(Context ctx, String game) {
+        String path = SetupActivity.getSavedGamePath(ctx, game);
+        return path == null || path.trim().isEmpty() ? null : new File(path, MODS_DIR);
+    }
+
+    /**
+     * Moves a mod folder to the other game's mods folder (a mod imported while the wrong game was
+     * picked). It keeps its switch: on, it goes to the top of that game's list. A rename when both
+     * folders are on the same storage, else a copy then a delete. Returns the new folder, or null.
+     */
+    static File moveToGame(Context ctx, Mod mod, String game) {
+        File root = modsRootFor(ctx, game);
+        if (root == null || (!root.isDirectory() && !root.mkdirs())) {
+            return null;
+        }
+        File target = new File(root, mod.dir.getName());
+        for (int i = 2; target.exists() && i < 100; i++) {
+            target = new File(root, mod.dir.getName() + " (" + i + ")");
+        }
+        if (target.exists()) {
+            return null;
+        }
+        if (!mod.dir.renameTo(target)) {
+            try {
+                copyTree(mod.dir.toPath(), target.toPath());
+            } catch (IOException e) {
+                android.util.Log.w("ModManager", "could not copy " + mod.dir + " to " + target, e);
+                deleteTree(target);
+                return null;
+            }
+            deleteTree(mod.dir);
+        }
+        // This game's list loses it on its next read (the folder is gone); the other gains it.
+        String key = SetupActivity.GAME_GENERALS.equals(game) ? PREF_ORDER_GENERALS : PREF_ORDER;
+        SharedPreferences prefs = ctx.getSharedPreferences(SetupActivity.PREFS_NAME, Context.MODE_PRIVATE);
+        String stored = prefs.getString(key, "");
+        String entry = (mod.enabled ? "1|" : "0|") + target.getName();
+        String next = stored.isEmpty() ? entry : (mod.enabled ? entry + "\n" + stored : stored + "\n" + entry);
+        prefs.edit().putString(key, next).apply();
+        return target;
+    }
+
+    private static void copyTree(Path from, Path to) throws IOException {
+        Files.walkFileTree(from, new SimpleFileVisitor<Path>() {
+            @Override public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs)
+                    throws IOException {
+                Files.createDirectories(to.resolve(from.relativize(dir).toString()));
+                return FileVisitResult.CONTINUE;
+            }
+
+            @Override public FileVisitResult visitFile(Path file, BasicFileAttributes attrs)
+                    throws IOException {
+                Files.copy(file, to.resolve(from.relativize(file).toString()));
+                return FileVisitResult.CONTINUE;
+            }
+        });
+    }
+
+    private static void deleteTree(File dir) {
+        File[] children = dir.listFiles();
+        if (children != null) {
+            for (File c : children) {
+                if (c.isDirectory() && !Files.isSymbolicLink(c.toPath())) {
+                    deleteTree(c);
+                } else {
+                    c.delete();
+                }
+            }
+        }
+        dir.delete();
+    }
+
     /**
      * The mods of the selected game in the player's order: those already in the list first, then
      * folders found since, at the bottom and switched off.

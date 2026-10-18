@@ -340,6 +340,10 @@ public class ModManagerActivity extends Activity {
         head.addView(toggle);
 
         addProblemChips(card, mod, 4);
+        if (forOtherGame(info)) {
+            UiKit.button(card, UiKit.BTN_TONAL, R.drawable.ic_gzh_folder, moveLabel(),
+                () -> moveToOtherGame(mod)).setEnabled(!busy);
+        }
         if (mod.enabled && analyzed && !hasProblem(mod)) {
             UiKit.chip(card, R.drawable.ic_gzh_check, getString(R.string.mods_card_ok),
                 R.color.gzh_status_ok, R.color.gzh_surface_container_high);
@@ -580,6 +584,8 @@ public class ModManagerActivity extends Activity {
                     runOnUiThread(() -> report.setText(healthText(r)));
                 });
             });
+        UiKit.button(body, UiKit.BTN_TONAL, R.drawable.ic_gzh_folder, moveLabel(),
+            () -> moveToOtherGame(mod));
         UiKit.button(body, UiKit.BTN_TONAL, R.drawable.ic_gzh_share, getString(R.string.mods_export),
             () -> exportMods(java.util.Collections.singletonList(mod), mod.dir.getName()));
 
@@ -838,6 +844,7 @@ public class ModManagerActivity extends Activity {
             Toast.makeText(this, getString(R.string.mods_import_set_done, top.size()), Toast.LENGTH_LONG).show();
             return;
         }
+        checkImportedGame(result.installed);
         new AlertDialog.Builder(this)
             .setTitle(R.string.mods_import_done_title)
             .setMessage(getString(R.string.mods_import_done_message, result.installed.getName(),
@@ -845,6 +852,80 @@ public class ModManagerActivity extends Activity {
             .setPositiveButton(R.string.mods_import_activate, (d, w) -> enableOnTop(result.installed))
             .setNegativeButton(R.string.mods_import_later, null)
             .show();
+    }
+
+    // GeneralsX @feature Android port 18/10/2026 A mod in the wrong game (imported while the other one
+    // was picked on Home) moves to the other game's mods folder from its card or its page; right after
+    // an import, a mod whose files say it is for the other game offers that move straight away.
+    private boolean forOtherGame(ModAnalysis.Info info) {
+        if (info == null) {
+            return false;
+        }
+        boolean generals = SetupActivity.isGeneralsSelected(this);
+        return (generals && info.game == ModAnalysis.GAME_ZH) || (!generals && info.game == ModAnalysis.GAME_GENERALS);
+    }
+
+    private String moveLabel() {
+        return getString(SetupActivity.GAME_GENERALS.equals(ModManager.otherGame(this))
+            ? R.string.mods_move_to_generals : R.string.mods_move_to_zh);
+    }
+
+    private String otherGameName() {
+        return SetupActivity.GAME_GENERALS.equals(ModManager.otherGame(this)) ? "Generals" : "Zero Hour";
+    }
+
+    private void moveToOtherGame(ModManager.Mod mod) {
+        if (busy) {
+            return;
+        }
+        if (ModManager.modsRootFor(this, ModManager.otherGame(this)) == null) {
+            Toast.makeText(this, getString(R.string.mods_move_no_folder, otherGameName()), Toast.LENGTH_LONG).show();
+            return;
+        }
+        busy = true;
+        render();
+        final String game = ModManager.otherGame(this);
+        worker.execute(() -> {
+            File moved = ModManager.moveToGame(this, mod, game);
+            runOnUiThread(() -> {
+                if (isFinishing() || isDestroyed()) {
+                    return;
+                }
+                busy = false;
+                Toast.makeText(this, moved != null
+                    ? getString(R.string.mods_moved_to, mod.name, otherGameName())
+                    : getString(R.string.mods_move_failed, mod.name), Toast.LENGTH_LONG).show();
+                refresh();
+            });
+        });
+    }
+
+    private void checkImportedGame(File installed) {
+        worker.execute(() -> {
+            ModManager.Mod found = null;
+            for (ModManager.Mod mod : ModManager.listMods(this)) {
+                if (mod.dir.getAbsolutePath().equals(installed.getAbsolutePath())) {
+                    found = mod;
+                }
+            }
+            if (found == null) {
+                return;
+            }
+            final ModManager.Mod mod = found;
+            final ModAnalysis.Info info = ModAnalysis.analyze(this, mod, mod.ini);
+            runOnUiThread(() -> {
+                if (isFinishing() || isDestroyed() || !forOtherGame(info)
+                        || ModManager.modsRootFor(this, ModManager.otherGame(this)) == null) {
+                    return;
+                }
+                new AlertDialog.Builder(this)
+                    .setTitle(moveLabel())
+                    .setMessage(getString(R.string.mods_import_other_game, mod.name, otherGameName()))
+                    .setPositiveButton(moveLabel(), (d, w) -> moveToOtherGame(mod))
+                    .setNegativeButton(android.R.string.cancel, null)
+                    .show();
+            });
+        });
     }
 
     /** "Turn on now" after an import: the new mod switched on, at the top of the list. */

@@ -447,6 +447,12 @@
     <string name="mods_state_off">désactivé</string>
     <string name="mods_move_up">Monter</string>
     <string name="mods_move_down">Descendre</string>
+    <string name="mods_move_to_zh">Déplacer vers Zero Hour</string>
+    <string name="mods_move_to_generals">Déplacer vers Generals</string>
+    <string name="mods_move_no_folder">Choisissez d’abord le dossier de %1$s sur l’accueil.</string>
+    <string name="mods_moved_to">%1$s déplacé vers %2$s.</string>
+    <string name="mods_move_failed">Impossible de déplacer %1$s.</string>
+    <string name="mods_import_other_game">« %1$s » semble être un mod pour %2$s. Le déplacer là-bas ?</string>
     <string name="mods_legacy_title">Installés à l’ancienne (dans le dossier du jeu)</string>
     <string name="mods_legacy_help">Ces archives commencent par « ! » et se trouvent dans le dossier du jeu lui-même : elles se chargent toujours, sous les mods ci-dessus, et ne peuvent pas être désactivées ici. « Déplacer dans mods » en fait un mod de cette liste, activé, pour qu’il continue de se charger.</string>
     <string name="mods_folder_help">Dossier des mods : %1$s. Chaque mod y est un dossier avec ses .big ; un mod.ini (Name, Version, Author, Description, Image) et une image nommée cover, preview, logo ou icon sont affichés ici si le mod en a.</string>

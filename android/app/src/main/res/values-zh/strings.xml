@@ -447,6 +447,12 @@
     <string name="mods_state_off">已关闭</string>
     <string name="mods_move_up">上移</string>
     <string name="mods_move_down">下移</string>
+    <string name="mods_move_to_zh">移到 Zero Hour</string>
+    <string name="mods_move_to_generals">移到 Generals</string>
+    <string name="mods_move_no_folder">请先在首页选择 %1$s 的游戏文件夹。</string>
+    <string name="mods_moved_to">%1$s 已移到 %2$s。</string>
+    <string name="mods_move_failed">无法移动 %1$s。</string>
+    <string name="mods_import_other_game">“%1$s”看起来是 %2$s 的模组。要移过去吗？</string>
     <string name="mods_legacy_title">按旧方式安装（在游戏文件夹中）</string>
     <string name="mods_legacy_help">这些档案以“!”开头，直接放在游戏文件夹中：它们总会加载，优先级低于上面的模组，且无法在此关闭。“移入 mods”会把它变成此列表中的模组并保持开启，因此仍会加载。</string>
     <string name="mods_folder_help">模组文件夹：%1$s。每个模组是其中的一个文件夹，内含自己的 .big 文件；若模组带有 mod.ini（Name、Version、Author、Description、Image）以及名为 cover、preview、logo 或 icon 的图片，会显示在这里。</string>

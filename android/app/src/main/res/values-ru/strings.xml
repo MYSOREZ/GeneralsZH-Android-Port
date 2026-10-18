@@ -449,6 +449,12 @@
     <string name="mods_state_off">выключен</string>
     <string name="mods_move_up">Выше</string>
     <string name="mods_move_down">Ниже</string>
+    <string name="mods_move_to_zh">Перенести в Zero Hour</string>
+    <string name="mods_move_to_generals">Перенести в Generals</string>
+    <string name="mods_move_no_folder">Сначала выберите папку %1$s на главной.</string>
+    <string name="mods_moved_to">%1$s перенесён в %2$s.</string>
+    <string name="mods_move_failed">Не удалось перенести %1$s.</string>
+    <string name="mods_import_other_game">«%1$s», похоже, мод для %2$s. Перенести его туда?</string>
     <string name="mods_legacy_title">Установлены по-старому (в папке игры)</string>
     <string name="mods_legacy_help">Эти архивы начинаются с «!» и лежат прямо в папке игры: они загружаются всегда, ниже модов из списка, и здесь не выключаются. «Перенести в mods» сделает такой архив модом этого списка — включённым, так что он продолжит загружаться.</string>
     <string name="mods_folder_help">Папка модов: %1$s. Каждый мод — папка в ней со своими .big; mod.ini (Name, Version, Author, Description, Image) и картинка cover, preview, logo или icon показываются здесь, если они есть у мода.</string>

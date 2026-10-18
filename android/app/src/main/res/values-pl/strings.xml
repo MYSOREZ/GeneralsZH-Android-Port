@@ -447,6 +447,12 @@
     <string name="mods_state_off">wyłączony</string>
     <string name="mods_move_up">W górę</string>
     <string name="mods_move_down">W dół</string>
+    <string name="mods_move_to_zh">Przenieś do Zero Hour</string>
+    <string name="mods_move_to_generals">Przenieś do Generals</string>
+    <string name="mods_move_no_folder">Najpierw wybierz folder %1$s na stronie głównej.</string>
+    <string name="mods_moved_to">%1$s przeniesiono do %2$s.</string>
+    <string name="mods_move_failed">Nie udało się przenieść %1$s.</string>
+    <string name="mods_import_other_game">„%1$s” wygląda na mod do %2$s. Przenieść go tam?</string>
     <string name="mods_legacy_title">Zainstalowane po staremu (w folderze gry)</string>
     <string name="mods_legacy_help">Te archiwa zaczynają się od „!” i leżą w samym folderze gry: ładują się zawsze, pod modami powyżej, i nie da się ich tu wyłączyć. „Przenieś do mods” zrobi z takiego archiwum mod tej listy — włączony, więc nadal będzie się ładować.</string>
     <string name="mods_folder_help">Folder modów: %1$s. Każdy mod to folder z jego plikami .big; mod.ini (Name, Version, Author, Description, Image) i obrazek o nazwie cover, preview, logo lub icon są tu pokazywane, jeśli mod je ma.</string>

@@ -454,6 +454,12 @@
     <string name="mods_state_off">off</string>
     <string name="mods_move_up">Move up</string>
     <string name="mods_move_down">Move down</string>
+    <string name="mods_move_to_zh">Move to Zero Hour</string>
+    <string name="mods_move_to_generals">Move to Generals</string>
+    <string name="mods_move_no_folder">Choose the %1$s game folder on Home first.</string>
+    <string name="mods_moved_to">%1$s moved to %2$s.</string>
+    <string name="mods_move_failed">Could not move %1$s.</string>
+    <string name="mods_import_other_game">\"%1$s\" looks like a mod for %2$s. Move it there?</string>
     <string name="mods_legacy_title">Installed the old way (in the game folder)</string>
     <string name="mods_legacy_help">These archives start with \"!\" and lie in the game folder itself: they always load, under the mods above, and cannot be switched off here. \"Move into mods\" makes one a mod of this list, switched on, so it keeps loading.</string>
     <string name="mods_folder_help">Mods folder: %1$s. Each mod is a folder in it with its .big files; a mod.ini (Name, Version, Author, Description, Image) and a picture named cover, preview, logo or icon are shown here if the mod has them.</string>
