@@ -2280,7 +2280,11 @@ public class SetupActivity extends Activity {
         // client has none. A PC player running GeneralsOnline AntiCheat or Easy Anti-Cheat is
         // therefore unreachable from a phone until they turn it off -- say so up front instead
         // of leaving players to discover it as a failed join.
-        UiKit.supporting(content, getString(R.string.setup_online_anticheat_note));
+        // GeneralsX @tweak Android port 18/10/2026 Only about playing with PC players, so only while
+        // cross-play is on (pc_crossplay in the signed settings; off since 18/10/2026).
+        if (UpdateManager.featureEnabled(this, "pc_crossplay", false)) {
+            UiKit.supporting(content, getString(R.string.setup_online_anticheat_note));
+        }
 
         UiKit.button(content, UiKit.BTN_TONAL, R.drawable.ic_gzh_account,
             getString(R.string.setup_button_online_account), () ->

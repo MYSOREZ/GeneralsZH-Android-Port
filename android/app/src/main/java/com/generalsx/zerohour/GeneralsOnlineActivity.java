@@ -179,7 +179,11 @@ public class GeneralsOnlineActivity extends Activity {
         statusText.setTextIsSelectable(true);
         // GeneralsX @feature Android port 27/09/2026 See SetupActivity's online card: the service
         // keeps lobbies with different anti-cheat apart, and this client has none.
-        UiKit.supporting(statusCard, getString(R.string.setup_online_anticheat_note));
+        // GeneralsX @tweak Android port 18/10/2026 Only about playing with PC players, so only while
+        // cross-play is on (pc_crossplay in the signed settings; off since 18/10/2026).
+        if (UpdateManager.featureEnabled(this, "pc_crossplay", false)) {
+            UiKit.supporting(statusCard, getString(R.string.setup_online_anticheat_note));
+        }
         signOutButton = UiKit.button(statusCard, UiKit.BTN_DANGER, R.drawable.ic_gzh_trash,
             getString(R.string.online_button_sign_out), this::onSignOut);
 
