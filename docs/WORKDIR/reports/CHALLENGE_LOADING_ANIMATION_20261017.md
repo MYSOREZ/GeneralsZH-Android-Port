@@ -23,3 +23,29 @@ Separately, constructing/destroying silent portrait or overlay streams resets th
 scripts/qa/test-challenge-video.py compiles and executes actual FFmpeg constructors/destructors/update against deterministic device stubs. Tests fail against r16 for silent audio ownership and frame-accurate advancement. Both Core and Zero Hour copies pass after the fix, retaining normal look-ahead. Actual cue loop passes repeated/jumped-frame coverage. Android NDK builds z_gameengine and z_gameenginedevice successfully (static libraries only).
 
 The tests confirm these code defects and prevent regressions; they do not establish complete resolution of tablet-visible stutter. Need the next owner-authorised APK and actual displayed Challenge introduction on device, including narration, portraits, full captions, skip input, repeat entry, and ordinary campaign/intro audio regression. No new APK or release was built/published in this task; r16 remains unchanged. Build environment and previous artifacts retained. Revert this feature commit independently to roll back.
+
+
+## Follow-up: owner feedback on r17
+
+Owner reports longer waiting before gameplay and partial smoothness improvement.
+The r17 opt-in disables video-advancing audio look-ahead, but frameDecompress was
+still a no-op. Every overdue image therefore undergoes conversion and display;
+when per-frame cost exceeds the media interval, wall-clock drift accumulates.
+This is a demonstrated scheduling weakness, not a measured attribution of all
+waiting time on the owner's tablet. Map loading and intro playback remain serial.
+
+The follow-up catches up overdue Challenge images before conversion, with at
+most eight advances per call, no seek, no decode beyond the final frame and a
+no-progress/EOF exit. Crossed cue dispatch remains in place. It does not enable
+look-ahead in update(), change ordinary movies, or modify map loading/gameplay.
+It reduces redundant conversion/presentation work; it cannot guarantee smoothness
+if decoding itself cannot sustain the source rate. Audio and portrait timing still
+require device validation. No claim of 60/120 fps for a 30 fps source video.
+
+Both Core and ZH actual-method C++ harnesses passed: silent audio ownership,
+ordinary look-ahead behavior, on-time no-op, bounded late-frame recovery,
+end-of-stream limit and stalled decoder. The clock reading alone is replaced by
+a deterministic test clock. Existing crossed cue regression passed.
+No replacement APK was built in this follow-up; r17 release assets are unchanged.
+
+Android NDK z_gameenginedevice target compiled successfully in the preserved build tree.

@@ -655,7 +655,23 @@ Bool FFmpegVideoStream::isFrameReady( void )
 
 void FFmpegVideoStream::frameDecompress( void )
 {
-	//BinkDoFrame( m_handle );
+    // GeneralsX @bugfix Codex 17/10/2026 Catch up late Challenge images before costly conversion.
+    // Cue dispatch handles crossed frames; displaying every overdue image stretches the intro.
+    // Leave ordinary movies on their existing audio look-ahead path.
+    if (!m_frameAccuratePlayback || !m_good || !m_ffmpegFile) return;
+    const uint64_t frameTime = m_ffmpegFile->getFrameTime();
+    if (frameTime == 0) return;
+    const uint64_t now = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
+    if (now < m_startTime) return;
+    const uint64_t targetFrame = (now - m_startTime) / frameTime;
+    int budget = 8;
+    while (m_good && budget-- > 0 && frameIndex() < frameCount() - 1
+           && static_cast<uint64_t>(frameIndex()) < targetFrame)
+    {
+        const int previousFrame = frameIndex();
+        frameNext();
+        if (frameIndex() <= previousFrame) break;
+    }
 }
 
 //============================================================================
