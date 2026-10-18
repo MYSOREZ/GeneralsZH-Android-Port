@@ -106,6 +106,12 @@ namespace GXRemoteConfig
 	{
 		const std::string dir = updateDirPath();
 		if (!dir.empty())
+		{
 			remove((dir + "/boot_pending").c_str());
+			// GeneralsX @feature Android port 18/10/2026 The Mods screen's safe start (PLAN-027): the
+			// launcher writes files/mods_boot_pending before starting with mods; reaching the main
+			// menu clears it, so two starts in a row that never got here can be told apart.
+			remove((dir + "/../mods_boot_pending").c_str());
+		}
 	}
 }

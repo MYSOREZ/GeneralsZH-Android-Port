@@ -499,4 +499,9 @@
     <string name="mods_summary_checking">Checking the mods…</string>
     <string name="mods_summary_ok">The switched-on mods work together.</string>
     <string name="mods_summary_red">Some switched-on mods will not work together: the game may not start with them.</string>
+    <string name="mods_safe_title">The game did not start with these mods</string>
+    <string name="mods_safe_message">The last two starts with the same mods never reached the main menu. Start without mods, or without the mod switched on last?</string>
+    <string name="mods_safe_without">Without mods</string>
+    <string name="mods_safe_anyway">Start anyway</string>
+    <string name="mods_safe_without_last">Without %1$s</string>
 </resources>

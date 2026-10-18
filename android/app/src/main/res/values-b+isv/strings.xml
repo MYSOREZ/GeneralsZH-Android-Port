@@ -492,4 +492,9 @@
     <string name="mods_summary_checking">Prověrjam mody…</string>
     <string name="mods_summary_ok">Vključene mody rabotajut vměsto.</string>
     <string name="mods_summary_red">Někoji vključene mody ne sut sovměstne: igra s nimi može se ne zapustiti.</string>
+    <string name="mods_safe_title">Igra se ne zapustila s tymi modami</string>
+    <string name="mods_safe_message">Dva poslědnja zapuska s istymi modami ne dostigli glavnogo menu. Zapustiti bez modov ili bez moda vključenogo poslědnim?</string>
+    <string name="mods_safe_without">Bez modov</string>
+    <string name="mods_safe_anyway">Vsejedno zapustiti</string>
+    <string name="mods_safe_without_last">Bez %1$s</string>
 </resources>

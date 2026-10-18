@@ -492,4 +492,9 @@
     <string name="mods_summary_checking">Comprobando los mods…</string>
     <string name="mods_summary_ok">Los mods activados funcionan juntos.</string>
     <string name="mods_summary_red">Algunos mods activados no funcionan juntos: puede que el juego no arranque con ellos.</string>
+    <string name="mods_safe_title">El juego no arrancó con estos mods</string>
+    <string name="mods_safe_message">Los dos últimos inicios con los mismos mods no llegaron al menú principal. ¿Iniciar sin mods o sin el último mod activado?</string>
+    <string name="mods_safe_without">Sin mods</string>
+    <string name="mods_safe_anyway">Iniciar igualmente</string>
+    <string name="mods_safe_without_last">Sin %1$s</string>
 </resources>

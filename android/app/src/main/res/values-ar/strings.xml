@@ -492,4 +492,9 @@
     <string name="mods_summary_checking">جارٍ فحص المودات…</string>
     <string name="mods_summary_ok">المودات المفعّلة تعمل معًا.</string>
     <string name="mods_summary_red">بعض المودات المفعّلة غير متوافقة: قد لا تبدأ اللعبة معها.</string>
+    <string name="mods_safe_title">لم تبدأ اللعبة مع هذه المودات</string>
+    <string name="mods_safe_message">آخر تشغيلين بالمودات نفسها لم يصلا إلى القائمة الرئيسية. هل تريد التشغيل بدون مودات، أو بدون آخر مود فعّلته؟</string>
+    <string name="mods_safe_without">بدون مودات</string>
+    <string name="mods_safe_anyway">التشغيل على أي حال</string>
+    <string name="mods_safe_without_last">بدون %1$s</string>
 </resources>

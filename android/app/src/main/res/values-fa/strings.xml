@@ -492,4 +492,9 @@
     <string name="mods_summary_checking">در حال بررسی مادها…</string>
     <string name="mods_summary_ok">مادهای روشن با هم کار می‌کنند.</string>
     <string name="mods_summary_red">برخی مادهای روشن با هم سازگار نیستند: ممکن است بازی با آن‌ها اجرا نشود.</string>
+    <string name="mods_safe_title">بازی با این مادها اجرا نشد</string>
+    <string name="mods_safe_message">دو اجرای آخر با همین مادها به منوی اصلی نرسید. بدون ماد اجرا شود یا بدون آخرین مادی که روشن کردید؟</string>
+    <string name="mods_safe_without">بدون ماد</string>
+    <string name="mods_safe_anyway">در هر حال اجرا شود</string>
+    <string name="mods_safe_without_last">بدون %1$s</string>
 </resources>

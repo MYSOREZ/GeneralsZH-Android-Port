@@ -326,6 +326,9 @@ public class ModManagerActivity extends Activity {
         toggle.setEnabled(!busy);
         toggle.setOnCheckedChangeListener((button, checked) -> {
             mod.enabled = checked;
+            if (checked) {
+                ModManager.noteEnabled(this, mod);
+            }
             changed();
         });
         head.addView(toggle);
@@ -845,6 +848,7 @@ public class ModManagerActivity extends Activity {
             if (mod.dir.getAbsolutePath().equals(dir.getAbsolutePath())) {
                 mods.remove(i);
                 mod.enabled = true;
+                ModManager.noteEnabled(this, mod);
                 mods.add(0, mod);
                 changed();
                 return;

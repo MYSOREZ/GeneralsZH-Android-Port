@@ -180,9 +180,20 @@ final class ModManager {
                 paths.add(mod.dir.getAbsolutePath());
             }
         }
+        File pending = new File(ctx.getFilesDir(), BOOT_PENDING_FILE);
         if (paths.isEmpty()) {
             out.delete();
+            pending.delete();
             return;
+        }
+        // Safe start: the marker counts the starts with this same list that have not reached the
+        // main menu yet (the engine deletes it there, GXRemoteConfig::markEngineBootComplete).
+        String list = String.join("\n", paths);
+        int count = failedStarts(ctx, list) + 1;
+        try (FileWriter w = new FileWriter(pending, false)) {
+            w.write(count + "\n" + list);
+        } catch (IOException e) {
+            android.util.Log.w("ModManager", "could not write the mods boot marker", e);
         }
         try (FileWriter w = new FileWriter(out, false)) {
             for (String path : paths) {
@@ -192,6 +203,63 @@ final class ModManager {
         } catch (IOException e) {
             android.util.Log.w("ModManager", "could not write the active mod list", e);
         }
+    }
+
+    static final String BOOT_PENDING_FILE = "mods_boot_pending";
+    private static final String PREF_LAST_ENABLED = "mods_last_enabled";
+
+    /**
+     * How many starts in a row with the given list (enabled folders, top first, one per line)
+     * never reached the main menu; 0 when the last start did, or used another list.
+     */
+    static int failedStarts(Context ctx, String list) {
+        File pending = new File(ctx.getFilesDir(), BOOT_PENDING_FILE);
+        if (!pending.isFile()) {
+            return 0;
+        }
+        String text = readText(pending, 64 * 1024);
+        int eol = text.indexOf('\n');
+        if (eol < 0 || !text.substring(eol + 1).equals(list)) {
+            return 0;
+        }
+        try {
+            return Integer.parseInt(text.substring(0, eol).trim());
+        } catch (NumberFormatException e) {
+            return 0;
+        }
+    }
+
+    /** The enabled folders of the selected game as writeActiveList() would write them. */
+    static String activeList(Context ctx) {
+        List<String> paths = new ArrayList<>();
+        for (Mod mod : listMods(ctx)) {
+            if (mod.enabled) {
+                paths.add(mod.dir.getAbsolutePath());
+            }
+        }
+        return String.join("\n", paths);
+    }
+
+    /** Remembers the mod switched on most recently, for "start without the last mod added". */
+    static void noteEnabled(Context ctx, Mod mod) {
+        ctx.getSharedPreferences(SetupActivity.PREFS_NAME, Context.MODE_PRIVATE).edit()
+            .putString(PREF_LAST_ENABLED, mod.dir.getName()).apply();
+    }
+
+    static String lastEnabled(Context ctx) {
+        return ctx.getSharedPreferences(SetupActivity.PREFS_NAME, Context.MODE_PRIVATE)
+            .getString(PREF_LAST_ENABLED, null);
+    }
+
+    /** Switches every mod of the selected game off, or only the one named. */
+    static void switchOff(Context ctx, String onlyFolder) {
+        List<Mod> mods = listMods(ctx);
+        for (Mod mod : mods) {
+            if (onlyFolder == null || mod.dir.getName().equals(onlyFolder)) {
+                mod.enabled = false;
+            }
+        }
+        saveOrder(ctx, mods);
     }
 
     /** The legacy '!' archives in the game folder: always loaded, outside this list. */

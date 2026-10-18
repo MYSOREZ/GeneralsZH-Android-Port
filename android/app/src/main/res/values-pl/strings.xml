@@ -492,4 +492,9 @@
     <string name="mods_summary_checking">Sprawdzanie modów…</string>
     <string name="mods_summary_ok">Włączone mody działają razem.</string>
     <string name="mods_summary_red">Niektóre włączone mody do siebie nie pasują: gra może się z nimi nie uruchomić.</string>
+    <string name="mods_safe_title">Gra nie uruchomiła się z tymi modami</string>
+    <string name="mods_safe_message">Dwa ostatnie uruchomienia z tymi samymi modami nie doszły do menu głównego. Uruchomić bez modów czy bez ostatnio włączonego moda?</string>
+    <string name="mods_safe_without">Bez modów</string>
+    <string name="mods_safe_anyway">Uruchom mimo to</string>
+    <string name="mods_safe_without_last">Bez %1$s</string>
 </resources>

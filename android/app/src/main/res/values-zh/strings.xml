@@ -492,4 +492,9 @@
     <string name="mods_summary_checking">正在检查模组……</string>
     <string name="mods_summary_ok">已开启的模组可以一起使用。</string>
     <string name="mods_summary_red">部分已开启的模组互不兼容：游戏可能无法启动。</string>
+    <string name="mods_safe_title">游戏未能在这些模组下启动</string>
+    <string name="mods_safe_message">最近两次使用相同模组的启动都没有进入主菜单。要不带模组启动，还是去掉最后开启的模组再启动？</string>
+    <string name="mods_safe_without">不带模组</string>
+    <string name="mods_safe_anyway">仍然启动</string>
+    <string name="mods_safe_without_last">去掉 %1$s</string>
 </resources>

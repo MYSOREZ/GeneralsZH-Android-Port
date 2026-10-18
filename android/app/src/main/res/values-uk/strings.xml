@@ -492,4 +492,9 @@
     <string name="mods_summary_checking">Перевіряю моди…</string>
     <string name="mods_summary_ok">Увімкнені моди працюють разом.</string>
     <string name="mods_summary_red">Деякі увімкнені моди несумісні: гра з ними може не запуститися.</string>
+    <string name="mods_safe_title">Гра не запустилася з цими модами</string>
+    <string name="mods_safe_message">Два останні запуски з тими самими модами не дійшли до головного меню. Запустити без модів чи без мода, увімкненого останнім?</string>
+    <string name="mods_safe_without">Без модів</string>
+    <string name="mods_safe_anyway">Однаково запустити</string>
+    <string name="mods_safe_without_last">Без %1$s</string>
 </resources>

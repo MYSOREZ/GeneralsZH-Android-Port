@@ -4007,6 +4007,36 @@ public class SetupActivity extends Activity {
     private boolean pendingLaunchAfterRotation = false;
 
     private void onLaunchGame() {
+        // GeneralsX @feature Android port 18/10/2026 Safe start with mods (PLAN-027): two starts in
+        // a row with the same mods never reached the main menu -- offer to start without them, or
+        // without the mod switched on last.
+        final String modList = ModManager.activeList(this);
+        if (!modList.isEmpty() && ModManager.failedStarts(this, modList) >= 2) {
+            final String last = ModManager.lastEnabled(this);
+            final boolean lastOn = last != null && ("\n" + modList + "\n").contains("/" + last + "\n");
+            android.app.AlertDialog.Builder b = new android.app.AlertDialog.Builder(this)
+                .setTitle(R.string.mods_safe_title)
+                .setMessage(R.string.mods_safe_message)
+                .setPositiveButton(R.string.mods_safe_without, (d, w) -> {
+                    ModManager.switchOff(this, null);
+                    showTab(currentTab);
+                    launchGameNow();
+                })
+                .setNegativeButton(R.string.mods_safe_anyway, (d, w) -> launchGameNow());
+            if (lastOn) {
+                b.setNeutralButton(getString(R.string.mods_safe_without_last, last), (d, w) -> {
+                    ModManager.switchOff(this, last);
+                    showTab(currentTab);
+                    launchGameNow();
+                });
+            }
+            b.show();
+            return;
+        }
+        launchGameNow();
+    }
+
+    private void launchGameNow() {
         // GeneralsX @feature Android port 04/10/2026 The text-language marker is checked against
         // the data of the game about to start, which may not be the one it was last written for.
         applyGameLanguageOverride();
