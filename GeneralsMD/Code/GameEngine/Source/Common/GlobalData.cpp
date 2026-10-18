@@ -1298,7 +1298,22 @@ void GlobalData::init()
 	// for real. Faking it instead would paper over genuinely different unit stats
 	// and guarantee the desync this is meant to measure. See the [GX-CRC] line
 	// GameEngine.cpp prints at startup for what the two checksums currently are.
-	if (FILE *marker = fopen("gx_pc_compat.txt", "r"))
+	//
+	// GeneralsX @bugfix Android port 18/10/2026 Cross-play with PC players is off, at the
+	// GeneralsOnline developers' request: Android clients slowed lockstep games for the PC players
+	// and desynced some of them. The launcher's switch still writes the marker, so it is now
+	// honoured only when the signed update settings say so (pc_crossplay=1); they do not. Without
+	// it this client reports its own checksum and meets only other Android clients.
+	FILE *marker = fopen("gx_pc_compat.txt", "r");
+	if (marker && GXRemoteConfig::get("pc_crossplay", "0") != "1")
+	{
+		fclose(marker);
+		marker = nullptr;
+		fprintf(stderr, "[GX-CRC] gx_pc_compat.txt ignored: cross-play with PC is off (pc_crossplay). Reporting exe_crc=%u.\n",
+			(unsigned)m_exeCRC);
+		fflush(stderr);
+	}
+	if (marker)
 	{
 		// The file may name a checksum to claim; empty means "the stock PC
 		// GeneralsOnline client", which is what it is for.

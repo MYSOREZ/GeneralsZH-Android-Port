@@ -202,7 +202,12 @@ public class GeneralsOnlineActivity extends Activity {
         // Whether this device can play against a PC belongs with the account screen
         // -- that is where someone goes when they want to play online at all -- and
         // filed under diagnostics it read as one more trace switch for developers.
-        buildCrossPlayCard(page);
+        // GeneralsX @tweak Android port 18/10/2026 Hidden while cross-play with PC is off (the
+        // GeneralsOnline developers asked for it): the engine ignores the marker unless the signed
+        // settings carry pc_crossplay=1 (GlobalData::init), so the switch would do nothing.
+        if ("1".equals(UpdateManager.remoteConfig(this, "pc_crossplay", "0"))) {
+            buildCrossPlayCard(page);
+        }
     }
 
     // GeneralsX @feature Android port 13/09/2026 Maps and the community data
