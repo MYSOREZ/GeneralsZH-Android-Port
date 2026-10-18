@@ -164,6 +164,9 @@ class VideoStreamInterface
 		virtual Bool	isFrameReady() = 0;						///< Is the frame ready to be displayed
 		virtual void	frameDecompress() = 0;				///< Render current frame in to buffer
 		virtual void	frameRender( VideoBuffer *buffer ) = 0; ///< Render current frame in to buffer
+        // GeneralsX @bugfix Codex 17/10/2026 Scripted movie cues require every decoded frame.
+        // Default no-op preserves Bink and other video providers.
+        virtual void setFrameAccuratePlayback(Bool enabled) { }
 		virtual void	frameNext() = 0;							///< Advance to next frame
 		virtual Int		frameIndex() = 0;							///< Returns zero based index of current frame
 		virtual Int		frameCount() = 0;							///< Returns the total number of frames in the stream

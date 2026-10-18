@@ -85,12 +85,15 @@ class FFmpegVideoStream : public VideoStream
 		/// per decoded packet and is paced by the VIDEO frame rate, so without a cushion
 		/// the source drains and stops between every pair of frames -- inaudible playback.
 		bool m_audioPrimed = false;
+        // GeneralsX @bugfix Codex 17/10/2026 Preserve scripted movie frame cues.
+        bool m_frameAccuratePlayback = false;
 
 		FFmpegVideoStream(FFmpegFile* file);																///< only BinkVideoPlayer can create these
 		virtual ~FFmpegVideoStream();												
 												
 		static void onFrame(AVFrame *frame, int stream_idx, int stream_type, void *user_data);
 	public:																							
+        virtual void setFrameAccuratePlayback(Bool enabled) override { m_frameAccuratePlayback = enabled; }
 																											
 		virtual void update( void );											///< Update bink stream
 

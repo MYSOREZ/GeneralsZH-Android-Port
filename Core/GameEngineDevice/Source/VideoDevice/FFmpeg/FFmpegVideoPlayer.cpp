@@ -311,47 +311,57 @@ void FFmpegVideoPlayer::initializeBinkWithMiles()
 FFmpegVideoStream::FFmpegVideoStream(FFmpegFile* file)
 : m_ffmpegFile(file)
 {
-	m_ffmpegFile->setFrameCallback(onFrame);
-	m_ffmpegFile->setUserData(this);
+    m_ffmpegFile->setFrameCallback(onFrame);
+    m_ffmpegFile->setUserData(this);
 
 #ifdef SAGE_USE_OPENAL
-	// Release the audio handle if it's already in use
-	OpenALAudioStream* audioStream = (OpenALAudioStream*)TheAudio->getHandleForBink();
-	// GeneralsX @feature Android port 09/09/2026 Measure the tail the previous movie lost.
-	// reset() is alSourceStop() + unqueue-everything, so whatever the last movie still had
-	// buffered ahead of the speaker is discarded here. The movie's audio queue runs a decode
-	// burst ahead of playback, so this is how much of the previous movie was never heard.
-	ALint gxLeftOver = 0, gxPrevState = 0;
-	alGetSourcei(audioStream->getSource(), AL_BUFFERS_QUEUED, &gxLeftOver);
-	alGetSourcei(audioStream->getSource(), AL_SOURCE_STATE, &gxPrevState);
-	GX_AUDIO_TRACE("new movie: dropping %d queued buffer(s) from the previous stream (state=%s)\n",
-			(int)gxLeftOver,
-			gxPrevState == AL_PLAYING ? "PLAYING" :
-			gxPrevState == AL_STOPPED ? "STOPPED" :
-			gxPrevState == AL_PAUSED  ? "PAUSED"  : "INITIAL");
-	audioStream->reset();
+    // Release the audio handle if it's already in use
+    OpenALAudioStream* audioStream = m_ffmpegFile->hasAudio() && TheAudio
+        ? (OpenALAudioStream*)TheAudio->getHandleForBink() : nullptr;
+    // GeneralsX @bugfix Codex 17/10/2026 Silent portrait streams do not own movie audio.
+    if (audioStream) {
+
+        // GeneralsX @feature Android port 09/09/2026 Measure the tail the previous movie lost.
+        // reset() is alSourceStop() + unqueue-everything, so whatever the last movie still had
+        // buffered ahead of the speaker is discarded here. The movie's audio queue runs a decode
+        // burst ahead of playback, so this is how much of the previous movie was never heard.
+        ALint gxLeftOver = 0, gxPrevState = 0;
+        alGetSourcei(audioStream->getSource(), AL_BUFFERS_QUEUED, &gxLeftOver);
+        alGetSourcei(audioStream->getSource(), AL_SOURCE_STATE, &gxPrevState);
+        GX_AUDIO_TRACE("new movie: dropping %d queued buffer(s) from the previous stream (state=%s)\n",
+                (int)gxLeftOver,
+                gxPrevState == AL_PLAYING ? "PLAYING" :
+                gxPrevState == AL_STOPPED ? "STOPPED" :
+                gxPrevState == AL_PAUSED  ? "PAUSED"  : "INITIAL");
+        audioStream->reset();
+
+    }
 #endif
 
-	// Decode until we have our first video frame
-	while (m_good && m_gotFrame == false)
-		m_good = m_ffmpegFile->decodePacket();
+    // Decode until we have our first video frame
+    while (m_good && m_gotFrame == false)
+        m_good = m_ffmpegFile->decodePacket();
 
 #ifdef SAGE_USE_OPENAL
-	// Start audio playback
-	// GeneralsX @bugfix fbraz3 23/04/2026 Ensure video stream starts with audible gain even after prior source reuse.
-	// Issue: https://github.com/fbraz3/GeneralsX/issues/38
-	audioStream->setVolume(1.0f);
-	// GeneralsX @bugfix Android port 09/09/2026 Do NOT restart a source that is already playing.
-	// alSourcePlay() on an AL_PLAYING source rewinds it to the FRONT of its queue (openal-soft
-	// StartSources: "A source that's already playing is restarted from the beginning"), so this
-	// replayed every buffer the decode loop above had just queued. update() already starts the
-	// source the moment the first buffer lands, which is why it is playing by the time we get
-	// here; all this call has to do is cover the case where it is not.
-	if (!audioStream->isPlaying())
-	    audioStream->play();
+    if (audioStream) {
+
+        // Start audio playback
+        // GeneralsX @bugfix fbraz3 23/04/2026 Ensure video stream starts with audible gain even after prior source reuse.
+        // Issue: https://github.com/fbraz3/GeneralsX/issues/38
+        audioStream->setVolume(1.0f);
+        // GeneralsX @bugfix Android port 09/09/2026 Do NOT restart a source that is already playing.
+        // alSourcePlay() on an AL_PLAYING source rewinds it to the FRONT of its queue (openal-soft
+        // StartSources: "A source that's already playing is restarted from the beginning"), so this
+        // replayed every buffer the decode loop above had just queued. update() already starts the
+        // source the moment the first buffer lands, which is why it is playing by the time we get
+        // here; all this call has to do is cover the case where it is not.
+        if (!audioStream->isPlaying())
+            audioStream->play();
+
+    }
 #endif
 
-	m_startTime = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
+    m_startTime = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
 }
 
 //============================================================================
@@ -364,7 +374,7 @@ FFmpegVideoStream::~FFmpegVideoStream()
 	// does not bleed into gameplay after the loading screen closes the stream.
 	// Issue: https://github.com/fbraz3/GeneralsX/issues/38
 #ifdef SAGE_USE_OPENAL
-	if (TheAudio)
+	if (TheAudio && m_ffmpegFile && m_ffmpegFile->hasAudio())
 	{
 		OpenALAudioStream* audioStream = (OpenALAudioStream*)TheAudio->getHandleForBink();
 		if (audioStream)
@@ -530,6 +540,8 @@ void FFmpegVideoStream::onFrame(AVFrame *frame, int stream_idx, int stream_type,
 void FFmpegVideoStream::update()
 {
 #ifdef SAGE_USE_OPENAL
+    // GeneralsX @bugfix Codex 17/10/2026 Silent overlays must not service shared audio.
+    if (!TheAudio || !m_ffmpegFile || !m_ffmpegFile->hasAudio()) return;
 	// Resume audio playback only if not already playing.
 	// Calling alSourcePlay() on an AL_PLAYING source restarts it from the
 	// first unprocessed buffer (OpenAL 1.1 spec §4.3.9), which causes
@@ -546,7 +558,7 @@ void FFmpegVideoStream::update()
 	// are dropped on a device too slow to show them all, with audio as the master clock.
 	// m_good is deliberately not assigned here, so end-of-stream is still detected in
 	// frameNext(). Kept in sync with the GeneralsMD copy, which is the one that links.
-	if (m_good && m_ffmpegFile != nullptr && m_ffmpegFile->hasAudio())
+	if (m_good && !m_frameAccuratePlayback && m_ffmpegFile != nullptr && m_ffmpegFile->hasAudio())
 	{
 		ALint gxQueued = 0;
 		alGetSourcei(audioStream->getSource(), AL_BUFFERS_QUEUED, &gxQueued);

@@ -1018,6 +1018,11 @@ void ChallengeLoadScreen::init( GameInfo *game )
 		return;
 	}
 
+#if defined(__ANDROID__)
+    // GeneralsX @bugfix Codex 17/10/2026 Audio look-ahead must not skip frame-authored cues.
+    m_videoStream->setFrameAccuratePlayback(TRUE);
+#endif
+
 	// Create the new buffer
 	m_videoBuffer = TheDisplay->createVideoBuffer();
 	if (m_videoBuffer == nullptr || !m_videoBuffer->allocate(	m_videoStream->width(), m_videoStream->height() ))
@@ -1118,6 +1123,7 @@ void ChallengeLoadScreen::init( GameInfo *game )
 
 		Int progressUpdateCount = m_videoStream->frameCount() / FRAME_FUDGE_ADD;
 		Int shiftedPercent = -FRAME_FUDGE_ADD + 1;
+        Int lastActivatedFrame = -1;
 		while (m_videoStream->frameIndex() < m_videoStream->frameCount() - 1 )
 		{
 			if (GameClient::isMovieAbortRequested())
@@ -1159,7 +1165,10 @@ void ChallengeLoadScreen::init( GameInfo *game )
 			}
 			TheWindowManager->update();
 
-			activatePieces(frame, generalPlayer, generalOpponent);
+            // GeneralsX @bugfix Codex 17/10/2026 Process crossed cues once if a packet has multiple frames.
+            for (Int cue = lastActivatedFrame + 1; cue <= frame; ++cue)
+                activatePieces(cue, generalPlayer, generalOpponent);
+            lastActivatedFrame = frame;
 			m_wndVideoManager->update();
 
 			// redraw all views, update the GUI
