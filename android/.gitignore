@@ -11,3 +11,4 @@ app/src/main/assets/gamedata/*
 !app/src/main/assets/gamedata/Window/**
 app/src/main/assets/default_driver/
 app/src/main/assets/engine_build.txt
+app/src/main/assets/update_channel.txt

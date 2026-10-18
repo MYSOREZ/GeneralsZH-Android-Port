@@ -53,6 +53,24 @@ screen; the engine is downloaded only by the Home check.
 
 Nothing is used unless it is signed with the update key.
 
+## Two channels: releases and test builds
+
+Releases read the `updates` branch. Test builds (packaged with `GX_UPDATE_CHANNEL=test`, which
+writes `assets/update_channel.txt`) read `updates-test` instead, so a test engine reaches testers
+over the air and is never offered to players. Each channel keeps its own serial on the device, and
+an engine downloaded from one channel does not run after an APK of the other channel is installed.
+Same key, same signature check.
+
+```bash
+GX_UPDATE_CHANNEL=test ./scripts/build/android/build-dual-hz.sh        # the test APK testers install once
+python3 scripts/update/publish-update.py --channel test --apk <newer test APK> --out /tmp/updt
+scripts/update/push-updates-branch.sh /tmp/updt updates-test
+# then Actions -> Sign update -> branch: updates-test
+```
+
+A test engine is published from a later test build than the one testers have (higher commit
+count) with the same libraries; `requires_libs` must match the test APK they installed.
+
 ## How it is protected
 
 - `manifest.json` is signed with an ECDSA P-256 key. The launcher carries only the public key

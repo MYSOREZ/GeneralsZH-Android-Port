@@ -78,6 +78,10 @@ the APK into `apk/`, then push, so the download link is a raw GitHub URL:
 cp GeneralsXZH-android-local.apk apk/<name>.apk
 ```
 
+Test builds set `GX_UPDATE_CHANNEL=test` (`GX_UPDATE_CHANNEL=test ./scripts/build/android/build-dual-hz.sh`):
+they then read the `updates-test` branch, so later test engines can reach testers over the air
+without touching what players get (docs/HOWTO/PUBLISH_UPDATE.md). Releases never set it.
+
 Use `build-dual-hz.sh`, not `build-local-sandboxed.sh`: the latter leaves
 `SAGE_HIGH_FPS_SIM` at its OFF default and ships a 30 Hz engine only. Both
 engines must be built from the same working tree — if a source edit lands

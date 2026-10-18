@@ -62,8 +62,36 @@ import java.util.zip.GZIPInputStream;
 final class UpdateManager {
     private static final String TAG = "GXUpdate";
 
-    static final String BASE_URL =
-        "https://raw.githubusercontent.com/MYSOREZ/GeneralsZH-Android-Port/updates/";
+    /** Where every update branch is served from; the branch is the channel's. */
+    static final String RAW_ROOT =
+        "https://raw.githubusercontent.com/MYSOREZ/GeneralsZH-Android-Port/";
+
+    /**
+     * GeneralsX @feature Android port 18/10/2026 Two channels. Releases read the {@code updates}
+     * branch; a test build (assets/update_channel.txt = "test", written by the packaging script
+     * when GX_UPDATE_CHANNEL=test) reads {@code updates-test}, so a test engine reaches testers
+     * over the air without ever being offered to players. Without the file it is a release.
+     */
+    static boolean isTestChannel(Context ctx) {
+        if (sTestChannel == null) {
+            try (InputStream in = ctx.getAssets().open("update_channel.txt")) {
+                sTestChannel = "test".equals(new String(readAll(in), StandardCharsets.US_ASCII).trim());
+            } catch (IOException e) {
+                sTestChannel = false;
+            }
+        }
+        return sTestChannel;
+    }
+
+    private static Boolean sTestChannel;
+
+    static String channelName(Context ctx) {
+        return isTestChannel(ctx) ? "test" : "release";
+    }
+
+    static String baseUrl(Context ctx) {
+        return RAW_ROOT + (isTestChannel(ctx) ? "updates-test/" : "updates/");
+    }
 
     /** SubjectPublicKeyInfo (DER, base64) of the update signing key. */
     static final String PUBLIC_KEY_B64 =
@@ -73,6 +101,9 @@ final class UpdateManager {
 
     private static final String PREFS = "gx_update";
     private static final String KEY_SERIAL = "serial";
+    // The engine downloaded last came from this channel; a release APK installed over a test one
+    // must not keep running the test channel's engine.
+    private static final String KEY_ENGINE_CHANNEL = "engine_channel";
     private static final String KEY_AUTO = "auto_check";
     private static final String KEY_LAST_CHECK = "last_check";
     private static final String KEY_DEPS_OK_FOR = "deps_ok_for";
@@ -135,7 +166,12 @@ final class UpdateManager {
     }
 
     static int acceptedSerial(Context ctx) {
-        return prefs(ctx).getInt(KEY_SERIAL, 0);
+        return prefs(ctx).getInt(serialKey(ctx), 0);
+    }
+
+    /** Each channel counts its own serials: a test serial must not hold back the release's. */
+    private static String serialKey(Context ctx) {
+        return isTestChannel(ctx) ? KEY_SERIAL + "_test" : KEY_SERIAL;
     }
 
     private static SharedPreferences prefs(Context ctx) {
@@ -159,6 +195,9 @@ final class UpdateManager {
     static int activeEngineSeq(Context ctx) {
         int seq = readInt(activeEngineMarker(ctx));
         if (seq <= 0 || seq <= bundledEngineSeq(ctx) || seq == readInt(badEngineMarker(ctx))) {
+            return 0;
+        }
+        if (!channelName(ctx).equals(prefs(ctx).getString(KEY_ENGINE_CHANNEL, "release"))) {
             return 0;
         }
         for (String lib : ENGINE_LIBS) {
@@ -262,8 +301,8 @@ final class UpdateManager {
     static Result check(Context ctx, boolean withEngine) {
         Result r = new Result();
         try {
-            byte[] manifestBytes = download(BASE_URL + "manifest.json", 256 * 1024);
-            byte[] signatureText = download(BASE_URL + "manifest.json.sig", 16 * 1024);
+            byte[] manifestBytes = download(baseUrl(ctx) + "manifest.json", 256 * 1024);
+            byte[] signatureText = download(baseUrl(ctx) + "manifest.json.sig", 16 * 1024);
             if (!verify(manifestBytes, signatureText)) {
                 r.error = "signature";
                 return r;
@@ -307,7 +346,7 @@ final class UpdateManager {
                         .format(new java.util.Date()));
             }
             edit
-                .putInt(KEY_SERIAL, r.serial)
+                .putInt(serialKey(ctx), r.serial)
                 .putLong(KEY_LAST_CHECK, System.currentTimeMillis())
                 .apply();
             r.ok = r.error == null;
@@ -461,7 +500,7 @@ final class UpdateManager {
             if (file.isFile() && sha256(file).equalsIgnoreCase(sha)) {
                 return false;
             }
-            if (!url.startsWith(BASE_URL)) {
+            if (!url.startsWith(baseUrl(ctx))) {
                 Log.w(TAG, "support file outside the updates branch: " + url);
                 return false;
             }
@@ -512,6 +551,7 @@ final class UpdateManager {
         }
         boolean wasActive = readInt(activeEngineMarker(ctx)) == seq;
         writeText(activeEngineMarker(ctx), Integer.toString(seq));
+        prefs(ctx).edit().putString(KEY_ENGINE_CHANNEL, channelName(ctx)).apply();
         prefs(ctx).edit().putString(KEY_DEPS_OK_FOR, depsStamp(ctx, seq)).apply();
         pruneOtherEngines(ctx, seq);
         r.engineDownloaded = !wasActive;

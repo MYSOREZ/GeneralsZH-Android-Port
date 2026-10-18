@@ -18,7 +18,10 @@
 import datetime
 import argparse, base64, gzip, hashlib, json, os, subprocess, sys, tempfile, urllib.request, zipfile
 
-BASE_URL = "https://raw.githubusercontent.com/MYSOREZ/GeneralsZH-Android-Port/updates/"
+RAW_ROOT = "https://raw.githubusercontent.com/MYSOREZ/GeneralsZH-Android-Port/"
+# GeneralsX @feature Android port 18/10/2026 --channel test publishes to the updates-test branch,
+# which only test builds read (UpdateManager.isTestChannel).
+BASE_URL = RAW_ROOT + "updates/"
 ENGINE_LIBS = ("libmain.so", "libmain60.so")
 DATAPACK_CDN_MANIFEST = "https://cdn.playgenerals.online/manifest.json"
 
@@ -107,9 +110,13 @@ def main():
                     help="settings-only update that also withdraws the published engine")
     ap.add_argument("--key", help="PEM private key (never commit it); omit to leave signing to the Sign update workflow")
     ap.add_argument("--out", required=True)
+    ap.add_argument("--channel", choices=("release", "test"), default="release",
+                    help="release: the updates branch, read by every release; test: updates-test, read by test builds")
     ap.add_argument("--serial", type=int, help="default: the published serial + 1")
     ap.add_argument("--note", default="")
     a = ap.parse_args()
+    global BASE_URL
+    BASE_URL = RAW_ROOT + ("updates-test/" if a.channel == "test" else "updates/")
 
     os.makedirs(a.out, exist_ok=True)
     manifest = {"schema": 1, "serial": a.serial or current_serial() + 1}

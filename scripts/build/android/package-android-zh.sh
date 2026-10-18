@@ -325,6 +325,16 @@ find "${DEFAULT_DRIVER_ASSETS}" -type f | sed "s|${DEFAULT_DRIVER_ASSETS}/|    d
 # the commit count of the tree the engine was built from, so later builds always sort higher.
 ENGINE_BUILD="$(git -C "${PROJECT_ROOT}" rev-list --count HEAD 2>/dev/null || echo 0)"
 echo "${ENGINE_BUILD}" > "${ANDROID_DIR}/app/src/main/assets/engine_build.txt"
+# GeneralsX @feature Android port 18/10/2026 Update channel (UpdateManager.isTestChannel): a test
+# build reads the updates-test branch, a release the updates branch. Releases leave it unset.
+CHANNEL_FILE="${ANDROID_DIR}/app/src/main/assets/update_channel.txt"
+if [[ "${GX_UPDATE_CHANNEL:-}" == "test" ]]; then
+    echo "test" > "${CHANNEL_FILE}"
+    echo "==> Update channel: test (updates-test branch)"
+else
+    rm -f "${CHANNEL_FILE}"
+    echo "==> Update channel: release (updates branch)"
+fi
 echo "==> Engine build number: ${ENGINE_BUILD}"
 
 # --- 4. gradle ---------------------------------------------------------------

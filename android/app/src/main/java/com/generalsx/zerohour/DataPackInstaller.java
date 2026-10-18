@@ -82,7 +82,7 @@ final class DataPackInstaller {
         // launchers up to 1.3.0, which compare the CDN's sha256 untrimmed (it starts with a space)
         // and so fail every install with "checksum mismatch". This launcher trims it, and the copy
         // is only as current as the last settings publish, so it reads the CDN itself.
-        if (url.startsWith(UpdateManager.BASE_URL)) {
+        if (url.startsWith(UpdateManager.RAW_ROOT)) {
             return MANIFEST_URL;
         }
         return url.startsWith("https://") ? url : MANIFEST_URL;

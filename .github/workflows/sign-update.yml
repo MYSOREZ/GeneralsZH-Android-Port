@@ -6,6 +6,13 @@ name: Sign update
 
 on:
   workflow_dispatch:
+    inputs:
+      branch:
+        # GeneralsX @feature Android port 18/10/2026 updates-test: the test builds' channel.
+        description: "Branch to sign: updates (releases) or updates-test (test builds)"
+        type: choice
+        options: [updates, updates-test]
+        default: updates
 
 permissions:
   contents: write
@@ -16,7 +23,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: updates
+          ref: ${{ inputs.branch || 'updates' }}
           fetch-depth: 1
       - name: Sign manifest.json
         env:
@@ -34,4 +41,4 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add manifest.json.sig
           git commit --amend --no-edit
-          git push --force origin HEAD:updates
+          git push --force origin "HEAD:${{ inputs.branch || 'updates' }}"
