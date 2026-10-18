@@ -57,6 +57,7 @@
 #include "GameClient/GameWindowManager.h"
 #include "GameClient/GUICallbacks.h"
 #include "GameClient/GXUiScale.h"
+#include "GameClient/Image.h"
 #include "GameClient/InGameUI.h"
 #include "GameClient/Shell.h"
 #include "GameClient/WindowLayout.h"
@@ -344,6 +345,42 @@ static void fitButtonFont(GameWindow *button, Int width, Int height)
 	}
 }
 
+// GeneralsX @feature Android port 18/10/2026 The button face drawn at display init (GXPanelButton*,
+// W3DTouchButtonImages.cpp) instead of the .wnd's flat rectangles (owner, a30: "old-fashioned,
+// unnatural buttons for a game"). The image draw path stretches it over the button and still draws
+// the text and the hold clock.
+static void applyButtonFace(GameWindow *button)
+{
+	if (!button || !TheMappedImageCollection || !TheWindowManager) {
+		return;
+	}
+	const Image *rest = TheMappedImageCollection->findImageByName("GXPanelButton");
+	const Image *hilite = TheMappedImageCollection->findImageByName("GXPanelButtonHilite");
+	const Image *pressed = TheMappedImageCollection->findImageByName("GXPanelButtonPressed");
+	GameWinDrawFunc draw = TheWindowManager->getPushButtonImageDrawFunc();
+	if (!rest || !hilite || !pressed || !draw) {
+		return;
+	}
+	GadgetButtonSetEnabledImage(button, rest);
+	GadgetButtonSetEnabledSelectedImage(button, pressed);
+	GadgetButtonSetHiliteImage(button, hilite);
+	GadgetButtonSetHiliteSelectedImage(button, pressed);
+	GadgetButtonSetDisabledImage(button, rest);
+	button->winSetStatus(WIN_STATUS_IMAGE);
+	button->winSetDrawFunc(draw);
+}
+
+static void applyButtonFaces()
+{
+	applyButtonFace(panelWindow(s_buttonHandleID));
+	for (Int i = 0; i < 10; ++i) {
+		applyButtonFace(panelWindow(s_buttonGroupID[i]));
+	}
+	for (Int i = 0; i < ARMY_BUTTON_COUNT; ++i) {
+		applyButtonFace(panelWindow(s_armyButtonID[i]));
+	}
+}
+
 static void placeButton(GameWindow *button, Int screenX, Int screenY, Int originX, Int originY, Int width, Int height)
 {
 	if (!button) {
@@ -581,6 +618,7 @@ void GroupPanelUpdate(WindowLayout *layout, void *userData)
 	if (s_labelsSet || !TheGameText) {
 		return;
 	}
+	applyButtonFaces();
 	for (Int i = 0; i < ARMY_BUTTON_COUNT; ++i) {
 		if (GameWindow *button = panelWindow(s_armyButtonID[i])) {
 			GadgetButtonSetText(button, armyButtonLabel(i));

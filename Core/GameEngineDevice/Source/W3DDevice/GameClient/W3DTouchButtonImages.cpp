@@ -228,10 +228,159 @@ namespace
 	}
 }
 
+// GeneralsX @feature Android port 18/10/2026 The army column's button face (GroupPanel.cpp).
+//
+// Owner, a30: the column's flat rectangles looked old-fashioned and unlike a game's buttons. This is
+// one face in three states -- rest, hilite, pressed -- drawn like the icons above: a rounded plate
+// of dark gunmetal, lighter at the top with a gloss band, a thin dark line inside a two-pixel trim
+// in the warm gold of the game's own frames, slightly translucent so the battlefield shows through
+// as it did. The column stretches it over each button.
+namespace
+{
+	enum { FACE_TEX_W = 128, FACE_TEX_H = 64, FACE_W = 128, FACE_H = 56 };
+
+	struct FaceStyle
+	{
+		const char *name;
+		Real top[ 3 ], bottom[ 3 ];
+		Real alpha;
+	};
+
+	const FaceStyle kFaces[] =
+	{
+		{ "GXPanelButton",        { 58, 68, 80 },  { 20, 26, 34 }, 0.86f },
+		{ "GXPanelButtonHilite",  { 82, 98, 116 }, { 32, 42, 54 }, 0.92f },
+		{ "GXPanelButtonPressed", { 18, 24, 32 },  { 46, 56, 68 }, 0.95f },
+	};
+
+	// Signed distance to a rounded rectangle [0,w]x[0,h] with corner radius r; positive inside.
+	Real insideRounded( Real px, Real py, Real w, Real h, Real r )
+	{
+		const Real cx = max( r, min( px, w - r ) );
+		const Real cy = max( r, min( py, h - r ) );
+		const Real dx = px - cx, dy = py - cy;
+		if( px >= r && px <= w - r )
+			return min( py, h - py );
+		if( py >= r && py <= h - r )
+			return min( px, w - px );
+		return r - sqrtf( dx * dx + dy * dy );
+	}
+
+	void registerFace( const FaceStyle &face )
+	{
+		if( TheMappedImageCollection->findImageByName( face.name ) != nullptr )
+			return;
+
+		TextureClass *texture = MSGNEW("TextureClass") TextureClass( FACE_TEX_W, FACE_TEX_H, WW3D_FORMAT_A8R8G8B8, MIP_LEVELS_1 );
+		SurfaceClass *surface = texture ? texture->Get_Surface_Level() : nullptr;
+		if( surface == nullptr || surface->Get_Bytes_Per_Pixel() != 4 )
+		{
+			fprintf( stderr, "[touchmodes] could not create the %s texture\n", face.name );
+			REF_PTR_RELEASE( surface );
+			REF_PTR_RELEASE( texture );
+			return;
+		}
+		int pitch = 0;
+		UnsignedByte *bits = (UnsignedByte *)surface->Lock( &pitch );
+		if( bits == nullptr )
+		{
+			REF_PTR_RELEASE( surface );
+			REF_PTR_RELEASE( texture );
+			return;
+		}
+
+		const Real radius = 9.0f;
+		for( Int y = 0; y < FACE_TEX_H; ++y )
+		{
+			UnsignedInt *row = (UnsignedInt *)( bits + y * pitch );
+			for( Int x = 0; x < FACE_TEX_W; ++x )
+			{
+				if( y >= FACE_H )
+				{
+					row[ x ] = 0;
+					continue;
+				}
+				Real r = 0, g = 0, b = 0, a = 0;
+				for( Int sy = 0; sy < SS; ++sy )
+				{
+					for( Int sx = 0; sx < SS; ++sx )
+					{
+						const Real px = x + ( sx + 0.5f ) / SS;
+						const Real py = y + ( sy + 0.5f ) / SS;
+						const Real d = insideRounded( px, py, (Real)FACE_W, (Real)FACE_H, radius );
+						if( d < 0 )
+							continue;
+						const Real t = py / FACE_H;
+						Real cr, cg, cb, ca;
+						if( d < 2.0f )
+						{
+							// the gold trim, brighter along the top
+							const Real k = 1.0f - 0.45f * t;
+							cr = 205 * k; cg = 176 * k; cb = 112 * k; ca = 1.0f;
+						}
+						else if( d < 3.0f )
+						{
+							cr = 8; cg = 11; cb = 15; ca = 1.0f;
+						}
+						else
+						{
+							cr = face.top[ 0 ] + ( face.bottom[ 0 ] - face.top[ 0 ] ) * t;
+							cg = face.top[ 1 ] + ( face.bottom[ 1 ] - face.top[ 1 ] ) * t;
+							cb = face.top[ 2 ] + ( face.bottom[ 2 ] - face.top[ 2 ] ) * t;
+							// gloss on the upper part, fading out
+							if( t < 0.45f )
+							{
+								const Real gloss = 22.0f * ( 1.0f - t / 0.45f );
+								cr += gloss; cg += gloss; cb += gloss;
+							}
+							ca = face.alpha;
+						}
+						r += cr * ca; g += cg * ca; b += cb * ca; a += ca;
+					}
+				}
+				const Real n = (Real)( SS * SS );
+				if( a <= 0.0f )
+				{
+					row[ x ] = 0;
+					continue;
+				}
+				// colour un-premultiplied by the covered samples' alpha, alpha by coverage
+				const UnsignedInt R = (UnsignedInt)clamp( 0.0f, r / a, 255.0f );
+				const UnsignedInt G = (UnsignedInt)clamp( 0.0f, g / a, 255.0f );
+				const UnsignedInt B = (UnsignedInt)clamp( 0.0f, b / a, 255.0f );
+				const UnsignedInt A = (UnsignedInt)clamp( 0.0f, 255.0f * a / n, 255.0f );
+				row[ x ] = ( A << 24 ) | ( R << 16 ) | ( G << 8 ) | B;
+			}
+		}
+		surface->Unlock();
+		REF_PTR_RELEASE( surface );
+
+		Image *image = newInstance(Image);
+		image->setName( face.name );
+		image->setStatus( IMAGE_STATUS_RAW_TEXTURE );
+		image->setRawTextureData( texture );
+		Region2D uv;
+		uv.lo.x = 0.0f;
+		uv.lo.y = 0.0f;
+		uv.hi.x = (Real)FACE_W / FACE_TEX_W;
+		uv.hi.y = (Real)FACE_H / FACE_TEX_H;
+		image->setUV( &uv );
+		image->setTextureWidth( FACE_TEX_W );
+		image->setTextureHeight( FACE_TEX_H );
+		ICoord2D size;
+		size.x = FACE_W;
+		size.y = FACE_H;
+		image->setImageSize( &size );
+		TheMappedImageCollection->addImage( image );
+	}
+}
+
 void W3DRegisterTouchButtonImages()
 {
 	if( TheMappedImageCollection == nullptr )
 		return;
 	for( size_t i = 0; i < ARRAY_SIZE( kIcons ); ++i )
 		registerIcon( kIcons[ i ] );
+	for( size_t i = 0; i < ARRAY_SIZE( kFaces ); ++i )
+		registerFace( kFaces[ i ] );
 }
