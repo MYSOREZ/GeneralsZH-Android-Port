@@ -100,6 +100,9 @@ def main():
                     help="the support card's file; a missing file withdraws the card")
     ap.add_argument("--apk", help="APK whose engine to publish; omit for a settings-only update, which "
                     "keeps the engine already published")
+    ap.add_argument("--requires-from", help="released APK whose libraries the engine must find (requires_libs); "
+                    "default: --apk itself. For an engine rebuilt elsewhere from a release tree, whose other "
+                    "libraries differ from the released ones only in their build-id")
     ap.add_argument("--drop-engine", action="store_true",
                     help="settings-only update that also withdraws the published engine")
     ap.add_argument("--key", help="PEM private key (never commit it); omit to leave signing to the Sign update workflow")
@@ -161,6 +164,20 @@ def main():
             missing = [n for n in ENGINE_LIBS if n not in engine["files"]]
             if missing:
                 sys.exit("APK has no " + ", ".join(missing))
+        if a.requires_from:
+            # GeneralsX @build Android port 18/10/2026 Engine 3278 was built in a fresh container: its
+            # SDL3/gamespy/hook libraries differ from 1.4.0's only in the build-id (a hash of the
+            # build path), and its OpenAL is configured differently but exports the same symbols.
+            # Players have the released files, so those are what the engine is checked against;
+            # the library list itself must be the same.
+            with zipfile.ZipFile(a.requires_from) as z:
+                released = {os.path.basename(n): sha256(z.read(n)) for n in z.namelist()
+                            if n.startswith("lib/arm64-v8a/") and n.endswith(".so")
+                            and os.path.basename(n) not in ENGINE_LIBS}
+            if set(released) != set(engine["requires_libs"]):
+                sys.exit("--requires-from has other libraries than --apk: %s"
+                         % sorted(set(released) ^ set(engine["requires_libs"])))
+            engine["requires_libs"] = released
         manifest["engine"] = engine
     elif not a.drop_engine:
         keep_published_engine(manifest, a.out)
