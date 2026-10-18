@@ -452,7 +452,6 @@ public class SetupActivity extends Activity {
                 buildThemeSection(page);
                 buildUiScaleSection(page);
                 buildInterfaceScaleSection(page);
-                buildMouseModeSection(page);
                 buildControlSchemeSection(page);
                 break;
             case TAB_TOOLS:
@@ -914,10 +913,10 @@ public class SetupActivity extends Activity {
     // (GXMouseMode.h), so it holds before any game folder is chosen and for both games.
     static final String MOUSE_MODE_MARKER = "mouse_mode";
 
-    private void buildMouseModeSection(LinearLayout root) {
-        LinearLayout content = UiKit.card(root);
-        UiKit.sectionHeader(content, R.drawable.ic_gzh_sliders,
-            getString(R.string.setup_card_controls), false);
+    // GeneralsX @refactor Android port 18/10/2026 Rows inside the control scheme's card, no longer a
+    // card of their own: owner, a29 -- two "controls" cards read as two answers to one question. The
+    // scheme says what an order does; this says whether a finger or a cursor gives it.
+    private void buildMouseModeRows(LinearLayout content) {
         SwitchCompat mouse = UiKit.switchRow(content,
             getString(R.string.setup_switch_mouse_mode), getString(R.string.setup_switch_mouse_mode_desc));
         final File marker = new File(getFilesDir(), MOUSE_MODE_MARKER);
@@ -1057,6 +1056,8 @@ public class SetupActivity extends Activity {
             });
         }
         UiKit.helpText(content, getString(R.string.setup_control_scheme_help));
+        UiKit.divider(content);
+        buildMouseModeRows(content);
     }
 
     private static int controlSchemeIndex(boolean[] state) {

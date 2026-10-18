@@ -2364,6 +2364,14 @@ GameMessage::Type CommandTranslator::evaluateContextCommand( Drawable *draw,
 			msgType = GameMessage::MSG_SET_RALLY_POINT;
 
 			if (type == DO_COMMAND) {
+				// GeneralsX @bugfix Android port 18/10/2026 Diagnostic: owner, a29 with the touchpad -- a
+				// rally point appeared under the control bar at the start of a game without being set.
+				// Says where the command came from: the pointer's screen position and the world point.
+				const MouseIO *gxMouse = TheMouse ? TheMouse->getMouseStatus() : nullptr;
+				fprintf(stderr, "[GX-Controls] rally point command frame %u: world %.1f,%.1f pointer %d,%d\n",
+					TheGameLogic ? (unsigned)TheGameLogic->getFrame() : 0u, pos->x, pos->y,
+					gxMouse ? gxMouse->pos.x : -1, gxMouse ? gxMouse->pos.y : -1);
+				fflush(stderr);
 				const DrawableList *allSelectedDrawables = TheInGameUI->getAllSelectedDrawables();
 
 				for (DrawableList::const_iterator it = allSelectedDrawables->begin(); it != allSelectedDrawables->end(); ++it) {
