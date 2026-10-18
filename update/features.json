@@ -1,0 +1,13 @@
+{
+  "pc_crossplay": {
+    "default": false,
+    "summary": "Android-PC cross-play: the engine claims the PC client's executable checksum when the player's launcher switch has written gx_pc_compat.txt, and the launcher shows that switch.",
+    "why_off": "Turned off on 18/10/2026 at the GeneralsOnline developers' request (Android clients slowed lockstep games for PC players; 3 of 9 test games desynced). Turn it on again only with their agreement.",
+    "read_by": "engine 3278 and later (1.3.0 and 1.4.0 through the over-the-air engine); launchers after 1.4.0 for the switch",
+    "unaware_builds": "Engines before 3278 claim the PC checksum whenever the marker exists, whatever this says; only an engine update reaches them.",
+    "with": {
+      "off": { "pc_exe_crc": "1" },
+      "on": { "pc_exe_crc": "<the PC client's number: scripts/update/pc-exe-crc.py>" }
+    }
+  }
+}

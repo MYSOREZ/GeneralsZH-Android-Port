@@ -17,6 +17,17 @@ screen; the engine is downloaded only by the Home check.
   newer one on Wi-Fi; the Updates card only says when a newer one is out. It also computes the PC checksum
   from the PC executable inside that patch, and that number wins over `pc_exe_crc`, so a new PC
   release normally needs nothing published at all; `pc_exe_crc` covers players without the patch.
+- **Feature switches** (engines from 3278, launchers after 1.4.0): `name=1` / `name=0` in the
+  settings turns a feature on or off for everyone, missing keeps the build's default. Each one is
+  listed in `update/features.json` -- what it does, its default, which builds read it and which do
+  not (those need an engine update to follow it), and companion keys. Set them with
+  `scripts/update/features.py`, then publish settings as usual:
+  `features.py list` (value here and in the published manifest), `features.py off pc_crossplay`,
+  `features.py on pc_crossplay pc_exe_crc=<PC number>`. `publish-update.py` refuses a switch that
+  is not `0` or `1`. A new switch: an entry in `features.json`, and
+  `GXRemoteConfig::enabled("name", default)` in the engine or
+  `UpdateManager.featureEnabled(ctx, "name", default)` in the launcher where it applies. Today:
+  `pc_crossplay` (Android-PC cross-play, off since 18/10/2026 at GeneralsOnline's request).
 - **Data package manifest mirror**: while `datapack_manifest_url` points at the updates branch
   (`.../updates/datapack-manifest.json`), `publish-update.py` copies the GeneralsOnline CDN manifest
   there with its fields trimmed -- the CDN's `sha256` starts with a space, and launchers up to 1.3.0
@@ -69,7 +80,9 @@ repository secret). If the key is ever lost, a new one means a new APK with its 
 
 ## Publishing
 
-Settings only (after editing `update/config.json`):
+Settings only (after editing `update/config.json`). The engine already published is kept, files
+and all -- the branch is replaced whole, and without it a player who reinstalls the APK would run
+the APK's own engine again; `--drop-engine` withdraws it on purpose:
 
 ```bash
 python3 scripts/update/publish-update.py --out /tmp/upd --key update_signing_key.pem

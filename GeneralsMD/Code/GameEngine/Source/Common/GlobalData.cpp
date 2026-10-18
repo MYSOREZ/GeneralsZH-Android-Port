@@ -1305,7 +1305,7 @@ void GlobalData::init()
 	// honoured only when the signed update settings say so (pc_crossplay=1); they do not. Without
 	// it this client reports its own checksum and meets only other Android clients.
 	FILE *marker = fopen("gx_pc_compat.txt", "r");
-	if (marker && GXRemoteConfig::get("pc_crossplay", "0") != "1")
+	if (marker && !GXRemoteConfig::enabled("pc_crossplay", false))
 	{
 		fclose(marker);
 		marker = nullptr;

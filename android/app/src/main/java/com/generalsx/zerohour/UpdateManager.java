@@ -243,6 +243,15 @@ final class UpdateManager {
     }
 
     /**
+     * GeneralsX @feature Android port 18/10/2026 A feature switch from the signed settings ("1" on,
+     * "0" off, missing: the build's default), the launcher's side of GXRemoteConfig::enabled.
+     * The switches are listed in update/features.json and set with scripts/update/features.py.
+     */
+    static boolean featureEnabled(Context ctx, String feature, boolean fallback) {
+        return "1".equals(remoteConfig(ctx, feature, fallback ? "1" : "0"));
+    }
+
+    /**
      * Blocking; call off the UI thread. Always applies the signed settings (network servers, the
      * PC checksum: a few lines, and the game needs them current whichever screen checked) and
      * notices a newer community data patch; the patch itself is installed by the multiplayer

@@ -205,7 +205,7 @@ public class GeneralsOnlineActivity extends Activity {
         // GeneralsX @tweak Android port 18/10/2026 Hidden while cross-play with PC is off (the
         // GeneralsOnline developers asked for it): the engine ignores the marker unless the signed
         // settings carry pc_crossplay=1 (GlobalData::init), so the switch would do nothing.
-        if ("1".equals(UpdateManager.remoteConfig(this, "pc_crossplay", "0"))) {
+        if (UpdateManager.featureEnabled(this, "pc_crossplay", false)) {
             buildCrossPlayCard(page);
         }
     }
@@ -284,7 +284,17 @@ public class GeneralsOnlineActivity extends Activity {
      * shown here, on mobile data the card says a new version is there and the button installs it.
      */
     private void maybeAutoCheckDataPacks() {
-        if (sDataPackCheckedThisProcess || dataPackBusy || !UpdateManager.isAutoCheckEnabled(this)) {
+        if (sDataPackCheckedThisProcess || dataPackBusy) {
+            return;
+        }
+        if (!UpdateManager.isAutoCheckEnabled(this)) {
+            // GeneralsX @feature Android port 18/10/2026 "Check automatically" holds back downloads
+            // (engine, data patch), not the signed settings: they are a few lines, and what they
+            // switch on or off online (pc_crossplay, the servers) must reach everyone who plays
+            // online, also when the GeneralsOnline developers ask for something to stop.
+            sDataPackCheckedThisProcess = true;
+            final android.content.Context app = getApplicationContext();
+            new Thread(() -> UpdateManager.check(app, false), "gx-online-settings-check").start();
             return;
         }
         sDataPackCheckedThisProcess = true;

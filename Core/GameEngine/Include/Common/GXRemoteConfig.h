@@ -93,6 +93,15 @@ namespace GXRemoteConfig
 		return (it != v.end() && !it->second.empty()) ? it->second : std::string(fallback);
 	}
 
+	// GeneralsX @feature Android port 18/10/2026 A feature switch from the signed settings: "1" on,
+	// "0" off, missing means the build's own default. Every switch is listed, with the builds that
+	// read it, in update/features.json; scripts/update/features.py turns them on and off.
+	inline bool enabled(const char *feature, bool fallback)
+	{
+		const std::string value = get(feature, fallback ? "1" : "0");
+		return value == "1";
+	}
+
 	inline void markEngineBootComplete()
 	{
 		const std::string dir = updateDirPath();

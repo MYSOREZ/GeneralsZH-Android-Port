@@ -65,12 +65,43 @@ def mirror_datapack_manifest(out_dir, name):
     print("data package manifest mirrored: %s" % fixed.get("version"))
 
 
+def keep_published_engine(manifest, out_dir):
+    """GeneralsX @bugfix Android port 18/10/2026 A settings-only publish used to drop the engine:
+    the branch is replaced whole, so the engine files went too, and a player who then reinstalled
+    the APK ran the APK's engine again -- after engine 3278, one that still cross-plays with PC.
+    The published engine entry and its files are carried over, checked against their digests."""
+    try:
+        with urllib.request.urlopen(BASE_URL + "manifest.json", timeout=20) as r:
+            engine = json.load(r).get("engine")
+    except Exception as e:
+        sys.exit("cannot read the published manifest to keep its engine (%s); pass --drop-engine to "
+                 "publish without one" % e)
+    if not engine:
+        return
+    for name, entry in engine["files"].items():
+        rel = entry["url"][len(BASE_URL):]
+        with urllib.request.urlopen(entry["url"], timeout=300) as r:
+            packed = r.read()
+        data = gzip.decompress(packed)
+        if sha256(data) != entry["sha256"] or len(data) != entry["size"]:
+            sys.exit("published %s does not match its manifest entry" % rel)
+        dest = os.path.join(out_dir, rel)
+        os.makedirs(os.path.dirname(dest), exist_ok=True)
+        with open(dest, "wb") as f:
+            f.write(packed)
+    manifest["engine"] = engine
+    print("published engine %d kept" % engine["seq"])
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--config", default=os.path.join(os.path.dirname(__file__), "..", "..", "update", "config.json"))
     ap.add_argument("--support", default=os.path.join(os.path.dirname(__file__), "..", "..", "update", "support.json"),
                     help="the support card's file; a missing file withdraws the card")
-    ap.add_argument("--apk", help="APK whose engine to publish; omit for a settings-only update")
+    ap.add_argument("--apk", help="APK whose engine to publish; omit for a settings-only update, which "
+                    "keeps the engine already published")
+    ap.add_argument("--drop-engine", action="store_true",
+                    help="settings-only update that also withdraws the published engine")
     ap.add_argument("--key", help="PEM private key (never commit it); omit to leave signing to the Sign update workflow")
     ap.add_argument("--out", required=True)
     ap.add_argument("--serial", type=int, help="default: the published serial + 1")
@@ -105,6 +136,11 @@ def main():
             f.write(data)
         manifest["support"] = {"url": BASE_URL + rel, "sha256": sha256(data), "size": len(data)}
 
+    # GeneralsX @feature Android port 18/10/2026 Feature switches (update/features.json) are "0" or
+    # "1": anything else would read as off in the engine and the launcher alike, silently.
+    if subprocess.run([sys.executable, os.path.join(os.path.dirname(__file__), "features.py"), "check"]).returncode:
+        sys.exit("fix the feature switches in the settings first")
+
     if a.apk:
         with zipfile.ZipFile(a.apk) as z:
             seq = int(z.read("assets/engine_build.txt").decode().strip())
@@ -126,6 +162,8 @@ def main():
             if missing:
                 sys.exit("APK has no " + ", ".join(missing))
         manifest["engine"] = engine
+    elif not a.drop_engine:
+        keep_published_engine(manifest, a.out)
 
     body = (json.dumps(manifest, indent=2, sort_keys=True, ensure_ascii=False) + "\n").encode("utf-8")
     mpath = os.path.join(a.out, "manifest.json")
