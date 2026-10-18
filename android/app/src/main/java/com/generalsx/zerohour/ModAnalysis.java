@@ -277,6 +277,23 @@ final class ModAnalysis {
     }
 
     /**
+     * A short fingerprint of a mod's archives -- their file tables' paths and sizes -- for players
+     * comparing their mods before a LAN game. Cheap: the tables are cached.
+     */
+    static String fingerprint(File modDir) {
+        java.util.zip.CRC32 crc = new java.util.zip.CRC32();
+        List<File> bigs = bigFiles(modDir);
+        bigs.sort((a, b) -> a.getName().compareToIgnoreCase(b.getName()));
+        for (File big : bigs) {
+            crc.update((big.getName().toLowerCase(Locale.US) + "|" + big.length() + "\n").getBytes());
+            for (String path : table(big)) {
+                crc.update(path.getBytes());
+            }
+        }
+        return String.format(Locale.US, "%08X", crc.getValue());
+    }
+
+    /**
      * The problems among the mods switched on, in their order. {@code infos} and {@code inis} are
      * per mod folder path.
      */

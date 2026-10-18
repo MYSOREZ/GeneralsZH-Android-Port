@@ -35,7 +35,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.SwitchCompat;
-import androidx.core.content.FileProvider;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -204,7 +203,7 @@ public class ModManagerActivity extends Activity {
             anyOn |= mod.enabled;
         }
         UiKit.button(actions, UiKit.BTN_TONAL, R.drawable.ic_gzh_share,
-            getString(R.string.mods_export_set), this::exportSet).setEnabled(!busy && anyOn);
+            getString(R.string.mods_share_list), this::shareList).setEnabled(!busy && anyOn);
         File root = ModManager.modsRoot(this);
         UiKit.helpText(actions, getString(R.string.mods_folder_help,
             root == null ? "" : root.getAbsolutePath()));
@@ -587,7 +586,7 @@ public class ModManagerActivity extends Activity {
         UiKit.button(body, UiKit.BTN_TONAL, R.drawable.ic_gzh_folder, moveLabel(),
             () -> moveToOtherGame(mod));
         UiKit.button(body, UiKit.BTN_TONAL, R.drawable.ic_gzh_share, getString(R.string.mods_export),
-            () -> exportMods(java.util.Collections.singletonList(mod), mod.dir.getName()));
+            () -> shareText(modLine(1, mod)));
 
         android.widget.ScrollView scroll = new android.widget.ScrollView(this);
         scroll.addView(body);
@@ -665,55 +664,46 @@ public class ModManagerActivity extends Activity {
 
     // ------------------------------------------------------------- sharing
 
-    private void exportSet() {
-        List<ModManager.Mod> on = new ArrayList<>();
+    // GeneralsX @feature Android port 18/10/2026 What to share is the list, not the files (owner: zip
+    // copies of 500 MB mods took ages with no progress, and mods are their authors' to hand out).
+    // Players in a LAN game need the same mods in the same order: the list says which, in which
+    // version, with a fingerprint of each mod's archives (paths and sizes) to compare, and the
+    // download link from mod.ini (Url = ...) when the mod has one.
+    private void shareList() {
+        StringBuilder text = new StringBuilder(getString(R.string.mods_share_header,
+            SetupActivity.isGeneralsSelected(this) ? "Generals" : "Zero Hour"));
+        int n = 0;
         for (ModManager.Mod mod : mods) {
             if (mod.enabled) {
-                on.add(mod);
+                text.append("\n").append(modLine(++n, mod));
             }
         }
-        if (!on.isEmpty()) {
-            exportMods(on, getString(R.string.mods_export_set_file));
-        }
+        shareText(text.toString());
     }
 
-    /** A zip of the mods (a set carries mods_set.txt with their order), shared through Android. */
-    private void exportMods(List<ModManager.Mod> chosen, String baseName) {
-        if (busy) {
-            return;
+    private String modLine(int number, ModManager.Mod mod) {
+        StringBuilder line = new StringBuilder();
+        line.append(number).append(". ").append(mod.name);
+        if (!mod.version.isEmpty()) {
+            line.append(" ").append(mod.version);
         }
-        busy = true;
-        render();
-        Toast.makeText(this, R.string.mods_export_working, Toast.LENGTH_LONG).show();
-        worker.execute(() -> {
-            File zip = null;
-            String failure = null;
-            try {
-                zip = ModImportService.exportZip(this, chosen, baseName);
-            } catch (java.io.IOException e) {
-                failure = e.getMessage();
-            }
-            final File done = zip;
-            final String error = failure;
-            runOnUiThread(() -> {
-                if (isFinishing() || isDestroyed()) {
-                    return;
-                }
-                busy = false;
-                render();
-                if (done == null) {
-                    Toast.makeText(this, getString(R.string.mods_export_failed, String.valueOf(error)),
-                        Toast.LENGTH_LONG).show();
-                    return;
-                }
-                Uri uri = FileProvider.getUriForFile(this, getPackageName() + ".fileprovider", done);
-                Intent share = new Intent(Intent.ACTION_SEND);
-                share.setType("application/zip");
-                share.putExtra(Intent.EXTRA_STREAM, uri);
-                share.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                startActivity(Intent.createChooser(share, getString(R.string.mods_export)));
-            });
-        });
+        Long bytes = sizes.get(mod.dir.getAbsolutePath());
+        if (bytes != null && bytes >= 0) {
+            line.append(" — ").append(humanBytes(bytes));
+        }
+        line.append(" — ").append(ModAnalysis.fingerprint(mod.dir));
+        String url = mod.ini.get("url");
+        if (url != null && (url.startsWith("https://") || url.startsWith("http://"))) {
+            line.append("\n   ").append(getString(R.string.mods_share_link, url));
+        }
+        return line.toString();
+    }
+
+    private void shareText(String text) {
+        Intent share = new Intent(Intent.ACTION_SEND);
+        share.setType("text/plain");
+        share.putExtra(Intent.EXTRA_TEXT, text);
+        startActivity(Intent.createChooser(share, getString(R.string.mods_export)));
     }
 
     // ------------------------------------------------------------------ import
@@ -825,23 +815,6 @@ public class ModManagerActivity extends Activity {
                 .setMessage(failure)
                 .setPositiveButton(android.R.string.ok, null)
                 .show();
-            return;
-        }
-        if (!result.set.isEmpty()) {
-            // A shared set: its mods, switched on, in the sender's order, above the others.
-            List<ModManager.Mod> top = new ArrayList<>();
-            for (File dir : result.set) {
-                for (ModManager.Mod mod : mods) {
-                    if (mod.dir.getAbsolutePath().equals(dir.getAbsolutePath())) {
-                        mod.enabled = true;
-                        top.add(mod);
-                    }
-                }
-            }
-            mods.removeAll(top);
-            mods.addAll(0, top);
-            changed();
-            Toast.makeText(this, getString(R.string.mods_import_set_done, top.size()), Toast.LENGTH_LONG).show();
             return;
         }
         checkImportedGame(result.installed);
