@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">GeneralsZH</string>
+    <string name="app_name">Generals</string>
     <string name="common_cancel">취소</string>
 
     <!-- SetupActivity: title / fallback -->
-    <string name="setup_window_title">GeneralsZH 설정</string>
+    <string name="setup_window_title">Generals 설정</string>
     <string name="setup_title">Command &amp; Conquer Generals: Zero Hour</string>
     <string name="setup_title_generals">Command &amp; Conquer Generals</string>
     <string name="setup_card_game">게임</string>
@@ -168,7 +168,7 @@
     <string name="folderpicker_hint_valid">✓ 이 폴더에는 INIZH.big/INI.big이 있습니다 — 올바른 것으로 보입니다.</string>
     <string name="folderpicker_hint_invalid">게임 폴더로 이동한 다음 \"이 폴더 사용\"을 누르세요.</string>
     <string name="folderpicker_toast_cant_read">이 폴더를 읽을 수 없습니다. 어디서나 폴더 목록이 비어 있다면 먼저 설정 화면에서 \"모든 파일 접근\"을 허용하세요.</string>
-    <string name="folderpicker_toast_cant_read_legacy">이 폴더를 읽을 수 없습니다. Android 9–10에서는 앱에 저장공간 권한을 허용한 뒤(설정 → 애플리케이션 → GeneralsZH → 권한 → 저장공간) 다시 시도하세요.</string>
+    <string name="folderpicker_toast_cant_read_legacy">이 폴더를 읽을 수 없습니다. Android 9–10에서는 앱에 저장공간 권한을 허용한 뒤(설정 → 애플리케이션 → Generals → 권한 → 저장공간) 다시 시도하세요.</string>
 
     <!-- LogViewerActivity -->
     <string name="logviewer_title">로그</string>
@@ -185,7 +185,7 @@
     <string name="logviewer_dialog_clear_confirm">지우기</string>
     <string name="logviewer_dialog_clear_cancel">취소</string>
     <string name="logviewer_toast_cleared">로그가 지워졌습니다.</string>
-    <string name="logviewer_share_subject">GeneralsZH Android 로그</string>
+    <string name="logviewer_share_subject">Generals Android 로그</string>
     <string name="logviewer_share_chooser_title">로그 공유</string>
     <string name="logviewer_toast_share_failed">공유할 로그 파일을 준비할 수 없습니다: %1$s</string>
     <string name="logviewer_read_failed">(%1$s을(를) 읽을 수 없습니다: %2$s)</string>
@@ -198,7 +198,7 @@
     <string name="online_signin_help">로그인을 누르세요. 처음 누르면 이 앱을 배터리 최적화에서 제외할지 묻는 화면이 나타날 수 있습니다 — 허용한 다음 돌아와서 로그인을 다시 누르세요. 그러면 이 기기용 일회용 코드가 이미 포함된 상태로 playgenerals.online 브라우저가 열립니다. 거기서 Steam, Discord 또는 GameReplays를 선택한 다음 이 앱으로 돌아오기만 하면 로그인이 자동으로 완료됩니다.</string>
     <string name="online_button_sign_in">로그인</string>
     <string name="online_status_signing_in">로그인 중...</string>
-    <string name="online_status_battery_opt">다음 화면에서 GeneralsZH가 백그라운드에서 실행되도록 허용한 다음 돌아와서 로그인을 다시 누르세요 — 그렇지 않으면 브라우저에 있는 동안 Android가 로그인 확인을 중단할 수 있습니다.</string>
+    <string name="online_status_battery_opt">다음 화면에서 Generals가 백그라운드에서 실행되도록 허용한 다음 돌아와서 로그인을 다시 누르세요 — 그렇지 않으면 브라우저에 있는 동안 Android가 로그인 확인을 중단할 수 있습니다.</string>
     <string name="online_toast_no_browser">사용 가능한 브라우저가 없습니다: %1$s</string>
     <string name="online_status_continue_browser">브라우저에서 계속 진행하세요 — 로그인 후 여기로 돌아오세요.</string>
     <string name="online_status_network_error">네트워크 오류 — 연결 상태를 확인한 후 다시 시도하세요.</string>
@@ -254,7 +254,7 @@
     <string name="netdiag_button_copy">복사</string>
     <string name="netdiag_toast_copied">보고서를 클립보드에 복사했습니다.</string>
     <string name="netdiag_toast_share_failed">보고서를 공유하지 못했습니다: %1$s</string>
-    <string name="netdiag_share_subject">GeneralsZH 네트워크 로그</string>
+    <string name="netdiag_share_subject">Generals 네트워크 로그</string>
     <string name="online_status_banned">이 계정은 GeneralsOnline에서 차단되었습니다. 해당 Discord에서 이의를 제기할 수 있습니다.</string>
     <string name="online_status_banned_reason">이 계정은 GeneralsOnline에서 차단되었습니다: %1$s</string>
     <string name="online_status_requesting_code">서버에 로그인 코드를 요청하는 중…</string>
@@ -372,7 +372,7 @@
     <string name="setup_control_scheme_tactical">전술</string>
     <string name="setup_control_scheme_custom">사용자 지정</string>
     <string name="setup_control_scheme_classic_desc">원작과 같음: 이동 명령은 이동만 하고, 카메라는 맵 높이에서 멈추며, 군대 버튼이 없습니다.</string>
-    <string name="setup_control_scheme_tactical_desc">전투 유닛이 이동 중에 공격하고, 그룹 패널 옆에 군대 선택 버튼이 생기며, 카메라를 더 멀리 축소할 수 있습니다.</string>
+    <string name="setup_control_scheme_tactical_desc">전투 유닛이 이동 중에 공격하고, 더 좁아진 명령 패널 옆 왼쪽에 그룹·군대 버튼 열이 생기며, 카메라를 더 멀리 축소할 수 있습니다.</string>
     <string name="setup_control_scheme_custom_desc">아래 스위치를 직접 조합합니다.</string>
     <string name="setup_switch_attack_move">이동 중 공격</string>
     <string name="setup_switch_attack_move_desc">전투 유닛의 이동 명령이 공격 이동이 됩니다: 가는 길에 만나는 적과 싸웁니다. 불도저와 수확 유닛은 그냥 이동합니다.</string>
@@ -380,6 +380,8 @@
     <string name="setup_switch_army_buttons_desc">그룹 패널 옆 버튼으로 화면 또는 맵 전체의 모든 전투 유닛, 전투기, 헬기 또는 지상군을 선택합니다(지상군을 한 번 더 누르면 맵 전체).</string>
     <string name="setup_switch_camera_high">더 높은 카메라</string>
     <string name="setup_switch_camera_high_desc">카메라를 맵이 허용하는 것보다 최대 네 배 더 멀리 축소할 수 있습니다.</string>
+    <string name="setup_switch_army_column">왼쪽 군대 열</string>
+    <string name="setup_switch_army_column_desc">명령 패널이 비율을 유지한 채 오른쪽 끝에 붙고, 왼쪽 끝에 + 버튼, 군대 버튼, 두 열로 된 열 개의 그룹이 있는 열이 생깁니다.</string>
     <string name="setup_control_scheme_help">다음에 게임을 시작할 때 적용됩니다. 스커미시, 캠페인, 온라인 게임 모두에서 똑같이 작동합니다: 명령을 내리는 방식만 바뀌고 게임 규칙은 바뀌지 않습니다.</string>
     <string name="setup_appearance_title">화면 테마</string>
     <string name="setup_appearance_standard">기본</string>

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">GeneralsZH</string>
+    <string name="app_name">Generals</string>
     <string name="common_cancel">取消</string>
 
     <!-- SetupActivity: title / fallback -->
-    <string name="setup_window_title">GeneralsZH 设置</string>
+    <string name="setup_window_title">Generals 设置</string>
     <string name="setup_title">Command &amp; Conquer Generals: Zero Hour</string>
     <string name="setup_title_generals">Command &amp; Conquer Generals</string>
     <string name="setup_card_game">游戏</string>
@@ -168,7 +168,7 @@
     <string name="folderpicker_hint_valid">✓ 此文件夹包含 INIZH.big/INI.big —— 看起来正确。</string>
     <string name="folderpicker_hint_invalid">请进入你的游戏文件夹，然后点击「使用此文件夹」。</string>
     <string name="folderpicker_toast_cant_read">无法读取此文件夹。如果到处都显示为空，请先在设置界面中授予「所有文件的访问权限」。</string>
-    <string name="folderpicker_toast_cant_read_legacy">无法读取此文件夹。在 Android 9–10 上，请为本应用授予存储权限（设置 → 应用 → GeneralsZH → 权限 → 存储），然后重试。</string>
+    <string name="folderpicker_toast_cant_read_legacy">无法读取此文件夹。在 Android 9–10 上，请为本应用授予存储权限（设置 → 应用 → Generals → 权限 → 存储），然后重试。</string>
 
     <!-- LogViewerActivity -->
     <string name="logviewer_title">日志</string>
@@ -185,7 +185,7 @@
     <string name="logviewer_dialog_clear_confirm">清除</string>
     <string name="logviewer_dialog_clear_cancel">取消</string>
     <string name="logviewer_toast_cleared">日志已清除。</string>
-    <string name="logviewer_share_subject">GeneralsZH Android 日志</string>
+    <string name="logviewer_share_subject">Generals Android 日志</string>
     <string name="logviewer_share_chooser_title">分享日志</string>
     <string name="logviewer_toast_share_failed">无法准备要分享的日志文件：%1$s</string>
     <string name="logviewer_read_failed">（无法读取 %1$s：%2$s）</string>
@@ -198,7 +198,7 @@
     <string name="online_signin_help">点击"登录"。第一次点击时可能会要求将此应用从电池优化中排除——请允许该请求，然后返回并再次点击"登录"。之后会打开一个浏览器，跳转到 playgenerals.online，并已附带此设备的一次性代码。在网页上选择 Steam、Discord 或 GameReplays，然后返回本应用即可；登录过程会自动完成。</string>
     <string name="online_button_sign_in">登录</string>
     <string name="online_status_signing_in">正在登录……</string>
-    <string name="online_status_battery_opt">请在下一个界面中允许 GeneralsZH 在后台运行，然后返回并再次点击"登录"——否则 Android 可能会在你使用浏览器期间中止登录检查。</string>
+    <string name="online_status_battery_opt">请在下一个界面中允许 Generals 在后台运行，然后返回并再次点击"登录"——否则 Android 可能会在你使用浏览器期间中止登录检查。</string>
     <string name="online_toast_no_browser">没有可用的浏览器：%1$s</string>
     <string name="online_status_continue_browser">请在浏览器中继续操作——登录完成后返回此处。</string>
     <string name="online_status_network_error">网络错误——请检查连接后重试。</string>
@@ -254,7 +254,7 @@
     <string name="netdiag_button_copy">复制</string>
     <string name="netdiag_toast_copied">报告已复制到剪贴板。</string>
     <string name="netdiag_toast_share_failed">无法分享报告：%1$s</string>
-    <string name="netdiag_share_subject">GeneralsZH 网络日志</string>
+    <string name="netdiag_share_subject">Generals 网络日志</string>
     <string name="online_status_banned">此账号已被 GeneralsOnline 封禁。你可以在他们的 Discord 上申诉。</string>
     <string name="online_status_banned_reason">此账号已被 GeneralsOnline 封禁：%1$s</string>
     <string name="online_status_requesting_code">正在向服务器申请登录码…</string>
@@ -372,7 +372,7 @@
     <string name="setup_control_scheme_tactical">战术</string>
     <string name="setup_control_scheme_custom">自定义</string>
     <string name="setup_control_scheme_classic_desc">与原版游戏相同：移动命令只是移动，镜头停在地图自身的高度，没有军队按钮。</string>
-    <string name="setup_control_scheme_tactical_desc">作战单位边移动边攻击，编队面板旁出现军队选择按钮，镜头可以拉得更远。</string>
+    <string name="setup_control_scheme_tactical_desc">作战单位边移动边攻击，左侧一栏放编队和军队按钮，指挥面板变窄，镜头可以拉得更远。</string>
     <string name="setup_control_scheme_custom_desc">由下方开关自由组合。</string>
     <string name="setup_switch_attack_move">移动中攻击</string>
     <string name="setup_switch_attack_move_desc">作战单位的移动命令变为攻击移动：沿途遇到的敌人都会交战。推土机和采集车仍只移动。</string>
@@ -380,6 +380,8 @@
     <string name="setup_switch_army_buttons_desc">编队面板旁的按钮可选中屏幕上或全图的所有作战单位、战机、直升机或地面部队（再按一次“地面”选中全图）。</string>
     <string name="setup_switch_camera_high">更高的镜头</string>
     <string name="setup_switch_camera_high_desc">镜头最多可拉远到地图允许高度的四倍。</string>
+    <string name="setup_switch_army_column">左侧军队栏</string>
+    <string name="setup_switch_army_column_desc">指挥面板保持比例贴在右侧；屏幕左侧出现一栏：+ 按钮、军队按钮以及分两列的十个编队。</string>
     <string name="setup_control_scheme_help">下次启动游戏时生效。在遭遇战、战役和联机游戏中同样有效：只改变下达命令的方式，不改变游戏规则。</string>
     <string name="setup_appearance_title">外观</string>
     <string name="setup_appearance_standard">标准</string>

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">GeneralsZH</string>
+    <string name="app_name">Generals</string>
     <string name="common_cancel">Abbrechen</string>
 
     <!-- SetupActivity: title / fallback -->
-    <string name="setup_window_title">GeneralsZH-Einstellungen</string>
+    <string name="setup_window_title">Generals-Einstellungen</string>
     <string name="setup_title">Command &amp; Conquer Generals: Zero Hour</string>
     <string name="setup_title_generals">Command &amp; Conquer Generals</string>
     <string name="setup_card_game">Spiel</string>
@@ -168,7 +168,7 @@
     <string name="folderpicker_hint_valid">✓ Dieser Ordner enthält INIZH.big/INI.big — sieht richtig aus.</string>
     <string name="folderpicker_hint_invalid">Navigiere in deinen Spielordner und tippe auf „Diesen Ordner verwenden“.</string>
     <string name="folderpicker_toast_cant_read">Dieser Ordner kann nicht gelesen werden. Wenn die Listen überall leer aussehen, erteile zuerst im Einstellungs-Bildschirm „Zugriff auf alle Dateien“.</string>
-    <string name="folderpicker_toast_cant_read_legacy">Dieser Ordner kann nicht gelesen werden. Unter Android 9–10 erteile der App die Speicherberechtigung (Einstellungen → Apps → GeneralsZH → Berechtigungen → Speicher) und versuche es erneut.</string>
+    <string name="folderpicker_toast_cant_read_legacy">Dieser Ordner kann nicht gelesen werden. Unter Android 9–10 erteile der App die Speicherberechtigung (Einstellungen → Apps → Generals → Berechtigungen → Speicher) und versuche es erneut.</string>
 
     <!-- LogViewerActivity -->
     <string name="logviewer_title">Logs</string>
@@ -185,7 +185,7 @@
     <string name="logviewer_dialog_clear_confirm">Löschen</string>
     <string name="logviewer_dialog_clear_cancel">Abbrechen</string>
     <string name="logviewer_toast_cleared">Logs gelöscht.</string>
-    <string name="logviewer_share_subject">GeneralsZH-Android-Log</string>
+    <string name="logviewer_share_subject">Generals-Android-Log</string>
     <string name="logviewer_share_chooser_title">Log teilen</string>
     <string name="logviewer_toast_share_failed">Log-Datei konnte nicht zum Teilen vorbereitet werden: %1$s</string>
     <string name="logviewer_read_failed">(konnte %1$s nicht lesen: %2$s)</string>
@@ -198,7 +198,7 @@
     <string name="online_signin_help">Tippe auf Anmelden. Beim ersten Tippen wirst du eventuell gefragt, diese App von der Akku-Optimierung auszunehmen — erlaube dies, komm dann zurück und tippe erneut auf Anmelden. Danach öffnet sich ein Browser mit playgenerals.online, der bereits einen Einmalcode für dieses Gerät enthält. Wähle dort Steam, Discord oder GameReplays und komm einfach zu dieser App zurück; der Vorgang schließt sich von selbst ab.</string>
     <string name="online_button_sign_in">Anmelden</string>
     <string name="online_status_signing_in">Anmeldung läuft...</string>
-    <string name="online_status_battery_opt">Erlaube GeneralsZH auf dem nächsten Bildschirm, im Hintergrund zu laufen, komm dann zurück und tippe erneut auf Anmelden — sonst könnte Android die Anmeldeprüfung beenden, während du im Browser bist.</string>
+    <string name="online_status_battery_opt">Erlaube Generals auf dem nächsten Bildschirm, im Hintergrund zu laufen, komm dann zurück und tippe erneut auf Anmelden — sonst könnte Android die Anmeldeprüfung beenden, während du im Browser bist.</string>
     <string name="online_toast_no_browser">Kein Browser verfügbar: %1$s</string>
     <string name="online_status_continue_browser">Fahre in deinem Browser fort — komm hierher zurück, sobald du angemeldet bist.</string>
     <string name="online_status_network_error">Netzwerkfehler — überprüfe deine Verbindung und versuche es erneut.</string>
@@ -254,7 +254,7 @@
     <string name="netdiag_button_copy">Kopieren</string>
     <string name="netdiag_toast_copied">Bericht in die Zwischenablage kopiert.</string>
     <string name="netdiag_toast_share_failed">Bericht konnte nicht geteilt werden: %1$s</string>
-    <string name="netdiag_share_subject">GeneralsZH-Netzwerkprotokoll</string>
+    <string name="netdiag_share_subject">Generals-Netzwerkprotokoll</string>
     <string name="online_status_banned">Dieses Konto ist auf GeneralsOnline gesperrt. Einspruch ist über deren Discord möglich.</string>
     <string name="online_status_banned_reason">Dieses Konto ist auf GeneralsOnline gesperrt: %1$s</string>
     <string name="online_status_requesting_code">Anmeldecode wird vom Server angefordert…</string>
@@ -372,7 +372,7 @@
     <string name="setup_control_scheme_tactical">Taktisch</string>
     <string name="setup_control_scheme_custom">Eigenes</string>
     <string name="setup_control_scheme_classic_desc">Wie im Originalspiel: Ein Bewegungsbefehl bewegt nur, die Kamera stoppt auf der Höhe der Karte, keine Armee-Tasten.</string>
-    <string name="setup_control_scheme_tactical_desc">Kampfeinheiten greifen in der Bewegung an, Armee-Auswahltasten erscheinen neben dem Gruppenfeld, und die Kamera zoomt weiter heraus.</string>
+    <string name="setup_control_scheme_tactical_desc">Kampfeinheiten greifen in der Bewegung an, links liegt eine Spalte mit Gruppen- und Armee-Tasten neben einer schmaleren Steuerleiste, und die Kamera zoomt weiter heraus.</string>
     <string name="setup_control_scheme_custom_desc">Ihre eigene Kombination der Schalter unten.</string>
     <string name="setup_switch_attack_move">Angriff in der Bewegung</string>
     <string name="setup_switch_attack_move_desc">Ein Bewegungsbefehl für Kampfeinheiten wird zum Angriffsmarsch: Sie bekämpfen, was ihnen unterwegs begegnet. Bulldozer und Sammler bewegen sich weiterhin nur.</string>
@@ -380,6 +380,8 @@
     <string name="setup_switch_army_buttons_desc">Tasten neben dem Gruppenfeld wählen alle Kampfeinheiten auf dem Bildschirm oder auf der ganzen Karte, Flugzeuge, Hubschrauber oder Bodentruppen (Boden erneut drücken für die ganze Karte).</string>
     <string name="setup_switch_camera_high">Höhere Kamera</string>
     <string name="setup_switch_camera_high_desc">Die Kamera zoomt bis zu viermal weiter heraus, als die Karte erlaubt.</string>
+    <string name="setup_switch_army_column">Armeespalte links</string>
+    <string name="setup_switch_army_column_desc">Die Steuerleiste behält ihre Proportionen am rechten Rand; am linken Rand erscheint eine Spalte mit der +-Taste, den Armee-Tasten und den zehn Gruppen in zwei Spalten.</string>
     <string name="setup_control_scheme_help">Wird beim nächsten Spielstart wirksam. Funktioniert in Gefechten, in der Kampagne und online gleichermaßen: Es ändert sich nur, wie Sie Befehle geben, nicht die Spielregeln.</string>
     <string name="setup_appearance_title">Darstellung</string>
     <string name="setup_appearance_standard">Standard</string>

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">GeneralsZH</string>
+    <string name="app_name">Generals</string>
     <string name="common_cancel">Cancelar</string>
 
     <!-- SetupActivity: title / fallback -->
-    <string name="setup_window_title">Configurações do GeneralsZH</string>
+    <string name="setup_window_title">Configurações do Generals</string>
     <string name="setup_title">Command &amp; Conquer Generals: Zero Hour</string>
     <string name="setup_title_generals">Command &amp; Conquer Generals</string>
     <string name="setup_card_game">Jogo</string>
@@ -168,7 +168,7 @@
     <string name="folderpicker_hint_valid">✓ Esta pasta contém INIZH.big/INI.big — parece correta.</string>
     <string name="folderpicker_hint_invalid">Navegue até a pasta do jogo e toque em \"Usar esta pasta\".</string>
     <string name="folderpicker_toast_cant_read">Não é possível ler esta pasta. Se a navegação parecer vazia em todo lugar, conceda primeiro \"Acesso a todos os arquivos\" na tela de Configurações.</string>
-    <string name="folderpicker_toast_cant_read_legacy">Não é possível ler esta pasta. No Android 9–10, conceda ao app a permissão de Armazenamento (Configurações → Apps → GeneralsZH → Permissões → Armazenamento) e tente novamente.</string>
+    <string name="folderpicker_toast_cant_read_legacy">Não é possível ler esta pasta. No Android 9–10, conceda ao app a permissão de Armazenamento (Configurações → Apps → Generals → Permissões → Armazenamento) e tente novamente.</string>
 
     <!-- LogViewerActivity -->
     <string name="logviewer_title">Registros</string>
@@ -185,7 +185,7 @@
     <string name="logviewer_dialog_clear_confirm">Limpar</string>
     <string name="logviewer_dialog_clear_cancel">Cancelar</string>
     <string name="logviewer_toast_cleared">Registros limpos.</string>
-    <string name="logviewer_share_subject">Registro do GeneralsZH Android</string>
+    <string name="logviewer_share_subject">Registro do Generals Android</string>
     <string name="logviewer_share_chooser_title">Compartilhar registro</string>
     <string name="logviewer_toast_share_failed">Não foi possível preparar o arquivo de registro para compartilhar: %1$s</string>
     <string name="logviewer_read_failed">(não foi possível ler %1$s: %2$s)</string>
@@ -198,7 +198,7 @@
     <string name="online_signin_help">Toque em Entrar. Na primeira vez, pode ser solicitado que você isente este aplicativo da otimização de bateria — permita isso, depois volte e toque em Entrar novamente. Em seguida, um navegador abrirá em playgenerals.online, já com um código de uso único para este dispositivo. Escolha Steam, Discord ou GameReplays lá, depois é só voltar para este aplicativo; o processo termina sozinho.</string>
     <string name="online_button_sign_in">Entrar</string>
     <string name="online_status_signing_in">Entrando...</string>
-    <string name="online_status_battery_opt">Permita que o GeneralsZH seja executado em segundo plano na próxima tela, depois volte e toque em Entrar novamente — caso contrário, o Android pode interromper a verificação de login enquanto você está no navegador.</string>
+    <string name="online_status_battery_opt">Permita que o Generals seja executado em segundo plano na próxima tela, depois volte e toque em Entrar novamente — caso contrário, o Android pode interromper a verificação de login enquanto você está no navegador.</string>
     <string name="online_toast_no_browser">Nenhum navegador disponível: %1$s</string>
     <string name="online_status_continue_browser">Continue no seu navegador — volte aqui assim que tiver entrado.</string>
     <string name="online_status_network_error">Erro de rede — verifique sua conexão e tente novamente.</string>
@@ -254,7 +254,7 @@
     <string name="netdiag_button_copy">Copiar</string>
     <string name="netdiag_toast_copied">Relatório copiado para a área de transferência.</string>
     <string name="netdiag_toast_share_failed">Não foi possível compartilhar o relatório: %1$s</string>
-    <string name="netdiag_share_subject">Registro de rede do GeneralsZH</string>
+    <string name="netdiag_share_subject">Registro de rede do Generals</string>
     <string name="online_status_banned">Esta conta está banida no GeneralsOnline. Você pode recorrer no Discord deles.</string>
     <string name="online_status_banned_reason">Esta conta está banida no GeneralsOnline: %1$s</string>
     <string name="online_status_requesting_code">Solicitando um código de login ao servidor…</string>
@@ -372,7 +372,7 @@
     <string name="setup_control_scheme_tactical">Tático</string>
     <string name="setup_control_scheme_custom">Personalizado</string>
     <string name="setup_control_scheme_classic_desc">Como no jogo original: uma ordem de mover apenas move, a câmera para na altura do mapa e não há botões de exército.</string>
-    <string name="setup_control_scheme_tactical_desc">Unidades de combate atacam em movimento, botões de seleção de exército aparecem ao lado do painel de grupos e a câmera se afasta mais.</string>
+    <string name="setup_control_scheme_tactical_desc">Unidades de combate atacam em movimento, à esquerda fica uma coluna com os botões de grupos e de exército ao lado de um painel de comando mais estreito, e a câmera se afasta mais.</string>
     <string name="setup_control_scheme_custom_desc">Sua própria combinação dos interruptores abaixo.</string>
     <string name="setup_switch_attack_move">Ataque em movimento</string>
     <string name="setup_switch_attack_move_desc">Uma ordem de mover para unidades de combate vira um avanço com ataque: elas lutam contra o que encontram no caminho. Escavadeiras e coletores apenas se movem.</string>
@@ -380,6 +380,8 @@
     <string name="setup_switch_army_buttons_desc">Botões ao lado do painel de grupos selecionam todas as unidades de combate na tela ou no mapa inteiro, aviões, helicópteros ou forças terrestres (toque em Terrest. de novo para o mapa inteiro).</string>
     <string name="setup_switch_camera_high">Câmera mais alta</string>
     <string name="setup_switch_camera_high_desc">A câmera se afasta até quatro vezes mais do que o mapa permite.</string>
+    <string name="setup_switch_army_column">Coluna do exército à esquerda</string>
+    <string name="setup_switch_army_column_desc">O painel de comando mantém as proporções na borda direita; na borda esquerda surge uma coluna com o botão +, os botões de exército e os dez grupos em duas colunas.</string>
     <string name="setup_control_scheme_help">Vale a partir da próxima vez que o jogo for iniciado. Funciona igualmente em escaramuças, na campanha e em partidas online: muda apenas como você dá as ordens, não as regras do jogo.</string>
     <string name="setup_appearance_title">Aparência</string>
     <string name="setup_appearance_standard">Padrão</string>

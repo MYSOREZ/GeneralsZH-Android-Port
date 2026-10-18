@@ -90,6 +90,8 @@
 #include "GameClient/GameWindow.h"
 #include "GameClient/GameWindowManager.h"
 #include "GameClient/GUICallbacks.h"
+#include "GameClient/GXArmyPanelLayout.h"
+#include "GameClient/GXUiScale.h"
 #include "GameClient/InGameUI.h"
 #include "GameClient/WindowLayout.h"
 #include "GameClient/WinInstanceData.h"
@@ -542,12 +544,68 @@ void GroupPanelCalibrateFollowOffset(Int barScreenX, Int barScreenY)
 		handleX, handleY, barScreenX, barScreenY);
 }
 
+// GeneralsX @feature Codex/realkot 15/10/2026 Tactical scheme's army column
+// (GXControlScheme::ARMY_COLUMN): in the left gap the bar leaves (GXUiScale.cpp), from the bottom
+// up -- the army buttons, the handle with the last-event button beside it, and the ten groups in
+// two columns above (in a row above the bar when the gap is too narrow). Positions from
+// GXArmyPanelLayout, ported from https://github.com/realkot/GeneralsX with permission.
+static void placeArmyColumn(Int barScreenX, Int barScreenY)
+{
+	GameWindow *parent = TheWindowManager->winGetWindowFromId(nullptr, s_parentID);
+	GameWindow *handle = TheWindowManager->winGetWindowFromId(nullptr, s_buttonHandleID);
+	GameWindow *row = TheWindowManager->winGetWindowFromId(nullptr, s_groupRowID);
+	GameWindow *lastEvent = TheWindowManager->winGetWindowFromId(nullptr, s_buttonLastEventID);
+	if (!parent || !handle || !row || !TheDisplay) {
+		return;
+	}
+	const GXUiScale::Transform &bar = GXUiScale::forLayout("ControlBar.wnd");
+	const GXArmyPanelLayout::Layout box = GXArmyPanelLayout::calculate(
+		TheDisplay->getWidth(), TheDisplay->getHeight(), barScreenX, barScreenY,
+		GXSafeArea::leftPx(), GXSafeArea::bottomPx(), bar.fontK);
+	const Int armyRows = GXControlScheme::enabled(GXControlScheme::ARMY_BUTTONS) ? ARMY_BUTTON_COUNT : 0;
+	const Int shift = (ARMY_BUTTON_COUNT - armyRows) * (box.height + box.gap);
+	const Int handleY = box.y + shift;
+	Int px, py;
+	parent->winGetScreenPosition(&px, &py);
+
+	const Int half = (box.width - box.gap) / 2;
+	handle->winSetPosition(box.x - px, handleY - py);
+	handle->winSetSize(lastEvent ? half : box.width, box.height);
+	if (lastEvent) {
+		lastEvent->winSetPosition(box.x + half + box.gap - px, handleY - py);
+		lastEvent->winSetSize(box.width - half - box.gap, box.height);
+	}
+	for (Int i = 0; i < ARMY_BUTTON_COUNT; ++i) {
+		GameWindow *army = TheWindowManager->winGetWindowFromId(nullptr, s_armyButtonID[i]);
+		if (army) {
+			army->winSetPosition(box.x - px, handleY + (i + 1) * (box.height + box.gap) - py);
+			army->winSetSize(box.width, box.height);
+		}
+	}
+	row->winSetPosition(box.rowX - px, box.rowY + shift - py);
+	row->winSetSize(box.columns * box.cellWidth + (box.columns - 1) * box.gap,
+		box.rows * box.cellHeight + (box.rows - 1) * box.gap);
+	for (Int i = 0; i < 10; ++i) {
+		GameWindow *button = TheWindowManager->winGetWindowFromId(nullptr, s_buttonGroupID[i]);
+		if (button) {
+			button->winSetPosition((i % box.columns) * (box.cellWidth + box.gap),
+				(i / box.columns) * (box.cellHeight + box.gap));
+			button->winSetSize(box.cellWidth, box.cellHeight);
+		}
+	}
+	fitParentToVisibleContent();
+}
+
 void GroupPanelFollowControlBar(Int barScreenX, Int barScreenY, Bool visible)
 {
 	if (!visible || !s_followOffsetCalibrated) {
 		return;
 	}
 	if (!TheWindowManager) {
+		return;
+	}
+	if (GXControlScheme::enabled(GXControlScheme::ARMY_COLUMN)) {
+		placeArmyColumn(barScreenX, barScreenY);
 		return;
 	}
 	GameWindow *handle = TheWindowManager->winGetWindowFromId(nullptr, s_buttonHandleID);

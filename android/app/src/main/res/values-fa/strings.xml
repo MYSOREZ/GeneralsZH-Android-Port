@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">GeneralsZH</string>
+    <string name="app_name">Generals</string>
     <string name="common_cancel">لغو</string>
 
     <!-- SetupActivity: title / fallback -->
-    <string name="setup_window_title">تنظیمات GeneralsZH</string>
+    <string name="setup_window_title">تنظیمات Generals</string>
     <string name="setup_title">Command &amp; Conquer Generals: Zero Hour</string>
     <string name="setup_title_generals">Command &amp; Conquer Generals</string>
     <string name="setup_card_game">بازی</string>
@@ -168,7 +168,7 @@
     <string name="folderpicker_hint_valid">✓ این پوشه شامل INIZH.big/INI.big است — درست به نظر می‌رسد.</string>
     <string name="folderpicker_hint_invalid">به پوشه بازی خود بروید، سپس روی «استفاده از این پوشه» ضربه بزنید.</string>
     <string name="folderpicker_toast_cant_read">خواندن این پوشه ممکن نیست. اگر فهرست‌ها همه‌جا خالی به نظر می‌رسند، ابتدا از صفحه تنظیمات مجوز «دسترسی به همه فایل‌ها» را اعطا کنید.</string>
-    <string name="folderpicker_toast_cant_read_legacy">خواندن این پوشه ممکن نیست. در Android 9–10 به برنامه اجازهٔ دسترسی به حافظه بدهید (تنظیمات ← برنامه‌ها ← GeneralsZH ← مجوزها ← حافظه) و دوباره تلاش کنید.</string>
+    <string name="folderpicker_toast_cant_read_legacy">خواندن این پوشه ممکن نیست. در Android 9–10 به برنامه اجازهٔ دسترسی به حافظه بدهید (تنظیمات ← برنامه‌ها ← Generals ← مجوزها ← حافظه) و دوباره تلاش کنید.</string>
 
     <!-- LogViewerActivity -->
     <string name="logviewer_title">گزارش‌ها</string>
@@ -185,7 +185,7 @@
     <string name="logviewer_dialog_clear_confirm">پاک کردن</string>
     <string name="logviewer_dialog_clear_cancel">لغو</string>
     <string name="logviewer_toast_cleared">گزارش‌ها پاک شدند.</string>
-    <string name="logviewer_share_subject">گزارش GeneralsZH Android</string>
+    <string name="logviewer_share_subject">گزارش Generals Android</string>
     <string name="logviewer_share_chooser_title">اشتراک‌گذاری گزارش</string>
     <string name="logviewer_toast_share_failed">آماده‌سازی فایل گزارش برای اشتراک‌گذاری ممکن نشد: %1$s</string>
     <string name="logviewer_read_failed">(خواندن %1$s ممکن نشد: %2$s)</string>
@@ -198,7 +198,7 @@
     <string name="online_signin_help">روی «ورود» ضربه بزنید. ممکن است در اولین ضربه از شما خواسته شود این برنامه را از بهینه‌سازی باتری مستثنی کنید — آن را اجازه دهید، سپس بازگردید و دوباره روی «ورود» ضربه بزنید. سپس مرورگری باز می‌شود که به playgenerals.online می‌رود و از قبل حاوی یک کد یک‌بارمصرف برای این دستگاه است. در آنجا Steam، Discord یا GameReplays را انتخاب کنید و سپس فقط به این برنامه بازگردید؛ فرآیند به‌طور خودکار کامل می‌شود.</string>
     <string name="online_button_sign_in">ورود</string>
     <string name="online_status_signing_in">در حال ورود...</string>
-    <string name="online_status_battery_opt">در صفحه بعدی اجازه دهید GeneralsZH در پس‌زمینه اجرا شود، سپس بازگردید و دوباره روی «ورود» ضربه بزنید — در غیر این صورت ممکن است اندروید بررسی ورود را در حالی که در مرورگر هستید متوقف کند.</string>
+    <string name="online_status_battery_opt">در صفحه بعدی اجازه دهید Generals در پس‌زمینه اجرا شود، سپس بازگردید و دوباره روی «ورود» ضربه بزنید — در غیر این صورت ممکن است اندروید بررسی ورود را در حالی که در مرورگر هستید متوقف کند.</string>
     <string name="online_toast_no_browser">هیچ مرورگری در دسترس نیست: %1$s</string>
     <string name="online_status_continue_browser">در مرورگر خود ادامه دهید — پس از ورود به اینجا بازگردید.</string>
     <string name="online_status_network_error">خطای شبکه — اتصال خود را بررسی کرده و دوباره تلاش کنید.</string>
@@ -254,7 +254,7 @@
     <string name="netdiag_button_copy">رونوشت</string>
     <string name="netdiag_toast_copied">گزارش در کلیپ‌بورد رونوشت شد.</string>
     <string name="netdiag_toast_share_failed">هم‌رسانی گزارش ممکن نشد: %1$s</string>
-    <string name="netdiag_share_subject">گزارش شبکهٔ GeneralsZH</string>
+    <string name="netdiag_share_subject">گزارش شبکهٔ Generals</string>
     <string name="online_status_banned">این حساب در GeneralsOnline مسدود شده است. می‌توانید در دیسکورد آن‌ها اعتراض کنید.</string>
     <string name="online_status_banned_reason">این حساب در GeneralsOnline مسدود شده است: %1$s</string>
     <string name="online_status_requesting_code">در حال درخواست کد ورود از سرور…</string>
@@ -372,7 +372,7 @@
     <string name="setup_control_scheme_tactical">تاکتیکی</string>
     <string name="setup_control_scheme_custom">سفارشی</string>
     <string name="setup_control_scheme_classic_desc">مانند بازی اصلی: دستور حرکت فقط جابه‌جا می‌کند، دوربین در ارتفاع نقشه می‌ایستد و دکمه‌های ارتش وجود ندارد.</string>
-    <string name="setup_control_scheme_tactical_desc">یگان‌های رزمی در حین حرکت حمله می‌کنند، دکمه‌های انتخاب ارتش کنار پنل گروه‌ها ظاهر می‌شوند و دوربین بیشتر دور می‌شود.</string>
+    <string name="setup_control_scheme_tactical_desc">یگان‌های رزمی در حین حرکت حمله می‌کنند، در چپ ستونی با دکمه‌های گروه و ارتش کنار پنل فرماندهی باریک‌تر است و دوربین بیشتر دور می‌شود.</string>
     <string name="setup_control_scheme_custom_desc">ترکیب خودتان از کلیدهای زیر.</string>
     <string name="setup_switch_attack_move">حمله در حین حرکت</string>
     <string name="setup_switch_attack_move_desc">دستور حرکت برای یگان‌های رزمی به پیشروی همراه با حمله تبدیل می‌شود: با هر چه در مسیر ببینند می‌جنگند. بولدوزرها و جمع‌آورها فقط حرکت می‌کنند.</string>
@@ -380,6 +380,8 @@
     <string name="setup_switch_army_buttons_desc">دکمه‌های کنار پنل گروه‌ها همه یگان‌های رزمی روی صفحه یا کل نقشه، هواپیماها، بالگردها یا نیروهای زمینی را انتخاب می‌کنند (برای کل نقشه دوباره «زمینی» را بزنید).</string>
     <string name="setup_switch_camera_high">دوربین بالاتر</string>
     <string name="setup_switch_camera_high_desc">دوربین تا چهار برابر بیشتر از حدی که نقشه اجازه می‌دهد دور می‌شود.</string>
+    <string name="setup_switch_army_column">ستون ارتش در چپ</string>
+    <string name="setup_switch_army_column_desc">پنل فرماندهی تناسب خود را در لبه راست حفظ می‌کند و در لبه چپ ستونی با دکمه +، دکمه‌های ارتش و ده گروه در دو ستون ظاهر می‌شود.</string>
     <string name="setup_control_scheme_help">از اجرای بعدی بازی اعمال می‌شود. در نبرد، کارزار و بازی‌های آنلاین یکسان کار می‌کند: فقط شیوه دادن دستورها تغییر می‌کند، نه قوانین بازی.</string>
     <string name="setup_appearance_title">ظاهر برنامه</string>
     <string name="setup_appearance_standard">استاندارد</string>

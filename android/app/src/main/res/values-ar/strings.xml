@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">GeneralsZH</string>
+    <string name="app_name">Generals</string>
     <string name="common_cancel">إلغاء</string>
 
     <!-- SetupActivity: title / fallback -->
-    <string name="setup_window_title">إعدادات GeneralsZH</string>
+    <string name="setup_window_title">إعدادات Generals</string>
     <string name="setup_title">Command &amp; Conquer Generals: Zero Hour</string>
     <string name="setup_title_generals">Command &amp; Conquer Generals</string>
     <string name="setup_card_game">اللعبة</string>
@@ -168,7 +168,7 @@
     <string name="folderpicker_hint_valid">✓ يحتوي هذا المجلد على INIZH.big/INI.big — يبدو صحيحًا.</string>
     <string name="folderpicker_hint_invalid">انتقل إلى مجلد اللعبة، ثم اضغط على \"استخدام هذا المجلد\".</string>
     <string name="folderpicker_toast_cant_read">تعذر قراءة هذا المجلد. إذا بدت القوائم فارغة في كل مكان، امنح أولًا إذن \"الوصول إلى جميع الملفات\" من شاشة الإعدادات.</string>
-    <string name="folderpicker_toast_cant_read_legacy">تعذّرت قراءة هذا المجلد. على Android 9–10، امنح التطبيق إذن التخزين (الإعدادات ← التطبيقات ← GeneralsZH ← الأذونات ← التخزين) ثم حاول مرة أخرى.</string>
+    <string name="folderpicker_toast_cant_read_legacy">تعذّرت قراءة هذا المجلد. على Android 9–10، امنح التطبيق إذن التخزين (الإعدادات ← التطبيقات ← Generals ← الأذونات ← التخزين) ثم حاول مرة أخرى.</string>
 
     <!-- LogViewerActivity -->
     <string name="logviewer_title">السجلات</string>
@@ -185,7 +185,7 @@
     <string name="logviewer_dialog_clear_confirm">مسح</string>
     <string name="logviewer_dialog_clear_cancel">إلغاء</string>
     <string name="logviewer_toast_cleared">تم مسح السجلات.</string>
-    <string name="logviewer_share_subject">سجل GeneralsZH Android</string>
+    <string name="logviewer_share_subject">سجل Generals Android</string>
     <string name="logviewer_share_chooser_title">مشاركة السجل</string>
     <string name="logviewer_toast_share_failed">تعذر تجهيز ملف السجل للمشاركة: %1$s</string>
     <string name="logviewer_read_failed">(تعذرت قراءة %1$s: %2$s)</string>
@@ -198,7 +198,7 @@
     <string name="online_signin_help">اضغط على "تسجيل الدخول". قد تطلب منك الضغطة الأولى استثناء هذا التطبيق من تحسين البطارية — اسمح بذلك، ثم عد واضغط على "تسجيل الدخول" مرة أخرى. سيفتح بعد ذلك متصفح على playgenerals.online يحمل بالفعل رمزًا لمرة واحدة لهذا الجهاز. اختر هناك Steam أو Discord أو GameReplays، ثم عد فقط إلى هذا التطبيق؛ ستنتهي العملية من تلقاء نفسها.</string>
     <string name="online_button_sign_in">تسجيل الدخول</string>
     <string name="online_status_signing_in">جارٍ تسجيل الدخول...</string>
-    <string name="online_status_battery_opt">اسمح لتطبيق GeneralsZH بالعمل في الخلفية في الشاشة التالية، ثم عد واضغط على "تسجيل الدخول" مرة أخرى — وإلا فقد يوقف أندرويد عملية التحقق من تسجيل الدخول أثناء وجودك في المتصفح.</string>
+    <string name="online_status_battery_opt">اسمح لتطبيق Generals بالعمل في الخلفية في الشاشة التالية، ثم عد واضغط على "تسجيل الدخول" مرة أخرى — وإلا فقد يوقف أندرويد عملية التحقق من تسجيل الدخول أثناء وجودك في المتصفح.</string>
     <string name="online_toast_no_browser">لا يوجد متصفح متاح: %1$s</string>
     <string name="online_status_continue_browser">تابع في متصفحك — عد إلى هنا بمجرد تسجيل الدخول.</string>
     <string name="online_status_network_error">خطأ في الشبكة — تحقق من اتصالك وحاول مرة أخرى.</string>
@@ -254,7 +254,7 @@
     <string name="netdiag_button_copy">نسخ</string>
     <string name="netdiag_toast_copied">تم نسخ التقرير إلى الحافظة.</string>
     <string name="netdiag_toast_share_failed">تعذّرت مشاركة التقرير: %1$s</string>
-    <string name="netdiag_share_subject">سجل شبكة GeneralsZH</string>
+    <string name="netdiag_share_subject">سجل شبكة Generals</string>
     <string name="online_status_banned">هذا الحساب محظور على GeneralsOnline. يمكنك تقديم اعتراض عبر Discord الخاص بهم.</string>
     <string name="online_status_banned_reason">هذا الحساب محظور على GeneralsOnline: %1$s</string>
     <string name="online_status_requesting_code">جارٍ طلب رمز تسجيل الدخول من الخادم…</string>
@@ -372,7 +372,7 @@
     <string name="setup_control_scheme_tactical">تكتيكي</string>
     <string name="setup_control_scheme_custom">مخصص</string>
     <string name="setup_control_scheme_classic_desc">كما في اللعبة الأصلية: أمر التحرك يحرك فقط، وتتوقف الكاميرا عند ارتفاع الخريطة، ولا توجد أزرار للجيش.</string>
-    <string name="setup_control_scheme_tactical_desc">تهاجم الوحدات القتالية أثناء التحرك، وتظهر أزرار اختيار الجيش بجانب لوحة المجموعات، ويمكن إبعاد الكاميرا أكثر.</string>
+    <string name="setup_control_scheme_tactical_desc">تهاجم الوحدات القتالية أثناء التحرك، وعلى اليسار عمود بأزرار المجموعات والجيش بجانب لوحة تحكم أضيق، ويمكن إبعاد الكاميرا أكثر.</string>
     <string name="setup_control_scheme_custom_desc">مزيجك الخاص من المفاتيح أدناه.</string>
     <string name="setup_switch_attack_move">الهجوم أثناء التحرك</string>
     <string name="setup_switch_attack_move_desc">يصبح أمر التحرك للوحدات القتالية تقدمًا هجوميًا: تقاتل كل ما تصادفه في الطريق. الجرافات وجامعو الموارد يتحركون فقط.</string>
@@ -380,6 +380,8 @@
     <string name="setup_switch_army_buttons_desc">أزرار بجانب لوحة المجموعات تختار كل الوحدات القتالية على الشاشة أو في الخريطة كلها، أو الطائرات، أو المروحيات، أو القوات البرية (اضغط برية مرة أخرى للخريطة كلها).</string>
     <string name="setup_switch_camera_high">كاميرا أعلى</string>
     <string name="setup_switch_camera_high_desc">يمكن إبعاد الكاميرا حتى أربعة أضعاف ما تسمح به الخريطة.</string>
+    <string name="setup_switch_army_column">عمود الجيش على اليسار</string>
+    <string name="setup_switch_army_column_desc">تحافظ لوحة التحكم على تناسبها عند الحافة اليمنى، ويظهر عند الحافة اليسرى عمود فيه زر + وأزرار الجيش والمجموعات العشر في عمودين.</string>
     <string name="setup_control_scheme_help">يسري عند تشغيل اللعبة في المرة القادمة. يعمل في المناوشات والحملة والألعاب عبر الإنترنت على حد سواء: يتغير فقط أسلوب إصدار الأوامر، لا قواعد اللعبة.</string>
     <string name="setup_appearance_title">مظهر التطبيق</string>
     <string name="setup_appearance_standard">قياسي</string>

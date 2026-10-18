@@ -986,7 +986,7 @@ public class SetupActivity extends Activity {
     // a file in the app's own files dir and read natively at start (GXControlScheme.h); no file is
     // the retail game.
     static final String CONTROL_SCHEME_FILE = "control_scheme";
-    private static final String[] CONTROL_SCHEME_KEYS = { "attack_move", "army_buttons", "camera_high" };
+    private static final String[] CONTROL_SCHEME_KEYS = { "attack_move", "army_buttons", "camera_high", "army_column" };
     private boolean controlSchemeUpdating;
 
     private void buildControlSchemeSection(LinearLayout root) {
@@ -1035,7 +1035,8 @@ public class SetupActivity extends Activity {
         final int[][] texts = new int[][] {
             { R.string.setup_switch_attack_move, R.string.setup_switch_attack_move_desc },
             { R.string.setup_switch_army_buttons, R.string.setup_switch_army_buttons_desc },
-            { R.string.setup_switch_camera_high, R.string.setup_switch_camera_high_desc }
+            { R.string.setup_switch_camera_high, R.string.setup_switch_camera_high_desc },
+            { R.string.setup_switch_army_column, R.string.setup_switch_army_column_desc }
         };
         for (int i = 0; i < switches.length; i++) {
             final int option = i;

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">GeneralsZH</string>
+    <string name="app_name">Generals</string>
     <string name="common_cancel">Otkazati</string>
 
     <!-- SetupActivity: title / fallback -->
-    <string name="setup_window_title">Nastojenja GeneralsZH</string>
+    <string name="setup_window_title">Nastojenja Generals</string>
     <string name="setup_title">Command &amp; Conquer Generals: Zero Hour</string>
     <string name="setup_title_generals">Command &amp; Conquer Generals</string>
     <string name="setup_card_game">Igra</string>
@@ -168,7 +168,7 @@
     <string name="folderpicker_hint_valid">✓ Ta papka sodrži INIZH.big/INI.big — vygledaje pravilno.</string>
     <string name="folderpicker_hint_invalid">Idi v papku igry i klikni \"Upotrěbiti tu papku\".</string>
     <string name="folderpicker_toast_cant_read">Ne uspěvaje sę čtenje tej papky. Jestli spiski vsjude vygledaju prazni, snačala daj \"Dostup ko vsim datotekam\" na ekranu Nastojenj.</string>
-    <string name="folderpicker_toast_cant_read_legacy">Ne možno pročitati tu papku. Na Androidu 9–10 dozvolite aplikaciji dostup k pamęti (Nastavjenja → Aplikacije → GeneralsZH → Dozvoly → Pamęť) i poprobujte znovu.</string>
+    <string name="folderpicker_toast_cant_read_legacy">Ne možno pročitati tu papku. Na Androidu 9–10 dozvolite aplikaciji dostup k pamęti (Nastavjenja → Aplikacije → Generals → Dozvoly → Pamęť) i poprobujte znovu.</string>
 
     <!-- LogViewerActivity -->
     <string name="logviewer_title">Logi</string>
@@ -185,7 +185,7 @@
     <string name="logviewer_dialog_clear_confirm">Izbrisati</string>
     <string name="logviewer_dialog_clear_cancel">Otkazati</string>
     <string name="logviewer_toast_cleared">Logi izbrisani.</string>
-    <string name="logviewer_share_subject">Log GeneralsZH Android</string>
+    <string name="logviewer_share_subject">Log Generals Android</string>
     <string name="logviewer_share_chooser_title">Poděliti log</string>
     <string name="logviewer_toast_share_failed">Ne uspělo prigotoviti datoteku loga za dělenje: %1$s</string>
     <string name="logviewer_read_failed">(ne uspělo pročitati %1$s: %2$s)</string>
@@ -198,7 +198,7 @@
     <string name="online_signin_help">Klikni Prijaviti sę. Prvy klik može prositi izbaviti tu aplikaciju od optimizacije bateriji — dopusti to, potom vrni sę i znova klikni Prijaviti sę. Potom sę otvorja brauzer na playgenerals.online, već nosivši jednorazovy kod za tu děvicu. Izberi tam Steam, Discord ili GameReplays, potom prosto vrni sę v tu aplikaciju — prijava sę zaveršaje sama.</string>
     <string name="online_button_sign_in">Prijaviti sę</string>
     <string name="online_status_signing_in">Prijavjuje sę...</string>
-    <string name="online_status_battery_opt">Dopusti GeneralsZH rabotiti na zadnem planě na sledujućem ekranu, potom vrni sę i znova klikni Prijaviti sę — inako Android može prekinuti prověrku prijavy, dokel ty sut v brauzeru.</string>
+    <string name="online_status_battery_opt">Dopusti Generals rabotiti na zadnem planě na sledujućem ekranu, potom vrni sę i znova klikni Prijaviti sę — inako Android može prekinuti prověrku prijavy, dokel ty sut v brauzeru.</string>
     <string name="online_toast_no_browser">Ne jest dostupny brauzer: %1$s</string>
     <string name="online_status_continue_browser">Prodolži v svojem brauzeru — vrni sę sjuda, kogda sę prijaviš.</string>
     <string name="online_status_network_error">Grěška sětje — prověri svoje spojenje i pokušaj znova.</string>
@@ -254,7 +254,7 @@
     <string name="netdiag_button_copy">Kopirovati</string>
     <string name="netdiag_toast_copied">Raport kopirovany do bufera.</string>
     <string name="netdiag_toast_share_failed">Ne udalo se podeliti raport: %1$s</string>
-    <string name="netdiag_share_subject">Mrežny log GeneralsZH</string>
+    <string name="netdiag_share_subject">Mrežny log Generals</string>
     <string name="online_status_banned">Toj akaunt jest blokovany na GeneralsOnline. Apelaciju možete podati v ihnem Discorde.</string>
     <string name="online_status_banned_reason">Toj akaunt jest blokovany na GeneralsOnline: %1$s</string>
     <string name="online_status_requesting_code">Zaprašajemo kod vhoda od servera…</string>
@@ -372,7 +372,7 @@
     <string name="setup_control_scheme_tactical">Taktična</string>
     <string name="setup_control_scheme_custom">Svoja</string>
     <string name="setup_control_scheme_classic_desc">Kako v originalnoj igrě: prikaz «dvigati se» prosto vede k točke, kamera stoji na visině karty, knopok armije ne jest.</string>
-    <string name="setup_control_scheme_tactical_desc">Bojeve jedinice atakujut v dviženju, pri panelu grup javljajut se knopki izbora armije, a kameru možno oddaliti dalje.</string>
+    <string name="setup_control_scheme_tactical_desc">Bojeve jedinice atakujut v dviženju, na lěvo jest kolona s knopkami grup i armije pri ųžšej komandnoj paneli, a kameru možno oddaliti dalje.</string>
     <string name="setup_control_scheme_custom_desc">Vaše svojo sočetanje prěključateljev niže.</string>
     <string name="setup_switch_attack_move">Ataka v dviženju</string>
     <string name="setup_switch_attack_move_desc">Prikaz «dvigati se» za bojeve jedinice je ataka v dviženju: oni bijut se so vsim, čto vstrětijut na puti. Buldozery i zbirači prosto jedut.</string>
@@ -380,6 +380,8 @@
     <string name="setup_switch_army_buttons_desc">Knopki pri panelu grup izbirajut vse bojeve jedinice na ekranu ili na vsej kartě, aviony, helikoptery ili zemne vojska (povtorno nažatje «Zemja» — vsa karta).</string>
     <string name="setup_switch_camera_high">Visoka kamera</string>
     <string name="setup_switch_camera_high_desc">Kameru možno oddaliti do četyrikrat dalje, než dozvoljaje karta.</string>
+    <string name="setup_switch_army_column">Kolona armije na lěvo</string>
+    <string name="setup_switch_army_column_desc">Komandna panel drži svoje proporcije pri pravom kraju, a pri lěvom kraju javljaje se kolona: knopka +, knopki armije i desęt grup v dva stolpca.</string>
     <string name="setup_control_scheme_help">Dějstvuje pri slědujučem zapuskě igry. Rabotaje v bitvě, kampanji i setevyh igrah: měnjaje se jedino to, kako davate prikazy, ne pravila igry.</string>
     <string name="setup_appearance_title">Vygled</string>
     <string name="setup_appearance_standard">Standardno</string>

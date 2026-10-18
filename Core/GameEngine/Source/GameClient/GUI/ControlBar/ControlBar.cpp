@@ -4270,6 +4270,14 @@ void ControlBar::setFullViewportHeight()
 
 void ControlBar::setScaledViewportHeight()
 {
+	// GeneralsX @feature Codex/realkot 15/10/2026 With the army column the bar is narrower than the
+	// screen and leaves playable map beside it: the world is drawn down to the bottom and the bar's
+	// own windows cover their part.
+	const GXUiScale::Transform &bar = GXUiScale::forLayout("ControlBar.wnd");
+	if (bar.active && bar.kx < 0.999f) {
+		setFullViewportHeight();
+		return;
+	}
 	// GeneralsX @feature Android port 01/10/2026 The battlefield ends where the control bar starts,
 	// and a bar made taller by the interface scale starts higher (GXUiScale.h).
 	TheTacticalView->setHeight((Int)GXUiScale::forLayout("ControlBar.wnd").mapY(TheDisplay->getHeight() * TheGlobalData->m_viewportHeightScale));

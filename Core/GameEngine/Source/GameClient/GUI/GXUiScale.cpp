@@ -23,6 +23,7 @@
 
 #include "GameClient/GXUiScale.h"
 #include "GameClient/Display.h"
+#include "Common/GXControlScheme.h"
 #include "Common/FileSystem.h"
 #include "Common/file.h"
 
@@ -239,7 +240,13 @@ static const GXUiScale::Transform &ensureLayoutTransform( const char *layoutFile
 static void analyzeLayout( const Rule *rule, const char *layoutFile, const char *text, Int length, Parsing &p )
 {
 	const Real k = GXUiScale::userScale();
-	if( rule && k > 1.0f && text && length > 0 && TheDisplay )
+	// GeneralsX @feature Codex/realkot 15/10/2026 Tactical scheme's army column
+	// (GXControlScheme::ARMY_COLUMN): the control bar keeps its 4:3 proportions and sits at the
+	// right edge, even at 100% interface size, leaving the screen's left gap to the army column
+	// (GroupPanel.cpp). Ported from https://github.com/realkot/GeneralsX with permission.
+	const Bool columnBar = rule && strcmp( rule->file, "ControlBar.wnd" ) == 0
+		&& GXControlScheme::enabled( GXControlScheme::ARMY_COLUMN );
+	if( rule && ( k > 1.0f || columnBar ) && text && length > 0 && TheDisplay )
 	{
 		// The layout's windows in file order: rectangle (creation coordinates), name, depth.
 		struct Win { Real lo[ 2 ], hi[ 2 ], res[ 2 ]; std::string name; Int depth; Bool hasRect; };
@@ -405,8 +412,18 @@ static void analyzeLayout( const Rule *rule, const char *layoutFile, const char 
 			}
 			if( rule->uniform )
 				fit[ 0 ] = fit[ 1 ] = fminf( fit[ 0 ], fit[ 1 ] );
+			if( columnBar )
+			{
+				// Creation coordinates are 800x600: the same physical scale on both axes keeps the
+				// radar and the round buttons round, and the bar narrower than a wide screen.
+				const Real aspectRoom = ( (Real)TheDisplay->getWidth() / 800.0f ) / ( (Real)TheDisplay->getHeight() / 600.0f );
+				fit[ 1 ] = fminf( fit[ 1 ], aspectRoom );
+				fit[ 0 ] = fit[ 1 ] / aspectRoom;
+			}
 			for( Int a = 0; a < 2; ++a )
 				axisTransform( box[ a ][ 0 ], box[ a ][ 1 ], 1.0f, fit[ a ], marginAxis[ a ], strict, &axisK[ a ], &axisAdd[ a ] );
+			if( columnBar )
+				axisAdd[ 0 ] = 1.0f - axisK[ 0 ];  // right edge on the screen's right edge
 			if( restBottom >= 0.0f )
 			{
 				// No clamp at the top: clamping there undid the whole shift for the power bar (its frame
@@ -414,7 +431,7 @@ static void analyzeLayout( const Rule *rule, const char *layoutFile, const char 
 				axisAdd[ 1 ] = restBottom - box[ 1 ][ 1 ] * axisK[ 1 ];
 			}
 			GXUiScale::Transform &t = p.transform;
-			t.active = axisK[ 0 ] > 1.001f || axisK[ 1 ] > 1.001f || fabsf( axisAdd[ 0 ] ) > 0.0005f || fabsf( axisAdd[ 1 ] ) > 0.0005f;
+			t.active = fabsf( axisK[ 0 ] - 1.0f ) > 0.001f || fabsf( axisK[ 1 ] - 1.0f ) > 0.001f || fabsf( axisAdd[ 0 ] ) > 0.0005f || fabsf( axisAdd[ 1 ] ) > 0.0005f;
 			t.kx = axisK[ 0 ];
 			t.ky = axisK[ 1 ];
 			t.addX = axisAdd[ 0 ];
@@ -716,6 +733,15 @@ void beginLayout( const char *layoutFile, const char *text, Int length )
 	if( rule && rule->sharedWith )
 	{
 		p.transform = ensureLayoutTransform( rule->sharedWith );
+		// GeneralsX @feature Codex/realkot 15/10/2026 With the army column the group panel stays
+		// at the screen's left edge and follows only the bar's vertical growth; GroupPanel.cpp
+		// places its windows in the left gap.
+		if( strcmp( baseName( layoutFile ), "GroupPanel.wnd" ) == 0
+			&& GXControlScheme::enabled( GXControlScheme::ARMY_COLUMN ) )
+		{
+			p.transform.kx = 1.0f;
+			p.transform.addX = 0.0f;
+		}
 		if( p.transform.active )
 			fprintf( stderr, "[GX-UISCALE] %s: follows %s (x%.2f y%.2f)\n", baseName( layoutFile ),
 				rule->sharedWith, p.transform.kx, p.transform.ky );

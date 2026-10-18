@@ -28,6 +28,9 @@
 //   army_buttons=1  the group panel gains Army (screen / map), Air, Helicopters and Ground
 //                   selection buttons
 //   camera_high=1   the camera may be zoomed out up to four times the map's height (3600 max)
+//   army_column=1   the control bar keeps its proportions at the right edge, and the group panel
+//                   becomes a column in the left gap: the + handle, the army buttons and the
+//                   groups in two columns (GXUiScale.cpp, GroupPanel.cpp)
 // Read once per process. Always the retail behaviour off Android.
 #pragma once
 
@@ -44,6 +47,7 @@ namespace GXControlScheme
 		ATTACK_MOVE,
 		ARMY_BUTTONS,
 		CAMERA_HIGH,
+		ARMY_COLUMN,
 		OPTION_COUNT
 	};
 
@@ -57,7 +61,7 @@ namespace GXControlScheme
 			for (int i = 0; i < OPTION_COUNT; ++i)
 				s_state[i] = 0;
 #if defined(__ANDROID__)
-			static const char *const kNames[OPTION_COUNT] = { "attack_move", "army_buttons", "camera_high" };
+			static const char *const kNames[OPTION_COUNT] = { "attack_move", "army_buttons", "camera_high", "army_column" };
 			char path[256];
 			const int userId = (int)(getuid() / 100000);
 			snprintf(path, sizeof(path), "/data/user/%d/com.generalsx.zerohour/files/control_scheme", userId);
@@ -78,8 +82,8 @@ namespace GXControlScheme
 					}
 				}
 				fclose(fp);
-				fprintf(stderr, "[GX-Controls] scheme: attack_move=%d army_buttons=%d camera_high=%d\n",
-					s_state[ATTACK_MOVE], s_state[ARMY_BUTTONS], s_state[CAMERA_HIGH]);
+				fprintf(stderr, "[GX-Controls] scheme: attack_move=%d army_buttons=%d camera_high=%d army_column=%d\n",
+					s_state[ATTACK_MOVE], s_state[ARMY_BUTTONS], s_state[CAMERA_HIGH], s_state[ARMY_COLUMN]);
 				fflush(stderr);
 			}
 #endif

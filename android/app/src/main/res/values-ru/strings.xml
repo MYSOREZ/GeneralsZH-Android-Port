@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">GeneralsZH</string>
+    <string name="app_name">Generals</string>
     <string name="common_cancel">Отмена</string>
 
     <!-- SetupActivity: title / fallback -->
-    <string name="setup_window_title">Настройки GeneralsZH</string>
+    <string name="setup_window_title">Настройки Generals</string>
     <string name="setup_title">Command &amp; Conquer Generals: Zero Hour</string>
     <string name="setup_title_generals">Command &amp; Conquer Generals</string>
     <string name="setup_card_game">Игра</string>
@@ -179,7 +179,7 @@
     <string name="folderpicker_hint_valid">✓ В этой папке есть INIZH.big/INI.big — похоже на верную.</string>
     <string name="folderpicker_hint_invalid">Перейдите в папку с игрой и нажмите «Использовать эту папку».</string>
     <string name="folderpicker_toast_cant_read">Не удаётся прочитать эту папку. Если списки везде пустые, сначала предоставьте «Доступ ко всем файлам» на экране настроек.</string>
-    <string name="folderpicker_toast_cant_read_legacy">Не удаётся прочитать эту папку. На Android 9–10 разрешите приложению доступ к хранилищу (Настройки → Приложения → GeneralsZH → Разрешения → Хранилище) и попробуйте снова.</string>
+    <string name="folderpicker_toast_cant_read_legacy">Не удаётся прочитать эту папку. На Android 9–10 разрешите приложению доступ к хранилищу (Настройки → Приложения → Generals → Разрешения → Хранилище) и попробуйте снова.</string>
 
     <!-- LogViewerActivity -->
     <string name="logviewer_title">Логи</string>
@@ -196,7 +196,7 @@
     <string name="logviewer_dialog_clear_confirm">Очистить</string>
     <string name="logviewer_dialog_clear_cancel">Отмена</string>
     <string name="logviewer_toast_cleared">Логи очищены.</string>
-    <string name="logviewer_share_subject">Лог GeneralsZH Android</string>
+    <string name="logviewer_share_subject">Лог Generals Android</string>
     <string name="logviewer_share_chooser_title">Поделиться логом</string>
     <string name="logviewer_toast_share_failed">Не удалось подготовить файл лога для отправки: %1$s</string>
     <string name="logviewer_toast_share_none">Файлы логов пока не найдены.</string>
@@ -210,7 +210,7 @@
     <string name="online_signin_help">Нажмите «Войти». При первом нажатии может появиться запрос исключить приложение из оптимизации батареи — разрешите это, затем вернитесь и снова нажмите «Войти». После этого откроется браузер на playgenerals.online уже с одноразовым кодом для этого устройства. Выберите там Steam, Discord или GameReplays, затем просто вернитесь в приложение — вход завершится сам.</string>
     <string name="online_button_sign_in">Войти</string>
     <string name="online_status_signing_in">Выполняется вход...</string>
-    <string name="online_status_battery_opt">Разрешите GeneralsZH работать в фоне на следующем экране, затем вернитесь и снова нажмите «Войти» — иначе Android может прервать проверку входа, пока вы находитесь в браузере.</string>
+    <string name="online_status_battery_opt">Разрешите Generals работать в фоне на следующем экране, затем вернитесь и снова нажмите «Войти» — иначе Android может прервать проверку входа, пока вы находитесь в браузере.</string>
     <string name="online_toast_no_browser">Нет доступного браузера: %1$s</string>
     <string name="online_status_continue_browser">Продолжите в браузере — вернитесь сюда после входа.</string>
     <string name="online_status_network_error">Ошибка сети — проверьте соединение и попробуйте снова.</string>
@@ -256,7 +256,7 @@
     <string name="netdiag_button_copy">Копировать</string>
     <string name="netdiag_toast_copied">Отчёт скопирован в буфер обмена.</string>
     <string name="netdiag_toast_share_failed">Не удалось отправить отчёт: %1$s</string>
-    <string name="netdiag_share_subject">Сетевой лог GeneralsZH</string>
+    <string name="netdiag_share_subject">Сетевой лог Generals</string>
     <string name="online_status_banned">Этот аккаунт заблокирован на GeneralsOnline. Подать апелляцию можно в их Discord.</string>
     <string name="online_status_banned_reason">Этот аккаунт заблокирован на GeneralsOnline: %1$s</string>
     <string name="online_status_requesting_code">Запрашиваем код входа у сервера…</string>
@@ -374,7 +374,7 @@
     <string name="setup_control_scheme_tactical">Тактическое</string>
     <string name="setup_control_scheme_custom">Своё</string>
     <string name="setup_control_scheme_classic_desc">Как в оригинальной игре: приказ «двигаться» просто ведёт к точке, камера останавливается на высоте карты, кнопок армии нет.</string>
-    <string name="setup_control_scheme_tactical_desc">Боевые юниты атакуют на ходу, рядом с панелью групп появляются кнопки выбора армии, а камеру можно отдалить сильнее.</string>
+    <string name="setup_control_scheme_tactical_desc">Боевые юниты атакуют на ходу, слева колонка с кнопками групп и армии рядом с суженной командной панелью, а камеру можно отдалить сильнее.</string>
     <string name="setup_control_scheme_custom_desc">Ваше сочетание переключателей ниже.</string>
     <string name="setup_switch_attack_move">Атака на ходу</string>
     <string name="setup_switch_attack_move_desc">Приказ «двигаться» для боевых юнитов становится атакой с движением: они вступают в бой со всем, что встретят по пути. Бульдозеры и сборщики ресурсов просто едут.</string>
@@ -382,6 +382,8 @@
     <string name="setup_switch_army_buttons_desc">Кнопки рядом с панелью групп выбирают все боевые юниты на экране или на всей карте, самолёты, вертолёты или наземные войска (повторное нажатие «Наземные» — по всей карте).</string>
     <string name="setup_switch_camera_high">Высокая камера</string>
     <string name="setup_switch_camera_high_desc">Камеру можно отдалить до четырёх раз дальше, чем позволяет карта.</string>
+    <string name="setup_switch_army_column">Колонка армии слева</string>
+    <string name="setup_switch_army_column_desc">Командная панель сохраняет пропорции и прижимается вправо, а у левого края появляется колонка: кнопка +, кнопки армии и десять групп в два столбца.</string>
     <string name="setup_control_scheme_help">Применяется при следующем запуске игры. Работает и в схватке, и в кампании, и в сетевых играх: меняется только то, как вы отдаёте приказы, а не правила игры.</string>
     <string name="setup_appearance_title">Оформление</string>
     <string name="setup_appearance_standard">Стандартное</string>

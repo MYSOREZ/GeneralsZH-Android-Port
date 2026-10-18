@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">GeneralsZH</string>
+    <string name="app_name">Generals</string>
     <string name="common_cancel">Cancel</string>
 
     <!-- SetupActivity: title / fallback -->
-    <string name="setup_window_title">GeneralsZH Settings</string>
+    <string name="setup_window_title">Generals Settings</string>
     <string name="setup_title">Command &amp; Conquer Generals: Zero Hour</string>
     <string name="setup_title_generals">Command &amp; Conquer Generals</string>
     <string name="setup_card_game">Game</string>
@@ -181,7 +181,7 @@
     <string name="folderpicker_hint_valid">✓ This folder contains INIZH.big/INI.big — looks correct.</string>
     <string name="folderpicker_hint_invalid">Navigate into your game folder, then tap \"Use This Folder\".</string>
     <string name="folderpicker_toast_cant_read">Can\'t read this folder. If browsing looks empty everywhere, grant \"All files access\" from the Setup screen first.</string>
-    <string name="folderpicker_toast_cant_read_legacy">Can\'t read this folder. On Android 9–10, allow the Storage permission for this app (Settings → Apps → GeneralsZH → Permissions → Storage), then try again.</string>
+    <string name="folderpicker_toast_cant_read_legacy">Can\'t read this folder. On Android 9–10, allow the Storage permission for this app (Settings → Apps → Generals → Permissions → Storage), then try again.</string>
 
     <!-- NetworkDiagnosticsActivity -->
     <string name="netdiag_title">Network diagnostics</string>
@@ -194,7 +194,7 @@
     <string name="netdiag_button_copy">Copy</string>
     <string name="netdiag_toast_copied">Report copied to clipboard.</string>
     <string name="netdiag_toast_share_failed">Could not share the report: %1$s</string>
-    <string name="netdiag_share_subject">GeneralsZH network log</string>
+    <string name="netdiag_share_subject">Generals network log</string>
 
     <!-- LogViewerActivity -->
     <string name="logviewer_title">Logs</string>
@@ -213,7 +213,7 @@
     <string name="logviewer_dialog_clear_confirm">Clear</string>
     <string name="logviewer_dialog_clear_cancel">Cancel</string>
     <string name="logviewer_toast_cleared">Logs cleared.</string>
-    <string name="logviewer_share_subject">GeneralsZH Android log</string>
+    <string name="logviewer_share_subject">Generals Android log</string>
     <string name="logviewer_share_chooser_title">Share log</string>
     <string name="logviewer_toast_share_failed">Could not prepare log file to share: %1$s</string>
     <string name="logviewer_toast_share_none">No log files found to share yet.</string>
@@ -263,7 +263,7 @@
     <string name="online_crossplay_off">Turned off for an indefinite time at the request of the GeneralsOnline developers. Online games with other Android players are not affected.</string>
     <string name="online_button_sign_in">Sign In</string>
     <string name="online_status_signing_in">Signing in...</string>
-    <string name="online_status_battery_opt">Allow GeneralsZH to run in the background on the next screen, then come back and tap Sign In again -- otherwise Android may kill the sign-in check while you\'re in the browser.</string>
+    <string name="online_status_battery_opt">Allow Generals to run in the background on the next screen, then come back and tap Sign In again -- otherwise Android may kill the sign-in check while you\'re in the browser.</string>
     <string name="online_toast_no_browser">No browser available: %1$s</string>
     <string name="online_status_continue_browser">Continue in your browser -- come back here once you\'ve signed in.</string>
     <string name="online_status_network_error">Network error -- check your connection and try again.</string>
@@ -379,7 +379,7 @@
     <string name="setup_control_scheme_tactical">Tactical</string>
     <string name="setup_control_scheme_custom">Custom</string>
     <string name="setup_control_scheme_classic_desc">As in the original game: a move order just moves, the camera stops at the map\'s own height, no army buttons.</string>
-    <string name="setup_control_scheme_tactical_desc">Combat units attack on the move, army selection buttons sit beside the group panel, and the camera zooms out further.</string>
+    <string name="setup_control_scheme_tactical_desc">Combat units attack on the move, an army column on the left holds the group and army buttons beside a narrower control panel, and the camera zooms out further.</string>
     <string name="setup_control_scheme_custom_desc">Your own mix of the switches below.</string>
     <string name="setup_switch_attack_move">Attack on the move</string>
     <string name="setup_switch_attack_move_desc">A move order for combat units is an attack-move: they fight what they meet on the way. Dozers and harvesters still just move.</string>
@@ -387,6 +387,8 @@
     <string name="setup_switch_army_buttons_desc">Buttons beside the group panel select every combat unit on screen or on the whole map, planes, helicopters or ground forces (press Ground again for the whole map).</string>
     <string name="setup_switch_camera_high">Higher camera</string>
     <string name="setup_switch_camera_high_desc">The camera zooms out up to four times further than the map allows.</string>
+    <string name="setup_switch_army_column">Army column on the left</string>
+    <string name="setup_switch_army_column_desc">The control panel keeps its proportions at the right edge; the screen\'s left edge gets a column with the + button, the army buttons and the ten groups in two columns.</string>
     <string name="setup_control_scheme_help">Takes effect the next time the game starts. Works in skirmish, the campaign and online games alike: only how your orders are given changes, not the game\'s rules.</string>
     <string name="setup_appearance_title">Appearance</string>
     <string name="setup_appearance_standard">Standard</string>
