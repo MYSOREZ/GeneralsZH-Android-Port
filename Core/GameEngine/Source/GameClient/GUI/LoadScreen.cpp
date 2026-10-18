@@ -185,8 +185,16 @@ void LoadScreen::update( Int percent )
 	// the campaign as well.
 	TheWindowManager->update();
 	TheDisplay->update();
-	if (TheAudio)
+	// GeneralsX @performance Codex/realkot 18/10/2026 Progress callbacks are not audio ticks: a map
+	// load reports progress thousands of times, and every audio update decodes and requeues streams.
+	// Windows and display stay serviced on every callback; audio at most every 10 ms. From realkot's
+	// GeneralsX (f5cb18d), with permission.
+	static UnsignedInt s_gxLastLoadAudioMs = 0;
+	const UnsignedInt gxAudioNow = timeGetTime();
+	const Bool gxServiceAudio = s_gxLastLoadAudioMs == 0 || gxAudioNow - s_gxLastLoadAudioMs >= 10;
+	if (TheAudio && gxServiceAudio)
 	{
+		s_gxLastLoadAudioMs = gxAudioNow;
 		static Int s_pumpCount = 0;
 		if ((s_pumpCount++ % 10) == 0)
 		{

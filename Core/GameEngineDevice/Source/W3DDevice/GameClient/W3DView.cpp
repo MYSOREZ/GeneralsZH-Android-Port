@@ -2318,8 +2318,23 @@ void W3DView::setZoom(Real z)
 void W3DView::setZoomToMax()
 {
 	// default zoom has to be max, otherwise players will just zoom to max always
-	m_heightAboveGround = m_maxHeightAboveGround;
-	m_zoom = getMaxZoom(m_pos.x, m_pos.y);
+	// GeneralsX @bugfix Codex/realkot 18/10/2026 The main menu's background scene takes the map's
+	// authored camera height, not the gameplay maximum the Extras menu may have raised. From
+	// realkot's GeneralsX (9b257e4), with permission.
+#if defined(__ANDROID__) && PRESERVE_RETAIL_SCRIPTED_CAMERA
+	if (TheGameLogic && TheGameLogic->getGameMode() == GAME_SHELL)
+		setUserControlled(false);
+	if (!m_isUserControlled && TheGlobalData->m_cameraHeight > 0.0f)
+	{
+		m_heightAboveGround = getCameraOffsetZ() - getHeightAroundPos(m_pos.x, m_pos.y);
+		m_zoom = getDesiredZoom(m_pos.x, m_pos.y);
+	}
+	else
+#endif
+	{
+		m_heightAboveGround = m_maxHeightAboveGround;
+		m_zoom = getMaxZoom(m_pos.x, m_pos.y);
+	}
 
 	m_cameraAreaConstraintsValid = false; // recalc it.
 	m_recalcCamera = true;
@@ -3458,7 +3473,23 @@ void W3DView::setUserControlled(Bool value)
 	{
 		m_isUserControlled = value;
 #if PRESERVE_RETAIL_SCRIPTED_CAMERA
-		m_zoom = getDesiredZoom(m_pos.x, m_pos.y);
+#if defined(__ANDROID__)
+		// GeneralsX @bugfix Codex/realkot 18/10/2026 A scripted scene starts at its authored height
+		// (GameData CameraHeight), not at the player's zoom-out. From realkot's GeneralsX (9b257e4).
+		if (!value && TheGlobalData->m_cameraHeight > 0.0f)
+		{
+			m_zoom = 1.0f;
+			m_heightAboveGround = getCameraOffsetZ() - getHeightAroundPos(m_pos.x, m_pos.y);
+		}
+		else
+#endif
+		{
+			m_zoom = getDesiredZoom(m_pos.x, m_pos.y);
+		}
+#if defined(__ANDROID__)
+		m_cameraAreaConstraintsValid = false;
+		m_recalcCamera = true;
+#endif
 #endif
 	}
 }
