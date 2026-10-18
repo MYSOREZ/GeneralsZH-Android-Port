@@ -1,6 +1,21 @@
 # Language packs
 
-A language pack is one plain-text file: `languages/<language>/generals.str`.
+A language pack is a plain-text file per game in `languages/<language>/`:
+
+- `generalszh.str` -- **Zero Hour**. Translators edit this one.
+- `generals.str` -- **Generals** (the base game). For now a copy of `generalszh.str`, kept in
+  sync with it, because launchers up to 1.4.0 download `generals.str` for Zero Hour; it becomes
+  the real Generals translation in a later release (PLAN-026, step 2).
+
+Launchers from 1.4.1 download `generalszh.str` for Zero Hour and `generals.str` for Generals, and
+install either as `data/<language>/generals.str` in that game's folder (the name the engine
+reads). After editing `generalszh.str`, copy it over `generals.str` until step 2:
+
+```
+for d in languages/*/; do cp "$d/generalszh.str" "$d/generals.str"; done
+```
+
+The format below applies to both files.
 
 That is the whole format. UTF-8, one entry per label, editable in any editor, and
 reviewable as a normal diff in a pull request. Translating the game means editing

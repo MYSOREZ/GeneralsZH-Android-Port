@@ -1,6 +1,6 @@
 # PLAN-026: A language pack per game (Generals and Zero Hour)
 
-Status: **agreed with the owner 05/10/2026, waiting for releases.** Both steps are done **at a
+Status: **step 1 done in release 1.4.1 (18/10/2026); step 2 waits for the owner's word.** Both steps are done **at a
 release**, never in a test build. Before every release, check which step is due here.
 
 ## Why

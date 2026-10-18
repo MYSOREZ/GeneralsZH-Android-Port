@@ -2828,7 +2828,12 @@ public class SetupActivity extends Activity {
             if (!dir.isDirectory() && !dir.mkdirs()) {
                 return getString(R.string.setup_langpack_err_mkdir);
             }
-            URL url = new URL(LANGUAGE_PACK_BASE + token + "/generals.str");
+            // GeneralsX @feature Android port 18/10/2026 A file per game (PLAN-026 step 1): Zero
+            // Hour's translation is generalszh.str, the base game's generals.str. Either way it is
+            // installed as data/<language>/generals.str in that game's own folder, the name the
+            // engine reads.
+            final String remoteFile = isGeneralsSelected(this) ? "generals.str" : "generalszh.str";
+            URL url = new URL(LANGUAGE_PACK_BASE + token + "/" + remoteFile);
             conn = (HttpURLConnection) url.openConnection();
             conn.setConnectTimeout(15000);
             conn.setReadTimeout(30000);
