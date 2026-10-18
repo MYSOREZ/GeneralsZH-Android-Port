@@ -498,4 +498,9 @@
     <string name="mods_safe_without">بدون ماد</string>
     <string name="mods_safe_anyway">در هر حال اجرا شود</string>
     <string name="mods_safe_without_last">بدون %1$s</string>
+    <string name="setup_sources_zh_art_ok">تصویرهایی که Generals ندارد از پوشهٔ Zero Hour گرفته می‌شود: %1$s</string>
+    <string name="setup_sources_zh_art_no_folder">تصویرهایی که Generals ندارد از Zero Hour گرفته می‌شود، اما پوشهٔ Zero Hour انتخاب نشده است: بازی را در بالا به Zero Hour ببرید و پوشه‌اش را انتخاب کنید. تا آن زمان یک نماد کشیده‌شده جای نماد ناموجود را می‌گیرد.</string>
+    <string name="setup_sources_zh_art_missing">پوشهٔ Zero Hour فایل TexturesZH.big ندارد، پس Generals نمی‌تواند تصویری از آن بگیرد: %1$s</string>
+    <string name="setup_sources_base_ok">بایگانی‌های Generals اصلی برای Zero Hour: %1$s</string>
+    <string name="setup_sources_base_auto">Zero Hour بایگانی‌های Generals اصلی را در پوشهٔ خودش (ZH_Generals) یا کنار آن جست‌وجو می‌کند؛ اگر جای دیگری هستند، پوشه‌ای را در پایین انتخاب کنید.</string>
 </resources>

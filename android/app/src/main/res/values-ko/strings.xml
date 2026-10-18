@@ -498,4 +498,9 @@
     <string name="mods_safe_without">모드 없이</string>
     <string name="mods_safe_anyway">그래도 시작</string>
     <string name="mods_safe_without_last">%1$s 없이</string>
+    <string name="setup_sources_zh_art_ok">Generals에 없는 그림은 Zero Hour 폴더에서 가져옵니다: %1$s</string>
+    <string name="setup_sources_zh_art_no_folder">Generals에 없는 그림은 Zero Hour에서 가져오지만 Zero Hour 폴더가 선택되지 않았습니다. 위에서 Zero Hour로 바꾸고 그 폴더를 선택하세요. 그 전까지는 빠진 아이콘 대신 그린 아이콘이 쓰입니다.</string>
+    <string name="setup_sources_zh_art_missing">Zero Hour 폴더에 TexturesZH.big이 없어 Generals가 그림을 가져올 수 없습니다: %1$s</string>
+    <string name="setup_sources_base_ok">Zero Hour용 원본 Generals 아카이브: %1$s</string>
+    <string name="setup_sources_base_auto">Zero Hour는 원본 Generals 아카이브를 자기 폴더(ZH_Generals)나 그 옆에서 찾습니다. 다른 곳에 있다면 아래에서 폴더를 선택하세요.</string>
 </resources>

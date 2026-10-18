@@ -498,4 +498,9 @@
     <string name="mods_safe_without">بدون مودات</string>
     <string name="mods_safe_anyway">التشغيل على أي حال</string>
     <string name="mods_safe_without_last">بدون %1$s</string>
+    <string name="setup_sources_zh_art_ok">الصور التي تنقص Generals تُؤخذ من مجلد Zero Hour: %1$s</string>
+    <string name="setup_sources_zh_art_no_folder">الصور التي تنقص Generals تُؤخذ من Zero Hour، لكن لم يُختر مجلد Zero Hour: بدّل اللعبة في الأعلى إلى Zero Hour واختر مجلدها. حتى ذلك الحين تحل أيقونة مرسومة محل الناقصة.</string>
+    <string name="setup_sources_zh_art_missing">لا يحتوي مجلد Zero Hour على TexturesZH.big، لذا لا يستطيع Generals أخذ الصور منه: %1$s</string>
+    <string name="setup_sources_base_ok">أرشيفات Generals الأصلية من أجل Zero Hour: %1$s</string>
+    <string name="setup_sources_base_auto">يبحث Zero Hour عن أرشيفات Generals الأصلية داخل مجلده (ZH_Generals) أو بجانبه؛ إن كانت في مكان آخر فاختر مجلداً أدناه.</string>
 </resources>

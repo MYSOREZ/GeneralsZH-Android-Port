@@ -498,4 +498,9 @@
     <string name="mods_safe_without">Sans mods</string>
     <string name="mods_safe_anyway">Lancer quand même</string>
     <string name="mods_safe_without_last">Sans %1$s</string>
+    <string name="setup_sources_zh_art_ok">Les images qui manquent à Generals viennent du dossier de Zero Hour : %1$s</string>
+    <string name="setup_sources_zh_art_no_folder">Les images qui manquent à Generals sont prises dans Zero Hour, mais aucun dossier Zero Hour n’est choisi : passez à Zero Hour ci-dessus et choisissez son dossier. D’ici là, une icône dessinée remplace celle qui manque.</string>
+    <string name="setup_sources_zh_art_missing">Le dossier de Zero Hour n’a pas de TexturesZH.big, Generals ne peut donc pas y prendre d’images : %1$s</string>
+    <string name="setup_sources_base_ok">Archives du Generals d’origine pour Zero Hour : %1$s</string>
+    <string name="setup_sources_base_auto">Zero Hour cherche les archives du Generals d’origine dans son dossier (ZH_Generals) ou à côté ; si elles sont ailleurs, choisissez un dossier ci-dessous.</string>
 </resources>

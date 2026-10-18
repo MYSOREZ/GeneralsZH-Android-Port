@@ -498,4 +498,9 @@
     <string name="mods_safe_without">Sem mods</string>
     <string name="mods_safe_anyway">Iniciar mesmo assim</string>
     <string name="mods_safe_without_last">Sem %1$s</string>
+    <string name="setup_sources_zh_art_ok">As imagens que faltam no Generals vêm da pasta do Zero Hour: %1$s</string>
+    <string name="setup_sources_zh_art_no_folder">As imagens que faltam no Generals são tiradas do Zero Hour, mas nenhuma pasta do Zero Hour foi escolhida: mude acima para Zero Hour e escolha a pasta dele. Até lá, um ícone desenhado substitui o que falta.</string>
+    <string name="setup_sources_zh_art_missing">A pasta do Zero Hour não tem TexturesZH.big, então o Generals não pode pegar imagens dela: %1$s</string>
+    <string name="setup_sources_base_ok">Arquivos do Generals original para o Zero Hour: %1$s</string>
+    <string name="setup_sources_base_auto">O Zero Hour procura os arquivos do Generals original na própria pasta (ZH_Generals) ou ao lado dela; se estiverem em outro lugar, escolha uma pasta abaixo.</string>
 </resources>

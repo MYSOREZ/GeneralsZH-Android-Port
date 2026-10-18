@@ -498,4 +498,9 @@
     <string name="mods_safe_without">Ohne Mods</string>
     <string name="mods_safe_anyway">Trotzdem starten</string>
     <string name="mods_safe_without_last">Ohne %1$s</string>
+    <string name="setup_sources_zh_art_ok">Bilder, die Generals fehlen, kommen aus dem Zero-Hour-Ordner: %1$s</string>
+    <string name="setup_sources_zh_art_no_folder">Bilder, die Generals fehlen, werden aus Zero Hour genommen, aber es ist kein Zero-Hour-Ordner gewählt: oben auf Zero Hour umschalten und dessen Ordner wählen. Bis dahin vertritt ein gezeichnetes Symbol ein fehlendes.</string>
+    <string name="setup_sources_zh_art_missing">Im Zero-Hour-Ordner fehlt TexturesZH.big, daher kann Generals keine Bilder daraus nehmen: %1$s</string>
+    <string name="setup_sources_base_ok">Archive des ursprünglichen Generals für Zero Hour: %1$s</string>
+    <string name="setup_sources_base_auto">Zero Hour sucht die Archive des ursprünglichen Generals in seinem Ordner (ZH_Generals) oder daneben; liegen sie woanders, unten einen Ordner wählen.</string>
 </resources>

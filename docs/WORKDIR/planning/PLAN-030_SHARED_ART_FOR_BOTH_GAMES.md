@@ -1,6 +1,6 @@
 # PLAN-030: One base of pictures for Generals and Zero Hour
 
-Status: **step 1 for the next test build** (18/10/2026).
+Status: **done for the next test build** (18/10/2026): steps 1 and the launcher view; further archives only on evidence.
 
 ## Owner's request (18/10/2026)
 
@@ -31,11 +31,20 @@ Rules that keep this safe:
 - Below, never above: Generals must look like Generals. Zero Hour's interface art for the same names
   (control bar, buttons) must not replace Generals'.
 
-## Later
+## Step 2 (done): one place in the launcher
 
-1. If more Generals gaps show up (a cameo, a button, a mapped image), check whether
-   `W3DZH.big` / `WindowZH.big` carry them, and mount only what is needed, the same way.
-2. One place in the launcher that says which folders feed which game (Generals base for Zero Hour,
-   Zero Hour pictures for Generals), with a check that both are found.
-3. This port's own pictures stay drawn in code (one file, both engines) or move to one loose
-   folder in the APK (`gamedata/Art/`), mounted by both engines -- never into the player's game data.
+The game folder card on Home says where the selected game takes what its folder lacks, checked:
+for Generals, the Zero Hour folder and whether it has TexturesZH.big (green), or that no Zero Hour
+folder is chosen / the archive is missing (amber); for Zero Hour, the chosen original Generals
+folder, or where it is looked for when none is chosen.
+
+## Step 3: the rest of the gaps, on evidence
+
+The engine already names every texture it had to replace with magenta (`[gxmiss] magenta
+substituted ...`, first 40 per session). A Generals log with such lines is the list of what is still
+missing; if one of them is in `W3DZH.big` or `WindowZH.big` rather than TexturesZH.big, mount only
+that archive, the same way (below Generals, textures only). The past logs held one name
+(`trstrtholecvr.tga`), not enough to widen the mount.
+
+This port's own pictures stay drawn in code (W3DTouchButtonImages.cpp, one file for both engines),
+never written into the player's game data.

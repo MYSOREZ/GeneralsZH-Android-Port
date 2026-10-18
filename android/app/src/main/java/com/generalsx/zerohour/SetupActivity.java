@@ -543,6 +543,7 @@ public class SetupActivity extends Activity {
 
         statusText = UiKit.body(folder, null);
         statusText.setTextIsSelectable(true);
+        buildDataSourcesRow(folder, generals);
 
         UiKit.button(folder, UiKit.BTN_TONAL, R.drawable.ic_gzh_folder,
             getString(R.string.setup_button_select_game_folder), this::onSelectGameFolder);
@@ -564,6 +565,47 @@ public class SetupActivity extends Activity {
         // bury under settings most players never touch.
         buildGeneralsOnlineSection(page);
         buildUpdatesSection(page);
+    }
+
+    // GeneralsX @feature Android port 18/10/2026 PLAN-030: where each game takes what its own folder
+    // lacks, in one place, with a check that it is there. Generals borrows the pictures it lacks
+    // from Zero Hour's TexturesZH.big (GeneralsZHActivity.writeZeroHourArtPath); Zero Hour reads the
+    // original Generals archives (the base folder, or ZH_Generals / next to the game folder).
+    private void buildDataSourcesRow(LinearLayout card, boolean generals) {
+        if (generals) {
+            String zh = getSavedGamePath(this, GAME_ZERO_HOUR);
+            if (zh == null || zh.isEmpty()) {
+                UiKit.chip(card, R.drawable.ic_gzh_info, getString(R.string.setup_sources_zh_art_no_folder),
+                    R.color.gzh_status_warn, R.color.gzh_surface_container_high);
+            } else if (findFileIgnoreCase(new File(zh), "TexturesZH.big")) {
+                UiKit.chip(card, R.drawable.ic_gzh_check, getString(R.string.setup_sources_zh_art_ok, zh),
+                    R.color.gzh_status_ok, R.color.gzh_surface_container_high);
+            } else {
+                UiKit.chip(card, R.drawable.ic_gzh_info, getString(R.string.setup_sources_zh_art_missing, zh),
+                    R.color.gzh_status_warn, R.color.gzh_surface_container_high);
+            }
+            return;
+        }
+        String base = getBaseGeneralsPath();
+        if (base != null && !base.isEmpty()) {
+            UiKit.chip(card, R.drawable.ic_gzh_check, getString(R.string.setup_sources_base_ok, base),
+                R.color.gzh_status_ok, R.color.gzh_surface_container_high);
+        } else {
+            UiKit.supporting(card, getString(R.string.setup_sources_base_auto));
+        }
+    }
+
+    private static boolean findFileIgnoreCase(File dir, String name) {
+        String[] names = dir.list();
+        if (names == null) {
+            return false;
+        }
+        for (String n : names) {
+            if (n.equalsIgnoreCase(name)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     // ------------------------------------------------------------ Updates

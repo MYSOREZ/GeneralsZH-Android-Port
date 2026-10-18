@@ -498,4 +498,9 @@
     <string name="mods_safe_without">Bez modov</string>
     <string name="mods_safe_anyway">Vsejedno zapustiti</string>
     <string name="mods_safe_without_last">Bez %1$s</string>
+    <string name="setup_sources_zh_art_ok">Kartinky, ktoryh nema v Generals, berut se iz papky Zero Hour: %1$s</string>
+    <string name="setup_sources_zh_art_no_folder">Kartinky, ktoryh nema v Generals, berut se iz Zero Hour, ale papka Zero Hour ne jest vybrana: prepnite igru vyše na Zero Hour i vyberite jejei papku. Dokolě jej nema, narisovana ikona zaměnjaje nedostajuču.</string>
+    <string name="setup_sources_zh_art_missing">V papkě Zero Hour nema TexturesZH.big, zato Generals ne može vzeti odtamtud kartinky: %1$s</string>
+    <string name="setup_sources_base_ok">Arhivy originalnoj Generals za Zero Hour: %1$s</string>
+    <string name="setup_sources_base_auto">Zero Hour iskaje arhivy originalnoj Generals v svojej papkě (ZH_Generals) ili blizu nej; ako sut drugde, vyberite papku niže.</string>
 </resources>
