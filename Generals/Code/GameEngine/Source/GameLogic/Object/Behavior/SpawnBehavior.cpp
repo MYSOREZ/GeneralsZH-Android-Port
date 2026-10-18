@@ -669,6 +669,20 @@ Bool SpawnBehavior::createSpawn()
 				}
 				exitInterface->exitObjectByBudding( newSpawn, budHost );// also handles the nullptr pointer okay
 
+				// GeneralsX @bugfix Android port 18/10/2026 Only some exit modules place a budded spawn
+				// (QueueProductionExitUpdate); a container's exitObjectByBudding does nothing, and a spawn
+				// with no budHost was then left where it was created, at the map's origin -- an angry mob
+				// fighting in the bottom-left corner while its nexus died alone at the barracks (#30, #42).
+				// Put such a spawn at its parent instead. A spawn that was placed is never touched, so
+				// every game where this did not happen plays exactly as before.
+				const Coord3D *spawnPos = newSpawn->getPosition();
+				if ( spawnPos->x == 0.0f && spawnPos->y == 0.0f && spawnPos->z == 0.0f )
+				{
+					newSpawn->setPosition( parent->getPosition() );
+					newSpawn->setOrientation( parent->getOrientation() );
+					newSpawn->setLayer( parent->getLayer() );
+				}
+
 			}
 
 		}
