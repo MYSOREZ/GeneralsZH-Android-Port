@@ -370,8 +370,13 @@ static void applyButtonFace(GameWindow *button)
 	button->winSetDrawFunc(draw);
 }
 
+static void gxPanelBackdropDraw(GameWindow *window, WinInstanceData *instData);
+
 static void applyButtonFaces()
 {
+	if (GameWindow *parent = panelWindow(s_parentID)) {
+		parent->winSetDrawFunc(gxPanelBackdropDraw);
+	}
 	applyButtonFace(panelWindow(s_buttonHandleID));
 	for (Int i = 0; i < 10; ++i) {
 		applyButtonFace(panelWindow(s_buttonGroupID[i]));
@@ -394,6 +399,29 @@ static void placeButton(GameWindow *button, Int screenX, Int screenY, Int origin
 // The panel's root covers exactly what is shown: the window manager hit-tests by top-level window,
 // and an empty part of a larger root would keep the control bar's own buttons from a press
 // (issue #33).
+// GeneralsX @feature Android port 18/10/2026 The open column's backing plate (owner, a30: the
+// battlefield should not show behind the buttons or around them): from the screen's left edge to the
+// control bar, from just above the column to the screen's foot, opaque dark steel with the gold
+// trim of the game's frames along its top and right. The panel's root window covers it and takes
+// the touches that land between buttons, so none falls through to the battlefield.
+static Bool s_backdropValid = FALSE;
+static Int s_backdropX = 0, s_backdropY = 0, s_backdropW = 0, s_backdropH = 0;
+
+static void gxPanelBackdropDraw(GameWindow *window, WinInstanceData *instData)
+{
+	(void)window;
+	(void)instData;
+	if (!s_drawerOpen || !s_backdropValid || !TheDisplay) {
+		return;
+	}
+	const Int trim = max(2, (Int)TheDisplay->getHeight() / 400);
+	TheDisplay->drawFillRect(s_backdropX, s_backdropY, s_backdropW, s_backdropH, GameMakeColor(14, 18, 24, 255));
+	// a lighter band under the trim, as the bar's own steel has
+	TheDisplay->drawFillRect(s_backdropX, s_backdropY + trim, s_backdropW - trim, trim * 3, GameMakeColor(30, 37, 46, 255));
+	TheDisplay->drawFillRect(s_backdropX, s_backdropY, s_backdropW, trim, GameMakeColor(196, 166, 104, 255));
+	TheDisplay->drawFillRect(s_backdropX + s_backdropW - trim, s_backdropY, trim, s_backdropH, GameMakeColor(150, 126, 78, 255));
+}
+
 static void fitParentToVisibleContent()
 {
 	GameWindow *parent = panelWindow(s_parentID);
@@ -402,6 +430,10 @@ static void fitParentToVisibleContent()
 	}
 	Int loX = 0, loY = 0, hiX = 0, hiY = 0;
 	Bool any = FALSE;
+	if (s_drawerOpen && s_backdropValid) {
+		loX = s_backdropX; loY = s_backdropY; hiX = s_backdropX + s_backdropW; hiY = s_backdropY + s_backdropH;
+		any = TRUE;
+	}
 	for (GameWindow *child = parent->winGetChild(); child; child = child->winGetNext()) {
 		if (child->winIsHidden()) {
 			continue;
@@ -524,6 +556,8 @@ void GroupPanelFollowControlBar(Int barScreenX, Int barScreenY, Bool visible)
 	placeButton(handle, x0, handleY, px, py, columnWidth, rowHeight);
 
 	if (!s_drawerOpen) {
+		s_backdropValid = FALSE;
+		parent->winSetStatus(WIN_STATUS_NO_INPUT);
 		row->winHide(TRUE);
 		for (Int i = 0; i < ARMY_BUTTON_COUNT; ++i) {
 			if (GameWindow *button = panelWindow(s_armyButtonID[i])) {
@@ -547,6 +581,13 @@ void GroupPanelFollowControlBar(Int barScreenX, Int barScreenY, Bool visible)
 		armyTop = handleY - gap - armyHeight;
 		groupsTop = (s_armyShown ? armyTop : handleY) - gap - groupsHeight;
 	}
+
+	s_backdropX = 0;
+	s_backdropY = max(0, min(handleY, groupsTop) - margin);
+	s_backdropW = besideBar ? (Int)(leftEdge * width) : x0 + columnWidth + margin;
+	s_backdropH = height - s_backdropY;
+	s_backdropValid = TRUE;
+	parent->winClearStatus(WIN_STATUS_NO_INPUT);
 
 	row->winHide(FALSE);
 	row->winSetPosition(x0 - px, groupsTop - py);

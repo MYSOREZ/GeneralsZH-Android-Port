@@ -233,8 +233,8 @@ namespace
 // Owner, a30: the column's flat rectangles looked old-fashioned and unlike a game's buttons. This is
 // one face in three states -- rest, hilite, pressed -- drawn like the icons above: a rounded plate
 // of dark gunmetal, lighter at the top with a gloss band, a thin dark line inside a two-pixel trim
-// in the warm gold of the game's own frames, slightly translucent so the battlefield shows through
-// as it did. The column stretches it over each button.
+// in the warm gold of the game's own frames, opaque (the column has its own backing plate). The
+// column stretches it over each button.
 namespace
 {
 	enum { FACE_TEX_W = 128, FACE_TEX_H = 64, FACE_W = 128, FACE_H = 56 };
@@ -248,9 +248,9 @@ namespace
 
 	const FaceStyle kFaces[] =
 	{
-		{ "GXPanelButton",        { 58, 68, 80 },  { 20, 26, 34 }, 0.86f },
-		{ "GXPanelButtonHilite",  { 82, 98, 116 }, { 32, 42, 54 }, 0.92f },
-		{ "GXPanelButtonPressed", { 18, 24, 32 },  { 46, 56, 68 }, 0.95f },
+		{ "GXPanelButton",        { 58, 68, 80 },  { 20, 26, 34 }, 1.0f },
+		{ "GXPanelButtonHilite",  { 82, 98, 116 }, { 32, 42, 54 }, 1.0f },
+		{ "GXPanelButtonPressed", { 18, 24, 32 },  { 46, 56, 68 }, 1.0f },
 	};
 
 	// Signed distance to a rounded rectangle [0,w]x[0,h] with corner radius r; positive inside.
