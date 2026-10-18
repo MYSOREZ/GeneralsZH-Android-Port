@@ -187,7 +187,7 @@ public class SetupActivity extends Activity {
 
     @Override
     protected void attachBaseContext(android.content.Context newBase) {
-        super.attachBaseContext(LocaleHelper.wrap(newBase));
+        super.attachBaseContext(ThemeHelper.wrap(LocaleHelper.wrap(newBase)));
     }
 
     @Override
@@ -198,7 +198,10 @@ public class SetupActivity extends Activity {
         // screen; onLaunchGame()/onConfigurationChanged() below handle the
         // Setup -> Launch rotation race that used to be sidestepped by never
         // rotating Setup at all.
+        // GeneralsX @feature realkot 10/10/2026 The launcher's Day / Night / System theme (ThemeHelper).
+        ThemeHelper.apply(this);
         super.onCreate(savedInstanceState);
+        ThemeHelper.applyBars(this);
         setTitle(R.string.setup_window_title);
 
         // GeneralsX @feature Android port launcher-ui-2026 08/09/2026 Which
@@ -446,6 +449,7 @@ public class SetupActivity extends Activity {
                 break;
             case TAB_INTERFACE:
                 buildLanguageSection(page);
+                buildThemeSection(page);
                 buildUiScaleSection(page);
                 buildInterfaceScaleSection(page);
                 buildMouseModeSection(page);
@@ -1098,6 +1102,28 @@ public class SetupActivity extends Activity {
     // -- see LocaleHelper for why it's a manual attachBaseContext() wrap
     // rather than androidx.appcompat's per-app language API, and why
     // "System Default" needs no explicit handling.
+    // GeneralsX @feature realkot 10/10/2026 The launcher's appearance: System / Day / Night
+    // (ThemeHelper). The game itself is not affected. Ported from realkot's GeneralsX fork with the
+    // author's permission.
+    private void buildThemeSection(LinearLayout page) {
+        LinearLayout card = UiKit.card(page);
+        UiKit.sectionHeader(card, R.drawable.ic_gzh_display,
+            getString(R.string.setup_appearance_title), false);
+        UiKit.segmented(card, new CharSequence[] {
+                getString(R.string.setup_appearance_system),
+                getString(R.string.setup_appearance_light),
+                getString(R.string.setup_appearance_dark)
+            }, ThemeHelper.getMode(this), index -> {
+                if (ThemeHelper.getMode(this) == index) {
+                    return;
+                }
+                ThemeHelper.setMode(this, index);
+                // onSaveInstanceState keeps the open tab across the restart.
+                recreate();
+            });
+        UiKit.helpText(card, getString(R.string.setup_appearance_help));
+    }
+
     private void buildLanguageSection(LinearLayout root) {
         LinearLayout content = UiKit.card(root);
         // The current language is the value the header carries, so the card

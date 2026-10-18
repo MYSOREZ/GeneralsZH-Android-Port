@@ -90,12 +90,15 @@ public class LogViewerActivity extends Activity {
 
     @Override
     protected void attachBaseContext(android.content.Context newBase) {
-        super.attachBaseContext(LocaleHelper.wrap(newBase));
+        super.attachBaseContext(ThemeHelper.wrap(LocaleHelper.wrap(newBase)));
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // GeneralsX @feature realkot 10/10/2026 The launcher's Day / Night / System theme (ThemeHelper).
+        ThemeHelper.apply(this);
         super.onCreate(savedInstanceState);
+        ThemeHelper.applyBars(this);
         setTitle(R.string.logviewer_title);
 
         // GeneralsX @feature Android port launcher-ui-2026 08/09/2026 The

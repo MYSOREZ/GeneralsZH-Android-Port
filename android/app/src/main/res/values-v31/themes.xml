@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- GeneralsX @bugfix Codex 04/10/2026 Explicit non-adaptive splash artwork.
+         288 dp transparent canvas, with every alpha pixel inside the 192 dp
+         safe circle. Same emblem and dimensions as the pre-31 launch window. -->
+    <style name="Theme.GeneralsZHStartup" parent="Theme.GeneralsZHSettings">
+        <item name="android:windowBackground">@color/gzh_startup_background</item>
+        <item name="android:windowSplashScreenBackground">@color/gzh_startup_background</item>
+        <item name="android:windowSplashScreenAnimatedIcon">@drawable/startup_emblem</item>
+        <item name="android:windowSplashScreenIconBackgroundColor">@android:color/transparent</item>
+        <item name="android:statusBarColor">@color/gzh_startup_background</item>
+        <item name="android:navigationBarColor">@color/gzh_startup_background</item>
+        <item name="android:windowLightNavigationBar">false</item>
+    </style>
+</resources>

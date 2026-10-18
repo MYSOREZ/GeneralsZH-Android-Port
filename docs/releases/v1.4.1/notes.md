@@ -81,12 +81,14 @@ Hour, with its own game folder:
 - **The game folder one or two levels down**: pick the folder the archive was unpacked into, and the launcher
   finds the game inside it.
 - Language packs: Zero Hour and Generals each fetch their own translation file.
+- **New look**: a navy and gold design, and **Appearance: System / Day / Night** (Interface tab). The
+  launch screen shows the emblem instead of a blank frame.
 
 ## Install / update
 
 Install over 1.4.0 -- settings, sign-in and game folders are kept. Requires Android 9 or newer, 64-bit (arm64).
 
-The keyboard, mouse and Tactical control scheme work comes from **realkot**'s
+The keyboard, mouse, Tactical control scheme and the launcher's new look come from **realkot**'s
 [GeneralsX fork](https://github.com/realkot/GeneralsX) (with parts by Codex / koreazolfakar-droid), ported with
 the author's permission -- thank you!
 

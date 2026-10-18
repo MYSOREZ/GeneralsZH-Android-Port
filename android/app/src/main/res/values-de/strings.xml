@@ -381,6 +381,11 @@
     <string name="setup_switch_camera_high">Höhere Kamera</string>
     <string name="setup_switch_camera_high_desc">Die Kamera zoomt bis zu viermal weiter heraus, als die Karte erlaubt.</string>
     <string name="setup_control_scheme_help">Wird beim nächsten Spielstart wirksam. Funktioniert in Gefechten, in der Kampagne und online gleichermaßen: Es ändert sich nur, wie Sie Befehle geben, nicht die Spielregeln.</string>
+    <string name="setup_appearance_title">Darstellung</string>
+    <string name="setup_appearance_system">System</string>
+    <string name="setup_appearance_light">Tag</string>
+    <string name="setup_appearance_dark">Nacht</string>
+    <string name="setup_appearance_help">Ändert nur die App-Oberfläche. System folgt dem Gerät; Tag und Nacht bleiben gespeichert. Die Spielgrafik bleibt unverändert.</string>
     <string name="setup_cursor_size_label">Zeigergröße: %1$d %%</string>
     <string name="setup_switch_skip_intro">Intro-Videos überspringen</string>
     <string name="setup_switch_skip_intro_desc">EA-Logos, das Intro und andere Videos vor dem Menü werden übersprungen; das Spiel lädt sofort. Für beide Spiele, auch mit Mods.</string>

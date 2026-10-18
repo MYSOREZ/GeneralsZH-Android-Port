@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="gzh_startup_background">#080E18</color>
+    <!-- GeneralsX @feature 10/10/2026 Navy-Gold launcher colors.
+    Semantic IDs unchanged; Day/Night supported; no SDL/game renderer changes. -->
+
+    <!-- Ground + surface ladder (M3 surface container roles) -->
+    <color name="gzh_background">#F6F8FC</color>
+    <color name="gzh_surface">#FFFFFF</color>
+    <color name="gzh_surface_container_low">#EEF2F8</color>
+    <color name="gzh_surface_container">#FFFFFF</color>
+    <color name="gzh_surface_container_high">#E7EEF6</color>
+    <color name="gzh_surface_container_highest">#DAE5F1</color>
+
+    <!-- Content on those surfaces -->
+    <color name="gzh_on_surface">#132338</color>
+    <color name="gzh_on_surface_variant">#405675</color>
+    <!-- The faintest tier still has to clear WCAG AA (4.5:1) at 12sp against
+         gzh_surface_container, which #7C798C did not (3.9:1). -->
+    <color name="gzh_on_surface_faint">#526782</color>
+    <color name="gzh_outline">#ABC0D3</color>
+    <color name="gzh_outline_variant">#D3E0EA</color>
+
+    <!-- Primary: the soft lavender accent (headings, active nav item,
+         selected segment, hero action). -->
+    <color name="gzh_primary">#895300</color>
+    <color name="gzh_on_primary">#FFFFFF</color>
+    <color name="gzh_primary_container">#FDE6B0</color>
+    <color name="gzh_on_primary_container">#503100</color>
+    <!-- Kept for the themes.xml colorPrimaryDark slot (pre-API-23 status bar). -->
+    <color name="gzh_primary_dark">#F6F8FC</color>
+    <color name="gzh_accent">#895300</color>
+
+    <!-- Secondary: a desaturated companion for tonal chips/containers. -->
+    <color name="gzh_secondary">#32658A</color>
+    <color name="gzh_on_secondary">#FFFFFF</color>
+    <color name="gzh_secondary_container">#D4EAF9</color>
+    <color name="gzh_on_secondary_container">#103C5F</color>
+
+    <!-- Tertiary: the muted pastel used for destructive / "clear" actions. -->
+    <color name="gzh_tertiary">#8E4933</color>
+    <color name="gzh_on_tertiary">#FFFFFF</color>
+    <color name="gzh_tertiary_container">#FAE2D7</color>
+    <color name="gzh_on_tertiary_container">#5A2B1D</color>
+
+    <color name="gzh_error">#B3261E</color>
+    <color name="gzh_on_error">#FFFFFF</color>
+    <color name="gzh_error_container">#FCE8E6</color>
+    <color name="gzh_on_error_container">#5F1711</color>
+
+    <!-- Disabled state (M3: 38% of on-surface for content, 12% for containers) -->
+    <color name="gzh_on_surface_disabled">#61132338</color>
+    <color name="gzh_container_disabled">#1F132338</color>
+    <color name="gzh_ripple_light">#1F132338</color>
+    <color name="gzh_ripple_primary">#33895300</color>
+
+    <!-- GeneralsX @feature Android port game-folder-integrity-check 07/09/2026
+         Semantic status colours for the game-folder validity line (see
+         refreshStatus() in SetupActivity.java) — retuned for the near-black
+         ground above so they stay legible without shouting. -->
+    <color name="gzh_status_ok">#087949</color>
+    <color name="gzh_status_warn">#855700</color>
+    <color name="gzh_status_error">#B3261E</color>
+</resources>

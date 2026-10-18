@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- GeneralsX @bugfix Codex 04/10/2026 Center at intrinsic size; no fill/stretch. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@color/gzh_startup_background" />
+    <item>
+        <bitmap android:src="@drawable/startup_emblem"
+            android:gravity="center" android:filter="true" />
+    </item>
+</layer-list>
