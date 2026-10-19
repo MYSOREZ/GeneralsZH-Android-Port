@@ -78,6 +78,9 @@ accounts at risk, not your own.
 
 - **Custom maps in online lobbies** work: the map and its preview reach every player.
 - The relay servers are tried in a new order, so networks that block one port connect in time (#37).
+- **LAN over a virtual-LAN VPN** (#54): the address a virtual LAN such as MiniLAN or Tailscale gives the phone
+  (100.x) can now be chosen under Options -> IP Address, to play LAN with friends on other networks (with
+  Tailscale, join by address with Direct Connect). Wi-Fi stays the default.
 - **Lobby and sign-in messages in your language** (they were English in every language); the message
   shown when trying to join a PC game says that cross-play is off.
 - The launcher's GeneralsOnline screen no longer talks about PC play; its cross-play card stays, switched
