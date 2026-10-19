@@ -40,7 +40,6 @@
 #include "PreRTS.h"
 
 #include "Common/GXControlScheme.h"
-#include "Common/GXSafeArea.h"
 #include "Common/MessageStream.h"
 #include "Common/NameKeyGenerator.h"
 #include "Common/Player.h"
@@ -608,12 +607,15 @@ static ColumnGeometry columnGeometry(Int barTop)
 	g.margin = max(4, (Int)(6 * resolution));
 	g.gap = max(2, (Int)(4 * resolution));
 	g.x0 = g.margin;
-	const Int bottom = height - GXSafeArea::bottomPx() - g.margin;
+	// Down to the screen's foot, as the control bar beside it goes (owner, a33: the safe-area inset
+	// left an empty band under the buttons).
+	const Int bottom = height - g.margin;
 	if (barTop <= 0) {
 		barTop = (Int)(height * 0.6f);
 	}
 	g.rowHeight = max((Int)(20 * resolution), (bottom - barTop - 5 * g.gap) / 6);
-	g.cellWidth = (Int)(g.rowHeight * 1.3f);
+	// Wide enough for a thumb (owner, a33: the buttons were hard to hit with big fingers).
+	g.cellWidth = (Int)(g.rowHeight * 1.8f);
 	g.columnWidth = 2 * g.cellWidth + g.gap;
 	g.narrowRight = g.x0 + g.columnWidth + g.margin;
 	g.wideRight = g.x0 + 2 * g.columnWidth + g.gap + g.margin;
