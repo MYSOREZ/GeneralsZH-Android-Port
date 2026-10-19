@@ -10,96 +10,107 @@ builds. GeneralsOnline treats an Android client in a PC game as a violation of i
 the players using such a build risk being banned on GeneralsOnline. You would be putting other people's
 accounts at risk, not your own.
 
-## Highlights
+## What's new since 1.4.0
 
 ### Command & Conquer: Generals (the base game) on Android
 
-The APK now carries **both games**. The launcher's Home page has a **Generals | Zero Hour** switch; Play,
-the game folder and its checks follow it. Generals runs on the same renderer, controls and launcher as Zero
-Hour, with its own game folder:
-
-- Skirmish and the campaign, with the briefing voice at the right time.
+- The APK now carries **both games**, and the app is simply called **Generals**. The launcher's Home page
+  has a **Generals | Zero Hour** switch; Play, the game folder and its checks follow it. Each game has its
+  own folder, both its 30 Hz and 60 Hz engines.
+- Generals runs on the same renderer, touch controls and launcher as Zero Hour: skirmish and the campaign
+  (with the briefing voice at the right time), the general's power shortcut and powers usable by touch.
 - **Zero Hour's 14-cell command bar** in Generals too, with the same layout of build and unit buttons, the
-  page arrow and the touch order buttons (force attack and the others).
-- The general's power shortcut and the generals' powers usable by touch.
-- Language packs work for Generals as well.
+  order page arrow and the touch order buttons.
+- Fixed in Generals: black terrain (fog of war over the whole map), game speed tied to the draw rate and
+  flickering icons, power shortcut slots at the wrong size and place.
+- Language packs work for Generals as well; Zero Hour and Generals each fetch their own translation file.
+- **Generals takes the pictures it lacks from Zero Hour** when both are installed (the force-attack button
+  among them; a drawn icon stands in otherwise). The game folder card on Home shows where each game takes
+  what its folder lacks.
 
 ### Controls
 
-- **Mouse and touchpad mode** (launcher → Interface → Controls, off by default): a pointer on screen. A
-  connected mouse works as on a PC; without one your finger moves the cursor like a laptop touchpad -- tap to
-  click, two-finger tap for a right click, two fingers to move and zoom the map. Edge scrolling, a cursor
-  size slider, and menus, lobby and the group panel stay usable by finger directly.
-- **Touch orders** (#25): force attack as a mode, scatter, formation.
 - **Army column**: a **+** button above the left end of the control bar opens a column with the ten
-  control groups (tap to select, or to assign an empty group; two-finger tap assigns; hold until the
-  button fills red to clear -- the message line confirms it, and empty groups show dim). The control bar
-  moves right while it is open. **>** widens it with the army buttons: every combat unit on screen or on
-  the map, planes, helicopters, ground forces (press Ground twice for the whole map). The buttons are the
-  game's own, in each faction's colours.
-- **Control scheme: Classic or Tactical** (launcher → Interface → Control scheme). Classic is the original
-  game. Tactical: combat units **attack on the move** (dozers and harvesters still just move), the army
-  column opens with its **army buttons**, and a **higher camera** (zooms out up to four times further). Each
-  one has its own switch too. The mouse and touchpad mode now sits in the same card.
-- **Camera settings in Zero Hour** (Options → Extras): maximum and minimum height, pitch, scroll speed and
-  draw distance, with -/+ buttons, exact values and presets.
-- **Physical keyboard:** every key with its original code -- the keypad, punctuation and the hotkeys that
-  did nothing before.
+  control groups; the control bar moves right while it is open, and **-** closes it.
+  - Tap a group to select it (an empty group takes the current selection); a two-finger tap always assigns.
+  - Hold a group until it fills red to clear it -- the message line confirms it, and empty groups show dim.
+  - **>** widens the column with the **army buttons**: every combat unit on screen or on the whole map,
+    planes, helicopters, ground forces (press Ground twice for the whole map). Dozers, workers, harvesters
+    and buildings are never picked.
+  - The buttons are the game's own, in each faction's colours.
+- **Control scheme: Classic or Tactical** (launcher -> Interface -> Control scheme). Classic is the
+  original game. Tactical: combat units **attack on the move** (dozers and harvesters still just move), the
+  army column opens with its army buttons, and a **higher camera** (zooms out up to four times further).
+  Each one has its own switch too.
+- **Mouse and touchpad mode** (#39, in the same card, off by default): a pointer on screen. A connected
+  mouse works as on a PC; without one your finger moves the cursor like a laptop touchpad -- tap to click,
+  two-finger tap for a right click, two fingers to move and zoom the map. Edge scrolling and a cursor size
+  slider; menus, lobby and the group column stay usable by finger directly.
+- **Camera settings in Zero Hour** (Options -> Extras): maximum and minimum height, pitch, scroll speed
+  and draw distance, with -/+ buttons, exact values and presets.
+- **Touch orders** (#25): force attack as a mode, scatter, formation.
+- **Physical keyboard:** every key with its original code -- the keypad, punctuation and hotkeys that did
+  nothing before.
 - **A real mouse scrolls the map** without the touchpad mode (#47): edge scroll and right-button drag; the
   wheel zooms smoothly; no lost button releases.
+- The group controls no longer swallow touches meant for the command bar under them (#33).
 
 ### Game fixes
 
 - **Old saves load again** (they were misread after 1.4.0).
-- **Campaign:** the second mission no longer starts underneath the main menu after mission 1.
+- **Campaign:** the next mission no longer starts underneath the main menu after mission 1, and the score
+  screen's frames no longer stay over it after Continue.
 - **Options no longer crash** with the original Generals 1.00 menu layouts kept by some disc editions.
 - **Blank text** on devices where the fonts could not be copied into the game folder (#36): the game now
   finds the bundled fonts itself.
-- **The money counter's description** no longer flickers when hovered.
 - **Mods and language packs together:** a mod's own texts (its units, tooltips, menus) show as the mod
-  wrote them and the rest of the game stays in your language, instead of MISSING everywhere.
+  wrote them and the rest of the game stays in your language, instead of MISSING everywhere -- also for
+  mods that keep their text in `Data\Generals.str`.
 - **Mod fonts** are found by the name inside the font file, also in `Fonts/` and the game folder.
 - **Angry mob** members no longer appear in the map's corner (#30, #42).
-- **Campaign:** the score screen's frames no longer stay over the next mission after Continue.
-- **Mods that keep their text in `Data\Generals.str`** (Shockwave among them) show their own names instead of
-  MISSING.
-- **No more slowdown after a replay check:** a check left diagnostics switched on that slowed every later game.
+- **No more slowdown after a replay check:** a check left diagnostics switched on that slowed every later
+  game.
 - **The main menu's background** is filmed from the original height again; the Challenge loading animation
   plays in step with its sound.
-- **Generals takes the pictures it lacks from Zero Hour** when both are installed (the force-attack button
-  among them); the game folder card on Home shows where each game takes them from.
+- **The money counter's description** no longer flickers when hovered.
 
 ### Online
 
 - **Custom maps in online lobbies** work: the map and its preview reach every player.
-- Connection order of the relay servers changed so networks that block one port connect in time (#37).
-- **Lobby and sign-in messages in your language** (they were English in every language), and the message
-  shown when joining a PC game now says that cross-play is off.
-- The launcher's GeneralsOnline screen no longer talks about PC play; its cross-play card stays, switched off,
-  with the reason.
+- The relay servers are tried in a new order, so networks that block one port connect in time (#37).
+- **Lobby and sign-in messages in your language** (they were English in every language); the message
+  shown when trying to join a PC game says that cross-play is off.
+- The launcher's GeneralsOnline screen no longer talks about PC play; its cross-play card stays, switched
+  off, with the reason.
 
-### Graphics
+### Graphics and stability
 
 - **Vulkan is hidden** for now: since the OpenGL ES work of 1.4.0 it shows black textures on many devices.
   Anyone still on Vulkan is moved to OpenGL ES once, with a message. It can be brought back for testing in
-  **Tools → Diagnostics → Experimental Vulkan renderer**.
-- A crash on some Mali GPUs (Mali-G57) at match start is fixed (#35, #41).
+  **Tools -> Diagnostics -> Experimental Vulkan renderer**.
+- A crash at match start on some Mali GPUs (Mali-G57) is fixed (#35, #41); GPU frame timing is now a
+  diagnostics switch, off by default.
+- A rare render-thread memory error fixed; crash logs say more about what the renderer was doing, and logs
+  are shared as one zip.
 
 ### Launcher
 
-- **Skip intro movies**: a switch under the game picker skips the logos and intro movies straight to loading.
-- **The game folder one or two levels down**: pick the folder the archive was unpacked into, and the launcher
-  finds the game inside it.
-- Language packs: Zero Hour and Generals each fetch their own translation file.
-- **Mods screen** (Home → Mods): several mods at once, each with its own switch, in the order you choose
-  (the upper one wins where two change the same file), with the mod's picture and description. Import a
-  mod from a folder, a `.big` or a `.zip` into the game's `mods` folder; a complete game picked by mistake,
-  or a `.rar`, is explained instead of failing. Mods installed the old way (`!` archives in the game folder)
-  keep working. Online (GeneralsOnline) is played without mods; LAN games work when everyone has the same
-  mods. A mod can be moved between Generals and Zero Hour, and **Share the list of mods** sends the order and
-  versions to the friends you play LAN with. Home says when mods are installed but all switched off.
+- **Mods screen** (Home -> Mods): several mods at once, each with its own switch, in the order you choose
+  (the upper one wins where two change the same file), with the mod's picture, description and its own page.
+  Mods are checked for the game they belong to and for conflicts. Import a mod from a folder, a `.big` or a
+  `.zip` into the game's `mods` folder; a complete game picked by mistake, or a `.rar`, is explained instead
+  of failing. A mod can be moved between Generals and Zero Hour. **Share the list of mods** sends the order
+  and versions to the friends you play LAN with. Each set of mods keeps its own saves and replays. If a game
+  does not start twice in a row with the same mods, the launcher offers to start without them. Mods
+  installed the old way (`!` archives in the game folder) keep working; online (GeneralsOnline) is played
+  without mods. Home says when mods are installed but all switched off.
 - **Appearance** (Interface tab): the usual dark look, navy and gold, a light day look, or following the
   phone.
+- **Skip intro movies**: a switch under the game picker skips the logos and intro movies.
+- **The game folder one or two levels down**: pick the folder the archive was unpacked into, and the
+  launcher finds the game inside it. A complete Generals folder is no longer reported as incomplete.
+- A support card and occasional announcements from the project.
+- A sharper launcher icon.
 
 ## Install / update
 
