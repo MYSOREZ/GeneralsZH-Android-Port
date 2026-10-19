@@ -25950,3 +25950,6 @@ GX:Connecting
 "Conectando..."
 END
 
+GX:GroupCleared
+"Grupo %d esvaziado"
+END

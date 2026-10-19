@@ -25949,3 +25949,6 @@ GX:Connecting
 "Verbinde..."
 END
 
+GX:GroupCleared
+"Gruppe %d geleert"
+END

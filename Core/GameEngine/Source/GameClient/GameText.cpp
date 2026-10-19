@@ -289,6 +289,7 @@ static const GXEnglishDefault s_gxEnglishDefaults[] =
 	{ "GX:FriendAccepted", L"%hs accepted your friend request." },
 	{ "GX:ForcedReady", L"All players have been forced to ready up." },
 	{ "GX:Connecting", L"Connecting..." },
+	{ "GX:GroupCleared", L"Group %d cleared" },
 	{ "GUI:CustomMission",     L"CUSTOM MISSION" },
 	{ "GX:ForceAttack",        L"Force Attack" },
 	{ "GX:ToolTipForceAttack", L"Attack whatever you tap, even your own units or empty ground, until you press this again" },

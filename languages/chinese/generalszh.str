@@ -25950,3 +25950,6 @@ GX:Connecting
 "正在连接..."
 END
 
+GX:GroupCleared
+"已清空第 %d 组"
+END

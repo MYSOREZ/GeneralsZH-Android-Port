@@ -25952,3 +25952,6 @@ GX:Connecting
 "در حال اتصال..."
 END
 
+GX:GroupCleared
+"گروه %d خالی شد"
+END

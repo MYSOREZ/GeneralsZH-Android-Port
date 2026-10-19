@@ -25950,3 +25950,6 @@ GX:Connecting
 "Łączenie..."
 END
 
+GX:GroupCleared
+"Grupa %d wyczyszczona"
+END

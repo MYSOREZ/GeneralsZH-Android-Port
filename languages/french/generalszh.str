@@ -25949,3 +25949,6 @@ GX:Connecting
 "Connexion..."
 END
 
+GX:GroupCleared
+"Groupe %d vidé"
+END

@@ -25949,3 +25949,6 @@ GX:Connecting
 "Підключення..."
 END
 
+GX:GroupCleared
+"Групу %d очищено"
+END

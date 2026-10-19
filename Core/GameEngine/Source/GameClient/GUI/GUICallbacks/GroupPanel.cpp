@@ -262,6 +262,30 @@ static void handleGroupClear(Int group)
 		return;
 	}
 	TheMessageStream->appendMessage((GameMessage::Type)(GameMessage::MSG_CREATE_TEAM0 + group));
+	// GeneralsX @tweak Android port 19/10/2026 Said where it can be read: the thumb that held the
+	// button covers its clock wipe (owner: "I hold it and cannot tell whether the group was cleared").
+	if (TheInGameUI && TheGameText) {
+		TheInGameUI->message(TheGameText->fetch("GX:GroupCleared"), group);
+	}
+}
+
+// GeneralsX @tweak Android port 19/10/2026 An empty group's digit is dim, a group with units bright,
+// so a cleared group shows as cleared at a glance.
+static void updateGroupDigits()
+{
+	if (!s_drawerOpen) {
+		return;
+	}
+	for (Int i = 0; i < 10; ++i) {
+		GameWindow *button = panelWindow(s_buttonGroupID[i]);
+		if (!button) {
+			continue;
+		}
+		const Color color = isGroupEmpty(i) ? GameMakeColor(150, 140, 120, 255) : GameMakeColor(255, 236, 196, 255);
+		if (button->winGetEnabledTextColor() != color) {
+			button->winSetEnabledTextColors(color, GameMakeColor(0, 0, 0, 255));
+		}
+	}
 }
 
 // The red clock wipe on a group button held down; GBM_SELECTED reads how long it was held.
@@ -774,6 +798,7 @@ void GroupPanelUpdate(WindowLayout *layout, void *userData)
 		return;
 	}
 	updateHoldVisuals();
+	updateGroupDigits();
 	GameWindow *handle = panelWindow(s_buttonHandleID);
 	if (GameWindow *toggle = panelWindow(s_buttonArmyToggleID)) {
 		const UnicodeString mark(s_armyShown ? L"<" : L">");

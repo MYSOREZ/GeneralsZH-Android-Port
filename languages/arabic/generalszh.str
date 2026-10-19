@@ -25950,3 +25950,6 @@ GX:Connecting
 "جارٍ الاتصال..."
 END
 
+GX:GroupCleared
+"تم تفريغ المجموعة %d"
+END

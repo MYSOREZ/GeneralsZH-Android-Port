@@ -25950,3 +25950,6 @@ GX:Connecting
 "연결 중..."
 END
 
+GX:GroupCleared
+"%d번 그룹을 비웠습니다"
+END

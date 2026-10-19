@@ -25952,3 +25952,6 @@ GX:Connecting
 "Povęzyvanje..."
 END
 
+GX:GroupCleared
+"Grupa %d jest izprazdnjena"
+END
