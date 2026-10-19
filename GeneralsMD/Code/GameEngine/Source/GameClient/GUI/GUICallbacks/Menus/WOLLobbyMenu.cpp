@@ -119,6 +119,13 @@ static GameWindow *buttonHost = nullptr;
 static GameWindow *buttonRefresh = nullptr;
 static GameWindow *buttonJoin = nullptr;
 static GameWindow *buttonBuddy = nullptr;
+// GeneralsX @bugfix Android port 19/10/2026 Which opening of the lobby a server reply belongs to. The
+// room list is requested when the lobby opens, and with the GeneralsOnline servers answering slowly
+// (every request timing out) the reply arrived after the player had left the lobby: its callback
+// then reset the destroyed lobby's combo box and crashed (owner's log, 19/10/2026). A reply is acted
+// on only while the lobby that asked for it is still the one on screen.
+static UnsignedInt s_lobbyOpening = 0;
+static Bool s_lobbyOpen = FALSE;
 static GameWindow *buttonEmote = nullptr;
 static GameWindow *textEntryChat = nullptr;
 static GameWindow *listboxLobbyPlayers = nullptr;
@@ -1298,6 +1305,8 @@ void NGMP_WOLLobbyMenu_JoinLobbyCallback(EJoinLobbyResult result)
 //-------------------------------------------------------------------------------------------------
 void WOLLobbyMenuInit( WindowLayout *layout, void *userData )
 {
+	++s_lobbyOpening;
+	s_lobbyOpen = TRUE;
 	// for safety (and sanity)
 	NGMP_OnlineServices_LobbyInterface* pLobbyInterface = NGMP_OnlineServicesManager::GetInterface<NGMP_OnlineServices_LobbyInterface>();
 	if (pLobbyInterface != nullptr)
@@ -1481,8 +1490,15 @@ void WOLLobbyMenuInit( WindowLayout *layout, void *userData )
 	fflush(stderr);
 	if (pRoomsInterfaceOuter != nullptr)
 	{
+		const UnsignedInt opening = s_lobbyOpening;
 		pRoomsInterfaceOuter->GetRoomList([=]()
 			{
+				if (!s_lobbyOpen || opening != s_lobbyOpening)
+				{
+					fprintf(stderr, "DEBUG-JOIN: room list arrived after the lobby closed; ignored\n");
+					fflush(stderr);
+					return;
+				}
 				fprintf(stderr, "DEBUG-JOIN: GetRoomList complete, calling JoinRoom(0)\n");
 				fflush(stderr);
 				// attempt to join the first room
@@ -1646,6 +1662,11 @@ void WOLLobbyMenuShutdown( WindowLayout *layout, void *userData )
 
 	listboxLobbyChat = nullptr;
 	listboxLobbyPlayers = nullptr;
+	// GeneralsX @bugfix Android port 19/10/2026 Late replies and the notifications callback (which
+	// checks buttonBuddy) must not reach the lobby's windows once they are gone.
+	s_lobbyOpen = FALSE;
+	buttonBuddy = nullptr;
+	comboLobbyGroupRooms = nullptr;
 
 	isShuttingDown = true;
 

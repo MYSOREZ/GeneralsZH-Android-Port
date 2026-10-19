@@ -1278,6 +1278,13 @@ Bool LANAPI::SetLocalIP( UnsignedInt localIP )
 	retval = m_transport->init(m_localIP, lobbyPort);
 	m_transport->allowBroadcasts(true);
 
+	// GeneralsX @feature Android port 19/10/2026 Which address LAN play is bound to: a report that two
+	// players over a virtual LAN do not see each other could not be told apart from Wi-Fi being used.
+	fprintf(stderr, "[GX-LAN] lobby bound to %u.%u.%u.%u port %u: %s\n",
+		(m_localIP >> 24) & 0xFF, (m_localIP >> 16) & 0xFF, (m_localIP >> 8) & 0xFF, m_localIP & 0xFF,
+		(unsigned)lobbyPort, retval ? "ok" : "FAILED");
+	fflush(stderr);
+
 	return retval;
 }
 
