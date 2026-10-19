@@ -691,9 +691,14 @@ void GroupPanelCalibrateFollowOffset(Int barScreenX, Int barScreenY)
 	fprintf(stderr, "[GX-UISCALE] group panel: control bar at %d,%d\n", barScreenX, barScreenY);
 }
 
-void GroupPanelCloseDrawer()
+// GeneralsX @bugfix Android port 19/10/2026 Each game starts with the column closed and the army
+// buttons as the control scheme says. GroupPanelInit cannot do the latter: ControlBar creates this
+// layout with winCreateLayout, which never runs a layout's init, so the scheme was never read and
+// one tap on ">" stayed for every later game -- Classic and Tactical behaved alike (owner, a38).
+void GroupPanelResetForGame()
 {
 	setDrawer(FALSE);
+	setArmyShown(GXControlScheme::enabled(GXControlScheme::ARMY_BUTTONS));
 }
 
 void GroupPanelFollowControlBar(Int barScreenX, Int barScreenY, Bool visible)

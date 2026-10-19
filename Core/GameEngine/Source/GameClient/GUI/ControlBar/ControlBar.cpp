@@ -1535,8 +1535,9 @@ void ControlBar::init()
 //-------------------------------------------------------------------------------------------------
 void ControlBar::reset()
 {
-	// GeneralsX @feature Android port 18/10/2026 Every game starts with the army column closed.
-	GroupPanelCloseDrawer();
+	// GeneralsX @feature Android port 18/10/2026 Every game starts with the army column closed, its army
+	// buttons as the control scheme says.
+	GroupPanelResetForGame();
 	hideSpecialPowerShortcut();
 	// do not destroy the rally drawable, it will get destroyed with everything else during a reset
 	m_rallyPointDrawableID = INVALID_DRAWABLE_ID;
