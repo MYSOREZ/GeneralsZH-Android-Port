@@ -481,7 +481,9 @@ static void initLabelVersion()
 	GameWindow *labelVersion = TheWindowManager->winGetWindowFromId( nullptr, versionID );
 	UnicodeString creditText;
 #if defined(__ANDROID__)
-	creditText.translate("GeneralsX for Android - C&C Generals Zero Hour");
+	// GeneralsX @bugfix Android port 19/10/2026 This is the base game: the line was copied from Zero
+	// Hour's main menu with Zero Hour's name (owner, a38).
+	creditText.translate("GeneralsX for Android - C&C Generals");
 #else
 	creditText.translate("GeneralsX - Multiplatform C&C Generals");
 #endif

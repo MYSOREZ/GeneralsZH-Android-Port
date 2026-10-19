@@ -152,24 +152,23 @@ static void gxExtrasTakeOptionsLook(GameWindow *parent)
             if (TextData *text = (TextData *)child->winGetUserData())
                 text->centered = FALSE;
         }
-        else if (BitIsSet(style, GWS_ENTRY_FIELD))
-            GXWindowLook::copyFont(child, entry);
     }
     const char *bottom[] = { "ButtonAccept", "ButtonDefaults", "ButtonBack" };
     for (const char *name : bottom)
         GXWindowLook::copyFont(gxExtrasChild(name), button);
-    // The small -/+ and preset buttons read at the number fields' size; Options' button font is
-    // made for buttons four times their width.
+    // The number fields, the small -/+ and the preset buttons keep the Extras layout's own size
+    // (scaled for the screen) in Options' font family: Options' button font is made for buttons four
+    // times their width, and Generals' text fields use an 8-point font (owner, a38: tiny digits).
     for (Int i = 0; i < 5; ++i)
     {
         AsciiString minus, plus; minus.format("Exact%dMinus", i); plus.format("Exact%dPlus", i);
-        GXWindowLook::copyFont(gxExtrasChild(minus.str()), entry);
-        GXWindowLook::copyFont(gxExtrasChild(plus.str()), entry);
+        if (GameWindow *w = gxExtrasChild(minus.str())) GXWindowLook::copyFontFamily(w, entry ? entry : button);
+        if (GameWindow *w = gxExtrasChild(plus.str())) GXWindowLook::copyFontFamily(w, entry ? entry : button);
     }
     for (Int i = 0; i < 4; ++i)
     {
         AsciiString preset; preset.format("CameraPreset%d", i);
-        GXWindowLook::copyFont(gxExtrasChild(preset.str()), entry);
+        if (GameWindow *w = gxExtrasChild(preset.str())) GXWindowLook::copyFontFamily(w, entry ? entry : button);
     }
     if (GameWindow *ours = gxExtrasChild("LabelTitle"))
     {
