@@ -331,7 +331,9 @@ UnicodeString Version::getUnicodeProductVersion() const
 
 UnicodeString Version::getUnicodeProductAuthor() const
 {
-	return getUnicodeBuildUserOrGitCommitAuthorName();
+	// GeneralsX @tweak Android port 19/10/2026 No author in the product string: it is whoever made
+	// the last commit of the build ("by Claude"), which says nothing to a player (owner, a38).
+	return UnicodeString::TheEmptyString;
 }
 
 UnicodeString Version::getUnicodeProductString() const
