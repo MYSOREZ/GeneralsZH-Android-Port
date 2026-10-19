@@ -422,9 +422,9 @@ void ExtrasMenuInit(WindowLayout *layout, void *userData)
     if (sliderCameraPitch)
         GadgetSliderSetPosition(sliderCameraPitch, (Int)pref->getCameraPitch());
     if (sliderScrollSpeed)
-        GadgetSliderSetPosition(sliderScrollSpeed, (Int)(pref->getScrollFactor() * 100.0f));
+        GadgetSliderSetPosition(sliderScrollSpeed, (Int)(pref->getScrollFactor() * 100.0f + 0.5f));
     if (sliderDrawDistance)
-        GadgetSliderSetPosition(sliderDrawDistance, (Int)(pref->getTerrainDrawDistanceScale() * 100.0f));
+        GadgetSliderSetPosition(sliderDrawDistance, (Int)(pref->getTerrainDrawDistanceScale() * 100.0f + 0.5f));
 
     // GeneralsX @feature Android port 18/10/2026 Labels in the text language (a language pack's, else
     // the game's); realkot's build had English and Russian.
@@ -500,8 +500,6 @@ static void saveExtras()
 	val = max(SLIDER_MAX_CAMERA_HEIGHT_MIN, min(SLIDER_MAX_CAMERA_HEIGHT_MAX, GadgetSliderGetPosition(sliderMaxCameraHeight))) / GX_EXTRA_CAMERA_SCALE;
     val = max(val, max(SLIDER_MIN_CAMERA_HEIGHT_MIN, min(SLIDER_MIN_CAMERA_HEIGHT_MAX, GadgetSliderGetPosition(sliderMinCameraHeight))));
 	if (val > 0) {
-		if (GXExtrasValues::retailMaxCameraHeight() <= 0.0f)
-			GXExtrasValues::retailMaxCameraHeight() = TheGlobalData->m_maxCameraHeight;
 		TheWritableGlobalData->m_maxCameraHeight = (Real)val;
 		AsciiString prefString;
 		prefString.format("%d", val);
@@ -555,16 +553,24 @@ static void saveExtras()
 //-------------------------------------------------------------------------------------------------
 static void setDefaults()
 {
+	// GeneralsX @bugfix Android port 19/10/2026 The values GameData.ini gives (the game's or a mod's,
+	// GXExtrasValues::iniCamera), not fixed numbers: realkot's 500 / 80 / 37 / 100 / 105 were neither
+	// Zero Hour's nor Generals' own (owner, a37).
+	const GXExtrasValues::CameraDefaults &ini = GXExtrasValues::iniCamera();
+	const Real maxHeight = ini.known ? ini.maxHeight : TheGlobalData->m_maxCameraHeight;
+	const Real minHeight = ini.known ? ini.minHeight : TheGlobalData->m_minCameraHeight;
+	const Real pitch = ini.known ? ini.pitch : TheGlobalData->m_cameraPitch;
+	const Real drawDistance = ini.known ? ini.drawDistanceScale : TheGlobalData->m_terrainDrawDistanceScale;
 	if (sliderMaxCameraHeight)
-		GadgetSliderSetPosition(sliderMaxCameraHeight, 500 * GX_EXTRA_CAMERA_SCALE);
+		GadgetSliderSetPosition(sliderMaxCameraHeight, (Int)(maxHeight + 0.5f) * GX_EXTRA_CAMERA_SCALE);
 	if (sliderMinCameraHeight)
-		GadgetSliderSetPosition(sliderMinCameraHeight, 80);
+		GadgetSliderSetPosition(sliderMinCameraHeight, (Int)(minHeight + 0.5f));
 	if (sliderCameraPitch)
-		GadgetSliderSetPosition(sliderCameraPitch, 37);
+		GadgetSliderSetPosition(sliderCameraPitch, (Int)(pitch + 0.5f));
 	if (sliderScrollSpeed)
-		GadgetSliderSetPosition(sliderScrollSpeed, 100);
+		GadgetSliderSetPosition(sliderScrollSpeed, (Int)(TheGlobalData->m_keyboardDefaultScrollFactor * 100.0f + 0.5f));
 	if (sliderDrawDistance)
-		GadgetSliderSetPosition(sliderDrawDistance, 105);
+		GadgetSliderSetPosition(sliderDrawDistance, (Int)(drawDistance * 100.0f + 0.5f));
 }
 
 //-------------------------------------------------------------------------------------------------

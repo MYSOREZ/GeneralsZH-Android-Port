@@ -32,12 +32,20 @@ template<class Char> inline bool digits(const Char *text,int length,int &value) 
     }
     value=result;return true;
 }
-// GeneralsX @bugfix Android port 18/10/2026 GameData's MaxCameraHeight before the Extras menu first
-// overrode it this session (0 until then): the main menu's scene keeps the retail height
-// (W3DView::setZoomToMax).
-inline float &retailMaxCameraHeight() {
-    static float value=0.0f;
+// GeneralsX @bugfix Android port 19/10/2026 The camera values GameData.ini gives (the game's, or a
+// mod's), remembered when GlobalData is parsed and before the player's Extras values override them
+// (GlobalData.cpp). Extras' Defaults button goes back to these, and the main menu's scene keeps the
+// INI maximum height (W3DView::setZoomToMax). known stays false until GameData.ini has been read.
+struct CameraDefaults {
+    bool known=false;
+    float maxHeight=0.0f, minHeight=0.0f, pitch=0.0f, drawDistanceScale=1.0f;
+};
+inline CameraDefaults &iniCamera() {
+    static CameraDefaults value;
     return value;
+}
+inline float &retailMaxCameraHeight() {
+    return iniCamera().maxHeight;
 }
 inline int normalize(int value,int low,int high,int quantum=1) {
     value=std::max(low,std::min(high,value));

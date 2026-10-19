@@ -370,13 +370,13 @@
     <string name="setup_control_scheme_classic">Klassisch</string>
     <string name="setup_control_scheme_tactical">Taktisch</string>
     <string name="setup_control_scheme_custom">Eigenes</string>
-    <string name="setup_control_scheme_classic_desc">Wie im Originalspiel: Ein Bewegungsbefehl bewegt nur, die Kamera stoppt auf der Höhe der Karte, keine Armee-Tasten.</string>
-    <string name="setup_control_scheme_tactical_desc">Kampfeinheiten greifen in der Bewegung an, die Armeespalte bekommt die Armeeknöpfe, und die Kamera zoomt weiter heraus.</string>
+    <string name="setup_control_scheme_classic_desc">Wie im Originalspiel: Ein Bewegungsbefehl bewegt nur, die Kamera zoomt auf die übliche Höhe heraus (im Spiel änderbar: Optionen → Extras), die Armeespalte öffnet sich nur mit den Gruppen.</string>
+    <string name="setup_control_scheme_tactical_desc">Kampfeinheiten greifen in der Bewegung an, die Armeespalte öffnet sich gleich mit den Armeeknöpfen, und die Kamera zoomt bis zu viermal höher heraus.</string>
     <string name="setup_control_scheme_custom_desc">Ihre eigene Kombination der Schalter unten.</string>
     <string name="setup_switch_attack_move">Angriff in der Bewegung</string>
     <string name="setup_switch_attack_move_desc">Ein Bewegungsbefehl für Kampfeinheiten wird zum Angriffsmarsch: Sie bekämpfen, was ihnen unterwegs begegnet. Bulldozer und Sammler bewegen sich weiterhin nur.</string>
     <string name="setup_switch_army_buttons">Armee-Tasten</string>
-    <string name="setup_switch_army_buttons_desc">In der Armeespalte (der +-Knopf über dem linken Ende der Befehlsleiste öffnet sie und schiebt die Leiste nach rechts): Knöpfe, die alle Kampfeinheiten auf dem Bildschirm oder auf der ganzen Karte, Flugzeuge, Hubschrauber oder Bodentruppen auswählen („Boden“ erneut drücken: ganze Karte).</string>
+    <string name="setup_switch_army_buttons_desc">Ob sich die Armeespalte (der +-Knopf über dem linken Ende der Befehlsleiste öffnet sie und schiebt die Leiste nach rechts) gleich mit den Knöpfen öffnet, die alle Kampfeinheiten auf dem Bildschirm oder auf der ganzen Karte, Flugzeuge, Hubschrauber oder Bodentruppen auswählen („Boden“ erneut drücken: ganze Karte). Der Knopf > in der Spalte zeigt oder verbirgt sie in jedem Spiel, egal was hier eingestellt ist.</string>
     <string name="setup_switch_camera_high">Höhere Kamera</string>
     <string name="setup_switch_camera_high_desc">Die Kamera zoomt bis zu viermal weiter heraus, als die Karte erlaubt.</string>
     <string name="setup_control_scheme_help">Wird beim nächsten Spielstart wirksam. Funktioniert in Gefechten, in der Kampagne und online gleichermaßen: Es ändert sich nur, wie Sie Befehle geben, nicht die Spielregeln.</string>

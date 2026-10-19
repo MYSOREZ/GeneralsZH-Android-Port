@@ -370,13 +370,13 @@
     <string name="setup_control_scheme_classic">كلاسيكي</string>
     <string name="setup_control_scheme_tactical">تكتيكي</string>
     <string name="setup_control_scheme_custom">مخصص</string>
-    <string name="setup_control_scheme_classic_desc">كما في اللعبة الأصلية: أمر التحرك يحرك فقط، وتتوقف الكاميرا عند ارتفاع الخريطة، ولا توجد أزرار للجيش.</string>
-    <string name="setup_control_scheme_tactical_desc">تهاجم الوحدات القتالية أثناء الحركة، ويحصل عمود الجيش على أزرار الجيش، ويمكن إبعاد الكاميرا أكثر.</string>
+    <string name="setup_control_scheme_classic_desc">كما في اللعبة الأصلية: أمر التحرك يحرك فقط، وتبتعد الكاميرا إلى الارتفاع المعتاد (يمكن تغييره داخل اللعبة: الخيارات ← إضافات)، ويُفتح عمود الجيش بالمجموعات فقط.</string>
+    <string name="setup_control_scheme_tactical_desc">تهاجم الوحدات القتالية أثناء الحركة، ويُفتح عمود الجيش مع أزرار الجيش مباشرة، ويمكن إبعاد الكاميرا حتى أربعة أضعاف الارتفاع.</string>
     <string name="setup_control_scheme_custom_desc">مزيجك الخاص من المفاتيح أدناه.</string>
     <string name="setup_switch_attack_move">الهجوم أثناء التحرك</string>
     <string name="setup_switch_attack_move_desc">يصبح أمر التحرك للوحدات القتالية تقدمًا هجوميًا: تقاتل كل ما تصادفه في الطريق. الجرافات وجامعو الموارد يتحركون فقط.</string>
     <string name="setup_switch_army_buttons">أزرار الجيش</string>
-    <string name="setup_switch_army_buttons_desc">في عمود الجيش (يفتحه زر + فوق الطرف الأيسر للوحة القيادة وتنزاح اللوحة إلى اليمين): أزرار تحدد كل الوحدات القتالية على الشاشة أو على الخريطة كلها، أو الطائرات أو المروحيات أو القوات البرية (اضغط «برية» مرة أخرى للخريطة كلها).</string>
+    <string name="setup_switch_army_buttons_desc">هل يُفتح عمود الجيش (يفتحه زر + فوق الطرف الأيسر للوحة القيادة وتنزاح اللوحة إلى اليمين) مباشرة مع الأزرار التي تحدد كل الوحدات القتالية على الشاشة أو على الخريطة كلها، أو الطائرات أو المروحيات أو القوات البرية (اضغط «برية» مرة أخرى للخريطة كلها). زر > في العمود يُظهرها أو يُخفيها في أي لعبة، أيًّا كان هذا الخيار.</string>
     <string name="setup_switch_camera_high">كاميرا أعلى</string>
     <string name="setup_switch_camera_high_desc">يمكن إبعاد الكاميرا حتى أربعة أضعاف ما تسمح به الخريطة.</string>
     <string name="setup_control_scheme_help">يسري عند تشغيل اللعبة في المرة القادمة. يعمل في المناوشات والحملة والألعاب عبر الإنترنت على حد سواء: يتغير فقط أسلوب إصدار الأوامر، لا قواعد اللعبة.</string>

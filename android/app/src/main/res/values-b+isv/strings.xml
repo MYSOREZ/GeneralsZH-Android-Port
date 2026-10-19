@@ -370,13 +370,13 @@
     <string name="setup_control_scheme_classic">Klasična</string>
     <string name="setup_control_scheme_tactical">Taktična</string>
     <string name="setup_control_scheme_custom">Svoja</string>
-    <string name="setup_control_scheme_classic_desc">Kako v originalnoj igrě: prikaz «dvigati se» prosto vede k točke, kamera stoji na visině karty, knopok armije ne jest.</string>
-    <string name="setup_control_scheme_tactical_desc">Bojeve jedinice napadajut v hodu, v koloně armije javjajut se knopky armije, a kameru možno oddaliti silnějše.</string>
+    <string name="setup_control_scheme_classic_desc">Kako v originalnoj igrě: prikaz «dvigati se» prosto vede k točke, kamera se oddaljaje na običnu visinu (možno ju změniti v igrě: Nastavljenja → Dodatno), kolona armije se otvarja samo s grupami.</string>
+    <string name="setup_control_scheme_tactical_desc">Bojeve jedinice napadajut v hodu, kolona armije se otvarja odrazu s knopkami armije, a kameru možno oddaliti do četyrih raz vyše.</string>
     <string name="setup_control_scheme_custom_desc">Vaše svojo sočetanje prěključateljev niže.</string>
     <string name="setup_switch_attack_move">Ataka v dviženju</string>
     <string name="setup_switch_attack_move_desc">Prikaz «dvigati se» za bojeve jedinice je ataka v dviženju: oni bijut se so vsim, čto vstrětijut na puti. Buldozery i zbirači prosto jedut.</string>
     <string name="setup_switch_army_buttons">Knopki armije</string>
-    <string name="setup_switch_army_buttons_desc">V koloně armije (otvarja ju knopka + nad levym krajem komandnoj paneli, panel se togda pomikaje vpravo): knopky, ktore vybirajut vse bojeve jedinice na ekranu ili na vsej mapě, samolety, vrtoleti ili zemske vojska (ponovno natisnenje «Zemja» — po vsej mapě).</string>
+    <string name="setup_switch_army_buttons_desc">Li kolona armije (otvarja ju knopka + nad levym krajem komandnoj paneli, panel se togda pomikaje vpravo) se otvarja odrazu s knopkami, ktore vybirajut vse bojeve jedinice na ekranu ili na vsej mapě, samolety, vrtoleti ili zemske vojska (ponovno natisnenje «Zemja» — po vsej mapě). Knopka > v koloně pokazuje i skryvaje je v vsakoj igrě, nezavisno od togo, što stoji tut.</string>
     <string name="setup_switch_camera_high">Visoka kamera</string>
     <string name="setup_switch_camera_high_desc">Kameru možno oddaliti do četyrikrat dalje, než dozvoljaje karta.</string>
     <string name="setup_control_scheme_help">Dějstvuje pri slědujučem zapuskě igry. Rabotaje v bitvě, kampanji i setevyh igrah: měnjaje se jedino to, kako davate prikazy, ne pravila igry.</string>

@@ -53,6 +53,7 @@
 #include "Common/GameAudio.h"
 #include "Common/INI.h"
 #include "Common/OptionPreferences.h"
+#include "GameClient/GXExtrasValues.h"
 #include "Common/version.h"
 
 #include "GameLogic/AI.h"
@@ -1223,7 +1224,22 @@ void GlobalData::parseGameDataDefinition( INI* ini )
 	// If we're multifile, then continue loading stuff into the Global Data as normal.
 
 	// parse the ini weapon definition
+	// GeneralsX @bugfix Android port 19/10/2026 A later GameData.ini (a mod's) starts from the INI
+	// camera values, not from the player's Extras values applied after the previous one.
+	GXExtrasValues::CameraDefaults &iniCamera = GXExtrasValues::iniCamera();
+	if (iniCamera.known)
+	{
+		TheWritableGlobalData->m_maxCameraHeight = iniCamera.maxHeight;
+		TheWritableGlobalData->m_minCameraHeight = iniCamera.minHeight;
+		TheWritableGlobalData->m_cameraPitch = iniCamera.pitch;
+		TheWritableGlobalData->m_terrainDrawDistanceScale = iniCamera.drawDistanceScale;
+	}
 	ini->initFromINI( TheWritableGlobalData, s_GlobalDataFieldParseTable );
+	iniCamera.known = true;
+	iniCamera.maxHeight = TheWritableGlobalData->m_maxCameraHeight;
+	iniCamera.minHeight = TheWritableGlobalData->m_minCameraHeight;
+	iniCamera.pitch = TheWritableGlobalData->m_cameraPitch;
+	iniCamera.drawDistanceScale = TheWritableGlobalData->m_terrainDrawDistanceScale;
 
 	TheWritableGlobalData->m_userDataDir.clear();
 
@@ -1239,6 +1255,13 @@ void GlobalData::parseGameDataDefinition( INI* ini )
 	TheWritableGlobalData->m_clientRetaliationModeEnabled = optionPref.getRetaliationModeEnabled();
 	TheWritableGlobalData->m_doubleClickAttackMove = optionPref.getDoubleClickAttackMoveEnabled();
 	TheWritableGlobalData->m_keyboardScrollFactor = optionPref.getScrollFactor();
+	// GeneralsX @bugfix Android port 19/10/2026 The camera values saved by the Extras menu, which
+	// until now took effect only when Apply was pressed and were lost at the next start. View only:
+	// none of them reaches the game logic.
+	TheWritableGlobalData->m_maxCameraHeight = optionPref.getMaxCameraHeight();
+	TheWritableGlobalData->m_minCameraHeight = optionPref.getMinCameraHeight();
+	TheWritableGlobalData->m_cameraPitch = optionPref.getCameraPitch();
+	TheWritableGlobalData->m_terrainDrawDistanceScale = optionPref.getTerrainDrawDistanceScale();
 	TheWritableGlobalData->m_drawScrollAnchor = optionPref.getDrawScrollAnchor();
 	TheWritableGlobalData->m_moveScrollAnchor = optionPref.getMoveScrollAnchor();
 	TheWritableGlobalData->m_defaultIP = optionPref.getLANIPAddress();

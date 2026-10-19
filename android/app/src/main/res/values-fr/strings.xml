@@ -370,13 +370,13 @@
     <string name="setup_control_scheme_classic">Classique</string>
     <string name="setup_control_scheme_tactical">Tactique</string>
     <string name="setup_control_scheme_custom">Personnalisé</string>
-    <string name="setup_control_scheme_classic_desc">Comme dans le jeu d\'origine : un ordre de déplacement ne fait que déplacer, la caméra s\'arrête à la hauteur de la carte, pas de boutons d\'armée.</string>
-    <string name="setup_control_scheme_tactical_desc">Les unités de combat attaquent en se déplaçant, la colonne d’armée reçoit les boutons d’armée et la caméra recule davantage.</string>
+    <string name="setup_control_scheme_classic_desc">Comme dans le jeu d\'origine : un ordre de déplacement ne fait que déplacer, la caméra recule jusqu\'à la hauteur habituelle (modifiable en jeu : Options → Extras), la colonne d’armée s’ouvre avec les seuls groupes.</string>
+    <string name="setup_control_scheme_tactical_desc">Les unités de combat attaquent en se déplaçant, la colonne d’armée s’ouvre aussi avec les boutons d’armée et la caméra recule jusqu’à quatre fois plus haut.</string>
     <string name="setup_control_scheme_custom_desc">Votre propre combinaison des interrupteurs ci-dessous.</string>
     <string name="setup_switch_attack_move">Attaque en mouvement</string>
     <string name="setup_switch_attack_move_desc">Un ordre de déplacement pour les unités de combat devient une marche offensive : elles combattent ce qu\'elles croisent en chemin. Les bulldozers et les collecteurs se déplacent simplement.</string>
     <string name="setup_switch_army_buttons">Boutons d\'armée</string>
-    <string name="setup_switch_army_buttons_desc">Dans la colonne d’armée (le bouton + au-dessus du bord gauche du panneau de commande l’ouvre et décale le panneau à droite) : des boutons qui sélectionnent toutes les unités de combat à l’écran ou sur toute la carte, les avions, les hélicoptères ou les troupes au sol (appuyez de nouveau sur « Sol » pour toute la carte).</string>
+    <string name="setup_switch_army_buttons_desc">Si la colonne d’armée (le bouton + au-dessus du bord gauche du panneau de commande l’ouvre et décale le panneau à droite) s’ouvre aussi avec les boutons qui sélectionnent toutes les unités de combat à l’écran ou sur toute la carte, les avions, les hélicoptères ou les troupes au sol (appuyez de nouveau sur « Sol » pour toute la carte). Le bouton > de la colonne les affiche ou les masque dans n’importe quelle partie, quel que soit ce réglage.</string>
     <string name="setup_switch_camera_high">Caméra plus haute</string>
     <string name="setup_switch_camera_high_desc">La caméra recule jusqu\'à quatre fois plus loin que ce que la carte permet.</string>
     <string name="setup_control_scheme_help">Prend effet au prochain lancement du jeu. Fonctionne aussi bien en escarmouche, en campagne qu\'en ligne : seule la façon de donner les ordres change, pas les règles du jeu.</string>

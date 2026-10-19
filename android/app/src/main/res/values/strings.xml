@@ -377,13 +377,13 @@
     <string name="setup_control_scheme_classic">Classic</string>
     <string name="setup_control_scheme_tactical">Tactical</string>
     <string name="setup_control_scheme_custom">Custom</string>
-    <string name="setup_control_scheme_classic_desc">As in the original game: a move order just moves, the camera stops at the map\'s own height, no army buttons.</string>
-    <string name="setup_control_scheme_tactical_desc">Combat units attack on the move, the army column gets the army buttons, and the camera zooms out further.</string>
+    <string name="setup_control_scheme_classic_desc">As in the original game: a move order just moves, the camera zooms out to the usual height (change it in the game: Options → Extras), the army column opens with the control groups only.</string>
+    <string name="setup_control_scheme_tactical_desc">Combat units attack on the move, the army column opens with the army buttons too, and the camera zooms out up to four times higher.</string>
     <string name="setup_control_scheme_custom_desc">Your own mix of the switches below.</string>
     <string name="setup_switch_attack_move">Attack on the move</string>
     <string name="setup_switch_attack_move_desc">A move order for combat units is an attack-move: they fight what they meet on the way. Dozers and harvesters still just move.</string>
     <string name="setup_switch_army_buttons">Army buttons</string>
-    <string name="setup_switch_army_buttons_desc">In the army column (the + button above the left end of the control panel opens it and moves the panel right): buttons that select every combat unit on screen or on the whole map, planes, helicopters or ground forces (press Ground again for the whole map).</string>
+    <string name="setup_switch_army_buttons_desc">Whether the army column (the + button above the left end of the control panel opens it and moves the panel right) opens with the buttons that select every combat unit on screen or on the whole map, planes, helicopters or ground forces (press Ground again for the whole map). The > button in the column shows or hides them in any game, whatever this switch says.</string>
     <string name="setup_switch_camera_high">Higher camera</string>
     <string name="setup_switch_camera_high_desc">The camera zooms out up to four times further than the map allows.</string>
     <string name="setup_control_scheme_help">Takes effect the next time the game starts. Works in skirmish, the campaign and online games alike: only how your orders are given changes, not the game\'s rules.</string>

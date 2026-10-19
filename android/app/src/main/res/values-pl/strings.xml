@@ -370,13 +370,13 @@
     <string name="setup_control_scheme_classic">Klasyczny</string>
     <string name="setup_control_scheme_tactical">Taktyczny</string>
     <string name="setup_control_scheme_custom">Własny</string>
-    <string name="setup_control_scheme_classic_desc">Jak w oryginalnej grze: rozkaz ruchu tylko przemieszcza, kamera zatrzymuje się na wysokości mapy, brak przycisków armii.</string>
-    <string name="setup_control_scheme_tactical_desc">Jednostki bojowe atakują w ruchu, kolumna armii dostaje przyciski armii, a kamerę można bardziej oddalić.</string>
+    <string name="setup_control_scheme_classic_desc">Jak w oryginalnej grze: rozkaz ruchu tylko przemieszcza, kamera oddala się na zwykłą wysokość (zmienisz ją w grze: Opcje → Dodatkowe), kolumna armii otwiera się tylko z grupami.</string>
+    <string name="setup_control_scheme_tactical_desc">Jednostki bojowe atakują w ruchu, kolumna armii otwiera się od razu z przyciskami armii, a kamerę można oddalić do czterech razy wyżej.</string>
     <string name="setup_control_scheme_custom_desc">Twoje własne połączenie przełączników poniżej.</string>
     <string name="setup_switch_attack_move">Atak w ruchu</string>
     <string name="setup_switch_attack_move_desc">Rozkaz ruchu dla jednostek bojowych staje się marszem z atakiem: walczą ze wszystkim, co napotkają po drodze. Spychacze i zbieracze nadal tylko jadą.</string>
     <string name="setup_switch_army_buttons">Przyciski armii</string>
-    <string name="setup_switch_army_buttons_desc">W kolumnie armii (otwiera ją przycisk + nad lewym końcem panelu dowodzenia, który przesuwa się wtedy w prawo): przyciski wybierające wszystkie jednostki bojowe na ekranie lub na całej mapie, samoloty, śmigłowce albo wojska lądowe (ponowne naciśnięcie „Lądowe” — cała mapa).</string>
+    <string name="setup_switch_army_buttons_desc">Czy kolumna armii (otwiera ją przycisk + nad lewym końcem panelu dowodzenia, który przesuwa się wtedy w prawo) otwiera się od razu z przyciskami wybierającymi wszystkie jednostki bojowe na ekranie lub na całej mapie, samoloty, śmigłowce albo wojska lądowe (ponowne naciśnięcie „Lądowe” — cała mapa). Przycisk > w kolumnie pokazuje i ukrywa je w każdej grze, niezależnie od tego przełącznika.</string>
     <string name="setup_switch_camera_high">Wyższa kamera</string>
     <string name="setup_switch_camera_high_desc">Kamerę można oddalić nawet cztery razy dalej, niż pozwala mapa.</string>
     <string name="setup_control_scheme_help">Działa od następnego uruchomienia gry. Działa tak samo w potyczce, kampanii i grach sieciowych: zmienia się tylko sposób wydawania rozkazów, a nie zasady gry.</string>

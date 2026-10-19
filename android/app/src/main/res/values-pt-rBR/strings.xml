@@ -370,13 +370,13 @@
     <string name="setup_control_scheme_classic">Clássico</string>
     <string name="setup_control_scheme_tactical">Tático</string>
     <string name="setup_control_scheme_custom">Personalizado</string>
-    <string name="setup_control_scheme_classic_desc">Como no jogo original: uma ordem de mover apenas move, a câmera para na altura do mapa e não há botões de exército.</string>
-    <string name="setup_control_scheme_tactical_desc">As unidades de combate atacam em movimento, a coluna do exército recebe os botões de exército e a câmera se afasta mais.</string>
+    <string name="setup_control_scheme_classic_desc">Como no jogo original: uma ordem de mover apenas move, a câmera se afasta até a altura de sempre (muda-se no jogo: Opções → Extras) e a coluna do exército abre só com os grupos.</string>
+    <string name="setup_control_scheme_tactical_desc">As unidades de combate atacam em movimento, a coluna do exército já abre com os botões de exército e a câmera se afasta até quatro vezes mais alto.</string>
     <string name="setup_control_scheme_custom_desc">Sua própria combinação dos interruptores abaixo.</string>
     <string name="setup_switch_attack_move">Ataque em movimento</string>
     <string name="setup_switch_attack_move_desc">Uma ordem de mover para unidades de combate vira um avanço com ataque: elas lutam contra o que encontram no caminho. Escavadeiras e coletores apenas se movem.</string>
     <string name="setup_switch_army_buttons">Botões de exército</string>
-    <string name="setup_switch_army_buttons_desc">Na coluna do exército (o botão + acima da ponta esquerda do painel de comando a abre e desloca o painel para a direita): botões que selecionam todas as unidades de combate na tela ou no mapa inteiro, aviões, helicópteros ou tropas terrestres (toque em “Terrest.” de novo para o mapa inteiro).</string>
+    <string name="setup_switch_army_buttons_desc">Se a coluna do exército (o botão + acima da ponta esquerda do painel de comando a abre e desloca o painel para a direita) já abre com os botões que selecionam todas as unidades de combate na tela ou no mapa inteiro, aviões, helicópteros ou tropas terrestres (toque em “Terrest.” de novo para o mapa inteiro). O botão > na coluna os mostra ou esconde em qualquer partida, seja qual for esta opção.</string>
     <string name="setup_switch_camera_high">Câmera mais alta</string>
     <string name="setup_switch_camera_high_desc">A câmera se afasta até quatro vezes mais do que o mapa permite.</string>
     <string name="setup_control_scheme_help">Vale a partir da próxima vez que o jogo for iniciado. Funciona igualmente em escaramuças, na campanha e em partidas online: muda apenas como você dá as ordens, não as regras do jogo.</string>
