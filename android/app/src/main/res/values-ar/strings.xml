@@ -455,6 +455,7 @@
     <string name="mods_folder_help">مجلد المودات: %1$s. كل مود مجلد داخله بملفات .big الخاصة به؛ يُعرض هنا ملف mod.ini (Name وVersion وAuthor وDescription وImage, Url) وصورة باسم cover أو preview أو logo أو icon إن وُجدت لدى المود.</string>
     <string name="mods_home_none">بدون مودات</string>
     <string name="mods_home_enabled">المودات المفعّلة: %1$d</string>
+    <string name="mods_home_all_off">المثبّتة: %1$d، كلها متوقفة</string>
     <string name="mods_import_rar">لا يمكن فتح أرشيفات RAR و7z ومثبّتات .exe على أندرويد. فكّ ضغطه أولًا بمدير ملفات (مثل ZArchiver) ثم استورد المجلد، أو اضغطه بصيغة .zip.</string>
     <string name="mods_import_unsupported">اختر مجلدًا أو ملف .big أو أرشيف .zip.</string>
     <string name="mods_import_full_game">هذه لعبة كاملة وليست مودًا: فيها أرشيفات اللعبة الخاصة (INI وW3D وTextures). اختر مجلدها كمجلد اللعبة في الصفحة الرئيسية بدلًا من ذلك.</string>

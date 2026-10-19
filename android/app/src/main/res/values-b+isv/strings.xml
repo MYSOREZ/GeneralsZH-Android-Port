@@ -455,6 +455,7 @@
     <string name="mods_folder_help">Papka modov: %1$s. Každy mod je papka v njej so svojimi .big; mod.ini (Name, Version, Author, Description, Image, Url) i kartina cover, preview, logo ili icon se pokazujut tut, ako mod jih imaje.</string>
     <string name="mods_home_none">Bez modov</string>
     <string name="mods_home_enabled">Vključene mody: %1$d</string>
+    <string name="mods_home_all_off">Instalovano modov: %1$d, vse vyključene</string>
     <string name="mods_import_rar">Arhivy RAR i 7z i instalatory .exe ne mogut se otvoriti na Androidu. Najprvo raspakujte arhiv menedžerom fajlov (napr. ZArchiver) i importujte papku, ili zapakujte jej v .zip.</string>
     <string name="mods_import_unsupported">Izberite papku, fajl .big ili arhiv .zip.</string>
     <string name="mods_import_full_game">To jest cěla igra, ne mod: ona imaje svoje arhivy igry (INI, W3D, Textures). Izberite jej papku kako papku igry na glavnoj stranici.</string>

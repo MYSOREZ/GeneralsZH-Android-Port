@@ -455,6 +455,7 @@
     <string name="mods_folder_help">Pasta de mods: %1$s. Cada mod é uma pasta nela com seus .big; um mod.ini (Name, Version, Author, Description, Image, Url) e uma imagem chamada cover, preview, logo ou icon aparecem aqui se o mod tiver.</string>
     <string name="mods_home_none">Sem mods</string>
     <string name="mods_home_enabled">Mods ligados: %1$d</string>
+    <string name="mods_home_all_off">Instalados: %1$d, todos desligados</string>
     <string name="mods_import_rar">Arquivos RAR e 7z e instaladores .exe não abrem no Android. Descompacte primeiro com um gerenciador de arquivos (por exemplo, ZArchiver) e importe a pasta, ou compacte-a em .zip.</string>
     <string name="mods_import_unsupported">Escolha uma pasta, um arquivo .big ou um .zip.</string>
     <string name="mods_import_full_game">Isto é um jogo completo, não um mod: tem os arquivos próprios do jogo (INI, W3D, Textures). Escolha a pasta dele como pasta do jogo no Início.</string>

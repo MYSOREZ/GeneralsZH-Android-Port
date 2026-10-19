@@ -455,6 +455,7 @@
     <string name="mods_folder_help">模组文件夹：%1$s。每个模组是其中的一个文件夹，内含自己的 .big 文件；若模组带有 mod.ini（Name、Version、Author、Description、Image、Url）以及名为 cover、preview、logo 或 icon 的图片，会显示在这里。</string>
     <string name="mods_home_none">无模组</string>
     <string name="mods_home_enabled">已开启模组：%1$d</string>
+    <string name="mods_home_all_off">已安装：%1$d 个，全部关闭</string>
     <string name="mods_import_rar">安卓无法打开 RAR、7z 档案和 .exe 安装程序。请先用文件管理器（例如 ZArchiver）解压，再导入解压后的文件夹，或将其打包为 .zip。</string>
     <string name="mods_import_unsupported">请选择文件夹、.big 文件或 .zip 档案。</string>
     <string name="mods_import_full_game">这是完整的游戏，而不是模组：其中有游戏本身的档案（INI、W3D、Textures）。请改为在首页把它的文件夹选为游戏文件夹。</string>

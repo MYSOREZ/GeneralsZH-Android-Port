@@ -455,6 +455,7 @@
     <string name="mods_folder_help">Carpeta de mods: %1$s. Cada mod es una carpeta dentro con sus .big; aquí se muestran un mod.ini (Name, Version, Author, Description, Image, Url) y una imagen llamada cover, preview, logo o icon si el mod los tiene.</string>
     <string name="mods_home_none">Sin mods</string>
     <string name="mods_home_enabled">Mods activados: %1$d</string>
+    <string name="mods_home_all_off">Instalados: %1$d, todos desactivados</string>
     <string name="mods_import_rar">Los archivos RAR y 7z y los instaladores .exe no se pueden abrir en Android. Descomprímelo primero con un gestor de archivos (por ejemplo ZArchiver) e importa la carpeta, o comprímela en .zip.</string>
     <string name="mods_import_unsupported">Elige una carpeta, un archivo .big o un .zip.</string>
     <string name="mods_import_full_game">Esto es un juego completo, no un mod: tiene los archivos propios del juego (INI, W3D, Textures). Elige su carpeta como carpeta del juego en Inicio.</string>

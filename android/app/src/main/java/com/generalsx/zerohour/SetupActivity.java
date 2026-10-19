@@ -527,9 +527,18 @@ public class SetupActivity extends Activity {
 
         // GeneralsX @feature Android port 18/10/2026 The Mods screen (ModManagerActivity): which mods
         // the next game starts with, and in what order.
-        int modsOn = ModManager.enabledCount(this);
+        // GeneralsX @tweak Android port 19/10/2026 Installed but all off is not "No mods" (owner read
+        // it as the mods being gone after an update).
+        java.util.List<ModManager.Mod> installedMods = ModManager.listMods(this);
+        int modsOn = 0;
+        for (ModManager.Mod mod : installedMods) {
+            if (mod.enabled) {
+                modsOn++;
+            }
+        }
         UiKit.listRow(game, R.drawable.ic_gzh_folder, getString(R.string.mods_title),
-            modsOn == 0 ? getString(R.string.mods_home_none)
+            installedMods.isEmpty() ? getString(R.string.mods_home_none)
+                : modsOn == 0 ? getString(R.string.mods_home_all_off, installedMods.size())
                 : getString(R.string.mods_home_enabled, modsOn),
             () -> startActivityForResult(new Intent(this, ModManagerActivity.class), REQUEST_MODS));
 

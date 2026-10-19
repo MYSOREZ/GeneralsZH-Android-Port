@@ -455,6 +455,7 @@
     <string name="mods_folder_help">Mod-Ordner: %1$s. Jede Mod ist ein Ordner darin mit ihren .big-Dateien; eine mod.ini (Name, Version, Author, Description, Image, Url) und ein Bild namens cover, preview, logo oder icon werden hier gezeigt, wenn die Mod sie hat.</string>
     <string name="mods_home_none">Keine Mods</string>
     <string name="mods_home_enabled">Mods an: %1$d</string>
+    <string name="mods_home_all_off">Installiert: %1$d, alle ausgeschaltet</string>
     <string name="mods_import_rar">RAR- und 7z-Archive und .exe-Installer lassen sich unter Android nicht öffnen. Entpacken Sie es zuerst mit einem Dateimanager (z. B. ZArchiver) und importieren Sie den Ordner, oder packen Sie ihn als .zip.</string>
     <string name="mods_import_unsupported">Wählen Sie einen Ordner, eine .big-Datei oder ein .zip-Archiv.</string>
     <string name="mods_import_full_game">Das ist ein komplettes Spiel, keine Mod: Es enthält die eigenen Archive des Spiels (INI, W3D, Textures). Wählen Sie seinen Ordner stattdessen auf der Startseite als Spielordner.</string>

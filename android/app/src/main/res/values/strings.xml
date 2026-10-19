@@ -462,6 +462,7 @@
     <string name="mods_folder_help">Mods folder: %1$s. Each mod is a folder in it with its .big files; a mod.ini (Name, Version, Author, Description, Image, Url) and a picture named cover, preview, logo or icon are shown here if the mod has them.</string>
     <string name="mods_home_none">No mods</string>
     <string name="mods_home_enabled">Mods on: %1$d</string>
+    <string name="mods_home_all_off">Installed: %1$d, all switched off</string>
     <string name="mods_import_rar">RAR and 7z archives and .exe installers cannot be opened on Android. Unpack it first with a file manager (for example ZArchiver), then import the unpacked folder, or pack it as .zip.</string>
     <string name="mods_import_unsupported">Choose a folder, a .big file or a .zip archive.</string>
     <string name="mods_import_full_game">This is a complete game, not a mod: it has the game\'s own archives (INI, W3D, Textures). Pick its folder as the game folder on Home instead.</string>

@@ -455,6 +455,7 @@
     <string name="mods_folder_help">Папка модів: %1$s. Кожен мод — папка в ній зі своїми .big; mod.ini (Name, Version, Author, Description, Image, Url) і картинка cover, preview, logo або icon показуються тут, якщо вони є в мода.</string>
     <string name="mods_home_none">Без модів</string>
     <string name="mods_home_enabled">Увімкнено модів: %1$d</string>
+    <string name="mods_home_all_off">Встановлено модів: %1$d, усі вимкнені</string>
     <string name="mods_import_rar">Архіви RAR і 7z та інсталятори .exe на Android не відкриваються. Спершу розпакуйте архів файловим менеджером (наприклад, ZArchiver) й імпортуйте розпаковану папку або запакуйте її в .zip.</string>
     <string name="mods_import_unsupported">Виберіть папку, файл .big або архів .zip.</string>
     <string name="mods_import_full_game">Це ціла гра, а не мод: у ній власні архіви гри (INI, W3D, Textures). Виберіть її папку як папку гри на головній.</string>

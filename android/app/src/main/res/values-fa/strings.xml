@@ -455,6 +455,7 @@
     <string name="mods_folder_help">پوشه مادها: %1$s. هر ماد پوشه‌ای در آن با فایل‌های .big خودش است؛ فایل mod.ini (Name، Version، Author، Description، Image, Url) و تصویری با نام cover، preview، logo یا icon در صورت وجود اینجا نمایش داده می‌شوند.</string>
     <string name="mods_home_none">بدون ماد</string>
     <string name="mods_home_enabled">مادهای روشن: %1$d</string>
+    <string name="mods_home_all_off">نصب‌شده: %1$d، همه خاموش</string>
     <string name="mods_import_rar">آرشیوهای RAR و 7z و نصب‌کننده‌های .exe در اندروید باز نمی‌شوند. ابتدا آن را با یک مدیر فایل (مثلاً ZArchiver) از حالت فشرده خارج کنید و پوشه را وارد کنید، یا آن را به .zip تبدیل کنید.</string>
     <string name="mods_import_unsupported">یک پوشه، فایل .big یا آرشیو .zip انتخاب کنید.</string>
     <string name="mods_import_full_game">این یک بازی کامل است، نه ماد: آرشیوهای خود بازی (INI، W3D، Textures) را دارد. به جای آن، پوشه‌اش را در صفحه اصلی به‌عنوان پوشه بازی انتخاب کنید.</string>
