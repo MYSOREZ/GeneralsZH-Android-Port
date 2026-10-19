@@ -205,9 +205,12 @@ final class DataPackInstaller {
 
     /**
      * The first archive in the game folder that the engine treats as a data mod, or null: the
-     * same rule as ArchiveFileSystem::loadMods -- a name starting with '!' (how mods sort ahead
-     * of the retail archives) and at least one file under Data\INI\. UI and texture add-ons with
-     * the same prefix carry no INI and do not count. Reads only the archives' file tables.
+     * same rule as ArchiveFileSystem::loadMods (gxIsDataModArchive) -- a name starting with '!'
+     * (how mods sort ahead of the retail archives) and at least one file under Data\INI\, or any
+     * other archive but INIZH.big / INI.big that defines units or game rules (Data\INI\Object\,
+     * Weapon.ini, CommandSet.ini...): Cold War Crisis ships CWC.big without the '!' (#55). UI and
+     * texture add-ons carry no INI, retail language archives only Video.ini and Credits.ini, and do
+     * not count. Reads only the archives' file tables.
      */
     static String findDataMod(String gamePath) {
         if (gamePath == null) {
@@ -220,10 +223,12 @@ final class DataPackInstaller {
         java.util.Arrays.sort(files);
         for (File f : files) {
             String name = f.getName();
-            if (!f.isFile() || !name.startsWith("!") || !name.toLowerCase(Locale.US).endsWith(".big")) {
+            final String lowerName = name.toLowerCase(Locale.US);
+            if (!f.isFile() || !lowerName.endsWith(".big")
+                || lowerName.equals("inizh.big") || lowerName.equals("ini.big")) {
                 continue;
             }
-            if (bigHasIniFiles(f)) {
+            if (bigHasIniFiles(f, name.startsWith("!"))) {
                 return name;
             }
         }
@@ -232,7 +237,15 @@ final class DataPackInstaller {
 
     // BIG file table: "BIGF"/"BIG4", archive size (LE), file count (BE), header size (BE), then per
     // file: offset (BE), size (BE), zero-terminated path.
-    private static boolean bigHasIniFiles(File big) {
+    private static final String[] GAMEPLAY_INI = {
+        "data\\ini\\object\\", "data\\ini\\weapon.ini", "data\\ini\\commandset.ini",
+        "data\\ini\\commandbutton.ini", "data\\ini\\playertemplate.ini", "data\\ini\\upgrade.ini",
+        "data\\ini\\science.ini", "data\\ini\\specialpower.ini", "data\\ini\\locomotor.ini",
+        "data\\ini\\armor.ini", "data\\ini\\gamedata.ini", "data\\ini\\aidata.ini",
+    };
+
+    /** anyIni: any file under Data\INI\ counts (a '!' archive), else only GAMEPLAY_INI .ini files. */
+    private static boolean bigHasIniFiles(File big, boolean anyIni) {
         try (java.io.DataInputStream in = new java.io.DataInputStream(
                 new BufferedInputStream(new java.io.FileInputStream(big), 64 * 1024))) {
             byte[] magic = new byte[4];
@@ -259,12 +272,24 @@ final class DataPackInstaller {
                     return false;
                 }
                 String lower = path.toString().toLowerCase(Locale.US).replace('/', '\\');
-                if (lower.startsWith("data\\ini\\")) {
+                if (anyIni ? lower.startsWith("data\\ini\\") : isGameplayIni(lower)) {
                     return true;
                 }
             }
         } catch (IOException e) {
             return false;
+        }
+        return false;
+    }
+
+    private static boolean isGameplayIni(String lowerPath) {
+        if (!lowerPath.endsWith(".ini")) {
+            return false;
+        }
+        for (String prefix : GAMEPLAY_INI) {
+            if (lowerPath.startsWith(prefix)) {
+                return true;
+            }
         }
         return false;
     }

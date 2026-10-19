@@ -54,6 +54,9 @@
 #include "Common/AsciiString.h"
 #include "Common/PerfTimer.h"
 
+#include <cstring>
+#include <string>
+
 
 //----------------------------------------------------------------------------
 //         Externals
@@ -110,6 +113,50 @@ static AsciiString getBaseFilename(const AsciiString& path)
 	const char* p2 = strrchr(str, '/');
 	const char* sep = (p1 == nullptr) ? p2 : ((p2 == nullptr) ? p1 : ((p1 > p2) ? p1 : p2));
 	return sep ? AsciiString(sep + 1) : path;
+}
+
+// GeneralsX @bugfix Android port 19/10/2026 Whether an archive in the game folder is a gameplay mod,
+// for keeping the GeneralsOnline community patch out (see loadMods). A '!' archive counts when it
+// carries any Data\INI file, as before. Others count only when they define units or game rules:
+// Cold War Crisis ships CWC.big, no '!', its generals in Data\INI\Object\CWC\, and the patch
+// mounted next to it put its own split INI set on top of the mod's (issue #55). Retail archives carry
+// INI too -- the language ones Video.ini and Credits.ini, a patch MappedImages -- but no object or
+// rule files outside INIZH.big / INI.big, so those keep the patch for everyone who plays unmodded.
+static Bool gxIsGameplayIni(const AsciiString &lowerPath)
+{
+	static const char *const kRuleFiles[] = {
+		"data\\ini\\object\\", "data\\ini\\weapon.ini", "data\\ini\\commandset.ini",
+		"data\\ini\\commandbutton.ini", "data\\ini\\playertemplate.ini", "data\\ini\\upgrade.ini",
+		"data\\ini\\science.ini", "data\\ini\\specialpower.ini", "data\\ini\\locomotor.ini",
+		"data\\ini\\armor.ini", "data\\ini\\gamedata.ini", "data\\ini\\aidata.ini",
+	};
+	std::string path(lowerPath.str());
+	for (size_t i = 0; i < path.size(); ++i)
+		if (path[i] == '/')
+			path[i] = '\\';
+	for (size_t i = 0; i < sizeof(kRuleFiles) / sizeof(kRuleFiles[0]); ++i)
+		if (path.compare(0, strlen(kRuleFiles[i]), kRuleFiles[i]) == 0)
+			return TRUE;
+	return FALSE;
+}
+
+static Bool gxIsDataModArchive(const AsciiString &baseName, ArchiveFile *archive)
+{
+	if (archive == nullptr || baseName.isEmpty())
+		return FALSE;
+	const Bool bang = baseName.getCharAt(0) == '!';
+	if (!bang && (baseName.compareNoCase("INIZH.big") == 0 || baseName.compareNoCase("INI.big") == 0))
+		return FALSE;
+	FilenameList iniFiles;
+	archive->getFileListInDirectory(AsciiString(""), AsciiString(""), AsciiString("*.ini"), iniFiles, TRUE);
+	for (FilenameList::const_iterator f = iniFiles.begin(); f != iniFiles.end(); ++f)
+	{
+		AsciiString lower = *f;
+		lower.toLower();
+		if (bang ? (lower.startsWith("data\\ini\\") || lower.startsWith("data/ini/")) : gxIsGameplayIni(lower))
+			return TRUE;
+	}
+	return FALSE;
 }
 
 
@@ -342,20 +389,11 @@ void ArchiveFileSystem::loadMods()
 		for (ArchiveFileMap::const_iterator it = m_archiveFileMap.begin(); it != m_archiveFileMap.end(); ++it)
 		{
 			const AsciiString base = getBaseFilename(it->first);
-			if (base.isEmpty() || base.getCharAt(0) != '!' || it->second == nullptr)
-				continue;
-			FilenameList iniFiles;
-			it->second->getFileListInDirectory(AsciiString(""), AsciiString(""), AsciiString("*.ini"), iniFiles, TRUE);
-			for (FilenameList::const_iterator f = iniFiles.begin(); f != iniFiles.end(); ++f)
+			if (gxIsDataModArchive(base, it->second))
 			{
-				if (f->startsWithNoCase("data\\ini\\") || f->startsWithNoCase("data/ini/"))
-				{
-					modArchive = base;
-					break;
-				}
-			}
-			if (modArchive.isNotEmpty())
+				modArchive = base;
 				break;
+			}
 		}
 		// GeneralsX @feature Android port 18/10/2026 The same rule for the mods turned on in the
 		// launcher's Mods screen: one of their archives with game data keeps the patch out.
@@ -370,6 +408,24 @@ void ArchiveFileSystem::loadMods()
 				if (f->startsWithNoCase("data\\ini\\") || f->startsWithNoCase("data/ini/"))
 				{
 					modArchive = getBaseFilename(managedArchives[m]);
+					break;
+				}
+			}
+		}
+		// GeneralsX @bugfix Android port 19/10/2026 A mod unpacked straight into the game folder
+		// (issue #55: the reporter tried CWC's files loose too) is as much a mod as its archive.
+		if (modArchive.isEmpty())
+		{
+			FilenameList looseFiles;
+			TheLocalFileSystem->getFileListInDirectory(AsciiString::TheEmptyString, AsciiString("Data\\INI\\"),
+				AsciiString("*.ini"), looseFiles, TRUE);
+			for (FilenameList::const_iterator f = looseFiles.begin(); f != looseFiles.end(); ++f)
+			{
+				AsciiString lower = *f;
+				lower.toLower();
+				if (gxIsGameplayIni(lower))
+				{
+					modArchive = "loose files in Data\\INI";
 					break;
 				}
 			}
