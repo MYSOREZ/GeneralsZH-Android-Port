@@ -39,16 +39,18 @@ accounts at risk, not your own.
     and buildings are never picked.
   - The buttons are the game's own, in each faction's colours.
 - **Control scheme: Classic or Tactical** (launcher -> Interface -> Control scheme). Classic is the
-  original game. Tactical: combat units **attack on the move** (dozers and harvesters still just move), the
-  army column opens with its army buttons, and a **higher camera** (zooms out up to four times further).
-  Each one has its own switch too.
+  original game, and the army column opens with the control groups only. Tactical: combat units **attack
+  on the move** (dozers and harvesters still just move), the army column opens with its army buttons, and a
+  **higher camera** (zooms out up to four times further). Each one has its own switch too; **>** in the
+  column still shows or hides the army buttons in any game.
 - **Mouse and touchpad mode** (#39, in the same card, off by default): a pointer on screen. A connected
   mouse works as on a PC; without one your finger moves the cursor like a laptop touchpad -- tap to click,
   two-finger tap for a right click, two fingers to move and zoom the map. Edge scrolling and a cursor size
   slider; menus, lobby and the group column stay usable by finger directly.
 - **Camera settings** in both games (Options -> Extras): maximum and minimum height, pitch, scroll speed
-  and draw distance, with -/+ buttons, exact values and presets. The window takes the look of the game's
-  own Options screen -- and of a mod that restyles it -- and its text grows with the screen.
+  and draw distance, with -/+ buttons, exact values and presets. The values are kept for the next start,
+  and Defaults returns the game's own values (or a mod's). The window takes the look of the game's own
+  Options screen -- and of a mod that restyles it -- and its text grows with the screen.
 - **Touch orders** (#25): force attack as a mode, scatter, formation.
 - **Physical keyboard:** every key with its original code -- the keypad, punctuation and hotkeys that did
   nothing before.
@@ -74,6 +76,7 @@ accounts at risk, not your own.
 - **The main menu's background** is filmed from the original height again; the Challenge loading animation
   plays in step with its sound.
 - **The money counter's description** no longer flickers when hovered.
+- The line at the foot of Options shows only the game's version -- or a mod's name and version.
 
 ### Online
 
