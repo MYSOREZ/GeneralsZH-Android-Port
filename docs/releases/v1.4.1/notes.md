@@ -125,6 +125,6 @@ Thanks to everyone who reported problems on GitHub and 4PDA.
 
 ## ❤️ Heroes of the project
 
-**Diaa Abu Jazar — $2.** Thank you! Every donation goes to the Claude Code subscription this port is built
+**Diaa Abu Jazar — $2 via Boosty.** Thank you! Every donation goes to the Claude Code subscription this port is built
 with, and keeps the updates coming. The game and every build stay free; if you enjoy it and want to help, the
 addresses are in the launcher (**Help → Support the project**) and in the README.
