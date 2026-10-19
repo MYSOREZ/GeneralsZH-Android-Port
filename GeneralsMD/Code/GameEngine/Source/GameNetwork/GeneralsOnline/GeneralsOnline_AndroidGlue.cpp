@@ -7,6 +7,7 @@
 // stubs were deleted to avoid duplicate-symbol link errors.
 
 #include "GameNetwork/GeneralsOnline/NGMP_interfaces.h"
+#include "GameClient/GameText.h"
 #include "GameNetwork/GeneralsOnline/GeneralsOnline_AndroidGlue.h"
 #include "GameNetwork/GeneralsOnline/OnlineServices_Auth.h"
 #include "GameNetwork/GameSpyOverlay.h"

@@ -1,4 +1,5 @@
 #include "GameNetwork/GeneralsOnline/NGMP_interfaces.h"
+#include "GameClient/GameText.h"
 #include "GameNetwork/GeneralsOnline/json.hpp"
 #include "GameNetwork/GeneralsOnline/HTTP/HTTPManager.h"
 #include "GameNetwork/GeneralsOnline/OnlineServices_Init.h"

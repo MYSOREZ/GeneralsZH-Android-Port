@@ -1,4 +1,5 @@
 #include "GameNetwork/GeneralsOnline/NGMP_interfaces.h"
+#include "GameClient/GameText.h"
 #if defined(__ANDROID__) || defined(__linux__)
 #include <link.h>
 #endif
