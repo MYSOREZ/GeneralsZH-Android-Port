@@ -37,12 +37,19 @@ Hour, with its own game folder:
   connected mouse works as on a PC; without one your finger moves the cursor like a laptop touchpad -- tap to
   click, two-finger tap for a right click, two fingers to move and zoom the map. Edge scrolling, a cursor
   size slider, and menus, lobby and the group panel stay usable by finger directly.
-- **Touch orders** (#25): force attack as a mode, scatter, formation, jump to the last event.
-- **The control-group panel no longer swallows touches** under it (#33), and group 9 works again.
+- **Touch orders** (#25): force attack as a mode, scatter, formation.
+- **Army column**: a **+** button above the left end of the control bar opens a column with the ten
+  control groups (tap to select, or to assign an empty group; two-finger tap assigns; hold until the
+  button fills red to clear -- the message line confirms it, and empty groups show dim). The control bar
+  moves right while it is open. **>** widens it with the army buttons: every combat unit on screen or on
+  the map, planes, helicopters, ground forces (press Ground twice for the whole map). The buttons are the
+  game's own, in each faction's colours.
 - **Control scheme: Classic or Tactical** (launcher → Interface → Control scheme). Classic is the original
-  game. Tactical: combat units **attack on the move** (dozers and harvesters still just move), **army
-  buttons** beside the group panel (every combat unit on screen / on the map, planes, helicopters, ground
-  forces) and a **higher camera** (zooms out up to four times further). Each one has its own switch too.
+  game. Tactical: combat units **attack on the move** (dozers and harvesters still just move), the army
+  column opens with its **army buttons**, and a **higher camera** (zooms out up to four times further). Each
+  one has its own switch too. The mouse and touchpad mode now sits in the same card.
+- **Camera settings in Zero Hour** (Options → Extras): maximum and minimum height, pitch, scroll speed and
+  draw distance, with -/+ buttons, exact values and presets.
 - **Physical keyboard:** every key with its original code -- the keypad, punctuation and the hotkeys that
   did nothing before.
 - **A real mouse scrolls the map** without the touchpad mode (#47): edge scroll and right-button drag; the
@@ -60,11 +67,21 @@ Hour, with its own game folder:
   wrote them and the rest of the game stays in your language, instead of MISSING everywhere.
 - **Mod fonts** are found by the name inside the font file, also in `Fonts/` and the game folder.
 - **Angry mob** members no longer appear in the map's corner (#30, #42).
+- **Campaign:** the score screen's frames no longer stay over the next mission after Continue.
+- **Mods that keep their text in `Data\Generals.str`** (Shockwave among them) show their own names instead of
+  MISSING.
+- **No more slowdown after a replay check:** a check left diagnostics switched on that slowed every later game.
+- **The main menu's background** is filmed from the original height again; the Challenge loading animation
+  plays in step with its sound.
+- **Generals takes the pictures it lacks from Zero Hour** when both are installed (the force-attack button
+  among them); the game folder card on Home shows where each game takes them from.
 
 ### Online
 
 - **Custom maps in online lobbies** work: the map and its preview reach every player.
 - Connection order of the relay servers changed so networks that block one port connect in time (#37).
+- **Lobby and sign-in messages in your language** (they were English in every language), and the message
+  shown when joining a PC game now says that cross-play is off.
 - The launcher's GeneralsOnline screen no longer talks about PC play; its cross-play card stays, switched off,
   with the reason.
 
@@ -86,7 +103,8 @@ Hour, with its own game folder:
   mod from a folder, a `.big` or a `.zip` into the game's `mods` folder; a complete game picked by mistake,
   or a `.rar`, is explained instead of failing. Mods installed the old way (`!` archives in the game folder)
   keep working. Online (GeneralsOnline) is played without mods; LAN games work when everyone has the same
-  mods.
+  mods. A mod can be moved between Generals and Zero Hour, and **Share the list of mods** sends the order and
+  versions to the friends you play LAN with. Home says when mods are installed but all switched off.
 - **Appearance** (Interface tab): the usual dark look, navy and gold, a light day look, or following the
   phone.
 
