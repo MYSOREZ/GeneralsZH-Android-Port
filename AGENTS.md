@@ -113,7 +113,8 @@ current build (`testers/` on the `apk` branch).
 
 **Releases** are published from the local build too: bump `versionName`/`versionCode` in
 `android/app/build.gradle`, build with `build-dual-hz.sh`, commit the APK as the one file in `apk/`
-and the notes (plus the symbol tables of both engines) under `docs/releases/v<version>/`, push to
+and the notes (plus the symbol tables of both engines) under `docs/releases/v<version>/` -- **in English
+only, no Russian blocks** (owner, 19/10/2026: "On GitHub, English only") --, push to
 `main`, then run `Actions → Publish Android Release` with the version. It builds nothing, so it
 costs seconds. Then duplicate the release on GitVerse -- same title, notes and APK:
 `./scripts/build/android/publish-apk-gitverse.sh --release <version>`, and give its page
