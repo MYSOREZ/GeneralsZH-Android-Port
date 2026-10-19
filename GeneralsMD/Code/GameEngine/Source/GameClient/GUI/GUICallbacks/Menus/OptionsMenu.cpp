@@ -48,6 +48,7 @@
 #include "GameClient/LookAtXlat.h"
 #include "GameClient/WindowLayout.h"
 #include "GameClient/GXUiScale.h"
+#include "GameClient/GXWindowLook.h"
 #include "GameClient/GameFont.h"
 #include "GameClient/Color.h"
 #include "GameClient/Gadget.h"
@@ -1007,21 +1008,16 @@ static void gxEnsureExtrasButton()
 	inst.init();
 	inst.m_style = GWS_PUSH_BUTTON | GWS_MOUSE_TRACK;
 	inst.m_textLabelString = "Extras";
-	inst.m_enabledText.color = inst.m_hiliteText.color = GameMakeColor(255, 220, 120, 255);
-	inst.m_disabledText.color = GameMakeColor(130, 130, 130, 255);
-	for (Int i = 0; i < MAX_DRAW_DATA; ++i)
-	{
-		inst.m_enabledDrawData[i].color = GameMakeColor(16, 28, 40, 240);
-		inst.m_enabledDrawData[i].borderColor = GameMakeColor(195, 165, 90, 255);
-		inst.m_hiliteDrawData[i] = inst.m_enabledDrawData[i];
-		inst.m_disabledDrawData[i] = inst.m_enabledDrawData[i];
-	}
 	GameFont *font = back->winGetInstanceData()->getFont();
 	GameWindow *button = TheWindowManager->gogoGadgetPushButton(parent, WIN_STATUS_ENABLED,
 		left - px, top - py, right - left, bottom - top, &inst, font, FALSE);
 	if (button)
 	{
 		button->winSetWindowId(id);
+		// GeneralsX @feature Android port 19/10/2026 The game's own button art and text colours, taken
+		// from Accept (or Back) on this very screen, so the button is one of the game's -- and a mod's.
+		GameWindow *accept = GXWindowLook::byName("OptionsMenu.wnd:ButtonAccept");
+		GXWindowLook::copy(button, accept ? accept : back, TRUE);
 		GadgetButtonSetText(button, ExtrasMenuButtonLabel());
 	}
 }

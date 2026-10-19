@@ -64,6 +64,11 @@
 #include "GameClient/IMEManager.h"
 #include "GameClient/ShellHooks.h"
 #include "GameClient/GUICallbacks.h"
+#include "Common/NameKeyGenerator.h"
+#include "GameClient/GameFont.h"
+#include "GameClient/GadgetPushButton.h"
+#include "GameClient/GXUiScale.h"
+#include "GameClient/GXWindowLook.h"
 #include "GameClient/GlobalLanguage.h"
 #include "GameNetwork/FirewallHelper.h"
 #include "GameNetwork/IPEnumeration.h"
@@ -902,6 +907,7 @@ static void saveOptions()
 }
 
 static void DestroyOptionsLayout() {
+	CloseExtrasMenu();
 
 	SignalUIInteraction(SHELL_SCRIPT_HOOK_OPTIONS_CLOSED);
 
@@ -954,6 +960,44 @@ static void initLabelVersion()
 //-------------------------------------------------------------------------------------------------
 /** Initialize the options menu */
 //-------------------------------------------------------------------------------------------------
+// GeneralsX @feature Android port 19/10/2026 In Generals too (owner: Zero Hour has the button, Generals not).
+// GeneralsX @feature Codex/realkot 14/10/2026 The Extras button beside the heading, placed with the
+// Options layout's own transform (GXUiScale) and in the stock Options font. Ported from
+// https://github.com/realkot/GeneralsX with the author's permission.
+static void gxEnsureExtrasButton()
+{
+	const NameKeyType id = TheNameKeyGenerator->nameToKey("OptionsMenu.wnd:ButtonExtras");
+	if (TheWindowManager->winGetWindowFromId(nullptr, id))
+		return;
+	GameWindow *back = TheWindowManager->winGetWindowFromId(nullptr, TheNameKeyGenerator->nameToKey("OptionsMenu.wnd:ButtonBack"));
+	if (!back || !back->winGetParent() || !TheDisplay)
+		return;
+	GameWindow *parent = back->winGetParent();
+	Int px, py;
+	parent->winGetScreenPosition(&px, &py);
+	const GXUiScale::Transform &transform = GXUiScale::forLayout("Menus/OptionsMenu.wnd");
+	const Int left = (Int)transform.mapX(TheDisplay->getWidth() * 510.0f / 800.0f);
+	const Int right = (Int)transform.mapX(TheDisplay->getWidth() * 642.0f / 800.0f);
+	const Int top = (Int)transform.mapY(TheDisplay->getHeight() * 22.0f / 600.0f);
+	const Int bottom = (Int)transform.mapY(TheDisplay->getHeight() * 54.0f / 600.0f);
+	WinInstanceData inst;
+	inst.init();
+	inst.m_style = GWS_PUSH_BUTTON | GWS_MOUSE_TRACK;
+	inst.m_textLabelString = "Extras";
+	GameFont *font = back->winGetInstanceData()->getFont();
+	GameWindow *button = TheWindowManager->gogoGadgetPushButton(parent, WIN_STATUS_ENABLED,
+		left - px, top - py, right - left, bottom - top, &inst, font, FALSE);
+	if (button)
+	{
+		button->winSetWindowId(id);
+		// GeneralsX @feature Android port 19/10/2026 The game's own button art and text colours, taken
+		// from Accept (or Back) on this very screen, so the button is one of the game's -- and a mod's.
+		GameWindow *accept = GXWindowLook::byName("OptionsMenu.wnd:ButtonAccept");
+		GXWindowLook::copy(button, accept ? accept : back, TRUE);
+		GadgetButtonSetText(button, ExtrasMenuButtonLabel());
+	}
+}
+
 void OptionsMenuInit( WindowLayout *layout, void *userData )
 {
 	ignoreSelected = TRUE;
@@ -1440,6 +1484,7 @@ void OptionsMenuInit( WindowLayout *layout, void *userData )
 	}
 
 
+	gxEnsureExtrasButton();
 	TheWindowManager->winSetModal(parent);
 	ignoreSelected = FALSE;
 }
@@ -1539,6 +1584,7 @@ WindowMsgHandledType OptionsMenuSystem( GameWindow *window, UnsignedInt msg,
 	static NameKeyType buttonAccept = NAMEKEY_INVALID;
 	static NameKeyType buttonReplayMenu = NAMEKEY_INVALID;
 	static NameKeyType buttonKeyboardOptionsMenu = NAMEKEY_INVALID;
+	static NameKeyType buttonExtrasMenu = NAMEKEY_INVALID;
 
 	switch( msg )
 	{
@@ -1552,6 +1598,8 @@ WindowMsgHandledType OptionsMenuSystem( GameWindow *window, UnsignedInt msg,
 			buttonDefaults = TheNameKeyGenerator->nameToKey( "OptionsMenu.wnd:ButtonDefaults" );
 			buttonAccept = TheNameKeyGenerator->nameToKey( "OptionsMenu.wnd:ButtonAccept" );
 			buttonKeyboardOptionsMenu = TheNameKeyGenerator->nameToKey( "OptionsMenu.wnd:ButtonKeyboardOptions" );
+			// GeneralsX @feature Codex/realkot 14/10/2026 Made in OptionsMenuInit (gxEnsureExtrasButton).
+			buttonExtrasMenu = TheNameKeyGenerator->nameToKey("OptionsMenu.wnd:ButtonExtras");
 
 			break;
 
@@ -1560,6 +1608,7 @@ WindowMsgHandledType OptionsMenuSystem( GameWindow *window, UnsignedInt msg,
 		//---------------------------------------------------------------------------------------------
 		case GWM_DESTROY:
 		{
+			CloseExtrasMenu();
 
 			break;
 
@@ -1670,6 +1719,10 @@ WindowMsgHandledType OptionsMenuSystem( GameWindow *window, UnsignedInt msg,
 			else if ( controlID == buttonKeyboardOptionsMenu )
 			{
 				TheShell->push( "Menus/KeyboardOptionsMenu.wnd" );
+			}
+			else if ( controlID == buttonExtrasMenu )
+			{
+				OpenExtrasMenu(pref);
 			}
 			else if(controlID == checkDrawAnchorID )
       {

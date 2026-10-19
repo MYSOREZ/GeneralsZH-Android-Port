@@ -54,6 +54,16 @@ Every pack starts with a `GX:LanguageName` entry holding the language's name in 
 pack needs nothing more than its folder: `languages/<folder>/generals.str` with this entry at the
 top. A pack without it is listed under its folder name with a capital letter.
 
+The folder name also goes on a line of its own in `languages/index.txt`: that file is the list of
+languages the launcher downloads. (It used to ask GitHub's API for the folder listing instead, but
+the API allows 60 requests an hour per address, and a mobile operator puts many phones behind one
+address -- players got HTTP 403. The list file is served like the packs, without that limit.)
+Check the two agree:
+
+```
+diff <(ls -d languages/*/ | xargs -n1 basename) <(grep -v '^#' languages/index.txt)
+```
+
 ## Why a .str and not a .csf
 
 The engine has always read both: a compiled binary `.csf`, and this plain-text

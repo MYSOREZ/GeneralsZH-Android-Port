@@ -3049,6 +3049,12 @@ public class SetupActivity extends Activity {
         "https://api.github.com/repos/MYSOREZ/GeneralsZH-Android-Port/contents/languages?ref=main";
     private static final String LANGUAGE_PACK_BASE =
         "https://raw.githubusercontent.com/MYSOREZ/GeneralsZH-Android-Port/main/languages/";
+    // GeneralsX @bugfix Android port 19/10/2026 The list of languages is a plain file served like the
+    // packs themselves. api.github.com allows 60 requests an hour per address without signing in, and
+    // a mobile operator puts a great many phones behind one address, so the directory listing above
+    // answered HTTP 403 to players who had never pressed the button before. raw.githubusercontent.com
+    // has no such limit; the listing stays only as a fallback for a branch without the file.
+    private static final String LANGUAGE_PACK_LIST = LANGUAGE_PACK_BASE + "index.txt";
 
     // GeneralsX @feature Android port 09/09/2026 Fetch every pack there is, and do not ask
     // which one first.
@@ -3073,15 +3079,29 @@ public class SetupActivity extends Activity {
 
         new Thread(() -> {
             final java.util.List<String> tokens = new java.util.ArrayList<>();
-            final String indexError = fetchLanguagePackIndex(tokens);
+            String listError = fetchLanguagePackList(tokens);
+            if (listError != null) {
+                tokens.clear();
+                listError = fetchLanguagePackIndex(tokens);
+            }
+            final String indexError = listError;
             final java.util.List<String> installed = new java.util.ArrayList<>();
-            final java.util.List<String> failed = new java.util.ArrayList<>();
+            // Each language with its reason: a list of language names alone (what this used to
+            // show) said that something failed and nothing about what.
+            final java.util.Map<String, java.util.List<String>> failedByReason =
+                new java.util.LinkedHashMap<>();
             if (indexError == null) {
                 for (String token : tokens) {
-                    if (downloadLanguagePack(token, gamePath) == null) {
+                    final String reason = downloadLanguagePack(token, gamePath);
+                    if (reason == null) {
                         installed.add(token);
                     } else {
-                        failed.add(token);
+                        java.util.List<String> group = failedByReason.get(reason);
+                        if (group == null) {
+                            group = new java.util.ArrayList<>();
+                            failedByReason.put(reason, group);
+                        }
+                        group.add(token);
                     }
                 }
             }
@@ -3095,8 +3115,8 @@ public class SetupActivity extends Activity {
                 }
                 if (installed.isEmpty()) {
                     toast(getString(R.string.setup_langpack_failed,
-                        failed.isEmpty() ? getString(R.string.setup_langpack_err_none_yet)
-                                         : android.text.TextUtils.join(", ", failed)));
+                        failedByReason.isEmpty() ? getString(R.string.setup_langpack_err_none_yet)
+                                                 : describeLanguagePackFailures(failedByReason)));
                     return;
                 }
                 updateGameLanguageStatusView();
@@ -3110,6 +3130,63 @@ public class SetupActivity extends Activity {
                 toast(getString(R.string.setup_langpack_done_n, installed.size(), names.toString()));
             });
         }, "gx-langpack").start();
+    }
+
+    /** One reason when every language failed the same way, else each reason with its languages. */
+    private String describeLanguagePackFailures(java.util.Map<String, java.util.List<String>> byReason) {
+        if (byReason.size() == 1) {
+            return byReason.keySet().iterator().next();
+        }
+        StringBuilder text = new StringBuilder();
+        for (java.util.Map.Entry<String, java.util.List<String>> entry : byReason.entrySet()) {
+            if (text.length() > 0) {
+                text.append("; ");
+            }
+            java.util.List<String> names = new java.util.ArrayList<>();
+            for (String token : entry.getValue()) {
+                names.add(gameTextName(token));
+            }
+            text.append(android.text.TextUtils.join(", ", names)).append(": ").append(entry.getKey());
+        }
+        return text.toString();
+    }
+
+    /**
+     * The languages listed in languages/index.txt, one folder name a line ('#' starts a comment).
+     * Returns null on success, else a reason.
+     */
+    private String fetchLanguagePackList(java.util.List<String> out) {
+        HttpURLConnection conn = null;
+        try {
+            conn = (HttpURLConnection) new URL(LANGUAGE_PACK_LIST).openConnection();
+            conn.setConnectTimeout(15000);
+            conn.setReadTimeout(30000);
+            conn.setRequestProperty("Accept", "text/plain");
+            final int status = conn.getResponseCode();
+            if (status < 200 || status >= 300) {
+                return "HTTP " + status;
+            }
+            try (java.io.BufferedReader r = new java.io.BufferedReader(
+                     new java.io.InputStreamReader(conn.getInputStream(), "UTF-8"))) {
+                String line;
+                while ((line = r.readLine()) != null) {
+                    final int hash = line.indexOf('#');
+                    final String token = (hash >= 0 ? line.substring(0, hash) : line).trim();
+                    // A folder name, nothing that could climb out of data/ in the game folder.
+                    if (token.matches("[a-z][a-z0-9_-]*")) {
+                        out.add(token);
+                    }
+                }
+            }
+            return out.isEmpty() ? getString(R.string.setup_langpack_err_none_yet) : null;
+        } catch (Exception e) {
+            String msg = e.getMessage();
+            return (msg == null || msg.isEmpty()) ? e.getClass().getSimpleName() : msg;
+        } finally {
+            if (conn != null) {
+                conn.disconnect();
+            }
+        }
     }
 
     /**

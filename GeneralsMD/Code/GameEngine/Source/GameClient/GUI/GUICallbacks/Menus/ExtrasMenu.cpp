@@ -51,6 +51,7 @@
 #include "GameClient/GadgetStaticText.h"
 #include "GameClient/GadgetTextEntry.h"
 #include "GameClient/GXExtrasValues.h"
+#include "GameClient/GXWindowLook.h"
 #include "GameLogic/GameLogic.h"
 #include <cstdlib>
 #include <cstring>
@@ -83,16 +84,45 @@ static Int gxCameraScale()
 }
 #define GX_EXTRA_CAMERA_SCALE gxCameraScale()
 
+// GeneralsX @feature Android port 19/10/2026 The frame takes the look of a section box on the game's
+// own Options screen (VideoParent) rather than a blue written here, so a mod that restyles Options
+// restyles this too. Captured when the popup opens, while Options is up beneath it.
+static WinDrawData s_extrasFrame = { nullptr, GameMakeColor(0, 0, 0, 255), GameMakeColor(255, 190, 1, 255) };
+
 static void gxExtrasBackdropDraw(GameWindow *window, WinInstanceData *data)
 {
-    // GeneralsX @feature Codex 15/10/2026 Opaque stock Options palette and section rules.
+    // GeneralsX @feature Codex 15/10/2026 Opaque, with the section rules of the stock Options.
     if (!TheDisplay) return;
     const Int w = TheDisplay->getWidth(), h = TheDisplay->getHeight();
     TheDisplay->drawFillRect(0, 0, w, h, GameMakeColor(0, 0, 0, 255));
-    const UnsignedInt blue = GameMakeColor(65, 65, 190, 255);
-    TheDisplay->drawOpenRect(w/10, h/20, w*8/10, h*17/20, 1.0f, blue);
-    TheDisplay->drawLine(w/10, h*95/600, w*9/10, h*95/600, 1.0f, blue);
-    TheDisplay->drawLine(w/10, h*425/600, w*9/10, h*425/600, 1.0f, blue);
+    const Int x0 = w/10, y0 = h/20, x1 = w*9/10, y1 = h*18/20;
+    if (s_extrasFrame.image)
+        TheDisplay->drawImage(s_extrasFrame.image, x0, y0, x1, y1);
+    else if (((s_extrasFrame.color >> 24) & 0xFF) != 0)
+        TheDisplay->drawFillRect(x0, y0, x1 - x0, y1 - y0, s_extrasFrame.color);
+    const Color rule = s_extrasFrame.borderColor;
+    TheDisplay->drawOpenRect(x0, y0, x1 - x0, y1 - y0, 1.0f, rule);
+    TheDisplay->drawLine(x0, h*95/600, x1, h*95/600, 1.0f, rule);
+    TheDisplay->drawLine(x0, h*425/600, x1, h*425/600, 1.0f, rule);
+}
+
+// GeneralsX @feature Android port 19/10/2026 Buttons, sliders, number fields and labels take the
+// look of their counterparts on the game's Options screen (GXWindowLook): the Extras layout's own
+// colours only remain where Options has nothing of that kind.
+static void gxExtrasTakeOptionsLook(GameWindow *parent)
+{
+    if (GameWindow *frame = GXWindowLook::exemplar("OptionsMenu.wnd:VideoParent", 0))
+        s_extrasFrame = frame->winGetInstanceData()->m_enabledDrawData[0];
+    else if (GameWindow *frame = GXWindowLook::exemplar("OptionsMenu.wnd:AudioParent", 0))
+        s_extrasFrame = frame->winGetInstanceData()->m_enabledDrawData[0];
+    GXWindowLook::copyToAll(parent, GWS_PUSH_BUTTON,
+        GXWindowLook::exemplar("OptionsMenu.wnd:ButtonAccept", GWS_PUSH_BUTTON), TRUE);
+    GXWindowLook::copyToAll(parent, GWS_HORZ_SLIDER,
+        GXWindowLook::exemplar("OptionsMenu.wnd:SliderMusicVolume", GWS_HORZ_SLIDER), TRUE);
+    GXWindowLook::copyToAll(parent, GWS_ENTRY_FIELD,
+        GXWindowLook::exemplar("OptionsMenu.wnd:TextEntryHTTPProxy", GWS_ENTRY_FIELD), TRUE);
+    GXWindowLook::copyToAll(parent, GWS_STATIC_TEXT,
+        GXWindowLook::exemplar("OptionsMenu.wnd:MusicVolumeLabel", GWS_STATIC_TEXT), FALSE);
 }
 
 void CloseExtrasMenu()
@@ -126,6 +156,7 @@ void OpenExtrasMenu(OptionPreferences *optionsPreferences)
     s_extrasLayout = layout;
     s_optionsPreferences = optionsPreferences;
     parent->winSetDrawFunc(gxExtrasBackdropDraw);
+    gxExtrasTakeOptionsLook(parent);
     layout->runInit(nullptr);
     layout->hide(FALSE);
     layout->bringForward();

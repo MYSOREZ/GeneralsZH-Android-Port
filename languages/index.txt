@@ -1,0 +1,14 @@
+# Languages the launcher offers to download, one folder of languages/ a line.
+# A new pack is listed here as well as given its folder (see README.md).
+arabic
+brazilian
+chinese
+french
+german
+interslavic
+korean
+persian
+polish
+russian
+spanish
+ukrainian

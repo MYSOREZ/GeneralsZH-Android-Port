@@ -163,6 +163,10 @@ namespace
 		std::vector<Real> offset; // decision 3, per window: old centre x, y, new centre x, y, scale (fractions of the screen)
 		Int next;
 		GXUiScale::Transform transform;
+		// GeneralsX @tweak Android port 19/10/2026 Fonts of a layout the rules do not scale, grown with
+		// the screen's resolution (the Extras popup's 12-point Arial was tiny at 2510x1156; realkot
+		// scales it the same way). 1 for every other layout.
+		Real resolutionFontK;
 	};
 
 	const GXUiScale::Transform kIdentity = { FALSE, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f };
@@ -747,6 +751,9 @@ void beginLayout( const char *layoutFile, const char *text, Int length )
 	Parsing p;
 	p.next = 0;
 	p.transform = kIdentity;
+	p.resolutionFontK = 1.0f;
+	if( TheDisplay && strcmp( baseName( layoutFile ), "ExtrasMenu.wnd" ) == 0 )
+		p.resolutionFontK = fmaxf( 1.0f, fminf( TheDisplay->getWidth() / 800.0f, TheDisplay->getHeight() / 600.0f ) );
 	const Rule *rule = findRule( layoutFile );
 	analyzeLayout( rule, layoutFile, text, length, p );
 	if( rule && rule->sharedWith )
@@ -824,6 +831,8 @@ Int scaleFontSize( Int size )
 	if( s_parsing.empty() )
 		return size;
 	const Parsing &p = s_parsing.back();
+	if( p.resolutionFontK != 1.0f )
+		return (Int)floorf( size * p.resolutionFontK + 0.5f );
 	const Int index = p.next - 1;
 	if( !p.transform.active || index < 0 || index >= (Int)p.scaled.size() || ( p.scaled[ index ] != 1 && p.scaled[ index ] != 4 ) )
 		return size;
