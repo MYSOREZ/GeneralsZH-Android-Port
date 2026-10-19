@@ -46,8 +46,9 @@ accounts at risk, not your own.
   mouse works as on a PC; without one your finger moves the cursor like a laptop touchpad -- tap to click,
   two-finger tap for a right click, two fingers to move and zoom the map. Edge scrolling and a cursor size
   slider; menus, lobby and the group column stay usable by finger directly.
-- **Camera settings in Zero Hour** (Options -> Extras): maximum and minimum height, pitch, scroll speed
-  and draw distance, with -/+ buttons, exact values and presets.
+- **Camera settings** in both games (Options -> Extras): maximum and minimum height, pitch, scroll speed
+  and draw distance, with -/+ buttons, exact values and presets. The window takes the look of the game's
+  own Options screen -- and of a mod that restyles it -- and its text grows with the screen.
 - **Touch orders** (#25): force attack as a mode, scatter, formation.
 - **Physical keyboard:** every key with its original code -- the keypad, punctuation and hotkeys that did
   nothing before.
@@ -112,6 +113,7 @@ accounts at risk, not your own.
 - **Skip intro movies**: a switch under the game picker skips the logos and intro movies.
 - **The game folder one or two levels down**: pick the folder the archive was unpacked into, and the
   launcher finds the game inside it. A complete Generals folder is no longer reported as incomplete.
+- **Downloading language packs no longer fails with HTTP 403** on mobile networks.
 - A support card and occasional announcements from the project.
 - A sharper launcher icon.
 
