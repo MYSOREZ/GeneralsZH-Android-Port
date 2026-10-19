@@ -25843,3 +25843,112 @@ END
 GX:Logout
 "ODJAVITI SE"
 END
+
+GX:ChatTooFast
+"Vy šljete poslanja prěmnogo čęsto. Počekajte malo."
+END
+
+GX:ChatCommands
+"Dostupne sut slědujuće komandy:"
+END
+
+GX:ChatCommandName
+"/name <imę> — měnjaje vaše pokazano imę. Primer: /name General Granger"
+END
+
+GX:NameLength
+"Nove imę mora imati od 3 do 16 znakov."
+END
+
+GX:RelayForced
+"Retranslatory sut teper prinudno vključene. Možete vhoditi jedino v lobby s tutoju samoju opcijeju. Odmeniti: /allowrelay"
+END
+
+GX:RelayOptional
+"Retranslatory sut opęt neobvęzne. Možete vhoditi jedino v lobby s tutoju samoju opcijeju. Odmeniti: /forcerelay"
+END
+
+GX:FilterAll
+"Filter: vse"
+END
+
+GX:Filter1v1
+"Filter: 1 na 1"
+END
+
+GX:FilterTeam
+"Filter: komandne igry"
+END
+
+GX:FilterFFA
+"Filter: každy za sebe"
+END
+
+GX:FilterAOD
+"Filter: AOD (obrana)"
+END
+
+GX:NoRooms
+"GREŠKA: nema dostupnyh sob. Poprobujte vojti opęt."
+END
+
+GX:LobbyListOutdated
+"Spisok lobby jest zastarěly. Natisnite «Obnoviti», da byste viděli aktualne igry."
+END
+
+GX:JoinPcHost
+"V igry, sozdane v PC-klientu, s Android ne možno vojti: krossplej s PC jest vyključeny po prošenju razrabotčikov GeneralsOnline. V igry, sozdane na Android, možno vhoditi kako obyčno."
+END
+
+GX:JoinModded
+"Imate izměnjene INI-fajly ili mod."
+END
+
+GX:JoinIniDiffers
+"Dane toj igry razlikujut se od vaših: jejei tvorec imaje druge fajly igry ili mod. Možno vhoditi v igry, kde tvorec imaje take same fajly kako vy."
+END
+
+GX:FriendsListFull
+"Ne možno poslati prošenje v drugi: vaš spisok drugov jest polny."
+END
+
+GX:CommunicatorHint
+"Natisnite F5 ili INSERT, da byste otvorili komunikator v koj-li moment (i v igrě)."
+END
+
+GX:AccountBanned
+"Račun jest blokovany"
+END
+
+GX:BannedAppeal
+"Vy jeste blokovani. Obžalovati blokovanje možno v Discord."
+END
+
+GX:LoggingIn
+"Vhod"
+END
+
+GX:LoggedIn
+"Vhod uspěšny!"
+END
+
+GX:ContinueInBrowser
+"Prodolžajte v brauzeru"
+END
+
+GX:FriendOffline
+"%hs odšel iz sěti"
+END
+
+GX:FriendAccepted
+"%hs prijęl vaše prošenje v drugi."
+END
+
+GX:ForcedReady
+"Vsi igrači sut prinudno označeni gotovymi."
+END
+
+GX:Connecting
+"Povęzyvanje..."
+END
+

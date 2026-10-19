@@ -343,29 +343,141 @@ static void fitButtonFont(GameWindow *button, Int width, Int height)
 	}
 }
 
-// GeneralsX @feature Android port 18/10/2026 The button face drawn at display init (GXPanelButton*,
-// W3DTouchButtonImages.cpp) instead of the .wnd's flat rectangles (owner, a30: "old-fashioned,
-// unnatural buttons for a game"). The image draw path stretches it over the button and still draws
-// the text and the hold clock.
+// GeneralsX @feature Android port 18/10/2026 The game's own button, without its picture (owner, a31:
+// take the command bar's small buttons, cut the icon out and use them). The control bar's Options
+// button carries the faction's button art in three states (ControlBarScheme: OptionsButtonEnable,
+// ...Hightlited, ...Pushed); each is cut at run time into a left end, a right end and a thin strip
+// from beside the icon, which is stretched across the middle. The ends keep their proportions at
+// any button height, so the rounded corners stay round. Nothing of the game is copied anywhere:
+// the slices are new image entries over the same texture, rebuilt when the faction's art changes.
+// Without that art (no control bar yet, an observer) the face drawn at display init stands in
+// (GXPanelButton*, W3DTouchButtonImages.cpp).
+namespace
+{
+	const Real SLICE_LEFT = 0.21f;		// the left end, a fraction of the art's width
+	const Real SLICE_RIGHT = 0.17f;		// the right end
+	const Real SLICE_STRIP = 0.02f;		// the strip, just inside the left end
+
+	struct ButtonSlices
+	{
+		const Image *source = nullptr;
+		Image *left = nullptr;
+		Image *middle = nullptr;
+		Image *right = nullptr;
+	};
+	ButtonSlices s_slices[3];	// rest, hilite, pressed
+
+	Image *sliceOf(const Image *source, Real from, Real to)
+	{
+		Image *slice = newInstance(Image);
+		slice->setName(source->getName());
+		slice->setFilename(source->getFilename());
+		slice->setStatus(source->getStatus());
+		if (source->getRawTextureData()) {
+			slice->setRawTextureData(const_cast<void *>(source->getRawTextureData()));
+		}
+		const Region2D *uv = source->getUV();
+		Region2D part = *uv;
+		part.lo.x = uv->lo.x + (uv->hi.x - uv->lo.x) * from;
+		part.hi.x = uv->lo.x + (uv->hi.x - uv->lo.x) * to;
+		slice->setUV(&part);
+		slice->setTextureWidth(source->getTextureSize()->x);
+		slice->setTextureHeight(source->getTextureSize()->y);
+		ICoord2D size;
+		size.x = max(1, (Int)(source->getImageWidth() * (to - from) + 0.5f));
+		size.y = source->getImageHeight();
+		slice->setImageSize(&size);
+		return slice;
+	}
+
+	void releaseSlices(ButtonSlices &set)
+	{
+		if (set.left) deleteInstance(set.left);
+		if (set.middle) deleteInstance(set.middle);
+		if (set.right) deleteInstance(set.right);
+		set = ButtonSlices();
+	}
+
+	void refreshSlices()
+	{
+		static NameKeyType optionsID = NAMEKEY_INVALID;
+		if (optionsID == NAMEKEY_INVALID && TheNameKeyGenerator) {
+			optionsID = TheNameKeyGenerator->nameToKey("ControlBar.wnd:ButtonOptions");
+		}
+		GameWindow *options = TheWindowManager ? TheWindowManager->winGetWindowFromId(nullptr, optionsID) : nullptr;
+		const Image *art[3] = { nullptr, nullptr, nullptr };
+		if (options) {
+			art[0] = GadgetButtonGetEnabledImage(options);
+			art[1] = GadgetButtonGetHiliteImage(options);
+			art[2] = GadgetButtonGetHiliteSelectedImage(options);
+		}
+		for (Int i = 0; i < 3; ++i) {
+			const Image *source = art[i] ? art[i] : art[0];
+			if (source && BitIsSet(source->getStatus(), IMAGE_STATUS_ROTATED_90_CLOCKWISE)) {
+				source = nullptr;	// cut along the other axis; not worth it, the drawn face stands in
+			}
+			if (s_slices[i].source == source) {
+				continue;
+			}
+			releaseSlices(s_slices[i]);
+			if (source && source->getImageWidth() > 0 && source->getImageHeight() > 0) {
+				s_slices[i].source = source;
+				s_slices[i].left = sliceOf(source, 0.0f, SLICE_LEFT);
+				s_slices[i].middle = sliceOf(source, SLICE_LEFT - SLICE_STRIP, SLICE_LEFT);
+				s_slices[i].right = sliceOf(source, 1.0f - SLICE_RIGHT, 1.0f);
+			}
+		}
+	}
+}
+
+static void gxPanelButtonDraw(GameWindow *window, WinInstanceData *instData)
+{
+	Int x, y, w, h;
+	window->winGetScreenPosition(&x, &y);
+	window->winGetSize(&w, &h);
+	const UnsignedInt state = instData->getState();
+	Int which = 0;
+	if (BitIsSet(window->winGetStatus(), WIN_STATUS_ENABLED)) {
+		if (BitIsSet(state, WIN_STATE_SELECTED)) {
+			which = 2;
+		} else if (BitIsSet(state, WIN_STATE_HILITED)) {
+			which = 1;
+		}
+	}
+	refreshSlices();
+	const ButtonSlices &set = s_slices[which];
+	if (set.source && TheDisplay) {
+		const Real scale = (Real)h / (Real)set.source->getImageHeight();
+		Int leftW = (Int)(set.left->getImageWidth() * scale + 0.5f);
+		Int rightW = (Int)(set.right->getImageWidth() * scale + 0.5f);
+		if (leftW + rightW > w) {
+			leftW = w * leftW / max(1, leftW + rightW);
+			rightW = w - leftW;
+		}
+		TheDisplay->drawImage(set.left, x, y, x + leftW, y + h);
+		if (w - leftW - rightW > 0) {
+			TheDisplay->drawImage(set.middle, x + leftW, y, x + w - rightW, y + h);
+		}
+		TheDisplay->drawImage(set.right, x + w - rightW, y, x + w, y + h);
+	} else if (TheMappedImageCollection && TheDisplay) {
+		static const char *const kFaces[3] = { "GXPanelButton", "GXPanelButtonHilite", "GXPanelButtonPressed" };
+		if (const Image *face = TheMappedImageCollection->findImageByName(kFaces[which])) {
+			TheDisplay->drawImage(face, x, y, x + w, y + h);
+		}
+	}
+	// The text and the hold clock, as the image draw path draws them over a button without images.
+	if (GameWinDrawFunc draw = TheWindowManager->getPushButtonImageDrawFunc()) {
+		draw(window, instData);
+	}
+}
+
 static void applyButtonFace(GameWindow *button)
 {
-	if (!button || !TheMappedImageCollection || !TheWindowManager) {
+	if (!button || !TheWindowManager || !TheWindowManager->getPushButtonImageDrawFunc()) {
 		return;
 	}
-	const Image *rest = TheMappedImageCollection->findImageByName("GXPanelButton");
-	const Image *hilite = TheMappedImageCollection->findImageByName("GXPanelButtonHilite");
-	const Image *pressed = TheMappedImageCollection->findImageByName("GXPanelButtonPressed");
-	GameWinDrawFunc draw = TheWindowManager->getPushButtonImageDrawFunc();
-	if (!rest || !hilite || !pressed || !draw) {
-		return;
-	}
-	GadgetButtonSetEnabledImage(button, rest);
-	GadgetButtonSetEnabledSelectedImage(button, pressed);
-	GadgetButtonSetHiliteImage(button, hilite);
-	GadgetButtonSetHiliteSelectedImage(button, pressed);
-	GadgetButtonSetDisabledImage(button, rest);
 	button->winSetStatus(WIN_STATUS_IMAGE);
-	button->winSetDrawFunc(draw);
+	button->winSetDrawFunc(gxPanelButtonDraw);
 }
 
 static void gxPanelBackdropDraw(GameWindow *window, WinInstanceData *instData);

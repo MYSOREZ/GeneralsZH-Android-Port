@@ -311,7 +311,7 @@ void NGMP_OnlineServices_SocialInterface::OnOnlineStatusChanged(std::string strD
 	// TODO_SOCIAL: Update communicator if its active
 	if (bShowNotification)
 	{
-		showNotificationBox(AsciiString(strDisplayName.c_str()), bOnline ? TheGameText->fetch("Buddy:OnlineNotification") : UnicodeString(L"%hs went offline"));
+		showNotificationBox(AsciiString(strDisplayName.c_str()), bOnline ? TheGameText->fetch("Buddy:OnlineNotification") : TheGameText->fetch("GX:FriendOffline"));
 	}
 }
 
@@ -329,7 +329,7 @@ void NGMP_OnlineServices_SocialInterface::OnFriendRequestAccepted(std::string st
 
 	if (bShowNotification)
 	{
-		showNotificationBox(AsciiString(strDisplayName.c_str()), UnicodeString(L"%hs accepted your friend request."));
+		showNotificationBox(AsciiString(strDisplayName.c_str()), TheGameText->fetch("GX:FriendAccepted"));
 	}
 }
 

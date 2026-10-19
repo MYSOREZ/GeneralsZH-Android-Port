@@ -25840,3 +25840,112 @@ END
 GX:Logout
 "ВИЙТИ"
 END
+
+GX:ChatTooFast
+"Ви надсилаєте повідомлення занадто часто. Зачекайте трохи."
+END
+
+GX:ChatCommands
+"Доступні такі команди:"
+END
+
+GX:ChatCommandName
+"/name <ім'я> — змінює ваше ім'я. Приклад: /name General Granger"
+END
+
+GX:NameLength
+"Нове ім'я має містити від 3 до 16 символів."
+END
+
+GX:RelayForced
+"Ретранслятори тепер увімкнено примусово. Ви зможете заходити лише в лобі з тим самим параметром. Скасувати: /allowrelay"
+END
+
+GX:RelayOptional
+"Ретранслятори знову необов'язкові. Ви зможете заходити лише в лобі з тим самим параметром. Скасувати: /forcerelay"
+END
+
+GX:FilterAll
+"Фільтр: усі"
+END
+
+GX:Filter1v1
+"Фільтр: 1 на 1"
+END
+
+GX:FilterTeam
+"Фільтр: командні"
+END
+
+GX:FilterFFA
+"Фільтр: кожен сам за себе"
+END
+
+GX:FilterAOD
+"Фільтр: AOD (оборона)"
+END
+
+GX:NoRooms
+"ПОМИЛКА: немає доступних кімнат. Спробуйте увійти знову."
+END
+
+GX:LobbyListOutdated
+"Список лобі застарів. Натисніть «Оновити», щоб побачити актуальні ігри."
+END
+
+GX:JoinPcHost
+"До ігор, створених у PC-клієнті, з Android зайти не можна: кросплей із PC вимкнено на прохання розробників GeneralsOnline. До ігор, створених на Android, можна заходити як зазвичай."
+END
+
+GX:JoinModded
+"У вас змінені INI-файли або мод."
+END
+
+GX:JoinIniDiffers
+"Дані цієї гри відрізняються від ваших: у її творця інші файли гри або мод. Заходити можна в ігри, де у творця такі самі файли, як у вас."
+END
+
+GX:FriendsListFull
+"Не вдається надіслати запит у друзі: ваш список друзів заповнений."
+END
+
+GX:CommunicatorHint
+"Натисніть F5 або INSERT, щоб відкрити комунікатор будь-коли (і в грі теж)."
+END
+
+GX:AccountBanned
+"Обліковий запис заблоковано"
+END
+
+GX:BannedAppeal
+"Вас заблоковано. Оскаржити блокування можна в Discord."
+END
+
+GX:LoggingIn
+"Вхід"
+END
+
+GX:LoggedIn
+"Вхід виконано!"
+END
+
+GX:ContinueInBrowser
+"Продовжте в браузері"
+END
+
+GX:FriendOffline
+"%hs вийшов із мережі"
+END
+
+GX:FriendAccepted
+"%hs прийняв ваш запит у друзі."
+END
+
+GX:ForcedReady
+"Усіх гравців примусово позначено готовими."
+END
+
+GX:Connecting
+"Підключення..."
+END
+

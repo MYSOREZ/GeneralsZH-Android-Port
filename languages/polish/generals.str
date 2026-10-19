@@ -25841,3 +25841,112 @@ END
 GX:Logout
 "WYLOGUJ"
 END
+
+GX:ChatTooFast
+"Wysyłasz wiadomości zbyt szybko. Poczekaj chwilę."
+END
+
+GX:ChatCommands
+"Dostępne są następujące polecenia:"
+END
+
+GX:ChatCommandName
+"/name <nazwa> – zmienia wyświetlaną nazwę. Przykład: /name General Granger"
+END
+
+GX:NameLength
+"Nowa nazwa musi mieć od 3 do 16 znaków."
+END
+
+GX:RelayForced
+"Przekaźniki są teraz wymuszone. Dołączysz tylko do poczekalni z tą samą opcją. Cofnięcie: /allowrelay"
+END
+
+GX:RelayOptional
+"Przekaźniki znów są opcjonalne. Dołączysz tylko do poczekalni z tą samą opcją. Cofnięcie: /forcerelay"
+END
+
+GX:FilterAll
+"Filtr: wszystkie"
+END
+
+GX:Filter1v1
+"Filtr: 1 na 1"
+END
+
+GX:FilterTeam
+"Filtr: drużynowe"
+END
+
+GX:FilterFFA
+"Filtr: każdy na każdego"
+END
+
+GX:FilterAOD
+"Filtr: AOD (obrona)"
+END
+
+GX:NoRooms
+"BŁĄD: brak dostępnych pokojów. Zaloguj się ponownie."
+END
+
+GX:LobbyListOutdated
+"Lista poczekalni jest nieaktualna. Odśwież, aby zobaczyć najnowsze gry."
+END
+
+GX:JoinPcHost
+"Do gier utworzonych w kliencie PC nie można dołączyć z Androida: gra międzyplatformowa z PC jest wyłączona na prośbę twórców GeneralsOnline. Do gier utworzonych na Androidzie można dołączać normalnie."
+END
+
+GX:JoinModded
+"Masz zmienione pliki INI lub moda."
+END
+
+GX:JoinIniDiffers
+"Dane tej gry różnią się od twoich: jej gospodarz gra na innych plikach lub z modem. Możesz dołączać do gier, których gospodarz ma te same pliki co ty."
+END
+
+GX:FriendsListFull
+"Nie można wysłać zaproszenia: lista znajomych jest pełna."
+END
+
+GX:CommunicatorHint
+"Naciśnij F5 lub INSERT, aby w każdej chwili otworzyć komunikator (także w grze)."
+END
+
+GX:AccountBanned
+"Konto zablokowane"
+END
+
+GX:BannedAppeal
+"Masz blokadę. Odwołanie możesz złożyć na Discordzie."
+END
+
+GX:LoggingIn
+"Logowanie"
+END
+
+GX:LoggedIn
+"Zalogowano!"
+END
+
+GX:ContinueInBrowser
+"Kontynuuj w przeglądarce"
+END
+
+GX:FriendOffline
+"%hs jest offline"
+END
+
+GX:FriendAccepted
+"%hs przyjął twoje zaproszenie do znajomych."
+END
+
+GX:ForcedReady
+"Wszystkich graczy oznaczono jako gotowych."
+END
+
+GX:Connecting
+"Łączenie..."
+END
+

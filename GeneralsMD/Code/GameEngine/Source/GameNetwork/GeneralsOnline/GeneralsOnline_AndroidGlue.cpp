@@ -310,7 +310,7 @@ bool TryStartGeneralsOnline()
 	}
 
 	ClearGSMessageBoxes();
-	GSMessageBoxNoButtons(UnicodeString(L"GeneralsOnline"), UnicodeString(L"Connecting..."), false);
+	GSMessageBoxNoButtons(UnicodeString(L"GeneralsOnline"), TheGameText->fetch("GX:Connecting"), false);
 
 	const std::string wsUri = session.wsUri;
 	auto connect = [wsUri]()

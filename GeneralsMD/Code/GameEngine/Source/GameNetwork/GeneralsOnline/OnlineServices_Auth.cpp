@@ -179,7 +179,7 @@ void NGMP_OnlineServices_AuthInterface::BeginLogin()
 					if (statusCode == 423)
 					{
 						ClearGSMessageBoxes();
-						GSMessageBoxOk(UnicodeString(L"Account Banned"), UnicodeString(L"You are banned. You can file an appeal in Discord."), []()
+						GSMessageBoxOk(TheGameText->fetch("GX:AccountBanned"), TheGameText->fetch("GX:BannedAppeal"), []()
 							{
 								TheShell->pop();
 							});
@@ -201,7 +201,7 @@ void NGMP_OnlineServices_AuthInterface::BeginLogin()
 						if (authResp.result == EAuthResponseResult::SUCCEEDED)
 						{
 							ClearGSMessageBoxes();
-							GSMessageBoxNoButtons(UnicodeString(L"Logging In"), UnicodeString(L"Logged in!"), true);
+							GSMessageBoxNoButtons(TheGameText->fetch("GX:LoggingIn"), TheGameText->fetch("GX:LoggedIn"), true);
 
 							NetworkLog(ELogVerbosity::LOG_RELEASE, "LOGIN: Logged in");
 							m_bWaitingLogin = false;
@@ -245,7 +245,7 @@ void NGMP_OnlineServices_AuthInterface::BeginLogin()
 #endif
 
 		ClearGSMessageBoxes();
-		GSMessageBoxCancel(UnicodeString(L"Logging In"), UnicodeString(L"Please continue in your web browser"), []()
+		GSMessageBoxCancel(TheGameText->fetch("GX:LoggingIn"), TheGameText->fetch("GX:ContinueInBrowser"), []()
 			{
                 if (NGMP_OnlineServicesManager::GetInstance() != nullptr)
                 {
@@ -280,7 +280,7 @@ void NGMP_OnlineServices_AuthInterface::DoReAuth()
 {
 	NetworkLog(ELogVerbosity::LOG_RELEASE, "LOGIN: DoReAuth");
 	ClearGSMessageBoxes();
-    GSMessageBoxCancel(UnicodeString(L"Logging In"), UnicodeString(L"Please continue in your web browser"), []()
+    GSMessageBoxCancel(TheGameText->fetch("GX:LoggingIn"), TheGameText->fetch("GX:ContinueInBrowser"), []()
         {
             if (NGMP_OnlineServicesManager::GetInstance() != nullptr)
             {
@@ -529,7 +529,7 @@ void NGMP_OnlineServices_AuthInterface::Tick()
 						{
 							m_bWaitingLogin = false;
 							ClearGSMessageBoxes();
-							GSMessageBoxOk(UnicodeString(L"Account Banned"), UnicodeString(L"You are banned. You can file an appeal in Discord."), []()
+							GSMessageBoxOk(TheGameText->fetch("GX:AccountBanned"), TheGameText->fetch("GX:BannedAppeal"), []()
 								{
 									TheShell->pop();
 								});

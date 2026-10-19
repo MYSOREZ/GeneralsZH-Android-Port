@@ -25840,3 +25840,112 @@ END
 GX:Logout
 "ABMELDEN"
 END
+
+GX:ChatTooFast
+"Du sendest Nachrichten zu schnell. Bitte warte einen Moment."
+END
+
+GX:ChatCommands
+"Folgende Befehle sind verfügbar:"
+END
+
+GX:ChatCommandName
+"/name <Name> – ändert deinen Anzeigenamen. Beispiel: /name General Granger"
+END
+
+GX:NameLength
+"Dein neuer Name muss 3 bis 16 Zeichen lang sein."
+END
+
+GX:RelayForced
+"Relays sind jetzt erzwungen. Du kannst nur Lobbys mit derselben Einstellung beitreten. Zurücksetzen mit /allowrelay"
+END
+
+GX:RelayOptional
+"Relays sind wieder optional. Du kannst nur Lobbys mit derselben Einstellung beitreten. Zurücksetzen mit /forcerelay"
+END
+
+GX:FilterAll
+"Filter: alle"
+END
+
+GX:Filter1v1
+"Filter: 1 gegen 1"
+END
+
+GX:FilterTeam
+"Filter: Teamspiele"
+END
+
+GX:FilterFFA
+"Filter: Jeder gegen jeden"
+END
+
+GX:FilterAOD
+"Filter: AOD (Verteidigung)"
+END
+
+GX:NoRooms
+"FEHLER: Keine Räume verfügbar. Melde dich erneut an."
+END
+
+GX:LobbyListOutdated
+"Deine Lobbyliste ist veraltet. Tippe auf Aktualisieren für die neuesten Spiele."
+END
+
+GX:JoinPcHost
+"Spiele, die im PC-Client erstellt wurden, kann man von Android aus nicht beitreten: Crossplay mit dem PC ist auf Wunsch der GeneralsOnline-Entwickler abgeschaltet. Spiele von Android-Hosts funktionieren normal."
+END
+
+GX:JoinModded
+"Du hast veränderte INI-Dateien oder eine Mod."
+END
+
+GX:JoinIniDiffers
+"Die Daten dieses Spiels unterscheiden sich von deinen: Der Host spielt mit anderen Spieldateien oder einer Mod. Spielen von Hosts mit denselben Dateien kannst du beitreten."
+END
+
+GX:FriendsListFull
+"Freundschaftsanfrage nicht möglich: Deine Freundesliste ist voll."
+END
+
+GX:CommunicatorHint
+"Drücke F5 oder EINFG, um den Kommunikator jederzeit zu öffnen (auch im Spiel)."
+END
+
+GX:AccountBanned
+"Konto gesperrt"
+END
+
+GX:BannedAppeal
+"Du bist gesperrt. Einspruch kannst du auf Discord einlegen."
+END
+
+GX:LoggingIn
+"Anmeldung"
+END
+
+GX:LoggedIn
+"Angemeldet!"
+END
+
+GX:ContinueInBrowser
+"Bitte im Webbrowser fortfahren"
+END
+
+GX:FriendOffline
+"%hs ist offline gegangen"
+END
+
+GX:FriendAccepted
+"%hs hat deine Freundschaftsanfrage angenommen."
+END
+
+GX:ForcedReady
+"Alle Spieler wurden auf Bereit gesetzt."
+END
+
+GX:Connecting
+"Verbinde..."
+END
+

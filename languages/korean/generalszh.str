@@ -25841,3 +25841,112 @@ END
 GX:Logout
 "로그아웃"
 END
+
+GX:ChatTooFast
+"메시지를 너무 빨리 보내고 있습니다. 잠시 기다려 주세요."
+END
+
+GX:ChatCommands
+"사용할 수 있는 명령:"
+END
+
+GX:ChatCommandName
+"/name <이름> – 표시 이름을 바꿉니다. 예: /name General Granger"
+END
+
+GX:NameLength
+"새 이름은 3~16자여야 합니다."
+END
+
+GX:RelayForced
+"이제 릴레이가 강제로 켜집니다. 같은 옵션의 로비에만 참가할 수 있습니다. 되돌리기: /allowrelay"
+END
+
+GX:RelayOptional
+"릴레이가 다시 선택 사항이 되었습니다. 같은 옵션의 로비에만 참가할 수 있습니다. 되돌리기: /forcerelay"
+END
+
+GX:FilterAll
+"필터: 전체"
+END
+
+GX:Filter1v1
+"필터: 1대1"
+END
+
+GX:FilterTeam
+"필터: 팀전"
+END
+
+GX:FilterFFA
+"필터: 개인전"
+END
+
+GX:FilterAOD
+"필터: AOD (방어)"
+END
+
+GX:NoRooms
+"오류: 사용할 수 있는 방이 없습니다. 다시 로그인해 보세요."
+END
+
+GX:LobbyListOutdated
+"로비 목록이 오래되었습니다. 새로고침하면 최신 게임이 보입니다."
+END
+
+GX:JoinPcHost
+"PC 클라이언트에서 만든 게임에는 Android에서 참가할 수 없습니다. GeneralsOnline 개발자의 요청으로 PC와의 크로스플레이가 꺼져 있습니다. Android에서 만든 게임에는 평소처럼 참가할 수 있습니다."
+END
+
+GX:JoinModded
+"INI 파일이 수정되었거나 모드가 있습니다."
+END
+
+GX:JoinIniDiffers
+"이 게임의 데이터가 당신의 것과 다릅니다. 호스트가 다른 게임 파일이나 모드를 사용합니다. 호스트가 같은 파일을 가진 게임에는 참가할 수 있습니다."
+END
+
+GX:FriendsListFull
+"친구 요청을 보낼 수 없습니다. 친구 목록이 가득 찼습니다."
+END
+
+GX:CommunicatorHint
+"언제든(게임 중에도) F5 또는 INSERT를 누르면 커뮤니케이터가 열립니다."
+END
+
+GX:AccountBanned
+"계정 차단됨"
+END
+
+GX:BannedAppeal
+"차단되었습니다. Discord에서 이의를 제기할 수 있습니다."
+END
+
+GX:LoggingIn
+"로그인 중"
+END
+
+GX:LoggedIn
+"로그인했습니다!"
+END
+
+GX:ContinueInBrowser
+"웹 브라우저에서 계속하세요"
+END
+
+GX:FriendOffline
+"%hs 님이 오프라인이 되었습니다"
+END
+
+GX:FriendAccepted
+"%hs 님이 친구 요청을 수락했습니다."
+END
+
+GX:ForcedReady
+"모든 플레이어가 강제로 준비 상태가 되었습니다."
+END
+
+GX:Connecting
+"연결 중..."
+END
+

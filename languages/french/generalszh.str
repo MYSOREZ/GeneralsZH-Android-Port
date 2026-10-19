@@ -25840,3 +25840,112 @@ END
 GX:Logout
 "DÉCONNEXION"
 END
+
+GX:ChatTooFast
+"Vous envoyez des messages trop vite. Patientez un instant."
+END
+
+GX:ChatCommands
+"Les commandes suivantes sont disponibles :"
+END
+
+GX:ChatCommandName
+"/name <nom> – change votre nom affiché. Exemple : /name General Granger"
+END
+
+GX:NameLength
+"Votre nouveau nom doit compter entre 3 et 16 caractères."
+END
+
+GX:RelayForced
+"Les relais sont désormais forcés. Vous ne pourrez rejoindre que les salons ayant la même option. Annuler : /allowrelay"
+END
+
+GX:RelayOptional
+"Les relais sont de nouveau facultatifs. Vous ne pourrez rejoindre que les salons ayant la même option. Annuler : /forcerelay"
+END
+
+GX:FilterAll
+"Filtre : tous"
+END
+
+GX:Filter1v1
+"Filtre : 1c1"
+END
+
+GX:FilterTeam
+"Filtre : par équipes"
+END
+
+GX:FilterFFA
+"Filtre : chacun pour soi"
+END
+
+GX:FilterAOD
+"Filtre : AOD (défense)"
+END
+
+GX:NoRooms
+"ERREUR : aucun salon disponible. Reconnectez-vous."
+END
+
+GX:LobbyListOutdated
+"Votre liste de salons est obsolète. Actualisez pour voir les dernières parties."
+END
+
+GX:JoinPcHost
+"Impossible de rejoindre depuis Android une partie créée avec le client PC : le jeu croisé avec le PC est désactivé à la demande des développeurs de GeneralsOnline. Les parties créées sur Android se rejoignent normalement."
+END
+
+GX:JoinModded
+"Vous avez des fichiers INI modifiés ou un mod."
+END
+
+GX:JoinIniDiffers
+"Les données de cette partie diffèrent des vôtres : son hôte joue avec d'autres fichiers ou un mod. Vous pouvez rejoindre les parties dont l'hôte a les mêmes fichiers que vous."
+END
+
+GX:FriendsListFull
+"Impossible d'envoyer une demande d'ami : votre liste d'amis est pleine."
+END
+
+GX:CommunicatorHint
+"Appuyez sur F5 ou INSER pour ouvrir le communicateur à tout moment (même en partie)."
+END
+
+GX:AccountBanned
+"Compte banni"
+END
+
+GX:BannedAppeal
+"Vous êtes banni. Vous pouvez faire appel sur Discord."
+END
+
+GX:LoggingIn
+"Connexion"
+END
+
+GX:LoggedIn
+"Connecté !"
+END
+
+GX:ContinueInBrowser
+"Continuez dans votre navigateur"
+END
+
+GX:FriendOffline
+"%hs s'est déconnecté"
+END
+
+GX:FriendAccepted
+"%hs a accepté votre demande d'ami."
+END
+
+GX:ForcedReady
+"Tous les joueurs ont été forcés à se déclarer prêts."
+END
+
+GX:Connecting
+"Connexion..."
+END
+

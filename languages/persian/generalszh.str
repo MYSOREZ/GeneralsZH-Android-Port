@@ -25843,3 +25843,112 @@ END
 GX:Logout
 "خروج از حساب"
 END
+
+GX:ChatTooFast
+"پیام‌ها را خیلی سریع می‌فرستید. لطفاً کمی صبر کنید."
+END
+
+GX:ChatCommands
+"فرمان‌های زیر در دسترس هستند:"
+END
+
+GX:ChatCommandName
+"‎/name <نام> – نام نمایشی شما را عوض می‌کند. نمونه: /name General Granger"
+END
+
+GX:NameLength
+"نام جدید باید بین ۳ تا ۱۶ نویسه باشد."
+END
+
+GX:RelayForced
+"رله‌ها اکنون اجباری شدند. فقط می‌توانید به لابی‌هایی با همین گزینه بپیوندید. برای لغو: ‎/allowrelay"
+END
+
+GX:RelayOptional
+"رله‌ها دوباره اختیاری شدند. فقط می‌توانید به لابی‌هایی با همین گزینه بپیوندید. برای لغو: ‎/forcerelay"
+END
+
+GX:FilterAll
+"فیلتر: همه"
+END
+
+GX:Filter1v1
+"فیلتر: ۱ در برابر ۱"
+END
+
+GX:FilterTeam
+"فیلتر: تیمی"
+END
+
+GX:FilterFFA
+"فیلتر: همه علیه همه"
+END
+
+GX:FilterAOD
+"فیلتر: AOD (دفاع)"
+END
+
+GX:NoRooms
+"خطا: هیچ اتاقی در دسترس نیست. دوباره وارد شوید."
+END
+
+GX:LobbyListOutdated
+"فهرست لابی‌ها قدیمی است. برای دیدن تازه‌ترین بازی‌ها به‌روزرسانی کنید."
+END
+
+GX:JoinPcHost
+"نمی‌توان از Android به بازی‌هایی که در کلاینت رایانه ساخته شده‌اند پیوست: بازی مشترک با رایانه به درخواست سازندگان GeneralsOnline خاموش است. به بازی‌های ساخته‌شده روی Android می‌توان مانند همیشه پیوست."
+END
+
+GX:JoinModded
+"فایل‌های INI شما تغییر کرده‌اند یا یک مد نصب است."
+END
+
+GX:JoinIniDiffers
+"داده‌های این بازی با داده‌های شما فرق دارد: میزبان آن با فایل‌های دیگر یا یک مد بازی می‌کند. به بازی‌هایی که میزبانشان همان فایل‌های شما را دارد می‌توانید بپیوندید."
+END
+
+GX:FriendsListFull
+"درخواست دوستی فرستاده نشد: فهرست دوستان شما پر است."
+END
+
+GX:CommunicatorHint
+"برای باز کردن ارتباط‌دهنده در هر زمان (حتی در بازی) F5 یا INSERT را بزنید."
+END
+
+GX:AccountBanned
+"حساب مسدود شد"
+END
+
+GX:BannedAppeal
+"شما مسدود شده‌اید. می‌توانید در Discord درخواست تجدیدنظر بدهید."
+END
+
+GX:LoggingIn
+"ورود"
+END
+
+GX:LoggedIn
+"وارد شدید!"
+END
+
+GX:ContinueInBrowser
+"در مرورگر ادامه دهید"
+END
+
+GX:FriendOffline
+"%hs آفلاین شد"
+END
+
+GX:FriendAccepted
+"%hs درخواست دوستی شما را پذیرفت."
+END
+
+GX:ForcedReady
+"همهٔ بازیکنان به‌اجبار آماده شدند."
+END
+
+GX:Connecting
+"در حال اتصال..."
+END
+

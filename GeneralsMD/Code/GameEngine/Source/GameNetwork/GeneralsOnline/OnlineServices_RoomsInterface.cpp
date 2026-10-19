@@ -840,7 +840,7 @@ void WebSocket::Tick()
 									case EWebSocketMessageID::SOCIAL_CANT_ADD_FRIEND_LIST_FULL:
 									{
 										// always show this notification, it's tied to a local user action
-										showNotificationBox(AsciiString::TheEmptyString, UnicodeString(L"Cannot sent friends request. Your friends list is full."));
+										showNotificationBox(AsciiString::TheEmptyString, TheGameText->fetch("GX:FriendsListFull"));
 									}
 									break;
 
@@ -866,7 +866,7 @@ void WebSocket::Tick()
 											}
 											else
 											{
-												strFormat = UnicodeString(L"Press F5 or INSERT to bring up the communicator at any time (including in-game).");
+												strFormat = TheGameText->fetch("GX:CommunicatorHint");
 											}
 
 											// show it on the communicator too

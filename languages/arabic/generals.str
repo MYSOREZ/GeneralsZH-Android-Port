@@ -25841,3 +25841,112 @@ END
 GX:Logout
 "تسجيل الخروج"
 END
+
+GX:ChatTooFast
+"أنت ترسل الرسائل بسرعة كبيرة. انتظر لحظة من فضلك."
+END
+
+GX:ChatCommands
+"الأوامر التالية متاحة:"
+END
+
+GX:ChatCommandName
+"‎/name <الاسم> – يغيّر اسمك الظاهر. مثال: /name General Granger"
+END
+
+GX:NameLength
+"يجب أن يتكون الاسم الجديد من 3 إلى 16 حرفاً."
+END
+
+GX:RelayForced
+"أصبحت المرحّلات إلزامية الآن. لن تتمكن إلا من دخول الردهات ذات الخيار نفسه. للإلغاء: ‎/allowrelay"
+END
+
+GX:RelayOptional
+"أصبحت المرحّلات اختيارية من جديد. لن تتمكن إلا من دخول الردهات ذات الخيار نفسه. للإلغاء: ‎/forcerelay"
+END
+
+GX:FilterAll
+"التصفية: الكل"
+END
+
+GX:Filter1v1
+"التصفية: 1 ضد 1"
+END
+
+GX:FilterTeam
+"التصفية: ألعاب الفرق"
+END
+
+GX:FilterFFA
+"التصفية: الكل ضد الكل"
+END
+
+GX:FilterAOD
+"التصفية: AOD (دفاع)"
+END
+
+GX:NoRooms
+"خطأ: لا توجد غرف متاحة. حاول تسجيل الدخول من جديد."
+END
+
+GX:LobbyListOutdated
+"قائمة الردهات قديمة. اضغط تحديث لرؤية أحدث الألعاب."
+END
+
+GX:JoinPcHost
+"لا يمكن دخول الألعاب المنشأة في عميل الحاسوب من Android: اللعب المشترك مع الحاسوب متوقف بطلب من مطوري GeneralsOnline. يمكن دخول الألعاب المنشأة على Android كالمعتاد."
+END
+
+GX:JoinModded
+"لديك ملفات INI معدّلة أو تعديل (mod)."
+END
+
+GX:JoinIniDiffers
+"تختلف بيانات هذه اللعبة عن بياناتك: مضيفها يلعب بملفات أخرى أو بتعديل. يمكنك دخول الألعاب التي يملك مضيفها الملفات نفسها التي لديك."
+END
+
+GX:FriendsListFull
+"تعذّر إرسال طلب الصداقة: قائمة أصدقائك ممتلئة."
+END
+
+GX:CommunicatorHint
+"اضغط F5 أو INSERT لفتح جهاز الاتصال في أي وقت (وأثناء اللعب أيضاً)."
+END
+
+GX:AccountBanned
+"الحساب محظور"
+END
+
+GX:BannedAppeal
+"تم حظرك. يمكنك تقديم استئناف على Discord."
+END
+
+GX:LoggingIn
+"تسجيل الدخول"
+END
+
+GX:LoggedIn
+"تم تسجيل الدخول!"
+END
+
+GX:ContinueInBrowser
+"تابع في متصفحك"
+END
+
+GX:FriendOffline
+"%hs أصبح غير متصل"
+END
+
+GX:FriendAccepted
+"قبل %hs طلب صداقتك."
+END
+
+GX:ForcedReady
+"تم تعيين جميع اللاعبين جاهزين إجبارياً."
+END
+
+GX:Connecting
+"جارٍ الاتصال..."
+END
+

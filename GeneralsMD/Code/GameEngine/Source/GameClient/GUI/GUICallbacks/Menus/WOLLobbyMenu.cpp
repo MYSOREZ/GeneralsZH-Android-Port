@@ -153,7 +153,7 @@ static bool LobbyChatSlowmodeAllowsSend()
 		{
 			GadgetListBoxAddEntryText(
 				listboxLobbyChat,
-				UnicodeString(L"You are sending messages too quickly. Please wait a moment."),
+				TheGameText->fetch("GX:ChatTooFast"),
 				GameMakeColor(255, 0, 0, 255),
 				-1,
 				-1
@@ -216,8 +216,8 @@ Bool handleLobbySlashCommands(UnicodeString uText)
 	}
 	else if (token == "help" || token == "commands")
 	{
-		GadgetListBoxAddEntryText(listboxLobbyChat, UnicodeString(L"The following commands are available:"), GameSpyColor[GSCOLOR_CHAT_NORMAL], -1, -1);
-		GadgetListBoxAddEntryText(listboxLobbyChat, UnicodeString(L"/name <value> - Changes your display name - Example: /name General Granger"), GameSpyColor[GSCOLOR_CHAT_NORMAL], -1, -1);
+		GadgetListBoxAddEntryText(listboxLobbyChat, TheGameText->fetch("GX:ChatCommands"), GameSpyColor[GSCOLOR_CHAT_NORMAL], -1, -1);
+		GadgetListBoxAddEntryText(listboxLobbyChat, TheGameText->fetch("GX:ChatCommandName"), GameSpyColor[GSCOLOR_CHAT_NORMAL], -1, -1);
 		return TRUE; // was a slash command
 	}
 	else if ((token == "name" && uText.getLength() > 6) || (token == "nick" && uText.getLength() > 6))
@@ -226,7 +226,7 @@ Bool handleLobbySlashCommands(UnicodeString uText)
 
 		if (newName.getLength() < 3 || newName.getLength() > 16)
 		{
-			GadgetListBoxAddEntryText(listboxLobbyChat, UnicodeString(L"Your new name must be between 3 and 16 characters."), GameMakeColor(255, 0, 0, 255), -1, -1);
+			GadgetListBoxAddEntryText(listboxLobbyChat, TheGameText->fetch("GX:NameLength"), GameMakeColor(255, 0, 0, 255), -1, -1);
 		}
 		else
 		{
@@ -246,7 +246,7 @@ Bool handleLobbySlashCommands(UnicodeString uText)
 		g_bForceRelay = true;
 		m_exeCRCOriginal = TheWritableGlobalData->m_exeCRC;
 		TheWritableGlobalData->m_exeCRC = 123456;
-		GadgetListBoxAddEntryText(listboxLobbyChat, UnicodeString(L"Relays are now forced on. You will only be able to join lobbies where the same option has been set. Use /allowrelay to reset this"), GameMakeColor(255, 0, 0, 255), -1, -1);
+		GadgetListBoxAddEntryText(listboxLobbyChat, TheGameText->fetch("GX:RelayForced"), GameMakeColor(255, 0, 0, 255), -1, -1);
 		return TRUE; // was a slash command
 	}
 	else if (token == "allowrelay")
@@ -256,7 +256,7 @@ Bool handleLobbySlashCommands(UnicodeString uText)
 		g_bForceRelay = false;
 		TheWritableGlobalData->m_exeCRC = m_exeCRCOriginal;
 		m_exeCRCOriginal = 0;
-		GadgetListBoxAddEntryText(listboxLobbyChat, UnicodeString(L"Relays are now optional again. You will only be able to join lobbies where the same option has been set. Use /forcerelay to reset this"), GameMakeColor(255, 0, 0, 255), -1, -1);
+		GadgetListBoxAddEntryText(listboxLobbyChat, TheGameText->fetch("GX:RelayOptional"), GameMakeColor(255, 0, 0, 255), -1, -1);
 		return TRUE; // was a slash command
 	}
 	else if (token == "refresh")
@@ -613,15 +613,15 @@ static void PopulateLobbyFilterComboBox(GameWindow* comboBox)
 	GadgetComboBoxReset(comboBox);
 
 	Int idx;
-	idx = GadgetComboBoxAddEntry(comboBox, UnicodeString(L"Filter: All"),
+	idx = GadgetComboBoxAddEntry(comboBox, TheGameText->fetch("GX:FilterAll"),
 		GameSpyColor[GSCOLOR_DEFAULT]); GadgetComboBoxSetItemData(comboBox, idx, (void*)LOBBY_FILTER_ALL);
-	idx = GadgetComboBoxAddEntry(comboBox, UnicodeString(L"Filter: 1v1"),
+	idx = GadgetComboBoxAddEntry(comboBox, TheGameText->fetch("GX:Filter1v1"),
 		GameSpyColor[GSCOLOR_DEFAULT]); GadgetComboBoxSetItemData(comboBox, idx, (void*)LOBBY_FILTER_1V1);
-	idx = GadgetComboBoxAddEntry(comboBox, UnicodeString(L"Filter: Team Games"),
+	idx = GadgetComboBoxAddEntry(comboBox, TheGameText->fetch("GX:FilterTeam"),
 		GameSpyColor[GSCOLOR_DEFAULT]); GadgetComboBoxSetItemData(comboBox, idx, (void*)LOBBY_FILTER_TEAM);
-	idx = GadgetComboBoxAddEntry(comboBox, UnicodeString(L"Filter: FFA"),
+	idx = GadgetComboBoxAddEntry(comboBox, TheGameText->fetch("GX:FilterFFA"),
 		GameSpyColor[GSCOLOR_DEFAULT]); GadgetComboBoxSetItemData(comboBox, idx, (void*)LOBBY_FILTER_FFA);
-	idx = GadgetComboBoxAddEntry(comboBox, UnicodeString(L"Filter: AOD"),
+	idx = GadgetComboBoxAddEntry(comboBox, TheGameText->fetch("GX:FilterAOD"),
 		GameSpyColor[GSCOLOR_DEFAULT]); GadgetComboBoxSetItemData(comboBox, idx, (void*)LOBBY_FILTER_AOD);
 
 	GadgetComboBoxSetSelectedPos(comboBox, (Int)theLobbyFilter);
@@ -1520,7 +1520,7 @@ void WOLLobbyMenuInit( WindowLayout *layout, void *userData )
 							}
 							else
 							{
-								GadgetListBoxAddEntryText(listboxLobbyChat, UnicodeString(L"\t ERROR: No rooms are available. Try logging in again."), GameMakeColor(255, 0, 0, 255), -1, -1);
+								GadgetListBoxAddEntryText(listboxLobbyChat, TheGameText->fetch("GX:NoRooms"), GameMakeColor(255, 0, 0, 255), -1, -1);
 							}
 						}
 
@@ -1874,7 +1874,7 @@ void WOLLobbyMenuUpdate( WindowLayout * layout, void *userData)
 		}
 		else
 		{
-			GadgetListBoxAddEntryText(listboxLobbyChat, UnicodeString(L"Your lobby list is outdated. Hit refresh to see the latest servers."), GameMakeColor(255, 194, 15, 255), -1, -1);
+			GadgetListBoxAddEntryText(listboxLobbyChat, TheGameText->fetch("GX:LobbyListOutdated"), GameMakeColor(255, 194, 15, 255), -1, -1);
 		}
 
 	}
@@ -2599,11 +2599,11 @@ WindowMsgHandledType WOLLobbyMenuSystem( GameWindow *window, UnsignedInt msg,
 								if (Lobby.exe_crc != TheGlobalData->m_exeCRC)
 								{
 									GSMessageBoxOk(TheGameText->fetch("GUI:JoinFailedDefault"),
-										UnicodeString(L"This Android build cannot join games hosted by the PC client: the two are different programs, so their EXE checksums never match. Games hosted from Android can be joined normally."));
+										TheGameText->fetch("GX:JoinPcHost"));
 								}
 								else if (TheGlobalData->m_iniCRC != VANILLA_INI_CRC)
 								{
-									GSMessageBoxOk(TheGameText->fetch("GUI:JoinFailedDefault"), UnicodeString(L"You have modified INI files or a modification."));
+									GSMessageBoxOk(TheGameText->fetch("GUI:JoinFailedDefault"), TheGameText->fetch("GX:JoinModded"));
 								}
 								else if (Lobby.ini_crc != VANILLA_INI_CRC)
 								{
@@ -2620,7 +2620,7 @@ WindowMsgHandledType WOLLobbyMenuSystem( GameWindow *window, UnsignedInt msg,
 									// no honest way to fake it, since the numbers are computed from
 									// the files the match will actually be played with.
 									GSMessageBoxOk(TheGameText->fetch("GUI:JoinFailedDefault"),
-										UnicodeString(L"This game's INI data differs from yours. The PC client ships its own INI files; copy them into your game folder to join games hosted by it. The startup log line tagged [GX-CRC] shows whether they took."));
+										TheGameText->fetch("GX:JoinIniDiffers"));
 								}
 								else
 								{

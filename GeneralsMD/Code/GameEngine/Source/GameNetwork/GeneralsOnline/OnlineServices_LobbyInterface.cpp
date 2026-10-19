@@ -529,7 +529,7 @@ void NGMP_OnlineServices_LobbyInterface::UpdateCurrentLobby_ForceReady()
 	// convert
 	NGMP_OnlineServicesManager::GetInstance()->GetHTTPManager()->SendPOSTRequest(strURI.c_str(), EIPProtocolVersion::DONT_CARE, mapHeaders, strPostData.c_str(), [=](bool bSuccess, int statusCode, std::string strBody, HTTPRequest* pReq)
 		{
-			UnicodeString msg = UnicodeString(L"All players have been forced to ready up.");
+			UnicodeString msg = TheGameText->fetch("GX:ForcedReady");
 			SendAnnouncementMessageToCurrentLobby(msg, true);
 		});
 }
