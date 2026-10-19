@@ -55,15 +55,42 @@ namespace GXWindowLook
 		return (root && !allowHidden) ? byStyle(root, style, TRUE) : nullptr;
 	}
 
+	/// The first window under root whose text label (the .wnd's TEXT, e.g. "GUI:Options") is label.
+	inline GameWindow *byLabel(GameWindow *root, const char *label)
+	{
+		for (GameWindow *w = root ? root->winGetChild() : nullptr; w; w = w->winGetNext())
+		{
+			if (w->winGetInstanceData()->m_textLabelString.compareNoCase(label) == 0)
+				return w;
+			if (GameWindow *found = byLabel(w, label))
+				return found;
+		}
+		return nullptr;
+	}
+
+	/// The topmost window of the live Options layout, or null when Options is not up.
+	inline GameWindow *optionsRoot()
+	{
+		GameWindow *root = byName("OptionsMenu.wnd:OptionsMenuParent");
+		while (root && root->winGetParent())
+			root = root->winGetParent();
+		return root;
+	}
+
 	/// The named window if it exists, else the first one of that style in the Options layout.
 	inline GameWindow *exemplar(const char *name, UnsignedInt style)
 	{
 		if (GameWindow *w = byName(name))
 			return w;
-		GameWindow *root = byName("OptionsMenu.wnd:OptionsMenuParent");
-		while (root && root->winGetParent())
-			root = root->winGetParent();
-		return style ? byStyle(root, style) : nullptr;
+		return style ? byStyle(optionsRoot(), style) : nullptr;
+	}
+
+	/// The exemplar's font itself, size included: text then reads at the size the game's own
+	/// screen uses for that kind of text.
+	inline void copyFont(GameWindow *to, GameWindow *from)
+	{
+		if (to && from && from->winGetFont())
+			to->winSetFont(from->winGetFont());
 	}
 
 	inline void copyFontFamily(GameWindow *to, GameWindow *from)

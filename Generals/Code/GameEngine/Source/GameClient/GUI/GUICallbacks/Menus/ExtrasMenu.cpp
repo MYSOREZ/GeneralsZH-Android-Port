@@ -84,45 +84,171 @@ static Int gxCameraScale()
 }
 #define GX_EXTRA_CAMERA_SCALE gxCameraScale()
 
-// GeneralsX @feature Android port 19/10/2026 The frame takes the look of a section box on the game's
-// own Options screen (VideoParent) rather than a blue written here, so a mod that restyles Options
-// restyles this too. Captured when the popup opens, while Options is up beneath it.
+// GeneralsX @feature Android port 19/10/2026 The popup is drawn as the game draws its Options screen:
+// the scene behind dimmed by the colour of the Options layout's own full-screen window, and a panel
+// in the look of an Options section box (VideoParent), around what the popup actually shows rather
+// than a fixed rectangle, with a rule under the title and one over the buttons. Options itself is
+// hidden meanwhile, so it does not show through. All of it is taken when the popup opens.
 static WinDrawData s_extrasFrame = { nullptr, GameMakeColor(0, 0, 0, 255), GameMakeColor(255, 190, 1, 255) };
+static Color s_extrasDim = GameMakeColor(2, 2, 2, 126);
+static IRegion2D s_extrasPanel = { { 0, 0 }, { 0, 0 } };
+static Int s_extrasRuleTop = 0;
+static Int s_extrasRuleBottom = 0;
+static GameWindow *s_hiddenOptions = nullptr;
 
 static void gxExtrasBackdropDraw(GameWindow *window, WinInstanceData *data)
 {
-    // GeneralsX @feature Codex 15/10/2026 Opaque, with the section rules of the stock Options.
     if (!TheDisplay) return;
-    const Int w = TheDisplay->getWidth(), h = TheDisplay->getHeight();
-    TheDisplay->drawFillRect(0, 0, w, h, GameMakeColor(0, 0, 0, 255));
-    const Int x0 = w/10, y0 = h/20, x1 = w*9/10, y1 = h*18/20;
+    TheDisplay->drawFillRect(0, 0, TheDisplay->getWidth(), TheDisplay->getHeight(), s_extrasDim);
+    const Int x0 = s_extrasPanel.lo.x, y0 = s_extrasPanel.lo.y;
+    const Int w = s_extrasPanel.hi.x - x0, h = s_extrasPanel.hi.y - y0;
     if (s_extrasFrame.image)
-        TheDisplay->drawImage(s_extrasFrame.image, x0, y0, x1, y1);
+        TheDisplay->drawImage(s_extrasFrame.image, x0, y0, x0 + w, y0 + h);
     else if (((s_extrasFrame.color >> 24) & 0xFF) != 0)
-        TheDisplay->drawFillRect(x0, y0, x1 - x0, y1 - y0, s_extrasFrame.color);
+        TheDisplay->drawFillRect(x0, y0, w, h, s_extrasFrame.color);
     const Color rule = s_extrasFrame.borderColor;
-    TheDisplay->drawOpenRect(x0, y0, x1 - x0, y1 - y0, 1.0f, rule);
-    TheDisplay->drawLine(x0, h*95/600, x1, h*95/600, 1.0f, rule);
-    TheDisplay->drawLine(x0, h*425/600, x1, h*425/600, 1.0f, rule);
+    TheDisplay->drawOpenRect(x0, y0, w, h, 1.0f, rule);
+    TheDisplay->drawLine(x0, s_extrasRuleTop, x0 + w, s_extrasRuleTop, 1.0f, rule);
+    TheDisplay->drawLine(x0, s_extrasRuleBottom, x0 + w, s_extrasRuleBottom, 1.0f, rule);
+}
+
+static GameWindow *gxExtrasChild(const char *name)
+{
+    AsciiString id; id.format("ExtrasMenu.wnd:%s", name);
+    return GXWindowLook::byName(id.str());
 }
 
 // GeneralsX @feature Android port 19/10/2026 Buttons, sliders, number fields and labels take the
-// look of their counterparts on the game's Options screen (GXWindowLook): the Extras layout's own
-// colours only remain where Options has nothing of that kind.
+// look and the fonts of their counterparts on the game's Options screen (GXWindowLook), the title
+// that of the Options title: the Extras layout's own colours only remain where Options has nothing
+// of that kind. Labels read from the left edge, as on Options.
 static void gxExtrasTakeOptionsLook(GameWindow *parent)
 {
-    if (GameWindow *frame = GXWindowLook::exemplar("OptionsMenu.wnd:VideoParent", 0))
+    GameWindow *options = GXWindowLook::optionsRoot();
+    if (options)
+        s_extrasDim = options->winGetInstanceData()->m_enabledDrawData[0].color;
+    GameWindow *frame = GXWindowLook::exemplar("OptionsMenu.wnd:VideoParent", 0);
+    if (!frame)
+        frame = GXWindowLook::exemplar("OptionsMenu.wnd:AudioParent", 0);
+    if (frame)
         s_extrasFrame = frame->winGetInstanceData()->m_enabledDrawData[0];
-    else if (GameWindow *frame = GXWindowLook::exemplar("OptionsMenu.wnd:AudioParent", 0))
-        s_extrasFrame = frame->winGetInstanceData()->m_enabledDrawData[0];
-    GXWindowLook::copyToAll(parent, GWS_PUSH_BUTTON,
-        GXWindowLook::exemplar("OptionsMenu.wnd:ButtonAccept", GWS_PUSH_BUTTON), TRUE);
-    GXWindowLook::copyToAll(parent, GWS_HORZ_SLIDER,
-        GXWindowLook::exemplar("OptionsMenu.wnd:SliderMusicVolume", GWS_HORZ_SLIDER), TRUE);
-    GXWindowLook::copyToAll(parent, GWS_ENTRY_FIELD,
-        GXWindowLook::exemplar("OptionsMenu.wnd:TextEntryHTTPProxy", GWS_ENTRY_FIELD), TRUE);
-    GXWindowLook::copyToAll(parent, GWS_STATIC_TEXT,
-        GXWindowLook::exemplar("OptionsMenu.wnd:MusicVolumeLabel", GWS_STATIC_TEXT), FALSE);
+
+    GameWindow *button = GXWindowLook::exemplar("OptionsMenu.wnd:ButtonAccept", GWS_PUSH_BUTTON);
+    GameWindow *slider = GXWindowLook::exemplar("OptionsMenu.wnd:SliderMusicVolume", GWS_HORZ_SLIDER);
+    GameWindow *entry = GXWindowLook::exemplar("OptionsMenu.wnd:TextEntryHTTPProxy", GWS_ENTRY_FIELD);
+    GameWindow *label = GXWindowLook::exemplar("OptionsMenu.wnd:MusicVolumeLabel", GWS_STATIC_TEXT);
+    GameWindow *title = GXWindowLook::byLabel(options, "GUI:Options");
+    GXWindowLook::copyToAll(parent, GWS_PUSH_BUTTON, button, TRUE);
+    GXWindowLook::copyToAll(parent, GWS_HORZ_SLIDER, slider, TRUE);
+    GXWindowLook::copyToAll(parent, GWS_ENTRY_FIELD, entry, TRUE);
+    GXWindowLook::copyToAll(parent, GWS_STATIC_TEXT, label, TRUE);
+
+    for (GameWindow *child = parent->winGetChild(); child; child = child->winGetNext())
+    {
+        const UnsignedInt style = child->winGetStyle();
+        if (BitIsSet(style, GWS_STATIC_TEXT))
+        {
+            GXWindowLook::copyFont(child, label);
+            if (TextData *text = (TextData *)child->winGetUserData())
+                text->centered = FALSE;
+        }
+        else if (BitIsSet(style, GWS_ENTRY_FIELD))
+            GXWindowLook::copyFont(child, entry);
+    }
+    const char *bottom[] = { "ButtonAccept", "ButtonDefaults", "ButtonBack" };
+    for (const char *name : bottom)
+        GXWindowLook::copyFont(gxExtrasChild(name), button);
+    // The small -/+ and preset buttons read at the number fields' size; Options' button font is
+    // made for buttons four times their width.
+    for (Int i = 0; i < 5; ++i)
+    {
+        AsciiString minus, plus; minus.format("Exact%dMinus", i); plus.format("Exact%dPlus", i);
+        GXWindowLook::copyFont(gxExtrasChild(minus.str()), entry);
+        GXWindowLook::copyFont(gxExtrasChild(plus.str()), entry);
+    }
+    for (Int i = 0; i < 4; ++i)
+    {
+        AsciiString preset; preset.format("CameraPreset%d", i);
+        GXWindowLook::copyFont(gxExtrasChild(preset.str()), entry);
+    }
+    if (GameWindow *ours = gxExtrasChild("LabelTitle"))
+    {
+        GXWindowLook::copy(ours, title ? title : label, TRUE);
+        GXWindowLook::copyFont(ours, title ? title : label);
+        if (TextData *text = (TextData *)ours->winGetUserData())
+            text->centered = FALSE;
+    }
+}
+
+// The first row stands a preset row's height above the others to leave room for the height presets;
+// without them (the presets are hidden unless the Tactical camera is on) it moves down to the
+// others' spacing, instead of leaving a gap.
+static void gxExtrasCloseUpRows()
+{
+    GameWindow *preset = gxExtrasChild("CameraPreset0");
+    GameWindow *first = gxExtrasChild("SliderMaxCameraHeight");
+    GameWindow *second = gxExtrasChild("SliderMinCameraHeight");
+    GameWindow *third = gxExtrasChild("SliderCameraPitch");
+    if (!preset || !preset->winIsHidden() || !first || !second || !third)
+        return;
+    Int x, y1, y2, y3;
+    first->winGetScreenPosition(&x, &y1);
+    second->winGetScreenPosition(&x, &y2);
+    third->winGetScreenPosition(&x, &y3);
+    const Int shift = (y2 - y1) - (y3 - y2);
+    if (shift <= 0)
+        return;
+    const char *row[] = { "LabelMaxCameraHeight", "SliderMaxCameraHeight", "Exact0Minus", "Exact0Value", "Exact0Plus" };
+    for (const char *name : row)
+    {
+        GameWindow *window = gxExtrasChild(name);
+        if (!window)
+            continue;
+        Int wx, wy;
+        window->winGetPosition(&wx, &wy);
+        window->winSetPosition(wx, wy + shift);
+    }
+}
+
+// The panel encloses every window the popup shows, with a margin; the rules sit halfway between the
+// title and the first row, and between the last row and the buttons.
+static void gxExtrasPlacePanel(GameWindow *parent)
+{
+    if (!TheDisplay) return;
+    const Int margin = TheDisplay->getHeight() * 12 / 600;
+    Bool any = FALSE;
+    IRegion2D box = { { 0, 0 }, { 0, 0 } };
+    Int titleBottom = 0, rowsTop = TheDisplay->getHeight(), rowsBottom = 0, buttonsTop = TheDisplay->getHeight();
+    GameWindow *title = gxExtrasChild("LabelTitle");
+    GameWindow *accept = gxExtrasChild("ButtonAccept");
+    Int acceptX = 0, acceptY = TheDisplay->getHeight();
+    if (accept)
+        accept->winGetScreenPosition(&acceptX, &acceptY);
+    for (GameWindow *child = parent->winGetChild(); child; child = child->winGetNext())
+    {
+        if (child->winIsHidden())
+            continue;
+        Int x, y, w, h;
+        child->winGetScreenPosition(&x, &y);
+        child->winGetSize(&w, &h);
+        if (!any) { box.lo.x = x; box.lo.y = y; box.hi.x = x + w; box.hi.y = y + h; any = TRUE; }
+        box.lo.x = min(box.lo.x, x); box.lo.y = min(box.lo.y, y);
+        box.hi.x = max(box.hi.x, x + w); box.hi.y = max(box.hi.y, y + h);
+        if (child == title)
+            titleBottom = y + h;
+        else if (y >= acceptY)
+            buttonsTop = min(buttonsTop, y);
+        else
+        {
+            rowsTop = min(rowsTop, y);
+            rowsBottom = max(rowsBottom, y + h);
+        }
+    }
+    if (!any) return;
+    s_extrasPanel.lo.x = box.lo.x - margin; s_extrasPanel.lo.y = box.lo.y - margin;
+    s_extrasPanel.hi.x = box.hi.x + margin; s_extrasPanel.hi.y = box.hi.y + margin;
+    s_extrasRuleTop = (titleBottom + rowsTop) / 2;
+    s_extrasRuleBottom = (rowsBottom + buttonsTop) / 2;
 }
 
 void CloseExtrasMenu()
@@ -134,6 +260,10 @@ void CloseExtrasMenu()
     GameWindow *parent = TheWindowManager->winGetWindowFromId(nullptr,
         TheNameKeyGenerator->nameToKey("ExtrasMenu.wnd:ExtrasMenuParent"));
     if (parent) TheWindowManager->winUnsetModal(parent);
+    if (s_hiddenOptions) {
+        s_hiddenOptions->winHide(FALSE);
+        s_hiddenOptions = nullptr;
+    }
     layout->runShutdown(nullptr);
     layout->destroyWindows();
     deleteInstance(layout);
@@ -158,6 +288,13 @@ void OpenExtrasMenu(OptionPreferences *optionsPreferences)
     parent->winSetDrawFunc(gxExtrasBackdropDraw);
     gxExtrasTakeOptionsLook(parent);
     layout->runInit(nullptr);
+    gxExtrasCloseUpRows();
+    gxExtrasPlacePanel(parent);
+    s_hiddenOptions = GXWindowLook::optionsRoot();
+    if (s_hiddenOptions && !s_hiddenOptions->winIsHidden())
+        s_hiddenOptions->winHide(TRUE);
+    else
+        s_hiddenOptions = nullptr;
     layout->hide(FALSE);
     layout->bringForward();
     TheWindowManager->winSetModal(parent);
