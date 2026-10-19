@@ -1,0 +1,19 @@
+{
+  "config": {
+    "datapack_manifest_url": "https://raw.githubusercontent.com/MYSOREZ/GeneralsZH-Android-Port/updates/datapack-manifest.json",
+    "logic_crc_revision": "0",
+    "pc_crossplay": "0",
+    "pc_exe_crc": "1",
+    "stun_servers": "stun:stun.playgenerals.online:3478,stun:stun.l.google.com:19302,stun:stun.playgenerals.online:53",
+    "turn_servers": "turn:turn.playgenerals.online:3478,turn:turn.playgenerals.online:53"
+  },
+  "note": "Support card: donation shown as via Boosty",
+  "published": "2026-10-19",
+  "schema": 1,
+  "serial": 5,
+  "support": {
+    "sha256": "5bb9990a676b13a47aa126b9a25c7ee81603afff243c75572b0731c3001bfbe2",
+    "size": 29156,
+    "url": "https://raw.githubusercontent.com/MYSOREZ/GeneralsZH-Android-Port/updates-test/support/5bb9990a676b13a4.json"
+  }
+}
