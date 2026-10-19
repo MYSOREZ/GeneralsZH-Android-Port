@@ -971,7 +971,11 @@ static void initLabelVersion()
 	{
 		if (TheVersion && TheGlobalData)
 		{
-			UnicodeString text = TheVersion->getUnicodeProductVersionHashString();
+			// GeneralsX @tweak Android port 19/10/2026 Only the game's version -- or a mod's name and
+			// version, which a mod writes into it -- as the original game showed here. The product
+			// string (git revision and the last commit's author) and the exe/ini checksums are for
+			// developers and are in the log (owner: "the line is unnecessary, at most ShockWave").
+			UnicodeString text = TheVersion->getUnicodeVersion();
 			GadgetStaticTextSetText( labelVersion, text );
 		}
 		else
