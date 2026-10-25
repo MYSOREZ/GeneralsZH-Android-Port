@@ -2890,6 +2890,160 @@ public class SetupActivity extends Activity {
         statusText.setText(sb.subSequence(0, end));
         updateGameLanguageStatusView();
         maybeOfferLanguagePack();
+        maybeCheckLanguagePackUpdate();
+    }
+
+    private static boolean languagePackUpdateChecked;
+    private static final long LANGPACK_CHECK_INTERVAL_MS = 12L * 60 * 60 * 1000;
+
+    /**
+     * GeneralsX @feature Android port 25/10/2026 Translations keep improving in languages/, and a
+     * player who downloaded one never heard of it. At most every 12 hours, once per process, the
+     * pack the game text is set to is fetched again (a conditional request: the ETag of the copy
+     * the player has answers "not modified" cheaply) and, when it differs from the one installed,
+     * the player is asked whether to update -- with the new file already downloaded, so yes is
+     * instant. Only a loose data/<language>/generals.str is compared -- what this launcher installs;
+     * a translation shipped in a .big is not touched -- and only against a downloaded file that is
+     * one of our packs (GX:LanguageName). "Not now" is remembered for that version only.
+     */
+    private void maybeCheckLanguagePackUpdate() {
+        if (languagePackUpdateChecked || languagePackOfferShowing) {
+            return;
+        }
+        final String token = LocaleHelper.getGameTextToken(this);
+        final String gamePath = getSavedGamePath();
+        if (token == null || token.isEmpty() || gamePath == null) {
+            return;
+        }
+        final File installed = new File(gamePath, "data/" + token + "/generals.str");
+        if (!installed.isFile()) {
+            return;
+        }
+        final android.content.SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        final String game = getSelectedGame(this);
+        final String suffix = game + "_" + token;
+        long last = prefs.getLong("langpack_checked_" + suffix, 0);
+        if (Math.abs(System.currentTimeMillis() - last) < LANGPACK_CHECK_INTERVAL_MS) {
+            return;
+        }
+        languagePackUpdateChecked = true;
+        final String remoteFile = isGeneralsSelected(this) ? "generals.str" : "generalszh.str";
+        final File fresh = new File(getCacheDir(), "langpack-" + suffix + ".str");
+        new Thread(() -> {
+            HttpURLConnection conn = null;
+            try {
+                conn = (HttpURLConnection) new URL(LANGUAGE_PACK_BASE + token + "/" + remoteFile).openConnection();
+                conn.setConnectTimeout(15000);
+                conn.setReadTimeout(30000);
+                String known = prefs.getString("langpack_etag_" + suffix, null);
+                if (known != null) {
+                    conn.setRequestProperty("If-None-Match", known);
+                }
+                int status = conn.getResponseCode();
+                prefs.edit().putLong("langpack_checked_" + suffix, System.currentTimeMillis()).apply();
+                if (status != 200) {
+                    return;  // 304: the player has the current one; anything else: next time
+                }
+                final String etag = conn.getHeaderField("ETag");
+                long total = 0;
+                byte[] buf = new byte[16 * 1024];
+                try (java.io.InputStream in = conn.getInputStream();
+                     java.io.FileOutputStream out = new java.io.FileOutputStream(fresh)) {
+                    int n;
+                    while ((n = in.read(buf)) > 0) {
+                        out.write(buf, 0, n);
+                        total += n;
+                        if (total > 8L * 1024 * 1024) {
+                            fresh.delete();
+                            return;
+                        }
+                    }
+                }
+                if (total == 0 || !isOurLanguagePack(fresh)) {
+                    fresh.delete();
+                    return;
+                }
+                if (sameFileContents(fresh, installed)) {
+                    if (etag != null) {
+                        prefs.edit().putString("langpack_etag_" + suffix, etag).apply();
+                    }
+                    fresh.delete();
+                    return;
+                }
+                if (etag != null && etag.equals(prefs.getString("langpack_declined_" + suffix, null))) {
+                    fresh.delete();
+                    return;
+                }
+                runOnUiThread(() -> showLanguagePackUpdate(token, installed, fresh, etag, suffix));
+            } catch (Exception e) {
+                fresh.delete();
+            } finally {
+                if (conn != null) {
+                    conn.disconnect();
+                }
+            }
+        }, "gx-langpack-update").start();
+    }
+
+    private void showLanguagePackUpdate(String token, File installed, File fresh, String etag, String suffix) {
+        if (isFinishing() || isDestroyed()) {
+            fresh.delete();
+            return;
+        }
+        final android.content.SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        final String name = gameTextName(token);
+        new com.google.android.material.dialog.MaterialAlertDialogBuilder(this)
+            .setTitle(R.string.setup_langpack_update_title)
+            .setMessage(getString(R.string.setup_langpack_update_message, name))
+            .setPositiveButton(R.string.setup_langpack_update_yes, (d, w) -> {
+                File part = new File(installed.getParentFile(), "generals.str.part");
+                try {
+                    java.nio.file.Files.copy(fresh.toPath(), part.toPath(),
+                        java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+                    if ((installed.exists() && !installed.delete()) || !part.renameTo(installed)) {
+                        throw new java.io.IOException(getString(R.string.setup_langpack_err_replace));
+                    }
+                    if (etag != null) {
+                        prefs.edit().putString("langpack_etag_" + suffix, etag).apply();
+                    }
+                    toast(getString(R.string.setup_langpack_update_done, gameTextName(token)));
+                } catch (java.io.IOException e) {
+                    part.delete();
+                    toast(getString(R.string.setup_langpack_failed, String.valueOf(e.getMessage())));
+                }
+                fresh.delete();
+            })
+            .setNegativeButton(R.string.setup_langpack_update_no, (d, w) -> {
+                if (etag != null) {
+                    prefs.edit().putString("langpack_declined_" + suffix, etag).apply();
+                }
+                fresh.delete();
+            })
+            .show();
+    }
+
+    /** A pack from languages/: it names itself with the label GX:LanguageName near the top. */
+    private static boolean isOurLanguagePack(File f) {
+        try (java.io.BufferedReader r = new java.io.BufferedReader(
+                 new java.io.InputStreamReader(new java.io.FileInputStream(f), "UTF-8"))) {
+            String line;
+            for (int i = 0; i < 200 && (line = r.readLine()) != null; i++) {
+                if (line.trim().equalsIgnoreCase("GX:LanguageName")) {
+                    return true;
+                }
+            }
+        } catch (java.io.IOException e) {
+            return false;
+        }
+        return false;
+    }
+
+    private static boolean sameFileContents(File a, File b) throws java.io.IOException {
+        if (a.length() != b.length()) {
+            return false;
+        }
+        return java.util.Arrays.equals(java.nio.file.Files.readAllBytes(a.toPath()),
+            java.nio.file.Files.readAllBytes(b.toPath()));
     }
 
     private static final String PREF_LANGPACK_OFFERED = "langpack_offered_";

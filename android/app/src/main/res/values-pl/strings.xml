@@ -513,4 +513,9 @@
     <string name="setup_langpack_offer_no">Zostaw angielski</string>
     <string name="online_datapacks_need_storage">Launcher nie ma dostępu do plików telefonu, więc danych sieciowych nie da się zapisać. Na ekranie, który się otworzy, zezwól Generals na „Dostęp do wszystkich plików”, a potem znów naciśnij „Aktualizuj”.</string>
     <string name="setup_status_no_storage_access">Brak dostępu do plików telefonu: gra nie zapisze stanu, a dane sieciowe się nie pobiorą. Naciśnij „Wybierz folder gry” i zezwól na „Dostęp do wszystkich plików”.</string>
+    <string name="setup_langpack_update_title">Aktualizacja tłumaczenia</string>
+    <string name="setup_langpack_update_message">Dla tej gry jest nowsza wersja tłumaczenia (%1$s). Zaktualizować teraz?</string>
+    <string name="setup_langpack_update_yes">Aktualizuj</string>
+    <string name="setup_langpack_update_no">Nie teraz</string>
+    <string name="setup_langpack_update_done">Tłumaczenie zaktualizowane: %1$s</string>
 </resources>

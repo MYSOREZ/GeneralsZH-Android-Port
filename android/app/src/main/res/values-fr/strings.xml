@@ -513,4 +513,9 @@
     <string name="setup_langpack_offer_no">Garder l’anglais</string>
     <string name="online_datapacks_need_storage">Le lanceur n’a pas accès aux fichiers du téléphone : les données en ligne ne peuvent pas être enregistrées. Sur l’écran qui s’ouvre, autorisez « Accès à tous les fichiers » pour Generals, puis appuyez de nouveau sur « Mettre à jour ».</string>
     <string name="setup_status_no_storage_access">Aucun accès aux fichiers du téléphone : le jeu ne pourra pas sauvegarder et les données en ligne ne se téléchargeront pas. Appuyez sur « Sélectionner le dossier du jeu » et autorisez « Accès à tous les fichiers ».</string>
+    <string name="setup_langpack_update_title">Mise à jour de la traduction</string>
+    <string name="setup_langpack_update_message">Une version plus récente de la traduction (%1$s) est disponible pour ce jeu. La mettre à jour maintenant ?</string>
+    <string name="setup_langpack_update_yes">Mettre à jour</string>
+    <string name="setup_langpack_update_no">Plus tard</string>
+    <string name="setup_langpack_update_done">Traduction mise à jour : %1$s</string>
 </resources>

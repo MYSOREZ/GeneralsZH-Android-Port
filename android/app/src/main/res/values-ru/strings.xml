@@ -515,4 +515,9 @@
     <string name="setup_langpack_offer_no">Оставить английский</string>
     <string name="online_datapacks_need_storage">У лаунчера нет доступа к файлам телефона, поэтому сетевые данные некуда сохранить. На открывшемся экране разрешите Generals «Доступ ко всем файлам» и снова нажмите «Обновить».</string>
     <string name="setup_status_no_storage_access">Нет доступа к файлам телефона: игра не сможет сохраняться, а сетевые данные не скачаются. Нажмите «Выбрать папку с игрой» и разрешите «Доступ ко всем файлам».</string>
+    <string name="setup_langpack_update_title">Обновление перевода</string>
+    <string name="setup_langpack_update_message">Для этой игры вышла новая версия перевода (%1$s). Обновить сейчас?</string>
+    <string name="setup_langpack_update_yes">Обновить</string>
+    <string name="setup_langpack_update_no">Не сейчас</string>
+    <string name="setup_langpack_update_done">Перевод обновлён: %1$s</string>
 </resources>

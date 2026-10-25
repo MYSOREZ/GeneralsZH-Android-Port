@@ -513,4 +513,9 @@
     <string name="setup_langpack_offer_no">Manter inglês</string>
     <string name="online_datapacks_need_storage">O launcher não tem acesso aos arquivos do telefone, então os dados online não podem ser salvos. Na tela que abrir, permita ao Generals o “Acesso a todos os arquivos” e toque em “Atualizar” de novo.</string>
     <string name="setup_status_no_storage_access">Sem acesso aos arquivos do telefone: o jogo não conseguirá salvar e os dados online não serão baixados. Toque em “Selecionar pasta do jogo” e permita o “Acesso a todos os arquivos”.</string>
+    <string name="setup_langpack_update_title">Atualização da tradução</string>
+    <string name="setup_langpack_update_message">Há uma versão mais nova da tradução (%1$s) para este jogo. Atualizar agora?</string>
+    <string name="setup_langpack_update_yes">Atualizar</string>
+    <string name="setup_langpack_update_no">Agora não</string>
+    <string name="setup_langpack_update_done">Tradução atualizada: %1$s</string>
 </resources>

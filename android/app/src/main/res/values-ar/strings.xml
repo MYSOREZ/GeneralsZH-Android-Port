@@ -513,4 +513,9 @@
     <string name="setup_langpack_offer_no">إبقاء الإنجليزية</string>
     <string name="online_datapacks_need_storage">لا يملك المشغّل صلاحية الوصول إلى ملفات الهاتف، لذا لا يمكن حفظ بيانات اللعب عبر الشبكة. في الشاشة التي تُفتح، اسمح لـ Generals بـ«الوصول إلى كل الملفات» ثم اضغط «تحديث» مجددًا.</string>
     <string name="setup_status_no_storage_access">لا صلاحية للوصول إلى ملفات الهاتف: لن تتمكن اللعبة من الحفظ ولن تُنزَّل بيانات اللعب عبر الشبكة. اضغط «اختيار مجلد اللعبة» واسمح بـ«الوصول إلى كل الملفات».</string>
+    <string name="setup_langpack_update_title">تحديث الترجمة</string>
+    <string name="setup_langpack_update_message">تتوفر نسخة أحدث من الترجمة (%1$s) لهذه اللعبة. هل تريد تحديثها الآن؟</string>
+    <string name="setup_langpack_update_yes">تحديث</string>
+    <string name="setup_langpack_update_no">ليس الآن</string>
+    <string name="setup_langpack_update_done">تم تحديث الترجمة: %1$s</string>
 </resources>

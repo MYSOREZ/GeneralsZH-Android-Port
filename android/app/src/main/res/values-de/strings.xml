@@ -513,4 +513,9 @@
     <string name="setup_langpack_offer_no">Englisch behalten</string>
     <string name="online_datapacks_need_storage">Der Launcher hat keinen Zugriff auf die Dateien des Telefons, daher können die Online-Daten nicht gespeichert werden. Erlaube Generals auf dem folgenden Bildschirm „Zugriff auf alle Dateien“ und tippe dann erneut auf „Aktualisieren“.</string>
     <string name="setup_status_no_storage_access">Kein Zugriff auf die Dateien des Telefons: Das Spiel kann nicht speichern, und Online-Daten lassen sich nicht herunterladen. Tippe auf „Spielordner auswählen“ und erlaube „Zugriff auf alle Dateien“.</string>
+    <string name="setup_langpack_update_title">Übersetzung aktualisieren</string>
+    <string name="setup_langpack_update_message">Für dieses Spiel gibt es eine neuere Version der Übersetzung (%1$s). Jetzt aktualisieren?</string>
+    <string name="setup_langpack_update_yes">Aktualisieren</string>
+    <string name="setup_langpack_update_no">Nicht jetzt</string>
+    <string name="setup_langpack_update_done">Übersetzung aktualisiert: %1$s</string>
 </resources>

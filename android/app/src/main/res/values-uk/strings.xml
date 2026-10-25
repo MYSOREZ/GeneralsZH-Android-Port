@@ -513,4 +513,9 @@
     <string name="setup_langpack_offer_no">Залишити англійську</string>
     <string name="online_datapacks_need_storage">Лаунчер не має доступу до файлів телефона, тож мережеві дані нікуди зберегти. На екрані, що відкриється, дозвольте Generals «Доступ до всіх файлів» і знову натисніть «Оновити».</string>
     <string name="setup_status_no_storage_access">Немає доступу до файлів телефона: гра не зможе зберігатися, а мережеві дані не завантажаться. Натисніть «Обрати папку з грою» й дозвольте «Доступ до всіх файлів».</string>
+    <string name="setup_langpack_update_title">Оновлення перекладу</string>
+    <string name="setup_langpack_update_message">Для цієї гри вийшла нова версія перекладу (%1$s). Оновити зараз?</string>
+    <string name="setup_langpack_update_yes">Оновити</string>
+    <string name="setup_langpack_update_no">Не зараз</string>
+    <string name="setup_langpack_update_done">Переклад оновлено: %1$s</string>
 </resources>
