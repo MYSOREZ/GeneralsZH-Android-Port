@@ -128,6 +128,12 @@ Unit and faction names follow the original community translation, never player s
 with a few picks by the repository owner: ГЛА (not "МАО", and in Cyrillic like США), Хеликс, Крестоносец, Техничка,
 Залповая установка Скад (the SCUD Launcher stays "Эльбрус").
 
+The jokes are localised, not translated word for word: all 1239 generals' taunts were read side
+by side with the English and 82 rewritten, so American ad and pop-culture parodies land as Russian
+ones (Thrax's "Anthrax… it does a body bad" is a Минздрав warning, Townes's "crossed the beams" the
+Ghostbusters line, "Toxic Fatality" the Mortal Kombat call) and puns have Russian equivalents
+("intoxicated" → "перебрали").
+
 ## Ukrainian
 
 `languages/ukrainian/generals.str` started as the community `00_UA_ZeroHour.big` translation.
@@ -135,7 +141,16 @@ On 25/09/2026 it was checked against the same English original: lines left in En
 the mission subtitles it was missing (campaign dialogue, general taunts, unit descriptions)
 were translated with the pack's own unit names, and the 22 legacy labels were added, so it
 has the same 6447 labels as the Russian pack. The faction is "ГЛА" throughout (the pack had
-"ГВА" in some places), matching the Russian pack.
+"ГВА" in some places), matching the Russian pack. The jokes are localised as in the Russian pack
+(47 taunts and campaign lines rewritten): Thrax's ad parodies are Ukrainian ones ("Сибірка. МОЗ
+попереджає: шкодить вашому здоров'ю", "Перша доза безкоштовно!"), the train mission says
+"Квиточки всі прокомпостували?", and "Another one bites the dust" is "Ще один гризе землю".
+
+About the subtitles mentioned above: they are the texts of the voice lines (EVA, the campaign's
+radio chatter, the generals' taunts), labels `DIALOGEVENT:...Subtitle`. The game shows one only
+when its text does not start with `*`; the original English data marks every one of them with
+`*`, so they are never shown -- EA kept them as a script for translators -- and every pack here
+keeps the mark. Translating them keeps the packs complete for a version that shows them.
 
 ## German
 
