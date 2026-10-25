@@ -278,7 +278,7 @@ or USDT over a different network, will be lost. Donations support development on
 and every build stay free, and nothing is unlocked by donating. *Command & Conquer* is a
 trademark of Electronic Arts; this is an unofficial fan project.
 
-Boosty keeps about 20 ₽ (≈ $0.25) of a donation when it is paid out, so a tip of that size or
+Boosty keeps about $0.25 of a donation when it is paid out, so a tip of that size or
 smaller does not reach the subscription.
 
 ### Heroes of the project

@@ -267,19 +267,19 @@
       {
         "type": "note",
         "text": {
-          "en": "Boosty keeps about 20 ₽ (≈ $0.25) of a donation when it is paid out, so a donation of that size or smaller does not reach the subscription.",
-          "ru": "Boosty при выводе удерживает около 20 ₽ (≈ $0.25), поэтому пожертвование такого размера или меньше до подписки не доходит.",
-          "uk": "Boosty під час виведення утримує близько 20 ₽ (≈ $0.25), тому пожертва такого розміру або менша до підписки не доходить.",
-          "de": "Boosty behält bei der Auszahlung etwa 20 ₽ (≈ 0,25 $) ein; eine Spende in dieser Höhe oder darunter kommt beim Abo also nicht an.",
-          "es": "Boosty retiene unos 20 ₽ (≈ 0,25 $) al cobrar una donación, así que una donación de ese importe o menor no llega a la suscripción.",
-          "fr": "Boosty retient environ 20 ₽ (≈ 0,25 $) au versement d’un don : un don de ce montant ou moins n’arrive donc pas jusqu’à l’abonnement.",
-          "pl": "Boosty przy wypłacie zatrzymuje około 20 ₽ (≈ 0,25 $), więc darowizna tej wielkości lub mniejsza nie trafia na abonament.",
-          "pt-BR": "O Boosty retém cerca de 20 ₽ (≈ US$ 0,25) no saque, então uma doação desse valor ou menor não chega à assinatura.",
-          "isv": "Boosty pri izplatě zadrživaje okolo 20 ₽ (≈ 0,25 $), zato dar takoj veličiny ili menši ne dohodi do podpisky.",
-          "zh": "Boosty 在提现时会扣留约 20 卢布（≈ 0.25 美元），因此这个金额及以下的捐助到不了订阅费里。",
-          "ko": "Boosty는 출금할 때 약 20₽(≈ $0.25)를 떼므로, 그 이하 금액의 후원은 구독료에 보태지지 않습니다.",
-          "ar": "يحتفظ Boosty بنحو 20 ₽ (≈ 0.25 $) عند السحب، لذا فإن تبرعًا بهذا المبلغ أو أقل لا يصل إلى الاشتراك.",
-          "fa": "Boosty هنگام برداشت حدود ۲۰ روبل (≈ ۰٫۲۵ دلار) برمی‌دارد، پس کمکی به این اندازه یا کمتر به اشتراک نمی‌رسد."
+          "en": "Boosty keeps about $0.25 of a donation when it is paid out, so a donation of that size or smaller does not reach the subscription.",
+          "ru": "Boosty при выводе удерживает около $0.25, поэтому пожертвование такого размера или меньше до подписки не доходит.",
+          "uk": "Boosty під час виведення утримує близько $0.25, тому пожертва такого розміру або менша до підписки не доходить.",
+          "de": "Boosty behält bei der Auszahlung etwa 0,25 $ ein; eine Spende in dieser Höhe oder darunter kommt beim Abo also nicht an.",
+          "es": "Boosty retiene unos 0,25 $ al cobrar una donación, así que una donación de ese importe o menor no llega a la suscripción.",
+          "fr": "Boosty retient environ 0,25 $ au versement d’un don : un don de ce montant ou moins n’arrive donc pas jusqu’à l’abonnement.",
+          "pl": "Boosty przy wypłacie zatrzymuje około 0,25 $, więc darowizna tej wielkości lub mniejsza nie trafia na abonament.",
+          "pt-BR": "O Boosty retém cerca de US$ 0,25 no saque, então uma doação desse valor ou menor não chega à assinatura.",
+          "isv": "Boosty pri izplatě zadrživaje okolo 0,25 $, zato dar takoj veličiny ili menši ne dohodi do podpisky.",
+          "zh": "Boosty 在提现时会扣留约 0.25 美元，因此这个金额及以下的捐助到不了订阅费里。",
+          "ko": "Boosty는 출금할 때 약 $0.25를 떼므로, 그 이하 금액의 후원은 구독료에 보태지지 않습니다.",
+          "ar": "يحتفظ Boosty بنحو 0.25 $ عند السحب، لذا فإن تبرعًا بهذا المبلغ أو أقل لا يصل إلى الاشتراك.",
+          "fa": "Boosty هنگام برداشت حدود ۰٫۲۵ دلار برمی‌دارد، پس کمکی به این اندازه یا کمتر به اشتراک نمی‌رسد."
         }
       },
       {
