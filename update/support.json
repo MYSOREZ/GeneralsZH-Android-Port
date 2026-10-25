@@ -3,91 +3,91 @@
   "text": {
     "en": {
       "title": "Support the project",
-      "body": "This port is developed with Claude Code (Anthropic's Claude), and the subscription is paid out of pocket. If the port is useful to you, donations are welcome: they go to that subscription. The game and every build stay free, and nothing is unlocked by donating.\n\nHeroes of the project: Diaa Abu Jazar, hein htetsan, [UA]Den^, Zhask Dominator, Mukhiddin (WaruEdition). Thank you to everyone who supports the port!",
+      "body": "This port is developed with Claude Code (Anthropic's Claude), and the subscription is paid out of pocket. If the port is useful to you, donations are welcome: they go to that subscription. The game and every build stay free, and nothing is unlocked by donating.\n\nHeroes of the project: Diaa Abu Jazar, hein htetsan, [UA]Den^, Zhask Dominator, Mukhiddin (WaruEdition), Shahre Masore. Thank you to everyone who supports the port!",
       "warning": "Send only the currency named next to the address, and only over that network. Anything else, or the same currency over a different network, will be lost.",
       "copy_hint": "Tap to copy the address",
       "copied": "Address copied: %s"
     },
     "ru": {
       "title": "Поддержать проект",
-      "body": "Порт разрабатывается с помощью Claude Code (Claude от Anthropic), подписка оплачивается из своего кармана. Если порт вам полезен, буду рад пожертвованиям: они идут на эту подписку. Игра и все сборки остаются бесплатными, пожертвование ничего не открывает.\n\nГерои проекта: Diaa Abu Jazar, hein htetsan, [UA]Den^, Zhask Dominator, Mukhiddin (WaruEdition). Спасибо всем, кто поддерживает порт!",
+      "body": "Порт разрабатывается с помощью Claude Code (Claude от Anthropic), подписка оплачивается из своего кармана. Если порт вам полезен, буду рад пожертвованиям: они идут на эту подписку. Игра и все сборки остаются бесплатными, пожертвование ничего не открывает.\n\nГерои проекта: Diaa Abu Jazar, hein htetsan, [UA]Den^, Zhask Dominator, Mukhiddin (WaruEdition), Shahre Masore. Спасибо всем, кто поддерживает порт!",
       "warning": "Отправляйте только ту валюту, что указана рядом с адресом, и только в этой сети. Всё остальное, как и та же валюта в другой сети, будет потеряно.",
       "copy_hint": "Нажмите, чтобы скопировать адрес",
       "copied": "Адрес скопирован: %s"
     },
     "uk": {
       "title": "Підтримати проєкт",
-      "body": "Порт розробляється за допомогою Claude Code (Claude від Anthropic), підписка оплачується власним коштом. Якщо порт вам корисний, пожертви вітаються: вони йдуть на цю підписку. Гра й усі збірки лишаються безкоштовними, пожертва нічого не відкриває.\n\nГерої проєкту: Diaa Abu Jazar, hein htetsan, [UA]Den^, Zhask Dominator, Mukhiddin (WaruEdition). Дякуємо всім, хто підтримує порт!",
+      "body": "Порт розробляється за допомогою Claude Code (Claude від Anthropic), підписка оплачується власним коштом. Якщо порт вам корисний, пожертви вітаються: вони йдуть на цю підписку. Гра й усі збірки лишаються безкоштовними, пожертва нічого не відкриває.\n\nГерої проєкту: Diaa Abu Jazar, hein htetsan, [UA]Den^, Zhask Dominator, Mukhiddin (WaruEdition), Shahre Masore. Дякуємо всім, хто підтримує порт!",
       "warning": "Надсилайте лише ту валюту, що вказана біля адреси, і лише в цій мережі. Усе інше, як і та сама валюта в іншій мережі, буде втрачено.",
       "copy_hint": "Натисніть, щоб скопіювати адресу",
       "copied": "Адресу скопійовано: %s"
     },
     "de": {
       "title": "Projekt unterstützen",
-      "body": "Dieser Port wird mit Claude Code (Claude von Anthropic) entwickelt, und das Abo wird aus eigener Tasche bezahlt. Wenn dir der Port nützt, sind Spenden willkommen: Sie fließen in dieses Abo. Das Spiel und alle Builds bleiben kostenlos, und durch eine Spende wird nichts freigeschaltet.\n\nHelden des Projekts: Diaa Abu Jazar, hein htetsan, [UA]Den^, Zhask Dominator, Mukhiddin (WaruEdition). Danke an alle, die die Portierung unterstützen!",
+      "body": "Dieser Port wird mit Claude Code (Claude von Anthropic) entwickelt, und das Abo wird aus eigener Tasche bezahlt. Wenn dir der Port nützt, sind Spenden willkommen: Sie fließen in dieses Abo. Das Spiel und alle Builds bleiben kostenlos, und durch eine Spende wird nichts freigeschaltet.\n\nHelden des Projekts: Diaa Abu Jazar, hein htetsan, [UA]Den^, Zhask Dominator, Mukhiddin (WaruEdition), Shahre Masore. Danke an alle, die die Portierung unterstützen!",
       "warning": "Sende nur die Währung, die neben der Adresse steht, und nur über dieses Netzwerk. Alles andere, auch dieselbe Währung über ein anderes Netzwerk, geht verloren.",
       "copy_hint": "Tippen, um die Adresse zu kopieren",
       "copied": "Adresse kopiert: %s"
     },
     "es": {
       "title": "Apoyar el proyecto",
-      "body": "Este port se desarrolla con Claude Code (Claude de Anthropic) y la suscripción se paga de mi bolsillo. Si el port te resulta útil, las donaciones son bienvenidas: se destinan a esa suscripción. El juego y todas las versiones siguen siendo gratuitos, y donar no desbloquea nada.\n\nHéroes del proyecto: Diaa Abu Jazar, hein htetsan, [UA]Den^, Zhask Dominator, Mukhiddin (WaruEdition). ¡Gracias a todos los que apoyan el port!",
+      "body": "Este port se desarrolla con Claude Code (Claude de Anthropic) y la suscripción se paga de mi bolsillo. Si el port te resulta útil, las donaciones son bienvenidas: se destinan a esa suscripción. El juego y todas las versiones siguen siendo gratuitos, y donar no desbloquea nada.\n\nHéroes del proyecto: Diaa Abu Jazar, hein htetsan, [UA]Den^, Zhask Dominator, Mukhiddin (WaruEdition), Shahre Masore. ¡Gracias a todos los que apoyan el port!",
       "warning": "Envía solo la moneda indicada junto a la dirección y solo por esa red. Cualquier otra cosa, o la misma moneda por otra red, se perderá.",
       "copy_hint": "Toca para copiar la dirección",
       "copied": "Dirección copiada: %s"
     },
     "fr": {
       "title": "Soutenir le projet",
-      "body": "Ce portage est développé avec Claude Code (Claude d'Anthropic), et l'abonnement est payé de ma poche. Si le portage vous est utile, les dons sont les bienvenus : ils financent cet abonnement. Le jeu et toutes les versions restent gratuits, et un don ne débloque rien.\n\nHéros du projet: Diaa Abu Jazar, hein htetsan, [UA]Den^, Zhask Dominator, Mukhiddin (WaruEdition). Merci à tous ceux qui soutiennent le portage !",
+      "body": "Ce portage est développé avec Claude Code (Claude d'Anthropic), et l'abonnement est payé de ma poche. Si le portage vous est utile, les dons sont les bienvenus : ils financent cet abonnement. Le jeu et toutes les versions restent gratuits, et un don ne débloque rien.\n\nHéros du projet: Diaa Abu Jazar, hein htetsan, [UA]Den^, Zhask Dominator, Mukhiddin (WaruEdition), Shahre Masore. Merci à tous ceux qui soutiennent le portage !",
       "warning": "N'envoyez que la devise indiquée à côté de l'adresse, et uniquement sur ce réseau. Tout le reste, ou la même devise sur un autre réseau, sera perdu.",
       "copy_hint": "Touchez pour copier l'adresse",
       "copied": "Adresse copiée : %s"
     },
     "pl": {
       "title": "Wesprzyj projekt",
-      "body": "Ten port powstaje przy użyciu Claude Code (Claude od Anthropic), a subskrypcja jest opłacana z własnej kieszeni. Jeśli port jest dla Ciebie przydatny, darowizny są mile widziane: idą na tę subskrypcję. Gra i wszystkie wersje pozostają darmowe, a darowizna niczego nie odblokowuje.\n\nBohaterowie projektu: Diaa Abu Jazar, hein htetsan, [UA]Den^, Zhask Dominator, Mukhiddin (WaruEdition). Dziękujemy wszystkim, którzy wspierają port!",
+      "body": "Ten port powstaje przy użyciu Claude Code (Claude od Anthropic), a subskrypcja jest opłacana z własnej kieszeni. Jeśli port jest dla Ciebie przydatny, darowizny są mile widziane: idą na tę subskrypcję. Gra i wszystkie wersje pozostają darmowe, a darowizna niczego nie odblokowuje.\n\nBohaterowie projektu: Diaa Abu Jazar, hein htetsan, [UA]Den^, Zhask Dominator, Mukhiddin (WaruEdition), Shahre Masore. Dziękujemy wszystkim, którzy wspierają port!",
       "warning": "Wysyłaj tylko walutę podaną obok adresu i tylko w tej sieci. Wszystko inne, także ta sama waluta w innej sieci, przepadnie.",
       "copy_hint": "Dotknij, aby skopiować adres",
       "copied": "Skopiowano adres: %s"
     },
     "pt-BR": {
       "title": "Apoie o projeto",
-      "body": "Este port é desenvolvido com o Claude Code (Claude, da Anthropic), e a assinatura é paga do próprio bolso. Se o port é útil para você, doações são bem-vindas: elas vão para essa assinatura. O jogo e todas as versões continuam gratuitos, e doar não desbloqueia nada.\n\nHeróis do projeto: Diaa Abu Jazar, hein htetsan, [UA]Den^, Zhask Dominator, Mukhiddin (WaruEdition). Obrigado a todos que apoiam o port!",
+      "body": "Este port é desenvolvido com o Claude Code (Claude, da Anthropic), e a assinatura é paga do próprio bolso. Se o port é útil para você, doações são bem-vindas: elas vão para essa assinatura. O jogo e todas as versões continuam gratuitos, e doar não desbloqueia nada.\n\nHeróis do projeto: Diaa Abu Jazar, hein htetsan, [UA]Den^, Zhask Dominator, Mukhiddin (WaruEdition), Shahre Masore. Obrigado a todos que apoiam o port!",
       "warning": "Envie apenas a moeda indicada ao lado do endereço e somente por essa rede. Qualquer outra coisa, ou a mesma moeda por outra rede, será perdida.",
       "copy_hint": "Toque para copiar o endereço",
       "copied": "Endereço copiado: %s"
     },
     "isv": {
       "title": "Podporiti projekt",
-      "body": "Tutoj port jest razvivany s Claude Code (Claude od Anthropic), i podpiska jest plaćena iz svojego karmana. Jestli port jest vam koristny, darovanja sut dobrodošle: one idut na tu podpisku. Igra i vse versije ostajut bezplatne, i darovanje ničego ne otvarja.\n\nGeroji projekta: Diaa Abu Jazar, hein htetsan, [UA]Den^, Zhask Dominator, Mukhiddin (WaruEdition). Hvala vsim, ktori podpiraje port!",
+      "body": "Tutoj port jest razvivany s Claude Code (Claude od Anthropic), i podpiska jest plaćena iz svojego karmana. Jestli port jest vam koristny, darovanja sut dobrodošle: one idut na tu podpisku. Igra i vse versije ostajut bezplatne, i darovanje ničego ne otvarja.\n\nGeroji projekta: Diaa Abu Jazar, hein htetsan, [UA]Den^, Zhask Dominator, Mukhiddin (WaruEdition), Shahre Masore. Hvala vsim, ktori podpiraje port!",
       "warning": "Posylajte jedino valutu, ukazanu poblizu adresy, i jedino v toj mreži. Vse drugo, takože ta sama valuta v drugoj mreži, bude izgubjeno.",
       "copy_hint": "Kliknite, aby kopirovati adresu",
       "copied": "Adresa kopirovana: %s"
     },
     "zh": {
       "title": "支持本项目",
-      "body": "本移植版借助 Claude Code（Anthropic 的 Claude）开发，订阅费用由开发者自掏腰包。如果本移植对你有用，欢迎捐助：捐款将用于该订阅。游戏和所有版本始终免费，捐助不会解锁任何内容。\n\n项目英雄: Diaa Abu Jazar, hein htetsan, [UA]Den^, Zhask Dominator, Mukhiddin (WaruEdition). 感谢所有支持本移植的人！",
+      "body": "本移植版借助 Claude Code（Anthropic 的 Claude）开发，订阅费用由开发者自掏腰包。如果本移植对你有用，欢迎捐助：捐款将用于该订阅。游戏和所有版本始终免费，捐助不会解锁任何内容。\n\n项目英雄: Diaa Abu Jazar, hein htetsan, [UA]Den^, Zhask Dominator, Mukhiddin (WaruEdition), Shahre Masore. 感谢所有支持本移植的人！",
       "warning": "只发送地址旁注明的币种，并且只通过该网络发送。其他任何币种，或通过其他网络发送的同一币种，都会丢失。",
       "copy_hint": "点击复制地址",
       "copied": "地址已复制：%s"
     },
     "ko": {
       "title": "프로젝트 후원",
-      "body": "이 포트는 Claude Code(Anthropic의 Claude)로 개발되며, 구독료는 개발자가 직접 부담합니다. 포트가 유용하다면 후원을 환영합니다. 후원금은 그 구독료에 쓰입니다. 게임과 모든 빌드는 계속 무료이며, 후원으로 잠금 해제되는 것은 없습니다.\n\n프로젝트의 영웅들: Diaa Abu Jazar, hein htetsan, [UA]Den^, Zhask Dominator, Mukhiddin (WaruEdition). 이 이식판을 후원해 주신 모든 분께 감사드립니다!",
+      "body": "이 포트는 Claude Code(Anthropic의 Claude)로 개발되며, 구독료는 개발자가 직접 부담합니다. 포트가 유용하다면 후원을 환영합니다. 후원금은 그 구독료에 쓰입니다. 게임과 모든 빌드는 계속 무료이며, 후원으로 잠금 해제되는 것은 없습니다.\n\n프로젝트의 영웅들: Diaa Abu Jazar, hein htetsan, [UA]Den^, Zhask Dominator, Mukhiddin (WaruEdition), Shahre Masore. 이 이식판을 후원해 주신 모든 분께 감사드립니다!",
       "warning": "주소 옆에 표시된 화폐만, 그리고 해당 네트워크로만 보내세요. 그 밖의 것이나 다른 네트워크로 보낸 같은 화폐는 잃게 됩니다.",
       "copy_hint": "탭하여 주소 복사",
       "copied": "주소 복사됨: %s"
     },
     "ar": {
       "title": "ادعم المشروع",
-      "body": "يُطوَّر هذا المنفذ باستخدام Claude Code (‏Claude من Anthropic)، ويُدفع الاشتراك من الجيب الخاص. إذا كان المنفذ مفيدًا لك فالتبرعات مرحّب بها: تذهب إلى هذا الاشتراك. تبقى اللعبة وكل الإصدارات مجانية، ولا يفتح التبرع أي شيء.\n\nأبطال المشروع: Diaa Abu Jazar, hein htetsan, [UA]Den^, Zhask Dominator, Mukhiddin (WaruEdition). شكرًا لكل من يدعم هذا المنفذ!",
+      "body": "يُطوَّر هذا المنفذ باستخدام Claude Code (‏Claude من Anthropic)، ويُدفع الاشتراك من الجيب الخاص. إذا كان المنفذ مفيدًا لك فالتبرعات مرحّب بها: تذهب إلى هذا الاشتراك. تبقى اللعبة وكل الإصدارات مجانية، ولا يفتح التبرع أي شيء.\n\nأبطال المشروع: Diaa Abu Jazar, hein htetsan, [UA]Den^, Zhask Dominator, Mukhiddin (WaruEdition), Shahre Masore. شكرًا لكل من يدعم هذا المنفذ!",
       "warning": "أرسل العملة المذكورة بجانب العنوان فقط، وعبر تلك الشبكة فقط. أي شيء آخر، أو العملة نفسها عبر شبكة أخرى، سيضيع.",
       "copy_hint": "اضغط لنسخ العنوان",
       "copied": "تم نسخ العنوان: %s"
     },
     "fa": {
       "title": "حمایت از پروژه",
-      "body": "این پورت با Claude Code ‏(Claude از Anthropic) توسعه داده می‌شود و هزینه اشتراک از جیب خود پرداخت می‌شود. اگر این پورت برایتان مفید است، کمک مالی پذیرفته می‌شود: صرف همین اشتراک می‌شود. بازی و همه نسخه‌ها رایگان می‌مانند و کمک مالی چیزی را باز نمی‌کند.\n\nقهرمانان پروژه: Diaa Abu Jazar, hein htetsan, [UA]Den^, Zhask Dominator, Mukhiddin (WaruEdition). از همه کسانی که از این پورت حمایت می‌کنند سپاسگزاریم!",
+      "body": "این پورت با Claude Code ‏(Claude از Anthropic) توسعه داده می‌شود و هزینه اشتراک از جیب خود پرداخت می‌شود. اگر این پورت برایتان مفید است، کمک مالی پذیرفته می‌شود: صرف همین اشتراک می‌شود. بازی و همه نسخه‌ها رایگان می‌مانند و کمک مالی چیزی را باز نمی‌کند.\n\nقهرمانان پروژه: Diaa Abu Jazar, hein htetsan, [UA]Den^, Zhask Dominator, Mukhiddin (WaruEdition), Shahre Masore. از همه کسانی که از این پورت حمایت می‌کنند سپاسگزاریم!",
       "warning": "فقط ارزی را که کنار نشانی نوشته شده و فقط از طریق همان شبکه بفرستید. هر چیز دیگر، یا همان ارز از شبکه‌ای دیگر، از دست می‌رود.",
       "copy_hint": "برای کپی نشانی ضربه بزنید",
       "copied": "نشانی کپی شد: %s"
@@ -163,19 +163,19 @@
       {
         "type": "rows",
         "text": {
-          "en": "Heroes of the project",
-          "ru": "Герои проекта",
-          "uk": "Герої проєкту",
-          "de": "Helden des Projekts",
-          "es": "Héroes del proyecto",
-          "fr": "Héros du projet",
-          "pl": "Bohaterowie projektu",
-          "pt-BR": "Heróis do projeto",
-          "isv": "Geroji projekta",
-          "zh": "项目英雄",
-          "ko": "프로젝트의 영웅들",
-          "ar": "أبطال المشروع",
-          "fa": "قهرمانان پروژه"
+          "en": "Heroes of October 2026",
+          "ru": "Герои октября 2026",
+          "uk": "Герої жовтня 2026",
+          "de": "Helden im Oktober 2026",
+          "es": "Héroes de octubre de 2026",
+          "fr": "Héros d’octobre 2026",
+          "pl": "Bohaterowie października 2026",
+          "pt-BR": "Heróis de outubro de 2026",
+          "isv": "Heroji oktobra 2026",
+          "zh": "2026 年 10 月的英雄",
+          "ko": "2026년 10월의 영웅",
+          "ar": "أبطال أكتوبر 2026",
+          "fa": "قهرمانان اکتبر ۲۰۲۶"
         },
         "rows": [
           {
@@ -197,8 +197,32 @@
           {
             "left": "Mukhiddin (WaruEdition)",
             "right": "$2.81 · Boosty"
+          },
+          {
+            "left": "Shahre Masore",
+            "right": "$0.47 · Boosty"
           }
         ]
+      },
+      {
+        "type": "progress",
+        "label": {
+          "en": "October: $16.47 of the $20 monthly subscription",
+          "ru": "Октябрь: $16.47 из месячной подписки в $20",
+          "uk": "Жовтень: $16.47 із місячної підписки в $20",
+          "de": "Oktober: 16,47 $ vom Monatsabo über 20 $",
+          "es": "Octubre: 16,47 $ de la suscripción mensual de 20 $",
+          "fr": "Octobre : 16,47 $ sur l’abonnement mensuel de 20 $",
+          "pl": "Październik: 16,47 $ z miesięcznego abonamentu za 20 $",
+          "pt-BR": "Outubro: US$ 16,47 da assinatura mensal de US$ 20",
+          "isv": "Oktober: 16,47 $ iz měsečnoj podpisky za 20 $",
+          "zh": "10 月：每月 20 美元订阅已筹得 16.47 美元",
+          "ko": "10월: 월 $20 구독료 중 $16.47",
+          "ar": "أكتوبر: 16.47 $ من الاشتراك الشهري البالغ 20 $",
+          "fa": "اکتبر: ۱۶٫۴۷ دلار از اشتراک ماهانه ۲۰ دلاری"
+        },
+        "value": 16.47,
+        "max": 20
       },
       {
         "type": "text",
@@ -239,6 +263,24 @@
           "fa": "Boosty (مانند Patreon) — کارت بانکی"
         },
         "value": "https://boosty.to/antikeks_m/donate"
+      },
+      {
+        "type": "note",
+        "text": {
+          "en": "Boosty keeps about 20 ₽ (≈ $0.25) of a donation when it is paid out, so a donation of that size or smaller does not reach the subscription.",
+          "ru": "Boosty при выводе удерживает около 20 ₽ (≈ $0.25), поэтому пожертвование такого размера или меньше до подписки не доходит.",
+          "uk": "Boosty під час виведення утримує близько 20 ₽ (≈ $0.25), тому пожертва такого розміру або менша до підписки не доходить.",
+          "de": "Boosty behält bei der Auszahlung etwa 20 ₽ (≈ 0,25 $) ein; eine Spende in dieser Höhe oder darunter kommt beim Abo also nicht an.",
+          "es": "Boosty retiene unos 20 ₽ (≈ 0,25 $) al cobrar una donación, así que una donación de ese importe o menor no llega a la suscripción.",
+          "fr": "Boosty retient environ 20 ₽ (≈ 0,25 $) au versement d’un don : un don de ce montant ou moins n’arrive donc pas jusqu’à l’abonnement.",
+          "pl": "Boosty przy wypłacie zatrzymuje około 20 ₽ (≈ 0,25 $), więc darowizna tej wielkości lub mniejsza nie trafia na abonament.",
+          "pt-BR": "O Boosty retém cerca de 20 ₽ (≈ US$ 0,25) no saque, então uma doação desse valor ou menor não chega à assinatura.",
+          "isv": "Boosty pri izplatě zadrživaje okolo 20 ₽ (≈ 0,25 $), zato dar takoj veličiny ili menši ne dohodi do podpisky.",
+          "zh": "Boosty 在提现时会扣留约 20 卢布（≈ 0.25 美元），因此这个金额及以下的捐助到不了订阅费里。",
+          "ko": "Boosty는 출금할 때 약 20₽(≈ $0.25)를 떼므로, 그 이하 금액의 후원은 구독료에 보태지지 않습니다.",
+          "ar": "يحتفظ Boosty بنحو 20 ₽ (≈ 0.25 $) عند السحب، لذا فإن تبرعًا بهذا المبلغ أو أقل لا يصل إلى الاشتراك.",
+          "fa": "Boosty هنگام برداشت حدود ۲۰ روبل (≈ ۰٫۲۵ دلار) برمی‌دارد، پس کمکی به این اندازه یا کمتر به اشتراک نمی‌رسد."
+        }
       },
       {
         "type": "copy",
@@ -314,19 +356,19 @@
       {
         "type": "rows",
         "text": {
-          "en": "Heroes of the project",
-          "ru": "Герои проекта",
-          "uk": "Герої проєкту",
-          "de": "Helden des Projekts",
-          "es": "Héroes del proyecto",
-          "fr": "Héros du projet",
-          "pl": "Bohaterowie projektu",
-          "pt-BR": "Heróis do projeto",
-          "isv": "Geroji projekta",
-          "zh": "项目英雄",
-          "ko": "프로젝트의 영웅들",
-          "ar": "أبطال المشروع",
-          "fa": "قهرمانان پروژه"
+          "en": "Heroes of October 2026",
+          "ru": "Герои октября 2026",
+          "uk": "Герої жовтня 2026",
+          "de": "Helden im Oktober 2026",
+          "es": "Héroes de octubre de 2026",
+          "fr": "Héros d’octobre 2026",
+          "pl": "Bohaterowie października 2026",
+          "pt-BR": "Heróis de outubro de 2026",
+          "isv": "Heroji oktobra 2026",
+          "zh": "2026 年 10 月的英雄",
+          "ko": "2026년 10월의 영웅",
+          "ar": "أبطال أكتوبر 2026",
+          "fa": "قهرمانان اکتبر ۲۰۲۶"
         },
         "rows": [
           {
@@ -348,8 +390,32 @@
           {
             "left": "Mukhiddin (WaruEdition)",
             "right": "$2.81 · Boosty"
+          },
+          {
+            "left": "Shahre Masore",
+            "right": "$0.47 · Boosty"
           }
         ]
+      },
+      {
+        "type": "progress",
+        "label": {
+          "en": "October: $16.47 of the $20 monthly subscription",
+          "ru": "Октябрь: $16.47 из месячной подписки в $20",
+          "uk": "Жовтень: $16.47 із місячної підписки в $20",
+          "de": "Oktober: 16,47 $ vom Monatsabo über 20 $",
+          "es": "Octubre: 16,47 $ de la suscripción mensual de 20 $",
+          "fr": "Octobre : 16,47 $ sur l’abonnement mensuel de 20 $",
+          "pl": "Październik: 16,47 $ z miesięcznego abonamentu za 20 $",
+          "pt-BR": "Outubro: US$ 16,47 da assinatura mensal de US$ 20",
+          "isv": "Oktober: 16,47 $ iz měsečnoj podpisky za 20 $",
+          "zh": "10 月：每月 20 美元订阅已筹得 16.47 美元",
+          "ko": "10월: 월 $20 구독료 중 $16.47",
+          "ar": "أكتوبر: 16.47 $ من الاشتراك الشهري البالغ 20 $",
+          "fa": "اکتبر: ۱۶٫۴۷ دلار از اشتراک ماهانه ۲۰ دلاری"
+        },
+        "value": 16.47,
+        "max": 20
       }
     ],
     "buttons": [
