@@ -511,4 +511,6 @@
     <string name="setup_langpack_offer_download">Descargar y cambiar</string>
     <string name="setup_langpack_offer_switch">Cambiar</string>
     <string name="setup_langpack_offer_no">Mantener el inglés</string>
+    <string name="online_datapacks_need_storage">El lanzador no tiene acceso a los archivos del teléfono, así que no puede guardar los datos en línea. En la pantalla que se abre, permite a Generals el «Acceso a todos los archivos» y vuelve a pulsar «Actualizar».</string>
+    <string name="setup_status_no_storage_access">Sin acceso a los archivos del teléfono: el juego no podrá guardar y los datos en línea no se descargarán. Pulsa «Seleccionar carpeta del juego» y permite el «Acceso a todos los archivos».</string>
 </resources>

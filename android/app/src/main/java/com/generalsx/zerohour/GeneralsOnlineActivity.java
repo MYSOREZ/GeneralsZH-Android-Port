@@ -494,6 +494,13 @@ public class GeneralsOnlineActivity extends Activity {
         if (dataPackBusy) {
             return;
         }
+        if (!SetupActivity.hasStorageAccess(this)) {
+            dataPackStatus.setText(R.string.online_datapacks_need_storage);
+            android.widget.Toast.makeText(this, R.string.online_datapacks_need_storage,
+                android.widget.Toast.LENGTH_LONG).show();
+            SetupActivity.requestStorageAccess(this);
+            return;
+        }
         dataPackBusy = true;
         dataPackButton.setEnabled(false);
         dataPackDeleteButton.setEnabled(false);

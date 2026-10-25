@@ -511,4 +511,6 @@
     <string name="setup_langpack_offer_download">내려받고 바꾸기</string>
     <string name="setup_langpack_offer_switch">바꾸기</string>
     <string name="setup_langpack_offer_no">영어 유지</string>
+    <string name="online_datapacks_need_storage">런처가 휴대폰 파일에 접근할 수 없어 온라인 데이터를 저장할 수 없습니다. 열리는 화면에서 Generals에 \"모든 파일 접근\"을 허용한 뒤 \"업데이트\"를 다시 누르세요.</string>
+    <string name="setup_status_no_storage_access">휴대폰 파일에 접근할 수 없습니다. 게임이 저장할 수 없고 온라인 데이터도 내려받을 수 없습니다. \"게임 폴더 선택\"을 누르고 \"모든 파일 접근\"을 허용하세요.</string>
 </resources>

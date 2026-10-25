@@ -511,4 +511,6 @@
     <string name="setup_langpack_offer_download">Pobierz i przełącz</string>
     <string name="setup_langpack_offer_switch">Przełącz</string>
     <string name="setup_langpack_offer_no">Zostaw angielski</string>
+    <string name="online_datapacks_need_storage">Launcher nie ma dostępu do plików telefonu, więc danych sieciowych nie da się zapisać. Na ekranie, który się otworzy, zezwól Generals na „Dostęp do wszystkich plików”, a potem znów naciśnij „Aktualizuj”.</string>
+    <string name="setup_status_no_storage_access">Brak dostępu do plików telefonu: gra nie zapisze stanu, a dane sieciowe się nie pobiorą. Naciśnij „Wybierz folder gry” i zezwól na „Dostęp do wszystkich plików”.</string>
 </resources>

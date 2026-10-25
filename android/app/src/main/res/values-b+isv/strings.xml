@@ -511,4 +511,6 @@
     <string name="setup_langpack_offer_download">Skačati i prěključiti</string>
     <string name="setup_langpack_offer_switch">Prěključiti</string>
     <string name="setup_langpack_offer_no">Ostaviti anglijsky</string>
+    <string name="online_datapacks_need_storage">Lanšer ne imaje dostupa k fajlam telefona, zato mrěžne dane ne možno zapisati. Na ekranu, ktory se otvori, dozvolite Generals «Dostup ko vsim fajlam» i opet nažmite «Obnoviti».</string>
+    <string name="setup_status_no_storage_access">Nema dostupa k fajlam telefona: igra ne bude mogla zapisyvati, a mrěžne dane se ne skačajut. Nažmite «Izbrati papku igry» i dozvolite «Dostup ko vsim fajlam».</string>
 </resources>

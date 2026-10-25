@@ -511,4 +511,6 @@
     <string name="setup_langpack_offer_download">Завантажити й увімкнути</string>
     <string name="setup_langpack_offer_switch">Увімкнути</string>
     <string name="setup_langpack_offer_no">Залишити англійську</string>
+    <string name="online_datapacks_need_storage">Лаунчер не має доступу до файлів телефона, тож мережеві дані нікуди зберегти. На екрані, що відкриється, дозвольте Generals «Доступ до всіх файлів» і знову натисніть «Оновити».</string>
+    <string name="setup_status_no_storage_access">Немає доступу до файлів телефона: гра не зможе зберігатися, а мережеві дані не завантажаться. Натисніть «Обрати папку з грою» й дозвольте «Доступ до всіх файлів».</string>
 </resources>

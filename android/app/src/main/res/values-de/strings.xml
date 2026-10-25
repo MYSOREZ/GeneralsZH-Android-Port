@@ -511,4 +511,6 @@
     <string name="setup_langpack_offer_download">Herunterladen und umstellen</string>
     <string name="setup_langpack_offer_switch">Umstellen</string>
     <string name="setup_langpack_offer_no">Englisch behalten</string>
+    <string name="online_datapacks_need_storage">Der Launcher hat keinen Zugriff auf die Dateien des Telefons, daher können die Online-Daten nicht gespeichert werden. Erlaube Generals auf dem folgenden Bildschirm „Zugriff auf alle Dateien“ und tippe dann erneut auf „Aktualisieren“.</string>
+    <string name="setup_status_no_storage_access">Kein Zugriff auf die Dateien des Telefons: Das Spiel kann nicht speichern, und Online-Daten lassen sich nicht herunterladen. Tippe auf „Spielordner auswählen“ und erlaube „Zugriff auf alle Dateien“.</string>
 </resources>

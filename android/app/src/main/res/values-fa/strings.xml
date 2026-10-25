@@ -511,4 +511,6 @@
     <string name="setup_langpack_offer_download">دانلود و تغییر</string>
     <string name="setup_langpack_offer_switch">تغییر</string>
     <string name="setup_langpack_offer_no">انگلیسی بماند</string>
+    <string name="online_datapacks_need_storage">لانچر به فایل‌های گوشی دسترسی ندارد، پس داده‌های آنلاین ذخیره نمی‌شوند. در صفحه‌ای که باز می‌شود به Generals «دسترسی به همهٔ فایل‌ها» بدهید و دوباره «به‌روزرسانی» را بزنید.</string>
+    <string name="setup_status_no_storage_access">دسترسی به فایل‌های گوشی نیست: بازی نمی‌تواند ذخیره کند و داده‌های آنلاین دانلود نمی‌شوند. «انتخاب پوشه بازی» را بزنید و «دسترسی به همهٔ فایل‌ها» را بدهید.</string>
 </resources>

@@ -2868,6 +2868,15 @@ public class SetupActivity extends Activity {
             if (basePath != null && !isGeneralsSelected(this)) {
                 sb.append(getString(R.string.setup_status_base_generals_line, basePath));
             }
+            // GeneralsX @bugfix Android port 25/10/2026 Said here, where Play is, and not only when a
+            // download fails: without it the game cannot save either (see hasStorageAccess).
+            if (!hasStorageAccess(this)) {
+                sb.append("\n\n");
+                int warnStart = sb.length();
+                sb.append(getString(R.string.setup_status_no_storage_access));
+                sb.setSpan(new ForegroundColorSpan(UiKit.color(this, R.color.gzh_status_error)),
+                    warnStart, sb.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            }
         }
         // GeneralsX @feature Android port launcher-ui-2026 08/09/2026 The
         // "your logs live in private storage" paragraph used to be glued to
@@ -3893,28 +3902,48 @@ public class SetupActivity extends Activity {
 
     private static final int REQUEST_LEGACY_STORAGE_PERMISSION = 1003;
 
-    private void onSelectGameFolder() {
+    /**
+     * GeneralsX @bugfix Android port 25/10/2026 Whether the app may write the phone's shared storage
+     * (the game folder, and the user-data folder where saves and GeneralsOnline's data go): "All
+     * files access" from Android 11, the storage permission before it. It was asked for only when a
+     * game folder was picked, so a player who never went through the picker, or whose system took
+     * the access back, met a bare "could not create .../GeneralsOnlineGameData" (4PDA, POCO F4 GT).
+     */
+    static boolean hasStorageAccess(android.content.Context ctx) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            if (!Environment.isExternalStorageManager()) {
-                Toast.makeText(this, R.string.setup_toast_grant_all_files, Toast.LENGTH_LONG).show();
-                try {
-                    Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
-                    intent.setData(Uri.parse("package:" + getPackageName()));
-                    startActivity(intent);
-                } catch (Exception e) {
-                    startActivity(new Intent(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION));
-                }
-                return;
+            return Environment.isExternalStorageManager();
+        }
+        return ContextCompat.checkSelfPermission(ctx, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            == PackageManager.PERMISSION_GRANTED;
+    }
+
+    /** Opens the system's "All files access" page for this app (or asks, before Android 11). */
+    static void requestStorageAccess(android.app.Activity activity) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            try {
+                Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
+                intent.setData(Uri.parse("package:" + activity.getPackageName()));
+                activity.startActivity(intent);
+            } catch (Exception e) {
+                activity.startActivity(new Intent(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION));
             }
-        } else if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
+        } else {
             // MANAGE_EXTERNAL_STORAGE / isExternalStorageManager() don't exist
             // before API 30 -- this is the pre-R equivalent, otherwise
             // FolderPickerActivity opens with no storage permission at all
             // and its File.listFiles() silently comes back empty.
-            ActivityCompat.requestPermissions(this,
+            ActivityCompat.requestPermissions(activity,
                 new String[] { Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE },
                 REQUEST_LEGACY_STORAGE_PERMISSION);
+        }
+    }
+
+    private void onSelectGameFolder() {
+        if (!hasStorageAccess(this)) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                Toast.makeText(this, R.string.setup_toast_grant_all_files, Toast.LENGTH_LONG).show();
+            }
+            requestStorageAccess(this);
             return;
         }
         startActivityForResult(new Intent(this, FolderPickerActivity.class), 1001);

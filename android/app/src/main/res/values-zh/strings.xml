@@ -511,4 +511,6 @@
     <string name="setup_langpack_offer_download">下载并切换</string>
     <string name="setup_langpack_offer_switch">切换</string>
     <string name="setup_langpack_offer_no">保留英文</string>
+    <string name="online_datapacks_need_storage">启动器无法访问手机文件，所以联机数据无法保存。请在打开的界面中允许 Generals“访问所有文件”，然后再次点击“更新”。</string>
+    <string name="setup_status_no_storage_access">无法访问手机文件：游戏无法存档，联机数据也无法下载。请点击“选择游戏文件夹”并允许“访问所有文件”。</string>
 </resources>

@@ -511,4 +511,6 @@
     <string name="setup_langpack_offer_download">تنزيل وتحويل</string>
     <string name="setup_langpack_offer_switch">تحويل</string>
     <string name="setup_langpack_offer_no">إبقاء الإنجليزية</string>
+    <string name="online_datapacks_need_storage">لا يملك المشغّل صلاحية الوصول إلى ملفات الهاتف، لذا لا يمكن حفظ بيانات اللعب عبر الشبكة. في الشاشة التي تُفتح، اسمح لـ Generals بـ«الوصول إلى كل الملفات» ثم اضغط «تحديث» مجددًا.</string>
+    <string name="setup_status_no_storage_access">لا صلاحية للوصول إلى ملفات الهاتف: لن تتمكن اللعبة من الحفظ ولن تُنزَّل بيانات اللعب عبر الشبكة. اضغط «اختيار مجلد اللعبة» واسمح بـ«الوصول إلى كل الملفات».</string>
 </resources>

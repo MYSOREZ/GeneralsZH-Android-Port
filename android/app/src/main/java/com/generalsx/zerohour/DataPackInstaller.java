@@ -422,6 +422,11 @@ final class DataPackInstaller {
 
     private static Result installLocked(Context ctx, Progress progress) {
         File tempZip = null;
+        // Not a 100 MB download that can only end in "could not create": the data goes to shared
+        // storage, which needs the access the player grants (SetupActivity.hasStorageAccess).
+        if (!SetupActivity.hasStorageAccess(ctx)) {
+            return Result.failure(ctx.getString(R.string.online_datapacks_need_storage));
+        }
         try {
             progress.onChecking();
             JSONObject manifest = new JSONObject(fetchText(manifestUrl(ctx)));

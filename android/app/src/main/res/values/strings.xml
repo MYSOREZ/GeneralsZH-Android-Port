@@ -518,4 +518,6 @@
     <string name="setup_langpack_offer_download">Download and switch</string>
     <string name="setup_langpack_offer_switch">Switch</string>
     <string name="setup_langpack_offer_no">Keep English</string>
+    <string name="online_datapacks_need_storage">The launcher has no access to the phone\'s files, so the online data cannot be saved next to your games. On the screen that opens, allow \"Access to all files\" for Generals, then press Update again.</string>
+    <string name="setup_status_no_storage_access">No access to the phone\'s files: the game cannot save, and online data cannot be downloaded. Tap \"Select Game Folder\" and allow \"Access to all files\".</string>
 </resources>

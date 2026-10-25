@@ -389,7 +389,7 @@ final class UpdateManager {
         if (!datapackUpdateWanted(ctx)) {
             return;
         }
-        if (!install) {
+        if (!install || !SetupActivity.hasStorageAccess(ctx)) {
             r.datapackAvailable = latest;
             return;
         }
