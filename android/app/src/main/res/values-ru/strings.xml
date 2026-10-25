@@ -507,4 +507,10 @@
     <string name="setup_sources_zh_art_missing">В папке Zero Hour нет TexturesZH.big, поэтому Generals не может взять оттуда картинки: %1$s</string>
     <string name="setup_sources_base_ok">Архивы оригинальной Generals для Zero Hour: %1$s</string>
     <string name="setup_sources_base_auto">Zero Hour ищет архивы оригинальной Generals в своей папке (ZH_Generals) или рядом с ней; если они в другом месте, выберите папку ниже.</string>
+    <string name="setup_langpack_offer_title">Играть на языке: %1$s?</string>
+    <string name="setup_langpack_offer_message">Текст самой игры на английском. Для этой игры есть перевод (%1$s): скачать его (несколько сотен килобайт) и переключить на него текст игры? Потом это можно поменять в пункте «Язык текста игры».</string>
+    <string name="setup_langpack_offer_message_present">Перевод (%1$s) уже лежит в папке этой игры. Переключить на него текст игры? Потом это можно поменять в пункте «Язык текста игры».</string>
+    <string name="setup_langpack_offer_download">Скачать и включить</string>
+    <string name="setup_langpack_offer_switch">Включить</string>
+    <string name="setup_langpack_offer_no">Оставить английский</string>
 </resources>

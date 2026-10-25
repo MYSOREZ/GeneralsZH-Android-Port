@@ -505,4 +505,10 @@
     <string name="setup_sources_zh_art_missing">Zero Hour 폴더에 TexturesZH.big이 없어 Generals가 그림을 가져올 수 없습니다: %1$s</string>
     <string name="setup_sources_base_ok">Zero Hour용 원본 Generals 아카이브: %1$s</string>
     <string name="setup_sources_base_auto">Zero Hour는 원본 Generals 아카이브를 자기 폴더(ZH_Generals)나 그 옆에서 찾습니다. 다른 곳에 있다면 아래에서 폴더를 선택하세요.</string>
+    <string name="setup_langpack_offer_title">%1$s(으)로 플레이할까요?</string>
+    <string name="setup_langpack_offer_message">게임 자체의 텍스트는 영어입니다. 이 게임용 %1$s 번역이 있습니다. 내려받아(수백 KB) 게임 텍스트를 그것으로 바꿀까요? 나중에 \"게임 텍스트 언어\"에서 바꿀 수 있습니다.</string>
+    <string name="setup_langpack_offer_message_present">이 게임 폴더에 이미 %1$s 번역이 있습니다. 게임 텍스트를 그것으로 바꿀까요? 나중에 \"게임 텍스트 언어\"에서 바꿀 수 있습니다.</string>
+    <string name="setup_langpack_offer_download">내려받고 바꾸기</string>
+    <string name="setup_langpack_offer_switch">바꾸기</string>
+    <string name="setup_langpack_offer_no">영어 유지</string>
 </resources>

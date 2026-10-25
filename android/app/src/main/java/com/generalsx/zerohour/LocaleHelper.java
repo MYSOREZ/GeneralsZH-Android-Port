@@ -174,6 +174,25 @@ final class LocaleHelper {
         }
     }
 
+    /**
+     * GeneralsX @feature Android port 25/10/2026 The folder of languages/ (index.txt) holding the
+     * translation for a launcher language, or null when there is none. Unlike
+     * gameDataLanguageFor(), which names the official SKUs' folders, this covers every pack the
+     * repository carries.
+     */
+    static String languagePackFor(String launcherTag) {
+        if (launcherTag == null) {
+            return null;
+        }
+        switch (launcherTag) {
+            case "uk":  return "ukrainian";
+            case "ar":  return "arabic";
+            case "fa":  return "persian";
+            case "isv": return "interslavic";
+            default:    return gameDataLanguageFor(launcherTag);
+        }
+    }
+
     static String displayNameFor(Context ctx, String tag) {
         if (tag == null || tag.isEmpty()) {
             return ctx.getString(R.string.setup_language_system_default);

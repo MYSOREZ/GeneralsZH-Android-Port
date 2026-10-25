@@ -2880,6 +2880,84 @@ public class SetupActivity extends Activity {
         }
         statusText.setText(sb.subSequence(0, end));
         updateGameLanguageStatusView();
+        maybeOfferLanguagePack();
+    }
+
+    private static final String PREF_LANGPACK_OFFERED = "langpack_offered_";
+    private boolean languagePackOfferShowing;
+
+    /**
+     * GeneralsX @feature Android port 25/10/2026 The game in the phone's language out of the box.
+     * The first time a game's folder is ready, a player whose launcher speaks a language with a
+     * pack in languages/ is offered that pack: one tap downloads it into this game's folder and
+     * switches the game's text to it. Asked once per game, and only while the player has not
+     * picked a game text language themselves (or picked this one, which this game lacks).
+     */
+    private void maybeOfferLanguagePack() {
+        if (languagePackOfferShowing || isFinishing() || contentHost == null) {
+            return;
+        }
+        final String gamePath = getSavedGamePath();
+        if (gamePath == null || !isValidGameFolder(new File(gamePath), getSelectedGame(this))) {
+            return;
+        }
+        java.util.Locale locale = getResources().getConfiguration().getLocales().get(0);
+        final String tag = "pt".equals(locale.getLanguage()) ? "pt-BR" : locale.getLanguage();
+        final String token = LocaleHelper.languagePackFor(tag);
+        if (token == null) {
+            return;
+        }
+        final String current = LocaleHelper.getGameTextToken(this);
+        if (LocaleHelper.hasGameTextToken(this) && !current.isEmpty() && !current.equals(token)) {
+            return;
+        }
+        final android.content.SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        final String key = PREF_LANGPACK_OFFERED + getSelectedGame(this);
+        if (prefs.getBoolean(key, false)) {
+            return;
+        }
+        final boolean present = gameHasTextFor(gamePath, token);
+        if (present && token.equals(current)) {
+            return;
+        }
+        final String name = LocaleHelper.displayNameFor(this, tag);
+        languagePackOfferShowing = true;
+        new com.google.android.material.dialog.MaterialAlertDialogBuilder(this)
+            .setTitle(getString(R.string.setup_langpack_offer_title, name))
+            .setMessage(getString(present ? R.string.setup_langpack_offer_message_present
+                                          : R.string.setup_langpack_offer_message, name))
+            .setPositiveButton(present ? R.string.setup_langpack_offer_switch
+                                       : R.string.setup_langpack_offer_download, (d, w) -> {
+                prefs.edit().putBoolean(key, true).apply();
+                if (present) {
+                    switchGameTextTo(token);
+                    return;
+                }
+                toast(getString(R.string.setup_langpack_downloading));
+                new Thread(() -> {
+                    final String reason = downloadLanguagePack(token, gamePath);
+                    runOnUiThread(() -> {
+                        if (reason != null) {
+                            // Asked again at the next start: the answer was yes, the network was not.
+                            prefs.edit().remove(key).apply();
+                            toast(getString(R.string.setup_langpack_failed, reason));
+                            return;
+                        }
+                        switchGameTextTo(token);
+                    });
+                }, "gx-langpack-offer").start();
+            })
+            .setNegativeButton(R.string.setup_langpack_offer_no, (d, w) ->
+                prefs.edit().putBoolean(key, true).apply())
+            .setOnDismissListener(d -> languagePackOfferShowing = false)
+            .show();
+    }
+
+    private void switchGameTextTo(String token) {
+        LocaleHelper.setGameTextToken(this, token);
+        applyGameLanguageOverride();
+        updateGameLanguageStatusView();
+        toast(getString(R.string.setup_game_text_status, gameTextName(token)));
     }
 
     // String.join() is API 26; this launcher's UI code deliberately stays

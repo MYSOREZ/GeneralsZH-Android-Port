@@ -505,4 +505,10 @@
     <string name="setup_sources_zh_art_missing">Zero Hour 文件夹中没有 TexturesZH.big，因此 Generals 无法从中获取图片：%1$s</string>
     <string name="setup_sources_base_ok">供 Zero Hour 使用的原版 Generals 归档：%1$s</string>
     <string name="setup_sources_base_auto">Zero Hour 会在自己的文件夹（ZH_Generals）内或旁边查找原版 Generals 归档；如在别处，请在下方选择文件夹。</string>
+    <string name="setup_langpack_offer_title">使用%1$s进行游戏？</string>
+    <string name="setup_langpack_offer_message">游戏本身的文字是英文。此游戏有%1$s翻译可用：要下载它（几百 KB）并把游戏文字切换过去吗？之后可在“游戏文本语言”中更改。</string>
+    <string name="setup_langpack_offer_message_present">此游戏的文件夹里已经有%1$s翻译。要把游戏文字切换过去吗？之后可在“游戏文本语言”中更改。</string>
+    <string name="setup_langpack_offer_download">下载并切换</string>
+    <string name="setup_langpack_offer_switch">切换</string>
+    <string name="setup_langpack_offer_no">保留英文</string>
 </resources>

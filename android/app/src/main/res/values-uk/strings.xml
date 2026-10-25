@@ -505,4 +505,10 @@
     <string name="setup_sources_zh_art_missing">У теці Zero Hour немає TexturesZH.big, тому Generals не може взяти звідти картинки: %1$s</string>
     <string name="setup_sources_base_ok">Архіви оригінальної Generals для Zero Hour: %1$s</string>
     <string name="setup_sources_base_auto">Zero Hour шукає архіви оригінальної Generals у своїй теці (ZH_Generals) або поруч із нею; якщо вони деінде, виберіть теку нижче.</string>
+    <string name="setup_langpack_offer_title">Грати мовою: %1$s?</string>
+    <string name="setup_langpack_offer_message">Текст самої гри англійською. Для цієї гри є переклад (%1$s): завантажити його (кілька сотень кілобайт) і перемкнути на нього текст гри? Потім це можна змінити в пункті «Мова тексту гри».</string>
+    <string name="setup_langpack_offer_message_present">Переклад (%1$s) уже є в теці цієї гри. Перемкнути на нього текст гри? Потім це можна змінити в пункті «Мова тексту гри».</string>
+    <string name="setup_langpack_offer_download">Завантажити й увімкнути</string>
+    <string name="setup_langpack_offer_switch">Увімкнути</string>
+    <string name="setup_langpack_offer_no">Залишити англійську</string>
 </resources>
