@@ -2830,7 +2830,7 @@ void ScriptActions::doSpeechPlay(const AsciiString& speechName, Bool allowOverla
 	UnicodeString subtitle = TheGameText->fetch(subtitleLabel, &found);
 	// GeneralsX @feature Android port 25/10/2026 The '*' texts too when the launcher's subtitles are
 	// on (GXSubtitles.h); militarySubtitle() drops the mark.
-	if( found && !subtitle.isEmpty() && (subtitle.getCharAt(0) != '*' || GXSubtitles::enabled()))
+	if( found && !subtitle.isEmpty() && (subtitle.getCharAt(0) != '*' || GXSubtitles::hasWords(subtitle.str())))
 	{
 		// Foreign versions can specify region specific subtitle strings if they want.
 		// English will have strings with / for easy translation, but they don't want to display.

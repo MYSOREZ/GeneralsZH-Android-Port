@@ -526,5 +526,5 @@
     <string name="setup_langpack_update_no">Not now</string>
     <string name="setup_langpack_update_done">Translation updated: %1$s</string>
     <string name="setup_switch_subtitles">Show subtitles</string>
-    <string name="setup_switch_subtitles_desc">The text of what is said in the missions and the Generals Challenge: radio chatter, the generals\' taunts. The game has these texts but never showed them. Takes effect at the next start of the game.</string>
+    <string name="setup_switch_subtitles_desc">The text of what is said in the missions and the Generals Challenge: radio chatter, the generals\' taunts. The game has these texts but never showed them. Takes effect at the next start of the game. On by default when the game\'s text is in a language you have.</string>
 </resources>

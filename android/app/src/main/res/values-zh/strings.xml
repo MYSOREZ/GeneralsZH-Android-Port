@@ -519,5 +519,5 @@
     <string name="setup_langpack_update_no">以后再说</string>
     <string name="setup_langpack_update_done">翻译已更新：%1$s</string>
     <string name="setup_switch_subtitles">显示字幕</string>
-    <string name="setup_switch_subtitles_desc">任务和将军挑战中的台词文字：无线电通话、将军们的嘲讽。游戏里有这些文字，但从未显示过。下次启动游戏时生效。</string>
+    <string name="setup_switch_subtitles_desc">任务和将军挑战中的台词文字：无线电通话、将军们的嘲讽。游戏里有这些文字，但从未显示过。下次启动游戏时生效。 当游戏文字是你已安装的语言时，默认开启。</string>
 </resources>

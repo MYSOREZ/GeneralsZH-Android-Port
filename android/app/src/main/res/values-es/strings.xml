@@ -519,5 +519,5 @@
     <string name="setup_langpack_update_no">Ahora no</string>
     <string name="setup_langpack_update_done">Traducción actualizada: %1$s</string>
     <string name="setup_switch_subtitles">Mostrar subtítulos</string>
-    <string name="setup_switch_subtitles_desc">El texto de lo que se dice en las misiones y en el Desafío de generales: las comunicaciones por radio, las pullas de los generales. El juego tiene estos textos, pero nunca los mostraba. Se aplica en el próximo inicio del juego.</string>
+    <string name="setup_switch_subtitles_desc">El texto de lo que se dice en las misiones y en el Desafío de generales: las comunicaciones por radio, las pullas de los generales. El juego tiene estos textos, pero nunca los mostraba. Se aplica en el próximo inicio del juego. Activado por defecto si el texto del juego está en un idioma que tienes instalado.</string>
 </resources>

@@ -519,5 +519,5 @@
     <string name="setup_langpack_update_no">Agora não</string>
     <string name="setup_langpack_update_done">Tradução atualizada: %1$s</string>
     <string name="setup_switch_subtitles">Mostrar legendas</string>
-    <string name="setup_switch_subtitles_desc">O texto do que é dito nas missões e no Desafio dos Generais: conversas de rádio, as provocações dos generais. O jogo tem esses textos, mas nunca os mostrou. Vale a partir do próximo início do jogo.</string>
+    <string name="setup_switch_subtitles_desc">O texto do que é dito nas missões e no Desafio dos Generais: conversas de rádio, as provocações dos generais. O jogo tem esses textos, mas nunca os mostrou. Vale a partir do próximo início do jogo. Ativado por padrão se o texto do jogo estiver num idioma que você tem instalado.</string>
 </resources>

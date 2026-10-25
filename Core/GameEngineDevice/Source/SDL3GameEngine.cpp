@@ -2733,19 +2733,16 @@ void SDL3GameEngine::update(void)
 	s_wasPausedLastFrame = pausedNow;
 #endif
 #if defined(__ANDROID__)
-	// GeneralsX @bugfix Android port 28/09/2026 Game speed above the screen's refresh rate. The
-	// skirmish Game Speed slider raises the frame-rate limit, and logic runs one step per
-	// rendered frame, so on the 60 Hz engine anything above normal speed needs more than 60
-	// frames a second -- which vsync on a 60 Hz display never allows: the phone showed 60 fps
-	// and the game did not speed up. Vsync goes off only while the limit is above the refresh
-	// rate; the native GLES backend applies it at its next present.
-	if (TheFramePacer != nullptr && m_SDLWindow != nullptr) {
-		const SDL_DisplayMode *mode = SDL_GetCurrentDisplayMode(SDL_GetDisplayForWindow(m_SDLWindow));
-		const int refresh = (mode && mode->refresh_rate > 1.0f) ? (int)(mode->refresh_rate + 0.5f) : 60;
-		const bool uncapped = TheFramePacer->isActualFramesPerSecondLimitEnabled()
-			&& TheFramePacer->getActualFramesPerSecondLimit() > refresh;
-		d3d8gles_SetPresentUncapped(uncapped);
-	}
+	// GeneralsX @bugfix Android port 28/09/2026 Game speed above the screen's refresh rate.
+	// GeneralsX @bugfix Android port 25/10/2026 Vsync stays on. It went off whenever the frame limit
+	// was above the refresh rate (the Game Speed slider, the 120 limit of the 60 Hz engine), so that
+	// more frames than the screen shows could be drawn for the faster logic. On a POCO (HyperOS) a
+	// swap interval of 0 left the picture updating once or twice a second while the game ran at 90
+	// fps with its sound -- until the app was minimized and back, when the new surface came with
+	// vsync on. Since 02/10 the faster logic does not need the extra frames: gxCatchUpSpedUpLogic()
+	// runs the extra logic steps within a drawn frame. Asked for "capped" every frame, so a
+	// session that started uncapped returns to vsync at its next present.
+	d3d8gles_SetPresentUncapped(false);
 #endif
 	GameEngine::update();
 }

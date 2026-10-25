@@ -1215,24 +1215,48 @@ public class SetupActivity extends Activity {
         // (GXSubtitles.h). A marker file, like the mouse mode: both games, read at start.
         SwitchCompat subtitles = UiKit.switchRow(content,
             getString(R.string.setup_switch_subtitles), getString(R.string.setup_switch_subtitles_desc));
-        final File subtitlesMarker = new File(getFilesDir(), SUBTITLES_MARKER);
-        subtitles.setChecked(subtitlesMarker.isFile());
+        subtitles.setChecked(subtitlesOn(this));
         subtitles.setOnCheckedChangeListener((button, checked) -> {
-            try {
-                if (checked) {
-                    new java.io.FileOutputStream(subtitlesMarker).close();
-                } else {
-                    subtitlesMarker.delete();
-                }
-            } catch (java.io.IOException e) {
-                toast(String.valueOf(e.getMessage()));
-            }
+            getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit().putBoolean(PREF_SUBTITLES, checked).apply();
+            writeSubtitlesMarker(this);
         });
 
         UiKit.helpText(content, getString(R.string.setup_language_help));
     }
 
     static final String SUBTITLES_MARKER = "subtitles";
+    private static final String PREF_SUBTITLES = "subtitles_on";
+
+    /**
+     * GeneralsX @feature Android port 25/10/2026 On unless the player switched them off -- as long as
+     * the game's text language is really there: English (the game's own), or a chosen language whose
+     * text is in the game folder. A language without its text would show the subtitles as
+     * placeholders, so then they stay off until the player turns them on.
+     */
+    static boolean subtitlesOn(android.content.Context ctx) {
+        android.content.SharedPreferences prefs = ctx.getSharedPreferences(PREFS_NAME, android.content.Context.MODE_PRIVATE);
+        if (prefs.contains(PREF_SUBTITLES)) {
+            return prefs.getBoolean(PREF_SUBTITLES, false);
+        }
+        String token = LocaleHelper.getGameTextToken(ctx);
+        return token == null || token.isEmpty() || gameHasTextFor(getSavedGamePath(ctx), token);
+    }
+
+    /** The marker the engine reads (GXSubtitles.h), written before every start. */
+    static void writeSubtitlesMarker(android.content.Context ctx) {
+        File marker = new File(ctx.getFilesDir(), SUBTITLES_MARKER);
+        try {
+            if (subtitlesOn(ctx)) {
+                if (!marker.isFile()) {
+                    new java.io.FileOutputStream(marker).close();
+                }
+            } else {
+                marker.delete();
+            }
+        } catch (java.io.IOException e) {
+            android.util.Log.w("SetupActivity", "could not write the subtitles marker", e);
+        }
+    }
 
     // GeneralsX @feature Android port 13/07/2026 GitHub issue #4 follow-up:
     // status line showing whether the launcher's chosen language is also

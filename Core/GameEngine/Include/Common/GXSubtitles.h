@@ -50,4 +50,18 @@ namespace GXSubtitles
 		}
 		return s_state == 1;
 	}
+
+	// Shown with the switch on, and only when there is something to read once the '*' marks are
+	// gone: some lines are just "***" (no words are spoken).
+	inline bool hasWords(const wchar_t *text)
+	{
+		if (!enabled() || text == nullptr)
+			return false;
+		for (; *text != 0; ++text)
+		{
+			if (*text != L'*' && *text != L' ')
+				return true;
+		}
+		return false;
+	}
 }

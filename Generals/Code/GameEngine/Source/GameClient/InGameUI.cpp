@@ -4921,11 +4921,14 @@ void InGameUI::militarySubtitle( const AsciiString& label, Int duration )
 	UnicodeString title = TheGameText->fetch(label);
 	// GeneralsX @feature Android port 25/10/2026 A voice line's text shown by the launcher's subtitles
 	// switch (GXSubtitles.h) carries the retail '*' mark, which is not part of what is said.
-	if (title.getLength() > 1 && title.getCharAt(0) == L'*')
+	// GeneralsX @bugfix Android port 25/10/2026 Every leading mark: the lines with no words carry
+	// "***", which showed as "**".
+	if (title.getLength() > 0 && title.getCharAt(0) == L'*')
 	{
-		UnicodeString rest(title.str() + 1);
-		rest.trim();
-		title = rest;
+		const WideChar *rest = title.str();
+		while (*rest == L'*' || *rest == L' ')
+			++rest;
+		title = UnicodeString(rest);
 	}
 
 	// make sure we actually will be displaying something
@@ -4956,6 +4959,29 @@ void InGameUI::militarySubtitle( const AsciiString& label, Int duration )
 	m_militarySubtitle->lifetime = messageTimeout;
 	m_militarySubtitle->blockPos.x =  m_militarySubtitle->position.x = m_militaryCaptionPosition.x * multiplier.x;
 	m_militarySubtitle->blockPos.y =  m_militarySubtitle->position.y = m_militaryCaptionPosition.y * multiplier.y;
+	// GeneralsX @bugfix Android port 25/10/2026 Above the control bar and the army column's "+". The
+	// caption's place is a fixed point of an 800x600 screen (InGameUI.ini, y 380), right over the
+	// retail control bar; the interface scale (GXUiScale) makes the bar taller, and the text's lower
+	// lines went under it. The block of lines the text will take is moved up until it ends above.
+	{
+		const Int barTop = GroupPanelBarAreaTop();
+		Int lines = 1;
+		for (Int i = 0; i < title.getLength(); ++i)
+			if (title.getCharAt(i) == L'\n')
+				++lines;
+		if (lines > MAX_SUBTITLE_LINES)
+			lines = MAX_SUBTITLE_LINES;
+		GameFont *titleFont = TheFontLibrary->getFont(m_militaryCaptionTitleFont,
+			TheGlobalLanguageData->adjustFontSize(m_militaryCaptionTitlePointSize), m_militaryCaptionTitleBold);
+		GameFont *lineFont = TheFontLibrary->getFont(m_militaryCaptionFont,
+			TheGlobalLanguageData->adjustFontSize(m_militaryCaptionPointSize), m_militaryCaptionBold);
+		const Int lineHeight = max(titleFont ? titleFont->height : 0, lineFont ? lineFont->height : 0);
+		const Int limit = barTop - lineHeight / 2;
+		if (barTop > 0 && lineHeight > 0 && m_militarySubtitle->position.y + lines * lineHeight > limit)
+		{
+			m_militarySubtitle->blockPos.y = m_militarySubtitle->position.y = max((Int)0, limit - lines * lineHeight);
+		}
+	}
 	m_militarySubtitle->incrementOnFrame = currLogicFrame + (Int)(((Real)LOGICFRAMES_PER_SECOND * m_militaryCaptionDelayMS)/1000.0f);
 	m_militarySubtitle->index = 0;
 	for (int i = 1; i < MAX_SUBTITLE_LINES; i ++)

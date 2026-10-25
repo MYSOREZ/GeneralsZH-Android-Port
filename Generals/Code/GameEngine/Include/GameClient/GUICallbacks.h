@@ -386,6 +386,7 @@ extern void GroupPanelFollowControlBar( Int barScreenX, Int barScreenY, Bool vis
 // GeneralsX @feature Android port 18/10/2026 A new game: the army column closed, its army buttons as
 // the control scheme says.
 extern void GroupPanelResetForGame();
+extern Int GroupPanelBarAreaTop(); ///< GeneralsX: top of the control bar and the army column's "+", 0 if unknown
 
 
 // IdleWorker Controls --------------------------------------------------------------------------------

@@ -2749,7 +2749,7 @@ void ScriptActions::doSpeechPlay(const AsciiString& speechName, Bool allowOverla
 	subtitleLabel.concat("Subtitle");
 	Bool found = FALSE;
 	UnicodeString subtitle = TheGameText->fetch(subtitleLabel, &found);
-	if (found && !subtitle.isEmpty())
+	if (found && GXSubtitles::hasWords(subtitle.str()))
 	{
 		TheInGameUI->militarySubtitle(subtitleLabel, 8000);
 	}

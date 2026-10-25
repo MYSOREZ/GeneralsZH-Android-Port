@@ -701,6 +701,23 @@ void GroupPanelResetForGame()
 	setArmyShown(GXControlScheme::enabled(GXControlScheme::ARMY_BUTTONS));
 }
 
+// GeneralsX @bugfix Android port 25/10/2026 For what must stay clear of the bar -- the military
+// caption (InGameUI::militarySubtitle): the top of the control bar, or of the army column's "+"
+// above it when that is higher. The bar's last known place; 0 before the first game frame.
+Int GroupPanelBarAreaTop()
+{
+	Int top = s_lastBarTop;
+	GameWindow *handle = panelWindow(s_buttonHandleID);
+	if (handle != nullptr && !handle->winIsHidden())
+	{
+		Int x, y;
+		handle->winGetScreenPosition(&x, &y);
+		if (top <= 0 || y < top)
+			top = y;
+	}
+	return top;
+}
+
 void GroupPanelFollowControlBar(Int barScreenX, Int barScreenY, Bool visible)
 {
 	if (!visible || !TheWindowManager || !TheDisplay) {

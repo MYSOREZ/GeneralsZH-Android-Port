@@ -174,6 +174,7 @@ public class GeneralsZHActivity extends SDLActivity {
         // screen, in their order, for the game being started (ModManager, GXManagedMods.h). Written
         // here so both engines, a replay and every way of starting the game read the same list.
         ModManager.writeActiveList(this);
+        SetupActivity.writeSubtitlesMarker(this);
         writeZeroHourArtPath();
         Intent intent = getIntent();
         String replay = intent != null ? intent.getStringExtra(EXTRA_REPLAY) : null;
