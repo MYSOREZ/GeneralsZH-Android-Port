@@ -37,6 +37,7 @@
     <string name="setup_folder_issue_bad_header">%1$s لا يبدو أرشيف لعبة صالحًا</string>
     <string name="setup_folder_issue_missing_data">%1$s ينقصه بيانات لعبة متوقعة — على الأرجح نسخة غير مكتملة</string>
     <string name="setup_folder_issue_no_base_game">بيانات لعبة Generals الأساسية مفقودة:%1$s\n\nأو حدّد المجلد الذي يحتوي عليها بالفعل — زر «مجلد لعبة Generals الأساسية…» بالأسفل (عادةً ZH_Generals أو Command and Conquer Generals).</string>
+    <string name="setup_folder_issue_no_ai_scripts">الملف Data\\Scripts\\SkirmishScripts.scb مفقود — لن يفعل خصوم الحاسوب شيئًا في المناوشات. انسخ مجلد اللعبة كاملًا مع مجلد Data، لا ملفات .big فقط.</string>
     <string name="setup_status_logs_note">سجلات الأعطال/المحرك مخزنة في التخزين الخاص بالتطبيق ولا يمكن الوصول إليها إلا عبر \"عرض السجلات\" أعلاه — يقوم أندرويد بإخفائها عمدًا عن مديري الملفات العاديين (هذا هو العزل المعتاد في أندرويد، وليس خاصية مميزة لهذا التطبيق).</string>
 
     <!-- SetupActivity: Language card -->
@@ -457,7 +458,7 @@
     <string name="mods_home_enabled">المودات المفعّلة: %1$d</string>
     <string name="mods_home_all_off">المثبّتة: %1$d، كلها متوقفة</string>
     <string name="mods_import_rar">لا يمكن فتح أرشيفات RAR و7z ومثبّتات .exe على أندرويد. فكّ ضغطه أولًا بمدير ملفات (مثل ZArchiver) ثم استورد المجلد، أو اضغطه بصيغة .zip.</string>
-    <string name="mods_import_unsupported">اختر مجلدًا أو ملف .big أو أرشيف .zip.</string>
+    <string name="mods_import_unsupported">اختر مجلدًا أو ملف .big (.gib) أو أرشيف .zip.</string>
     <string name="mods_import_full_game">هذه لعبة كاملة وليست مودًا: فيها أرشيفات اللعبة الخاصة (INI وW3D وTextures). اختر مجلدها كمجلد اللعبة في الصفحة الرئيسية بدلًا من ذلك.</string>
     <string name="mods_import_no_big">لم يُعثر على أي أرشيف .big. المود لهذه الشاشة مجلد يحتوي ملفات .big.</string>
     <string name="mods_card_ok">يعمل مع المودات المفعّلة الأخرى</string>

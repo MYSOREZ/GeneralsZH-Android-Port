@@ -37,6 +37,7 @@
     <string name="setup_folder_issue_bad_header">%1$s não parece um arquivo de jogo válido</string>
     <string name="setup_folder_issue_missing_data">Faltam dados esperados do jogo em %1$s — provavelmente uma cópia incompleta</string>
     <string name="setup_folder_issue_no_base_game">Faltam dados do jogo base Generals:%1$s\n\nOu indique ao Setup a pasta que já os contém — o botão “Pasta do jogo base Generals…” abaixo (normalmente ZH_Generals ou Command and Conquer Generals).</string>
+    <string name="setup_folder_issue_no_ai_scripts">Falta Data\\Scripts\\SkirmishScripts.scb — os oponentes do computador não farão nada nas escaramuças. Copie a pasta do jogo inteira, com a pasta Data, não só os arquivos .big.</string>
     <string name="setup_status_logs_note">Os registros de falha/motor ficam no armazenamento privado deste aplicativo e só podem ser acessados por \"Ver registros\" acima — o Android os oculta intencionalmente dos gerenciadores de arquivos comuns (esse é o isolamento padrão do Android, não algo específico deste aplicativo).</string>
 
     <!-- SetupActivity: Language card -->
@@ -457,7 +458,7 @@
     <string name="mods_home_enabled">Mods ligados: %1$d</string>
     <string name="mods_home_all_off">Instalados: %1$d, todos desligados</string>
     <string name="mods_import_rar">Arquivos RAR e 7z e instaladores .exe não abrem no Android. Descompacte primeiro com um gerenciador de arquivos (por exemplo, ZArchiver) e importe a pasta, ou compacte-a em .zip.</string>
-    <string name="mods_import_unsupported">Escolha uma pasta, um arquivo .big ou um .zip.</string>
+    <string name="mods_import_unsupported">Escolha uma pasta, um arquivo .big (.gib) ou um .zip.</string>
     <string name="mods_import_full_game">Isto é um jogo completo, não um mod: tem os arquivos próprios do jogo (INI, W3D, Textures). Escolha a pasta dele como pasta do jogo no Início.</string>
     <string name="mods_import_no_big">Nenhum arquivo .big encontrado. Um mod para esta tela é uma pasta com arquivos .big.</string>
     <string name="mods_card_ok">Funciona com os outros mods ligados</string>

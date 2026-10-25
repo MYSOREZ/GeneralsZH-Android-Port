@@ -197,6 +197,12 @@ static void restartMissionMenu()
 	Int rankPointsStartedWith = TheGameLogic->getRankPointsToAddAtGameStart();// must write down before reset
 	GameDifficulty diff = TheScriptEngine->getGlobalDifficulty();
 	Int fps = TheFramePacer->getFramesPerSecondLimit();
+#if defined(GENERALS_ONLINE_HIGH_FPS_FRAME_MULTIPLIER)
+	// GeneralsX @bugfix Android port 25/10/2026 MSG_NEW_GAME takes the speed in retail 30 Hz frames and
+	// multiplies it for the 60 Hz engine (GameLogic::onNewGame); the limit read back here is already
+	// multiplied, so every Restart doubled the game speed again (issue #58).
+	fps /= GENERALS_ONLINE_HIGH_FPS_FRAME_MULTIPLIER;
+#endif
 
 	TheGameLogic->clearGameData(FALSE);
 	TheGameEngine->setQuitting(FALSE);

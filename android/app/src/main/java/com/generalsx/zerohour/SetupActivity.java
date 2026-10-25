@@ -2968,6 +2968,28 @@ public class SetupActivity extends Activity {
         return false;
     }
 
+    /** Data\Scripts\SkirmishScripts.scb in the folder, any letter case, or inside one of its archives. */
+    private static boolean hasSkirmishScripts(File dir) {
+        File level = dir;
+        for (String part : new String[] { "data", "scripts", "skirmishscripts.scb" }) {
+            File[] children = level.listFiles();
+            File next = null;
+            if (children != null) {
+                for (File c : children) {
+                    if (c.getName().equalsIgnoreCase(part)) {
+                        next = c;
+                        break;
+                    }
+                }
+            }
+            if (next == null) {
+                return bigContainsEntry(dir, "data/scripts/skirmishscripts.scb");
+            }
+            level = next;
+        }
+        return level.isFile() && level.length() > 0;
+    }
+
     private static boolean bigContainsEntry(File dir, String wantedLowerSlash) {
         File[] bigs = dir.listFiles((d, name) -> name.toLowerCase(java.util.Locale.ROOT).endsWith(".big"));
         if (bigs == null) {
@@ -3606,6 +3628,15 @@ public class SetupActivity extends Activity {
         } else if (missing.length() > 0) {
             issues.add(getString(R.string.setup_folder_issue_no_base_game, missing.toString()));
             m_lastCheckWantedBaseGenerals = true;
+        }
+
+        // GeneralsX @bugfix Android port 25/10/2026 The computer opponents' scripts are a loose file
+        // beside the archives (Data\Scripts\SkirmishScripts.scb), not inside them. A copy of only the
+        // .big files plays, but every AI player keeps its command center and one idle dozer for the
+        // whole match (issue #64). Found loose, or inside an archive (some repacks put it there),
+        // it is fine.
+        if (!hasSkirmishScripts(dir)) {
+            issues.add(getString(R.string.setup_folder_issue_no_ai_scripts));
         }
 
         // GeneralsX @bugfix Android port game-folder-integrity-check 06/09/2026

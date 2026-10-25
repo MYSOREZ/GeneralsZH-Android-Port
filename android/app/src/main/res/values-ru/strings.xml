@@ -37,6 +37,7 @@
     <string name="setup_folder_issue_bad_header">%1$s не похож на корректный архив игры</string>
     <string name="setup_folder_issue_missing_data">В %1$s не хватает ожидаемых данных игры — вероятно, неполная копия</string>
     <string name="setup_folder_issue_no_base_game">Отсутствуют данные базовой игры Generals:%1$s\n\nЛибо укажите папку, где они уже есть — кнопка «Папка базовой Generals…» ниже (обычно ZH_Generals или Command and Conquer Generals).</string>
+    <string name="setup_folder_issue_no_ai_scripts">Нет файла Data\\Scripts\\SkirmishScripts.scb — компьютерные противники в схватке не будут ничего делать. Скопируйте папку игры целиком, вместе с папкой Data, а не только файлы .big.</string>
     <string name="setup_status_logs_note">Логи краша/движка хранятся в приватном хранилище приложения и доступны только через кнопку «Просмотреть логи» выше — Android намеренно скрывает их от обычных файловых менеджеров (это стандартная песочница Android, не особенность этого приложения).</string>
 
     <!-- SetupActivity: Language card -->
@@ -459,7 +460,7 @@
     <string name="mods_home_enabled">Включено модов: %1$d</string>
     <string name="mods_home_all_off">Установлено модов: %1$d, все выключены</string>
     <string name="mods_import_rar">Архивы RAR и 7z и установщики .exe на Android не открываются. Сначала распакуйте архив файловым менеджером (например, ZArchiver) и импортируйте распакованную папку или запакуйте её в .zip.</string>
-    <string name="mods_import_unsupported">Выберите папку, файл .big или архив .zip.</string>
+    <string name="mods_import_unsupported">Выберите папку, файл .big (.gib) или архив .zip.</string>
     <string name="mods_import_full_game">Это целая игра, а не мод: в ней собственные архивы игры (INI, W3D, Textures). Выберите её папку как папку игры на главной.</string>
     <string name="mods_import_no_big">Не найден ни один архив .big. Мод для этого экрана — папка с файлами .big.</string>
     <string name="mods_card_ok">Совместим с остальными включёнными модами</string>

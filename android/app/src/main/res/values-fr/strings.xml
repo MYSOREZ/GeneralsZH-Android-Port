@@ -37,6 +37,7 @@
     <string name="setup_folder_issue_bad_header">%1$s ne ressemble pas à une archive de jeu valide</string>
     <string name="setup_folder_issue_missing_data">Il manque des données de jeu attendues dans %1$s — probablement une copie incomplète</string>
     <string name="setup_folder_issue_no_base_game">Données du jeu de base Generals manquantes :%1$s\n\nOu indiquez à Setup le dossier qui les contient déjà — le bouton « Dossier du jeu de base Generals… » ci-dessous (en général ZH_Generals ou Command and Conquer Generals).</string>
+    <string name="setup_folder_issue_no_ai_scripts">Data\\Scripts\\SkirmishScripts.scb est absent — les adversaires contrôlés par l’ordinateur ne feront rien en escarmouche. Copiez tout le dossier du jeu, avec son dossier Data, pas seulement les fichiers .big.</string>
     <string name="setup_status_logs_note">Les journaux de plantage/du moteur sont stockés dans le stockage privé de cette application et ne sont accessibles que via « Afficher les journaux » ci-dessus — Android les masque intentionnellement des gestionnaires de fichiers classiques (c\'est le fonctionnement standard du bac à sable Android, pas une particularité de cette application).</string>
 
     <!-- SetupActivity: Language card -->
@@ -457,7 +458,7 @@
     <string name="mods_home_enabled">Mods activés : %1$d</string>
     <string name="mods_home_all_off">Installés : %1$d, tous désactivés</string>
     <string name="mods_import_rar">Les archives RAR et 7z et les installateurs .exe ne s’ouvrent pas sur Android. Décompressez-la d’abord avec un gestionnaire de fichiers (par exemple ZArchiver) puis importez le dossier, ou recompressez-le en .zip.</string>
-    <string name="mods_import_unsupported">Choisissez un dossier, un fichier .big ou une archive .zip.</string>
+    <string name="mods_import_unsupported">Choisissez un dossier, un fichier .big (.gib) ou une archive .zip.</string>
     <string name="mods_import_full_game">Ceci est un jeu complet, pas un mod : il contient les archives propres au jeu (INI, W3D, Textures). Choisissez plutôt son dossier comme dossier du jeu sur l’accueil.</string>
     <string name="mods_import_no_big">Aucune archive .big trouvée. Un mod pour cet écran est un dossier contenant des fichiers .big.</string>
     <string name="mods_card_ok">Fonctionne avec les autres mods activés</string>

@@ -37,6 +37,7 @@
     <string name="setup_folder_issue_bad_header">%1$s не схожий на коректний архів гри</string>
     <string name="setup_folder_issue_missing_data">У %1$s бракує очікуваних даних гри — ймовірно, неповна копія</string>
     <string name="setup_folder_issue_no_base_game">Відсутні дані базової гри Generals:%1$s\n\nАбо вкажіть папку, де вони вже є — кнопка «Папка базової Generals…» нижче (зазвичай ZH_Generals або Command and Conquer Generals).</string>
+    <string name="setup_folder_issue_no_ai_scripts">Немає файлу Data\\Scripts\\SkirmishScripts.scb — комп’ютерні суперники в сутичці нічого не робитимуть. Скопіюйте теку гри повністю, разом із текою Data, а не лише файли .big.</string>
     <string name="setup_status_logs_note">Логи краху/рушія зберігаються у приватному сховищі застосунку і доступні лише через кнопку «Переглянути логи» вище — Android навмисно приховує їх від звичайних файлових менеджерів (це стандартна пісочниця Android, а не особливість цього застосунку).</string>
 
     <!-- SetupActivity: Language card -->
@@ -457,7 +458,7 @@
     <string name="mods_home_enabled">Увімкнено модів: %1$d</string>
     <string name="mods_home_all_off">Встановлено модів: %1$d, усі вимкнені</string>
     <string name="mods_import_rar">Архіви RAR і 7z та інсталятори .exe на Android не відкриваються. Спершу розпакуйте архів файловим менеджером (наприклад, ZArchiver) й імпортуйте розпаковану папку або запакуйте її в .zip.</string>
-    <string name="mods_import_unsupported">Виберіть папку, файл .big або архів .zip.</string>
+    <string name="mods_import_unsupported">Виберіть папку, файл .big (.gib) або архів .zip.</string>
     <string name="mods_import_full_game">Це ціла гра, а не мод: у ній власні архіви гри (INI, W3D, Textures). Виберіть її папку як папку гри на головній.</string>
     <string name="mods_import_no_big">Не знайдено жодного архіву .big. Мод для цього екрана — папка з файлами .big.</string>
     <string name="mods_card_ok">Сумісний з іншими увімкненими модами</string>

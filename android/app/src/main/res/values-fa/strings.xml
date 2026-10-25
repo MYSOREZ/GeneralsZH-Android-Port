@@ -37,6 +37,7 @@
     <string name="setup_folder_issue_bad_header">%1$s شبیه یک آرشیو معتبر بازی نیست</string>
     <string name="setup_folder_issue_missing_data">در %1$s داده‌های موردانتظار بازی کم است — احتمالاً یک نسخهٔ ناقص</string>
     <string name="setup_folder_issue_no_base_game">داده‌های بازی پایه Generals موجود نیست:%1$s\n\nیا پوشه‌ای را که از قبل آن‌ها را دارد مشخص کنید — دکمهٔ «پوشهٔ بازی پایه Generals…» در پایین (معمولاً ZH_Generals یا Command and Conquer Generals).</string>
+    <string name="setup_folder_issue_no_ai_scripts">فایل Data\\Scripts\\SkirmishScripts.scb وجود ندارد — حریفان رایانه‌ای در نبردهای تمرینی کاری نمی‌کنند. کل پوشهٔ بازی را همراه با پوشهٔ Data کپی کنید، نه فقط فایل‌های .big.</string>
     <string name="setup_status_logs_note">گزارش‌های خرابی/موتور در حافظه خصوصی این برنامه ذخیره می‌شوند و فقط از طریق «مشاهده گزارش‌ها» در بالا قابل دسترسی هستند — اندروید عمداً آن‌ها را از مدیرهای فایل معمولی پنهان می‌کند (این رفتار استاندارد سندباکس اندروید است، نه ویژگی خاص این برنامه).</string>
 
     <!-- SetupActivity: Language card -->
@@ -457,7 +458,7 @@
     <string name="mods_home_enabled">مادهای روشن: %1$d</string>
     <string name="mods_home_all_off">نصب‌شده: %1$d، همه خاموش</string>
     <string name="mods_import_rar">آرشیوهای RAR و 7z و نصب‌کننده‌های .exe در اندروید باز نمی‌شوند. ابتدا آن را با یک مدیر فایل (مثلاً ZArchiver) از حالت فشرده خارج کنید و پوشه را وارد کنید، یا آن را به .zip تبدیل کنید.</string>
-    <string name="mods_import_unsupported">یک پوشه، فایل .big یا آرشیو .zip انتخاب کنید.</string>
+    <string name="mods_import_unsupported">یک پوشه، فایل .big (.gib) یا آرشیو .zip انتخاب کنید.</string>
     <string name="mods_import_full_game">این یک بازی کامل است، نه ماد: آرشیوهای خود بازی (INI، W3D، Textures) را دارد. به جای آن، پوشه‌اش را در صفحه اصلی به‌عنوان پوشه بازی انتخاب کنید.</string>
     <string name="mods_import_no_big">هیچ آرشیو .big پیدا نشد. ماد برای این صفحه پوشه‌ای با فایل‌های .big است.</string>
     <string name="mods_card_ok">با دیگر مادهای روشن کار می‌کند</string>

@@ -37,6 +37,7 @@
     <string name="setup_folder_issue_bad_header">%1$s 看起来不是有效的游戏存档</string>
     <string name="setup_folder_issue_missing_data">%1$s 缺少预期的游戏数据——可能是不完整的副本</string>
     <string name="setup_folder_issue_no_base_game">缺少基础游戏 Generals 的数据：%1$s\n\n也可以直接指定已有这些文件的文件夹——下面的“基础游戏 Generals 文件夹…”按钮（通常是 ZH_Generals 或 Command and Conquer Generals）。</string>
+    <string name="setup_folder_issue_no_ai_scripts">缺少 Data\\Scripts\\SkirmishScripts.scb——遭遇战中的电脑对手将什么也不做。请复制整个游戏文件夹（包括其中的 Data 文件夹），而不只是 .big 文件。</string>
     <string name="setup_status_logs_note">崩溃日志/引擎日志保存在本应用的私有存储中，只能通过上方的“查看日志”访问 —— Android 出于设计原因将它们对普通文件管理器隐藏（这是 Android 标准的沙盒机制，并非本应用特有）。</string>
 
     <!-- SetupActivity: Language card -->
@@ -457,7 +458,7 @@
     <string name="mods_home_enabled">已开启模组：%1$d</string>
     <string name="mods_home_all_off">已安装：%1$d 个，全部关闭</string>
     <string name="mods_import_rar">安卓无法打开 RAR、7z 档案和 .exe 安装程序。请先用文件管理器（例如 ZArchiver）解压，再导入解压后的文件夹，或将其打包为 .zip。</string>
-    <string name="mods_import_unsupported">请选择文件夹、.big 文件或 .zip 档案。</string>
+    <string name="mods_import_unsupported">请选择文件夹、.big（.gib）文件或 .zip 档案。</string>
     <string name="mods_import_full_game">这是完整的游戏，而不是模组：其中有游戏本身的档案（INI、W3D、Textures）。请改为在首页把它的文件夹选为游戏文件夹。</string>
     <string name="mods_import_no_big">未找到任何 .big 档案。此界面的模组是包含 .big 文件的文件夹。</string>
     <string name="mods_card_ok">与其他已开启模组兼容</string>

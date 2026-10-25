@@ -37,6 +37,7 @@
     <string name="setup_folder_issue_bad_header">%1$s nie wygląda na prawidłowe archiwum gry</string>
     <string name="setup_folder_issue_missing_data">W %1$s brakuje oczekiwanych danych gry — prawdopodobnie niekompletna kopia</string>
     <string name="setup_folder_issue_no_base_game">Brak danych podstawowej gry Generals:%1$s\n\nAlbo wskaż folder, w którym już są — przycisk „Folder podstawowej gry Generals…” poniżej (zwykle ZH_Generals lub Command and Conquer Generals).</string>
+    <string name="setup_folder_issue_no_ai_scripts">Brak pliku Data\\Scripts\\SkirmishScripts.scb — przeciwnicy komputerowi nie będą nic robić w potyczkach. Skopiuj cały folder gry, razem z folderem Data, a nie tylko pliki .big.</string>
     <string name="setup_status_logs_note">Dzienniki awarii/silnika znajdują się w prywatnej pamięci tej aplikacji i są dostępne tylko przez „Wyświetl dzienniki” powyżej — Android celowo ukrywa je przed zwykłymi menedżerami plików (to standardowe piaskownicowanie Androida, a nie cecha specyficzna dla tej aplikacji).</string>
 
     <!-- SetupActivity: Language card -->
@@ -457,7 +458,7 @@
     <string name="mods_home_enabled">Włączone mody: %1$d</string>
     <string name="mods_home_all_off">Zainstalowano: %1$d, wszystkie wyłączone</string>
     <string name="mods_import_rar">Archiwów RAR i 7z ani instalatorów .exe nie da się otworzyć na Androidzie. Najpierw rozpakuj je menedżerem plików (np. ZArchiver) i zaimportuj folder albo spakuj go do .zip.</string>
-    <string name="mods_import_unsupported">Wybierz folder, plik .big lub archiwum .zip.</string>
+    <string name="mods_import_unsupported">Wybierz folder, plik .big (.gib) lub archiwum .zip.</string>
     <string name="mods_import_full_game">To cała gra, a nie mod: ma własne archiwa gry (INI, W3D, Textures). Wybierz jej folder jako folder gry na stronie głównej.</string>
     <string name="mods_import_no_big">Nie znaleziono żadnego archiwum .big. Mod dla tego ekranu to folder z plikami .big.</string>
     <string name="mods_card_ok">Działa z pozostałymi włączonymi modami</string>

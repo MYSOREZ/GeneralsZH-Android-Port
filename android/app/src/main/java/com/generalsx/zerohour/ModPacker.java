@@ -35,8 +35,39 @@ final class ModPacker {
 
     private ModPacker() {}
 
+    /**
+     * GeneralsX @bugfix Android port 25/10/2026 Some mods ship their archives as .gib (ShockWave and
+     * others): the same BIG archives, renamed so that other installs ignore them, and renamed back to
+     * .big by the mod's own launcher at start. The engine mounts .big only, so those mods started as
+     * plain Zero Hour (4PDA reports). The launcher does what the mod's launcher would: renames them,
+     * once, here and on import. A .gib whose .big already exists is left alone. Returns how many.
+     */
+    static int renameGibArchives(File dir) {
+        int renamed = 0;
+        File[] children = dir.listFiles();
+        if (children == null) {
+            return 0;
+        }
+        for (File c : children) {
+            if (java.nio.file.Files.isSymbolicLink(c.toPath())) {
+                continue;
+            }
+            if (c.isDirectory()) {
+                renamed += renameGibArchives(c);
+            } else if (c.getName().toLowerCase(Locale.US).endsWith(".gib")) {
+                String name = c.getName();
+                File big = new File(dir, name.substring(0, name.length() - 4) + ".big");
+                if (!big.exists() && c.renameTo(big)) {
+                    renamed++;
+                }
+            }
+        }
+        return renamed;
+    }
+
     /** Packs the loose game files of a mod folder when needed. Returns how many it packed. */
     static int ensurePacked(File modDir) throws IOException {
+        renameGibArchives(modDir);
         List<File> files = new ArrayList<>();
         List<String> names = new ArrayList<>();
         File[] top = modDir.listFiles();
@@ -75,7 +106,8 @@ final class ModPacker {
             String childPath = path + "\\" + c.getName();
             if (c.isDirectory()) {
                 newest = Math.max(newest, collect(c, childPath, files, names, depth + 1));
-            } else if (!c.getName().toLowerCase(Locale.US).endsWith(".big")) {
+            } else if (!c.getName().toLowerCase(Locale.US).endsWith(".big")
+                    && !c.getName().toLowerCase(Locale.US).endsWith(".gib")) {
                 files.add(c);
                 names.add(childPath);
                 newest = Math.max(newest, c.lastModified());

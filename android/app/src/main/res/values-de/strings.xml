@@ -37,6 +37,7 @@
     <string name="setup_folder_issue_bad_header">%1$s sieht nicht wie ein gültiges Spielarchiv aus</string>
     <string name="setup_folder_issue_missing_data">%1$s fehlen erwartete Spieldaten — vermutlich eine unvollständige Kopie</string>
     <string name="setup_folder_issue_no_base_game">Daten des Basisspiels Generals fehlen:%1$s\n\nOder gib Setup den Ordner an, in dem sie schon liegen — die Schaltfläche „Ordner des Basisspiels Generals…“ unten (meist ZH_Generals oder Command and Conquer Generals).</string>
+    <string name="setup_folder_issue_no_ai_scripts">Data\\Scripts\\SkirmishScripts.scb fehlt — Computergegner tun in Gefechten nichts. Kopiere den ganzen Spielordner samt Data-Ordner, nicht nur die .big-Dateien.</string>
     <string name="setup_status_logs_note">Absturz-/Engine-Logs liegen im privaten Speicher dieser App und sind nur über „Logs anzeigen“ oben erreichbar — Android verbirgt sie absichtlich vor normalen Dateimanagern (dies ist normales Android-Sandboxing, keine Besonderheit dieser App).</string>
 
     <!-- SetupActivity: Language card -->
@@ -457,7 +458,7 @@
     <string name="mods_home_enabled">Mods an: %1$d</string>
     <string name="mods_home_all_off">Installiert: %1$d, alle ausgeschaltet</string>
     <string name="mods_import_rar">RAR- und 7z-Archive und .exe-Installer lassen sich unter Android nicht öffnen. Entpacken Sie es zuerst mit einem Dateimanager (z. B. ZArchiver) und importieren Sie den Ordner, oder packen Sie ihn als .zip.</string>
-    <string name="mods_import_unsupported">Wählen Sie einen Ordner, eine .big-Datei oder ein .zip-Archiv.</string>
+    <string name="mods_import_unsupported">Wählen Sie einen Ordner, eine .big-Datei (.gib) oder ein .zip-Archiv.</string>
     <string name="mods_import_full_game">Das ist ein komplettes Spiel, keine Mod: Es enthält die eigenen Archive des Spiels (INI, W3D, Textures). Wählen Sie seinen Ordner stattdessen auf der Startseite als Spielordner.</string>
     <string name="mods_import_no_big">Kein .big-Archiv gefunden. Eine Mod für diesen Bildschirm ist ein Ordner mit .big-Dateien.</string>
     <string name="mods_card_ok">Funktioniert mit den anderen eingeschalteten Mods</string>

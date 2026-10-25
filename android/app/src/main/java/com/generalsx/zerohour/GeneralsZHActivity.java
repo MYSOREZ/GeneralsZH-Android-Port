@@ -443,6 +443,25 @@ public class GeneralsZHActivity extends SDLActivity {
         super.onWindowFocusChanged(hasFocus);
         if (hasFocus) {
             applyGestureNavBackBehavior();
+            // GeneralsX @bugfix Android port 25/10/2026 Hide the bars again when the window gets its
+            // focus back. With BEHAVIOR_DEFAULT (kept for the back gesture, below) bars the system
+            // showed stay shown until the app hides them: after the notification shade was pulled
+            // down, the gesture bar stayed over the command bar until the game was restarted (4PDA,
+            // HyperOS 3 / Android 17). Again a moment later, once the shade's closing animation has
+            // handed the bars back.
+            hideSystemBars();
+            getWindow().getDecorView().postDelayed(this::hideSystemBars, 600);
+        }
+    }
+
+    private void hideSystemBars() {
+        if (!hasWindowFocus()) {
+            return;
+        }
+        WindowInsetsControllerCompat controller =
+            WindowCompat.getInsetsController(getWindow(), getWindow().getDecorView());
+        if (controller != null) {
+            controller.hide(androidx.core.view.WindowInsetsCompat.Type.systemBars());
         }
     }
 

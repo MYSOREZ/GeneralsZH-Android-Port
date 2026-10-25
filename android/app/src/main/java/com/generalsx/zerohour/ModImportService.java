@@ -140,6 +140,11 @@ final class ModImportService {
         if (lower.endsWith(".big")) {
             return importBig(ctx, uri, displayName, modsRoot, cancellation);
         }
+        // GeneralsX @bugfix Android port 25/10/2026 A .gib is a .big its mod renamed (ModPacker).
+        if (lower.endsWith(".gib")) {
+            String asBig = displayName.substring(0, displayName.length() - 4) + ".big";
+            return importBig(ctx, uri, asBig, modsRoot, cancellation);
+        }
         if (lower.endsWith(".rar") || lower.endsWith(".7z") || lower.endsWith(".exe")) {
             throw new ImportProblem(R.string.mods_import_rar);
         }
@@ -525,6 +530,9 @@ final class ModImportService {
     private static int verifyBigArchives(File root, CancellationSignal cancellation)
             throws IOException {
         cancellation.throwIfCancelled();
+        if (root.isDirectory()) {
+            ModPacker.renameGibArchives(root);
+        }
         if (root.isFile()) {
             if (root.getName().toLowerCase(Locale.US).endsWith(".big")) {
                 if (!isValidBig(root, cancellation)) {
