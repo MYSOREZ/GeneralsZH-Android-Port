@@ -308,13 +308,32 @@ static void gxManagedModArchives(std::vector<AsciiString> &out)
 	fflush(stderr);
 }
 
-void ArchiveFileSystem::loadMods()
+// GeneralsX @bugfix Android port 25/10/2026 The launcher's managed mods, mounted by the archive
+// file system's init right after the game's own archives -- before GameData.ini and everything else
+// is read, as a '!' archive in the game folder is. loadMods() runs after GameData.ini, so a mod in
+// mods/ lost its GameData.ini changes (camera, build speeds, game rules) and loaded differently
+// from the same archive placed in the game folder.
+void ArchiveFileSystem::loadManagedMods()
 {
 	std::vector<AsciiString> managedArchives;
 	gxManagedModArchives(managedArchives);
-	std::vector<ArchiveFile *> managedFiles;
 	for (size_t m = 0; m < managedArchives.size(); ++m)
-		managedFiles.push_back(openArchiveFile(managedArchives[m].str()));
+	{
+		ArchiveFile *archiveFile = openArchiveFile(managedArchives[m].str());
+		fprintf(stderr, "[gxbig] mod %s: %s\n", archiveFile != nullptr ? "loaded" : "FAILED TO OPEN",
+			managedArchives[m].str());
+		if (archiveFile != nullptr)
+		{
+			loadIntoDirectoryTree(archiveFile, TRUE);
+			m_archiveFileMap[managedArchives[m]] = archiveFile;
+			m_managedModArchives.push_back(managedArchives[m]);
+		}
+	}
+	fflush(stderr);
+}
+
+void ArchiveFileSystem::loadMods()
+{
 
 #if RTS_ZEROHOUR
 	// GeneralsX @bugfix Android port 13/09/2026 Mount the GeneralsOnline community
@@ -397,17 +416,18 @@ void ArchiveFileSystem::loadMods()
 		}
 		// GeneralsX @feature Android port 18/10/2026 The same rule for the mods turned on in the
 		// launcher's Mods screen: one of their archives with game data keeps the patch out.
-		for (size_t m = 0; m < managedFiles.size() && modArchive.isEmpty(); ++m)
+		for (size_t m = 0; m < m_managedModArchives.size() && modArchive.isEmpty(); ++m)
 		{
-			if (managedFiles[m] == nullptr)
+			ArchiveFileMap::const_iterator managed = m_archiveFileMap.find(m_managedModArchives[m]);
+			if (managed == m_archiveFileMap.end() || managed->second == nullptr)
 				continue;
 			FilenameList iniFiles;
-			managedFiles[m]->getFileListInDirectory(AsciiString(""), AsciiString(""), AsciiString("*.ini"), iniFiles, TRUE);
+			managed->second->getFileListInDirectory(AsciiString(""), AsciiString(""), AsciiString("*.ini"), iniFiles, TRUE);
 			for (FilenameList::const_iterator f = iniFiles.begin(); f != iniFiles.end(); ++f)
 			{
 				if (f->startsWithNoCase("data\\ini\\") || f->startsWithNoCase("data/ini/"))
 				{
-					modArchive = getBaseFilename(managedArchives[m]);
+					modArchive = getBaseFilename(m_managedModArchives[m]);
 					break;
 				}
 			}
@@ -502,20 +522,6 @@ void ArchiveFileSystem::loadMods()
 		DEBUG_ASSERTLOG(ret, ("loadBigFilesFromDirectory(%s) returned FALSE!", TheGlobalData->m_modDir.str()));
 	}
 
-	// GeneralsX @feature Android port 18/10/2026 The launcher's managed mods, above everything else
-	// (PLAN-027): the player chose their order explicitly.
-	for (size_t m = 0; m < managedArchives.size(); ++m)
-	{
-		ArchiveFile *archiveFile = managedFiles[m];
-		fprintf(stderr, "[gxbig] mod %s: %s\n", archiveFile != nullptr ? "loaded" : "FAILED TO OPEN",
-			managedArchives[m].str());
-		if (archiveFile != nullptr)
-		{
-			loadIntoDirectoryTree(archiveFile, TRUE);
-			m_archiveFileMap[managedArchives[m]] = archiveFile;
-		}
-	}
-	fflush(stderr);
 }
 
 Bool ArchiveFileSystem::doesFileExist(const Char *filename, FileInstance instance) const

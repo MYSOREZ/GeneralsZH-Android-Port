@@ -176,7 +176,7 @@ final class ModManager {
 
     /**
      * The mods of the selected game in the player's order: those already in the list first, then
-     * folders found since, at the bottom and switched off.
+     * folders found since, at the bottom -- switched off, except as said below.
      */
     static List<Mod> listMods(Context ctx) {
         List<Mod> result = new ArrayList<>();
@@ -184,6 +184,7 @@ final class ModManager {
         if (root == null || !root.isDirectory()) {
             return result;
         }
+        String wrapped = wrapLooseArchives(root);
         File[] children = root.listFiles(f -> f.isDirectory() && !f.getName().startsWith(".")
             && !Files.isSymbolicLink(f.toPath()));
         if (children == null) {
@@ -203,12 +204,74 @@ final class ModManager {
                 result.add(new Mod(dir, readModIni(dir), language, enabled));
             }
         }
+        // Folders found since. An archive that lay loose in mods/ loaded every time until now (the
+        // engine mounted mods/*.big with the game's own): it stays on. A single new folder while no
+        // mod is on is switched on too -- a player who copies one mod into mods/ and presses Play
+        // means to play it, and it starting as the plain game was the most common mods report.
+        boolean anyEnabled = false;
+        for (Mod mod : result) {
+            anyEnabled |= mod.enabled;
+        }
+        List<File> found = new ArrayList<>();
         for (File child : children) {
             if (byName.containsKey(child.getName())) {
-                result.add(new Mod(child, readModIni(child), language, false));
+                found.add(child);
             }
         }
+        boolean switchedOn = false;
+        for (File child : found) {
+            boolean on = child.getName().equals(wrapped) || (!anyEnabled && found.size() == 1);
+            switchedOn |= on;
+            result.add(new Mod(child, readModIni(child), language, on));
+        }
+        if (switchedOn) {
+            saveOrder(ctx, result);
+        }
         return result;
+    }
+
+    /**
+     * GeneralsX @bugfix Android port 25/10/2026 Archives (.big, .gib) dropped straight into mods/
+     * rather than into a folder of their own: moved together into one folder, named after the
+     * archive when there is one, so the Mods screen lists them and the player can order or switch
+     * them off. Together, because they are usually one mod's files, whose priority among themselves
+     * is their name order ("!!Patch" over "!Main") -- kept inside one folder, lost across several.
+     * Returns the name of the folder made, or null.
+     */
+    private static String wrapLooseArchives(File root) {
+        File[] loose = root.listFiles(f -> f.isFile() && !f.getName().startsWith(".")
+            && (f.getName().toLowerCase(Locale.US).endsWith(".big")
+                || f.getName().toLowerCase(Locale.US).endsWith(".gib")));
+        if (loose == null || loose.length == 0) {
+            return null;
+        }
+        String base = "loose archives";
+        if (loose.length == 1) {
+            base = loose[0].getName().substring(0, loose[0].getName().length() - 4);
+            while (base.startsWith("!")) {
+                base = base.substring(1);
+            }
+            base = base.trim().isEmpty() ? "mod" : base.trim();
+        }
+        File dir = new File(root, base);
+        for (int i = 2; dir.exists() && i < 100; i++) {
+            dir = new File(root, base + " (" + i + ")");
+        }
+        if (dir.exists() || !dir.mkdirs()) {
+            return null;
+        }
+        int moved = 0;
+        for (File archive : loose) {
+            if (archive.renameTo(new File(dir, archive.getName()))) {
+                moved++;
+            }
+        }
+        if (moved == 0) {
+            dir.delete();
+            return null;
+        }
+        ModPacker.renameGibArchives(dir);
+        return dir.getName();
     }
 
     /** Keeps the order and switches of the given list for the selected game. */
@@ -256,6 +319,15 @@ final class ModManager {
         for (Mod mod : listMods(ctx)) {
             if (mod.enabled) {
                 paths.add(mod.dir.getAbsolutePath());
+                // GeneralsX @bugfix Android port 25/10/2026 Loose files and .gib archives were made
+                // ready only by the Mods screen's analysis; files copied in after it, or a mod that
+                // was never opened there, started without them. Here every start sees them (this
+                // runs on SDL's thread, not the UI's; an unchanged mod costs a directory walk).
+                try {
+                    ModPacker.ensurePacked(mod.dir);
+                } catch (IOException e) {
+                    android.util.Log.w("ModManager", "could not pack the loose files of " + mod.dir, e);
+                }
             }
         }
         File pending = new File(ctx.getFilesDir(), BOOT_PENDING_FILE);

@@ -506,7 +506,17 @@ void StdLocalFileSystem::getFileListInDirectory(const AsciiString& currentDirect
 			std::string filenameStr = iter->path().filename().string();
 			if(iter->is_directory() &&
 				(strcmp(filenameStr.c_str(), ".") != 0 && strcmp(filenameStr.c_str(), "..") != 0)) {
-				AsciiString tempsearchstr(filenameStr.c_str());
+				// GeneralsX @bugfix Android port 25/10/2026 The subdirectory's path relative to
+				// originalDirectory, as Win32LocalFileSystem builds it: currentDirectory + name + '/'.
+				// This passed the bare name, so one level down the search restarted from the working
+				// directory -- right only for the game folder's own children. No .big in a subfolder of
+				// a mod folder under mods/ was ever listed, and the game started without the mod (4PDA
+				// reports, Rise of the Reds among them).
+				AsciiString tempsearchstr(currentDirectory);
+				if (tempsearchstr.isNotEmpty() && !tempsearchstr.endsWith("/") && !tempsearchstr.endsWith("\\"))
+					tempsearchstr.concat('/');
+				tempsearchstr.concat(filenameStr.c_str());
+				tempsearchstr.concat('/');
 
 				// recursively add files in subdirectories if required.
 				getFileListInDirectory(tempsearchstr, originalDirectory, searchName, filenameList, searchSubdirectories);

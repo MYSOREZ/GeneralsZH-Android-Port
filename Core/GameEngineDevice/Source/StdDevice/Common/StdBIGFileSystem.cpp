@@ -545,6 +545,9 @@ void StdBIGFileSystem::init() {
 		fflush(stderr);
 	}
 #endif
+
+	// GeneralsX @bugfix Android port 25/10/2026 Above all of the above, before any INI is read.
+	loadManagedMods();
 }
 
 void StdBIGFileSystem::reset() {
@@ -696,6 +699,28 @@ Bool StdBIGFileSystem::loadBigFilesFromDirectory(AsciiString dir, AsciiString fi
 	Bool actuallyAdded = FALSE;
 	FilenameListIter it = filenameList.begin();
 	while (it != filenameList.end()) {
+		// GeneralsX @bugfix Android port 25/10/2026 The game's archives are the ones in the folder and
+		// one folder below it, never those under mods/. That is what every Android install has loaded
+		// so far: the directory search lost the parent path one level down (StdLocalFileSystem), so
+		// deeper archives were never listed. Now that it lists them, keep the same set: mods/ belongs
+		// to the launcher's Mods screen, which mounts only the mods switched on (loadManagedMods), and
+		// deeper folders in a copied PC install are backups and other mod managers' storage.
+		{
+			const char *path = it->str();
+			const size_t dirLength = dir.getLength();
+			if (dirLength > 0 && strncmp(path, dir.str(), dirLength) == 0)
+				path += dirLength;
+			while (*path == '/' || *path == '\\' || (path[0] == '.' && (path[1] == '/' || path[1] == '\\')))
+				path += (*path == '.') ? 2 : 1;
+			int depth = 0;
+			for (const char *c = path; *c; ++c)
+				if (*c == '/' || *c == '\\')
+					++depth;
+			if (depth > 1 || (strncasecmp(path, "mods", 4) == 0 && (path[4] == '/' || path[4] == '\\'))) {
+				it++;
+				continue;
+			}
+		}
 #if RTS_ZEROHOUR
 		// TheSuperHackers @bugfix bobtista 18/11/2025 Skip duplicate INIZH.big in Data\INI to prevent CRC mismatches.
 		// English, Chinese, and Korean SKUs shipped with two INIZH.big files (one in Run directory, one in Run\Data\INI).

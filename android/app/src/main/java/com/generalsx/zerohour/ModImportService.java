@@ -448,7 +448,7 @@ final class ModImportService {
     }
 
     // Top folders of the game's own layout: a mod packed as just "Data/..." keeps it as its content.
-    private static final Set<String> GAME_FOLDERS = new HashSet<>(java.util.Arrays.asList(
+    static final Set<String> GAME_FOLDERS = new HashSet<>(java.util.Arrays.asList(
         "data", "art", "window", "maps", "shaders", "movies", "audio", "fonts"));
 
     private static File requireModsRoot(Context ctx) throws IOException {

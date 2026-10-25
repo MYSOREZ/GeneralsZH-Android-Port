@@ -147,6 +147,7 @@ public:
 	ArchiveFile* getArchiveFile(const AsciiString& filename, FileInstance instance = 0) const;
 
 	void loadMods();
+	void loadManagedMods(); ///< GeneralsX: the mods switched on in the Android launcher's Mods screen (GXManagedMods.h)
 
 	ArchivedDirectoryInfo* friend_getArchivedDirectoryInfo(const Char* directory);
 
@@ -166,6 +167,7 @@ protected:
 
 	ArchiveFileMap m_archiveFileMap;
 	ArchivedDirectoryInfo m_rootDirectory;
+	std::vector<AsciiString> m_managedModArchives; ///< mounted by loadManagedMods, lowest priority first
 };
 
 
