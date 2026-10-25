@@ -81,6 +81,8 @@
 
 namespace
 {
+	volatile int g_netSuspended = 0;
+
 	bool GXTraceNetEnabled()
 	{
 		static int state = -1;
@@ -90,7 +92,7 @@ namespace
 			if (env != nullptr && env[0] != '\0' && env[0] != '0') state = 1;
 			else { FILE *m = fopen("gx_net_trace.txt", "r"); state = m ? 1 : 0; if (m) fclose(m); }
 		}
-		return state == 1;
+		return state == 1 && g_netSuspended == 0;
 	}
 
 	typedef double (*Fn1)(double);
@@ -361,6 +363,13 @@ extern "C" void __ubsan_handle_float_cast_overflow_abort(void *data, unsigned lo
 // hit a NaN, an infinity or a value outside the 32-bit range, where the reference CRT returns
 // 0 and bionic did not. Each call site is printed once, with the value and whether it came
 // from the logic thread, so a replay says whether this was live where it diverged.
+// GeneralsX @performance Android port 25/10/2026 Follows GXTrace::setNetSuspended (GameLogic):
+// this file keeps its own copy of the trace switch, being outside the engine's headers.
+extern "C" __attribute__((visibility("default"))) void gxNetTraceSuspend(int suspended)
+{
+	g_netSuspended = suspended ? 1 : 0;
+}
+
 extern "C" __attribute__((visibility("default"))) void gxRefRoundOutOfRange(float f, const void *caller)
 {
 	if (!GXTraceNetEnabled())

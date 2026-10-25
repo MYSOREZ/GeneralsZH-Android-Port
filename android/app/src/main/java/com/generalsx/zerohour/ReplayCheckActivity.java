@@ -85,6 +85,10 @@ public class ReplayCheckActivity extends Activity {
         }
     }
 
+    static boolean traceTurnedOnByCheck(Context context) {
+        return context.getSharedPreferences(PREFS, MODE_PRIVATE).getBoolean(PREF_TRACE_BY_CHECK, false);
+    }
+
     private int mode = MODE_RUN_THROUGH;
     private TextView resultText;
     private EditText frameInput;

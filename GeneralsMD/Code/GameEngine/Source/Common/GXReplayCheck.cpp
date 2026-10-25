@@ -244,7 +244,11 @@ Bool crcEveryFrame()
 	// skirmish included -- then took the world's checksum on every frame, with the per-object and
 	// fog-of-war traces that come with it: a player saw the game crawl from its first second (108 MB
 	// of log in one skirmish start). The launch argument is set only by the check itself.
-	return s_crcEveryFrame || (marker && isActive());
+	// GeneralsX @performance Android port 25/10/2026 And only while a replay plays: a check run
+	// without auto-quit leaves the process running, and a skirmish started after the replay ended
+	// took the checksum on every frame.
+	const Bool playback = TheRecorder != nullptr && TheRecorder->isPlaybackMode();
+	return playback && (s_crcEveryFrame || (marker && isActive()));
 }
 Bool isActive() { return s_fastTo != 0 || s_autoQuit; }
 

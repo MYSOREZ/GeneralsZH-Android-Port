@@ -1211,8 +1211,20 @@ void GameLogic::setGameMode( GameMode mode )
 /** Entry point for starting a new game, the engine is already in clean state at this
 	* point and ready to load up with all the data */
 // ------------------------------------------------------------------------------------------------
+// GeneralsX @performance Android port 25/10/2026 See GXTrace::setNetCheckOwned: the Replay check's
+// trace follows the replay it was turned on for, and is off for every other game of the process.
+extern "C" __attribute__((weak)) void gxNetTraceSuspend(int suspended);
+
 void GameLogic::startNewGame( Bool loadingSaveGame )
 {
+	if (GXTrace::netCheckOwned())
+	{
+		const Bool replay = TheRecorder != nullptr && TheRecorder->isPlaybackMode();
+		GXTrace::setNetSuspended(!replay);
+		if (gxNetTraceSuspend != nullptr)
+			gxNetTraceSuspend(replay ? 0 : 1);
+		fprintf(stderr, "[GX-NET] replay check trace %s for this game\n", replay ? "on" : "off");
+	}
 	try
 	{
 		tryStartNewGame(loadingSaveGame);

@@ -182,6 +182,11 @@ public class GeneralsZHActivity extends SDLActivity {
         }
         args.add("-replay");
         args.add(replay);
+        // GeneralsX @performance Android port 25/10/2026 The network trace marker is the check's
+        // own: the engine keeps it to this replay and off any game played after it in the same run.
+        if (ReplayCheckActivity.traceTurnedOnByCheck(this)) {
+            args.add("-gxCheckTrace");
+        }
         int fastTo = intent.getIntExtra(EXTRA_FAST_TO, 0);
         if (fastTo != 0) {
             args.add("-gxFastTo");

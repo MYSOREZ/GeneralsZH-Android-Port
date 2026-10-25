@@ -28,6 +28,7 @@
 #include "Common/ArchiveFileSystem.h"
 #include "Common/CommandLine.h"
 #include "Common/GXReplayCheck.h"
+#include "GXTrace.h"
 #include "Common/GXSafeArea.h"
 #include "Common/CRCDebug.h"
 #include "Common/LocalFileSystem.h"
@@ -466,6 +467,14 @@ Int parseGxAutoQuit(char *args[], int num)
 Int parseGxCrcEveryFrame(char *args[], int num)
 {
 	GXReplayCheck::setCrcEveryFrame(TRUE);
+	return 1;
+}
+
+// GeneralsX @performance Android port 25/10/2026 The network trace marker was put there by the
+// launcher's Replay check, for its replay only (GXTrace::setNetCheckOwned).
+Int parseGxCheckTrace(char *args[], int num)
+{
+	GXTrace::setNetCheckOwned(true);
 	return 1;
 }
 
@@ -1206,6 +1215,7 @@ static CommandLineParam paramsForStartup[] =
 	{ "-gxFastTo", parseGxFastTo },
 	{ "-gxAutoQuit", parseGxAutoQuit },
 	{ "-gxCrcEveryFrame", parseGxCrcEveryFrame },
+	{ "-gxCheckTrace", parseGxCheckTrace },
 	{ "-gxSafeInsets", parseGxSafeInsets },
 };
 

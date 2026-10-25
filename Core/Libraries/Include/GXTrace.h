@@ -165,10 +165,32 @@ namespace GXTrace
 		return false;
 	}
 
+	// GeneralsX @performance Android port 25/10/2026 The trace the launcher's Replay check turns
+	// on is for the replay it checks. The engine reads the marker once per process, so a player who
+	// went on from the checked replay to a skirmish in the same run had every frame traced -- the
+	// checksum parts, the libm call counts -- and an 8-player skirmish fell to 2-5 fps. The launcher
+	// says when the marker is the check's (-gxCheckTrace); GameLogic::startNewGame then suspends
+	// the trace for any game that is not a replay playback.
+	inline bool &netCheckOwnedSlot()
+	{
+		static bool owned = false;
+		return owned;
+	}
+
+	inline bool &netSuspendedSlot()
+	{
+		static bool suspended = false;
+		return suspended;
+	}
+
+	inline void setNetCheckOwned(bool owned) { netCheckOwnedSlot() = owned; }
+	inline bool netCheckOwned() { return netCheckOwnedSlot(); }
+	inline void setNetSuspended(bool suspended) { netSuspendedSlot() = suspended; }
+
 	inline bool isNetEnabled()
 	{
 		static const bool enabled = computeNetEnabled();
-		return enabled;
+		return enabled && !netSuspendedSlot();
 	}
 
 	// GeneralsX @feature Android port 22/09/2026 Who is running right now.
