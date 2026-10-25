@@ -518,4 +518,6 @@
     <string name="setup_langpack_update_yes">Mettre à jour</string>
     <string name="setup_langpack_update_no">Plus tard</string>
     <string name="setup_langpack_update_done">Traduction mise à jour : %1$s</string>
+    <string name="setup_switch_subtitles">Afficher les sous-titres</string>
+    <string name="setup_switch_subtitles_desc">Le texte de ce qui est dit dans les missions et le Défi des généraux : les échanges radio, les piques des généraux. Le jeu a ces textes mais ne les a jamais affichés. Prend effet au prochain lancement du jeu.</string>
 </resources>

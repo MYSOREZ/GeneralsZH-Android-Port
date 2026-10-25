@@ -80,6 +80,7 @@
 #include "GameLogic/ScriptEngine.h"
 #include "GameLogic/Weapon.h"
 #include "GameLogic/VictoryConditions.h"
+#include "Common/GXSubtitles.h"
 
 
 // Kind of hacky, but we need to dance on the guts of the terrain.
@@ -2737,6 +2738,21 @@ void ScriptActions::doSpeechPlay(const AsciiString& speechName, Bool allowOverla
 	speech.setPlayerIndex(ThePlayerList->getLocalPlayer()->getPlayerIndex());
 	speech.setUninterruptible(!allowOverlap);
 	TheAudio->addAudioEvent(&speech);
+
+	// GeneralsX @feature Android port 25/10/2026 The voice line's text, when the launcher's subtitles
+	// are on (GXSubtitles.h). Zero Hour has this block, showing texts without the '*' mark; the
+	// base game never had it, and its retail texts all carry the mark, so off it changes nothing.
+	if (!GXSubtitles::enabled())
+		return;
+	AsciiString subtitleLabel("DIALOGEVENT:");
+	subtitleLabel.concat(speechName);
+	subtitleLabel.concat("Subtitle");
+	Bool found = FALSE;
+	UnicodeString subtitle = TheGameText->fetch(subtitleLabel, &found);
+	if (found && !subtitle.isEmpty())
+	{
+		TheInGameUI->militarySubtitle(subtitleLabel, 8000);
+	}
 }
 
 //-------------------------------------------------------------------------------------------------

@@ -5074,6 +5074,14 @@ void InGameUI::militarySubtitle( const AsciiString& label, Int duration )
 	UpdateDiplomacyBriefingText(label, FALSE);
 
 	UnicodeString title = TheGameText->fetch(label);
+	// GeneralsX @feature Android port 25/10/2026 A voice line's text shown by the launcher's subtitles
+	// switch (GXSubtitles.h) carries the retail '*' mark, which is not part of what is said.
+	if (title.getLength() > 1 && title.getCharAt(0) == L'*')
+	{
+		UnicodeString rest(title.str() + 1);
+		rest.trim();
+		title = rest;
+	}
 
 	// make sure we actually will be displaying something
 	if( title.isEmpty() || duration <= 0)

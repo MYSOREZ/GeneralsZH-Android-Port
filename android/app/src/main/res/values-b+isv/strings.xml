@@ -518,4 +518,6 @@
     <string name="setup_langpack_update_yes">Obnoviti</string>
     <string name="setup_langpack_update_no">Ne teraz</string>
     <string name="setup_langpack_update_done">Prěvod obnovjen: %1$s</string>
+    <string name="setup_switch_subtitles">Pokazyvati podpisi</string>
+    <string name="setup_switch_subtitles_desc">Tekst togo, čto se govori v misijah i v Izpytanju generalov: radijne razgovory, podkolky generalov. Igra imaje te teksty, ale nikdy jih ne pokazyvala. Dějstvuje od slědnjego zapuska igry.</string>
 </resources>

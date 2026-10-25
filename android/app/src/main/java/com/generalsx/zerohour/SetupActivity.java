@@ -1211,8 +1211,28 @@ public class SetupActivity extends Activity {
         // holds all but 20 of the base game's 2806 labels (the engine takes those 20 from the
         // game's own table), so they serve Generals too.
 
+        // GeneralsX @feature Android port 25/10/2026 The voice lines' texts, hidden by the retail data
+        // (GXSubtitles.h). A marker file, like the mouse mode: both games, read at start.
+        SwitchCompat subtitles = UiKit.switchRow(content,
+            getString(R.string.setup_switch_subtitles), getString(R.string.setup_switch_subtitles_desc));
+        final File subtitlesMarker = new File(getFilesDir(), SUBTITLES_MARKER);
+        subtitles.setChecked(subtitlesMarker.isFile());
+        subtitles.setOnCheckedChangeListener((button, checked) -> {
+            try {
+                if (checked) {
+                    new java.io.FileOutputStream(subtitlesMarker).close();
+                } else {
+                    subtitlesMarker.delete();
+                }
+            } catch (java.io.IOException e) {
+                toast(String.valueOf(e.getMessage()));
+            }
+        });
+
         UiKit.helpText(content, getString(R.string.setup_language_help));
     }
+
+    static final String SUBTITLES_MARKER = "subtitles";
 
     // GeneralsX @feature Android port 13/07/2026 GitHub issue #4 follow-up:
     // status line showing whether the launcher's chosen language is also

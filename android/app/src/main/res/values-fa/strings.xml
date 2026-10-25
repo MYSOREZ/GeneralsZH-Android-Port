@@ -518,4 +518,6 @@
     <string name="setup_langpack_update_yes">به‌روزرسانی</string>
     <string name="setup_langpack_update_no">حالا نه</string>
     <string name="setup_langpack_update_done">ترجمه به‌روز شد: %1$s</string>
+    <string name="setup_switch_subtitles">نمایش زیرنویس</string>
+    <string name="setup_switch_subtitles_desc">متن آنچه در مأموریت‌ها و چالش ژنرال‌ها گفته می‌شود: مکالمه‌های بی‌سیم، طعنه‌های ژنرال‌ها. این متن‌ها در بازی هست ولی هیچ‌وقت نشان داده نمی‌شد. از اجرای بعدی بازی اعمال می‌شود.</string>
 </resources>

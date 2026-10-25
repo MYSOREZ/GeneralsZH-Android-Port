@@ -150,7 +150,9 @@ About the subtitles mentioned above: they are the texts of the voice lines (EVA,
 radio chatter, the generals' taunts), labels `DIALOGEVENT:...Subtitle`. The game shows one only
 when its text does not start with `*`; the original English data marks every one of them with
 `*`, so they are never shown -- EA kept them as a script for translators -- and every pack here
-keeps the mark. Translating them keeps the packs complete for a version that shows them.
+keeps the mark. The launcher's **Show subtitles** switch (Interface tab, language card) shows the
+lines that mission scripts play -- campaign radio chatter, the Generals Challenge taunts -- in
+the game's military caption, without the mark, in both games.
 
 ## German
 

@@ -518,4 +518,6 @@
     <string name="setup_langpack_update_yes">업데이트</string>
     <string name="setup_langpack_update_no">나중에</string>
     <string name="setup_langpack_update_done">번역 업데이트됨: %1$s</string>
+    <string name="setup_switch_subtitles">자막 표시</string>
+    <string name="setup_switch_subtitles_desc">임무와 장군 챌린지에서 하는 말의 텍스트: 무전 교신, 장군들의 도발. 게임에 이 텍스트가 있지만 한 번도 보여 주지 않았습니다. 다음에 게임을 시작할 때 적용됩니다.</string>
 </resources>
