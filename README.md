@@ -286,7 +286,7 @@ smaller does not reach the subscription.
 Everyone who has supported the port, month by month (amounts in US dollars, approximate where the
 donation was in another currency). Thank you!
 
-**October 2026** — $16.47 of the $20 monthly subscription
+**October 2026** — $18.35 of the $20 monthly subscription
 
 | Hero | Amount |
 |---|---|
@@ -296,6 +296,7 @@ donation was in another currency). Thank you!
 | Zhask Dominator | $6.21 · Boosty |
 | Mukhiddin (WaruEdition) | $2.81 · Boosty |
 | Shahre Masore | $0.47 · Boosty |
+| MAD ATOM | $1.88 · Boosty |
 
 ## Popularity
 
