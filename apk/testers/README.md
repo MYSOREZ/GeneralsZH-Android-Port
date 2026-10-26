@@ -8,3 +8,4 @@ owner says so. The current build for the owner lives one level up, in `apk/`.
 |---|---|---|
 | `GeneralsXZH-android-diag35.apk` | #35 (mad963) | 1.4.0 + render-thread crash diagnostics |
 | `GeneralsXZH-android-generals-a8.apk` | #35 (mad963) | GPU frame timer off; confirmed working on Mali-G57 r32p1 |
+| `GeneralsXZH-android-generals-a43.apk` | #58, #61, #64, #65 (everyone) | Test build before 1.4.2: tank treads, mods in subfolders and their GameData.ini, Restart speed, AI scripts check, vsync, subtitles |
