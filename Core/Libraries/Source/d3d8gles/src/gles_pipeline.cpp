@@ -1322,7 +1322,12 @@ WebGLPipeline::ProgramInfo *WebGLPipeline::getProgram(WebGLDevice *dev, unsigned
 		} else if (texIn == 0) {
 			snprintf(b, sizeof(b), "  vUV%d = vec2(0.0);\n", s);
 		} else if (st[s].xform) {
-			snprintf(b, sizeof(b), "  vUV%d = (uTexMat%d * vec4(aUV%d.xy, 0.0, 1.0)).xy;\n", s, s, tci);
+			// GeneralsX @bugfix Android port 26/10/2026 Issue #65: tank treads did not move. D3D runs
+			// 2D texture coordinates through the stage matrix as (u, v, 1, 0), which is why a 2D
+			// texture offset goes in the matrix's THIRD row (_31/_32) -- where WW3D's
+			// LinearOffsetTextureMapperClass puts the tread scroll. Read as (u, v, 0, 1) the offset
+			// was multiplied by 0 and the fourth row, always identity's, applied instead.
+			snprintf(b, sizeof(b), "  vUV%d = (uTexMat%d * vec4(aUV%d.xy, 1.0, 0.0)).xy;\n", s, s, tci);
 		} else {
 			snprintf(b, sizeof(b), "  vUV%d = aUV%d.xy;\n", s, tci);
 		}
