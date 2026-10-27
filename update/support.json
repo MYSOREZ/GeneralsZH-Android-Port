@@ -205,27 +205,45 @@
           {
             "left": "MAD ATOM",
             "right": "$1.88 · Boosty"
+          },
+          {
+            "left": {
+              "en": "Unknown hero",
+              "ru": "Неизвестный герой",
+              "uk": "Невідомий герой",
+              "de": "Unbekannter Held",
+              "es": "Héroe desconocido",
+              "fr": "Héros inconnu",
+              "pl": "Nieznany bohater",
+              "pt-BR": "Herói desconhecido",
+              "isv": "Neznamy heroj",
+              "zh": "神秘英雄",
+              "ko": "익명의 영웅",
+              "ar": "بطل مجهول",
+              "fa": "قهرمان ناشناس"
+            },
+            "right": "$0.38 · USDT"
           }
         ]
       },
       {
         "type": "progress",
         "label": {
-          "en": "October: $18.35 of the $20 monthly subscription",
-          "ru": "Октябрь: $18.35 из месячной подписки в $20",
-          "uk": "Жовтень: $18.35 із місячної підписки в $20",
-          "de": "Oktober: 18,35 $ vom Monatsabo über 20 $",
-          "es": "Octubre: 18,35 $ de la suscripción mensual de 20 $",
-          "fr": "Octobre : 18,35 $ sur l’abonnement mensuel de 20 $",
-          "pl": "Październik: 18,35 $ z miesięcznego abonamentu za 20 $",
-          "pt-BR": "Outubro: US$ 18,35 da assinatura mensal de US$ 20",
-          "isv": "Oktober: 18,35 $ iz měsečnoj podpisky za 20 $",
-          "zh": "10 月：每月 20 美元订阅已筹得 18.35 美元",
-          "ko": "10월: 월 $20 구독료 중 $18.35",
-          "ar": "أكتوبر: 18.35 $ من الاشتراك الشهري البالغ 20 $",
-          "fa": "اکتبر: ۱۸٫۳۵ دلار از اشتراک ماهانه ۲۰ دلاری"
+          "en": "October: $18.73 of the $20 monthly subscription",
+          "ru": "Октябрь: $18.73 из месячной подписки в $20",
+          "uk": "Жовтень: $18.73 із місячної підписки в $20",
+          "de": "Oktober: 18,73 $ vom Monatsabo über 20 $",
+          "es": "Octubre: 18,73 $ de la suscripción mensual de 20 $",
+          "fr": "Octobre : 18,73 $ sur l’abonnement mensuel de 20 $",
+          "pl": "Październik: 18,73 $ z miesięcznego abonamentu za 20 $",
+          "pt-BR": "Outubro: US$ 18,73 da assinatura mensal de US$ 20",
+          "isv": "Oktober: 18,73 $ iz měsečnoj podpisky za 20 $",
+          "zh": "10 月：每月 20 美元订阅已筹得 18.73 美元",
+          "ko": "10월: 월 $20 구독료 중 $18.73",
+          "ar": "أكتوبر: 18.73 $ من الاشتراك الشهري البالغ 20 $",
+          "fa": "اکتبر: ۱۸٫۷۳ دلار از اشتراک ماهانه ۲۰ دلاری"
         },
-        "value": 18.35,
+        "value": 18.73,
         "max": 20
       },
       {
@@ -402,27 +420,45 @@
           {
             "left": "MAD ATOM",
             "right": "$1.88 · Boosty"
+          },
+          {
+            "left": {
+              "en": "Unknown hero",
+              "ru": "Неизвестный герой",
+              "uk": "Невідомий герой",
+              "de": "Unbekannter Held",
+              "es": "Héroe desconocido",
+              "fr": "Héros inconnu",
+              "pl": "Nieznany bohater",
+              "pt-BR": "Herói desconhecido",
+              "isv": "Neznamy heroj",
+              "zh": "神秘英雄",
+              "ko": "익명의 영웅",
+              "ar": "بطل مجهول",
+              "fa": "قهرمان ناشناس"
+            },
+            "right": "$0.38 · USDT"
           }
         ]
       },
       {
         "type": "progress",
         "label": {
-          "en": "October: $18.35 of the $20 monthly subscription",
-          "ru": "Октябрь: $18.35 из месячной подписки в $20",
-          "uk": "Жовтень: $18.35 із місячної підписки в $20",
-          "de": "Oktober: 18,35 $ vom Monatsabo über 20 $",
-          "es": "Octubre: 18,35 $ de la suscripción mensual de 20 $",
-          "fr": "Octobre : 18,35 $ sur l’abonnement mensuel de 20 $",
-          "pl": "Październik: 18,35 $ z miesięcznego abonamentu za 20 $",
-          "pt-BR": "Outubro: US$ 18,35 da assinatura mensal de US$ 20",
-          "isv": "Oktober: 18,35 $ iz měsečnoj podpisky za 20 $",
-          "zh": "10 月：每月 20 美元订阅已筹得 18.35 美元",
-          "ko": "10월: 월 $20 구독료 중 $18.35",
-          "ar": "أكتوبر: 18.35 $ من الاشتراك الشهري البالغ 20 $",
-          "fa": "اکتبر: ۱۸٫۳۵ دلار از اشتراک ماهانه ۲۰ دلاری"
+          "en": "October: $18.73 of the $20 monthly subscription",
+          "ru": "Октябрь: $18.73 из месячной подписки в $20",
+          "uk": "Жовтень: $18.73 із місячної підписки в $20",
+          "de": "Oktober: 18,73 $ vom Monatsabo über 20 $",
+          "es": "Octubre: 18,73 $ de la suscripción mensual de 20 $",
+          "fr": "Octobre : 18,73 $ sur l’abonnement mensuel de 20 $",
+          "pl": "Październik: 18,73 $ z miesięcznego abonamentu za 20 $",
+          "pt-BR": "Outubro: US$ 18,73 da assinatura mensal de US$ 20",
+          "isv": "Oktober: 18,73 $ iz měsečnoj podpisky za 20 $",
+          "zh": "10 月：每月 20 美元订阅已筹得 18.73 美元",
+          "ko": "10월: 월 $20 구독료 중 $18.73",
+          "ar": "أكتوبر: 18.73 $ من الاشتراك الشهري البالغ 20 $",
+          "fa": "اکتبر: ۱۸٫۷۳ دلار از اشتراک ماهانه ۲۰ دلاری"
         },
-        "value": 18.35,
+        "value": 18.73,
         "max": 20
       }
     ],
