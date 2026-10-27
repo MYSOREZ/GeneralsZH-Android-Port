@@ -208,19 +208,19 @@
           },
           {
             "left": {
-              "en": "Unknown hero",
-              "ru": "Неизвестный герой",
-              "uk": "Невідомий герой",
-              "de": "Unbekannter Held",
-              "es": "Héroe desconocido",
-              "fr": "Héros inconnu",
-              "pl": "Nieznany bohater",
-              "pt-BR": "Herói desconhecido",
-              "isv": "Neznamy heroj",
-              "zh": "神秘英雄",
-              "ko": "익명의 영웅",
-              "ar": "بطل مجهول",
-              "fa": "قهرمان ناشناس"
+              "en": "Unknown General",
+              "ru": "Неизвестный генерал",
+              "uk": "Невідомий генерал",
+              "de": "Unbekannter General",
+              "es": "General desconocido",
+              "fr": "Général inconnu",
+              "pl": "Nieznany generał",
+              "pt-BR": "General desconhecido",
+              "isv": "Neznamy general",
+              "zh": "无名将军",
+              "ko": "익명의 장군",
+              "ar": "جنرال مجهول",
+              "fa": "ژنرال ناشناس"
             },
             "right": "$0.38 · USDT"
           }
@@ -423,19 +423,19 @@
           },
           {
             "left": {
-              "en": "Unknown hero",
-              "ru": "Неизвестный герой",
-              "uk": "Невідомий герой",
-              "de": "Unbekannter Held",
-              "es": "Héroe desconocido",
-              "fr": "Héros inconnu",
-              "pl": "Nieznany bohater",
-              "pt-BR": "Herói desconhecido",
-              "isv": "Neznamy heroj",
-              "zh": "神秘英雄",
-              "ko": "익명의 영웅",
-              "ar": "بطل مجهول",
-              "fa": "قهرمان ناشناس"
+              "en": "Unknown General",
+              "ru": "Неизвестный генерал",
+              "uk": "Невідомий генерал",
+              "de": "Unbekannter General",
+              "es": "General desconocido",
+              "fr": "Général inconnu",
+              "pl": "Nieznany generał",
+              "pt-BR": "General desconhecido",
+              "isv": "Neznamy general",
+              "zh": "无名将军",
+              "ko": "익명의 장군",
+              "ar": "جنرال مجهول",
+              "fa": "ژنرال ناشناس"
             },
             "right": "$0.38 · USDT"
           }

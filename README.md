@@ -297,7 +297,7 @@ donation was in another currency). Thank you!
 | Mukhiddin (WaruEdition) | $2.81 · Boosty |
 | Shahre Masore | $0.47 · Boosty |
 | MAD ATOM | $1.88 · Boosty |
-| Unknown hero | $0.38 · USDT |
+| Unknown General | $0.38 · USDT |
 
 ## Popularity
 
