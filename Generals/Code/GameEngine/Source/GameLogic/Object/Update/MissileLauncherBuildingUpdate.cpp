@@ -204,6 +204,12 @@ Bool MissileLauncherBuildingUpdate::initiateIntentToDoSpecialPower( const Specia
 	DEBUG_ASSERTCRASH(!TheGlobalData->m_specialPowerUsesDelay || m_doorState == DOOR_OPEN, ("door is not fully open when specialpower is fired!"));
 #endif
 
+	// GeneralsX @bugfix Android port 01/11/2026 Told to launch before update() has found the special
+	// power module (TheSuperHackers #1218): the door states read its ready frame. Not launched, so
+	// the power stays ready for the next order. See SpecialPowerModule's constructor.
+	if (m_specialPowerModule == nullptr)
+		return FALSE;
+
 	switchToState(DOOR_WAITING_TO_CLOSE);
 	return TRUE;
 }
