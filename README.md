@@ -143,6 +143,8 @@ so a tap on a panel never falls through to the map underneath.
 | Two fingers | Pan and zoom together |
 | Long press on the map (~0.6s, no movement) | Cancel an armed ability or a pending building; otherwise clear the selection |
 | Two-finger tap | The same cancel |
+| Tap on the minimap | As on a PC, a left click: with units selected it sends them there; with nothing selected it moves the camera there |
+| Press and hold on the minimap (~0.6s), then release | Move the camera there even with units selected (the PC's right click) |
 | Tap a UI button | Press it |
 | Hold a UI button | Read its description, without pressing it |
 | **With an ability armed**: touch the map, drag, release | Aim it — the radius circle follows your finger; release fires it where you let go; a second finger cancels |
