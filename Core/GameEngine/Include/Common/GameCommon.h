@@ -72,6 +72,10 @@ const Real LOGICFRAMES_PER_MSEC_REAL = (((Real)LOGICFRAMES_PER_SECOND) / ((Real)
 const Real MSEC_PER_LOGICFRAME_REAL = (((Real)MSEC_PER_SECOND) / ((Real)LOGICFRAMES_PER_SECOND));
 const Real LOGICFRAMES_PER_SECONDS_REAL = (Real)LOGICFRAMES_PER_SECOND;
 const Real SECONDS_PER_LOGICFRAME_REAL = 1.0f / LOGICFRAMES_PER_SECONDS_REAL;
+// GeneralsX @bugfix Android port 31/10/2026 Logic frames per historic 30 Hz frame (2 at 60 Hz).
+// Physics velocities are per logic frame; draw code whose thresholds and multipliers were tuned
+// on 30 Hz velocities (tread dust, wheel dust) multiplies by this to keep the retail look.
+const Real LOGICFRAMES_PER_BASEFRAME_REAL = LOGICFRAMES_PER_SECONDS_REAL / (Real)BaseFps;
 
 // ----------------------------------------------------------------------------------------------
 // note that this returns a REAL value, not an int... most callers will want to

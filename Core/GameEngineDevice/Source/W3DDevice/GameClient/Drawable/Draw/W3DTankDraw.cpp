@@ -331,7 +331,10 @@ void W3DTankDraw::doDrawModule(const Matrix3D* transformMtx)
 
 	// kick debris higher the faster we move
 	Coord3D velMult;
-	velMag = (Real)sqrt( velMag );
+	// GeneralsX @bugfix Android port 31/10/2026 Issue #65: the speed per historic 30 Hz frame. At 60 Hz
+	// the per-frame speed is half, the burst count multiplier fell below 1 and the integer burst count of
+	// the tread dust truncated to zero: no dust at all.
+	velMag = (Real)sqrt( velMag ) * LOGICFRAMES_PER_BASEFRAME_REAL;
 
 	velMult.x = 0.5f * velMag + 0.1f;
 	if (velMult.x > 1.0f)
