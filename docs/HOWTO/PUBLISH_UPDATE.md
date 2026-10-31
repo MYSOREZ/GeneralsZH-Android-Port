@@ -127,3 +127,11 @@ Without the key at hand, leave out `--key`, push, and run **Actions → Sign upd
 workflow**; it signs the manifest on the branch with the secret in a few seconds.
 
 The branch always holds a single commit, so old engines do not pile up in the history.
+
+### Monthly heroes (support card)
+
+The card shows the current month only: a "heroes" `rows` block with the month's supporters
+(amounts in US dollars) and a `progress` block for the month's total against the subscription. At
+the end of a month the rows go to the README's "Heroes of the project" history, the card's rows
+block is removed and the progress goes back to 0 (a block with no rows is not shown). The
+"thanks" announcement (`popup`, shown once per id) is only for a moment worth announcing.

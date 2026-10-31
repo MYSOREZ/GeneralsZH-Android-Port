@@ -284,7 +284,10 @@ smaller does not reach the subscription.
 ### Heroes of the project
 
 Everyone who has supported the port, month by month (amounts in US dollars, approximate where the
-donation was in another currency). Thank you!
+donation was in another currency). The launcher shows the current month only; at the end of every
+month its heroes move here. Thank you!
+
+**November 2026** — $0 of the $20 monthly subscription so far
 
 **October 2026** — $18.73 of the $20 monthly subscription
 
