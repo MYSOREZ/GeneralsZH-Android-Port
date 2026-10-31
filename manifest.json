@@ -1,0 +1,19 @@
+{
+  "config": {
+    "datapack_manifest_url": "https://raw.githubusercontent.com/MYSOREZ/GeneralsZH-Android-Port/updates/datapack-manifest.json",
+    "logic_crc_revision": "0",
+    "pc_crossplay": "0",
+    "pc_exe_crc": "1",
+    "stun_servers": "stun:stun.playgenerals.online:3478,stun:stun.l.google.com:19302,stun:stun.playgenerals.online:53",
+    "turn_servers": "turn:turn.playgenerals.online:3478,turn:turn.playgenerals.online:53"
+  },
+  "note": "Support card: new month, October's heroes moved to the README history",
+  "published": "2026-10-31",
+  "schema": 1,
+  "serial": 14,
+  "support": {
+    "sha256": "b2ef32974a0f7e32d0561f9313fbf03a0938ed2d07232ade4587b650a749f987",
+    "size": 23229,
+    "url": "https://raw.githubusercontent.com/MYSOREZ/GeneralsZH-Android-Port/updates-test/support/b2ef32974a0f7e32.json"
+  }
+}
