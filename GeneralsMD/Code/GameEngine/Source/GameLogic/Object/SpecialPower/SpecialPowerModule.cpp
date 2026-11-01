@@ -846,6 +846,11 @@ void SpecialPowerModule::xfer( Xfer *xfer )
 
 	// available on frame
 	xfer->xferUnsignedInt( &m_availableOnFrame );
+	// GeneralsX @bugfix Android port 01/11/2026 Issue #62: a game saved before 60680e08 carries the
+	// never-ready 0xFFFFFFFF start frame in its powers; the retail game never writes it, so on load
+	// it means "ready", as the constructor starts it now.
+	if ( xfer->getXferMode() == XFER_LOAD && m_availableOnFrame == 0xFFFFFFFF )
+		m_availableOnFrame = 0;
 
 	// paused by script
 	xfer->xferInt( &m_pausedCount );

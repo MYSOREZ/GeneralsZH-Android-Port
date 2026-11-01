@@ -2035,6 +2035,25 @@ void HeightMapRenderObjClass::Render(RenderInfoClass & rinfo)
  		//Find number of passes required to render current shader
  		devicePasses=W3DShaderManager::getShaderPasses(st);
 
+		// GeneralsX @bugfix Android port 01/11/2026 Issue #65: cloud shadows reported missing on GLES
+		// with every option on. Say once per change which terrain shader runs and whether its cloud
+		// texture is there, so a log tells "never asked for" from "asked for and drawn wrong".
+		{
+			static Int s_loggedShader = -1;
+			static Int s_loggedPasses = -1;
+			if ((Int)st != s_loggedShader || devicePasses != s_loggedPasses)
+			{
+				s_loggedShader = (Int)st;
+				s_loggedPasses = devicePasses;
+				fprintf(stderr, "[GX-TERRAIN] shader=%d passes=%d cloudMap=%d lightMap=%d night=%d cloudTex=%s (%s) noiseTex=%s\n",
+					(Int)st, devicePasses, (Int)TheGlobalData->m_useCloudMap, (Int)TheGlobalData->m_useLightMap,
+					(Int)(TheGlobalData->m_timeOfDay == TIME_OF_DAY_NIGHT),
+					m_stageTwoTexture ? (const char *)m_stageTwoTexture->Get_Texture_Name() : "none",
+					(m_stageTwoTexture && m_stageTwoTexture->Is_Initialized()) ? "loaded" : "not loaded",
+					m_stageThreeTexture ? (const char *)m_stageThreeTexture->Get_Texture_Name() : "none");
+			}
+		}
+
  		if (m_disableTextures)
  			devicePasses=1;	//force to 1 lighting-only pass
 
