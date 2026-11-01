@@ -684,7 +684,11 @@ WindowMsgHandledType ChallengeMenuSystem( GameWindow *window, UnsignedInt msg, W
 
         // Added so that, even though a ChallengeGame is really a SkirmishGame in SinglePlayerGame's clothing,
         // GameEngine will still apply the default "FRAME CAP" as it does during "Solo Missions."
-        msg->appendIntegerArgument(LOGICFRAMES_PER_SECOND);	// FPS limit
+        // GeneralsX @bugfix Android port 01/11/2026 Issue #68: in retail 30 Hz frames, as MSG_NEW_GAME takes
+        // it (the skirmish Game Speed slider's unit) -- the 60 Hz engine multiplies it in GameLogic. As
+        // LOGICFRAMES_PER_SECOND (60 there) it became 120 and a Generals' Challenge ran at double speed.
+        // The same number on the 30 Hz engine.
+        msg->appendIntegerArgument(BaseFps);	// FPS limit
 
 				InitRandom(0);
 			}
