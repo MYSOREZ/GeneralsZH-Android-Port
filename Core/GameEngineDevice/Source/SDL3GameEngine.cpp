@@ -77,6 +77,52 @@
 // Forward-declared like W3DProjectedShadow.cpp does: d3d8gles.h is not on this target's include
 // path, and everything links into the same libmain.so. See gles_pipeline.cpp.
 extern "C" void d3d8gles_SetPresentUncapped(bool uncapped);
+#include <android/native_window.h>
+#include <dlfcn.h>
+
+// GeneralsX @bugfix Android port 01/11/2026 Issue #69: tell Android the frame rate the game wants.
+// The app never asked for one, so the system kept the surface at its own default (60 Hz on a
+// POCO F7 with a 120 Hz screen): with vsync on, every frame limit above 60 showed 60 frames a
+// second, while the in-game counter, which counts the game loop, read 70-100. The frame limit
+// (Options -> FPS) is passed as the surface's frame rate, and the system picks a display mode for
+// it. ANativeWindow_setFrameRate is API 30, above this build's minimum (28), so it is looked up at
+// run time; asked again whenever the limit or the surface changes (a new one after each resume).
+static void gxRequestSurfaceFrameRate(SDL_Window *window)
+{
+	typedef int32_t (*SetFrameRateFn)(ANativeWindow *, float, int8_t);
+	static SetFrameRateFn s_setFrameRate = nullptr;
+	static bool s_looked = false;
+	static ANativeWindow *s_lastWindow = nullptr;
+	static Int s_lastFps = -1;
+
+	if (window == nullptr || TheFramePacer == nullptr)
+		return;
+	if (!s_looked) {
+		s_looked = true;
+		if (void *lib = dlopen("libandroid.so", RTLD_NOW | RTLD_NOLOAD))
+			s_setFrameRate = (SetFrameRateFn)dlsym(lib, "ANativeWindow_setFrameRate");
+		fprintf(stderr, "[GX-REFRESH] ANativeWindow_setFrameRate %s\n", s_setFrameRate ? "available" : "not available (Android < 11)");
+	}
+	if (s_setFrameRate == nullptr)
+		return;
+
+	ANativeWindow *nativeWindow = (ANativeWindow *)SDL_GetPointerProperty(
+		SDL_GetWindowProperties(window), SDL_PROP_WINDOW_ANDROID_WINDOW_POINTER, nullptr);
+	if (nativeWindow == nullptr)
+		return;
+
+	const Int fps = TheFramePacer->getActualFramesPerSecondLimit();
+	if (nativeWindow == s_lastWindow && fps == s_lastFps)
+		return;
+	s_lastWindow = nativeWindow;
+	s_lastFps = fps;
+
+	// Uncapped asks for the fastest mode; the system picks the closest one the screen has. Never
+	// below 60, so a 30 limit does not drop a variable-rate panel (and the touch rate) to 30 Hz.
+	const float wanted = (fps <= 0 || fps > 480) ? 480.0f : (float)std::max<Int>(fps, 60);
+	const int32_t rc = s_setFrameRate(nativeWindow, wanted, 0 /* ANATIVEWINDOW_FRAME_RATE_COMPATIBILITY_DEFAULT */);
+	fprintf(stderr, "[GX-REFRESH] surface frame rate %.0f requested for frame limit %d (rc=%d)\n", wanted, (int)fps, (int)rc);
+}
 #endif
 #include "SDL3Device/GameClient/TouchInput.h"
 #include "SDL3Device/GameClient/AndroidTextEditor.h"
@@ -2743,6 +2789,7 @@ void SDL3GameEngine::update(void)
 	// runs the extra logic steps within a drawn frame. Asked for "capped" every frame, so a
 	// session that started uncapped returns to vsync at its next present.
 	d3d8gles_SetPresentUncapped(false);
+	gxRequestSurfaceFrameRate(m_SDLWindow);
 #endif
 	GameEngine::update();
 }
