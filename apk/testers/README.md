@@ -10,3 +10,4 @@ owner says so. The current build for the owner lives one level up, in `apk/`.
 | `GeneralsXZH-android-generals-a8.apk` | #35 (mad963) | GPU frame timer off; confirmed working on Mali-G57 r32p1 |
 | `GeneralsXZH-android-generals-a43.apk` | #58, #61, #64, #65 (everyone) | Test build before 1.4.2: tank treads, mods in subfolders and their GameData.ini, Restart speed, AI scripts check, vsync, subtitles |
 | `GeneralsXZH-android-generals-a45.apk` | #62, #65, #69 (everyone) | a43 + the screen rate asked from Android for the frame limit (120 Hz screens), Generals special powers of built buildings (battle plans, CIA Intelligence, spy satellite), tank and wheel dust at 60 Hz |
+| `GeneralsXZH-android-generals-a46.apk` | #62, #65 (everyone) | a45 + special powers of games saved by earlier builds load ready; terrain shader / cloud texture in the log (`[GX-TERRAIN]`) |
