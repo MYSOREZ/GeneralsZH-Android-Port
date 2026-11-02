@@ -3015,6 +3015,15 @@ void SDL3GameEngine::pollSDL3Events(void)
 				// Dismissing it and tapping anything brought it straight back.
 				// GeneralsX @feature Android port 05/10/2026 With a pointer chosen in the launcher a
 				// finger is a touchpad (handleTouchpadEvent), and the native touch layer stays out.
+				// GeneralsX @bugfix Android port 02/11/2026 Issue #60: SDL turns a real mouse's left button
+				// into a touch as well (SDL_HINT_MOUSE_TOUCH_EVENTS, on by default on Android) -- that is how
+				// a mouse clicks without the mouse mode, through the touch layer. With the mode on, the button
+				// already reaches the game as a mouse button, and its touch copy went on to the touchpad
+				// emulation too: every click twice, a hold needed to select (the touchpad's tap rules), and
+				// the game's cursor flickering against Android's as the two took turns.
+				if (GXMouseModeEnabled() && event.tfinger.touchID == SDL_MOUSE_TOUCHID) {
+					break;
+				}
 				if (GXMouseModeEnabled()) {
 					Int clickX = 0, clickY = 0;
 					if (m_SDLWindow && handleTouchpadEvent(m_SDLWindow, event, clickX, clickY)) {

@@ -1,0 +1,25 @@
+--- a/org/libsdl/app/SDLSurface.java
++++ b/org/libsdl/app/SDLSurface.java
+@@ -255,8 +255,21 @@
+         do {
+             int toolType = event.getToolType(i);
+ 
+-            if (toolType == MotionEvent.TOOL_TYPE_MOUSE) {
++            // GeneralsX @bugfix Android port 02/11/2026 Issue #60: some Bluetooth mice report their
++            // clicks with tool type FINGER or UNKNOWN although the event comes from a mouse. Those
++            // clicks then reached the game as touches -- a click handled by the touch gestures, the
++            // touchpad emulation in the launcher's mouse mode (where only a short press is a click),
++            // and the game's cursor flickering against Android's. The source says it is a mouse.
++            boolean mouseSource = (toolType == MotionEvent.TOOL_TYPE_FINGER || toolType == MotionEvent.TOOL_TYPE_UNKNOWN)
++                && event.isFromSource(InputDevice.SOURCE_MOUSE);
++
++            if (toolType == MotionEvent.TOOL_TYPE_MOUSE || mouseSource) {
+                 int buttonState = event.getButtonState();
++                // Such a mouse may also leave the button state empty: a press is then the primary
++                // button (SDL takes the pressed button from the state's change, so 0 would press none).
++                if (mouseSource && buttonState == 0 && action != MotionEvent.ACTION_UP && action != MotionEvent.ACTION_CANCEL) {
++                    buttonState = MotionEvent.BUTTON_PRIMARY;
++                }
+                 boolean relative = false;
+ 
+                 // We need to check if we're in relative mouse mode and get the axis offset rather than the x/y values
