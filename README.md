@@ -289,7 +289,12 @@ Everyone who has supported the port, month by month (amounts in US dollars, appr
 donation was in another currency). The launcher shows the current month only; at the end of every
 month its heroes move here. Thank you!
 
-**November 2026** — $0 of the $20 monthly subscription so far
+**November 2026** — $2.88 of the $20 monthly subscription so far
+
+| Hero | Amount |
+|---|---|
+| Sammy Denilson | $1.88 · Boosty |
+| Unknown General | $1 · USDC |
 
 **October 2026** — $18.73 of the $20 monthly subscription
 
