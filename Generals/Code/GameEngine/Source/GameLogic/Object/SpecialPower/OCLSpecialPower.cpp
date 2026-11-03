@@ -33,6 +33,7 @@
 #include "Common/Player.h"
 #include "Common/RandomValue.h"
 #include "Common/SpecialPower.h"
+#include "Common/ThingTemplate.h"
 #include "Common/Xfer.h"
 #include "GameLogic/GameLogic.h"
 #include "GameLogic/Object.h"
