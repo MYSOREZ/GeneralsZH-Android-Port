@@ -12,3 +12,4 @@ owner says so. The current build for the owner lives one level up, in `apk/`.
 | `GeneralsXZH-android-generals-a45.apk` | #62, #65, #69 (everyone) | a43 + the screen rate asked from Android for the frame limit (120 Hz screens), Generals special powers of built buildings (battle plans, CIA Intelligence, spy satellite), tank and wheel dust at 60 Hz |
 | `GeneralsXZH-android-generals-a46.apk` | #62, #65 (everyone) | a45 + special powers of games saved by earlier builds load ready; terrain shader / cloud texture in the log (`[GX-TERRAIN]`) |
 | `GeneralsXZH-android-generals-a47.apk` | #60, #68, #71 (everyone) | 1.4.2 + Bluetooth mouse clicks as mouse clicks, no double click in mouse mode (#60); Generals' Challenge at normal speed on 60 Hz (#68) |
+| `GeneralsXZH-android-generals-a48.apk` | #71 (Jayzer74) | a47 + `[GX-PAYLOAD]` in the log: every plane power, transport and command it receives (Generals) |
