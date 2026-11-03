@@ -32,7 +32,9 @@
 
 #include "Common/Player.h"
 #include "Common/RandomValue.h"
+#include "Common/SpecialPower.h"
 #include "Common/Xfer.h"
+#include "GameLogic/GameLogic.h"
 #include "GameLogic/Object.h"
 #include "GameLogic/ObjectCreationList.h"
 #include "GameLogic/PartitionManager.h"
@@ -154,6 +156,14 @@ void OCLSpecialPower::doSpecialPowerAtLocation( const Coord3D *loc, Real angle, 
 	SpecialPowerModule::doSpecialPowerAtLocation( loc, angle, commandOptions );
 
 	const ObjectCreationList* ocl = findOCL();
+
+	// GeneralsX @bugfix Android port 03/11/2026 Issue #71 diagnostic: two plane powers used one after the
+	// other are reported to fly as one plane that drops both payloads at the second target. Every step of
+	// a delivery is logged ([GX-PAYLOAD]) so a log shows how many transports were made and what moved them.
+	fprintf(stderr, "[GX-PAYLOAD] frame %u power %s from %s #%u at %.1f,%.1f\n",
+		TheGameLogic ? (unsigned)TheGameLogic->getFrame() : 0u,
+		getSpecialPowerTemplate() ? getSpecialPowerTemplate()->getName().str() : "?",
+		getObject()->getTemplate()->getName().str(), (unsigned)getObject()->getID(), loc->x, loc->y);
 
 	// get the module data
 	const OCLSpecialPowerModuleData *modData = getOCLSpecialPowerModuleData();

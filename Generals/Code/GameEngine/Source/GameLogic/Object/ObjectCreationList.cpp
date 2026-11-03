@@ -386,6 +386,14 @@ public:
 				transport = (Object*)primaryObj;
 			}
 
+			// GeneralsX @bugfix Android port 03/11/2026 Issue #71 diagnostic (see OCLSpecialPower.cpp).
+			fprintf(stderr, "[GX-PAYLOAD] frame %u transport %s #%u (%s, formation %u) from %.1f,%.1f to %.1f,%.1f target %.1f,%.1f payload %s\n",
+				TheGameLogic ? (unsigned)TheGameLogic->getFrame() : 0u,
+				transport->getTemplate()->getName().str(), (unsigned)transport->getID(),
+				createOwner ? "new" : "the source itself", (unsigned)formationIndex,
+				startPos.x, startPos.y, moveToPos.x, moveToPos.y, targetPos.x, targetPos.y,
+				m_payload.empty() ? "-" : m_payload.front().m_payloadName.str());
+
 			// Notify special power tracking
 			SpecialPowerCompletionDie *die = transport->findSpecialPowerCompletionDie();
 			if (die)

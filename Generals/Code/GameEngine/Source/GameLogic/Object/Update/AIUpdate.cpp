@@ -2563,6 +2563,18 @@ void AIUpdateInterface::aiDoCommand(const AICommandParms* parms)
 	// TheSuperHackers @info The AiCommandParms for m_obj, m_otherObj and m_team should be null tested before use.
 	// These variables could relate to a deleted object when a pending command is reconstituted.
 
+	// GeneralsX @bugfix Android port 03/11/2026 Issue #71 diagnostic (see OCLSpecialPower.cpp): a command
+	// reaching a payload transport, with where it came from.
+	{
+		static NameKeyType s_gxKeyDeliverPayload = NAMEKEY("DeliverPayloadAIUpdate");
+		if (getObject()->isKindOf(KINDOF_AIRCRAFT) && getObject()->findUpdateModule(s_gxKeyDeliverPayload) != nullptr)
+		{
+			fprintf(stderr, "[GX-PAYLOAD] frame %u command %d source %d to %s #%u pos %.1f,%.1f\n",
+				TheGameLogic ? (unsigned)TheGameLogic->getFrame() : 0u, (int)parms->m_cmd, (int)parms->m_cmdSource,
+				getObject()->getTemplate()->getName().str(), (unsigned)getObject()->getID(), parms->m_pos.x, parms->m_pos.y);
+		}
+	}
+
 	if (!isAllowedToRespondToAiCommands(parms))
 		return;
 
