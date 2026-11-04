@@ -1,0 +1,19 @@
+{
+  "config": {
+    "datapack_manifest_url": "https://raw.githubusercontent.com/MYSOREZ/GeneralsZH-Android-Port/updates/datapack-manifest.json",
+    "logic_crc_revision": "0",
+    "pc_crossplay": "0",
+    "pc_exe_crc": "1",
+    "stun_servers": "stun:stun.playgenerals.online:3478,stun:stun.l.google.com:19302,stun:stun.playgenerals.online:53",
+    "turn_servers": "turn:turn.playgenerals.online:3478,turn:turn.playgenerals.online:53"
+  },
+  "note": "support card: November heroes",
+  "published": "2026-11-04",
+  "schema": 1,
+  "serial": 16,
+  "support": {
+    "sha256": "32d26c7e8bda46ac644b7fc96e0f268074213a2c175af0baad034ba8e3cdf708",
+    "size": 24862,
+    "url": "https://raw.githubusercontent.com/MYSOREZ/GeneralsZH-Android-Port/updates-test/support/32d26c7e8bda46ac.json"
+  }
+}
