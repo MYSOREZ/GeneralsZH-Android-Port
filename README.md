@@ -296,7 +296,7 @@ month its heroes move here. Thank you!
 | Sammy Denilson | $1.88 · Boosty |
 | Nox and Iki GAMING | $1.90 · Boosty |
 | Unknown General | $1 · USDC |
-| Unknown General | $2.13 · Boosty |
+| Diaa Abu Jazar | $2.13 · Boosty |
 
 **October 2026** — $18.73 of the $20 monthly subscription
 

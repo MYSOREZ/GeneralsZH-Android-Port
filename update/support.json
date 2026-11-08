@@ -205,21 +205,7 @@
             "right": "$1 · USDC"
           },
           {
-            "left": {
-              "en": "Unknown General",
-              "ru": "Неизвестный генерал",
-              "uk": "Невідомий генерал",
-              "de": "Unbekannter General",
-              "es": "General desconocido",
-              "fr": "Général inconnu",
-              "pl": "Nieznany generał",
-              "pt-BR": "General desconhecido",
-              "isv": "Neznamy general",
-              "zh": "无名将军",
-              "ko": "익명의 장군",
-              "ar": "جنرال مجهول",
-              "fa": "ژنرال ناشناس"
-            },
+            "left": "Diaa Abu Jazar",
             "right": "$2.13 · Boosty"
           }
         ]
