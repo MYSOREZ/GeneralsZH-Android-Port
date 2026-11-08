@@ -203,27 +203,45 @@
               "fa": "ژنرال ناشناس"
             },
             "right": "$1 · USDC"
+          },
+          {
+            "left": {
+              "en": "Unknown General",
+              "ru": "Неизвестный генерал",
+              "uk": "Невідомий генерал",
+              "de": "Unbekannter General",
+              "es": "General desconocido",
+              "fr": "Général inconnu",
+              "pl": "Nieznany generał",
+              "pt-BR": "General desconhecido",
+              "isv": "Neznamy general",
+              "zh": "无名将军",
+              "ko": "익명의 장군",
+              "ar": "جنرال مجهول",
+              "fa": "ژنرال ناشناس"
+            },
+            "right": "$2.13 · Boosty"
           }
         ]
       },
       {
         "type": "progress",
         "label": {
-          "en": "November: $4.78 of the $20 monthly subscription",
-          "ru": "Ноябрь: $4.78 из месячной подписки в $20",
-          "uk": "Листопад: $4.78 із місячної підписки в $20",
-          "de": "November: 4,78 $ vom Monatsabo über 20 $",
-          "es": "Noviembre: 4,78 $ de la suscripción mensual de 20 $",
-          "fr": "Novembre : 4,78 $ sur l’abonnement mensuel de 20 $",
-          "pl": "Listopad: 4,78 $ z miesięcznego abonamentu za 20 $",
-          "pt-BR": "Novembro: US$ 4,78 da assinatura mensal de US$ 20",
-          "isv": "Novembr: 4,78 $ iz měsečnoj podpisky za 20 $",
-          "zh": "11 月：每月 20 美元订阅已筹得 4.78 美元",
-          "ko": "11월: 월 $20 구독료 중 $4.78",
-          "ar": "نوفمبر: 4.78 $ من الاشتراك الشهري البالغ 20 $",
-          "fa": "نوامبر: ۴٫۷۸ دلار از اشتراک ماهانه ۲۰ دلاری"
+          "en": "November: $6.91 of the $20 monthly subscription",
+          "ru": "Ноябрь: $6.91 из месячной подписки в $20",
+          "uk": "Листопад: $6.91 із місячної підписки в $20",
+          "de": "November: 6,91 $ vom Monatsabo über 20 $",
+          "es": "Noviembre: 6,91 $ de la suscripción mensual de 20 $",
+          "fr": "Novembre : 6,91 $ sur l’abonnement mensuel de 20 $",
+          "pl": "Listopad: 6,91 $ z miesięcznego abonamentu za 20 $",
+          "pt-BR": "Novembro: US$ 6,91 da assinatura mensal de US$ 20",
+          "isv": "Novembr: 6,91 $ iz měsečnoj podpisky za 20 $",
+          "zh": "11 月：每月 20 美元订阅已筹得 6.91 美元",
+          "ko": "11월: 월 $20 구독료 중 $6.91",
+          "ar": "نوفمبر: 6.91 $ من الاشتراك الشهري البالغ 20 $",
+          "fa": "نوامبر: ۶٫۹۱ دلار از اشتراک ماهانه ۲۰ دلاری"
         },
-        "value": 4.78,
+        "value": 6.91,
         "max": 20
       },
       {
