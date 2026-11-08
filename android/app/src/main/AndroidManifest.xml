@@ -92,7 +92,7 @@
         <activity
             android:name=".GeneralsZHActivity"
             android:exported="true"
-            android:screenOrientation="landscape"
+            android:screenOrientation="userLandscape"
             android:launchMode="singleInstance"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:preferMinimalPostProcessing="true"

@@ -1184,6 +1184,17 @@ static void doFindSpecialPowerSourceObject( Object *obj, void *userData )
 		//We already found the best case scenario, so no need to iterate any more.
 		return;
 	}
+	// GeneralsX @bugfix Android port 08/11/2026 Issue #71: never a payload transport. The base game's
+	// cargo plane carries the paradrop and Daisy Cutter powers itself (it is how it delivers them), and
+	// its modules always read ready. The original game picked a power's source from the selected Command
+	// Center only; the general's power shortcut this port added to Generals asks for the most ready
+	// object of the player, which was then the supply drop zone's plane passing over: it took the order,
+	// flew to the newest target and dropped both payloads there, and the Command Center's own power
+	// never went. Zero Hour's data marks those plane modules script-only, which the check below skips.
+	static const NameKeyType s_keyDeliverPayloadAIUpdate = NAMEKEY("DeliverPayloadAIUpdate");
+	if( obj->findUpdateModule( s_keyDeliverPayloadAIUpdate ) != nullptr )
+		return;
+
 	if( !obj->testStatus( OBJECT_STATUS_UNDER_CONSTRUCTION )
 			&& !obj->testStatus( OBJECT_STATUS_SOLD )
 			&& !obj->isEffectivelyDead() )
@@ -1245,6 +1256,12 @@ static void doFindSpecialPowerSourceObject( Object *obj, void *userData )
 static void doCountSpecialPowersReady( Object *obj, void *userData )
 {
 	PlayerObjectFindInfo* info = (PlayerObjectFindInfo*)userData;
+
+	// GeneralsX @bugfix Android port 08/11/2026 Issue #71: a payload transport is no power source (see
+	// doFindSpecialPowerSourceObject), so the shortcut's ready count leaves it out too.
+	static const NameKeyType s_keyDeliverPayloadAIUpdate = NAMEKEY("DeliverPayloadAIUpdate");
+	if( obj->findUpdateModule( s_keyDeliverPayloadAIUpdate ) != nullptr )
+		return;
 
 	if( !obj->testStatus( OBJECT_STATUS_UNDER_CONSTRUCTION )
 			&& !obj->testStatus( OBJECT_STATUS_SOLD )

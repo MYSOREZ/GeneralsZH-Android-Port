@@ -363,9 +363,12 @@ public class GeneralsZHActivity extends SDLActivity {
     // rotation (including the 180° landscape flip the user kept seeing).
     // SDL documents this method as "This can be overridden": pin it to the
     // absolute landscape orientation unconditionally.
+    // GeneralsX @tweak Android port 08/11/2026 USER_LANDSCAPE: both landscape sides, but only when the
+    // phone's auto-rotate is on (4PDA: "auto-rotate does not work", S23 Ultra). With it off the game stays
+    // on one side, which is what the lock above was for; SENSOR_LANDSCAPE ignored that setting.
     @Override
     public void setOrientationBis(int w, int h, boolean resizable, String hint) {
-        setRequestedOrientation(android.content.pm.ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        setRequestedOrientation(android.content.pm.ActivityInfo.SCREEN_ORIENTATION_USER_LANDSCAPE);
     }
 
     @Override
@@ -377,7 +380,7 @@ public class GeneralsZHActivity extends SDLActivity {
         // manifest lock alone isn't settling fast enough on every device/OEM
         // skin. Setting it again here in code takes effect before this
         // Activity's window is even measured, closing the gap further.
-        setRequestedOrientation(android.content.pm.ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        setRequestedOrientation(android.content.pm.ActivityInfo.SCREEN_ORIENTATION_USER_LANDSCAPE);
 
         extractBundledRuntime();
 
@@ -467,7 +470,24 @@ public class GeneralsZHActivity extends SDLActivity {
         WindowInsetsControllerCompat controller =
             WindowCompat.getInsetsController(getWindow(), getWindow().getDecorView());
         if (controller != null) {
-            controller.hide(androidx.core.view.WindowInsetsCompat.Type.systemBars());
+            // GeneralsX @bugfix Android port 08/11/2026 The same bars as SDLActivity hides
+            // (hideSystemUiModern in android/patches/sdl-android-gesture-nav-back.patch): under gesture
+            // navigation only the status bar. Hiding the navigation pill too broke the home gesture
+            // again -- the bar flashed and the game could not be minimized (4PDA, S23 Ultra).
+            controller.hide(usesGestureNavigation()
+                ? androidx.core.view.WindowInsetsCompat.Type.statusBars()
+                : androidx.core.view.WindowInsetsCompat.Type.systemBars());
+        }
+    }
+
+    private boolean usesGestureNavigation() {
+        try {
+            android.content.res.Resources res = getResources();
+            int id = res.getIdentifier("config_navBarInteractionMode", "integer", "android");
+            // 0 = three button, 1 = two button, 2 = fully gestural
+            return id > 0 && res.getInteger(id) == 2;
+        } catch (Throwable t) {
+            return true;
         }
     }
 
