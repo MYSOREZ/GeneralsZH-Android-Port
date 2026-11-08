@@ -289,14 +289,14 @@ Everyone who has supported the port, month by month (amounts in US dollars, appr
 donation was in another currency). The launcher shows the current month only; at the end of every
 month its heroes move here. Thank you!
 
-**November 2026** — $6.91 of the $20 monthly subscription so far
+**November 2026** — $6.83 of the $20 monthly subscription so far
 
 | Hero | Amount |
 |---|---|
-| Sammy Denilson | $1.88 · Boosty |
-| Nox and Iki GAMING | $1.90 · Boosty |
+| Sammy Denilson | $1.86 · Boosty |
+| Nox and Iki GAMING | $1.87 · Boosty |
 | Unknown General | $1 · USDC |
-| Diaa Abu Jazar | $2.13 · Boosty |
+| Diaa Abu Jazar | $2.10 · Boosty |
 
 **October 2026** — $18.73 of the $20 monthly subscription
 

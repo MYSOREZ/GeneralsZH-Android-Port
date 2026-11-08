@@ -180,11 +180,11 @@
         "rows": [
           {
             "left": "Sammy Denilson",
-            "right": "$1.88 · Boosty"
+            "right": "$1.86 · Boosty"
           },
           {
             "left": "Nox and Iki GAMING",
-            "right": "$1.90 · Boosty"
+            "right": "$1.87 · Boosty"
           },
           {
             "left": {
@@ -206,28 +206,28 @@
           },
           {
             "left": "Diaa Abu Jazar",
-            "right": "$2.13 · Boosty"
+            "right": "$2.10 · Boosty"
           }
         ]
       },
       {
         "type": "progress",
         "label": {
-          "en": "November: $6.91 of the $20 monthly subscription",
-          "ru": "Ноябрь: $6.91 из месячной подписки в $20",
-          "uk": "Листопад: $6.91 із місячної підписки в $20",
-          "de": "November: 6,91 $ vom Monatsabo über 20 $",
-          "es": "Noviembre: 6,91 $ de la suscripción mensual de 20 $",
-          "fr": "Novembre : 6,91 $ sur l’abonnement mensuel de 20 $",
-          "pl": "Listopad: 6,91 $ z miesięcznego abonamentu za 20 $",
-          "pt-BR": "Novembro: US$ 6,91 da assinatura mensal de US$ 20",
-          "isv": "Novembr: 6,91 $ iz měsečnoj podpisky za 20 $",
-          "zh": "11 月：每月 20 美元订阅已筹得 6.91 美元",
-          "ko": "11월: 월 $20 구독료 중 $6.91",
-          "ar": "نوفمبر: 6.91 $ من الاشتراك الشهري البالغ 20 $",
-          "fa": "نوامبر: ۶٫۹۱ دلار از اشتراک ماهانه ۲۰ دلاری"
+          "en": "November: $6.83 of the $20 monthly subscription",
+          "ru": "Ноябрь: $6.83 из месячной подписки в $20",
+          "uk": "Листопад: $6.83 із місячної підписки в $20",
+          "de": "November: 6,83 $ vom Monatsabo über 20 $",
+          "es": "Noviembre: 6,83 $ de la suscripción mensual de 20 $",
+          "fr": "Novembre : 6,83 $ sur l’abonnement mensuel de 20 $",
+          "pl": "Listopad: 6,83 $ z miesięcznego abonamentu za 20 $",
+          "pt-BR": "Novembro: US$ 6,83 da assinatura mensal de US$ 20",
+          "isv": "Novembr: 6,83 $ iz měsečnoj podpisky za 20 $",
+          "zh": "11 月：每月 20 美元订阅已筹得 6.83 美元",
+          "ko": "11월: 월 $20 구독료 중 $6.83",
+          "ar": "نوفمبر: 6.83 $ من الاشتراك الشهري البالغ 20 $",
+          "fa": "نوامبر: ۶٫۸۳ دلار از اشتراک ماهانه ۲۰ دلاری"
         },
-        "value": 6.91,
+        "value": 6.83,
         "max": 20
       },
       {
