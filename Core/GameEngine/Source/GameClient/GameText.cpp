@@ -747,8 +747,12 @@ void GameTextManager::buildModTextLayers( Int format, const AsciiString& textLan
 	m_language = originalLanguage;
 
 	// Override: what a mod added or changed, pack language first.
+	// GeneralsX @bugfix Android port 12/11/2026 Issue #77: without a language pack too. A mod's
+	// data\Generals.str (found by the loop above) only reached the fallback, after the game's own
+	// generals.csf, which has the same labels -- so Continue's armies kept the stock USA/China/GLA
+	// names. In the retail engine that file, when present, was read instead of the .csf; here the
+	// labels a mod changes or adds win over the game's table, in or out of a pack.
 	std::map<std::string, const StringInfo*> overrides;
-	if( format == STRING_FILE )
 	{
 		for( size_t l = 0; l < tablesByLanguage.size(); ++l )
 		{
@@ -809,7 +813,7 @@ void GameTextManager::buildModTextLayers( Int format, const AsciiString& textLan
 	}
 
 	fprintf( stderr, "[GX-TEXT] primary=%s labels=%d; string tables: %d from mods, %d from the game; "
-		"mod labels over the pack: %d; fallback labels: %d\n",
+		"mod labels over the game: %d; fallback labels: %d\n",
 		format == STRING_FILE ? "language pack" : "game table", m_textCount, modTables, gameTables,
 		m_overrideTextCount, m_fallbackTextCount );
 	fflush( stderr );
