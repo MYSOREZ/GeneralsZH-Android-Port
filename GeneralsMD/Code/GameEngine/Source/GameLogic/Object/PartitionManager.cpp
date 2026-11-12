@@ -1278,6 +1278,18 @@ void PartitionCell::invalidateShroudedStatusForAllCois(Int playerIndex)
 void PartitionCell::addLooker(Int playerIndex)
 {
 	CellShroudStatus oldShroud = getShroudStatusForPlayer( playerIndex );
+	// GeneralsX @bugfix Android port 12/11/2026 Issue #78 diagnostic: in long games standing units and
+	// buildings end up under fog. The looker count of a cell goes down by one per looker and is a
+	// Short: a look without its unlook, repeated for an hour, would wrap it past -32768 into the
+	// positive "shrouded" range. Say so the first time a cell gets near that, and how often after.
+	if( m_shroudLevel[playerIndex].m_currentShroud <= -30000 )
+	{
+		static UnsignedInt s_gxNearWrap = 0;
+		if( (s_gxNearWrap++ % 1000) == 0 )
+			fprintf( stderr, "[GX-SHROUD] frame %u: cell %d,%d player %d has %d lookers (near the limit), %u times\n",
+				TheGameLogic ? (unsigned)TheGameLogic->getFrame() : 0u, (int)m_cellX, (int)m_cellY, (int)playerIndex,
+				-(int)m_shroudLevel[playerIndex].m_currentShroud, (unsigned)s_gxNearWrap );
+	}
 	// The decreasing Algorithm: A 1 will go straight to -1, otherwise it just gets decremented
 	m_shroudLevel[playerIndex].m_currentShroud = min( m_shroudLevel[playerIndex].m_currentShroud - 1, -1 );
 
@@ -1315,6 +1327,16 @@ void PartitionCell::removeLooker(Int playerIndex)
 	else
 	{
 		DEBUG_ASSERTCRASH( m_shroudLevel[playerIndex].m_currentShroud < 0, ("Someone is RemoveLooker-ing on a cell that is not looked at.  This will make a permanent shroud blob.") );
+		// GeneralsX @bugfix Android port 12/11/2026 Issue #78 diagnostic: the case the assert above names,
+		// which a release build passes silently -- an unlook with no look, leaving fog for good.
+		if( m_shroudLevel[playerIndex].m_currentShroud >= 0 )
+		{
+			static UnsignedInt s_gxUnmatched = 0;
+			if( (s_gxUnmatched++ % 1000) == 0 )
+				fprintf( stderr, "[GX-SHROUD] frame %u: cell %d,%d player %d unlooked with no looker (level %d), %u times\n",
+					TheGameLogic ? (unsigned)TheGameLogic->getFrame() : 0u, (int)m_cellX, (int)m_cellY, (int)playerIndex,
+					(int)m_shroudLevel[playerIndex].m_currentShroud, (unsigned)s_gxUnmatched );
+		}
 		m_shroudLevel[playerIndex].m_currentShroud++;
 	}
 	CellShroudStatus newShroud = getShroudStatusForPlayer( playerIndex );
