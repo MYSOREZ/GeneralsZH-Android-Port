@@ -908,6 +908,7 @@ static void saveOptions()
 
 static void DestroyOptionsLayout() {
 	CloseExtrasMenu();
+	CloseCheatMenu();
 
 	SignalUIInteraction(SHELL_SCRIPT_HOOK_OPTIONS_CLOSED);
 
@@ -999,6 +1000,46 @@ static void gxEnsureExtrasButton()
 		GameWindow *accept = GXWindowLook::byName("OptionsMenu.wnd:ButtonAccept");
 		GXWindowLook::copy(button, accept ? accept : back, TRUE);
 		GadgetButtonSetText(button, ExtrasMenuButtonLabel());
+	}
+}
+
+// GeneralsX @feature Android port 13/11/2026 The Cheats button, mirroring Extras on the heading's other
+// side, only in a game against the computer (CheatMenu.cpp); hidden everywhere else.
+static void gxEnsureCheatsButton()
+{
+	const NameKeyType id = TheNameKeyGenerator->nameToKey("OptionsMenu.wnd:ButtonCheats");
+	const Bool available = CheatMenuAvailable();
+	if (GameWindow *existing = TheWindowManager->winGetWindowFromId(nullptr, id))
+	{
+		existing->winHide(!available);
+		return;
+	}
+	if (!available)
+		return;
+	GameWindow *back = TheWindowManager->winGetWindowFromId(nullptr, TheNameKeyGenerator->nameToKey("OptionsMenu.wnd:ButtonBack"));
+	if (!back || !back->winGetParent() || !TheDisplay)
+		return;
+	GameWindow *parent = back->winGetParent();
+	Int px, py;
+	parent->winGetScreenPosition(&px, &py);
+	const GXUiScale::Transform &transform = GXUiScale::forLayout("Menus/OptionsMenu.wnd");
+	const Int left = (Int)transform.mapX(TheDisplay->getWidth() * 158.0f / 800.0f);
+	const Int right = (Int)transform.mapX(TheDisplay->getWidth() * 290.0f / 800.0f);
+	const Int top = (Int)transform.mapY(TheDisplay->getHeight() * 22.0f / 600.0f);
+	const Int bottom = (Int)transform.mapY(TheDisplay->getHeight() * 54.0f / 600.0f);
+	WinInstanceData inst;
+	inst.init();
+	inst.m_style = GWS_PUSH_BUTTON | GWS_MOUSE_TRACK;
+	inst.m_textLabelString = "Cheats";
+	GameFont *font = back->winGetInstanceData()->getFont();
+	GameWindow *button = TheWindowManager->gogoGadgetPushButton(parent, WIN_STATUS_ENABLED,
+		left - px, top - py, right - left, bottom - top, &inst, font, FALSE);
+	if (button)
+	{
+		button->winSetWindowId(id);
+		GameWindow *accept = GXWindowLook::byName("OptionsMenu.wnd:ButtonAccept");
+		GXWindowLook::copy(button, accept ? accept : back, TRUE);
+		GadgetButtonSetText(button, CheatMenuButtonLabel());
 	}
 }
 
@@ -1489,6 +1530,7 @@ void OptionsMenuInit( WindowLayout *layout, void *userData )
 
 
 	gxEnsureExtrasButton();
+	gxEnsureCheatsButton();
 	TheWindowManager->winSetModal(parent);
 	ignoreSelected = FALSE;
 }
@@ -1589,6 +1631,7 @@ WindowMsgHandledType OptionsMenuSystem( GameWindow *window, UnsignedInt msg,
 	static NameKeyType buttonReplayMenu = NAMEKEY_INVALID;
 	static NameKeyType buttonKeyboardOptionsMenu = NAMEKEY_INVALID;
 	static NameKeyType buttonExtrasMenu = NAMEKEY_INVALID;
+	static NameKeyType buttonCheatsMenu = NAMEKEY_INVALID;
 
 	switch( msg )
 	{
@@ -1604,6 +1647,7 @@ WindowMsgHandledType OptionsMenuSystem( GameWindow *window, UnsignedInt msg,
 			buttonKeyboardOptionsMenu = TheNameKeyGenerator->nameToKey( "OptionsMenu.wnd:ButtonKeyboardOptions" );
 			// GeneralsX @feature Codex/realkot 14/10/2026 Made in OptionsMenuInit (gxEnsureExtrasButton).
 			buttonExtrasMenu = TheNameKeyGenerator->nameToKey("OptionsMenu.wnd:ButtonExtras");
+			buttonCheatsMenu = TheNameKeyGenerator->nameToKey("OptionsMenu.wnd:ButtonCheats");
 
 			break;
 
@@ -1613,6 +1657,7 @@ WindowMsgHandledType OptionsMenuSystem( GameWindow *window, UnsignedInt msg,
 		case GWM_DESTROY:
 		{
 			CloseExtrasMenu();
+			CloseCheatMenu();
 
 			break;
 
@@ -1727,6 +1772,10 @@ WindowMsgHandledType OptionsMenuSystem( GameWindow *window, UnsignedInt msg,
 			else if ( controlID == buttonExtrasMenu )
 			{
 				OpenExtrasMenu(pref);
+			}
+			else if ( controlID == buttonCheatsMenu )
+			{
+				OpenCheatMenu();
 			}
 			else if(controlID == checkDrawAnchorID )
       {

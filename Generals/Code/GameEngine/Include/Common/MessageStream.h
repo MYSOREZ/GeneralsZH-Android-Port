@@ -584,6 +584,11 @@ public:
 		MSG_DEBUG_KILL_OBJECT,
 #endif
 
+		// GeneralsX @feature Android port 13/11/2026 The single-player cheat menu (CheatMenu.cpp): (Int cheat)
+		// from GXSinglePlayerCheat. A logic message, so a replay repeats it; a fixed number, so no retail
+		// message moves. The logic ignores it in any game with more than one human (GameLogicDispatch).
+		MSG_GX_SINGLE_PLAYER_CHEAT = 1990,
+
 //*********************************************************************************************************
 		MSG_END_NETWORK_MESSAGES = 1999,						///< MARKER TO DELINEATE MESSAGES THAT GO OVER THE NETWORK
 //*********************************************************************************************************

@@ -77,6 +77,9 @@
 #include "GameClient/GameWindowManager.h"
 #include "GameClient/GUICallbacks.h"
 #include "GameClient/InGameUI.h"
+#include "GameLogic/GXSinglePlayerCheat.h"
+#include "GameLogic/PartitionManager.h"
+#include "Common/Money.h"
 #include "GameClient/KeyDefs.h"
 #include "GameClient/Mouse.h"
 #include "GameClient/ParticleSys.h"
@@ -666,6 +669,38 @@ void GameLogic::logicMessageDispatcher( GameMessage *msg, void *userData )
 		case GameMessage::MSG_DO_CHEER:
 		{
 			onDoCheer(msg, currentlySelectedGroup);
+			break;
+		}
+		// GeneralsX @feature Android port 13/11/2026 The single-player cheat menu (GXSinglePlayerCheat.h).
+		// Applied here, as logic, to the player who sent it, so a replay repeats it; refused in any game
+		// with more than one human player.
+		case GameMessage::MSG_GX_SINGLE_PLAYER_CHEAT:
+		{
+			if (!GXSinglePlayerCheat::allowedInLogic() || msg->getArgumentCount() < 1 || msgPlayer->getPlayerType() != PLAYER_HUMAN)
+				break;
+			switch (msg->getArgument(0)->integer)
+			{
+				case GXSinglePlayerCheat::ADD_CASH:
+					msgPlayer->getMoney()->deposit(10000, TRUE, FALSE);
+					break;
+				case GXSinglePlayerCheat::TOGGLE_INSTANT_BUILD:
+					msgPlayer->toggleInstantBuild();
+					break;
+				case GXSinglePlayerCheat::REVEAL_MAP:
+#if RTS_ZEROHOUR
+					ThePartitionManager->revealMapForPlayerPermanently(msgPlayer->getPlayerIndex());
+#else
+					ThePartitionManager->revealMapForPlayer(msgPlayer->getPlayerIndex());
+#endif
+					break;
+				case GXSinglePlayerCheat::ADD_GENERAL_POINT:
+					msgPlayer->addSciencePurchasePoints(1);
+					break;
+				default:
+					break;
+			}
+			fprintf(stderr, "[GX-CHEAT] frame %u player %d cheat %d\n", getFrame(), msgPlayer->getPlayerIndex(),
+				msg->getArgument(0)->integer);
 			break;
 		}
 

@@ -353,6 +353,11 @@ class OptionPreferences;
 extern void OpenExtrasMenu(OptionPreferences *optionsPreferences);
 extern void CloseExtrasMenu();
 extern UnicodeString ExtrasMenuButtonLabel();  ///< "Extras" in the text language
+// GeneralsX @feature Android port 13/11/2026 The single-player cheat menu (CheatMenu.cpp)
+extern void OpenCheatMenu();
+extern void CloseCheatMenu();
+extern Bool CheatMenuAvailable();
+extern UnicodeString CheatMenuButtonLabel();
 
 // Extras Menu (SagePatch QoL) ----------------------------------------------------------------------------------
 extern void ExtrasMenuInit( WindowLayout *layout, void *userData );
