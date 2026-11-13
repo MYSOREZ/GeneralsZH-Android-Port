@@ -132,6 +132,7 @@ public:
 
 	Real getMaxCameraHeight() const;
 	Real getMinCameraHeight() const;
+	Int getStartCameraHeight() const; // GeneralsX @feature Android port 13/11/2026 Issue #82; 0 = the maximum
 	Real getCameraPitch() const;
 	Real getTerrainDrawDistanceScale() const;
 	Real getGameWindowTransitionSpeedMultiplier() const;

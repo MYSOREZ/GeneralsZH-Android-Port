@@ -47,6 +47,12 @@ inline CameraDefaults &iniCamera() {
 inline float &retailMaxCameraHeight() {
     return iniCamera().maxHeight;
 }
+// GeneralsX @feature Android port 13/11/2026 Issue #82: the height a match starts at, in MaxCameraHeight
+// units (OptionPreferences::getStartCameraHeight); 0 starts at the maximum, as the original game.
+inline int &startCameraHeight() {
+    static int value=0;
+    return value;
+}
 inline int normalize(int value,int low,int high,int quantum=1) {
     value=std::max(low,std::min(high,value));
     return std::max(low,std::min(high,value/quantum*quantum));

@@ -2332,6 +2332,16 @@ void W3DView::setZoomToMax()
 	{
 		m_heightAboveGround = m_maxHeightAboveGround * retailMax / TheGlobalData->m_maxCameraHeight;
 	}
+	// GeneralsX @feature Android port 13/11/2026 Issue #82: a match starts at the height chosen in the
+	// Extras menu (0, the default, keeps the original's start at the maximum). It is in MaxCameraHeight
+	// units, so it scales with the screen's aspect as the maximum does, and may lie up to the Tactical
+	// scheme's raised ceiling. View only.
+	const Int start = GXExtrasValues::startCameraHeight();
+	if (start > 0 && TheGameLogic && TheGameLogic->getGameMode() != GAME_SHELL && TheGlobalData->m_maxCameraHeight > 0.0f)
+	{
+		const Real height = m_maxHeightAboveGround * (Real)start / TheGlobalData->m_maxCameraHeight;
+		m_heightAboveGround = clamp(m_minHeightAboveGround, height, getUserMaxHeightAboveGround());
+	}
 
 	m_cameraAreaConstraintsValid = false; // recalc it.
 	m_recalcCamera = true;

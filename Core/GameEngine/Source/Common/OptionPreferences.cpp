@@ -902,6 +902,20 @@ Real OptionPreferences::getMaxCameraHeight() const
 	return val;
 }
 
+// GeneralsX @feature Android port 13/11/2026 Issue #82: the height a match starts at, from the Extras
+// menu, in the units of MaxCameraHeight (the Tactical scheme's raised ceiling included). 0, the
+// default, starts at the maximum, as the original game does.
+Int OptionPreferences::getStartCameraHeight() const
+{
+	OptionPreferences::const_iterator it = find("StartCameraHeight");
+	if (it == end())
+		return 0;
+	const Int val = atoi(it->second.str());
+	if (val <= 0)
+		return 0;
+	return val > 3600 ? 3600 : val;
+}
+
 Real OptionPreferences::getMinCameraHeight() const
 {
 	OptionPreferences::const_iterator it = find("MinCameraHeight");

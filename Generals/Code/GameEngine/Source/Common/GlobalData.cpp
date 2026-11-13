@@ -1262,6 +1262,7 @@ void GlobalData::parseGameDataDefinition( INI* ini )
 	TheWritableGlobalData->m_minCameraHeight = optionPref.getMinCameraHeight();
 	TheWritableGlobalData->m_cameraPitch = optionPref.getCameraPitch();
 	TheWritableGlobalData->m_terrainDrawDistanceScale = optionPref.getTerrainDrawDistanceScale();
+	GXExtrasValues::startCameraHeight() = optionPref.getStartCameraHeight();
 	TheWritableGlobalData->m_drawScrollAnchor = optionPref.getDrawScrollAnchor();
 	TheWritableGlobalData->m_moveScrollAnchor = optionPref.getMoveScrollAnchor();
 	TheWritableGlobalData->m_defaultIP = optionPref.getLANIPAddress();

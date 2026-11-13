@@ -62,12 +62,15 @@ static NameKeyType sliderMinCameraHeightID = NAMEKEY_INVALID;
 static NameKeyType sliderCameraPitchID = NAMEKEY_INVALID;
 static NameKeyType sliderScrollSpeedID = NAMEKEY_INVALID;
 static NameKeyType sliderDrawDistanceID = NAMEKEY_INVALID;
+// GeneralsX @feature Android port 13/11/2026 Issue #82: the height a game starts at.
+static NameKeyType sliderStartCameraHeightID = NAMEKEY_INVALID;
 
 static GameWindow *sliderMaxCameraHeight = nullptr;
 static GameWindow *sliderMinCameraHeight = nullptr;
 static GameWindow *sliderCameraPitch = nullptr;
 static GameWindow *sliderScrollSpeed = nullptr;
 static GameWindow *sliderDrawDistance = nullptr;
+static GameWindow *sliderStartCameraHeight = nullptr;
 
 static OptionPreferences *pref = nullptr;
 
@@ -159,7 +162,7 @@ static void gxExtrasTakeOptionsLook(GameWindow *parent)
     // The number fields, the small -/+ and the preset buttons keep the Extras layout's own size
     // (scaled for the screen) in Options' font family: Options' button font is made for buttons four
     // times their width, and Generals' text fields use an 8-point font (owner, a38: tiny digits).
-    for (Int i = 0; i < 5; ++i)
+    for (Int i = 0; i < 6; ++i)
     {
         AsciiString minus, plus; minus.format("Exact%dMinus", i); plus.format("Exact%dPlus", i);
         if (GameWindow *w = gxExtrasChild(minus.str())) GXWindowLook::copyFontFamily(w, entry ? entry : button);
@@ -314,21 +317,22 @@ static const Int SLIDER_DRAW_DISTANCE_MIN = 100;
 static const Int SLIDER_DRAW_DISTANCE_MAX = 200;
 
 // GeneralsX @feature Codex 16/10/2026 Numeric edits and steppers share the slider draft.
-static Int s_exactLast[5]={-1,-1,-1,-1,-1};
-static Int s_exactMin[5]={400,50,20,1,100};
-static Int s_exactMax[5]={3600,300,60,200,200};
-static Int s_exactStep[5]={40,1,1,1,1};
+// The sixth row is the starting height (#82): from the lowest minimum to the highest maximum.
+static Int s_exactLast[6]={-1,-1,-1,-1,-1,-1};
+static Int s_exactMin[6]={400,50,20,1,100,50};
+static Int s_exactMax[6]={3600,300,60,200,200,3600};
+static Int s_exactStep[6]={40,1,1,1,1,10};
 static const Int s_cameraPresets[4]={400,1000,2000,3600};
 static GameWindow *gxExactWindow(Int index,const char *suffix) {
     AsciiString name;name.format("ExtrasMenu.wnd:Exact%d%s",index,suffix);
     return TheWindowManager->winGetWindowFromId(nullptr,TheNameKeyGenerator->nameToKey(name));
 }
 static GameWindow *gxExactSlider(Int index) {
-    GameWindow *sliders[]={sliderMaxCameraHeight,sliderMinCameraHeight,sliderCameraPitch,sliderScrollSpeed,sliderDrawDistance};
-    return index>=0 && index<5 ? sliders[index] : nullptr;
+    GameWindow *sliders[]={sliderMaxCameraHeight,sliderMinCameraHeight,sliderCameraPitch,sliderScrollSpeed,sliderDrawDistance,sliderStartCameraHeight};
+    return index>=0 && index<6 ? sliders[index] : nullptr;
 }
 static void gxSyncExactValues(Bool force=FALSE) {
-    for(Int i=0;i<5;++i) {
+    for(Int i=0;i<6;++i) {
         GameWindow *slider=gxExactSlider(i),*entry=gxExactWindow(i,"Value");
         if(!slider||!entry)continue;
         Int value=GXExtrasValues::normalize(GadgetSliderGetPosition(slider),s_exactMin[i],s_exactMax[i],i==0?GX_EXTRA_CAMERA_SCALE:1);
@@ -350,22 +354,22 @@ static void gxCommitExactValue(Int i) {
 
 namespace
 {
-	struct ExtrasTexts { const char *language; const wchar_t *text[10]; };
-	// Title, the five rows, Cancel, Defaults, Apply, and the Options button.
+	struct ExtrasTexts { const char *language; const wchar_t *text[11]; };
+	// Title, the five rows, Cancel, Defaults, Apply, the Options button, and the starting height row.
 	const ExtrasTexts kExtrasTexts[] = {
-		{ "english", { L"EXTRA OPTIONS", L"Maximum camera height", L"Minimum camera height", L"Camera pitch", L"Scroll speed", L"Terrain draw distance", L"Cancel", L"Defaults", L"Apply", L"Extras" } },
-		{ "russian", { L"ДОПОЛНИТЕЛЬНЫЕ НАСТРОЙКИ", L"Максимальная высота камеры", L"Минимальная высота камеры", L"Наклон камеры", L"Скорость прокрутки", L"Дальность отрисовки", L"Отмена", L"По умолчанию", L"Применить", L"Дополнительно" } },
-		{ "ukrainian", { L"ДОДАТКОВІ НАЛАШТУВАННЯ", L"Максимальна висота камери", L"Мінімальна висота камери", L"Нахил камери", L"Швидкість прокручування", L"Дальність відмальовування", L"Скасувати", L"За замовчуванням", L"Застосувати", L"Додатково" } },
-		{ "interslavic", { L"DODATNE NASTAVLJENJA", L"Maksimalna visina kamery", L"Minimalna visina kamery", L"Naklon kamery", L"Brzina prokrutki", L"Daljina risovanja", L"Otměniti", L"Po umolčanju", L"Primeniti", L"Dodatno" } },
-		{ "german", { L"WEITERE OPTIONEN", L"Maximale Kamerahöhe", L"Minimale Kamerahöhe", L"Kameraneigung", L"Scrollgeschwindigkeit", L"Geländesichtweite", L"Abbrechen", L"Standard", L"Übernehmen", L"Extras" } },
-		{ "french", { L"OPTIONS SUPPLÉMENTAIRES", L"Hauteur max. de la caméra", L"Hauteur min. de la caméra", L"Inclinaison de la caméra", L"Vitesse de défilement", L"Distance d'affichage", L"Annuler", L"Par défaut", L"Appliquer", L"Extras" } },
-		{ "spanish", { L"OPCIONES ADICIONALES", L"Altura máxima de cámara", L"Altura mínima de cámara", L"Inclinación de cámara", L"Velocidad de desplazamiento", L"Distancia de dibujado", L"Cancelar", L"Predeterminado", L"Aplicar", L"Extras" } },
-		{ "brazilian", { L"OPÇÕES EXTRAS", L"Altura máxima da câmera", L"Altura mínima da câmera", L"Inclinação da câmera", L"Velocidade de rolagem", L"Distância de desenho", L"Cancelar", L"Padrão", L"Aplicar", L"Extras" } },
-		{ "polish", { L"DODATKOWE USTAWIENIA", L"Maks. wysokość kamery", L"Min. wysokość kamery", L"Nachylenie kamery", L"Szybkość przewijania", L"Zasięg rysowania", L"Anuluj", L"Domyślne", L"Zastosuj", L"Dodatkowe" } },
-		{ "chinese", { L"附加选项", L"镜头最大高度", L"镜头最小高度", L"镜头俯角", L"滚动速度", L"地形绘制距离", L"取消", L"默认", L"应用", L"附加" } },
-		{ "korean", { L"추가 설정", L"최대 카메라 높이", L"최소 카메라 높이", L"카메라 각도", L"스크롤 속도", L"지형 표시 거리", L"취소", L"기본값", L"적용", L"추가" } },
-		{ "arabic", { L"خيارات إضافية", L"أقصى ارتفاع للكاميرا", L"أدنى ارتفاع للكاميرا", L"ميل الكاميرا", L"سرعة التمرير", L"مسافة رسم التضاريس", L"إلغاء", L"الافتراضي", L"تطبيق", L"إضافات" } },
-		{ "persian", { L"تنظیمات بیشتر", L"بیشترین ارتفاع دوربین", L"کمترین ارتفاع دوربین", L"شیب دوربین", L"سرعت پیمایش", L"فاصله ترسیم زمین", L"لغو", L"پیش‌فرض", L"اعمال", L"بیشتر" } },
+		{ "english", { L"EXTRA OPTIONS", L"Maximum camera height", L"Minimum camera height", L"Camera pitch", L"Scroll speed", L"Terrain draw distance", L"Cancel", L"Defaults", L"Apply", L"Extras", L"Starting camera height" } },
+		{ "russian", { L"ДОПОЛНИТЕЛЬНЫЕ НАСТРОЙКИ", L"Максимальная высота камеры", L"Минимальная высота камеры", L"Наклон камеры", L"Скорость прокрутки", L"Дальность отрисовки", L"Отмена", L"По умолчанию", L"Применить", L"Дополнительно", L"Стартовая высота камеры" } },
+		{ "ukrainian", { L"ДОДАТКОВІ НАЛАШТУВАННЯ", L"Максимальна висота камери", L"Мінімальна висота камери", L"Нахил камери", L"Швидкість прокручування", L"Дальність відмальовування", L"Скасувати", L"За замовчуванням", L"Застосувати", L"Додатково", L"Початкова висота камери" } },
+		{ "interslavic", { L"DODATNE NASTAVLJENJA", L"Maksimalna visina kamery", L"Minimalna visina kamery", L"Naklon kamery", L"Brzina prokrutki", L"Daljina risovanja", L"Otměniti", L"Po umolčanju", L"Primeniti", L"Dodatno", L"Počętna visina kamery" } },
+		{ "german", { L"WEITERE OPTIONEN", L"Maximale Kamerahöhe", L"Minimale Kamerahöhe", L"Kameraneigung", L"Scrollgeschwindigkeit", L"Geländesichtweite", L"Abbrechen", L"Standard", L"Übernehmen", L"Extras", L"Kamerahöhe beim Start" } },
+		{ "french", { L"OPTIONS SUPPLÉMENTAIRES", L"Hauteur max. de la caméra", L"Hauteur min. de la caméra", L"Inclinaison de la caméra", L"Vitesse de défilement", L"Distance d'affichage", L"Annuler", L"Par défaut", L"Appliquer", L"Extras", L"Hauteur initiale de la caméra" } },
+		{ "spanish", { L"OPCIONES ADICIONALES", L"Altura máxima de cámara", L"Altura mínima de cámara", L"Inclinación de cámara", L"Velocidad de desplazamiento", L"Distancia de dibujado", L"Cancelar", L"Predeterminado", L"Aplicar", L"Extras", L"Altura inicial de cámara" } },
+		{ "brazilian", { L"OPÇÕES EXTRAS", L"Altura máxima da câmera", L"Altura mínima da câmera", L"Inclinação da câmera", L"Velocidade de rolagem", L"Distância de desenho", L"Cancelar", L"Padrão", L"Aplicar", L"Extras", L"Altura inicial da câmera" } },
+		{ "polish", { L"DODATKOWE USTAWIENIA", L"Maks. wysokość kamery", L"Min. wysokość kamery", L"Nachylenie kamery", L"Szybkość przewijania", L"Zasięg rysowania", L"Anuluj", L"Domyślne", L"Zastosuj", L"Dodatkowe", L"Pocz. wysokość kamery" } },
+		{ "chinese", { L"附加选项", L"镜头最大高度", L"镜头最小高度", L"镜头俯角", L"滚动速度", L"地形绘制距离", L"取消", L"默认", L"应用", L"附加", L"镜头初始高度" } },
+		{ "korean", { L"추가 설정", L"최대 카메라 높이", L"최소 카메라 높이", L"카메라 각도", L"스크롤 속도", L"지형 표시 거리", L"취소", L"기본값", L"적용", L"추가", L"시작 카메라 높이" } },
+		{ "arabic", { L"خيارات إضافية", L"أقصى ارتفاع للكاميرا", L"أدنى ارتفاع للكاميرا", L"ميل الكاميرا", L"سرعة التمرير", L"مسافة رسم التضاريس", L"إلغاء", L"الافتراضي", L"تطبيق", L"إضافات", L"ارتفاع الكاميرا عند البدء" } },
+		{ "persian", { L"تنظیمات بیشتر", L"بیشترین ارتفاع دوربین", L"کمترین ارتفاع دوربین", L"شیب دوربین", L"سرعت پیمایش", L"فاصله ترسیم زمین", L"لغو", L"پیش‌فرض", L"اعمال", L"بیشتر", L"ارتفاع آغازین دوربین" } },
 	};
 
 	const ExtrasTexts &gxExtrasTexts()
@@ -394,12 +398,14 @@ void ExtrasMenuInit(WindowLayout *layout, void *userData)
 	sliderCameraPitchID = TheNameKeyGenerator->nameToKey("ExtrasMenu.wnd:SliderCameraPitch");
 	sliderScrollSpeedID = TheNameKeyGenerator->nameToKey("ExtrasMenu.wnd:SliderScrollSpeed");
 	sliderDrawDistanceID = TheNameKeyGenerator->nameToKey("ExtrasMenu.wnd:SliderDrawDistance");
+	sliderStartCameraHeightID = TheNameKeyGenerator->nameToKey("ExtrasMenu.wnd:SliderStartCameraHeight");
 
 	sliderMaxCameraHeight = TheWindowManager->winGetWindowFromId(nullptr, sliderMaxCameraHeightID);
 	sliderMinCameraHeight = TheWindowManager->winGetWindowFromId(nullptr, sliderMinCameraHeightID);
 	sliderCameraPitch = TheWindowManager->winGetWindowFromId(nullptr, sliderCameraPitchID);
 	sliderScrollSpeed = TheWindowManager->winGetWindowFromId(nullptr, sliderScrollSpeedID);
 	sliderDrawDistance = TheWindowManager->winGetWindowFromId(nullptr, sliderDrawDistanceID);
+	sliderStartCameraHeight = TheWindowManager->winGetWindowFromId(nullptr, sliderStartCameraHeightID);
 
 	pref = NEW OptionPreferences;
 
@@ -408,9 +414,11 @@ void ExtrasMenuInit(WindowLayout *layout, void *userData)
     s_exactMin[0] = SLIDER_MAX_CAMERA_HEIGHT_MIN;
     s_exactMax[0] = SLIDER_MAX_CAMERA_HEIGHT_MAX;
     s_exactStep[0] = 10 * GX_EXTRA_CAMERA_SCALE;
+    s_exactMin[5] = SLIDER_MIN_CAMERA_HEIGHT_MIN;
+    s_exactMax[5] = SLIDER_MAX_CAMERA_HEIGHT_MAX;
     {
-        GameWindow *sliders[] = { sliderMaxCameraHeight, sliderMinCameraHeight, sliderCameraPitch, sliderScrollSpeed, sliderDrawDistance };
-        for (Int i = 0; i < 5; ++i)
+        GameWindow *sliders[] = { sliderMaxCameraHeight, sliderMinCameraHeight, sliderCameraPitch, sliderScrollSpeed, sliderDrawDistance, sliderStartCameraHeight };
+        for (Int i = 0; i < 6; ++i)
             if (sliders[i])
                 TheWindowManager->winSendSystemMsg(sliders[i], GSM_SET_MIN_MAX, s_exactMin[i], s_exactMax[i]);
     }
@@ -424,11 +432,19 @@ void ExtrasMenuInit(WindowLayout *layout, void *userData)
         GadgetSliderSetPosition(sliderScrollSpeed, (Int)(pref->getScrollFactor() * 100.0f + 0.5f));
     if (sliderDrawDistance)
         GadgetSliderSetPosition(sliderDrawDistance, (Int)(pref->getTerrainDrawDistanceScale() * 100.0f + 0.5f));
+    // GeneralsX @feature Android port 13/11/2026 Issue #82: 0 is "at the maximum height", where the
+    // original game starts every match; the slider shows that height then.
+    if (sliderStartCameraHeight) {
+        const Int start = pref->getStartCameraHeight();
+        GadgetSliderSetPosition(sliderStartCameraHeight, start > 0 ? start : (Int)(pref->getMaxCameraHeight() + 0.5f));
+    }
 
     // GeneralsX @feature Android port 18/10/2026 Labels in the text language (a language pack's, else
     // the game's); realkot's build had English and Russian.
     const ExtrasTexts &t = gxExtrasTexts();
     const char *names[] = {"LabelTitle", "LabelMaxCameraHeight", "LabelMinCameraHeight", "LabelCameraPitch", "LabelScrollSpeed", "LabelDrawDistance"};
+    if (GameWindow *label = gxExtrasChild("LabelStartCameraHeight"))
+        GadgetStaticTextSetText(label, UnicodeString(t.text[10]));
     for (Int i=0; i<6; ++i) {
         AsciiString id; id.format("ExtrasMenu.wnd:%s", names[i]);
         GameWindow *label = TheWindowManager->winGetWindowFromId(nullptr, TheNameKeyGenerator->nameToKey(id));
@@ -452,7 +468,7 @@ void ExtrasMenuInit(WindowLayout *layout, void *userData)
             preset->winHide(GX_EXTRA_CAMERA_SCALE == 1);
     }
 
-    for(Int i=0;i<5;++i) {
+    for(Int i=0;i<6;++i) {
         GameWindow *minus=gxExactWindow(i,"Minus"),*plus=gxExactWindow(i,"Plus");
         if(minus)GadgetButtonSetText(minus,UnicodeString(L"−"));
         if(plus)GadgetButtonSetText(plus,UnicodeString(L"+"));
@@ -481,6 +497,7 @@ void ExtrasMenuShutdown(WindowLayout *layout, void *userData)
 	sliderCameraPitch = nullptr;
 	sliderScrollSpeed = nullptr;
 	sliderDrawDistance = nullptr;
+	sliderStartCameraHeight = nullptr;
 
 	if (pref) {
 		delete pref;
@@ -536,8 +553,19 @@ static void saveExtras()
 		prefString.format("%d", val);
 		(*pref)["TerrainDrawDistanceScale"] = prefString;
 	}
+	// GeneralsX @feature Android port 13/11/2026 Issue #82: the starting height; at the stored maximum
+	// it is saved as 0, "the maximum", so it follows a later change of the maximum as the original did.
+	if (sliderStartCameraHeight) {
+		val = GXExtrasValues::normalize(GadgetSliderGetPosition(sliderStartCameraHeight), s_exactMin[5], s_exactMax[5]);
+		const Int storedMax = (Int)(TheWritableGlobalData->m_maxCameraHeight + 0.5f);
+		const Int start = val == storedMax ? 0 : val;
+		GXExtrasValues::startCameraHeight() = start;
+		AsciiString prefString;
+		prefString.format("%d", start);
+		(*pref)["StartCameraHeight"] = prefString;
+	}
     if (s_optionsPreferences) {
-        const char *keys[] = {"MaxCameraHeight", "MinCameraHeight", "CameraPitch", "ScrollFactor", "TerrainDrawDistanceScale"};
+        const char *keys[] = {"MaxCameraHeight", "MinCameraHeight", "CameraPitch", "ScrollFactor", "TerrainDrawDistanceScale", "StartCameraHeight"};
         for (const char *key : keys) (*s_optionsPreferences)[key] = (*pref)[key];
     }
     if (TheTacticalView) {
@@ -570,6 +598,8 @@ static void setDefaults()
 		GadgetSliderSetPosition(sliderScrollSpeed, (Int)(TheGlobalData->m_keyboardDefaultScrollFactor * 100.0f + 0.5f));
 	if (sliderDrawDistance)
 		GadgetSliderSetPosition(sliderDrawDistance, (Int)(drawDistance * 100.0f + 0.5f));
+	if (sliderStartCameraHeight)
+		GadgetSliderSetPosition(sliderStartCameraHeight, (Int)(maxHeight + 0.5f));
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -603,14 +633,14 @@ WindowMsgHandledType ExtrasMenuSystem(GameWindow *window, UnsignedInt msg,
         // Extras is an owned modal, not a shell layout: its periodic update is
         // not guaranteed. Slider input must refresh the draft before Apply reads it.
         case GSM_SLIDER_TRACK:
-            for(Int i=0;i<5;++i)if((GameWindow*)mData1==gxExactSlider(i)) {
+            for(Int i=0;i<6;++i)if((GameWindow*)mData1==gxExactSlider(i)) {
                 s_exactLast[i]=-1;
                 gxSyncExactValues();return MSG_HANDLED;
             }
             break;
 
         case GEM_EDIT_DONE:
-            for(Int i=0;i<5;++i)if((GameWindow*)mData1==gxExactWindow(i,"Value")) {
+            for(Int i=0;i<6;++i)if((GameWindow*)mData1==gxExactWindow(i,"Value")) {
                 gxCommitExactValue(i);gxSyncExactValues();return MSG_HANDLED;
             }
             break;
@@ -619,7 +649,7 @@ WindowMsgHandledType ExtrasMenuSystem(GameWindow *window, UnsignedInt msg,
 		{
 			GameWindow *control = (GameWindow *)mData1;
 			Int controlID = control->winGetWindowId();
-            for(Int i=0;i<5;++i) {
+            for(Int i=0;i<6;++i) {
                 GameWindow *minus=gxExactWindow(i,"Minus"),*plus=gxExactWindow(i,"Plus");
                 if(control==minus || control==plus) {
                     gxCommitExactValue(i);
@@ -642,7 +672,7 @@ WindowMsgHandledType ExtrasMenuSystem(GameWindow *window, UnsignedInt msg,
 				CloseExtrasMenu();
 			}
 			else if (controlID == buttonAccept) {
-                for(Int i=0;i<5;++i)gxCommitExactValue(i);
+                for(Int i=0;i<6;++i)gxCommitExactValue(i);
 				saveExtras();
 				if (pref) {
 					pref->write();
