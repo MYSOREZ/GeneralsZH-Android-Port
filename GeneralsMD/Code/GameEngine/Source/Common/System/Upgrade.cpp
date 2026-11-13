@@ -154,12 +154,11 @@ UpgradeTemplate::~UpgradeTemplate()
 //-------------------------------------------------------------------------------------------------
 Int UpgradeTemplate::calcTimeToBuild( Player *player ) const
 {
-#if defined(RTS_DEBUG) || defined(_ALLOW_DEBUG_CHEATS_IN_RELEASE)
+	// GeneralsX @feature Android port 13/11/2026 Always compiled; off unless the single-player cheat sets it.
 	if( player->buildsInstantly() )
 	{
 		return 1;
 	}
-#endif
 
 	///@todo modify this by power state of player
 	return m_buildTime * static_cast<float>(LOGICFRAMES_PER_SECOND);

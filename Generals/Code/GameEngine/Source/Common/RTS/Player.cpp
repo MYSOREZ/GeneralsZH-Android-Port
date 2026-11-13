@@ -409,8 +409,8 @@ void Player::init(const PlayerTemplate* pt)
 #if defined(RTS_DEBUG)
 	m_DEMO_ignorePrereqs = FALSE;
 	m_DEMO_freeBuild = FALSE;
-	m_DEMO_instantBuild = FALSE;
 #endif
+	m_DEMO_instantBuild = FALSE;
 
 	if (pt)
 	{

@@ -1415,12 +1415,11 @@ Int ThingTemplate::calcTimeToBuild( const Player* player) const
 	Real factionModifier = 1 + player->getProductionTimeChangePercent( getName() );
 	buildTime *= factionModifier;
 
-#if defined(RTS_DEBUG)
+	// GeneralsX @feature Android port 13/11/2026 Always compiled; off unless the single-player cheat sets it.
 	if( player->buildsInstantly() )
 	{
 		buildTime = 1;
 	}
-#endif
 
 	// Adjust build time based on energy supply.
 

@@ -341,12 +341,12 @@ public:
 
 #endif
 
-#if defined(RTS_DEBUG) || defined(_ALLOW_DEBUG_CHEATS_IN_RELEASE)
+	// GeneralsX @feature Android port 13/11/2026 Instant build, once a debug-build cheat key, is always
+	// compiled: the single-player cheat menu turns it on (GXSinglePlayerCheat.h). Off by default.
 	/// No time building cheat key
 	void toggleInstantBuild(){ m_DEMO_instantBuild = !m_DEMO_instantBuild; }
 	void enableInstantBuild(Bool enable) { m_DEMO_instantBuild = enable; }
 	Bool buildsInstantly() const { return m_DEMO_instantBuild; }
-#endif
 
 	///< Power just changed at all.  Didn't make two functions so you can't forget to undo something you didin one of them.
 	///< @todo Can't do edge trigger until after demo; make things check for power on creation
@@ -811,9 +811,7 @@ private:
 	Bool									m_DEMO_freeBuild;				///< Can I build everything for no money?
 #endif
 
-#if defined(RTS_DEBUG) || defined(_ALLOW_DEBUG_CHEATS_IN_RELEASE)
 	Bool									m_DEMO_instantBuild;		///< Can I build anything in one frame?
-#endif
 
 	ScoreKeeper						m_scoreKeeper;					///< The local scorekeeper for this player
 
