@@ -16,3 +16,4 @@ owner says so. The current build for the owner lives one level up, in `apk/`.
 | `GeneralsXZH-android-generals-a49.apk` | #71, 4PDA (everyone) | a48 + Generals powers no longer fire from the supply plane (#71); system bars and shade usable, game can be minimized; both landscape sides with auto-rotate |
 | `GeneralsXZH-android-generals-a50.apk` | #74, #77, #78 (everyone) | a49 + Extras draw distance kept (#74); a mod's Generals.str labels without a language pack (#77); `[GX-SHROUD]` diagnostic (#78) |
 | `GeneralsXZH-android-generals-a51.apk` | #82 (everyone) | a50 + Extras "Starting camera height": the height a match starts at; default as the original, the maximum (#82) |
+| `GeneralsXZH-android-generals-a52.apk` | everyone | a51 + the frame limiter sleeps to the deadline instead of spinning the last 2 ms of every frame (less heat and battery) |
