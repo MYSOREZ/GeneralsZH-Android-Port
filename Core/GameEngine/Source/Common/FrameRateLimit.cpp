@@ -23,6 +23,7 @@
 #ifndef _WIN32
 #include <time.h>    // clock_gettime, nanosleep
 #include <unistd.h>  // usleep (fallback)
+#include <errno.h>
 #endif
 
 FrameRateLimit::FrameRateLimit()
@@ -93,32 +94,38 @@ Real FrameRateLimit::wait(UnsignedInt maxFps)
 	m_start = tick.QuadPart;
 	return (Real)elapsedSeconds;
 #else
-	// Linux: Use CLOCK_MONOTONIC for high-resolution timing
+	// GeneralsX @performance Android port 13/11/2026 Sleep to the frame's deadline instead of sleeping
+	// to 2 ms before it and spinning on the clock for the rest: at 60 fps the spin kept a core busy
+	// for up to an eighth of every frame, for nothing but heat and battery. The idea is from the
+	// koreazolfakar-droid fork (FrameRateLimit.cpp, 13/11/2026); written here for this limiter.
+	// A sleep wakes a little late, so the deadlines advance by whole periods from the previous
+	// deadline, not from the late wake-up: the lateness is absorbed by the next frame instead of
+	// lowering the rate. After a frame that missed its deadline by more than a period (a slow frame,
+	// a pause, a new limit) the schedule starts again from now. Render pacing only: the elapsed time
+	// returned is still the real interval, and the game logic does not read this clock.
+	const Int64 period = m_freq / static_cast<Int64>(maxFps);
 	struct timespec tick;
 	clock_gettime(CLOCK_MONOTONIC, &tick);
 	Int64 tickValue = static_cast<Int64>(tick.tv_sec) * 1000000000 + tick.tv_nsec;
-	double elapsedSeconds = static_cast<double>(tickValue - m_start) / static_cast<double>(m_freq);
-	const double targetSeconds = 1.0 / maxFps;
-	const double sleepSeconds = targetSeconds - elapsedSeconds - 0.002; // leave ~2ms for spin wait
-
-	if (sleepSeconds > 0.0)
+	Int64 deadline = m_deadline + period;
+	if (m_deadline == 0 || deadline < tickValue - period || deadline > tickValue + period)
+		deadline = m_start + period;
+	if (deadline < tickValue - period)
+		deadline = tickValue;
+	while (tickValue < deadline)
 	{
-		// Non busy wait with nanosleep
+		const Int64 remaining = deadline - tickValue;
 		struct timespec sleepTime;
-		sleepTime.tv_sec = static_cast<time_t>(sleepSeconds);
-		sleepTime.tv_nsec = static_cast<long>((sleepSeconds - sleepTime.tv_sec) * 1000000000);
-		nanosleep(&sleepTime, nullptr);
-	}
-
-	// Busy wait for remaining time
-	do
-	{
+		sleepTime.tv_sec = static_cast<time_t>(remaining / 1000000000);
+		sleepTime.tv_nsec = static_cast<long>(remaining % 1000000000);
+		// An interrupted sleep is resumed from the clock; any other failure must not become a spin.
+		if (nanosleep(&sleepTime, nullptr) != 0 && errno != EINTR)
+			break;
 		clock_gettime(CLOCK_MONOTONIC, &tick);
 		tickValue = static_cast<Int64>(tick.tv_sec) * 1000000000 + tick.tv_nsec;
-		elapsedSeconds = static_cast<double>(tickValue - m_start) / static_cast<double>(m_freq);
 	}
-	while (elapsedSeconds < targetSeconds);
-
+	m_deadline = deadline;
+	const double elapsedSeconds = static_cast<double>(tickValue - m_start) / static_cast<double>(m_freq);
 	m_start = tickValue;
 	return static_cast<Real>(elapsedSeconds);
 #endif

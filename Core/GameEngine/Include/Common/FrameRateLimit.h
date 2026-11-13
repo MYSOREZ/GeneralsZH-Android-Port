@@ -31,6 +31,9 @@ public:
 private:
 	Int64 m_freq;
 	Int64 m_start;
+	// GeneralsX @performance Android port 13/11/2026 POSIX only: when the current frame is due, on a
+	// schedule of whole frame periods, so the limiter can sleep to it without spinning (wait()).
+	Int64 m_deadline = 0;
 };
 
 
