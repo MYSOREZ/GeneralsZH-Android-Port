@@ -1027,8 +1027,9 @@ static void gxEnsureExtrasButton()
 	}
 }
 
-// GeneralsX @feature Android port 13/11/2026 The Cheats button, mirroring Extras on the heading's other
-// side, only in a game against the computer (CheatMenu.cpp); hidden everywhere else.
+// GeneralsX @feature Android port 13/11/2026 The Cheats button, just left of Extras (the heading itself
+// stands at the left, owner's screenshot 14/11), only in a game against the computer (CheatMenu.cpp);
+// hidden everywhere else.
 static void gxEnsureCheatsButton()
 {
 	const NameKeyType id = TheNameKeyGenerator->nameToKey("OptionsMenu.wnd:ButtonCheats");
@@ -1047,8 +1048,8 @@ static void gxEnsureCheatsButton()
 	Int px, py;
 	parent->winGetScreenPosition(&px, &py);
 	const GXUiScale::Transform &transform = GXUiScale::forLayout("Menus/OptionsMenu.wnd");
-	const Int left = (Int)transform.mapX(TheDisplay->getWidth() * 158.0f / 800.0f);
-	const Int right = (Int)transform.mapX(TheDisplay->getWidth() * 290.0f / 800.0f);
+	const Int left = (Int)transform.mapX(TheDisplay->getWidth() * 372.0f / 800.0f);
+	const Int right = (Int)transform.mapX(TheDisplay->getWidth() * 504.0f / 800.0f);
 	const Int top = (Int)transform.mapY(TheDisplay->getHeight() * 22.0f / 600.0f);
 	const Int bottom = (Int)transform.mapY(TheDisplay->getHeight() * 54.0f / 600.0f);
 	WinInstanceData inst;
