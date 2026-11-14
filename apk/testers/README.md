@@ -18,3 +18,4 @@ owner says so. The current build for the owner lives one level up, in `apk/`.
 | `GeneralsXZH-android-generals-a51.apk` | #82 (everyone) | a50 + Extras "Starting camera height": the height a match starts at; default as the original, the maximum (#82) |
 | `GeneralsXZH-android-generals-a52.apk` | everyone | a51 + the frame limiter sleeps to the deadline instead of spinning the last 2 ms of every frame (less heat and battery) |
 | `GeneralsXZH-android-generals-a53.apk` | everyone, kingvladder (cheat request) | a52 + Cheats in the in-game Options against the computer only: +10000 money, instant build, reveal map, +1 General point |
+| `GeneralsXZH-android-generals-a54.apk` | everyone, kingvladder (cheat request) | a53 + the Cheats button actually shown in games against the computer (the hidden observer no longer counted as a human), placed left of Extras |
