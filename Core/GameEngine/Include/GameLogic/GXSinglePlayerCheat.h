@@ -23,6 +23,7 @@
 // game has more than one human player, live or in a replay, so a network game can never take one.
 #pragma once
 
+#include "Common/NameKeyGenerator.h"
 #include "Common/Player.h"
 #include "Common/PlayerList.h"
 #include "GameLogic/GameLogic.h"
@@ -38,14 +39,19 @@ enum Cheat
 	COUNT
 };
 
+/// Human players who play. Every skirmish and network game also has the "ReplayObserver" player,
+/// flagged human (GameLogic::startNewGame), and a network game may have human observers: neither
+/// counts (owner's skirmish, 14/11: counted, it hid the menu).
 inline Int humanPlayers()
 {
+	static const NameKeyType observerKey = NAMEKEY("ReplayObserver");
 	Int humans = 0;
 	if (ThePlayerList)
 		for (Int i = 0; i < ThePlayerList->getPlayerCount(); ++i)
 		{
 			const Player *player = ThePlayerList->getNthPlayer(i);
-			if (player && player->getPlayerType() == PLAYER_HUMAN)
+			if (player && player->getPlayerType() == PLAYER_HUMAN && !player->isPlayerObserver()
+				&& player->getPlayerNameKey() != observerKey)
 				++humans;
 		}
 	return humans;
