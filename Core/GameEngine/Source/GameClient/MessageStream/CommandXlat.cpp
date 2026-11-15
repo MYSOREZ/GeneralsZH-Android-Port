@@ -5581,6 +5581,11 @@ static Bool isSystemMessage( const GameMessage *msg )
 		case GameMessage::MSG_SET_REPLAY_CAMERA:
 		case GameMessage::MSG_FRAME_TICK:
 		case GameMessage::MSG_META_DEMO_INSTANT_QUIT:
+		// GeneralsX @bugfix Android port 15/11/2026 The cheat menu is used from the in-game Options, which
+		// pauses the game with input off: without this the translator destroyed every cheat the menu sent
+		// (owner, a54: the messages showed, the money did not change). The logic still refuses it in any
+		// game with more than one human (GXSinglePlayerCheat.h).
+		case GameMessage::MSG_GX_SINGLE_PLAYER_CHEAT:
 			return TRUE;
 	}
 	return FALSE;
