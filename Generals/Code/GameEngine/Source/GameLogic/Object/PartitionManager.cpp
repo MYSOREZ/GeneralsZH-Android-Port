@@ -4732,6 +4732,14 @@ void PartitionManager::xfer( Xfer *xfer )
 			// until loadPostProcess, but I ain't gonna change it now.
 //			DEBUG_ASSERTCRASH(m_pendingUndoShroudReveals.empty(), ("At load, we appear to not be in a reset state.") );
 
+			// GeneralsX @bugfix Android port 15/11/2026 Issue #78: those unlooks are discarded. Each one comes
+			// with a look from the same setTeam, and that look went into the cells loaded just above, which
+			// replaced it with the counts as saved -- the saved state already holds the object's look. The
+			// queued unlook then took one more looker off every cell around every such object on the first
+			// frame after a load (the reporter's log: ~39000 unlooks of unlooked cells at that frame), leaving
+			// the cells shrouded for good: standing units and buildings under fog, unselectable.
+			resetPendingUndoShroudRevealQueue();
+
 			// I have to split this up though, since on Load I need to make new instances.
 			for( Int infoIndex = 0; infoIndex < queueSize; infoIndex++ )
 			{
