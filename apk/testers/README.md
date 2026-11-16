@@ -20,3 +20,4 @@ owner says so. The current build for the owner lives one level up, in `apk/`.
 | `GeneralsXZH-android-generals-a53.apk` | everyone, kingvladder (cheat request) | a52 + Cheats in the in-game Options against the computer only: +10000 money, instant build, reveal map, +1 General point |
 | `GeneralsXZH-android-generals-a54.apk` | everyone, kingvladder (cheat request) | a53 + the Cheats button actually shown in games against the computer (the hidden observer no longer counted as a human), placed left of Extras |
 | `GeneralsXZH-android-generals-a55.apk` | everyone, kingvladder (cheat request) | a54 + cheats actually applied (the paused Options no longer drop the cheat command) |
+| `GeneralsXZH-android-generals-a56.apk` | #78 (generalmilk), everyone | a55 + loading a save no longer takes every object's sight off the map once more (#78) |
