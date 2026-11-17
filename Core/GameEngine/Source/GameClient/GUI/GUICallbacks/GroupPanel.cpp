@@ -66,7 +66,9 @@
 #include "GameLogic/Squad.h"
 #include <map>
 
-enum { ARMY_SCREEN, ARMY_MAP, ARMY_PLANES, ARMY_HELICOPTERS, ARMY_GROUND, ARMY_BUTTON_COUNT };
+// GeneralsX @feature Android port 17/11/2026 Issue #73: the hero (Ctrl+H) and the camera reset (Num5),
+// keys a phone without a keyboard cannot press, at the foot of the army column.
+enum { ARMY_SCREEN, ARMY_MAP, ARMY_PLANES, ARMY_HELICOPTERS, ARMY_GROUND, ARMY_HERO, ARMY_CAMERA, ARMY_BUTTON_COUNT };
 
 static NameKeyType s_parentID = NAMEKEY_INVALID;
 static NameKeyType s_buttonHandleID = NAMEKEY_INVALID;
@@ -127,6 +129,13 @@ static void selectArmy(Int which)
 				excluded.set(KINDOF_PRODUCED_AT_HELIPAD);
 			}
 			break;
+		case ARMY_HERO:
+			// The keyboard's command itself (CommandXlat): selects the hero, centres the view on it.
+			TheMessageStream->appendMessage(GameMessage::MSG_META_SELECT_HERO);
+			return;
+		case ARMY_CAMERA:
+			TheMessageStream->appendMessage(GameMessage::MSG_META_CAMERA_RESET);
+			return;
 		case ARMY_GROUND:
 		{
 			// On screen; pressed again within two seconds, the whole map.
@@ -152,7 +161,8 @@ static void selectArmy(Int which)
 static UnicodeString armyButtonLabel(Int index)
 {
 	static const char *const kLabelKeys[ARMY_BUTTON_COUNT] = {
-		"GUI:ArmyScreenShort", "GUI:ArmyMapShort", "GUI:ArmyPlanesShort", "GUI:ArmyHelicoptersShort", "GUI:ArmyGround" };
+		"GUI:ArmyScreenShort", "GUI:ArmyMapShort", "GUI:ArmyPlanesShort", "GUI:ArmyHelicoptersShort", "GUI:ArmyGround",
+		"GUI:ArmyHeroShort", "GUI:ArmyCameraShort" };
 	if (TheGameText) {
 		Bool exists = FALSE;
 		UnicodeString label = TheGameText->fetch(kLabelKeys[index], &exists);
@@ -162,19 +172,19 @@ static UnicodeString armyButtonLabel(Int index)
 	}
 	struct Labels { const char *language; const wchar_t *text[ARMY_BUTTON_COUNT]; };
 	static const Labels kLabels[] = {
-		{ "english", { L"Screen", L"Map", L"Planes", L"Helis", L"Ground" } },
-		{ "russian", { L"Экран", L"Карта", L"Самолёты", L"Вертол.", L"Наземные" } },
-		{ "ukrainian", { L"Екран", L"Карта", L"Літаки", L"Гелікоп.", L"Наземні" } },
-		{ "interslavic", { L"Ekran", L"Mapa", L"Aviony", L"Helikop.", L"Zemja" } },
-		{ "arabic", { L"الشاشة", L"الخريطة", L"طائرات", L"مروحيات", L"برية" } },
-		{ "brazilian", { L"Tela", L"Mapa", L"Aviões", L"Helicóp.", L"Terrest." } },
-		{ "chinese", { L"屏幕", L"全图", L"战机", L"直升机", L"地面" } },
-		{ "french", { L"Écran", L"Carte", L"Avions", L"Hélicos", L"Sol" } },
-		{ "german", { L"Bild", L"Karte", L"Flieger", L"Helis", L"Boden" } },
-		{ "korean", { L"화면", L"지도", L"전투기", L"헬기", L"지상군" } },
-		{ "persian", { L"صفحه", L"نقشه", L"هواپیما", L"بالگرد", L"زمینی" } },
-		{ "polish", { L"Ekran", L"Mapa", L"Samoloty", L"Śmigłow.", L"Lądowe" } },
-		{ "spanish", { L"Pantalla", L"Mapa", L"Aviones", L"Helicóp.", L"Tierra" } },
+		{ "english", { L"Screen", L"Map", L"Planes", L"Helis", L"Ground", L"Hero", L"Camera" } },
+		{ "russian", { L"Экран", L"Карта", L"Самолёты", L"Вертол.", L"Наземные", L"Герой", L"Камера" } },
+		{ "ukrainian", { L"Екран", L"Карта", L"Літаки", L"Гелікоп.", L"Наземні", L"Герой", L"Камера" } },
+		{ "interslavic", { L"Ekran", L"Mapa", L"Aviony", L"Helikop.", L"Zemja", L"Heroj", L"Kamera" } },
+		{ "arabic", { L"الشاشة", L"الخريطة", L"طائرات", L"مروحيات", L"برية", L"البطل", L"الكاميرا" } },
+		{ "brazilian", { L"Tela", L"Mapa", L"Aviões", L"Helicóp.", L"Terrest.", L"Herói", L"Câmera" } },
+		{ "chinese", { L"屏幕", L"全图", L"战机", L"直升机", L"地面", L"英雄", L"复位镜头" } },
+		{ "french", { L"Écran", L"Carte", L"Avions", L"Hélicos", L"Sol", L"Héros", L"Caméra" } },
+		{ "german", { L"Bild", L"Karte", L"Flieger", L"Helis", L"Boden", L"Held", L"Kamera" } },
+		{ "korean", { L"화면", L"지도", L"전투기", L"헬기", L"지상군", L"영웅", L"카메라" } },
+		{ "persian", { L"صفحه", L"نقشه", L"هواپیما", L"بالگرد", L"زمینی", L"قهرمان", L"دوربین" } },
+		{ "polish", { L"Ekran", L"Mapa", L"Samoloty", L"Śmigłow.", L"Lądowe", L"Bohater", L"Kamera" } },
+		{ "spanish", { L"Pantalla", L"Mapa", L"Aviones", L"Helicóp.", L"Tierra", L"Héroe", L"Cámara" } },
 	};
 	const char *pack = getenv("GENERALSX_TEXT_LANGUAGE");
 	AsciiString language = (pack != nullptr && pack[0] != '\0') ? AsciiString(pack) : GetRegistryLanguage();
@@ -199,7 +209,8 @@ static void cacheWidgetIDs()
 	s_groupRowID = TheNameKeyGenerator->nameToKey("GroupPanel.wnd:GroupRow");
 	static const char *const kArmyNames[ARMY_BUTTON_COUNT] = {
 		"GroupPanel.wnd:ArmyScreen", "GroupPanel.wnd:ArmyMap", "GroupPanel.wnd:ArmyPlanes",
-		"GroupPanel.wnd:ArmyHelicopters", "GroupPanel.wnd:ArmyGround" };
+		"GroupPanel.wnd:ArmyHelicopters", "GroupPanel.wnd:ArmyGround", "GroupPanel.wnd:ArmyHero",
+		"GroupPanel.wnd:ArmyCamera" };
 	for (Int i = 0; i < ARMY_BUTTON_COUNT; ++i) {
 		s_armyButtonID[i] = TheNameKeyGenerator->nameToKey(kArmyNames[i]);
 	}
@@ -785,9 +796,9 @@ void GroupPanelFollowControlBar(Int barScreenX, Int barScreenY, Bool visible)
 		fitButtonFont(button, g.cellWidth, g.rowHeight);
 	}
 
-	// The army: a second column as tall as the first, five buttons.
+	// The army: a second column as tall as the first, one button per row.
 	const Int armyX = g.x0 + g.columnWidth + g.gap;
-	const Int armyRow = (blockHeight - 4 * g.gap) / 5;
+	const Int armyRow = (blockHeight - (ARMY_BUTTON_COUNT - 1) * g.gap) / ARMY_BUTTON_COUNT;
 	for (Int i = 0; i < ARMY_BUTTON_COUNT; ++i) {
 		GameWindow *button = panelWindow(s_armyButtonID[i]);
 		if (!button) {
