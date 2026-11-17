@@ -386,6 +386,15 @@ void SortingRendererClass::Insert_To_Sorting_Pool(SortingNodeStruct* state)
 		return;
 	}
 
+	// GeneralsX @bugfix Android port 17/11/2026 The pool's vertices go into one dynamic vertex buffer
+	// whose size is an unsigned short (DynamicVBAccessClass), while the copy in Flush_Sorting_Pool
+	// writes all of them: past 65535 vertices in a huge battle the buffer was sized from the truncated
+	// count and overrun. Draw what the pool holds first; the order of the sorted nodes is kept.
+	// Found in the bjdhbt-web fork.
+	if (overlapping_node_count > 0 && overlapping_vertex_count + state->vertex_count > 65535) {
+		Flush_Sorting_Pool();
+	}
+
 	overlapping_nodes[overlapping_node_count]=state;
 	overlapping_vertex_count+=state->vertex_count;
 	overlapping_polygon_count+=state->polygon_count;

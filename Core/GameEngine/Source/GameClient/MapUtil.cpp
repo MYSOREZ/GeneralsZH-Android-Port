@@ -30,6 +30,7 @@
 // INCLUDES ///////////////////////////////////////////////////////////////////////////////////////
 #include "PreRTS.h"	// This must go first in EVERY cpp file in the GameEngine
 #include <cstdint>
+#include <string>
 
 #include "Common/crc.h"
 #include "Common/FileSystem.h"
@@ -1122,7 +1123,28 @@ const MapMetaData *MapCache::findMap(AsciiString mapName)
 	mapName.toLower();
 	MapCache::iterator it = find(mapName);
 	if (it == end())
-		return nullptr;
+	{
+		// GeneralsX @bugfix Android port 17/11/2026 The same path with the other separator. A LAN host
+		// can name an official map "maps/x/x.map" while this cache keys it "maps\x\x.map" (or the
+		// reverse): the exact lookup then said "you do not have the map" for an official map, and no
+		// transfer was offered. Only the separator may differ; the CRC is still compared by the caller.
+		// Found in the Flux-Egy fork (its LAN logs); written here for this cache.
+		std::string other(mapName.str());
+		const Bool hasSlash = other.find('/') != std::string::npos;
+		const Bool hasBackslash = other.find('\\') != std::string::npos;
+		if (!hasSlash && !hasBackslash)
+			return nullptr;
+		for (size_t i = 0; i < other.size(); ++i)
+		{
+			if (hasSlash && other[i] == '/')
+				other[i] = '\\';
+			else if (!hasSlash && other[i] == '\\')
+				other[i] = '/';
+		}
+		it = find(AsciiString(other.c_str()));
+		if (it == end())
+			return nullptr;
+	}
 	return &(it->second);
 }
 

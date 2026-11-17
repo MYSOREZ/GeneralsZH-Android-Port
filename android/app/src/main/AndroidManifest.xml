@@ -96,7 +96,7 @@
             android:launchMode="singleInstance"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:preferMinimalPostProcessing="true"
-            android:configChanges="layoutDirection|locale|orientation|uiMode|screenLayout|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation">
+            android:configChanges="layoutDirection|locale|orientation|uiMode|screenLayout|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation|density">
             <!-- GeneralsX @tweak Android port 20/09/2026 No LAUNCHER category any
                  more, so the home screen shows one icon instead of two. Two were
                  declared, and some OEM launchers collapse them while others do

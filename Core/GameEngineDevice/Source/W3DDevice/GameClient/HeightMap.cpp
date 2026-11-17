@@ -1133,7 +1133,9 @@ void HeightMapRenderObjClass::adjustTerrainLOD(Int adj)
 									break;
 	}
 	if (m_map==nullptr) return;
-	m_map->setDrawOrg(m_map->getDrawOrgX(), m_map->getDrawOrgX());
+	// GeneralsX @bugfix Android port 17/11/2026 The Y origin, not X twice (a retail typo; it moved the
+	// drawn terrain window off the camera after a terrain detail change). Found in the koreazolfakar-droid fork.
+	m_map->setDrawOrg(m_map->getDrawOrgX(), m_map->getDrawOrgY());
 	if (m_shroud)
 		m_shroud->reset();	//need reset here since initHeightData will load new shroud.
 	this->initHeightData(m_map->getDrawWidth(),

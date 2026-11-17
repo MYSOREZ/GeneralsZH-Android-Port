@@ -224,7 +224,17 @@ static bool SDLCALL mobileLifecycleWatcher(void *userdata, SDL_Event *event)
 		// after DID_ENTER_FOREGROUND.
 		case SDL_EVENT_WINDOW_FOCUS_LOST:
 			logMobileLifecycleEvent("WINDOW_FOCUS_LOST");
+#if defined(__ANDROID__)
+			// GeneralsX @bugfix Android port 17/11/2026 On Android focus goes to anything drawn over the
+			// game -- the notification shade, a chat bubble, an incoming-call banner -- while the game
+			// stays on screen with its surface intact. Halting the whole loop then (the iOS reason above
+			// does not apply) stopped the engine update, network included: no commands left the phone,
+			// and the other players' disconnect timers ran out ("random kicks"). Android halts only when
+			// it really goes to the background (WILL/DID_ENTER_BACKGROUND above). Found in the Flux-Egy
+			// fork (its multiplayer device logs); written here for this watcher.
+#else
 			s_appInactive.store(true);
+#endif
 			break;
 		case SDL_EVENT_WINDOW_FOCUS_GAINED:
 			logMobileLifecycleEvent("WINDOW_FOCUS_GAINED");

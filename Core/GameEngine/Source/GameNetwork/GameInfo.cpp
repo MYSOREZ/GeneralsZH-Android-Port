@@ -379,13 +379,8 @@ Int GameInfo::getMaxPlayers() const
 	if (!TheMapCache)
 		return -1;
 
-	AsciiString lowerMap = m_mapName;
-	lowerMap.toLower();
-	MapCache::iterator it = TheMapCache->find(lowerMap);
-	if (it == TheMapCache->end())
-		return -1;
-	MapMetaData data = it->second;
-	return data.m_numPlayers;
+	const MapMetaData *data = TheMapCache->findMap(m_mapName);
+	return data ? data->m_numPlayers : -1;
 }
 
 void GameInfo::enterGame()
@@ -623,11 +618,9 @@ void GameInfo::setMapCRC( UnsignedInt mapCRC )
 	if (m_inGame && getLocalSlotNum() >= 0)
 	{
 		//TheMapCache->updateCache();
-		AsciiString lowerMap = m_mapName;
-		lowerMap.toLower();
-		//DEBUG_LOG(("GameInfo::setMapCRC - looking for map file \"%s\" in the map cache", lowerMap.str()));
-		std::map<AsciiString, MapMetaData>::iterator it = TheMapCache->find(lowerMap);
-		if (it == TheMapCache->end())
+		// GeneralsX @bugfix Android port 17/11/2026 findMap, which also accepts the other path separator.
+		const MapMetaData *found = TheMapCache->findMap(m_mapName);
+		if (found == nullptr)
 		{
 			/*
 			DEBUG_LOG(("GameInfo::setMapCRC - could not find map file."));
@@ -640,9 +633,9 @@ void GameInfo::setMapCRC( UnsignedInt mapCRC )
 			*/
 			getSlot(getLocalSlotNum())->setMapAvailability(false);
 		}
-		else if (m_mapCRC != it->second.m_CRC)
+		else if (m_mapCRC != found->m_CRC)
 		{
-			DEBUG_LOG(("GameInfo::setMapCRC - map CRC's do not match (%X/%X).", m_mapCRC, it->second.m_CRC));
+			DEBUG_LOG(("GameInfo::setMapCRC - map CRC's do not match (%X/%X).", m_mapCRC, found->m_CRC));
 			getSlot(getLocalSlotNum())->setMapAvailability(false);
 		}
 		else
@@ -663,15 +656,13 @@ void GameInfo::setMapSize( UnsignedInt mapSize )
 	if (m_inGame && getLocalSlotNum() >= 0)
 	{
 		//TheMapCache->updateCache();
-		AsciiString lowerMap = m_mapName;
-		lowerMap.toLower();
-		std::map<AsciiString, MapMetaData>::iterator it = TheMapCache->find(lowerMap);
-		if (it == TheMapCache->end())
+		const MapMetaData *found = TheMapCache->findMap(m_mapName);
+		if (found == nullptr)
 		{
 			DEBUG_LOG(("GameInfo::setMapSize - could not find map file."));
 			getSlot(getLocalSlotNum())->setMapAvailability(false);
 		}
-		else if (m_mapCRC != it->second.m_CRC)
+		else if (m_mapCRC != found->m_CRC)
 		{
 			DEBUG_LOG(("GameInfo::setMapSize - map CRC's do not match."));
 			getSlot(getLocalSlotNum())->setMapAvailability(false);
