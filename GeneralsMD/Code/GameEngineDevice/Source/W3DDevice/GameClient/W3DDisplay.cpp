@@ -2038,9 +2038,14 @@ void W3DDisplay::step()
 // the same battle content as the main view), the main scene render
 // (drawViews()), and the UI/mouse/present tail -- to see which one
 // actually owns the growing cost instead of guessing again.
+// GeneralsX @performance Android port 22/11/2026 Issue #76: preRTT split into its two parts -- the
+// views' update and the particle systems' update -- with the live particle and system counts. A mod
+// (NProject) put 75 ms/frame there against 2 ms for the stock game, and the total alone cannot say which.
 static void gxTraceDisplayDrawPhase(double preRTTUs, double waterShadowRTTUs,
-	double mainSceneUs, double uiWidgetsUs, double presentUs)
+	double mainSceneUs, double uiWidgetsUs, double presentUs, double particleUpdateUs)
 {
+	static double s_particleUpdateUs = 0;
+	s_particleUpdateUs += particleUpdateUs;
 	static std::chrono::steady_clock::time_point s_windowStart = std::chrono::steady_clock::now();
 	static double s_preRTTUs = 0, s_waterShadowRTTUs = 0, s_mainSceneUs = 0, s_uiWidgetsUs = 0, s_presentUs = 0;
 	static int s_frames = 0;
@@ -2067,6 +2072,14 @@ static void gxTraceDisplayDrawPhase(double preRTTUs, double waterShadowRTTUs,
 			s_mainSceneUs / 1000.0 / s_frames,
 			s_uiWidgetsUs / 1000.0 / s_frames,
 			s_presentUs / 1000.0 / s_frames);
+		GX_PERF_TRACE("[GX-PERF-PRERTT] frames=%d views=%.2fms particles=%.2fms | particles alive=%u (field %u) systems=%u\n",
+			s_frames,
+			(s_preRTTUs - s_particleUpdateUs) / 1000.0 / s_frames,
+			s_particleUpdateUs / 1000.0 / s_frames,
+			TheParticleSystemManager ? TheParticleSystemManager->getParticleCount() : 0u,
+			TheParticleSystemManager ? TheParticleSystemManager->getFieldParticleCount() : 0u,
+			TheParticleSystemManager ? TheParticleSystemManager->getParticleSystemCount() : 0u);
+		s_particleUpdateUs = 0;
 
 		s_windowStart = now;
 		s_preRTTUs = s_waterShadowRTTUs = s_mainSceneUs = s_uiWidgetsUs = s_presentUs = 0;
@@ -2082,7 +2095,7 @@ void W3DDisplay::draw()
 {
 	//USE_PERF_TIMER(W3DDisplay_draw)
 	const bool gxPerfTrace = GXTrace::isPerfEnabled();
-	std::chrono::steady_clock::time_point gxdT0, gxdT1, gxdT2, gxdT3, gxdT3b;
+	std::chrono::steady_clock::time_point gxdT0, gxdT0b, gxdT1, gxdT2, gxdT3, gxdT3b;
 
 	// GeneralsX @feature xxorza 15/04/2026 Process deferred window resize for pillarbox
 	DX8Wrapper::Pillarbox_Process_Resize();
@@ -2234,6 +2247,7 @@ AGAIN:
 			//trying to refresh the visible terrain geometry.
 //			if(TheGlobalData->m_loadScreenRender != TRUE)
 				updateViews();
+				if (gxPerfTrace) gxdT0b = std::chrono::steady_clock::now();
      		TheParticleSystemManager->update();//LORENZEN AND WILCZYNSKI MOVED THIS FROM ITS NATIVE POSITION, ABOVE
                                            //FOR THE PURPOSE OF LETTING THE PARTICLE SYSTEM LOOK UP THE RENDER OBJECT"S
                                            //TRANSFORM MATRIX, WHILE IT IS STILL VALID (HAVING DONE ITS CLIENT TRANSFORMS
@@ -2483,7 +2497,8 @@ AGAIN:
 						std::chrono::duration<double, std::micro>(gxdT2 - gxdT1).count(),
 						std::chrono::duration<double, std::micro>(gxdT3 - gxdT2).count(),
 						std::chrono::duration<double, std::micro>(gxdT3b - gxdT3).count(),
-						std::chrono::duration<double, std::micro>(gxdT4 - gxdT3b).count());
+						std::chrono::duration<double, std::micro>(gxdT4 - gxdT3b).count(),
+						std::chrono::duration<double, std::micro>(gxdT1 - gxdT0b).count());
 				}
 			}
 			else

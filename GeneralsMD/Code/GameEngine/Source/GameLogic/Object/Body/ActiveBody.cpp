@@ -603,8 +603,14 @@ void ActiveBody::attemptDamage( DamageInfo *damageInfo )
 			Object *srcObj = TheGameLogic->findObjectByID(m_lastDamageInfo.in.m_sourceID);
 			if (srcObj)
 			{
+				// GeneralsX @bugfix Android port 22/11/2026 Issue #59: either player may be missing -- a
+				// container dying (OpenContain::onDie -> processDamageToContained) damages its occupants
+				// with itself as the source. The reporter's crash in GLA mission 3 (a USA turret destroyed) came
+				// through this path. Where both players exist nothing changes.
 				Player *srcPlayer = srcObj->getControllingPlayer();
-				obj->getControllingPlayer()->setAttackedBy(srcPlayer->getPlayerIndex());
+				Player *objPlayer = obj->getControllingPlayer();
+				if (srcPlayer && objPlayer)
+					objPlayer->setAttackedBy(srcPlayer->getPlayerIndex());
 			}
 		}
 
@@ -658,7 +664,10 @@ void ActiveBody::attemptDamage( DamageInfo *damageInfo )
 			{
 				AudioEventRTS fearSound = *obj->getTemplate()->getVoiceFear();
 				fearSound.setPosition( obj->getPosition() );
-				fearSound.setPlayerIndex( obj->getControllingPlayer()->getPlayerIndex() );
+				// GeneralsX @bugfix Android port 22/11/2026 Issue #59: an object without a controlling player
+				// (see setAttackedBy above) keeps the sound's default player. Audio only.
+				if (const Player *fearPlayer = obj->getControllingPlayer())
+					fearSound.setPlayerIndex( fearPlayer->getPlayerIndex() );
 				TheAudio->addAudioEvent(&fearSound);
 			}
 		}
