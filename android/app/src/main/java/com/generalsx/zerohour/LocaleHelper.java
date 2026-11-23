@@ -50,7 +50,10 @@ final class LocaleHelper {
 
     // GeneralsX @feature Android port 13/07/2026 Keep this in the same order
     // shown in the Setup UI's language picker.
-    static final String[] SUPPORTED_TAGS = { "", "en", "ru", "de", "uk", "es", "zh", "fr", "ko", "pl", "pt-BR", "isv", "ar", "fa" };
+    // GeneralsX @feature Android port 23/11/2026 Indonesian launcher language ("in", values-in).
+    // The picker is a fixed list, so a new locale needs a tag here, a display name in
+    // displayNameFor(), and its pack folder in languagePackFor().
+    static final String[] SUPPORTED_TAGS = { "", "en", "ru", "de", "uk", "es", "zh", "fr", "ko", "pl", "pt-BR", "isv", "ar", "fa", "in" };
 
     private LocaleHelper() {}
 
@@ -189,6 +192,7 @@ final class LocaleHelper {
             case "ar":  return "arabic";
             case "fa":  return "persian";
             case "isv": return "interslavic";
+            case "in":  return "indonesian";
             default:    return gameDataLanguageFor(launcherTag);
         }
     }
@@ -211,6 +215,7 @@ final class LocaleHelper {
             case "isv": return "Medžuslovjansky";
             case "ar": return "العربية";
             case "fa": return "فارسی";
+            case "in": return "Bahasa Indonesia";
             default:   return tag;
         }
     }
