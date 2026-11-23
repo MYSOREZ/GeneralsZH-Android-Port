@@ -302,3 +302,4 @@ There is no official Indonesian release to borrow names from: faction names (USA
 and named units (Crusader, Battlemaster) stay in English, while the interface around them is
 translated ("Game Options" becomes "Pengaturan Game", "Solo Play" becomes "Main Sendiri").
 Multiplayer map names stay in English. The player is mostly addressed as "kamu".
+Translated by UnknuwProjects.
