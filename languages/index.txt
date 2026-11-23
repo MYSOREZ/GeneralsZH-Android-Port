@@ -5,6 +5,7 @@ brazilian
 chinese
 french
 german
+indonesian
 interslavic
 korean
 persian
