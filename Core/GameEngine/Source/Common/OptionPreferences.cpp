@@ -902,6 +902,21 @@ Real OptionPreferences::getMaxCameraHeight() const
 	return val;
 }
 
+// GeneralsX @feature Android port 26/11/2026 Issue #93: the frame limit of network games (LAN and
+// online), from the launcher's Graphics tab (GXNetworkFpsLimit). A network game's speed is set by the
+// network, not by the frame rate, so frames above it only heat the phone: 60 by default, as
+// GeneralsOnline's own default; 0 is no limit. Never below 60, which the 60 Hz engine's network needs.
+Int OptionPreferences::getNetworkFpsLimit() const
+{
+	OptionPreferences::const_iterator it = find("GXNetworkFpsLimit");
+	if (it == end())
+		return 60;
+	const Int val = atoi(it->second.str());
+	if (val <= 0)
+		return 0;
+	return val < 60 ? 60 : (val > 1000 ? 1000 : val);
+}
+
 // GeneralsX @feature Android port 13/11/2026 Issue #82: the height a match starts at, from the Extras
 // menu, in the units of MaxCameraHeight (the Tactical scheme's raised ceiling included). 0, the
 // default, starts at the maximum, as the original game does.

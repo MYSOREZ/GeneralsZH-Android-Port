@@ -358,6 +358,9 @@
     <string name="setup_upscale_status">%1$s: 3D renderizado em %2$d×%3$d, ampliado para %4$d×%5$d</string>
     <string name="setup_upscale_help">O campo de batalha é desenhado em resolução menor e ampliado com nitidez para a tela cheia pelo Snapdragon GSR: mais quadros, a interface continua nítida. Só GLES e ANGLE. Vale no próximo início.</string>
     <string name="setup_toast_render_scale_saved">Salvo. Vale a partir da próxima vez que você abrir o jogo.</string>
+    <string name="setup_card_network_fps">Limite de FPS em jogos em rede</string>
+    <string name="setup_network_fps_unlimited_short">Sem limite</string>
+    <string name="setup_network_fps_help">Jogos em LAN e online rodam na velocidade da rede, não do FPS: quadros acima do limite só esquentam o celular e gastam bateria. O padrão é 60; um limite maior deixa a imagem mais fluida em uma tela de 90 ou 120 Hz.</string>
     <string name="setup_card_interface_scale">Tamanho da interface</string>
     <string name="setup_interface_scale_label">%1$d%%</string>
     <string name="setup_button_apply_interface_scale">Aplicar tamanho da interface</string>

@@ -328,6 +328,9 @@
     <string name="setup_upscale_status">%1$s: 3D di-render %2$d×%3$d, di-upscale ke %4$d×%5$d</string>
     <string name="setup_upscale_help">Me-render battlefield di resolusi yang lebih rendah lalu menajamkannya kembali ke layar penuh dengan Snapdragon GSR: frame lebih banyak, antarmuka tetap tajam. Hanya GLES dan ANGLE. Berlaku saat kamu menjalankan game berikutnya.</string>
     <string name="setup_toast_render_scale_saved">Tersimpan. Berlaku saat kamu menjalankan game berikutnya.</string>
+    <string name="setup_card_network_fps">Batas FPS di game jaringan</string>
+    <string name="setup_network_fps_unlimited_short">Tanpa batas</string>
+    <string name="setup_network_fps_help">Game LAN dan online berjalan sesuai kecepatan jaringan, bukan FPS: frame di atas batas hanya membuat ponsel panas dan menguras baterai. Bawaan 60; batas lebih tinggi membuat gambar lebih mulus di layar 90 atau 120 Hz.</string>
     <string name="setup_card_interface_scale">Ukuran Antarmuka</string>
     <string name="setup_interface_scale_label">%1$d%%</string>
     <string name="setup_button_apply_interface_scale">Terapkan Ukuran Antarmuka</string>

@@ -358,6 +358,9 @@
     <string name="setup_upscale_status">%1$s: 3D renderowane w %2$d×%3$d, skalowane do %4$d×%5$d</string>
     <string name="setup_upscale_help">Pole bitwy jest rysowane w niższej rozdzielczości i ostro skalowane do pełnego ekranu przez Snapdragon GSR: więcej klatek, interfejs pozostaje ostry. Tylko GLES i ANGLE. Zadziała przy następnym uruchomieniu.</string>
     <string name="setup_toast_render_scale_saved">Zapisano. Zadziała przy następnym uruchomieniu gry.</string>
+    <string name="setup_card_network_fps">Limit klatek w grze sieciowej</string>
+    <string name="setup_network_fps_unlimited_short">Bez limitu</string>
+    <string name="setup_network_fps_help">Gry przez LAN i online toczą się z prędkością sieci, a nie liczby klatek: klatki ponad limit tylko grzeją telefon i rozładowują baterię. Domyślnie 60; wyższy limit daje płynniejszy obraz na ekranie 90 lub 120 Hz.</string>
     <string name="setup_card_interface_scale">Rozmiar interfejsu</string>
     <string name="setup_interface_scale_label">%1$d%%</string>
     <string name="setup_button_apply_interface_scale">Zastosuj rozmiar interfejsu</string>

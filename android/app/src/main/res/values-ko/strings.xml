@@ -358,6 +358,9 @@
     <string name="setup_upscale_status">%1$s: 3D를 %2$d×%3$d로 렌더링, %4$d×%5$d로 업스케일</string>
     <string name="setup_upscale_help">전장을 낮은 해상도로 그린 뒤 Snapdragon GSR로 전체 화면에 선명하게 확대합니다. 프레임이 늘고 인터페이스는 선명하게 유지됩니다. GLES와 ANGLE 전용. 다음 실행 시 적용됩니다.</string>
     <string name="setup_toast_render_scale_saved">저장했습니다. 다음에 게임을 실행할 때 적용됩니다.</string>
+    <string name="setup_card_network_fps">네트워크 게임 프레임 제한</string>
+    <string name="setup_network_fps_unlimited_short">제한 없음</string>
+    <string name="setup_network_fps_help">LAN 및 온라인 게임은 프레임이 아니라 네트워크 속도로 진행됩니다. 제한을 넘는 프레임은 휴대폰을 뜨겁게 하고 배터리만 소모합니다. 기본값은 60이며, 더 높은 제한은 90 또는 120Hz 화면에서 화면을 더 부드럽게 합니다.</string>
     <string name="setup_card_interface_scale">인터페이스 크기</string>
     <string name="setup_interface_scale_label">%1$d%%</string>
     <string name="setup_button_apply_interface_scale">인터페이스 크기 적용</string>

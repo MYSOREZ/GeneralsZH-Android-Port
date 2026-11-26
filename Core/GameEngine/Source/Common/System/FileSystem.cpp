@@ -177,7 +177,21 @@ File*		FileSystem::openFile( const Char *filename, Int access, size_t bufferSize
 	USE_PERF_TIMER(FileSystem)
 	File *file = nullptr;
 
-	if ( TheLocalFileSystem != nullptr )
+	// GeneralsX @bugfix Android port 26/11/2026 Issue #85: an active mod's own AI scripts win over the
+	// stock loose Data\Scripts files (ArchiveFileSystem::managedModProvidesScript).
+	const Bool modScript = instance == 0 && TheArchiveFileSystem != nullptr
+		&& TheArchiveFileSystem->managedModProvidesScript(filename);
+	if (modScript)
+	{
+		static Bool s_logged = FALSE;
+		if (!s_logged)
+		{
+			s_logged = TRUE;
+			fprintf(stderr, "[gxbig] %s comes from the active mod, not the game folder\n", filename);
+		}
+	}
+
+	if ( TheLocalFileSystem != nullptr && !modScript )
 	{
 		if (instance != 0)
 		{

@@ -436,6 +436,7 @@ public class SetupActivity extends Activity {
                 if (!RENDER_BACKEND_VULKAN.equals(getRenderBackendChoice())) {
                     buildRenderScaleSection(page);
                 }
+                buildNetworkFpsSection(page);
                 buildRenderBackendSection(page);
                 // Custom Vulkan driver / dxvk.conf only matter when Vulkan is
                 // the selected backend -- the GLES/GLES+ANGLE paths never
@@ -1667,6 +1668,57 @@ public class SetupActivity extends Activity {
     private static final String[] UPSCALE_MODES = { "off", "ultra", "quality", "balanced", "performance" };
     private static final int[] UPSCALE_PERCENT = { 100, 77, 67, 59, 50 };
     private TextView upscaleStatus;
+
+    // GeneralsX @feature Android port 26/11/2026 Issue #93: the frame limit of network games (LAN and
+    // online), saved as GXNetworkFpsLimit in Options.ini and read by the engine at startup
+    // (OptionPreferences::getNetworkFpsLimit). 0 is no limit; 60 when nothing is saved.
+    private static final int[] NETWORK_FPS_LIMITS = { 60, 90, 120, 0 };
+
+    private void buildNetworkFpsSection(LinearLayout root) {
+        LinearLayout content = UiKit.card(root);
+        UiKit.sectionHeader(content, R.drawable.ic_gzh_display, getString(R.string.setup_card_network_fps), false);
+        CharSequence[] labels = { "60", "90", "120", getString(R.string.setup_network_fps_unlimited_short) };
+        UiKit.segmented(content, labels, readNetworkFpsIndex(), index -> {
+            writeNetworkFpsLimit(NETWORK_FPS_LIMITS[Math.max(0, Math.min(NETWORK_FPS_LIMITS.length - 1, index))]);
+            Toast.makeText(this, R.string.setup_toast_render_scale_saved, Toast.LENGTH_LONG).show();
+        });
+        UiKit.helpText(content, getString(R.string.setup_network_fps_help));
+    }
+
+    private int readNetworkFpsIndex() {
+        String val = readKeyValueFile(optionsIniFile()).get("GXNetworkFpsLimit");
+        int limit = 60;
+        if (val != null) {
+            try {
+                limit = Integer.parseInt(val.trim());
+            } catch (NumberFormatException e) {
+                limit = 60;
+            }
+        }
+        if (limit <= 0) {
+            return NETWORK_FPS_LIMITS.length - 1;
+        }
+        int best = 0;
+        for (int i = 0; i < NETWORK_FPS_LIMITS.length - 1; i++) {
+            if (limit >= NETWORK_FPS_LIMITS[i]) {
+                best = i;
+            }
+        }
+        return best;
+    }
+
+    private void writeNetworkFpsLimit(int limit) {
+        File file = optionsIniFile();
+        // Seeded from DefaultOptions.ini when new, for the same reason as writeUiScalePercent().
+        java.util.LinkedHashMap<String, String> prefs;
+        if (!file.isFile()) {
+            prefs = new java.util.LinkedHashMap<>(readKeyValueFile(defaultOptionsIniFile()));
+        } else {
+            prefs = new java.util.LinkedHashMap<>(readKeyValueFile(file));
+        }
+        prefs.put("GXNetworkFpsLimit", Integer.toString(limit));
+        writeKeyValueFile(file, prefs);
+    }
 
     private void buildRenderScaleSection(LinearLayout root) {
         LinearLayout content = UiKit.card(root);

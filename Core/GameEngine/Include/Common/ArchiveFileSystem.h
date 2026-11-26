@@ -148,6 +148,7 @@ public:
 
 	void loadMods();
 	void loadManagedMods(); ///< GeneralsX: the mods switched on in the Android launcher's Mods screen (GXManagedMods.h)
+	Bool managedModProvidesScript(const Char *filename) const; ///< GeneralsX: a Data\Scripts file an active mod brings (issue #85)
 
 	ArchivedDirectoryInfo* friend_getArchivedDirectoryInfo(const Char* directory);
 

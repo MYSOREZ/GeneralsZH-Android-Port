@@ -626,3 +626,28 @@ void ArchiveFileSystem::getFileListInDirectory(const AsciiString& currentDirecto
 		it++;
 	}
 }
+
+// GeneralsX @bugfix Android port 26/11/2026 Issue #85: a script file under Data\Scripts that one of the
+// mods switched on in the launcher brings in its archives. The stock Zero Hour folder keeps the skirmish
+// and multiplayer AI scripts loose there (in no archive), and a loose file always wins over an archive,
+// so a mod's own AI (Rise of the Reds, Contra) never ran: its factions' AI sat idle or sold its buildings,
+// until the player renamed Data\Scripts by hand. FileSystem::openFile asks this before the loose file.
+// Only that folder: everything else keeps the original order.
+Bool ArchiveFileSystem::managedModProvidesScript(const Char *filename) const
+{
+	if (filename == nullptr || m_managedModArchives.empty())
+		return FALSE;
+	const AsciiString name(filename);
+	if (!name.startsWithNoCase("data\\scripts\\") && !name.startsWithNoCase("data/scripts/"))
+		return FALSE;
+	for (size_t m = 0; m < m_managedModArchives.size(); ++m)
+	{
+		ArchiveFileMap::const_iterator managed = m_archiveFileMap.find(m_managedModArchives[m]);
+		if (managed != m_archiveFileMap.end() && managed->second != nullptr
+			&& managed->second->getArchivedFileInfo(name) != nullptr)
+		{
+			return TRUE;
+		}
+	}
+	return FALSE;
+}

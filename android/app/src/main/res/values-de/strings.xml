@@ -358,6 +358,9 @@
     <string name="setup_upscale_status">%1$s: 3D in %2$d×%3$d gerendert, hochskaliert auf %4$d×%5$d</string>
     <string name="setup_upscale_help">Das Schlachtfeld wird in geringerer Auflösung gezeichnet und mit Snapdragon GSR scharf auf den vollen Bildschirm skaliert: mehr Bilder, die Oberfläche bleibt scharf. Nur GLES und ANGLE. Gilt ab dem nächsten Start.</string>
     <string name="setup_toast_render_scale_saved">Gespeichert. Wird beim nächsten Spielstart wirksam.</string>
+    <string name="setup_card_network_fps">Bildratenlimit in Netzwerkspielen</string>
+    <string name="setup_network_fps_unlimited_short">Kein Limit</string>
+    <string name="setup_network_fps_help">LAN- und Onlinespiele laufen mit der Geschwindigkeit des Netzwerks, nicht der Bildrate: Bilder über dem Limit heizen nur das Telefon auf und leeren den Akku. Standard ist 60; ein höheres Limit macht das Bild auf einem 90- oder 120-Hz-Bildschirm flüssiger.</string>
     <string name="setup_card_interface_scale">Oberflächengröße</string>
     <string name="setup_interface_scale_label">%1$d%%</string>
     <string name="setup_button_apply_interface_scale">Oberflächengröße übernehmen</string>

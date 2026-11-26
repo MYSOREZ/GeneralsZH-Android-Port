@@ -44,6 +44,7 @@
 #include "Common/Team.h"
 #include "Common/PlayerList.h"
 #include "Common/GameAudio.h"
+#include "Common/FrameRateLimit.h"
 #include "Common/GameEngine.h"
 #include "Common/GXReplayCheck.h"
 #include "Common/INI.h"
@@ -1105,6 +1106,14 @@ void GameEngine::resetSubsystems()
 }
 
 /// -----------------------------------------------------------------------------------------------
+// GeneralsX @feature Android port 26/11/2026 Issue #93: the network frame limit, read once (the
+// launcher writes it before the game starts). 0 in Options.ini is no limit.
+static Int gxNetworkFpsLimit()
+{
+	static const Int s_limit = OptionPreferences().getNetworkFpsLimit();
+	return s_limit > 0 ? s_limit : RenderFpsPreset::UncappedFpsValue;
+}
+
 Bool GameEngine::canUpdateGameLogic(UnsignedInt logicTimeQueryFlags)
 {
 	// This updates the paused game status of the game logic.
@@ -1357,10 +1366,13 @@ void GameEngine::update()
 
 #if defined(GENERALS_ONLINE_HIGH_FPS_RENDER)
 			// NGMP_NOTE: Lock the shellmap to 30fps until we fix everything
-			if (TheNGMPGame != nullptr && TheGameLogic->isInGame() && !TheShell->isShellActive())
+			// GeneralsX @feature Android port 26/11/2026 Issue #93: online and LAN games alike take the
+			// launcher's network frame limit (OptionPreferences::getNetworkFpsLimit, 60 by default).
+			// A LAN game had none and drew 120-144 frames a second on fast screens, for heat only.
+			if ((TheNGMPGame != nullptr || TheGameLogic->isInLanGame()) && TheGameLogic->isInGame() && !TheShell->isShellActive())
 			{
-				TheFramePacer->setFramesPerSecondLimit(NGMP_OnlineServicesManager::Settings.Graphics_GetFPSLimit());
-				TheWritableGlobalData->m_useFpsLimit = NGMP_OnlineServicesManager::Settings.Graphics_GetFPSLimit();
+				TheFramePacer->setFramesPerSecondLimit(gxNetworkFpsLimit());
+				TheWritableGlobalData->m_useFpsLimit = TRUE;
 			}
 			else if (!TheGameLogic->isInGame() || TheShell->isShellActive())
 			{

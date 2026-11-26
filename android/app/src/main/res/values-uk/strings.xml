@@ -358,6 +358,9 @@
     <string name="setup_upscale_status">%1$s: 3D рендериться в %2$d×%3$d, апскейл до %4$d×%5$d</string>
     <string name="setup_upscale_help">Поле бою малюється в меншій роздільності й чітко розтягується до повного екрана через Snapdragon GSR: більше кадрів, інтерфейс залишається чітким. Лише для GLES і ANGLE. Застосується при наступному запуску.</string>
     <string name="setup_toast_render_scale_saved">Збережено. Застосується при наступному запуску гри.</string>
+    <string name="setup_card_network_fps">Ліміт кадрів у мережевій грі</string>
+    <string name="setup_network_fps_unlimited_short">Без ліміту</string>
+    <string name="setup_network_fps_help">Ігри по LAN та онлайн ідуть зі швидкістю мережі, а не частоти кадрів: кадри понад ліміт лише гріють телефон і розряджають батарею. За замовчуванням 60; вищий ліміт робить картинку плавнішою на екрані 90 або 120 Гц.</string>
     <string name="setup_card_interface_scale">Розмір інтерфейсу</string>
     <string name="setup_interface_scale_label">%1$d%%</string>
     <string name="setup_button_apply_interface_scale">Застосувати розмір інтерфейсу</string>

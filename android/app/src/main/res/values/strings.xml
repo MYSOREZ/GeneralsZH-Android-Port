@@ -365,6 +365,9 @@
     <string name="setup_upscale_status">%1$s: 3D rendered at %2$d×%3$d, upscaled to %4$d×%5$d</string>
     <string name="setup_upscale_help">Renders the battlefield at a lower resolution and sharpens it back to full screen with Snapdragon GSR: more frames, the interface stays sharp. GLES and ANGLE only. Applies on the next launch.</string>
     <string name="setup_toast_render_scale_saved">Saved. Takes effect next time you launch the game.</string>
+    <string name="setup_card_network_fps">Frame limit in network games</string>
+    <string name="setup_network_fps_unlimited_short">No limit</string>
+    <string name="setup_network_fps_help">LAN and online games run at the network\'s speed, not the frame rate: frames above the limit only heat the phone and drain the battery. 60 is the default; a higher limit makes the picture smoother on a 90 or 120 Hz screen.</string>
     <string name="setup_card_interface_scale">Interface Size</string>
     <string name="setup_interface_scale_label">%1$d%%</string>
     <string name="setup_button_apply_interface_scale">Apply Interface Size</string>
