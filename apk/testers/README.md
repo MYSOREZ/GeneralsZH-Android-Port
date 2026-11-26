@@ -25,3 +25,4 @@ owner says so. The current build for the owner lives one level up, in `apk/`.
 | `GeneralsXZH-android-generals-a58.apk` | everyone | a57 + fixes found in forks: multiplayer kept alive under the notification shade / overlays, LAN official-map path, terrain LOD typo, sorting pool overflow, foldables |
 | `GeneralsXZH-android-generals-a59.apk` | #59 (nxtskippr), #76 (noconsole), everyone | a58 + no crash when a container dies with occupants and no owner (#59); `[GX-PERF-PRERTT]` splits the pre-render update for mods (#76) |
 | `GeneralsXZH-android-generals-a60.apk` | #85, #93, everyone | 1.4.3 + network frame limit in the launcher (#93); a mod's own AI scripts over the stock loose ones (#85); Indonesian labels and translation fixes (#91, #92) |
+| `GeneralsXZH-android-generals-a61.apk` | #75 (polosugars-sketch), everyone | a60 + movie sound follows the voice volume (muted means silent) and no clicks from a full movie audio queue (#75) |
