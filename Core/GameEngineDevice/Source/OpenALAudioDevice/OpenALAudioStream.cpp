@@ -371,3 +371,11 @@ bool OpenALAudioStream::isPlaying()
     alGetSourcei(m_source, AL_SOURCE_STATE, &state);
     return state == AL_PLAYING;
 }
+// GeneralsX @bugfix Android port 26/11/2026 Issue #75: bufferData() refuses a buffer when every one is
+// queued; the movie player asks this first and waits for one to play out instead of dropping the sound.
+bool OpenALAudioStream::isQueueFull()
+{
+    ALint num_queued = 0;
+    alGetSourcei(m_source, AL_BUFFERS_QUEUED, &num_queued);
+    return num_queued >= AL_STREAM_BUFFER_COUNT;
+}

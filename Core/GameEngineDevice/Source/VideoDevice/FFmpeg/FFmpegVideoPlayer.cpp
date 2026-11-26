@@ -30,6 +30,8 @@
 //         Includes
 //----------------------------------------------------------------------------
 
+#include <thread>
+#include <chrono>
 #include <cstdio>
 #include "GXTrace.h"
 
@@ -348,7 +350,11 @@ FFmpegVideoStream::FFmpegVideoStream(FFmpegFile* file)
         // Start audio playback
         // GeneralsX @bugfix fbraz3 23/04/2026 Ensure video stream starts with audible gain even after prior source reuse.
         // Issue: https://github.com/fbraz3/GeneralsX/issues/38
-        audioStream->setVolume(1.0f);
+        // GeneralsX @bugfix Android port 26/11/2026 Issue #75: at the voice volume, as the original set
+        // its Bink movies (speech volume x 0.8, createStream above), not always at full: with the sound
+        // muted, briefings and in-mission movies (SpyCameraDrama, MisUSA01xBrf...) still played loud.
+        // The gain is still set explicitly here, so a reused source never keeps an old one (fbraz3 #38).
+        audioStream->setVolume(TheAudio ? TheAudio->getVolume(AudioAffect_Speech) * 0.8f : 1.0f);
         // GeneralsX @bugfix Android port 09/09/2026 Do NOT restart a source that is already playing.
         // alSourcePlay() on an AL_PLAYING source rewinds it to the FRONT of its queue (openal-soft
         // StartSources: "A source that's already playing is restarted from the beginning"), so this
@@ -505,6 +511,15 @@ void FFmpegVideoStream::onFrame(AVFrame *frame, int stream_idx, int stream_type,
 				if (v > gxPeakSinceTrace)
 					gxPeakSinceTrace = v;
 			}
+		}
+		// GeneralsX @bugfix Android port 26/11/2026 Issue #75 ("static glitch sounds"): a full queue
+		// (AL_STREAM_BUFFER_COUNT buffers, the device log shows 31-32 queued) used to drop this ~40 ms
+		// of sound, a click in the movie. Unqueue what has played and, if it is still full, wait for
+		// one buffer to play out (at most ~60 ms) rather than throw the sound away.
+		for (int gxTry = 0; gxTry < 30 && audioStream->isQueueFull(); ++gxTry) {
+			audioStream->update();
+			if (audioStream->isQueueFull())
+				std::this_thread::sleep_for(std::chrono::milliseconds(2));
 		}
 
 		if (!audioStream->bufferData(frameData, outputFrameSize, format, frame->sample_rate)) {

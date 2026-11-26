@@ -45,6 +45,7 @@ public:
 
     bool bufferData(uint8_t *data, size_t data_size, ALenum format, int samplerate);
     bool isPlaying();
+    bool isQueueFull(); ///< GeneralsX: every buffer queued (issue #75: the movie player waits instead of dropping sound)
     void update();
     void reset();
 
