@@ -294,3 +294,12 @@ Persian spelling needs the zero-width non-joiner (U+200C) inside words such as "
 file keeps it; the engine's shaper uses it to stop the join and then drops it, so it takes no
 cell. The Persian letters (پ چ ژ گ ک ی) shape into the FB50 presentation forms, all of which are
 in Noto Naskh Arabic. Everything else about right-to-left layout is as described for Arabic.
+
+## Indonesian
+
+`languages/indonesian/generals.str` is a new translation from the English original into Indonesian.
+There is no official Indonesian release to borrow names from: faction names (USA, China, GLA)
+and named units (Crusader, Battlemaster) stay in English, while the interface around them is
+translated ("Game Options" becomes "Pengaturan Game", "Solo Play" becomes "Main Sendiri").
+Multiplayer map names stay in English. The player is mostly addressed as "kamu".
+Translated by UnknuwProjects.
