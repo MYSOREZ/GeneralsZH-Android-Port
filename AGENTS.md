@@ -261,7 +261,7 @@ cmake --build build/macos-vulkan --target z_generals
   once (the render backend help still describing Vulkan after Vulkan was hidden).
 - **Launcher strings ship in every language**: a new or changed string in
   `android/app/src/main/res/values/strings.xml` goes into every `values-*/strings.xml`
-  (ar, b+isv, de, es, fa, fr, ko, pl, pt-rBR, ru, uk, zh) in the same commit -- not only
+  (ar, b+isv, de, es, fa, fr, in, ko, pl, pt-rBR, ru, uk, zh) in the same commit -- not only
   English and Russian. Check: every locale has the same set of string names as `values/`.
 
 ## Testing & Validation

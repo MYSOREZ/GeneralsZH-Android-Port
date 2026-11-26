@@ -24,6 +24,11 @@
 - **Hero and Camera buttons** in the army column (#73): select your hero (Ctrl+H) and reset the camera (Num5)
   without a keyboard.
 
+### Languages
+
+- **Indonesian** (#88): the whole game and the launcher, translated by UnknuwProjects. Pick it in the launcher's
+  language list or download it as the game's text language.
+
 ### Android
 
 - **The notification shade no longer drops you from a network game**: any overlay (the shade, a chat bubble,
