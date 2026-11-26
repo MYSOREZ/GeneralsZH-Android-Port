@@ -3871,7 +3871,7 @@ SCIENCE:ChinaCashHack3
 END
 
 SCIENCE:ChinaEMPPulse
-"Pulsa EMP"
+"Gelombang EMP"
 END
 
 SCIENCE:GLAHijacker
@@ -5335,7 +5335,7 @@ OBJECT:Paladin
 END
 
 OBJECT:DaisyCutterBomb
-"Bom Fuel Air"
+"Bom Bahan Bakar-Udara"
 END
 
 OBJECT:BlackMarketNuke
@@ -5359,7 +5359,7 @@ OBJECT:ClusterMinesBomb
 END
 
 OBJECT:EMPPulseBomb
-"Pulsa EMP"
+"Gelombang EMP"
 END
 
 OBJECT:NeutronMissile
@@ -5947,7 +5947,7 @@ OBJECT:StealthFighter
 END
 
 OBJECT:StingerSite
-"Situs Stinger"
+"Pos Stinger"
 END
 
 OBJECT:StoneArch
@@ -7711,7 +7711,7 @@ CONTROLBAR:ToolTipChinaScienceArtilleryBarrage
 END
 
 CONTROLBAR:ToolTipChinaScienceEMPPulse
-"Memungkinkanmu memanggil pesawat pengebom berat untuk menjatuhkan bom Pulsa EMP. Pulsa EMP melumpuhkan kendaraan dan gedung musuh \n \n Dikerahkan dari: Pusat Komando"
+"Memungkinkanmu memanggil pesawat pengebom berat untuk menjatuhkan bom Gelombang EMP. Gelombang EMP melumpuhkan kendaraan dan gedung musuh \n \n Dikerahkan dari: Pusat Komando"
 END
 
 CONTROLBAR:ToolTipGLAScienceHijacker
@@ -7979,7 +7979,7 @@ MAP:USA04Objective1Text
 END
 
 MAP:USA04Objective2Text
-"TUJUAN MISI: \n Hancurkan Situs Stinger"
+"TUJUAN MISI: \n Hancurkan Pos Stinger"
 END
 
 MAP:USA04Objective3Text
@@ -9011,7 +9011,7 @@ MAP:GLA05Open
 END
 
 SCRIPT:GLA05Directive03
-"PERINGATAN: \n Pasukan udara Amerika sedang datang \n Bangun Situs Stinger untuk mempertahankan markasmu"
+"PERINGATAN: \n Pasukan udara Amerika sedang datang \n Bangun Pos Stinger untuk mempertahankan markasmu"
 END
 
 SCRIPT:GLA05Directive04
@@ -9019,7 +9019,7 @@ SCRIPT:GLA05Directive04
 END
 
 SCRIPT:GLA05Directive05
-"PERINGATAN: \n Pasukan udara Amerika sedang datang \n Gunakan Situs Stinger dan Meriam Quad untuk menembak jatuh pesawat musuh"
+"PERINGATAN: \n Pasukan udara Amerika sedang datang \n Gunakan Pos Stinger dan Meriam Quad untuk menembak jatuh pesawat musuh"
 END
 
 MAP:GLA08Open
@@ -9395,7 +9395,7 @@ CONTROLBAR:BriefingHistoryDescription
 END
 
 MAP:CHI04Objective1Text
-"TUJUAN MISI \n Hancurkan Situs Stinger GLA"
+"TUJUAN MISI \n Hancurkan Pos Stinger GLA"
 END
 
 MAP:CHI04Objective2Text
@@ -9403,7 +9403,7 @@ MAP:CHI04Objective2Text
 END
 
 MAP:CHI04Objective3Text
-"TUJUAN MISI \n Hancurkan Situs Stinger di sekitar Pabrik Kimia"
+"TUJUAN MISI \n Hancurkan Pos Stinger di sekitar Pabrik Kimia"
 END
 
 MAP:CHI04Hint1Text
@@ -12079,7 +12079,7 @@ OBJECT:TechRepairPad
 END
 
 OBJECT:AirF_Aurora
-"Pembom Aurora Fuel-Air"
+"Pembom Aurora Bahan Bakar-Udara"
 END
 
 OBJECT:SupW_Aurora
@@ -12395,7 +12395,7 @@ HELP:WorkerShoes-01
 END
 
 HELP:CamoNetting-01
-"PETUNJUK: \n Jaring Kamuflase menyamarkan Situs Stinger \n dan Jaringan Terowonganmu"
+"PETUNJUK: \n Jaring Kamuflase menyamarkan Pos Stinger \n dan Jaringan Terowonganmu"
 END
 
 HELP:FortifiedStructures-01
@@ -12783,7 +12783,7 @@ MAP:USA03xTownHallHint
 END
 
 MAP:USA03xToxinNetworksWarning
-"PERINGATAN: \n Waspada terhadap Jaringan Toksin dan Situs Stinger"
+"PERINGATAN: \n Waspada terhadap Jaringan Toksin dan Pos Stinger"
 END
 
 MAP:USA03xPOWCamp02Hint
@@ -13035,7 +13035,7 @@ MDGLA02:Hint1
 END
 
 MDGLA02:Hint2
-"PETUNJUK: \n Radar Van, Jaringan Terowongan, dan \n Situs Stinger bisa mengungkap unit berkamuflase"
+"PETUNJUK: \n Radar Van, Jaringan Terowongan, dan \n Pos Stinger bisa mengungkap unit berkamuflase"
 END
 
 MDGLA02:Hint3
@@ -14763,7 +14763,7 @@ ACADEMY:DisguisedUnits
 END
 
 ACADEMY:StealthUpgrade
-"Beberapa bangunan bisa ditingkatkan menjadi kamuflase, seperti Jaringan Terowongan GLA atau Situs Stinger. Mereka tidak akan terlihat musuh sampai semuanya terlambat. Kejutan!"
+"Beberapa bangunan bisa ditingkatkan menjadi kamuflase, seperti Jaringan Terowongan GLA atau Pos Stinger. Mereka tidak akan terlihat musuh sampai semuanya terlambat. Kejutan!"
 END
 
 ACADEMY:Firestorm
@@ -14883,11 +14883,11 @@ DIALOGEVENT:EvaChina_IncomingDaisyCutterSubtitle
 END
 
 DIALOGEVENT:EvaChina_IncomingEmpPulseSubtitle
-"*Peringatan: Bom Pulsa EMP sudah diluncurkan"
+"*Peringatan: Bom Gelombang EMP sudah diluncurkan"
 END
 
 DIALOGEVENT:EvaChina_IncomingFuelAirBombSubtitle
-"*Peringatan: Bom Fuel Air sudah diluncurkan"
+"*Peringatan: Bom Bahan Bakar-Udara sudah diluncurkan"
 END
 
 DIALOGEVENT:EvaChina_InsufficientFundsSubtitle
@@ -15159,11 +15159,11 @@ DIALOGEVENT:EvaGLA_IncomingDaisyCutterSubtitle
 END
 
 DIALOGEVENT:EvaGLA_IncomingEmpPulseSubtitle
-"*Waspada. Bom Pulsa EMP mungkin mendekat"
+"*Waspada. Bom Gelombang EMP mungkin mendekat"
 END
 
 DIALOGEVENT:EvaGLA_IncomingFuelAirBombSubtitle
-"*Waspada. Bom fuel-Air mungkin mendekat"
+"*Waspada. Bom Bahan Bakar-Udara mungkin mendekat"
 END
 
 DIALOGEVENT:EvaGLA_InsufficientFundsSubtitle
@@ -15423,11 +15423,11 @@ DIALOGEVENT:EvaUSA_IncomingDaisyCutterSubtitle
 END
 
 DIALOGEVENT:EvaUSA_IncomingEmpPulseSubtitle
-"*Bom Pulsa EMP terdeteksi"
+"*Bom Gelombang EMP terdeteksi"
 END
 
 DIALOGEVENT:EvaUSA_IncomingFuelAirBombSubtitle
-"*Bom Fuel Air terdeteksi"
+"*Bom Bahan Bakar-Udara terdeteksi"
 END
 
 DIALOGEVENT:EvaUSA_InsufficientFundsSubtitle
@@ -15811,7 +15811,7 @@ DIALOGEVENT:MisCHI02xChat09Subtitle
 END
 
 DIALOGEVENT:MisCHI02xChat10Subtitle
-"*Situs Stinger sudah mengunci kita… kita dalam masalah!"
+"*Pos Stinger sudah mengunci kita… kita dalam masalah!"
 END
 
 DIALOGEVENT:MisCHI02xChat11Subtitle
@@ -16843,7 +16843,7 @@ DIALOGEVENT:MisGLA02xKen13Subtitle
 END
 
 DIALOGEVENT:MisGLA02xKen14Subtitle
-"*Pengacak GPS tak akan berhasil di sini, terlalu banyak Situs Stinger. Kita butuh taktik lain"
+"*Pengacak GPS tak akan berhasil di sini, terlalu banyak Pos Stinger. Kita butuh taktik lain"
 END
 
 DIALOGEVENT:MisGLA02xKen15Subtitle
@@ -17635,11 +17635,11 @@ DIALOGEVENT:MisGLA05xKen14Subtitle
 END
 
 DIALOGEVENT:MisGLA05xKen15Subtitle
-"*Orang Amerika sangat mengandalkan unit udara. Bangun lebih banyak Situs Stinger dan Meriam Quad"
+"*Orang Amerika sangat mengandalkan unit udara. Bangun lebih banyak Pos Stinger dan Meriam Quad"
 END
 
 DIALOGEVENT:MisGLA05xKen16Subtitle
-"*Mereka menargetkan pertahanan kita, kita harus menyamarkan situs stinger"
+"*Mereka menargetkan pertahanan kita, kita harus menyamarkan pos stinger"
 END
 
 DIALOGEVENT:MisGLA05xKen17Subtitle
@@ -18307,7 +18307,7 @@ DIALOGEVENT:MisUSA03xBurton10Subtitle
 END
 
 DIALOGEVENT:MisUSA03xBurton11Subtitle
-"*Itu mainan baru. Jenderal, kalau kamu arahkan ke Jaringan Terowongan dan Situs Stinger yang menjaga gunung itu, aku bisa menyelinap melewatinya"
+"*Itu mainan baru. Jenderal, kalau kamu arahkan ke Jaringan Terowongan dan Pos Stinger yang menjaga gunung itu, aku bisa menyelinap melewatinya"
 END
 
 DIALOGEVENT:MisUSA03xBurton12Subtitle
@@ -18543,7 +18543,7 @@ DIALOGEVENT:MisUSA04Eva02Subtitle
 END
 
 DIALOGEVENT:MisUSA04Eva07Subtitle
-"*Kita harus membersihkan Situs Stinger ini sebelum kita bisa membawa pengebom kita untuk membersihkan GLA dari daerah ini"
+"*Kita harus membersihkan Pos Stinger ini sebelum kita bisa membawa pengebom kita untuk membersihkan GLA dari daerah ini"
 END
 
 DIALOGEVENT:MisUSA04Eva08Subtitle
@@ -18991,7 +18991,7 @@ DIALOGEVENT:MisUSA05xEva03Subtitle
 END
 
 DIALOGEVENT:MisUSA05xEva04Subtitle
-"*Jenderal, karena adanya warga sipil di lokasi ini kamu harus memakai pasukan darat untuk menyerang markas terakhir dan merebut 4 situs rudal racun di daerah ini. Pembebasan situs minyak di Amisbad yang berhasil memberi kita sumber daya tambahan untuk operasi ini"
+"*Jenderal, karena adanya warga sipil di lokasi ini kamu harus memakai pasukan darat untuk menyerang markas terakhir dan merebut 4 pos rudal racun di daerah ini. Pembebasan situs minyak di Amisbad yang berhasil memberi kita sumber daya tambahan untuk operasi ini"
 END
 
 DIALOGEVENT:MisUSA05xEva05Subtitle
@@ -19075,7 +19075,7 @@ DIALOGEVENT:MisUSA05xEva24Subtitle
 END
 
 DIALOGEVENT:MisUSA05xEva25Subtitle
-"*Intel mengatakan Situs Rudal yang kita cari ada di daerah ini. Hati-hati dan pastikan racun itu tidak terlepas"
+"*Intel mengatakan Pos Rudal yang kita cari ada di daerah ini. Hati-hati dan pastikan racun itu tidak terlepas"
 END
 
 DIALOGEVENT:MisUSA05xEva26Subtitle
@@ -19103,7 +19103,7 @@ DIALOGEVENT:MisUSA05xEva31Subtitle
 END
 
 DIALOGEVENT:MisUSA05xEva32Subtitle
-"*Jenderal, perintahmu adalah membangun markas untuk menyerang Jenderal Racun. Saat pasukanmu siap, rebut 4 situs Rudal Racun musuh sebelum mereka bisa meluncurkannya"
+"*Jenderal, perintahmu adalah membangun markas untuk menyerang Jenderal Racun. Saat pasukanmu siap, rebut 4 pos Rudal Racun musuh sebelum mereka bisa meluncurkannya"
 END
 
 DIALOGEVENT:MisUSA05xEva33Subtitle
@@ -19111,7 +19111,7 @@ DIALOGEVENT:MisUSA05xEva33Subtitle
 END
 
 DIALOGEVENT:MisUSA05xEva34Subtitle
-"*Jenderal, musuh mendeteksi kehadiran kita di markas utama mereka dan mulai persiapan peluncuran Rudal Racun. Mereka seharusnya punya kemampuan luncur dalam sekitar 30 menit. Intel menemukan dan menunjukkan 4 situs rudal di layar radarmu"
+"*Jenderal, musuh mendeteksi kehadiran kita di markas utama mereka dan mulai persiapan peluncuran Rudal Racun. Mereka seharusnya punya kemampuan luncur dalam sekitar 30 menit. Intel menemukan dan menunjukkan 4 pos rudal di layar radarmu"
 END
 
 DIALOGEVENT:MisUSA05xEva35Subtitle
@@ -21207,7 +21207,7 @@ DIALOGEVENT:Taunts_Grainger079Subtitle
 END
 
 DIALOGEVENT:Taunts_Grainger080Subtitle
-"*Pilot, awas Situs Stinger itu"
+"*Pilot, awas Pos Stinger itu"
 END
 
 DIALOGEVENT:Taunts_Grainger081Subtitle
@@ -21215,7 +21215,7 @@ DIALOGEVENT:Taunts_Grainger081Subtitle
 END
 
 DIALOGEVENT:Taunts_Grainger082Subtitle
-"*Jenderal, apa kau tahu cara kerja Bom Fuel Air? Bagaimana kalau demonstrasi?"
+"*Jenderal, apa kau tahu cara kerja Bom Bahan Bakar-Udara? Bagaimana kalau demonstrasi?"
 END
 
 DIALOGEVENT:Taunts_Grainger083Subtitle
@@ -24187,7 +24187,7 @@ DIALOGEVENT:UnitDescriptXChina010Subtitle
 END
 
 DIALOGEVENT:UnitDescriptXChina011Subtitle
-"*MOAB adalah peningkatan untuk Bom Fuel Air AS yang menyertakan kemampuan \"setrum\", melumpuhkan sementara unit dan struktur yang selamat"
+"*MOAB adalah peningkatan untuk Bom Bahan Bakar-Udara AS yang menyertakan kemampuan \"setrum\", melumpuhkan sementara unit dan struktur yang selamat"
 END
 
 DIALOGEVENT:UnitDescriptXChina012Subtitle
@@ -24199,7 +24199,7 @@ DIALOGEVENT:UnitDescriptXChina013Subtitle
 END
 
 DIALOGEVENT:UnitDescriptXChina014Subtitle
-"*Pos Pendengar kita adalah kendaraan lambat yang tersembunyi dengan radius pandang besar, yang bisa diisi 2 infanteri sebagai penjaga. Selain mengungkap objek tersembunyi, ia bisa dipakai untuk mengetahui tujuan musuh dengan mengklik unit dalam jangkauan"
+"*Pos Dengar kita adalah kendaraan lambat yang tersembunyi dengan radius pandang besar, yang bisa diisi 2 infanteri sebagai penjaga. Selain mengungkap objek tersembunyi, ia bisa dipakai untuk mengetahui tujuan musuh dengan mengklik unit dalam jangkauan"
 END
 
 DIALOGEVENT:UnitDescriptXChina015Subtitle
@@ -24335,11 +24335,11 @@ DIALOGEVENT:UnitDescriptXGLA011Subtitle
 END
 
 DIALOGEVENT:UnitDescriptXGLA012Subtitle
-"*MOAB adalah peningkatan untuk Bom Fuel Air yang menyertakan kemampuan \"setrum\", melumpuhkan sementara unit dan struktur yang selamat"
+"*MOAB adalah peningkatan untuk Bom Bahan Bakar-Udara yang menyertakan kemampuan \"setrum\", melumpuhkan sementara unit dan struktur yang selamat"
 END
 
 DIALOGEVENT:UnitDescriptXGLA013Subtitle
-"*Basis Tembak adalah jawaban Amerika untuk situs Stinger kita... tapi awas meriam besar di tengahnya"
+"*Basis Tembak adalah jawaban Amerika untuk pos Stinger kita... tapi awas meriam besar di tengahnya"
 END
 
 DIALOGEVENT:UnitDescriptXGLA014Subtitle
@@ -24347,7 +24347,7 @@ DIALOGEVENT:UnitDescriptXGLA014Subtitle
 END
 
 DIALOGEVENT:UnitDescriptXGLA015Subtitle
-"*Pos Pendengar adalah kendaraan lambat dan tersembunyi yang dipakai China untuk menemukan unit siluman kita. Hindari mereka agar tetap tersembunyi"
+"*Pos Dengar adalah kendaraan lambat dan tersembunyi yang dipakai China untuk menemukan unit siluman kita. Hindari mereka agar tetap tersembunyi"
 END
 
 DIALOGEVENT:UnitDescriptXGLA016Subtitle
@@ -24483,7 +24483,7 @@ DIALOGEVENT:UnitDescriptXUSA011Subtitle
 END
 
 DIALOGEVENT:UnitDescriptXUSA012Subtitle
-"*MOAB adalah peningkatan untuk Bom Fuel Air yang menyertakan kemampuan \"setrum\", melumpuhkan sementara unit dan struktur yang selamat"
+"*MOAB adalah peningkatan untuk Bom Bahan Bakar-Udara yang menyertakan kemampuan \"setrum\", melumpuhkan sementara unit dan struktur yang selamat"
 END
 
 DIALOGEVENT:UnitDescriptXUSA013Subtitle
@@ -24495,7 +24495,7 @@ DIALOGEVENT:UnitDescriptXUSA014Subtitle
 END
 
 DIALOGEVENT:UnitDescriptXUSA015Subtitle
-"*Pos Pendengar adalah kendaraan lambat dan tersembunyi dengan radius pandang besar, dan bisa diisi 2 infanteri sebagai penjaga. Selain mengungkap objek tersembunyi, ia bisa dipakai untuk mengetahui tujuan musuh dengan mengklik unit dalam jangkauan"
+"*Pos Dengar adalah kendaraan lambat dan tersembunyi dengan radius pandang besar, dan bisa diisi 2 infanteri sebagai penjaga. Selain mengungkap objek tersembunyi, ia bisa dipakai untuk mengetahui tujuan musuh dengan mengklik unit dalam jangkauan"
 END
 
 DIALOGEVENT:UnitDescriptXUSA016Subtitle
@@ -24767,7 +24767,7 @@ UPGRADE:TacticalNukeMig
 END
 
 OBJECT:FuelAirBomb
-"Bom Fuel Air"
+"Bom Bahan Bakar-Udara"
 END
 
 OBJECT:CruiseMissile
@@ -25091,7 +25091,7 @@ GUI:BioFeatures_GLA
 END
 
 GUI:BioFeatures_China
-"Helix\nPos Pendengar\nRanjau Neutron\nAmuk\nPusat Internet\nPembom Karpet\nTank ECM\n"
+"Helix\nPos Dengar\nRanjau Neutron\nAmuk\nPusat Internet\nPembom Karpet\nTank ECM\n"
 END
 
 GUI:BioFeatures_Pos0
