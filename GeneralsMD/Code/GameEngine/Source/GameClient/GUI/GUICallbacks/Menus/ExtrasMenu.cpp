@@ -370,6 +370,7 @@ namespace
 		{ "korean", { L"추가 설정", L"최대 카메라 높이", L"최소 카메라 높이", L"카메라 각도", L"스크롤 속도", L"지형 표시 거리", L"취소", L"기본값", L"적용", L"추가", L"시작 카메라 높이" } },
 		{ "arabic", { L"خيارات إضافية", L"أقصى ارتفاع للكاميرا", L"أدنى ارتفاع للكاميرا", L"ميل الكاميرا", L"سرعة التمرير", L"مسافة رسم التضاريس", L"إلغاء", L"الافتراضي", L"تطبيق", L"إضافات", L"ارتفاع الكاميرا عند البدء" } },
 		{ "persian", { L"تنظیمات بیشتر", L"بیشترین ارتفاع دوربین", L"کمترین ارتفاع دوربین", L"شیب دوربین", L"سرعت پیمایش", L"فاصله ترسیم زمین", L"لغو", L"پیش‌فرض", L"اعمال", L"بیشتر", L"ارتفاع آغازین دوربین" } },
+		{ "indonesian", { L"OPSI TAMBAHAN", L"Tinggi kamera maksimum", L"Tinggi kamera minimum", L"Kemiringan kamera", L"Kecepatan gulir", L"Jarak render medan", L"Batal", L"Bawaan", L"Terapkan", L"Extras", L"Tinggi kamera awal" } },
 	};
 
 	const ExtrasTexts &gxExtrasTexts()

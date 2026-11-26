@@ -59,6 +59,7 @@ namespace
 		{ "korean", { L"치트", L"+10000 자금", L"즉시 건설: 켜짐", L"즉시 건설: 꺼짐", L"지도 공개", L"+1 장군 포인트", L"닫기", L"치트" } },
 		{ "arabic", { L"الغش", L"+10000 مال", L"بناء فوري: تشغيل", L"بناء فوري: إيقاف", L"كشف الخريطة", L"+1 نقطة جنرال", L"إغلاق", L"غش" } },
 		{ "persian", { L"تقلب", L"+10000 پول", L"ساخت فوری: روشن", L"ساخت فوری: خاموش", L"نمایش کل نقشه", L"+1 امتیاز ژنرال", L"بستن", L"تقلب" } },
+		{ "indonesian", { L"CHEAT", L"+10000 uang", L"Bangun instan: AKTIF", L"Bangun instan: NONAKTIF", L"Buka peta", L"+1 poin Jenderal", L"Tutup", L"Cheat" } },
 	};
 
 	const CheatTexts &cheatTexts()
