@@ -643,8 +643,9 @@ Bool ArchiveFileSystem::managedModProvidesScript(const Char *filename) const
 	for (size_t m = 0; m < m_managedModArchives.size(); ++m)
 	{
 		ArchiveFileMap::const_iterator managed = m_archiveFileMap.find(m_managedModArchives[m]);
+		FileInfo info;
 		if (managed != m_archiveFileMap.end() && managed->second != nullptr
-			&& managed->second->getArchivedFileInfo(name) != nullptr)
+			&& managed->second->getFileInfo(name, &info))
 		{
 			return TRUE;
 		}
