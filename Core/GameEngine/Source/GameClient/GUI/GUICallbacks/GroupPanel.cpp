@@ -185,6 +185,7 @@ static UnicodeString armyButtonLabel(Int index)
 		{ "persian", { L"صفحه", L"نقشه", L"هواپیما", L"بالگرد", L"زمینی", L"قهرمان", L"دوربین" } },
 		{ "polish", { L"Ekran", L"Mapa", L"Samoloty", L"Śmigłow.", L"Lądowe", L"Bohater", L"Kamera" } },
 		{ "spanish", { L"Pantalla", L"Mapa", L"Aviones", L"Helicóp.", L"Tierra", L"Héroe", L"Cámara" } },
+		{ "indonesian", { L"Layar", L"Peta", L"Pesawat", L"Heli", L"Darat", L"Pahlawan", L"Kamera" } },
 	};
 	const char *pack = getenv("GENERALSX_TEXT_LANGUAGE");
 	AsciiString language = (pack != nullptr && pack[0] != '\0') ? AsciiString(pack) : GetRegistryLanguage();
