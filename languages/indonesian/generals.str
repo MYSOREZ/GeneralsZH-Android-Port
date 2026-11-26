@@ -1507,7 +1507,7 @@ GUI:TotalDeaths
 END
 
 GUI:TotalKills
-"Total Kill"
+"Total Musuh Dibunuh"
 END
 
 GUI:FavoriteUnit
@@ -1707,7 +1707,7 @@ GUI:LastUpdated
 END
 
 GUI:WOLIconKey
-"Kunci Ikon"
+"Keterangan Ikon"
 END
 
 GUI:MyInfo
@@ -1991,7 +1991,7 @@ GUI:Strat
 END
 
 GUI:Struct
-"Struk"
+"Struktur"
 END
 
 GUI:Waypt
@@ -2039,7 +2039,7 @@ GUI:AntiAliasing
 END
 
 GUI:ScreenCapture
-"Layar ditangkap ke '%s'"
+"Tangkapan layar disimpan ke '%s'"
 END
 
 GUI:ScreenshotCapture
@@ -2079,11 +2079,11 @@ QM:JOININGQMCHANNEL
 END
 
 QM:WORKING
-"Ada %d pemain yang sedang mencoba cocok..."
+"Ada %d pemain yang sedang mencoba menemukan pertandingan..."
 END
 
 QM:POOLSIZE
-"Ada %d pemain yang sedang mencoba cocok..."
+"Ada %d pemain yang sedang mencoba menemukan pertandingan..."
 END
 
 QM:LOOKINGFORBOT
@@ -2195,7 +2195,7 @@ Version:BuildUser
 END
 
 GUI:SuperweaponDaisyCutter
-"Bom Fuel Air"
+"Bom Bahan Bakar-Udara"
 END
 
 GUI:SuperweaponParadropAmerica
@@ -2207,7 +2207,7 @@ GUI:SuperweaponClusterMines
 END
 
 GUI:SuperweaponEMPPulse
-"Pulsa EMP"
+"Gelombang EMP"
 END
 
 GUI:SuperweaponA10ThunderboltMissileStrike
@@ -2267,7 +2267,7 @@ GUI:SpecialAbilityDetonateCharges
 END
 
 GUI:SuperweaponParticleUplinkCannon
-"Meriam Partikel"
+"Meriam Partikel Uplink"
 END
 
 GUI:PatchAvailable
@@ -2363,7 +2363,7 @@ FTP:StatusFindingFile
 END
 
 FTP:StatusQueryingResume
-"Menanyakan Lanjutkan Unduhan"
+"Memeriksa Kelanjutan Unduhan"
 END
 
 FTP:StatusDownloading
@@ -2891,7 +2891,7 @@ TOOLTIP:SelectAll
 END
 
 TOOLTIP:SelectNone
-"Jangan QuickMatch di peta mana pun"
+"QuickMatch tanpa peta"
 END
 
 TOOLTIP:EnterPassword
@@ -3715,7 +3715,7 @@ Mouse:DisableBuildingHack
 END
 
 Mouse:LaserGuidedMissiles
-"Rudal Laser"
+"Rudal Berpemandu Laser"
 END
 
 Mouse:TankHunterTNTAttack
@@ -3827,7 +3827,7 @@ SCIENCE:USAA10Strike3
 END
 
 SCIENCE:USADaisyCutter
-"Bom Fuel Air"
+"Bom Bahan Bakar-Udara"
 END
 
 SCIENCE:ChinaNukeLauncher
@@ -3951,7 +3951,7 @@ CONTROLBAR:Stop
 END
 
 CONTROLBAR:Waypoints
-"Titik &Jalan"
+"Titik &Waypoint"
 END
 
 CONTROLBAR:CancelBuild
@@ -3967,7 +3967,7 @@ CONTROLBAR:FireWall
 END
 
 CONTROLBAR:UpgradeGLAArmTheMob
-"Persinjatai &Massa"
+"Persenjatai &Massa"
 END
 
 CONTROLBAR:UpgradeChinaOverlordGattlingCannon
@@ -3987,7 +3987,7 @@ CONTROLBAR:FireBomb
 END
 
 CONTROLBAR:UnderConstructionDesc
-"Bangunan: %.0f%%"
+"Membangun: %.0f%%"
 END
 
 CONTROLBAR:OCLTimerDesc
@@ -4015,7 +4015,7 @@ CONTROLBAR:TempDescription
 END
 
 CONTROLBAR:CleanupAreaDescription
-"Otomatis membersihkan racun bio dan radiasi di sekitar lokasi target"
+"Otomatis membersihkan biotoksin dan radiasi di sekitar lokasi target"
 END
 
 CONTROLBAR:ConstructAmericaCommandCenter
@@ -4343,7 +4343,7 @@ CONTROLBAR:ConstructGLABlackMarket
 END
 
 CONTROLBAR:ConstructGLAStingerSite
-"&Situs Stinger"
+"&Pos Stinger"
 END
 
 CONTROLBAR:ConstructGLAScudStorm
@@ -4355,7 +4355,7 @@ CONTROLBAR:ConstructGLAPrison
 END
 
 CONTROLBAR:ConstructGLAVehicleToxinTruck
-"Truk Ra&cun"
+"Tr&aktor Toksin"
 END
 
 CONTROLBAR:ConstructGLATankBattleMaster
@@ -4519,7 +4519,7 @@ CONTROLBAR:DisguiseAsVehicle
 END
 
 CONTROLBAR:UpgradeGLABombTruckHighExplosiveBomb
-"Bom Peledak &Tinggi"
+"Bom Berdaya Ledak &Tinggi"
 END
 
 CONTROLBAR:UpgradeGLAAnthraxBeta
@@ -4559,7 +4559,7 @@ CONTROLBAR:Sell
 END
 
 CONTROLBAR:Overcharge
-"&Overcharge"
+"&Beban Berlebih"
 END
 
 CONTROLBAR:DragonFlame
@@ -4603,7 +4603,7 @@ CONTROLBAR:FireNapalmMissile
 END
 
 CONTROLBAR:DaisyCutter
-"Bom Fuel &Air"
+"Bom Bahan Bakar-&Udara"
 END
 
 CONTROLBAR:NeutronMissile
@@ -4623,7 +4623,7 @@ CONTROLBAR:A10ThunderboltMissileStrike
 END
 
 CONTROLBAR:CashHack
-"Peretasan &Dana"
+"Peretasan &Uang"
 END
 
 CONTROLBAR:Ambush
@@ -4743,7 +4743,7 @@ CONTROLBAR:RemoteDemoCharge
 END
 
 CONTROLBAR:DetonateCharges
-"&Ledakkan Peledak"
+"&Ledakkan Muatan"
 END
 
 CONTROLBAR:DetonateNuke
@@ -4951,7 +4951,7 @@ UPGRADE:HighExplosiveBomb
 END
 
 UPGRADE:ArmTheMob
-"Persinjatai Massa"
+"Persenjatai Massa"
 END
 
 UPGRADE:ScorpionRocket
@@ -5583,7 +5583,7 @@ OBJECT:Missile
 END
 
 OBJECT:MissileTeam
-"Pembela Rudal"
+"Prajurit Rudal"
 END
 
 OBJECT:Moat
@@ -6039,7 +6039,7 @@ OBJECT:TownHouse
 END
 
 OBJECT:ToxinTruck
-"Traktor Racun"
+"Traktor Toksin"
 END
 
 OBJECT:TrashCan
@@ -6463,7 +6463,7 @@ SCRIPT:CHI02AudioHolder15
 END
 
 SCRIPT:CHI02AudioHolder16
-"<'EVA' speaking> \n 'Jenderal, GLA membawa Traktor Toksin mereka. Kamu bisa mengenalinya dari cairan hijau yang mereka semprotkan. Jauhkan unit infantri dari mereka dan gunakan tankmu untuk menghadapi ancaman baru ini.'"
+"<'EVA' speaking> \n 'Jenderal, GLA membawa Traktor Toksin mereka. Kamu bisa mengenalinya dari cairan hijau yang mereka semprotkan. Jauhkan unit infanteri dari mereka dan gunakan tankmu untuk menghadapi ancaman baru ini.'"
 END
 
 SCRIPT:CHI02AudioHolder17
@@ -6755,7 +6755,7 @@ SCRIPT:TrainingCrate
 END
 
 SCRIPT:TrainingMissionObjective
-"TUJUAN MISI \n Hancurkan Pabrik Senjata Biologi GLA"
+"TUJUAN MISI \n Hancurkan Pabrik Senjata Biologis GLA"
 END
 
 SCRIPT:TrainingOpeningObjective
@@ -7091,7 +7091,7 @@ CONTROLBAR:TooltipChinaUpgradeNationalism
 END
 
 CONTROLBAR:TooltipChinaUpgradeBlackNapalm
-"Damage +25% untuk semua senjata api"
+"Damage +25% untuk semua senjata penyembur api"
 END
 
 CONTROLBAR:TooltipChinaUpgradeChainGuns
@@ -7119,7 +7119,7 @@ CONTROLBAR:TooltipDisguiseAsVehicle
 END
 
 CONTROLBAR:TooltipGLAUpgradeBioBomb
-"Truk Bom menjadi senjata biologi"
+"Truk Bom menjadi senjata biologis"
 END
 
 CONTROLBAR:ToolTipGLAUpgradeHEBomb
@@ -7163,7 +7163,7 @@ CONTROLBAR:ToolTipGLAUpgradeTranqDarts
 END
 
 CONTROLBAR:ToolTipGLAUpgradeArmTheMob
-"Persinjatai semua Massa Marah dengan AK-47"
+"Persenjatai semua Massa Marah dengan AK-47"
 END
 
 CONTROLBAR:ToolTipStructureExit
@@ -7207,7 +7207,7 @@ CONTROLBAR:ToolTipCommandStop
 END
 
 CONTROLBAR:ToolTipWayPoints
-"Klik di tanah untuk menentukan titik jalan"
+"Klik di tanah untuk menentukan waypoint"
 END
 
 CONTROLBAR:ToolTipUSARangerCaptureBuilding
@@ -7375,7 +7375,7 @@ CONTROLBAR:ToolTipUSABuildParticleCannon
 END
 
 CONTROLBAR:ToolTipUSABuildStrategyCenter
-"Semua pasukan USA bisa memakai satu rencana tempur \n \n Bombardment \n Search and Destroy \n Hold the Line \n \n Daya yang Dibutuhkan: 2"
+"Semua pasukan USA bisa memakai satu rencana tempur \n \n Bombardir \n Cari dan Hancurkan \n Bertahan \n \n Daya yang Dibutuhkan: 2"
 END
 
 CONTROLBAR:ToolTipUSABuildDetentionCamp
@@ -7523,7 +7523,7 @@ CONTROLBAR:ToolTipChinaBuildHacker
 END
 
 CONTROLBAR:ToolTipUSABUildChinook
-"Helikopter angkut. Mengumpulkan pasokan. Bekerja sama dengan Ranger untuk melakukan serangan Combat Drop"
+"Helikopter angkut. Mengumpulkan pasokan. Bekerja sama dengan Ranger untuk melakukan serangan Penjatuhan Tempur"
 END
 
 CONTROLBAR:ToolTipChinaBuildSupplyTruck
@@ -7559,7 +7559,7 @@ CONTROLBAR:ToolTipUSABuildPathFinder
 END
 
 CONTROLBAR:ToolTipUSABuildColonelBurton
-"Berkamuflase. Menampakkan diri saat menembak atau memasang bom \n \n Batas Bangun: 1 \n Kuat lawan Infanteri \n Lemah lawan Pengintai"
+"Berkamuflase. Menampakkan diri saat menembak atau memasang bom \n \n Batas Pembangunan: 1 \n Kuat lawan Infanteri \n Lemah lawan Pengintai"
 END
 
 CONTROLBAR:ToolTipUSABuildTomahawk
@@ -7687,7 +7687,7 @@ CONTROLBAR:ToolTipUSAScienceA10Strike
 END
 
 CONTROLBAR:ToolTipUSAScienceDaisyCutter
-"Bom Fuel Air menghancurkan gedung dan konsentrasi pasukan musuh \n \n Dikerahkan dari: Pusat Komando"
+"Bom Bahan Bakar-Udara menghancurkan gedung dan konsentrasi pasukan musuh \n \n Dikerahkan dari: Pusat Komando"
 END
 
 CONTROLBAR:ToolTipChinaScienceNukeCannon
@@ -7895,15 +7895,15 @@ CONTROLBAR:TooltipChinaUpgradeAircraftArmor
 END
 
 CONTROLBAR:ToolTipSwitchToRangerMachineGun
-"Beralih ke mode senapan mesin untuk menyerang segala keperluan"
+"Beralih ke mode senapan mesin untuk menyerang segala target"
 END
 
 CONTROLBAR:ToolTipSwitchToRedguardMachineGun
-"Beralih ke mode senapan mesin untuk menyerang segala keperluan"
+"Beralih ke mode senapan mesin untuk menyerang segala target"
 END
 
 CONTROLBAR:ToolTipSwitchToRebelMachineGun
-"Beralih ke mode senapan mesin untuk menyerang segala keperluan"
+"Beralih ke mode senapan mesin untuk menyerang segala target"
 END
 
 CONTROLBAR:ToolTipSwitchToUSAFlashBang
@@ -8071,7 +8071,7 @@ GUI:SandboxMode
 END
 
 GUI:BookmarkXSet
-"Bookmark #%d dipasang"
+"Penanda #%d dipasang"
 END
 
 SCIENCE:EmergencyRepair1
@@ -8167,7 +8167,7 @@ MAP:USA07GotObjective2
 END
 
 GUI:Defaults
-"DEFAULT"
+"Bawaan"
 END
 
 TOOLTIP:OptionsAccept
@@ -8231,7 +8231,7 @@ GUI:GSDisconReason16
 END
 
 GUI:GSDisconReason17
-"Password itu salah. Silakan coba lagi"
+"Kata sandi itu salah. Silakan coba lagi"
 END
 
 GUI:GSDisconReason18
@@ -8251,15 +8251,15 @@ GUI:PlayerHasBeenDefeated
 END
 
 CONTROLBAR:UpgradeAmericaRangerCaptureBuilding
-"&Rebut Gedung"
+"&Rebut Bangunan"
 END
 
 CONTROLBAR:UpgradeChinaRedguardCaptureBuilding
-"&Rebut Gedung"
+"&Rebut Bangunan"
 END
 
 CONTROLBAR:UpgradeGLARebelCaptureBuilding
-"&Rebut Gedung"
+"&Rebut Bangunan"
 END
 
 CONTROLBAR:DetonateBombTruck
@@ -8267,15 +8267,15 @@ CONTROLBAR:DetonateBombTruck
 END
 
 UPGRADE:RangerCaptureBuilding
-"Rebut Gedung"
+"Rebut Bangunan"
 END
 
 UPGRADE:RedguardCaptureBuilding
-"Rebut Gedung"
+"Rebut Bangunan"
 END
 
 UPGRADE:RebelCaptureBuilding
-"Rebut Gedung"
+"Rebut Bangunan"
 END
 
 CONTROLBAR:TooltipDetonateBombTruck
@@ -8535,7 +8535,7 @@ LOAD:USA08_1
 END
 
 LOAD:USA08_2
-"- GLA punya senjata biologi"
+"- GLA punya senjata biologis"
 END
 
 LOAD:USA08_3
@@ -8755,19 +8755,19 @@ TOOLTIP:BattleHonorAirWingDisabled
 END
 
 TOOLTIP:BattleHonorEnduranceDisabled
-"Kehormatan Daya Tahan \n Kalahkan semua peta untuk mendapat medali Perunggu, Perak, atau Emas"
+"Kehormatan Daya Tahan \n Menangkan semua peta untuk mendapat medali Perunggu, Perak, atau Emas"
 END
 
 TOOLTIP:BattleHonorCampaignUSADisabled
-"Kehormatan Kampanye USA \n Selesaikan Kampanye USA untuk mendapat kehormatan ini \n Kalahkan kampanye di tingkat kesulitan Sulit untuk mencapai kehormatan tertinggi"
+"Kehormatan Kampanye USA \n Selesaikan Kampanye USA untuk mendapat kehormatan ini \n Menangkan kampanye di tingkat kesulitan Sulit untuk mencapai kehormatan tertinggi"
 END
 
 TOOLTIP:BattleHonorCampaignChinaDisabled
-"Kehormatan Kampanye China \n Selesaikan Kampanye China untuk mendapat kehormatan ini \n Kalahkan kampanye di tingkat kesulitan Sulit untuk mencapai kehormatan tertinggi"
+"Kehormatan Kampanye China \n Selesaikan Kampanye China untuk mendapat kehormatan ini \n Menangkan kampanye di tingkat kesulitan Sulit untuk mencapai kehormatan tertinggi"
 END
 
 TOOLTIP:BattleHonorCampaignGLADisabled
-"Kehormatan Kampanye GLA \n Selesaikan Kampanye GLA untuk mendapat kehormatan ini \n Kalahkan kampanye di tingkat kesulitan Sulit untuk mencapai kehormatan tertinggi"
+"Kehormatan Kampanye GLA \n Selesaikan Kampanye GLA untuk mendapat kehormatan ini \n Menangkan kampanye di tingkat kesulitan Sulit untuk mencapai kehormatan tertinggi"
 END
 
 TOOLTIP:BattleHonorChallengeDisabled
@@ -8775,15 +8775,15 @@ TOOLTIP:BattleHonorChallengeDisabled
 END
 
 GUI:BuildingsKilledStat
-"Gedung yang Dihancurkan"
+"Bangunan yang Dihancurkan"
 END
 
 GUI:BuildingsBuiltStat
-"Gedung yang Dibangun"
+"Bangunan yang Dibangun"
 END
 
 GUI:BuildingsLostStat
-"Gedung yang Hilang"
+"Bangunan yang Hilang"
 END
 
 GUI:QMWinStreak
@@ -8799,7 +8799,7 @@ GUI:LobbyJoined
 END
 
 GUI:GSNoLoginInfoAll
-"Silakan masukkan email, nickname, dan passwordmu. Lalu, klik Login atau Buat Akun"
+"Silakan masukkan email, nickname, dan kata sandimu. Lalu, klik Login atau Buat Akun"
 END
 
 GUI:GSNoLoginInfoEmailNickname
@@ -8807,7 +8807,7 @@ GUI:GSNoLoginInfoEmailNickname
 END
 
 GUI:GSNoLoginInfoEmailPassword
-"Silakan masukkan email dan passwordmu. Lalu, klik Login atau Buat Akun"
+"Silakan masukkan email dan kata sandimu. Lalu, klik Login atau Buat Akun"
 END
 
 GUI:Any
@@ -8815,7 +8815,7 @@ GUI:Any
 END
 
 GUI:GSNoLoginInfoNicknamePassword
-"Silakan masukkan nickname dan passwordmu. Lalu, klik Login atau Buat Akun"
+"Silakan masukkan nickname dan kata sandimu. Lalu, klik Login atau Buat Akun"
 END
 
 GUI:GSNoLoginInfoEmail
@@ -8827,7 +8827,7 @@ GUI:GSNoLoginInfoNickname
 END
 
 GUI:GSNoLoginInfoPassword
-"Silakan masukkan passwordmu. Lalu, klik Login atau Buat Akun"
+"Silakan masukkan kata sandimu. Lalu, klik Login atau Buat Akun"
 END
 
 Buddy:MultipleOnlineNotification
@@ -8971,7 +8971,7 @@ MAP:GLA03Directive
 END
 
 MAP:USA02Hint1Text
-"Gunakan pilot untuk memberi veteran tambahan pada kendaraanmu"
+"Gunakan pilot untuk memberi status veteran tambahan pada kendaraanmu"
 END
 
 MAP:USA02Hint2Text
@@ -9079,7 +9079,7 @@ MAP:CHI05Objhint2
 END
 
 MAP:CHI05ObjCBReady
-"PETUNJUK: \n Bom Karpet sekarang tersedia"
+"PETUNJUK: \n Pembom Karpet sekarang tersedia"
 END
 
 MAP:USA08MapName
@@ -9563,7 +9563,7 @@ GUI:NetworkError
 END
 
 GUI:BuddiesTab
-"Buddy"
+"Teman"
 END
 
 TOOLTIP:BattleHonorOfficersClub
@@ -9759,7 +9759,7 @@ GUI:CareerLosses
 END
 
 GUI:CurrentWinStreak
-"Rentetan Kemenangan Saat Ini"
+"Rangkaian Kemenangan Saat Ini"
 END
 
 GUI:CarrerWinPercent
@@ -10043,7 +10043,7 @@ TOOLTIP:BehindBuilding
 END
 
 GUI:ShowProps
-"Tampilkan Properti"
+"Tampilkan Objek Dekorasi"
 END
 
 TOOLTIP:ShowProps
@@ -10083,7 +10083,7 @@ TOOLTIP:ParticleCapSlider
 END
 
 GUI:CurrentLossStreak
-"Rentetan Kekalahan Saat Ini"
+"Rangkaian Kekalahan Saat Ini"
 END
 
 GUI:Custom
@@ -11043,7 +11043,7 @@ GUI:RandomSide
 END
 
 GUI:Age
-"Usia"
+"Umur"
 END
 
 GUI:Month
@@ -11179,7 +11179,7 @@ GUI:LimitArmies
 END
 
 TOOLTIP:LimitArmies
-"Centang untuk membatasi pasukan ke faksi tradisional USA, GLA, dan China dan melarang pasukan jenderal nakal"
+"Centang untuk membatasi pasukan ke faksi tradisional USA, GLA, dan China dan melarang pasukan jenderal di luar tiga faksi utama"
 END
 
 GUI:UseStats
@@ -11599,7 +11599,7 @@ CONTROLBAR:ConstructFakeGLABarracks
 END
 
 CONTROLBAR:ConstructFakeGLASupplyStash
-"Tempat Pasokan &Palsu"
+"Gudang Pasokan &Palsu"
 END
 
 CONTROLBAR:ConstructFakeGLAArmsDealer
@@ -11611,7 +11611,7 @@ CONTROLBAR:ConstructChinaInternetCenter
 END
 
 CONTROLBAR:ConstructGLAVehicleCombatBike
-"Siklus &Tempur"
+"Motor &Tempur"
 END
 
 CONTROLBAR:ConstructChinaTankEmperor
@@ -11703,7 +11703,7 @@ CONTROLBAR:UpgradeAmericaSupplyLines
 END
 
 CONTROLBAR:UpgradeAmericaMOAB
-"&Mother Of All Bombs"
+"&Ibu Segala Bom"
 END
 
 CONTROLBAR:BecomeRealGLACommandCenter
@@ -11719,7 +11719,7 @@ CONTROLBAR:BecomeRealGLAArmsDealer
 END
 
 CONTROLBAR:BecomeRealGLASupplyStash
-"&Jadi Tempat Pasokan Asli"
+"&Jadi Gudang Pasokan Asli"
 END
 
 CONTROLBAR:BecomeRealGLABlackMarket
@@ -11887,7 +11887,7 @@ CONTROLBAR:RadarVanScanShortcut
 END
 
 CONTROLBAR:SelectAircraftCarriersFromShortcut
-"Pilih Kapal Induk Pesawat"
+"Pilih Kapal Induk"
 END
 
 CONTROLBAR:SelectBattleshipsFromShortcut
@@ -11903,7 +11903,7 @@ CONTROLBAR:AircraftCarrierFire
 END
 
 CONTROLBAR:ECMDisableVehicle
-"&Nonaktifkan Kendaraan"
+"&Lumpuhkan Kendaraan"
 END
 
 CONTROLBAR:BoobyTrapAttack
@@ -12027,7 +12027,7 @@ UPGRADE:FortifiedStructure
 END
 
 UPGRADE:BoobyTrap
-"Jebakan Peledak"
+"Perangkap Peledak"
 END
 
 UPGRADE:AnthraxGamma
@@ -12131,11 +12131,11 @@ OBJECT:ECMTank
 END
 
 OBJECT:Saboteur
-"Sabotir"
+"Penyabot"
 END
 
 OBJECT:TechRepairBay
-"Teluk Perbaikan Teknologi -- Rebut untuk memperbaiki kendaraan di seluruh medan tempur"
+"Bengkel Perbaikan Teknologi -- Rebut untuk memperbaiki kendaraan di seluruh medan tempur"
 END
 
 OBJECT:TechReinforcementPad
@@ -12155,7 +12155,7 @@ OBJECT:KingRaptor
 END
 
 OBJECT:CombatBike
-"Siklus Tempur"
+"Motor Tempur"
 END
 
 OBJECT:SentryDrone
@@ -12351,23 +12351,23 @@ HELP:NeutronShell-01
 END
 
 HELP:CombatCycle-01
-"PETUNJUK: \n Siklus Tempur bisa melompat dari tebing"
+"PETUNJUK: \n Motor Tempur bisa melompat dari tebing"
 END
 
 HELP:CombatCycle-02
-"PETUNJUK: \n Tempatkan Pembela Terowongan di Siklus Tempur untuk \n memungkinkannya menembakkan roket"
+"PETUNJUK: \n Tempatkan Pembela Terowongan di Motor Tempur untuk \n memungkinkannya menembakkan roket"
 END
 
 HELP:CombatCycle-03
-"PETUNJUK: \n Tempatkan Teroris di Siklus Tempur untuk \n membuat Sepeda Bunuh Diri"
+"PETUNJUK: \n Tempatkan Teroris di Motor Tempur untuk \n membuat Motor Bunuh Diri"
 END
 
 HELP:CombatCycle-04
-"PETUNJUK: \n Jarmen Kell bisa menembak dari Siklus Tempur"
+"PETUNJUK: \n Jarmen Kell bisa menembak dari Motor Tempur"
 END
 
 HELP:CombatCycle-05
-"PETUNJUK: \n Pekerja bisa memakai Siklus Tempur untuk bepergian cepat"
+"PETUNJUK: \n Pekerja bisa memakai Motor Tempur untuk bepergian cepat"
 END
 
 HELP:Saboteur-01
@@ -12387,7 +12387,7 @@ HELP:SneakAttack-01
 END
 
 HELP:GPSScramble-01
-"PETUNJUK: \n Pakai Kekuatan Jenderal Pengacak GPS untuk \n mengkamuflase unit kawan"
+"PETUNJUK: \n Pakai Kekuatan Jenderal Pengacak GPS untuk \n menyamarkan unit kawan"
 END
 
 HELP:WorkerShoes-01
@@ -12395,7 +12395,7 @@ HELP:WorkerShoes-01
 END
 
 HELP:CamoNetting-01
-"PETUNJUK: \n Jaring Kamuflase mengkamuflase Situs Stinger \n dan Jaringan Terowonganmu"
+"PETUNJUK: \n Jaring Kamuflase menyamarkan Situs Stinger \n dan Jaringan Terowonganmu"
 END
 
 HELP:FortifiedStructures-01
@@ -12415,7 +12415,7 @@ HELP:CombatChinooks-01
 END
 
 HELP:AuroraAlpha-01
-"PETUNJUK: \n Aurora Alpha dilengkapi dengan Bom Fuel Air kecil \n tapi mematikan"
+"PETUNJUK: \n Aurora Alpha dilengkapi dengan Bom Bahan Bakar-Udara kecil \n tapi mematikan"
 END
 
 HELP:MicrowavePatriot-01
@@ -12423,7 +12423,7 @@ HELP:MicrowavePatriot-01
 END
 
 HELP:AdvancedRods-01
-"PETUNJUK: \n Batang Lanjutan menghasilkan daya lebih besar dari Batang Kontrol biasa"
+"PETUNJUK: \n Batang Lanjutan menghasilkan daya lebih besar dari Batang Kendali biasa"
 END
 
 HELP:LaserTank-01
@@ -12579,7 +12579,7 @@ HELP:OilDerrick-01
 END
 
 HELP:RepairBay-01
-"PETUNJUK: \n Rebut Teluk Perbaikan untuk memperbaiki kendaraan di mana saja"
+"PETUNJUK: \n Rebut Fasilitas Perbaikan untuk memperbaiki kendaraan di mana saja"
 END
 
 HELP:ArtilleryPlatform-01
@@ -12779,7 +12779,7 @@ MAP:USA03xObjectiveCompleted
 END
 
 MAP:USA03xTownHallHint
-"TRANSMISI MASUK: \n Cari desa untuk prajurit MIA"
+"TRANSMISI MASUK: \n Cari prajurit MIA di desa"
 END
 
 MAP:USA03xToxinNetworksWarning
@@ -12907,31 +12907,31 @@ MAP:MD-USA06Warning01
 END
 
 MAP:MD-USA06Warning02
-"PERINGATAN: \n Luncur dalam 5 menit"
+"PERINGATAN: \n Meluncur dalam 5 menit"
 END
 
 MAP:MD-USA06Warning03
-"PERINGATAN: \n Luncur dalam 4 menit"
+"PERINGATAN: \n Meluncur dalam 4 menit"
 END
 
 MAP:MD-USA06Warning04
-"PERINGATAN: \n Luncur dalam 3 menit"
+"PERINGATAN: \n Meluncur dalam 3 menit"
 END
 
 MAP:MD-USA06Warning05
-"PERINGATAN: \n Luncur dalam 2 menit"
+"PERINGATAN: \n Meluncur dalam 2 menit"
 END
 
 MAP:MD-USA06Warning06
-"PERINGATAN: \n Luncur dalam 1 menit"
+"PERINGATAN: \n Meluncur dalam 1 menit"
 END
 
 MAP:MD-USA06Warning07
-"PERINGATAN: \n Luncur dalam 30 detik"
+"PERINGATAN: \n Meluncur dalam 30 detik"
 END
 
 MAP:MD-USA06Warning08
-"PERINGATAN: \n Luncur dalam 10 detik"
+"PERINGATAN: \n Meluncur dalam 10 detik"
 END
 
 MAP:MD-USA06Warning09
@@ -12951,11 +12951,11 @@ SCRIPT:MD-USA06MissileTimer
 END
 
 MAP:MD-USA06Warning10
-"PERINGATAN: \n Luncur dalam 10 menit"
+"PERINGATAN: \n Meluncur dalam 10 menit"
 END
 
 MAP:MD-USA06Warning11
-"PERINGATAN: \n Luncur dalam 15 menit"
+"PERINGATAN: \n Meluncur dalam 15 menit"
 END
 
 MAP:MD-USA06Intro1
@@ -12987,7 +12987,7 @@ MAP:MD_GLA01Message02
 END
 
 MAP:MD_GLA01Message03
-"PETUNJUK: \n Tingkatkan unit GLA dengan menggerakkannya ke peti salvage"
+"PETUNJUK: \n Tingkatkan unit GLA dengan menggerakkannya ke peti barang bekas"
 END
 
 OBJECT:GLALeader
@@ -13027,7 +13027,7 @@ MAP:Intro_MO_2a
 END
 
 MDGLA02:TITLE
-"Somewhere near Cairo, Egypt \n 'Agenda Tersembunyi'"
+"Di suatu tempat dekat Kairo, Mesir \n 'Agenda Tersembunyi'"
 END
 
 MDGLA02:Hint1
@@ -13123,7 +13123,7 @@ MDGLA03:Info-GotPowerPlants-01
 END
 
 MDGLA03:Info-Goodies-01
-"PETUNJUK: \n Jelajahi pulau-pulau untuk menemukan peti salvage dan kendaraan"
+"PETUNJUK: \n Jelajahi pulau-pulau untuk menemukan peti barang bekas dan kendaraan"
 END
 
 MDGLA03:Lose-NoUnitsOrStructures-01
@@ -13223,7 +13223,7 @@ SCRIPT:MD_GLA04Toxin_Counter
 END
 
 MAP:MD_GLA04Title
-"Western USA Coastal Toxic Facility \n 'Jarmen Kell dan Empat Puluh Pencuri'"
+"Fasilitas Toksin Pesisir Barat USA \n 'Jarmen Kell dan Empat Puluh Pencuri'"
 END
 
 MD_GLA05-MilitaryBriefing:String_2
@@ -13355,7 +13355,7 @@ MD_GLA05-MilitaryBriefing:String_33
 END
 
 MD_GLA05-MilitaryBriefing:String_34
-"PETUNJUK: \n Rebut Derek Minyak dan amankan persediaan tambahan \n Rebut Platform Artileri untuk menguasai daerah kunci"
+"PETUNJUK: \n Rebut Menara Minyak dan amankan persediaan tambahan \n Rebut Platform Artileri untuk menguasai daerah kunci"
 END
 
 MD_GLA05-MilitaryBriefing:String_35
@@ -13403,7 +13403,7 @@ MAP:CHI01xTechBldgHint
 END
 
 MAP:CHI01xOilDerrickHint
-"PETUNJUK: \n Rebut Derek Minyak untuk mendapat uang tambahan"
+"PETUNJUK: \n Rebut Menara Minyak untuk mendapat uang tambahan"
 END
 
 MAP:CHI01xOilRefineryHint
@@ -13599,7 +13599,7 @@ MAP:MD_CHI04MissionLoseText
 END
 
 MAP:MD-CHI05_LOCALE
-"Near Hamburg, Germany \n 'Takdir Sang Naga'"
+"Dekat Hamburg, Jerman \n 'Takdir Sang Naga'"
 END
 
 MAP:MD-CHI05_USBaseDestroyedFirst
@@ -13639,7 +13639,7 @@ MAP:MD-CHI05_Hint13
 END
 
 MAP:MD-CHI05_Hint15
-"TRANSMISI MASUK: \n Gunakan Listening Outpost untuk menghentikan \n Jarmen Kell menyasar kendaraan kita"
+"TRANSMISI MASUK: \n Gunakan Pos Dengar untuk menghentikan \n Jarmen Kell menyasar kendaraan kita"
 END
 
 MAP:MD-CHI05_Hint16
@@ -13655,7 +13655,7 @@ MAP:ChemGeneral
 END
 
 GC_CHINABOSS:Loc
-"Somewhere near the China / Tibet border \n 'Sarang Harimau'"
+"Di suatu tempat dekat perbatasan China / Tibet \n 'Sarang Harimau'"
 END
 
 GC_CHINABOSS:Hint
@@ -13675,19 +13675,19 @@ GC_CHINABOSS:Resources
 END
 
 CONTROLBAR:TooltipMOAB
-"Kuat lawan Bangunan \n Akan menyetrum unit dalam radius ledakan \n \n Timer Hitung Mundur: 6:00"
+"Kuat lawan Bangunan \n Akan menyetrum unit dalam radius ledakan \n \n Hitung Mundur: 6:00"
 END
 
 CONTROLBAR:TooltipLeafletDrop
-"Kuat lawan Infanteri \n \n Timer Hitung Mundur: 6:00"
+"Kuat lawan Infanteri \n \n Hitung Mundur: 6:00"
 END
 
 CONTROLBAR:TooltipTankParaDrop
-"Menjatuhkan Battlemaster dengan pesawat \n \n Timer Hitung Mundur: 4:00"
+"Menjatuhkan Battlemaster dengan pesawat \n \n Hitung Mundur: 4:00"
 END
 
 CONTROLBAR:TooltipNukeDrop
-"Menjatuhkan hulu ledak nuklir taktis dengan pesawat \n \n Timer Hitung Mundur: 4:00"
+"Menjatuhkan hulu ledak nuklir taktis dengan pesawat \n \n Hitung Mundur: 4:00"
 END
 
 CONTROLBAR:TooltipSuitcaseNuke
@@ -13695,23 +13695,23 @@ CONTROLBAR:TooltipSuitcaseNuke
 END
 
 CONTROLBAR:TooltipSpectreGunship
-"Kuat lawan Kendaraan \n \n Timer Hitung Mundur: 4:00"
+"Kuat lawan Kendaraan \n \n Hitung Mundur: 4:00"
 END
 
 CONTROLBAR:TooltipFireICBM
-"Kuat lawan Bangunan, infanteri \n \n Timer Hitung Mundur: 6:00"
+"Kuat lawan Bangunan, infanteri \n \n Hitung Mundur: 6:00"
 END
 
 CONTROLBAR:TooltipFireTomahawkStorm
-"Kuat lawan Bangunan, Kendaraan \n \n Timer Hitung Mundur: 5:00"
+"Kuat lawan Bangunan, Kendaraan \n \n Hitung Mundur: 5:00"
 END
 
 CONTROLBAR:TooltipFrenzy
-"Membuat unitmu memberi damage lebih besar untuk waktu terbatas \n \n Timer Hitung Mundur: 4:00"
+"Membuat unitmu memberi damage lebih besar untuk waktu terbatas \n \n Hitung Mundur: 4:00"
 END
 
 CONTROLBAR:TooltipFireGPSScrambler
-"GPS Scrambler \n Timer Hitung Mundur: 4:00"
+"GPS Scrambler \n Hitung Mundur: 4:00"
 END
 
 CONTROLBAR:TooltipCommunicationsDownload
@@ -13731,7 +13731,7 @@ CONTROLBAR:TooltipUSAUpgradeSupplyLines
 END
 
 CONTROLBAR:TooltipUSAUpgradeMOAB
-"Bom Fuel Air ditingkatkan menjadi Mother Of All Bombs"
+"Bom Bahan Bakar-Udara ditingkatkan menjadi Ibu Segala Bom"
 END
 
 CONTROLBAR:TooltipBecomeRealBuilding
@@ -13763,11 +13763,11 @@ CONTROLBAR:TooltipUpgradeChinaHelixBattleBunker
 END
 
 CONTROLBAR:TooltipChinaUpgradeSatelliteHackOne
-"Aktifkan kemampuan Satellite Hack untuk mengungkap pusat komando lawan"
+"Aktifkan kemampuan Peretasan Satelit untuk mengungkap pusat komando lawan"
 END
 
 CONTROLBAR:TooltipChinaUpgradeSatelliteHackTwo
-"Aktifkan kemampuan Satellite Hack untuk mengungkap wilayah semua lawan secara berkala"
+"Aktifkan kemampuan Peretasan Satelit untuk mengungkap wilayah semua lawan secara berkala"
 END
 
 CONTROLBAR:TooltipChinaUpgradeFanaticism
@@ -13783,7 +13783,7 @@ CONTROLBAR:TooltipUpgradeChinaTankAutoLoader
 END
 
 CONTROLBAR:TooltipUpgradeChinaNeutronShells
-"Tingkatkan Meriam Nuklir untuk menembakkan Neutron Shell \n Neutron Shell akan membunuh infanteri di dalam kendaraan"
+"Tingkatkan Meriam Nuklir untuk menembakkan Peluru Neutron \n Peluru Neutron akan membunuh infanteri di dalam kendaraan"
 END
 
 CONTROLBAR:ToolTipUpgradeChinaEMPMines
@@ -13895,7 +13895,7 @@ CONTROLBAR:ToolTipAmericaICBMLauncher
 END
 
 CONTROLBAR:ToolTipAmericaBuildTomahawkStorm
-"Meluncurkan rentetan rudal Tomahawk \n \n Timer Hitung Mundur: 5:00"
+"Meluncurkan rentetan rudal Tomahawk \n \n Hitung Mundur: 5:00"
 END
 
 CONTROLBAR:ToolTipGLABuildCombatBike
@@ -13919,11 +13919,11 @@ CONTROLBAR:ToolTipUSABuildAvenger
 END
 
 CONTROLBAR:ToolTipUSABuildKingRaptor
-"Bisa menyerang target darat atau udara. Dilengkapi Point Defense Laser \n Muatan Lebih Besar. Mendeteksi Siluman \n \n Kuat lawan pesawat, tank, kendaraan ringan \n Lemah lawan infanteri bersenjata rudal, pertahanan anti-udara"
+"Bisa menyerang target darat atau udara. Dilengkapi Laser Pertahanan Titik \n Muatan Lebih Besar. Mendeteksi Siluman \n \n Kuat lawan pesawat, tank, kendaraan ringan \n Lemah lawan infanteri bersenjata rudal, pertahanan anti-udara"
 END
 
 CONTROLBAR:ToolTipUSABuildFuelAirAurora
-"Serangan super-sonik membuat Aurora kebal terhadap tembakan musuh saat menjatuhkan Bom Fuel-Air kecil. Setelah serangan super-sonik, kecepatan Aurora berkurang menjadi 50% \n \n Kuat lawan bangunan \n Lemah lawan pesawat tempur, unit anti-udara"
+"Serangan super-sonik membuat Aurora kebal terhadap tembakan musuh saat menjatuhkan Bom Bahan Bakar-Udara kecil. Setelah serangan super-sonik, kecepatan Aurora berkurang menjadi 50% \n \n Kuat lawan bangunan \n Lemah lawan pesawat tempur, unit anti-udara"
 END
 
 CONTROLBAR:ToolTipUSABuildHyersonicAurora
@@ -13955,7 +13955,7 @@ CONTROLBAR:ToolTipChinaBuildHelix
 END
 
 CONTROLBAR:ToolTipChinaBuildListeningOutpost
-"Transport. Mendeteksi unit siluman \n \n Lemah lawan tank, pesawat"
+"Angkutan. Mendeteksi unit siluman \n \n Lemah lawan tank, pesawat"
 END
 
 CONTROLBAR:ToolTipChinaBuildECM
@@ -13999,7 +13999,7 @@ CONTROLBAR:ToolTipChinaScienceFrenzy
 END
 
 CONTROLBAR:ToolTipChinaScienceCarpetBomb
-"Memungkinkanmu memanggil pembom berat untuk membom karpet suatu area \n \n Dikerahkan dari: Pusat Komando"
+"Memungkinkanmu memanggil pembom berat untuk membombardir suatu area secara menyeluruh \n \n Dikerahkan dari: Pusat Komando"
 END
 
 CONTROLBAR:ToolTipScienceGPSScrambler
@@ -14703,11 +14703,11 @@ ACADEMY:UseSecondaryIncomeMethods
 END
 
 ACADEMY:ClearBuildings
-"Bangunan yang ditempati pasukan bisa sulit dihadapi — kecuali kalau kamu tahu triknya. Tingkatkan Ranger USA dengan Flash Bang, bangun Toxin Tractor GLA atau Tank Naga China untuk membersihkan titik kuat ini dengan cepat. USA juga bisa meningkatkan ke Bunker Buster untuk membersihkan Jaringan Terowongan!"
+"Bangunan yang ditempati pasukan bisa sulit dihadapi — kecuali kalau kamu tahu triknya. Tingkatkan Ranger USA dengan Flash Bang, bangun Toxin Tractor GLA atau Tank Naga China untuk membersihkan titik kuat ini dengan cepat. USA juga bisa meningkatkan ke Penghancur Bunker untuk membersihkan Jaringan Terowongan!"
 END
 
 ACADEMY:PickUpSalvage
-"GLA memang licik tapi mereka juga pandai memanfaatkan peluang. Setiap kali unit GLA menghancurkan kendaraan lain, bonus salvage tertinggal. Lewati saja bagian salvage itu untuk meningkatkan unitmu, mendapat veteran, atau uang tambahan. Salvage bisa sangat berpengaruh dalam pertempuran panjang, jadi jangan dibiarkan begitu saja"
+"GLA memang licik tapi mereka juga pandai memanfaatkan peluang. Setiap kali unit GLA menghancurkan kendaraan lain, bonus salvage tertinggal. Lewati saja bagian salvage itu untuk meningkatkan unitmu, mendapat status veteran, atau uang tambahan. Salvage bisa sangat berpengaruh dalam pertempuran panjang, jadi jangan dibiarkan begitu saja"
 END
 
 ACADEMY:UseGuardAbility
@@ -15627,7 +15627,7 @@ DIALOGEVENT:MisCHI01xChat02Subtitle
 END
 
 DIALOGEVENT:MisCHI01xChat03Subtitle
-"*Lihat… Derek Minyak… haruskah kita merebutnya?"
+"*Lihat… Menara Minyak… haruskah kita merebutnya?"
 END
 
 DIALOGEVENT:MisCHI01xChat04Subtitle
@@ -15703,11 +15703,11 @@ DIALOGEVENT:MisCHI01xXO04Subtitle
 END
 
 DIALOGEVENT:MisCHI01xXO05Subtitle
-"*GLA memakai Derek Minyak ini untuk mendanai pasukan mereka. Salah satu Pengawal Merah kita bisa merebut derek itu. Hasilnya akan membantu mengalahkan GLA"
+"*GLA memakai Menara Minyak ini untuk mendanai pasukan mereka. Salah satu Pengawal Merah kita bisa merebut menara itu. Hasilnya akan membantu mengalahkan GLA"
 END
 
 DIALOGEVENT:MisCHI01xXO06Subtitle
-"*Jenderal, bijakkah menghancurkan Derek Minyak ini? Derek itu akan memberi sumber daya berharga untuk kita. Salah satu Pengawal Merah kita bisa merebutnya"
+"*Jenderal, bijakkah menghancurkan Menara Minyak ini? Menara itu akan memberi sumber daya berharga untuk kita. Salah satu Pengawal Merah kita bisa merebutnya"
 END
 
 DIALOGEVENT:MisCHI01xXO07Subtitle
@@ -15735,7 +15735,7 @@ DIALOGEVENT:MisCHI02xBrf01aSubtitle
 END
 
 DIALOGEVENT:MisCHI02xBrf02Subtitle
-"*Prajurit pemberani kita menahan serangan mereka tapi dengan biaya besar dan GLA masih ada di luar sana"
+"*Prajurit pemberani kita menahan serangan mereka tapi dengan pengorbanan besar dan GLA masih ada di luar sana"
 END
 
 DIALOGEVENT:MisCHI02xBrf03Subtitle
@@ -15979,7 +15979,7 @@ DIALOGEVENT:MisChi03RedChat19Subtitle
 END
 
 DIALOGEVENT:MisCHI03xBrf01Subtitle
-"*Salam, Komandan. Sekarang kita sudah menggagalkan serangan balasan GLA, saatnya menekan keunggulan kita!"
+"*Salam, Komandan. Sekarang kita sudah menggagalkan serangan balasan GLA, saatnya memanfaatkan keunggulan kita!"
 END
 
 DIALOGEVENT:MisCHI03xBrf02Subtitle
@@ -17291,7 +17291,7 @@ DIALOGEVENT:MisGLA04xCin04Subtitle
 END
 
 DIALOGEVENT:MisGLA04xCin05Subtitle
-"*Saudara-saudara bersukacitalah! Begitu kita mendapatkan racun dari fasilitas ini, ilmuwan kita akan bisa menempa senjata pemusnah massal"
+"*Saudara-saudara bersukacitalah! Begitu kita mendapatkan racun dari fasilitas ini, ilmuwan kita akan bisa menempa senjata infeksi massal"
 END
 
 DIALOGEVENT:MisGLA04xCin06Subtitle
@@ -17919,7 +17919,7 @@ DIALOGEVENT:MisUSA01xChat08Subtitle
 END
 
 DIALOGEVENT:MisUSA01xChat09Subtitle
-"*Situs Stinger sudah down! Ulangi, Stinger down! Semua unit berkumpul ke bangunan GLA! Ayo hancurkan tempat ini!"
+"*Pos Stinger sudah hancur! Ulangi, Stinger hancur! Semua unit berkumpul ke bangunan GLA! Ayo hancurkan tempat ini!"
 END
 
 DIALOGEVENT:MisUSA01xChat10Subtitle
@@ -19787,7 +19787,7 @@ DIALOGEVENT:Taunts_BossGLA033Subtitle
 END
 
 DIALOGEVENT:Taunts_BossGLA034Subtitle
-"*Aku sudah membebaskanmu dari Lapangan Udaramu, Jenderal"
+"*Aku sudah menyingkirkan Lapangan Udaramu, Jenderal"
 END
 
 DIALOGEVENT:Taunts_BossGLA035Subtitle
@@ -19831,7 +19831,7 @@ DIALOGEVENT:Taunts_BossGLA044Subtitle
 END
 
 DIALOGEVENT:Taunts_BossGLA045Subtitle
-"*Anak buahmu bukan sasaran latihanmu, Jenderal. Darah mereka ada di tanganmu"
+"*Anak buahku bukan sasaran latihanmu, Jenderal. Darah mereka ada di tanganmu"
 END
 
 DIALOGEVENT:Taunts_BossGLA046Subtitle
@@ -20947,7 +20947,7 @@ DIALOGEVENT:Taunts_Grainger014Subtitle
 END
 
 DIALOGEVENT:Taunts_Grainger015Subtitle
-"*Aku akan memanfaatkan jeda ini untuk membangun ulang pertahananmu, Jenderal"
+"*Kalau aku jadi kau, jeda ini kupakai untuk membangun ulang pertahananmu, Jenderal"
 END
 
 DIALOGEVENT:Taunts_Grainger016Subtitle
@@ -21603,7 +21603,7 @@ DIALOGEVENT:Taunts_Infantry085Subtitle
 END
 
 DIALOGEVENT:Taunts_Infantry086Subtitle
-"*Anak buahku lebih banyak darimu sekarang, Jenderal. Aku sebaiknya menyerah"
+"*Anak buahku lebih banyak darimu sekarang, Jenderal. Kau sebaiknya menyerah"
 END
 
 DIALOGEVENT:Taunts_Infantry087Subtitle
@@ -21739,7 +21739,7 @@ DIALOGEVENT:Taunts_Laser021Subtitle
 END
 
 DIALOGEVENT:Taunts_Laser022Subtitle
-"*Laserku akan mengubah bajamu jadi uap"
+"*Laserku akan mengubah armormu jadi uap"
 END
 
 DIALOGEVENT:Taunts_Laser023Subtitle
@@ -22211,7 +22211,7 @@ DIALOGEVENT:Taunts_Nuke041Subtitle
 END
 
 DIALOGEVENT:Taunts_Nuke042Subtitle
-"*Aku akan hati-hati, Jenderal; depot nuklir ini cenderung bocor"
+"*Hati-hati, Jenderal; depot nuklir ini cenderung bocor"
 END
 
 DIALOGEVENT:Taunts_Nuke043Subtitle
@@ -22483,7 +22483,7 @@ DIALOGEVENT:Taunts_Stealth012Subtitle
 END
 
 DIALOGEVENT:Taunts_Stealth013Subtitle
-"*Kita akan menyerang seperti ular--cepat dan tak terlihat"
+"*Kami akan menyerang seperti ular--cepat dan tak terlihat"
 END
 
 DIALOGEVENT:Taunts_Stealth014Subtitle
@@ -22815,7 +22815,7 @@ DIALOGEVENT:Taunts_Stealth095Subtitle
 END
 
 DIALOGEVENT:Taunts_Stealth096Subtitle
-"*Kita akan menyerang seperti ular--tak terlihat dan mematikan"
+"*Kami akan menyerang seperti ular--tak terlihat dan mematikan"
 END
 
 DIALOGEVENT:Taunts_Stealth097Subtitle
@@ -24595,7 +24595,7 @@ CONTROLBAR:Nuke_ToolTipChinaBuildHelix
 END
 
 MAP:CHI01xListeningPostHint01
-"PETUNJUK:\nJebakan Peledak tersembunyi akan terungkap saat berada dalam jangkauan pandang Pos Pendengar"
+"PETUNJUK:\nJebakan Peledak tersembunyi akan terungkap saat berada dalam jangkauan pandang Pos Dengar"
 END
 
 OBJECT:SupW_PatriotBattery
@@ -24655,15 +24655,15 @@ CONTROLBAR:Infa_ToolTipChinaScienceRedGuardTraining
 END
 
 CONTROLBAR:ToolTipChinaBuildNuclearMissileLauncherBoss
-"Meluncurkan rudal nuklir. Membangun peningkatan penting China\n\nDaya yang dibutuhkan: 10\nTimer Hitung Mundur: 6:00"
+"Meluncurkan rudal nuklir. Membangun peningkatan penting China\n\nDaya yang dibutuhkan: 10\nHitung Mundur: 6:00"
 END
 
 CONTROLBAR:ToolTipUSABuildParticleCannonBoss
-"Menembakkan sinar partikel ke mana pun di peta\n\nDaya yang dibutuhkan: 10\nTimer Hitung Mundur: 4:00"
+"Menembakkan sinar partikel ke mana pun di peta\n\nDaya yang dibutuhkan: 10\nHitung Mundur: 4:00"
 END
 
 CONTROLBAR:ToolTipGLABuildCombatBikeTerrorist
-"Cepat dan serbaguna\nDibawa dengan teroris\nLemah lawan pesawat"
+"Cepat dan serbaguna\nDilengkapi seorang teroris\nLemah lawan pesawat"
 END
 
 CONTROLBAR:ToolTipChinaBuildSuperHacker
@@ -24671,7 +24671,7 @@ CONTROLBAR:ToolTipChinaBuildSuperHacker
 END
 
 UPGRADE:Demo_SuicideBomb
-"Peledakan"
+"Demolisi"
 END
 
 UPGRADE:AirF_StealthComanche
@@ -24807,7 +24807,7 @@ CONTROLBAR:Boss_ToolTipChinaBuildSupplyCenter
 END
 
 CONTROLBAR:Infa_TooltipParaDrop
-"Menjatuhkan Penembak Mini dengan pesawat\n\nTimer Hitung Mundur: 4:00"
+"Menjatuhkan Penembak Mini dengan pesawat\n\nHitung Mundur: 4:00"
 END
 
 CONTROLBAR:Infa_ConstructChinaInfantryHacker
@@ -24851,7 +24851,7 @@ CONTROLBAR:UpgradeSuicideBomb
 END
 
 CONTROLBAR:ToolTipGLAUpgradeSuicideBomb
-"Memungkinkan semua unit\ndan pertahanan markas memakai\nkemampuan Peledakan"
+"Memungkinkan semua unit\ndan pertahanan markas memakai\nkemampuan Demolisi"
 END
 
 OBJECT:MiniGunner
@@ -24867,7 +24867,7 @@ CONTROLBAR:AirF_ConstructAmericaVehicleChinook
 END
 
 CONTROLBAR:AirF_ToolTipUSABUildChinook
-"Helikopter angkut serbu. Mengumpulkan pasokan. Bekerja dengan Ranger untuk melakukan serangan Combat Drop"
+"Helikopter angkut serbu. Mengumpulkan pasokan. Bekerja dengan Ranger untuk melakukan serangan Penjatuhan Tempur"
 END
 
 CONTROLBAR:SuicideAttack
@@ -24883,23 +24883,23 @@ CONTROLBAR:Tank_TooltipUpgradeChinaNuclearTanks
 END
 
 CONTROLBAR:Boss_ToolTipUSABuildPowerPlant
-"Menyediakan listrik untuk markas\n\nDaya Disediakan: 5"
+"Menyediakan daya untuk markas\n\nDaya Disediakan: 5"
 END
 
 CONTROLBAR:Nuke_ToolTipChinaBuildListeningOutpost
-"Transport serbu. Mendeteksi unit siluman\n\nKuat lawan infanteri, bangunan\nLemah lawan tank, pesawat"
+"Angkutan serbu. Mendeteksi unit siluman\n\nKuat lawan infanteri, bangunan\nLemah lawan tank, pesawat"
 END
 
 CONTROLBAR:Nuke_ConstructChinaVehicleListeningOutpost
-"Pos Pendengar &Serbu"
+"Pos Dengar &Serbu"
 END
 
 CONTROLBAR:Infa_ToolTipChinaBuildTroopCrawler
-"Transport serbu. Datang dengan 8 Penembak Mini. Mendeteksi unit siluman\n\nKuat lawan infanteri, bangunan\nLemah lawan tank, pesawat"
+"Angkutan serbu. Datang dengan 8 Penembak Mini. Mendeteksi unit siluman\n\nKuat lawan infanteri, bangunan\nLemah lawan tank, pesawat"
 END
 
 CONTROLBAR:Infa_ToolTipChinaBuildListeningOutpost
-"Transport. Menampung 8 unit infanteri. Mendeteksi unit siluman\n\nKuat lawan infanteri, bangunan\nLemah lawan tank, pesawat"
+"Angkutan. Menampung 8 unit infanteri. Mendeteksi unit siluman\n\nKuat lawan infanteri, bangunan\nLemah lawan tank, pesawat"
 END
 
 CONTROLBAR:Infa_ConstructChinaBunker
@@ -24971,7 +24971,7 @@ CONTROLBAR:Boss_TooltipChinaUpgradeNationalism
 END
 
 CONTROLBAR:Lazr_ToolTipUSABuildPowerPlant
-"Menyediakan listrik untuk markas USA\n\nDaya Disediakan: 8"
+"Menyediakan daya untuk markas USA\n\nDaya Disediakan: 8"
 END
 
 GUI:DoubleClickAttackMove
@@ -25083,11 +25083,11 @@ CONTROLBAR:Chem_ToolTipGLAUpgradeAPBullets
 END
 
 GUI:BioFeatures_USA
-"MOAB\nPenangkal\nBunker Buster\nHellfire Drone\nSpectre Gunship\nSentry Drone\nTank Microwave\nAvenger\nBasis Tembak"
+"MOAB\nPenangkal\nBunker Buster\nHellfire Drone\nSpectre Gunship\nSentry Drone\nTank Microwave\nAvenger\nFire Base"
 END
 
 GUI:BioFeatures_GLA
-"Serangan Diam-Diam\nPengacak GPS\nSabotir\nJebakan Peledak\nJaring Kamuflase\nBangunan Palsu\nBangunan Benteng\nCombat Cycle\nBattle Bus"
+"Serangan Diam-Diam\nPengacak GPS\nSaboteur\nJebakan Peledak\nJaring Kamuflase\nBangunan Palsu\nBangunan Benteng\nCombat Cycle\nBattle Bus"
 END
 
 GUI:BioFeatures_China
@@ -25259,11 +25259,11 @@ CONTROLBAR:Nuke_ToolTipChinaBuildPowerPlant
 END
 
 CONTROLBAR:Nuke_ToolTipChinaScienceCarpetBomb
-"Memungkinkanmu memanggil pembom berat untuk membom karpet suatu area dengan nuklir taktis\n\nDikerahkan dari: Pusat Komando"
+"Memungkinkanmu memanggil pembom berat untuk membombardir suatu area dengan nuklir taktis\n\nDikerahkan dari: Pusat Komando"
 END
 
 CONTROLBAR:Nuke_TooltipCarpetBomb
-"Nuklir area target\n\nTimer Hitung Mundur: 3:00"
+"Nuklir area target\n\nHitung Mundur: 3:00"
 END
 
 GUI:FastForwardInstructions
@@ -25331,7 +25331,7 @@ MAP:TwoRoads
 END
 
 CONTROLBAR:Chem_TooltipFireRebelAmbush
-"Menciptakan pemberontak toksin\n\nTimer Hitung Mundur: 4:00"
+"Menciptakan pemberontak toksin\n\nHitung Mundur: 4:00"
 END
 
 CONTROLBAR:AirF_ToolTipUSABuildAurora
@@ -25695,7 +25695,7 @@ CONTROLBAR:AirF_TooltipUSAUpgradeLaserMissiles
 END
 
 CONTROLBAR:AirF_ToolTipUSAScienceCarpetBomb
-"Memungkinkanmu memanggil Pembom Siluman B2 untuk membom karpet suatu area\n\nDikerahkan dari: Pusat Strategi"
+"Memungkinkanmu memanggil Pembom Siluman B2 untuk membombardir suatu area secara menyeluruh\n\nDikerahkan dari: Pusat Strategi"
 END
 
 GUI:CustomMission
